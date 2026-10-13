@@ -1,167 +1,127 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10C83C9885;
-	Tue, 13 Oct 2026 13:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95621360ECE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899258; cv=none; b=WAl9jntT5BUA34t9KrIZRhkK290qw6gG0btPne0krHYawnfBhA9RcGMMyfh36RJOxQjz8HRvbpr6IYtdLASAyMzvHHuQjz5nIobMhi+44PbuQ7uvRscLwhTC7+6j5Ke6QlPcFLl3CFMQ5emG8PsGsGESd7+yhLhg89Hbb8FkWys=
+	t=1791899289; cv=none; b=su57iwEPxc7B8yYaY7D867O0QlEw5M+iMDaXYbhh6l+8K/gAx55qGl+wR3iaPaM+n6lJiIWw3tF/sugpFG4F9ErkfTPrmI+wmjRMbwpnGV1y4YdTzPLDeyXi/uzJWbhxbfEuDrt13xjM2LqBRBUr+BsSpY/nAivimgHszP6lSMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899258; c=relaxed/simple;
-	bh=/QTI9ocIwxDrICmupBcnt6yYBFq9ABOE/kC6kYQ+y2E=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=Plk8m00cRA3YwtV9T2kmkvOD6NZzAJ7FREXNsfaOgAZSBQycx6cWHAQqVxWOuWIEtHDczXwsvgIU/MPT4tiGuGhjT/mh30EsPhW4q1Ncrkmfrq/5jW1irWB14zRDEOIZKGur0gHtmG9pytT/lm9G5Hop/eIwk56jqkBDwkKjYyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=j8LPKNmu; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791899289; c=relaxed/simple;
+	bh=REg5Mntcb+tsmQNtdHglZYMVn8Nwol6pChdRnAFVNkA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fUpjlBs7DvB5h88Vd7vx+sXDjwC3/aHWz7cIaTNkvsvNvbLUHMdxU7nhgHxR4tHkTo6f1XYygLJaqfYzBPXcCjszPf1PLgSTnthTSaw2piW6DVUvB4nrVrP8Vuj/5IQGs8aK9YZoq2ZWkpOuHsHyOSfjX//a+2BeGl8tfYzDQtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IuoScBQG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KreR4oPM; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="j8LPKNmu"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 8E41DC653ED;
-	Tue, 13 Oct 2026 13:48:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C31006075C;
-	Tue, 13 Oct 2026 13:47:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A46D11D7152C;
-	Tue, 13 Oct 2026 15:47:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791899247; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/QTI9ocIwxDrICmupBcnt6yYBFq9ABOE/kC6kYQ+y2E=;
-	b=j8LPKNmuWjOc89bbqryTjh2mFaBVGvdBpmvsGoiXlDg1um4sn42m7kEfgMClmS0f7Bt86E
-	MvSjq0cPpdez22kyAdV9Bv4x5J9ZT3Ir/oYbPMttE2832nsIs9rQd+/NcULu8wpu8voXPT
-	2IrCQQvmo5hGtJx17gW5UCUa7/xVDubkcdFG50u4s1RGqRKQ7lg6+CJ6SiEnmpjI47Vrv1
-	0eGyawMZnXNcikNX66tH1pOJwvkduqVKEq3NDizn2POjLf/px3Yk7L3foZUhwjrDnCkE2K
-	CGcVP2PkT9KmAeBMddz6oMXwzWvkTj7R0HCIWdV/3g5zKLj1MhRlFw3PMquFEA==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IuoScBQG";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KreR4oPM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791899287;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YgGQEF0Pnm38fJNWvw8gvjA222tZmizMgG6WO+7xu+8=;
+	b=IuoScBQG9LEQtYiTbBltqxGNbzOnKIbofFHYQLFKvRaGJhX367ovbT16gmngTmzRNKrEkT
+	al9neFSOIGNR1LT+Zh4Sd+tPQ6N70Ow6J5vVNCwZ+ZhdZpFbc6LyurZfnS1np1K6WVp5yn
+	z/R4l657x/tp7Vvc+YhjJIo/TNbWJGE=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-678-AQ71eUk7PXelIli7BVMvAA-1; Tue, 13 Oct 2026 13:48:00 +0000
+X-MC-Unique: AQ71eUk7PXelIli7BVMvAA-1
+X-Mimecast-MFC-AGG-ID: AQ71eUk7PXelIli7BVMvAA_1791899279
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a0284121c6so21037135e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:47:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791899279; x=1792504079; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YgGQEF0Pnm38fJNWvw8gvjA222tZmizMgG6WO+7xu+8=;
+        b=KreR4oPMlzeA0zSZnRmCu3+uNiACc7J02qXHHcbrVfGaA0nN4/L2X+KtpS6T8de04f
+         BjIckzJrTgDP1J8JUCueZWKvjyiGHBJmVLmGSmqNM2l+hajdR9TNl9/tZLvoM1iAEp1W
+         EF7N7G44nH7c0aQXyVPurYyVkNt2ylKQWfe2JY9GG/zR/kC/XVPOjTU4aNIs/3+BZUTW
+         JXn0M1aorNcTo5RvKE2VUdp2TzeROyaEJWXP0SjqEt2S0XKLq+BjSOVRZqrHlueUHdAF
+         oOcihgJupZ65XRipFYuMyyZRe+U14RydMdak3vKdn4w2ursn6703M756EeJqAnH7d4y5
+         32sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791899279; x=1792504079;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YgGQEF0Pnm38fJNWvw8gvjA222tZmizMgG6WO+7xu+8=;
+        b=BOb1v/3jdgLWNX7lbLoHbF3NflinXiBlVx582OW7j4zcbuLfQWcphwwXn7FZfNOn3L
+         1XDmRHcp7d8o4jowee0DUHHeVzgDL9PJ1+qSloohoOCuv5LQZ1bo0LMwa5iHCzbfGVZ3
+         jdp3oEWNHFAqAaBpRgHjC2vWHbLk2o4emiIeZbCC3UrC9bo28VMiOJsjcCi0NsJtB/3C
+         RQxrDZdk5G5Y/P94Gyro1rHeADpg7nVxdyiWhuwkjqzCK9HVUuKzKi5hHIoC36pVnaAm
+         n2FqvPbPzFF2vjQldHkm9nD1NuymVMQw62XHLq7UxO3wkYYVHqvIUhUOiLCVc8H1pb0d
+         NhIw==
+X-Forwarded-Encrypted: i=1; AKwUvBy2KVhw9YOP0MSCligh5L50UXhVvdYrlCCFN/SLC+JXcM7wllp4+6XUXGY/KKzN1zZlR9rka1a8QGx/pp4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjZm3RkidBmljkXAnQcj70QtWgtyh0xmO5FgXsw44P70NAb0Wk
+	8Zg16tNYY4ZQGa3AAVgYGHcDd4mtLmP2R1fYZMrx+FatAskSQa7mKf2kV+uKHB3AtN9KzFsKjRo
+	GPuurEpk+Ary4gmTe2wgKB+ckekL2y+pdsI9e6kFREfsXfyhNxwAqL+TFz7BMHDVdrw==
+X-Gm-Gg: AYBFou36JS5zpe/PfubH6/z8geZ+SK8BMTMQR3Br/yQkt/Aksp/zEtMb3MZr3lT0FCC
+	j2zkchTidmZ6AyH1z0exJS20VpS4n5rnW+CpSEPHiKzxa3A+8eyoxIncO98w75nVANdvkhND+6d
+	PKtSF4m/OYfS2Hi2hnQHdlze1q8B+S5P1XPeQJeDY5GuImdA4cIGQS3khq+8ooZW+/O/7Ml8wSC
+	tIeg/dECA8zhleDStvZ7KrLoxGLMd8QZwR0Y5ZNc87ck5UWFnWKzGBTRWAVEieLLialvLgZe0dd
+	niGc16DArrf+gZHgy7vfxIWPOjdg5aql8XLoF7ehL5j3rINdswnbI4AMrNWSEVW5GkLJY9xv4Nm
+	Yl2ADgugnigbFWQ8y6bMiK2EDySYDI37ezlqWdllMuQtl+yogPQytwzMqwLmw2aK1mjYpXRaEQQ
+	==
+X-Received: by 2002:a05:600c:3b8b:b0:4a1:811c:8078 with SMTP id 5b1f17b1804b1-4a18e4a7cfcmr308259055e9.26.1791899278728;
+        Tue, 13 Oct 2026 06:47:58 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b8b:b0:4a1:811c:8078 with SMTP id 5b1f17b1804b1-4a18e4a7cfcmr308258425e9.26.1791899278275;
+        Tue, 13 Oct 2026 06:47:58 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc85b1sm4979371f8f.54.2026.10.13.06.47.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 06:47:57 -0700 (PDT)
+Message-ID: <8c40f576-08d5-4b42-b125-abda8da2a335@redhat.com>
+Date: Tue, 13 Oct 2026 15:47:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Oct 2026 15:47:15 +0200
-Message-Id: <DM3R9KIGS2XF.35DX6I83JKPYO@bootlin.com>
-Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>,
- "Jessica Zhang" <jesszhan0024@gmail.com>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Val Packett" <val@packett.cool>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Maxime Ripard"
- <mripard@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
- <asyAObcpbFy3OeE2@houat>
- <7pptulwzceqg7xozps5boncgcpd5fpw2pdabcslp4den34ixjn@rzgkoe36itwm>
- <as3sI-N3VeG_pL0U@houat>
- <lm7u5tcnccbtbxqeyyqzzvmmhpy2dfhgnyz3giqtt5toejy7pj@7bwixidtqxfz>
-In-Reply-To: <lm7u5tcnccbtbxqeyyqzzvmmhpy2dfhgnyz3giqtt5toejy7pj@7bwixidtqxfz>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: alacritech: fix dma_free_coherent() in error
+ path
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: stable@vger.kernel.org, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261006140912.50828-2-fourier.thomas@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261006140912.50828-2-fourier.thomas@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue Oct 13, 2026 at 1:57 PM CEST, Dmitry Baryshkov wrote:
-> On Tue, Oct 13, 2026 at 10:37:19AM +0200, Maxime Ripard wrote:
->> On Tue, Oct 13, 2026 at 10:51:38AM +0300, Dmitry Baryshkov wrote:
->> > On Mon, Oct 12, 2026 at 08:40:33AM +0200, Maxime Ripard wrote:
->> > > On Thu, Oct 08, 2026 at 04:14:22PM +0300, Dmitry Baryshkov wrote:
->> > > > Panel drivers don't have an atomic state and so they can't handle
->> > > > additional data to be stored at the atomic_check time or to be ret=
-rieved
->> > > > at the enable/disable time. For example, it prevents panel drivers=
- from
->> > > > supporting multiple display modes or making DSC being optional in =
-a
->> > > > clean way. Drivers like panel-novatek-nt35950, save the connector
->> > > > pointer in get_modes() and later dereference
->> > > > connector->state->crtc->state from prepare() without holding any l=
-ocks.
->> > > > The panels also have no way to reject the configuration they cann'=
-t
->> > > > handle, as it doesn't take part in the atomic check.
->> > > >
->> > > > The panel already embeds a drm_bridge, and the bridge has an atomi=
-c
->> > > > state which is property handled. Subclass it to provide atomic sta=
-te for
->> > > > the panels. The callbacks can find the state of the other related
->> > > > objects (e.g. CRTC state to get the display mode).
->> > > >
->> > > > The atomic state is opt-in. A panel that doesn't implement the sta=
-te
->> > > > callbacks keeps working exactly as before, with the plain bridge s=
-tate,
->> > > > so there is no need to touch the existing drivers. The panels whic=
-h do
->> > > > implement them can only be driven through the embedded bridge, sin=
-ce
->> > > > there is no commit to hand over when the host calls drm_panel_prep=
-are()
->> > > > and friends directly. Those entry points warn and refuse to handle=
- such
->> > > > panels. There are still a dozen of display drivers calling these
->> > > > functions, and the panels used with them can not be converted unti=
-l the
->> > > > hosts are switched to the panel bridge.
->> > >
->> > > I really don't think we should extend the panel API. All panels are
->> > > bridges now, consumers only care about bridges as well, and the brid=
-ges
->> > > API provides what you want already.
->> > >
->> > > Why not simply turn the panel drivers we want into bridges, possibly
->> > > with a bunch of specialized helpers to manage a panel state, and cal=
-l it
->> > > a day?
->> >
->> > I think that panels provide good abstraction on top of the drm_bridge.
->> > For example, bridges don't have orientation, panels do.
->>
->> That's easy to add.
->
-> What would it mean for the bridge? I was thinking about pulling
-> orientation from the per-panel code to a generic code path, including
-> reading and handling it. I'm not sure if it should be done in the
-> drm_bridge code if we declare drm_panel deprecated.
->
->> > Also panels have followers, while bridges do not.
->>
->> Ditto
->>
->> > I don't think that either of those APIs make sense for bridge.
->>
->> Why not? In a world where we have bridge hotplug for example, it would
->> make total sense to me to have bridge followers. I think Luca even had
->> that at some point in his series (and still might?).
+On 10/6/26 16:09, Thomas Fourier wrote:
+> In slic_init_stat_queue(), a series of coherent buffers is allocated
+> with the length size. The size is then stored in stq->mem_size for
+> normal deallocation. However, in the error path, stq->mem_size is also
+> used but is not initialized. This error may leave the freed buffers
+> mapped, leaking a resource and allowing the device to access freed
+> memory.
+> 
+> Change the length in error path to size.
+> 
+> Fixes: 60c140df15db ("net: ethernet: slicoss: add slicoss gigabit ethernet driver")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
 
-There's a simple notifier mechanism: see core [0] (with currently psoposed
-events [1]) and users [2][3].
+FTR, bad things in NIC error path for old drivers is the exact
+prototype of things we are actively redirecting to net-next at
+this point of the cycle. Also stripping the stable tag.
 
-The events [1] and their semantics are not well defined as of now, so we
-are still on time to decide from the beginning whether it should be very
-bridge-hotplug-specific or have a wider scope.
+/P
 
-[0] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-14-8e34986d=
-cb68@bootlin.com/
-[1] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-14-8e34986d=
-cb68@bootlin.com/#Z31include:drm:drm_event_notifier.h
-[2] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-15-8e34986d=
-cb68@bootlin.com/
-[3] https://lore.kernel.org/lkml/20261001-drm-bridge-hotplug-v2-16-8e34986d=
-cb68@bootlin.com/
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
