@@ -1,348 +1,230 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764B651B16C;
-	Tue, 13 Oct 2026 13:28:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D127551B16C;
+	Tue, 13 Oct 2026 13:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898133; cv=none; b=DOcNZns0lMlOi4aR0USErJIrgJqNZlV8Dh0XdYnwaTuWAeIoNh0YRbvXJrn20psNYUMpnHdUAiEG7qoV+Yic71feqm4B7hDrYP0wy0C39G/ObYB71X1/SmFVm4mnRSg4YupB9HxH+IOfBmHHu5PtV8jn7R5vPYv9Uktd4S5xO8A=
+	t=1791898142; cv=none; b=Ur2k1eGWlNpn4bUP52tRAP/OAnD7FX3mimiWxQ2389XZhKaCXX8LZCGvR4agnfZRtgeLXM0AGUQU6mkU0uGChUnd9UbzxND9n3jWaViNbhI+ROK/+caDPA0wkfSo3cux4zygHVM7yxeVQs0ZiUIC/0mu23N1jF7HitG5scBy9D0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898133; c=relaxed/simple;
-	bh=8661ET9XUzWzJM1n7qxEK+a+Rxc6g/bZOMZWuTUoERY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TrIaMbMKmmIlNrDRJ1gVm+b1sio4ahDTRlBS4b4uT2VBWPY5AjeMp5w18f4PKetTuYwoKpzYTOigQPP2WBMc+Jnh3VRyxbjilakUsO5GPEj/IRYt70dDN3s2z+O9/aacqJ+aog937K8FPDEpDHNjP2cthwlPPvsjsvaF0gNTD30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j3wB24dbWzKHMtK;
-	Tue, 13 Oct 2026 21:27:38 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 5C14140ABE;
-	Tue, 13 Oct 2026 21:28:37 +0800 (CST)
-Received: from huawei.com (unknown [10.67.174.45])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgDnIvL3Mc5qfU4wAQ--.7133S15;
-	Tue, 13 Oct 2026 21:28:37 +0800 (CST)
-From: Tengda Wu <wutengda@huaweicloud.com>
-To: Namhyung Kim <namhyung@kernel.org>,
-	james.clark@linaro.org,
-	xueshuai@linux.alibaba.com,
-	Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	leo.yan@linux.dev,
-	Li Huafei <lihuafei1@huawei.com>,
-	Ian Rogers <irogers@google.com>,
-	Kim Phillips <kim.phillips@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Bill Wendling <morbo@google.com>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Zecheng Li <zli94@ncsu.edu>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v7 13/15] perf annotate-arm64: Support 'adrp' instruction to track global variables
-Date: Tue, 13 Oct 2026 13:28:11 +0000
-Message-Id: <b4fd436fc48e085ae95e06f0cc41107b99a62df7.1791629326.git.wutengda@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1791629326.git.wutengda@huaweicloud.com>
-References: <cover.1791629326.git.wutengda@huaweicloud.com>
+	s=arc-20240116; t=1791898142; c=relaxed/simple;
+	bh=FfCWZb607HhoaxWj3R36ql+EKeZXJIt+Lnk5QOIkKX0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jtved8dZVCAMcz1F5T4TQaFVk7E01IN2imG43+EoX1nq/jV3rjRcvAiJF0dwRrErUYJh08zbWdalhlK6TiCnQUZ/ROrcGREDiIQrakVcUSH92KETTYm6YdQoCIzEdUVVTx3q9/oq92nliaVVeLlioJnKmvaGkDg9gWJoYrafQ4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=zYHKSH8N; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="zYHKSH8N"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 111A4A154E;
+	Tue, 13 Oct 2026 15:28:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791898133; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=DIWd3LiQvMdAY9yZkyntkGDgSewTOlV9Lge6F8Ivfvw=;
+	b=zYHKSH8NRjY7uHNa+8sxLyc5BVvty+w8Eoim6h32aJjUNyAcZ4ky9Li2xhoV8bbFgZHDiB
+	rmNJi9bHe7/GMia7DDE45VKgK4OQZGRaO1siNjm9YVq+atk+CLeZt5Lm/TLZeLVPwsaN7E
+	sRvd8//fasCTKMLQDXZFJ/IA9nO/zER76o7Zv3o8xNOCtjcw1RFB+jd9VlPq3OS0drYu8J
+	jRfiRkT5MjbOzHqq2xLe3iu9Q71XwNPWqd1fAc3tQMABKlq4dyCBKkA4lOng96nuzXUowE
+	Pq4cbK35g0PdJd21qzC6+NWi0reY9rwxsUdhkLSWYtXlfb6XlBIhzdd4Ct1cRA==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Tue, 13 Oct 2026 15:28:44 +0200
+Subject: [PATCH v2] serial: amba-pl011: drive the bus during break in RS485
+ mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgDnIvL3Mc5qfU4wAQ--.7133S15
-X-Coremail-Antispam: 1UD129KBjvJXoW3AF4UZr1xXrWfGr13CF17ZFb_yoWDJFyrpF
-	yDC34UW39rJr4Sgrs3JFWUXr9I9ws7Ga4jkryqvwsayFW7trn3GayktFWaqFW5GF95Zw13
-	Jw4qgr4DXw42kF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUHFb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
-	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
-	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
-	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x02
-	67AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I
-	80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCj
-	c4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YV
-	CY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY1x0264kExVAvwVAq07x20xyl
-	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJV
-	WxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF
-	0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjTRQYFCDUUUU
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-devel-pl011-rs485-break-v2-1-31c9f80d3e3d@tipi-net.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBCFr0Jm7Zi2IH8r72FY0DLIKAHS1kZDu
+ LsUD+Dufcl771vBkWVyUCcrWArseJ52UKcEzNBOd0LudgYlVC6FlNhRoBGXMWbrsvKC2lL7RE0
+ m1VVRtZkSsK8XSz2/j+db82P30g8yPt7FxsDOz/ZzqIOMvf+WIFFirvo+EyotSpNfPS+ME/lzR
+ 9Bs2/YFSAfxeNIAAAA=
+X-Change-ID: 20261011-devel-pl011-rs485-break-bec3b979a420
+To: Russell King <linux@armlinux.org.uk>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: Lino Sanfilippo <LinoSanfilippo@gmx.de>, linux-kernel@vger.kernel.org, 
+ linux-serial@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Extend update_insn_state_arm64() to track global variable types
-calculated via page-relative addressing.
+In RS485 mode the transceiver is enabled only while data is sent. A
+break set with TIOCSBRK therefore never reaches the bus, and protocols
+that start each frame with a break, like DMX512, do not work.
 
-On arm64, global variables are typically accessed by first calculating
-the page address using 'adrp', followed by an 'add' or 'ldr' to get the
-specific symbol address. Without tracking 'adrp', the instruction
-tracker loses the base address, making it impossible to resolve
-global symbols and their associated DWARF types.
+Handle an active break like a transmission. Enable the transceiver
+before setting the break, after delay_rts_before_send if one is
+configured. When the break ends, stop transmitting unless the TX path
+is still sending data.
 
-Introduce TSR_KIND_GLOBAL_ADDR to represent a partial global address
-state. When encountering 'adrp', store the page-aligned target address
-in the register's type state. Upon a subsequent 'add' or 'ldr'
-instruction that references a TSR_KIND_GLOBAL_ADDR register, combine
-the page address with the immediate offset.
-
-A real-world example is shown below:
-
-  ffff80008032e008 <folios_put_refs>:
-  ffff80008032e048:  adrp  x24, ffff80008202f000 <nr_cpu_ids>
-  ffff80008032e050:  add   x24, x24, #0xd40
-* ffff80008032e078:  ldr   x0, [x24]
-
-Before this commit, x24 was unknown, leading to no type information:
-
-  chk [70] reg24 offset=0 ok=0 kind=0 cfa : no type information
-  final result: no type information
-
-After this commit, the tracker correctly follows the adrp/add flow:
-
-  adrp [40] global addr=0xffff80008202f000 -> reg24
-  add [48] global 0xd40(reg24) -> reg24
-  chk [70] reg24 offset=0 ok=1 kind=7 global addr : Good!
-  final result: type='struct folio*'
-
-Reviewed-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Li Huafei <lihuafei1@huawei.com>
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- .../perf/util/annotate-arch/annotate-arm64.c  | 83 +++++++++++++++++--
- tools/perf/util/annotate-data.c               | 25 +++++-
- tools/perf/util/annotate-data.h               |  1 +
- 3 files changed, 99 insertions(+), 10 deletions(-)
+Noticed while implementing a DMX master on a CM5 with its PL011.
+Tested on that board, driving a DMX512 fixture with RS485 mode left
+enabled.
 
-diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
-index e27ba26f3b8a..f34b944dd285 100644
---- a/tools/perf/util/annotate-arch/annotate-arm64.c
-+++ b/tools/perf/util/annotate-arch/annotate-arm64.c
-@@ -531,7 +531,7 @@ static bool is_standard_load_insn(const char *name)
-  * which is added to the reg offset.
-  */
- static int propagate_load_reg_state(struct type_state *state,
--				    struct data_loc_info *dloc,
-+				    struct data_loc_info *dloc, Dwarf_Die *cu_die,
- 				    struct disasm_line *dl, int dreg,
- 				    struct annotated_op_loc *src,
- 				    struct type_state_reg **src_states,
-@@ -640,6 +640,33 @@ static int propagate_load_reg_state(struct type_state *state,
- 		return 0;
- 	}
- 
-+	/* Or check if it's a global variable */
-+	if (src_tsr->kind == TSR_KIND_GLOBAL_ADDR) {
-+		u64 ip = dloc->ms->sym->start + dl->al.offset;
-+		u64 addr = src_tsr->imm_value + reg_offset;
-+		int offset;
-+
-+		if (!get_global_var_type(cu_die, dloc, ip, addr, &offset, &type_die) ||
-+		    !die_get_member_type(&type_die, offset, &type_die))
-+			return -1;
-+
-+		tsr->type = type_die;
-+		tsr->kind = TSR_KIND_TYPE;
-+		tsr->offset = 0;
-+		tsr->imm_value = 0;
-+		tsr->ok = true;
-+
-+		if (src->multi_regs) {
-+			pr_debug_dtp("%s [%x] global (reg%d, reg%d) -> reg%d",
-+				     dl->ins.name, insn_offset, src->reg1, src->reg2, dreg);
-+		} else {
-+			pr_debug_dtp("%s [%x] global (reg%d) -> reg%d",
-+				     dl->ins.name, insn_offset, sreg, dreg);
-+		}
-+		pr_debug_type_name(&tsr->type, tsr->kind);
-+		return 0;
-+	}
-+
- load_non_regoff:
- 	/* Try another register if any */
- 	if (src->multi_regs && src->reg1 != src->reg2 && sreg != src->reg2 &&
-@@ -653,7 +680,7 @@ static int propagate_load_reg_state(struct type_state *state,
+The 8250 em485 code probably has the same issue. I have no hardware to
+test it, but I'm happy to send a patch if someone is willing to.
+---
+Changes in v2:
+- Rebase onto tty-testing, which has the RS485 TXE and
+  delay_rts_before_send fixes now
+- Link to v1: https://patch.msgid.link/20261011-devel-pl011-rs485-break-v1-1-62ff402378c6@tipi-net.de
+
+To: Russell King <linux@armlinux.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: Lino Sanfilippo <LinoSanfilippo@gmx.de>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-serial@vger.kernel.org
+---
+ drivers/tty/serial/amba-pl011.c | 65 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 64 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index 3edd83ec73de..79776a882ae3 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -327,6 +327,7 @@ struct uart_amba_port {
+ 	char			type[12];
+ 	ktime_t			rs485_tx_drain_interval; /* nano */
+ 	enum pl011_rs485_tx_state	rs485_tx_state;
++	bool			rs485_break;
+ 	struct hrtimer		trigger_start_tx;
+ 	struct hrtimer		trigger_stop_tx;
+ 	bool			console_line_ended;
+@@ -1279,6 +1280,11 @@ static inline bool pl011_dma_rx_running(struct uart_amba_port *uap)
+ 	return uap->using_rx_dma && uap->dmarx.running;
  }
  
- static void update_load_insn_state(struct type_state *state,
--				   struct data_loc_info *dloc,
-+				   struct data_loc_info *dloc, Dwarf_Die *cu_die,
- 				   struct disasm_line *dl,
- 				   struct annotated_op_loc *src,
- 				   struct annotated_op_loc *dst)
-@@ -687,7 +714,7 @@ static void update_load_insn_state(struct type_state *state,
- 
- 	/* Handle the first destination register */
- 	if (has_reg_type(state, dst->reg1)) {
--		if (propagate_load_reg_state(state, dloc, dl, dst->reg1,
-+		if (propagate_load_reg_state(state, dloc, cu_die, dl, dst->reg1,
- 					     src, src_states, mem_spacing))
- 			invalidate_reg_state(&state->regs[dst->reg1]);
- 	}
-@@ -702,7 +729,7 @@ static void update_load_insn_state(struct type_state *state,
- 		mem_spacing = arm64__reg_size(dl->ops.target.raw);
- 
- 	if (mem_spacing < 0 ||
--	    propagate_load_reg_state(state, dloc, dl, dst->reg2,
-+	    propagate_load_reg_state(state, dloc, cu_die, dl, dst->reg2,
- 				     src, src_states, mem_spacing))
- 		invalidate_reg_state(&state->regs[dst->reg2]);
- 
-@@ -909,14 +936,16 @@ static void update_add_insn_state(struct type_state *state,
- 	if (arch_get_reg_offset(dloc->arch, src, sreg, state, false, &reg_offset))
- 		goto add_non_regoff;
- 
--	if (src_tsr.kind == TSR_KIND_CONST) {
-+	if (src_tsr.kind == TSR_KIND_CONST || src_tsr.kind == TSR_KIND_GLOBAL_ADDR) {
- 		tsr->kind = src_tsr.kind;
-+		/* For 'adrp + add' pair: resolve the full global variable address. */
- 		tsr->imm_value = src_tsr.imm_value + reg_offset;
- 		tsr->offset = 0;
- 		tsr->ok = src_tsr.ok;
- 
--		pr_debug_dtp("add [%x] imm %#x(reg%d) -> reg%d\n",
--			     insn_offset, reg_offset, sreg, dreg);
-+		pr_debug_dtp("add [%x] %s %#x(reg%d) -> reg%d\n",
-+			     insn_offset, src_tsr.kind == TSR_KIND_CONST ?
-+			     "imm" : "global", reg_offset, sreg, dreg);
- 		return;
- 	}
- 
-@@ -945,6 +974,39 @@ static void update_add_insn_state(struct type_state *state,
- 	invalidate_reg_state(tsr);
- }
- 
-+static void update_adrp_insn_state(struct type_state *state,
-+				   struct disasm_line *dl,
-+				   struct annotated_op_loc *dst)
++static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
 +{
-+	struct type_state_reg *tsr;
-+	u32 insn_offset = dl->al.offset;
-+	int dreg = dst->reg1;
-+
-+	if (!has_reg_type(state, dreg))
-+		return;
-+
-+	tsr = &state->regs[dreg];
-+	tsr->copied_from = -1;
-+
-+	if (!dl->ops.source.addr) {
-+		invalidate_reg_state(tsr);
-+		return;
-+	}
-+
-+	tsr->kind = TSR_KIND_GLOBAL_ADDR;
-+	/*
-+	 * Stores a partial page-relative address. The full absolute address
-+	 * of the global variable will be resolved when a subsequent 'add' or
-+	 * 'ldr' instruction consumes this register.
-+	 */
-+	tsr->imm_value = dl->ops.source.addr;
-+	tsr->offset = 0;
-+	tsr->ok = true;
-+
-+	pr_debug_dtp("adrp [%x] global addr=%#"PRIx64" -> reg%d\n",
-+		     insn_offset, tsr->imm_value, dreg);
++	return uap->dmatx.queued;
 +}
 +
- static void update_insn_state_arm64(struct type_state *state,
- 				    struct data_loc_info *dloc, Dwarf_Die *cu_die,
- 				    struct disasm_line *dl)
-@@ -1011,6 +1073,7 @@ static void update_insn_state_arm64(struct type_state *state,
- 	 * prevent stale type info from propagating to subsequent instructions.
- 	 */
- 	if (has_reg_type(state, dst->reg1) && !dst->mem_ref &&
-+	    strcmp(dl->ins.name, "adrp") &&
- 	    strcmp(dl->ins.name, "add") && strcmp(dl->ins.name, "mov") &&
- 	    !is_standard_load_insn(dl->ins.name)) {
- 		pr_debug_dtp("%s [%x] invalidate reg%d",
-@@ -1024,14 +1087,16 @@ static void update_insn_state_arm64(struct type_state *state,
- 		return;
- 	}
+ #else
+ /* Blank functions if the DMA engine is not available */
+ static inline void pl011_dma_remove(struct uart_amba_port *uap)
+@@ -1330,6 +1336,11 @@ static inline bool pl011_dma_rx_running(struct uart_amba_port *uap)
+ 	return false;
+ }
  
--	if (!strcmp(dl->ins.name, "add"))
-+	if (!strcmp(dl->ins.name, "adrp"))
-+		update_adrp_insn_state(state, dl, dst);
-+	else if (!strcmp(dl->ins.name, "add"))
- 		update_add_insn_state(state, dloc, dl, src, dst);
- 	/* Register to register or imm value to register transfers */
- 	else if (!strcmp(dl->ins.name, "mov"))
- 		update_mov_insn_state(state, dl, src, dst);
- 	/* Memory to register transfers */
- 	else if (is_standard_load_insn(dl->ins.name))
--		update_load_insn_state(state, dloc, dl, src, dst);
-+		update_load_insn_state(state, dloc, cu_die, dl, src, dst);
- 	/* Register to memory transfers */
- 	else if (is_standard_store_insn(dl->ins.name))
- 		update_store_insn_state(state, dloc, dl, src, dst);
-diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-index 1d47db3a9dd9..43cd09c0662a 100644
---- a/tools/perf/util/annotate-data.c
-+++ b/tools/perf/util/annotate-data.c
-@@ -71,6 +71,9 @@ void pr_debug_type_name(Dwarf_Die *die, enum type_state_kind kind)
- 	case TSR_KIND_CANARY:
- 		pr_info(" stack canary\n");
- 		return;
-+	case TSR_KIND_GLOBAL_ADDR:
-+		pr_info(" global address\n");
++static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
++{
++	return false;
++}
++
+ #define pl011_dma_flush_buffer	NULL
+ #endif
+ 
+@@ -1357,6 +1368,10 @@ static void pl011_rs485_tx_stop(struct uart_amba_port *uap)
+ {
+ 	struct uart_port *port = &uap->port;
+ 
++	/* pl011_break_ctl() stops the transmission when the break ends */
++	if (uap->rs485_break)
 +		return;
- 	case TSR_KIND_TYPE:
- 	default:
- 		break;
-@@ -723,7 +726,8 @@ void set_stack_state(struct type_state_stack *stack, int offset, u8 kind,
- 	stack->kind = kind;
- 	stack->imm_value = imm_value;
++
+ 	if (uap->rs485_tx_state == SEND)
+ 		uap->rs485_tx_state = WAIT_AFTER_SEND;
  
--	if (kind == TSR_KIND_POINTER || kind == TSR_KIND_CONST) {
-+	if (kind == TSR_KIND_POINTER || kind == TSR_KIND_CONST ||
-+	    kind == TSR_KIND_GLOBAL_ADDR) {
- 		stack->compound = false;
- 		return;
+@@ -1479,7 +1494,9 @@ static enum hrtimer_restart pl011_trigger_start_tx(struct hrtimer *t)
+ 	uart_port_lock_irqsave(&uap->port, &flags);
+ 	if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
+ 		uap->rs485_tx_state = SEND;
+-		pl011_start_tx(&uap->port);
++		/* A break can arm the timer while TX is stopped */
++		if (!uart_tx_stopped(&uap->port))
++			pl011_start_tx(&uap->port);
  	}
-@@ -1474,6 +1478,25 @@ static enum type_match_result check_matching_type(struct type_state *state,
- 		if (offset < 0 && reg != state->stack_reg && reg != dloc->fbreg)
- 			goto check_kernel;
- 	}
+ 	uart_port_unlock_irqrestore(&uap->port, flags);
+ 
+@@ -1772,16 +1789,60 @@ static void pl011_break_ctl(struct uart_port *port, int break_state)
+ {
+ 	struct uart_amba_port *uap =
+ 	    container_of(port, struct uart_amba_port, port);
++	struct tty_port *tport = &port->state->port;
++	bool rs485 = port->rs485.flags & SER_RS485_ENABLED;
+ 	unsigned long flags;
+ 	unsigned int lcr_h;
+ 
+ 	uart_port_lock_irqsave(&uap->port, &flags);
 +
-+	if (state->regs[reg].kind == TSR_KIND_GLOBAL_ADDR) {
-+		u64 var_addr = state->regs[reg].imm_value + offset;
-+		int var_offset;
++	/*
++	 * In RS485 mode the transceiver only drives the bus while
++	 * transmitting. Treat a break as a transmission.
++	 */
++	if (rs485 && break_state == -1 && !uap->rs485_break) {
++		uap->rs485_break = true;
 +
-+		pr_debug_dtp("global addr");
++		/* Pending data already enabled the transceiver */
++		if (uap->rs485_tx_state != SEND &&
++		    uap->rs485_tx_state != WAIT_AFTER_RTS)
++			pl011_rs485_tx_start(uap);
 +
 +		/*
-+		 * The register holds the address of a global variable. Try to
-+		 * find the variable by the address and get its type.
++		 * Wait out delay_rts_before_send before starting the break.
++		 * The state stays WAIT_AFTER_RTS, so the TX path behaves as
++		 * without a break. Start it here if trigger_start_tx is late.
 +		 */
-+		if (get_global_var_type(cu_die, dloc, dloc->ip, var_addr,
-+					&var_offset, type_die)) {
-+			dloc->type_offset = var_offset;
-+			return PERF_TMR_OK;
++		if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
++			uart_port_unlock_irqrestore(&uap->port, flags);
++			msleep(port->rs485.delay_rts_before_send);
++			uart_port_lock_irqsave(&uap->port, &flags);
++
++			if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
++				hrtimer_try_to_cancel(&uap->trigger_start_tx);
++				uap->rs485_tx_state = SEND;
++				if (!uart_tx_stopped(port))
++					pl011_start_tx(port);
++			}
 +		}
-+		/* No need to retry global variables */
-+		return PERF_TMR_BAIL_OUT;
 +	}
- check_non_register:
- 	if (reg == dloc->fbreg || reg == state->stack_reg) {
- 		struct type_state_stack *stack;
-diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
-index 425d9ddfad41..eee1f8dae3dc 100644
---- a/tools/perf/util/annotate-data.h
-+++ b/tools/perf/util/annotate-data.h
-@@ -37,6 +37,7 @@ enum type_state_kind {
- 	TSR_KIND_PERCPU_POINTER,
- 	TSR_KIND_POINTER,
- 	TSR_KIND_CANARY,
-+	TSR_KIND_GLOBAL_ADDR,
- };
++
+ 	lcr_h = pl011_read(uap, REG_LCRH_TX);
+ 	if (break_state == -1)
+ 		lcr_h |= UART01x_LCRH_BRK;
+ 	else
+ 		lcr_h &= ~UART01x_LCRH_BRK;
+ 	pl011_write(lcr_h, uap, REG_LCRH_TX);
++
++	if (break_state == 0 && uap->rs485_break) {
++		uap->rs485_break = false;
++		/* An active TX path stops the transmission when it is done */
++		if (rs485 && (uart_tx_stopped(port) ||
++			      (!pl011_dma_tx_queued(uap) &&
++			       kfifo_is_empty(&tport->xmit_fifo))))
++			pl011_rs485_tx_stop(uap);
++	}
++
+ 	uart_port_unlock_irqrestore(&uap->port, flags);
+ }
  
- /**
--- 
-2.34.1
+@@ -2102,6 +2163,7 @@ static void pl011_shutdown(struct uart_port *port)
+ 	hrtimer_cancel(&uap->trigger_stop_tx);
+ 
+ 	uart_port_lock_irq(port);
++	uap->rs485_break = false;
+ 	if (uap->rs485_tx_state != OFF)
+ 		pl011_rs485_tx_stop_now(uap);
+ 	uart_port_unlock_irq(port);
+@@ -2398,6 +2460,7 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 	struct uart_amba_port *uap =
+ 		container_of(port, struct uart_amba_port, port);
+ 
++	uap->rs485_break = false;
+ 	if ((port->rs485.flags & SER_RS485_ENABLED) &&
+ 	    !(rs485->flags & SER_RS485_ENABLED)) {
+ 		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
+
+---
+base-commit: 979e9ad7178dcbd131dafdbb2f9a8c5bb0b7a26f
+change-id: 20261011-devel-pl011-rs485-break-bec3b979a420
+
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
 
