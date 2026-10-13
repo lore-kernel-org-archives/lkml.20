@@ -1,121 +1,93 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38A44A1DF6;
-	Tue, 13 Oct 2026 06:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30014A093B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871772; cv=none; b=rvvBVXa/2vnBoPy6QCnhuTeWT7K2PmE6K8XgOYApbw9SExWusBC/TZ9BM/b+zk+lF74sFh6G5l9KGT4ykVj9N50+rc6UWgqBQGlSCJPTmAtFVTMv4qjr/m1xW4znUlQMNkXPe0zgV8UeaGQH3ikCKPUFlGfehiAZJSJdNjWCTeE=
+	t=1791871781; cv=none; b=h8glGQfZSStwAA+JvUCB/JU2J81n77BbnMdQ0q8veTYKOrW21nbAjDYkf4laP0ZYYctkgO59H7kUlCNqNXIHHNwLqNLv2hOa25PgZQYtiDpXreD0ksgkFPCscBSQPke20mlKKnBKMw+5V29N/hFBgyG1h6VniKg+p3GKVIBkG3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871772; c=relaxed/simple;
-	bh=I0j7RbCrTfKM1uhXvZfToRpPgD/9ZzE7Ma2FksYWCKs=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=PqqoxeBNN/LBk0VkvgnTFnm6TrWmiXQ6ukS8MnlWcWDC265Xs7D8KEJpicM6iwiORi9sg2XFNH/eAS1fE3r1r7mSiPGTpG9weUCulfhD1/hIy/j/vZ7ZXVBztuE23ZtedKPkZPWozCFpLCQQ9WRokolpSGhg5k/T92s4GVREArg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=hOQfiPjp; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1791871781; c=relaxed/simple;
+	bh=5qUdG1fZIVOpI3Y11JBzeXPhxm8ylKtCi9anh9rDrIA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yrnq/sCFtDTwIS16mooeXcow7Ag/YxxNYm9FXxysDH3rw4OLWlBo8TvXWle2ZOo5tRBKbi9SDZ3pWWiei1uxIAG/IFbncUMO0ugppApV4RN4/1C2aQAImDXMvot36Bata59cWTX7CrMoYcCP6dgwAKGuk9fH4zo7P+Pzfs7tvZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MIBk4YFu; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="hOQfiPjp"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=40uAvGtB89UrnliI+trk4ouePijCjFhtYsvGS/V1SXw=;
-	b=hOQfiPjpIAoFpTW1jY9Ti5gnF0iwjU3DR6NTOIfes5GK6oIFW7bsMn0lqUZmvK9+JLH4MP7SV
-	X3T9Ef2shjvcNOYGMuLeSBG4rPd+r8FTJmDRkIKNUfHwDCPMuVxHtKNDaLxG/5Tjgj5liCLbqp+
-	TNzKTgKVAzqAfD5uI4Yr7Mc=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4j3kBC0H3hzLlSh;
-	Tue, 13 Oct 2026 13:57:07 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id AAD9940578;
-	Tue, 13 Oct 2026 14:09:24 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 13 Oct 2026 14:09:23 +0800
-Subject: Re: [PATCH v2] ubifs: fix host inode TNC offset when deleting an
- xattr
-To: Nan Lin <lin.nan@h3c.com>, <richard@nod.at>
-CC: <linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
-	<wangxiaoqing@h3c.com>, <zhou.kete@h3c.com>, <stable@vger.kernel.org>
-References: <mv5oa6u2.f135b439-8d58-4f22-b346-3aacaa66e9e4@nod.at>
- <20261013052953.1401741-1-lin.nan@h3c.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <e9bde32f-753c-a803-3fab-cb49e1031aeb@huawei.com>
-Date: Tue, 13 Oct 2026 14:09:22 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MIBk4YFu"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33c2520ad38so5996101eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:09:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791871779; x=1792476579; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5qUdG1fZIVOpI3Y11JBzeXPhxm8ylKtCi9anh9rDrIA=;
+        b=MIBk4YFuH3cS22fMRoU3a1C/Hd+OS9z2np05YcE93fEAjmPPblpu/kmazNCoHtGL6P
+         biKLr32QtFqsfZ9zs2XCWvMUJPNhVG0ksnjY4Z0JfKSaZcT1Jk5nFARF5tQKfsQWFZDb
+         1BtyFshcZsagKD0yx5r5QqJjZpUWMwC4FCFC8tx6afixW7nfuP7rTAId0q4v8ys/aeO3
+         HDVaufOR+hVkGMbu+6hicdfKABe3P1fgQJwRtLiI3i0BAKe46xbhjnBGskalbmNulYsr
+         9FNESUx3Hz/SzFmFpuTRKejTe+UIP4shLD5PzTLkVbljVNOaNGRriFdn/Uh+58g1kWS+
+         XkPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791871779; x=1792476579;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5qUdG1fZIVOpI3Y11JBzeXPhxm8ylKtCi9anh9rDrIA=;
+        b=YCQvZr54+U8fx2JN1mczSdn2Md5RDQxwKaxkW8ZR1z1Bacl9kysrQda0m+3zCJgkyp
+         fiFGi27BAjHsFVDWfr4nK8fsnxM15iVD9VvOZfBL0Uz2cSb0x0/VFsvb0u3BcThAKszv
+         BB5QaBMGKYv62LXVz5+Ftfqt9EscmCoa+CbHj266Cegd79IY6nvRsPV31w5JpyP17CoY
+         56xI+MnEAuX/M7/ae0+w88jk6lnZLnCMjjDFgiUtpQay+3qTjdl1JvgIN6VWc17xij7Z
+         wNjZLO0WhLhJ8zbMSTV6X8NoNKk+wemdm7yYP+QLO5gmd7Ies8aZ3xiBuZUX6CFbqlvv
+         Zi5w==
+X-Forwarded-Encrypted: i=1; AKwUvByNiOqGEFucYSV69rNzurwWm3GcKBNincDdrgPJBV3AlmLRY453z+VI/EcclrqBv+gsY86nHHnUmpmI2TY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRZnShdAQJLGm2ryr7Yqw/G/y7iISpqfj7Sm550UOE3ixLZQ9v
+	2sE6MS/OBjXnI+ODt+kddqDqxgZ7F5RHQR5SH4bzOGAuabESAWwgkmfw
+X-Gm-Gg: AYBFou2G28TSh9trBpR9k93+ae5vb1rUVsULAmhA5cWJ3pP+ATratDe897ptYkpKr/S
+	YW85o21XBJYkss9yfVaoMqAioIvJs1qSw7jPaehP8ORPuCVHf0JD8pY8DpIQVF+OU1t0d9abyY4
+	3RSoGwxv03TNHlTL6h8ZT+X/QodElzGv3oyigkY/1Kz0FzcQ8MktSKksMuvoysk4NFJ2hVg6/lC
+	GVkDF5NCLrXdmMfhbnv7Xg/osW+nR7gik/Mf3Lh2oLyeQwfMN2P4JmNuSbcGd6T5xHOb5q6q708
+	MQlMqZ+7OTNHOR5OBh/7pu1jTx35fDl0cM1fROUXvrBFnQ8dcBmCgoIV/GhRcd45yyz/vVC4tYP
+	u3exXaXZFf03+mIPwIwBwGC0GHBJj1cCNGkPdT43c47v8g7GViNXtqce6SPjz3vKGb8mtMKhREq
+	6RL9MNr2oBcBBkqd8tRyCrnSCJmBr+mLLmSRAgbg5dNqkRyT61ZShAfgb36Rf6+ImcYdLdbYhSZ
+	RfiZtFOlEY=
+X-Received: by 2002:a05:7301:53c9:b0:359:d4c9:6081 with SMTP id 5a478bee46e88-359d4c96379mr8845059eec.12.1791871778652;
+        Mon, 12 Oct 2026 23:09:38 -0700 (PDT)
+Received: from online.mioffice.cn ([2408:8607:1b00:8:5e2a:b6c:f432:a6f3])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm39548085eec.30.2026.10.12.23.09.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 23:09:38 -0700 (PDT)
+From: Pengfei Zhang <zhangfeionline@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
+	zhangpengfei16@xiaomi.com,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: fix RX coalesce frames counter
+Date: Tue, 13 Oct 2026 14:09:24 +0800
+Message-ID: <20261013060924.2777461-1-zhangfeionline@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179154446637.2527009.3819979695606095666@kernel.org>
+References: <179154446637.2527009.3819979695606095666@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20261013052953.1401741-1-lin.nan@h3c.com>
-Content-Type: text/plain; charset="gbk"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemo200011.china.huawei.com (7.152.185.179)
 
-ÔÚ 2026/10/13 13:29, Nan Lin Ð´µÀ:
-> ubifs_jnl_delete_xattr() writes a group of three nodes: the xent, the
-> xattr inode and the host inode. The host inode is packed at
-> xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, but its TNC position is
-> computed backwards as xent_offs + len - hlen. Since len includes the
-> group's tail padding, ALIGN(hlen, 8) - hlen, the two differ whenever
-> the host inode's inline data length is not a multiple of 8. This
-> affects symlinks and device nodes.
-> 
-> The unaligned offset ends up in the on-flash index and the next mount
-> rejects the index node, turning the filesystem read-only.
-> 
-> Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-> Cc: stable@vger.kernel.org
-> Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> Signed-off-by: Nan Lin <lin.nan@h3c.com>
-> 
-> Changes since v1:
->   - compute the host inode offset into a new host_offs variable instead
->     of open-coding the offset (Richard Weinberger);
->   - shorten the commit message.
-> 
-> ---
->   fs/ubifs/journal.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
-
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> 
-> diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
-> index 40a95a2fad50..0b2dae57e467 100644
-> --- a/fs/ubifs/journal.c
-> +++ b/fs/ubifs/journal.c
-> @@ -1858,7 +1858,8 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
->   			   const struct inode *inode,
->   			   const struct fscrypt_name *nm)
->   {
-> -	int err, xlen, hlen, len, lnum, xent_offs, aligned_xlen, write_len;
-> +	int err, xlen, hlen, len, lnum, xent_offs, host_offs, aligned_xlen,
-> +		write_len;
->   	struct ubifs_dent_node *xent;
->   	struct ubifs_ino_node *ino;
->   	union ubifs_key xent_key, key1, key2;
-> @@ -1915,6 +1916,8 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
->   		ubifs_wbuf_add_ino_nolock(&c->jheads[BASEHD].wbuf, host->i_ino);
->   	release_head(c, BASEHD);
->   
-> +	host_offs = xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ;
-> +
->   	ubifs_add_auth_dirt(c, lnum);
->   	kfree(xent);
->   	if (err)
-> @@ -1943,7 +1946,7 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
->   
->   	/* And update TNC with the new host inode position */
->   	ino_key_init(c, &key1, host->i_ino);
-> -	err = ubifs_tnc_add(c, &key1, lnum, xent_offs + len - hlen, hlen, hash);
-> +	err = ubifs_tnc_add(c, &key1, lnum, host_offs, hlen, hash);
->   	if (err)
->   		goto out_ro;
->   
-> 
-
+It has been tested on the hardware device (not publicly available),
+a DWC XGMAC with the RX watchdog enabled, using
+"ethtool -C eth0 rx-frames 16" under UDP load.
