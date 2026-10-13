@@ -1,39 +1,39 @@
-Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
+Received: from mta1.migadu.com (out-225.mta1.migadu.com [95.215.58.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BC747CA69
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF6D3CC7CC
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791870068; cv=none; b=Wl8JKr7AzCU9gTWmfupxHT7XVz+jmZ+HSBOy9BjJLZxo9R9MaEuRzmcON4fiHFzJua6yv63fanPhsO7LEhK2q/1/1HXAg7/wT7mEfoI9tHg9K/Qf2it2Q+ft9SJVo8NMLjEJr1/Z9i46WbuEdqaTj1GQLU1dEGkP3UAXOkrXxLE=
+	t=1791870071; cv=none; b=GGZCtOCUzvc52m2gWR472n/6sDFKAMmbxa+SZkthC7HpfMnRGk9aCodfibMbBlCxNpL6Q3GOPWRaScA73a4JODs5dded6NJsHmQRf5nBL3CwDqCAp2Fn0naQgrr86tATlkXSBSsncXSQgtnUqqHwu9anJtSYQvtQySFB60x2FJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791870068; c=relaxed/simple;
-	bh=fJaaxpIDj/Lz/3gwE2o/A4O2SI6g7s8Vz+D/0y6FBJo=;
+	s=arc-20240116; t=1791870071; c=relaxed/simple;
+	bh=AQYy5adRQSBsdS46Ukf6IvKTS3q91ZQEPucs6nARbIY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gQxJcHa0pRU91p+xwWmqZZkMudmJvQv6DB0YcPPipIpaAgaPusBKif74IqB5H7JhLeoGrqU2+sPFMN8mzIZBpkEdZebR5XN2zUYwmZPIRiwgXvlOS8AgRmn3R+ovZfbWTXGbf+DMCWJSXjgLc2V4D1utK+EXXPVWGJ0wpqDxmh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=OYIn2XPN; arc=none smtp.client-ip=95.215.58.216
+	 In-Reply-To:To:Cc; b=ikTV/qikCIqgOCZL6b17UHTHZ4VWgawb1RHHd/usXnKWIMmSuyVeQTdve0yr2c5/gn3Bli/YQfmvA6rN25sPNv+UDeYXDhE55kVBohO/eRkJxxJNKVPfe3aboS9py5KqjFhVAPD97PSsAZAvbno4x+zE8kP6RVO3a7J/ebNCJqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=iLuAIO5k; arc=none smtp.client-ip=95.215.58.225
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="OYIn2XPN"
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="iLuAIO5k"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fJaaxpIDj/Lz/3gwE2o/A4O2SI6g7s8Vz+D/0y6FBJo=;
+DKIM-Signature: a=rsa-sha256; bh=AQYy5adRQSBsdS46Ukf6IvKTS3q91ZQEPucs6nARbIY=;
  c=simple/simple; d=postmarketos.org;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791870063; v=1; x=1792474863;
- b=OYIn2XPNrkuBRXcFtxEr5dyLSU99PxfIiGaobDiKbowIZmurhR61t89POCxqhGrKyqDbJcHW
- 0zErxwD32LurtjwNSA0+1VVwjKbh1BsBzP+Gvpa3+WzLYWBonOIahXrHKXbJTzekSJxfNIpyo6T
- TAr2MlSnGagv+y3ErpZ5yyzj+/J0mEpIQiMndVrXIU1PwOxiNv+iNCWWbsoPczPYPlWdkrwEew7
- 33uQqVQNWn/cWIY+2sn9JLGp2ZZDqEEblneYbRknCaBpAW6TVfXgpt5nMeNJ7E34FobkGNiSq8i
- UDSf8zJBRANmMjLeHidQGcezopzeG6i6JpZeKY54K7n1Q==
+ t=1791870067; v=1; x=1792474867;
+ b=iLuAIO5kUdKtSPoX6Ixx4/CtlYBKazAmBid+rkCbZFLR44fhqZ49hVoFkyh4aVaTWm63qxZs
+ 2RXyDfcUlCoef6LakskE0adsyY7Cp6S2jRCQ/fo7UamMaXM+dCY14ARFCzc5dWEpHTDWWqwa1lK
+ uo3owC2PqluLC20afyXHU/mKHm8eqxmfMEC6BIuuhimc6H5Evavcu3woXJSe+jv3WweDHhTouG8
+ XP8QwfITorWfKnQgq383tNFQCdFzMb333ElT/8QS4LR+M2bJbi94raVcw4jbHL5wyt6k6NUnucX
+ 8OiFw6E8AIDky48MtcadFi6kcz/G3WAFy6M5la6c1qIqA==
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 55bab98a84577afa;
-	Tue, 13 Oct 2026 05:41:03 +0000
-X-Mizu-Trace-ID: 55bab98a84577afa
+Received: by smtp.migadu.com with ESMTPS id b0bded94188a6614;
+	Tue, 13 Oct 2026 05:41:06 +0000
+X-Mizu-Trace-ID: b0bded94188a6614
 X-Migadu-Flow: FLOW_OUT
 From: Paul Sajna <sajattack@postmarketos.org>
-Date: Mon, 12 Oct 2026 22:39:59 -0700
-Subject: [PATCH v3 5/6] leds: aw2013: Prevent writes to unpowered chip
+Date: Mon, 12 Oct 2026 22:40:00 -0700
+Subject: [PATCH v3 6/6] leds: aw2013: Move reset register write
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,7 +42,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-aw2013-aw20xx-rename-v3-5-cab1fdd050b6@postmarketos.org>
+Message-Id: <20261012-aw2013-aw20xx-rename-v3-6-cab1fdd050b6@postmarketos.org>
 References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
 In-Reply-To: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
 To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
@@ -54,114 +54,62 @@ Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org,
  phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
  Paul Sajna <sajattack@postmarketos.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791869999; l=2889;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791869999; l=1454;
  i=sajattack@postmarketos.org; s=20250413; h=from:subject:message-id;
- bh=fJaaxpIDj/Lz/3gwE2o/A4O2SI6g7s8Vz+D/0y6FBJo=;
- b=hDcGo8V5GHZ+VhRYVxLJSyvEsHqc1ciqiQ0fXwgEADupw1ChAb2/S45T5SAqLdYcHcdodkIar
- L8qRkCCWq7LBD6RESluBsDOzAjM966gBJycuEkDw8INUKXwpEg3SwDD
+ bh=AQYy5adRQSBsdS46Ukf6IvKTS3q91ZQEPucs6nARbIY=;
+ b=HuHbSltWPJYIjH2DTge2woF8QOo8m81zjkjD4YxO1GhHfeodFCt1HdTw2d0KGA1iZvHr9Tfjj
+ e4Y9R1yScKNCNZsH/wFibBGIKGUCYoEwjYI+7yMuiiGpmnmXfiPkzKp
 X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
  pk=ZFE/UBqiz9Wr8b+zBL27opOjw5x5ket5JFqks/VQGeM=
 
-Replace chip_in_use check with chip->enabled boolean in
-aw20xx_brightness_set
+It has no reason to be in probe_dt, and putting it there complicates
+the mutex requirements.
 
-During teardown, probe, or unregistration, the LED core initializes
-cdev->brightness to 0 and queues a work to set the brightness to 0.
-This can also be triggered by unprivileged user space via sysfs by
-writing 0 to the brightness file when already 0.
-
-When this occurs, aw2013_chip_in_use() evaluates to false and skips
-enabling the regulators:
-
-Because aw2013_chip_enable() is skipped, the driver then unconditionally
-calls regmap_write() and regmap_update_bits(), which perform I2C
-transactions to the unpowered chip.
-
-To prevent writing gcr=0 when we couldn't power on the chip,
-add aw2013_chip_poweroff()
-
-To prevent turning the chip on/off unneccessarily, add a check for
-writing brightness to 0.
+probe_dt calls devm_led_classdev_register_ext, which may trigger a
+callback to aw2013_brightness_set, which would result in deadlock.
 
 Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
- drivers/leds/leds-aw2013.c | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
+ drivers/leds/leds-aw2013.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
-index 3b2be960c04d..6e661afd7775 100644
+index 6e661afd7775..8d1d649064c7 100644
 --- a/drivers/leds/leds-aw2013.c
 +++ b/drivers/leds/leds-aw2013.c
-@@ -193,15 +193,13 @@ static int aw2013_chip_init(struct aw2013 *chip)
- 	return ret;
- }
+@@ -383,8 +383,6 @@ static int aw2013_probe_dt(struct aw2013 *chip)
+ 	if (!count || count > AW2013_MAX_LEDS)
+ 		return -EINVAL;
  
--static void aw2013_chip_disable(struct aw2013 *chip)
-+static void aw2013_chip_poweroff(struct aw2013 *chip)
- {
- 	int ret;
- 
- 	if (!chip->enabled)
- 		return;
- 
--	regmap_write(chip->regmap, AW2013_GCR, 0);
+-	regmap_write(chip->regmap, AW2013_RSTR, AW2013_RSTR_RESET);
 -
- 	ret = regulator_bulk_disable(ARRAY_SIZE(chip->regulators),
- 				     chip->regulators);
- 	if (ret) {
-@@ -213,6 +211,16 @@ static void aw2013_chip_disable(struct aw2013 *chip)
- 	chip->enabled = false;
- }
- 
-+static void aw2013_chip_disable(struct aw2013 *chip)
-+{
-+	if (!chip->enabled)
-+		return;
-+
-+	regmap_write(chip->regmap, AW2013_GCR, 0);
-+
-+	aw2013_chip_poweroff(chip);
-+}
-+
- static int aw2013_chip_enable(struct aw2013 *chip)
- {
- 	int ret;
-@@ -231,7 +239,7 @@ static int aw2013_chip_enable(struct aw2013 *chip)
- 
- 	ret = aw2013_chip_init(chip);
+ 	for_each_available_child_of_node_scoped(np, child) {
+ 		struct led_init_data init_data = {};
+ 		u32 source;
+@@ -504,6 +502,14 @@ static int aw2013_probe(struct i2c_client *client)
  	if (ret)
--		aw2013_chip_disable(chip);
-+		aw2013_chip_poweroff(chip);
+ 		goto error_reg;
  
- 	return ret;
- }
-@@ -253,9 +261,12 @@ static int aw2013_brightness_set(struct led_classdev *cdev,
- 	struct aw2013_led *led = container_of(cdev, struct aw2013_led, cdev);
- 	int ret, num;
- 
-+	if (!led->chip->enabled && brightness == 0)
-+		return 0;
++	ret = regmap_write(chip->regmap, AW2013_RSTR, AW2013_RSTR_RESET);
++	if (ret) {
++		dev_err(&chip->client->dev, "Failed to reset the chip: %d\n", ret);
++		goto error_reg;
++	}
 +
- 	mutex_lock(&led->chip->mutex);
- 
--	if (aw2013_chip_in_use(led->chip)) {
-+	if (!led->chip->enabled) {
- 		ret = aw2013_chip_enable(led->chip);
- 		if (ret)
- 			goto error;
-@@ -284,7 +295,12 @@ static int aw2013_brightness_set(struct led_classdev *cdev,
- 	if (!aw2013_chip_in_use(led->chip))
- 		aw2013_chip_disable(led->chip);
- 
-+	mutex_unlock(&led->chip->mutex);
++	mutex_unlock(&chip->mutex);
 +
-+	return ret;
-+
- error:
-+	aw2013_chip_poweroff(led->chip);
- 	mutex_unlock(&led->chip->mutex);
+ 	ret = aw2013_probe_dt(chip);
+ 	if (ret < 0)
+ 		goto error_reg;
+@@ -516,8 +522,6 @@ static int aw2013_probe(struct i2c_client *client)
+ 		goto error;
+ 	}
  
- 	return ret;
+-	mutex_unlock(&chip->mutex);
+-
+ 	return 0;
+ 
+ error_reg:
 
 -- 
 2.55.0
