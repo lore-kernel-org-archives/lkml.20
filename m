@@ -1,252 +1,104 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-191.mta0.migadu.com [91.218.175.191])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79494CB8D7;
-	Tue, 13 Oct 2026 10:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C7A4CC600
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.191
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888646; cv=none; b=UeNDxGnBNfB5rXGXZFUlT/WX3eMHD/l1nONlfH1E7E6xGvOkUcxgiY1QceO6M39Z2buPsuNhn9usg+hKy9e7X+a4xiLPu85IWWi7lSSmZuW5wzmpfZOX9JSwyhygFqOxuz26VgNRQPFTfRCQYV030R2oPupSSkSR4XDSI31vbmg=
+	t=1791888655; cv=none; b=rgiR+WeSilVXTLVIQQDxJqEElN4eJeIUtyMaW4pzTfvdBE6WqPIdsASDV2b8OVxi7isgBhAF3ywvgKGMiou09Y9d9g0HO9U2cJX3jv3uxs+jJdJV692K8ic4kev7rO9fkYpDz9lhJgcGs0IMYoZ5RBwY/F9oi9Lkx+tJI1EPRbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888646; c=relaxed/simple;
-	bh=XgnmF2YgwAt+dP+vLHjJO26js0PFTZ9QSq5rROxIW64=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rmDGeBBsKKWdUvR78ldpPOgs7/yGojyJU777DugJfJxByouyO4FApRSwj8UEipkG25ejvhIhaaqwhPkn+mwmZqdIQ3V5Q43PrixnZKF6++X50swxZqR54ngt99Ukf5Tnovr9q2YvMhI6nKTr7N/+9GZOUqrYBgCkgqWcQTmwbTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=NcXV8s4y; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791888655; c=relaxed/simple;
+	bh=KVAzhVgNrvfGhJXuSFvrFDmK336xmECT5jayATxTm8M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ATvVMwX+f3HZeqRqudrrNvCHI5rDVW+rZPSUaP/Jtofz3RnMtjtc4+pS0Lr96w6dQWdi3zL4d4rG2iHDlCzTJTXMY87/A3FxgXTTcaF625mqTnT4cy4W5Zd3TWCAoW4lSglt1CMpkuzBiKrCAKz//+HKQw403R1DhTsObDPgxUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LHAzlwgy; arc=none smtp.client-ip=91.218.175.191
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="NcXV8s4y"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2Exaa727076;
-	Tue, 13 Oct 2026 10:50:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=O2aDD2
-	7dnQNnDMjEKgskhMm98/OczVteYy0IZf3/lv4=; b=NcXV8s4ybhwq0ZRbsAmk3p
-	YDQrxKS6aHwASnKy9711HQi9SMp2TRCOH4NHQ4YaEgeKzWgqNi53zCZI5BWXjy0S
-	brI1yvoeChTyOaP2miRgWjrZLKMim8fsDHi0rfoAOWFA9EwPeMbihcqfOYnm6sCZ
-	fRvCc0+B7KXTagjY7krIykr1qyDGQwTrYVdmDBT/0e3IwAgE8T8H3fl7RE/D0pYp
-	ciec3x4NvR2w+dF/+LHHkzXB7v8vATzrFv8U9p2cT/gVG6mh6jyf5KPRfRoad5Jl
-	a06sH4jKGBX3mKR6A3kOybBICsDC6h+CYGVPF9CpuDZny3k/oJEsSokYDHoXcqyg
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv0d2sa-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 10:50:20 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8Tqx42660311;
-	Tue, 13 Oct 2026 10:50:20 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h7yppsfv9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 10:50:20 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DAoGRX55640384
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 10:50:16 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1F9C92004D;
-	Tue, 13 Oct 2026 10:50:16 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5468B2004B;
-	Tue, 13 Oct 2026 10:50:15 +0000 (GMT)
-Received: from [9.87.128.189] (unknown [9.87.128.189])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 13 Oct 2026 10:50:15 +0000 (GMT)
-Message-ID: <ce85388c-3ea0-4363-8c89-fe2bf71b284a@linux.ibm.com>
-Date: Tue, 13 Oct 2026 12:50:14 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LHAzlwgy"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KVAzhVgNrvfGhJXuSFvrFDmK336xmECT5jayATxTm8M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791888651; v=1; x=1792493451;
+ b=LHAzlwgyJ5FDlVfJwe+aioiD6IhC6YLPIpsvx6vhHIMrcEUf3NLpuvvNh1GIuqphwV5S2gUH
+ z5V4qPmuwCNrAE71YbYuv+zkAFN2zv2E71DlsVFFbXWvIhHDPvx3kqrZyYaUIpwugWxWonAeIOm
+ Stvhxo6OZmyd2eDZ2m13CmR4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c1e5bf9b047e6bf4;
+	Tue, 13 Oct 2026 10:50:51 +0000
+X-Mizu-Trace-ID: c1e5bf9b047e6bf4
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5ba40832934so16922e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:50:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx10LhL16ERYCTMrR7J4xbizq4LPs7vLtUDeeEayAzS3YyncpfUUGH4O+5baeTTe3UPawA8ude+Nk3tTSE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpWbiT5JSoP0+hriIV4iByfbcd+dhfvEvMl5O4A6g6Dm5VY8EU
+	Z5USAfqsMLNDbFz8rIeYs1bZBXkzRLHkP/jMN/PxoQRyBWActB53xru0kKixeiBbjIJxpvs9bkO
+	bavCLQX8J8HEY6BV4Z0jk1wtrzR3JvuizFMKnXvJY
+X-Received: by 2002:a05:6512:1284:b0:5b8:c230:1241 with SMTP id
+ 2adb3069b0e04-5bcea5f77eamr307791e87.10.1791888646329; Tue, 13 Oct 2026
+ 03:50:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
- capacity systems
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, Andrea Righi
- <arighi@nvidia.com>,
-        Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
-        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Heiko Carstens
- <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
- <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
- <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com>
- <CAKfTPtCianGNWSu0s2J_B_aO_rtKWO17k9guYmwgXXLUHQE+SA@mail.gmail.com>
- <d412d939-4704-4246-a9bd-b49b457099b8@linux.ibm.com>
- <CAKfTPtAGiesy0FZQ3aOny_1QkqaX0P2MCOdkE42ERdihRJL99g@mail.gmail.com>
-Content-Language: en-US
-From: Mete Durlu <meted@linux.ibm.com>
-In-Reply-To: <CAKfTPtAGiesy0FZQ3aOny_1QkqaX0P2MCOdkE42ERdihRJL99g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MiBTYWx0ZWRfXxO2iYJNVGU3W
- 7AM6FSw17ZMv+2ehYsqrn7kUVAxYQZWGQuB0RvPsaqCCmmf5lIRi+23OQSMuQByHL9gs6ykVnq5
- FeotQ4yL1VUC5PUtf9PEcE8An6LpVVTRKYd8OV1RseYbROTtQwqcnkTBJdWD/dQPMJ3g2eVmfB+
- Ko0pTIh6bJ8ZyfFrD3OfTWjUWkcJx9OFIdiGn8fK5Hfq5XgJrT5N7wpN1EQO88FBZFboNtCfw6A
- 16VY1xKix129X012X5t6zHeA18m5FwCnCKrGLdzlTlnIZqN+GiuzVj1Tr3uOA038F7JjyyMQf6i
- RzQ/+es5S79JjeibVQpDuzkp4h2J2IRVYYR7FZZGg/D0/9Bw10FlqGimzsSYmva/TzMzsBPd1jK
- L7YrX2LWKFxmIRiqduVay+gbOb0klfaA69mDzPy/pHrCdLkYOt9xIzBQUvnUzPwuPOcIhCztQZX
- 2rrGZDYHdRYlbCHNCVw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MiBTYWx0ZWRfXyUfegSFwPkf8
- cJEAvz0q7ZHN6P62xZalAiP1Us69kG8mUthd3dFSAssuqUytwNc4esbj2tdESdCuFQayM1KPfc+
- ANIGi1Ez0rNZlUrJBIhW0Qae+K3MMcQ=
-X-Proofpoint-ORIG-GUID: Fhag1p3DR8Ydy9w6JtdMj-JBiqr_blM6
-X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6ace0ced cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=_8vwSg6ZCyrHLbdd9ZAA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: -PrOdXHDGfBJ78zp3m1gmlFLTTCUb8aI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130042
+References: <20261013081646.933312-1-fuad.tabba@linux.dev> <as3_NKT20MNdqaJR@kernel.org>
+ <86wlrl2a2f.wl-maz@kernel.org>
+In-Reply-To: <86wlrl2a2f.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 13 Oct 2026 11:50:09 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTztZpFrmuz9pK+01BsDxHnzpEwUMt6E3nUrgk4NNTsKYQ@mail.gmail.com>
+X-Gm-Features: AclHuK_kCCq3-9Q2tIHYoGWtf99ZLB81HNWPaAdr5x53TtL1SwcCZkCDuzzJ-Oc
+Message-ID: <CA+EHjTztZpFrmuz9pK+01BsDxHnzpEwUMt6E3nUrgk4NNTsKYQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and DISCARD
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Andre Przywara <andre.przywara@arm.com>, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 12/10/2026 16:49, Vincent Guittot wrote:
-> On Mon, 12 Oct 2026 at 13:04, Mete Durlu <meted@linux.ibm.com> wrote:
->>
->> On 09/10/2026 17:32, Vincent Guittot wrote:
->>> On Thu, 8 Oct 2026 at 17:25, Mete Durlu <meted@linux.ibm.com> wrote:
->>>>
->>>> On 08/10/2026 16:58, Shrikanth Hegde wrote:
->>>>> Hi Meter/Andrea.
->>>>>
->>>>> On 10/8/26 5:40 PM, Andrea Righi wrote:
->>>>>> Hi Mete,
->>>>>>
->>>>>> On Thu, Oct 08, 2026 at 10:30:46AM +0200, Mete Durlu wrote:
->>>>>>> Summary
->>>>>>> ===========================================================================
->>>>>>> On systems with asymmetric CPU capacities, the scheduler prefers
->>>>>>> fully idle
->>>>>>> cores over idle SMT siblings of busy cores. This works generally well
->>>>>>> but
->>>>>>> virtualized platforms where low capacity cores should be avoided are not
->>>>>>> considered. Introduce a new config option and arch hook to prioritize
->>>>>>> SMT utilization.
->>>>>
->>>>> That's true only under physical CPU contention right? or is it always?
->>>>
->>>> Right, because of that s390 treats all CPUs as equal and starts to
->>>> assign lower capacities to CPUs with low entitlement once a certain
->>>> steal time threshold is crossed (aka physical CPU contention).
->>
->> Hi,
->> Sorry for causing a misunderstanding. I should have been more patient
->> and detailed while writing my reply.
->>
->>> I'm not sure to get what your topology is because "if s390 treats all
->>> CPUs as equal"  then you should never use select_idle_capacity()
->>> because  their capacity should be fixed and equal and
->>> SD_ASYM_CPUCAPACITY_FULL never set.
->>
->> On s390 the entitlement of the vCPUs are signified by an arch specific
->> value we call polarization. We can tell which vCPUs are assigned high
->> and low entitlement. This entitlement value tells us which vCPUs are
->> prone to experience steal time first. Without any contention all
->> vCPUs behave and perform *almost* the same(of course, we want
->> some priority for CPUs with high entitlement).
->>
->> Prior to experiencing steal time(it's what we use to determine
->> contention) to get the most out of the system we assign all vCPUs
->> the same capacities, making the system symmetric like you say.
->> While there is no contention s390's vCPUs also perform better if
->> fully idle cores are selected for task placement.
->>
->>> If your hypervisor lowers the capacity once a certain threshold is
->>> crossed, we already account for the steal time in the scheduler with
->>> irq and remove it from the capacity available for tasks but the
->>> original capacity doesn't change.
->> s390's linux implementation has a mechanism called hiperdispatch,
->> that checks topology changes along with system steal time (and soon
->> the total free capacity of the pyhsical machine) periodically and
->> makes vCPU capacity adjustments accordingly.
->>
->> After steal time starts ramping up and cross a certain threshold,
->> we start assigning lower capacities to vCPUs with low entitlement to
->> hint the scheduler that they should be avoided.
-> 
-> If all your vCPUs starts with the same capacity, you should not use
-> asym_capacity or enabled it . What you describe above is system
-> pressure (steal time or other) on your vCPU that change over time but
-> not a capacity change. The value returned by arch_scale_cpu_capacity
-> is not supposed to change at runtime or you need to rebuild the
-> sched_domain topology. As an example, max_allowed_capacity does assume
-> capacity fixed otherwise the misfit detection will sometimes fails.
+Hi Marc,
 
-Exactly for that reason on s390 we do topology updates after
-capacity updates. Topology changes caused by the underlying hypervisor
-or the cpu capacity changes can get reflected without a problem via
-topology rebuilds. Without topology rebuild we wouldn't even get
-the correct SD_ flags to trigger asym_capacity behavior like you say.
+On Tue, 13 Oct 2026 11:01:44 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> Yeah, I now have a series that has the counting pause, your single
+> vcpu pause (fixed to DTRT), and the LPI disabling fix. Patch #2 of
+> this series can probably make use of the single-vcpu stunning.
 
-> What you describe really fit into the prefered core that Shrikanth
-> Hegde has developped
+I'll rebase the series on that once it's out, with patch 2 using the
+single-vcpu stunning.
 
-I agree, but Shrikanth's solution can not bring some of the
-behavior changes required. cpu_preferred_mask can help
-direct task placement away from low capacity cores but idle
-core first approach still places tasks to fully idle low
-capacity cores. This patches proposal tries to move tasks
-first to the idle SMT siblings.
+> As for the OUTSIDE_GUEST discussion, I've had a long discussion with
+> Will where we reversed engineered the synchronisation requirements,
+> and concluded that there was nothing to fix on that front (the logic
+> is incredibly subtle and counter-intuitive, but overall sound). This
+> patch is therefore dropped.
 
-Consider the following;
-On a system with 2 high capacity and 4 low capacity cpus.
-steal governor of vCPU backoff mechanism calculates 2 low capacity
-cpus should be taken off from the cpu_preferred_mask to decrease
-experienced steal time. cpu_preferred_mask has 2 high capacity
-and 2 low capacity cpus.
+The first [High] issue Sashiko found on patch 2 [1] holds for DISCARD,
+because the fold writes back the pending_latch that DISCARD clears.
+With a 2ms delay after the exit to widen the window, and the DISCARD
+sent at a varying time, the guest in my DISCARD reproducer takes the
+discarded LPI in 13 of 20 runs on v2.
 
-Current behavior tires to place tasks to fully idle cores first
-even if they are low capacity cores.
+A vCPU on its way into the guest does the same: it loads its LRs in
+kvm_vgic_flush_hwstate() while it's still OUTSIDE_GUEST_MODE, so
+kvm_arm_halt_guest() doesn't wait for it. With the delay after the
+flush instead, on v2 plus your 1/7 and 2/7 [2] and both changes from
+your reply to 1/7 [3], the guest takes it in 9 of 20 runs.
 
-       c0(high) c1(high)  c2(low)  c3(low)  ...
--------------------------------------------
-SMT 0 task     task      task     task
-SMT 1
+Once DISCARD waits for irq->on_lr to clear before clearing
+pending_latch, the guest takes it in none of 20 runs in either case.
+I'll add that to v3, unless the single-vcpu stunning already waits for
+it.
 
+Cheers,
+/fuad
 
-With the proposal, the fully idle core preference is circumvented
-and the most fitting SMT thread is selected.
-
-       c0(high) c1(high)  c2(low)  c3(low)  ...
--------------------------------------------
-SMT 0 task     task
-SMT 1 task     task
-
-This is beneficial because at the time of contention(system pressure)
-low capacity cores could perform worse than SMT siblings of busy
-high capacity cores, even if there is not enough steal time for
-steal governor of Shrikanth's vCPU backoff to mark said low
-capacity cores as non-preferred.
-
-Andrea came up with an idea to extend Shrikanth's mechanism further
-by adding a soft affinity to a selected set of CPUs. Task placement
-would first fully load these CPUs before spilling load onto rest
-of the CPUs on cpu_preferred_mask. That would help achieve the
-behavior I describe above if the soft affinity covers high
-capacity CPUs.
-
-The discussion is still on going though. If Shrikanth thinks this is
-a worthwhile concept then I'd be glad to work on the implementation
-and provide the patches.
+[1] https://lore.kernel.org/r/sashiko-outbox-169278@kernel.org
+[2] https://lore.kernel.org/r/20260929093548.3598547-1-maz@kernel.org
+[3] https://lore.kernel.org/r/86a4p0403b.wl-maz@kernel.org
