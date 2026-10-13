@@ -1,152 +1,129 @@
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D400C5427EF
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791921203; cv=pass; b=J6aUEhMhD/MjiUT0bJ2dRSAKVAEd5OhVQOxVlCLDkkkbnUMGbbYwK4HUyvJocvIb++wILSuoeWMylM8HD5ljFNY5fGV3hiCvn9sTY/9ozNBNhZpqCpPGzVxqWLXxfbugn7grEEB6DuCf0ykm6FDbCoyksbdMDKusOlveIceaU14=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791921203; c=relaxed/simple;
-	bh=kZcNHRKweJx+iHr6GYPUVcEw90YDQL8CUNxb6aSZzLw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iML0CJJvork3SRxvQtxknTpyMyRzV28b0lse8PtjEguIu69sn2yZhulZZlUzfd7GknTeY6fae1564qiq+vS7ceMZaELZtVzMshhbGeaJQvi+xlBzHCW9Ps5WbI3fZzNkAJpAIAFVSrpFeeqg6h/t2KPdbSJ8UHRzbgdcMHmPByY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QVGlPl2q; arc=pass smtp.client-ip=209.85.217.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D8B542EF7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791921217; cv=none; b=XIjqBvE4LG3eT4thoZJer8WOC9s3n6Px/juuewScuuZK45hC1nQ5N5PI080/cP4x+oDvK13Z4n1h1iJIgzqRJF+dmQ6JoYKmKURLMntjvmn7W8D0KybeVlnXQBkFE/h5oQ5N79TmxqRJ5D1IcVuOqBKJ/g03SFTO149VX6Hj4hQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791921217; c=relaxed/simple;
+	bh=9X+B3VzuP6c2+GbMDzQKaInOmGWlAa6Crsdlsjiub+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rOXdKIhCmaVI4kRojfLmIpP9RNq0HTISXt/5e/9LU1XNJxEsSD2ta9h8PsaeT2PAOxv3pAbfLUEzTvxFO7YOe+h+Rj7FIPPZKA1nH1POpQeKikXDmwIrCFI0g2FOM2g2UnLqgDm/wB5paQbGgZ9dp5KDchiR2H58LK8v8mWolrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=EPUCk5Vh; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QVGlPl2q"
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-77bf892b496so397326137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:53:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791921201; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZwZw0UY80UkD7uGeU4YsVEK7P8HpZSucEw+BwOCF0jQUqam2wgQeWAACxhnIE2tgrA
-         MfawY28+l+n0Ysh2Xgz+D0MIc9gQiw81E2M1oYvUjT7g+MuxDVrOin3xEJNE9L1NIh/F
-         Ff9VoUtsi+IDvi61WIpS7AHj2eeVRuUo+PySS2ixTl8XDgQZaNres2WfMwujaYb7I8uJ
-         wuKEeVRRu/I2CNey17uv0FUg6AG+y0ubiXZtsVuqjp11fmfjf4Vof0w1aPHrd0FL2aJW
-         9vF++1fLr1N8QP6X04cCSbCe4HZxHz/mxZfPol+wWOXCrgTayYkw6JNLDBwEntHyzb3d
-         3ApQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Itq5Kt1Cpx9UyAaFaUspzDtgaSrQMGirNxVH3aVF5nQ=;
-        fh=6v1Nye8mImUbvqDZE2KToA9qGzgj6EASbqVSySIpCTM=;
-        b=nII8w5wjoZpiaP6I+xXZFxP6GAGYRJdJn4nnpWLCIND+b1lbuDJFCWMpim/hr2szZr
-         V3eqt9S9j/OvfLhgFT6KVcLNQN9OlEBK8ju4+0kj+FpgQ4VkGKApBA7/MwwswoR2dLsa
-         o3Q/lyNyxPiWErefTiRdyfYE0GbKTmfTWPV3JpYWrI0M62ZJ19HYnfe3448Avyi7KdpB
-         gVVtSOmt5g9iQEQiztowVD6L1iBzlgBMh/a2bNJfljWVrBu0851mTmuTcb97VB6JTu86
-         3kcJpLGJitvcH3Do0/FrKBwEcTm/PtUoe+jZkl1aaIi+w8J0aRpmo3Ema4DaWO+A2+n8
-         b+5Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="EPUCk5Vh"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-917d595138fso25589636d6.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:53:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791921201; x=1792526001; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Itq5Kt1Cpx9UyAaFaUspzDtgaSrQMGirNxVH3aVF5nQ=;
-        b=QVGlPl2qfCpHQIJgYmlMoeB3u2b11/EgHKdBkxLXkrqIRszsvgZ+YS1iE/ALMsS5YL
-         INUhh1ygHTwoTIY1s3pQUTKlxAUo4Y1Bv6AAeRsigQmYuWgJNuWM4clCnXYDcAtXFg0y
-         2lW+5cpfox7mzC5lkBbHhJ5usDndqPbfUa5kZnL9vNSg3+BtacP+QtGjbL68xZNJe24w
-         UxYWt8lDGnk+tqtWuDiPkA/BkNRVpev4dJ81iDYcgQiuIazACV51jFpOw0xn4ZDoKkGh
-         nCyRZPWB8yNq+LuyVM+KDbaHWto9P86I9CssWfl0xIsugXxwuMSYw9ySa29knrR1zrpD
-         kJdw==
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1791921214; x=1792526014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HcBu6oPAez1ljZeSMUFIBe+d1rm2GYp83jcwBgf/ZWA=;
+        b=EPUCk5VhzC4xZLPu5RJNFkGJNQIaQGlNdADxDxWxR//Q6VGL5HifvRB4F1j3YoqkIO
+         D997XkDKGrvbKBkYRhUaDKBlUsJKe3qweZTasPrGov7LJl6T9VnlZ/jVEL3do5ifowEv
+         KFFBa3pDn/YlhqbEdcjCbEbwnQAYj1+yfWPEn6L6CDGymP5DPD3zhoRoqvLcgCmEBvSW
+         6fqfOsaR0+AOsXCEIIGG7hdUpfMQPJ8BTW+dXRpg266MqkkZ0wmvoV7/Q2/4++21uc1S
+         vBq7Wsoi5aVZFMUOpNeRoHGu7kvF3OoQIT0d4xY1dE/HBSO7RL9fVox9wAAAgDxo/q9F
+         FSuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791921201; x=1792526001;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Itq5Kt1Cpx9UyAaFaUspzDtgaSrQMGirNxVH3aVF5nQ=;
-        b=apOajhjA7mzU7t7FjQxwOlWba45uLFGHqSbBGMUz8dVeyzyHCf5gQSuaAy9DxH68EN
-         1cThyTXj1UDanFcWfTJyohnpLFH85cmebNIPm4Ekz1iiLR4v0+jqRJ7Qm2StIioKY5sj
-         h8L13A/UxOwKj1ULKhVWxwjWAaUXXkZhc8/GRQ9Bfm3Ftd2/5JWImw/vBrcGixIGH+y8
-         LGWVbjYzzpQeHVwkzJXZVODUtG0yfMsLqGY8r/S7nqkIP+ZE9xTkru2fUdl3ThG5Sddw
-         NM7MLlVKA6cWXiqd9/cDjGHMx4lsCn6GE8Jf9CZZ0+675Ji8jERxZ+9VsmBxEXPoyAp5
-         STUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwt1wybHcEyMXnY5NQuPP5aziyPPjEnJL8jv7vj7TCUL1jUC1SPmj5BdQHOOGZlDOWSq+bi2tFPqSPHLFc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6uS91kW/ihSmfji7NVZGnUAdqCpkXkK5GAmwyLG8rGWKjdgAY
-	nyMpG5V0ZCS723o63/E4HBcxwOgAl2ZT08ygfgdhw0WA7gWinHNzdAmhGZHkqX/I6SP5BgaTA6w
-	yw4JkG7qNQLwACPQrcSCRdiLntJzdHdoz61rHDnug
-X-Gm-Gg: AYBFou3c16cOkYIV/hR98ih/e1eGeS3iR+/KF8KGAasWAXqhwMoE1rPu6Kkwmwvycdp
-	CdcvNQhyc6gExFO/Moc5JmgaixjDKJMPk4Xr8IgocN0Ix8T694jWxkqaqJpB/KoI19AcFoF8aOY
-	3oQaYlySU3mPWG3ErbO0MYoOG6p99fvEe7cIYvDjnsfK5ZdmOcHXVecgCX1QQnU57GxUTXuF6+d
-	UxCLKPyA29UUgPYV4w+2a2pi5E51wjh7zk7yyipE6YwPlVR65ROjMOu0iNDDZAOQ3N6db17bA0t
-	3C+o8njvUOWq9JiDK5zc8iysi693pUsUoLko1oNVDnWbMVuGulQV2ZGyKm2D39gFLGltPxUOAjm
-	jJmUU484MaQ==
-X-Received: by 2002:a05:6102:38ce:b0:7c3:3c75:db89 with SMTP id
- ada2fe7eead31-7cb3a117b27mr3126273137.25.1791921199874; Tue, 13 Oct 2026
- 12:53:19 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791921214; x=1792526014;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HcBu6oPAez1ljZeSMUFIBe+d1rm2GYp83jcwBgf/ZWA=;
+        b=vgyNaYKzshFr7ADhnS6nid3ENs80H/etQs7BbMRBoGGzjZxycTuOmKV2seQX3Dd7Tz
+         0oTYJPrc5IzPVsOyr8BWHJb3jbcB7Cjq77vOJ0lOJ1/olmxqQbQyLAZHCfQRXLWV5J2y
+         lvAZb0ihMdqA+arcxZmg5z7UyttYOKwXAdXjYtW5VM2HE2HRBi3lrgWYr9cqm+0vsXRA
+         Fi5W8Fy62/rFvIVlElRgIWgxD4NBjBCwz6Mr/x61CneTlJDaK9rxxn3otI6HrdXcn/Qh
+         YjdA2jQ7xV4WUGnyi8PCa9dzTGcKdq8QqzNnre41W0S/+MGgAW9QZv9AJ6W2xdsdO/7q
+         loTw==
+X-Forwarded-Encrypted: i=1; AKwUvBzYjM4C8808rcYG/WjeFBFif9hkosCKdAIKVdYTx3BAIotLo4Z+GvnUmSVd30OyNjZzlVaawvZVWDTsBKU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXCBmFqvzsMwI/r9DetQGlxaefgT4zN6aTg2+EKv9cx/UAsM0X
+	Vj5jqCtI0G26xcNSWvbzIGS9QYcP/VRMzY7oGhLYr8wPsTJHsOXgIe5VIi91Wlj7rp8=
+X-Gm-Gg: AYBFou1l6PBehsoD7lLUHnjSyq0ZwWBsxry3tRG4kbZ1tzz9OgRle966manAUIAQ59A
+	U8svo2JXgJpREpqGwSt/fYeoVmiLQkIcf9tOPfiqX/Ad8MyDma/RC58Bk1q/3RCNv2pO/Xcu3Yz
+	O68AAqY06WhM3U+f9MuDFDVaoFLJZHAJicAivmhSJW+iR+Yc96Pe9hJYMKDL1BchFu4FiHk5uYB
+	6NpXHnNJ8A5z0HND4j2EyoAykhRZuE++9Y2P7gBrzWirEz8l2eUVY18iWPzVTrIVIKiPlGdEDoU
+	i4gqELc2Dy1XaMor4/L2Z3F0+0Sei5dfZGN+d6X8dmDl7KrHmK6TfmI063qHFOpQw8XuUklerTZ
+	5cTaYPCf8f7viIuy2ZlwlBtOINdCVkifSuhT9sHNsFE0NoY5exbe+/CbaHX0V5rQmsJ2PJVG5Sf
+	U+qd/9lSF/e+LdtEjJH4GffB448RjF1aak/vg713sXoNqYE//jOMHtJvYUveI4qoZGiPAqPA==
+X-Received: by 2002:ad4:5fc9:0:b0:91b:8d12:bac9 with SMTP id 6a1803df08f44-91b8d12bb24mr93591896d6.0.1791921214109;
+        Tue, 13 Oct 2026 12:53:34 -0700 (PDT)
+Received: from localhost.localdomain ([2605:a601:a61d:7a00::11])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97c35bfcsm33085666d6.42.2026.10.13.12.53.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 12:53:33 -0700 (PDT)
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+To: Michael Burch <me@michaelburch.net>,
+	Aleksandrs Vinarskis <alex@vinarskis.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Tobias Heider <tobias.heider@canonical.com>,
+	Val Packett <val@packett.cool>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
+	linux-hardening@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
+Date: Tue, 13 Oct 2026 15:53:27 -0400
+Message-ID: <20261013195327.19571-1-lnicoara@thinkoid.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013172718.12355-1-me@michaelburch.net>
+References: <20261013172718.12355-1-me@michaelburch.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013-kunit-parallel-v1-0-f4be28c895e5@kernel.org> <20261013-kunit-parallel-v1-6-f4be28c895e5@kernel.org>
-In-Reply-To: <20261013-kunit-parallel-v1-6-f4be28c895e5@kernel.org>
-From: Daniel Latypov <dlatypov@google.com>
-Date: Tue, 13 Oct 2026 12:53:08 -0700
-X-Gm-Features: AclHuK8z2hwcwxCnPzLLSbjbaXHYfi3CL2D7DyPENfay0wYMSMnrgT2M8XDF-Lw
-Message-ID: <CAGS_qxrRMoy2fB3zzpD=bOf7R4not5TqpDXE3a-dRKJOpyRt8A@mail.gmail.com>
-Subject: Re: [PATCH 6/7] kunit: tool: Serialise output written from multiple threads
-To: Mark Brown <broonie@kernel.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
-	Rae Moar <raemoar63@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-kselftest@vger.kernel.org, 
-	kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 8:52=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> Python's text streams are not thread safe. If two threads write to
-> sys.stdout at the same time the stream's internal buffer can be
-> corrupted, resulting in lost output and runs of NUL bytes or heap
-> garbage being written in its place. This isn't an issue currently, but
-> will be when we implement support for parallel test execution.
->
-> Add a lock to kunit_printer which Printer.print() takes around each
+On Tue, 13 Oct 2026 12:27:16 -0500, Michael Burch wrote:
+> These two should be AMUX1_GPIO and AMUX2_GPIO. My unit (BIOS 2.14.0)
+> shows what Liviu reported [1]: 0x14c (lpddr5_therm) reads 130.048 C from
+> boot on, and that is the value the EC is sent.
 
-Firstly, thanks for taking on test parallelization!
-In March 2022, I'd written a proof of concept that worked, it just
-leaked some memory on the C side so I never shared it.
-(Instead of using the existing test filter glob, I'd added the ability
-to specify arbitrary test indices to run a slice of tests)
+Same here, and the ADC1 table settles what my readings left open.
+On this unit (also BIOS 2.14.0), with all four GPIO channels defined
+in one DTB on a 7.2.6 kernel:
 
-I'd have to reacquaint myself with the code to actually review the series.
-But one thing that sticks out immediately is, my version had added
-this new type to avoid the need for any locking:
+0x14a  38.6 C        0x14c  130.0 C (constant)
+0x14b  32.7 C        0x14d   34.7 C
 
-+class BufferPrinter(Printer):
-+       """Like Printer, but only prints to an in-memory buffer."""
-+
-+       def __init__(self, parent: Printer):
-+               """Creates a new printer that inherits parent's
-settings (use_color)."""
-+               buf =3D io.StringIO()
-+               super().__init__(buf)
-+               self._use_color =3D parent._use_color
-+
-+               self._parent =3D parent
-+               self._buf =3D buf
-+
-+       def close(self):
-+               """Prints the contents to the parent printer and frees
-memory."""
-+               self._parent.print(self._buf.getvalue().rstrip('\n'))
-+               self._buf.close()
-+
+A charger on the left USB-C port warmed 0x14b by 1.6 C in three
+minutes; 0x14d stayed within 0.1 C. So usb_charger_left_therm is
+AMUX2_GPIO, 0x14b, as your table says; 0x14a reads a board
+temperature and warms with the SoC.
 
-It required passing along kunit_printer.Printer objects to more
-functions, but I think it might be a cleaner end result.
-By explicitly calling `close()`, we could control when exactly output
-gets flushed so we can avoid weird interleaving.
-It seems in a later patch, you write each kernel's output to a file to
-get the same effect, but an object like this could be used in more
-places.
-Thoughts?
+> +	sys_therm0: channel@14a {
+> +		reg = <ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
 
--Daniel
+One note on the shape: hamoa-pmics.dtsi already defines
+channel@14a and channel@14b as pm8550_gpio_01 and pm8550_gpio_02,
+with gpio3 and gpio4 in high impedance for them. The EC's io-channels
+can reference those two directly; redefining the nodes in the board
+file only adds the labels, which the EC node does not need.
+
+Happy to test a v7 with the two channels moved.
+
+Liviu
