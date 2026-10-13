@@ -1,259 +1,270 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD0653CA7C;
-	Tue, 13 Oct 2026 20:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E115111B1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791922986; cv=none; b=IRUSYvvzwNtD90byB6V4HTNj2YnDp6V4KSo22g65neROZOiZ/SrecnsprMTbjXLwWnOkFlMSinKmYAsDoSWcXHDXPITbgiQgwvgn9nGm577gtb9Y7RH/m7RImzSJYRXkJUprTtQUOCjexchTIqT0H+kLxiTeBpYY4T/r3LyRSbM=
+	t=1791923131; cv=none; b=lhn/JxZD/ZjCKAptWphxzRnCvDz4bi8eEYORO5LABAUhJWAEtbnjTpFzchxMZcio0tEiNS2p9yyvh1Do7J4CSBvfBNWtGxOOHDtjPIHckX/Lk+ivePPUwh9CgpqHGwPchNS/5xSXpgWPhiIRDpPr1coNdddBvVs0ybSQuwpGpSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791922986; c=relaxed/simple;
-	bh=UiAbtmA5YiRllYJJfAhGiTjLdg2J+gVaDZRoXFqE6cs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R8e0/eN0SvzPC0UKeiLyOoyiEBA1XnVG+nNF18fLvRMWw3HfQkMbBtGmk0z3O2zUDGxuixzi0kv0Vq+k5+j4XR4pQO3vHrmusq2OZsAIGptB6UpA2ZWnpfOwsOR00s+hp5EujSfI+Vg/jQ4STa7ffYEPFGPSPRoE2/ICaZHsT44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Oj3DT72M; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791923131; c=relaxed/simple;
+	bh=TKdrpfxC2GN9xVUz//udAX+IPUJpHIdg3r27W0oKGto=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dhwqpaMVCaEmmR50DTeZnsy1ynMkcwLJ8munlcHJVpzsyBVZjepUmDMf2HMwfgpOICxS2qbIRhSAxCxa3KIJ4IUE1BDbzjcS9MQEzsplMzIRP9oiWcZIdS0JDFjErxVEZYOYUM8KTvo3shjqbQfLQmvUpl7Tgzb8rr4G/qVljDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jm9mMZ6K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Oj3DT72M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791922984; x=1823458984;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UiAbtmA5YiRllYJJfAhGiTjLdg2J+gVaDZRoXFqE6cs=;
-  b=Oj3DT72MQ7Xd3eRYqBsOTZO6VNyM93GLRaPjqgwoUt5/HRgggvErcaje
-   B6eGGl04ZlNCD7HBxpbj5z8P7T2g7PVj/MDayXI4KXQfS/ktAuIN6T6Fa
-   C7iyp3GR9D4lPnrEeyTXHei1nPhGw1Vr2Lv+t/F+5JohAiZgO4s+fdClT
-   5uzF5JGUJ7hix9e/uQ8y9Pv3xxfs+3h2h8+VfUJttYfi8378t/Ji8mFBC
-   CX6pLDIQT+wc3ac225YM79xIpEp1oTTdkXZk1SzRIrqMujE3zwRZDka+V
-   sbiql3DWLak67egAdYhtM8UFEJw2XG/H4eoWQk/QuXn/9IDQCxQzQwXrF
-   A==;
-X-CSE-ConnectionGUID: gX3Y7xD7QomIzyg/b8ZoBA==
-X-CSE-MsgGUID: PVBdFRzNRTy8OH7zstQ46g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="667892"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="667892"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 13:23:03 -0700
-X-CSE-ConnectionGUID: AJNcdoTXQ+CIZ5RMMEwZMg==
-X-CSE-MsgGUID: hLwJczMXSlGBgY/rSufGqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1179255"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa009.jf.intel.com with ESMTP; 13 Oct 2026 13:22:59 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 882A099; Tue, 13 Oct 2026 22:22:58 +0200 (CEST)
-Date: Tue, 13 Oct 2026 22:22:58 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-	David Gow <david@davidgow.net>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	Kees Cook <kees@kernel.org>
-Cc: Petr Mladek <pmladek@suse.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] hexdump: Allow skipping identical lines
-Message-ID: <as6TIm6xE8Izccb5@black.igk.intel.com>
-References: <20250319-perso-hexdump-v3-0-a6ba3a9f3742@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jm9mMZ6K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0DC1F000FF;
+	Tue, 13 Oct 2026 20:25:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791923129;
+	bh=UaZQVI4OBM3dYTDYP0h3QPZiaN1K+djX9uwXeV4f+FY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Jm9mMZ6K42gtgoI2FD4ePesOjmwOOAPUms8KWxDz84hZ8REV4FOlBnMJfYYQftxxk
+	 lci6/JGRZDKLaEtM/qoyLcZmoWainxeJXbFNzOvoML33EcMgKwCnUQeCZURZ24W/O4
+	 YAFKpMV5Rs4H1SJ05sNsGabyYu8aeJOYgvoq+JrcW03sWBth261ekC2Vutn2S8ounP
+	 oCO0t90kY3SS8NDQ3Z4xZK21Y9ap6m/l8+VxH/QH7qBxFqCZBWjqsFEZnpFq3jHrOC
+	 zLHrOWqQK0KvO+WsMTTPE1e7tZjbGABcmtN87LhpEfjlixV3GKBIVQ+sMOGfNg+nyL
+	 TrF7PbIj7GrKg==
+Message-ID: <dfbb4bac-0def-4e1b-87a7-91c9cd91349e@kernel.org>
+Date: Tue, 13 Oct 2026 22:25:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250319-perso-hexdump-v3-0-a6ba3a9f3742@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 10/13] mm/collapse: open-code collapse_single_pmd() in
+ its two callers
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>
+References: <20260928100630.21870-1-kirill@shutemov.name>
+ <20260928100630.21870-11-kirill@shutemov.name>
+ <b2133cff-ce69-4a45-bf33-c44b774dee7b@kernel.org>
+ <ar-nKHZ5hlbsXeFP@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <ar-nKHZ5hlbsXeFP@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-+Cc: KUnit maintainers + Kees
 
-On Wed, Mar 19, 2025 at 05:08:09PM +0100, Miquel Raynal wrote:
-> While working on NAND issues, I used print_hex_dump() a lot to compare
-> data. But I am mostly working on embedded systems where the kernel
-> messages go through a serial console. Sometimes network support is an
-> option, sometimes not. Anyway, I often print buffers both in kernel
-> space and user space to compare them, and they may be full of 0's or
-> 1's, which means lines are repeated a lot in the output and this is slow
-> *and* hard to compare.
-> 
-> I initially hacked into lib/hexdump.c for my own purpose and just
-> discarded all the other users, but it felt like this might be a useful
-> feature for others and decided to make it a public patch.
-> 
-> * First patch creates a helper named print_hex() with a prototype
->   containing a flags parameter, instead of an entry for the prefix type
->   and another entry for the ascii boolean. print_hex_dump() now
->   falls back to print_hex().
-> * Second patch adds a new flag to possibly skip the identical lines.
-> * Third patch is optional, and adds the offset at which the dump
->   finishes in case the last line to be printed would be skipped.
-> 
-> The Cc-list, as provided by get_maintainers.pl, was returning 330
-> e-mail addresses which felt to much, so I ran the script only on the
-> second patch (the printk/includes/debug/Doc changes). It gave this
-> Cc-list which sounds more reasonable. Hopefully this is a smart move,
-> otherwise let me know what you think would be best.
+Finally following up after recovering from last week :)
 
-Sorry for the so late response. First of all, a bit of a background
-development on my side. At some point a few months ago I asked John
-Ogness to give me a private dive to the printk() guts. He explained
-to me a lot about ow printk() circular buffer works and that the
-implementation is nowadays done in the terms of circular buffer library
-and printk() front-end. This gives a potential to get a clean solution
-for the testing how printk() actually behaves. The main issue with the
-real printk() is that the buffer it's using is defined globally and
-for clean test cases the printk() can't be used. We discussed the way
-of high-jacking that by linking an object file of printk() implementation
-to the KUnit test, but it seems quite a tricky if ever achievable exercise.
+> 
+> Right on both.
+> 
+> As I mentioned before, virtual address scanning might not be the best
+> way to collapse page cache.
+> 
+> We might want to start from inodes on superblocks that have large folios
+> enabled.
+> 
+> But it is out of scope for the patchset.
 
-Meanwhile Kees Cook seems found a nice workaround for the similar use case
-in his recent patch series [1]. The idea is to register custom console and
-provide a custom .write() method which is the heart of the solution. On
-the writer side user prints something which has unique prefix, while the
-console callback recognises that pattern and checks the rest of the line.
+Ack.
 
-I promised to David Gow to write this so we might have some generic
-implementation of either approaches (whichever seems feasible) in KUnit
-framework. It would be nice to have kinda macro to register a filter
-that will check printk() buffer and compare to the expected output.
+> 
+>> Also, I guess we can convert some of the scanning to use per-vma locks in the
+>> future, whereby we would actually want to scan with the per-vma lock held.
+> 
+> That is the reason the caller owns the lock here.
+> 
+> On top of this series I have khugepaged scanning under the per-VMA lock:
+> the scan asserts whatever lock the caller holds, the caller does
+> vma_end_read() before the run, and the run takes the locks it needs
+> itself.
+> 
+> Neither the scan nor the run changed for it.
+> 
+> With collapse_single_pmd() dropping the lock, it has to know which lock
+> the caller took. process_madvise() on another process's mm cannot move
+> to the VMA lock: untagged_addr_remote() asserts mmap_lock, so a remote
+> MADV_COLLAPSE keeps it while a local one and khugepaged move on.
+> 
+> The single call would need a flag saying which lock to drop. That is
+> the lock_dropped bool again, pointing the other way.
+> 
+>> I do wonder about one thing: should we really care so much about keeping the
+>> mmap lock locked? Meaning, why not provide a single collapse_single_pmd() that
+>>
+>> * Is always called without the mmap lock (as is)
+>> * Always returns with the mmap lock unlocked (change)
+> 
+> Yes, we should.
+> 
+> Walking the tables under one hold and giving the lock up only to
+> collapse is how khugepaged has worked since ba76149f47d8 ("thp:
+> khugepaged").
+> 
+> The bool is just how that signal got plumbed when MADV_COLLAPSE arrived
+> in 50ad2f24b3b4, and it has already cost one bug, 5a62019807da
+> ("mm/khugepaged: fix issue with tracking lock").
+> 
+> This series removes the bool and keeps the behaviour.
+> 
+>> Sure, we drop+re-acquire the mmap lock a couple of times and lookup the vma, but
+>> isn't that actually being nice to the other parts of the system? In the future
+>>  it would simply get called with the per-vma lock and would return with it unlocked.
+>>
+>> In the good old days, looking up VMAs was expensive, but nowadays ... not sure
+>> if it still matters?
+> 
+> The rwsem and the VMA lookup are not the only cost.
+> 
+> In your version every table is a visit to the mm: unlock,
+> khugepaged_mm_lock, back through khugepaged_do_scan(),
+> khugepaged_mm_lock again, a trylock and a VMA walk, for a scan that on
+> memory already huge is one pmd read.
 
-	KUNIT_REGISTER_PRINTK_FILTER(my_callback);
-	printk(...);
+I removed the inner loop. We could have kept it, but the numbers below suggest
+something different I guess.
 
-Folks, what do you think?
+> 
+> I measured your prototype against patch 9 as posted, both on a production
+> config, 8G of anonymous memory already collapsed, scan_sleep_millisecs 0,
+> pages_to_scan 65536, PMD order only, five runs each, medians:
+> 
+>                                      as posted    yours
+>   khugepaged, nothing to collapse:
+>     full passes over 8G in 20s         251,180    55,477
+>     khugepaged CPU                        100%      100%
+>     cost per refused table               19 ns     88 ns
+>   MADV_COLLAPSE, already huge:
+>     512M per call, p50                  3.8 us   17.4 us
+>     2M per call, p50                    703 ns    703 ns
+>   tables walked in full then refused
+>     (max_ptes_none 0), passes in 20s       803       836
+> 
+> On being nice to the rest of the system: the scan is already bounded.
+> The read hold ends after pages_to_scan worth of progress. We already
+> have properly sized scan batching in place.
+> 
+>> khugepaged? Not sure if this matters. madvise? I suspect many real users operate
+>> on a single PMD only (e.g., tcmalloc, jemalloc). For the other ones, not sure if
+>> dropping the lock every PMD is really a problem?
+> 
+> khugepaged matters. We run it across the fleet, and its scan cost is
+> what decides how aggressive we can afford to be with it. I am not
+> giving up scan rate to keep one entry point into the engine.
 
-[1]: https://lore.kernel.org/r/20261005155653.late.426-kees@kernel.org
+I'm not sure whether the numbers above area really *that* relevant. But I get
+your point: scanning must be as cheap as possible.
 
-> ---
-> Changes in v3:
-> - Drop the tree-wide changes.
-> - Create a print_hex() helper with the new prototype discussed with
->   David and Petr. Create a fallback from print_hex_dump() to
->   print_hex().
-> - Include a new patch to print the final offset if the previous lines
->   where skipped.
-> - Fix the typo reported by Randy.
-> - Link to v2: https://lore.kernel.org/r/20250110-perso-hexdump-v2-0-7f9a6a799170@bootlin.com
 > 
-> Changes in v2:
-> - Rebased on v6.13-rc1.
-> - Manually fixed the diff in many places to fit Andy's requests.
-> - Added a real life example (code diff and output diff) with the
->   modification of the API as well as the use of the new flag introduced
->   by this series in the cover letter (at the bottom) as requested by
->   Andy.
-> - Link to v1: https://lore.kernel.org/r/20240826162416.74501-1-miquel.raynal@bootlin.com
-> ---
+> For a single PMD there is no difference either way. For a range, today a
+> MADV_COLLAPSE over memory that is already huge walks it without letting
+> go of the lock at all; in your version it relocks and revalidates for
+> every table, and tells madvise_walk_vmas() to look the VMA up again.
 > 
-> Here is a typical diff showing the code change with a perfectly equivalent
-> output:
+>> IOW, how bad would the following simplification be (prototype that needs more
+>> work and thought):
+>>
 > 
->  print_hex_dump_debug("", DUMP_PREFIX_OFFSET, 32, 1, spinand->databuf, mtd->writesize,
-> -                     false);
-> +                     0);
+> ...
 > 
-> Here is a typical output of a NAND buffer without the new 'skip' flag,
-> ie. with the above code snippet:
+>>
+>> Based on that, I'd rather want to see collapse_single_pmd() to just inline the file
+>> and anon paths, and see how we can further optimize the locking internally (e.g., perform
+>> the pagecache scanning without the mmap lock).
 > 
-> 00000000: 55 42 49 23 01 00 00 00 00 00 00 00 00 00 00 01 00 00 08 00 00 00 10 00 2b 10 f1 92 00 00 00 00
-> 00000020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 db 93 e9 fc
-> 00000040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000060: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000000a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000000c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000000e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000120: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000140: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000160: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000001a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000001c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000001e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000220: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000240: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000260: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000002a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000002c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000002e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000320: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000340: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000360: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000003a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000003c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000003e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000400: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000420: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000440: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000460: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000480: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000004a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000004c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000004e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000500: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000520: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000540: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000560: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000580: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000005a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000005c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000005e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000600: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000620: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000640: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000660: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000006a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000006c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000006e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000720: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000740: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000760: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00000780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000007a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000007c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 000007e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> I see the appeal of the single entry point for the collapse engine. I do.
 > 
-> And with the new flag added the code looks like this:
-> 
-> -print_hex_dump(KERN_ERR, "", DUMP_PREFIX_OFFSET, 32, 1, spinand->databuf, mtd->writesize, 0);
-> +print_hex(KERN_ERR, "", 32, 1, spinand->databuf, mtd->writesize,
-> +          DUMP_PREFIX_OFFSET | DUMP_FLAG_SKIP_IDENTICAL_LINES);
-> 
-> And the output is easier to parse and also faster to show on a serial
-> console:
-> 
-> 00000000: 55 42 49 23 01 00 00 00 00 00 00 00 00 00 00 01 00 00 08 00 00 00 10 00 2b 10 f1 92 00 00 00 00
-> 00000020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 db 93 e9 fc
-> 00000040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> *
-> 
-> 00000800
-> 
-> ---
-> Miquel Raynal (3):
->       hexdump: Simplify print_hex_dump()
->       hexdump: Allow skipping identical lines
->       hexdump: Print the prefix after the last line to show the dump is over
+> But it costs us on both the locking picture and the scan rate. That
+> does not work for me.
+
+So this is in mm-unstable and I want at least the first 9 patches to go to
+mm-stable rather sooner than later.
+
+As raised in person, I don't like the open-coding here; it just results in weird
+API. I wonder whether we can come up with a better interface, while keeping the
+locking as per your requirement cheap (scan performance).
+
+While we figure that out, does it make sense to send out revised patch 1..9 to
+move them to mm-stable while we figure out the remainder of the new API?
+
+
+Regarding API, I think we have two possible paths forward:
+
+a) An API based on ranges without a VMA. The internal handling would take care
+of VMA lookup, re-validation, and managing the mmap lock.
+
+b) Some better state tracking that abstracts the locking details.
+
+
+For example, something along the lines of an init/next/finish sequence with
+some additional state:
+
+void collapse_init(struct collapse_state *state,
+	struct mm_struct *mm, unsigned long start,
+	unsigned long end, struct collapse_control *cc);
+
+enum scan_result collapse_next(struct collapse_state *state);
+
+void collapse_finish(struct collapse_walk *state);
+
+
+Maybe that could give you some idea how we could provide a cleaner API? We have
+various options I think that don't require this split in the caller.
+
+Ideally, I'd wish we could get rid of the vma revalidation in the callers entirely.
+
+If it helps, I can play with it to prototype what have in mind.
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Cheers,
 
-
+David
