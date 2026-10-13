@@ -1,161 +1,132 @@
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBF12C11DF
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:07:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBE94E0B9D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896876; cv=pass; b=HAHAkCB6T4gpG34wl+OKxKYIyaKvpvHQfiLGJrUN75fXmLyycZm3+B/hFPwp2sB0UqsOF6FwkYV7TUUadSUAknTRJqdvwWtbFulIceML7lJ2LaO9tN37+cUs/fuckq7sR/fqz9YF89xRGo0uifqyS8rdyV42VraoyAGJTNMf+OE=
+	t=1791896898; cv=pass; b=nxzw+3Yfgi/zkpFfBJGAYBn7az5Ay7nbbikaWGp33sRSLojmw+WRgAVYukH5pt++pfdpVhkknldBhV/eYzOodUQ2lZ+IKxuM9WFiL4isWMSkFHSoktGqwZP0Vx75VFGupCcnWj3Iv+iqr0mrAccUWRLT1I46ab9MxNiRhX5KhTY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896876; c=relaxed/simple;
-	bh=xawj7LPCwbMgqnWjYqRMdtxCMjGeDH8k0aCK3wtjkY0=;
+	s=arc-20240116; t=1791896898; c=relaxed/simple;
+	bh=hoU3TOgr/tEZhslHcS2tq2f22QCn7cWixxnhkmlEY30=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=owrSYqQmTTkTsi2yO5X2yDE+LTxc1XRfIZMqDNQXO5SEmuqbb5nD1G+slJjSM4IeRQefE7n8AQSxtQo4uMQcZ2dJUaw+NajQdhsYepUDvT+JeIchWyxyv/ad0qRPF2eUgB2C+pDTwzEGdJpxmzgcM5hQqZ8RVVFnHRTwD3P6HTs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b1zniEmF; arc=pass smtp.client-ip=209.85.160.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=BEBo8KjQlDxJGC5Z4aJ8VzN9XfwaQcMep7ntbYIqHydGs/9bak7vXMl2jKXregiBJju8iRZ8d9MIOuh3SIE8uNjnHY6MKtidrhjh3LsZWG+9nEZfkC9BTydXui1bM1mRCTW72YTTEG+s8TOCZYupjDEhraB2i4gt/Kjz2O6XenY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Q+eUxIWB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NbGGYoVj; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b1zniEmF"
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4a6bb779d13so646848fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:07:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791896874; cv=none;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Q+eUxIWB";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NbGGYoVj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791896896;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hoU3TOgr/tEZhslHcS2tq2f22QCn7cWixxnhkmlEY30=;
+	b=Q+eUxIWBfhz9w21RJrLlQ+CO3E8b9WZe4lq5ZdmgGOYFytk4rsH/YdXgXCliQW28ZbToVl
+	Fr17nCuWhFiYFQh5YxsyFl9KIod090drLDHHSUc+tadLTYqamd1W68wcZ3P6/ppeviu6VD
+	cBm+YuP/aAiCW70jOJ7QzwumdTDG8iU=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-375--wuD9nc-O-WR04xgZdL28Q-1; Tue, 13 Oct 2026 13:08:14 +0000
+X-MC-Unique: -wuD9nc-O-WR04xgZdL28Q-1
+X-Mimecast-MFC-AGG-ID: -wuD9nc-O-WR04xgZdL28Q_1791896894
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so26213405e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:08:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791896893; cv=none;
         d=google.com; s=arc-20260327;
-        b=fkYG9fnfdBXIKOC7ILtG1RLb8qmofkbfOLI8nLGSsw5Js5COgmJ7sQh1HuJsovjErl
-         3KfcN9nOP2b+1fahQYXTcMW4XZMUF3o2h2QMXRTsjxxXgLeEh7h1RNnPk5LhU0dsXoLh
-         9LpU04cod6w/HBasDHhN+1l5kRXEHZB2hhqbkvsNyDEAUuzdoy72536GnzBE0ApLyxZB
-         vf9h7nVMICSXGn+OiK5YxfjWBAIQDJgJInsMRq1H9am5lUi6/GBts2xis354gLEoSFIO
-         zIokgdm41WfhVQa/0wY0+Lf4lxemIcRZuFtZE5EA9NavT3UfkIngsWdyxV/2ESFWRrM6
-         purA==
+        b=OvztSkGDRK4ydfj0tyugXciNrasqGcwi6xonYXw/KIWcTPQ5tFZhxv42oXoZ/LGN8o
+         /s1T9ag2slnfbTzAid4MiU7qdjpcu2S777PFvgmRX4St1hWVYd8LnCrBTdJtH/MsKZr8
+         9iKUjG14igI8Pqs3KjevpK604riy1bjB7k8rbE2++hrB4vxfT/l5bFQZkOqP1Ko7/IKU
+         9IVDSBrGqKbEUmQyAMgZbEjUzGeqSs0ucp21iq7fhNWFTBDDy+Pgu00ot6oB6DVenfSs
+         QM6Sv2t8yG6B4b9ModF/XTq69TQSHMddo7RldYJ/fo4BSVIN4uCbDMYRe8JaxLekrTO3
+         iiWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Qheg1l+96cWqmrxCXMlwjyQaZbPfzvAfZfTwXsDXnnc=;
-        fh=HaX6fLNrHoEnXKXRiTZYK9Ou+u5dEGTU3efmYvo6A3o=;
-        b=NqCdkOBA+9ME+58FVaP9qRleJJxkXIN7BuC6R8s3Rp9b9fPKP43V8Swt4lSvu2vmIT
-         yxOECV3TUyBl1MJlUs/G7u19zSj2wmEetZgEl4KC94cH3AeM9uqQ3QeBTKWaApePLa9T
-         H1rZbigk7SW87Vhk6LIwQoiyvS3NgRBabWY0ptoEal82lseSU2ijGstNMPvGUw0SDyc6
-         lViRBaL/WZhQTmAoCtEnQV+0aN6z5p9pmaRlZyyqcSdeo2ICVwS+SLLeh6uqtaT9ZTsj
-         TG+zRMZKP2+QlLWtkLDxhgOPZ/uqswUCnd151zCUWfewYfpAYUIxOmRFeAoOur5yo9/T
-         LKWw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hoU3TOgr/tEZhslHcS2tq2f22QCn7cWixxnhkmlEY30=;
+        fh=yoSXEZHX00/mFqelW88Wfy5uTLkVsFuYZx2qsiETPI4=;
+        b=SdgYE2bhMHiUv1avZJoa8AA9rSthOurH0s+eR982Q9071yY2QznKT35oX03bLIYncO
+         QeTuXAfmS3JLgK42Io0hF6r5sWxalim7G+anvYwq1npq7YYZMlA64m9VHa53oA457Q3W
+         vRiLBp/cCLPEUDhfYzRuTbHv/nzP/HQLg5t/Q0hvSaS4/G6uFneKBKqdF1XvSd5gBIkH
+         6cqlqIwCw4JuCsQlh5Skk7vO2En8kjqII3gjrSNX/rR62hV3gm9WfnktjEI6gE1+mwJz
+         Wx6F0UMZeMMyjiCfwZLz3RWE5u+vYZ0MHejkSJ1ZT04lTPWi/kIasOA5Tv28wDXFSWRV
+         L7Qw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791896874; x=1792501674; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qheg1l+96cWqmrxCXMlwjyQaZbPfzvAfZfTwXsDXnnc=;
-        b=b1zniEmFdl/6RdrAfnf0sSH89U2wUtZZ4vYOhjdp1cijiEIq/cixfWYcuN0onyIL9D
-         lvTqNOWE29E3xTwtmjnUcZkZICNiXGJtuWJ/6+g+CJpRgLYcza/uIsySfqife+D6SYN1
-         vKkoKlHhbAOW6AULkTyjsuEvfFbPETwcc8IaMzUiwVVaiaHoNFKl8x77oOaTumLGJz/2
-         CyYn3ZzabvWisGjIGI2g23a5PiA/SyVnn86wpEFRAHDPiD2Pq8oZTfMdCiYkp2CvjV5I
-         jhMmDYebvVQ6iULzVTW0gqsk83muR1KDoU13gmBNch0ayJWTRuAH7OrtIJuwlxXSDEPn
-         Oj3w==
+        d=redhat.com; s=google; t=1791896893; x=1792501693; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hoU3TOgr/tEZhslHcS2tq2f22QCn7cWixxnhkmlEY30=;
+        b=NbGGYoVj251pAwO3OQG4jy7G675w4oX3RiqszITT70c1b51iveMx22O3vfPlXbjWGf
+         xem93lRq0PPdNBhiZWTAbuzAOvYzfKw3Ds+BQnhViWDLnTqQyLhZXeza3v0DFnP11yup
+         5ENfuFe4ZHg8FI8SEB5tGyQEf5G4FwAuAu3EpLkPoujQCu8h95VT5YLnbJXwddHg+JiP
+         RLgha4DcmaIp8gLllRgW1EFqa8JG66+fIg9jTskAsm94cFAT9kRAFfocU7CaZTmqU63a
+         X+LclKUa4giZVWjF03VvvypFPZp76K84i5BJbBSHrv4m44NElWg51SwGarF2r00dZKvX
+         TKMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791896874; x=1792501674;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Qheg1l+96cWqmrxCXMlwjyQaZbPfzvAfZfTwXsDXnnc=;
-        b=wICo3MLA8nGguVxEjU6GaxY6hVxwSPefXES2hTW2z8pKB3h1dZFmoLTNdFHLid2RNs
-         gQR3OasPeJ5hQoWR9Xz3FhNlZLahoP7m2PQrrFrlfvyEdHkVtVSxsNL6efdG37Pe1zh+
-         tYsUHs39x15cK53fg8tH8KpNqo+cWjRXVg2tkNhElrmOFBhuV2Yjf8Jsv9n+8T2IVKc9
-         o6shGT1jYZKSS8O0yBlVnXZdvj8E31pZZ4FwUXHhNUdboSRmoWst9H8eeHVoQ1aTkloI
-         buRMu5zBVQfG+Fy4JImTTKnjjqTfPc7SBpbb7I+tUHyQ8zKKJ3bMVAjgGU/XtG6zzZmJ
-         1RVg==
-X-Forwarded-Encrypted: i=1; AKwUvByTkfNUBF79Uovi8fqpvTl6ipjhNU4KXGioz8O6cwUf/5OnsTk/aGC9gYN4qF/67aNyZg1a/5r90tyajew=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMg4BMhDgX3dQqpor3fUrStSe56q0g8HE9yVDtS1rUcs7Lyyug
-	xJhLG5f34MXRjKfJZ925SICJIJEayUxJAVLN4UMwyRR2BGY2Ao2byWwOLdqWyO2bM1Q6LiSuYij
-	c2UFQBzb3+N9m1+v1AqLAnebbyi3oA44=
-X-Gm-Gg: AYBFou3MOzvBDG4jxqVFOFdWocffmgkJewMC/AGqoOXTdCszJuFLRGxUHL/SIv/QhqC
-	j7SM5WDu5qzyUVXo5nsXeGAiOFq4j+gZY1u6nLpuvFtrfNwS+BsV9nCOPY4CoFJa+SELyalitsI
-	jyW74dypM4So2A4M4pLUQbU9ynJDGvPRsxwfePyZ+70zmOCaWNcntmaFRplwttl1dURJl+H2om7
-	ywhKZjipYu57JCJMg6NalOBOJbf3BSaGl34NpeglFz/VgS4SQqMxQiyIHYWqzF1qc3WIJJOlEID
-	R/9XJYEqOvtXEFAz9yyGoByaVEGetlp3rE32y6fPH7E12NOFZLLhwLNMfvqYLLqTSwoOOCByKkc
-	jQYtgVJdC7AJqKA==
-X-Received: by 2002:a05:6871:385c:b0:494:75ba:c6d2 with SMTP id
- 586e51a60fabf-4a2a895588emr10792549fac.13.1791896874028; Tue, 13 Oct 2026
- 06:07:54 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791896893; x=1792501693;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hoU3TOgr/tEZhslHcS2tq2f22QCn7cWixxnhkmlEY30=;
+        b=Bakk8Nl39Yt4L3CqlnCFhwtKh5Ppz63MAeVzxsrDYrJFfU31c1kZC5QkQmK2WHJA62
+         bQUQjMFl1Mq3Q+alVSAup5zlBFOhHd4jG5KVXYm+s7MXFXoFcGxmD7ZsMcadzqp31o3w
+         RmT06T6AWMg95/P6ODhhGExPnVO87oug8FShvcZYWzvKTwDxgkQ9jPSskaS91nbefxl8
+         uqaSbH4oBFU46qDwRG2PiS/H1JOGB1j5/b9gpqlbrGx4oRGwXBjgIlNMkjOKgSlHGSIg
+         1G9hIMb2gpfl1eNf/vFKatvOckK1Vm8XEj1wrxx1ysr84OHRX7OP226tUVYr4UFvXQpp
+         Ro/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxy8xRQZSHRwbG87tAfpkyYCdohg2CDbjxVzf7sxVufothIhzwB6+2NdkMiCCpwi1K1JXLqTZByXj7mRiw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6vfffiDQ/XuaCzbaNWt3ylKFwOBL5fs0F5ZUz5/lR+ah8gr8T
+	H3Vsq4dINhJBIWDllbDVDW2QJrYdgnZHwFzv2kQCOp4GkopyxapXNDeOGKdpf9WAo4gEzdBncMJ
+	TPPaCHwjOeHFYk6yDkPIUvEth7n1/hp0krbTDehy+1/twyledY0IVpFhWaYHb9+cNvx26WoAUXK
+	QECscZpOTlS9SvzkgbWClh0VE1z9TJx1q0buY42h94
+X-Gm-Gg: AYBFou2nU6q6ulTjI2vdQWc8csJ6dJnQFOuPAbhe+QQesWG75Jif+zX79PulRFo26NE
+	5qnL6u833+8ZpQg4utXh2BgdYOR2bYxlRvD7SeODEDcFcqbpVNEpQEae0xtjLgmC8C6iJ4/KTED
+	qnHot2C9kKG0qDK9i7lmWA1iF1q5GGllPdPdjuvnNY/n7eHFqdmn7IbB2U
+X-Received: by 2002:a05:600c:3f0c:b0:4a0:1723:2d8e with SMTP id 5b1f17b1804b1-4a18e44691emr266637225e9.2.1791896893539;
+        Tue, 13 Oct 2026 06:08:13 -0700 (PDT)
+X-Received: by 2002:a05:600c:3f0c:b0:4a0:1723:2d8e with SMTP id
+ 5b1f17b1804b1-4a18e44691emr266635145e9.2.1791896891815; Tue, 13 Oct 2026
+ 06:08:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012170857.199561-1-hjf3108@gmail.com> <64707239-eac7-4259-a8ff-7ec43d13860e@suse.de>
- <CABOQOSXgG2kBzs2sBEE69mmPcO0cKVgjyk_6DG5RST_4uL2+sg@mail.gmail.com> <c9460a8d-3fdf-439f-9655-82b60617b85c@suse.de>
-In-Reply-To: <c9460a8d-3fdf-439f-9655-82b60617b85c@suse.de>
-From: Jie Feng <hjf3108@gmail.com>
-Date: Tue, 13 Oct 2026 21:07:18 +0800
-X-Gm-Features: AclHuK_BSShDGM_0lhA2qLrS0hd1Dfj-OXXVUtwJLUikUL0Nv1qjZuflxKv6ilA
-Message-ID: <CABOQOSUE17pQQYydLxCLHg1Jg90dwCEvMZYyo6TzYHMn9RAL2Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/format-helper: Add XRGB8888 to UYVY conversion
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
+References: <ar4BZ26gjQEjZgIa@stanley.mountain> <ffeb3e5b-d9de-4337-b250-e27667024461@web.de>
+In-Reply-To: <ffeb3e5b-d9de-4337-b250-e27667024461@web.de>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Tue, 13 Oct 2026 09:07:59 -0400
+X-Gm-Features: AclHuK8Sj2_Nz53xtduLPLt43HBfIW0FUJKisfBY_Ut16Ue4zEZk3fhpsmezn3s
+Message-ID: <CAK-6q+heOWNY8CY8dgotxzEeFC_-huHnnO2pgH8kJsJSGryOtw@mail.gmail.com>
+Subject: Re: [PATCH] dlm: clean up a type in waiters_read()
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: Dan Carpenter <error27@gmail.com>, gfs2@lists.linux.dev, 
+	kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+	David Teigland <teigland@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 13 Oct 2026 at 20:32, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->
-> Hi
->
-> Am 13.10.26 um 14:17 schrieb Jie Feng:
-> > On Tue, 13 Oct 2026 at 15:11, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> >> Hi
-> >>
-> >> Am 12.10.26 um 19:08 schrieb Ho Jie Feng:
-> >>> Add a helper for devices that use packed UYVY but accept XRGB8888
-> >>> framebuffers.
-> >> Is there a description of UYVY available somewhere?
-> > This is for a reverse engineered usb display adapter, which accepts
-> > input in bytes of U, Y, V, Y in that order. I'm not sure what
-> > counts as a description, apart from it matching DRM_FORMAT_UYVY?
->
-> I see. The format exists already in DRM.
->
-> >
-> > This patch is meant to move this out of the driver:
-> > https://github.com/rhgndf/ms912x/blob/main/ms912x_transfer.c#L153
-> >
-> >>> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
-> >>> ---
-> >>> This is used for a driver, ms912x that I will be submitting. It only
-> >>> supports uyvy framebuffers.
-> >> Please resubmit as part of the driver series. We're not going to merge
-> >> it without callers anyway.
-> >> ...
-> >> For naming, please follow the conventions used by the other helpers in
-> >> this file.
-> > Will send the driver in with this patch and its fixes, thanks for the review.
-> >
-> >> ...
-> >>> +             v = drm_pixel_rgb2_to_v_bt601(r, g, b);
-> >>> +             u = drm_pixel_rgb2_to_u_bt601(r, g, b);
-> >>> +
-> >>> +             transfer_buffer[dst_offset++] = u;
-> >>> +             transfer_buffer[dst_offset++] = y1;
-> >>> +             transfer_buffer[dst_offset++] = v;
-> >>> +             transfer_buffer[dst_offset++] = y2;
-> >> Rather that writing bytes individually, use put_unaligned_le32() or a
-> >> similar helper.  Byte order within a pixel is little endian, although
-> >> I'm not sure what this means for UYVY.
-> > This is meant to be sent over a usb transfer, so byte order needs to be
-> > the same on both little and big endian systems.
->
-> DRM formats always refer to little endian. As it is implemented now,
-> it's not clear what the endianess of your output is. Please duplicate
-> the other helpers' logic. They all pack the output with appropriate
-> helpers. If the USB device requires BE, you have to write a separate
-> conversion helper for that.
->
-> BTW, you have an OOB access if the line width is not a multiple of 2.
-How should I handle this? Rounding it within the helper doesn't seem
-to make sense and the function return is a void, so it can't return -EINVAL.
+Hi,
 
-Other helpers ignore the -ENOMEM error when drm_format_conv_state_reserve
-fails, so should it follow this convention?
+On Sun, Oct 11, 2026 at 8:17=E2=80=AFAM Markus Elfring <Markus.Elfring@web.=
+de> wrote:
+>
+> > This doesn't affect runtime but "rv" stores error codes and so
+> > declare it as ssize_t instead of size_t.
+>
+> Can a similar adjustment matter also for the local variable =E2=80=9Cret=
+=E2=80=9D?
+>
 
-Alternatively, drm_fb_xfrm can be exported, and let the driver define
-the rgb->yuv coefficients? But I think it is fine since _to_gray8 also
-cites BT.601.
+What do you mean by 'matter'? It's declared as cleanup.
+
+- Alex
+
