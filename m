@@ -1,256 +1,115 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF7251B192
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B4551C342;
+	Tue, 13 Oct 2026 16:26:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908796; cv=none; b=FIj2yWA7xwCEtlod+G/r6yU1CZpKVJo4FTutq06QBtWddFKER2QOJnu2ZAx94V1YbmQ+5YACJwMtxPgbdnVJTcthwbQAHshFEWEmmxn3S9Dt5RcCWUGF8a5FC6YR8kkYb6i6GaKQrTaSSAI98mjxu2THIIOmZ/pcuoxub/kEdGo=
+	t=1791908810; cv=none; b=G8Go6yLVl6dnb+8+vW3v6L28jWvoiuphW5DnsBI1X8yS6D1YXkvkeCxt+NaI+tc+Oy8fG8ZVv3oOZ9Ccc6R03gUG8TikKveceChYBLmzsN+UQX4XbSo7VlvDirk42dBYO7s9yHBE+VJEVJuPZKExG4JHQaOHlmmeyrre/GCKwUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908796; c=relaxed/simple;
-	bh=asdKm+yELUWfETh9fJn2xsCNIckpc0tZKijaE7PLoPc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=p/VZjCVInqhf09+6AmHOVH+eOnH9bDVrGJjJf1p6EhVRE+H1dJ1zTaGEthk/MlC1TdJgWNc1tPeMd3a2gs74RAp4AhdnRCk3BuoeNZZRn0RqipJiRV56nZWSMrsiZH4pJnZ9PS7oXqXYSicU8c2SOBTEJQra33daEMfom7STbzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0u7xuaC; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791908810; c=relaxed/simple;
+	bh=BWnAZjGBmc/3QRrip/3Tp3ARJU0S/eiP7mqEx4CdmXk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=JbkWdcRW2ubn5kBghUgu/dYLKJMaU1JAbNVEJgnkWHXlDAk2omcO51SGdkGWNbveVWrz0SzhNn+jdZg4CZS39U3jsdzuAEp+kjMws+kNtPoEqGKtnC8sIQZkOds4T0tqsO13JRPZfAvr7QadQWbAzf12ONIX6AjaLaNHWZQE1r8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U0Ft0sOk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0u7xuaC"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-89a756e5d20so2448463b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:26:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791908794; x=1792513594; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sXiiiOJbyXWBqNuOxuAXuY9kXp9RzJjbsniea4O17pQ=;
-        b=K0u7xuaC/Y0YWwomfPFhT6O0/rGbLlBvimEXEsdASAJT8fZpA3VtBePbLfbrG91PlZ
-         3sAbOAhc+vX3wDXyHAHLdOxm2iq3QeiPIfcAaZh0xr9jtnMm3uaywrrHDlu/+2SadhqU
-         fS+82GZqWaY1fq/ry/T2+PZjyCyczNVMd8/l7wjqQQ/r4tyrCr6wYQ/mqxSvrx1W6NAN
-         aZ/Ypo6maTLwDmSG5mCaOf+pLZvrLsPm4601MjI09GtGYjPybdGhrKIb6AO1M82n4PSg
-         YencYKSgoi4PMR2wmvsLJIraDNv5p/kdL6MuqbDxhMV11ke/PzaIqsobNB98dygThbGl
-         +neA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791908794; x=1792513594;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sXiiiOJbyXWBqNuOxuAXuY9kXp9RzJjbsniea4O17pQ=;
-        b=jTaMlkIc4j9w3lXGpfwfRhllce7baz8QVHLuoqlqykenyuNqNProl0BdlySBDFFXkY
-         CMyuzouW8qZn7tsoT6bkHdsnAHXuS/vYN+jxAPIXMBRhekh1bb2lL9swf9lolyi31tZO
-         pf4YF2BDrj+4PhmNA6SeoinfS25S6OzVV9KVcV0pXD5VTf1U2M7XLAQEbfvia7LJ93zJ
-         nYl+wqODu+gA09iu5shMX+SDxbOqDrwau5x1/HeafCEX1LrfhJ50v0s2YmSddsCnCuOl
-         DrvcT602uwlBtj2eZBBpk45olzrjc3tcvH08OE8oDP986W/P7kLdw84NHnLDsrE3X5hu
-         J20Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzjE6Q7Cb2NEzeJqWjxi+K0UhigbpARNWYZjp8k+CUXSgMJFv3aERgAzfLwf2gxDWdMshl8rP+gJFFHrBs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLl8937MnrX2ZUyGyskp0YQ1WN91dxotMJBPijn+phrCAutEj40
-	wp6d6YE6MQmWY/cknLWiXgO7PgKNNTKHihQVHBEjJd4K9HSO74IzSzOe
-X-Gm-Gg: AYBFou1p3x7dsvcIaFE1uQVFPkoNmdii93U9QOh/d5XsCChzS0pn7BTVYfGNy8kvwVl
-	YTgUxkBb5WfujnafWaucng2rpGPji2pALQl5EZrvbYFJAXk2Iu57BXPHp1VsLGCLhncyUwyOr75
-	shbhCthgTaj+1Ycp4tiO5WSY4bWqWg1654/Or6IJ81Q/9WvtYpIJUIsmMpmy6YURKTh5ITSA0AP
-	29vBD/Qn88mpbAJHFucLyfA/nL57YYi0x7aJVWywHtdM3Y4+w5Y8/BNj7333YUfUZA+753FC8ma
-	oLA7JDApsNtEGCbwLXdX+kHLFKLgmAc5XQrNDkU2OmTr79QB3S3ainAMw5zWCD9DJwOEWEIqjx4
-	E44Q4fodSQkic2r/VLIpq/+KkqPlF3scLnfsbUnCMm5M94+vgkPYPp1X4RkInnkWZYy9S+jbYGt
-	7Z/C2nWr9ZL/U4fAtCDF0NNVIy0A658XhhFEJoLSkbDMZKBvafkRn9yzGH2UEowMuK6go=
-X-Received: by 2002:a05:6a00:44c9:b0:891:771a:473c with SMTP id d2e1a72fcca58-897c7fbecbemr11427031b3a.53.1791908793851;
-        Tue, 13 Oct 2026 09:26:33 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d803cf66fsm99760b3a.32.2026.10.13.09.26.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 09:26:33 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	johan.hedberg@intel.com,
-	vinicius.gomes@openbossa.org
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: MGMT: Reject LTK loads while connections exist
-Date: Wed, 14 Oct 2026 00:26:26 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0136-v7-7f507d267b3bec2ac955@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U0Ft0sOk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568751F000FF;
+	Tue, 13 Oct 2026 16:26:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791908808;
+	bh=w5ZeFBzeeHrpGDWLW6tw91Bx1moRTq17q5NJ5hYjjCM=;
+	h=Date:From:To:Cc:Subject;
+	b=U0Ft0sOk23TNSvbL1hV0NCnwuviG/S4zgflN1Y+HAplgAVeMXwWqWdu8ZT9n/YfYS
+	 TPTnK6UEH0zFvveYkRGy/WJ+bXVG3/XejHxw+2z0s//xL0YwSskiLiM8ZeFsKJxD21
+	 Ddvd2S8Lw2yFyZRF4YvykZhHLRBW6w0tdjNiTDm+Wu8NUFhNkuSk2sXBsXZcMYoPgg
+	 AGWCVzOtXPti/FHbAZsiohha4hQf+j+1XX9ETui7QuKGzq2GUPO0YuX28Z56YRyTZC
+	 d3pk6OxTfYzwYfLNiPiBTMi/Ckc6WPO1D39m9yZqaN62JZv/+ktDprJN2P5S2kw7zx
+	 q0JKH+qYxqqUg==
+Date: Tue, 13 Oct 2026 17:26:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Helge Deller <deller@gmx.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>
+Subject: linux-next: manual merge of the fbdev tree with the mm tree
+Message-ID: <as5bwyKpGQaBZ3CO@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8jHG3IIaNGIPxodO"
+Content-Disposition: inline
 
-SMP channels retain LTK pointers from the controller's long_term_keys
-list until key notification or pairing teardown. load_long_term_keys()
-clears that list under hdev->lock without invalidating the channels'
-saved pointers. The SMP channel lock does not serialize the management
-clear; kfree_rcu() does not keep a key alive for the rest of pairing.
 
-An ongoing pairing and management LTK loads permit this ordering:
+--8jHG3IIaNGIPxodO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-1. smp_cmd_initiator_ident() or sc_add_ltk() saves the hci_add_ltk()
-   result A in smp->ltk.
-2. load_long_term_keys() takes hdev->lock, and hci_smp_ltks_clear()
-   unlinks A and queues its RCU free. The pairing retains its alias.
-3. After the RCU grace period, A is freed. A later management load
-   allocates LTK B at the same address, possibly on another controller.
-4. The old pairing reaches smp_chan_destroy() and reads smp->ltk->type
-   through the saved address.
+Hi all,
 
-If B is still live, the old pairing can read its type and remove it
-through the stale alias; smp_notify_keys() can also overwrite and report
-its fields. If B has already been freed, the access is a use-after-free.
-The KASAN report below shows the latter ordering: the stale teardown
-read follows allocation and RCU release of the replacement LTK.
+Today's linux-next merge of the fbdev tree got a conflict in:
 
-Reject MGMT_OP_LOAD_LONG_TERM_KEYS with MGMT_STATUS_BUSY while LE or
-BR/EDR ACL connections exist. Both transports can have SMP channels
-retaining LTKs, including keys derived over BR/EDR. Check the connection
-counts under hdev->lock and keep that lock through clearing and loading.
-Connections are published under the same lock, and disconnect tears
-down SMP before removing the connection from the hash. A successful
-load therefore runs without pairing aliases, and a new connection
-cannot acquire one until the replacement finishes.
+  drivers/video/fbdev/ssd1307fb.c
 
-KASAN report as below:
+between commit:
 
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in smp_chan_destroy.isra.0+0xc8b/0x1060
-    Read of size 1 at addr ffff88810a45eb28 by task kworker/u17:3/506
+  d4488917e79c7 ("fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO, add VM_MI=
+XEDMAP")
 
-    Workqueue: hci1 hci_rx_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? smp_chan_destroy.isra.0+0xc8b/0x1060
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? smp_chan_destroy.isra.0+0xc8b/0x1060
-     kasan_report+0xe0/0x110
-     ? smp_chan_destroy.isra.0+0xc8b/0x1060
-     smp_chan_destroy.isra.0+0xc8b/0x1060
-     smp_teardown_cb+0xc7/0x230
-     l2cap_chan_del+0x123/0x8f0
-     l2cap_conn_del+0x31b/0x740
-     ? reacquire_held_locks+0x1e7/0x1f0
-     ? __pfx_l2cap_disconn_cfm+0x10/0x10
-     l2cap_disconn_cfm+0x87/0xd0
-     hci_disconn_complete_evt+0x30f/0x990
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     hci_event_packet+0x894/0xc70
-     ? __pfx_hci_disconn_complete_evt+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_hci_event_packet+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? free_zapped_rcu+0xd0/0x1e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lockdep_hardirqs_on_prepare+0xea/0x1a0
-     ? __pfx_hci_cmd_sync_complete+0x10/0x10
-     ? trace_hardirqs_on+0x18/0x160
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     hci_rx_work+0x367/0xf00
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+=66rom the mm tree and commit:
 
-    Allocated by task 523:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     hci_add_ltk+0x285/0x4c0
-     load_long_term_keys+0x74a/0x8d0
-     hci_sock_sendmsg+0x128b/0x22e0
-     __sys_sendto+0x425/0x470
-     __x64_sys_sendto+0xe5/0x1c0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  81ae1f9a6c850 ("fbdev: ssd1307fb: check for fb_deferred_io_init() error")
 
-    Freed by task 523:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     __rcu_free_sheaf_prepare+0x65/0x2a0
-     rcu_free_sheaf+0x1f/0xe0
-     rcu_core+0x661/0x1d10
-     handle_softirqs+0x201/0x930
-     __irq_exit_rcu+0x110/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x37/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+=66rom the fbdev tree.
 
-    The buggy address belongs to the object at ffff88810a45eb00
-     which belongs to the cache kmalloc-96 of size 96
-    The buggy address is located 40 bytes inside of
-     freed 96-byte region [ffff88810a45eb00, ffff88810a45eb60)
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
-    The buggy address belongs to the physical page:
-        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
-    pfn:0x10a45e
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-        raw: 0200000000000000 ffff888100042280 dead000000000100
-    dead000000000122
-        raw: 0000000000000000 0000000000200020 00000000f5000000
-    0000000000000000
-    page dumped because: kasan: bad access detected
+diff --cc drivers/video/fbdev/ssd1307fb.c
+index db61d710fccb0,8fd96c37ee1ab..0000000000000
+--- a/drivers/video/fbdev/ssd1307fb.c
++++ b/drivers/video/fbdev/ssd1307fb.c
+@@@ -767,9 -767,11 +767,13 @@@ static int ssd1307fb_probe(struct i2c_c
+  	info->fix.smem_start =3D __pa(vmem);
+  	info->fix.smem_len =3D vmem_size;
+ =20
+ +	info->flags =3D FBINFO_VIRTFB;
+ +
+- 	fb_deferred_io_init(info);
++ 	ret =3D fb_deferred_io_init(info);
++ 	if (ret) {
++ 		dev_err(dev, "failed to init fb deferred io: %d\n", ret);
++ 		goto fb_defio_error;
++ 	}
+ =20
+  	i2c_set_clientdata(client, info);
+ =20
 
-    Memory state around the buggy address:
-     ffff88810a45ea00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-     ffff88810a45ea80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-    >ffff88810a45eb00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                                      ^
-     ffff88810a45eb80: 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc
-     ffff88810a45ec00: 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc
-    ==================================================================
+--8jHG3IIaNGIPxodO
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Fixes: 346af67b8d11 ("Bluetooth: Add MGMT handlers for dealing with SMP LTK's")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 9f65863e7457d..c3e8ca48a0337 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -7460,6 +7460,16 @@ static int load_long_term_keys(struct sock *sk, struct hci_dev *hdev,
- 
- 	hci_dev_lock(hdev);
- 
-+	/*
-+	 * SMP over LE or BR/EDR may retain pointers to the current LTKs.
-+	 */
-+	if (hci_conn_num(hdev, LE_LINK) || hci_conn_num(hdev, ACL_LINK)) {
-+		err = mgmt_cmd_status(sk, hdev->id,
-+				      MGMT_OP_LOAD_LONG_TERM_KEYS,
-+				      MGMT_STATUS_BUSY);
-+		goto unlock;
-+	}
-+
- 	hci_smp_ltks_clear(hdev);
- 
- 	for (i = 0; i < key_count; i++) {
-@@ -7513,6 +7523,7 @@ static int load_long_term_keys(struct sock *sk, struct hci_dev *hdev,
- 	err = mgmt_cmd_complete(sk, hdev->id, MGMT_OP_LOAD_LONG_TERM_KEYS, 0,
- 			   NULL, 0);
- 
-+unlock:
- 	hci_dev_unlock(hdev);
- 
- 	return err;
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOW8IACgkQJNaLcl1U
+h9Crqwf9EfBq9M+h79zE3M8YllABJdGhO81wna/MBhOtWaQtjSLAp5bI2LojnSNy
+S3jdKH2k3IxfVWhjCWCqm0+WMvp0arM+Vtz6lifx0X70N7XOVoBVK13t3xKcRMZS
+gse0JK9EwFkaUcrPOHGHTYlP8IlaXDiYMZM6Mef4mm2hCkM/3Gd7AflQBWesXlYa
+YNjFSLc0pA1OZeVIyD1EE3QO1dfLxTa1zWIhq3b72Leh10oEAN7AKGg8XiS/E8jN
+QiR0cEtI7/An0P3cUu/EKXv4yxSqYh6ScpfY7MWm2baXhZzd/qFECRbkUcIerJiR
+3vSWYOYUQX2HvGl1HpfyX2KxpJU7zg==
+=eXfG
+-----END PGP SIGNATURE-----
+
+--8jHG3IIaNGIPxodO--
