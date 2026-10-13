@@ -1,302 +1,197 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1B9163DB332;
-	Tue, 13 Oct 2026 09:31:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883898; cv=none; b=HhhkbegzlUR0PWWsRFE+SCGxyzzvK8IvlGyasNXS4v2y5qkPj83ry9bNMH3tv0DZqu3NgGO61bch63cUg0UNw1UEHP6b8TwkC/HaryeT6yUjxKacnqm9kPn4XrazCRcOmHB7ybWbfnk2GTawEux4Gnd5eI2iCnargldEXkz5iRY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883898; c=relaxed/simple;
-	bh=OqA21yJGURWr+fHR8OGWuJePl6Or9B4i9mUbbo2HePw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=obEEXZ7B9t96E8LtsBe36UmkpAxHVdgMCLrvOb3F0GbjbJqi6kAP/0XQ+OoAbbyOzLGDYh+I6ziA92/LfE3T9JC83QR2bwljPpJyTUhvGV7CMdP9y1EiIPPqIR/WRvg/bMSujtPMms5sZkVA40QYca12p/zAcDNLfQl3xJvCV3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KFN/Jucf; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D8038D014
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791883935; cv=pass; b=m0DTEGZFw7pNFCCjd5R70gqynoOB2rmZz9gzoE4NiZyL0mLGigwq3EmtztPpnSsZfarRKyDPQlAlMIhSHWFMZvrXmNPPgAuvRfhhpuuVRJqamUPjXbfVuqBJybejlXXaRe4TFavCynfWlcyPM+g3W99mp82ZI269ANSShvifcwY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791883935; c=relaxed/simple;
+	bh=1bJ3BpJqL6XRVNYecItYKDdYwQ+H5PLoopg0tnRg59o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FaoQy/hw40S2ptrdC7TUj+uYE7mZOlqGj8SdB0iiPeCBwfFBmG7LQpdIKvLwSOHOkQozHR2XQwbVzSKNKNnBfwEShhE4RYLFdZeH6SbVtKlB9HFlBBBV0Dy8coU+9q2U4WEBTxYuGzcZ0CJ39CEScgEvRC2fUwldnA8EQGokdew=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JkUFGJQh; arc=pass smtp.client-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KFN/Jucf"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 321E3169E;
-	Tue, 13 Oct 2026 02:31:32 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B0B4C3F7B4;
-	Tue, 13 Oct 2026 02:31:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791883895; bh=OqA21yJGURWr+fHR8OGWuJePl6Or9B4i9mUbbo2HePw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KFN/JucfaG6tVijFPqugjqklOhToK3tk/lGovkOGhrU5S8A/hBH3mHfEusBBzJPzJ
-	 UyD1cF2qpgw4gHADM2nbeK6S2v6bJ9y95xpv4BpMzEMhH6fCnxZBlMCDLZgKWgQOFe
-	 V1OvHKS+j9QazwgOeLl4Usk+vA/oFiPbdqVmRQz4=
-Date: Tue, 13 Oct 2026 10:31:25 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-	Tianrui Zhao <zhaotianrui@loongson.cn>,
-	Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jonas Bonn <jonas@southpole.se>,
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
-	Stafford Horne <shorne@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
-	linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org,
-	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
-	linux-openrisc@vger.kernel.org,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Sohil Mehta <sohil.mehta@intel.com>
-Subject: Re: [PATCH 00/21] mm: change behavior of pXdp_get()/pXd_page() in
- compile-time folded pgtable
-Message-ID: <as36bbrMVHOESsLd@e129823.arm.com>
-References: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JkUFGJQh"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-6793ff3d53dso2007112d50.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:32:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791883933; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OqStER8GvxLlK2w1KBRnjgKmHKh3PLj+kahn72hY7nBj/5XuZ8kKEw+rGk7L1XaWU+
+         DoY6Oe7fOoVfJsMtJ6OQ7UUoigYacjc11DnOGN7i9LnkaeDmmIZk8JuN9MEPYW9+bQ4T
+         pfiiyRqLaAs0praefsYv700Gt2+Kui/Te82mY3OH/3/Tr6b+vu79z1cfZLS4MXcspfO/
+         nUe5gsbfaMEroUJ5Xj+5nJsZbq+X3Lgw8DgJvW0UqquhLXU62iWHt1aSMgebjEExj/+/
+         LHMw53dSwbBJ0IgEX9Wd7zgLcJNZIBCdUYQiwx96DRWrf8krrxgVtpRyylZK1Ns297Tm
+         Gi9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=L3laYlGriIt8rJHKn52BHOyta5Irk/sF5+2l2dqx7+A=;
+        fh=x6kBEWL2/lqwJhJucVU1DK4Baun/G0qKsMg03IO0peQ=;
+        b=k4afaXk9DMXgK8UJI5/KWz1OAwr5rv9Xzltw+C+nGKTFPQEmkCH767uCyiS2CWScEf
+         cVd/iHiO3Tqo2z0AjGEXyV5NOWVA8/LsfcMDVgSl4lnpTLEbYkVCxj+v7XpweKU8vLB2
+         nv5xYMLu15oNNsLkSZrlijtPR+nuBW5VHcomylH5kvoAVvBGtTNs60gyY5wZpzBg8If+
+         2ZdhZXRCU4sLlWw4ukifO8ZLn/flxrGUZf4Wfb3ptVMQuA/vziMD4nsU6VUx9n8onZKU
+         D6XUF6PsD5rbl7YzAEj0bKRPBM1UHrzJozsWkzErMSJUNvc4DKP/p2l+sjAC1m7BJrcP
+         bBLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791883933; x=1792488733; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L3laYlGriIt8rJHKn52BHOyta5Irk/sF5+2l2dqx7+A=;
+        b=JkUFGJQhZXY1iJElFEOb1mQkVDzR+ZklCw09pEp5d2tqzSbqp0tcH1FgzUhlYZ1Wne
+         fSpqyNATyLWSGXWGXnGvSxo97Db0LGcX/YdrjUqJhxxM9FgP6gOzoA4Nhi1JZtleC+ZN
+         OwW0k3gBujI81hhHP6oCNYFXCNRPCsaJ3eYxi3XMl0pkXGr/sd0lguJv78XJRxDjcHFl
+         fIaKJ5oyl8QDdtKgkZ7rGkFAiYZTXTZ5/F5El1TtlMSpTwYPJLzeljXeleAVDkbcSjMX
+         VAm9rhowyctHb0mSBnWlq4HkYgT64nINiFjd6++v2wMGF3YpEDq6K3p5xJ/aL2+rzyNH
+         RRxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791883933; x=1792488733;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L3laYlGriIt8rJHKn52BHOyta5Irk/sF5+2l2dqx7+A=;
+        b=Y8/s6wCrfph4cfwlvolY0yA/u9yfZwhTZ+1nDPiEL62cduG27HtokLEROycuD75+yI
+         2IpQY5HJBSP1NazDKbM1/YXSpucBhuwEzr6xIdWNehjQaG19RldEA85xqMlAKfcqSleL
+         sfAejqjY6O0F1RlHmZxFP6BOwjU6lw4q/GlqLPcbIRm5W7CRm2RnbHrM7xon29fQOqst
+         UT/qN5VBLzse64TtKiowaJKwvbRWNisGBOuKReZ96J/7OUs8cRI2IwgHDcW3iSFAZhzl
+         +i43duqLJN6pnABRy26E7iEc9JLBtuEAIjBqpl37Uf0PCJVSPq2nnVR6bnezPHZ3wCA5
+         fXKw==
+X-Forwarded-Encrypted: i=1; AKwUvBzwSKiDSBf8lWHiRHdQdvAC97OoWbSpOO/T3B3ezH4b9KM/Nq2028r9aPDKdRNfudFbAINzBYvK52F/QQ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLt9dHR6ovC02YtT1YHwVYMT2IlfikvqZtUqfHUk0rT2HutwtW0
+	ZMBl6xzJ8zsq3j8EOa94LY/MnZea4RWLBm6bQw4biIDX+62W+GLa6vrZnwi4lG8EmZK+L1MgAXA
+	YDf4vo2Vp9wWHNawHUHP9l0whvEt1hyo=
+X-Gm-Gg: AYBFou3s+UnKepOrow8/avRhKLQvIcEzpUbhEg5GUlyVkGDWzmNlaRzf8ffR2GQe/16
+	idGduoEK3C497peeVRVl41b1bKVsmli6gANVaqift8LfwMn6XxhA6gZZyddZEYp1JKgrhhjJeO5
+	bRgjvHYucn2UCPuK6/W5FTpe44GAi8zT9Ht6aP45TmVTxGXzAKLsRpRrWng8kav4rb4POI5EYWK
+	ugNUoKPYoDY/n8twYlTlwz02tBwyzQAinJSZ/PTKD/7R40tRjdr0t8nZr2RuZgagl35P2UhhPL9
+	JA8AAO12TvjdJR5EJJh9JHQEHQR2Ctg4KEcb54KEECSdMYrIlxmXB8uQAJgJ8GSX6IQXr94AMjr
+	pcew7KDzrWw==
+X-Received: by 2002:a05:690e:d4b:b0:66f:c1bc:c098 with SMTP id
+ 956f58d0204a3-67936288010mr2521640d50.96.1791883933466; Tue, 13 Oct 2026
+ 02:32:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
+References: <20260908122446.56708-1-lizhe.67@bytedance.com> <as3gQ8jfa_6eBf15@chenyu-dev>
+In-Reply-To: <as3gQ8jfa_6eBf15@chenyu-dev>
+From: Yafang Shao <laoar.shao@gmail.com>
+Date: Tue, 13 Oct 2026 17:31:37 +0800
+X-Gm-Features: AclHuK8ndsxhhlK5nTTn5Lujec0hKh1opnIku5qhG2TbGUlvVhns7ig0IWDcDvg
+Message-ID: <CALOAHbBssx9ZHGwebGZCvzT4d_soyjNfZRj4L6gnxHRXtc7eMA@mail.gmail.com>
+Subject: Re: [PATCH 0/4] sched/numa: Add per-process automatic NUMA balancing control
+To: Chen Yu <yu.c.chen@intel.com>, "David Hildenbrand (Red Hat)" <david@kernel.org>, ljs@kernel.org
+Cc: Li Zhe <lizhe.67@bytedance.com>, mingo@redhat.com, peterz@infradead.org, 
+	juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	tim.c.chen@intel.com, mkoutny@suse.com, tj@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On Tue, Oct 13, 2026 at 3:52=E2=80=AFPM Chen Yu <yu.c.chen@intel.com> wrote=
+:
+>
+> On Tue, Sep 08, 2026 at 08:24:42PM +0800, Li Zhe wrote:
+> > Automatic NUMA balancing is controlled globally through the
+> > kernel.numa_balancing sysctl and can be influenced indirectly through
+> > memory policy. That works well as a system default, but it is too coars=
+e
+> > for workloads where a launcher wants most processes to use the default
+> > policy while a selected process opts out because it already manages NUM=
+A
+> > placement or cannot afford the sampling overhead.
+> >
+> > A recent per-cgroup proposal tried to address this by adding a
+> > cgroup-local enable knob plus a NUMA_BALANCING_CGROUP mode where
+> > balancing was disabled by default and then enabled for selected cgroups
+> > [1]. The discussion also noted that automatic NUMA balancing already
+> > operates at task/process granularity, that the knob is not a resource
+> > control attribute, and that task/process controls such as sched_setattr=
+()
+> > or prctl() may be a better fit while cgroups and cpusets continue to
+> > describe workload grouping and placement domains.
+> >
+> > There is also prior art from 2023 prctl() proposals [2][3]. Those
+> > versions used a per-mm mode with disabled/enabled/default states, added
+> > NumaB_mode to /proc/<pid>/status, and changed the global static key
+> > handling so a per-process enable could override the global sysctl.
+> >
+> > This series takes a more conservative variant to preserve existing
+> > administrator and workload expectations. Keeping the global sysctl as a
+> > hard off switch means an administrator can still disable all automatic
+> > NUMA balancing activity with one knob. Using a weak two-state
+> > per-process opt-out/allow ABI avoids exposing a "default" state whose
+> > meaning depends on global policy and is therefore easy to misinterpret.
+> > Storing the configured mode in signal_struct gives the control explicit
+> > thread-group semantics and avoids making unrelated non-thread CLONE_VM
+> > users share the policy merely because they share an mm.
+> >
+> > The series implements a per-process interface: a thread group may use
+> > prctl() to set or get its configured automatic NUMA balancing mode. A
+> > process can opt out of new periodic NUMA scan scheduling and NUMA
+> > scheduler accounting, or opt back in. Existing hinting faults and queue=
+d
+> > work are allowed to drain naturally as the disabled state takes effect.
+> > When kernel.numa_balancing is 0, a process-local enable request does no=
+t
+> > override it.
+> >
+> > A separate task_struct scheduler snapshot is used by enqueue/dequeue
+> > accounting so the scheduler can consistently account the state that was
+> > in effect when a task entered the runqueue. This avoids changing
+> > historical task accounting while still allowing a process mode change t=
+o
+> > take effect through the normal dequeue/update/enqueue path.
+> >
+> > The series also exposes the process NUMA balancing mode in
+> > /proc/<pid>/status and documents the new prctl() ABI and its interactio=
+n
+> > with the global sysctl.
+> >
+>
+> Can the global key be extended to tri-state, like the THP settings?
 
-May I ask there are any further comments on this series?
+IIUC, a BPF-based THP policy is yet to be developed as prctl() doesn't
+fit some use cases, especially mTHP.
 
-Thanks!
+> To keep it backward-compatible, echoing 0 and 1 remains the same effect.
+> The user can also echo always, advise, or never to it.
+> We have a similar proposal here for cache-aware scheduling[1]
 
-> Using ptep_get() and its counterparts in common code is suboptimal on
-> kernel configurations with generic compile-time folded page tables.
-> By default, ptep_get() and its friends expands to READ_ONCE(),
-> forcing the compiler to emit a load even when the value is not used afterwards.
-> 
-> This issue was recently reported by Christophe Leroy [1] for ppc32
-> preventing futher code conversion to ptep_get()/pmdp_get()/... helper
-> and the same behavior can also be observed on arm64 when built with
-> 2- or 3-level page tables
-> 
-> e.g) perf_get_page_size() in arm64 with CONFIG_PGTABLE_LEVEL=3:
-> 
-> 00000000000052a0 <perf_get_page_size>:
->     ...
->     52dc: d53b4234     	mrs	x20, DAIF
->     52e0: d50343df     	msr	DAIFSet, #0x3
->     ...
->     52fc: d35e9a69     	ubfx	x9, x19, #30, #9        /* pud_offset_lockless() */
->     5300: f9403508     	ldr	x8, [x8, #0x68]
->     5304: f869790a     	ldr	x10, [x8, x9, lsl #3]   /* pudp_get() */
->     5308: f90007ea     	str	x10, [sp, #0x8]
->     530c: f8697908     	ldr	x8, [x8, x9, lsl #3]    /* pudp_get() */
->     ...
->     5360: 90000009     	adrp	x9, 0x5000 <perf_prepare_sample+0x548>
->     5364: 92746908     	and	x8, x8, #0x7ffffff000
->     5368: d3557675     	ubfx	x21, x19, #21, #9       /* pmd_offset_lockless() */
->     ...
->     5394: f8757ac8     	ldr	x8, [x22, x21, lsl #3]  /* pmdp_get() */
-> 
-> Though PGTABLE_LEVEL=3, since the pudp_get() still remain with
-> READ_ONCE(), there's redundant load for the pud which is folded.
-> 
-> To prevent generating suboptimal code, make pXdp_get() return a dummy
-> entry for compile-time folded page tables, make the helpers such as
-> pXd_offset()/pXd_offset_lockless(), set_pXd() validate dummy entries
-> at compile time to catch the wrong usage and prohibit calls to
-> pXd_page() in pgtable-nopXd.h.
-> 
-> This series does not change the behaviour of existing code that directly
-> manipulates folded page-table levels using set_pgd(), pgd_page_vaddr(), and
-> related helpers. Those helpers continue to behave as before.
-> 
-> The new restrictions only apply to code that adopts the pXdp_get()-based
-> access model for compile-time folded page tables.
-> 
-> As the pXdp_get() can return *dummy* entry, some of code using
-> the stack value where saves the pXdp_get() could be a problematic:
-> 
->   1. Passing address of stack value where saves the pXdp_get() result
->      to pXd_offset() for example:
-> 
->        pud_t *pudp, pud;
->        pmd_t *pmdp;
-> 
->        pud = pudp_get(pudp, address);
->        pmdp = pmd_offset(&pud, pud, address);
-> 
->      (e.g. host_pfn_mapping_level() in loongarch).
-> 
->   2. Using the pXdp_get() result to use as argument of pXd_val() and
->      to check prot without checking pgtable is folded.
->      for example, x86's effective_prot().
-> 
->   3. Using set_pXd() with pXdp_get() will set problematic dummy entry
->      in folded page table like:
-> 
->        set_pXd(pxdp, pXdp_get(pxdp_k));
-> 
->   4. Using pgd_page_vaddr() to get the first-level pgtable.
->      passing dummy pxdp_get() for pgd_page_vaddr() will return wrong
->      address. Therefore, make pgd_page_vaddr() and pXd_pgtable() to
->      trigger the error for improper usage with folded dummy entry in the
->      generic compile-time folded pgtable.
-> 
-> Thanksfully, above cases are rare since (1) most of usage using
-> pXd_offset() with result of upper pXd_offset(), (2) it's extreamely
-> rare to use pXd_val() for non-leaf entry in the kernel,
-> (3) is to handle the vmalloc_fault or set the first level of page table
-> and (4) to setup early page table and etc.
-> 
-> Therefore, properly handle this uncommon and problematic pattern, and
-> document the current design of compile-time folded page tables.
-> 
-> This patch is based on mm-unstable.
-> 
-> Future work
-> ===========
->  - print_bad_page_map() and show_pte() still prints dummy values
->    instead of printing the same content for all generic compile-time
->    folded page tables. We might want to skip printing dummy values later.
-> 
->  - We currently catch abuse of dummy values on the stack at compile-time by
->    relying on constant propagation by the compiler. Usama's work [3] on using
->    distinct types for sw vs. hw PTEs could help here as well."
-> 
->  - Clean up vmalloc fault handling by synchronizing the vmalloc entry on
->    32-bit architectures. This code is almost identical across architectures.
-> 
->  - Unfortunately, the current design of compile-time folded page tables appears
->    to be internally consistent but confusing. For example,
->    when CONFIG_PGTABLE_LEVELS is 2, p4d, pud, and pmd are expected to
->    be folded into pgd. However, the architecture code uses set_pmd()
->    to update the top-level page-table entry, even though it includes pgtable-nopmd.h.
-> 
->    In the future, it would be good to eliminate this source of confusion,
->    possibly by treating all folded upper levels consistently as dummy wrappers
->    around the highest real page-table level:
-> 
->          NOPGD
->    --> +------+           P4D
->        | ptr0 |-------> +------+           PUD
->        +------+         | ptr0 |-------> +-----+
->                         | ptr1 |-        | ptr | -------> ...
->                         | ptr2 | \       | ptr |
->                         | ptr3 |  \        ...
->                           ...      \
->                                     \        PUD
->                                      +----> +-----+
->                                             | ptr | -------> ...
->                                             | ptr |
->                                               ...
-> 
-> Link: [1] https://lore.kernel.org/all/0019d675-ce3d-4a5c-89ed-f126c45145c9@kernel.org/
-> Link: [2] https://lore.kernel.org/all/20251113014656.2605447-1-samuel.holland@sifive.com/
-> Link: [3] https://lore.kernel.org/r/74182e50-b54f-4d2d-a27f-3a59a538d6bc@arm.com
-> 
-> Patch History
-> =============
-> from RFC v3 to v1:
->   - Drop and rebase for CONFIG_X86_DIRECT_GBPAGES and use the Dave's
->     patch (https://lore.kernel.org/all/20260902194718.E1FF3041@davehans-spike.ostc.intel.com/)
->   - Link to RFC v3: https://lore.kernel.org/r/20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com
-> 
-> from RFC v2 to RFC v3:
->   - repasre commit message
->   - move ptdump_pgtable_first_level() into pgalloc.h
->   - skip the huge pud operation when CONFIG_X86_DIRECT_GBPAGES is disabled
->   - docuemtns compile-time folded page table
->   - drop the applied patch.
->   - Link to RFC v2: https://lore.kernel.org/all/20260722-dummy_ptxp3-v2-0-d9e4bad31e0a@arm.com/
-> 
-> from RFC v1 to RFC v2:
->   - Restore slient fallback to next pXd in set_pXd() and pXd_pgtable()
->     and add check whether they're called with dummy entry.
->   - Add some comment for returning first entry of pgd in arm with
->     2 pgtable-level
->   - Link to RFC v1: https://lore.kernel.org/all/20260713135614.1618183-1-yeoreum.yun@arm.com/
-> 
-> ---
-> Dave Hansen (1):
->       x86/mm: Introduce helper for checking direct map 1G page support
-> 
-> David Hildenbrand (Arm) (13):
->       ARM: mm: make nommu pgd_t a scalar
->       ARM: mm: make 2-level pgd_t a scalar
->       ARM: mm: remove custom pgdp_get()
->       LoongArch: mm: define pud_leaf() only when PUD exists
->       MIPS: mm: define pud_leaf() only when PUD exists
->       mm/pgtable: define (pgd|p4d|pud)_leaf() for folded page tables
->       mm/pgtable: define (pgd|p4d|pud)_offset_lockless() for folded page tables
->       openrisc/pgtable: drop __pmd_offset()
->       mm/pgtable: optimize pmdp_get() and friends for folded pagetable levels
->       mm/pgtable: catch abuse of folded dummy pgd_t/p4d_t/pud_t
->       mm/pgtable: disallow calling (pgd|p4d|pud)_page, pgd_page_vaddr() and (p4d|pud)_pgtable with dummy
->       mm/pgtable: disallow calling folded set_pgd/set_p4d/set_pud with dummy
->       Documentation: mm: clarify behaviour of compile-time folded page tables
-> 
-> Yeoreum Yun (7):
->       mm: vmscan: remove stack copy address of pud/pmd pass in walk_pud/pmd_range()
->       loongarch: kvm: remove stack copy address of pXd in pXd_offset()
->       riscv: kvm: remove stack copy address of pXd in pXd_offset()
->       riscv: mm: use proper set_pXd() for generic compile-time folded patable in vmalloc_fault()
->       mm/pgtable: redefine PGTABLE_LEVEL enum with ascend order from PGD
->       x86: mm: use pgtable_level enum in effective_prot_pXd()
->       x86: mm: carve out the generic compile-time folded pgtable case in effective_prot()
-> 
->  Documentation/mm/page_tables.rst            | 84 +++++++++++++++++++++++++----
->  arch/arm/include/asm/page-nommu.h           |  4 +-
->  arch/arm/include/asm/pgtable-2level-types.h | 20 +++++--
->  arch/arm/include/asm/pgtable.h              |  2 -
->  arch/arm64/include/asm/pgtable.h            | 23 --------
->  arch/loongarch/include/asm/pgtable.h        |  2 +
->  arch/loongarch/kvm/mmu.c                    | 20 ++++---
->  arch/mips/include/asm/pgtable.h             |  2 +
->  arch/openrisc/include/asm/pgtable.h         |  3 --
->  arch/riscv/kvm/mmu.c                        | 20 ++++---
->  arch/riscv/mm/fault.c                       | 52 +++++++++++-------
->  arch/x86/include/asm/pgtable.h              | 14 +++++
->  arch/x86/kernel/cpu/common.c                |  2 +-
->  arch/x86/kernel/machine_kexec_64.c          |  2 +-
->  arch/x86/mm/dump_pagetables.c               | 18 ++++---
->  arch/x86/mm/init.c                          |  2 +-
->  arch/x86/mm/pat/set_memory.c                |  6 +--
->  include/asm-generic/pgtable-nop4d.h         | 54 +++++++++++++++----
->  include/asm-generic/pgtable-nopmd.h         | 54 +++++++++++++++----
->  include/asm-generic/pgtable-nopud.h         | 56 +++++++++++++++----
->  include/linux/pgtable.h                     | 69 +++++++++++++++++-------
->  mm/vmscan.c                                 |  4 +-
->  22 files changed, 371 insertions(+), 142 deletions(-)
-> ---
-> base-commit: 8d61431ed2607386b427752505379536eb634ce8
-> change-id: 20260722-dummy_ptxp3-3741d78cc70f
-> 
-> Best regards,
-> -- 
-> Sincerely,
-> Yeoreum Yun
+We are also experimenting with the LLC-aware scheduler on production
+servers, and we want to enable it per cgroup rather than globally
+there as well.  Given the lessons we have learned from THP, what
+about implementing it as a BPF-based feature from the beginning, so
+that the semantics can still change when new use cases show up?
 
--- 
-Sincerely,
-Yeoreum Yun
+> In this way, the user does not have to disable NUMA balancing one by one
+> across the whole system.
+>
+> Yafang Shao has a bpf-cgroup based NUMA balancing proposal[2].
+> Overall I support fine-grained control of NUMA balancing, and I'm curious
+> what the possible setting would be in the production environment, would
+> something like Kubernetes be responsible for setting the NUMA
+> balancing attribute via prctl, or as Yafang proposed, leverage cgroup
+> interface?
+>
+> [1] https://lore.kernel.org/lkml/fd341106e7e6cbd2f047656650f43ee87c6633c1=
+.1787955777.git.tim.c.chen@linux.intel.com/
+> [2] https://lore.kernel.org/lkml/20261012120438.52849-1-laoar.shao@gmail.=
+com/
+
+
+--=20
+Regards
+Yafang
