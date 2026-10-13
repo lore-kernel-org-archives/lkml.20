@@ -1,115 +1,100 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7585218A8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:35:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9435509EF1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898528; cv=none; b=Ux/iLaR1BzW6hhE7YonyMsLYAiCsYP6g5W667lOiO4LNECzRyeFbPqZayHoQyQU+VCn3xbCQemRuENuKOwwsl4gkot9tIi8l/cobRsy7FJeSC+L7822F7E42wld7B1yYy6z4YfZjGAScuy0AhvhtRuuqkKb1u3Kce4yG7XU4/XA=
+	t=1791898550; cv=none; b=TQzvRCVHIVMi+mDxUx2f6sR9k1ANp0wqflL2VAGZeFkaK59NwYfHXREzpJMCZK16IzX/UCJvjpegh4sLCNpIGhuMhpjL/NFFyD1zMbOS9IF/cxmazWi76w4G4qspodk15Qi0NT1kApEt0F6A2vUZdZPoUBkS4FrOWWCzjxr7op8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898528; c=relaxed/simple;
-	bh=N6fefP2t7dBu0CANERrHDTr8v/TO1zFwnIvBIv/5Z7w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rA5f0uPexLxGEZZhky35mPHuS/2DKbqjnVxTw1COqdd1jLaejYJXadtnUd3Zubg6afwNlkVvUT4NFVZ7rtFiRVUq/Z5ilOAtAt+HEO9zIzDpNxk3Dd1YjaHO+ZvANpL21cuVGxOvmff8MzrLZa1bFzKRU5FQJNxpPraov3ZyWOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W4wObMgz; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791898550; c=relaxed/simple;
+	bh=OQreSMZcizUiDdYivY39+NvIk9xrh+GNkFREYZHeZBA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CZ+TMbVheYoZmh8y++MY7PFj0ogXMbKqzTpwzOrReNqtLPazRIdrmsmnvpZGbJPz6HRQDD/GFQUoqBqe23gVWrDpTpCk7WGQuCYVqHWI3VdtGcT41wilMEWXGHx9j7a/E3FPfQNle7D/kYHN2prVHb0VdX+LqphLQdB/ilRgwLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iAXWEmq4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W4wObMgz"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a172da1049so1870985e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:35:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791898525; x=1792503325; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e4Fg/kGMgH93krXP0h6BlEw/WJdjeUSmyLtEuqzGKl0=;
-        b=W4wObMgz1WJQADxnzLFgsSASC3G4WuM1CDKZAUWK40KjlVz3YocZfVF2Abtg+N+HR2
-         o9w1McOdw36L7eUKRxsLlY6EYt3AxedxnzHF6qL+Q1g/SBj186iufamMVY6dHV/m2L+v
-         VusAxHeQqzAWP/ER1FrSchu1cKzL1NOJxByDqwcgHxl/dYugrsJ97ETKsp83po6q6oh2
-         8rDDiO9gfsre1QmdORxlg0Md71IZ6BGQaigCJpPuvVSgC08ZCLd4YRQ3lCX7qOY/qDCh
-         3Pk4xpW1l2sx2wfZLPhNVoeL+ZcZ7hdC1dPuhKYGgcK6OUYjz9wG4Sb0iO0cHvslLr6G
-         M5Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791898525; x=1792503325;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e4Fg/kGMgH93krXP0h6BlEw/WJdjeUSmyLtEuqzGKl0=;
-        b=ensIQrkzpJAGgbtz+w13m7e1pWQcpfoTqYXc5yJr2Q7/kpvwMIqxkj5vvv1oK6/Lky
-         v1605xlb5iktrryIlKvzVRnKaF8VStuiBbNMewM/0fh9cWyqP7f/IgBboP3wvo7zU4W9
-         Yr7y94v53zWecjIPeWDKcOBHiAzQIAdNJZi6gx0KBsRhYGX2qaPikRT1XCJbXLX598SY
-         BN6Upfi9BIJPG6pPxNFpEjv47ZegkzBa2Esaxe7pl9qdyJ+6GlY4SmMUefeMFlHe9ij/
-         mKMdXGlelE+Gb2Eg3MLHpE6w+7vmzb7GrUQtQvn7WU08xzXo8Sgy+OQWtrmQBFO7BteW
-         El5w==
-X-Forwarded-Encrypted: i=1; AKwUvBzYeynNGunv22qV8pWNGcyYPmrpTWG3tmzqIg+jWC3m16/Gy+2oGieu+WxTSgwYB7Gim1AYnOrF0t6lBGQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJO/y+/alnpo+vthmMIogj5A9Db0cuqSdeseiuahemlsrlxqiWH
-	/0mJcLR5piQkW3TkgQ+4AUMAswm0OQfif4t50aSSYzLwiBxYEQW771P1
-X-Gm-Gg: AYBFou1lDolAAAt9+9uCq9W58GvQHD8uRJH8dYTjREQsC3TFCS33p7x/uPeE8D4HG+p
-	A7APvKIDnsWNM8U009r12JG4nma0wmRMiMQlfWi5JiFzBG7AOeawR4F1VZsr+wwHVrTa4ptbzse
-	dXa4MCHJZrHPksAq4DqvhfxliahOc00LB21hIDwZ8fQPfG/ccf9l3FgchITgexQMwZ5mfZAHien
-	JXGIEozg4QXDuQF2JjNOEB3FNxJkm2GNNKSf6YnnMuccg2tqah0JMJmMaCalFYaiEBT3oVDhKDh
-	lMC8ZCit2bU8f4XLdjfQz6z5m1uifsDXmjTDfiw5N20BAz44sp1IcB94wQIcGBx07IQlEK68qNS
-	Kg/eeXAj42O7DCBXG1KrnbPDpO6aU6PgFB1jzrl2eW2mwnUNwkysuHGHGcWH24L7dZHYOoyA5JK
-	wOfpbISFBxv3T73y+zcFr/V2KcEKLxLPFmOImHGZioRoLzVMzUVg1QdQwZsJgX6crbbLGMTDfRb
-	wRQKcCi+cr0XKFrHcwHpbrk+R04yd9Jd1amrw1oR683IYxcK5sm5tvILTcx0W/2W0PA4PNM0T7m
-	RQ==
-X-Received: by 2002:a05:600c:6285:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4a18e4760demr247111765e9.1.1791898525052;
-        Tue, 13 Oct 2026 06:35:25 -0700 (PDT)
-Received: from thomas-precision3591.paris.inria.fr (wifi-pro-83-149.paris.inria.fr. [128.93.83.149])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18c85009csm284480325e9.2.2026.10.13.06.35.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 06:35:24 -0700 (PDT)
-From: Thomas Fourier <fourier.thomas@gmail.com>
-To: 
-Cc: Thomas Fourier <fourier.thomas@gmail.com>,
-	stable@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net] net: korina: fix dma_unmap_single() length in korina_rx()
-Date: Tue, 13 Oct 2026 15:23:11 +0200
-Message-ID: <20261013132319.22253-2-fourier.thomas@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iAXWEmq4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76DD01F000FF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791898549;
+	bh=OQreSMZcizUiDdYivY39+NvIk9xrh+GNkFREYZHeZBA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=iAXWEmq4fOp7iufBpwIRZp8Q/oZpUVrRQ9UZAUOeJiGuV6c0h3Ya8Mafdcgz/drBa
+	 22bRmdygV4uvvsyHt0c5TsL5UyDeBDSWTA6TffIBd4GmeP4ZhhuAjoHrOB7xbcPYcE
+	 eoer6fEuWwR+I3HwV7IYrbg1Zgk1UxpOmTG3QRpwzujN7EFQPWPvTXpPiT1lNXAiBE
+	 hoMnegD3N3xcSwmRI8TwiMKXxMx/UIE0rNMY8H3yf3NWdENi0IVdzd4e3HyHCp7gc3
+	 gjdMTtPsnpIs3DeS9M5ERUkyUmwN/FsE2Y+3kaoo81X3uKLRLnFvlEKeZTtvzUr8U0
+	 9N9CW0WGoUB8g==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a9787a15bdso25093371fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:35:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByBbxVEd2DhK34d+/Z9oBiVMayc6mqrFx26xdzVUM+8nK6d7hpKGy+11kfjBzmkh0PBODw91rH0IkEVO64=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJA7OjQzSkaMSiGmLxfHgDfwCDHh6lW3ReiBVhhbdxSH5ylGbL+
+	mG8FTHdsag99eBqBk8iDBVttaSPz/EM6eBw1i100VgkvEoy2Tna5cF27IrW6bOTlSqe+rwIUGgn
+	mmlbRwULkA3WqzcFL08einC34S/7/CWHEYumS17/gxQ==
+X-Received: by 2002:a05:6512:3f21:b0:5ba:4472:75d4 with SMTP id
+ 2adb3069b0e04-5bcde6afa8cmr4940944e87.10.1791898548042; Tue, 13 Oct 2026
+ 06:35:48 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 09:35:43 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 09:35:43 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <as4tep73cAI57Yk7@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
+ <CAD++jL=prd1KDZQawqsRmW3qp1-cJ=18-yhp861CQirOOjE5Ag@mail.gmail.com> <as4tep73cAI57Yk7@ashevche-desk.local>
+Date: Tue, 13 Oct 2026 09:35:43 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mcc2b2Z0zrkNQ80NpV-H1MsihgeNtPD5dD5g9xcbiLg4w@mail.gmail.com>
+X-Gm-Features: AclHuK8ITRAMzeZzyYNFuZDUAjI2-0MeXgfOXBannT48q8bMwCyFujpuburhehY
+Message-ID: <CAMRc=Mcc2b2Z0zrkNQ80NpV-H1MsihgeNtPD5dD5g9xcbiLg4w@mail.gmail.com>
+Subject: Re: [PATCH v1 0/7] gpiolib: kill gpio_request_one()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bradford Love <brad@nextdimension.cc>, linux-gpio@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+	linux-media@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, 
+	Robert Jarzmik <robert.jarzmik@free.fr>, Russell King <linux@armlinux.org.uk>, 
+	Hauke Mehrtens <hauke@hauke-m.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-dma_map_single() is called with size KORINA_RBSIZE and
-dma_unmap_single() is called with size pkt_len which might be smaller.
-Therefore, parts of the buffer may stay mapped after dma_unmap_single()
-is called, which leaks a resource and might leave exposed mapped memory
-that might be eventually freed.
+On Tue, 13 Oct 2026 15:09:14 +0200, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> said:
+> On Fri, Jul 24, 2026 at 11:40:59PM +0200, Linus Walleij wrote:
+>> On Wed, Jul 15, 2026 at 8:51=E2=80=AFPM Andy Shevchenko
+>> <andriy.shevchenko@linux.intel.com> wrote:
+>>
+>> > This is the finilazation of the work announced in the commit 61e1fd2ab=
+ca4
+>> > ("gpiolib: legacy: Make sure we kill gpio_request_one() first"). With =
+this
+>> > small series we kill gpio_request_one() and leave only two legacy call=
+s
+>> > devm_gpio_request_one() and gpio_request(), where the managed one has =
+only
+>> > a few users and high chances to be killed soon as well.
+>> >
+>> > The series is supposed to go via GPIO tree (due to nature of the last =
+patch)
+>> > with possible immutable branch for others. Please, ack.
+>>
+>> The kernel is clearly a better place after these patches than before it,=
+ so:
+>> Reviewed-by: Linus Walleij <linusw@kernel.org>
+>
+> Thanks!
+> Bart, anything needs to be done for this series to go in?
+>
 
-Change dma_unmap_single() length to KORINA_RBSIZE.
+We don't have Acks from MIPS maintainers. :(
 
-Fixes: 0fc96939a97f ("net: korina: Use DMA API")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
----
- drivers/net/ethernet/korina.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/korina.c b/drivers/net/ethernet/korina.c
-index 891a94d89f4b..fac3d3d3e5d7 100644
---- a/drivers/net/ethernet/korina.c
-+++ b/drivers/net/ethernet/korina.c
-@@ -649,7 +649,7 @@ static int korina_rx(struct net_device *dev, int limit)
- 
- 		pkt_len = RCVPKT_LENGTH(devcs);
- 		dma_unmap_single(lp->dmadev, lp->rx_skb_dma[lp->rx_next_done],
--				 pkt_len, DMA_FROM_DEVICE);
-+				 KORINA_RBSIZE, DMA_FROM_DEVICE);
- 
- 		/* Do not count the CRC */
- 		skb_put(skb, pkt_len - 4);
--- 
-2.43.0
-
+Bart
