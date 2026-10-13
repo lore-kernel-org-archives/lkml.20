@@ -1,97 +1,100 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AA33A8755
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EF63F54AA;
+	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886863; cv=none; b=sC1ebACSjUz8axQR15iiUNQ6GnLX3SH5fU3h2ymqsEdjv+zjQjXl+YaSAUFJi88yQd4b+3Vw4xTMuJiDaFgxGndZnRfuJ9oJ85UnDnP6KbCOkFMhBcvk3A6O7H7PsiUrRvLuSHFztWztxVDNozYBmwpozvlU4Qy+sVfpPCM45MI=
+	t=1791886890; cv=none; b=pjNfM7MzDvggD1k07mwXWL1YtSIe+OGNY7mz1aMVPcZ2KAsz92mVgVbzPPw8jKdUpnhImzWrTPTbqlHjqV7Fde4LrVfBQxg57X+kfKWncBSUh2Kjfg7nbtxhJts+UGsZdtF76w5oqGpIV0DmQrHE0VqGqDYaW4mBvrIrH2TE0TY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886863; c=relaxed/simple;
-	bh=1UOaZeGoU29X/7aFtnHvZ6owYgab7lpd599FnEZx3a0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AW+6RvAIxOgdoeZVx55tyiH+ZhC4d31gE3OYo0Kcy6qUxdbs7IXxL3YmskBBJjU8d3NZ2i4zMaQbttwJek2XeCuOALg8fc49NxihDuLp5q/rzO0x1lsUWBWDYB+GBABcCBUdoPrS6ZTxnEnGVAIB4hjKoZupzwZFK+I8dR+RYsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LI/DR5OT; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1791886890; c=relaxed/simple;
+	bh=jx8p4XoDCEmHkARz3LvR8mZjbN2RulpuK3cx8pTILlM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TcJSSkoO8zRozpFjDGkC9DryjHXtF1ov/xg53/pdzy6V0ErxX/xj3/hrRcMl5L2RcDYrxnLmjJaxsxVpHGzNwXAygE8+cf3Xiplm7n6APfoHW7SnR4Mh4bAvd+YEHTdXzbcj7tGFQqsog5eiXUX8F206WjrYGz5KglltNkY2CLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t7YenWE9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LI/DR5OT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791886860;
-	bh=1UOaZeGoU29X/7aFtnHvZ6owYgab7lpd599FnEZx3a0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=LI/DR5OTLijeW4so6+0RPKZE1eUbHi6kDQmwIgsUETtrnQekB8bi1BLQMRzGXvcYP
-	 YCDhLyZeBUnVF2ab0gDyBjB6LdKo1aSnUYk8YI87TZw2JezQD7UOrYGPXq2MvWtb7L
-	 1XCKyhGveIg5hMkS0+9+QYsfdrIQWPZJZmzF1ahVLEdNA5Y3ticahPQ73GS4ijPDDz
-	 VveChrGLeXBkNws29i+t5y+O5khOaJCTJyrIogEdQLRivR9VWb4kEV13jBt592eegV
-	 GGJDoUr08zZRf8zMGRj6D46sDslpJ2vWEuZSDcxzIs1KcSCd2R3+XioOKRuwCYDe6C
-	 UYUp22lFQoM2A==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2222A17E0243;
-	Tue, 13 Oct 2026 12:21:00 +0200 (CEST)
-Date: Tue, 13 Oct 2026 12:20:55 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Erik Faye-Lund <erik.faye-lund@arm.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Karunika Choo
- <karunika.choo@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] odrm/panthor: fix immortalis condition
-Message-ID: <20261013122055.6ae24c80@fedora-21.home>
-In-Reply-To: <20261013093150.4186117-1-erik.faye-lund@arm.com>
-References: <20261013093150.4186117-1-erik.faye-lund@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t7YenWE9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 84D11C2BCFC;
+	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791886889;
+	bh=jx8p4XoDCEmHkARz3LvR8mZjbN2RulpuK3cx8pTILlM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=t7YenWE92FMIQ4VQUMSN5L5QxaILOS+fxuCMBT1MJjvxptONuuiqsUMu0gihFC4zs
+	 oMeDw2w0sqmwY68kJiRvEdLxLBoNeUBvBDO9NiIfxIqAZQWyxhugsGy+T8nTNIvarb
+	 lcEUF5AJBO1bstgDYn8AYX3QMluvaRvtWbHtBhbMy5E46E2w/6reHkC89LWhdCMJD5
+	 JA7MKWL0M3kyt7BdE+t1fm2JvFlZAm5Zfd1WX1mt5m7aNrDK5bC4eSHZXOQgxmKKVM
+	 SGErW2Qyd0cDkDBEIRRlYIMdBm2uekh3KnQsN5L170ZSb7ySlqTcGot7iLApX5LdlE
+	 0BYdCC2468D5w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F8A3CC6B08;
+	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
+From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
+Date: Tue, 13 Oct 2026 18:21:25 +0800
+Subject: [PATCH v3 1/7] dt-bindings: vendor-prefixes: Add shenrongda
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-ultrarisc-dts-v3-1-5ff3ebb2a90d@ultrarisc.com>
+References: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
+In-Reply-To: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Jia Wang <wangjia@ultrarisc.com>, 
+ Xincheng Ji <jixincheng@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791886887; l=887;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=e/Kow+cCHmWBpSOP+t1oxwgy4BH4snNIyYRmuufij+E=;
+ b=TRORa6LLEVVhsPFQIeIlJSap7J/c48iovxTaryjjkuBOCTGBfHJvNfB0d4DESPRzu6GvpOsXr
+ gnkDkNgA0bVBSFoxkqFSK0T+Ltkdorl0jMvMapaAYMeHxhv2Dlh96pq
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
+ auth_id=1046
+X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
+Reply-To: jixincheng@ultrarisc.com
 
-On Tue, 13 Oct 2026 11:31:50 +0200
-Erik Faye-Lund <erik.faye-lund@arm.com> wrote:
+From: Jia Wang <wangjia@ultrarisc.com>
 
-s/odrm/drm/ in the subject :D.
+Add Shenzhen Rongda Computer Co., Ltd. to the vendor prefixes.
 
-> Exactly 10 cores is also valid for an Immortalis configuration,
-> according to the public documentation:
-> 
-> https://support.arm.com/compute-ip/immortalis-g715
-> 
-> So let's report this G715 with 10 cores as Immortalis as well, as long
-> as it supports the ray-intersection feature. This matches what we do for
-> more recent GPUs as well.
-> 
-> Fixes: 3b1dc21d6d80 ("drm/panthor: Add support for Mali-Gx15 family of GPUs")
+Link: http://www.shenrongda.com/
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-With the SoB added and the typo fixed, this is
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..e100f3993e57 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1507,6 +1507,8 @@ patternProperties:
+     description: SGX Sensortech
+   "^sharp,.*":
+     description: Sharp Corporation
++  "^shenrongda,.*":
++    description: Shenzhen Rongda Computer Co., Ltd.
+   "^shift,.*":
+     description: SHIFT GmbH
+   "^shimafuji,.*":
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+-- 
+2.34.1
 
-> ---
->  drivers/gpu/drm/panthor/panthor_hw.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-> index 7e315708ca7c..ea1e222ef121 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -136,7 +136,7 @@ static char *get_gpu_model_name(struct panthor_device *ptdev)
->  	case GPU_PROD_ID_MAKE(10, 7):
->  		return "Mali-G610";
->  	case GPU_PROD_ID_MAKE(11, 2):
-> -		if (shader_core_count > 10 && ray_intersection)
-> +		if (shader_core_count >= 10 && ray_intersection)
->  			return "Mali-G715-Immortalis";
->  		else if (shader_core_count >= 7)
->  			return "Mali-G715";
 
