@@ -1,230 +1,155 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010034.outbound.protection.outlook.com [52.101.84.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF771539783
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791918235; cv=none; b=LcYhGRRq7F5joGDSD02FG8nY38AQ4rBeiafkXtnPg8mNTunrSN+dRbohiUXSDQgUZfwNoIetaTahkYnHYmH5Bo+x2ntDukzx0evcH00gaxAErZSD5edv7w5PvgKxXxAPaEel+t5/GEkZ7l3lC+SnZ9wCpWhg7nGLILIt5RDNkSA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791918235; c=relaxed/simple;
-	bh=mZpnE/Swnv0WhWB+Wq7EukKgcDUhNqno2K7Pv67CP0k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=brblGbRvUf46fxDx4nHYMaBzv43rOnJQ9EDFpq8vvWV7MfCYmU2t7xf3VNnnNmGG59vpladUXgdEIeau4DTvtrLEwgK0bPoTPwZPwRujl+QrweojlFivstoi7bkacAK0l4pDHFqpAfc/LxV1i9TZrOcArtASbUBbUXFKEKFVhV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WYy4TtlC; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D612653A89D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.34
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791918259; cv=fail; b=feKb/COEUcvdDDxLf+aGPk2O5C98FI0POmrbMV5QoZnGqZhPARTosYXFL/vjlgqLMZoEIoh/Ef91YtX/CZ6sUeWCwNQ2/bZK1URRLOSdSDSxXC54rrJQRAUGI+/AMabfSL0Lc+alaJzdkYCuOaEUSWt9YTc2KIH4avk8Y/BTqgw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791918259; c=relaxed/simple;
+	bh=oWnrYrZ/M5NwQfB934oI1VgLpcvOaYy5QhAW7SHVfys=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=VBvhxFYaUNgoDvZPteKn/k3TD/VC5N9b6XF//IKSMZqn8gM9ms216ZEanJjzaTR6VMIocyqDGQbhA/4ymWJc0CNHE0naukY2F3o+ozm8TB97t7D0OseVYwWZtgLfoVEGU0caAK39TGoXWsoM+hNI7O/hBQIIr6QpdW7fZiwLgqM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=YJ4lsN76; arc=fail smtp.client-ip=52.101.84.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WYy4TtlC"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b170129413so346603a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:03:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791918232; x=1792523032; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RmXCU4nxao059y5rK6bSrIsteEBugmZOufQtFeD5hE4=;
-        b=WYy4TtlCCESKXPVBYxQxUk3BGTH2CyBjUORMb7isW7Sc/GHAB0A/QRQaWXobrRStgP
-         zdTM+pa3h9w2TQIc26bkmAFHU4sNDxf01yEfaQyJI/FPv+IPdDhnrKOIGe7e80zGmkKs
-         wMKW4bnl453Wn0ksBRvN6pX5/KO26qKMRVt9e8G4/5ZqxVDhThGB+iGqKn68ffryN2SF
-         MqlCVnphYO36+Z8La+5HI+yBLjXOoCIJ25HUJV+RfSAAm/sUFZ6IPvuSldSj4LWtGtaV
-         qQhiS+77u7te5ztHIYG924C8Kck3+K46QEZuI1DcDduwLogT8qqo8Y1+htGE6/nvvV3c
-         y3NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791918232; x=1792523032;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RmXCU4nxao059y5rK6bSrIsteEBugmZOufQtFeD5hE4=;
-        b=DusMPiSOpgjJlaWiScF7eCkuwS9bDJRIBbpvlG5kg3cALt5qI0/ElQGU+PVlC4+uoY
-         Js76D2uIMFq5X61TUE+UqS7yWzk9FOUcroKe2cD45VNWSdNmO6sAjxKOIzFlSVwDHK9R
-         2OJIooJr672z+x7RyADyXhys63DuwUkqgobjixDZQYU3gxO8iVon47dyF+f9oxErODMn
-         zTB1zQ8JCvqZxdRWAZt790JvjWeHPBHd0jjq5u9IywAG+E+Hn+3NOkuIlTvxDwPZAY/A
-         zongxIXoBo2kXMAQxTM0DDr3Pfg1w8K2EYXkdq7PrST8PWvLPgfRXN520VuDPf59+yKw
-         3PIA==
-X-Forwarded-Encrypted: i=1; AKwUvByrEclIINslJcK2/yqeansHy5Xp4dHUzAOXHVLXSk+cgCBTr8zwqX5wU4ABGs6HDDn2fX0umBgUur6+x6Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6sV309UmtnZE/k0G4pTzcLqiXvn2dHYWJdLhoPxhl0EJG7yzB
-	Ftjk1NphTz9ScoXDCbirnjh284RYBR+/AZLTeoPt8TsI4lWadWkVC9W6
-X-Gm-Gg: AYBFou3qNYWNJuKiQ4HJ4xGXretQm6tD4d1jaEgTuzD1Q013ivMAkJWnssaMZ3u3LFO
-	yOprATA1U3XjhwhfuHoq9QoH7TZrwvrLfuMVxzpSHI8PY9wyCFaCMFe5hS4BmlfuCzf5um98qgC
-	+m9G3E86HFla1MDbk+CN7joeII9+GXDVvrIyvnp4dm6/yozBoa7Iv7MMeoG7WMTvne7COBQD4Q1
-	ZdO1iv4np5oi4cX+4rXFin2uVL3EBu9WFiCwjPm6teCr93lXb1EY6qVUofTHGUuykNZ7bGAGHOB
-	GPtw+XVzLKuGFLhagYrAANdifnv1TN03Y+c9G2NiqKxHihInxH7EaE6Z0g0ZR5PQB43HDvK2416
-	UX8qZybDuzmrnQmq4wbXhtkcVnX68ffjI8libBshqLmp64T2xzPB6KzDeH83VkjyVETVFA0nQ2q
-	w52FxjzsViWLOOWCosbm20Eird+VPBy6Jf0gQSjY8O5b3TM8mJcXvk+NxmIMYV8Ny+fr2S2G1gR
-	aRwN14L4Yq5SfUl02RbB2WEpX3Lq5nZzUbJZekZKsW/wsHt/njUEuXyp+bvHHCDrm0qTCQ8Ty64
-	so9+tn2YIxDKE4dgubzYyQM=
-X-Received: by 2002:a05:6402:c50f:20b0:6b1:8316:ba32 with SMTP id 4fb4d7f45d1cf-6b18316bd07mr8322934a12.17.1791918231580;
-        Tue, 13 Oct 2026 12:03:51 -0700 (PDT)
-Received: from localhost.localdomain (94-255-221-162.cust.bredband2.com. [94.255.221.162])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b203580958sm230980a12.0.2026.10.13.12.03.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 12:03:51 -0700 (PDT)
-From: Yongzhao Chen <yongzhao.derek@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v5] net: phy: qca83xx: read resolved QCA8337 link status
-Date: Tue, 13 Oct 2026 21:03:39 +0200
-Message-ID: <20261013190339.51909-1-yongzhao.derek@gmail.com>
-X-Mailer: git-send-email 2.45.2.windows.1
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YJ4lsN76"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S7OiaT5vzw+QatR1m9GdvQIx8gGX1rg8M4xFr6jgiRdz9ueDoe98R1a/zBaYhcO1vY87/CjUW6MeSpLGibG735sBZhf0SNPoSCni7b4EwCODUU+45i9Q/hjj5O3IP5j9N5uvPd5QY6RcykL5TTelfQdQZkyjocyHQccNHPOVRGjeN3Xh1sLf0ptI1P+QETILdyuKvLQ5AnPL1NbaKKXb2UGHX7e826jDrYM5aByVAiXTUJ1lllvwwEuWCC5KKzmUqDStmosFgRe097BWFfvTv+miRQJ8b6ZMUZZ1qNIchz51FkQCa/IuOQSNCGhgL6DL6zq/oQssiqj5uJv0GUiUrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TaEqmQjg+r6tl0AxMiMrnnds+8wI2TVLxekhjPOVAMg=;
+ b=UIfF1G/RXl3CZ87X0nKjxEOsEfjphyIud8darMvSVcbuOKH/TTIIC3Pn4H3V+71+jIl2PwL4vq7DbsGvWnueM7hJK5EMngVXbNd0hrMQOWKFflptFW6mIajfCZKNcpn0tni5Xp24t1DlbZhfSBj8HIsuUt2BnTpTJjccOfORDPZodA/bTWv7HTH8FQuvSjsbxJ3Q5Y85SDEpXWkHAwiO7oXygxHPnpVWJ0PXwj9PkRFSK/NpF2phxtktJe9AwpCPJh/tqswh+cO+Hc5DtkUR0eU1udRU2v7VkF61TvVnvWsTkdIliyZjoacedRgoHIL7aVJj11CpZCwuipZBrzFuTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TaEqmQjg+r6tl0AxMiMrnnds+8wI2TVLxekhjPOVAMg=;
+ b=YJ4lsN76WNxUsdCOHZdeHBvdOE9MrHtc/SN1vecVDil7QtycbK3NqE3sBSbS0PTuIb2/CZqnwjYRxB9z4bEsdXSCFusAE0yjyLcTL+joQl31XjMtUNdosIhwglaAHVYcYuyMVO0qgj+XGPWZk/Uqggmmlt3LVhthvYoTJdLmXvRfAIB9pzX7Mk62OZsjAcBJO+MuvvrZF5pdEXpmjE3/UGWrIK7C2SRh9GtkvA9WjU23mZLqeQIMQRNum90BAxY5YB6abdNOKwWtT8sKxUhrKVW4RoL0Vv7AyqSqv2LGr2x8f05eI+IuWl8TAEQmaGADz5xD4C9v2gWTaU1AIL03sg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB9013.eurprd04.prod.outlook.com (2603:10a6:20b:409::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
+ 2026 19:04:14 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 19:04:14 +0000
+Date: Tue, 13 Oct 2026 15:04:07 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Dineshkumar Parameswaran <Dineshkumar.Parameswaran@synopsys.com>
+Cc: linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
+	Frank.Li@nxp.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] i3c: master: dw-i3c-master: HDR-BT support
+Message-ID: <as6ApwxTzvpMunQc@lizhi-Precision-Tower-5810>
+References: <20261013080413.7470-1-parame@synopsys.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013080413.7470-1-parame@synopsys.com>
+X-ClientProxiedBy: CY5PR15CA0150.namprd15.prod.outlook.com
+ (2603:10b6:930:67::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB9013:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5624043-e005-4968-01b3-08df295cc5af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|366016|376014|6133799003|10067099003|22082099003|18002099003|11063799006|261009223027099003|261009220027099003|261009223327099003|261009221727099003|261009221227099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	e9yQldWkE1L4i+iimdvHznb9EmNDLKx/FREreJQRf2GQEN+fZ64ysFIiCZcXqnCO3aq908C9HYHrt7lyocmmw4wd+ABoNI8+51lYOrtVfTAiAyYZ52ww5nKsEO82bByDPJIhG98B3wSb1kBb23EwZFS/c1RLZurOvjBxrDiPYXXQCxQLuroMD+9eUB5nepMJDjkUwbCbv1HoubSenCp085aUOLRtAt8yp1/dJwDwubo5qf7difEj/D99Vj3TN5SnEDzzeBZffZNotRHWbJD7WK6SDn5tUTgNEw65ZLVUNBkjAgQCBwFXRB8uk3Ix7HZoudUrYScf4+pxvEJYMyu+skmgQoT88f8+dpgLJcZdZcL8ivpiA7YfjyGbyxBeDKL4s0wd85P5LII7PJuoBkgu/Y0s6at2VVp9BbR2hoNDa/A4PmGHHbYMYGjn/4at21jiuo80DYUT3IMjs8XmPbb7oR2sONOTtHpWpVJXoLpj3BT71YRTM0UZAjNCDgdktXtZ/bfD0ltdIrGETLBNx3JFGIWB5cBCHQI6oDa6NQrpkw/HfNkeNFW2Gs5Z2isrQJp/9wiNFDNiOqLiIabF3TwHCyU1SW+gyNAzWo/OKVIIUTJDsUlCOdzPDbQCDPUIrS4L
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(366016)(376014)(6133799003)(10067099003)(22082099003)(18002099003)(11063799006)(261009223027099003)(261009220027099003)(261009223327099003)(261009221727099003)(261009221227099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qS38C/2ra0jo4gxib0UaP++OajvZ/EzSXCEWcw+ZTeLnP8RRwRAeZXW4wTsd?=
+ =?us-ascii?Q?b5Ui0c3h3MA4fYyIiND87mQxXrihIwvQR7kq8PzNyCM7e1Ay9uWGT9YhM/uR?=
+ =?us-ascii?Q?1HlkZYasV6wGzql87vngRPRMX1x3f5AI0CJupThnozm9pKM4ew0+Lq1mBN+F?=
+ =?us-ascii?Q?yH22PG9GYwXX6LYT305bcYdnQ17E2lImAHyLdDeUOFzD6ttinAqpJ3hJvftQ?=
+ =?us-ascii?Q?OHGt800ogMZgeaiyvOMtaaO/OLFsHztvs6GPlPg/jWUFAe1ot+rTZ5m+Dow0?=
+ =?us-ascii?Q?abnSbzz11jnHomQwv2FJQ5TQ6xPtFj64vlC5iZ0n3HK+K4N7QOWxvRJuDpvI?=
+ =?us-ascii?Q?fqwe1fqVDnmMuoyxm+wMDAehXFE6t/MjvaDMHT+/q+il0Df7kLoj7qvGN1I4?=
+ =?us-ascii?Q?0f1aXLtczBNRd8IxKqZgxrgQZ+rsArJ3wOYOvESaqvGzFpLxDgwcmGu8pHq2?=
+ =?us-ascii?Q?JF6lt8mqtbGmCYAyr8n+FB072XXt5dd1iT9B4AOoe4J43M/chDgrWgfdg9jg?=
+ =?us-ascii?Q?HVF2VW8mELc6RrkGFA6PwWx2cKt51i9VJ6+5ACacKrhqvNqKZyZEx2KeARXu?=
+ =?us-ascii?Q?E0vCsc+fhlJbQhss5YG8DUkdU9UNA/Qq3DeWG2V8Z5RR4lBAMr+cPCOixEuv?=
+ =?us-ascii?Q?Uc4lOC69Q7ZGRysqZRPQacJnzMEK4gRWsD0lPKaw2YPDXb1zLsboLaTsL9q3?=
+ =?us-ascii?Q?uRl9tCP9ZhDkaXjSOLN/bw1n+tGSzMzIeRe38bBG+R2qc4lEbvX2YUMCnOIp?=
+ =?us-ascii?Q?5l0T4GE/lgoKDA5EZgbcvqIHyAdfazPdq31uoXc5wvcaR8pVVMzIzqHmIeG/?=
+ =?us-ascii?Q?4mxVr19Kt3+BUH7A85oET7/BnWbr6bEi9VWx1Ayuk+JqO5NTj5DUkbUcaz5l?=
+ =?us-ascii?Q?hVraP/EEN9MLW75IFlRRm2kIF1rpPGMVCvsMoJ3HYHt5DXkLEpOT9KaECw+P?=
+ =?us-ascii?Q?U0s4bdFzHAyQhFVvOtQLTJMH/1annSC2zJP7eT0Z9siJo/apCh9+T2x0vXQp?=
+ =?us-ascii?Q?Q9IDCDLCUD08xaPiHi20pdNP8E0EQjJc+L0I6xcF1Q1vHd1NHSlfqrYT5ChK?=
+ =?us-ascii?Q?NWGVjb8zC2d14FVaGwj6qmLfTn3stVLWdLNKvDwQwhYqsic2nWCTN8nROcCy?=
+ =?us-ascii?Q?vAhsvlT7aSe3FHAKoiv4LLWAjezHiKeR7A1DnraknxStw+lEkR2wCaF7J2dF?=
+ =?us-ascii?Q?mRL6sPDheFDyMvIaLDKJk/XVloz7Gvf86iKeBMZP/V7Ns4GwMnRn76G6Z26b?=
+ =?us-ascii?Q?VIEziRNdgVaLA3AjO2b+UgJWOvlFcad8Ip8Qdip/C9VBydAvt05tOOBIDNwH?=
+ =?us-ascii?Q?tS/Tf2dsUjS5rrmzQant6RaIBpjGSH/GMqYPK42TbYC0TT40BeNUX9DQ7Uj7?=
+ =?us-ascii?Q?97nGkYY22X7a1f0xBhoDRVrpM0khBhrtm3ZQOaKGNuE3LWejHVaCA6dcNJQZ?=
+ =?us-ascii?Q?rej8FCeIe0lYyzOWnEoVA4TKi+Pho1Tr8R76fhmwR5YSdEwPqu3nKrYTK/Na?=
+ =?us-ascii?Q?cJLf6sBC2sDmQ4Yskzbmw6GzRjKd5o6unENZtZy3X+h41cwWr8mTsTjrtOe1?=
+ =?us-ascii?Q?TMjUJ/NJWuaKnRasQ9lSQqeW8z7ndT4DT9f/pKlMPK/1JcXSW7OxTcouCkae?=
+ =?us-ascii?Q?mHgKXPIbghBckTWB47THIBzM0kKrO/ZTd9HxtnCfVnWlGBljaRJ1cNl2KYMY?=
+ =?us-ascii?Q?ijBXm0rxwjg2f6BxO3rNR1Fk6JA+MiNGdVQhFAoKaekblASJB3dsLod7ucLu?=
+ =?us-ascii?Q?rswF/4H2PR4AWfUZTMbFHRwmbNM7COJmh6SKHCWiSCZexJkBz0tF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5624043-e005-4968-01b3-08df295cc5af
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 19:04:14.4737
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h6Fq+UNXDpBZVWD3lSbrqbVQmiDx70/zbjkL98dwa82kpQU3H1DNTgEYRJkJy7c+vU0AIGqkKf7NQwH4QCdtYZSI/a2S+T7RxLSo4DJ6GdmApdw+jUiuVqEjZCj2iuwD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB9013
 
-After a QCA8337 SmartSpeed downshift, genphy_read_status() can report
-1000 Mbit/s from the advertised modes when the PHY is running at
-100 Mbit/s. On a Redmi AX5400 running downstream OpenWrt Linux 6.18.52,
-this caused qca8k to program the user-port MAC for 1000 Mbit/s and
-traffic failed. An earlier prototype that read the resolved speed
-from the PHY restored traffic.
+On Tue, Oct 13, 2026 at 01:34:11PM +0530, Dineshkumar Parameswaran wrote:
+> Hello,
+>
+> This series adds HDR-BT (High Data Rate - Bulk Transport)
+> support to the Synopsys DesignWare I3C master driver.
+>
+> The DesignWare controller provides hardware support for HDR-BT
+> transfers, but the current driver only supports SDR transfers.
+> This limitation prevents users from utilizing the higher
+> throughput capabilities available on supported hardware.
+>
+> Patch Overview:
+> 1. Add HDR-BT capability in the I3C framework.
+> 2. Implement HDR-BT operation in the DesignWare master driver.
+>
+> Dineshkumar Parameswaran.
 
-Wrap genphy_read_status() and use at803x_read_specific_status() to
-replace its speed and duplex result when an autonegotiated link comes
-up. Resolve pause for the resulting duplex. Until the PHY reports a
-resolved speed and duplex, report the link as down so that the next
-poll reads them again, as marvell_read_status_page_an() does. In that
-case also clear the duplex, master/slave state and link partner modes
-that genphy_read_status() read for an up link. QCA8337's register
-layout matches the helper (data sheet 80-Y0619-3 Rev. D, pages
-327-328).
+You just post i3c: master: dw-i3c-master: Add HDR-DDR support to Designware Controller.
+https://lore.kernel.org/linux-i3c/sashiko-outbox-169200@kernel.org/T/#me5d00e8b02fcad9a477e2969758ca9cfb1a051e0
 
-Keep the generic master/slave read order and the early return for a
-steady autonegotiated link. This avoids additional reads of the
-clear-on-read idle error count in MII_STAT1000. Forced mode continues
-to use BMCR. Report the MDI-X state read at link-up and invalidate it
-when the link goes down or autonegotiation is disabled. Clear
-mdix_ctrl because this driver does not implement MDI-X configuration.
+what's relationship with this thread?
 
-The QCA8327 entries keep genphy_read_status(). The AR8327 data sheet
-(MKG-15791 Rev. 1.0) lists the QCA8327-A PHY ID and documents the same
-PHY-specific status layout, with SmartSpeed enabled after a hardware
-reset, so those PHYs may have the same problem. That is untested on
-QCA8327 hardware, so limit this change to QCA8337.
+Frank
 
-Fixes: b3591c2a3661 ("net: dsa: qca8k: Switch to PHYLINK instead of PHYLIB")
-Suggested-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
-Assisted-by: LLM
----
-v5:
- - When the link is reported down at link-up, also clear duplex,
-   master_slave_state and lp_advertising. v4 left the values that
-   genphy_read_status() had read for an up link, and a reserved speed
-   value left a concrete duplex.
- - State in the commit message why the QCA8327 entries are unchanged.
- - Rebased onto net 513444cc62e2. The files involved are unchanged.
- Both points were raised in the Sashiko review of v4.
-
-v4: https://lore.kernel.org/netdev/20261008193515.14880-1-yongzhao.derek@gmail.com/
-v3: https://lore.kernel.org/netdev/20261006160316.1356-1-yongzhao.derek@gmail.com/
-v2: https://lore.kernel.org/netdev/20261003173210.1235-1-yongzhao.derek@gmail.com/
-v1: https://lore.kernel.org/netdev/20260928220749.857-1-yongzhao.derek@gmail.com/
-
-Testing: the source-extraction model passes 28 checks covering speed
-and duplex at the phylib notification boundary, latch-low transitions,
-pause, forced mode, MDIO errors, the idle-error and MSFAIL read order,
-the unresolved and reserved status cases, and mdix. v4 fails only the
-new check for the state left after an unresolved or reserved status.
-An arm64 W=1 build of qca83xx.o, at803x.o and qcom-phy-lib.o is clean.
-
-v5 has not been tested on hardware. The hardware result above used
-v2's at803x_read_status() plus genphy_read_master_slave() on one board,
-with an Intel igb peer, a two-pair cable and default autonegotiation.
-Ping changed from 0/20 to 20/20 in each direction at resolved 100 Full.
-Whether QCA8337 can report link up before the resolved bit is set is
-unknown.
----
- drivers/net/phy/qcom/qca83xx.c | 58 ++++++++++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
-
-diff --git a/drivers/net/phy/qcom/qca83xx.c b/drivers/net/phy/qcom/qca83xx.c
-index bc70ed8efd8..2c4d085bacd 100644
---- a/drivers/net/phy/qcom/qca83xx.c
-+++ b/drivers/net/phy/qcom/qca83xx.c
-@@ -92,6 +92,63 @@ static int qca83xx_probe(struct phy_device *phydev)
- 	return 0;
- }
- 
-+static int qca8337_read_status(struct phy_device *phydev)
-+{
-+	struct at803x_ss_mask ss_mask = {
-+		.speed_mask = AT803X_SS_SPEED_MASK,
-+		.speed_shift = __bf_shf(AT803X_SS_SPEED_MASK),
-+	};
-+	int ret, old_link = phydev->link;
-+
-+	ret = genphy_read_status(phydev);
-+	if (ret)
-+		return ret;
-+
-+	/* Keep the state resolved at link-up while the link stays up */
-+	if (phydev->autoneg == AUTONEG_ENABLE && old_link && phydev->link)
-+		goto out;
-+
-+	phydev->mdix = ETH_TP_MDI_INVALID;
-+
-+	/* genphy_read_status() derives speed and duplex from the
-+	 * advertisements, which is wrong after a SmartSpeed downshift.
-+	 * Use what the PHY resolved instead.
-+	 */
-+	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete &&
-+	    phydev->link) {
-+		phydev->speed = SPEED_UNKNOWN;
-+		phydev->duplex = DUPLEX_UNKNOWN;
-+		phydev->pause = false;
-+		phydev->asym_pause = false;
-+
-+		ret = at803x_read_specific_status(phydev, ss_mask);
-+		if (ret)
-+			return ret;
-+
-+		/* Report the link down until speed and duplex are resolved,
-+		 * so that the next poll reads them again. Also clear what
-+		 * genphy_read_status() read for an up link, as the
-+		 * PHY_HALTED path of the state machine does.
-+		 */
-+		if (phydev->speed == SPEED_UNKNOWN ||
-+		    phydev->duplex == DUPLEX_UNKNOWN) {
-+			phydev->link = 0;
-+			phydev->duplex = DUPLEX_UNKNOWN;
-+			phydev->mdix = ETH_TP_MDI_INVALID;
-+			phydev->master_slave_state = MASTER_SLAVE_STATE_UNKNOWN;
-+			linkmode_zero(phydev->lp_advertising);
-+		} else {
-+			phy_resolve_aneg_pause(phydev);
-+		}
-+	}
-+
-+out:
-+	/* MDI-X configuration is not implemented */
-+	phydev->mdix_ctrl = ETH_TP_MDI_INVALID;
-+
-+	return 0;
-+}
-+
- static int qca83xx_config_init(struct phy_device *phydev)
- {
- 	u8 switch_revision;
-@@ -220,6 +277,7 @@ static struct phy_driver qca83xx_driver[] = {
- 	.flags			= PHY_IS_INTERNAL,
- 	.config_init		= qca83xx_config_init,
- 	.soft_reset		= genphy_soft_reset,
-+	.read_status		= qca8337_read_status,
- 	.get_sset_count		= qca83xx_get_sset_count,
- 	.get_strings		= qca83xx_get_strings,
- 	.get_stats		= qca83xx_get_stats,
-
-base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
--- 
-2.43.0
-
+>
+> Dineshkumar Parameswaran (2):
+>   i3c: Add HDR_BT mode to the I3C framework
+>   i3c: master: dw-i3c-master: add HDR-BT transfer support
+>
+>  drivers/i3c/master/dw-i3c-master.c | 146 +++++++++++++++++++++--------
+>  include/linux/i3c/device.h         |   4 +-
+>  2 files changed, 109 insertions(+), 41 deletions(-)
+>
+> --
+> 2.34.1
+>
