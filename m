@@ -1,160 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323054398F1;
-	Tue, 13 Oct 2026 17:18:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60B2519E0B;
+	Tue, 13 Oct 2026 17:20:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911931; cv=none; b=uTPkKuKk8eAwJzMIulICBvENohjrQI0RfL9IZg2xDN9ngZANQrSoHsea+GE8RrCqY5Oy9RD9rx3d8bikxKEUCAqry24O0YGKf7EAhYzP1bQKj3adM9JkUhKFXbWxrbTlFPozeGS+iaBGDOQAqDPTkjL1mntOaioF/NdTykwFYGc=
+	t=1791912011; cv=none; b=kzGFkLNAR5ScPxmu5F7OFgCy72P9Q7Loam4U02JM21roTr9V5xFtLZibXgeN0QrQ5zj7stFrsB9dG/d084UJtcjZ425BcJ2F/sYwCzUhjOyVmopVkpMAmCCWitNzAPVh9raTbAbMO95K5po7Pf1g4741/L7THofPC915FHlYGp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911931; c=relaxed/simple;
-	bh=8PqwQUWFfVghebMz9z1kAMapTMuwsHDaGj4XEMNSP/g=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=GjwqxHHsmsc2B/vka1IYJV4edO0D+3sslbyf+AOASwF+yZ94lHgP6xmN1owlFLQYbINrWiGcTJAEd5XoeZKRk/9ngtV/4VbTUtcj161i56G4fZOEYsOoc6QHb3n1yklZioIpkUzEQUPZlZE5D2bSgnoqtDpLQsNNQkcPZItM5yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AG1e9nLS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791912011; c=relaxed/simple;
+	bh=t0cGaFCzYu1pS2PRaPMhgelVe0llC2xQaULFYEtihv0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HFQpYUCeWh9fb35Jcd8lP2G57s93npQfgtlXjDO7fX6guAFYNjy0kOZop2PLmx2f3G2ztrL/NLhC3IsBGvj07Z4UCVoJnG131BODrfpT+BQ/AlRbt6SPt6mHjBhdDEcMLoRncaBrkmr+0Nu2hiqOBL7081ZMMYLQuIpYdRUgYyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aq0oFezj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AG1e9nLS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5171F000FF;
-	Tue, 13 Oct 2026 17:18:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aq0oFezj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66FE21F000FF;
+	Tue, 13 Oct 2026 17:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791911930;
-	bh=DaV//0Jk7M97S39ZwsdcpB+1W9eqYBvkzOhD9k9vV/Q=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=AG1e9nLS8EsscB3nsQDaKaav0BROgOxE4YMbZIEyin08r6IfwPk6dWyZ/uhBrq7YN
-	 T6kpponQVJYJO6i4I3RPki1uJoLIHSjxliRKuskb5ELUNP2RA+/TAZ1hEqmUHkSaVL
-	 69WCaYKkE3kQt/8Z+9VOWwo5jPT+/sSdDvsBopCC/dxLm6ubz0ZwCvZlrDfqEM65tD
-	 rjNhyaB5K2WUIZP+tqvUL+LkQs+M3BWe+rZFY7cfzoiRNInpvIEHz3ogPRAgIPkaCA
-	 dwaPWpHd/du9EVs2J/4wtCzlLu+/oiNuibtVoJCnZtPHHs5j0xSZgDr8fWcjaP/mwk
-	 U6Alldl4Q8fjQ==
+	s=k20260515; t=1791912009;
+	bh=+n1HefB73czLSrsKSb7EVG6zCRETDVIEKXXVgdISk1w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Aq0oFezjlcddMr1flNZC7JSDuzWE0jZe3P3ATg4C9OM6NVAK+Lyw7PShBCnVNDSYE
+	 I0ELaMeM9XxoO1ghSxjw6o9stMWJf/nfpxrniD7ZhJ+GPPFL3zlPuisVzkCkouS+iT
+	 otkcxbMV/B5JILf5w3/e6+8gFLLm6dlYY762u6mwujfmFFZ1SYqO268LPZETaRBjsM
+	 vBLQTY+FVCl4Yx81FSNoc57NzZggQMQk2NH+PadKQDDLBIaHKpupk/wO4q/MgYOqe3
+	 UYZstsP+IHyuZu77HURsgj2y8Ov9okM62WAUGlzDT2pCnm/N7aseFbcQBoqfpDETUz
+	 Qt4fa+espIS0Q==
+Date: Tue, 13 Oct 2026 18:20:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Pavel Begunkov <asml.silence@gmail.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the block tree
+Message-ID: <c4818b35-67b9-4413-bd36-c17660fa6a4e@sirena.org.uk>
+References: <as5jnDJEt1iZZqZk@sirena.org.uk>
+ <3ebc7573-59a0-457a-a9ae-104c56010837@kernel.dk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] pci: designware: Set DMA_BYPASS bit in outbound
- IATU CTRL2 register
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Niklas Cassel <cassel@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, 
- Sumit Kumar <sumit.kumar@oss.qualcomm.com>, 
- Jingoo Han <jingoohan1@gmail.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <aqbahGslz11TWIRo@fedora>
-References: <20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com>
- <aqAk6nXECt239c2g@ryzen>
- <4nxyshx26bl5r7jjjnghsyz7k63lah6zx77cuea37mziww7kb4@iij5g3om67ub>
- <aqbahGslz11TWIRo@fedora>
-Date: Tue, 13 Oct 2026 22:48:37 +0530
-Message-Id: <179191191767.12828.2752703637384946037.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3630; i=mani@kernel.org;
- h=from:subject:message-id; bh=8PqwQUWFfVghebMz9z1kAMapTMuwsHDaGj4XEMNSP/g=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqzmfwFAMrCKxMOcbMcmBoP8ps9UP1Dl0MH8zRD
- pGaqapdwcyJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas5n8AAKCRBVnxHm/pHO
- 9TjrCACSD2GVH5IhWwVcX2Aah6BHGKLKFKchRjtkdA0G4pH30dmKrOUrjAnr/V6phBL4BxTLRfo
- QFycM0pq8LznSstG41qv3P/mPhggml9dw3PFaoX/E8ezgfxZ+/Qn2TW8YmkuAgjvzlm5oMh17wa
- UzHSM2zlQdtmPW6JjxNIUPeTj3pNqDliB3OBSIc9ys1mQWnb2z/Y1OB7mQ5lFIPTo1pPZT4aMup
- IVPmPkAHE8qtemOK1U4epJVnaXANXBPwQl+cqMZk2hE1tmlbD7lCcyNFTewTgc3so2KLKfh5Bw+
- n3xtQDM8BjAGTcDddmfLKhZieRgDWa344fFA73cDocmOZEqB
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4fVUm2g1Z/7NZEWA"
+Content-Disposition: inline
+In-Reply-To: <3ebc7573-59a0-457a-a9ae-104c56010837@kernel.dk>
+X-Cookie: Some equipment shown is optional.
 
-On 2026-09-13 19:16 +0200, Niklas Cassel wrote:
-> On Sun, Sep 13, 2026 at 11:35:59AM +0200, Manivannan Sadhasivam wrote:
-> > 
-> > pci_epc_mem_map() is already useless in the eDMA path today. So this patch
-> > doesn't change that.
-> 
-> I'm not sure if useless is the proper word here.
-> Redundant is perhaps a better word.
-> 
 
-No, it is useless indeed. See below.
+--4fVUm2g1Z/7NZEWA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> 
-> Let me explain using pci-epf-test.c:pci_epf_test_read() as an example:
-> 
-> Without the patch in $subject, on a DWC based platform:
-> 
-> pci_epc_mem_map() will setup an iATU entry, and the eDMA transaction will then
-> be translated using that iATU entry, before being sent out on the PCIe bus.
-> 
+On Tue, Oct 13, 2026 at 11:07:56AM -0600, Jens Axboe wrote:
+> On 10/13/26 11:00 AM, Mark Brown wrote:
 
-No, that's not true. While the pci_epc_mem_map() does setup an iATU entry, eDMA
-transaction doesn't use the mapped address.
+> > rsrc.c:(.text+0x1a9c): undefined reference to `io_register_dmabuf'
 
-If you look into the eDMA read path:
-	pci_epc_mem_map()
-		-> Allocates map.phys_addr and sets up an iATU entry
-	pci_epf_test_data_transfer()
-		-> dma_local points to address allocated by dma_map_single()
-		   (dma_dst)
-		-> dma_remote points to RC address referenced in src_addr
-		-> These two were passed to dmaengine_prep_config_single()
-		   ignoring the map.phys_addr passed through dma_src parameter.
+> > Caused by commit
 
-For eDMA write:
-	pci_epc_mem_map()
-		-> Allocates map.phys_addr and sets up an iATU entry
-	pci_epf_test_data_transfer()
-		-> dma_local points to address allocated by dma_map_single()
-		   (dma_src)
-		-> dma_remote points to RC address referenced in dst_addr
-		-> These two were passed to dmaengine_prep_config_single()
-		   ignoring the map.phys_addr passed through dma_dst parameter.
+> >    4bb7978523289 (io_uring/rsrc: add dmabuf backed registered buffers)
 
-So essentially, the address used by the eDMA is the raw RC PCIe address, not
-translated by the iATU. In fact, the Designware Databook also doesn't recommend
-setting up the iATU entry for the eDMA path. So the allocated iATU entry is
-useless.
+> > I have used the tree from next-20261012 instead.
 
-But the issue this patch is trying to address is, if the raw PCI address or the
-dma_map_single address used by the eDMA happens to be present in one of the
-existing iATU mappings, then at that point, the address can get translated
-causing wrong address to be sent over the bus.
+> This is already fixed, which sha did you pull?
 
-> So the iATU entry is actually being used.
-> 
-> 
-> After the patch in $subject, on a DWC based platform:
-> 
-> pci_epc_mem_map() will setup an iATU entry, however, because of the DMA_BYPASS
-> bit, that iATU entry will not be used, and the transaction will be send out on
-> the PCIe bus untranslated.
-> 
+I have 8ba95aa196dc8f3fb50f123f9fd32459d65a49e2.
 
-This is the current behaviour as well.
+--4fVUm2g1Z/7NZEWA
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
-> So I would argue that it is only after this patch that pci_epc_mem_map() will
-> setup an iATU entry that will then never be used.
-> 
-> Yes, I think I understand that you are trying to say that, for DWC based
-> drivers, we could theoretically skip the pci_epc_mem_map() call, and send the
-> transaction untranslated.
-> 
-> My point is that it feels silly to set the DMA_BYPASS bit without also making
-> sure that the pci_epc_mem_map() calls are either removed or (at least for DWC
-> based platforms) modified to not set up an iATU entry in the DMA path in the
-> first place.
-> 
+-----BEGIN PGP SIGNATURE-----
 
-This I agree. But this also needs some careful analysis as other DMA controllers
-other than eDMA might need the mapping. For eDMA, it is also not straightforward
-as we do not pass any 'I'm using DMA' flag to map_addr() callback.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOaEUACgkQJNaLcl1U
+h9C9Jgf8CCjeMS0h3hwug7cpj52riNkyvHu60f45kAEnBdzF8ILgfCYBIUZgV4CP
+KPFUb4GepLDp2t9hMR/gKhwAJ3wYH13w91SaQ0cxSG5bImcpPOLrc4MnnTc0vXHz
+Rvh3GygXi1Lr+4o4YjwwGiRFsPj75GIuyaOMfDp26J5uNNwtGl10KHwRjVAccZ3a
+idjfPpqTiBTPYVqWQ5ruU9sbAX1hzDOFbm1QFEBqzwEa4p4qzY2FgelrjsiBgNm4
+PVihrbyWUK/ntDCUNZA2CxnrH6P69OQbE9PF29UiB4+CiVNIYp6BK/FtxySJj2I4
+EpzbZEr9YGQTzUJLxfAVZED+sNd9Qw==
+=6c/y
+-----END PGP SIGNATURE-----
 
-> I am happy that this is getting cleaned up, I just don't like a half cleanup
-> where we, after this commit, will setup+teardown iATU entries that will then
-> never be used for the actual transaction.
-> 
-
-This should be done as a follow-up, not blocking this patch.
-
-- Mani
-
+--4fVUm2g1Z/7NZEWA--
