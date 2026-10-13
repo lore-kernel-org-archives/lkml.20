@@ -1,186 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB654F4028;
-	Tue, 13 Oct 2026 13:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1675A2DF6E9
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:12:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897096; cv=none; b=bsbGfMuhGbdzK6KpkpoxG5q9QC7I1wqcEMSDRx0yEyAI5b0Wn7nmnS1RNS3jczGH5zoy4s5GkQci8+TuIn+WzJbNGylr0pA34Ev7bMnZ7msCQBsbUaOocdcJWY675XIQaEHPkTrlzW8sofcrTDN8BLDywi4wQshQXoMyT7AJgEA=
+	t=1791897121; cv=none; b=LCU6210D00qyvE2E6uMKbGXo/uoJm4peqp/em4il9Rb2+9pFnBQVWWIY+SO0gNd8OYHAKhuA3c2NATwxbr1hTzAIhrOgswtZEgmCqxASLKuiILu/yi7BvAez2NOzpQtm6QEvC63Mi7xqACR3lelQDxT9NHQd/qQ91B3RV02zkww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897096; c=relaxed/simple;
-	bh=ZZITAiBaaQqy3ghN86ef/wybnGbKCy2GxZY4/xKbIo4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HxE955xWCZyFaFANalOCwsPzrj+VJZ3eG0pZx6Xk7iJ79NQpi9lw2gW1RmItqfLprbyDqAiCj/Y4LUoDZfdEsy4R/JhXGku07mGy39KWn7SRPpBSBZaur++nVJZcMbJTOxkIGSUS3GrmUcDF7FoIZnpVNZ6gSLXIl1eGSZTFORQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DbyxAM0+; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791897121; c=relaxed/simple;
+	bh=wxx33mbHAocw6OfeRFru/mTRHPPabfv9Mi3TkUFDJ94=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bMZgWoaqnyp04dcH3+1ekwuDX9Jy833PYCqsq7ivkNRq9vU3FyF9whJ2CjMdlJB8yfUjOEaFvulmqeKe5Z1rpqseNcypSF0LfwVBJlbs8KSuZjQu+jy0oHTHfYJ/Hyznp7t7Re457XTO5CTgRBgqscCTCEQ6TWGAZ/dSphTYHQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gdyny1VY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U8v/Vkih; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DbyxAM0+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791897094; x=1823433094;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ZZITAiBaaQqy3ghN86ef/wybnGbKCy2GxZY4/xKbIo4=;
-  b=DbyxAM0+Q5Y6oEvPdFxkTDtpBD6kzXZp3NMPYsHdWaWPPILcHS/Le0/4
-   hw0n7j4vBFL2b0rTmD6TuRJbPadw3DL4H/Ob9I2K+CUMmji4iKEHbUeTE
-   qlelWNyP6ZaxERg3EjyhFQvKGH4pU1go91wgDi6pj9+6cGzqUwY5neki1
-   Ou0p5OdHKftDgpNOczg4tabSAbijLdbmqXulh+HKZtuuw6HfzSR0irzR+
-   vR9tb+HBNQF38zT66OY6z4+OH40pvYWGrUsKHam3PEzjJtUFjCyZqfKE8
-   Gwel5biMG/JXvPxaJ23KErWwhapzafFc8J9h/mv1K2hLAm5cqnBi4FP74
-   g==;
-X-CSE-ConnectionGUID: BKGLhaRMRNKTWU+DeuRLhg==
-X-CSE-MsgGUID: Y5TEelHSS5mUMvyEOztU1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="614479"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="614479"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:11:34 -0700
-X-CSE-ConnectionGUID: 6VBpCap3SwSq17gCFNNCQw==
-X-CSE-MsgGUID: 2wV9QJoWTFKJVAw9y1h1Kg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1248129"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:11:28 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Nikolas Joshua Britton <nbritton@exabit.io>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	linux-kernel@vger.kernel.org
-Cc: Bradley Morgan <brads@mainlining.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v3 8/8] PCI/quirks: Avoid certain address on Genoa systems
-Date: Tue, 13 Oct 2026 16:09:42 +0300
-Message-ID: <20261013130948.6231-9-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261013130948.6231-1-ilpo.jarvinen@linux.intel.com>
-References: <20261013130948.6231-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gdyny1VY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U8v/Vkih"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DBB3eH949406
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:11:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	uD+Y8zqy9qF2/F+qvk+d3eryZB2TLW67qA34KHqZjsA=; b=gdyny1VYt9fgctrC
+	L/1BXBieRo6bm/LH/qS0vhA+xPJMbsRcYeldDT77RnE/1TchewY1ypnJ8Aw2cr32
+	BoTsA2me/Hr8skf9FlItDkINDSxjXYst+hilf1cqF4tYpiAN6WQVWWMwzGhnfSLL
+	LyeQ0ycw4LgZaSDaiYBXi75/lmWWyMYCb7QAZmQX9prPT9/nFx6FpfqbddL4hoPF
+	gH3uRXbLlKsW1wqAihJcAwWnQikzL22/901Y/D4nOShTHjmkp2BgJ83pbEZBGQYg
+	LONy2dGEr7+UupMtOBir22sdG2ijZps9Mr6QuWRL3zjgavQf3eLvLHCQhE3Vadkz
+	zI37yQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9f629qtq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:11:59 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-532dc3793easo101019151cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:11:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791897118; x=1792501918; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uD+Y8zqy9qF2/F+qvk+d3eryZB2TLW67qA34KHqZjsA=;
+        b=U8v/VkihJt2WEL4x6HoMp11J9oCM5R1tRzAFW0i7dcYWMSATvECp1WUznq+yGBFNhe
+         Zi/BP6NYv5sM35/5QKaInBuuBFquQGYtMyKYghe6/NO6U4RYsaYCHa9F39VxjcYMwBBl
+         +ycCM5bYJ0+Kp/9FrgAklX5W1czxtaLfcXvj2tRcIHcROc9bYDIot5S+yTO8MwO7Jlrs
+         aIFoF21Jpl5Qja/0dLQHpYdjQ+csv+DAZ1xFmdwkA/kV9Vr0RL0QMmmEWwsgmcL8Fnsk
+         PZqz7v+cDoiO0Iq7BsayThmE11geL8yh6sF2fjUZF1vnpeIHFZjeoSp++gw60hhfHHJg
+         wkbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791897118; x=1792501918;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uD+Y8zqy9qF2/F+qvk+d3eryZB2TLW67qA34KHqZjsA=;
+        b=y8quUDazvDIYXUcqDecB80yKEWLes9wNPARnoTEuhL+/JHTcaOnH8x/s4c5iTdwYEj
+         fWu8X1iFtFfThf9M8eBZafrJ2DRSkySuhPrgE3wFHIe+rzwRXdufOvsO7RPVtr0Eek1I
+         E6HHzQESbUsYtxnyYXTpLpB+lGePGLxGaHGTBekcmcJmWgIIc+BvZXLY/lqyQNMn/YQO
+         mBZkAJMHmkMNfZEOm3+SdzZFRZ1yhqQASHNYoCuura/cssPeayaCfvhEgjDHv5K8HDAc
+         dkNV9SY3rdRh/GbTVOXa6phvEs1Fpv6vekfz4AFE6LWat7XM14V5SzR7YrPJ+G1AuQ8o
+         VLxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxUK3uf/FMPLHNj4ovRt/G9FCAr+Xv0xHlXK9Q/TwLIQOD23jI6YXlJI8v1b5eKIqj0/QNEaV4Rm2I+E1w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMF9W2pFd4rg4ce8MnL+pxmKYK56yzxATQ9xz9CaRyi4WkvjrB
+	z4eKAveKMlOXs4DlLYkOuL+ZP2Pk4oKv63vSB+ctPtwGnFZnC4AWjnVIlqbHFWY9C8hGERXvIXJ
+	/GnGd9gAo+uN3o1CF/fEQQT+CiZiVQq+9Disl9ABXnpHJBvCyyqvnxsSV1kF7GK2MEeporwXBtp
+	Q=
+X-Gm-Gg: AYBFou08oZzm0THi9y1oCDPKfa9AVcd6AHkvrhvyI/RaDtHvy8ig5nQQCKyfoFV7Bp5
+	OKb/BVznbdlpj7g9iirkLae/fEw7uLysR4x1bNnvC/KEyS58ceqy3AcLigZmxkgHAmOa1W8xNDq
+	FFdRvhLcSfhLVrT5d9FpZZdO969AMxRROlexdDQYsygrej+e4hqWbVypNME5+fLu0UJZj1DYe0c
+	4IV1YqQ0eSxG4A+L9+X8/I4NYokjuKVHTZKylasSQ7joB6iVya6b2dZC+c2pbHxSu2TzKFETrbo
+	QPmxV+D1NcFXMSOflBRc25u+nkHfW7Tb2miUUa7QaWA+zyXmYVCyx2JdjDGQjZ0Q3HGi1/fmsd9
+	q1b8CG1LgKhdooDH7RVHSd9DAUH5o
+X-Received: by 2002:a05:620a:44c3:b0:93c:3863:ff7f with SMTP id af79cd13be357-93eb923d20bmr2040011185a.0.1791897118264;
+        Tue, 13 Oct 2026 06:11:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:44c3:b0:93c:3863:ff7f with SMTP id af79cd13be357-93eb923d20bmr2040006385a.0.1791897117726;
+        Tue, 13 Oct 2026 06:11:57 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190344032sm371862945e9.15.2026.10.13.06.11.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 06:11:54 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 15:11:44 +0200
+Subject: [PATCH v3 1/4] gpio: shared: fix use-after-free bug when adding
+ shared proxies
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-gpio-shared-fwnode-lookup-v3-1-4553c1a7d80f@oss.qualcomm.com>
+References: <20261013-gpio-shared-fwnode-lookup-v3-0-4553c1a7d80f@oss.qualcomm.com>
+In-Reply-To: <20261013-gpio-shared-fwnode-lookup-v3-0-4553c1a7d80f@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2161;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=wxx33mbHAocw6OfeRFru/mTRHPPabfv9Mi3TkUFDJ94=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqzi4SHSu+Ft6k2cEiYw4NsGmFH87WqOERmnxqs
+ LV80y8aMT2JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCas4uEgAKCRAFnS7L/zaE
+ wzamD/9oRMKMYVCTbLbH09WbAVVV8RhiW7fugeNxgBVshrgkZK6o8LKkgxtgQ1IZ7R0Ownz8J9Z
+ q1bjZSw9jIZLP/7RfIcXaYX+JUuGj6d1AWk4JAqeNbEKzeSGyO9Sf/2ql0yVDop7IhrOImixKz4
+ 7PA7rn8ln+FdJjsM/zfM1BDdIE3ePzmWqF7Vy5c1whsw/gvjSW3715qMgyrXYwnZrWSAS4DZRsm
+ UHfW38PR9bk6yhB7/9KQWdNjFodFYWPWQxp5bH+9xWYOhxNW6gpqdnBDpbgZ6fgZ0eRfSAMvo3G
+ MoN45VLa/iR42u1nkbu70vCc/GKkXeXCuALMPNz+hWoGIOB7tYa94ShkWclBcclERyNTtGvPne0
+ /x9I7Y9t1hGL96J/hohyRQqr3+IL4OHp4Zrxunrood36sGbtgqkX50hh9HnqFCHWeW9rbkzGREG
+ BsCbGIyNq+OS2WKR3KJiVn6sSuOTiXWjyE3jU7YS4Qb8TF7fmjp022CI95hZ5+kWmttnes8bqRY
+ 1ILvDxOLrHeioldEtVn+moyzC738mk82VeXyFQp7YDi4QwXQfElfdXw8pCgOFL5H4PAw1yJutac
+ eNF914keAZk9FFRdydbKghZmzQegJImbJZjcf2GwEMacKQ7RhbKaymEQRk8ajThnydeoOU7SCLR
+ aK4FVwEkM2Jli7w==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=FOKOVOos c=1 sm=1 tr=0 ts=6ace2e1f cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=KwuEG1lCUIphvGhCtYAA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1MiBTYWx0ZWRfX835qEvr19WOX
+ qAcXlo3QtrybeP7Dquu+Is8TKRRucEb1qhuJxK28yyB066xgOqI3gVWY/PW9n1/5kgGidFOtN9t
+ wWR1UxwhGvmqFXwUq98PvYF7xTJ8c/4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1MiBTYWx0ZWRfXwzhZhNTjQzhi
+ EvG0KU85gahS6RKLVwogS1cs42JJ6glozMUcMkkjGBriRj4On2AOxnRKo9+YvI4Iy7UOlwqazL6
+ fYBJ/BChlmMS8dPegZUPuVn/YoYTWMA4zg2/rzO0JIs5+zLiXSErjUfvu4sxKH1MBU3FxcjGG9V
+ Ax0LuZmG94wm/b+9rAe1Tnv9BR99RecEZaUAfN18cinqjKZeeeLR8lF8bV+dTt/Hjh2WPormEem
+ tSqUownJBJ0drztCwUQis3Iwqa1rNfGflwibZjBAYRvbmDqABcmmRQ8RIi5pRnIUpbm2g/REB1Z
+ XbdPZOaVekTAKLdKWmSN8gD/JEO8mij3OaFKO/81aP44+mQZ+eNNi2ArINu67/pFgxNpTdMbkpT
+ n5UGsS8aLeB8FLfsl+PFSlEW20e7wbSAjbEYD6QYYbiC6sNmzjNPDelnmx2XYC4cCEFz5e5ozx2
+ KPEoN7KVDpfRd+MRufQ==
+X-Proofpoint-GUID: QI0HZYEzKYvUAX9cNDJHEgepo5SV87_T
+X-Proofpoint-ORIG-GUID: QI0HZYEzKYvUAX9cNDJHEgepo5SV87_T
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130052
 
-While testing the resource placement changes, tests hit a case where
-igb fails to probe when BAR 0 is placed at 0x9c000000:
+The GPIO lookup table can stay alive for longer than the kobject whose
+name string's address we're assigning to lookup->dev_id. Fix a potential
+UAF by duplicating the string.
 
-   90000000-9cffffff : PCI Bus 0000:a0
-  -  90000000-902fffff : PCI Bus 0000:a1
-  -    90000000-900fffff : 0000:a1:00.0
-  -      90000000-900fffff : igb
-  -    90100000-901fffff : 0000:a1:00.0
-  -    90200000-90203fff : 0000:a1:00.0
-  -      90200000-90203fff : igb
-  +  9be00000-9c0fffff : PCI Bus 0000:a1
-  +    9be00000-9befffff : 0000:a1:00.0
-  +    9bf00000-9bf03fff : 0000:a1:00.0
-  +    9c000000-9c0fffff : 0000:a1:00.0
-     9c100000-9c17ffff : amd_iommu
-     9c180000-9c1803ff : IOAPIC 8
-
-  -       Region 0: Memory at 90000000 (32-bit, non-prefetchable) [size=1M]
-  -       Region 3: Memory at 90200000 (32-bit, non-prefetchable) [size=16K]
-  -       Expansion ROM at 90100000 [disabled] [size=1M]
-  +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable) [size=1M]
-  +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable) [size=16K]
-  +       Expansion ROM at 9be00000 [disabled] [size=1M]
-
-igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
-------------[ cut here ]------------
-igb: Failed to read reg 0x18!
-WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at igb_rd32.cold+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
-...
- igb_get_invariants_82575+0xff/0xf00 [igb]
- igb_probe+0x3c8/0x1190 [igb]
- local_pci_probe+0x3b/0x80
-
-It turns out there is a 64kB iomem black hole at 9c000000 that returns
-~0 and this is where igb's BAR 0 resides. If another BAR of the same
-card is placed into that address, it is similarly black holed.
-
-Mark the problematic 64kB range reserved using a quirk bound to the
-bridge found in the problematic system.
-
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222074
-Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: stable@vger.kernel.org
+Fixes: a060b8c511ab ("gpiolib: implement low-level, shared GPIO support")
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-Cc: Borislav Petkov <bp@alien8.de>
+ drivers/gpio/gpiolib-shared.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-As an alternative to this, I've also tested reverting the commit
-07eab0901ede ("efi/x86: Remove EfiMemoryMappedIO from E820 map") and
-that also resolves the issue by retaining "9c000000-9cffffff : Reserved"
-entry in the resource tree.
-
----
- arch/x86/pci/fixup.c | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
-
-diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-index b301c6c8df75..cc463bf492b6 100644
---- a/arch/x86/pci/fixup.c
-+++ b/arch/x86/pci/fixup.c
-@@ -822,6 +822,42 @@ DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x1571, pci_amd_enable_64bit_bar);
- DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x15b1, pci_amd_enable_64bit_bar);
- DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x1601, pci_amd_enable_64bit_bar);
+diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
+index 5f9623e40b0fbebcf318fcfb2e75768cf6e3f313..6acfec73b73477245c7e4c593f2925efbc8980c6 100644
+--- a/drivers/gpio/gpiolib-shared.c
++++ b/drivers/gpio/gpiolib-shared.c
+@@ -450,7 +450,6 @@ int gpio_shared_add_proxy_lookup(struct device *consumer, struct fwnode_handle *
+ 				 const char *con_id, unsigned long lflags)
+ {
+ 	const char *dev_id = dev_name(consumer);
+-	struct gpiod_lookup_table *lookup;
+ 	struct gpio_shared_entry *entry;
+ 	struct gpio_shared_ref *ref;
  
-+/*
-+ * TODO: Remove when/if root cause is found.
-+ *
-+ * Genoa appears to have a 64kB iomem black hole starting at 0x9c000000
-+ * address for which all reads return ~0 blocking an overlapping BAR from
-+ * working.
-+ *
-+ * Work around the problem by reserving the space prior to making any iomem
-+ * allocations that could overlap with the black hole.
-+ */
-+static struct resource genoa_black_hole = DEFINE_RES_MEM_NAMED(0x9c000000,
-+							       SZ_64K,
-+							       "reserved");
+@@ -480,18 +479,22 @@ int gpio_shared_add_proxy_lookup(struct device *consumer, struct fwnode_handle *
+ 			if (!key)
+ 				return -ENOMEM;
+ 
+-			lookup = kzalloc_flex(*lookup, table, 2);
++			struct gpiod_lookup_table *lookup __free(kfree) =
++				kzalloc_flex(*lookup, table, 2);
+ 			if (!lookup)
+ 				return -ENOMEM;
+ 
+ 			pr_debug("Adding machine lookup entry for a shared GPIO for consumer %s, with key '%s' and con_id '%s'\n",
+ 				 dev_id, key, ref->con_id ?: "none");
+ 
+-			lookup->dev_id = dev_id;
++			lookup->dev_id = kstrdup(dev_id, GFP_KERNEL);
++			if (!lookup->dev_id)
++				return -ENOMEM;
 +
-+static void genoa_iomem_black_hole(struct pci_dev *dev)
-+{
-+	struct resource *r;
-+
-+	pci_bus_for_each_resource(dev->bus, r) {
-+		if (!r || !r->flags || !resource_assigned(r))
-+			continue;
-+
-+		if (!__resource_contains_unbound(r, &genoa_black_hole))
-+			continue;
-+
-+		if (resource_assigned(&genoa_black_hole))
-+			pci_dbg(dev, "iomem black hole workaround already applied\n");
-+		else if (!insert_resource(r, &genoa_black_hole))
-+			pci_info(dev, "iomem black hole workaround enabled\n");
-+		else
-+			pci_dbg(dev, "iomem black hole workaround add failed\n");
-+		return;
-+	}
-+}
-+DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_AMD, 0x14ab, genoa_iomem_black_hole);
-+
- #define RS690_LOWER_TOP_OF_DRAM2	0x30
- #define RS690_LOWER_TOP_OF_DRAM2_VALID	0x1
- #define RS690_UPPER_TOP_OF_DRAM2	0x31
+ 			lookup->table[0] = GPIO_LOOKUP(no_free_ptr(key), 0,
+ 						       ref->con_id, lflags);
+ 
+-			ref->lookup = lookup;
++			ref->lookup = no_free_ptr(lookup);
+ 			gpiod_add_lookup_table(ref->lookup);
+ 
+ 			return 0;
+@@ -611,6 +614,7 @@ void gpio_device_teardown_shared(struct gpio_device *gdev)
+ 			if (ref->lookup) {
+ 				gpiod_remove_lookup_table(ref->lookup);
+ 				kfree(ref->lookup->table[0].key);
++				kfree(ref->lookup->dev_id);
+ 				kfree(ref->lookup);
+ 				ref->lookup = NULL;
+ 			}
+
 -- 
 2.47.3
 
