@@ -1,207 +1,138 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881923D6472
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8D33D4137
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882672; cv=none; b=d2ciQqqAD+kC+d/L6BaT/vo5NJp0YezOagoyt2TS8x0p6PjAMRvWMFFzAWG+3rpQk/xEnCv0nV2JVTfeW/pVRr+ykQo0EEAyR+kczy1l4ujwAq1RQu02sgpKfQjVEyA4AMW0w4a3PTC6bRmym1GaA5kdc9+9T4bdRV/QxPedGCY=
+	t=1791882677; cv=none; b=qYqVClL74sq4UBWGpzYyR3K3wMDbFAVoEnWUCsAWD4zuNZWkzrpfSS87a2lSVds6QCXnjBgcynUFkn1liu8Chn25BEaWG3mA9h74ZYRts/IrO1FDuOnkicThnIHkNH57vLMfaX8qP/CoWFLZ3QDha+JBXynSFiH/PmzFq/aXuw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882672; c=relaxed/simple;
-	bh=vE/ssJjKOjx/tkp4IFJnQPyODlHvtSzviZkW70EJfqE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FPBFWjE2qZgBaKJx+2ldKFGH1D66Xb6Bfji80LxiBc1lbApOcmXbISNTZjmF8PF9ReskOwhgQpliSWY2BZ1dlBkQ1vL1HPtla0N86ugcxHtbAcvwjwUfX8Jk4LqNvr+U1skPlYI67BQOyLj2y7MfWDtAv8FeGV+c4Jvd4VKCxoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZsJiMY9e; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ge312uUz; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791882677; c=relaxed/simple;
+	bh=bA0ojffaBxKxeWvxGumymJvixc9RGgZCEr8WR+dCnTs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=glH/l4J1msj3W80Q/qSLsuP0/67TeSG9Vfp5FiH/CwUz90UHZUaYX58mM2pZmBgDeM/zpRSnCyuQw6AnR/TLZ/mndZvR8E7ShfO/8Hie2G3bJcJqeNEVmWqSWvdcdaQ5nqaKV1C07FMYhDcJNN6OLai61Qlq0NTy5828FrGCHgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TvngO2D6; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZsJiMY9e";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ge312uUz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791882669;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1JU9tnBcMkdVR8l7gnZ/QWr9koE1ti0o+ukqfCAcEac=;
-	b=ZsJiMY9eDRnZvmX3sl8BCDhV7GVF2RNNYcpk2DAVZpeQndbHmNfDdb0Lu3mzo+cy3bdTg0
-	DMIklb19IKvtPjqnkglTFhSWVK4a/7oot8MlbKsdR35x6Lk7hPNnOT5oJvEkZ6x+jYDq/8
-	XF88q/v4rPDWDcoGCUH2/MWhyPL7gpI=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-442-4eSpgICiMSuJUwY1x_YiOA-1; Tue, 13 Oct 2026 09:11:08 +0000
-X-MC-Unique: 4eSpgICiMSuJUwY1x_YiOA-1
-X-Mimecast-MFC-AGG-ID: 4eSpgICiMSuJUwY1x_YiOA_1791882667
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48af4a0bd0fso1462669f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:11:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TvngO2D6"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so20301475e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:11:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791882667; x=1792487467; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1JU9tnBcMkdVR8l7gnZ/QWr9koE1ti0o+ukqfCAcEac=;
-        b=ge312uUzZyV3ujzjhABULHgPPK17RXyvY4f8f1gmE+cAsTxtUl76HnKBbFylAZLsx5
-         d2UkvkJ7AeMPdZkcQ1rzWmI4tkWnx4xoDHjFUF4uILHlwb3b9MJlratdF6SJee+rWdc6
-         55jBLrc7elwpczBxAQ0p0j3BqXCJrnU1C+zpZMxdgZecY7WQJV+iP1aGNTjDPZsczvCH
-         mD7QaaJetjV/J/xIA16ExPHcRBPfyG8Ew//YPafWq2IL8K6tan0wCQ4EA5AlSWjSzred
-         bpKh/0S5nmZovdoA7Th4Z3muRZoV4weVrakwO8x2PuY8tx/aNdipScDaDdYKVBUlLIBV
-         73qg==
+        d=gmail.com; s=20251104; t=1791882675; x=1792487475; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HorRZsv0ApFSmwyBfGvfcGzqRjtFYOH4ZKXfvPQUyFI=;
+        b=TvngO2D6HRuMy/2pf9pLZgq64Cy+ZYJAqtQ5IA6VKitTuNdzAQR6v0DrzyOr4Ge2Kv
+         4dbsOUhIF3Yn+6b+F01wl6W7oP6MQk6aormWcpr6GEO1J9JxbRBrqY5AvRhO94KacYnd
+         9Wf1dVca7Eru8A8MXEgSoRc5WE5JJ3hS2lKJEFG39UrtH9mKHZKMJAV7yDYdW/8UVL4+
+         0p6zmYnOPoqNMZEQ/gtWRG89SLQgcMBXfV0lUg7STElLbnzjYPluZP80k83vMPyYVpKi
+         kfHdDdr2zaZrw8u6AYhQ+UAstC6lpp9DC9ql77NTEacMmF1IBpLUmA1fnDs6DV0XLJ12
+         GooA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791882667; x=1792487467;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1JU9tnBcMkdVR8l7gnZ/QWr9koE1ti0o+ukqfCAcEac=;
-        b=TwcC1HyIOiAmJYP3SJUj8YqHV7wHp3QIE8YREuCArGXPS24SRXhUpt3jsPssa5oG3m
-         m61RQD71WSZsU2PdC/E0fHGrouf1eAR1G3ymWG3A6HGQkM96IlVpJgwACnHPkNy/vxHi
-         9gPr2kz9wM1L5oMWMM7//DN0KXxF8yimWdY+7DSsXfr2GIippyr/7UynTscRr7zf3U8P
-         VFK0tkOs2FBKuF4KC8y4Zyo2eadBY4XVyiLdD5tjgtK6CyqOLE7XRYMYlPUMyZJ97tA5
-         CWDOwjIIytHDFVgcEtEAALtCGCkbg7J8v3K1Mcchvwvw51cMyI6e2mvKjTJ4ayxCe+uq
-         xtqQ==
-X-Forwarded-Encrypted: i=1; AKwUvByDtjvw+mu5IHDlJ4fAWnpfhFLNHs6jTGYtwsOTTAUvf7t4Z+qbCJQBYrrVQXZcPYjZ49JMV3mdoaHFTlw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/WgVnBjjEYm5CqQTS2cCsww3/5HZwWbUJQwi52IYwRMHw2ksW
-	DGniqV1TVFZaaqMZq091PhhiAgNT8UIQo3lWb5uZhQ44bQf7NEd2+sxn4pD1QAQyiHuxFUW5pfM
-	1Dg77Sbc0mSJCZVizIkeo3uzM6rYMenl0vhoqgi3drkCtOjZM7W3zhzXbxahxzqeBVw==
-X-Gm-Gg: AYBFou0h2sE7jVwdu6T8TUMtAzCSe0zIAscXBPMuA2LypCuKn/4w1udQuN+yUOuUltz
-	NDn1+lRKtNHwRWqaUvqLBIssQOGCsikGuqMFKq8ogOQRm7haybrRgi6tpxJ/xlD6w4IVbdFrcDB
-	7+/AQ/UiidISxcKUAAtj76a0ftDhaNtHb+IhtwFXaQhlu8tm5G2dqwIJ2PLrB79J6d5i4/3Guaw
-	9PDVt2zaQbTtaH/eHAx4mlbO20GJsau8TlBofCSIT6jHQTef0ikBB+EcXCfx1i9FBRdD571tL7/
-	mQieweVSI69k632F8Q2jUGnHFLeAY0tu+iwKHab3RfXgXSMQ9+5N/GuqopD/MStA2n2u+41ZZ80
-	JB3t/l+MEeDcKh4v+u6NVrhBYn6vQ3i9UQs505v71kXIUlWiJCgIXUP6X2r/Q+KiTCrAgbxD6tw
-	==
-X-Received: by 2002:a05:6000:4312:b0:487:27f6:a4e4 with SMTP id ffacd0b85a97d-48dbad489d1mr22038147f8f.52.1791882666617;
-        Tue, 13 Oct 2026 02:11:06 -0700 (PDT)
-X-Received: by 2002:a05:6000:4312:b0:487:27f6:a4e4 with SMTP id ffacd0b85a97d-48dbad489d1mr22038100f8f.52.1791882666124;
-        Tue, 13 Oct 2026 02:11:06 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967acasm3324636f8f.2.2026.10.13.02.11.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 02:11:05 -0700 (PDT)
-Message-ID: <b1fae6df-5e69-4e53-9f35-9bfc47c9a500@redhat.com>
-Date: Tue, 13 Oct 2026 11:11:04 +0200
+        d=1e100.net; s=20260707; t=1791882675; x=1792487475;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HorRZsv0ApFSmwyBfGvfcGzqRjtFYOH4ZKXfvPQUyFI=;
+        b=sSF5sMjNWXkWxHgNWxmp7GqFLu8YnhEDdpLdKEO4QuK10C0e5cNb3dTTXLgBJjvqHO
+         nXdg9VPOFXWwgUr/ihf8I1gQsBreNBxoQjFWbjHA18JoNy53Ki0B9766j0pg7nsHnaGp
+         hQKS8OVI/FdHN8SeAc1fle7LsZMLpEmpGZonL2YDBn2CXXFJq5a01DsH7c2Jre1gxGQk
+         ygk40fH8ziHvBquLa3tQJt1y/vuQpJG2xPuNUBTbs34fRAPffuWuruOBUHFMAoXo+dI+
+         eOyrqLEVq3Lv74YmQxow0Bx0jDfH62TFvkqcP2JcrHCQJfqOgMsnhs4wOhNgRhQh1AfB
+         JlMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBySPDOap2bglwRH0By92H/fL/T36ctOYUluRwANZWZryVJC7s+PrXx3ZJGvXJWNqKMrM17ib8YAesE5sqg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbcfzvIvYIg75rojvoCgZSnpwGMzB6QobX9B0zRCkiCBINq1EW
+	64XpJbtk9J+Jr8SMpxrUKeEqNQLF7M0AzRKYO9uwTlLT90L1TtD3IHdW
+X-Gm-Gg: AYBFou2g5edZs4gNx2/dMZWl1Sq743WTmmw+Bgg5pDnptBMqgPyVIod12djDnj8VZ4E
+	zGuN1EbRCd3PnBXQWetNOQm0iAz65aKFGkOYh2hgtyI2Y43BGC/odvJXulu+kGIzOhGRkg6sjJJ
+	3eUIEQZw6wrAugCeCmbZe+VT2UqC16O1xluq7N33HzzK7xExHdhoOUq/RpRCGIFTaXuZ07spTeD
+	Ld+zIg2kryXbe/MHllJ2g6DsQoxOz/d2fQTNDGSXKokm9PuwbxWPzDCY7hSbIfalMnyrWbkttX0
+	sYkF3ejzt7zjd1QsxL6WKR+T0K72XjJXo90BbawEV+l28qkM5UGErBiE5lkVmmO6GotAQNYG6YN
+	a6dhK7lJBCTk6SFjI9ANB7FJIWKG9wzhuKWFHW9YFsGZUgMRRBpdEzKJ89+wkgJiBRDOsFwLELj
+	xqd5nmQQpHoabrSsWMAJ9hj+TpPhQqE8t8UNXCN0Ky5Wp2X8uAjq/hHtJOHoXOQKZCApIazZi52
+	gIQfsS8rA==
+X-Received: by 2002:a05:600c:3111:b0:4a0:1e87:910 with SMTP id 5b1f17b1804b1-4a18e4cb7a9mr240551845e9.20.1791882674629;
+        Tue, 13 Oct 2026 02:11:14 -0700 (PDT)
+Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf214a1sm399607545e9.7.2026.10.13.02.11.13
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Tue, 13 Oct 2026 02:11:14 -0700 (PDT)
+Date: Tue, 13 Oct 2026 11:11:10 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
+Cc: Mathias Nyman <mathias.nyman@linux.intel.com>, Mathias Nyman
+ <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH v4 3/5] usb: xhci: sideband: allocate sideband ring
+ segments from a dedicated pool
+Message-ID: <20261013111110.423dd0ff.michal.pecio@gmail.com>
+In-Reply-To: <82e0b9c7-3b3f-4dce-a72e-64989b08ef98@oss.qualcomm.com>
+References: <20260909-16k_offload_v1_b4-v4-0-f24a86617597@oss.qualcomm.com>
+	<20260909-16k_offload_v1_b4-v4-3-f24a86617597@oss.qualcomm.com>
+	<68b34f04-f7e2-4468-8a18-ac97decb987d@linux.intel.com>
+	<82e0b9c7-3b3f-4dce-a72e-64989b08ef98@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v6] usbnet: fix smp_processor_id() use in preemptible
- context
-To: Alan Stern <stern@rowland.harvard.edu>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jakub Kicinski <kuba@kernel.org>, =?UTF-8?Q?=C3=96mer_Mete_Kaya?=
- <omermetekaya0@gmail.com>, oneukum@suse.com, netdev@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- david.laight.linux@gmail.com,
- syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-References: <20261004215937.302247-1-omermetekaya0@gmail.com>
- <20261007200049.079aeb75@kernel.org>
- <7c4a2f1c-f16d-479b-a11f-cef962d5e2c7@rowland.harvard.edu>
- <20261008094338.301a75fa@kernel.org>
- <06a81ea1-b17d-40bd-82d9-922de946b86f@rowland.harvard.edu>
- <2026100910-petition-embattled-94cb@gregkh>
- <20261012194902.aEq58Q6b@linutronix.de>
- <8545800a-a37f-482a-9b06-cbdd70312b7a@rowland.harvard.edu>
- <20261012212527.5sFqlGYu@linutronix.de>
- <41af30de-4725-4913-9ad8-54d1dea2d4b8@rowland.harvard.edu>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <41af30de-4725-4913-9ad8-54d1dea2d4b8@rowland.harvard.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 10/13/26 04:09, Alan Stern wrote:
-> On Mon, Oct 12, 2026 at 11:25:27PM +0200, Sebastian Andrzej Siewior wrote:
->> On 2026-10-12 16:26:28 [-0400], Alan Stern wrote:
->>> On Mon, Oct 12, 2026 at 09:49:02PM +0200, Sebastian Andrzej Siewior wrote:
->>>> On 2026-10-09 13:31:17 [+0200], Greg Kroah-Hartman wrote:
->>>>>> As far as I am aware, there aren't really any guarantees on the
->>>>>> context of a USB URB-completion callback.  The kerneldoc for struct urb
->>>>>> in include/linux/usb.h says "The completion callback is made
->>>>>> in_interrupt()", but that is most definitely out of date.
->>>>>
->>>>> I don't think so, I think some platforms still have those callbacks in
->>>>> irq context, unless we changed to threaded irq handlers everywhere?  I
->>>>> could have missed that, but we should still write the callbacks to
->>>>> assume that and then we should be fine even if we aren't in irq context,
->>>>> right?
->>>>
->>>> The HCD invokes the completion callback usually in IRQ context. I think
->>>> the VHCI is an exception here.
->>>> For the forced-threaded mode we disable BH before the IRQ handler is
->>>> invoked. I think even dummy_hcd invokes them from the timer if my memory
->>>> is right.
->>>>
->>>>>> Drivers shouldn't rely on any particular context guarantees.  Not even
->>>>>> whether local irqs are enabled/disabled.
->>>>>
->>>>> Agreed.
->>>>
->>>> I would suggest to make VHCI invoke the completion callback with BH
->>>> disabled. usbnet's tx_complete() does also defer_bh() which schedules a
->>>> BH worker via queue_work(). While this works without disabling BH it
->>>> leads to waking ksoftirqd and an additional context switch which we
->>>> could avoid by dealing with it directly.
->>>
->>> Today you fix VHCI, tomorrow some other virtual HCD will cause problems.
->>
->> We don't have other virtual HCDs, do we?
+On Mon, 12 Oct 2026 18:01:50 -0700, Wesley Cheng wrote:
+> On 10/5/2026 4:03 AM, Mathias Nyman wrote:
+> > xhci is the one allocating the ring when adding an endpoint, and
+> > telling xHC hardware to write to that ring. It seems more
+> > approriate that xhci should be the one freeing the ring after it
+> > told xHC hardware to drop the endpoint, and there no longer is a
+> > risk on hardware accessing it. 
 > 
-> Well, we've got dummy-hcd.  And just recently there was an RFC post with
-> a virtio USB HCD implementation.  It wouldn't be surprising to encounter
-> other ones.
+> Hi Mathias,
 > 
-> Also, don't forget, URBs can complete in several different ways.
-> There's normal completion, explicit unlinking, unlinking because the
-> device was unplugged, unlinking because the device or HC is going into
-> suspend, and so on.  And there's a difference between URBs sent to
-> root hubs as opposed to devices actually on the bus.  Not to mention
-> that in some cases completions may occur synchronously with submission
-> or unlinking, even though they usually are asynchronous.
+> Sorry for the late response.  Was out last week.
 > 
->> The other driver is drivers/net/mctp/mctp-usb.c.
->> mctp_usb_out_complete() -> … -> mctp_usblib_tx_stats_update() does
->> get_cpu_ptr() for stats. But mctp_usb_in_complete() has
->> mctp_usblib_rx_complete() -> mctp_usblib_rx_stats_single_drop() and
->> mctp_usblib_rx() which do just this_cpu_ptr(). Plus the queue wakes &
->> netif_rx() which wake ksoftirqd.
->>
->> That makes two drivers from a quick grep. But I guess it is just
->> networking for the per-CPU stats.
->>
->>> Should we document any requirements that all HCDs will have to follow
->>> and that all completion handlers can rely on?
->>
->> It used to complete in IRQ context. Then you added the possibility to
->> complete BH for those HCDs marked as such (except for the RH). I think
->> it was always reasonable to assume that it is either IRQ-context
->> (force-threaded or not for !HCD_BH) or BH (for HCD_BH). It makes hardly
->> a difference, BH is always off and networking uses to rely on it.
->> So yes, documenting would make sense.
->>
->> Do you want to document it yourself and have me do the VHCI bits?
+> Specifically in the disconnect path (while audio offload is active),
+> when we utilize the usb_set_interface() path, it'll return early due
+> to the iface->unregistering check.  This would lead to the
+> drop_endpoint not to be called, and rely on the xhci_free_dev() to
+> handle the transfer ring cleanup.  This wouldn't work in the offload
+> situation, because qc_audio_offload is the only entity managing the
+> DMA pool, and that would be freed during the .disconnect callback,
+> which happens BEFORE xhci_free_dev().
 > 
-> At the moment, the only thing I think we can actually guarantee is that
-> completion handlers will be called with local interrupts disabled.  No
-> commitments about process context vs. interrupt context vs. BH context
-> or anything else.
-> 
-> Of course, in special cases you might know more about how a particular
-> HCD works.  But except for platform-specific settings, it's hard to be
-> certain that your driver will always be used with that one particular
-> HCD.
-> 
-> If this is okay with you, I can write a documentation patch.
-Please help me wrapping this up. I read the above as a more generic
-patch is under discussion, am I correct?
+> Would you be more inclined to prefer a solution where we can defer
+> the DMA pool free'ing to the xHCI core during xhci_free_dev, or maybe
+> adding another sideband notifier (sb->notify_client) enum to tell the
+> client driver that it can release the pool?
 
-Thanks,
+I'm not Mathias but my opinion is the same as always: none of these
+problems would exist if the sideband client allocated and freed all
+transfer/event ring memory, and xhci-sideband only owned a mapping.
 
-Paolo
+The mapping would be freed by xhci_sideband_unregister() or similar
+calls, which should ensure that the xHC stops using the rings, and
+memory would only be freed by the client driver after unregistering
+the sideband and stopping the coprocessor. Nothing is ever UAF or
+leaked, and ensuring this is *easy*. And if xhci-hcd randomly wants
+to get rid of some endpoint, it simply stops using the mapping and
+lets the sideband client clean it up two milliseconds later.
 
+One thing I'm not entirely sure about is how we could create this
+mapping. Using bare iommu_map() creates a hard dependency on IOMMU.
+Documentation/core-api/dma-attributes.rst mentions possibility of
+using generic dma_map_() helpers on multiple devices, so maybe this
+can work, but I haven't seen existing examples of such use.
+
+And there seems to be one more potential problem case, which hasn't
+been mentioned in this thread AFAIK: if xHC resume failes, xhci-hcd
+frees its private data and tell USB core to reset-resume devices.
+Looks like another opportunity for UAF.
+
+Regards,
+Michal
