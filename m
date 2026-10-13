@@ -1,138 +1,277 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8D33D4137
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:11:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9676F3CF21E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882677; cv=none; b=qYqVClL74sq4UBWGpzYyR3K3wMDbFAVoEnWUCsAWD4zuNZWkzrpfSS87a2lSVds6QCXnjBgcynUFkn1liu8Chn25BEaWG3mA9h74ZYRts/IrO1FDuOnkicThnIHkNH57vLMfaX8qP/CoWFLZ3QDha+JBXynSFiH/PmzFq/aXuw8=
+	t=1791882717; cv=none; b=PIgC9yUDrzivcBDACS4P1bwgD+knrX1Ay9tQK3i6l538qZGcjopdmlI3YEFlVlXApABpvgyRUdo2SCxWboCcX1A49qK9Dj7ewm/NPkm7HFjYQ3mOoCJkt5jO9gzkwOcRZ1FmuaxHJ2/Tj571bO7+tkVcz4ROlAfwjptaeF1zFVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882677; c=relaxed/simple;
-	bh=bA0ojffaBxKxeWvxGumymJvixc9RGgZCEr8WR+dCnTs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=glH/l4J1msj3W80Q/qSLsuP0/67TeSG9Vfp5FiH/CwUz90UHZUaYX58mM2pZmBgDeM/zpRSnCyuQw6AnR/TLZ/mndZvR8E7ShfO/8Hie2G3bJcJqeNEVmWqSWvdcdaQ5nqaKV1C07FMYhDcJNN6OLai61Qlq0NTy5828FrGCHgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TvngO2D6; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791882717; c=relaxed/simple;
+	bh=LNqgK+ThuQWm741F/edvyBg8jFCl1W6hNc65f7NQBFs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mBu8HQ2q4M3NWI8rbrLdivYC1XsvnapK/yCGA1MhjaEl8Q5AzeJJqGFWjZQNSFATmJyui3bwWgLd4bvNyj1DCFNqcCG7jDcKOxyqFmXilb7D2hsTUck3izL//FwFd8LhJeGaUXFReh74lm5RLhcOgr63/7mDPWo+r8hyoCE8tV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SqRd4eqK; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TvngO2D6"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so20301475e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:11:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791882675; x=1792487475; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HorRZsv0ApFSmwyBfGvfcGzqRjtFYOH4ZKXfvPQUyFI=;
-        b=TvngO2D6HRuMy/2pf9pLZgq64Cy+ZYJAqtQ5IA6VKitTuNdzAQR6v0DrzyOr4Ge2Kv
-         4dbsOUhIF3Yn+6b+F01wl6W7oP6MQk6aormWcpr6GEO1J9JxbRBrqY5AvRhO94KacYnd
-         9Wf1dVca7Eru8A8MXEgSoRc5WE5JJ3hS2lKJEFG39UrtH9mKHZKMJAV7yDYdW/8UVL4+
-         0p6zmYnOPoqNMZEQ/gtWRG89SLQgcMBXfV0lUg7STElLbnzjYPluZP80k83vMPyYVpKi
-         kfHdDdr2zaZrw8u6AYhQ+UAstC6lpp9DC9ql77NTEacMmF1IBpLUmA1fnDs6DV0XLJ12
-         GooA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791882675; x=1792487475;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HorRZsv0ApFSmwyBfGvfcGzqRjtFYOH4ZKXfvPQUyFI=;
-        b=sSF5sMjNWXkWxHgNWxmp7GqFLu8YnhEDdpLdKEO4QuK10C0e5cNb3dTTXLgBJjvqHO
-         nXdg9VPOFXWwgUr/ihf8I1gQsBreNBxoQjFWbjHA18JoNy53Ki0B9766j0pg7nsHnaGp
-         hQKS8OVI/FdHN8SeAc1fle7LsZMLpEmpGZonL2YDBn2CXXFJq5a01DsH7c2Jre1gxGQk
-         ygk40fH8ziHvBquLa3tQJt1y/vuQpJG2xPuNUBTbs34fRAPffuWuruOBUHFMAoXo+dI+
-         eOyrqLEVq3Lv74YmQxow0Bx0jDfH62TFvkqcP2JcrHCQJfqOgMsnhs4wOhNgRhQh1AfB
-         JlMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBySPDOap2bglwRH0By92H/fL/T36ctOYUluRwANZWZryVJC7s+PrXx3ZJGvXJWNqKMrM17ib8YAesE5sqg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbcfzvIvYIg75rojvoCgZSnpwGMzB6QobX9B0zRCkiCBINq1EW
-	64XpJbtk9J+Jr8SMpxrUKeEqNQLF7M0AzRKYO9uwTlLT90L1TtD3IHdW
-X-Gm-Gg: AYBFou2g5edZs4gNx2/dMZWl1Sq743WTmmw+Bgg5pDnptBMqgPyVIod12djDnj8VZ4E
-	zGuN1EbRCd3PnBXQWetNOQm0iAz65aKFGkOYh2hgtyI2Y43BGC/odvJXulu+kGIzOhGRkg6sjJJ
-	3eUIEQZw6wrAugCeCmbZe+VT2UqC16O1xluq7N33HzzK7xExHdhoOUq/RpRCGIFTaXuZ07spTeD
-	Ld+zIg2kryXbe/MHllJ2g6DsQoxOz/d2fQTNDGSXKokm9PuwbxWPzDCY7hSbIfalMnyrWbkttX0
-	sYkF3ejzt7zjd1QsxL6WKR+T0K72XjJXo90BbawEV+l28qkM5UGErBiE5lkVmmO6GotAQNYG6YN
-	a6dhK7lJBCTk6SFjI9ANB7FJIWKG9wzhuKWFHW9YFsGZUgMRRBpdEzKJ89+wkgJiBRDOsFwLELj
-	xqd5nmQQpHoabrSsWMAJ9hj+TpPhQqE8t8UNXCN0Ky5Wp2X8uAjq/hHtJOHoXOQKZCApIazZi52
-	gIQfsS8rA==
-X-Received: by 2002:a05:600c:3111:b0:4a0:1e87:910 with SMTP id 5b1f17b1804b1-4a18e4cb7a9mr240551845e9.20.1791882674629;
-        Tue, 13 Oct 2026 02:11:14 -0700 (PDT)
-Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf214a1sm399607545e9.7.2026.10.13.02.11.13
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 13 Oct 2026 02:11:14 -0700 (PDT)
-Date: Tue, 13 Oct 2026 11:11:10 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-Cc: Mathias Nyman <mathias.nyman@linux.intel.com>, Mathias Nyman
- <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org
-Subject: Re: [PATCH v4 3/5] usb: xhci: sideband: allocate sideband ring
- segments from a dedicated pool
-Message-ID: <20261013111110.423dd0ff.michal.pecio@gmail.com>
-In-Reply-To: <82e0b9c7-3b3f-4dce-a72e-64989b08ef98@oss.qualcomm.com>
-References: <20260909-16k_offload_v1_b4-v4-0-f24a86617597@oss.qualcomm.com>
-	<20260909-16k_offload_v1_b4-v4-3-f24a86617597@oss.qualcomm.com>
-	<68b34f04-f7e2-4468-8a18-ac97decb987d@linux.intel.com>
-	<82e0b9c7-3b3f-4dce-a72e-64989b08ef98@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SqRd4eqK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791882714;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Bvip8uZjAuKgwd4ZsnUKeueJ25BeNpS+0VBC9hYO3gA=;
+	b=SqRd4eqKDkwhd6u+9lNaRXw5AqO+/9HjVxelBv8NFbb+LtvWTuqW/w1gNcxEtps4bMrsQ9
+	3GXGatZwCb339tbXFSb99yaX0YyFxRvtLRL5FuHERjcxhh0S2NZ4gwhmfjjL5O30WO73Ee
+	1VJO4NX+xMX7Y7mR5I3hQ0BAaonJ5yM=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-363-3AVAuE51NfiTLekxqgArQQ-1; Tue,
+ 13 Oct 2026 09:11:47 +0000
+X-MC-Unique: 3AVAuE51NfiTLekxqgArQQ-1
+X-Mimecast-MFC-AGG-ID: 3AVAuE51NfiTLekxqgArQQ_1791882705
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9FEA51955DDB;
+	Tue, 13 Oct 2026 09:11:44 +0000 (UTC)
+Received: from [10.43.2.199] (unknown [10.43.2.199])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6989E1956095;
+	Tue, 13 Oct 2026 09:11:41 +0000 (UTC)
+Message-ID: <d7737c9d-d4ea-4060-b82f-c7d6630ed407@redhat.com>
+Date: Tue, 13 Oct 2026 11:11:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 03/12] dpll: add basic SiTime SiT9531x
+ support
+To: Ali Rouhi <arouhi@sitime.com>, Jiri Pirko <jiri@resnulli.us>
+Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>,
+ Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261009183151.78497-1-arouhi@sitime.com>
+ <20261009183151.78497-4-arouhi@sitime.com>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <20261009183151.78497-4-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Mon, 12 Oct 2026 18:01:50 -0700, Wesley Cheng wrote:
-> On 10/5/2026 4:03 AM, Mathias Nyman wrote:
-> > xhci is the one allocating the ring when adding an endpoint, and
-> > telling xHC hardware to write to that ring. It seems more
-> > approriate that xhci should be the one freeing the ring after it
-> > told xHC hardware to drop the endpoint, and there no longer is a
-> > risk on hardware accessing it. 
+On 10/9/26 20:31, Ali Rouhi wrote:
+> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 > 
-> Hi Mathias,
+> The SiT9531x is an I2C clock generator with four independent PLLs, up to
+> eight input clocks and up to twelve outputs.  Later patches register the
+> PLLs with the DPLL subsystem and expose the clocks as pins; this one adds
+> only what is needed to reach the device.
 > 
-> Sorry for the late response.  Was out last week.
+> The register space is paged: 32 pages of 256 registers, selected by
+> writing the page number to offset 0xFF, which is present in every page.
+> A regmap range configuration describes that window, so the rest of the
+> driver addresses a register as a page and an offset and never touches the
+> selector itself.  Pages come in pairs for the PLLs (0x0A/0x1A for PLLA,
+> and so on).
 > 
-> Specifically in the disconnect path (while audio offload is active),
-> when we utilize the usb_set_interface() path, it'll return early due
-> to the iface->unregistering check.  This would lead to the
-> drop_endpoint not to be called, and rely on the xhci_free_dev() to
-> handle the transfer ring cleanup.  This wouldn't work in the offload
-> situation, because qc_audio_offload is the only entity managing the
-> DMA pool, and that would be freed during the .disconnect callback,
-> which happens BEFORE xhci_free_dev().
+> Probe reads the rate of the crystal feeding XIN, since every frequency
+> the driver later computes derives from it; takes the optional reset line
+> and leaves it deasserted, because the device configuration comes from
+> efuse or from a blob applied before probe and a reset would discard it;
+> then identifies the variant from the single byte at page 0 offset 0x02
+> and refuses to bind on anything unknown.
 > 
-> Would you be more inclined to prefer a solution where we can defer
-> the DMA pool free'ing to the xHCI core during xhci_free_dev, or maybe
-> adding another sideband notifier (sb->notify_client) enum to tell the
-> client driver that it can release the pool?
+> Suggested-by: Ivan Vecera <ivecera@redhat.com>
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: LLM
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> ---
+>   MAINTAINERS                    |   1 +
+>   drivers/dpll/Kconfig           |   2 +
+>   drivers/dpll/Makefile          |   1 +
+>   drivers/dpll/sit9531x/Kconfig  |  13 ++
+>   drivers/dpll/sit9531x/Makefile |   4 +
+>   drivers/dpll/sit9531x/core.c   | 320 +++++++++++++++++++++++++++++++++
+>   drivers/dpll/sit9531x/core.h   |  91 ++++++++++
+>   drivers/dpll/sit9531x/regs.h   |  44 +++++
+>   8 files changed, 476 insertions(+)
+>   create mode 100644 drivers/dpll/sit9531x/Kconfig
+>   create mode 100644 drivers/dpll/sit9531x/Makefile
+>   create mode 100644 drivers/dpll/sit9531x/core.c
+>   create mode 100644 drivers/dpll/sit9531x/core.h
+>   create mode 100644 drivers/dpll/sit9531x/regs.h
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 858fe1c4332c..64e15831055e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25187,6 +25187,7 @@ M:      Ali Rouhi <arouhi@sitime.com>
+>   L:     netdev@vger.kernel.org
+>   S:     Maintained
+>   F:     Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
+> +F:     drivers/dpll/sit9531x/
+> 
+>   SL28 CPLD MFD DRIVER
+>   M:     Michael Walle <mwalle@kernel.org>
+> diff --git a/drivers/dpll/Kconfig b/drivers/dpll/Kconfig
+> index be98969f040a..f8f7ca121b93 100644
+> --- a/drivers/dpll/Kconfig
+> +++ b/drivers/dpll/Kconfig
+> @@ -23,6 +23,8 @@ config DPLL_REFCNT_TRACKER
+> 
+>            If unsure, say N.
+> 
+> +source "drivers/dpll/sit9531x/Kconfig"
+> +
+>   source "drivers/dpll/zl3073x/Kconfig"
+> 
+>   endmenu
+> diff --git a/drivers/dpll/Makefile b/drivers/dpll/Makefile
+> index 9e7a3a3e592e..4adc50d748d4 100644
+> --- a/drivers/dpll/Makefile
+> +++ b/drivers/dpll/Makefile
+> @@ -8,4 +8,5 @@ dpll-y                  += dpll_core.o
+>   dpll-y                  += dpll_netlink.o
+>   dpll-y                  += dpll_nl.o
+> 
+> +obj-$(CONFIG_SIT9531X_DPLL)    += sit9531x/
+>   obj-$(CONFIG_ZL3073X)  += zl3073x/
+> diff --git a/drivers/dpll/sit9531x/Kconfig b/drivers/dpll/sit9531x/Kconfig
+> new file mode 100644
+> index 000000000000..ac5b7f31a034
+> --- /dev/null
+> +++ b/drivers/dpll/sit9531x/Kconfig
+> @@ -0,0 +1,13 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config SIT9531X_DPLL
+> +       tristate "SiTime SiT9531x DPLL driver"
+> +       depends on I2C && NET
+> +       select DPLL
+> +       select REGMAP_I2C
+> +       help
+> +         Driver for SiTime SiT9531x family clock generators
+> +         (SiT95317, SiT95316).
+> +
+> +         To compile this driver as a module, choose M here: the
+> +         module will be called sit9531x.
+> diff --git a/drivers/dpll/sit9531x/Makefile b/drivers/dpll/sit9531x/Makefile
+> new file mode 100644
+> index 000000000000..a221fe55386a
+> --- /dev/null
+> +++ b/drivers/dpll/sit9531x/Makefile
+> @@ -0,0 +1,4 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +obj-$(CONFIG_SIT9531X_DPLL) += sit9531x.o
+> +sit9531x-y := core.o
+> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+> new file mode 100644
+> index 000000000000..c7c14442df92
+> --- /dev/null
+> +++ b/drivers/dpll/sit9531x/core.c
+> @@ -0,0 +1,320 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * SiTime SiT9531x DPLL core driver
+> + *
+> + * Copyright (C) 2026 SiTime Corp.
+> + * Author: Ali Rouhi <arouhi@sitime.com>
+> + * Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> + *
+> + * I2C probe, paged regmap configuration and register access helpers.
+> + */
+> +
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/device.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +
+> +#include "core.h"
+> +#include "regs.h"
+> +
+> +#define SIT9531X_CHIP(_id, _nin, _nout, _name, _map) \
+> +       { .id = (_id), .num_inputs = (_nin), .num_outputs = (_nout), \
+> +         .name = (_name), .clkout_map = (_map) }
+> +
+> +/* Per-variant output index -> physical slot mapping */
+> +static const u8 clkout_map_95317[] = {0, 3, 4, 5, 7, 8, 9, 11};
+> +static const u8 clkout_map_95316[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+> +
+> +static const struct sit9531x_chip_info sit9531x_chip_ids[] = {
+> +       SIT9531X_CHIP(SIT9531X_VARIANT_ID_95317, 8, 8, "SiT95317",
+> +                     clkout_map_95317),
+> +       SIT9531X_CHIP(SIT9531X_VARIANT_ID_95316, 8, 12, "SiT95316",
+> +                     clkout_map_95316),
+> +};
+> +
+> +#define SIT9531X_RANGE_OFFSET  SIT9531X_PAGE_SIZE
+> +
+> +/*
+> + * Everything the device holds can change without the driver writing it,
+> + * so nothing here is cacheable except the page selector.  Caching that
+> + * one spares a read of it before every access: the range code selects
+> + * the page through a read-modify-write, and with no cache that read goes
+> + * to the bus each time.
+> + *
+> + * The cached value is only as good as the last transfer, though.  A
+> + * transfer that fails can leave the part on another page than the cache
+> + * records, so every accessor drops the entry on an error and the next
+> + * access reads the selector again.
+> + */
+> +static bool sit9531x_volatile_reg(struct device *dev __maybe_unused,
+> +                                 unsigned int reg)
+> +{
+> +       return reg != SIT9531X_PAGE_SEL;
+> +}
+> +
+> +static const struct regmap_range_cfg sit9531x_regmap_range = {
+> +       .range_min      = SIT9531X_RANGE_OFFSET,
+> +       .range_max      = SIT9531X_RANGE_OFFSET +
+> +                         (SIT9531X_NUM_PAGES * SIT9531X_PAGE_SIZE) - 1,
+> +       .selector_reg   = SIT9531X_PAGE_SEL,
+> +       .selector_mask  = GENMASK(7, 0),
+> +       .selector_shift = 0,
+> +       .window_start   = 0,
+> +       .window_len     = SIT9531X_PAGE_SIZE,
+> +};
+> +
+> +const struct regmap_config sit9531x_regmap_config = {
+> +       .reg_bits       = 8,
+> +       .val_bits       = 8,
+> +       .max_register   = SIT9531X_RANGE_OFFSET +
+> +                         (SIT9531X_NUM_PAGES * SIT9531X_PAGE_SIZE) - 1,
+> +       .ranges         = &sit9531x_regmap_range,
+> +       .num_ranges     = 1,
+> +       .volatile_reg   = sit9531x_volatile_reg,
+> +       .cache_type     = REGCACHE_MAPLE,
+> +};
 
-I'm not Mathias but my opinion is the same as always: none of these
-problems would exist if the sideband client allocated and freed all
-transfer/event ring memory, and xhci-sideband only owned a mapping.
+This is only referenced from core.c. Could it be static, with the extern
+declarations dropped from core.h?
 
-The mapping would be freed by xhci_sideband_unregister() or similar
-calls, which should ensure that the xHC stops using the rings, and
-memory would only be freed by the client driver after unregistering
-the sideband and stopping the coprocessor. Nothing is ever UAF or
-leaked, and ensuring this is *easy*. And if xhci-hcd randomly wants
-to get rid of some endpoint, it simply stops using the mapping and
-lets the sideband client clean it up two milliseconds later.
+The same for sit9531x_dev_probe().
 
-One thing I'm not entirely sure about is how we could create this
-mapping. Using bare iommu_map() creates a hard dependency on IOMMU.
-Documentation/core-api/dma-attributes.rst mentions possibility of
-using generic dma_map_() helpers on multiple devices, so maybe this
-can work, but I haven't seen existing examples of such use.
+Thanks,
+Ivan
 
-And there seems to be one more potential problem case, which hasn't
-been mentioned in this thread AFAIK: if xHC resume failes, xhci-hcd
-frees its private data and tell USB core to reset-resume devices.
-Looks like another opportunity for UAF.
-
-Regards,
-Michal
