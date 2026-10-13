@@ -1,91 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-1.mail.aliyun.com (out28-1.mail.aliyun.com [115.124.28.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1D3372B2F;
-	Tue, 13 Oct 2026 02:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0314237E5F2;
+	Tue, 13 Oct 2026 02:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791856899; cv=none; b=YlM4t0q58LGwa1BIi5o6mngD2luJfXHKcYAo8Sz6j6lrsIYfn00LYNhCTapdAxrbHJSmOfC8XBt60Pq3YMzEhSIddOXEXUGZ/xqDrl7OnHZ5LQiHEI0Cefy14oeyfbK65yHLMfuKYiF0ODkaFs1HJNBMBDo4c/t3G9Pi5VljTPs=
+	t=1791856917; cv=none; b=TQKjNMu2Vhn3c/cSMshahfOdf1o+J9n43CLcu3xewsr5ifhTa6LW35Rf0Qjo+khycFsEqwm4ezp7DzDqUR1j3JTFhDO3d1P3qNG7qn0n+HaVw7JAgC5uXh75gt6IIOlVKaS701q+xluj6JNsuBRX9x+6BL3Y1bCnSPJBzijsO8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791856899; c=relaxed/simple;
-	bh=qD5BRu6JzvSGrOoFHTmszzALfagOJF4o1AbImbC9OeY=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=KFYpGBoUb/VlqxwI2+X5iwlkWQaAuPmerQlT/BtZdLZiGdPvyazLCgaNCwu3OjYwEF12Z2UzEh4nKyMhAgKDaukrPC1nB49krjStD8PSvOsAZ5dGZVz5DH/i5RR60Edc0R8cGBkJLltDERlaDh22duZBvrHOxLzQYuANH9Li2YM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=XjBIN0xk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791856917; c=relaxed/simple;
+	bh=El1gm2QXCyk6BMtLE7OLMwLSYkCGgr0Dww7mE2ml/cA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k0HjHOudURCI/10PRNWND7bjKDvg1KBAwSxb69jBygLHzLer+bIbhcTDBMCfNjQ24i1OnySHz5ayGsVrr+oICZPdot20qZHDm9zpBIUd7EQ3FksvkqQhiXs2cm64zBt2O2Cg9u8SDJ+A0hh4n8M3VZI4b4jyPIB7sNZJVVIQsLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Nb09rNav; arc=none smtp.client-ip=115.124.28.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="XjBIN0xk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54DB1F000FF;
-	Tue, 13 Oct 2026 02:01:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791856898;
-	bh=90W+a59SeWDzS2sKdXAfXinvf5qK+MDO1trY3bKDzpw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XjBIN0xk63p//9x9QZVkFqR/WBNgSRZUQc3b9MdStWw6XaHSxHKNzGU70UzQlpHwL
-	 HITPZx4KQaWEJeFYwDwLYPbHB9IsMya63I5Isz7e3rLS9UqJqthAasqU824G2yks36
-	 +tmunTACXhLQa6tluY2VYvKffI/Ki7ax5vyhHPPg=
-Date: Mon, 12 Oct 2026 19:01:37 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <paul@pwsan.com>,
- David Hildenbrand <david@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next
- Mailing List <linux-next@vger.kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Paul Walmsley <pjw@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: linux-next: manual merge of the risc-v tree with the mm tree
-Message-Id: <20261012190137.9734b57074f35e540733b9e3@linux-foundation.org>
-In-Reply-To: <as0D2sHzh_UnNF5L@sirena.org.uk>
-References: <as0D2sHzh_UnNF5L@sirena.org.uk>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Nb09rNav"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1791856906; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=jw4QLSY1JGurDTMfKM4O66yjInxgdzpGy3tXigO4+7Y=;
+	b=Nb09rNavA/2+3+A7Iqpa62CG2h+UeRim3erNJL3vB2NTHQa/2TnxZmxyukEYWyv8JJm9BS33NfGfNg3YeciOW6P0SUdrxma6jecLH4M/lWEMtR6w1Pv3CFkhgWaCKVOowvZ5kd7Y/Exqg733+vWYbyHVOa7i5gMEXjM77wPj98s=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1738694|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00315073-0.00053508-0.996314;FP=5093895818369959676|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jajBP1r_1791856905;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jajBP1r_1791856905 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 13 Oct 2026 10:01:45 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Theodore Ts'o <tytso@mit.edu>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	guozh23@xiaopeng.com
+Subject: Re: [PATCH] ext4: check CAP_SYS_ADMIN in ext4_ioctl_get_tune_sb()
+Date: Tue, 13 Oct 2026 10:01:45 +0800
+Message-ID: <20261013020145.1297074-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012060844.836001-1-zhugl3@xiaopeng.com>
+References: <20261012060844.836001-1-zhugl3@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 16:59:22 +0100 Mark Brown <broonie@kernel.org> wrote:
+I checked the original series (20250916-tune2fs-v2): neither the
+commit message of 04a91570ac67 nor the discussion around it says
+anything about a permission policy for the GET side - the only
+statement is that the ioctls allow parameters to be changed while
+the file system is mounted, without needing write access to the
+block device.
 
-> Hi all,
-> 
-> Today's linux-next merge of the risc-v tree got a conflict in:
-> 
->   arch/riscv/mm/init.c
-> 
-> between commit:
-> 
->   f02f1d1437449 ("riscv/mm: fix hotplug page-table destructor handling")
-> 
-> from the mm tree and commit:
-> 
->   79113093e9dc3 ("riscv: convert pgtable_l4|l5_enabled to inline function")
-> 
-> from the risc-v tree.
-> 
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
+You are probably right that reading these parameters is not
+sensitive on its own: most of them are already visible through
+/proc/mounts or statfs(), and the superblock is readable by anyone
+with read access to the block device.  The argument of my patch was
+the asymmetry with the SET side rather than an actual leak.
 
-Thanks.
-
-> diff --combined arch/riscv/mm/init.c
-> index 6f6b04795bb23,e2b738ca90cf3..0000000000000
-> --- a/arch/riscv/mm/init.c
-> +++ b/arch/riscv/mm/init.c
-
-Well that's ugly.
-
-I'll disable "riscv/mm: fix hotplug page-table destructor handling" for
-now to make this go away.
-
-A decent approach would be to add that patch via the riscv tree.  Muchun,
-please confirm that this has no dependencies on anything else?
-
-Otherwise I'll leave it disabled and revisit after -rc1.
-
-
+I'm happy to drop this patch if Ted confirms that the missing check
+was deliberate.
