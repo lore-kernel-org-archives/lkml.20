@@ -1,212 +1,173 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6F72571A9;
-	Tue, 13 Oct 2026 05:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791869431; cv=fail; b=kDi8zplDv8Xoj6e5nFvvnKTLhw+dVLpHqWNZcv0dpcq8ru5WZQd3P7yGE+zq+MKkP6T+K8ycZ57QdJH9ITnfEFRYwVC+7agTVWHhiQ7nTXxsgrCdHVYChrJx4wL93goUIXyLnSDAUs9TJpjha63w7Jom2VEiCq55D52uIlLCLiI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791869431; c=relaxed/simple;
-	bh=f+atP8i27ZenZvprGDoxnq/MUt5usmq8LedIkyzC+II=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=OKWd+WF14l8yZ1pb+nzbSUtn6HuYwE0sZ9t5AHBes4gTzITzYdN3KHc31Wlqu4j3/tszLKncpryNOhJ+W03GNn5szhSFzg9uhtLTTtDSMXFAcNDmvIYTBYmllkWw5G/T2IRRMewYcHrKiD5zSsV8THPWpAwP6zuip77DyfwZ2a4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MCBviNDo; arc=fail smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D4448D879
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791869437; cv=none; b=M5CfK/Le/7GNGa5GgvDoCLlhV47ZIrnz3mNsb3dDAbw3cQvEiJEsSKa7lvIIhNb7CDxb1++rODTEy66/kCKtNexDZuNx9w4ft7TWaiVcE1bhI8wUkSdiZ8YM8ClngMUn61YI1xVgKyqs2rK01KtTVMHaiikbRSNtQ8jrAtuRp6M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791869437; c=relaxed/simple;
+	bh=GzDlbuaBWl4rniW5HHly+69xtzsakuywhlDzQ6UktUs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RtZ0AS99Y+2u96CHJHNW3IwJ+LL/gVmWpvnvk+0WaehPAS4foehiodiTRjsVlX1HQxq9CLn67U+ho8h6ceC1B/9oKhIh3wKSkvAPsypvgpJED/cXl1bO4ZpJK2lSk7GgXEV+NLXAWNNGBm0TVNo2qS+rW501MpMunH4e9AE0cZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RUiRYrjN; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MCBviNDo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791869426; x=1823405426;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=f+atP8i27ZenZvprGDoxnq/MUt5usmq8LedIkyzC+II=;
-  b=MCBviNDoXKzNFVRF1Jbu3IZPWl+lbjByW3bwrWEbReS9bRb6gg+KeRPD
-   XocNonm2/7BXXHvClcLWylO41yzpuXF+QxoSWxYsTAMebibh/+aOM3iPM
-   5mqu9cFSLgmDtvQGYiauI4Yos52dF7LH0JkIV7cnEbFGDfkzDahMGItXB
-   BNSpGii/o0vNgMIpMx3H4VGLhXe71Sss5GiJZUfs1eECCspWWxdC4oDA4
-   gmACQlik8VLujBfmSFKvKsV9/XhA1QEZBWvlhDthGDX5BKMz6xcxGcmdB
-   Fq0TM+SurB7XyzZYcnP5oFok/Dw4uRqVPTjBsO+ocKlNRPdlHhXVAQLt6
-   A==;
-X-CSE-ConnectionGUID: jXd5RhSSTA6Wd/E3ewPk+A==
-X-CSE-MsgGUID: As67HPIQQsaOFAWYwjGLHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="464768"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="464768"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 22:30:25 -0700
-X-CSE-ConnectionGUID: GJkqrxQZTsuLf+oW6auaUA==
-X-CSE-MsgGUID: Nik/3soERk2Bk7TGRNRDjA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1113312"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 22:30:24 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 22:30:23 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 22:30:23 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.36) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 22:30:22 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P5GYVw/+ekyabX6lqlIfzwcF3kl6exUCtVOax3KfR+A8HdEoamSiQTnKGYHhbv7+HBgMRqWROZndBqwmj1q2lxeL2CIp20mHyYHaL5QWJFcmTQt8xD3LdGVnfsIIKRKa+ZLBHd9lZQYn05KnxJZz2dI/5lq9C1MdCgb1GqCYQhBa5FhE6UdawBiUKHEaFSos/eQzekcBbMgouI/akqAbqIzfCFpUn+LIN812joDWiuJ9O2CVNIdYZ1j7Fp7wnNIfyi/JdIaPlHIN/IepRUy07l4XHnQ2Qe6J2JOc+HuKm51U+z7RVpFL4/ATolTCI8Jjn3lCWa0/8qh18pN0N/u6Dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=afe+uRItTSPBYqHyF+HuYOhTWvTMkMLFe2U0wQOWKaQ=;
- b=D0sahzmSR45L8qkbF+512/8wz/yIWYpe0XjAJgJ0PRJSWAcOX7JQHK7idiGrM8N0w7rXtEtmttS1SXklVYZAI/po86PiyOGVwB0OR3LRfZCdCS40TJDKsXz/S7tlCz4WS/9VmZX1mifafFtYdhxxmsyPy9gNUJ5GL+JwcwZ6GXwv6g2PxJiq5C8seuxvlVcg+k6vT5ZoX5CvgRfnj2FxLq2PBiPvARuBqZLNn6TVkrFYRkAXhZdRZyLV8dwjpxHqvtrNlmPlxzHs3j/S/RfhVshWfcz4adhJWQnGhPikNFk7hF5A6fU9UzYZqIa5BXXkWzWL4GJ7H5k2HzuZaoFZYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- MW3PR11MB4748.namprd11.prod.outlook.com (2603:10b6:303:2e::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.23; Tue, 13 Oct 2026 05:30:21 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%3]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 05:30:20 +0000
-Date: Tue, 13 Oct 2026 13:17:13 +0800
-From: Chen Yu <yu.c.chen@intel.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-CC: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
-	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
-	<mgorman@suse.de>, <vschneid@redhat.com>, <kprateek.nayak@amd.com>,
-	<linux-kernel@vger.kernel.org>, <lukasz.luba@arm.com>, <rafael@kernel.org>,
-	<linux-pm@vger.kernel.org>, <tj@kernel.org>, <void@manifault.com>,
-	<arighi@nvidia.com>, <changwoo@igalia.com>, <sched-ext@lists.linux.dev>,
-	<qyousef@layalina.io>, <christian.loehle@arm.com>, <pierre.gondois@arm.com>,
-	<sshegde@linux.ibm.com>, <chen.yu@linux.dev>
-Subject: Re: [PATCH 07/18] sched/fair: Add push task mechanism for fair
-Message-ID: <as2-2b417B8ZaFdO@chenyu-dev>
-References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
- <20261002154415.2270586-8-vincent.guittot@linaro.org>
- <asWyZtW7zPVo3k-A@chenyu-dev>
- <CAKfTPtCyRiBbxT_bU8egEuXtRsOW6TGw3TczyObBLKsE99dMpQ@mail.gmail.com>
- <aspc8doovTKdBqPC@chenyu-dev>
- <CAKfTPtAy-n5_Dj-9x2qxcu=i7eo9DmZ2aaxig_nbyNDbP2m_Mw@mail.gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <CAKfTPtAy-n5_Dj-9x2qxcu=i7eo9DmZ2aaxig_nbyNDbP2m_Mw@mail.gmail.com>
-X-ClientProxiedBy: SG2P153CA0008.APCP153.PROD.OUTLOOK.COM (2603:1096::18) To
- DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RUiRYrjN"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e608cd460eso12846935ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:30:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791869432; x=1792474232; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=anpbORKBihWBT5stduiBRuXZUhWRspB3nfzjm5tKG/I=;
+        b=RUiRYrjN4pUg+Typq5mCK0DwXXKb1APa7IS1bs0KYqEKFIkzZ7hyhzAsYzGWiW+GHI
+         dv4PGKecToqlmQDcwpeXk0iEqKw8321xjJ/jvXCjHkuCmP1H7I6fuHh86cSdIaic62Bk
+         FQUjOkwX4VIp0YnT7R57V7oYc0nsjRNE0DydgSUWIV++7VY7TMtoZyf0QpXynHz+elAm
+         2OZ13kVUNwF5A6maRT7ob7OXF5iRUVA3LN+sriRTz2nDxQcABPXxra4IbNFnXpwwxuyf
+         pe7yOORqA0LcHsnxmbXQr9JtyO2Zwhv6c5SkEf3hPWKcFA7+pQJhtj0O4hOFf/fsgm+M
+         3g4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791869432; x=1792474232;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=anpbORKBihWBT5stduiBRuXZUhWRspB3nfzjm5tKG/I=;
+        b=gplKxY2tOi7QkNAf8btHfI+IWJNMrIs0Gx3JCYGebhAmZpjH9JEuYhuPg01czE0mh1
+         QgDZh0Mt3QHZClJsp8RWGASoX8vFWwN5uPZTlvfymfPi/T/3oga4qHYqxSLCn6ODE1j5
+         2AJ0lNM52BqfiVNJ/UTB1uBYjans0ZhsQkAHPMW0Nhm86iBrPN+cd15P1CX2yjuHp9Mr
+         4iA4Dke35VVQ0mvZG1aXUBA7voML6O1zPnhHHAX0vEHKIHdjkCacv5qiYWkkIc9e9NN+
+         w2Nud/idYbycDS30emYp2vnHsstsvGTfj0HS93b9dcfLzO/tjaw7YDakyRkYJoTmtZnY
+         OoxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywa3KziE8ruALO7Y4LBGHOhuW1USZxrMBrhhXKn/IGImezdWmmDONy+uda8BHofNooSH8DTSaR2fT7GoM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZRbZBkjlGwZAUKIwYfma+dHlASBG8wsZLuvydn89q4FTff/UL
+	MiOPgi+ZnjGfn5zG08e6Sh2dXXtnLKVtS93gsHFnct6IHfQIHgifadSe
+X-Gm-Gg: AYBFou1AI0FBMgEDSA/K4gMxlwY3IMdO+UfwtCmFdapWFQg3ElyHFyOeqLZGfTZcNXj
+	V4R3A4dTfuzYNyUsV4WfaKV8/28LYylPBciGuDfOCS4TMKskLVEyXqgX+HrQ/xcF/X8xURgifDX
+	XD9zCJ0LdFxXETQzdC+uWj6J/aAYtW9CWjzyEvOUn6YGA2NudZ4jbjUgfD9k+fPWb6tTVVzJShv
+	bOOg6p/oAFyHZH+XDBaKg93NdQQRqyFLq8JGFMaaWZ5s5CEa/oKc2n996LMkY/WfxIoIUaaiybz
+	FIP7W8qwUkHHWGuvIhZFni2fZoFhp69zwBqOt5nvATzGV9iZ09gDUR16yUR3XqHdmGQDo97MBDl
+	6UrDUS1My8GY00oc8qhagrQVx5AXNO5uVie1TrE7sB4RdM1hzl9izaOeDJ5wZLFvGjHfZiG6sf8
+	UnYPhOj1xHHJChs43W2g4hzOE9tamB+gkqyD41Z+17c8nrAx8SuKiKCcDTUxCYrYoxeTesvffXo
+	TAHcZ2oHisJ0TXJ17GbxnnlEfbGEk584Z+IGgtYGj+aomG7+pJtb0luF48/s+yOES2ihWqYvfg+
+	q6idRDC148Ug1Eq+
+X-Received: by 2002:a17:903:1b63:b0:2e7:ff72:203f with SMTP id d9443c01a7336-2e842bd0f74mr85666295ad.61.1791869432441;
+        Mon, 12 Oct 2026 22:30:32 -0700 (PDT)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8cb6sm50820915ad.60.2026.10.12.22.30.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 12 Oct 2026 22:30:31 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: Anton Yakovlev <anton.yakovlev@opensynergy.com>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Joonho Lee <mynameisjune111@gmail.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	virtualization@lists.linux.dev,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Subject: [PATCH v1 0/5] ALSA: virtio: Fix request lifetime and error recovery
+Date: Tue, 13 Oct 2026 14:30:21 +0900
+Message-ID: <cover.1791867377.git.mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|MW3PR11MB4748:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b0afd60-13ab-4585-49b4-08df28eb12c8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|11063799006|261009223027099003|56012099006|4143699003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 4FGuig/cXqY9QdGQnO0IG33NayJqZHLrbKjR9AEbFKgJPpKlTyBS2AAxVLLnYpjSpPlGzTAdPxvAwOWicb7EvH6ThFcwZd5yzm7t7wxCfyd6cS2NIlMQ+XMG7Rv0WnQrkJ+09YqPgLdCH2M/jOKv5ReeZyvl5LzO7GpwIzrDDz3d7C0w7hXtjUtfvWjE9qiB/xSmvQWIQJUptjPGx4MdmCX5hylwt37sG1Uw8PxyyZwLI6IWGk/paRZfcPyPPiojD2E4/qRZaSCYXBSAHnOihajIx1FjVThwkpJYHHLvaecz2MYaa80J7NQtgrFXT0WAil+0jHsdTc3liBYcsNN1xt+UhoVYoVuHShcN3a05JAvqaCCRgPVuaT3ofKC3Uuvy4f5WxYm0q7Sqpb9rZysiZuhr+mR9ihFtV3TuFmkx+99huPHHTrGffAM8RaaAGPUPNIqoZDnCzwEjGAcZHzQKsGvqO8bPH57krS7sSDUUfzOIOTFVj8w+luPt2OisqoFSB3cR9u7a0GCzL8qd8m/tY/cJJrxOxCjvbjcm71Y6pGqA+BD4IhqW9Hp7untFQ3S999CWdNKWmEGP7PNA4PlcDvkQ6g7Ff1oY0qrpD9aNS/SwaEReJTCOeUgH/+dRMyEJTAgylDNHgc1XfX+OOGqooF3DkzWLUaJQK/z5GTlNn7k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(11063799006)(261009223027099003)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?FUhJAwAZDB2N0s2tCZ9rtKK75VeOWWp/zd1+S5Qz+k95JAnTBV4I5caWwK22?=
- =?us-ascii?Q?rOMbZmCwi9lohjZ6e0IyE/MFFq+NzBr5JLvRToRu7JUvKvXLf7+rdQnXdrPl?=
- =?us-ascii?Q?gFFx+CSoqq3k6zhkyFtocI7bHt5/EerGJzF8foZQfXJ4kbaR3Der7iCZLjSD?=
- =?us-ascii?Q?0lMUVvuhUuAGdgf4wQi02yBPvBoWt+QrskIBK3xFTToTsSfpKPxhiS0rUCAM?=
- =?us-ascii?Q?NZHGrzHEO052cj3I1oknOw8Cq5rSfAyecARkMTdbujyFLoXQ4VFxArDMjJNa?=
- =?us-ascii?Q?D0TE+fpaqS+Qps2cMMUUzlEcBv8Z7I93OHOh8zq9bkNe+6GUSoIDZ6ua6nzu?=
- =?us-ascii?Q?uvv82qaBBVQGaY9BLWl4EyKNh8o1+vyw347Md1DWBB5TygJOYyxeQuxPUuKR?=
- =?us-ascii?Q?OAXFKfwmn2ReMQgkxDlhcYWbmq0LALC1REycc6zTWj8WcwHz1WpvxTqby4SV?=
- =?us-ascii?Q?+RuT24QIaMiPNi02NtIq32S72PKeduPMkgtzbw9mui2S+orRLbbKyJlDIQJo?=
- =?us-ascii?Q?lg2OgFY7Hncfdcg4S4bz1vbM6OdZfZZkqEReV7NPYtBxVH3v2UEyG4GB+MpR?=
- =?us-ascii?Q?kiqAtHYIBQUjxVhGMegwtKuijP12RFAUgrmLycKxjvL1V0rflvgYtEqZqJrD?=
- =?us-ascii?Q?ram6ZnknEcblljHlNO7C1pNzFjf81LJzwEFCfE7AIL+ikcLBWSNIZ1muacrH?=
- =?us-ascii?Q?J8xWb56wyW2sTGkXLJEPjLIfhY33PWXpJw11HzDbhhFWjM511EndVeFI/RBU?=
- =?us-ascii?Q?n9xwRnaOBVn4FEhgXm03olz+3QR2gE8bKFcrCGzdN183UhKMaULjx+btlb4t?=
- =?us-ascii?Q?bFfTPFVV7j3GwmiPQ1rZSyNzBciGhwTInGbFe7BXfDpg0nyU1Q6gVXG79unt?=
- =?us-ascii?Q?7fmXUJ4tZRlQusAZk52utE/+QVdPG6krTfttQO/rLinDgJ8Gf+QgPJ3wbNaw?=
- =?us-ascii?Q?Zkmt98LnxwmDfNelTe2CJtzQesdY32xlgep2dzrNLzKelqLZqJ/hfJMnBH+r?=
- =?us-ascii?Q?Wmpd7kqqBYnEZh6bhiJK9kko40KvKkO4SJze/6fpWBQk0Gjof95aNa/525EA?=
- =?us-ascii?Q?TY/1uRQwYIyt9w7lGNuKMSX9fShVfCjcQnEDb/HQ+GkEd2sxPCx5k3eti1CL?=
- =?us-ascii?Q?1yzqqNtFUKR0EtsbkIof7cI9ulxUiHA+hbBWyok92XE3OiikKKgV68heH6YW?=
- =?us-ascii?Q?Wvc2G2ffluVIFwR2Oy3eqYYkzNvZCyw7qf8V11y3UZ/K95Akp7v/Kl7CqvtC?=
- =?us-ascii?Q?wG2+Gujsg5NSjnjzs7K1guyVGdafcC9Ha18fFyU54F3UDoglynUEMiZCb+dl?=
- =?us-ascii?Q?fXDZwEnVzw2FEAtj7qpAAEC8EXXbpVvtEODV0+7zsBOr9BKMO1MhD7zoKYfU?=
- =?us-ascii?Q?3WikXcMeZIeUFANpUmWeRcvraAeNrPUKkwLTJpq66RGcYHXSAccOILBk0zHY?=
- =?us-ascii?Q?GKcqGmNVbYF3ZdrkUBGOz5NGW0CLqhT8p3ubw9jp8dFssA0HlgF2AyHp/XTO?=
- =?us-ascii?Q?j2hiq0Z9VTxsJHwk2JUZe20exwPqG6kDK3kpWYRurO5wxZSP+CBYXomhSA5t?=
- =?us-ascii?Q?YFHFwRlnySq3ECjFfrekdlj/sUuE1330/kNhDh0rldWpXLJC9/5VZ6b+GDm1?=
- =?us-ascii?Q?ojWxvuLyZJ5ikXM1WOGjLk4Hqw+9m9lKtfFcQE82WJWIw7wz8NWgTtrWObp1?=
- =?us-ascii?Q?UirwpzP7WoO1dbUsiI1QgBTLIczz7xlOdoK1Q9E6F4FWMG44LpaDMlVQ0yan?=
- =?us-ascii?Q?Zfjx39jegA=3D=3D?=
-X-Exchange-RoutingPolicyChecked: d0+kbvrsndQJJOKkDNh7hOdbQTo1WTuuq47R5nBWdhwqojf7pAGCDeA55G85Q96Tc2DJQ3jhg1aWr7ieiTJWKqQgqpI009xMLzfLBmzpmdXp4lq5WOQYrluCVzc4hQjenL7sGRDCoEohcwzT0DF76l1VKhQIv/pRHBTl0yI3uMfHpMaGPRGzwbtaliO8i0fQz3dlor1Z9hHtNe0NTa9M4sGCf7uh3Vw+I9IqPFUk1/yTT3uSITMs31FDhVfI1iwuHZ3fbKuTDa1lUqACuRhRc3GOOsWDeo6jLstEwoYrNSSfDCOuCZHsvT2h0s+9cYmAP2s6U2uCxkQjxvS506fM4Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b0afd60-13ab-4585-49b4-08df28eb12c8
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 05:30:20.9178
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4EjLDr9jIvYej15N7WLZCXFqhcSSrDShQf97ir3x35pyZRAM0FFqYXbNLvQvq6c8hbLpOQXgzevTQirdAZGl6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4748
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 11:18:04AM +0200, Vincent Guittot wrote:
-> On Sat, 10 Oct 2026 at 17:55, Chen Yu <yu.c.chen@intel.com> wrote:
-> >
-> > On Fri, Oct 09, 2026 at 04:31:40PM +0200, Vincent Guittot wrote:
-> > > On Wed, 7 Oct 2026 at 04:59, Chen Yu <yu.c.chen@intel.com> wrote:
-> >
-> > [ ... ]
-> >
-> > > > @@ -10414,6 +10441,15 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int select_flags)
-> > > >         if (select_flags & WF_TTWU)
-> > > >                 want_affine = !wake_wide(p) && cpumask_test_cpu(cpu, p->cpus_ptr);
-> > > >
-> > > > +       /*
-> > > > +        * Only a push triggered by cache aware scheduling will push the
-> > > > +        * task towards its preferred LLC. Pushes for other reasons, like short
-> > > > +        * slice task, uses the default push strategy.
-> > > > +        */
-> > > > +       push_cpu = -1;
-> > > > +       if (select_flags & WF_RQ_PUSH)
-> > > > +               push_cpu = check_pushable_cache_task(prev_cpu, p);
-> > >
-> > > Is there any reason that you do'nt want to migrate the task at wakeup too ?
-> > >
-> >
-> > The wakeup path seems to be too fast to aggregate the tasks, so that multiple
-> > CPUs try to migrate the task to the same LLC without synchronization - a task
-> > bouncing issue was observed when cache-aware migration was enabled in the wakeup
-> > path. We can double-check in the latest kernel to see if that is still the case,
-> > and to see if we can mitigate that.
-> 
-> Yeah, the goal is to use the same select function for all events;
-> wakeup and push events should be seen as the same event
-> 
-> Also you should separate the check for adding the task in the pushable
-> list in fair_check_pushable_task from the decision to select pref_cpu
-> in select_task_rq_fair. The check added in fair_check_pushable_task is
-> mainly used to decide if it worth going deeper in the decision with
-> select_task_rq_fair
->
+A failed PCM start or a timed-out request can leave virtio-snd with
+messages still owned by the device. Retrying a stream can then reuse
+pending messages, and freeing the ALSA buffer or a control payload can
+leave a descriptor pointing at released memory.
 
-Do you mean the check in fair_check_pushable_task() should be lightweight
-and let select_task_rq_fair() make the decision as to which CPU the task
-should be migrated to, because the former does not hold pi_lock and thus
-should be best-effort? OK, let me adjust the code.
+This series fixes the enqueue and start error paths, then keeps control
+requests and PCM backing pages alive until completion or device reset.
+It is based on Takashi Iwai's sound.git for-next branch at the base
+commit below. Please apply the five patches in order.
 
-thanks,
-Chenyu
+Patches 1 and 2 fix partial enqueue notification and failed-start state.
+Patch 3 serializes control notification with teardown and retains queue
+references through reset. Patch 4 retains the vmalloc-backed PCM pages
+when ALSA releases the buffer mapping after a failed drain. Patch 5 puts
+control payloads under the message reference count; it needs patch 3's
+reset lifetime handling as well as normal completion handling.
 
-> Vincent
-> 
-> >
-> > thanks,
-> > Chenyu
+Keeping a message object alive is not sufficient by itself: its payload
+must remain alive too. Patches 3 and 5 therefore need to stay together
+when evaluating the control-request lifetime fix. An unresponsive device
+can retain memory until reset. Patch 4 adds a page-pointer array and page
+references per PCM buffer; patch 5 adds owned payload storage and copies.
+
+Validation:
+- ARM64 GCC 14.2.0 W=1 builds passed for the final series and the
+  intermediate tree through patch 4, with no build warnings in those
+  runs. The tree through patch 3 also passed a W=1 driver rebuild.
+  Patches 1 and 2 were not separately kernel-built or booted.
+- Source-extracted ASan/UBSan tests passed 340 assertions covering partial
+  enqueue, failed start, allocation failure, timeout/interruption, late
+  access, cleanup and a subsequent operation. These use kernel shims;
+  they do not prove real kernel concurrency.
+- An ARM64 KASAN guest with a fault-injecting QEMU virtio-sound backend
+  reproduced PCM-page and PCM_INFO-payload use-after-free on the tree
+  through patch 3. Two runs of each case with the complete series had no
+  KASAN or other kernel diagnostics and passed subsequent capture and
+  playback checks. A separate drain-timeout/reset/rebind run also passed.
+
+The backend deliberately holds a capture descriptor past RELEASE, or a
+PCM_INFO response past the caller's timeout, then accesses the original
+scatterlist. A test-only guest observer reads the referenced storage so
+KASAN can check it; external DMA alone is not instrumented by KASAN. The
+reset test checks that the backend's delayed callback does not run after
+reset. It does not independently inspect guest memory after reset.
+
+These are local fault-injection results, using QEMU's none audio backend.
+TLV and enum payloads have source-shim coverage only. No physical audio,
+Apple VZ or Docker Desktop microphone validation is claimed for this
+series. VZ-specific completion compatibility changes are excluded. The
+playback ACK callback's inability to propagate enqueue errors is also
+outside this series. No new userspace ABI or feature is introduced.
+
+Reproducer source and instructions:
+https://github.com/whatisyourname0/virtio-snd-reproducer/tree/8e6ef41bb9c102af4f9d9809bc9fa9bd6243fb02
+
+The source-only package includes the host harnesses, QEMU fault-injection
+patch, guest observer and build/run scripts. The 340 host assertions were
+rerun on macOS arm64 and Debian Linux aarch64. The portable QEMU validators
+passed PCM, PCM_INFO and reset checks using existing build artifacts.
+A newly generated initramfs also passed the PCM and recovery checks.
+The complete QEMU/kernel source rebuild recipe has not been run end to
+end from this package; that boundary is recorded in its README.
+
+AI assistance (Codex, including GPT-6 Luna Max) was used for code analysis,
+implementation, test fixtures, validation and patch text. The work was
+prompted to isolate generic virtio-snd lifetime and error fixes from
+VZ-specific behavior, reproduce the failures, and check recovery. Each
+patch carries Assisted-by: LLM.
+
+Joonho Lee (5):
+  ALSA: virtio: Notify queued PCM messages after send errors
+  ALSA: virtio: Recover PCM state after a failed start
+  ALSA: virtio: Retain control requests through device reset
+  ALSA: virtio: Retain PCM DMA pages until messages are freed
+  ALSA: virtio: Keep control payloads in refcounted messages
+
+ sound/virtio/virtio_card.c    |   6 +-
+ sound/virtio/virtio_card.h    |   2 +
+ sound/virtio/virtio_ctl_msg.c | 170 ++++++++++++++++++++++++++++------
+ sound/virtio/virtio_ctl_msg.h |  20 +++-
+ sound/virtio/virtio_kctl.c    | 101 ++++++++++----------
+ sound/virtio/virtio_pcm.h     |   5 +
+ sound/virtio/virtio_pcm_msg.c | 124 +++++++++++++++++++++++--
+ sound/virtio/virtio_pcm_ops.c |  65 +++++++++++--
+ 8 files changed, 398 insertions(+), 95 deletions(-)
+
+
+base-commit: 8d70e364e866bdfca81eee24d0688fac9472cfb9
+-- 
+2.54.0 (Apple Git-157)
+
