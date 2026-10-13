@@ -1,162 +1,141 @@
-Received: from mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
+Received: from mta0.migadu.com (out-220.mta0.migadu.com [91.218.175.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAEA246D54C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693E5470421
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791859850; cv=none; b=BmLuhdBtp4v2956/3rHEZNNRvBf9GbDzw8XlkycKyqJFFj5qTNGrAc8S7STuYSan+gw81KdA5WKr9NVXBSuyzm8gHPeVMTGrmxwVKJeRtEuzbKUV1OgrIXGbvPI0Js44fBjjv+zeg+jJQhSnyL3TU+yak1QbHUQWsyZeiWzuKn4=
+	t=1791859958; cv=none; b=uDaFaoYH2zI4INdXWuc2QaCtJDf86ruao6CbWGX/bhEFUuheTQ7Mb2mN7nnVWO4IKRti/5HIBniDgFXKyAb+zX76fkcQbu8c7L6UBpqz2d4OkDetmGETKIXmO6SMI7caqA3qxhsQD/6PKKGHOtTL7FMOsww833cETItv6Am9yUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791859850; c=relaxed/simple;
-	bh=8wMdqUD76bepHOzOME5xbGf9H6wBMPJCOauRyfPWxJE=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=ubg72RDhNf/v0rPE9horKYShRdwMFYaj/yOtkkCmCxGjS5SZgC9wYj1WJLDf9XxeuAX+yVJeq4L57ENXHcT0pvq8VgooCKupRmaWX2KEVXGWilK4AIHEidaG62M2LpjUXGysF12ZnwMcR+Fn5l7Q+l8YpWszHhl4EeILKeKFV3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oNPtqFiX; arc=none smtp.client-ip=91.218.175.179
+	s=arc-20240116; t=1791859958; c=relaxed/simple;
+	bh=uL6ePUcLBZZOUIyB5RLHnAYGU9PprjKQPlmJBefHVMY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kCHvjCm/ctI5mS/hLZ3+1tblSJx5G8ve3aw8cTPjtSF6NjScVu6fb+uB/Ib+pdzxUA48v9GkCvhiedzorDhMVMXJI51gsqelCATSReobvdWSWNVeIDLfiGfqcLXLsx5vU0poDY4p59dXUVRNwfIvWEwZDJ4OKEQZVXRti5Ce3Aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NAMtpaTP; arc=none smtp.client-ip=91.218.175.220
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oNPtqFiX"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NAMtpaTP"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8wMdqUD76bepHOzOME5xbGf9H6wBMPJCOauRyfPWxJE=;
+DKIM-Signature: a=rsa-sha256; bh=uL6ePUcLBZZOUIyB5RLHnAYGU9PprjKQPlmJBefHVMY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791859845; v=1; x=1792464645;
- b=oNPtqFiXxOnTU0X6djyqNB5Ani+3gr1I6RXWS1BqRJvAY16ZMR4dOS8JM5773LU8YHIiFcjn
- Bv1zvPpk1o0kxvVbA+SeDa2/4LNFdl6no0YIWSlHSQSsaH5xf3Rwttgyrl7E+zB/DFCIZSlN+8C
- ChXlTFK6PauB81+RAz+tia2g=
+ t=1791859953; v=1; x=1792464753;
+ b=NAMtpaTPaCQ5A3BTTO3fwnlTUTeVof9HIoOGcULZS+jzEK5ALCPSDHs+G2rJtftClVL2B4Uw
+ 8G2dxy/mHsi0XK3sZIcQYIjPxYzpVb9PGXdsqCR1OIgj+Rb24JiQONZiPoa5aomONHCzQcDD9QG
+ OrXo0ye+S5CeYVkCzx/61iIs=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a849ca26c8b26880;
-	Tue, 13 Oct 2026 02:50:38 +0000
-X-Mizu-Trace-ID: a849ca26c8b26880
+Received: by smtp.migadu.com with ESMTPS id 6830bd04216ac914;
+	Tue, 13 Oct 2026 02:52:33 +0000
+X-Mizu-Trace-ID: 6830bd04216ac914
 X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+Message-ID: <c2d25c25-2fd4-4bb5-a021-3cdf23e493d0@linux.dev>
+Date: Tue, 13 Oct 2026 10:52:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
- pagetable_free()
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261012193114.77147e0a43affa8ee1ae896c@linux-foundation.org>
-Date: Tue, 13 Oct 2026 10:50:21 +0800
-Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Muchun Song <songmuchun@bytedance.com>,
- David Hildenbrand <david@kernel.org>,
- Oscar Salvador <osalvador@suse.de>,
- Dave Hansen <dave.hansen@intel.com>,
- Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>,
- =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Kevin Brodsky <kevin.brodsky@arm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Alistair Popple <apopple@nvidia.com>,
- linux-mm@kvack.org,
- linux-riscv@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <200A83B9-233C-44C7-B4AF-0900BA1E09DF@linux.dev>
-References: <20261010112457.49485-1-songmuchun@bytedance.com>
- <20261010112457.49485-2-songmuchun@bytedance.com>
- <asy-b7_C3SjnmSaS@gmail.com> <145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
- <20261012193114.77147e0a43affa8ee1ae896c@linux-foundation.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/shrinker: size shrinker_info_unit to a power of
+ two
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
+ <david@fromorbit.com>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org
+References: <20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-0-5a7608393b7a@virtuozzo.com>
+ <20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-1-5a7608393b7a@virtuozzo.com>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20261012-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v1-1-5a7608393b7a@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
 
-> On Oct 13, 2026, at 10:31, Andrew Morton <akpm@linux-foundation.org> =
-wrote:
->=20
-> On Mon, 12 Oct 2026 20:55:06 +0800 Muchun Song <muchun.song@linux.dev> =
-wrote:
->=20
->>=20
->>=20
->>> On Oct 12, 2026, at 19:15, Jose A. Perez de Azpillaga =
-<azpijr@gmail.com> wrote:
->>>=20
->>> On Sat, Oct 10, 2026 at 07:24:54PM +0800, Muchun Song wrote:
->>>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
->>>> pte_alloc_one_kernel() runs the page-table constructor for kernel =
-PTE
->>>> tables.
->>>>=20
->>>> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
->>>> splitting a PMD. Restoring the vmemmap backing pages does not =
-collapse
->>>> the PTE table, so a later memory hot-remove eventually frees it =
-through
->>>> pagetable_free() on x86-64. That releases the page without running =
-the
->>>> matching destructor and leaves NR_PAGETABLE elevated.
->>>>=20
->>>> Make pagetable_free() detect constructor-backed pages and run the
->>>> destructor before releasing their memory to fix the problem.
->>>>=20
->>>> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
->>>> Cc: stable@vger.kernel.org
->>>=20
->>> is the x86 case covered for 6.16-6.18? as far as I can see, x86
->>> free_pagetable() only uses pagetable_free() since bf9e4e30f353
->>> ("x86/mm: use pagetable_free()") in v6.19, so the backport wouldn't
->>> change anything there. or am I missing something?
->>=20
->> Yes, you are absolutely right =E2=80=94 thanks for catching this.
->>=20
->> I double-checked and indeed x86's free_pagetable() only starts using
->> pagetable_free() since bf9e4e30f353 ("x86/mm: use pagetable_free()"),
->> which landed in v6.19. So for 6.16-6.18 the prerequisite is not =
-present
->> and the backport would be a no-op there.
->>=20
->> The correct trailer is:
->>=20
->> Cc: <stable@vger.kernel.org> # 6.16-6.18: bf9e4e30f353: x86/mm: use =
-pagetable_free()
->>=20
->> Andrew, would you be able to update the trailer in the patch when you
->> pick it up? If there are further review comments that require code
->> changes, I'll fix this trailer as part of the v3 respin. Thanks a =
-lot!
->=20
-> I don't know if/how the -stable maintainers handle a comment like =
-that.
-> I expect it's more reliable to do this via Fixes:.  Possible?
->=20
+On 10/13/26 3:02 AM, Konstantin Khorenko wrote:
+> Every memory cgroup allocates, per NUMA node, one shrinker_info_unit
+> for every SHRINKER_UNIT_BITS shrinker ids up to shrinker_nr_max. The
+> unit holds BITS_PER_LONG atomic_long_t of deferred work, a power of
+> two, plus the one-word bitmap of shrinkers with objects charged to the
+> cgroup. That word takes the unit just past the power of two, to 520
+> bytes on 64-bit, so every unit comes from kmalloc-1k and almost half of
+> it is padding.
+> 
+> The units are allocated when the cgroup goes online and freed when it is
+> freed, so a dying cgroup keeps them until the last reference to it is
+> gone. Their number is the number of memory cgroups, times the NUMA
+> nodes, times shrinker_nr_max / SHRINKER_UNIT_BITS. shrinker_nr_max is
+> the peak number of memcg-aware shrinkers registered at once, and every
+> superblock registers one, so a host that mounts many filesystems and
+> runs many cgroups carries the padding as unreclaimable slab, and keeps
+> paying it for new cgroups after the mounts are gone.
+> 
+> Let a unit cover one id less than a word holds. The bitmap still fits
+> one word, and nr_deferred[] plus that word add up to BITS_PER_LONG
+> longs, so the unit fills a power-of-two kmalloc slot exactly and, on
+> 64-bit, the memory taken by units halves, for about one unit more in
+> BITS_PER_LONG.
+> round_up() in expand_shrinker_info() needs a power-of-two step and
+> becomes roundup(); the other uses of SHRINKER_UNIT_BITS are divisions,
+> modulos and multiplications that do not care. Assert the unit size at
+> build time, since the layout depends on it.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> ---
+>   include/linux/shrinker.h | 9 ++++++++-
+>   mm/shrinker.c            | 2 +-
+>   2 files changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+> index 1a00be90d93a9..c250ab68d346c 100644
+> --- a/include/linux/shrinker.h
+> +++ b/include/linux/shrinker.h
+> @@ -7,7 +7,11 @@
+>   #include <linux/refcount.h>
+>   #include <linux/completion.h>
+>   
+> -#define SHRINKER_UNIT_BITS	BITS_PER_LONG
+> +/*
+> + * One id less than a word holds, so that nr_deferred[] and the map word add
+> + * up to BITS_PER_LONG longs: a power of two, which fills a kmalloc slot.
+> + */
+> +#define SHRINKER_UNIT_BITS	(BITS_PER_LONG - 1)
+>   
+>   /*
+>    * Bitmap and deferred work of shrinker::id corresponding to memcg-aware
+> @@ -18,6 +22,9 @@ struct shrinker_info_unit {
+>   	DECLARE_BITMAP(map, SHRINKER_UNIT_BITS);
+>   };
+>   
+> +static_assert(!(sizeof(struct shrinker_info_unit) &
+> +		(sizeof(struct shrinker_info_unit) - 1)));
+> +
+>   struct shrinker_info {
+>   	struct rcu_head rcu;
+>   	int map_nr_max;
+> diff --git a/mm/shrinker.c b/mm/shrinker.c
+> index 7ec2a9704f6f2..a9418072a509e 100644
+> --- a/mm/shrinker.c
+> +++ b/mm/shrinker.c
+> @@ -159,7 +159,7 @@ static int expand_one_shrinker_info(struct mem_cgroup *memcg, int new_size,
+>   static int expand_shrinker_info(int new_id)
+>   {
+>   	int ret = 0;
+> -	int new_nr_max = round_up(new_id + 1, SHRINKER_UNIT_BITS);
+> +	int new_nr_max = roundup(new_id + 1, SHRINKER_UNIT_BITS);
+>   	int new_size, old_size = 0;
+>   	struct mem_cgroup *memcg;
+>   
+> 
 
-Thanks. I used this format because it is explicitly documented by the
-stable kernel rules.
-
-The shell-style comment is the format documented in
-Documentation/process/stable-kernel-rules.rst for specifying additional
-patch prerequisites:
-
-  Cc: <stable@vger.kernel.org> # 3.3.x: <commit>: <subject>
-  Cc: <stable@vger.kernel.org> # 3.3.x
-
-See:
-
-  https://docs.kernel.org/process/stable-kernel-rules.html#option-1
-
-A Fixes tag alone cannot express this dependency. It does not specify
-an additional commit that must be cherry-picked first. The documented
-Cc comment provides both the prerequisite and the required cherry-pick
-order.
-
-Would this be sufficient for the stable team to pick up the =
-prerequisite?
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
 
 Thanks,
-Muchun
+Qi
+
 
 
