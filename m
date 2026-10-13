@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CEA8492E26;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7181F494800;
 	Tue, 13 Oct 2026 06:07:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871633; cv=none; b=Q1b/fHrw6M9a0xnOnmOfRZD9RsCP7K75FVXyvWvSdX+FKuIRfTSLnqJF1lAjPW/wEs32BBL03ngqzo994jdwIYujSO7pEn/cruuokjxET7h9jPqR7J89WsY03DfJIq2+/0991CYP2refx9xv+jk3w2XfyfQbKVWOqYDlemOSRxs=
+	t=1791871633; cv=none; b=lmo3Z16IxPDMSyryOGmtU003dus4zibiBhEV57ZBdoqW/ZUrlEo4W8r8MeOxRT9yzbMrSt8DWl81PofDPjgCnhUYCNvwGq9PP8qsszktDM6bUbQfQgMv8WOL7eNgA/MghU5a3p4mHXKeASAzLcgk1u7aEyk5Zl8fv3K9BUYvI/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791871633; c=relaxed/simple;
-	bh=+zZQ85eonvdgpg+CtFUy3LsYAvptEOGqdtBRYiHP3Qs=;
+	bh=nhyxgj0X7wLB5Nj8cJ03vy18448SAmJukrZzSPU8GuI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OMYKRQ4FULPtq2JohxTv+3odnsb3uul1XOrdSkdpw9dDf/d/1gv+VcK2vh3DAiEctNU4nsE2eq1s8GfTZKfyLt5+m+49IEiI2zEyrAgs9aiRAgTwLdnyCt/kQy4QZZqZEEBRVzU92VHOebrLuxdhZq1Qb/D+DvbXAAohD8jWBVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wm4E/DWn; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=KmSy8NgOGZkN0ESybgMO2/VVFd4bXPEvVIMbJKxu3nqHEUF0jbHprrNmEgqMqZ3AKQfdhdLgcuVRWtgB3P6Wtu7SPAjlRp0tyrNE6Nfc5t0Ol9zeP2WEVUHd2htfV1AF2oReA7hgtDLyeJ6Ago/XcVxYsy1MRm2E3LcPCmlAaHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DeEzoOh4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wm4E/DWn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E1A38C2BD00;
-	Tue, 13 Oct 2026 06:07:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DeEzoOh4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1B3A9C2BCF7;
+	Tue, 13 Oct 2026 06:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791871632;
-	bh=+zZQ85eonvdgpg+CtFUy3LsYAvptEOGqdtBRYiHP3Qs=;
+	s=k20201202; t=1791871633;
+	bh=nhyxgj0X7wLB5Nj8cJ03vy18448SAmJukrZzSPU8GuI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Wm4E/DWne9FUTjDDgNTLWmqcrW0DBBXzf9Ro7C83jpr0gdBvZEkd13i4VSzQcGxKX
-	 MSBgHjTA9e8UM+1wQ+u4npb0pAKZqF5lKpW3DWF/0lZfgdFTgqwknxSvFExxIXv8tL
-	 xJGw3nLv5kF9zu/yux2TVyW3yQcHU0nZR0KOesJrmbXqKLDI7RJea1hlfVPGyWlyBK
-	 Vsfcen89JP8U0bzV8+eTScvyTvgQ/yX37DtNsmewaIjqyUb5ZIs76h6kICAbr7/aOL
-	 vvfSpH4J46hqjfwhEmyjn8KPKK6ccVBOuDV8eEapkfz0eSZWuREAakKeoFEN1uKxz6
-	 Az5/fuOsIeTwA==
+	b=DeEzoOh4T2hA+o4ZaVEJsN/syD1leXnNkgtuzwGGbSJt8hkWXcMNhi9oq/ZAsWfvT
+	 MqT3uQ0GyfU4ykgWpKGLNJR5Dn2LVyuEwsSyqCrisDtER2OsIhef71otydAOig5cVx
+	 MTvkCxqYKA367/l7ClT2o7nhYouJXc3Cc7k3MLztnSg8r/9waBJRNSsQmlSxWcWV1R
+	 B9JUGIMZICSQUvz+0stdjO+N4RwXAqCKjze6i6gEhfToWhjdY/7Ytw7EBzxYw4reXb
+	 teEjgTqQFvw45us+vRfytkyGMexppYd8RIUUrLnI1TmWOCwX3kut0HCVorMt5zHGs9
+	 iqbcYu6nEI56Q==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CF1F4CC6B0E;
-	Tue, 13 Oct 2026 06:07:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06DB0CC6B10;
+	Tue, 13 Oct 2026 06:07:13 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Tue, 13 Oct 2026 09:07:14 +0300
-Subject: [PATCH v3 04/11] gpio: Add Cortina Systems CS75xx GPIO driver
+Date: Tue, 13 Oct 2026 09:07:16 +0300
+Subject: [PATCH v3 06/11] i2c: Add Cortina Systems CS75xx I2C controller
+ driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-cs75xx-s2-v3-4-181bb0d23f4c@gmail.com>
+Message-Id: <20261013-b4-cs75xx-s2-v3-6-181bb0d23f4c@gmail.com>
 References: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
 In-Reply-To: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
 To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
@@ -55,11 +56,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org, 
  Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791871630; l=11756;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791871630; l=12742;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=U8kbFa+ObMQjf4fVSpDRBdQdY5FQbSMl5bKCiv7JH/g=;
- b=0FcBYOnhwS37Cuj1eYq9gwQB1fr1aVkCg+Tsm7wPgtfqKZSGj7fjQch9/outPw/6B8YsFc8zL
- pu8QTrU1E1ICEcO6OFG43uPnfVoiNZJ/iItprcRNKQvk5f08hZlRUg3
+ bh=H/Aux7g06K8l72D7RKL65XJO7i+3MRA0ODHC5P0gY2I=;
+ b=xkME7DGXqq2xeMrlDJ7meF4iLYS146Kx7T78o+K0fSWoCChTnnfdogjeANrP8An4fNenADw3X
+ glBPSM4AQpVCKAu1nKBQ4kGwj/0DmJm5aJZvLKu1YaKlMDyUhR4Jn5V
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -69,399 +70,454 @@ Reply-To: filipp.dunsky@gmail.com
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Add a driver for the GPIO banks of the Cortina Systems CS75xx SoCs. The
-data and direction registers are handled by gpio-mmio; each bank has its
-own interrupt with level and edge triggers, both edges are emulated by
-flipping the polarity.
+The I2C ("Bi-Wire") controller of the Cortina Systems CS75xx SoCs
+transfers one byte per command, with a command register much like the
+OpenCores one (start, stop, read, write, acknowledge), and raises an
+interrupt when a command has completed.
 
-A pin only works as a GPIO when its bit in the bank's GPIO_MUX register
-is set. The driver sets it when a line is requested as a GPIO or as an
-interrupt and restores the value found at probe time when the line is
-released.
+Messages are sent with a repeated start between them and a stop after
+the last one. Every message needs at least one data byte, so SMBus quick
+commands are not supported. Arbitration loss is reported as -EAGAIN and
+retried by the core.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- drivers/gpio/Kconfig       |  12 ++
- drivers/gpio/Makefile      |   1 +
- drivers/gpio/gpio-cs75xx.c | 336 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 349 insertions(+)
+ drivers/i2c/busses/Kconfig      |  11 ++
+ drivers/i2c/busses/Makefile     |   1 +
+ drivers/i2c/busses/i2c-cs75xx.c | 392 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 404 insertions(+)
 
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index dfdc9ee1a..6b9524f25 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -300,6 +300,18 @@ config GPIO_CLPS711X
- 	help
- 	  Say yes here to support GPIO on CLPS711X SoCs.
+diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+index d7b895083..a65e951a5 100644
+--- a/drivers/i2c/busses/Kconfig
++++ b/drivers/i2c/busses/Kconfig
+@@ -520,6 +520,17 @@ config I2C_CADENCE
+ 	  Say yes here to select Cadence I2C Host Controller. This controller is
+ 	  e.g. used by Xilinx Zynq.
  
-+config GPIO_CS75XX
-+	tristate "Cortina Systems CS75xx GPIO support"
++config I2C_CS75XX
++	tristate "Cortina Systems CS75xx I2C controller"
 +	depends on ARCH_CORTINA_ACCESS || COMPILE_TEST
-+	select GPIO_GENERIC
-+	select GPIOLIB_IRQCHIP
++	depends on HAS_IOMEM
 +	help
-+	  Say yes here to support the GPIO banks of the Cortina Systems
-+	  CS75xx SoCs, including their interrupts.
++	  Say yes here to support the I2C ("Bi-Wire") controller of the
++	  Cortina Systems CS75xx SoCs.
 +
-+	  Requesting a line switches its pin from the peripheral function
-+	  to GPIO until the line is released.
++	  This driver can also be built as a module. If so, the module
++	  will be called i2c-cs75xx.
 +
- config GPIO_DAVINCI
- 	tristate "TI Davinci/Keystone GPIO support"
- 	default y if ARCH_DAVINCI
-diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-index 88f748846..a38ad4331 100644
---- a/drivers/gpio/Makefile
-+++ b/drivers/gpio/Makefile
-@@ -59,6 +59,7 @@ obj-$(CONFIG_GPIO_CLPS711X)		+= gpio-clps711x.o
- obj-$(CONFIG_GPIO_SNPS_CREG)		+= gpio-creg-snps.o
- obj-$(CONFIG_GPIO_CROS_EC)		+= gpio-cros-ec.o
- obj-$(CONFIG_GPIO_CRYSTAL_COVE)		+= gpio-crystalcove.o
-+obj-$(CONFIG_GPIO_CS75XX)		+= gpio-cs75xx.o
- obj-$(CONFIG_GPIO_CS5535)		+= gpio-cs5535.o
- obj-$(CONFIG_GPIO_DA9052)		+= gpio-da9052.o
- obj-$(CONFIG_GPIO_DA9055)		+= gpio-da9055.o
-diff --git a/drivers/gpio/gpio-cs75xx.c b/drivers/gpio/gpio-cs75xx.c
+ config I2C_CBUS_GPIO
+ 	tristate "CBUS I2C driver"
+ 	depends on GPIOLIB || COMPILE_TEST
+diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
+index 3755c54b3..aab1beeb2 100644
+--- a/drivers/i2c/busses/Makefile
++++ b/drivers/i2c/busses/Makefile
+@@ -47,6 +47,7 @@ obj-$(CONFIG_I2C_BCM2835)	+= i2c-bcm2835.o
+ obj-$(CONFIG_I2C_BCM_IPROC)	+= i2c-bcm-iproc.o
+ obj-$(CONFIG_I2C_CADENCE)	+= i2c-cadence.o
+ obj-$(CONFIG_I2C_CBUS_GPIO)	+= i2c-cbus-gpio.o
++obj-$(CONFIG_I2C_CS75XX)	+= i2c-cs75xx.o
+ obj-$(CONFIG_I2C_CGBC)		+= i2c-cgbc.o
+ obj-$(CONFIG_I2C_CPM)		+= i2c-cpm.o
+ obj-$(CONFIG_I2C_DAVINCI)	+= i2c-davinci.o
+diff --git a/drivers/i2c/busses/i2c-cs75xx.c b/drivers/i2c/busses/i2c-cs75xx.c
 new file mode 100644
-index 000000000..d3e8d3a99
+index 000000000..d39c8e75a
 --- /dev/null
-+++ b/drivers/gpio/gpio-cs75xx.c
-@@ -0,0 +1,336 @@
++++ b/drivers/i2c/busses/i2c-cs75xx.c
+@@ -0,0 +1,392 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Cortina Systems CS75xx GPIO controller
++ * Cortina Systems CS75xx I2C ("Bi-Wire") controller
 + *
-+ * Each bank has 32 lines with direction, data and interrupt registers.
-+ * Whether a pin is driven by the GPIO bank or by its peripheral function
-+ * (NAND, Ethernet, UART, ...) is selected by the bank's GPIO_MUX register
-+ * in the global control block. A line is switched to GPIO when it is
-+ * requested as a GPIO or as an interrupt and switched back to its initial
-+ * setting when it is released.
++ * The controller works one byte at a time: software writes the byte to
++ * transmit and a command (start, stop, read, write, acknowledge) and gets
++ * an interrupt when the command has completed.
 + */
 +
-+#include <linux/bitops.h>
-+#include <linux/gpio/driver.h>
-+#include <linux/gpio/generic.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/clk.h>
++#include <linux/completion.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
 +#include <linux/interrupt.h>
 +#include <linux/io.h>
-+#include <linux/irq.h>
++#include <linux/iopoll.h>
 +#include <linux/module.h>
 +#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/spinlock.h>
 +
-+#define CS75XX_GPIO_CFG		0x00	/* 1: input, 0: output */
-+#define CS75XX_GPIO_OUT		0x04
-+#define CS75XX_GPIO_IN		0x08
-+#define CS75XX_GPIO_LVL		0x0c	/* 1: high level or rising edge */
-+#define CS75XX_GPIO_EDGE	0x10	/* 1: edge, 0: level */
-+#define CS75XX_GPIO_IE		0x14
-+#define CS75XX_GPIO_INT		0x18	/* write 1 to clear */
++#define CS75XX_I2C_CFG		0x00
++#define CS75XX_I2C_CTRL		0x04
++#define CS75XX_I2C_TXR		0x08
++#define CS75XX_I2C_RXR		0x0c
++#define CS75XX_I2C_ACK		0x10
++#define CS75XX_I2C_IE		0x14
++#define CS75XX_I2C_INT		0x18
 +
-+struct cs75xx_gpio {
-+	struct gpio_generic_chip chip;
-+	void __iomem *base;
-+	void __iomem *mux;
-+	u32 mux_init;
-+	u32 gpio_used;
-+	u32 irq_used;
-+	u32 both_edges;
++#define CS75XX_I2C_CFG_EN	BIT(0)
++#define CS75XX_I2C_CFG_PRER	GENMASK(31, 16)
++
++#define CS75XX_I2C_CTRL_DONE	BIT(0)
++#define CS75XX_I2C_CTRL_NACK	BIT(3)
++#define CS75XX_I2C_CTRL_WRITE	BIT(4)
++#define CS75XX_I2C_CTRL_READ	BIT(5)
++#define CS75XX_I2C_CTRL_STOP	BIT(6)
++#define CS75XX_I2C_CTRL_START	BIT(7)
++
++#define CS75XX_I2C_ACK_AL	BIT(0)
++#define CS75XX_I2C_ACK_BUSY	BIT(1)
++#define CS75XX_I2C_ACK_NACK	BIT(2)
++
++#define CS75XX_I2C_INT_DONE	BIT(0)
++
++enum cs75xx_i2c_state {
++	CS75XX_I2C_IDLE,
++	CS75XX_I2C_ADDR,
++	CS75XX_I2C_WRITE,
++	CS75XX_I2C_READ,
++	CS75XX_I2C_STOP,
 +};
 +
-+/* Called with the chip lock held */
-+static void cs75xx_gpio_update_mux(struct cs75xx_gpio *g, unsigned int offset)
++struct cs75xx_i2c {
++	struct i2c_adapter adap;
++	struct device *dev;
++	void __iomem *base;
++	int irq;
++	u32 prer;
++
++	spinlock_t lock;	/* protects the transfer state */
++	struct completion done;
++	enum cs75xx_i2c_state state;
++	struct i2c_msg *msg;
++	unsigned int pos;
++	bool last;
++	int err;
++};
++
++static void cs75xx_i2c_hw_init(struct cs75xx_i2c *i2c)
 +{
-+	u32 mask = BIT(offset);
-+	u32 val = readl(g->mux);
-+
-+	if ((g->gpio_used | g->irq_used) & mask)
-+		val |= mask;
-+	else
-+		val = (val & ~mask) | (g->mux_init & mask);
-+
-+	writel(val, g->mux);
-+}
-+
-+static int cs75xx_gpio_request(struct gpio_chip *gc, unsigned int offset)
-+{
-+	struct cs75xx_gpio *g = gpiochip_get_data(gc);
-+
-+	guard(gpio_generic_lock_irqsave)(&g->chip);
-+	g->gpio_used |= BIT(offset);
-+	cs75xx_gpio_update_mux(g, offset);
-+
-+	return 0;
-+}
-+
-+static void cs75xx_gpio_free(struct gpio_chip *gc, unsigned int offset)
-+{
-+	struct cs75xx_gpio *g = gpiochip_get_data(gc);
-+
-+	guard(gpio_generic_lock_irqsave)(&g->chip);
-+	g->gpio_used &= ~BIT(offset);
-+	cs75xx_gpio_update_mux(g, offset);
-+}
-+
-+static void cs75xx_gpio_irq_ack(struct irq_data *d)
-+{
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct cs75xx_gpio *g = gpiochip_get_data(gc);
-+
-+	writel(BIT(irqd_to_hwirq(d)), g->base + CS75XX_GPIO_INT);
-+}
-+
-+static void cs75xx_gpio_irq_mask(struct irq_data *d)
-+{
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct cs75xx_gpio *g = gpiochip_get_data(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
-+
-+	scoped_guard(gpio_generic_lock_irqsave, &g->chip) {
-+		u32 ie = readl(g->base + CS75XX_GPIO_IE);
-+
-+		writel(ie & ~BIT(hwirq), g->base + CS75XX_GPIO_IE);
++	if (readl(i2c->base + CS75XX_I2C_CFG) & CS75XX_I2C_CFG_EN) {
++		writel(0, i2c->base + CS75XX_I2C_CFG);
++		usleep_range(5000, 10000);
 +	}
 +
-+	gpiochip_disable_irq(gc, hwirq);
++	writel(FIELD_PREP(CS75XX_I2C_CFG_PRER, i2c->prer) | CS75XX_I2C_CFG_EN,
++	       i2c->base + CS75XX_I2C_CFG);
++	usleep_range(5000, 10000);
 +}
 +
-+static void cs75xx_gpio_irq_unmask(struct irq_data *d)
++/*
++ * Reset the controller and enable its interrupt again, with the handler
++ * kept away from the registers meanwhile
++ */
++static void cs75xx_i2c_reset(struct cs75xx_i2c *i2c)
 +{
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct cs75xx_gpio *g = gpiochip_get_data(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
-+	u32 ie;
-+
-+	gpiochip_enable_irq(gc, hwirq);
-+
-+	guard(gpio_generic_lock_irqsave)(&g->chip);
-+	/*
-+	 * The status of a level interrupt is latched while the line is
-+	 * asserted, also after the ack, so it may be stale by now. Clear it,
-+	 * it is set again right away if the line is still asserted.
-+	 */
-+	if (irqd_is_level_type(d))
-+		writel(BIT(hwirq), g->base + CS75XX_GPIO_INT);
-+	ie = readl(g->base + CS75XX_GPIO_IE);
-+	writel(ie | BIT(hwirq), g->base + CS75XX_GPIO_IE);
++	disable_irq(i2c->irq);
++	cs75xx_i2c_hw_init(i2c);
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_IE);
++	enable_irq(i2c->irq);
 +}
 +
-+/* Both edges are emulated by flipping the polarity on every interrupt */
-+static void cs75xx_gpio_set_polarity(struct cs75xx_gpio *g, u32 mask)
++static void cs75xx_i2c_finish(struct cs75xx_i2c *i2c, int err)
 +{
-+	u32 lvl = readl(g->base + CS75XX_GPIO_LVL);
-+
-+	if (readl(g->base + CS75XX_GPIO_IN) & mask)
-+		lvl &= ~mask;
-+	else
-+		lvl |= mask;
-+
-+	writel(lvl, g->base + CS75XX_GPIO_LVL);
++	i2c->err = err;
++	i2c->state = CS75XX_I2C_IDLE;
++	complete(&i2c->done);
 +}
 +
-+static int cs75xx_gpio_irq_set_type(struct irq_data *d, unsigned int type)
++/*
++ * End the transfer with a stop condition and complete it only once the
++ * stop is done, so that its interrupt cannot be taken for the next one
++ */
++static void cs75xx_i2c_abort(struct cs75xx_i2c *i2c, int err)
 +{
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct cs75xx_gpio *g = gpiochip_get_data(gc);
-+	u32 mask = BIT(irqd_to_hwirq(d));
-+	u32 lvl, edge, both_edges;
++	i2c->err = err;
++	i2c->state = CS75XX_I2C_STOP;
++	writel(CS75XX_I2C_CTRL_STOP, i2c->base + CS75XX_I2C_CTRL);
++}
 +
-+	guard(gpio_generic_lock_irqsave)(&g->chip);
++/* Start the transfer of the next data byte of the message */
++static void cs75xx_i2c_next_byte(struct cs75xx_i2c *i2c)
++{
++	struct i2c_msg *msg = i2c->msg;
++	bool last_byte = i2c->pos == msg->len - 1;
++	u32 cmd;
 +
-+	lvl = readl(g->base + CS75XX_GPIO_LVL);
-+	edge = readl(g->base + CS75XX_GPIO_EDGE);
-+	both_edges = g->both_edges & ~mask;
-+
-+	switch (type & IRQ_TYPE_SENSE_MASK) {
-+	case IRQ_TYPE_LEVEL_LOW:
-+		lvl &= ~mask;
-+		edge &= ~mask;
-+		break;
-+	case IRQ_TYPE_LEVEL_HIGH:
-+		lvl |= mask;
-+		edge &= ~mask;
-+		break;
-+	case IRQ_TYPE_EDGE_FALLING:
-+		lvl &= ~mask;
-+		edge |= mask;
-+		break;
-+	case IRQ_TYPE_EDGE_RISING:
-+		lvl |= mask;
-+		edge |= mask;
-+		break;
-+	case IRQ_TYPE_EDGE_BOTH:
-+		both_edges |= mask;
-+		edge |= mask;
-+		break;
-+	default:
-+		return -EINVAL;
++	if (msg->flags & I2C_M_RD) {
++		i2c->state = CS75XX_I2C_READ;
++		cmd = CS75XX_I2C_CTRL_READ;
++		/* Do not acknowledge the last byte of a read */
++		if (last_byte)
++			cmd |= CS75XX_I2C_CTRL_NACK;
++	} else {
++		i2c->state = CS75XX_I2C_WRITE;
++		writel(msg->buf[i2c->pos++], i2c->base + CS75XX_I2C_TXR);
++		cmd = CS75XX_I2C_CTRL_WRITE;
 +	}
 +
-+	g->both_edges = both_edges;
-+	writel(lvl, g->base + CS75XX_GPIO_LVL);
-+	writel(edge, g->base + CS75XX_GPIO_EDGE);
-+	if (g->both_edges & mask)
-+		cs75xx_gpio_set_polarity(g, mask);
++	if (last_byte && i2c->last)
++		cmd |= CS75XX_I2C_CTRL_STOP;
 +
-+	if (type & IRQ_TYPE_LEVEL_MASK)
-+		irq_set_handler_locked(d, handle_level_irq);
-+	else
-+		irq_set_handler_locked(d, handle_edge_irq);
-+
-+	return 0;
++	writel(cmd, i2c->base + CS75XX_I2C_CTRL);
 +}
 +
-+static int cs75xx_gpio_irq_reqres(struct irq_data *d)
++static void cs75xx_i2c_process(struct cs75xx_i2c *i2c, u32 ack)
 +{
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct cs75xx_gpio *g = gpiochip_get_data(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
++	struct i2c_msg *msg = i2c->msg;
++
++	if (i2c->state == CS75XX_I2C_STOP) {
++		cs75xx_i2c_finish(i2c, i2c->err);
++		return;
++	}
++
++	if (ack & CS75XX_I2C_ACK_AL) {
++		cs75xx_i2c_abort(i2c, -EAGAIN);
++		return;
++	}
++
++	switch (i2c->state) {
++	case CS75XX_I2C_ADDR:
++		if (ack & CS75XX_I2C_ACK_NACK) {
++			cs75xx_i2c_abort(i2c, -ENXIO);
++			return;
++		}
++		cs75xx_i2c_next_byte(i2c);
++		break;
++
++	case CS75XX_I2C_WRITE:
++		if (ack & CS75XX_I2C_ACK_NACK) {
++			/* The last byte of the last message carried the stop */
++			if (i2c->pos == msg->len && i2c->last)
++				cs75xx_i2c_finish(i2c, -EIO);
++			else
++				cs75xx_i2c_abort(i2c, -EIO);
++			return;
++		}
++		if (i2c->pos == msg->len) {
++			cs75xx_i2c_finish(i2c, 0);
++			return;
++		}
++		cs75xx_i2c_next_byte(i2c);
++		break;
++
++	case CS75XX_I2C_READ:
++		msg->buf[i2c->pos++] = readl(i2c->base + CS75XX_I2C_RXR);
++		if (i2c->pos == msg->len) {
++			cs75xx_i2c_finish(i2c, 0);
++			return;
++		}
++		cs75xx_i2c_next_byte(i2c);
++		break;
++
++	case CS75XX_I2C_IDLE:
++	case CS75XX_I2C_STOP:
++		/* Late interrupt of a transfer that timed out */
++		break;
++	}
++}
++
++static irqreturn_t cs75xx_i2c_isr(int irq, void *dev_id)
++{
++	struct cs75xx_i2c *i2c = dev_id;
++	u32 ctrl, ack;
++
++	guard(spinlock)(&i2c->lock);
++
++	if (!(readl(i2c->base + CS75XX_I2C_INT) & CS75XX_I2C_INT_DONE))
++		return IRQ_NONE;
++
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
++
++	/* The done flag is cleared by writing it back */
++	ctrl = readl(i2c->base + CS75XX_I2C_CTRL);
++	writel(ctrl, i2c->base + CS75XX_I2C_CTRL);
++
++	ack = readl(i2c->base + CS75XX_I2C_ACK);
++	cs75xx_i2c_process(i2c, ack);
++
++	return IRQ_HANDLED;
++}
++
++static int cs75xx_i2c_xfer_msg(struct cs75xx_i2c *i2c, struct i2c_msg *msg,
++			       bool last)
++{
++	unsigned long time_left;
++
++	spin_lock_irq(&i2c->lock);
++	reinit_completion(&i2c->done);
++	i2c->msg = msg;
++	i2c->pos = 0;
++	i2c->last = last;
++	i2c->err = 0;
++	i2c->state = CS75XX_I2C_ADDR;
++	writel(i2c_8bit_addr_from_msg(msg), i2c->base + CS75XX_I2C_TXR);
++	writel(CS75XX_I2C_CTRL_START | CS75XX_I2C_CTRL_WRITE,
++	       i2c->base + CS75XX_I2C_CTRL);
++	spin_unlock_irq(&i2c->lock);
++
++	time_left = wait_for_completion_timeout(&i2c->done, i2c->adap.timeout);
++	if (!time_left) {
++		spin_lock_irq(&i2c->lock);
++		i2c->state = CS75XX_I2C_IDLE;
++		spin_unlock_irq(&i2c->lock);
++		dev_err(i2c->dev, "transfer timed out, resetting the controller\n");
++		cs75xx_i2c_reset(i2c);
++		return -ETIMEDOUT;
++	}
++
++	return i2c->err;
++}
++
++static int cs75xx_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
++			   int num)
++{
++	struct cs75xx_i2c *i2c = i2c_get_adapdata(adap);
++	u32 val;
++	int i, ret;
++
++	/* Another master may hold the bus for a whole transfer */
++	if (readl_poll_timeout(i2c->base + CS75XX_I2C_ACK, val,
++			       !(val & CS75XX_I2C_ACK_BUSY), 100,
++			       jiffies_to_usecs(adap->timeout))) {
++		cs75xx_i2c_reset(i2c);
++		if (readl(i2c->base + CS75XX_I2C_ACK) & CS75XX_I2C_ACK_BUSY)
++			return -EBUSY;
++	}
++
++	for (i = 0; i < num; i++) {
++		ret = cs75xx_i2c_xfer_msg(i2c, &msgs[i], i == num - 1);
++		if (ret)
++			return ret;
++	}
++
++	return num;
++}
++
++static u32 cs75xx_i2c_func(struct i2c_adapter *adap)
++{
++	return I2C_FUNC_I2C | (I2C_FUNC_SMBUS_EMUL & ~I2C_FUNC_SMBUS_QUICK);
++}
++
++static const struct i2c_algorithm cs75xx_i2c_algo = {
++	.xfer = cs75xx_i2c_xfer,
++	.functionality = cs75xx_i2c_func,
++};
++
++/* A message always carries at least one data byte after the address */
++static const struct i2c_adapter_quirks cs75xx_i2c_quirks = {
++	.flags = I2C_AQ_NO_ZERO_LEN,
++};
++
++static void cs75xx_i2c_disable(void *data)
++{
++	struct cs75xx_i2c *i2c = data;
++
++	writel(0, i2c->base + CS75XX_I2C_IE);
++	writel(0, i2c->base + CS75XX_I2C_CFG);
++}
++
++static int cs75xx_i2c_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct cs75xx_i2c *i2c;
++	unsigned long ref_rate;
++	struct clk *clk;
++	u32 bus_rate;
++	u64 div;
 +	int ret;
 +
-+	/* The boot loader may leave the line configured as an output */
-+	ret = gc->direction_input(gc, hwirq);
++	i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
++	if (!i2c)
++		return -ENOMEM;
++
++	i2c->dev = dev;
++	spin_lock_init(&i2c->lock);
++	init_completion(&i2c->done);
++
++	i2c->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(i2c->base))
++		return PTR_ERR(i2c->base);
++
++	i2c->irq = platform_get_irq(pdev, 0);
++	if (i2c->irq < 0)
++		return i2c->irq;
++
++	clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
++
++	ref_rate = clk_get_rate(clk);
++	if (device_property_read_u32(dev, "clock-frequency", &bus_rate))
++		bus_rate = I2C_MAX_STANDARD_MODE_FREQ;
++	if (!bus_rate || bus_rate > I2C_MAX_FAST_MODE_FREQ)
++		return dev_err_probe(dev, -EINVAL,
++				     "unsupported bus frequency %u Hz\n",
++				     bus_rate);
++
++	div = DIV_ROUND_UP_ULL(ref_rate, 5ULL * bus_rate);
++	if (!div || div - 1 > FIELD_MAX(CS75XX_I2C_CFG_PRER))
++		return dev_err_probe(dev, -EINVAL,
++				     "cannot derive %u Hz from %lu Hz\n",
++				     bus_rate, ref_rate);
++	i2c->prer = div - 1;
++
++	cs75xx_i2c_hw_init(i2c);
++
++	writel(0, i2c->base + CS75XX_I2C_IE);
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
++
++	ret = devm_add_action_or_reset(dev, cs75xx_i2c_disable, i2c);
 +	if (ret)
 +		return ret;
 +
-+	ret = gpiochip_reqres_irq(gc, hwirq);
++	ret = devm_request_irq(dev, i2c->irq, cs75xx_i2c_isr, 0, dev_name(dev),
++			       i2c);
 +	if (ret)
 +		return ret;
 +
-+	guard(gpio_generic_lock_irqsave)(&g->chip);
-+	g->irq_used |= BIT(hwirq);
-+	cs75xx_gpio_update_mux(g, hwirq);
++	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_IE);
++
++	i2c->adap.owner = THIS_MODULE;
++	i2c->adap.algo = &cs75xx_i2c_algo;
++	i2c->adap.quirks = &cs75xx_i2c_quirks;
++	i2c->adap.retries = 3;
++	i2c->adap.dev.parent = dev;
++	i2c->adap.dev.of_node = dev->of_node;
++	strscpy(i2c->adap.name, dev_name(dev), sizeof(i2c->adap.name));
++	i2c_set_adapdata(&i2c->adap, i2c);
++
++	ret = devm_i2c_add_adapter(dev, &i2c->adap);
++	if (ret)
++		return ret;
++
++	dev_dbg(dev, "bus %u Hz, reference %lu Hz\n", bus_rate,
++		ref_rate);
 +
 +	return 0;
 +}
 +
-+static void cs75xx_gpio_irq_relres(struct irq_data *d)
-+{
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct cs75xx_gpio *g = gpiochip_get_data(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
-+
-+	scoped_guard(gpio_generic_lock_irqsave, &g->chip) {
-+		g->irq_used &= ~BIT(hwirq);
-+		cs75xx_gpio_update_mux(g, hwirq);
-+	}
-+
-+	gpiochip_relres_irq(gc, hwirq);
-+}
-+
-+static const struct irq_chip cs75xx_gpio_irq_chip = {
-+	.name			= "cs75xx-gpio",
-+	.irq_ack		= cs75xx_gpio_irq_ack,
-+	.irq_mask		= cs75xx_gpio_irq_mask,
-+	.irq_unmask		= cs75xx_gpio_irq_unmask,
-+	.irq_set_type		= cs75xx_gpio_irq_set_type,
-+	.irq_request_resources	= cs75xx_gpio_irq_reqres,
-+	.irq_release_resources	= cs75xx_gpio_irq_relres,
-+	.flags			= IRQCHIP_IMMUTABLE | IRQCHIP_MASK_ON_SUSPEND,
-+};
-+
-+static void cs75xx_gpio_irq_handler(struct irq_desc *desc)
-+{
-+	struct gpio_chip *gc = irq_desc_get_handler_data(desc);
-+	struct cs75xx_gpio *g = gpiochip_get_data(gc);
-+	struct irq_chip *chip = irq_desc_get_chip(desc);
-+	unsigned long pending;
-+	unsigned int offset;
-+
-+	chained_irq_enter(chip, desc);
-+
-+	pending = readl(g->base + CS75XX_GPIO_INT) &
-+		  readl(g->base + CS75XX_GPIO_IE);
-+
-+	for_each_set_bit(offset, &pending, gc->ngpio) {
-+		scoped_guard(gpio_generic_lock, &g->chip) {
-+			if (g->both_edges & BIT(offset))
-+				cs75xx_gpio_set_polarity(g, BIT(offset));
-+		}
-+		generic_handle_domain_irq(gc->irq.domain, offset);
-+	}
-+
-+	chained_irq_exit(chip, desc);
-+}
-+
-+static int cs75xx_gpio_probe(struct platform_device *pdev)
-+{
-+	struct gpio_generic_chip_config config;
-+	struct device *dev = &pdev->dev;
-+	struct gpio_irq_chip *girq;
-+	struct cs75xx_gpio *g;
-+	int irq, ret;
-+
-+	g = devm_kzalloc(dev, sizeof(*g), GFP_KERNEL);
-+	if (!g)
-+		return -ENOMEM;
-+
-+	g->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(g->base))
-+		return PTR_ERR(g->base);
-+
-+	g->mux = devm_platform_ioremap_resource(pdev, 1);
-+	if (IS_ERR(g->mux))
-+		return PTR_ERR(g->mux);
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	g->mux_init = readl(g->mux);
-+
-+	config = (struct gpio_generic_chip_config) {
-+		.dev = dev,
-+		.sz = 4,
-+		.dat = g->base + CS75XX_GPIO_IN,
-+		.set = g->base + CS75XX_GPIO_OUT,
-+		.dirin = g->base + CS75XX_GPIO_CFG,
-+	};
-+
-+	ret = gpio_generic_chip_init(&g->chip, &config);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "unable to init generic GPIO\n");
-+
-+	if (g->chip.gc.ngpio > 32)
-+		return dev_err_probe(dev, -EINVAL, "too many lines: %u\n",
-+				     g->chip.gc.ngpio);
-+
-+	g->chip.gc.request = cs75xx_gpio_request;
-+	g->chip.gc.free = cs75xx_gpio_free;
-+	g->chip.gc.owner = THIS_MODULE;
-+
-+	/* Mask and clear all interrupts before the parent is set up */
-+	writel(0, g->base + CS75XX_GPIO_IE);
-+	writel(~0, g->base + CS75XX_GPIO_INT);
-+
-+	girq = &g->chip.gc.irq;
-+	gpio_irq_chip_set_chip(girq, &cs75xx_gpio_irq_chip);
-+	girq->parent_handler = cs75xx_gpio_irq_handler;
-+	girq->num_parents = 1;
-+	girq->parents = devm_kcalloc(dev, 1, sizeof(*girq->parents),
-+				     GFP_KERNEL);
-+	if (!girq->parents)
-+		return -ENOMEM;
-+	girq->parents[0] = irq;
-+	girq->default_type = IRQ_TYPE_NONE;
-+	girq->handler = handle_bad_irq;
-+
-+	return devm_gpiochip_add_data(dev, &g->chip.gc, g);
-+}
-+
-+static const struct of_device_id cs75xx_gpio_of_match[] = {
-+	{ .compatible = "cortina,cs7542-gpio" },
++static const struct of_device_id cs75xx_i2c_of_match[] = {
++	{ .compatible = "cortina,cs7542-i2c" },
 +	{ }
 +};
-+MODULE_DEVICE_TABLE(of, cs75xx_gpio_of_match);
++MODULE_DEVICE_TABLE(of, cs75xx_i2c_of_match);
 +
-+static struct platform_driver cs75xx_gpio_driver = {
-+	.probe = cs75xx_gpio_probe,
++static struct platform_driver cs75xx_i2c_driver = {
++	.probe = cs75xx_i2c_probe,
 +	.driver = {
-+		.name = "cs75xx-gpio",
-+		.of_match_table = cs75xx_gpio_of_match,
++		.name = "cs75xx-i2c",
++		.of_match_table = cs75xx_i2c_of_match,
 +	},
 +};
-+module_platform_driver(cs75xx_gpio_driver);
++module_platform_driver(cs75xx_i2c_driver);
 +
-+MODULE_DESCRIPTION("Cortina Systems CS75xx GPIO driver");
++MODULE_DESCRIPTION("Cortina Systems CS75xx I2C controller driver");
 +MODULE_LICENSE("GPL");
 
 -- 
