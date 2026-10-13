@@ -1,95 +1,216 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8804FDA67
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:10:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD394EE870
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791893456; cv=none; b=Uc5aspyCB301wolJE1gR14OCVAfQl5fzfncm5kw8KF4Fhl1PG5mic/v8I61Cn1z6UgN6qMOYTjoEY6toZMGqVRlf38VXCu3gJG76Vmp1zZ4BAQhdhK+WFG2e6QKxKcilu1+pWvT2guJIMAo8TCnQ99XnqYP3AYG8UQfzIN5Pp/k=
+	t=1791893603; cv=none; b=GTH2Y+9BWmXBvZYYo5czR25/OAk85XGL0xqJxf4G9zOT1VaqFl5e7lxHtrRIa+yQZSLLZo8hiRzFjWJzcP5sAc/xV14nJXyEMpjHG9keUUjYh4ldC7VQ9R8kBfZz4+cPPfyknQ+bXlsB2yh/dXCq2a5H4tv6k2bwzoZZWeoH1KA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791893456; c=relaxed/simple;
-	bh=a1p10/uR/IHwvnBKDLlNO5lRIxzSDvGbG4EgaUu7ilY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fqKab3nRL+EPiQjXFOFVTInvTn+Ne0tJ7huwQ2Gqhskni8Re8PnfgT6iD6riITRK7WrxsWINZTmvII7VSP6YBIPegPmYef7MDZMgLWx8PqXwNxaCvYv8biDHkQCPFOAtMoSSzfBs4X4Ul2zYPciu2Sctvw8jIfvRZF8dkGhf9hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SlsOlOku; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791893603; c=relaxed/simple;
+	bh=GmewS9MX/pMt0TQtYhdFbnW64zOueYVprrsOA812m8Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Lz0o0vyD94hH88lCcvrhkg+HLM/iEl2kMMshSUK1AvPGW11JvROyaZdNbOIbaomiXmUqGZ1KuM5+R/Tz79jdZUpvtagoaTFdV9Zlbh4sgkuoifaUV5owoeSnoBfVpPg1lGSPm83okAJ4OKS5KUu/aHhoZcxZkcBpxSkD7oeW2zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=e4mdUKVv; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SlsOlOku"
-Received: from killaraus.ideasonboard.com (unknown [185.104.138.147])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6EE021E4;
-	Tue, 13 Oct 2026 14:08:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791893330;
-	bh=a1p10/uR/IHwvnBKDLlNO5lRIxzSDvGbG4EgaUu7ilY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SlsOlOku9VLZ/0sgrm4xw6YwzJnWIC1tdmjT+W4c4tEtQpwzTg9sS1/y++iH0MD4r
-	 O7MnJ3jFQW3ohf8YIGdcPZ2qasPErcWoD0D0dWZu+K3hCLh4kOJPSXIrERI3f7Ckf4
-	 TxKYV9avp0AT/b3d1hPo2mY5oic2FQWPDaY6efKo=
-Date: Tue, 13 Oct 2026 14:10:40 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Hui Pu <Hui.Pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] drm/bridge: stop mentioning deprecated
- devm_drm_of_get_bridge() in docs
-Message-ID: <20261013121040.GK56180@killaraus.ideasonboard.com>
-References: <20261012-drm-bridge-every-panel-cleanups-v1-0-0fd272f486b6@bootlin.com>
- <20261012-drm-bridge-every-panel-cleanups-v1-1-0fd272f486b6@bootlin.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="e4mdUKVv"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1689333f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:13:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791893600; x=1792498400; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=edUU9Hn3hyFtM1ngJWHa9pnhQIwExXlb5OPfjcFEs1c=;
+        b=e4mdUKVvX2QFZFAqZhyS3XKWTDGe5WE/vFc9b8SavFE6tFHsNpAMveofzH8UIR7X6W
+         BUQhPA2FVNP/q7kIY04R3J3S+YgzWfbdD+5GHDag8pGQ92byF9roQhOM38qHvri3NPNm
+         5AWBqxNNVhTLNX4r/hJtnA4OuoV90f2yFjInaMMXjTvg0hyJ+MBF+xoeWyXXhyqh4MW0
+         RutMB6IiwwjaZHWbUOi/fjrCFsBfwlTcMkHdlfBHnEPrPocoW+CuehAmVuPZ9oXJ+N7X
+         NdrHeBqQMG5rW+2FP92Oek8Smiu7aLM7AGhIXuDUNIaRS9Jlk4idLSh8aelDhfHD5fLh
+         188A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791893600; x=1792498400;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=edUU9Hn3hyFtM1ngJWHa9pnhQIwExXlb5OPfjcFEs1c=;
+        b=qBgdwhvQPBoHOII8ABEO4bHYaYiBpNEugklwp3GBn2dBAmzI8mo1fyP822zsIaXahU
+         YvjGwz9ogIOawSp8n0PdN5HmYFQffBpRc9qLfxOdXD7flWpCL/cShnWi4MyTnXI6JnPu
+         39m6cHhbQCt9yIF+gNV560lDG2OyhQNtH+wYFzlsgWPUzGYZ4CvcA2Fo8HovBJEojuYi
+         bOm2DtA/F7sb5FZMjggS9ifQn/tbE3bPFqKqjmwyE8TivTggmwyvMxbOsX7V2CNTgESu
+         gXysuHCsil7oZ6Y+bFAK17unThRdQkcTlFm4J4WJsTm7LAS0Yoo7ErpTw4nBFtK5Ms3L
+         eUfA==
+X-Gm-Message-State: AFq9FYKt/5HM5pxZs7hLljMOV2/Pa+eUKn0H5T7V/P/Nu/aZtkxZzRlr
+	owaCww0cw+8HmrEIFEW7wf5RY6232JmT7UxSSzjLTtRnJQv4zE66Yv0edY1lVN1xAz8=
+X-Gm-Gg: AYBFou0Y+bEsmACjOCw6kmAIXFCqTbFZGTAwLyVKhU7JNsvysHYC577TyMjb54KLk7o
+	CtRyjcwxFbLiYb587ozvjCQJXCYIFZ/RXp3UjnYYsOl/Z1X5+vbzEGGIYxxivY3b/jFdS1EMmnJ
+	oc3LUUP/sjBlBaedB/oNpgfHQoT4Suqx7Sk1hcQ5UtmuZNEikodhXA3mzTFFu5vjO3fZkA4eUmu
+	oKlwuPAtV8iVArwb+9ikJugS/cjrPBt6OjHGV8/LjJfTlwVe08ZftUU9Xb+dWKvIbtHB8hSw7na
+	b6H7eAMoRnRM0lFnxwe5tYBmflRpdK41m0o1S6wAHfaORRfJK3mok+KSM38nFjns3J5nDz7CWHP
+	cDyjgedpv5zKpRxlnWgGpHu5S5D762XExMm8oDin/YyUd0S8SmN13AKeIEfMgpucV4gCuod14rx
+	SxCvnynsndA/9IiuGlvuY4PZzRpHQ9Jr3+V0OyhwAV2HxxZqpLbvB1hiH1tB2p+QYzv8C8UzDxk
+	M8OhIBUetwUFgP4Y7/U8Ms=
+X-Received: by 2002:a05:6000:491c:b0:488:8751:e78e with SMTP id ffacd0b85a97d-48dba9bdd09mr25645157f8f.16.1791893599634;
+        Tue, 13 Oct 2026 05:13:19 -0700 (PDT)
+Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5991sm5087349f8f.29.2026.10.13.05.13.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 05:13:19 -0700 (PDT)
+Message-ID: <69fb13b5-857c-4819-bc8a-b87d1e7a1e28@suse.com>
+Date: Tue, 13 Oct 2026 15:13:17 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012-drm-bridge-every-panel-cleanups-v1-1-0fd272f486b6@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/2] x86/tdx: Use TDVMCALLs directly for earlyprintk
+To: Vishal Verma <vishal.l.verma@intel.com>, x86@kernel.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+ kvm@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261005-b4-tdx_earlyprintk_tdcalls-v4-0-3f7c56dd568a@intel.com>
+From: Nikolay Borisov <nik.borisov@suse.com>
+Content-Language: en-US
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <20261005-b4-tdx_earlyprintk_tdcalls-v4-0-3f7c56dd568a@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 04:29:51PM +0200, Luca Ceresoli wrote:
-> devm_drm_of_get_bridge() is deprecated. Update the "display driver
-> integration" docs by mentioning the currently recommended API.
+
+
+On 6.10.26 г. 1:50 ч., Vishal Verma wrote:
+> Background
+> ==========
 > 
-> Link: https://lore.kernel.org/all/c1b065c8bd926708500b7c42864279e055ed95d0.camel@iscas.ac.cn/
-> Suggested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-
+> TDX guests have early_printk support, but it is through a roundabout way
+> using a #VE exception as a functional mechanism. The exception handler
+> has to use TDG.VP.VEINFO.GET to find out what faulted, and then issue
+> the TDVMCALL. Simplify this by using a TDVMCALL from the guest which can
+> directly perform the port I/O.
+> 
+> Patch details
+> =============
+> 
+> Patch 1 is a cleanup that moves the port I/O direction constants to
+> arch/x86/include/asm/shared/tdx.h.
+> 
+> Patch 2: Add a new earlyprintk=tdx option, which calls the new
+> tdx_serial_in() / tdx_serial_out() helpers to perform the port I/O
+> directly using TDVMCALLs.
+> 
+> The serial earlyprintk path is left as is - TD guests using this will
+> still take a #VE exception, and the exception handler will perform the
+> I/O.
+> 
+> Testing
+> =======
+> 
+> Added a counter for the number of COM1 port I/O #VEs handled:
+> 
+>    no earlyprintk     -  ~63000
+>    earlyprintk=ttyS0  -  ~61000
+>    earlyprintk=tdx    -  ~35000
+> 
+> The new tdx option nearly halves the number of #VEs handled.
+> 
+> Additionally, ran the usual suite of CI testing, which covers KVM self
+> tests, KVM unit tests, and Avocado KVM tests without any regressions.
+> 
+> Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
 > ---
->  drivers/gpu/drm/drm_bridge.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+> Changes in v4:
+> - Rename the tdx_inb()/tdx_outb() helpers directly to the serial
+>    accessors with __noendbr annotations, and remove the config ifdefs
+>    from early_printk.c. (Kiryl)
+> - Rebase to v7.3-rc6
+> - Link to v3: https://patch.msgid.link/20260922-b4-tdx_earlyprintk_tdcalls-v3-0-6ebaa599df10@intel.com
 > 
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index e7f9e6d58927..e259d078f7de 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -68,8 +68,9 @@
->   *
->   * Display drivers are responsible for linking encoders with the first bridge
->   * in the chains. This is done by acquiring the appropriate bridge with
-> - * devm_drm_of_get_bridge(). Once acquired, the bridge shall be attached to the
-> - * encoder with a call to drm_bridge_attach().
-> + * of_drm_get_bridge_by_endpoint() or of_drm_find_and_get_bridge(). Once
-> + * acquired, the bridge shall be attached to the encoder with a call to
-> + * drm_bridge_attach().
->   *
->   * Bridges are responsible for linking themselves with the next bridge in the
->   * chain, if any. This is done the same way as for encoders, with the call to
+> Changes in v3:
+> - Drop the ttySN and baudrate option parsing for earlyprintk=tdx (Dave Hansen)
+> - Link to v2: https://patch.msgid.link/20260921-b4-tdx_earlyprintk_tdcalls-v2-0-ad1fde3f25fd@intel.com
+> 
+> Changes in v2:
+> - Rebase to v7.3-rc4
+> - Move the TDX hypercall helpers into coco/tdx/tdx.c (Kiryl)
+> - Add a new earlyprintk=tdx option that implements the direct TDVMCALL
+>    path (Dave Hansen)
+> - Link to v1: https://patch.msgid.link/20260910-b4-tdx_earlyprintk_tdcalls-v1-0-4b2b1bf9001b@intel.com
+> 
+> ---
+> Vishal Verma (2):
+>        x86/tdx: Move port I/O definitions to a shared header
+>        x86/early_printk: Add earlyprintk=tdx to drive the UART with TDVMCALLs
+> 
+>   Documentation/admin-guide/kernel-parameters.txt |  8 ++++++
+>   arch/x86/include/asm/shared/tdx.h               |  6 ++++
+>   arch/x86/include/asm/tdx.h                      |  4 +++
+>   arch/x86/boot/compressed/tdx.c                  |  4 +--
+>   arch/x86/coco/tdx/tdx.c                         | 37 +++++++++++++++++++++----
+>   arch/x86/kernel/early_printk.c                  | 20 +++++++++++++
+>   6 files changed, 71 insertions(+), 8 deletions(-)
+> ---
+> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+> change-id: 20260903-b4-tdx_earlyprintk_tdcalls-40d1b21a8ba2
+> 
+> Best regards,
+> --
+> Vishal Verma <vishal.l.verma@intel.com>
+> 
+> 
 
--- 
-Regards,
+For the whole series :
 
-Laurent Pinchart
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+
+
