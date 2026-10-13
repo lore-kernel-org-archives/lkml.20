@@ -1,154 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9D241167C;
-	Tue, 13 Oct 2026 14:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3BB4F68D7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:01:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903576; cv=none; b=IQc0y6vg6OA4wHUwyJBGYkTTNCLi9IxwSgG98h4ba9NTNOK/22TI8Zv2RFZ1G83b6wPYDOO7ujYwZ03D698X/6QAoKxpX0JzvN1SITtr2qORfr5O9aohxOtXLIxS+qwQsnb4/71OdH74E40gLSaEurpjbWKL+Aqyv7RnCKoh8HY=
+	t=1791903692; cv=none; b=ukNAwoQBEidu7OHwQNCFPtZxx5/lFUpAiqQF2j7PcPf79znFYmIxttcK61nMmU4uJnoArZVhlcxSaK37/rfa7yWTs5CDyprWv89UrJnQwSNHu2OuCik+DnombNSqPuY4IsF44qvVdQxir9opBuL6ZaPc1Oxt9yapmn1Oj8kIqnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903576; c=relaxed/simple;
-	bh=Uk/w9Y/Cej/v4oMGdZu4Ppbtek1/NJcFMnBDO7lLYmM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=THbwWQMMLaLAN2/Q+prTYeXAwYZnNeGJbv9QOIzBYNGdTnNCtNZdafAU1EZSXeDarY5Ko/flYaGrDnuWGnf96u0hfdKLp3U8j+mtFMsI64VblZBzXTfaU0m2/p7JQn8LqbJi3UZSznqiTcm+9dFv9ijEvG6AmjyT7kwT3o9plvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSinpyNI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791903692; c=relaxed/simple;
+	bh=MG9QjIZpKaGJmgWq3QW6ucolrNDGbFQ49vOOcfwB/Qo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=fOTwU9h6E4BTNkQraLF2/QQwnwlbvxRAB6CQtrQ5GP8DptJ8YAyML0oC7sAi3TfZY9HnGeLs79lt4yy2Fz2Vx6Gaeatd8Uc0uP9lVz7NR3F/y9fib+tGLUISVlYTztXQcrkpV+gDSzQ9h/T5flnpr0Pt2+O5UodbJS5rn9pqALg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K7CRuQeq; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSinpyNI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EDD01F000FF;
-	Tue, 13 Oct 2026 14:59:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791903575;
-	bh=FBqhqoccxQjBaW9F4lL9i82vm7mnTwRh2qZETKYobj4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jSinpyNIdaH/vmqgS2frtYVq4qOCCR8ETq8ZdRgQkc4YQVj9iPd2uVukzyitqwl8z
-	 r83dZ+BBHCpt1DNT72FJ8GcRhYlqrqvc8HJcwBkd0qATiBw5f2w569/nS6yUEu+S50
-	 Qd8or9wRFRqk+jZE9PA1HH1dZfjayEDWDhjeiOWpScm1vvG5Jq8lQCbBg/3E9+ODVs
-	 B4Rd3JI2iYZe51h7TpWhpqzjfemUjMdJnhJpvOjE2gPmMZyNOi7fBlW9SPfiG6aYTH
-	 fDZ+zp+G5+/ht3KwCoQ89GBWTdHTNoifvH6hX/v+GCw8wJ/y95Q1rQF7n83MCh2yJS
-	 zdBhiVIPuXEsA==
-Message-ID: <bf59b38e-635d-48b8-861f-e50961472e92@kernel.org>
-Date: Tue, 13 Oct 2026 16:59:31 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K7CRuQeq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791903691; x=1823439691;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=MG9QjIZpKaGJmgWq3QW6ucolrNDGbFQ49vOOcfwB/Qo=;
+  b=K7CRuQeqd7/wgP0vc/0lTnxZit0cRZXTwu5F1llGt+o+P73cXrcGRh0L
+   DZX6R8f0U44O2BVqiX3dyVHOxmaqDjHUbQ8BQ7Q0kjA9bOKanGIsg0Ola
+   445p9fSFXIH6TKX2j2W+vC9jE1Ov+pIFMmJJnTsf6LQ+4Pw3wFX9oCDfj
+   VNFEpXZkNJlIOPLJnzTfqqKAd9JOeFV8oY8wDSmtShv7mIPBrw2ZiFJ8h
+   0JXRgvAsCgBg4R1zCp4UJnRINRBlLo0OdH87App7WShuSta6D1etjEiUI
+   Tcp+cWseuvpCN4uKIM+88N6WMvS/xTZ25Jrg3o7G0+3LyXSZl3/Arqe1o
+   A==;
+X-CSE-ConnectionGUID: b1OABJN0R2u3YIX+r33OqA==
+X-CSE-MsgGUID: WlONM5uRR/mWIYVL/1AkcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="662491"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="662491"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:01:31 -0700
+X-CSE-ConnectionGUID: BImv3xV1T0KG1+frLal4pg==
+X-CSE-MsgGUID: sfI29eDnSw6AXNU5LyMjQQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1219620"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by fmviesa004.fm.intel.com with ESMTP; 13 Oct 2026 08:01:29 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xGe0M-00000000AWx-3deo;
+	Tue, 13 Oct 2026 15:01:26 +0000
+Date: Tue, 13 Oct 2026 17:01:07 +0200
+From: kernel test robot <lkp@intel.com>
+To: "Thomas =?utf-8?Q?Wei=C3=9Fschuh"?= <thomas.weissschuh@linutronix.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Paul Walmsley <pjw@kernel.org>, Nam Cao <namcao@linutronix.de>
+Subject: arch/riscv/kernel/alternative.c:198:6: error: use of
+ undeclared identifier '__vdso_alternatives_start_offset'; did you mean
+ '__vdso_alternatives_start_cfi_offset'?
+Message-ID: <202610131613.BpOi6VPp-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] dm zoned: do not busy-loop idle reclaim when no
- zone needs reclaim
-To: Kyrylo Biryuk <illofspeed@gmail.com>, dm-devel@lists.linux.dev
-Cc: mpatocka@redhat.com, snitzer@kernel.org, agk@redhat.com,
- bmarzins@redhat.com, hare@suse.de, linux-kernel@vger.kernel.org
-References: <20261013145522.17499-1-illofspeed@gmail.com>
- <20261013145522.17499-5-illofspeed@gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261013145522.17499-5-illofspeed@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
 
-On 2026/10/13 16:55, Kyrylo Biryuk wrote:
-> An idle target whose random (and cache) zones are all unmapped keeps its
-> reclaim work running without pause:
-> 
->   - since commit 90a9b8693f1b ("dm zoned: reclaim random zones when
->     idle"), dmz_should_reclaim() returns true when the target is idle and
->     the total number of random (and cache) zones is non-zero, whether or
->     not any of them holds data;
->   - dmz_do_reclaim() then finds no candidate and returns -EBUSY;
->   - dmz_reclaim_work() runs dmz_check_dev(), which checks every device
->     for media events (a TEST UNIT READY on SCSI disks), and
->     dmz_schedule_reclaim() requeues the work with no delay because
->     dmz_should_reclaim() is still true.
-> 
-> Without the previous patch, a pass ending while the target is busy and
-> has enough free zones can leave reclaim unqueued, which ends the loop;
-> keeping the idle poll armed makes it recur whenever the target becomes
-> idle. On three 27 TB host-managed drives used
-> without cache devices (all random zones free) it kept about three CPUs
-> busy and sent about 155,000 TEST UNIT READY commands per second to each
-> drive while the target was idle.
-> 
-> Only reclaim on idle when a random or cache zone actually holds data (the
-> intent of the "p_unmap < 100" test that commit replaced), and
-> handle -EBUSY like -ENOSPC: nothing can progress and no I/O failed, so
-> poll again after the idle period instead of rescheduling at once, and
-> skip the device check. Use queue_delayed_work() for that poll so work an
-> allocation has already queued is not postponed.
-> 
-> Fixes: 90a9b8693f1b ("dm zoned: reclaim random zones when idle")
-> Assisted-by: LLM
-> Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+commit: 63aecaba41a4b2593697f208e91bf542248ec4f8 riscv: alternative: Use the statically extracted vDSO section offsets
+date:   10 weeks ago
+config: riscv-randconfig-r2104-20261013 (https://download.01.org/0day-ci/archive/20261013/202610131613.BpOi6VPp-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project ce2a4984a3f43327a2b7c40baa74907bc10eb899)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261013/202610131613.BpOi6VPp-lkp@intel.com/reproduce)
 
-This is undoing what patch 1 does. So can you squash this into patch 1 to avoid
-the churn?
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 63aecaba41a4 ("riscv: alternative: Use the statically extracted vDSO section offsets")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610131613.BpOi6VPp-lkp@intel.com/
 
-> ---
->  drivers/md/dm-zoned-reclaim.c | 26 +++++++++++++++-----------
->  1 file changed, 15 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-> index f1f9adf6039..0d62ade1466 100644
-> --- a/drivers/md/dm-zoned-reclaim.c
-> +++ b/drivers/md/dm-zoned-reclaim.c
-> @@ -470,9 +470,10 @@ static unsigned int dmz_reclaim_percentage(struct dmz_reclaim *zrc)
->   */
->  static bool dmz_should_reclaim(struct dmz_reclaim *zrc, unsigned int p_unmap)
->  {
-> -	unsigned int nr_reclaim;
-> +	unsigned int nr_reclaim, nr_unmap;
->  
->  	nr_reclaim = dmz_nr_rnd_zones(zrc->metadata, zrc->dev_idx);
-> +	nr_unmap = dmz_nr_unmap_rnd_zones(zrc->metadata, zrc->dev_idx);
->  
->  	if (dmz_nr_cache_zones(zrc->metadata)) {
->  		/*
-> @@ -483,10 +484,11 @@ static bool dmz_should_reclaim(struct dmz_reclaim *zrc, unsigned int p_unmap)
->  		if (zrc->dev_idx == 0)
->  			return false;
->  		nr_reclaim += dmz_nr_cache_zones(zrc->metadata);
-> +		nr_unmap += dmz_nr_unmap_cache_zones(zrc->metadata);
->  	}
->  
-> -	/* Reclaim when idle */
-> -	if (dmz_target_idle(zrc) && nr_reclaim)
-> +	/* Reclaim when idle, but only if a random or cache zone holds data */
-> +	if (dmz_target_idle(zrc) && nr_reclaim > nr_unmap)
->  		return true;
->  
->  	/* If there are still plenty of cache zones, do not reclaim */
-> @@ -543,17 +545,19 @@ static void dmz_reclaim_work(struct work_struct *work)
->  		dmz_nr_rnd_zones(zmd, zrc->dev_idx));
->  
->  	ret = dmz_do_reclaim(zrc);
-> +	if (ret == -ENOSPC || ret == -EBUSY) {
-> +		/*
-> +		 * No zone to copy into (-ENOSPC) or no zone to reclaim
-> +		 * (-EBUSY): nothing can progress now and no I/O failed.
-> +		 * Rescheduling immediately would spin; poll instead, without
-> +		 * postponing work that an allocation has already queued.
-> +		 */
-> +		queue_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
-> +		return;
-> +	}
->  	if (ret && ret != -EINTR) {
->  		if (!dmz_check_dev(zmd))
->  			return;
-> -		if (ret == -ENOSPC) {
-> -			/*
-> -			 * No zone to copy into: nothing can progress now.
-> -			 * Rescheduling immediately would spin; poll instead.
-> -			 */
-> -			mod_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
-> -			return;
-> -		}
->  	}
->  
->  	dmz_schedule_reclaim(zrc);
+All errors (new ones prefixed by >>):
+
+>> arch/riscv/kernel/alternative.c:198:6: error: use of undeclared identifier '__vdso_alternatives_start_offset'; did you mean '__vdso_alternatives_start_cfi_offset'?
+     198 |                                         __vdso_alternatives_start_offset,
+         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                         __vdso_alternatives_start_cfi_offset
+   arch/riscv/include/asm/vdso.h:29:15: note: '__vdso_alternatives_start_cfi_offset' declared here
+      29 | extern size_t __vdso_alternatives_start_cfi_offset, __vdso_alternatives_end_cfi_offset;
+         |               ^
+>> arch/riscv/kernel/alternative.c:199:6: error: use of undeclared identifier '__vdso_alternatives_end_offset'; did you mean '__vdso_alternatives_end_cfi_offset'?
+     199 |                                         __vdso_alternatives_end_offset);
+         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                         __vdso_alternatives_end_cfi_offset
+   arch/riscv/include/asm/vdso.h:29:53: note: '__vdso_alternatives_end_cfi_offset' declared here
+      29 | extern size_t __vdso_alternatives_start_cfi_offset, __vdso_alternatives_end_cfi_offset;
+         |                                                     ^
+   2 errors generated.
 
 
--- 
-Damien Le Moal
-Western Digital Research
+vim +198 arch/riscv/kernel/alternative.c
+
+   186	
+   187	void __init apply_boot_alternatives(void)
+   188	{
+   189		/* If called on non-boot cpu things could go wrong */
+   190		WARN_ON(smp_processor_id() != 0);
+   191	
+   192		_apply_alternatives((struct alt_entry *)__alt_start,
+   193				    (struct alt_entry *)__alt_end,
+   194				    RISCV_ALTERNATIVES_BOOT);
+   195	
+   196		if (IS_ENABLED(CONFIG_MMU))
+   197			apply_vdso_alternatives(vdso_start,
+ > 198						__vdso_alternatives_start_offset,
+ > 199						__vdso_alternatives_end_offset);
+   200	
+   201		if (IS_ENABLED(CONFIG_RISCV_USER_CFI))
+   202			apply_vdso_alternatives(vdso_cfi_start,
+   203						__vdso_alternatives_start_cfi_offset,
+   204						__vdso_alternatives_end_cfi_offset);
+   205	}
+   206	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
