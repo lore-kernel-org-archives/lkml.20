@@ -1,121 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from 14.mo550.mail-out.ovh.net (14.mo550.mail-out.ovh.net [178.32.97.215])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BBE48489D;
-	Tue, 13 Oct 2026 16:14:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3B43859E9
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:15:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.32.97.215
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908080; cv=none; b=Otr3pX21mjUDt5fPlbZKZkl4V6YizANzJxUHJh4dvV1xgfDB9XDBYWem/3F5pqVLv2+XBKMAt6O7BKTCk9jKLBW3fufYduohKM+BrFxM4TF1zER9MFLGgrud3oY0HOBPOIvj3N6ULQh8RCecc0/5mNp/MsUxGFYxkfxgP/7/Nag=
+	t=1791908150; cv=none; b=Ia6MzJzWhrbFGkcp6oX23lU4iOLlmv2vPhatWb/3QZEBB0+tZCWRbxNTy9Ec+3pvRdDavqiMVWhkVi97ita0+kFEwvEC+wdJLYePiDJIdqPYqWVckK1wkzMOtZX7Mshhi/hn3wYTT6aiftuKZWzOHjo/AtkHBMxc6VFClxXvOB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908080; c=relaxed/simple;
-	bh=LTruQoW8hg4nggqn+OIxVCj2Kv4Z3Lu4ZK3YcscwsuM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cj7pRFY0nawaStV0ib8q88eS4evqckhELfJxOMvuhS7ZnP2B2ktHV8kZFW3i99r0j9AXo76njyujKnvhSISl2iRvAw8hfoGIOP9xXXi955HgxA5w6qVR4Heb+vabyIq2uiZ+grfXh/U6QhVb0WE/ywGCmtIzsJ95isyx7Nbdw4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O1cMsGQ6; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791908150; c=relaxed/simple;
+	bh=kfP8OPsPqO/oUZC3gPAT+oD2S4HQ3xDeqjik6j/TtY4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TCKTFOSUVGbj/c0k+dZjvQpZ5hJ5SYBzYvzCS06UtnklbItObTU0fCmd+1kPe5yQxxYyD9SfVzO7sIJXYh7Qu5H5/HegkXgwpCiTcaXXPU9RLxUmdvF7SsPlJm6o+7HuOP3BVHoNcWRKR8REjhcRZuBJKnwGWir/BArJX70BV1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armadeus.com; spf=pass smtp.mailfrom=armadeus.com; dkim=pass (2048-bit key) header.d=armadeus.com header.i=@armadeus.com header.b=htzndDN0; arc=none smtp.client-ip=178.32.97.215
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armadeus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armadeus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O1cMsGQ6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791908079; x=1823444079;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=LTruQoW8hg4nggqn+OIxVCj2Kv4Z3Lu4ZK3YcscwsuM=;
-  b=O1cMsGQ6vyfAMu0cTtoEXDTFDY5ZNjgY4Mpc7fgOg36SJni+rDBiVhq7
-   2j0Qb0Fw1WX5KJhKzSgFG/CEEARmOBgzWgvgozUYgbTooiFkfjjBGlokR
-   Mx8VI0VIQaN8qT/OUnFdCdNZgI/E48vBMy49kI2HvKFq6juLuYuhb6yT8
-   +987Up4ldr4KVTKXeSMpjQTrb46jG9inNecTRqA0IskINbqolZ5boJalL
-   Fhc2D78GwQcqk5bB3GwAQ6bvR37NhKMisn18hcLplKmt0aH8Lozk2WppV
-   qvXjmhIqIK6yveitExaLoarLePOD1KQXrFec+vxym7S1967EkGo1KHsZB
-   g==;
-X-CSE-ConnectionGUID: A9HoA/V5TLiL/Hs6CHKkeg==
-X-CSE-MsgGUID: +zVQjbG4Q6mKxppOdVLtbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="670523"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="670523"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:14:38 -0700
-X-CSE-ConnectionGUID: WZ61k93gRhalFd/hdCLOHw==
-X-CSE-MsgGUID: g4KMYIyoT6SLBYoXPKd4tg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1522795"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:14:35 -0700
-Date: Tue, 13 Oct 2026 19:14:33 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: atomisp: queue: remove unused local queue
- support
-Message-ID: <as5Y6Y6XfME9t70X@ashevche-desk.local>
-References: <20261012230754.1914517-1-vladurares@gmail.com>
- <20261012230754.1914517-3-vladurares@gmail.com>
+	dkim=pass (2048-bit key) header.d=armadeus.com header.i=@armadeus.com header.b="htzndDN0"
+Received: from director1.ghost.mail-out.ovh.net (unknown [10.110.58.221])
+	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4j3zkg45dZz5xny
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:07:39 +0000 (UTC)
+Received: from ghost-submission-c7b579475-655hp (unknown [10.110.164.42])
+	by director1.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 10B87C12C2;
+	Tue, 13 Oct 2026 16:07:38 +0000 (UTC)
+Received: from armadeus.com ([37.59.142.104])
+	by ghost-submission-c7b579475-655hp with ESMTPSA
+	id J4tGM0lXzmr7Qy8AW2yxgA
+	(envelope-from <sebastien.szymanski@armadeus.com>); Tue, 13 Oct 2026 16:07:38 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-104R005ed722c48-267d-45b9-9d0f-38bc83d56095,
+                    E71387541862F9B32BD99FE93336DDEC16E392F6) smtp.auth=sebastien.szymanski@armadeus.com
+X-OVh-ClientIp:92.148.202.169
+From: =?utf-8?q?S=C3=A9bastien_Szymanski?= <sebastien.szymanski@armadeus.com>
+Date: Tue, 13 Oct 2026 18:07:24 +0200
+Subject: [PATCH] ARM: dts: apf6: fix Ethernet support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261012230754.1914517-3-vladurares@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Message-Id: <20261013-apf6-fix-ethernet-v1-1-9530efe1d23e@armadeus.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5FMBSE4VeRs3aSloS4ryIW1JRj0SttiUS8u
+ 2L5ZTL/SQFeEOiXneSxS5C/S9B5Rmbu3QSWMZkKVVRa6ZL71VZs5WDEGd4hsqlrUzYKVmGg9Fs
+ 90v422+5z2IYFJj4huq4bM+Rl6HUAAAA=
+X-Change-ID: 20261013-apf6-fix-ethernet-c77c390ef0eb
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Shawn Guo <shawnguo@kernel.org>, Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?S=C3=A9bastien_Royen?= <sebastien.royen@armadeus.com>, 
+ Julien Boibessot <julien.boibessot@armadeus.com>, stable@vger.kernel.org, 
+ =?utf-8?q?S=C3=A9bastien_Szymanski?= <sebastien.szymanski@armadeus.com>
+X-Mailer: b4 0.16.0
+x-ovh-tracer-id: 6290121306616026755
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTFwwrfl1iPxPmWO6o6uy7jINWKAyMh0x8QwmnQbFs9EgGBBoRnjM3BUaJEZr2O/b+jim7kDcbnaQ7gbObCvdaGwmrI7ygNuePUx2XfOlPU+ynH2L/Y3qjv+8V1sNGQDoWzTS4dPbg8+1q+A4z3650pMSEERHWOc6c7wHIzQ/cd0AAinuhk1ciGuYw2D4AM54rlUTc3EI7eSXJzVYl3OyTQSK/C+/uQKTz4zratc5VMMn5UDog0h/EUCyQxoTf55Y9AhqDDFZ6zvIsDrjC6HgMcTURajxU4gpbIZHaHPJuId6YRUZECM9rjL8rwWeXi3BZLeaf9O0cp/v2LK91+ydBE1mf2jkmddL/sGGL9Q4okh6xCyj47YVTHfO7W3fK4EIytkY5NuPGZ+Pm19dZHfmvTslL1TO/lfPFsa9Vzc3+N3jWRhrIF8+2wNBLNj9Cyq2wvhbK6PoBFdUXBf+YuJn1/zcL+WmkLAb+Ebio5gsqZgoHPhA2tAFtyk/ZiS4mSmwp6jOPWsGbq7qcvfSOB3dD3FJwIHxGjDu9GqUjHZPdjfcgO8BxXGJY9NNkNKmF/tmFlXK0GMgXWya9hOgEhLPZNULUhAgBkMIQSdz5hYa/6cWoeVAFbLg3HBeewrWoJrbYT4dO6jhwNkkS76g4eJiA8MCauMM4yCii10xThAUKWfKA
+DKIM-Signature: a=rsa-sha256; bh=3JJebDaF8d0BDkPiP93+YZIa8Qgu2HPfzUYjFA6D8SE=;
+ c=relaxed/relaxed; d=armadeus.com; h=From; s=ovhmo103079-selector1;
+ t=1791907659; v=1;
+ b=htzndDN0tLZisLCb4+yCj80PN7xv9g7YXxQHdVwxNFA1I1KYQbyiZdbAzxypK7zIFvtWUdlA
+ r+p/WVV+ppUAzuY9Cza1y/KRrwjnBRzj7oRtHamoL4OZoIQbEG3XxkBEHIrdeIpf1KXsfSXMgrq
+ 2/UbPM+mFpBi2IH1HsQ5viSypY+iiIFKg1drKuXZkQavLVjJhuqIRQm3zouS2VZrbD1Xz6WIxod
+ yySiVzNtMLCjy/x0YLJTaXg29Aks8YfKXhaRmr6Nr6MiJWt0mlCrXkCR4PjW8lgmCZKsqFPEfV1
+ 4XJdz2LUx6I4EgcjawOWbX78kUilhY/TtDYORO48qvGqw==
 
-On Mon, Oct 12, 2026 at 11:07:51PM +0000, Rareș-Mihai Vladu wrote:
-> ia_css_queue_local_init() has no callers, so IA_CSS_QUEUE_TYPE_LOCAL
-> is never set and every local queue branch in queue.c is unreachable.
-> ia_css_queue_uninit() only tore down local queues and has no callers
-> either.
-> 
-> Remove both functions, the local branches, struct ia_css_queue_local
-> and the local member of the struct ia_css_queue union. Only remote
-> queues, shared with the SP firmware, are used by the driver.
+Commit f5d9aa79dfdf ("ARM: imx6q: remove clk-out fixup for the Atheros
+AR8031 and AR8035 PHYs") removed a PHY fixup that setted the clock.
+Make the Ethernet interface work again by doing as advised in the
+commit's log, set the clock in the device tree.
 
-...
+Fixes: f5d9aa79dfdf ("ARM: imx6q: remove clk-out fixup for the Atheros AR8031 and AR8035 PHYs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sébastien Szymanski <sebastien.szymanski@armadeus.com>
+---
+ arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
->  /* Queue type specifier */
->  /* Avoiding enums to save space */
-> -#define IA_CSS_QUEUE_TYPE_LOCAL  0
->  #define IA_CSS_QUEUE_TYPE_REMOTE 1
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi
+index b78ed7974ea9..b55a3539fbe8 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi
+@@ -41,6 +41,7 @@ ethphy1: ethernet-phy@1 {
+ 			reg = <1>;
+ 			interrupt-parent = <&gpio1>;
+ 			interrupts = <28 IRQ_TYPE_LEVEL_LOW>;
++			qca,clk-out-frequency = <125000000>;
+ 			status = "okay";
+ 		};
+ 	};
 
-This is a slippery slope. 0 can be default by implicit zeroed data type, so you
-need to really carefully check all call sites that use qhandle and/or allocate
-it. Since there are two possible values only, the IA_CSS_QUEUE_TYPE_REMOTE
-must gone together (in case this patch is proved to be correct). TL;DR: there
-is more homework to do and clean up more at the end.
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261013-apf6-fix-ethernet-c77c390ef0eb
 
-...
-
->  struct ia_css_queue {
-> -	u8 type;        /* Specify remote/local type of access */
-> +	u8 type;        /* Specify remote type of access */
-
-This is FW interface, I don't think we may drop the comment above.
-
->  	u8 location;    /* Cell location for queue */
->  	u8 proc_id;     /* Processor id for queue access */
->  	union {
-> -		ia_css_circbuf_t cb_local;
-
-Not sure about this, but since it's union the only thing to check is
-the sizeof(struct ia_css_queue) to be the same after removal.
-
->  		struct {
->  			u32 cb_desc_addr; /*Circbuf desc address for remote queues*/
->  			u32 cb_elems_addr; /*Circbuf elements addr for remote queue*/
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+--  
+Sébastien Szymanski <sebastien.szymanski@armadeus.com>
 
