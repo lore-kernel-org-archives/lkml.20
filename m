@@ -1,155 +1,156 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D28B848BD57
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:12:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15C947DF8E;
+	Tue, 13 Oct 2026 05:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791868334; cv=none; b=Azs1paPbwhcIk7wnV/nnSpC/8ndIgsb8NVabf6/E8US8ljOVoZn5m/skt5i5qJM0E3kuksPbjOY5k2QQIqrOrlB3ilTpvH9kMoZdtJtJRlLh4zxPaV80X5TbgJjU+pkIqyc/N2jKmejmqln31wMERI6dMuGCLHwX55nhD8bnrcE=
+	t=1791868397; cv=none; b=eIyFgs34TYtglL9ejnvy/3CiA6vwnI8Qf912wd89lD4J8K+3G24Uo7xgeF6rWg4jESDAA4cfY7qNXrruFJjlfol0l6nAIWRIJGh7YHe6YvGq/9oYbXct/WhtzZONOLpzZSjw6HLshhhMCvw1+XTe2rrkCNnOj7VEjDchOWxLEA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791868334; c=relaxed/simple;
-	bh=RLVpCA583elG6hUYQMlkousRsoX0X+NZ6XOSNvE/O4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fet0AR0vjvW2IDsDCqQLswhwg5aeBaQhciNFkyofZi5pyBnMOO+Tj9p/mW5RuqQ10doZPLI5igMT8sTdEErYzzBszm2+fkZrbO+u8UKV0FYBh3BsX+gGrw4/NVswrgn9Sif4mG/2PGZQzvmrq2d921U8HmcsmqI84hbgLnXgaAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Gv3ipstp; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791868397; c=relaxed/simple;
+	bh=p8Zz7IgMclgStUHo6Bn7GZa81f1lXxrvkXQTVNRaFjQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ewieIm42vfT0BuKw+NZm17VjAUONeMAlF6djAiag15cJg4cTLFpoKGrenlOaZZHIfDh4S5RaD8KCosnllXbnzsn40i+JhMmDKPyWKx5d/r6ejjV3lXek4v3ZUw61HQT9cakuNm4UZDTj+ZC0rHvGkI2+ELSGO6H/syoVdDMkmvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzCrDEQb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Gv3ipstp"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8DB22169C;
-	Mon, 12 Oct 2026 22:12:07 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 245323F7B4;
-	Mon, 12 Oct 2026 22:12:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791868330; bh=RLVpCA583elG6hUYQMlkousRsoX0X+NZ6XOSNvE/O4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Gv3ipstpbwQr3svLAPmYMebRUno9EQOqqkgpXH+OTYWKMfKbmMVwmlr9kzx2zu7V3
-	 p6KWnKsUFUHbwwHopOAEoC3XlIVIjdcV0tEzOb7a/J/0+pNHjDK0dKk9jCnYyeNXQd
-	 7wlK0u7oe0/2IaKwC7MHscVSAw9cnzCNPB8tMPJc=
-Date: Tue, 13 Oct 2026 10:42:07 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	kasan-dev@googlegroups.com
-Subject: Re: [PATCH V3 1/4] arm64/mm: Use pmdp_get() for PMD accesses
-Message-ID: <w6n3twi7dt35qzq7bwx5j7jx7plccrhbgyl5olcc4en7f4zd77@wzue6ripzv3c>
-References: <20260924062214.1635078-1-anshuman.khandual@arm.com>
- <20260924062214.1635078-2-anshuman.khandual@arm.com>
- <asPCv5Icdm7Z9mWF@arm.com>
- <lqjq64vw6mlm27kp6ffms6auerj67avecc4ongedouumsrspjh@2f2eblm7wi4u>
- <asy-q5SBnrBQSadP@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzCrDEQb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E989C1F000FF;
+	Tue, 13 Oct 2026 05:13:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791868395;
+	bh=GJNXTxAKDlJNxNUfVhfSQZRthKiPsKwpUGRTdAWw5nk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=VzCrDEQbQkLh3MKfOcrVWwIP8JEXomYf5WXOVtkxPNomqYwc62kenfaWt4EtjgLr1
+	 56jB5oIiN8pzQZeIE3LFciZow2fKaUlTkUhbRzOM+dcbTemWxjNlaDACdigHCayE87
+	 aOYeG7A0j8blwTWF/PhrjdF/yqcwVCBZgEXlTLggA50DrIt7DidbhXOeZDYqd2wlwf
+	 5VM61psLu8x0NOTS6zsnpsRtNRWIIa6D/I6cZXFg4QLjCBQLZUYg8H0fnCR6pdxExb
+	 Rlsmno4/IPgxywaV4sYkjL4r0KtaTtxGQIturB/lLm5ZpL/LuERHtKpU8HslKH1Kgj
+	 Tp4Z6gqmgQAbg==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [RFC PATCH v8 02/14] mm: Zero memory during shared memory
+ transitions
+In-Reply-To: <arZkEugXwCtKHH64@thinkstation>
+References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
+ <20260924100529.1398790-3-aneesh.kumar@kernel.org>
+ <arZkEugXwCtKHH64@thinkstation>
+Date: Tue, 13 Oct 2026 10:42:58 +0530
+Message-ID: <yq5azewiqj39.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asy-q5SBnrBQSadP@arm.com>
+Content-Type: text/plain
 
-On Mon, Oct 12, 2026 at 12:04:11PM +0100, Catalin Marinas wrote:
-> On Wed, Oct 07, 2026 at 08:11:52AM +0530, Anshuman Khandual wrote:
-> > On Mon, Oct 05, 2026 at 04:31:28PM +0100, Catalin Marinas wrote:
-> > > On Thu, Sep 24, 2026 at 11:52:11AM +0530, Anshuman Khandual wrote:
-> > > > diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> > > > index 763c5a411d64..9ad2d03e86ad 100644
-> > > > --- a/arch/arm64/include/asm/pgtable.h
-> > > > +++ b/arch/arm64/include/asm/pgtable.h
-> > > > @@ -84,6 +84,12 @@ static inline void arch_leave_lazy_mmu_mode(void)
-> > > >  	arch_flush_lazy_mmu_mode();
-> > > >  }
-> > > >  
-> > > > +#define pmdp_get pmdp_get
-> > > > +static inline pmd_t pmdp_get(pmd_t *pmdp)
-> > > > +{
-> > > > +	return READ_ONCE(*pmdp);
-> > > > +}
-> > > 
-> > > This is the same as the generic version. Does it need redefining?
-> > 
-> > Without this pmdp_get() override, replacing READ_ONCE() in pmdp_test_and_clear_young()
-> > with pmdp_get() causes a build failure as pmpd_get() which is defined in the generic
-> > pgtable header is not visible from inside platform specific pgtable header, even with
-> > a forward declaration.
-> > 
-> > Earlier had moved pmdp_test_and_clear_young() inside arch/arm64/mm/mmu.c to avoid the
-> > above described dependency problem. But then realised that pmdp_get() gets eventually
-> > overridden on arm64 platform for D128, why not just redefine here it now as standard
-> > READ_ONCE() to avoid the current build problem and the code movement.
-> > 
-> > Please find some context here from earlier discussions during V2.
-> > 
-> > https://lore.kernel.org/all/212067fe-1b16-4b87-87a7-4ce50847eb24@arm.com/
-> 
-> Thanks for link summary of the past discussion. I agree, for D128 we'll
-> have to define our p*d_get() but I haven't decided D128 is worth merging
-> yet (it depends on future hardware availability, I need to get more
-> visibility into this).
-> 
-> For the time being, I'd keep the p*d_get() accessors generic and move
-> pmdp_test_and_clear_young() to mmu.c.
+Kiryl Shutsemau <kas@kernel.org> writes:
 
-OK.
+> On Thu, Sep 24, 2026 at 03:35:17PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+>> index f904a636d449..1f1f39082391 100644
+>> --- a/arch/x86/coco/tdx/tdx.c
+>> +++ b/arch/x86/coco/tdx/tdx.c
+>> @@ -978,6 +978,9 @@ static bool tdx_enc_status_changed(unsigned long vaddr, int numpages, bool enc)
+>>  static int tdx_enc_status_change_prepare(unsigned long vaddr, int numpages,
+>>  					 bool enc)
+>>  {
+>> +	if (!enc)
+>> +		memset((void *)vaddr, 0, (size_t)numpages << PAGE_SHIFT);
+>> +
+>>  	/*
+>>  	 * Only handle shared->private conversion here.
+>>  	 * See the comment in tdx_early_init().
+>
+> This doesn't make sense to me.
+>
+> On TDX the memset zeroes a page that is about to be dropped.
+> MapGPA(shared) makes the VMM back the GPA with different memory, and
+> what the guest reads afterwards through the shared mapping is whatever
+> the host has there.
+>
 
-Although there are similar cases involving [p4d|pud]_offset[_phys]() helpers
-which would require code movement inside arch/arm64/mm/mmu.c file. Something
-like the following. Will do all the necessary changes.
+Does TDX require the guest contents to be preserved when pages are
+converted to shared?
 
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index b9427e9d54dab..e03bb7017a57e 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -2465,4 +2465,17 @@ pud_t *pud_offset(p4d_t *p4dp, unsigned long addr)
- }
- #endif /* CONFIG_PGTABLE_LEVELS > 3 */
+The memset() is done here because CoCo shared-memory allocations now
+ignore __GFP_ZERO and instead always zero the memory explicitly. For
+CoCo architectures such as CCA, this must be done after the memory is
+converted to shared because shared memory uses a different encryption
+context.
 
-+#if CONFIG_PGTABLE_LEVELS > 4
-+phys_addr_t p4d_offset_phys(pgd_t *pgdp, unsigned long addr)
-+{
-+       VM_WARN_ON_ONCE(!pgtable_l5_enabled());
-+
-+       return pgd_page_paddr(pgdp_get(pgdp)) + p4d_index(addr) * sizeof(p4d_t);
-+}
-+
-+p4d_t *p4d_offset(pgd_t *pgdp, unsigned long addr)
-+{
-+       return p4d_offset_lockless(pgdp, pgdp_get(pgdp), addr);
-+}
-+#endif /* CONFIG_PGTABLE_LEVELS > 4 */
- #endif
+The full patch avoids zeroing the memory twice. If __GFP_ZERO is used
+for a CoCo shared-page allocation, the page is first zeroed during
+allocation, then converted to shared, and must be zeroed again. I only
+changed Arm CCA  in this series because I was unsure whether the other
+architectures required similar changes. Therefore, every CoCo
+architecture other than CCA currently performs the memset() before
+conversion, while CCA performs it afterward.
 
-> 
-> > > >  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> > > >  #define __HAVE_ARCH_FLUSH_PMD_TLB_RANGE
-> > > >  
-> > > > @@ -811,7 +817,8 @@ static inline unsigned long pmd_page_vaddr(pmd_t pmd)
-> > > >  }
-> > > >  
-> > > >  /* Find an entry in the third-level page table. */
-> > > > -#define pte_offset_phys(dir,addr)	(pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(pte_t))
-> > > > +#define pte_offset_phys(dir, addr)	(pmd_page_paddr(pmdp_get(dir)) + \
-> > > > +					 pte_index(addr) * sizeof(pte_t))
-> > > 
-> > > Why not make this change in the generic version?
-> > 
-> > Could you please elaborate on this ? pte_offset_phys() is arm64 specific helper which
-> > is also local to this header file. AFAICT there is no generic version for this helper.
-> 
-> You are right, I got confused.
-> 
-> Anyway, I'd push this series post -rc1. It depends on the mm tree and
-> it's getting pretty close to the merging window.
+If the host expects to see the guest contents from before the conversion
+to shared, we will have to pass the allocation flags down to these
+helpers and perform the memset() only when __GFP_ZERO was requested,
+along the lines of:
 
-Sure, no problem.
+https://lore.kernel.org/all/yq5aa4p82sqt.fsf@kernel.org
 
-Will rebase this series post v7.4-rc1 and repost as V4 with all necessary changes
-discussed earlier.
+To keep the changes minimal, the current approach always performs the
+memset() rather than passing down a flag.
 
-> 
-> -- 
-> Catalin
+-aneesh
