@@ -1,150 +1,82 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B3654EEBD;
-	Tue, 13 Oct 2026 20:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E085427F3;
+	Tue, 13 Oct 2026 20:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791923925; cv=none; b=SyXIYgM9W1ul3ccrJ48vj/i+MFCpY3yaBVHPd35gGs7k0czMmSNpj9h4quikfHAr6/iqvfx5ZHQ5fXe2WWzGskLoVrCETTTr0VQ+fi9EWXNHj+vHKx7TghIC9fdZZp8581+LPd02A7toz11xHZdhil8PsDVw0BhHFfjPi9EuN1Y=
+	t=1791924002; cv=none; b=CcT0rjG9vgowEkY+kOXz1tGex3glcY0rPTUjkYrmFHdf6E61Ijembxc2QyhGC/jgWo5GXNIJn5TDYdweYnY8BL+b+wbVf+Wu3jTN6b1jnTbqzim0Tcs9eTI8IjDkttAG2GI4zyHwDIgffNWbUsM/wmb0Asp3TawFasUEz8z0LTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791923925; c=relaxed/simple;
-	bh=t+rv9DZjlHa1AnpVnE5Lh7gvgLdHD5mWAXOsSnLe2jw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=szemTQTBIh19XclaWTHT7Hrgsh8kru0OoIORS2Ks2RxgZ28yNijwzU71iBi3tLWqQab/QzdBRL66k3/JIeCbl0RHLK4qCyq8L8bnY8u3q1ogYf8+kwhUIcaFR7QnriXacoeJ/HK+l4WOc+39vtMDeujVFqTSSnbm3suJZdy1QXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=t-8ch.de; spf=pass smtp.mailfrom=t-8ch.de; dkim=pass (1024-bit key) header.d=t-8ch.de header.i=@t-8ch.de header.b=Xp7PgWmv; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=t-8ch.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=t-8ch.de
+	s=arc-20240116; t=1791924002; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LSBSvzziozpD4WTE2nNzsawUB+jqsx49QdrRhCViEEdsd9t0tA257R6KS6QWAXWPGR3Y9paVvQ67kEOd6qiSEBaStXISiMRRpiC7hs7XjKj7wdqw7AlFOzDF/2ZQC+j+mN7HPNWTzUarq3hxTa9iB07on5VwNWCE0xzL6374+qU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fEsHE9Ul; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=t-8ch.de header.i=@t-8ch.de header.b="Xp7PgWmv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=t-8ch.de; s=mail;
-	t=1791923918; bh=t+rv9DZjlHa1AnpVnE5Lh7gvgLdHD5mWAXOsSnLe2jw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xp7PgWmvcUnUxiRG7k4cmWjIb/dtqkaf+8bccLc4jw8XeSC7i2CkINMmDYWaP3NwO
-	 IVK4Ibxeg/KAKky6w6RCNILKdFDEQgrxZofozyqB5qitTsCNh9XeZ56ODEr3Np6AVQ
-	 OdAtM/flgKnVOiy221T9w8WAjRz37YLOa4c1EPDg=
-Date: Tue, 13 Oct 2026 22:38:37 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas@t-8ch.de>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	linux-kbuild@vger.kernel.org, Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Ian Rogers <irogers@google.com>, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [RFC PATCH 2/6] kbuild: add "make tools_build" to build
- userspace tools from tools/
-Message-ID: <b0fa30a6-9f41-4c9a-a3fb-2634322e2bd1@t-8ch.de>
-References: <20261011233647.2454648-1-sashal@kernel.org>
- <20261011233647.2454648-3-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fEsHE9Ul"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90C421F000FF;
+	Tue, 13 Oct 2026 20:40:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791924001;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fEsHE9UlJiPlgGv9Engklk6RpJzvQTOr4OzD5TzGvSLuJVS/IRRnBQNx/fjrMRaaE
+	 KIHuzgnrrTESZJxlGkVyIDS4AsRpFL+eSOCFW6npGwJ4yGzm+li/rpSUY4oA+pOr9K
+	 LD71SbrXfhs2SCKGFDPf5qEl1n5vu0i0ykc7i+P2dDL2IANYhwHjErp2X4HEyuXpOe
+	 QeL0Bw+qcoEAEjwpLLOY4hUEieJWpjzkOJz2u8oOL464++sMkPMGqQwbPW4z4Gn1zC
+	 fdbLk4uqEaAi29loB63nKJDLPGwxBfEmspoYP+SK/O8BW52Qtu+zy/okpN1ph4+RyT
+	 jKTm0X/PDas9A==
+From: netdev-bot+sinfo@kernel.org
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Magnus Karlsson <magnus.karlsson@intel.com>,
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, bpf@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: avoid duplicate XSK TX completions
+Date: Tue, 13 Oct 2026 20:40:00 +0000
+Message-ID: <179192400014.160550.9046457038671470723@kernel.org>
+In-Reply-To: 
+ <20261013-submit-stmmac-xsk-tx-completion-v1-v1-1-f21b9d098e62@gmail.com>
+References: 
+ <20261013-submit-stmmac-xsk-tx-completion-v1-v1-1-f21b9d098e62@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011233647.2454648-3-sashal@kernel.org>
 
-On 2026-10-11 19:36:41-0400, Sasha Levin wrote:
-(...)
+Hi!
 
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  .gitignore            |  5 +++
->  Makefile              |  8 ++++-
->  lib/Kconfig.debug     |  2 ++
->  tools/Kconfig         | 72 +++++++++++++++++++++++++++++++++++++++
->  tools/Makefile.kbuild | 79 +++++++++++++++++++++++++++++++++++++++++++
->  5 files changed, 165 insertions(+), 1 deletion(-)
->  create mode 100644 tools/Kconfig
->  create mode 100644 tools/Makefile.kbuild
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-(...)
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-> diff --git a/tools/Kconfig b/tools/Kconfig
-> new file mode 100644
-> index 0000000000000..bf0643b39b86e
-> --- /dev/null
-> +++ b/tools/Kconfig
-> @@ -0,0 +1,72 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config TOOLS_BUILD_ABI
-> +	def_bool X86_64 || ARM64
-> +
-> +config TOOLS_BUILD_GLIBC
-> +	def_bool $(success,echo '#include <features.h>' | $(CC) $(CLANG_FLAGS) $(USERCFLAGS) -E -dM -x c - | grep -q __GLIBC__)
-> +
-> +menuconfig TOOLS_BUILD
-> +	bool "Build userspace tools from tools/"
-> +	depends on CC_CAN_LINK && !UML
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Why !UML?
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-> +	depends on TOOLS_BUILD_ABI && TOOLS_BUILD_GLIBC
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-These dependencies could be on separate lines, it will reduce churn when
-they get modified.
-
-> +	help
-> +	  Build the selected programs under tools/ for the target together
-> +	  with the kernel, as part of "make all", or alone with
-> +	  "make tools_build". Each program is built by its own build system
-> +	  into tools-build/ in the object tree. The tools then always match
-> +	  the kernel they were built with, and a change that breaks one of
-> +	  them shows up in the same build that compiles the kernel.
-> +
-> +	  This needs a compiler that can link glibc programs for the target,
-> +	  and is currently limited to x86_64 and arm64.
-> +
-> +	  If unsure, say N.
-
-(...)
-
-> diff --git a/tools/Makefile.kbuild b/tools/Makefile.kbuild
-> new file mode 100644
-> index 0000000000000..820a2d9a3893b
-> --- /dev/null
-> +++ b/tools/Makefile.kbuild
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +#
-> +# Builds the userspace programs selected in tools/Kconfig for the target.
-> +# Invoked by "make tools_build", which "make all" runs when CONFIG_TOOLS_BUILD
-> +# is set. Each program is built by its own build system, the way it is built
-> +# standalone, into $(objtree)/tools-build/.
-> +
-> +PHONY := __tools_build
-> +__tools_build:
-> +
-> +include include/config/auto.conf
-> +
-> +abs_srctree := $(realpath $(srctree))
-> +toolsdir := $(abs_srctree)/tools
-> +outdir := $(CURDIR)/tools-build
-> +
-> +# kbuild's state and the user's compiler flags, from the environment or the
-> +# command line, would change how these build
-> +unexport srctree objtree srcroot VPATH building_out_of_srctree sub_make_done
-> +unexport CLANG_FLAGS INSTALL_HDR_PATH O
-> +unexport CFLAGS CPPFLAGS LDFLAGS EXTRA_CFLAGS EXTRA_LDFLAGS USERCFLAGS USERLDFLAGS
-> +space := $(subst ,, )
-> +overrides := $(subst \$(space),\@space@,$(MAKEOVERRIDES))
-> +MAKEOVERRIDES := $(subst \@space@,\$(space),$(filter-out O=% CFLAGS=% CPPFLAGS=% \
-> +	LDFLAGS=% EXTRA_CFLAGS=% EXTRA_LDFLAGS=% USERCFLAGS=% USERLDFLAGS=%,$(overrides)))
-> +
-> +# Keep Python's bytecode caches out of the source tree
-> +export PYTHONDONTWRITEBYTECODE := 1
-
-This should just be done in the toplevel Makefile IMO.
-
-> +# The compiler CONFIG_CC_CAN_LINK was tested with. The tools take linker
-> +# flags from LDFLAGS.
-> +tools-cc := $(CC) $(USERCFLAGS) $(KBUILD_USERABI)
-> +ifneq ($(USERLDFLAGS),)
-> +override LDFLAGS := $(USERLDFLAGS)
-> +export LDFLAGS
-> +endif
-
-(...)
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
