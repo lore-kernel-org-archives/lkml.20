@@ -1,155 +1,315 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B4F4E56CB;
-	Tue, 13 Oct 2026 10:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791889127; cv=pass; b=UdFm2pwxOfwueQWKJ0i+pY8y+VzWgBYJVzxdUR1GI31tNw8ov9hIqaJqtBY6CLKJfCCcltqCBnzwq58FQnFSD7HLxRy9ikZyPsfoJmEOm8TvWKqbXWy3nCBgcZSKa4zMini2ilnQco9c19RauGwCVS1ZN//6b2Q7emj+U69MJ/0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791889127; c=relaxed/simple;
-	bh=oLhSYzOwujkBqrh0f9DoDHEmGMsT5+OaO+AH+QqxHZ8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8225C4E80BF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:58:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791889134; cv=none; b=CiM0+n4b6d4VV5MZPKhKkvw5HdFdcDcku/foMTgV8znlU2DNBvXKjdHzhBusVYa05C1XHUL/FEMSP9Ta3GrU5QIa6vjEJYPvJ8mnRiUKNKT6FDWo1PtE2pCFNHMkCb3NXtqWuElmW2+S2PH7sPvjJ0pmQxP4uoqBch5oGrR4E04=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791889134; c=relaxed/simple;
+	bh=H0l0lW7OIR5JEAGWTHP04PSYXRXwPf9bf6J09uxs1gk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O4s6S5v82F0ma7K4QHwTvwTwWX3qPgDHORUTvKpPeyZv4fhNy5ZHLUDGPW4xIE/XFkvaCDe4ox+VA32tITDHKiTdmAeywPnh9QTVNqnsfJlqWKmlB5caJRb3LDwDXijKe+0CJQBsHn9l99FxmdPG+i9Jp8zvhr19cMGeg6TJJMo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Ft9dEqdS; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=PGA2tdFMuNlG8XHKsHtPAUf99BfhO/lh7RP1qmDk6nVbTkGkEHoJrETRdbi4+BXgLMFwJmtf0ypa0gXJE2rHFIsjcL18kUXjZCDCykhx68QvNOPCeBXP7yk/Du3i4PVEHuZnbkkRvAAP1qf5NZYDSsS5APgi89GNNSdYq8Z7lS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FIG8/+Mo; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=N68kqBMI; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Ft9dEqdS"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D89D5200582;
-	Tue, 13 Oct 2026 12:58:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791889118;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FIG8/+Mo";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="N68kqBMI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791889127;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ibx4Wuf/nDfg8JytDfccS5wn8x8YmTr1cZIy71hpWvY=;
-	b=Ft9dEqdSqJcAUHVzPIc2Eix4ACSvnxYrBByJWx/dmOdIVRCmu/EeYRQP2CINQ7tuAtTN+/
-	Zys067Vs7HBtwPQyJNyvNv5Lh3hyUWpXmcILku2mXqsz46MNws2gfJI1O586Urlfo58qcU
-	9VyHc37+7jpex2p0wrt3C/wQGOE0+MD7inDL+q46sOhf40AiTKpiR7EAsDBK0ZvAinfgJO
-	9jmDQWCWriqusDxw0q/KDv7YeAYMFEvNGVYeaRpZtEXTe2CNP+BD4FSrTlmXR4ex56m0jM
-	tkb9dNyrp9togtfNL9QlKlskYUkqlbO2ZC264rzgmFZIV/gTvoxAX1sc9PT9dA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791889118; a=rsa-sha256;
-	cv=none;
-	b=H6lGdFXLC8FRo8ALFR+JY+10yIo5YK/+Ss/C/5Ge0Z7lmrzl0BemHysBpEXjjul0JMaCc3
-	Z/+L6EbsYtN9aakUCGvzNn7csRXqyyQmi9vsDWidakbgfQ2jPLFI5bJHKIHZ5fsouuL9Bi
-	Uz44QfRUT9PsyLJ6E0FRuvhDFXdh84ESkpZ9ti7Ev2wwZ6r3+G8lE0SB386d8cKhoZFaJU
-	0Zllheq8FeQVD8dMfKrZkkcJUs9fXBL+77v8pii+b7cRycZND4E/1/dPjhYDJutal28nic
-	GidRYbn9ynscfXEylHWlXhTdl5MzjPBItgQcpb0Hzrw47nPHLFSWdf0mllwGQA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791889118;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ibx4Wuf/nDfg8JytDfccS5wn8x8YmTr1cZIy71hpWvY=;
-	b=COiVH5dzxNsq4sj3ao+H39OF5fYjChNz/VJalg6MCyepxFLn+CCrFd2APcgYSxdwDl158h
-	3Ydjmn8PeKtThSxC1pOTzEp5JeWk4MA0fyMVE2xqX/DAduXGMv+Snd22wWXQKNTmxGMoij
-	295cJh1BqBtYuiP7cE26uELPkPrxCkw0cNDqiCmg+9SN6eELvKvjTGZgXVrGkfI0HjsPSp
-	OZD7EUe97EMR77WC6Hynn2RwG99GJBXSHN49JEGEAwwZCqC1MChtevdwuW4NGEvg1GzfhO
-	j/xP3UStSs9sAwhWExXm+v8Q0FmXqXKjvRNA5/QoslsFv/2qZOTSHoap4bHiGw==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xGaDO-005g8E-2X;
-	Tue, 13 Oct 2026 12:58:38 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 6C2E45C2F46;
-	Tue, 13 Oct 2026 10:58:38 +0000 (UTC)
-Date: Tue, 13 Oct 2026 12:58:37 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, linux-can@vger.kernel.org, netdev@vger.kernel.org, 
-	kernel@pengutronix.de, Heiko Stuebner <heiko@sntech.de>, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] can: rockchip_canfd: stop bus-off restart before
- closing the device
-Message-ID: <20261013-hissing-saiga-of-endeavor-ef5e03-mkl@pengutronix.de>
-References: <tencent_5802EE88434010229EDF7A53084D994C6106@qq.com>
+	bh=YX0cMX2Cf26EXqpfUZ4FHg8Am9Idf3c80yUtynKrkSo=;
+	b=FIG8/+MowbcvvYSNicE8q9vjDTUVOb/rohE71xDp5cngDaN5pecVXgrf3D2T5M/B03bDPL
+	fbzkZY6enzOQO6nSZFiO8IWFYhqanUPdCEZtRSOGI3TXcvSpIRD0yBmVq4cobZ/YRnoX+9
+	rNUsAXN/2G4C7WPYpdUbJj5PPaUwd+g=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-582-GdTAaksjOymqU4jsKoIV0A-1; Tue, 13 Oct 2026 10:58:46 +0000
+X-MC-Unique: GdTAaksjOymqU4jsKoIV0A-1
+X-Mimecast-MFC-AGG-ID: GdTAaksjOymqU4jsKoIV0A_1791889125
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1af80b913so2755485e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:58:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791889125; x=1792493925; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YX0cMX2Cf26EXqpfUZ4FHg8Am9Idf3c80yUtynKrkSo=;
+        b=N68kqBMIXYtV2EphfkUgM0c+SndINr17dyJvowmfEUy3bJzTy/9OA3CuLuIbjjIsuh
+         N8LxK0oRjzah1/nettIkDFVIzVIXKiOpN1J2FuI7Rgwbr17/NmNom0cdsB01XEaxRGkF
+         AwA3CHT9xon62MXlWWs8jrMJ5RBRy9r8e4jhIPcWZ6YtaSr4/iGwburLRKDUh1NzrNX3
+         UH99hw94KG9G6cUhsYwx+xO0oRYLSRpIZFP5LomY8cldMVTYihdP24VBlBzTk85pQMwX
+         p2+YdE7Ac4f+MZW2hc6QUvIB10fPRXBu/z/YJWBXpztQxm92tX9lAx8PjH7717vy/T74
+         G6Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791889125; x=1792493925;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YX0cMX2Cf26EXqpfUZ4FHg8Am9Idf3c80yUtynKrkSo=;
+        b=V7aL7PBv6+2cXV3R36bQZh7qlffT0Vui7OTYIZmH/zXf0ANnfzRofHJIrc+fN6a0HL
+         lup2hT01EM5Qr+SSMvzPIO7FCUH9a82m/87xW2QF4EXpLfrxExFQw9U/wFTfMEh1TL3k
+         46iMJt16M/wN4uj198lXXn/adgqY/33WxGrfat/puoe7gIC3HBxAijBtyuErhVXByqnh
+         mZG4mbMoLgbI7jzMuD4R64j305ArzlsibGWQ+WzViShXw6OQqJi7d/Qv+za1P0a3TSyn
+         +jR6whUWHH+G8pWSO25ftEpEAJtViTDsx4d0K5uNkDbBFnM/v6w/c7cSzsjWS1wZuz7t
+         2XPQ==
+X-Gm-Message-State: AFq9FYJpFpDQMJfvm9HSK5tV0yXRqk/j4by7SuYbUlDVQFZjKFVethwj
+	gGVOqh/BK+ePkVmTpptms8XeEvEIdVgIRhm0uCj0ziAqypNgIxTMHzHneC6LcQ/awUb/+WAy94C
+	x6Hi61bE9waWovOdt6Kq+n+gGv4fB5x9CvpXbW3aACH4lLWWkqfDSfbgnKUsrI1UpCFaKJBlb25
+	b9MEpQbj6oxitcl90fEqW1aSPqa1d9EX1LxMYZ8TMpJhE=
+X-Gm-Gg: AYBFou0mGzksNTpvv8er+BVvgNBXvClX7a6LwKEDludfjKnUzH04z/nIPpNNs1rnPGE
+	1DI/QidLhpdIhU6PFG+7d8hUMblI9Us6WYCdnSkpryhkH5ILI2aPEn5PuRaZGpZrgc6p9tCwzo1
+	gRnK8l7CoSk71VWziwtSG8zSw239q+dYc9tZeqI4c0tOVxRwDrCCqOoxg3M7QegsbBtkP3A/S67
+	swjCDjSr7lcaDMEt+cy+AGVlz0L7rgli7J5IP1MpKKrrMTFq16SmqbltzUZiOi4JXy0KFfj0H4h
+	RXPGf2vByb+Pfbka1BkZZrunSeSWdYR8CVBL5J9apezopv8wiZywtZtFQpkmOI8RY/kf/A==
+X-Received: by 2002:a05:600c:4e91:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a18e4f56bcmr247258605e9.33.1791889124952;
+        Tue, 13 Oct 2026 03:58:44 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e91:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a18e4f56bcmr247258035e9.33.1791889124335;
+        Tue, 13 Oct 2026 03:58:44 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc50e0sm5758574f8f.49.2026.10.13.03.58.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:58:43 -0700 (PDT)
+Date: Tue, 13 Oct 2026 06:58:41 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Simon Horman <horms@kernel.org>
+Subject: [PATCH net-next 4/4] net: account for ingress-resolved virtio net
+ hdr state
+Message-ID: <d82518764906d3b552fd3ade65b96ac741197d4e.1791887415.git.mst@redhat.com>
+References: <cover.1791887415.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="25w3tbmyskksrjyb"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <tencent_5802EE88434010229EDF7A53084D994C6106@qq.com>
+In-Reply-To: <cover.1791887415.git.mst@redhat.com>
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
+Ingress resolution of uncommon virtio net hdr checksum metadata
+(software checksum completion at ingress) adds performance overhead but
+is currently invisible: no counter tracks it, so a hypothetical workload
+relying on uncommon metadata cannot be distinguished from none at all,
+and packets quietly pay the host-CPU checksum overhead instead of offload.
 
---25w3tbmyskksrjyb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net] can: rockchip_canfd: stop bus-off restart before
- closing the device
-MIME-Version: 1.0
+Have virtio_net_hdr_to_skb() return 1 when it completes an uncommon
+checksum in software, and flip every converter call site to test for
+negative errno.  Have tun count these events per device as
+rx_csum_sw and expose the counter via ethtool -S.
 
-On 13.10.2026 11:22:37, Cunhao Lu wrote:
-> The close path cancels restart_work after freeing the IRQ and stopping
-> hardware. A queued bus-off restart can therefore enable the controller
-> and interrupts after teardown. It can also restart timestamp work before
-> runtime suspend.
->
-> Serialize restart with the close transition using a mutex. Mark the
-> device closing and mask its interrupts before synchronizing the IRQ.
-> Release the mutex before cancelling restart_work, so a queued restart
-> can observe the closing state without deadlocking.
->
-> Exclude the IRQ handler while reinitializing the hardware on restart.
-> Do not disable the shared IRQ line while waiting for work to finish.
->
-> Fixes: ff60bfbaf67f ("can: rockchip_canfd: add driver for Rockchip CAN-FD=
- controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Assisted-by: LLM
+Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
 
-AFAICS this is a systematic problem and should IMHO not worked around in
-one driver only.
+---
+ drivers/net/tap.c          |  4 ++--
+ drivers/net/tun.c          | 44 ++++++++++++++++++++++++++++++++++++--
+ drivers/net/virtio_net.c   |  2 +-
+ include/linux/virtio_net.h | 12 +++++++++--
+ net/packet/af_packet.c     |  4 ++--
+ 5 files changed, 57 insertions(+), 9 deletions(-)
 
-netif_running() tests __LINK_STATE_START, which is removed in
-__dev_close_many() prior to calling the driver's ndo_stop().
+diff --git a/drivers/net/tap.c b/drivers/net/tap.c
+index ff67d99deb39e..73e8833944463 100644
+--- a/drivers/net/tap.c
++++ b/drivers/net/tap.c
+@@ -649,7 +649,7 @@ static ssize_t tap_get_user(struct tap_queue *q, void *msg_control,
+ 
+ 	if (vnet_hdr_len) {
+ 		err = tun_vnet_hdr_to_skb(q->flags, skb, &vnet_hdr);
+-		if (err) {
++		if (err < 0) {
+ 			rcu_read_unlock();
+ 			drop_reason = SKB_DROP_REASON_DEV_HDR;
+ 			goto err_kfree;
+@@ -1084,7 +1084,7 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
+ 
+ 	if (vnet_hdr_len) {
+ 		err = tun_vnet_hdr_to_skb(q->flags, skb, gso);
+-		if (err) {
++		if (err < 0) {
+ 			rcu_read_unlock();
+ 			goto err_kfree;
+ 		}
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index 242899f7fd071..138ca8987dfc6 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -210,6 +210,7 @@ struct tun_struct {
+ 	u32 flow_count;
+ 	u32 rx_batched;
+ 	atomic_long_t rx_frame_errors;
++	atomic_long_t rx_csum_sw;
+ 	struct bpf_prog __rcu *xdp_prog;
+ 	struct tun_prog __rcu *steering_prog;
+ 	struct tun_prog __rcu *filter_prog;
+@@ -1935,11 +1936,19 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
+ 		break;
+ 	}
+ 
+-	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr)) {
++	err = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr);
++	if (err < 0) {
+ 		atomic_long_inc(&tun->rx_frame_errors);
+ 		err = -EINVAL;
+ 		goto free_skb;
+ 	}
++	if (err > 0)
++		atomic_long_inc(&tun->rx_csum_sw);
++	/* The status is consumed: keep err clear so later exit paths
++	 * (XDP drop via unlock_frags) do not return it to write() as
++	 * a short count.
++	 */
++	err = 0;
+ 
+ 	if ((tun->flags & TUN_TYPE_MASK) == IFF_TAP)
+ 		skb->protocol = eth_type_trans(skb, tun->dev);
+@@ -2605,12 +2614,15 @@ static int tun_xdp_one(struct tun_struct *tun,
+ 	tnl_hdr = (struct virtio_net_hdr_v1_hash_tunnel *)gso;
+ 	skb->dev = tun->dev;
+ 	skb_set_network_header(skb, ETH_HLEN);
+-	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr)) {
++	ret = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr);
++	if (ret < 0) {
+ 		atomic_long_inc(&tun->rx_frame_errors);
+ 		kfree_skb(skb);
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
++	if (ret > 0)
++		atomic_long_inc(&tun->rx_csum_sw);
+ 
+ 	skb->protocol = eth_type_trans(skb, tun->dev);
+ 	skb_reset_network_header(skb);
+@@ -3739,7 +3751,35 @@ static void tun_get_channels(struct net_device *dev,
+ 	channels->max_combined = tun->flags & IFF_MULTI_QUEUE ? MAX_TAP_QUEUES : 1;
+ }
+ 
++#define TUN_STATS_LEN	1
++static const char tun_ethtool_strings[TUN_STATS_LEN][ETH_GSTRING_LEN] = {
++	"rx_csum_sw",
++};
++
++static int tun_get_sset_count(struct net_device *dev, int sset)
++{
++	return sset == ETH_SS_STATS ? TUN_STATS_LEN : -EOPNOTSUPP;
++}
++
++static void tun_get_strings(struct net_device *dev, u32 stringset, u8 *data)
++{
++	if (stringset == ETH_SS_STATS)
++		memcpy(data, tun_ethtool_strings,
++		       sizeof(tun_ethtool_strings));
++}
++
++static void tun_get_ethtool_stats(struct net_device *dev,
++				  struct ethtool_stats *stats, u64 *data)
++{
++	struct tun_struct *tun = netdev_priv(dev);
++
++	data[0] = atomic_long_read(&tun->rx_csum_sw);
++}
++
+ static const struct ethtool_ops tun_ethtool_ops = {
++	.get_sset_count		= tun_get_sset_count,
++	.get_strings		= tun_get_strings,
++	.get_ethtool_stats	= tun_get_ethtool_stats,
+ 	.supported_coalesce_params = ETHTOOL_COALESCE_RX_MAX_FRAMES,
+ 	.get_drvinfo	= tun_get_drvinfo,
+ 	.get_msglevel	= tun_get_msglevel,
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index daab43ac92ce4..2e6fd81df9c41 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -2519,7 +2519,7 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
+ 	skb_set_network_header(skb, ETH_HLEN);
+ 	if (virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
+ 				      vi->rx_tnl_csum,
+-				      virtio_is_little_endian(vi->vdev))) {
++				      virtio_is_little_endian(vi->vdev)) < 0) {
+ 		net_warn_ratelimited("%s: bad gso: type: %x, size: %u, flags %x tunnel %d tnl csum %d\n",
+ 				     dev->name, hdr->hdr.gso_type,
+ 				     hdr->hdr.gso_size, hdr->hdr.flags,
+diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+index b181183118b3a..d8447db58ac83 100644
+--- a/include/linux/virtio_net.h
++++ b/include/linux/virtio_net.h
+@@ -14,6 +14,14 @@
+ #include <uapi/linux/tcp.h>
+ #include <uapi/linux/virtio_net.h>
+ 
++/*
++ * virtio_net_hdr_to_skb() and virtio_net_hdr_tnl_to_skb() return 0 on
++ * success and a negative errno on failure.  On success they may also
++ * return 1, indicating that an uncommon checksum was completed in
++ * software at ingress rather than deferred to the egress path;
++ * drivers can use this to account for such packets.
++ */
++
+ static inline bool virtio_net_hdr_match_proto(__be16 protocol, __u8 gso_type)
+ {
+ 	switch (gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
+@@ -292,7 +300,7 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+ 
+ 		err = skb_checksum_help(skb);
+ 		skb->transport_header = old_transport;
+-		return err;
++		return err ?: 1;
+ 	}
+ 
+ 	return 0;
+@@ -441,7 +449,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 	/* Let the basic parsing deal with plain GSO features. */
+ 	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
+ 				      hdr->gso_type & ~gso_tunnel_type, false);
+-	if (ret)
++	if (ret < 0)
+ 		return ret;
+ 
+ 	/* In case of USO, the inner protocol is still unknown and
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 52ae3d875e971..e6aec9ecfa994 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2913,7 +2913,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 		}
+ 
+ 		if (has_vnet_hdr) {
+-			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le())) {
++			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le()) < 0) {
+ 				tp_len = -EINVAL;
+ 				goto tpacket_error;
+ 			}
+@@ -3136,7 +3136,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 
+ 	if (vnet_hdr_sz) {
+ 		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le());
+-		if (err)
++		if (err < 0)
+ 			goto out_free;
+ 		len += vnet_hdr_sz;
+ 	}
+-- 
+MST
 
-Can we make use of netif_running() prior to calling do_set_mode(dev,
-CAN_MODE_START)? from can_restart()?
-
-can_bus_off() should not schedule_delayed_work() if !netif_running().
-
-We still have to call cancel_delayed_work_sync(&priv->can.restart_work)
-=66rom each driver, though.
-
-What do you think?
-
-Marc
-
---
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---25w3tbmyskksrjyb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCas4O2wAKCRDMOmT6rpmt
-0q+pAPwIF8wpYL7J1/gk9g6RXhUr5SARSzzpYTyGVX3yt2JlIQEAxgkwnBhMJin5
-BgazUeZQAgL09GXx7TEVzKpH1RZCUw0=
-=mEzK
------END PGP SIGNATURE-----
-
---25w3tbmyskksrjyb--
