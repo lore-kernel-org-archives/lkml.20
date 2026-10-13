@@ -1,63 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3F6501F45;
-	Tue, 13 Oct 2026 14:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194923EB819
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900459; cv=none; b=I7NsYF8rS6/haL75Bot/8QEuYeokNqVpy4cekGfjPxpW00WSD4ThUD7Gfh4s150lMXYOXu7mk3xDZAygVHNM/qi0J4+GO+SlJOnC4ypSQmj04TOosH9rDY+YnSeCsEhKUSWGS5KgPddCIouzkIINRX/ff70Smyi1FFTy17uziac=
+	t=1791900477; cv=none; b=foXKllqgAwFSV8XphgfEv3+g1oBUaLL+fgkzeYefXae+wyWDLN4FXJDa4UZymgcStg3lx6f7H6RVuQ7Daj8SZ6Rq35OjKcAIjAQC5XKVaAjSVNtYzXuGtJYdjp8sXt2DXhPu/OY/QuYDMVzCRIyWuqdsMjbmfYNU9X33A7uEkRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900459; c=relaxed/simple;
-	bh=W88mS6YBE8sTQ1nme8JepyXgE86BvQHetXAgV3IwrYI=;
+	s=arc-20240116; t=1791900477; c=relaxed/simple;
+	bh=OzuAp0rlEJdsfQomS5ope4HzayW0l3aekZR9Acx0XzE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=knCV3TpkbuibH4a3v5z+DnQubNFqRm8SOCfeioEKsyXG59v0Mvl+4GZOTqbYhiXnsJasfiAKF/kRry9jMtFwZoyqgOCx9ZHcJM9SdQ48D9gTg+y7cnV73v0KtdaHRlQcEtPaygpwysxYxXMjwEyVn1hkM24KHiG4C0gnTRGl7Kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g2ogaP+E; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=on/lwToBykEU0HBbRKh793PUbTwaBP+2TvMVH6EJb5oDORuD0BQ5Kwx4EStTZtvk+3v5gZRzAV7SsDCc4DKhc8ghG2gLSXHE21y063hrj+LUMbkHwbW7q7odBseHMCLvQ4JBpxasHlhLns1jhpzsOlpipX8DysWbbzkGOzqTfRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BUk/GI4W; arc=none smtp.client-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g2ogaP+E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791900458; x=1823436458;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=W88mS6YBE8sTQ1nme8JepyXgE86BvQHetXAgV3IwrYI=;
-  b=g2ogaP+ExlWuLvDFDfk1Xq4RifkML1d7HkG+F+txTLDwp/O1K2KCWoZO
-   CU5jrNQVV0iXGjCBtCc9fc9zZoDZ6403XXf+SGBO2gxeZoQIBMJiQGptW
-   m+gaIiHB1A/31kEbr8hefw7l8VFYnSFBU/b7d17ltpIV95YSInqn8iW81
-   BWxxKo0/1cCvdlytTlIdta3ealAwW9ShGxzvbnRV6yWVrvX3gzHngOVQ8
-   dubioI6AhkpfFPCGlv7J0q1l36dsoiHdRoj+WyVM2MkiD9gSVn+vbwW9M
-   ej0Dvf3osbh7P8A0afozo7rO8a3z5vlYQtKsLvbc5vS0FunNoxwG9SXjj
-   A==;
-X-CSE-ConnectionGUID: X4VICJTTSx2F0pOrKnvOUA==
-X-CSE-MsgGUID: MSan89ZXS7eyZmCJ9W1pYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="642338"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="642338"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:07:33 -0700
-X-CSE-ConnectionGUID: 6cANfGRZTGmuiPQL/vdfhw==
-X-CSE-MsgGUID: XIeAE0B5R32LAOgDkfUP3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1509260"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:07:30 -0700
-Date: Tue, 13 Oct 2026 17:07:28 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
-	Kurt Borja <kuurtb@gmail.com>
-Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads112c14: add gpio support
-Message-ID: <as47IMM9rtBCAH0-@ashevche-desk.local>
-References: <20261009-iio-adc-ti-ads112c14-gpio-v2-0-3231a795fa63@baylibre.com>
- <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BUk/GI4W"
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-82374c2d7aeso2215436a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:07:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791900475; x=1792505275; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8sNOFg4Wj9OYyKeIVnikxJmvj26NKKSzvljXjsvUtTY=;
+        b=BUk/GI4WpKFi1kxDhm1sTBlrEmU1Co3SCKtDsEDF/5wUMztCOSMxHgUVwS43gvXJnP
+         OxUTyaD8xK6TXM1Xwm2ICoxAvtfq3YSBN1XmMvinoJKhhxLvVBdGchn3QyKelCtGVzy9
+         fiNNvfXTTwnsGRtUSWVfyKrhL1q/i/UjrX0KnVlhLFCpEvCTGzkRY0xYAKDAdR3fUpCQ
+         OoSIKPhgvfarvqswKWvSs2SkZ+Cc9CcyhFt9u/6u1TyjRpElE2K8WqFVb3gtiY5qVZdg
+         ip8PJKep9E4oQDFly2RsT3VvvOr3n+QJSj1rDVw78Or0oaVFunzBdXkO41FBPj0lDbKt
+         c60A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791900475; x=1792505275;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8sNOFg4Wj9OYyKeIVnikxJmvj26NKKSzvljXjsvUtTY=;
+        b=jWJfX8/Noz8P9jzbd+Ris2ejR2bGr2TPkLuppbmUi+/ESbYI01TA6nc+APGhXOsIlo
+         brs/w6WTDlcjSoY9k6Xhs6Q9VxcPqhIkOBhL13TSs0zAnD9G9d0yT3hbAlElfBGRk3Oh
+         O34icCtwbGhOQA9srz4ysQWzRR9/1+RUQE0/IA94xhwzXmjoRjMbBtuTKkeaU834VoOv
+         gRSL3VkH5nuyFsP0NQ+u6xmOujmdTVWmHvoxcCX+jmxIoWBcApWUeCSqXlTVCKhS4WpT
+         DUWrdNN9/4y7/xZoffoVR8UztvDJW1Pz4wHaCszM62YSLW7hsHFiZ1jM6MPS+cfxC19I
+         ObUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxU/x6gjw0UU+ZwgpD5VvdF5vwEIO/qf/wK3B6vs8oy8TwONId7YWMhXln2iei3YS8ZISDnKp4S0pN3d7c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdjVZRkBq3KZ2K6UajDoj9GPv8ZcHGdxAKkU6DEYZOhBm9Izyr
+	h0QUqjYsOh+Zewu/6n297YD8/Iz9ILdyPW32fTB9yH+ske6AQ0oIjbHX
+X-Gm-Gg: AYBFou1uXk3HW/suiqR+Gkk7n8sm2NxUg7H5N9QLSxgtI7jYIab3KJxZYhP9HemnSKW
+	rgndkp7QB/3UZZNsBP50qaRhUhRobZMvU4JGtrdZYeaWDANZbhs037Mae4Qbpt57r2u43dsVtGI
+	nCKKKtWxyRIi9ALrYAH9KGdfj7LeMzhIkY18X+DUVeHmcnGewo5QVz1I7LxtlK9xcjZuh8Vwdij
+	jSqITh7TDsqBpIShpoc3IUH1N0i2K04QX61ySl5d+tHO+QtRxPV9EaHk0GD7G13yQQu/MyEbaiN
+	xlyvHbNEQ3CHAeT20+L+7mB0wMQ+xpmlU6yHoDq7lHFzInDilKXi4HgBRUTBbfxKtVMyuj++YKG
+	CU5soCjZLbF8XeGU4ZgIkFJNm/bO1O0Pp3xNaMynI+LV0eFzMbUB7v7ak7qR92rYe+Zg2cpfe9n
+	2ZhWJ93dWUC25ZjtwIVE4BYViJGIGLNNRGG2Ztg6/Xr8rM3jxdDMEXHQfXcmpjyrGimgb/5x24I
+	LnuQGDPt0ZqZsjJN1e8L1ilkU32fY6ClkcmJTmebNKhE+XRA37Lckm2K1VaLYL9stmQJTZFDwiF
+	msk=
+X-Received: by 2002:a05:6830:854b:10b0:839:c62a:1661 with SMTP id 46e09a7af769-839c6398053mr1807548a34.7.1791900474853;
+        Tue, 13 Oct 2026 07:07:54 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3dfa1sm12646295a34.18.2026.10.13.07.07.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 07:07:54 -0700 (PDT)
+Date: Tue, 13 Oct 2026 09:07:46 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, tj@kernel.org,
+	neelx@suse.com, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
+ cpumask is empty
+Message-ID: <as47Mma7pksi_i9C@fedora-laptop>
+References: <20261012012905.267920-1-atomlin@atomlin.com>
+ <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+ <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+ <asxLLWOQQzolER0a@fedora-laptop>
+ <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
+ <as4j_Zk7zcNsBuo1@fedora-laptop>
+ <i4xh6jsm222rtn7pka57fuo3scelrlzywrvq5kor5sy2jjlrmq@tkqbbrzimfrd>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,34 +85,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <i4xh6jsm222rtn7pka57fuo3scelrlzywrvq5kor5sy2jjlrmq@tkqbbrzimfrd>
 
-On Fri, Oct 09, 2026 at 06:25:52PM -0500, David Lechner (TI) wrote:
-> Add support for using the AIN4/GPIO0 to AIN7/GPIO3 pins as GPIOs when
-> the gpio-controller property is present.
+On Tue, Oct 13, 2026 at 09:33:42AM -0400, Aaron Tomlin wrote:
+> On Tue, Oct 13, 2026 at 07:28:45AM -0500, Ming Lei wrote:
+> > No.
+> > 
+> > For example, schedule_work() is queue_work_on(WORK_CPU_UNBOUND, system_percpu_wq),
+> > a WQ_PERCPU workqueue, so every schedule_work() from an isolated CPU runs
+> > on that CPU. blk-mq isn't special here; this is the general tradeoff of
+> > submitting IO from an isolated CPU.
 > 
-> Pins that are already used for something else according to the
-> devicetree are excluded from the valid GPIO mask. This includes analog
-> inputs and excitation current outputs used by channels, REFP/REFN when
-> an external reference is used, the /FAULT and /DRDY interrupts and the
-> external clock input.
+> Fair point regarding schedule_work(). I concede that mechanically,
+> kblockd_workqueue is not unique in accepting WORK_CPU_UNBOUND on a per-CPU
+> workqueue. schedule_work() indeed directs WORK_CPU_UNBOUND to
+> system_percpu_wq, which resolves to raw_smp_processor_id() within
+> __queue_work().
+> 
+> However, the crucial distinction lies in the semantic contract and intent.
+> Callers of schedule_work() seek local (or best-effort local) execution;
+> there is neither an assumption nor a guarantee that schedule_work() avoids
+> isolated CPUs.
 
-...
+Then you admit the same generic problem, nothing different with blk-mq.
 
-> +	for (unsigned int i = 0; i < ADS112C14_NUM_GPIO; i++) {
-> +		data->gpio_names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s:GPIO%u",
-> +						     dev_name(&indio_dev->dev), i);
-> +		if (!data->gpio_names[i])
-> +			return -ENOMEM;
-> +	}
+> 
+> By contrast, blk-mq has an explicit architectural contract to avoid running
+> block kworkers on isolated CPUs. In commit a46c27026da1 ("blk-mq: don't
+> schedule block kworker on isolated CPUs"), the intent was to deliberately
+> excluded isolated CPUs from hctx->cpumask precisely because:
+> 
+>     "blk-mq kworker shouldn't be scheduled on isolated CPUs."
 
-I am sorry, I still didn't get what's wrong with the dash (technically
-speaking)? So, this may use devm_kasprintf_strarray().
+I am pretty sure that the pre-condition is that IO isn't submitted from isolated
+CPU. You can send a patch to make the point explicitly.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> 
+> Furthermore, blk_mq_run_hw_queue() explicitly honours this policy:
+> 
+>     if (async || !cpumask_test_cpu(raw_smp_processor_id(), hctx->cpumask)) {
+>         blk_mq_delay_run_hw_queue(hctx, 0);
+>         return;
+>     }
+> 
+> When executing on an isolated core (!cpumask_test_cpu(...)), blk-mq
+> deliberately refrains from inline dispatch specifically to offload the work
+> asynchronously via blk_mq_delay_run_hw_queue().
+> 
+> When all CPUs mapped to that hardware queue are isolated
+> (blk_mq_hctx_empty_cpumask(hctx)), commit a46c27026da1 added:
+> 
+>     /* Switch to unbound if no allowable CPUs in this hctx */
+>     if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+>         return WORK_CPU_UNBOUND;
+> 
+> The express intention of that change was to switch away from the isolated
+> CPUs. However, because kblockd_workqueue is WQ_PERCPU, returning
+> WORK_CPU_UNBOUND inadvertently resolves to raw_smp_processor_id(), queuing
+> the work right back onto the isolated CPU that blk-mq just went out of its
+> way to avoid.
+> 
+> That is why blk-mq is in an unusual position; it intended to avoid isolated
+> cores, but relied on WORK_CPU_UNBOUND to achieve that on a bound per-CPU
+> workqueue where that mechanism cannot take effect.
+> 
+> > You already disturb isolated CPUs by submitting IO via syscall in this
+> > case, so why does it matter here to dispatch on same isolated CPU one more
+> > time?
+> 
+> There is a fundamental difference between synchronous syscall execution and
+> asynchronous background kworker execution:
+> 
+>     1.  When an isolated user task issues a synchronous I/O request (e.g.
+>         via write(2)), execution occurs synchronously within the task's own
+>         context and CPU accounting. The application remains in control of
+>         when this overhead is incurred.
+> 
+>     2.  When dispatch must be deferred (e.g. BLK_STS_RESOURCE), blk-mq
+>         queues &hctx->run_work. A background kworker runs under
+>         SCHED_NORMAL. On isolated cores, workloads typically execute under
+>         real-time scheduling classes (SCHED_FIFO, SCHED_RR, SCHED_DEADLINE)
+>         or tight polling loops. A SCHED_FIFO task executing on that core
+>         will completely starve the local kworker. Consequently,
+>         blk_mq_run_work_fn() never runs, hardware dispatch stalls, pending
+>         completions cannot occur, and the I/O pipeline hangs indefinitely.
+> 
+>     3.  Even where starvation is avoided (e.g. via the EEVDF scheduler's
+>         Fair server or cooperative yielding), queuing bound work on a
+>         nohz_full isolated core forces the scheduler tick to re-activate,
+>         injecting unwanted jitter and defeating deterministic isolation
+>         guarantees.
+> 
+> Steering deferred queue dispatch to an online housekeeping CPU via
+> housekeeping_any_cpu(HK_TYPE_TIMER) sidesteps these pitfalls entirely.
+> The kworker executes promptly on a housekeeping core without priority
+> inversion, hardware dispatch proceeds unhindered, and the isolated CPU's
+> low-latency domain is preserved.
+
+Any user visible effect? Both are a piece of code running on isolated CPU,
+the choice is in application. If they want to run IO on isolated CPU, we
+do it in same way. Otherwise, we won't schedule work on isolated CPU for
+respecting the kernel interface.
 
 
+Thanks,
+Ming
