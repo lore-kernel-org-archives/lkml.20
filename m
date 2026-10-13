@@ -1,93 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9D54398F1;
-	Tue, 13 Oct 2026 14:52:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BF33C584E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903136; cv=none; b=uKFhiW1+Sf2McUztvw2hGMQQP2vZxtcWMeimEW1PZfKgi/tr2b315r+1+xs75tXclIA/EnT4Nz1bieAu65qOzlzBHc+cuhaT/Zqm6VssndY5nvGFJx4oWRVldOx3Ffod9wxF5rzGLoZV/m9ap2SEhwWaOKTxS8/xa6Pnb9ObuHE=
+	t=1791903140; cv=none; b=un8RYDcxMKKofdPDzioo8FTHL440aef7qxe+aOtJk0/em2A8Kdc5vyLQgWSVnFZkU3KyeEGo61oGeWtaUoRwJVSYee0aznWdogNuNpphqNy2xGOm8tqOfzxCXO8s7/tw0riQaSzvkGzLTOTd4eAX/8iIo4owDXgnoHmHDpOJjU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903136; c=relaxed/simple;
-	bh=/u7EvFooTlLqPtHcEbarIAc47xfRty4LAnLOQukkS+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xkg8lmBLQEjbJ/rbqlrCKMmIbZf6KaaYhW84icLNO4+A/pQvjNlloVUIcwjrgzDju+f2jxXf6l6H+HghHAe4p12aqTuJFBo2cpOlyCWFyNGKJPtdFlUlUzMU3HdVMfzvh2o+OojAgWw5uVbRt9SnXn+REQPiksqR9j2kMmhV5xE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PW5uHOaq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PW5uHOaq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF571F00893;
-	Tue, 13 Oct 2026 14:52:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791903135;
-	bh=hbNHU1fsqSqBvlLyyjwsZtUfV6L8Ck8u/6m0aKnYvpE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PW5uHOaqNfFerh7XvA6GccwyPteZU9o8lgMSsFD0lKj/nqtlSw1zXQTbIZhNUdDCJ
-	 N1zCLyQ413MsGAVS2S1kaxYHFVpSeF6Tuu+E1a3f2GtU/FNNRAUk3OSYJI/tvSPA9o
-	 rsO0sVofrj0M173tBhgjLW4CjMl9JlgjjDg4lYOjWPctqXbW023GwAKvDbO5NWe0va
-	 9xXUljmjyv5UgFrYRL8ngvS7Q9rshiXjMkfmL7gXl6sCmFJHAJDHd6rCuMJwVblU4J
-	 Q3uLgBBmO3SryQZ+vnsgvnJ9uFUD+aG0wmDy9gPthyD97CC0yAW+yzImho9jX3zI5c
-	 cgm4uHE/+ud9w==
-From: Sasha Levin <sashal@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Aaron Kling <webgeek1234@gmail.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 2/3] arm64: tegra: Add the fuse clock to the Tegra210 GPU
-Date: Tue, 13 Oct 2026 10:52:09 -0400
-Message-ID: <20261013145210.103565-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013145210.103565-1-sashal@kernel.org>
-References: <20261013145210.103565-1-sashal@kernel.org>
+	s=arc-20240116; t=1791903140; c=relaxed/simple;
+	bh=oUJ3RMDDNB2ivKAi05eH0inu4rlJLtX2H1bKRkH8Q9c=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=jTN/BlGq7x7pyyO89k4JHm7gp9IeivcDceDdDsmZ1ov/o3vAnMD+LJFlJBs47BRymm4l4VQ3l9tSbQeEBw1scaUNvqmQ6k19UE00PD3QXIk+zj9kvCAqn+3l6gdMNLW+KUmD0jjOmUwVCY0lKq8DSglMcGWxNVPm/4YyMt2oNrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c734afb8deso4320362b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:52:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791903138; x=1792507938;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oUJ3RMDDNB2ivKAi05eH0inu4rlJLtX2H1bKRkH8Q9c=;
+        b=HRdaWODJLjTFtFupw+nGPaSfdzBwLX+nrAAN3Igtvgc3mguYGRNLH+hrCmZdCEiqYQ
+         ZGrh9xE4LrIStKaig3yEgQ0cThZc/69/bVwOnuCxjgKM9ZMiYF/kRjNw6Bo5cvHTWImw
+         52nlMZ1srDcRf/q7M/BTtq6U3LT6grM0J5izADdeH6WSDXQ/CKePv4h0RiUqQTdRi8lT
+         1sjkJCn+4HusrsLjlr+q+r0p1bpR9dabp+MOWv3po47Z3Wv4Sprx0TyihkY+S+x0CsIq
+         oLhB6QKIn+x9x5tQW5pzgsmCd3PjWPOFV5gyIyEfIuxvVYjTQunP9zkoOimM5A/UM4Ba
+         P5mQ==
+X-Gm-Message-State: AFq9FYJVRDrmJEb0sJGgGcFHtCGTUuSnFI7wNiqcDSUu65/M5wMofwza
+	2KwZIF/oCPMy7rG03MRRmQaw9MGhcAtLoyak3QXd5z3mjpmzo/sLWqNEt4S2hSb/dZyPRaCRQbJ
+	qbv5q3+i4crSZI6h/yiZB5AjQL+ZmpPIGQNQuWWqUv+H+tjyYAA2HFBIE+94=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:130f:b0:4c1:5614:acab with SMTP id
+ 5614622812f47-50c532f8aa4mr11369362b6e.37.1791903138647; Tue, 13 Oct 2026
+ 07:52:18 -0700 (PDT)
+Date: Tue, 13 Oct 2026 07:52:18 -0700
+In-Reply-To: <688445fa.a00a0220.b12ec.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ace45a2.5f317f00.247b6.0009.GAE@google.com>
+Subject: Forwarded: #syz test
+From: syzbot <syzbot+baad8fdbfa4129f93db6@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The GM20B GPU on Tegra210 needs the fuse clock running while it is
-powered. Describe it so that the GPU driver can keep it enabled.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Assisted-by: LLM
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm64/boot/dts/nvidia/tegra210.dtsi | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+***
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210.dtsi b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
-index 5f5e5370d709..2e84b2bda314 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
-@@ -446,8 +446,9 @@ gpu@57000000 {
- 		interrupt-names = "stall", "nonstall";
- 		clocks = <&tegra_car TEGRA210_CLK_GPU>,
- 			 <&tegra_car TEGRA210_CLK_PLL_P_OUT5>,
--			 <&tegra_car TEGRA210_CLK_PLL_G_REF>;
--		clock-names = "gpu", "pwr", "ref";
-+			 <&tegra_car TEGRA210_CLK_PLL_G_REF>,
-+			 <&tegra_car TEGRA210_CLK_FUSE>;
-+		clock-names = "gpu", "pwr", "ref", "fuse";
- 		resets = <&tegra_car 184>;
- 		reset-names = "gpu";
- 
--- 
-2.43.0
+Subject: #syz test
+Author: spannme41@gmail.com
 
+#syz test
