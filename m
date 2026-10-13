@@ -1,189 +1,152 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92ABE47C0E6
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F2651CF74
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904541; cv=none; b=m4T6r/fvAMPAN7v5D7vfHyHy1a0InX2ylI0hiaKKLBmehxz0B3eBPwv5LqT9KGVo2rQc7J3swHlAggvRZoGkpKnwglwmFePSMNzbx2ZtxLP53c65oP0sRsfpqvBFKIzXsviw1lK0Y7kIUlkdxKOOP+37ORj4I0DyizSDIhUTE6E=
+	t=1791904543; cv=none; b=LVbzC9/aKL63lNdhoaC6wzh8ycPrX/37IWBoWtOgfkFiBQmHV47xXQauDgWiS/G5CGQaH/mo1khMTMvh+1CcZJ63Lv9zBGvUqLtCUAqUnImlKJm4b6Ssyt+mZjcsCaijAEwl7QHJqDsDH3MTUpkXeIhO6X9h0RgcA4aDRlr/jwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904541; c=relaxed/simple;
-	bh=NapyJptIydBk5J98yC370DZ0xJWQKRaBbCy2B6XYHdA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dta/wP/sqRFIPE8U7ZaPElKjmHfNPtUhLunFD4zUdvjvB3CrbPqRLQeyzrniUB0UTKfLS+1Ns+A8OxNPtbNx/ExYKTiNFdDMDNUcNs4JlixxBpdCYj2CS3tdqOrsMGzNeGE1YX2drr8vpyZndFOYxQ+eofT2SIB0BdFgBHwMs3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBR1jNe2; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791904543; c=relaxed/simple;
+	bh=R+x6yCbTEhg1iCA8UJulcGnJ+nBmRBOkJIUUtKTcu9A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qjG3IGJSvrZPNt0RZXwMZ2kHsrvc3I+iuwKGJ2jAoAILgWJDQo5t1ARgsoX0EAhTqp4Iw2iVyY6P8ad9kSl5Q+sBB/+qwiHOsAjBNzc2WrGJzYipN3YGmFaa2JQC8goaVm5BPilBhwYWOtyAXHU1KnA72Assw3aIgkckdp2B7NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=vHocCCxH; arc=none smtp.client-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBR1jNe2"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e901e114fdso8480415ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:15:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="vHocCCxH"
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1419d3416ceso4705662c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:15:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791904538; x=1792509338; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2rkGQo5r8xJBTb8dqMKiMW12xMK6T9au6oc+12YcxIA=;
-        b=dBR1jNe2zWAjzp5Bc6vkfwkBFJT/e/xEeahREKd0JJot7RWYmlid9VLytpa/O3jrwW
-         P5Ptck1EnD1e8U7lCGtukjez7EDLIMYgIVSGIfCbRg5zZe2bIeLv/0yrrfpgxzweip1s
-         R0otIA3SH4LNMPXlLyxZwpZ/F3T85Ssk0Z/3V6Yo3ESx6iTitPmD7zfxRduALS11tctY
-         jnNMq0SVZeOzUlal2D3yFrMeycUtMFX2h+/LR910q61QM97mZz5DeCK7fefFAI9fDhAJ
-         zXF2aP7VzDt1z1GZrVbQkZKDyFsublEff2OzotGs8KhTDvcYAoGJoPCQ1tXyIqCrmhb3
-         Ju3w==
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791904541; x=1792509341; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=twoJ2ZpEkiCJSMJ/PObObKqGrhHPIutiqyJXjtqIqUI=;
+        b=vHocCCxHqL4nYWc0Wp/pOiBxM5jb1B9v38sgNpb7gK+1BFs3izxeUqvVALMZNcQx0A
+         hKVN7ZW8JwZ+r1bU/wkIyXYAkMaXSNKicQwOgcozjXzr6Q2mywdBNdCSoU4QxdxPQtNO
+         wTv7hJ3DtuOtWqIuwFZiHxzUlou8SWeib4gJJ+/QIrCedEFfA6/i4uhnCjkRtJ6kSbj3
+         DQAHo7KGbAm3dWR8RPF7Q656GiCk+VkzbGruyNe6JJJ+5ODGEjvO3SiBxp7pw28XZkhs
+         g38IwHvT1+wU9WCyM348aWfDFpsADq1MjDzYW/juilGzwNuIhXX0DsRJqprdDgWvdb9n
+         Htvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904538; x=1792509338;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791904541; x=1792509341;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2rkGQo5r8xJBTb8dqMKiMW12xMK6T9au6oc+12YcxIA=;
-        b=YX5neb45Cv33nBPyqXQdjmRjIygalXvGPK3wsHWPA7WpyrUR6UhpNw+zYkMxCfOTHn
-         sm0cyBBgLGCipZRS1aUTvk+edyLxUTG1rGcuqRend2UORFfRKwZRa7n4E3ctQXykS7N/
-         Ue8xRblxPtIQuYqBodtfencHJXBq5Y0Kq6ApDlkDgq72Y1H4wEAAOxNMbzS7FgbrMVIm
-         ws826BUvo6vzjsBIzJPRB51b5vCPNYgXKL3uCxoirG7IYI03vG10zJTiAsOn+T2doQMS
-         XyZH5Ur869j7675JSlrILM8yri3Cc6daNlWgGdoafo39/7W1oCmVdcRqh7KaPz6YWJs1
-         SVLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxPLg5Vc3JSux1YaZV1+xwTwyxDR1mBWr3zy7ss4IRKff2jzok+hTbu+ieS6295cIi5xeXXdULzAXs//C8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHer+zBuN1ButW42ZGS20QYL1XNUu5nXak/yq7ELLeZ2unOdLQ
-	c41ALMN2FQYXjFFi+HaKGFEOt5gtkW08Qa2VKg2HU2Fm3H47h/uc+jrK
-X-Gm-Gg: AYBFou3oSmHk/SWg1klrYdPtWYnpjvNdibYhvbvT6+wtKDQThV/j78HO1CM00RtTRx5
-	IEklSirCvVdylOYiJ+ji8iIU8bgJvEPgZzu060ssft+KDNLB5kuVS01O2Ne+DA7D0pWrJF0p4iT
-	RsY5cMLfRFVFYePl7W9LPOdVPhl5eyYVEx9lzyyMIXpZ8eQmg7ouFKeZ+Y+8hxMpP/P2e/3x3nA
-	7d2rqW7qkfjWFEVkVPydDi++eOsegQCm9sGDA/YgEB+qREXJBuCQeMhcOaIsEn1hAdb3N6Ozb5W
-	mV2qOBEa77FT+1U3qYqQsd+JrHTyYSIg9ITwdbU2WU6i414ueDRgInzIEtUbH/2rvbcNE81iCNI
-	Lm+6Z54TksZB/rWJcHEU22nlNAYYHBBPl6YAbS5RihgMf9Q/7HTm7C9K6/a5mItlGlexSSkTCiV
-	GT+bbc33I7tZV9GlaWPigjdrTYdI8iQ/NlmAcqXEuyAgtASEhqqwRmu/yTBscWxyBxL8QTEwGl1
-	Q==
-X-Received: by 2002:a17:902:f54f:b0:2e6:1a1:ef63 with SMTP id d9443c01a7336-2e842cdb1e7mr112815415ad.44.1791904537778;
-        Tue, 13 Oct 2026 08:15:37 -0700 (PDT)
-Received: from localhost ([104.156.230.40])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8c4csm58698205ad.56.2026.10.13.08.15.36
+        bh=twoJ2ZpEkiCJSMJ/PObObKqGrhHPIutiqyJXjtqIqUI=;
+        b=BkrziAe2ZV9AX58y2jC4yjcKNSM0geYri2sh6a6uqYd/J/xstGx2AIKTyenGq+tcqx
+         +I1YgxFDY8uV5mw6wi2w4V97k1Iqp/fFPMJjt0h6RN8EZ2dlZWW4Tcj6DY+zscXNXa++
+         FdU/TNfPtTG0XjOBIzVgJDn9/DPVnQzvSMv9ZQn45MuxwvmCm8TKm+XHMmhe4dTBKQ+L
+         f0iQZ16/m5n5zGRNISFgiIAM8zD/ImEwx0EmsrCEhi9dXADFT6K4p+DTOGSgt3EgWqsd
+         pFUm6mixIO8OSt3mCOnX3xUaRlKJIgMXR/2cjQ3+Oey89RKt08Pd8eymQdRQfXua73Rx
+         ahCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBykFRAROq7z+SQNCUS3OwZ8BoJunKerglu1gquuLGL6jxmMjSc1YYhZy/C7AjbkaFSv2JpPWiQG8p3qang=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJelrKcLYOuHWMvHb6tQhe40B9qGk5dtByX1E9ktEUW30gtmjMx
+	tHfL6GL9xCjy+5Z4O21o/FDZodNYPwvBYJP/ykT0f5zodXf768HOm1MzDWXWfzibUDQ=
+X-Gm-Gg: AYBFou1ml+c1MbpFvpkppK6aE3lXNaELCuvcfTgFjwzC5qi2Lf6nRBAb1CYZhSJNaBP
+	cbg4cwRX0Cj5lyZSwP/+sTX2iRqDKl1zXMnQaWX+CsvCCtJF9RmDpsE4EyEolzNlMdBP0li7lg1
+	edkpRVJ2k1ndiKl7sj2unwqoSZjsKEsykm69HsP2XgIhjIFcZ0WgjyTLVREaPsRej2VLh5Md1lS
+	A4Bh2FRC48av8kjA2FWuVJiDOHVP6F2kgFmNbdMtrCsF+fdEFtmxcVoQJ0/rlmbSIU59gmHXSJm
+	Qa6oadJt2k9fKw37sQmlqiquMgrJMBkGXExz0Ibvi9IZ4Y3OYdhLFGZ91/8rhlLbyFybzMtH5tD
+	4h4JrUrA71CXtTd96uukD7/+D5fh/hpuuDXhZ0NOaYRNGrjlbMmACHG1gvdEJmkKhWRleB3FtrA
+	gkuuF8N15hGdSpe34+uxYwUJMsArMYfFC7/UK7eUCDs2/u1rFDiKy9vdQQHCXxsJi87i60HjXko
+	1pEj2Zpab/JWOI=
+X-Received: by 2002:a05:693c:88c6:20b0:359:89b9:5e09 with SMTP id 5a478bee46e88-35989b98cabmr11650319eec.36.1791904540781;
+        Tue, 13 Oct 2026 08:15:40 -0700 (PDT)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:49b8:4c98:b3d1:72aa])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358de54fe47sm30691751eec.31.2026.10.13.08.15.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:15:37 -0700 (PDT)
-Date: Tue, 13 Oct 2026 23:15:21 +0800
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
-Message-ID: <as5LCasyTFjTNL0x@zephyrus-g14.localdomain>
-References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
- <20261013115639.167433-2-marcus.yu.56@gmail.com>
- <20261013143639.000017b9@gmail.com>
+        Tue, 13 Oct 2026 08:15:39 -0700 (PDT)
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Tue, 13 Oct 2026 16:15:22 +0100
+Subject: [PATCH 1/4] Input: keyboard: use named initializers for
+ acpi_device_id
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013143639.000017b9@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-acpi-input-v1-1-53ad09ba82b7@thegoodpenguin.co.uk>
+References: <20261013-acpi-input-v1-0-53ad09ba82b7@thegoodpenguin.co.uk>
+In-Reply-To: <20261013-acpi-input-v1-0-53ad09ba82b7@thegoodpenguin.co.uk>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
+ Nick Dyer <nick@shmanahar.org>, Hans de Goede <hansg@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ chrome-platform@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791904532; l=2155;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=R+x6yCbTEhg1iCA8UJulcGnJ+nBmRBOkJIUUtKTcu9A=;
+ b=tynwRR07lflfN2Adn7AWs9XuSyVn8FGf9xgL5LPv0Nqj7tPig8HEwG2G+MdLPy08kruyo8R1k
+ Ax7l/6Y24inA8KyqOSBwWhD8NCxxp0pAXI+9hTrmm6cz4OOUXMThHXB
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-On Tue, Oct 13, 2026 at 02:36:39PM +0200, Joshua Crofts wrote:
-> On Tue, 13 Oct 2026 19:56:38 +0800
-> Chang Yu <marcus.yu.56@gmail.com> wrote:
-> 
-> > Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
-> > with i2c address of 0x39.
-> > 
-> > The GPIO pin is not described because the datasheet does not document
-> > how to use it for hardware synchronization at all. The GPIO register
-> > also has no mode-select bit to isolate the pin from the chip's
-> > internal control logic. Exposing it as a generic GPIO could result
-> > in kernel writes being overwritten by internal logic.
-> > 
-> > Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
-> > ---
-> > Changes in v6:
-> >  - Add a ref to leds/common.yaml for the LDR pin.
-> > 
-> > Changes in v5:
-> >  - Remove the GPIO pin.
-> > 
-> > Changes in v4:
-> >  - Fix led-max-microamp property name.
-> > 
-> > Changes in v3:
-> >  - Add missing include for gpio.
-> >  - Expand GPIO descrption to include hardware synchronization.
-> >  - Use led-max-microamp instead of led-current-microamp for the LDR pin.
-> > 
-> > Changes in v2:
-> >  - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
-> >  - Fix node name and unit address mismatch.
-> >  - Include MAINTAINERS changes.
-> > 
-> >  .../bindings/iio/light/ams,as7343.yaml        | 66 +++++++++++++++++++
-> >  MAINTAINERS                                   |  6 ++
-> >  2 files changed, 72 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> > new file mode 100644
-> > index 000000000000..7fb10b0d4843
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> > @@ -0,0 +1,66 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
-> > +
-> > +maintainers:
-> > +  - Chang Yu <marcus.yu.56@gmail.com>
-> > +
-> > +description: |
-> > +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
-> > +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - ams,as7343
-> > +
-> > +  reg:
-> > +    description:
-> > +      I2C address of the device (0x39).
-> > +    maxItems: 1
-> > +
-> > +  interrupts:
-> > +    description:
-> > +      Open drain output active low interrupt pin.
-> > +    maxItems: 1
-> > +
-> > +  vdd-supply: true
-> > +
-> > +  led-max-microamp:
-> > +    description:
-> > +      The driver current for the external LED connected to the LDR pin.
-> > +    minimum: 4000
-> > +    maximum: 258000
-> > +    multipleOf: 2000
-> > +    default: 12000
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - vdd-supply
-> > +
-> > +additionalProperties: false
-> 
-> Should be unevaluatedProperties as you're using $refs in the binding,
-> but Jonathan could tweak that when applying.
-> 
-There was a discussion about this back in v2 in which Conor was suggesting
-keeping additionalProperties: false if I recall. I don't know the exact
-pros vs cons so I'll defer to the experts here.
+Use a designated initializer for the acpi_device_id fields which makes the
+code more readable and consistent with how lists are initialized in the
+rest of the kernel code base. Also drop explicitly setting fields to 0
+where it is redundant.
+
+Unify the list terminator to have a single space between the brackets and
+no trailing comma.
+
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+---
+ drivers/input/keyboard/applespi.c        | 2 +-
+ drivers/input/keyboard/cros_ec_keyb.c    | 2 +-
+ drivers/input/keyboard/goldfish_events.c | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/input/keyboard/applespi.c b/drivers/input/keyboard/applespi.c
+index b5ff71cd5a70..3d04f54c04e2 100644
+--- a/drivers/input/keyboard/applespi.c
++++ b/drivers/input/keyboard/applespi.c
+@@ -1904,7 +1904,7 @@ static int applespi_resume(struct device *dev)
+ }
+ 
+ static const struct acpi_device_id applespi_acpi_match[] = {
+-	{ "APP000D", 0 },
++	{ .id = "APP000D" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, applespi_acpi_match);
+diff --git a/drivers/input/keyboard/cros_ec_keyb.c b/drivers/input/keyboard/cros_ec_keyb.c
+index 177e5d4a3382..bbcca6f265b6 100644
+--- a/drivers/input/keyboard/cros_ec_keyb.c
++++ b/drivers/input/keyboard/cros_ec_keyb.c
+@@ -911,7 +911,7 @@ static void cros_ec_keyb_remove(struct platform_device *pdev)
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id cros_ec_keyb_acpi_match[] = {
+-	{ "GOOG0007", true },
++	{ .id = "GOOG0007", .driver_data = true },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, cros_ec_keyb_acpi_match);
+diff --git a/drivers/input/keyboard/goldfish_events.c b/drivers/input/keyboard/goldfish_events.c
+index 57d435fc5c73..d0e387f22faf 100644
+--- a/drivers/input/keyboard/goldfish_events.c
++++ b/drivers/input/keyboard/goldfish_events.c
+@@ -179,8 +179,8 @@ MODULE_DEVICE_TABLE(of, goldfish_events_of_match);
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id goldfish_events_acpi_match[] = {
+-	{ "GFSH0002", 0 },
+-	{ },
++	{ .id = "GFSH0002" },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, goldfish_events_acpi_match);
+ #endif
+
+-- 
+2.53.0
+
