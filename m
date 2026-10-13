@@ -1,134 +1,66 @@
-Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35745534441
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3174718EF;
+	Tue, 13 Oct 2026 18:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914419; cv=none; b=EjKlyXUdcFFMjOqlAnnj+xQJtMbcly1ziEFDyroIDbfybeDEFNd4PLh6hf2AnQo8YjP9JETsXQs4QQdBuHXvxSDPmGLVPqmEha/QKD37UruaJL5l0QgX2X77KPfIGQV7A58kIYvx4eKbVA+OuM4mIfs9GCvXjpRIF8nuJO/azL0=
+	t=1791914556; cv=none; b=VYuGyQ3XxnLAwnrpMS5po8UHUeq29IDzsZ1nOiQ5WrixTbMoN/HjwHCif22omFFp/BwVTguBwMhsRSk5+27zc2f/a9nV1FqlmEhP8/vUew0KTzgJqaXWLwVtOl1cBGhgk1wAHScQh9mFNvYJI3PEmtJPpZgRoOdw65bPz96E4/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914419; c=relaxed/simple;
-	bh=OQsvWYYDKTSrCwcNRn+ysQf3ZrpF3PUXCq1k8vUtuag=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RkUYn5L3+vXz5fm0os7ahqFTwknctkNVS1daQwrgkhjd/LeNsDARdiSS1C/N/Hi+SlL13XFS4NFidaZrape59D0BI1v+mmT6QuNUg8UcP8pEwVydIplXePJ4a8OSpYoHfKvY7/esOr32SvgoIzFJCCqg4FMGQ8m8fb+y28G89qc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=f7NLMx/y; arc=none smtp.client-ip=91.218.175.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791914556; c=relaxed/simple;
+	bh=4mU1lwDPkzUgQW8b3yzTVOWvbnN10Uk/B5D2OZEUK7w=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=XZ1C8xIXyE6BalhFjFlebsUji7GlWCzKCnCjgb/hMyYiCg6izWbbKnHh3V+WAx9T9Nhf8TPZ95TgfK/ISnSiEXJIOlARadNoFSt2gNsaP/YmjGaFIU+2xzJKYVypKZhmmwXwVBQ90pcuRX185eULi49jSiUwpkyZzyVCntJiXxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnBzFRZj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="f7NLMx/y"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OQsvWYYDKTSrCwcNRn+ysQf3ZrpF3PUXCq1k8vUtuag=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791914416; v=1; x=1792519216;
- b=f7NLMx/y1tU6ZCK+KmiEHa5FcCelnrKwhGGLF7ILtzl6Kh0rnMMJvNhsBTO73L0u2FT7U6sQ
- eb1Yv5lbWAjCxWfY0O6cHrSzFH2Rt6m1dBoMbIAmeZ2x+RdlpFnTaRznKHEeZ6W82/Mhtu2MCj+
- z3dq1/a3dRyFRSEIZACr71SA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id fbbd4bc1189eff9c;
-	Tue, 13 Oct 2026 18:00:09 +0000
-X-Mizu-Trace-ID: fbbd4bc1189eff9c
-X-Migadu-Flow: FLOW_OUT
-From: wen.yang@linux.dev
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-Cc: Eric Dumazet <edumazet@google.com>,
-	Jesper Dangaard Brouer <brouer@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-rt-devel@list.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH 09/15] net: move skb_defer_free_flush() up
-Date: Wed, 14 Oct 2026 01:58:43 +0800
-Message-Id: <6a189b25935eb79e0894d9e14d529f297e147e69.1791912669.git.wen.yang@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1791912669.git.wen.yang@linux.dev>
-References: <cover.1791912669.git.wen.yang@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnBzFRZj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 713F01F000FF;
+	Tue, 13 Oct 2026 18:02:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791914554;
+	bh=MeeFNFJubG8PDj6YUUF1sN/pCxwclu2LdzrnSIGxX0o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WnBzFRZjmsBC607KBUWP8qW7aDvZBspvMh7ObL66WWuQx55u3HcdvyIVhufA0ENcM
+	 qXSGowXhE1ZU6UrVCJdVJw1Wf4xLzxlJkbmcXXy3Z2+KxXHWZf//8lbdUeCsW6XQ8P
+	 Vin5m3r7v9fD0weSI26xXyQMXV60Nyu/ij0JN29ACHcxfg22Ogno5BzUhiqlUG3Tt1
+	 RAZQninW4PdXffL0MDnnB/A930Sz2EKLhJcSzjpI2ol/QPp47pR/IuPBTyEiEiLImr
+	 iYt8gMedUW4Te3yTHOtSUWzEt4Zh1neGo4N7ALNhMjjcQExZSIXagxyGILzXEFEZVl
+	 MTZYxFAm8ZgRg==
+Date: Tue, 13 Oct 2026 08:02:33 -1000
+Message-ID: <3eda489898ebf7c848ce61760af745d9@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Yafang Shao <laoar.shao@gmail.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net, hannes@cmpxchg.org, mkoutny@suse.com, shakeel.butt@linux.dev, roman.gushchin@linux.dev, yu.c.chen@intel.com, zhao1.liu@intel.com, bpf@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 0/3] BPF-based per-cgroup NUMA balancing mode selection
+In-Reply-To: <CALOAHbBE_1ssK_26c-UY7N6WxhkVNpB6v9WACVGaOiWZ5zchCA@mail.gmail.com>
+References: <20261012120438.52849-1-laoar.shao@gmail.com> <d9a3367a1852158f60cc2e89677fb12f@kernel.org> <CALOAHbBE_1ssK_26c-UY7N6WxhkVNpB6v9WACVGaOiWZ5zchCA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+Hello,
 
-commit e6f50edfef046cf8ad541b4d5972bf38fdcdec39 upstream.
+On Tue, Oct 13, 2026 at 10:16:32AM +0800, Yafang Shao wrote:
+> Part of the consults are keyed on struct folio rather than struct
+> task_struct: the folio surface answers from the folio's memcg, the
+> owner's request, not the touching task's.
 
-We plan using skb_defer_free_flush() from napi_threaded_poll()
-in the following patch.
+Right, and I take the prctl() point too. It's stable uAPI and too rigid
+a bar for this.
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Wen Yang <wen.yang@linux.dev>
----
- net/core/dev.c | 42 +++++++++++++++++++++---------------------
- 1 file changed, 21 insertions(+), 21 deletions(-)
+My suggestion is to start smaller. The op doesn't compute anything
+from its inputs. It returns a fixed mode per cgroup, and you don't
+need struct_ops for that.
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index c8789241f4a7..df7df594e7f0 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -6742,6 +6742,27 @@ static int napi_thread_wait(struct napi_struct *napi)
- 	return -1;
- }
- 
-+static void skb_defer_free_flush(struct softnet_data *sd)
-+{
-+	struct sk_buff *skb, *next;
-+
-+	/* Paired with WRITE_ONCE() in skb_attempt_defer_free() */
-+	if (!READ_ONCE(sd->defer_list))
-+		return;
-+
-+	spin_lock(&sd->defer_lock);
-+	skb = sd->defer_list;
-+	sd->defer_list = NULL;
-+	sd->defer_count = 0;
-+	spin_unlock(&sd->defer_lock);
-+
-+	while (skb != NULL) {
-+		next = skb->next;
-+		napi_consume_skb(skb, 1);
-+		skb = next;
-+	}
-+}
-+
- static int napi_threaded_poll(void *data)
- {
- 	struct napi_struct *napi = data;
-@@ -6771,27 +6792,6 @@ static int napi_threaded_poll(void *data)
- 	return 0;
- }
- 
--static void skb_defer_free_flush(struct softnet_data *sd)
--{
--	struct sk_buff *skb, *next;
--
--	/* Paired with WRITE_ONCE() in skb_attempt_defer_free() */
--	if (!READ_ONCE(sd->defer_list))
--		return;
--
--	spin_lock(&sd->defer_lock);
--	skb = sd->defer_list;
--	sd->defer_list = NULL;
--	sd->defer_count = 0;
--	spin_unlock(&sd->defer_lock);
--
--	while (skb != NULL) {
--		next = skb->next;
--		napi_consume_skb(skb, 1);
--		skb = next;
--	}
--}
--
- static __latent_entropy void net_rx_action(struct softirq_action *h)
- {
- 	struct softnet_data *sd = this_cpu_ptr(&softnet_data);
+A kfunc that takes a cgid and a value would do: -1 for the system
+setting, otherwise the existing NUMA_BALANCING_* bitmask stored per
+cgroup. Task callsites read it through the task's cgroup, folio
+callsites through folio_memcg(). Same capability for the use case in
+the cover letter, a per-cgroup field and minimal plumbing, and the
+kfunc can grow later if a real decision-time policy shows up.
+
+Thanks.
+
 -- 
-2.25.1
-
+tejun
