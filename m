@@ -1,103 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35833C4563;
-	Tue, 13 Oct 2026 13:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999E534041B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898705; cv=none; b=e8hzsCILAM1993ekTeHgHh8hvwGZpxIzwt/ZkoyahiKQ/eRmA+/AUkIgu/w1zkaYamJnp4Guk0kpmjceyEf+EfPgDnH12dZ3pZXUEQe5yFnWP5izHmvZYMmkQOVtXO2lFaHxw9bd4b4r3j0kdaKfMHiTU40RFFvQ6VA9PiPFkxA=
+	t=1791898749; cv=none; b=mj7vygWD+OSEnrWG8jFQDDo4amyGqR0V6ZjRltoi8QQwjux3rBsoxNmCy8gNlyCMLBEJ8pmN4Qbr9tPkqWOpvwUpCcJ3yHfM+2aGEquILmN97gfhl5ZYvg/D1lAagzjHdG7TGIESPys622+Xjc7XpjJxftq1Q3zg1sYMo5betm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898705; c=relaxed/simple;
-	bh=tUiXAHtz6kxnoBp+T9q5BVQ2EWmnzpAUt14xDbdhVto=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D6OAp5iaVhEwrNP4G1xkwo9SWVwl9ezQZRwsa122FsiUv65mGGhxkUWQwiIwb2cfBW7vDtvBSAZfeD9Ezkpw7fR1agpVVUyIFSZhz7a+uFCy5ED85TJ/cQopdJgLtsptUn5KWG+TmaWhMxFgW989ma8Y9Kvq/N/SJSLHjBmUx4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NsGbOTwD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791898749; c=relaxed/simple;
+	bh=Xibk7ZZrjCGxgBVlBWwqQKg2NMbn7mu9H6vK4Z+5BTo=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=jJpdt7ipisNncIQ8KqQUwloEVy9itErmkdT0up1Utjv/PqMhWiui/Z06sex5Si6J7DWZcFUfWmAFGid3SpxRIgAWmeQCAygyHBbKedWgS2P0m4N9BvJKoS/t6YmJl45sR8FCQjfFxuV+3TmPTzq8BnCnuDcCcQBOIT1xbghMe2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=CVoXSJgX; arc=none smtp.client-ip=195.121.94.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NsGbOTwD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0681C1F000FF;
-	Tue, 13 Oct 2026 13:38:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791898704;
-	bh=rTKhDbGoNT1qV4eEbKkdObqZL4lLBYRPYzHeyeAJi98=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NsGbOTwDOshHXHAeiSmeaMz1mrgzNgpC463vv4XNPZ3YomHyYellrQ5EqVUja8uju
-	 TJD7en/EsOaamewDDq4ny5rf2ytkZoCuuI40ZSXD4TtN2JSiFu7kzIDANAgXzTMSZA
-	 +nRoiJyJXttUsI9nRoo4R2OyMUBKZUWOexI0gWPI=
-Date: Tue, 13 Oct 2026 15:38:29 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: wangyibo <szwyb123@gmail.com>
-Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Christian Gromm <christian.gromm@microchip.com>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Mustafa Karamanli <mbarancemkaramanli@gmail.com>
-Subject: Re: [PATCH] staging: most: fix typo in driver_usage.txt
-Message-ID: <2026101317-cherisher-crushed-e142@gregkh>
-References: <20261013030824.329969-1-szwyb123@gmail.com>
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="CVoXSJgX"
+X-KPN-MessageId: 4bdb38dd-c70b-11f1-8f57-005056992ed3
+Received: from mta.kpnmail.nl (unknown [10.31.161.190])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id 4bdb38dd-c70b-11f1-8f57-005056992ed3;
+	Tue, 13 Oct 2026 15:37:55 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id 4bda04b6-c70b-11f1-b419-0050569977a2;
+	Tue, 13 Oct 2026 15:37:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=Z8yTwcTSluWZJY5ZBYBe2zIFDAQkmy5cR5V2a6VW3TA=;
+	b=CVoXSJgXLqX6kd9Ud2YpuOm/03GVxPUP0DlmfwHP+o0BCtrXrn4+VylSPFBbLL8gUDelfLmNJqYRe
+	 NG/z6H3YJxOGr/JuB6Cu+2kIStGT4sVW3grllcYSM9TEFJUMtdPVkQnJB6BBFJFmH4OJl+02qACbBV
+	 S0BLsKcZKUC9iA3Rr02dC9kBGXEFtzRKRKRA8Tx/Z/pXXz8Q8JsKtMvlPF/9P70fStMfbrxaXdneTY
+	 42cPMkNfrqdqkpXCEZnAGmigaWc8/d01OD1gcqBSEjyEwgsd5PV+FeBzaZSvBkurgDW2Cjw0lkkmbF
+	 4EMUqZKqMcGHYlbcHFrnIYnBrwI2C0Q==
+X-KPN-MID: 33|l8c3Ci0Mj6eVISZaXjsuexY9LszYX48mW+j2ZaJc8WBwGL9Q6QRdrEG+3XTjKZl
+ beBCdHagj4obboENe5zUK7WNMrCF6kKy69RE0d6nutec=
+X-CMASSUN: 33|VJawk7Wq0cGHKte5wFwkW2BUeGyb6UDcdZXyz48i9vDi0IVhSUHJuHVBrQWOJlR
+ lFiFqaQ9rdLg8kf20nVedNw==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh05 (cpxoxapps-mh05.personalcloud.so.kpn.org [10.128.135.211])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id 4bc3b32e-c70b-11f1-8edd-00505699eff2;
+	Tue, 13 Oct 2026 15:37:55 +0200 (CEST)
+Date: Tue, 13 Oct 2026 15:37:55 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>,
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
+	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+	Brian Foster <bfoster@redhat.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
+	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Message-ID: <1955936841.795627.1791898675484@kpc.webmail.kpnmail.nl>
+In-Reply-To: <as4xMnT8a75pIw9v@gremlin>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+ <asz9AeFe3CutP73z@gremlin>
+ <20261013123132.GC4214@killaraus.ideasonboard.com>
+ <as4pAEnLd4H68W4W@gremlin>
+ <20261013131243.GM56180@killaraus.ideasonboard.com>
+ <as4xMnT8a75pIw9v@gremlin>
+Subject: Re: [PATCH] docs: remove Assisted-by references
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013030824.329969-1-szwyb123@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
-On Tue, Oct 13, 2026 at 11:08:24AM +0800, wangyibo wrote:
-> Fix a spelling mistake in the ALSA component description of the
-> application layer section: 'can by used' should be 'can be used'.
+
+> Op 13-10-2026 15:29 CEST schreef Lorenzo Stoakes (ARM) <ljs@kernel.org>:
 > 
-> The same typo was fixed for the networking and V4L2 sections by
-> commit b114ef1efc49 ("staging: most: fix typos in driver_usage.txt"),
-> but this third occurrence was missed.
-> 
-> Signed-off-by: wangyibo <szwyb123@gmail.com>
-> ---
->  drivers/staging/most/Documentation/driver_usage.txt | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/staging/most/Documentation/driver_usage.txt b/drivers/staging/most/Documentation/driver_usage.txt
-> index f1b6977f4543..32a2e5ecb48b 100644
-> --- a/drivers/staging/most/Documentation/driver_usage.txt
-> +++ b/drivers/staging/most/Documentation/driver_usage.txt
-> @@ -109,7 +109,7 @@ following components are available
->  	   driver via the V4L subsystem.
 >  
->  	4) Advanced Linux Sound Architecture (ALSA)
-> -	   Standard sound applications (e.g. aplay, arecord, audacity) can by
-> +	   Standard sound applications (e.g. aplay, arecord, audacity) can be
->  	   used to access the driver via the ALSA subsystem.
->  
->  
-> -- 
-> 2.25.1
+> On Tue, Oct 13, 2026 at 03:12:43PM +0200, Laurent Pinchart wrote:
+> > On Tue, Oct 13, 2026 at 01:59:33PM +0100, Lorenzo Stoakes (ARM) wrote:
 > 
+> > > Ignoring is the only workable long-term solution.
+> >
+> > How do you decide which patches to ignore ?
+> 
+> Anything that looks schloppy. ATM it's very easy to tell.
+> 
+> In future it will be newcomers who do anything but the most trivial work. Or
+> they will at least be super-deprioritised.
+> 
+> Yes there will be collateral damage, but it's that or no more open source (we're
+> not the only ones going through this!)
 > 
 
-Hi,
+This is the tragedy of things, and LLMs have made it much much worse. I am
+sure that in today's world Hardy would have missed Ramanujan. I find it
+distasteful and wish it were not like this, but it is better to spend energy
+on looking at what we can do, instead of wishing it wasn't so.
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- It looks like you did not use your "real" name for the patch on either
-  the Signed-off-by: line, or the From: line (both of which have to
-  match).  Please read the kernel file,
-  Documentation/process/submitting-patches.rst for how to do this
-  correctly.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
+> --
+> Cheers, Lorenzo
