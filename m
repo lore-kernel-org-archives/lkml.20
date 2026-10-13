@@ -1,115 +1,102 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3023837CD40;
-	Tue, 13 Oct 2026 03:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F368352032;
+	Tue, 13 Oct 2026 03:46:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791863026; cv=none; b=n6RfyP6VGltuLokULw54by9VhqrKi7shohhCJgVY0BIBuwAkPrdzU8xJEwGVr2BwGKFz6RztrZVgfWpX4u0bsWekbVPyzDdXF2S/NK4jGoyZ5P001EzfvbE8UhuEYBfB89n5skAyWVbB6qa0cTyTfegSRZKkC67nt7HXwzfnOCk=
+	t=1791863166; cv=none; b=AJBqqC4wI62N0yi43M4oCj8+MXgh+zpWLgR8nCXJmPBr8QICxda0DsRuIokpcjhSbj1dE3UUCEAiiPjxw51bxTGmGNVcOPeeS+YRMKzCDyg266AuZ5lTZe6JB5Gil93WF94AFkG4/F1BRA4crVA8x12QUnlkqePCzgxp+V0hu9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791863026; c=relaxed/simple;
-	bh=uQnjncTmPqU3/4q5ipNsE5ij3tw4fP/bOHA6qTI5RWo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L4s745FZ0Zz6VIYmtQD3XqY8RZst0yG8iqqENKQBDu8i0jsl3iIpFGL3YxgLx9rn8f4mNiWE1wjl0Kp0HNgyPxz5DT1LJ2qpzzK4LSyPX3ganwDdZ3odW/J4hSzzMd3dQW/hNVs/ar1Ms3OnyjN1Jz+O4elr8zY82AOrufML2zM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KNcn8jXj; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791863166; c=relaxed/simple;
+	bh=FGdKrLdjAm6HnyfgClKCSC4phcR13IbYQ7jKtBJyQUM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ngoh8sJFjYRdi+P9+XbnGohpDmtbooI8IE0MnA55g1q2/n5w3GJYXIh1k+UwTWiI+WMZm9PHk+nfyD8TcMyPwrLFL0BYVphe0S8LHmwsqzD4Jqhx8PE+N5cWfO07D7QcLUYoht2O+G42AF0o/HRKu3JW2bWRimAIprSudD+YzSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsylyM1n; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KNcn8jXj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=LI
-	5WAfJe3kqChS2SVbsIW5VyVng0CUQfoNUpoy+XrrU=; b=KNcn8jXjJv+MM9AMch
-	ZrwB9ses0383OzR5DNTmv56+TvO3ANQr22enP1SiHNzO7xoz3izEQocp5Oyl/5we
-	yTne7kaes9uX8LIVdQkncGqXEJEzkOZdWHTnIgJWa0U4UVFG0NlGeacISbKBfQno
-	hD7KOxoYrxXivyLqZrIoynmOQ=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD31y2rqM1q1HSsEA--.28685S2;
-	Tue, 13 Oct 2026 11:42:36 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH v3] cpufreq: schedutil: Serialize start against rate limit updates
-Date: Tue, 13 Oct 2026 12:42:35 +0900
-Message-ID: <20261013034235.2678177-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsylyM1n"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9B311C2BCFB;
+	Tue, 13 Oct 2026 03:46:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791863165;
+	bh=FGdKrLdjAm6HnyfgClKCSC4phcR13IbYQ7jKtBJyQUM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=HsylyM1ncl9vVVwKqURNQvY5bh1+8emEfvfTg53W4/QEUUwkFWdpnTCAcoecuyxsF
+	 yaAo/v7OcyTxIEwVjVlV1j/dBjccOUxAQ8Kci6xa3NBiNSx39/62o7w1G3dWEg9xRl
+	 ZCo16iU3qFL5wmqYdKG2eREmO0iBT4fTlPU0ugbqjy75MBOvrCy7UnfKYenD7w80g9
+	 o9N06fWw9G2BAYWK7ox4zK5WTwxW97lvHjXMwt5HXYjU8Rs9DTBYYEK0afrqnx2ycm
+	 qnnCBtRCU66Aissq3rG7/qNYFwMjLsBa0RJ0R8k/tc9HRFB+bZQKJbYcSx+oRxQaJZ
+	 j+LxmS8fHGzLQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79DB4CA9ECF;
+	Tue, 13 Oct 2026 03:46:05 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Date: Tue, 13 Oct 2026 06:46:04 +0300
+Subject: [PATCH v5 01/10] dt-bindings: vendor-prefixes: Add Securifi
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD31y2rqM1q1HSsEA--.28685S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr4xWw4xXry5AFW5ury8Krg_yoW8uFyUpF
-	ZI9FWFkr1qg3WUtrWa93Z7ZayrA3WDJ3yDKFyfCFsYywnxG34Fg34xKFnrXFyxCFn5ursa
-	y3WYva9rCw10yrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pROVysUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6Q1jwmrNqK10TAAA3f
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-cs75xx-v5-1-4e72aa383d39@gmail.com>
+References: <20261013-b4-cs75xx-v5-0-4e72aa383d39@gmail.com>
+In-Reply-To: <20261013-b4-cs75xx-v5-0-4e72aa383d39@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Drew Fustini <fustini@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Jason Li <jason.li@cortina-access.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791863163; l=944;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=xgnzc7i7xTN4fotWpFnT0TA7w9z1wGvQ4nKXVlJT/zc=;
+ b=0J93C2V2/t9qoScb0amWEWnoxmjN3YXgRkbAwOqB9cVPlU8jZkxL+xOY2i/0suRrrX4USK8Ft
+ 1xLuA6Bu8uWBQccF64JG+Qft6fLRy7wvMwnOZYdOgunvjcuHgrEPOVX
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-rate_limit_us_store() updates the tunable and freq_update_delay_ns under
-update_lock, but sugov_start() reads the tunable without it. Startup can
-therefore overwrite the new delay with one based on a stale value.
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Serialize the startup update with sysfs stores by taking update_lock in a
-schedutil-local wrapper.
+Securifi Ltd. makes the Almond series of touchscreen Wi-Fi routers.
+Add a vendor prefix for it.
 
-Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler utilization data")
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Signed-off-by: Hui Su <sh_def@163.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
-Changes in v3:
-- Use a schedutil-local scoped wrapper and clarify the locking comment.
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-v2: https://lore.kernel.org/lkml/20261007155820.3194105-1-sh_def@163.com/
----
- kernel/sched/cpufreq_schedutil.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5ddeae3a6..71e6f82a7 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1497,6 +1497,8 @@ patternProperties:
+     description: SDMC Technology Co., Ltd
+   "^seagate,.*":
+     description: Seagate Technology PLC
++  "^securifi,.*":
++    description: Securifi Ltd.
+   "^seeed,.*":
+     description: Seeed Technology Co., Ltd
+   "^seirobotics,.*":
 
-diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
-index 49ccd6f1c185..1d0878dad4b0 100644
---- a/kernel/sched/cpufreq_schedutil.c
-+++ b/kernel/sched/cpufreq_schedutil.c
-@@ -73,6 +73,16 @@ static void sugov_update_rate_limit_us(struct sugov_policy *sg_policy)
- 		(s64)sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
- }
- 
-+static void sugov_update_rate_limit_us_sync(struct sugov_policy *sg_policy)
-+{
-+	/*
-+	 * Serialize with rate_limit_us_store() to prevent this path from
-+	 * overwriting the new delay with one based on an old tunable value.
-+	 */
-+	guard(mutex)(&sg_policy->tunables->attr_set.update_lock);
-+	sugov_update_rate_limit_us(sg_policy);
-+}
-+
- static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64 time)
- {
- 	s64 delta_ns;
-@@ -861,7 +871,7 @@ static int sugov_start(struct cpufreq_policy *policy)
- 	void (*uu)(struct update_util_data *data, u64 time, unsigned int flags);
- 	unsigned int cpu;
- 
--	sugov_update_rate_limit_us(sg_policy);
-+	sugov_update_rate_limit_us_sync(sg_policy);
- 	sg_policy->last_freq_update_time	= 0;
- 	sg_policy->next_freq			= 0;
- 	sg_policy->work_in_progress		= false;
-
-base-commit: 63de2367f6d280904a9c5e5bbc7c75bb91c5b3d8
 -- 
-2.55.0
+2.53.0
+
 
