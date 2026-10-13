@@ -1,51 +1,50 @@
-Received: from e234-56.smtp-out.ap-northeast-1.amazonses.com (e234-56.smtp-out.ap-northeast-1.amazonses.com [23.251.234.56])
+Received: from e234-54.smtp-out.ap-northeast-1.amazonses.com (e234-54.smtp-out.ap-northeast-1.amazonses.com [23.251.234.54])
 	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCA1384242;
-	Tue, 13 Oct 2026 03:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1347A374E5A;
+	Tue, 13 Oct 2026 03:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861051; cv=none; b=K2amqxDKFsabb2k57udg0gen4+lnXwNT6V+5PFmiQ2Q19WEhoqn5KZ1j2KhbMl1Kxrlurw/RRAsqCrhe4J2lik7cAzM4SzJAl4QJpTYAvYgycfK03XxIgQBLLHUMtZ3GesC04gkyd7WTBo4BYELHlSFUHAE6g60LlwqazEJHM4w=
+	t=1791861063; cv=none; b=AY4VdUOhms6BHXkrUqp+pWMkVfY4Wxdnx/52B5bBh4D+dDHhcg+HeOvPm1FXOG/JEHrNQUq3EL+SqRb8X1xaWvfBOEbY97gLqSn+2kddl9ig+0AA6OmaoFdDGRMMSa/9T8ApZzr1HxHwTtB4WFwdhRThyj6KeqviwIEPdcRfU4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861051; c=relaxed/simple;
-	bh=MrXWUWSvo73LMkspDB6vAj/3AvDcGyYphjyUE198DMQ=;
+	s=arc-20240116; t=1791861063; c=relaxed/simple;
+	bh=ArAoV1s5bJIJTPhX+4wmFPiP94Fs/vkvWppAMKAYUR0=;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=a2eREZ8YN9izS61y7p6uyeqoU0qUqPyodD0Nv/xrKHqFL9fiWCOMyO+Pp6bwmeUV4O7qM7pSrydF76JVrx3mW2gbabyOv9JS1NCU4ICHhnHKdEqIbRDN3jfJwfNucDs38BbSoAOyjEXGXGcsqlCCMCQYpgLG9M6XEC5JEXdS7kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=S06JgioF; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=cvbCbXMW; arc=none smtp.client-ip=23.251.234.56
+	 MIME-Version:Content-Type; b=rwBPbzVml6E/6sXuVc7XRwPmmqk6kwT9/1FtXGO2PI/AdG8EdW3o+F2s6v0rNpS+QXVJId1tUgs21DX/d7USAOwgrBkz1c3kt22usep5aTQhbM7BoKJmjz3t2otdBABPvCIiR0EsQH0bhI0P0tTS64TWzKdiq+dPy/x9MMBqXBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=uEyH8/u/; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=slxNnCMM; arc=none smtp.client-ip=23.251.234.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="S06JgioF";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="cvbCbXMW"
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="uEyH8/u/";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="slxNnCMM"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1791861049;
+	d=fqwqf.xyz; t=1791861060;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=MrXWUWSvo73LMkspDB6vAj/3AvDcGyYphjyUE198DMQ=;
-	b=S06JgioFwkWQNpYZ8hfXjL+xjKDIcD3ThTHf8jdvKWLvgpzq1+mLmOlvWywd2fDZ
-	9J9XAktqxMs+st1wKc0K8O7zohWsY5pf7+Fm29LSsEhwaHhj9GceAcMkQF3rQqz4GnT
-	v7G5Gaymd4htnyU6u7B1xlYOkn3FcXHKzDDN+/qU=
+	bh=ArAoV1s5bJIJTPhX+4wmFPiP94Fs/vkvWppAMKAYUR0=;
+	b=uEyH8/u/0F4o4p3c/uJs7ZMo70IaPfnT/u/svK1ZpC6RLv1U38iwDn5Jongh/3z+
+	rH2F0gOYjLeH90FA4kATXQwuwL/UFeSrkYjD+kJcPzc++Lt2EXRRlmmXN9qWUSHIS7Z
+	9hsyJkg34+itwWYHoL+w2K8ctdAP9UIIlUIPcaWY=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791861049;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791861060;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=MrXWUWSvo73LMkspDB6vAj/3AvDcGyYphjyUE198DMQ=;
-	b=cvbCbXMWDgYIEhbk/LmWHmF9Fhw90B4/OzfOsS1yWWmfRGYry0hH7i62rSSnunMl
-	T7tO+1A1Q0ePX/cVFBozBNAGqfYI76MCh4hZ7g0DTN13SK3jMrlfUSWpc3GDtLllSyO
-	9oUSjtmrZDgj55KpCgA+aE9xmYCyjX0zlI91ZyA4=
+	bh=ArAoV1s5bJIJTPhX+4wmFPiP94Fs/vkvWppAMKAYUR0=;
+	b=slxNnCMMxVjkWClbEYx+oDQWEV3liCDqMfAQvpN2O3cs8nOfNehqcpsmmmCJhBNP
+	dmHD4gTRw/8LKJJ9PNHfbw7JkjU1xkGYn8ZJYGKBNJi8WWbnWltpig/HYCwHSidJ2Hg
+	HU93BkOeZDTTF5Wc3P6GdL8k9htOSDpA1TV34G7g=
 In-Reply-To:
- <010601a1332f1462-5fb80a97-80fa-4d49-bed0-555152da0354-000000@ap-northeast-1.amazonses.com>
+ <010601a1332f2c56-c2ec71f6-0f13-485c-b0e3-ee7a59980147-000000@ap-northeast-1.amazonses.com>
 References:
- <010601a1332f1462-5fb80a97-80fa-4d49-bed0-555152da0354-000000@ap-northeast-1.amazonses.com>
+ <010601a1332f2c56-c2ec71f6-0f13-485c-b0e3-ee7a59980147-000000@ap-northeast-1.amazonses.com>
 X-Mailer: git-send-email 2.53.0
 From: Jizhou Tong <fqwqf@fqwqf.xyz>
-To: sakari.ailus@linux.intel.com, benjamin.mugnier@foss.st.com, 
-	sylvain.petinot@foss.st.com
-Cc: mchehab@kernel.org, hverkuil@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] media: i2c: vd55g1: stop streaming after an
- exposure read error
-Message-ID: <010601a1333dc788-a5673ae3-b4b1-44a3-b10e-9698fc58f2ea-000000@ap-northeast-1.amazonses.com>
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] HID: spi-hid: propagate reset assertion errors
+ during initialization
+Message-ID: <010601a1333df3f1-5c4b90ef-5f51-47f5-8cf2-ddd81d007a09-000000@ap-northeast-1.amazonses.com>
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 03:10:49 +0000
+Date: Tue, 13 Oct 2026 03:11:00 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,64 +53,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.10.13-23.251.234.56
+X-SES-Outgoing: 2026.10.13-23.251.234.54
 
-Stream-off saves exposure settings for the next automatic-exposure cold
-start. If that read fails, its error is passed to the subsequent CCI
-operations, which skip accesses when the error accumulator is nonzero.
-The sensor stop command is therefore never issued, although the runtime
-PM reference is released.
+Stop initialization if the platform cannot assert reset. Powering up and
+enabling the IRQ after a failed reset assertion can leave the device in
+an unknown state while probe reports success.
 
-Log the exposure snapshot failure separately and=
- clear the accumulator
-before stopping the sensor. Treat the optional =
-snapshot failure as a
-warning: a successful stop returns success, while a =
-stop failure is
-returned to the caller. Completing stream shutdown takes =
-precedence
-over saving exposure settings for the next start.
+Return the platform error =
+unchanged from spi_hid_dev_init(). The
+non-panel-follower probe path =
+propagates it through spi_hid_core_probe()
+to the OF or ACPI frontend, =
+failing probe before power-up or IRQ
+enablement.
 
-Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
+Signed-off-by: Jizhou =
+Tong <fqwqf@fqwqf.xyz>
 ---
-Changes in v3: reference =
-the CCI error-accumulator API in the
-stream-off comment. No functional =
-changes from v2.
+ drivers/hid/spi-hid/spi-hid-core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Fault-injection harness:
-https://gist.github.=
-com/fQwQf/60bd12627e06b10a2fc159e545f85dae/7b21a7d3a1b676a0e4cdaba06168ede0=
-9a2949e3
-
- drivers/media/i2c/vd55g1.c | 8 ++++++++
- 1 file changed, 8 =
-insertions(+)
-
-diff --git a/drivers/media/i2c/vd55g1.c =
-b/drivers/media/i2c/vd55g1.c
-index 78e4aebfdd3b24b867ea4d077dc1b676c4a595da=
-..e78835f014e65bfc2b3dcc2aaee7b054fb5da390 100644
---- =
-a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -1190,6 +1190,14 @@ static int vd55g1_disable_streams(struct v4l2_subdev=
- *sd,
+diff --git =
+a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi-hid-core.c
+index 106e92b71ffb62c05a1c10b975759d71440b47b0..1aae7863e87de766444e7eae392=
+335e4b1daa85e 100644
+--- a/drivers/hid/spi-hid/spi-hid-core.c
++++ b/drivers/hid/spi-hid/spi-hid-core.c
+@@ -1524,7 +1524,11 @@ static int =
+spi_hid_dev_init(struct spi_hid *shid)
 =20
- 	/* Retrieve Expo cluster to enable coldstart of AE */
- 	ret =3D vd55g1_read_expo_cluster(sensor);
-+	if (ret)
-+		dev_warn(sensor->dev, "Failed to save exposure: %d\n", ret);
-+
-+	/*
-+	 * cci_write() skips writes when its error accumulator is set
-+	 * (see include/media/v4l2-cci.h). Start a separate stop sequence.
-+	 */
-+	ret =3D 0;
+ 	guard(mutex)(&shid->power_lock=
+);
 =20
- 	vd55g1_write(sensor, VD55G1_REG_STREAMING, =
-VD55G1_STREAMING_STOP_STREAM,
- 		     &ret);
+-	shid->ops->assert_reset(shid->ops);
++	error =3D =
+shid->ops->assert_reset(shid->ops);
++	if (error) {
++		dev_err(dev, "failed =
+to assert reset: %d\n", error);
++		return error;
++	}
+=20
+ 	shid->ops->sleep_minimal_reset_delay(shid->ops);
+=20
 --=20
 2.53.0
 
