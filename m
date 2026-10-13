@@ -1,115 +1,91 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDBF23E33D;
-	Tue, 13 Oct 2026 14:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCC53C13EE;
+	Tue, 13 Oct 2026 14:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900853; cv=none; b=WlNgAmbX/i/bWUR6cZICEopwMfTZY3UWc6d9/dvfbFqzEIGAQsQPMZu2RWQHYXQjGMsk4zRvuAhRXbckZAcQT1LYjgCIhwDpbdsXFVfkm+PTJoZwR+/TB+sGn1cR20zLpd2Znmf6+/UY/9HzjWn/aVTp90LMJzzPZRAl6qbFmGY=
+	t=1791900857; cv=none; b=sIHd0xOBD27xIQ/ubyX1oFqbcmbJgQ9lGk0HcCO7CKrtNAABOgMEb0f/hoTtOUSgu5ZPS6KRfAxSZxx3FEPQYqxlEN+T5TyiLb11COMRWclUXdKcz6ctFGtFL45kcvpnUBemkMbUBpvVX9eLF4YJNRCOQRYo+Mt1e5PQxyPMFTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900853; c=relaxed/simple;
-	bh=er6qEAwzMbZyPYWRjnq94p5k3hkmXXEyv9wll0K0biY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=ag6uTfYNN/uONXFhtDMgHKUGBvi4w9XAF0HEasCMnrePvcCBISA/Pdc45yZEwhHo8937bBmuczzUG16a6PpfVetvkyIPQj8TdFUN77Cs8tFt4qnV8G0hSBHursQVyP+2+Jd8mFxVop93HJWGptd40YwJ/TLVuZ5mU2DwiBTEj9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Dv5n4T6I; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791900857; c=relaxed/simple;
+	bh=1nBqBx8TqWNOjEvH/WES8I0pZ0SsukrRFsMlrNlO+Ms=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sMtTRi2Ms462D6crzHOiuw1vexuQIqKSGkeFwFwsFgbvarUrcSUvXgXIdRKrCaVRFrZtVsPWukCHC5CT3NA9i75vK4HWkOMipiKzmqJ4fWl2HFlqmxlyGWMq1FIjK9PWLKrRac7+31m1AU4xhXQvZaL2w0mnqL7ngNPg+K+2aWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbxRxs1A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Dv5n4T6I"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 519C01A11FE;
-	Tue, 13 Oct 2026 14:14:10 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 221D260362;
-	Tue, 13 Oct 2026 14:14:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6BB8011D71685;
-	Tue, 13 Oct 2026 16:14:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791900848; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=OjiJMLDJKi81kjlh54OdCXaD+MygB3PHImytKEytnC0=;
-	b=Dv5n4T6IWCKNxWspgLl0uTJNV3xIp2zyxj1rHUOrUbqtP3TGicwAume2juBwk4lBEgertj
-	v9HA0pDt4ERO5xBERN8EifTreRhJV4Ef7HLnMiKgYXMQKZJjGab/Dc0IbiK7uB0cFdSv1j
-	69/pFUOs6iW8/8grM7vI7K8kb/JFnX8Z0D6d2/RAI5oCWnyRTzyi7F6EscAjf28qp3GQIH
-	R+KN3FzvEbsNMIIdbhyiS3skASdTjyW9/5IkANfqTBlyaoXFbvG8iCJBwVLbdGnygiMGBv
-	JZv5x5OKWUsWPfG/J8kjxgWb4WSlDnGK0NesTxqEqTMF591HSUYYQfW4fO+vzg==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbxRxs1A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F43B1F000FF;
+	Tue, 13 Oct 2026 14:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791900856;
+	bh=CW169wUSC4LBvuyho8fVwdKuExUFBNWDbjmLeSCNwgI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LbxRxs1AAinc9+ONYGy0hCYZmHRwnAq+mpZ2dvj/atKvideGHT4GNS4LjpOOCb1PY
+	 DQDZSZq7nwkAsjVIRPbEulhT3q5f3BQHWF1Mlbv2Hn9UJnYkabBbj1lbiB6Mij4qPv
+	 S52ETu3w1ZRpYRdD4PrCye5js/C2Th4IHmpvkEJ1zWK6woZP67531pLtTjw1w3G8CR
+	 KWNx7D3DD74myz8YZjuF9dnhwiZZOePMXEywaiEsitDEnQkPN5tZkJREjL+KC06Yde
+	 hCOI33DUi4OXrhgXY44QTUI94zQpfts1GmN6V7js655L2nPn0RbG85+B/K37qCPM/v
+	 xiZ/0qkZ/TOXg==
+From: SJ Park <sj@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/497] 6.12.113-rc1 review
+Date: Tue, 13 Oct 2026 07:14:07 -0700
+Message-ID: <20261013141408.139524-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Oct 2026 16:14:02 +0200
-Message-Id: <DM3RU2UQ7SDU.2FKZGSSLSRT7B@bootlin.com>
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-Cc: "Geert Uytterhoeven" <geert@linux-m68k.org>, "Borislav Petkov"
- <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>,
- <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
- <linux-edac@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
- <herve.codina@bootlin.com>, "Wolfram Sang"
- <wsa+renesas@sang-engineering.com>
-Subject: Re: [PATCH v6 3/3] ARM: dts: renesas: r9a06g032: add EDAC node
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com>
- <20261013-paul-v7-3-rc1-edac-v6-3-2f1d6f2f74db@bootlin.com>
- <CAMuHMdV1nuiSAKbCrD0mWJX7rC4T=fxO5LC5ksRD440YSL_3cw@mail.gmail.com>
- <DM3OXV8IQQKR.36V79A742H52F@bootlin.com> <87se29wvv4.fsf@bootlin.com>
-In-Reply-To: <87se29wvv4.fsf@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Oct 13, 2026 at 3:52 PM CEST, Miquel Raynal wrote:
->
->>>> +               edac: memory-controller@4000d000 {
->>>> +                       compatible =3D "renesas,r9a06g032-ddr-edac", "=
-cdns,ddr-edac";
->>>> +                       reg =3D <0x4000d000 0x1000>;
->>>> +                       interrupts =3D <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH=
->;
->>>> +                       clocks =3D <&sysctrl R9A06G032_CLK_DDRC>, <&sy=
-sctrl R9A06G032_HCLK_DDRC>;
->>>> +                       clock-names =3D "ddrc", "pclk";
->>>> +                       status =3D "disabled";
->>>
->>> Should this node be enabled by default, or am I too naive?
->>
->> The bootloader will be responsible to initialize the DDR controller and =
-enable
->> ECC if specified. On this specific platform (r9a06g032), ECC is disabled=
- by
->> default.
->> Enabling the ECC require a specific property to be present under the con=
-troller
->> node in U-Boot. I think it make sense to keep it by default disabled.
->
-> Wouldn't enabling it also require some reserved memory regions? There
-> should be an impact on the amount of available RAM for the system.
+On Tue, 13 Oct 2026 13:32:47 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-Yes, if the memory controller is configured by the bootloader to enable ECC=
-.
-U-Boot would fixup the memory node to reflect the correct amount of availab=
-le
-RAM in this case.
+> This is the start of the stable review cycle for the 6.12.113 release.
+> There are 497 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.113-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 
-At the Linux level, it would not change anything if the EDAC driver is prob=
-ed by
-and ECC is disabled. It would just simply inform the EDAC core that SECDEC =
-is
-not supported and that's it.
+This rc kernel passes DAMON functionality test [1] on my test machine.
 
->
-> Thanks,
-> Miqu=C3=A8l
+Tested-by: SJ Park <sj@kernel.org>
 
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+[1] https://github.com/damonitor/damon-tests/tree/next/corr
 
+
+Thanks,
+SJ
+
+[...]
