@@ -1,164 +1,97 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5BF47F2D6;
-	Tue, 13 Oct 2026 03:35:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7998F47AF67
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791862530; cv=none; b=hQYWUFiF/f5WeNt/Nf6VHfrJ0k2VbqaiMBiuD9Iwb4LQDEXqmWJtrttFUhN4PFpMOxvjU99C6UZMQT1I5q6vrsKvH0LkYRlVmBmF7JfpsQb49CRypmHk2etzKl2T1bYcUEllfql5FYFHOBxaZRRytE8Ip0ijINqsRwG0wGHnXdU=
+	t=1791862771; cv=none; b=rWwBGeC1UMfoxIKvk/Ehh9QpdNaCYY+WLVSbHiA+0E8BbzrMnDC+mNDgS4W2hVFD+s+IMSk1wpeUWkENp3LLwj0DfyPYQdqfe20cpw38zd1YisTkeZYVChS2E5Mm4Pi4GUytpTwtxQD8nysXeKA4oC5u2qVNlV4bM5V2kbJA0IU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791862530; c=relaxed/simple;
-	bh=L0CmOLzhEVZkAmovFu48aO1CJgyIUR1itwOkk+4JmYY=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ZGKIA7uAvxHOtVgezTyUNvKk8TzYVMg3KVV9vcCsZ6cWEvhK33bOMQIw0v0KvcbCXWflAEyxF7lBJZm15MZHwOM7NP2QFGmRXhvCnftCLBD31YsXniKRCy2BjwP8FulXclVU/zHLqhhfkT6/5L5KWPxjrFpPH2sBPlRXGS57ub0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=pwIrqbvF; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791862771; c=relaxed/simple;
+	bh=esM51vvoOtPoOxHDlew44PUQimW1PdxLnHpqjPHteUo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Iz7ttDRcGglrfuEAMWurRG1+qRWc8QuW3jQjtRb2Hb0L159Ao7ddgoJShI61uVCtXL3eTSDqdndTabqViLGt0Q+p0Ppp92zmXS+agx67w2C+04knfEjYpmRsCzEzlWKC5ZKsGdGv964hXX/UZ+q+jV7UVsIIDOKmji9R8MhrZs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jvGO8oSY; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="pwIrqbvF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=73qcnm4bcva5xlomlaotnvt57i.protonmail2; t=1791862513;
-	x=1792121713; bh=czucG6/gefShWABLoyCoPYi9u23tHXRXHZure9Zps0s=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=pwIrqbvFvvpyHgIZy0JGwXhV1o2aZv9Eu3+UNh/loSrNWHxmeYJPaOtV3naDCWYSH
-	 Ujv0iGJglxg6ewdRgGS1/ZNziOfh4r0k10ePow+tj1B8cUOKTiFa6wKSUX55LgMBiK
-	 hJdY5NEr+O0rri5idTYOIG5SNOVRshe38tuTxMchg/2K99DQLO439enofPXLwIifJ9
-	 pPjPnv4TSH5B4nBhOshHidZr0UifK9QhIhfXg3dpiWy6i/t9cNWgAyZdb0byvCnkjs
-	 ZMYxnbcwHNuEj3dNlZZDf0IrLzgm7UdNo02rh5yMJUOwkD1mFLhowy+5mPI2LbWxqP
-	 jcPcxoKRHx6MQ==
-Date: Tue, 13 Oct 2026 03:35:09 +0000
-To: linux-bluetooth@vger.kernel.org
-From: Kyle Pepper <cochcoder@proton.me>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] Bluetooth: hci_event: negotiate LE Data Length after features
-Message-ID: <20261013033452.505349-1-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 7d3226e35ef6399e5338b354278e0e0364c6bf68
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jvGO8oSY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=Vm88sMH+Ec4eT1ejE6ncmgXkfG54r1I0vCceyymuSAc=;
+	b=jvGO8oSYJwe47vTi9StIxY/e0lTydnWBPkI+zz5z7614ERENKKpo67Qoc7fyOO
+	snbFDcZCxu0b7Rtpb++KdvqA0FFn716FpqcOm6dmdIEVnuf8wnjPSeG21cKjRxP4
+	TLjDsh0TTK1bIiMXu4/utPGZdzM2BeZirc/f2LuIMQj9w=
+Received: from czl-pc (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3fwTKp81qBFXLEQ--.23138S8;
+	Tue, 13 Oct 2026 11:38:54 +0800 (CST)
+From: Chi Zhiling <chizhiling@163.com>
+To: exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Yuezhang.Mo@sony.com,
+	dxdt@dev.snart.me,
+	linkinjeon@kernel.org,
+	sj1557.seo@samsung.com,
+	Chi Zhiling <chizhiling@kylinos.cn>
+Subject: [PATCH v2 6/7] exfat: complete direct writes synchronously when they update metadata
+Date: Tue, 13 Oct 2026 11:38:36 +0800
+Message-ID: <20261013033837.2748258-7-chizhiling@163.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261013033837.2748258-1-chizhiling@163.com>
+References: <20261013033837.2748258-1-chizhiling@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3fwTKp81qBFXLEQ--.23138S8
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KFyxGr47XF1rGFyUuw1rWFg_yoW8GryUpw
+	s8Ga1xuFWDJ342gr1kGF48Ww1F9a4fKFW7GFWj93W5Zr1qvw1SkF4UtFy5Ca13t397Xw1Y
+	gFsY9ryUJrnFkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2XdUUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+A4ryGrNp84CSwAA3S
 
-Request the controller transmit limits once both peers support DLE.
-Queue the connection with a reference so pending requests coalesce and
-connection deletion cancels them. Check the connection under the device
-lock before constructing the command.
+From: Chi Zhiling <chizhiling@kylinos.cn>
 
-Assisted-by: OpenCode:gpt-6.1-sol
-Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+The inode metadata for a direct write is updated in ->end_io(). That
+handler runs without holding i_rwsem. As a result, the i_size update can
+race with other operations.
+
+Whenever a write extends beyond the current valid_size — that is,
+whenever ->end_io() will have metadata to update — force synchronous
+completion. This guarantees that the i_size update happens under the
+inode lock.
+
+Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
 ---
-Submission review notes (not part of the commit message):
-The user reports that retaining the explicit DLE request enables the N8
-to disconnect automatically after audio stops, whereas removing it
-leaves the device connected. This idle-transition behavior is the
-reported reason for retaining the topic, not an in-stream timeout.
-October 9 no-DLE trials already negotiate TX 251 octets / 2120 us and
-stream successfully; startup throughput alone does not test idle behavior.
-The supplied captures do not establish a controlled post-STOP comparison
-or the causal mechanism. This patch requests data length during setup;
-it does not itself implement STOP or issue a disconnect command.
-The claimed ASHA idle-disconnect requirement needs a protocol citation.
-The corrected ownership implementation is included in the working kernel.
-Native disconnect/handle reuse, LL ordering and post-snapshot races remain
-unproved. Submit as an independent RFC with these limitations disclosed.
+ fs/exfat/file.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
- include/net/bluetooth/hci_sync.h |  1 +
- net/bluetooth/hci_event.c        | 10 +++++++
- net/bluetooth/hci_sync.c         | 47 ++++++++++++++++++++++++++++++++
- 3 files changed, 58 insertions(+)
-
-diff --git a/include/net/bluetooth/hci_sync.h b/include/net/bluetooth/hci_s=
-ync.h
-index 59cb918d1..5a37d3e50 100644
---- a/include/net/bluetooth/hci_sync.h
-+++ b/include/net/bluetooth/hci_sync.h
-@@ -194,3 +194,4 @@ int hci_le_read_remote_features(struct hci_conn *conn);
-=20
- int hci_acl_change_pkt_type(struct hci_conn *conn, u16 pkt_type);
- int hci_le_set_phy(struct hci_conn *conn, u8 tx_phys, u8 rx_phys);
-+int hci_le_set_data_len(struct hci_conn *conn);
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index c055d16cf..4035f2659 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -6846,6 +6846,16 @@ static void hci_le_remote_feat_complete_evt(struct h=
-ci_dev *hdev, void *data,
- =09=09=09=09conn->le_tx_def_phys &=3D ~HCI_LE_SET_PHY_CODED;
- =09=09=09=09conn->le_rx_def_phys &=3D ~HCI_LE_SET_PHY_CODED;
- =09=09=09}
+diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+index 6209a991a118..efcfeab750c0 100644
+--- a/fs/exfat/file.c
++++ b/fs/exfat/file.c
+@@ -840,10 +840,16 @@ static ssize_t exfat_fallback_buffered_write(struct kiocb *iocb,
+ 
+ static ssize_t exfat_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ {
++	struct inode *inode = file_inode(iocb->ki_filp);
++	loff_t end = iocb->ki_pos + iov_iter_count(from);
++	unsigned int dio_flags = 0;
+ 	ssize_t ret;
+ 
++	if (end > exfat_get_valid_size(EXFAT_I(inode)))
++		dio_flags |= IOMAP_DIO_FORCE_WAIT;
 +
-+=09=09=09/* Request the controller maximum when both sides support
-+=09=09=09 * LL Data Length Extension. The Link Layer negotiates
-+=09=09=09 * the remote limits (Core v5.4, Vol 6, Part B,
-+=09=09=09 * Sec. 4.5.10).
-+=09=09=09 */
-+=09=09=09if ((hdev->le_features[0] & HCI_LE_DATA_LEN_EXT) &&
-+=09=09=09    (conn->le_features[0] & HCI_LE_DATA_LEN_EXT) &&
-+=09=09=09    hdev->le_max_tx_len > 0x001b)
-+=09=09=09=09hci_le_set_data_len(conn);
- =09=09}
-=20
- =09=09if (conn->state =3D=3D BT_CONFIG) {
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index efbd2e538..20c690007 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -8123,3 +8123,50 @@ int hci_le_set_phy(struct hci_conn *conn, u8 tx_phys=
-, u8 rx_phys)
-=20
- =09return (err =3D=3D -EEXIST) ? 0 : err;
- }
-+
-+static void le_set_data_len_complete(struct hci_dev *hdev, void *data,
-+=09=09=09=09     int err)
-+{
-+=09struct hci_conn *conn =3D data;
-+
-+=09bt_dev_dbg(hdev, "err %d", err);
-+
-+=09hci_conn_put(conn);
-+}
-+
-+static int hci_le_set_data_len_sync(struct hci_dev *hdev, void *data)
-+{
-+=09struct hci_conn *conn =3D data;
-+=09struct hci_cp_le_set_data_len cp;
-+
-+=09hci_dev_lock(hdev);
-+
-+=09if (!hci_conn_valid(hdev, conn) || conn->type !=3D LE_LINK ||
-+=09    (conn->state !=3D BT_CONNECTED && conn->state !=3D BT_CONFIG)) {
-+=09=09hci_dev_unlock(hdev);
-+=09=09return -ECANCELED;
-+=09}
-+
-+=09cp.handle =3D cpu_to_le16(conn->handle);
-+=09cp.tx_len =3D cpu_to_le16(hdev->le_max_tx_len);
-+=09cp.tx_time =3D cpu_to_le16(hdev->le_max_tx_time);
-+
-+=09hci_dev_unlock(hdev);
-+
-+=09return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_DATA_LEN,
-+=09=09=09=09     sizeof(cp), &cp, HCI_CMD_TIMEOUT);
-+}
-+
-+int hci_le_set_data_len(struct hci_conn *conn)
-+{
-+=09struct hci_dev *hdev =3D conn->hdev;
-+=09int err;
-+
-+=09err =3D hci_cmd_sync_queue_once(hdev, hci_le_set_data_len_sync,
-+=09=09=09=09      hci_conn_get(conn),
-+=09=09=09=09      le_set_data_len_complete);
-+=09if (err)
-+=09=09hci_conn_put(conn);
-+
-+=09return (err =3D=3D -EEXIST) ? 0 : err;
-+}
-
-base-commit: 964430c038967fd06643e866f68115664e1a1bd1
+ 	ret = iomap_dio_rw(iocb, from, &exfat_write_iomap_ops,
+-			&exfat_write_dio_ops, 0, NULL, 0);
++			&exfat_write_dio_ops, dio_flags, NULL, 0);
+ 	if (ret == -ENOTBLK)
+ 		ret = 0;
+ 	else if (ret < 0)
+-- 
+2.53.0
 
