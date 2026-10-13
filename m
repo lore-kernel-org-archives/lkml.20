@@ -1,267 +1,211 @@
-Received: from out198-2.us.a.mail.aliyun.com (out198-2.us.a.mail.aliyun.com [47.90.198.2])
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85E239BFED;
-	Tue, 13 Oct 2026 01:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B53A3955FE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:12:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791853912; cv=none; b=AKSXZ62Aa3gJVe+ReH520Zfx1Spyc0fHKxQ9jviZM2DwSD96y6oWvd80Uiz5uoovHUrOqPGJDx6tNknj2T0CRYKLzCx9R6RHu4cqE5sJ630hC+cV61561ZSsRW/t5zWRQEikuYpJpLLhkA7aj0Sxt2YJv3KDBMxjI4652VKmZuY=
+	t=1791853975; cv=none; b=cFDSuV1gOIOFDph1eilWrWDGf1kRO5KuwEzgFiazchWa4JLohICovB2TUZx8pm0NFPSm6+KjW7WS3jUhBm2q684+ejtiR4HvhVji9VVdyXhLobVYVKJP1zoRYq1ND7JY3W4lTTF1u4zn6Rdaw5DswWY4wv4EzWFsq9q7gXJkaps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791853912; c=relaxed/simple;
-	bh=nZziVeaGtlJ0chm+Rf0wBq8MI+keUipCA9M0Qh8Z+CQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Aq8nCKjaYB1aLYTC0hVnAqQiLjKBvscfgYAavK6iC2wkUeaMWn0l4pFI+km9w2FbB8GJNMbvBzYYIDL8UZK2L8G2HoRPinag6KehpASRKJIti9qDEOs8hXMzC4FaEFXRigzWR5YprMR6czBRpeYyKUeofHmNgBRvHSoMjRTJ19U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=47.90.198.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436316|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0208765-0.00028719-0.978836;FP=13177460201897074192|1|1|9|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jatt1Iu_1791853890;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jatt1Iu_1791853890 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 13 Oct 2026 09:11:30 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mmyangfl@gmail.com,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: [PATCH net-next v14 4/5] net: dsa: tag_yt922x: add support for Motorcomm YT922x tags
-Date: Tue, 13 Oct 2026 09:11:21 +0800
-Message-Id: <20261013011122.1889766-5-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261013011122.1889766-1-kyle.switch@motor-comm.com>
-References: <20261013011122.1889766-1-kyle.switch@motor-comm.com>
+	s=arc-20240116; t=1791853975; c=relaxed/simple;
+	bh=l7fiPKsghZrIWz5gMulZPmZu6yv9bNbFXmB9XnNZjVA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AoQrQMGbbNJv+lCRo31eH6kUeRXA9ufT8X5KNQqm9zjZ2IqjIYSA8yHE8ewI3WTSeL9p2CVX19GYosN4rquOyNEb58rQ7AQKcSUvmGWnymmA9fHa1VZJCu/99Btcwmg9IAQDtJdrqq2O3igN8bfJexDk54lxAWTUVrVsGW7ptdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=b3fNiPCq; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="b3fNiPCq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1791853513;
+	bh=l7fiPKsghZrIWz5gMulZPmZu6yv9bNbFXmB9XnNZjVA=;
+	h=From:Date:Subject:To:Cc:From;
+	b=b3fNiPCqQ/wP/xpioJ3lsUELU+ifyfkcjPLNvCUB6Zlisk1PFHVMuGfz6JZ5za4Uk
+	 uvwv3SCqVWdQFRfoiDTJw8oGN/o1kmhgfH/6MJfKAiLx2Xowry/WoNFY2UfY42LtWT
+	 uWQpYsTcfNDNlV4mCg+2pClGQ2cjVm8FBfr3SRWQ=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 94036401B0;
+	Mon, 12 Oct 2026 18:05:12 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Mon, 12 Oct 2026 18:04:58 -0700
+Subject: [PATCH v6] sched/fair: Preserve wake-affine CPU for non-SMT
+ reciprocal sync wakeups
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-b4-sched-sync-wakeup-v6-1-aa70cde14463@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIALmDzWoC/4XOzU7DMAzA8VeZciYoTpw05cR7IA75cNoIqZ2S0
+ TFNfXeyHWCoqjj+LflnX1mlkqmyl8OVFVpyzfPUwjwdWBjdNBDPsTWTQhrRSeAeeQ0jRV4vU+B
+ n90GfRy4wogiePETH2uqxUMpfd/btvfWY62kul/uVBW7Tf8AFOPAYekxgkWSXXgeaTuf5eS4Du
+ 4mLfFTkjiKbkgAMaiO8RL9R1KPS7SiqKb0ICS1EH63eKPirWKF2FGyKlkop3yjf9RtF/ygghN1
+ RdFPApT45j7Y3f39Z1/UbH89DndEBAAA=
+X-Change-ID: 20260721-b4-sched-sync-wakeup-04d40cbeb1da
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Christian Loehle <christian.loehle@arm.com>, 
+ Madadi Vineeth Reddy <vineethr@linux.ibm.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: "Christoph Lameter (Ampere)" <cl@gentwo.org>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ linux-kernel@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791853512; l=4825;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=l7fiPKsghZrIWz5gMulZPmZu6yv9bNbFXmB9XnNZjVA=;
+ b=jD8BX+ExUYSZ74s3AKUW9OSmoZ9dRf3vQ/uHM9oFc2Vn1ES2fsJ+w9VqCQGc5LmuB5lNyuBDr
+ 9HE17mH+QDGBd6MELcjnvb6XFUnh7/k4+GMfrMfo1HPal672JYDdQP+
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-Add DSA tag support for Motorcomm YT922x switches.  YT922x uses the
-same ETH_P_YT921X EtherType and the same 8-byte tag length as YT921x,
-but the tag layout differs, so a separate tag driver is needed instead
-of extending tag_yt921x.c.
+For WF_SYNC wakeups, wake_affine() may select or retain the waker CPU,
+but select_idle_sibling() can subsequently move the wakee to another
+idle CPU.
 
-The new driver documents both the to-CPU and from-CPU tag layouts.
+Pipe-style ping-pong workloads exercise the following handoff:
 
-Update the co-maintainer for the Motorcomm DSA driver.
+  A wakes B
+  B wakes A
+  A wakes B
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+When A wakes B for the second time, B last woke A. Check
+B.last_wakee == A before record_wakee(B) records A.last_wakee == B.
+
+Within the existing non-wide wake-affine path, on non-SMT systems, keep
+this reciprocal WF_SYNC wakee on the waker CPU when wake-affine selected
+or retained it and the waker has no other runnable task. This preserves
+the direct handoff instead of searching for another idle CPU.
+
+Record last_wakee history only in task context. In IRQ or softirq
+context, current is the interrupted task rather than the logical waker.
+
+This does not introduce a generic WF_SYNC placement rule. SMT systems
+continue through select_idle_sibling(), which can choose an idle sibling
+or idle core. On asymmetric-capacity systems, continue to require that
+the wakee fits on the waker CPU.
+
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 ---
- MAINTAINERS          |   2 +
- include/net/dsa.h    |   2 +
- net/dsa/Kconfig      |   6 +++
- net/dsa/Makefile     |   1 +
- net/dsa/tag_yt922x.c | 122 +++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 133 insertions(+)
- create mode 100644 net/dsa/tag_yt922x.c
+Testing was performed on an 80-core non-SMT Ampere Altra system.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 509b35b5a0e7..434cd217011b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18434,11 +18434,13 @@ F:	drivers/net/phy/motorcomm.c
+  perf bench sched pipe -l 1000000, 30 runs:
+
+    tip/sched/core (4a3b51aab6e2 baseline):
+
+    default:
+      3.704 -> 2.267 usec/op mean,   about 38.8% improvement
+      3.709 -> 2.264 usec/op median, about 39.0% improvement
+
+    taskset -c 78,79:
+      3.621 -> 2.255 usec/op mean,   about 37.7% improvement
+      3.558 -> 2.261 usec/op median, about 36.5% improvement
+
+Changes in v6:
+  - Guard record_wakee() with in_task() so IRQ/softirq wakeups do not
+    record the interrupted task as the waker.
+  - Capture p->last_wakee == current before record_wakee() records p as
+    current's last wakee.
+  - Make the reciprocal handoff and non-SMT stacking rationale explicit
+    in the code.
+
+Link to v5: https://lore.kernel.org/r/20261008-b4-sched-sync-wakeup-v5-1-1af9fab48965@gentwo.org
+---
+ kernel/sched/fair.c | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 57360f5cdde4fa66f4cba2cbb53d4e322134504e..3d0d1a68ca84bebfed77a89c3c364a9562c75032 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -8513,6 +8513,10 @@ static unsigned long capacity_of(int cpu)
  
- MOTORCOMM YT921X ETHERNET SWITCH DRIVER
- M:	David Yang <mmyangfl@gmail.com>
-+M:	Kyle Switch <kyle.switch@motor-comm.com>
- L:	netdev@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml
- F:	drivers/net/dsa/motorcomm/
- F:	net/dsa/tag_yt921x.c
-+F:	net/dsa/tag_yt922x.c
+ static void record_wakee(struct task_struct *p)
+ {
++	/* IRQ/softirq current is the interrupted task, not the logical waker. */
++	if (!in_task())
++		return;
++
+ 	/*
+ 	 * Only decay a single time; tasks that have less then 1 wakeup per
+ 	 * jiffy will not have built up many flips.
+@@ -9167,6 +9171,22 @@ static inline bool asym_fits_cpu(unsigned long util,
+ 	return true;
+ }
  
- MOXA SMARTIO/INDUSTIO/INTELLIO SERIAL CARD
- M:	Jiri Slaby <jirislaby@kernel.org>
-diff --git a/include/net/dsa.h b/include/net/dsa.h
-index 5d12191b6f6f..5a173fe2bb87 100644
---- a/include/net/dsa.h
-+++ b/include/net/dsa.h
-@@ -62,6 +62,7 @@ struct tc_action;
- #define DSA_TAG_PROTO_KSZ8463_VALUE		34
- #define DSA_TAG_PROTO_MT7628_VALUE		35
- #define DSA_TAG_PROTO_KS8995_VALUE		36
-+#define DSA_TAG_PROTO_YT922X_VALUE		37
- 
- enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
-@@ -101,6 +102,7 @@ enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_KSZ8463		= DSA_TAG_PROTO_KSZ8463_VALUE,
- 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
- 	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
-+	DSA_TAG_PROTO_YT922X		= DSA_TAG_PROTO_YT922X_VALUE,
- };
- 
- struct dsa_switch;
-diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
-index 4f44bf3ede23..06d8d6526054 100644
---- a/net/dsa/Kconfig
-+++ b/net/dsa/Kconfig
-@@ -233,4 +233,10 @@ config NET_DSA_TAG_YT921X
- 	  Say Y or M if you want to enable support for tagging frames for
- 	  Motorcomm YT921x switches.
- 
-+config NET_DSA_TAG_YT922X
-+	tristate "Tag driver for Motorcomm YT922x switches"
-+	help
-+	  Say Y or M if you want to enable support for tagging frames for
-+	  Motorcomm YT922x switches.
-+
- endif
-diff --git a/net/dsa/Makefile b/net/dsa/Makefile
-index 1f9cc30e9988..0ef6dfce3b92 100644
---- a/net/dsa/Makefile
-+++ b/net/dsa/Makefile
-@@ -45,6 +45,7 @@ obj-$(CONFIG_NET_DSA_TAG_TRAILER) += tag_trailer.o
- obj-$(CONFIG_NET_DSA_TAG_VSC73XX_8021Q) += tag_vsc73xx_8021q.o
- obj-$(CONFIG_NET_DSA_TAG_XRS700X) += tag_xrs700x.o
- obj-$(CONFIG_NET_DSA_TAG_YT921X) += tag_yt921x.o
-+obj-$(CONFIG_NET_DSA_TAG_YT922X) += tag_yt922x.o
- 
- # for tracing framework to find trace.h
- CFLAGS_trace.o := -I$(src)
-diff --git a/net/dsa/tag_yt922x.c b/net/dsa/tag_yt922x.c
-new file mode 100644
-index 000000000000..b6146a9af98b
---- /dev/null
-+++ b/net/dsa/tag_yt922x.c
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Motorcomm YT922x Switch Extended CPU Port Tagging
-+ *
-+ * Copyright (c) 2026 Kyle switch <kyle.switch@motor-comm.com>
-+ *
-+ */
-+
-+#include <linux/etherdevice.h>
-+
-+#include "tag.h"
-+
-+#define YT922X_TAG_LEN 8
-+
-+/*
-+ * To define the from cpu tag format 8 bytes.
-+ *
-+ * To-CPU (RX) tag format, 8 bytes:
-+ *
-+ *   tag[0]: TPID (default: 0x9988)
-+ *   tag[1]: VID lookup
-+ *   tag[2]: bit 5:2  - RX source port
-+ *
-+ * From-CPU (TX) tag format, 8 bytes:
-+ *
-+ *   tag[0]: TPID (default: 0x9988)
-+ *   tag[1]: bit 8:0 - Dst port mask
-+ *   tag[2]: bit 15  - Dst port 0
-+ *
-+ */
-+#define YT922X_TAG_NAME		"yt922x"
-+#define YT922X_TAG_PORTMASK_0	BIT(15)
-+#define YT922X_TAG_PORTMASK_M	GENMASK(8, 0)
-+#define  YT922X_TAG_PORTS(x)		FIELD_PREP(YT922X_TAG_PORTMASK_M, (x))
-+#define YT922X_TAG_FORCE_DST	BIT(9)
-+#define YT922X_TAG_PRIO_M	GENMASK(12, 10)
-+#define YT922X_TAG_PRIO_EN	BIT(13)
-+#define  YT922X_TAG_PRIO(x)	(FIELD_PREP(YT922X_TAG_PRIO_M, (x)) | YT922X_TAG_PRIO_EN)
-+#define YT922X_TAG_RX_PORT_M	GENMASK(5, 2)
-+
-+static struct sk_buff *
-+yt922x_tag_xmit(struct sk_buff *skb, struct net_device *netdev)
++static bool can_stack_on_waker(struct task_struct *p, int cpu)
 +{
-+	unsigned long ports;
-+	__be16 *tag;
-+	u16 ctrl;
++	struct rq *rq = cpu_rq(cpu);
 +
-+	skb_push(skb, YT922X_TAG_LEN);
-+	dsa_alloc_etype_header(skb, YT922X_TAG_LEN);
-+	tag = dsa_etype_header_pos_tx(skb);
++	if ((rq->nr_running - cfs_h_nr_delayed(rq)) != 1)
++		return false;
 +
-+	tag[0] = htons(ETH_P_YT921X);
-+	ports = dsa_xmit_port_mask(skb, netdev);
-+	/*To fill in the case where the port index is not 0 */
-+	ctrl = YT922X_TAG_PRIO(skb->priority) | YT922X_TAG_FORCE_DST |
-+	       YT922X_TAG_PORTS(ports >> 1);
-+	tag[1] = htons(ctrl);
-+	if (ports & BIT(0)) {
-+		/* To fill in the case where the port index is 0 */
-+		ctrl = YT922X_TAG_PORTMASK_0;
-+		tag[2] = htons(ctrl);
-+	} else {
-+		tag[2] = 0;
++	if (sched_asym_cpucap_active()) {
++		sync_entity_load_avg(&p->se);
++		if (!task_fits_cpu(p, cpu))
++			return false;
 +	}
-+	tag[3] = 0;
 +
-+	return skb;
++	return true;
 +}
 +
-+static struct sk_buff *
-+yt922x_tag_rcv(struct sk_buff *skb, struct net_device *netdev)
-+{
-+	unsigned int port;
-+	__be16 *tag;
-+	u16 rx;
+ /*
+  * Try and locate an idle core/thread in the LLC cache domain.
+  */
+@@ -9920,6 +9940,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+ 	struct sched_domain *tmp, *sd = NULL;
+ 	int cpu = smp_processor_id();
+ 	int new_cpu = prev_cpu;
++	bool reciprocal_wakeup = false;
+ 	int want_affine = 0;
+ 	/* SD_flags and WF_flags share the first nibble */
+ 	int sd_flag = wake_flags & 0xF;
+@@ -9929,6 +9950,12 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+ 	 */
+ 	lockdep_assert_held(&p->pi_lock);
+ 	if (wake_flags & WF_TTWU) {
++		/*
++		 * Check if current is p's last wakee before recording p as
++		 * current's last wakee.
++		 */
++		reciprocal_wakeup = in_task() &&
++			p->last_wakee == current;
+ 		record_wakee(p);
+ 
+ 		if ((wake_flags & WF_CURRENT_CPU) &&
+@@ -9955,6 +9982,19 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+ 			if (cpu != prev_cpu)
+ 				new_cpu = wake_affine(tmp, p, cpu, prev_cpu, sync);
+ 
++			/*
++			 * If wake-affine selected or kept the waker CPU, stack
++			 * a reciprocal WF_SYNC wakee there on non-SMT when it
++			 * has no other runnable task. On SMT, retain
++			 * select_idle_sibling() so it can consider idle
++			 * sibling/core placement.
++			 */
++			if (sync && !sched_smt_active() &&
++			    new_cpu == cpu &&
++			    reciprocal_wakeup &&
++			    can_stack_on_waker(p, cpu))
++				return cpu;
 +
-+	if (unlikely(!pskb_may_pull(skb, YT922X_TAG_LEN))) {
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	tag = dsa_etype_header_pos_rx(skb);
-+
-+	if (unlikely(tag[0] != htons(ETH_P_YT921X))) {
-+		dev_warn_ratelimited(&netdev->dev,
-+				     "Unexpected EtherType 0x%04x\n",
-+				     ntohs(tag[0]));
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	/* Locate which port this is coming from */
-+	rx = ntohs(tag[2]);
-+	port = FIELD_GET(YT922X_TAG_RX_PORT_M, rx);
-+	skb->dev = dsa_conduit_find_user(netdev, 0, port);
-+	if (unlikely(!skb->dev)) {
-+		dev_warn_ratelimited(&netdev->dev,
-+				     "Couldn't decode source port %u\n", port);
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	/* Remove tag and update checksum */
-+	skb_pull_rcsum(skb, YT922X_TAG_LEN);
-+	dsa_strip_etype_header(skb, YT922X_TAG_LEN);
-+
-+	return skb;
-+}
-+
-+static const struct dsa_device_ops yt922x_netdev_ops = {
-+	.name = YT922X_TAG_NAME,
-+	.proto = DSA_TAG_PROTO_YT922X,
-+	.xmit = yt922x_tag_xmit,
-+	.rcv = yt922x_tag_rcv,
-+	.needed_headroom = YT922X_TAG_LEN,
-+};
-+
-+MODULE_DESCRIPTION("DSA tag driver for Motorcomm YT922x switches");
-+MODULE_LICENSE("GPL");
-+MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_YT922X, YT922X_TAG_NAME);
-+
-+module_dsa_tag_driver(yt922x_netdev_ops);
+ 			sd = NULL; /* Prefer wake_affine over balance flags */
+ 			break;
+ 		}
+
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20260721-b4-sched-sync-wakeup-04d40cbeb1da
+
+Best regards,
 -- 
-2.25.1
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
 
