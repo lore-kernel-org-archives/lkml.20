@@ -1,265 +1,251 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BC253F6A9;
-	Tue, 13 Oct 2026 19:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919683; cv=pass; b=ci1oWbVIWsKVFmIsUoKEZzZaVLnbDZ0BStdKu4dDLED/EP+O1O5/DUI+WRfvrsZ+wsD3gYMu1JQvFn9U/uqFMCCBuxQeS+j3KVilYXBI3P4V3UM38+JMYX3FJ6tF26k3i8dLvUOsCT940KnVX1UN+3m/hZo2AISAyXdIZuz8+F8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919683; c=relaxed/simple;
-	bh=iRXUZqFPPpJ25YkGuCknxQTbLHCKfYV9llRV76+HIyI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VAyR6+VWv1woi2202ZlirivlI79F83zYG7+8uqe99syLJftOthtEp8wUlRbqtYnnow2cW3ARwsrGgaUl9D5TN8Ue9GbLvEk4ql9p/NOQSUMWzWB4/NOCC8oecAq0e0QEREl1TikUq4+TXrme43anPTGeWWxLkvFI2ElM7g41aPc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=XJSrhWYO; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B337153F6A0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791919684; cv=none; b=qMyz9FmdE8QKOLaywhZQujIUMsdZGeUdwIuvfiSMZOoLhi8eI1AqkxFemoKsTxlVKUcZWcoE+1ox0AHpVmneKHCGEQKvTMtfA2NC+1LqQ9GmYPpuSOHneLX9lR3+EjY8ALugFBdrvs2P+y0pcn/SkuM6ICDKt+ch+1VUJ8TX0Ws=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791919684; c=relaxed/simple;
+	bh=xucrSKdY7RHaRI/nkBngy1nF3VmGw5oHTLPPGDCeYIg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=u5uqtrDXfrKD84dQqDD6kKZIMrcHE++nQM6D+o1Tl01p1yiSfhgfebnVwiPGmNNlCCM6A/eNmvhqk1Jrnp4bqK8NR+iVVGYj+Qs0kw+4paP36VrZSvcNcbLtCleS0mJMUNYOHIEPWQXxg/aXumq9K5zo0JzV4JN+0yQOkV91wMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jqi3ZzIA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R5zOEO2T; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="XJSrhWYO"
-ARC-Seal: i=1; a=rsa-sha256; t=1791919617; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Jc3aKoRBNdnncmXJVuPjMsjLJNhoVEgT+tXDlL2BfD+3W7sPWgAfprQXjt/obbPJOeOvdBLkm3+as1pVTxbu6CyQkPP/McDg/h6yONAnr9hUJ2vMWhkyRUwgTT7WXyavSBaZSaLggU1GqLvho/dkdkyPE7DSOnZQhArzj2onJEE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791919617; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=oGfX1urLw9UobKagc1pefW/2V9yNTK3tkxEu83nmGzQ=; 
-	b=bUthvWJgghei9fuAcG1pqOGvOw8P0ZPiDJlhGf4cUk+tStLoAVwCpqGC/He2HzEZKSGoYhTo3NAPgJ2cdZhNmrqdUAy+Rn1xdehVa/vzNcycdYeiHdHYYCylIuaN74/hgGjAVPFU5IG/TbtZJQcEE8RRFL6yfeiRQNQPS30tNC8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791919617;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=oGfX1urLw9UobKagc1pefW/2V9yNTK3tkxEu83nmGzQ=;
-	b=XJSrhWYOntmPZWyfBeyKufQHaWWDhIyX2JxK0KAE4rNpNKGEpKhes0EL2D/nO0eT
-	ZGY1+Z/Ctlit3YdYTwwsXtEwTVRDKe4L0PcWJNdwEIBT5+qvQUAGl+L2XuzJvT0Cmd2
-	Pv9yzL6xScOS1rdWqxygJv46gdFGAkLwsByZav11rAfaPiXejMWucwxpvH/CI3kKnjl
-	rkkvGaBhw6p6eQmlyst/PqiktDcCTYfMKthEituC2ZtTTjFWc6WNf9MQW4erZBHQraZ
-	c30z9YsI6rXn0ejYMqlnShhqkuidVmZ/HJUBzxwOvWaw7vZW+SoxT6ZBIO+uu9r1y58
-	llxlyFh8iw==
-Received: by smtp.zohomail.com with SMTPS id 1791919616834128.51599979007904;
-	Tue, 13 Oct 2026 12:26:56 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Wed, 14 Oct 2026 03:21:49 +0800
-Subject: [PATCH v3 06/12] platform/x86: lenovo-wmi-{capdata,other}: Only
- allocate capdata list when necessary
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jqi3ZzIA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R5zOEO2T"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DHkcJt3000877
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:28:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=2+k4ctYw0tM7rWPRbxKyU42iiDXNk6+I0nc
+	8Mj/rlXA=; b=jqi3ZzIAx1kO09gO94XLKJ/BnI0sCk2YdIqPZu74a7GkhcLKnqt
+	wVml33XvSLmoqwMCCjtKWT9fIR9mdsVTDRJihJgFsOBU7lAZ8tdFiXh7rNsLx9GU
+	G9zEPU+8HprJ4zMNJI+6GP6m86SwdkoW5aLonjTQZJhSIdSWDzeZBoP2Kzmy+lkA
+	B4bfjDkvE9YKbbWR5YJbYjQ21bX/KU5gjEl2Jw0ArUzCNb18dfr7jpoe0B9wnVVq
+	shqJe42mEGJxwSTMOQGN0vGon/yaakxcie8XmBDNPNy7gOhMIshQOz0rSb0bQGhM
+	FmY0fdJpv5FU+h/qK6jqKGpv4mW6Zz/y/jA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sberfun-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:28:01 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35a4d2e39acso641993eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:28:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791919681; x=1792524481; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2+k4ctYw0tM7rWPRbxKyU42iiDXNk6+I0nc8Mj/rlXA=;
+        b=R5zOEO2TfHpqmke88kU5Y3A0XVccUT+WeQ+Ifx2FjJ+gWwDqjswjIDMrt3VBUs6Fli
+         y8K/gdNhPtLmvyA5FMz8jZ2ZBQmlzk8rQgH/KMFxXd1hm6DmQZcmB7y7JuTmxA1zwyus
+         zX/Iok8CWDqJTDDZfZ9My07DfvfIef4wazchBgYZck5tPYJDvmrDfGbrbsF0/4g+k4Ct
+         ZDfOrjHvdnn6E7rcDlfEumVnFO/Rbg7ZcUak7m5gBJtB8Jl3GEPk0RrQzA7nlJswXiD0
+         YYptSAvjY2BsVxQiGNgpBREfaGRWpFFgAQJsazGs0GtUStuvE7B57bTmPq6ucfIk8KIA
+         ZsDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791919681; x=1792524481;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2+k4ctYw0tM7rWPRbxKyU42iiDXNk6+I0nc8Mj/rlXA=;
+        b=vmaU3Z3FfLgcSIzM9Oj0lZ3udimwhWr2MHfLnetHP1oCVhzUfkzfTYCI3Lp245Fiy7
+         cvS8vYF2pYh2g7uFjkTDBBNtg2erge6uPK10tmzV9Ag8aJr6wzBPGHqkEByKQkg/YaQn
+         gYmMnbHPwKKOydg0Yjf4WFsAqvYCpM7wsRQXv/iFeQpxY3vKx5G9hdXtwlWblFZEWKBl
+         AY5oUyxWVj7BqCb0mL7UWWCFNVV7REOCKsZwKrLYsokYk65VF9UFpUop/qDnSPNb0qb9
+         5vTIBLZqxmVJpLSKivpXE3IalJRwdLurM61RIEegq4WHOANgibVeZ1QGPNThwsI1+az3
+         v9Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBxyYl9/THYn0XeLZ8d6OVGXR5FqEl+REnNd/SJd06j8GEQlDNifrWkOTx51e9x8z96VDYtxyWpz7Y8zdyg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIY8ZzulQ2d9+BcRqI41AGSIgB0ryaKObuxgUaw0CQMpbkpYkoi
+	oEPEOGoGi0CwKhpDd1x4NPpkVvoa/+ValQdKydwa38Gywb8+DX/yrWG63+mf2ZwTxoetRRwVjg9
+	SjwbHLyOntrTWQgBn3uqXS7cM7+hxu/aeUc7atMVnN5bIx9IGqwhK/WVsM5LDu6CbfJo=
+X-Gm-Gg: AYBFou1tB1mFjgzKEkcix4pyJlr395i9avfFlMT+FXBOfeGQnwrykxTzuxY0iXxr99Q
+	rUvm8OoG4H244pPuJEOZngu9lvd7ONdVco8ZilUcbkyXVjnskoZDxqKPxWczamIjEc1KnXkWevB
+	l08F+kBlb+gik0IIJWV83xAcIiDYky+p9A7A355BJ+g5NOfkbu2yXgiNrsvaTFjgNWiUw3VG1T3
+	3xKz/EBB1ftnpVWXlJlcvkGKLEwI23i0a0TZ6ow4xfbOH9MXL/IRqMyqJxxVvTJF4S8ukC0xBxy
+	jYwW2ZTRwZPF5Tl3IW50stljTr0pGG03uFlKiJlBJbD7kO/6Kz6tnhHpYpI46O0OVKcvmPmltZ2
+	ZxuQYwjtA3MeZX9Epru4h+AoTw8vTfbiLnmoneQrLLZhnUdBe3TJO36r76smLlw==
+X-Received: by 2002:a05:7300:da15:b0:359:6382:5e52 with SMTP id 5a478bee46e88-359638267cfmr13096823eec.17.1791919681018;
+        Tue, 13 Oct 2026 12:28:01 -0700 (PDT)
+X-Received: by 2002:a05:7300:da15:b0:359:6382:5e52 with SMTP id 5a478bee46e88-359638267cfmr13096776eec.17.1791919680365;
+        Tue, 13 Oct 2026 12:28:00 -0700 (PDT)
+Received: from hu-scheluve-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b556sm60000008eec.9.2026.10.13.12.27.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 12:27:59 -0700 (PDT)
+From: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S . Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+        Hongmei Xu <hongmei.xu@oss.qualcomm.com>,
+        Abhishek Chauhan <abhishek.chauhan@oss.qualcomm.com>,
+        Sarosh Hasan <sarosh.hasan@oss.qualcomm.com>,
+        Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
+Subject: [PATCH net-next v3] net: stmmac: dwxgmac2: enable L2 split header support
+Date: Tue, 13 Oct 2026 12:27:59 -0700
+Message-Id: <20261013192759.776537-1-sagar.cheluvegowda@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261014-lwmi-wmi-new-api-v3-6-e1032bed1c81@rong.moe>
-References: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
-In-Reply-To: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Armin Wolf <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>, 
- Navon John Lukose <navonjohnlukose@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-73bef
-X-ZohoMailClient: External
+X-Proofpoint-ORIG-GUID: KWE4uh1vPsNTeX5aXv6zCub2S4bqV4bt
+X-Proofpoint-GUID: KWE4uh1vPsNTeX5aXv6zCub2S4bqV4bt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3NyBTYWx0ZWRfX+vEk32X61rsj
+ jn6Dt1HcfVRekbtWZnCOynpb9z9aa8hsNscnnr1vtTGHfNOJdcOTL3fZmwZrUQfOrBjKyrcJuQk
+ NACcdXtNSxcgpIrrjh43yywyuSd54zLHCfuUPVgJtJkwPho7TS/qnnzprB//JeATRXvSi0Meya6
+ QozgR0Lwppngcq+zfF8PiQxSXOuQPwcEBY8HVBpVn1ZjVFFnjSkY2MluQPsrIBEw9tUrE5RleRc
+ nlujLKt06vifEuaMAG8ZIzNz//gPfs0lqqD7IOidhj9QlkzvDllzB/VjPcnaAvvXDRLUkF+qJ9d
+ d2S8eqwD1PPoQQaWOfJ0QnXPC8AuLU5D1LrqmkwRArEnlwPO7MJOVUXxwCulqQnc6hgMpXMA3kC
+ ein0IeoFWefQm+VfOyQdH3B2lCcrlTet9oGpSGcEWligtA9GLbvS0GUsxT9WnFxFajzEpC+arG/
+ kAFiG9dGJVEYrFTch8Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3NyBTYWx0ZWRfXxhMCYyfmuJ5z
+ 12LerDQYsy5otQmBqKCGLv/6iwd2tmizrTwtEZEM7zji70je7EkzXiGyyGAy+W0I9kxPEJb2UAT
+ MCHwIV97tLpuhTEynWd4lbNE1t7RC3o=
+X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6ace8641 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=4efHNOip1X5BxVcu0mkA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130077
 
-When no capability data is available, there is no need to allocate
-capability data list as it's basically unused except for the
-priv->list->count == 0 placeholder.
+XGMAC2 doesn't program the MAC extended configuration registers
+needed for L2 header splitting when split-header mode is enabled,
+so tagged AV packets can't use the split-header path. Configure
+split mode (SPLM) and header saving (SAVE_EN) in XGMAC_EXT_CFG1,
+extending the dwmac4 sequence added by commit d10f1a4e44c3 ("net:
+stmmac: Programming sequence for VLAN packets with split header")
+to XGMAC2.
 
-Therefore, only allocate priv->list when necessary, otherwise its
-absence implies the absence of capability data. In this manner,
-lenovo-wmi-other can skip registering unavailable functionalities
-accordingly. Meanwhile, skip creating the debugfs directory as it
-provides nothing when there is no capability data.
+Also fix the RX header-length calculation for split-header
+descriptors. Per the XGMAC2 descriptor format, RDES3's L34T and
+L2T fields are only valid on the last descriptor (LD set); on a
+non-last descriptor they can hold stale write-back data from a
+previous packet. Read the header length from RDES2[9:0] directly
+for non-last descriptors, and only consult L34T/L2T on the last
+descriptor: RDES2[9:0] for IP packets (L34T set) and RDES2[9:2]
+for non-IP packets (L2T set).
 
-Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Signed-off-by: Rong Zhang <i@rong.moe>
+Finally, disable the variable-length preamble when L2 splitting
+is enabled. A variable-length preamble shifts the position of the
+Ethernet header, making the L2 split offset non-deterministic.
+
+Co-developed-by: Abhishek Chauhan <abhishek.chauhan@oss.qualcomm.com>
+Signed-off-by: Abhishek Chauhan <abhishek.chauhan@oss.qualcomm.com>
+Co-developed-by: Sarosh Hasan <sarosh.hasan@oss.qualcomm.com>
+Signed-off-by: Sarosh Hasan <sarosh.hasan@oss.qualcomm.com>
+Signed-off-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
 ---
-Changes in v2:
-- Refine line wrap (thanks Ilpo Järvinen)
----
- drivers/platform/x86/lenovo/wmi-capdata.c | 42 ++++++++++++++++++++++---------
- drivers/platform/x86/lenovo/wmi-other.c   | 24 +++++++++++-------
- 2 files changed, 45 insertions(+), 21 deletions(-)
+v3:
+  - Use zero-padded 0x00000140 for XGMAC_EXT_CFG0
+v2: https://lore.kernel.org/netdev/20261007183905.2582759-1-sagar.cheluvegowda@oss.qualcomm.com/
+  - Add XGMAC_CONFIG1_SPLM_MASK and use it in XGMAC_CONFIG1_SPLM()
+v1: https://lore.kernel.org/netdev/20260922232116.889630-1-sagar.cheluvegowda@oss.qualcomm.com/
 
-diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
-index 3ef8879d8587..3c09bb9e3d46 100644
---- a/drivers/platform/x86/lenovo/wmi-capdata.c
-+++ b/drivers/platform/x86/lenovo/wmi-capdata.c
-@@ -313,8 +313,8 @@ static const struct component_ops lwmi_cd_component_ops = {
-  * @dev: The sub-master capdata basic device.
-  *
-  * Call component_bind_all to bind the sub-component device to the sub-master
-- * device. On success, collect the pointer to the sub-component list and try
-- * to call the master callback.
-+ * device. On success, collect the pointer (or ERR_PTR(-ENODEV) if it's stubbed)
-+ * to the sub-component list and try to call the master callback.
-  *
-  * Return: 0 on success, or an error code.
-  */
-@@ -328,7 +328,7 @@ static int lwmi_cd_sub_master_bind(struct device *dev)
- 	if (ret)
- 		return ret;
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h       |  8 ++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c | 12 +++++++++++-
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c   | 10 ++++++++++
+ 3 files changed, 29 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+index f8ab347f7b5b..7d1a7802a131 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+@@ -167,6 +167,12 @@
+ #define XGMAC_HW_FEATURE4		0x0000012c
+ #define XGMAC_HWFEAT_EASP		BIT(4)
+ #define XGMAC_HWFEAT_PCSEL		GENMASK(1, 0)
++#define XGMAC_EXT_CFG0			0x00000140
++#define XGMAC_EXT_CFG0_VPRE		BIT(8)
++#define XGMAC_EXT_CFG1			0x00000144
++#define XGMAC_CONFIG1_SAVE_EN		BIT(24)
++#define XGMAC_CONFIG1_SPLM_MASK		GENMASK(9, 8)
++#define XGMAC_CONFIG1_SPLM(v)		FIELD_PREP(XGMAC_CONFIG1_SPLM_MASK, v)
+ #define XGMAC_MAC_DPP_FSM_INT_STATUS	0x00000150
+ #define XGMAC_MAC_FSM_CONTROL		0x00000158
+ #define XGMAC_PRTYEN			BIT(1)
+@@ -434,6 +440,7 @@
+ #define XGMAC_RDES2_L4FM		BIT(28)
+ #define XGMAC_RDES2_L3FM		BIT(27)
+ #define XGMAC_RDES2_HL			GENMASK(9, 0)
++#define XGMAC_RDES2_NONIPHL		GENMASK(9, 2)
+ #define XGMAC_RDES3_OWN			BIT(31)
+ #define XGMAC_RDES3_CTXT		BIT(30)
+ #define XGMAC_RDES3_IOC			BIT(30)
+@@ -441,6 +448,7 @@
+ #define XGMAC_RDES3_CDA			BIT(27)
+ #define XGMAC_RDES3_RSV			BIT(26)
+ #define XGMAC_RDES3_L34T		GENMASK(23, 20)
++#define XGMAC_RDES3_L2T			GENMASK(19, 16)
+ #define XGMAC_RDES3_ET_LT		GENMASK(19, 16)
+ #define XGMAC_L34T_IP4TCP		0x1
+ #define XGMAC_L34T_IP4UDP		0x2
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+index 6719ac6e395b..65ac5403ec58 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+@@ -292,8 +292,18 @@ static int dwxgmac2_get_rx_hash(struct dma_desc *p, u32 *hash,
  
--	priv->sub_master->sub_component_list = sub_component_list;
-+	priv->sub_master->sub_component_list = sub_component_list ?: ERR_PTR(-ENODEV);
- 	lwmi_cd_call_master_cb(priv);
- 
- 	return 0;
-@@ -460,6 +460,9 @@ static const struct component_ops lwmi_cd_sub_component_ops = {
- 	{											\
- 		u8 idx;										\
- 												\
-+		if (WARN_ON(!list))								\
-+			return -EINVAL;								\
-+												\
- 		guard(mutex)(&list->list_mutex);						\
- 		for (idx = 0; idx < list->count; idx++) {					\
- 			if (list->_cdxx[idx].id != attribute_id)				\
-@@ -571,6 +574,9 @@ DEFINE_SHOW_ATTRIBUTE(lwmi_cd_debugfs);
-  */
- static void lwmi_cd_debugfs_add(struct lwmi_cd_priv *priv)
+ static void dwxgmac2_get_rx_header_len(struct dma_desc *p, unsigned int *len)
  {
-+	if (!priv->list)
+-	if (le32_to_cpu(p->des3) & XGMAC_RDES3_L34T)
++	u32 rdes3 = le32_to_cpu(p->des3);
++
++	/* when FD=1 and LD=0, HL is RDES2[9:0] */
++	if (!(rdes3 & XGMAC_RDES3_LD)) {
++		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
 +		return;
-+
- 	priv->debugfs_dir = lwmi_debugfs_create_dir(priv->wdev);
- 
- 	debugfs_create_file("capdata", 0444, priv->debugfs_dir, priv, &lwmi_cd_debugfs_fops);
-@@ -582,6 +588,7 @@ static void lwmi_cd_debugfs_add(struct lwmi_cd_priv *priv)
-  */
- static void lwmi_cd_debugfs_remove(struct lwmi_cd_priv *priv)
- {
-+	/* Debugfs can handle NULL dir, no need to check. */
- 	debugfs_remove_recursive(priv->debugfs_dir);
- 	priv->debugfs_dir = NULL;
- }
-@@ -645,6 +652,9 @@ static int __lwmi_cd_cache(struct lwmi_cd_priv *priv)
-  */
- static int lwmi_cd_cache(struct lwmi_cd_priv *priv)
- {
-+	if (!priv->list)
-+		return 0;
-+
- 	/* Synchronize mutex initialization. Paired with lwmi_cd_finalize(). */
- 	if (!smp_load_acquire(&priv->initialized))
- 		return __lwmi_cd_cache(priv);
-@@ -708,6 +718,9 @@ static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv)
- 		count = 0;
- 	}
- 
-+	if (!count)
-+		return 0;
-+
- 	list = devm_kzalloc(&priv->wdev->dev, struct_size(list, cd_fan, count), GFP_KERNEL);
- 	if (!list)
- 		return -ENOMEM;
-@@ -743,6 +756,8 @@ static int lwmi_cd_alloc(struct lwmi_cd_priv *priv)
- 	int count;
- 
- 	count = wmidev_instance_count(priv->wdev);
-+	if (!count)
-+		return 0;
- 
- 	switch (priv->info->type) {
- 	case LENOVO_CAPABILITY_DATA_00:
-@@ -892,7 +907,8 @@ static int lwmi_cd_probe(struct wmi_device *wdev, const void *context)
- 		enum lwmi_cd_type sub_component_type = LENOVO_FAN_TEST_DATA;
- 		struct capdata00 capdata00;
- 
--		ret = lwmi_cd00_get_data(priv->list, LWMI_ATTR_ID_FAN_TEST, &capdata00);
-+		ret = priv->list ? lwmi_cd00_get_data(priv->list, LWMI_ATTR_ID_FAN_TEST,
-+						      &capdata00) : -ENODATA;
- 		if (ret || !(capdata00.supported & LWMI_SUPP_VALID)) {
- 			dev_dbg(&wdev->dev, "capdata00 declares no fan test support\n");
- 			sub_component_type = CD_TYPE_NONE;
-@@ -913,14 +929,16 @@ static int lwmi_cd_probe(struct wmi_device *wdev, const void *context)
- 	case LENOVO_CAPABILITY_DATA_01:
- 		priv->acpi_nb.notifier_call = lwmi_cd01_notifier_call;
- 
--		ret = register_acpi_notifier(&priv->acpi_nb);
--		if (ret)
--			goto out;
-+		if (priv->list) {
-+			ret = register_acpi_notifier(&priv->acpi_nb);
-+			if (ret)
-+				goto out;
- 
--		ret = devm_add_action_or_reset(&wdev->dev, lwmi_cd01_unregister,
--					       &priv->acpi_nb);
--		if (ret)
--			goto out;
-+			ret = devm_add_action_or_reset(&wdev->dev, lwmi_cd01_unregister,
-+						       &priv->acpi_nb);
-+			if (ret)
-+				goto out;
-+		}
- 
- 		ret = component_add(&wdev->dev, &lwmi_cd_component_ops);
- 		goto out;
-@@ -938,7 +956,7 @@ static int lwmi_cd_probe(struct wmi_device *wdev, const void *context)
- 		lwmi_cd_debugfs_add(priv);
- 
- 		dev_dbg(&wdev->dev, "registered %s with %u items\n",
--			info->name, priv->list->count);
-+			info->name, priv->list ? priv->list->count : 0);
- 	}
- 	return ret;
- }
-diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x86/lenovo/wmi-other.c
-index fbb32bf404f2..147e182685a1 100644
---- a/drivers/platform/x86/lenovo/wmi-other.c
-+++ b/drivers/platform/x86/lenovo/wmi-other.c
-@@ -1619,11 +1619,14 @@ static void lwmi_om_fw_attr_remove(struct lwmi_om_priv *priv)
-  * lenovo-wmi-other master driver, with a callback to collect fan info from
-  * capdata_fan. On success, assign the capability data list pointers to the
-  * driver data struct for later access. These pointers are only valid while the
-- * capdata interfaces exist. Finally, collect fan info from capdata00 and
-- * register all firmware attribute groups. Note that the HWMON device is
-- * registered only if all fan info is collected. Hence, it is not registered
-- * here. See lwmi_om_fan_info_collect_cd00() and
-- * lwmi_om_fan_info_collect_cd_fan().
-+ * capdata interfaces exist.
-+ *
-+ * If capdata00 is bound, collect fan info from capdata00 and register the power
-+ * supply extension. Note that the HWMON device is registered only if all fan
-+ * info is collected. Hence, it is not registered here. See
-+ * lwmi_om_fan_info_collect_cd00() and lwmi_om_fan_info_collect_cd_fan().
-+ *
-+ * If capdata01 is bound, register all firmware attribute groups.
-  *
-  * Return: 0 on success, or an error code.
-  */
-@@ -1643,16 +1646,19 @@ static int lwmi_om_master_bind(struct device *dev)
- 
- 	priv->cd00_list = binder.cd00_list;
- 	priv->cd01_list = binder.cd01_list;
--	if (!priv->cd00_list || !priv->cd01_list) {
-+	if (!priv->cd00_list && !priv->cd01_list) {
- 		component_unbind_all(dev, NULL);
- 
- 		return -ENODEV;
- 	}
- 
--	lwmi_om_fan_info_collect_cd00(priv);
--	lwmi_om_psy_ext_init(priv);
-+	if (priv->cd00_list) {
-+		lwmi_om_fan_info_collect_cd00(priv);
-+		lwmi_om_psy_ext_init(priv);
 +	}
- 
--	lwmi_om_fw_attr_add(priv);
-+	if (priv->cd01_list)
-+		lwmi_om_fw_attr_add(priv);
- 
- 	return 0;
++
++	if (rdes3 & XGMAC_RDES3_L34T)
+ 		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
++	else if (rdes3 & XGMAC_RDES3_L2T)
++		*len = (le32_to_cpu(p->des2) & XGMAC_RDES2_NONIPHL) >> 2;
  }
-
+ 
+ static void dwxgmac2_set_sec_addr(struct dma_desc *p, dma_addr_t addr, bool is_valid)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index ff83858ebc1f..0a9c787305a4 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -561,6 +561,16 @@ static void dwxgmac2_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 	value |= XGMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
+ 	writel(value, ioaddr + XGMAC_RX_CONFIG);
+ 
++	value = readl(ioaddr + XGMAC_EXT_CFG1);
++	value |= XGMAC_CONFIG1_SPLM(1);
++	value |= XGMAC_CONFIG1_SAVE_EN;
++	writel(value, ioaddr + XGMAC_EXT_CFG1);
++
++	/* Disable variable preambles to keep the L2 split offset deterministic. */
++	value = readl(ioaddr + XGMAC_EXT_CFG0);
++	value &= ~XGMAC_EXT_CFG0_VPRE;
++	writel(value, ioaddr + XGMAC_EXT_CFG0);
++
+ 	value = readl(ioaddr + XGMAC_DMA_CH_CONTROL(chan));
+ 	if (en)
+ 		value |= XGMAC_SPH;
 -- 
-2.55.0
+2.34.1
 
