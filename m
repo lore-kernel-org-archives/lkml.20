@@ -1,78 +1,81 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF2354CF4D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C56560AA8
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:26:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791930377; cv=pass; b=CpUEoWo2u3aSIf8Zhc7SBq+QB8J80a+AVsrWRyFMe3Y1TnspFiFLHDZBN+YxoJjv9CXIAKPBzh+zfcTMkTlcD1uOycH0hV4XK8rF4vtd9yPpD73VmwO/BwO1JS+RLsXdY+jIqfaHDIriPnwxXMsOkp77pvzjgVMlDNw/NV93Px4=
+	t=1791930377; cv=pass; b=EohizS+cNPiZzN1msNXsR1tyv4NxRS6lD2OZ+TBEdwOKZwrHI9E4+2T/YZ5HQsdBOsE8qef8l2Z88kXZK1prCPdnqPj99SbClsUyEOvzbXpkUqBvXqp2EJAdM9TjmRX6pHZ0LrliEAJr/y0ix4Quu1/TvP6qA9ZGgEMkIPZM3zM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791930377; c=relaxed/simple;
-	bh=LHKyaN6WUugoUSp5MeLqyUxtlolwPgBXkaD5KlRFm9s=;
+	bh=e97obOSaBF5A+CDMxcrni6hxHYCVamGCzvFlkP2JwH8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FCtWwfPgcnl/vGY24fIOhLPR9KoBULnqMNVleS6qdcbW4cTMAPgZXxEaPvLgSPPXeCC3hL2LPV8lpFVrF3L60VIUbwqCOIYphkxnzG3udc8AmQrrIJBZIvuxFBX1gzdnP+ur5E++wpN9BE+6jrxiTPrG1L/TGb0jdztQRuIm5iw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=C4/6EXUW; arc=pass smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=cukSiJg5KJ0M924gpTQf9gnPgWsTuGO9uXz+dUcmcm9+Mft5ptqNwDUJrbQL6keoTSKWgnIhxxCp2rgJV8UMUl87X/FeWo16oRmyjzHHcUKxyVBkfCigedALMMOQYIn2NUaGlxoE3MlQ8znAQNc1R9gJIxlE4jf8+UrqUNlR3sE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Gx5cY/0n; arc=pass smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="C4/6EXUW"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8ac525c1f05so4764237b3.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Gx5cY/0n"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so164255ad.1
         for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:26:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791930374; cv=none;
+ARC-Seal: i=1; a=rsa-sha256; t=1791930375; cv=none;
         d=google.com; s=arc-20260327;
-        b=eiwqXB/zpiL46ZyAmk3K+/GqwgMOfkW4Xa5krKQPaG0HDX/LmlpP3CICt7Lp+LLkwd
-         FwFn4PemqsO4p2RDRmEDu0V41rUlaoK3uJ97SBKDDKd7BvEa9gIi4N/f/uRDbdZu7wbV
-         h3cSolmspxxpdI623PES+c6UUAf1Er6tAaTa2iTupu0EDxIgIXd/Kj6NPeUwnmd16rHz
-         79L29trNOaFCmXo0zf5bgxw2L2JvN74CKgjDA/2zaj51P+d9eDOMfQUE/xN/EP9JtIup
-         1bYUA4ODXZNSBDdwyAKE2J+7kJy9TkL7rP51HV5X3GwbeJ7EggmnIfDl6QkY/A534vUA
-         Yk+A==
+        b=UGDXTLe6Av5TMaawJPPpG52dgVe4f0nZ+rVapveymrlnDUd3eQRohZwtZLIID4ifl2
+         3CwvkdRADOcq1Bcwb8pL83F08tezZecdGp1qCv888UKxF0P+W2evFBwSgQk9wmExEZeV
+         t/3T39b9U2cMsXXMvG7TV9P4aGlhah6AXt0rTlPaao6k1fqpD+ZX460lncEhulnLsBRY
+         ys0UA1qBdvX8wVmHls3mu6iGxQOO5GAtcVS7v2fdaH17bZodubpaGpZ1Rp1Cw1We4Lwo
+         fB69ZQNsykwfv21oK1lpQs76kN+O1qRgbnNsZmjzc5O+4rat0y4mXbBjAL8ljfyP3iYP
+         1r+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=JGIvE55pEcxzd83xA7rFdHteLp03z04heYvMOT2YxDg=;
-        fh=KQq8ETAZbBuWUibdAMtTZnekCiKp8btWHUWbBcLj4Eo=;
-        b=ZRRQ3VmCOUlInsoJrH3Il/xghk9snEhk8NOdmypHYCxoo6nbGdc0KhcV+7RxFDdOFd
-         Pi5lIR9bvEwkZ1VJ+QdiURgEsGqEILFomXjA1mEqMCiOr9LIebNGmK3JJoTkir7GrY8i
-         3q+ds6lfZXq3uoJ7su9r/hIzLCFO4rtIccC6NKRCU83DaI0pNi+3/pe9LqWhNDRJZvY8
-         MD+gkuyXoim1A90jbpSukhnwk3YdE5lSkZQE1YjB0COGMsVsfbi/MUHDk97z2sJVRElg
-         Bnq1mUJt5NcxNaWs1wARhzbGWdTlis7cs/mgml3/PrOB+BQD+o7trcj/JEWzDi884r1Z
-         m1tw==;
+        bh=o4Q09YSNA5+tLu9OvcCxqGnBvUFwTFzGq4mB2ylO5ZY=;
+        fh=swykw1+0VS9OLs3D4aJBvnu9xNu8a92imShz9RLfHcY=;
+        b=epYjQHEQwudET33+IwCqk0mwv5RwXCkd+kP6tU7OwioEwZk3lDQaQaLIQ2AEPzwF0L
+         uzuYkCmbB+m1osivDbTTcQElgLZkSAkKwkM6yl6qTLXj906pHfoMDcb0oFOkMIiJwvp7
+         WyxpEncZExUmlSmfBgKvl+h1GQcSnzsxpnPCS3nzEZJQVhIA9ikWhGRpG816GOw8CHoo
+         y6U84bwPfcOSgN5pzjOnWKyiV279T2CsX2wOw/HCvdsWHbJQ4v52bAyyuE7DaKfyovbo
+         +/J0Kn166hrs/cW82EJT2q7QiKGux6WCv2LzhZhGMQxRlAYX+jQ+TWl/0c0ZuqYpjS+A
+         6G4A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791930374; x=1792535174; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791930375; x=1792535175; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JGIvE55pEcxzd83xA7rFdHteLp03z04heYvMOT2YxDg=;
-        b=C4/6EXUWLqwBThAGo1onKkHW2BxZrd15xJmVGIULHYLY1nPFF5hv2mrrYcUkuA7RR8
-         IhUjXjBsCxcolz6CV0dg8XhSVmMve/TAn8Iev1d7tXkENPi2R8sDAr89/T1YBI130YKh
-         IcS6Ly+tY/cTuvFj2Cbai7MhyVANyndbphs84=
+        bh=o4Q09YSNA5+tLu9OvcCxqGnBvUFwTFzGq4mB2ylO5ZY=;
+        b=Gx5cY/0n2T+TX1Jjci9abHdU5GkifM4O2FaGpSduj2vDdLlu/72ZX2mrV05+GNjeYH
+         A9uTy734iEekvblnCy2+/QI/EKfyjKWqDMU6ZMFB3ZZgowtKKT7X+xJLBut1AnZeJKuU
+         avD1TfwrOOIX2XuGYBvPjhIMGNmgXgbxXc5twtFLCqc3Kv+wxeVmG/4OAbIYIaliC0/Y
+         T3YzyscW9qUJPgqeyRNgPruECQvT0RmGwyFMEpEbMRx/mEFUThHRC4TcDHL12nSnUxL4
+         Q+0RJccrTOSKDpUW3NZG2d+RN0fZby8fEMXOXLaTAA/KA69/9zV3rbasrN7PXvWF7eay
+         vN7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791930374; x=1792535174;
+        d=1e100.net; s=20260707; t=1791930375; x=1792535175;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JGIvE55pEcxzd83xA7rFdHteLp03z04heYvMOT2YxDg=;
-        b=fxy4dgp80guGZLAHMu5pm3vQVItlwCHGZjBVNFqd6sSP88Zp+59Scue0zR9L3SlFpJ
-         syF1jKXgTE/U5BHSWYtcH3gm9FEv8MWMcJcgsDcvTGfVS7LEk8ZJJfh2fffpRSGs/O+/
-         ZPQ9MJKgIFt+aXSU/mW0ncDfOWmWVKcGuGPRWM50HqMdyRJ/QGgxSSdZ3CorqWXlrq89
-         bRd056dfBbARXXn+bJozh6zS7p6fL4e8t7JrW8TXsG/4gnPYnhVHXcbSazr07gGyCyJ0
-         OmERrG9CUghDciZ1a8fckdxkmcUnMyTNW5GeocwdfkXXpnG2tGZKeEGhqSo5wW4YB602
-         +jTw==
-X-Forwarded-Encrypted: i=1; AKwUvBxzz+Au6Kvah+Z0YEzdx5eDb+bxcA8PqCimnGKRJKzlPh1u9oAa4oNY3XaI8H7ObXoXPPjjXCUyZfRZHIs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKw88A5Lc6v+Y8Sq2kduNsNhlljM3VFl7/IXnlnVmt62Pe66NHc
-	rcnRXR1DrgMVN87f+olobAIDxNvy3iOcuaVTYD35xH4Hkv3u88hCX7cDnvOM9mLbRTS/qgVD0Tf
-	dGWwm5qBbILTQitjUADrMGJb+qtTz4elq1uBGR6f1
-X-Gm-Gg: AYBFou06ihVVfMUBFoBCJHD9zYJ1oJIWlcmuL/fscJz4cWFEHlcIlWdHLgMpHjQTMJE
-	70jMTZPTpGpiJykkYbQOwtP2TgaOqry8squYv1+3EjfkM8zMj9MFBVOXSqEx5Xlw//FXThLkPhs
-	tGgMUvszWT0cXIs2i27VQ6CBixlgIrZNVrRZQAt7o/GH2NfL/jXNpGMx/6ZH3mOyeatkja2wjqW
-	dDJd+FdAsp2MCvWWy14DfW6Jsxxtl/4vG2S3Fny1CSn6F6odPo9gtIFuEtXoAmQth8z4yzMi4Yt
-	vpOCRZNiR7mnxMMe54Aw7gGyM+OkFtEOtpQHOO5qjgD48R4Pg3FUIWRms0HycnwgeEFI+CH11YT
-	LJYGhgyCfbQ==
-X-Received: by 2002:a05:690c:39a:b0:8ae:8877:9ef6 with SMTP id
- 00721157ae682-8b07edcf6f8mr55863427b3.10.1791930374515; Tue, 13 Oct 2026
+        bh=o4Q09YSNA5+tLu9OvcCxqGnBvUFwTFzGq4mB2ylO5ZY=;
+        b=smY3Pp742CT6t3kD3tTQCgpB+sl+H31ZeiameuQZ65jfFGmPZCyf8g2EfDWsf23Cb2
+         azpPq2ZNNzrwyNDQdNcD0maEvYto/aqrh7NSp7MSfnaPe469haJIKmwoCAX1A+42KsN+
+         U8e6aMXXlFOdSZZko20onB5dpBpTO6sGmW13xcmyKlIzw/VZVXmrv94xyjFMQ39xySSn
+         8C7Lwh5xUUK5J4XwoaXy27tUQFOEQ3PCW6ayTBxBpYKzxAwzsP+NLpLXso3vHP9XfPrQ
+         ujLIlZ2uxvcgWORORJjuq7nSutchj1zIQHx2hBQQT4fVlYvD/f4K7sdC5k9H84R2oDoc
+         yEtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBybArh8jRNt6F6KCMC254cna7+M3ceq9DgxiMcqKJ8i68IuBhWf+p1E6YaXmv+BlaOoqMZ2Cy0KZvOzFjc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCaJZd+0kQUtwmKMe1g68JFzkfGluJ3sCN5HODPMt1jIV9gn3E
+	YVIlBnKK/+EK7NToYqliN9ryHPecyNJHcOGymQ9ij4dSoBRPKrXpSpsJ8q8ayWavXaRr1LiWi3F
+	+pCGil0f3B4ywjUg3DN/PA3jhq5sgKdCm0oWDsOky
+X-Gm-Gg: AYBFou2cgHdqBbrXedMC55z8BBWz5/sH8nOVL3mtLiwvqCsOtRG/IpeNhDq99xMW/me
+	i6/IlyIxZGmoLbhu6Yz2Yi4CtVP5cKR+ciwzTe0IuMIDF2U7lhJcD3fRvqgaMETv+ouvnW6vm1u
+	7d3ZLR4O2ZKtQMLBJ44dpPdKwueghGtFLYyVStXnMSH4T+B78KKmiEJApJ5F2BXz1WxLWgBkcrB
+	UhFv8YCg22xzPORZ9Dqc7NYFmIGn/GbThBikqdMVEoTJKAr3l/c8XfX553kvE1E9Fy6raqRhiv6
+	TzLLX2JuhUQzmyJfO3UPbsEPmjSgknttd80wEQCbTL57DKHOJLCg4tGVLJa7M2kxoTk+1I2/2qu
+	Y/9Rr9GPbT9k3Fa0HkZc=
+X-Received: by 2002:a17:903:124d:b0:2bd:3bfd:74f1 with SMTP id
+ d9443c01a7336-2e939438b27mr346965ad.2.1791930374188; Tue, 13 Oct 2026
  15:26:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,91 +83,60 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
- <20261009-send-upstream-v5-8-384af01da3ee@chromium.org> <aszWnnc6RR9d5SYw@monoceros>
-In-Reply-To: <aszWnnc6RR9d5SYw@monoceros>
-From: Jingyuan Liang <jingyliang@chromium.org>
-Date: Tue, 13 Oct 2026 15:26:03 -0700
-X-Gm-Features: AclHuK_tyUehVA205WXB_Og5y1P8AMIMPFMlhjQ2Y9FOhmh_U9e-FbL8LEin36M
-Message-ID: <CAEe3GZHB_mDcdz3gcoAzOu6mO7ua3muESOJcaZi6Z45Q8J77rQ@mail.gmail.com>
-Subject: Re: [PATCH v5 08/11] HID: spi-hid: add device tree support for HID
- over SPI
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, hbarnor@chromium.org, tfiga@chromium.org, 
-	fqwqf@fqwqf.xyz, daleyo@gmail.com, Jarrett Schultz <jaschultz@microsoft.com>, 
-	Dmitry Antipov <dmanti@microsoft.com>
+References: <20261013182458.1234616-1-irogers@google.com> <20261013182458.1234616-2-irogers@google.com>
+ <871bf440-5b43-4d63-83f8-15ba96719fa6@acm.org> <CAP-5=fX1XZu=3scB1-hA2ppcM0+sR7t_3=C7fFx=kGikm=dLqA@mail.gmail.com>
+ <56cea1ea-a4a5-4c26-a15d-732415986ede@acm.org>
+In-Reply-To: <56cea1ea-a4a5-4c26-a15d-732415986ede@acm.org>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 13 Oct 2026 15:26:01 -0700
+X-Gm-Features: AclHuK-gmtH3OisE1f-Puo1s8QVH6C5PZ7oWuzSB3BanVBcur38Q_IjsKLcry1A
+Message-ID: <CAP-5=fU1fBNwnMWjjzqz+SNW2n5NWsEYeEbXd8QGBXfoCTADYA@mail.gmail.com>
+Subject: Re: [PATCH v1 01/10] compiler-context-analysis: Avoid unused
+ parameter warning in _context_unsafe_alias()
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Marco Elver <elver@google.com>, 
+	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 5:49=E2=80=AFAM Uwe Kleine-K=C3=B6nig
-<u.kleine-koenig@baylibre.com> wrote:
+On Tue, Oct 13, 2026 at 3:15=E2=80=AFPM Bart Van Assche <bvanassche@acm.org=
+> wrote:
 >
-> Hello,
+> On 10/13/26 3:10 PM, Ian Rogers wrote:
+> > On Tue, Oct 13, 2026 at 12:44=E2=80=AFPM Bart Van Assche <bvanassche@ac=
+m.org> wrote:
+> >> On 10/13/26 11:24 AM, Ian Rogers wrote:
+> >>> diff --git a/include/linux/compiler-context-analysis.h b/include/linu=
+x/compiler-context-analysis.h
+> >>> index 8302ebc2ea8c..024e303188ad 100644
+> >>> --- a/include/linux/compiler-context-analysis.h
+> >>> +++ b/include/linux/compiler-context-analysis.h
+> >>> @@ -243,7 +243,7 @@
+> >>>     * alias as a function argument).
+> >>>     */
+> >>>    #define context_unsafe_alias(p) _context_unsafe_alias((void **)&(p=
+))
+> >>> -static inline void _context_unsafe_alias(void **p) { }
+> >>> +static inline void _context_unsafe_alias(void **p) { (void)p; }
+> >>
+> >> Why a void cast instead of __attribute__((unused))?
+> >
+> > I agree; unfortunately, the macro isn't declared before this header
+> > change needs it and I wanted to minimize the change.
 >
-> On Fri, Oct 09, 2026 at 10:25:33PM +0000, Jingyuan Liang wrote:
-> > +#include <linux/mod_devicetable.h>
-> > [...]
-> > +#include <linux/spi/spi.h>
->
-> Drop <linux/mod_devicetable.h>, the spi header already provides the
-> needed *_device_id with less dependencies.
+> Hmm ... as far as I know __attribute__() is not a macro.
 
-Thank you. I will drop it in v6.
+The kernel use generally comes from the macros in
+include/linux/compiler_attributes.h. You can see similar unused
+variable warnings being avoided in the  __assume_ctx_lock and
+__assume_shared_ctx_lock macros declared in this file for the
+!WARN_CONTEXT_ANALYSIS case.
 
->
-> > +static const struct of_device_id spi_hid_of_match[] =3D {
-> > +     { .compatible =3D "hid-over-spi", .data =3D &timing_data },
-> > +     {}
->
-> { } please
-
-Will fix it in v6.
-
->
-> > +};
-> > +MODULE_DEVICE_TABLE(of, spi_hid_of_match);
-> > +
-> > +static const struct spi_device_id spi_hid_of_id_table[] =3D {
-> > +     { "hid", 0 },
-> > +     { "hid-over-spi", 0 },
-> > +     { }
-> > +};
->
-> Please use named initializers and drop the unused zeros.
-
-Thank you. Will fix it in v6.
-
->
-> > +MODULE_DEVICE_TABLE(spi, spi_hid_of_id_table);
-> > +
-> > +static struct spi_driver spi_hid_of_driver =3D {
-> > +     .driver =3D {
-> > +             .name   =3D "spi_hid_of",
-> > +             .owner  =3D THIS_MODULE,
-> > +             .of_match_table =3D spi_hid_of_match,
-> > +             .probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
-> > +             .dev_groups =3D spi_hid_groups,
-> > +     },
-> > +     .probe          =3D spi_hid_of_probe,
-> > +     .remove         =3D spi_hid_core_remove,
-> > +     .id_table       =3D spi_hid_of_id_table,
->
-> Very inconsistent alignment of =3D, if you ask me, just use a single spac=
-e
-> before a =3D.
-
-Will do in v6, thanks.
-
->
-> > +};
->
-> Best regards
-> Uwe
+Thanks,
+Ian
