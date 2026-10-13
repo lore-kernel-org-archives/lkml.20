@@ -1,156 +1,187 @@
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3C85540AD
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17DA43859E9;
+	Tue, 13 Oct 2026 20:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791924967; cv=none; b=UFqI+OfwS24Y1Ff8+z5PgFlY8116otxpm29wyB1kBeHFsgfBR9gkReKemRI6WxYMPQltqVYilWfxmBNVBcc2LMo/guFLAs1l/IuIlH2e+nV4M6Ggo4OL6lgAXzDXJSh+yRlooU0sxNOIriTGFBm+GBl5dl1uoeN5UFZ9KgCENBY=
+	t=1791925024; cv=none; b=pGU05kxBK+44lATe1oGzB0r4pSSZ33r7eFXgvnaKCKIUfp//L7xtecEsQZQdbfVT2rDDsfE6JucD8h9hiwE7DELCNygIDO5TQu8cGZCwEqSFTAGy31cpk/nSDRxlj0UK14dcp81EL3SgnQGeFblXfFEnsKrbgu2SdX0XbYBMIiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791924967; c=relaxed/simple;
-	bh=3qWH2koItPy/vbViCZzFcKJYSGqpM60iDvtoECll2CM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JDSpEK16JqF+aMVdMorWl5IK5D+bRxx1SjhpYWssQaPVMb7cvj9CMAjnpF5jbpr+5NhOZCYYG7iYOAlFgpcB8IYC5haLBH21qReU+fCt4kB91aZ2Rby+c7N3s6n+C3Wkpri5ndyti4ZvKDqbTM163jYiBTKq4jzJM3k8S+WLgjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ly0Grsm/; arc=none smtp.client-ip=209.85.221.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791925024; c=relaxed/simple;
+	bh=zFW41uXxIm89Xo0kS85JmVYU3Rr6/II4shy7lQulyOk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ey3auCRcD1SFwzI7+M3U9s9ITElH7MMu1Xk8fJUZVNoKpkO9CI7c6QwFBI2Q+ALrDL65M6NidPEoWd45nS39T5OBX8dwmILPlSBOWGIpKdlBeU1Kt1KK8SOh8truc+kctJZE4fYICwMAtbMchm1dkLfPxQKsqZRX23fACs/4ttk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltZXKPXT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ly0Grsm/"
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5e507e778e4so1183779e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:56:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791924965; x=1792529765; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6OUQ+zAp4RYn8L595v0XwK+mQR3INz3p6beOnr31+Cc=;
-        b=Ly0Grsm/8ftZYQ1MnOEhTnmFCe49RJXFjX4kxrmD9zEUJeLw9ZuD85P91dC3B16XO4
-         jaV2ugm4D4pfQ0HbG7qintijVuVpWE4X6gS0izdQmM7erwaTjOV9pJhAE6J9NyjKtLin
-         MR4mnLc+qQDCXTgkOYADzKnT3FBXF6lS3I3tcGTbe9/mE1H/v1Ah049meqY+MkzrbjuK
-         mIC5CEj9SHDSUyxgi8CNZ0Ki9wuw4dDS2/bIZ+An/Ulj3sA1AgrHBXjST7JPGwm1QyL1
-         pPEW4sqfwjlruaTC0oX31JwzQ60XV81fQSAYm6bAw5HT4ghypiD/UNOlm4r+7zSvzopZ
-         xMkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791924965; x=1792529765;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6OUQ+zAp4RYn8L595v0XwK+mQR3INz3p6beOnr31+Cc=;
-        b=Vf2nbRaiuSFdHxvboKC6/yzVGcmjhA43qRTUnFTZjMubXY0vC8s7jaEJQVCuhNPOl+
-         IDvQPlpjBtwMZNIVRCFQuSV2t4DNIbxuHk+M2PvMI8+TL3I4ZnSIcto8jjYSwaImrPL/
-         jJQYbrDNoU0wEe3qRydmqljExKutSC7QJcS2rhtU2wJdM9MFX0OqEPxNhpU86LKwlO/0
-         K7JprvbTHcdzmoOv3ylFVCj5pcZKS5hMrun/GHiPI65M4mf8IL/A2wvwELkXr8GZkcHc
-         XlqXTcfo1eivr/S9nincCHZ+++IsFFmJO2CpR/G5NE4apyZD6jjof4GjJR2G1ujz8J3S
-         l31g==
-X-Forwarded-Encrypted: i=1; AKwUvBxSsOTi9U5pbqeihNpgIdWvO4FxXJWuy4c1cC3MeO0kZwJ6lIlEQxbULhYDWFe0DvmdgnKDxqk3D9LJ9aw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3UB0Zb8upszpKQbpm/foCVdevGfJykEimwazYMNlm10RGtcfy
-	0tCJ2OmWPdnyvx33IEFXhfHvCdTPb9N3KGsB+rzB/giib+DXql4YgVGJ
-X-Gm-Gg: AYBFou0ofx99RG64GAXJ5sYKsLLhcL9iWES7/gvBgLQxS8MAhJdLd8PvMmYHe2d+9cU
-	MO6fdVAYbvMCutM4aHvdP9Ot2dQwZ6xKrEN3UgnegP2W3p4vgzBaBaJlqxvF3nypjtNK+LmTQZY
-	FroVvD2GhcrJF+xMqfZjv3zNJC83lKFiR/9Aqc5K7+wKcYgDXAK61Z6LLAFO5yucn3afJ+z6+FG
-	KtoeOV3+IRTSfKLKvOKcBHLw1sBs9jwpngC3/0jZvsv2lBuJkRl5OGCEN4yjJ+/jrtPyFVRadhs
-	SPOPJOfE0W8oLYI5BJVCSX605TqSmQUcSyRvmfGg1VHYbLTvXZ1yabZ0uq8qIcDoYkqGbM8d4u6
-	ZmskYWcUkHXFsss80vcq6cVcL+dDiTj06CRzV6JJsLBI3Nj/FvJvgkoVwhME8aj7hs74H5G9hK9
-	FauVXAP2+cdEcXgdw++3ptw7O24QbS4IPD5JENHll8Qhv+hAfMRrIyW+KAzD/jgrKMcacuxq2Cc
-	3K8
-X-Received: by 2002:a05:6122:ca5:b0:5e3:828a:267d with SMTP id 71dfb90a1353d-5e91f518042mr4469938e0c.15.1791924964615;
-        Tue, 13 Oct 2026 13:56:04 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e962a6e2b7sm1842792e0c.8.2026.10.13.13.55.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 13:56:01 -0700 (PDT)
-Date: Tue, 13 Oct 2026 17:56:21 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, marcelo.schmitt1@gmail.com
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, robh@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 05/13] iio: adc: ad4134: Run shorter transfers when
- CRC is disabled
-Message-ID: <as6a9WRxHHav-Nq6@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1791309733.git.marcelo.schmitt@analog.com>
- <e46fd2f9b11ff2b690483bc2ea6489b6d145c773.1791309733.git.marcelo.schmitt@analog.com>
- <sashiko-outbox-162348@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltZXKPXT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 71F82C2BCF4;
+	Tue, 13 Oct 2026 20:57:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791925023;
+	bh=zFW41uXxIm89Xo0kS85JmVYU3Rr6/II4shy7lQulyOk=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ltZXKPXTSoonxdTvTQ8DF6WAF/4eMHgemYrrJt9E2yup8bUg8wbrLMlazufYqaCwt
+	 j4Ll5qD4OJ5Bux1o8vMzd+bE/m1wVwzDczrhb/9+igr37003T9zUv3Nw4i5V1tIWcS
+	 jVuUYtQ7rHP55099EPYPwRYPsi24kOuHKgTRVfRoAtTLpwO7Cz1O5XgnPBkpZqpiuo
+	 zFymsH5XbOezp9WePkgL28Mr9LIGXKLCFAnWN5Lzn5xMxjgkryRsItd4cfMRO3sE8P
+	 C5U7eztWHVT1iFejrrEOBdy7dbUBBAauP+S/Jdy+VIRcJG6ItRDJWpvCMoY27MEg+/
+	 L7pgpyo3QJAuw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D9D0CC6B12;
+	Tue, 13 Oct 2026 20:57:03 +0000 (UTC)
+From: Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org>
+Date: Tue, 13 Oct 2026 14:57:03 -0600
+Subject: [PATCH v4] usb: gadget: u_serial: fix NULL deref in gs_close()
+ after failed open
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-162348@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-u_serial-gs-close-null-v4-1-9ea038501994@gotenna.com>
+X-B4-Tracking: v=1; b=H4sIAB6bzmoC/4XN0Q6CIBQG4FdpXEcTRIWueo/WGsJB2QwaqKs53
+ z30ytZc5+7/t/87E4oQLER0PkwowGij9S4Fdjwg1UrXALY6ZUQzWmaCZHi4LwvZ4SZi1fkI2A1
+ dhyXPJMvLdMBRGj8DGPta4est5dbG3of3+mckS/uXHAkmWMgCOOM10aa+NL4H5+RJ+Qda0JFuI
+ FrtQjRBtQZtisqAKM0vlG8hvgvlCVIl51rkNVNMfEPzPH8AmhFavlABAAA=
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Kuen-Han Tsai <khtsai@google.com>, 
+ Prashanth K <prashanth.k@oss.qualcomm.com>, 
+ Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>, 
+ Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
+ syzbot+782b2f1063e38ba8fa6e@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, Brian Ellis <brianellis@gotenna.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791925022; l=4895;
+ i=brianellis@gotenna.com; s=20260910; h=from:subject:message-id;
+ bh=w9DTZeMtZkRd3FXGUqJ8HyiRNMOLz1JAQ9tb8EK17uE=;
+ b=iESdUBqYiTWAx0NzwAsbRuSLsYWTQYTCqqki4XjUH+QXlOWIeGwwgDPXXjga/pYuWuM3SSmew
+ IcjUACmyrhODZ6Wf9l8c3qHqa68PQOIS+k5ZgHK3mXsoX8rv3nvrfZv
+X-Developer-Key: i=brianellis@gotenna.com; a=ed25519;
+ pk=JciDR8ctfMqvKeRCDP8VPwNLUDULxCAqDum6H+/ByBY=
+X-Endpoint-Received: by B4 Relay for brianellis@gotenna.com/20260910 with
+ auth_id=1022
+X-Original-From: Brian Ellis <brianellis@gotenna.com>
+Reply-To: brianellis@gotenna.com
 
-On 10/06, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] iio: adc: ad4134: broken SPI read CRC calculation and ignored failures
-> - [Medium] iio: adc: missing delay after reset deassertion in probe
-> --
-> 
-> commit 5284b96efc125640c497213951d3fabe580894ec
-> Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> 
-> iio: adc: ad4134: Run shorter transfers when CRC is disabled
-> 
-> This commit conditionally reduces the SPI transfer length when the AD4134
-> CRC feature is disabled. It introduces a crc_en flag in the driver state
-> to skip the CRC validation check and send fewer bytes when CRC is inactive.
-> 
-> > diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> > index a0113fff4b715..85fa16321d744 100644
-> > --- a/drivers/iio/adc/ad4134.c
-> > +++ b/drivers/iio/adc/ad4134.c
-> [ ... ]
-> > @@ -232,7 +233,7 @@ static int ad4134_register_read(struct ad4134_state *st, unsigned int reg,
-> >  	*val = st->rx_buf[1];
-> >  
-> >  	/* Check CRC */
-> > -	if (st->rx_buf[2] != st->tx_buf[2])
-> > +	if (st->crc_en && st->rx_buf[2] != st->tx_buf[2])
-> >  		dev_dbg(&st->spi->dev, "reg read CRC check failed\n");
-> >  
-> >  	return 0;
-> 
-> [Severity: Medium]
-> Does this CRC validation logic reliably verify the read data?
+From: Brian Ellis <brianellis@gotenna.com>
 
-It would require mid-transfer data CRC calculation to properly implement AD4134
-CRC feature. That would probably require changes to the SPI core or even more
-unusual hacks. Fixing the CRC is not part of this series and I don't want to
-extend it further.
+gs_close() opens with
 
-...
-> > @@ -313,6 +314,7 @@ static int ad4134_min_io_mode_setup(struct ad4134_state *st)
-> >  	struct device *dev = &st->spi->dev;
-> >  	int ret;
-> >  
-> > +	st->crc_en = true; /* In minimum I/O mode CRC cannot be disabled */
-> >  	st->odr_gpio = devm_gpiod_get(dev, "odr", GPIOD_OUT_LOW);
-> 
-> [Severity: Medium]
-> Does the AD4134 device require a stabilization delay before interacting with it
-> over SPI?
-> 
-> In ad4134_probe(), devm_reset_control_get_optional_exclusive_deasserted() is
-> called to deassert the reset line. Execution then proceeds directly to regmap
-> initialization and SPI transfers without any hardware stabilization delay:
-> 
-> 	rst = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
-> 	if (IS_ERR(rst))
-> 		return dev_err_probe(dev, PTR_ERR(rst),
-> 				     "failed to get and deassert reset\n");
-> 
-> 	crc8_populate_msb(ad4134_spi_crc_table, AD4134_SPI_CRC_POLYNOM);
-> 
-> 	ret = devm_mutex_init(dev, &st->sync_lock);
-> 	if (ret)
-> 		return ret;
-> 
-> 	st->regmap = devm_regmap_init(dev, NULL, st, &ad4134_regmap_config);
-> 
-> Without a delay, could the first SPI transactions during probe drop or return
-> invalid data, causing initialization to fail?
+	struct gs_port *port = tty->driver_data;
+	...
+	spin_lock_irq(&port->port_lock);
 
-Has never been an issue during tests. Though, I guess it's easier to add
-fsleep(AD4134_RESET_TIME_US) than to keep replying to bots.
+and never checks port.  gs_open() assigns tty->driver_data only on the
+port.count 0 -> 1 edge, so any failure earlier in gs_open() leaves it NULL,
+and tty_open() calls tty_release(), and hence ->close(), when ->open()
+fails.
+
+syzbot hit exactly this on arm64.  Fault injection failed the kfifo_alloc()
+of the write buffer in gs_open():
+
+   __kfifo_alloc_node+0x10c/0x208 lib/kfifo.c:44
+   gs_open+0x144/0x514 drivers/usb/gadget/function/u_serial.c:636
+   tty_open+0x404/0x89c drivers/tty/tty_io.c:2137
+
+and the tty core's close of the failed open then took port_lock through
+the NULL port:
+
+  BUG: unable to handle kernel paging request in gs_close
+  KASAN: null-ptr-deref in range [0x00000000000003a0-0x00000000000003a7]
+  Call trace:
+   spin_lock_irq include/linux/spinlock.h:372 [inline]
+   gs_close+0xac/0x65c drivers/usb/gadget/function/u_serial.c:698
+   tty_release+0x2c4/0xffc drivers/tty/tty_io.c:1745
+   tty_open+0x46c/0x89c drivers/tty/tty_io.c:2146
+
+Return early instead.  There is nothing to release when the open never got
+far enough to claim the port.
+
+Unlike the check reverted by commit f6c7bc4a6823 ("Revert "usb: gadget:
+u_serial: Add null pointer check in gs_start_io""), this is not hiding a
+race: the tty core calls ->close() for an ->open() that failed by design,
+so driver_data is legitimately unset on that path.
+
+Fixes: c1dca562be8a ("usb gadget: split out serial core")
+Reported-by: syzbot+782b2f1063e38ba8fa6e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=782b2f1063e38ba8fa6e
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Brian Ellis <brianellis@gotenna.com>
+---
+Found by reading the code while working on a downstream 6.6-based gadget
+kernel, where gserial_free_line() clearing ports[n].port makes the same
+path reachable, and matched to the syzbot report afterwards.  It has not
+been hit here, and syzbot has no reproducer for it.
+
+Compile-tested against usb-linus with allmodconfig (CONFIG_USB_U_SERIAL=m).
+Not boot-tested on mainline, and the failed-open path has not been
+exercised.
+
+Two lifetime reworks posted for a different syzbot report in this driver
+(fe63e4d633540f230624) add the same check as part of larger changes:
+
+  https://lore.kernel.org/r/20260910105359.12915-1-syedtayyabfarooq08@gmail.com
+  https://lore.kernel.org/r/6941beb7-8cae-4cc5-ba07-e1c8a8753fe1@mail.kernel.org
+
+This is the minimal fix, aimed at stable.  If either of those lands first,
+this one is redundant.
+---
+Changes in v4:
+- Reported-by:/Closes: now use the ID from syzbot's public report; v3
+  used the ID from its moderation stage.
+- Quote the trace from the public report, including the injected
+  kfifo_alloc() failure in gs_open().  v3 misread the shadow index 0x74 as
+  the offset (it is 0x3a0) and quoted a "Write" line not in the report.
+- Correct v3's notes: syzbot has no reproducer, and this was found by
+  reading the code, not hit downstream.
+- Mention the two overlapping lifetime reworks.
+- Add Assisted-by: LLM.
+- Link to v3: https://lore.kernel.org/r/20260928-u_serial-gs-close-null-v3-1-c688d93b4c49@gotenna.com
+
+Changes in v3:
+- Restore the Reported-by:/Closes: syzbot tags and the KASAN trace. They were
+  dropped from v1 and v2 in error when the commit message was rewritten. The
+  report is still open, and without Closes: syzbot cannot associate this fix
+  with it.
+- Say why this differs from the check reverted in f6c7bc4a6823, since that
+  revert's reasoning is the obvious objection here.
+- Link to v2: https://lore.kernel.org/r/20260927-u_serial-gs-close-null-v2-1-bdedf57fe96f@gotenna.com
+
+Changes in v2:
+- Remove the comment above the check, rather than reword it as Prashanth
+  suggested. The commit message already explains the path that leaves
+  tty->driver_data NULL, so the comment only restated it. Happy to add a
+  reworded one instead if that is preferred.
+- Link to v1: https://lore.kernel.org/r/20260910-u_serial-gs-close-null-v1-1-9a5e848b1dfb@gotenna.com
+---
+ drivers/usb/gadget/function/u_serial.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+index cdd1dfc66..892d2673e 100644
+--- a/drivers/usb/gadget/function/u_serial.c
++++ b/drivers/usb/gadget/function/u_serial.c
+@@ -695,6 +695,9 @@ static void gs_close(struct tty_struct *tty, struct file *file)
+ 	struct gs_port *port = tty->driver_data;
+ 	struct gserial	*gser;
+ 
++	if (!port)
++		return;
++
+ 	spin_lock_irq(&port->port_lock);
+ 
+ 	if (port->port.count != 1) {
+
+---
+base-commit: be4219dd98608736e13e0b790ef742b76a13254d
+change-id: 20260910-u_serial-gs-close-null-a80a436666e8
+
+Best regards,
+-- 
+Brian Ellis <brianellis@gotenna.com>
+
+
