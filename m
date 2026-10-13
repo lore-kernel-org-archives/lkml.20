@@ -1,200 +1,96 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B14C3B47E9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7317379EE7;
+	Tue, 13 Oct 2026 08:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791879862; cv=none; b=YEdm/Am9be9J+xa90dXbLtIKdgJn15urh86OJk3HeTzu26GdIPYIx8lpe54u+nqJhI//2sB6LM1fIMolFYEtVsvA/odytS8bK+mywwm2LJbgI0nXqsvsDpJqsS22uQfcZudHXdKYpwu3DYjcyAN12EvWLpx5THSLePvP6adHsf8=
+	t=1791879886; cv=none; b=cDgCZe9P1GbqAJq5fSR0c/vDakHkYDcP6hl/zgCYB9ie25i0TrHXmP6Us996gTv+KzWsoJp9LOCQmBuYNp/LFOEMN/tzgF8gFzoMd/aZJoSwcOad0nF/pHFai9SVOB7+S89FIpdhkZsMj9v1ZAFb/E30SpX1HzwsxGm6koPaayo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791879862; c=relaxed/simple;
-	bh=FTxZbIRzjHN8Ao/LYW7FYIJxjuUQnB+2+yOa6PRxNs4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QUn5gXxrmIPvXYiptn5NpViRqrAvUAlO7JJEr4Rzeozm6CtWp9rqTwIs3459BhqZnn2fkTJVVY7CVgKdkkglkv9p7WZiLzaAuTtR/rFiQvEV+jYiiDSHVSpBxEeXbxuhFoCURoBk7amHPtpYQ6vh7tANOyqAzCzDzrpL4Y/XjNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=n9t+CZYH; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791879886; c=relaxed/simple;
+	bh=Vhsk+az7pLWe3uoK3zp/16ASEYEg4HGF+a3mQpKx9YM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k4sYBFmN3MJUUTMUz7uu8YkxRUU73Xt7cpLj7QiaS+QtVGPDNr6BKpaIhTiScMgWTMuMc4Jmqfpckl2vR4PC7HFOYeaOPCzd85teFrEULS2QgA8POsWKVNIx2+oNVg2veg8UkkowP1edWBamlNqC6CMYsgcIZ5vnj8tZZebCxKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VSGqx7rk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="n9t+CZYH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791879860; x=1823415860;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=FTxZbIRzjHN8Ao/LYW7FYIJxjuUQnB+2+yOa6PRxNs4=;
-  b=n9t+CZYHRJ2YOgA+bflXlX+j0DOFa3j7MwdUlkMKo/iSf7XfQjKDuR2z
-   XEnUfs3n3BqyNN5KcaHHwn4kWnZEXVYfwUMlu41dpPYWAL8kdhuO1S2Cs
-   /DJupRc1H+Whpt70TA9axNq9irQVS+KxabIFPiR07ClsEFeQngd7zgKEm
-   58X5/RdNq5h+qMHPTPUt68sDzpnP6w3Ff+/5+gmDPh0beCgtlhb9KGagq
-   rYwXo+//xi0J1F3vst+24D2iYPbE8AjF5/HQXid2HkWnbGkdDKb6K7InY
-   Nligt2AtRSuoBiTv5xma/U0kCKseNryxQcTb5sVMBkQb80aGTuFDYhQde
-   Q==;
-X-CSE-ConnectionGUID: 0NvGL0pDRK+TX9TXxYqZAg==
-X-CSE-MsgGUID: vBQs5LFcQQepkjfYtoS+jg==
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="75297029"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 01:24:19 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Tue, 13 Oct 2026 01:24:19 -0700
-Received: from archlinux.mchp-main.com (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 13 Oct 2026 01:24:18 -0700
-From: Mihai Sain <mihai.sain@microchip.com>
-To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>
-CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>, "Mihai
- Sain" <mihai.sain@microchip.com>
-Subject: [PATCH] mtd: mtdpart: convert printk to pr_* and define pr_fmt
-Date: Tue, 13 Oct 2026 11:23:43 +0300
-Message-ID: <20261013082352.5051-2-mihai.sain@microchip.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VSGqx7rk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79701F000FF;
+	Tue, 13 Oct 2026 08:24:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791879885;
+	bh=LruYlVld4rS6kylK4MX/2i9K5nPc2qp8o4UxcajCndg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VSGqx7rk0zCrQ7E9rHZsPNQKC9F1NDW8T2aaA1I39jBFb/BdWI0L9Y3EPWCKcEJWz
+	 nyzm4WlyIxLwO6+jWMM7gRGL/qv4uk5G/MdX9UHCotxerv/BzcZR6A0Ba5D29PyFcf
+	 WNcy+D+mh6RGe+UETBBSKBjNax6CECeK5FLYg16FCYRnJ6wMSLuvNi0vmIvqfOV7Q+
+	 fo2+NVwwKR7CCx7N1hy/B3fBZOUCrhZNeuZyuoU4Ok08uIefaWjJ1R2sFHtEa3rL7o
+	 VeWqe01dZF113Y9e88fKEDcDJp+yeXQ+Eq1wwf0kA71nN1aO3fdR6dzxqWz5/fttS/
+	 auSooqCguDR+g==
+Date: Tue, 13 Oct 2026 09:24:41 +0100
+From: Lee Jones <lee@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	Dan Murphy <dmurphy@ti.com>
+Subject: Re: [PATCH v2 1/2] leds: lm3532: Propagate enable GPIO errors
+Message-ID: <20261013082441.GC199624@google.com>
+References: <20261009091059.25729-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009091059.25729-1-phucduc.bui@gmail.com>
 
-Define pr_fmt to prefix all pr_* print statements in this file with
-"mtd: ". Convert legacy printk() invocations to their modern pr_err(),
-pr_warn(), and pr_notice() equivalents so that the prefix applies
-consistently across all logs.
+On Fri, 09 Oct 2026, phucduc.bui@gmail.com wrote:
 
-Where applicable, redundant "mtd: " substrings embedded within individual
-print strings were removed to avoid duplicate prefixing in the final output.
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> devm_gpiod_get_optional() returns NULL when the optional GPIO is not
+> present, but may return -EPROBE_DEFER or other errors.
+> 
+> lm3532_parse_node() currently treats GPIO lookup errors as if the GPIO
+> were not present.
+> 
+> Check the return value and propagate errors from the enable GPIO lookup.
+> 
+> Fixes: bc1b8492c764 ("leds: lm3532: Introduce the lm3532 LED driver")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+> 
+> Changes in v2:
+>  - Capitalize the first letter of the commit message subject 
+> 
+>  drivers/leds/leds-lm3532.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/leds/leds-lm3532.c b/drivers/leds/leds-lm3532.c
+> index b51496910b08..a3bc9680dc4c 100644
+> --- a/drivers/leds/leds-lm3532.c
+> +++ b/drivers/leds/leds-lm3532.c
+> @@ -560,7 +560,8 @@ static int lm3532_parse_node(struct lm3532_data *priv)
+>  	priv->enable_gpio = devm_gpiod_get_optional(&priv->client->dev,
+>  						   "enable", GPIOD_OUT_LOW);
+>  	if (IS_ERR(priv->enable_gpio))
+> -		priv->enable_gpio = NULL;
+> +		return dev_err_probe(&priv->client->dev, PTR_ERR(priv->enable_gpio),
+> +				     "failed to get enable GPIO\n");
 
-before this patch:
+This changes the semantics of the GPIO handling.
 
-[    1.593577] 6 fixed-partitions partitions found on MTD device at91-nand
-[    1.600241] Creating 6 MTD partitions on "at91-nand":
-[    1.605304] 0x000000000000-0x000000040000 : "nand: at91bootstrap"
-[    1.611961] 0x000000040000-0x000000140000 : "nand: u-boot"
-[    1.617855] 0x000000140000-0x000000180000 : "nand: u-boot env"
-[    1.624128] 0x000000180000-0x000000200000 : "nand: device tree"
-[    1.630517] 0x000000200000-0x000000800000 : "nand: kernel"
-[    1.636322] 0x000000800000-0x000040000000 : "nand: rootfs"
+Currently we treat the GPIO as optional, regardless of what is returned.
 
-after this patch:
+Ideally we'd have the author review this - did you Cc them?
 
-[    1.596940] mtd: 6 fixed-partitions partitions found on MTD device at91-nand
-[    1.604040] mtd: Creating 6 MTD partitions on "at91-nand":
-[    1.609480] mtd: 0x000000000000-0x000000040000 : "nand: at91bootstrap"
-[    1.616700] mtd: 0x000000040000-0x000000140000 : "nand: u-boot"
-[    1.623149] mtd: 0x000000140000-0x000000180000 : "nand: u-boot env"
-[    1.629729] mtd: 0x000000180000-0x000000200000 : "nand: device tree"
-[    1.636543] mtd: 0x000000200000-0x000000800000 : "nand: kernel"
-[    1.642889] mtd: 0x000000800000-0x000040000000 : "nand: rootfs"
+>  	if (priv->enable_gpio) {
+>  		ret = devm_add_action(&priv->client->dev, gpio_set_low_action, priv);
+> -- 
+> 2.43.0
+> 
 
-Signed-off-by: Mihai Sain <mihai.sain@microchip.com>
----
- drivers/mtd/mtdpart.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/mtd/mtdpart.c b/drivers/mtd/mtdpart.c
-index ddded0dbe77e..df93f198b1b2 100644
---- a/drivers/mtd/mtdpart.c
-+++ b/drivers/mtd/mtdpart.c
-@@ -6,6 +6,7 @@
-  * Copyright © 2002 Thomas Gleixner <gleixner@linutronix.de>
-  * Copyright © 2000-2010 David Woodhouse <dwmw2@infradead.org>
-  */
-+#define pr_fmt(fmt) "mtd: " fmt
- 
- #include <linux/module.h>
- #include <linux/types.h>
-@@ -57,7 +58,7 @@ static struct mtd_info *allocate_partition(struct mtd_info *parent,
- 	child = kzalloc_obj(*child);
- 	name = kstrdup(part->name, GFP_KERNEL);
- 	if (!name || !child) {
--		printk(KERN_ERR"memory allocation error while creating partitions for \"%s\"\n",
-+		pr_err("memory allocation error while creating partitions for \"%s\"\n",
- 		       parent->name);
- 		kfree(name);
- 		kfree(child);
-@@ -102,7 +103,7 @@ static struct mtd_info *allocate_partition(struct mtd_info *parent,
- 		remainder = do_div(tmp, wr_alignment);
- 		if (remainder) {
- 			child->part.offset += wr_alignment - remainder;
--			printk(KERN_NOTICE "Moving partition %d: "
-+			pr_notice("Moving partition %d: "
- 			       "0x%012llx -> 0x%012llx\n", partno,
- 			       (unsigned long long)cur_offset,
- 			       child->part.offset);
-@@ -114,7 +115,7 @@ static struct mtd_info *allocate_partition(struct mtd_info *parent,
- 			child->part.size = parent_size - child->part.offset -
- 					   child->part.size;
- 		} else {
--			printk(KERN_ERR "mtd partition \"%s\" doesn't have enough space: %#llx < %#llx, disabled\n",
-+			pr_err("partition \"%s\" doesn't have enough space: %#llx < %#llx, disabled\n",
- 				part->name, parent_size - child->part.offset,
- 				child->part.size);
- 			/* register to preserve ordering */
-@@ -127,7 +128,7 @@ static struct mtd_info *allocate_partition(struct mtd_info *parent,
- 	if (child->part.size == MTDPART_SIZ_FULL)
- 		child->part.size = parent_size - child->part.offset;
- 
--	printk(KERN_NOTICE "0x%012llx-0x%012llx : \"%s\"\n",
-+	pr_notice("0x%012llx-0x%012llx : \"%s\"\n",
- 	       child->part.offset, child->part.offset + child->part.size,
- 	       child->name);
- 
-@@ -139,13 +140,13 @@ static struct mtd_info *allocate_partition(struct mtd_info *parent,
- 
- 		/* Initialize ->erasesize to make add_mtd_device() happy. */
- 		child->erasesize = parent->erasesize;
--		printk(KERN_ERR"mtd: partition \"%s\" is out of reach -- disabled\n",
-+		pr_err("partition \"%s\" is out of reach -- disabled\n",
- 			part->name);
- 		goto out_register;
- 	}
- 	if (child->part.offset + child->part.size > parent->size) {
- 		child->part.size = parent_size - child->part.offset;
--		printk(KERN_WARNING"mtd: partition \"%s\" extends beyond the end of device \"%s\" -- size truncated to %#llx\n",
-+		pr_warn("partition \"%s\" extends beyond the end of device \"%s\" -- size truncated to %#llx\n",
- 			part->name, parent->name, child->part.size);
- 	}
- 
-@@ -190,7 +191,7 @@ static struct mtd_info *allocate_partition(struct mtd_info *parent,
- 		/* FIXME: Let it be writable if it is on a boundary of
- 		 * _minor_ erase size though */
- 		child->flags &= ~MTD_WRITEABLE;
--		printk(KERN_WARNING"mtd: partition \"%s\" doesn't start on an erase/write block boundary -- force read-only\n",
-+		pr_warn("partition \"%s\" doesn't start on an erase/write block boundary -- force read-only\n",
- 			part->name);
- 	}
- 
-@@ -198,7 +199,7 @@ static struct mtd_info *allocate_partition(struct mtd_info *parent,
- 	remainder = do_div(tmp, wr_alignment);
- 	if ((child->flags & MTD_WRITEABLE) && remainder) {
- 		child->flags &= ~MTD_WRITEABLE;
--		printk(KERN_WARNING"mtd: partition \"%s\" doesn't end on an erase/write block -- force read-only\n",
-+		pr_warn("partition \"%s\" doesn't end on an erase/write block -- force read-only\n",
- 			part->name);
- 	}
- 
-@@ -241,8 +242,7 @@ static int mtd_add_partition_attrs(struct mtd_info *new)
- {
- 	int ret = sysfs_create_files(&new->dev.kobj, mtd_partition_attrs);
- 	if (ret)
--		printk(KERN_WARNING
--		       "mtd: failed to create partition attrs, err=%d\n", ret);
-+		pr_warn("failed to create partition attrs, err=%d\n", ret);
- 	return ret;
- }
- 
-@@ -409,7 +409,7 @@ int add_mtd_partitions(struct mtd_info *parent,
- 	uint64_t cur_offset = 0;
- 	int i, ret;
- 
--	printk(KERN_NOTICE "Creating %d MTD partitions on \"%s\":\n",
-+	pr_notice("Creating %d MTD partitions on \"%s\":\n",
- 	       nbparts, parent->name);
- 
- 	for (i = 0; i < nbparts; i++) {
 -- 
-2.56.0
-
+Lee Jones
