@@ -1,76 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770C03859E2;
-	Tue, 13 Oct 2026 08:07:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558A02EBBA1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:07:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791878853; cv=none; b=GVDSwgkSmLVSw0Wb/rNamLQQDM9iWSMdEe/ydtznvUHy/ITAsvPIfhnkCJYOpLswPfFSeVrqfsK/UR6BQZZxUxZ/0XLiaK/U4Tsa+Wvtixmtx1/ZRNWZVxPmFWGFezGMJpvBW//D89kyIrfn90hoygl0e2X9RzYifYOKu+f2+/c=
+	t=1791878854; cv=none; b=ge+nAulCXXZWvEeVGlxV47pNSkt0kaYxCUK/xOaN9vxAsEu/4dmOLQWCBTyWYgcZJt0CVa7yz2r+0naUgTsUQESX0TskCOUYEcM4dRO21lk5L8hpOsmKPDu5bO5Wa+oFGtrH0hh3S0Zf19jHjl0RqfvM0S4HcIPp6qbbtk+dkuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791878853; c=relaxed/simple;
-	bh=5TlFjL4l38jNXUi6seND/H9B2myRsoM0WqHa6aOoHXg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D6lshIXKNiS4ZntPXEvbqKpSFWx5Ix0rO4Uy+70Y+KOY6M8SrVzIGb4wTiw6pt3/2H+GG1N8W0bX3/h2Oh6rilsGcVulqmGWiSKSc7n8Ug7kQJ253v7cHsXEV3B/ZY2QMJQK+nKrg+aLh1PQCSK9NoPvBDmzOcec11h00w+Y9+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fxbES/Fv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791878854; c=relaxed/simple;
+	bh=Pxa+Ajou/UjyfJ2qYIatNwbu66aMZns6yZ20YFcX1lo=;
+	h=From:Subject:To:Cc:Date:Message-ID:MIME-Version:Content-Type; b=D4Nr1FMMZVYCG1gBJcpnpxCCczruY86UpoqTy9pwl5fJByR49WjoiFe07RbWR8IqczQs2MMdEj/DK95l6qnJx6eCkifbojzU4mni4ivc7k4771oPBgUZJpLZ6RuUFEsxMFjDw26h2dXFZ/36M0983/3OK51wAs++/bEY9e0dTH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ohRPyxW8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fxbES/Fv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C101F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ohRPyxW8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7107A1F00893;
 	Tue, 13 Oct 2026 08:07:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791878852;
-	bh=yllcDk776GPbP0ij4HCD8TWUc0JMOURL0NPZdNz4x2s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fxbES/FvTcomN2aDAS4IkZPlhR1b7x/6uu7H6nzhz6N5EToQk0JLc1OJpmvrgHvkb
-	 PxqdddBzvj5KW0Uxd7yssML+laiaDZBvAiWTq1FiHr8vZrvBtZPuA8UH0etdufNCm6
-	 FfW/5bRI8jRpA+TvlDJhSjwVh1+VjewmXrcLEpzHVQdACQ9irZe4y+VL8FRGcvkdPB
-	 N2VYhugKQjaHnArZwV7p31bp02PJzj8vcuU2FuXcudU/Zd4YVhTIt5lfDSnWZV8dsc
-	 Wcu1Ghtdkm20KFZ2yUCjz9vw1iHKh8VpGc4aXogwDfWsx/LmjsZ8vAHJw9Ysnafygg
-	 AIWegIL3c+h1Q==
-Date: Tue, 13 Oct 2026 01:07:31 -0700
-From: Kees Cook <kees@kernel.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: peterz@infradead.org, bp@alien8.de, dave.hansen@linux.intel.com,
-	hpa@zytor.com, justinstitt@google.com,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, mingo@redhat.com, morbo@google.com,
-	nathan@kernel.org, ndesaulniers@google.com, samitolvanen@google.com,
-	tglx@kernel.org, x86@kernel.org
-Subject: Re: [PATCH 2/3] x86/kcfi: Emit the FineIBT paranoid "cs" prefix as a
- byte
-Message-ID: <202610130106.5CF1301D@keescook>
-References: <20261012091601.GN4121339@noisy.programming.kicks-ass.net>
- <8aae2418-38e1-479a-bf82-df65acde0ffd@citrix.com>
+	s=k20260515; t=1791878853;
+	bh=y4Agq7s9X2LOHheuIImpYu6j1A9yFBq8aPeY6cwgio4=;
+	h=From:Subject:To:Cc:Date;
+	b=ohRPyxW8jg3vxcTvEmSKHIdfYGPsf4hTqcxViFoJduZkqf0k1td2rfk+WM3gMs7ga
+	 9oTdXCcsFH0Q8heBUWwJjomPOCpatDhZKaenWgWI9O0v+CSRQSbeaDB2IFnXp4qdEq
+	 b4Tu9b5SCz9qZPKdZO9PKIS7qHw2wVMUa/ow/7/aTG8kj4sA6Lt3HAU/ZPPpEGgnYv
+	 4FYUJczKjLXG/2BPJf/98nX5VuOqyA+QakpcFVP3SxK9atlnpv44mux2NnC5Fu0M7R
+	 szRVU3o3DQwC19IlcOszrcg3TbM4AUA9yw4+3oJjRjxMT06uAlOC+PpmXmZ6VBxi3N
+	 j1h9zLSPkakKQ==
+From: Konstantin Sinyuk <ksinyuk@kernel.org>
+Subject: [PATCH] MAINTAINERS: update habanalabs maintainer contacts and status
+To: dri-devel@lists.freedesktop.org, Lukas Wunner <lukas@wunner.de>
+Cc: Koby Elbaz <elbaz.koby@gmail.com>, Dave Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
+Date: Tue, 13 Oct 2026 11:07:29 +0300
+Message-ID: <179187884916.468.5557909498363748284@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8aae2418-38e1-479a-bf82-df65acde0ffd@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 08:05:21PM +0100, Andrew Cooper wrote:
-> > On Mon, Oct 12, 2026 at 02:04:25AM -0700, Kees Cook wrote:
-> >> The "cs" prefix on the LEA in the FineIBT paranoid caller template is
-> >> padding: it places the LEA's 0xf0 immediate byte where it doubles as the
-> >> LOCK prefix that makes the failing Jcc raise #UD. GNU as warns about it
-> >> in every CONFIG_FINEIBT=y build:
-> >>
-> >>   Warning: segment override on `lea' is ineffectual
-> > Shees...
-> 
-> This is a binutils bug.  Can't we fix it here?
+Update the contact addresses for Konstantin Sinyuk and Koby Elbaz
+and add the corresponding mailmap entries.
 
-I can try to send a binutils bug fix?
+Set the driver status to Maintained to reflect the current
+maintenance arrangement.
 
-> The claim in the warning is simply not true.  This is an example where
-> it absolutely does matter, and it also matters for legibility that we
-> can avoid writing raw hex.
+Signed-off-by: Konstantin Sinyuk <ksinyuk@kernel.org>
+Acked-by: Koby Elbaz <elbaz.koby@gmail.com>
+---
+Lukas, following our discussion at LPC, here is the contact and
+maintenance-status update.
 
-Well, we'd have to keep some kind of work-around for earlier binutils
-for a long while...
+ .mailmap    | 2 ++
+ MAINTAINERS | 6 +++---
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
--- 
-Kees Cook
+diff --git a/.mailmap b/.mailmap
+--- a/.mailmap
++++ b/.mailmap
+@@ -510,10 +510,12 @@
+ Kirill Tkhai <tkhai@ya.ru> <ktkhai@virtuozzo.com>
+ Kiryl Shutsemau <kas@kernel.org> <kirill.shutemov@linux.intel.com>
+ Kishon Vijay Abraham I <kishon@kernel.org> <kishon@ti.com>
++Koby Elbaz <elbaz.koby@gmail.com> <koby.elbaz@intel.com>
+ Konrad Dybcio <konradybcio@kernel.org> <konrad.dybcio@linaro.org>
+ Konrad Dybcio <konradybcio@kernel.org> <konrad.dybcio@somainline.org>
+ Konstantin Khlebnikov <koct9i@gmail.com> <khlebnikov@yandex-team.ru>
+ Konstantin Khlebnikov <koct9i@gmail.com> <k.khlebnikov@samsung.com>
++Konstantin Sinyuk <ksinyuk@kernel.org> <konstantin.sinyuk@intel.com>
+ Koushik <raghavendra.koushik@neterion.com>
+ Krishna Manikandan <quic_mkrishn@quicinc.com> <mkrishn@codeaurora.org>
+ Krzysztof Kozlowski <krzk@kernel.org> <k.kozlowski.k@gmail.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11432,8 +11432,8 @@
+ HABANALABS PCI DRIVER
+-M:	Koby Elbaz <koby.elbaz@intel.com>
+-M:	Konstantin Sinyuk <konstantin.sinyuk@intel.com>
++M:	Konstantin Sinyuk <ksinyuk@kernel.org>
++M:	Koby Elbaz <elbaz.koby@gmail.com>
+ L:	dri-devel@lists.freedesktop.org
+-S:	Supported
++S:	Maintained
+ C:	irc://irc.oftc.net/dri-devel
+ T:	git https://github.com/HabanaAI/drivers.accel.habanalabs.kernel.git
+ F:	Documentation/ABI/testing/debugfs-driver-habanalabs
