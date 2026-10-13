@@ -1,71 +1,505 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702AD37F320;
-	Tue, 13 Oct 2026 14:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C053CF04C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901150; cv=none; b=l3xkF1aivkJop0TNREq9k5GskeIBhJLw2bWiOwgkVSuzxB97ckFJoXWiC6tztZzwd0de4G1Glxz1wEG9KPvdxWkmTyHFDIJ46L+n3SZRtBghPEkAGxM4Gx7Tt1EbOE5zkvrobJPsKmaUChRXaGrMu2heyLyeJIdFPYlPG4nsamw=
+	t=1791901180; cv=none; b=Muc/KwEtMnFK8DMtx//q8XWo2VFwGn5jDNXSA9FVuCTTLT29GIY5wsGJ5kitI4yYqmp1bUqLzTOcWulM/KuqAabvDczQDnKiyA99njz7BmC4/EkCtKGnBh65SVmoQOj0P3lJ2B8xR+t8ArqP5BizCpAIETe2Y8GVfcsmPdYj+10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791901150; c=relaxed/simple;
-	bh=xaK8/D6bzpCc2TZ/0NvXfiMBcBAwciYEYnmZo7YFYQ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W8aSzHAfww8QhagsMrxyGdNFSrX8bUqz+r1iDfYaf/ewO/946ovcA0j80fh4hxOQ8yR48LKFPTvdXH/fLkXlfVWikZ3japdvDKXv7zrnJOQnhCuNe8QzuqrikYUdaAAAvG6U8mDMq+D1xS/oHS4btbRp3Dx2Am25yef69rDMP/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 1D063227A88; Tue, 13 Oct 2026 16:19:05 +0200 (CEST)
-Date: Tue, 13 Oct 2026 16:19:04 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: Justin Tee <justin.tee@broadcom.com>, Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>, Keith Busch <kbusch@kernel.org>,
-	linux-nvme@lists.infradead.org,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart2021@gmail.com>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] nvmet-fc: bound the FCP command data length before
- allocating buffers
-Message-ID: <20261013141904.GA14323@lst.de>
-References: <20261013104038.3078601-1-yhlee@isslab.korea.ac.kr>
+	s=arc-20240116; t=1791901180; c=relaxed/simple;
+	bh=enr601/UW/V+ls2ITnlSRUtfmhhMuuLRQHmdoJgQDwE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bSeXqiKAvIrJNBWu/wg69BWnNHcoRkhW0n6yIEQv37IpBKOJKfunEPc72f5+CldOA546+q0JhQEaD2yAMX2yp077K06dV1i+FwEnD6wTDOZi2CNKqFsjklYyeccwWWfQ20DU2yD5SMyGyfAFXtAww7gbII9mbwSYVzoF4KkuBgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e1w78GH1; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e1w78GH1"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1315611a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:19:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791901178; x=1792505978; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U5OKAT/r5VX1h6V3ZVwOveUrpnOzOYjKx91GpkDCIuY=;
+        b=e1w78GH1l0N4+THTGEc2d/A61SKG87ownZ2WhzJGrmurO84ItlJHBjMAMNMoq8dkzx
+         aRxtUz3lbzHVXcvqja3g/JqLFY050J+AWSUfVpQsd/nGhyjwRMzbKh0OND55wY3f62oe
+         Lf3ICGpDhNRjJRENGHebgn8BeKf4/05dTYpYCvfI5yu4rTa4cSzh0QHcUTRYAKlFZe3Y
+         wJ8iBpRGJxwTxppqw0jvD9xuUl/r2g8B0EMzztIhx3pCyzhzXSpMsOm3RaUBdVEpS5zR
+         6K85SMC52nktB/ZvQ85ZATyqSXonXxSOCXHGqNwi6rEWMDWJtp16X/JyzJB+RPr0Xqep
+         PZLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791901178; x=1792505978;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U5OKAT/r5VX1h6V3ZVwOveUrpnOzOYjKx91GpkDCIuY=;
+        b=hqTuES2n6b3YPFq7IyM5s3UEp8hrfgZdm+C/e/ct0P62heJzHRk0TuYv/5hZfkOsop
+         F0aTILnKzauCtJ13xkU6iE4yXusLCGJjqERiqvei2jmVDWkq23OuAXCbFOoiZ2o2pNDa
+         pdnvSaElK5fYB1RDuV22zu5kUkoKrl5Mq7cVS1xdTLVs+uXXpP/uu2JETYwRgVsHPyKH
+         rOxstWGNz2FG/cDmPjEfqj/g5Qjkl0W2iVtaMwdqjsaz1RPRI+IESS2CzDa5Ox/rY/Of
+         AmXqFx7bYIlel/RK+q3IZktYZytUl1wN5Qo47U2lu1ldueyFiqXGXl/g/Pi3rAl3mnW+
+         /zzw==
+X-Forwarded-Encrypted: i=1; AKwUvBzjD3qkiMu5I96HnzdlyZ79BwoN5ylKwPzSP7wMRaooOcn3Ml7vVBY4LfGf8rlitaaeZyDHhl0S2Sv4SBo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJB3XTJa8EYInxgyGYmLP1J6QhVV7mNrZIxBojhwp2yjAvroC5
+	hGnQ4dTBQDhywdoFVcI5oyfml2106BnyCzE7STjOtYQAbrOZcABXJJB7
+X-Gm-Gg: AYBFou0lmtGU17W1PHvYemdJAdjn6wSdKpJki8aj5qgZVKayhhpUob6RynVOHwv7JPF
+	s3LCdbSK4hKHV1nVzTzMPpd9C/9Bu2WzTGf4l4FhEnyp5E+nlfY+gWr7FwlKvyup7VRwnUzp1Of
+	W2/pClWY8JdZGGNgoPFA9LwFhiq7fV8vqmbNw5iIqZEemJKDpjXgv/DOjrGw+O8vi7/5J3Cl4Ak
+	YmCaKFpzTd1yeKE3gvIzhNm4lLVZq5gQZ9rwx9eaJU2rTuVbdqPqkR7vYITLl9agnIzkyUWomBZ
+	on4V12pj7on+80Oi5RC6xCyP/43rGmACF7Pk5SUJ3LBUL1zj8wjZuzSC/HxEgdYANxhFAJjywQA
+	wh+RYxDVL9AbVL97+JlrsGG9va3RPCnJrfSiBzNz87moiqSjdF52iTdPTg37akq+g+BoFZyTJ9q
+	a9Vkjqu9imcbTkJ39xMltMgMcQHvG9xiWiGoPLyFTn2wYLwf6zHJeUgqERpFS771Q/MfXrc4bUg
+	agvl2kXXPEFYo26Z94n+E7Ti/ByYdjE
+X-Received: by 2002:a17:90b:390a:b0:3ab:413:49a9 with SMTP id 98e67ed59e1d1-3ab3a932609mr12290511a91.50.1791901177778;
+        Tue, 13 Oct 2026 07:19:37 -0700 (PDT)
+Received: from obadmin-Precision-3680.atlascopco.group ([136.226.232.205])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e5204dsm5643670a12.25.2026.10.13.07.19.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 07:19:37 -0700 (PDT)
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Subject: [PATCH] spi: omap2-mcspi: handle DMA setup failures
+Date: Tue, 13 Oct 2026 19:50:04 +0530
+Message-ID: <20261013142004.1729849-1-sahaj123.sc@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013104038.3078601-1-yhlee@isslab.korea.ac.kr>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 07:40:38PM +0900, Yehyeong Lee wrote:
-> nvmet_fc_handle_fcp_rqst() takes the data length straight from the FCP
-> command IU (cmdiu->data_len, a 32-bit value from the wire) into
-> fod->req.transfer_len and calls nvmet_fc_alloc_tgt_pgs(), which hands it to
-> sgl_alloc() with no upper bound.  nvmet_req_init() only parses the command
-> and clears transfer_len; nvmet_check_transfer_len(), the only other place
-> the length is checked, runs later from req->execute(), after the allocation
-> has already happened.
-> 
-> A remote, effectively unauthenticated host can therefore declare a huge
-> transfer length and make the target allocate that much kernel memory for a
-> command that never delivers the data.  nvmet-tcp bounds the equivalent
-> length and the rdma transport is limited by its 24-bit SGL length field;
-> the fc transport had no such limit.
-> 
-> Reject a command whose data length exceeds NVMET_FC_MAX_XFR_LENGTH before
-> allocating anything.  The ceiling is 16 MiB, the largest transfer any
-> in-tree fc LLDD can describe (lpfc maps up to LPFC_MAX_SG_SEG_CNT 4096
-> segments, qla2xxx 1024), so no in-tree configuration is rejected.
-> 
-> A command declaring 4 GiB reaches sgl_alloc() unbounded before this change;
-> afterwards a length above 16 MiB is failed with SGL_INVALID_DATA before any
-> allocation is attempted.
+The DMA paths ignore failures from dmaengine_slave_config(), descriptor
+preparation and dmaengine_submit(), and carry FIXME comments about
+falling back to PIO. A failed setup can leave a half-started transfer
+or wait for a completion that never arrives.
 
-The bounds check is obviously a good idea, but we really need to tell
-the host about it using MDTS, don't we?
+Check each step and clean up with dmaengine_terminate_sync() on error.
+Prepare both descriptors before issuing either channel. Fall back to
+PIO only for host-mode transfers that have a TX buffer, when no DMA has
+been started and cleanup succeeded. RX-only and target-mode transfers
+return the error instead, since the bus may already be clocking.
+
+Tested on an AM642 board with a TI 6.12.57 vendor kernel built with
+this patch and booted from RAM. On a McSPI bus using DMA, 200
+iterations of 4096-byte TX and 1024-byte RX spidev transfers completed
+with no errors, timeouts or kernel warnings. The DMA setup failure path
+was not exercised on hardware.
+
+Fixes: 53741ed8f0a3 ("spi: omap2-mcspi: add DMA engine support")
+Link: https://lore.kernel.org/r/20250914022132.319227-1-alex.t.tran@gmail.com
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+---
+ drivers/spi/spi-omap2-mcspi.c | 232 ++++++++++++++++++++++++----------
+ 1 file changed, 163 insertions(+), 69 deletions(-)
+
+diff --git a/drivers/spi/spi-omap2-mcspi.c b/drivers/spi/spi-omap2-mcspi.c
+index a3355147f5de..1b29e33d99a7 100644
+--- a/drivers/spi/spi-omap2-mcspi.c
++++ b/drivers/spi/spi-omap2-mcspi.c
+@@ -413,10 +413,11 @@ static void omap2_mcspi_tx_callback(void *data)
+ 	complete(&mcspi_dma->dma_tx_completion);
+ }
+ 
+-static void omap2_mcspi_tx_dma(struct spi_device *spi,
+-				struct spi_transfer *xfer,
+-				struct dma_slave_config cfg)
++static int omap2_mcspi_tx_dma(struct spi_device *spi,
++			      struct spi_transfer *xfer,
++			      struct dma_slave_config cfg)
+ {
++	int ret;
+ 	struct omap2_mcspi	*mcspi;
+ 	struct omap2_mcspi_dma  *mcspi_dma;
+ 	struct dma_async_tx_descriptor *tx;
+@@ -424,31 +425,31 @@ static void omap2_mcspi_tx_dma(struct spi_device *spi,
+ 	mcspi = spi_controller_get_devdata(spi->controller);
+ 	mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
+ 
+-	dmaengine_slave_config(mcspi_dma->dma_tx, &cfg);
++	ret = dmaengine_slave_config(mcspi_dma->dma_tx, &cfg);
++	if (ret)
++		return ret;
+ 
+ 	tx = dmaengine_prep_slave_sg(mcspi_dma->dma_tx, xfer->tx_sg.sgl,
+ 				     xfer->tx_sg.nents,
+ 				     DMA_MEM_TO_DEV,
+ 				     DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+-	if (tx) {
+-		tx->callback = omap2_mcspi_tx_callback;
+-		tx->callback_param = spi;
+-		dmaengine_submit(tx);
+-	} else {
+-		/* FIXME: fall back to PIO? */
+-	}
+-	dma_async_issue_pending(mcspi_dma->dma_tx);
+-	omap2_mcspi_set_dma_req(spi, 0, 1);
++	if (!tx)
++		return -EIO;
++
++	tx->callback = omap2_mcspi_tx_callback;
++	tx->callback_param = spi;
++
++	return dma_submit_error(dmaengine_submit(tx));
+ }
+ 
+-static unsigned
++static int
+ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+-				struct dma_slave_config cfg,
+-				unsigned es)
++		   struct dma_slave_config cfg, unsigned int es,
++		   unsigned int *count, bool *rx_submitted, bool *dma_started)
+ {
+ 	struct omap2_mcspi	*mcspi;
+ 	struct omap2_mcspi_dma  *mcspi_dma;
+-	unsigned int		count, transfer_reduction = 0;
++	unsigned int		transfer_reduction = 0;
+ 	struct scatterlist	*sg_out[2];
+ 	int			nb_sizes = 0, out_mapped_nents[2], ret, x;
+ 	size_t			sizes[2];
+@@ -461,7 +462,8 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 
+ 	mcspi = spi_controller_get_devdata(spi->controller);
+ 	mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
+-	count = xfer->len;
++	*count = xfer->len;
++	*rx_submitted = false;
+ 
+ 	/*
+ 	 *  In the "End-of-Transfer Procedure" section for DMA RX in OMAP35x TRM
+@@ -475,14 +477,16 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 	l = mcspi_cached_chconf0(spi);
+ 
+ 	if (word_len <= 8)
+-		element_count = count;
++		element_count = *count;
+ 	else if (word_len <= 16)
+-		element_count = count >> 1;
++		element_count = *count >> 1;
+ 	else /* word_len <= 32 */
+-		element_count = count >> 2;
++		element_count = *count >> 2;
+ 
+ 
+-	dmaengine_slave_config(mcspi_dma->dma_rx, &cfg);
++	ret = dmaengine_slave_config(mcspi_dma->dma_rx, &cfg);
++	if (ret)
++		return ret;
+ 
+ 	/*
+ 	 *  Reduce DMA transfer length by one more if McSPI is
+@@ -493,7 +497,7 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 
+ 	if (transfer_reduction) {
+ 		/* Split sgl into two. The second sgl won't be used. */
+-		sizes[0] = count - transfer_reduction;
++		sizes[0] = *count - transfer_reduction;
+ 		sizes[1] = transfer_reduction;
+ 		nb_sizes = 2;
+ 	} else {
+@@ -501,44 +505,56 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 		 * Don't bother splitting the sgl. This essentially
+ 		 * clones the original sgl.
+ 		 */
+-		sizes[0] = count;
++		sizes[0] = *count;
+ 		nb_sizes = 1;
+ 	}
+ 
+ 	ret = sg_split(xfer->rx_sg.sgl, xfer->rx_sg.nents, 0, nb_sizes,
+ 		       sizes, sg_out, out_mapped_nents, GFP_KERNEL);
+ 
+-	if (ret < 0) {
++	if (ret) {
+ 		dev_err(&spi->dev, "sg_split failed\n");
+-		return 0;
++		return ret;
+ 	}
+ 
+ 	tx = dmaengine_prep_slave_sg(mcspi_dma->dma_rx, sg_out[0],
+ 				     out_mapped_nents[0], DMA_DEV_TO_MEM,
+ 				     DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+-	if (tx) {
+-		tx->callback = omap2_mcspi_rx_callback;
+-		tx->callback_param = spi;
+-		dmaengine_submit(tx);
+-	} else {
+-		/* FIXME: fall back to PIO? */
++	if (!tx) {
++		ret = -EIO;
++		goto out_free_sg;
+ 	}
+ 
++	tx->callback = omap2_mcspi_rx_callback;
++	tx->callback_param = spi;
++	ret = dma_submit_error(dmaengine_submit(tx));
++	if (ret)
++		goto out_free_sg;
++
++	*rx_submitted = true;
++	if (mcspi->target_aborted) {
++		ret = -EINTR;
++		goto out_free_sg;
++	}
++	*dma_started = true;
++	if (xfer->tx_buf) {
++		if (spi_controller_is_target(mcspi->ctlr))
++			mcspi_write_reg(mcspi->ctlr, OMAP2_MCSPI_IRQENABLE,
++					OMAP2_MCSPI_IRQSTATUS_EOW);
++		dma_async_issue_pending(mcspi_dma->dma_tx);
++		omap2_mcspi_set_dma_req(spi, 0, 1);
++	}
+ 	dma_async_issue_pending(mcspi_dma->dma_rx);
+ 	omap2_mcspi_set_dma_req(spi, 1, 1);
+-
+ 	ret = mcspi_wait_for_completion(mcspi, &mcspi_dma->dma_rx_completion);
+-	if (ret || mcspi->target_aborted) {
+-		dmaengine_terminate_sync(mcspi_dma->dma_rx);
+-		omap2_mcspi_set_dma_req(spi, 1, 0);
+-		return 0;
+-	}
++	if (ret || mcspi->target_aborted)
++		goto out_free_sg;
+ 
+ 	for (x = 0; x < nb_sizes; x++)
+ 		kfree(sg_out[x]);
+ 
+ 	if (mcspi->fifo_depth > 0)
+-		return count;
++		return 0;
+ 
+ 	/*
+ 	 *  Due to the DMA transfer length reduction the missing bytes must
+@@ -565,9 +581,9 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 		} else {
+ 			int bytes_per_word = mcspi_bytes_per_word(word_len);
+ 			dev_err(&spi->dev, "DMA RX penultimate word empty\n");
+-			count -= (bytes_per_word << 1);
++			*count -= (bytes_per_word << 1);
+ 			omap2_mcspi_set_enable(spi, 1);
+-			return count;
++			return 0;
+ 		}
+ 	}
+ 	if (!mcspi_wait_for_reg_bit(chstat_reg, OMAP2_MCSPI_CHSTAT_RXS)) {
+@@ -582,19 +598,27 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 			((u32 *)xfer->rx_buf)[elements] = w;
+ 	} else {
+ 		dev_err(&spi->dev, "DMA RX last word empty\n");
+-		count -= mcspi_bytes_per_word(word_len);
++		*count -= mcspi_bytes_per_word(word_len);
+ 	}
+ 	omap2_mcspi_set_enable(spi, 1);
+-	return count;
++	return 0;
++
++out_free_sg:
++	if (!ret)
++		ret = -EINTR;
++	for (x = 0; x < nb_sizes; x++)
++		kfree(sg_out[x]);
++	return ret;
+ }
+ 
+-static unsigned
+-omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
++static int omap2_mcspi_txrx_dma(struct spi_device *spi,
++				struct spi_transfer *xfer,
++				unsigned int *count,
++				bool *pio_fallback)
+ {
+ 	struct omap2_mcspi	*mcspi;
+ 	struct omap2_mcspi_cs	*cs = spi->controller_state;
+ 	struct omap2_mcspi_dma  *mcspi_dma;
+-	unsigned int		count;
+ 	u8			*rx;
+ 	const u8		*tx;
+ 	struct dma_slave_config	cfg;
+@@ -602,10 +626,13 @@ omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
+ 	unsigned es;
+ 	void __iomem		*chstat_reg;
+ 	void __iomem            *irqstat_reg;
+-	int			wait_res;
++	bool			tx_submitted = false, rx_submitted = false;
++	bool			dma_started = false, terminate_failed = false;
++	int			ret, wait_res;
+ 
+ 	mcspi = spi_controller_get_devdata(spi->controller);
+ 	mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
++	*pio_fallback = false;
+ 
+ 	if (cs->word_len <= 8) {
+ 		width = DMA_SLAVE_BUSWIDTH_1_BYTE;
+@@ -618,7 +645,7 @@ omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
+ 		es = 4;
+ 	}
+ 
+-	count = xfer->len;
++	*count = xfer->len;
+ 
+ 	memset(&cfg, 0, sizeof(cfg));
+ 	cfg.src_addr = cs->phys + OMAP2_MCSPI_RX0;
+@@ -636,31 +663,39 @@ omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
+ 	reinit_completion(&mcspi_dma->dma_rx_completion);
+ 	reinit_completion(&mcspi->txdone);
+ 	if (tx) {
+-		/* Enable EOW IRQ to know end of tx in target mode */
++		ret = omap2_mcspi_tx_dma(spi, xfer, cfg);
++		if (ret)
++			goto out;
++		tx_submitted = true;
++	}
++
++	if (rx) {
++		ret = omap2_mcspi_rx_dma(spi, xfer, cfg, es, count,
++					 &rx_submitted, &dma_started);
++		if (ret)
++			goto out;
++	} else if (tx) {
++		if (mcspi->target_aborted) {
++			ret = -EINTR;
++			goto out;
++		}
+ 		if (spi_controller_is_target(spi->controller))
+-			mcspi_write_reg(spi->controller,
+-					OMAP2_MCSPI_IRQENABLE,
++			mcspi_write_reg(spi->controller, OMAP2_MCSPI_IRQENABLE,
+ 					OMAP2_MCSPI_IRQSTATUS_EOW);
+-		omap2_mcspi_tx_dma(spi, xfer, cfg);
++		dma_started = true;
++		dma_async_issue_pending(mcspi_dma->dma_tx);
++		omap2_mcspi_set_dma_req(spi, 0, 1);
+ 	}
+ 
+-	if (rx != NULL)
+-		count = omap2_mcspi_rx_dma(spi, xfer, cfg, es);
+-
+-	if (tx != NULL) {
+-		int ret;
+-
++	if (tx) {
+ 		ret = mcspi_wait_for_completion(mcspi, &mcspi_dma->dma_tx_completion);
+-		if (ret || mcspi->target_aborted) {
+-			dmaengine_terminate_sync(mcspi_dma->dma_tx);
+-			omap2_mcspi_set_dma_req(spi, 0, 0);
+-			return 0;
+-		}
++		if (ret || mcspi->target_aborted)
++			goto out;
+ 
+ 		if (spi_controller_is_target(mcspi->ctlr)) {
+ 			ret = mcspi_wait_for_completion(mcspi, &mcspi->txdone);
+ 			if (ret || mcspi->target_aborted)
+-				return 0;
++				goto out;
+ 		}
+ 
+ 		if (mcspi->fifo_depth > 0) {
+@@ -694,7 +729,43 @@ omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
+ 				dev_err(&spi->dev, "EOT timed out\n");
+ 		}
+ 	}
+-	return count;
++	return 0;
++
++out:
++	if (!ret)
++		ret = -EINTR;
++	if (rx_submitted) {
++		wait_res = dmaengine_terminate_sync(mcspi_dma->dma_rx);
++		if (wait_res) {
++			dev_err(&spi->dev, "failed to terminate RX DMA: %d\n",
++				wait_res);
++			terminate_failed = true;
++			ret = wait_res;
++		}
++		omap2_mcspi_set_dma_req(spi, 1, 0);
++	}
++	if (tx_submitted) {
++		wait_res = dmaengine_terminate_sync(mcspi_dma->dma_tx);
++		if (wait_res) {
++			dev_err(&spi->dev, "failed to terminate TX DMA: %d\n",
++				wait_res);
++			terminate_failed = true;
++			ret = wait_res;
++		}
++		omap2_mcspi_set_dma_req(spi, 0, 0);
++	}
++	if (spi_controller_is_target(mcspi->ctlr))
++		mcspi_write_reg(mcspi->ctlr, OMAP2_MCSPI_IRQENABLE, 0);
++
++	*pio_fallback = !dma_started && !terminate_failed;
++	return ret;
++}
++
++static bool omap2_mcspi_can_pio_fallback(bool cleanup_ok,
++					 const struct spi_transfer *xfer,
++					 bool is_target)
++{
++	return cleanup_ok && xfer->tx_buf && !is_target;
+ }
+ 
+ static unsigned
+@@ -1214,6 +1285,8 @@ static int omap2_mcspi_transfer_one(struct spi_controller *ctlr,
+ 
+ 	if (t->len) {
+ 		unsigned	count;
++		bool		pio_fallback;
++		int		ret;
+ 
+ 		if ((mcspi_dma->dma_rx && mcspi_dma->dma_tx) &&
+ 		    spi_xfer_is_dma_mapped(ctlr, spi, t))
+@@ -1227,10 +1300,27 @@ static int omap2_mcspi_transfer_one(struct spi_controller *ctlr,
+ 					+ OMAP2_MCSPI_TX0);
+ 
+ 		if ((mcspi_dma->dma_rx && mcspi_dma->dma_tx) &&
+-		    spi_xfer_is_dma_mapped(ctlr, spi, t))
+-			count = omap2_mcspi_txrx_dma(spi, t);
+-		else
++		    spi_xfer_is_dma_mapped(ctlr, spi, t)) {
++			ret = omap2_mcspi_txrx_dma(spi, t, &count,
++						   &pio_fallback);
++			if (ret) {
++				bool is_target = spi_controller_is_target(ctlr);
++				bool fallback;
++
++				fallback = omap2_mcspi_can_pio_fallback(pio_fallback, t,
++									is_target);
++				if (!fallback) {
++					status = ret;
++					goto out;
++				}
++
++				dev_warn(&spi->dev,
++					 "DMA setup failed, falling back to PIO\n");
++				count = omap2_mcspi_txrx_pio(spi, t);
++			}
++		} else {
+ 			count = omap2_mcspi_txrx_pio(spi, t);
++		}
+ 
+ 		if (count != t->len) {
+ 			status = -EIO;
+@@ -1246,8 +1336,12 @@ static int omap2_mcspi_transfer_one(struct spi_controller *ctlr,
+ out:
+ 	/* Restore defaults if they were overriden */
+ 	if (par_override) {
++		int restore_status;
++
+ 		par_override = 0;
+-		status = omap2_mcspi_setup_transfer(spi, NULL);
++		restore_status = omap2_mcspi_setup_transfer(spi, NULL);
++		if (!status)
++			status = restore_status;
+ 	}
+ 
+ 	omap2_mcspi_set_enable(spi, 0);
+-- 
+2.43.0
 
