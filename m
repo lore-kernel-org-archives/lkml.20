@@ -1,91 +1,90 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30FA4B04A5;
-	Tue, 13 Oct 2026 06:27:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393DF47CA69
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872825; cv=none; b=rrVL2hEif763np2cRX8gZtaeu5M3UgzIZZ0uNMX4mNlmbNKzd6txLjkOAsakWLF7KDMBaJtEUnAT/kD0v/nt7qhcuk6/rtAA5IyNJ/dAU/liSchHfvy1HHrmGb5V+iMMsGdML39ElHFMZ4i/XyHQdNk67cNIN6KYM+ihl6oqRaI=
+	t=1791872856; cv=none; b=o/Fa4gLC+40N2616vdsAy0h0jzAga2WTn4CGUN9f/G0ldh7oxIl4ZxrzYxgn1/ZOuLntveNwqYK8/+N2DqMn2Wn/McGWkHV/TveHgh1JngVhRGyxlJe3sPjCuU0zl7A5X0NCa7SC6gNsAquuBbQDfKb+qkFsiFcabJttRs2ZMNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872825; c=relaxed/simple;
-	bh=PLMTjdpTRR7dXWKVFB6R1lmLronijpQC1Ak3MNcThX4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=BlcFZi8zEKZjtRiuLgWPoQOXIKoHVvjdgr3LlVTzbsDkGIY7fIHiDxBSyVC4wZiRqiZJ5xb6/Ty6vACKWRXBfGy0zWZqc3cn/1HV/5mGvh9PrrtTezB73g4g9YSECVS44XRz/k3jM+PpMGzi2dIOg2IpNvDMNv5KrfsqKqSVtpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=d05zacp4; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1791872856; c=relaxed/simple;
+	bh=F9PuqLINOQFgmQyW7R6+BMZOP2DWjF8nm7Pit+6gdRE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=UxTHoO8wqUX0+piEH7KiT13+HlSrMjumHatzh3Kf5O1Rx0nbsb2jzz4u8q64cdPTmuKa+Lj80WIjv03lmc7aZwnY5esnP0MLJfjrK4NycVV5fUFQRYk3NUc7k2jMogMieasy8dDaN/NUKrxTdoIqgOyqKMq84EClzRsYuVBhxVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ui66fJHL; arc=none smtp.client-ip=95.215.58.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="d05zacp4"
-Received: from localhost (gy-adaptive-ssl-proxy-4-entmail-virt151.gy.ntes [IPV6:2409:8d28:39:f54:a8d0:6ae:755d:34f6])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50d4ab5fd;
-	Tue, 13 Oct 2026 14:26:56 +0800 (GMT+08:00)
-From: guolingxing <guolingxing@tju.edu.cn>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	guolingxing <guolingxing@tju.edu.cn>
-Subject: [PATCH 3/3] ext4: check return value of blkdev_issue_flush() when replaying fast commits
-Date: Tue, 13 Oct 2026 06:26:18 +0000
-Message-Id: <20261013062618.1741670-3-guolingxing@tju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261013062618.1741670-1-guolingxing@tju.edu.cn>
-References: <20261013062618.1741670-1-guolingxing@tju.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ui66fJHL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=F9PuqLINOQFgmQyW7R6+BMZOP2DWjF8nm7Pit+6gdRE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791872853; v=1; x=1792477653;
+ b=Ui66fJHLaO5KVxvN7O+TQbaU6xHnQtuqYnSNbUGyvD2CYeILnWMHIzUJJjq28KFzE2rNoPLj
+ pSQO0TsWo9YzGiusTlGx0r/YSLZDl8o0M1/z/ObmIA5Xt0f/Qt09dmKTux22beuiESVg7yQImA2
+ AkfGcavjD4zEBjftjy2POr5k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6566544149091e28;
+	Tue, 13 Oct 2026 06:27:33 +0000
+X-Mizu-Trace-ID: 6566544149091e28
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa133f154da03a2kunm6f2d423a4a95a3
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGBhDVh5JTEkfS08YHUhCGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSEJBHU5PQRpDH0tBTRoeQUxOTh9BSE8dTV
-	lXWRYaDxIVHRRZQVlPS0hVSktJQkNNQlVKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=d05zacp4LkcIpqRxjJtOir/bHEIPmq2AvtGOLKGtI2UFWjOKL/s1qZS/zUZ+c7pZrGJdmvPdAjIIOkFGNRZmwY+IWZgBfqG1o9RfN10PaqMo9XRMQbNcgLmCEEbgmG5WOmahbbPJMtpT5eKD6ANoD9EQ3LLVTN975SEZb5QL1eY=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
-	bh=ZVnlfFMJpSzHTrUQJyetICb8UH4vltaTrahoAkGoHas=;
-	h=date:mime-version:subject:message-id:from;
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v3 1/2] dax/bus: fix mapping attribute error reporting
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <as13np-95gSaBbQm@aschofie-mobl2.lan>
+Date: Tue, 13 Oct 2026 14:27:15 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Dan Williams <djbw@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ nvdimm@lists.linux.dev,
+ linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <AAB2A53F-1D2B-44FA-9D36-C393444C6DAA@linux.dev>
+References: <20260924025035.1265035-1-songmuchun@bytedance.com>
+ <20260924025035.1265035-2-songmuchun@bytedance.com>
+ <as13np-95gSaBbQm@aschofie-mobl2.lan>
+To: Alison Schofield <alison.schofield@intel.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-ext4_fc_replay_inode() writes the replayed inode to disk and then
-issues a cache flush, but the return value is ignored.  If the cache
-flush fails, the fast commit replay continues and the mount may
-succeed, even though the replayed inode contents are not guaranteed to
-be on stable storage yet.
 
-Check the return value of blkdev_issue_flush() and abort the fast
-commit replay if the cache flush fails, like any other error detected
-while replaying the inode.  This causes the mount to fail instead of
-silently succeeding with potentially unreplayed data.
 
-Fixes: 8016e29f4362e ("ext4: fast commit recovery path")
-Cc: stable@vger.kernel.org
-Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
----
- fs/ext4/fast_commit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> On Oct 13, 2026, at 08:13, Alison Schofield =
+<alison.schofield@intel.com> wrote:
+>=20
+> On Thu, Sep 24, 2026 at 10:50:34AM +0800, Muchun Song wrote:
+>> After the DAX configuration locking was converted to rwsems, =
+successful
+>> lock acquisition leaves rc set to zero in mapping_store(). Two error
+>> paths can return this stale value: an unbound region driver and a
+>> misaligned range size. The sysfs write therefore reports success =
+without
+>> allocating the requested range.
+>>=20
+>> Return -ENXIO when the region driver is not bound and -EINVAL when =
+the
+>> range size is misaligned.
+>=20
+> Reviewed-by: Alison Schofield <alison.schofield@intel.com>
 
-diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index ead8b16f9be0..f554405ebabf 100644
---- a/fs/ext4/fast_commit.c
-+++ b/fs/ext4/fast_commit.c
-@@ -2019,7 +2019,7 @@ static int ext4_fc_replay_inode(struct super_block *sb,
- out:
- 	iput(inode);
- 	if (!ret)
--		blkdev_issue_flush(sb->s_bdev);
-+		ret = blkdev_issue_flush(sb->s_bdev);
- 
- 	return ret;
- }
--- 
-2.34.1
+Thanks.
 
+>=20
+> Will modify subject line upon applying like so:
+> dax/bus: Return errors for invalid mapping requests
+
+No problem.
+
+Thanks,
+Muchun=
