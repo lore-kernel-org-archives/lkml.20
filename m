@@ -1,111 +1,75 @@
-Received: from mail-m127171.xmail.ntesmail.com (mail-m127171.xmail.ntesmail.com [115.236.127.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836A7443AB7;
-	Tue, 13 Oct 2026 09:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6693DD85E;
+	Tue, 13 Oct 2026 09:46:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884817; cv=none; b=mIqKeMjfUBfWq7mgrzhU8gcDRs+tuDG8BXEiY1eTWamwD4qsd7rMzNUMp4lEBvTmJDAOLQ6bHa20ZU2vpFGDJGJSGcDrEMJ4z7kIp8wTAznnxC89ihEH9c1ZUu4XJsWDr1PrqINfw3CKqmX8FGNU8AGVTEmru+FbWv2JIhm7Hb8=
+	t=1791884819; cv=none; b=fwY0U8n+I/4woXXzhC1k2WFoyYdZxQ54/bIWJGqY8lVicQBGJEiH05oemhmIkpL8L/zZf5/jWpRQHQ1VCZhuGCeEbzILJtDCZwehq8VYoQgfT/3g4GBgHWhkDRGwmGc/XRQKtkG7KFwKLcDIBGcTDexstEAKbr0w+VLFaEgHUAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884817; c=relaxed/simple;
-	bh=O89XV7svBeVyjPdmo+TuW7DnHZUCqlztKlrOkxjIcmM=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=ovGYjmMsqzvLZgD75SB19vGDzf1R5NcQJV/jnqxlWSku45XjHzqygGSBBrjTOG/BvoRp2jEwPT7Mym2pPLwhN7bCoYLD1D9eGxT0kWc3t+B9V3zWoX4tAHue7oOg1McHl8uyYzy4JoaBXQay/s+t+j7Rmfwzyox/l0Lmdr5xaQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=d77y9MJr; arc=none smtp.client-ip=115.236.127.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1791884819; c=relaxed/simple;
+	bh=11JvhVAviNlqN/3pV7OpL8dr4fa0SL1d5is+begCjXA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cy5MJobGzdfJJHXEpwMnGcqNTf0Dw0iVcsPgXVXrxg41eFFsnGcfjwqSsxcVnlYkxu22EuZRTE96fiSpuPcLjn7mFGcRNDO4FKFJAKG9arja0JAs1r/M+2ur+CDvPTyp1yr3YVWExS/4hk8muQ/+w9MaVWDhd9DkhPJvbq9TV9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FgJ60sM0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="d77y9MJr"
-Received: from localhost.localdomain (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50d7a9cda;
-	Tue, 13 Oct 2026 15:24:19 +0800 (GMT+08:00)
-From: Shawn Lin <shawn.lin@rock-chips.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Jaehoon Chung <jh80.chung@samsung.com>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shawn Lin <shawn.lin@rock-chips.com>
-Subject: [PATCH] mmc: dw_mmc: enable MMC_CAP_DONE_COMPLETE
-Date: Tue, 13 Oct 2026 15:24:04 +0800
-Message-Id: <1791876245-190981-1-git-send-email-shawn.lin@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-X-HM-Tid: 0aa13425dd6b03a4kunm7c54f86526aae6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGU9LSlZNTUtPHhgYQ0
-	1DHh1WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=d77y9MJrbFCXB/34+gBE+k4SNmBJx/8cdOyZQ+BNhSsy185lDygfDtI+dzZmj7T5rjgjM1s/R34B2qQ2ta6PLG0O4cke7RMM2mIlYnd6POF9kzxmPpBj7fU9wYdQBkN38S+/bERtG3/klVrra8di6R4f0PQTRFQutM6gcEPk1dQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=h2daLWJxz0IZw/j4LJhOD5iXhaRhQBqXnMTH0Pz7kfM=;
-	h=date:mime-version:subject:message-id:from;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FgJ60sM0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87CE91F000FF;
+	Tue, 13 Oct 2026 09:46:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791884817;
+	bh=VL9RjhaeEiFwzot3Y/ih2ePcqTjy/Hx4aXEqd5qlyA8=;
+	h=From:To:Cc:Subject:Date;
+	b=FgJ60sM0oHpADzSGf3tvNvyZh4RFcSjgSuDE9g0DsOi6ucGmw2FesUqKJol5XAJ94
+	 0+TffIxLAndzVRhTEDrffVpuzdU5EBFvPo8qwQ1g7Tn86R/ldAGhGrD1ATa+dHwJb6
+	 LRM2hfL8s/aR6UeYosrpN91dGukT2LDwNYlnSJKROz0TKJv91QS3RT+F1LtAZ3149S
+	 wTZ2rvCpQ/44TwnhvzESavNs2rN8PA+VuTAP+qJMWcrgVOmp2yVpeqsMflw75eK3hf
+	 jcLXYtYeNAmDF+YXwRHJOftzISihGOLl+bsJbe7rEoFhxixBIVhxolUe5cM50iupeZ
+	 Y4x6GNRKWSvyw==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] MIPS: SGI fixes
+Date: Tue, 13 Oct 2026 11:45:51 +0200
+Message-ID: <20261013094554.16804-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-All requests issued by dw_mmc are completed from dw_mci_work_func(),
-which runs from the system_bh_wq workqueue. It is therefore preemptible
-context and host->lock is dropped before the completion, see
-mmc_request_done() in dw_mci_request_end().
+Two fixes for the SGI O2 (IP32) and a defconfig fix for the Octane
+(IP30).
 
-The dw_mci_interrupt and the dw_mci_watchdog_fn never call mmc_request_done()
-directly. So every request is completed from a sleepable context with no
-spinlock held.
+Patch 1 clears CRIME errors latched before the kernel starts, which
+are otherwise reported as new once the error interrupts are enabled.
 
-This is exactly the contract required by MMC_CAP_DONE_COMPLETE, which was
-introduced for hosts that can complete requests within mmc_request_done()
-without deferring to the core's complete_work.
+Patch 2 reserves the firmware memory listed by the ARC descriptors on
+IP32, which now ends up in the page allocator and CMA.
 
-Without the flag, the core records the finished request in
-mq->complete_req and queues mq->complete_work, i.e. a second workqueue
-dispatch plus an extra context switch per request. With the flag,
-mmc_blk_mq_req_done() completes the request directly via
-mmc_blk_mq_post_req() -> blk_mq_complete_request(), and a following
-request completes the previous one inline from mmc_blk_rw_wait().
+Patch 3 enables the 1-wire drivers the Bridge probe needs, and the
+DS1685-family RTC driver, in ip30_defconfig, and drops four lines
+that savedefconfig removes.
 
-Measured on an RK3576 SD card (dw_mmc) with:
+Tested on SGI O2 and Octane machines.
 
-  perf record -a -g -F 999 -- sleep 30
-  perf report --stdio -g graph,0.5,caller
+Imre Kaloz (3):
+  MIPS: sgi-ip32: Clear latched CRIME errors at boot
+  MIPS: sgi-ip32: Reserve the firmware memory
+  MIPS: SGI-IP30: fix the defconfig defaults for the Bridge PROM and RTC
 
-fio: 4k randread, ioengine=libaio
+ arch/mips/configs/ip30_defconfig |  9 ++++-----
+ arch/mips/fw/arc/memory.c        | 11 +++++++++--
+ arch/mips/include/asm/sgialib.h  |  3 +++
+ arch/mips/sgi-ip32/crime.c       |  4 ++++
+ arch/mips/sgi-ip32/ip32-memory.c |  3 +++
+ 5 files changed, 23 insertions(+), 7 deletions(-)
 
-Without the flag, the completion hot path is:
 
-  mmc_request_done -> mmc_blk_mq_req_done -> queue_work_on      (~4.3%)
-  ... -> mmc_blk_mq_complete_work            (kworker/5:1H-mm, ~18.4%)
-       -> mmc_blk_mq_complete_prev_req -> mmc_blk_mq_post_req
-
-with the flag the workqueue round trip disappears completely: there is no
-queue_work_on and no mmc_blk_mq_complete_work in the profile anymore, and
-the previous request is completed inline:
-
-  mmc_blk_mq_issue_rq -> mmc_blk_mq_post_req -> mmc_blk_mq_complete_rq
-                                                  -> __blk_mq_end_request
-
-This can remove a redundant workqueue dispatch and context switch per completed
-request.
-
-Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
----
-
- drivers/mmc/host/dw_mmc.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/mmc/host/dw_mmc.c b/drivers/mmc/host/dw_mmc.c
-index ff0b25d..bec777b 100644
---- a/drivers/mmc/host/dw_mmc.c
-+++ b/drivers/mmc/host/dw_mmc.c
-@@ -2945,6 +2945,8 @@ static int dw_mci_init_host_caps(struct dw_mci *host)
- 	if (mmc->caps & MMC_CAP_SDIO_IRQ)
- 		mmc->caps2 |= MMC_CAP2_SDIO_IRQ_NOTHREAD;
- 
-+	mmc->caps |= MMC_CAP_DONE_COMPLETE;
-+
- 	return 0;
- }
- 
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.7.4
+2.47.3
 
