@@ -1,140 +1,152 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDA048F005;
-	Tue, 13 Oct 2026 07:07:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885DC3E5A1F;
+	Tue, 13 Oct 2026 07:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875257; cv=none; b=mvCO+0E3SHeHhcgVODlF7NZ6d4R//7kfAqx1mOCowxUaKTt1sFXs1QF7laGHFPsLIUMLIttXLdZUqRRR99w6nSUed8HDYEPgrfCeJDZx9GAZy4sk6NH+V2qGYoyqmv255pOkwMMx3WHrF3/Z6j8MVcA0S68SzuPrPVCFLGxUVQ8=
+	t=1791875266; cv=none; b=sREQ0XqndGp8W1dv6o8lj8UhfxL+oaR81mSuFE/LbQDLxyuNlNLMOKeq0eS2hI0vKnB8TbKwUGmPNQIlF/YUgZe9Mb0hbd9ENID2FPhHbt57mBJ5pHV4ALN+QZuN/E5pPPn6aAUwIM5+JyocNnAkJ9hkOeRjcHBlK8kx1VzV16c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875257; c=relaxed/simple;
-	bh=NSwKHf6UQUJyPOZE8jYIxQgicTYgDMApYsmQR3VPCh8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ov6VHzj+wezhOYSJKVMP8X/beRCt6M+Ie0zIUVg0xPqsrfLb3DSAJp8xtDyuHHi/RsTt6m1bj7PUtwIAoOMht6b9IDZ2REO+/5dB9whuC0RrSXSDys2W5j68PqdLYnw+W4VzsIlaMxLSwc3VGVRUVi++vUQRLIVO2YH+lwtS+68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ObSoaqmE; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791875266; c=relaxed/simple;
+	bh=Pn967/eqQwyBVN+GHu2bnfF9gKLN2JEgQ0YBf7kGflo=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=pL/TfMXMy5GFC6Ajt9V6pt/Wp3gLTaKXD4J2NDqsXebm4tPEeYopnuzyDn64cgj6aG6zzThPNMum5ghfwnLYrpVzNR5ZDNHciPbSWED/kvu6fn7Dby2fsEhtxJxxUjv60Dwx1xmj4QQDd2NjLLS8uUAr5N9AMf8Cyx+SrKZGX+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=szFg0u42; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ObSoaqmE"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2EjtP726214;
-	Tue, 13 Oct 2026 07:07:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=ZnhVpwLQLQB4fDDT4IJGyJXgYCXqmX
-	Khk00G+78IEKI=; b=ObSoaqmEHtqkT0T8Y7Ajc0GTIXmtjnGUwdPtH/61JgKqPJ
-	Wzu0JuDEh414ncl1rD9MrvzKgB1f3PJFPRboQQYfz6U+i9geDUJB4uIBbwa+h6FY
-	czNjCewHP3FrS987hoFn0UfqRLaKB0UmvhXCpSr2ZGssH1q3QO5wADPSthhPqN1H
-	amDHE07B8VNexxbWKnNq8v6upkKTYXpwSwgsxlRArq+xULiuhnvr6ARviDx1QC7y
-	T/LVdU0tPrRM7RQVzCb0ljac2Jer+ciqOquw5DgbojlvOZmBJosNvoMFZvREBU+L
-	K0/HL2569wR8e1/y92slM0sAyvtxeAzBvHOclwOQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv0c8f5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 07:07:34 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D253mI1022066;
-	Tue, 13 Oct 2026 07:07:33 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wg0e8s-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 07:07:33 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69D77Tur25756408
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 07:07:29 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C76E42004D;
-	Tue, 13 Oct 2026 07:07:29 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A798A2004B;
-	Tue, 13 Oct 2026 07:07:29 +0000 (GMT)
-Received: from tuxmaker.linux.ibm.com (unknown [9.87.85.9])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue, 13 Oct 2026 07:07:29 +0000 (GMT)
-From: Sven Schnelle <svens@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Vasily Gorbik
- <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: Re: [PATCH] s390/signal: Fix incorrect return address in signal frame
-In-Reply-To: <20261012153355.1529314-1-hca@linux.ibm.com> (Heiko Carstens's
-	message of "Mon, 12 Oct 2026 17:33:55 +0200")
-References: <20261012153355.1529314-1-hca@linux.ibm.com>
-Date: Tue, 13 Oct 2026 09:07:29 +0200
-Message-ID: <yt9dmrsixemm.fsf@linux.ibm.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="szFg0u42"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=mOgLhHEHoKunpl8nP1FWG7wla8LV0YV8TyE4cUWpqzw=;
+	b=szFg0u42l10gwol62GhAro0lkbYK4Ail0bAtK1wX8+6ssFINYqeolZDNiIatT29ZNTGKOSj1r
+	MGgoiG1RuJaRV/iWqP/c6/9goE8zjJFZ6tBGYAaSCNXrfqWl0tRN0coU8TVS9k61GcaGbeml9rw
+	7xbi33YXVAKIGz2h+fN4NMQ=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4j3lT65KPCzpT0R;
+	Tue, 13 Oct 2026 14:55:06 +0800 (CST)
+Received: from whupemk100014.china.huawei.com (unknown [7.152.184.20])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0B1314057F;
+	Tue, 13 Oct 2026 15:07:40 +0800 (CST)
+Received: from [10.67.121.110] (10.67.121.110) by
+ whupemk100014.china.huawei.com (7.152.184.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 13 Oct 2026 15:07:39 +0800
+Subject: Re: [PATCH v5 1/2] hisi_acc_vfio_pci: fix NULL dereference in
+ reset_prepare on PF passthrough
+To: Alex Williamson <alex@shazbot.org>
+CC: <alex.williamson@redhat.com>, <jgg@nvidia.com>, <kvm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260923082551.1754351-1-liulongfang@huawei.com>
+ <20260923082551.1754351-2-liulongfang@huawei.com>
+ <20260929155141.24887140@shazbot.org>
+From: liulongfang <liulongfang@huawei.com>
+Message-ID: <81364dc6-71e0-c6e3-7012-0c1cb6a9d157@huawei.com>
+Date: Tue, 13 Oct 2026 15:07:38 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAyNiBTYWx0ZWRfX/kwoxLBmXHrY
- kZYRbpAICyKGPNfDPYhiqQxV4AxNtAWOz2e00h4zPThmEbju9EXpO32UVdJ+7POcG17zz+ASXMX
- DwQNwYyenKwpaIvug7J4h7iqwji+dvpC4hb6urvYV/IpWAf4pctlZOkLMN8fidD1yuOnzpovOX1
- BOcvmLH8HTn92AHG4/fNRtCuizCmXCF0lXmphEe03/Q+p2yb9Y/Fp/dB65UY7F+a8pfwiOyG3XG
- 0UOFFgkoFuOIzJ1bo8EevX8KLUuwA/UD5GcLTOZitZ42o/gCqhs2/wrZYmRLPzdGuFrJadqwrxh
- ncCRzB8gezBt0BTOmCZ8JF5DZMqL2IF7e01/4a7DQsKksjUCHNzM4gbIIKVNevTGjaATsIU51NB
- X8AZKvoB4uTUI7O8WgKq3HixNB1tHwB3Fmp2apfd74xdDG0//rs83KA6F2T6yGOIlwmPjKz8P2C
- 40qOXecGTdfBAiHHvIg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAyNiBTYWx0ZWRfX+PrC2LQoOTHT
- wdPWobqBisd4+hzterCNcfOi9asqD1nUAzp1EQNYdXXQ70HCxT+EEIPAXaDBaPeoXBJWGhmR4Q5
- /nFIr630A9zSsrXkma0U6YhyKmTYJRM=
-X-Proofpoint-ORIG-GUID: A0ZOZxIUQL0nWyGZnbmLzRBZMtE8UuzP
-X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6acdd8b6 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8
- a=YxXDSYN5aMXGUAyqVTYA:9
-X-Proofpoint-GUID: A0ZOZxIUQL0nWyGZnbmLzRBZMtE8UuzP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130026
+In-Reply-To: <20260929155141.24887140@shazbot.org>
+Content-Type: text/plain; charset="gbk"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemk100014.china.huawei.com (7.152.184.20)
 
-Heiko Carstens <hca@linux.ibm.com> writes:
+On 2026/9/30 5:51, Alex Williamson wrote:
+> On Wed, 23 Sep 2026 16:25:50 +0800
+> Longfang Liu <liulongfang@huawei.com> wrote:
+> 
+>> When a PF is bound to the driver via driver_override and passed
+>> through to a VM, its pf_qm stays NULL. The PCI error handler
+>> reset_prepare() runs during open_device through
+>> pci_try_reset_function(), before the mig_ops gate, and dereferences
+>> the NULL pf_qm for the timeout log, crashing the kernel.
+>>
+>> Move the mig_ops check to the entry of reset_prepare() and
+>> aer_reset_done() so non-migration devices skip the QM_RESETTING
+>> coordination. Also clear set_reset_flag together with QM_RESETTING
+>> in aer_reset_done(); the flag was never cleared before, so a later
+>> timed-out reset could release a foreign lock.
+>>
+>> Fixes: b0eed085903e ("hisi_acc_vfio_pci: Add support for VFIO live migration")
+>> Fixes: a22099ed7936f ("hisi_acc_vfio_pci: fix VF reset timeout issue")
+>> Signed-off-by: Longfang Liu <liulongfang@huawei.com>
+>> ---
+>>  drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c | 11 ++++++++---
+>>  1 file changed, 8 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+>> index 86362ec424a5..6a09252258b9 100644
+>> --- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+>> +++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+>> @@ -1157,6 +1157,9 @@ static void hisi_acc_vf_pci_reset_prepare(struct pci_dev *pdev)
+> 
+> Rolling back to one more line of context in this function:
+> 
+> 	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
+> 
+> As per the commit log, we're trying to fix a problem where pf_qm is
+> NULL and dereferenced, such as in this next line:
+> 
+>>  	struct device *dev = &qm->pdev->dev;
+>>  	u32 delay = 0;
+>>  
+>> +	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
+>> +		return;
+>> +
+>>  	/* All reset requests need to be queued for processing */
+>>  	while (test_and_set_bit(QM_RESETTING, &qm->misc_ctl)) {
+>>  		msleep(1);
+> 
+> Further context:
+> 
+>                 if (++delay > QM_RESET_WAIT_TIMEOUT) {
+>                         dev_err(dev, "reset prepare failed\n");
+>                         return;
+>                 }
+> 
+> So the added test exits before the inline dereference testing
+> QM_RESETTING, but you're relying on the compiler to move the resolution
+> of dev into the branch here.  The dereference bug is not fully
+> resolved, it's only masked by the compiler optimization.
+> 
+> The easy solution is to either move the struct device deref into the
+> branch where it's needed, or (better) just open code &qm->pdev->dev on
+> the dev_err() call.  Thanks,
+>
 
-> exit_to_user_mode_loop() can call arch_do_signal_or_restart() multiple
-> times when signals are pending.
->
-> If the first call set up a vDSO system call restart by saving the real
-> user return address and adjusting psw.addr so it points to the vDSO stub,
-> a second call builds the signal frame with the wrong return address.
->
-> Restore psw.addr from arch_data before building the signal frame.
->
-> Fixes: df29a7440c4b ("s390/signal: switch to using vdso for sigreturn and syscall restart")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-> ---
->  arch/s390/kernel/signal.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/s390/kernel/signal.c b/arch/s390/kernel/signal.c
-> index 4874de5edea0..25781d4a0ad0 100644
-> --- a/arch/s390/kernel/signal.c
-> +++ b/arch/s390/kernel/signal.c
-> @@ -475,7 +475,10 @@ void arch_do_signal_or_restart(struct pt_regs *regs)
->  		}
->  		/* No longer in a system call */
->  		clear_pt_regs_flag(regs, PIF_SYSCALL);
-> -
-> +		if (!(current->restart_block.arch_data & 1)) {
-> +			regs->psw.addr = current->restart_block.arch_data;
-> +			current->restart_block.arch_data = 1;
-> +		}
->  		rseq_signal_deliver(&ksig, regs);
->  		handle_signal(&ksig, oldset, regs);
->  		return;
+OK, your analysis is correct.
+I will directly update the dev_err() call to use &qm->pdev->dev in the next version.
 
-Reviewed-by: Sven Schnelle <svens@linux.ibm.com>
+Thanks!
+Longfang.
+
+> Alex
+> 
+>> @@ -1174,12 +1177,14 @@ static void hisi_acc_vf_pci_aer_reset_done(struct pci_dev *pdev)
+>>  	struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
+>>  	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
+>>  
+>> -	if (hisi_acc_vdev->set_reset_flag)
+>> -		clear_bit(QM_RESETTING, &qm->misc_ctl);
+>> -
+>>  	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
+>>  		return;
+>>  
+>> +	if (hisi_acc_vdev->set_reset_flag) {
+>> +		clear_bit(QM_RESETTING, &qm->misc_ctl);
+>> +		hisi_acc_vdev->set_reset_flag = false;
+>> +	}
+>> +
+>>  	mutex_lock(&hisi_acc_vdev->state_mutex);
+>>  	hisi_acc_vf_reset(hisi_acc_vdev);
+>>  	mutex_unlock(&hisi_acc_vdev->state_mutex);
+> 
+> .
+> 
