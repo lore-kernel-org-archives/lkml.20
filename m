@@ -1,133 +1,235 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431F13C342F
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861994; cv=none; b=GJ3skZaYJfOpEz1yYCMmdb7FJeXWpbZjt1OxT9dLPbUx4b+/0wPFalcDmM8zIZRyrHi72qP5ZeNqAyh96g5OXXNCTIiNeJsCetXtdfSwLMKq3dXP49SWkEGBi5UXgkTiqDNdNIUgKnYuqTJgcFRM1AVsGk3VbZPkEXeJV/XKfzU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861994; c=relaxed/simple;
-	bh=xRqHXRWy0wT5sO5hNhnUFechofQOXVJZ6pLGdNXUvo8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=je9lvvo9ZZayYeVytYzypu17pAbMVitQzTZhGRTPdWFWHSE4EFya4AW/Fclu54jU9V+2b1IiTsWUpcV1cDUYKeEYmoMSwhSccYZYJZxfOxcrZF2dkQgOKchNHLuXexS4g5MAb5+IuQRsrbC4mp0RricUJzAQ/lzNAWixELLY7vE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=ts/HmB10; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sM+lC7VF; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0F53C342F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:27:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791862038; cv=pass; b=oLYAuilm0uETiWFhICHZBc5pF1g3qnrEFHanovErXIIGLZhY4o+sbU/y1HhWFODtNmT7kAth8s3ZnBeNQeTdFUzU1QYf9p/G/AHM9rXj0ikDq3VdWOEQwvqt7pwytjxNoI9QleGHkNnLUnt4lttWI7AyyHZRGQHwMEbAXlBonYU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791862038; c=relaxed/simple;
+	bh=skfSan0+1XZB1gCLut2T846bBKf4wrfvYxze6DiUgyw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QrvMz0aWKfjj/HGQBUWBte19p/0uI2tS+85WNAUuAVXcQjPmoglMKYawC/F25FltwFftGVUuQKlj+tUXHyPyC8hs2wbpr0wRGEoRIzxghPt8yKtlRmwRzmEGTWe3LvXrUKjqRKK1baLw4eCsOM9nBEnSDad9sq1RFGdcnp/+rQ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CwjYvO38; arc=pass smtp.client-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="ts/HmB10";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sM+lC7VF"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 932A5EC03AF
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:49:20 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 07 Oct 2026 11:49:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm1; t=1791388160; x=1792252160; bh=EiTz+HuScl259OHLsG+bi
-	k5/yWrC5KLt65qfVg2oAYE=; b=ts/HmB10EZBAD+KkRRtqOx7nu01FDPfCQNBQ8
-	+iXUQKAqQ5K+XQLO84W0SPoFOPcsaADC3kPrBsBZLVb4dsP1kyjfiqB5ek9ig7hb
-	bQlwCkzwrSyx138SDQZIsoAUzjumX/vx9/a93oKiZHqbDeUNbyS4WIjsylb3p513
-	gqz+ddZ7UVnF69OjDCuejMmG+09FiowreueqnXjqEOwPRzS1zS4XlLCzz+JI97lB
-	Lp9JidRGEfC7DYE2XWZtaW7X9LVNYFKk40gBFYCs43Kp3BLVf5Uw7fD4UErJC++a
-	0FNO27cQNvyTD1R4yiNsb6ZpT7ZMMCYWzNcKYTvFOPdV02wzA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791388160; x=1792252160; bh=EiTz+HuScl259OHLsG+bik5/yWrC5KLt65q
-	fVg2oAYE=; b=sM+lC7VFEOo4IvpMIjrXIXaEDWpVB5XNkHJMjULeJYHkGi8jDx4
-	OtpmxjdBg2nHyFDZm87G80C/bzDjlWA8psLluSMeQNKIzA6sr0zp3vFQ4crMopo0
-	ymTMrKEXoPYf34BnIcN7GTpjG3UzQGVnJID1TaXR5ueZSvha/UJTl5K9E+ldtNSG
-	Z2epzFRuP9lwFWvlD0NPsvzAsCPDJrndLvSQFZGMe5BkXdUNfKazvi32Ay8YHP6U
-	9S463+7dZ7FyTNPxymfBnlj999gBu+M8vbMvSgnkjHNg6oWPgaTIRpVfmbLCLqdk
-	sQT+ouKHL6AIzORzAy5tItx3RauqeKBYHsw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=s-joshi.in a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791388160; d=s-joshi.in;
-	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:u/F0pPjWe/fZqSofBROOfsWZtx1+gQmEUky0JFFVilRXAId
-	dUYcNUbM73FAQggb9octfbw2XmnF5pq24ybpawHibNthGSTMzwU7HF/k78yYcVi4
-	LF+pVR5yaiFJ0r/QJp4ozS+j8XBXqe8oY1dA3bJgzq2cl4o1SVJu4Yn61R9dK4/C
-	eFg+/sojW0WSpgGpdWbp0U8qCaVoqSPUIRAN/81YBQJkgU2QkGU9glZRU/K3gUKA
-	NoYkV/vKlLIuPrtZOJRDKkkBwpeEVXaSStMTd4VbfGyHanQdj5OTxIvCWkHG5bYF
-	1ptPQKB7mcpKcBg9zKGpDiW29utkN0daFvsbong==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:oVV34Oz0tZFdkamMwKRLCQvXLTY7P21irI3X3GKRZBM=:xRqHXRWy0wT5sO5hNhnUFechofQOXVJZ6pLGdNXUvo8=;
-X-ME-Sender: <xms:AGrGaptX7i0dbchw5uiCS6H5jjpoIKubRJkKNGegv5nmFB2-kay3sQ>
-    <xme:AGrGarz-AcJmL_aSKHhdw9uJdWN7LW8U5d8yQm24ouwdD3cZyXNesxzsV2HmMGoIn
-    iJo0HK3r5J9qhsbKrIRD2jzAy8yiBgmMX7s_3Xq3Z8HcZY6vIU5ogkF>
-X-ME-Received: <xmr:AGrGakAtfKnDhJUvH4CFBVf1UfZcdI4t-B9dkm95tVb8VgcPrif0UlcBRQ>
-X-ME-Proxy-Cause: dmFkZTFDtuNAgEWw3iwOyCspoiF8PrY8fLATvghLsLPuIs1EaXXtyY9GaBQwxa+cvT3/64
-    ZzU5crLqxDSa+VpXAg6ZA6X4jQSkEEuNvSoiilmFl3CBqGj9KrpuW8CLbonP4MWUX2yA3Y
-    /zOymznOoqNhSC7D4cMsfoHpry2Qy8ywZbQZewwdHkIaxzw4E+wS2UzJiIPfibADXmhJaE
-    PBXoN9z8/esl0+ItKkuxL+PsVQW41CKw0oQxty17YZ7Uj8lmt6HVAwwqJynqWEHygDIeGZ
-    AyRy3Iv7QnrVwRvQQ+hm7Cb7cBBUw/xVVcZy0Gm1lFG+R/fasNHDjxXjjgX4jiHbNX+BDB
-    FNxlP8JSKs0JEnI/QedM25V5h+Dd6rbBCYU8ZUMnpvMFbGXwBGSQSTKMbOUA5Dwm0jIAtu
-    9zbjskuj+ZUg7DtVy58QZJQYdGTbpn2Qauqr6boeMQjnfAcGLZiXKSp1G3lFPO4i8OEqoo
-    udOhN4NHYt7BptthDSpGfXA9D9uM7+7vGouIBMxUtZGgdmYnCWCe4WWNg5suPo1BxgP2lr
-    3RCO0Pet7Q9LwtfaUPOUlYOWYYufmW25iR2/zhOfa1RtckPaESi+H5/QEmlv+rIoU9z67a
-    wFerjwFvM+kZORzirbiXQtB3No5x2CZr4hW5+M6LOgrm0ljb4706tCI2tMww
-X-ME-Proxy: <xmx:AGrGahfjtoDp3ZQ9-bGhc08-Vu6y2SeHAp7-SgOJuno46k31DwqksQ>
-    <xmx:AGrGamnRIXfbSytF_YGv-z4FXE8Oitq4yNZJKyX2tSdNtdL6wKqw0g>
-    <xmx:AGrGagGEJDXTcqK4euYSuFgtgKlL570nIq4kiijUrpzvTmZNP1g5eA>
-    <xmx:AGrGam72VOmvzpPU0asl1z1lOTS8rNrkmRq5Lh6m6TKy8bvXqgUrTg>
-    <xmx:AGrGavVEFi0crCK5Xx_UhKQ8WPge2Jzr8s2LsRtYMlz4PevTUte2QIP0>
-Feedback-ID: ia9504abf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 7 Oct 2026 11:49:19 -0400 (EDT)
-From: Suhaas Joshi <suhaas@s-joshi.in>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	suhaas@s-joshi.in
-Subject: [PATCH 0/2] mm/damon/core: Iterate over installed probes instead of DAMON_MAX_PROBES
-Date: Wed,  7 Oct 2026 21:18:44 +0530
-Message-ID: <20261007154851.45368-1-suhaas@s-joshi.in>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CwjYvO38"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e027da22eso170685685a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:27:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791862036; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S+MTrnZGcG6nuJruaNfhfC+eGq4vGPbAGeMpwREdRD5iXfJLjGqusUpRi5Jc+KI4M8
+         fWov+M1GWCfCnqmeD1d/qEJN0V09nVrNimxE0xPzftHKQeejziPS8mZptqu0rFuNfSGn
+         sbc8ginubMzpZstq8iZrORiq2aUg5Sufmt9QKSMatGD27O79mbUeZBMrNKu5YlIy0tou
+         4SPJzOxuSxhti+/a/dNDWtNSSY0/2ismOgPqmNdzmcvKtTxpQTo3JiXUD5fehmi4m55n
+         qRk9B64JY0Zb5IjhdRTaYz+12GRceKvZ2j84aA0iivxCHhMe2fGHMR7uCWiTEgtwNTVn
+         uM2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GnoX8iRBAWCVauZf/sBd0GnSZBf0BiraG31WKJrHpzA=;
+        fh=EywGhOC6xXsMZwj71X1DMsiliYLYkmcwAwSmg8J375c=;
+        b=Dqi3bDChSHaEsFnJCVVdWLwrAaHSO6xCykftk8uGwjMXG5qce95Z8A+N+xNwwr7Tkz
+         WAyWUTUvhbLHh4ywQuvaz7jtqqSnLfvOvhdV0wpTN7TKrRGb51R0DaaKNAYvHS6Br7Zm
+         0PPMWJXETUlW0FugfddGOGFs6Ul/Ra05KEGssJ3DVBsKKTtakrzt6PqrMzkWAymOzg3q
+         l/wInkloZgGt6V7e4M0LuKeNdPXvHOaU1hdSQEEJDo/fht+8iUIkKIWOe1W96XxSb6+n
+         7TAXxwnvJkV4FUiGRi6ObcEyWZZ3ex8LlIpbqF3tV+KF/Eb5RMwVsCPEFbgp7gK64h1S
+         ZVrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791862036; x=1792466836; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GnoX8iRBAWCVauZf/sBd0GnSZBf0BiraG31WKJrHpzA=;
+        b=CwjYvO38fOqQHnicYM2mN6mt+w7UO33Rj+UogHeUu8SRJxqjI0DobRZjiKG9yIUhM1
+         A2Gb3r1NimARynJC04G84Fses9uXheZD2h43631hjzfpd4Wti2Yrx6srFxOVK+U+B67z
+         pJuUmTCFSFjsF/xk0Yhbdw4Ssfugk8Rbxb5GW7vcM7D40B0qVuqPgJd0WBz56I3GMyMl
+         5/FhxdzlXZOBHxp6Qnk1kwSy/Efy/VJG4vqmQjXbiXFWNSdhWPdneZk/eF4oaQ71hfYb
+         aKKMaJm35kSHWDwap4vhQzU5U61LPzJ3WI3urvY6Dc4Kx2rlS6FiMKu3h+KLHbd6M3IU
+         GK9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791862036; x=1792466836;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GnoX8iRBAWCVauZf/sBd0GnSZBf0BiraG31WKJrHpzA=;
+        b=lwde01wmr/iMDTFuk8qOsigmM5xQGqoE9LRpwzo2TIgk08HAIFmn6NpVX1d7qSAwtb
+         WKREC6h4gU/T8wT/IbGoE0ToyWzYAIFNJTMteJ6W1wGZiIbA6zxEVeFVu+iPiGBgp3aZ
+         oE4f/zQO+d4hZNu3EHZCnyDAJe69u9LSAzaHrigKtScPKRBArP7VgDQ19cA9DB1UHMO5
+         +diNdLARlaroP+ufFCcg3rMwYj9ybYp6hcqrGdiJ6htCuLzDgVtdjqYNM+ZvcxtgMrj9
+         bRQiHfGg08CC9SHD2DnigLkspFBIG8UTSpZgmEp9QhyC7Yn33R2Tz0U0mFbDFkZr6Jwv
+         sthQ==
+X-Forwarded-Encrypted: i=1; AKwUvByMASVPiQxTUu3YSUKwfJ0UFTFXo+JtTnxYJBAvzcPBAnrMYAGxwVrJU1tDeYU46bb2vylcNDW+DEswD2w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRPS4VQqUseDW/kUDhoPDVzBFoQhQvi1icp7l3923MHAB1tUQB
+	unXEAzEsPMu+P83jAKYgbXDpqNUc5zLa/sNarXXjOTOxJ1DytNZX1VyZq5YJz7suYKFAnjt2BiN
+	mzIk6Xt6Q3R3sPm0jFdxEqJPJWORwaDU=
+X-Gm-Gg: AYBFou2fKftizdA69k5YcWcItfb6Z0kpTH8kibw8Ti9wVeuSAW7e8gehpkMdjuDo8rE
+	m0sFAjPZ+toQVW3sQta2H+yOAJ2JKX3QXPnvAFUmmAhappkrr8X7ErKBJLkLDckR7o6sjUWs+f/
+	XMZhO3gVkB1fTTo+/zdk3aIn+VMS/BmEj3L+8/g1GvuJpR2rTxt7Qk40C4VGmUgCAZ6BbASWZWT
+	0uUvh4u3CMMZFI17HwSYgZPXvUVsjQlZCufDBGOoy0LfVRttOuLK8hsDy88r4J68/gnTDQdOWaR
+	rABM1TrZP7/z2naqn1v0a3qLuTYH4CtDnSg3M359CL7Lg4tm23Q69xQ=
+X-Received: by 2002:a05:620a:19a2:b0:934:ab73:ac53 with SMTP id
+ af79cd13be357-93ebcc1186emr1807392585a.0.1791862035540; Mon, 12 Oct 2026
+ 20:27:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261010142247.99223-1-physicalmtea@gmail.com>
+ <20261010142247.99223-2-physicalmtea@gmail.com> <as1ZCkbya2jn72ip@devvm29614.prn0.facebook.com>
+In-Reply-To: <as1ZCkbya2jn72ip@devvm29614.prn0.facebook.com>
+From: Jia Jia <physicalmtea@gmail.com>
+Date: Tue, 13 Oct 2026 11:26:38 +0800
+X-Gm-Features: AclHuK-0Vr6L1DTitDJsFP7Cyfe2EIaVm5DyDLTJkZtt76nbyfmG1WpYEm38C3s
+Message-ID: <CAJwVaMJL4FFYLq523VY014oa4u7RWD0WUY0+seP1xh3GY5peiQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 1/5] vsock/virtio: split socket lookup from
+ locked RX processing
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: stefanha@redhat.com, sgarzare@redhat.com, netdev@vger.kernel.org, 
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, mst@redhat.com, 
+	jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+>
+> On Sat, Oct 10, 2026 at 10:22:43PM +0800, Jia Jia wrote:
+> > Split virtio_transport_recv_pkt() so socket lookup is separate from the
+> > receive state machine that runs under the socket lock.
+> >
+> > Keep virtio_transport_recv_pkt() on its existing per-packet locking pat=
+h.
+> > Pass the source and destination addresses used for lookup to the locked
+> > receive path so they are decoded only once.
+> >
+> > Pass the network namespace and decoded address tuple through a packet
+> > context to the locked receive path.
+> >
+> > Preserve source validation and failure handling. Keep the lookup refere=
+nce
+> > separate from the skb owner reference so the locked receive path can ma=
+nage
+> > the two lifetimes independently.
+> >
+> > Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+> > ---
+> >  net/vmw_vsock/virtio_transport_common.c | 139 ++++++++++++++++--------
+> >  1 file changed, 96 insertions(+), 43 deletions(-)
+> >
+>
+> [...]
+>
+> > +/*
+> > + * The caller holds sk's socket lock and must free skb if this returns=
+ true.
+> > + */
+> > +static bool
+> > +virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+> > +                              struct sk_buff *skb, struct sock *sk,
+> > +                              const struct virtio_transport_rx_pkt_ctx=
+ *ctx)
+> > +{
+> > +     const struct sockaddr_vm *src =3D ctx->src;
+> > +     const struct sockaddr_vm *dst =3D ctx->dst;
+> > +     struct vsock_sock *vsk =3D vsock_sk(sk);
+> > +     struct net *net =3D ctx->net;
+> > +     bool space_available;
+> >
+> > -     /* Check if sk has been closed or assigned to another transport b=
+efore
+> > -      * lock_sock (note: listener sockets are not assigned to any tran=
+sport)
+> > +     /* Check after acquiring the socket lock. Listener sockets accept=
+ packets
+> > +      * from any source and are not assigned to a transport.
+> >        */
+> >       if (sock_flag(sk, SOCK_DONE) ||
+> >           (sk->sk_state !=3D TCP_LISTEN &&
+> > -          !vsock_check_source(vsk, &t->transport, &src))) {
+> > +          !vsock_check_source(vsk, &t->transport, src))) {
+> >               (void)virtio_transport_reset_no_sock(t, skb, net);
+> > -             release_sock(sk);
+> > -             sock_put(sk);
+> > -             goto free_pkt;
+> > +             return true;
+> >       }
+> >
+> >       space_available =3D virtio_transport_space_update(sk, skb);
+> >
+> >       /* Update CID in case it has changed after a transport reset even=
+t */
+> >       if (vsk->local_addr.svm_cid !=3D VMADDR_CID_ANY)
+> > -             vsk->local_addr.svm_cid =3D dst.svm_cid;
+> > +             vsk->local_addr.svm_cid =3D dst->svm_cid;
+> >
+> >       if (space_available)
+> >               sk->sk_write_space(sk);
+> > @@ -1875,12 +1891,49 @@ void virtio_transport_recv_pkt(struct virtio_tr=
+ansport *t,
+> >               break;
+> >       }
+> >
+> > +     return false;
+> > +}
+> > +
+> > +/* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq-=
+>mutex
+> > + * lock.
+> > + */
+> > +void virtio_transport_recv_pkt(struct virtio_transport *t,
+> > +                            struct sk_buff *skb, struct net *net)
+> > +{
+> > +     struct virtio_transport_rx_pkt_ctx ctx;
+> > +     struct sockaddr_vm src, dst;
+> > +     struct sock *sk;
+> > +     bool free_pkt;
+> > +
+> > +     virtio_transport_recv_pkt_init_addrs(skb, &src, &dst);
+> > +     virtio_transport_trace_recv_pkt(skb, &src, &dst);
+> > +
+> > +     sk =3D virtio_transport_recv_pkt_find_socket(skb, &src, &dst, net=
+);
+> > +     if (!sk) {
+> > +             (void)virtio_transport_reset_no_sock(t, skb, net);
+> > +             goto free_pkt;
+> > +     }
+> > +
+> > +     if (!skb_set_owner_sk_safe(skb, sk)) {
+> > +             WARN_ONCE(1, "receiving vsock socket has sk_refcnt =3D=3D=
+ 0\n");
+> > +             goto free_pkt;
+> > +     }
+> > +
+> > +     lock_sock(sk);
+> > +     ctx =3D (struct virtio_transport_rx_pkt_ctx) {
+> > +             .net =3D net,
+> > +             .src =3D &src,
+> > +             .dst =3D &dst,
+> > +     };
+> > +     free_pkt =3D virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
+>
+> At this point the socket lookup succeeded with src/dst/net, why not just
+> pass sk which already has all of them?
+>
 
-There were two "todo: " items of the same nature in mm/damon/core.c. Both
-of these suggested that we should iterate over only installed probes while
-updating (last_)probe_hits[] during merging/splitting regions, instead of
-iterating over the entire array, which may have empty/unused indices.
+If I understand this correctly, a successful lookup is not enough to
+recover all of this from sk. The lookup may fall back from the
+connected table to the bound
+table, so the packet source must still be validated under the socket
+lock; otherwise that check would become ineffective. The packet
+destination is also needed after
+a transport reset, and the RX namespace used for a reset reply is not
+necessarily sock_net(sk) in global mode. I=E2=80=99ll remove the context
+struct and pass src, dst, and
+net directly.
 
-So this patch series does exactly that. It replaces the for-loop over
-[0, DAMON_MAX_PROBES) with a damon_for_each_probe() over the probe list of
-the context.
-
-These patches are based off mm-new. They pass all KUnit tests related to
-damon. I have boot tested (but nothing beyond) on qemu-x86_64. Please do
-let me know if I should do any specific tests and link the logs here.
-
-Regards
-Suhaas Joshi
-
-Suhaas Joshi (2):
-  mm/damon/core: Use only installed probe in damon_merge_two_regions()
-  mm/damon/core: Copy only installed probe in damon_split_region_at()
-
- mm/damon/core.c             | 56 ++++++++++++++++++-------------
- mm/damon/tests/core-kunit.h | 67 +++++++++++++++++++++++++++++++------
- 2 files changed, 89 insertions(+), 34 deletions(-)
-
--- 
-2.55.0
-
+> Best,
+> Bobby
