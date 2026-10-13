@@ -1,57 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEF8554086
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:33:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C056555295D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905627; cv=none; b=COnmx/k1RCKVXjs9B7NdHuFl8VVdynIb1TQZLhIODeUFcwVFjiGWzzEJT58BgBmbHtadkl3YQ0owi0Rsh+k8akoZu+tyYLjAUKAdaH+tFkgVVIgEaixNs+asn5aO5i52y/eWeSFDoezTtbZI84s9v23j8xL3dfZ5sK6akujh/RU=
+	t=1791905630; cv=none; b=Z2ullLXPmmPhL3vmlD4SKa74moqumq5q8EuZF6MuxZ/DmQhFV4dPn8CfJp65cwGBURWpfgpA8/SofHHbdlpS7mHuRmiRQSNQOjzIJOB+ysyxJFUPZg7xQGuXfXfruyZktQjwy2bMdHdW/KbDd8IgmmYWxm+YKziVFrwfbUcEVhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905627; c=relaxed/simple;
-	bh=u3Mn6xLnHu8em3WFtyZnSUaeibjcFUHYkzfz3p3MghI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bgSLAnTvXnjDvlzx2faM25noZ/hXz5WAT2zDEVDx95Dc4V867X7Q9x53g6bf1wXfeURRit0xIwquPhawVWDtpXnsTXV6tWDGX53SJk6xqtw/LXFy5IsiL4u6OzvasoKHt3KErpSmrKiPspRlFz9EkfvQAVny1xroYPHy7TO4xZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RjPVyDoQ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RjPVyDoQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 513131F00898;
-	Tue, 13 Oct 2026 15:33:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791905626;
-	bh=u3Mn6xLnHu8em3WFtyZnSUaeibjcFUHYkzfz3p3MghI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RjPVyDoQrUuXp45G6Yc40x975pWRT7PbYcpk0R79ZrxWLBGIsue+tSV222VGc67jA
-	 BRFIUlgnL+1+cSdOMcRhbr//bwJK3eYfPO6JV+GpEUaesjMrj3t9KkEo+IZIE/pfwg
-	 V+JRkbGTRh2MBh265MRHE4C2Z/zi8yyza/3wOSgL3nX1XnUXs9B68y+7y1G8PdHpgR
-	 45G3HpCRx8sMUgYEgHjxD3GqowGfQHEJ/gdrbSuHWpvfb1eSWKbzW2M2/dKQYqUDos
-	 ma3eLKwCFoBVkgVP0a5vNfxKeBFLneQYFGUR2/fN31QL++ZfF+4Dzpw5mOB9ClFC/Z
-	 dAr2z4HFZApKQ==
-Date: Tue, 13 Oct 2026 09:33:44 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Jesse Taube <jtaubepe@redhat.com>
-Cc: linux-nvme@lists.infradead.org, Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	John Meneghini <jmeneghi@redhat.com>,
-	Chris Leech <cleech@redhat.com>, linux-kernel@vger.kernel.org,
-	Mohamed Khalfella <mkhalfella@purestorage.com>
-Subject: Re: [PATCH v2] nvmet: Add traffic based keep alive support to
- configfs
-Message-ID: <as5PWLBhghebm1Gn@kbusch-mbp>
-References: <20260923202003.1776271-1-jtaubepe@redhat.com>
+	s=arc-20240116; t=1791905630; c=relaxed/simple;
+	bh=oUJ3RMDDNB2ivKAi05eH0inu4rlJLtX2H1bKRkH8Q9c=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=kL8zmJtiihWYAHmGziCGIvv59Hv8d1xp1DwWphIPDYBd8eWTwe9X84U3Er6PpCao5myHYZgX4N5PcZ947mvxC+ns879j7vKvA+mwNWXTIZLCYSTMt+3XudQpKqj11mrV1z/kx4lQ8SXUqVFlUjc0iqfjtD6h9ptbNcynp0ARKQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-47cfa971c9eso7181025fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:33:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791905627; x=1792510427;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oUJ3RMDDNB2ivKAi05eH0inu4rlJLtX2H1bKRkH8Q9c=;
+        b=swKnh+lHhViaz3dJgdpjWEBbBqR5YfvdNqn//nJLVadoM66NcCLlDhs81hZtk5Chry
+         +B0Yep4Cz4kMrFzbyhHKzZ+61JxAQjsW0to1qPza11axZXVIjofgOQdl76KBoPHvgkIn
+         IU6GNrDRqr9CyIOYwgDT0LqoCApk99ZIhGJb9H3SRMy/Arz+fzA4j3dfcgPhhsJuCBE1
+         B+MJAGbh3cnlsYY0H+DryuCv0jVUM70ZC/bcj0lRzdwUMswYVSxX0WIPmf3bwLD/5wlF
+         AQHxnMtj8y8hpWhKNonwHMsg/WyrbYZakA0LNWTP+Qb2NLTes3ElaJJgAJeCdlpJ07l+
+         wcVA==
+X-Gm-Message-State: AFq9FYIkBVMuN5OBxTdPHvzX4ZHnk1CS4pEckySfLzAOtNh7Va8xAltM
+	muNODRCFAJxKLAon6841PIkFncIzvpdLMVj8MferfYf9aIuK7zdqeWLVoR3fZiSxKtffOMag3dI
+	9t9wEPm6VmWzd2nxvZmuasdOU+8p6qmJhuHSEF9QGPDzngizSyjD2ieoLjeE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923202003.1776271-1-jtaubepe@redhat.com>
+X-Received: by 2002:a05:6808:16a1:b0:4f0:2d60:f0f4 with SMTP id
+ 5614622812f47-50b5c4f1977mr9211683b6e.17.1791905627675; Tue, 13 Oct 2026
+ 08:33:47 -0700 (PDT)
+Date: Tue, 13 Oct 2026 08:33:47 -0700
+In-Reply-To: <688445fa.a00a0220.b12ec.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ace4f5b.8cdf6287.1eb53.016e.GAE@google.com>
+Subject: Forwarded: #syz test
+From: syzbot <syzbot+baad8fdbfa4129f93db6@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 23, 2026 at 04:20:03PM -0400, Jesse Taube wrote:
-> Add the ability to turn on and off tbkas (traffic based keep alive
-> support) via configfs. This is useful for testing and debugging.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Thanks, applied to nvme-7.4.
+***
+
+Subject: #syz test
+Author: spannme41@gmail.com
+
+#syz test
