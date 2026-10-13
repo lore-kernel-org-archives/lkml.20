@@ -1,198 +1,188 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3314EDCBE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894965; cv=pass; b=pxmvxmfbo+KOz/f8i9Krfpxd8V3uZfgmQHPADidzCddrkUsjRsF0pKFBzdxrwv4SLMR35f1fNufKem7kW3ri52gm4LhZwliRF1Qeb5Nsrnam0rOQA4DJM/TwmuEnBwYRLsYiQq0GwYGWsr1tFQNBEino4PD7eVbaLKHmUWYl1gI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894965; c=relaxed/simple;
-	bh=KJz0ljhpxQV0dxuLmyAZzCH6KN1a+1DHS+L2+lDvs9U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t/LrdKWcmYgwxxMg7VnLubfe4Uyjte0jM3xy5q8xWd6qLTQyMwJ8ruitBe/K41FZ45MEbA5Ht/P4OMJaRV/RbqLjx36vrhlfOs+ZKA5iht8PalNfhdm1KjW/Yv+EMp/AXqj++C+FyqwqeHGG/YkLGAN0vHf4WsFof4hq/IMrtyU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dfwSn7zu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=YgoLMzzU; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE964F475B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791895008; cv=none; b=bxGwc+WiCnh6m8+pfXiFIud2khxezNDPMZGY4TO4ApSc/rQIx2JOs7PBHymPqCeL9l1fORwXvzVpqgEj5vrNyZ+5mRsHdqWGzWldKGvmFWSuWT/yFNfDQmDoMjzMlx878/mWYM7qFniPUm+fnMXHExKzipDLHIfyWkRJXSU1Ztg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791895008; c=relaxed/simple;
+	bh=iTqegItL46VZzOOmaKOWbD4dw0HLPDGa1sgVVAbiO/s=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mJOVYbi6vY3vxZzm22KLSWaaenf3i8Q/+gqn3uYsAScxshMJC21NN/9LZqOHzpLIeSd/XmOgTWNbyCbkYWx52cANLHfoWvuFotgNvP6fuH4SzQgrohcuU4uY9HC1MoukrOW03rhdfon3aInoan3ZzZbGCnGPS5V1unp8jreHL6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G0828nRS; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dfwSn7zu";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="YgoLMzzU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791894962;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ooKLa1R3KGvywNv1R+3CFpG+InkWtGBVvbQRUtpRSf4=;
-	b=dfwSn7zuZu81ewqBOOFI/l9xBxfYJhLUcFdAPbnSmoghiBOkFiERe/7H8aC8j/8PUFnFxh
-	hUEDo/0FrspbXA/QllExBFUWPEDUX14/KIH1NCYfGCUalH8BbQhjiAXAvmcIhVnRttbg9R
-	J1fIDjF29+kS3QGm0E5Cg8ZicDZJ6dY=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-103-cwT7J8DCO-i-irx5jC5kWw-1; Tue, 13 Oct 2026 12:36:01 +0000
-X-MC-Unique: cwT7J8DCO-i-irx5jC5kWw-1
-X-Mimecast-MFC-AGG-ID: cwT7J8DCO-i-irx5jC5kWw_1791894960
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c2e71425f87so321546666b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:36:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791894960; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FL1jIhaE3L3WpysRgAHmUgy/EWYFfig/hX/OM1PutHsKHdUFF1oYQcopeOcONdbA1H
-         2CDBUvw8iIM1lqe0bm03T1+xp7hXDID3vJqa0R4n5uWN7m9PkhubzrA0TMYmrmwJB0xk
-         peCUhsrYhcVvvcHex4UXohVZfNFETsRe+aMnxLKxO3vJy/Nt1dZkW34itAMX8NHBsMZ2
-         RtpMYg4juANZEgzIfUjKaYcRkeOnXI9Xw4KtnJW3YJVJW/2WJ/7NM0atmPMpi/FejV9D
-         lqfdJ4u707GOrjaE8Y19SgjgcuWqhRrwCkEx3tcGOAi82gJcxMc1Ygneeg8PZ3D2d/nH
-         81Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ooKLa1R3KGvywNv1R+3CFpG+InkWtGBVvbQRUtpRSf4=;
-        fh=fc8EyH47C1XG7hTrj4T8E373nAdquhF0zbZ+wNqYubw=;
-        b=mHnDThbJORaSleAqLH+1Jlec31YiDts/a7yJiJhUjmjpjqvzKRQpebmj47Jy6UvNkp
-         mx/kZxxsqZePy+k3LQsrPqGTE8oAXSYsEDgN+baFxp97a5h+D+C7vsxNRESbINgFY3RY
-         aPhRiD5zvypnUAUDZxg17fa8jTDA7K51qxALpupcaWRX8Dfac3RVq1R/Q+Jpu3G4qj/9
-         FehCCFcgL4eYy8+lr3c9niEs6WiOU+FZ22eE5MShITWFbHzbdDQFOSR+bjrOm4NmNar+
-         8oLs36PPQ0SbeLToV0Pqmx0vdDXj+FH8oMfcbSct3D9GI2n+8VcmrnypDXcWGSe3FRFu
-         LhBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G0828nRS"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b02a2359aso2735132f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:36:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791894960; x=1792499760; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791895002; x=1792499802; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ooKLa1R3KGvywNv1R+3CFpG+InkWtGBVvbQRUtpRSf4=;
-        b=YgoLMzzUztWzAtGp2BsnHbg4p+kiT33FbX6LqK9gQMrWA1L2iCBRfHGuRar0q6PPvi
-         Z+/pKSPqH9ljzJkup8+HBSxiFoZhhYF+EG9czbqjtvxPdNGONXNP8VzJrWWyK8wt1XJI
-         WJmkye6UFTuSDnGTG+lWNQekyg9JvV578yJFbnZ+CB30MZKnFvJ/g2FG55n0ZYrYQOeT
-         JopL6l+aVJkFYLJz1V3QLGr7MSW03SSWSdAIoUOmHauJXBNbtpwoVRzcLPZouXiBgWiG
-         hACkPXzW6b5ieD1bEV21hIW1mcG/rZHsSqaWAw7jG0dKXVWwMufD+Bh/ffF5JBE9k6bi
-         o6mg==
+        bh=uTSmNl5owwJ6C1JNsqWpAVpytnSmw48VMmiRayPCI+k=;
+        b=G0828nRSEeUlnOyc4KHeUotlZjd8svAZhfESRR7oZREuxfvP3crvhTlfdzXopE9Si0
+         AURyO+ReoLFDJ0kLsCSVQfxn+Uar3eQcSmRz0FbRrB2BLa7ahyQJlLMwULYDn5ckhPZ5
+         MLzNh6+HwPfXj7dAhYUeVRJTAWR2C2MnTmJyMs1Q9vhjpSIfalHCtfjPW7X+udZlY4tr
+         4awrG9gSK2MCC93pXYb5ZFvHrFa/FDLbxsNHdYe1ppBvACpORqtBA81eHgRjGOZaeM9M
+         OZhhmx/DLxC20rqz/02ywAoRNbSPGSdBbS/x69OX6QSOQJZBB6bdIu9bE34Ml5vmr087
+         hBWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791894960; x=1792499760;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791895002; x=1792499802;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ooKLa1R3KGvywNv1R+3CFpG+InkWtGBVvbQRUtpRSf4=;
-        b=Juf0KHnBAFQTkrTADlaKdnu9n1jrgjT8TdDdbFeWei8iAO+8PxKZKBdU7IE1R1fmyW
-         Hv/D1kEw5wuacUyJAL24f93vMkgbCydmymJnaSEq5gUr8cZcFt/uhVcSNfzaHFlIcrIZ
-         gECnC7K9XKdgzEUJa/lPR76pk99Phcpy8dio3gjPBYIaa6t7vWiMmq1MotE4ALw12mB9
-         Igt6vtme6stsnh9XZxqAUemlkllfXn1PZxqY/95nxth8oWnG6AK/jd8BrfaSxv+fMEpV
-         dj3xNLoTFJXMd85Ua4yvLBW4n24yDqIN0uOMGwMXRqmL2geuPKGhcFZjhToPugnZdYwl
-         fCig==
-X-Forwarded-Encrypted: i=1; AKwUvBzw9JUnE3yfeBmzQXa/1lup6dZri3SmRSmp/EAGY7Ea7BQ/mmVGtjZVIaoJISGTfNzgWeMrPzlCdvypeg8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLz5rmoHSBGggz0gw1TlujNHQaQZn3jQKftS7zORDJi9Q2CY2DA
-	SBxfQhkD7/ie4v2FGW9/UmYRPOa/moBYvE6jALm6Qop+N5D7goynPC8hS+fL0inEVxuVGbk6hNZ
-	AxgDmh5mYkgC6ei/gtl17ROsX7NQKmfJV+ehI22MSh6wpULnd1FDx9R1re0zsn5weAR/9CBpBBR
-	DAh8Z/RhvnYKFRtOuaDoOPLwoP/Vo6zbmHzKeAQR4R
-X-Gm-Gg: AYBFou2XVTHWcxtYwO/oRRQT9bSRYbyxc1OCGMbiS6LLa0fgdsqTmRCve93IZrEdr42
-	EcPWcQGfI2h5+7VK4rPQsEgZhK2N4mJbHzTQllrA+8ACdBGVzesIQwp3c6L+tMgMZaPGHlI1wAM
-	+y+7FwCbOvlyrnlvBkWnWrtplF+PkJ/fh8m1mXPMAmOfR/avpqrMwXBafL+go9nT3fpODDma9aI
-	p/5U2hKu5JKAUIADsdRkqaQJ8uq/YH88xGSXRVKUsatsx91ljLvCTPYNghAAdPpMfjXuCyKLWjZ
-	BF8=
-X-Received: by 2002:a17:907:7b8a:b0:c2e:1b4d:e9e9 with SMTP id a640c23a62f3a-c31a9f6ade4mr1135545066b.30.1791894960269;
-        Tue, 13 Oct 2026 05:36:00 -0700 (PDT)
-X-Received: by 2002:a17:907:7b8a:b0:c2e:1b4d:e9e9 with SMTP id
- a640c23a62f3a-c31a9f6ade4mr1135542366b.30.1791894959880; Tue, 13 Oct 2026
- 05:35:59 -0700 (PDT)
+        bh=uTSmNl5owwJ6C1JNsqWpAVpytnSmw48VMmiRayPCI+k=;
+        b=x/B471Hfnlvoe4kooNmFX8e4hHMW6gDO9OUp0weSGY7T5V6p7TvTJEZjwd8vWpAKoy
+         C96QggHmLtyKL56EYC0wo1C3d/4ePDEty/A3iHqEpvl9MCdWl7/BQYb1RvtyQoze1bFZ
+         RwhEcbfMN94t9mWD1dhgJ7Jkr7Pp74yY03YRkJ1A0SapYp1pga4ZQPyk4YNCZr0N0yBL
+         LUlrkERcYqsqGM/iHfF9XCxPl0A+aIsNkxNoMXzEfoV28nZqXkPR5P6qHalDsnGOvdiA
+         swImmB5VGNj1nDpJlaCaPdnhfPBlgTHhLApnpBl2KKgqhAT/jDCds27lsq1Afa+jAXgS
+         +yQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwShbZDpnrPa58QckH3lY1grmh8ffEc0bmvfUbdYGAU4ubCTumH7EMknweyZAWrD5/k530jA1J83Mg4KYU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaMQKITrzuYyLhZ7JiJoLqJpSE8+Tm1o+ICj2k9OjsxTr5BI7f
+	O8ZXo6f1YX1rgMEdMPep2nsQgAMue209pghroY5cnTS9Vi2UDK2/9nud
+X-Gm-Gg: AYBFou3kN/j7O0KGdP9UOwiSiFk8qsJF5VRQhNyre/psyz4vngp/+fV4jvm1A55/ohK
+	XNXjiDzwKLJtklM9KYZVw1B+fs5ebsoBpfWU8iP+VPLLFTDLjLfbEE4qmwAY+713nt52O4/Ibpf
+	j6HW7tzM0hetLXEODUouQgqDJ/+BVm4BDBCDmZFh6ubqffISzVhjFeAXNutqheQrmFKSjBAwjdA
+	+YTSx/fAKf1eCDyvAFHnRtcYVE/xIynqaeA1NWP7OrHO4Opo4NxqxZra+5cGthB0XiCY0FNElWA
+	MOI6tj+6n3dHPVsT/Wq5OHqbsfhA+LPaIfUxyO04ByvvYksfdGOecdV26ZJXIpI9jepUrc9gXdc
+	QvFa+fZW/pSPK7uXXXtmJMtq+rlXXwdK9RjXIWZp4XU1RJ+6Jcqv1XuRDosa3Oq9jSe3z+WVDlQ
+	VCxoCNN8xiHIDlETf38rBFBjEgJ1CNQZdE70lmQVdnYOHn9umcgkRjrqqMSl6DmEpZCS90YxrBb
+	la7QHrpWqYu/oEOPrCyHWyKqPQXdGRimwJiVKUo4nL5r1I5ittMHlgH0KWSj98I7bohefOPqoFg
+	aPrCfTBEVkuNb1DschurqHV9zPK4ndIDOZ5lfjYK3NWwibbv/lnpAARqw7fZ6qE7vjlp2Xox5FT
+	KseyWzmf7EWHOIE5awsB/TMZnHIF4EK2wMPhegB5febfny1L+nnyoWEyLEhC/u1ZqRRG4iGgBmd
+	HggSJ+
+X-Received: by 2002:a05:6000:186d:b0:488:8913:e64c with SMTP id ffacd0b85a97d-48dca34320amr17714316f8f.18.1791895000936;
+        Tue, 13 Oct 2026 05:36:40 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7003982sm31222f8f.8.2026.10.13.05.36.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:36:40 -0700 (PDT)
+Date: Tue, 13 Oct 2026 14:36:39 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Shi Hao
+ <i.shihao.999@gmail.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <20261013143639.000017b9@gmail.com>
+In-Reply-To: <20261013115639.167433-2-marcus.yu.56@gmail.com>
+References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+	<20261013115639.167433-2-marcus.yu.56@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790088067.git.rrobaina@redhat.com> <CAHC9VhQ=FFYVNmQdiMsqg+5KDDrSC3SZS+H2=r_GkhfwQox8tg@mail.gmail.com>
-In-Reply-To: <CAHC9VhQ=FFYVNmQdiMsqg+5KDDrSC3SZS+H2=r_GkhfwQox8tg@mail.gmail.com>
-From: Ricardo Robaina <rrobaina@redhat.com>
-Date: Tue, 13 Oct 2026 09:35:48 -0300
-X-Gm-Features: AclHuK-0QABZ6yrPwALI3VDGc1f2HfQWIB06SZ96BvTfEuUJkskwg4GU5NbIk1c
-Message-ID: <CAABTaaBL=TScs8Qqu3b8F6KZPGMyvwy6cBC3teDaBL6MGMucNg@mail.gmail.com>
-Subject: Re: [PATCH v3 00/14] audit: log all six syscall arguments in the
- SYSCALL record
-To: Paul Moore <paul@paul-moore.com>
-Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-csky@vger.kernel.org, linux-mips@vger.kernel.org, 
-	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-um@lists.infradead.org, bpf@vger.kernel.org, eparis@redhat.com, 
-	sgrubb@redhat.com, oleg@redhat.com, richard.henderson@linaro.org, 
-	mattst88@gmail.com, linmag7@gmail.com, linux@armlinux.org.uk, 
-	catalin.marinas@arm.com, will@kernel.org, guoren@kernel.org, monstr@monstr.eu, 
-	tsbogend@alpha.franken.de, jonas@southpole.se, 
-	stefan.kristiansson@saunalahti.fi, shorne@gmail.com, 
-	James.Bottomley@hansenpartnership.com, deller@gmx.de, 
-	ysato@users.sourceforge.jp, dalias@libc.org, glaubitz@physik.fu-berlin.de, 
-	davem@davemloft.net, andreas@gaisler.com, richard@nod.at, 
-	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net, chris@zankel.net, 
-	jcmvbkbc@gmail.com, tglx@kernel.org, peterz@infradead.org, luto@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 1, 2026 at 6:06=E2=80=AFPM Paul Moore <paul@paul-moore.com> wro=
-te:
->
-> On Tue, Sep 22, 2026 at 3:21=E2=80=AFPM Ricardo Robaina <rrobaina@redhat.=
-com> wrote:
-> >
-> > The SYSCALL record currently logs only four of the six syscall
-> > arguments (a0-a3), silently discarding the remaining two. This
-> > leads to the need for auxiliary records when audit-relevant
-> > data lands in the 5th or 6th argument of a syscall.
-> >
-> > This series extends the SYSCALL record to log all six arguments,
-> > by adding arguments a4 and a5 inline within the existing record.
->
-> Thanks Ricardo, this looks great!
+On Tue, 13 Oct 2026 19:56:38 +0800
+Chang Yu <marcus.yu.56@gmail.com> wrote:
 
-Thanks, Paul!
+> Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> with i2c address of 0x39.
+> 
+> The GPIO pin is not described because the datasheet does not document
+> how to use it for hardware synchronization at all. The GPIO register
+> also has no mode-select bit to isolate the pin from the chip's
+> internal control logic. Exposing it as a generic GPIO could result
+> in kernel writes being overwritten by internal logic.
+> 
+> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> ---
+> Changes in v6:
+>  - Add a ref to leds/common.yaml for the LDR pin.
+> 
+> Changes in v5:
+>  - Remove the GPIO pin.
+> 
+> Changes in v4:
+>  - Fix led-max-microamp property name.
+> 
+> Changes in v3:
+>  - Add missing include for gpio.
+>  - Expand GPIO descrption to include hardware synchronization.
+>  - Use led-max-microamp instead of led-current-microamp for the LDR pin.
+> 
+> Changes in v2:
+>  - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+>  - Fix node name and unit address mismatch.
+>  - Include MAINTAINERS changes.
+> 
+>  .../bindings/iio/light/ams,as7343.yaml        | 66 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 72 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> new file mode 100644
+> index 000000000000..7fb10b0d4843
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> @@ -0,0 +1,66 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AMS AS7343 14-Channel Multi-Spectral Sensor
+> +
+> +maintainers:
+> +  - Chang Yu <marcus.yu.56@gmail.com>
+> +
+> +description: |
+> +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
+> +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ams,as7343
+> +
+> +  reg:
+> +    description:
+> +      I2C address of the device (0x39).
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    description:
+> +      Open drain output active low interrupt pin.
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +
+> +  led-max-microamp:
+> +    description:
+> +      The driver current for the external LED connected to the LDR pin.
+> +    minimum: 4000
+> +    maximum: 258000
+> +    multipleOf: 2000
+> +    default: 12000
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +
+> +additionalProperties: false
 
->
-> There are a few things in some of the individual patches which I reply
-> to in a minute, but there are a couple of "global" things that I
-> wanted to mention:
->
-> * As pointed out by Sashiko, when you were converting all of the
-> arches, it looks like you missed alpha.  I took a quick look and it
-> appears that it should be a pretty straightforward conversion like
-> most of the others.
+Should be unevaluatedProperties as you're using $refs in the binding,
+but Jonathan could tweak that when applying.
 
-I've actually dropped the alpha patch as per Magnus's request [1].
-
-[1] https://lore.kernel.org/audit/CA+=3DFv5T4826T2sd0Gbh-nfZsqcWK_phdBKy4BL=
-WOvDTt92t5Eg@mail.gmail.com/
-
->
-> * We need to get ACKs from all the various arch maintainers.  Aside
-> from the parisc changes all of your arch specific patches are trivial
-> (and cleaner than the existing code IMO) so I don't expect anyone to
-> complain, but getting ACKs will likely take some time.  Even the
-> parisc patches aren't that bad, and arguably they fix a problem for
-> seccomp so that should make asking for ACKs easier :)
->
-> Since I expect chasing down all the various maintainers for ACKs will
-> take a little while, and I'd like to start getting this patchset some
-> basic testing, I'm going to merge it into dev-staging now.  While the
-> dev-staging branch doesn't feed into linux-next (this isn't likely to
-> land in the next merge window) it is one of the branches that gets
-> tested automatically and included in my kernel-secnext RPM builds.
-> This also means you won't need to worry about keeping this patchset
-> up-to-date with rebasing, as I rebase dev-staging as needed (it
-> intentionally isn't a stable branch).  Going forward, if there are any
-> minor changes to this patchset, e.g. a few line change in one of two
-> patches, please just send a fixup patchset based against
-> audit/dev-staging and I'll squash it into the relevant patch in the
-> series.  However, in the unlikely event that a major rewrite is
-> needed, just send a new patchset ... but I'll be very surprised if
-> that happens here :)
-
-Sounds good!
-
->
-> --
-> paul-moore.com
->
-
--Ricardo
-
+-- 
+Kind regards,
+Joshua Crofts
