@@ -1,151 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2862A541E4B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAE653FD3D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:19:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919198; cv=none; b=drQDirwk3zXV7+upPhBfoE2OzPkojOxew9NB98LC2GEua96KpcAs7WCSRqfhwkRCs4pAPL6LuwJ+XJWjQNZnC+t6DI2HBBkgbb+L7/f6pro1t9/6ZWe6bNonq0jrYYROKR4CazJgMiqJHSmSKPYDgmktJkLMlgk9J+M77kM31Ug=
+	t=1791919199; cv=none; b=AW1m0su85+NsP/23IaKVvUB5cNyF7oMD3BRR7p8SDfzo50NKSRga3kM/2taz/sQh4/m+EVmmyoapodkP7FNkqAURKW2dFQAByNqORV4BuGpq8tpvZJnrAEXoiniepRdYhnG4qQQgMOo1/Hnj1sLD7K6t3IRGjwQQg8I3fuibcKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919198; c=relaxed/simple;
-	bh=KztZNu5qBs9cVEGD2TdiPH2fRcdnukaTCtn0HNeIciI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=fK+zKj8zG9DxhDpRDxJKUxWMoO+Yx4nNIujmHKCmjneQqX4eqzerfS1aBSIZ6M0lAPq3pX0PnaMBzDJp5jJkvv+R2gsE6IxiJg/HlqRt9dx+xxRYvoW1GweedQF9hyRrxCaFC8eYiK17sonkVcR1k003LBTdD8mWTwj6dXZHg1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dMInvITB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791919199; c=relaxed/simple;
+	bh=/ETSF3lZyVUeslXXshMG0qVlZ/o+jDPKRJEDhxYGtNw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=f851goOzfmxCNLQIWTGQwJTqYphkKg9STFOEPkbqepzNVwME+gS6ywWKgKgcDwf7+cwpz3QyIXJEnWPzrjc5nE6FsREkGmF/T+iSxxHSeM49m19yDZeyzkvjxy/YVAmxmKUBN8+3e2/O6AQPsj+HLJr3yaMGiV0V+h0MuyCbMq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=geLDVsNV; arc=none smtp.client-ip=209.85.161.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dMInvITB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E68C1F0089A;
-	Tue, 13 Oct 2026 19:19:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791919196;
-	bh=nBu/SOG7f+fTEFPghCxgukAfv2TSNxFqz02iS2imDx4=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=dMInvITBUWu18BOgzkTbw/0Vdryo36Fo3yGZtzaxxx1y6/LofNQrSRPIXzC+q5iL6
-	 wqTmd2oM7fkI1UAXregmggCMBzjZlm19Cf/g3falKdxWTTnds4ODojjaYvzZo05nOx
-	 oe2KaNDf1fWqKLsBFFBZF18KgK2cGJuHCifjxJDqqZdLJzpz4AlzfcGxih1QlM/ZhC
-	 XYB6n7JgezAbwTVLACvsnvFGHd2ESLhOFwy5t5l6UyBUa3IHB1dtWyUOyMz0GsH9xx
-	 64/amq+7WHP/w70T6DMXAiPbxCb4Y8YtnF+JRxHoLAps8s8ZYcUpOJqIEhyonp8njN
-	 ylt1QWJK7w51A==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 78B61198003A;
-	Tue, 13 Oct 2026 15:19:53 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Tue, 13 Oct 2026 15:19:53 -0400
-X-ME-Sender: <xms:VITOaqKl52pZNHkpPo8vq2Ye6p9_qNQTQrwEclVqNOzPVLDi9QLwdg>
-    <xme:VITOas_lV6zrn9ir2SIeCEGM-ZgWMH1b52xW0_7EwOi2tmCOucdSlq166n12z_HPt
-    Cq8nevjQLAM1ABMHNgVf6hPZJMZ9gPXfItQZ5V2wTDE7wcsjT1H4l0U9Q>
-X-ME-Proxy-Cause: dmFkZTFDzKl0ELp2oEHzVBwWRQODLbH3awXaTOQ8LNvi6ko20mCD786pZgzvu07nYUzJ+8
-    2MHgaTFAqgjwYW6MeoO97VVBr1YqpZJC0eokGoU1j/I30oUO9e/iBPnXoTTIX16Z71AYI9
-    c45wuloWTMqcMuAsXv/W4KQhXF4Fsa4UndNspcE+Jc0YqcA/sypMHrlsBtTlol4j/NW9SV
-    SDH1qFiD2qjcuXK8U3nUQCMVzmcYb8R9+Psu2Ad0mJTucSzvhcI2lq3SsOvuiKtNhTJnMu
-    QytgnVVJTIDecKvNcISUK5DwtblU9PldILdwS2i2PbqxwY2bpFIHAdtt3aT1nwLQMkMpog
-    h1bdN5nODNlnXXY0opAlXgVuG1iItI1C/KrLcbi4McWhBek6qNp0shHQFpZc11x5q9aDhj
-    I5BLAEu52WQgJ3ei/tFr0ucU16OFIGCdJgOfNPXMcv6ze3GibxBp3uKdWsKnQF2m/XPLNl
-    u2d8vL6AVc3LoNG9JPk6dia/M1HmqhVtXcp9LFRKNXx1LnzCYbH4yHw989oJuzyBj+HdiE
-    /fzYK36ZQC+Pc6h9LK8gJioUXDtJNudCvkqhS4tmSUsf2b4cBAD9WrkAPgiDTnTzDqSQjl
-    vd+Y6bsgqWlgdQXIyhIDEW02CfQm0hmp0HPxOyhRWU0mvAWsy4gbJIkbgLdA
-X-ME-Proxy: <xmx:WYTOatddi5Nc9SeJVUrYS8v9xImrZHI8z4U1EbbnLBG3OS9zPftceA>
-    <xmx:WYTOasuHq0ZwguI9tduc6miqTLvnsLXtKbHTSpuqdgJ84yM7A_naHA>
-    <xmx:WYTOarGSPLDt5EiyCXABcgisz3HNzuJSTA0jj03XKZGF4atlgHvihg>
-    <xmx:WYTOamcls9KeR9mv_QJldCIxJ4hb-jHjyM195oAhGDRnCLe9hXMCSA>
-    <xmx:WYTOanvOzC66MmWXMrTwOo692O0xbGrnEkvk_V_5pBjURKLRpg-PVy3h>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id BD601F80096; Tue, 13 Oct 2026 15:19:48 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="geLDVsNV"
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6dd059478dcso2354506eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:19:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791919193; x=1792523993; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SBxyjlKl2tsAQ3iOaWxN0He7F0zON2T03lxEbKDGG0E=;
+        b=geLDVsNVd/TtbtMD3PCnRfg9ie/eDj8tY+gJsy47rhUIOpRNtQsvAgoyPnA0S8TT6A
+         81jghnNsV45eZ8uCI/D5ITDkYvCyurQLPviLbggX+Xk5XqC+/uxHC9AC10e+fNF+TVfR
+         8FWP7l+HP3Oix936LP8J1THAJtpzXYtIE5TyaTizrQWqNBCqEZQXNt/u8oJ0GPp2zL3w
+         oOrqtVtg3WKy/Kvij8cFGCp6TU/ymJGoXhdq1QUua9qHrIk31ay9zMSPaCsSnGZem2CP
+         XzWOVE1ktLG42nD9FpQs3wIP2PDBphr/j4LONc420JIQy6Jk1UYS9sgRmKxiH6ACFySv
+         WmRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791919193; x=1792523993;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SBxyjlKl2tsAQ3iOaWxN0He7F0zON2T03lxEbKDGG0E=;
+        b=uQ9CcXu03jnaG5wOT64e7X18nZibXoGy3yoowx3aoFDl8GUF+t/SvPAu4upEz/M0ku
+         lgzk+iVPrJD3gwFOmg2CsU3AMzeAp67exwRMonk4Jw7JA+VDFe9b43YXPeOy+jH/bYKJ
+         8AXVH5pCTzuQdPX/oCy4DxNssPOKfLXDoOoryYlOgQUnQHgNE7dBdn3bryWLM96EFf5l
+         r42IHbUnaQDXe46oK5TR6J4xic37byKiWzYak4FGsO2oXAMECB2Y6q5mwiS9LSoB4Gw6
+         jp5WxJyQYwA/KydV7fHkKAwMSzmKfNqPpT9u5Qk4QaVjYMTOmylMZacfmIrQBUYK1W1/
+         CR4w==
+X-Forwarded-Encrypted: i=1; AKwUvBxrzwpZ1X9WWkCkWmZCBXg+PTAXoJltlCQMPzNefQ7RrgLuKAVv4qLq0PRYklyhzaR0/tiqeJXHQq92e34=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPlnFZUBGAi6eRAhKZ8/Jnf7yXBIV07LwB6hKoz+y7bEf8p2IP
+	TwFc5wWwQSg5taiYKwSKyCK1gtfrOg71f70yQiv1f9eyf49ywc6E2TFX
+X-Gm-Gg: AYBFou3/K7mxlqCI6l8ECFcWrJIfs/Fh8Oej5bNRHn9nHi65LfycKTh4TRuOvwR1u2M
+	ohIHOEb0PTUq1SwDKLSb2LECArapQJQjLO6Otm9yEebA5veZJeiYKsG7pJv/jIEs4fAO9vtIvgb
+	T9aS69sPOpW0yF0Retryy+wi5PM+ddS1DV1dNu9YIiJqRzo+Pqifk6Ovv+e4eKsxjl/0SuPCsgX
+	tdMIUEqLzbBIZ7QnFyMWDq13xQncrAqsZFT5GXbhpLsSCbhmZQNMHZFDQkCMMD+oGT6+FQaMbQb
+	3YWz/I0QL2vvIS9ae0y7MnFOJXU5eB6+fu34W0HfMSQMnoJUQtbHl/jcZ5ljSt+A2Mn1NHUV7me
+	io3CsbbGMlJtTLuc8VJ8Ik1wVIwq2WrGOLr3Iw+GBfTaLKp4qEz6a0VOR15VN+y8SCdpJnvRC7C
+	s4ESa51pUADfZOH/N73Ig3MNpXX6Eq6Z5XPW60ltv3andAlTUN8j9SjiT09hv0fH3evjfB5Nidj
+	0lqIFAntv950iWUdvupqjdbsmLiadZdXQcG/6PmBmpQjpBrOH8ThIkeHAh8HvMGJ14od16U3Sdz
+	Mp1ue8tflwm4x1mz5NuHZTxNJyuZs+V1f9QBskVT2pHwiZdttpaCPW4ikL6YzU6NkP/g6TN0pd0
+	nwgzw3s5DTwQF86wcy8Q6
+X-Received: by 2002:a05:6820:4b08:b0:6da:29e4:35a6 with SMTP id 006d021491bc7-6ef0eec6e53mr10221552eaf.52.1791919193469;
+        Tue, 13 Oct 2026 12:19:53 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3dfa1sm13280507a34.18.2026.10.13.12.19.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 12:19:53 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 13 Oct 2026 13:19:49 -0600
+Subject: [PATCH net v3 5/5] ptp: vclock: preserve missing hardware
+ timestamps
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 13 Oct 2026 21:19:28 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Jason Gunthorpe" <jgg@nvidia.com>, "Pingfan Liu" <piliu@redhat.com>,
- "Mark Rutland" <mark.rutland@arm.com>
-Cc: "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>,
- "John Fastabend" <john.fastabend@gmail.com>,
- "Andrii Nakryiko" <andrii@kernel.org>,
- "Martin KaFai Lau" <martin.lau@linux.dev>,
- "Eduard Zingerman" <eddyz87@gmail.com>, "Song Liu" <song@kernel.org>,
- "Yonghong Song" <yonghong.song@linux.dev>,
- "Jeremy Linton" <jeremy.linton@arm.com>,
- "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
- "Simon Horman" <horms@kernel.org>, "Gerd Hoffmann" <kraxel@redhat.com>,
- "Vitaly Kuznetsov" <vkuznets@redhat.com>, "Philipp Rudo" <prudo@redhat.com>,
- "Viktor Malik" <vmalik@redhat.com>, "Jan Hendrik Farr" <kernel@jfarr.cc>,
- "Baoquan He" <bhe@redhat.com>, "Dave Young" <dyoung@redhat.com>,
- "Andrew Morton" <akpm@linux-foundation.org>, kexec@lists.infradead.org,
- bpf@vger.kernel.org, systemd-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Message-Id: <722bd9d8-5620-498a-a6c2-d9a1f498e0b7@app.fastmail.com>
-In-Reply-To: <20261011201325.GA918242@nvidia.com>
-References: <20260322014402.8815-1-piliu@redhat.com>
- <20261011201325.GA918242@nvidia.com>
-Subject: Re: [PATCHv7 00/13] kexec: Use BPF lskel to enable kexec to load PE format
- boot image
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-ptp-vclock-sampling-v3-5-d3ee4ea62fc6@gmail.com>
+References: <20261013-ptp-vclock-sampling-v3-0-d3ee4ea62fc6@gmail.com>
+In-Reply-To: <20261013-ptp-vclock-sampling-v3-0-d3ee4ea62fc6@gmail.com>
+To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Yangbo Lu <yangbo.lu@nxp.com>, 
+ Miroslav Lichvar <mlichvar@redhat.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Hi Jason,
+Socket timestamp delivery converts hardware timestamps to a bound
+virtual clock before checking whether a hardware timestamp is present.
+A zero timestamp means that the packet has no hardware timestamp, but
+timecounter_cyc2time() can turn that zero into a nonzero virtual time.
+The socket then reports a hardware timestamp which was never supplied.
 
-Thanks for chiming in.
+Return zero without conversion when the input timestamp is absent.
+This also covers skb_get_tx_timestamp(), which checks for an absent
+timestamp after the same conversion.
 
-On Sun, 11 Oct 2026, at 22:13, Jason Gunthorpe wrote:
-> On Sun, Mar 22, 2026 at 09:43:49AM +0800, Pingfan Liu wrote:
->> *** The history ***
->> 
->> Nowadays, UEFI PE bootable images are becoming increasingly popular
->> among distributions. Currently, we have several kinds of image format
->> parsers in user space (kexec-tools). However, this approach breaks the
->> integrity protection of the images. To address this integrity protection
->> concern, several approaches have been proposed to resolve this issue,
->> but none of them have been accepted upstream yet.
->> 
->> The summary of those approaches:
->>   -1. UEFI service emulator for UEFI stub
->>   -2. PE format parser in kernel
->>   -3. Signing the arm64/boot/Image
->
-> I recently had an interesting discussion with Ard around DRTM for
-> kexec and we sort of independently concluded that #1 would be the best
-> (only?) option there.
->
-> All the implementations of DRTM today live in the EFI stub and
-> intercept the boot process as it goes along. After ExitBootServices
-> the DRTM implementation will launch the kernel in a different way.
-> Even worse today's x86 version strongly requires EFI boot services to
-> connect the Linux stub with a trampoline helper provided earlier in
-> the boot chain.
->
-> A kexec flow that only works on decompressed vmlinux, with no option
-> to run any EFI code, is going to be difficult to support. There is
-> enough information and choices involved in DRTM that it is undesirable
-> for the predecessor kernel to try and DRTM launch it on behalf of the
-> successor, let alone trying to get the insane x86 trampolines into a
-> kexec successor kernel.
->
-> Given those constraints entering the successor kernel through the
-> normal EFI entry point is highly desirable. This would allow x86 to
-> continue to provide the DRTM trampolines through an EFI mechanism and
-> means the Linux EFI stub always handles the launch with identical code
-> in all scenarios.
->
+This was identified during review of virtual clock sampling changes.
 
-With some help from my friend Claude, I've prepared a prototype that
-reuses my efiloader Rust crate to boot EFI stub images (bare Image,
-zboot, UKI) in the kernel: the EFI boot phase is invoked at kexec
-load time, and runs under the preceding kernel up until the point
-where ExitBootServices() is called. Then, the actual kexec call
-will return from ExitBootServices() after shutting down the first
-kernel.
+Fixes: d7c088265588 ("net: socket: support hardware timestamp conversion to PHC bound")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/ptp/ptp_vclock.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-https://git.kernel.org/pub/scm/linux/kernel/git/ardb/linux.git/log/?h=efiloader-kexec
+diff --git a/drivers/ptp/ptp_vclock.c b/drivers/ptp/ptp_vclock.c
+index 6675466bc307..4a62047f0ce0 100644
+--- a/drivers/ptp/ptp_vclock.c
++++ b/drivers/ptp/ptp_vclock.c
+@@ -307,6 +307,8 @@ ktime_t ptp_convert_timestamp(const ktime_t *hwtstamp, int vclock_index)
+ 	u64 ns;
+ 
+ 	ns = ktime_to_ns(*hwtstamp);
++	if (!ns)
++		return 0;
+ 
+ 	srcu_idx = srcu_read_lock(&vclock_srcu);
+ 
 
-There are some limitations (4k pages only, CONTIG_ALLOC support
-required) but it seems to work as expected.
-
-I haven't looked at measured boot or DRTM specifics.
-
+-- 
+2.53.0
 
