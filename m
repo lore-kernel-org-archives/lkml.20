@@ -1,153 +1,177 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAA1397944
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:12:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886373; cv=pass; b=LEsZB/AAwKQrmsu/JCCK0KMGyQALr75ZQDxgJ9rQ2/E/RrBefvBvvAg/sDpoi21+hAUSYsUelMVP0LMfxv66elZBNFHtB0Q+TXgzAHARSApXlKa1RF1jV8zPpqmvDrcGId0TehxbpI5s/EkbPgSL7C5IuQkws4+YLDb9Io+runE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886373; c=relaxed/simple;
-	bh=oYpuymV3tgk09qaaDkKOhd9dg2Zp4VCoofN6vnpJl7A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tenxQSjPzYr0VagwkF+fdUVgbdClEe6LHSy7QVqvFhVXzfxs1FjsYPMLZ3oVBbX42hHNHepEt5iwHIzWG8ASFQsDRVIlbvLAq6QDYd53WrCxzGDo7RCdGDfhO2grw9QoNVk6aXuhldT2OTwRPsNXBa5nLCBgEp6VA1Cai5tdKlU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mud9Rva/; arc=pass smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82F4B2BD09;
+	Tue, 13 Oct 2026 10:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791886430; cv=none; b=YNbQA60LDi2LXjrusL9fo0uauSVGZE2cw3Drtx6dEeFdkJp9zE/w4gIMfy2VWnC/inBx2Tvh2mqjXDE/KvA6j3PeaZaP1tHEr5dUKqKp3CB/ve5q3nmTVl3U9imOLl7na3RDtMsITLOKkltzRcxCSnZvlB9eAbTBPZClkOAtwF0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791886430; c=relaxed/simple;
+	bh=frG0so7TQeI6J8IN5+TVXwZehcv6LBDQHtosnjB44ng=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UwqHpLfAXMm3OVNFz37sIN8t4YsFJN3OZI4EHx9wP6UTItIanrMn9Gzhu0vQFgwBikheQ2MzI7C1MIjSSF3jWrK9AB+jPztW32Ckr3wze3wluA0VVpUGNvKxrp3YE1yMx9No6IKG3RTDaXqfCl7ssgrD1lDq3hrctmLVS0KPEss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vPt/TJBM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mud9Rva/"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so1531165a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:12:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791886372; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hak8FFuIiAeVzARRktNAjaFOpDC9HUJfFAlw9QYcQN8H96/JTeezW4yrIsjT4B8XIv
-         I5DskbiIoYXlWSzYNp9LHuMPonPipmzxg+bVSxyTh+CgtYqjrnQlDDMyWKBydFhP2k98
-         COeDDpPMuhhuMxePvoxp17LxnuU0Jwkai7dsYFnfNBaNc4ne+70wZknxVjXSuMUXCwQD
-         HeG2/xhR2/hm8ZKXNEhZ9Z0eM59WI1v6yoJjbPwoTQOD03ICCSUWvJkKQ7Togi4FOkfH
-         VNuHLQryDdF58rsY2z06auajBjW7xhlU4oxmHB3F2OSHKP7XQws8aYBP8VUzK6AkSqO+
-         xJBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=oYpuymV3tgk09qaaDkKOhd9dg2Zp4VCoofN6vnpJl7A=;
-        fh=OUjyVJH7zMKfqaviXCVVyq3IuYBQ8c60imozcpZ3iLA=;
-        b=C7ucPa6ygglPV0SzkWUByVMH8ymOMQzPn3u4XPkmFu4KdKcJ9ZuRt7GtJ7ne79mdOy
-         EsR0n6KqWE9W+VMw0nmyL38EbDgtuYd4ZW6AKBL4M/r8WGxbGQsPU0M25tC4//7EDz6b
-         WZw4bAbe1+Cav+dubXnTCONA++Yl2ewpRqJSsCqoESrjlceXCCVKYQfLbJvLIB+VSKTd
-         Mwr8ZS8rBfOToyixg26V47tsmPWdhIcY9LXQySZjxi2JbRJi90ndn66P9aZ14fUU25+4
-         0DiaNQPYTfRhP7RcZway0C0sH7yv/Rg95LF4gl/E2rXAUr5UK+Uk5T/hZbXdvcy9V62Z
-         pOhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791886372; x=1792491172; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oYpuymV3tgk09qaaDkKOhd9dg2Zp4VCoofN6vnpJl7A=;
-        b=Mud9Rva/LeFOnCDUIiPjQjYUmvHzEcsos0QGhI9WPySVqDhj55WYp3CBIAwIMT3wu8
-         BxAgAi2Npnb6ADK75WkHPfYilGiZdZxXO+G73cim6wmjKUFEdskTCbMYSD34GXpm5SAN
-         mQG0vwhMmUXSXcEPSgdLeO2iPPbdL70aUwzWj/fwSw6DbzB1v4ADzDkfkCdTDZYJQydR
-         BrRHp48uDD3uCH45AcsVXKfCVbr2QBrxzpBfiKy6z+mVzcD/irRXIYh+IR+4jv5qnlYp
-         laOfSmBrQPU2WDs2vLkw10SE9eH4rWbv8dd3VZu0OSzditr6UqsMCBepCaX0ZNYeiRDU
-         CAUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791886372; x=1792491172;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oYpuymV3tgk09qaaDkKOhd9dg2Zp4VCoofN6vnpJl7A=;
-        b=GJs5xbWVD/ni1DgQhGmczYo5UiDUumf1WUSfVjoL4NQYQEHP/fRh0ZItGK3EZ2PaRJ
-         RBW6f2s7nmFXpJOyoVO6JtaGEdbeg7rjf031y1SwTu/n73pv45LSYrhaNAEHmLitONaJ
-         BGls8ShD6UdmeUyXxDn191rrrnRNBtl7v4fqllOhwBNWqk9UCsWJzxNaiglnojEhJnRT
-         +LmmzoZFdGHWIOSnuyJnJbB2eIvfkU/IWpQB5Ibc28yFSf2Kn6BsRa6pitTI4NsblAlK
-         xVnjiXhv1MPvaD4gM06YFkBf2rzQVl9CCSq6pqF8pg82y2TckIHkNyM7UIm1UI+h/QI7
-         VU3g==
-X-Forwarded-Encrypted: i=1; AKwUvBwg10hdjGX0LrvU1Us2qkHJYIf+SpjONDG4TumVGpFPK8GP8fRj0JDjEyF1UZ4AK2tlKRytFG1n2XFIBS4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIh1nzsMjZa+pDbSf7hNid+TtmGX+AU79rJLgmcOEOCCjl5kT+W
-	hMD092VV+P53Qev6O9q34KZ9rnB7GLtDEhhkps8xefOYruWR41p3AjccwrStkXsCYa9ztNvJp2V
-	2QsPWvD5+N9YOiPNAz6pfDPyaTFXM2z0=
-X-Gm-Gg: AYBFou1i/BeNISx+eVj3CmUClSUbP68yTHMzpREskTWfNFiOfR00V0a2vRiHz0+GkVj
-	64a+9V6+eoVhztT0rayiuRwaMzpOegnqaCvmYwIvMmMf7xE/p11R20pccHYYOr8rLGCwuW4YGYw
-	EO+s9cQrpD6RYjo6KeFsPAPMS0/ucqPmf8b/lU/ZBtHTGZ2sBuaNwQMSInJ9VCOalCoMlWq2pmA
-	Ya7KN5aWkCQ2wtxKmEWUsijgU02/jyoquEvsrkCimHxrQFi5DsaNweSv/dRN0d7czyyKRqNbEqm
-	Zc+QpmQ7HK5VObsKX9eUNnQOm34/Ri3HA4idDbly3yNhwrvLsFn3trTwBl+LnB//fBp9SkLN1Wh
-	AXjkwrlmOX4iGJqFrGOFYRJSniWoJIKk+KuKx8mlPFb5KyXiL3b7gH/gQNOXRjPhz56U=
-X-Received: by 2002:a05:6300:6bc8:10b0:3e1:9071:acb1 with SMTP id
- adf61e73a8af0-3e19071d79emr3692539637.89.1791886371799; Tue, 13 Oct 2026
- 03:12:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vPt/TJBM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A0C4169C;
+	Tue, 13 Oct 2026 03:13:45 -0700 (PDT)
+Received: from [10.164.19.62] (unknown [10.164.19.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CE6393F7B4;
+	Tue, 13 Oct 2026 03:13:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791886428; bh=frG0so7TQeI6J8IN5+TVXwZehcv6LBDQHtosnjB44ng=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vPt/TJBM5bSkHglczz78hY7BXD6SECatQcMU54W0ej74QhW76cpEiJFbPOEw8K7JU
+	 WqyxnjPkS4K6NPE26B912TQjoDzXTTsDExrMgBstckn+8MUOIndkJq14UA0k5lNrJl
+	 ao3zLpmO6rM7bJBP3j5Np6l8ehJV6OeOT6g0fdYo=
+Message-ID: <6a10b61f-5c4f-4d04-9742-97a358147c39@arm.com>
+Date: Tue, 13 Oct 2026 15:43:41 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008103831.542533-1-phucduc.bui@gmail.com>
- <20261008103831.542533-22-phucduc.bui@gmail.com> <87o6cyxyau.wl-kuninori.morimoto.gx@renesas.com>
- <CAABR9nHvCfabGfBu85bm1r=hP3b0ZiCsgZfShhOv3gNUfjjhGg@mail.gmail.com> <87se2aw3ot.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87se2aw3ot.wl-kuninori.morimoto.gx@renesas.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 13 Oct 2026 17:12:40 +0700
-X-Gm-Features: AclHuK9ysK1Jav05byu2z6c82z-Prt9juV9RV67s1OGQmeMH_qLrceJ2TQNxX6U
-Message-ID: <CAABR9nG-YJZEdj6pVD-gbGU6J2EfRMQYsKd7u0UTgfrWOyAPXA@mail.gmail.com>
-Subject: Re: [PATCH 21/24] ASoC: renesas: msiof: Fix msiof_close() being
- skipped on rollback
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	povik+lin@cutebit.org, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Andrei Simion <andrei.simion@microchip.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, David Rhodes <david.rhodes@cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, Shengjiu Wang <shengjiu.wang@gmail.com>, 
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
-	Nicolin Chen <nicoleotsuka@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Cezary Rojewski <cezary.rojewski@intel.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-	Bard Liao <yung-chuan.liao@linux.intel.com>, 
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Heiko Stuebner <heiko@sntech.de>, 
-	Kees Cook <kees@kernel.org>, Syed Saba Kareem <syed.sabakareem@amd.com>, 
-	wangdicheng <wangdicheng@kylinos.cn>, Chris Bainbridge <chris.bainbridge@gmail.com>, 
-	Linus Walleij <linusw@kernel.org>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
-	Neo Chang <YLCHANG2@nuvoton.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, u.kleine-koenig@baylibre.com, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, 
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Hemanth Selam <hemanth.selam@gmail.com>, 
-	Md Shofiqul Islam <shofiqtest@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Zain Aboobacker <zainaboobacker33@gmail.com>, Sang-Heon Jeon <ekffu200098@gmail.com>, 
-	Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, 
-	Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>, Bo Shen <voice.shen@atmel.com>, 
-	Vinod Koul <vkoul@kernel.org>, linux-sound@vger.kernel.org, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, 
-	linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev, 
-	linux-rockchip@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
+ PTEs
+To: Zhao Gongyi <zhaogongyi@bytedance.com>, catalin.marinas@arm.com,
+ will@kernel.org
+Cc: ryan.roberts@arm.com, baolin.wang@linux.alibaba.com,
+ lance.yang@linux.dev, mark.rutland@arm.com, akpm@linux-foundation.org,
+ david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Morimoto-san,
 
-Thank you for your confirmation.
 
-> > For MSIOF, I noticed that snd_dmaengine_pcm_open() already calls
-> > snd_pcm_hw_constraint_integer() for SNDRV_PCM_HW_PARAM_PERIODS,
-> > so the call in msiof_open() seems redundant.
-> >
-> > Since the first call succeeds, the second call should return 0.
-> > Would removing the redundant call be acceptable?
->
-> Nice cache, yes please.
->
+On 13/10/26 3:06 pm, Zhao Gongyi wrote:
+> The transparent contpte layer treats PTE_CONT as software state: when a
+> PTE has PTE_CONT set, the contpte helpers may align the operation to a
+> CONT_PTE_SIZE block and operate on the whole block. That invariant only
+> makes sense for valid mappings. Explicit users such as hugetlb manage
+> their contiguous encodings separately.
+> 
+> contpte_set_ptes() currently sets PTE_CONT from alignment alone. Batched
+> set_ptes() users can therefore install present-invalid PTEs with
+> PTE_CONT set, for example mprotect(PROT_NONE), NUMA hinting through
+> modify_prot_commit_ptes(), fork() copying a PROT_NONE large folio, or a
+> PMD split installing PAGE_NONE PTEs.
+> 
+> This is not a hardware programming problem: invalid descriptors are not
+> translated, so the hardware ignores descriptor bits such as PTE_CONT. It
+> is a software-state problem. Some arm64 fast paths intentionally test
+> pte_cont() directly instead of pte_valid_cont(), for example commit
+> 9970a9a27ffc ("arm64: mm: implement the architecture-specific
+> test_and_clear_young_ptes()"). Fixing the producer side preserves these
+> fast paths and covers all consumers.
+> 
+> In the observed failure, mprotect(PROT_NONE) installed a full
+> CONT_PTE_SIZE range of present-invalid PTEs with PTE_CONT set.
+> MADV_GUARD_INSTALL then zapped one PTE. The nr == 1 clear_full_ptes()
+> path only unfolds pte_valid_cont() entries, so the neighbouring
+> present-invalid entries kept PTE_CONT while the target entry became a
+> guard marker.
+> 
+> clear_refs_pte_range() then reached the marker through:
+> 
+>   ptep_test_and_clear_young()
+>   test_and_clear_young_ptes()
+>   contpte_test_and_clear_young_ptes()
+>   contpte_align_addr_ptep()
+>   __ptep_test_and_clear_young()
+> 
+> The marker changed from old_pte=0x00000000000047c0 to
+> new_pte=0x00000000000043c0 by clearing PTE_AF. For swap PTEs, bit 10 is
+> part of the swap type field, bits 6-10: 0x47c0 is SWP_PTE_MARKER with
+> offset 4, while 0x43c0 has type 15 and is decoded as an ordinary swap
+> entry. Zap later warned in swap_put_entries_direct() with a bad swap
+> entry.
+> 
+> This is triggerable by a user process against its own address space. On
+> systems running with panic_on_warn, the warning becomes a denial of
+> service.
+> 
+> Fix the root cause by making contpte_set_ptes() use the transparent
+> contpte encoding only for valid descriptors. After this change, the
+> transparent contpte layer preserves the invariant that pte_cont(pte)
+> implies pte_valid(pte), so fast consumers can keep using PTE_CONT as
+> sufficient evidence of a transparent contpte block.
+> 
+> Fixes: 4602e5757bcc ("arm64/mm: wire up PTE_CONT for user mappings")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+> ---
+> Validation on an arm64 QEMU/KVM KASAN setup with CONFIG_ARM64_4K_PAGES=y
+> and CONFIG_ARM64_CONTPTE=y, using an out-of-tree guard-region reproducer:
+> 
+>   populate a CONT_PTE_SIZE anonymous THP range
+>   mprotect(PROT_NONE) on the range
+>   MADV_GUARD_INSTALL on one PTE in that range
+>   write "1" to /proc/self/clear_refs
+>   restore access and remove the guard marker
 
-For rz-ssi: in DMA mode, the driver registers the generic dmaengine
-PCM component, whose .open callback already applies the integer
-PERIODS constraint via snd_dmaengine_pcm_open().
+Thanks, could you please give the code of the reproducer. That will
+save us some time.
 
-Could we drop rz_ssi_pcm_open_dma() instead, and keep the return
-value fix only for rz_ssi_pcm_open_pio()?
 
-Best regards,
-Phuc
+> 
+>   Unfixed kernel: failed in the first iteration, with 65 bad swap
+>                   messages and a WARNING in swap_put_entries_direct()
+>   This patch:     completed 100 iterations without warnings
+> 
+> Additional producer-side instrumentation confirmed the same invalid
+> batch state outside the mprotect reproducer:
+> 
+>   Unfixed fork():     copy_page_range() wrote out_cont=1
+>   Unfixed PMD split: split_huge_pmd_locked() wrote out_cont=1
+>   This patch:        both paths wrote out_cont=0
+> 
+>  arch/arm64/include/asm/pgtable.h | 5 ++++-
+>  arch/arm64/mm/contpte.c          | 7 +++++++
+>  2 files changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+> index 6000905a2..d6246042b 100644
+> --- a/arch/arm64/include/asm/pgtable.h
+> +++ b/arch/arm64/include/asm/pgtable.h
+> @@ -1650,7 +1650,10 @@ extern void modify_prot_commit_ptes(struct vm_area_struct *vma, unsigned long ad
+>  /*
+>   * The contpte APIs are used to transparently manage the contiguous bit in ptes
+>   * where it is possible and makes sense to do so. The PTE_CONT bit is considered
+> - * a private implementation detail of the public ptep API (see below).
+> + * a private implementation detail of the public ptep API (see below). The
+> + * transparent contpte layer maintains the invariant that pte_cont(pte) implies
+> + * pte_valid(pte); explicit contiguous-encoding users such as hugetlb manage
+> + * their entries separately.
+>   */
+>  extern void __contpte_try_fold(struct mm_struct *mm, unsigned long addr,
+>  				pte_t *ptep, pte_t pte);
+> diff --git a/arch/arm64/mm/contpte.c b/arch/arm64/mm/contpte.c
+> index 0acab179f..851fa2e44 100644
+> --- a/arch/arm64/mm/contpte.c
+> +++ b/arch/arm64/mm/contpte.c
+> @@ -463,6 +463,13 @@ void contpte_set_ptes(struct mm_struct *mm, unsigned long addr,
+>  	if (!mm_is_user(mm))
+>  		return __set_ptes(mm, addr, ptep, pte, nr);
+>  
+> +	/*
+> +	 * Keep the producer-side invariant documented in pgtable.h true even
+> +	 * if a direct caller passes an invalid descriptor with PTE_CONT set.
+> +	 */
+> +	if (!pte_valid(pte))
+> +		return __set_ptes(mm, addr, ptep, pte_mknoncont(pte), nr);
+> +
+>  	end = addr + (nr << PAGE_SHIFT);
+>  	pfn = pte_pfn(pte);
+>  	prot = pte_pgprot(pte);
+
