@@ -1,295 +1,471 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4664F6463
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581304F68CD
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894539; cv=none; b=bjn1juP44EQLzk3p+7tRkEtysoJH9gDS8yfIUPTdCaYfhPE1Hl+TAkbutsxiKCmPStMS6+i5ZsXsdk5ULaCgw7bJAWkpuDjg+nPgbz0D9SZ0pB7F93LQFNP53aZsWwLg4+L2PQUFO67RlnNYcU/EM1/kKhuYIuLBnmyIY/i1xag=
+	t=1791894559; cv=none; b=f5OD+RklhAkj5fvxjsoxIk5z0Htv2et4NQsxyZ2MS+JGpd6ErNIpsYTNZUEllj/eyFLQTew3WolC5Y8evBjGZMsZrY+TWztNbd6kdT4t2sjuYUucnaxi1SRSn1nIAVMjwGESyhK5xLCPmSmBksbX7T8wmzfrpe++ArUlS2ceTVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894539; c=relaxed/simple;
-	bh=O6qaNI0QqiUm7ycZoQgLr5eiObcGpPvHtA3dFkISsks=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Fp1CBLUqiCCAjfOpGU4fCNaebdR9UQUAhfe2sdXe5IzUUNsJWWpXcQlcEl5ws5zTCpENEcAhrLnF62Gt/+RIAVVCMW4VWn42sQcF+3Fm1gZSTjhwRGeSZW3ehM6aG96XvfcmQbUglyoO6Afw9Ou19JTSgB0N8TFxcR4vOAgZYrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=flGs/ddK; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=g9w7o/jq; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791894559; c=relaxed/simple;
+	bh=0VfHI99mjbV2FxjU9pgiKgFoWso8sMbEw/GYHNs7kfA=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Mnfk6Is9WMfa3OpzMVAw8dahiCjXpyhWGGPtdXSiihc01QKzPCkvTGPHEEhyjIIw3EV4tGQAHRDTvF9jkRiZOwHx8tPfjseabZ38hQU1x5AhPl0sq8M7qzVfFzAeqom3T+DxoB1iyF8G04RVo2J4Xoo9zFaFqslQ/qRIVC4wSYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ih+vle9c; arc=none smtp.client-ip=209.85.128.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="flGs/ddK";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="g9w7o/jq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791894537;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=cw0AdI14fFbB4gyvTD22R11FTQDGMXNOHMIi+cFmxmY=;
-	b=flGs/ddKoVmPZZdWB/Af6oRo13ZMfr4Qqmfxx1JJ1bo6clKf1dSdDueV9EHIAVqug69GhT
-	ffqnkdWvbxUI3fdCbOYmYsBRpU8VRGRAQEPNzoG6j4COy4i0GYiUGE0jtOeRtmmif/vSPn
-	DJun6khdD5E2yuI0tWOagxyBfzIJyLU=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-385-p6kWjk2yM6KMlFpQGA72pg-1; Tue, 13 Oct 2026 12:28:55 +0000
-X-MC-Unique: p6kWjk2yM6KMlFpQGA72pg-1
-X-Mimecast-MFC-AGG-ID: p6kWjk2yM6KMlFpQGA72pg_1791894534
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a19df2328cso26483025e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:28:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ih+vle9c"
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a01b112fa2so43636755e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:29:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791894534; x=1792499334; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cw0AdI14fFbB4gyvTD22R11FTQDGMXNOHMIi+cFmxmY=;
-        b=g9w7o/jqE2WPRsnxTeqaaN8p4E8DVOuzJvRZA49wQMQ2/I5AdpP7VKDqKOFHzVivuB
-         7GNA+lS7wuT0ApE5r9vBY/Pvp6D+IShIOix6715wqS7OEgFRCfL8sVgTqhz+/vyiJAxy
-         CbrTKwyFl6OwzkVXuL1HOPboSY/XZLzq/FMtmGivvJWc447zhk8JoGYbGWxqTFqfd8Re
-         bBEUHALFbEkgvdLLOSzKptWE6QzA/9poPsR9iO0nP8KE1q14b12c7LkNfq6kX/7pPfE5
-         2lvLPZPRQFW2mTtDPGQq/CU9fq2bYiRzdF+zQ+JxrNGlAJ+VXnjdSw7L1QDmuZSpx4RX
-         SDzg==
+        d=google.com; s=20251104; t=1791894555; x=1792499355; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U+ILcrewVHhOsLOTzQWydUELGX8n+kxmBpJfSUA6g3Y=;
+        b=Ih+vle9cITM/1EzRJ6PS+gqMqFoRX6K2s6azbhASojj/bFIv01LktgC6dHk7gdPk2c
+         oxhqDvUKPGZwuXajSCjqLl7g8h6f4/ePIwsYH9iNjgo34gn3o0+yK0P1+LL94HEiFrvi
+         qLwNavu/8vfs1OjeYQx1zt7gp+8fKa8MYlcuRwQfRtljlsgiRyNJHE9lmDK1rO/aVOoo
+         8cOu7VEgi70P/vYjjyq7x2CaRFyrZvDCvSHqY8zWDEWnqedJIjaCBE2Vinqx9AXTuzYc
+         yh6TxOmmuvQPeip1OBZaXtR/h/4R+kHsp1+QBQAwR1e7wXqibJasUcNru4Bq0r6qZucB
+         vDCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791894534; x=1792499334;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cw0AdI14fFbB4gyvTD22R11FTQDGMXNOHMIi+cFmxmY=;
-        b=n3syD7FXzjF0SEEEjy8SS+zFKR/DU0QO375nzPgkFqaSLn7xfpn5VXiPqlTJkNeelA
-         Zpv9ZimnsqjYONftF0W+yn3Ri/m4SYIKva8vhwJDt8m6719BXOl36TwxRc481EbP9p22
-         9pXMmmH8WbwXgNRhLCQT8WtMVwhCUkoTC6QeWz6PKqYToYgAA4HyYMtRsl/QLEeBgASe
-         4D95bI8dc0JACzR3XkBhpbk1u3gEj1W7owe0/4eJW1SZ6M8FuuBfOOKgk7PQzfBfLgw8
-         oxPZygTYHisquZpTGqIjQgfE7x2zWQDKmXNZA/qq+nZWV4Z0GPp43gHk+fFkMK/PekFP
-         QgNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwXkKcZ50npKzINFAs+yjcpHPisMxzivqJOIcqL51ASe7B/6jrg/n0PMRnqgZYmrsfqAxhzU8BiOknS7Ls=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwPZNkD0tI0b7KzTM7nc9edOkdM8xldxU+3EQSbF/6pAJtK68F
-	4dQRW3DXFxYN0kEyi4n2eXEBulpZy4Wzs6sapOZK6NOCDUczpq//XkT+xxshx0CwIlz9kbAO7+G
-	8uvUzLy0tL/fxKOmUVOQYCB8/tJZnU6kMR+QnCrUfGJDtCvXjKomJ/AWq/HOQ+GGpTbV3H4jtGg
-	==
-X-Gm-Gg: AYBFou3AU2+FCIqroz+jyEL/up5tk0yzepG/chUL+hJIipu+9H1zozZIfaiTflmzPCf
-	iC0tWEuu73ErviYCiW1S7r73a/5m6827XtU4BzHoB4whLTq74+90qWZgFhWHQKJpZKCpzptUYbE
-	tUiSRAE5KJLuFHZq8kYQK2wYi4aZsMCSuf8nuH9bbrcThqgUHwGeONHqVPt6nosw7fnd3k/3J3t
-	JeliqkFUBbfBjsh1qTAaj9eAQ1YxH1H7ilVrAFTlX6mWzBIv4Pu/WibrUjgwlD52Ay5tpQXizKD
-	MOpUzwTsoEnxHZYyBEQ8ei3I89A3deJznCVTy0SBuHzuaIh2TuBGzNHltIBnxfMeKOVOvivUMSg
-	IYjq38v0pmSPdFcGACAZysWvHUker
-X-Received: by 2002:a05:600c:348f:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a18e4c05e5mr250446545e9.19.1791894533966;
-        Tue, 13 Oct 2026 05:28:53 -0700 (PDT)
-X-Received: by 2002:a05:600c:348f:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a18e4c05e5mr250446075e9.19.1791894533515;
-        Tue, 13 Oct 2026 05:28:53 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a195b300f5sm136781275e9.1.2026.10.13.05.28.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 05:28:49 -0700 (PDT)
-Message-ID: <78291e0f91f64bbb43da80ccd9201a237ca2d468.camel@redhat.com>
-Subject: Re: [PATCH] verification/rvgen: reject ambiguous state/event
- transitions
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: heath@mathgraph.org, rostedt@goodmis.org
-Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 13 Oct 2026 14:28:44 +0200
-In-Reply-To: <0201537cbcba3268512d2c3f6a0b51c9@mathgraph.org>
-References: <0201537cbcba3268512d2c3f6a0b51c9@mathgraph.org>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+        d=1e100.net; s=20260707; t=1791894555; x=1792499355;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U+ILcrewVHhOsLOTzQWydUELGX8n+kxmBpJfSUA6g3Y=;
+        b=Rl0GYCeg9JrxhWJ93evEcEFh4e0RJzL25a7XBJ/+EojS/lr7kO7d+5roIE3HaxONRc
+         ozeudpXScvc3p3wVkyx59KZH9/PiHN23B9XeN3P2Kad9OuVM7IlBCckaqk3GXNDVD1kZ
+         uroixzb+rQkbZKIiYieALZFlsPZvikUhr8JAL/EhsBlJ+TQTwVwtGLvyq9PtqbyZOztp
+         qSmPx/rGTiQdUyyTrW840w9EiPzTKvH3ydCrLGLPqQqCPLh7iQjWUFc2a8/BxOpuG3Xn
+         dSkJkXueq4W723WC0Twirygm2OdsVDZbUZSFldfagyRjXvh0mShRIJAy3OJbjQ37Uhcf
+         T8lA==
+X-Forwarded-Encrypted: i=1; AKwUvBz1vDT1McpEpEUs0CB+GAI9GxOo6DS3lh/OsIrmDu75S7d0NP8z3uBJzxsuVhyf2czYe7REGPdalIDLt3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJGDPL94K02IRBRseaI44M2sNkE16kEDdTQLXDzYLGZrtXjvdt
+	5Jw/5c6ojsqFjLs51MVH3LdGJTy2E6Im2nVHwCUF2Jlxz0v6fQcyTorF7ZNI9+h+U+r0bN4WYPA
+	tC51cbsZ6792TIMPrHw==
+X-Received: from wmbjd18.prod.google.com ([2002:a05:600c:68d2:b0:4a1:95d4:bb4b])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3144:b0:4a1:70b2:8dbb with SMTP id 5b1f17b1804b1-4a18e4b0347mr230265515e9.19.1791894554836;
+ Tue, 13 Oct 2026 05:29:14 -0700 (PDT)
+Date: Tue, 13 Oct 2026 12:29:02 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAA0kzmoC/3WNzQ6CMBCEX4Xs2Zr+oCWefA/DoWzXsolQ0pJGQ
+ 3h3K3eP32Tmmw0yJaYMt2aDRIUzx7mCPjWAo5sDCfaVQUt9lZ20YuKMvhaRhHerE1ah1Za6QdM F6mpJ9OT3YXz0lUfOa0yf46CoX/rfVZRQojXYamNIDtLcQ4zhRWeME/T7vn8BUIhg168AAAA=
+X-Change-Id: 20260807-miscdevice-data-71c727e8b2e5
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=16519; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=0VfHI99mjbV2FxjU9pgiKgFoWso8sMbEw/GYHNs7kfA=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqziQQDqIYM32dtFfrP0UhY+Cngvhoyb7Eac8CI
+ GdvY+gzTgyJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCas4kEAAKCRAEWL7uWMY5
+ Rt17D/96NGE17ns+bsMkZ7G2eax1D+ePCwBeZN3reUv4z1nSN2wCLi1tWb2eWGQpfpDl7MJt3rL
+ a/25z1yfpHWgHtBAfXZEB4EuWGe63WbDvXO2dCRfCKQF6oB88prLtEy91pLMeDerFTkAtpL5KTL
+ NoO+FFmHfYI6Xtq3FbpAkms3iBHXLDoj++ZBXHPXPPsHYBeuRrdVYqGa9kTDYz7kldOoAhLCRaW
+ gl5IO71UqfvrUmXsyjZKM6e8UV242gfShUHeZSH0/+wW8v+U2whem8wwpvDenVV76CyI30k9Vpm
+ E4bPCh+DMpefA9SskKtR23eOmbtIygpH5v9x0L8pGm/Esnbn6wR1DaJ4b+Ivq/D9z+Oov4AyPbY
+ 9x41wEXrg8QwTvCGGs+f/ah1icWWvgcUsznwrK2Kth8YtXdeftOfT41krodLuT7+8oSxcBC+icn
+ XRBu32Vl+WD+ylqIgA9WWZG8di7Sxk8FgQGAfb9gg5ylO7s/Vu6qsRgOkiEj/HQku57zrI9fXWF
+ eTSmn5CCwapDaD7l/0BpNZBKR9GAizcLtyEXhCfuAXRAY5CT5S957PMddmIHO6Bs9/D7vY12KLi
+ mMzIRt3JIwGox39co1phL2Vir+hfg2RZvzmT90C+W1koUup7AdqlDsxxMtZ4drm1QJytAdGeT3k S2fpE2xAa/vp/kg==
+X-Mailer: b4 0.14.3
+Message-ID: <20261013-miscdevice-data-v2-1-d727496ed705@google.com>
+Subject: [PATCH v2] rust: miscdevice: add registration data to MiscDevice
+From: Alice Ryhl <aliceryhl@google.com>
+To: Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-Hi Heath,
+Currently when fds for a miscdevice are opened, the only "global" data
+they are given access to is the MiscDeviceRegistration value. However,
+this value doesn't let you store any user-provided data, so there is no
+way for different fds from the same miscdevice to interact with each
+other. Thus, let the user specify a type to be stored in the
+MiscDeviceRegistration in which the user can store whichever data they
+would like.
 
-thanks for your contribution! Looks good to me.
-I have a couple of minor nits.
+The intended user of this patch is Rust course material. MiscDevice is a
+nice and relatively easy to use API for someone's first driver, and
+being able to persist data from fd to fd allows the student to interact
+with their driver using 'cat' and 'echo', even though each call opens a
+new fd.
 
-On Fri, 2026-10-09 at 16:17 -0400, heath@mathgraph.org wrote:
-> The rvgen generator builds a transition function indexed by source state
-> and event. If a DOT specification contains different destinations for
-> one key, the generator silently chooses one. Parsed transitions are
-> set-derived, so the choice can vary across Python hash seeds for an
-> unchanged specification.
->=20
-> Reject duplicate (state, event) keys after sorting the parsed=20
-> transitions,
-> before synthesizing a monitor. This uses constant auxiliary memory and
-> does not depend on the INVALID_STATE sentinel. Both deterministic and
-> hybrid monitors require a unique destination for each state/event pair.
->=20
-
-
-
-> Add deterministic and hybrid negative fixtures. On the pinned Linux=20
-> tree, the original rvgen suite passes 30/30 tests and the patched suite p=
-asses
-> 32/32; both malformed specifications are rejected across 64 seeded
-> processes. Fifteen existing models retain identical transition matrices.
->=20
-> Evidence:=20
-> https://github.com/metalogiclabs/mathgraph/actions/runs/37983741146
-
-I'm not sure this statement above adds much value and the evidence is good =
-but I
-wouldn't include it in the commit message. If you want to add more details =
-to a
-single patch (without a cover letter), you can append them right after the =
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
-so they don't get included in the git history.
+Changes in v2:
+- Store `T` directly in `MiscDeviceRegistration<T>` instead of adding a `RegistrationData` associated type.
+- Make `MiscDeviceRegistration::register` `unsafe` (requiring `Drop` to run) so `T` does not need to be `'static`.
+- Rename `MiscDevice::Ptr` to `MiscDevice::File`.
+- Use `container_of!` and `Opaque::cast_from` in `MiscdeviceVTable::open`.
+- Rebase on `char-misc-next`.
+- Link to v1: https://lore.kernel.org/r/20260807-miscdevice-data-v1-1-43c4233e0b03@google.com
+---
+ rust/kernel/miscdevice.rs        | 100 ++++++++++++++++++++++++++-------------
+ samples/rust/rust_misc_device.rs |  29 ++++++++----
+ 2 files changed, 87 insertions(+), 42 deletions(-)
 
->=20
-> OpenAI GPT-6 assisted in identifying the issue, producing and refining
-> the code and tests, and drafting this submission. I reviewed the patch
-> and accept responsibility for the contribution.
->=20
-> Fixes: cad252db78a9 ("verification/rvgen: Switch __create_matrix() to=20
-> Lark")
-> Assisted-by: LLM
-> Signed-off-by: Heath Sanchez <heath@mathgraph.org>
-> ---
-> diff --git a/tools/verification/rvgen/rvgen/automata.py=20
-> b/tools/verification/rvgen/rvgen/automata.py
-> index fd37ce3..1f9a56a 100644
-> --- a/tools/verification/rvgen/rvgen/automata.py
-> +++ b/tools/verification/rvgen/rvgen/automata.py
-> @@ -418,6 +418,13 @@ class Automata:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 transitions.append(Transition(src, dst, even=
-t, reset,=20
-> rule))
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 transitions.sort(k=
-ey=3Dlambda t : (t.src, t.event))
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 previous_key =3D None
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for transition in transitions=
-:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 key =
-=3D (transition.src, transition.event)
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ke=
-y =3D=3D previous_key:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 raise AutomataError(
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 f"Duplicate transition for event=
- {transition.event}=20
-> in state {transition.src}")
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 previ=
-ous_key =3D key
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return transitions
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 def __parse_states(self):
-> diff --git a/tools/verification/rvgen/tests/rvgen_monitor.t=20
-> b/tools/verification/rvgen/tests/rvgen_monitor.t
-> index 5f25626..6209c00 100644
-> --- a/tools/verification/rvgen/tests/rvgen_monitor.t
-> +++ b/tools/verification/rvgen/tests/rvgen_monitor.t
-> @@ -84,4 +84,14 @@ check "invalid ltl file syntax" \
-> =C2=A0=C2=A0	"$RVGEN monitor -c ltl -s tests/specs/test_invalid.ltl -t pe=
-r_task" 1
-> \
-> =C2=A0=C2=A0	"No terminal matches 'i'" "Traceback (most recent call last)=
-"
->=20
-> +# Only one transition per source state/event is representable in=20
-> rvgen's
-> +# generated table, even if one of the transitions has a hybrid guard.
-> +check "reject conflicting deterministic automaton transitions" \
-> +	"$RVGEN monitor -c da -s tests/specs/test_nondeterministic_da.dot -t=
-=20
-> per_cpu" 1 \
-> +	"Duplicate transition for event event_2 in state state_a" "Traceback"
-> +
+diff --git a/rust/kernel/miscdevice.rs b/rust/kernel/miscdevice.rs
+index 8d4b719bd83f..ecc142a1b7ea 100644
+--- a/rust/kernel/miscdevice.rs
++++ b/rust/kernel/miscdevice.rs
+@@ -10,6 +10,7 @@
+ 
+ use crate::{
+     bindings,
++    container_of,
+     device::Device,
+     error::{
+         to_result,
+@@ -32,7 +33,10 @@
+         Opaque, //
+     }, //
+ };
+-use core::marker::PhantomData;
++use core::{
++    marker::PhantomData,
++    ops::Deref, //
++};
+ 
+ /// Options for creating a misc device.
+ #[derive(Copy, Clone)]
+@@ -63,37 +67,56 @@ pub const fn into_raw<T: MiscDevice>(self) -> bindings::miscdevice {
+ /// - Deregistration occurs exactly once in [`Drop`] via `misc_deregister()`.
+ /// - `inner` wraps a valid, pinned `miscdevice` created using
+ ///   [`MiscDeviceOptions::into_raw`].
+-#[repr(transparent)]
++#[repr(C)]
+ #[pin_data(PinnedDrop)]
+ pub struct MiscDeviceRegistration<T> {
+     #[pin]
+     inner: Opaque<bindings::miscdevice>,
+-    _t: PhantomData<T>,
++    #[pin]
++    data: T,
+ }
+ 
+ // SAFETY: It is allowed to call `misc_deregister` on a different thread from where you called
+-// `misc_register`.
+-unsafe impl<T> Send for MiscDeviceRegistration<T> {}
++// `misc_register`, and `T` is `Send`.
++unsafe impl<T: Send> Send for MiscDeviceRegistration<T> {}
+ // SAFETY: All `&self` methods on this type are written to ensure that it is safe to call them in
+-// parallel.
+-unsafe impl<T> Sync for MiscDeviceRegistration<T> {}
++// parallel, and `T` is `Sync`.
++unsafe impl<T: Sync> Sync for MiscDeviceRegistration<T> {}
+ 
+ impl<T: MiscDevice> MiscDeviceRegistration<T> {
+     /// Register a misc device.
+-    pub fn register(opts: MiscDeviceOptions) -> impl PinInit<Self, Error> {
++    ///
++    /// # Safety
++    ///
++    /// The caller must not `mem::forget()` the returned [`MiscDeviceRegistration`] or otherwise
++    /// prevent its [`Drop`] implementation from running.
++    pub unsafe fn register<'a>(
++        opts: MiscDeviceOptions,
++        data: impl PinInit<T, Error> + 'a,
++    ) -> impl PinInit<Self, Error> + 'a
++    where
++        T: 'a,
++    {
+         try_pin_init!(Self {
++            data <- data,
+             inner <- Opaque::try_ffi_init(move |slot: *mut bindings::miscdevice| {
+                 // SAFETY: The initializer can write to the provided `slot`.
+                 unsafe { slot.write(opts.into_raw::<T>()) };
+ 
+                 // SAFETY: We just wrote the misc device options to the slot. The miscdevice will
+                 // get unregistered before `slot` is deallocated because the memory is pinned and
+-                // the destructor of this type deallocates the memory.
++                // the caller guarantees that the destructor of this type will run.
++                //
++                // The `data` field is already initialized and is only dropped after
++                // `misc_deregister` in `PinnedDrop::drop`. Since `T: Sync` and the caller
++                // guarantees that `Drop` will run before `T` becomes invalid, it is sound for the
++                // `open` callback to access `&MiscDeviceRegistration<T>` until `misc_deregister`
++                // returns.
++                //
+                 // INVARIANT: If this returns `Ok(())`, then the `slot` will contain a registered
+                 // misc device.
+                 to_result(unsafe { bindings::misc_register(slot) })
+             }),
+-            _t: PhantomData,
+         })
+     }
+ 
+@@ -113,6 +136,14 @@ pub fn device(&self) -> &Device {
+     }
+ }
+ 
++impl<T> Deref for MiscDeviceRegistration<T> {
++    type Target = T;
++    #[inline]
++    fn deref(&self) -> &T {
++        &self.data
++    }
++}
++
+ #[pinned_drop]
+ impl<T> PinnedDrop for MiscDeviceRegistration<T> {
+     fn drop(self: Pin<&mut Self>) {
+@@ -121,19 +152,23 @@ fn drop(self: Pin<&mut Self>) {
+     }
+ }
+ 
+-/// Trait implemented by the private data of an open misc device.
++/// Trait implemented by the data stored in a [`MiscDeviceRegistration`].
+ #[vtable]
+-pub trait MiscDevice: Sized {
+-    /// What kind of pointer should `Self` be wrapped in.
+-    type Ptr: ForeignOwnable + Send + Sync;
++pub trait MiscDevice: Sized + Sync {
++    /// The type of the data stored in each file for this miscdevice.
++    ///
++    /// This type must be pointer-sized, so it will usually be a [`KBox`] or [`Arc`].
++    ///
++    /// [`Arc`]: crate::sync::Arc
++    type File: ForeignOwnable + Send + Sync + 'static;
+ 
+     /// Called when the misc device is opened.
+     ///
+     /// The returned pointer will be stored as the private data for the file.
+-    fn open(_file: &File, _misc: &MiscDeviceRegistration<Self>) -> Result<Self::Ptr>;
++    fn open(_file: &File, _misc: &MiscDeviceRegistration<Self>) -> Result<Self::File>;
+ 
+     /// Called when the misc device is released.
+-    fn release(device: Self::Ptr, _file: &File) {
++    fn release(device: Self::File, _file: &File) {
+         drop(device);
+     }
+ 
+@@ -146,7 +181,7 @@ fn release(device: Self::Ptr, _file: &File) {
+     /// error, the kernel will complete initialization of the VMA according to the properties of
+     /// `vma`.
+     fn mmap(
+-        _device: <Self::Ptr as ForeignOwnable>::Borrowed<'_>,
++        _device: <Self::File as ForeignOwnable>::Borrowed<'_>,
+         _file: &File,
+         _vma: &VmaNew,
+     ) -> Result {
+@@ -154,12 +189,12 @@ fn mmap(
+     }
+ 
+     /// Read from this miscdevice.
+-    fn read_iter(_kiocb: Kiocb<'_, Self::Ptr>, _iov: &mut IovIterDest<'_>) -> Result<usize> {
++    fn read_iter(_kiocb: Kiocb<'_, Self::File>, _iov: &mut IovIterDest<'_>) -> Result<usize> {
+         build_error!(VTABLE_DEFAULT_ERROR)
+     }
+ 
+     /// Write to this miscdevice.
+-    fn write_iter(_kiocb: Kiocb<'_, Self::Ptr>, _iov: &mut IovIterSource<'_>) -> Result<usize> {
++    fn write_iter(_kiocb: Kiocb<'_, Self::File>, _iov: &mut IovIterSource<'_>) -> Result<usize> {
+         build_error!(VTABLE_DEFAULT_ERROR)
+     }
+ 
+@@ -169,7 +204,7 @@ fn write_iter(_kiocb: Kiocb<'_, Self::Ptr>, _iov: &mut IovIterSource<'_>) -> Res
+     ///
+     /// [`kernel::ioctl`]: mod@crate::ioctl
+     fn ioctl(
+-        _device: <Self::Ptr as ForeignOwnable>::Borrowed<'_>,
++        _device: <Self::File as ForeignOwnable>::Borrowed<'_>,
+         _file: &File,
+         _cmd: u32,
+         _arg: usize,
+@@ -186,7 +221,7 @@ fn ioctl(
+     /// provided, then `compat_ptr_ioctl` will be used instead.
+     #[cfg(CONFIG_COMPAT)]
+     fn compat_ioctl(
+-        _device: <Self::Ptr as ForeignOwnable>::Borrowed<'_>,
++        _device: <Self::File as ForeignOwnable>::Borrowed<'_>,
+         _file: &File,
+         _cmd: u32,
+         _arg: usize,
+@@ -196,7 +231,7 @@ fn compat_ioctl(
+ 
+     /// Show info for this fd.
+     fn show_fdinfo(
+-        _device: <Self::Ptr as ForeignOwnable>::Borrowed<'_>,
++        _device: <Self::File as ForeignOwnable>::Borrowed<'_>,
+         _m: &SeqFile,
+         _file: &File,
+     ) {
+@@ -220,13 +255,14 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
+         }
+ 
+         // SAFETY: The open call of a file can access the private data.
+-        let misc_ptr = unsafe { (*raw_file).private_data };
++        let misc_ptr = Opaque::cast_from(unsafe { (*raw_file).private_data }.cast());
+ 
+         // SAFETY: This is a miscdevice, so `misc_open()` set the private data to a pointer to the
+-        // associated `struct miscdevice` before calling into this method. Furthermore,
+-        // `misc_open()` ensures that the miscdevice can't be unregistered and freed during this
+-        // call to `fops_open`.
+-        let misc = unsafe { &*misc_ptr.cast::<MiscDeviceRegistration<T>>() };
++        // associated `struct miscdevice` (which is the `inner` field of a valid
++        // `MiscDeviceRegistration<T>`) before calling into this method. Furthermore, `misc_open()`
++        // ensures that the miscdevice can't be unregistered and freed during this call to
++        // `fops_open`, and `T: Sync` allows sharing `&MiscDeviceRegistration<T>` across threads.
++        let misc = unsafe { &*container_of!(misc_ptr, MiscDeviceRegistration<T>, inner) };
+ 
+         // SAFETY:
+         // * This underlying file is valid for (much longer than) the duration of `T::open`.
+@@ -257,7 +293,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
+         // SAFETY: The release call of a file owns the private data.
+         let private = unsafe { (*file).private_data };
+         // SAFETY: The release call of a file owns the private data.
+-        let ptr = unsafe { <T::Ptr as ForeignOwnable>::from_foreign(private) };
++        let ptr = unsafe { <T::File as ForeignOwnable>::from_foreign(private) };
+ 
+         // SAFETY:
+         // * The file is valid for the duration of this call.
+@@ -320,7 +356,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
+         // SAFETY: This is a Rust Miscdevice, so we call `into_foreign` in `open` and
+         // `from_foreign` in `release`, and `fops_mmap` is guaranteed to be called between those
+         // two operations.
+-        let device = unsafe { <T::Ptr as ForeignOwnable>::borrow(private.cast()) };
++        let device = unsafe { <T::File as ForeignOwnable>::borrow(private) };
+         // SAFETY: The caller provides a vma that is undergoing initial VMA setup.
+         let area = unsafe { VmaNew::from_raw(vma) };
+         // SAFETY:
+@@ -341,7 +377,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
+         // SAFETY: The ioctl call of a file can access the private data.
+         let private = unsafe { (*file).private_data };
+         // SAFETY: Ioctl calls can borrow the private data of the file.
+-        let device = unsafe { <T::Ptr as ForeignOwnable>::borrow(private) };
++        let device = unsafe { <T::File as ForeignOwnable>::borrow(private) };
+ 
+         // SAFETY:
+         // * The file is valid for the duration of this call.
+@@ -366,7 +402,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
+         // SAFETY: The compat ioctl call of a file can access the private data.
+         let private = unsafe { (*file).private_data };
+         // SAFETY: Ioctl calls can borrow the private data of the file.
+-        let device = unsafe { <T::Ptr as ForeignOwnable>::borrow(private) };
++        let device = unsafe { <T::File as ForeignOwnable>::borrow(private) };
+ 
+         // SAFETY:
+         // * The file is valid for the duration of this call.
+@@ -387,7 +423,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
+         // SAFETY: The release call of a file owns the private data.
+         let private = unsafe { (*file).private_data };
+         // SAFETY: Ioctl calls can borrow the private data of the file.
+-        let device = unsafe { <T::Ptr as ForeignOwnable>::borrow(private) };
++        let device = unsafe { <T::File as ForeignOwnable>::borrow(private) };
+         // SAFETY:
+         // * The file is valid for the duration of this call.
+         // * There is no active fdget_pos region on the file on this thread.
+diff --git a/samples/rust/rust_misc_device.rs b/samples/rust/rust_misc_device.rs
+index 41e26c825060..f5b2b00b933a 100644
+--- a/samples/rust/rust_misc_device.rs
++++ b/samples/rust/rust_misc_device.rs
+@@ -156,7 +156,11 @@ fn init(_module: &'static ThisModule) -> impl PinInit<Self, Error> {
+         };
+ 
+         try_pin_init!(Self {
+-            _miscdev <- MiscDeviceRegistration::register(options),
++            // SAFETY: `_miscdev` is stored in `RustMiscDeviceModule` and dropped when the module
++            // is unloaded; `mem::forget()` is never called on it.
++            _miscdev <- unsafe {
++                MiscDeviceRegistration::register(options, try_pin_init!(RustMiscDevice {}))
++            },
+         })
+     }
+ }
+@@ -166,8 +170,13 @@ struct Inner {
+     buffer: KVVec<u8>,
+ }
+ 
++/// Data shared by all open files for the same instance of this miscdevice.
++#[pin_data]
++struct RustMiscDevice {}
++
++/// Data that is stored per file for this miscdevice.
+ #[pin_data(PinnedDrop)]
+-struct RustMiscDevice {
++struct RustMiscDeviceFile {
+     #[pin]
+     inner: Mutex<Inner>,
+     dev: ARef<Device>,
+@@ -175,16 +184,16 @@ struct RustMiscDevice {
+ 
+ #[vtable]
+ impl MiscDevice for RustMiscDevice {
+-    type Ptr = Pin<KBox<Self>>;
++    type File = Pin<KBox<RustMiscDeviceFile>>;
+ 
+-    fn open(_file: &File, misc: &MiscDeviceRegistration<Self>) -> Result<Pin<KBox<Self>>> {
++    fn open(_file: &File, misc: &MiscDeviceRegistration<Self>) -> Result<Self::File> {
+         let dev = ARef::from(misc.device());
+ 
+         dev_info!(dev, "Opening Rust Misc Device Sample\n");
+ 
+         KBox::try_pin_init(
+             try_pin_init! {
+-                RustMiscDevice {
++                RustMiscDeviceFile {
+                     inner <- new_mutex!(Inner {
+                         value: 0_i32,
+                         buffer: KVVec::new(),
+@@ -196,7 +205,7 @@ fn open(_file: &File, misc: &MiscDeviceRegistration<Self>) -> Result<Pin<KBox<Se
+         )
+     }
+ 
+-    fn read_iter(mut kiocb: Kiocb<'_, Self::Ptr>, iov: &mut IovIterDest<'_>) -> Result<usize> {
++    fn read_iter(mut kiocb: Kiocb<'_, Self::File>, iov: &mut IovIterDest<'_>) -> Result<usize> {
+         let me = kiocb.file();
+         dev_info!(me.dev, "Reading from Rust Misc Device Sample\n");
+ 
+@@ -207,7 +216,7 @@ fn read_iter(mut kiocb: Kiocb<'_, Self::Ptr>, iov: &mut IovIterDest<'_>) -> Resu
+         Ok(read)
+     }
+ 
+-    fn write_iter(mut kiocb: Kiocb<'_, Self::Ptr>, iov: &mut IovIterSource<'_>) -> Result<usize> {
++    fn write_iter(mut kiocb: Kiocb<'_, Self::File>, iov: &mut IovIterSource<'_>) -> Result<usize> {
+         let me = kiocb.file();
+         dev_info!(me.dev, "Writing to Rust Misc Device Sample\n");
+ 
+@@ -223,7 +232,7 @@ fn write_iter(mut kiocb: Kiocb<'_, Self::Ptr>, iov: &mut IovIterSource<'_>) -> R
+         Ok(len)
+     }
+ 
+-    fn ioctl(me: Pin<&RustMiscDevice>, _file: &File, cmd: u32, arg: usize) -> Result<isize> {
++    fn ioctl(me: Pin<&RustMiscDeviceFile>, _file: &File, cmd: u32, arg: usize) -> Result<isize> {
+         dev_info!(me.dev, "IOCTLing Rust Misc Device Sample\n");
+ 
+         // Treat the ioctl argument as a user pointer.
+@@ -245,13 +254,13 @@ fn ioctl(me: Pin<&RustMiscDevice>, _file: &File, cmd: u32, arg: usize) -> Result
+ }
+ 
+ #[pinned_drop]
+-impl PinnedDrop for RustMiscDevice {
++impl PinnedDrop for RustMiscDeviceFile {
+     fn drop(self: Pin<&mut Self>) {
+         dev_info!(self.dev, "Exiting the Rust Misc Device Sample\n");
+     }
+ }
+ 
+-impl RustMiscDevice {
++impl RustMiscDeviceFile {
+     fn set_value(&self, mut reader: UserSliceReader) -> Result<isize> {
+         let new_value = reader.read::<i32>()?;
+         let mut guard = self.inner.lock();
 
-Here you may want to use "Traceback (most recent call last)" for the negati=
-ve
-match: more consistent and robust.
+---
+base-commit: 79e5797d243a466138f641932f81dc69f796060c
+change-id: 20260807-miscdevice-data-71c727e8b2e5
 
-> +check "reject conflicting guarded hybrid transitions" \
-> +	"$RVGEN monitor -c ha -s tests/specs/test_nondeterministic_ha.dot -t=
-=20
-> per_task" 1 \
-> +	"Duplicate transition for event event2 in state S2" "Traceback"
-> +
-
-The code for DA and HA is shared, I'm not sure we really need both test cas=
-es.
-I'd keep only the DA, we're already not testing every single error conditio=
-n and
-the test is starting to take longer and longer.
-What do you think?
-
-Thanks,
-Gabriele
-
-
-> =C2=A0 test_end
-> diff --git=20
-> a/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot=20
-> b/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
-> new file mode 100644
-> index 0000000..1b63b5d
-> --- /dev/null
-> +++ b/tools/verification/rvgen/tests/specs/test_nondeterministic_da.dot
-> @@ -0,0 +1,16 @@
-> +digraph state_automaton {
-> +	{node [shape =3D circle] "state_b"};
-> +	{node [shape =3D plaintext, style=3Dinvis, label=3D""] "__init_state_a"=
-};
-> +	{node [shape =3D doublecircle] "state_a"};
-> +	{node [shape =3D circle] "state_a"};
-> +	"__init_state_a" -> "state_a";
-> +	"state_a" [label =3D "state_a"];
-> +	"state_a" -> "state_a" [ label =3D "event_2" ];
-> +	"state_a" -> "state_b" [ label =3D "event_2" ];
-> +	"state_b" [label =3D "state_b"];
-> +	"state_b" -> "state_a" [ label =3D "event_2" ];
-> +	{ rank =3D min ;
-> +		"__init_state_a";
-> +		"state_a";
-> +	}
-> +}
-> diff --git=20
-> a/tools/verification/rvgen/tests/specs/test_nondeterministic_ha.dot=20
-> b/tools/verification/rvgen/tests/specs/test_nondeterministic_ha.dot
-> new file mode 100644
-> index 0000000..d21b91b
-> --- /dev/null
-> +++ b/tools/verification/rvgen/tests/specs/test_nondeterministic_ha.dot
-> @@ -0,0 +1,27 @@
-> +digraph state_automaton {
-> +	center =3D true;
-> +	size =3D "7,11";
-> +	{node [shape =3D circle] "S1"};
-> +	{node [shape =3D plaintext, style=3Dinvis, label=3D""] "__init_S0"};
-> +	{node [shape =3D doublecircle] "S0"};
-> +	{node [shape =3D circle] "S0"};
-> +	{node [shape =3D circle] "S2"};
-> +	{node [shape =3D circle] "S3"};
-> +	"__init_S0" -> "S0";
-> +	"S0" [label =3D "S0\nclk < bar_ns()", color =3D green3];
-> +	"S1" [label =3D "S1"];
-> +	"S2" [label =3D "S2\nclk < BAR_NS()"];
-> +	"S3" [label =3D "S3"];
-> +	"S1" -> "S0" [ label =3D "event0;reset(clk)" ];
-> +	"S0" -> "S1" [ label =3D "event1;reset(clk)" ];
-> +	"S0" -> "S0" [ label =3D "event0;reset(clk)" ];
-> +	"S1" -> "S2" [ label =3D "event2;env1 =3D=3D 0;reset(clk)" ];
-> +	"S2" -> "S3" [ label =3D "event2" ];
-> +	"S2" -> "S2" [ label =3D "event2;clk < foo_ns" ];
-> +	"S3" -> "S0" [ label =3D "event0;clk < FOO_NS && env2 =3D=3D 0" ];
-> +	"S3" -> "S1" [ label =3D "event1;clk < 5us && env1 =3D=3D 1;reset(clk)"=
- ];
-> +	{ rank =3D min ;
-> +		"__init_S0";
-> +		"S0";
-> +	}
-> +}
+Best regards,
+-- 
+Alice Ryhl <aliceryhl@google.com>
 
