@@ -1,175 +1,185 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011049.outbound.protection.outlook.com [40.107.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A433C3C14
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885801; cv=none; b=aDMZsSY//370Pg23rYBlUST99kpNBuU2VVTTB29TFwygnZgJVLJC96fQ9RzgFwx3QB9UMZ5+S45kMHsnCuW4AgvZMMx58Ns8Q7ZG1koFot7iRqHVL1vzUKsn9YLSFL2LY/urubSlev2ZtLZbZNGnpIckWYFoe+G6hXd4LdAbF98=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885801; c=relaxed/simple;
-	bh=rjo4I26n3c0IXUdbdxD0MoFTbWpgzJ6l+W042Fwrmq4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AOBUwD0HqLlqK/VJzAQRS72/vPA1itBculqW5+rXNQTcUmeQjx7nwkarJcIeWuqZq+Jr+aq04OClpzT/fbBL5qfULdeyu0CyHP/9eD9M9HwGFdF9p6JVnfxLXM/AZqZejGUZIyBaLLIHDKkI9mfNSLZ+8tP4YzJ7PUEDmLcdkoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DcdrSJl2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NtSDacc6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CC036AB77;
+	Tue, 13 Oct 2026 10:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791885850; cv=fail; b=iG9g+9ttkNJql9CHol8pjdSoou35/d7oEw+Je234nsgiXjE4iqA++5Vyd2l8EP/s7QM2DP4pv24fptT8nXG8GejFChBZmWxgcymZaE7YpGubTPM2FEMvd0aRGrvR2/gB65HR7xsbJyMIwKCCBTWL8t5hA9Sk+GL6jN2To7fKwLQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791885850; c=relaxed/simple;
+	bh=Q1sGDx3DZPC3poSgY46yqFRCpioY4YK4P6erdhAokgM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YuTkwsrstchC3ciZIvMuBjKXCTBJwnYVITKL56fV36TrSymR1/fEs/vxMADMeKvQMNjQTDKKd55L5ChYRNBZSH3YErhP0/APb2GC6m/cP0aTbIHVhqn5XuEAID5EEjt3b7IPlQM15Tk5IEpMYGIKSlSxtN36xACs43vFtIbKFNA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zszoz346; arc=fail smtp.client-ip=40.107.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DcdrSJl2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NtSDacc6"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8HQuu922856
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:03:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7BotSoDsAkukhdswcmyp9WdfMfl79/kPupfZf2fAwI4=; b=DcdrSJl2nXO30Y0y
-	GDBS8l+hQaSBXlaUW+OKiIh85KP4C4/BqnRQn4rgM6OPuelA03nKcSAJuMZsxoEK
-	f5rB1kLvDwNh/ixN6cCkN1a6HM6fvDFMX88MeCnsu9vuz1LoN1H6kNqF9iVZiAhC
-	2n4E5iMWhraJaL4pbwSdslLdGxTnjuAJggJmWbCbsk/RNEc+qrZHKrY6PTLCJs/+
-	WHVIM+ZrkLadVv/IYiHsR+cmV2wwbkKxC9G+MipmI7viPDER5nf6KtQaZs64TRW0
-	Lhzg5DytG5ItwPI6G3Hq8Se6OcpqiWdKPvjiwCOJfDsmJw1chBUMljPXArIJVauT
-	UR5i0A==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98h1tbg2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:03:19 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5338d5d0509so6253091cf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:03:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791885799; x=1792490599; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7BotSoDsAkukhdswcmyp9WdfMfl79/kPupfZf2fAwI4=;
-        b=NtSDacc6Nj8sPzy1HA7AUJLDOIA79PhrMd3jc2qV9ZSCtnXn7omKHcbQoBXjt174+X
-         t0oVQNrVBP+ww1q8962GptqB41wfAWIW8EQFbLUYm4iK3V3UiQ5X/CO7qwYJsU+NclB9
-         ksvO8wtBXk9kT6PvB4kKHTVqKlazVmBfab+/V5CMKCHJm7twyE3ogFoJMaZg0kcIR0BB
-         0wSgV7LDdBMxrNbNnX7jzn4Mdkp7I4FG6U8pqvBy8rYXCkwj4JYDKK+f9UZ/CPN3vFk+
-         cS26xklMWsmeFkyVM74hWOYmDnFSananrjhowrX5zUC3OuJkMujIkscKdXCJHxaZAZ2K
-         2dIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791885799; x=1792490599;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7BotSoDsAkukhdswcmyp9WdfMfl79/kPupfZf2fAwI4=;
-        b=nRW09Y6zoBv294JbCa3lo8uOxpwGcCq1VyqDnhjB9J+NQgSxq52zp6N8K0mROODz+t
-         UuWLuQWfk621exg7pSL/KupMX5SoynIA+SuUBdtsVi00Fw29hhRddEpIKNlSm8sHfNUp
-         NCIw9XvYrHq/l0+PBzdE7YKMePAydcEkF0YJeJV3LjcPRB5zq/PNsPFLNJ1Wm8uQH46y
-         O2M1hVNS6K1aoYj+QRQqzQaZrEGA90HzG+t9usu8uqfmmdtt3yr1Iw/XFA087HTOD3Q1
-         qQI6qPJSGJK5Vxx3oEqYunLg6St/Av+T58vzqlDLOhgmseIQtJabDr4gI3ND7qH+MMPc
-         XDBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBbMS/hb5vHUfWhQ6eJWJTpaiLeezc9Sro7GkkRG70lhi8gHmVhFsnooNFIx/hJiChUXiQ2Kecnj3PvTg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC8cXXQGQ8A64mUn59OtUhTzw9Ecc3AaYN3sufJ2knFjAbPkN7
-	ITZwg6jAVDlATVbWBYxlAYkbYNYm3Ri3SoLNZYTcPFAzA7zdeE690X9PoW9EuW/riEHluG98wwf
-	5fdjImhofGYDyMfZYVw+c61cFmMRL8yJa+Xwf28rhTYI0BNddfkTmU01G5MjCqvqZKTA=
-X-Gm-Gg: AYBFou1J3gm86Znkbip/Z8Jd/MIBuVlJmbcHRmWT+pw2o+t8e4xbOopBNEcT77TuKmA
-	fZjKoqxMR7bUZFrUejGmSfr/rkdhkg76nf5skoOXXvA35v46DaYwfr2O8UN8DjiKVjmNrUeiqdX
-	zVpYL837r4sDNACc8Ou54RN6PTEnFU6nx/3ux1oSaWUBsBBRg/nc+dGRekl8RjfqqFF7ogmKEuy
-	qw7rlaoahDiyC4DaAiLc9J8VXPB6Ge/9c7uwWL/EIMkAmqwvqdKeBTVm9QE9/MekNiXK081EKRS
-	XYkLX4bSB+Ifgekqx9i16Cl+m/tVqRctYcdDZeOp+ii7eaFMIM8uS0YRg41PPaI00+I9+W3tCmy
-	eL41wEBipFSwvZyEAWMYt/Q==
-X-Received: by 2002:ac8:5e14:0:b0:535:84e3:b33c with SMTP id d75a77b69052e-5359fff77ccmr238294681cf.4.1791885798817;
-        Tue, 13 Oct 2026 03:03:18 -0700 (PDT)
-X-Received: by 2002:ac8:5e14:0:b0:535:84e3:b33c with SMTP id d75a77b69052e-5359fff77ccmr238294091cf.4.1791885798211;
-        Tue, 13 Oct 2026 03:03:18 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3350fcf309sm352768966b.39.2026.10.13.03.03.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 03:03:17 -0700 (PDT)
-Message-ID: <b2b51cef-cd88-41d8-b9b6-3c4f5ebf3d59@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 12:03:13 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zszoz346"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QBbCZYSky3wfHJujGZUD2QX077VrRb9fyuHumqttCgogjro6VToWJ+S8xTAWqJmUIsUFEnyo4nv3sbHw+aG7gLZpx4fZ6e6lp3lE60LH+EleJ4k+E8UW6XZ68dv8CqlOlTBDCyZBqWiuT0Z73042c+zE3bSiNJe+RdCk9MyYPP6Cz0fiMmkFYlVYDiLQiuqcc7B5npTPloq3xdGpvFty4zhPsIoFPLcpeepKNAzB5sqUwbKTR0yVEyu3L3TERTH39TvtgzsixPKo42KDBwU/1sPINyBMMrhug5V1BY9HZSY2/Y5JJeNnI/Qv13mCF9L9QfWbJ2c37gc0PZHk2IWPOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/2ZexJVDJTHFEq1w+ffVEOuvV+N7JKR3GnzgU8ABwTw=;
+ b=b9n9zChinJdsV/ebBlfkacrql+vNeqbNbB1C4Cept1mBJpvnxrB8c0gc2Z+04GqXbQpAb3a2ejLhSrzqGi7dTGLZlPUq3AQfzqbsAZlEXlGjendT0boBa9egEu2/XG23MprzFT43xQ+VGjpDBh3FhmFKQXG5NOf3R4WBBuFPhjhqxPZBYLYql8YafGlbZkynRKTG/BTQuLfeCal7iN/b2RxCGggpDOdF+8S/SArsyv75biN353xrxw036vhwMgB4+5uLV90Zzy6ChlrLMnHhQ1RED0hmU/f/mTSgDWQHD0o1yhjRrRUBBLpoXVDnwSlxKq0ugV4MALGjEA32TvKNRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/2ZexJVDJTHFEq1w+ffVEOuvV+N7JKR3GnzgU8ABwTw=;
+ b=zszoz346pDpsAzZEkwsE4v8kMUb5cqf+sLPEF/EwLmBg7Z713I6gIST4W+tIvMi9IQ5TyVwZ6RAQ5lXIP8kRBp98yCSPmTep3IbYoCdzWZAnTCHgDG3EpIydY+04Z/T7pXzzmuYBJk8q8vNKBr5kAc7ABL0hLS673OyzjzXz38Y=
+Received: from SJ0PR13CA0062.namprd13.prod.outlook.com (2603:10b6:a03:2c4::7)
+ by DM6PR12MB4419.namprd12.prod.outlook.com (2603:10b6:5:2aa::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
+ 2026 10:04:04 +0000
+Received: from SJ1PEPF00002322.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::3a) by SJ0PR13CA0062.outlook.office365.com
+ (2603:10b6:a03:2c4::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 13
+ Oct 2026 10:04:04 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00002322.mail.protection.outlook.com (10.167.242.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 10:04:04 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 05:03:58 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Tue, 13 Oct 2026 05:03:54 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <vkoul@kernel.org>
+CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
+	<yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
+	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
+	<Vijendar.Mukunda@amd.com>, <linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH V2 0/9] soundwire: amd: introduce hw_ops dispatch and split driver into revision-specific files
+Date: Tue, 13 Oct 2026 15:28:46 +0530
+Message-ID: <20261013100306.2921771-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] remoteproc: qcom_q6v5_pas: Add remoteproc support for
- SOCCP on Nord
-To: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        shengchao.guo@oss.qualcomm.com
-References: <20261009-soccp_driver_dtbinding-v1-0-40862f7fc58b@oss.qualcomm.com>
- <20261009-soccp_driver_dtbinding-v1-2-40862f7fc58b@oss.qualcomm.com>
- <77e47222-e633-4d38-b598-8a02921a5d17@oss.qualcomm.com>
- <62d0573e-4085-4a74-b730-faecbe4cacba@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <62d0573e-4085-4a74-b730-faecbe4cacba@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=VqC2kO2n c=1 sm=1 tr=0 ts=6ace01e7 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=CFQHZ4Gs7z3mzJWHRokA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: CGgyiBIIEikjkhNuc5EXqPuzetqRrE2q
-X-Proofpoint-ORIG-GUID: CGgyiBIIEikjkhNuc5EXqPuzetqRrE2q
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzOSBTYWx0ZWRfXyIlX/1A2l0wF
- nfIfuiK+X6zbOikF31YO3ENzPAHHQ2zw+WrkQeUhiroBQhC5pAYVEB1di26XBFYQCZjyrLnqcFY
- SzwO+nMeavO6E7KUb2oI3Id3vf/JD18=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzOSBTYWx0ZWRfX4hoLkb6XdXtc
- iSEt0Eox7WFOJ3oFJ71bE733IUs9wHhhbbtDsg6tchbeTu8kgkXumpKBAK+Ya2SUTgYx63hyayp
- OwXYlve5Fep0DhDLDF62QuRjfZ+Eh/+znfkL7aL1MUeAAGNaFz7ZnoJDvOTyjVrrgCjV8eWY72Z
- z532w3zWZykNG3hSYh/z3obglXWZYX5GbEy4iiDurM2PsnCnf4H3HVp2flZi9obJ5oKZFaNz/tC
- dLW4F+PDl9RXLWp5Jx3XLZCpIZ2LsR5JP3CGAyfEkzqV0at0L63CF2H8GoLVDIF1+RQCHuvnNz1
- Xwf4laydkZcRIC21MWg94mlE3GuelDi/Rzu2QkRjjlJ4kQO/WchPl2UO0WBhhZQpZM81HtpTmx0
- EZ2ihCgl3f0tto0VPqM6i05SDeXP474uZy+Dapv1haNcxBw0KBVb75idbD5G7b25rMGSBLYl2Bn
- TlHyzfDh0cbo5T9yndg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130039
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002322:EE_|DM6PR12MB4419:EE_
+X-MS-Office365-Filtering-Correlation-Id: a465d63b-6507-4252-1f63-08df2911500d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|6133799003|10067099003|18002099003|13003099007|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	gYTBB8xmnQ5spelBssiZEFfinqTQuD3DBRdgTKQBfS8NGAanAbGbyyvejH2Zm/xsO2XxfOo7cCTj2TmxXwvf8Oou8Qc4reVJgbPrnpd1Bk5MRD45VkCEsOUae3jwGXHF8BmVe3mC9Bn+7IqfDI6kZH8zLGD1gfTAp9r/DGpYpgSlKYRw/8kgFSANil/wSefkPCJB4yn8CHaWiTl5Z+AxZPaBOH3MlxRcRlTWR0iBk2g9fw5SWFMmnQhqH/ERNRMwuKB6sZZgRHd9Inp+2mRxO/O0EvYlcsqmJP5Q2ZSo2JBdTxpdmP5MlZ5VwFEI+mYnkKHn4EUnFFx/9JDWPkUqoWeB7BmPgx2xehfl3zrHQ4Ze6IbSNA8KWI6kye6IgkYKkGSG0WrULonw2J9x/n5zjzy1G2BbennBCIYzrIBH5+8xRlFF0PdNXbcgr5NLP+VDN8omIP+KiyauGu8J7uo4cIcJ54Kug79jC+fwiMEQxdFxg78eJiDzKJgEKdKtav9mb+XyeJzJKMW1EdkFuFw1763x4Gx1AUguVMEnSMZ1DjTDnybWT/MQkgn90o4B9JRRGHuJ7RWlplM9/AR2ZZR1bjn5gEqPO1Z/PraWPy74IBriveIoI2fC6EFReCzqfM44bIN1BZcaNVJ1rk47ALD/UpNNeu61ihYt3VUn2rMTsls=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(6133799003)(10067099003)(18002099003)(13003099007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	T63L08fbcqzT/bp9E1Y/4yrhGyTnaCu1XhQnZORGgJTObKbC4CFxvNbz2dsGRjyeenbe8dIMmkhVKpGah6LpR+11QLh45FcNVuHVCgza6/OPmg67ueaTmJK0gURY5GOdHmMgjYeA+shmhNuv3Y2K40hWENbL/+RXrqEdplMKJSbOv10bB3DYDprkRg4oCx414WRZ99YiRaqdXi6K+h+y7Qs6vBxtXFsgGCZgM12io6wHdpCzj1D3/Dk/yAuq3Af1P27/jRSZwS8zj/2baKhObyxqsvzF3GUOVVn+BxlsHWHdC5ucZINtxGvGpvKfxTseK90ydt/Qh4Kk37BbjJXse2mTkHumzwkLIF0wfiE1G8RxV2q0xXd6umXEucvKttqa5cz1z4ZyvZmk2PAqWWnHP2NIKzjvbMKRsMeAGh9eO5SVjXQBI5rW0n49KZpVas+H
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 10:04:04.3103
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a465d63b-6507-4252-1f63-08df2911500d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002322.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4419
 
-On 10/13/26 11:58 AM, Anurag Pateriya wrote:
-> On 10/13/2026 2:27 PM, Konrad Dybcio wrote:
->> On 10/9/26 9:35 AM, Anurag Pateriya wrote:
->>> The SoC Control Processor (SoCCP) is small RISC-V MCU that controls
->>> USB Type-C, battery charging and various other functions on Qualcomm SoCs.
+This is v2 of the AMD SoundWire manager driver refactor series. It
+incorporates review feedback from v1 and extends the restructuring to
+split the monolithic amd_manager.c into two files.
 
-[...]
+Changes since v1:
+- Patch 4 subject updated: "rename hardware backend symbols" (covers
+  functions, op-table instances, and the register-offset constant)
+- Patch 6: removed the forward reference to "subsequent patches" from
+  the commit message; dropped WARN_ONCE guards from dispatch helpers
+- Patch 7: commit message corrected; #include <linux/workqueue.h>
+  addition dropped (available transitively)
+- Patch 8: amd_sdw_hw_init_ops() now uses a static const
+  struct amd_sdw_hw_ops instead of devm_kzalloc; amd_sdw_hw_init_ops()
+  moved after amd_sdw_manager_remove() with a forward declaration before
+  probe to resolve ordering
+- Patch 9 (new): splits amd_manager.c into amd_manager_common.c
+  (shared revision-independent functions, analogous to cadence_master.c)
+  and renames what remains to amd_acp63_manager.c (ACP6.3/7.x register-
+  level backend, analogous to intel_auxdevice.c)
 
->>>   +static const struct qcom_pas_data nord_soccp_resource = {
->>> +    .crash_reason_smem = 656,
->>> +    .firmware_name = "soccp.mbn",
->>> +    .pas_id = 51,
->>> +    .proxy_pd_names = (char*[]){
->>> +        "cx",
->>> +        "mx",
->>> +        NULL
->>> +    },
->>> +    .ssr_name = "soccp",
->>> +    .sysmon_name = "soccp",
->>> +    .auto_boot = true,
->>
->> No DTB?
->>
->> Konrad
-> 
-> The base patch isn't merged yet for nord-ride-embedded.dts.
-> we need to enable for both rrd and ride-embedded boards.
-> I was planning to send them together once nord-ride-embedded.dts is merged.
+Series overview:
 
-This is not my question. Remoteprocs on recent SoCs come with split
-firmware - MBN for the main part and a separate DTB binary containing
-configuration data.
+Patches 1-3 are preparatory: rename the manager-count macro to carry
+the ACP6.3 scope, convert the pdevinfo/sdw_pdata and pdev arrays in
+sdw_amd_probe_controller() from fixed-size stack arrays to heap
+allocations sized by the ACP revision.
 
-Konrad
+Patch 4 renames revision-specific hardware-access functions, op-table
+instances, and the manager register-offset constant to the amd_acp63_*
+/ACP63_* prefix.
+
+Patch 5 removes an unused define.
+
+Patches 6-8 introduce and wire up the hw_ops dispatch framework:
+patch 6 defines struct amd_sdw_hw_ops and the inline acp_*() dispatch
+helpers; patch 7 converts the irq/work handlers to dispatch per
+acp_rev to their ACP6.3-family implementations; patch 8 extracts PM
+callbacks into hw_ops slots, populates a static const amd_acp63_hw_ops
+table, and converts all remaining direct amd_acp63_*() call sites to
+use the corresponding acp_*() wrappers.
+
+Patch 9 splits amd_manager.c: shared revision-independent functions
+move to amd_manager_common.c and the ACP6.3/7.0/7.1/7.2 register-level
+backend is renamed to amd_acp63_manager.c.
+
+Dependencies:
+
+This series applies on top of the AMD SoundWire fix series posted at:
+https://lore.kernel.org/alsa-devel/20261013085111.2009061-1-Vijendar.Mukunda@amd.com/T/#t
+
+
+Vijendar Mukunda (9):
+  soundwire: amd: rename AMD_SDW_MAX_MANAGER_COUNT macro
+  soundwire: amd: allocate pdevinfo and sdw_pdata by ACP revision in
+    probe
+  soundwire: amd: allocate sdw_amd_ctx pdev array dynamically
+  soundwire: amd: rename hardware backend symbols to amd_acp63_*()
+    prefix
+  soundwire: amd: remove unused AMD_SDW_MAX_FREQ_NUM define
+  soundwire: amd: introduce struct amd_sdw_hw_ops dispatch framework
+  soundwire: amd: dispatch irq/work handlers to per-revision functions
+  soundwire: amd: populate hw_ops and wire all call sites through
+    acp_*() helpers
+  soundwire: amd: extract shared functions into amd_manager_common.c
+
+ drivers/soundwire/Makefile                    |   2 +-
+ .../{amd_manager.c => amd_acp63_manager.c}    | 904 ++++--------------
+ drivers/soundwire/amd_init.c                  |  49 +-
+ drivers/soundwire/amd_manager.h               | 255 +++--
+ drivers/soundwire/amd_manager_common.c        | 773 +++++++++++++++
+ include/linux/soundwire/sdw_amd.h             |   9 +-
+ 6 files changed, 1183 insertions(+), 809 deletions(-)
+ rename drivers/soundwire/{amd_manager.c => amd_acp63_manager.c} (50%)
+ create mode 100644 drivers/soundwire/amd_manager_common.c
+
+-- 
+2.48.1
+
