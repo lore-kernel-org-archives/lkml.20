@@ -1,135 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3601414400;
-	Wed, 14 Oct 2026 16:37:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED41455D895;
+	Wed, 14 Oct 2026 16:37:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995833; cv=none; b=cteATwv31FuPonr3oYuPISEx3+nyqPNXTj0ggD4XBX8LSQLnjME6P65aTJzmPIcQz8Yr4r5y5v7rUYLHsW9l3sjPlW55lMAoXIAWXyLVcc/9JyU7IFk116uROxu+mPU+TDoUmlwrWK/ZUpNyorrh/WN0KvvxDc26oVLy8MGr2hQ=
+	t=1791995836; cv=none; b=Wa7uIeYwILiZxj/1AQKH9vuTZaM/0hjFJ0WC1/h+ys+HlklFstTK+Mza+NWb7zoRetKGVbsdnHbO5yq6Hfb/snarTCc+hsMXEyLmvZmg6AFwJHyHIe749wl040ihpfbD2Ao8XNCquk6ilfoWecj1J5i1rRrCzOX4qxlq4JgkOGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791995833; c=relaxed/simple;
-	bh=xvcQd7gINQECA0pEoMrNUQEomIL78zM5m7K4ujDNY3k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lUoMlX6zOxnT019lxR2ZJFeu+JOU+B0nrl4diRJC1dbPejGZwX0QTP1h8I5RUFRT8AC+AbZSgofD0/lgGZxHpKyjo2kYQgblDugYRqXUxForNZCpvJB2dkCeXOreSlqn3/2gEysjC5UXQTzj6bmb2fSvYM97rjHwqDkQTTObDCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n9IplbiX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791995836; c=relaxed/simple;
+	bh=uurGcHzdzFzhWnJLh1CqNlIoZwhFSdzzQPlGA6vu2xM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Hr7rHFyw+Psyjdi6cEvaMlwkhQBc34Py1+L9fwpQhg0Ry7IFfHyQXFq7FkNPwsQ3pmfY5tq/vKSFSpVmz3D/ls1Ks5a+zl3q52DFy8c0rbyd3djb7K5aPI3gGenOWoVEL9qCXeoCiidjcHt/5if7jBjmEDdHRdpBYKy6fCxDfDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbN9/1KK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n9IplbiX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258481F000C4;
-	Wed, 14 Oct 2026 16:37:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbN9/1KK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E481F000C4;
+	Wed, 14 Oct 2026 16:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791995832;
-	bh=D0qFplMD3JegnW7i3iVJkwgfMDmyoOPsyHFrtj+nxBA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n9IplbiX+93nceH23XmnKeZ5oYecY++a3sP1FSp8/eoJQHlwosXybufpa8S8KQDs4
-	 JSOYDlE3dW0Tstqig9001fDQnyF55nygDlSOHNkJdYmGR6xIoM+nl1dQhuyjrtkVwj
-	 EuXqe73P+3VZ6BDKW7wiUBDkX32NJU8qFo902yMRcaug/7BAm5oKbDw4gxCh7LxUqC
-	 Y7NxYDYR/y/z28DqpEx8zGTH0dUYz2jKMESyevlBsADLYmloXFD5sbjroBfTPOb1YO
-	 EAaIr8VM2TPJc/hDXYqOW71XwpeyatwvwVWF6WB1T2qG0eJVVmvgIrJgOh3HFB8l/2
-	 2qpSERGwTKhRA==
-Date: Wed, 14 Oct 2026 09:37:11 -0700
-From: Kees Cook <kees@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Ian Rogers <irogers@google.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Nayna Jain <nayna@linux.ibm.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	David Teigland <teigland@redhat.com>,
-	Alexander Aring <aahringo@redhat.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Richard Weinberger <richard@nod.at>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Felix Kuehling <Felix.Kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	driver-core@lists.linux.dev, llvm@lists.linux.dev,
-	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
-	gfs2@lists.linux.dev, xen-devel@lists.xenproject.org,
-	linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/11] kobject: Require explicit initialization of struct
- kobj_type::release
-Message-ID: <202610140932.5F9CFCE5@keescook>
-References: <20261013223946.1836757-1-irogers@google.com>
- <2026101425-why-boring-4f2d@gregkh>
+	s=k20260515; t=1791995834;
+	bh=Qh7JBX0K+5twpqHU/cJbIIn5dL7/JpLSLNjwQd3bh1Q=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=WbN9/1KKPr8lj0U8y8GSfR67QR4mOCh6kPH1aOBIjXrPGrIjDdNnrpy1taH3d4+qQ
+	 dcHckBQUIq+Th7NbPty3IP7G+EjVzoxxH3f77nb0WzCpdAQ1zejr2FEpS2TPNQEYYZ
+	 L2hRTarWowYbaC+gCOeYvSnaLW8yphBRsmbOwDbAmrVzWjSVKxukTEqFNLPuizeQDB
+	 ZL+Yz6MDiOmRqWe43NpHZAe8n+uG2ZKtOTBTQsN2vJ+v7+6c6/cEaiNPvtiErwvRdm
+	 JN8eXhYYXld0WN3hisnOySchSIKg2N8lM8LV4Q8LkpctAEivFe3FCwLNeljIQdUbvl
+	 mc2jV1sjBtzDQ==
+From: Mark Brown <broonie@kernel.org>
+To: Joseph Steel <recv.jo@gmail.com>, Jisheng Zhang <jszhang@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261005151739.25233-1-jszhang@kernel.org>
+References: <20261005151739.25233-1-jszhang@kernel.org>
+Subject: Re: [PATCH v5 0/4] spi: dw: use threaded interrupt
+Message-Id: <179191308596.42298.5738197342460103107.b4-ty@b4>
+Date: Tue, 13 Oct 2026 18:38:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026101425-why-boring-4f2d@gregkh>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1824; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=uurGcHzdzFzhWnJLh1CqNlIoZwhFSdzzQPlGA6vu2xM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOr9++5WhBUO2KN2k2tl4ztr+feYpR8K4n47Z1vxO1v
+ 12Wmi32vKOUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQAT+X6KkWGu2OXzYd99Xf9z
+ fjzj5rLFVbxtUfOxbxuZ9bom8ZfbblnCyLD+s9DdCgE/Vw7xd5npV1+ZJpmyr+S0ucv3LNx+xu5
+ 3iYwA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Oct 14, 2026 at 07:36:41AM +0200, Greg Kroah-Hartman wrote:
-> On Tue, Oct 13, 2026 at 03:39:35PM -0700, Ian Rogers wrote:
-> > Clang supports the 'require_explicit_initialization' attribute on struct
-> > fields to enforce that the field is explicitly initialized when an
-> > aggregate object is constructed, emitting -Wuninitialized-explicit-init
-> > (enabled by default) if the field is omitted.
-> > 
-> > Following discussion at the Linux Plumbers Conference [1], this series
-> > introduces __require_explicit_initialization in
-> > include/linux/compiler_attributes.h and applies it to
-> > struct kobj_type::release.
+On Mon, 05 Oct 2026 23:17:35 +0800, Jisheng Zhang wrote:
+> spi: dw: use threaded interrupt
 > 
-> Cool, sorry I missed that talk.
-
-Yeah, I'm really liking these compile-time checks. :)
-
+> To avoid blocking for an excessive amount of time, eventually impacting
+> on system responsiveness, hard interrupt handlers should finish
+> executing in as little time as possible.
 > 
-> > As Documentation/core-api/kobject.rst notes:
-> >   "One important point cannot be overstated: every kobject must have a
-> >   release() method, and the kobject must persist (in a consistent state)
-> >   until that method is called. If these constraints are not met, the code
-> >   is flawed."
-> > 
-> > Annotating struct kobj_type::release caught 30 struct kobj_type
-> > definitions across the tree that omitted .release:
-> > - Patches 2-10 fix 10 struct kobj_type definitions where dynamically
-> >   allocated kobjects, ksets, or enclosing structures were either leaked on
-> >   kobject_put() or freed prematurely before kobject release (risking a
-> >   use-after-free when CONFIG_DEBUG_KOBJECT_RELEASE=y).
-> > - Patch 11 annotates struct kobj_type::release with
-> >   __require_explicit_initialization and explicitly sets .release = NULL
-> >   (with explanatory comments) on the remaining legacy struct kobj_type
-> >   definitions whose kobjects are static, per-CPU, or embedded in devm- or
-> >   parent-managed structures.
+> Use threaded interrupt and move the SPI transfer handling to an
+> interrupt thread when non-native CS and host only.
 > 
-> Sounds great, but let's fix up the users before adding the attribute.
-> Looks like some of these need another version so it might take a bit of
-> time to get them all merged.
+> [...]
 
-I'd really like to have the attribute available, and I've got at least
-one user I can apply today that don't require fix-ups (seq_file), so
-if Miguel is okay with it, I'd like to snag patch 1 and send it with
-my seq_file "first user" for this coming merge window so it's available
-starting with v7.4-rc1, and we don't end up needing to wait 10 weeks for
-other subsystems to be able to use it. And the kobj fixups can continue
-in parallel. Does that sounds okay?
+Applied to
 
--- 
-Kees Cook
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+
+Thanks!
+
+[1/4] spi: dw: remove useless dws->transfer_handler check
+      https://git.kernel.org/broonie/misc/c/3e3d3f96213d
+[2/4] spi: dw: remove duplicated "!rx_len && !tx_len" handling from dw_spi_irq
+      https://git.kernel.org/broonie/misc/c/ab30c5cdf457
+[3/4] spi: dw: restore previous irq handling behavior when !ctlr->cur_msg
+      https://git.kernel.org/broonie/misc/c/62d2ce4ee2f2
+[4/4] spi: dw: use threaded interrupt and optimize the threaded ISR
+      https://git.kernel.org/broonie/misc/c/d9d0f5b84cc3
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
