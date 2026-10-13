@@ -1,165 +1,156 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6454D35295C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C88B3ACF0B
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791879240; cv=none; b=DAHcgWrqTZoB7acDBI2NonLbDBOuDnicvn3Mmhj4f1ZaDdA3/XaucNUtDzmyR6opCdY+4YkS5P1NTw1gtTdsVHfUvJzA9b/DmQZlxdLLlyBOS9F9rBix19v44swpzRVxB+zms7TThoezMtl24Ap/hmYInJtAxShQvASuzZ3AUoo=
+	t=1791879241; cv=none; b=ufhGtB6EklX7LqIQKFByNqO9OQiOvU/FMPPndLV3ugKX1tI8Wsx0V3KqMYCeNIHI6eUxzJ4UqbbxOn3buI90g0zyDwOMJwHFgPyC8m9nqQ5REUaCoEC/vQZ/aVME6U01gfvytOvFzEp/R3NXEUFNfncDrihGilsHktB3sZj9Wpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791879240; c=relaxed/simple;
-	bh=zR2wcIj6f6knLwgvx40lbshBDqlnSEwOvPz3Nf4LgEk=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=FnFiMFRW0vvkDguF67N02OsU4vqbwRdVzCTmsDsXJd1oHPoEEXsTn1Na6Sb5VMaxi7/1Jw+SeKTanCSzz51jS71Au1PNw24XTlWay0/lyHrCfrXGkMtwHqKY7RUdAio1vSJXsQoOIiYlgojaKHL83Lcq0ivm0fNEWHrwiNvQPAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FN7Bifyr; arc=none smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791879241; c=relaxed/simple;
+	bh=KB48VjcwJcdFoEyL1UN4JBUVOXRybNpELXvG/sYq2zE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wb06BRqTLMWH9tffxsladmI6N4yc50VzwMhO8kZ6NkB8ionepj+ulpDsu41UmtFf24twijcn+FdvW7lucL6hP2fYPvwfdtsR5o4WxSkl0cKWRCntkds4KieWKKqXlYhELcZ2Yi0mIGTuzaFF9sk/y2jxifToev/9csJyGsAYUB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=akl4rTte; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E06oGQD5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FN7Bifyr"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1984186eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:13:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="akl4rTte";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E06oGQD5"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D212wd4071816
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:13:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WJdzVCQH4Qf/a3uv4uEeaxQnvMeNIwDQPXbAQYhpzDs=; b=akl4rTtetvUhueYG
+	lX71wEvuTkaEw+ZVwYal6+1bouF4goqpDDD36wZVv2tXzlRlAWhZwOdTof0hPswV
+	eRhYrEWF3a71sOjjiNYYyQXVTKkfPmgpSemMXdmH+zl0bHlg3BzoUjuGS1e8zfCi
+	4kPWIAsUcPZPUcC/lr6HZvL31ALeBFIDySgrwG4qCArjEl7CgNEcf98p30QpOy9n
+	oy659c7XwiCTs4qNAtmX2mzbDDkXf9OTsSUU5tzveGOvb6gir5oCg5T7//TUDoXM
+	Cme1KNzybjqFwd9/NTCDH8zzQCDIvMulDJyMbeMeMZkrOIkuQr/ZeGcrOvNElQM+
+	xwkNow==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h92jjufqa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:13:58 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cc50fb0d2so46192585a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:13:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791879238; x=1792484038; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1791879238; x=1792484038; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4xE1I3ZXDdooBxa/SXyn2tT8+8Iug/sRWcdxfucclDw=;
-        b=FN7BifyrOXAjxZbZ5r0Pmka8kGyw9JzlrgUV1LoSRNm5s+wux2Poty4uwcsYjdx0y9
-         3I2KsR+BU0P74q2Etb/R8ei0Od5/luhZbm5xZFfDtEn8nGUfeWdwaqgEBMbjXR02VzRo
-         Wa4a39fpVZfNbovCCqW7mrU6T0TgRbAigepy6oNeo8ZmgLMircpIVsowsYESl1uUhXMF
-         RC2hshRbsxpD/4mucQFXeit2CjJ2NbC/BU1CD7VTTOyVn3Tp2GN3FB34atg6X12gdtG6
-         W6urtlthILSntHHO3kNMswp8aTaoVl7g603zQoYdX3OJuBZCudXJCB/FUGarsIsFMYkl
-         ijkw==
+        bh=WJdzVCQH4Qf/a3uv4uEeaxQnvMeNIwDQPXbAQYhpzDs=;
+        b=E06oGQD5wLsh2fmJ5DWHzYAggFZJfzpoKRItWDWjuF8DNLOWtgUQrfXLsNqrRaAn7k
+         C1DPYtjnExt4r5JnOoJHWP+gHEYd2XbkEu/v0VWVZ7XZZztbe8J/YyLF/lCEa5e8Vq/w
+         Egd8k0jE/5/j+HLbKXGEMr1Ehp8RGZCHoH0TXFbyjPX0u/RqUlJCUqCr8OVFDT/PzSeE
+         bnSMShSUJmJ3UCTKC2dQrHaRbm/Z9S9sXdGBMrj85e0hA5JNbabHEzvBZUW3Bv+y+dgN
+         4FzaZRAWLTe5eEWlNqnnFfD8PbwOnYD4rRr6MOI0O45fE0mA+xLlwP+9wBh0UISf1k59
+         ZU0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791879238; x=1792484038;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4xE1I3ZXDdooBxa/SXyn2tT8+8Iug/sRWcdxfucclDw=;
-        b=NRXNnvb7V3GIPhzzF6r1cb3CAzb6RJhska5S0YEJmKGMKN7fg/rdp89cjNW+OS2B5y
-         9TMXuBhWgXkrNSvMtra0X9kZkdHwJO/Tu4VBp+NtZ/BEafc9W5mZw7LiIznYFB9qCbOc
-         CKkPphV14mxd2HLqPPWnu5No3GvWnU8U7B4roqWNUdzr93BzOydhV7CQYz0Zp00xmjea
-         N5LElUIX400YEnmg03e4/smBAgtUQM8eOkvxaaeyrr4cVcQoMRpXCRMCrjHEJK2DQtYF
-         ez2tuLK469IsvXa2lidtU8AqMq+Cv1o1goHXbc2eLJDDpMKyqw2VVEDizuMZaXtvsu/7
-         M19Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxVkN1vsCfOWSAZPE7qU81JdBkHP/YltIfjPsUX0Wv099wGmToz2Gb7O+gfvgTWduNP5M44lKzWiKr7+V4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL87ivNq4JJbj9/d/Tjpor85SSXyxIq84BGFoLhLA3Vs95/HfTF
-	D45A9FsVrvPMQdmy7MvWtTm9ITo7+sReU/MlOtBTIahEhyxVLOfHEBW6
-X-Gm-Gg: AYBFou0hvr8dU8C7IKlE/jfjmRL35totHTk+eqMAxN7zbEU2JlpdR2wD1eiP2dPuAaB
-	63lcjKO48iYjoIH/r7c6txHZu3/qlcF1tYEwBC8xXJoNKEJdPEbxjv49q14Xq9lgbBu/y3Ql5iZ
-	cwlGZDtdDNyeteonG5pc3H9TOVQ1Xhz/judtYs4BjWc5ijlI1gxkWcKrYmt0KrT6z5Cp3cKHFFh
-	oSN0gx50ExfLfF2sWsS7fLKrRW/NNk+X0O2bniwSbib/Ahuz8YPifftK5HKJgxYvCmb8jTFBQwG
-	uMV5uZmB7jaHaFFrEdGZWjY1mk+wzdoaosDm4hYb2X2RlEA9kdDAsHFsSgnyqKr278ctyWJPYVO
-	yH6BF3mj4iS6+9Zjk49864F2WWJZkeZcYX88fvNXBoWLMLwzANcXzQcjVzg2jYjTDZ8zgHuuCrW
-	lQ6pWa880OLP9re5jFhPY8Gb4ERSXdL9e4DslPgWXPOvzn9yL5I633XDNNT/E+zil5tXK0uUBQ5
-	i13SA==
-X-Received: by 2002:a05:7300:7aa2:b0:351:a9b1:73c with SMTP id 5a478bee46e88-3537deccaffmr17164789eec.2.1791879238101;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WJdzVCQH4Qf/a3uv4uEeaxQnvMeNIwDQPXbAQYhpzDs=;
+        b=FEW4aSbJk8UjIZMBtEUcyOWx9JzIjgXncOVJwnEwjInuKGBULf6FB2VUFij2PLbHgv
+         sY/1PU9pE1A4/SPL1qPT0GIrEKPOi1Pz9OCqcaUDsn6cqmyUI3fpW8zCp55PcZbVUa6T
+         DwCZSYrNb1Nz5nV1gVtArVv9Wg+ytElTA9lkAa8MUZVW9i3ZePq2WF7rD4mmINY8M1bK
+         kmG/tBlboKaJIRDzaxDvAQ0rLAFv6llKHzpykhQ08WO7Txk1jv2MHXNJ6k61poxgf9h8
+         VKiIqLbdicJfi6JJmOHuDcg/Ihhf/X7FHLPK9I6VmZXKmfVBsUiCuvdrcpXyYtnEhWmN
+         vT+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxH2uoFWFz26NgLUtHGYdQqzp+vhVOHvGYtRK907wm7ZR2gRpJek2l6fqWYw7BG8XA/zbDMujo3+vdeMho=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZMz1hvnM5tFFpFIoeS/njD3IknxFPL+YqpX4kn8mnBORJx5Xf
+	TQ2H1JAvA6GCAQIhhpmuvh61IsHKlHC0SNtHWJv7tOVNWWfhoGD6tvIILy4gmXdYBD0UloyGSnz
+	9JD8ZkzG/4ceK9HOARftTXBMs+L/oGETyaw079T573+y2RsAjhCZcNfrC+K7QDZlabTU=
+X-Gm-Gg: AYBFou2QesiVJkE80NRZ29d7Oi4Xj2jdX4d/zRgJcofU9w6/I1sC7+W4A98CHsS6uze
+	yfJO7Gknvi0S7y0wAaOsafu0F43aNf+wLBYJPO1qjvrUo/L3A7HBrHjblDilDreMdAHrzcPBPBw
+	WVOVaqIsKpBfBCgneS5JJAxdaBIfFRe53KMSTs/dmz1ghIl7SyTXIIA3fnh+rErivm46o1Co6Xa
+	kwjdXpKx80E2tsZGwegSZF4lSGQdR5iVHZdVp1Hg4e4wciQuj0WxwKs9eNkEKwqMMUqTb2dsahJ
+	lSr6Ii7t5JZVMcwq9ZKwWioT93RoiZleoKn9Dj9DWpEGX8Ygx4fVjBGbqbvX73YDzjHqWfm5+QB
+	hkMzcTh3n3tYOqNC7l3cABw==
+X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr1998189985a.0.1791879238323;
         Tue, 13 Oct 2026 01:13:58 -0700 (PDT)
-Received: from [127.0.1.1] ([2a0f:3942:ce4a:aee2:c79c:f675:56b2:6833])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b53dsm38355874eec.6.2026.10.13.01.13.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr1998187985a.0.1791879237824;
         Tue, 13 Oct 2026 01:13:57 -0700 (PDT)
-From: vineash <vineash30640@gmail.com>
-To:
- peterz@infradead.org, mingo@redhat.com, acme@kernel.org, namhyung@kernel.org
-Cc: dapeng1.mi@linux.intel.com, kan.liang@linux.intel.com,
- mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org,
- irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org,
- x86@kernel.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] perf/x86: Don't WARN when the ext_regs_buf allocation fails
-Date: Tue, 13 Oct 2026 16:13:20 +0800
-Message-ID: <179187920064.3441876.15687522011658301558@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c34feaf0751sm197267466b.35.2026.10.13.01.13.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 01:13:56 -0700 (PDT)
+Message-ID: <cc9c2f25-aaaa-4113-83d8-4965822e4fce@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 10:13:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/2] arm64: dts: qcom: Add a minimal Xiaomi Warsaw
+ description
+To: Zhang Jiaxi <Z1529105815@outlook.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <SY5PR01MB10600FCBB6CF8F9233D1214BBA1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <SY5PR01MB10600FCBB6CF8F9233D1214BBA1932@SY5PR01MB10600.ausprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 0CIpiwJoRDrgCV0pnWuBQRMsEWz-Wb5q
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzMiBTYWx0ZWRfX0bETNecMNfss
+ 9A1LeNJO86L/Yj3WSY/L9KgFaS5YsbbouU/Eh7O+P9aP7oqqmSlQHbdI+hsyr+J7+oZ2E5F0cmh
+ +XlCtzSeJjy503axDYnTfvxaDk9N/24=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzMiBTYWx0ZWRfX6rjUtSGp3WOu
+ du8yTvcxLw1V0/fPJu90Z4ltUeZGmOix6oaZWlXRQzTfw3OaxbLkHOzq7QZDcynXa/db7LEPLFW
+ 6IZIIZjLJwN6jNbuL2Mt9OUyghDbTH57MpUu/a+Mj7suob63VWVDz58K6CaeDUqC5kbh+q5vlxd
+ QM+yKC8jIiMFD5rzmssVZfDuGvZNuOfs9q/lgc2Ct1bSRpZTfQOr35PVDmKOZvgfwC+WmjRk1xk
+ KfiW71dl8erUu5o2eMAaVmQsw55hlVTQoxMhARV6T7FZ5yZG53Idsi4hbbUplhTmtGEsxKUd+ci
+ xuPgIN5TQxnaC9cb+DdzvTRrvoPXGtqGId/MJAP0N4/eNtuWvt0UMIf+8wVMuUZKiLbRLe/n+Dp
+ zNshbTGNhJcWMbIUqg73HVhmz35AXUp+eygJSyY4cJAVcDJsJTJBtYPIOI41l6qiilm0rJB/CRu
+ xZAnH5cSJamwGiVvXHQ==
+X-Authority-Analysis: v=2.4 cv=GfKCDgXL c=1 sm=1 tr=0 ts=6acde846 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=cNoKYFeJyS4W4/1HdvzxLidmn8o=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=UqCG9HQmAAAA:8 a=39_P3G3aOQwE9Waq5pMA:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: 0CIpiwJoRDrgCV0pnWuBQRMsEWz-Wb5q
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 bulkscore=0 impostorscore=0
+ spamscore=0 adultscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130032
 
-reserve_ext_regs_buffers() wraps the per-CPU ext_regs_buf allocation in
-WARN_ON_ONCE(). The allocator already prints a warning with a stack dump
-when a GFP_KERNEL allocation fails, so the WARN only repeats it, which
-Documentation/process/coding-style.rst asks not to do. The failure is
-also handled: the buffers are freed again, the event is still created,
-and events that ask for SIMD or extended register sampling are rejected
-with -ENOMEM in x86_pmu_hw_config() and event_simd_regs_validate().
+On 10/9/26 12:34 AM, Zhang Jiaxi wrote:
+> From: Jiaxi Zhang <z1529105815@outlook.com>
+> 
+> Add the board identity, reference clocks, PM8550/PMK8550 devices and
+> keys used by the v165 board. Retain its inherited debug UART alias,
+> stdout selection and QUP wrapper enable. Keep peripheral bring-up
+> and the Android bootloader memory contract in separate drafts.
+> 
+> Describe the board from the SoC and PMIC includes, rather than
+> inheriting all peripherals of the SM8750 MTP board. Reference clocks
+> and key pin configuration are retained from the MTP description
+> included by the existing Warsaw BSP.
+> 
+> Signed-off-by: Jiaxi Zhang <z1529105815@outlook.com>
+> 
+> ---
+> This revised minimal board has not been boot-tested. 
 
-syzkaller hit this with fault injection on next-20261002. The trigger
-is a plain hardware cycles event opened while no other x86 PMU event
-exists, with the allocation failed:
+Please test it.
 
-  !per_cpu(ext_regs_buf, cpu)
-  WARNING: arch/x86/events/core.c:441 at reserve_ext_regs_buffers arch/x86/events/core.c:441 [inline]
-  WARNING: arch/x86/events/core.c:441 at x86_reserve_hardware+0x6ff/0x880 arch/x86/events/core.c:458
-  Call Trace:
-   __x86_pmu_event_init arch/x86/events/core.c:825 [inline]
-   x86_pmu_event_init+0x109/0xc50 arch/x86/events/core.c:3003
-   perf_try_init_event+0x140/0xbc0 kernel/events/core.c:13261
-   perf_init_event kernel/events/core.c:13365 [inline]
-   perf_event_alloc+0x2145/0x5680 kernel/events/core.c:13640
-   __do_sys_perf_event_open+0x669/0x2d40 kernel/events/core.c:14185
-   do_syscall_64+0x12c/0x7b0 arch/x86/entry/syscall_64.c:84
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Drop the WARN_ON_ONCE(). This matches reserve_ds_buffers() and
-reserve_lbr_buffers(), which also handle allocation failure without a
-warning.
-
-Fixes: b84c96283684 ("perf/x86: Enable XMM register sampling for non-PEBS events")
-Assisted-by: Claude:claude-opus-5-5 syzkaller
-Signed-off-by: vineash <vineash30640@gmail.com>
----
-Notes (not for the commit log):
-
-Found with syzkaller in a QEMU/KVM guest with "-cpu host" (Intel Xeon Gold
-5118 host).
-
-Tested on next-20261002 (x86_64, syzbot's upstream-apparmor-kasan config,
-gcc 12) with a small C reproducer: write failslab/ignore-gfp-wait=N, then
-open a user-only cycles event with /proc/thread-self/fail-nth set to 1..64.
-The third injected failure lands on the ext_regs_buf kzalloc_node().
-
-  before: 3/3 runs hit the WARNING above, at fail-nth=3
-  after:  3/3 runs without any WARNING; with failslab/verbose=2 the forced
-          failure is shown at reserve_ext_regs_buffers()
-          (arch/x86/events/core.c:439), and perf_event_open() returns a
-          valid fd, as before
-
-The WARN came up in the Sashiko review of v9 of the series. Dapeng
-preferred to keep the WARN_ON_ONCE() over propagating the error, since
-that would need a lot of fallback code:
-
-  https://lore.kernel.org/all/89f316ca-936b-4938-9421-2f96cfdc4837@linux.intel.com/
-
-This patch does not propagate the error either. It only drops the WARN,
-since the allocator already reports the failure.
-
-The patch only removes the WARN, so failure handling does not change:
-the event is still created, and events that need SIMD or extended
-register sampling get -ENOMEM until the last x86 PMU event is gone.
-x86_reserve_hardware() could return the error instead, but that would
-also make plain counting events fail, which seemed out of scope here.
-
-The reproducer is available on request.
-
- arch/x86/events/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-index 9b1a9032e..4df792b13 100644
---- a/arch/x86/events/core.c
-+++ b/arch/x86/events/core.c
-@@ -438,7 +438,7 @@ static void reserve_ext_regs_buffers(void)
- 	for_each_possible_cpu(cpu) {
- 		per_cpu(ext_regs_buf, cpu) = kzalloc_node(size, GFP_KERNEL,
- 							  cpu_to_node(cpu));
--		if (WARN_ON_ONCE(!per_cpu(ext_regs_buf, cpu)))
-+		if (!per_cpu(ext_regs_buf, cpu))
- 			goto err;
- 	}
- 
--- 
-2.25.1
-
+Konrad
