@@ -1,175 +1,393 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B9A5158BA
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:40:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902430; cv=none; b=sjrM4XllviaUSSMkHwSI8LFKIV4CtMvbCLVKBl9yG+XrATUouEVcHYf5DnKyAcp9RkcxAEbwldaJeAvyLJZyK6efDUs6ixKPG1oacGZSkn6pFi86xcrwcI3N4uYfvXFbrOlTUfYMGqdhdxMK4uBl8PG2cvKwuy2FQHuDOPzOmIY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902430; c=relaxed/simple;
-	bh=blN9ABMC02XSNQ5QGaDACQCA7ymayQdtQYeWAR1oV00=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pblv9uuCfvUM9epuJLa4tsS0SlgUWt4mPBaKbKCVlQNEJHoKs50pCl2uaHURfGOT72vbOE0i3rIZahEf2xNNuM9VQqqywu3TieKMr0rxbIu1x8ZgoiFwnNIoibEdD1PNeYaTKRtV1jDWMyQCW9ZgPngBz53yAolwuNre7h58kvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f0OA54wb; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF837515997
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:40:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791902437; cv=pass; b=YLTki/323C/ED4FPUKWpB3Js2LffqPoya1AXCkH4O9CDisxPGEJnsBhe4kjChg+5L5EJEDKSS+1C/CiyEVZjDAQdFNhDbobrPQ/SiBvqelPmJbKqWNMLHxlpXXMj9rjkb6IC6l8GBnhj7iWB0ShbHyB1B4mUqanRut+tPp6MgM0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791902437; c=relaxed/simple;
+	bh=vIyuNaXPf/fVqFdgVoqBwfybiukFL5Xa7TqVJcyhTKQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j4Bf+ek3Gw3uADKmz+vU/m1sAX1BjY4ccQ4zlWttWePYJa3JviBLQhWqVQqCde51q2Y8ap270ugeWf9pvxrnkJTA6EwwUqC7GmhlGyc+ZScpl92Aykj4ej7J+9YObiTyDdCtn04lkQ9U87ywlsWHLJlKlGrt97qluVqLeDA1pC0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R1fhVwD+; arc=pass smtp.client-ip=209.85.219.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f0OA54wb"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so24178095e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:40:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R1fhVwD+"
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-917a4b69a79so38541776d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:40:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791902435; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UZb21CC6RuL5IzZQc+LmwYhqqlXAElmCVi8rSmEiOEpH9rUsajBpmGZILopqGKwk/d
+         o6ZwHKMABOk7XQIIbAqw81nAjR7UkulDLVtzSRpH3KdqW6Vg7GE+ESukdtPXwKai2gdb
+         JlbRJtm7tq7xftliZgRDJn0qEJse+aPR2LVX1i+50fSW2/zKhFCNpIRyMOozAgpb0Dot
+         jfM6r73ABcprrTb+g1R2VLrgPBaIzSnQ1Y7Z1AphPxeQqwrxwZjEEtZmtAndRuCJFsjK
+         M+LCdVkgO+7iRFg4yBvl96x9Besu5Qs+bike0gC2SioFnwX37n8WosGbpCG8r+wZDCOz
+         k5OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ur+fFzVvYF32ak9xx0wg1tr3/ez5Zf6MlIl+DWpbg80=;
+        fh=qfM9DoqK6u3S5+DyeKXYke7fMDKq30Vw/9O//AK9DsE=;
+        b=sgIyffcP0CvKPcd7Gj3LMTTqGRbeMw17VpMfLPZbjYTH5+OpFTDctklVW2W+gRpjte
+         sSZt2SOukHq4qqMEs0rRHZITJLevSclauRy296x5EKMZaTqT/Bg8YNazkEyseUva5RJ7
+         sq/dx/zVg/7iy4SdlpVJNH3plL1xQVWAyGOo1qDzF6SjbBxBnxDT/0tD7O/bqeMfs+kW
+         R8cAICjDzpeo9Xlq2kr8oCn6Opp/fA6AKl8yFC0G7W0T+S/OFUMu6lkMr+dg3dGkA4aa
+         i3ckPv8acjzN31kADpja2UMnjKtLK7PWhHMoiyRkMFuATy32bE6FqWpIGduGqb4q/D7D
+         xO9A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791902427; x=1792507227; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wMllP9hBRztcOqtqSzVJ6pL2lFuGOqSiZoCqm6sWCA0=;
-        b=f0OA54wbWNLTBcKULszZ+PcMWAXy+zQ3cmSRibpCMI69mffkIfrkDn1ez5fOiY54n2
-         v6qGv3ET2cnS1QZQ99gU9yR2cQc5RQ6Pz2WjmmbOuGy8UAR3+aVQzpCXhdK9oUGifykz
-         TIaleniUUm1x3F2R75N6kac+3sh5tEKo+AXyTWpc51Nj0L0qox05PSzihPwhnejrqtlc
-         ZiShacR7LsHxQVNDLsQyCqzHFyw037WqQ8ciNo3TJS50ndCACdCAUn4TVHCiaLc8K0OV
-         Tbs0SvYinSdZwmZSW9pzgub58AIRb5RvWhPgEL3Mud6TfpYl+BBxdzI/BWW1dP+oLwIH
-         5dlQ==
+        d=gmail.com; s=20251104; t=1791902435; x=1792507235; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ur+fFzVvYF32ak9xx0wg1tr3/ez5Zf6MlIl+DWpbg80=;
+        b=R1fhVwD+nBftut0ooyBiU9QLzlQ7+UC70po/m7xipubAJ2Tn4tWJi9YL0rwcJHgQMn
+         +irR2ZpX6SGFfRdxoVER4cJDg0TOS2wOp/xBbVeIQu543d9zWsUoL0+6bzQ24VdlxG/S
+         HEWPKVB/LTzjTbanAtUuOgJDeWFKKpmsXXwcRm8nXeUBrE46jwhSGPISJJT51bFSiv9w
+         vVZR0Er3qvczaOdPKVVU3O6P4f0EtkzZFd4IsgFAgSHiA0noIG+AACwp2TWnsHntnGgc
+         bAQdI3HAUkhjtyGo19pzDTojH0mJH0yJu0zHqTDmCd7/ZR+7PK6nJ5f3M7IXFpsEeWVg
+         FtVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791902427; x=1792507227;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wMllP9hBRztcOqtqSzVJ6pL2lFuGOqSiZoCqm6sWCA0=;
-        b=vOT6C71CGdkhXP5HO4gYwl4VKTPZ8GE7jciD1ryF/NxsdO30BAQZUwdJSOKgJDrJk5
-         U+S7r8kT5HetgLpRmZmHC/FO/PRsa/Bd+Mj7YFmermCQqg4Pt6RgDp3WvaYjjXD9zw4F
-         elVE2LLkSfXiLoPy/0Bs2ctAKyGHChLMLbVcQyH21A50UC95F0Hr061HE5TOOZ29ncdm
-         Pv5/AEy8+J3vrGfbWQKjbHsLLFIUl8U27noSL+kHkNChRjATyUSw/2XZyBTBPPvcJro6
-         FwcKpOuF2rT/7YPZuvET/RD8tLyaH6PLc9CbENZCzTWB341tqmJ1IYBWFBLkyDfTR+vE
-         KImQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwVKDYD6/gRhPIZiFMf6EgLZcKnFRRaRRCJ8OAtZPCmOKCl9ctKFUmJ8BQIL0ecBN7PTV+T7oEfYe1Q6pY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGH9yMVwUnx5AHHBtrDCCY1ZNM+SKEnaj+jHHzuf3Czpn5Akma
-	fDFdOMLGZtrnbx/u0tAcNIaSA16ZYcfghdyFiTUwYhL4dJbvbYLMJXDD
-X-Gm-Gg: AYBFou2gKl14ZEoL4Kh0UycS1T+SkAcoVc5F8ffRNcuw8uCZw8de6CUBjxWYIQzLsVC
-	9gw2ApmyRqeUEyRrqkyIkDeJFSLZD4aom1SjiFvt+C3UetqM5PEH+suP0mEafaAfM7Jyl6HfzUt
-	/ESbx9ViONoSq+ehW8Ifd1k5oXYX3nuaMURGp50lQUfDZYfVR04MlBc9oJ3v2KtBwfyDlE8PaGf
-	oAKyr+HAcG1RzmKLYIgXcCcCUPZXVjfmqtxKcuj9sQWFOgZyB7xP/Q/GH91bkHsj5YzA02158g1
-	lY9W/FASmME1QtljJIQIhgFVdYyEJW/vRkb1J9uaRfnXNWhDOcLIYj8LWTQjaxukXE6iAoprGH0
-	v1nxwLcbHIGuQ2GbXM4PXY/C87GLyMB/eOMm3UlZ7cItobKFEJQittW191ZGTN5BDvSNryTdkeU
-	lAqb7nePrL6VBpyoStaqu8gUY5ENmUS0sGNBMNJQ/6YTuoZaL6IR3XhCJODG4Abw+XBSCrBWRoi
-	+XLu9SWxchKQJbO3D9volIxuTaTr18Q
-X-Received: by 2002:a05:600c:c3c1:10b0:4a1:ac66:5f93 with SMTP id 5b1f17b1804b1-4a1ac666305mr34581155e9.8.1791902426392;
-        Tue, 13 Oct 2026 07:40:26 -0700 (PDT)
-Received: from mm-ntb-00805 (ip-94-113-240-150.net.vodafone.cz. [94.113.240.150])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bb6b3cbsm294892585e9.0.2026.10.13.07.40.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:40:26 -0700 (PDT)
-From: Jan Remes <ciakval@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jan Remes <jan.remes@mycroftmind.com>
-Subject: [PATCH 4/4] iio: light: tsl2591: improve lux calculation precision
-Date: Tue, 13 Oct 2026 16:39:43 +0200
-Message-ID: <20261013143943.436816-5-ciakval@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013143943.436816-1-ciakval@gmail.com>
-References: <20261013143943.436816-1-ciakval@gmail.com>
+        d=1e100.net; s=20260707; t=1791902435; x=1792507235;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ur+fFzVvYF32ak9xx0wg1tr3/ez5Zf6MlIl+DWpbg80=;
+        b=ki8kD0LaUzWCUe4NwHGI75682GH0aejWY9p+v+zww3zR0657rx6ctFF6Wdk3CDnhKV
+         OnY7jO4MRM6THtzR+MHVLWxrhXZ3o1Se2aiXhdb7NmgFqJs8QxXfy5UqqCZG5MKZzLXK
+         IhYPsSSWWGsinlCOjv6z23AuzrDWiOCuZ7KF1eGNWhhCscx+dlKQodzcGizr8COt50WD
+         x6D2uQs+t6XrucE7hond0HhrY0BJyNM+CBIR9KrifCQ4/UqnI6G4vMqgwAwbW5W1vf8T
+         HLHn4SyTJcaX637+LyqOKVC+PvIHEB6Q9J6yqHoC1MC6CXALCGmK8mX04HLp2ffgbRDe
+         a3Dg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4upg1QUG6NxLq/Rjnqh35VvSdXgMRRTgzCpB93cfdz8d2s3l5YLDVLXy1ARdVWCT8QqAD6vIeQJVJRHY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbWRVWKZeixn1Witong4GaRSJUAg46ThwEyRth5tOiJsoXX4hW
+	FO9EHJDwVE+XhH4vqAxGbDZucQCyAEnEEHnXWZX2k8DD0la1BaXrcLXtPfDeorMv8NCV4zQJ9tP
+	EWXcR8ExFv9DZfvUS5QncKAblawpKmgo=
+X-Gm-Gg: AYBFou2n+9xhnxPzjPr1e6aeYT+3Z10O25nl2rSVsH95OMplxl73Agj8bfy0CQGQMfX
+	ih0MwUv4dmmdgLEfYmaiE88qjvngCEWNhZW43E9Syo2JbpSEbWh1mAMkTy3D1PnUIkAgfy46g88
+	W5Twf5uMiy15M3quQcwtrfzWSwkybtd1PxhMYopcUpetV/k9YZVhrHuzzFlKS4W7xbxbbnX//He
+	Fa/iutOqZPeJ7i7fpQ9nh+RIGhXvtblQCpg0mEkj8xpSNuU5YVDQ73u8x5IcjfRbpsrARUEWXuj
+	hCd2xlO0O9FsoxvZ7a19GGksDSVTuslHZvHkoiOyRc9G4ONxr+1VVFzyaddgMCzTw1Qa/3AMcWr
+	Q68RXui5EIv4Wq+6HSQpLnvh8kYlIDwFQn2Vxt1rJQ0x+3gK+9+ZGdWypKuNZGVQxQD6n
+X-Received: by 2002:a05:6214:401a:b0:914:7df6:ca52 with SMTP id
+ 6a1803df08f44-91b555788ffmr233587636d6.9.1791902434413; Tue, 13 Oct 2026
+ 07:40:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013125825.3080-1-efraimvander64@gmail.com>
+In-Reply-To: <20261013125825.3080-1-efraimvander64@gmail.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Tue, 13 Oct 2026 11:40:22 -0300
+X-Gm-Features: AclHuK8jJ9JCEsX4JMkok-vG9E5rUqlzPeYagnBj5-Emes070Nban37h84QOnpQ
+Message-ID: <CAMAsx6cNwhdZGWa87ZcXhcbKvT5bPu+_MEK11D0rfiEV1_9vkg@mail.gmail.com>
+Subject: Re: [PATCH] docs: translations: pt_BR: translate cpu-load.rst
+To: "Efraim E. Vander" <efraimvander64@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, "Efraim E . Vander" <fraimvander64@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jan Remes <jan.remes@mycroftmind.com>
+On Tue, Oct 13, 2026 at 09:59, Efraim E. Vander
+<efraimvander64@gmail.com> wrote:
+>
+> Translate cpu-load.rst into Brazilian Portuguese and
+> add it to the pt_BR admin-guide documentation index.
 
-The lux calculation computes the ratio CH1 / CH0 as a truncated integer
-(CH1 * 1000 / CH0) before using it. When CH1 is close to CH0, the
-truncation makes the result off by up to ~35%, e.g. CH0 = 56097,
-CH1 = 55973 at LOW gain and 100ms gives 1.517 lux instead of 1.118 lux.
+The patch doesn't change pt_BR/admin-guide/index.rst. To be added to
+the index, cpu-load should be moved from the "Todolist" to the toctree,
+next to README and devices.
 
-The formula (CH0 - CH1) * (1 - CH1 / CH0) / CPL is equal to
+> Assisted-by: LLM
+>
+> Signed-off-by: Efraim E. Vander <efraimvander64@gmail.com>
 
-   (CH0 - CH1)^2 * DF / (CH0 * ATIME_ms * AGAIN)
+Please keep both tags together, without a blank line between them.
 
-which needs no intermediate ratio. Compute it like that, with a single
-division at the end.
+> ---
+>  .../pt_BR/admin-guide/cpu-load.rst            | 126 +++++++++---------
+>  1 file changed, 65 insertions(+), 61 deletions(-)
+>
+> diff --git a/Documentation/translations/pt_BR/admin-guide/cpu-load.rst b/=
+Documentation/translations/pt_BR/admin-guide/cpu-load.rst
+> index 0c76acabe..f0bb48e82 100644
+> --- a/Documentation/translations/pt_BR/admin-guide/cpu-load.rst
+> +++ b/Documentation/translations/pt_BR/admin-guide/cpu-load.rst
 
-Also report the result in micro-lux instead of milli-lux. At MAX gain
-and 600ms one count is well below 1 mlx, so the milli-lux resolution
-throws away information. The numerator still fits into u64.
+This patch doesn't apply to docs-next. pt_BR/admin-guide/cpu-load.rst
+doesn't exist in the tree yet, but the patch modifies it instead of
+creating it. That's why it has removed lines: it seems it was generated
+from a second local commit on top of a first draft, so the "-" lines
+refer to text that only exists in your tree.
 
-Assisted-by: LLM
-Signed-off-by: Jan Remes <jan.remes@mycroftmind.com>
----
- drivers/iio/light/tsl2591.c | 27 ++++++++++++---------------
- 1 file changed, 12 insertions(+), 15 deletions(-)
+Please squash your commits (or generate the patch against docs-next),
+so that the file is created from scratch ("new file mode",
+"--- /dev/null", only "+" lines).
 
-diff --git a/drivers/iio/light/tsl2591.c b/drivers/iio/light/tsl2591.c
-index b780b236897c..82085bd06850 100644
---- a/drivers/iio/light/tsl2591.c
-+++ b/drivers/iio/light/tsl2591.c
-@@ -21,6 +21,7 @@
- #include <linux/mutex.h>
- #include <linux/pm_runtime.h>
- #include <linux/sysfs.h>
-+#include <linux/units.h>
- 
- #include <linux/unaligned.h>
- 
-@@ -362,12 +363,12 @@ static int tsl2591_wait_adc_complete(struct tsl2591_chip *chip)
-  * Counts Per Lux (CPL) = (ATIME_ms * AGAIN) / LUX DF
-  * lux = ((C0DATA - C1DATA) * (1 - (C1DATA / C0DATA))) / CPL
-  *
-- * Scale values to get more representative value of lux i.e.
-- * lux = ((C0DATA - C1DATA) * (1000 - ((C1DATA * 1000) / C0DATA))) / CPL
-+ * Since (C0DATA - C1DATA) * (1 - (C1DATA / C0DATA)) equals
-+ * (C0DATA - C1DATA)^2 / C0DATA, this is computed in micro-lux as
-+ * lux = ((C0DATA - C1DATA)^2 * LUX DF * 10^6) / (C0DATA * ATIME_ms * AGAIN)
-  *
-  * CPL is not computed on its own: at 1x gain it is below 1 for integration
-- * times under 500 ms, so the division by LUX DF is folded into the final
-- * division instead.
-+ * times under 500 ms, so all divisions are done at the end.
-  *
-  * Channel 0 = IR + Visible
-  * Channel 1 = IR only
-@@ -383,7 +384,7 @@ static int tsl2591_read_channel_data(struct iio_dev *indio_dev,
- 	int int_time_fval, gain_multi;
- 	u16 als_ch0, als_ch1, als_max;
- 	u64 lux;
--	u32 rem;
-+	u32 diff, rem;
- 	int ret;
- 
- 	ret = tsl2591_wait_adc_complete(chip);
-@@ -436,19 +437,15 @@ static int tsl2591_read_channel_data(struct iio_dev *indio_dev,
- 
- 		int_time_fval = TSL2591_FVAL_TO_MSEC(settings->als_int_time);
- 
--		/* Calculate lux value */
--		lux = (u64)(als_ch0 - als_ch1) *
--		      (1000 - ((als_ch1 * 1000) / als_ch0)) *
--		      TSL2591_LUX_COEFFICIENT;
--		lux = div_u64(lux, int_time_fval * gain_multi);
-+		/* Calculate lux value in micro-lux */
-+		diff = als_ch0 - als_ch1;
-+		lux = (u64)diff * diff * TSL2591_LUX_COEFFICIENT * MICRO;
-+		lux = div64_u64(lux, (u64)als_ch0 * int_time_fval * gain_multi);
- 
- 		dev_dbg(&client->dev, "Raw lux calculation: %llu\n", lux);
- 
--		/* Divide by 1000 to get real lux value before scaling */
--		*val = div_u64_rem(lux, 1000, &rem);
--
--		/* Get the decimal part of lux reading */
--		*val2 = rem * 1000;
-+		*val = div_u64_rem(lux, MICRO, &rem);
-+		*val2 = rem;
- 
- 		break;
- 	default:
--- 
-2.53.0
+> +O Linux exporta diversas informa=C3=A7=C3=B5es por meio de `/proc/stat` =
+e `/proc/uptime`, que ferramentas do espa=C3=A7o do usu=C3=A1rio (*userland=
+*), como `top(1)`, utilizam para calcular o tempo m=C3=A9dio que o sistema =
+passou em determinado estado, por exemplo::
 
+The original uses ``/proc/stat`` and ``/proc/uptime`` (double
+backquotes, rendered as literals). With single backquotes they become
+interpreted text and render differently. The same applies to the other
+occurrences in the file.
+
+Also, please wrap the lines as in the original document, instead of
+keeping each paragraph in a single line.
+
+> +=C3=89 poss=C3=ADvel imaginar muitas outras situa=C3=A7=C3=B5es em que e=
+sse comportamento do kernel pode gerar informa=C3=A7=C3=B5es bastante incon=
+sistentes em `/proc/stat`:
+>
+>
+> +    /* gcc -o hog smallhog.c */
+> +    #include <time.h>
+
+The original ends this sentence with "::", which starts the literal
+block. With a single ":", the program below is rendered as a block
+quote, not as code.
+
+Also, please keep the example program exactly as in the original
+(indented with tabs, same formatting). It is code, so it shouldn't be
+changed by the translation.
+
+Before sending a v2, please apply it with "git am" on top of docs-next
+and check the result with "make htmldocs".
+
+Thanks,
+Daniel
+
+Em ter., 13 de out. de 2026 =C3=A0s 09:59, Efraim E. Vander
+<efraimvander64@gmail.com> escreveu:
+>
+> Translate cpu-load.rst into Brazilian Portuguese and
+> add it to the pt_BR admin-guide documentation index.
+>
+> Assisted-by: LLM
+>
+> Signed-off-by: Efraim E. Vander <efraimvander64@gmail.com>
+> ---
+>  .../pt_BR/admin-guide/cpu-load.rst            | 126 +++++++++---------
+>  1 file changed, 65 insertions(+), 61 deletions(-)
+>
+> diff --git a/Documentation/translations/pt_BR/admin-guide/cpu-load.rst b/=
+Documentation/translations/pt_BR/admin-guide/cpu-load.rst
+> index 0c76acabe..f0bb48e82 100644
+> --- a/Documentation/translations/pt_BR/admin-guide/cpu-load.rst
+> +++ b/Documentation/translations/pt_BR/admin-guide/cpu-load.rst
+> @@ -1,27 +1,26 @@
+> -
+> -
+>  .. SPDX-License-Identifier: GPL-2.0
+>
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>  Carga da CPU
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> -O Linux exporta diversas informa=C3=A7=C3=B5es por meio de `/proc/stat` =
+e `/proc/uptime`, que ferramentas do espa=C3=A7o do usu=C3=A1rio (*userland=
+*), como `top(1)`, utilizam para calcular o tempo m=C3=A9dio que o sistema =
+passou em determinado estado. Por exemplo:
+> -
+>
+> -$ iostat
+> -Linux 2.6.18.3-exp (linmac)     02/20/2007
+> +O Linux exporta diversas informa=C3=A7=C3=B5es por meio de `/proc/stat` =
+e `/proc/uptime`, que ferramentas do espa=C3=A7o do usu=C3=A1rio (*userland=
+*), como `top(1)`, utilizam para calcular o tempo m=C3=A9dio que o sistema =
+passou em determinado estado, por exemplo::
+>
+> -avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+> -           10.01    0.00    2.92    5.44    0.00   81.63
+> +    $ iostat
+> +    Linux 2.6.18.3-exp (linmac)     02/20/2007
+>
+> +    avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+> +               10.01    0.00    2.92    5.44    0.00   81.63
+>
+> -Nesse caso, o sistema considera que, durante o per=C3=ADodo de amostrage=
+m padr=C3=A3o, passou 10,01% do tempo executando tarefas no espa=C3=A7o do =
+usu=C3=A1rio, 2,92% no kernel e permaneceu ocioso durante 81,63% do tempo t=
+otal.
+> +Nesse caso, o sistema considera que, durante o per=C3=ADodo de amostrage=
+m padr=C3=A3o, passou 10,01% do tempo executando tarefas no espa=C3=A7o do =
+usu=C3=A1rio, 2,92% no kernel e permaneceu ocioso durante 81,63% do tempo.
+>
+> -Na maioria dos casos, as informa=C3=A7=C3=B5es de `/proc/stat` refletem =
+a realidade com bastante precis=C3=A3o. No entanto, devido =C3=A0 natureza =
+da forma como e do momento em que o kernel coleta esses dados, =C3=A0s veze=
+s essas informa=C3=A7=C3=B5es n=C3=A3o s=C3=A3o confi=C3=A1veis.
+> +Na maioria dos casos, as informa=C3=A7=C3=B5es de `/proc/stat` refletem =
+a realidade com bastante precis=C3=A3o. No entanto, devido =C3=A0 natureza =
+da forma como e do momento em que os dados s=C3=A3o coletados, esses valore=
+s podem apresentar imprecis=C3=B5es.
+>
+>  Ent=C3=A3o, como essas informa=C3=A7=C3=B5es s=C3=A3o coletadas?
+> -Sempre que uma interrup=C3=A7=C3=A3o do temporizador (*timer interrupt*)=
+ =C3=A9 sinalizada, o kernel verifica que tipo de tarefa estava em execu=C3=
+=A7=C3=A3o naquele instante e incrementa o contador correspondente ao tipo =
+ou estado dessa tarefa.
+> -O problema =C3=A9 que o sistema pode ter alternado entre v=C3=A1rios est=
+ados diversas vezes entre duas interrup=C3=A7=C3=B5es do temporizador. Aind=
+a assim, o contador =C3=A9 incrementado apenas para o =C3=BAltimo estado ob=
+servado.
+> +
+> +Sempre que uma interrup=C3=A7=C3=A3o do temporizador (*timer interrupt*)=
+ =C3=A9 sinalizada, o kernel verifica que tipo de tarefa estava em execu=C3=
+=A7=C3=A3o naquele instante e incrementa o contador correspondente.
+> +
+> +O problema =C3=A9 que o sistema pode ter alternado entre v=C3=A1rios est=
+ados diversas vezes entre duas interrup=C3=A7=C3=B5es do temporizador. Aind=
+a assim, o contador =C3=A9 incrementado apenas uma vez, de acordo com o est=
+ado observado no instante da interrup=C3=A7=C3=A3o.
+>
+>  Exemplo
+>  -------
+> @@ -35,67 +34,72 @@ Imagine um sistema com uma =C3=BAnica tarefa que, per=
+iodicamente, consome ciclos de
+>      |_ algo come=C3=A7a a trabalhar             |_ algo entra em suspens=
+=C3=A3o
+>                                                (mas =C3=A9 despertado pou=
+co depois)
+>
+> -
+> -Na situa=C3=A7=C3=A3o acima, de acordo com `/proc/stat`, a carga do sist=
+ema ser=C3=A1 de 0%, pois a interrup=C3=A7=C3=A3o do temporizador sempre oc=
+orrer=C3=A1 quando o sistema estiver executando o tratador de ociosidade (*=
+idle handler*).
+> +Na situa=C3=A7=C3=A3o acima, de acordo com `/proc/stat`, a carga do sist=
+ema ser=C3=A1 de 0%, pois a interrup=C3=A7=C3=A3o do temporizador sempre oc=
+orrer=C3=A1 quando o sistema estiver executando a tarefa ociosa.
+>
+>  Na realidade, por=C3=A9m, a carga estar=C3=A1 mais pr=C3=B3xima de 99%.
+>
+>  =C3=89 poss=C3=ADvel imaginar muitas outras situa=C3=A7=C3=B5es em que e=
+sse comportamento do kernel pode gerar informa=C3=A7=C3=B5es bastante incon=
+sistentes em `/proc/stat`:
+>
+>
+> -        /* gcc -o hog smallhog.c */
+> -
+> -        #include <time.h>
+> -        #include <limits.h>
+> -        #include <signal.h>
+> -        #include <sys/time.h>
+> -        #define HIST 10
+>
+> -        static volatile sig_atomic_t stop;
+> +    /* gcc -o hog smallhog.c */
+> +    #include <time.h>
+> +    #include <limits.h>
+> +    #include <signal.h>
+> +    #include <sys/time.h>
+>
+> -        static void sighandler(int signr)
+> -        {
+> -                (void) signr;
+> -                stop =3D 1;
+> -        }
+> +    #define HIST 10
+>
+> -        static unsigned long hog (unsigned long niters)
+> -        {
+> -                stop =3D 0;
+> -                while (!stop && --niters);
+> -                return niters;
+> -        }
+> +    static volatile sig_atomic_t stop;
+>
+> -        int main (void)
+> -        {
+> -                int i;
+> -                struct itimerval it =3D {
+> -                        .it_interval =3D { .tv_sec =3D 0, .tv_usec =3D 1=
+ },
+> -                        .it_value    =3D { .tv_sec =3D 0, .tv_usec =3D 1=
+ } };
+> -                sigset_t set;
+> -                unsigned long v[HIST];
+> -                double tmp =3D 0.0;
+> -                unsigned long n;
+> -                signal(SIGALRM, &sighandler);
+> -                setitimer(ITIMER_REAL, &it, NULL);
+> -
+> -                hog (ULONG_MAX);
+> -                for (i =3D 0; i < HIST; ++i) v[i] =3D ULONG_MAX - hog(UL=
+ONG_MAX);
+> -                for (i =3D 0; i < HIST; ++i) tmp +=3D v[i];
+> -                tmp /=3D HIST;
+> -                n =3D tmp - (tmp / 3.0);
+> -
+> -                sigemptyset(&set);
+> -                sigaddset(&set, SIGALRM);
+> -
+> -                for (;;) {
+> -                        hog(n);
+> -                        sigwait(&set, &i);
+> -                }
+> -                return 0;
+> -        }
+> +    static void sighandler(int signr)
+> +    {
+> +        (void) signr;
+> +        stop =3D 1;
+> +    }
+>
+> +    static unsigned long hog(unsigned long niters)
+> +    {
+> +        stop =3D 0;
+> +        while (!stop && --niters);
+> +        return niters;
+> +    }
+> +
+> +    int main(void)
+> +    {
+> +        int i;
+> +        struct itimerval it =3D {
+> +            .it_interval =3D { .tv_sec =3D 0, .tv_usec =3D 1 },
+> +            .it_value    =3D { .tv_sec =3D 0, .tv_usec =3D 1 }
+> +        };
+> +        sigset_t set;
+> +        unsigned long v[HIST];
+> +        double tmp =3D 0.0;
+> +        unsigned long n;
+> +
+> +        signal(SIGALRM, &sighandler);
+> +        setitimer(ITIMER_REAL, &it, NULL);
+> +
+> +        hog(ULONG_MAX);
+> +        for (i =3D 0; i < HIST; ++i)
+> +            v[i] =3D ULONG_MAX - hog(ULONG_MAX);
+> +
+> +        for (i =3D 0; i < HIST; ++i)
+> +            tmp +=3D v[i];
+> +
+> +        tmp /=3D HIST;
+> +        n =3D tmp - (tmp / 3.0);
+> +
+> +        sigemptyset(&set);
+> +        sigaddset(&set, SIGALRM);
+> +
+> +        for (;;) {
+> +            hog(n);
+> +            sigwait(&set, &i);
+> +        }
+>
+> +        return 0;
+> +    }
+>
+>  Refer=C3=AAncias
+>  -----------
+> --
+> 2.43.0
+>
