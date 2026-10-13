@@ -1,121 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F9E5013A8;
-	Tue, 13 Oct 2026 15:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C763FC5C9;
+	Tue, 13 Oct 2026 15:04:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903834; cv=none; b=aYJSUo0YqkAjnl8zVpS3NehaFqSnkbaXdAP531afPZB1TlhjMhbUpFch/Hxdn4Pw3OyJ3x0Sc6CcXkI4VDc29tNaH8eAe1II4VOIVYDHDerplr3+5nJkaCc6DhAnsXpLLzuB68XCALwY1LvjLwH674VW4xL5PU1ysjcE7Ag26aM=
+	t=1791903859; cv=none; b=nHieATLD17Nf5jA/Ybosk4GRhfyMME/Sy0rMPlDZOLPr1OUW7LCBNaqdy599PkKdelcnRfpKhLOU4UUdDBeycaUA+Te7gfrgqiyQwG0sMvqmJMTn/7il9AQpaxaMFRUh4B3HLP0xYvWR4KvTHeOoUtnGUeweCAlgT6xGdSh27r0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903834; c=relaxed/simple;
-	bh=6wd92Cjt7lC7ps0qjtTrJPmKIiyBYGYR9rbSo2zIRmo=;
+	s=arc-20240116; t=1791903859; c=relaxed/simple;
+	bh=kDymqmxAAH42ZEweufWRXGmB6MZyyDmVU8VIN9YD6Rg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gwgHc6Z9pNLDtFbDnQWB54yuyzEaw7sSmJxChVK78Efs0IVeNgV/bgxauSGwVqz4vd7xFXXcbCHFlPK4bCZIvC5/mlLk4qlqZleXcrnFjVc9Eynnk8cvdf/7+jDjaYm+84j9adO8XOdZyBAKSmJR90qnWpVx4IuKi6efBHSTTBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3tbE05i; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WGwO1ABnPljqeHq2sMyxW/0FBwZBUqErIzszGIYGJbCDxmkWcom7mxzI91NAfPGed5kqZd3lg1ozU8OTgRHr7FkIQsfdYrrrX01w3R8Hz3oGfktrNj3gQEiurnY0XrfpzVCnojFxbpakjq7AOmcnuzr3eO/5f7OPR5ENF5iE9JI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gFOQZGc1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3tbE05i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5E11F000FF;
-	Tue, 13 Oct 2026 15:03:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gFOQZGc1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3C61F000FF;
+	Tue, 13 Oct 2026 15:04:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791903833;
-	bh=O462JKoBsK5kLKH34dERrDJEsMO/yC3R2yXeyHeFOP8=;
+	s=k20260515; t=1791903858;
+	bh=kDymqmxAAH42ZEweufWRXGmB6MZyyDmVU8VIN9YD6Rg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c3tbE05iKYpFIjUv3vFpzuL9h4/yEgBGEM5i1reN/FbqxAeXsuVwpeIOq4txsfuuK
-	 L/2Y/bu3EIyLMAxykkKLBWoKNiT8Bartce+GFzHMpAXu7G3/4KUrt9zQYPLH8oI1WD
-	 8D5gOuyyvRqhYouGpUemUyCzI7j1Owy1BHYPKwu+Lqygcime9usdgp5cWkdpLKQKSf
-	 kfEgUL6/Mp4KhvPeaY4KjgHuOEMmFT/KVTdqESyqF/hHQXkrCQIeeNiRNq/vnaD5tL
-	 5knxNXJcoIPv7KVhNVog/fqjxrmHuIyJ+6oYRwkOGz4ooeWxRUUr5fl2cJf2vEUfaK
-	 9pTunqG3q7whg==
-Date: Tue, 13 Oct 2026 16:03:47 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Stian Halseth <stian@itx.no>, 
-	Andrew Morton <akpm@linux-foundation.org>, Suren Baghdasaryan <surenb@google.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Andreas Larsson <andreas@gaisler.com>, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fs/proc/task_mmu: fix lost maps entries above 2^63
-Message-ID: <as5E25F4xjHwYSGQ@gremlin>
-References: <20261011162019.922436-1-stian@itx.no>
- <e300f046-dcae-4539-bf89-92eb8c575e25@kernel.org>
+	b=gFOQZGc1V0q1jefvSHkzLlVsZitmQoms061zc4KYp63POaa3IJwCcn0A9i3Um0eIO
+	 0zfkGrR3Spi4MaTqpwuXVn+TFsfN2Xig9yeVUJ1Vz+FJ0kqJtpEfm6xcPD1vZIN3yG
+	 XkadqnYu8AlKEw8q4VY61vUhNTjufDyp4nZ3xtFGSuoEC71A9gl2Dw0wZIQ2Cp05oR
+	 2kKBk3EaFMCEJAeP8fbwGR97EoKGuxMOaJ9YE4AJUkA3ceThMBe6k+xhiSuM8d1uPn
+	 ZyKHxBvquzqs8oKq/ZqIZkXtN6Sc71nTo8D2y/mxwkaksJpZNs2Rb1ALWsDyOX5WQi
+	 MbT3gmXayF3uQ==
+Date: Tue, 13 Oct 2026 16:04:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Federico Vaga <federico.vaga@vaga.pv.it>,
+	Daniel Pereira <danielmaraboo@gmail.com>,
+	Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Jeff Layton <jlayton@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Christoph Hellwig <hch@infradead.org>, Jens Axboe <axboe@kernel.dk>,
+	Brian Foster <bfoster@redhat.com>, Carlos Maiolino <cem@kernel.org>,
+	David Disseldorp <ddiss@suse.de>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Justin Stitt <justinstitt@google.com>, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] docs: remove Assisted-by references
+Message-ID: <0bd14255-173c-4052-993c-328a399f6c3d@sirena.org.uk>
+References: <20261013121501.3738437-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5Xqy1SIZHaPjc1N1"
+Content-Disposition: inline
+In-Reply-To: <20261013121501.3738437-1-sashal@kernel.org>
+X-Cookie: Some equipment shown is optional.
+
+
+--5Xqy1SIZHaPjc1N1
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e300f046-dcae-4539-bf89-92eb8c575e25@kernel.org>
 
-On Tue, Oct 13, 2026 at 04:40:43PM +0200, David Hildenbrand (Arm) wrote:
-> On 10/11/26 18:20, Stian Halseth wrote:
-> > When a read of /proc/pid/{maps,smaps,numa_maps} resumes, m_start()
-> > rewinds *ppos to priv->last_pos so that the vma which did not fit into
-> > the previous buffer is shown again. It only does so for last_addr > 0,
-> > meaning to exclude the start of the file and SENTINEL_VMA_GATE, but
-> > last_addr is a signed loff_t holding a vm_end. sparc64 maps shared
-> > libraries, anonymous memory and the stack above 0x8000000000000000, so
-> > the rewind does not happen there and one entry is lost at every read()
-> > boundary.
-> >
-> > Reading the maps file of a process with read sizes from 64 to 8192
-> > bytes in steps of 64 loses lines at 126 of the 128 sizes, smaps at 123
-> > and numa_maps at 97, and the proc-maps-race selftest fails 4 of its 6
-> > tests. Python's sys.remote_exec() reads maps with fgets() and fails
-> > intermittently when it misses the libpython data mapping.
-> >
-> > Test for the two values that are not a vma end instead.
-> >
-> > Fixes: 5631da56c9a87 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-> > Closes: https://github.com/sparclinux/issues/issues/111
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Stian Halseth <stian@itx.no>
-> > ---
-> >
-> > Notes:
-> >     Tested on a SPARC T7-1 (sun4v, 7.3-rc5), a T4-1 (7.2.9) and a Sun Fire
-> >     V240 (sun4u, 7.3-rc5): no lost lines at any read size afterwards, and
-> >     Python's sys.remote_exec() test passes 20/20. On an amd64 KVM guest maps,
-> >     smaps, numa_maps and the proc selftests are unchanged.
-> >
-> >  fs/proc/task_mmu.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> > index 5c54aebe21182..cdce513edcb1d 100644
-> > --- a/fs/proc/task_mmu.c
-> > +++ b/fs/proc/task_mmu.c
-> > @@ -339,7 +339,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
-> >  	 * Reset current position if last_addr was set before
-> >  	 * and it's not a sentinel.
+On Tue, Oct 13, 2026 at 08:15:01AM -0400, Sasha Levin wrote:
+> Commit 78d979db6cef ("docs: add AI Coding Assistants documentation") asked
+> contributors to add an Assisted-by tag to patches developed with help from an
+> LLM, and commit 816d9992d9ed ("coding-assistants: simplify attribution") later
+> reduced the tag to "Assisted-by: LLM".
 
-It's interesting that this comment differs from the actual code :)
+Acked-by: Mark Brown <broonie@kernel.org>
 
-> >  	 */
-> > -	if (last_addr > 0)
-> > +	if (last_addr && last_addr != SENTINEL_VMA_GATE)
-> >  		*ppos = last_addr = priv->last_pos;
-> >  	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
-> >  	hold_task_mempolicy(priv);
->
-> I hope Suren can review as well.
+--5Xqy1SIZHaPjc1N1
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Yes Suren should take a look.
+-----BEGIN PGP SIGNATURE-----
 
->
-> Would it be cleaner to reject any special values, that is, SENTINEL_VMA_END and
-> SENTINEL_VMA_GATE?
->
-> That would match the comment and the previous code idea: exclude only 0 and
-> sentinels.
->
-> Could consider a simple addr_is_sentinel() helper.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOSGgACgkQJNaLcl1U
+h9CalQf7B6Kmz4Y6qCsjLl+8BkY19GF+gzvM/EZxk9oUrZ3lesBs3f4DKiNMdLl7
+I9xWeli/gaMHIzHpCrmh8B2QHvjsB3kP+GTyxixMWT4BIbt3NwDLw8VY3v7MW46W
+x6AL5hg3/lnmEd8l8UOpt024pfr8xo9UV+89fANDitNfqkc3B/najgVRQ+H5s1OQ
+pz6OElIDSNNp7anqsBQEEHJjmShzuI7B9YgqcPTUKPTvtPfkSbbKDTiHQ8Z5ZvOy
+HhYPPcXnZ8rzyxO2zMpjVmrVNViK++UnB+8zmAOtGryooC+vahWdTz1WwBsKEbo5
+ysLHwjhLwlQcKOFet0PUYNGhx++yfQ==
+=Xv25
+-----END PGP SIGNATURE-----
 
-Yeah that seems sensible.
-
-I guess Stian should respin with something like that?
-
---
-Cheers, Lorenzo
+--5Xqy1SIZHaPjc1N1--
