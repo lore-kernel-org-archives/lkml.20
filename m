@@ -1,185 +1,190 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A544626CE2C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED6E348453
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875756; cv=none; b=OcCvRiij92OveaR+LH5NrPqIFjTg24j+mW7RaSidwKRE8dAkkVUbfol8HQFMbdBJIWa1OMk+uKMc2YjVNU9RFTvEGtV3n9bSfkqIE5FOJWXlyLYHcZyWWfP4r9XpXqfttG2OinGgYfLP0vIS9MYdtulW9TDoizqrbizt0VYLkRg=
+	t=1791875784; cv=none; b=gm9oFy9USsJVD35eiwTYQzIXA3+l9v1poqAIAuaA2RhbQ9Lr/Q3S7vFtO/MiDUvP9JIzr+D4FfFSgX3EzjsZu+1aVltk1SaCP2JKf0CfmN7KnwdlQ4Ie9INswdGXCsPOaMGre2w5+FeWN59yefM3OSjwDXNH3/GEsc+g/qtYUKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875756; c=relaxed/simple;
-	bh=L4FLZ5chqT8+tAXrT8MgCJFwGMuDBbUdjlAqAI1q+cU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M/K844viq282lz6DzTB/GRFO8MvAwz5BFMPBIMiLc0vCFQ7YFaLhJy9aTM584jq9W/jh5Oa32X/+AY6xSNe4p2/8finYnrVgro7sUkMKiei4VlU6O0kDQnHQKJNiScaF/XzZuXLUUTfbUeQBOTxnW+I2dMFHEkQZR7SG0kgQ1ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tGgUV+Lm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=s2QFJeAc; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=QwYmIcNC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=z03WxFNC; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791875784; c=relaxed/simple;
+	bh=BjllpH7CylU0dPW7AL5duhTnu8amrkppktT7UN2ZuFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mItvheb2n5TRK6dx+rNabOGjvnS37w1XU3TvDAZ+ufdgLhx1COkijnG5uF0C/tpwCxaLundFj0DFoK+Wpdn2LAOi1BJrA23q1wFM8aVAHV2dfQb7ike25wKAcd07E42py8ie8wkkLpPKB0JM7e6CnkI06EPUegQl+PvUpFjtHuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=californiaopensource.com; spf=pass smtp.mailfrom=californiaopensource.com; dkim=pass (2048-bit key) header.d=californiaopensource.com header.i=@californiaopensource.com header.b=ChmmKHyo; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=californiaopensource.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=californiaopensource.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tGgUV+Lm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s2QFJeAc";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QwYmIcNC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z03WxFNC"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A54F01F43B;
-	Tue, 13 Oct 2026 07:15:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791875752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SjVfiQP7AeHd0++T5S99eU8Nj5puoVDS7wlkNXdkKP4=;
-	b=tGgUV+LmqA/1tFWJataIQA0n+MRpTGj6V5TVnOMJ7I7+DqF/mZRH/AYe6O+euzo3Ie9XGS
-	W5PupmwLQAJwjG6YYNXWuLrLbQmDjWp86MymIuJvzxV3Ag9H9ZAlD7uT7sTVK4dDLHZlxX
-	43DYKNzfYwCoSKppKBmHiZ735P6MTEw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791875752;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SjVfiQP7AeHd0++T5S99eU8Nj5puoVDS7wlkNXdkKP4=;
-	b=s2QFJeAcWWBVhLKJcVqHHO5uR6vc85W88SpcVzv0lhoyPrSrvMvsR9yPe0/i21/qhG4pFa
-	SIwNTelHGEjT0nCw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QwYmIcNC;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=z03WxFNC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791875750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SjVfiQP7AeHd0++T5S99eU8Nj5puoVDS7wlkNXdkKP4=;
-	b=QwYmIcNCrRntS8ZzFT1/xOLBE6ED9WamNCyRrGEdPcY33lYxtS2avvRzj8Aul7GPGK6FID
-	2+wXBUPGOul/fHhAjR8te464Mpa58Xt3nPnmWDtRxU6O/22C/AyV6NYwycBXcp+ZGa4kcw
-	v9gHzSVO6WX0mhg5L2MfTvwvAQzqtbU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791875750;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SjVfiQP7AeHd0++T5S99eU8Nj5puoVDS7wlkNXdkKP4=;
-	b=z03WxFNCBGSoMVBpmWGylOgMGSsxfQXE8by+zjdVac7oUYn5kMzycPORWdMJJ1iH8FHQb/
-	YsemZEUanv6Gk0Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 403421349D;
-	Tue, 13 Oct 2026 07:15:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zpiHMKXazWpNUwAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 13 Oct 2026 07:15:50 +0000
-Message-ID: <b2a6b9f6-53a8-4250-aae6-a0837f0f598d@suse.de>
-Date: Tue, 13 Oct 2026 09:15:33 +0200
+	dkim=pass (2048-bit key) header.d=californiaopensource.com header.i=@californiaopensource.com header.b="ChmmKHyo"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33c2520ad38so6094919eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:16:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=californiaopensource.com; s=google; t=1791875782; x=1792480582; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bSyra3bHkuqWz+L9mTLMsQhLfl/JDwdmDNSp2PenKng=;
+        b=ChmmKHyoFVFvb8+3tfaxCipgmyxXZsKVTfepsJHinKAk7lKr6Rdkb9JdKBYSYXXFo5
+         68Qv+Q4FSiVSg/vstUfB5OucGdLWD8rFSH1/IvGCqJWJOnF+hP7taH0tuAPQA313rnVK
+         tnItZDMrv9aUchdd9Ib3XKXBG/gSRScEZV7uDacsbKG5kLrAjiqGObU9M3eBrBulpymM
+         sHINbGic7h6xXHSUZNzpJ5Aw0I77TtSMIg+w7nabXwr+ASPeOWrvetC5htfbkD9dexmi
+         YQt/OnACUZd9YilKq296keBVMFkVVB462pV0p+6fqHkhWtm3Lp82SLlWUqBqGuaE9FRV
+         MZJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791875782; x=1792480582;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bSyra3bHkuqWz+L9mTLMsQhLfl/JDwdmDNSp2PenKng=;
+        b=Ghlu18X1CZXWMyKLBvhwImgoVKSapUZ2nrTpmKUbRp1XYHon1xbuGWbm7ztZXN0RVv
+         PdxB11QD8Fnglo1lyQSGxFfKEu64ADqByytE5upcME9kiEfeo5P/NH5t+zXAFvf3Atc8
+         pKb1JoGQOSTjQzQk4ZmE+3ZYrWpTDyG3xOp+og/sqFwDBwK3jYDM7KRfKqL+PW/Q3vtz
+         NEOeV00F7e3mbzFMX6BqE9oTjwhT60VNk2Ngj/YrUDY+4lLOkmAru/dH+4sU6gYDui5F
+         jNMY+75QYMwu2dcCwsto0kXAmHfg0u6fQSWR2JeMudYnhxNdXTJv1zmVbiqWkTo/OZpz
+         Ew3g==
+X-Forwarded-Encrypted: i=1; AKwUvBxx/aSe1mKsZPyghNoDI9YksDCFAe0Z0frX83qlERrVdVgUUlzljLvuzdKWL8zLWaN0Uk3ccDXO3RNLvUE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLruVz9Y3Z7N3p5vJyCkHt8ld+aXZCBLhpVaFxHYJFCtSYnSDUu
+	0+kZyv4ff0bAVSUouuWXFwaYOtCg9aVCWAkRAlFYIt9/kjRPBSqQ/7XnlpK0HFEXLmz0EsPlaNh
+	Nk9JPBUOhcg==
+X-Gm-Gg: AYBFou0eUtRekB4mutZ9mtWzwKg5uNpxvEbGj/oVCyPRc+U54OfogggitG6yT1PCGdK
+	XJhmOw8m6lwmeBqbGqUnGZWGsH2W4/IQ0fsCC76RfFnVNFWDyGOTO9BYC3x9/CWLW/OvC3mXntZ
+	RAFBhMkYSVCl6HosL56npfp6DiC7OP4txEyE7Dpw9tigB6tkH8gHIaInFOUSPbQxLZmmSEtexux
+	cEbCcFG85T8I2CCeYVUjZnThxK8wXKnkLKTRtwvheynd8JQtMhf4aqnq9S5gMoy0i/wriLlMRDJ
+	T85rjet34hCLDa/QjZIXpgQqimlS4iOE2m8uH+DZLROPH8o08OzznPJePvDOAujwnMW0uQAtmd3
+	eWMh/cB253232sVbPhWf09g/HllFE8/N5nVX03pUeoSz+bLZP96MEbwu7eAI5Ah3BDfOQ9k2/qj
+	8aLgT/EGREeVXQSZN4eKoWTtkopM6NmWE9356Yta9/A7RL4gvEQ/vq6HOWdht966Qety78Rjp0U
+	ykfuaknUy8L6NcQEzQ3l2/0nOxNe2cuul/LzwykhNW7LaWVQ+OvfegjCv19S044o69YvRTM1S4k
+	vmCLtALFjSBPIUGy+Q8I0e0/lDxFmZ1SWgIXosBx
+X-Received: by 2002:a05:693c:4196:20b0:35b:af:a075 with SMTP id 5a478bee46e88-35b00afb749mr6677708eec.22.1791875781388;
+        Tue, 13 Oct 2026 00:16:21 -0700 (PDT)
+Received: from localhost.localdomain ([147.185.47.151])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm39699307eec.28.2026.10.13.00.16.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 13 Oct 2026 00:16:20 -0700 (PDT)
+From: Kevin Dewald <kevin@californiaopensource.com>
+X-Google-Original-From: Kevin Dewald <kdewald@itba.edu.ar>
+To: linux-bluetooth@vger.kernel.org
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Kevin Dewald <kevin@simpleble.org>
+Subject: [PATCH] Bluetooth: hci_event: Fix LE link drop on remote features command status
+Date: Tue, 13 Oct 2026 00:16:15 -0700
+Message-ID: <20261013071615.76382-1-kdewald@itba.edu.ar>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dm zoned: back off when reclaim finds no destination
- zone
-To: illofspeed <volvo.mail@gmail.com>, dm-devel@lists.linux.dev
-Cc: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com,
- bmarzins@redhat.com, dlemoal@kernel.org, linux-kernel@vger.kernel.org
-References: <20261010105122.398-1-volvo.mail@gmail.com>
- <20261010105122.398-2-volvo.mail@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261010105122.398-2-volvo.mail@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spam-Score: -3.00
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.00 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com,lists.linux.dev];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: A54F01F43B
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On 10/10/26 12:51 PM, illofspeed wrote:
-> When dmz_do_reclaim() fails with -ENOSPC because no free zone is
-> available to copy the data into, dmz_reclaim_work() still ends with
-> dmz_schedule_reclaim(). If the target is idle, dmz_should_reclaim()
-> keeps returning true, the work is queued again with no delay and the
-> worker spins on the same failing pass.
-> 
-> Re-arm the idle poll instead, so that reclaim is retried after
-> DMZ_IDLE_PERIOD. The next patch makes -ENOSPC the expected result when
-> an idle target has random zones but no free sequential zone.
-> 
-> Tested on a 7.2.6 kernel as an out-of-tree dm-zoned module, together
-> with the next two patches, on emulated host-managed drives (tcmu-runner
-> ZBC handler) and on three 27 TB host-managed drives used as md RAID5
-> members.
-> 
-> Assisted-by: LLM
-> Signed-off-by: illofspeed <volvo.mail@gmail.com>
-> ---
->   drivers/md/dm-zoned-reclaim.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-> index c041413c729..315f0da99f3 100644
-> --- a/drivers/md/dm-zoned-reclaim.c
-> +++ b/drivers/md/dm-zoned-reclaim.c
-> @@ -540,6 +540,14 @@ static void dmz_reclaim_work(struct work_struct *work)
->   	if (ret && ret != -EINTR) {
->   		if (!dmz_check_dev(zmd))
->   			return;
-> +		if (ret == -ENOSPC) {
-> +			/*
-> +			 * No zone to copy into: nothing can progress now.
-> +			 * Rescheduling immediately would spin; poll instead.
-> +			 */
-> +			mod_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
-> +			return;
-> +		}
->   	}
->   
->   	dmz_schedule_reclaim(zrc);
+From: Kevin Dewald <kevin@simpleble.org>
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+When the local controller supports peripheral-initiated features
+exchange, the LE Read Remote Features procedure also runs for incoming
+connections, and it fails with Unsupported Remote Feature (0x1a) if the
+central does not support that feature. hci_le_remote_feat_complete_evt()
+and hci_le_read_all_remote_features_evt() handle this and let the
+connection transition into connected state.
 
-Cheers,
+A controller can also return that error in the Command Status event
+instead. An Intel controller does so for a central that does not
+support peripheral-initiated features exchange, presumably because it
+already has the features of the central. hci_cs_le_read_remote_features()
+and hci_cs_le_read_all_remote_features() then confirm the connection as
+failed while it is still in BT_CONFIG, and the hci_conn_drop() in
+le_read_features_complete() disconnects it right away:
 
-Hannes
+  > HCI Event: LE Meta Event (0x3e) plen 31
+      LE Enhanced Connection Complete (0x0a)
+        Status: Success (0x00)
+        Role: Peripheral (0x01)
+  < HCI Command: LE Read Remote Used Features (0x08|0x0016) plen 2
+  > HCI Event: Command Status (0x0f) plen 4
+      LE Read Remote Used Features (0x08|0x0016) ncmd 1
+        Status: Unsupported Remote Feature / Unsupported LMP Feature (0x1a)
+  < HCI Command: Disconnect (0x01|0x0006) plen 3
+        Reason: Remote User Terminated Connection (0x13)
+
+Data the central sends afterwards is reported as:
+
+  Bluetooth: hci0: ACL packet for unknown connection handle 3585
+
+Handle Unsupported Remote Feature in the command status the same way as
+in the complete events.
+
+Fixes: 0fe29fd1cd77 ("Bluetooth: Read LE remote features during connection establishment")
+Fixes: a106e50be74b ("Bluetooth: HCI: Add support for LL Extended Feature Set")
+Assisted-by: Claude:claude-opus-5.5
+Signed-off-by: Kevin Dewald <kevin@simpleble.org>
+---
+Reproduced in test-runner on bluetooth-next with l2cap-tester, the
+emulator answering LE Read Remote Features and LE Read All Remote
+Features from the peripheral with Unsupported Remote Feature in the
+Command Status: "L2CAP LE Server - Success" and "L2CAP LE Server - SCI
+Default Mode" fail 5 out of 5 times without this patch, the link being
+dropped as above, and pass 5 out of 5 times with it. With the error in
+the complete events instead, they pass with and without the patch.
+
+The emulator change and a tester case can be sent as well if wanted.
+
+Not tested yet on the Intel controller the drop was seen with.
+
+ net/bluetooth/hci_event.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
+
+diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
+index c055d16cf..cad6ed5d8 100644
+--- a/net/bluetooth/hci_event.c
++++ b/net/bluetooth/hci_event.c
+@@ -3015,8 +3015,25 @@ static void hci_cs_le_read_remote_features(struct hci_dev *hdev, u8 status)
+ 	hci_dev_lock(hdev);
+ 
+ 	conn = hci_conn_hash_lookup_handle(hdev, __le16_to_cpu(cp->handle));
+-	if (conn && conn->state == BT_CONFIG)
++	if (conn && conn->state == BT_CONFIG) {
++		/* If the local controller supports peripheral-initiated
++		 * features exchange, but the remote controller does not,
++		 * then the controller may already return the error code
++		 * 0x1a for unsupported remote feature in the command
++		 * status.
++		 *
++		 * Handle it as hci_le_remote_feat_complete_evt() does and
++		 * allow the connection to transition into connected state.
++		 */
++		if (!conn->out &&
++		    status == HCI_ERROR_UNSUPPORTED_REMOTE_FEATURE &&
++		    (hdev->le_features[0] & HCI_LE_PERIPHERAL_FEATURES)) {
++			conn->state = BT_CONNECTED;
++			status = 0x00;
++		}
++
+ 		hci_connect_cfm(conn, status);
++	}
+ 
+ 	hci_dev_unlock(hdev);
+ }
+@@ -4113,8 +4130,17 @@ static void hci_cs_le_read_all_remote_features(struct hci_dev *hdev, u8 status)
+ 	hci_dev_lock(hdev);
+ 
+ 	conn = hci_conn_hash_lookup_handle(hdev, __le16_to_cpu(cp->handle));
+-	if (conn && conn->state == BT_CONFIG)
++	if (conn && conn->state == BT_CONFIG) {
++		/* See hci_cs_le_read_remote_features() */
++		if (!conn->out &&
++		    status == HCI_ERROR_UNSUPPORTED_REMOTE_FEATURE &&
++		    (hdev->le_features[0] & HCI_LE_PERIPHERAL_FEATURES)) {
++			conn->state = BT_CONNECTED;
++			status = 0x00;
++		}
++
+ 		hci_connect_cfm(conn, status);
++	}
+ 
+ 	hci_dev_unlock(hdev);
+ }
+
+base-commit: 964430c038967fd06643e866f68115664e1a1bd1
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+2.53.0
+
