@@ -1,182 +1,150 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C3C1A7264;
-	Tue, 13 Oct 2026 13:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56FA217F27;
+	Tue, 13 Oct 2026 13:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897064; cv=none; b=Joi73GFNBMgVx7NVcUXxN3g8GbqgcPD4sd8dmB0nHEdcF8XQfEzreMmdPsN10q0/gFXWpl4rWIF93DRNe3nSyv/VmhQTw9UDe/jn6xEB6Iu9B2gOmqLNdGKX2zs6SY8/oeEmUt5m+eqYrR1FpoqcXArKVf+fzJHAkRirY+9aAic=
+	t=1791897073; cv=none; b=rf1gbqb+/91rKxxO9jbv5TffXwDP1j2Pf5x+8j2j2PC9ets2JYMysx6bDCLFH6UwPkEsgjz8OqxLpY32i0Uvhx+zGZokaKrPMggyge7cpWYcZwDTdJm5qjZtTxqp4GLbwxIt7qZl3lB0FkqA81u8gIKaPcNP1wB6fY0QPp+5PNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897064; c=relaxed/simple;
-	bh=Ur/g/teufR3/Mt8OOOf3yUeB+T34vUXjDKjhhXwPFls=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EjytXTmKkW/I67HHcPOkM1TQe4Y/RYWUUY1Rnqw0NBvJ9aozSJmwVswQ39NE+QAjb1G2eXbytCTTfOAjqIpSlBKl3nW5nRi9NawSGSmqTAUdmcSvYhF+UscdHX+shJSigAJvlSmsl2801DbDtQYyw76cVcwKQnDCJgRP5BRiFZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EafDCwry; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791897073; c=relaxed/simple;
+	bh=sc4YgeHLA3DSN0LORoNUIYzR5PrIZ1JxYbTYLLbLY8I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C21rxLSYlHGone0yltqw25vD8naseItQaPxN2EaYeKijRrTLjqVdgRPhZHBDHGJFvcCnAE+EQYGDoI3LVSiHWFjVjxxYe1WvB09xu/Ubp9u6OnStOLhgk13rr6YaaWw1GiknRK4pXzFsG1j3XdFyzFRv+jRpVYlYmPhvLJtEBY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tbgO+uEG; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EafDCwry"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791897064; x=1823433064;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Ur/g/teufR3/Mt8OOOf3yUeB+T34vUXjDKjhhXwPFls=;
-  b=EafDCwryCwQyazWUW/I8yIaLKWcLDm4+8IDVocPGt5OWNbMxpMtPg1jt
-   5J0tCKXkyq/wux2fH+VdwId2r01qv7SCDt9FMpvVudwWzswnk/nUVYEsb
-   uAZRlk1SVeEjDAcINuH6wKskjPUKiMMONYQgzV8J6975tdVdmkCh7scmQ
-   TGxuiFlpM5RqSUEsSM8P5ZGNEPS/f2vWmXXJ0pi9AUwBnbjpeIMK2z+4G
-   AAvrxbYFgYZTRrePlPgWqsZWQJSRPMlv93rdV5jtYYWAyDDzBHbxlQI9q
-   Dzpc4OzXHZTe5cVcdlFzZszOTRZompf1vGzm93v22FLJRk5W+U001st78
-   Q==;
-X-CSE-ConnectionGUID: ddsBIKhpR+KnqVVXV7BA2w==
-X-CSE-MsgGUID: J01R5obwQk+U5nwdT7r4eA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="630383"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="630383"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:11:03 -0700
-X-CSE-ConnectionGUID: n6UnDdtnRSWYPBOA7IkJug==
-X-CSE-MsgGUID: ohrzBwgAQ6u6M8xKydlE7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="3006272"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:10:59 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Nikolas Joshua Britton <nbritton@exabit.io>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
-	linux-kernel@vger.kernel.org
-Cc: Bradley Morgan <brads@mainlining.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v3 5/8] linux/log2.h: Add 64-bit roundup/down_pow_of_two64() variants
-Date: Tue, 13 Oct 2026 16:09:39 +0300
-Message-ID: <20261013130948.6231-6-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261013130948.6231-1-ilpo.jarvinen@linux.intel.com>
-References: <20261013130948.6231-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tbgO+uEG"
+Received: from killaraus.ideasonboard.com (unknown [185.104.138.147])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3E802230;
+	Tue, 13 Oct 2026 15:09:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791896948;
+	bh=sc4YgeHLA3DSN0LORoNUIYzR5PrIZ1JxYbTYLLbLY8I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tbgO+uEG8y0ny0gtFl+V+3tblulwRVEr8RGfKQivrxbFjRMmZSbZGUC11rdQQ1kQG
+	 HYV4ChIztG4CjjJzUlI2bCiGy0Xsf+yPAxJleg8SQH2eyXNhD6aEmuqQ6xVnQYDSD7
+	 P9IuOk1kH/t1OThTxPUoHh/lBvH6xPGADjnYG9i8=
+Date: Tue, 13 Oct 2026 15:10:56 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Jori Koolstra <jkoolstra@xs4all.nl>
+Cc: Kees Cook <kees@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
+	skhan@linuxfoundation.org, federico.vaga@vaga.pv.it,
+	apw@canonical.com, joe@perches.com, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: remove Assisted-by reference
+Message-ID: <20261013131056.GI4214@killaraus.ideasonboard.com>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <202610122124.08E058768D@keescook>
+ <ea3ff257-70e2-43e4-aba7-140e84994872@infradead.org>
+ <202610130120.E43D236E@keescook>
+ <as4gLo_6acb_zZu0@daedalus>
+ <20261013125559.GG4214@killaraus.ideasonboard.com>
+ <158571150.788122.1791896588591@kpc.webmail.kpnmail.nl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <158571150.788122.1791896588591@kpc.webmail.kpnmail.nl>
 
-Generic sounding roundup_pow_of_two() and rounddown_pow_of_two() are
-internally based on fls() that limits types to unsigned long. The type
-limitation is unexpected and undocumented.
+On Tue, Oct 13, 2026 at 03:03:08PM +0200, Jori Koolstra wrote:
+> > Op 13-10-2026 14:55 CEST schreef Laurent Pinchart:
+> > On Tue, Oct 13, 2026 at 02:28:43PM +0200, Jori Koolstra wrote:
+> > > On Tue, Oct 13, 2026 at 01:25:59AM -0700, Kees Cook wrote:
+> > > > On Mon, Oct 12, 2026 at 10:56:59PM -0700, Randy Dunlap wrote:
+> > > > > On 10/12/26 9:24 PM, Kees Cook wrote:
+> > > > > > On Fri, Oct 09, 2026 at 04:31:37AM -0400, Sasha Levin wrote:
+> > > > > >> The Maintainers Summit reached consensus to deprecate the Assisted-by
+> > > > > >> tag. Remove the documentation requiring it.
+> > > > > >>
+> > > > > >> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > > > > > 
+> > > > > > Yup, it has become as redundant as specifying what editor I use. ;)
+> > > > > > 
+> > > > > > Reviewed-by: Kees Cook <kees@kernel.org>
+> > > > > 
+> > > > > and for those of us who don't know details about the discussion,
+> > > > > how is it redundant?
+> > > > 
+> > > > No, I mean I use an LLM constantly for almost all aspects of my
+> > > > development work, in multiple dimensions, so if the old tag requirement
+> > > > held, my email body template would just put "Assisted-by: LLM" in there
+> > > > because at the very least, it drove the build and test stage. It was
+> > > > redundant in the sense of "yeah, of course I used an LLM at some point
+> > > > for this patch". ("This tag means nothing *from* me")
+> > > > 
+> > > > > Do you assume that everyone now uses it (LLM), just as everyone
+> > > > > uses an editor?
+> > > > 
+> > > > I don't make that assumption, but I always held the position that the
+> > > > tag was meaningless because it's the human wielding it that matters:
+> > > > they either sent a good patch or a bad patch, and if it was mangled by
+> > > > gmail or an LLM, it doesn't really matter. ("This tag means nothing *to*
+> > > > me")
+> > > 
+> > > I think the tag did have a genuine purpose for a while. Now we have just
+> > > decided to implicitly attach it to every new submitter (because
+> > > basically that is the case.) The point was that a patch that was
+> > > obviously LLM generated could be rejected for not carrying the tag, and
+> > > a patch that carried the tag could be asked to explain further (if they
+> > > had not done so.) Or at least, that is how I felt and have understood
+> > > Greg, for instance :)
+> > > 
+> > > Essentially, the way I read it, is that Linus said we don't need this
+> > > roundabout way because we can just reject effortless LLM generated
+> > > patches outright. This is good and an improvement.
+> > 
+> > The absence of the tag on a suspicious series offered a low-effort way
+> > for maintainers to push back. What's the proposed low-effort replacement
+> > ?
+> 
+> To ignore it, really. Even less effort :)
 
-Worse yet, the typing seems also inconsistent between
-__builtin_constant_p() and __roundup/down_pow_of_two() branches, the
-former using full 64-bit size and the latter truncating type.
+Are you saying that we should ignore series when we have even a slight
+suspicion they're not perfect ? If not, I don't understand what you're
+proposing exactly.
 
-The most sensible way seems to be eventually changing types such that
-the return type for roundup/down_pow_of_two() is same as input but it
-requires auditing all the existing callers that have mixed input/output
-types.
+> > > What do you think about requiring people to explain how they used an LLM
+> > > for code generation? I don't care if someone uses it for review, or
+> > > brainstorming, or whatever, and I have never understood the tag to be
+> > > required for that. But if the code is LLM generated, it would be nice to
+> > > know for instance what prompts you used. We should have some way to not
+> > > devolve into the maze that Jonathan Corbet has sketched, where no one
+> > > really knows what's going on.
+> > 
+> > Listing the prompts seems fairly useless to me. Not only do prompts
+> > capture only a small submit of the information you would want (many
+> > people use custom agent files with lots of rules that supplement the
+> > prompts), they don't show that the submitter understands what they're
+> > doing.
+> 
+> I'm not sure. Maybe requiring prompts is not the best way to go about it,
+> it may be a lot of annoyance to go back through your conversations and
+> see what prompts were relevant. I do think the prompts still likely show
+> whether you understood what you're doing, assuming they were authentic.
+> 
+> > Mesa has a policy that LLM-generated code *must* have a human-written
+> > commit message. They go one step further by requiring all comments in
+> > the code to also be human-written. That seems a better (but possibly not
+> > good enough) way to try and gauge the level of understand from the
+> > submitter.
+> 
+> Yes, requiring human written commit message sounds like a good idea. Only
+> leaves the issue of people using LLMs for translate. But I think we could
+> find a way around that.
 
-As a stop gap solution, add roundup/down_pow_of_two64() that do not
-unexpectedly truncate 64-bit input.
+Automatic translations are fine. They may alter meanings slightly, but
+overall the result should be very close to the original message. Unless
+I'm mistaken Mesa allows computer translations of comments and commit
+messages.
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
- include/linux/log2.h | 52 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
-
-diff --git a/include/linux/log2.h b/include/linux/log2.h
-index e17ceb32e0c9..a5c8416d0382 100644
---- a/include/linux/log2.h
-+++ b/include/linux/log2.h
-@@ -57,6 +57,16 @@ unsigned long __roundup_pow_of_two(unsigned long n)
- 	return 1UL << fls_long(n - 1);
- }
- 
-+/**
-+ * __roundup_pow_of_two64() - round up to nearest power of two
-+ * @n: value to round up
-+ */
-+static inline __attribute__((const))
-+u64 __roundup_pow_of_two64(u64 n)
-+{
-+	return 1UL << fls64(n - 1);
-+}
-+
- /**
-  * __rounddown_pow_of_two() - round down to nearest power of two
-  * @n: value to round down
-@@ -67,6 +77,16 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
- 	return 1UL << (fls_long(n) - 1);
- }
- 
-+/**
-+ * __rounddown_pow_of_two64() - round down to nearest power of two
-+ * @n: value to round down
-+ */
-+static inline __attribute__((const))
-+u64 __rounddown_pow_of_two64(u64 n)
-+{
-+	return 1UL << (fls64(n) - 1);
-+}
-+
- /**
-  * const_ilog2 - log base 2 of 32-bit or a 64-bit constant unsigned value
-  * @n: parameter
-@@ -163,6 +183,23 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
- 	__ilog2_u64(n)			\
-  )
- 
-+/**
-+ * roundup_pow_of_two64 - round the given value up to nearest power of two
-+ * @n: parameter
-+ *
-+ * round the given value up to the nearest power of two
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
-+ */
-+#define roundup_pow_of_two64(n)			\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		((n) == 1) ? 1 :		\
-+		(1UL << (ilog2((n) - 1) + 1))	\
-+				   ) :		\
-+	__roundup_pow_of_two64(n)		\
-+ )
-+
- /**
-  * roundup_pow_of_two - round the given value up to nearest power of two
-  * @n: parameter
-@@ -180,6 +217,21 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
- 	__roundup_pow_of_two(n)			\
-  )
- 
-+/**
-+ * rounddown_pow_of_two64 - round the given value down to nearest power of two
-+ * @n: parameter
-+ *
-+ * round the given value down to the nearest power of two
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
-+ */
-+#define rounddown_pow_of_two64(n)		\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		(1UL << ilog2(n))) :		\
-+	__rounddown_pow_of_two64(n)		\
-+ )
-+
- /**
-  * rounddown_pow_of_two - round the given value down to nearest power of two
-  * @n: parameter
 -- 
-2.47.3
+Regards,
 
+Laurent Pinchart
