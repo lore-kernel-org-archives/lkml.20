@@ -1,90 +1,262 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C4D3CF21E;
-	Tue, 13 Oct 2026 09:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780A637204C;
+	Tue, 13 Oct 2026 09:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882724; cv=none; b=bdwKI5IlkdjCsLFJxFOloczABOFtgWq/Mm0ZM5NCCd4K7w7nGGmRJhwyiP9aAA60vvvHC0eDcWE+aickc/gWKjFxza1fJBTH9apoAoPuysdQKsSPbCC4MvD1lYAvraU+R43ia+Tgaxgxlz/3ioL0tMmUEsVJGhmsHDMK6BjKM8w=
+	t=1791882766; cv=none; b=cbANHDa0Q3rm1QliiXOcOFm1/BkL+39xxi/I3j37xZb9vp9oQLlKc4/F9vlgQkfL5wWwcvFWYmCOpTp+GKHRlClj5LwI7I6gjzRPTNnf4aJl9xU2i6ccekAMO6CcKu35F8q7/mAmgjvplAE8Bg4xj+G+w9Dp6cXjbSPzPM/ymuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882724; c=relaxed/simple;
-	bh=FoXXCh3Ly68j7HlWZIqI8eY6/xQ/lJuU86V5bU3LoiM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KZGMtVKN4g5mcT6/Lp0tUBkPOuAlWu42uG4KvlASdK31is8dvparqdOdq6oM9HxgEiYbMxPz0jNYvKpEephYkGUkBZJ21qLtQh9m3bRFpZe6FwXOccVlGGsWoG/1mlxf50nPFEAM6wus6/ONfd72ch9NkYkiybj4nLyRkEzxXHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=dfoF+48a; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1791882766; c=relaxed/simple;
+	bh=vcAw9LPXbM1sxjIcgSAmR3C/L+FmQxHP1d18TfreOpE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nSfirx14mCNIfgLZREa3P1ijJGpPBJ1P3d/OW+BmmBPQUMRYyBnjII3piQA8XbVeHNsYAeF5AVDNbMAg0XLGVpOgCV3IO64gbqheozdQhVPFxQhnvUoHferO5NQ07s3z/hJw4PxkK3n4Bj6wUnvPFESVfMZH2QxrNbo9mIR3AUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dXaJSWOA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="dfoF+48a"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=zs3ej6PfR6qiUCZQ3kfH9WcDU/sY4iZRDWHRn8Kxmyg=; b=dfoF+48aWvT3iTt1F6ZbR3CNbN
-	CRhLtl8H3Qie3dEOUShw9uFc7/Z2ZOLj687i+CPRdR4qsZIcjPsFeO2JInpx1YHcQgbDayqSnaGEn
-	YwmNEhfth1HAqEjwG/+NwIaQmSPrUY8veNqAqjgAcg8fhjpTkKaaTjoPBi/5aFle02fg4BfP0Wa8T
-	NGDtIn6j7Ou9mmGsXVsDS2QYw2NaAQSxHHB7ApkxB8Lj+RhggXQu5+kJtdVhxTBIz748TVzatQOlg
-	PztWYUVnXNXQZs3McQIkfPSXVNI7hJkD0UWaUO6gyH1/H8Z68mSFwJg0RHlKasA5c1WC58i7CMWLU
-	XUJDJ4oQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xGYYC-0000000CRoQ-1EBm;
-	Tue, 13 Oct 2026 09:12:00 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id D83E330015F; Tue, 13 Oct 2026 11:11:59 +0200 (CEST)
-Date: Tue, 13 Oct 2026 11:11:59 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 3/3] objtool: Skip jump table jumps in the kCFI indirect
- call check
-Message-ID: <20261013091159.GM4121620@noisy.programming.kicks-ass.net>
-References: <20261012090424.i.497-kees@kernel.org>
- <20261012090436.1676525-3-kees@kernel.org>
- <20261012092250.GO4121339@noisy.programming.kicks-ass.net>
- <20261012183925.ca026d-kees@kernel.org>
- <20261013064405.GY2009045@noisy.programming.kicks-ass.net>
- <202610130126.E24D003C0@keescook>
- <20261013090613.GE2009045@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dXaJSWOA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF8B01F000FF;
+	Tue, 13 Oct 2026 09:12:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791882765;
+	bh=EGLEfHwo8x2M8s3uTlKccA1Du6eJEDVg68n2HeSJb5k=;
+	h=From:To:Cc:Subject:Date;
+	b=dXaJSWOA2ggiM+wBdbDABTUwh91IQOm+rgr+ArvOokS3spVz7vdkUOmNPBQIGFhRF
+	 zG6bzqYlOxzuTkNYysJ4EbGVkG/tJEHg3xv00EItCjO2fVQWO/hc85vossgyImXZU6
+	 1mnxm84f2z/ZFb0M4fYvmXoTt74mlhZByrDJs+itZsXh3gn/jIiL7kISj8PDonHB6A
+	 41OW/yUi/o12Kepieu/zxGOUkWkW5WxPh/8Inuqk9GnTPmgban0j1jM9McLKgVyDx+
+	 z7Gpg/Dqx/n5l/91+48ErS2I5EHe4KA7CNqJKi2yrT8BGM9Ldc0KbWnCkeb6hr0XYD
+	 5qWp9bRYHpfvw==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Vicki Pfau <vi@endrift.com>,
+	Jiri Kosina <jkosina@suse.com>
+Subject: [STABLE v6.18 1/4] HID: steam: Fully unregister controller when hidraw is opened
+Date: Tue, 13 Oct 2026 09:11:32 +0000
+Message-ID: <20261013091138.526840-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013090613.GE2009045@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 11:06:14AM +0200, Peter Zijlstra wrote:
-> On Tue, Oct 13, 2026 at 01:37:03AM -0700, Kees Cook wrote:
-> > On Tue, Oct 13, 2026 at 08:44:05AM +0200, Peter Zijlstra wrote:
-> > > On Mon, Oct 12, 2026 at 11:41:03AM -0700, Kees Cook wrote:
-> > > > Clang never has this jump: with retpolines, LLVM's IndirectBrExpand pass
-> > > > turns the label addresses into indexes and the "goto *" into a switch,
-> > > > which Clang's -fno-jump-tables then makes a compare tree. So it's only
-> > > > constructed this way under GCC, but since now we can turn on kCFI with
-> > > > GCC, the objtool warning about indirects without kcfi protection trips.
-> > > 
-> > > OK, then the next question; do we *want* to allow a 'naked' indirect
-> > > branch to survive?
-> > 
-> > I originally struggled about this. I'd really rather that GCC not codgen
-> > like this at all. On the other hand, it's a bounded load and jump through
-> > an .rodata table, so that's kind of a manual CFI. :P (And if it gets
-> > targeted via ROP, it doesn't matter: everything is a target then.)
-> 
-> With IBT enabled, I would image GCC will also spray ENDBR around like
-> there is no tomorrow :/
+From: Vicki Pfau <vi@endrift.com>
 
-And that would in turn cause more problems for FineIBT evasion, since
-that more or less depends on ENDBR being followed by the hash check.
+[ Upstream commit cd33a91d37eb4d7c6ce56aa7f4688066309808eb ]
 
-With FRED we got rid of the 'naked' ENDBR instances on entry, but now we
-get them here :-(
+To avoid conflicts between anything touching the hidraw and the driver we
+had previously detached the evdev nodes when the hidraw is opened. However,
+this isn't sufficient to avoid FEATURE reports from conflicting, so we
+change to fully unregistering the controller internally, leaving only the
+hidraw active until it's closed.
+
+This also unifies the unregister and connect callbacks, as now the logic
+between these two callbacks is identical.
+
+Signed-off-by: Vicki Pfau <vi@endrift.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+[Lee: Omit coalesce_rumble_work cancellation as 1d4549fd1115 ("HID:
+      steam: Coalesce rumble packets") is not present]
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/hid/hid-steam.c | 73 +++++++++++++++--------------------------
+ 1 file changed, 27 insertions(+), 46 deletions(-)
+
+diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
+index 80d2eabc930e..090179fd6935 100644
+--- a/drivers/hid/hid-steam.c
++++ b/drivers/hid/hid-steam.c
+@@ -346,7 +346,6 @@ struct steam_device {
+ 	u16 rumble_right;
+ 	unsigned int sensor_timestamp_us;
+ 	unsigned int sensor_update_rate_us;
+-	struct work_struct unregister_work;
+ };
+ 
+ static int steam_recv_report(struct steam_device *steam,
+@@ -823,6 +822,7 @@ static int steam_battery_register(struct steam_device *steam)
+ 			&steam->battery_desc, &battery_cfg);
+ 	if (IS_ERR(battery)) {
+ 		ret = PTR_ERR(battery);
++		devm_kfree(&steam->hdev->dev, steam->battery_desc.name);
+ 		hid_err(steam->hdev,
+ 				"%s:power_supply_register failed with error %d\n",
+ 				__func__, ret);
+@@ -1082,6 +1082,7 @@ static void steam_battery_unregister(struct steam_device *steam)
+ 	RCU_INIT_POINTER(steam->battery, NULL);
+ 	synchronize_rcu();
+ 	power_supply_unregister(battery);
++	devm_kfree(&steam->hdev->dev, steam->battery_desc.name);
+ }
+ 
+ static int steam_register(struct steam_device *steam)
+@@ -1089,6 +1090,7 @@ static int steam_register(struct steam_device *steam)
+ 	int ret;
+ 	unsigned long client_opened;
+ 	unsigned long flags;
++	bool do_add;
+ 
+ 	/*
+ 	 * This function can be called several times in a row with the
+@@ -1118,10 +1120,7 @@ static int steam_register(struct steam_device *steam)
+ 		if (steam->quirks & STEAM_QUIRK_WIRELESS)
+ 			steam_battery_register(steam);
+ 
+-		mutex_lock(&steam_devices_lock);
+-		if (list_empty(&steam->list))
+-			list_add(&steam->list, &steam_devices);
+-		mutex_unlock(&steam_devices_lock);
++		do_add = true;
+ 	}
+ 
+ 	spin_lock_irqsave(&steam->lock, flags);
+@@ -1137,6 +1136,13 @@ static int steam_register(struct steam_device *steam)
+ 		if (ret != 0)
+ 			goto steam_register_sensors_fail;
+ 	}
++
++	if (do_add) {
++		mutex_lock(&steam_devices_lock);
++		if (list_empty(&steam->list))
++			list_add(&steam->list, &steam_devices);
++		mutex_unlock(&steam_devices_lock);
++	}
+ 	return 0;
+ 
+ steam_register_sensors_fail:
+@@ -1147,38 +1153,41 @@ static int steam_register(struct steam_device *steam)
+ 
+ static void steam_unregister(struct steam_device *steam)
+ {
++	if (!steam->serial_no[0])
++		return;
++
++	hid_info(steam->hdev, "Steam Controller '%s' disconnected",
++			steam->serial_no);
+ 	steam_battery_unregister(steam);
+ 	steam_sensors_unregister(steam);
+ 	steam_input_unregister(steam);
+-	if (steam->serial_no[0]) {
+-		hid_info(steam->hdev, "Steam Controller '%s' disconnected",
+-				steam->serial_no);
+-		mutex_lock(&steam_devices_lock);
+-		list_del_init(&steam->list);
+-		mutex_unlock(&steam_devices_lock);
+-		steam->serial_no[0] = 0;
+-	}
++	mutex_lock(&steam_devices_lock);
++	list_del_init(&steam->list);
++	mutex_unlock(&steam_devices_lock);
++	steam->serial_no[0] = 0;
+ }
+ 
+ static void steam_work_connect_cb(struct work_struct *work)
+ {
+ 	struct steam_device *steam = container_of(work, struct steam_device,
+ 							work_connect);
++
+ 	unsigned long flags;
+ 	bool connected;
++	bool opened;
+ 	int ret;
+ 
+ 	spin_lock_irqsave(&steam->lock, flags);
++	opened = steam->client_opened;
+ 	connected = steam->connected;
+ 	spin_unlock_irqrestore(&steam->lock, flags);
+ 
+-	if (connected) {
++	if (connected && !opened) {
+ 		ret = steam_register(steam);
+-		if (ret) {
++		if (ret)
+ 			hid_err(steam->hdev,
+ 				"%s:steam_register failed with error %d\n",
+ 				__func__, ret);
+-		}
+ 	} else {
+ 		steam_unregister(steam);
+ 	}
+@@ -1213,31 +1222,6 @@ static void steam_mode_switch_cb(struct work_struct *work)
+ 	}
+ }
+ 
+-static void steam_work_unregister_cb(struct work_struct *work)
+-{
+-	struct steam_device *steam = container_of(work, struct steam_device,
+-							unregister_work);
+-	unsigned long flags;
+-	bool connected;
+-	bool opened;
+-
+-	spin_lock_irqsave(&steam->lock, flags);
+-	opened = steam->client_opened;
+-	connected = steam->connected;
+-	spin_unlock_irqrestore(&steam->lock, flags);
+-
+-	if (connected) {
+-		if (opened) {
+-			steam_sensors_unregister(steam);
+-			steam_input_unregister(steam);
+-		} else {
+-			steam_set_lizard_mode(steam, lizard_mode);
+-			steam_input_register(steam);
+-			steam_sensors_register(steam);
+-		}
+-	}
+-}
+-
+ static bool steam_is_valve_interface(struct hid_device *hdev)
+ {
+ 	struct hid_report_enum *rep_enum;
+@@ -1283,7 +1267,7 @@ static int steam_client_ll_open(struct hid_device *hdev)
+ 	steam->client_opened++;
+ 	spin_unlock_irqrestore(&steam->lock, flags);
+ 
+-	schedule_work(&steam->unregister_work);
++	schedule_work(&steam->work_connect);
+ 
+ 	return 0;
+ }
+@@ -1298,7 +1282,7 @@ static void steam_client_ll_close(struct hid_device *hdev)
+ 	steam->client_opened--;
+ 	spin_unlock_irqrestore(&steam->lock, flags);
+ 
+-	schedule_work(&steam->unregister_work);
++	schedule_work(&steam->work_connect);
+ }
+ 
+ static int steam_client_ll_raw_request(struct hid_device *hdev,
+@@ -1394,7 +1378,6 @@ static int steam_probe(struct hid_device *hdev,
+ 		steam->sensor_update_rate_us = 4000;
+ 	else
+ 		steam->sensor_update_rate_us = 9000;
+-	INIT_WORK(&steam->unregister_work, steam_work_unregister_cb);
+ 
+ 	/*
+ 	 * With the real steam controller interface, do not connect hidraw.
+@@ -1455,7 +1438,6 @@ static int steam_probe(struct hid_device *hdev,
+ 	cancel_work_sync(&steam->work_connect);
+ 	cancel_delayed_work_sync(&steam->mode_switch);
+ 	cancel_work_sync(&steam->rumble_work);
+-	cancel_work_sync(&steam->unregister_work);
+ 
+ 	return ret;
+ }
+@@ -1473,7 +1455,6 @@ static void steam_remove(struct hid_device *hdev)
+ 	cancel_delayed_work_sync(&steam->mode_switch);
+ 	cancel_work_sync(&steam->work_connect);
+ 	cancel_work_sync(&steam->rumble_work);
+-	cancel_work_sync(&steam->unregister_work);
+ 	steam->client_hdev = NULL;
+ 	steam->client_opened = 0;
+ 	if (steam->quirks & STEAM_QUIRK_WIRELESS) {
+-- 
+2.56.0.385.gd3acb90ef8-goog
+
