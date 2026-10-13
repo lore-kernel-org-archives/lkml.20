@@ -1,87 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53F63793A5;
-	Tue, 13 Oct 2026 02:28:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC610381EBD
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791858516; cv=none; b=ArzxPu4MxkFUQHZsz50dJoQe0S+VbxT6vEKmBoqC1lKTojcyiRiOlAmUywmKUWJajz5xxYCoOJz3d5EWerm7xL+3cUAsfE4ko5msZ/mJpBslwF4/a6HZP2gTFggFr7j6IMf3986G13iv9WSvlEh2c8xQRmJkdNwPoWBb4zHh3Zs=
+	t=1791858592; cv=none; b=dgTa8hl1Yhx6MwSvd/dIGjVp9VcW6opE8PVKGgNG5vkcPR2rY+HCfNqHFuOs3SaG5jAeUbnsY0C3FwMqi9Ynx0vJkT27isHvFL3tJK75s1QDT8r3aD2PEc2wEfbQeS52tlCjv1pMZyzSOe2le+80p2G5vfPMK4OUJa5mYVFPz/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791858516; c=relaxed/simple;
-	bh=rwKVQ6y4LbgKk3QBLlGci2dXE5ZnYmIy+GJ/6wAxFNg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Zv34npK3JBBbKmcvj2fVtcHf9ZETsgG/LAglSfpQ4kfYVtKrd8y3/GClbu6xpVz284Y4HT71fazvMFdleQJngOrC+10wpz8gXEWzZS8QScLYql0dvdA20t7HNtvx4IxULIIWGcYhglhuCHbBF8l3nlOmiXtbOCMBOd+Mn7Pk0TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=vpmcDywG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791858592; c=relaxed/simple;
+	bh=i6TQZ4m9lz/Je3kUM1sbKNIbTsrPwfkMcWQizHsEuFA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=eL20pnZnwC5kg9HCXfieKZklVC/XOOqgF9SHCxDVHFOhXXSHlDssOfjsggNQvarWw+dRn5pvaj3Ao1jp34KFGMvcfj/l1z2y1npbtmJxgxoRgu/2o2GfkDxZxOuaCmnBa83QV+ml8zY7wmOM0Er1gMgSf9GA6xInsScq1NaPmWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hUeLtLAr; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vpmcDywG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11621F000FF;
-	Tue, 13 Oct 2026 02:28:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791858515;
-	bh=jKylga81/fMMmRtBFAQ1W3QCN8phgvUppb+ffP3/CaI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=vpmcDywGR/O5t9GrEkNC7RsvhGFadRRn0/HR5Y4LXy2Oli02WCbqfwLqIHjmDRqLN
-	 ozTD6JRQymveRi7jcSxPFOT/Lv1n2pVbfJ1bgCai5zrluhRhkjnVzyK2ux61pxrbUS
-	 eNMy3agw/9ZuOjgougzj4G1533G7Ky7wTZit7HI0=
-Date: Mon, 12 Oct 2026 19:28:34 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, Johannes Weiner
- <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Harry Yoo
- <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan Jackman
- <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt
- <shakeel.butt@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-Id: <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
-In-Reply-To: <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
-References: <20261009125503.126202-1-kas@kernel.org>
-	<15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hUeLtLAr"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=i6TQZ4m9lz/Je3kUM1sbKNIbTsrPwfkMcWQizHsEuFA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791858587; v=1; x=1792463387;
+ b=hUeLtLAr50UKn66sRMCb9eg3xg0xJ/P6t9FAxCLZmZqxUsEeGs43+MZuXI2ouCvei9bHt4Ys
+ FiY9i/x9F3HBHtei53zEtOUv7JpTGy//Q3L1DsJzEoeqR+2BmJpfYhTBdCWac9B6o+MnmJDdAu0
+ JuHwdhMbtxSCllUXRNDvxVsc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 62449cffcc214895;
+	Tue, 13 Oct 2026 02:29:46 +0000
+X-Mizu-Trace-ID: 62449cffcc214895
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: linux-next: manual merge of the risc-v tree with the mm tree
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261012190137.9734b57074f35e540733b9e3@linux-foundation.org>
+Date: Tue, 13 Oct 2026 10:29:33 +0800
+Cc: Mark Brown <broonie@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <paul@pwsan.com>,
+ David Hildenbrand <david@kernel.org>,
+ Jisheng Zhang <jszhang@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>
 Content-Transfer-Encoding: 7bit
+Message-Id: <EBC162D4-5574-4FDC-B0CE-B510BBC0C452@linux.dev>
+References: <as0D2sHzh_UnNF5L@sirena.org.uk>
+ <20261012190137.9734b57074f35e540733b9e3@linux-foundation.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On Mon, 12 Oct 2026 13:40:36 +0200 "Vlastimil Babka (SUSE)" <vbabka@kernel.org> wrote:
 
-> > In a VM reproducer (32G, defrag_mode, inode churn under memory.low):
-> > 
-> >                                         before    after
-> >     should_reclaim_retry() calls           63M     293k
-> >     peak memory pressure (PSI some avg10)  99%      12%
-> > 
-> > File creation runs 5.7x faster.
-> > 
-> > Fixes: 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm in defrag_mode")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
+> On Oct 13, 2026, at 10:01, Andrew Morton <akpm@linux-foundation.org> wrote:
 > 
-> LGTM, but I think we could simplify and get rid of all the function
-> parameter additions by adding a field to alloc_context instead? We could
-> call it e.g. reclaim_compact_order.
+> On Mon, 12 Oct 2026 16:59:22 +0100 Mark Brown <broonie@kernel.org> wrote:
 > 
-> The function nofrag_promote_order() probably doesn't need to exist, given it
-> has just one caller, could be just open coded.
+>> Hi all,
+>> 
+>> Today's linux-next merge of the risc-v tree got a conflict in:
+>> 
+>>  arch/riscv/mm/init.c
+>> 
+>> between commit:
+>> 
+>>  f02f1d1437449 ("riscv/mm: fix hotplug page-table destructor handling")
+>> 
+>> from the mm tree and commit:
+>> 
+>>  79113093e9dc3 ("riscv: convert pgtable_l4|l5_enabled to inline function")
+>> 
+>> from the risc-v tree.
+>> 
+>> I fixed it up (see below) and can carry the fix as necessary. This
+>> is now fixed as far as linux-next is concerned, but any non trivial
+>> conflicts should be mentioned to your upstream maintainer when your tree
+>> is submitted for merging.  You may also want to consider cooperating
+>> with the maintainer of the conflicting tree to minimise any particularly
+>> complex conflicts.
 > 
-> What could be useful instead is wrapper for comparing order vs
-> ac->reclaim_compact_order. E.g. something like bool
-> order_nofrag_promoted(order, ac) ?
+> Thanks.
+> 
+>> diff --combined arch/riscv/mm/init.c
+>> index 6f6b04795bb23,e2b738ca90cf3..0000000000000
+>> --- a/arch/riscv/mm/init.c
+>> +++ b/arch/riscv/mm/init.c
+> 
+> Well that's ugly.
+> 
+> I'll disable "riscv/mm: fix hotplug page-table destructor handling" for
+> now to make this go away.
+> 
+> A decent approach would be to add that patch via the riscv tree.  Muchun,
+> please confirm that this has no dependencies on anything else?
 
-I'm concerned about the sheer size of this patch.  It fixes significant
-issues, but it's not going to be a simple or safe backport.
+Hi Andrew,
 
-So for now please let's optimize for simplicity and backportability and
-defer cleanups for the -rc cycle.
+Unfortunately, this fix depends on the first patch. So they should go through
+MM tree together.
 
-Of course, if the changes you suggest achieve that then go for it.
+> 
+> Otherwise I'll leave it disabled and revisit after -rc1.
 
-Perhaps we should defer this change into next -rc?  It has cc:stable so
-it'll eventually end up where we want it.
+I think this is OK.
+
+Thanks.
+
+
