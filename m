@@ -1,142 +1,130 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBAF52E050
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791920800; cv=pass; b=oQhoYx6qcfAXbO1hZrBKS+WMHuyNnZHyKu/7GwNtgiZxao/lBnNcq60zKgyecJMxyk26Khx/sJaFhn3HtziscJORnViI4WTvhUfsOWi5Rmfeg/XqSdm52OFUhbl4+Hf0LgkZFUQz0J2nxj7Jva2Cas4i2gO5kk4J4BBaajGST24=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791920800; c=relaxed/simple;
-	bh=FXG86Vc5Z3HtOtD7Ma7mNf0CfsAgAIGs82fO1RvGgYA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EGXvRJ6GCAInYgm5ah9+W73FoOn7F1iW/ZvetUv4PIqe8jh/JvsKUYYPIWIrXnxiL2HUVBJj9vTNxC2HFxR+C8IBL22FcFNHH/+wYI0Uxxs7Ew2HsrJd4GwLI+bdz46qTQ0pvXxlyH6iuH2jvB/x2//7XSD1oH3pCofq+y8mECY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ncq/l4Xs; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C88B43BDD0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791920838; cv=none; b=Kt3KPfur93mR+lwsU5hvZA72rE1h0j65oXC7ye8mttKIjJ2XlnBQtOnrf6U7BTBftlq+LhiJES3ElD7Ur7orGuD8aswCcZby0YVLH3U2ooN2aGhBalmGJDy74VFJnne7I5v6ZPMpSIvVfb8N/K2Giigpou9W3FnpH+amymtSeSk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791920838; c=relaxed/simple;
+	bh=HJuQqMA4q8tSxuJu/goXmCkJ2O3/BBEzNNXTsEU7kCI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mI8NeMe/s0Obzrs6T1gHshjJD11VbUbO+W32QXtD0hGi729eIIPNWbOAtVrtt/6ZIxOpY9wMgNfDBEHzObNGku6qwLRL3CjGt1ZCvfXaAzxn1iMlh1nlxIPTK9nduVP1q2rts1Sqa+Mq+H8+D3am+RWFvuDV922ILdSXb/UnsqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=etv6FqTQ; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ncq/l4Xs"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa377c61so3909554a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:46:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791920797; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EUaQn+MQjtVmwT3y2vNHdpfhy6Nkce0kQhTe13+KZACrNICGeQO04+05jbaTqDcGbo
-         b0k8fuYBZgDuh3aIKAERe3M6R42LGUFV9myoilOszzSCOOGtUDFG6V/LCdB6zEm3y8l1
-         hEpRIzpRdYllcLMx9+DTKO6VNg7wVE0vxu/6Bk6M3bu3QWT0+GbfOlhKM0ZxPdu56srN
-         ZCC1CIup8E2qHLJEEw1KSGqdm++uhpog8bx3b6PlnoEMQG2nwyrRfdMSsJpWrkq3qwJL
-         PJutga4AyayCC/nm8wxtTLJ5FD/PLvXdELirOyLwnAe7MeRxV0n5bkbRCQLCi0usNI2P
-         MGzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CVKDBAWO9v4x/qHowfYZV6oyH69UJO9Z+8aTiczsXHQ=;
-        fh=bJ/5h1f1T7jVQaold4SL2ueB+hEvYCZpSMN04AjNrhY=;
-        b=oh1cgEYlDWKqBb6A+iDfK4gC6yC+xEa+l+2QxJNIcTHWCv3uxwWf0vxWLp5NyBZb7k
-         jnm8CFRdZFGfut4vYrwH4iyBkr0Z9feLHBhv44WNx3jWVfakCQlok5WQzTk/zBNndk+X
-         LAdMALaqk4KICBOfNlLEGoJoRoCkG2/mWHgnBYPwZuaSoQP79uPxeUvEPoz6bYNiACi1
-         qML7tjaY2/mvi0yYLbOTrCdXoR/ZXRNdiBzLHVqHnpZcAAcXui7FXSa+xMh8B1QT8hwm
-         5nCn/hNjlbu3dNRiWSuFu5EWBHB96gckNaFZ2Njkaf+vhR7jXtOfjGWgIzhizjH7o4lZ
-         ty1g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791920797; x=1792525597; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CVKDBAWO9v4x/qHowfYZV6oyH69UJO9Z+8aTiczsXHQ=;
-        b=Ncq/l4Xsx61d6s5Zq7UQjrcZuzv3YTonNTtufS15woh21syVCmTo5TdTkm2roADliI
-         hQ48nB3OWtGpFmcU+nxqgG+WyO7eUSx3LFdaPWvTF7y41v7LKE4RULxPNFTvu2YN71tr
-         MkxZWrUkAEIq6z9ZaF/8ig1H9ztjhbtsDCXUYbwwhiQlUypNJETpk59b9RxWsf8Ngl5F
-         0oc0e4ARG69Vl33znWek5v64n0Xbnm6IU8Na8KwoB7VHcG3FYdDFNDs+xdNzTcuxUF2j
-         flyKkJd5NBquYAVeRUgLMOGWP8bpRZKyOmzrQxABTqdRFJBoO8I/RJAgtkRPNt2KxNba
-         6xng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791920797; x=1792525597;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CVKDBAWO9v4x/qHowfYZV6oyH69UJO9Z+8aTiczsXHQ=;
-        b=Fw42azLd1FgSfrC7GK++9ETKVPKg/kDbXpTfMzpCv4psBJdBL1dLb2bNMwV57kkBOy
-         A7Y7Xqu4+k7d3E17GKqDPW6y4qS3B/BRe90WsBMXjMRy8C1f4hnN9pZES+V0heVE+sLH
-         NNUvhv7k+1IzuXaGhX7h+f2wozIf6Tei3fgLSOhv+O5trHmJQgMy+G8yjty4BZ2drsf5
-         RtnAXddTlqY0abdOEpnYsfZW6158psDX+ta7WhGo0mhUdjx0fAEZT1Mxq7TECA0f41t8
-         M8OQpySHORbNTZM0vpXI9TX+XSS4mWuXGB1vFTNZvzA1C56WD2BxqnZL9ZKPtmLhqAC8
-         xpwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDCF8BWp1ZFyIanWKOGWoBkUeVnFUcewsz8DSs9veXMLK2LvaMBNPqTqN9I/RkwqZZfMNyyoaQqeOPiJo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+Jy/XxYI8XRl5fOZGplTfvsAnTyHKUftEzqJ6DPc34aHrm+Ub
-	nVmELrguphxmNMM3Cn+WA/pajxdVBZlcwO63gSey8b7Pr3Cxh+iL1qsD+fe7RoIlos0h24sDaUn
-	l/JtPeQvXlsIiw5X469H+itUc9R06fUg=
-X-Gm-Gg: AYBFou1Nfua08aJ0VzcJ2DW0f7UBLOOT50Oj+T0O9vKpkJtsCBmWUftfmteCzeN0fMv
-	goJNBOzDjG2gR5Iw07tWOpuZ/snTYuKyzTE9AXcbzwcJBGdNpN5PS9SPc9gdSbAHo7E5jpA8Lak
-	WeV4zksXcLphyF3o7LlTApUcpUJumwDGrZFfmW22lh3zCiCzTk7WykFPAIGyrDOGyLAH2pFV5qj
-	lELHpFuCTEVV+BoQyxjIMXXlm4txql83BrSTUHuPZ5m+UOgwhYlWjMoMgbxg9o7LycV83HqDl/c
-	aHNUWzE81KlDZc0myT2CeLd8VtNOz0cxwkbSjA2z+VrBx2aKbQsDxAvrRc3Es9OyJPvchn5AYB1
-	5iMOkXhkGDynTUOtxZ/mqlmmQ7Pyad2Zu/UQOmS0M+H6O7mGJK73BdtcCIHdr+JysepsNnBy0aW
-	M1YaWq+4reyGQbTTJ7jK/GSfD7HCPwetSRbMHhyZU01OiB
-X-Received: by 2002:a05:6402:1e8c:b0:6b1:e474:e0e0 with SMTP id
- 4fb4d7f45d1cf-6b1e474eb16mr2804797a12.9.1791920797110; Tue, 13 Oct 2026
- 12:46:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="etv6FqTQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791920837; x=1823456837;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=HJuQqMA4q8tSxuJu/goXmCkJ2O3/BBEzNNXTsEU7kCI=;
+  b=etv6FqTQmG6uJo7JSRhg4W4mpfX6CFF56ZEhDIwAfW70s0rolrL3Gjmm
+   AwIh2zz6TfGjMnnlgvqClVRa3glbiDcVm6dduM8l0IE7wvVFShqa6pr2z
+   eZFMrc6C28EJOmfmBZIFpqIBU9WT8zQ0df1HSYtox3pUL9YgNjbQUsDBI
+   oMMqim8jxPJ7Qr+5niaD5R+9cvrOdFT1bEWfHQDDL7peVgN8XllX11vmv
+   cVd5hXUXpQtiM1396il0HtsApWBQJ/sJbbsescHUpzJrnNNSU80ZOvOjq
+   B9usW+tkHcGhVFnzlRcYeXKzW0okGpoPbzDBXP0flpGxEMQe6tRKtbcBP
+   A==;
+X-CSE-ConnectionGUID: 4LSLrWJ/T4GkhKgNW41w3g==
+X-CSE-MsgGUID: ktVZnoG9RIu8PXHQ3zJSsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="650328"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="650328"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:47:16 -0700
+X-CSE-ConnectionGUID: /19LJbibRPi3oed3PgHAMA==
+X-CSE-MsgGUID: FIHpLiVmRtmrmy4gn+EaTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1343501"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:47:14 -0700
+Date: Tue, 13 Oct 2026 22:47:11 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: David Laight <david.laight.linux@gmail.com>,
+	Lukas Wunner <lukas@wunner.de>, linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v3 1/1] mtd: cfi_cmdset_0001: Factor out
+ do_write_buffer_locked() to reduce stack frame
+Message-ID: <as6Kv9usOjhlx8zx@ashevche-desk.local>
+References: <20260408211407.2295175-1-andriy.shevchenko@linux.intel.com>
+ <20260409082611.73fac9ab@pumpkin>
+ <addcJP2erqYh8pD2@wunner.de>
+ <20260409122846.7d08d2b4@pumpkin>
+ <ad41TpzL4onrcKzn@ashevche-desk.local>
+ <87ik9cfm6g.fsf@bootlin.com>
+ <ae-FLk1N3wJs8sTW@ashevche-desk.local>
+ <87pl3jebsv.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005-submit-phylink-suspended-stop-v1-v2-1-8b8e5d53dfc2@gmail.com>
- <224296ea-f196-44f3-91d6-1461846c55a5@lunn.ch>
-In-Reply-To: <224296ea-f196-44f3-91d6-1461846c55a5@lunn.ch>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 13 Oct 2026 13:46:24 -0600
-X-Gm-Features: AclHuK_-ExkCTDuO98uNJR7veehspk26g_HVMQrxEAv1f54ELeztHi6cVQvhtyw
-Message-ID: <CADvTj4qgcXE6azsNx-Wg5afatezLeuctGR607qO1WhZSmuqzBg@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: phylink: allow stopping a suspended instance
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87pl3jebsv.fsf@bootlin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 12, 2026 at 7:22=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Mon, Oct 05, 2026 at 01:09:05PM -0600, James Hilliard wrote:
-> > After a failed MAC resume, a driver must be able to stop phylink withou=
-t
-> > resuming it and reconfiguring the failed MAC. This is needed when recov=
-ery
-> > leaves the interface administratively up but detached until a subsequen=
-t
-> > down/up: ndo_stop() must finish the suspended phylink lifetime even tho=
-ugh
-> > the MAC could not be restored. The missing transition was identified by
-> > code inspection of the stmmac recovery paths.
->
-> I don't particularly like this. It feels like a workaround for a
-> broken MAC. It would be better to fix the MAC so that resume does not
-> fail.
+On Tue, Apr 28, 2026 at 10:20:16AM +0200, Miquel Raynal wrote:
 
-Fixing an identified cause of resume failure belongs in the MAC
-driver. The intended purpose here is narrower: allow orderly shutdown
-after the driver has returned an error, rather than recover the MAC
-through phylink.
+I had some text here already written in response, but...
 
-stmmac_resume() already returns before phylink_resume() when hardware
-setup fails. The associated stmmac recovery work keeps the interface
-administratively up but detached, allowing an ordinary down/up to
-recover it.
+...
 
-That leaves a subsequent ndo_stop() needing to finish the suspended
-phylink lifetime. Calling phylink_resume() just to make shutdown
-possible would reapply MAC configuration and restart link resolution
-before the driver has successfully restored the MAC. That is the
-transition this prerequisite was intended to address.
+> >> >> > Stack usage is high here because of the three "map_word" types,
+> >> >> > which can each be up to 256 unsigned longs (32 * 8), see the
+> >> >> > definitions of MAX_MAP_LONGS, MAX_MAP_BANKWIDTH, map_word in
+> >> >> > include/linux/mtd/map.h.
+> >> >> 
+> >> >> Ugg - that code is horrid.
+> >> >> Returning structures by value isn't really a good idea.
+> >> 
+> >> Looks like the primary reason for the stack over usage, no? Isn't
+> >> playing with inline and refactoring just a tiny fix that prevents
+> >> problem by just a couple of bytes?
+> >> 
+> >> I haven't looked too carefully, but could we (Andy?) have a fix that
+> >> reduces the number of map_word (as suggested, IIUC) and/or avoid passing
+> >> them by value?
+> >
+> > I am not an expert for this particular change, I am afraid.
+> 
+> Surprising flannel from someone sorely insisting to force contributors
+> into doing zillions more changes than they initially wanted, easily
+> triggering iniquitously NACKs otherwise.
 
-> As far as i know, this it theoretical, only triggered by fault
-> injection. If we find a real error situation where the MAC cannot be
-> resumed, then i will consider it. But until then, i prefer to reject
-> this patch.
->
->      Andrew
+...after meeting you during Linux Plumbers and actually having a couple of
+ideas how to solve that, I promised to answer to that thread sharing new
+information.
+
+> > Consider my patch
+> > as a bug report that needs to be addressed, Currently it might break some
+> > builds when `make W=1` is passed.
+> 
+> Hopefully you will remember that you have your own limits too. Maybe
+> that will allow others to breeze next time there will be something that
+> matters so much to you that you prefer to fully block their work.
+
+As for the changes that reside in the lib/, which is tree wide and
+has zillions of different users with different requirements, finding
+a common ground is really hard.
+
+> >> I can also take this cleanup if enclosed in a bigger
+> >> series, I don't mind because it may make the code easier to read as
+> >> well, but I feel like this is not a proper fix. If it is, please explain
+> >> to me again :-)
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
