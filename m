@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA3B38A725;
-	Tue, 13 Oct 2026 07:38:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E042853F3
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:40:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791877106; cv=none; b=hmPdpSIGvnUh/AZ2Fub0X/cwQjwNHbAuBj4QWxFKG5Cr/NrigJ1Wrlr2w5CRBIiCAxiJ9DcvbFtd56DKSx4aXtQs5a8AkgyFXxeWYscPI/8caRn01lrB1i2tFXu1EKUgZh81cDDuc4CpDc54oyIedEjGFRoknrlSZ4WhcpexqgA=
+	t=1791877202; cv=none; b=vFFxIiNg2pbELsAehPuRXk57uoaMhHOHBjNXYvjdd5yAmYY7/VFV23MBmKwXEDoHDdcH+/sPHb6pCL00LuhWXhvJXNe7usuhN+s96/JKabzqBWDRcL5DHVkpWtuzq8QlZ26/OBRyvHhXEqcsxJWJTgnegGkM1EOp+yXzAsaco6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791877106; c=relaxed/simple;
-	bh=ZyYqWXIUfrHec9/Q4SP2Vj1puzNLnZc//qGe5AvQoNM=;
+	s=arc-20240116; t=1791877202; c=relaxed/simple;
+	bh=M8llo/S2WOJYXxGzPQybCxI1sJWUzWAtW3Z0i4gJyeI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l6eaYaeRHdI5fy99RlV/59A1FSvcfs81XYEY7RxorCtyKZtuwn660r/7PiXrGUtvhifsbkd3PoOsMmj1LVJD2tTPDNFrqighlv7gvEQaGxJ5jgDMv55GZvU0FXRQsUurtIFc08FV8E+0UAFOjXAJuV1D4w6hkLOWx/rYJ9qQguw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DlB0kj8g; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=aoc8DoABuU4Z6/VwY6PSF4IdaYcQiUSvyz36cKsIGqwpW8DJ0YpCoX2rh2157XRh2SDcn6QDN/aOl9cUiWxFDZE5+qCpIZTYd2CecnRKXCB1BVuTc8xQIJ2MklSz+R7e3uGoq7j4Bby6tbLT+Kx4v0M4Y7tCKoNn21/7J6zX06k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ryr1uyc5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DlB0kj8g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F001F00893;
-	Tue, 13 Oct 2026 07:38:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ryr1uyc5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5B61F000FF;
+	Tue, 13 Oct 2026 07:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791877104;
-	bh=DcuYY3+mv/Ns6uvfacyrd4dBgpfSbyMtyecX3H4y2hE=;
+	s=k20260515; t=1791877201;
+	bh=Ka4WnGpN0d9oCcVY/MuEpnfOHeYeKtz3o+TrxhSWjCo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DlB0kj8gOlFNSD84BZwMWb5ZbV2oXW4IaLaFGcapmHBAUuLC7zPJAEShEflW7d90Z
-	 2ITF8SGCDnhIDxAHfjDEwEtAvXceuwSpN5Fasml6JY9Wn9huixCPCLyT3uZ+1AsP/f
-	 QOGdh8bpPL2f7KQEgdkMQFTpJg+d/VB0ZERes3AU7EeweYpj1IPdrZRVasXloHdV2K
-	 FjdS4eNfe0CbiVGPsgPqkqk1Hc6oPE4Il1DhEwPDaQ3vfenYbgtC509EdQiZhRvTGK
-	 ukmwwkNFOwzqRryAIPa6FUnK5PNz4426a8gtHsmxyZGUcdlQo01a/ZMlDCQP2iOTA7
-	 O7NL/VpOcZOZA==
-Message-ID: <96324eec-d307-4bbf-975e-3c9b3dd5e190@kernel.org>
-Date: Tue, 13 Oct 2026 09:38:14 +0200
+	b=Ryr1uyc5yP/JYFWgvjsKT+2rhhWZifPokb2ZTKhhSwbk3itoTBEivaDIZj6NndAoR
+	 sTy6b2LkupMAxc5rFehpkbjqkfGOIK1+0VJTeO3B0xu7K7Kaktg8vpRlhKRjkMHU+I
+	 I4Ph5lYJzyqydt1ULvEPikXSD6eupUTUiKmz3i1klD3tn6GXk8iZe/ojaxL3LxA/UF
+	 RsXSRdN+MrTyWzF3a3ZMv1+ZQ+1zrZ1QNxGD/EZ6i9EgKaQ1QsuxnYbq0a+Wxld9jj
+	 25A0ZRbn9O95WUGGaXfMfVrnugdSC0OhVzh5JfrkiN3hXzwT8sAuq6H28N7ASZ2XKi
+	 FWO//HPmJavLw==
+Message-ID: <67c30e4c-3576-4ded-a71f-b49075ed42e3@kernel.org>
+Date: Tue, 13 Oct 2026 09:39:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,17 +35,14 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 1/3] sched: add helpers for numa balancing
-To: Yafang Shao <laoar.shao@gmail.com>, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, mingo@redhat.com,
- peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- akpm@linux-foundation.org, gourry@gourry.net, tj@kernel.org,
- hannes@cmpxchg.org, mkoutny@suse.com, shakeel.butt@linux.dev,
- roman.gushchin@linux.dev, yu.c.chen@intel.com, zhao1.liu@intel.com
-Cc: bpf@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
+Subject: Re: [PATCH] selftests/mm: fix uffd move-pmd test crash on 64K base
+ page systems
+To: Zenghui Yu <zenghui.yu@linux.dev>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org
-References: <20261012120438.52849-1-laoar.shao@gmail.com>
- <20261012120438.52849-2-laoar.shao@gmail.com>
+Cc: akpm@linux-foundation.org, rppt@kernel.org, peterx@redhat.com,
+ ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, surenb@google.com,
+ mhocko@suse.com
+References: <20261011163527.95988-1-zenghui.yu@linux.dev>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -92,113 +89,28 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261012120438.52849-2-laoar.shao@gmail.com>
+In-Reply-To: <20261011163527.95988-1-zenghui.yu@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/12/26 14:04, Yafang Shao wrote:
-> Two new helpers task_numab_enabled() and numab_mode_tiering() are
-> introduced to replace the scattered direct accesses to the
-> sched_numa_balancing static key and the sysctl_numa_balancing_mode
-> bitmask.
+On 10/11/26 18:35, Zenghui Yu wrote:
+> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 > 
-
-I'll only comment on the new exposed helpers. Some of these might make sense
-even without the bigger series.
-
-(obviously, minus the task change)
-
-> No functional change.
+> uffd_move_pmd_test()/uffd_move_test_common() splits the test area into
+> chunks of chunk_size and moves them one by one.  On arm64 with 64K base
+> pages the chunk_size (read_pmd_pagesize()) is 512MB, which is larger than
+> the whole 32MB (UFFD_TEST_MEM_SIZE) test area:
 > 
-> Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-> ---
->  include/linux/sched/numa_balancing.h | 31 ++++++++++++++++++++++++++++
->  kernel/sched/fair.c                  | 16 +++++++-------
->  kernel/sched/sched.h                 |  1 -
->  mm/memory-tiers.c                    |  3 ++-
->  mm/migrate.c                         |  7 ++++---
->  mm/vmscan.c                          |  6 +++---
->  6 files changed, 48 insertions(+), 16 deletions(-)
+>   step_count = nr_pages / (chunk_size / page_size) == 0
 > 
-> diff --git a/include/linux/sched/numa_balancing.h b/include/linux/sched/numa_balancing.h
-> index 52b22c5c396d..353772b49c5f 100644
-> --- a/include/linux/sched/numa_balancing.h
-> +++ b/include/linux/sched/numa_balancing.h
-> @@ -8,6 +8,7 @@
->   */
->  
->  #include <linux/sched.h>
-> +#include <linux/sched/sysctl.h>
->  
->  #define TNF_MIGRATED	0x01
->  #define TNF_NO_GROUP	0x02
-> @@ -32,6 +33,28 @@ extern void set_numabalancing_state(bool enabled);
->  extern void task_numa_free(struct task_struct *p, bool final);
->  bool should_numa_migrate_memory(struct task_struct *p, struct folio *folio,
->  				int src_nid, int dst_cpu);
-> +
-> +extern struct static_key_false sched_numa_balancing;
-> +
-> +/*
-> + * Whether NUMA balancing applies to @p.  The @p argument is unused for
-> + * now: a later patch will consult a per-cgroup BPF policy with it.
+> Because chunk_size > page_size, the test then aligns both areas up to
+> 512MB, which points far outside of the 32MB mappings, and decrements
+> step_count, which underflows to ULONG_MAX.  The verification loop then
+> runs away and the first dereference of area_src faults with a SIGSEGV.
+> 
+> Skip the test when a single chunk cannot fit into the test area.
 
-Talking about later patches in a function doc is ... wrong.
-
-> + */
-> +static inline bool task_numab_enabled(struct task_struct *p)
-> +{
-> +	return static_branch_unlikely(&sched_numa_balancing);
-> +}
-> +
-> +/*
-> + * The global sysctl state, for the system-wide tiering machinery: this
-> + * reflects kernel.numa_balancing_mode only and takes no task.
-
-The latter part doesn't make a lot of sense in this documentation.
-
-> + */
-> +static inline bool numab_mode_tiering(void)
-
-The function name isn't really intuitive. Should this be
-
-	numab_in_tiering_mode
-
-	
-	numab_tiering_enabled
-
-or something like this.
-
-> +{
-> +	if (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING)
-> +		return true;
-> +	return false;
-
-
-return sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING;
-
-?
-
-Both functions could directly have proper kerneldoc if we are already
-documenting these.
-
-> +}
->  #else
->  static inline void task_numa_fault(int last_node, int node, int pages,
->  				   int flags)
-> @@ -52,6 +75,14 @@ static inline bool should_numa_migrate_memory(struct task_struct *p,
->  {
->  	return true;
->  }
-> +static inline bool task_numab_enabled(struct task_struct *p)
-> +{
-> +	return false;
-> +}
-> +static inline bool numab_mode_tiering(void)
-> +{
-> +	return false;
-> +}
-
+That leaves 64k untested, though? Why not adjust the chunk size accordingly?
 
 -- 
 Cheers,
