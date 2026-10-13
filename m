@@ -1,298 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA7E55D895;
-	Tue, 13 Oct 2026 22:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC0A55C30C;
+	Tue, 13 Oct 2026 22:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791931925; cv=none; b=DMfoKs9WRO2QnNmVJG6ke7HCnIwhon/TvE+JdPz6opmiqHrMtdSe0Mub5Qceoz7puSGev167R2r4AbC5kEtVIfJcsIiqyqjU5GAeEWwSkcg18uZjAqk4tdU7Ba2d/uW4tCufTMdedOI2sdgsUSj0jOjYTbjGM1pNIMXEPqifUuc=
+	t=1791931926; cv=none; b=VmUEA+Wgtzu+4gM3NqNYOGrI2v0VCCdtGRvLtlXxl3G2/WqbcPpsZOjqKJjF5BITe+LvW6DF4DcuDhUaRnHEAFsVFVpuxvQTiKg5KiyjNQHqT93EeiV2p9i/Za2eoA9VljTX14t1eSKYAAiKmbRsWp4n+B2GQX3A5NDDO5uDTY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791931925; c=relaxed/simple;
-	bh=CCVIN8tDxFjyce8Qxi3ujZwuOTphI4nRXCsdICLjqTQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M8exj/xgdgULt7DQFzJnP8De4D2yppNgP636F2XNWkMLkhF9ZR7waOUx69eDWrHCqAybPey4l53RwR/NwrW8luzlyboeLNlnmzkVYIxy/4S7O5gRa64umXa6/UeFbuPoeBQIn+DkDq5WgRymgJjfZZmgR67HM8rRrU1jyRmo2Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EgY35Fiy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791931926; c=relaxed/simple;
+	bh=aGe8nmSYDlD89HTgEIf0ZL1zah8iMagTLLYRYG/Zwn4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LcscgusnB+/CISxb3RJUJbuEVELgJlJtnepH9OZi7Kt0vaAsTlXb1wzCmIiIk+M4n/VA0hAI8NCgMWt/NcJSAhOTDmyPnE5xTwLBV0UYAWIVlfLcaFNdYhzQ4cG0YiaHFT+iEoRoHfBYF0ILgZiSXp6SKZkVrI9/lQeNOZFLiHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hz/RgD9z; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EgY35Fiy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356E41F000FF;
-	Tue, 13 Oct 2026 22:51:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791931917;
-	bh=ihtthPd1qtSs1WqvN2e62G8drpORFvU+QPjdaQHYU1I=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EgY35Fiy4gFlNd/j2QzMrfvZOmCd1Mow8KC4gkJuxPq0As1NPJTKrMYqAIGHbaIOS
-	 WxPEdEuXrFqZmxczkmTC5afQqTsY9qap0A/vcPAZznhqcC/pwt48j22bZodK7wkIho
-	 mLDU9zBXfFq8lI7vLrgb6yti2rM9LsL7ywQ0N32ejy5oxCQHpX5dXOvg2lQjNUH/YO
-	 pAdJ+RGGi0pjG/Yi3jVU4ha3U4GVd6sXhn/1mxdL+jwarwFL0+mrX2GEa3a2b2IHkk
-	 WApXmNWLuPkQ6+ZKj/JwnB1WiXeyHQrwSbPvD0e0+TQNbLS+Iz/rm2HXRiuX0Yf29X
-	 JV1ZDQ7gV3JYQ==
-Subject: Re: [PATCH net-next v3 4/7] vsock: add a netlink command to assign
- the g2h device to a netns
-From: netdev-bot+sashiko@kernel.org
-To: bobbyeshleman@meta.com
-Cc: sgarzare@redhat.com, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, stefanha@redhat.com, mst@redhat.com,
- jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com,
- shuah@kernel.org, rdunlap@infradead.org, donald.hunter@gmail.com,
- edumazet@kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org,
- linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com,
- bobbyeshleman@gmail.com
-Date: Tue, 13 Oct 2026 22:51:55 +0000
-Message-ID: <179193191574.434549.17107426250790354528@kernel.org>
-In-Reply-To: <20261012-vsock-guest-ns-v3-4-b32447c66b23@meta.com>
-References: <20261012-vsock-guest-ns-v3-4-b32447c66b23@meta.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hz/RgD9z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791931912;
+	bh=aGe8nmSYDlD89HTgEIf0ZL1zah8iMagTLLYRYG/Zwn4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=hz/RgD9z8WHcN3LTL8qA4lGYsKX7/T/GZJJAAVzXeAsmKvIaUkUtuRGj9UC/P4GqD
+	 M4s7XzYid6QbMcNhYIXsTx80WEEOssdwSJZSQtACTHrOnUYU/Bd5S3LEeAxwIP20N9
+	 LCM7cox81TSZtOQp5avw9mKGZlf1c89RLt2svn+wwqCajPbJhsIWkocMkMtsRJYniK
+	 SrD3Zyzw1jCKiw1GrM7U4phVpHD+x9zm2aKvxugxHFv+MsBdPKEM6ZR8I7okVOb/8B
+	 yedvfJyUOodJNdVRlsPBTH7HwWIYSybZhZZ3E9YMCx2N3V/p48W7gEbXLgl5rsTQqE
+	 4Ixm8KFEdujLQ==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2873617E0962;
+	Wed, 14 Oct 2026 00:51:52 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Wed, 14 Oct 2026 01:51:19 +0300
+Subject: [PATCH v5 02/15] drm/rockchip: vop2: Fix resource leak on
+ vop2_enable() error path
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-dw-hdmi-qp-yuv-v5-2-6fab0fe43a9b@collabora.com>
+References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
+In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Daniel Stone <daniel@fooishbar.org>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Igor Paunovic <royalnet026@gmail.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+vop2_enable() returns void, so callers cannot tell whether powering up
+the VOP2 succeeded.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 2
+Additionally, if rockchip_drm_dma_attach_device() fails, vop2_enable()
+returns without disabling the core clocks or dropping the runtime PM
+reference taken earlier, leaking both.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Make vop2_enable() return int and unwind all resources on every failure
+path.  As disabling the core clocks is also needed in vop2_disable(),
+factor it out into a local helper used by both.
 
-- [Medium] Take a namespace that cannot reach the assigned G2H device, on
-  a system with vhost-vsock (H2G) and vsock_loopback loaded.
-- [Medium] `vsock_g2h_reset_unreachable()` in net/vmw_vsock/af_vsock.c
-  resets sockets without lock_sock() while the device stays live.
-- [Low] No in-tree transport sets the new capability at this commit.
-- [Low] `vsock_g2h_net_assign()` in net/vmw_vsock/af_vsock.c sends the
-  success reply before it commits the assignment.
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Tested-by: Igor Paunovic <royalnet026@gmail.com>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 39 +++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
---
-
-vsock: add a netlink command to assign the g2h device to a netns
-
-This patch adds a vsock generic netlink family with two commands.
-VSOCK_CMD_DEV_NETNS_SET moves the guest's G2H vsock device into the
-caller's network namespace, and VSOCK_CMD_DEV_NETNS_GET reports where the
-device is. After a move, connected sockets that can no longer reach the
-device are closed with ECONNRESET, and the assignment holds a reference on
-the target namespace.
-
-Link: https://lore.kernel.org/all/20200427142518.uwssa6dtasrp3bfc@steredhat/
-
-> diff --git a/Documentation/admin-guide/sysctl/net.rst b/Documentation/admin-guide/sysctl/net.rst
-> index fe43e85959583..9276479004c0f 100644
-> --- a/Documentation/admin-guide/sysctl/net.rst
-> +++ b/Documentation/admin-guide/sysctl/net.rst
-> @@ -529,6 +529,43 @@ their hosts. The behavior of VSOCK sockets in a network namespace is determined
-
-[ ... ]
-
-> +Support is transport dependent. A G2H transport that does not implement the
-> +move refuses the command with ``EOPNOTSUPP``. Of the in-tree guest transports,
-> +only virtio-vsock implements it.
-
-[Severity: Low]
-This is a minor point. Is this sentence accurate at this commit?
-
-No in-tree transport sets netns_assign_allow yet, so this check in
-vsock_g2h_net_assign() always fails:
-
-	if (!vsock_net_assignable(transport_g2h)) {
-
-As a result, VSOCK_CMD_DEV_NETNS_SET returns -EOPNOTSUPP (or -ENODEV) for
-every G2H transport. The new exports vsock_g2h_net_get(), vsock_g2h_net_eq()
-and vsock_maybe_set_connected() also have no callers yet.
-
-The next patch in the series, "vsock/virtio: support guest device network
-namespace", adds .netns_assign_allow = true to virtio_transport and calls
-those helpers. So the mismatch only exists at bisect points between the two
-patches. Could this sentence move into that patch?
-
-> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-> index 8f34bf68f9164..e663be3bbfa0b 100644
-> --- a/net/vmw_vsock/af_vsock.c
-> +++ b/net/vmw_vsock/af_vsock.c
-
-[ ... ]
-
-> @@ -564,7 +632,12 @@ static bool vsock_use_local_transport(unsigned int remote_cid)
->  		return true;
->  
->  	if (transport_g2h) {
-> -		return remote_cid == transport_g2h->get_local_cid();
-> +		u32 cid = __vsock_registered_transport_cid(&transport_g2h, net);
-> +
-> +		/* The device may be unreachable from @net, in which case
-> +		 * @remote_cid is not the local CID.
-> +		 */
-> +		return cid != VMADDR_CID_ANY && remote_cid == cid;
->  	} else {
->  		return remote_cid == VMADDR_CID_HOST;
->  	}
-
-[Severity: Medium]
-Suppose the G2H device has been assigned to a local mode namespace, and
-vhost-vsock and vsock_loopback are also loaded. What happens in a namespace
-that can no longer reach the device?
-
-In that namespace, IOCTL_VM_SOCKETS_GET_LOCAL_CID in vsock_dev_do_ioctl()
-gets VMADDR_CID_ANY from transport_g2h and falls back to transport_h2g:
-
-	cid = vsock_registered_transport_cid(&transport_g2h, net);
-	if (cid == VMADDR_CID_ANY)
-		cid = vsock_registered_transport_cid(&transport_h2g,
-						     net);
-
-vhost_transport_get_local_cid() returns VHOST_VSOCK_DEFAULT_HOST_CID, so the
-namespace is told its local CID is 2. __vsock_find_cid(net, 2) is also true
-through the transport_h2g && cid == VMADDR_CID_HOST check, so bind() to
-CID 2 succeeds.
-
-A connect() to CID 2 then enters the transport_g2h branch above, because the
-pointer is non-NULL. It returns false because cid is VMADDR_CID_ANY, so the
-remote_cid == VMADDR_CID_HOST loopback fallback in the else branch is never
-reached.
-
-vsock_assign_transport() then picks transport_g2h for
-remote_cid <= VMADDR_CID_HOST and fails at the new check:
-
-	if (vsock_g2h_unreachable(new_transport, sock_net(sk))) {
-		ret = -ENETUNREACH;
-
-Should an unreachable G2H transport be treated the same as an absent one
-here, so that connecting to the namespace's own reported CID uses loopback?
-The later virtio patch in the series makes this path reachable and does not
-change this logic.
-
-[ ... ]
-
-> @@ -742,8 +823,267 @@ bool vsock_find_cid(unsigned int cid)
-
-[ ... ]
-
-> +/* Close every connected socket of @t that can no longer reach the g2h device.
-> + */
-> +static void vsock_g2h_reset_unreachable(const struct vsock_transport *t)
-> +{
-> +	struct vsock_sock *vsk, *tmp;
-> +	struct sock *sk;
-> +	int i;
-> +
-> +	lockdep_assert_held(&vsock_register_mutex);
-> +
-> +	spin_lock_bh(&vsock_table_lock);
-> +
-> +	for (i = 0; i < ARRAY_SIZE(vsock_connected_table); i++) {
-> +		list_for_each_entry_safe(vsk, tmp, &vsock_connected_table[i],
-> +					 connected_table) {
-> +			sk = sk_vsock(vsk);
-> +
-> +			if (vsk->transport != t ||
-> +			    sk->sk_state == TCP_CLOSE ||
-> +			    vsock_g2h_reachable_sk(vsk))
-> +				continue;
-> +
-> +			/* If close has already been scheduled for this socket,
-> +			 * we can skip.
-> +			 */
-> +			if (vsk->close_work_scheduled)
-> +				continue;
-> +
-> +			sk->sk_state = TCP_CLOSE;
-> +			sk->sk_err = ECONNRESET;
-> +			sk_error_report(sk);
-> +
-> +			__vsock_remove_connected(vsk);
-
-[Severity: Medium]
-Can these writes race with the socket's own state machine?
-
-Only vsock_register_mutex and vsock_table_lock are held here, and neither
-one excludes lock_sock() holders. close_work_scheduled is read the same way.
-
-The existing lockless resets, virtio_vsock_reset_sock() and
-vhost_vsock_reset_orphans(), only run when the device is going away. Here
-the device keeps running, so its RX path can work on the same socket at the
-same time.
-
-With the later virtio patch, virtio_transport_rx_work() checks
-vsock_g2h_net_eq(net) for each packet but does not synchronize with the
-swap. That patch's commit message also notes that an assign can land while
-rx_work is draining a batch:
-
-CPU1 (assign)                      CPU2 (rx_work)
-                                   vsock_g2h_net_eq(net) returns true
-vsock_g2h_net_swap()
-                                   virtio_transport_recv_pkt()
-                                     lock_sock(sk)
-                                     sk_state is TCP_ESTABLISHED
-vsock_g2h_reset_unreachable()
-  sk->sk_state = TCP_CLOSE
-  sk->sk_err = ECONNRESET
-  __vsock_remove_connected(vsk)
-                                     virtio_transport_recv_connected()
-                                       virtio_transport_do_close()
-                                         sk->sk_state = TCP_CLOSING
-
-If an incoming SHUTDOWN or RST arrives at that point, doesn't the socket end
-up in TCP_CLOSING with ECONNRESET set and outside the connected table?
-
-There is a similar window on the send side. vsock_connectible_sendmsg() may
-already have passed its sk_err check and could enqueue one more chunk
-through the device after the sweep. KCSAN would also likely report these
-unannotated stores against the locked writers.
-
-Refcounting looks balanced, because vsock_remove_connected() re-checks table
-membership. So the effect appears to be limited to inconsistent socket
-state.
-
-[ ... ]
-
-> +static int vsock_g2h_net_assign(struct net *net, struct sk_buff *msg,
-> +				struct genl_info *info)
-> +{
-
-[ ... ]
-
-> +	ret = -EMSGSIZE;
-> +	hdr = genlmsg_iput(msg, info);
-> +	if (!hdr)
-> +		goto unlock;
-> +	genlmsg_end(msg, hdr);
-> +
-> +	ret = genlmsg_reply(msg, info);
-> +	msg = NULL;
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	old = vsock_g2h_net_swap(net, &old_tracker);
-> +
-> +	/* See vsock_maybe_set_connected() comment about synchronizing with
-> +	 * connecting sockets.
-> +	 */
-> +	vsock_g2h_reset_unreachable(transport_g2h);
-
-[Severity: Low]
-Is this ordering intended? The success reply goes out before
-vsock_g2h_net_swap() and vsock_g2h_reset_unreachable() run.
-
-This means userspace can see VSOCK_CMD_DEV_NETNS_SET succeed while
-vsock_g2h_net still points at the old namespace and the established sockets
-there are still open. Those sockets' send and receive paths take lock_sock(),
-not vsock_register_mutex, so the mutex does not hold them off.
-
-The move also depends on the reply being delivered. genlmsg_reply() does a
-MSG_DONTWAIT unicast, so if the requester's receive buffer is full it
-returns -EAGAIN and the swap is skipped. Neither the commit message nor the
-docs mention this failure mode.
-
-Could the swap and the sweep run first, with the reply sent after them?
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index bfb384142568..e0caea93a896 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -860,6 +860,13 @@ static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
+ 	return ret;
+ }
+ 
++static void vop2_core_clks_disable_unprepare(struct vop2 *vop2)
++{
++	clk_disable_unprepare(vop2->pclk);
++	clk_disable_unprepare(vop2->aclk);
++	clk_disable_unprepare(vop2->hclk);
++}
++
+ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ {
+ 	u32 pd;
+@@ -871,7 +878,7 @@ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ 	vop2_writel(vop2, RK3588_SYS_PD_CTRL, pd);
+ }
+ 
+-static void vop2_enable(struct vop2 *vop2)
++static int vop2_enable(struct vop2 *vop2)
+ {
+ 	int ret;
+ 	u32 version;
+@@ -879,25 +886,24 @@ static void vop2_enable(struct vop2 *vop2)
+ 	ret = pm_runtime_resume_and_get(vop2->dev);
+ 	if (ret < 0) {
+ 		drm_err(vop2->drm, "failed to get pm runtime: %d\n", ret);
+-		return;
++		return ret;
+ 	}
+ 
+ 	ret = vop2_core_clks_prepare_enable(vop2);
+-	if (ret) {
+-		pm_runtime_put_sync(vop2->dev);
+-		return;
+-	}
++	if (ret)
++		goto err_put_pm;
+ 
+ 	ret = rockchip_drm_dma_attach_device(vop2->drm, vop2->dev);
+ 	if (ret) {
+-		drm_err(vop2->drm, "failed to attach dma mapping, %d\n", ret);
+-		return;
++		drm_err(vop2->drm, "failed to attach dma mapping: %d\n", ret);
++		goto err_disable_clks;
+ 	}
+ 
+ 	version = vop2_readl(vop2, RK3568_VERSION_INFO);
+ 	if (version != vop2->version) {
+ 		drm_err(vop2->drm, "Hardware version(0x%08x) mismatch\n", version);
+-		return;
++		ret = -EINVAL;
++		goto err_detach_dma;
+ 	}
+ 
+ 	/*
+@@ -932,6 +938,17 @@ static void vop2_enable(struct vop2 *vop2)
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
+ 	vop2_writel(vop2, RK3568_SYS1_INT_EN,
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
++
++	return 0;
++
++err_detach_dma:
++	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
++err_disable_clks:
++	vop2_core_clks_disable_unprepare(vop2);
++err_put_pm:
++	pm_runtime_put_sync(vop2->dev);
++
++	return ret;
+ }
+ 
+ static void vop2_disable(struct vop2 *vop2)
+@@ -942,9 +959,7 @@ static void vop2_disable(struct vop2 *vop2)
+ 
+ 	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
+ 
+-	clk_disable_unprepare(vop2->pclk);
+-	clk_disable_unprepare(vop2->aclk);
+-	clk_disable_unprepare(vop2->hclk);
++	vop2_core_clks_disable_unprepare(vop2);
+ }
+ 
+ static bool vop2_vp_dsp_lut_is_enabled(struct vop2_video_port *vp)
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-vsock-guest-ns-v3-0-b32447c66b23%40meta.com
+2.55.0
+
