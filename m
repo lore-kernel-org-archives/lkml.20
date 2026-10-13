@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D0A439F75;
-	Thu, 15 Oct 2026 10:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480AE50B426;
+	Thu, 15 Oct 2026 10:31:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060263; cv=none; b=lfQrhTO7GvNczjOddA834mZZePbiknV6U+Ro/F6o4jUgvcz54z+fwh2yNcw+Y7HApInDXKoPXrU6fixprmsiHxe9YdWUYPEJrnKcJrv3X9Se1sCZ1cnVVwthl48YZnAh9EITxDYdg+vIO/QhQ+A/cHQfGMa4s442buVqRiwnfB4=
+	t=1792060269; cv=none; b=SDwn51OhglkelFPa5vpDRI5ksj4kSDS4bBiVGExV50lv36maWpC4p5wuLcmL3atqrMMrgSSffyPo8VPjqwsY8qVj0DXu72/9m35qPld8UKjLpS5H2Ll7M1HPtCwGs0qWmCaQ0JeOSsOBSRBG3ZvAU1TIXoGW/FXFCyHzVzDQ/kE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060263; c=relaxed/simple;
-	bh=+rAx0ZsSUfQxzg+7xnudKVYP1MtGjqbwqga0yYDXbws=;
+	s=arc-20240116; t=1792060269; c=relaxed/simple;
+	bh=OeNecRvAZ2xIg1KwKkSy3lnhgYoQ9dQyV2iwg36Y1C8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=XBGPGK/CKZE6eM50vIBzkSYor4mBqBQ1E0BM4Hx8wO/QBbaWlj8E4KMUCZD4IaarM0Uz7HhAWNom+ehPfBgCIIup/ZIaCUJZOCHJKQjl5RN5QuOLaRB+jlq9j+ayTobBlTUf6Skj4EdFLLBHkCTY9bPKgWRIZSfGIOAleLOrYVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFwENOSU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=jwwJoLVNF7lckVbJNBTFfqeaz0oLebO3y/R6SYYGqy0tqKWE+kAiISIEOC+wmdhGDNudAtZo6wSfTdjsDDBv+SL3wTLNLqyz6XPhCJZxnz4FgSTU8WbC9GowRKpWH2CF4HK9N9cGoloa4lDsXAfBbKdr6LNhO0j4uK2dck+e8Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXqyQrV6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFwENOSU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C46F81F000C4;
-	Thu, 15 Oct 2026 10:31:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXqyQrV6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EADF1F000C5;
+	Thu, 15 Oct 2026 10:31:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792060262;
-	bh=DUSBpKsCXXJGrVBNJrK3gdmJU4PrI+B4OcZpbSGb/10=;
+	s=k20260515; t=1792060267;
+	bh=eoYh+wmGkfMuCrYWAfzCPGRay9LfK9IhzqEdYF+ddbs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=hFwENOSUcmxBYfAbyg7Q83KEGCsR5PktKnaDjMt1KFi9WDbGdugBO2+v8EYo9sz1w
-	 2JLEoRNFGupFPKx4IHL392E2SFipWhiBMYvqoj+FAs16iO/1y34UZbOwXWTtr2WE1J
-	 0jtI/EFWEsMi0jpkYgZZ74rqJSZwiOAx44Z8SVxzQqbmUz2UidSeG0omGVplO+6d8Q
-	 oAQZW0JwRunqf8oPIgLROgjp5ezf9/SOopbEm62NNmX5gQ+KV8eG0XysgJsje+7XgX
-	 nIlKDZmtcIlI7uLPcH4vhYoBAsUjXN4vjApwADQdBcNHYUviqD4MbVO1yAvMIoYnEl
-	 MAr1nKcgX3m4A==
+	b=ZXqyQrV6Y7qejDD9SlNYEzQBYR5GGe5ROFqdWd53NW2wZQ9yh1ft+y6dpqkI+3uRs
+	 qTfJqdBvZTQ5qHICsZjul3pBTF59hlac8Fr8dEDPC2TcmnDVRYEH+RsCUjMYC78C2r
+	 YRKjwN2oi8BguEWhyuFdGws2IlgyhBO2/+ohgq0c1oAfkQ1dfYmbU8SF6DigX38KeO
+	 ZQxeIadKVXb2qSVKBj65xTLXyGDjY6pLBmx1AgN6ylVv0kfh1V53IxbcEoDlmSrrZ2
+	 QPDpjOrijyCUv6X79cx7cO6dqXjMPZdtxmJcOg8fE3kDW7iIF/nMbUSVppXrcssx+J
+	 0+UE/oMtoJ8DQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Federico Amedeo Izzo <federico@izzo.pro>
-Cc: Val Packett <val@packett.cool>, Luca Weiss <luca.weiss@fairphone.com>, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-In-Reply-To: <20261010-aw88261-hardware-mute-v1-1-d0befedd3b4c@izzo.pro>
-References: <20261010-aw88261-hardware-mute-v1-1-d0befedd3b4c@izzo.pro>
-Subject: Re: [PATCH] ASoC: codecs: aw88261: expose hardware mute control
-Message-Id: <179190722039.42298.1051562928418220534.b4-ty@b4>
-Date: Tue, 13 Oct 2026 17:00:20 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Priyanka Mani <priyankamani2100@gmail.com>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Alexandre Mergnat <amergnat@baylibre.com>, linux-sound@vger.kernel.org, 
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Dan Carpenter <error27@gmail.com>
+In-Reply-To: <403cc04bb103dff096edf72b99ae6868ee91f359.1791782072.git.priyankamani2100@gmail.com>
+References: <403cc04bb103dff096edf72b99ae6868ee91f359.1791782072.git.priyankamani2100@gmail.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8365: Fix out-of-bounds read in
+ get_iir_coef()
+Message-Id: <179192115331.1606900.11418539527267482059.b4-ty@b4>
+Date: Tue, 13 Oct 2026 20:52:33 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,17 +49,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1127; i=broonie@kernel.org;
- h=from:subject:message-id; bh=+rAx0ZsSUfQxzg+7xnudKVYP1MtGjqbwqga0yYDXbws=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurE7K2ffjvyBjZPipCdtbp6+5+VHB+/XHl+IWU6VEt
- vmcN/ozsaOUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQATCfrIyPDp6ZyuZTbrZHyk
- DGNFQuPelu4rmVfwZMNR+TAmh9k8Xv6MDK/3LLfYGx74Ytqi1mXxV5sNLqrl/Qna/2z65P0KMcL
- eCSwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1147; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=OeNecRvAZ2xIg1KwKkSy3lnhgYoQ9dQyV2iwg36Y1C8=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurE6P8+r9axAV+TZqMgNber7dtH0Jq1NyvtYzer+5z
+ W+2KOt4RykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACbC8peRYf8Zj9463o86y/9b
+ 3S5ZUKJxYc+ZhLMNGks3/YyaJH/e5AkjQ1Odr1Prn7xu2zzfKedVVtivXsYr+C86dd3uQ7v0OE/
+ 1cgEA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sat, 10 Oct 2026 12:24:43 +0200, Federico Amedeo Izzo wrote:
-> ASoC: codecs: aw88261: expose hardware mute control
+On Mon, 12 Oct 2026 05:31:19 +0000, Priyanka Mani wrote:
+> ASoC: mediatek: mt8365: Fix out-of-bounds read in get_iir_coef()
 
 Applied to
 
@@ -64,8 +67,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: aw88261: expose hardware mute control
-      https://git.kernel.org/broonie/misc/c/fe9dcf5f6575
+[1/1] ASoC: mediatek: mt8365: Fix out-of-bounds read in get_iir_coef()
+      https://git.kernel.org/broonie/sound/c/e913917febd3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
