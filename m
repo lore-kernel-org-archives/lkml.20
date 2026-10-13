@@ -1,80 +1,82 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACF64E36CA
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:58:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2CB64C10E2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:58:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791889119; cv=none; b=aLk8rkZf4HSmDQLqQ7x8wzsEVt6CHYvLc8DWGeqE1yunm4aJg9zkIFLKHSEObFDYXUJf4yIjdT5O3myruS990klU327ntePMMekWslYCOiy6AUnFYIZI9UR5+6ZdUQTIawj9kJHo1H4hJAZ9aogdkE73CVBIOq9B3j9SbTOKFuU=
+	t=1791889124; cv=none; b=n7rVBgNq9Xs5U8mRGplw3NtwQxMT/2fgDYaK7HQd26P2vqaKeBnf+L3Oh6QGBTwizwSU2I2zVjiCTtbZTlmMs2k1RcH9jh+9YV2R5SVcQ46ekAXeRXeCDogWrZnLEUYs/dkU26xY05jahsw+AvvHhQdfIyAuUxs8j8YRbq5UKLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791889119; c=relaxed/simple;
-	bh=TaE9Ly6M6reX40WUzo4n5oZ5FLX4vQyvLdUI7s12ZkU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=LtwGgt3PXIEJesvwhvmK/4OS28J+t50OpG0ro2qqUgZNpMj8pDRaOpz0XH8i4NVcgWeZUk6WhAF+uyC0V+t0H+ro8s4egLD1HwZ97U+KJsWsZc8F5tbRL97t0I6jWJb1uhL080anxdzrJL7j+wE2TEuh4D/gKYMcu9BLQXH+DHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KIT9pHGj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LQEHY4sT; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1791889124; c=relaxed/simple;
+	bh=7ONX4vDOeMj5oyXc0wpCu79X47WQjrqzwSNypYSUYbQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i+PHUIFRJUSJ3r9GhqDm0vNElzSAml6b/gCLmPHphz6gFBSrRBwsDjBEJFByGD1hTnYro4FHmU+1WII9XQOWn343Xuy0egbmZGkgxv4340Tcmibs6iRNQCwVabxUDDUjYFiDiQz/VnnnUylx2MW65u2Q4iliRdBOyLjiLmcy9ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZELKi8+s; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=XEk1okJ7; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KIT9pHGj";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LQEHY4sT"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZELKi8+s";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="XEk1okJ7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791889111;
+	s=mimecast20190719; t=1791889115;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=YIXLaYbJVEJiIPKxdajUtKwRlZKZGxRdqRquRKPiCJk=;
-	b=KIT9pHGjvLAoJ9JDFodqmbXO24gwkY9a5INw0QvV8momnar2wDowYhnhr9QnJ7jzG3n8oX
-	B1AD5Cry+vKy7LpjjyZKjLBctqluktySZP7vgP3MkJNVqgqT7RiMRnnHH3aHd111q3500w
-	BZph/G68ieenAfPXg3EDuLgXHVSvL8c=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IntiDFOBDv3N4E6ikCGJ+h2ZJ02HJSndIefAXObsa/U=;
+	b=ZELKi8+s+pSqDekhNRe1eN3Ou0yc0m/LA1rkbPiVLhOpmAWcX89bdegOYfsx5YT8eX/pQn
+	9Usy5ekOlA1p2eN73ZHjiSCOVZ0ct2ccyRR4QfXPWJAoon45YwrSIrB7NSNH8x5Ozxr8ol
+	b5OkFgHTbsXBvnwAbzuiuuuZTP4WN2o=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-460-JIbk8jKkPcyDnFhlIDoVbw-1; Tue, 13 Oct 2026 10:58:30 +0000
-X-MC-Unique: JIbk8jKkPcyDnFhlIDoVbw-1
-X-Mimecast-MFC-AGG-ID: JIbk8jKkPcyDnFhlIDoVbw_1791889109
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48b028d93c5so2023241f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:58:30 -0700 (PDT)
+ us-mta-44-OaSk-NuPN0CNUPgYdl9TkQ-1; Tue, 13 Oct 2026 10:58:34 +0000
+X-MC-Unique: OaSk-NuPN0CNUPgYdl9TkQ-1
+X-Mimecast-MFC-AGG-ID: OaSk-NuPN0CNUPgYdl9TkQ_1791889113
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48b02e93a1eso2180756f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:58:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791889109; x=1792493909; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YIXLaYbJVEJiIPKxdajUtKwRlZKZGxRdqRquRKPiCJk=;
-        b=LQEHY4sT0JuwfdjUu9rcTh82YrbRuj9uL6CzJc94xsU+ho6HuaUK9iyDliyBgd18H7
-         cIVpEzw86B8PWPhJYpvZplULgTOQIksk+Ghw42uZMHb/I6cuHeri25d/YyECbHaI3Ql5
-         wp0BTX/PeyvhljmePufuwfDoO5pX2bILxWlX2Zd8d9Alz6FZmlYFIoV8iMV0UEau/0LT
-         78iEhHqCA2j7jAV3gXztjsvbxgrdp/rY8jikt2fH1Z1qEMBRkWc/gwe4aIvVQoLfK0/v
-         KYMlQM/7GoQ688Go7qWoWyRfpcrOYnNlSckTy6sUeMPjTfoXazxeHh4BdLxKIoJZZwwn
-         WbdA==
+        d=redhat.com; s=google; t=1791889113; x=1792493913; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IntiDFOBDv3N4E6ikCGJ+h2ZJ02HJSndIefAXObsa/U=;
+        b=XEk1okJ7ZWR7En/1sCTqJPKfHZ3+mNi+xCaD7XEXWbIKxqU2Dg93OnVty78/dtHR9a
+         VM6RdCtWu8v8b4d03vnYqbW+HCAauvF3//7pliWXSaOiThOH9ERuNdZ1WNYByBFhLjWw
+         Rcy2Ggimpu0bkciHnetzpQgt1HUUH37atpAgcgOz8ZmzffV5lxke0aI3qdTKWt23Wh1Q
+         1nbjwODnM79fCqBNYSeXJnRGKywKqk2ntrvJVVoNeasXLWFHlz/e98tHVaag6hgHHA11
+         LqcW8alBRCmvNPgZ0Epv5oEadJwzvTKeXiPuQwYgJtZzZ3ApB6KzTbg+/1WAafBx8GDT
+         qYHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791889109; x=1792493909;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YIXLaYbJVEJiIPKxdajUtKwRlZKZGxRdqRquRKPiCJk=;
-        b=fHfOXIpxnVs0ejBvW4WHh+QCeN2lb4kJgMhqtvxNgJBHDVWsGc7icPD8eQT8IJFv2r
-         GiqeVJhb759oYeCrYrnu8RCAt1pGWF60Q/KnaCF7Ns9DtaKMajSiPBFjVXe8pGr3VEhg
-         SIhr9O+WXGkxqJUhV5w6Pv2i0QwgmtCM+AF/7YImhgRQ11CkZXALLtuq6ycTkYE8yGhg
-         Lst7eqP+1bzuUWGlw5SncZUNjCuUUmxErdN5w5OwCMt+1sa0Ymc7/IyVI48840MHCBpu
-         54/hThmlCl6WhbaZeKKf75XeFF9V23cnuC5pfeRakxlcklvGxPdJ9CFcpEjRYZ9j9OS+
-         Bm8Q==
-X-Gm-Message-State: AFq9FYKlhHgNmCCgX04aVEKmtNug4loMggJMkkdjUqSeKKM60FSxioGC
-	umAgEwcumpMBHR9mhhVVFF5Mfn2DN9uvwrm6mYyWs8FxNQMXOIrt35cLnUm7JGssUREsc8WJ3Zc
-	fmh7ZkUGACFlDG3ZO7EWKQ/e37GudLNLwAUFsEGIPYC6k15aBPFN/0ILW52zoVf0EmOTuE8Gvcl
-	T3r/J7uQiQKSDppD8ZvkVQj7yU5WYiJNCalZr+OepQp0c=
-X-Gm-Gg: AYBFou1UQXTvmZ/gQTDmpjgZ6OJHgOHahzw2AlhrDQg0yu6VjWJQLP2lho2C95k+wj7
-	DT2hwoeQa8wYk7Ycb2cUklg65ZSoFMWN3sWmapB63EmCwyb0S2K6xxZpC2CBx1oiaOBvEMD3p7O
-	FFm0irsh0I9uHFO1gHKygxhAaBERNjqazEHmB9lFESQCsE26teEl7sN/W6hybslP1/C8wJ6FIXI
-	xHAB98JPpbxz7HpC25YHS4CppG9fOZd73InetWsPmKwwTkRPuxRa5Ln7QZLOZG2TyWRH+Khamcp
-	BCI8Xo85dS3pAtwxAwWj6afTVaB1gk4B6XQJPXiavvzkncOhqF33mFOjHQ0ElL2ldb1Evg==
-X-Received: by 2002:a05:600c:3541:b0:4a0:2488:71cc with SMTP id 5b1f17b1804b1-4a18e4e9ee8mr222632705e9.32.1791889109102;
-        Tue, 13 Oct 2026 03:58:29 -0700 (PDT)
-X-Received: by 2002:a05:600c:3541:b0:4a0:2488:71cc with SMTP id 5b1f17b1804b1-4a18e4e9ee8mr222632035e9.32.1791889108394;
-        Tue, 13 Oct 2026 03:58:28 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791889113; x=1792493913;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IntiDFOBDv3N4E6ikCGJ+h2ZJ02HJSndIefAXObsa/U=;
+        b=Bzz09JBugE5hGMV/TceS1K5LWMWxFIJJYBeBcCIonao8OQi1Y6wkYGCUUm9r5lsEuw
+         JBDug6yC8yiq0lsaR5sTb9cN8jNC2wklLYEsKcoc90xf6u/S/k+rgct35zpnOvFN9vc+
+         DzeifX2RKo2MkslJyelnaWXS4j07oSescdQEZCc83mJIFXtO7LmUZW31HkIKTITq+YwA
+         q/xrAh/hRQ5Z8eb+O8jmU5YHKAE0Pb58L0sRKqDSUC9WUcBM48efjpB/qJwoz7oft/Fb
+         HXAj94hVjvw/q+mlRs+yHLlG0GhJoqinDRSaDP8gDKrYiHTZbPQ//tMRQNaeV/SYuQw+
+         kHAw==
+X-Gm-Message-State: AFq9FYICrcIsB7QUBHZcTosihcUHKus6MtSuEMsq3VjyNLX68yROeYL2
+	g+GKp49T+2rGbHbhrJHfoM9VUd0o3E0fXnzomGqU2OddIgqK1fVzK4EWsZw3U2T8NpATASluzX+
+	HpU2SWkQnewXu6GWO5pSdQJR6wa7bGrrClOVJxomGqw5g2UMTq3l1VKK76nCV3P9sT05H4ifHWT
+	rcGHmMTL7Xb0YWJIWoUXsWF2afT8jOkUsFt/3jCiT7Uvc=
+X-Gm-Gg: AYBFou1WAILUEiG5uOT1Nk1v55I1MheLNuZjduzRNAwD2BynraHXGPgmrB3+gjUREez
+	YKoxqXZICheRjBG5cs6npLYxtER7e5rnizhlrlwGxNuQWW4crqno3l5ytINCTsiIb0y9jvdPwxw
+	KLDXr1ZXpBjH1QCfzHj8tfcRKb4C+6DgIwI7YQ+j2cVKMd9v3KfY74sO0/YmJZHdhY8KaVaJeN0
+	EOomiN+UPbDP+Sl/VzuELP1fUcLitnmNZ99GPifDn45I8GOHkQ5DbclA9E7k2QIH70O8mxNP8vC
+	mP90DDq+walWJbRv1rEuzK5w0kADFu25TDA2ik1xl++F4W6mj640qmrTHcUnmOyp1FSezw==
+X-Received: by 2002:a05:600c:4e91:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a18e4f56bcmr247249165e9.33.1791889112687;
+        Tue, 13 Oct 2026 03:58:32 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e91:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a18e4f56bcmr247248425e9.33.1791889111969;
+        Tue, 13 Oct 2026 03:58:31 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc6b82sm4518508f8f.51.2026.10.13.03.58.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf3e044sm344208705e9.14.2026.10.13.03.58.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 03:58:27 -0700 (PDT)
-Date: Tue, 13 Oct 2026 06:58:25 -0400
+        Tue, 13 Oct 2026 03:58:30 -0700 (PDT)
+Date: Tue, 13 Oct 2026 06:58:28 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
@@ -86,9 +88,11 @@ Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	Max Krasnyansky <maxk@qualcomm.com>
-Subject: [PATCH net-next 0/4] more virtio-net csum hardening
-Message-ID: <cover.1791887415.git.mst@redhat.com>
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>
+Subject: [PATCH net-next 1/4] net: add ip4_parse()
+Message-ID: <bfd6257f8fc8a5c6cd876b8ebc498b8a4ee0be8e.1791887415.git.mst@redhat.com>
+References: <cover.1791887415.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,44 +101,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <cover.1791887415.git.mst@redhat.com>
 X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
 X-Mutt-Fcc: =sent
 
-Allowing untrusted hardware to specify csum start/offset for
-CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
-outside the actual checksum, and depending on the setup, the networking
-stack could be looking at the packet both before and after the edit, and
-seeing different results.
+Multiple places in the net stack open-code the same minimal IPv4 header
+validation: pull the fixed header, check version 4 and IHL >= 5 (where 5
+is the fixed header size in 32-bit units) - and locate the transport
+header at IHL * 4 past the network header.
 
-Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
-completing checksum") validated all known instances where this
-causes the most grief, but the real fix is to make sure
-that either only actual checksum fields are ever edited,
-or the checksum is completed before the net stack looks at it,
-so it is always consistent.
+Add a helper for doing that: it returns the validated header and
+the transport header offset, or NULL if truncated or malformed.
 
-This basically does this: checksum at ingress, except in a narrow list
-of specified known good cases.
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Assisted-by: LLM
+---
+ include/linux/ip.h | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-
-Michael S. Tsirkin (4):
-  net: add ip4_parse()
-  net: use ip4_parse() in receive validation
-  net: resolve uncommon partial checksums at ingress
-  net: account for ingress-resolved virtio net hdr state
-
- drivers/net/tap.c                   |   4 +-
- drivers/net/tun.c                   |  44 +++++++-
- drivers/net/virtio_net.c            |   2 +-
- include/linux/ip.h                  |  24 +++++
- include/linux/virtio_net.h          | 161 ++++++++++++++++++++++++----
- net/bridge/br_netfilter_hooks.c     |  15 +--
- net/ipv4/ip_input.c                 |  13 +--
- net/ipv4/netfilter/nf_reject_ipv4.c |  13 +--
- net/packet/af_packet.c              |   4 +-
- 9 files changed, 228 insertions(+), 52 deletions(-)
-
+diff --git a/include/linux/ip.h b/include/linux/ip.h
+index d11c25f5030a0..98012f6d0efb5 100644
+--- a/include/linux/ip.h
++++ b/include/linux/ip.h
+@@ -56,4 +56,28 @@ static inline void iph_set_totlen(struct iphdr *iph, unsigned int len)
+ {
+ 	iph->tot_len = len <= IP_MAX_MTU ? htons(len) : 0;
+ }
++
++/*
++ * Pull and minimally validate the IPv4 header at @nhoff.
++ * Returns the header and stores the transport header offset in
++ * @thoff, or NULL if truncated or malformed.  Only the fixed header
++ * is guaranteed linear; callers that need the options or the
++ * transport header must pull further.
++ */
++static inline struct iphdr *ip4_parse(struct sk_buff *skb,
++				      unsigned int nhoff,
++				      unsigned int *thoff)
++{
++	struct iphdr *iph;
++
++	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
++		return NULL;
++
++	iph = (struct iphdr *)(skb->data + nhoff);
++	if (iph->version != 4 || iph->ihl < sizeof(struct iphdr) / sizeof(u32))
++		return NULL;
++
++	*thoff = nhoff + iph->ihl * sizeof(u32);
++	return iph;
++}
+ #endif	/* _LINUX_IP_H */
 -- 
 MST
 
