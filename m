@@ -1,211 +1,182 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from e234-60.smtp-out.ap-northeast-1.amazonses.com (e234-60.smtp-out.ap-northeast-1.amazonses.com [23.251.234.60])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B251946EC73
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523543E3163;
+	Tue, 13 Oct 2026 03:28:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791862118; cv=none; b=qNCTalL4eT6Q4Ytm7+F2ffno/206pzwRCcfRD+zWcYotSfhUEOjWW1zAbXU2zTSGjNY8tPwUb2Y7T6pmBc0vGRHHnG9Vnj0EYyBQCVuFsfV1YQliv/m8/0TsJg4jelngB3a7Bc4Q39RKZEDimJAYvPGYBXN/pKu5DFQVzXhwPi8=
+	t=1791862123; cv=none; b=l+AxhghwfI+Wr4Yjgz5B6JOM7aiB59YE8i4b6a+YGmyp9vzOPV9WrheV14eHrpmZl++fTuqS8KtnriNE9U4wznJ1VrNoKAgSQA8OPM+Aby4qEngeTGrmZuX2NM73gANpCTOtRuCL6uZEBfWI4Mp6++g7XvylqArr2dGKKTETho0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791862118; c=relaxed/simple;
-	bh=1596ZXtdhvZVs+Tdnu6Ajw7/QmvSTVTcByw56Brktwc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JmiA09vXpHeNYN9/J45DhKrdBdK0Nh0rCepL9G/5QUWcMpXAzwQlyvDoUtSjNX0tieREnJhj0WmNz3mTwoNKuoIxRFfuD8IQ/2TmnFBDrEwK7QaHNcJZMyfJlVreYlg1vu+JAlUxbxLZ3Qs29R3dzxsUTHL7zBP8OGSBgnsDQTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W91FFlHc; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791862123; c=relaxed/simple;
+	bh=hcD8VZXEH9+9YcnltfOKM4C0AmHYnM0bAAMtPmjWBZY=;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
+	 MIME-Version:Content-Type; b=F093sjPUjFCGro7H82zVVUSKzOrzKWg86GqoKgdqL4k7Cwv+WOqv7Bd9YbCEbe9/CeIpYGk4aWvdR9WYEf56/F5mk4d81xm6cwiJcWvpzUUCeayD0kRrwja3ixp2REt1QgiuImAurqWNcdq/2WYyWYevxdAEeH0d7DD3rO2fAmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=3PgVdL/2; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=R7mCEcTt; arc=none smtp.client-ip=23.251.234.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W91FFlHc"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535a54bed9so3469119eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:28:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791862116; x=1792466916; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+8wCm2Nfy1YlIAb2uRfBFA3ucdNuFD+nuit8STLj3RM=;
-        b=W91FFlHcUkJSt2HrR9od60ZMxoiq4czabMLAHTBvIZKvZXtJ2k87DyVzvWa52Thp+N
-         yEIdIFeiR7iGGqj+dyoFxQu7P2SHxSfg9cAvr8i5vEFx/XeXr8CmmHy9keFdUzEVOlH5
-         ZmFRsml7GRBmCobiUiOW6wCVv9/0+xCjrWXPsfDvoq5HAgjkb/Z4Gyhsbn2QODvuBY8k
-         7yNHYPCtKLtC5SuibL0GpECx3nrn+Ny9IIPI1gKhzxxybM6aHlTcyoyJbfyUrcwIdLJ+
-         Z8lf6sEglefQO7jumuItchredFVLyOrbkQ43ZsxCNN3qySIUtojrgM1m6kSj2Vl7UaWW
-         rgLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791862116; x=1792466916;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+8wCm2Nfy1YlIAb2uRfBFA3ucdNuFD+nuit8STLj3RM=;
-        b=OwOYIZ7/yvFrtbTA+6e0OTdmBvZOBZqtT654SkMiMwjMeG6Jso4ipgIFtYoFR5KwKX
-         zBdbbQPb/r6vOgxhllEPTHNnkc0/t9gEOvB82Pblk7eWeXDBfznpMNCd87ETRuL62ldf
-         Rh6Bsjsm2MEQJkyOAtNvgVbELzUwUzv/G9EHFEtwUJTectd8OkkBFUa8UAunm1cM/bpc
-         APcLyxiZ6Bqbc0J2fJamjq5GAoV58b5t4dnt3DQYyu/XkN3IQsxISPUp/fLwqBeC4zfh
-         Q8cwtNFma/oKzZPaA8FliSwAAC4t8NyD+qL+MGY7Fx1FfmXQotFt/AGpNOkFrpFNmpF0
-         nYUA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3lQuWUPf2qXo62m1iD94dcYhsQtEG2CM8PIKYdLgUHQ5seHONZbAVZP/T/TxG3cVyt2akfuMz44dkZ3M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6Y0YSrSPXZ9R1bQJnVzcJqpOCUJ5VR76GiDub87TmjYk3ZglC
-	+woTwPB7xacQuAMTOuqC/E7VlYMDOYH6zLbPB3ZBVmtAys/nrw64j09u
-X-Gm-Gg: AYBFou12wxRDx3ZTo2n7ARkYJqqjJPB4AGB8IpMcYnk07Q57bLNUr3cORPxB11IZU4+
-	TrvkZH6ae61kw8YGJFdGDhGTY2SzGWq9kmGZDzCTiXeUw0Jhdhvg4/NM6Rj1qhMh0vcyiYS7x3j
-	H/fdp89w++P/9ZXv/1VH1z2AHT5Mev0MsCspVYAJ+XKpPE8Q3go1ah4XoTXPsDI+zjLtcJ0VSZa
-	zBCTelGSCxFFAJfnRiur5t6isNuUlPEN0OmuJZj+r+JZswsx6zFTUc8XBf5kXswVLhXcswd/b2R
-	ZPP3lfJbE+SvXSqv40T1alKsOuiglkZvhc7hDhTpiQt9m+Axh/PQAlALBQ200/G4AqHutT0712B
-	8ra0BxGy0uIeKGdZ/5INpjdkNJ7NY6c6zWDFDIkPLdp9sUXvktz4dMPIsJKxGLthaOYe0NL07l1
-	rUje8OUtkHIaPmIBfaTljIkm5Tvr7TrEeKsKQi4v6JkwsVKneswffxDQmjwpQiV7CMFx9JJlFt4
-	b/HEOBnBiTk/w9/T1mhhAJY89gIx1Go5Kmv9VCZTGYdmw==
-X-Received: by 2002:a05:7300:d205:b0:35a:22a4:133 with SMTP id 5a478bee46e88-35a22a421b2mr7256994eec.20.1791862115599;
-        Mon, 12 Oct 2026 20:28:35 -0700 (PDT)
-Received: from [127.0.0.2] ([2401:4900:8900:441a:ba51:e5f4:3ca4:4b87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm43617106eec.18.2026.10.12.20.28.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 20:28:35 -0700 (PDT)
-From: Ramshouriesh R <rshouriesh@gmail.com>
-Date: Tue, 13 Oct 2026 08:58:23 +0530
-Subject: [PATCH v7 1/3] media: dt-bindings: Add Himax HM1092 NIR sensor
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="3PgVdL/2";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="R7mCEcTt"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1791862121;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=hcD8VZXEH9+9YcnltfOKM4C0AmHYnM0bAAMtPmjWBZY=;
+	b=3PgVdL/2eLUGVF0vXIEnN0Usz1so0Bglm8JG1hZqohGViUikZnuKb7T86OmaXw8r
+	SApSA5WJkWwJJGM0Ug2o3BlCmOQyvQVle741TSeC6pQw1YQ2GllSlkoC2qS6Nb8Kefk
+	rEx6/iwb6UKFozGY2/zN0chzKR6Ia8JApBJ56jpI=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791862121;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=hcD8VZXEH9+9YcnltfOKM4C0AmHYnM0bAAMtPmjWBZY=;
+	b=R7mCEcTtCHvPuawWjMG8O2VMUKd1U3OokGrYE9TO1o2+WxuvPxiVOabgm1+scXBw
+	9B8jQW3YAqEDdh5MIO6NqCaRlOjhkEOFpoXhjsnjcv215bkHYV1zjKeV0GkePKvfrpy
+	BaRgJSgtQ7ng2DwUA6CqmU2dCWoFeNv1J4YdFd1s=
+In-Reply-To:
+ <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
+References:
+ <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
+X-Mailer: git-send-email 2.53.0
+From: Jizhou Tong <fqwqf@fqwqf.xyz>
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	daleyo@gmail.com, broonie@kernel.org, u.kleine-koenig@baylibre.com, 
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Subject: [RFC PATCH v2 4/6] dt-bindings: input: describe the Romulus13 QSPI
+ touchpad
+Message-ID: <010601a1334e2298-73816c42-ca83-40fe-9c7a-e771c466a4e6-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 03:28:41 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-hm1092-driver-v7-1-d81a9b152ffd@gmail.com>
-References: <20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com>
-In-Reply-To: <20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Jake Steinman <j@metarealtyinc.ca>, 
- Eduard Kulyk <kulikeduard89@gmail.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.10.13-23.251.234.60
 
-Add a dt-binding schema for the Himax HM1092, a 1 megapixel monochrome
-near-infrared CMOS image sensor used as the face-authentication IR
-camera on laptops. The sensor streams 10-bit RAW over a single MIPI
-CSI-2 data lane.
+Describe the fixed-address HID-over-SPI touchpad on Surface Laptop 7
+13.8-inch, with quad address/data transfers, an active-low reset and a 5
+V supply.
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
 ---
- .../bindings/media/i2c/himax,hm1092.yaml           | 101 +++++++++++++++++++++
- 1 file changed, 101 insertions(+)
+ .../input/microsoft,romulus13-touchpad.yaml   | 86 +++++++++++++++++++
+ 1 file changed, 86 insertions(+)
+ create mode 100644 =
+Documentation/devicetree/bindings/input/microsoft,romulus13-touchpad.yaml
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
+diff --git a/Documentation/devicetree/bindings/input/microsoft,=
+romulus13-touchpad.yaml b/Documentation/devicetree/bindings/input/microsoft=
+,romulus13-touchpad.yaml
 new file mode 100644
-index 000000000000..e0a8bee62afc
+index =
+0000000000000000000000000000000000000000..88e4664c56e7fb1c3f9f5949a3ded2f9d=
+7070604
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
-@@ -0,0 +1,101 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++++ b/Documentation/devicetree/bindings/input/microso=
+ft,romulus13-touchpad.yaml
+@@ -0,0 +1,86 @@
++# SPDX-License-Identifier: =
+(GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/media/i2c/himax,hm1092.yaml#
++$id: http://devicetree.=
+org/schemas/input/microsoft,romulus13-touchpad.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Himax HM1092 Monochrome NIR Sensor
++title: Microsoft Surface Laptop 7 13.8-inch QSPI touchpad
 +
 +maintainers:
-+  - Ramshouriesh R <rshouriesh@gmail.com>
++  - Jizhou Tong <fqwqf@fqwqf.xyz>
 +
 +description:
-+  The Himax HM1092 is a 1 megapixel monochrome near-infrared CMOS image
-+  sensor with a MIPI CSI-2 interface, commonly used as the IR camera for
-+  face authentication on laptops. It outputs 10-bit RAW over a single
-+  MIPI CSI-2 data lane.
++  The touchpad on the =
+13.8-inch Surface Laptop 7 uses the HID SPI v3
++  protocol over a quad SPI =
+connection. Its supply and board reset states
++  must be controlled during =
+initialization and recovery.
 +
 +allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
++  - $ref: /schemas/spi/spi-peripher=
+al-props.yaml#
 +
 +properties:
 +  compatible:
-+    const: himax,hm1092
++    const: microsoft,=
+romulus13-touchpad
 +
 +  reg:
 +    maxItems: 1
 +
-+  clocks:
++  interrupts:
 +    maxItems: 1
 +
-+  avdd-supply:
-+    description: Analogue circuit voltage supply.
++  vdd-supply:
++    description: Touchpad 5 V supply.
 +
-+  dovdd-supply:
-+    description: I/O circuit voltage supply.
++  spi-max-frequency:
++    maximum: 20000000
 +
-+  dvdd-supply:
-+    description: Digital circuit voltage supply.
++  spi-rx-bus-width:
++    items:
++      - const: 4
++
++  spi-tx-bus-width:
++    items:
++      - const: 4
 +
 +  reset-gpios:
 +    maxItems: 1
-+    description: Active low GPIO connected to the XSHUTDOWN pad.
++    description: Active-low touchpad reset.
 +
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
++  pinctrl-0: true
 +
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        required:
-+          - link-frequencies
++  pinctrl-names:
++    items:
++      - const: default
 +
 +required:
 +  - compatible
 +  - reg
-+  - clocks
-+  - avdd-supply
-+  - dovdd-supply
-+  - dvdd-supply
-+  - port
++  - interrupts
++  - vdd-supply
++  - spi-rx-bus-width
++  - spi-tx-bus-width
++  - reset-gpios
 +
 +unevaluatedProperties: false
 +
 +examples:
 +  - |
-+    #include <dt-bindings/gpio/gpio.h>
++    #include =
+<dt-bindings/interrupt-controller/irq.h>
++    #include =
+<dt-bindings/gpio/gpio.h>
 +
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++    spi {
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
 +
-+        camera@24 {
-+            compatible = "himax,hm1092";
-+            reg = <0x24>;
-+
-+            reset-gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&cam_ir_default>;
-+
-+            clocks = <&camcc 1>;
-+            assigned-clocks = <&camcc 1>;
-+            assigned-clock-rates = <24000000>;
-+
-+            orientation = <0>;
-+
-+            avdd-supply = <&vreg_l7m_2p9>;
-+            dvdd-supply = <&vreg_l7m_2p9>;
-+            dovdd-supply = <&vreg_l4m_1p8>;
-+
-+            port {
-+                hm1092_ep: endpoint {
-+                    link-frequencies = /bits/ 64 <180000000>;
-+                    remote-endpoint = <&camss_csiphy0_inep>;
-+                };
-+            };
++        touchpad@0 {
++            compatible =3D "microsoft,romulus13-touchpad";
++            reg =3D <0>;
++            spi-max-frequency =3D <20000000>;
++            spi-rx-bus-width =3D <4>;
++            spi-tx-bus-width =3D =
+<4>;
++            interrupts-extended =3D <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
++            vdd-supply =3D <&vreg_ts_5p0>;
++            reset-gpios =3D =
+<&tlmm 120 GPIO_ACTIVE_LOW>;
++            pinctrl-0 =3D <&touchpad_reset>;
++            pinctrl-names =3D "default";
 +        };
 +    };
-+...
-
--- 
-2.55.0
+--=20
+2.53.0
 
