@@ -1,158 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8397F5172DA;
-	Tue, 13 Oct 2026 14:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A9B51AED7;
+	Tue, 13 Oct 2026 14:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902452; cv=none; b=GeMcXyX3jUUeS/Sdz+6e9A2ru8kPQez0H+fXGfKnu7iAvg0e3/3fDcD2lseVE+YEtbDWstOnbKZNDxkFukhLHv+uIQUsoapvZx9m85kZxEZjx6o7nxC5dB19lCyoCqPibW5OXOezyQ+mIgMbIGbgyORRcoIrHYfyoEUfljqMQwk=
+	t=1791902455; cv=none; b=sQPzvTUbpL2UrlYiX6+JsGWhWxKYvX7fsSu3ySkVwKNxf/TF+9hHIWxQ+il7pIegrV7MQWWEn33Gt2II8chPufs//f34Dx68DAf2qLX7h3x85k6sNrmmSVfqsD6QF2SCX2T8nnwipyTpy+aqMYQCe8S4WhYZc9qeh7yGPARFTi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902452; c=relaxed/simple;
-	bh=tshp6hN17mH0meZuCKVUXcZoCinEb1JlKAYw+wtFHrU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AEdF7qGYaCjzzdoNIcbetLfG4xxl2MQW+p6Cpa5J50RuEA0npOdlCKm3QcxdqbH1S84RFwtveHrNnYcqhxFmNeYJucby2vtHdYEv8DHE0bq6pcbAn6W0Tv4rPlkgG+nENWnaMzk21Z8giD778PFlb87SlTia0WAdF/6n58yy/DE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3dxMwqL; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3dxMwqL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FB81F000FF;
-	Tue, 13 Oct 2026 14:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791902450;
-	bh=JMF/X4p2JMQOAWL5F8hcgnR0xRgqfvQmfw3SYOWs+Bc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=E3dxMwqLMttYe0HqZS0dZWPQZ5GG3zyuI0bjf3NPCgljWbcwXvEdkz5wNfUKIR9uO
-	 zrID0Xq18gpwNsFxSeaTpXMu8IwYvTbAvA58g/QChfUKY8hGkNGiN4cQV5qWD6opX+
-	 czt4bQbb2TFIbQ+a7fGK/AISz3uh4NW3NwTCV79PSHfDdS+t6BHS/IGf34Y/d5KAns
-	 M3gTuKmkeJop2tA3nk1lKWpdnTe5rxUBYy9KSRVGqkiyJWnz1hBMENfuevLW/x8W+N
-	 dnMl3rvQi04aFvYZ475GaDry7zGNs8sGWJ6xqhJ3Olx/m16Qsr2Sf2cBNTLEwlys6f
-	 Ia9OFnVh7q93g==
-Message-ID: <e300f046-dcae-4539-bf89-92eb8c575e25@kernel.org>
-Date: Tue, 13 Oct 2026 16:40:43 +0200
+	s=arc-20240116; t=1791902455; c=relaxed/simple;
+	bh=YD1i5N64AwyiZAOcbQ6m8sqofEPSt70zGsK4VQLTngc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n26opvDqOX0cdkLCJkrokUbaYvcmifnkEuC/87EkakGkSaBd5/PieWmSh9G3rEScSTnf1ikG3XGrvqrg9xgHnFKWgUcb2Q5IXd3f/bdVe2S0L11N8B9kfPOxLAoshGuvx8RMfWV6ZVR53em5jGRDkzMZPB7/HiV5HCpB6s4zrkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 060232000E5;
+	Tue, 13 Oct 2026 16:40:47 +0200 (CEST)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E2F26200012;
+	Tue, 13 Oct 2026 16:40:46 +0200 (CEST)
+Received: from lsv051416.swis.nl-cdc01.nxp.com (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
+	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 697B2202DA;
+	Tue, 13 Oct 2026 16:40:46 +0200 (CEST)
+Date: Tue, 13 Oct 2026 16:40:46 +0200
+From: Jan Petrous <jan.petrous@oss.nxp.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
+	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	imx@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Subject: Re: [PATCH RFC v3 01/12] dt-bindings: phy: Add NXP S32G SerDes
+ subsystem
+Message-ID: <as5C7o1joORcdesQ@lsv051416.swis.nl-cdc01.nxp.com>
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+ <20260919-s32g_serdes-v3-1-9d68868c1e89@oss.nxp.com>
+ <as0tiQwquNkdlF2i@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/proc/task_mmu: fix lost maps entries above 2^63
-To: Stian Halseth <stian@itx.no>, Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>
-Cc: "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Andreas Larsson <andreas@gaisler.com>,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261011162019.922436-1-stian@itx.no>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261011162019.922436-1-stian@itx.no>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as0tiQwquNkdlF2i@SMW015318>
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 10/11/26 18:20, Stian Halseth wrote:
-> When a read of /proc/pid/{maps,smaps,numa_maps} resumes, m_start()
-> rewinds *ppos to priv->last_pos so that the vma which did not fit into
-> the previous buffer is shown again. It only does so for last_addr > 0,
-> meaning to exclude the start of the file and SENTINEL_VMA_GATE, but
-> last_addr is a signed loff_t holding a vm_end. sparc64 maps shared
-> libraries, anonymous memory and the stack above 0x8000000000000000, so
-> the rewind does not happen there and one entry is lost at every read()
-> boundary.
+On Mon, Oct 12, 2026 at 01:57:13PM -0500, Frank Li wrote:
+> On Sat, Sep 19, 2026 at 08:54:29AM +0200, Jan Petrous via B4 Relay wrote:
+> > [You don't often get email from devnull+jan.petrous.oss.nxp.com@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+> >
+> > The S32G SerDes subsystem multiplexes two lanes between a PCIe PHY and
+> > two DesignWare XPCS instances. Describe it with one node per SerDes and
+> > one child node per lane.
+> >
+> > Compared to the previous revision, the vendor nxp,sys-mode property is
+> > removed: the SS_RW_REG_0[SUBSYS_MODE] value is fully derivable from the
+> > child-node lane mux and the XPCS instance routing (nxp,xpcs-instance).
+> > Each working mode described here has a unique lane mux, so the mode is
+> > a pure function of the child nodes. The reference-clock rate is
+> > validated against the derived mode; it is not used to select it.
+> >
+> > The 3.125 Gbit/s working modes are deliberately not described yet.
+> > Distinguishing them from the 1.25 Gbit/s dual-XPCS mode requires a
+> > per-lane 2500BASE-X capability that this binding does not express, and
+> > the reference clock does not distinguish them either - both accept 100
+> > or 125 MHz. They are added by the 2500BASE-X follow-up.
+> >
+> > Only the PCIe lane child gets '#phy-cells'. An XPCS lane is not a
+> > generic PHY provider; the Ethernet controller references it through the
+> > standard pcs-handle property instead.
 > 
-> Reading the maps file of a process with read sizes from 64 to 8192
-> bytes in steps of 64 loses lines at 126 of the 128 sizes, smaps at 123
-> and numa_maps at 97, and the proc-maps-race selftest fails 4 of its 6
-> tests. Python's sys.remote_exec() reads maps with fgets() and fails
-> intermittently when it misses the libpython data mapping.
+> Is it possible Ether controller use standard phy interface? of use standard
+> pcs-handle to phy convertion
 > 
-> Test for the two values that are not a vma end instead.
+> pcs-handle = <&pcs>
 > 
-> Fixes: 5631da56c9a87 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-> Closes: https://github.com/sparclinux/issues/issues/111
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stian Halseth <stian@itx.no>
-> ---
+> pcs: pcs = {
+> 	compatible = "pcs-to-phy";
+> 	phys = <&phy ...>;
+> }
 > 
-> Notes:
->     Tested on a SPARC T7-1 (sun4v, 7.3-rc5), a T4-1 (7.2.9) and a Sun Fire
->     V240 (sun4u, 7.3-rc5): no lost lines at any read size afterwards, and
->     Python's sys.remote_exec() test passes 20/20. On an amd64 KVM guest maps,
->     smaps, numa_maps and the proc selftests are unchanged.
+
+The MAC needs a phylink_pcs, not a PHY: the XPCS does the C37 autoneg
+and link state. pcs-handle is the standard property for that, and in
+v4 the XPCS is driven by pcs-xpcs. The lane mux is fixed before the
+SerDes reset is released, so the MAC has nothing to set on a generic
+PHY, and a "pcs-to-phy" node would describe a block the SoC does not
+have.
+
+> >
+> > S32G2 and S32G3 use distinct compatibles without fallback because the
+> > full reference-manual mode tables differ per SoC and per SerDes
+> > instance.
+> >
+> > Co-developed-by: Vincent Guittot <vincent.guittot@linaro.org>
+> > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> > ---
+> >  .../devicetree/bindings/phy/nxp,s32g-serdes.yaml   | 258 +++++++++++++++++++++
+> >  1 file changed, 258 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml b/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
+> > new file mode 100644
+> > index 000000000000..6343d01bfde4
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
+> > @@ -0,0 +1,258 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/phy/nxp,s32g-serdes.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: NXP S32G2xxx/S32G3xxx SerDes PHY subsystem
+> > +
+> > +maintainers:
+> > +  - Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>
+> > +  - Jan Petrous <jan.petrous@oss.nxp.com>
+> > +
+> > +description: |
+> > +  The SerDes subsystem multiplexes two SerDes lanes between one PCIe
+> > +  controller PHY and two Synopsys DesignWare XPCS (Ethernet PCS) instances,
+> > +  behind a shared 2-lane combo PHY. The active routing is selected by the
+> > +  SS_RW_REG_0[SUBSYS_MODE] field.
+> > +
+> > +  Reference-manual working modes described by this binding:
+> > +
+> > +  Mode  Lane0   Lane1   PHY refclk (MHz)  Description
+> > +  ------------------------------------------------------------
+> > +  0     PCIe    PCIe    100               PCIe x2
+> > +  1     PCIe    XPCS0   100               PCIe x1 + SGMII
+> > +  2     PCIe    XPCS1   100               PCIe x1 + SGMII
+> > +  3     XPCS0   XPCS1   100 or 125        dual SGMII, 1.25 Gbit/s
+> > +
+> > +  Which Ethernet MAC an XPCS instance feeds is fixed by the SoC integration
+> > +  and differs per SoC and per SerDes instance - on S32G3 SerDes_0, XPCS0
+> > +  feeds GMAC0 and XPCS1 feeds PFE_MAC2, while on SerDes_1 the same two
+> > +  instances feed PFE_MAC0 and PFE_MAC1. That mapping is a property of the
+> > +  SoC, not of this binding, and is resolved by the driver.
 > 
->  fs/proc/task_mmu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Roughly look like use argument is little bit better
 > 
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 5c54aebe21182..cdce513edcb1d 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -339,7 +339,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
->  	 * Reset current position if last_addr was set before
->  	 * and it's not a sentinel.
->  	 */
-> -	if (last_addr > 0)
-> +	if (last_addr && last_addr != SENTINEL_VMA_GATE)
->  		*ppos = last_addr = priv->last_pos;
->  	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
->  	hold_task_mempolicy(priv);
+> <&phys PHY_MODE instance(0/1)>;
+> 
 
-I hope Suren can review as well.
+Rob suggested that in v2 [1]. Child nodes stayed because:
 
-Would it be cleaner to reject any special values, that is, SENTINEL_VMA_END and
-SENTINEL_VMA_GATE?
+- SUBSYS_MODE is written before the reset is released, so the SerDes
+  driver needs the whole lane mux at its own probe. With cells it would
+  have to walk the tree for its consumers, including disabled ones, and
+  an unconnected lane has no consumer to carry a cell.
 
-That would match the comment and the previous code idea: exclude only 0 and
-sentinels.
+- The MAC uses pcs-handle, which has no argument cells, so the XPCS
+  instance has nowhere else to go.
 
-Could consider a simple addr_is_sentinel() helper.
+- A type cell duplicates phy_set_mode_ext(PHY_MODE_PCIE) from the PCIe
+  driver.
 
--- 
-Cheers,
+- In mode 0 there is one x2 PHY, not two lane PHYs.
 
-David
+I will put this in the v4 commit message. If you or Rob still prefer
+cells, let me know.
+
+[1] https://lore.kernel.org/all/CAL_Jsq+SswpTjQShfkdhVwL_k8gJ_5+NrecPCUiFR52UB5zNMA@mail.gmail.com/
+
+BR.
+/Jan
