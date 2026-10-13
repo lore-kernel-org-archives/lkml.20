@@ -1,130 +1,167 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE8552CCD5;
-	Tue, 13 Oct 2026 17:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914089; cv=none; b=DWUnvW7/mmo996kswOrlK7Aeob1mguCnYFoBqOZijM7PAXwuITjEnyFu5S34+LubXwia1MTM7UTiooY3eYaK3UyQYVPFioICeNmElVcvfCgTOTZ3xoSns9sKUsbmbuJv2BDlK1bsxNUoOehhXv/cvmncndZ8qBZ7xSjdlrzj8Hs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914089; c=relaxed/simple;
-	bh=ddKVGzWfBmOAVDerK2BUxx2wXfVDrBJEGGKCQ56psI0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lY3s++WUaJKd4FTtEkbrBzLY+yX6g5jPrvZ2jAw6zEO6VIsv+XQfHDo1cMzIqsyFiM5lucWeNBJw6dw6/Y/ny9zJPJK6KdYLjUcg8HBH30cMefoVQH6hvwktPm0KNOerkTsv1LM8kWseMEEc06JMGxtRzwPNJXGFXTEoeDqc0F4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=k6j5BKT0; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A05C52ED3A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791914101; cv=pass; b=t5lyOtBGtmYsmA7NXXh5C75r8f3YXGIHlmd/64PUbqb4thVHoUQDu8YbHbZJfrjP3JB/phX3tR7emQs2fbN+dcHjgnqySBqt9zK6KKiTzUxqYLeWu00IZxO97rKcV1IhQs9uxsdU1FbqQXN5NZsmtxXLUIR4aQiNF8YTPXXHVFM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791914101; c=relaxed/simple;
+	bh=BMSS1jckBQ2e870f/uI3vrk/j+iBZv6E/rBVCsIo22k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oz5B+kk2BiQ+GxnSo6+CkGeMQES/YSPiIEEWTOSpnyxUaUoMMsVHR+tWnjV7AK1zBSKYkxp4ep6DkJrQ+RzUgOa+TtYucgNGtHs4lMfGcfEL4EhbwiSnwfQZliSDBg05tL+c9v86dXmq3q8YO+c4KO3wWQf1K5iwy2/sDIrfNSA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TdzfnWTJ; arc=pass smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="k6j5BKT0"
-Received: from killaraus.ideasonboard.com (85-76-151-95-nat.elisa-mobile.fi [85.76.151.95])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9407919C;
-	Tue, 13 Oct 2026 19:52:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791913962;
-	bh=ddKVGzWfBmOAVDerK2BUxx2wXfVDrBJEGGKCQ56psI0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=k6j5BKT0EGOkJios12b3aB7nLoioDIoflPh/BsNditJsMk8lnPZQ35KHQDg7bUQZF
-	 J0DlrSGskS/Mp8coI10ndV8FlQJwi/j1VVJWJsF+WXwwSbl3KHRcLVO9MRonL2lw3C
-	 djKHXnwNfpWHu4kvN6jIaYH7wSZCOjnF6K/oRkhk=
-Date: Tue, 13 Oct 2026 19:54:38 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Michal Simek <michal.simek@amd.com>
-Cc: Marek Vasut <marex@nabladev.com>, linux-arm-kernel@lists.infradead.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH v3 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
-Message-ID: <20261013175438.GL4214@killaraus.ideasonboard.com>
-References: <20260916204509.166633-1-marex@nabladev.com>
- <20260916204509.166633-2-marex@nabladev.com>
- <ad7fdd3a-489a-4573-8dec-961a16e6539b@amd.com>
- <20261013132625.GA159927@killaraus.ideasonboard.com>
- <acdfefce-a7cd-4918-bcca-52357bcf182d@amd.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TdzfnWTJ"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso28561a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:54:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791914098; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ByLsnIxvP9viX/RjYEqn2n7GUUIhGu61Brk2NeSAj2aS2dhzTLk2XgjiKnps35xhGd
+         Z8frG0wRKbdbgNjC1LYz4g3Tvwip/3o3+FpOMtMxjhWClua8hHElPmSR+QJGH+aX986d
+         QrQrZdK5h3c2jHnjFNbh4eb407tR705NmbLXbzem47Is7gGsGYEm8xWweZhSfk9oP8L5
+         bICbdijEpxXy5dBLCUQk6zv3+pzXhAWWUOi5wJCCjv7Y5TLEKPF/uGmbgFulpjeoj0IT
+         VmJcce4YgxtgIaeRUJrxILDzs204wJA/8EwMm+tegXRry9uEPo0TEFkc5FE29yrxINsn
+         Rmjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SRtjnC1p7Gi1e00oi/1sIVluDFzpjss9Zq5iLpeEpPQ=;
+        fh=NOmklRkFkZgq90DZq2ZqMX1nyQFrKdKKMBgfLUNpKLw=;
+        b=pPIocoMzY02dyimU+wuoam2t2xHLGA2XbKsq+9XP+hu8M9QJWpIHpkQAJ/JIk2Aa+S
+         MsOmqhuoBdlpVX2K+pXewrvT5rHNeOkor/svIwf6IkMAVse3RFj3yBDDJp1t/k839YbU
+         CoX+shgF3w5BseiLIMWdsm4qiCKVzt/9q1Wr0YmiXwp/V+roSnDgeuUWDS//QLYf2CM1
+         CsPl1hgMiv7GV/AFLx5s8phW2e80nN1VYpISz7tfizy/tXMR083tHVJQvJnxiwdmR1YT
+         Yl8GKxL7baqs/nRmYFDnUAPezKZhmSw3IjF36HFsc1tthQ9wa7M/35+nYMbFvqx5533Z
+         feQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791914098; x=1792518898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SRtjnC1p7Gi1e00oi/1sIVluDFzpjss9Zq5iLpeEpPQ=;
+        b=TdzfnWTJ0JE4/RKyDdhY635Wlr0PdD+bTTKkJhom5yLAE/BFvIk2t5NwioHKhupKQJ
+         Sfp+OcN2pW4OI1AEHHMoVEAs8vvAgMX7MDKKy7RKj2Oo13oEDrgj2+PbgmW49ppQyiIz
+         NVqVlu6s6A/VgYlcZlqPS8CW2WLnr202X9VMSCnS2flGKOvd3eIZ5hX2quvDMqR8smEJ
+         YdHQCl3mRnjZwyt5CkulHrslCszA2udgoU5PGQyUhY9CaOUZ1/oPx7xdzcde3qwTVEln
+         2SX4/8G9SZu9gRhq2n15tsjDrYy+6lt43T0obPvRKoSU9ropeaESFA3BnfsRa8y0O3Vh
+         af3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791914098; x=1792518898;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SRtjnC1p7Gi1e00oi/1sIVluDFzpjss9Zq5iLpeEpPQ=;
+        b=aet6dpNZinmLoZ6lpItImM4DF1BAjott+UqV2spXtgUjoclKjIZpO/5XmtUOGjW84U
+         sa9TPY/YdnR4crz7hwqTwLmzVRWsdj58w7ZaObhyB1UaoHwEdkfDRGeA589vbi7dMI/g
+         Z/2315c1abIA1Mm4NOZAPVwzwtfxKVs0rVj8J9PQiUIqsVry7n6gnSu0IAaMWCUR/1QB
+         3MA3fqwEkbHqWzHQqSl3RQbCoDOEtYn/+HFrkfLyHKlMftpeAZqGOa3H/gwan1Pc2rOb
+         N92aHt9Lkj+Jr4VLN/ihColK0iXcQ56USlp+tCapdGvb57GsIa5NkYDjVD6TjZc6kU0V
+         FnEw==
+X-Forwarded-Encrypted: i=1; AKwUvBxV2YDOTJE+1zN4A5ipvcPPqySvQ0kWPEVLDDTG1ic2M/wBwB1x7+6h3tgaix4xsHQsGlkH7GMJIwxBrJo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfT0tQBymJeQECllECR6NxpTVU/SMgrHihQ1ENg27a8bHuMpvc
+	OBVptw5+BF7C9QSovReSuIYc0hgKhnYibQ/DdubXHG/XITVbdBsq8gpQ5azM7GMUOyfPpfArSQO
+	E54D1ERLL0hTLFMIYhEGNQmZHJlymTbCUPCWFrYML
+X-Gm-Gg: AYBFou3wK+77AQCqDpM7uHuUDrdGWLS/I3MlBKEJKrDi1bqIK8LltqiIa4M9rLZWoxo
+	uRF2Wtb1P1MAJ+mvn9/fey68WGVLdjkoNV81jiH5iaTEzu2YE+G2oN0s9PQXVKXmPkUudDtcly+
+	PTjEPjwOY4EB/a8bPN3vXBRh2LMueghVJE8QVwixH8+SBB26HFis48O5Cfv0/br8qgl/+SZRKQe
+	ZXvWBu8TixSJfvyawlQhkFqQHGQn0VjZBBaR/hCtDJiX+F5wlsz+KE0KJ5R2tGiIumiP1ddopqC
+	F4/EhpY/0YDVDvYtDVhvSPcXUQx54aw5GqOa9Qyt9mOCW1nSssaDSTw=
+X-Received: by 2002:a05:6402:150a:b0:6b1:b3bd:1576 with SMTP id
+ 4fb4d7f45d1cf-6b1b3bd200fmr133982a12.8.1791914097201; Tue, 13 Oct 2026
+ 10:54:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <acdfefce-a7cd-4918-bcca-52357bcf182d@amd.com>
+References: <20261012224736.2306637-1-yosry@kernel.org> <CALMp9eT6eJSDaJVJ_1mrn8-sP6F88q-OcGrEgUWy-YpAkuA9vg@mail.gmail.com>
+ <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com>
+In-Reply-To: <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Tue, 13 Oct 2026 10:54:44 -0700
+X-Gm-Features: AclHuK8WC6fCM25ehSI8d6hZUp_f28nDxtHAyGF1VNE9tdU9vNWCl9URQ28bhU0
+Message-ID: <CALMp9eRRb_8vbm3YM9dw7XbDsnjQ1wRYK10oNq4JAgkUZdpFLg@mail.gmail.com>
+Subject: Re: [PATCH] KVM: SVM: Update tracked pCPU on pCPU switch
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CC'ing missing ARM64 SoC maintainers.
+On Tue, Oct 13, 2026 at 7:49=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> On Mon, Oct 12, 2026 at 4:58=E2=80=AFPM Jim Mattson <jmattson@google.com>=
+ wrote:
+> >
+> > On Mon, Oct 12, 2026 at 3:47=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> =
+wrote:
+[ ... ]
+> > > @@ -3892,13 +3893,22 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
+> > >          * - The new VMCB does not detect a pCPU change and runs on p=
+CPU A with
+> > >          *   the new ASID allocated on pCPU B, which is potentially u=
+sed by
+> > >          *   another vCPU/VM.
+> > > +        *
+> > > +        * Note that dirtying both VMCBs is not strictly needed, but =
+the per-CPU
+> > > +        * tracking is shared for both ASID and clean bits, and that =
+CPU must
+> > > +        * match where the ASID was allocated.
+> >
+> > Is dirtying both VMCBs not strictly needed?
+> >
+> > Per APM vol. 2 (rev. 3.45), section 15.15.2:
+> >
+> > > The hypervisor must clear the entire VMCB [Clean] field to 0 for a gu=
+est, under the following circumstances:
+> > > ...
+> > >  - The hypervisor executes the guest on a different CPU core than one=
+ used the last time that guest was executed.
+> > > ...
+> > > Failure to clear the VMCB Clean bits to zero in these cases may resul=
+t in undefined behavior.
+> >
+> > Suppose vmcb02 runs on pCPU A, migrates to (and runs on) pCPU B, and
+> > then migrates back to pCPU A with some clean bits set. At the next
+> > VMRUN, pCPU A will happily load stale state for anything marked clean.
+> >
+> > At some point before that VMRUN, something has to clear the clean bits!
+>
+> Dirtying both VMCBs is not needed in all cases covered with the new
+> code here. IIUC, clean bits are VMCB-specific, unlike the ASID here
+> which is shared.
+>
+> Because ASID is shared, we have to reset the ASID generation for both
+> VMCBs when a new ASID is allocated through either, and update the cpu
+> variable tracking which pCPU allocated that ASID. Since that cpu
+> variable is also shared for tracking which pCPU ran the VMCB last, we
+> also need to clear the clean bits every time we updated. IOW, if we
+> had two variables, asid_cpu and vmcb_dirty_cpu, we would need to
+> update asid_cpu on pCPU migration for both VMCBs, but only update
+> vmcb_run_cpu for the current VMCB.
+>
+> This is all annoying and confusing, but that should go away in the
+> static ASIDs series, and we should go back to only updating pCPU
+> tracking, flushing the ASID, and clearing the clean bits only for the
+> current VMCB.
 
-On Tue, Oct 13, 2026 at 03:47:12PM +0200, Michal Simek wrote:
-> On 10/13/26 15:26, Laurent Pinchart wrote:
-> > On Tue, Oct 13, 2026 at 10:21:26AM +0200, Michal Simek wrote:
-> >> On 9/16/26 22:44, Marek Vasut wrote:
-> >>> Add support for ifm ZynqMP VHIP6 EvalBoard reference design.
-> >>> The board is populated with four ethernet ports, QSPI NOR,
-> >>> eMMC, UART and USB host interfaces.
-> >>>
-> >>> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> >>> ---
-> >>> Cc: Conor Dooley <conor+dt@kernel.org>
-> >>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> >>> Cc: Michal Simek <michal.simek@amd.com>
-> >>> Cc: Rob Herring <robh@kernel.org>
-> >>> Cc: devicetree@vger.kernel.org
-> >>> Cc: linux-arm-kernel@lists.infradead.org
-> >>> Cc: linux-kernel@vger.kernel.org
-> >>> ---
-> >>> NOTE: Checkpatch complains about ethernet-phy-id2000.a240 being
-> >>>         undocumented, but the TI DP83822I is generic C45 PHY that
-> >>>         is valided by Documentation/devicetree/bindings/net/ethernet-phy.yaml
-> >>> ---
-> >>> V2: - Rename lm75 node to sensor@
-> >>>       - Use GPIO_ACTIVE_LOW macro
-> >>> V3: - Drop bogus clk_ignore_unused bootargs
-> >>>       - Drop gpio line names
-> >>> ---
-> >>>    arch/arm64/boot/dts/xilinx/Makefile           |   1 +
-> >>>    .../dts/xilinx/zynqmp-vhip6-evalboard.dts     | 300 ++++++++++++++++++
-> >>>    2 files changed, 301 insertions(+)
-> >>>    create mode 100644 arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts
-> >>
-> >> I am not able to review or take this board support further without publicly
-> >> available hardware documentation for the platform (board-level and relevant
-> >> interface details). Please share public documentation links once available, and
-> >> I’ll be happy to revisit the patches.
-> > 
-> > There are plenty of boards that have no public documentation. Pretty
-> > much all phones and laptops are like that. We even have a whole
-> > architecture that only runs on a few machines in a single person's
-> > basement [*] :-) The kernel has never required public schematics for
-> > boards, SoCs or IP cores.
-> > 
-> > [*] A slight exageration possibly, but that's how I heard arch/alpha/
-> >      being described at the maintainers summit.
-> 
-> Pretty much every SOC with programmable logic or FPGA boards have unlimited 
-> amount of configurations and make no sense to describe all of them.
+I haven't read the static ASIDs series, but in any case, this patch
+should stand on its own, in case that series never gets committed or
+gets committed much later.
 
-As far as I understand, the dts describes the board only, there's no PL
-devices in there. The fact that the SoC has programmable logic doesn't
-seem relevant, unless I'm missing something. The situation is the same
-as with any other SoC. We have lots of device tree sources in upstream
-for all kind of boards, with or without schematics available, for
-development boards or for boards integrated in products, for easily
-available mass-market products or for specialized devices more costly to
-source.
-
-Maybe I'm wrong about all this, so I've CC'ed all ARM64 SoC maintainers
-on this e-mail to get feedback on the overall mainline policy for
-upstreaming device tree sources.
-
-> It means what make sense to describe are boards which people can look, check and 
-> compare that configuration against their custom design.
-> But if there is no public documentation what you want to use to compare against?
-> 
-> Can anybody even buy this board? (I expect you can buy that phones and laptops).
-
--- 
-Regards,
-
-Laurent Pinchart
+My complaint is with the claim, "dirtying both VMCBs is not strictly
+needed," which seems to imply that dirtying the inactive VMCB here is
+optional. In fact, once you update vmcb02.cpu/vmcb01.cpu for both
+VMCBs, dirtying both *is* strictly needed so the inactive VMCB doesn't
+later miss a pCPU switch.
