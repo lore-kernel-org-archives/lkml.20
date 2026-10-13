@@ -1,380 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4635D502D45;
-	Tue, 13 Oct 2026 15:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E101C502767
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903863; cv=none; b=OKPWw4YAPsmvufWSSLret6ZWowtuLoN5HYu0BOe7F1jzVtpITRyfwMUfpZ/ct6UQ4HqKQ6XjE2Rppcqq/TSo1D0qAsdcbtGmqKJCzVVpBYTL/xLHjNty6YvTdPNxKd37+X6czLJvAhKMufz246stoR9TSTK39s5QzHxMWS460iQ=
+	t=1791903880; cv=none; b=NJO3Anc+4YicgvAzhi6f0H1sPzJdJVKpWRSWXzdrEebJIfzhh0KG0WGnH+PEoQxruXcmBoYCA8NnX2qcvbbMMg/qxZC1CnU/yjzgCWO3xV8bdvWi2s+BopQCJjdvjr2qUKChfxsLtEAgs6kGCq5I260owIYOW3vyEnLCMhAp64U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903863; c=relaxed/simple;
-	bh=s15ihJ8YRuLkrmk35st+iOJ5yoQB9omR5C4j45yrdJ8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jToEbq7N75glDn7LlwPpJznLf8nscPWwDXBvVoUpUwKTWqs8w8OfxiiDYBY0FPF602f1vCo84DFwQ1Z0M3p8GlFapWTNcNudl7kvAqFxdiEvDVJlEHhjB+1WzcSIxYQNPiXgDAswny46TiLkL33/g4pqOmzPe5SEgtvywGrgTSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLtunYoe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791903880; c=relaxed/simple;
+	bh=YwJ/4Kh8dgIbqE3SXVnIlum34oAB97j1aaSxvl4JjT4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TS4PSB5BmEsnf9/Kkc7mZ4yifsVaqrNGQPYkv+iNZ3lhbiCQlnNsM7ktHHT/uQrcO4DOOsW5prsM9LKXNBUAK9rpMezY8rQZ9421VNVo8jOMg2Lv1Guk7Rc53wRcYoZdzPA8zVbavj/OHxQTbxxe2GysKbSHtHj5a90QV28JML0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bc9TZcGX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HctcgWR9; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLtunYoe"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CB4C1C2BCFD;
-	Tue, 13 Oct 2026 15:04:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791903862;
-	bh=s15ihJ8YRuLkrmk35st+iOJ5yoQB9omR5C4j45yrdJ8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dLtunYoevXB+iJL2p1GfIiqFH6Z2uf+vMbYkU0e7Ta3h7fh1HEqC87Xy7oI5ubV7n
-	 7hCwNmMspScNdM0uVNKyAZ/NTWbunzytky6fJNuUQeQMSY/rLk2UOeKAZ3YaU+TT7P
-	 jBOmYTRJciyTQmuQfuzkmRSa/ZcWPJCsJXWrnCUfz76LTQmQv6vWKfo4gZeYCqSTmk
-	 nQ08pxrbcsSdHbbKxEo75JmhYCLxgCT+8AFQmM5GQxVRz/C7GzooxoyKRxGqeJbOgv
-	 Ym83h+q4sZ5/Cj5U4NJ9D8wB5nGxPB4fwRb1UWmXvBDpBWGBBeYbJaD8GFE9W8KbVH
-	 Wuj4Tmk0JAsgw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AED4FCC6B0E;
-	Tue, 13 Oct 2026 15:04:22 +0000 (UTC)
-From: Mizuno Miotsuki via B4 Relay <devnull+founder.crepuse.com@kernel.org>
-Date: Tue, 13 Oct 2026 23:04:22 +0800
-Subject: [PATCH v4 3/3] Input: add Nsiway NS2009 resistive touchscreen
- driver
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bc9TZcGX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HctcgWR9"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DE41bT900183
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:04:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TPK3uPVCdiplnO240T4BT5juz8bHcffFNDKBRzJrh6M=; b=bc9TZcGXX0RUVy6/
+	RlvZU14waSJxX9UDqnxpiQhwDw/UrzN2l5KqwUbMnKN0XU4Uov9spoCzfv3xfS0y
+	P/84TpmlCIusv1RJlvpYOfVs7/wFQ1AHOgVIoFy1E7nys48XBdqoJHJMx3FIpFOe
+	Xzg9mWDk16PB9Dj6YTrjWOQGE7GsHf36tUVxL+z8C/z0qzY9dNzlzXxCe9O8DFqu
+	uXlKG1u6XTbQnyczpJ8eYBBWK3qNa0WjBAye85R0oAqvhnx0pfgujaQ5PPiO/mU2
+	+nv/hIl2dX1gD4wDJCfmmWJWx4DyPbQmYSqaKi1d+3Z86rpkHNJMM8MAWYqdKxea
+	vQK3eg==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9g7uhwgq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:04:37 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c97957d83bso81423e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:04:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791903877; x=1792508677; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TPK3uPVCdiplnO240T4BT5juz8bHcffFNDKBRzJrh6M=;
+        b=HctcgWR9+HtTlmKJZeKe9tINLcgVpZCn3TBN0n74FOroc/C0WX1R7T7hX3S1RXIdyb
+         6ujh9jWnXzKl4aVR3/2kDe+y69qReyWrZaUnREPdhAgCCuhlfhkH3ox4In0+BypnMwp8
+         kqHBlJQunNpYBH7kVUcaelr688OxsGQO7lpkLZAiVUSgXmZqpCOC+9I2z881OUlXCTy7
+         qVa2QdM468noaVXJPYSQRg9ApiAUQaqjYR2cUZPWI5ynGXP8oPImmHuXO1ltfI4URDF+
+         siqGlmpt8mW4v9jZGYXl4H4ESF6ndcRV8UZHNRWrMgsaoRMZAW6ECtu3W3zHik9co/7M
+         4W8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791903877; x=1792508677;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TPK3uPVCdiplnO240T4BT5juz8bHcffFNDKBRzJrh6M=;
+        b=kzO+26TLi45PH/zgWHDbSs3Wu9Sax9dpDdjCtrsL86peVCAMrACzeIIAhyJ97CN7+2
+         wysRuRncxDkDGLR29NuqKgldRpsujiKOMY24Uk+/2R9zqc+xAF2Dg6qkHzubwhxGQcp1
+         doLsAHarQ2UXQ0kXIgGBUkIA1Ngr2FYx5705/FAd2vzXBVDwtaY5UoQiEFmHFW3fmquH
+         yHtfaIL73RPJ6ge2d/mFrISFvB32a5zZbUXTF41bF92kGd/gkM/FcEBnMQU3V9Z5Q8TY
+         Xq6WvipSCI2GV3PbQqeD0Ib7POmlCe6IgNG26SI1+Mv9kBC/XimKFw0+GQRYJiTGIuLE
+         rA/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzk3JbVACT5GI3yJx9MC/uGOEGmyp/Dg/TMjSea+N3U5EoELSwWGW46MPnMctWe1kFJ/pGFwq7mJdMh8yY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+G1db53rtBVG7UUDqmTzOaw5yRJyIY0wRNMuy2pOCxjCcPhED
+	/Ry7TMfmYRYFjkcyoB1LxsHCpOYDS2Dlq0ayAJbG7YVE0jankpdksuoejUCNJUx6NigDAZyCjAv
+	3+0E5NTw4RIXdjmBmAf18NuRqk+YAk1De5RCsMtKp5tk9SmfYbKFDO5g5pP3JqXfS+DI=
+X-Gm-Gg: AYBFou2uoSNGn+1oP4EggRXW0REr5BXxxWzkL86aHlXoUiMIIfLrH0PIe1dO37K6+Pd
+	pIFVMSMZtlZnhmaXE9bpsWE42Ipm5rOjd2di4DLi1xu88DgTC30TQNFOhOvYjl/U0g0Zmovoe9z
+	pqkkf7I4DenwQwuvTI/zca4rdL+x6ImATjEjbUDpf0bl7tCB7NwX5miuQ77KcztoLeILDriM4wt
+	hTKaZTGUrBhbFvFMNKc/WWesAPyZMjqb5stmOYN/swWA4QXsP+NCNrKuubC0WnTaa/M9CcvsvPI
+	OXHr4p4c9N+D5xW22YKFPJYASMKTVXYsusCIY6t3tOINtTTXkwYImYB20ClJz44i9yKVUKSSjDI
+	sW/w2b1UDqr7NStuINgXCOg==
+X-Received: by 2002:ac5:c001:0:20b0:5e9:4e2b:4c9f with SMTP id 71dfb90a1353d-5e94e2b4d71mr1052081e0c.4.1791903876739;
+        Tue, 13 Oct 2026 08:04:36 -0700 (PDT)
+X-Received: by 2002:ac5:c001:0:20b0:5e9:4e2b:4c9f with SMTP id 71dfb90a1353d-5e94e2b4d71mr1052049e0c.4.1791903876180;
+        Tue, 13 Oct 2026 08:04:36 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a9f776sm595740966b.48.2026.10.13.08.04.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 08:04:35 -0700 (PDT)
+Message-ID: <0c195d46-64fe-4d27-9147-678ccd561329@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 17:04:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rpmsg: glink: smem: preserve IRQ acquisition errors
+To: Avi Weiss <thnkslprpt@gmail.com>, Bjorn Andersson <andersson@kernel.org>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+        Arun Kumar Neelakantam <quic_aneela@quicinc.com>,
+        linux-remoteproc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261013124328.1273340-1-thnkslprpt@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261013124328.1273340-1-thnkslprpt@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-review-self-ns2009-v4-20261013-v4-3-98bb21712282@crepuse.com>
-References: <20261013-review-self-ns2009-v4-20261013-v4-0-98bb21712282@crepuse.com>
-In-Reply-To: <20261013-review-self-ns2009-v4-20261013-v4-0-98bb21712282@crepuse.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org, icenowy@aosc.io, 
- linux-kernel@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- robh@kernel.org, devicetree@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9878;
- i=founder@crepuse.com; s=20261012; h=from:subject:message-id;
- bh=TDCTyGDEUKd8X8csU6CJK+bDq8VurdV+ZeVGdvYWx+w=;
- b=owGbwMvMwCUmds2G2fVJ/hLG02pJDFnnPEr895c/NXKUkwpqq4y1X7/i6MaX5juDTs61SbXx6
- J7QwzO/YyILgxgXg6WYIstsUfbyQ80rrs2d0GQHM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6BgzcHEKwFS7hzP8d9G8Es96+vnfQ6oWCzRs19Y9n3SSd95PzzUVLe6CGq0B+gz/FKwrTu7
- y+7W5Tb8/Q0GEcz8Tr3ndd92HXR4WG/7+MfzFCwA=
-X-Developer-Key: i=founder@crepuse.com; a=openpgp;
- fpr=9B150777C283A8D69D90823E16D63C0345E46FA4
-X-Endpoint-Received: by B4 Relay for founder@crepuse.com/20261012 with
- auth_id=1166
-X-Original-From: Mizuno Miotsuki <founder@crepuse.com>
-Reply-To: founder@crepuse.com
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA2MCBTYWx0ZWRfXxDRU5Legfg2P
+ 9EBcECXUcmo9KnVjTlMjmPtOoFi/DgIoiAP8zzm6+UY5c3ISyGc112CnS6OeMXYDsaomVlnzX7a
+ qS+kE26GBAWW13ImJs6pQTgx2t683zqycmVkOJ48qtzu5oyFS9bLhR7wfPm1KmtqbjSQ8v+xH9s
+ JYYbtlYgIPXUx9YI73KvuJYXiG0wJTchUxusk2TOayHyah7iizctoq1hviASYaR0MdJ54rjDDVs
+ kBzWzUmpooHC8SvDLZ849+ITA5XvndzUcCiyDy83CpTQlYfOBp8rj2VxxxzkG6S72sobgOwhwzv
+ H2nXa0zYtMOE7EXXGqYvJthhA64cK5FcfEaa6iT1H+93Rhmu3zWd71MGjwke75bjJLwpMubbd0m
+ JOnZY83wuo82Q3n/uIljjn5JND/OnZ7+1Y1kqDBguHA6iFM/lrinPXxvj6C/0R9j+ZIc+nynBt9
+ ZEK8X2XG6m2oPvM/uYA==
+X-Authority-Analysis: v=2.4 cv=Z495j3RA c=1 sm=1 tr=0 ts=6ace4885 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=pGLkceISAAAA:8 a=RAclOZT44kLJCt7_HWsA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-ORIG-GUID: iVFeIbnCzXuiYYTu8zvE4PSG1crz1dcg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA2MCBTYWx0ZWRfX6p0Gfs75TzMO
+ jKqMN4kaq7WQIvyorVJN3sFBsMKImiFfTIG/qHhZSFh6/B+79WRNHG4nsGq+YBQ989/yMrgqO4B
+ WObJtRhIOf5tiNK8UeCRDQ8bcdTYIvc=
+X-Proofpoint-GUID: iVFeIbnCzXuiYYTu8zvE4PSG1crz1dcg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130060
 
-From: Mizuno Miotsuki <founder@crepuse.com>
+On 10/13/26 2:43 PM, Avi Weiss wrote:
+> qcom_glink_smem_register() passes the result of of_irq_get() directly
+> to devm_request_irq(). Negative errors are converted to unsigned IRQ
+> numbers, causing the IRQ request to return -EINVAL instead of the
+> original error.
+> 
+> Check the IRQ before requesting it. Preserve negative errors and
+> return -EINVAL if the IRQ mapping fails.
+> 
+> Fixes: caf989c350e8e ("rpmsg: glink: Introduce glink smem based transport")
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> ---
+> A dev_err_probe() diagnostic can be added for IRQ acquisition failures
+> if preferred.
+> 
+>  drivers/rpmsg/qcom_glink_smem.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/rpmsg/qcom_glink_smem.c b/drivers/rpmsg/qcom_glink_smem.c
+> index 35bb03e67ae8..010a7da64906 100644
+> --- a/drivers/rpmsg/qcom_glink_smem.c
+> +++ b/drivers/rpmsg/qcom_glink_smem.c
+> @@ -312,6 +312,11 @@ struct qcom_glink_smem *qcom_glink_smem_register(struct device *parent,
+>  	}
+>  
+>  	smem->irq = of_irq_get(smem->dev.of_node, 0);
+> +	if (smem->irq <= 0) {
+> +		ret = smem->irq ?: -EINVAL;
+> +		goto err_put_dev;
+> +	}
 
-Add a polling driver for the NS2009 four-wire resistive touchscreen
-controller, derived from Icenowy Zheng's original implementation.
+platform_get_irq() lets us drop the zero-dance
 
-Read 12-bit X, Y and Z1 samples every 30 ms. Validate the two-byte response
-and its zero padding, discard incomplete samples and release contact on
-read errors. Report touch state on every valid sample so input-core state
-resets cannot strand a held contact. Apply common touchscreen transforms
-and a configurable raw Z1 contact threshold.
-
-Acquire VDD and an optional external VREF. Enable supplies when input is
-opened and disable them after polling stops. Preserve an outstanding
-reference if disable fails so reopening cannot accumulate references;
-retry cleanup after input unregisters.
-
-Touch reporting and input lifecycle tests passed on an UNIHIKER M10 V1.2
-using the real shared vcc_io regulator. Tests used a registration-name-only
-validation module and a temporary live-DT supply property. The shared rail
-remained always-on; no electrical power switching is claimed.
-
-Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
----
- MAINTAINERS                        |   1 +
- drivers/input/touchscreen/Kconfig  |  10 ++
- drivers/input/touchscreen/Makefile |   1 +
- drivers/input/touchscreen/ns2009.c | 230 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 242 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 696f2badc49c..e282c02ec13f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19472,6 +19472,7 @@ M:	Mizuno Miotsuki <founder@crepuse.com>
- L:	linux-input@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.yaml
-+F:	drivers/input/touchscreen/ns2009.c
- 
- NTB AMD DRIVER
- M:	Basavaraj Natikar <Basavaraj.Natikar@amd.com>
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7f..d4cdf1a7e057 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -691,6 +691,16 @@ config TOUCHSCREEN_MTOUCH
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called mtouch.
- 
-+config TOUCHSCREEN_NS2009
-+	tristate "Nsiway NS2009 touchscreen controller"
-+	depends on I2C
-+	help
-+	  Say Y here if you have a resistive touchscreen using the Nsiway
-+	  NS2009 controller connected over I2C.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called ns2009.
-+
- config TOUCHSCREEN_NOVATEK_NVT_TS
- 	tristate "Novatek NT11205 touchscreen support"
- 	depends on I2C
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index bfd9de83389d..c5fc2062d7cf 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -68,6 +68,7 @@ obj-$(CONFIG_TOUCHSCREEN_MIGOR)		+= migor_ts.o
- obj-$(CONFIG_TOUCHSCREEN_MMS114)	+= mms114.o
- obj-$(CONFIG_TOUCHSCREEN_MSG2638)	+= msg2638.o
- obj-$(CONFIG_TOUCHSCREEN_MTOUCH)	+= mtouch.o
-+obj-$(CONFIG_TOUCHSCREEN_NS2009)	+= ns2009.o
- obj-$(CONFIG_TOUCHSCREEN_NOVATEK_NVT_TS)	+= novatek-nvt-ts.o
- obj-$(CONFIG_TOUCHSCREEN_HP600)		+= hp680_ts_input.o
- obj-$(CONFIG_TOUCHSCREEN_HP7XX)		+= jornada720_ts.o
-diff --git a/drivers/input/touchscreen/ns2009.c b/drivers/input/touchscreen/ns2009.c
-new file mode 100644
-index 000000000000..9d9af1dc9542
---- /dev/null
-+++ b/drivers/input/touchscreen/ns2009.c
-@@ -0,0 +1,230 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Nsiway NS2009 resistive touchscreen controller
-+ *
-+ * Copyright (C) 2017 Icenowy Zheng <icenowy@aosc.xyz>
-+ * Portions derived from silead.c:
-+ * Copyright (C) 2014-2015 Intel Corporation
-+ */
-+
-+#include <linux/i2c.h>
-+#include <linux/input.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+
-+#define NS2009_POLL_INTERVAL_MS		30
-+#define NS2009_MAX_12BIT		0xfff
-+
-+#define NS2009_READ_X_LOW_POWER_12BIT	0xc0
-+#define NS2009_READ_Y_LOW_POWER_12BIT	0xd0
-+#define NS2009_READ_Z1_LOW_POWER_12BIT	0xe0
-+
-+/* Historical driver default; boards may override via firmware properties. */
-+#define NS2009_DEFAULT_PEN_DOWN_Z1	80
-+
-+struct ns2009_data {
-+	struct i2c_client *client;
-+	struct touchscreen_properties prop;
-+	struct regulator_bulk_data supplies[2];
-+	unsigned int num_supplies;
-+	bool supplies_enabled;
-+	u16 pen_down_z1;
-+};
-+
-+static int ns2009_read_data(struct ns2009_data *data, u8 command, u16 *value)
-+{
-+	u8 raw[2];
-+	int error;
-+
-+	error = i2c_smbus_read_i2c_block_data(data->client, command,
-+					      sizeof(raw), raw);
-+	if (error < 0)
-+		return error;
-+	if (error != sizeof(raw))
-+		return -EIO;
-+	/* The 12-bit result is left-aligned; the remaining bits must be zero. */
-+	if (raw[1] & 0x0f) {
-+		dev_err_ratelimited(&data->client->dev,
-+				    "invalid sample for command %#02x: %02x %02x\n",
-+				    command, raw[0], raw[1]);
-+		return -EIO;
-+	}
-+
-+	*value = (raw[0] << 4) | (raw[1] >> 4);
-+	return 0;
-+}
-+
-+static void ns2009_poll(struct input_dev *input)
-+{
-+	struct ns2009_data *data = input_get_drvdata(input);
-+	u16 x, y, z1;
-+	int error;
-+
-+	error = ns2009_read_data(data, NS2009_READ_Z1_LOW_POWER_12BIT, &z1);
-+	if (error)
-+		goto read_error;
-+
-+	if (z1 < data->pen_down_z1)
-+		goto release;
-+
-+	error = ns2009_read_data(data, NS2009_READ_X_LOW_POWER_12BIT, &x);
-+	if (error)
-+		goto read_error;
-+
-+	error = ns2009_read_data(data, NS2009_READ_Y_LOW_POWER_12BIT, &y);
-+	if (error)
-+		goto read_error;
-+
-+	/* The input core filters repeats and may independently clear key state. */
-+	input_report_key(input, BTN_TOUCH, 1);
-+	touchscreen_report_pos(input, &data->prop, x, y, false);
-+	input_sync(input);
-+	return;
-+
-+read_error:
-+	dev_err_ratelimited(&data->client->dev,
-+			    "failed to poll touch data: %d\n", error);
-+	/* An unreadable sample must not leave an active touch stuck down. */
-+release:
-+	input_report_key(input, BTN_TOUCH, 0);
-+	input_sync(input);
-+}
-+
-+static void ns2009_power_off(void *arg)
-+{
-+	struct ns2009_data *data = arg;
-+	int error;
-+
-+	if (!data->supplies_enabled)
-+		return;
-+
-+	error = regulator_bulk_disable(data->num_supplies, data->supplies);
-+	if (error)
-+		dev_err(&data->client->dev, "failed to disable supplies: %d\n",
-+			error);
-+	else
-+		data->supplies_enabled = false;
-+}
-+
-+static int ns2009_open(struct input_dev *input)
-+{
-+	struct ns2009_data *data = input_get_drvdata(input);
-+	int error;
-+
-+	if (data->supplies_enabled)
-+		return 0;
-+
-+	error = regulator_bulk_enable(data->num_supplies, data->supplies);
-+	if (!error)
-+		data->supplies_enabled = true;
-+	return error;
-+}
-+
-+static void ns2009_close(struct input_dev *input)
-+{
-+	ns2009_power_off(input_get_drvdata(input));
-+}
-+
-+static int ns2009_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct ns2009_data *data;
-+	struct input_dev *input;
-+	u32 value;
-+	int error;
-+
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_READ_I2C_BLOCK))
-+		return dev_err_probe(dev, -EOPNOTSUPP,
-+				     "required SMBus block read is unavailable\n");
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->client = client;
-+	data->supplies[0].supply = "vdd";
-+	data->num_supplies = 1;
-+	if (device_property_present(dev, "vref-supply")) {
-+		data->supplies[1].supply = "vref";
-+		data->num_supplies++;
-+	}
-+
-+	error = devm_regulator_bulk_get(dev, data->num_supplies, data->supplies);
-+	if (error)
-+		return dev_err_probe(dev, error, "failed to get supplies\n");
-+
-+	error = devm_add_action_or_reset(dev, ns2009_power_off, data);
-+	if (error)
-+		return error;
-+
-+	input = devm_input_allocate_device(dev);
-+	if (!input)
-+		return -ENOMEM;
-+	data->pen_down_z1 = NS2009_DEFAULT_PEN_DOWN_Z1;
-+	if (device_property_present(dev, "touchscreen-min-pressure")) {
-+		error = device_property_read_u32(dev, "touchscreen-min-pressure",
-+						 &value);
-+		if (error)
-+			return dev_err_probe(dev, error,
-+					     "failed to read touchscreen-min-pressure\n");
-+		if (!value || value > NS2009_MAX_12BIT)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "touchscreen-min-pressure must be 1..4095\n");
-+		data->pen_down_z1 = value;
-+	}
-+	input_set_drvdata(input, data);
-+
-+	input->name = "ns2009_ts";
-+	input->phys = "input/ts";
-+	input->open = ns2009_open;
-+	input->close = ns2009_close;
-+	input->id.bustype = BUS_I2C;
-+
-+	__set_bit(INPUT_PROP_DIRECT, input->propbit);
-+	input_set_capability(input, EV_KEY, BTN_TOUCH);
-+	input_set_abs_params(input, ABS_X, 0, NS2009_MAX_12BIT, 32, 0);
-+	input_set_abs_params(input, ABS_Y, 0, NS2009_MAX_12BIT, 16, 0);
-+	touchscreen_parse_properties(input, false, &data->prop);
-+
-+	error = input_setup_polling(input, ns2009_poll);
-+	if (error)
-+		return dev_err_probe(dev, error, "failed to set up polling\n");
-+
-+	input_set_poll_interval(input, NS2009_POLL_INTERVAL_MS);
-+
-+	error = input_register_device(input);
-+	if (error)
-+		return dev_err_probe(dev, error,
-+				     "failed to register input device\n");
-+
-+	return 0;
-+}
-+
-+static const struct i2c_device_id ns2009_id[] = {
-+	{ .name = "ns2009" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, ns2009_id);
-+
-+static const struct of_device_id ns2009_of_match[] = {
-+	{ .compatible = "nsiway,ns2009" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ns2009_of_match);
-+
-+static struct i2c_driver ns2009_driver = {
-+	.driver = {
-+		.name = "ns2009",
-+		.of_match_table = ns2009_of_match,
-+	},
-+	.probe = ns2009_probe,
-+	.id_table = ns2009_id,
-+};
-+module_i2c_driver(ns2009_driver);
-+
-+MODULE_AUTHOR("Icenowy Zheng <icenowy@aosc.xyz>");
-+MODULE_DESCRIPTION("Nsiway NS2009 resistive touchscreen controller");
-+MODULE_LICENSE("GPL");
-
--- 
-2.56.0
-
-
+Konrad
