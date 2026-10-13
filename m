@@ -1,128 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119773E49DD;
-	Tue, 13 Oct 2026 16:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812603E49DD
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909212; cv=none; b=ou2GXV1vtb6M0zH5vO6e48oEUX9SKXc0vyNbV3prCOulPUsc2aizndutJgKNWeeVEu2DSZL7wufVSOCEqUdryT6WAoRmnYBosu4lnJzkChI3OfkMy3q0FegJUFyIYcs63JRWE2ktSSlnUuvhQdDtpJVpyaGjN1r9k2p5nwXWhgw=
+	t=1791909274; cv=none; b=Y1LFkqOrTearD0CliCFLdXdbi+XtJmQaxilTfLp2q3ZjxcY4TDV5mDc1tkdc/rjGCsjZvuejfPbeQj47XAl4jkMrBzPimxVTqWLhkq7+EdEuHNVe9WsBRR3uX6Jyadox1EyQnvsxFVOdkGx3rm7chtvHjY9K5LG4DJ+JGfJe3GQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909212; c=relaxed/simple;
-	bh=r6w4NhKAxrSM4e/Gue+k2qcYUxQHhjAVDn1gfJyJIG4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=tsO/6PsJGuOKF52NqFByGBu13xKUSscxZCtFOv8WLkNMUxqKndv31o6fLMs575oLYt5sMDuZJn//e6ZGJHUm6U5NLHlQIIfQ4mRGSk+J1/XX94P/g7gCfaytB5/vTmrKgWng8YPrnRpY5KK7FMUWTPPy1ThrVo6xTYTadetkpvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vcz4Mnl7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791909274; c=relaxed/simple;
+	bh=mOR/8vq5PanhOMFHiF8f797bNn0Parfd7mTvVZfAB5E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HK/9gk3dRDZ4GP7RpxaeweCGjE/kl3O/jh0v7LnKyhD+ZjxuvcsX1hGIYfMFrybvg4Yqxdv/0YSSdaQ2pbxwc0lnftyFzTgQD1yCIFBaFeNZRe8cbqKSF7aOLWuZvY8oHUvlTPDyjlaqBjj7URKeIKlNE602Artb3JYuihqvABE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Fdj06cGT; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vcz4Mnl7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4D51F000FF;
-	Tue, 13 Oct 2026 16:33:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791909210;
-	bh=6T2EyX04RGGoQAm4CXmcxngdnZP3I2uya54Wk47L/0Y=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=Vcz4Mnl7SMcC5EofSiSNhkawGfHClWTALjiOo4bER3V4Z0amj7+3YO26sm20FniHx
-	 S6Z1wIpgHT+QqLyz5khvTt4j2b5dCgs32N0hAPzfBUyf4YIiSF9Mls15T2xzzqSVuK
-	 iFJ4qGpJK0J/7Hao1ozrXxNme8Uw6CLt4bMRmfHPifSg8qXZWTUcFcTrTHcOmtAEVV
-	 CZT17t3CpuMVDPcBcUPMrNWpSSwq8pIUnVLDI30ax4iaoWy6eWqvtXvW4JcXq+jESj
-	 HYxsbgl/gcyeCjNbw11aa4jo4BN/s4GEwp9mfWD/jMel0RYFlZEvHWhnEjz8MdweiL
-	 xvMxsgLunmnZA==
-Date: Tue, 13 Oct 2026 18:32:26 +0200 (CEST)
-From: Imre Kaloz <kaloz@kernel.org>
-To: Harry Yoo <harry@kernel.org>
-cc: Vlastimil Babka <vbabka@kernel.org>, 
-    Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
-    Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
-    Roman Gushchin <roman.gushchin@linux.dev>, Jann Horn <jannh@google.com>, 
-    linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/slab: sample slab_state once in
- kmem_cache_destroy()
-In-Reply-To: <as4q2WlR7mLhMBpG@thinkstation>
-Message-ID: <e4184209-75ee-929d-0103-ca15d5886000@kernel.org>
-References: <20260930195110.13296-1-kaloz@kernel.org> <ar5pESlkEMqNsgxv@thinkstation> <aef97b97-0bd7-d720-7f59-8c0078747370@kernel.org> <as4QhUscRVtBzYpm@thinkstation> <481e9a16-cd30-d463-14ee-b5602bcd5a21@kernel.org> <as4q2WlR7mLhMBpG@thinkstation>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Fdj06cGT"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E67D04E411FB;
+	Tue, 13 Oct 2026 16:34:29 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B24FB60362;
+	Tue, 13 Oct 2026 16:34:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 760BC11D7180D;
+	Tue, 13 Oct 2026 18:34:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791909265; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=X1mfwLlo25XYbvE4wLEXA72Z7W9FUyzbZTg3CqofoW4=;
+	b=Fdj06cGT/kH00yLrzofFuv2FOS4Ot0dOXs8ZAlDydb2hySTyEKRB7GGg267kbmS6CD5px1
+	DivsrYYLjJOieARh2SuZHwSU2GL142McxWv5hPP+llOUCqQINn0eDWTrQcvgC2qUU2ZUH4
+	/fXLPEdvX8/FyDz4ewYvbGX+p8cJOAge69n40Rc4dGWa3lAKiKftOVkxDiHEhXsrXR+Wmu
+	/p/q6xpb6NQq98e7JKItYRB8yfjpygwQeKo8hr9zpg3DY9lSwv9ifZL7zmvlIxGYT/Xje0
+	2jR4AZsBuSqe7FC0LKHvz1kBI0KetXSAznnBtvcKArYls0gRhYD9ADeSECoQYA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v3 00/17] mtd: spi-nor: winbond: Add support for the
+ W35TxxNW family
+Date: Tue, 13 Oct 2026 18:33:50 +0200
+Message-Id: <20261013-winbond-master-spi-nor-w35t-v3-0-6dde1d513df8@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBCF4auYrh3TTgVSV97DuChQZBJpSdsUD
+ eHuFhIT3bD83+J7MwvGkwnscpiZN4kCOZtDHg+s6bV9GKA2N0OOpeBcwES2draFQYdoPISRwDo
+ PkywioKiUklyhaQXLwuhNR69Nv91z9xSi8+/tLIl1/bq46yYBHDSixk4VDZbmWjsXn2RPjRvYK
+ if81c77GmatUNhJybmuePevLcvyAf2QY7YWAQAA
+X-Change-ID: 20261001-winbond-master-spi-nor-w35t-217993092ed1
+To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Harry,
+First patches are misc fixes.
 
-On Tue, 13 Oct 2026, Harry Yoo wrote:
+Then there are core enhancements to support ODTR chips.
 
-<snip>
+Last set of patches is Winbond specific, where I add the bulk of the
+changes for supporting the new Winbond Octal-DTR SPI NOR chips in the
+winbond manufacturer driver, and then sparkle the ID table with the new
+IDs and their respective testing logs.
 
->>>> There is a related older window: after list_del() and before that
->>>> single read, slab_sysfs_init() could set FULL, skip this cache, and
->>>> the single read would then call both unlink and release on an
->>>> uninitialized kobject.
->>>
->>> No, with this patch slab_sysfs_init() cannot set the state to FULL
->>> because the slab_caches list and slab_state are protected by slab_mutex.
->>>
->>>> I have not hit that, and this patch does not close it.
->>>
->>> I think the patch does close two bugs.
->>>
->>> One introduced by 4ec10268ed98 (reading slab_state twice),
->>> another (reading slab_state outside slab_mutex) introduced by, hmm,
->>> not sure which commit introduced it :) should be very old.
->>
->> You're right, I got that one wrong. Sampling under slab_mutex in the
->> same section as the list_del() means slab_late_init() either sees the
->> cache on the list or we see slab_state < FULL, so the older window is
->> closed too.
->>
->> As for where the outside-mutex read came from, as far as I can tell it's
->> 0495e337b703 ("mm/slab_common: Deleting kobject in kmem_cache_destroy()
->> without holding slab_mutex/cpu_hotplug_lock"). Before that, the unlink
->> and release and their slab_state checks ran in shutdown_cache() under
->> slab_mutex.
->
-> 0495e337b703 Probably yes. Not 100% sure.
->
-> It's quite messy, reading slab_state has been done inside, switched
-> to outside, and back to inside, and so on.
->
-> But should be fine as long as we can find the first commit that
-> affects -stable kernels (>= 5.10.y)
->
->> SLAB_TYPESAFE_BY_RCU caches were already released from the
->> workfn outside the mutex since 657dc2f97220.
->>
->> Want me to send a v2 with a second Fixes: for 0495e337b703, or is it
->> fine to add it when applying?
->
-> Could you please verify fixing which bugs resolves the issue on sparc64
-> described in the changelog? Reading it twice, or outside slab_mutex, or
-> both?
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v3:
+- Drop all Flag Register mentions, which are unused (I added them for
+  debugging purposes, but then removed the associated helpers).
+- Bail early in the sr1_and_sr2 write_sr_ll case with ODTR chips: we
+  should never face this issue at all. Add a comment to explain why.
+- Move a comment fix earlier in the series.
+- Link to v2: https://lore.kernel.org/r/20261004-winbond-master-spi-nor-w35t-v2-0-592f3300a70f@bootlin.com
 
-I tested it. I built five variants of rc7 with a small test that
-destroys a SLAB_TYPESAFE_BY_RCU cache while slab_late_init() runs
-(same path the floppy bio slab takes), and booted each 10 times on
-x86 and 8 times on sparc64. Boots that hit the WARN:
+Changes in v2:
+- Fix the _careful() read helper in swp.c to make sure the buffer is
+  initialized (zeroed).
+- Fix the location of spi_nor_set_dummy() in order to be called at
+  resume. This solves numerous problems reported by Sashiko.
+- I am on purpose ignoring two comments from Sashiko, for which I have
+  answered over the mailing list. Let me know if someone disagrees.
+- Link to v1: https://lore.kernel.org/r/20261002-winbond-master-spi-nor-w35t-v1-0-a22a2f95c26e@bootlin.com
 
-                                              x86     sparc64
-   mainline                                   9/10    8/8
-   one read, in kmem_cache_release()          9/10    8/8
-   unlink check under slab_mutex,
-     release still re-reads                   10/10   8/8
-   one read under slab_mutex (this patch)     0/10    0/8
-   one read right after mutex_unlock()        0/10    0/8
+---
+Miquel Raynal (17):
+      mtd: spi-nor: Only switch to ODTR if the chip has a callback for it
+      mtd: spi-nor: swp: Fix SR2 initialization
+      mtd: spi-nor: Fix spacing between arguments
+      mtd: spi-nor: Fix comment indentation to clarify the intent
+      mtd: spi-nor: sfdp: Enhance a comment
+      mtd: spi-nor: Fix the meaning of a comment
+      mtd: spi-nor: Drop stale values
+      mtd: spi-nor: Fix WRSR with ODTR chips
+      mtd: spi-nor: Allow configuring the actual number of dummy cycles
+      mtd: spi-nor: Fix SWP for octal DTR chips
+      mtd: spi-nor: winbond: Prepare the introduction of W35TxxNW parts
+      mtd: spi-nor: winbond: Add support for W35T64NW-C
+      mtd: spi-nor: winbond: Add support for W35T12NW-C
+      mtd: spi-nor: winbond: Add support for W35T25NW-C/E
+      mtd: spi-nor: winbond: Add support for W35T51NW-C/E
+      mtd: spi-nor: winbond: Add support for W35T01NW-C/E
+      mtd: spi-nor: winbond: Add support for W35T02NW-C/E
 
-So it takes both. The read that hurts is the one at release time,
-after rcu_barrier(); fixing only the double read keeps it, and so
-does moving only the unlink check under the mutex. Reading once
-right after the unlock didn't trigger it, but that is still racy,
-just a much smaller window.
+ drivers/mtd/spi-nor/core.c    |  58 ++++++++++++++++----
+ drivers/mtd/spi-nor/core.h    |   3 ++
+ drivers/mtd/spi-nor/sfdp.c    |   4 +-
+ drivers/mtd/spi-nor/swp.c     |  25 +++++++--
+ drivers/mtd/spi-nor/winbond.c | 122 ++++++++++++++++++++++++++++++++++++++++++
+ include/linux/mtd/spi-nor.h   |   4 --
+ 6 files changed, 197 insertions(+), 19 deletions(-)
+---
+base-commit: c1775ba88cd08853e3f401d725b2ad94e783c5ec
+change-id: 20261001-winbond-master-spi-nor-w35t-217993092ed1
 
-For stable, as far as I can tell the release-side read has been
-outside slab_mutex since d50d82faa0c9 ("slub: fix failure when we
-delete and create a slab cache") in v4.18, so that would cover
-5.10.y. The patch doesn't apply before 6.12, so the older branches
-need their own backports.
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
 
-
-Best,
-Imre
