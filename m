@@ -1,69 +1,35 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B265221C2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:15:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CCC3F5BD6;
+	Tue, 13 Oct 2026 15:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904557; cv=none; b=UYIozOWFio00tH/qdHPyYLpWNfOcrrhKIvqAxiAh/3/ErFHyS6pj/NLhJTueFB/ki9D7CuIxrtiP4aoie+ZHOVXWUNpHyoDjxUFXEXiHga+AzeWYIqfFvzjWTmLLP3lH07khb1axPrF1bSSa1Q1lWdhKomc3Z1C2PrtsfskhI6c=
+	t=1791904565; cv=none; b=MoIFmaA8aQ9umaCffBE/aNCrcCCyqqQvupAYOx5+F4OTlsOhQkWGVMlEy3Fc0x9AXo0fcAfwedmyPADJOYqZgqTCgClTp2ziKVpyhECXAZlLUus1scVEsXT9MeL/FqtkV88paK4AgLMRESa1sbaPo4O771CHLA+x7uWHra+qqEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904557; c=relaxed/simple;
-	bh=a9dXKClCOe+LiiOZeM6HWK4AscvAqNCyErjpZSPza2w=;
+	s=arc-20240116; t=1791904565; c=relaxed/simple;
+	bh=E35+ZMn94RagHNIjsMN4/PIbgNGNlEUqBmCKgWbVnaI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QPPC539LAX8tRIIo1sjVTLppTJgLnmTHk9Xq0h/ZjaHLNaxqgYsxmZ5ZQ+jqS+27EykFQykkc29Dmk+xFgWZ3Zlir+oDkh3nhCOFvvFslx4MJtfAhB/9ndTbRzopuBMthUsqkYb4kLph3oCFi9KNjupO7ffrIiyP0z4Lw12ZkrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=WWAOMacz; arc=none smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+	 In-Reply-To:To:Cc; b=dW8cUGk4O3BkcAmOJ8CVcenYJP1vxLcGorg4beKaM476BdZ5uQ4Cv9QVm9wC6gX+kOaMfqMzy3/1i1L2Ds74gNBJnhu57tuhQD/xemWVYsFUvCbT1dIk/PKYQgpE+jxVc39nxJV3ZfGvms6vZlQYMshKYUzwj/pMNLZqB6pcrUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oXRyBlwb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="WWAOMacz"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso1234947eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:15:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791904555; x=1792509355; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j/IcXJlXOmj9Ix/wIXx5s3Nr6Vc+Sv+o2u0pj+GWKi4=;
-        b=WWAOMaczfIDNC8TmcnyJ7x3rT3LFRoFWqynMeg14pHGUMAkmXYhVnHZ4ff5f7yxJM6
-         iuWH1LBbzXKiLD70nYq3pMcxAPAs9ysSWPtf/0Uexo3f93fd3iiyIg8KnOWiLb72QaJ4
-         WPkGt6f9SE+/FyjD4cn+xI1l7aMeDbP96EXZ0c/rWocaD6IukZ6fikIvckMe1xCmbPD5
-         W6OTkG0WxMG0htucViotkBffMTo+Kw/ZnPwgkxvdV8rbyDs/vlop5muXUWjfWqR+yEp/
-         fhAi64zIJ/tQvS7ZlOL/AKmtAUyQ9vUdlbaezYI+BSLPZ56I8JvRzGfsm72UeWp1G+Tx
-         3k/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904555; x=1792509355;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j/IcXJlXOmj9Ix/wIXx5s3Nr6Vc+Sv+o2u0pj+GWKi4=;
-        b=GeAYQ1/MbjIJ2udWX2D/wUcENj3FricOqaX/Oy+c+Vi8E7ciUbFPZ7B06sCdjRwjQO
-         ZFm+ynOom74JzfUVE2ea8qkXIC+PKss9IfaO72xC7+emzq5syMm+HhzribWjuuwtXOlH
-         SNYbF0Th/Q1fxf5h8iJhkaXc7d7MDQwL3DCjquxxKktCgNMiSXwI60FSau0tL1YBLvy2
-         vlpfUWSyxUYDfEJkEGAo7wMFkb2A3NGU2LEsag9oNuuw0KlKxVV/2CwdICMqV5lrS+w2
-         u/0a4Ht28TkP+MyGM0ZlGk/AH0Hhgpq9S2n+02APK1vKaEe6uvdKtog3f4GMrEk2QFHK
-         04EA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3fNgavnUWNcDxCPk2a1YjnZngay0NhOO3PdLPyQjVSoS1ua3lMq3srmDxZKEP3Fv4/hddD27hyQ4IM7k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQv72U4pK3tnld4/uountn26otMhiIF07sE/SdtDMPb6tokuNC
-	C8jWMLbvfOWhms2R66/DTKnCHKAXWsZK9RRplBpnvErygqAjodUh8n3BOflkbknUOEI=
-X-Gm-Gg: AYBFou2vZ4SCKYQ4U5Q8FO+XmppaQffJA2GFR8thvF0qar/Cx72RAdTI2Dv4IxVjGl/
-	s+hyAGrp5ZP1yEWOP6uyF03Gd5SZiBCFuEfAYYdn0mZJXq1+PbkUoO9tZW0d9HWFvC/apoew5bQ
-	R74D10e7BEtapDCMHaKEuXw+pHM+Y7radrlbWcg+6sCZyTHYv21Ih9cUoOK0NQUyF9iqtfqs9MA
-	vm14ykrbuf/Siu3UgRZfi3ukMmYdm3vjcDdw6JBeAV6bgp1PRSnT7skpG1uHmii1dyKcu2mpois
-	IVG675vFx5diToZeiRhFOOafDbiJdOnztHlkf3UzpwWCN6WZHmLOdHYWU4PbT0cCHL0QHqL2MkI
-	jxeeevUox1du9sM8BAcylchYkINffFidKcGd86chOhSn4lE96Zcpe630MEfq6oXP3ZmLcFFNCfA
-	7/3SxKaCcONn85hcyFuxHRHQtLzZB+eso/ZT8ItsgD3OxDxGgksSXRtvxP4TYDb9v4oOlWdfs1G
-	d+Iwoez45o7s4k=
-X-Received: by 2002:a05:7301:71a4:b0:35a:4ad6:d215 with SMTP id 5a478bee46e88-35a4ae61ed4mr9169382eec.22.1791904554563;
-        Tue, 13 Oct 2026 08:15:54 -0700 (PDT)
-Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:49b8:4c98:b3d1:72aa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358de54fe47sm30691751eec.31.2026.10.13.08.15.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:15:52 -0700 (PDT)
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Tue, 13 Oct 2026 16:15:25 +0100
-Subject: [PATCH 4/4] Input: touchscreen: use named initializers for
- acpi_device_id
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oXRyBlwb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9B441F00893;
+	Tue, 13 Oct 2026 15:15:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791904564;
+	bh=GFhfE0EpCejkYMfipk7Q12g1VtbQ/nJQw01XCYAedo4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=oXRyBlwbANCVnegp8iY5cvbAabzXfj7uUWG6HhCOs/m2gAAg9SHQKtYTIXLYZmhGU
+	 PQ5SLGPgKkNbAUAFxAFzfOy9nOM5On+4vw8QFPdcKNuOiJTEmrNOOQIN7oVMJY9AJh
+	 Z0cLlUEWHBql8lSrt6YwoEYoeBlm3HP99n1KUUtvGcihgzPboSk/CcQQCG7FpQcV9t
+	 zV6piyKQPCpcBp68tfpewArXOCIJzZRK7mFR/LrtCvCcnbllR45tE1dSVaVdR8p1q5
+	 8lZLI5QktBckfspAyjjvz+J0dOMYGDYMsRjt8Swy4F3cjWDlt0zFJKE1VO1eMqL+Za
+	 zTq8OB5/LWNOw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 13 Oct 2026 16:04:59 +0100
+Subject: [PATCH v6 19/39] fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO,
+ add VM_MIXEDMAP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,248 +38,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-acpi-input-v1-4-53ad09ba82b7@thegoodpenguin.co.uk>
-References: <20261013-acpi-input-v1-0-53ad09ba82b7@thegoodpenguin.co.uk>
-In-Reply-To: <20261013-acpi-input-v1-0-53ad09ba82b7@thegoodpenguin.co.uk>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
- Nick Dyer <nick@shmanahar.org>, Hans de Goede <hansg@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- chrome-platform@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791904532; l=8164;
- i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=a9dXKClCOe+LiiOZeM6HWK4AscvAqNCyErjpZSPza2w=;
- b=foK/PhAIBsUDyey2bZDr+w07Pc7DYzpmB3TtY+zOIs6J0oDqsN8meR89+lQQeo3mAqG2vz/aO
- 39DQlDB0GN8BIGPWqCaLSh8x2mcKozuI4fUjBDmxk3oHCedP3FjgnTy
-X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
- pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-19-1aa3c9b139f9@kernel.org>
+References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2469; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=E35+ZMn94RagHNIjsMN4/PIbgNGNlEUqBmCKgWbVnaI=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZy6l/j3/7mDaSI3zSJqPf9uujU3O7z5TcLd1Aff7
+ u6sT4u06ChlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEpGYx/I/pkjx+UcHxg5LH
+ agEVsX8vptTf5tD7ftf69+arRr/Ot39mZOhUOrvUR+Y8W+6cF+d4Dc9c75k2ja8uK+jOYdt/DtZ
+ qX3kA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Use a designated initializer for the acpi_device_id fields which makes the
-code more readable and consistent with how lists are initialized in the
-rest of the kernel code base. Also drop explicitly setting fields to 0
-where it is redundant.
+Currently all drivers which use defio allocate system memory. All of them
+also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
+system RAM, so simply failed to set this flag when it ought to.
 
-Unify the list terminator to have a single space between the brackets and
-no trailing comma.
+This patch sets FBINFO_VIRTFB on ssd1307fb probe, then drops setting VM_IO
+in fb_deferred_io_mmap() and instead requires FBINFO_VIRTFB to be set,
+erroring out with a kernel warning if not.
 
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+The logic requires a page from the driver and since commit 1ecbc7dd2902
+("fbdev/deferred-io: Always call get_page() for framebuffer pages") has
+always required it to be refcounted, so this was implicitly already the
+case.
+
+Finally this patch sets VM_MIXEDMAP, as the logic is mapping
+kernel-allocated memory so this is appropriate.
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/input/touchscreen/atmel_mxt_ts.c    |  4 ++--
- drivers/input/touchscreen/chipone_icn8505.c |  2 +-
- drivers/input/touchscreen/elants_i2c.c      |  8 ++++----
- drivers/input/touchscreen/exc3000.c         |  2 +-
- drivers/input/touchscreen/goodix.c          |  8 ++++----
- drivers/input/touchscreen/hideep.c          |  2 +-
- drivers/input/touchscreen/ilitek_ts_i2c.c   |  4 ++--
- drivers/input/touchscreen/melfas_mip4.c     |  4 ++--
- drivers/input/touchscreen/raydium_i2c_ts.c  |  4 ++--
- drivers/input/touchscreen/silead.c          | 18 +++++++++---------
- drivers/input/touchscreen/surface3_spi.c    |  2 +-
- drivers/input/touchscreen/wdt87xx_i2c.c     |  2 +-
- 12 files changed, 30 insertions(+), 30 deletions(-)
+ drivers/video/fbdev/core/fb_defio.c | 6 +++---
+ drivers/video/fbdev/ssd1307fb.c     | 2 ++
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/input/touchscreen/atmel_mxt_ts.c b/drivers/input/touchscreen/atmel_mxt_ts.c
-index 2c0e5a67135b..522e1ea405a6 100644
---- a/drivers/input/touchscreen/atmel_mxt_ts.c
-+++ b/drivers/input/touchscreen/atmel_mxt_ts.c
-@@ -3409,8 +3409,8 @@ MODULE_DEVICE_TABLE(of, mxt_of_match);
+diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
+index fd00b86e1ae6..fb359ecc3966 100644
+--- a/drivers/video/fbdev/core/fb_defio.c
++++ b/drivers/video/fbdev/core/fb_defio.c
+@@ -366,13 +366,13 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ {
+ 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
  
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id mxt_acpi_id[] = {
--	{ "ATML0000", 0 },	/* Touchpad */
--	{ "ATML0001", 0 },	/* Touchscreen */
-+	{ .id = "ATML0000" },	/* Touchpad */
-+	{ .id = "ATML0001" },	/* Touchscreen */
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, mxt_acpi_id);
-diff --git a/drivers/input/touchscreen/chipone_icn8505.c b/drivers/input/touchscreen/chipone_icn8505.c
-index cde0e4789503..7d0a488166bb 100644
---- a/drivers/input/touchscreen/chipone_icn8505.c
-+++ b/drivers/input/touchscreen/chipone_icn8505.c
-@@ -486,7 +486,7 @@ static int icn8505_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(icn8505_pm_ops, icn8505_suspend, icn8505_resume);
++	if (WARN_ON_ONCE(!(info->flags & FBINFO_VIRTFB)))
++		return -EINVAL;
+ 	if (!try_module_get(THIS_MODULE))
+ 		return -EINVAL;
  
- static const struct acpi_device_id icn8505_acpi_match[] = {
--	{ "CHPN0001" },
-+	{ .id = "CHPN0001" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, icn8505_acpi_match);
-diff --git a/drivers/input/touchscreen/elants_i2c.c b/drivers/input/touchscreen/elants_i2c.c
-index 17175adcaebb..7a651899feb1 100644
---- a/drivers/input/touchscreen/elants_i2c.c
-+++ b/drivers/input/touchscreen/elants_i2c.c
-@@ -1360,9 +1360,9 @@ static void elants_i2c_power_off(void *_data)
+ 	vma->vm_ops = &fb_deferred_io_vm_ops;
+-	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+-	if (!(info->flags & FBINFO_VIRTFB))
+-		vm_flags_set(vma, VM_IO);
++	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTDUMP);
+ 	vma->vm_private_data = info->fbdefio_state;
  
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id i2c_hid_ids[] = {
--	{"ACPI0C50", 0 },
--	{"PNP0C50", 0 },
--	{ },
-+	{ .id = "ACPI0C50" },
-+	{ .id = "PNP0C50" },
-+	{ }
- };
+ 	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
+diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
+index c4fdecafd856..958514a35433 100644
+--- a/drivers/video/fbdev/ssd1307fb.c
++++ b/drivers/video/fbdev/ssd1307fb.c
+@@ -763,6 +763,8 @@ static int ssd1307fb_probe(struct i2c_client *client)
+ 	info->fix.smem_start = __pa(vmem);
+ 	info->fix.smem_len = vmem_size;
  
- static const guid_t i2c_hid_guid =
-@@ -1624,7 +1624,7 @@ MODULE_DEVICE_TABLE(i2c, elants_i2c_id);
++	info->flags = FBINFO_VIRTFB;
++
+ 	fb_deferred_io_init(info);
  
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id elants_acpi_id[] = {
--	{ "ELAN0001", EKTH3500 },
-+	{ .id = "ELAN0001", .driver_data = EKTH3500 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, elants_acpi_id);
-diff --git a/drivers/input/touchscreen/exc3000.c b/drivers/input/touchscreen/exc3000.c
-index 037bb35238a3..d1f9b44d9d76 100644
---- a/drivers/input/touchscreen/exc3000.c
-+++ b/drivers/input/touchscreen/exc3000.c
-@@ -453,7 +453,7 @@ MODULE_DEVICE_TABLE(of, exc3000_of_match);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id exc3000_acpi_match[] = {
--	{ "EGA00001", .driver_data = (kernel_ulong_t)&exc3000_info[EETI_EXC80H60] },
-+	{ .id = "EGA00001", .driver_data = (kernel_ulong_t)&exc3000_info[EETI_EXC80H60] },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, exc3000_acpi_match);
-diff --git a/drivers/input/touchscreen/goodix.c b/drivers/input/touchscreen/goodix.c
-index 03efc0c792c2..7609366f0b78 100644
---- a/drivers/input/touchscreen/goodix.c
-+++ b/drivers/input/touchscreen/goodix.c
-@@ -1531,10 +1531,10 @@ MODULE_DEVICE_TABLE(i2c, goodix_ts_id);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id goodix_acpi_match[] = {
--	{ "GDIX1001", 0 },
--	{ "GDIX1002", 0 },
--	{ "GDIX1003", 0 },
--	{ "GDX9110", 0 },
-+	{ .id = "GDIX1001" },
-+	{ .id = "GDIX1002" },
-+	{ .id = "GDIX1003" },
-+	{ .id = "GDX9110" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, goodix_acpi_match);
-diff --git a/drivers/input/touchscreen/hideep.c b/drivers/input/touchscreen/hideep.c
-index 58e00c314ace..68ee61c71df6 100644
---- a/drivers/input/touchscreen/hideep.c
-+++ b/drivers/input/touchscreen/hideep.c
-@@ -1088,7 +1088,7 @@ MODULE_DEVICE_TABLE(i2c, hideep_i2c_id);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id hideep_acpi_id[] = {
--	{ "HIDP0001", 0 },
-+	{ .id = "HIDP0001" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, hideep_acpi_id);
-diff --git a/drivers/input/touchscreen/ilitek_ts_i2c.c b/drivers/input/touchscreen/ilitek_ts_i2c.c
-index 3de0fbf8da38..cdd02b7b6f67 100644
---- a/drivers/input/touchscreen/ilitek_ts_i2c.c
-+++ b/drivers/input/touchscreen/ilitek_ts_i2c.c
-@@ -646,8 +646,8 @@ MODULE_DEVICE_TABLE(i2c, ilitek_ts_i2c_id);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id ilitekts_acpi_id[] = {
--	{ "ILTK0001", 0 },
--	{ },
-+	{ .id = "ILTK0001" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, ilitekts_acpi_id);
- #endif
-diff --git a/drivers/input/touchscreen/melfas_mip4.c b/drivers/input/touchscreen/melfas_mip4.c
-index fd6c0ac301a2..0c8a922e2f2e 100644
---- a/drivers/input/touchscreen/melfas_mip4.c
-+++ b/drivers/input/touchscreen/melfas_mip4.c
-@@ -1529,8 +1529,8 @@ MODULE_DEVICE_TABLE(of, mip4_of_match);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id mip4_acpi_match[] = {
--	{ "MLFS0000", 0},
--	{ },
-+	{ .id = "MLFS0000" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, mip4_acpi_match);
- #endif
-diff --git a/drivers/input/touchscreen/raydium_i2c_ts.c b/drivers/input/touchscreen/raydium_i2c_ts.c
-index 0256055abcef..d046eba4b12d 100644
---- a/drivers/input/touchscreen/raydium_i2c_ts.c
-+++ b/drivers/input/touchscreen/raydium_i2c_ts.c
-@@ -1227,8 +1227,8 @@ MODULE_DEVICE_TABLE(i2c, raydium_i2c_id);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id raydium_acpi_id[] = {
--	{ "RAYD0001", 0 },
--	{ /* sentinel */ }
-+	{ .id = "RAYD0001" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, raydium_acpi_id);
- #endif
-diff --git a/drivers/input/touchscreen/silead.c b/drivers/input/touchscreen/silead.c
-index 44d7141103f4..6014c4e049a6 100644
---- a/drivers/input/touchscreen/silead.c
-+++ b/drivers/input/touchscreen/silead.c
-@@ -788,15 +788,15 @@ MODULE_DEVICE_TABLE(i2c, silead_ts_id);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id silead_ts_acpi_match[] = {
--	{ "GSL1680", 0 },
--	{ "GSL1688", 0 },
--	{ "GSL3670", 0 },
--	{ "GSL3675", 0 },
--	{ "GSL3692", 0 },
--	{ "MSSL1680", 0 },
--	{ "MSSL0001", 0 },
--	{ "MSSL0002", 0 },
--	{ "MSSL0017", 0 },
-+	{ .id = "GSL1680" },
-+	{ .id = "GSL1688" },
-+	{ .id = "GSL3670" },
-+	{ .id = "GSL3675" },
-+	{ .id = "GSL3692" },
-+	{ .id = "MSSL1680" },
-+	{ .id = "MSSL0001" },
-+	{ .id = "MSSL0002" },
-+	{ .id = "MSSL0017" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, silead_ts_acpi_match);
-diff --git a/drivers/input/touchscreen/surface3_spi.c b/drivers/input/touchscreen/surface3_spi.c
-index 6074b7730e86..9d74efc8d986 100644
---- a/drivers/input/touchscreen/surface3_spi.c
-+++ b/drivers/input/touchscreen/surface3_spi.c
-@@ -392,7 +392,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(surface3_spi_pm_ops,
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id surface3_spi_acpi_match[] = {
--	{ "MSHW0037", 0 },
-+	{ .id = "MSHW0037" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, surface3_spi_acpi_match);
-diff --git a/drivers/input/touchscreen/wdt87xx_i2c.c b/drivers/input/touchscreen/wdt87xx_i2c.c
-index 1af309252092..858c7efd0c29 100644
---- a/drivers/input/touchscreen/wdt87xx_i2c.c
-+++ b/drivers/input/touchscreen/wdt87xx_i2c.c
-@@ -1147,7 +1147,7 @@ MODULE_DEVICE_TABLE(i2c, wdt87xx_dev_id);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id wdt87xx_acpi_id[] = {
--	{ "WDHT0001", 0 },
-+	{ .id = "WDHT0001" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, wdt87xx_acpi_id);
+ 	i2c_set_clientdata(client, info);
 
 -- 
-2.53.0
+2.55.0
 
