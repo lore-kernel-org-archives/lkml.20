@@ -1,189 +1,186 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C643509EE5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51E251812D;
+	Thu, 15 Oct 2026 10:32:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060346; cv=none; b=ETkYb/498EsZ1FQOL2v4IdmdxqlLa4xWOVuH755VbL/dpHzpN4R9ZMGA1GH7NW7NUhfGmM3X9EewNu4iqsrqlG2rrPt9qMDl8Yn68SGuTpYcF2tRhArjFrhAIWJp6ot9rgJO9Z3RSP6F+sYeq2h/TDQouQ4UAtMCbkdroi4FTXQ=
+	t=1792060349; cv=none; b=OSAUZL8hvhL0OLqVC5hmi0Ul5yJV4a51SzV5n2y/r8KtDXwH8ltwk87NggzoETt1oKpScnNuJCywv0vGXLQHIwqiYaHWw1UWPFu2jX6yzmek/Wkfl4AS5iFHZRfoh54eq8fhT22HEn3SijKL/6Yw230w4XulLaWmL5GiSyLJn6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060346; c=relaxed/simple;
-	bh=BwzEGGlN0Cr4GFybOAnQmDAQNaVFm68oam3tFIqZVcI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pdEAXOvGsIejTqXTC/CootIPpfVARMtLZ0isEZRyu2hslFphN2cQS0IerW0qDfi8tOEXb6mAGVluyJusrosZwjbKFiCwMKP2s8leT4y37mz7SdSZGw/2VO88URVDGtE2Yf4lgqrRk14MRK8PJ5/81tjSyEkmOGqzxce5GLOzV8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J3M5MG4J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CX0mvH2A; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792060349; c=relaxed/simple;
+	bh=XUYOScsxtpoMvmTZT4+4w0G08Qy83jX28yQHeYVl7kI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=DzX0JVAwq62geJBRHAppZq2wvtzxZhlLGpcbCWfTnlrs87AbvHMrwix1Xm9m1pUJF0OUKPT37WAHjfoKg4NjUN4+A6ELKhYisj+PpS1pxUCbTen4mTcbKoGu6ExWOQzAO42/lp3faG1bdX/79Ba+AQ5fBrhDyu4OKvebFmsAAPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PI5GrVnW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J3M5MG4J";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CX0mvH2A"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jfZv1955731
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:32:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hOqER+APW2quOl6eAUdj+IURL6XVEPDt5bilHrFyOYU=; b=J3M5MG4J+PU7QrQh
-	jIjbJx0CX28k37jKuOCEZp6sRSxzBGkD5QuDTmJHJOXQIP6VaT/Zod1zddtMGlGG
-	FjGMPa1dxSBqw7qSQjrwp3oz9zmDU0VNK0pjt546dg++HvfOWbrNhJIprJYQy0eQ
-	53atIiLBYoK4Hf35xNIMFjtk3FcRNSj0rpzyKw6kJNpE6t0jQamZPnlyTga0sYVW
-	f12IbSHk1vx3BFZJtWW0TAwaytQE22kIjdA23Zry4Yn/AEe/0JSvWMDDPnRopbGT
-	AmIfJ4M6Ut9FSRJnOmxraD5HqToq4FQIuP0RjWjqExPuyhadAHv1lj1Oqg8ksFf5
-	XYqMcA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakdetd5x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:32:23 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a47617a0b3so5044967a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:32:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792060342; x=1792665142; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hOqER+APW2quOl6eAUdj+IURL6XVEPDt5bilHrFyOYU=;
-        b=CX0mvH2ATSmAF9CpZdMLhQUiUIKC7ri1+XLmyEFMwZnGCjA6LsGzezubvhOXansAYn
-         idOErjyg7t23gAMB1Hq4T+EuaSKXeFvQe/fKR8cF9Z+IH5WbUZPZYSYnjKZ879N/DtCQ
-         EFanKh3NmXBL5yV0meJYSQSk9hsFnpAkznykIkaG67vWe9AfrCO81Vf4D/f7XaQBJPgm
-         ypP4BPBkJrlm4Lja5esqbQJHRaeLTAVB7Tv84s/bMfwFcmvxGrb+wk3oMKqBQv1gLiHr
-         i61uGXzJnfjNByx/EhKAHm6PZjTWJOFO43atkZUhsepFmnjX2nI2WrcMMp9vsP7Yg018
-         MHtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792060342; x=1792665142;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hOqER+APW2quOl6eAUdj+IURL6XVEPDt5bilHrFyOYU=;
-        b=sIKzWKTG8Fiverzp2daJ0SmsL37JrQu815LYjgwBKtELk7K1dOmBTlFBdRFOBlX850
-         UHMKHtZo/y+PTQhfVQ5vXxZofZKsqCfHcOa9TolIStz4G3s/ZvYOJT2ybTo/vOMhaEiq
-         IdZiFg7y6YdyY0NZ1leBh094JhLA7KX0be+VSavov+qA/P7+baddACnn++7EXuUgZBiD
-         +x18w1G5L4THceuVOl4QOC8l61H6YdoGfQ7pt+yrIYTLjPqcSXF2GkMquWtOx2feOkSE
-         3EvkZWZ195/D1uKrDDFu96U2qBlz8ZBrPcw61r+eQHi2RL8h+QRHYLnTyQlN3XTnkLtk
-         +KVA==
-X-Forwarded-Encrypted: i=1; AKwUvBwN+VGjRZscqsS3Iv59H2sz4qP2itCTINkneFnpZPFfqsjg6/eylELjnPs8vwJS0MBbl6SWFejgmcKUH9M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/6uMoap7a3VEZAfuak2LxzWWpBtu3SYT8F771P14oqdeco3zb
-	jHU4hHWL18hCmpLnLAXRjsw7m3NBpHLfAS7b54iDi12I5hqQ2ryIze7UC3xHw2BIpfuWq2rXC93
-	zFcD3uO0WNoqDZ65cPhkp1vsIdV7cyaefDgK0lHxZgQNw4sE9DLWcAwVDJtWAAtal2Xc=
-X-Gm-Gg: AYBFou2UZHDV40zE7URx0KmvOfArlYIgeYmZYyQi4Elve31/8AHMLdqrYtyQM8+VCog
-	3Bnpuy9RKGtNl9CCdDlB/27A7W9Yieqgn29yxO46OyE01h+dv7u70gkmd0FfKc8LwoS3QjBag7r
-	OFhE1PU/o0z2GrfNoF0BktCwg2xB/CRj4UTpNTDPk9ea+mInh2sLAUqNKsk2LDvaACdeuDlUZrd
-	ElvtNbA3o8xZN+YrJ1a0hjgEQMDOIB9XDKismM0NZO5hdv7e/n1h8GzAMSz4zJl4aBMzO4P+kYp
-	RMHPHGKtsPsXKe3OiTy0YStQcb0T3p9ctZbasLVaxZc26mJDubRq0A8UBOlDD12ctMnTeAvSnK5
-	26nRqUL3jP5PSIPQMSqQBJVRl1SW7C21+dHJRbzqiLQ==
-X-Received: by 2002:a17:90a:d2c7:b0:3a8:13d6:f740 with SMTP id 98e67ed59e1d1-3ab3a99aa95mr16287921a91.22.1792060342178;
-        Thu, 15 Oct 2026 03:32:22 -0700 (PDT)
-X-Received: by 2002:a17:90a:d2c7:b0:3a8:13d6:f740 with SMTP id 98e67ed59e1d1-3ab3a99aa95mr16287893a91.22.1792060341482;
-        Thu, 15 Oct 2026 03:32:21 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9461d71esm3716055a91.7.2026.10.15.03.32.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 03:32:21 -0700 (PDT)
-Date: Thu, 15 Oct 2026 18:32:13 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: nord: Add iris video node
-Message-ID: <atCrrSI_XaR8Qe0e@QCOM-aGQu4IUr3Y>
-References: <20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com>
- <20260919-nord-iris-v1-2-94428761ec06@oss.qualcomm.com>
- <aq_cmcYa1wL69Hq4@QCOM-aGQu4IUr3Y>
- <3b58ccbe-bf6a-4b96-86c5-584d7feeeb6f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PI5GrVnW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14E431F000C6;
+	Thu, 15 Oct 2026 10:32:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792060347;
+	bh=LsdCD24KD2Tp7y3HBX5d5H3zRxOHnSIBh2ksy9wg8Ts=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=PI5GrVnWNLXPUfA56WspsR/Sfk0JXapnfU2XLZpZyaYhVj7WNauNiYX8WZHeKvjuX
+	 5SPyA829h6ChMVvtyYpWgC9r5KhwBmWi0V9iMUVWBSOABvvFFoQ7pIFY42kEWmFQDW
+	 eH/hAvT8mHUsib5HpTG1kCLTIREHI5WbXfXRuxWoLuvwfn0jI4Kmv3qzJqMtz1kniP
+	 2mY6REC4hDxFvstBjKKrjG0lY9PS7KCcSPrnW2it1S5hUOa0yuDC9X/40L4T6+HGb3
+	 ynwiYKfpWJ3TlxbrBUA9buCkJjSpmDaMyM6UnyC3rTAvgSUUUH05G4s3qMUaPr+7SB
+	 I2d/0P6cLtriw==
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, povik+lin@cutebit.org, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Andrei Simion <andrei.simion@microchip.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Heiko Stuebner <heiko@sntech.de>, phucduc.bui@gmail.com
+Cc: Kees Cook <kees@kernel.org>, Syed Saba Kareem <syed.sabakareem@amd.com>, 
+ wangdicheng <wangdicheng@kylinos.cn>, 
+ Chris Bainbridge <chris.bainbridge@gmail.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ Neo Chang <YLCHANG2@nuvoton.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ u.kleine-koenig@baylibre.com, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Hemanth Selam <hemanth.selam@gmail.com>, 
+ Md Shofiqul Islam <shofiqtest@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Zain Aboobacker <zainaboobacker33@gmail.com>, 
+ Sang-Heon Jeon <ekffu200098@gmail.com>, 
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, 
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>, 
+ Bo Shen <voice.shen@atmel.com>, Vinod Koul <vkoul@kernel.org>, 
+ linux-sound@vger.kernel.org, asahi@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, 
+ linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev, 
+ linux-rockchip@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261008103831.542533-1-phucduc.bui@gmail.com>
+References: <20261008103831.542533-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH 00/24] ASoC: Fix constraint return value handling
+Message-Id: <179190764565.42298.7608820451808443258.b4-ty@b4>
+Date: Tue, 13 Oct 2026 17:07:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3b58ccbe-bf6a-4b96-86c5-584d7feeeb6f@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=OdENnRTY c=1 sm=1 tr=0 ts=6ad0abb7 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=u3jKQLErjpDJdSScM9wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: 94NwZNrCex3Rn5xukzwil5Eg6NgpYBcN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MSBTYWx0ZWRfX2sWy88ayiKfD
- qz5SW7VyV7GJ6wPqf0rB2KF/Pu85N0rqx4ypAxLaoYiB3VcdV4CKwSCJYbEhVyPiQ8PWSdzccGI
- Cdp8OKl578yFcTZkbx3wDr1u025yficSFzUm2kqd5khEeXg+jCRBD0asccGGQkRb4iUcDLt6D+D
- 8wYOzYKN2RMplh9KQEONM/27PMHlidjQvner8gto+n4R0cvstPFD5FALVBAclggRI8l10xPzBFb
- 7Nf0rkYnoNA/TqXxjZHQXH5hkT0AHfkNdzPdEFLrikZsvYpvH9ddOjG36hqHDwoo0qq6HwZRDes
- Ad4SVA5212ynuyBpEPJSCGRc4nFHQPYpKDvfRQeaXlz+YN+WUULs4HPVSouu3dDcbAbGEH8n4cd
- jh5iXgq+OU8/1fCfDzZX4tWHdYqxfVe+ZDjcyCsD9/mcEeFXFPRBqE/wv+GRrPqOgBj2jUKsBlJ
- Bib7ie6JFRLcahHCNog==
-X-Proofpoint-GUID: 94NwZNrCex3Rn5xukzwil5Eg6NgpYBcN
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MSBTYWx0ZWRfX0hzyse8gu0kS
- vcxnrXhPAB/O3Izw8HOZ7kKfO4CaNcdlwaDSMTRwjBtOZdLVy95XMKfMX55yPQnJfLlEcGuq23A
- 6Nvcyw4JeHPiuiQFWLHJMK5tsp//jbo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 impostorscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150041
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4621; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=XUYOScsxtpoMvmTZT4+4w0G08Qy83jX28yQHeYVl7kI=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurF436QbXa43IwJtVz+a9/WP+dErigiRWRdWnu6RO7
+ AjMf7hrdUcpC4MYF4OsmCJLXBb3y/qS12v4Di5sg5nDygQyhIGLUwAmIiLKyHDq2uODof8nCxuF
+ ZpfxcTPWcS7d8W7zzOu3Jb2WdVWxqZ9n+J+wZiZ7iINepZ/T5W/rbJe6Pjpf3LOofnnrcZW5jw+
+ FszMBAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, Oct 15, 2026 at 02:41:26PM +0530, Gourav Kumar wrote:
+On Thu, 08 Oct 2026 17:38:07 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: Fix constraint return value handling
 > 
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> On 9/20/2026 6:46 PM, Shawn Guo wrote:
-> > On Sat, Sep 19, 2026 at 10:14:56AM +0530, Vishnu Reddy wrote:
-> >> Add iris video codec to nord SoC, which comes with significantly different
-> >> powering up sequence than previous platforms, thus different clocks and
-> >> resets.
-> >>
-> >> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> >> ---
-> >>  arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 114 ++++++++++++++++++++++++++++
-> >>  1 file changed, 114 insertions(+)
-> >>
-> >> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> >> index 74f4e6be8652..03f827f3e5fc 100644
-> >> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> >> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> >> @@ -1428,6 +1428,120 @@ camcc: clock-controller@9ce0000 {
-> >>  		#power-domain-cells = <1>;
-> >>  	};
-> >>  
-> >> +	iris: video-codec@aa00000 {
-> >> +		compatible = "qcom,nord-iris", "qcom,glymur-iris";
-> >> +		reg = <0x0 0x0aa00000 0x0 0xf0000>;
-> > 
-> > nord-embedded.dtsi is a place to accommodate Nord Embedded variant
-> > specific resource descriptions, like clock, regulator, pinctrl,
-> > interconnect, power domain, PHY, etc. The rest of descriptions should
-> > go to nord.dtsi, like reg, interrupts, iommu, dma, etc.
-> > 
+> Hi all,
 > 
-> Iris depends on providers such as videocc, nwgcc, hscnoc, and mc_virt,
-> which are defined only in nord-embedded.dtsi.
-> Moving the Iris node into nord.dtsi would leave unresolved references in
-> DTS variants that don’t include the embedded file, causing DTB build
-> failures.
-> We should keep the iris node in nord-embedded.dtsi.
+> snd_pcm_hw_constraint_minmax() and snd_pcm_hw_constraint_integer()
+> may return positive values on success. However, ASoC only marks the
+> DAI, link, or component as started or opened when the corresponding
+> callback returns 0.
+> 
+> [...]
 
-Could you read my comment one more time? I was asking to split the Iris
-node, move descriptions like reg, interrupts, iommu, dma, etc to
-nord.dtsi, and keep clocks, resets, interconnects, power domains, etc
-in nord-embedded.dtsi. Take a look at the existing device nodes as
-examples, that's already what we are doing.
+Applied to
 
-Shawn
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[01/24] ASoC: amd: acp: Fix .close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/2c3400aa9f39
+[02/24] ASoC: amd: ps: Fix acp63_pdm_dma_close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/172888114dda
+[03/24] ASoC: amd: ps: Fix acp63_sdw_dma_close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/45dd2b22ea89
+[04/24] ASoC: amd: raven: Fix acp3x_dma_close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/37ceef26df57
+[05/24] ASoC: amd: renoir: Fix acp_pdm_dma_close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/a92571113ef2
+[06/24] ASoC: amd: vangogh: Fix acp5x_dma_close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/38559fcd1c51
+[07/24] ASoC: amd: yc: Fix acp6x_pdm_dma_close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/06654a3ef513
+[08/24] ASoC: apple: mca: Ensure the DAI is marked as started on success
+        https://git.kernel.org/broonie/misc/c/4d23ef7515dd
+[09/24] ASoC: atmel: atmel-pcm-pdc: Fix atmel_pcm_close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/50aaca643038
+[10/24] ASoC: codecs: cs42l42: Ensure the DAI is marked as started on success
+        https://git.kernel.org/broonie/misc/c/c2a3d0b2be0c
+[11/24] ASoC: codecs: nau8325: Ensure the DAI is marked as started on success
+        https://git.kernel.org/broonie/misc/c/0634e7b24727
+[12/24] ASoC: codecs: nau8540: Ensure the DAI is marked as started on success
+        https://git.kernel.org/broonie/misc/c/1de1fd7c69a3
+[13/24] ASoC: codecs: nau8821: Ensure the DAI is marked as started on success
+        https://git.kernel.org/broonie/misc/c/fc5da89a0a8a
+[14/24] ASoC: codecs: nau8824: Ensure the DAI is marked as started on success
+        https://git.kernel.org/broonie/misc/c/e66285731262
+[15/24] ASoC: codecs: nau8825: Ensure the DAI is marked as started on success
+        https://git.kernel.org/broonie/misc/c/552944e3b027
+[16/24] ASoC: codecs: wm8580: Ensure the DAI is marked as started on success
+        https://git.kernel.org/broonie/misc/c/b2c81f056c53
+[17/24] ASoC: codecs: wm8782: Ensure the DAI is marked as started on success
+        https://git.kernel.org/broonie/misc/c/29f52545ada7
+[18/24] ASoC: imx-pcm-rpmsg: Fix imx_rpmsg_pcm_close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/85e56c3bbb7e
+[19/24] ASoC: intel: atom: Fix .shutdown() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/e3bb57581104
+[20/24] ASoC: renesas: fsi: Ensure the component is marked as opened on success
+        https://git.kernel.org/broonie/misc/c/6bba4e5a171c
+[21/24] ASoC: renesas: msiof: Fix msiof_close() being skipped on rollback
+        https://git.kernel.org/broonie/misc/c/b7c58a55fd9b
+[22/24] ASoC: renesas: rz-ssi: Ensure the component is marked as opened on success
+        https://git.kernel.org/broonie/misc/c/fd5c45166d65
+[23/24] ASoC: rockchip: rk3399_gru_sound: Mark the link as started on success
+        https://git.kernel.org/broonie/misc/c/8a43611c834f
+[24/24] ASoC: rockchip: rockchip_max98090: Mark the link as started on success
+        https://git.kernel.org/broonie/misc/c/303961c7daf1
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
