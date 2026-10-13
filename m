@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-22.mta0.migadu.com [91.218.175.22])
+Received: from mta1.migadu.com (out-121.mta1.migadu.com [95.215.58.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4133852BE3A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E87E530DFF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914374; cv=none; b=aqbChjK6VybPdHBYlyvp1qVJwotgalhLONq0devXUZTzsOVlpEcu57RKQ+uXbIHhOhjA/EJ8P7aDSB1QWYI+M2kNIFJm8LGHYHoyf5Bc1UAfRsBUrs6Lq0EHnQ/Q2WSbYE2yCf4+/oaRylSCSOUB3SPwXlWcwLrRaGxXbdAZ4nQ=
+	t=1791914379; cv=none; b=M1lgubP9XFeYgJxrtY0OJQmPHFVqcBqBpGuivvi3ZuSekouWZxMttlzh7RfJiqk9q0YxegokHgKXnqS2J2xq+h8TswEKGFbsTdU+fvKEtthn08hpqaOU0fryCMf6Qh8fHaev6P7RfXAIVzwOtJU62s0T770lXwQrbSUjhu0lAjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914374; c=relaxed/simple;
-	bh=9h/FNSMgG+J6obEKf6fvJS5SmMAncJBwxOlD5ZJEldk=;
+	s=arc-20240116; t=1791914379; c=relaxed/simple;
+	bh=i/OUM9PNUagk4XHXdM7pT/DcHVgeaZ4CI4wZFXPCZig=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PK5bwve38bqyoezAQUhANavUfIyxXRebCiJA1kM0vO+WhX/48p5KUAGXU/+AJT5TYaTd+mVcNgLBaV68pOD8Y2Cc4K+48EwPT7niY6VRC79HHbLSNsZ6YLQEB5DBKcpJhSK1l43kNcu0RWdM1Jaj1Nkd13Haqx/KyDoTDRV9uJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ozfBblX2; arc=none smtp.client-ip=91.218.175.22
+	 MIME-Version; b=DA0Y1N+/Ru3RRcZwlfNZZ9rsVnUdJf6QinGvQfFy+7g6sDvciD3tHV4/FC9dWQ1ueZGfjl/yezF3Bqmvd1GEggklLoH1/qHy55oEnNwSvCAY3XGtQT2Ejahdv9o+Li2EO1AcGBAGik57nWEVI5ze8eN2RtilTDotOBXjPqxZELQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hdSSUpFT; arc=none smtp.client-ip=95.215.58.121
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ozfBblX2"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hdSSUpFT"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9h/FNSMgG+J6obEKf6fvJS5SmMAncJBwxOlD5ZJEldk=;
+DKIM-Signature: a=rsa-sha256; bh=i/OUM9PNUagk4XHXdM7pT/DcHVgeaZ4CI4wZFXPCZig=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791914370; v=1; x=1792519170;
- b=ozfBblX2OlF3ciq6K3bcnIRYWplo7jt+8CJAWU1tnQbZtP76YmD9Xmq6HsFGFwSrKE3O24my
- xQu39kd79Y4Isvpa9XGzjfe3YfKNajp5c5w16lnTqkf4eVdPE48Ml/NC4fJ+vx32hypgt6d7+kp
- VoJpmE15Q1gqGRY1bbWqB5cE=
+ t=1791914375; v=1; x=1792519175;
+ b=hdSSUpFTK+RGrES5UA3awgmkWP74VRcOKDjINHQfKbraXN30JC3QIYtifu+Fl3VklKukfRuj
+ X81nsw7HJ09r5qweGsgsstkZmnfYgNKhojRysDv9g7qjpuYcPoEcePAOSlMn/pCu6IMdMk77ggS
+ ItIqmVSl7c/CLbnH0U9N7pvg=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 0ab10756c8226aae;
-	Tue, 13 Oct 2026 17:59:30 +0000
-X-Mizu-Trace-ID: 0ab10756c8226aae
+Received: by mta11.migadu.com with ESMTPS id f22885aac45a1709;
+	Tue, 13 Oct 2026 17:59:34 +0000
+X-Mizu-Trace-ID: f22885aac45a1709
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
@@ -41,9 +41,9 @@ Cc: Eric Dumazet <edumazet@google.com>,
 	linux-kernel@vger.kernel.org,
 	Jason Xing <kerneljasonxing@gmail.com>,
 	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH 03/15] net: napi_schedule_rps() cleanup
-Date: Wed, 14 Oct 2026 01:58:37 +0800
-Message-Id: <9703e2ac1d47f48775c312a6fc54cb3f874142f6.1791912669.git.wen.yang@linux.dev>
+Subject: [PATCH 04/15] net: add softnet_data.in_net_rx_action
+Date: Wed, 14 Oct 2026 01:58:38 +0800
+Message-Id: <0471f45a4ca97818fd6c5f49c0d8fb32f6480304.1791912669.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1791912669.git.wen.yang@linux.dev>
 References: <cover.1791912669.git.wen.yang@linux.dev>
@@ -57,11 +57,14 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-napi_schedule_rps() return value is ignored, remove it.
+commit c59647c0dc679008886756a888368da1c6d4ccd3 upstream.
 
-commit 8fcb76b934daff12cde76adeab3d502eeb0734b1 upstream.
+We want to make two optimizations in napi_schedule_rps() and
+____napi_schedule() which require to know if these helpers are
+called from net_rx_action(), instead of being called from
+other contexts.
 
-Change the comment to clarify the intent.
+sd.in_net_rx_action is only read/written by the owning cpu.
 
 Signed-off-by: Eric Dumazet <edumazet@google.com>
 Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
@@ -69,49 +72,51 @@ Tested-by: Jason Xing <kerneljasonxing@gmail.com>
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- net/core/dev.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ include/linux/netdevice.h | 1 +
+ net/core/dev.c            | 4 ++++
+ 2 files changed, 5 insertions(+)
 
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index e97967ca2760..987177cebe7c 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -3161,6 +3161,7 @@ struct softnet_data {
+ #ifdef CONFIG_RPS
+ 	struct softnet_data	*rps_ipi_list;
+ #endif
++	bool			in_net_rx_action;
+ #ifdef CONFIG_NET_FLOW_LIMIT
+ 	struct sd_flow_limit __rcu *flow_limit;
+ #endif
 diff --git a/net/core/dev.c b/net/core/dev.c
-index efe483d7e03f..36dbb86496ec 100644
+index 36dbb86496ec..a46caebb06f7 100644
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
-@@ -4722,11 +4722,18 @@ static void trigger_rx_softirq(void *data)
- }
+@@ -6795,6 +6795,7 @@ static __latent_entropy void net_rx_action(struct softirq_action *h)
+ 	LIST_HEAD(list);
+ 	LIST_HEAD(repoll);
  
- /*
-- * Check if this softnet_data structure is another cpu one
-- * If yes, queue it to our IPI list and return 1
-- * If no, return 0
-+ * After we queued a packet into sd->input_pkt_queue,
-+ * we need to make sure this queue is serviced soon.
-+ *
-+ * - If this is another cpu queue, link it to our rps_ipi_list,
-+ *   and make sure we will process rps_ipi_list from net_rx_action().
-+ *   As we do not know yet if we are called from net_rx_action(),
-+ *   we have to raise NET_RX_SOFTIRQ. This might change in the future.
-+ *
-+ * - If this is our own queue, NAPI schedule our backlog.
-+ *   Note that this also raises NET_RX_SOFTIRQ.
-  */
--static int napi_schedule_rps(struct softnet_data *sd)
-+static void napi_schedule_rps(struct softnet_data *sd)
- {
- 	struct softnet_data *mysd = this_cpu_ptr(&softnet_data);
++	sd->in_net_rx_action = true;
+ 	local_irq_disable();
+ 	list_splice_init(&sd->poll_list, &list);
+ 	local_irq_enable();
+@@ -6805,6 +6806,7 @@ static __latent_entropy void net_rx_action(struct softirq_action *h)
+ 		skb_defer_free_flush(sd);
  
-@@ -4736,11 +4743,10 @@ static int napi_schedule_rps(struct softnet_data *sd)
- 		mysd->rps_ipi_list = sd;
- 
+ 		if (list_empty(&list)) {
++			sd->in_net_rx_action = false;
+ 			if (!sd_has_rps_ipi_waiting(sd) && list_empty(&repoll))
+ 				goto end;
+ 			break;
+@@ -6831,6 +6833,8 @@ static __latent_entropy void net_rx_action(struct softirq_action *h)
+ 	list_splice(&list, &sd->poll_list);
+ 	if (!list_empty(&sd->poll_list))
  		__raise_softirq_irqoff(NET_RX_SOFTIRQ);
--		return 1;
-+		return;
- 	}
- #endif /* CONFIG_RPS */
- 	__napi_schedule_irqoff(&mysd->backlog);
--	return 0;
- }
++	else
++		sd->in_net_rx_action = false;
  
- #ifdef CONFIG_NET_FLOW_LIMIT
+ 	net_rps_action_and_irq_enable(sd);
+ end:;
 -- 
 2.25.1
 
