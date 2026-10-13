@@ -1,211 +1,194 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6121749EC46
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:00:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791918001; cv=none; b=KUjvLPxMXFKqPivKfzNyWSUDwglvzfIXINHaL+C4+2LG5LO1Z+goPvlVty1kRKlsmLs40O/A1LcP8GpbFbhDTIb31oD++IG3d+ZMjCMMBVUlJLKqBgJPmWtrquXFvtmsAmnrkIngr+gClgw4VHwEm/SM08p72zcDDF/d5yRDkEA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791918001; c=relaxed/simple;
-	bh=pK0tZoESAeVqdQ2C6y2tathXKhtJdgyiiIfQUeuxEV0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FssEtfvjzmrv4Ak5dlvasv+PIzaoDp99QG+5Ax1R0SXxW+3vIbIsYU79EMqXICpUVMhGx7AVU7Q3MTJ8OZTQHClZuWhptJNqGJ2wH9VQLlXt+QDaoSgrjuHwrM5qzMlGeYOcfi9iPH045vF3CpfOQbnhyAQvQlVp083XbTnRAkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Nfq/cETJ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE7C3C108A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791918013; cv=pass; b=BGakLUcP9K22HKGVUFzhMAD+KZfL1iXefXkwaJJ1DE13NCtIU0mBt5+MAktdm8EUXffpdHTvtPa7NLT3sQzdGbi5wQcElkXD4nx2OI9VWf0hogjaiES5eaMXgsNlIMM9jUqZhKO0dct3JR6EuIz/jcXki8EVQ8aWeP57uXevlZY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791918013; c=relaxed/simple;
+	bh=fZ4uddyq93kdUrPDDPzN84geaPqliQDSF+n3XASEkPg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a3aAm2OjxBYEmIyGVloJFyas4yUsBv3yrOPa8EA6qPdj/fCJFwMOrgp/aEhYaMvM6Lg0nguA4+accM8+X3LhteyqQJyBIV3mEr+Ug4EY+qXE8Z1aCqkKSjwqOsc8n0a5AjdBdJYLtO2uv2CUwnGjZCCml3XEmhUH+xG9JbL5zuk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=v2hzQUNk; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Nfq/cETJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791917999;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fdNEQkvuimAxjP5EO6PTUSl8Gf2xrkbTfthYCT1k070=;
-	b=Nfq/cETJdp3EeeZGelBAa4uxiDbpBKctxzpzSyQPrTcKd7XtWybqq28boVlVrzSkPajW67
-	26YtXZ+i6I7mlQOltrF8uxAhXo+VHV+5qZ2C5Pz3gns1RcoS1/M+iFheddPOwnPycoszlq
-	/kW+8XLZRygNlYJCEj8fBFWXD9hyaww=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-94-zBqfzIvDOYmfAQ3jTSNy-g-1; Tue,
- 13 Oct 2026 18:59:56 +0000
-X-MC-Unique: zBqfzIvDOYmfAQ3jTSNy-g-1
-X-Mimecast-MFC-AGG-ID: zBqfzIvDOYmfAQ3jTSNy-g_1791917994
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CBB6C182A10B;
-	Tue, 13 Oct 2026 18:59:53 +0000 (UTC)
-Received: from [100.91.18.181] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D97AD195608E;
-	Tue, 13 Oct 2026 18:59:51 +0000 (UTC)
-Message-ID: <37481345-f80b-4b28-8519-15c396fc7942@redhat.com>
-Date: Tue, 13 Oct 2026 14:59:50 -0400
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="v2hzQUNk"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso29481a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:00:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791918010; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XRwjugWKtlySDamuws5RlI1SU8ycrOYnE0PWVrCy5hyN4Vs6xUfQOo1z72AMRYa4xo
+         HI/GsU/qgSlsSKutjy5RirkdFLTAvzgwR21xrrPx5VtZbfSfgMPZci146E1vksy8Mszq
+         PuNXEmx0QFhAJ/RXcf08ByrSRmMwz52vQ4Z/uuXywvTFjOWIg1n1v02BkV7L08X6LvNv
+         CRF4DqJIS3HG1yegknhPxZPvFLISRkothT/aZ9cXb6Gwh5OugciGTXtQCKX/7CEm8YX6
+         BHwu3/FTPt5hhQzxuXRtsDATIXzFDPE+0rSvEEbG8z9qWh8o1/ZUgPFK8Un3SV4ZyXk0
+         n/BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+2TmVY4407RNY3aYogF/mtX0taIxsikxKl2uKNeM1jE=;
+        fh=2GLbnOcm2BttPzAvlMgTIaczSQsGZzkKnN89swrsA1o=;
+        b=VumATliz52o48JWoc48XYTnpwObyTmMJeOSPmWWqFepYx6f54h+fKpuTp2C9WTic7o
+         4P7Y/KUbfYuwUPZNHeacE4n4Lm+ZSsesJeIeyFm5dIdLMIMgrS58o1feiAw//21rj+HQ
+         m7PTL/oQ978RmIqOMJyRtzYc7Efk0J+Q/mjj1bINQOYCmclVapGcwK+MyWT2nUaiNO4A
+         Y4+eKx7uX9rjCA4PTtUfwjsodgmWOQsjx5d7RpGaC8eMAoNX6nyJxIwXkscxc0uiwJWK
+         Co2glEA+C1ySWhJa2fmDYllXw1ar6VXMmcC83aHxML8pJFlM9vivq8B99e7QtKxK6xq/
+         dzwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791918010; x=1792522810; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+2TmVY4407RNY3aYogF/mtX0taIxsikxKl2uKNeM1jE=;
+        b=v2hzQUNkuIvEveZpIsJ77vpV3lCuvmGKnXBClwSqlxxY0m2WCvdYquUZIq4OIhqpue
+         7/xbp9EZ5P/avWFl5g3JzhyOqJv6mpx59BAy2P8/0XBTaV5Tl3ycS9SunIUt/+8qJeDx
+         knMATjY2CPFNPRhdLrEjLlJFSnsJ5OavXWIjsiRFNTIamZMd2D/cfrXdWGxJX+kgzu3D
+         WZinIhLuKh3m7OiTRCUG6Vd+qACky2PlqzwzcxE0zAezglew/hPKp+pN4twF9toAeoVn
+         7xh+Jf7rtiEECFKZZYgV1uP6RtLgIRNS5+dBL93l8kyqJaqsKbOwQLV1Ql1huz8phxqc
+         3LjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791918010; x=1792522810;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+2TmVY4407RNY3aYogF/mtX0taIxsikxKl2uKNeM1jE=;
+        b=0/DQduSPbG3ocHwLbt6V0EPowk+T703hKMgv52hyR/Cb2rmo7UIro9y8mgTMH5SwVU
+         Hazmk7zv23tI3zmQfuHJoXbPwTwXRSNaUec3HXIykXpwZsCoxDSyQGL9G3/qHw9Shv1X
+         PPVxkqhEDTw8R96lGbX771puOtpehNe9MxdT3m6h7z+S3WIqQT47pUd7g4z9BUERYppB
+         iqTgBXV7eTHO5JM/2VJHRxbkoLSJel8eD/jL5IxiROOPKNhvZQQpd1J7YzF8zlTm7Srh
+         TyBoDZzSqakjLIPyzC6tm5h8EMa8Tojg0yZ18lmz60I+q2s1tuwz8kQKb2K8vUKS/Oph
+         Wphw==
+X-Forwarded-Encrypted: i=1; AKwUvBwts6c3Jd6pce2U70PDZSsO+SuM4zrqcGglv+5FFgXvBODzVe6hzbSnvjU/9muchx07oqWas4yTgBsjqiw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLa1hWzngx1OPM7hgE1Q/jaGpYRlne9ZfxoZw4zivkTsmUMD3MR
+	IDgshirtRS0HYgMUR/XQiZswuyM/llvp8KCDQKpb69vseCxsfvW2+09OzHGSlSHPNQhSRghNT9q
+	wvS7cvzX5ScEr3rEIPEE3lNJIa1JD7+eax4iag59J
+X-Gm-Gg: AYBFou0EUDq7f+yCJsVcDMnvjRKocaBftvS2qlOuwhVhKRGCWldNxmEObtGyClnZOCl
+	bql53FlRIX1aLr/H8g1RBzi1+7gpz/oENgc5wZiPRD5vT/WWXyZ5oVyBV4z8iyV9xa7hYPY7btU
+	HY0qSItoTte0HdU1Yuyu4n3A0VVS5K0L5IDXoDI+BNjPX0lyx6gJoBgHjOM2vaS9XkSUUEATPKa
+	jP5QGGedcNWK3SVM2011Iv4enZ1ghBAsBQTYSx5skL0chaBEXA/JFYsfrC/OVwpwqGKmef+TKTx
+	aGWotOOw5InjykVyLJhk6tg2dH6cqZ1Oi1CRi+6tZx1uQ4tpsEbUBwjC2YBk5epLm8U=
+X-Received: by 2002:a05:6402:c4d2:10b0:6aa:128c:36ad with SMTP id
+ 4fb4d7f45d1cf-6b199a6f8c9mr124512a12.10.1791918009269; Tue, 13 Oct 2026
+ 12:00:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 1/6] cgroup/cpuset: Consolidate
- isolated_cpus_can_update() into prstate_housekeeping_conflict()
-To: Guopeng Zhang <guopeng.zhang@linux.dev>,
- Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>
-References: <20261010221938.243859-1-longman@redhat.com>
- <20261010221938.243859-2-longman@redhat.com>
- <7ec04fe0-994e-44d3-8c20-6732c9f20afd@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <7ec04fe0-994e-44d3-8c20-6732c9f20afd@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+References: <20261012224736.2306637-1-yosry@kernel.org> <CALMp9eT6eJSDaJVJ_1mrn8-sP6F88q-OcGrEgUWy-YpAkuA9vg@mail.gmail.com>
+ <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com>
+ <CALMp9eRRb_8vbm3YM9dw7XbDsnjQ1wRYK10oNq4JAgkUZdpFLg@mail.gmail.com> <CAO9r8zMBxWT=A7+tFUTtDiTu0GNodQEiGw+EKRLesQghk9aBSg@mail.gmail.com>
+In-Reply-To: <CAO9r8zMBxWT=A7+tFUTtDiTu0GNodQEiGw+EKRLesQghk9aBSg@mail.gmail.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Tue, 13 Oct 2026 11:59:56 -0700
+X-Gm-Features: AclHuK_85A6WrUV9oaB4jqIb4cM1YcK9_2Ebbr94ohiYvgrV5gIw2KetiZ5wyYM
+Message-ID: <CALMp9eTqEWczivrxr06hhGg=519-POMRiSTg5WzRieuXZzTK6Q@mail.gmail.com>
+Subject: Re: [PATCH] KVM: SVM: Update tracked pCPU on pCPU switch
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 10/11/26 1:49 AM, Guopeng Zhang wrote:
-> Hi，Longman,
-> 在 2026/10/11 06:19, Waiman Long 写道:
->> The isolated_cpus_can_update() and prstate_housekeeping_conflict() are
->> checking different aspects of upcoming cpumask changes that may conflict
->> with the current setting of the housekeeping cpumasks. There are places
->> where both are called together. There are also places where only one
->> of them is called. That inconsistency can contribute to missing check
->> where invalid cpumask changes may be allowed to move forward.
->>
->> Fix that by consolidating isolated_cpus_can_update() into
->> prstate_housekeeping_conflict() and call prstate_housekeeping_conflict()
->> in all the places where either one of them or both are called. The
->> exception is the validate_partition() function where the
->> prstate_housekeeping_conflict() call is removed. It is because
->> validate_partition() is called only from partition_cpus_change()
->> where prstate_housekeeping_conflict() will be called from either
->> remote_cpus_update() or update_parent_effective_cpumask() with
->> partcmd_update if not for partition invalidatation or disablement.
->>
->> Now prstate_housekeeping_conflict() will be called in the following
->> locations:
->>   - when a partition is enabled in remote_partition_enable() or in
->>     update_parent_effective_cpumask() with partcmd_enable*.
->>   - when a cpumask is updated in remote_cpus_update() or in
->>     update_parent_effective_cpumask() with partcmd_update.
->>   - when a partition state changes from root to isolated or vice versa
->>     in update_prstate().
->>
->> Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
->> Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
->> Signed-off-by: Waiman Long <longman@redhat.com>
->> ---
->>   kernel/cgroup/cpuset.c | 123 +++++++++++++++++------------------------
->>   1 file changed, 52 insertions(+), 71 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index 0ebba2d646c3..f3cebb277a68 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -1353,65 +1353,62 @@ static void partition_xcpus_del(int old_prs, struct cpuset *parent,
->>   }
->>   
->>   /*
->> - * isolated_cpus_can_update - check for isolated & nohz_full conflicts
->> - * @add_cpus: cpu mask for cpus that are going to be isolated
->> - * @del_cpus: cpu mask for cpus that are no longer isolated, can be NULL
->> - * Return: false if there is conflict, true otherwise
->> - *
->> - * If nohz_full is enabled and we have isolated CPUs, their combination must
->> - * still leave housekeeping CPUs.
->> + * prstate_housekeeping_conflict - check for partition & housekeeping conflicts
->> + * @new_prs: new partition root state to be checked
->> + * @parent_prs: Parent partition root state
->> + * @add_cpus: additional CPUs to be added to current cpuset
->> + * @del_cpus: CPUs to be removed from current cpuset, can be NULL
->> + * Return: true if there is conflict, false otherwise
->>    *
->> - * TBD: Should consider merging this function into
->> - *      prstate_housekeeping_conflict().
->> + * There are two different housekeeping conflicts to be checked:
->> + * 1) If new_prs is PRS_ROOT, none of the @add_cpus can be a boot-time isolated
->> + *    CPU. IOW, the whole @add_cpus must be a subset of HK_TYPE_DOMAIN_BOOT.
->> + * 2) If nohz_full is enabled and we have isolated CPUs, their combination must
->> + *    still leave housekeeping CPUs. This check is only needed if new_prs
->> + *    differs from parent_prs and one of them is PRS_ISOLATED.
->>    */
->> -static bool isolated_cpus_can_update(struct cpumask *add_cpus,
->> -				     struct cpumask *del_cpus)
->> +static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
->> +					  struct cpumask *add_cpus,
->> +					  struct cpumask *del_cpus)
->>   {
->>   	cpumask_var_t full_hk_cpus;
->> -	int res = true;
->> +	int res;
->>   
->> -	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE))
->> +	if (housekeeping_enabled(HK_TYPE_DOMAIN_BOOT) && (new_prs == PRS_ROOT) &&
->> +	    !cpumask_subset(add_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
->>   		return true;
->>   
->> -	if (del_cpus && cpumask_weight_and(del_cpus,
->> -			housekeeping_cpumask(HK_TYPE_KERNEL_NOISE)))
->> -		return true;
->> +	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE) ||
->> +	    (new_prs == parent_prs) ||
->> +	    (!del_cpus && (new_prs != PRS_ISOLATED)) ||
->> +	    ((new_prs != PRS_ISOLATED) && (parent_prs != PRS_ISOLATED)))
->> +		return false;
->>   
-> When a child partition switches from root to isolated under an isolated
-> parent, this returns false even though the child's CPUs were not isolated
-> before the switch.
+On Tue, Oct 13, 2026 at 11:11=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wro=
+te:
 >
-> On a fresh boot with CPUs 0-15 online and nohz_full=2-15:
+> On Tue, Oct 13, 2026 at 10:55=E2=80=AFAM Jim Mattson <jmattson@google.com=
+> wrote:
+> >
+> > On Tue, Oct 13, 2026 at 7:49=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> =
+wrote:
+> > >
+> > > On Mon, Oct 12, 2026 at 4:58=E2=80=AFPM Jim Mattson <jmattson@google.=
+com> wrote:
+> > > >
+> > > > On Mon, Oct 12, 2026 at 3:47=E2=80=AFPM Yosry Ahmed <yosry@kernel.o=
+rg> wrote:
+> > [ ... ]
+> > > > > @@ -3892,13 +3893,22 @@ static int pre_svm_run(struct kvm_vcpu *v=
+cpu)
+> > > > >          * - The new VMCB does not detect a pCPU change and runs =
+on pCPU A with
+> > > > >          *   the new ASID allocated on pCPU B, which is potential=
+ly used by
+> > > > >          *   another vCPU/VM.
+> > > > > +        *
+> > > > > +        * Note that dirtying both VMCBs is not strictly needed, =
+but the per-CPU
+> > > > > +        * tracking is shared for both ASID and clean bits, and t=
+hat CPU must
+> > > > > +        * match where the ASID was allocated.
+> > > >
+> > > > Is dirtying both VMCBs not strictly needed?
+> > > >
+> > > > Per APM vol. 2 (rev. 3.45), section 15.15.2:
+> > > >
+> > > > > The hypervisor must clear the entire VMCB [Clean] field to 0 for =
+a guest, under the following circumstances:
+> > > > > ...
+> > > > >  - The hypervisor executes the guest on a different CPU core than=
+ one used the last time that guest was executed.
+> > > > > ...
+> > > > > Failure to clear the VMCB Clean bits to zero in these cases may r=
+esult in undefined behavior.
+> > > >
+> > > > Suppose vmcb02 runs on pCPU A, migrates to (and runs on) pCPU B, an=
+d
+> > > > then migrates back to pCPU A with some clean bits set. At the next
+> > > > VMRUN, pCPU A will happily load stale state for anything marked cle=
+an.
+> > > >
+> > > > At some point before that VMRUN, something has to clear the clean b=
+its!
+> > >
+> > > Dirtying both VMCBs is not needed in all cases covered with the new
+> > > code here. IIUC, clean bits are VMCB-specific, unlike the ASID here
+> > > which is shared.
+> > >
+> > > Because ASID is shared, we have to reset the ASID generation for both
+> > > VMCBs when a new ASID is allocated through either, and update the cpu
+> > > variable tracking which pCPU allocated that ASID. Since that cpu
+> > > variable is also shared for tracking which pCPU ran the VMCB last, we
+> > > also need to clear the clean bits every time we updated. IOW, if we
+> > > had two variables, asid_cpu and vmcb_dirty_cpu, we would need to
+> > > update asid_cpu on pCPU migration for both VMCBs, but only update
+> > > vmcb_run_cpu for the current VMCB.
+> > >
+> > > This is all annoying and confusing, but that should go away in the
+> > > static ASIDs series, and we should go back to only updating pCPU
+> > > tracking, flushing the ASID, and clearing the clean bits only for the
+> > > current VMCB.
+> >
+> > I haven't read the static ASIDs series, but in any case, this patch
+> > should stand on its own, in case that series never gets committed or
+> > gets committed much later.
 >
->      # cd /sys/fs/cgroup
->      # echo +cpuset > cgroup.subtree_control
->      # mkdir A B
->      # echo 1-2 > A/cpuset.cpus
->      # echo isolated > A/cpuset.cpus.partition
->      # echo +cpuset > A/cgroup.subtree_control
->      # mkdir A/C
->      # echo 1 > A/C/cpuset.cpus
->      # echo root > A/C/cpuset.cpus.partition
->      # echo 0 > B/cpuset.cpus
->      # echo isolated > B/cpuset.cpus.partition
->      # cat cpuset.cpus.isolated
->      0,2
->      # echo isolated > A/C/cpuset.cpus.partition
->      # cat A/C/cpuset.cpus.partition
->      isolated
->      # cat cpuset.cpus.isolated
->      0-2
+> It does. I just didn't spend time trying to improve things beyond the fix=
+.
 >
-> CPU 1 was the last remaining housekeeping CPU: it was in neither the
-> nohz_full mask nor the cpuset.cpus.isolated mask. The final write isolates
-> CPU 1 as well, leaving no housekeeping CPU.
+> >
+> > My complaint is with the claim, "dirtying both VMCBs is not strictly
+> > needed," which seems to imply that dirtying the inactive VMCB here is
+> > optional. In fact, once you update vmcb02.cpu/vmcb01.cpu for both
+> > VMCBs, dirtying both *is* strictly needed so the inactive VMCB doesn't
+> > later miss a pCPU switch.
 >
-> Should this check also take the child's previous partition state into
-> account, rather than just comparing its new state with the parent's state?
+> Yeah I guess it can be verbed more accurately, something like this:
 
-This is actually a problem that is hard to fix without introducing a lot 
-of complexity. After spending a day or so trying to find a possible fix 
-from 2 different perspectives, I realize that either one will introduce 
-quite a lot of complexity into the existing cpuset partition code. When 
-looking at it again from a higher level, I think we may have allowed too 
-much freedom to create a complicated nested partition hierarchy. If we 
-simply don't allow the creation of root partition under an isolated 
-partition parent, this problem will not exist. It is indeed a new 
-limitation imposed on the existing cpuset partition functionality, but 
-it is a simple solution and I don't believe there is a real use case in 
-the creation of a root partition under isolated partition. Please 
-correct me if my use case assumption is wrong.
+I don't understand your prevarication. The comment, as written, isn't
+"inaccurately verbed." It's wrong. With the current implementation,
+dirtying both VMCBs *is* strictly needed.
 
-Thanks,
-Longman
+> Dirtying both VMCBs is generally not required if only one VMCB
+> switches pCPUs, but since the pCPU tracking is shared between ASID and
+> VMCB clean bits, it must be done once pCPU tracking is updated.
 
+Clear as mud. :)
