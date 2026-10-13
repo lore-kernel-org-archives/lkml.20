@@ -1,159 +1,333 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FAB516147;
-	Tue, 13 Oct 2026 14:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 106853161A1;
+	Tue, 13 Oct 2026 14:48:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902869; cv=none; b=fToStU6cPK06zs7A2hKGLcRqQx+YCyjgcYNm+mWO+55vXEBPEkthpmDuodyP4l/eDAbP1kqUJ8Ps6KEqAfl4axN2Zvu+N/5k+yXL6u28eTobva3YsHlku8FuaFBQayp2sC8EnHMPuC7Ikj8/JdP6LNHDwuPi5216YU2zxlOz0lA=
+	t=1791902932; cv=none; b=h5ELq66xRYXR4Vl7a7KJnE9zppW0Upau0bT1H6MoBSKEFZr8ofYENAsjZzF59dndsHd60uY7rJFhwoNZK877deFk57OjsUkGY3ji7ePVmthxftNdOEx7FIV3lNsysFZjn9eMyB3kDb4wLtdYNqetPkLesNCXDXdOsanM/YVsMRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902869; c=relaxed/simple;
-	bh=1C8apn9neRC0SCWDM19pG5A1PRdaunbQl6T7NLwPIns=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WnLd/wz4geo4VWSvvfYPtJToHB7zplhJNNuTF+6Dohpl5FTVSfeZowLUUpQdvinS6MaG3VMBXNWDExiZcCJQi6+4V8vrNnw5aPc005SaO5/VyfScDJ0Z9dPmEw4KAG6Zvh5naknzykqfI6LZy99DEkLpdG7hOQwXjuJ296Wpi8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B230CHXY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791902932; c=relaxed/simple;
+	bh=6Mpf79krShWnaJEYw6WC5auN4ScDBf+Thf8mKPqyUfc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ewNK5gmIGdmjeozQXYF6/X0tD0tT1iGWAXAdjVgiwaIkxmWkbPnHp8SU1CHtwUfYvHgjfged9etDPl3/T+wja4mQXWtljAC9aD92GwuJSWxKupn17crWEmcJoPeB7INEr7ut39fyBrYM1T4F2FYQRo63AG2SOuU+4Hg6JjhFCn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tVNX90S3; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B230CHXY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A181F000FF;
-	Tue, 13 Oct 2026 14:47:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791902868;
-	bh=XQjV9R4YK4o+krAFe00TSqM9w2aXTDAZXig7Z7r7AXk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=B230CHXYftuO+Chi9CVLZoq7Q1BKh0EH+Ne26kR8Vo00/D3mSTAdsK20zR5g9OyH9
-	 XRGIg0k9uCtepYqigMcL3CIId+tuN4m3DgoAZmznU2VxdvZsPys3s6yIh1f67w84dq
-	 WECj9DK2wzSOJeCTk2W6x8wi+qRLma0sBLJxNbozUBUGXvxIALD3gbH8u13jsPiBIo
-	 679OLFJEZ4+9o4RO8L9K9i9/gkJOhXfL7HPCER3rhMOI/RMY0FYx3f+eQelfU466KY
-	 XmWxZdK9etPq9p87qplAkTC9OeA74bVwRPVuHVV4jTBIWhrqbuXVApCcNjQ0RS/b4J
-	 bgNu/axlo2LqA==
-Message-ID: <0dbd9197-3fce-431c-9874-926f03f662f8@kernel.org>
-Date: Tue, 13 Oct 2026 16:47:37 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tVNX90S3"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1FEF4169E;
+	Tue, 13 Oct 2026 07:48:46 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF6843F673;
+	Tue, 13 Oct 2026 07:48:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791902929; bh=6Mpf79krShWnaJEYw6WC5auN4ScDBf+Thf8mKPqyUfc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tVNX90S3cJHE2azRU8ptUyweodZBXMeuRDdPlQb6q5Jck9QwGXVuzU6rZAfO6ey2t
+	 aGZpwemaltXQ/lAe1Px+MKtiw5QcRlGfnVlUL6Gam4EUZj9U88Lykf97xeI3p/MJ0y
+	 9Z87KeabKRzguLRJM0Yil4MTB3nZCBPY2FHWpC6A=
+Date: Tue, 13 Oct 2026 15:48:37 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Salman Nabi <salman.nabi@arm.com>,
+	Vedashree Vidwans <vvidwans@nvidia.com>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+	Varun Wadekar <vwadekar@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v4 2/8] firmware: smccc: Add support for Live Firmware
+ Activation (LFA)
+Message-ID: <as5EvNM9IUkGe6Lk@J2N7QTR9R3.cambridge.arm.com>
+References: <20260918141112.2115555-1-andre.przywara@arm.com>
+ <20260918141112.2115555-3-andre.przywara@arm.com>
+ <aq1XmaBemuGybxp2@J2N7QTR9R3>
+ <0c2c5cec-3e16-49a4-b304-ddd75de4cb19@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs: remove Assisted-by references
-To: Sasha Levin <sashal@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Federico Vaga <federico.vaga@vaga.pv.it>,
- Daniel Pereira <danielmaraboo@gmail.com>,
- Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>,
- Dongliang Mu <dzm91@hust.edu.cn>, Andy Whitcroft <apw@canonical.com>,
- Joe Perches <joe@perches.com>, Linus Torvalds
- <torvalds@linux-foundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>,
- Jori Koolstra <jkoolstra@xs4all.nl>, Jeff Layton <jlayton@kernel.org>,
- Christian Brauner <brauner@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- Mark Brown <broonie@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Brian Foster <bfoster@redhat.com>, Carlos Maiolino <cem@kernel.org>,
- David Disseldorp <ddiss@suse.de>, Jani Nikula <jani.nikula@intel.com>,
- Justin Stitt <justinstitt@google.com>, workflows@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261013121501.3738437-1-sashal@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261013121501.3738437-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0c2c5cec-3e16-49a4-b304-ddd75de4cb19@arm.com>
 
-On 10/13/26 14:15, Sasha Levin wrote:
-> Commit 78d979db6cef ("docs: add AI Coding Assistants documentation") asked
-> contributors to add an Assisted-by tag to patches developed with help from an
-> LLM, and commit 816d9992d9ed ("coding-assistants: simplify attribution") later
-> reduced the tag to "Assisted-by: LLM".
+On Mon, Sep 21, 2026 at 05:25:25PM +0200, Andre Przywara wrote:
+> On 9/18/26 17:24, Mark Rutland wrote:
+> > On Fri, Sep 18, 2026 at 04:11:05PM +0200, Andre Przywara wrote:
+> > > From: Salman Nabi <salman.nabi@arm.com>
+> > > 
+> > > The Arm Live Firmware Activation (LFA) is a specification [1] to describe
+> > > activating firmware components without a reboot. Those components
+> > > (like TF-A's BL31, EDK-II, TF-RMM, secure paylods) would be updated the
+> > > usual way: via fwupd, FF-A or other secure storage methods, or via some
+> > > IMPDEF Out-Of-Bound method. The user can then activate this new firmware,
+> > > at system runtime, without requiring a reboot.
+> > > The specification covers the SMCCC interface to list and query available
+> > > components and eventually trigger the activation.
+> > 
+> > It'd be helpful to have a few basic concepts covered here or in the
+> > code. For example, I have no idea what a "rendezvous" is, and it's not
+> > at all obvious from the code.
 > 
-> A proposal to drop the tag was turned down in July [1]. The main argument for
-> keeping it was that maintainers wanted a signal that a patch was LLM-assisted,
-> so that they could review it accordingly.
-> 
-> The tag came up again at the 2026 Maintainers Summit [2]. Roughly 10% of the
-> 18,533 non-merge commits in 7.3 through -rc7 carry an Assisted-by tag, while
-> actual LLM use is far more widespread. Some contributors do not know about the
-> rule, others leave the tag off on purpose, and few maintainers ask about it. As
-> a result, the tag does not provide the signal it was kept for: its absence says
-> nothing about how a patch was made, and for developers who use these tools for
-> almost everything, its presence says little more. The choice was between
-> finding a way to enforce the requirement and dropping it, and there was a
-> strong, though not unanimous, consensus in the room to drop it. Greg
-> Kroah-Hartman, who argued for keeping the tag in July, supports removing it now
-> [3].
-> 
-> Maintainers do still want to know how a patch was created, but the view at the
-> Summit was that this belongs in the cover letter, where it can describe how the
-> tools were used, rather than in the changelog.
-> Documentation/process/generated-content.rst already asks contributors to be
-> transparent about tool use and is not changed here. The rules on the DCO and on
-> the submitter's responsibility for the patch stay as they are.
-> 
-> Remove the Assisted-by sections from coding-assistants.rst,
-> submitting-patches.rst, and the Italian, Brazilian Portuguese and Traditional
-> Chinese translations, and drop the handling of the tag from checkpatch.
-> 
-> [1] https://lore.kernel.org/workflows/2026070224-unholy-commode-cf45@gregkh/
-> [2] https://lwn.net/Articles/1099594/
-> [3] https://lore.kernel.org/all/2026101327-cupid-legal-6cf6@gregkh/
-> 
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Kees Cook <kees@kernel.org>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
+> OK, I can give a brief summary of the concepts, but I guess doing this a top
+> comment in the source file is more useful than here in the commit message?
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+From my PoV, even placing that in the cover letter would be fine. The
+key thing is just to get enough context to be able to review this
+without having to ingest the entire LFA spec.
 
--- 
-Cheers,
+In particular with "rendezvous", I have no idea why the admin should
+have any choice at all, and without some context I can't tell if there's
+some sensible use-case I'm missing.
 
-David
+[...]
+
+> > > +static const char *get_image_name(const struct fw_image *image)
+> > > +{
+> > > +	if (image->image_name && image->image_name[0] != '\0')
+> > > +		return image->image_name;
+> > > +
+> > > +	return kobject_name(&image->kobj);
+> > > +}
+> > 
+> > As before, please just use the UUID.
+> > 
+> > I *assume* that we cannot have more than one image for a given
+> > component, and hence we cannot have two entries for the same UUID? Is
+> > that mandated by the LFA spec?
+> 
+> The LFA spec speaks about "firmware components" as its area of interest, by
+> design all the real firmware *image* related parts, for instance how the
+> firmware update image lands on the system, is left implementation defined.
+> So yes, each firmware component, identified by its UUID, appears only once
+> in the system, by design.
+
+Ok; does the spec *clearly* mandate that?
+
+> So I guess using "image" everywhere is a bit imprecise, but I am bit
+> reluctant to change all identifiers now. Not even sure "firmware component"
+> is a well recognised term in the first place.
+> 
+> Let me know what you think about that.
+
+Using "component" sounds fine by me. Then we can clearly describe
+loading an image *for* a component.
+
+... unless I'm still misunderstanding the terminology here? I assume
+"component" is a logical entity, and "image" is a specific binary blob.
+
+[...]
+
+> > > +static int activate_fw_image(struct fw_image *image)
+> > > +{
+> > > +	int ret;
+> > > +
+> > > +retry:
+> > > +	/*
+> > > +	 * cpu_rendezvous_forced is set by the administrator, via sysfs,
+> > > +	 * cpu_rendezvous is dictated by each firmware component.
+> > > +	 */
+> > > +	image->use_cpu_rendezvous = image->cpu_rendezvous_forced ||
+> > > +				    image->cpu_rendezvous;
+> > > +	if (image->use_cpu_rendezvous)
+> > > +		ret = stop_machine(call_lfa_activate, image, cpu_online_mask);
+> > 
+> > What prevents cpu_online_mask changing under your feet here?
+> 
+> Right, I see. Is cpus_read_lock() safe to hold around stop_machine()?
+
+Looking at the core code, the locking is handled within stop_machine(),
+and since cpu_online_mask is a pointer, we can safely pass that around
+without extra locking.
+
+So this is fine as-is. Sorry for the noise.
+
+[...]
+
+> > This looks odd given call_lfa_activate() doesn't seem to distinguish
+> > secondaries from one another. Does LFA expect all callers to pass the
+> > exact same arguments for a "rendezvous"?
+> 
+> Yes, even though the spec doesn't explicitly mention this. But there aren't
+> many arguments to deviate anyway: the FID and sequence ID are naturally the
+> same, and the flags just indicate whether we skip the rendezvous, so that
+> doesn't really apply here (and inconsistencies are checked and handled by
+> TF-A).
+> The LFA agent (the firmware side) just elects one primary core doing the
+> work, I think in TF-A it's the first one doing the SMC. The others just wait
+> in EL3, to not mess with the update process.
+
+I think i'd be worth describing this somewhere. Even if just the level
+of detail above, with a reference ot the relevant part of the spec.
+
+[...]
+
+> We had it like this originally in v1, I don't remember why we changed that,
+> and it wasn't mentioned in any of the reply emails.
+> Maybe I thought it looked neater to explicitly mark this as a retry, as we
+> don't expect this to happen, normally.
+> Will try to change it back and see what happens ;-)
+> 
+> > > +
+> > > +	lfa_cancel(image);
+> > > +
+> > > +	pr_err("LFA_ACTIVATE for image %s failed\n", get_image_name(image));
+> > > +
+> > > +	return ret;
+> > > +}
+> > > +
+> > > +static int prime_fw_image(struct fw_image *image)
+> > > +{
+> > > +	struct arm_smccc_1_2_regs reg = { 0 }, res;
+> > 
+> > Do you need separate input and output strutctures?
+> 
+> As mentioned above: in this case yes, since we call LFA_PRIME potentially
+> multiple times, and then the function ID would be overwritten by the error
+> return code, at least.
+
+Ok, but you reinitialise 'a1' every time round the loop, so can you just
+reinitialise the few registers you need each time around?
+
+See below for a more concrete example.
+
+> > 
+> > > +	int ret;
+> > > +
+> > > +	if (image->may_reset_cpu) {
+> > > +		pr_err("CPU reset not supported by kernel driver\n");
+> > > +
+> > > +		return -EINVAL;
+> > > +	}
+> > 
+> > Unnecessary newline again.
+> > 
+> > > +
+> > > +	reg.a0 = ARM_SMCCC_LFA_PRIME;
+> > > +retry:
+> > > +	/*
+> > > +	 * LFA_PRIME will return 1 in reg.a1 if the firmware priming
+> > > +	 * is still in progress. In that case LFA_PRIME will need to
+> > > +	 * be called again.
+> > > +	 * reg.a1 will become 0 once the prime process completes.
+> > > +	 */
+> > > +	reg.a1 = image->fw_seq_id;
+> > > +	arm_smccc_1_2_invoke(&reg, &res);
+> > > +	if ((long)res.a0 < 0) {
+> > > +		pr_err("LFA_PRIME for image %s failed: %s\n",
+> > > +		       get_image_name(image),
+> > > +		       lfa_error_string((long)res.a0));
+> > > +
+> > > +		return lfa_to_linux_errno((long)res.a0);
+> > > +	}
+> > > +
+> > > +	if (res.a1 & LFA_PRIME_CALL_AGAIN)
+> > > +		goto retry;
+> > 
+> > Should this be a loop?
+
+
+As above, if this were a loop you could do something like:
+
+	bool retry;
+
+	do {
+		struct arm_smccc_1_2_regs regs = {
+			.a0 = ARM_SMCCC_LFA_PRIME,
+			.a1 = image->fw_seq_id,
+		};
+
+		arm_smccc_1_2_invoke(&regs, &regs);
+
+		if ((long)args.a0 < 0) {
+			...
+		}
+		
+		retry = res.a1 & LFA_PRIME_CALL_AGAIN;
+	} while (retry)
+
+... and the initialization of the registers isn't a special case.
+
+[...]
+
+> > > +static ssize_t pending_version_show(struct kobject *kobj,
+> > > +				    struct kobj_attribute *attr, char *buf)
+> > > +{
+> > > +	struct fw_image *image = kobj_to_fw_image(kobj);
+> > > +	struct arm_smccc_1_2_regs reg = { 0 };
+> > > +
+> > > +	/*
+> > > +	 * Similar to activation pending, this value can change following an
+> > > +	 * update, we need to retrieve fresh info instead of stale information.
+> > > +	 */
+> > > +	reg.a0 = ARM_SMCCC_LFA_GET_INVENTORY;
+> > > +	reg.a1 = image->fw_seq_id;
+> > > +	arm_smccc_1_2_invoke(&reg, &reg);
+> > > +	if (reg.a0 == LFA_SUCCESS) {
+> > > +		if (reg.a5 != 0 && image->activation_pending) {
+> > > +			u32 maj, min;
+> > > +
+> > > +			image->pending_version = reg.a5;
+> > > +			maj = reg.a5 >> 32;
+> > > +			min = reg.a5 & 0xffffffff;
+> > 
+> > You could use upper_32_bits() and lower_32_bits() here.
+> > 
+> > > +
+> > > +			return sysfs_emit(buf, "%u.%u\n", maj, min);
+> > > +		}
+> > > +	}
+> > > +
+> > > +	return sysfs_emit(buf, "N/A\n");
+> > 
+> > Why a string rather than an error code?
+> 
+> This value is somewhat optional, it's only valid if there is an "activation
+> pending" (read: an update image has been provided and waits for its
+> activation).
+
+I'm confused. This function is called pending_version_show(); is that a
+different thing that's "pending"?
+
+> But it's not really the firmware's or the user's fault here if
+> that's the case (in fact it's the common case), so I am not sure if an error
+> return is appropriate, since in the current state the value is simply not
+> applicable. And the "cat" command returning with an error looks ugly. Since
+> it's a string, it's easy to distinguish from any actual version number from
+> userland, in scripts.
+> 
+> Any suggestion how to handle this otherwise? Just return -ENXIO?
+
+If this is a legitimate state, returning a string is fine so long as it
+is clearly documented.
+
+> > [...]
+> > 
+> > > +static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+> > > +{
+
+> > > +}
+> > 
+> > There was an interrupt in the binding, not detected or used here. What's
+> > going on?
+> 
+> That's implemented in patch 6/8.
+> That patch here is already quite large, also different parts (ACPI, timeout,
+> DT, locking) were contributed by different authors, so I kept them as
+> separate patches, to give credit and simplify review.
+> I can of course squash them all in one patch, maybe it's time to do this
+> now, but this makes attribution a bit fuzzy.
+
+From my perspsecitve, if the interrupt is expected, it's odd to add the
+probing support later. At this stage inthe series, the LFA driver will
+probe even without an interrupt, but then suddenly stops later in the
+series.
+
+Mark.
