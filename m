@@ -1,288 +1,219 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B3651DAEE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667465158B8;
+	Tue, 13 Oct 2026 15:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906953; cv=pass; b=AEIyBRhwLrMjL8JoRN77ryWf6BuQrAoQ0u21r1RGlN0GXHmJIlsIzynFktVe3AfgGmugA4+e1aO4Z3WxLo68IbIdSCRWJeI0dMy7axtpnJ0Je4q5X0qw28bRxPDQkI679itnkmDFk8K007iZOmY4dR+6njiIAOlsvwyjMiPL1CU=
+	t=1791906966; cv=fail; b=L3/07B7CsoOUS/r8SE3LxE3A3qKIj/E8+FApghyCgPkbfM4V650e2jghyo3+5psitU5KdtRNlfUCradChkpMEodYMI1qDZ/v72YQfYV1Zps4hWA3i32jUBL10bkXJ6hacYGJKWj6K0MuPIGUIw80NoIgBMgh26Pgq578lk1yAFc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906953; c=relaxed/simple;
-	bh=Fl+I6QVmx6SGoeU7QJN/faQtgRpSfWj+gi8dO4AbAF4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CIWv82MwV+NldECLpSE8pilHseKKKYZ0wEtMhWcy+LE6MsSsCnv8jsZYq0+UCQw6O1FzhHJ0bCbGYz3apT313tuSCH4Zz3CNr2GVh1QGeqo3Jc/rSSaDX6L643m6/JAtkEdbLIPpG1yXt51zhUOpNMZzt+YjMZxS0fB+TN7zb1s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=u198AWQi; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791906966; c=relaxed/simple;
+	bh=tUdhhqazPGqwL4bHSyO91jrWfN/geAnXT3eXbZJmU1k=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=uX11l1b0vLmTKwNVHvdzlVrrfkKVLfd4GQ83GEfFBboG7zYOW55+dMvitxrZ0Ozo86mjJNy4yJd6+py/D+gj8yzQWigK58GKbZDxQ33yQvthc13j1iVRNOX5S0pggwIdASeJMaeNCfTl/Jyzz+JUbiU5trRHQOEhwkvADpeB7oA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H3Macydx; arc=fail smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="u198AWQi"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso3949796a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:55:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791906949; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hZxkWoimrYbgathtW2IiLvKKrSC3ULtpNWLaeuE+whC46bPZrNMIBGGa6mmKQ8IpQK
-         WsJcK1Ngg2dSGg3ogTagk3Ba1v6p1AfUAhoKHkg+M7n2/baocpm7XMISXal/e+aFv9Hf
-         Z127XyQzMQKGR1S2NMn3gjZzzSBGKIyzeSIS6gWVfmMhceCQnCuQ7VhsTmLTdLWdRV5Z
-         aKHXCx4FT1pSJMXp18lwQe1SurIwggeY1b0P9R/UCmhq7xvYpLiHzcYOieqyBwve9zyQ
-         JevPArVvRu3bn5/pVminQA38lsAZT7pFck27JFASjCSQ6CFJv1Yl1IpA32s19oipWbr4
-         CaEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=z8gOX9MZoG0nwlbKtzFc0ROF710/exmQ1whe7/AMGWw=;
-        fh=WylXu6BzMZeStpk2d+TQdnn/5W3OPFH/vRXSezOKOm8=;
-        b=aIcrsVZfdFPS5OaWtbHPcf6mQummGplhvXbwSvo5gGJeadyPWFsmVJWBj0hSMfyK4k
-         dyLuQjGrzydMAnetp41hiV3dCAS9mtgwa6fothpj7bG6wtROJyCAuzAwQE0ZxG2deQlf
-         7+6nDc+xC+RNdzUZ9djSrVpSNHHR5pDT1+vZRuIRDej7DdsYyd5UMoNFp3a5ItdB4Tv7
-         +fVFwXvNJjXKm0CN+phn7F6Non41iAI3C9bgllf8QeC4dMLAzMFUCthXZp6lxUUJdcEW
-         6grNjJHm6tI/gsFSglczWrPT8vmjD9GHLpOOGt15XDDgi/zK6K24MmJiD2dUqEeeCyaL
-         7tCA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791906949; x=1792511749; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z8gOX9MZoG0nwlbKtzFc0ROF710/exmQ1whe7/AMGWw=;
-        b=u198AWQim7aWA09f3k8kbTwG0Wo3C4/pR3A+sobGku7Wc/MBV5+b1q/8RuUx6gVg94
-         aXSf1R9wQw3dYOr8/eL8we/Ml2bjlmULz+5lhiBb9cyn0Tw/sToIIgkniAPMgXfaYAgm
-         LXDSZTLOw8+dKQr7n9mmrLeM9ZoQziWTyMGegeiX3wB9/OLsQWSaLaSnM3543ZSPGURD
-         JvDrQQd1suRPyKkPFArza0l3MuXjWUC+nM7c8gWHQHMHpoKhv+yH5Ko8QCsrRPvcRbSJ
-         kNZctb5FGfVNV1HKsJHRs3iA2gu+frPhdK3iotRmy08MK+4OBIVwTEnWt+3ykqQ1ky1q
-         Fjfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791906949; x=1792511749;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=z8gOX9MZoG0nwlbKtzFc0ROF710/exmQ1whe7/AMGWw=;
-        b=IbHYchEy5St954mj3eQz4MMBZAn3NipPaZ4JJRsKeSoBxGiJvWB+5XAw95H3V1pptB
-         EBrkTAfP3R00ilHmHuVkwMGBhizZp56eEGu7YzRsBFjN1pCAIhFfdngLa5lXJuznhkzQ
-         iT2EIPIlCCsXYusY4ZI5r/cU0wh0rGGK0aSBJMVkec7fLTgLycGF1M7uwxd8p18bnTJV
-         OHcxLSK+uvUTU/gJkkqgcdfJl90grUpuxVoMJvldPMqAymd/JXkKMlmIOeo77Cx1zzbN
-         sE6ldC7DALUMKUdd2K1ntJXtVlU/GlFZCF3oIstJDC3vHPGX0vnBp2+QRvUEzes0du3J
-         8MGg==
-X-Forwarded-Encrypted: i=1; AKwUvBzGzw4b4FEoiQJdk8kQ1XVEOYPBO0/SXaFOGcXE1vGS8mTDpILkcEAkAi/7w24yQehqXjDNjPlaoLeR6fE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJjzzX1a0kM3sk7tZAjghHhnpqa9/uDvMfJwecQqeY0ZCd3ltx
-	C/upo9wRURCQSQxNM2G7EViD3r2YTuBhhv1MAwQwiPx5rSW5sS0lC1ZCdB8oaGr9ibumvbRGs/q
-	H0c0g90W6eNzEyzs2XIUX0plKJ3ZE6sd1XHsLQ/+Z7CAmIJ53CYvH
-X-Gm-Gg: AYBFou0+61GUAhHesZvdyttdHn/ex+ksdhrZhdMRhDSVgN8jEh5LQDp7RF9wLCh8fdo
-	5Xkg2fcaOTcTIYAmjKTf/KvtrmRUUIiYTeT4mmC5hCSeFxw/S6IW1Ki1jiODUuzSVM4X3tg0rzh
-	dwJqfuWAv0gXN2Ps21W6bD0MlKamfVG44u0Qlovh9g1BYNNlQeunRm1F3mfMmudPYArkQ+AUi1Q
-	2WpmZIPoxOrBbYFfDbIKU5n99jZS+g/1BVFm0IKDtigSUzA9K23COUgPoiRB2CQcuaoP6nv71iq
-	56Rbf8jwwDbviTaSizg8nMhptzXr3I+1xwQ0sVlLTq8M5aV8yJ/arIRcFDDEZNVn8RCbJAa/zhX
-	Y/hDX5uRhzFT/dA==
-X-Received: by 2002:a05:6402:52c6:b0:6b1:d8e4:f93 with SMTP id
- 4fb4d7f45d1cf-6b1d8e42e76mr3731578a12.33.1791906949171; Tue, 13 Oct 2026
- 08:55:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H3Macydx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791906965; x=1823442965;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=tUdhhqazPGqwL4bHSyO91jrWfN/geAnXT3eXbZJmU1k=;
+  b=H3MacydxOLhHqIOIMR1OZqjjJdBmzcVn/rkRrvtvicp4pfxaqH2gGdJT
+   Q0SShsxhJz9dUTigfpEX7noHVtJdFeX4wvtIfzN0WVgo+J3CtOb+qHM4h
+   9Bfddm8ujHpKv09iWtmDrPxCgJZZ619tYuA95ecAnbB9ewFy7FHCbbOmL
+   e6YCD0JbADUnvQ1qk4DeykVUQBxiOhqw2lA6Wu72ETWMYv8s3rom4UBrP
+   LyawMbpiZfeFp9f/Od/h5rI4Xdzn/o8vMWXq/WsikJuWsPi9RhlGz5y3h
+   0XgC9QkKFrS+ac3WQUKw1R5nAGhzlpqM76YWjI97AIRGGHRpxAAOyTO9N
+   A==;
+X-CSE-ConnectionGUID: Ruyrfn5hT6a2T8/cgNUKNQ==
+X-CSE-MsgGUID: 6AJRSa7YT/6MXrpE4YuBgA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="641046"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="641046"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:56:04 -0700
+X-CSE-ConnectionGUID: /XFTOCLZSyi9ZgO9/WLl0Q==
+X-CSE-MsgGUID: MOMUAispRsm33n7ogyUlAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1267123"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:56:04 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 13 Oct 2026 08:56:04 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 13 Oct 2026 08:56:04 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.25) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 13 Oct 2026 08:56:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TQTk+KH9CSondGO1bHRQl84rB8/23xYSrq+cjTFn82XYI94EoRzYmw1XXxcidgX0jQxB43hgA0GxuXIFMrpt4PoTdQEYthUHRkXr09iG78CStxMbi4O8fMCuV1hKb9U8qIAA0d1CHIhoY2cclg+1TU4G7uRuxw5VoEvobh22CHlY0QJ9wB1eEp9JzZ94P6X4TP4dzOeMIAzwInUzocr++BotgLSFeMTiW1vhe26BJgQCdV3kIt2yA6VgkkJ2AewaZpDSaSaX4CsLac0tFkVmn2iPzC8uuJQHJUIp0Dko4f6Bwd0tD8Ad+KCbEGi9QW2mxThwPXGS8QtvjMbqIW0naQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tUdhhqazPGqwL4bHSyO91jrWfN/geAnXT3eXbZJmU1k=;
+ b=KJuEo/vbw2jGJ+3/co4xCutCRyn5eDpsif6+aH0Pyi3I+G5yFlVsFfTkUMKjPiHcntiSWV9l/qWgeEBCXVwT7CJouRhcu9xvSzdOoqHUSU/wMFDKDtuCiKLjh2A8a5I4jxpWZ6CRGoRuhL2pSsmEBmgiZjJT5Wu0qtGd4Jo72d8bGWCD2ZrqUOGeSPu0mEdf7T1H0e82wLFHZ+DEGtMxvCtY8tDT49+chE0fR8YiIxFDnCBOWkHRrNKxzuDS4BFZ4cG7+ryTjRjU5otUzG/evUtT8q6XA4JfuO+sWoSiqcfsj2LJLpM2sjhcwDmL0JwrRwEcTB8pdtojS6jk8m4Mog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
+ by DS4PPF30373102B.namprd11.prod.outlook.com (2603:10b6:f:fc02::1b) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 13 Oct
+ 2026 15:55:57 +0000
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 15:55:57 +0000
+From: "Luck, Tony" <tony.luck@intel.com>
+To: "Chatre, Reinette" <reinette.chatre@intel.com>
+CC: Drew Fustini <fustini@kernel.org>, Adrien Ricciardi
+	<aricciardi@baylibre.com>, Alexandre Ghiti <alex@ghiti.fr>, Atish Kumar Patra
+	<atishp@rivosinc.com>, Atish Patra <atish.patra@linux.dev>, Babu Moger
+	<babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>, Borislav Petkov
+	<bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>, Conor Dooley
+	<conor.dooley@microchip.com>, Conor Dooley <conor+dt@kernel.org>, Dave Hansen
+	<dave.hansen@linux.intel.com>, Dave Martin <Dave.Martin@arm.com>, Fenghua Yu
+	<fenghuay@nvidia.com>, Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai
+	<gsh517@gmail.com>, "guo.wenjia23@zte.com.cn" <guo.wenjia23@zte.com.cn>,
+	James Morse <james.morse@arm.com>, =?utf-8?B?S29ybmVsIER1bMSZYmE=?=
+	<mindal@semihalf.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	"liu.qingtao2@zte.com.cn" <liu.qingtao2@zte.com.cn>, Liu Zhiwei
+	<zhiwei_liu@linux.alibaba.com>, Palmer Dabbelt <palmer@dabbelt.com>, "Paul
+ Walmsley" <pjw@kernel.org>, Peter Newman <peternewman@google.com>,
+	=?utf-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, Rob Herring
+	<robh@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, Vasudevan Srinivasan
+	<vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li
+	<liwei1518@gmail.com>, yunhui cui <cuiyunhui@bytedance.com>, Zhanpeng Zhang
+	<zhangzhanpeng.jasper@bytedance.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+	<linux-riscv@lists.infradead.org>, "x86@kernel.org" <x86@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-rt-devel@lists.linux.dev" <linux-rt-devel@lists.linux.dev>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: RE: [PATCH v7 2/5] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+Thread-Topic: [PATCH v7 2/5] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+Thread-Index: AQHdOmHiBkXZvA3/GkWkPGt41t79rbbTADGAgAAFcACAJ2StAIAAbqQAgAEGiZA=
+Date: Tue, 13 Oct 2026 15:55:57 +0000
+Message-ID: <SJ1PR11MB6083F4281EDD036A4E73A532FC9E2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+References: <20260901-dfustini-atl-sc-cbqri-dt-v7-0-ca2935d85622@kernel.org>
+ <20260901-dfustini-atl-sc-cbqri-dt-v7-2-ca2935d85622@kernel.org>
+ <8230dae2-2cb0-4b46-8cec-dc4e281d4e4a@intel.com>
+ <aqwN1szItGPg4Qjh@agluck-desk3> <as0Zeoyjiy5CW1DT@agluck-desk3>
+ <eaeb4259-46d6-4656-8354-669ad32654b5@intel.com>
+In-Reply-To: <eaeb4259-46d6-4656-8354-669ad32654b5@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ1PR11MB6083:EE_|DS4PPF30373102B:EE_
+x-ms-office365-filtering-correlation-id: 7cc8afbb-91e2-49d1-3384-08df29427836
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|22082099003|18002099003|261009223027099003|38070700021|56012099006|10067099003|4143699003|11063799006;
+x-microsoft-antispam-message-info: t6Ej5OlqGHdrVnXn9Pq9E02QcBGlCXqstcS9Ar57/Gzgd6kbz7Tev5Man/YMTDoYIUE5P7RgzTOD/Yo2BJFjaopAZmQ4fWSIntp0BBrv5OeR+BoJnyLL6dbhifQsF7jrLFcGtJ/ELuofWAV+uknz04zh+R2iZm7w/eYV6EiVTO8DXC2NjSOf/92qgvO8kShBsy3DlrFwRSNkbGva0p5bduQqaQyLwBQQGpIhd4vaz/8eDGB6fINd3UM5vUjqChVXdlO9MEsBmm5u/oCx8nEbs9WXEcOanJ99XMRuV0So6sWf82RWz3trvAFRgr3mRTKEHsI/I0sIeEMAajKV8+VKBXvY3+Y5VKYiKmBjFe71hVdISDS3mjon2Hkgte8Uyjvk4MzTh2tqatk5cPaiynFNpdutKWw9azDNHUk8cH2foAZgMw0hbIeQDdWbHyoEX69Oq7bHio48SjwslUhewx0disESVL3otjUvB6Mqx8ZYjApx5gYfwemVcnF+oRTSU0IEoyXr5UeXNpn1k3rzCOgQPB01wjZ9Qa95860KmOaK61XNTuAWv1+3GqmmfthrbhQXCLpB8W0vQPr6tUIFLCCQWcrk/u7l4YudfVLYw5J+UfN+MeT5F+HaVsi342Keo/WulukzfNImlZqua2RBBeYElsW5XsiW7+Te4167fhNAX74=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(38070700021)(56012099006)(10067099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RGJSYkNuaUdEMDJoM0FiU0VnVTk1VVZBWlVRK01mN0VrUXVhQ0FDakxrQ09i?=
+ =?utf-8?B?SjJldkFIbFdKVEhsazdpbXJFZkhsaXJwRnY0blV6bzFMTlBBRGt3OFVtMkpF?=
+ =?utf-8?B?WHg0UHdxeXdrVER0Z3J6YnlnNjZoVjJVdnNkeHMxUmxZaTg3UVdwMVZsWWN3?=
+ =?utf-8?B?N2tILzc4aWtPYnZSdGlzY3pxSnVUYlJIUzNjYWlBZTVRUGdHUy96RTY3N1Fl?=
+ =?utf-8?B?Q1lQanM1dTJsdkdpdC8rVzlPNmJLTU5NZDcycXhtcklUNW51ZFg5NHhPWHJL?=
+ =?utf-8?B?RFR5K1NWWFc2SGtaUTdXZEFLc2Q0cDVJWGtpNVc1dVIyTy9KYTZRZERIL2xY?=
+ =?utf-8?B?WDY3SlhNMlg2YVg1bGVqR1VMZWo2R041bDJCRHZIeXhKLzNQRDQ2OFBZazBw?=
+ =?utf-8?B?ZUc0OGJ4TlhHYmx3cnFadm42bnNZWDd5SUEwT3dnMnlGZ0c5T2tkZ0V0Smdo?=
+ =?utf-8?B?eEFnVW54eXlyMFNWS0VPNitGYnJaOHoxVDJ1cDBwVEZsOGdJZFNqZDNvL21m?=
+ =?utf-8?B?U1VWNmRGbkt4OWp6bFZjZ1lEWWhyVXZnNGp3cS9ES1hyT2hJelJMM3RYZTZV?=
+ =?utf-8?B?VDZsNFpHZTVxQzQ1QTNZVkZPY1pIYW5jUStUaDVveTd6dXlpWmZxOTZHTU1V?=
+ =?utf-8?B?TVRWRE5tSDVyZkNXWUtHTzRlaDN4elV6ektOSzFORUFndjlTUk0zem5CNm1N?=
+ =?utf-8?B?RXkvT0xkWUxPd1VQdCtJUGRXQXJJcG5PMXY2SkVLdzcvQ3pWL1M2RmFkTkhJ?=
+ =?utf-8?B?L284TklhMEJFVDhrditHYk8wTHFXOFpVMDlMdFFnYXl3MzNaVEw3STFaSE5n?=
+ =?utf-8?B?cDFMZ2JKdWJ0UjRheEc2VzlMblF3NjJrZlJncVRRZWVPc1NUMnJLclgxVTNk?=
+ =?utf-8?B?WGRtbzBsa1Z3ckkrWm50QUFZeUFzczh0T3FoRE1BRGpacThKNTBZVHREYmwx?=
+ =?utf-8?B?R3dHamtQM1J2WWtOZkdIcVZidUVOU0ZpVlhCNm9GZFdtRDIyUGFOdGVuVG56?=
+ =?utf-8?B?TkQ2YmZDT2xOWG9iQ01pREI0SWRqVFpsbFRJTXg2eWtmWFdYR0pWUUFDcEZn?=
+ =?utf-8?B?bGVZZG50RXhzSWFObXBPcG16eUFFVUtpK2QyeDZnUWpneVh5SndtbTRqdEFa?=
+ =?utf-8?B?K1JZYitYRXI1OG8xZkMxNU0wNDMvYVRKamhWblZIV1JGeVc5Q0ljT2U0am43?=
+ =?utf-8?B?b0IxR2JicWFiL2l0SWFWVEJLTlFPSkoxQnNQRm9WamZ2ZWUwS3Zmb3FyY3Vt?=
+ =?utf-8?B?Wk5FTE9ER0c5MHplYk8ybWdLTUZSMzFXbDg5S2EvRkNnUlRhenZqKzcwZ21B?=
+ =?utf-8?B?ZTdKOUR3S0M0dDg5dlh3R0MxWk4vMHhOZFJCZXZmR3VPSHlXcWlHYVIwU20z?=
+ =?utf-8?B?NEh6cDQ4NEdDZlJVUFFPUVBiZ3JrYUtXQlFFeVMyckdsUk4zZ29mNm10Z3NF?=
+ =?utf-8?B?RXFVb2FpNlpGejlQb3hJVWxiSWQyVEM2NE9DV0pjQVRva0ZvblA5YlJxU0Ur?=
+ =?utf-8?B?VWJvR0dlU3dhdEsyV2lnRlJDVXJmYXRVdnFLTEtqWkhwM3YyR2p3empNbEZC?=
+ =?utf-8?B?Uk5UMExaSFg5UU5BUXIyS0lPM3J4K0NIbEt1dHFxMW1CeWVqSmhXcE80ZVo0?=
+ =?utf-8?B?aFRSQ0FqU2RjMklJTzcxTUljbGRXT21NZ2dnTi94NlZic2pnbzRqUlVKekEy?=
+ =?utf-8?B?MVNOYXpVTG9aWFVsWXZYYjJtVVU4aGZteGlPSVVybVNGaDd1MEhBcnRwbGVN?=
+ =?utf-8?B?UHNMZVc0L3hPcHBvcXhTT1ozem1pMkNJYjU5aHErZ3hzYWhmRUZSeEQveGhB?=
+ =?utf-8?B?bi9FSGp1THhIMkw4LzFyWWozL204N1E5WGZwSlh0b1lmWnJYL3lmS040Tzk4?=
+ =?utf-8?B?MktiUUJvTnN5Z3RvUTJTWTZXdVdxcHJ4eDVzM0VucmdqbTRmRlJUdnlWQUJn?=
+ =?utf-8?B?MUM1ZGNaWExIVTRnQVdjTUg4WXNXaEN2RVU4Z2pLQWdRUWhJRXZ0QmR5UGxI?=
+ =?utf-8?B?YW1KTk9abmFBUzNLRThTT01qcCtKR1JKbCt4MnNVaTVQZnMrOXRQRzRhdHhE?=
+ =?utf-8?B?bzBMOTQrOGdNcjNoZ2dIYjJMVmIzR3pxUlF5QjVlT2pzOEdpd0NMUzZITFI2?=
+ =?utf-8?B?WmlGV1ZjcUdOaDhEQUs2Z3BBdHQ3QmNzZjg4aThraW10TlVrV0NHeXRTdGJh?=
+ =?utf-8?B?dUdqa3J5dUZWZWtuWitsMElEUkR4dnhQUjkzcWt3b1pVclVzNDdhcVkxT09B?=
+ =?utf-8?B?WHBvd2hiMmtGTGVBL056UkZMMkVTRDVyUkM0eCs2Q3NPbERKbTNpeWJjNWNh?=
+ =?utf-8?Q?oZGiYL/3KhnZu1QXo9?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <ar0lvsu80miGJdGS@p14s> <20261001081056.38293-1-hyz3367@gmail.com>
-In-Reply-To: <20261001081056.38293-1-hyz3367@gmail.com>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Tue, 13 Oct 2026 09:55:37 -0600
-X-Gm-Features: AclHuK9k6982zEoNoGluocWt9T3eTL3nhoi7JX355Oac8ApeVuUVqsbrnakim8I
-Message-ID: <CANLsYkxz2vNE1rsc_sRQVC7YJHw5hyB8YD-zFi1DujUd5b02cQ@mail.gmail.com>
-Subject: Re: [PATCH v3] remoteproc: core: Fetch the auto-boot firmware only once
-To: Yonghao Zhang <hyz3367@gmail.com>
-Cc: andersson@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked: aRiLQJbMrX/tx04/qaM0xho4V4YSn+oS66rOplaNKFGbYKNDuh2uYp8H2wRh7VIoN7iiJuJuysm7/cHerKarU+aMxwQP+Xd0RxX9pzeBQvrvxbRtrL/WbmSYMakJ8GJDme6PzFzw1H5MkHiClDV2xOfvVBCRcAM2gU3xfRQHqpG5FgUBCaVNAwNR8hnsEQB0rVakxmEBGPZVEfeH1g95B4KT4i9D+xLfI+fTRjfEKCzPiJlmu+WNzI4okTEXOblD8UC2ho2C1XcXx92QwtAl9fj934w007UF4/xXN6BjOrQ6SvNT9QtscimHvNOK6vjrcFGscF1atteuIaKtqS2SfA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7cc8afbb-91e2-49d1-3384-08df29427836
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 15:55:57.0726
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FB/BXvcYvWkeV9XgBHpT9dZHsUZHpLxvC0M0ucbNU85Wlej8RvQAB7kC1njfc5S0sWGhd8hJuKmTCEPiZDnVSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF30373102B
+X-OriginatorOrg: intel.com
 
-On Thu, 1 Oct 2026 at 02:11, Yonghao Zhang <hyz3367@gmail.com> wrote:
->
-> Auto-boot for an always-on remote processor registers an asynchronous
-> request_firmware_nowait() whose callback, rproc_auto_boot_callback(),
-> calls rproc_boot() first and only releases the fetched image at the
-> very end of the callback.  rproc_boot() does not take this image as an
-> argument: it fetches the very same image again with a synchronous
-> request_firmware(), so every auto-boot reads the firmware image twice
-> and allocates the buffer twice; on kernels with the sysfs fallback
-> enabled, the uevent round-trip is repeated as well.
->
-> The asynchronous request exists only so that rproc_add() does not
-> block on the filesystem read; the image it fetches is never used.
-> The core already defers rproc_boot() to a worker for detached
-> processors (attach_work).  Reuse that worker for offline processors
-> too and drop the asynchronous firmware request: rproc_boot() fetches
-> the image exactly once and dispatches between a firmware boot and
-> an attach based on the processor state.  The work is renamed to
-> boot_work to match its widened role.
->
-> commit 400e64df6b23 ("remoteproc: add framework for controlling remote
-> processors") noted back in 2011 that "we must wait until it completes
-> before we try to unregister the device".  rproc_del() now does exactly
-> that: it waits for the boot work with cancel_work_sync(), which also
-> closes the theoretical window in which a pending attach work could
-> outlive the rproc instance.
->
-> The changed fallback behaviour only matters for legacy
-> configurations.  udev dropped its userspace firmware loader back in
-> 2014, as recorded in
-> Documentation/driver-api/firmware/fallback-mechanisms.rst, and the
-> kernel has documented since commit 02c399306826 ("firmware_loader:
-> enhance Kconfig documentation over FW_LOADER") that "Linux no longer
-> relies on or uses a fallback mechanism in userspace".  Auto-boot now
-> uses the same synchronous fallback semantics as every other explicit
-> boot source (sysfs, cdev).
->
-> Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
-> ---
-> Changes in v3:
-> - Drop rproc_trigger_auto_boot() wrapper and schedule boot_work
->   directly in rproc_add() (Mathieu).
->
-> Changes in v2:
-> - Fix the order described in the changelog: the callback calls
->   rproc_boot() first and releases the asynchronously fetched image at
->   the end of the callback (Mathieu).
-> - Fix typo "proccessor".
->
->  drivers/remoteproc/remoteproc_core.c | 66 +++++++---------------------
->  include/linux/remoteproc.h           |  4 +-
->  2 files changed, 19 insertions(+), 51 deletions(-)
->
-
-I will apply this patch when 7.4-rc1 comes out.
-
-> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index 263e12f022ea..b88bf179507d 100644
-> --- a/drivers/remoteproc/remoteproc_core.c
-> +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -1662,51 +1662,23 @@ static int rproc_attach(struct rproc *rproc)
->  }
->
->  /*
-> - * take a firmware and boot it up.
-> - *
-> - * Note: this function is called asynchronously upon registration of the
-> - * remote processor (so we must wait until it completes before we try
-> - * to unregister the device. one other option is just to use kref here,
-> - * that might be cleaner).
-> + * Boot or attach the remote processor in the background: rproc_add()
-> + * runs in probe context and must not block while the firmware image is
-> + * read from storage.  rproc_boot() dispatches on the processor state,
-> + * so this covers both a firmware boot and an attach to a processor
-> + * started by another entity.
-> + *
-> + * Note: rproc_del() waits for this work to complete with
-> + * cancel_work_sync(), so the rproc instance remains valid for the
-> + * entire lifetime of this function.
->   */
-> -static void rproc_auto_boot_callback(const struct firmware *fw, void *context)
-> -{
-> -       struct rproc *rproc = context;
-> -
-> -       rproc_boot(rproc);
-> -
-> -       release_firmware(fw);
-> -}
-> -
-> -static void rproc_attach_work(struct work_struct *work)
-> +static void rproc_boot_work(struct work_struct *work)
->  {
-> -       struct rproc *rproc = container_of(work, struct rproc, attach_work);
-> +       struct rproc *rproc = container_of(work, struct rproc, boot_work);
->
->         rproc_boot(rproc);
->  }
->
-> -static int rproc_trigger_auto_boot(struct rproc *rproc)
-> -{
-> -       int ret;
-> -
-> -       if (rproc->state == RPROC_DETACHED) {
-> -               schedule_work(&rproc->attach_work);
-> -               return 0;
-> -       }
-> -
-> -       /*
-> -        * We're initiating an asynchronous firmware loading, so we can
-> -        * be built-in kernel code, without hanging the boot process.
-> -        */
-> -       ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
-> -                                     rproc->firmware, &rproc->dev, GFP_KERNEL,
-> -                                     rproc, rproc_auto_boot_callback);
-> -       if (ret < 0)
-> -               dev_err(&rproc->dev, "request_firmware_nowait err: %d\n", ret);
-> -
-> -       return ret;
-> -}
-> -
->  static int rproc_stop(struct rproc *rproc, bool crashed)
->  {
->         struct device *dev = &rproc->dev;
-> @@ -2348,11 +2320,8 @@ int rproc_add(struct rproc *rproc)
->         rproc_create_debug_dir(rproc);
->
->         /* if rproc is marked always-on, request it to boot */
-> -       if (rproc->auto_boot) {
-> -               ret = rproc_trigger_auto_boot(rproc);
-> -               if (ret < 0)
-> -                       goto rproc_remove_dev;
-> -       }
-> +       if (rproc->auto_boot)
-> +               schedule_work(&rproc->boot_work);
->
->         /* expose to rproc_get_by_phandle users */
->         mutex_lock(&rproc_list_mutex);
-> @@ -2361,10 +2330,6 @@ int rproc_add(struct rproc *rproc)
->
->         return 0;
->
-> -rproc_remove_dev:
-> -       cancel_work_sync(&rproc->crash_handler);
-> -       rproc_delete_debug_dir(rproc);
-> -       device_del(dev);
->  rproc_remove_cdev:
->         rproc_char_device_remove(rproc);
->         return ret;
-> @@ -2552,7 +2517,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
->         INIT_LIST_HEAD(&rproc->subdevs);
->         INIT_LIST_HEAD(&rproc->dump_segments);
->
-> -       INIT_WORK(&rproc->attach_work, rproc_attach_work);
-> +       INIT_WORK(&rproc->boot_work, rproc_boot_work);
->         INIT_WORK(&rproc->crash_handler, rproc_crash_handler_work);
->         spin_lock_init(&rproc->crash_handler_lock);
->
-> @@ -2630,6 +2595,9 @@ int rproc_del(struct rproc *rproc)
->         if (cancel_work_sync(&rproc->crash_handler))
->                 pm_relax(rproc->dev.parent);
->
-> +       /* auto-boot may still be fetching firmware: wait for it here */
-> +       cancel_work_sync(&rproc->boot_work);
-> +
->         __rproc_shutdown(rproc, true);
->
->         rproc_delete_debug_dir(rproc);
-> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-> index a44368737b39..d77e24539133 100644
-> --- a/include/linux/remoteproc.h
-> +++ b/include/linux/remoteproc.h
-> @@ -231,7 +231,7 @@ enum rproc_features {
->   * @subdevs: list of subdevices, to following the running state
->   * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
->   * @index: index of this rproc device
-> - * @attach_work: workqueue for attaching rproc
-> + * @boot_work: workqueue for booting rproc
->   * @crash_handler: workqueue for handling a crash
->   * @crash_handler_lock: serializes crash handler queueing and deletion
->   * @deleting: remoteproc deletion has begun
-> @@ -277,7 +277,7 @@ struct rproc {
->         struct list_head subdevs;
->         struct idr notifyids;
->         int index;
-> -       struct work_struct attach_work;
-> +       struct work_struct boot_work;
->         struct work_struct crash_handler;
->         spinlock_t crash_handler_lock;
->         bool deleting;
-> --
-> 2.34.1
->
+PiA+IDMpIFdoYXQgc2hvdWxkIGhhcHBlbiB0byB0aGUgbGVnYWN5IC9zeXMvZnMvcmVzY3RybC9p
+bmZvL0wyL2NibV9tYXNrPw0KPiA+IEp1c3QgaGlkZSBpdD8gSSBhbHNvIGNvbnNpZGVyZWQgcmVu
+YW1pbmcgdGhlIHJlc291cmNlIHRvICJMMkEiIHRvDQo+ID4gYXZvaWQgc3VycHJpc2luZyBsZWdh
+Y3kgY29kZS4NCj4gVGhlIGN1cnJlbnQgZGlyZWN0aW9uIGlzIHRvIGhhdmUgdGhlc2UgdG9wIGxl
+dmVsIGZpbGVzIGNvbnRpbnVlIHRvIHJldHVybg0KPiB0aGUgcHJvcGVydGllcyBvZiB0aGUgZGVm
+YXVsdC9sZWdhY3kgY29udHJvbCB3aGlsZSBpbiAibGVnYWN5IiBjb250cm9sIG1vZGUuDQo+IFdo
+ZW4gdXNlciBzcGFjZSBzd2l0Y2hlcyB0aGUgY29udHJvbCBtb2RlIHRoZW4gdGhlc2UgZmlsZXMg
+cmV0dXJuIGVtcHR5Lg0KPg0KPiBUaGlzIGlzIHdoYXQgaXMgaW1wbGVtZW50ZWQgaW4gUkZDIHYy
+IHNvIHlvdSBzaG91bGQgYmUgYWJsZSB0byBzZWUgaXQgaW4gYWN0aW9uLg0KPg0KPiBJdCB3YXMg
+bm90ZWQgYXMgb25lIG9mIFJGQyB2MidzIG9wZW5zOg0KPiAgICAgICAtIFdoZW4gc3dpdGNoaW5n
+IGNvbnRyb2wgbW9kZSB0byBuYXRpdmUgdGhlIHRvcCBsZXZlbCBjb250cm9sIGluZm8gZmlsZXMN
+Cj4gICAgICAgICBzdG9wIHJldHVybmluZyBpbmZvcm1hdGlvbi4gVGhpcyBjb3VsZCBiZSBjb25z
+aWRlcmVkICJ3b3JrIGFzIGludGVuZGVkIj8NCj4NCj4gQW4gZXhhbXBsZSBvZiB0aGlzIGJlaGF2
+aW9yIGluIGFjdGlvbiBhcyBhcHBsaWVkIHRvICJtaW5fYmFuZHdpZHRoIiBjYW4gYmUgc2Vlbg0K
+PiBvbiBzbGlkZSA0IG9mDQo+IGh0dHBzOi8vbHBjLmV2ZW50cy9ldmVudC8yMC9jb250cmlidXRp
+b25zLzIzNjgvYXR0YWNobWVudHMvMjA2Ni80NjI1L3Jlc2N0cmxfMjAyNl9jb21iaW5lZC5wZGYN
+Cj4NCj4gSGlkaW5nIHRoZSBmaWxlcyBjb3VsZCBhbHNvIGJlIGFuIG9wdGlvbi4gSSBoYXZlIG5v
+dCBoZWFyZCBzdHJvbmcgb3BpbmlvbnMgb24gaG93IHRoaXMNCj4gc2hvdWxkIGJlIGhhbmRsZWQg
+YWZ0ZXIgdGhlIGFib3ZlIG1lbnRpb25zIG9mIGN1cnJlbnQgZGlyZWN0aW9uLg0KDQpNeSBQb0Mg
+aGFzbid0IGltcGxlbWVudGVkIGFueXRoaW5nIGZvciB0aGUgY29udHJvbF9tb2RlIGZpbGUgc28g
+SSBnZXQgdGhpczoNCg0KJCBjYXQgTDIvY29udHJvbF9tb2RlDQpbbGVnYWN5XSBuYXRpdmUNCiQg
+c3VkbyBzaCAtYyAiZWNobyBuYXRpdmUgPiBMMi9jb250cm9sX21vZGUiDQpzaDogMTogZWNobzog
+ZWNobzogSS9PIGVycm9yDQokIGNhdCBsYXN0X2NtZF9zdGF0dXMNCkNoYW5naW5nIGNvbnRyb2wg
+bW9kZSBub3Qgc3VwcG9ydGVkIGZvciB0aGlzIHJlc291cmNlLg0KDQpCdXQgaXQgaXNuJ3QgY2xl
+YXIgdG8gbWUgd2hhdCBsZWdhY3kgdnMuIG5hdGl2ZSBzaG91bGQgbWVhbiBmb3IgYXN5bW1ldHJp
+YyBMMi4NCg0KUG90ZW50aWFsbHk6IExlZ2FjeSBtb2RlOiBMMiBpcyBkaXNhYmxlZCB0byBhdm9p
+ZCBjb25mdXNpb24gd2l0aCBkaWZmZXJlbnQgYml0bWFza3MgcGVyIGRvbWFpbj8NCg0KLVRvbnkN
+Cg==
