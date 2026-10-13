@@ -1,185 +1,158 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4173BBFDE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA1F3C1D66;
+	Tue, 13 Oct 2026 14:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900394; cv=none; b=TKkrLoA4vsCVlYjKVwWsDwewfdr8gNTIizsoP0sSV5sdKWHLw1mr8RlM6uhk2wUrMIAZL+ik7G52MLjqrv+Hf3TwPl13LgquhBy+5XsjxB73nxgiCVe2nhCK94Z7iZP/LSGgdJsbNsPffowwkQ0S+QGk49CHLZ8s/MNCYEwm9gw=
+	t=1791900408; cv=none; b=J3RcLtE6L05SJgUVH2FagI82pzYSxFMvw38GOv8/hBZ4WcB8Dv61FsowxOEV1F5VqtilNbPLbA/59QQ4E0vfydau9D+yiPXmC+1WhlU7dDoh6jfAoS62+9f2HlTiZpzb3WRQUpke44rxunq5zUfdB1TkWB7dYsa0RkuodIbmpj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900394; c=relaxed/simple;
-	bh=4F6bG7i4L/RTdAgdDnvBNmfUkcqOVggKl9i7AZVMlbI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NneIY1EtRcRNcTUNB/KfrasyCvOqi4HWXM9w7urSSMpnTSDizRIwYSDvqAU3eu3kR+Iug38S6zuduusX72z3k/bIkAH3oLUd0GccVoa4KHCBgmyAqJE1J1TKcIqD1eyjmD/71w5NIPmdNm9sbfEknx/QuVYXfgcNik1pnte/aok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=fwkJNc6T; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791900408; c=relaxed/simple;
+	bh=qBM0oFJyiP5nGCBoW1aU1ZOtHYPwrvo1e/jOSOMCWDM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SxDE6+7QzwqY7tp9NKzWGyaK/HV6+1R6yKDo4yaZX2vNozyBS1MzH0jMCm1pIx/swK3lSCxLeavs/BlTJ21pHdTuFURboJDo/WTAbNTkJZ6CHBUVvWslGyUuW13qL3M7mpn//O7QjUQ0hdrtkhhPwTuLnXottwj/zR/KKNgueuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HiLs+rR0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fwkJNc6T"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DE6D69727508;
-	Tue, 13 Oct 2026 14:06:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=hpV0oB
-	LYfR9w5tt8LD6PbIXwQcysgHeuIBGRHU/cV1U=; b=fwkJNc6TxtLt5PhSlaDlGm
-	3rCbJVb4rkIOsCtjsTomQ9HhSl/S5Ugt9IB8hics6Y8opA7RO1LHmtg1P+JyQNIG
-	jZQYN9htferTgdCH3U7SZcDI7bGyjzFwEGBa59dWpPwi40xM0hX2HkMJa7QYYieF
-	tDZWmapmwyqudUZg0rq+yPt4QsFbiN5WC+YoXCBS01yLZK4Oy+Mv8R5K3qM02JSw
-	q5gNI71pd1Ze+8n3EwVYQ3UEdlSXXyaN9tpeHltBdLTVyecgInr9pmgZuhaU2jZd
-	9XDeMOgKv3aCRiSqmDmuLYoLCKadbvBdxql0pMlx3MfFaDoUU+G34maSItT5+KAw
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv0e4yq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 14:06:15 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69DCU3mv2709266;
-	Tue, 13 Oct 2026 14:06:14 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816h25b4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 14:06:14 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DE6Aod39911860
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 14:06:10 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6AFEF2004B;
-	Tue, 13 Oct 2026 14:06:10 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 089EF20043;
-	Tue, 13 Oct 2026 14:06:06 +0000 (GMT)
-Received: from [9.39.27.235] (unknown [9.39.27.235])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 13 Oct 2026 14:06:05 +0000 (GMT)
-Message-ID: <02d5751b-f987-495e-85f9-25e8f2f2f2a8@linux.ibm.com>
-Date: Tue, 13 Oct 2026 19:36:04 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HiLs+rR0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8335B1F000FF;
+	Tue, 13 Oct 2026 14:06:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791900406;
+	bh=noQ+gtaIeSfcBbf4IVs7251oKyPHxgZa73oom00Xu90=;
+	h=From:To:Cc:Subject:Date;
+	b=HiLs+rR0/BU9LaVyfSNKyQlc22NVHi9JbrV1sUZgBhxd7aIy9ee7hKX2iWAt4I3Ma
+	 5Nj12dmK8i0N5XNfbLZ+/r5D3N/+jaHm2RoU0OLOpJ3ceA/QLAgS2bPpfd+yEwJP++
+	 DPRFXwDbJQSleg1sRhzazw7hl39RTzlaCmN1LGFWcx0WSs8pjQ8bYaimrZp8RpM7h6
+	 aFqWt3/TM19zLSSz1/Gaf3+kN2UdCU3Ow5t9hUCsoJGaogqj/U3PGxW/wKxweHMiOk
+	 GgjCJfN6bPqGzSxT3TD1ClDHqwFVb4hthzlRtlZusdNDEvavjDGbRQ5twSsxP+23kI
+	 P1bzV9lOy124Q==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xGd9Q-000000059Ct-1yfW;
+	Tue, 13 Oct 2026 16:06:44 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	driver-core@lists.linux.dev,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mario Peter <mario.peter@leica-geosystems.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] driver core: take parent lock on deferred probe
+Date: Tue, 13 Oct 2026 16:06:15 +0200
+Message-ID: <20261013140615.1226992-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] powerpc: Remove unused thread info flags
-To: Michal Suchanek <msuchanek@suse.de>, linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Kees Cook <kees@kernel.org>, Andy Lutomirski <luto@amacapital.net>,
-        Will Drewry <wad@chromium.org>,
-        "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-        Kevin Brodsky <kevin.brodsky@arm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
-        "Bernhard M. Wiedemann" <bwiedemann@suse.de>,
-        linux-kernel@vger.kernel.org
-References: <4c1da7f31a6603455ec452960af529e4d77f5334.1791826411.git.msuchanek@suse.de>
- <dcbd135c06fcf013b8aa902fbea8f6b1827d06c2.1791826411.git.msuchanek@suse.de>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <dcbd135c06fcf013b8aa902fbea8f6b1827d06c2.1791826411.git.msuchanek@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1NCBTYWx0ZWRfX5xGyK3KRpR9G
- nZk6PNoTjJPtOSipX9QIkFqWT4Kzr/lu4Ruy3kQs8PesnJavWqqbTKuqsng7Vq1ZMUHPyrRrMUb
- y11DOA3fHZDP1bzaMtQ0yX5K5Jn74TQN/ZVR0QdaDn755ImGcU7Vgv+AutKpjBk7+5HhU7XP7mj
- kGAN1vUzgjl1oB9+ACTgIFo6w6LBh0MmzIvwWZ9On9MivU41o67q7f1tVKaWSDlsXmDvkkM9wS0
- n+pYkaH0U3TgE2Sf/MNXhwkmTbvSKHSQjfuFuFIV8ZshXy2ZofRWOI8eZNWsql6uFtqD2CTaXLH
- V7OFlm1B1i5iwIIBYwJUZx6+BMQmQ/O7cQmfqTUU8b1X2gHiXpLNv4HF6UiWOnhtsJhjLdAByuJ
- /fYX4GXmEi1L0KAtLKVfwlb50WtQnhKPXd5ZbtYjYdoZJwwUIETgQvMHpxmTcyrl8b4xdBjRA31
- DgprNA0IopcUsJv9vLA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1NCBTYWx0ZWRfX07+WsaBsSDxB
- 86mYORCJ5ihPGV7M/iGEUMFuWNR9QpK32/iW5vbC2sAy59OLCDes4D1MFDVCvdlQzA23dVVUfIt
- ADHKgO28fxtUC3g+kB8f/ql8uMynqz4=
-X-Proofpoint-ORIG-GUID: VpOg8SRHvyyT4Xw3ZTBnf6c-PvXJ44zQ
-X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6ace3ad7 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=3CTQAW-Yv6UIpP-Ww4QA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
-X-Proofpoint-GUID: wuCxv0nbDO1oP1o3Q3PuR45LgLvPOT88
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130054
+Content-Transfer-Encoding: 8bit
 
+USB interfaces should be probed with the parent USB device lock held,
+but this is not honoured when probe is deferred.
 
+Add a new bus_probe_device_deferred() helper to handle deferred probe
+where the parent device lock is not held.
 
-On 10/12/26 11:08 PM, Michal Suchanek wrote:
-> These are no longer used with the generic entry code
-> 
-> Fixes: 6ed60999d33d4 ("powerpc: Remove unused functions")
-> Suggested-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> Signed-off-by: Michal Suchanek <msuchanek@suse.de>
-> ---
->   arch/powerpc/include/asm/thread_info.h | 10 ----------
->   1 file changed, 10 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-> index 0e8dc71c8d3fe..4b7ec1db30349 100644
-> --- a/arch/powerpc/include/asm/thread_info.h
-> +++ b/arch/powerpc/include/asm/thread_info.h
-> @@ -96,22 +96,17 @@ void arch_setup_new_exec(void);
->   /*
->    * thread information flag bit numbers
->    */
-> -#define TIF_SYSCALL_TRACE	0	/* syscall trace active */
->   #define TIF_SIGPENDING		1	/* signal pending */
->   #define TIF_NEED_RESCHED	2	/* rescheduling necessary */
->   #define TIF_NOTIFY_SIGNAL	3	/* signal notifications exist */
-> -#define TIF_SYSCALL_EMU		4	/* syscall emulation active */
->   #define TIF_RESTORE_TM		5	/* need to restore TM FP/VEC/VSX */
->   #define TIF_PATCH_PENDING	6	/* pending live patching update */
-> -#define TIF_SYSCALL_AUDIT	7	/* syscall auditing active */
->   #define TIF_SINGLESTEP		8	/* singlestepping active */
->   #define TIF_NEED_RESCHED_LAZY	9       /* Scheduler driven lazy preemption */
-> -#define TIF_SECCOMP		10	/* secure computing */
->   #define TIF_RESTOREALL		11	/* Restore all regs (implies NOERROR) */
->   #define TIF_NOERROR		12	/* Force successful syscall return */
->   #define TIF_NOTIFY_RESUME	13	/* callback before returning to user */
->   #define TIF_UPROBE		14	/* breakpointed or single-stepping */
-> -#define TIF_SYSCALL_TRACEPOINT	15	/* syscall tracepoint instrumentation */
->   #define TIF_EMULATE_STACK_STORE	16	/* Is an instruction emulation
->   						for stack store? */
->   #define TIF_MEMDIE		17	/* is terminating due to OOM killer */
-> @@ -123,7 +118,6 @@ void arch_setup_new_exec(void);
->   #define TIF_SYSCALL_RET		21	/* syscall error value set */
->   
->   /* as above, but as bit values */
-> -#define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
->   #define _TIF_SIGPENDING		(1<<TIF_SIGPENDING)
->   #define _TIF_NEED_RESCHED	(1<<TIF_NEED_RESCHED)
->   #define _TIF_NEED_RESCHED_LAZY	(1<<TIF_NEED_RESCHED_LAZY)
-> @@ -132,16 +126,12 @@ void arch_setup_new_exec(void);
->   #define _TIF_32BIT		(1<<TIF_32BIT)
->   #define _TIF_RESTORE_TM		(1<<TIF_RESTORE_TM)
->   #define _TIF_PATCH_PENDING	(1<<TIF_PATCH_PENDING)
-> -#define _TIF_SYSCALL_AUDIT	(1<<TIF_SYSCALL_AUDIT)
->   #define _TIF_SINGLESTEP		(1<<TIF_SINGLESTEP)
-> -#define _TIF_SECCOMP		(1<<TIF_SECCOMP)
->   #define _TIF_RESTOREALL		(1<<TIF_RESTOREALL)
->   #define _TIF_NOERROR		(1<<TIF_NOERROR)
->   #define _TIF_NOTIFY_RESUME	(1<<TIF_NOTIFY_RESUME)
->   #define _TIF_UPROBE		(1<<TIF_UPROBE)
-> -#define _TIF_SYSCALL_TRACEPOINT	(1<<TIF_SYSCALL_TRACEPOINT)
->   #define _TIF_EMULATE_STACK_STORE	(1<<TIF_EMULATE_STACK_STORE)
-> -#define _TIF_SYSCALL_EMU	(1<<TIF_SYSCALL_EMU)
->   
->   #define _TIF_USER_WORK_MASK	(_TIF_SIGPENDING | _TIF_NEED_RESCHED | \
->   				 _TIF_NEED_RESCHED_LAZY | _TIF_NOTIFY_RESUME | \
+Fixes: d1c3414c2a9d ("drivercore: Add driver probe deferral mechanism")
+Reported-by: Mario Peter <mario.peter@leica-geosystems.com>
+Link: https://lore.kernel.org/20261007131514.1260696-1-mario.peter@leica-geosystems.com
+Cc: stable@vger.kernel.org	# 3.4
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/base/base.h |  1 +
+ drivers/base/bus.c  | 28 +++++++++++++++++++++-------
+ drivers/base/dd.c   |  7 ++++---
+ 3 files changed, 26 insertions(+), 10 deletions(-)
 
-Thanks for the cleanup. It maybe possible to re-org the TIF flags. But that is
-out of scope here.
+diff --git a/drivers/base/base.h b/drivers/base/base.h
+index a5b7abc10ff0..3c36a2128f88 100644
+--- a/drivers/base/base.h
++++ b/drivers/base/base.h
+@@ -154,6 +154,7 @@ struct kobject *virtual_device_parent(void);
+ 
+ int bus_add_device(struct device *dev);
+ void bus_probe_device(struct device *dev);
++void bus_probe_device_deferred(struct device *dev);
+ void bus_remove_device(struct device *dev);
+ void bus_notify(struct device *dev, enum bus_notifier_event value);
+ bool bus_is_registered(const struct bus_type *bus);
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index c51ad96d4de4..fd62594eb6f9 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -606,13 +606,7 @@ int bus_add_device(struct device *dev)
+ 	return error;
+ }
+ 
+-/**
+- * bus_probe_device - probe drivers for a new device
+- * @dev: device to probe
+- *
+- * - Automatically probe for a driver if the bus allows it.
+- */
+-void bus_probe_device(struct device *dev)
++static void __bus_probe_device(struct device *dev)
+ {
+ 	struct subsys_private *sp = bus_to_subsys(dev->bus);
+ 	struct subsys_interface *sif;
+@@ -630,6 +624,26 @@ void bus_probe_device(struct device *dev)
+ 	subsys_put(sp);
+ }
+ 
++/**
++ * bus_probe_device - probe drivers for a new device
++ * @dev: device to probe
++ *
++ * - Automatically probe for a driver if the bus allows it.
++ */
++void bus_probe_device(struct device *dev)
++{
++	__bus_probe_device(dev);
++}
++
++void bus_probe_device_deferred(struct device *dev)
++{
++	if (dev->parent && dev->bus->need_parent_lock)
++		device_lock(dev->parent);
++	__bus_probe_device(dev);
++	if (dev->parent && dev->bus->need_parent_lock)
++		device_unlock(dev->parent);
++}
++
+ /**
+  * bus_remove_device - remove device from bus
+  * @dev: device to be removed
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index 9dc7cce9bd8d..87962f4e914c 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -86,8 +86,9 @@ static void deferred_probe_work_func(struct work_struct *work)
+ 	/*
+ 	 * This block processes every device in the deferred 'active' list.
+ 	 * Each device is removed from the active list and passed to
+-	 * bus_probe_device() to re-attempt the probe.  The loop continues
+-	 * until every device in the active list is removed and retried.
++	 * bus_probe_device_deferred() to re-attempt the probe.  The loop
++	 * continues until every device in the active list is removed and
++	 * retried.
+ 	 *
+ 	 * Note: Once the device is removed from the list and the mutex is
+ 	 * released, it is possible for the device get freed by another thread
+@@ -121,7 +122,7 @@ static void deferred_probe_work_func(struct work_struct *work)
+ 		device_pm_move_to_tail(dev);
+ 
+ 		dev_dbg(dev, "Retrying from deferred list\n");
+-		bus_probe_device(dev);
++		bus_probe_device_deferred(dev);
+ 		mutex_lock(&deferred_probe_mutex);
+ 
+ 		put_device(dev);
+-- 
+2.55.0
 
-Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
