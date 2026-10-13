@@ -1,82 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941E53DB625;
-	Tue, 13 Oct 2026 09:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884177; cv=none; b=PQ8susv4tzNYyyRvSYT7FATMoLoGt13YPDH/KEcGKB7zBy9/blBmp+pFu9B89l86f0Ww9nsCofLWhZPi0E/N8lvvps5WrVAdRPG2/1b21zu6XVhCvIxGytmDfW1bQVzlUiaNV3enxzRnSy9kuMW2diTxFUqycYpkLJHdE4c+s44=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884177; c=relaxed/simple;
-	bh=o6fItdcwNjRx9XbC1pmp5BurSSI8BFN0K5LPIG2SM+M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IMXvK2f0oCEsMf2bv+hjd5gn+ih+6OmRmbmQSYgyYCcLMKljFphV5sfUsHpX3/3EB9uHuj8dKE7Q7ZYzQFdLLsi3jR+QX4QeUDrycIKTvUCBv6pvNtHMzSTbj8+EuGuYp8tWHkFAf8OHSIuc4u6zE+nBnXw/O/xRqn/YH6PD2u4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TIYA4JVM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B723D88F0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791884208; cv=pass; b=rab8HlRNCTtKs549GFTTtQ5FgyVGG7w0x3f2b9zhUiAlcZ5NrpGw9ANhA5xH/b0xmvl1+b0uqVqGONnYI4ENdJ3xm9/sCiOmKt3GUItLVf/JgrT96P4ufA9aBE0thofpzkKx/IGledZT82elLeW16JQYt3AIs0C4sJYCBuaMa3o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791884208; c=relaxed/simple;
+	bh=I2RdC5E/xdt6kf39B4bXuZ6oTCgSZu3FzLdqV73aXEA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kIz1hinuw1njcLE65D71sydD3j0CD/rBJFSlbsHEmgvSDa+y8zCTmzFs7slAo0QGGlggFhWffMHxULXsS5d/5fSssAHWGTV1UZPb2pxIJuDwN1N05VzkBtSrPnhbyunykBEedn8T6M9tiYj+yZ1liPUkiNqGlKXe1uFNlf9WDkM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jkmEkFH+; arc=pass smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TIYA4JVM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF621F000FF;
-	Tue, 13 Oct 2026 09:36:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791884176;
-	bh=3AesqUMWyjvMZWunFdp1g4dV3G3m72b3b6B/gEZi3zM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TIYA4JVMadkg6zv4DJYB+g0XlO/4XL/VEzs7bvFU66S+DTxmB2sgdWaqLshPMZ5m9
-	 2UJ90gZI1GaIh4CB1c26xatZm7SuCl5EZRJYIsj/xufCE+4vEJad4R+ZYa2GhQZON/
-	 wt45//A0iE1EnH+bX/TOQ/giwxuaThEQfdCNPR/QMIhd5NXc41fgAaxzjowLZeWtcp
-	 BG0AqQlxmwhIGRK/ojMHDtiUfp7r0snQAPVjZRDs6nfktgiawWLn3z9NMizV+zVkgu
-	 7BMLdhAf9vnNlc7otZaUq9lMq7NSbUUd4PjF/mUYR905eeSeakYmsJDsNiDRP3IQgh
-	 6xgQZsxrcH0Qw==
-Message-ID: <725db95b-c763-4d97-b6b0-9ffd4cdaff3f@kernel.org>
-Date: Tue, 13 Oct 2026 11:36:13 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jkmEkFH+"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-141395927feso4948244c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:36:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791884206; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j6geoNGKq71/supQUUWRT/Enc1J2z3unRnzkvs6oBtGHTdHrPig96K97oZ/E4aTjfO
+         pH8o2PS8FlnI4gJsZGO1CNaX5RITsriwHSiRcUxYLaTYUnvvMKR/zyfbG4vzxv8qAJ0H
+         Y9O7lL6SpiB3A9SpHKOsjwU89+rX3NtkrhFM0cVOoKwpvWYSiX2oRc8k9yzGSFvinNtw
+         R19Szgcd3L7LkLIz+1ynqhUYIB8cwhH2wUUQtm7ICS3cgX7YI45pCuk9SDQ+Yfi/dCC9
+         bVxk+IGdn+lXr3t2EKMFM9cfG80ci/iZT0IOTFLzxFXyo89HpZDzUoGLaa1EtNk+PvJk
+         0AvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ncnpTCvGaFuShJ4tLE6dDK3qF1yOJrFsdmhxteIUYa4=;
+        fh=L+020Az6pqdo3b28TAZUyQ+DH2145cb+Z3CX9U2uyis=;
+        b=T/KMuonu83ex6RsOJLaz9tdYDqEbntRey/5Hebm8s7qrWFI9OyML3YhuCpT2wN6GkK
+         /a3lbDrmK6feKdIRZL8o1q1/gc1+ZHw4euOWd+DzEBHhLT8Sv7hAT0ESI/frPs6wF3Gv
+         1X7SmmJiSi60wqacIOv0HOHmiyGGnJGBFldkleECwN7Ahvpbv2+hTk+I33aLLla6GMwn
+         /hVfGfPDFE5YPlNoNRtJD42V6W9kpoDq4jQks+W9qSPr0cxES+13xsaTRQRsOmLTxRLZ
+         vVZVkK10Vdu3zZftuKBsOgEu1EN8BGG5sRyE5AhoRUrQS+KORUqVqLLF80WmFk2XH86q
+         GwDg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791884206; x=1792489006; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ncnpTCvGaFuShJ4tLE6dDK3qF1yOJrFsdmhxteIUYa4=;
+        b=jkmEkFH+T3MyeQjhmros28hqe0uiimDW20NShlJw9F/0Tlf/TWlx8270B9ZUpH+S4Y
+         fdviQ4G9wAntYM0lOgf3UxP/AXBy31A8ktqu/2Nva+3mMtKUONhwzthwXfZptuaoP7oc
+         Reo3vqOs6hGfaL3/qnHWDXL3/lj2hlEQ6s8oHgExR7tE2moOSR5rgy2ZdTvCrjJZ5OEL
+         qcYvIm5svJ6VmU7G1LQ8hC6vzkoGYwi5hjF6H2H579WDijm9QqQuTpV9wKXkJBY1lbPv
+         pKrq6zvIfgGajbsCLnbmKB/zINRFK84+fqjGUGVdVu36KV64qYGysfKSS0+fDbbQKCEh
+         TxBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791884206; x=1792489006;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ncnpTCvGaFuShJ4tLE6dDK3qF1yOJrFsdmhxteIUYa4=;
+        b=vRTyuegqJlQVY9klp38SjNAPBwhVVJpwfWQCkoXR3T20S224ulsNyETIq6yQyVx2zt
+         B/qoS/NcclmqwtsZ/Gmt/rUbCDzZ3wn3Q9U75ysfbcd4ikgxVEFwoJ48cKjHxHfqvMmj
+         LKCZv+TDs91gfPbhSo8a2KV/s1gWHkkLhtK7yJSIhkDb3uV8DYEvTBryVGez/1lnwKgY
+         uVUdgImofB6Bk1RhGp7pYaxiCGiNDKWH79P3ql+ZyBhLrOK1vAolseKQa6MHfNHXSUa+
+         if7LCIfoF95qnWM1/1dDpAjgDfiXmfKnSXO8clIj7dl02A4dmTspbYNPqwq8gEMNYszs
+         HiUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZfJwo8dJUrc2lf8DNAZR3RjCQQoX/QFz2EuLA8emx3+yPXjq5NNd/TbDVEwYWRtUfZkTgHm2GZTz+xZs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtoswmQH9DYOXqDx64b5Pv6X0Jt0VKj71E6RglVpCDBrvoO6Ps
+	fzggX/bbNZgJ1PIspV+kKIWHY8vvPGBLQvxaAB3wR/8bT1PQnoEVPlLykn2XjKPaba4L5bLyA/k
+	3K+vahOpP+xAmZIgQE1DAQxt06IRsvfN5qjrAEBqj
+X-Gm-Gg: AYBFou3fZV4WR+GuA45ZS8gA9T3zrX1xhrTUwBya3T2VUgVDMbvpS7+zLBSPG9XKfAH
+	dKVtP6gfnNEWAqifa4fWYzRCdRxL6wcqJ/S7E2i46UqNUfHFVxs6ljtbPdD6OdiYx1tom3YmmzR
+	H4ywNxeetLGCG8NwDcOp+/R4k5cAlBKWlK6q7OYqilbBSivmvdq7DG08Iw0SJq9B18fyvttnY5d
+	n7vHk3wr/dNcwwxb8ldonzO6g4+mwiKEYAElkOXDP5/kAOYG5uNeI6ieDnO/zT4EuSwfku6y+Su
+	C43GHREnc16K2AYnMeQu+MENEHe5D0epgPKDrOHZI1wtjGPFdaNhdu5cgmV4sEyn0pZvHm/Hwf6
+	CFQ0k4d0fiQ==
+X-Received: by 2002:a05:701b:260c:b0:14e:8d1:1012 with SMTP id
+ a92af1059eb24-16a5eb5248bmr15061808c88.19.1791884204773; Tue, 13 Oct 2026
+ 02:36:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] dm zoned: do not reclaim a random zone into
- another random zone
-To: Kyrylo Biryuk <illofspeed@gmail.com>, dm-devel@lists.linux.dev
-Cc: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com,
- bmarzins@redhat.com, hare@suse.de, linux-kernel@vger.kernel.org
-References: <20261011175450.952-1-illofspeed@gmail.com>
- <20261011175450.952-3-illofspeed@gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261011175450.952-3-illofspeed@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261012134159.912183-1-elver@google.com>
+In-Reply-To: <20261012134159.912183-1-elver@google.com>
+From: Alexander Potapenko <glider@google.com>
+Date: Tue, 13 Oct 2026 11:36:07 +0200
+X-Gm-Features: AclHuK_Q4zmkgXJ_aRet6tsAebmNwBt0xYiVjRfJ2laZogHRXSQmQgE1FE155EE
+Message-ID: <CAG_fn=Vx93UmT_Pp8F-JDeGM==UicNmMFEp3RW8+stzkm5+sbw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] kbuild: rust: enable KCSAN support
+To: Marco Elver <elver@google.com>
+Cc: Boqun Feng <boqun.feng@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
+	Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026/10/11 19:54, Kyrylo Biryuk wrote:
-> dmz_reclaim_rnd_data() falls back to a random destination zone when no
-> free sequential zone is available and the target has cache zones. When
-> the target is idle and the cache zone list is empty,
-> dmz_get_rnd_zone_for_reclaim() selects random zones of the zoned device
-> as well, so a random zone is then copied into another random zone. That
-> frees nothing: the next pass picks the next random zone and copies it
-> again, for as long as the target stays idle.
-> 
-> Seen on a two-device target (256 GiB regular cache device plus a 27 TB
-> host-managed drive) used as an md RAID5 member: after a full rebuild
-> every chunk was mapped and no sequential zone was free, and the idle
-> drive read and wrote about 72 MB/s each without pause for hours while
-> the free zone counters in "dmsetup status" did not change. Reproduced on
-> emulated host-managed drives (tcmu-runner ZBC handler): 340 MB/s of
-> copying on an idle target, 0 MB/s with this patch.
-> 
-> Only switch to a random destination zone when the zone being reclaimed
-> is a cache zone: moving it to the zoned device still frees cache space.
-> 
-> Fixes: c5c788595292 ("dm zoned: start reclaim with sequential zones")
-> Assisted-by: LLM
-> Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
+> +ifdef CONFIG_HAVE_KCSAN_RUSTC
+> +# The minimum supported rustc's LLVM supports all of these options.
+> +rustc-param =3D -Cllvm-args=3D-$(1)
+> +kcsan-rustflags :=3D -Zsanitizer=3Dthread \
+> +       $(call rustc-param,tsan-compound-read-before-write=3D1) \
+> +       $(call rustc-param,tsan-distinguish-volatile=3D1)
 
-Looks good.
+Do we also need -fno-optimize-sibling-calls here?
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
--- 
-Damien Le Moal
-Western Digital Research
+> +ifndef CONFIG_KCSAN_WEAK_MEMORY
+> +kcsan-rustflags +=3D $(call rustc-param,tsan-instrument-func-entry-exit=
+=3D0)
+> +endif
+> +endif
+> +
+> +export RUSTFLAGS_KCSAN :=3D $(kcsan-rustflags)
+> diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+> index 0a4fdd8bd975..78f1c23e54be 100644
+> --- a/scripts/Makefile.lib
+> +++ b/scripts/Makefile.lib
+> @@ -98,6 +98,9 @@ ifeq ($(CONFIG_KCSAN),y)
+>  _c_flags +=3D $(if $(patsubst n%,, \
+>         $(KCSAN_SANITIZE_$(target-stem).o)$(KCSAN_SANITIZE)$(is-kernel-ob=
+ject)), \
+>         $(CFLAGS_KCSAN))
+> +_rust_flags +=3D $(if $(patsubst n%,, \
+> +       $(KCSAN_SANITIZE_$(target-stem).o)$(KCSAN_SANITIZE)$(is-kernel-ob=
+ject)), \
+> +       $(RUSTFLAGS_KCSAN))
+>  # Some uninstrumented files provide implied barriers required to avoid f=
+alse
+>  # positives: set KCSAN_INSTRUMENT_BARRIERS for barrier instrumentation o=
+nly.
+>  _c_flags +=3D $(if $(patsubst n%,, \
+> diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_targ=
+et.rs
+> index 7687b0dd5474..4b02bffa6b46 100644
+> --- a/scripts/generate_rust_target.rs
+> +++ b/scripts/generate_rust_target.rs
+> @@ -231,7 +231,7 @@ fn main() {
+>          }
+>          ts.push("features", features);
+>          ts.push("llvm-target", "x86_64-linux-gnu");
+> -        ts.push("supported-sanitizers", ["kcfi", "kernel-address"]);
+> +        ts.push("supported-sanitizers", ["kcfi", "kernel-address", "thre=
+ad"]);
+>          if cfg.rustc_version_atleast(1, 91, 0) {
+>              ts.push("target-pointer-width", 64);
+>          } else {
+> --
+> 2.56.0.385.gd3acb90ef8-goog
+>
+
+
+--
+Alexander Potapenko
+Software Engineer
+
+Google Germany GmbH
+Erika-Mann-Stra=C3=9Fe, 33
+80636 M=C3=BCnchen
+
+Gesch=C3=A4ftsf=C3=BChrer: Paul Manicle, Liana Sebastian
+Registergericht und -nummer: Hamburg, HRB 86891
+Sitz der Gesellschaft: Hamburg
