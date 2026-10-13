@@ -1,207 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7553E48A2C5;
-	Tue, 13 Oct 2026 04:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAF3486BBF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791866141; cv=none; b=revuRCIXweC0t2qj/A6/DtryBcnlpUCrd47zm72iVvd6U3pGSUsJn0obp2j9vZXPmePCStrEv43lZlPCf6Bkyq4LPLCfKSlHjXb3YfbQUUzQ18wvbIHxcUluOYgRcfXilSbVnS13HAwJJxka7MRmx5fpj7BmgrURYtkJ38DOxAg=
+	t=1791866152; cv=none; b=mAwtAFPHdV25s+a75fXmZqbRX004RE2Dk1hW1UcCmNYaf1CoJCeFL5JOe9R0jENQBjVDVL23rKGmJhuvVoRkaUYtECM2C6ZaqDKgyM6zMjYGwYY3n/8HBJmNlFAExTgK1dsCtOsMTl80mnO2KVCCcTvUu0ASHXGF7kP3rSigczs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791866141; c=relaxed/simple;
-	bh=zDkd/DpXD4RNquKCU5XNY0xlz0NSS/xSGYtu2LzW3JI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GezdyX0cAmbEsWfDcXrAS0q7XqxOXBNJDdyrDWrT7HhhNgav/Opc+QWb2e75xgvly7XJmPpjI0s3RuE2/swN4PooFR17PJUOwJDKL0n+rTXwU9llv5cYR+OBro8rp6NsMFwMUUIFD2sQZlw0wNsvP6tN1j6GiARq2YCQ8LpRm2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hszgltsj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791866152; c=relaxed/simple;
+	bh=hvxP+Br1wdZ4GMUYTPpUO75T42uiOGjNEGNUTUrPXZM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LFJtoIUPQlvU44arEyfOEkNPom/z/cUCYorqgxP6dfmdg77+j9XCNpeQL92usE4IISh3Fyp+RfJ5HruxbjhCBjL8QQzunIoF1pGJLCrqbG5uAOQQ7IPty3Y7CdhCsNcguiLxsEqfACerjCnSDe37Fwo/gdQr98Sl+gJUoHbsOaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fjE+Cm1g; arc=none smtp.client-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hszgltsj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785231F00893;
-	Tue, 13 Oct 2026 04:35:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791866140;
-	bh=be2mDEcK7rKwx7Svv2x4MdQehAQMku3L3KG2TnD+PJo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hszgltsjs1V3pPht2Y4UVq7FFoSxjGu0ZzznB2AQwnFnbrBtHO2TNoIl6n68vJzVs
-	 I1a48JBI4pz8vZNmxzP8E3MdCFTuPoNYAy4AnzEe+O39Dr28hrCYiXY4ub5ZtChVd1
-	 i+sZcDUlEdgZYRln/G9F3FyLbVCmvTu5xZLCqAJpEY0pqaPf9gwR25qFtsq1/Ghfdq
-	 NDf+MGwbnw4yMgNSa9onPIdR5F9nBrEIdESrMOd+2iOvmfQEWcvWUzRhx1PuhhfcS6
-	 7jZfde2ZZDjdMYQLPO0r+6SUSu9B/i3OeQjAAGiyFm5V869WtjxcF+XkYKuAjsMGsW
-	 h7EC1AXO3cn9w==
-Subject: Re: [PATCH net v3 5/5] eth: fbnic: bound the XDP Tx completion head
- to the ring
-From: netdev-bot+sashiko@kernel.org
-To: yhlee@isslab.korea.ac.kr
-Cc: alexanderduyck@fb.com, kuba@kernel.org, netdev@vger.kernel.org,
- kernel-team@meta.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, daskald@meta.com,
- mohsin.bashr@gmail.com, bobbyeshleman@meta.com, daniel.zahka@gmail.com,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 13 Oct 2026 04:35:39 +0000
-Message-ID: <179186613908.434549.6327483797678084146@kernel.org>
-In-Reply-To: =?utf-8?q?=3C99790c3eceac9ac0bc9afbd90e8adb9789a08c50=2E1791775?=
- =?utf-8?q?409=2Egit=2Eyhlee=40isslab=2Ekorea=2Eac=2Ekr=3E?=
-References: =?utf-8?q?=3C99790c3eceac9ac0bc9afbd90e8adb9789a08c50=2E17917754?=
- =?utf-8?q?09=2Egit=2Eyhlee=40isslab=2Ekorea=2Eac=2Ekr=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fjE+Cm1g"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-677dbe051d4so2316875d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:35:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791866149; x=1792470949; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uZmMXlQEPn/Zuz4J8J6iJ6oFHFWuuc9FMm2/aQX315E=;
+        b=fjE+Cm1g3l1ezU6sN1LtpyoX0NF1ceaIOEoaG9v6s5EpQcVe5IkWpIr6ommnpiyM/E
+         f6doYo5gtCyPBpU/Q4sVGB3ms84njazNYouBMTNxnrB7mAXD1XYhlDW/33HAcDU9Qm8q
+         IUDukdl0s4vD6w5yPNCnn2+sHBtGAyOvrymYKeTUN6mi3eXqhEMQO5N1v6nvOtWIbhw9
+         YACKec+NUm2oFyVSTCb8EZr9jcIRxt0MnCkEmFbBJLgyPhl9Sc4zTcvQ6NnD5Nd5ixTR
+         vyS0RJAdMsZGtKbM3ntrDTnTHvyjeJqnFHRuNn85kMzZUcPEU/Hc4MwH1cqxil6oAF8S
+         xEMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791866149; x=1792470949;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uZmMXlQEPn/Zuz4J8J6iJ6oFHFWuuc9FMm2/aQX315E=;
+        b=LfUqSMqu9hxQ5GY55/A452PCgnT/MHQIemIdm4s4wnTLU62vsxqQ0iNep3fDfVg5we
+         TUGiVEPs6Rez2bsA1fP6ONyOd0BBu03ccg+gprkOkwVEE8hZGm/z+7t5VzvlE/7xJ47Q
+         42ksLxgZKBawvZb1d+hJk5ZvCYSs4IyXRo/JC0Ac6zFdF4eNOTNwgl9EI6CPhPOZpnrq
+         l+0cxvz23ZOFqlr8Oi6JtjD2KgzybOTUiILlB3PZR+xzC/9RtjBWB1cXkOEh14iMvcpB
+         HZmjolx93rh0rBr3hpUkEz9DxY/eOvJmM7b9UAb6Az8G2rnBiiGWqOt/7IT5V7o5cD6n
+         2Fyg==
+X-Forwarded-Encrypted: i=1; AKwUvByASJ4ljKOYISRDPwDp3jc2u3G3EM9bA4aQm1Wy5n17S9DpINvjoMk9X9c3oyuN8r/5NeNoEGasK2WTIMM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtaI0lBaMkZbbfESDwhJa1cvKUM+tSogtTz1Pxja8GPvWew7Iv
+	DmRpPmzitVZ+9Lv8z6JE3NHA3vC4/gUCNe4jcYDyi5lRa9LEcWpN2CyK
+X-Gm-Gg: AYBFou00i/qESeUJSikGsxS0nhbMjPv+dVuNQx88cU+2F1B3lJbG+1Pac9dBaZtgm2s
+	Ogm6buJEiFgD0Frk5MwGOcO0qBeqC+JYCb7J8tXlpURcumL9Lg5CpBQQa8PpurOedARaKmRpv9m
+	PwzYZ4OgchMS4pC7x1BQ++Mzum4GQniqDqDz7y48816/UAHRWjF1iLOKX/0kWblZOazIOzyjuB+
+	4uvAtWQicIR6kMH76OQivUu2YbxompKwe+kyyqauUECVFGscuVwG6+QXQn6rTukf4JhDbz8syVj
+	vtLplUMVwWDHnE+2RJKf4rCi7Uw4J1ZixC2qEC59rfrn7hsPiiR4E5FTVtTlnQhPG3D4QrXbt8V
+	gQsAw/SM560PveEehl/rvq9+VssGt5H9sfXW+TSKEzkIT5YF+Wg3MPOQB6UaDw1O9aUKNeAbQFZ
+	9PmQQwlgiKnjAKkDIdc1pAIaOHXNW3yjXw6jdN7OIpHvhGCzqMYV6DZaO+VLhwQECVsg0JDRQ2J
+	rdElaGILyJLvw==
+X-Received: by 2002:a05:690e:d59:b0:674:a21e:bd20 with SMTP id 956f58d0204a3-67936267934mr2403854d50.78.1791866149013;
+        Mon, 12 Oct 2026 21:35:49 -0700 (PDT)
+Received: from [192.168.1.71] ([2600:1702:56e9:4b40:e3a9:78c5:641e:a58c])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67935606f5esm4448152d50.4.2026.10.12.21.35.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 21:35:47 -0700 (PDT)
+From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+Subject: [PATCH 0/4] drm/panel: Convert four panel drivers to
+ mipi_dsi_*_multi()
+Date: Mon, 12 Oct 2026 23:34:35 -0500
+Message-Id: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0ND3dzMgkzd3NKckkxdiFZds2RLi6TUZINkc9NUJaC+gqLUtMwKsJn
+ RsbW1ANERJ+RjAAAA
+X-Change-ID: 20261011-mipi-multi-series-6c98bec0c75e
+To: Doug Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Akash Sukhavasi <akash.sukhavasi@gmail.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Chris Morgan <macromorgan@hotmail.com>
+X-Mailer: b4 0.14.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+This series converts deprecated mipi_dsi_dcs_*() calls to their
+_multi() equivalents in four panel drivers: leadtek-ltk500hd1829,
+kingdisplay-kd097d04, innolux-p079zca, and newvision-nv3051d. The
+first two drivers also convert mipi_dsi_generic_write().
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
+In patches 2-4, unprepare() previously returned early when
+enter_sleep_mode() failed, skipping GPIO and regulator teardown.
+Because drm_panel_unprepare() leaves panel->prepared set when the
+callback returns an error, the panel could not be prepared again.
+These patches remove the early return, so GPIO and regulator
+teardown always runs, and have unprepare() always return 0, so
+drm_panel_unprepare() clears panel->prepared. Patches 2 and 3
+likewise stop returning regulator disable errors from unprepare().
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+In patches 1, 3, and 4, the original code treated a set_display_off()
+failure as non-fatal and still attempted enter_sleep_mode(). These
+patches clear accum_err after set_display_off_multi() to keep that
+behaviour.
 
-- [High] The patch fixes only TWQ1.
+All four patches are compile tested only. checkpatch and a W=1 build
+are clean. Tested-by tags would be very welcome.
 
-Pre-existing issues:
-- [High] fbnic_clean_twq1() can release the same XDP_TX pages to the
-  page_pool twice, by a path the new head-window check does not cover.
+While converting nv3051d, I noticed that panel_nv3051d_init_sequence()
+always returns 0, so init sequence errors never reach prepare(). This
+series leaves that unchanged, and I plan to send a separate fix.
 
---
+Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+---
+Akash Sukhavasi (4):
+      drm/panel: leadtek-ltk500hd1829: Use mipi_dsi_*_multi()
+      drm/panel: kingdisplay-kd097d04: Use mipi_dsi_*_multi(); fix minor bugs
+      drm/panel: innolux-p079zca: Use mipi_dsi_*_multi(); fix minor bugs
+      drm/panel: newvision-nv3051d: Use mipi_dsi_*_multi(); fix minor bugs
 
-eth: fbnic: bound the XDP Tx completion head to the ring
+ drivers/gpu/drm/panel/panel-innolux-p079zca.c      | 43 +++++++-----------
+ drivers/gpu/drm/panel/panel-kingdisplay-kd097d04.c | 53 ++++++++--------------
+ drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c | 40 ++++++----------
+ drivers/gpu/drm/panel/panel-newvision-nv3051d.c    | 36 ++++++---------
+ 4 files changed, 61 insertions(+), 111 deletions(-)
+---
+base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
+change-id: 20261011-mipi-multi-series-6c98bec0c75e
 
-This patch adds a check to fbnic_clean_twq1() that returns early when the
-TWQ1 completion head reported by the device is outside the ring or outside
-the posted window. The goal is to stop the cleanup loop from running
-forever, and to stop XDP Tx pages being released to the page pool twice,
-when the device reports a bogus head.
-
-> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> index 7a9bd91bcc41c..3a148eb4e560f 100644
-> --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> @@ -661,6 +661,12 @@ static void fbnic_clean_twq1(struct fbnic_napi_vector *nv, bool pp_allow_direct,
->  	u64 total_bytes = 0, total_packets = 0;
->  	unsigned int head = ring->head;
->  
-> +	/* bound the device head to the ring; see fbnic_clean_twq0() */
-> +	if (unlikely(hw_head > ring->size_mask ||
-> +		     ((hw_head - head) & ring->size_mask) >
-> +		     fbnic_desc_used(ring)))
-> +		return;
-
-[Severity: High]
-The new comment names fbnic_clean_twq0() as the model for this check. The
-commit message says:
-
-  fbnic_clean_twq0() masks the head difference to the ring and is finite;
-  twq1 did not, which this brings in line.
-
-Does fbnic_clean_twq0() actually do either of these checks? As far as I
-can see, it only masks the head:
-
-fbnic_clean_twq0() {
-    ...
-	clean_desc = (hw_head - head) & ring->size_mask;
-
-	while (clean_desc) {
-		struct sk_buff *skb = ring->tx_buf[head];
-		unsigned int desc_cnt;
-
-		desc_cnt = FBNIC_XMIT_CB(skb)->desc_count;
-		if (desc_cnt > clean_desc)
-			break;
-    ...
-}
-
-fbnic_clean_tcq() reads head0 from the same TCD that head1 comes from:
-
-	head0 = FIELD_GET(FBNIC_TCD_TYPE0_HEAD0_MASK, tcd);
-
-head0 then reaches fbnic_clean_twq0() through fbnic_clean_twq() with no
-ring or window check.
-
-Suppose head0 is past the posted tail, or wraps behind ring->head. The loop
-cleans every posted packet and head reaches ring->tail, but clean_desc is
-still non-zero.
-
-Wouldn't skb = ring->tx_buf[tail] be NULL at that point? The slot was
-either never written or was cleared by ring->tx_buf[head] = NULL. If so,
-FBNIC_XMIT_CB(skb)->desc_count dereferences NULL before the
-desc_cnt > clean_desc break can run.
-
-The timestamp path has the same exposure. It stores the unchecked value in
-FBNIC_XMIT_CB(skb)->hw_head, and fbnic_clean_tsq() later passes it back as
-head0.
-
-fbnic_bdq_head_valid() already implements this exact check:
-
-static bool fbnic_bdq_head_valid(struct fbnic_ring *ring, unsigned int hw_head)
-{
-	if (hw_head > ring->size_mask)
-		return false;
-
-	return ((hw_head - ring->head) & ring->size_mask) <=
-	       fbnic_desc_used(ring);
-}
-
-Could this helper be used for both TWQ0 and TWQ1? If so, the comment and
-commit message could be updated so they no longer describe TWQ0 as already
-bounded.
-
-> +
->  	while (hw_head != head) {
->  		struct page *page;
->  		u64 twd;
-
-[Severity: High]
-This is a pre-existing issue, not one introduced by this patch. Can
-fbnic_clean_twq1() still release the same XDP_TX pages twice, by a path
-the new window check does not cover?
-
-Further down in fbnic_clean_twq1(), the page is released for every AL
-descriptor the loop walks. ring->head only advances when total_bytes is
-non-zero:
-
-		page_pool_put_page(pp_page_to_nmdesc(page)->pp, page, -1,
-				   pp_allow_direct);
-next_desc:
-		head++;
-		head &= ring->size_mask;
-	}
-
-	if (!total_bytes)
-		return;
-
-	ring->head = head;
-
-The tx_buf[] entries are not cleared either. If every descriptor walked in
-one call has length 0, the pages go back to the pool but ring->head does
-not move.
-
-The next TWQ1 completion would then walk from the stale head and put the
-same pages again. So would the flush in fbnic_nv_flush():
-
-	fbnic_clean_twq1(nv, false, &qt->sub1, true,
-			 qt->sub1.tail);
-
-A zero-length AL descriptor appears to be postable. FBNIC_RX_PAD is 0, and
-fbnic_pkt_prepare() accepts an RCD with len == 0 and builds a zero-length
-XDP frame from it.
-
-An XDP program that returns XDP_TX without adjusting the head or tail sends
-that frame to fbnic_pkt_tx(). fbnic_pkt_tx() stores the page in tx_buf[]
-and writes this length into the descriptor:
-
-	size = pkt->buff.data_end - pkt->buff.data;
-
-Zero-size frags from fbnic_add_rx_frag() can also be posted as len-0
-descriptors when a non-zero frag follows them.
-
-A device head1 just past such descriptors would pass the new check. Should
-ring->head be advanced before the total_bytes early return?
-
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791775409.git.yhlee%40isslab.korea.ac.kr
+Akash Sukhavasi <akash.sukhavasi@gmail.com>
+
