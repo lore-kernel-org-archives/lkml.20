@@ -1,230 +1,400 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F5F48CD7E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D6048CD54
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912728; cv=none; b=BFsDPnnT263lGky0AskR3j9ZLpzH2DqRQMoOySGQ/ZNWbQ4RHXaorb09Pu02mK+QeRZvESg6ECTMEl1fc/c2ScI2XsP5zAMEdZEHjnNytO+ckw8dZjOmfW88n8HtNwj6YaNLMjo+lT9nKyiw2gDtE2OAJhPY8KHOyqoqRojoFTs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912728; c=relaxed/simple;
-	bh=0WkhDjuOG6g0G+Pa/vJ8JsjNy04kahj1JZSpUEVr6zg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f/7f6ckpDIUuXGVEIosuvBKyejt+N68+VkdQ5+kKkz6vh6XfQjjA7MX58fi8P+kLVVGdD4lxWfX5AjIxq+79C6+7cQv5iq1MxSyxXpB22IogK+odoRfR2BvmXjlsgA281/pufKYAfTjTttMx0SmEAN2e6Wc0fyOGsJxJk5/s6Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=gTt1GC4k; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=2IcP8vuI; arc=none smtp.client-ip=148.163.139.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791912727; cv=pass; b=PMp4gjhUcr92x9UXkRW+Ds7391tiV298PvIf5W3L6BFJpSP1mEuIBVNZsFwVzDc1CKoaSQh55dWtlvNFUbGQaU6zqRKsdQlpOOEeAmPlDMfnEgCyiL5e9ZJFkAccwRvgZMv/Xn+htSBnzgqjj5PDkHvr2j6mwQPgsWhMH6L6mWI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791912727; c=relaxed/simple;
+	bh=3bJf7rB5mzrk5Vnkzr7cMS80P6CdxrJMNGaNVEb1BEs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rCeHl8ei9MSgnP5TVFc80K5doKpfHFJewq8pEyRehs+AsNj/jL8BSeODTEt4PuA3rMuKmQHQwQ/Kxdm7opHhceDTyO+psflC/MWhI4x45yRCz284xZHXuiz/5jp2BRjltzRrJ41YnRNJB+0qjfr3BeD5yc7WnrhalDaoxKBTUqg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EdHMFn6E; arc=pass smtp.client-ip=209.85.167.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="gTt1GC4k";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="2IcP8vuI"
-Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DGY6xF4003910
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:32:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=bBjc
-	kCrRQo6e16uasOscqOcaE/otX5YkEqtpLgsFwik=; b=gTt1GC4ku8itkjVgDFxt
-	Y0DMbK9m62npOG7Ur2EDUKTmU7D/Pnd75QmUmCCN2tHWtFKa9Q+jI/9USkxkFopY
-	oxstTLN4jYpDa6YbPmFI30NLrEt0L1Ad+u/KXaimoZXZUEm6HifNflnnhvM/B1Mx
-	FiZFBEK4xy91SwKBtZSVGOa17kXtSY4JUXT0DPf4G9a8EnOHKd1n6rVNmo7C3RVP
-	iIUzZdgahVAmfcPvzZGt+zHv2ejgM7GdjvrfaliYmP5ZydrR12Kuowcspcuu5u7J
-	9llo3VdfIDIEi8zAJNCF1J4zKbJSdSxqL5ZvVel3IRDgWOyowBnU33Xfm7Exh5WP
-	+g==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4h9qt897as-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:32:03 -0400 (EDT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb7f9bb86so646510785a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:32:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EdHMFn6E"
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4f55a53898cso1688994b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:32:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791912723; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WKR/N0o75GyssSY4KPQKgTutKB6ljlunaort8Li191MUA2FSY5FmkX8KXbjooqJgoG
+         YzINpsl20OuBRHTunOa1FZXGHu04FqLQD2kOikXnj/l0gyRH0fp4rNWbwsQj65All8XW
+         5M+AeIsqcxIo4qb6EwUvRCNUzxIj3fWC2P+vE0bgiT+xjmdJ6Yr8wOl2S9XbAJMiHixl
+         A7vUnMX0dChiwzopxqW1MR+IUQ1qhsNgLuRP6CTZknusvcJKRIJ5Pq2MNRbCAT6YBYck
+         HdEsPuLhWElKt86oeSpFqmESzJ0+X9HP2K8f81UsMOiu40C7WWhutNutj/ATLWDXuLu0
+         jJmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+YqJp4O+59gQY9J3r/yMVPYfKYHH1g4JMnIPubeUpbg=;
+        fh=NBdbXuINJ06863aLMTnSb+VgurQZWLlVmemsbG2OP84=;
+        b=Pxfq4AEhl/8rJ1IufXNSHv43dBaNqfNxRSV67OzFMsm/uKI7026UayYRbpPVnZ2wsm
+         ojjM1HX+wxi4H4KBR9Y3Dm+b7ddGaR6Tp7g3rvYSn11di+UmUZhzzOLVKyG3tBwbFQpw
+         JTOjaN8IxtEnnFsJpCWd1jgvpd3YYDlC46AnpX42iAyieINdnGXX8bRME6jI1ymhbI8L
+         jAoqat4sZA8Rv6AExvtDy44hgCdKPjJ2Dr5dZaVBAylUCh6BBA24vw6lzYSW+vpWjfji
+         PSVX/85Hu3hDuhbvby/hKPNDu7WLai9hI6dp+SNIk2HNRYiNptMV/APcXr+AX3Z6cnVd
+         zOCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1791912723; x=1792517523; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bBjckCrRQo6e16uasOscqOcaE/otX5YkEqtpLgsFwik=;
-        b=2IcP8vuIXqSI3vQbFdfCejUB20ZbkB6xpquxlm1sTE/oeISk4YUCwiCv3Mpj3I0VSp
-         dVCKdAbuDdj0+gjHWugWijK6oxTJX5pFdvIOgAA+9GmZLBAMqBgqoGVQTxh8qrp43gPM
-         urJaLexLXgnjHvxYdFNu+8/+1pUpS/fkWsanb0iRviS24sp08ndrAV24Rk+T5gRyP8bO
-         dk3w5AbQEqIpa3yh7TB8az4uetuSkWsuzveLs4VKhZ0EwBh9mzr4ej7psqOWARdUE+Kw
-         OZziEJyxEaZR605wQm6Qo50Egd1KHcl42tqPCL0Yr9ytS/8IsNOTPELwHJx0vMCIlsNI
-         Jxjg==
+        d=gmail.com; s=20251104; t=1791912723; x=1792517523; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+YqJp4O+59gQY9J3r/yMVPYfKYHH1g4JMnIPubeUpbg=;
+        b=EdHMFn6E0qm5D0y3oZMTyZddmr0jMrRhUuousUedTBlHxV8TqIDWJyCanzOUW46RLU
+         uKYgR6nB1HsFvI7C8C9ibHv5RCCM4JOaU0hjzhB7mzsAbuw4CywYjI2oSg4yKawhDbxK
+         cWlYdL1AE4OHL8V4waWgmIBfqS35FqrXNDgMOwfSOc7kkOhIXMbjZ2ZZa5fCAnjo8v/N
+         q2kPstMMzPhNt0/OFm/KT9WRHcF/rlIJfbaEZrNlZln73igMKr65KDDyxxYN8KPKWFdw
+         JvSXDF4/geWZM6xfybtDUAPvSpjWfQVZ84up5wDYamWyaiCyD78xBXP0C0nuqebTrV4A
+         1L6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791912723; x=1792517523;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bBjckCrRQo6e16uasOscqOcaE/otX5YkEqtpLgsFwik=;
-        b=SfZVn38PTYOQ3Rs92RZj+YlPlMiXsGtaR2hUYyO6n8G7pN+smfJtrWU55dKf89+WVD
-         3P6r6XM3WiNrg3hpd5muFI5T0vTVJQz1G+9+vogZrRfvq7qrrsKrpFFqRdHupHdrsROG
-         cAPtTKN4MABozh1nlqfaJMS/5wM+EhHcKHIg8dXdBbOSEufiYUV909FYp8HFR538FZCr
-         RqnxHivR992ueh8/Q/24TD+EHYtalVoAohgBVjZNnktK3x6UzO3262beNWQYIcIR/dAi
-         pYL7ht08zWUukfmi0YeKf8N+3oteOTr1G0idSd0ZDV7K+BvbqCzWASa65xI3r10x6hwT
-         Zyww==
-X-Forwarded-Encrypted: i=1; AKwUvBz1qvAK6FisMhkQS/tQJQk7VOdzd/+1PyNXE96CqEJUDwDoy5fz5/CEx4t5SszFJCBdYd0u5uV5qNBEeD4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIww4M6k0iNABVa+oY61Q4sOSNSC+hBDGI0hjFVNV2S2EJmmNOF
-	LMeqfL7BE9bkPzOIrISKbL02oo+SQCljsqXGFx+qxRRAIv7wWcd1hXPtHsYSzCRYYVwudVc01B7
-	B5z5J+9f2+LrDz3Nq+8ZFkzdWsxC2GngLqVpDF/d9KolzyaId3D/M5wC+PDw5TsCE5Um/7Q==
-X-Gm-Gg: AYBFou2D9FR5YM2/gz0dMvUqgF5J+MBJxxTI90p/0Alho6Dgdqdn4WvClo2AdI+IR1J
-	McMWGDi2tm12DtPVBBUP61y/6wHii4KEvFAn4W7Qs7IK/ubK0H8p3/7O33qXOtG4M4mib2uZwQs
-	azVdj4nyMqUASnNOT3QRkxIfuiXseFnyDg7NE+kgP1wNqZrwl6p8uzpl0KDQrUskacwpMvFGXld
-	S1/VlLkAdMxIldrjiOpDQvfuEVUjsZBMUECPtwLTWI9UXOzgH9QjxgnwXwRPt5bPwjZtmspEVWA
-	zMKWIUynNKGDUiTFZOYBrjXsDr2HJZuAOJDoWciwg+2AA3WfL2PiFiYp0ovulxIXBi7ts1Q7jaw
-	OvoBiXj0YdbfVkaF5lD5WxicmmCYgbGdkpDzN58jUAImzJw==
-X-Received: by 2002:a05:620a:a0d5:20b0:93e:c12c:f135 with SMTP id af79cd13be357-93ec12d07admr1412874585a.80.1791912722881;
-        Tue, 13 Oct 2026 10:32:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:a0d5:20b0:93e:c12c:f135 with SMTP id af79cd13be357-93ec12d07admr1412868585a.80.1791912722195;
-        Tue, 13 Oct 2026 10:32:02 -0700 (PDT)
-Received: from [10.207.9.0] (nat-128-59-177-43.net.columbia.edu. [128.59.177.43])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef505463esm285156785a.32.2026.10.13.10.32.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 10:32:01 -0700 (PDT)
-Message-ID: <ef6d0df9-c71a-4b42-bde2-efc4477306ed@columbia.edu>
-Date: Tue, 13 Oct 2026 13:32:00 -0400
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+YqJp4O+59gQY9J3r/yMVPYfKYHH1g4JMnIPubeUpbg=;
+        b=R+u6MVjrBKFKUBrmyANe/rQ7JbCSfbtw4X/Ti944XDm4+xt0xMneSPaLpn86zowQJ1
+         eamG9gcm2OixxV2y3Zj2h0Fenyp7ZO8uEBQypGl4VLeB37yWp8gDdpJaSU3Wp1G/Js9e
+         WL5Yto7ZH4Ev0ITfI63/72KeNl4pTevcjdkFAhLD3Tp7DRfCprmj7kQOLg+YH6TQp4UH
+         DJ9b+mOwwJ3uIpgfLmn07Fg98NqgPkZVsLS5VjHMx4aEo94WFwtAI3Qv+6m6yr7dktVs
+         +QaNpPxX1mZ7hptFyQ/uSKB6BiVR+CYoFiH1X45gh80EQw8W1MveTUYwE+K2md0OaMnN
+         83ng==
+X-Forwarded-Encrypted: i=1; AKwUvByqnUuQ0zT8QGvpuajAfQrJypzVh79NjjisCZ/6ZtaluHTZ2Qnfc/TyWOYn1Yqo5QwhvtsoE6cyye9VeyU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYxawaUBow8tKyLIR7DbPyJMAu9vknlOOykzSs2UOftuaE2PgT
+	xZ2Q1zkYWxsSuv6cw393DY+Dx/LoNOLUxcmI5PsoAc8i7a7soT5wLzy4ws3csLwWeTBvhdVf6Kh
+	WbPmbGmyYlFs8VMQXs7HSsGEtB05j3PM=
+X-Gm-Gg: AYBFou2tRse2GnGTAJMNJ//As9/d2wYdHZe46ZtaejQlKQGEds6PMAliCZB7SEYTgPz
+	W1Oemq92aQPR6/MKOk9+C5okLpDRGnc+Qp8iUNNhSUYoh28FhUlXLe7/Q7xaAhSej6gdSPXebeA
+	mHUxEJuEJFqxTnZsBrdyPVCYZwt+dGbLc2coC9WtolcY9Hqjf/IT2ZD9oV2RPwJNcoE3ZYGGVlf
+	cL8L/2tD0MXLtYDpVRLjJPiqD4+3i+wd4faA5uUUhHCEelv33hQ6N9bZJy2U7346mwRyvzDNjYg
+	wfhsb6+hg9f514wZ8rLLseIEhAI109otlLz6Nb1p4h8zNrzFgZiC7eFY
+X-Received: by 2002:a05:6808:c3ee:b0:4e8:92e5:db5b with SMTP id
+ 5614622812f47-50c5b4648camr15525292b6e.54.1791912723215; Tue, 13 Oct 2026
+ 10:32:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: complete dropbehind writeback in task context
-To: Jan Kara <jack@suse.cz>
-Cc: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
-        Baokun Li <libaokun@linux.alibaba.com>,
-        Ojaswin Mujoo
- <ojaswin@linux.ibm.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Zhang Yi <yi.zhang@huawei.com>,
-        Taotao Chen <chentaotao@didiglobal.com>,
-        Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
-        Jens Axboe <axboe@kernel.dk>,
-        "Matthew Wilcox (Oracle)"
- <willy@infradead.org>,
-        linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261012-ext4-dontcache-complete-in-task-v1-1-6ac801557041@columbia.edu>
- <cwlno6baljswazb7izeue7yh4qjwbs6ktfj3jgnhdh5zyfp72c@xpar52ae3uej>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <cwlno6baljswazb7izeue7yh4qjwbs6ktfj3jgnhdh5zyfp72c@xpar52ae3uej>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA2OSBTYWx0ZWRfX6vo43EAlRypj
- BnTIMi3oMbEW0TXB1Tpc8vz6KqezNuAJ38I1wGxfVJruZJIOti8DnhUOOHBbKomYWJ6bjN8HXRF
- zEGguVfPMV+IbEGeYSIKG6lHjbum/sUBN4TSk4KeTwepRatfJ8zHIkojB7GtPD4909MRA/+bF6x
- 90TZTgqSRm2qVEACswPkiAfpGAT0xjFl9A+hwuVqf4RMMQvFFNmqo701ZML9IZF/ECQvbguoHhN
- qdgs1TjVN1th7VJzD+YxZg4vQopRlUzO0U9c1WQDdEqSu1xnWjQn6qDFrJJjITdqs4dyEUcLqVv
- 7DCRzSDwG5x/icwnxBWvn6RcWziLVdd293iwnehu4Fz50eXsnTAohzZUD/m6GN2pe2hgEQz8QHc
- 4dlEWTfHszC2YrO9Kg94YWoPPb5tTU5YjPyCWMll4V5eyuCy8NRtICAH2JH6G55ojjeP99yTizT
- NpdK53zC5sOkdC3Z3NA==
-X-Authority-Analysis: v=2.4 cv=Hs/jiETS c=1 sm=1 tr=0 ts=6ace6b13 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=lXeS3XHMKYhu4Q0xF1pUDQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
- a=iox4zFpeAAAA:8 a=Z6J5lG1_I9FvLMjSkYoA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=WzC6qhA0u3u7Ye7llzcV:22
-X-Proofpoint-ORIG-GUID: Gyv4rrSrvwvk_Lcfqs6D3E-IjEwsWAGV
-X-Proofpoint-GUID: Gyv4rrSrvwvk_Lcfqs6D3E-IjEwsWAGV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA2OSBTYWx0ZWRfXxumMdlrjuiyz
- AkOJNz7hh7zCBm+i7NzjgZBjG21STjj4KBk6LA4qoAfJP14w6hfPKkIxi4h7lAI/WXk3gLIPi4s
- nwkhcu8u3msBSUPy7Kd0De9mK386O2EXxhqemMDc3mXZHVdqFr+v
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11934
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=10 spamscore=0 phishscore=0 malwarescore=0 clxscore=1015
- adultscore=0 lowpriorityscore=10 suspectscore=0 bulkscore=10
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130069
+References: <20261012125943.558629-2-omar@blockcast.net> <179190010922.434549.7719203541619227350@kernel.org>
+In-Reply-To: <179190010922.434549.7719203541619227350@kernel.org>
+From: Taehee Yoo <ap420073@gmail.com>
+Date: Wed, 14 Oct 2026 02:31:51 +0900
+X-Gm-Features: AclHuK8nmvo0sDZrNVF5UU3WsSdwlcxhN5MAdz88n-m1O0twpTrHbBedjUxJICc
+Message-ID: <CAMArcTUgPVLO=A--VnMz77UAeTDhXmKVARrSD7ib0HG9WQ_zdQ@mail.gmail.com>
+Subject: Re: [PATCH net v3 1/6] amt: fix use-after-free when a Membership
+ Update re-arms a freed tunnel
+To: netdev-bot+sashiko@kernel.org
+Cc: omar@blockcast.net, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/13/26 8:47 AM, Jan Kara wrote:
-> On Mon 12-10-26 14:04:37, Tal Zussman wrote:
->> ext4_end_bio() ends writeback directly from bio completion, which
->> usually runs in interrupt context, unless the io_end has unwritten
->> extents to convert and is completed from ext4's workqueue.
->> folio_end_dropbehind() only invalidates the folios of an RWF_DONTCACHE
->> write when it runs in task context, and silently skips them otherwise.
->> So on ext4, dontcache writes that overwrite blocks that are already
->> written, or that allocate blocks without unwritten extents, leave their
->> folios in the page cache. Dropping them was best effort so far, as there
->> was no way to get task context from bio completion.
->> 
->> Use the task-context bio completion infrastructure instead: set
->> BIO_COMPLETE_IN_TASK on bios that carry dropbehind folios in
->> io_submit_add_bh(), so that bio_endio() runs their completion from a
->> worker. ext4's iomap buffered I/O path already gets this from iomap, so
->> only the buffer_head based writeback is affected. Skip the flag when the
->> io_end already has unwritten extents, as ext4 then defers the completion
->> itself. A later extent can still make the io_end unwritten after an
->> earlier bio was built. That bio's completion is then deferred twice,
->> which is not optimal, but harmless.
->> 
->> This changes behavior only for bios that carry dropbehind folios: their
->> completion now runs from a worker instead of in interrupt context.
->> 
->> On the unpatched kernel a dontcache overwrite of already-written blocks,
->> or a dontcache write into a new file on a dioread_lock mount, leaves
->> every folio in the page cache (16384/16384 for a 64M file). With the
->> patch, none remain in the page cache. A dontcache write into a new file
->> with unwritten extents already drops its folios on both kernels, as
->> expected, and a plain write keeps them.
->> 
->> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> 
-> I guess this is OK as a short term fix but having two different offloading
-> mechanisms for IO completion is just asking for trouble and we should use
-> BIO_COMPLETE_IN_TASK when unwritten extent conversion is needed as well.
-> But for this fix feel free to add:
-> 
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> 
+On Tue, Oct 13, 2026 at 11:01=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wr=
+ote:
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 2 (1) =C2=B7 Medium: 0 =C2=B7 Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] The fix stops a concurrent Membership Update from re-arming
+>   gc_wq, but that Update can still arm other delayed work that points at=
+=E2=80=A6
+> - [High] amt_dev_stop() replaced the RCU-safe list_del_rcu() loop with
+>   list_splice_init(&amt->tunnel_list, &doomed), which moves the RCU-=E2=
+=80=A6
+> - [Low] At this commit, a tunnel that only ever received a Request lives
+>   three times as long (3*GMI instead of GMI), and the commit message=E2=
+=80=A6
+>
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but tunnel
+>   teardown does not wait for a group_timer callback that is already=E2=80=
+=A6
+>
+> --
+>
+> amt: fix use-after-free when a Membership Update re-arms a freed tunnel
+>
+> amt_update_handler() no longer re-arms tunnel->gc_wq. It now stamps a new
+> tunnel->last_seen field, and amt_tunnel_expire() either re-arms itself or
+> frees the tunnel under amt->lock. The patch also adds a tunnel->dead flag=
+,
+> and amt_dev_stop() now marks tunnels dead and splices the tunnel list out
+> under amt->lock before freeing them.
+>
+> > diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+> > index b53f8ec556615..b284fa7b7307e 100644
+> > --- a/drivers/net/amt.c
+> > +++ b/drivers/net/amt.c
+>
+> [ ... ]
+>
+> > @@ -2494,9 +2515,12 @@ static bool amt_update_handler(struct amt_dev *a=
+mt, struct sk_buff *skb)
+> >               if (tunnel->ip4 =3D=3D saddr) {
+> >                       if ((nonce =3D=3D tunnel->nonce &&
+> >                            response_mac =3D=3D tunnel->mac)) {
+> > -                             mod_delayed_work(amt_wq, &tunnel->gc_wq,
+> > -                                              msecs_to_jiffies(amt_gmi=
+(amt))
+> > -                                                               * 3);
+> > +                             /* Refresh liveness only.  gc_wq is re-ar=
+med by
+> > +                              * amt_tunnel_expire() itself from last_s=
+een, never
+> > +                              * from here, so this cannot re-queue the=
+ work of a
+> > +                              * tunnel that is being freed.
+> > +                              */
+> > +                             WRITE_ONCE(tunnel->last_seen, jiffies);
+> >                               goto report;
+>
+> [Severity: High]
+> The Update path no longer re-arms gc_wq. Can it still arm other delayed
+> work that points at a tunnel being freed?
+>
+> amt_update_handler() still holds only rcu_read_lock(), and it never check=
+s
+> the new tunnel->dead flag. After the goto report it does this:
+>
+> drivers/net/amt.c:amt_update_handler() {
+>     ...
+>                 spin_lock_bh(&tunnel->lock);
+>                 amt_igmp_report_handler(amt, skb, tunnel);
+>                 spin_unlock_bh(&tunnel->lock);
+>     ...
+> }
+>
+> The MLD branch does the same.
+>
+> Suppose amt_tunnel_expire() reads last_seen before this WRITE_ONCE() is
+> visible. It then goes ahead with the teardown:
+>
+> CPU1 (amt_tunnel_expire)            CPU2 (amt_update_handler)
+>                                     finds tunnel in RCU walk
+> deadline =3D READ_ONCE(last_seen)...
+> tunnel->dead =3D true;
+> list_del_rcu(&tunnel->list);
+> amt_clear_groups(tunnel);
+> kfree_rcu(tunnel, rcu);
+>                                     WRITE_ONCE(tunnel->last_seen, jiffies=
+);
+>                                     spin_lock_bh(&tunnel->lock);
+>                                     amt_igmp_report_handler()
+>                                       amt_igmpv2_report_handler()
+>                                         amt_add_group()
+>                                           gnode->tunnel_list =3D tunnel;
+>                                           hlist_add_head_rcu(...)
+>                                         mod_delayed_work(group_timer)
+>                                         dev_hold(amt->dev)
+>
+> Nothing deletes that gnode afterwards. Would the gnode, its sources and
+> the netdev reference all leak?
+>
+> The tunnel is freed once the grace period ends. When group_timer fires,
+> amt_group_work() loads gnode->tunnel_list and calls
+> spin_lock_bh(&tunnel->lock) on the freed tunnel. amt_del_group() also
+> writes gnode->tunnel_list->nr_groups.
+>
+> The commit message describes this same class of bug: an Update holding a
+> cached tunnel pointer arms delayed work that outlives the tunnel.
+>
+> amt_dev_stop() seems to have the same window. An Update that found the
+> tunnel before the list_splice_init() can add groups after
+> amt_clear_groups() has run. This path looks unchanged through the end of
+> the series.
+>
+> Could amt_update_handler() check tunnel->dead under tunnel->lock and bail
+> out before calling the report handlers? Both freers set dead before
+> amt_clear_groups() takes tunnel->lock, so that check should close the
+> window.
+>
 
-Thanks! Agreed on the above. I saw that there was a TODO added in
-ext4_iomap_writeback_submit() from the new iomap conversion series to
-"switch all defer handlers to the generic bio complete in task framework",
-so I assumed that'll be taken care of as part of the ongoing conversion.
+I agree with Sashiko's suggestion.
 
-- Tal
+Please make tunnel->dead protected by tunnel->lock as well, and
+have amt_update_handler() check it under tunnel->lock before calling
+the report handlers.
 
-> 								Honza
-> 
->> ---
->>  fs/ext4/page-io.c | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->> 
->> diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
->> index 734d856a6d47..e556598ce9e1 100644
->> --- a/fs/ext4/page-io.c
->> +++ b/fs/ext4/page-io.c
->> @@ -458,6 +458,16 @@ static void io_submit_add_bh(struct ext4_io_submit *io,
->>  		io_submit_init_bio(io, inode, folio, bh);
->>  	if (!bio_add_folio(io->io_bio, folio, bh->b_size, bh_offset(bh)))
->>  		goto submit_and_retry;
->> +
->> +	/*
->> +	 * Dropbehind folios can only be invalidated in task context. An
->> +	 * io_end with unwritten extents is completed from ext4's workqueue
->> +	 * anyway, so only ask the block layer to defer the others.
->> +	 */
->> +	if (folio_test_dropbehind(folio) &&
->> +	    !(io->io_end->flag & EXT4_IO_END_UNWRITTEN))
->> +		bio_set_flag(io->io_bio, BIO_COMPLETE_IN_TASK);
->> +
->>  	wbc_account_cgroup_owner(io->io_wbc, folio, bh->b_size);
->>  	io->io_next_block++;
->>  }
->> 
->> ---
->> base-commit: 35aefefd7aba0801bab635b11943f932626be3b2
->> change-id: 20260924-ext4-dontcache-complete-in-task-2340ed5f3114
->> 
->> Best regards,
->> --  
->> Tal Zussman <tz2294@columbia.edu>
->> 
-> -- 
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
-> 
+> [ ... ]
+>
+> > @@ -2732,6 +2756,7 @@ static bool amt_request_handler(struct amt_dev *a=
+mt, struct sk_buff *skb)
+> >       for (i =3D 0; i < amt->hash_buckets; i++)
+> >               INIT_HLIST_HEAD(&tunnel->groups[i]);
+> >
+> > +     tunnel->last_seen =3D jiffies;
+> >       INIT_DELAYED_WORK(&tunnel->gc_wq, amt_tunnel_expire);
+> >
+> >       list_add_tail_rcu(&tunnel->list, &amt->tunnel_list);
+>
+> [Severity: Low]
+> Does this extend the lifetime of a Request-only tunnel from GMI to 3*GMI?
+>
+> amt_request_handler() still arms the first expiry at one GMI:
+>
+>         mod_delayed_work(amt_wq, &tunnel->gc_wq,
+>                          msecs_to_jiffies(amt_gmi(amt)));
+>
+> When that work fires, amt_tunnel_expire() computes:
+>
+>         deadline =3D READ_ONCE(tunnel->last_seen) +
+>                    msecs_to_jiffies(amt_gmi(amt)) * 3;
+>
+> The deadline has not passed yet, so it re-arms for roughly another 2*GMI.
+> Before this patch, a tunnel that only received a Request was freed after
+> GMI. Unauthenticated Requests can now hold max_tunnels slots three times
+> longer, and the commit message does not mention the change.
+>
+> The new comment in struct amt_tunnel_list also describes last_seen as the
+> "Last time a valid Membership Update refreshed this tunnel". At this
+> commit the Request path writes it as well.
+>
+> A later commit in the series, "amt: do not create tunnel state for
+> unauthenticated Requests", seems to fix this. That commit stops the
+> Request path from allocating tunnels, which also makes the struct comment
+> accurate.
+>
+> [ ... ]
+>
+> > @@ -3053,6 +3078,7 @@ static int amt_dev_stop(struct net_device *dev)
+> >       struct amt_tunnel_list *tunnel, *tmp;
+> >       struct sk_buff *skb;
+> >       struct sock *sk;
+> > +     LIST_HEAD(doomed);
+> >       int i;
+> >
+> >       disable_delayed_work_sync(&amt->req_wq);
+> > @@ -3079,9 +3105,19 @@ static int amt_dev_stop(struct net_device *dev)
+> >       amt->req_cnt =3D 0;
+> >       WRITE_ONCE(amt->remote_ip, 0);
+> >
+> > -     list_for_each_entry_safe(tunnel, tmp, &amt->tunnel_list, list) {
+> > -             list_del_rcu(&tunnel->list);
+> > -             amt->nr_tunnels--;
+>
+> [ ... ]
+>
+> > +     spin_lock_bh(&amt->lock);
+> > +     list_for_each_entry(tunnel, &amt->tunnel_list, list)
+> > +             tunnel->dead =3D true;
+> > +     list_splice_init(&amt->tunnel_list, &doomed);
+> > +     amt->nr_tunnels =3D 0;
+> > +     spin_unlock_bh(&amt->lock);
+>
+> [Severity: High]
+> Is list_splice_init() safe here while RX readers may still be walking
+> amt->tunnel_list with list_for_each_entry_rcu()?
+>
+> The old loop used list_del_rcu(). After this splice, the last tunnel's
+> ->next points at the on-stack doomed head. amt->tunnel_list is
+> reinitialised to empty, with no grace period in between.
+>
+> The only grace period in amt_dev_stop() is the synchronize_net() before
+> udp_tunnel_sock_release(). udp_tunnel_sock_release() clears sk_user_data
+> with rcu_assign_sk_user_data(sk, NULL), then shuts down and releases the
+> socket without waiting for readers.
+>
+> So an amt_rcv() call that already loaded amt from sk_user_data could
+> still be inside amt_request_handler() or amt_update_handler():
 
+I think this is correct.
+amt_dev_stop() needs to wait for in-flight amt_rcv() calls to finish
+before tearing down the tunnel list.
+
+>
+>         list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
+>                 if (tunnel->ip4 =3D=3D saddr) {
+>
+> A reader that has already passed the last tunnel would never reach the
+> terminator, &amt->tunnel_list. Would it then treat &doomed as a struct
+> amt_tunnel_list and read ip4 from stack memory past the list_head? It
+> would then follow doomed.next back to the first tunnel and loop in softir=
+q
+> under rcu_read_lock().
+>
+> That would stall RCU, which also holds up the pending kfree_rcu() calls.
+> Once amt_dev_stop() returns and its stack frame is reused, the reader
+> follows garbage pointers. If the stack bytes happen to match saddr, the
+> send: path in amt_request_handler() writes tunnel->nonce through the bogu=
+s
+> pointer.
+>
+> There is a second problem. A reader that reaches the allocation in
+> amt_request_handler() after the splice (amt_tunnel_get_or_create() later
+> in the series) can list_add_tail_rcu() a new tunnel onto the emptied
+> amt->tunnel_list. Nothing in this stop path frees that tunnel.
+>
+> Would list_splice_init_rcu(), which waits for a grace period, or keeping
+> list_del_rcu() work better here? This code also looks unchanged at the en=
+d
+> of the series.
+>
+> > +
+> > +     list_for_each_entry_safe(tunnel, tmp, &doomed, list) {
+> >               cancel_delayed_work_sync(&tunnel->gc_wq);
+> >               amt_clear_groups(tunnel);
+> >               kfree_rcu(tunnel, rcu);
+>
+> [Severity: High]
+> This is a pre-existing issue, not one introduced by this patch. Does this
+> teardown wait for a gnode->group_timer callback that is already running?
+>
+> amt_clear_groups() calls amt_del_group() for each group under
+> tunnel->lock. amt_del_group() only does a non-synchronous cancel:
+>
+> drivers/net/amt.c:amt_del_group() {
+>         if (cancel_delayed_work(&gnode->group_timer))
+>                 dev_put(amt->dev);
+>         hlist_del_rcu(&gnode->node);
+>         gnode->tunnel_list->nr_groups--;
+>         ...
+>         kfree_rcu(gnode, rcu);
+> }
+>
+> If amt_group_work() is already running, cancel_delayed_work() returns
+> false. amt_group_work() loads the tunnel pointer outside any RCU read
+> section:
+>
+>         struct amt_tunnel_list *tunnel =3D gnode->tunnel_list;
+>         ...
+>         spin_lock_bh(&tunnel->lock);
+>
+> If the callback is preempted before spin_lock_bh(), could the grace perio=
+d
+> finish so that it takes tunnel->lock inside a freed tunnel?
+>
+> If the memory has not been freed yet, the callback takes tunnel->lock onc=
+e
+> amt_clear_groups() drops it. For an EXCLUDE mode group the source lists
+> are empty by then, so delete_group stays true and amt_del_group() runs a
+> second time.
+>
+> Would that call hlist_del_rcu() again on a node whose pprev is already
+> LIST_POISON2? It would also decrement nr_groups twice and call
+> kfree_rcu(gnode) twice.
+>
+> amt_tunnel_expire() has the same issue, since it also calls
+> amt_clear_groups() before kfree_rcu(tunnel). Only gc_wq is cancelled
+> synchronously here; the per-group work is never waited for.
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261012125943.558629-1-omar%40blockcast.net
