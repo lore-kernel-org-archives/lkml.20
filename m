@@ -1,82 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E085427F3;
-	Tue, 13 Oct 2026 20:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B97654CF76;
+	Tue, 13 Oct 2026 20:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791924002; cv=none; b=CcT0rjG9vgowEkY+kOXz1tGex3glcY0rPTUjkYrmFHdf6E61Ijembxc2QyhGC/jgWo5GXNIJn5TDYdweYnY8BL+b+wbVf+Wu3jTN6b1jnTbqzim0Tcs9eTI8IjDkttAG2GI4zyHwDIgffNWbUsM/wmb0Asp3TawFasUEz8z0LTw=
+	t=1791924063; cv=none; b=Uk9wr1VRVmxf5UD1nQI41bJBLLZ1426Sg/7kOV5c6IbhhImd1W0bOAQitqmWjSsvdqRahjqh1uEyywDng3MDq9+xiSEwX5psmTP61orolHgyRbD1Qae+oG3uUKVTbGwgYxIEYlClkzzEM9dZAynNSkCBEXSO6tOEupbjAer82E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791924002; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LSBSvzziozpD4WTE2nNzsawUB+jqsx49QdrRhCViEEdsd9t0tA257R6KS6QWAXWPGR3Y9paVvQ67kEOd6qiSEBaStXISiMRRpiC7hs7XjKj7wdqw7AlFOzDF/2ZQC+j+mN7HPNWTzUarq3hxTa9iB07on5VwNWCE0xzL6374+qU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fEsHE9Ul; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791924063; c=relaxed/simple;
+	bh=uclqN8RJfyf8Rv9TDvNHTiHrO9mdVmgptS3BIIH+DWc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OGmMyJ8ZSUoTtp0Oy9bLItCQhhZdWHW0KjkhgE81muY1d7lvo2dyV+LYxUUEDXapxu2e3qYP1wX/nBcoSjLGd1uh3AJur9k/DxjdtF2SZaAeEyAJfJ5dMypNvoszYl1tFD8YuKV2Xt5oiev2f5VPSyy6muAPzR/4qWtHOiHVIBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=t-8ch.de; spf=pass smtp.mailfrom=t-8ch.de; dkim=pass (1024-bit key) header.d=t-8ch.de header.i=@t-8ch.de header.b=WTpxCQku; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=t-8ch.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=t-8ch.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fEsHE9Ul"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90C421F000FF;
-	Tue, 13 Oct 2026 20:40:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791924001;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fEsHE9UlJiPlgGv9Engklk6RpJzvQTOr4OzD5TzGvSLuJVS/IRRnBQNx/fjrMRaaE
-	 KIHuzgnrrTESZJxlGkVyIDS4AsRpFL+eSOCFW6npGwJ4yGzm+li/rpSUY4oA+pOr9K
-	 LD71SbrXfhs2SCKGFDPf5qEl1n5vu0i0ykc7i+P2dDL2IANYhwHjErp2X4HEyuXpOe
-	 QeL0Bw+qcoEAEjwpLLOY4hUEieJWpjzkOJz2u8oOL464++sMkPMGqQwbPW4z4Gn1zC
-	 fdbLk4uqEaAi29loB63nKJDLPGwxBfEmspoYP+SK/O8BW52Qtu+zy/okpN1ph4+RyT
-	 jKTm0X/PDas9A==
-From: netdev-bot+sinfo@kernel.org
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Stanislav Fomichev <sdf@fomichev.me>, bpf@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: avoid duplicate XSK TX completions
-Date: Tue, 13 Oct 2026 20:40:00 +0000
-Message-ID: <179192400014.160550.9046457038671470723@kernel.org>
-In-Reply-To: 
- <20261013-submit-stmmac-xsk-tx-completion-v1-v1-1-f21b9d098e62@gmail.com>
-References: 
- <20261013-submit-stmmac-xsk-tx-completion-v1-v1-1-f21b9d098e62@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=t-8ch.de header.i=@t-8ch.de header.b="WTpxCQku"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=t-8ch.de; s=mail;
+	t=1791924060; bh=uclqN8RJfyf8Rv9TDvNHTiHrO9mdVmgptS3BIIH+DWc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WTpxCQkuSUfT4AOK+1RAJ6+JYlpvb/k4yKU3iqZ1dbaW/6JaE0CciXJtlD0hqDXgk
+	 PHalu4j1+CI1QtWxUfex2bJgKIxv8qn9bKqL1FdYehLM1pOrkRtnhhMy0U4QhoJcvv
+	 hr8cw62xouS04vpQ0wJzOtV4iANQORFz2XTfIbQ0=
+Date: Tue, 13 Oct 2026 22:41:00 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas@t-8ch.de>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	linux-kbuild@vger.kernel.org, Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Ian Rogers <irogers@google.com>, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 4/6] tools: build kernel selftests in tools_build
+Message-ID: <8ee33f00-bd8f-4cf2-90c4-2961f443af60@t-8ch.de>
+References: <20261011233647.2454648-1-sashal@kernel.org>
+ <20261011233647.2454648-5-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011233647.2454648-5-sashal@kernel.org>
 
-Hi!
+On 2026-10-11 19:36:43-0400, Sasha Levin wrote:
+> Add a "Kernel selftests" sub-menu with one entry per selftests directory
+> that builds with only a C library and does not write into the source
+> tree. Each is built as "make kselftest-all" builds it, with KHDR_INCLUDES
+> pointing at the UAPI headers installed in the object tree, but by its own
+> make, so the selected ones build in parallel. Selftests whose Makefile
+> does not use KHDR_INCLUDES still build against the C library's copy of
+> the UAPI headers.
+> 
+> The selftests do not track header dependencies, so a selftest is built
+> again from scratch when its own directory, a header or makefile any
+> selftest may share, or a kernel source it includes directly (the vDSO
+> test includes the architecture's vDSO code) is newer than its last
+> build.
+> 
+> Selftests that need libraries beyond the C library, a vmlinux with BTF,
+> or a sanitizer runtime are left out for now.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  tools/Kconfig         | 239 ++++++++++++++++++++++++++++++++++++++++++
+>  tools/Makefile.kbuild | 100 ++++++++++++++++++
+>  2 files changed, 339 insertions(+)
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+(...)
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+> diff --git a/tools/Makefile.kbuild b/tools/Makefile.kbuild
+> index 62fd494253eca..c31347258d0a9 100644
+> --- a/tools/Makefile.kbuild
+> +++ b/tools/Makefile.kbuild
+> @@ -92,6 +92,106 @@ PHONY += perf
+>  perf: FORCE
+>  	$(call build,$(outdir)/perf,-C $(toolsdir)/perf -f Makefile.perf O=$(outdir)/perf $(perf-flags) $(perf-flags-y),,TOOLS_BUILD_PERF)
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+(...)
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+> +# Unlike tools/build, the selftests do not track header dependencies. A
+> +# selftest is built again from scratch when its own directory, a header or
+> +# makefile any selftest may share, or a kernel source it includes directly
+> +# is newer than its last build.
+> +selftest-shared := $(outdir)/selftests/.shared
+> +selftest-extra-vDSO := $(abs_srctree)/arch/$(SRCARCH)
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Can we not fix the selftests to properly track header dependencies?
+That has been an annoyance of mine for quite some time.
+It would also get rid of a whole bunch of hackery here.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+(...)
