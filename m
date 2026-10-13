@@ -1,139 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3008D522EFE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9C92D7DD8
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:46:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791917188; cv=none; b=jflxB9MS8d21NlFhrWFUazCQ/6zqZI0Sqs/3WPTKOVebmXwY0Qgni6b8Vx025P0T8Y+fHs3IB0UNq9A9k45nes5F7NI6YpivXq09n03op/hJzTEll31DyihV9XN/5vtNhg2LQALut2JUDBKuVXOcu5Op0dWBSSzIjANCkPM9v2o=
+	t=1791917199; cv=none; b=btiaIrPpVwZsWMTUUqPKeApw+TjvBZV4+3JA2V6v/ZCpvLFgP3fnNnLOpz/BD+iAdnDrqL7XeoAh9MIPnbjeOi67JVfTqif7P2riZTpd+Te2i+NL+HV08BXGowpq8yHFg0uH77dhfwOnfhafc/G8Zf2dDWosO1AJ2kcbV/EV5m8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791917188; c=relaxed/simple;
-	bh=LxxSs4Q+jmMYO5apP9Bqx2gwYDq83vinoJqhu0CZp3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AJ8ZHC8/n6IufiVAiO1jfrZapOdyt51y37rpJjEGZL9I3KQvpel+nDaA60JNg9DSMxn9Bip+wFT39UA6xNR5gvkOygzKpIBaxZC6t6INOQy29SaIyL5PBSRibnN4YNVYr6+eIcwO1rTqbKkpmVkP/SwHBRe53gOtuIVgP8nBJ28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=njfjwD9M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791917199; c=relaxed/simple;
+	bh=acFlXcEiT572ZJiXrFiAgDdQAsAnP97RVwbtXkKqf64=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fGDnqmUql5CeLkUDVb3PrGp7bmMK/OA2ZNvpDskp9wReLjSouTfML66Y9JoSyTmDkyPiGHLqVA8LLRxElN4exbcvCRAmGGU8mvgmeD6ABMnzqSDOa2jU9P2V7rr4lDHqllIo256NOJF0H6So00JYnB7JvFAAh0xy3X4bHyKHqIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ptXafzjw; arc=none smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="njfjwD9M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B68B1F000FF;
-	Tue, 13 Oct 2026 18:46:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791917186;
-	bh=nGhjLiCB/kpOC+4xcqoKGX7gdUhs9TdWF5/M85BZM4w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=njfjwD9MrmIinPjPJ9qJkSvGk2q5SR89KdvOEXMGh9/fXVc7Pfn/gktYXd6Lf+Gcq
-	 vQ2rdXMJEsV6e9V5cKAUARfYq/PuPNWRG2POYM2IMO9CKOtILaIfY6ukhbqrtFIZHf
-	 1U4hrcBbtxyZ/jXJmGUldfPq7X0lp/1ukmaJqn+iVitpDw6MuQIqsuRUgenSbiss3f
-	 FmClyfrudm+ieuBvrR1mgII7i2TjRBoDh4J6uS1VCbKQ2hGpogNfmdVQe8Uz9r8a87
-	 ZrmCXvkxV8Z8U7/HF6d8M61BgFhd1hZt6mCugyqKW2aHQqlbOwEUbhZDTB8ZyAOiEF
-	 qnqP2pO00y83Q==
-Date: Tue, 13 Oct 2026 18:46:24 +0000
-From: Jaegeuk Kim <jaegeuk@kernel.org>
-To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-Cc: linux-f2fs-devel@lists.sourceforge.net, Chao Yu <chao@kernel.org>,
-	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH v4 00/18] f2fs: support & optimize large
- folios for writable files
-Message-ID: <as58gCX6mzaExhxs@google.com>
-References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ptXafzjw"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so3000800eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:46:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791917198; x=1792521998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YVHOpieiCoFh8hF+Mie/r7LlqSh7kncM/953p3AKcNE=;
+        b=ptXafzjw3W3p1wTIVm3ghyuVk+PH9Nnd+/zZ4UYwiT/k6GKfpD9AZfY4Jjb+UYKoXr
+         U0ZvLGBAj99ARRgl9dZ3rzVpPq+uQZV/zKJ4fD9vanFj+12A2aGYBtrWBmia8t4uliAj
+         o9czzf0DCJbyQI20INenpctfwEiH36DEkIJiEaDhbQAjLEN6GxAZfZlLU8AHMfsf1thi
+         XHi3hqWfLize8RWbEBskk5jeJS0Q8bsja1NN/Py0/y2nJzj8KJeuvroM4y+M/xL6Fddo
+         1ZejWyL0E7fwmRLuK5wVgaw5fDPgu/PDy8CeON19vbix3LccalWSRIXxIq0uPlrAicgJ
+         1QxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791917198; x=1792521998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YVHOpieiCoFh8hF+Mie/r7LlqSh7kncM/953p3AKcNE=;
+        b=a1NqA+ja8+d7kcI9Y0EcoxG2lVrefjWhzcBletTAm18ZzAQqHkGpX+tMABbIlocuDt
+         mZJGvrnU5N35v4oWGLZdiK7wjh0OA6pfikAy7m+hDvLtu6wVDcQkO5ElG4Q1wnVWMd12
+         WGV9LzJYZMzQf1YFjDpSkUxoj04Lq4wFDgTwvPMtBeNyPd884RCNvfGI0BjZFobo+Ory
+         PRR6yR2UmGfy4w8dt23yHfAD0zMsPXOXAiPKbw6mTJdtYp0wDEbhoT3oNAg1fbhTsSKT
+         /N4W8au+wQnPIIua3wtT3ny/4qhysF1udTzAFa3K+ZxxHpdJvYLD60uQuO+eKHKWFDIm
+         zVgA==
+X-Forwarded-Encrypted: i=1; AKwUvBxwfQOhffjfH7gHl/vRr3g/5oAMIVHPNefmZ+IfNTHgonZ58gN4hu2xyhX+INVf5fsadPaFBgt7VQgwNZY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKj0VMOw+IDN99v0Y+cuRoU9/m2YqplGQby2MzQmu6sEjeETjTu
+	g8RHCEVc5pQQjmfNO1tFoEnnmtFGnYFqNQ+McV5ldXhx5zCpCfXX7mDo
+X-Gm-Gg: AYBFou0Wu8TBY/xHpMj3iLaNfWt13mrVdew7luFc6xjfCsnCKEpPDeRL29vetkV4asW
+	fV8gb3lewjNlflIIAGhWvNAbdr0PFlfkCmq4PjvGURsTCnW9jAXJgbqzIEaTh6xWaJFcDQnX2WH
+	vLeUfnH4n6kUZ06tvIGXl+kwKutMdm3gIoC2JP8m9V4tU3mi9LEpvS3qJQxfmz2FSB+RUEC3gUR
+	wC0sIsJc/PC7Ebw7DBqEal7QzPmbDXAWntM4UuZ06l6zbArGTa5KfU2ld8VLyiHu//zb52nvOwe
+	KRC4ZcbHd73Rj1j7uSoQDfO4CkhgAc9XF9KqO5og+Q4m44Wk5t+v0vgbhFpFQHmZoBrWBlxi8eg
+	jXq8f6gsruuxqVkmkKxUh5AUgfrPUXp0Cedztr6nh0/ifweJQVUXryFabavhpsvkok6W6Jq9c8H
+	VgTyUXJmTlv400YyCAAfYldzNeiRbF1Wz7nNaQeGAskLfb8T+6xLw0OJKPmSWj9VA6/OxPF/z+q
+	W+hNZBxA2sVBf7Bq3pvwON1Mzhg6YZ8j8yn9x3STwfXdl9JvGb9d/rUX04sxiTd1TRTjFY=
+X-Received: by 2002:a05:693c:4141:20b0:35c:8d1f:5634 with SMTP id 5a478bee46e88-35c8d1f58e8mr3912332eec.12.1791917195997;
+        Tue, 13 Oct 2026 11:46:35 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:9c40:5aab:66c1:112])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b19c6c7b4sm18951950eec.24.2026.10.13.11.46.32
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 13 Oct 2026 11:46:35 -0700 (PDT)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Jeff Chen <jeff.chen_1@oss.nxp.com>
+Cc: Jeff Chen <jeff.chen_1@nxp.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH wireless-next v2] wifi: nxpwifi: use str_on_off() for carrier state
+Date: Wed, 14 Oct 2026 00:16:25 +0530
+Message-ID: <20261013184628.29444-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Nanzhe,
+Both carrier prints open code the on/off ternary. Use the helper from
+string_choices.h instead. No change in output.
 
-Could you please rebase your patches on top of dev-test?
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+---
+v2:
+  - say what the helper is used for in the subject (Jeff Chen)
+v1: https://lore.kernel.org/all/20261012154759.42423-1-sinha.aryan03@gmail.com/
+ drivers/net/wireless/nxp/nxpwifi/debugfs.c | 5 +++--
+ drivers/net/wireless/nxp/nxpwifi/main.c    | 5 +++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git/log/?h=dev-test
+diff --git a/drivers/net/wireless/nxp/nxpwifi/debugfs.c b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
+index ccaf0eae3..fc2f188fc 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/debugfs.c
++++ b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/debugfs.h>
++#include <linux/string_choices.h>
+ 
+ #include "main.h"
+ #include "cmdevt.h"
+@@ -98,8 +99,8 @@ nxpwifi_info_read(struct file *file, char __user *ubuf,
+ 	p += sprintf(p, "num_rx_pkts_dropped = %lu\n", priv->stats.rx_dropped);
+ 	p += sprintf(p, "num_tx_pkts_err = %lu\n", priv->stats.tx_errors);
+ 	p += sprintf(p, "num_rx_pkts_err = %lu\n", priv->stats.rx_errors);
+-	p += sprintf(p, "carrier %s\n", ((netif_carrier_ok(priv->netdev))
+-					 ? "on" : "off"));
++	p += sprintf(p, "carrier %s\n",
++		     str_on_off(netif_carrier_ok(priv->netdev)));
+ 	p += sprintf(p, "tx queue");
+ 	for (i = 0; i < netdev->num_tx_queues; i++) {
+ 		txq = netdev_get_tx_queue(netdev, i);
+diff --git a/drivers/net/wireless/nxp/nxpwifi/main.c b/drivers/net/wireless/nxp/nxpwifi/main.c
+index 9e1334810..4d77b9ecf 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/main.c
++++ b/drivers/net/wireless/nxp/nxpwifi/main.c
+@@ -5,6 +5,7 @@
+  * Copyright 2011-2024 NXP
+  */
+ 
++#include <linux/string_choices.h>
+ #include <linux/suspend.h>
+ 
+ #include "main.h"
+@@ -1088,8 +1089,8 @@ void nxpwifi_drv_info_dump(struct nxpwifi_adapter *adapter)
+ 			     atomic_read(&priv->wmm_tx_pending[3]));
+ 		p += sprintf(p, "media_state=\"%s\"\n", !priv->media_connected ?
+ 			     "Disconnected" : "Connected");
+-		p += sprintf(p, "carrier %s\n", (netif_carrier_ok(priv->netdev)
+-			     ? "on" : "off"));
++		p += sprintf(p, "carrier %s\n",
++			     str_on_off(netif_carrier_ok(priv->netdev)));
+ 		for (idx = 0; idx < priv->netdev->num_tx_queues; idx++) {
+ 			txq = netdev_get_tx_queue(priv->netdev, idx);
+ 			p += sprintf(p, "tx queue %d:%s  ", idx,
+-- 
+2.46.0
 
-Note, I applied [0] and [1] already.
-
-On 10/13, Nanzhe Zhao wrote:
-> From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-> 
-> This series supports large folios for most readable/writable files
-> in buffered I/O paths, including normal files, block-layer encrypted
-> files, and atomic files except for inline-data files, compressed files,
-> and quota files.
-> 
-> It also extends f2fs_folio_state to coexist with f2fs page-private
-> flags and to handle large folio write path and partial truncate of
-> large folios correctly.
-> 
-> Benchmark details can be found in the RFC v2 cover letter [1].
-> 
-> Changes in v4:
-> - Rebased onto linux-next next-20261012 (4eb2586bd40d); its f2fs part
->   is the f2fs dev branch.
-> - Added "f2fs: read i_size once in f2fs_vm_page_mkwrite" as a
->   prerequisite (also sent separately).
-> - "f2fs: remove mappedtodisk flag usage in mmap write path" is kept as
->   a prerequisite.
-> - Link to v3: [2]
-> 
-> Patches 1 and 2 are prerequisites for the large folio work. They are
-> also posted independently as bug fixes, and are kept in this series to
-> make it self-contained for the sashiko review.
-> 
-> Many thanks to Chao and Daeho for your extensive reviews and valuable
-> suggestions!
-> 
-> [1] https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
-> [2] https://lore.kernel.org/linux-f2fs-devel/20261009161224.4163796-1-zhaonanzhe@xiaomi.com/
-> 
-> Nanzhe Zhao (18):
->   f2fs: read i_size once in f2fs_vm_page_mkwrite
->   f2fs: remove mappedtodisk flag usage in mmap write path
->   f2fs: extend folio state for large folio write path
->   f2fs: carry subpage offset and count in write IO
->   f2fs: support regular file buffered writes on large folios
->   f2fs: support atomic file large folios buffered write
->   f2fs: support large folio writeback
->   f2fs: account large folio dirty data at block granularity
->   f2fs: prepare mmap write faults for large folios
->   f2fs: make GC migration large-folio aware
->   f2fs: optimize small block size large folio read
->   f2fs: support partial uptodate large folio read
->   f2fs: handle partial truncate of large folio dirty subpages
->   f2fs: wait for folio writeback before ffs_detach_free
->   f2fs: fix zeroing paths for large folios
->   f2fs: handle block cloning within the same large folio
->   f2fs: allow large folio support to writeable files
->   f2fs: make compressed files compatible with large folio
-> 
->  Documentation/filesystems/f2fs.rst |   10 +
->  fs/f2fs/checkpoint.c               |   40 +-
->  fs/f2fs/compress.c                 |    7 +-
->  fs/f2fs/data.c                     | 1425 +++++++++++++++++++++++++---
->  fs/f2fs/dir.c                      |    2 +-
->  fs/f2fs/f2fs.h                     |  173 +++-
->  fs/f2fs/file.c                     |  252 +++--
->  fs/f2fs/gc.c                       |   38 +-
->  fs/f2fs/inline.c                   |    9 +-
->  fs/f2fs/inode.c                    |    4 +-
->  fs/f2fs/namei.c                    |    1 +
->  fs/f2fs/node.c                     |    2 +-
->  fs/f2fs/segment.c                  |    3 +-
->  13 files changed, 1706 insertions(+), 260 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
-> 
-> 
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
