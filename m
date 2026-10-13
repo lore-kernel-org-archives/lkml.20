@@ -1,80 +1,123 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252505221D3;
-	Tue, 13 Oct 2026 15:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E57853D9CD
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905836; cv=none; b=amPxFAp/rb9r0EfdOlCo6nA7N/3e3BUwOpaqyWpL/REcJCitQXl40WV5X0suv62O08s9BJhvXqY66rzyfW9iL183XhccZPFiMDUJuRsS3KTmD7H9P/fT/eO2NIYoVLtlz5Aw+vKhPJXNxc5tAsB1UM+wTkhAh+wX9jNNL+HO9ws=
+	t=1791905837; cv=none; b=GFBODbpnyN80dQ9Of6ZEzuQD84Zbu2r8QWixbNEVW15tXkeYFMy7CCuXQzGvIG5TX0Ql5+F6W7PDs/pW0y6Kmy9Fe4ny2UaqSuzyZGFTizRtJgH93/q/9r4g+nYfr44ZX8OuGPjzSW4XZyV0OPS7qMwuzS5Pb3cKrvvoG5Dc9vQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905836; c=relaxed/simple;
-	bh=Qkbn0WuH2H9J22IDpkqhPIsmmDiKKL7qr4cIGjwzim0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=qSUYARNdvy8Ow3488maC64jslJZXlfd6GunNAOkrU4y7Vpxcu5zqGPwjhS5fRTkP3qHtaozWB0jWMneGuVYZwLKPMU95YEhb60WOVUM9Xl5EvqPELGAf3rhcNAc1+5Wcq4UAdJXK+9TjFQQ6CAHkIMiZ8EoeERgd7G58LUkQnoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Eat++qsN; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791905837; c=relaxed/simple;
+	bh=ba5pKKZXSxEPn/3pBVB+qWc11VN2rVxH/RpQ1sW9bJE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hcaPLug5c1MoBOVaxJBLuTfGRgxpLQdkns+32l+agt3WnOB5CUSpHrMf6bJbuW7uo/L+fKnIYT916hUtWGlyhfHJ5ojyXsZEE/+jF40GzM6h4NO2sm/W+dONkkgIFRVyR483ny/d5Gj/NgLAEdHVje2EmsmMvhpFs6k2wlSx1pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TyWpVrLq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Eat++qsN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=Qkbn0WuH2H9J22IDpkqhPIsmmDiKKL7qr4cIGjwzim0=; b=E
-	at++qsNsOrRp9wxPXUR2fEsuVrAjdzoyKw/xspfwfQHzDv8ATwc8d7y8dHvSe+bb
-	7EgG/0BpYjyg1Ni90pn6stLxP5GOTfcwvGnuF6eujF2c4GNz8K5ozL+pCqVddifO
-	jVYU5MWe5HDkwYMcMS+BO96WCFPSZTbFptmRv9QFDA=
-Date: Tue, 13 Oct 2026 23:36:20 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Bartosz Golaszewski" <brgl@kernel.org>
-Cc: longzhao@ambarella.com,
-	"Long Zhao via B4 Relay" <devnull+longzhao.ambarella.com@kernel.org>,
-	"Linus Walleij" <linusw@kernel.org>,
-	"Michael Walle" <mwalle@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
-	"Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Conor Dooley" <conor.dooley@microchip.com>,
-	"Chanho Min" <chanho.min@lge.com>, linux-gpio@vger.kernel.org
-Subject: Re:Re: Re:Re: [PATCH 0/7] gpio: add Ambarella CV75 PL061 support
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <CAMRc=MezU71ByUoO-GMxSwsFsGZTUmQisYYrYEwtdbwyFiEqsw@mail.gmail.com>
- <73c4ceaf.9c2f.1a13599e8ca.Coremail.zl020895@163.com>
- <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
-X-NTES-SC: AL_Qu2SA/Wbuk8j5iCebekdnUoTj+Y/XMK0uvwk1YdVc+MEpS7JyCwnWU9tAFfdweisFT6RohuNQSVQzMdUe413VehHBbQVcItEaM2+sBTpGQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TyWpVrLq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260111F000FF;
+	Tue, 13 Oct 2026 15:37:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791905836;
+	bh=45NPBWpuG2PMTMsqvm/ZHaqFngaU9inDYGxV4ki9ifs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TyWpVrLqAtEiZ/xCttrXNqMMCpkOgGN02fHQnmQi3NLkg+hAsOBB0YuplOkjKJsyD
+	 pXG6vdXLT0alpbPoQ641+8si2elcykM3GJmJKVn4YSMhwEqYymkTr5Wxh6Xgi45c1n
+	 a/1D/exDt+kY37WH7aZrsgNUEobktJtFE8DhXvGy03Octs2Aveh8BFUCVs+JDMgfjC
+	 U8wOvzui2h9QbJ9TwU9dbLesE9vEJU67mPM1L7EKhQA1oeRuAAiWWXFk8ZuCRRxdHm
+	 z+lZiCFy7DFrYQllHlsZHN+whXQ6CP3uwedCuo5l33HC/TT5iPAcK8xKfnuOdVZxjM
+	 CbkDB6ws47MlA==
+Date: Tue, 13 Oct 2026 16:37:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Nishanth Menon <nm@ti.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	alexander.sverdlin@siemens.com, jan.kiszka@siemens.com,
+	ayush@beagleboard.org, robertcnelson@gmail.com,
+	upstream@lists.phytec.de, francesco.dolcini@toradex.com,
+	leonardo.costa@toradex.com, matthias.schiffer@ew.tq-group.com,
+	stefano.r@variscite.com, eblanc@baylibre.com, msp@baylibre.com,
+	thomas.richard@bootlin.com, miquel.raynal@bootlin.com,
+	mwalle@kernel.org
+Subject: Re: [PATCH] arm64: configs: defconfig: Convert TISCI to modules
+Message-ID: <b76c9619-0485-47f2-85a5-9fc2bc7ddc6a@sirena.org.uk>
+References: <20260910134409.1713610-1-nm@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1e8db23.a299.1a135e85172.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:bCgvCgBn9_z0T85qiRhYAA--.381W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7hRf0GrOT-SNyAAA3v
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nT0mY8isk5i19UMu"
+Content-Disposition: inline
+In-Reply-To: <20260910134409.1713610-1-nm@ti.com>
+X-Cookie: Some assembly required.
 
-QXQgMjAyNi0xMC0xMyAyMzowOToyNSwgIkJhcnRvc3ogR29sYXN6ZXdza2kiIDxicmdsQGtlcm5l
-bC5vcmc+IHdyb3RlOgo+T24gVHVlLCAxMyBPY3QgMjAyNiAxNjoxMDo0MSArMDIwMCwgemwwMjA4
-OTUgPHpsMDIwODk1QDE2My5jb20+IHNhaWQ6Cj4+IEhpIEJhcnQsCj4+Cj4+IFllcy4gVGhpcyBp
-cyBlZmZlY3RpdmVseSBhIHYxMCBvZiB0aGUgR1BJTyBwYXRjaGVzIGZyb20gdGhlIGNvbWJpbmVk
-IENWNzUgc2VyaWVzLiBJIHNwbGl0IHRoZW0gb3V0IGFuZCByZXN0YXJ0ZWQgdGhlIG51bWJlcmlu
-ZyBhdCB2MSBiZWNhdXNlIHNvbWUgbWFpbnRhaW5lcnMgcHJlZmVycmVkIHNlcGFyYXRlIHNlcmll
-cywgc28gSSBhbSB0cnlpbmcgdGhhdC4KPj4KPgo+UGxlYXNlIGRvbid0IHRvcCBwb3N0IG9uIG1h
-aWxpbmcgbGlzdHMgYW5kIHdyYXAgeW91ciBtZXNzYWdlcyBhcm91bmQgODAgbGluZXMuCj4KPk1h
-eSBJIGFzayB3aGljaCBtYWludGFpbmVyIGFza2VkIHlvdSB0byByZXNldCB0aGUgbnVtYmVyaW5n
-PyBUaGlzIGRvZXNuJ3QgbWFrZQo+YW55IHNlbnNlLCB0aGlzIGlzIGEgY29udGludWF0aW9uIG9m
-IHRoZSBvdGhlciBzZXJpZXMgYW5kIHNob3VsZCBiZSBudW1iZXJlZCBhcwo+djEwIGFuZCBpbmNs
-dWRlIHRoZSBjaGFuZ2Vsb2cuCj4KPkJhcnQKSGkgQmFydCwKCk5vYm9keSBhc2tlZCBtZSB0byBy
-ZXNldCB0aGUgbnVtYmVyaW5nLiBJIHRob3VnaHQgdGhhdCBvbmNlIHRoZSAKcGF0Y2hlcyB3ZXJl
-IHNwbGl0IG91dCB0aGV5IGNvdW50ZWQgYXMgYSBuZXcgc2VyaWVzLCBzbyBJIHN0YXJ0ZWQKYWdh
-aW4gYXQgdjEuIEkgd2lsbCBzZW5kIHRoZSBuZXh0IHBhdGNoIHZlcnNpb24gYXMgdjEwLgoKQmVz
-dCByZWdhcmRzLApMb25nIFpoYW8=
+
+--nT0mY8isk5i19UMu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Sep 10, 2026 at 08:44:09AM -0500, Nishanth Menon wrote:
+> Now that all relevant drivers have are ready, convert the
+> TISCI drivers to modules. This impacts all K3 platforms for
+> boot, recommendation (based on empirical evidence) is to use
+> deferred_probe_timeout=60 in kernel command line to allow for driver
+> probes to complete successfully based on the initrd used.
+
+I'm seeing boot failures in -next on the k3-am625-verdin-wifi-mallow
+which bisect to this commit, unfortunately the failure mode is that we
+get no console output which isn't super helpful (I'll try to persuade
+earlycon on but there's some issues with my CI setup).  I *should* have
+modules in the initramfs, I'm suspecting some dodgy deferred probe
+handling or something.
+
+bisect log:
+
+# bad: [4eb2586bd40db27d77cc5b724ca9386ed0c71d53] Add linux-next specific files for 20261012
+# good: [1d1c098dffddd29549b00946759ae0923f66b9c4] Merge branch 'for-linux-next-fixes' of https://gitlab.freedesktop.org/drm/misc/kernel.git
+# good: [c9b15cd49b3fbd54f3382655b4e898921a7adb4e] arm64: dts: ti: var-som-am62p: Fix wkup R5F memory region size
+# good: [483872c9385c9726b056428adbaaf213623ab5a3] ARM: dts: ti: keystone: k2g: Move usb-phy nodes out of simple-bus
+# good: [b1368ab37a986bd448e989998eba6ad563207e06] Merge branches 'ti-drivers-soc-next' and 'ti-keystone-dts-next' into ti-next
+git bisect start '4eb2586bd40db27d77cc5b724ca9386ed0c71d53' '1d1c098dffddd29549b00946759ae0923f66b9c4' 'c9b15cd49b3fbd54f3382655b4e898921a7adb4e' '483872c9385c9726b056428adbaaf213623ab5a3' 'b1368ab37a986bd448e989998eba6ad563207e06'
+# test job: [c9b15cd49b3fbd54f3382655b4e898921a7adb4e] https://lava.sirena.org.uk/scheduler/job/91694
+# test job: [483872c9385c9726b056428adbaaf213623ab5a3] https://lava.sirena.org.uk/scheduler/job/92558
+# test job: [b1368ab37a986bd448e989998eba6ad563207e06] https://lava.sirena.org.uk/scheduler/job/92473
+# test job: [4eb2586bd40db27d77cc5b724ca9386ed0c71d53] https://lava.sirena.org.uk/scheduler/job/93242
+# bad: [4eb2586bd40db27d77cc5b724ca9386ed0c71d53] Add linux-next specific files for 20261012
+git bisect bad 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+# test job: [72c85b5b41c211b3c71335a7b86a2b61bded6a55] https://lava.sirena.org.uk/scheduler/job/92326
+# bad: [72c85b5b41c211b3c71335a7b86a2b61bded6a55] Merge branches 'ti-k3-dts-next', 'ti-k3-config-next', 'ti-drivers-soc-next' and 'ti-keystone-dts-next' into ti-next
+git bisect bad 72c85b5b41c211b3c71335a7b86a2b61bded6a55
+# test job: [11a51e82e1f997975a28358a1dcffec190ea7282] https://lava.sirena.org.uk/scheduler/job/94775
+# good: [11a51e82e1f997975a28358a1dcffec190ea7282] arm64: dts: ti: k3-am62-verdin: fix main_gpio0/main_gpio1 line names size
+git bisect good 11a51e82e1f997975a28358a1dcffec190ea7282
+# test job: [712357fa6b256b0a6bcf9a26b5c52e8bce36680a] https://lava.sirena.org.uk/scheduler/job/94813
+# good: [712357fa6b256b0a6bcf9a26b5c52e8bce36680a] Merge branch 'ti-k3-dts-next' into ti-next
+git bisect good 712357fa6b256b0a6bcf9a26b5c52e8bce36680a
+# test job: [e557da9b756dba66f9b1ae8bb27add2b7719baf4] https://lava.sirena.org.uk/scheduler/job/94891
+# bad: [e557da9b756dba66f9b1ae8bb27add2b7719baf4] arm64: configs: defconfig: Convert TISCI to modules
+git bisect bad e557da9b756dba66f9b1ae8bb27add2b7719baf4
+# first bad commit: [e557da9b756dba66f9b1ae8bb27add2b7719baf4] arm64: configs: defconfig: Convert TISCI to modules
+
+--nT0mY8isk5i19UMu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOUCAACgkQJNaLcl1U
+h9B/CAf+OP/Zx9VGoK9IB2pwEmbfZG7zHXNyhapGB1Lj+1QCxDTin/mQB4cIAXQo
+XANGZJGR7Yt9EEILy1QLa3QDkKz674oft7V9sQ/wkaIfaIifxnRomXLvXbIS1vfk
+ZRMgPJ5nILrlZSoIC1RZOtYkICFuKqGgulZMxdXiBYHYYD+OfbPO7JwjdC5xsD3+
+3IHxdJ3WheDfxK5yWyQv4eGkgBIYXxKBx3JKjPafCDpf0tdsGOfDBSHD7O4rb/Lz
+/CiOkGRel2ctzaC95IAZT4k3PxEE2SkhC/2uv3yL+hdNZ1ruTsdWlzNi1E+4DL0X
+Z9A/JOpnljFope+78OZTB8e3wN8xow==
+=uwPz
+-----END PGP SIGNATURE-----
+
+--nT0mY8isk5i19UMu--
