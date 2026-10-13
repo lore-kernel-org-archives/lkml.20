@@ -1,104 +1,170 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284F5391838
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9501233F5A8
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791853511; cv=none; b=RESuToNrngM4sxl5PLUv9D82qBfdwuyiR7Mxbgh+gWU5lslc4i2zMRHHXcNrlyT9DsfmIOzvvjDx5aPMPTKWydIuXJM3pjd4w+N5ARQMXJwRP63guSnLgkBQ2vnXcdHjmvgmCKUlU+7lCcd5/ySQnpgwmqmczD+xqBYSrBLNiFY=
+	t=1791853561; cv=none; b=urS8LxGH6Sc4KnkvHqP5h8eKO1P+zpTKes/XS4318jbHQXca9u2R6tVXzUP/2KOPrnAmkYQZfXJYF+o/SWwWgRsF5MF6CH/nvZiOmmp36pJ3Q2Qw3lV1R6JffwBi6mm0FH6qSzfC6gWRSgwdA8gn6GJl5Na68Lv06K0vpnP5t8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791853511; c=relaxed/simple;
-	bh=lc9zj8acVJzB2Zqg5NYLr7ldjKhGUblQwyVTN5qJy9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FeoAqISjayPdzG+GvGADEkhbB9ljh+i2UzsgbmfKQekcHQSLz/rnJ5SLxXqb/EJJDJ6PHp+u2H5aZJZ3tzisGVXLpgsilaTNr8dwiqF5+YJb/YcOyCcdyKU4YJRKGDJD520knqJs+Q7+ooU6BwMgGID3z4WjWNR8ubAmxboOKfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=iyp5Xkjr; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791853561; c=relaxed/simple;
+	bh=h/MBqoW4rymsrUEs28VvN7VfwrPYsRjNMLitK8/jw3c=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=dZkP6XY+Q3nFHBx6LkA+e096LUShitrxVIp9AHKTBC48WoGDe5BEfX2IuOGHyH2RyJ8ryOTsg1pRsfjC7+EhksnaexUwDxGllML/nI3jX9zS9ocVtnDww0YGhu8NEDrPBAL+8JFnPH/2n4EYMNdwrqt1e1TD64ReaLZwt8pEkJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gVvlj4Iy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fCqlaP9f; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="iyp5Xkjr"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-887fb6c0ad1so569834b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:05:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gVvlj4Iy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fCqlaP9f"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CJN69i2384450
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:06:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	l1kY0j8rfR8BCLWSUkl+P7vz1k2BLAGKluDytO7OdqE=; b=gVvlj4Iyu3w+P5Os
+	Qzcj/4L0CUPcGh9gLziBe6aVEphPNK/yHDFPlzFEZW69sz8GRgQu0NaDa8/jrGIL
+	2Hzqrd9OOSXctD6DH45CCRkXsk1ZfdGHtfzTIOrQhirjA5/hMtbkRwAxbPBIlXhk
+	n1Axv4SFNL/0jD6wyBhQyruqVWaDzf6YWfmmfgAwwzOi8APkGlrJQOVwyc5GUrDD
+	gVh14VSoarMFlMdHt53+PbzVMeLxHrZGg05uB3kbzFMBfd76uW7NO+m7ZRqm3HLs
+	+fj1C8Jo6IgqR4ulYuHS6Hev8xNWu+i4JHNpeLvyavcDLxvDRRDTgswP5ru3UWbT
+	GSV8ag==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8v7kuuxd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:05:59 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1665200f4c2so3390880c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:05:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791853509; x=1792458309; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1791853559; x=1792458359; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rogv8gP1H52CoBczHw69sKFPcqTXLhNajNS7Lu6i04U=;
-        b=iyp5Xkjr9/0PVvrnELxm+jrh8SzISYCJ69A1ly05gNkK3pXL0T0xoORr9VYECpqpTW
-         f2WtBk5CmHPfbAX0dudG0oqruztFRPqId0QWzeOCSxbheDIaCKI80kqg63YjshMViGI/
-         Rmhfxkq/+Xx8z0Bwq25iJz/8oqTBB6EU1REYzkJWIWksbGOFDSCBOXG+SFrykXPELUmQ
-         eJzoPLeoYbrSruTmyUkDnjcLtO7yng2h6earm/uMi2j6DgOOPa/odfms4nAqAaAKH8iw
-         N30SuUFdvCGc1jBiZTboRjPtCJynnmIYbePS5Ie7Qqhh1+jTZcTXA91b5xi7RrMuCVX1
-         I0pA==
+        bh=l1kY0j8rfR8BCLWSUkl+P7vz1k2BLAGKluDytO7OdqE=;
+        b=fCqlaP9fZxxCLg5lF629zo9sSAeirXgKl2s6sNJYYWUdnxVPS4j3YvhWGnn2qfXrBM
+         ZFtBd1DqBns1nhxY3unoGvCo4soogpI8TeGichTmy9V75pQRzVNaO3Y2rj8eC2gUdRqa
+         CTaOwOpmtJRIco/xZHV0wQqXTNg07BhT3NAb16XYQsFHK2+4Q+L8i7w+o7Ntityabn2T
+         UYlrEPl0rH45tka+RdQ27BggNKGF+RHQg/JyYNbeXI/chhhZ1G2QA1NAg2TrKwdYPebh
+         DewoiYwaQi72iJar1t7CFeZBnxrP5wYit+ppq+lvwCF5PCaWINb/X2fg4xZhpVdNFS+C
+         qNxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791853509; x=1792458309;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rogv8gP1H52CoBczHw69sKFPcqTXLhNajNS7Lu6i04U=;
-        b=aUIfqTMjnSVXWHUOR+hYVPyLhXZEgZQabNChv5T5VkBM7iTLrCjitjyHUCoPCQejtj
-         oeZifixygcSmHYCoyWT007OuwtXRG0yWM8TQLhkEAhCFGi2aHZDqtwhRn8vjj7SYPQWT
-         kvMejfRqW0H6CecEwsY47QGhzU6AYJsEHePtE+z8vPk7zc00KI5ecnuyxnMpkBwY5mNY
-         K2L10T5PXmsktC9XqYiPIx6BG4SnAZb8go4aICxx3CQXNSVcGlFn2vTw8FUtuiwTWsg4
-         ulQHD8VMyHN9BwKfXAuVevgJg0p9iBDoY65xGxEq5/qV1dD7RpXh0hNULGx16OnFshQn
-         jBKA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3MJfgUAgSEidPO8WSTaURbYfp18Ecdvym0exTf+m2vgBOuVTi3GdcNiF8luQ6RVkvc1V+cSIKLkoWnE8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYId3zOIJbuxgFzj19GsUpeHTbpZjzfuoeKbWeedw3ktEMfG1NXf
-	5f7cKJgOf941TaEYkjgHBhYQSkR2ceIvHhtA4A25vIEj/ePXihzJi7Iff1LMEWl5JJ8=
-X-Gm-Gg: AYBFou0D5crs7K80H+wjz21DrNyBnWcs5RUQgi+Z2x5gpdl3MhheJ8nbd9gL7Z6tezG
-	OMYlZF7b8Jm0fOj9aT5hLEJg1iynhBaqCGKAyPJlIGHbhGmeM/wBzhaY/bvJODYZTqNHTkzjgQc
-	A7ktK+4YX0gle1hINd262avMy6MPT7WnPChdVolxQ57/EmIHec6MfjSFCQVQ8NxvNQy2CNd6qQN
-	GOUZ02BAdiyPZ27paYfbYnL3rC+EFqsKK58Xjjq65frh8qXKfLj4SXXQ6sNdNZfjUM1DZ6xQsTo
-	CziGCAtxDnDISdTlO+MwdUKiLewMlQtJBqj3Cwapgflq/4dI7otVcfwrIsBm8U+a/sCDCcSlibi
-	dHZGpM9cF9zT5Sz+LI0DsgEo+sGtv1UsKIwxLZPI5v9TB/36Wp2EEkYFH09SFdRsl87wKdtIzJF
-	LhFyWWauhTI57mAQJeeBpfafCioRTOZ6fZkTZEeb5B8TKKEBKfblfL9NZzDAZ7djG9KnjbJmdeN
-	SM9Kw==
-X-Received: by 2002:a05:6a00:4185:b0:890:a3ed:8a49 with SMTP id d2e1a72fcca58-897c7cd481emr9345777b3a.51.1791853509580;
-        Mon, 12 Oct 2026 18:05:09 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3107194sm4387216b3a.18.2026.10.12.18.05.07
+        d=1e100.net; s=20260707; t=1791853559; x=1792458359;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:to:from:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l1kY0j8rfR8BCLWSUkl+P7vz1k2BLAGKluDytO7OdqE=;
+        b=Jx0IAkkctEQ8zhg2BZPz6kHyvcIuWc6WHmKuVBTxNuObVf4gVmHyuV/VyHZBiNBK7Q
+         ges2j29ecfmU28c6rryrlAs5EI18e8aT/Y9M852o77YmB1f9z3HCTaKrbZpG7XNW8FEL
+         4FTOl3Q7R8SqGfS2+6rWb80ynZWrC8HdhQJyWDwX2ZbqT/g0ZZNlmVK7Zj7FINgwtJMp
+         fq6mecSTRrmE5wuL6ZsDUseQ4TO4s/oOAvfOvmsVwyGX8VOSz2WOb+PHIzo5D8XgvTPb
+         KXICuKtnaZYizBcachmVX+2xcEdGabXPMKNtudXmt2c4m3FtzYwGSaP96NhSDHxbH17a
+         1JVw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDb/39hGpjRNKBnQegt/Q/TYbL/ozAN5g3BlKJnVcZii8zxdSVDgWOctSPsDIWMEspbrhTDv7xMP/2scg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJD6Sd/2WiygXcSStC1Vb+YBSpm2pmw+uXKcxTtkiNb/lUKCRM+
+	nQs5h9EFfVr6E4bqSg6y2Oz6PX0GFUFD68TaLZpXSBmeNJwn8u2N4WXP+wW5y+RJgsJx3z+ly03
+	4WEpdBDJav4CehwAyagLlvH2/+oOiRydUgmltwaJmsnKgtnYWCaI50oENxM57Fg7w+WU=
+X-Gm-Gg: AYBFou279uhthWYitnP3tYbMaFt5/8CJGxjzAXzr9Gtv/4Z3sqliXzJ4QcgTi9cYgT2
+	fdpVnHBL9OK17L29TNtSJObhV3IVYBIcVjAeHnfT10JWrsEzG5rkIomKJxDtlFRwFATTJXsdOkm
+	rIDQClJ0uvBiMq0fyEzz9BwVoaDIz40wEX9oGQlf6JebEDrVMDOit0Nx7nJvlpAAzcuahvuoHmk
+	Bx6IwZ4h9EzuIFqZWlMIaLXRAU+niAi4OTjsIdL9kBp04KUr+BG8r/GriLjjBiQha7p45GPAiyP
+	xfze3BEE9vmFCNptAyF4ZnjqG+6Ti9cNalE4RPS36te4xXPOmrb4941w9tdBJq+qJEHKixVslCs
+	fIUyXy2A7D8y2do11ppNb75SPe2GX2FFxLf2nu13/HeBon1vZT4d2w+Y=
+X-Received: by 2002:a05:7022:170a:b0:141:51fa:e609 with SMTP id a92af1059eb24-16a4c33923emr14320898c88.0.1791853558853;
+        Mon, 12 Oct 2026 18:05:58 -0700 (PDT)
+X-Received: by 2002:a05:7022:170a:b0:141:51fa:e609 with SMTP id a92af1059eb24-16a4c33923emr14320852c88.0.1791853558074;
+        Mon, 12 Oct 2026 18:05:58 -0700 (PDT)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a567bd18sm32904080c88.21.2026.10.12.18.05.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 18:05:09 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	target-devel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: f_tcm: reject a short write data-out transfer
-Date: Tue, 13 Oct 2026 10:04:54 +0900
-Message-ID: <20261013010454.2472267-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-168374@kernel.org>
-References: <20261012154422.2436134-1-yhlee@isslab.korea.ac.kr> <sashiko-outbox-168374@kernel.org>
+        Mon, 12 Oct 2026 18:05:57 -0700 (PDT)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: Jeff Johnson <jjohnson@kernel.org>, Kalle Valo <kvalo@qca.qualcomm.com>,
+        Michal Kazior <michal.kazior@tieto.com>,
+        Shashidhar Lakkavalli <slakkavalli@datto.com>,
+        Bhagavathi Perumal S <bperumal@codeaurora.org>,
+        Karthikeyan Periyasamy <quic_periyasa@quicinc.com>,
+        Govindaraj Saminathan <quic_gsamin@quicinc.com>,
+        Carl Huang <quic_cjhuang@quicinc.com>,
+        Wen Gong <quic_wgong@quicinc.com>,
+        Ramya Gnanasekar <quic_rgnanase@quicinc.com>,
+        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+        linux-kernel@vger.kernel.org, ath11k@lists.infradead.org,
+        ath12k@lists.infradead.org,
+        Sriram R <sriram.ramachandran@oss.qualcomm.com>,
+        Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+        Jiale Yao <yaojiale02@163.com>
+In-Reply-To: <20261003092104.520135-1-yaojiale02@163.com>
+References: <20261003092104.520135-1-yaojiale02@163.com>
+Subject: Re: [PATCH v2 0/5] wifi: ath: avoid IDR mutation while iterating
+Message-Id: <179185355715.3481009.13105817063716132761.b4-ty@b4>
+Date: Mon, 12 Oct 2026 18:05:57 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAwNCBTYWx0ZWRfX14l6Qlm/FfBa
+ BV1Vzk63h0JBbblLLAgjuvLCFTXbHGqKeSwPhzs4vKrhkgcpITjCafDs6dJSwCu3mx6qV1SupfZ
+ JoCK7JujUkWZVbwA+vLKUDc7v6rqxSiaRbhvJuL30I4ufL0q3T0LJHHf+bsOJE+Kxmhxhpi3duZ
+ BMVg5/TAAYqcU5KW3Bwpf3QGhXduqoi32eKL/39xXXyA3gMA2y5ENLkl4/MY7TE8LR3fgl2UaR/
+ Rox3GYTELiJoF6k6N2f8aBiyczgLSmtsCzqFfjkRaUwtMOH92rrH46CzLbhtw2bfhUZjIeu0Wpy
+ gaznrZzzu3DZlXY0UZ+RxmNnGP6e0VQG5imIZ2QjIpccxOtMkxHmrz/oUvoy+qEIWFW4y+7FCCf
+ pqUFUZ1PRpMptjXht8/hkXvJ5+Qg93Bna6RYpXER5apGuoVINQ+62euEeNJZN7QSzOsKZ4dlDXl
+ oAmexsiPYpMa3kx4svg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAwNCBTYWx0ZWRfX5wc3oSU83OC4
+ uVmWD7EuxtUqPRWYa/DqaJ+yt739ZAB3RONEQnCwpQmR2kQtB8D4s0N9oErukhMUG2772HHeJWY
+ zy/wCvMc5h8B23VHr3rNCrM/OhwIN8Y=
+X-Authority-Analysis: v=2.4 cv=VOtIDNPX c=1 sm=1 tr=0 ts=6acd83f7 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=Op5QjlldpLrGc0l9b0wA:9 a=QEXdDO2ut3YA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-GUID: 4TsMTLDddcAPXWYuHYvck6GvvWnGjdX7
+X-Proofpoint-ORIG-GUID: 4TsMTLDddcAPXWYuHYvck6GvvWnGjdX7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_06,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 phishscore=0
+ spamscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130004
 
-Thanks - both are addressed in v2.
 
-Deadlock: you are right, the failure path reached bot_send_bad_status() with
-cmd->data_len still at the full declared length, so it queued an OUT drain for
-data the host had already stopped sending.  v2 clears cmd->data_len on this
-path - the OUT data phase is over, so the status phase sends the CSW instead
-of draining.  I confirmed the drain is no longer queued: ep_out stays idle and
-only the CSW goes out on ep_in.
+On Sat, 03 Oct 2026 17:20:57 +0800, Jiale Yao wrote:
+> The ath10k, ath11k, and ath12k cleanup paths walk an IDR while removing
+> the current entry. idr_for_each() retains radix-tree iterator state across
+> the callback, so that removal can invalidate the walk.
+> 
+> Use idr_for_each_entry() in each cleanup path. It performs a fresh
+> idr_get_next() lookup for every iteration, allowing the current entry to
+> be removed safely before its skb is released. Keeping the existing locked
+> removal helpers also ensures that a concurrent TX completion cannot find
+> an IDR entry which points to an already freed skb.
+> 
+> [...]
 
-Log: v2 uses dev_err_ratelimited() for that message.
+Applied, thanks!
 
-For what it is worth, the same bot_send_bad_status() drain is reachable
-without this patch by any BOT WRITE that completes its data phase and then
-fails in the backend; the failure branch lacks the moved_data guard the
-good-status branch has.  That is a separate pre-existing issue, left alone
-here.
+[1/5] wifi: ath10k: avoid IDR mutation during TX cleanup
+      commit: 1c1a208e65a08191901cfded3bbccc4a54e4a75c
+[2/5] wifi: ath11k: avoid IDR mutation during pending mgmt TX cleanup
+      commit: 3e7f5d362b2b3a21b3adb4b860aad14b69a896ad
+[3/5] wifi: ath11k: avoid IDR mutation during vif mgmt TX cleanup
+      commit: dc29226dada34a6d19af77b4b51e90f8a3a8de34
+[4/5] wifi: ath12k: avoid IDR mutation during pending mgmt TX cleanup
+      commit: 94c7b50351fd30e1dfe1b4051197a1445d8547e1
+[5/5] wifi: ath12k: avoid IDR mutation during vif mgmt TX cleanup
+      commit: 4aa45334eb23d40bf31c43405daea9b73469f2a6
 
-v2: https://lore.kernel.org/linux-usb/20261013005854.2470384-1-yhlee@isslab.korea.ac.kr/
+Best regards,
+-- 
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
-Thanks,
-Yehyeong
