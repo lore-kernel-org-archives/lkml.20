@@ -1,95 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95965372DB
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:11:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D22053A894
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791933065; cv=none; b=JZKmftPjLYJOY4iI4ImfcNmB0JeonXgxyoLtm4FOCmHNOF25KE2pn2UtmCp0ZE7n+zxKr1v4uKyxq+V9/VBfke/33H0fabCLKy0ZjK+1vwxwuMXK6C9bLXbckQHL7jf4ffjNMbwocQukynni96u6QyN/neS9H6NYj2vR0G+9Lgg=
+	t=1791933091; cv=none; b=tbL7m33FUk3z3UzXjDfZIiqsuJipgbiGWQdovNvI9XjOUAM5fYU8fdBHcp1KX0rnjlC4ceeIONHeRRIOaOxTBIdJ4OaDrnDpBULylIwMzKJi2W4mbLOADPGXBatLglKYFnwiQcY6B+NuRfAaKpmOVC/WyNck0I3N5WPNhzML3Cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791933065; c=relaxed/simple;
-	bh=L9F6PA2N+WOVHYi9v7Bq2XrIKM0xEoyFhvJzFmeoaAk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I4xSIEacYqPnvSaoGsS5BYv8Ao1oBwfkoLPmWBeMDvIo9hB8mfp84uCRiob+JLKPBZb9u1UWXs1DDvBSJwNjr6fIDmexxMtAKg9BYiCQ2q8pPI/KVGCaXYsHnlK3VKe6HCp3KYvcJ9gPdRrznBfaF8+ckvTEXOzkVPLtIOm9XiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cXnoMKNU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791933091; c=relaxed/simple;
+	bh=5IBhaLUp5MdLPNUcVu4QR7/5QsLhjzo7lK/mXulxCHc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OfYdyboO0mfNRuKEgKeGHruAkKjM96Cf044nUGia04PcYnCIOJ4TOjgRih4J9Sv5p2XDdiVTgD4Gn6z3Z34W+dt9kqGAXxZA0ATNzkJ7jXsVjJqP3fRKnz3yIp+djMC0/pTe6xO6MprBj+4wxEK41BVW6ow+cjM52mpHu/bmU8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Cd60tQ+d; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cXnoMKNU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8221F00898
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:11:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791933064;
-	bh=tQzVrs0c3UvtqevA7XvTO2dEu5Cjq2oDofNx0flPKCg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cXnoMKNUewpGzi0kloDWjmhf/SKeTwdAKWxZK63VS3RqXI1gGkv9WbEss/R+6NtR5
-	 afV8Xzak+mL1HcsPdSp3rfi/MDJSfxhvtOd/OApINRNvaemiYhrj5zxjh5Ab6isQ/d
-	 43/RrcdFOTfW6rRhkyGbA446qMibkxdBosJUebvyj8ypY2Q0RKkjG3FyHVVgSLuaTW
-	 Fjj1ki7atePwDeCeOF2BGAXzuC/UnB4J9eX2hNkmE5GJ5NS3izVSe2aBgyhhR+j1X9
-	 p8+N41kn5vQntFvsR6l2BNYwhq3xn8q18tRqjDxPDzwiQqiyhsxksyPHlyoDn4xyU/
-	 +jslPJBjMyGQw==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcb2eceb3eso3077793e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:11:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy2eJcVP1ivHrlN3nafFIMpgjM65n0LUzOSnVzdUTdFV7nznvCc0AH1qD/qIkClFQf2SA2y0DGagKftQPU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUoFqIonFs8bsWdRueDZ+PbGzBmy3mlpwSum6I5k5QQVfxnBsE
-	m+GuPEAsUl1jsTf+w0fypbjUIeA+w3s6Q9Rh9R4Q1fYBeZA3nLySJtYNpmwKsZognapAYfufhVp
-	heaAbldVvklHHAJlRlkKbrHmO+nCNa8U=
-X-Received: by 2002:a05:6512:1586:b0:5ba:3c5e:2b20 with SMTP id
- 2adb3069b0e04-5bcde6c08a8mr4390697e87.29.1791933063163; Tue, 13 Oct 2026
- 16:11:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Cd60tQ+d"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7fccba9c675so6632878a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:11:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1791933087; x=1792537887; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b/a5/AdXnTf6cDcdZphHu5UXWH0M+sRSxBHGhoRv5/E=;
+        b=Cd60tQ+dNNPULA1mMHJSfnHi9O48jP+52GArxc38nhUyI7hJHlEa6j44+hQF2MXadU
+         98DkdEq57cVskwmn4R7/oK7Kq16huWRvRZr80IX8ITnjvAzfR+prRyC3xR0cYn9kkI3N
+         hwiz8+moPHwXK85LvvqodDUKKDPVo3dEDc6Y8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791933087; x=1792537887;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b/a5/AdXnTf6cDcdZphHu5UXWH0M+sRSxBHGhoRv5/E=;
+        b=0MQNR5Wn3fXog/lNCETf9g23Tsj02e51Bl8HFof7pDG4d5AX1tGdM+d7cvIeiJkHIc
+         XgXISAGGq2nIt3hczWFGVd6XBKEix71YB18T7hyo0ERIkpPgmodnsyO9L7XbLPkNPEmy
+         szyPZ8jRBDERcCsUGGN7mQVZXMiGIbtSB6AB8OChV0tO7Jxr6BG5HHL9vX24rx4LEhYq
+         BLuPxIDXmjlFmkLOkWVZ/KR38jJcxksynq2MKOvM3c/mvNh0PgGKwRP5+IkOgvrh3ib6
+         o3M2PS6CYbTfXi/DJ0aEBzF9fcY/a+9IVVVf5n2vAGfwCC7tPiXI9aEhZpD4Al/wGYG1
+         zFkA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTk6LQnkDe4n8Nk5VTQYpEMA7HdCvA4DMNqpkQi0n4+yDVuESsPcRCsiexUKEjFYv8XX8QP8bnyaZIG+w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtvPVm4sciBbvvjv1nWJjoCozWvtxgJavV74BOXOX3LgV9KRpm
+	I7MqPm/sVV6rSkDF/Fok2lS1fexukkDxhYHB97Ftg1b3wataEz7Ub1/gDC15XITSLPQ=
+X-Gm-Gg: AYBFou3jaQhdG1RQLgPN9k1YgY9kBupnra1jowFCSgZdaXtSx/oNZ6F+XWDqKsKLL11
+	KNLV6pzGEt21KiBMpFaceHKszbLPDgJarjlkrSAzv8i+RlNxH9pmsrKe2rtVBaUZ63QkKLzXL3R
+	CiuTQXPH3YGo5L6JIU9TUqlblRop9oCd1XEskPyrWcxKYofdT+iZwqyJRngkXbls0HZAqfaBHfz
+	bJ2RY9e5nhUr/jhLWTJv8R+PgOgOruYKSXDvwtu+6clcParcZCWTlaq82YCdiY5lRNudEXVRQdy
+	O/6HUYIpLi/lbBBKudTku6F6fDVudp3nY0AWTV2ZojufvtlACeSId7NF1hvlJFuEzvfXLlkI0Rp
+	K1Ww+Wf6+3Cvkup7hIUPdqwvOcFvvNK+KCA+buAobaGtnVgN7BHOC0JTsBhFB0aedlni4MX3b/u
+	sliKgY6v/IS/vRVpUehtl43SjiX+BZ7VAdH9o3oT7pvomj1uQjDCpKMZb0Co0sF273M9A8oTLiK
+	wYp4Kg=
+X-Received: by 2002:a05:6808:250a:b0:4b8:4703:db91 with SMTP id 5614622812f47-50b621adba4mr10283311b6e.26.1791933087183;
+        Tue, 13 Oct 2026 16:11:27 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfc44a5csm860681fac.12.2026.10.13.16.11.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 16:11:26 -0700 (PDT)
+Message-ID: <6f18fa43-9fda-4787-9e2f-63eec412ad9a@linuxfoundation.org>
+Date: Tue, 13 Oct 2026 17:11:21 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com> <20261011-gpio-mxc-cleanup-v6-7-cb47ce2ad758@nxp.com>
-In-Reply-To: <20261011-gpio-mxc-cleanup-v6-7-cb47ce2ad758@nxp.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 14 Oct 2026 01:10:48 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnDxTAz2=ge5RgvO02mp+BJyLBV0zR8xqsm8LSsSEcRYQ@mail.gmail.com>
-X-Gm-Features: AclHuK849G_ijc3QWZ7kME4RYf6sglZkaE0fzQjq6-hvA40gFn4QJl3T4CzdDQE
-Message-ID: <CAD++jLnDxTAz2=ge5RgvO02mp+BJyLBV0zR8xqsm8LSsSEcRYQ@mail.gmail.com>
-Subject: Re: [PATCH v6 07/13] gpio: mxc: convert pad wakeup compatible checks
- to hwdata flags
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
-	Andy Shevchenko <andy.shevchenko@gmail.com>, linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261013112920.855194808@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261013112920.855194808@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Peng,
+On 10/13/26 05:29, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.57 release.
+> There are 621 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.57-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-On Sun, Oct 11, 2026 at 1:51=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.co=
-m> wrote:
+Compiled and booted on my test system. No dmesg regressions.
 
->  static bool mxc_gpio_generic_config(struct mxc_gpio_port *port,
->                 unsigned int offset, unsigned long conf)
->  {
-> -       struct device_node *np =3D port->dev->of_node;
-> +       int ret;
-> +
-> +       if (!mxc_gpio_has_pad_wakeup(port))
-> +               return false;
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-Why is the entire call to mxc_gpio_generic_config()
-bailing out here if the port does not have pad wakeup?
-
-> -       if (of_device_is_compatible(np, "fsl,imx8dxl-gpio") ||
-> -           of_device_is_compatible(np, "fsl,imx8qxp-gpio") ||
-> -           of_device_is_compatible(np, "fsl,imx8qm-gpio"))
-> -               return (gpiochip_generic_config(&port->gen_gc.gc,
-> -                                               offset, conf) =3D=3D 0);
-> +       ret =3D gpiochip_generic_config(&port->gen_gc.gc, offset, conf);
-> +       if (ret)
-> +               return false;
-
-Then no generic config can happen.
-
-This looks weird, isn't it just some of the configs that
-don't work?
-
-Yours,
-Linus Walleij
+thanks,
+-- Shuah
