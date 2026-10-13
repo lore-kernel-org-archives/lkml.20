@@ -1,42 +1,41 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C259A3F4103
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600403F824B;
+	Tue, 13 Oct 2026 13:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899952; cv=none; b=UMg7XPCdyb32fSjj+xgVUhPbG8PTMyJWJQvGgti7m8UeLeXAEjEwsraQcXrNEV5hN2TsMNWP6ZhpcfUOfgaAM9c8fT/PY/DUCQZYZ+/5teW2jyEUr8KUS6oY6TjfVuDVobGDE2lC3WOss3WTI09EpowDY26I7iPg6lgdGUNJkIY=
+	t=1791899954; cv=none; b=TvYBjMatpyzxZej3jISqM/0bMkeJP2/xDblvGXQlFX1M9uffgMK7E5WEqtcm62DRO1uxfrumcEt8VGv3iXeCUBlOXvYzlS6dNVdRH5Q1Y9iRyMGYS90EI3y2FOvdYwgdJj6W8x+o8QGRZaJC+pePoewWcY5RXDP43GJYBMxvWwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899952; c=relaxed/simple;
-	bh=ONKXnjQ7LOEi4YtPA+SuITekJAP1XLJiXHyANzQkji0=;
+	s=arc-20240116; t=1791899954; c=relaxed/simple;
+	bh=JzDisuZ2zA+RdRPZHkSm2Vaice3V923Kr27ZTHkO8AM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oCE9GleP7RW294GES2sOnuX0+W4Z+w05icZVJ+G4QRxTcYErAtMOyuZv7wT2qlJpz2sFsCCMOqXehkIXcnRLtZt2jB64xWS90r58ChE0QvOwNAz1IsfHpVi8lDan96kQdqxGsFgMR1lJ/mbQEjU0408CyNaJeE0PsusBe6o1UR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=brmFPgmr; arc=none smtp.client-ip=185.246.84.56
+	 In-Reply-To:To:Cc; b=aP6Xr04FlD4FB2fyP/rsB69GKvN4tgYDXYOSxiVC/t/bj8zevHpQO6xJ+qc8qmL61NhEJ0tvMVNyaFZ1x3z+KlsdMzwOfVeo7V0DqEOE9csv3s6OAr4LHU76kKPKO8eHLwflHX9YGihm2BAT5v8pHSXIuPPtyX6VFNC8jm8BrA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pjtjvNqE; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="brmFPgmr"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pjtjvNqE"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3D7031A1207;
-	Tue, 13 Oct 2026 13:59:08 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DF0934E4120F;
+	Tue, 13 Oct 2026 13:59:10 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 12D2460362;
-	Tue, 13 Oct 2026 13:59:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 84F4111D71517;
-	Tue, 13 Oct 2026 15:59:06 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B3F2560362;
+	Tue, 13 Oct 2026 13:59:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1CCE511D713D2;
+	Tue, 13 Oct 2026 15:59:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791899947; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1791899950; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=3naTdv8J2w3QVFJ0P3DJL71WRHqpQ7Xlou2dLmTy5mI=;
-	b=brmFPgmr6ktaWO0CxTHIk5rp02Zhzw9jWOd91g1M30RcDURhsl8zssoCfFuStElykYNgPL
-	MlPszHmz6sl2Pk2we49z5ZJTsvoUPf3oZrJDjK3atfxRtnI+wiHA/SO9ER3dtj2MHdGV+k
-	nIe6Quj2gqZbybOFor2jpqDb5hzMuiYBzhCwTTeNr1VLdtsX5Wx6j+2Q2Zt8JaUUFdSWeW
-	oiOnDu9DH/+p4ujMLZlTZSqvev7i/asfUgw6y+QkvX+fmwCx5hsTahlxPCP9NX8YsV/+6I
-	w/wnLrJ/CqZRsdouD/NwTnqC7CFMynXNiQWf1Zk7xS5EeN/A0SbK6aVSw6jANw==
+	bh=hPZdn5ELLgjiRjUUiwxg87QAgCasv7yyE9Fs/5cLbHY=;
+	b=pjtjvNqEPELtlosd+y6TgL3W+Y/0K4hPiAApaA/n2r9s7latw4dTEje0KUU/uQlEogfjkK
+	lVeSMys84Hohe3Ssngf0ydCofH6VWoeQllYDDGSN2qA9zz0XKSsrHDzW0dlGTE9A2SX/JS
+	YgimMnsfpVAGYYg4cNIAp1sMR9hlpJmxJy8FvuGZeNBlMAC3arq52k20b6d0uxOP5uEZFB
+	hqcn6I3O4Cdm6N/cCXiAjpmHi14Ueu0H1qgoZvd3hnrLXiNtwYn8Oc+rYHcdaIUXCTzj7Y
+	zPyI8bMUfA9PWeJiRwMLsBwx0Fz5IeFo/872hlYzPzXCUf++HQf2phgQ2gDiAw==
 From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Tue, 13 Oct 2026 15:58:48 +0200
-Subject: [PATCH v4 4/6] watchdog: w83627hf_wdt: Move register offsets into
- driver data
+Date: Tue, 13 Oct 2026 15:58:50 +0200
+Subject: [PATCH v4 6/6] watchdog: w83627hf_wdt: Add minute mode counting
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +44,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-w83627hf_wdt-improvements-v4-4-b6f6b60a9566@bootlin.com>
+Message-Id: <20261013-w83627hf_wdt-improvements-v4-6-b6f6b60a9566@bootlin.com>
 References: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com>
 In-Reply-To: <20261013-w83627hf_wdt-improvements-v4-0-b6f6b60a9566@bootlin.com>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
@@ -55,268 +54,179 @@ Cc: Tzung-Bi Shih <tzungbi@kernel.org>, linux-watchdog@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  Paul Louvel <paul.louvel@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791899939; l=7623;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791899939; l=5711;
  i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=ONKXnjQ7LOEi4YtPA+SuITekJAP1XLJiXHyANzQkji0=;
- b=1eM/bFm+2sgyLhr4JRBUc7iy2UIGZag7RordKaRlqeizHfm+uCs4Yya5MsGg51yRdHmEoyjJX
- dFVFoF+Pu7fBJp53+0ydk4qIXQmLPqvBBVUaTjtGxPD4yXUSER20tQo
+ bh=JzDisuZ2zA+RdRPZHkSm2Vaice3V923Kr27ZTHkO8AM=;
+ b=1fJfPeRvkCEngYpL4FjCL4uohKKVZa0tY00nLDuRbaOLEoEHNKhT6VpEP85QmA7USGYY2UiAs
+ JQi/peBIj1vCIEfcNkOqbz9/2LOBNhpqPPfipGgz7LZhCV9KdhERqAp
 X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
  pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
 X-Last-TLS-Session-Version: TLSv1.3
 
-Register offsets for the watchdog timer, control, and status registers
-differ across Super I/O chip variants. Store them in the driver data
-instead of global variables.
+All of the chips supported by the driver can be set to minute mode,
+allowing timeout value up to 255 minutes.
+Add it to the driver.
 
 Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
 ---
- drivers/watchdog/w83627hf_wdt.c | 93 ++++++++++++++++++++++++++---------------
- 1 file changed, 59 insertions(+), 34 deletions(-)
+ drivers/watchdog/w83627hf_wdt.c | 68 +++++++++++++++++++++++++++++++----------
+ 1 file changed, 52 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/watchdog/w83627hf_wdt.c b/drivers/watchdog/w83627hf_wdt.c
-index cc72d2f5e56a..4943ae164771 100644
+index 0b9195e7e95e..8f78fe64acde 100644
 --- a/drivers/watchdog/w83627hf_wdt.c
 +++ b/drivers/watchdog/w83627hf_wdt.c
-@@ -42,9 +42,6 @@
+@@ -40,6 +40,7 @@
+ 
+ #define WATCHDOG_NAME "w83627hf/thf/hg/dhg WDT"
  #define WATCHDOG_TIMEOUT 60		/* 60 sec default timeout */
++#define WATCHDOG_MAX_TIMEOUT (255 * 60)
  
- static int wdt_io;
--static int cr_wdt_timeout;	/* WDT timeout register */
--static int cr_wdt_control;	/* WDT control register */
--static int cr_wdt_csr;		/* WDT control & status register */
- static int wdt_cfg_enter = 0x87;/* key to unlock configuration space */
- static int wdt_cfg_leave = 0xAA;/* key to lock configuration space */
+ enum chips { w83627hf, w83627s, w83697hf, w83697ug, w83637hf, w83627thf,
+ 	     w83687thf, w83627ehf, w83627dhg, w83627uhg, w83667hg, w83627dhg_p,
+@@ -49,7 +50,8 @@ enum chips { w83627hf, w83627s, w83697hf, w83697ug, w83637hf, w83627thf,
+ static int timeout;			/* in seconds */
+ module_param(timeout, int, 0);
+ MODULE_PARM_DESC(timeout,
+-		"Watchdog timeout in seconds. 1 <= timeout <= 255, default="
++		"Watchdog timeout in seconds. 1 <= timeout <= "
++				__MODULE_STRING(WATCHDOG_MAX_TIMEOUT) ", default="
+ 				__MODULE_STRING(WATCHDOG_TIMEOUT) ".");
  
-@@ -130,9 +127,16 @@ MODULE_PARM_DESC(early_disable, "Disable watchdog at boot time (default=0)");
- #define WDT_CTRL_RISING_EDGE_KBD_RESET	BIT(2)
- #define WDT_CTRL_MINUTE_MODE		BIT(3)
- 
-+struct w83627hf_reg {
-+	int control;
-+	int timeout;
-+	int csr;
-+};
-+
- struct w83627hf_data {
- 	struct watchdog_device wdd;
+ static bool nowayout = WATCHDOG_NOWAYOUT;
+@@ -139,6 +141,9 @@ struct w83627hf_data {
  	struct watchdog_info info;
-+	const struct w83627hf_reg *reg;
+ 	const struct w83627hf_reg *reg;
+ 	const struct w83627hf_sio_pdata *sio;
++	bool minute_mode;
++	u8 early_timer_val;
++	u8 timer_val;
  };
  
- static void superio_outb(int reg, int val)
-@@ -171,6 +175,7 @@ static void superio_exit(void)
- 
- static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
- {
-+	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
- 	int ret;
- 	unsigned char t;
- 
-@@ -210,10 +215,10 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
- 	case w83627dhg_p:
- 		t = superio_inb(0x2D) & ~0x01; /* PIN77 -> WDT0# */
- 		superio_outb(0x2D, t); /* set GPIO5 to WDT0 */
--		t = superio_inb(cr_wdt_control);
-+		t = superio_inb(data->reg->control);
- 		t |= 0x02;	/* enable the WDTO# output low pulse
- 				 * to the KBRST# pin */
--		superio_outb(cr_wdt_control, t);
-+		superio_outb(data->reg->control, t);
- 		break;
- 	case w83637hf:
- 		break;
-@@ -242,46 +247,47 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
- 		 * Don't touch its configuration, and hope the BIOS
- 		 * does the right thing.
- 		 */
--		t = superio_inb(cr_wdt_control);
-+		t = superio_inb(data->reg->control);
- 		t |= 0x02;	/* enable the WDTO# output low pulse
- 				 * to the KBRST# pin */
--		superio_outb(cr_wdt_control, t);
-+		superio_outb(data->reg->control, t);
- 		break;
- 	default:
+ static void superio_outb(int base, int reg, int val)
+@@ -258,21 +263,10 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
  		break;
  	}
  
--	t = superio_inb(cr_wdt_timeout);
-+	t = superio_inb(data->reg->timeout);
- 	if (t != 0) {
- 		if (early_disable) {
- 			pr_warn("Stopping previously enabled watchdog until userland kicks in\n");
--			superio_outb(cr_wdt_timeout, 0);
-+			superio_outb(data->reg->timeout, 0);
- 		} else {
- 			pr_info("Watchdog already running. Resetting timeout to %d sec\n",
- 				wdog->timeout);
--			superio_outb(cr_wdt_timeout, wdog->timeout);
-+			superio_outb(data->reg->timeout, wdog->timeout);
- 			set_bit(WDOG_HW_RUNNING, &wdog->status);
- 		}
- 	}
+-	t = superio_inb(data->sio->addr, data->reg->timeout);
+-	if (t != 0) {
+-		if (early_disable) {
+-			pr_warn("Stopping previously enabled watchdog until userland kicks in\n");
+-			superio_outb(data->sio->addr, data->reg->timeout, 0);
+-		} else {
+-			pr_info("Watchdog already running. Resetting timeout to %d sec\n",
+-				wdog->timeout);
+-			superio_outb(data->sio->addr, data->reg->timeout, wdog->timeout);
+-			set_bit(WDOG_HW_RUNNING, &wdog->status);
+-		}
+-	}
++	data->early_timer_val = superio_inb(data->sio->addr, data->reg->timeout);
  
--	t = superio_inb(cr_wdt_control) &
-+	t = superio_inb(data->reg->control) &
- 	    ~(WDT_CTRL_MINUTE_MODE | WDT_CTRL_RISING_EDGE_KBD_RESET);
--	superio_outb(cr_wdt_control, t);
-+	superio_outb(data->reg->control, t);
+ 	t = superio_inb(data->sio->addr, data->reg->control) &
+-	    ~(WDT_CTRL_MINUTE_MODE | WDT_CTRL_RISING_EDGE_KBD_RESET);
++	    ~WDT_CTRL_RISING_EDGE_KBD_RESET;
+ 	superio_outb(data->sio->addr, data->reg->control, t);
  
--	t = superio_inb(cr_wdt_csr);
-+	t = superio_inb(data->reg->csr);
- 	if (t & WDT_CSR_STATUS)
- 		wdog->bootstatus |= WDIOF_CARDRESET;
- 
- 	t &= ~(WDT_CSR_STATUS | WDT_CSR_KBD_INT_RESET | WDT_CSR_MOUSE_INT_RESET);
--	superio_outb(cr_wdt_csr, t);
-+	superio_outb(data->reg->csr, t);
- 
- 	superio_exit();
- 
- 	return 0;
- }
- 
--static int wdt_set_time(unsigned int timeout)
-+static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
+ 	t = superio_inb(data->sio->addr, data->reg->csr);
+@@ -290,6 +284,7 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
+ static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
  {
-+	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
+ 	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
++	unsigned char ctrl;
  	int ret;
  
- 	ret = superio_enter();
-@@ -289,7 +295,7 @@ static int wdt_set_time(unsigned int timeout)
+ 	ret = superio_enter(data->sio->addr, data->sio->cfg_enter);
+@@ -297,6 +292,15 @@ static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
  		return ret;
  
- 	superio_select(W83627HF_LD_WDT);
--	superio_outb(cr_wdt_timeout, timeout);
-+	superio_outb(data->reg->timeout, timeout);
- 	superio_exit();
+ 	superio_select(data->sio->addr, W83627HF_LD_WDT);
++
++	ctrl = superio_inb(data->sio->addr, data->reg->control);
++
++	if (data->minute_mode)
++		ctrl |= WDT_CTRL_MINUTE_MODE;
++	else
++		ctrl &= ~WDT_CTRL_MINUTE_MODE;
++
++	superio_outb(data->sio->addr, data->reg->control, ctrl);
+ 	superio_outb(data->sio->addr, data->reg->timeout, timeout);
+ 	superio_exit(data->sio->addr, data->sio->cfg_leave);
  
- 	return 0;
-@@ -297,12 +303,12 @@ static int wdt_set_time(unsigned int timeout)
+@@ -305,7 +309,9 @@ static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
  
  static int wdt_start(struct watchdog_device *wdog)
  {
--	return wdt_set_time(wdog->timeout);
-+	return wdt_set_time(wdog, wdog->timeout);
+-	return wdt_set_time(wdog, wdog->timeout);
++	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
++
++	return wdt_set_time(wdog, data->timer_val);
  }
  
  static int wdt_stop(struct watchdog_device *wdog)
- {
--	return wdt_set_time(0);
-+	return wdt_set_time(wdog, 0);
- }
+@@ -315,6 +321,17 @@ static int wdt_stop(struct watchdog_device *wdog)
  
  static int wdt_set_timeout(struct watchdog_device *wdog, unsigned int timeout)
-@@ -314,6 +320,7 @@ static int wdt_set_timeout(struct watchdog_device *wdog, unsigned int timeout)
- 
- static unsigned int wdt_get_time(struct watchdog_device *wdog)
  {
 +	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
- 	unsigned int timeleft;
- 	int ret;
++
++	if (timeout > 255) {
++		data->minute_mode = true;
++		data->timer_val = DIV_ROUND_UP(timeout, 60);
++		timeout = data->timer_val * 60;
++	} else {
++		data->minute_mode = false;
++		data->timer_val = timeout;
++	}
++
+ 	wdog->timeout = timeout;
  
-@@ -322,7 +329,7 @@ static unsigned int wdt_get_time(struct watchdog_device *wdog)
- 		return 0;
+ 	return 0;
+@@ -332,6 +349,8 @@ static unsigned int wdt_get_time(struct watchdog_device *wdog)
  
- 	superio_select(W83627HF_LD_WDT);
--	timeleft = superio_inb(cr_wdt_timeout);
-+	timeleft = superio_inb(data->reg->timeout);
- 	superio_exit();
+ 	superio_select(data->sio->addr, W83627HF_LD_WDT);
+ 	timeleft = superio_inb(data->sio->addr, data->reg->timeout);
++	if (data->minute_mode)
++		timeleft *= 60;
+ 	superio_exit(data->sio->addr, data->sio->cfg_leave);
  
  	return timeleft;
-@@ -350,10 +357,6 @@ static int wdt_find(int addr)
- 	u8 val;
- 	int ret;
- 
--	cr_wdt_timeout = W83627HF_WDT_TIMEOUT;
--	cr_wdt_control = W83627HF_WDT_CONTROL;
--	cr_wdt_csr = W836X7HF_WDT_CSR;
--
- 	ret = superio_enter();
- 	if (ret)
- 		return ret;
-@@ -368,13 +371,9 @@ static int wdt_find(int addr)
- 		break;
- 	case W83697HF_ID:
- 		ret = w83697hf;
--		cr_wdt_timeout = W83697HF_WDT_TIMEOUT;
--		cr_wdt_control = W83697HF_WDT_CONTROL;
- 		break;
- 	case W83697UG_ID:
- 		ret = w83697ug;
--		cr_wdt_timeout = W83697HF_WDT_TIMEOUT;
--		cr_wdt_control = W83697HF_WDT_CONTROL;
- 		break;
- 	case W83637HF_ID:
- 		ret = w83637hf;
-@@ -429,9 +428,6 @@ static int wdt_find(int addr)
- 		break;
- 	case NCT6102_ID:
- 		ret = nct6102;
--		cr_wdt_timeout = NCT6102D_WDT_TIMEOUT;
--		cr_wdt_control = NCT6102D_WDT_CONTROL;
--		cr_wdt_csr = NCT6102D_WDT_CSR;
- 		break;
- 	case NCT6116_ID:
- 		val = superio_inb(SIO_REG_DEVID + 1);
-@@ -439,10 +435,6 @@ static int wdt_find(int addr)
- 			ret = nct6126;
- 		else
- 			ret = nct6116;
--
--		cr_wdt_timeout = NCT6102D_WDT_TIMEOUT;
--		cr_wdt_control = NCT6102D_WDT_CONTROL;
--		cr_wdt_csr = NCT6102D_WDT_CSR;
- 		break;
- 	case 0xff:
- 		ret = -ENODEV;
-@@ -456,6 +448,24 @@ static int wdt_find(int addr)
- 	return ret;
- }
- 
-+static const struct w83627hf_reg w83627hf_default_regs = {
-+	.control = W83627HF_WDT_CONTROL,
-+	.timeout = W83627HF_WDT_TIMEOUT,
-+	.csr = W836X7HF_WDT_CSR
-+};
-+
-+static const struct w83627hf_reg w83627hf_nct61xx_regs = {
-+	.timeout = NCT6102D_WDT_TIMEOUT,
-+	.control = NCT6102D_WDT_CONTROL,
-+	.csr = NCT6102D_WDT_CSR
-+};
-+
-+static const struct w83627hf_reg w83627hf_w83697xx_regs = {
-+	.timeout = W83697HF_WDT_TIMEOUT,
-+	.control = W83697HF_WDT_CONTROL,
-+	.csr = W836X7HF_WDT_CSR
-+};
-+
- static int wdt_probe(struct platform_device *pdev)
- {
- 	const struct platform_device_id *id = platform_get_device_id(pdev);
-@@ -489,6 +499,21 @@ static int wdt_probe(struct platform_device *pdev)
+@@ -504,7 +523,7 @@ static int wdt_probe(struct platform_device *pdev)
+ 	wdd->ops = &wdt_ops;
+ 	wdd->timeout = WATCHDOG_TIMEOUT;
  	wdd->min_timeout = 1;
- 	wdd->max_timeout = 255;
+-	wdd->max_timeout = 255;
++	wdd->max_timeout = WATCHDOG_MAX_TIMEOUT;
  
-+	switch (chip) {
-+	case nct6102:
-+	case nct6116:
-+	case nct6126:
-+		data->reg = &w83627hf_nct61xx_regs;
-+		break;
-+	case w83697hf:
-+	case w83697ug:
-+		data->reg = &w83627hf_w83697xx_regs;
-+		break;
-+	default:
-+		data->reg = &w83627hf_default_regs;
-+		break;
-+	};
-+
- 	watchdog_set_drvdata(wdd, data);
- 	watchdog_init_timeout(wdd, timeout, NULL);
+ 	switch (chip) {
+ 	case nct6102:
+@@ -526,10 +545,27 @@ static int wdt_probe(struct platform_device *pdev)
  	watchdog_set_nowayout(wdd, nowayout);
+ 	watchdog_stop_on_reboot(wdd);
+ 
++	wdt_set_timeout(wdd, wdd->timeout);
++
+ 	ret = w83627hf_init(wdd, chip);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to initialize watchdog\n");
+ 
++	if (data->early_timer_val) {
++		if (early_disable) {
++			dev_warn(dev, "Stopping previously enabled watchdog until userland kicks in\n");
++			ret = wdt_stop(wdd);
++		} else {
++			dev_info(dev, "Watchdog already running. Resetting timeout to %d sec\n",
++				 wdd->timeout);
++			ret = wdt_start(wdd);
++			set_bit(WDOG_HW_RUNNING, &wdd->status);
++		}
++
++		if (ret)
++			return ret;
++	}
++
+ 	ret = devm_watchdog_register_device(dev, wdd);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to register watchdog\n");
 
 -- 
 2.56.0
