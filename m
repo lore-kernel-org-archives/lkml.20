@@ -1,99 +1,236 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4394CDA2E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D426C4EC66A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895126; cv=none; b=svBVyF4NMBMId1f4iG+07wqq05caHqh+Vepe5/lJLZxTntdNX/IoQws2eIlZhB/IrLT8fiUs1yMny5ti6xbnyS3E6gLle3bR8wcnCGEEd/ItaE2Y12JTPbwE7QbOpul4LdnX/Eod9LI9QDZzN3oDr19lO1z7+1n+PLx5ClXImFU=
+	t=1791895129; cv=none; b=Aj0uuB/qqC3ApxLQksh4WoHqH6G/xUJgd3DoDah7o+5M3y+1y6DLdQdvw3y0tPJSgYZNQj/qgTANKwiiO+YFYncpVHtTKCAw+PF4LVvPcvk996UzoXOc0j0JuUwh2jKz3qK+r0UmFPbOb+Urs1Uirx0v1XI+GRvATdnsKpocO40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895126; c=relaxed/simple;
-	bh=iXnTTb4klyb+l7f1BqJexeWayV9i3kkO/y1GFvUKBuk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CxrMg358if7lMY6nmGE3KmjhTm1YpPCITr0R0JYWd0Mr82cOTNkKBIzFNFUV3e5QInml5EG9XUhlcDdXH/LMl9JnojD9cbBR6GuxwzuHlxB8nJoHed36tDmhpR/30lcM4cUHGPfZfXH51Ai8W/Uqk2OfShWLUtCzpcG18KxAB6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=otmecN88; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1791895129; c=relaxed/simple;
+	bh=yK3BXt5odIAuw+y92WkRm4qEoTv7WyPBWcnH1zLvc0M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F1CAVWUSyiYMISYboxknG3lVkU5fdq62X5BYtbQcpLa1F6cyDZynjyyaK2pKE3x6edox21owPL/2+qNWLIMYSi6LbtNxYzbGkkhlCrjXPWbqxE4op7GNxAdFrHho01EyR+183fdWL+WXQw3oU9mlKBtO93RfvxdlS4pfQJN18xU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CdgUJims; arc=none smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="otmecN88"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a0213948d3so17939185e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:38:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CdgUJims"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33e6279a1d7so472345eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:38:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791895123; x=1792499923; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7va2tjnmsFPr310Pasr2Ke0RqISF8aL004YHAE7kjOw=;
-        b=otmecN88bppjWyqDHr5evLm/9XEfpL365DOa6bgSmEb7ylCcxZcyIGF941SEdoWKL+
-         isxV9u3sLdxrYlWh7/rlncqnMbUUWOvyFWaq2gsNW0MNRmkhPTBPHUprvY9tA2DxoqQT
-         /Mizb5VfeZjfJ9nUJRjpuUnGFsww8MpoKUOlSH22YaEgvyf6TrkRppiojtl/gkhNkyQ5
-         xNQ9hZV/sDZ0ytDmQSV1+ZDrd6q1Kavo02bap7j76uRWL853xbRhycwiRMo4tZyfeRhE
-         f6jV7VuFleL17r6OgPKYAGIc6qq+vOcyMb4On2ThuxulxzcPwMVRvDnLamGnWE/o/bv9
-         ljEg==
+        d=gmail.com; s=20251104; t=1791895127; x=1792499927; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1wEUTczWGQjblvkN8sYOGLSfksGZhzK2JwbCezGvYkA=;
+        b=CdgUJimsxeCL179zNi0jXTc9PE8WhVYzs7Ph7vHUdsBVy79ommy/Fy3xHstS8BO3l+
+         QwAOCFx8+TRRYRGKokZG5gtFrJRH/QHt91ELXnVXtzodchQTxzwsK8z7+QJG7JyS7iZa
+         5fUaMlwTaQiqVjtyKalkqvsO8WjoVZr0zdSHxGLushs0G+kCeErPsrJTcTA2rRkYDgeu
+         gQp0b6N9s7AiHVJJTOkT9wWBEpUk2Ty68B76e/EvnWoYgBU6T/WPKM2qcB3QhHvajOfV
+         zf7WMKjRKA3A3ZDH0EAdQT8GgaVX+l/9uOjlZE3RBBkORMiFf+2OwaFctecnKlHA3IJh
+         fpWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791895123; x=1792499923;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7va2tjnmsFPr310Pasr2Ke0RqISF8aL004YHAE7kjOw=;
-        b=sD6Jknxjh3jHgcTHSgvVjIS7zQyy3X9g8wF2jvC5bAXhPvrtqWBn/9PUW41Fc8V0mj
-         +cRR3myIoIHw2M1AzzMX5mHTLMt0awOlhDeh3s2eeYYkoB1Wrlu4a4fnr0P9RtOYwooO
-         CtrGLmOOVSGsSiBtCHU6tCLMpGbnvllUUtBMHuKZanD3hRBvjSbpHHX6796UMl5npBk5
-         i5W0JZz7ZT/YT6dLP0u2aRGU5gUpF70JBvAvIaYT8xBtGOEPN2a4I0bzo2PG0uFseoYB
-         ivlZCaXJDjXh42spF+m7+wphRX188u3g03cmZxQhdXiEIYCzi40DIgPCYxITczTVQhlg
-         JnvA==
-X-Forwarded-Encrypted: i=1; AKwUvByy3bGW1A3uUadfIACGhl68sltlcC19trbQTvKZ+MacDsDL2kUtJ6Z0u2aeaZXny8jzLvO71UFJN4jcV1E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKYqlIXM0nEsY1HJINmle7y3/T6O5ghcG2aQtShywZ74Xh1sT5
-	Bcic9SQI7chvmjCN8TlRuKnE+wTbW207XFHc8qzKIGGhepq91MSEzWo9
-X-Gm-Gg: AYBFou1r8gBvYg0Uv36H9dPkfGQrsP8AxWfGPqIN3Tma2W8U7jad9WsV2nz+sDvW1D8
-	uwnM0JK585EA2lZJo+k3VWfxInvfFZ25I7jTjSuU2WxlnTRretPFyjHB5ym0JtZWjIn0UWGVI6f
-	NMb1urCh/EFx3TKuHz+n1yaUyLOFtmJSi2hb6CaFa5QP/zcqy1YFXIjSreldAF70ewEqrmVboEv
-	qiEUeanvnJz/ZXxdpOUHbBme75Ve7wPhQm6FVJcjolPLqFoTV/y5pZzX53BKtg7fffFwBMOHNkF
-	Jp9s8foArWFmUMMi1O/dyhWXaAWZ6XOtIZAmxCWCGBMIjvxYM2Ou4FuRZ/GaWRSx1cQdhqtyHKr
-	oxMbog5unSEgt93io+nXWCPDbm51+RR4lqqlpXRRQUpwuIs9b6G7sjOqQAIL6WqBxGFX7kd+JH3
-	3S+pxDIA6HOb9+YnVWpr9RQZ8PycpSZ7ZTXiDifvBZFonuAGcg88PyS/xObe2bwWUTOIAfEUqVB
-	xOrsbd0Kg==
-X-Received: by 2002:a05:600c:6384:b0:4a1:7741:ec43 with SMTP id 5b1f17b1804b1-4a18e4b8966mr226521575e9.26.1791895122588;
-        Tue, 13 Oct 2026 05:38:42 -0700 (PDT)
-Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1a1feb78csm184740265e9.0.2026.10.13.05.38.41
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 13 Oct 2026 05:38:42 -0700 (PDT)
-Date: Tue, 13 Oct 2026 14:38:36 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Sean Rhodes <sean@starlabs.systems>
-Cc: Ulf Hansson <ulfh@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Ricky Wu
- <ricky_wu@realtek.com>, Lee Jones <lee@kernel.org>, Roger Tseng
- <rogerable@realtek.com>, Dan Carpenter <error27@gmail.com>, Jisheng Zhang
- <jszhang@kernel.org>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] misc: rtsx_usb: avoid USB I/O in runtime
- autosuspend
-Message-ID: <20261013143836.76ad7bf4.michal.pecio@gmail.com>
-In-Reply-To: <CABtds-0s8Co-qWk0xm=R1pdz3JyV_GyaiwYzgxS9g2tFwtHRzg@mail.gmail.com>
-References: <cover.1783352430.git.sean@starlabs.systems>
-	<7acac70a471452a6ccf23b7ccc557f3c3861e0ad.1783352430.git.sean@starlabs.systems>
-	<20261005103011.03175826.michal.pecio@gmail.com>
-	<CABtds-3t+ECCPeFShq__iNa9niRAge=WOED4cHtNZAFVw6kPzw@mail.gmail.com>
-	<20261013142737.7b10a5b0.michal.pecio@gmail.com>
-	<CABtds-0s8Co-qWk0xm=R1pdz3JyV_GyaiwYzgxS9g2tFwtHRzg@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1791895127; x=1792499927;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1wEUTczWGQjblvkN8sYOGLSfksGZhzK2JwbCezGvYkA=;
+        b=BSWx6kxe9QbXUD0tuTmra0Jw+RnneP6eGOJiS+YntKiJTA2V6pEkPd8HYXE9JxOBbJ
+         KDK6QSXqo/BCk4ciwtiT0dj6Z/pLRljDvlvAWovsfcycXfuVWIDnNeFVSDBeQX8a+qrw
+         uGScCPzn5o7GFrafiYLuUCDAvnpwa6HELlDdXFmDKAAUSx07PVEnbZNPEVlpPgCIpWdG
+         r8SjSJHZ+MjXXeoUkt7Xtm599poeVLVdAt+5ZXAXYaBXHezxWoXOW/DnQ4ERYBVa+74F
+         np0DlvXp3929L2tGjMwzqVG0XqDbTINxM+6UXt+LQhyrmrDkLzXbH0iVE359Jpu3VLnn
+         dC6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByflh/0Li1aqOh84GU+Q7gOCfi0bLDboPhBLwDr0c3Krr/R4PvwJfMbKtNJWUbGFnbBETHmPMgC5Ltpz4A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImaluqBXoOhogD7sly1whI9edxriTSXvx657gmiAPdDadJYG/U
+	7535YBzoEqxTWIKegTRDkaMpgUWNFHVgmKW0lChcWrGjNMfoJZuln5xV
+X-Gm-Gg: AYBFou3JzRMiShsMHb+euB2hocytQBl4zSsgbMzVEQJMuTU/+AWEDn17U3gWN3FPT3e
+	F0xtb8gmo7wkvjloUC8azj1AiNq/pN+DTjsOIIxsWBE6qeXEEdFH/opYev4ZMK/LBwJemGq6P62
+	A3uN/wMeD3IJcrtCDgOXymLX4wKfD6Oe+Yo/IUtppm0VPdxQDj22c0OUGcc7hfs0B8O4MIHY6jZ
+	RDlQvboKWrU7t5v5Ehwv6MZ4kSmKKl6xFkDztLq/xgUqbZOOLULlGGcDiE5wBED46yEuhNWkB0o
+	U7XyHQUEoF4vToJEf6AqRdmbY6brvk8V5r2Fbc6T3reJjtsxfC4pzrFJyH7gmAWXSWdQGjLZsC0
+	m9t4vnAT9iX6k0S0hz0HXj4MbA7Tb8i/cZMKv5iqTsAGVJEMuvMcJgPY68InwyaQNLSeKkBHtD9
+	WNlu3cVuHH4lbFJLnl2qygMPCuyON985jkePaSQbiVvyubNsDE+mrsTpskLymmLxIhuvBmng==
+X-Received: by 2002:a05:701b:4306:20b0:154:e9d2:d741 with SMTP id a92af1059eb24-16a6187e53bmr16594727c88.8.1791895126588;
+        Tue, 13 Oct 2026 05:38:46 -0700 (PDT)
+Received: from nillco.localdomain ([2600:3c01::f03c:93ff:fe96:ad75])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1698de65af7sm42383843c88.0.2026.10.13.05.38.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:38:45 -0700 (PDT)
+From: Rong Zhang <ulin0208@gmail.com>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Rong Zhang <ulin0208@gmail.com>
+Subject: [PATCH] ntfs3: replace the extend_data member with a union data structure
+Date: Tue, 13 Oct 2026 20:38:10 +0800
+Message-ID: <20261013123810.20020-1-ulin0208@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 13 Oct 2026 13:31:26 +0100, Sean Rhodes wrote:
-> > I have a card reader with RTS5178 and a simple SD slot, no tray.  
-> 
-> Thanks, but what is that attached to? i.e. Arrow Lake
+Replace the extend_data member of struct NTFS_DUP_INFO with a union data
+structure.
 
-A whole bunch of USB ports on various xHCI and one EHCI controller,
-none of it makes a difference. For the record, I have no issues with
-wakeup on insertion when the reader is suspend. The problem is when
-it goes to suspend with a card already inserted and doesn't wake.
+This patch makes the code more robust.
+
+Fixes: 8df35e16a92c ("fs/ntfs3: fix symlinks cannot be handled correctly")
+Signed-off-by: Rong Zhang <ulin0208@gmail.com>
+---
+ fs/ntfs3/dir.c     |  4 +++-
+ fs/ntfs3/frecord.c |  6 +++---
+ fs/ntfs3/inode.c   |  6 +++---
+ fs/ntfs3/ntfs.h    | 10 +++++++++-
+ fs/ntfs3/ntfs_fs.h |  2 +-
+ fs/ntfs3/xattr.c   |  6 +++---
+ 6 files changed, 22 insertions(+), 12 deletions(-)
+
+diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
+index eb9152e9fa22..42222a82ca0f 100644
+--- a/fs/ntfs3/dir.c
++++ b/fs/ntfs3/dir.c
+@@ -377,7 +377,9 @@ static inline bool ntfs_dir_emit(struct ntfs_sb_info *sbi,
+ 	 * It does additional locks/reads just to get the type of name.
+ 	 * Should we use additional mount option to enable branch below?
+ 	 */
+-	if (fname->dup.extend_data && ino != ni->mi.rno) {
++	if (((fname->dup.fa & FILE_ATTRIBUTE_REPARSE_POINT) ||
++	     fname->dup.ea.ea_size) &&
++	     ino != ni->mi.rno) {
+ 		struct inode *inode = ntfs_iget5(sbi->sb, &e->ref, NULL);
+ 		if (!IS_ERR_OR_NULL(inode)) {
+ 			dt_type = fs_umode_to_dtype(inode->i_mode);
+diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
+index bead01a953f3..066fe6aefcc4 100644
+--- a/fs/ntfs3/frecord.c
++++ b/fs/ntfs3/frecord.c
+@@ -3090,7 +3090,7 @@ static bool ni_update_parent(struct ntfs_inode *ni, struct NTFS_DUP_INFO *dup,
+ 		}
+ 	}
+ 
+-	dup->extend_data = 0;
++	dup->rp.reparse = 0;
+ 
+ 	if (dup->fa & FILE_ATTRIBUTE_REPARSE_POINT) {
+ 		attr = ni_find_attr(ni, NULL, NULL, ATTR_REPARSE, NULL, 0, NULL,
+@@ -3103,7 +3103,7 @@ static bool ni_update_parent(struct ntfs_inode *ni, struct NTFS_DUP_INFO *dup,
+ 					      sizeof(struct REPARSE_POINT));
+ 			/* If ATTR_REPARSE exists 'rp' can't be NULL. */
+ 			if (rp)
+-				dup->extend_data = rp->ReparseTag;
++				dup->rp.reparse = rp->ReparseTag;
+ 		}
+ 	} else if (ni->ni_flags & NI_FLAG_EA) {
+ 		attr = ni_find_attr(ni, attr, &le, ATTR_EA_INFO, NULL, 0, NULL,
+@@ -3114,7 +3114,7 @@ static bool ni_update_parent(struct ntfs_inode *ni, struct NTFS_DUP_INFO *dup,
+ 			info = resident_data_ex(attr, sizeof(struct EA_INFO));
+ 			/* If ATTR_EA_INFO exists 'info' can't be NULL. */
+ 			if (info)
+-				dup->extend_data = info->size;
++				dup->ea.ea_size = info->size_pack;
+ 		}
+ 	}
+ 
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index 4ac26c80bd34..329650c87593 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -1594,7 +1594,7 @@ int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
+ 		fname->dup.a_time = std5->cr_time;
+ 	fname->dup.alloc_size = fname->dup.data_size = 0;
+ 	fname->dup.fa = std5->fa;
+-	fname->dup.extend_data = S_ISLNK(mode) ? IO_REPARSE_TAG_SYMLINK : 0;
++	fname->dup.rp.reparse =	S_ISLNK(mode) ? IO_REPARSE_TAG_SYMLINK : 0;
+ 
+ 	dsize = le16_to_cpu(new_de->key_size);
+ 	asize = ALIGN(SIZEOF_RESIDENT + dsize, 8);
+@@ -1837,7 +1837,7 @@ int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
+ 		 * The packed size of extended attribute is stored in direntry too.
+ 		 * 'fname' here points to inside new_de.
+ 		 */
+-		err = ntfs_save_wsl_perm(inode, &fname->dup.extend_data);
++		err = ntfs_save_wsl_perm(inode, &fname->dup.ea.ea_size);
+ 		if (err)
+ 			goto out6;
+ 
+@@ -1853,7 +1853,7 @@ int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
+ 
+ 			fn = resident_data_ex(attr, SIZEOF_ATTRIBUTE_FILENAME);
+ 			if (fn)
+-				fn->dup.extend_data = fname->dup.extend_data;
++				fn->dup.ea.ea_size = fname->dup.ea.ea_size;
+ 		}
+ 	}
+ 
+diff --git a/fs/ntfs3/ntfs.h b/fs/ntfs3/ntfs.h
+index 4589b16329c9..bcef7ae02065 100644
+--- a/fs/ntfs3/ntfs.h
++++ b/fs/ntfs3/ntfs.h
+@@ -566,7 +566,15 @@ struct NTFS_DUP_INFO {
+ 	__le64 alloc_size;	// 0x20: Data attribute allocated size, multiple of cluster size.
+ 	__le64 data_size;	// 0x28: Data attribute size <= Dataalloc_size.
+ 	enum FILE_ATTRIBUTE fa;	// 0x30: Standard DOS attributes & more.
+-	__le32 extend_data;	// 0x34: Extended data.
++	union {
++		struct {
++			__le16 ea_size; // 0x34: Packed EAs.
++			__le16 reserved;
++		} ea;
++		struct {
++			__le32 reparse; // 0x34: Used by Reparse.
++		} rp;
++	};
+ 
+ }; // 0x38
+ 
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index 5811d89d67b3..aa8be7b2379b 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -978,7 +978,7 @@ int ntfs_acl_chmod(struct mnt_idmap *idmap, struct dentry *dentry);
+ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size);
+ extern const struct xattr_handler *const ntfs_xattr_handlers[];
+ 
+-int ntfs_save_wsl_perm(struct inode *inode, __le32 *ea_size);
++int ntfs_save_wsl_perm(struct inode *inode, __le16 *ea_size);
+ void ntfs_get_wsl_perm(struct inode *inode);
+ 
+ /* globals from lznt.c */
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index 594ef6860b93..46d83427f66c 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -316,7 +316,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
+ static noinline int ntfs_set_ea(struct inode *inode, const char *name,
+ 				size_t name_len, const void *value,
+ 				size_t val_size, int flags, bool locked,
+-				__le32 *ea_size)
++				__le16 *ea_size)
+ {
+ 	struct ntfs_inode *ni = ntfs_i(inode);
+ 	struct ntfs_sb_info *sbi = ni->mi.sbi;
+@@ -525,7 +525,7 @@ static noinline int ntfs_set_ea(struct inode *inode, const char *name,
+ 	if (ea_info.size_pack != size_pack)
+ 		ni->ni_flags |= NI_FLAG_UPDATE_PARENT;
+ 	if (ea_size)
+-		*ea_size = ea_info.size;
++		*ea_size = ea_info.size_pack;
+ 	mark_inode_dirty(&ni->vfs_inode);
+ 
+ out:
+@@ -987,7 +987,7 @@ static noinline int ntfs_setxattr(const struct xattr_handler *handler,
+  *
+  * save uid/gid/mode in xattr
+  */
+-int ntfs_save_wsl_perm(struct inode *inode, __le32 *ea_size)
++int ntfs_save_wsl_perm(struct inode *inode, __le16 *ea_size)
+ {
+ 	int err;
+ 	__le32 value;
+-- 
+2.56.0
+
