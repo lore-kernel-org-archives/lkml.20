@@ -1,127 +1,172 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04052549386
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791923344; cv=none; b=FUT+BQKpwqJ84+9n/oTQqI1QGPIZQevfGE+q4htzdn3chYB3vqxCgCA1uBiXR0pSbWk05YW/sMmUR06clnzk5gaz+q118Gs8B0uESc/Cmrj+8bsv5ZUznpFgmQ0tFD/xkKFDce3C27t2RB+B/EMdiOPnwexGtt8ZwGnNtqctGgw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791923344; c=relaxed/simple;
-	bh=6WLrdQptrJArGJMGv3NltYtuEpee2CJJc5BKqgZAghM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z9ohWaOxrsIahJLCjtS4H8FdaQH3BhyGlHEehLSLQdPASXTA9PriJzRKfJqqBUcr70UfqY5kXSh7r1edGQklpqxLLU7Gc29MfKpCrQ3XfEk1e0iPkt0U1eXbvwQz1tErK3HUMZ8Y2dhtuGBBOW0fskRDnWWxTaV1W31EbIhph1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=cmRYMx/f; arc=none smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9AF54CF5B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791923435; cv=pass; b=R6TZ5J92VVC433zaOZ74zyN6Z0xhmzMJu506C0SFjs2vpo2Y8ZRiPV+RtsjLcLoslbTXq6+o22C1Arm51MCklOClCt5kYo4KAgJQxopLgvu24AoSD5bG3u9DnhqB/goWWiQU2cTDeh5ZMe8h4jOn8Vm3GOWiWbjxI0bnWXSJhrI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791923435; c=relaxed/simple;
+	bh=v91tamJ4lur5vC0yoc8PA+H+9sgMG/EoWrw7MxUej9U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KTDbaf0UPIRjCCglMjEqEFoIVWiLu5RCaEsto6MZp9zGWnC44g1r/vTPRl8Y2bTFFwxGvOt+S/Cl47bNOBr0z72c43ueRVT1P47vTSxxS9mSE+vVb/ecQVtgjPNMpVsSxK61LZzPoD6gTRyH9kJVUZ5uDYU6Kxqu1gaBYAZ7mY4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ed+1qaVa; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="cmRYMx/f"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e7457349eso317628785a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:29:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ed+1qaVa"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6768403e9bbso2894216d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:30:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791923432; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bCzL1Zitc4o/ynjj/MCtss12QCuV5iROcl37csEdZmUfOTcAHnrkHsAp38hVHlUjH9
+         nqvCpv2ETTP8ZD07hH6OA2vSmhmDcVUngjUps2kp8YyNjg3nrgNUFMQ2DEyav7CEgIQu
+         ptLbjuFUoJhm8UT6DqHfjHAr72B3ztvELoxEQ8fslt5wacoAR2ngXEyEkHuawq/onM1f
+         FVhTHn/dluEQAPnFIDNHx+6UJlwi3wslO7K066JfdwKA7ykRH2c6cbIzVRQKmqgMm6c/
+         gS0Fd61KWpoL7TDhYZLUB+76OQXLJxeP/KELstFlvuMcLgzg8tNf6rPmNyFqbpWSZjEB
+         n5Tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PZ4+EgAKfEgLHQ/9kN3KZ8YlHNWXSOHDiqf8U2cJ1wI=;
+        fh=xUjVHpEG/0TAhWO+1ScdyHFV3B5kHFIuBKJZqFqhaY4=;
+        b=sjIie5a9F6YzmdHmFA7ElF8lVW1HyytlcHzkTgKTySIsAFqaE+h5ADYlK1OAyAnCie
+         sWli6ukENfUPJb3gK3Cd2Z6A4jYKhZ/6d1iYjsE9jOB24yuRU+DYJGbKjS2oY5BxB8Hj
+         HbytXoujdYLWJrccoEeFwK+uqsQ6brW/mxGydqYq2Qt01zptZsnTBkaPzu3UNMkWjvEW
+         Ryj5GwWMgm180VLvFz0BslglDgy7LYYXIK0feFKBmQ8iZscaFrZEJv2PWD0jyztsk5Zf
+         JYbdCj9AQtX7b5ghQXUwMARxLUcIcrJRX28eCyAWc0I6Mbsyipf1qDjO8qZmV5KgAjxp
+         7Fkg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791923342; x=1792528142; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791923432; x=1792528232; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=dohylkge6OeGVizhzGCANBuwwSEz+KJDIqf/mQitXs8=;
-        b=cmRYMx/fpjMfMXv6/wVBv5oJhiN9q86aQTYmBqJNN2bqq9f8vRJ6Me6D1TNxiDuGV2
-         uLugf+im0ZLsNj+QbBXArtP+LzFQWF4jZ2LGPKQ7SLnoPe6h3WiDfCNEKIopiAGgIZhq
-         HXPtp3e5T6cFlPk9TL+L20YnSwzOPiTI6GVPn1AWROOEIsP90oR9sQUn1gEFaRQvHJ+Y
-         88EikCqPg54See2CAppPtIAHRQJ9bGaFRBlxrcN3IXfrZVxuZUm/McyRPWOKB8cUebOf
-         ZeJqdH5iryIlamTZTkpqvpvSckOfqeOkghpROSKiKipi1hn+/jk0a6v5HVf1aOKM8cLU
-         lTyQ==
+        bh=PZ4+EgAKfEgLHQ/9kN3KZ8YlHNWXSOHDiqf8U2cJ1wI=;
+        b=Ed+1qaVaGn5WpDpxp7/MtEsSsOhTd5Vpx5iiugmH5Lm/M63T7wsYQamvCr03bmFaAO
+         yN4efmHsH6C74ZygMWp2JLm9MRaW7csnrI4gaaL8CVEG24YervC4n0VljzCpU/Np4s5o
+         CAisxRClYZsrLQWwOMxNVRfUnjMmBckYYLQ9n11bFNICvhnMOxriPJOIi2tDJTslcy0p
+         f1mycOT1o6+3rxEUQCadljkMIY2r02nrknvJArXSEpFTbu6c91yNY/2upy8rj3nBHoXY
+         ueI8L3m2r/JD5rXhXOyUm5gWTehr83+BAnfGHkjqE4RvVidANLz6twctvDw5tOt34VKS
+         OrVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791923342; x=1792528142;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791923432; x=1792528232;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dohylkge6OeGVizhzGCANBuwwSEz+KJDIqf/mQitXs8=;
-        b=qeEWEWb8P+UMl42BHkujFsFdYzfAL16pYxHtZNUn60j0zHYoVnUMxhLXhvLczQqMsm
-         gjd9u7PRoi5imcg95Ozt9xncDM1VoK72X//gjNBJbe6qJSqxOE2MRagACozoCC7jy7N1
-         0nPzd1ORjvY3T+WdeU1gwSSJ3YAHH4BjZMTMCiwU2AMF9TaNgC2i09mkIbyAgy1q8zWV
-         QktV7yDnUjbxVehgBuShrrncxk/stkaCEe5QEMOUMXWXzqIXfMcnaMjnPCji0GFDQHvV
-         FPhluS7Fxv97xflWQJOnlv8ZLlaGgzefmEXBzpLMXCQvUQDPA0PBV6XfEr865hUjg23F
-         YWXQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCpbNg1rCC7XGk5dY9S4l1wiTgnhU+0np3hXIQ27W/aGdGej3+8LdpjsRK71K5Rl678x9vuo37B2mf/sI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKU3MdTsa/LoAcLALXPPBNzLumjAB+JrF+wSsoXUhorFyVqBmHd
-	LsvogR+k0eDW8XM3UCCxBXCWWpzrpfvSzAf8pEdYnM8i+FLW1Gp6SPsQ7YTQCi8YfwIcywN/ezy
-	Z/EElw+o=
-X-Gm-Gg: AYBFou39tLmF3B/UeK18rE7Z7gbH9Jfi2R2vWwW0q5bY/BdpqOxF6d1rC/WSLKIC0QA
-	y+D1/+Fzb40pa+Dil8tXHVEqc1Pnzv8C3ini211kaqq80JECUiuwShsj6S1TagKTiZEW5NRYvu3
-	Uh6KTj5t50K+b7Zyp41CYHhofXZbU3dJhDyIny0Pd6P4nvH2GOz6UItLqT8lbeunW3dxsn4oGap
-	TkXXzZVM5jmNiiQlp7KnFXwspu+tu43zCZkk8T0YTss4wGw4gMUyC356QDX8oohbGGYnOTVgHp9
-	vkBSluxE26eZdKGTQoDfacWub8Snlkaghv7wg16uFftY3ltSBDE70i0UvXArFgod2m9CLVIOCbY
-	9lKm7F/PCa99zIItOfWiVvH/r/56H7BfWAzMPJdH5AQDplRrGBi8DHRgMjVKcSZh3KyCWX4V3PD
-	MlnHFVvcQrJe5i9MvnDRqPqaNm6auayxGPDBncs4+rnGMhYKe0veo6pjQixtvDOxcjezvPFwpO2
-	OSQm1szRrsF5+A=
-X-Received: by 2002:a05:620a:2591:b0:93b:d7a3:45d4 with SMTP id af79cd13be357-93ebd29c0bcmr2207495885a.61.1791923341761;
-        Tue, 13 Oct 2026 13:29:01 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.253])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5028051sm321623085a.18.2026.10.13.13.29.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 13:29:00 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>,
- Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>,
- Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org, keyrings@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 0/5] capabilities: close the ways around the CAP_SETFCAP
- rule for uid 0
-Date: Tue, 13 Oct 2026 19:32:13 +0000
-Message-ID: <179191993398.6.7035194670175996999@toxicpanda.com>
-In-Reply-To: <20261009-aussicht-wortbruch-bohnenkraut-9e7a1cfd7580@brauner>
-References: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
- <asehZEWAwsJcbqvM@hallyn.com>
- <179147397027.4.15064782992163283819@toxicpanda.com>
- <asfBRYy597qvzdCW@hallyn.com>
- <20261009-aussicht-wortbruch-bohnenkraut-9e7a1cfd7580@brauner>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+        bh=PZ4+EgAKfEgLHQ/9kN3KZ8YlHNWXSOHDiqf8U2cJ1wI=;
+        b=ILqDjt1FmsvmkxtR3UY41vPKDrn+i2OhcYb3ineEw0Y8NeGGrv+D4xA+OdjbuPt+CM
+         4hgvNTHZvTfDpvSEo4+7rwIzGAzHanjcK6TSg4ZRgCxeM+RN9U8apRHTguZqzFwzcsjC
+         PNB6E93ehXbVOF8jNaaorKl+wppAnKJywpI1S/+06+RXpwp2Fgcep5np08Bwdjlbtc1h
+         Ys5BDseGuhgTLazWbx48CIBY/YrRuIdW19CLv3ZkPc4drD+3LXC0uFqk5Iwzlku9d4VS
+         N06C93IOt0unT724EaMkXRyvMQQf1MspZWi86XdGqFWRslnCLYEGLpSIJekdcrivC6N7
+         1JBQ==
+X-Gm-Message-State: AFq9FYJYEQTBXlgCyQOQNMOEgRc0aWsnreOHi7oaHyh2F4TGMmx+iRXR
+	0I4kASHHnhKGrKGsWfx9rc6R7Vj9KjZgMiTInZisnhG6ran/p4ucmWsmHlyAOULez392u+mVXk0
+	fM1KetQXlxFQAfz5ewOp6kkg1sPOSupw=
+X-Gm-Gg: AYBFou1/J47oPDAw++ej0yR5PO/vyrq085BxXtSjNB5Bzd0RJFe0Qi0SDsvOM50osn6
+	iRq6C//ZL73XGAVQCdctTvaB6TUcUAHhRA476Vz/ZXKpCK8B9Bl6/rlAwSx3HGO1ezzayGH+379
+	19D6DIuAeG/U30rXBPOQ3LEO53CExlGCGLG3FaQdjV8KQ1l/HdS5bT+ask00PSvSUr0Ehq7psOq
+	dWLSnIyrAEcXruA753DP3425HW9K2dxxuUCSXIUtKBuM9WszHuyU3fhM/Um2wvB1EQDNHXGpVJb
+	9dGrUyJKTaktZvfKgRxzif+tx9gOm5yDvxTolnHMkp++f1vbmyktCfL7KHqMkjifPmi37CkEh7z
+	Zo33Jx7NJFFNJIKKO4hvEnDGJr4dHoPKxybOv700e
+X-Received: by 2002:a05:690e:4148:b0:674:cc60:9ac2 with SMTP id
+ 956f58d0204a3-679369ed352mr4676766d50.46.1791923431579; Tue, 13 Oct 2026
+ 13:30:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <cover.1791887415.git.mst@redhat.com> <CAF=yD-JhTbmYmHUkkruPcyvSWv0QhVeGWC=K=ZvvpMdkzA-jig@mail.gmail.com>
+ <20261013143716-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20261013143716-mutt-send-email-mst@kernel.org>
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Date: Tue, 13 Oct 2026 14:29:53 -0600
+X-Gm-Features: AclHuK8wZI7uIJlX-2etJDs8Vk1Tx42gw4A7NIBFItdYxL1q3Y6FeTRL8Oizybs
+Message-ID: <CAF=yD-LLNm1K5r37-y2thyvLJN58ruffUUHy-6BUh1CGVmep0Q@mail.gmail.com>
+Subject: Re: [PATCH net-next 0/4] more virtio-net csum hardening
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Jason Wang <jasowangio@gmail.com>, 
+	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	virtualization@lists.linux.dev, Max Krasnyansky <maxk@qualcomm.com>, 
+	Paulos Yibelo <habte.yibelo@gmail.com>, Chris Arges <carges@cloudflare.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 09, 2026 at 09:41:59AM +0200, Christian Brauner wrote:
-> On Thu, Oct 08, 2026 at 11:13:57AM -0500, Serge Hallyn wrote:
-> > Yeah, that's what I was thinking.  Or even stricter: ensure that to join
-> > any user namespace, a process must have a superset of the namespace
-> > creator's capabilities.
+On Tue, Oct 13, 2026 at 12:41=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com=
+> wrote:
 >
-> I think both are fine and I like this proposal.
+> On Tue, Oct 13, 2026 at 08:41:19AM -0600, Willem de Bruijn wrote:
+> > On Tue, Oct 13, 2026 at 4:58=E2=80=AFAM Michael S. Tsirkin <mst@redhat.=
+com> wrote:
+> > >
+> > > Allowing untrusted hardware to specify csum start/offset for
+> > > CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
+> > > outside the actual checksum, and depending on the setup, the networki=
+ng
+> > > stack could be looking at the packet both before and after the edit, =
+and
+> > > seeing different results.
+> > >
+> > > Previously, commit 6785011f8b16 ("ipv4: validate checksum_start befor=
+e
+> > > completing checksum") validated all known instances where this
+> > > causes the most grief, but the real fix is to make sure
+> > > that either only actual checksum fields are ever edited,
+> > > or the checksum is completed before the net stack looks at it,
+> > > so it is always consistent.
+> >
+> > +1 on the general approach of performing the checksum offload at
+> > input, unless the input can easily be validated to be one of a few
+> > common protocols. That greatly reduces the risk vs my previous attempt
+> > at trying to drop.
+> >
+> > Since we do not know the full extent of grief, I think this too should
+> > go to net and stable.
+>
+> I think it needs a bit more testing to be frank, I do not see it
+> wait months out of the tree. So if this lands in next before the
+> merge window, we are good I think. If we miss that I will target net.
+>
+>
+> > That would mean initially a single patch that
+> > touches as few files as possible. The helper function in
+> > include/linux/ip.h and conversion of existing open coded parsers to
+> > use that can follow up later in net-next.
+>
+> I don't see the value to be frank.
+> What moving code between files accomplishes, I donnu.
+> Squashing things surely makes review harder?
+> Does your backporting system really struggle with trivial
+> dependencies like this?
+>
+> I can drop patch 2 and will if I am targeting net.
 
-One correction to what I wrote: the weaker version isn't enough.  A
-namespace that maps "0 100000 1000" doesn't map the parent's uid 0, so
-it passes that check.  But with an idmapped mount that maps fs 0 to
-100000, a task that joined it can write fscaps that are stored with
-rootid 0 and honoured by the host.  We test that flow.  So it has to be
-Serge's stricter version.
+Good. This is not about "my" backporting, but upstream stable.
+Refactor patches do not belong there.
 
-> I think that this is an acceptable restriction. Mapping uid 0 to 0 and
-> dropping caps is borderline useless.
+Since patch 3 might have to be backported in the future if a serious
+abuse surfaces, even if you now land it in net-next, it is better to
+not depend on other patches.
 
-That makes the restriction wider than the 0 to 0 case.  A root task
-without CAP_SETFCAP couldn't join an ordinary "0 100000" container
-either.
-
-setns() also only covers the routes that go through it.  These don't,
-and need their own checks either way:
-
-- writing through a uid_map fd opened by a task with CAP_SETFCAP
-- ptrace and pidfd_getfd of an entitled task from outside
-- a task without CAP_SETFCAP creating its own namespace, which a
-  privileged task then maps "0 0 1" for
-
-So v2 would be a level on the namespace computed at create time, the
-strict setns() check, and the checks at the map write, setxattr and
-ptrace reading the namespace's level instead of the cred's.  If that
-sounds right I'll put it together.
-
-Thanks,
-Josef
+> >
+> > > This basically does this: checksum at ingress, except in a narrow lis=
+t
+> > > of specified known good cases.
+> > >
+> > > Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+> > >
+> > > Michael S. Tsirkin (4):
+> > >   net: add ip4_parse()
+> > >   net: use ip4_parse() in receive validation
+> > >   net: resolve uncommon partial checksums at ingress
+> > >   net: account for ingress-resolved virtio net hdr state
+>
