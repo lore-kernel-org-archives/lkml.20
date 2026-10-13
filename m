@@ -1,90 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891873AE18C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E1E4F5DE4;
+	Tue, 13 Oct 2026 12:03:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892979; cv=none; b=SWEjdDilT1uEF96rg9dERKTYOX9BbfL6sLy+1BKirJOeYWWek5OHsDJ4bag4TbqVUPtBFOPrSh7VLzsxU06SvZ1ip08BUg+d8SSkTyO8ctYXOSErph8fb/YbHTP0VSGEJOX1pNnZgnEOqBwCWLPimE619JWFt66SkIRvz9ERqgU=
+	t=1791892990; cv=none; b=bazX5ZIQ7qln0HLKQONQATK4Js52TjP/QUD8oe1NQNd5ULN9a7z1r2x0LgjTMbniIijYKGNjOyV27N/5OfZfpu+vZKBRKe0aRli9aqYuohpMhwaJDrDoPEjWXMlwF0cjx02kAYSyUwK3b42/TyZ9k8aXULLTw4kRmH6yDab4bOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892979; c=relaxed/simple;
-	bh=Qgghz2ce1N3txSgutvJhs+kzyjPhbpQpd6HbrGdufeQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jKtpJZ2m1pI8D/wYQ10wnq7TAiQvoPztJJQYZyfDf10yA9TXRWH4hsE1f4S/4ubg4wLxMej/SxDaDSY+UEYSSnDvQ5Z1OOReHx/ksDhqmMOABq3WdZIzbknN//0eK5RZbob+QY3YD5jOoVrYmQLxKDyHmi3hw4LHROjJR34aaVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCTioVJt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791892990; c=relaxed/simple;
+	bh=TINdVUVnB8Zko5Okti+SHy5lVWI/uFlhVZbLYF+cxxo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R4syiqYEapOQHp4YjBmr8tsHDpTsrHGrCnr64NvKWDpVXS1iH9vKV3DUCw4b8ciq9E6Y0KtQ3eQVE5FUz9vVLQHDiZ7DNoTXbouKFiS0SGKap9x7Wab1M4/UTx4EC/p4/6hc1V625hp5+a7VKujrngxG6+H03F74HsocdAJzqB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=FKJFambo; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCTioVJt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C06B1F00899
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:02:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791892978;
-	bh=Qgghz2ce1N3txSgutvJhs+kzyjPhbpQpd6HbrGdufeQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YCTioVJtDV2w3Suz0JAJGqrcEzN8jzMNW426WKyoLv9DevlcWEZMEWUMjvcUZurpP
-	 593ciP6gzchSW/cwrM6h2bAtPqlQL6a62+e1AMmptLTnm6RzATjhBBS4KIEm35Z4cp
-	 9Q5X0c4H2/ie95U5WuUGCON1WX5vCaERZNGFZfheDdOQobD0oKXCljUd6ybYhTbS1t
-	 t13dkr306au5+jy+/koQVyiDfMhEoRYkHYWmxW1jjMoxsKe/uwJgNcfaYaAH8gwcAM
-	 ZOia/UhQYCOQUQrpJJ6NNQnx7f6cLOOmXJjDSf0Kbb+NjGpd7OXvh/onaLuoqZ9gaL
-	 JPXIAE/ogNQdA==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5ba3adf78f5so2404703e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:02:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByrVW8/qzAGMJLhC6T2W/3K4EDaVn+zfMO3U0Y1YITI3oGjQeEN3JeDw/9EYvRVyILQdiNRqoW3kHpF+y0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhTl8UYxbB1oBSlp+35TcKjijZxGpHTShafRJo/T0Y9XwDakwI
-	i7rlXxKuOCLJ5X0gaEOcYKLKg6KU86t//ErBuFPwTDrqHNYUzjjzb5jn9Blj29O9azVKQ4ajYaB
-	oXJWMtpIjmSvXTs5NLlxWzaaY+/6i9pI=
-X-Received: by 2002:a05:6512:61b1:b0:5bc:b778:70ac with SMTP id
- 2adb3069b0e04-5bcde6cb069mr4504958e87.27.1791892976820; Tue, 13 Oct 2026
- 05:02:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="FKJFambo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=YZOl0/Y1fZ+ipz8NqERLgfXbsWKnbtJ7TTNXDXnL3Q4=; b=FKJFamboC5lv/hXtJRwYIpyQ6O
+	3fs2ip7l20xXY3qn4SKttEsTm3LmSTvYgJPcaBfi+tkDbkeB8kn31GocY1mlWpJurBOFLk8K/Dlpy
+	7M/LY0eVTN2eXY6p7DvCSSE5zaU5xr6T3KbD1DrPEQ4MqSwt2CJSZCLAiv+M7z2LtbUoH1//b4vHv
+	ISZzYnOjs/hcpd9Csci2tKSbp44UBxGNkgWtsCsnlNABlolcWPtsyFrkdk/vGaJff4h3Ft52z0tsX
+	AKgeV98lgYcYZUraFA0PUBoowYJEmHX9doWMbKDYT0Z1amHQ5n+sEIsTia4X+F4/xTT0nEzcQaqUo
+	vpUowDRw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xGbDj-0000000D8ON-2dRr;
+	Tue, 13 Oct 2026 12:03:03 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C3B8930063F; Tue, 13 Oct 2026 14:03:02 +0200 (CEST)
+Date: Tue, 13 Oct 2026 14:03:02 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: wangqk1 <wangqk1@xiaopeng.com>
+Cc: linux-kernel@vger.kernel.org, xiedl3@xiaopeng.com, mingo@redhat.com,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	bigeasy@linutronix.de, clrkwllms@kernel.org, rostedt@goodmis.org,
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC 1/1] sched/rt: Avoid RTO push to stopped CPUs during
+ shutdown
+Message-ID: <20261013120302.GJ2009045@noisy.programming.kicks-ass.net>
+References: <20261013030140.682182-1-wangqk1@xiaopeng.com>
+ <20261013030140.682182-2-wangqk1@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922121058.972734-2-maobibo@loongson.cn> <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
- <CAAhV-H40TW01vpaNSDgm86DVM4Mwf0sUvnAt2KEwUB=pPFhhqw@mail.gmail.com>
- <CAJZ5v0gpFDaS8sLdDBbS4tU-F7fKPKOkXtb7nqjfNhagEB_Cgw@mail.gmail.com> <CAAhV-H4hdq_2rGAw9LtCcxLUnQuKBgYTJeMXkAfjCuM+yck9HQ@mail.gmail.com>
-In-Reply-To: <CAAhV-H4hdq_2rGAw9LtCcxLUnQuKBgYTJeMXkAfjCuM+yck9HQ@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 13 Oct 2026 14:00:51 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hLNNWa+5FVr6qq3wweasish5PazhmJ79opiKKsSFqtqQ@mail.gmail.com>
-X-Gm-Features: AclHuK_VlXt4n0aWWke0Z8h9vKGfPNjerwul9StuMA3SRlvJ9c4BQDZac7-YVlA
-Message-ID: <CAJZ5v0hLNNWa+5FVr6qq3wweasish5PazhmJ79opiKKsSFqtqQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
- field in the IOVT IOMMU structure
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Bibo Mao <maobibo@loongson.cn>, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org, 
-	lixianglai@loongson.cn, loongarch@lists.linux.dev, 
-	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013030140.682182-2-wangqk1@xiaopeng.com>
 
-On Tue, Oct 13, 2026 at 10:40=E2=80=AFAM Huacai Chen <chenhuacai@kernel.org=
-> wrote:
->
-> On Mon, Oct 12, 2026 at 10:49=E2=80=AFPM Rafael J. Wysocki (Intel)
-> <rafael@kernel.org> wrote:
-> >
-> > On Mon, Oct 12, 2026 at 9:21=E2=80=AFAM Huacai Chen <chenhuacai@kernel.=
-org> wrote:
-> > >
-> > > On Mon, Oct 12, 2026 at 3:16=E2=80=AFPM Bibo Mao <maobibo@loongson.cn=
-> wrote:
-> > > >
-> > > > This change is already merged in acpica tree.
-> > > >
-> > > > slightly ping.
-> > > I will merge the last three patches once the acpica changes are synce=
-d
-> > > to git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git.
-> >
-> > I've applied the $subject patch as 7.4 material.
-> >
-> > When it propagates to linux-next, I can expose it on an immutable
-> > branch if that helps, in which case please let me know.
-> If that commit is contained by the tag such as 'acpi-7.4-rc1', then it
-> is enough for me. The loongarch pull request is usually after the acpi
-> pull request.
+On Tue, Oct 13, 2026 at 11:01:40AM +0800, wangqk1 wrote:
+> During system poweroff, machine_power_off() invokes smp_send_stop(). A
+> CPU receiving IPI_CPU_STOP parks without running the CPU hotplug teardown.
+> Its RT overload state can therefore retain a stale rto_mask bit.
+> 
+> A CPU still executing the RTO irq_work iterator can select that stale bit
+> and queue work to the stopped CPU.
+> 
+> Observed call trace:
+>   irq_work_queue_on()
+>   rto_push_irq_work_func()
+>   irq_work_single()
+>   __flush_smp_call_function_queue()
+>   generic_smp_call_function_single_interrupt()
+>   ipi_handler()
+> 
+> Stop RTO forwarding after terminal system states begin and skip rto_mask
+> candidates that are already offline.
+> 
+> This is a workaround, not a complete synchronization protocol. The
+> cpu_online() test is not atomic with irq_work_queue_on(), and panic or
+> crash-kexec paths do not set a terminal system_state before stopping CPUs.
+> 
+> Signed-off-by: wangqk1 <wangqk1@xiaopeng.com>
+> ---
+>  kernel/sched/rt.c | 20 +++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+> index 85303add726d..716ac30c5afb 100644
+> --- a/kernel/sched/rt.c
+> +++ b/kernel/sched/rt.c
+> @@ -2084,6 +2084,14 @@ static void push_rt_tasks(struct rq *rq)
+>  
+>  #ifdef HAVE_RT_PUSH_IPI
+>  
+> +static inline bool rto_push_allowed(void)
+> +{
+> +	enum system_states state = READ_ONCE(system_state);
+> +
+> +	return state != SYSTEM_HALT && state != SYSTEM_POWER_OFF &&
+> +	       state != SYSTEM_RESTART;
+> +}
+> +
+>  /*
+>   * When a high priority task schedules out from a CPU and a lower priority
+>   * task is scheduled in, a check is made to see if there's any RT tasks
+> @@ -2131,6 +2139,11 @@ static int rto_next_cpu(struct root_domain *rd)
+>  	int next;
+>  	int cpu;
+>  
+> +	if (unlikely(!rto_push_allowed())) {
+> +		rd->rto_cpu = -1;
+> +		return -1;
+> +	}
+> +
+>  	/*
+>  	 * When starting the IPI RT pushing, the rto_cpu is set to -1,
+>  	 * rt_next_cpu() will simply return the first CPU found in
+> @@ -2155,8 +2168,13 @@ static int rto_next_cpu(struct root_domain *rd)
+>  		if (cpu == this_cpu)
+>  			continue;
+>  
+> -		if (cpu < nr_cpu_ids)
+> +		if (cpu < nr_cpu_ids) {
+> +			/* smp_send_stop() does not clear stale rto_mask bits. */
+> +			if (!cpu_online(cpu))
+> +				continue;
+> +
+>  			return cpu;
+> +		}
+>  
+>  		rd->rto_cpu = -1;
 
-OK
+This is horrific; lets not do this. The bug really is at the place where
+you randomly and without warning take CPUs down. We're not adding random
+hacks for things like that.
