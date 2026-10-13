@@ -1,112 +1,104 @@
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA384F68CF
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634F44FD269
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896412; cv=none; b=ETEEFvWoiGUOaraJqmUNpoIePLAS913MG2PhD465ihwalpiQ0an3AbmM7LDcyeFb998+yX4Wi4fFiXNw8YGjgZpTMW/jK1HpeI4bjWIa1JeXyN0joqAozUBSxElz8Bqg9fcSB4iV6Cp2XElQRMRpml4JUUN4m54ozBmdFVsF1Ww=
+	t=1791896421; cv=none; b=D+U+NqeNm3cWFAkIv1a3nkrugTHVfiNIq16nFmKROYgSUJ5vABkaqMzLVT/3rVuyxXnFEpgMiQEK7Dp70OpGhbPf2Yhvxr3+ZLIUHTx/WctxT/7wHG/zuHD/SCqz+BHFZ4wYh1rcHUAt2se6ocN79vmaiLVbPYkVbU+fCjs3DPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896412; c=relaxed/simple;
-	bh=LYUbr06nCzkun3NGQIdKMFxFK4xBcbT7RiA9aRgNq6I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fpwCRe4xZQlqXxetS0uSYxF4haDXAKd+MphbeUci/US9ZOd4Eks4Kaac6nkYhl85SFXyvl1a3u1p1PsGPVlfO0UAJb1jkAKXtiKE4j+ZkK/YheWt6MhnObv3jX/coTYHOuWrcyXYBEZzaruXvuF6o1aDrjgUpsm45rT/ZY5dg/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tBgPHyTM; arc=none smtp.client-ip=91.218.175.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791896421; c=relaxed/simple;
+	bh=a1lPUx7YoLnWIcITo7CrGZIQIbKO0UFk/H/zKHK4q4U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mouCbrQnsbwJ1sfhCItw4+N3J1yU3/F5X2tUf7DWToOzcX5kPHH2t512Lsh8gdiIOr0JmqzI5h7Qsy8dnU7qYL7zQQqvi+7U3Icwp0tLh/IOH/Pbg2jbPplihfdjgTlxDzJkaicfYtr+T8diY3qWQky+bpMCa6hPbxA+xGSu0NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLIiIwS2; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tBgPHyTM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LYUbr06nCzkun3NGQIdKMFxFK4xBcbT7RiA9aRgNq6I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791896406; v=1; x=1792501206;
- b=tBgPHyTM5siVvDz1GvdfGyGJe+fpsDuTrLTbHLYDh/bDloUXWNf7aeIwgnHZb++B2927Ucyd
- uHBZnxoYAMShIqbPPgD8jSmR48RqwnQDJVqRAmQe+q27lEJpc+6Bsd6SSLIDk50AIc0OYvQZX9b
- TaTwxQSaHIHgBOE0cGpT4ido=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9ced9724f8e9725a;
-	Tue, 13 Oct 2026 13:00:06 +0000
-X-Mizu-Trace-ID: 9ced9724f8e9725a
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ba40832934so17967e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:00:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByODdJG1mvWj+VDJcqdFuJRPHgLyWmkRz3LcKcAUUiTXLPm59K2ztnWqyxJZnFt4khenexIEn/S6OTwIFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKtQqS8uX78fMphNv/xP1BJjQhzucB7mN2L9cQKrrxd/6VScck
-	8MLichIVmhLtrmrIg5NvR751UBnc+sYVIdXyoV+pYMaL4xFcF0BszzYUNhgRH3z2hELKssrXll4
-	9lQdK18xsLlGfwX+7Vx7h7U8HQm6qpPDiehwcjejo
-X-Received: by 2002:a05:6512:1284:b0:5b8:c230:1241 with SMTP id
- 2adb3069b0e04-5bcea5f77eamr325892e87.10.1791896400858; Tue, 13 Oct 2026
- 06:00:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLIiIwS2"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e83d2cc8a2so6084115ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:00:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791896420; x=1792501220; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BPjCWxUSfRvlJUtSVwuDIbCnah44rNQ2fIrGmDlzw+k=;
+        b=aLIiIwS27qUE16gpgFTyBouwBeNMBf5VQcrZbVsdjiq/cHMuelft+8yVl3iMbPhPdN
+         RFguWal1CdErndElKT82F5GSN+W7Dk/g6hdqegVgsSh7I8uL/C9PyM9HnQcecfzrfEW0
+         aMrJe+AscQk96gDoQ3WypEssTg/OtFrfU6p8SMuvhoH4ybs6u2SZVlDeW6+nUAkv8cEo
+         InLlrkhhxJfAERHMTQAr62JnAatKDLUr731jK07xUHFInL7m9fknPRFCnZCwnoIEX2+6
+         7FvnkuXSWw3CAgVUfwyGr4shWF9P/iglYc5zN3PIPTu5x/FtKdAQLueATPu4vhrJhwKv
+         6huQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791896420; x=1792501220;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BPjCWxUSfRvlJUtSVwuDIbCnah44rNQ2fIrGmDlzw+k=;
+        b=m6dAT7/98rhEKidB8hn4aWkj84KASOepQgCjT89Hsso+kawG20S6DDxBWXVw4qPfDb
+         YlSZ2ARwbw+W8a1mgyIxB7nvlvwuyp7kclhewjA6oXm6S/qQzB0jDAndql5AN6QxAYKN
+         q4l3HNSBszG2O7PjkGO5k8xFxNF4W8AE8EIQQcZtI5zIGzeCV9zixGP9d47YPEfjb/PD
+         rgjqL/eUAYTSd7X7RkbWGOiZsHj+mylQ52EMkEQlTjdtvD1EsOJ6Y9ivEGTfa14Il8FZ
+         ZEepUX89ObldMLlTaPdB6PVSLdY6z5Iaoxm2JdI1WVOHik0XW0OSlly2cSl5v+zsjodf
+         uJVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwFGijbWiy5pOk9QryTFVGzxfuBZiDoFV29AxivNA6fHQnFiPMSOhRDLKn/h1etHQ5unrEmwjOWw8BzddY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoSYpuMBHGH5BVDjIkAzcfBDagY5/NutentdkrPDujz3fgw6Yk
+	lGt5OoJ5MPSiNo9h0NJUYJQcGr+gRwl6yRJE60+KMDv79uIpjBStYPT4sr8S7ZL/E/LqAA==
+X-Gm-Gg: AYBFou2j0bKyr6AtujBGs3X/YpYHmX3gOqLW9/+tq61cX4xOPRHmDJPFxsGDu1naUda
+	i5gnVOkCK/NBKutWh/W+cmYF6PTaId2iOu2Cq4gCBCq+AztgeH9vZ1iJMQ/GoUikKNG+pmIMBap
+	6iAfqk+c+e2CrPpVBI0iGNhMpOcum5ZnTRo00dXn1ypRc943h48Vt6Wrr5QheuJGY34XiWDjTrK
+	nLlVHCNnjZhOkdkQcABy71Tb207kSaNH8TW0PbFgXxytCsHr7C9xHgjDwPaENfuTpu3oqVGCUlh
+	vk6L9QS7sXnXY7GR9c6Lc812py4acApK0Vh8PtIpZXTmuRX8AXMTrxTufnrAb0zpNyGbOXwpvNd
+	6BfcVpeZ3ciWUk6ljIGFO2D52dP7YKGOM93bpXlzO9Wcy4Z+i0g1PZgaqOSaeIq0CMLh6NiBUw9
+	jLoxjttfEQQBrEVICxSm7/p/MMQXn9tZzUSvRb6wohivnaZI3qc7jKt+BUFiOkhR+TRkxZfg==
+X-Received: by 2002:a17:903:2f8c:b0:2e5:c78a:5309 with SMTP id d9443c01a7336-2e842ab6bb0mr178440135ad.4.1791896419592;
+        Tue, 13 Oct 2026 06:00:19 -0700 (PDT)
+Received: from marchy ([2405:3800:834:ced2:ee8e:77ff:fed4:d18b])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e4cf3sm53869375ad.72.2026.10.13.06.00.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 06:00:18 -0700 (PDT)
+Date: Tue, 13 Oct 2026 21:00:15 +0800
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, jesszhan0024@gmail.com,
+	airlied@gmail.com, simona@ffwll.ch, andersson@kernel.org,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+Message-ID: <as4rX-xVWUPcczNp@marchy>
+References: <20261012064518.3497285-1-azuddinadam@gmail.com>
+ <20261012064518.3497285-2-azuddinadam@gmail.com>
+ <20261013-artificial-splendid-goat-d078dc@quoll>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013081646.933312-1-fuad.tabba@linux.dev> <as3_NKT20MNdqaJR@kernel.org>
- <86wlrl2a2f.wl-maz@kernel.org> <CA+EHjTztZpFrmuz9pK+01BsDxHnzpEwUMt6E3nUrgk4NNTsKYQ@mail.gmail.com>
- <86v77526me.wl-maz@kernel.org>
-In-Reply-To: <86v77526me.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 13 Oct 2026 13:59:22 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTyZA6VL6EjhkB2bf9fDk4fUWpc=iXsu+sR1B+_YbR-nOQ@mail.gmail.com>
-X-Gm-Features: AclHuK91_oNrs_00jtZZScBUrir_3CsFdStuVvifnhav_N77zBitsUsBdY8t0FU
-Message-ID: <CA+EHjTyZA6VL6EjhkB2bf9fDk4fUWpc=iXsu+sR1B+_YbR-nOQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and DISCARD
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Andre Przywara <andre.przywara@arm.com>, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-artificial-splendid-goat-d078dc@quoll>
 
-Hi Marc,
+Hi Krzysztof,
 
-On Tue, 13 Oct 2026 12:16:09 +0100, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> > A vCPU on its way into the guest does the same: it loads its LRs in
-> > kvm_vgic_flush_hwstate() while it's still OUTSIDE_GUEST_MODE, so
-> > kvm_arm_halt_guest() doesn't wait for it. With the delay after the
-> > flush instead, on v2 plus your 1/7 and 2/7 [2] and both changes from
-> > your reply to 1/7 [3], the guest takes it in 9 of 20 runs.
->
-> Does this mean we still need OUTSIDE_GUEST_MODE to be a store-release
-> past the point where we resync the state?
+On Tue, Oct 13, 2026 at 09:33:38AM +0200, Krzysztof Kozlowski wrote:
+> On Mon, Oct 12, 2026 at 02:45:04PM +0800, Adam Azuddin wrote:
+> > The RA8875 is an SPI-connected TFT display controller by RAiO
+> > Technology Inc. It supports display resolutions of up to 800x480.
+> > 
+> > Add YAML binding schema for the RA8875 controller, along with
+> 
+> So you ignored my feedback.
 
-Not for the 9 of 20: that run already had the release. The halt reads
-the OUTSIDE_GUEST_MODE the vCPU published at its previous exit, so it
-doesn't wait for the early exit that folds the LPI back.
+My mistake, I misunderstood your feedback regarding the redundant
+binding text in the commit description.
 
-We do still need it for the window after the exit: with the delay
-there and the same patches applied, the guest takes it in none of 20
-runs, against 13 of 20 on v2.
+I will fix the commit message and send v5.
 
-> > Once DISCARD waits for irq->on_lr to clear before clearing
-> > pending_latch, the guest takes it in none of 20 runs in either case.
-> > I'll add that to v3, unless the single-vcpu stunning already waits for
-> > it.
->
-> Polling for on_lr feels very dodgy, and I'd like to avoid this. If the
-> OUTSIDE_GUEST release addresses it, I'd rather do that.
-
-I'd rather avoid the polling too, but the release alone doesn't close
-this one. The vCPU would also need to store IN_GUEST_MODE and check
-its requests before kvm_vgic_flush_hwstate(), so that it never loads
-its LRs while it's OUTSIDE_GUEST_MODE. The existing check after the
-flush would still be needed, for the KVM_REQ_GUEST_HYP_IRQ_PENDING
-request kvm_vgic_flush_hwstate() makes in a nested state. With that
-and the release, the guest takes it in none of 20 runs with the delay
-after the flush, and herd7 finds no LKMM execution that leaves it
-pending.
-
-The IN_GUEST_MODE change would also cover vgic_mmio_change_active(),
-which depends on the same halt (the comment above
-vgic_access_active_prepare()). Would you be OK folding it into your
-series, on top of your OUTSIDE_GUEST_MODE changes? Patch 2 then
-wouldn't need the on_lr wait.
-
-Cheers,
-/fuad
+Best regards,
+Adam
