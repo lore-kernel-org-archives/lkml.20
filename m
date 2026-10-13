@@ -1,174 +1,178 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2743E39EF20
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E863AFB1C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791878104; cv=none; b=L71tRN7LeLNPdYuQ5FAPXQ5DgC+aunQKyD+taXfvsz19gu7RkTI+u4Ko0aDY6DdUk4j8TlX0gFbGPjM/LiAxwGPCMF/0RS+cqFVGWQDABJWLwfGvWSbW2/ohUQDE43aBoCJLllLOp93vFfZW8vHzkWh2Pa27rmSj/pOtV0k6iQU=
+	t=1791878126; cv=none; b=ciwmG1Bic1hpi7JDi9BnRbF55jDGjaUHFrdOv0/sF2SzJ1st4VZS5620KWyI5GELzj/+HsvR+gYbxcVJiQLAz94s0257vDCfPssqdymWjNHgmHS1aP+AmU05hHAKCvHYaAb9WuB3nFJfxvWk2cDet6Jie+Kgn/60e3X08JTmJns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791878104; c=relaxed/simple;
-	bh=EgSh0MeykZKTI/sMFgoYkWo6fEqw41vxM29on6Q8vYc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=UZ7paY4VP9RRr89wwtu+mAW3LQkAUTfXMUirT5acdReZd0FXN3nPbKBze+McfCipR9w15BVC2cgqdiVIklCRkHbiwbXOJZtJxNa9U6nTafPZAGvnsliiPK/qeJd1RBUjND43TGF5DKgV8WH05L0C62Q6Zsd0eBVC0WpdWuBOzRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QuVNOrIH; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791878126; c=relaxed/simple;
+	bh=RPlfzWYmM8FirW88IjwmpVbxiR/zbaOepgou5oQs+ac=;
+	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
+	 Content-Type:Date:Message-ID; b=TxelYxRi3AT3KglPa6dVtj0wXptRuG7pjo8j28vIGX14GTyKLkbonH+U6tpkDe8n62r/rrLUXBUnoRY2PuZvxAro4fuXFR3nogvNOgGQdZJ0xOmketU0hFSigqJe5ih4hh+rcaqv0RP/qA+AdZQtyc8CxmwWB6iJ91eYRrAqNGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=egTsrPtR; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QuVNOrIH"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e836252e1dso21188475ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:55:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791878102; x=1792482902; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pVb8dGJgBOCepBEpRi0mzE+ty+vlzyd21NuC7kLzqK4=;
-        b=QuVNOrIHX47GFR5LR+v949lPXnUp4PkyVv9fmEky/rrGVrfbv/uUSChRBRehfvYBCk
-         9Hb9aIC4Y7P3PWfucbupa87szHj1cAuEoHf3fpnfTH23NeR6FOGGkppOB7eOtE0EX2RG
-         5oWTwyFkBLAatMpt0UvKNKvOKG+W7KFnD0b5unp11SMORHmP53cxOTUFDI5X/5LMJ13S
-         zR7SB+V+QxoMWvOIuS7r9oE+le3iQBmEsLyE6DE71by0+NoWOTIkHtDEd+A591Pt0G9e
-         W3zjY2G8SO7V2xzZJwXOIIJVSSMgYLlATDpA51Ca6/2rRcgV0Y4drq5rIFtMSdyEVx7g
-         ZTvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791878102; x=1792482902;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pVb8dGJgBOCepBEpRi0mzE+ty+vlzyd21NuC7kLzqK4=;
-        b=ZgS1Q3UKZTMnMiTXcIyfrdkMOoQUcajUoMO+ucYBqVGtq9yc5Jye8UMSYi/26glhar
-         cy3D+TQQCokbP/0VfBotSAPx7N8doopkdTb+/MYbVcFS7oOflr+DBf2Bnse69tym0Odx
-         XY+E4b/pbATvDqoNDkZj8tdgRPSKioD1izlbVPmnAqEa/5/tGRLbKJY5oiGMehI6EhOs
-         asLOlS5txzDiXm/Y4kfpYSJtD6Fp1ytayIr1NJl/umA01xbkxShFyL6Ddhu1JtPqYj4j
-         pKvBJ+oSJNms8OguiQGnDJdFipK/ODzer0f9KQf5RVKC+CzawoB5mz90HpYln5bSUE8n
-         Wnlg==
-X-Forwarded-Encrypted: i=1; AKwUvBwMykb0iesz9A3yn5fpRZjED7ASb7Wt2NIJCxW0hiFiOwnS8V6MOWcYRJ+2X8wcSEPFxwnth2vr+UbrOgg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/bPo0jk5nxpgRZCjDIYo+fS8rfS7Ov6C7FH5lWm0gibTW6Y7V
-	fJwXCFBy06B1TcXsPok8OCQ9hW5RZJdt8h1PQu4ZA0PdyDgkzi5Au+e8
-X-Gm-Gg: AYBFou1qf8vMuvbbLkt7tj2FQBBYRBw2bSOVC+5q9EuWKmCSRajb1cuSJfL3DX/8e0o
-	ijG+/nUBRKUkZVKXwUk3/soZpkZzpwDWIi0aodQB6vIY+ISXNpfC0FF/LlS0Nutmd2FJj35PGTM
-	E1LuACCQBKf57Jb7ppMkFlfJwFFkKvyV4cq0dfjbaj/NVuGFlBM80uyfXUsqmEA43Pd39KKmLew
-	9AvAGVpIevfvmoKofNvctgaOgG06K+3dAkig3AGjQcx7Ll1U4aGlFZ9tTcNL7rVN0XrTPenivWX
-	sMomTWxRJwQUT14GqUpZlAVSBlYSHUs7T3nIw9mO5mXdx9luhXXTJEYDwJN3fqwoKzIf/LX69qG
-	00gkSUMUQiOEhuAh6TTBSBro6yhX3US0zhrwFlj2C6beDHFPKIfPmE4aPAYOP+i5PihvKbjvmQk
-	ORiX0IbyYEW6u69ldzqayXzRoPFz8sNk04SgYl8XjZwpKa8JnNDhr3v2D+X/vqRNQkWw==
-X-Received: by 2002:a17:902:e541:b0:2e8:1f8a:9113 with SMTP id d9443c01a7336-2e842bd5caamr104835355ad.40.1791878102366;
-        Tue, 13 Oct 2026 00:55:02 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e6b6sm51111515ad.20.2026.10.13.00.54.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 00:55:01 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	2022090917019@std.uestc.edu.cn,
-	hemanth.selam@gmail.com,
-	nfraprado@collabora.com,
-	songxiebing@kylinos.cn,
-	sammiee5311@gmail.com,
-	kees@kernel.org,
-	cassiogabrielcontato@gmail.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ALSA: hda: Serialize virtual-master hook registration
-Date: Tue, 13 Oct 2026 15:54:55 +0800
-Message-Id: <pm-pmb-c2667fb9cc42fbb7943c-v2-d4b95981cdbb696491c5@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="egTsrPtR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791878123;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CaDYtVwJjGFlT9vzY/XFr3IPNhGIGR2PZeK9wCQ1Tvk=;
+	b=egTsrPtRAonfYEZ0ITXjgMdq9vXKd0dUXX+Iw2r4IedGveqOdkwhAUsGD1AG92tpNj60hf
+	zybpbQi9a2kB2dReuvtHjX9KJhhsoejUOFI8d5HximcntSavCSLoLTYeobFL9Cq/dCDAJe
+	mmFbow3FQMwXLGFIL9atWHt/7tq5ZqA=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-58-rUZAsi6DMcieVbVMGWpCBQ-1; Tue,
+ 13 Oct 2026 07:55:12 +0000
+X-MC-Unique: rUZAsi6DMcieVbVMGWpCBQ-1
+X-Mimecast-MFC-AGG-ID: rUZAsi6DMcieVbVMGWpCBQ_1791878109
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 972E618009D3;
+	Tue, 13 Oct 2026 07:55:06 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.48.11])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3345430001B9;
+	Tue, 13 Oct 2026 07:54:59 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20261011.cachefiles-partial-zeros.pchmelar@innovatrics.com>
+References: <20261011.cachefiles-partial-zeros.pchmelar@innovatrics.com> <20260910220242.2165023-1-dhowells@redhat.com> <20260910220242.2165023-5-dhowells@redhat.com>
+To: Petr Chmelar <petr.chmelar@innovatrics.com>
+Cc: dhowells@redhat.com, Christian Brauner <christian@brauner.io>,
+    Paulo Alcantara <pc@manguebit.org>,
+    Matthew Wilcox <willy@infradead.org>,
+    Namjae Jeon <linkinjeon@kernel.org>,
+    Marc Dionne <marc.dionne@auristor.com>,
+    Stefan Metzmacher <metze@samba.org>,
+    Eric Van Hensbergen <ericvh@kernel.org>,
+    Dominique Martinet <asmadeus@codewreck.org>,
+    Ilya Dryomov <idryomov@gmail.com>, netfs@lists.linux.dev,
+    linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
+    linux-nfs@vger.kernel.org, ceph-devel@vger.kernel.org,
+    v9fs@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v12 4/5] cachefiles: Don't rely on backing fs storage map for most use cases
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1655267.1791878098.1@warthog.procyon.org.uk>
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 08:54:58 +0100
+Message-ID: <1655268.1791878098@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-An HDA virtual-master hook must have its private argument initialized
-before a control callback can invoke it. snd_hda_add_vmaster_hook()
-installs the trampoline through snd_ctl_add_vmaster_hook(), which stores
-master->hook before master->hook_private_data without serialization.
+Petr Chmelar <petr.chmelar@innovatrics.com> wrote:
 
-When a codec with a vmaster mute hook binds to an already registered
-card, snd_hda_gen_build_controls() publishes and initializes the Master
-Playback Switch before installing the hook. A native write that changes
-the switch can then run in the following order:
+> Reproducer: random 64 KiB reads covering half of a 256 MiB file of
+> random data, then a full read after dropping the page cache, compared
+> with the original per 64 KiB block:
+> =
 
-  1. The codec bind path publishes and initializes the master control in
-     __snd_hda_add_vmaster(), then calls snd_hda_add_vmaster_hook().
-  2. The hook setter stores master->hook, but has not yet stored its
-     private argument.
-  3. SNDRV_CTL_IOCTL_ELEM_WRITE takes controls_rwsem and calls
-     master_put() while the setter remains between those stores.
-  4. master_put() sees the callback and invokes vmaster_hook() with a
-     NULL argument. The trampoline dereferences it before the setter
-     can complete publication.
+>   fio --name=3Dhalf --filename=3D/mnt/part.bin --rw=3Drandread --bs=3D64=
+k \
+>       --ioengine=3Dpsync --fadvise_hint=3Drandom --size=3D256m --io_size=
+=3D128m \
+>       --randrepeat=3D1
+>   sync; echo 3 > /proc/sys/vm/drop_caches
+>   cmp /mnt/part.bin /path/to/original
 
-The write lock held by snd_ctl_elem_write() does not exclude the hook
-setter, so this can cause a NULL pointer dereference. Take the same
-controls_rwsem for writing in snd_hda_add_vmaster_hook() so the callback
-and its argument are installed together with respect to native control
-callbacks. Release it when registration returns, before the caller
-synchronizes the hook.
+Unfortunately, I can't reproduce this.  Can you get me some tracing?
 
-KASAN report as below:
+echo 65536 >/sys/kernel/tracing/buffer_size_kb
+echo 1 >/sys/kernel/tracing/events/netfs/netfs_read/enable
+echo 1 >/sys/kernel/tracing/events/netfs/netfs_write/enable
+echo 1 >/sys/kernel/tracing/events/netfs/netfs_rreq/enable
+echo 1 >/sys/kernel/tracing/events/netfs/netfs_sreq/enable
+echo 1 >/sys/kernel/tracing/events/netfs/netfs_failure/enable
+echo 1 >/sys/kernel/tracing/events/cachefiles/cachefiles_coherency/enable
 
-    Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-    KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-    CPU: 1 UID: 0 PID: 499 Comm: alsa-vmaster-tr Not tainted 7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    RIP: 0010:vmaster_hook+0x35/0xb0
-    Code: f5 53 48 89 fb 48 83 ec 08 e8 57 f0 9a fc eb 50 e8 50 f0 9a fc 48 8d 7b 08 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 75 59 48 8d 7b 10 48 8b 43 08 48 ba 00 00 00 00 00 fc
-    RSP: 0018:ffff888117647cd0 EFLAGS: 00010212
-    RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff84e9ff50
-    RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000008
-    RBP: 0000000000000001 R08: 0000000000000001 R09: 0000000000000001
-    R10: ffffffff89427457 R11: ffff888115ad1d00 R12: ffffffff84e9ff30
-    R13: ffff888114943ca0 R14: 0000000000000000 R15: 0000000000000001
-    FS:  00007fe8167b3780(0000) GS:ffff88826b7e3000(0000) knlGS:0000000000000000
-    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: 0000557c8c2842a8 CR3: 000000011579f005 CR4: 0000000000770ef0
-    PKRU: 55555554
-    Call Trace:
-     <TASK>
-     master_put+0x20e/0x2b0
-     snd_ctl_elem_write+0x37f/0x5e0
-     snd_ctl_ioctl+0x997/0xdd0
-     ? __pfx_snd_ctl_ioctl+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? selinux_file_ioctl+0xaa/0x280
-     ? __pfx_snd_ctl_ioctl+0x10/0x10
-     __x64_sys_ioctl+0x163/0x1d0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7fe8168c291b
-    Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-    RSP: 002b:00007fffab0cb150 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-    RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007fe8168c291b
-    RDX: 00007fffab0cb310 RSI: 00000000c4c85513 RDI: 0000000000000003
-    RBP: 00007fffab0cb310 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
-    R13: 00007fffab0cb1c0 R14: 0000000000000001 R15: 0000557c4f71fd10
-     </TASK>
-    Modules linked in:
-    ---[ end trace 0000000000000000 ]---
+before running, then after running do:
 
-Fixes: ee52e56e7b12 ("ALSA: hda - Fix mute-LED fixed mode")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
+cat /sys/kernel/tracing/trace | bzip2 -9 >/tmp/cachefiles-bug.trace.bz2
 
-diff --git a/sound/hda/common/codec.c b/sound/hda/common/codec.c
-index 18838a45e6f72b838eace2d7b21d7a0a3b21017b..029e56ae78727c8cb3c3edbace8b27a5615c2a3c 100644
---- a/sound/hda/common/codec.c
-+++ b/sound/hda/common/codec.c
-@@ -2024,6 +2024,8 @@ int snd_hda_add_vmaster_hook(struct hda_codec *codec,
- {
- 	if (!hook->hook || !hook->sw_kctl)
- 		return 0;
-+	/* Serialize hook registration with control callbacks. */
-+	guard(rwsem_write)(&codec->card->controls_rwsem);
- 	hook->codec = codec;
- 	snd_ctl_add_vmaster_hook(hook->sw_kctl, vmaster_hook, hook);
- 	return 0;
+When I do this and grep the trace output for 'WRITEBACK\|WRIT TERM\|cachef=
+iles'
+it all looks reasonable, looking something like:
+
+fio-5895 : netfs_write: R=3D00001301 WRITEBACK c=3D00000006 o=3D00000004 i=
+=3Dc6a742 by=3D0-ffffffffffffffff
+fio-5895 : netfs_sreq: R=3D00001301[2] WRIT TERM  f=3D100 s=3D0 100000/100=
+000 s=3D7 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[4] WRIT TERM  f=3D100 s=3D100000 10000=
+0/100000 s=3D15 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[6] WRIT TERM  f=3D100 s=3D200000 10000=
+0/100000 s=3D23 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[8] WRIT TERM  f=3D100 s=3D300000 10000=
+0/100000 s=3D0 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[a] WRIT TERM  f=3D100 s=3D400000 10000=
+0/100000 s=3D8 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[c] WRIT TERM  f=3D100 s=3D500000 10000=
+0/100000 s=3D16 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[e] WRIT TERM  f=3D100 s=3D600000 10000=
+0/100000 s=3D24 e=3D0
+...
+fio-5895 : netfs_sreq: R=3D00001301[1f4] WRIT TERM  f=3D100 s=3Df900000 10=
+0000/100000 s=3D15 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[1f6] WRIT TERM  f=3D100 s=3Dfa00000 10=
+0000/100000 s=3D23 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[1f8] WRIT TERM  f=3D100 s=3Dfb00000 10=
+0000/100000 s=3D0 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[1fa] WRIT TERM  f=3D100 s=3Dfc00000 10=
+0000/100000 s=3D8 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[1fc] WRIT TERM  f=3D100 s=3Dfd00000 10=
+0000/100000 s=3D16 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[1fe] WRIT TERM  f=3D100 s=3Dfe00000 10=
+0000/100000 s=3D24 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[200] WRIT TERM  f=3D100 s=3Dff00000 10=
+0000/100000 s=3D1 e=3D0
+ kworker : cachefiles_coherency: o=3D00000004 SET ok   B=3D46012e oz=3D100=
+00000 c=3D2 aux=3D0 dsk=3D0
+
+You can see the writes to the cache terminating and then the cache is set =
+c=3D2
+which is CACHEFILES_CONTENT_ALL indicating that the cache file has no hole=
+s in
+it.
+
+That happens pretty much as soon as fio lays out its file and then all fut=
+ure
+accesses are just reads from the cache.
+
+Looking at the UPLD lines is interesting:
+
+fio-5895 : netfs_sreq: R=3D00001301[185] UPLD TERM  f=3D110 s=3Dc1fedd0 ff=
+fe8/fffe8 s=3D8 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[187] UPLD TERM  f=3D110 s=3Dc2fedb8 ff=
+fe8/fffe8 s=3D16 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[189] UPLD TERM  f=3D110 s=3Dc3feda0 ff=
+fe8/fffe8 s=3D24 e=3D0
+fio-5895 : netfs_sreq: R=3D00001301[18b] UPLD TERM  f=3D110 s=3Dc4fed88 ff=
+fe8/fffe8 s=3D1 e=3D0
+
+I guess 9P can't quite squeeze 1M of data in a packet as metadata has to g=
+o in
+as well.
+
+One further question occurs to me: does the entire 256M file fit in the te=
+st
+VM's memory?
+
+Thanks,
+David
+
