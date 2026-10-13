@@ -1,118 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF915218AA
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252505221D3;
+	Tue, 13 Oct 2026 15:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905830; cv=none; b=hIjO6iyRHjh5yly6iZC5TrB65u8ItvqEbwPk9zhZKa/M6EIxe8kgBFsBQEF7IXcv9t3O5sEqLq/FX6Ast0radJstyFU6bIqB5b5z8kfaYwI3HngXi71MbnCX7NAJhUn1GzTAWaKgW37bHZftpCpH5B1e8UaQfXaNHkbaPd9W1tg=
+	t=1791905836; cv=none; b=amPxFAp/rb9r0EfdOlCo6nA7N/3e3BUwOpaqyWpL/REcJCitQXl40WV5X0suv62O08s9BJhvXqY66rzyfW9iL183XhccZPFiMDUJuRsS3KTmD7H9P/fT/eO2NIYoVLtlz5Aw+vKhPJXNxc5tAsB1UM+wTkhAh+wX9jNNL+HO9ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905830; c=relaxed/simple;
-	bh=QYvG7iTN6X/wcWZUdqZr19eVWyZZhBJ5WBory4f4au8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uKaZMZK79LkEicO79qSoaevQHX0u2hxQgj3w7Wws96lP3AWKjsmX8Co+3qweBrjsZwxzj93ZunHcTKuj0blkzO77W3U/Qy6LrJB2N9iZZiG9gZdw0nPl1YGgXColkJ8Qw6I/QS2S/o8iVg/WKCtgCBoVKbVjgaB0Cyz659Zj+Nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2vfh155; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791905836; c=relaxed/simple;
+	bh=Qkbn0WuH2H9J22IDpkqhPIsmmDiKKL7qr4cIGjwzim0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=qSUYARNdvy8Ow3488maC64jslJZXlfd6GunNAOkrU4y7Vpxcu5zqGPwjhS5fRTkP3qHtaozWB0jWMneGuVYZwLKPMU95YEhb60WOVUM9Xl5EvqPELGAf3rhcNAc1+5Wcq4UAdJXK+9TjFQQ6CAHkIMiZ8EoeERgd7G58LUkQnoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Eat++qsN; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2vfh155"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBA861F008A4
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:37:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791905828;
-	bh=QYvG7iTN6X/wcWZUdqZr19eVWyZZhBJ5WBory4f4au8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=e2vfh155/VPsHaWZgcZhQogA6+0Ijpf92000/ox/Lbw56lN7A4SVNn/789Geb12Ur
-	 H0facF2OKtc5Q0ncRS0hdjV15KANCuPbQCLcBI5Wq/pH2lhvbflXcVZIhZMxjXJK37
-	 MDEI3V67nDeThfG2sFh6v1S7JZidQuEREhoCFMBozusmOCEpUMtcR6TJpDIr0Rt7ac
-	 Cr/Tqe0gdCAt6L0zWiFVA/DkfRb6caekRbfSHEAfAPa/fzBw9fXm0a6q56s+CHuQWN
-	 34JBaBP3KAuObrD02sgyzg7XpBXkshrvd2FZ5gLxGOsqsctzDPDbheUlJFQz9sqeIs
-	 ZzY8EBvv21nlg==
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2e5d08214dso6179666b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:37:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByVxQndWiqWbuCnmsC7dyMX6ajfJycXQ74O5/h5TlcDlSF2Jp0mWe3aCSrSIFIUQOj8D+3rM/Qls3SybrU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFiRvwpAS9qzWqckECP/IJRWGs1r+9ORLA0WHH4I3HDIN3y4i0
-	eU91z0MBMt4Ce7EzA8zEWF060OpjTELKTZ2AZGORxUjEgPIxBl39wL+eKmz/FEk5VOYWFLbj0qm
-	G2hYN18l9VlgYWFGt+GiU5eZkFDrVoqA=
-X-Received: by 2002:a17:907:7246:b0:c26:19de:9adb with SMTP id
- a640c23a62f3a-c31a9d56575mr1180906166b.26.1791905827546; Tue, 13 Oct 2026
- 08:37:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Eat++qsN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=Qkbn0WuH2H9J22IDpkqhPIsmmDiKKL7qr4cIGjwzim0=; b=E
+	at++qsNsOrRp9wxPXUR2fEsuVrAjdzoyKw/xspfwfQHzDv8ATwc8d7y8dHvSe+bb
+	7EgG/0BpYjyg1Ni90pn6stLxP5GOTfcwvGnuF6eujF2c4GNz8K5ozL+pCqVddifO
+	jVYU5MWe5HDkwYMcMS+BO96WCFPSZTbFptmRv9QFDA=
+Date: Tue, 13 Oct 2026 23:36:20 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Bartosz Golaszewski" <brgl@kernel.org>
+Cc: longzhao@ambarella.com,
+	"Long Zhao via B4 Relay" <devnull+longzhao.ambarella.com@kernel.org>,
+	"Linus Walleij" <linusw@kernel.org>,
+	"Michael Walle" <mwalle@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+	"Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Conor Dooley" <conor.dooley@microchip.com>,
+	"Chanho Min" <chanho.min@lge.com>, linux-gpio@vger.kernel.org
+Subject: Re:Re: Re:Re: [PATCH 0/7] gpio: add Ambarella CV75 PL061 support
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
+References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
+ <CAMRc=MezU71ByUoO-GMxSwsFsGZTUmQisYYrYEwtdbwyFiEqsw@mail.gmail.com>
+ <73c4ceaf.9c2f.1a13599e8ca.Coremail.zl020895@163.com>
+ <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
+X-NTES-SC: AL_Qu2SA/Wbuk8j5iCebekdnUoTj+Y/XMK0uvwk1YdVc+MEpS7JyCwnWU9tAFfdweisFT6RohuNQSVQzMdUe413VehHBbQVcItEaM2+sBTpGQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAO9r8zMxdg2BTFguwcRQn8n-2CPaEJJfg+T8dWcgO2eV4uNaHQ@mail.gmail.com>
- <20261013152553.39287-2-itazur@amazon.com>
-In-Reply-To: <20261013152553.39287-2-itazur@amazon.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Tue, 13 Oct 2026 08:36:54 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zPOkuRGv0X=nBbAzTUjUyaB7zAJLUigetSXEVPxWpyGxw@mail.gmail.com>
-X-Gm-Features: AclHuK-W6f4ZhQh9ueCOMp1_eyaIikFGHa4dIFgdih2WgfTC8_TU_5ph5Rmf9m0
-Message-ID: <CAO9r8zPOkuRGv0X=nBbAzTUjUyaB7zAJLUigetSXEVPxWpyGxw@mail.gmail.com>
-Subject: Re: [PATCH v3 03/26] mm: introduce AS_NO_DIRECT_MAP
-To: Takahiro Itazuri <itazur@amazon.com>
-Cc: Sean Christopherson <seanjc@google.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	x86@kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
-	rientjes@google.com, Roy Patrick <patrick.roy@linux.dev>, 
-	Andy Lutomirski <luto@kernel.org>, David Kaplan <david.kaplan@amd.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Patrick Bellasi <derkling@google.com>, 
-	Reiji Watanabe <reijiw@google.com>, Nikita Kalyazin <nikita.kalyazin@linux.dev>, 
-	Ackerley Tng <ackerleytng@google.com>, Takahiro Itazuri <zulinx86@gmail.com>, cc-open-source@amazon.com, 
-	Kevin Brodsky <kevin.brodsky@arm.com>, Gregory Price <gourry@gourry.net>, kvm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <1e8db23.a299.1a135e85172.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:bCgvCgBn9_z0T85qiRhYAA--.381W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7hRf0GrOT-SNyAAA3v
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Tue, Oct 13, 2026 at 8:26=E2=80=AFAM Takahiro Itazuri <itazur@amazon.com=
-> wrote:
->
-> On Thu, 3 Sep 2026 07:06:02 -0700, Yosry Ahmed <yosry@kernel.org> wrote:
-> > > If that work is not already underway,
-> > > I would like to respin the AS_NO_DIRECT_MAP introduction and secretme=
-m
-> > > adoption as a standalone MM series, separate from ALLOC_UNMAPPED and
-> > > mermap.
-> [...]
-> > Perhaps wait until I send the new version, then we can discuss if we
-> > want to split it based on how the feedback looks like. Does this work
-> > for you?
->
-> Following up on this with an update. Yosry let me know off-list that
-> ALLOC_UNMAPPED is on hold for now (quoted with permission):
->
-> > I wanted to give you an update. I was working on v4 of the
-> > ALLOC_UNMAPPED series while our team was simultaneously working on
-> > integrating that design without internal ASI implementation.
-> > Unfortunately, there were multiple complications with that
-> > integration, and we will be holding off on sending new versions of the
-> > ALLOC_UNMAPPED series until we have higher confidence that this
-> > approach will meet ASI's requirements (ideally in a production
-> > experiment).
->
-> Since the integration with Google's internal ASI implementation needs
-> more time, Yosry also agreed that I pick up the AS_NO_DIRECT_MAP work
-> for guest_memfd, separate from ALLOC_UNMAPPED. Here is how I plan to
-> proceed. Feedback is very welcome, especially from Sean on section 2
-> below.
-
-Thanks for the update, Takahrio!
-
-> 3. ALLOC_UNMAPPED and the mermap
->
-> AS_NO_DIRECT_MAP itself works without them, by zapping the direct map
-> of each folio. However, guest_memfd will eventually need a temporary
-> kernel mapping to populate guest memory via write() [2], because
-> folios are already unmapped once they are added to the page cache.
-> The cost of TLB flushes and direct map fragmentation also matters for
-> performance, so I'd like to keep discussing these with folks
-> upstream, building on the direct map fragmentation discussion that
-> Kevin led at LPC [3].
-
-FWIW, I think the mermap can still be used without ALLOC_UNMAPPED, and
-I did have a newer version of the x86 patches repurposing the LDT area
-for the mermap, and simplifying the mermap implementation a bit. I can
-share them privately if you want to take a look.
+QXQgMjAyNi0xMC0xMyAyMzowOToyNSwgIkJhcnRvc3ogR29sYXN6ZXdza2kiIDxicmdsQGtlcm5l
+bC5vcmc+IHdyb3RlOgo+T24gVHVlLCAxMyBPY3QgMjAyNiAxNjoxMDo0MSArMDIwMCwgemwwMjA4
+OTUgPHpsMDIwODk1QDE2My5jb20+IHNhaWQ6Cj4+IEhpIEJhcnQsCj4+Cj4+IFllcy4gVGhpcyBp
+cyBlZmZlY3RpdmVseSBhIHYxMCBvZiB0aGUgR1BJTyBwYXRjaGVzIGZyb20gdGhlIGNvbWJpbmVk
+IENWNzUgc2VyaWVzLiBJIHNwbGl0IHRoZW0gb3V0IGFuZCByZXN0YXJ0ZWQgdGhlIG51bWJlcmlu
+ZyBhdCB2MSBiZWNhdXNlIHNvbWUgbWFpbnRhaW5lcnMgcHJlZmVycmVkIHNlcGFyYXRlIHNlcmll
+cywgc28gSSBhbSB0cnlpbmcgdGhhdC4KPj4KPgo+UGxlYXNlIGRvbid0IHRvcCBwb3N0IG9uIG1h
+aWxpbmcgbGlzdHMgYW5kIHdyYXAgeW91ciBtZXNzYWdlcyBhcm91bmQgODAgbGluZXMuCj4KPk1h
+eSBJIGFzayB3aGljaCBtYWludGFpbmVyIGFza2VkIHlvdSB0byByZXNldCB0aGUgbnVtYmVyaW5n
+PyBUaGlzIGRvZXNuJ3QgbWFrZQo+YW55IHNlbnNlLCB0aGlzIGlzIGEgY29udGludWF0aW9uIG9m
+IHRoZSBvdGhlciBzZXJpZXMgYW5kIHNob3VsZCBiZSBudW1iZXJlZCBhcwo+djEwIGFuZCBpbmNs
+dWRlIHRoZSBjaGFuZ2Vsb2cuCj4KPkJhcnQKSGkgQmFydCwKCk5vYm9keSBhc2tlZCBtZSB0byBy
+ZXNldCB0aGUgbnVtYmVyaW5nLiBJIHRob3VnaHQgdGhhdCBvbmNlIHRoZSAKcGF0Y2hlcyB3ZXJl
+IHNwbGl0IG91dCB0aGV5IGNvdW50ZWQgYXMgYSBuZXcgc2VyaWVzLCBzbyBJIHN0YXJ0ZWQKYWdh
+aW4gYXQgdjEuIEkgd2lsbCBzZW5kIHRoZSBuZXh0IHBhdGNoIHZlcnNpb24gYXMgdjEwLgoKQmVz
+dCByZWdhcmRzLApMb25nIFpoYW8=
