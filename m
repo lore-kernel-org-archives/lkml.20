@@ -1,67 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6254F7CB4;
-	Tue, 13 Oct 2026 13:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196434FDA75
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:53:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899579; cv=none; b=jRVr8McUtL7NJphAY/2vyxcjsEBYFZc60mPMZib9javj921GKtSkwsDv5pe0lWd4CM4UjiZtoCm9gKgUu4wRLAH+aRUy1UhdJ51kCitKK2V4Grp6fYmXkdpKVOvwtMiuM7nMXC4J243T4lg01aam46xQZmOhmnnmmCJzxqMOYJU=
+	t=1791899620; cv=none; b=TZY0U4JJGRnLCwkIHgkmCfRPJGLNLGmE59igmUbj7P3JzRDUq1DaJn5ZvfW1Kk+GkYC3uPwylGLNHVa1WrQwpWvea3he/KTUo+358ysRpX71OPeynHNFk3NWPxQraUo/yIsy2BdaPEFVmKrzG+6sV08mqUQ20CG9Jy9NM+ippYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899579; c=relaxed/simple;
-	bh=MoF3qebbUMCzGHpu1IQbVxMhV31KvNPhnUVnq492Pyo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jUdm554NNmZdCPAm1PmVKiZHarcj8RQI75ehkmYkCz6f9kM4n13VfRkFrVO4TUx2rRq+Sp+dtDmFbvut8tiM8KRNZxI9q/YfEPaNafJ2BudwvfoOkVsMTDoPd+lDiLgujGHaDNk+b3o1/TMiGx2goQ5A/2s8anb2/u/tGTK6YHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bLccm1S1; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bLccm1S1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705461F000FF;
-	Tue, 13 Oct 2026 13:52:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791899578;
-	bh=SrE05MZWi0Mxzzw5gRVN5txHJ2M27/v22vzK8mb4Xls=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bLccm1S1y40pFYMId2ws9HP/f++aVdVyyerMyqEskMY1UJGC2Jha2A6ypEj39E0+G
-	 Q/WSQLN9CssqZGYpHWruPbAdMATer9yOtZTkwWkhdHN0+2/MclOtp49Wt7NeGmT5h4
-	 TSEsna39mKTQQlP0w+jnuJGregt3KkhoSfbpOpvk=
-Date: Tue, 13 Oct 2026 15:53:03 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Georgi Djakov <djakov@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] interconnect changes for 7.4
-Message-ID: <2026101355-platinum-hyperlink-0f60@gregkh>
-References: <20261012100103.2518883-1-djakov@kernel.org>
+	s=arc-20240116; t=1791899620; c=relaxed/simple;
+	bh=hZL72XOUPUJc5kL0hCiQyhutYCYGmYfDAEkJs6SJdJE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=qRHR6pDq/HLokQ5UfuoEcm60b5lNT8XJabn1Qj7/yWe8uORdt9xBtkB47QzQjNdgk2khDareuy1+2weX4gBUH6Z104/cG7Ts628yQZSnUc50mzcQ4RVf0f1rmUdFOWMqhGWcmdmcEwi7NRKMsOPdSuovU4myMbqEhL8gsRo2IS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab260600easo6831459b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:53:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791899618; x=1792504418;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=O82mp/mFFeRVeGwjdUjNn3HGa5rUeYT+1hm74Uda2hk=;
+        b=ZanTIf2pTmM2+grZLxw/xkplPcdm9mZ2GTBcOKg6LwAD1pxHViI4h1VNitXPzIx3Ik
+         eb8kP84scc5W4CZVfII7he3yvz/gCC4jm2TXDjVmEuLPeOK3oTzttbtoBf0cZOHq+OJG
+         jbKGPEVc5sQ3nCy1yg+nMSYMRuf73UQIEbmA6zXvtwmD0hdBECJqdz0oDEkWHm2aLc4o
+         lgwMb0DLRbtcSb5kWGRu5QGEtDXyat3SjOcGbK52LStCFFwQDhZdDbuY5EIosQSicyaI
+         4LmpBN4Q1/MJ+Wn0PU8VGQM+xavJgGhxYMSCbAME3EAFNcupb9nhEQNZAolxuSZ8Hc/1
+         w4UA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6ibhmHccMhTAJWq5vfP+2qICCPa6h8X9+18Yt7T0vDgJN5R4wTnbDN7PQbOl6ULaUypFeXUCSjL0muj8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICbWTiEmUOXSyR046smTliJ+FgdyRyaq5aXmcyky2al/yXGcfV
+	lbTApOUNdD+GdgnZKE2MyM7DUGJh1LOD7twC/g3l6xuz5rGCF4tSfnTet2BfQrzixPFiDb1LuCp
+	2P/r2UhnbtVubE1IrsKfMT8RYUad/+SJc/SwL+PBMWfUiw/FRg4q6MT+jx8A=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012100103.2518883-1-djakov@kernel.org>
+X-Received: by 2002:a05:6808:a554:10b0:521:561a:8e90 with SMTP id
+ 5614622812f47-52156397ac3mr2670451b6e.3.1791899617952; Tue, 13 Oct 2026
+ 06:53:37 -0700 (PDT)
+Date: Tue, 13 Oct 2026 06:53:37 -0700
+In-Reply-To: <6a42cfca.9dc7bc9d.3393b4.0008.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ace37e1.0e5b5d80.2c029c.06da.GAE@google.com>
+Subject: Re: [syzbot] [ntfs3?] possible deadlock in ntfs_readdir
+From: syzbot <syzbot+cfc6e8106bec1c524f7d@syzkaller.appspotmail.com>
+To: almaz.alexandrovich@paragon-software.com, gality369@gmail.com, 
+	linux-kernel@vger.kernel.org, ntfs3@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 12, 2026 at 01:01:03PM +0300, Georgi Djakov wrote:
-> Hello Greg,
-> 
-> This is the pull request with interconnect changes for the v7.4-rc1
-> merge window. As always, the short summary is in the signed tag.
-> 
-> All patches have been in linux-next for more than a week. There
-> are no reported issues. Please pull into char-misc-next when
-> possible.
-> 
-> Thanks,
-> Georgi
-> 
-> 
-> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-> 
->   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-> 
-> are available in the Git repository at:
-> 
->   git://git.kernel.org/pub/scm/linux/kernel/git/djakov/icc.git tags/icc-7.4-rc1
+syzbot has found a reproducer for the following issue on:
 
-Pulled and pushed out, thanks.
+HEAD commit:    24a19b953e2a Linux 7.3-rc7
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=118a55c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
+dashboard link: https://syzkaller.appspot.com/bug?extid=cfc6e8106bec1c524f7d
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1575d40d580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14f68dd1580000
 
-greg k-h
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/71ab5ff0ed88/disk-24a19b95.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f5849c6ea337/vmlinux-24a19b95.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/cf747b187062/bzImage-24a19b95.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/dd39b95ec4ba/mount_0.gz
+
+The issue was bisected to:
+
+commit d62cf685d12e95cc0a4122c43cd9f0eb8bba0b4c
+Author: ZhengYuan Huang <gality369@gmail.com>
+Date:   Mon Apr 27 07:26:50 2026 +0000
+
+    fs/ntfs3: hold ni_lock across readdir metadata walk
+
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1376eb49580000
+final oops:     https://syzkaller.appspot.com/x/report.txt?x=10f6eb49580000
+console output: https://syzkaller.appspot.com/x/log.txt?x=1776eb49580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+cfc6e8106bec1c524f7d@syzkaller.appspotmail.com
+Fixes: d62cf685d12e ("fs/ntfs3: hold ni_lock across readdir metadata walk")
+
+ntfs3(loop1): failed to convert "c46c" to cp855
+ntfs3(loop1): ino=20, mi_enum_attr
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.1.40/6092 is trying to acquire lock:
+ffff88803a8344b8 (&mm->mmap_lock){++++}-{4:4}, at: mmap_read_lock_killable+0x1d/0x70 include/linux/mmap_lock.h:609
+
+but task is already holding lock:
+ffff88805ecb73c8 (&ni->ni_lock/5){+.+.}-{4:4}, at: ni_lock fs/ntfs3/ntfs_fs.h:1247 [inline]
+ffff88805ecb73c8 (&ni->ni_lock/5){+.+.}-{4:4}, at: ntfs_readdir+0x717/0xf70 fs/ntfs3/dir.c:541
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (&ni->ni_lock/5){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/rtmutex_api.c:561 [inline]
+       mutex_lock_nested+0x5a/0x1d0 kernel/locking/rtmutex_api.c:580
+       ni_lock fs/ntfs3/ntfs_fs.h:1247 [inline]
+       attr_data_get_block+0x1cd/0x2c0 fs/ntfs3/attrib.c:976
+       ntfs_file_mmap_prepare+0x5b3/0xa20 fs/ntfs3/file.c:430
+       vfs_mmap_prepare include/linux/fs.h:2071 [inline]
+       call_mmap_prepare mm/vma.c:2799 [inline]
+       __mmap_region mm/vma.c:2888 [inline]
+       mmap_region+0xebb/0x25c0 mm/vma.c:2989
+       do_mmap+0xe0e/0x1310 mm/mmap.c:573
+       vm_mmap_pgoff+0x275/0x4e0 mm/util.c:581
+       ksys_mmap_pgoff+0x4a6/0x720 mm/mmap.c:619
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&mm->mmap_lock){++++}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       down_read_killable+0xa4/0x220 kernel/locking/rwsem.c:1599
+       mmap_read_lock_killable+0x1d/0x70 include/linux/mmap_lock.h:609
+       get_mmap_lock_carefully mm/mmap_lock.c:450 [inline]
+       lock_mm_and_find_vma+0x2d6/0x340 mm/mmap_lock.c:501
+       do_user_addr_fault+0x343/0x1340 arch/x86/mm/fault.c:1366
+       handle_page_fault arch/x86/mm/fault.c:1483 [inline]
+       exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
+       asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
+       stac arch/x86/include/asm/smap.h:-1 [inline]
+       filldir+0x29f/0x630 fs/readdir.c:291
+       dir_emit include/linux/fs.h:3610 [inline]
+       ntfs_dir_emit fs/ntfs3/dir.c:388 [inline]
+       ntfs_read_hdr+0x8a7/0xc10 fs/ntfs3/dir.c:429
+       ntfs_readdir+0x9ab/0xf70 fs/ntfs3/dir.c:589
+       iterate_dir+0x3ea/0x8a0 fs/readdir.c:114
+       __do_sys_getdents fs/readdir.c:324 [inline]
+       __se_sys_getdents+0xf1/0x270 fs/readdir.c:309
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&ni->ni_lock/5);
+                               lock(&mm->mmap_lock);
+                               lock(&ni->ni_lock/5);
+  rlock(&mm->mmap_lock);
+
+ *** DEADLOCK ***
+
+locks held by syz.1.40/6092: 3, last CPU#0:
+ #0: ffff888037c3c328 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x252/0x320 fs/file.c:1259
+ #1: ffff88805ecb7690 (&type->i_mutex_dir_key#8){++++}-{4:4}, at: iterate_dir+0x293/0x8a0 fs/readdir.c:106
+ #2: ffff88805ecb73c8 (&ni->ni_lock/5){+.+.}-{4:4}, at: ni_lock fs/ntfs3/ntfs_fs.h:1247 [inline]
+ #2: ffff88805ecb73c8 (&ni->ni_lock/5){+.+.}-{4:4}, at: ntfs_readdir+0x717/0xf70 fs/ntfs3/dir.c:541
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 6092 Comm: syz.1.40 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ down_read_killable+0xa4/0x220 kernel/locking/rwsem.c:1599
+ mmap_read_lock_killable+0x1d/0x70 include/linux/mmap_lock.h:609
+ get_mmap_lock_carefully mm/mmap_lock.c:450 [inline]
+ lock_mm_and_find_vma+0x2d6/0x340 mm/mmap_lock.c:501
+ do_user_addr_fault+0x343/0x1340 arch/x86/mm/fault.c:1366
+ handle_page_fault arch/x86/mm/fault.c:1483 [inline]
+ exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
+ asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
+RIP: 0010:filldir+0x29f/0x630 fs/readdir.c:293
+Code: df 49 29 ef 48 b8 00 f0 ff ff ff 7f 00 00 49 39 c7 4c 0f 47 f8 bf 07 00 00 00 44 89 f6 e8 09 5b 7e ff 0f 01 cb 48 8b 44 24 20 <49> 89 47 08 48 bd 00 00 00 00 00 fc ff df 48 8b 44 24 40 48 89 03
+RSP: 0018:ffffc90004f1fab0 EFLAGS: 00050293
+RAX: 00000000000015a0 RBX: 0000200000008578 RCX: ffff888032ec1f40
+RDX: 0000000000000000 RSI: 0000000000000005 RDI: 0000000000000007
+RBP: 0000000000000020 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed10065d83e9 R12: ffff88803c9f4000
+R13: 0000000000000005 R14: 0000000000000005 R15: 0000200000008558
+ dir_emit include/linux/fs.h:3610 [inline]
+ ntfs_dir_emit fs/ntfs3/dir.c:388 [inline]
+ ntfs_read_hdr+0x8a7/0xc10 fs/ntfs3/dir.c:429
+ ntfs_readdir+0x9ab/0xf70 fs/ntfs3/dir.c:589
+ iterate_dir+0x3ea/0x8a0 fs/readdir.c:114
+ __do_sys_getdents fs/readdir.c:324 [inline]
+ __se_sys_getdents+0xf1/0x270 fs/readdir.c:309
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f210f74e2d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f210edae028 EFLAGS: 00000246 ORIG_RAX: 000000000000004e
+RAX: ffffffffffffffda RBX: 00007f210f9d5fa0 RCX: 00007f210f74e2d9
+RDX: 00000000000000b8 RSI: 0000200000008500 RDI: 0000000000000005
+RBP: 00007f210f7e5888 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f210f9d6038 R14: 00007f210f9d5fa0 R15: 00007fff702375e8
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	df 49 29             	fisttps 0x29(%rcx)
+   3:	ef                   	out    %eax,(%dx)
+   4:	48 b8 00 f0 ff ff ff 	movabs $0x7ffffffff000,%rax
+   b:	7f 00 00
+   e:	49 39 c7             	cmp    %rax,%r15
+  11:	4c 0f 47 f8          	cmova  %rax,%r15
+  15:	bf 07 00 00 00       	mov    $0x7,%edi
+  1a:	44 89 f6             	mov    %r14d,%esi
+  1d:	e8 09 5b 7e ff       	call   0xff7e5b2b
+  22:	0f 01 cb             	stac
+  25:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+* 2a:	49 89 47 08          	mov    %rax,0x8(%r15) <-- trapping instruction
+  2e:	48 bd 00 00 00 00 00 	movabs $0xdffffc0000000000,%rbp
+  35:	fc ff df
+  38:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
+  3d:	48 89 03             	mov    %rax,(%rbx)
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
