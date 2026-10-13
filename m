@@ -1,174 +1,302 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011007.outbound.protection.outlook.com [52.101.65.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-235.mta1.migadu.com [95.215.58.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDC436DA0D;
-	Tue, 13 Oct 2026 02:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791857865; cv=fail; b=cLiaeIOyui6bCChLYhm+x/itGLBr8Qrezse2p5y3yKUWtO9TRDJaH98wiaTsZJ4bZuvdVt9GugON4xkvisNobWjpa370Gf6mwDWFowVErwQtRlRE2syi0+bz2mx3gem0lwq2FQUa7f32or7eeN9E81MCAwa35QnG14Aos6zgHzM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791857865; c=relaxed/simple;
-	bh=T9Jyb1n4fQ5wc7ZoHSCBAJxEnVRqtB7BxHq1wmC10Ko=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=hmA4M1+Fg2i25dD8CUn/kbWj+5qO4ElYv3D4KX9BAaGvzYfg8YrxWOhLU6BxBSjPK8LMgWtLOS8j7B8mgdRXxZOqViLTsPWdYmXraJEBZOl2d+l/8TGHYhAuiJ3ETz8v5nKdwxsAs+Qd7BSCntXa9S5gPEJ7NRdtgLbLr0ZJKEQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Ka0OEmn6; arc=fail smtp.client-ip=52.101.65.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C263F0767
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:17:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.235
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791857881; cv=none; b=delb1mghey6AzZyrdYErSeJAvbiI2gw4If92+a58VfIk384xU6YFxsLFztvexON0y1kwrIOcHT4dCN0zZk0NISz/It1PBaquA8I5+Ms/wficF2Ok8807jsyZMyqNkuncjKSb8KefohXRONnaNhUM7TzHoZV+Ivv9ADHI5gmvvKs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791857881; c=relaxed/simple;
+	bh=jqBD77UOTyYWp8LQl19v9uNbH02DwyMcdp1Km7VJIyU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f4HqkipDYiSzKU4GExn2PyKpeReEr2GsIUQDS9LM2wPNmUqI4grByLYww3ww5EDbUWrsV2xeoq7c9Pqx23bNFX/mrKiqhb4QWxv86sySeRxchNVP76jU58EqJiptTqv8o8ozepNP1/M6Fs7Pe0crYGptuhs1QZvHbW1VpIgxsWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KlUKhBqT; arc=none smtp.client-ip=95.215.58.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Ka0OEmn6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EPKEbW6jNJJxhXhgABqsb54LgclJltV6ow3gET1VLiA+v0mVExba7EgXEGKIFJAKjiRUIx3nIrFNW0e2vysAnxLFCeehaTg3POQ0IPjuRRVjIDmTSmx14yMkYpY1euv9VqMGJYynH2+sPn7m6BlAxmFrrO9T5Rdi8rDbUpjzvFeaAWkvrU591IxeDnQ9kZnpXSHKwI+nHh7DsRviz86pOIhDreHnE31vjrsQXf5pwSUrvlcl26TQTutj1VXpZviGhGwp//p/wgNSvpBEJLLXV+n9LmhV2vQj7dr8/6uHIOM59kU8z3+deEsdH2t+gC2aQgEbg+fGgIaXpO7XddozDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T9Jyb1n4fQ5wc7ZoHSCBAJxEnVRqtB7BxHq1wmC10Ko=;
- b=dTuAfo1EZ/9dtEzUIW4AIpQMECPMaC8BXXJD5EeqnsQ3zsgvjKqGDwte7qxBmDJbDOMWdIGCWvbm/a9KarDVoRuYg+orgeTWK9XMqovl4UGi7UGKmESEpWXXLPQ976wY1pyNJUQ2hF676NU//i7DShlPdfVV7vID/BSMVuA2MU1KGahy0cjuyLevgW5fNtE/Gam+0VpVDAH0VYwHOXFp7mRzw8Q3DgRwxh9ZTgWn8R2Ng5hQEuT4eSgpihIHx/jGpPkhJ0uaCUsN0gtVIORJk/uZavRN0tgOAVKhx/uX6GxNen6flF3uA8m51B6fX8JeKgjGLgd1LDvMO+Hhghs3tw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T9Jyb1n4fQ5wc7ZoHSCBAJxEnVRqtB7BxHq1wmC10Ko=;
- b=Ka0OEmn6k4K3qxG+ByjngVo9wCEsM26PAzTuuL1ZHQgXPbpXQj+mIKZcB/qczFsatpYOtPlf9dy09JBR5rmkLdZ2eJpA2QYSPabC99rWgeUJ0eblFJ98/xKphMar4/C/ZSWS6yMjp9eoNYbE64mjbyHKUan30o1w1XWWG+EClx2nbSggS50/IuQ9LB4PkxlCrSQgiBVxfJlYOW4tB2mK1/gTW7mF2o6Yyc12ERbWuyC/+uW82NjZQ5pekmXpdhFYSk5Vztj4FeDIhnyENsXJH+CMGvSw+cO6NUzpSRk8Rs3xOAhmfKKRxYjG/Bos/zO7S8Wz/0utsLwOq1N0FhM9Rg==
-Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
- by CPJPR04MB008549.eurprd04.prod.outlook.com (2603:10a6:380:13::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 02:17:40 +0000
-Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
- ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
- ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 02:17:40 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: Marek Vasut <marex@nabladev.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>
-CC: "David S. Miller" <davem@davemloft.net>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>
-Subject: RE: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
-Thread-Topic: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
-Thread-Index:
- AQHdTE9m1hutRzwLFUKmfktoRBJfE7bmds5AgAAWOgCAABaJ8IAAgr2AgAIhnoCACbi8oIAHPoGAgACYykA=
-Date: Tue, 13 Oct 2026 02:17:39 +0000
-Message-ID:
- <AS4PR04MB9338A3A7CF410D39C6B49969889E2@AS4PR04MB9338.eurprd04.prod.outlook.com>
-References: <20260924180607.60932-1-marex@nabladev.com>
- <AS4PR04MB93382AF6B2AC7B5F421019BB888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
- <af3d4fd1-9659-4d91-997f-6bb09ae06ba5@nabladev.com>
- <AS4PR04MB933887CA9C646F0359D8E61A888B2@AS4PR04MB9338.eurprd04.prod.outlook.com>
- <b4addd8f-43ba-417e-85ad-a78391c8f2fb@nabladev.com>
- <d8e72848-1611-4d6e-b3e8-17013bce7948@nabladev.com>
- <AS4PR04MB9338F6AFA7DF06339C54DD1288932@AS4PR04MB9338.eurprd04.prod.outlook.com>
- <c4c6953e-c831-4b1f-8600-67c226384876@nabladev.com>
-In-Reply-To: <c4c6953e-c831-4b1f-8600-67c226384876@nabladev.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|CPJPR04MB008549:EE_
-x-ms-office365-filtering-correlation-id: 58afab5f-cedd-4078-5481-08df28d02806
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|19092799006|1800799024|366016|38070700021|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- FAg69EJsKgnPYYpPmM9srK6PSl73RbmFhCkCqhpgZTMeOvvl7JTWg+dgRpHxUeGut6Eeij6zH8Oobx6ZrIYX+yV3TUdNQRml22Fh5yxdqKB9Yu7wVJ6MaUv1GinKtrUI829H4HiZwajI2fPZkKOkpL/Bmr3BI9l1n3j8jZmuOzfa/srfZkuTaSNKL8p3x7Sf4WluR4mVNnlgwUraON6tEjlNwRUE6p6VE5AwssNS9mcg8JxN19TCAyEl+quCIGPbV3rj08vhwbx22yYXhfsz/hOwnDozj0I+PfXrRg9C7WS+jm1ApTSbjBJr0vyOUCPBDmGszXtR34ha2xFlnv4QmJcCx6rh8oXJ3i+Lq2+gi85O0EKUqUJY4ZyrTpU9vnvuJ/8/N9LNnIpeAkNhtBJxfXgk+qJD/LibzmAIRGfmHnOnvg3ulJCJ2m7JpQOyGqkRXasjHSWk/h5uwOednryuwLY65QSGRXSktptULsSOJIpByUn6vHfue5jeQWueYBsxpPJAakWn+Ts7hA5LhBujtNHI+tB8BulGW45BPr76QVze2/k4mrKuBfzeHtGB4VVRseZllczhM893rfJUseK6FMBNWV1tbTyHVSgsAYoHcm5+tzYhiD7vH4/s0DvXaGObKcebHIqTniOLDQtP7vWEhoVxoraDkpUQgZ5I/gwha7pTt/aEoVtFcgMlcskFsBKtqlOKz87yktGMCGO9ndlxrZamcQM7RZPsHO25m7DAcTA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(19092799006)(1800799024)(366016)(38070700021)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?cXQwR0tqVGJmZVY3bXFWYlVFaGFHRnVEL0VPSkt3SjA1V1BraW10cnA3VFIv?=
- =?utf-8?B?cWhyclhRTWEzQ2NBeFpLZnoyRkxGbkUwREhFeHFjUmFsR2E0N1E4bkZRR0oy?=
- =?utf-8?B?VkJhb1grbk9kaWNINHJyTnlDTnJiNlYyOExKWWxFTHg0QXFWT1JWV3B1NzY3?=
- =?utf-8?B?cWZjM20wazdjRjB5UGIzY2lIY0hGYTY0bGdvWXJhOVJ0QVVQbXBESWQwRmJO?=
- =?utf-8?B?Wkd4OHVGNCtqcnJTZ3dueGE0TzZmQTgxRC9zV2VxU3RkMlVMeEZEQ2JERXlJ?=
- =?utf-8?B?aEFvODZUNUFtVmdlazREU1pscUU4K2I4cDhXRHN1M21GZDIrcjNxSW1GMlpT?=
- =?utf-8?B?UDlPTSttZ0x4b3I5MWw3aEp0VWE1QnVySlI5OUhsdXExS3JwcUt5dEJlQXpv?=
- =?utf-8?B?cnBuN24yckV4cmhsWFlHOVZGdlVzT2IraE1UZ2MrL2RxRWx6TnFtQkZLL2xV?=
- =?utf-8?B?aFFrTnZ6SW5SZEtkV2xIRFh6bkk5UExqL2lsU1lHcGRTSllYQlJ0WDF1Qit1?=
- =?utf-8?B?ZUoyRGNBbVBxR1d1ektWYkJzam5xd1VKWHYyZ3J1eDNhVjNkc0p2dk9Hc0ND?=
- =?utf-8?B?aE1Dc2RxV3p4dEh0R2R2YVVscGYwaitna1JNNGF0b0N3Ky9zSUJqbG1SWktk?=
- =?utf-8?B?NDFGWEhoM1Y5VFBieWhHclBuQnV1Um5DQW1rWU5Fd2tWRVZ6WFdyYkZ3UVNq?=
- =?utf-8?B?V2RlVkNtd0taWklka3BUdS9mbDZmZ0w2Wkd3QWhJWllieFlTNGhSc3JScnV1?=
- =?utf-8?B?Y2x4RTZsb3NKeDB5ampIc2U3Y052Zjh6YkY5ZHp5bHVhRUlSVnlsditCdWtw?=
- =?utf-8?B?L2pZRjh3UW1lQU1sblkrOEc0T3Y4MnFUZzViUU1obnRMNU9ZeXJ0ZWhNcHF3?=
- =?utf-8?B?RHJTVjBBMnJFNks4UUxpNnhTZWtPeEpIdkh4Y0VYOGJBQ3RFeXRHVVRYWTBV?=
- =?utf-8?B?Mi9xcDBnZnRVYVZFUjM3KzV5eDhwZG8zOUkxSTF6QVE3ZDFJMEI4UDB5VXli?=
- =?utf-8?B?Z0FJWWpGUWpTU1E3N1FYNThBZXhqbE1BOHkybDc1bXhVSmtIWnRyT0pSME9w?=
- =?utf-8?B?YmJGazMwOGdYRnBlS0t3UStNZTFFSXRhQWFOcmtDam1NUGxSdzh6NFcvTVVj?=
- =?utf-8?B?S0VFVS92akRxYlhnaFhFVXhxdC8wcjRaSjFTeTV5bllLY2h4NjRPTW1CT3hB?=
- =?utf-8?B?QVA2a2lBczU4aWVESXRHNjZMeTFuT3B5VWdtM0RtT0NzY3ZId3hRb095N212?=
- =?utf-8?B?Y1dkWWFVZ3J6MzE0Tzk3WVlPRm9Jb1VrVnk2WXF0TGtlRXZNOUtNSFowWWE2?=
- =?utf-8?B?aUVsY0NYbzdIaEVQQkxVbmtCMHhSZjg1NEdtMG5pVHREdDJTakZJY0FWS01z?=
- =?utf-8?B?NU4xU0phNEpuTkw4Z2lSZ3V3Rm1mUW04SFpqbzRJak52aFJLM09hclhGeTVB?=
- =?utf-8?B?aUxyc3IrYmdIQjRJeFVMeHFvZmovYkJTd0RuaGFvNm5tVHB5bzNzWHV2V2JN?=
- =?utf-8?B?b21nSHV5dW1oT3ozc1ErTHZtWTErekc0bG1iVFdLbHhtVVU4eUxDcTVCTVBt?=
- =?utf-8?B?VGhMWHhwSDBuZzdCQXBIeHZkY204TVlydDNXT1BBUFVtZjkycWFRZk82NmZL?=
- =?utf-8?B?Z3JWd0RSdmZiOWZxZUVxNjkzRE5yZUxvcEVzUW5YYWgvZmFqb2lQRExmbkZh?=
- =?utf-8?B?U2xBbWFjQUhuU2pZQ1pVTzkwU3AxSWpPTS8zaEI0NGE4bzRuMURSZFhEczBy?=
- =?utf-8?B?TVV3QzZSWDFteVhDenpNNnRZVk4xemIxV1dpd2xTQ2hrdjVPWjJDbXBzZFBh?=
- =?utf-8?B?aU4wL0VXNjVmUElGN0l2VlpIS1BEODhFdzZ1ZFphWTdsd3o3amhXVllMRmMx?=
- =?utf-8?B?V2Q1MXZNT09yTmtxa0E4VWRGM3RKNE13dWNRNTAvOUhmeWRWR0dIWkNPM0l1?=
- =?utf-8?B?Y0Q0ZmFwOWFyQitQLytnSlJ0NUZIYmxkRFN5YWtWVXpoa1dyejRLcTB6Zmdx?=
- =?utf-8?B?RU80dnZTL1I4azB5aTFBRVBPTGdCaTUxN2Y5NEx6SVhwMmVlQlBJaDYzbEpz?=
- =?utf-8?B?aWNUdTBzNWZyYWtTbzdDK1Y2ZnY2dXhubXc1WTZTZlZVdVYzWktYM0FOcEJ6?=
- =?utf-8?B?T29mWVBvMjFGRjI4WE13WE1sUm9mMUF6Wkwya1lEeWFuS0JkdUQwUXVXeGs2?=
- =?utf-8?B?K1RiWjFHVUxMTmhHZ3pPQ202TzA5VDdlemlvWUF5OEhwTkNUY0pjSzhTZERx?=
- =?utf-8?B?NFVjK0RIWUUzd3prU1ZZdTAzN0pNVll4OUtqYm9pUktIejc1Skl2YlI5bkNR?=
- =?utf-8?Q?FVMNVPu9gLmhm/Q7lc?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KlUKhBqT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jqBD77UOTyYWp8LQl19v9uNbH02DwyMcdp1Km7VJIyU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791857875; v=1; x=1792462675;
+ b=KlUKhBqTHE3cMyZVH8jSiitjq5XDDDcw5npLF/shy+ElifwoTmQ5o82dVY+c2NEVUybi8EJP
+ z4b1r7PgpddjhiGuXjndBA5Sp5KMoz6Htm8/ful8el/7KKeQ9k3Sc/ElklqPEaaI9bpRLuFy8Vz
+ tT0djsw8PRydg/b9wM+7vK4c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 665a5cf49eac3c84;
+	Tue, 13 Oct 2026 02:17:55 +0000
+X-Mizu-Trace-ID: 665a5cf49eac3c84
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <103d5ab1-b9b5-4cf6-bf87-87771b91eea1@linux.dev>
+Date: Tue, 13 Oct 2026 10:17:47 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58afab5f-cedd-4078-5481-08df28d02806
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 02:17:39.9162
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zhl0b6+6tWy9W+TTLxzqz4E5QHB4f8D3JqF3syoj0N0oTxo1vyKP+x+YE0B3X9ki6SLT0RkeEQhuuSogBdayew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPJPR04MB008549
+User-Agent: Mozilla Thunderbird
+Subject: Re: [syzbot] [mm?] possible deadlock in igrab
+To: Andrew Morton <akpm@linux-foundation.org>,
+ syzbot <syzbot+9d97402eade2fc0c065c@syzkaller.appspotmail.com>
+Cc: david@fromorbit.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ muchun.song@linux.dev, roman.gushchin@linux.dev,
+ syzkaller-bugs@googlegroups.com
+References: <6acd315b.8cdf6287.1eb53.0133.GAE@google.com>
+ <20261012185640.5568805f927f4de127bf0f28@linux-foundation.org>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20261012185640.5568805f927f4de127bf0f28@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-PiA+Pj4+IENsYXJrIGhlbHBlZCBtZWFzdXJlIHRoZSBNREMgcmF0ZSBvbiB0aGUgOTUgRVZLIGJv
-YXJkIHRoaXMgbW9ybmluZywNCj4gPj4+PiBhbmQgdGhlIHJlc3VsdCB3YXMgNjQ0S0h6LCB3aGlj
-aCBpcyBjb25zaXN0ZW50IHdpdGggdGhlIHRoZW9yZXRpY2FsDQo+ID4+Pj4gdmFsdWUuIFRoZSBz
-Y29wZSdzIGFjY3VyYWN5IG9yIG90aGVyIGZhY3RvcnMgbWF5IGJlIGNhdXNpbmcgeW91IHRvDQo+
-ID4+Pj4gb2JzZXJ2ZSBhIHJhdGUgb2YgNTU4a0h6Lg0KPiA+Pj4NCj4gPj4+IFRoYXQgNjQ0IGtI
-eiBhbmQgNTU4IGtIeiBkaWZmZXJzIHRvbyBtdWNoIHRvIGJlIGFuIGVxdWlwbWVudA0KPiA+Pj4g
-bWlzY2FsaWJyYXRpb24gLyBtaXN1c2UuDQo+ID4+DQo+ID4+IEZvciB0aGUgc2FrZSBvZiBjb21w
-bGV0ZW5lc3MsIHRoZSBNWDk1IEIwIEkgaGF2ZSBvbiBteSBkZXNrIG5vdw0KPiA+PiBwcmludHMg
-dGhpcyBpbg0KPiA+PiBTTToNCj4gPj4NCj4gPj4gICA+JCBjbG9jay5yDQo+ID4+IC4uLg0KPiA+
-PiAwOTc6IGJ1c25ldGNtaXggICAgICAgICAgID0gIG9uLCAgMTMzMzMzMzMzSHoNCj4gPj4gMDk4
-OiBlbmV0ICAgICAgICAgICAgICAgICA9ICBvbiwgIDY2NjY2NjY2Nkh6DQo+ID4+IDA5OTogZW5l
-dHBoeXRlc3QyMDBtICAgICAgPSAgb24sICAgMjQwMDAwMDBIeg0KPiA+PiAxMDA6IGVuZXRwaHl0
-ZXN0NTAwbSAgICAgID0gIG9uLCAgIDI0MDAwMDAwSHoNCj4gPj4gMTAxOiBlbmV0cGh5dGVzdDY2
-N20gICAgICA9ICBvbiwgICAyNDAwMDAwMEh6DQo+ID4+IDEwMjogZW5ldHJlZiAgICAgICAgICAg
-ICAgPSAgb24sICAyNTAwMDAwMDBIeg0KPiA+PiAxMDM6IGVuZXR0aW1lcjEgICAgICAgICAgID0g
-IG9uLCAgIDI0MDAwMDAwSHoNCj4gPj4NCj4gPj4gQW5kIHRoZSBjeWNsZSB0aW1lIG9mIE1EQyBp
-cyAxLjhtcyAsIHdoaWNoIGlzIHNvbWUgNTUwIGtIeiAuDQo+ID4NCj4gPiBUaGUgZW5ldCBjbG9j
-ayBpcyB0aGUgc291cmNlIG9mIE5FVEMgc3lzdGVtIGNsb2NrLCBhbmQgdGhlcmUgaXMgYSAxLzIN
-Cj4gPiBkaXZpc29yIGluc2lkZSB0aGUgTkVUQ01JWCwgc28gdGhlIE5FVEMgc3lzdGVtIGNsb2Nr
-IGlzIDMzMyBNSHouDQo+ID4gU28gdGhlIE1EQyBjbG9jayBzaG91bGQgYmUgNjQ0IEtIeiwgdGhl
-IGZyZXF1ZW5jeSBtZWFzdXJlZCBieSBDbGFyayBpbg0KPiA+IHRoZSBhdHRhY2htZW50IGlzIGlu
-ZGVlZCA2NDRrSHouDQo+IElzIHRoZXJlIG1heWJlIGFueSBvdGhlciBjbG9jayBzb3VyY2UgdGhh
-dCBtaWdodCBmZWVkIHRoZSBNREMgY2xvY2sgb24NCj4gTVg5NSBCMCwgdGhhdCBjb3VsZCBleHBs
-YWluIHRoZSA1NTgga0h6IEkgb2JzZXJ2ZSA/DQoNCkkgZG8gbm90IHRoaW5rIHNvLiBJZiB0aGF0
-J3MgdGhlIGNhc2UsIHRoZW4gc2V0dGluZyB0aGUgZGl2aXNvciB0byA2NiB3b3VsZCBub3QNCnJl
-c3VsdCBpbiBhIE1EQyBjbG9jayBvZiAyLjUgTUh6Lg0KPiANCj4gSSBhcG9sb2dpemUgZm9yIG15
-IGxhdGUgcmVwbHksIEkgYW0gY3VycmVudGx5IGNhdGNoaW5nIHVwIG9uIGVtYWlsLg0KPiANCj4g
-VGhhbmsgeW91IGZvciB5b3VyIGhlbHAgIQ0K
+Hi Andrew,
+
+On 10/13/26 9:56 AM, Andrew Morton wrote:
+> On Mon, 12 Oct 2026 12:13:31 -0700 syzbot <syzbot+9d97402eade2fc0c065c@syzkaller.appspotmail.com> wrote:
+> 
+>> Hello,
+>>
+>> syzbot found the following issue on:
+>>
+>> HEAD commit:    b01868671970 Add linux-next specific files for 20261007
+
+Looks like this doesn't include my latest fix patch in the testing.
+
+Fix patch: 
+https://lore.kernel.org/all/20261011045956.30277-1-qi.zheng@linux.dev/
+
+>> git tree:       linux-next
+>> console output: https://syzkaller.appspot.com/x/log.txt?x=17ab503c580000
+>> kernel config:  https://syzkaller.appspot.com/x/.config?x=9ac1ab2cf2112eb1
+>> dashboard link: https://syzkaller.appspot.com/bug?extid=9d97402eade2fc0c065c
+>> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+>>
+>> Unfortunately, I don't have any reproducer for this issue yet.
+>>
+>> Downloadable assets:
+>> disk image: https://storage.googleapis.com/syzbot-assets/20420067bb60/disk-b0186867.raw.xz
+>> vmlinux: https://storage.googleapis.com/syzbot-assets/14149d837264/vmlinux-b0186867.xz
+>> kernel image: https://storage.googleapis.com/syzbot-assets/17346f8094aa/bzImage-b0186867.xz
+>>
+>> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+>> Reported-by: syzbot+9d97402eade2fc0c065c@syzkaller.appspotmail.com
+>>
+>> ======================================================
+>> WARNING: possible circular locking dependency detected
+>> syzkaller #0 Not tainted
+>> ------------------------------------------------------
+> 
+> Thanks.
+> 
+> LLM firmly points at mm-stable's 743e7d025d2f ("mm: shmem: make unused
+> huge shrinker memcg aware").
+> 
+> This comes at an awkward time.  The three patch series "make unused
+> huge shrinker memcg aware", v4 reverts cleanly so I'm inclined to do
+> that.
+> 
+> If people can come up with a confident fix which we can upstream as a
+> hotfix during 7.4-rcX then maybe OK.
+
+Does the issue still reproduce after applying the fix patch above?
+
+Thanks,
+Qi
+
+> 
+>> syz.5.203/6616 is trying to acquire lock:
+>> ffff88807e4d81e0 (&sb->s_type->i_lock_key){+.+.}-{3:3}, at: spin_lock include/linux/spinlock.h:347 [inline]
+>> ffff88807e4d81e0 (&sb->s_type->i_lock_key){+.+.}-{3:3}, at: igrab+0xfb/0x2f0 fs/inode.c:1595
+>>
+>> but task is already holding lock:
+>> ffff888062a65640 (&l->lock){+.+.}-{3:3}, at: spin_lock include/linux/spinlock.h:347 [inline]
+>> ffff888062a65640 (&l->lock){+.+.}-{3:3}, at: lock_list_lru mm/list_lru.c:26 [inline]
+>> ffff888062a65640 (&l->lock){+.+.}-{3:3}, at: lock_list_lru_of_memcg+0x261/0x4c0 mm/list_lru.c:96
+>>
+>> which lock already depends on the new lock.
+>>
+>>
+>> the existing dependency chain (in reverse order) is:
+>>
+>> -> #2 (&l->lock){+.+.}-{3:3}:
+>>         __raw_spin_lock include/linux/spinlock_api_smp.h:190 [inline]
+>>         _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
+>>         spin_lock include/linux/spinlock.h:347 [inline]
+>>         lock_list_lru mm/list_lru.c:26 [inline]
+>>         lock_list_lru_of_memcg+0x261/0x4c0 mm/list_lru.c:96
+>>         list_lru_lock mm/list_lru.c:156 [inline]
+>>         list_lru_add+0x57/0x290 mm/list_lru.c:229
+>>         list_lru_add_obj+0x191/0x270 mm/list_lru.c:254
+>>         d_lru_add+0xd8/0x1a0 fs/dcache.c:522
+>>         retain_dentry fs/dcache.c:912 [inline]
+>>         fast_dput+0x55c/0x690 fs/dcache.c:1005
+>>         dput+0x2b/0x60 fs/dcache.c:1054
+>>         path_put fs/namei.c:722 [inline]
+>>         put_link+0x112/0x190 fs/namei.c:1201
+>>         walk_component fs/namei.c:2316 [inline]
+>>         link_path_walk+0x12da/0x1910 fs/namei.c:2682
+>>         path_openat+0x1c4/0x1da0 fs/namei.c:5036
+>>         do_file_open+0x23e/0x4a0 fs/namei.c:5069
+>>         do_open_execat+0x12b/0x590 fs/exec.c:786
+>>         open_exec fs/exec.c:822 [inline]
+>>         bprm_open_interpreter+0x85/0xb0 fs/exec.c:1455
+>>         load_elf_binary+0x1a5d/0x28d0 fs/binfmt_elf.c:904
+>>         search_binary_handler fs/exec.c:1777 [inline]
+>>         exec_binprm fs/exec.c:1809 [inline]
+>>         bprm_execve+0x930/0x1590 fs/exec.c:1865
+>>         kernel_execve+0x8af/0x9a0 fs/exec.c:2009
+>>         try_to_run_init_process+0x13/0x60 init/main.c:1489
+>>         kernel_init+0xb2/0x1d0 init/main.c:1619
+>>         ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+>>         ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>>
+>> -> #1 (&lockref->lock){+.+.}-{3:3}:
+>>         __raw_spin_lock include/linux/spinlock_api_smp.h:190 [inline]
+>>         _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
+>>         spin_lock include/linux/spinlock.h:347 [inline]
+>>         d_instantiate+0x72/0xb0 fs/dcache.c:2252
+>>         d_make_root+0x59/0x80 fs/dcache.c:2294
+>>         shmem_fill_super+0xcbc/0x1150 mm/shmem.c:5290
+>>         get_tree_super fs/super.c:1400 [inline]
+>>         get_tree_nodev+0xbb/0x150 fs/super.c:1420
+>>         vfs_get_tree+0x92/0x2a0 fs/super.c:1943
+>>         fc_mount fs/namespace.c:1278 [inline]
+>>         vfs_kern_mount+0x15b/0x220 fs/namespace.c:1316
+>>         kern_mount+0x43/0x90 fs/namespace.c:6500
+>>         shmem_init+0x37/0x170 mm/shmem.c:5610
+>>         mnt_init+0x19b/0x1f0 fs/namespace.c:6481
+>>         vfs_caches_init+0x22/0x30 fs/dcache.c:3686
+>>         start_kernel+0x351/0x3e0 init/main.c:1170
+>>         x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
+>>         x86_64_start_kernel+0x137/0x1b0 arch/x86/kernel/head64.c:291
+>>         common_startup_64+0x13e/0x157
+>>
+>> -> #0 (&sb->s_type->i_lock_key){+.+.}-{3:3}:
+>>         check_prev_add kernel/locking/lockdep.c:3209 [inline]
+>>         check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+>>         validate_chain kernel/locking/lockdep.c:3952 [inline]
+>>         __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+>>         lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+>>         __raw_spin_lock include/linux/spinlock_api_smp.h:190 [inline]
+>>         _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
+>>         spin_lock include/linux/spinlock.h:347 [inline]
+>>         igrab+0xfb/0x2f0 fs/inode.c:1595
+>>         shmem_unused_huge_isolate+0x4f/0x290 mm/shmem.c:874
+>>         __list_lru_walk_one+0x171/0x440 mm/list_lru.c:362
+>>         list_lru_walk_one+0x3c/0x50 mm/list_lru.c:399
+>>         list_lru_shrink_walk include/linux/list_lru.h:332 [inline]
+>>         shmem_unused_huge_shrink+0x173/0x1270 mm/shmem.c:966
+>>         super_cache_scan+0x411/0x4a0 fs/super.c:231
+>>         do_shrink_slab+0x6d0/0x10d0 mm/shrinker.c:445
+>>         shrink_slab_memcg mm/shrinker.c:562 [inline]
+>>         shrink_slab+0x838/0x1210 mm/shrinker.c:640
+>>         drop_slab_node mm/vmscan.c:488 [inline]
+>>         drop_slab+0x140/0x280 mm/vmscan.c:506
+>>         drop_caches_sysctl_handler+0xc7/0x170 fs/drop_caches.c:68
+>>         proc_sys_call_handler+0x4c1/0x830 fs/proc/proc_sysctl.c:600
+>>         do_iter_readv_writev+0x612/0x8c0 fs/read_write.c:-1
+>>         vfs_writev+0x343/0x990 fs/read_write.c:1058
+>>         do_writev+0x154/0x2e0 fs/read_write.c:1104
+>>         do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>>         do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+>>         entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>>
+>> other info that might help us debug this:
+>>
+>> Chain exists of:
+>>    &sb->s_type->i_lock_key --> &lockref->lock --> &l->lock
+>>
+>>   Possible unsafe locking scenario:
+>>
+>>         CPU0                    CPU1
+>>         ----                    ----
+>>    lock(&l->lock);
+>>                                 lock(&lockref->lock);
+>>                                 lock(&l->lock);
+>>    lock(&sb->s_type->i_lock_key);
+>>
+>>   *** DEADLOCK ***
+>>
+>> locks held by syz.5.203/6616: 5, last CPU#0:
+>>   #0: ffff88807a2ef270 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x118/0x160 fs/file.c:1408
+>>   #1: ffff8880582de460 (sb_writers#3){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2756 [inline]
+>>   #1: ffff8880582de460 (sb_writers#3){.+.+}-{0:0}, at: vfs_writev+0x2af/0x990 fs/read_write.c:1056
+>>   #2: ffff88807fe9e0e8 (&type->s_umount_key#56){++++}-{4:4}, at: super_trylock_shared fs/super.c:670 [inline]
+>>   #2: ffff88807fe9e0e8 (&type->s_umount_key#56){++++}-{4:4}, at: super_cache_scan+0x94/0x4a0 fs/super.c:200
+>>   #3: ffff888062a65640 (&l->lock){+.+.}-{3:3}, at: spin_lock include/linux/spinlock.h:347 [inline]
+>>   #3: ffff888062a65640 (&l->lock){+.+.}-{3:3}, at: lock_list_lru mm/list_lru.c:26 [inline]
+>>   #3: ffff888062a65640 (&l->lock){+.+.}-{3:3}, at: lock_list_lru_of_memcg+0x261/0x4c0 mm/list_lru.c:96
+>>   #4: ffff88807e4d8018 (&info->lock){+.+.}-{3:3}, at: spin_trylock include/linux/spinlock.h:359 [inline]
+>>   #4: ffff88807e4d8018 (&info->lock){+.+.}-{3:3}, at: shmem_unused_huge_isolate+0x26/0x290 mm/shmem.c:870
+>>
+>> stack backtrace:
+>> CPU: 0 UID: 0 PID: 6616 Comm: syz.5.203 Not tainted syzkaller #0 PREEMPT(full)
+>> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+>> Call Trace:
+>>   <TASK>
+>>   dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+>>   print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+>>   check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+>>   check_prev_add kernel/locking/lockdep.c:3209 [inline]
+>>   check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+>>   validate_chain kernel/locking/lockdep.c:3952 [inline]
+>>   __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+>>   lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+>>   __raw_spin_lock include/linux/spinlock_api_smp.h:190 [inline]
+>>   _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
+>>   spin_lock include/linux/spinlock.h:347 [inline]
+>>   igrab+0xfb/0x2f0 fs/inode.c:1595
+>>   shmem_unused_huge_isolate+0x4f/0x290 mm/shmem.c:874
+>>   __list_lru_walk_one+0x171/0x440 mm/list_lru.c:362
+>>   list_lru_walk_one+0x3c/0x50 mm/list_lru.c:399
+>>   list_lru_shrink_walk include/linux/list_lru.h:332 [inline]
+>>   shmem_unused_huge_shrink+0x173/0x1270 mm/shmem.c:966
+>>   super_cache_scan+0x411/0x4a0 fs/super.c:231
+>>   do_shrink_slab+0x6d0/0x10d0 mm/shrinker.c:445
+>>   shrink_slab_memcg mm/shrinker.c:562 [inline]
+>>   shrink_slab+0x838/0x1210 mm/shrinker.c:640
+>>   drop_slab_node mm/vmscan.c:488 [inline]
+>>   drop_slab+0x140/0x280 mm/vmscan.c:506
+>>   drop_caches_sysctl_handler+0xc7/0x170 fs/drop_caches.c:68
+>>   proc_sys_call_handler+0x4c1/0x830 fs/proc/proc_sysctl.c:600
+>>   do_iter_readv_writev+0x612/0x8c0 fs/read_write.c:-1
+>>   vfs_writev+0x343/0x990 fs/read_write.c:1058
+>>   do_writev+0x154/0x2e0 fs/read_write.c:1104
+>>   do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>>   do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+>>   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>> RIP: 0033:0x7fe53d79e199
+>> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+>> RSP: 002b:00007fe53e739028 EFLAGS: 00000246 ORIG_RAX: 0000000000000014
+>> RAX: ffffffffffffffda RBX: 00007fe53da25fa0 RCX: 00007fe53d79e199
+>> RDX: 0000000000000001 RSI: 00002000000000c0 RDI: 0000000000000004
+>> RBP: 00007fe53d835888 R08: 0000000000000000 R09: 0000000000000000
+>> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+>> R13: 00007fe53da26038 R14: 00007fe53da25fa0 R15: 00007ffc0e7c9828
+>>   </TASK>
+>> syz.5.203 (6616): drop_caches: 2
+>>
+>>
+>> ---
+>> This report is generated by a bot. It may contain errors.
+>> See https://goo.gl/tpsmEJ for more information about syzbot.
+>> syzbot engineers can be reached at syzkaller@googlegroups.com.
+>>
+>> syzbot will keep track of this issue. See:
+>> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+>>
+>> If the report is already addressed, let syzbot know by replying with:
+>> #syz fix: exact-commit-title
+>>
+>> If you want to overwrite report's subsystems, reply with:
+>> #syz set subsystems: new-subsystem
+>> (See the list of subsystem names on the web dashboard)
+>>
+>> If the report is a duplicate of another one, reply with:
+>> #syz dup: exact-subject-of-another-report
+>>
+>> If you want to undo deduplication, reply with:
+>> #syz undup
+
