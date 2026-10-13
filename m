@@ -1,150 +1,344 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177734EB865;
-	Tue, 13 Oct 2026 11:44:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C5C4E66B8
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891859; cv=none; b=UHiPuo+6cgE9v5XpTh3CM4qf+7lJTJYdQ2peq1vSXX1TGQVzVl2feiMcGOYyV8cQt/TNwDYHSu8W/SS1KCzRfiT0zYovp6Bl15hFI/CFDSVZbzPnNMnbdUmKY9axZ1kJG8Zvc3yKhlLHGh30t5hjbG7D8JVve8u6SMP3dF1QrkE=
+	t=1791891864; cv=none; b=Tugn5A30qYOGzXM/UQcrVRpvEBZ3/18KMTYo4dKAl2goDYehKDVZ8xGLqx00dHdadbxUQNhatLE+Vp0w/TVFQiXSAHL05onvG2so9z6ATxAdjDaLsP/Up+saLIobM/zyNGNykfr8jmGQpEbk0VfnTnmhHch3bPrWiXFakY3+8Es=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891859; c=relaxed/simple;
-	bh=4OANBpHEmSdLiZGsXRmRFHuCMBaiRGj7Hu0NZgEdqHM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dK02rt/VeTRxlnyud6KXZ2oGpHmHCsy4zuYhop2pn9GXkB6dOMjakBLOXmjkEXneZ4LqNjSTE2kY051rNQETMAvO1991kWS2M8GAyyPUGKJ2eF47H033zqQ6ztmAogUjqJwXD0tYF9FLCTkd3BbwHTGPl5qGO+RVvwcqKrG4VEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kaAPaq2Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791891864; c=relaxed/simple;
+	bh=w1GM1ccsbCNU7bl1E/eCIGy4tB7TjRvFHKKR6yECb0g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=s51neApDllZeb+1GgilCBq5K/a0x8BWqH3heAaAUXeDCwTP2ed4pAygaD44vt7jeEkqonavZxsU/w/nNik1fAiHGSS7GqncNiDMbSgGhrnvDDe/dVW3r+PgppHi8s5YKIPzvFyx6Al4ayoZhicRyj1BAqTlW3wbuwe8SNUL/UvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M+gqIbtk; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HstPepZ+; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kaAPaq2Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B221F000FF;
-	Tue, 13 Oct 2026 11:44:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791891857;
-	bh=D8wETzgZKXMrq+7nqWT6ljvjShoXyOcuU+Ww7Q6v8hk=;
-	h=From:To:Cc:Subject:Date;
-	b=kaAPaq2YJY7rKtY/ZiM31P7I2l+jSK9M6ALmWwjx8qDzY7fvznjp5URlFg9R//V4e
-	 8mxLMTNprwBs7mxo6pZ9NLwg+v/Izdfxbqtu/Ltw3Yo4EUabN1TYdPeKXE9rb0GbNK
-	 1hKZ1OD9oUPrI8w2UVzqQAIYzcdAmFGCo8nJLxad9FHF6FuVYE/xR4G+fqr43vF+Ak
-	 KTqQx3UOD7tozDFpxzPdm8sMlWMi64RV12YXaSgrzUw+sK/BDdzqrQEh0l9h3HPM4U
-	 noki2y+QSkfARff2W+KIDPYdQtZ6MjiwTAhbtHquqTaZqNq+fWJU7HZHWYEl5y79Th
-	 1tlEjCc2bFYNg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Vinod Koul <vkoul@kernel.org>
-Cc: iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dma-debug: Skip cacheline tracking for MMIO mappings
-Date: Tue, 13 Oct 2026 14:44:09 +0300
-Message-ID: <20261013-dma-debug-fixes-v1-1-1ad1f471cc61@nvidia.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M+gqIbtk";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HstPepZ+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791891862;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ezc60w2EW0Z8miij++dLscNvA7WLeG86FqgXSEBcGis=;
+	b=M+gqIbtkEVfQLZ/c+yA8frU+4rTgl42dMEZnfCWueAJQsz6LKvqTBODCFvjd0zNHjj7sIW
+	x4rPmDO+LwcrNeemztIzbyPAhxaD4P/nH8nv+u4fHs7QXagDLbFafkf3U3xGuZzLA3aoR2
+	XgdYz0MzmSKwDYGNGFKTDMJ/ka+SF/E=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-157-UI6fuMVnMiOWCu6UQVqh9g-1; Tue, 13 Oct 2026 11:43:32 +0000
+X-MC-Unique: UI6fuMVnMiOWCu6UQVqh9g-1
+X-Mimecast-MFC-AGG-ID: UI6fuMVnMiOWCu6UQVqh9g_1791891811
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a022fee32fso22076835e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:43:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791891811; x=1792496611; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ezc60w2EW0Z8miij++dLscNvA7WLeG86FqgXSEBcGis=;
+        b=HstPepZ+0kj5hw4nnEWqL+ohL1agB8HczsFrWHTyCv+531QUSmpVtoAaEVFnq3M+L/
+         TgCBFzyGYz2cU8WAkaXno+Ki0LMoSg9rXdqV7rgRew84SGH4Dx1mDhYlFhr9M0cb91NQ
+         fsmiwqZJrxleb4t6lVNyjRkWXqKNpTvku9MxbAJmfZuv3f18IpCmat/LX1v903CthKAv
+         TVJM7R17Jpsv1i4E1wrOOgELia4zdtRSVXSUx2/JHPQSN7HX8BlIx0tc3fxeEFbvjWAp
+         ooU32/Lx8epvZ2feIfiHM3FVs6eO4kDE6RdO9v2pLjxmcImkORsezCAWkvk+CNIvSn0j
+         K5HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791891811; x=1792496611;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ezc60w2EW0Z8miij++dLscNvA7WLeG86FqgXSEBcGis=;
+        b=BM8lzp59IA/x90OKob919r/zQnMpTTe/4whJ8fQRFPCgC2oF5q63Oso5BbyqNA833h
+         B+bc8d6VxpccabiyoChNh5hST2HToDYGzhvUW/F913d3iFT2Q5PUgQn0TTG76dzTkbeZ
+         yhZeBqEEBfFbn3xDjLrUxz5YrssTO3XC2igFse4PoCMhDDxSNir652lqzDFZWKTUwOvw
+         1Em9TCpRpCu7fL9fuuYFlIlIzYX1+By3yWn588bubzsU7MzX52zTEcqF+hlEiegWT8qm
+         8YgqSDRX/N+2rGZurUHLQAaQatKC5H68GgATIaQKrjg1K/06FkYCFEKbNcaRjKMwLzft
+         zYVQ==
+X-Forwarded-Encrypted: i=1; AKwUvByYeemVOfzm2muOHTEU7bxL7fBs4y7ztG+T+5fx3kfzMYmLkKBGFFWyN/2GA3uzL5nbcOh9AQ8Rmx2gwDY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgP7II7rCD1Qq1pc0Sz4dURspmi5FEIDrzQObDA+iJHXvlVjB7
+	2PcRxEO0AFizqHoV/nErp2iQAKawxbdcvtv0QpzcQL9pjX+q2osfD7fSkigM3GFVeZf46Gq6et7
+	3xXPccGrRYb3/7teHp1yWpQ8kPUadydX9MEsByoN7Kf2/a8rRXdgVNdmwVI93kXtTEg==
+X-Gm-Gg: AYBFou3GyK8UwU6GW1q1N6zKGFn1RQQBlgQJWaG7Oc6iVRGhiwq7PFhFBTPVuU6YYNi
+	8kBJ3x7ffPh1+iM3iw/U7lpVti/UTwnhDvBnGY0zD3DcrclAT//JvbaCuC9v/tH8rYM9WNh95t4
+	1IoLbxCz2TAGNE5RXr7taOYWzRPHrGYhEsa8O1czGoJMShWwh28Gljk3bRpJQFwa30QLSeh7nQS
+	QfV8PcYJKp+mpxms9Zgia/YLnCkTvtsV1A8ygkrGVge8YllLijyon5beEdsZMQhM3LehNE9WVjg
+	dB6NCuSJU3XHipnT7f1UZtlBrBiuq5o2COvu1JjNA69EAUP8vHyL5VAYIla1fcIxsggVYNxoQc2
+	/SN0SdP8q0Hi8sdYeQu8IeSlTT8c6
+X-Received: by 2002:a05:600c:83c6:b0:4a1:7093:40c7 with SMTP id 5b1f17b1804b1-4a18e493048mr222322695e9.8.1791891810961;
+        Tue, 13 Oct 2026 04:43:30 -0700 (PDT)
+X-Received: by 2002:a05:600c:83c6:b0:4a1:7093:40c7 with SMTP id 5b1f17b1804b1-4a18e493048mr222322215e9.8.1791891810454;
+        Tue, 13 Oct 2026 04:43:30 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be8c5e7sm449268585e9.4.2026.10.13.04.43.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 04:43:29 -0700 (PDT)
+Message-ID: <0eab40ebeb128ca308762f0bf33d2f7084ef32f9.camel@redhat.com>
+Subject: Re: [PATCH v2 2/3] rv: add per-monitor edge-stat facility and stats
+ file
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Tobias Schaffner <tobias.schaffner@siemens.com>, Steven Rostedt
+	 <rostedt@goodmis.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>,  Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rpm@xenomai.org, 	jan.kiszka@siemens.com
+Date: Tue, 13 Oct 2026 13:43:28 +0200
+In-Reply-To: <20260911123439.463052-3-tobias.schaffner@siemens.com>
+References: <20260911123439.463052-1-tobias.schaffner@siemens.com>
+	 <20260911123439.463052-3-tobias.schaffner@siemens.com>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20261013-dma-debug-fixes-5aaf1bb17544
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On Fri, 2026-09-11 at 14:34 +0200, Tobias Schaffner wrote:
+> Add CONFIG_RV_EDGE_STAT, an optional feature that records how long a
+> monitor's automaton dwells in a state and exposes it per edge through a
+> per-monitor "stats" tracefs file.
+>=20
+> The facility uses a static per-CPU matrix and reports, per edge and per
+> CPU, the count, summed dwell time and maximum dwell time. Only the owning
+> CPU writes the counters, so a reader snapshots them with local64_read()
+> with no IPI and no locking on the accounting path.
+>=20
+> Signed-off-by: Tobias Schaffner <tobias.schaffner@siemens.com>
+> ---
+...
 
-Mapping one MMIO dma-buf for many RDMA importers overflows dma-debug's
-cacheline overlap counter and triggers a warning. DMA_ATTR_MMIO mappings
-must never be CPU-cacheable, so CPU cacheline overlap tracking does not
-apply to them.
+> +
+> +/*
+> + * Static storage avoids allocation lifetime races. Only the owning CPU
+> writes,
+> + * so readers can snapshot counters with local64_read().
+> + */
+> +#define RV_THIS_NR_EDGES	(STATE_MAX * EVENT_MAX)
+> +
+> +struct rv_this_edges {
+> +	struct rv_edge_stat	edge[RV_THIS_NR_EDGES];
+> +};
 
-Skip MMIO entries in both cacheline insertion and removal. Keep them in
-the DMA entry hash so mapping and unmapping checks still run.
+Does this really need to be a new struct? Cannot you just define it as:
 
-The reported warning was:
- ------------[ cut here ]------------
-DMA-API: exceeded 7 overlapping mappings of cacheline 0x000000e040000400
-WARNING: kernel/dma/debug.c:465 at add_dma_entry+0x3b5/0x470, CPU#58: dtr/5264
-Modules linked in: xt_conntrack xt_MASQUERADE ip6table_nat ip6table_filter ip6_tables iptable_nat nf_nat xt_addrtype rpcsec_gss_krb5 krb5 auth_rpcgss oid_registry overlay rpcrdma rdma_ucm ib_uverbs ib_iser libiscsi scsi_transport_iscsi ib_umad rdma_cm ib_ipoib iw_cm ib_cm nvidia(O) mlx5_fwctl nvidia_drm(O) mlx5_ib ib_uverbs_support ib_core zram zsmalloc fuse mlx5_core
-CPU: 58 UID: 0 PID: 5264 Comm: dtr Tainted: G           O      J 7.3.0-rc6_for_upstream_debug_2026_10_08_13_46 #1.fc40 PREEMPTLAZY
-Tainted: [O]=OOT_MODULE, [J]=FWCTL
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
-RIP: 0010:add_dma_entry+0x3bf/0x470
-Code: ac e8 f5 89 6e 00 e9 47 fe ff ff 41 f7 c6 00 18 00 00 75 9f 83 fb 07 7e 9a 48 8d 3d eb 02 5f 04 be 07 00 00 00 48 8d 54 24 30 <67> 48 0f b9 3a eb 82 0f 0b 48 c7 c7 80 d3 2a 85 4c 89 e6 e8 a9 1f
-RSP: 0018:ff110001bcb7f230 EFLAGS: 00010002
-RAX: 0000000000000006 RBX: 0000000000000008 RCX: 0000000000000000
-RDX: ff110001bcb7f260 RSI: 0000000000000007 RDI: ffffffff85cfd070
-RBP: 000000e040000400 R08: 0000000000000000 R09: ffe21c0044b8abf5
-R10: ff11000225c55faf R11: 0000000000000000 R12: 0000000000000246
-R13: 1fe220003796fe48 R14: 0000000000000400 R15: 00000000ffffffff
-FS:  00007fa8f91e6b80(0000) GS:ff11000eb81cc000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fa8f5ca80f0 CR3: 0000000164871004 CR4: 0000000000373eb0
-Call Trace:
- <TASK>
- ? check_sync+0x2070/0x2070
- ? find_held_lock+0x2b/0x80
- ? debug_dma_map_phys+0x588/0x840
- debug_dma_map_phys+0x267/0x840
- ? dma_debug_add_bus+0xd0/0xd0
- ? __sg_alloc_table+0x2b7/0x4d0
- dma_map_phys+0x10a/0x330
- ? sg_miter_start+0x130/0x130
- dma_buf_phys_vec_to_sgt+0x565/0xed0
- uverbs_dmabuf_map+0x158/0x340 [ib_uverbs]
- ? uverbs_dmabuf_unpin+0x10/0x10 [ib_uverbs]
- dma_buf_map_attachment+0x138/0x690
- ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
- pagefault_dmabuf_mr+0x172/0xf80 [mlx5_ib]
- ? do_raw_spin_unlock+0x54/0x210
- mlx5_ib_init_dmabuf_mr+0x13e/0x200 [mlx5_ib]
-[... '?' frames and user-space registers omitted ...]
- reg_user_mr_dmabuf+0x3bf/0x760 [mlx5_ib]
- mlx5_ib_reg_user_mr_dmabuf+0x2dd/0x13b0 [mlx5_ib]
- ib_uverbs_handler_UVERBS_METHOD_REG_MR+0x76d/0xd90 [ib_uverbs]
- ib_uverbs_cmd_verbs+0x2337/0x31c0 [ib_uverbs]
- ib_uverbs_ioctl+0x1c7/0x350 [ib_uverbs]
- __x64_sys_ioctl+0x72c/0x11f0
- do_syscall_64+0xa1/0x4f0
- entry_SYSCALL_64_after_hwframe+0x4b/0x53
- </TASK>
- ---[ end trace 0000000000000000 ]---
+DEFINE_PER_CPU(struct rv_edge_stat[RV_THIS_NR_EDGES], DA_MON_EDGES);
 
-Fixes: 0e74b34dfc33 ("dma-debug: add support for resource mappings")
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- kernel/dma/debug.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Then use it as:
 
-diff --git a/kernel/dma/debug.c b/kernel/dma/debug.c
-index 026d50de340e..36c1f7cbb2ae 100644
---- a/kernel/dma/debug.c
-+++ b/kernel/dma/debug.c
-@@ -489,8 +489,10 @@ static int active_cacheline_insert(struct dma_debug_entry *entry,
- 	/* If the device is not writing memory then we don't have any
- 	 * concerns about the cpu consuming stale data.  This mitigates
- 	 * legitimate usages of overlapping mappings.
-+	 * MMIO mappings are never CPU-cacheable and do not need tracking either.
- 	 */
--	if (entry->direction == DMA_TO_DEVICE)
-+	if (entry->direction == DMA_TO_DEVICE ||
-+	    entry->attrs & DMA_ATTR_MMIO)
- 		return 0;
- 
- 	spin_lock_irqsave(&radix_lock, flags);
-@@ -519,7 +521,8 @@ static void active_cacheline_remove(struct dma_debug_entry *entry)
- 	unsigned long flags;
- 
- 	/* ...mirror the insert case */
--	if (entry->direction == DMA_TO_DEVICE)
-+	if (entry->direction == DMA_TO_DEVICE ||
-+	    entry->attrs & DMA_ATTR_MMIO)
- 		return;
- 
- 	spin_lock_irqsave(&radix_lock, flags);
+per_cpu_ptr(DA_MON_EDGES, cpu), sizeof(DA_MON_EDGES)
 
----
-base-commit: 39d3758108bb0ef9da484062d65288bbe9cada0e
-change-id: 20261013-dma-debug-fixes-5aaf1bb17544
+struct rv_edge_stat *edges =3D per_cpu_ptr(DA_MON_EDGES, cpu);
+&edges[e].count
 
-Best regards,
---  
-Leon Romanovsky <leonro@nvidia.com>
+> +
+> +static DEFINE_PER_CPU(struct rv_this_edges, DA_MON_EDGES);
+> +static struct dentry *rv_this_stats_file;
+> +
+> +/* Called before tracepoints are registered, so memset cannot race an up=
+date.
+> */
+> +static void rv_edge_stats_reset(void)
+> +{
+> +	int cpu;
+> +
+> +	for_each_possible_cpu(cpu)
+> +		memset(per_cpu_ptr(&DA_MON_EDGES, cpu), 0,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(struct rv_this_edges));
+> +}
+> +
+> +static int rv_edge_stats_show(struct seq_file *seq, void *v)
+> +{
+> +	unsigned int e;
+> +	int cpu;
+> +
+> +	seq_puts(seq, "# cpu edge label count sum_ns max_ns\n");
+> +	/* Include offline CPUs and keep output stable across CPU hotplug. */
+> +	for_each_possible_cpu(cpu) {
+> +		struct rv_this_edges *m =3D per_cpu_ptr(&DA_MON_EDGES, cpu);
+> +
+> +		for (e =3D 0; e < RV_THIS_NR_EDGES; e++)
+> +			seq_printf(seq, "%d %u %s:%s %llu %llu %llu\n",
+> +				=C2=A0=C2=A0 cpu, e,
+> +				=C2=A0=C2=A0 model_get_state_name(e / EVENT_MAX),
+> +				=C2=A0=C2=A0 model_get_event_name(e % EVENT_MAX),
+
+Perhaps you could have macros like DA_EDGE(s, e) or DA_EDGE_TO_EVENT(e)
+DA_EDGE_TO_STATE(s) to make the matrix selection a bit more readable,
+but that's a matter of taste.
+
+> +				=C2=A0=C2=A0 (u64)local64_read(&m->edge[e].count),
+> +				=C2=A0=C2=A0 (u64)local64_read(&m->edge[e].sum_ns),
+> +				=C2=A0=C2=A0 (u64)local64_read(&m->edge[e].max_ns));
+> +	}
+
+I would like to see a way to tell if an edge is invalid or not, we
+expect zero on invalid edges.
+Perhaps that can be a new column so you also show the count in case they
+are not 0.
+
+You can just use model_get_next_state() =3D=3D INVALID_STATE
+
+> +	return 0;
+> +}
+> +DEFINE_SHOW_ATTRIBUTE(rv_edge_stats);
+> +
+> +static int rv_edge_stats_create(struct dentry *parent)
+> +{
+> +	rv_edge_stats_reset();
+> +	/* RV_MODE_READ is private to kernel/trace/rv/. */
+
+I suggested you to use the rv helpers for this, you can obviously also
+use RV_MODE_READ. Now monitors are in kernel/trace/rv/, so it won't be
+an issue.
+
+If we add support for modular monitors, moving the definitions to
+linux/rv.h is the easiest thing to do anyway (you can do it too if you
+really want and/or your agents complain, in a separate commit).
+
+> +	rv_this_stats_file =3D tracefs_create_file("stats", 0440, parent,
+> +						 NULL, &rv_edge_stats_fops);
+> +	return rv_this_stats_file ? 0 : -ENOMEM;
+> +}
+> +
+> +static void rv_edge_stats_remove(void)
+> +{
+> +	tracefs_remove(rv_this_stats_file);
+> +	rv_this_stats_file =3D NULL;
+> +}
+> +
+> +/* A zero timestamp marks resets, which can run on a different CPU. */
+> +#define da_state_entered(s)	da_state_pack((s), local_clock() &
+> RV_TS_MASK)
+> +
+> +static __always_inline void
+> +rv_edge_account(da_state_t old, da_state_t new, enum states curr, enum e=
+vents
+> ev)
+> +{
+> +	struct rv_this_edges *m;
+> +	u64 prev =3D da_ts_of(old);
+> +
+> +	if (!prev)
+> +		return;
+
+This happens only the first time after reset, isn't it unlikely()?
+
+> +
+> +	m =3D this_cpu_ptr(&DA_MON_EDGES);
+> +	rv_edge_stat_account(&m->edge[curr * EVENT_MAX + ev],
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 (da_ts_of(new) - prev) & RV_TS_MASK);
+
+If you decide to go for the macro, this would be DA_EDGE(s, e) or whatever
+looks clear to you.
+
+> +}
+> +
+> +#else /* per-cpu accounting off for this monitor type */
+> +
+> +#define da_state_entered(s)	((da_state_t)(s))
+> +
+> +static __always_inline void
+> +rv_edge_account(da_state_t old, da_state_t new, enum states curr, enum e=
+vents
+> ev) { }
+> +
+> +#endif /* RV_MON_TYPE =3D=3D RV_MON_PER_CPU */
+> +
+> +static __always_inline bool
+> +da_state_try_commit(da_state_t *word, da_state_t *old, enum states next,
+> +		=C2=A0=C2=A0=C2=A0 enum events event)
+> +{
+> +	da_state_t prev =3D *old;
+> +	da_state_t new =3D da_state_entered(next);
+> +
+> +	if (!try_cmpxchg(word, old, new))
+> +		return false;
+> +
+> +	rv_edge_account(prev, new, da_state_of(prev), event);
+> +	return true;
+> +}
+> +
+> +#else /* !CONFIG_RV_EDGE_STAT */
+> +
+> +/*
+> + * Feature off: only the hooks the DA/HA layer calls are provided, as tr=
+ivial
+> + * pass-throughs. da_state_t is a plain state word with no packed timest=
+amp.
+> + */
+> +#define da_state_of(w)		((unsigned int)(w))
+
+Is this cast necessary? We assign it to an enum, the sign isn't really
+important. I guess it's the same for the other implementation of
+da_state_of() (which is now in another patch).
+
+Thanks,
+Gabriele
+
+
+> +#define da_state_entered(s)	(s)
+> +
+> +static __always_inline bool
+> +da_state_try_commit(da_state_t *word, da_state_t *old, enum states next,
+> +		=C2=A0=C2=A0=C2=A0 enum events event)
+> +{
+> +	return try_cmpxchg(word, old, next);
+> +}
+> +
+> +#if RV_MON_TYPE =3D=3D RV_MON_PER_CPU
+> +static inline int rv_edge_stats_create(struct dentry *parent) { return 0=
+; }
+> +static inline void rv_edge_stats_remove(void) { }
+> +#endif
+> +
+> =C2=A0#endif /* CONFIG_RV_EDGE_STAT */
+> =C2=A0
+> =C2=A0#endif /* _RV_EDGE_STAT_H */
+> diff --git a/kernel/trace/rv/Kconfig b/kernel/trace/rv/Kconfig
+> index 3884b14df375..3045037fb36a 100644
+> --- a/kernel/trace/rv/Kconfig
+> +++ b/kernel/trace/rv/Kconfig
+> @@ -59,6 +59,18 @@ config RV_PER_TASK_MONITORS
+> =C2=A0	=C2=A0 This option configures the maximum number of per-task RV mo=
+nitors
+> that can run
+> =C2=A0	=C2=A0 simultaneously.
+> =C2=A0
+> +config RV_EDGE_STAT
+> +	bool "Per-edge dwell-time statistics"
+> +	depends on RV && 64BIT && DA_MON_EVENTS_IMPLICIT
+> +	help
+> +	=C2=A0 Record per-edge dwell-time statistics for per-cpu deterministic =
+and
+> +	=C2=A0 hybrid automaton monitors and expose them through a per-monitor
+> +	=C2=A0 "stats" tracefs file. This times each monitored automaton
+> transition
+> +	=C2=A0 with local_clock(), so leave it off if you do not need the
+> +	=C2=A0 statistics.
+> +
+> +	=C2=A0 If unsure, say N.
+> +
+> =C2=A0source "kernel/trace/rv/monitors/wip/Kconfig"
+> =C2=A0source "kernel/trace/rv/monitors/wwnr/Kconfig"
+>=20
 
