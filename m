@@ -1,155 +1,125 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8994FD269
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4504FDA47
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896435; cv=none; b=rvvNnm6rdBL/8SgLs6n+ccE74x5NqS0nkkFFXY0ySzBuIQXJyJ/GEOurjhxstCM6GlrSR2y374UxxRt/pzm8T9e+N86+KVEPffeSP7l51KOdjthGAuNWt4CmIt3JgFP9CIwKWlXtqBvayHeZQR8Jw6TUy5avgRSXe2uQxP9glEY=
+	t=1791896435; cv=none; b=I954W5YJAyih0SNM58OWARRfva+326VEtUo6dMa17VvYSLPETL6MQ0CIr/1PLceyQqeVNs+aEtxjGxbn58yGSDCZDskJYcItcYbHeAjeY6Lx8BJFF5rkjLDucN++zG88393YF8aAbn0KXhBhc7sDQahWRBNjOhqWBAon9s54XVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791896435; c=relaxed/simple;
-	bh=1yFaR4xHHV43+0TF/UmHWKCozg4dyU/FHnPYLeB5xVY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HbG2dyjgk4nFeu2klXVaWTchoUdreNC3b5JlBObsrtIqlDwMt+zrR0iQqd1ovW+4mbZTgp3i1R0TiFu26Jln2mCYthQ47BWkXe6Jz+sBd4JFUAI0DysD6LBddogYiCMxk3lP7Z8v0FFyHnSml3KbPGXMikmIiqdA2WHWZk+iKDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=n07mKMe2; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	bh=7im7GL/ZuwtN87J645EONyNtIwr363HuDNTFxRo4AJc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=UO9wnrevp0VjPRwAUT+6Fbs7OLZCIxrIaR5t9p4DrXbxu7BKHlTPQwsvtGH7QOXbiMBNKPfREaRmoxlvXfqyB4pMtt9KnKXg/d6ityI0ro59uVpyoPlQ0uOPmi9puyO7ilUcbXtRyhOi/9w1P+WbwQg/0ZJoEPRorqI6bpZpwaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sorah.jp; spf=pass smtp.mailfrom=sorah.jp; dkim=pass (2048-bit key) header.d=sorah.jp header.i=@sorah.jp header.b=YikTtiTO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ir0qH2Z5; arc=none smtp.client-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sorah.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sorah.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="n07mKMe2"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2EQd3725918;
-	Tue, 13 Oct 2026 13:00:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=1C+ONU
-	xgohdejp64bsnVQrYo9dGoPZgQR+MLV2Aw+DY=; b=n07mKMe2g0jM+h0Qdlp6aO
-	taUA68OtlP33vXK2wZNMjc4edOqPn0LW7SF5lLUnLQ36cUhOrvhVJGjk85iqE83f
-	fNS1fDDbOHkwQQ0e2YVs6yg+X7GQLUYVNFCtDtqdOah9KF2vOM8vXoDo4aRmOV7G
-	AdaEjwHwLb3N/KdpHLomlK4azGAuvXiAw1Loi5FCklxZZxbVJAqh+piLE/m4Qoyo
-	T69ssr+6eK5st86rMS5CGtD/JJWCFY2RB0WFWcSnIFPdb8NIavf+r20aH765vp/1
-	X02NxcCPXS9P195z0MUQXrOLvCwSOa2rguUxSXHGi/0GY3XscG51qpIQh3tntIlA
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv0dqkv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 13:00:30 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69DCSb552709272;
-	Tue, 13 Oct 2026 13:00:29 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816h1tjv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 13:00:29 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DD0P6941877980
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 13:00:25 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CB02020071;
-	Tue, 13 Oct 2026 13:00:25 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9B66D2004B;
-	Tue, 13 Oct 2026 13:00:25 +0000 (GMT)
-Received: from [9.111.65.241] (unknown [9.111.65.241])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 13 Oct 2026 13:00:25 +0000 (GMT)
-Message-ID: <262c14fe-5451-4467-89a2-ebf88561dffc@linux.ibm.com>
-Date: Tue, 13 Oct 2026 15:00:25 +0200
+	dkim=pass (2048-bit key) header.d=sorah.jp header.i=@sorah.jp header.b="YikTtiTO";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ir0qH2Z5"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id 8D403EC0528
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:00:33 -0400 (EDT)
+Received: from phl-imap-06 ([10.202.2.83])
+  by phl-compute-03.internal (MEProxy); Tue, 13 Oct 2026 09:00:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sorah.jp; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1791896433;
+	 x=1791982833; bh=7im7GL/ZuwtN87J645EONyNtIwr363HuDNTFxRo4AJc=; b=
+	YikTtiTOlomhwPlifj+n7hB+iPybhdqYGV4LXi7wOnnNE/7zTuQ00/ZysHlQX1jV
+	IGmriYqmKCY/XCUZJC+/EUdOEJVB9bC6AphUGmZ4JyqrgtswLQ8hjHy3x04skZoj
+	jdhDicurMouZ5QuFz+VnGUjgu1HSMSQa7e7yRtnqeC3GfcbrFQTIfiwwBq2veu42
+	OpS9PPd0rmiXAPQ6hwFWOumMZz7PXEgn1qJuIk0uuCKOvJ2XAdrFQ9AbE7EWHl97
+	Zqc31Fm1A9fwgIsp2nJeanvs/JkR2ZYIYlR9O7SzekfZiJtjSt8UqCT99gzdV/Xu
+	Hqe4edgBtwNbS6RUKWz/gg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791896433; x=
+	1791982833; bh=7im7GL/ZuwtN87J645EONyNtIwr363HuDNTFxRo4AJc=; b=I
+	r0qH2Z5ezbbIDDbIU1axYfsaJc6eIDcL+ySSfyTypWKWMGxRJ3q5nDOoT9kqKTHO
+	AATVBTu6btx0F8jvwXWo06AP/wqm0mC7vVZnJQ58RgLq9+Du0+xkiNuk+yPMUnjo
+	S8rWD4/uPy3+IYjyuuPWOKzB+acrhWUy1er1bW/fpgxxC/rQKNtnCNjaPgSsXvlv
+	7vqfzBQCneQUB2sJUxtPUixQwg3CYavkP8N19XsOUy48xqz4VBXFny+Qjyf4Ztpv
+	qZkW6WJZli5Yn19eJhIEOv0T4y1ENVcGRjGBu2AVI8bbmz2n7P+DNJ6JJ7aEL1b5
+	H3ujtaXKDS9nrSi7BKsiw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=sorah.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791896433; d=sorah.jp;
+	mf=PGhlckBzb3JhaC5qcD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:Tva6SOdDx+LTVO9VctPPz31UMiKeoGAb0f+9fNSwtZYP2SS
+	CSbyKB3IssNrdrqdg3VbEzS/9go55uQW4GAOk75avhBj1vmzCxFuuRlaf1LQKfG8
+	RAVwC9nmYuGHC/NSksOp79wMdXtjYwgZX3E4UnD5CKju/TCrBM+O4Rl4j+dNv7Fq
+	3xMYDZ74TNjEMza2kN8iovMCgICkmN1+SykO5vWBgZVhilJgn/361TEqPgwL4Lf3
+	V/DgcTNxpTAszK8t20FbcgonNnI6wRxgbKlBR7j8YcG8XcTTHTw6Ls1rhB6M8kc3
+	bPI0uOxS003lISwCp0mlqeR88ffbp8XIo1G1NYQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:LdqfKRARqjrBC/drbbphWpVwD4eI14jOal3Emb3AOHY=:7im7GL/ZuwtN87J645EONyNtIwr363HuDNTFxRo4AJc=;
+X-ME-Sender: <xms:cSvOapay0GSvqIL8FQqkytNCi__41XQLStcQd6fVsaHHhnoGno22fQ>
+    <xme:cSvOarOhJf-kEIA9Lrx03Uwgsfuk4kN-VLFlkBY-jv7RD56aheK27R842YSgLBJd1
+    axTqm3dkQEnmUCdIkR1RrJSFcPkEMpzH1ZuGufb-TEu4468f1mDkUuT>
+X-ME-Proxy-Cause: dmFkZTGSCXnbkU/HlcSBjM1SuyLFeN+/tBDJ1iapM8v6UdkCCaXm15kd62CM8Mv59B6wXZ
+    7PxwBMqQKZ7Srme/q3YRzlx1hpBxJuOUV89JNyG+u2Gvz5yprMQR4B5bowBC+hg6qTuBfi
+    cyga2MWJxmfLOEk5V0KBCFCMxoRySmqzC0/mY8G4rDUJxTnIXdMIn3b+JtuEafIsPIfWhf
+    lsAl/k/6CaF0fqgY62gbVuyTh5DUi7xTIBHH26+nOt38LxEq4EDeZlJIiIifXuYmSiONsJ
+    EzPlQSO/YvIKMmqLUtzIYB0sQIg09nh3FcjdcJ6yCwpxXEMDWg3OBTRPYA4kznWRzpP8dP
+    iexvKDWWgC1YjgYfk5ruXkg6hjmua6FRrW+i+g/y+Tqdz/AXyUf9PD1fGjLB8sul7cuhqY
+    J3+RSRYBlL8RZnqY7cLGSnyDVzd+maxtTV35U8oZ0Xk/xZz8oXdILdY3gG7bU9Ft267Khd
+    VoLfP3B9KLC3VAV2cWQt02WSEYUD9ufsDAg8DCbv1rZwsT9fhwl0P5lXpsf7yGLI8/aqLq
+    kg0lR6lQKYtV3lff7hLhK2LqIFRq0aMG2d6dtthNbhuhP1Rmup7e+J02jWfEq7VsIZdU6w
+    r0RhIt13fLzPwt6XZIcR1IadPgADAjm/+n6LHV1koD4fEkMlHa1A9dt4ZlXw
+X-ME-Proxy: <xmx:cSvOai8yVLyT6O4_LPZLNeKxpsUotgVaceCgqPk9eXf0LemZfIjCGA>
+    <xmx:cSvOaulqKNFfZrjv7hnGTUrY8MhfKJcm53QRrAVrCOhdtYTq3fs3OQ>
+    <xmx:cSvOalD22cplVjEy99e7UhMc5HAtjf8gTT8P1bZo1JRbAMmrRGkpbg>
+    <xmx:cSvOavUqC2EA1wpIN3G1p1MrVVXzZI37g1A5jQ4dRGz8tLp5TY6bvA>
+    <xmx:cSvOahPAuMKsPkzSjw9Fujs9TIMhpmv02I-Uny-3intVikE5xhJqUiIx>
+Feedback-ID: i0449494e:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id EB861240009B; Tue, 13 Oct 2026 09:00:32 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Add entry for ARM on s390 KVM
-To: Steffen Eiden <seiden@linux.ibm.com>, linux-kernel@vger.kernel.org
-Cc: Andreas Grapentin <gra@linux.ibm.com>, Marc Zyngier <maz@kernel.org>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>
-References: <20261013084952.2797958-1-seiden@linux.ibm.com>
-Content-Language: en-US
-From: Janosch Frank <frankja@linux.ibm.com>
-Autocrypt: addr=frankja@linux.ibm.com; keydata=
- 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
-In-Reply-To: <20261013084952.2797958-1-seiden@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-ThreadId: AoXn1KR5sOKB
+Date: Tue, 13 Oct 2026 22:00:12 +0900
+From: "Sorah Fukumori" <her@sorah.jp>
+To: "Eric Dumazet" <edumazet@kernel.org>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, willemb@google.com,
+ lixiaoyan@google.com, linux-kernel@vger.kernel.org
+Message-Id: <20f75d91-97fd-479d-b3f1-66eaaf493261@app.fastmail.com>
+In-Reply-To: 
+ <CAL4WiirpDVzho606z1gt5=1=MFykgTC2CbqdAkxnngSvBYq_Qg@mail.gmail.com>
+References: <20261013102453.3272620-1-her@sorah.jp>
+ <CAL4WiirpDVzho606z1gt5=1=MFykgTC2CbqdAkxnngSvBYq_Qg@mail.gmail.com>
+Subject: Re: [PATCH] net: gro: don't chain linear parts larger than gso_size into
+ frag_list
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1MCBTYWx0ZWRfXygo21KKecnvb
- lj/aHvEXM0++G1Qk+EvhiLX2HHM3pKTK8hgDvI2nUQ9zZGtgnB820bVMk0QS11nDC7XV3CibqIR
- WqOn9MGzrDNKm12oROPxzIsg17cHW/RiXHzaW2oyy4C7gYixTkOcaKVJRO/NVJhj6LwgER+YkjY
- NU0h7KrCGv18FIgZhR+BexCQ/x9mCcwwBc37ZD2nveqKkGmDBVdiGKdHnkRV5zZmDN3a/TqheC1
- hKq4VOdGhxsrknA6R/gWJ9yhnZSyhF2+JdpJzLSPbOUOQnKs9whXFI1k3CUFmB/twN+1ofY4Shg
- cmJwX8ZI/Pw5WbP+a0H9esOwMleS+xO0ROARixoFUyAd3rEKg6o1cNWtb7jp+RB6DRrAxeLQecU
- zTOHqRlnaR9qLSAABj/90k8oEI5iFA01DS8XyXlq4dbqbK10YvFLjt7Qp47+gzcZYTdykUdnxxe
- 3RWnReDb9n4nxDxAK5A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1MCBTYWx0ZWRfX44eIdWokbdwz
- dTMHB3VC00D+eCsrqg/izP7++3MeLZ9TUyGtLTlvuy8vBdP/57XoBxoq2uF4wytioyqpeULdOAE
- Ehp81SISlRX4Y01gzwP1P0rce87/6mI=
-X-Proofpoint-ORIG-GUID: WftiJmrzuBpUY9aT09WiXMrCNprdsZHS
-X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6ace2b6e cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=6rUT-Y7QojzPBGp7pPAA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: WftiJmrzuBpUY9aT09WiXMrCNprdsZHS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130050
 
-On 10/13/26 10:49 AM, Steffen Eiden wrote:
-> Add a dedicated MAINTAINERS section for KVM ARM64 virtualisation support
+Hi,
 
-s/virtualisation/virtualization/
+On Tue, 13 Oct 2026, at 8:03 PM, Eric Dumazet wrote:
+> It seems an XDP program with frags support in generic mode could
+> get there: skb_pp_cow_data() builds a head_frag skb with up to
+> about one page of linear data, the rest in page frags, and
+> skb_copy_header() keeps the GSO metadata. Two such 64KB packets
+> can not share a single frags[] array.
+>
+> Have you tried this variant with your reproducer ?
 
-> on s390. Adding only reviewers. arm-on-s390 is primarily maintained by
-> the KVM/s390 maintainers through inheritance.
-> 
-Acked-by: Janosch Frank <frankja@linux.ibm.com>
+Thanks, I haven't. I tried to reproduce that variant under various gro_max_size/RPS configuration, but I couldn't repro on my qemu+veth based script.
+
+Will send out v2 with updated commit message soon, and sorry about missing `net` prefix in the subject, it will be included in v2.
