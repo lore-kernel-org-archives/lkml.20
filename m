@@ -1,89 +1,92 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-128.mta0.migadu.com [91.218.175.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9338D519E10;
-	Tue, 13 Oct 2026 19:52:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D924A92EE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791921147; cv=none; b=saNl8Ca8af2Jqu3R0cJSMQl/6JmaN196VgZb0pPf+frfK9CWFuX4/r39NC8uWhiwNZyrT4ou/Ydkmac0bjRGF0XHQLmpi4iOM7HCHJhtfOXkDOl7Mj3hDcG/i+d9XSk9VCLFx1nhfbW4sV2+rXVEXPsoB4OSXPoDaJCCAowCM+k=
+	t=1791921178; cv=none; b=UBOeGuUUU1IA2vrbx4Cxhx1DhFZYSLp+B/MQZrtJK5W7ZfTGEIOYeZj1X0b97jcSUCTU9NJF++68psByG2/LgzEr3HJed5VRkX43L+0Aiaeqzitq8OPv4br2foUSngBhAzpkz5IO+/eXdgnzcPAa3niGzsc1//tzB3Q9uBm7cVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791921147; c=relaxed/simple;
-	bh=SMeDeVif0Kp6HSWLfz1gAJamJtmcWFjXPgwb6diL8o4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=agcPp1jfFpTfJFmeysndrQzvEtFZo42GqUu16EC8TQWOvCjEVHX686VW0yDVRbPGKH2OL6ttucp1GV53lexuPBxNd6TDVKuaoGlmalNjEfylrSnA5f9a8axonqXmCggxGtUpNHNaEl/PDH+nqO/LJRlafM/wlxkiBC1ipa4KXRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ne/fzR9p; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791921178; c=relaxed/simple;
+	bh=5HGJb4w8FTtv64Jv0vfwAzYirRvRNpka0SUGJZ7ZDcc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A6QH0af+UIXYa8+CUSHWLDo+bKRmZ5fITMufjkgmS7ZzjuBwYTTTk0QPyja9OrSFbeBNr8qU2OxjcpgjSy80ucZgAWTlp1OpszHv7MTVmtYdqRRzHOjtZMG3e5Uvx4dr7AaDF4CKWjQq6sQSwghTZXnsLOBhilt97HsDANI8TM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZN5k5FA2; arc=none smtp.client-ip=91.218.175.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ne/fzR9p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791921145; x=1823457145;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SMeDeVif0Kp6HSWLfz1gAJamJtmcWFjXPgwb6diL8o4=;
-  b=ne/fzR9pQ4mjvfCnw454gVmd7bF1/UFtXf+StxoTJlHfn6CeeEuXmHKV
-   863TlqhH7YWH10NB8cJnJiYu9eX/RSteWSi9mHVE+a2OCbBgl/iWtDjye
-   kIoX9fqrTqft0v37leH/1U/pOY1U52ZHE2Mkn88M5uExrgFPOsSlCFp5S
-   XY99eI/CPSc7I4VyvoTBB1qWJTytA6DkSgpUpKlBXDH0InmEJCFd+35bh
-   o+66vErA9ZgWazzpz9APsx9pjOtWgWlR9c977rqLW6HwgfoIeN2qMnbR9
-   VWF9+JCXv/UaMaBAAXJtTOjuHLJ6Ajys0xpSWkrVkxKalfuyO4Lyd1elS
-   g==;
-X-CSE-ConnectionGUID: Ero0FfbiQ6W6WA2H+5uHKg==
-X-CSE-MsgGUID: sxfIFzHyR4WWrM8FeHIB4g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="668645"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="668645"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:52:25 -0700
-X-CSE-ConnectionGUID: 3By2UcNJQ4qm6NSdvM+oJg==
-X-CSE-MsgGUID: sp9WI9OASF2c5X+npR1N3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1255399"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:52:23 -0700
-Date: Tue, 13 Oct 2026 22:52:20 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	David E Box <david.e.box@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 17/20] platform/x86/intel/tpmi: Use scnprintf() to
- build the debugfs names
-Message-ID: <as6L9HHCImFtGNS_@ashevche-desk.local>
-References: <20261013192935.2243291-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20261013192935.2243291-18-sathyanarayanan.kuppuswamy@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZN5k5FA2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5HGJb4w8FTtv64Jv0vfwAzYirRvRNpka0SUGJZ7ZDcc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791921174; v=1; x=1792525974;
+ b=ZN5k5FA2LHQh1GsPwsKgde5Gg6MpLd7ePNaP/Zp2k/CPw6SGcwg1xEEgozApg1GwtNNv4ofN
+ 5fuvS1BL2oZGmxR2cfVDx2PWchy9WUrFy74MyeMwhu32GZrxhQrNnn8IZTqm301GyTYOhHpi1JP
+ oT4LukUUi5GbSquRcaU1+QyU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 16f521b10fb5bf82;
+	Tue, 13 Oct 2026 19:52:54 +0000
+X-Mizu-Trace-ID: 16f521b10fb5bf82
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <28b2c3ac-a128-4625-aab5-274ddcb7ccbf@linux.dev>
+Date: Tue, 13 Oct 2026 20:52:53 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013192935.2243291-18-sathyanarayanan.kuppuswamy@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 5/5] ptp: vclock: preserve missing hardware
+ timestamps
+To: James Hilliard <james.hilliard1@gmail.com>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Yangbo Lu <yangbo.lu@nxp.com>,
+ Miroslav Lichvar <mlichvar@redhat.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, linux-kernel@vger.kernel.org
+References: <20261013-ptp-vclock-sampling-v3-0-d3ee4ea62fc6@gmail.com>
+ <20261013-ptp-vclock-sampling-v3-5-d3ee4ea62fc6@gmail.com>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20261013-ptp-vclock-sampling-v3-5-d3ee4ea62fc6@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 12:29:32PM -0700, Kuppuswamy Sathyanarayanan wrote:
-> The kernel has both snprintf() and scnprintf() for formatting into a
-> fixed size buffer. The preference is to settle on scnprintf() and stop
-> adding snprintf() users, so that only one of the two remains in use.
+On 13/10/2026 20:19, James Hilliard wrote:
+> Socket timestamp delivery converts hardware timestamps to a bound
+> virtual clock before checking whether a hardware timestamp is present.
+> A zero timestamp means that the packet has no hardware timestamp, but
+> timecounter_cyc2time() can turn that zero into a nonzero virtual time.
+> The socket then reports a hardware timestamp which was never supplied.
 > 
-> Convert the two callers in tpmi_dbgfs_register(). Neither of them looks
-> at the return value, so the difference in what the two functions return
-> does not matter here.
+> Return zero without conversion when the input timestamp is absent.
+> This also covers skb_get_tx_timestamp(), which checks for an absent
+> timestamp after the same conversion.
 > 
-> No functional change intended.
+> This was identified during review of virtual clock sampling changes.
+> 
+> Fixes: d7c088265588 ("net: socket: support hardware timestamp conversion to PHC bound")
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>   drivers/ptp/ptp_vclock.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/ptp/ptp_vclock.c b/drivers/ptp/ptp_vclock.c
+> index 6675466bc307..4a62047f0ce0 100644
+> --- a/drivers/ptp/ptp_vclock.c
+> +++ b/drivers/ptp/ptp_vclock.c
+> @@ -307,6 +307,8 @@ ktime_t ptp_convert_timestamp(const ktime_t *hwtstamp, int vclock_index)
+>   	u64 ns;
+>   
+>   	ns = ktime_to_ns(*hwtstamp);
+> +	if (!ns)
+> +		return 0;
+>   
+>   	srcu_idx = srcu_read_lock(&vclock_srcu);
+>   
+> 
 
-Okay with me, after a small discussion in previous review rounds.
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
