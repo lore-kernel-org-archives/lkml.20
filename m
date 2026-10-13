@@ -1,437 +1,280 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010023.outbound.protection.outlook.com [52.101.193.23])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4B3515962
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:29:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791916157; cv=fail; b=TVaImSXGjvpjJSF0x/SrL9Krn7s0Il0o76SIEeOSaAvkRpLb3U0uUlVGjmz2WB4Q+0BETO/YicFQv2xLMEmtmHCBoSlVQRZelIYhvEo+POxVr0MviH/eED1Fa9JMwaixo5+TGloWl9AzAEJmGYD7PT4+PEtlBOyjLJ7vS/Zyato=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791916157; c=relaxed/simple;
-	bh=ggbMy3Fmoxfc+jcredGyM79+rpWBicGzMzGlc+to2d4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=LibIQ7zIspd74X7hioL7mb4Y27hvRF7KappkpXVl3KAFfcaNAX70Wxm9Lmq4E48Q35Hq8B2mr9o8qwzWdkV5zlNkdTN76Te+bzGPxJAxNl5i7JuGPGkydSqhkjqN+9G6sIjWx+7ZWK6ewF04NMagLKuuc+damiHGaC973exjOl0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Uf04QBoG; arc=fail smtp.client-ip=52.101.193.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E659830ACE6;
+	Tue, 13 Oct 2026 18:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791916216; cv=none; b=IBQuw8IR+mwLyFt56liom83m+aeBLrw7R9owLGvonnFvjhFRo3+nCluzeYkrqfWUNA1EHg74tuHvnLwN5rfsLM/NdqadidFn0HaATybZIh9BNMtsE+kfwxVH7T2jeXE3MuZk0+jLgt9p47utfhB4qSYbDgoKcyx4XMKRiLcMNxY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791916216; c=relaxed/simple;
+	bh=FqhwahPdHp8ZtEZW2t3KYPkHouiVm84bA6BhOti3Wj8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s8fI/mq9t2J4mx6/Itz+bgHHv8dQRSK3YnhVwttaPsNpiIxXXzFD48TOueR30jvQtAT8Sa8kVIuUpWSrE3lru7uEf/PjpVTg37yLkCoCL4228Wns8folp3rWAAP+mHJvqJU255DX34nHD3/jyIYp/cS3UR0qC+ZZEF/6frePlPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=B9itd55M; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Uf04QBoG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=heDpjRAULRwn4DQ3Tf90IYOJ3XXSslPbDO5szE/pUM8Z3ZG/Y8RowOu0cuRolnDL6ezGuv3RB+LDcUFSc1zgycTiWgQuBGmg/i9TzdMWVzp9ehRblkrpjubQRhskZjFEw/Vknu0CYBCrT7ZHFPbxTyY1pQJjHciRy6+ql6z7Y1Jk/lss50T5iGmcng2p+5fc3keBjEiYhCK5T8yxJ5G6FveTZQbY7/7Acy1OguRZirbgktIHU8v7H78ZTl9nFedZXnTweOy6WS5WtswL0+WPJOW/mYNLUuJMKCGZv+/twQxwF1PhB1YvwOtfWlWKKo3ORkUxJXUPu3CnvOFB58G5xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZniqqzQZrxxS5rOJ4aV+6vA+LLvJtsN3LssH6WJq9lk=;
- b=fCJOmccGrAhQZ6o/E8p7MGJ6T507RLqLzvOoT0h2o0TNvmF9cdUpRsygkYn98bkzeac9DF3sRypRWXfXIWjDZArK91Luo254M2LAOk9chXiYA7Vs5rOPG4RNKzO5cphydhNmoa8xFAxSvckAxWXkrwjydLCFiow2SP954BzeMi+tMkA2OPOcub0ZdpVjDdqT/nyLAbW6WnPsEkBg5y+hdy/ft9OYON2FbOOBg0f3K8wA0nRxTPduOrjxT1pzytzlrOeMX+C/bSizOs95l8G4xs0WeGuMvQQR3UtjWYwHHu8HF+s1oSLDr/B6obqv7QgZKS5+JI6knQnCdgZuGr/hyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZniqqzQZrxxS5rOJ4aV+6vA+LLvJtsN3LssH6WJq9lk=;
- b=Uf04QBoGbSyje1e9mwTOcINiSYPwGxS99vHHI2iagEseMVmASJb223nu6de82XmVZ4WuvwIFIakAEzSAq1CzhQdRmxuF15d3hJ46BC6phuXSB0ZcTx6RUcxHUZjBojDLBrjXAbpZJ+6YqHTpxgPE9W+QDlau3wQkXgx2yksRoDU=
-Received: from BN9PR03CA0842.namprd03.prod.outlook.com (2603:10b6:408:13d::7)
- by MN0PR12MB5835.namprd12.prod.outlook.com (2603:10b6:208:37a::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Tue, 13 Oct
- 2026 18:29:10 +0000
-Received: from BL2PEPF000352D5.namprd02.prod.outlook.com
- (2603:10b6:408:13d:cafe::a9) by BN9PR03CA0842.outlook.office365.com
- (2603:10b6:408:13d::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 18:29:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL2PEPF000352D5.mail.protection.outlook.com (10.167.254.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 18:29:10 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 13:29:04 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 13:29:04 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 13 Oct 2026 13:29:03 -0500
-Message-ID: <cea51f11-b341-6f26-17f1-0ac248d6642d@amd.com>
-Date: Tue, 13 Oct 2026 11:29:08 -0700
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="B9itd55M"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DDtkal149837;
+	Tue, 13 Oct 2026 18:29:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=dV4L07n8DwyGtSMilOVhQzVq4CXdM6B5ECJPGyiM9
+	JA=; b=B9itd55M92YZDfJIgBm+5qkRkZ3p6UsAGDYQjgwAYuJByF771ey1Mfy1h
+	aj3L3ChtxC0CyqAk8jhRpN3rCswjXoR/uBnSkq0aunOVdmyVvwsGmvaapqHGCLbI
+	QV+dohdRXQZskMS5ZXiMlqnlHXDie9fQJSxEEGtlKQo8q50wNxnc0HtLtk78AZEm
+	eQV8upLp6XqPS3JOuL2AzW+pXFtGeeBuCu8ZW5gTc0g/bRgVo3pW3HnODRZGs6lt
+	XJDHVxnl+QmBINPh7voJF7eLlnfVRKXvEHBTtha4NHnKT6g2aMERAV4CXqnrJ0ey
+	iPyfMxG03nT/7fQTntc1Yjugcg6pA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhg5d2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 18:29:43 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69DIFmeV3303971;
+	Tue, 13 Oct 2026 18:29:42 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h9qb6ryt9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 18:29:42 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DITeTV33096368
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 18:29:40 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2396858064;
+	Tue, 13 Oct 2026 18:29:40 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 493C05805F;
+	Tue, 13 Oct 2026 18:29:37 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.67.58.174])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 13 Oct 2026 18:29:37 +0000 (GMT)
+From: Mingming Cao <mmc@linux.ibm.com>
+To: netdev@vger.kernel.org
+Cc: Mingming Cao <mmc@linux.ibm.com>, maddy@linux.ibm.com, mpe@ellerman.id.au,
+        npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
+        sshegde@linux.ibm.com, nnac123@linux.ibm.com, andrew+netdev@lunn.ch,
+        davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+        pabeni@redhat.com, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, horms@kernel.org, davemarq@linux.ibm.com,
+        bjking1@linux.ibm.com
+Subject: [PATCH net-next v5 0/9] ibmveth: fix hangs, use-after-frees and netpoll races
+Date: Tue, 13 Oct 2026 11:29:17 -0700
+Message-Id: <20261013182926.30417-1-mmc@linux.ibm.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V4 09/19] accel/amdxdna: Add context switch hysteresis
- with debugfs control
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, Nishad Saraf
-	<nishads@amd.com>
-References: <yidong.zhang@amd.com>
- <20261009225343.3079074-1-yidong.zhang@amd.com>
- <20261009225343.3079074-10-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261009225343.3079074-10-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL2PEPF000352D5:EE_|MN0PR12MB5835:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90313b4d-e1d6-4de8-04a8-08df2957e007
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|6133799003|10067099003|22082099003|18002099003|4143699003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	y+1FoNEOeNcDCtHoYdbj4ZNOS0j9BrRmm6ShBghZRMeFE0S6zxz7c3CGqE1lVL4pSeR4EnCWXvtZtfotnKS1L87MmGIpgt2F6XH1iN4r6EtSOoy12FZrOJYAh1uS7ERH2Qs98uBXIzh44iecj0vYbCEp42Xl0QiFEVOay9JWLw20d0GqWFhlSO7A/plxgrFzK2FNcq6nZgWz0KSYPYKKh++2IANYtGDJjGRlKI+2imZAhlir1wCrXhK60+23TXARlTSbYoJr+B7l5iRYqmc+TQO5Swvh5x+OP0nBu0Ez2OqzQaI3RD4HO4xZEil2CovVqwXLZqk3kpA8/oo6pNPh7p/8xI3CUp+S12aUhp7i6A3RxER4zl5LVPynjpXgWQaMiUdshyfwIhMe03BjvUFKIbelO1gvY218TJ81EffzQ8CHrYeTC8AKB3yOWrdUd5oBU3yorvSQnb2XAdP2jwafAk2gPGEIrW16q3S1PJssB+tuyU2faP4WOgPzEWj4PqnJyGJBQeM10IcyMkHIXgnODSMdzq9+iE5GeUfGZUzfK8BuUctO+oigzI2MLugsUH+72Sm6AC26GGVKLxd6v8Sx7ut75at5Ny+wyDP7C+AZBx50GTvnn9q5+pp+Bpjnw9OxB+HI4XefXYh6XQLeVtq2DmvCgrLdP99f6mP77Qw/24NEdu5yndQ3YoKCqEuwwdHGfi5XT72D4k0amUm6yGxbHw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xU+RSusBX2Kmay1UfzgqxevgHM0vqsi8bB5Ev98ttQpUhg3MNUwmRb0YRNiYAnFZCU+pR+UjGnRz5wNL/mDn4PcOiyoJQlTdFwAF7nao727vs8u8ob/OCS1yKY1yuRcxgHaZxLcYdJ9wFsJaV4ookFrRCZQHnv/UBSrbxpDucyWw1jN+c9ASEyqFEhovaNxYR/8ZaF8sAK9isxVm0E0t5RWoAg1/hNaFLk5smYLzpz0PMLIyI9uNNVgmDodDMPVEEEXZaZFGmyD6/yY+vA3sRXt5wkd6yQB3TyelTiY8CaegF9CyeL1F+iqBhmAk8Fp8ru7IHta+A8mCAzM6TafiJSKUVo7MF6lj0OZ/9NQa0ehQcb0FlyykPyb0Q9ZLGqrul2Fp67KErkhIQzicqkM3HGAtdEPA1VqHfUMS1QkOIAu+NDBhWghMxiU+eLeIN/gm
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 18:29:10.6905
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90313b4d-e1d6-4de8-04a8-08df2957e007
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL2PEPF000352D5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5835
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3MiBTYWx0ZWRfX3IQTpmnxPmSw
+ zsfd1W044iNWAnxOw2eJB7BRSJHSEudK3AesOu2IbNsQr2h8LrrbvhfTWEPr7o8VchyDf8AegaA
+ jUIJ3rrfrirb+ctlTuiXi595RWa9QsQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3MiBTYWx0ZWRfX854zsPK+5TGU
+ IDK6ZfA0SATSDB4xvv3+b++kirsywMdyDbxIx/dIQuxs81RJPRRP/6VtbZhrRTr0AY1C5ZSmZuZ
+ 3YcP3Iioo7POWuLUXQKgWZ0L43cCTUOvR34EQ6pVIMZsBABaM3sY2z6ot0ogaxNWSzcmk3re8iB
+ ZSeKKIp+T4zkZhnLwyETIize4c0DifWU23VUC6TwRGOOj2UA8gB+M9V17pwQ/9VJXa5/a/9+xRD
+ 9dq+dzSqnY39qMK/9Q2LHy5CWqTx2Fkn/jM5SRuzGZDKz4/sRCXqaPP0DktKGnr17JBY/GmcjpP
+ 4pj9NOan0PB8zwuguYhi/XLMSSmIHPasqfSmuPWi2vwrajec9g9Q+WcZAGc3narRpZnr8jbhwK4
+ RbZIu5EoOYgxOxbqWheMaCnrqx3Z5v9VkZPgAZ8aTHEWD1sN6VDH/zfvgR8lrMGMjDMJHAeHCAe
+ kw3ylFHEzl6lLnZ09Ag==
+X-Proofpoint-GUID: CT8p4vqj609I_GvV569ElPwQ0uYUy2JX
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6ace7897 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=5OozSIiGgT2l7B_rfTcA:9
+X-Proofpoint-ORIG-GUID: Ehtej9PXnbAAt8YWsY9ktxB5CK6JWNnO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130072
+
+Hi,
+
+Nine fixes for serious bugs in the ibmveth driver: two hang the
+system, four are use-after-frees, one corrupts memory, one lets a
+frame from another partition stall or oops the receiver, and one makes
+ethtool -L report success when it failed.
+
+  1. Netpoll races with RX replenish (memory corruption, NULL
+     dereference): remove ndo_poll_controller, as was done for
+     ibmvnic, skip RX replenish in netpoll's budget-0 poll, and
+     enable NAPI only once the RX resources exist.
+     Fixes: 6b4223748895, bea3348eef27
+
+  2. Hang after a failed internal reopen: the next close() waits in
+     napi_disable() forever with RTNL held, and only a reboot
+     recovers. Skip close() when open() did not succeed.
+     Fixes: 860f242eb534
+
+  3. Use-after-free in remove(): a reset queued from NAPI could run
+     on the freed adapter. Disable the reset work first.
+     Fixes: 2c91e2319ed9
+
+  4. Hang or NULL dereference on a bad RX correlator from PHYP: poll
+     spun on that slot until RCU stalled, and a correlator naming an
+     inactive pool dereferenced NULL. A frame that does not fit its
+     buffer was copied past the end. Move past the bad slot and stay
+     in poll, and drop a frame that does not fit.
+     Fixes: 2c91e2319ed9, 860f242eb534
+
+  5. Use-after-free after a failed probe: the pool kobjects stay in
+     sysfs after the adapter is freed. Put them, as remove() does,
+     and give them a release() that probe and remove() wait for, so
+     CONFIG_DEBUG_KOBJECT_RELEASE cannot free them early either.
+     Fixes: 860f242eb534
+
+  6. ethtool -L returns 0 when it cannot allocate the new TX queues.
+     Return the allocation error.
+     Fixes: 10c2aba89cc0
+
+  7. Use-after-free of TX buffers: close() frees them without
+     waiting for a running transmit. It is called directly for MTU,
+     offload and buffer pool changes, and through dev_close(), which
+     does not wait either with a noqueue qdisc. Use
+     netif_tx_disable().
+     Fixes: d6832ca48d8a
+
+  8. Use-after-free of the RX queue: napi_disable() returns before
+     the poll has finished, and the rest of the poll re-enables the
+     interrupt and reads the RX queue that close() then frees. Wait
+     with synchronize_net().
+     Fixes: bea3348eef27
+
+  9. Stall or oops from a frame sent by another partition: the RX
+     checksum helper passes the IPv4 ihl to ip_fast_csum(), which on
+     ppc64 reads up to 16 GiB for ihl 0, and both RX offload helpers
+     trust the IP and TCP header lengths. Check the headers before
+     use, with KUnit cases.
+     Fixes: 9c7e8bc584f5, 7b5967389f5a, 66aa0678efc2
+
+Patches 1-8 were found in review of the ibmveth multi-queue RX
+series [1] (the patch 4 frame bound by the Sashiko review of v2), and
+patch 9 by the Sashiko review of v3 and the review that followed it.
+Landing them first also shrinks that series, which then only extends
+this handling per queue.
+
+Testing: the new and extended KUnit cases in patches 4 and 9 fail or
+oops on the unfixed driver and pass on qemu pseries (ppc64le). On a
+POWER10 LPAR: the v3 suite (netconsole under printk and ping floods,
+MTU and buffer pool changes under traffic, a forced open() failure
+followed by down and up, unbind/bind under traffic, a forced
+register_netdev() failure in probe, ethtool -L with a forced TX
+buffer allocation failure, and rapid link down/up and MTU cycles under
+a ping flood for patch 8) and patch 9 large-send regression on v5
+(iperf3 over IPv4 and IPv6 at MTU 1500 and 9000, threaded NAPI and
+busy polling; no new drops or InCsumErrors). The forced failures used
+test-only module parameters that are not part of this series.
+
+The triggers are rare and there are no field reports, so the series
+targets net-next. It is based on net-next d8674294aefe ("Merge
+git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net"), which
+includes the two open() error-path fixes (af0524bf4ce1,
+84bec0bf0352). Patch 2 explains how it relates to them. It also
+applies cleanly to net. All carry Fixes: tags; I am happy to
+repost against net, or add Cc: stable, if you prefer.
+
+Changes in v5:
+
+Patches 1-8: commit message wording only; the code is unchanged.
+
+Patch 9 fixes a gso_segs undercount found by the Sashiko review of v4.
+The large send helper accepted a frame longer than its IP length and
+computed gso_segs from the IP length. Bytes past the IP length stay in
+a bridged or switched frame, so the egress path produced more segments
+than gso_segs claimed. The helper now refuses a frame whose IP length
+is not the frame length.
+
+Also in patch 9: new KUnit cases for that and for header-only frames,
+so the TCP payload check is still covered. The message no longer says
+a refused frame is checked by the stack, which a bridged or switched
+frame is not.
+
+v4: https://lore.kernel.org/netdev/20261012050518.88858-1-mmc@linux.ibm.com/
+
+Changes in v4:
+
+Patches 1-3 and 5-8 are unchanged.
+
+Patch 4: the poll tail queues the NAPI instead of polling again, so
+it cannot race a threaded NAPI under busy polling, and harvest uses
+the correlator poll already read (Sashiko review of v3). The message
+no longer claims the frame bound protects the offload helpers.
+
+New patch 9: the RX offload helpers' header checks that the review of
+v3 patch 4 asked for, as their own patch with their own Fixes: tags
+and KUnit cases.
+
+v3: https://lore.kernel.org/netdev/20261009183258.18624-1-mmc@linux.ibm.com/
+
+Changes in v3:
+
+From the Sashiko review of v2:
+- Patch 4: on a bad RX slot, stay in the poll loop and return
+  budget - 1 after napi_schedule() has queued the napi. Breaking
+  out was queuing it twice.
+- Patch 4: drop a frame that does not fit its buffer, instead of
+  copying past the end.
+- Patch 4: also drop a frame shorter than an Ethernet header, and
+  take the pool for the buffer bound from the correlator that was
+  validated, read once.
+- Patch 2: commit message: the two open() fixes are now in net-next.
+
+v2: https://lore.kernel.org/netdev/cover.1791178212.git.mmc@linux.ibm.com/
+
+Changes in v2:
+
+From the Sashiko review of v1:
+- Patch 5: give the pool kobjects a release() and wait for it before
+  free_netdev() in probe and remove(), which closes the
+  CONFIG_DEBUG_KOBJECT_RELEASE window.
+- New patch 8: wait for the poll to return before close() frees the
+  RX queue (raised on patch 1 as a pre-existing bug).
+
+Other small changes:
+- Patch 1: also skip RX replenish in netpoll's budget-0 poll.
+- Patch 4: count rx_dropped when recycling an invalid buffer fails.
+- Commit messages: say how each bug was found and tested, with small
+  clarifications in patches 2 and 7.
+
+Rebased on current net-next.
+
+v1: https://lore.kernel.org/netdev/cover.1790991039.git.mmc@linux.ibm.com/
+
+[1] https://lore.kernel.org/netdev/cover.1790319558.git.mmc@linux.ibm.com/
+
+Thanks,
+Mingming
+
+Mingming Cao (9):
+  ibmveth: fix netpoll races with RX replenish
+  ibmveth: do not close twice after a failed reopen
+  ibmveth: disable the reset work before unregister in remove
+  ibmveth: step past bad RX correlators instead of spinning or oopsing
+  ibmveth: release the pool kobjects when probe fails
+  ibmveth: return the error when set_channels cannot add TX queues
+  ibmveth: wait for in-flight transmits in ibmveth_close()
+  ibmveth: wait for the RX poll to return before freeing the RX queue
+  ibmveth: check headers in the RX large send and checksum helpers
+
+ drivers/net/ethernet/ibm/ibmveth.c | 670 +++++++++++++++++++++++++----
+ drivers/net/ethernet/ibm/ibmveth.h |   5 +
+ 2 files changed, 584 insertions(+), 91 deletions(-)
 
 
-On 10/9/26 15:53, David Zhang wrote:
-> Add aie4_set_ctx_hysteresis() to configure the AIE4 context switch
-> hysteresis timeout via the SET_RUNTIME_CONFIG message, applied at hw
-> start (PF and classic paths) with a default of 1000 us.
->
-> Expose a debugfs node 'ctx_switch_hysteresis_us' to change the timeout
-> at runtime (0 disables hysteresis). The stored value is re-applied on
-> every hw start so it survives runtime suspend/resume.
->
-> Co-developed-by: Nishad Saraf <nishads@amd.com>
-> Signed-off-by: Nishad Saraf <nishads@amd.com>
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
-> ---
->   drivers/accel/amdxdna/aie4_message.c    | 43 +++++++++++++
->   drivers/accel/amdxdna/aie4_msg_priv.h   | 24 +++++++
->   drivers/accel/amdxdna/aie4_pci.c        | 83 ++++++++++++++++++++++++-
->   drivers/accel/amdxdna/aie4_pci.h        |  9 +++
->   drivers/accel/amdxdna/amdxdna_debugfs.c |  3 +
->   drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 +
->   6 files changed, 161 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-> index 263e23aff69f..2820cfb6f9ed 100644
-> --- a/drivers/accel/amdxdna/aie4_message.c
-> +++ b/drivers/accel/amdxdna/aie4_message.c
-> @@ -263,3 +263,46 @@ int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode)
->   
->   	return ret;
->   }
-> +
-> +int aie4_set_runtime_cfg(struct amdxdna_dev_hdl *ndev, u32 type,
-> +			 const void *data, size_t size)
-> +{
-> +	DECLARE_AIE_MSG(aie4_msg_set_runtime_cfg, AIE4_MSG_OP_SET_RUNTIME_CONFIG);
-> +	u8 buf[sizeof(req.type) + AIE4_RUNTIME_CFG_MAX_DATA_SIZE] __aligned(4) = { 0 };
-> +	int ret;
-> +
-> +	if (size > AIE4_RUNTIME_CFG_MAX_DATA_SIZE)
-> +		return -EINVAL;
-> +
-> +	/* Stage runtime config type and payload for firmware mailbox message. */
-> +	req.type = type;
-> +	memcpy(buf, &req.type, sizeof(req.type));
-> +	memcpy(buf + sizeof(req.type), data, size);
-> +
-> +	msg.send_data = buf;
-> +	msg.send_size = sizeof(req.type) + size;
-> +
-> +	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-> +	if (ret)
-> +		XDNA_ERR(ndev->aie.xdna, "Failed to set runtime cfg %u: %d", type, ret);
-> +	return ret;
-> +}
-> +
-> +int aie4_set_ctx_hysteresis(struct amdxdna_dev_hdl *ndev, u32 timeout_us)
-> +{
-> +	struct aie4_msg_runtime_config_ctx_switch_hysteresis cfg = {
-> +		.timeout_us = timeout_us,
-> +	};
-> +	int ret;
-> +
-> +	ret = aie4_set_runtime_cfg(ndev, AIE4_RUNTIME_CONFIG_CTX_SWITCH_HYSTERESIS,
-> +				   &cfg, sizeof(cfg));
-> +	if (ret)
-> +		XDNA_WARN(ndev->aie.xdna,
-> +			  "Failed to set ctx switch hysteresis to %u us (%d), using fw default",
-> +			  timeout_us, ret);
-> +	else
-> +		XDNA_DBG(ndev->aie.xdna, "Context switch hysteresis set to %u us", timeout_us);
-> +
-> +	return ret;
-> +}
-> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-> index fe78df9e23c8..636bf8d04c76 100644
-> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
-> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-> @@ -12,6 +12,7 @@
->   enum aie4_msg_opcode {
->   	AIE4_MSG_OP_IDENTIFY                         = 0x10002,
->   	AIE4_MSG_OP_SUSPEND                          = 0x10003,
-> +	AIE4_MSG_OP_SET_RUNTIME_CONFIG               = 0x10007,
->   	AIE4_MSG_OP_QUERY_CERT_FIRMWARE_VERSION      = 0x1000F,
->   
->   	AIE4_MSG_OP_CREATE_VFS                       = 0x20001,
-> @@ -65,6 +66,29 @@ struct aie4_msg_suspend_resp {
->   	enum aie4_msg_status status;
->   } __packed;
->   
-> +/* Type selector for AIE4_MSG_OP_SET_RUNTIME_CONFIG. */
-> +enum aie4_msg_runtime_config_type {
-> +	AIE4_RUNTIME_CONFIG_CTX_SWITCH_HYSTERESIS	= 0xD,
-> +	AIE4_MAX_RUNTIME_CONFIG
-> +};
-> +
-> +struct aie4_msg_set_runtime_cfg_req {
-> +	__u32 type;
-> +	__u8 data[4];
-> +} __packed;
-> +
-> +struct aie4_msg_set_runtime_cfg_resp {
-> +	enum aie4_msg_status status;
-> +} __packed;
-> +
-> +/* Maximum payload for runtime config firmware message. */
-> +#define AIE4_RUNTIME_CFG_MAX_DATA_SIZE 16
-> +
-> +/* Context switch hysteresis timeout in microseconds (0 disables). */
-> +struct aie4_msg_runtime_config_ctx_switch_hysteresis {
-> +	__u32 timeout_us;
-> +} __packed;
-> +
->   struct aie4_msg_create_vfs_req {
->   	__u32 vf_cnt;
->   } __packed;
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-> index 5593dfb6c7ed..446ab2f47c7d 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -5,8 +5,10 @@
->   
->   #include <drm/amdxdna_accel.h>
->   #include <drm/drm_drv.h>
-> +#include <drm/drm_file.h>
->   #include <drm/drm_managed.h>
->   #include <drm/drm_print.h>
-> +#include <linux/debugfs.h>
->   #include <linux/firmware.h>
->   #include <linux/sizes.h>
->   
-> @@ -322,6 +324,22 @@ int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev)
->   	return aie4_msg_set_power_mode(ndev, ndev->pw_mode);
->   }
->   
-> +static int aie4_config_fw(struct amdxdna_dev_hdl *ndev)
-> +{
-> +	int ret;
-> +
-> +	ret = aie4_attach_work_buffer(ndev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Best-effort tuning knob; failure is warned inside and does not fail hw start */
-> +	ret = aie4_set_ctx_hysteresis(ndev, ndev->ctx_switch_hysteresis_us);
-> +	if (ret == -ETIME)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
->   static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
->   {
->   	int ret;
-> @@ -334,7 +352,7 @@ static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
->   	if (ret)
->   		goto stop_fw;
->   
-> -	ret = aie4_attach_work_buffer(ndev);
-> +	ret = aie4_config_fw(ndev);
->   	if (ret)
->   		goto mbox_fini;
->   
-> @@ -418,7 +436,7 @@ static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
->   	if (ret)
->   		goto mailbox_fini;
->   
-> -	ret = aie4_attach_work_buffer(ndev);
-> +	ret = aie4_config_fw(ndev);
->   	if (ret)
->   		goto mailbox_fini;
->   
-> @@ -573,6 +591,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
->   
->   	ndev->priv = xdna->dev_info->dev_priv;
->   	ndev->aie.xdna = xdna;
-> +	ndev->ctx_switch_hysteresis_us = AIE4_CTX_HYSTERESIS_US;
->   	ndev->pw_mode = POWER_MODE_DEFAULT;
->   	xdna->dev_handle = ndev;
->   
-> @@ -918,15 +937,74 @@ static void aie4_classic_fini(struct amdxdna_dev *xdna)
->   	aie4_free_work_buffer(xdna->dev_handle);
->   }
->   
-> +static int aie4_ctx_hysteresis_get(void *data, u64 *val)
-> +{
-> +	struct amdxdna_dev_hdl *ndev = data;
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +
-> +	guard(mutex)(&xdna->dev_lock);
-> +	*val = ndev->ctx_switch_hysteresis_us;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aie4_ctx_hysteresis_set(void *data, u64 val)
-> +{
-> +	struct amdxdna_dev_hdl *ndev = data;
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +	int ret, idx;
-> +
-> +	if (val > U32_MAX)
-> +		return -EINVAL;
-> +
-> +	if (!drm_dev_enter(&xdna->ddev, &idx))
-> +		return -ENODEV;
-> +
-> +	mutex_lock(&xdna->dev_lock);
-> +
-> +	ret = amdxdna_pm_resume_get_locked(xdna);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	ret = aie4_set_ctx_hysteresis(ndev, (u32)val);
-> +	if (!ret)
-> +		ndev->ctx_switch_hysteresis_us = (u32)val;
-> +
-> +	amdxdna_pm_suspend_put(xdna);
-> +
-> +unlock:
-> +	mutex_unlock(&xdna->dev_lock);
-> +	drm_dev_exit(idx);
-> +
-> +	return ret;
-> +}
-> +
-> +/* Context switch hysteresis timeout in microseconds; 0 disables hysteresis. */
-> +DEFINE_DEBUGFS_ATTRIBUTE(aie4_ctx_hysteresis_fops, aie4_ctx_hysteresis_get,
-> +			 aie4_ctx_hysteresis_set, "%llu\n");
-> +
-> +static void aie4_debugfs_init(struct amdxdna_dev *xdna)
-> +{
-> +	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-> +
-> +	/* Context switch hysteresis is only supported on PF and classic devices. */
-> +	if (!to_pci_dev(xdna->ddev.dev)->is_virtfn)
-> +		debugfs_create_file_unsafe("ctx_switch_hysteresis_us", 0600,
-> +					   xdna->ddev.accel->debugfs_root, ndev,
-> +					   &aie4_ctx_hysteresis_fops);
-> +}
-> +
->   const struct amdxdna_dev_ops aie4_pf_ops = {
->   	.init			= aie4_pf_init,
->   	.fini			= aie4_pf_fini,
-> +	.debugfs_init		= aie4_debugfs_init,
->   	.sriov_configure        = aie4_sriov_configure,
->   };
->   
->   const struct amdxdna_dev_ops aie4_vf_ops = {
->   	.init			= aie4_vf_init,
->   	.fini			= aie4_vf_fini,
-> +	.debugfs_init		= aie4_debugfs_init,
->   	.hwctx_init		= aie4_hwctx_init,
->   	.hwctx_fini		= aie4_hwctx_fini,
->   	.cmd_wait		= aie4_cmd_wait,
-> @@ -937,6 +1015,7 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
->   const struct amdxdna_dev_ops aie4_classic_ops = {
->   	.init			= aie4_classic_init,
->   	.fini			= aie4_classic_fini,
-> +	.debugfs_init		= aie4_debugfs_init,
->   	.hwctx_init		= aie4_hwctx_init,
->   	.hwctx_fini		= aie4_hwctx_fini,
->   	.cmd_wait		= aie4_cmd_wait,
-> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-> index 6e9e7f874a44..959ef3695813 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.h
-> +++ b/drivers/accel/amdxdna/aie4_pci.h
-> @@ -14,6 +14,9 @@
->   #include "aie4_msg_priv.h"
->   #include "amdxdna_mailbox.h"
->   
-> +/* Default context switch hysteresis timeout in microseconds. */
-> +#define AIE4_CTX_HYSTERESIS_US	1000
-> +
->   struct cert_comp {
->   	struct amdxdna_dev_hdl          *ndev;
->   	u32                             msix_idx;
-> @@ -69,6 +72,9 @@ struct amdxdna_dev_hdl {
->   
->   	u8				pw_mode;
->   
-> +	/* Context switch hysteresis timeout in microseconds. */
-> +	u32				ctx_switch_hysteresis_us;
-> +
->   	struct amdxdna_drm_query_firmware_version cert_version;
->   };
->   
-> @@ -92,6 +98,9 @@ int aie4_init_dpm_freq_table(struct amdxdna_dev_hdl *ndev);
->   int aie4_query_dpm_level(struct amdxdna_dev_hdl *ndev,
->   			 u32 *aieclk_dpm_level, u32 *npuhclk_dpm_level);
->   int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
-> +int aie4_set_runtime_cfg(struct amdxdna_dev_hdl *ndev, u32 type,
-> +			 const void *data, size_t size);
-> +int aie4_set_ctx_hysteresis(struct amdxdna_dev_hdl *ndev, u32 timeout_us);
->   u32 aie4_msg_pasid(struct amdxdna_client *client);
->   
->   /* aie4_ctx.c */
-> diff --git a/drivers/accel/amdxdna/amdxdna_debugfs.c b/drivers/accel/amdxdna/amdxdna_debugfs.c
-> index a6ec17c63629..1f63cc91b168 100644
-> --- a/drivers/accel/amdxdna/amdxdna_debugfs.c
-> +++ b/drivers/accel/amdxdna/amdxdna_debugfs.c
-> @@ -126,4 +126,7 @@ void amdxdna_debugfs_init(struct amdxdna_dev *xdna)
->   				    xdna,
->   				    amdxdna_dbgfs_files[i].fops);
->   	}
-> +
-> +	if (xdna->dev_info->ops->debugfs_init)
-> +		xdna->dev_info->ops->debugfs_init(xdna);
->   }
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> index 953bf783b3f7..11f46ec738d7 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> @@ -54,6 +54,7 @@ struct amdxdna_sched_job;
->   struct amdxdna_dev_ops {
->   	int (*init)(struct amdxdna_dev *xdna);
->   	void (*fini)(struct amdxdna_dev *xdna);
-> +	void (*debugfs_init)(struct amdxdna_dev *xdna);
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   	int (*resume)(struct amdxdna_dev *xdna);
->   	int (*suspend)(struct amdxdna_dev *xdna);
->   	int (*sriov_configure)(struct amdxdna_dev *xdna, int num_vfs);
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
+-- 
+2.50.1 (Apple Git-155)
+
