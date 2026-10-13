@@ -1,69 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9E6378823;
-	Tue, 13 Oct 2026 07:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57BB38E5DF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791877784; cv=none; b=KGUvBli5xCkQeOKgPK5rwIgocBPgy4dUBKwKKDSpyBFSAAE17kEloZVni6A6v3r3ejOkTmJvVaq4OD957fyAp+Kadpwm+DWhETGes2Gkk8rkgzDQ4VwR9dcyHMDdwHheVNT59JbhgZ4SjfjDbyhw8H688h6qqQLQtO6kHv7oIgs=
+	t=1791877813; cv=none; b=cTbtPUAZqs/Vkt+77ezh5sk87DQA/rYkO52sCzTv7DW/b1di9V0ykWjoMY7aELeaQqJJQTYoM9Wg8a+2UYyv2o6W4yluA2Nzc+XN3nxKto9AHZtDHiiDtYgk7gnNEXi4xjQYFS5TsDTno6KDIoJ3WuHwkTmlcJOJTUan73WXY9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791877784; c=relaxed/simple;
-	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CWbYtykoxVJM5jPYPmkh5j+9iwpFQ/xIS/jblW3U5T20OcYmmm1kXxC8KFTps9Pwd16lz2Ox3P4kUQa9djvrxivic/us7tIXQ5l547Ecoi1XBkvuHuDpa0h5uYG5KwNFhkeOfxG/vj/cYMXx7aAfhL3LVcPJ19QlOdDuPHCZmtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FaJnHVMM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791877813; c=relaxed/simple;
+	bh=tPzArETgTWA5K30DRMtFIey7+0GzDvruUvLN0+7n9J8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dGetDqhSB4DWrYByFxtEklFoz1OIbFHOd2ln+umCZrJD/Uu3hJtzx4RhcoefBgYBW9mPhFVCXY2WLnp+T5jBz25vogQnfcigRMd6i1CQWkRr09jfH8j+cCw6hMyyH1louJwDc98Jtlyg1VldLMuzWrulCi1C/DkJi3aAC58VaPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jsVJ13Lz; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FaJnHVMM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142541F00893;
-	Tue, 13 Oct 2026 07:49:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791877783;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FaJnHVMMSaahifdiv5SRF2Y2K2pTRc7WJiVbdbJLfqmRKMU9QYOAQ55kRPca6KiKa
-	 aBD5rip9fqsBfWt5aqA83kWt2vbUYUwEFsivnuI9Bwgv5DFNwbSKOzTp3wpsMz2UDy
-	 Y9mv1PNjfz9ovE72WOrfyhC6p5suxSj92QqF+3Ay/yZvCwM3sC8n1mL32EOTsJFi+b
-	 xs3rckl6aybic+yn5YlzX1GJTZemqGrYwn0vtuHL+Ja64jcvDnY2TA2yKiwi/r89v4
-	 0izX99PcXNLVl6lI5ASGf6Vil6GvFfCyZ0gOhZy4A2vAlE/NAhyWdWQpAraRLDM29K
-	 9Y5Ola7my1ZeA==
-From: netdev-bot+sinfo@kernel.org
-To: Qihang <q.h.hack.winter@gmail.com>
-Cc: netdev@vger.kernel.org, Steffen Klassert <steffen.klassert@secunet.com>,
- Christian Hopps <chopps@labn.net>, Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 0/3] xfrm: fix vti tunnel device use-after-free
- across async crypto resumption
-Date: Tue, 13 Oct 2026 07:49:42 +0000
-Message-ID: <179187778258.2527009.10982365894361615689@kernel.org>
-In-Reply-To: <20261013074610.17808-1-q.h.hack.winter@gmail.com>
-References: <20261013074610.17808-1-q.h.hack.winter@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jsVJ13Lz"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so26471455e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:50:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791877810; x=1792482610; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yHsj5QKWGOPbdX3F7/TYXqcv688FhIr45BbI5StNbhA=;
+        b=jsVJ13LzQN8CH8w1ioeo8AKBuUtZyNdJLYAvYWZVBypFFI0wh7Q5rCddoX3dqYdGp4
+         GsDiKo7cjSso41SgulP8tQn2IdBQaQyD+LylHOcJF3Fybbg00TwM3cfvqyprr8T3yr1o
+         3GEchXBsW56KQ/aQH1ZWdF4733VfPz8wpqpdlNPUJaL/RNqCbeHvcdAivWVEsk+AXXDb
+         ChStNij2lgo2V8kEB8Zp/dPtuiqeTygxgdi4KyO/vKZEzedxowEpMa/xLpg882WACX93
+         fJxn0AmwKSNAbbNTaNXLQCgWoMSkGyhjJnXaxN9Sy0I0CXrPsY3TugsriNIRUo2Glq0h
+         yMOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791877810; x=1792482610;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yHsj5QKWGOPbdX3F7/TYXqcv688FhIr45BbI5StNbhA=;
+        b=XCwx4Y3BjUUa6jVklFqPV5mnIjtFyNToa7nAsYWufuQh+YtdbIDYRrL32DGf2pC0rb
+         EHAHAVByQYo8Ft5nJT84ZtI5oTzqignsmbXC5TAKpGiO4sDXgb9b5s0lRSWXxf3w7z9c
+         O7ME7rpsJHcEJ97n76zgc8nCP7ntalyKUWzyTmn9tWcWYZFZsnO985EbSI0UFN/Ks4mU
+         yN7HGAkNyula+21RwW4rNRjQyaYavoJfVKlKR65lQ3n+++Xn5oLU+SLmDp10I70MhTWP
+         //ukgy7jaIUn7eDZ98RkVwvliHYthTINQGHGcDlVXekgu4vLemFPIaNar/MLYaLzYu5d
+         tBeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwqdf8x/YtNNzW2K2+SsRRk49jmzXQNNP61zQ7lv8I4DMUZwO/5CdJ0v+HR9zAr0y+6j8LAweMgCajRBNw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdlDtxmA/WJzEoXHKQ6z18n6p6w2v9QJdxiaBEwDw6DWTj3xP9
+	N/6NhK9DiSSn/y+vXr69BNtgzspcLJGSyF8nhJLnQIZF9+7mKTyN+Ic3
+X-Gm-Gg: AYBFou2jkSyAZSGgFqdy7azye8gsRFOsi1wQEFmDTvxSMKlApCW8ddkLFKyPa8yTzlj
+	OvKDY1zAz68jGa0R99mjb+jDSgiLWvrjOGeqm8ejvhsQRw4fbjyis1pij8G2K7YeN+dzeTHr2se
+	FS2hWFWo1ofAFJ7UCF1FqzUUbTU5KcThvf5RvbPaXW6Bt/8FreEKyaPNRYTWLmNN61/H3YF8OuM
+	fEt575pCy+h9/hy3z/vZvgMQPEaPKgmtpT0SoITQyvoQjoz3i5HcTPnqXk10b9wBXp0qXtBfUmr
+	ixK4KBAGwVuqRCZQ2ZLz4tbfQJWGnxILNoY2TDMAtlGKW/YledNEIP8V35pvlOPVstM3FSfmtBW
+	6z7iFCnbNvdvB1DZtu14KeIRP3VFkwXN3/8HVrvth+k2C4MNHbMKxsuuToTIw0kO1tLPjk2Qe0h
+	XyGKw9+cmcUNlA0bvrx3yzRIohO5nD6LbB1wgkrrfZsYfKIEWQ+IOEucMuSfJ6jJlYC5QxhVI4O
+	GSvmkazGugyCurCO0sfTl6IG81nnB7eLGDxAblpaJDSDPId6ZzFxG8m58GhlEAjPaxPBsiDsH1t
+	mALBMFaBeShfs0NwgRRbnY4/JO/nM0vxnedh3Pt1s1bF+M6C7KeMLVvZx6yjPNpJ3ZYLnMQhLDo
+	a7FjMN8GoVJbmZFC6LnQ4MCYJBPOIIRy2N1kNqOexuWG/ZHFqYiIyssYp9AEGJXEURTD7/TU+n2
+	wiyI2x
+X-Received: by 2002:a05:600c:a01:b0:49f:ce72:e931 with SMTP id 5b1f17b1804b1-4a18e4fe3e1mr244984045e9.35.1791877809809;
+        Tue, 13 Oct 2026 00:50:09 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaaa05sm3203538f8f.13.2026.10.13.00.50.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 00:50:09 -0700 (PDT)
+Date: Tue, 13 Oct 2026 09:50:07 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: raffaele.tranfaglia@gmail.com, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux@analog.com, linux-iio@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: iio: addac: adt7316: use dev_err_probe() for
+ ldac GPIO
+Message-ID: <20261013095007.000052ae@gmail.com>
+In-Reply-To: <as1Q-au8dpp9YFeG@ashevche-desk.local>
+References: <20261011-adt7316-dev-err-probe-v1-1-27a4a8ac74f3@gmail.com>
+	<as1Q-au8dpp9YFeG@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi!
+On Tue, 13 Oct 2026 00:28:25 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+> On Sun, Oct 11, 2026 at 07:56:22PM +0100, Raffaele Tranfaglia via B4 Relay wrote:
+> 
+> > Use dev_err_probe() when requesting the ldac GPIO fails. This
+> > avoids logging an error when the GPIO controller is not ready yet
+> > and the request returns -EPROBE_DEFER, and records the deferral
+> > reason. It also simplifies the error path.  
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> 
+> Although not sure if we need a Fixes tag as it might be an annoying (but quite
+> rare) case of flooding in the dmesg.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+AFAIC this is a cleanup rather than a fix. dev_err_probe() conversions
+don't add Fixes tags.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+-- 
+Kind regards,
+Joshua Crofts
