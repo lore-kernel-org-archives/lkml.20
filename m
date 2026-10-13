@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B36B3CF699;
-	Thu, 15 Oct 2026 10:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A0323A99F;
+	Thu, 15 Oct 2026 10:31:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060275; cv=none; b=DLgJWOxKLR2lBGkWlbPK5LembAF/6isLoJLFVWs2G+nGBr3bN7q+S97eiKl3wJr5+vbxTSm3xOdvYpT+8SE0ctII/7/pb9tV6xc7owa5E7dfM8G6Ck1APMUKlo04kZLYpZDMAIkkQlNfBQLOrDU9YSBh6jWQFcJhFbCiHEI17T0=
+	t=1792060280; cv=none; b=NcRMK6iyAm4J078Jd9iNodHZtV1AgFca8LLzZ3rj4FPxvh5eisLKJBUO54HPpWW2mMjYUaj7fA6AZ90ipBD2rK9ySnz4ZdewV5Tlp98Rp2Ok9AJIRPqATh0cprxCEjQR3aEOQMlmLfZvtuK9GoLczwTxsel7MM1OFLS0RProNJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060275; c=relaxed/simple;
-	bh=GliNkEv4f5oaxNNjOVax3rnIxeu6bYxuNBj+S/JWY60=;
+	s=arc-20240116; t=1792060280; c=relaxed/simple;
+	bh=V9iS4ieuPnfHzPZZny0yXAivZ7S5887E2Ryt7bxpybs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=P72mHMl4MV3mZVKZp8VYK5Un3oQepsRxaW8y1pgHuopTeHkIwJl20PE7LttHTmjxau5ZJB3eQGxt2hpEtQKmempdPz6kt+MKhzync5G+VY3+QnQJ6Rk1lTyP8nGbhufHOvQT/LHjIjbnVPWHkeEqxbEI6ws0FxPO3KvVc8Dpjgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=anAiLvI9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=FHy8gJ2R6sgAVNTUiy/mEZ2TyOb0Rfkld2M0BJBKmN3RlYUiOswIXNr+ld8G03QFDzFUB0Od0r8tc4bspF/5E1laj5w9v3ZnMHhSGnIYpEWTJTLSigz95AV1/ulRi3n4EtAxfibQKWMzm/dfUGnYg4nx1xlNiNmdqpnfnqtTILU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TDoRSE1T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="anAiLvI9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F7451F000C4;
-	Thu, 15 Oct 2026 10:31:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TDoRSE1T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73441F000C6;
+	Thu, 15 Oct 2026 10:31:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792060273;
-	bh=79LtDdXUGnQRvSGTVgG4tAzTgUO9Gbk0LFtaWpy2oig=;
+	s=k20260515; t=1792060278;
+	bh=ryir/QV58VCmwKkmYSoaIesUIwwZqvVwTJHU9ee2snQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=anAiLvI9xUWtRWgpajPIn8M95hBrsNXxS4yzI/1jJGnQTcGdkCuBR6zwpcSBMaYac
-	 KzWJwpZ7rerDyRJtBUv3H+zF/zD/2cTHHcRoVshIxKNKxNRbRG8zRPPB+viASL+ZjH
-	 hUklbufMqLsDQ/pwlR36HW/t76/Jol2W0GZjhULy99MhqQTEY3JlzNsoWGlZPT9Qr5
-	 4YFoyUnEw4pi+SfayeVkdc54ejrtyoV1lXE+H+Bxvh8Qe2WUNse2kWlJWp7eCPEbvb
-	 fNLkeUPYfl8RtABt54DBdJSsA2V3NDtBU2H/5Rcug1Pj8zJFkM3dOG57tf1qa+OO9P
-	 VICndq4GCqGhA==
+	b=TDoRSE1TxHRinCPwEojlKJ+DObWfTwq+ahuO7MFuloB7kp5XyywoMe73SgW/H8TYN
+	 vKxKblv+CWOIiV7lH6trp8f/VWZ/jNfnSyOl5OGf5dydei7i5iFK0/6huhIF+nc7Y3
+	 +rTdN4Z3M+WKpVBGbJYMq2ktlTY8Y2ZJbIhs+IgJ2oBWjW3gsri2fxws28ao2llXNF
+	 e/DQYvNXGB81fhc7Irt28pObQ6LflsLwOsJ+mBJWdDwoK10Xcm1cGMoo0JqvEdULOr
+	 8MVqdY9QXJ6L1KbCTsYy3XMTni/YI7XAQz9IK74zrcQy2umkEaU3O2pcov1rMowrxC
+	 k14McB4lvP5gg==
 From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz, 
- tiwai@suse.com, yung-chuan.liao@linux.intel.com, 
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com, 
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com, 
- Mario.Limonciello@amd.com, Richard.Gong@amd.com, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- sound-open-firmware@alsa-project.org
-In-Reply-To: <20261013154644.3788064-1-Vijendar.Mukunda@amd.com>
-References: <20261013154644.3788064-1-Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH 0/9] ASoC: SOF/amd: ACP7.B support and ASP carveout
- firmware loading
-Message-Id: <179191856632.42298.5680316320552393906.b4-ty@b4>
-Date: Tue, 13 Oct 2026 20:09:26 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Sheetal <sheetal@nvidia.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261013180253.477605-1-clamor95@gmail.com>
+References: <20261013180253.477605-1-clamor95@gmail.com>
+Subject: Re: [PATCH v1 0/2] ASoC: tegra: Support auxiliary devices
+Message-Id: <179191591268.42298.15005844930396092873.b4-ty@b4>
+Date: Tue, 13 Oct 2026 19:25:12 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,28 +50,24 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2750; i=broonie@kernel.org;
- h=from:subject:message-id; bh=GliNkEv4f5oaxNNjOVax3rnIxeu6bYxuNBj+S/JWY60=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurM7hqZw4b1GbiXqwb875pblT4r/fv/3oyTHtDzU7i
- lwCw9iUO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjAR5euMDBsmb9rP9rFDWLtX
- z1KFscBwoY2WdeJ2Jid/xVuHrJTWFzEy9PnoBdpXflZgqsmPYrl83un/0fjbLzvCLVluVftPk/7
- EBQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1503; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=V9iS4ieuPnfHzPZZny0yXAivZ7S5887E2Ryt7bxpybs=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurC4ymdOmuN1li7nUMwHJLRWJu296W8dbL23xv/nl+
+ uuKp5o/O0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjARk4sM/739gz9/fJ4qNP/l
+ vK6ppxf9fnOo4ZTdIsdsL/8c9ahfaaqMDDe+sS86b3vexL12/ompixdvWOt1QWVx3IFFIanVdg+
+ 9s3kB
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 13 Oct 2026 21:11:32 +0530, Vijendar Mukunda wrote:
-> ASoC: SOF/amd: ACP7.B support and ASP carveout firmware loading
+On Tue, 13 Oct 2026 21:02:51 +0300, Svyatoslav Ryhel wrote:
+> ASoC: tegra: Support auxiliary devices
 > 
-> This series adds ACP7.B platform support to the AMD SOF driver stack
-> and implements the ASP-authenticated firmware load path required by
-> both ACP7.B and ACP7.F.
+> Add support for auxiliary devices, such as amplifiers, sound-muxes or dsp,
+> to be added to the sound card.
 > 
-> Patches 1-2 are preparatory renames and restructuring. The existing
-> acp7x machine table and chip descriptor are renamed to acp7f to
-> accurately reflect the hardware they target (ACP7.F). The probe
-> callback is restructured to select the per-revision descriptor via a
-> dedicated static pci_device_id entry rather than encoding it in
-> driver_data of the shared ID table.
+> Svyatoslav Ryhel (2):
+>   ASoC: nvidia,tegra-audio-common: Document nvidia,aux-devs property
+>   ASoC: tegra: Support auxiliary devices
 > 
 > [...]
 
@@ -81,24 +77,10 @@ Applied to
 
 Thanks!
 
-[1/9] ASoC: SOF: amd: rename acp7x machine table and descriptor to acp7f
-      https://git.kernel.org/broonie/misc/c/929e433b8cbc
-[2/9] ASoC: SOF: amd: select descriptor per PCI revision in acp7x probe
-      https://git.kernel.org/broonie/misc/c/f84363861e44
-[3/9] ASoC: amd: add I2S machine table for ACP7.B
-      https://git.kernel.org/broonie/misc/c/9246ac5b5c99
-[4/9] ASoC: SOF: amd: add ACP7.B chip descriptor and wire per-revision probe
-      https://git.kernel.org/broonie/misc/c/44f8d28191f1
-[5/9] ASoC: SOF: amd: Propagate PCI subsystem Vendor and Device IDs
-      https://git.kernel.org/broonie/misc/c/b2dc10ee0b51
-[6/9] ASoC: SOF: amd: consolidate local variable declarations
-      https://git.kernel.org/broonie/misc/c/b23e9b1f3b4c
-[7/9] ASoC: amd: acp: add acp-mach-common.h for shared machine driver types
-      https://git.kernel.org/broonie/misc/c/0e4c4081169b
-[8/9] ASoC: SOF: amd: propagate pdm_sel to SDW machine driver via mach->pdata
-      https://git.kernel.org/broonie/misc/c/439c43d9628e
-[9/9] ASoC: SOF: amd: add ASP carveout firmware loading for ACP7.B/7.F
-      https://git.kernel.org/broonie/misc/c/cec3598305a6
+[1/2] ASoC: nvidia,tegra-audio-common: Document nvidia,aux-devs property
+      https://git.kernel.org/broonie/misc/c/6d222e9806de
+[2/2] ASoC: tegra: Support auxiliary devices
+      https://git.kernel.org/broonie/misc/c/3892339e4fed
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
