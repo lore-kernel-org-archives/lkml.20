@@ -1,100 +1,173 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF3D3EFFC6
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:15:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423F13F928E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900916; cv=none; b=rXmL12KvEel7wYjt2UXmYXho7vipvLUROr4yvH+29btfcVIwjA9EALoiifHxLo2xxntgNJOk9iK7Y8UWslrqMh9KI/aI0bjRu5WErqnpnKMx+VnKuvktS7RqXbuIsAVBGL2/thaOh+y79eR4hpJkrUMQzKx03i5S6GHbBss0hkg=
+	t=1791900922; cv=none; b=P2YRc2INqL07T1da7ShKvBWR1gUUGigcUqqc/sMPb4ECcxzIEPTGSIxmLw4s1u/3PH71BnXIzpSQBqVPUA5emTfAu2/lzS6tzWT/s79oPlBPEMcoHYT/kzI7ZgttmP/d4h6eRP0ZLUmdhUijRuuuhgUabGj2dpOo6kRP/6RHtSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900916; c=relaxed/simple;
-	bh=Xa5KuE0BM7GTNG1v9Nxlag9mk1yepK+Jg4rggHJ9fgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dFnpup9byBm6is6SHZdeoIUsOvRYrBvUkWqqr4aPKNcIwYn10atgd6VkQdB7ueNo8QJRHmskP/9QgrWtswstAikFCsrX1He+9mHJ3RLALy8YYKnMXZhklM2vFXAwJ4eGCRPrJfIjVwCXKPAd4Rap6XJWF1JACeqYy5Pts10Iedc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AMSLNhsz; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791900922; c=relaxed/simple;
+	bh=G3r+JrQBvdMbusJLzq7rvczPnUg0XgTz1KJurpXkLBk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=sR81zL5uewug+qpmaag28G0pSgc+RxG8tqxE14zWk9BXwNY9oxxhyCGsxaJ74Gm0RrbeOP89+bTPX2EwVjHglwgP6u4QAPVW6/DTdszJ/2gxzHwu2etFKKvDrfg696I6msrG/wQ5ImZhu6ZUp0MNvDa/EXXEY2hqNOXowV5S4nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bbAhS/St; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AMSLNhsz"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id AC03EC653EF;
-	Tue, 13 Oct 2026 14:16:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1BBD960362;
-	Tue, 13 Oct 2026 14:15:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F153611D716AA;
-	Tue, 13 Oct 2026 16:15:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791900912; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=f6TdyDtEfyoB6iXQflOf/1BYBzMzPh/TXy/i0xSF+2A=;
-	b=AMSLNhszT8prcemUiikdW+BnXw8LpGnx+xSIjMUe14ooie5PG/aEwFB3DffeMmn2lRs/xu
-	LBCv2f9hmaeFSsfFmoubPUaC2T7wha5TitwIxFngkUHGEPNhYFC+NPzZ8hCuaEXfcFmLPm
-	WqJUA/+260i8aGOzJypCwBNcKT7V9LpfFfhervrQxp9n7J0w5V9uRrhBrsA9gSh8onZlsj
-	fIqtCUIqQ4IV5LI+OPGxn1UNsEpNUrt9Z4kOiOda7wF7FdkGjEEKZ9sggkvZGwLTK/MAsl
-	W4QjZj177UJ7taghs7MHPe11nN5pjXQ66o5n+jwPuJ27MCMpsCmaUNmkfRf8tw==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Pratyush Yadav <pratyush@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Mark Brown <broonie@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Cc: Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
-	Tanmay Jagdale <tanmay@marvell.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v2 7/7] spi: dt-bindings: cadence: Make XSPI's IRQ line optional
-Date: Tue, 13 Oct 2026 16:13:50 +0200
-Message-ID: <20261013141350.189996-8-paul.cercueil@bootlin.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261013141350.189996-1-paul.cercueil@bootlin.com>
-References: <20261013141350.189996-1-paul.cercueil@bootlin.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bbAhS/St"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791900920;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UUCK6QgQl7DA2PWtzzRDceLSdUPdXfokVnHPGcq9DBo=;
+	b=bbAhS/St8mbURtq3C88V8UMQj4AxlwLU18o5xtS/bznVGeWWCIWMgDHuNfj6IQfeeGlBJo
+	q+lSldKZPTneFP7Sqd5NLLeqt810jYcBSTfsyccrKtla70cMcz//vQ6DeqG4bgLMeWe7fq
+	hpuGutpo9jZ7LYFyThABbvhUYOGnDWo=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-536-up0FcNekNCivUacI1EW-MQ-1; Tue,
+ 13 Oct 2026 14:15:15 +0000
+X-MC-Unique: up0FcNekNCivUacI1EW-MQ-1
+X-Mimecast-MFC-AGG-ID: up0FcNekNCivUacI1EW-MQ_1791900913
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 86BFD1829E20;
+	Tue, 13 Oct 2026 14:15:13 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DAE695BC;
+	Tue, 13 Oct 2026 14:15:10 +0000 (UTC)
+Date: Tue, 13 Oct 2026 16:15:07 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Fan Wu <wufan@kernel.org>
+cc: dm-devel@lists.linux.dev, snitzer@kernel.org, agk@redhat.com, 
+    bmarzins@redhat.com, paul@paul-moore.com, 
+    linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dm-verity: clear LSM integrity state on suspend
+In-Reply-To: <20260921220516.121589-1-wufan@kernel.org>
+Message-ID: <75c7cbec-dbb8-923a-c2ed-da5156538c92@redhat.com>
+References: <20260921220516.121589-1-wufan@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-From: Tanmay Jagdale <tanmay@marvell.com>
+Accepted, thanks.
 
-The spi-cadence-xspi driver will happily work without an IRQ line
-registered, which means that this IRQ line is optional.
+I've just deleted the "Fixes:" line, so that it doesn't go into -stable 
+kernels.
 
-Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
-Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
----
+Mikulas
 
-Notes:
-    v2: New patch
 
- Documentation/devicetree/bindings/spi/cdns,xspi.yaml | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml b/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
-index 38a5795589de..dd8d03c07e68 100644
---- a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
-+++ b/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
-@@ -43,7 +43,6 @@ properties:
- required:
-   - compatible
-   - reg
--  - interrupts
- 
- allOf:
-   - $ref: spi-controller.yaml#
--- 
-2.47.3
+On Mon, 21 Sep 2026, Fan Wu wrote:
+
+> dm-verity publishes its root hash and signature state to LSMs in
+> verity_preresume(). LSMs such as IPE store this information in the block
+> device's security blob and use it to authorize access to files.
+> 
+> The original LSM integration relied on DM_TARGET_IMMUTABLE to prevent
+> verity from being replaced by a different target type. However, DM allows
+> tables containing a DM_TARGET_WILDCARD target to replace immutable
+> targets. The block device can then retain the old integrity state even
+> though its data is no longer verified by dm-verity.
+> 
+> Clear the published root hash and signature state in verity_postsuspend()
+> so that the block device does not retain stale dm-verity attributes after
+> the verity target is replaced.
+> 
+> Fixes: a6af7bc3d72f ("dm-verity: expose root hash digest and signature data to LSMs")
+> Assisted-by: gpt-6-astra
+> Signed-off-by: Fan Wu <wufan@kernel.org>
+> ---
+>  drivers/md/dm-verity-target.c | 39 ++++++++++++++++++++++++++++-------
+>  1 file changed, 32 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+> index cb105ccc47ec..6d589867623c 100644
+> --- a/drivers/md/dm-verity-target.c
+> +++ b/drivers/md/dm-verity-target.c
+> @@ -825,13 +825,6 @@ static int verity_map(struct dm_target *ti, struct bio *bio)
+>  	return DM_MAPIO_SUBMITTED;
+>  }
+>  
+> -static void verity_postsuspend(struct dm_target *ti)
+> -{
+> -	struct dm_verity *v = ti->private;
+> -	flush_workqueue(v->verify_wq);
+> -	dm_bufio_client_reset(v->bufio);
+> -}
+> -
+>  /*
+>   * Status: V (valid) or C (corruption found)
+>   */
+> @@ -1733,6 +1726,11 @@ static int verity_security_set_signature(struct block_device *bdev,
+>  					  v->sig_size);
+>  }
+>  
+> +static void verity_security_clear_signature(struct block_device *bdev)
+> +{
+> +	security_bdev_setintegrity(bdev, LSM_INT_DMVERITY_SIG_VALID, NULL, 0);
+> +}
+> +
+>  #else
+>  
+>  static inline int verity_security_set_signature(struct block_device *bdev,
+> @@ -1741,6 +1739,10 @@ static inline int verity_security_set_signature(struct block_device *bdev,
+>  	return 0;
+>  }
+>  
+> +static inline void verity_security_clear_signature(struct block_device *bdev)
+> +{
+> +}
+> +
+>  #endif /* CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG */
+>  
+>  /*
+> @@ -1779,8 +1781,31 @@ static int verity_preresume(struct dm_target *ti)
+>  	return r;
+>  }
+>  
+> +static void verity_security_clear_integrity(struct dm_target *ti)
+> +{
+> +	struct block_device *bdev = dm_disk(dm_table_get_md(ti->table))->part0;
+> +
+> +	security_bdev_setintegrity(bdev, LSM_INT_DMVERITY_ROOTHASH, NULL, 0);
+> +	verity_security_clear_signature(bdev);
+> +}
+> +
+> +#else
+> +
+> +static inline void verity_security_clear_integrity(struct dm_target *ti)
+> +{
+> +}
+> +
+>  #endif /* CONFIG_SECURITY */
+>  
+> +static void verity_postsuspend(struct dm_target *ti)
+> +{
+> +	struct dm_verity *v = ti->private;
+> +
+> +	flush_workqueue(v->verify_wq);
+> +	dm_bufio_client_reset(v->bufio);
+> +	verity_security_clear_integrity(ti);
+> +}
+> +
+>  static struct target_type verity_target = {
+>  	.name		= "verity",
+>  /* Note: the LSMs depend on the singleton and immutable features */
+> 
+> base-commit: 93f51579e7df248780214094418f205253383cc5
+> -- 
+> 2.55.0
+> 
 
