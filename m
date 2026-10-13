@@ -1,97 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E0F3EA967;
-	Tue, 13 Oct 2026 13:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FAC3EA967;
+	Tue, 13 Oct 2026 13:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899924; cv=none; b=XYGZxIajPIvvWO48XUmb0lBAv+fGpWNG7mhit/JcCXV43or/EI3ljrL25cmICnkizrb7XJkUEBjMJ4Cub7VQOUBj4B+y+ltsUBwrCnwM4o5NxRYMhJGJsC7FK5vr7uP+2t98p1PbUZHmWTp3VyM3Zu/F/Cr6O6pF4ZJEGTWF+4w=
+	t=1791899935; cv=none; b=JjEcFw+KcAVSZ6iCUHkyUpGpjSlbc8PqOoTW+gFE/dmB59nvkI26MMpwHI3gw6RBZAc/+s2xcGLurhwP1686dIjX9FW+lEZjodTy9vxV4WU4CD5UpKgwZ7WkY7jiuIU++HmnuySIYRw7JqmLH1Kdd656HOZO92YrcSiERcyw9Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899924; c=relaxed/simple;
-	bh=4Hzefgt0QwOsJW3KIKz0Kv5ifgXEDkmy3mH+8kS7ZjI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=kqNf7Rbssoyayb8uAMsi8XJo3KhJVeRip2GJ3PCSFKqUrQ7GKwuWDwWCJS+lgdzv4USJhS1I/FRZo05Y/jI6Ene+jyQ5pXXoj+DVGKYNjhiiX6uiLzJ9MMHNWAteP2ZF4zHEWSqzNYFJVI4NVz1eu09QM4oZduAnOfhLDuK2sfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvoh9BW4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791899935; c=relaxed/simple;
+	bh=baFHtlj2nIYozB3dAGHLmfTJPckQICOvlEpZq+8NlXU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k18eZnAcoN2BSYdgIwzjGEImcwHurxUclZS5YS3I7LL/wmbaLsKjJ7uimVt5tGLHy1HLYJDp3DfMaxWUvHapw7aI02pVNIkCUENNnGIjDTbFUZgdFny64tCXcMRuSpgQw41Jwn4fug43G1iEHKZHcET1Prq/CCwvLR66e41X70s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ar6g6upN; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvoh9BW4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECC11F000FF;
-	Tue, 13 Oct 2026 13:58:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791899923;
-	bh=iCpsBwF9GyU0jqv8hk9fSnDQ7AiQXk7U+I5K3vYYrms=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=lvoh9BW4dbZsqCzxmYA9CQJpS6BnOWjFg61TH/MBeo3x5VXs24FH1m3cNEP6P7z0n
-	 uyyAFlgp1hrnAeVUnJWjW3dSxxzvP4FK+dgZQBFAm0hsEb7P1HDole9hzqIWH+CCRn
-	 q79vEDCameNckeD8ORZdlh8CfnwTSkoFXJOUrKbIQ8CtLd6P09YR3wb/ffpcI02Vs6
-	 ig+3HLBrwSgGoGC2qFnpRZsqDjp3e+TaWgAzRZqq4uao9R0/6Qm8bab2XdQepbANph
-	 4R474jAEai6Nem97XeoWBKIc9j0dVZ8D6FvnTO3IrzqadNwR/DszuNALsRSHvIqpRg
-	 a/rw7kENLGbMg==
-From: Mark Brown <broonie@kernel.org>
-To: Aayush Kumar <code@aayushk.dev>
-Cc: David Laight <david.laight.linux@gmail.com>, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aayush Kumar <aayushkmx@gmail.com>
-In-Reply-To: <20261010083504.26261-1-code@aayushk.dev>
-References: <20261010083504.26261-1-code@aayushk.dev>
-Subject: Re: [PATCH v2 0/3] spi: use kstrtoul() and snprintf()
-Message-Id: <179184723839.1099724.14865584632017804553.b4-ty@b4>
-Date: Tue, 13 Oct 2026 00:20:38 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ar6g6upN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791899934; x=1823435934;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=baFHtlj2nIYozB3dAGHLmfTJPckQICOvlEpZq+8NlXU=;
+  b=Ar6g6upNtpfF03mk0a0EmHkGt4kllQKXNc3Qev9ye6QuxGsV+fXfP3de
+   SsKBnvYVozb8WUD+2q4yx9ki60kHtyB/jNo+JrXMQL6JMv3nVJu3jm47N
+   hDNfUr7Er1s5IxHhVQUH2zblhbEgwh6oo7lYGm4O2g3v9VvRB9rk922Sf
+   Z2m0/myIjKeOfa2ZRsJf4wbPiJRX3H+ao26LbBOd++Hv7ZFY7p06Gdm1U
+   nESSQBr9rB6mGYl0vjmPCKYBsuTd2nosxdkNfpYv16Zmjt8t1kFPgZy5n
+   UGd8ZCSyhy6Zso/MT4GNKNt3J9LgJCx9JGf00/BjC34YZ9mZYHYE8J74V
+   g==;
+X-CSE-ConnectionGUID: PPbX94oUSgydubiZQrAp8g==
+X-CSE-MsgGUID: 7zGVsBMNTzihxZ3T3xnM6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="728337"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="728337"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:58:53 -0700
+X-CSE-ConnectionGUID: upHYerQ9Q826rwyLzGUOmQ==
+X-CSE-MsgGUID: /hucUYkFQ72rtdQ5M+j57A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="2930776"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:58:50 -0700
+Date: Tue, 13 Oct 2026 16:58:47 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: Andrei Stancovici <andrei.stancovici@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Beguin <liambeguin@gmail.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/6] iio: adc: ltc2497: add LTC2493 support and
+ line-frequency rejection
+Message-ID: <as45F3tHGzTc6lMk@ashevche-desk.local>
+References: <20261009-submission-ltc2493-support-v1-v1-0-3dad1d4b152a@analog.com>
+ <179189735509.1005940.16593087405634433360.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1503; i=broonie@kernel.org;
- h=from:subject:message-id; bh=4Hzefgt0QwOsJW3KIKz0Kv5ifgXEDkmy3mH+8kS7ZjI=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOWQooG/nMXflfpGbZ2iuL2V64zHSLmN+u/Hf2vZOVk
- +wbtUPmdZSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAi+nmMDJ2dhzcc5tWaOn36
- hrqjt/8fTZBLry6cv6pfz7lC0EN7siIjQ9MD8a1BF7LrmKyOaPYJB3/5MpMz0iP4oci8z48rQlN
- U2AE=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179189735509.1005940.16593087405634433360.b4-review@b4>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, 10 Oct 2026 14:05:01 +0530, Aayush Kumar wrote:
-> spi: use kstrtoul() and snprintf()
+On Tue, Oct 13, 2026 at 02:15:55PM +0100, Nuno Sá wrote:
+> On Fri, 09 Oct 2026 11:43:33 +0300, Andrei Stancovici <andrei.stancovici@analog.com> wrote:
+
+[...]
+
+> > - pyadi-iio hardware test suites: 41/41 on the LTC2493, 36/36 on the
+> >   LTC2499.
+> > 
+> > The series was rebased onto the base commit below after those runs. The
+> > rebase left all four touched files byte-identical, so the code posted
+> > here is the code that was tested.
 > 
-> From: Aayush Kumar <aayushkmx@gmail.com>
-> 
-> Replace simple_strtoul() with kstrtoul() and sprintf() with snprintf()
-> in three SPI drivers.
-> 
-> [...]
+> Not sure I agree with how you split the series. To me, patch 2, 3, 4 and
+> 6 could be very well just one (adding support for the new chip). Patch 5
+> becomes preliminary patch which is adding a new feature the new chip
+> will also take advantage on.
 
-Applied to
+But they are sound like a good feature-wise split. I would leave that as is
+currently.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks!
-
-[1/3] spi: tle62x0: Use kstrtoul() instead of simple_strtoul()
-      https://git.kernel.org/broonie/misc/c/54f4db17f9d3
-[2/3] spi: omap2-mcspi: Use snprintf() instead of sprintf()
-      https://git.kernel.org/broonie/misc/c/9efc388655e4
-[3/3] spi: s3c64xx: Use snprintf() instead of sprintf()
-      https://git.kernel.org/broonie/misc/c/506fbac9274c
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 
