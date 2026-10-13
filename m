@@ -1,128 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CA83A6F11;
-	Tue, 13 Oct 2026 07:46:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078FB3A6F11
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791877580; cv=none; b=Phj+Ewfh3IbqLPfCPdeSSmoPiJdhTGHyvjpDsj/jCRwXfcDcI+6W7oRBCMlRQIIn8qvjkRtB43ou3XiR0DLhhwTBzzhJjZgLQ+q/C2QH1fXREf6KPUs5OI+C7SGi6NzXApTsCGLloP1nGxdgzV/2YYVighEmxF6UXXpev8DKtTo=
+	t=1791877587; cv=none; b=dh3ncSkDJEBrzdDnByHWpiAG16Q8Zd3obkgEyVQqq6wyoMFq3mGFwDYfvCvexb5q25jxLc4+6MQ4IdjXkQ2QljuvTX6oQme74nMDNtGFMQPJTjO/G9PFoJy8g2CxYDWFoi+MNCsJglDRG3Oa9+2f8MpjlVKmme9fgxt0XZJP/kE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791877580; c=relaxed/simple;
-	bh=+NtnVCGmmGB8pe2zOOxww06KK+9XuftJ2meDrflIhRc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=E1g01vPZCSBGFXT86BJrl92Sifd23dqIxB+L4uK69DBlQ4nEOT6BUAD1fSDDDRCNWCOjT+5nShz1+SECCx96Vk4+jIBikKU+Xmk2QHdVK3faF8iU+W1kpEKJbsMORRU+wAzTtASK0hpirDhgNpcoh96KZ4thgpuaZJ6vEVmBB/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l4g7hJlP; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791877587; c=relaxed/simple;
+	bh=mveVOZV1cqSe9kjwGcpsqB9hQj8+IumH5VgQu3rUViY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B5g2epMRV+7aMCHR/OGe/Vfri8NEmI8Ijtywjl299+7EZx0xfDttrSOPMTAeJ63J9vNUKvxWQEfz4k7q4J6dDKNhN1Y05EISI/h3kn6DwbmYJkKJgQrmcg1RTLyK+F4VvNeIcYxCL9EVPDAGnj4P6EFJ8dSpkvhJCJ8cutK41gI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Foa4ZaOt; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l4g7hJlP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791877578; x=1823413578;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding;
-  bh=+NtnVCGmmGB8pe2zOOxww06KK+9XuftJ2meDrflIhRc=;
-  b=l4g7hJlPaTyAuvT1x1+XYGqgZ4nsWUG39kdgCrlzK7n8q07dOt1tnzJY
-   JctQFXy8UJjJZwdh8RNEGZj2h4A3821/5rXY6QfaPwbrjEQ2eTI4D9HD9
-   Z7veoGkIMQBmTHe//eZN9PmAWueHcMVdoJgr3L+WrgF0S5Pa5sWeIllkm
-   RV/c4RxjeppnX5aSh41Yf/tR/w9DJkVrl3jfa13Xs3ASNzk42NUjzG6tE
-   OtyVybk4lm3zJ4nGGIFv3lAY8JSzPIgQxkz9qZOl9Va7d4vHlZ7cjD8yl
-   16M1IyzMO86UTo06e5zP3OYH6+Nn+wrQ1kOA14nHGVGNEBoMEPBiszvY5
-   g==;
-X-CSE-ConnectionGUID: eHpB6YVSRcq2z90GNXkG8Q==
-X-CSE-MsgGUID: eEEzLxXzTCyVG5ngex/CTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="601180"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="601180"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:46:18 -0700
-X-CSE-ConnectionGUID: WC7WrMN+QhyXEkoCmCO6Iw==
-X-CSE-MsgGUID: AV7yDSPxSJ+/xKM/JgsuTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1462091"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:46:17 -0700
-Date: Tue, 13 Oct 2026 15:46:13 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, yi1.lai@intel.com
-Subject: [linus:master] [fs]  7eb84d54fa:  stress-ng.kvm.ops_per_sec 28.2%
- regression
-Message-ID: <202610130959.d3ca4cfa-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Foa4ZaOt"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-88746bf1ec2so156910b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:46:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791877585; x=1792482385; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JtNaVvMG5Mqm08sLDfXPlT2jXVN8JsJ0XyUmmjwX9a0=;
+        b=Foa4ZaOtjGmm752Nl1EoDO8oetROn17FzVIA/1RhB16ziwI3UhaKj91MOxBSwj5tjr
+         udMlwKOccToHShpdPGeGP4WCJ1lVKXCw5NaQl6gvpYREZF/OYjNR6modWV70bnAncZN2
+         fKG5EnTX8mt49rNbErCTI/9cKvwCVTFmXpvkLKWvwMz3Il4PsF9puVHwsKR1eF7YqWiU
+         8SEXuxd9Hrr+lia5fCLIUrcwnfKWmi0540G70CTSy8ZektouRx9aGFgP7qHUkLo5xT97
+         jnVFfYQbiczrYwdsC0y07+2a/VXEqFSa6zS0XtzqsvgM0LNxOLLhLAapbKDoeZqh7/1P
+         btuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791877585; x=1792482385;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JtNaVvMG5Mqm08sLDfXPlT2jXVN8JsJ0XyUmmjwX9a0=;
+        b=Ek+O1EGR9kDgk2vIMfHdSjmEwv42YalJJ0t3M02maHhX3ThqX35nu7rr7BbLbeoCAD
+         UlAiQivX0d4tKC0x3tREeqRGS6Uo2RMGT4DTwNlAtktb3lHo6LudNihTdOynJSAICcQj
+         b0sHLtA+8ls4Hj5ppPqiqq226fUdyQSXcCPVJAU+usYMduzVcv4yY9TTGQCtbSxGS3t4
+         pc7dvOENTkasJvbLt6lU+0OABlcHJhzrjbFDK8L0cIQpjeHUKvxEb/RtIBD9+Du8pn6p
+         e+eGy7ahkdsFf/mAFpkdFr/9c9NTl6CbMcgysUpvQjnJwN3l8FVTC5tbTm1bc8eWsPvm
+         gYNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwTKWPCUnxsvKdogIy8pW0XciaAor0tCs7nWQhsfQlYXD5z2O6B/wgv3XwzT2CGd3Leg1JT3YdOIdvom/k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKM1OH/lFem26ajNrRbcNnizYxvT9vambv7dmN+Gjmaeiij9mqI
+	ogJ1rBZ9aPBeK8gc9lbpRnvajOGNL0hbcHRIudHIt/9B/3C6zYKho8qq
+X-Gm-Gg: AYBFou3ESLJRK4QQtXQbtzlQm1YbNSp37VuS+1PWQecyj6V6GwevKzcEOCRjyQ194KH
+	e4l2czEVg2bZOgYPynRYnhMKDPJ3SCCXBI/Mwo/rXbyNGNfAC40rQoFnkX/hUp4MPzQW78zLWFt
+	gY/yGpGCKDXq/g1rr0NU2QyPt1xyHM0wgYJXW/8ChEEhriDJuMGPqmHgPfaHUdf7sRUgoDJolhD
+	YCC3c4p4Sh37a8u0AwIm7TsxTLlWgCyL+qUnz5vH5eMtxSLvevKuvrUnLxy0k0T7fBjKzOem0bm
+	n9Vq2EEVY6WGCSBfkJTpAlDRGmb0CdDJ5iijz2/tBzmEO/tMPo4SwgcbIHK74H7YdUxrOcKmFk3
+	FvLwzaRV1iC+47N1qYj4c68fCJb4H5DDPegZnp0qrK6cRFxa+oKNuPAV6DxtgMyaxFBCEdONjMd
+	Rpy7uicNRyOaTICw9Vy/0cFSm7sslFZyg1DlhcNFoteHO39UCa1Wf+9k5uMBZoHLDS3fck/rgG+
+	RWkenKLW5bNIas4zT09Ej8PYxF/E5AthWmLc1f7hHr8d8aNytgGVcaQTwSz/g==
+X-Received: by 2002:a05:6a00:4889:b0:89a:ee91:e894 with SMTP id d2e1a72fcca58-89aeeb074bamr4683767b3a.0.1791877585236;
+        Tue, 13 Oct 2026 00:46:25 -0700 (PDT)
+Received: from localhost.localdomain ([139.159.170.69])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89805c75343sm4459011b3a.38.2026.10.13.00.46.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 13 Oct 2026 00:46:24 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Steffen Klassert <steffen.klassert@secunet.com>,
+	Christian Hopps <chopps@labn.net>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 0/3] xfrm: fix vti tunnel device use-after-free across async crypto resumption
+Date: Tue, 13 Oct 2026 15:46:07 +0800
+Message-ID: <20261013074610.17808-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
+This replaces the v1 vti/vti6 series.
 
+vti_input() and vti6_input_proto() cache the tunnel pointer in the skb
+control buffer without taking a reference.  With async crypto the
+receive callback runs from the crypto completion, after a possible
+device teardown, and dereferences the freed tunnel device.
 
-Hello,
+The reference cannot simply be held in the input path and dropped in
+the callback: the callback is not reached on every path (IPTFS frees
+the outer skb itself, and the early drop for a non-valid state runs
+with family still AF_UNSPEC), and on the success path the callback may
+drop the last reference before xfrm_input() is done with skb->dev.
 
-kernel test robot noticed a 28.2% regression of stress-ng.kvm.ops_per_sec on:
+Make the reference travel with the skb instead: the receive callbacks
+install the device in skb->dev and leave their reference with it, and
+xfrm_input() releases it once the packet has been delivered.
 
+Patch 3 covers vti, vti6 and xfrmi, the only receive callbacks that
+replace skb->dev (esp, ah and ipcomp do not).
 
-commit: 7eb84d54fac5002bd975d1de8fd61d57e89172ab ("fs: don't let a migrating task hide its reference from do_umount()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+For Chris: patch 2 covers the outer-skb free paths in
+__input_process_payload(), iptfs_input_ordered() and the reorder-window
+free list.  The deferred fragment (consume_skb(defer)), the reassembly
+drop timer / __iptfs_reassem_done() and the state teardown still free
+the skb directly; I left those alone for now.
 
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 192 threads 2 sockets Intel(R) Xeon(R) 6740E  CPU @ 2.4GHz (Sierra Forest) with 256G memory
-parameters:
+Changes since v1:
+- split into three patches: the first two fix the paths where the
+  receive callback is not dispatched at all, the third is the device
+  reference handling
+- the reference is taken before delivery and released through a saved
+  pointer afterwards, instead of holding skb->dev after the callback
+- v1: https://lore.kernel.org/netdev/20260930090813.73901-1-q.h.hack.winter@gmail.com/
 
-	nr_threads: 100%
-	testtime: 60s
-	test: kvm
-	cpufreq_governor: performance
+Qihang (3):
+  xfrm: set the address family before the early invalid-state drop
+  xfrm: iptfs: run the receive callbacks before freeing the skb
+  xfrm: transfer the skb->dev reference to the input path
 
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202610130959.d3ca4cfa-lkp@intel.com
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261013/202610130959.d3ca4cfa-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-srf-2sp2/kvm/stress-ng/60s
-
-commit: 
-  bba9960c07 ("selftests/filesystems: check that a busy propagated copy blocks a synchronous umount")
-  7eb84d54fa ("fs: don't let a migrating task hide its reference from do_umount()")
-
-bba9960c073dbea8 7eb84d54fac5002bd975d1de8fd
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-    134749           -28.2%      96786 ±  2%  stress-ng.kvm.ops
-      2245           -28.2%       1612 ±  2%  stress-ng.kvm.ops_per_sec
-    571737           -25.3%     427284 ±  3%  stress-ng.time.minor_page_faults
-      7905 ±  3%     +35.2%      10690 ±  6%  stress-ng.time.percent_of_cpu_this_job_got
-      4566 ±  3%     +37.9%       6297 ±  6%  stress-ng.time.system_time
-    190.93           -28.1%     137.21 ±  2%  stress-ng.time.user_time
-    698896           -24.8%     525918        stress-ng.time.voluntary_context_switches
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
+ net/ipv4/ip_vti.c              |  6 ++++++
+ net/ipv6/ip6_vti.c             |  7 +++++++
+ net/xfrm/xfrm_inout.h          |  2 ++
+ net/xfrm/xfrm_input.c          | 35 ++++++++++++++++++++++++++++++++--
+ net/xfrm/xfrm_interface_core.c |  9 ++++++++-
+ net/xfrm/xfrm_iptfs.c          |  6 +++---
+ 6 files changed, 59 insertions(+), 6 deletions(-)
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+2.54.0 (Apple Git-157)
 
