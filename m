@@ -1,365 +1,119 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F67740D590;
-	Tue, 13 Oct 2026 14:20:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901252; cv=none; b=UlG0JOA62SuG8YgEZPX7qkaucIyzP0Nih05urgyzovIOtqTg+Um3uPAw+cHT+oCbaI5yOl/LGMIyB/ptX53W55f37AW3Fv6fp+BM85cWsMrRN7zl5532TAY6GyIHmQqngFfQNWDQCkdHiCRIchcVLCHFt7zvOvzKjSCd10xLl6M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791901252; c=relaxed/simple;
-	bh=0Xo7iAJkR4cxR2k6xN0TJCy4AUuvhXFD327FLW5a80g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nm44SHXWHpBlmlytbcj7sMMbEnw1m3unaez56wQ9RYlJgz8V0OJZFNgIKRgNbu/2yITBYVdV5T2X8KCJCwSiFbTBKd9mE49kFBk0YnBGcY1FXr7j0jeVu5+piDOZ9BaTtfapbHYv5SNwhTY9lwGfIQFyBLiV+vLn+MR524GXXA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=nnSA0PTP; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D90F3F105B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:23:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791901387; cv=pass; b=Cs/kqU85DYGK6FYtBTxCVR1g0XxZurxJrVbg3hkVrTbj0ZNaEz/MHqSGX3ylSwy6T0vwQmcpoclhpXzRdT7A7MM4aUjmrmTGmOeq1/FRLWUL8M4up52xA6QD+KfCtO7/5sA8Da7xeG1z2HPtM9vU59iX0zcWtEkAc7+NO9PaUdE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791901387; c=relaxed/simple;
+	bh=yj1sNd5vfDwsYGQAjFz2BvWzyxLrHMu95FMIsFy9jGQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S3de+U78nHRYkvHQmbnT2kw32QH+H0miuZcq3RJVYDtG9nmXc6ZQGJ9GMlkRLzIbo3mzs6b7jHxanzraS1E6DYcEQLboLxdfNx2f4vYuUzXG/GTSX58exL+IDOEnlEJmblMByh6u7cnMGGH0Fl9H+dS8w1ls2I8HExJBQC23MPU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=QwcrkcG2; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="nnSA0PTP"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D3A77A158A;
-	Tue, 13 Oct 2026 16:20:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791901248; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=VGy+kSZCkdfeUQwCmXGEg0Tb+HruE0OitRgAm4sVpjs=;
-	b=nnSA0PTPxXYgq+j5ugaDmSYce88JSH//FAqS6QaT55i2DDR8ag36QCKaoddAzJTA3o0Pmo
-	27ML5T/M6UkQPyCjZkkTpG0L5YuJFlGwaEM3Xmr0UyYQyEkWIi18p1+VOGrCAo09H+v96P
-	CpXy8h3nHMzRQP0BAG/GektsnLgL30MfdiY80Sg4Y0err4UvB/C3PKsSxNG1A2Y+1zkFAe
-	6EpuHe+bPkWxqEsTBVIfHpvWeiR7mcJquDhxTRsKmdAxCdIXdrS7PLJRHv8/KWubd997Pu
-	ZUGAzMFuQfqojdpnzVhK4wAsM0YAdqB7h0p4yWLTcc1w32FFvCd5t2e68Rwv7A==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Tue, 13 Oct 2026 16:20:37 +0200
-Subject: [PATCH net-next v5 8/8] net: bcmgenet: reassemble jumbo frames
- from status block fragments
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="QwcrkcG2"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c20ce3c118aso390000266b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:23:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791901383; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iTfUCanafOBVob/mD53Afb9sCW76z7pW1NIWbv8gjW6M2j4H3C9EFj5tVF89ODy3Kw
+         Iz/T9w028ZoCjh0/l1SjgRzepnwsnqeCOnjKWCf1eVaP1RB5jDLrXEBFQqiZH963BGZ0
+         vv0j+QcaWtN5JC5s5kHO+AwkVeXSCRWPEJJFKng+mZnylAhVOEi+Lj5myTk2fByZgOYt
+         4nnPAn4rl6z4lLcc6+tjUgofx0bklft5F5YDX1qWYeZFVjAtVaSk8ge/Z5tHWPPBJozs
+         kmnniDRHXC2sn4uzRvaysz5qrlC0ApyPRPevKrNEk9Wqw/eTZjoqAa1IltsI+zN+D5Qd
+         ZFjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yj1sNd5vfDwsYGQAjFz2BvWzyxLrHMu95FMIsFy9jGQ=;
+        fh=0JcDvAHrOKsD874FGAXSF+rqkFW28EJZWTKKLiBZw1w=;
+        b=gQnpyOOCMrfBpYBZMw2bk+akfrhHMyHscW+CpBIWuxNSITm3zSc+DVaW4upfotvGi6
+         8zOdfCUgcSZLDFARtfJEdshRbYlrxoeTioorDVO6mrFKxDBXgKPWMiDlyFFIbiZvvSKP
+         2tAvyt8gfZ4xkcA22wx7uYezPpkI9G1cD08uK2YEaoOyHQu0O98eIDsszw+/IXrnhE3G
+         Z56VrIi1PJ+iignynoyCLnasJ8Xfuh0YxCQBhkYVPiQas8U7Tdvu47t5ddGs9nZki/UA
+         D3Yrr2umDV1ORq4OX3+ugF2iUfozUrEelWySBLC6VKugBprJ7D8LCtAeB5cSvQLP5GvQ
+         Tn3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1791901383; x=1792506183; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yj1sNd5vfDwsYGQAjFz2BvWzyxLrHMu95FMIsFy9jGQ=;
+        b=QwcrkcG2qPqojWS8zrmYqjetEMN/XCmC1Cl4IH9j8p4MWaKhPsNhEVONdUInsqHDWR
+         7aO+YJwuoCWNOs1GhADMB5Gm9Xa9nU0+F1ALQwHy5G/9+8bRuafsD/Yp4TrenJOovLTv
+         hOA9n0wfnIyrZE6MZrOSiFItSDkFcGYH/cUwtvB7Y8t2o+JsvPEPjujfYsJrjHQ8w1oi
+         p/nOBq0UY5msy45MvU0aOumovMJf7ep1JoCSIR5ywPd4/0nl0cMjEJMz+ISfrOsPiTJH
+         SZuEbRONEXjgavXVCuIsFHLmrU4u5bXpRjrgpRgknreUkjs4bMcR6BSky2Wzn4c3er3m
+         N0qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791901383; x=1792506183;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yj1sNd5vfDwsYGQAjFz2BvWzyxLrHMu95FMIsFy9jGQ=;
+        b=wDDAMoIpdjUdqjCc/+P93sRMDAYc9JJAZnCnMi9sX5Jxe0If7M8L4PJEEfuzxA+HzD
+         LONdHVbCgymPqVvBnc9XDOP0xAafXyXljOqjVa4R1OSJR63dzanZ23hnzYTPWJu7YkZq
+         GZEIw9HoAVJ1CxFGw3V7NXhRX8KbIlS20N+3JrjNpOBhXJgipQ+X6Sv2NMOesVlsNBR/
+         M+AovgOxDGAKqefVOtxxB8CTodsKnaAZJq6wwjeeosl+HK0qJ9bC4RhAgxADEiFU8CtG
+         t4dD0b3jlV+K60OkOevGU3T8IQ5Ke/8/8g6vpFanPRRi/oJ1t44telCtO0CV8OHzLf75
+         GZyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx2Jg6uel1OT2hUz/jVBSnxzausN59mtk9Not6YxQvGvFda+xCCTDEow+HdO1sX+8Mm05aTG4y0Q9Ti6hw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjn9j6vfwo218ft47hqRDeqe83CN7AyVMbTG3muLbjtAxBZ2Hs
+	YHWT6clLk7SLFihNZ68Pavv2kQb9+YV2Z99yACuXo2+Uy/7m3OhdFxqWgmeI44d9PQ5cuXiJsJ3
+	EtjocblhkKNWj+E0NqtZZ3EZNZIi9D6lUE0bGN+um3A==
+X-Gm-Gg: AYBFou0jFA1dpaz4nQX+BwwX2o1kwrz9NE2qqSX9ZSwLFzDvUDiSX15Kpz7uyrfQyMq
+	esMt6Mi3QV3lEWngVhqSauPhe1RCCQ+COfVK7bblA+xQHp2c08FA1+ymT1OHxWPZ46qCjGFQi0p
+	5QbSFi3j9GFDFLztycU/ZYsmSRdNrni0nPeTEx+UTTXOgGBU+u1qFa7bNg8v9utwkmzclWEdg3W
+	uLPsR2Asu3oDndtb6LcsG7wJEo28sWUWhlT7R35W8bt3ywZg38OQwPdkX7fCTsU6Mf0Ym+tCDYP
+	UzrDbL+SowVm0bikcGtK1iaWZ9hHv1+8la61/5KeOyQDMbDWKDdvc23DyqlJubwABYpAnuYUEZA
+	GqECRtNX6
+X-Received: by 2002:a17:907:3e9e:b0:c31:5918:86d1 with SMTP id
+ a640c23a62f3a-c31a9d3cfbbmr1362282966b.10.1791901383415; Tue, 13 Oct 2026
+ 07:23:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-nb-genet-mtu-nn-v2-v5-8-076b6fc240be@tipi-net.de>
-References: <20261013-nb-genet-mtu-nn-v2-v5-0-076b6fc240be@tipi-net.de>
-In-Reply-To: <20261013-nb-genet-mtu-nn-v2-v5-0-076b6fc240be@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Justin Chen <justin.chen@broadcom.com>, 
- Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>, 
- Nicolai Buchwitz <nb@tipi-net.de>, Florian Fainelli <f.fainelli@gmail.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261013130052.3012773-1-max.kellermann@ionos.com> <CAP-5=fVPtjkxcjEkR9r6QZGsoKe=_rZssjZp1FcJ7rCgntpPng@mail.gmail.com>
+In-Reply-To: <CAP-5=fVPtjkxcjEkR9r6QZGsoKe=_rZssjZp1FcJ7rCgntpPng@mail.gmail.com>
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Tue, 13 Oct 2026 16:22:50 +0200
+X-Gm-Features: AclHuK_BqQBC6qCTnYjJ1k0Yihq79IRdPnmJUUQAMz5lu8h5Keu2RPYrrqjpsQQ
+Message-ID: <CAKPOu+8NB8sGv__CazGPYY_uEmg84-+YHbS-VOw=4woAZcRKAw@mail.gmail.com>
+Subject: Re: [PATCH] perf: skip unnecessary userspace map synthesis
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The hardware does not truncate a frame longer than the packet ready
-threshold. It splits the frame across descriptors and writes a status block
-at the start of each one. The first fragment then arrives with SOP and no
-EOP and is dropped as fragmented. This caps the MTU.
+On Tue, Oct 13, 2026 at 3:29=E2=80=AFPM Ian Rogers <irogers@google.com> wro=
+te:
+> Why do the empty list and dummy case need the
+> user mmap events?
 
-Strip the status blocks and reassemble the fragments. Only the last block
-holds the checksum of the whole frame. Broadcom confirmed from the RTL that
-every GENET revision splits long frames this way, not just the v5 this was
-tested on.
+I guess that's a corner case I missed indeed. I'll fix that for v2.
 
-On transmit the MAC only checksums a frame it holds in full, so anything
-longer than the threshold falls back to software. At jumbo sizes the larger
-frame saves more per packet overhead than the checksum costs.
+--=20
+Max Kellermann
+Principal Architect
+Hosting Technology
 
-UMAC_MAX_FRAME_LEN is 14 bit and counts the FCS. That puts the maximum MTU
-at 16347.
-
-The TX descriptor length field is wider than DMA_BUFLENGTH_MASK suggests,
-that mask only extracts the length from the RX status word. A frame of
-16361 bytes, the largest that MTU allows, came back byte exact 200 times
-over UMAC loopback.
-
-Suggested-by: Justin Chen <justin.chen@broadcom.com>
-Tested-by: Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 139 ++++++++++++++++++++-----
- drivers/net/ethernet/broadcom/genet/bcmgenet.h |   2 +
- 2 files changed, 116 insertions(+), 25 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index 9f28006957d4..323839adebba 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -84,11 +84,8 @@
- 				      ENET_THLD_MAX * ENET_THLD_UNIT, \
- 				      ENET_THLD_PAGE_LEN)
- 
--/* Largest MTU that fits one descriptor, with room for a VLAN tag so a VLAN
-- * interface can use the parent MTU.
-- */
--#define ENET_MAX_MTU		(ENET_THLD_MAX_LEN - GENET_RBUF_ALIGN - \
--				 ETH_HLEN - VLAN_HLEN)
-+/* UMAC_MAX_FRAME_LEN is 14 bits wide and counts the FCS */
-+#define ENET_MAX_JUMBO_MTU	(GENMASK(13, 0) - ENET_FRAME_OVERHEAD)
- 
- /* Tx/Rx DMA register offset, skip 256 descriptors */
- #define WORDS_PER_BD(p)		(p->hw_params->words_per_bd)
-@@ -2200,8 +2197,8 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
- 		}
- 	}
- 
--	/* The MAC only inserts a checksum into a frame it holds in full, and
--	 * silently drops a longer one, so fall back to software.
-+	/* The MAC holds a frame to insert its checksum, but only as much as
-+	 * its FIFO takes. Longer frames are dropped silently.
- 	 */
- 	if (unlikely(skb->len > priv->tx_thld_len) &&
- 	    skb->ip_summed == CHECKSUM_PARTIAL) {
-@@ -2351,6 +2348,54 @@ static int bcmgenet_rx_refill(struct bcmgenet_rx_ring *ring,
- 	return 0;
- }
- 
-+/* Drop the frame being collected. Its remaining descriptors carry no SOP,
-+ * so they are dropped quietly until the next one does.
-+ */
-+static void bcmgenet_discard_frags(struct bcmgenet_rx_ring *ring)
-+{
-+	ring->frag_drop = true;
-+
-+	if (!ring->frag_head)
-+		return;
-+
-+	dev_kfree_skb_any(ring->frag_head);
-+	ring->frag_head = NULL;
-+}
-+
-+/* A frame longer than the threshold arrives in several descriptors, each with
-+ * its own status block. Only the first one carries a header, so hand the page
-+ * of every later one to the frame already being collected. Returns the frame
-+ * once EOP is in, NULL while more descriptors are expected or once the frame
-+ * had to be dropped.
-+ */
-+static struct sk_buff *bcmgenet_add_frag(struct bcmgenet_rx_ring *ring,
-+					 struct page *page,
-+					 unsigned int offset,
-+					 unsigned int size,
-+					 unsigned int dma_flag,
-+					 unsigned int len)
-+{
-+	struct sk_buff *head = ring->frag_head;
-+
-+	if (unlikely(skb_shinfo(head)->nr_frags >= MAX_SKB_FRAGS)) {
-+		BCMGENET_STATS64_INC((&ring->stats64), fragmented_errors);
-+		bcmgenet_discard_frags(ring);
-+		page_pool_put_full_page(ring->page_pool, page, true);
-+		return NULL;
-+	}
-+
-+	skb_add_rx_frag(head, skb_shinfo(head)->nr_frags, page,
-+			offset + sizeof(struct status_64),
-+			len - sizeof(struct status_64), size);
-+
-+	if (!(dma_flag & DMA_EOP))
-+		return NULL;
-+
-+	ring->frag_head = NULL;
-+
-+	return head;
-+}
-+
- /* bcmgenet_desc_rx - descriptor based rx process.
-  * this could be called from bottom half, or from NAPI polling method.
-  */
-@@ -2368,6 +2413,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 	unsigned int rxpktprocessed = 0, rxpkttoprocess;
- 	unsigned int bytes_processed = 0;
- 	unsigned int p_index, mask;
-+	unsigned int rxframes = 0;
- 	unsigned int discards;
- 
- 	/* Clear status before servicing to reduce spurious interrupts */
-@@ -2415,6 +2461,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 
- 		if (bcmgenet_rx_refill(ring, cb)) {
- 			BCMGENET_STATS64_INC(stats, dropped);
-+			bcmgenet_discard_frags(ring);
- 			goto next;
- 		}
- 
-@@ -2439,24 +2486,42 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 			  __func__, p_index, ring->c_index,
- 			  ring->read_ptr, dma_length_status);
- 
--		/* Only the first descriptor carries the alignment pad */
--		min_len = dma_flag & DMA_SOP ? GENET_RSB_PAD
--					     : sizeof(struct status_64);
-+		/* Only the first descriptor carries the alignment pad. A head
-+		 * with more to come must hold the Ethernet header, and a
-+		 * continuation must hold payload.
-+		 */
-+		if (dma_flag & DMA_SOP) {
-+			min_len = GENET_RSB_PAD;
-+			if (!(dma_flag & DMA_EOP))
-+				min_len += ETH_HLEN;
-+		} else {
-+			min_len = sizeof(struct status_64) + 1;
-+		}
- 
- 		/* Reject lengths that would underflow the SKB build path. */
- 		if (unlikely(len > priv->rx_buf_len || len < min_len)) {
- 			netif_err(priv, rx_status, dev,
- 				  "invalid packet length %d\n", len);
- 			BCMGENET_STATS64_INC(stats, length_errors);
-+			bcmgenet_discard_frags(ring);
- 			page_pool_put_full_page(ring->page_pool, rx_page,
- 						true);
- 			goto next;
- 		}
- 
--		if (unlikely(!(dma_flag & DMA_EOP) || !(dma_flag & DMA_SOP))) {
--			netif_err(priv, rx_status, dev,
--				  "dropping fragmented packet!\n");
--			BCMGENET_STATS64_INC(stats, fragmented_errors);
-+		/* A new SOP resynchronizes after an incomplete frame */
-+		if (dma_flag & DMA_SOP) {
-+			if (ring->frag_head) {
-+				BCMGENET_STATS64_INC(stats, fragmented_errors);
-+				bcmgenet_discard_frags(ring);
-+			}
-+			ring->frag_drop = false;
-+		} else if (unlikely(!ring->frag_head)) {
-+			/* Rest of a dropped frame, or no SOP seen yet */
-+			if (!ring->frag_drop) {
-+				BCMGENET_STATS64_INC(stats, fragmented_errors);
-+				ring->frag_drop = true;
-+			}
- 			page_pool_put_full_page(ring->page_pool, rx_page,
- 						true);
- 			goto next;
-@@ -2486,17 +2551,27 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 						DMA_RX_RXER)) == DMA_RX_RXER)
- 				u64_stats_inc(&stats->errors);
- 			u64_stats_update_end(&stats->syncp);
-+			bcmgenet_discard_frags(ring);
- 			page_pool_put_full_page(ring->page_pool, rx_page,
- 						true);
- 			goto next;
- 		} /* error packet */
- 
-+		if (!(dma_flag & DMA_SOP)) {
-+			skb = bcmgenet_add_frag(ring, rx_page, rx_offset,
-+						rx_size, dma_flag, len);
-+			if (!skb)
-+				goto next;
-+			goto deliver;
-+		}
-+
- 		/* Build SKB from the page - data starts at hard_start,
- 		 * frame begins after RSB(64) + pad(2) = 66 bytes.
- 		 */
- 		skb = napi_build_skb(hard_start, rx_size);
- 		if (unlikely(!skb)) {
- 			BCMGENET_STATS64_INC(stats, dropped);
-+			bcmgenet_discard_frags(ring);
- 			page_pool_put_full_page(ring->page_pool, rx_page,
- 						true);
- 			goto next;
-@@ -2508,17 +2583,26 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 		skb_reserve(skb, GENET_RSB_PAD);
- 		__skb_put(skb, len - GENET_RSB_PAD);
- 
--		if (priv->crc_fwd_en) {
--			skb_trim(skb, skb->len - ETH_FCS_LEN);
-+		if (unlikely(!(dma_flag & DMA_EOP))) {
-+			ring->frag_head = skb;
-+			goto next;
-+		}
-+
-+deliver:
-+		/* The FCS trim may release the page with the last status block */
-+		rx_csum = (__force __be16)(status->rx_csum & 0xffff);
-+
-+		if (priv->crc_fwd_en &&
-+		    unlikely(pskb_trim(skb, skb->len - ETH_FCS_LEN))) {
-+			BCMGENET_STATS64_INC(stats, dropped);
-+			dev_kfree_skb_any(skb);
-+			goto next;
- 		}
- 
- 		/* Set up checksum offload */
--		if (dev->features & NETIF_F_RXCSUM) {
--			rx_csum = (__force __be16)(status->rx_csum & 0xffff);
--			if (rx_csum) {
--				skb->csum = (__force __wsum)ntohs(rx_csum);
--				skb->ip_summed = CHECKSUM_COMPLETE;
--			}
-+		if ((dev->features & NETIF_F_RXCSUM) && rx_csum) {
-+			skb->csum = (__force __wsum)ntohs(rx_csum);
-+			skb->ip_summed = CHECKSUM_COMPLETE;
- 		}
- 
- 		len = skb->len;
-@@ -2526,6 +2610,7 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 
- 		/*Finish setting up the received SKB and send it to the kernel*/
- 		skb->protocol = eth_type_trans(skb, priv->dev);
-+		rxframes++;
- 
- 		u64_stats_update_begin(&stats->syncp);
- 		u64_stats_inc(&stats->packets);
-@@ -2552,7 +2637,8 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
- 	}
- 
- 	ring->dim.bytes = bytes_processed;
--	ring->dim.packets = rxpktprocessed;
-+	/* A long frame spans several descriptors but is one packet */
-+	ring->dim.packets = rxframes;
- 
- 	return rxpktprocessed;
- }
-@@ -2626,6 +2712,8 @@ static void bcmgenet_free_rx_buffers(struct bcmgenet_priv *priv)
- 			cb = ring->cbs + i;
- 			bcmgenet_free_rx_cb(cb, ring->page_pool);
- 		}
-+		/* a partial frame still holds pages of this pool */
-+		bcmgenet_discard_frags(ring);
- 	}
- }
- 
-@@ -2696,7 +2784,8 @@ static void bcmgenet_link_intr_enable(struct bcmgenet_priv *priv)
- }
- 
- /* Receive threshold in register units. Covers the alignment bytes and the
-- * frame, but not the status block, which the hardware adds on top.
-+ * frame up to the register maximum, but not the status block, which the
-+ * hardware adds on top. A longer frame arrives in several descriptors.
-  */
- static unsigned int bcmgenet_pkt_rdy_thld(unsigned int mtu)
- {
-@@ -4339,7 +4428,7 @@ static int bcmgenet_probe(struct platform_device *pdev)
- 	/* v1 cannot program the thresholds, so it stays at the default MTU */
- 	priv->rx_buf_len = bcmgenet_rx_buf_len(dev->mtu);
- 	if (!GENET_IS_V1(priv))
--		dev->max_mtu = ENET_MAX_MTU;
-+		dev->max_mtu = ENET_MAX_JUMBO_MTU;
- 	INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
- 
- 	priv->clk_wol = devm_clk_get_optional(&priv->pdev->dev, "enet-wol");
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-index c245931ca146..1cb857f4fda8 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
-@@ -585,6 +585,8 @@ struct bcmgenet_rx_ring {
- 	unsigned int	cb_ptr;		/* Rx ring initial CB ptr */
- 	unsigned int	end_ptr;	/* Rx ring end CB ptr */
- 	unsigned int	old_discards;
-+	struct sk_buff	*frag_head;	/* frame being reassembled */
-+	bool		frag_drop;	/* discarding until the next SOP */
- 	struct bcmgenet_net_dim dim;
- 	u32		rx_max_coalesced_frames;
- 	u32		rx_coalesce_usecs;
-
--- 
-2.53.0
-
+cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
+General information about the company can be found here:
+https://www.cm4all.com/impressum
+A member of the IONOS Group
