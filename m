@@ -1,180 +1,272 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F64D3D3D09;
-	Tue, 13 Oct 2026 10:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EE7409129
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:28:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887297; cv=none; b=q5UGgtBekUtGbhCn6pJ6gY08QK4W+Naphqjq/MLFkGXZIcMcJGPKanHySziSQqs52PvSG32zALSJJQYBge3WlxnheDqGJdmNXEAFtqlH182VHV53HVBD5E0q8hP3/Se64TzPTkqIRTnNJlmla4pnj7hAcQhDSWG1AB6zt4w9pBk=
+	t=1791887305; cv=none; b=oD6orKF32Qlobkk3uye3gFfmLP1ujaoZVc/o+0YDd8eDQTi3c0NAJn8SECWNawsdPpYCv0U7G6PIbN06Tq8NjZa6pvvnI3+x7hqcJtEX8KUsXvgWaLu3wd5iL/22m0p6QtgK5ds90b113LNghZQr0zK4ayH5lbNHl53U7D+KP6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887297; c=relaxed/simple;
-	bh=LQtwCzTZv9IKa34gpDGs1aWAkftPLXw1yX9wQJmTWAE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PQ6VATiLWXHq5C3OBcYN6sd03MJM/hq1etgcOePLi8vQzjaaelUVrYS3AaCjZDdBC6Nl76Ubp47ZKGpTDCJOUSGqbWgFLpJrF1d1YxJaaBydDSFZmSBdFsJ+Gin/V8/GjnnzU9SacX4tdHHQamXr4tHxKcYKfuV0TUkP3ZzeiR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gjW5Z16f; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791887305; c=relaxed/simple;
+	bh=Bs6NkZanZ3FzlfIXwwsrOu7fzbqyxxdgm9w+P9u7jwg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o1XbSBejKPf6nC30I9ekXDyKu49XL7ZlyKwdNwka4cJR4og1IW/OAm1If6jLgahcpQ5/rSLrVijki/m/ZmX6avTjqxKL+QOH8C4m8eZWEhTP1G3rJ6+pbf6TYoIW3LGqEHrWGlYyIY3g3bLDBQwkceUSqHVemfN22ljHqR7hY3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=qMC90L0s; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gjW5Z16f"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D94B5R483184;
-	Tue, 13 Oct 2026 10:28:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/kE2c2hIxQ1NWJAc7fqlCtVBzyeIOLR5HHjUX1s3gPw=; b=gjW5Z16fJmaPxGGL
-	Q+M+RLEZy3lDAyU/P3sm79RcOMERHrAkUFEg4b+864t9uFDbxSFyVC8HIy5JvF1L
-	KQBenvRusazHqPL8p0zDtbYaSneqHGoRfVfqqPyUA6Bv3Q0swdRow+5iYt5ds4V0
-	EF6jJ64whzRwxEE/u1prcbIdGw48jPhxkFXGEEmfce0L+34bLo+/i7Jh0TmpGuM7
-	OojnLu6JjomMpDysegDEfnc5CyJMbi4W0tYUubf10Tn6PnZ+kHX2o59aj4sHNkdt
-	B2urHAZXgwY0AYf8FllYkinhYaJEsW8+Hz06t9gjbuoeyRHyJu+zp5yVUoGOcjt7
-	Tb9/Dw==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9hpg8c4x-17
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 10:28:03 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D5pne2651545;
-	Tue, 13 Oct 2026 05:51:49 GMT
-Received: from hu-hgautam-hyd.qualcomm.com (hu-hgautam-hyd.qualcomm.com [10.147.247.91])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69D5plAV651483;
-	Tue, 13 Oct 2026 05:51:49 +0000 (GMT)
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 11:21:28 +0530
-Subject: [PATCH v9 05/10] ASoC: soc-core: Add snd_soc_of_xlate_dai_name()
- generic helper
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="qMC90L0s"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso865585a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:28:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791887300; x=1792492100; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AFB74tPON6fMev98Hd7HE9xGO0Iu+BsnVCNgiYERqag=;
+        b=qMC90L0s4zOAFtlzZ2gxqaRlsNxTiFFf6+qQLFLElg/dt/hBalnd4IevCs8Bs+TkxT
+         FNjLMs3WoDPWq4UgWn1rzVOXPPoTXyJ8LUU4yj5lNJZD+sL5lw1DGwALBPXMu2AdKzxz
+         PeDZiPkvdRu8s5IQgiaYdKpHElThHY3QkLh1jLJiVCJa+r0avm986tYxU5uEfMJ2KpwN
+         wHZePw2dbYU1RLQAxKVS+3mjPoCiIw3Se3rm6FGwcR5qtko0Tf48ZpUuUzHWzVtSt23I
+         OiTkhznw6t5MObJNgHgwatPHOBeXe31JoaHtaJyuDMt4RTsGDG4WcU3I2zdsZSa4v4/m
+         OqJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791887300; x=1792492100;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AFB74tPON6fMev98Hd7HE9xGO0Iu+BsnVCNgiYERqag=;
+        b=WIxQAnwzD83iWJJbEtZWNFJyl9kc9A/jYq5KTSC1R7SOnkrrlREekF+t/+8RgT/txJ
+         5nRg8Me+Offu6IDlveyBrxVFEpDEjhgVzpcPvj/xKrEk8yflLNwdM/ycB2fC6y3/yvJr
+         XXj5P+U3wJzttRMqwewLdXRFhwNZf/ylBSIFI6mujb+ZZL0sd2gh0mlY7zqKAC9rAwsy
+         FaZIdVCPQSbfxBmGFzyyxuBw3W2CEru3r9Nlmsu/6jqUXUmJkuPfUalRcnp/f2jZMq+f
+         skdgm+G90bVLCwNR9VnH244swa3LT6YBMIhkgONCGzrpZUBd3pj+l0CYwPRFDoDeApRy
+         CWXw==
+X-Forwarded-Encrypted: i=1; AKwUvBz1nFzW7VsG9dNJLJt1kmAsgnzMM8YloPCLYuxY6WclzPQuVCcD6on+QfrnxAuTUD64jRMHKxjmOps/ZFk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFqxgDUW62jWv81qPqPO8i1PE1zpfunvYaouV1m7FZbwrMkKBk
+	TNOtNwO3zY0oqXrdHX+043/sdqJPgj1QOr/jsc6lof/kUL+qx0sD0yRKsZ6oYWgzHfk=
+X-Gm-Gg: AYBFou3cmfCycJjDCM7s2d8F/mCB84/RsVYY2C73r4Pd68zm6nq69BNmtcRqwy3C/Au
+	I71nb6qoOdiz4iS3MZIzrYYgGlSuUjakm2sIbqpzhL+iV9cbeFX4WKAziUJ3VP1ElY036ze4j9r
+	QycyAL6zDrij9lNhSDzfoXvQeUH2SlAAOV5lxMy59DnR0NI5W/aOjlPvnFllGlv8ZMvbL1iISo1
+	R+D9wURQjmMQGcW25ln8tAU8k/kKRoqRkXDWTOJVae6VX+Am5aQqcC0ZGzNA5s0s5qEo1hiqKls
+	FyN3XWl1wfs89jDVlKG+a5Q8osqhaEqOCBTAEsrTgOPRuhinfgCOZrKO/4welwlfjjpwJJ1Y95t
+	I3hUMf0WuVC/0TSGxR22VUTRSrZiuH3YYz4nDKM392ykj8PDyz8aily/oBX2E8Rbr3Gsl6m63/k
+	66VZghsnQ0OqmZ5NBOcIWCDsr0KRs0fOjZx6QCJ/f/GCp9NOTtoklj5uOQfToA0MTybIHmZTkD3
+	fc0AQ==
+X-Received: by 2002:a17:90a:b90:b0:3a0:e4ce:31fd with SMTP id 98e67ed59e1d1-3ab3ac578d2mr6950807a91.10.1791887299793;
+        Tue, 13 Oct 2026 03:28:19 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ca1e04sm21494095a91.1.2026.10.13.03.28.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:28:19 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Nitesh Shetty <nj.shetty@samsung.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	gliuxen@gmail.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4] nvme: bound FDP config log reads to the received buffer
+Date: Tue, 13 Oct 2026 19:28:12 +0900
+Message-ID: <20261013102812.3020500-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-qaif-shikra-audio-v9-5-f3022e28f2fd@oss.qualcomm.com>
-References: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
-In-Reply-To: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: B2pP-vezObqntQcjdjB3UlPn3kj8wLuM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX0dx0Nbwge3of
- +TcQ2XhkLLohLcscsZ7pFuDj5wlt60EtkeTyHapN6TdyBNW/WQJ0ba4A3f10G1frFV6cmEuf+KE
- OVeIgRIh9MjfCqjn29Mr75613VLHbvU=
-X-Proofpoint-ORIG-GUID: B2pP-vezObqntQcjdjB3UlPn3kj8wLuM
-X-Authority-Analysis: v=2.4 cv=Z4Z5j3RA c=1 sm=1 tr=0 ts=6ace07b4 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=bovOucATokvHoRHO1osA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX39n7PXjshg4u
- pb7GPHJE+TDIzMC9wACNQrfiwFsVsSJeBnq8F1es9DNU7CiyyuGVH7nKnF35Fqgmv2DTCRMfmH+
- 2VzaLN8/ZKTawUD80A0EY5r7AZG/Qxw23XOu4Gk2sHIQ3FvoPhBcYS2NUeET9B1cFl1bwEPlGdM
- DR0PrYE5LJOMrQAr08iUKeuyK8PxbFLful/c0/Lu4Q94MVrcNJPAVziwv6BD08SO/2TPY4sO5sw
- 7n2O4A3c5a7ENxdZoV2uwfqLgqO20YmVpK8dw5iF2VSWfBpo3zz9YObsRYW9Tw4SpzrTwr8be95
- k/Inq03vfhzAahumnkqhxo5eez+G/Wb2MceVsp10R7z476tY53hSLJMRj8YKRPNm8QibHltaNt+
- 7QPbzrSZGqF8/Gziv48DKBAH6Ke8UQUFPV+dkr2nKXozpWloG4BdMwws3Dwhy0+pX9dUF4zNf4k
- pCPOWZMGWz4OZu0mVUw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 phishscore=0 bulkscore=0 adultscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130041
+Content-Transfer-Encoding: 8bit
 
-Some ASoC CPU DAI drivers need to resolve a sound-dai phandle argument
-to a DAI name by matching the argument against the component's DAI IDs.
-lpass-cpu carries a local implementation of this lookup.
+nvme_query_fdp_granularity() parses the FDP Configurations log using
+sizes the controller returns, without checking that they fit the buffer
+it was given.  The log size is only bounded from above before
+kvmalloc(), so a size below the log header makes
+le16_to_cpu(h->numfdpc) read past the allocation, and a size of zero
+yields ZERO_SIZE_PTR and faults.  Each configuration descriptor is then
+dereferenced (dsze while walking, and nrg and runs on the selected one)
+without checking that the whole descriptor lies within the buffer, so a
+descriptor at or past the end is read out of bounds.  The out-of-bounds
+runs value is then exposed to userspace through
+/sys/block/nvmeXnY/queue/write_stream_granularity.
 
-Add snd_soc_of_xlate_dai_name() to soc-core.c as a generic helper
-that can be assigned directly to the .of_xlate_dai_name component
-driver callback. It iterates the component's DAI list using
-for_each_component_dais() and matches by DAI ID.
+A device-supplied dsze that is not a multiple of eight also leaves the
+following descriptors unaligned, and the structure is not packed, so
+reading nrg and runs from one can fault on architectures without
+efficient unaligned access.
 
-Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+A malicious or buggy controller triggers this during namespace scan with a
+short FDP Configurations log:
+
+[    1.104828] BUG: KASAN: slab-out-of-bounds in nvme_alloc_ns+0x39a6/0x4480
+[    1.104848] Read of size 8 at addr ffff888009fd8fe0 by task kworker/u8:3/52
+[    1.104852]
+[    1.104857] CPU: 1 UID: 0 PID: 52 Comm: kworker/u8:3 Not tainted 7.3.0-rc6-00063-g0c2669a9f4a1 #1 PREEMPT(lazy)
+[    1.104862] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+[    1.104866] Workqueue: async async_run_entry_fn
+[    1.104873] Call Trace:
+[    1.104876]  <TASK>
+[    1.104878]  dump_stack_lvl+0x66/0xa0
+[    1.104886]  print_report+0xd0/0x630
+[    1.104893]  ? nvme_alloc_ns+0x39a6/0x4480
+[    1.104897]  ? __virt_addr_valid+0x209/0x3f0
+[    1.104903]  ? nvme_alloc_ns+0x39a6/0x4480
+[    1.104907]  kasan_report+0xe4/0x120
+[    1.104913]  ? nvme_alloc_ns+0x39a6/0x4480
+[    1.104919]  nvme_alloc_ns+0x39a6/0x4480
+[    1.104926]  ? __pfx_nvme_alloc_ns+0x10/0x10
+[    1.104931]  ? check_prev_add+0xfd/0xe80
+[    1.104942]  ? lock_acquire+0x18d/0x300
+[    1.104948]  ? nvme_find_get_ns+0xbb/0x2e0
+[    1.104952]  ? find_held_lock+0x2b/0x80
+[    1.104956]  ? nvme_find_get_ns+0x221/0x2e0
+[    1.104962]  ? nvme_find_get_ns+0x231/0x2e0
+[    1.104967]  ? nvme_scan_ns+0x2e1/0x8d0
+[    1.104971]  ? kfree+0x2e5/0x510
+[    1.104976]  ? __lock_acquire+0x570/0x1b00
+[    1.104982]  nvme_scan_ns+0x56a/0x8d0
+[    1.104987]  ? __pfx_nvme_scan_ns+0x10/0x10
+[    1.104994]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
+[    1.104999]  ? trace_hardirqs_on+0x18/0x160
+[    1.105005]  ? kvm_clock_get_cycles+0x19/0x40
+[    1.105011]  ? __pfx_nvme_scan_ns_async+0x10/0x10
+[    1.105015]  async_run_entry_fn+0x8d/0x290
+[    1.105020]  process_one_work+0x8ac/0x1b00
+[    1.105029]  ? __pfx_process_one_work+0x10/0x10
+[    1.105034]  ? lock_acquire+0x18d/0x300
+[    1.105040]  ? lock_is_held_type+0x8f/0x100
+[    1.105046]  ? __pfx_async_run_entry_fn+0x10/0x10
+[    1.105050]  worker_thread+0x4ee/0xe70
+[    1.105056]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
+[    1.105061]  ? trace_hardirqs_on+0x18/0x160
+[    1.105066]  ? __pfx_worker_thread+0x10/0x10
+[    1.105071]  ? __pfx_worker_thread+0x10/0x10
+[    1.105076]  kthread+0x2ce/0x3b0
+[    1.105080]  ? __pfx_kthread+0x10/0x10
+[    1.105085]  ret_from_fork+0x52e/0x780
+[    1.105090]  ? __pfx_ret_from_fork+0x10/0x10
+[    1.105094]  ? __switch_to+0x572/0xde0
+[    1.105101]  ? __pfx_kthread+0x10/0x10
+[    1.105105]  ret_from_fork_asm+0x1a/0x30
+[    1.105114]  </TASK>
+[    1.105116]
+[    1.105117] Allocated by task 52:
+[    1.105119]  kasan_save_stack+0x33/0x60
+[    1.105123]  kasan_save_track+0x14/0x30
+[    1.105126]  __kasan_kmalloc+0x8f/0xa0
+[    1.105129]  __kvmalloc_node_noprof+0x2e1/0x820
+[    1.105134]  nvme_alloc_ns+0x1097/0x4480
+[    1.105138]  nvme_scan_ns+0x56a/0x8d0
+[    1.105142]  async_run_entry_fn+0x8d/0x290
+[    1.105145]  process_one_work+0x8ac/0x1b00
+[    1.105148]  worker_thread+0x4ee/0xe70
+[    1.105152]  kthread+0x2ce/0x3b0
+[    1.105155]  ret_from_fork+0x52e/0x780
+[    1.105159]  ret_from_fork_asm+0x1a/0x30
+[    1.105163]
+[    1.105164] The buggy address belongs to the object at ffff888009fd8fc0
+[    1.105164]  which belongs to the cache kmalloc-32 of size 32
+[    1.105167] The buggy address is located 8 bytes to the right of
+[    1.105167]  allocated 24-byte region [ffff888009fd8fc0, ffff888009fd8fd8)
+[    1.105171]
+[    1.105172] The buggy address belongs to the physical page:
+[    1.105175] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x9fd8
+[    1.105179] flags: 0x100000000000000(node=0|zone=1)
+[    1.105183] page_type: f5(slab)
+[    1.105188] raw: 0100000000000000 ffff888008c41780 dead000000000100 dead000000000122
+[    1.105192] raw: 0000000000000000 0000000000400040 00000000f5000000 0000000000000000
+[    1.105194] page dumped because: kasan: bad access detected
+[    1.105195]
+[    1.105196] Memory state around the buggy address:
+[    1.105198]  ffff888009fd8e80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[    1.105201]  ffff888009fd8f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[    1.105203] >ffff888009fd8f80: fc fc fc fc fc fc fc fc 00 00 00 fc fc fc fc fc
+[    1.105205]                                                        ^
+[    1.105207]  ffff888009fd9000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
+[    1.105210]  ffff888009fd9080: fc fc fc fc fc fc fc fc 00 00 00 00 00 00 00 00
+[    1.105212] ==================================================================
+
+Reject a log smaller than its header plus one configuration descriptor,
+zero the buffer so a short transfer leaves no uninitialized tail to parse,
+require each descriptor's declared size to be at least a descriptor and to
+leave room for the next one before walking it, and read the descriptor
+fields with the unaligned accessors.
+
+Fixes: 30b5f20bb2dda ("nvme: register fdp parameters with the block layer")
+Cc: stable@vger.kernel.org
+Suggested-by: Kanchan Joshi <joshi.k@samsung.com>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- include/sound/soc.h  |  3 +++
- sound/soc/soc-core.c | 33 +++++++++++++++++++++++++++++++++
- 2 files changed, 36 insertions(+)
+v4: per Kanchan's review - require header plus one descriptor, fold the
+    per-descriptor bounds check into the walk (reject dsze < sizeof(desc),
+    covering the 1..63 values the old !dsze test allowed, and require the
+    next descriptor to fit).
+v3: read the descriptor fields with get_unaligned_le() (strict-align
+    hardening; verified via codegen, not on strict-align HW).
+v2: allocate the log buffer with kvzalloc() so a short Get Log Page
+    transfer leaves a zeroed, rejected tail.
+v1: https://lore.kernel.org/linux-nvme/20261008132604.1168105-1-yhlee@isslab.korea.ac.kr/
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 553bb7e2be98..6f15086f7313 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -1329,6 +1329,9 @@ int snd_soc_of_parse_tdm_slot(struct device_node *np,
- 			      unsigned int *rx_mask,
- 			      unsigned int *slots,
- 			      unsigned int *slot_width);
-+int snd_soc_of_xlate_dai_name(struct snd_soc_component *component,
-+			      const struct of_phandle_args *args,
-+			      const char **dai_name);
- void snd_soc_of_parse_node_prefix(struct device_node *np,
- 				   struct snd_soc_codec_conf *codec_conf,
- 				   struct device_node *of_node,
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 06167a198591..609706733bf1 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2906,6 +2906,39 @@ int snd_soc_of_parse_tdm_slot(struct device_node *np,
- }
- EXPORT_SYMBOL_GPL(snd_soc_of_parse_tdm_slot);
+ drivers/nvme/host/core.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 9bcab3dc4c118..389ef1ae53f17 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2272,13 +2272,18 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ 	}
  
-+/**
-+ * snd_soc_of_xlate_dai_name - Resolve a sound-dai phandle argument to a
-+ *                             DAI name by searching the component DAI list.
-+ * @component: ASoC component to search.
-+ * @args:      Phandle arguments from the sound-dai property; args[0] is the
-+ *             DAI ID.
-+ * @dai_name:  Output pointer set to the matched DAI name on success.
-+ *
-+ * Return: 0 on success, -EINVAL if args_count != 1 or no match is found.
-+ */
-+int snd_soc_of_xlate_dai_name(struct snd_soc_component *component,
-+			      const struct of_phandle_args *args,
-+			      const char **dai_name)
-+{
-+	struct snd_soc_dai *dai;
-+	int id;
-+
-+	if (args->args_count != 1)
-+		return -EINVAL;
-+
-+	id = args->args[0];
-+
-+	for_each_component_dais(component, dai) {
-+		if (dai->driver->id == id) {
-+			*dai_name = snd_soc_dai_name(dai);
-+			return 0;
-+		}
+ 	size = le32_to_cpu(hdr.sze);
++	if (size < sizeof(*h) + sizeof(*desc)) {
++		dev_warn(ctrl->device, "FDP config size too small:%zu\n",
++			 size);
++		return 0;
 +	}
-+
-+	return -EINVAL;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_of_xlate_dai_name);
-+
- void snd_soc_dlc_use_cpu_as_platform(struct snd_soc_dai_link_component *platforms,
- 				     struct snd_soc_dai_link_component *cpus)
- {
+ 	if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
+ 		dev_warn(ctrl->device, "FDP config size too large:%zu\n",
+ 			 size);
+ 		return 0;
+ 	}
+ 
+-	h = kvmalloc(size, GFP_KERNEL);
++	h = kvzalloc(size, GFP_KERNEL);
+ 	if (!h)
+ 		return -ENOMEM;
+ 
+@@ -2304,9 +2309,9 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ 	desc = log;
+ 	end = log + size - sizeof(*h);
+ 	for (i = 0; i < fdp_idx; i++) {
+-		u16 dsze = le16_to_cpu(desc->dsze);
++		u16 dsze = get_unaligned_le16(&desc->dsze);
+ 
+-		if (!dsze || log + dsze > end) {
++		if (dsze < sizeof(*desc) || log + dsze + sizeof(*desc) > end) {
+ 			dev_warn(ctrl->device,
+ 				 "FDP invalid config descriptor at index %d\n", i);
+ 			ret = 0;
+@@ -2316,13 +2321,13 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ 		desc = log;
+ 	}
+ 
+-	if (le32_to_cpu(desc->nrg) > 1) {
++	if (get_unaligned_le32(&desc->nrg) > 1) {
+ 		dev_warn(ctrl->device, "FDP NRG > 1 not supported\n");
+ 		ret = 0;
+ 		goto out;
+ 	}
+ 
+-	info->runs = le64_to_cpu(desc->runs);
++	info->runs = get_unaligned_le64(&desc->runs);
+ out:
+ 	kvfree(h);
+ 	return ret;
 
+base-commit: 0c2669a9f4a1d607e7591ae50ccf3c432a0aff08
 -- 
-2.34.1
+2.43.0
 
