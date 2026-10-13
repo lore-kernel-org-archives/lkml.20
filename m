@@ -1,33 +1,87 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B9F4B3B8BC4;
-	Tue, 13 Oct 2026 09:56:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B2521ABBB
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885411; cv=none; b=l46Osy25MpbprFeY0AuL1sRmLfsZ0/g0N8n33o14rzy5RVDFBeoOsVQOD+AS7I8H9Uev7FThqu3fi3igdHhBqCKqsshzh7Cx406HqbMrWY1EGGsM27YxPF+LN4v2AiClD+J9RM2juC9MqYdtTHA/on/XK5BM41xeEHL0fmFdDmc=
+	t=1791885432; cv=none; b=h1+RJnBJjOkLg+/r8hgzkudV5gheqIRX08cuzdJKQfEjBp5U7847N+xFZ/cudAR6GR80j6RX1VDCTFTpaEBQK1MIxFR6YJ61VwAI9daEo3n9rCa+YI13XKTW9Tkg97JUUwc5NWGeNNYPKhPyd2rQ2AZnwhs2L0wcJ7ofLVWnJ/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885411; c=relaxed/simple;
-	bh=2YBI+HNExmRWYOZipFDby651m/YqSXmPK4RnpA+3yK8=;
+	s=arc-20240116; t=1791885432; c=relaxed/simple;
+	bh=IUBu7wYhG92bCszbpUIow36ogJPjX28c1u6Ji400pEo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ntfmTnCFlTPblsypHDRWtI87zBzkpmO6+HgBCsHX+valyfm2lorNhfrE8/m/LYdheayQzy+mwDNwSovJbUAzTEo21qvUqyBDJrs2V4ikhKPwiiD3GT4kC3f6OStwuHaEjU8ymzika7YGyjRZNgwzSrAT92NonmKzEadeuez3PHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EFfKnIxB; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=TYe4tXxF/rOLyBRhb1HECFRcwcqSPaG1hP/o5FWJwI0tQt7vp9TgTwO1m9yyKqTCC4UM1GDBCrktVLma8iqfD0g28XWzP0ijr4++1Gy4BK1njeST41t5sJ2ctv2BAKimapcrSFbf0+eTlBQFffmbc/D4ShqaCCJrIk7Buqofm1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aZHkfNEF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=easdXY9V; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EFfKnIxB"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A88B7169C;
-	Tue, 13 Oct 2026 02:56:45 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7BFA3F7B4;
-	Tue, 13 Oct 2026 02:56:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791885409; bh=2YBI+HNExmRWYOZipFDby651m/YqSXmPK4RnpA+3yK8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=EFfKnIxBAePjQOmGwBCkTqFItC93LDqs/Ft5OLc1jDoCy03l/oyZ3xq3p/rErMXXf
-	 0VdGLyhM7eOk7ZyJTtVs8aIFAsg/9wEyCHieUebxsFY1M8DIyJVDY6i6nuZECOaCSS
-	 X1pb39YTxXfeN8zlu5iZYlhP9/6/v3k+kFfc4om4=
-Message-ID: <40f95078-4d3c-48da-9262-afadf231014f@arm.com>
-Date: Tue, 13 Oct 2026 15:26:40 +0530
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aZHkfNEF";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="easdXY9V"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791885430;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lqSjm367VUjfmKlJjO867N9e+hOQdSiN0ZNGwVg2kIo=;
+	b=aZHkfNEFP8BHS+De1dIOUjX092BRrLNFX7FBS+dSuQd6e/bGKAOocChLAmuRx/Xqc/wPtV
+	FDLywvAw1esjhWDkEhUpICIQfbFORBxwbEiv7nw1waKQ0MP+F4Kd/KqKQl2ZaSBDm/z9r9
+	kGrlUO0AnBu4h2WA47jE+PtI315yh+I=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-694-0HLLlaWfPES8JfvD59Txzw-1; Tue, 13 Oct 2026 09:57:09 +0000
+X-MC-Unique: 0HLLlaWfPES8JfvD59Txzw-1
+X-Mimecast-MFC-AGG-ID: 0HLLlaWfPES8JfvD59Txzw_1791885428
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48c511d9e97so1558452f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:57:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791885428; x=1792490228; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lqSjm367VUjfmKlJjO867N9e+hOQdSiN0ZNGwVg2kIo=;
+        b=easdXY9Vt3q0NptP/4L0L4rl5tyjZreuaSGbUE5FuquEuQtMgQVm32pu0DDyvZXrNI
+         FPPJ5QHTpdTkolNhf+fPexd9LTY2pHpwPoOt+mW20HnwdcvB7YTcjT5JIOb2jVPsr6PV
+         baVzM6fe/gE+wkt4SZILnkKhouxAZXdcDFxbWKQ7pPRxQM1PPhlcvcZuEo50k9MyiSqo
+         iffImXuydVmK5ojRakkQrCNFgbjRWwEE3JSXg/2IGkPmVJ0v74ZaiQvIQY0dGEIKC+aQ
+         qaSs8v2Cj1p8Mw7IFYhoOBGyAbGLQ7zm/RXTWOIyeCYbhvNiOP7NLi2A5vZGlgL8HGa0
+         KCRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791885428; x=1792490228;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lqSjm367VUjfmKlJjO867N9e+hOQdSiN0ZNGwVg2kIo=;
+        b=2DQx2udhuccWmzV+XT4BWlCEuCCHjDQovttCLY6c0QEt547fzPJ630M974qy3Bd9V9
+         UzgJmwFR6PkTFZLwz10A++8Uwxx0FOxX7QUBipkIkiahOhSySJlDvOuD4oCFI/9uY829
+         RXKGmUwsfQfXXxqfCj+S0WIMzV/74PNX+bz1/TUtv7h/AKC1hc97ToxIysaY9yC1FS1T
+         4IKwg8ts/D3orVo9VSzMtPOWRQiOqjvbITmjnZbj+U0Ou5s2aYXJ5CQD/8gB3Td4Ky2A
+         cJ8RAtev1F8uxt44S6k20HSRVGkvwylJ9W3LyS8bUqu8kF2VOYWexqTYayrwagg2dmuD
+         59XA==
+X-Forwarded-Encrypted: i=1; AKwUvBzRTSjo/q2H4+Uu7u0GvOE15mFbZrKTBV391h0LqGD6kLwdXlY6ERuX4eyxmzz8Iwb3yBCuwrCWu8HF2ew=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHsy5C1u0dXQLbmJYJjrPx0zYkyqmaQ/J7KhJvOoQj7b97Jnp/
+	3AiegzFstl+175y/xB7OANIUHbWsODgrXQwMs1uQfjGOoKg4o/w79YjbYyIa+Of7BcDobrjzmai
+	hzMDkjHdmDHkZNTYUKv0+jiOKrbpinIsm8764AQDgL1IPIqgMEoOMGtSSwOWNgUEeOQ==
+X-Gm-Gg: AYBFou3u+DFN6OZFkLoYI4kUL+zDNJygwClEKcDPdACxQV3clEUk/UKf6s00F7I/qPr
+	pDX65iR4P3YnrqOGD1qs7eFsYVMEHAjpyBIH6r29i0UqBL+mqyUpIVOgDzdk+9hB8wUWq1YxA1o
+	oiIXmpbqkYFZw5d8zHOTTw49oivatcQRpLx4GR1J/EMWVN2kT/9heeteHSP3HqHI7Un9KFY1lK2
+	+drZK6Nm9wfQTXE6NTbaTNhPWAQW+VIZ9CwOKcpMLXCJntupRnFvvYxsNRy8AqHF+IpHF0gjHZ+
+	6bIZ7rK61I0GW5IrhiMd+39kCOd3oT/GzvmV7j/cCilNp8enhKaKDjfPzMMYbqRBNZx3GC7xMD3
+	vvw1HR7yNyyAJGl3vkRAloNQZrEz+19Xbttel+Nb7kdn7tpmvowdBnr6B6lcpVK+n77XAi0w2CQ
+	==
+X-Received: by 2002:a05:6000:46d3:b0:487:40d:af3a with SMTP id ffacd0b85a97d-48dba781a73mr13828295f8f.2.1791885428170;
+        Tue, 13 Oct 2026 02:57:08 -0700 (PDT)
+X-Received: by 2002:a05:6000:46d3:b0:487:40d:af3a with SMTP id ffacd0b85a97d-48dba781a73mr13828256f8f.2.1791885427776;
+        Tue, 13 Oct 2026 02:57:07 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc50e0sm5431099f8f.49.2026.10.13.02.57.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 02:57:07 -0700 (PDT)
+Message-ID: <23649f43-f015-4754-be50-94e2bfe40c4d@redhat.com>
+Date: Tue, 13 Oct 2026 11:57:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,136 +89,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] kselftest: mm: remove HPAGE_SIZE and HPAGE_SHIFT
- macro
-To: Yeoreum Yun <yeoreum.yun@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Peter Xu <peterx@redhat.com>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
-References: <20261013-fix_hpage_macro-v6-0-2c52d0484de3@arm.com>
- <20261013-fix_hpage_macro-v6-2-2c52d0484de3@arm.com>
+Subject: Re: [PATCH net] bnge: skip dev_addr when building the VNIC unicast
+ list
+To: Vikas Gupta <vikas.gupta@broadcom.com>, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, andrew+netdev@lunn.ch, horms@kernel.org
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com,
+ vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com,
+ dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
+References: <20261006141928.1432927-1-vikas.gupta@broadcom.com>
 Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <20261013-fix_hpage_macro-v6-2-2c52d0484de3@arm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261006141928.1432927-1-vikas.gupta@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Yeoreum!
+On 10/6/26 16:19, Vikas Gupta wrote:
+> The default VNIC programs the device's MAC as L2 filter 0 in
+> bnge_init_chip() via bnge_hwrm_set_vnic_filter(bn, 0, 0, dev_addr).
+> bnge_cfg_rx_mode() then walks dev->uc and programs each unicast
+> address as a further L2 filter, without excluding dev_addr.
+> 
+> Skip dev_addr when building uc_list, since it is already installed as
+> filter 0. As dev_addr now takes neither a uc_list slot nor an
+> l2_filters[] slot, count only the non-dev_addr entries for the
+> uc_list overflow check too, otherwise an input such as
+> {dev_addr, A, B, C} would needlessly fall back to promiscuous mode
+> even though A, B and C fit in exact-match filters.
+> bnge_uc_list_updated() applies the same skip and count so the
+> change detection stays consistent and does not loop.
+> 
+> This issue was caught by Sashiko (nipa).
+> 
+> Tested on Thor Ultra device.
+> 
+> Fixes: 9afad4a17174 ("bng_en: Configure default VNIC")
+> Signed-off-by: Vikas Gupta <vikas.gupta@broadcom.com>
+> Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
+FTR, redirecting this to net-next, due to Linus guidance for smaller
+RCs and the above giving AFAICS some perf improvement in corner-cases
+over the original code dating back to its introduction.
 
-On 10/13/26 3:16 PM, Yeoreum Yun wrote:
-> HPAGE_SIZE and HPAGE_SHIFT macro is written based on the 4KB PAGE_SIZE.
-> When this macro is used in some test, test result would be strange in
-> the system where PAGE_SIZE is more then 4KB.
-> 
-> Here is the example with transhuge-stress test with 16KB PAGE_SIZE:
-> 
->   transhuge-stress: allocate 61073 transhuge pages, using 122146 MiB virtual memory and 1908 MiB of ram
->     3.292 s/loop, 0.054 ms/page,  37106.002 MiB/s	2566 succeed, 58507 failed, 2566 different pages
->     0.591 s/loop, 0.010 ms/page, 206850.792 MiB/s	   0 succeed, 61073 failed,    0 different pages
->     0.527 s/loop, 0.009 ms/page, 231895.107 MiB/s	   0 succeed, 61073 failed,    0 different pages
->     0.527 s/loop, 0.009 ms/page, 231839.704 MiB/s	   0 succeed, 61073 failed,    0 different pages
->     0.528 s/loop, 0.009 ms/page, 231544.782 MiB/s	   0 succeed, 61073 failed,    0 different pages
->     0.528 s/loop, 0.009 ms/page, 231462.074 MiB/s	   0 succeed, 61073 failed,    0 different pages
->     0.527 s/loop, 0.009 ms/page, 231770.300 MiB/s	   0 succeed, 61073 failed,    0 different pages
->     ...
->   ok 1 Completed
-> 
-> Remove the HPAGE_SIZE and HPAGE_SHIFT macro and introduce pmd_pshift()
-> helper to get the HPAGE_SHIFT properly. For HPAGE_SIZE, use pre-existing
-> helper, pmd_psize().
-> 
-> Also, run the KSM_MERGE_TIME_HUGE_PAGES test with a size of 512 MiB,
-> which is the least common multiple of the PMD sizes for 4 KiB, 16 KiB,
-> and 64 KiB base pages. Since allocate_transhuge() allocates mappings in
-> PMD-sized units, the test may fail with the previous size of 100 MiB,
-> which is not a multiple of the PMD size when the base page size is
-> 16 KiB or 64 KiB.
-> 
-> After this patch, output of transhuge-stress:
-> 
->   transhuge-stress: allocate 3817 transhuge pages, using 122146 MiB virtual memory and 119 MiB of ram
->     2.558 s/loop, 0.670 ms/page,  47755.759 MiB/s	2585 succeed, 1232 failed, 2585 different pages
->     2.640 s/loop, 0.692 ms/page,  46268.432 MiB/s	2585 succeed, 1232 failed, 2585 different pages
->     2.635 s/loop, 0.690 ms/page,  46360.298 MiB/s	2585 succeed, 1232 failed, 2585 different pages
->     2.782 s/loop, 0.729 ms/page,  43899.795 MiB/s	2616 succeed, 1201 failed, 2616 different pages
->     2.692 s/loop, 0.705 ms/page,  45380.876 MiB/s	2627 succeed, 1190 failed, 2627 different pages
->     2.612 s/loop, 0.684 ms/page,  46765.812 MiB/s	2628 succeed, 1189 failed, 2628 different pages
->     2.683 s/loop, 0.703 ms/page,  45520.990 MiB/s	2630 succeed, 1187 failed, 2630 different pages
->     2.727 s/loop, 0.714 ms/page,  44789.321 MiB/s	2631 succeed, 1186 failed, 2631 different pages
->     ...
->   ok 1 Completed
-> 
-> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
-
-[...]
-
-> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> index 5f2fb5b819c4a..efd99298be135 100644
-> --- a/tools/testing/selftests/mm/vm_util.c
-> +++ b/tools/testing/selftests/mm/vm_util.c
-> @@ -21,6 +21,8 @@
->  
->  unsigned int __page_size;
->  unsigned int __page_shift;
-> +uint64_t __pmd_psize = -1ull;
-> +uint64_t __pmd_pshift = -1ull;
->  
->  uint64_t pagemap_get_entry(int fd, char *start)
->  {
-> @@ -161,19 +163,40 @@ uint64_t pmd_psize(void)
->  	char buf[20];
->  	ssize_t num_read;
->  
-> +	if (__pmd_psize != -1ull)
-> +		return __pmd_psize;
-> +
->  	fd = open(PMD_SIZE_FILE_PATH, O_RDONLY);
-> -	if (fd == -1)
-> +	if (fd == -1) {
-> +		__pmd_psize = 0;
->  		return 0;
-> +	}
->  
->  	num_read = read(fd, buf, 19);
->  	if (num_read < 1) {
-> +		__pmd_psize = 0;
->  		close(fd);
->  		return 0;
->  	}
->  	buf[num_read] = '\0';
->  	close(fd);
->  
-> -	return strtoul(buf, NULL, 10);
-> +	__pmd_psize = strtoul(buf, NULL, 10);
-> +
-> +	return __pmd_psize;
-> +}
-> +
-> +uint64_t pmd_pshift(void)
-> +{
-> +	if (__pmd_pshift != -1ull)
-> +		return __pmd_pshift;
-> +
-> +	if (__pmd_psize != -1ull)
-> +		__pmd_psize = pmd_psize();
-
-Kiryl pointed this out in v5 [1], you might have missed it. This check
-seems to be inverted.
-
-[1] https://lore.kernel.org/all/asj4dT2Q__SlKhgr@thinkstation/
+/P
 
