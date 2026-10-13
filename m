@@ -1,144 +1,97 @@
-Received: from mta0.migadu.com (out-145.mta0.migadu.com [91.218.175.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D07503BEF
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB22503BF1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897139; cv=none; b=T02bKv/ComWZu18Gh9eKTQurW1337CV2E6vPIQ+rjPwj1fksqN7/TIiu1e/96c7kByc89Ho2+kgFNeV/5S3p1/Tf7As6efBvv1BorKjzHN1D/KOs6ynGyeLgGSWIbV/KRphfm7NwoxfesOeIBWqXEIGfGAap09JxSHM0+B0Hy4c=
+	t=1791897139; cv=none; b=ZO+LkgpKegnp4BqpIYEuVak+30xJv07h1Z2bqGfcBlJ1jav4sVJDyJefnPQThhzkS6iO651s3OGHjzTLMl9cSeoRV+h3Yk0leCUPFiN4o+MHbLLI+HlW68adh67Q00Ehsj3/PLq9YpU3GAhZed+MT0tZTNc3EmQWqlTTCerAG74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791897139; c=relaxed/simple;
-	bh=GxGoMm4vBKXboCWqEywkB1ImT232d0kryycTPDywOvA=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=ngsGkpI2I5vAjgBlUOsn20M063afPN2JSaCNuV5fo/vInYFBm1uPHUV2DUPzOQKbIn6wZutDj20aHA16iOT2JUfR3McFyxzTfmbC1MHEahmgnbFvYrLFzTMnux93rxtvRqdm8Tqbq4Wv7kSeruy0DApHhYiS141py5PgS+2yCfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kzZB8/lw; arc=none smtp.client-ip=91.218.175.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=U6IcePdthCGZiad3lXSLFaN3vxoXD05wVK+ZJ+U5+zI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EZ1Mx5Fm+1CKade0SF+V3AvQ0wb1/FP9y899nwA/ZlktgpT4IYmRYwQ77SvltPMMi6DpZG5BqDjnUQWH71QsFwv5fSqTDLNQ4X3SsvhtftC2lS0VKvTn8EYk+xFlsgAoCVz7PSBfjU6NYQhQjk+gMLndZIzs/nqdOceoDC86lLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TSXE35DK; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kzZB8/lw"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GxGoMm4vBKXboCWqEywkB1ImT232d0kryycTPDywOvA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791897134; v=1; x=1792501934;
- b=kzZB8/lwMeNbLUdjZV8TbLFvLtF/o6EeW3PgDCK1gNj1AtCu4JTADoRJAj7+NAEiWAI1SD+I
- ZB98d8xRPaNVKGRWOmr/TuRrhhwIgwtPKyDbYQJCvk5cmojxhNPFHD1mKBrWB1SORqZKqVI9Xnz
- ZT353KTwb/kXSmHdCxkGwcxk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 66a73f73837eb63b;
-	Tue, 13 Oct 2026 13:12:14 +0000
-X-Mizu-Trace-ID: 66a73f73837eb63b
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 13 Oct 2026 16:12:04 +0300
-From: Denis Benato <denis.benato@linux.dev>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Ahmed Yaseen <yaseen@ghoul.dev>, Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Antheas Kapenekakis <lkml@antheas.dev>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Kerim Kabirov <the.privat33r+linux@pm.me>,
-	GameBurrow <gameburrow@pm.me>, regressions@lists.linux.dev,
-	linux-usb@vger.kernel.org, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Message-ID: <2f85200c-ecc3-4318-9156-16ace09cac7f@linux.dev>
-In-Reply-To: <fe51a4ac-540f-4d14-ba76-b69b0eb17164@leemhuis.info>
-References: <20260828104159.62399-1-yaseen@ghoul.dev> <20260828104159.62399-2-yaseen@ghoul.dev> <fe51a4ac-540f-4d14-ba76-b69b0eb17164@leemhuis.info>
-Subject: Re: [PATCH v2] HID: usbhid: skip interrupt IN polling for devices
- with no input reports
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TSXE35DK"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6AC001A1216;
+	Tue, 13 Oct 2026 13:12:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3FD8F60362;
+	Tue, 13 Oct 2026 13:12:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5C96011D71253;
+	Tue, 13 Oct 2026 15:12:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791897135; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=bz29orfNA7C8pW4YJSE6YqNm1XeS4qPm2yekmF+Eb8M=;
+	b=TSXE35DKBQWfcnwSoqKyl9t/E3xJOdNjRCWOFmQ44wUgJmsoCAziKbuZ8R2ubWvmR0VVem
+	6AEYuuK2L9/g2TXBzJhlaylSSwthjYi7XWbSeb2UOH8wRdWAEetV85DbfTIQshjMqcKXpj
+	R+fpFeo2jeWAZR1u0FeoFt7p0YikzHTpUH8gMYOe3KQlFVJofN41GaMhyxWc7tGkEjFgF6
+	q86P35GtjnoWtkMuvXkaRSiuXOedlQ1sDwESaL0ob36/bwlLISMnucxMCTuR29J83mLwCo
+	WEODMDh09+ejfhhWjBjjgb/8eSfsfNdQK9RfqmLxFz0+MhVnY9ft50P94hEF1g==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Date: Tue, 13 Oct 2026 15:11:29 +0200
+Subject: [PATCH v8 03/20] crypto: talitos - Add missing includes to driver
+ header file
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <2f85200c-ecc3-4318-9156-16ace09cac7f@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-7-3-rc2_talitos_cleanup-v8-3-ca02be17696b@bootlin.com>
+References: <20261013-7-3-rc2_talitos_cleanup-v8-0-ca02be17696b@bootlin.com>
+In-Reply-To: <20261013-7-3-rc2_talitos_cleanup-v8-0-ca02be17696b@bootlin.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: Paul Louvel <paul.louvel@bootlin.com>, linux-crypto@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Christophe Leroy <chleroy@kernel.org>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791897108; l=895;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=U6IcePdthCGZiad3lXSLFaN3vxoXD05wVK+ZJ+U5+zI=;
+ b=rkdYxaVAzuDB9lae0rKuiPo6KI5fDBDiGMU41GbRr5HGC5YZ1lPJ/z/2oUXuUrERCYnVs3zOU
+ G0YR07/LEZfDUWnSRMAHkw8OTO4MQE4wPSQGRLw/RxijDtWYaFqnF7W
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-13 ott 2026 15:55:33 Thorsten Leemhuis <regressions@leemhuis.info>:
+Add explicit includes for types used by the header file to make
+it self-contained and fix implicit include dependencies.
 
-> On 8/28/26 12:42, Ahmed Yaseen wrote:
->> usbhid starts polling a device's interrupt IN endpoint on open
->> (usbhid_open() -> hid_start_in()). If the report descriptor declares no
->> input reports there is nothing to read there, so the poll is useless,
->> and on some composite devices it is also harmful.
->>
->> The ASUS ROG N-Key keyboards expose a second, input-less interface used
->> only for RGB control via feature reports. Opening its hidraw node (any
->> hidraw reader does, including SDL/Steam Input or a plain cat) starts the
->> pointless IN poll and keypress reports on the keyboard interface get
->> dropped for as long as the node stays open: a lost key-down drops a
->> letter, a lost key-up leaves the key stuck. usbmon shows the dropped
->> reports never reach the URB layer.
->>
->> The useless poll itself is long-standing; commit 4ac74ea68f64 ("HID:
->> asus: early return for ROG devices") is what exposes it on these
->> devices by keeping the input-less interface alive instead of ejecting
->> it, so its hidraw node can be opened and the poll started.
->
-> Hmmm, what's the status here? Ahmed, is this still needed, or was this
-> fixed in some other way? From the the outside it looks a lot like this
-> regression fix feel through the cracks, but would be good to get into
-> 7.4-rc1 to finally fix the dropped keypress reports.
->
+Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+---
+ drivers/crypto/talitos/talitos.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Hi Thorsten,
+diff --git a/drivers/crypto/talitos/talitos.h b/drivers/crypto/talitos/talitos.h
+index d4ff8d589f46..56e36a65ddcc 100644
+--- a/drivers/crypto/talitos/talitos.h
++++ b/drivers/crypto/talitos/talitos.h
+@@ -5,6 +5,12 @@
+  * Copyright (c) 2006-2011 Freescale Semiconductor, Inc.
+  */
+ 
++#include <linux/device.h>
++#include <linux/hw_random.h>
++#include <linux/interrupt.h>
++#include <linux/scatterlist.h>
++#include <linux/types.h>
++
+ #define TALITOS_TIMEOUT 100000
+ #define TALITOS1_MAX_DATA_LEN 32768
+ #define TALITOS2_MAX_DATA_LEN 65535
 
-This is very much needed and we had to include it in OGC kernel to avoid hi=
-d devices resetting constantly.
-
-It is a very important fix and we are waiting for inclusion upstream becaus=
-e games becomes flat out unplayable with certain combination of tools.
-
-Best regards,
-Denis Benato
-
-> Ciao, Thorsten
->> Skip the poll in usbhid_open() when the device has no input reports.
->> Feature reports and hidraw output keep working over the control and OUT
->> endpoints, so the interface is otherwise unaffected.
->>
->> Fixes: 4ac74ea68f64 ("HID: asus: early return for ROG devices")
->> Link: https://discuss.cachyos.org/t/keyboard-input-issues-on-asus-rog-st=
-rix-16-2025-with-cachyos-during-gaming/30823
->> Link: https://github.com/ublue-os/bazzite/issues/4590
->> Cc: stable@vger.kernel.org
->> Tested-by: Kerim Kabirov <the.privat33r+linux@pm.me>
->> Tested-by: GameBurrow <gameburrow@pm.me>
->> Signed-off-by: Ahmed Yaseen <yaseen@ghoul.dev>
->> Reviewed-by: Denis Benato <denis.benato@linux.dev>
->> ---
->> drivers/hid/usbhid/hid-core.c | 9 ++++++++-
->> 1 file changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/hid/usbhid/hid-core.c b/drivers/hid/usbhid/hid-core=
-.c
->> index 96b0181cf819..d7cf2b56e117 100644
->> --- a/drivers/hid/usbhid/hid-core.c
->> +++ b/drivers/hid/usbhid/hid-core.c
->> @@ -688,7 +688,14 @@ static int usbhid_open(struct hid_device *hid)
->>
->> =C2=A0=C2=A0=C2=A0 set_bit(HID_OPENED, &usbhid->iofl);
->>
->> -=C2=A0=C2=A0 if (hid->quirks & HID_QUIRK_ALWAYS_POLL) {
->> +=C2=A0=C2=A0 /*
->> +=C2=A0=C2=A0=C2=A0 * ALWAYS_POLL devices are already polled from usbhid=
-_start(), and a
->> +=C2=A0=C2=A0=C2=A0 * device with no input reports has nothing to send o=
-n the interrupt
->> +=C2=A0=C2=A0=C2=A0 * IN endpoint. In some cases polling is harmful: on =
-the ASUS ROG
->> +=C2=A0=C2=A0=C2=A0 * N-Key keyboards it makes the sibling interface dro=
-p keypresses.
->> +=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0 if ((hid->quirks & HID_QUIRK_ALWAYS_POLL) ||
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 list_empty(&hid->report_enum[HID_I=
-NPUT_REPORT].report_list)) {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 res =3D 0;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto Done;
->> =C2=A0=C2=A0=C2=A0 }
->>
->> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+-- 
+2.56.0
 
