@@ -1,253 +1,630 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FC951CF74;
-	Tue, 13 Oct 2026 18:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BA15326B1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791915999; cv=none; b=Lp1Q7stWndHLSoh9jZy1Zxw9hEQDC6JvXGWUcibpW4nZfqp3lMlwlRwTu87OI6GKK0bicvtMg/Ncvpv7mAZ6rjl1qZ3/Rgp35JU0hS/t+fDpmjTZbgwNPp64+URIM+t9MlaX5PSBFCX2Km4NzM64T49zjwi416gkd6fxM2wkl7w=
+	t=1791915999; cv=none; b=be2mj//+vkCuQPbJdz8hqU3N/iV0XrB0QzhUMy+muIORPaAw+l4GmDpKTRczGCjRXU4SBIRVQAQNDTPZ2M7H0tCYQ2b+27+mvW8sZ7wDjp9Y3PadT0sGcXEfV+ReA1TMpyR6ITBZsvdxHfe2acRIYkspgYDgQ6ScyFVm5WdF6Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791915999; c=relaxed/simple;
-	bh=yC1WRCeiq7ucioYsTgktt/uQi9fB/dzQmGzBnhikiQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AvmScbF1sb+NRK1y01r7UYlkpFXVRaetnbgHlf8i1DXiG2dk29wyt0NvPG/XG8b/ivJC1074zHTjhWhW0VnQ/myCtA9AKs27r+ZGjpauO/ZXs88oTQKyS4Q6V3Yy3bZFWpp+XmaUNUlGQC1fZdX48idRPWQ/T1Pqr7+b/1xYFRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hUMOuw6u; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	bh=gevvb7bHhYFBjyGLidhmfNLuEdRQ2SS0zDJadhNVoCo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ER1xSPlnoVIVxRG1U9OEgtW+oHU7FjMTBzXYdouseo6lPe7W/mLw1jItjTlQkv3yxeEovZ5x96SLO03Jh46KY853/kM/GBkkqSvX+vbDrw/Eqas86vo67mZp1PdM0SwdX6WD4U/LPF+5IRoHfXUq/opG5V2wthwkxyTR4IT0fZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qr8fciCu; arc=none smtp.client-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hUMOuw6u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791915997; x=1823451997;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=yC1WRCeiq7ucioYsTgktt/uQi9fB/dzQmGzBnhikiQE=;
-  b=hUMOuw6ue25uYukjziR4Fbrdl4xdjIMbvBKpaEGlhVoLEuZNu2Ftcq7Z
-   5fxpPjZfWU66Eg376+jA6/+iMjG4cJuc8Eh0vZDsNYRrBoNS8uk5w8pHX
-   8bpHBFo86N28WJ7ppa2pUeii5nftF5QxngpEaO3vTo/keP5BiHjLZuN2r
-   lxxUgjg4iCiq7TeN0KqVDitdAaB867Scw4E2CqvFldbu+dwqfMO3MjDyP
-   TzU2Zb4WjWyG3ApTggwB3cxJcvJQuRbFY9lf9SUPksfPnjWzK5w1p4L1u
-   q6kuTFe9vVDHzVLCL/0Q7g4EKbfQjuJurSl1Zvw0R1LG0BwAmDCV2J8PX
-   Q==;
-X-CSE-ConnectionGUID: smK9u4g9Qw6O6MEi1KNcAA==
-X-CSE-MsgGUID: uh6El9fbQs+Hod6fWrJ/kA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="754595"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="754595"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:26:37 -0700
-X-CSE-ConnectionGUID: yKTSUU5tRJe2nb6pBrCEkw==
-X-CSE-MsgGUID: /sSK9qWpQgynySH4dgyj2Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1157525"
-Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
-  by orviesa005.jf.intel.com with ESMTP; 13 Oct 2026 11:26:34 -0700
-From: Ajay KV <ajay.k.v@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: chandrashekar.devegowda@intel.com,
-	kiran.k@intel.com,
-	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	marcel@holtmann.org,
-	stable@vger.kernel.org,
-	chethan.tumkur.narayan@intel.com,
-	lakshmipathi.k@intel.com,
-	Ajaykv <ajay.k.v@intel.com>
-Subject: [PATCH v1 2/3] Bluetooth: btintel_pcie: Validate the YoYo DEBUG_INFO TLV
-Date: Tue, 13 Oct 2026 21:26:25 +0300
-Message-ID: <20261013182627.81957-2-ajay.k.v@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013182627.81957-1-ajay.k.v@intel.com>
-References: <20261013182627.81957-1-ajay.k.v@intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qr8fciCu"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3552883bd19so3882587eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:26:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791915996; x=1792520796; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ozfFjnk5qB1WJx1yNE8iXoEJAHneqi+RSXaDHWfrXOg=;
+        b=qr8fciCu2N97lz++wJruEzZp9RuMdM74a9mbRPdPzh4BRrcSRwhWImWCQpWrQj9diq
+         2PCzIK1h/6Q2IONSMYoAzRb2SX9+2LGGyLUU2E5aebLvXzXW7FcxzvlgkKSDRAwulpYJ
+         NStqzPg9o2RJ4L77QFxEG+Y31hFfUlaes3/MM2Be0kP+heq7nIvfq1oPxCFS8u6ii2aN
+         whTp7hNiTDxvT1HUcbjiTmYdaHDQWeEwlmbFGvp3Zo7aJlJPfe5wFceVX98/IDcANic/
+         /A1epRJp/TLNwqf9hoF5OrlAexjbXtTxz/Hu+BPc1PoqZOvYpEsOZnP9VdK8DgCr+sAm
+         7NVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791915996; x=1792520796;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ozfFjnk5qB1WJx1yNE8iXoEJAHneqi+RSXaDHWfrXOg=;
+        b=hbemHR9b/+33S2QK8dWkWzTVE9837bbJ8abAnt0hsLV9HAejP9/3qof5mgUino4M5A
+         KhjxFSS6hvtD6zClBy2/jYEaqU5TjhNqUeUq17Brw7hsZlA+VOS9f9Kak4EWu3T6Vdla
+         WcqTiJzCSyDN+Cp07J5ym7WG+cWTtW+2lswklz5PFDInBK4GbsCvn8WOeu3XhImGOxkt
+         aRn939s6p4cqbK7XaHJL/J73n4OlFKUjc60e2H+aeQnARTa9e2pWRKLQVj02m8GPYsXl
+         Z6pTNhbwWvkO0AVPjlBS+d5Rcf2sWAAAG0rQDX5I/sj/fsSLjQt8ZK0WE0f0puG9uTmC
+         swHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzVQKPp5tzSDO/DA898LZNxgy5MW1mbNWQX5/SQmaA+PAWa26XODH07vf1DoBOOSp6yq/rzJ6oOmcP2Jy0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXoQzF/uYdaaegY2v/EjI0zTaOiIodZnStlIpl+4d9Fg/pD1yw
+	jbnkz1ivXKJkZgszddPMiGajbSygC2LW8aUjht75zFVW57amlDESaTT3uvI79x+AI8SCdvw6KmO
+	T5Ot1HCtTkA==
+X-Received: from dycpv7.prod.google.com ([2002:a05:7300:de07:b0:351:4a2a:1ece])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:dd49:b0:358:3426:d601
+ with SMTP id 5a478bee46e88-3583426df44mr15314912eec.2.1791915995099; Tue, 13
+ Oct 2026 11:26:35 -0700 (PDT)
+Date: Tue, 13 Oct 2026 11:24:51 -0700
+In-Reply-To: <20261013182458.1234616-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261013182458.1234616-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261013182458.1234616-4-irogers@google.com>
+Subject: [PATCH v1 03/10] tools headers: Synchronize linux/compiler-context-analysis.h
+ with the kernel sources
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Marco Elver <elver@google.com>
+Cc: Bart Van Assche <bvanassche@acm.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ajaykv <ajay.k.v@intel.com>
+Replace the no-op stub tools/include/linux/compiler-context-analysis.h
+with the full kernel implementation from
+include/linux/compiler-context-analysis.h and add it to
+tools/perf/check-headers.sh so future changes are tracked.
 
-Require a DEBUG_INFO TLV in the YoYo firmware configuration. Validate
-its payload length, TLV version, Bluetooth domain, external image type,
-and Bluetooth core type before accepting the configuration.
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ .../include/linux/compiler-context-analysis.h | 518 ++++++++++++++++--
+ tools/perf/check-headers.sh                   |   1 +
+ 2 files changed, 480 insertions(+), 39 deletions(-)
 
-Reject missing or invalid metadata so the driver keeps legacy DBGC
-defaults instead of enabling an incompatible configuration.
-
-Signed-off-by: Ajaykv <ajay.k.v@intel.com>
-
-diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
-index 0e933f4ec376..615996232cdf 100644
---- a/drivers/bluetooth/btintel_pcie_debug.c
-+++ b/drivers/bluetooth/btintel_pcie_debug.c
-@@ -11,11 +11,59 @@
- 
- #include <linux/errno.h>
- #include <linux/module.h>
-+#include <linux/stddef.h>
- #include <linux/string.h>
- #include <linux/unaligned.h>
- #include <net/bluetooth/bluetooth.h>
- #include "btintel_pcie_debug.h"
- 
-+/* TLV-specific parser DEBUG_INFO TLV type */
-+static int btintel_pcie_yoyo_parse_dbg_info(struct btintel_pcie_yoyo_ctx *ctx,
-+					    const struct btintel_pcie_tlv_dbg_info *info,
-+					    u32 len)
-+{
-+	const u8 *data = (const u8 *)info;
-+	u32 domain, image_type, core_type, version;
-+
-+	if (len != sizeof(*info) - sizeof(struct btintel_pcie_tlv_hdr))
-+		return -EBADMSG;
-+
-+	image_type = get_unaligned_le32(data +
-+				       offsetof(struct btintel_pcie_tlv_dbg_info,
-+						image_type));
-+	core_type = get_unaligned_le32(data +
-+				      offsetof(struct btintel_pcie_tlv_dbg_info,
-+					       core_type));
-+	domain = get_unaligned_le32(data +
-+				   offsetof(struct btintel_pcie_tlv_dbg_info,
-+					    dbg_hdr.domain));
-+	version = get_unaligned_le32(data +
-+				     offsetof(struct btintel_pcie_tlv_dbg_info,
-+					      dbg_hdr.tlv_data_version));
-+
-+	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
-+	    version != BTINTEL_PCIE_DBG_INFO_TLV_VERSION) {
-+		BT_WARN("YoYo: unsupported domain/version (%u/%u), disabling",
-+			domain, version);
-+		return -EINVAL;
-+	}
-+
-+	if (image_type != BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL) {
-+		BT_WARN("YoYo: unsupported image_type 0x%x, disabling", image_type);
-+		return -EINVAL;
-+	}
-+
-+	if (core_type != BTINTEL_PCIE_CORE_TYPE_BT) {
-+		BT_WARN("YoYo: non BT core_type %u, disabling", core_type);
-+		return -EINVAL;
-+	}
-+
-+	ctx->dbg_info_present = true;
-+	BT_DBG("YoYo: config='%.64s' image=%u core=%u",
-+	       info->config_name, image_type, core_type);
-+	return 0;
-+}
-+
+diff --git a/tools/include/linux/compiler-context-analysis.h b/tools/include/linux/compiler-context-analysis.h
+index 13a9115e9e58..024e303188ad 100644
+--- a/tools/include/linux/compiler-context-analysis.h
++++ b/tools/include/linux/compiler-context-analysis.h
+@@ -1,42 +1,482 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef _TOOLS_LINUX_COMPILER_CONTEXT_ANALYSIS_H
+-#define _TOOLS_LINUX_COMPILER_CONTEXT_ANALYSIS_H
+-
  /*
-  * Parse the optional YoYo firmware TLV stream and validate each record.
-  * This is the entry point for the runtime debug configuration payload.
-@@ -27,6 +75,7 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 	const u8 *ptr = buf;
- 	size_t remaining = buf_len;
- 	u32 count = 0;
-+	int ret = 0;
- 
- 	while (remaining >= sizeof(*tlv)) {
- 		size_t tlv_size;
-@@ -45,6 +94,13 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 
- 		switch (type) {
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_INFO:
-+			ret = btintel_pcie_yoyo_parse_dbg_info(ctx,
-+							       (const void *)tlv, len);
-+			if (ret) {
-+				ctx->dbg_info_present = false;
-+				return ret;
-+			}
-+			break;
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
-@@ -105,6 +161,7 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
- 		return;
- 
- 	ctx->enabled = false;
-+	ctx->dbg_info_present = false;
- }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
- 
-@@ -149,6 +206,10 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
- 		BT_ERR("YoYo: tlv parsing failed (%d)", ret);
- 		return ret;
- 	}
-+	if (!ctx->dbg_info_present) {
-+		BT_ERR("YoYo: Invalid BT debug Info tlv, using legacy DBGC defaults");
-+		return -EBADMSG;
-+	}
- 
- 	ctx->enabled = true;
- 
-diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
-index b0b94c2a169d..717e8838c4d5 100644
---- a/drivers/bluetooth/btintel_pcie_debug.h
-+++ b/drivers/bluetooth/btintel_pcie_debug.h
-@@ -26,6 +26,19 @@
- #define BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET		0x100000A
- #define BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE	0x100000B
- 
-+/* Supported TLV type versions */
-+#define BTINTEL_PCIE_DBG_INFO_TLV_VERSION	2
-+/* Debug Info TLV */
-+#define BTINTEL_PCIE_CONFIG_NAME_LEN		64
-+#define BTINTEL_PCIE_DOMAIN_BT			0
-+#define BTINTEL_PCIE_CORE_TYPE_BT		1
-+
-+enum btintel_pcie_image_tlv_type {
-+	BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL	= 0x1,
-+	BTINTEL_PCIE_IMAGE_TLV_TYPE_INTERNAL	= 0x2,
-+	BTINTEL_PCIE_IMAGE_TLV_TYPE_UNKNOWN	= 0xff,
-+};
-+
- /* TLV header */
- struct btintel_pcie_tlv_hdr {
- 	__le32 type;
-@@ -44,6 +57,25 @@ struct btintel_pcie_addr_value {
- 	__le32 value;
- } __packed;
- 
-+/*
-+ * struct btintel_pcie_tlv_dbg_info - YoYo DEBUG_INFO TLV
-+ * @hdr: TLV type and payload length
-+ * @dbg_hdr: Debug TLV version and domain
-+ * @image_type: Firmware image type
-+ * @core_type: Firmware core type
-+ * @config_name: Fixed-size name of the firmware configuration
-+ *
-+ * Describes the firmware image targeted by the YoYo configuration. Fields
-+ * are stored in little-endian format in the packed firmware TLV.
+  * Macros and attributes for compiler-based static context analysis.
+- * No-op stubs for tools.
+- */
+-
+-#define __guarded_by(...)
+-#define __pt_guarded_by(...)
+-
+-#define context_lock_struct(name, ...)	struct __VA_ARGS__ name
+-
+-#define __no_context_analysis
+-#define __context_unsafe(comment)
+-#define context_unsafe(...)		({ __VA_ARGS__; })
+-#define context_unsafe_alias(p)
+-#define disable_context_analysis()
+-#define enable_context_analysis()
+-
+-#define __must_hold(...)
+-#define __must_not_hold(...)
+-#define __acquires(...)
+-#define __cond_acquires(ret, x)
+-#define __releases(...)
+-#define __acquire(x)			(void)0
+-#define __release(x)			(void)0
+-
+-#define __must_hold_shared(...)
+-#define __acquires_shared(...)
+-#define __cond_acquires_shared(ret, x)
+-#define __releases_shared(...)
+-#define __acquire_shared(x)		(void)0
+-#define __release_shared(x)		(void)0
+-
+-#define __acquire_ret(call, expr)	(call)
+-#define __acquire_shared_ret(call, expr) (call)
+-#define __acquires_ret
+-#define __acquires_shared_ret
+-
+-#endif /* _TOOLS_LINUX_COMPILER_CONTEXT_ANALYSIS_H */
 + */
-+struct btintel_pcie_tlv_dbg_info {
-+	struct btintel_pcie_tlv_hdr hdr;
-+	struct btintel_pcie_dbg_hdr dbg_hdr;
-+	__le32 image_type;
-+	__le32 core_type;
-+	u8 config_name[BTINTEL_PCIE_CONFIG_NAME_LEN];
-+} __packed;
 +
- /*
-  * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
-  * @enabled: Whether the loaded YoYo configuration passed validation
-@@ -58,12 +90,11 @@ struct btintel_pcie_addr_value {
-  */
- struct btintel_pcie_yoyo_ctx {
- 	bool			 enabled;
--
-+	bool			 dbg_info_present;
- 	struct list_head	 region_list;
- 	struct list_head	 trigger_list;
- 	struct list_head	 hcmd_list;
- 	struct list_head	 config_set_list;
--
- 	struct hci_dev		 *hdev;
- };
- 
++#ifndef _LINUX_COMPILER_CONTEXT_ANALYSIS_H
++#define _LINUX_COMPILER_CONTEXT_ANALYSIS_H
++
++#if defined(WARN_CONTEXT_ANALYSIS) && !defined(__CHECKER__) && !defined(__GENKSYMS__)
++
++/*
++ * These attributes define new context lock (Clang: capability) types.
++ * Internal only.
++ */
++# define __ctx_lock_type(name)			__attribute__((capability(#name)))
++# define __reentrant_ctx_lock			__attribute__((reentrant_capability))
++# define __acquires_ctx_lock(...)		__attribute__((acquire_capability(__VA_ARGS__)))
++# define __acquires_shared_ctx_lock(...)	__attribute__((acquire_shared_capability(__VA_ARGS__)))
++# define __try_acquires_ctx_lock(ret, var)	__attribute__((try_acquire_capability(ret, var)))
++# define __try_acquires_shared_ctx_lock(ret, var) __attribute__((try_acquire_shared_capability(ret, var)))
++# define __releases_ctx_lock(...)		__attribute__((release_capability(__VA_ARGS__)))
++# define __releases_shared_ctx_lock(...)	__attribute__((release_shared_capability(__VA_ARGS__)))
++# define __returns_ctx_lock(var)		__attribute__((lock_returned(var)))
++
++/*
++ * The below are used to annotate code being checked. Internal only.
++ */
++# define __excludes_ctx_lock(...)		__attribute__((locks_excluded(__VA_ARGS__)))
++# define __requires_ctx_lock(...)		__attribute__((requires_capability(__VA_ARGS__)))
++# define __requires_shared_ctx_lock(...)	__attribute__((requires_shared_capability(__VA_ARGS__)))
++
++/*
++ * The "assert_capability" attribute is a bit confusingly named. It does not
++ * generate a check. Instead, it tells the analysis to *assume* the capability
++ * is held. This is used for augmenting runtime assertions, that can then help
++ * with patterns beyond the compiler's static reasoning abilities.
++ */
++# define __assumes_ctx_lock(...)		__attribute__((assert_capability(__VA_ARGS__)))
++# define __assumes_shared_ctx_lock(...)	__attribute__((assert_shared_capability(__VA_ARGS__)))
++
++/**
++ * __guarded_by() - struct member and globals attribute, declares variable
++ *                  only accessible within active context
++ * @...: context lock instance pointer(s)
++ *
++ * Declares that the struct member or global variable is only accessible within
++ * the context entered by the given context lock(s). Read operations on the data
++ * require shared access to at least one of the context locks, while write
++ * operations require exclusive access to all listed context locks.
++ *
++ * .. code-block:: c
++ *
++ *	struct some_state {
++ *		spinlock_t lock;
++ *		long counter __guarded_by(&lock);
++ *	};
++ *
++ *	struct some_state {
++ *		spinlock_t lock1, lock2;
++ *		long counter __guarded_by(&lock1, &lock2);
++ *	};
++ */
++# define __guarded_by(...)		__attribute__((guarded_by(__VA_ARGS__)))
++
++/**
++ * __pt_guarded_by() - struct member and globals attribute, declares pointed-to
++ *                     data only accessible within active context
++ * @...: context lock instance pointer(s)
++ *
++ * Declares that the data pointed to by the struct member pointer or global
++ * pointer is only accessible within the context entered by the given context
++ * lock(s). Read operations on the data require shared access to at least one
++ * of the context locks, while write operations require exclusive access to all
++ * listed context locks.
++ *
++ * .. code-block:: c
++ *
++ *	struct some_state {
++ *		spinlock_t lock;
++ *		long *counter __pt_guarded_by(&lock);
++ *	};
++ *
++ *	struct some_state {
++ *		spinlock_t lock1, lock2;
++ *		long *counter __pt_guarded_by(&lock1, &lock2);
++ *	};
++ */
++# define __pt_guarded_by(...)		__attribute__((pt_guarded_by(__VA_ARGS__)))
++
++/**
++ * context_lock_struct() - declare or define a context lock struct
++ * @name: struct name
++ *
++ * Helper to declare or define a struct type that is also a context lock.
++ *
++ * .. code-block:: c
++ *
++ *	context_lock_struct(my_handle) {
++ *		int foo;
++ *		long bar;
++ *	};
++ *
++ *	struct some_state {
++ *		...
++ *	};
++ *	// ... declared elsewhere ...
++ *	context_lock_struct(some_state);
++ *
++ * Note: The implementation defines several helper functions that can acquire
++ * and release the context lock.
++ */
++# define context_lock_struct(name, ...)									\
++	struct __ctx_lock_type(name) __VA_ARGS__ name;							\
++	static __always_inline void __acquire_ctx_lock(const struct name *var)				\
++		__attribute__((overloadable)) __no_context_analysis __acquires_ctx_lock(var) { }	\
++	static __always_inline void __acquire_shared_ctx_lock(const struct name *var)			\
++		__attribute__((overloadable)) __no_context_analysis __acquires_shared_ctx_lock(var) { } \
++	static __always_inline bool __try_acquire_ctx_lock(const struct name *var, bool ret)		\
++		__attribute__((overloadable)) __no_context_analysis __try_acquires_ctx_lock(1, var)	\
++	{ return ret; }											\
++	static __always_inline bool __try_acquire_shared_ctx_lock(const struct name *var, bool ret)	\
++		__attribute__((overloadable)) __no_context_analysis __try_acquires_shared_ctx_lock(1, var) \
++	{ return ret; }											\
++	static __always_inline void __release_ctx_lock(const struct name *var)				\
++		__attribute__((overloadable)) __no_context_analysis __releases_ctx_lock(var) { }	\
++	static __always_inline void __release_shared_ctx_lock(const struct name *var)			\
++		__attribute__((overloadable)) __no_context_analysis __releases_shared_ctx_lock(var) { } \
++	static __always_inline void __assume_ctx_lock(const struct name *var)				\
++		__attribute__((overloadable)) __assumes_ctx_lock(var) { }				\
++	static __always_inline void __assume_shared_ctx_lock(const struct name *var)			\
++		__attribute__((overloadable)) __assumes_shared_ctx_lock(var) { }			\
++	struct name
++
++/**
++ * disable_context_analysis() - disables context analysis
++ *
++ * Disables context analysis. Must be paired with a later
++ * enable_context_analysis().
++ */
++# define disable_context_analysis()				\
++	__diag_push();						\
++	__diag_ignore_all("-Wunknown-warning-option", "")	\
++	__diag_ignore_all("-Wthread-safety", "")		\
++	__diag_ignore_all("-Wthread-safety-pointer", "")
++
++/**
++ * enable_context_analysis() - re-enables context analysis
++ *
++ * Re-enables context analysis. Must be paired with a prior
++ * disable_context_analysis().
++ */
++# define enable_context_analysis() __diag_pop()
++
++/**
++ * __no_context_analysis - function attribute, disables context analysis
++ *
++ * Function attribute denoting that context analysis is disabled for the
++ * whole function. Prefer use of `context_unsafe()` where possible.
++ */
++# define __no_context_analysis	__attribute__((no_thread_safety_analysis))
++
++#else /* !WARN_CONTEXT_ANALYSIS */
++
++# define __ctx_lock_type(name)
++# define __reentrant_ctx_lock
++# define __acquires_ctx_lock(...)
++# define __acquires_shared_ctx_lock(...)
++# define __try_acquires_ctx_lock(ret, var)
++# define __try_acquires_shared_ctx_lock(ret, var)
++# define __releases_ctx_lock(...)
++# define __releases_shared_ctx_lock(...)
++# define __assumes_ctx_lock(...)
++# define __assumes_shared_ctx_lock(...)
++# define __returns_ctx_lock(var)
++# define __guarded_by(...)
++# define __pt_guarded_by(...)
++# define __excludes_ctx_lock(...)
++# define __requires_ctx_lock(...)
++# define __requires_shared_ctx_lock(...)
++# define __acquire_ctx_lock(var)			do { } while (0)
++# define __acquire_shared_ctx_lock(var)		do { } while (0)
++# define __try_acquire_ctx_lock(var, ret)		(ret)
++# define __try_acquire_shared_ctx_lock(var, ret)	(ret)
++# define __release_ctx_lock(var)			do { } while (0)
++# define __release_shared_ctx_lock(var)		do { } while (0)
++# define __assume_ctx_lock(var)			do { (void)(var); } while (0)
++# define __assume_shared_ctx_lock(var)			do { (void)(var); } while (0)
++# define context_lock_struct(name, ...)		struct __VA_ARGS__ name
++# define disable_context_analysis()
++# define enable_context_analysis()
++# define __no_context_analysis
++
++#endif /* WARN_CONTEXT_ANALYSIS */
++
++/**
++ * context_unsafe() - disable context checking for contained code
++ *
++ * Disables context checking for contained statements or expression.
++ *
++ * .. code-block:: c
++ *
++ *	struct some_data {
++ *		spinlock_t lock;
++ *		int counter __guarded_by(&lock);
++ *	};
++ *
++ *	int foo(struct some_data *d)
++ *	{
++ *		// ...
++ *		// other code that is still checked ...
++ *		// ...
++ *		return context_unsafe(d->counter);
++ *	}
++ */
++#define context_unsafe(...)		\
++({					\
++	disable_context_analysis();	\
++	__VA_ARGS__;			\
++	enable_context_analysis()	\
++})
++
++/**
++ * __context_unsafe() - function attribute, disable context checking
++ * @comment: comment explaining why opt-out is safe
++ *
++ * Function attribute denoting that context analysis is disabled for the
++ * whole function. Forces adding an inline comment as argument.
++ */
++#define __context_unsafe(comment) __no_context_analysis
++
++/**
++ * context_unsafe_alias() - helper to insert a context lock "alias barrier"
++ * @p: pointer aliasing a context lock or object containing context locks
++ *
++ * No-op function that acts as a "context lock alias barrier", where the
++ * analysis rightfully detects that we're switching aliases, but the switch is
++ * considered safe but beyond the analysis reasoning abilities.
++ *
++ * This should be inserted before the first use of such an alias.
++ *
++ * Implementation Note: The compiler ignores aliases that may be reassigned but
++ * their value cannot be determined (e.g. when passing a non-const pointer to an
++ * alias as a function argument).
++ */
++#define context_unsafe_alias(p) _context_unsafe_alias((void **)&(p))
++static inline void _context_unsafe_alias(void **p) { (void)p; }
++
++/**
++ * token_context_lock() - declare an abstract global context lock instance
++ * @name: token context lock name
++ *
++ * Helper that declares an abstract global context lock instance @name, but not
++ * backed by a real data structure (linker error if accidentally referenced).
++ * The type name is `__ctx_lock_@name`.
++ */
++#define token_context_lock(name, ...)					\
++	context_lock_struct(__ctx_lock_##name, ##__VA_ARGS__) {};	\
++	extern const struct __ctx_lock_##name *name
++
++/**
++ * token_context_lock_instance() - declare another instance of a global context lock
++ * @ctx: token context lock previously declared with token_context_lock()
++ * @name: name of additional global context lock instance
++ *
++ * Helper that declares an additional instance @name of the same token context
++ * lock class @ctx. This is helpful where multiple related token contexts are
++ * declared, to allow using the same underlying type (`__ctx_lock_@ctx`) as
++ * function arguments.
++ */
++#define token_context_lock_instance(ctx, name)		\
++	extern const struct __ctx_lock_##ctx *name
++
++/*
++ * Common keywords for static context analysis.
++ */
++
++/**
++ * __must_hold() - function attribute, caller must hold exclusive context lock
++ *
++ * Function attribute declaring that the caller must hold the given context
++ * lock instance(s) exclusively.
++ */
++#define __must_hold(...)	__requires_ctx_lock(__VA_ARGS__)
++
++/**
++ * __must_not_hold() - function attribute, caller must not hold context lock
++ *
++ * Function attribute declaring that the caller must not hold the given context
++ * lock instance(s).
++ */
++#define __must_not_hold(...)	__excludes_ctx_lock(__VA_ARGS__)
++
++/**
++ * __acquires() - function attribute, function acquires context lock exclusively
++ *
++ * Function attribute declaring that the function acquires the given context
++ * lock instance(s) exclusively, but does not release them.
++ */
++#define __acquires(...)		__acquires_ctx_lock(__VA_ARGS__)
++
++/*
++ * Clang's analysis does not care precisely about the value, only that it is
++ * either zero or non-zero. So the __cond_acquires() interface might be
++ * misleading if we say that @ret is the value returned if acquired. Instead,
++ * provide symbolic variants which we translate.
++ */
++#define __cond_acquires_impl_true(x, ...)     __try_acquires##__VA_ARGS__##_ctx_lock(1, x)
++#define __cond_acquires_impl_false(x, ...)    __try_acquires##__VA_ARGS__##_ctx_lock(0, x)
++#define __cond_acquires_impl_nonzero(x, ...)  __try_acquires##__VA_ARGS__##_ctx_lock(1, x)
++#define __cond_acquires_impl_0(x, ...)        __try_acquires##__VA_ARGS__##_ctx_lock(0, x)
++#define __cond_acquires_impl_nonnull(x, ...)  __try_acquires##__VA_ARGS__##_ctx_lock(1, x)
++#define __cond_acquires_impl_NULL(x, ...)     __try_acquires##__VA_ARGS__##_ctx_lock(0, x)
++
++/**
++ * __cond_acquires() - function attribute, function conditionally
++ *                     acquires a context lock exclusively
++ * @ret: abstract value returned by function if context lock acquired
++ * @x: context lock instance pointer
++ *
++ * Function attribute declaring that the function conditionally acquires the
++ * given context lock instance @x exclusively, but does not release it. The
++ * function return value @ret denotes when the context lock is acquired.
++ *
++ * @ret may be one of: true, false, nonzero, 0, nonnull, NULL.
++ */
++#define __cond_acquires(ret, x) __cond_acquires_impl_##ret(x)
++
++/**
++ * __releases() - function attribute, function releases a context lock exclusively
++ *
++ * Function attribute declaring that the function releases the given context
++ * lock instance(s) exclusively. The associated context(s) must be active on
++ * entry.
++ */
++#define __releases(...)		__releases_ctx_lock(__VA_ARGS__)
++
++/*
++ * Clang's analysis does not care precisely about the value, only that it is
++ * either zero or non-zero. So the __cond_acquires() interface might be
++ * misleading if we say that @ret is the value returned if acquired. Instead,
++ * provide symbolic variants which we translate.
++ */
++#define __cond_acquires_impl_not_true(x, ...)     __try_acquires##__VA_ARGS__##_ctx_lock(0, x)
++#define __cond_acquires_impl_not_false(x, ...)    __try_acquires##__VA_ARGS__##_ctx_lock(1, x)
++#define __cond_acquires_impl_not_nonzero(x, ...)  __try_acquires##__VA_ARGS__##_ctx_lock(0, x)
++#define __cond_acquires_impl_not_0(x, ...)        __try_acquires##__VA_ARGS__##_ctx_lock(1, x)
++#define __cond_acquires_impl_not_nonnull(x, ...)  __try_acquires##__VA_ARGS__##_ctx_lock(0, x)
++#define __cond_acquires_impl_not_NULL(x, ...)     __try_acquires##__VA_ARGS__##_ctx_lock(1, x)
++
++/**
++ * __cond_releases() - function attribute, function conditionally
++ *                     releases a context lock exclusively
++ * @ret: abstract value returned by function if context lock releases
++ * @x: context lock instance pointer
++ *
++ * Function attribute declaring that the function conditionally releases the
++ * given context lock instance @x exclusively. The associated context(s) must
++ * be active on entry. The function return value @ret denotes when the context
++ * lock is released.
++ *
++ * @ret may be one of: true, false, nonzero, 0, nonnull, NULL.
++ *
++ * NOTE: clang does not have a native attribute for this; instead implement
++ *       it as an unconditional release and a conditional acquire for the
++ *       inverted condition -- which is semantically equivalent.
++ */
++#define __cond_releases(ret, x) __releases(x) __cond_acquires_impl_not_##ret(x)
++
++/**
++ * __acquire() - function to acquire context lock exclusively
++ * @x: context lock instance pointer
++ *
++ * No-op function that acquires the given context lock instance @x exclusively.
++ */
++#define __acquire(x)		__acquire_ctx_lock(x)
++
++/**
++ * __release() - function to release context lock exclusively
++ * @x: context lock instance pointer
++ *
++ * No-op function that releases the given context lock instance @x.
++ */
++#define __release(x)		__release_ctx_lock(x)
++
++/**
++ * __must_hold_shared() - function attribute, caller must hold shared context lock
++ *
++ * Function attribute declaring that the caller must hold the given context
++ * lock instance(s) with shared access.
++ */
++#define __must_hold_shared(...)	__requires_shared_ctx_lock(__VA_ARGS__)
++
++/**
++ * __acquires_shared() - function attribute, function acquires context lock shared
++ *
++ * Function attribute declaring that the function acquires the given
++ * context lock instance(s) with shared access, but does not release them.
++ */
++#define __acquires_shared(...)	__acquires_shared_ctx_lock(__VA_ARGS__)
++
++/**
++ * __cond_acquires_shared() - function attribute, function conditionally
++ *                            acquires a context lock shared
++ * @ret: abstract value returned by function if context lock acquired
++ * @x: context lock instance pointer
++ *
++ * Function attribute declaring that the function conditionally acquires the
++ * given context lock instance @x with shared access, but does not release it.
++ * The function return value @ret denotes when the context lock is acquired.
++ *
++ * @ret may be one of: true, false, nonzero, 0, nonnull, NULL.
++ */
++#define __cond_acquires_shared(ret, x) __cond_acquires_impl_##ret(x, _shared)
++
++/**
++ * __releases_shared() - function attribute, function releases a
++ *                       context lock shared
++ *
++ * Function attribute declaring that the function releases the given context
++ * lock instance(s) with shared access. The associated context(s) must be
++ * active on entry.
++ */
++#define __releases_shared(...)	__releases_shared_ctx_lock(__VA_ARGS__)
++
++/**
++ * __acquire_shared() - function to acquire context lock shared
++ * @x: context lock instance pointer
++ *
++ * No-op function that acquires the given context lock instance @x with shared
++ * access.
++ */
++#define __acquire_shared(x)	__acquire_shared_ctx_lock(x)
++
++/**
++ * __release_shared() - function to release context lock shared
++ * @x: context lock instance pointer
++ *
++ * No-op function that releases the given context lock instance @x with shared
++ * access.
++ */
++#define __release_shared(x)	__release_shared_ctx_lock(x)
++
++/**
++ * __acquire_ret() - helper to acquire context lock of return value
++ * @call: call expression
++ * @ret_expr: acquire expression that uses __ret
++ */
++#define __acquire_ret(call, ret_expr)		\
++	({					\
++		__auto_type __ret = call;	\
++		__acquire(ret_expr);		\
++		__ret;				\
++	})
++
++/**
++ * __acquire_shared_ret() - helper to acquire context lock shared of return value
++ * @call: call expression
++ * @ret_expr: acquire shared expression that uses __ret
++ */
++#define __acquire_shared_ret(call, ret_expr)	\
++	({					\
++		__auto_type __ret = call;	\
++		__acquire_shared(ret_expr);	\
++		__ret;				\
++	})
++
++/*
++ * Attributes to mark functions returning acquired context locks.
++ *
++ * This is purely cosmetic to help readability, and should be used with the
++ * above macros as follows:
++ *
++ *   struct foo { spinlock_t lock; ... };
++ *   ...
++ *   #define myfunc(...) __acquire_ret(_myfunc(__VA_ARGS__), &__ret->lock)
++ *   struct foo *_myfunc(int bar) __acquires_ret;
++ *   ...
++ */
++#define __acquires_ret		__no_context_analysis
++#define __acquires_shared_ret	__no_context_analysis
++
++#endif /* _LINUX_COMPILER_CONTEXT_ANALYSIS_H */
+diff --git a/tools/perf/check-headers.sh b/tools/perf/check-headers.sh
+index 531c0e0e84df..c6b2ecadf9b1 100755
+--- a/tools/perf/check-headers.sh
++++ b/tools/perf/check-headers.sh
+@@ -23,6 +23,7 @@ declare -a FILES=(
+   "include/linux/bits.h"
+   "include/vdso/bits.h"
+   "include/linux/cfi_types.h"
++  "include/linux/compiler-context-analysis.h"
+   "include/linux/const.h"
+   "include/vdso/const.h"
+   "include/vdso/unaligned.h"
 -- 
-2.53.0
+2.56.0.385.gd3acb90ef8-goog
 
