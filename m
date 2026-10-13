@@ -1,225 +1,69 @@
-Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E54052CCE7
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C3C5304A1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914583; cv=none; b=K9bu2H2EF8g+dXG3gdFpUtEohgvAeHcOZQ9DCCN9NaPlwo3c8hGc4zne3aaTgGtlA2kI2sNFp+npRpwJ349iDbMnClV+2ruXjUIRz6oW8oY6r2xGkNh1H3EwkyULCe8+READEfC4/7iElCfAisPVGa05BdrxlISUCMITJ68qdXY=
+	t=1791914585; cv=none; b=cieGmKi+N55jaQweDOmOw3PauaECM8hC6P+vNiqtqcXnP15VYTUh5+/x9UGkqqaVSuPLl3veD4fWoWvmmdvhNnvQA8PllZlbrSm85kdMs2hLBPTbnaMkSiXRdA0NAX8H9UFwWUB6OUzbyBA571E9jTx4u2847Kloa/qgn+mqVG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914583; c=relaxed/simple;
-	bh=R+pI384S0Q9r6atCJ0SvFSIfiwHu6LC+34s4EEpq3to=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=t92tSxyIJnCRULUAy6dwFgN4v9e3HbPvaFv8qRhAj1I8+DoKEutEq5ipiTIbqh9CASS1le28oORbM4+dANb+EJf1dH92MPLsclPa14J20r4khuoOGmCPyNQaTT2isZuGccH2oJyZZDmpayB9PjowxLufZVSpGoFRk5Nf0yosOmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vSgMJk84; arc=none smtp.client-ip=91.218.175.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vSgMJk84"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R+pI384S0Q9r6atCJ0SvFSIfiwHu6LC+34s4EEpq3to=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791914579; v=1; x=1792519379;
- b=vSgMJk84S8TdMTPnj0urNyg8DG9Hz0tJuVpvu4WI2Lb2hfwrtlB3zAUFNVpWcnDY7aXlyizn
- xT9U1ZU8XyStBZElmFTdGYdU8yVhKTyr1JW7YV51XQFZu6D3iE1gO5ei3XRaXeifdaL/EWMTXXe
- dY/DtCb13Ztk87GmGwdUjMfs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id bf028f438df0e5f0;
-	Tue, 13 Oct 2026 18:02:58 +0000
-X-Mizu-Trace-ID: bf028f438df0e5f0
-X-Migadu-Flow: FLOW_OUT
-From: wen.yang@linux.dev
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-Cc: Eric Dumazet <edumazet@google.com>,
-	Jesper Dangaard Brouer <brouer@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-rt-devel@list.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH 15/15] net: Rename rps_lock to backlog_lock.
-Date: Wed, 14 Oct 2026 02:02:31 +0800
-Message-Id: <82e503b4127cea58ede01b856d5ddaa0ba75e630.1791912669.git.wen.yang@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1791912669.git.wen.yang@linux.dev>
-References: <cover.1791912669.git.wen.yang@linux.dev>
+	s=arc-20240116; t=1791914585; c=relaxed/simple;
+	bh=ROJhZi2gwlIZuLbZZHPUQpNoE2ElcZ4BGo1KoyGWQdU=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Li5SOVJCTokOuj9SZS8Sf7KvBERcuQ4QVflA4rH5SoLZFOaGMs58/nA0WVEG4+bK82hUKqUECWiy89zLAer2go9QkiPx5jzo3g94DB/azTCi4G+CXKd2k9Lx4MMPn8hltAt4UtCiqi0h7vDPihaH/5SeTVxp9fvabGHJl4kPB9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-827bc69f686so12294673a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:03:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791914582; x=1792519382;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Zek/EPZ9HE1cSizXza9nv42c+sGH6P6o57/NP4cOt3A=;
+        b=laKrlyaD/QoypOjVOQky8BIYcNEvim1eRnpVIZSLl2p7PGVfkrAYhIqace38recQGu
+         PmUcm93LDZ+aoU9YzLf8L5LUockeYwltfVCofPW3FoNUAjuCRIxRdx12OcSeR7aOkJYu
+         QBHEFCX9mOkOaweoewDgI9eqsCYqQX1VE2pUvm8tBtUtoxJHpihzCJ5zEWanhGTRO1Jr
+         L1WxXMt92G0Gorv0BvVTFakr8c/VTpfzurUbhRmglgEgJDgX9CVee6ROLMV+CGBHtSAM
+         HLd3V7wQ+7E0d4WOb77MlmYT2mVKRGk+/f/sySMWc+Zy26wuUVsO8XwOIz+G6YbQpN4n
+         N0yQ==
+X-Gm-Message-State: AFq9FYKp4BUyG8KlDqK9xlMhVIM1fgHeyk0gKVuS9s1GSdeVawtsYFJS
+	gDSrMIJwyiblV8jHVTZLPU56N0jAY+nD+CGJuI97jFhrIu8xG/tRwoulDhvFAq3TAYZf0VUAvnr
+	zQXIMAzRX52QeRKVXrXia3xKii8yZAE3XdxRXH3TDvMJVj3dpcPe27TgjSPE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:6905:b0:4f5:1b84:8cd3 with SMTP id
+ 5614622812f47-50b60e559d8mr10129612b6e.24.1791914582105; Tue, 13 Oct 2026
+ 11:03:02 -0700 (PDT)
+Date: Tue, 13 Oct 2026 11:03:02 -0700
+In-Reply-To: <CAEfrx+DqRvMSCcRrP1Qkp8QKp6R+_MKSP1yc2HYbYBb1_PT76w@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ace7256.0e5b5d80.2c029c.06e0.GAE@google.com>
+Subject: Re: [syzbot] [wireless?] INFO: rcu detected stall in rfkill_fop_release
+From: syzbot <syzbot+baad8fdbfa4129f93db6@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, spannme41@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Hello,
 
-commit 765b11f8f4e20b7433e4ba4a3e9106a0d59501ed upstream.
+syzbot tried to test the proposed patch but the build/boot failed:
 
-The rps_lock.*() functions use the inner lock of a sk_buff_head for
-locking. This lock is used if RPS is enabled, otherwise the list is
-accessed lockless and disabling interrupts is enough for the
-synchronisation because it is only accessed CPU local. Not only the list
-is protected but also the NAPI state protected.
-With the addition of backlog threads, the lock is also needed because of
-the cross CPU access even without RPS. The clean up of the defer_list
-list is also done via backlog threads (if enabled).
+init/main.c:14:2: error: ASDF
 
-It has been suggested to rename the locking function since it is no
-longer just RPS.
 
-Rename the rps_lock*() functions to backlog_lock*().
+Tested on:
 
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
-Acked-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Wen Yang <wen.yang@linux.dev>
----
- net/core/dev.c | 34 +++++++++++++++++-----------------
- 1 file changed, 17 insertions(+), 17 deletions(-)
-
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 317c221c99c2..f1ac29d7144e 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -243,8 +243,8 @@ static bool use_backlog_threads(void)
- 
- #endif
- 
--static inline void rps_lock_irqsave(struct softnet_data *sd,
--				    unsigned long *flags)
-+static inline void backlog_lock_irq_save(struct softnet_data *sd,
-+					 unsigned long *flags)
- {
- 	if (IS_ENABLED(CONFIG_RPS) || use_backlog_threads())
- 		spin_lock_irqsave(&sd->input_pkt_queue.lock, *flags);
-@@ -252,7 +252,7 @@ static inline void rps_lock_irqsave(struct softnet_data *sd,
- 		local_irq_save(*flags);
- }
- 
--static inline void rps_lock_irq_disable(struct softnet_data *sd)
-+static inline void backlog_lock_irq_disable(struct softnet_data *sd)
- {
- 	if (IS_ENABLED(CONFIG_RPS) || use_backlog_threads())
- 		spin_lock_irq(&sd->input_pkt_queue.lock);
-@@ -260,8 +260,8 @@ static inline void rps_lock_irq_disable(struct softnet_data *sd)
- 		local_irq_disable();
- }
- 
--static inline void rps_unlock_irq_restore(struct softnet_data *sd,
--					  unsigned long *flags)
-+static inline void backlog_unlock_irq_restore(struct softnet_data *sd,
-+					      unsigned long *flags)
- {
- 	if (IS_ENABLED(CONFIG_RPS) || use_backlog_threads())
- 		spin_unlock_irqrestore(&sd->input_pkt_queue.lock, *flags);
-@@ -269,7 +269,7 @@ static inline void rps_unlock_irq_restore(struct softnet_data *sd,
- 		local_irq_restore(*flags);
- }
- 
--static inline void rps_unlock_irq_enable(struct softnet_data *sd)
-+static inline void backlog_unlock_irq_enable(struct softnet_data *sd)
- {
- 	if (IS_ENABLED(CONFIG_RPS) || use_backlog_threads())
- 		spin_unlock_irq(&sd->input_pkt_queue.lock);
-@@ -4790,12 +4790,12 @@ void kick_defer_list_purge(struct softnet_data *sd, unsigned int cpu)
- 	unsigned long flags;
- 
- 	if (use_backlog_threads()) {
--		rps_lock_irqsave(sd, &flags);
-+		backlog_lock_irq_save(sd, &flags);
- 
- 		if (!__test_and_set_bit(NAPI_STATE_SCHED, &sd->backlog.state))
- 			__napi_schedule_irqoff(&sd->backlog);
- 
--		rps_unlock_irq_restore(sd, &flags);
-+		backlog_unlock_irq_restore(sd, &flags);
- 
- 	} else if (!cmpxchg(&sd->defer_ipi_scheduled, 0, 1)) {
- 		smp_call_function_single_async(cpu, &sd->defer_csd);
-@@ -4857,7 +4857,7 @@ static int enqueue_to_backlog(struct sk_buff *skb, int cpu,
- 	reason = SKB_DROP_REASON_NOT_SPECIFIED;
- 	sd = &per_cpu(softnet_data, cpu);
- 
--	rps_lock_irqsave(sd, &flags);
-+	backlog_lock_irq_save(sd, &flags);
- 	if (!netif_running(skb->dev))
- 		goto drop;
- 	qlen = skb_queue_len(&sd->input_pkt_queue);
-@@ -4866,7 +4866,7 @@ static int enqueue_to_backlog(struct sk_buff *skb, int cpu,
- enqueue:
- 			__skb_queue_tail(&sd->input_pkt_queue, skb);
- 			input_queue_tail_incr_save(sd, qtail);
--			rps_unlock_irq_restore(sd, &flags);
-+			backlog_unlock_irq_restore(sd, &flags);
- 			return NET_RX_SUCCESS;
- 		}
- 
-@@ -4881,7 +4881,7 @@ static int enqueue_to_backlog(struct sk_buff *skb, int cpu,
- 
- drop:
- 	sd->dropped++;
--	rps_unlock_irq_restore(sd, &flags);
-+	backlog_unlock_irq_restore(sd, &flags);
- 
- 	dev_core_stats_rx_dropped_inc(skb->dev);
- 	kfree_skb_reason(skb, reason);
-@@ -5977,7 +5977,7 @@ static void flush_backlog(struct work_struct *work)
- 	local_bh_disable();
- 	sd = this_cpu_ptr(&softnet_data);
- 
--	rps_lock_irq_disable(sd);
-+	backlog_lock_irq_disable(sd);
- 	skb_queue_walk_safe(&sd->input_pkt_queue, skb, tmp) {
- 		if (skb->dev->reg_state == NETREG_UNREGISTERING) {
- 			__skb_unlink(skb, &sd->input_pkt_queue);
-@@ -5985,7 +5985,7 @@ static void flush_backlog(struct work_struct *work)
- 			input_queue_head_incr(sd);
- 		}
- 	}
--	rps_unlock_irq_enable(sd);
-+	backlog_unlock_irq_enable(sd);
- 
- 	skb_queue_walk_safe(&sd->process_queue, skb, tmp) {
- 		if (skb->dev->reg_state == NETREG_UNREGISTERING) {
-@@ -6003,14 +6003,14 @@ static bool flush_required(int cpu)
- 	struct softnet_data *sd = &per_cpu(softnet_data, cpu);
- 	bool do_flush;
- 
--	rps_lock_irq_disable(sd);
-+	backlog_lock_irq_disable(sd);
- 
- 	/* as insertion into process_queue happens with the rps lock held,
- 	 * process_queue access may race only with dequeue
- 	 */
- 	do_flush = !skb_queue_empty(&sd->input_pkt_queue) ||
- 		   !skb_queue_empty_lockless(&sd->process_queue);
--	rps_unlock_irq_enable(sd);
-+	backlog_unlock_irq_enable(sd);
- 
- 	return do_flush;
- #endif
-@@ -6125,7 +6125,7 @@ static int process_backlog(struct napi_struct *napi, int quota)
- 
- 		}
- 
--		rps_lock_irq_disable(sd);
-+		backlog_lock_irq_disable(sd);
- 		if (skb_queue_empty(&sd->input_pkt_queue)) {
- 			/*
- 			 * Inline a custom version of __napi_complete().
-@@ -6141,7 +6141,7 @@ static int process_backlog(struct napi_struct *napi, int quota)
- 			skb_queue_splice_tail_init(&sd->input_pkt_queue,
- 						   &sd->process_queue);
- 		}
--		rps_unlock_irq_enable(sd);
-+		backlog_unlock_irq_enable(sd);
- 	}
- 
- 	return work;
--- 
-2.25.1
+commit:         24a19b95 Linux 7.3-rc7
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=859f36d9ccbeaa3e
+dashboard link: https://syzkaller.appspot.com/bug?extid=baad8fdbfa4129f93db6
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10da523e580000
 
