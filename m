@@ -1,201 +1,178 @@
-Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9024FECC2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62ACC4DDB33;
+	Tue, 13 Oct 2026 13:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897263; cv=none; b=BbEI7b307uSVr2yeyinjifK+U0wvq6Fj9/UZdCSzdtB4UBalKT53oVlM7XuyZ5xu1gCdjIgK/vTVsKyYo/Ajbb77YkFSXB/VrwTuyn+L6Co77oukB3VDsoxhiIx/tpct5fDCVSyJZ2ecFdKc0OB48ZS3pu7VAAdZZijkG8ftWVs=
+	t=1791897270; cv=none; b=QyfPNejzQa5NzteoT0efcPcOfukxH6WZBzJTVmhqjmTCba5sfEZHKBLkmO1hzdrph5DBw8KUjs96aYEUdAr96eMtwOQx1BCB6tWaxStm/ohPsKtPoHiJW2f+UujtaFgehCTkuATLB6DdGvjL71oAfNiEno8sddIojHXgvKXLaG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897263; c=relaxed/simple;
-	bh=tV/iG+K0Zh0tqFJNheDt0OFESsgf+YxPRqXcyE2fyew=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CP47Cj/xXUdgU2UTlPZfkgHHiVpn29VO7Ti8+1qUCf09JJGRLP2uLUSlnUOZZIfvVggOutSZiAOaU+zYSqmeTm81Pr7IK7/do6NDvyDDua2XCTdxdlIeEY9Eu8j7OBexHJwuu+dOg0QqBaX702h9dpIxxEM9Q++AXQmwlK2oTNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=L5qa2ZgE; arc=none smtp.client-ip=91.218.175.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791897270; c=relaxed/simple;
+	bh=8Bp2bQHVlIW929jOM9HjkLNfhV5PdDCxGvim75qQv4Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HMY0AWSZGlVPQDpvw7ALreZZC+nGhVHlp33zMMkA31+JsH82rtBYCcIs+8OPrfa55vUK2TiOJUdO2rZGEg5ebZEwfnMfcBGDQMlDKfZpCW4rJxLuxoMX5HoJkp1SYerDi/Xvt5zVPsHDRNUXiIytCwUdyc6Ph/VovEECe0+8gbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mC62Rd1C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="L5qa2ZgE"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tV/iG+K0Zh0tqFJNheDt0OFESsgf+YxPRqXcyE2fyew=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791897259; v=1; x=1792502059;
- b=L5qa2ZgEvHu2MYeWLSt+D+wfhd2sbsDNBw8on3/oUhPWi03NRK1Vgn+cRxMMF+ZMueYPBTdQ
- pA3iInFkuoM+ShrQySrtKGqyBACTcjPE/mdN688omzci7ppzjxbPfR4iIZCxHg+WDHQccT6I+Ly
- UBv8gOJffVXsiSP8ntKGvdlg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 030329b0fec174fc;
-	Tue, 13 Oct 2026 13:14:19 +0000
-X-Mizu-Trace-ID: 030329b0fec174fc
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH RFC v3 4/7] mm/vmscan: pass scan_control to the reclaim-begin tracepoints
-Date: Tue, 13 Oct 2026 21:13:06 +0800
-Message-Id: <20261013131309.2790253-5-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261013131309.2790253-1-ridong.chen@linux.dev>
-References: <20261013131309.2790253-1-ridong.chen@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mC62Rd1C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569751F000FF;
+	Tue, 13 Oct 2026 13:14:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791897268;
+	bh=Y31uLC14PmHEEXewkbQKXC8mc6ByfwR6mALvrM9/fAA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mC62Rd1CgzVxNIGEmsfEhPkhWmxMPHngkYvMWAYoEOzHO0mTfO6GIIwshQyMm0E1I
+	 tyxBy+a8pBGi4Olm9poof9JLd8Yzja5jIi8J2s2aX61AnXHx2BbUeLPPI9w1vJowCp
+	 EjCCJKp3hAlQmwYWaheA9skn/Yft/C0NT6CLn7/g=
+Date: Tue, 13 Oct 2026 15:14:33 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: phil@phil.gs
+Cc: Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Johan Hovold <johan@kernel.org>, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] serial: core: Shut down a running console port before
+ removing it
+Message-ID: <2026101302-patronize-rigid-f634@gregkh>
+References: <20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs>
 
-From: Ridong Chen <chenridong@xiaomi.com>
+On Thu, Oct 08, 2026 at 12:49:18PM -0400, Phil Rosenthal via B4 Relay wrote:
+> From: Phil Rosenthal <phil@phil.gs>
+> 
+> A console port is not shut down when its last user closes it:
+> tty_port_shutdown() returns early when tty_port::console is set, so the
+> port stays initialized.  For an 8250 port this leaves its interrupt
+> requested or, for a port without an interrupt, its poll timer armed.
+> 
+> serial_core_remove_one_port() relies on tty_port_tty_vhangup() to shut
+> the port down before releasing its resources, but the hangup reaches
+> uart_hangup() -> uart_shutdown() only when a tty is attached.  For a
+> console that was opened and closed, for example a serial console whose
+> getty has been stopped, nothing shuts the port down.  The console is
+> unregistered, ->release_port() releases the registers and the core frees
+> uport->name while the port is still running.  On tty-next with 8250
+> ports:
+> 
+>  - A card bound to 8250_pci with an INTx interrupt and unbound through
+>    sysfs keeps its interrupt requested after the driver is gone.  The
+>    irqaction name points to the freed uport->name, so reading
+>    /proc/interrupts is a slab-use-after-free in irq_seq_show().
+> 
+>  - A polled (irq = 0) MMIO port with UPF_IOREMAP keeps running
+>    serial8250_timeout() after serial8250_release_port() has cleared
+>    membase, which dereferences NULL in timer softirq context about
+>    10 ms after "console [ttyS5] disabled".
+> 
+> After unregistering the console and before releasing the resources, shut
+> the port down if it is still initialized.  uart_shutdown() runs with
+> port->mutex held, as for its other callers, and with no tty, so it also
+> drops DTR and RTS.  A port that had a tty attached was already shut down
+> by the hangup and is skipped.
+> 
+> Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM sparse
+> Signed-off-by: Phil Rosenthal <phil@phil.gs>
+> ---
+> This bug was found and confirmed with AI assistance, so it is reported in
+> the open.  It is not a security issue under
+> Documentation/process/threat-model.rst ("Excess of initial privileges"):
+> triggering it needs the privileges to unbind or remove the device.
+> 
+> I hit it on real hardware.  My serial console is a polled ASPEED BMC VUART,
+> then driven by an out-of-tree module.  After I stopped its getty,
+> unloading the driver oopsed in mem32_serial_in() from serial8250_timeout().
+> 
+> History: before 761ed4a94582, uart_close() called uart_shutdown() for
+> every port, consoles included.  761ed4a94582 made console ports skip the
+> shutdown on close.  be2c92b8f164 reverted that part and 4dda864d7307
+> reinstated it, all within v4.9.  Keeping a console running after close is
+> intended, but the removal path was never updated for it.
+> 
+> Tested in a QEMU guest on tty-next 36844ea19656 with KASAN, using in-tree
+> 8250_pci and a "serial8250" platform port.  Reproducers are available on
+> request.  Without this patch:
+> 
+>   8250_pci with INTx, reading /proc/interrupts after unbind:
+>     BUG: KASAN: slab-use-after-free in string+0x3b6/0x4c0
+>      irq_seq_show+0x34d/0x810
+>     Allocated by task 1244:
+>      kasprintf+0xac/0x100
+>      serial_core_register_port+0x55f/0x1720
+>     Freed by task 1276:
+>      kfree+0x1a0/0x4a0
+>      serial_core_unregister_port+0x44d/0xa80
+>      serial8250_unregister_port+0x10d/0x6c0
+>      pciserial_detach_ports+0x92/0x160
+> 
+>   Polled MMIO port (irq 0, UPF_IOREMAP) after removal:
+>     printk: console [ttyS5] disabled
+>     BUG: kernel NULL pointer dereference, address: 0000000000000008
+>     RIP: 0010:mem32_serial_in+0x74/0xa0
+>      serial8250_timeout+0x44/0x140
+>      call_timer_fn+0x32/0x260
+> 
+> With this patch both cases are clean: the IRQ is freed on unbind,
+> rebinding restores the console, and the polled port is shut down on
+> removal.  A port held open across removal and a console that was never
+> opened did not fail before and still work.
+> 
+> I used plain mutex_lock() rather than scoped_guard() so that the patch
+> also builds on stable trees before 6.5.  It applies from v5.4 to current
+> master, and serial_core.o builds on v6.1 and v6.6.  W=1, sparse and
+> checkpatch --strict are clean.
+> 
+> Also tested on real hardware: the ASPEED BMC VUART that hit the bug
+> (polled MMIO, irq 0) as the console, now bound to 8250_pci with my
+> pending ASPEED support patch [1], on a 7.0.14 distribution kernel with
+> both patches.  After stopping the getty, opening and closing the port,
+> and unbinding the PCI device, there is no oops.  Rebinding restores the
+> console, the getty and in-band IPMI.
+> 
+> Not tested: serial drivers other than 8250.
+> 
+> [1] https://lore.kernel.org/r/20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs
+> 
+> AI assistance: an LLM coding assistant (Claude, model claude-opus-5-5, in
+> Claude Code) analysed the crash, wrote the reproducers and the patch, and
+> built and ran the test kernels.  Two other LLMs reviewed the result
+> (GPT-5.6 Sol via Codex, and Claude Fable 5.1 via Claude Code).  I reviewed
+> it as well.
+> ---
+>  drivers/tty/serial/serial_core.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+> index 319a4b427f3a3727d12cb58252bd8959f9be4cd6..104a2b2eec641bbbc23e67522a7812309442de23 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
+> @@ -3239,6 +3239,18 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
+>  	if (uart_console(uport))
+>  		unregister_console(uport->cons);
+>  
+> +	/*
+> +	 * A console port is not shut down on last close (see
+> +	 * tty_port_shutdown()), and the hangup above only shuts down a port
+> +	 * that has a tty attached. A console that was opened and closed is
+> +	 * therefore still running here; shut it down before its resources are
+> +	 * released.
+> +	 */
+> +	mutex_lock(&port->mutex);
 
-The reclaim-begin tracepoints describe the entry conditions of a reclaim
-invocation, which struct scan_control already carries. Now that the struct
-is visible from the trace header, pass sc directly and pick the fields out
-in TP_fast_assign instead of spelling out gfp_mask and order at every
-callsite.
+scoped guard?
 
-No functional change. The tracefs event format (TP_STRUCT__entry and
-TP_printk) is unchanged, so tracefs-based consumers are unaffected.
-BPF programs attached via raw_tp/tp_btf see the new TP_PROTO and need
-to be adjusted; tracepoints are not a stable ABI (see
-Documentation/bpf/bpf_design_QA.rst).
+LLMs don't know about "modern" kernel code.
 
-Assisted-by: LLM
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- mm/trace_vmscan.h | 24 ++++++++++++------------
- mm/vmscan.c       |  7 +++----
- 2 files changed, 15 insertions(+), 16 deletions(-)
+Also, is the comment really needed?
 
-diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
-index 91fb1c30dd46..28561fda83b3 100644
---- a/mm/trace_vmscan.h
-+++ b/mm/trace_vmscan.h
-@@ -178,9 +178,9 @@ TRACE_EVENT(mm_vmscan_wakeup_kswapd,
- 
- DECLARE_EVENT_CLASS(mm_vmscan_direct_reclaim_begin_template,
- 
--	TP_PROTO(gfp_t gfp_flags, int order, struct mem_cgroup *memcg),
-+	TP_PROTO(struct scan_control *sc, struct mem_cgroup *memcg),
- 
--	TP_ARGS(gfp_flags, order, memcg),
-+	TP_ARGS(sc, memcg),
- 
- 	TP_STRUCT__entry(
- 		__field(	unsigned long,	gfp_flags	)
-@@ -189,8 +189,8 @@ DECLARE_EVENT_CLASS(mm_vmscan_direct_reclaim_begin_template,
- 	),
- 
- 	TP_fast_assign(
--		__entry->gfp_flags	= (__force unsigned long)gfp_flags;
--		__entry->order		= order;
-+		__entry->gfp_flags	= (__force unsigned long)sc->gfp_mask;
-+		__entry->order		= sc->order;
- 		__entry->memcg_id	= mem_cgroup_id(memcg);
- 	),
- 
-@@ -204,17 +204,17 @@ DECLARE_EVENT_CLASS(mm_vmscan_direct_reclaim_begin_template,
- 
- DEFINE_EVENT(mm_vmscan_direct_reclaim_begin_template, mm_vmscan_direct_reclaim_begin,
- 
--	TP_PROTO(gfp_t gfp_flags, int order, struct mem_cgroup *memcg),
-+	TP_PROTO(struct scan_control *sc, struct mem_cgroup *memcg),
- 
--	TP_ARGS(gfp_flags, order, memcg)
-+	TP_ARGS(sc, memcg)
- );
- 
- #ifdef CONFIG_MEMCG
- DEFINE_EVENT(mm_vmscan_direct_reclaim_begin_template, mm_vmscan_memcg_reclaim_begin,
- 
--	TP_PROTO(gfp_t gfp_flags, int order, struct mem_cgroup *memcg),
-+	TP_PROTO(struct scan_control *sc, struct mem_cgroup *memcg),
- 
--	TP_ARGS(gfp_flags, order, memcg)
-+	TP_ARGS(sc, memcg)
- );
- #endif /* CONFIG_MEMCG */
- 
-@@ -551,9 +551,9 @@ TRACE_EVENT(mm_vmscan_lru_shrink_active,
- 
- TRACE_EVENT(mm_vmscan_node_reclaim_begin,
- 
--	TP_PROTO(int nid, int order, gfp_t gfp_flags),
-+	TP_PROTO(int nid, struct scan_control *sc),
- 
--	TP_ARGS(nid, order, gfp_flags),
-+	TP_ARGS(nid, sc),
- 
- 	TP_STRUCT__entry(
- 		__field(int, nid)
-@@ -563,8 +563,8 @@ TRACE_EVENT(mm_vmscan_node_reclaim_begin,
- 
- 	TP_fast_assign(
- 		__entry->nid = nid;
--		__entry->order = order;
--		__entry->gfp_flags = (__force unsigned long)gfp_flags;
-+		__entry->order = sc->order;
-+		__entry->gfp_flags = (__force unsigned long)sc->gfp_mask;
- 	),
- 
- 	TP_printk("nid=%d order=%d gfp_flags=%s",
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index ab118f6b32eb..2979d0d819a8 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -6885,7 +6885,7 @@ unsigned long try_to_free_pages(struct zonelist *zonelist, int order,
- 		return 1;
- 
- 	set_task_reclaim_state(current, &sc.reclaim_state);
--	trace_mm_vmscan_direct_reclaim_begin(sc.gfp_mask, order, NULL);
-+	trace_mm_vmscan_direct_reclaim_begin(&sc, NULL);
- 
- 	nr_reclaimed = do_try_to_free_pages(zonelist, &sc);
- 
-@@ -6926,7 +6926,7 @@ unsigned long try_to_free_mem_cgroup_pages(struct mem_cgroup *memcg,
- 	struct zonelist *zonelist = node_zonelist(numa_node_id(), sc.gfp_mask);
- 
- 	set_task_reclaim_state(current, &sc.reclaim_state);
--	trace_mm_vmscan_memcg_reclaim_begin(sc.gfp_mask, 0, memcg);
-+	trace_mm_vmscan_memcg_reclaim_begin(&sc, memcg);
- 	noreclaim_flag = memalloc_noreclaim_save();
- 
- 	nr_reclaimed = do_try_to_free_pages(zonelist, &sc);
-@@ -7882,8 +7882,7 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
- 	unsigned int noreclaim_flag;
- 	unsigned long pflags;
- 
--	trace_mm_vmscan_node_reclaim_begin(pgdat->node_id, sc->order,
--					   sc->gfp_mask);
-+	trace_mm_vmscan_node_reclaim_begin(pgdat->node_id, sc);
- 
- 	cond_resched();
- 	psi_memstall_enter(&pflags);
--- 
-2.34.1
+thanks,
 
+greg k-h
