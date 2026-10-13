@@ -1,215 +1,163 @@
-Received: from SEVP216CU002.outbound.protection.outlook.com (mail-koreacentralazolkn19012062.outbound.protection.outlook.com [52.103.74.62])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0F13D6CD4;
-	Tue, 13 Oct 2026 09:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.74.62
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883121; cv=fail; b=q20InhsrKSECNphGfhOdmz5HwI224+5UIGfIALWGmtYNZzOgrIh+O6o7eggb6nNdKSJI5ObONFZtVD/3qgFQKbKbqzuxflj0TGXJiBLuPaHCr5xF1+z+zjhYcXFYEhbl6ff7XHMtu7ZEakqnPalmhdimDVVG/SFh2pcyt1E4SLE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883121; c=relaxed/simple;
-	bh=z6KAlpQa7UPMbMI1WN+EIwOB5waRwzlUQBHY0JGl148=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=D+A0kfS1Jz+FjyTEGiRepiUV4sj5sH5nK4EGBbM32r3A7d6kJYCJIbsYiPlRqK96uWM8MQv4dR2Crvv6cIV8xnuP3oi/CBcxcpLr78E2FovM/SUscVPo8pkpvyKY5n8KNrHYZ9XP5oWX/hOmIH7hwEVdZRePXBYC4hYCfLtYqOU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexvernel.com; spf=pass smtp.mailfrom=alexvernel.com; arc=fail smtp.client-ip=52.103.74.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexvernel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexvernel.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MFQbmaX3zV9vAVcFp/3VM3WGZ8yNaMmIrioTcZGiRnD2tKa3wZ4gVYOC4Kya+nDozlnfl8xQWwHIi4d2gb4ZpNTQBwAHy4jyxhvQblhYp8QR/z2Oc+tlRtBef/Lw9KxPqlq5SpfjhQGYmtwqtwkw6qnplE3yPo3LFbiFWLNRHbhOUGuHmU9CJlop5Hej1QaN8ml/LqAwU4FW//vmmGDbbKgbP33fRiICeI/4H9OHyncfOouAZoFKLQ3OH5BsaS7Hnva690U0buJdtk4Ff8YOIJhJiV66tn3pRmhTe51Sz+OmiyBZhf+NZEQ/Y6pFKco+icPvlqPKvybwmXJ8dHVLAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MxMZLEtZr/mgTVrpUfN8tvSjvxSv1qCefb6shhoXCG0=;
- b=j/B9kXgqgWGvkhJyJ0f4BAclANcPYMr+aZYf4fvN6gxD5brC6yEPgF5p1AnBTcEbI0BiGspFUjXCYxcTIR7W6TUR4a4zAClindbCDuFx6OItldssFoJ4rZom+xfiV0ugHywKX7m2cIhO1pMigr0rws8BU2tOfGjjLY2z+OgYZv6et4QfTCHY4FfXgSel3xpU3f4u0w2FPX7A1U/gU64hJGwE4FZgQyfzlpu0emvqckEAaF4jZtNh/Cj9/TYGFrfj59C46TnK0bQot4EsYHW/vWnfKdZI5ZjxVjZy7m1zG85wOQtRojV3DzOKbKmkqwcqT9b2rOGq1oXqlNJRVXOHfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Received: from SLXP216MB1067.KORP216.PROD.OUTLOOK.COM (2603:1096:101:9::6) by
- SE2P216MB2952.KORP216.PROD.OUTLOOK.COM (2603:1096:101:28b::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.23; Tue, 13 Oct 2026 09:18:29 +0000
-Received: from SLXP216MB1067.KORP216.PROD.OUTLOOK.COM
- ([fe80::3dce:2b67:b21b:6152]) by SLXP216MB1067.KORP216.PROD.OUTLOOK.COM
- ([fe80::3dce:2b67:b21b:6152%7]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 09:18:29 +0000
-From: Alexander Vernel <alex@alexvernel.com>
-To: linux-wireless@vger.kernel.org
-Cc: loic.poulain@oss.qualcomm.com,
-	wcn36xx@lists.infradead.org,
-	stephan@gerhold.net,
-	kvalo@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless 1/1] wifi: wcn36xx: validate scan bands against radio capabilities
-Date: Tue, 13 Oct 2026 22:18:02 +1300
-Message-ID:
- <SLXP216MB1067E773936FD95646687C08B39E2@SLXP216MB1067.KORP216.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <SLXP216MB10675081A1D858B6421D5AF3B39E2@SLXP216MB1067.KORP216.PROD.OUTLOOK.COM>
-References: <SLXP216MB10675081A1D858B6421D5AF3B39E2@SLXP216MB1067.KORP216.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AK1P299CA0023.NZLP299.PROD.OUTLOOK.COM
- (2603:10c6:108:17::7) To SLXP216MB1067.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:9::6)
-X-Microsoft-Original-Message-ID:
- <20261013091802.1064081-2-alex@alexvernel.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6DB3D9DDB
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:19:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791883145; cv=none; b=HZDZ6jKs4mjaCh5IGPgg7+GCJLb0gDzaQ86t5dB6RFjATSlQvxu+ZVEtia07gIJmQHYDJzTJb7u6BNpvRmniSNHCq8MI3QVwo8ub5+Q9nWnosBCzeMNGO1Zb2i90gZy9XJQpAReVQsoRr7UKjPvdSuORPxICjePBIEWDKeRjZ+U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791883145; c=relaxed/simple;
+	bh=ZjDJCoA6MxAlqVBWalgo95rJlsZqJs5EHam3F2kFqFI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DCG6myWpXCmD5DfjXeelMCqcgjRCLItf3CQsc6xocM0fJM9jFsGLeeCPbBFPIgTdfohOcL1G46swERZz67oG6PuGcPBg5TtqCtcW0BmZp3gHgQVLIpWSMWCiUrouf+CIJbR1sHi8TMZxkyIMheQln00JE4CeV2gsnFJzjJoiofM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m+3COEDl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XegUqucV; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m+3COEDl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XegUqucV"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8B2DZ922923
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:19:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=uQ82qhE+xbrPharhAgsD9+NR
+	Ct+bFTtwURK4hSdKntQ=; b=m+3COEDlKoRKIgnoYo8+Ib/egwZwTuGWIqvL1820
+	I2EeOkYgsfW2+9Ww2MmvcNxsU3HwoM7ARx9UyGQdxP+XtKGbZv1SksVPwiPIVfeK
+	VSncdCH5da4DKRUneB088gg5LtLq4ddjw3Ibmcek6fERcag6jMxbwI5t9WXkvg9t
+	qsz5z6AelYxBQs10BQdiQ11QcS9mhrWF5Wd/Zs35pADw8TOH60x+6/tx+FCl54B9
+	PwIugTzhc/Kj53lLHxl4VRXIqnN6P3NUhO4y7he2H+PSj29+iVXOVrgypBcy/XmE
+	duAXPHcP0lUXixC+f4ymtEWCMBM/WBRXOmpL5jdzwjznyg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98h1t5ng-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:18:59 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ae8e7e546so575626585a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:18:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791883139; x=1792487939; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uQ82qhE+xbrPharhAgsD9+NRCt+bFTtwURK4hSdKntQ=;
+        b=XegUqucVk0IawPabM9lY0vVVthc16hJXk8o+Y2l1v/jfVPsFp2FpYUOBIEujSFGM89
+         ZCeBBkPUcDDawMZ8dQNQ7GqXlFJ0ue6MM82ge7AkURT9ODArOVqnwGwD+SjQdtPt5Zae
+         NAYLvOv2xAVQGMEPwv5iPXVDwFXH1WB4h4lGHSHzRvtdnXHFAtexdfwnMws3kMYmn2zT
+         zlIPuV0huaL3YQCMoc7onxx5iRqCI6He6X16nAf4JbwKNWV1SRVUJoxzwwbnZY8BETxN
+         flEwEZw5amVGbm2v3Twfk9W4/0IqLGfkBuJvNFM+ukaJfdhJYCXuaQaapxiOdCRqSDTz
+         5Awg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791883139; x=1792487939;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uQ82qhE+xbrPharhAgsD9+NRCt+bFTtwURK4hSdKntQ=;
+        b=Fa6NjwUvJLFaoMXfUOkN9wWSKlSDw3LgUxhtk55bi34tJQx4X0JLZzoU4C/QFg+XJJ
+         8yZsVheOLSQhL+4sxLRmIWJUw1cY/cfN8gCUjcc1YjpuNXBoFuYjsnn3/BMqXJrCWORQ
+         nI8j2EKFfZ17OJ9uBB8CKOSF9gNJ3SROCzFgj+fLfIKcpAo/Ku3N0AaR8BSFczDU44ec
+         3ItMSgQ8EVHT76hiYGMeT0IRuuEa8YUbkXniG0pOOFRfRDL1X+PSJAnANdMH+3Yiv1RZ
+         KfX9sCtORRDtEKl0W14xtrQ+rGuVXVVMj2fGbVx3V61uvaIyM1pGYxsxl2LtGzlaQOPh
+         N12A==
+X-Forwarded-Encrypted: i=1; AKwUvBxfTA9o4S67fePwBcNHb1v97Hic0QcqQDCF0dmywGft3AmzUa0KoyqEEoPSSUrmQaXgxBTGJvchgDVDxRY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKofGBkFdsPClV1u4wpX5E4dr5tpj6IqdL+RFWLxYIOgFgLlJCS
+	H+ZJuBkVYRLYDKsbOanU2IqTLYnoqbcyH0dqc7lWrg2TofMUxxriDZCCrpMzskzzKU0NHauGet5
+	xo0QhHWz8H+/ZB9rcmxRUGaNwuhdWZEUKaAAl2esK/Ga362N7GQU45kUYG6zATqT52V4=
+X-Gm-Gg: AYBFou34dDFTV+69WVEDepCExkGx7U2q46d4lNYtlCWz2f+zLLEgHdKYTcPp2J5aDpb
+	tm/7MQYPsBqQ9gh+Vkr+yXCWGGSi+SdrtfouGp9M/q1rIanNQp5aYvDZxZK5TtFdLqcK1A+dVkY
+	uYWLB3NOyVPwyH6SPTvZNV+55F4M91js/FUplsjUMPyw7Sb14Oq8K0+b9fM/cn7ht4A+B3dHNjs
+	e/d3D/5B3Ip/jnAlGqF6BoATzEpcFP8qJCuegQIi3IQzMx8jMTRPzTqR2YpqoZKkPtzCSKtwwa/
+	Ttw6FYmZsyAG4OaEP+lL4bJ4AylpWyT0uT07orUES+egjcJ2BkJB72QC6UgL3VdEDbEYFowYi3P
+	+qVOHTIKtbzo2J4LR4ScAnv1xP8n/4bjmpa0gFnp1gEtIU+/E0DFmyfjZNllzV8HRamGPRLtyep
+	Wn4vIGqggnQ1OM
+X-Received: by 2002:a05:620a:6601:b0:93e:7192:191c with SMTP id af79cd13be357-93ebd1e0044mr1950630285a.17.1791883138856;
+        Tue, 13 Oct 2026 02:18:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:6601:b0:93e:7192:191c with SMTP id af79cd13be357-93ebd1e0044mr1950626285a.17.1791883138276;
+        Tue, 13 Oct 2026 02:18:58 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcf8a3970asm1038505e87.79.2026.10.13.02.18.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 02:18:57 -0700 (PDT)
+Date: Tue, 13 Oct 2026 12:18:55 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH v2 06/13] drm/msm/dp: Add support for DP controllers on
+ Nord
+Message-ID: <gmsyzeugteg67h5vwzf2y2e7k56eg6aicbonzjl72etgedd5oe@vlizd2npwtn6>
+References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-6-a2ab9af954d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SLXP216MB1067:EE_|SE2P216MB2952:EE_
-X-MS-Office365-Filtering-Correlation-Id: 919139f0-10c6-4c75-f8aa-08df290af145
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|5072599009|23021999003|15080799012|260925184616899003|51005399006|25010399006|12121999013|8060799015|19110799012|440099028|3412199025|40105399003|2607281247196008|30101999006|10035399007;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?Z0upYMjQYlNc+vbKrLii8tIPuZRys2OX2uR5Tve1dJW69wkuGgXxu/W35ODZ?=
- =?us-ascii?Q?JlEXGnsA5iYAotlX5Vo2LWq4Eg/OE7Pv8IsMpYs/fOOXpCLpQqy559Iggc3X?=
- =?us-ascii?Q?MUu/CQi6nbj9+UkOpD4XgetXm4OThxVNbqo9w9RnVICj3xqYWmzEtG/Yyk9G?=
- =?us-ascii?Q?bM7u3aVWsHcI/IUpWpjjDnpKJQ1gx6oe7wkTUu5Vci/wR/eknUDtI77zZxAt?=
- =?us-ascii?Q?lhKf6Xejw/SmIgctTtAFhrcP1pmPAVVQnSYFQ4Jjx6Bb8ZBWHbgoH+8Ee740?=
- =?us-ascii?Q?BaDo5h6essGqD9XnXf7yL+QWaCJclLjLMEry5B0dkZgxsjIlv8bye/dY8CU7?=
- =?us-ascii?Q?GGff9a6cbYj8x9Mwg4Pu4NKgy/0sV/jIsSOYtIJIumIY9OmUYMxBTKUG3REN?=
- =?us-ascii?Q?oc+Y12pVXrH+oPlBlapIu1IaJDOwKc2sJGZW9v7mblpJTljwSNXwS90jPez9?=
- =?us-ascii?Q?bUBAlwLPMJDvlY7N8OlRMRZ4FNiLgSmzR9ifhzNQkx/YbSayvxlxGvirp+WU?=
- =?us-ascii?Q?s1bAkxQIYVWQw2U10uj9uRemVZEWE+mgaalDdcK/k2LHWy9E5THm+OTo4eYC?=
- =?us-ascii?Q?PFTqs4g+frHPUYWu5HvVUA+sLV9bIE1BLLnaKpgVmWPwTuSnBTdIhhHZ3lWq?=
- =?us-ascii?Q?HRmx/DlDHrFeqV8ypLERNCNJM3uM+sgRbdFBmQp1CARJmhAJQNNQnWFN9jdX?=
- =?us-ascii?Q?dWDbrpZfPGIlvwc6Xd/AMHIWbeM3Hgejewu27CyHk3qqHqvemJ+l44ALBEhg?=
- =?us-ascii?Q?sMfN6atIEx1bmjnCBQ41lGrB2stW2PJ+rT7GtmSm1pETCtox/tsct5DE/V+J?=
- =?us-ascii?Q?MhdbifbN5uxFirCN4rR3Mi2AwZfIPvZNi5sUuciLN3MARa57Fx1fo3Xyu2rt?=
- =?us-ascii?Q?1OVf8Y/MzaVRr7WXC9c5puxE9Ig7mwBkFayvwKFCJs0MoMx2bIIcM6FJq6Wo?=
- =?us-ascii?Q?hV2a+T4km7phFLyNHZIS/PEtiOQY3ey+1HBu5LsgdII=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uKWSbyMHiCIa2i5J+t4hQ0Xu8k6oBipe5z6nbbhV3WjMtz0Ocwu8JWzsBiRH?=
- =?us-ascii?Q?ZajbrZucQxHGzG0rDgKwfzB1f5JqnFINglSYY8+NGWCiBzsYUOKSlMgLkRXW?=
- =?us-ascii?Q?gkwhbkfcIKx6m7VeJK6d0da4fwFTZYKt0rl8gbTAs3Gq5bVh56rxNSNeGbIg?=
- =?us-ascii?Q?b4NWjDI/QY95k6f90LXWqYEH4JBTHLMCg3WhbaJtwxn6n8qRHI6XtuzuTfAH?=
- =?us-ascii?Q?TLJUmUHlmYmdSuxvHw+t9U8FCxN3VjzeZd9pt7sOzafjtpgYjnstAGq3fL3z?=
- =?us-ascii?Q?o9o+Ei4neZXzn1N+nDpmxcIpoAd78IYN2y56+7/C+edeFHQCZvSDupwmceQc?=
- =?us-ascii?Q?yCBU/ZnuUM/h605lztQfwGGnhmb7zUe7NokYhN+ilMunklxaUfm71lEgZVa3?=
- =?us-ascii?Q?QdLAD2it72qcb676kFoSeXzi1iTOk4JdY802wIuMYB0EqM0DK+hvQ2GScGXE?=
- =?us-ascii?Q?x7+asb37IMxsWR89dk63kpQ2wN0dpwjC5pw5Aehy600nOMJN+3av2yTV3hCM?=
- =?us-ascii?Q?Kq+sK9k+y3PKPV9PJHcM31oCx8fvZUc52VaBUrvihLDxeYm8iw89dQzpH2dd?=
- =?us-ascii?Q?YH+YvWifDBQNeDBs642g5CcvXkV7EkfOOuQlbWC2Rp6xjGqIPjBdz32/KfUK?=
- =?us-ascii?Q?pRYasZBYB8HdDjal+o5DWHt0ZdVUjFaM7lAhXhP+GPv1VX9aaK+MZidKuH6c?=
- =?us-ascii?Q?0N39CAW2KFICbiKrDjtEqgimSEglDmH9IhbBzXE/k/RdeZDg+3zvbmMZy5k8?=
- =?us-ascii?Q?Hjxk3Yezo5XjMh6OOH/OV9o3qZXK13ogcTSUMJEn1WRSyq3gpaxlzS9+DTsl?=
- =?us-ascii?Q?u74O7metg9nsVPNVgGj2yhYekMu91s9C/pehFuk9zWdnYKWCNzvTUbxmtuZg?=
- =?us-ascii?Q?M0cjDRU4wkNyjaXsCEexxg4xxVnFuBZ4SJ/iriOcuPtzCKZ78jn+YVGQlqQC?=
- =?us-ascii?Q?YKLvsDoUH6Ii6AnqOPXAh6lac7+Iheo5ESKkpnh39MLprqHzHgnKh9WBIfJO?=
- =?us-ascii?Q?lEaXIAcMaO+QQ/7kEzRaf9uR3PwDhzU60GH9rUTqn8abgPPphTAxNuk71Byr?=
- =?us-ascii?Q?x0wCes4Ml0jc5N9vpLDJA5eTRWr92H6fg2fNpsgbG9du6Ma12FIUSZwOKGnB?=
- =?us-ascii?Q?sCXyNuLuLDD1FC7wezWCwS4kGzfQy1qW50sCbxGy+17K4lXwjdCYkYz10UGF?=
- =?us-ascii?Q?4RXVmbt0lSdMMOYN3Yl5EVpsKEltRtpIfuNyy7zipAjcf+JXMxQfkAsMpYw5?=
- =?us-ascii?Q?cBH6c2iVnZAZFlZv0jOUtgNql/R+ppGPr18DKSlBRsfBbzjr6NiWLgfik3Sx?=
- =?us-ascii?Q?4ey8J9jSz4ew3khyD/GDZlfE1+IPN/fPjRTVVKetRabuXKsoHTYyix4y0Zjx?=
- =?us-ascii?Q?oLr6M9hL/8TPea7IZryM7bfjYAq7Fx3GLvws8DyhswA3TXKBtQ=3D=3D?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-94596.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 919139f0-10c6-4c75-f8aa-08df290af145
-X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1067.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 09:18:29.3343
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE2P216MB2952
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-nord-drv-dt-v2-6-a2ab9af954d2@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=VqC2kO2n c=1 sm=1 tr=0 ts=6acdf783 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=rMXm0_BZOgqvqhzNPSsA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: 0OeZZeJ8ZjBHbu12gehnSem-KwG0mztD
+X-Proofpoint-ORIG-GUID: 0OeZZeJ8ZjBHbu12gehnSem-KwG0mztD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNiBTYWx0ZWRfX496hFb19FJiX
+ JoQDpfYLXxqKMjaXSB6CIitCcpUdiK8Vak4noVXLwCJOhv1Gc2Pg1JW0gb0J5wWG3mQqTq0hQXt
+ 0/OtZcG7Ug+06L+rp3l1LTnm3xNplfo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNiBTYWx0ZWRfX7PhaABtyR/uM
+ o1S/HGKeGvwiJwc6PxxozEozelRnw+c2gu4SHNQPYoCv2TF2P8gvkQ/5WqH1iJ8ny+RxQdpZF50
+ Np+Gz42ninvqWu8obu+WUBjIDAnTQfz+KNTyEVvCxYZo2PDg2czKYU6lj6DGoDS397KOH1XDKrj
+ U2FiQwHwHtJoiVkIWepqjH/y9684EAjSkDq9mMCQyy1+TvuE3CQ8S+T1W3FwQalIryIWOoxJBZt
+ erHifcvS/F91VGGxpkpdtJrRFOGvoY1wHazp9Cz67lAPUpGGhrmt7k+dmhc1mantPvmMBBOSiIs
+ Xj5jWLLlHa/zdD2fldo+TKP/Eei9n2dXEjYwGX6KrsK8TZa3+CobtIql0/PxIpoD0SCYvpQIfZ0
+ W8hDhNlcIALahfKRVBgDaK/kGoHU2MOs5qxXrnpKxU7r2nYzxf1BTh/Wsc1Y+cYWkdLkfTHyAtK
+ fzMsXSoyLGruFdQMheA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130036
 
-WCN3620 only registers a 2.4 GHz band, but its firmware can report scan
-results with rf_band values that select the 5 GHz channel mapping.
-The resulting receive status references an unsupported band. On a
-WCN3620 tablet, this caused a NULL dereference in the survey update
-called by wcn36xx_rx_skb(), with a reported frequency of 5280 MHz.
+On Mon, Oct 12, 2026 at 07:02:16PM +0530, Nabige Aala wrote:
+> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> 
+> Add the Nord DP desc and compatible. Nord is supporting the
+> four DP cotnrollers, two per MDSS instance.
+> 
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 
-Only use the 5 GHz mapping when that band is registered. Otherwise
-interpret the descriptor's channel as a 2.4 GHz channel. Reject scan
-frequencies absent from the registered channel tables before updating
-survey data or delivering the frame to mac80211. Ordinary receive and
-valid dual-band scan mappings are unchanged.
+Why are they not a part of the existing entries? Is it a newer core?
 
-This follows Stephan Gerhold's WCN3620 workaround in the msm8916
-integration tree, using registered band support instead of a radio-ID
-check.
-
-AI tools assisted with crash analysis, adaptation of the workaround,
-testing and preparation and review of this submission.
-
-Link: https://github.com/msm8916-mainline/linux/commit/0be2d63a476e83c757d9caafc22eae00bcfd1df8
-Fixes: 8a27ca394782 ("wcn36xx: Correct band/freq reporting on RX")
-Assisted-by: LLM
-Signed-off-by: Alexander Vernel <alex@alexvernel.com>
----
-The original crash was on 7.3.0-rc6-tb-x103f-mdp3-r28, based on
-6c377d19d4a51 with board/display bring-up patches. The affected txrx.c
-matches that mainline base. Firmware reported API 1.5.1.2 and CRM 67946-1.
-Selected UART lines (other lines omitted):
-
-  PC is at wcn36xx_rx_skb+0x160/0x74c [wcn36xx]
-  LR is at wcn36xx_rx_skb+0x378/0x74c [wcn36xx]
-  r3 : 00000000  r2 : c1cec260  r1 : 000014a0  r0 : ffffffc4
-  wcn36xx_rx_skb [wcn36xx] from wcn36xx_rx_handle_packets+0x140/0x218 [wcn36xx]
-  wcn36xx_rx_handle_packets [wcn36xx] from wcn36xx_dxe_rx_frame+0x70/0xd0 [wcn36xx]
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-Decoding the exact module locates the fault in wcn36xx_update_survey(),
-inlined into wcn36xx_rx_skb(). The frequency is 0x14a0 = 5280 MHz and
-the supported-band pointer is NULL. The raw descriptor was not captured;
-neither its exact rf_band value nor the actual receive channel is known.
-The fallback follows the earlier workaround. Channel-table membership
-checks that the decoded frequency is supported, not that it is the
-frequency on which this particular frame was received.
-
-Tested on a Lenovo TB-X103F with WCN3620 using a mainline-based board
-bring-up kernel, 7.3.0-rc6-tb-x103f-mdp3-r29.
-
-The 20-minute UART capture showed no kernel alerts. Twelve normal scan
-requests were accepted; 4 MiB was uploaded and 48 MiB downloaded with
-SHA256 verification. This does not establish that the malformed descriptor
-occurred again. No dual-band hardware testing was performed.
-
-An extracted-function host harness passes 261 RX cases covering band and
-channel decoding, missing channels, ordinary RX and queue purge. The
-original code traps at the unsupported-band survey access. With only the
-band guard removed, the synthetic WCN3620 channel-6 case is dropped
-instead of delivered as 2437 MHz. With only the channel guard removed,
-invalid-frequency cases are not dropped. These are separate expectations;
-the mutation tests do not show that both guards are individually needed
-to prevent the reported panic.
-
-These tests use shims and do not simulate firmware, concurrency or full
-A-MSDU handling. An ARMv7 W=1 kernel/modules/DTB build completed without
-warnings.
-
- drivers/net/wireless/ath/wcn36xx/txrx.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/ath/wcn36xx/txrx.c b/drivers/net/wireless/ath/wcn36xx/txrx.c
-index 882699879..c12d4a503 100644
---- a/drivers/net/wireless/ath/wcn36xx/txrx.c
-+++ b/drivers/net/wireless/ath/wcn36xx/txrx.c
-@@ -367,7 +367,9 @@ int wcn36xx_rx_skb(struct wcn36xx *wcn, struct sk_buff *skb)
- 		 */
- 		u8 hwch = (bd->reserved0 << 4) + bd->rx_ch;
- 
--		if (bd->rf_band != 1 && hwch <= sizeof(ab_rx_ch_map) && hwch >= 1) {
-+		/* WCN3620 can report a 5 GHz band for 2.4 GHz scan results. */
-+		if (wcn->hw->wiphy->bands[NL80211_BAND_5GHZ] &&
-+		    bd->rf_band != 1 && hwch <= sizeof(ab_rx_ch_map) && hwch >= 1) {
- 			status.band = NL80211_BAND_5GHZ;
- 			status.freq = ieee80211_channel_to_frequency(ab_rx_ch_map[hwch - 1],
- 								     status.band);
-@@ -375,6 +377,9 @@ int wcn36xx_rx_skb(struct wcn36xx *wcn, struct sk_buff *skb)
- 			status.band = NL80211_BAND_2GHZ;
- 			status.freq = ieee80211_channel_to_frequency(hwch, status.band);
- 		}
-+
-+		if (!ieee80211_get_channel(wcn->hw->wiphy, status.freq))
-+			goto drop;
- 	} else {
- 		status.band = WCN36XX_BAND(wcn);
- 		status.freq = WCN36XX_CENTER_FREQ(wcn);
+-- 
+With best wishes
+Dmitry
