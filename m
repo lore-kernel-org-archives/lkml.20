@@ -1,190 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4116F314A9E;
-	Tue, 13 Oct 2026 14:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A323D0BE1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:14:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900873; cv=none; b=WIFEB2sH/mUsHoGy1E/HSfHzmJcvs1q+769Ra5ssWlrvqDCpVG9S8MI1qgBa2IvzkIJQJPQKk3JmVcWUfRWAkK6RySKtultCTlhH8pwd41ptuu0tQn9EtBWJz3GmhO0gF9y0U4VeiL6sJwMudJnoluZ266lD90awAb/nwp5CvH0=
+	t=1791900877; cv=none; b=L3zIBSoIFzodbyTUcLL80oWQDgoccS8oaAdlQRqCX65W3v0fdNlI6JXyPXuc0pnXPf+z7lvL1IgWlXYGE/LEIxhqJbVD3H97gif2ec53y4NrfjR9OUitUbOKCoBHgU4Y7fMdliMRhzZ5TeI89YuLwmOAs4D25w5eoMbffmx9NR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900873; c=relaxed/simple;
-	bh=xxIxs3uqCQEpqihV0UcJRjshpmnXjwZHRHAbD5JheQs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ak1uymlyR0zhU+iuEnfWvA2B7mPiYOT8w8+YWoIaOvsSSdQlG0wcVQABr42jM2YY7et7tGgwolxH6WXf+C2CrfScxtFmKlectABxBxTDrqMaECxUhHrJh9ou3AVc1fI3M3R8/eecbhE+do+vCfse2V8LdQcSTE84+9KSI6yrRlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7hb/S1U; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791900877; c=relaxed/simple;
+	bh=nH6jYVOksBPD8uC4fP2Cgr0v+i667iKCmZZHX/50iwk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X/mWUTyNyz9PCZq5JtR8ib9ecKqgjPRgU4ZWTNmCdX8ZiZcUInYpqVdPcazC11kc5Z14irNo+KJHkcZ7+j5kYYQ4jydamV736xbK3XzWYlxsopg9oUD3zKQnckG11hXKfThwwFd65k1F2MK3SCBNecfdrXdMEPJTwp0H4Diw424=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vPYtz7qV; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7hb/S1U"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BEDF9C2BCF4;
-	Tue, 13 Oct 2026 14:14:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791900872;
-	bh=xxIxs3uqCQEpqihV0UcJRjshpmnXjwZHRHAbD5JheQs=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=V7hb/S1Ur2t600PJilgIW/uS9dL0y94jHIYMFk4EBmhmqu13UkIIiK7FbIIkyaSsO
-	 kWABBwZ4CvIDysEBfFvQaSBBwusRgR4Q9IZGuFu8qhBOAb9B+/W8781G3z9i3SRq33
-	 eXaig7YsBdH3Edf4z4drOC2QioUv5iZCyy/LMHkmdl1QlXA4BMh+LnSdQ9yp8y4I0d
-	 tiTgAmTJFyLka2v/2SM26gxwz1KCknlGHhy8K95QS/zQDn2DYmE5+0/x9AGYj0wpau
-	 msVb9Xv01/jkGrwRHJsagCbkk5jwaXfHrA9ZgFZfJrSFs3h3oEzd7tLt+WK9U7XzVx
-	 SgB+xIIYLMCcg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99CA7CC6B08;
-	Tue, 13 Oct 2026 14:14:32 +0000 (UTC)
-From: Steve Meek via B4 Relay <devnull+stevemeek82.gmail.com@kernel.org>
-Date: Tue, 13 Oct 2026 15:14:34 +0100
-Subject: [PATCH] bus: mhi: host: pci_generic: Disable doorbell burst mode
- for Quectel RM500Q-AE
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vPYtz7qV"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E43224E41209;
+	Tue, 13 Oct 2026 14:14:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B8D4C60362;
+	Tue, 13 Oct 2026 14:14:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C5AA811D714ED;
+	Tue, 13 Oct 2026 16:14:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791900869; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=OLsy6HHrd9OhlTf5ijFBqojW+83puKqwZQgSDTxalnY=;
+	b=vPYtz7qVmDHNllXMQyumytOH7h1TmGBxMcPaIQ0IksGaa8t3qHFOHqCno5BCR50M/caxan
+	lSMbKm3vXxJH+CqZDrz3g48zipOuZPGz24vFZtYK4O0saPXp6G6ZBLFW72zDvyzndcxnhT
+	X7nKoIZRX/6IRmYBWFM7tLL4y7PaZF1oYMKAFQpSVPQ8B77XssAo3qfIr9BTYz5cZU2MVZ
+	2dn2jj2F8a6nUbR9iXmIqCDbW+w68Pl9O1ZVi1wElFd5GhTYKr0DCbQfcBd8C8zICVKArm
+	0ZC0ggq8tXrPnQrV4EU5n+Kx27M4ehRVG+ptQgdCtbh1fFTW07/W6e63nvq7SA==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Mark Brown <broonie@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Kees Cook <kees@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v2 1/7] spi: spi-mem: Add support for panic mem writes
+Date: Tue, 13 Oct 2026 16:13:44 +0200
+Message-ID: <20261013141350.189996-2-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261013141350.189996-1-paul.cercueil@bootlin.com>
+References: <20261013141350.189996-1-paul.cercueil@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-rm500q-db-burst-v1-1-bb850d54e2c4@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMk8zmoC/yXMQQqDQAxA0atI1g1kHJTBq5QunDFqBG2bqBTEu
- 3dal2/x/wHGKmzQFAco72LyXDLcrYA0tsvAKF02lFTWjpxHnSuiN3YR46a2IqcqUGpD8N5Brl7
- KvXz+x/vjsm1x4rT+NnCeX8gAupZzAAAA
-X-Change-ID: 20261013-rm500q-db-burst-ec580ca88331
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
- mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Steve Meek <stevemeek82@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791900873; l=5124;
- i=stevemeek82@gmail.com; s=20261011; h=from:subject:message-id;
- bh=BSBArFla/DwFyRCB336wqMsgkVGpFN/iXB3N8/Qra/0=;
- b=btAw/hV6faG3YXcI5l3o0FZ5UthK5ZINCeCCRun9RKtYNjPxuiXtcbxQpQIopxfBWWtTdv6tg
- SxjdZ6T9L0uDm2vFl90bCpxDDn2a8nC8s3+SIe4FzT6MVn5CUACxskT
-X-Developer-Key: i=stevemeek82@gmail.com; a=ed25519;
- pk=dtyc4btZAMr4Kqf5DaioLF7wBCQbkFYyDo3X5EcpZw8=
-X-Endpoint-Received: by B4 Relay for stevemeek82@gmail.com/20261011 with
- auth_id=1154
-X-Original-From: Steve Meek <stevemeek82@gmail.com>
-Reply-To: stevemeek82@gmail.com
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Steve Meek <stevemeek82@gmail.com>
+From: Tanmay Jagdale <tanmay@marvell.com>
 
-With burst mode enabled on the IP_HW0_MBIM hardware channels, the
-RM500Q-AE downlink stops under sustained multi-stream load. The MHI
-state stays M0 and uplink keeps working, but the downlink event ring
-stops interrupting, and after a while the MBIM control channel times
-out as well. Only a reboot recovers it.
+Add a 'panic_write' flag to the controller's capabilities struct.
+When set, the SPI controller indicates that it will be able to send
+commands to a connected NOR or NAND memory in the context of a kernel
+panic, which means without sleeping and without relying on IRQs.
 
-At the stall, the last doorbell the host rang on channel 101 covered a
-single buffer. The host then refilled the ring without ringing again,
-as db_mode had been cleared, and the device never signalled doorbell
-mode again, so it never saw the new buffers. Writing the channel 101
-doorbell by hand with the current ring write pointer restores the
-downlink immediately.
+Whether or not a given memory operation is a panic mem write is given by
+the spi_mem_op.panic_write flag.
 
-It is load dependent: it reproduces within a 25 second 16-stream TCP
-download when the wwan0 receive work runs on the same CPU as the
-modem's MSI, and was not seen with that work moved to another CPU.
-PCIe runtime PM is not involved, as it reproduces with PCIe port PM
-disabled.
-
-Give the RM500Q-AE its own channel table with burst mode disabled on
-the two hardware channels, so the host rings the doorbell on every
-transfer. Other modems sharing the em1xx table are left unchanged.
-
-Tested on a Xunison Exigo Hub D50 5G (IPQ5018, RM500Q-AE firmware
-RM500QAEAAR13A03M4G, 6.18 with this driver): with the receive work on
-the modem's CPU at up to 100% load, about 200 seconds of multi-stream
-downloads at up to 135 Mbps, no stall and no MHI errors, where the
-unpatched driver stalled within the first 25 second run.
-
-Fixes: f6985f512f82 ("bus: mhi: host: pci_generic: Add Quectel RM500Q-AE support")
-Assisted-by: LLM
-Signed-off-by: Steve Meek <stevemeek82@gmail.com>
+Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
+Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
-Hi Mani,
 
-A follow-up to the RM500Q-AE support you applied on 11 Oct. Under heavy
-multi-stream download the modem's downlink stalls with burst mode on,
-and a manual doorbell write on channel 101 brings it straight back, so
-this turns burst mode off for the RM500Q-AE's two hardware channels
-only.
+Notes:
+    v2: - Don't call spi_mem_access_start/end on panic. We don't need to
+          flush the SPI queue at that point, and we don't need to lock the
+          mutexes.
+        - Check that the SPI controller's PM status is active, and bail out
+          otherwise.
 
-The stall looks like a lost doorbell-mode handshake rather than
-anything board-specific, so it may affect other modems on the shared
-em1xx table under the same load. I've only got the RM500Q-AE to test
-on, so I've kept the change to that device. If you'd rather it were
-fixed in the core, I'm happy to send the traces from the stall.
----
- drivers/bus/mhi/host/pci_generic.c | 49 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 48 insertions(+), 1 deletion(-)
+ drivers/spi/spi-mem.c       | 35 +++++++++++++++++++++++++++++++++--
+ include/linux/spi/spi-mem.h |  5 +++++
+ 2 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
-index 7193a384c..f6672f1cc 100644
---- a/drivers/bus/mhi/host/pci_generic.c
-+++ b/drivers/bus/mhi/host/pci_generic.c
-@@ -490,10 +490,57 @@ static const struct mhi_pci_dev_info mhi_quectel_rm5xx_info = {
- 	.sideband_wake = true,
- };
+diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
+index b94680b60af9..3b6fa44e4550 100644
+--- a/drivers/spi/spi-mem.c
++++ b/drivers/spi/spi-mem.c
+@@ -398,6 +398,31 @@ int spi_mem_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	u8 *tmpbuf;
+ 	int ret;
  
-+/*
-+ * The RM500Q-AE stalls its downlink when the host refills the hardware
-+ * channel in burst mode: the last doorbell covers one buffer, the host
-+ * then queues the rest without ringing, and the device never signals
-+ * doorbell mode again. Ring the doorbell on every transfer instead.
-+ */
-+#define MHI_CHANNEL_CONFIG_HW_NOBRST(ch_num, ch_name, el_count, ev_ring, d) \
-+	{						\
-+		.num = ch_num,				\
-+		.name = ch_name,			\
-+		.num_elements = el_count,		\
-+		.event_ring = ev_ring,			\
-+		.dir = d,				\
-+		.ee_mask = BIT(MHI_EE_AMSS),		\
-+		.pollcfg = 0,				\
-+		.doorbell = MHI_DB_BRST_DISABLE,	\
-+		.lpm_notify = false,			\
-+		.offload_channel = false,		\
-+		.doorbell_mode_switch = false,		\
++	if (op->panic_write) {
++		if (!spi_mem_controller_is_capable(ctlr, panic_write))
++			return -EOPNOTSUPP;
++
++		/*
++		 * Only support panic writes if we'll go through .exec_op().
++		 * The regular SPI path (spi_sync(), etc.) explicitly mentions
++		 * that it can only be used from a context that may sleep, which
++		 * is not the case on a kernel panic.
++		 * If this changes in the future, this could be reworked, but
++		 * for now this will have to do.
++		 */
++		if (WARN_ON_ONCE(!ctlr->mem_ops || !ctlr->mem_ops->exec_op))
++			return -EOPNOTSUPP;
++
++		if (spi_get_csgpiod(mem->spi, 0))
++			return -EPERM;
++
++		/* On panic IRQs are disabled so we cannot wait on locks */
++		if (mutex_is_locked(&ctlr->bus_lock_mutex) ||
++		    mutex_is_locked(&ctlr->io_mutex)) {
++			return -EPERM;
++		}
 +	}
 +
-+static const struct mhi_channel_config mhi_quectel_rm500q_channels[] = {
-+	MHI_CHANNEL_CONFIG_UL(0, "NMEA", 32, 0),
-+	MHI_CHANNEL_CONFIG_DL(1, "NMEA", 32, 0),
-+	MHI_CHANNEL_CONFIG_UL_SBL(2, "SAHARA", 32, 0),
-+	MHI_CHANNEL_CONFIG_DL_SBL(3, "SAHARA", 32, 0),
-+	MHI_CHANNEL_CONFIG_UL(4, "DIAG", 32, 1),
-+	MHI_CHANNEL_CONFIG_DL(5, "DIAG", 32, 1),
-+	MHI_CHANNEL_CONFIG_UL(12, "MBIM", 32, 0),
-+	MHI_CHANNEL_CONFIG_DL(13, "MBIM", 32, 0),
-+	MHI_CHANNEL_CONFIG_UL(32, "DUN", 32, 0),
-+	MHI_CHANNEL_CONFIG_DL(33, "DUN", 32, 0),
-+	MHI_CHANNEL_CONFIG_UL_FP(34, "FIREHOSE", 32, 0),
-+	MHI_CHANNEL_CONFIG_DL_FP(35, "FIREHOSE", 32, 0),
-+	MHI_CHANNEL_CONFIG_HW_NOBRST(100, "IP_HW0_MBIM", 128, 2, DMA_TO_DEVICE),
-+	MHI_CHANNEL_CONFIG_HW_NOBRST(101, "IP_HW0_MBIM", 128, 3, DMA_FROM_DEVICE),
-+};
-+
-+static const struct mhi_controller_config modem_quectel_rm500q_config = {
-+	.max_channels = 128,
-+	.timeout_ms = 20000,
-+	.num_channels = ARRAY_SIZE(mhi_quectel_rm500q_channels),
-+	.ch_cfg = mhi_quectel_rm500q_channels,
-+	.num_events = ARRAY_SIZE(mhi_quectel_em1xx_events),
-+	.event_cfg = mhi_quectel_em1xx_events,
-+};
-+
- static const struct mhi_pci_dev_info mhi_quectel_rm500q_info = {
- 	.name = "quectel-rm500q",
- 	.edl = "qcom/sdx55m/edl.mbn",
--	.config = &modem_quectel_em1xx_config,
-+	.config = &modem_quectel_rm500q_config,
- 	.bar_num = MHI_PCI_DEFAULT_BAR_NUM,
- 	.dma_data_width = 32,
- 	.mru_default = 32768,
-
----
-base-commit: 0b1883ca75c0005ab5ca52c7bc1a26329bc39746
-change-id: 20261013-rm500q-db-burst-ec580ca88331
-
-Best regards,
---  
-Steve Meek <stevemeek82@gmail.com>
-
+ 	/* Make sure the operation frequency is correct before going futher */
+ 	spi_mem_adjust_op_freq(mem, (struct spi_mem_op *)op);
+ 
+@@ -420,7 +445,10 @@ int spi_mem_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 		return -EOPNOTSUPP;
+ 
+ 	if (ctlr->mem_ops && ctlr->mem_ops->exec_op && !spi_get_csgpiod(mem->spi, 0)) {
+-		ret = spi_mem_access_start(mem);
++		if (!op->panic_write)
++			ret = spi_mem_access_start(mem);
++		else if (ctlr->auto_runtime_pm)
++			ret = pm_runtime_get_if_active(ctlr->dev.parent);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -428,7 +456,10 @@ int spi_mem_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 		ret = ctlr->mem_ops->exec_op(mem, op);
+ 		trace_spi_mem_stop_op(mem, op);
+ 
+-		spi_mem_access_end(mem);
++		if (!op->panic_write)
++			spi_mem_access_end(mem);
++		else if (ctlr->auto_runtime_pm)
++			pm_runtime_put_noidle(ctlr->dev.parent);
+ 
+ 		/*
+ 		 * Some controllers only optimize specific paths (typically the
+diff --git a/include/linux/spi/spi-mem.h b/include/linux/spi/spi-mem.h
+index 0cce6b57242a..2633307bfad5 100644
+--- a/include/linux/spi/spi-mem.h
++++ b/include/linux/spi/spi-mem.h
+@@ -169,6 +169,7 @@ enum spi_mem_data_dir {
+  *		 operation does not involve transferring data
+  * @data.buf.in: input buffer (must be DMA-able)
+  * @data.buf.out: output buffer (must be DMA-able)
++ * @panic_write: The command is executed in the context of a kernel panic
+  * @max_freq: frequency limitation wrt this operation. 0 means there is no
+  *	      specific constraint and the highest achievable frequency can be
+  *	      attempted.
+@@ -211,6 +212,7 @@ struct spi_mem_op {
+ 		} buf;
+ 	} data;
+ 
++	bool panic_write;
+ 	unsigned int max_freq;
+ };
+ 
+@@ -392,6 +394,8 @@ struct spi_controller_mem_ops {
+  *                   is a pause in the transfer (eg. internal bus contention or
+  *                   DMA arbitration on an interconnect). Features such as NAND
+  *                   continuous reads shall not be leveraged.
++ * @panic_write: Set to true if the controller driver supports writing to a
++ *               connected NAND/NOR memory in a kernel panic context
+  */
+ struct spi_controller_mem_caps {
+ 	bool dtr;
+@@ -400,6 +404,7 @@ struct spi_controller_mem_caps {
+ 	bool per_op_freq;
+ 	bool secondary_op_tmpl;
+ 	bool no_cs_assertion;
++	bool panic_write;
+ };
+ 
+ #define spi_mem_controller_is_capable(ctlr, cap)	\
+-- 
+2.47.3
 
