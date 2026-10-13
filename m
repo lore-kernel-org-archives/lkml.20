@@ -1,191 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06F13F1064;
-	Tue, 13 Oct 2026 02:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DDA446052;
+	Tue, 13 Oct 2026 02:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791857106; cv=none; b=hIOw6QiUPw64vFfkTnhjtlFCZMHFQ3kwuKTxMkLwO+txoGZZTn/8D9RkAkUCL9uCYfzDyuO9S6wVGTTCahpSPgED/uQrvMLNYryfhDBeQafkxriaqofYLhxuAA8x1axLOk97l6TGt9A1mD4/284qDp/RDjgvfFxkBP+hqYWDrXk=
+	t=1791857303; cv=none; b=IVLPq0WagBAU89AGG1OaKNWXDHJpQZKKyjevHINlC6fm5fvzCs604Ukgmt+D9362r5vCyPB/3fOMIN7R9/Rtq61NWQH7XQAO5tug5Mc/FqeRoYJEfVd7x3VKAG+pUa+dfwdvuFBAK7kPdKopw6dWGwHf/NnZLNssZ8WygtMKXyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791857106; c=relaxed/simple;
-	bh=Yafkd1Ko+GR7Fm2scZFoGSPWX16GSPl5aY+tos+AddI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LiOYtmUtwlj7LZbYxv82b4qGueHBIRJcooESRWCo2q0gqqC5gVcWNtQ0xW256zeiRSW68us9Gk4WgLSdFm5Vuf2XS1i+g4EnwF8nJSHL0d1pZLyTy3FtVpKiilegp590aJgoHqO+b2q97/7qkCdBlyfcIFSMLJQosMiWlDL3EIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iB1ZvK9M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791857303; c=relaxed/simple;
+	bh=9xS4EKIQwXy8lyzcTVaDoGrvaw0OsyvCwE8xGMJZHNY=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dpDHN2F1TuY6KuPstbE6ai+YiTYzin6DOjOIHV8AD2C3lgt6VOyhnXdb1LjgMZuMgDfJCieFVu5CY1OhqXC8f2SxRYOHar6ShKA8/iWahVcfcx1/p1Nhg1Jubj15U6ZnueVu03Lzv+zrksLHpHn6cAvBYUs6SX3lu96EvpqYQbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=teZvZGRS; arc=none smtp.client-ip=203.205.221.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iB1ZvK9M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A34161F000FF;
-	Tue, 13 Oct 2026 02:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791857104;
-	bh=Ab0qE5OkmRI2l0Jp2s1HEzACuFvv1a8SHMl12Jh81QA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=iB1ZvK9MxznlZOPCxZg2aHwZwinmmgWU2CwAeNHQPWkKTZADJaNWGsiHXfJl0zjoi
-	 Fx+DKpJr/A8k+VRGSSM4/r069lY8RGnRPJ+gfO0siBG4dh8i+YP0DhkHFZIzBJk16v
-	 K53HowzFlD+KuK9nM1a5gt88j63O9rrVkYhRswD3k2q76vqS0mzkDW1g1aHjfOEATm
-	 l6TVNrtAu5LZtzYgBa+BwUo9U2o7kY18dVcfO+pEQg9trGKHBNUsicm9BXbCjM0OO3
-	 xZ+WqblLtexpmO2+eX1tHgN9ouxLAotMdfBCcDf4QFoDsgyjKrJ8HUcd1iL7/dN1af
-	 K9/XCqwK9G/6g==
-Subject: Re: [PATCH net-next v11 4/6] net: add AF_PACKET multicast dumps
-From: netdev-bot+sashiko@kernel.org
-To: sigefriedhyy@gmail.com
-Cc: ajay.kathat@microchip.com, aleksandr.loktionov@intel.com,
- andrew+netdev@lunn.ch, claudiu.beznea@tuxon.dev, davem@davemloft.net,
- dsahern@kernel.org, donald.hunter@gmail.com, edumazet@google.com,
- idosch@nvidia.com, jacob.e.keller@intel.com, kuba@kernel.org,
- johannes@sipsolutions.net, kees@kernel.org, kory.maincent@bootlin.com,
- kuniyu@google.com, nicolas.dichtel@6wind.com, nickgarlis@gmail.com,
- pabeni@redhat.com, sd@queasysnail.net, shuah@kernel.org, horms@kernel.org,
- sdf.kernel@gmail.com, vadim.fedorenko@linux.dev, willemb@google.com,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org
-Date: Tue, 13 Oct 2026 02:05:02 +0000
-Message-ID: <179185710223.434549.6133926948819737320@kernel.org>
-In-Reply-To: <20261012011707.3378-5-sigefriedhyy@gmail.com>
-References: <20261012011707.3378-5-sigefriedhyy@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="teZvZGRS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791857291; bh=OHJ09hjQAz24kgDQud2tFKxx2MHWCqpL/+CT8AjLbE4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=teZvZGRS63RxCVdiSfa0ic51/EsQlAd1wYCE04YfLtgjYZDW9ZZn89Zftce4KGcxB
+	 PvcK6LjliyYJifdBHPCZL7OHCnZXno1du2HAm/ZmJYi6aeCuxYm5A1XuYMgHM+5SB2
+	 HJN3cFXUdpyvcGO/CRyOWmhRQFdcP2Jph/SHEAiY=
+Received: from [172.18.4.77] ([61.136.26.103])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 209AA6FD; Tue, 13 Oct 2026 10:08:09 +0800
+X-QQ-mid: xmsmtpt1791857289tds7c8wqu
+Message-ID: <tencent_08DEA270533DBF8D46589C204C5BA34A7D09@qq.com>
+X-QQ-XMAILINFO: NC4p7XQIBeah+QKvN9On9vuwD1jORAVVJsINZXcx6Ozfppv64qMSUkjxhsMGGq
+	 6CVPL+GjDooGbHX/FlxObIH5GlpNeI5lC58n11SaSQIbMj1iFJZqmF8GUi8VEb6e0tM0bsicwBRl
+	 bmO+MdREcgdtTM7LqM+J41WZanOu2rVpcLZASW2RiAKTGRYcTCMj8Oj64fXVOTgpdlHhpItTzR7+
+	 xDGCa6z3ndf76T2kbs4SWfRtCiLfPBw/Z6XKCgpJy7DpJ3sfkzacY/Tz2FVMtlAJBqrF2l93TY4w
+	 6gNon1ZKXyw8yFfvyre13/RgRSv74c3N9weuY0gNbOM6i2m4twTvg1+juDL97D7GCXghwp86V+KE
+	 gaziiEVoxH56zS52/O5ZAz3bLSNGt6rZeGTxlCm0WIWm/bCUTXOVpWJIwAGvinX3yS5405AgLmnn
+	 83IhmeP0jJNNvExbyPR0leb/5oaCofDeZA+BU1tAKXUo+j1L8wVTbhyXyWj1GVL1LF07oKsxZbTm
+	 efppFz8lHcKqkpZ3qkIlb8ENir6ilxUvdStnQIoxRu8Z+2K0OoqJyG8NsvLDGn84gOJyVslCctoC
+	 +XJ3BybP5z2L7TNy9eMUAnwtHajE51pftCjjqAnh9+FJLsoKhRO1kUnaSVad1L5Z2Cc87wxdaeNz
+	 K4cMX2PdGFKd7pMFIJNGupml7UBWvQE6zo4AO4OOIQcyhCsuKYfXDUSxLLdn7orW5bc4DBK5tDJ2
+	 BwTZOAVFypvHgK06UyfGWsa6q5SXIHE7oYinIGcNM/qIuTPwXrWTM3jXF18BcQkDF8Tk0NymqHr4
+	 EOWxqf7FszPeRSicH+b4kFj1R2VQMEO0hTOy+PrnWrTeLFyrPWZZS36LRlM3zK7cQvsRHk3GhQOj
+	 WMPFBSHoBQEtyghu7gl6nzzAlveWDeDZD8NY1h/+k3syG0Yu1kHRUOv61/D/s1Re9OzhUO6VjT1Q
+	 zPW0GZJGv6T8x96VIfb4Nn8laXhHmAk8jKIFvfF4Z6izu8RrDL+r1DlMz0BBb+PYTrZ4jwV9RHU1
+	 FTHaztswiXLTyvmvfgX4SSWwtaqAZ55GWyrnlvpQ==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: 1sh1ro <yangguikun19@qq.com>
+To: Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG REPORT] ntfs: NULL pointer dereference in ntfs_ie_add() on mkdir() in a crafted image
+Date: Tue, 13 Oct 2026 10:08:09 +0800
+X-OQ-MSGID: <179185728933.44204.826773478834611391@yangguikun19.qq.com>
+In-Reply-To: <CAKYAXd_CP7OrKRkLwFkoLh-ADvin+oQXfj1HuDBwiEbG-LWX=Q@mail.gmail.com>
+References: <tencent_8D6FD09121A77E53BCA86E1FB228DC54A107@qq.com> <CAKYAXd_CP7OrKRkLwFkoLh-ADvin+oQXfj1HuDBwiEbG-LWX=Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: git-send-email (mutt-like)
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Namjae,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Confirmed -- the patch fixes it. I applied it to a 7.2-rc5 build and re-ran the
+reproducer (mount the crafted 2 MB image, then mkdir).
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Unpatched (7.2-rc5, and identical on current 7.3-rc5):
 
-- [Medium] dev_mc_dump() is registered with RTNL_FLAG_DUMP_UNLOCKED.
-- [Low] Under this patch alone, the uAPI and the YAML spec disagree.
+  ntfs: (device loop0): ntfs_ia_open(): Failed to open index allocation of inode 5
+  Oops: general protection fault ... KASAN: null-ptr-deref in range [0x20-0x27]
+  RIP: 0010:ntfs_ie_add+0x40d/0x9b0
+  Call Trace: ntfs_index_add_filename -> __ntfs_create -> ntfs_mkdir
 
---
+With your patch (7.2-rc5 + patch):
 
-net: add AF_PACKET multicast dumps
+  ntfs: (device loop0): ntfs_ia_open(): Failed to open index allocation of inode 5
+  ntfs: (device loop0): ntfs_ie_add(): Failed to find place for new entry
+  mkdir: cannot create directory '/mnt/t/probe': Input/output error
 
-This adds an RTM_GETMULTICAST dump handler for ifa_family AF_PACKET. The
-handler reports every entry of dev->mc in the ifaddrmsg format, using
-IFA_MULTICAST, IFA_MC_USERS and a new IFA_F_GLOBAL bit in IFA_FLAGS. The
-dump runs without RTNL, under RCU and netif_addr_lock_bh(), and uses
-dev_mc_genid plus dev_base_seq to set NLM_F_DUMP_INTR.
+No oops and no KASAN report -- mkdir() now aborts cleanly through the -EIO path,
+which is exactly what the -ENOENT -> -EIO change in ntfs_index_lookup() should
+do. The same crash still reproduces on 7.3-rc5, so the fix is still needed
+upstream.
 
-> diff --git a/include/uapi/linux/if_addr.h b/include/uapi/linux/if_addr.h
-> index 7fb630b7fe311..0a1ad9ebb47be 100644
-> --- a/include/uapi/linux/if_addr.h
-> +++ b/include/uapi/linux/if_addr.h
-> @@ -57,6 +57,7 @@ enum {
->  #define IFA_F_NOPREFIXROUTE	0x200
->  #define IFA_F_MCAUTOJOIN	0x400
->  #define IFA_F_STABLE_PRIVACY	0x800
-> +#define IFA_F_GLOBAL		0x1000
+Thanks,
+1sh1ro
 
-[Severity: Low]
-This isn't a bug, but with only this patch applied, the uAPI and
-Documentation/netlink/specs/rt-addr.yaml don't match.
-
-The ifa-flags enum in the spec still ends at stable-privacy and has no
-entry for IFA_F_GLOBAL.
-
-The getmulticast reply in the spec lists only multicast, mc-users and
-cacheinfo. dev_mc_fill_addr() now also emits IFA_FLAGS and
-IFA_TARGET_NETNSID.
-
-The dump request attributes in the spec are still empty. The op doc still
-covers only IPv4/IPv6.
-
-The next patch in the series, "netlink: specs: rt-addr: document AF_PACKET
-multicast dumps", adds the global flag, the flags and target-netnsid
-attributes and the AF_PACKET doc. After it, the series is consistent.
-
-Could the spec update be folded into this patch, so the uAPI and the spec
-land together?
-
-> diff --git a/net/core/dev_addr_lists.c b/net/core/dev_addr_lists.c
-> index 3ab053cbf8b99..d827cc21867bc 100644
-> --- a/net/core/dev_addr_lists.c
-> +++ b/net/core/dev_addr_lists.c
-
-[ ... ]
-
-> @@ -1215,6 +1219,194 @@ void dev_mc_init(struct net_device *dev)
->  }
->  EXPORT_SYMBOL(dev_mc_init);
->  
-> +static int dev_mc_fill_addr(struct sk_buff *skb, const struct net_device *dev,
-> +			    const struct netdev_hw_addr *ha, u32 portid,
-> +			    u32 seq, unsigned int flags, int netnsid)
-> +{
-
-[ ... ]
-
-> +	if ((netnsid >= 0 &&
-> +	     nla_put_s32(skb, IFA_TARGET_NETNSID, netnsid)) ||
-> +	    nla_put(skb, IFA_MULTICAST, dev->addr_len, ha->addr) ||
-
-[Severity: Medium]
-Is it safe to take the IFA_MULTICAST length from the live dev->addr_len
-here?
-
-dev_mc_dump() is registered with RTNL_FLAG_DUMP_UNLOCKED. While it calls
-this function it holds only RCU and addr_list_lock. Code that writes
-addr_len at runtime holds RTNL but not addr_list_lock. One example is
-TUNSETLINK in __tun_chr_ioctl():
-
-drivers/net/tun.c:__tun_chr_ioctl() {
-    ...
-			tun->dev->type = (int) arg;
-			tun->dev->addr_len = tun_get_addr_len(tun->dev->type);
-    ...
-}
-
-Nothing flushes dev->mc when the type changes. Entries added through
-SIOCADDMULTI and dev_mc_add_global() remain after the change, because
-that path doesn't require IFF_UP.
-
-Those entries were created by __hw_addr_create(), which initializes only
-as many bytes as the address length at creation time:
-
-net/core/dev_addr_lists.c:__hw_addr_create() {
-    ...
-	ha = kmalloc(alloc_size, GFP_ATOMIC);
-	if (!ha)
-		return NULL;
-	memcpy(ha->addr, addr, addr_len);
-    ...
-}
-
-Suppose a TAP device is switched from ARPHRD_ETHER (addr_len 6) to
-ARPHRD_IP6GRE (addr_len 16). Would this dump then copy the uninitialized
-bytes in ha->addr[6..15] to userspace?
-
-There are two related points.
-
-First, if TUNSETLINK runs during a dump, its plain write to dev->addr_len
-races with the read here.
-
-Second, in a dump that takes several rounds, entries from the same device
-can be emitted with different lengths. A type change doesn't touch
-dev_mc_genid or dev_base_seq, so NLM_F_DUMP_INTR isn't set in that case.
-
-dev_mc_seq_show() for /proc/net/dev_mcast already reads dev->addr_len
-the same way. This patch adds a second path to existing behavior rather
-than a new exposure, but the new uAPI picks up the same problem.
-
-> +	    nla_put_u32(skb, IFA_MC_USERS, ha->refcount) ||
-> +	    nla_put_u32(skb, IFA_FLAGS, ha->global_use ? IFA_F_GLOBAL : 0)) {
-> +		nlmsg_cancel(skb, nlh);
-> +		return -EMSGSIZE;
-> +	}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012011707.3378-1-sigefriedhyy%40gmail.com
