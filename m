@@ -1,418 +1,393 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323FB3EFFD4
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:51:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E144F3EB0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895895; cv=none; b=akiLlQlZNI6c31oVbtQfGV9oQgZLTl1PvVMN1kmhOESQYn75jCvjfPKFrFqvojLblJQeAK7rL8s4YV61i6fb/sBk6RCmLXzOC/8CGc5yhYO3GQ5GZ0/45xzqxBDdMvAQ08tMoNbHR1oGiC3qZm+CO8XlKNsHDjnpK32SgNZ33Zc=
+	t=1791895932; cv=none; b=txR7vVsOsqdVK4fEvqv+pfZHB61dZGSYajolERiOcNVnrJGmNhb6zfQ9ubRJ1j3orQ0sAUMAOnjo3tIzSC16Qs1+Dnx+iT+myU9t6lFDBrUgt3IR3cYthVvsWUdpnkV9pLaf0MCZcX+IeV2RwcbguNC3Nb3RG/uiAmjFzdcsJaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895895; c=relaxed/simple;
-	bh=OfSwKOVjtSoF84SQWoLQf6pYG7TZ77j8cUJYauT2zi8=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=PhcTHbq/ZaHh9bV0BzzleUvasQkaCbiTz1nOuYcwzP1Q5JH/IdEyI6cOLllNGibe5o+qkHwh3sUuE1iZw2saR/8QdbMCHTJtcVwkerey07/13SpCSVIp2PSSOw7lz8BBFS+KKeVv0Le6NIqG46wa2ab3ub0ouNzK3aJ3j8PavFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xwY7OVro; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791895932; c=relaxed/simple;
+	bh=p2uRChVRxCXksfoc7niguKSWfjdr6ZGZTh0M+96+IwI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jrdXcbbyv6YJl9lTJOcVYzsPB5bbXnIRXOtirRoS79CCDuTiQsx0TUgN8QeR+2EiJMyjP1U2Qko54nQK0f0/kf09MtS0iBz1SnF1SvMWZG2gkHQqZDW4K/ZAeXfakR5/h6Dx0YKIt6/lcbzJSigVIZeWF2zBYp5ugO+VE7NO3nY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SjbfVdgi; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Cyb3PBCY; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xwY7OVro"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49ff680331aso24844535e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:51:32 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SjbfVdgi";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cyb3PBCY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791895927;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RXEHGOtHh3baENnAcbFZACuEi2aZnF37n/iOCZA6PHA=;
+	b=SjbfVdgiDFEU8C+RdUnDRlVouThvj6ioL8WM9iwS1wiWuuOREkf8RPC+eW7uJvQuToA0Ug
+	g5SkHc63+jFXq+T6M+y/beVKm1fd2huLBKfCyfYm07sgyFRXhCWUjTdPRW8ycfmwbeCjMz
+	w3wMed2w8nxRKfsktNNcC8mC9C3Tgbk=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-14-qKKwgNh0MuyN1rEi-nGL9A-1; Tue, 13 Oct 2026 12:52:06 +0000
+X-MC-Unique: qKKwgNh0MuyN1rEi-nGL9A-1
+X-Mimecast-MFC-AGG-ID: qKKwgNh0MuyN1rEi-nGL9A_1791895926
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a1de6d5c3so677917185a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:52:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791895891; x=1792500691; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C/SKzSR1FlaBjksY3ryxPox+t/cHlKOTxdG+EHLnF8M=;
-        b=xwY7OVrolniGuGMXMlrc3g/Y9y8xRpNBh4TzQAfPqHkroaBphGf/duyHTWWsu8AN0q
-         dnnSQ7L0BY6peDs1wf+l1yOJ8IipPDefKP5+UI579sy7r4TAFpIL1ZRNvsR0pBV2zVOh
-         7POeO30xrHNV0gw366SKRLXRq4m624HKW5anIgPK20mg5tPwtSw6BKKL0kWWZ0/Rvaoe
-         XJT4SaReyTDO4BHRX9WlVBy7YkHuaUkQ2ogqiNFMim9UkP+M+RspQElMWCgR5XQzHgC6
-         cEbtRkGlN6jAkikerWcsBgeS/1VQ0thUpstnXdlw6GPxwflufPm+4/3DV9khqfRykgOA
-         7gCQ==
+        d=redhat.com; s=google; t=1791895925; x=1792500725; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=RXEHGOtHh3baENnAcbFZACuEi2aZnF37n/iOCZA6PHA=;
+        b=Cyb3PBCYShygsPuJogKbf7RecujvN3s4EaRNFbb3FwXz9M2xNdHL26zl1wviUDANE+
+         jf/bZ6847Dzahle6Xri7qThhSWD6Lh3Tr9gsABTDaUQzkLOJCkAYNkp3jdrh9wQKSsep
+         YTjbIq179fc5QuLMCh47yXFsdfjF9Q6V+MKK2z4v5WIMuMhqWlhr2wNl2ZmJrmxPpQhk
+         LhxN+BHIFqxHXu7SmmzAQlLlLBdkXnFFFcaNPhGNu/v/7qZzUCjike73K1ZKunFpsbud
+         1flzIbnhKTY7sXbff77/Udx1Pi3cEU3hph4KVa9r91p54ahaBPZSx7vedCr8m/B92dSQ
+         6RjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791895891; x=1792500691;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C/SKzSR1FlaBjksY3ryxPox+t/cHlKOTxdG+EHLnF8M=;
-        b=zeO4xZkVk2/mj8+0gNtl6NVNMr+4ykp6OGiiot65ixEC8pqTyQhhHmqZHrzAtFenEP
-         7MafNpR7jvj5OIrq1zUbpDkjPgxLH8YSvNF81E88eaI28PbWzT/xmPKDCnq8vvP2jw4b
-         j6ncR4v2wlTY8uxiwpjOamtCrTde2JjAvs9nNLQk+xBWYvQZqTkIHGOhLEWzyShDW3xm
-         BIiVlZHr3VoimhkoWGW46/SCAAt83nuwx1opQNlWXbpOeZYII9Fu9pJXtDs5Mbks/Awe
-         j0b2GoHBBFulaWK+Jj1r+OkkChxqFGbAZHYu/At0tK3tKx/Krb9Ut5ycmMt/XOVRTVFG
-         K+zA==
-X-Forwarded-Encrypted: i=1; AKwUvBwtijBK2gJHLkzV0EKnP+FEl/wpG19m92pPJBCBYrsK9qOFjJWH1Nbd6F8QANvFmjRrkpl34+ihBQ7wf6I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBugr+K/Y+gYqxtMBaBEyv23Om8CdT9KUXm90Di8/czqvEyXnS
-	8qPhjLkT9jjp3WwJvfwONC7rnVfsm5OgY+r9YPvJkV5xoYGh3CHY1MgtYD32gej97/8=
-X-Gm-Gg: AYBFou1cSyoWV1nYFfFr1CE8Q2Xde7lSY7gHewse5VBufJk0O8dYhwM4whOc+wHGacB
-	czIHmvrcvK1z3oNAizYPPypF/dNjPjiko76BCAQEf7Rj2GJC+ISx7nseiOy6x83Nu+sYlJ+QLrJ
-	TnDYM/YvkSRAKeJ8/jTdfKqjkAWG7e0zCld5BnlbSzVFcXD1wMa7ot+iCt6vmhVjWgQnd4UGOgf
-	QO/p/1xh/aavrj+bDeCREKE+28MsQuf/uxOCkt61iSrzU+JbuwjZnZLzi3+o0U8i83QblEx1Oo0
-	Zcq6qgytZxQzOUzyqemx+q79VjJW4/BQUM3T8Ikk1Jo8I02zyu5wHQyXZf6mvFuvp1dM3ACZGm+
-	1UbVbJVpr0xyclYoardgjcilmTGR4jt8u83DCf9X6QBLTiGEopf5oKAU2fIz0PcMuaA6LzBXdpl
-	REu1y/+uq/eUSNHOcj7Bn6noVpi1NWUwA34hfL2mqgW9DpK5rDyEwhaGtLuTgT4qjjbVt+Frts/
-	Kcx1aOk7+kR8pF5kwzfoGnqslVNjthBmdlNXQ3+XJSgB1GehY4COg==
-X-Received: by 2002:a05:600c:620f:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-4a18e499874mr232245505e9.20.1791895891216;
-        Tue, 13 Oct 2026 05:51:31 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb? ([2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm306840785e9.3.2026.10.13.05.51.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 05:51:30 -0700 (PDT)
-Message-ID: <f05474f8-89a0-4ad7-bf00-58b9a12770f8@linaro.org>
-Date: Tue, 13 Oct 2026 14:51:29 +0200
+        d=1e100.net; s=20260707; t=1791895925; x=1792500725;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RXEHGOtHh3baENnAcbFZACuEi2aZnF37n/iOCZA6PHA=;
+        b=xxwJfcJIoajSCLnfBWIFG0JGjYNxMIh1HIB3HwDOTADruECDp+BB4dcgoYGB0giO2F
+         eBi09gN9CrOUUN3qjvYWJrcV5b8ZYSiHD4GEIKN9Ipk0BcpuuqKMRlESGXHfrF+wIBNT
+         U40Vnx4oFH6P6feTuQmD9b3o92x6nYCVKJYMuan+IfrEpE7U0e/IEp8DpkaG0S1HIouV
+         iuryS3kRwB5u8p64o8dhuKELTYYIAK4+yAp6fu7itlw+cSUN9oIvdfvUwifhmFbwB2yw
+         ndCxFpA7PvgLUPf/BH7SrhHPXicMhxRVPdom76SYnwyLaDxfQvz3E8TezzuckPe02dPk
+         y7iA==
+X-Forwarded-Encrypted: i=1; AKwUvBy+lrwA6uUIwmlEKHlwgVsj08n3Lu1JYUM6wliAdWPKrjby+qT3RGkZXyehx3dNjcKK916NGhDVy4l/D/4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLw0CXcZrGAxXBfJa0pVf3/9dpovP/XgwR1+8W6ccBqwXA5MU0z
+	XAHFNOikIF+CCpINpnSxks0RwDgd4cSBJRg3llHpyFxQz2zqAYx90Q+iWpPJ4FwC8NZb9WapSHC
+	TCQo3qDzNPabRUouUuigHmGARmSpItVAgZZ3k3ho38/TZt7G9jL/ZqruWfrQmbbdJhw==
+X-Gm-Gg: AYBFou28HX8QZJrTL4EpgKcZjiKjzqdulABHIv01+D95mCcMKuhm5Wgzq5Y+kNhQiGl
+	IPHtGdHO7lOUMHsliMlcwrpZjURP5BK4ehY8xbgidZRb4Xpo/3JB+by4Og2InSQ/gVYWXa9GGi6
+	3TMlINcShtkiqtPl4suUjar2SyUMG8l05kFfkA9MzLIVi64/x2fDIhhqIazetnzCbS/Ryx6K6yp
+	QlvP0QM81tTNE9Usra/LLi8eBG55aX1+yAklY5cvL+G43S5N1nKw4Ul2WKljsdtc3Ituu3WScXB
+	HOOV4Cd8qqUYXzp6qz5Cp6wkiZoStkdHLOtSnBmyHNFFyw3i0drYY/0jFq55LalMXieP5JKszOx
+	5xavauEHLTZ0Bv0fdagOOHtGB2g7DJkNFwx8=
+X-Received: by 2002:a05:620a:1b97:b0:93e:66e6:fa4 with SMTP id af79cd13be357-93ebd20e4a4mr1960628385a.16.1791895925579;
+        Tue, 13 Oct 2026 05:52:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:1b97:b0:93e:66e6:fa4 with SMTP id af79cd13be357-93ebd20e4a4mr1960624985a.16.1791895924986;
+        Tue, 13 Oct 2026 05:52:04 -0700 (PDT)
+Received: from loberman-thinkpadp1gen5.rmtusma.csb ([2600:6c65:2440:d8c:929c:b769:6def:faa3])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5086fe3sm229204385a.37.2026.10.13.05.52.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:52:04 -0700 (PDT)
+Message-ID: <e5312492c3d90322f362b1b148f7dce4290c2ba1.camel@redhat.com>
+Subject: Re: [BUG] scsi: st: use-after-free race between st_remove() and
+ st_open()/scsi_tape_get()
+From: Laurence Oberman <loberman@redhat.com>
+To: Dingisoul <dingiso.kernel@gmail.com>
+Cc: James.Bottomley@HansenPartnership.com, linux-kernel@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, mkp@kernel.org
+Date: Tue, 13 Oct 2026 08:52:03 -0400
+In-Reply-To: <20261012201730.1853897-1-dingiso.kernel@gmail.com>
+References: <20261007211520.1428497-1-dingiso.kernel@gmail.com>
+	 <20261012201730.1853897-1-dingiso.kernel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH RFC 9/9] drm/panel: novatek-nt35950: use the atomic state
- to select the mode
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>,
- Val Packett <val@packett.cool>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
- <20261008-panel-atomic-state-v1-9-b157fddb8de1@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261008-panel-atomic-state-v1-9-b157fddb8de1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/8/26 15:14, Dmitry Baryshkov wrote:
-> The compression, scaler and display output settings of the NT35950
-> depend on the mode being set. As the panel has no access to the
-> configuration being committed, the driver saves the connector pointer in
-> get_modes() and then dereferences connector->state->crtc->state from the
-> prepare() callback. This is done without holding the modeset locks and
-> it reads the current state of the objects rather than the state being
-> committed. Moreover, if none of the panel modes match, the driver
-> silently programs the panel for the first mode instead of rejecting the
-> configuration.
-> 
-> Subclass the panel state to store the parameters of the selected mode.
-> Look the mode up in atomic_check(), failing the commit if the panel
-> doesn't support it, and use the stored parameters in atomic_prepare().
-> Switch unprepare() to its atomic variant too, so that the driver uses a
-> single set of callbacks.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/panel/panel-novatek-nt35950.c | 159 +++++++++++++++++++-------
->   1 file changed, 117 insertions(+), 42 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35950.c b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-> index 94aa6489d99f..f5161f11b1f5 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-> @@ -11,12 +11,15 @@
->   #include <linux/of.h>
->   #include <linux/of_graph.h>
->   #include <linux/regulator/consumer.h>
-> +#include <linux/slab.h>
->   
-> +#include <drm/drm_atomic.h>
->   #include <drm/drm_connector.h>
->   #include <drm/drm_crtc.h>
->   #include <drm/drm_mipi_dsi.h>
->   #include <drm/drm_modes.h>
->   #include <drm/drm_panel.h>
-> +#include <drm/drm_print.h>
->   
->   #define MCS_CMD_MAUCCTR			0xf0 /* Manufacturer command enable */
->   #define MCS_PARAM_SCALER_FUNCTION	0x58 /* Scale-up function */
-> @@ -51,16 +54,19 @@
->   
->   struct nt35950 {
->   	struct drm_panel panel;
-> -	struct drm_connector *connector;
->   	struct mipi_dsi_device *dsi[2];
->   	struct regulator_bulk_data vregs[NT35950_VREG_MAX];
->   	struct gpio_desc *reset_gpio;
->   	const struct nt35950_panel_desc *desc;
->   
-> -	int cur_mode;
->   	u8 last_page;
->   };
->   
-> +struct nt35950_state {
-> +	struct drm_panel_state base;
-> +	const struct nt35950_panel_mode *mode_data;
-> +};
-> +
->   struct nt35950_panel_mode {
->   	const struct drm_display_mode mode;
->   
-> @@ -88,6 +94,9 @@ static inline struct nt35950 *to_nt35950(struct drm_panel *panel)
->   	return container_of(panel, struct nt35950, panel);
->   }
->   
-> +#define to_nt35950_state(panel_state) \
-> +	container_of_const(panel_state, struct nt35950_state, base)
-> +
->   static void nt35950_reset(struct nt35950 *nt)
->   {
->   	gpiod_set_value_cansleep(nt->reset_gpio, 1);
-> @@ -212,61 +221,37 @@ static void nt35950_inject_black_image(struct mipi_dsi_multi_context *dsi_ctx)
->   
->   /*
->    * nt35950_set_dispout - Set Display Output register parameters
-> - * @nt:    Main driver structure
->    * @dsi_ctx: context for mipi_dsi functions
-> + * @mode_data: Parameters of the mode being set
->    */
->   static void nt35950_set_dispout(struct mipi_dsi_multi_context *dsi_ctx,
-> -				struct nt35950 *nt)
-> +				const struct nt35950_panel_mode *mode_data)
->   {
->   	u8 cmd_dispout[] = { MCS_PARAM_DISP_OUTPUT_CTRL, 0x00 };
-> -	const struct nt35950_panel_mode *mode_data = nt->desc->mode_data;
->   
-> -	if (mode_data[nt->cur_mode].is_video_mode)
-> +	if (mode_data->is_video_mode)
->   		cmd_dispout[1] |= MCS_DISP_OUT_VIDEO_MODE;
-> -	if (mode_data[nt->cur_mode].enable_sram)
-> +	if (mode_data->enable_sram)
->   		cmd_dispout[1] |= MCS_DISP_OUT_SRAM_EN;
->   
->   	mipi_dsi_dcs_write_buffer_multi(dsi_ctx, cmd_dispout,
->   					ARRAY_SIZE(cmd_dispout));
->   }
->   
-> -static int nt35950_get_current_mode(struct nt35950 *nt)
-> -{
-> -	struct drm_connector *connector = nt->connector;
-> -	struct drm_crtc_state *crtc_state;
-> -	int i;
-> -
-> -	/* Return the default (first) mode if no info available yet */
-> -	if (!connector->state || !connector->state->crtc)
-> -		return 0;
-> -
-> -	crtc_state = connector->state->crtc->state;
-> -
-> -	for (i = 0; i < nt->desc->num_modes; i++) {
-> -		if (drm_mode_match(&crtc_state->mode,
-> -				   &nt->desc->mode_data[i].mode,
-> -				   DRM_MODE_MATCH_TIMINGS | DRM_MODE_MATCH_CLOCK))
-> -			return i;
-> -	}
-> -
-> -	return 0;
-> -}
-> -
-> -static int nt35950_on(struct nt35950 *nt)
-> +static int nt35950_on(struct nt35950 *nt,
-> +		      const struct nt35950_panel_mode *mode_data)
->   {
-> -	const struct nt35950_panel_mode *mode_data = nt->desc->mode_data;
->   	struct mipi_dsi_device *dsi = nt->dsi[0];
->   	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
->   
-> -	nt->cur_mode = nt35950_get_current_mode(nt);
->   	nt->dsi[0]->mode_flags |= MIPI_DSI_MODE_LPM;
->   	nt->dsi[1]->mode_flags |= MIPI_DSI_MODE_LPM;
->   
->   	nt35950_set_cmd2_page(&dsi_ctx, nt, 0);
-> -	nt35950_set_data_compression(&dsi_ctx, nt, mode_data[nt->cur_mode].compression);
-> -	nt35950_set_scale_mode(&dsi_ctx, mode_data[nt->cur_mode].scaler_mode);
-> -	nt35950_set_scaler(&dsi_ctx, mode_data[nt->cur_mode].scaler_on);
-> -	nt35950_set_dispout(&dsi_ctx, nt);
-> +	nt35950_set_data_compression(&dsi_ctx, nt, mode_data->compression);
-> +	nt35950_set_scale_mode(&dsi_ctx, mode_data->scaler_mode);
-> +	nt35950_set_scaler(&dsi_ctx, mode_data->scaler_on);
-> +	nt35950_set_dispout(&dsi_ctx, mode_data);
->   
->   	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
->   	mipi_dsi_dcs_set_tear_scanline_multi(&dsi_ctx, 0);
-> @@ -354,11 +339,43 @@ static int nt35950_sharp_init_vregs(struct nt35950 *nt, struct device *dev)
->   	return 0;
->   }
->   
-> -static int nt35950_prepare(struct drm_panel *panel)
-> +static int nt35950_atomic_check(struct drm_panel *panel,
-> +				struct drm_atomic_commit *commit)
-> +{
-> +	struct nt35950 *nt = to_nt35950(panel);
-> +	struct drm_panel_state *panel_state;
-> +	struct drm_crtc_state *crtc_state;
-> +	int i;
-> +
-> +	panel_state = drm_atomic_get_new_panel_state(commit, panel);
-> +	crtc_state = drm_atomic_get_new_crtc_state_for_panel(commit, panel);
-> +	if (!panel_state || !crtc_state)
-> +		return -EINVAL;
-> +
-> +	for (i = 0; i < nt->desc->num_modes; i++) {
-> +		if (drm_mode_match(&crtc_state->mode,
-> +				   &nt->desc->mode_data[i].mode,
-> +				   DRM_MODE_MATCH_TIMINGS | DRM_MODE_MATCH_CLOCK)) {
-> +			to_nt35950_state(panel_state)->mode_data =
-> +				&nt->desc->mode_data[i];
-> +			return 0;
-> +		}
-> +	}
+On Mon, 2026-10-12 at 16:17 -0400, Dingisoul wrote:
+> Hi Laurence,
+>=20
+> Adding you to Cc as requested. Quoting the original report below for
+> reference; let me know if you'd like anything else re-tested.
+>=20
+> Best,
+> Dingisoul
+>=20
+> > Hi Kernel Maintainers,
+> >=20
+> > I hit the following report while testing current upstream kernel:
+> >=20
+> > KASAN: slab-use-after-free in st_open
+> >=20
+> > on commit: a90ee4305c4a (2026-10-06)
+> >=20
+> > Root cause: st_remove() drops the device's last reference, and only
+> > afterwards removes it from st_index_idr:
+> >=20
+> > =C2=A0=C2=A0=C2=A0 static void st_remove(struct scsi_device *SDp)
+> > =C2=A0=C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct device *dev =3D &SDp-=
+>sdev_gendev;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct scsi_tape *tpnt =3D d=
+ev_get_drvdata(dev);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int index =3D tpnt->index;
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mutex_lock(&st_ref_mutex);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kref_put(&tpnt->kref, scsi_t=
+ape_release);=C2=A0 /* may
+> > kfree(tpnt) right here */
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mutex_unlock(&st_ref_mutex);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&st_index_lock);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 idr_remove(&st_index_idr, in=
+dex);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* too late:
+> > tpnt may already be freed */
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock(&st_index_lock);
+> > =C2=A0=C2=A0=C2=A0 }
+> >=20
+> > Meanwhile scsi_tape_get() -- called from st_open() on every open of
+> > a
+> > tape device node -- looks the device up by the same index and takes
+> > its
+> > own reference:
+> >=20
+> > =C2=A0=C2=A0=C2=A0 static struct scsi_tape *scsi_tape_get(int dev)
+> > =C2=A0=C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct scsi_tape *STp =3D NU=
+LL;
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mutex_lock(&st_ref_mutex);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&st_index_lock);
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 STp =3D idr_find(&st_index_i=
+dr, dev);=C2=A0 /* can still find the
+> > freed tpnt */
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!STp) goto out;
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kref_get(&STp->kref);=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 /* UAF write */
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
+> > =C2=A0=C2=A0=C2=A0 }
+> >=20
+> > =C2=A0=C2=A0=C2=A0 static int st_open(struct inode *inode, struct file =
+*filp)
+> > =C2=A0=C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!(STp =3D scsi_tape_get(=
+dev))) {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
+> >=20
+> > Between st_remove()'s mutex_unlock(&st_ref_mutex) and its own
+> > spin_lock(&st_index_lock), tpnt is already freed but still
+> > reachable
+> > through st_index_idr. A concurrent st_open() racing in that window
+> > takes
+> > both locks in scsi_tape_get(), finds the stale idr entry, and calls
+> > kref_get() on the freed tpnt.
+> >=20
+> > We used scsi_debug (ptype=3D1, emulating a tape LUN) to avoid needing
+> > real
+> > tape hardware.
+> >=20
+> > The reproducer and .config files are here.
+> > https://gist.github.com/dingiso/b33f8c01a47bfcbb902d3f21a4877feb
+> >=20
+> > I'm happy to test debug patches or provide additional information.
+> >=20
+> > [=C2=A0=C2=A0 23.212502]
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > [=C2=A0=C2=A0 23.212506] BUG: KASAN: slab-use-after-free in st_open
+> > (./include/linux/instrumented.h:112 ./include/linux/atomic/atomic-
+> > instrumented.h:252 ./include/linux/refcount.h:283
+> > ./include/linux/refcount.h:366 ./include/linux/refcount.h:383
+> > ./include/linux/kref.h:45 drivers/scsi/st.c:254
+> > drivers/scsi/st.c:1291)
+> > [=C2=A0=C2=A0 23.212537] Write of size 4 at addr ffff888009854a1c by ta=
+sk
+> > repro/315
+> > [=C2=A0=C2=A0 23.212541]=20
+> > [=C2=A0=C2=A0 23.212551] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX=
+ +
+> > PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> > [=C2=A0=C2=A0 23.212554] Call Trace:
+> > [=C2=A0=C2=A0 23.212556]=C2=A0 <TASK>
+> > [=C2=A0=C2=A0 23.212558]=C2=A0 dump_stack_lvl (lib/dump_stack.c:94
+> > lib/dump_stack.c:120)
+> > [=C2=A0=C2=A0 23.212566]=C2=A0 print_report (mm/kasan/report.c:378
+> > mm/kasan/report.c:482)
+> > [=C2=A0=C2=A0 23.212591]=C2=A0 kasan_report (mm/kasan/report.c:595)
+> > [=C2=A0=C2=A0 23.212602]=C2=A0 kasan_check_range (mm/kasan/generic.c:18=
+6
+> > mm/kasan/generic.c:200)
+> > [=C2=A0=C2=A0 23.212607]=C2=A0 st_open (./include/linux/instrumented.h:=
+112
+> > ./include/linux/atomic/atomic-instrumented.h:252
+> > ./include/linux/refcount.h:283 ./include/linux/refcount.h:366
+> > ./include/linux/refcount.h:383 ./include/linux/kref.h:45
+> > drivers/scsi/st.c:254 drivers/scsi/st.c:1291)
+> > [=C2=A0=C2=A0 23.212623]=C2=A0 chrdev_open (fs/char_dev.c:411)
+> > [=C2=A0=C2=A0 23.212645]=C2=A0 do_dentry_open (fs/open.c:996)
+> > [=C2=A0=C2=A0 23.212651]=C2=A0 vfs_open (fs/open.c:1101)
+> > [=C2=A0=C2=A0 23.212656]=C2=A0 path_openat (fs/namei.c:4837 fs/namei.c:=
+5000)
+> > [=C2=A0=C2=A0 23.212669]=C2=A0 do_file_open (fs/namei.c:5029)
+> > [=C2=A0=C2=A0 23.212693]=C2=A0 do_sys_openat2 (fs/open.c:1417 (discrimi=
+nator 1))
+> > [=C2=A0=C2=A0 23.212702]=C2=A0 __x64_sys_openat (fs/open.c:1423 fs/open=
+.c:1439
+> > fs/open.c:1434 fs/open.c:1434)
+> > [=C2=A0=C2=A0 23.212712]=C2=A0 do_syscall_64 (arch/x86/entry/syscall_64=
+.c:61
+> > arch/x86/entry/syscall_64.c:84)
+> > [=C2=A0=C2=A0 23.212719]=C2=A0 entry_SYSCALL_64_after_hwframe
+> > (arch/x86/entry/entry_64.S:121)
+> > [=C2=A0=C2=A0 23.212755]=20
+> > [=C2=A0=C2=A0 23.212756] Allocated by task 325:
+> > [=C2=A0=C2=A0 23.212758]=C2=A0 kasan_save_stack (mm/kasan/common.c:57)
+> > [=C2=A0=C2=A0 23.212764]=C2=A0 kasan_save_track (mm/kasan/common.c:78)
+> > [=C2=A0=C2=A0 23.212768]=C2=A0 __kasan_kmalloc (mm/kasan/common.c:409
+> > mm/kasan/common.c:426)
+> > [=C2=A0=C2=A0 23.212773]=C2=A0 __kmalloc_cache_noprof (./include/linux/=
+kasan.h:263
+> > mm/slub.c:5563)
+> > [=C2=A0=C2=A0 23.212778]=C2=A0 st_probe (./include/linux/slab.h:991
+> > ./include/linux/slab.h:1312 drivers/scsi/st.c:4376)
+> > [=C2=A0=C2=A0 23.212783]=C2=A0 really_probe (drivers/base/dd.c:628
+> > drivers/base/dd.c:706)
+> > [=C2=A0=C2=A0 23.212788]=C2=A0 __driver_probe_device (drivers/base/dd.c=
+:868)
+> > [=C2=A0=C2=A0 23.212793]=C2=A0 driver_probe_device (drivers/base/dd.c:8=
+98)
+> > [=C2=A0=C2=A0 23.212798]=C2=A0 __device_attach_driver (drivers/base/dd.=
+c:1026)
+> > [=C2=A0=C2=A0 23.212803]=C2=A0 bus_for_each_drv (drivers/base/bus.c:500=
+)
+> > [=C2=A0=C2=A0 23.212807]=C2=A0 __device_attach (drivers/base/dd.c:1098)
+> > [=C2=A0=C2=A0 23.212811]=C2=A0 device_initial_probe (drivers/base/dd.c:=
+1153)
+> > [=C2=A0=C2=A0 23.212816]=C2=A0 bus_probe_device (drivers/base/bus.c:620=
+)
+> > [=C2=A0=C2=A0 23.212821]=C2=A0 device_add (drivers/base/core.c:3776)
+> > [=C2=A0=C2=A0 23.212826]=C2=A0 scsi_sysfs_add_sdev
+> > (drivers/scsi/scsi_sysfs.c:1427)
+> > [=C2=A0=C2=A0 23.212830]=C2=A0 scsi_add_lun (drivers/scsi/scsi_scan.c:1=
+138
+> > (discriminator 1))
+> > [=C2=A0=C2=A0 23.212834]=C2=A0 scsi_probe_and_add_lun
+> > (drivers/scsi/scsi_scan.c:1311)
+> > [=C2=A0=C2=A0 23.212838]=C2=A0 __scsi_scan_target (drivers/scsi/scsi_sc=
+an.c:1805)
+> > [=C2=A0=C2=A0 23.212841]=C2=A0 scsi_scan_channel (drivers/scsi/scsi_sca=
+n.c:1895
+> > drivers/scsi/scsi_scan.c:1870)
+> > [=C2=A0=C2=A0 23.212845]=C2=A0 scsi_scan_host_selected
+> > (drivers/scsi/scsi_scan.c:1924)
+> > [=C2=A0=C2=A0 23.212849]=C2=A0 scsi_scan_host (drivers/scsi/scsi_scan.c=
+:2089
+> > drivers/scsi/scsi_scan.c:2077)
+> > [=C2=A0=C2=A0 23.212852] sdebug_driver_probe (drivers/scsi/scsi_debug.c=
+:9618)
+> > scsi_debug
+> > [=C2=A0=C2=A0 23.212875]=C2=A0 really_probe (drivers/base/dd.c:628
+> > drivers/base/dd.c:706)
+> > [=C2=A0=C2=A0 23.212879]=C2=A0 __driver_probe_device (drivers/base/dd.c=
+:868)
+> > [=C2=A0=C2=A0 23.212883]=C2=A0 driver_probe_device (drivers/base/dd.c:8=
+98)
+> > [=C2=A0=C2=A0 23.212887]=C2=A0 __device_attach_driver (drivers/base/dd.=
+c:1026)
+> > [=C2=A0=C2=A0 23.212891]=C2=A0 bus_for_each_drv (drivers/base/bus.c:500=
+)
+> > [=C2=A0=C2=A0 23.212895]=C2=A0 __device_attach (drivers/base/dd.c:1098)
+> > [=C2=A0=C2=A0 23.212900]=C2=A0 device_initial_probe (drivers/base/dd.c:=
+1153)
+> > [=C2=A0=C2=A0 23.212905]=C2=A0 bus_probe_device (drivers/base/bus.c:620=
+)
+> > [=C2=A0=C2=A0 23.212909]=C2=A0 device_add (drivers/base/core.c:3776)
+> > [=C2=A0=C2=A0 23.212914] sdebug_add_host_helper
+> > (drivers/scsi/scsi_debug.c:8843) scsi_debug
+> > [=C2=A0=C2=A0 23.212937] add_host_store (drivers/scsi/scsi_debug.c:8878
+> > drivers/scsi/scsi_debug.c:8105) scsi_debug
+> > [=C2=A0=C2=A0 23.212954]=C2=A0 kernfs_fop_write_iter (fs/kernfs/file.c:=
+345)
+> > [=C2=A0=C2=A0 23.212960]=C2=A0 vfs_write (fs/read_write.c:595 fs/read_w=
+rite.c:687)
+> > [=C2=A0=C2=A0 23.212964]=C2=A0 ksys_write (fs/read_write.c:739)
+> > [=C2=A0=C2=A0 23.212968]=C2=A0 do_syscall_64 (arch/x86/entry/syscall_64=
+.c:61
+> > arch/x86/entry/syscall_64.c:84)
+> > [=C2=A0=C2=A0 23.212973]=C2=A0 entry_SYSCALL_64_after_hwframe
+> > (arch/x86/entry/entry_64.S:121)
+> > [=C2=A0=C2=A0 23.212977]=20
+> > [=C2=A0=C2=A0 23.212978] Freed by task 325:
+> > [=C2=A0=C2=A0 23.212980]=C2=A0 kasan_save_stack (mm/kasan/common.c:57)
+> > [=C2=A0=C2=A0 23.212984]=C2=A0 kasan_save_track (mm/kasan/common.c:78)
+> > [=C2=A0=C2=A0 23.212989]=C2=A0 kasan_save_free_info (mm/kasan/generic.c=
+:584)
+> > [=C2=A0=C2=A0 23.212993]=C2=A0 __kasan_slab_free (mm/kasan/common.c:264
+> > mm/kasan/common.c:296)
+> > [=C2=A0=C2=A0 23.212997]=C2=A0 kfree (./include/linux/kasan.h:235 mm/sl=
+ub.c:2748
+> > mm/slub.c:6509 mm/slub.c:6802)
+> > [=C2=A0=C2=A0 23.213000]=C2=A0 st_remove (./include/linux/kref.h:65
+> > drivers/scsi/st.c:4512)
+> > [=C2=A0=C2=A0 23.213004]=C2=A0 device_release_driver_internal
+> > (drivers/base/dd.c:1349 drivers/base/dd.c:1372)
+> > [=C2=A0=C2=A0 23.213009]=C2=A0 bus_remove_device (drivers/base/bus.c:66=
+4)
+> > [=C2=A0=C2=A0 23.213014]=C2=A0 device_del (drivers/base/core.c:3965)
+> > [=C2=A0=C2=A0 23.213018]=C2=A0 __scsi_remove_device
+> > (drivers/scsi/scsi_sysfs.c:1499)
+> > [=C2=A0=C2=A0 23.213021]=C2=A0 scsi_forget_host (drivers/scsi/scsi_scan=
+.c:2115)
+> > [=C2=A0=C2=A0 23.213025]=C2=A0 scsi_remove_host (drivers/scsi/hosts.c:1=
+82)
+> > [=C2=A0=C2=A0 23.213031] sdebug_driver_remove
+> > (drivers/scsi/scsi_debug.c:9631) scsi_debug
+> > [=C2=A0=C2=A0 23.213052]=C2=A0 device_release_driver_internal
+> > (drivers/base/dd.c:1349 drivers/base/dd.c:1372)
+> > [=C2=A0=C2=A0 23.213057]=C2=A0 bus_remove_device (drivers/base/bus.c:66=
+4)
+> > [=C2=A0=C2=A0 23.213061]=C2=A0 device_del (drivers/base/core.c:3965)
+> > [=C2=A0=C2=A0 23.213065]=C2=A0 device_unregister (drivers/base/core.c:4=
+006)
+> > [=C2=A0=C2=A0 23.213070] sdebug_do_remove_host
+> > (drivers/scsi/scsi_debug.c:8917) scsi_debug
+> > [=C2=A0=C2=A0 23.213089] add_host_store (drivers/scsi/scsi_debug.c:8110=
+)
+> > scsi_debug
+> > [=C2=A0=C2=A0 23.213109]=C2=A0 kernfs_fop_write_iter (fs/kernfs/file.c:=
+345)
+> > [=C2=A0=C2=A0 23.213113]=C2=A0 vfs_write (fs/read_write.c:595 fs/read_w=
+rite.c:687)
+> > [=C2=A0=C2=A0 23.213117]=C2=A0 ksys_write (fs/read_write.c:739)
+> > [=C2=A0=C2=A0 23.213121]=C2=A0 do_syscall_64 (arch/x86/entry/syscall_64=
+.c:61
+> > arch/x86/entry/syscall_64.c:84)
+> > [=C2=A0=C2=A0 23.213126]=C2=A0 entry_SYSCALL_64_after_hwframe
+> > (arch/x86/entry/entry_64.S:121)
+> > Best,
+> > Dingisoul
+
+Hello
+
+Please try this patch, let me know if it fixes this and I will send a
+follow up to finalize this fix.
 
 
-This looks like a boilerplate which could be moved to the drm_panel if atomic_check is
-not defined.
+diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
+index f1c3c49466..d5b90bd1c6 100644
+--- a/drivers/scsi/st.c
++++ b/drivers/scsi/st.c
+@@ -4509,11 +4509,11 @@ static void st_remove(struct scsi_device *SDp)
+ 	remove_cdevs(tpnt);
+=20
+ 	mutex_lock(&st_ref_mutex);
+-	kref_put(&tpnt->kref, scsi_tape_release);
+-	mutex_unlock(&st_ref_mutex);
+ 	spin_lock(&st_index_lock);
+ 	idr_remove(&st_index_idr, index);
+ 	spin_unlock(&st_index_lock);
++	kref_put(&tpnt->kref, scsi_tape_release);
++	mutex_unlock(&st_ref_mutex);
+ }
+=20
 
-Neil
-
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int nt35950_atomic_prepare(struct drm_panel *panel,
-> +				  struct drm_atomic_commit *commit)
->   {
->   	struct nt35950 *nt = to_nt35950(panel);
-> +	struct drm_panel_state *panel_state;
->   	int ret;
->   
-> +	panel_state = drm_atomic_get_new_panel_state(commit, panel);
-> +	if (!panel_state || !to_nt35950_state(panel_state)->mode_data)
-> +		return -EINVAL;
-> +
->   	ret = regulator_enable(nt->vregs[0].consumer);
->   	if (ret)
->   		return ret;
-> @@ -380,7 +397,7 @@ static int nt35950_prepare(struct drm_panel *panel)
->   
->   	nt35950_reset(nt);
->   
-> -	ret = nt35950_on(nt);
-> +	ret = nt35950_on(nt, to_nt35950_state(panel_state)->mode_data);
->   
->   end:
->   	if (ret < 0) {
-> @@ -391,7 +408,8 @@ static int nt35950_prepare(struct drm_panel *panel)
->   	return 0;
->   }
->   
-> -static int nt35950_unprepare(struct drm_panel *panel)
-> +static int nt35950_atomic_unprepare(struct drm_panel *panel,
-> +				    struct drm_atomic_commit *commit)
->   {
->   	struct nt35950 *nt = to_nt35950(panel);
->   
-> @@ -429,15 +447,72 @@ static int nt35950_get_modes(struct drm_panel *panel,
->   	connector->display_info.bpc = 8;
->   	connector->display_info.height_mm = nt->desc->mode_data[0].mode.height_mm;
->   	connector->display_info.width_mm = nt->desc->mode_data[0].mode.width_mm;
-> -	nt->connector = connector;
->   
->   	return nt->desc->num_modes;
->   }
->   
-> +static struct drm_panel_state *
-> +nt35950_atomic_create_state(struct drm_panel *panel)
-> +{
-> +	struct nt35950_state *state;
-> +
-> +	state = kzalloc_obj(*state);
-> +	if (!state)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	__drm_atomic_helper_panel_state_init(&state->base, panel);
-> +
-> +	return &state->base;
-> +}
-> +
-> +static struct drm_panel_state *
-> +nt35950_atomic_duplicate_state(struct drm_panel *panel)
-> +{
-> +	struct drm_panel_state *old_state = drm_panel_get_current_state(panel);
-> +	struct nt35950_state *state;
-> +
-> +	if (!old_state)
-> +		return NULL;
-> +
-> +	state = kzalloc_obj(*state);
-> +	if (!state)
-> +		return NULL;
-> +
-> +	__drm_atomic_helper_panel_duplicate_state(panel, &state->base);
-> +	state->mode_data = to_nt35950_state(old_state)->mode_data;
-> +
-> +	return &state->base;
-> +}
-> +
-> +static void nt35950_atomic_destroy_state(struct drm_panel *panel,
-> +					 struct drm_panel_state *state)
-> +{
-> +	kfree(to_nt35950_state(state));
-> +}
-> +
-> +static void nt35950_atomic_print_state(struct drm_printer *p,
-> +				       const struct drm_panel_state *state)
-> +{
-> +	const struct nt35950_panel_mode *mode_data =
-> +		to_nt35950_state(state)->mode_data;
-> +
-> +	if (!mode_data)
-> +		return;
-> +
-> +	drm_printf_indent(p, 1, "compression: %02x\n", mode_data->compression);
-> +	drm_printf_indent(p, 1, "scaler: %u, mode %02x\n",
-> +			  mode_data->scaler_on, mode_data->scaler_mode);
-> +}
-> +
->   static const struct drm_panel_funcs nt35950_panel_funcs = {
-> -	.prepare = nt35950_prepare,
-> -	.unprepare = nt35950_unprepare,
-> +	.atomic_check = nt35950_atomic_check,
-> +	.atomic_prepare = nt35950_atomic_prepare,
-> +	.atomic_unprepare = nt35950_atomic_unprepare,
->   	.get_modes = nt35950_get_modes,
-> +	.atomic_create_state = nt35950_atomic_create_state,
-> +	.atomic_duplicate_state = nt35950_atomic_duplicate_state,
-> +	.atomic_destroy_state = nt35950_atomic_destroy_state,
-> +	.atomic_print_state = nt35950_atomic_print_state,
->   };
->   
->   static int nt35950_probe(struct mipi_dsi_device *dsi)
-> 
 
