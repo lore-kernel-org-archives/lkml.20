@@ -1,162 +1,189 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D105172DB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92ABE47C0E6
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904540; cv=none; b=rGlWSnjRVTRCnuz031JuDm4thRahIwW4k17OS/Usq37qvWaSGi0KhuayDhw9kLHTHHK/zhKO6gbX3vZPWwDJyrBJTVG3cnxFsTKrYdB8sNacQhXGbcW/9+IKuh4tJ0A6aOnyFLh7q1iNZXldvbH1CMV3xE5qTaEDcJ9tdjsVEjw=
+	t=1791904541; cv=none; b=m4T6r/fvAMPAN7v5D7vfHyHy1a0InX2ylI0hiaKKLBmehxz0B3eBPwv5LqT9KGVo2rQc7J3swHlAggvRZoGkpKnwglwmFePSMNzbx2ZtxLP53c65oP0sRsfpqvBFKIzXsviw1lK0Y7kIUlkdxKOOP+37ORj4I0DyizSDIhUTE6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904540; c=relaxed/simple;
-	bh=wOidxVLM17lR1bDj1xmePaeabjfnEZRB6ayeFW+JFtY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZERww6bLGRttnwMhAm74ehilYdL5+6roaSgJ/AXgJdZyu9IihXGOoO1NrI12+7jePoMiQbdcJyi5IpksKBPrFbzKJG9cDN7NpSO5syCsVLTMyuXGBoBBJJaqGpHz/0iNDKPIarB0ud1KUG02gYeu5E/4FMf60JckoZYXoe/8rvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=JZl4nVXf; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+	s=arc-20240116; t=1791904541; c=relaxed/simple;
+	bh=NapyJptIydBk5J98yC370DZ0xJWQKRaBbCy2B6XYHdA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dta/wP/sqRFIPE8U7ZaPElKjmHfNPtUhLunFD4zUdvjvB3CrbPqRLQeyzrniUB0UTKfLS+1Ns+A8OxNPtbNx/ExYKTiNFdDMDNUcNs4JlixxBpdCYj2CS3tdqOrsMGzNeGE1YX2drr8vpyZndFOYxQ+eofT2SIB0BdFgBHwMs3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBR1jNe2; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="JZl4nVXf"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso864734eec.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBR1jNe2"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e901e114fdso8480415ad.2
         for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:15:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791904538; x=1792509338; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6cn15OBuDdPhmTCMVKwa2oTSO6nmWiZTOYVWRAj9v6k=;
-        b=JZl4nVXfWyLreGgAKG5f8rmt13tT/2Da7dVI1m4gc0CPLbctV4e7lp/Xf00kLrG0oL
-         3yp6LYS9nulGLIX+bGAPEOPdFs5yBb7nHfGfqKFyT0fcIacIdZ9G+jVtK/uQ3C9UiFjV
-         2WdtyXEOcccAav+Fb52cxCeSoKZcX/HEteinyrjWIFQzHp1P7AhVFQ8qMdjNLGkwzgoc
-         Nu4T8dktLrukUTllFQJBUUWq0y0l7UMy+4qLPlTQyxR039sSPUd0jOawAllErbe8ZD0q
-         AlpFUAMlX0Ulm0CZUnxu5XMzaqWpSomCEcfVDImI1H5iXOLB99Rn6AtBFcotjFxDZmFr
-         aqaQ==
+        d=gmail.com; s=20251104; t=1791904538; x=1792509338; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2rkGQo5r8xJBTb8dqMKiMW12xMK6T9au6oc+12YcxIA=;
+        b=dBR1jNe2zWAjzp5Bc6vkfwkBFJT/e/xEeahREKd0JJot7RWYmlid9VLytpa/O3jrwW
+         P5Ptck1EnD1e8U7lCGtukjez7EDLIMYgIVSGIfCbRg5zZe2bIeLv/0yrrfpgxzweip1s
+         R0otIA3SH4LNMPXlLyxZwpZ/F3T85Ssk0Z/3V6Yo3ESx6iTitPmD7zfxRduALS11tctY
+         jnNMq0SVZeOzUlal2D3yFrMeycUtMFX2h+/LR910q61QM97mZz5DeCK7fefFAI9fDhAJ
+         zXF2aP7VzDt1z1GZrVbQkZKDyFsublEff2OzotGs8KhTDvcYAoGJoPCQ1tXyIqCrmhb3
+         Ju3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791904538; x=1792509338;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6cn15OBuDdPhmTCMVKwa2oTSO6nmWiZTOYVWRAj9v6k=;
-        b=MKrsE5xS97Jth6E9DxtHmtCBWrJIyGJ0snErekWpo6hTAqtAfKUdVuRZ0bxD67FkpB
-         RZGNLsidG74I6LW/lQQ4EZMi+m/udrqhtqJ63WvuPZsWBxHBWEScM8loKSFxg5dLxYWy
-         fKxj/ZaV1wJYsm/nD+dLDz/E5beF0ppgjlcCkS4p/c74zBJ2jMpmwRUNl6zORMBT1QWk
-         QFRrWvAHV8qLv6TDtmx1Qkdh9/AlwEfbe//Omet4dHV+r/+FcxDnEhH0ogguM00A45jL
-         lzNbGUvLYbugOeWJGlLL1ot9jL+VFbwfZlTmPR3/Rsb+00VJpyIQfariIvm/AuIGKZ+D
-         ujow==
-X-Forwarded-Encrypted: i=1; AKwUvByjjSrYmWwSvjErC7qzW/n5joadQqf+z7KJlQXF3XZLiOW63SQ2JmduKWmLk4TXci33Iss+MMmiN1be0b8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcCzJeDqYsviDEdFN0qvpiQZ/MRrfwDVNFPgan0ixjjzaCpSl7
-	q5+nDuMFGvBvTTuvSpNAToB1kphBMqTtYgSSOhNxGA6ZCm+nGfCEvSxvl0lOVhZkL+m0p8c22Ab
-	WiFeLQbg=
-X-Gm-Gg: AYBFou3jakulYEFfpLRHTe1xOIrFQPA4rHy9nAI2UkT1qrHae8bq8W3BMHQxzm5YlSS
-	NLsi/WvDxXIYZDqKoNn69NW+0/iaKxGoCa+igSgZ7jbhtcmgUyBu3ykk6nQZ3UibnbngWIRwdm0
-	TpZFW4ksjmaMCg0Pvq0hX/UGBHZI1/Hr5CWOyKa3/QgMwrQnlOLVjrm8q4lsKUhB3LiCXlvLPZJ
-	1IIqbAlgpJ6O8s48zz/GZ3JuHvwVQCQ35DnMkhOH22iyXF7qpb4WjqlX4t1Yt1zC9+EhpR9AMMC
-	vaLRz2cxt9HLJQNKTte6xuDw0pcCKZGMMI7th+dDYyktU2wTt+F6nstN10wW/XNRcqewNgP9B5T
-	YyNYNtKs3+7k4HNqh8aLg1ZIibDRhxic9LG0R5jpe4XNj3tTlZWLkU5Od/k8Q6uOn7NcJPiMXsB
-	GzbGTZvpWEtZDLJJ3mu3JwcRu6rzJi43/KBrDMwKCjYsPt3MQpOnuMDeRtLlgkjpdKhWCicmwCG
-	k7Rjxb9a8xMuHM=
-X-Received: by 2002:a05:693c:4159:20b0:34c:8c69:529d with SMTP id 5a478bee46e88-3537e0a9695mr19398687eec.26.1791904536420;
-        Tue, 13 Oct 2026 08:15:36 -0700 (PDT)
-Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:49b8:4c98:b3d1:72aa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358de54fe47sm30691751eec.31.2026.10.13.08.15.32
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2rkGQo5r8xJBTb8dqMKiMW12xMK6T9au6oc+12YcxIA=;
+        b=YX5neb45Cv33nBPyqXQdjmRjIygalXvGPK3wsHWPA7WpyrUR6UhpNw+zYkMxCfOTHn
+         sm0cyBBgLGCipZRS1aUTvk+edyLxUTG1rGcuqRend2UORFfRKwZRa7n4E3ctQXykS7N/
+         Ue8xRblxPtIQuYqBodtfencHJXBq5Y0Kq6ApDlkDgq72Y1H4wEAAOxNMbzS7FgbrMVIm
+         ws826BUvo6vzjsBIzJPRB51b5vCPNYgXKL3uCxoirG7IYI03vG10zJTiAsOn+T2doQMS
+         XyZH5Ur869j7675JSlrILM8yri3Cc6daNlWgGdoafo39/7W1oCmVdcRqh7KaPz6YWJs1
+         SVLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPLg5Vc3JSux1YaZV1+xwTwyxDR1mBWr3zy7ss4IRKff2jzok+hTbu+ieS6295cIi5xeXXdULzAXs//C8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHer+zBuN1ButW42ZGS20QYL1XNUu5nXak/yq7ELLeZ2unOdLQ
+	c41ALMN2FQYXjFFi+HaKGFEOt5gtkW08Qa2VKg2HU2Fm3H47h/uc+jrK
+X-Gm-Gg: AYBFou3oSmHk/SWg1klrYdPtWYnpjvNdibYhvbvT6+wtKDQThV/j78HO1CM00RtTRx5
+	IEklSirCvVdylOYiJ+ji8iIU8bgJvEPgZzu060ssft+KDNLB5kuVS01O2Ne+DA7D0pWrJF0p4iT
+	RsY5cMLfRFVFYePl7W9LPOdVPhl5eyYVEx9lzyyMIXpZ8eQmg7ouFKeZ+Y+8hxMpP/P2e/3x3nA
+	7d2rqW7qkfjWFEVkVPydDi++eOsegQCm9sGDA/YgEB+qREXJBuCQeMhcOaIsEn1hAdb3N6Ozb5W
+	mV2qOBEa77FT+1U3qYqQsd+JrHTyYSIg9ITwdbU2WU6i414ueDRgInzIEtUbH/2rvbcNE81iCNI
+	Lm+6Z54TksZB/rWJcHEU22nlNAYYHBBPl6YAbS5RihgMf9Q/7HTm7C9K6/a5mItlGlexSSkTCiV
+	GT+bbc33I7tZV9GlaWPigjdrTYdI8iQ/NlmAcqXEuyAgtASEhqqwRmu/yTBscWxyBxL8QTEwGl1
+	Q==
+X-Received: by 2002:a17:902:f54f:b0:2e6:1a1:ef63 with SMTP id d9443c01a7336-2e842cdb1e7mr112815415ad.44.1791904537778;
+        Tue, 13 Oct 2026 08:15:37 -0700 (PDT)
+Received: from localhost ([104.156.230.40])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8c4csm58698205ad.56.2026.10.13.08.15.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:15:34 -0700 (PDT)
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Subject: [PATCH 0/4] Input: use designated initializers for acpi_device_id
-Date: Tue, 13 Oct 2026 16:15:21 +0100
-Message-Id: <20261013-acpi-input-v1-0-53ad09ba82b7@thegoodpenguin.co.uk>
+        Tue, 13 Oct 2026 08:15:37 -0700 (PDT)
+Date: Tue, 13 Oct 2026 23:15:21 +0800
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Chang Yu <marcus.yu.56@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <as5LCasyTFjTNL0x@zephyrus-g14.localdomain>
+References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+ <20261013115639.167433-2-marcus.yu.56@gmail.com>
+ <20261013143639.000017b9@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqAIBBA4avErBPUJKKrRIvSqaaFiT8RSHfPa
- vkt3ssQ0BMG6KsMHk8KdNgCUVegt8muyMgUg+SyFVw0bNKOGFmXIpNopDJdq5TgUALncaHrmw3
- j75DmHXV8D3DfD3ssq+ZuAAAA
-X-Change-ID: 20261013-acpi-input-2ed24d864410
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
- Nick Dyer <nick@shmanahar.org>, Hans de Goede <hansg@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- chrome-platform@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791904532; l=3150;
- i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=wOidxVLM17lR1bDj1xmePaeabjfnEZRB6ayeFW+JFtY=;
- b=3nBJ7LuFCwN0BxizqOoBp4bXcaIg1JOxRLLNOjgImEEFpTUGRJj9GgEbTgxtJDNlq8bnneSjj
- d99NFSj62JuCotFSi+uU6I3ZgrlwgwKTTqUE5MdgnHyI2NX9zANx80j
-X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
- pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013143639.000017b9@gmail.com>
 
-This series is converting lists that contain the acpi_device_id struct,
-which is defined in the include/linux/device-id/acpi.h to make use of named
-initializers (which they do not use currently). This work is part of the on
-going effort in the kernel associated with device-ids [1]
-
-The plan is to convert acpi_device_id::driver_data to have an anonymous
-union, similarly to what was introduced for PCI and I2C device ID tables.
-The goal is to increase type-safety (most of the existing casts are gone),
-to improve readability and to make use intent a bit more clear:
-
-```
-union {
-	kernel_ulong_t driver_data;
-	const void *driver_data_ptr;
-}
-```
-
-But for that to work all lists containing the structs need to use named
-initializers first to avoid triggering -Wmissing-braces. I already have
-patches that implement this and touching a lot of kernel subsystmes that
-use the acpi_device_id struct and that list keeps on growing. Therefore,
-I have decided to split the series per every subsystem into:
-- pre-clean-ups that convert the lists to use named initializers
-  (which is this series)
-- actual implementations that make some of the modules use the new
-  driver_data_ptr member
-
-That way the task can be fragmented into manageable and independent chunks
-of work and makes this effort easier to review.
-
-Tested builds on x86-64 and a64 in Yocto using 7.3-rc7.
-
-[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
-
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
----
-Pawel Zalewski (4):
-      Input: keyboard: use named initializers for acpi_device_id
-      Input: misc: use named initializers for acpi_device_id
-      Input: mouse: cyapa: use named initializers for acpi_device_id
-      Input: touchscreen: use named initializers for acpi_device_id
-
- drivers/input/keyboard/applespi.c           |  2 +-
- drivers/input/keyboard/cros_ec_keyb.c       |  2 +-
- drivers/input/keyboard/goldfish_events.c    |  4 ++--
- drivers/input/misc/atlas_btns.c             |  4 ++--
- drivers/input/misc/drv260x.c                |  2 +-
- drivers/input/misc/soc_button_array.c       | 12 ++++++------
- drivers/input/mouse/cyapa.c                 |  6 +++---
- drivers/input/touchscreen/atmel_mxt_ts.c    |  4 ++--
- drivers/input/touchscreen/chipone_icn8505.c |  2 +-
- drivers/input/touchscreen/elants_i2c.c      |  8 ++++----
- drivers/input/touchscreen/exc3000.c         |  2 +-
- drivers/input/touchscreen/goodix.c          |  8 ++++----
- drivers/input/touchscreen/hideep.c          |  2 +-
- drivers/input/touchscreen/ilitek_ts_i2c.c   |  4 ++--
- drivers/input/touchscreen/melfas_mip4.c     |  4 ++--
- drivers/input/touchscreen/raydium_i2c_ts.c  |  4 ++--
- drivers/input/touchscreen/silead.c          | 18 +++++++++---------
- drivers/input/touchscreen/surface3_spi.c    |  2 +-
- drivers/input/touchscreen/wdt87xx_i2c.c     |  2 +-
- 19 files changed, 46 insertions(+), 46 deletions(-)
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261013-acpi-input-2ed24d864410
-
-Best regards,
---  
-Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-
+On Tue, Oct 13, 2026 at 02:36:39PM +0200, Joshua Crofts wrote:
+> On Tue, 13 Oct 2026 19:56:38 +0800
+> Chang Yu <marcus.yu.56@gmail.com> wrote:
+> 
+> > Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> > with i2c address of 0x39.
+> > 
+> > The GPIO pin is not described because the datasheet does not document
+> > how to use it for hardware synchronization at all. The GPIO register
+> > also has no mode-select bit to isolate the pin from the chip's
+> > internal control logic. Exposing it as a generic GPIO could result
+> > in kernel writes being overwritten by internal logic.
+> > 
+> > Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> > ---
+> > Changes in v6:
+> >  - Add a ref to leds/common.yaml for the LDR pin.
+> > 
+> > Changes in v5:
+> >  - Remove the GPIO pin.
+> > 
+> > Changes in v4:
+> >  - Fix led-max-microamp property name.
+> > 
+> > Changes in v3:
+> >  - Add missing include for gpio.
+> >  - Expand GPIO descrption to include hardware synchronization.
+> >  - Use led-max-microamp instead of led-current-microamp for the LDR pin.
+> > 
+> > Changes in v2:
+> >  - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+> >  - Fix node name and unit address mismatch.
+> >  - Include MAINTAINERS changes.
+> > 
+> >  .../bindings/iio/light/ams,as7343.yaml        | 66 +++++++++++++++++++
+> >  MAINTAINERS                                   |  6 ++
+> >  2 files changed, 72 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > new file mode 100644
+> > index 000000000000..7fb10b0d4843
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > @@ -0,0 +1,66 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
+> > +
+> > +maintainers:
+> > +  - Chang Yu <marcus.yu.56@gmail.com>
+> > +
+> > +description: |
+> > +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
+> > +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - ams,as7343
+> > +
+> > +  reg:
+> > +    description:
+> > +      I2C address of the device (0x39).
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    description:
+> > +      Open drain output active low interrupt pin.
+> > +    maxItems: 1
+> > +
+> > +  vdd-supply: true
+> > +
+> > +  led-max-microamp:
+> > +    description:
+> > +      The driver current for the external LED connected to the LDR pin.
+> > +    minimum: 4000
+> > +    maximum: 258000
+> > +    multipleOf: 2000
+> > +    default: 12000
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - vdd-supply
+> > +
+> > +additionalProperties: false
+> 
+> Should be unevaluatedProperties as you're using $refs in the binding,
+> but Jonathan could tweak that when applying.
+> 
+There was a discussion about this back in v2 in which Conor was suggesting
+keeping additionalProperties: false if I recall. I don't know the exact
+pros vs cons so I'll defer to the experts here.
