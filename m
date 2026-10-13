@@ -1,166 +1,170 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DB139E6C9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B9F4B3B8BC4;
+	Tue, 13 Oct 2026 09:56:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885402; cv=none; b=sYeDJ1HnaBQuNUvoAtt8QYlSPmF8aV7UXGZ8BQfYNOW2hgRn+/WtRF/57mhxrxVjW11gWtwwakELkXUdluM6p32xpzjKeHeqViiUyNW/3cm3IMoy3VNpaDBRBL2dvgXgPDRmKjny/eji3Fk4t5kgnfVpZpRLd7qVTlnw0b7iCXA=
+	t=1791885411; cv=none; b=l46Osy25MpbprFeY0AuL1sRmLfsZ0/g0N8n33o14rzy5RVDFBeoOsVQOD+AS7I8H9Uev7FThqu3fi3igdHhBqCKqsshzh7Cx406HqbMrWY1EGGsM27YxPF+LN4v2AiClD+J9RM2juC9MqYdtTHA/on/XK5BM41xeEHL0fmFdDmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885402; c=relaxed/simple;
-	bh=HFJ4UjRCkhaihkIH92sybsRJA7S5NLo3OntK/t8+1bY=;
-	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=Vuy60l0uuz9TKE3FTq0DwO5ASFl2vtngAare1bH7EBUWsOqRel2LiVWD1nxJ8oWRLhiagfXaZ9e5gP+XYYJ/TR2oBoXSwH/DnmKFxdeqnBFEqcp8tmn/BntZwFFrgWzN6mlOF+5TfURPsJGJnkt3lOH2nRDeYZkvuOyjeNJAmhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innovatrics.com; spf=pass smtp.mailfrom=innovatrics.com; dkim=pass (1024-bit key) header.d=innovatrics.com header.i=@innovatrics.com header.b=f2qTN+IP; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innovatrics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innovatrics.com
+	s=arc-20240116; t=1791885411; c=relaxed/simple;
+	bh=2YBI+HNExmRWYOZipFDby651m/YqSXmPK4RnpA+3yK8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ntfmTnCFlTPblsypHDRWtI87zBzkpmO6+HgBCsHX+valyfm2lorNhfrE8/m/LYdheayQzy+mwDNwSovJbUAzTEo21qvUqyBDJrs2V4ikhKPwiiD3GT4kC3f6OStwuHaEjU8ymzika7YGyjRZNgwzSrAT92NonmKzEadeuez3PHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EFfKnIxB; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=innovatrics.com header.i=@innovatrics.com header.b="f2qTN+IP"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so22567145e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:56:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=innovatrics.com; s=google; t=1791885399; x=1792490199; darn=vger.kernel.org;
-        h=content-type:mime-version:date:references:in-reply-to:message-id
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=St+5KkhKptBQbmhWMvm7sQZJ2JL6wlGqGqKQDJo/9iM=;
-        b=f2qTN+IPbgAf9AFTnqIFnA0+EFd9chhkqWbo9ujAYlUoIIB6b94DVLEFvuMMx4MDht
-         rDU7HE0clCOb2uv2Ax05WtETaT+AAYaHDmmY2vekq4etv11VynKz/Uhw/cEtYcYLnVSJ
-         +0JDljA8j7m5b9RdH1PAEZPDC3Xf6DttepzLE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791885399; x=1792490199;
-        h=content-type:mime-version:date:references:in-reply-to:message-id
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=St+5KkhKptBQbmhWMvm7sQZJ2JL6wlGqGqKQDJo/9iM=;
-        b=0Mi2NRZ+pz2oD1zyg7u4SVxWnywBJf2rKHNsWHnodX9BJUbCFejwxxk/eEDzeog1PC
-         +q4Jszacg4Ce1xXDYADl7Ja4H8+Mdfgwl10UQcrPcqNo8/AOSx5tmlNpgaJz2WnqywhF
-         0NpOGebxxJlnMgkl+PLA0Z0FLCuEMLlyWxA+aV/Zus7kqtTpvX5BznX2rIjdsKacN0Rp
-         E1dUwwvU04s/J8OPJn+BrXEWHQehpebM9NYiHT5vAdkoXDhtQxZJkg4Dx6URcU67gcsg
-         QL7wdH62nRSMJ+fsExU7JxrQZKcCcIvfUdcVQVdknyAUQiweQFFjg6ktLmRHsAyRPF6O
-         HaSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzLZ/MSWz1ByQele0e/kzA0nHfjek+EchT2XlumlRfcMSywV9NhE/ogU3z6WTEJCGPWL6dm7ZCLSLXC2Lo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQPHzKR23zGNxTXM5jhWaaK4qhTHY3xfVuOSS5TIs+ZcXc27aN
-	fWLMc50BZhYcqDvPRN8vID7tLmBntVDoHwToil+PTKj4YhG234VLgGjK9suDw8DKCw==
-X-Gm-Gg: AYBFou0qKPdaDd4U7yK6SdeFRvh0mza0I5OXnH5Zdx3O9hVJFRk76DLwX5At1hV/iBt
-	w2WtGlETvuh0StzLHn2YUb1LTIiMejG7tzzQbBxeQVo2ygNRXFolXQYFwY+Xv1r0Os2ZugmBFHt
-	doWVWeGLBB3B5w2Ukl6JglvBsgnwGp8IxQVWp99t7U9OlO03XnlSXjVVqe0vY4+x7Av4s1bC9/H
-	brbW0MLuKu0raFU+xSDH7pzXTMFPd9W5Pb22Rgp+AdWFiGqulHX5GfLmcCuM429hAAoTOOQ41j3
-	xfqaG9AswHfGbOUEKOKVou7yBGea47yMweTKmvr4gGbxZOHbH4zl5HQSQoV4g26zthRdH2yiIcp
-	UyjdfaEPLjK4wKRnBghV9tzHK8qZKqAt4ha4f+5oGeygVkf1/bSXPythQdsTKN1c2JBJhdFpOe4
-	KfYBHIz1WcLPh8VcndNM946BXeCdDmCHfIJxLcGhN8m4s3aMxB7STZ+LY+ikj2YvSrJQfA4nvta
-	QaUG3pPK4DknaHz2u1uZIZcLz+JdPPLgXypWpl3+R5DtMtYwXobNNy/8p2TF/XTZd6r49SWqNR5
-	XLWg+lRMJpVcNQZ6pBZ4CwKHfPSErK8=
-X-Received: by 2002:a05:600c:1c07:b0:4a1:b044:9ccd with SMTP id 5b1f17b1804b1-4a1b0449d00mr3292955e9.28.1791885399299;
-        Tue, 13 Oct 2026 02:56:39 -0700 (PDT)
-Received: from [10.11.72.5] (bip-static-148.213-81-147.telecom.sk. [213.81.147.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm289830295e9.3.2026.10.13.02.56.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 02:56:38 -0700 (PDT)
-From: Petr Chmelar <petr.chmelar@innovatrics.com>
-To: David Howells <dhowells@redhat.com>
-Cc: Christian Brauner <christian@brauner.io>,
-    Paulo Alcantara <pc@manguebit.org>,
-    Matthew Wilcox <willy@infradead.org>,
-    Namjae Jeon <linkinjeon@kernel.org>,
-    Marc Dionne <marc.dionne@auristor.com>,
-    Stefan Metzmacher <metze@samba.org>,
-    Eric Van Hensbergen <ericvh@kernel.org>,
-    Dominique Martinet <asmadeus@codewreck.org>,
-    Ilya Dryomov <idryomov@gmail.com>,
-    netfs@lists.linux.dev,
-    linux-afs@lists.infradead.org,
-    linux-cifs@vger.kernel.org,
-    linux-nfs@vger.kernel.org,
-    ceph-devel@vger.kernel.org,
-    v9fs@lists.linux.dev,
-    linux-fsdevel@vger.kernel.org,
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 4/5] cachefiles: Don't rely on backing fs storage map
- for most use cases
-Message-ID: <20261013.cachefiles-partial-zeros-trace.pchmelar@innovatrics.com>
-In-Reply-To: <1655268.1791878098@warthog.procyon.org.uk>
-References: <20260910220242.2165023-1-dhowells@redhat.com>
- <20260910220242.2165023-5-dhowells@redhat.com>
- <20261011.cachefiles-partial-zeros.pchmelar@innovatrics.com>
- <1655268.1791878098@warthog.procyon.org.uk>
-Date: Tue, 13 Oct 2026 09:56:37 +0000
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EFfKnIxB"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A88B7169C;
+	Tue, 13 Oct 2026 02:56:45 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7BFA3F7B4;
+	Tue, 13 Oct 2026 02:56:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791885409; bh=2YBI+HNExmRWYOZipFDby651m/YqSXmPK4RnpA+3yK8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EFfKnIxBAePjQOmGwBCkTqFItC93LDqs/Ft5OLc1jDoCy03l/oyZ3xq3p/rErMXXf
+	 0VdGLyhM7eOk7ZyJTtVs8aIFAsg/9wEyCHieUebxsFY1M8DIyJVDY6i6nuZECOaCSS
+	 X1pb39YTxXfeN8zlu5iZYlhP9/6/v3k+kFfc4om4=
+Message-ID: <40f95078-4d3c-48da-9262-afadf231014f@arm.com>
+Date: Tue, 13 Oct 2026 15:26:40 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/3] kselftest: mm: remove HPAGE_SIZE and HPAGE_SHIFT
+ macro
+To: Yeoreum Yun <yeoreum.yun@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Peter Xu <peterx@redhat.com>,
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
+References: <20261013-fix_hpage_macro-v6-0-2c52d0484de3@arm.com>
+ <20261013-fix_hpage_macro-v6-2-2c52d0484de3@arm.com>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <20261013-fix_hpage_macro-v6-2-2c52d0484de3@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-David Howells <dhowells@redhat.com> wrote:
+Hi Yeoreum!
 
-> Unfortunately, I can't reproduce this.  Can you get me some tracing?
+On 10/13/26 3:16 PM, Yeoreum Yun wrote:
+> HPAGE_SIZE and HPAGE_SHIFT macro is written based on the 4KB PAGE_SIZE.
+> When this macro is used in some test, test result would be strange in
+> the system where PAGE_SIZE is more then 4KB.
+> 
+> Here is the example with transhuge-stress test with 16KB PAGE_SIZE:
+> 
+>   transhuge-stress: allocate 61073 transhuge pages, using 122146 MiB virtual memory and 1908 MiB of ram
+>     3.292 s/loop, 0.054 ms/page,  37106.002 MiB/s	2566 succeed, 58507 failed, 2566 different pages
+>     0.591 s/loop, 0.010 ms/page, 206850.792 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.527 s/loop, 0.009 ms/page, 231895.107 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.527 s/loop, 0.009 ms/page, 231839.704 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.528 s/loop, 0.009 ms/page, 231544.782 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.528 s/loop, 0.009 ms/page, 231462.074 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     0.527 s/loop, 0.009 ms/page, 231770.300 MiB/s	   0 succeed, 61073 failed,    0 different pages
+>     ...
+>   ok 1 Completed
+> 
+> Remove the HPAGE_SIZE and HPAGE_SHIFT macro and introduce pmd_pshift()
+> helper to get the HPAGE_SHIFT properly. For HPAGE_SIZE, use pre-existing
+> helper, pmd_psize().
+> 
+> Also, run the KSM_MERGE_TIME_HUGE_PAGES test with a size of 512 MiB,
+> which is the least common multiple of the PMD sizes for 4 KiB, 16 KiB,
+> and 64 KiB base pages. Since allocate_transhuge() allocates mappings in
+> PMD-sized units, the test may fail with the previous size of 100 MiB,
+> which is not a multiple of the PMD size when the base page size is
+> 16 KiB or 64 KiB.
+> 
+> After this patch, output of transhuge-stress:
+> 
+>   transhuge-stress: allocate 3817 transhuge pages, using 122146 MiB virtual memory and 119 MiB of ram
+>     2.558 s/loop, 0.670 ms/page,  47755.759 MiB/s	2585 succeed, 1232 failed, 2585 different pages
+>     2.640 s/loop, 0.692 ms/page,  46268.432 MiB/s	2585 succeed, 1232 failed, 2585 different pages
+>     2.635 s/loop, 0.690 ms/page,  46360.298 MiB/s	2585 succeed, 1232 failed, 2585 different pages
+>     2.782 s/loop, 0.729 ms/page,  43899.795 MiB/s	2616 succeed, 1201 failed, 2616 different pages
+>     2.692 s/loop, 0.705 ms/page,  45380.876 MiB/s	2627 succeed, 1190 failed, 2627 different pages
+>     2.612 s/loop, 0.684 ms/page,  46765.812 MiB/s	2628 succeed, 1189 failed, 2628 different pages
+>     2.683 s/loop, 0.703 ms/page,  45520.990 MiB/s	2630 succeed, 1187 failed, 2630 different pages
+>     2.727 s/loop, 0.714 ms/page,  44789.321 MiB/s	2631 succeed, 1186 failed, 2631 different pages
+>     ...
+>   ok 1 Completed
+> 
+> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
 
-Thanks for looking.  The trace shows reads served from the cache over
-ranges that were never written to it; details below.
+[...]
 
-I think the reason you don't see it is how the file gets into the cache,
-which I should have said in the report.  In your run, fio lays the file
-out through the mount, so the client fills its cache sequentially and the
-object ends up CONTENT_ALL.  In ours, the client never writes the file:
-it is written on the server side beforehand, and the client's cache fills
-only as the client reads it, at random offsets, so the object stays
-BACKFS_MAP.  That is how our training nodes use the cache: they read data
-sets that they didn't write, mostly at random offsets.
+> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> index 5f2fb5b819c4a..efd99298be135 100644
+> --- a/tools/testing/selftests/mm/vm_util.c
+> +++ b/tools/testing/selftests/mm/vm_util.c
+> @@ -21,6 +21,8 @@
+>  
+>  unsigned int __page_size;
+>  unsigned int __page_shift;
+> +uint64_t __pmd_psize = -1ull;
+> +uint64_t __pmd_pshift = -1ull;
+>  
+>  uint64_t pagemap_get_entry(int fd, char *start)
+>  {
+> @@ -161,19 +163,40 @@ uint64_t pmd_psize(void)
+>  	char buf[20];
+>  	ssize_t num_read;
+>  
+> +	if (__pmd_psize != -1ull)
+> +		return __pmd_psize;
+> +
+>  	fd = open(PMD_SIZE_FILE_PATH, O_RDONLY);
+> -	if (fd == -1)
+> +	if (fd == -1) {
+> +		__pmd_psize = 0;
+>  		return 0;
+> +	}
+>  
+>  	num_read = read(fd, buf, 19);
+>  	if (num_read < 1) {
+> +		__pmd_psize = 0;
+>  		close(fd);
+>  		return 0;
+>  	}
+>  	buf[num_read] = '\0';
+>  	close(fd);
+>  
+> -	return strtoul(buf, NULL, 10);
+> +	__pmd_psize = strtoul(buf, NULL, 10);
+> +
+> +	return __pmd_psize;
+> +}
+> +
+> +uint64_t pmd_pshift(void)
+> +{
+> +	if (__pmd_pshift != -1ull)
+> +		return __pmd_pshift;
+> +
+> +	if (__pmd_psize != -1ull)
+> +		__pmd_psize = pmd_psize();
 
-I reran it on 9f8b64f66 over 9p with your tracepoints enabled, with the
-same result: 936 of 4096 64 KiB blocks wrong, 825 of them zeros, first
-wrong blocks 10, 13, 15, 24, 26 and 27.  I'm sending you the trace
-off-list; it is 790 KB as bzip2.
+Kiryl pointed this out in v5 [1], you might have missed it. This check
+seems to be inverted.
 
-What the trace shows:
+[1] https://lore.kernel.org/all/asj4dT2Q__SlKhgr@thinkstation/
 
- - After the random reads the object is set to BACKFS_MAP:
-
-     cachefiles_coherency: o=00000001 SET ok   B=c4 oz=10000000 c=3
-
-   After dropping the page cache it is looked up again (o=00000002 OK,
-   c=3) and set to c=4.
-
- - Before the full read, WRIT TERM subrequests cover 2048 of the 4096
-   64 KiB blocks, as expected for half the file.
-
- - During the full read, READ subrequests from the cache cover 2143
-   blocks, and 936 of those never had a WRIT: the same count as the wrong
-   blocks, starting with the same blocks, 10, 13, 15, 24, 26 and 27.
-   For example this one read:
-
-     R=0000285a[1] READ TERM  f=110 s=7c000 7c000/7c000 s=7 e=0
-
-   covers 0xa0000-0xb0000, 0xd0000-0xe0000 and 0xf0000-0xf8000, and no
-   write ever reached those ranges.  The writes around it were:
-
-     R=00002291[3] WRIT TERM  f=100 s=70000 20000/20000 s=6 e=0
-     R=000024dc[1] WRIT TERM  f=100 s=90000 10000/10000 s=16 e=0
-     R=00002291[4] WRIT TERM  f=100 s=b0000 20000/20000 s=9 e=0
-     R=000024dc[2] WRIT TERM  f=100 s=e0000 10000/10000 s=3 e=0
-
-So for the BACKFS_MAP object, the occupancy the read is based on treats
-the holes between those writes as data.
-
-> One further question occurs to me: does the entire 256M file fit in the
-> test VM's memory?
-
-Yes.  The VM has 7946 MiB of memory with 7498 MiB available, and the page
-cache is dropped before the full read.
-
-The setup, for reference:
-
- - 9f8b64f66 with netfs, fscache, cachefiles, 9p and 9p fscache built in;
-   QEMU without KVM, 4 vCPUs, 8 GiB RAM
- - 9p: QEMU virtfs local, security_model=none, the host directory on XFS;
-   mounted with trans=virtio,version=9p2000.L,cache=fscache,msize=1048576
- - part.bin: 256 MiB from /dev/urandom, written on the host before the
-   mount
- - cache: XFS on a loop device in the guest, cachefilesd 0.10.10
-
-The trace analysis was done with LLM assistance.
-
-Thanks,
-Petr
