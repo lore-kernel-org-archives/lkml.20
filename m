@@ -1,74 +1,81 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB40485921;
-	Tue, 13 Oct 2026 18:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FFC499F2F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791916297; cv=none; b=huNNlrKG177davJd16ZNcVADSDuiBiwyN/VU+17fjSJGxlCTJcDILbUJfzNcGTWTbh2hd3pCwMeEJRWlkvm858qIN35wlBeXaEJgnWrLuuXxbLGYoSnzaV6SKYe74fBjJuAJRPjNh991tWi4Uom+va8TX38Ecln4bCNCqcdAqUM=
+	t=1791916361; cv=none; b=ODrJFsH+FtZMR6BzrqeqXBFeWL0QPHgMg0BgBKLjrXqqHub/yxmTtJcWFsgBSGg7ybfUQyYXgYEH5Cqo1tadIYpgUQlVRU1RMKARHOAvkeSGOLMpndrTl11UomS7j7q5B7vDb8NVuM+wqPgMRgcoX+He0MC1oaN238Z4TVqDef4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791916297; c=relaxed/simple;
-	bh=hgANFRgZbRQkiDLUNm4DyUjSBr0T3cPizxraNbwb/XQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qvpeDPjUAc8ZmXeVm1lV5jqhfcoYTkh2vjyNJBe0y5aQZg1hy79z9rww8JXN1BDZ47hKByjKyHoZibS5npAic92mxh6tHZBoUCRupuD09O7ugvf+eqC5w0Wk64gSIMe/jC1Yo4yW7Yfhnte63QaKgWKPQMDqjqJH0oKP8vDH7aE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=V5r4/z+0; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791916361; c=relaxed/simple;
+	bh=coCkx+On/PYyms59yzcyUxSZaTFniVRkfGkf4kFQfdo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IRb7tpLMKHtie5ZVazbKATRXwyB8vuQ0GJd4NgN/ieCh0R7w8BT7fdNVWHx8dfKxFEvAIK1t6qhL9RZm561zQhjwImYSqX9+Bo/yCnAwW2/py7pGeIX8Rsypyd9ZpTBbhiw3wiQ6FjqLTnkxp9owHv6Vpfz9jwT1KPXEUYC4qKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flswW5Xp; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="V5r4/z+0"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DDp2WS150090;
-	Tue, 13 Oct 2026 18:30:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=2rnmBQk/OqyjgJfUf
-	p1Qj62k6F2z1rzCN4yDoBQp2r8=; b=V5r4/z+0H6zyan+tJi5k+KwCUOnHfNUW5
-	qHnrbhUqCj6/0wurkBKqsRYrELvo+81dEHlZSfB41/zjIAIbpVmFz1iPcErh2GOv
-	61XSf8RMcT6bOQYQFdO9QNFGcldmwkPInK+N3Y0MbUdJa7sD9tKeBaCfE9YdCK94
-	2nBavjbZ+Uu73HIcs8ZsI89qzLIP7pB7MXkhGzcbFGldVHwln0+nqYybJeT8swt9
-	pP/hcAQ1MvKAavB/fywkIdpWXWCoSkNnd8Fx4WGBzA+g2Iw0JZr/UsI8AkdARsLT
-	EG2DHcReXBBdp1Cpd59L99iHm8GkcSBOi9DCRjj9ntMJl1+ikubLA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhg5j8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 18:30:28 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69DIFemE2709292;
-	Tue, 13 Oct 2026 18:30:27 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816h3hxh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 18:30:27 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DIUPhT28115704
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 18:30:25 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 670E25805C;
-	Tue, 13 Oct 2026 18:30:25 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E6B645805A;
-	Tue, 13 Oct 2026 18:30:21 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.67.58.174])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 13 Oct 2026 18:30:21 +0000 (GMT)
-From: Mingming Cao <mmc@linux.ibm.com>
-To: netdev@vger.kernel.org
-Cc: Mingming Cao <mmc@linux.ibm.com>, maddy@linux.ibm.com, mpe@ellerman.id.au,
-        npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
-        sshegde@linux.ibm.com, nnac123@linux.ibm.com, andrew+netdev@lunn.ch,
-        davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-        pabeni@redhat.com, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, horms@kernel.org, davemarq@linux.ibm.com,
-        bjking1@linux.ibm.com, tlfalcon@linux.vnet.ibm.com,
-        brking@linux.vnet.ibm.com, zdai@us.ibm.com,
-        pradeeps@linux.vnet.ibm.com, ksiva@linux.vnet.ibm.com
-Subject: [PATCH net-next v5 9/9] ibmveth: check headers in the RX large send and checksum helpers
-Date: Tue, 13 Oct 2026 11:29:26 -0700
-Message-Id: <20261013182926.30417-10-mmc@linux.ibm.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261013182926.30417-1-mmc@linux.ibm.com>
-References: <20261013182926.30417-1-mmc@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flswW5Xp"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso1367555e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:32:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791916357; x=1792521157; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C6xu/m6gLmnhmuK37G0mkWpbfD0iKHbUJbBWVpw5Q+Q=;
+        b=flswW5XpxZC/2Q8jDTyXpWt9BiMv+mvr5R/28HN004YKnIFZjdaWyhvcKlObT3dKSL
+         HIZ3v+IZTgwDdIDtBRAwgSiiJIYDKsJcczvBZokR8gORGxRdRHKDJYxKD47lSICJXJBk
+         d+ryhQwA3gdu/Tejk/DW5RVdoGWc2l2XGxLn273PRsf/oR1Fl42AfGFPw/JBKMYjpx29
+         uP5gbm3g9IhOn5/f+UBaNvZzk+LxAaOaSgbWrCIWgXWuaNPB6QauZIaP0b9I61IoR1pp
+         WnwlvajSk4wUo5jOlEOT6LwHh6s4XekGwmDNwgXYyRM4ud4SPSr5evnG1VMiX4bMMNIx
+         K/ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791916357; x=1792521157;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C6xu/m6gLmnhmuK37G0mkWpbfD0iKHbUJbBWVpw5Q+Q=;
+        b=L4bbrpwBBIAwsb/bOQ88Ae6GzCEk7m5zW9v35yJ1v58qaGlGRm5QbTLmRnglQBKM2R
+         hRdm0mmNL/+XbiZiuhfsFzO82BxlyO3MJhsoE9uAw+AwXwQopYuBeQu3y8nLL0s0VXye
+         XixC51/kl7EuVg9GM81i5okRbTTEA7hyS0lVb3duO2n5lqndHD6XmmFJaA3+cqIyoCrG
+         tUo4olVuRXfZ7oRA6rGI6n98EplU1oVwCsjuf2kIWzN796KLS/xQiZOn68ZW3VIv4c4w
+         NvXRVedQWCxBFHW7cYKwnTDGJNIGbE4wEh0SM4QZyG1iqTAhi7t1Dca8ML0I8Xmru6MZ
+         gmPg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7nGaAOxP8ZWsxYm4EC2dObflrQ8FnM6Sf/3mwK5R78oYhUVvqrGRnZ/hwC5Ds0gXfnBh4LtjD3Dvr9tE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVCsH6OWE2eb852UmyYFYdNhcwMbICZY5/nV029SVh8VMp9wHl
+	DcQ5eVHcEiG14cOjJFZoLS0mhp//PntsvVx61g26RtAAd7mslv7efBri
+X-Gm-Gg: AYBFou29nKbV/MNb53Hui7UJQb+EaE2JpmXN6Qv0RfvlSd+Z9C2OGTdNzJtRyJHoRbF
+	xAQhJnk31eS/h+Y8nqgb397bLkn2rUQViX9F3mzxXMM7wjHRbUyFbdAqyHEhocXRj3FGopuq01Y
+	TqJBSdQ36wjh+TX/xQp0jQ79XFteexFqqkocqgeoTou5+nNmg+BbpPUcUEz2Axu3VqyzV3LO7pu
+	EnxG/bWxvCUru5Z10swL2A6vzCEIUe5WzVyDkq7SLnjEgWFwj/BzXCmrgyODk73kDxWXy0K/e9B
+	6wMHpBkEAPTlW19zsGTOuQqPJp+mDaAzeqyv1AdfE90P4zJLzz97inxVTu0a6ij2RPJT27W6pov
+	yXhgt6koS+uCou42/iTnHDfDFYOa9OjmQwt6mSJ9i397u4MyaNeoGzEgvkSINue1c6Y4rdsj/pJ
+	giG2rZLIIlbRPYBmb/aj8ai32F79olomtgUUPGSEmXtIWAZuLUPQVa8/pYe1zvSy97arQCzaUdH
+	dJ9nI9Mio1RrMbu2Hs=
+X-Received: by 2002:a05:600c:6289:b0:4a1:a475:d885 with SMTP id 5b1f17b1804b1-4a1a475d8acmr98966005e9.34.1791916356633;
+        Tue, 13 Oct 2026 11:32:36 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea0f1csm548921305e9.9.2026.10.13.11.32.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 11:32:36 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2] ASoC: tegra: Support WM8994 by machine driver
+Date: Tue, 13 Oct 2026 21:32:24 +0300
+Message-ID: <20261013183226.513658-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,494 +83,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3MiBTYWx0ZWRfX0K2n5ETzK6kS
- eGpNzU3wwtUQO3Qxm78kW5GdSq891LEN9EFLt3aT98aXPXGAn7s6vU+tIeyUp/jbfRskzO+u+jp
- +ec2PLcw3HwL7k1cbD1I1hI5sjeKOGI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3MiBTYWx0ZWRfX6RkBsfc36qKw
- AaOUup+uIf86QPilFyq1gyBaNdZqxpLPvJc3lB40BkjdXD+VJskZSAvQVHQppyxCoAP6vyXmIju
- lcdiA8drRcYXLc8Tl4tFal2OAk3EWddfX13kyNCH0dyANHuP8jl8FhFpyLsl5eQFVqZBh3WUxRu
- GxIekOdA9R/KLVeakX+8lhXr3Rx2NNZOJ9qff5Ql65oRo0JHdj7+xo2gL0itgarYaFAEXetMpWH
- E9mEmUrXPbSDlUZuAvsNeGxi20dKH6lSXlSR8MsbQ07D8ceO1J8t7bNB/HPGsaEF0SOkhSjilgr
- u1C5uu6V3vBLPH8PQBNyclewOfbNm5V4wSSJHSnqiO1oGr17t2OCsnSyDRD7ILPH0Pf4coCnVGi
- Oc8vg6u4PWsEgs+7wEq79Xqe+OplDadVIH2X8PldCZV3rql7rDcHUXRmlYpupabphbW8fJHXNpx
- tsZoE4d8BXAD5Y+nfhQ==
-X-Proofpoint-GUID: 1DY73SGBlo2emAE4gHFnBcsZIbVp9fmi
-X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6ace78c5 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=lnEnYHUSIB_L1mNt7_8A:9
-X-Proofpoint-ORIG-GUID: L5PxvDrpgJvZSmRX-I_vF8B1_ZRkb7yw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130072
 
-ibmveth_rx_mss_helper() and ibmveth_rx_csum_helper() trust the IP and
-TCP headers of received frames, which come from another partition on
-the virtual LAN.
+Add Wolfson Microelectronics WM8994 codec support to the Tegra ASoC
+machine driver. The WM8994 codec is found on devices like LG Optimus 2X
+(P990/star) and Samsung Captivate Glide (SGH-i927).
 
-The worst case is an IPv4 frame with ihl 0 and iph->check 0xffff: the
-checksum helper calls ip_fast_csum(iph, 0), and the ppc64 version
-loops ihl - 1 times on an unsigned count, reading up to 16 GiB in
-softirq: a long stall, or an oops once the read leaves mapped memory.
-Both helpers also read and write header fields past the end of a short
-frame. The large send helper takes the segment size from the TCP
-checksum field and gso_segs from a TCP header length it never checks,
-and treats an IPv4 TCP fragment as a large send, which can zero two of
-its bytes; the checksum helper can write a checksum into a later
-fragment's payload.
+Svyatoslav Ryhel (2):
+  ASoC: dt-bindings: nvidia,tegra-audio: document WM8994 CODEC
+  ASoC: tegra: Support WM8994 by machine driver
 
-The ihl problem dates from the first commit in Fixes:, the large send
-helper from the second, and the checksum helper from the third.
+ .../sound/nvidia,tegra-audio-wm8994.yaml      | 109 +++++++++++
+ sound/soc/tegra/Kconfig                       |  10 ++
+ sound/soc/tegra/Makefile                      |   2 +
+ sound/soc/tegra/tegra_wm8994.c                | 169 ++++++++++++++++++
+ 4 files changed, 290 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml
+ create mode 100644 sound/soc/tegra/tegra_wm8994.c
 
-Before using a header, check that it fits the frame, that the IPv4 ihl
-is at least 5, and that an IPv4 TCP frame is not a fragment. In the
-large send helper, also require a TCP doff of at least 5, TCP payload
-within the IP length, and an IP length equal to the frame length:
-Ethernet padding or other bytes past the IP length would otherwise
-stay in a bridged or switched frame, which the stack does not trim,
-and be segmented but not counted in gso_segs. Compute gso_segs from
-the IP length, and keep the segment size at or above TCP_MIN_GSO_SIZE,
-as virtio_net_hdr_to_skb() does since commit c27c449d455a ("virtio-net:
-Ensure that TCP packets don't overflow gso_segs"), and below
-GSO_BY_FRAGS, which virtio rejects. With the headers checked and
-gso_segs computed, the skb is not marked SKB_GSO_DODGY, which would
-also keep it from hardware TSO on the egress device.
-
-A frame that fails a check is passed up unchanged, without the GSO
-fields or CHECKSUM_UNNECESSARY, so nothing downstream trusts its
-segment count or checksum. The skb is linear, so the checks use
-skb_headlen(); pskb_may_pull() could reallocate the head under the
-helpers' header pointers.
-
-Add KUnit cases for both helpers: valid IPv4 and IPv6 large sends, the
-segment size clamp, and refused frames. With any one of the ihl, doff,
-IP length, TCP payload, fragment or clamp checks, or the checksum
-helper's IPv4 options, IPv6 header or TCP header length checks,
-removed, a case fails; without the checksum helper's ihl check,
-ip_fast_csum() oopses on qemu.
-
-Found by the Sashiko review of the previous version of this series and
-confirmed by code inspection and the KUnit cases above. Tested with
-KUnit on qemu pseries (ppc64le) and on a POWER10 LPAR with iperf3 large
-sends over IPv4 and IPv6 at MTU 1500 and 9000, threaded NAPI and busy
-polling, with no new drops or InCsumErrors. No kernel selftests cover
-ibmveth.
-
-Fixes: 9c7e8bc584f5 ("ibmveth: Add support for Large Receive Offload")
-Fixes: 7b5967389f5a ("ibmveth: set correct gso_size and gso_type")
-Fixes: 66aa0678efc2 ("ibmveth: Support to enable LSO/CSO for Trunk VEA.")
-Signed-off-by: Mingming Cao <mmc@linux.ibm.com>
----
-Changes in v5:
-- also refuse a large send whose IP length is not the frame length:
-  bytes past the IP length stay in a bridged or switched frame, so
-  gso_segs computed from the IP length undercounted the segments the
-  egress path produces (Sashiko review of v4)
-- KUnit: cover that case, and header-only IPv4 and IPv6 frames so the
-  TCP payload check is still tested
-- message and comment no longer say a refused frame is checked by the
-  stack; bridged or switched frames are not
-
-New in v4: the helper header checks from v3 patch 4, split out with
-their own Fixes: tags.
-
- drivers/net/ethernet/ibm/ibmveth.c | 286 ++++++++++++++++++++++++++++-
- 1 file changed, 277 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
-index 85e176d0ed32..e9874dfedf37 100644
---- a/drivers/net/ethernet/ibm/ibmveth.c
-+++ b/drivers/net/ethernet/ibm/ibmveth.c
-@@ -1396,8 +1396,12 @@ static netdev_tx_t ibmveth_start_xmit(struct sk_buff *skb,
- 
- }
- 
--static void ibmveth_rx_mss_helper(struct sk_buff *skb, u16 mss, int lrg_pkt)
-+/* Returns false when the IP or TCP headers fail the checks; the frame is
-+ * then left unchanged and not marked GSO.
-+ */
-+static bool ibmveth_rx_mss_helper(struct sk_buff *skb, u16 mss, int lrg_pkt)
- {
-+	unsigned int gso_type, ip_len;
- 	struct tcphdr *tcph;
- 	int offset = 0;
- 	int hdr_len;
-@@ -1406,28 +1410,41 @@ static void ibmveth_rx_mss_helper(struct sk_buff *skb, u16 mss, int lrg_pkt)
- 	if (skb->protocol == htons(ETH_P_IP)) {
- 		struct iphdr *iph = (struct iphdr *)skb->data;
- 
-+		if (skb_headlen(skb) < sizeof(*iph) || iph->ihl < 5)
-+			return false;
- 		if (iph->protocol == IPPROTO_TCP) {
-+			/* only a whole datagram has a TCP header to segment */
-+			if (ip_is_fragment(iph))
-+				return false;
- 			offset = iph->ihl * 4;
--			skb_shinfo(skb)->gso_type = SKB_GSO_TCPV4;
-+			ip_len = ntohs(iph->tot_len);
-+			gso_type = SKB_GSO_TCPV4;
- 		} else {
--			return;
-+			return true;
- 		}
- 	} else if (skb->protocol == htons(ETH_P_IPV6)) {
- 		struct ipv6hdr *iph6 = (struct ipv6hdr *)skb->data;
- 
-+		if (skb_headlen(skb) < sizeof(*iph6))
-+			return false;
- 		if (iph6->nexthdr == IPPROTO_TCP) {
- 			offset = sizeof(struct ipv6hdr);
--			skb_shinfo(skb)->gso_type = SKB_GSO_TCPV6;
-+			ip_len = offset + ntohs(iph6->payload_len);
-+			gso_type = SKB_GSO_TCPV6;
- 		} else {
--			return;
-+			return true;
- 		}
- 	} else {
--		return;
-+		return true;
- 	}
- 	/* if mss is not set through Large Packet bit/mss in rx buffer,
- 	 * expect that the mss will be written to the tcp header checksum.
- 	 */
- 	tcph = (struct tcphdr *)(skb->data + offset);
-+	if (skb_headlen(skb) < offset + sizeof(*tcph) || tcph->doff < 5 ||
-+	    ip_len != skb_headlen(skb) || ip_len <= offset + tcph->doff * 4)
-+		return false;
-+	skb_shinfo(skb)->gso_type = gso_type;
- 	if (lrg_pkt) {
- 		skb_shinfo(skb)->gso_size = mss;
- 	} else if (offset) {
-@@ -1436,11 +1453,18 @@ static void ibmveth_rx_mss_helper(struct sk_buff *skb, u16 mss, int lrg_pkt)
- 	}
- 
- 	if (skb_shinfo(skb)->gso_size) {
-+		/* chosen by the sending partition: at least the floor
-+		 * virtio_net_hdr_to_skb() uses, and never GSO_BY_FRAGS
-+		 */
-+		skb_shinfo(skb)->gso_size =
-+			clamp_t(u16, skb_shinfo(skb)->gso_size,
-+				TCP_MIN_GSO_SIZE, GSO_BY_FRAGS - 1);
- 		hdr_len = offset + tcph->doff * 4;
- 		skb_shinfo(skb)->gso_segs =
--				DIV_ROUND_UP(skb->len - hdr_len,
-+				DIV_ROUND_UP(ip_len - hdr_len,
- 					     skb_shinfo(skb)->gso_size);
- 	}
-+	return true;
- }
- 
- static void ibmveth_rx_csum_helper(struct sk_buff *skb,
-@@ -1457,6 +1481,10 @@ static void ibmveth_rx_csum_helper(struct sk_buff *skb,
- 
- 	if (skb_proto == ETH_P_IP) {
- 		iph = (struct iphdr *)skb->data;
-+		if (skb_headlen(skb) < sizeof(*iph) || iph->ihl < 5 ||
-+		    skb_headlen(skb) < iph->ihl * 4 ||
-+		    (iph->protocol == IPPROTO_TCP && ip_is_fragment(iph)))
-+			goto bad_hdr;
- 
- 		/* If the IP checksum is not offloaded and if the packet
- 		 *  is large send, the checksum must be rebuilt.
-@@ -1471,6 +1499,8 @@ static void ibmveth_rx_csum_helper(struct sk_buff *skb,
- 		iph_proto = iph->protocol;
- 	} else if (skb_proto == ETH_P_IPV6) {
- 		iph6 = (struct ipv6hdr *)skb->data;
-+		if (skb_headlen(skb) < sizeof(*iph6))
-+			goto bad_hdr;
- 		iphlen = sizeof(struct ipv6hdr);
- 		iph_proto = iph6->nexthdr;
- 	}
-@@ -1493,6 +1523,8 @@ static void ibmveth_rx_csum_helper(struct sk_buff *skb,
- 	if (iph_proto == IPPROTO_TCP) {
- 		struct tcphdr *tcph = (struct tcphdr *)(skb->data + iphlen);
- 
-+		if (skb_headlen(skb) < iphlen + sizeof(*tcph))
-+			goto bad_hdr;
- 		if (tcph->check == 0x0000) {
- 			/* Recompute TCP pseudo header checksum  */
- 			tcphdrlen = skb->len - iphlen;
-@@ -1510,6 +1542,13 @@ static void ibmveth_rx_csum_helper(struct sk_buff *skb,
- 			skb_reset_network_header(skb);
- 		}
- 	}
-+	return;
-+
-+bad_hdr:
-+	/* headers do not fit the frame, or a fragment has no whole TCP
-+	 * segment; let the stack check it
-+	 */
-+	skb->ip_summed = CHECKSUM_NONE;
- }
- 
- static int ibmveth_poll(struct napi_struct *napi, int budget)
-@@ -1624,7 +1663,8 @@ static int ibmveth_poll(struct napi_struct *napi, int budget)
- 			/* PHYP without PLSO support places a -1 in the ip
- 			 * checksum for large send frames.
- 			 */
--			if (skb->protocol == cpu_to_be16(ETH_P_IP)) {
-+			if (skb->protocol == cpu_to_be16(ETH_P_IP) &&
-+			    skb_headlen(skb) >= sizeof(struct iphdr)) {
- 				struct iphdr *iph = (struct iphdr *)skb->data;
- 
- 				iph_check = iph->check;
-@@ -1632,7 +1672,8 @@ static int ibmveth_poll(struct napi_struct *napi, int budget)
- 
- 			if ((length > netdev->mtu + ETH_HLEN) ||
- 			    lrg_pkt || iph_check == 0xffff) {
--				ibmveth_rx_mss_helper(skb, mss, lrg_pkt);
-+				if (!ibmveth_rx_mss_helper(skb, mss, lrg_pkt))
-+					csum_good = 0;
- 				adapter->rx_large_packets++;
- 			}
- 
-@@ -2508,10 +2549,237 @@ static void ibmveth_rxq_harvest_buffer_test(struct kunit *test)
- 	flush_work(&adapter->work);
- }
- 
-+KUNIT_DEFINE_ACTION_WRAPPER(ibmveth_kfree_skb, kfree_skb, struct sk_buff *);
-+
-+/* A TCP frame after eth_type_trans(): IP header, 20 byte TCP header and
-+ * payload bytes of data, with the IP length matching the frame.
-+ */
-+static struct sk_buff *ibmveth_test_tcp_skb(struct kunit *test, bool ipv6,
-+					    unsigned int payload)
-+{
-+	unsigned int iplen = ipv6 ? sizeof(struct ipv6hdr) :
-+				    sizeof(struct iphdr);
-+	unsigned int len = iplen + sizeof(struct tcphdr) + payload;
-+	struct sk_buff *skb = alloc_skb(len, GFP_KERNEL);
-+	struct tcphdr *tcph;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, skb);
-+	KUNIT_ASSERT_EQ(test, 0, kunit_add_action_or_reset(test,
-+							   ibmveth_kfree_skb,
-+							   skb));
-+	skb_put_zero(skb, len);
-+	if (ipv6) {
-+		struct ipv6hdr *iph6 = (struct ipv6hdr *)skb->data;
-+
-+		skb->protocol = htons(ETH_P_IPV6);
-+		iph6->version = 6;
-+		iph6->nexthdr = IPPROTO_TCP;
-+		iph6->payload_len = htons(len - iplen);
-+	} else {
-+		struct iphdr *iph = (struct iphdr *)skb->data;
-+
-+		skb->protocol = htons(ETH_P_IP);
-+		iph->version = 4;
-+		iph->ihl = 5;
-+		iph->protocol = IPPROTO_TCP;
-+		iph->tot_len = htons(len);
-+	}
-+	tcph = (struct tcphdr *)(skb->data + iplen);
-+	tcph->doff = 5;
-+	return skb;
-+}
-+
-+/**
-+ * ibmveth_rx_mss_helper_test - unit test for ibmveth_rx_mss_helper
-+ * @test: pointer to kunit structure
-+ *
-+ * Large send frames get gso_size from the descriptor or the TCP checksum
-+ * field, clamped, and gso_segs from the IP length. Frames whose headers
-+ * do not fit, whose IP length is not the frame length, with no TCP
-+ * payload within the IP length, or that are IPv4 fragments, are refused
-+ * and left without GSO.
-+ *
-+ * Return: void
-+ */
-+static void ibmveth_rx_mss_helper_test(struct kunit *test)
-+{
-+	struct sk_buff *skb;
-+	struct tcphdr *tcph;
-+	struct iphdr *iph;
-+
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	tcph = (struct tcphdr *)(skb->data + sizeof(*iph));
-+	tcph->check = (__force __sum16)htons(1448);
-+	KUNIT_EXPECT_TRUE(test, ibmveth_rx_mss_helper(skb, 0, 0));
-+	KUNIT_EXPECT_EQ(test, SKB_GSO_TCPV4, skb_shinfo(skb)->gso_type);
-+	KUNIT_EXPECT_EQ(test, 1448, skb_shinfo(skb)->gso_size);
-+	KUNIT_EXPECT_EQ(test, 2, skb_shinfo(skb)->gso_segs);
-+	KUNIT_EXPECT_EQ(test, 0, (__force u16)tcph->check);
-+
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	KUNIT_EXPECT_TRUE(test, ibmveth_rx_mss_helper(skb, 1000, 1));
-+	KUNIT_EXPECT_EQ(test, 1000, skb_shinfo(skb)->gso_size);
-+	KUNIT_EXPECT_EQ(test, 3, skb_shinfo(skb)->gso_segs);
-+
-+	skb = ibmveth_test_tcp_skb(test, true, 2896);
-+	tcph = (struct tcphdr *)(skb->data + sizeof(struct ipv6hdr));
-+	tcph->check = (__force __sum16)htons(1448);
-+	KUNIT_EXPECT_TRUE(test, ibmveth_rx_mss_helper(skb, 0, 0));
-+	KUNIT_EXPECT_EQ(test, SKB_GSO_TCPV6, skb_shinfo(skb)->gso_type);
-+	KUNIT_EXPECT_EQ(test, 1448, skb_shinfo(skb)->gso_size);
-+	KUNIT_EXPECT_EQ(test, 2, skb_shinfo(skb)->gso_segs);
-+
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	KUNIT_EXPECT_TRUE(test, ibmveth_rx_mss_helper(skb, 1, 1));
-+	KUNIT_EXPECT_EQ(test, TCP_MIN_GSO_SIZE, skb_shinfo(skb)->gso_size);
-+
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	KUNIT_EXPECT_TRUE(test, ibmveth_rx_mss_helper(skb, GSO_BY_FRAGS, 1));
-+	KUNIT_EXPECT_EQ(test, GSO_BY_FRAGS - 1, skb_shinfo(skb)->gso_size);
-+
-+	/* refused: ihl 0, doff 4, IP length past the frame. With ihl 0 the
-+	 * TCP header would overlap the IP header; saddr makes its doff 5.
-+	 */
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	((struct iphdr *)skb->data)->ihl = 0;
-+	((struct iphdr *)skb->data)->saddr = htonl(0x50000000);
-+	KUNIT_EXPECT_FALSE(test, ibmveth_rx_mss_helper(skb, 1448, 1));
-+	KUNIT_EXPECT_EQ(test, 0, skb_shinfo(skb)->gso_size);
-+
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	((struct tcphdr *)(skb->data + sizeof(*iph)))->doff = 4;
-+	KUNIT_EXPECT_FALSE(test, ibmveth_rx_mss_helper(skb, 1448, 1));
-+
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	((struct iphdr *)skb->data)->tot_len = htons(skb->len + 1);
-+	KUNIT_EXPECT_FALSE(test, ibmveth_rx_mss_helper(skb, 1448, 1));
-+
-+	/* refused: bytes past the IP length, its large send fields left
-+	 * alone; gso_segs from the IP length would undercount them
-+	 */
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	((struct iphdr *)skb->data)->tot_len = htons(skb->len - 100);
-+	tcph = (struct tcphdr *)(skb->data + sizeof(*iph));
-+	tcph->check = (__force __sum16)htons(1448);
-+	KUNIT_EXPECT_FALSE(test, ibmveth_rx_mss_helper(skb, 0, 0));
-+	KUNIT_EXPECT_EQ(test, 0, skb_shinfo(skb)->gso_size);
-+	KUNIT_EXPECT_EQ(test, 1448, ntohs((__force __be16)tcph->check));
-+
-+	/* refused: a fragment past the first, its payload left alone */
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	((struct iphdr *)skb->data)->frag_off = htons(185);
-+	tcph = (struct tcphdr *)(skb->data + sizeof(*iph));
-+	tcph->check = (__force __sum16)htons(1448);
-+	KUNIT_EXPECT_FALSE(test, ibmveth_rx_mss_helper(skb, 0, 0));
-+	KUNIT_EXPECT_EQ(test, 0, skb_shinfo(skb)->gso_size);
-+	KUNIT_EXPECT_EQ(test, 1448, ntohs((__force __be16)tcph->check));
-+
-+	/* refused: only Ethernet padding past the TCP header */
-+	skb = ibmveth_test_tcp_skb(test, false, 6);
-+	((struct iphdr *)skb->data)->tot_len = htons(40);
-+	KUNIT_EXPECT_FALSE(test, ibmveth_rx_mss_helper(skb, 1448, 1));
-+	KUNIT_EXPECT_EQ(test, 0, skb_shinfo(skb)->gso_size);
-+
-+	skb = ibmveth_test_tcp_skb(test, true, 2896);
-+	((struct ipv6hdr *)skb->data)->payload_len = 0;
-+	KUNIT_EXPECT_FALSE(test, ibmveth_rx_mss_helper(skb, 1448, 1));
-+
-+	/* refused: no TCP payload, with the IP length matching the frame */
-+	skb = ibmveth_test_tcp_skb(test, false, 0);
-+	KUNIT_EXPECT_FALSE(test, ibmveth_rx_mss_helper(skb, 1448, 1));
-+	KUNIT_EXPECT_EQ(test, 0, skb_shinfo(skb)->gso_size);
-+
-+	skb = ibmveth_test_tcp_skb(test, true, 0);
-+	KUNIT_EXPECT_FALSE(test, ibmveth_rx_mss_helper(skb, 1448, 1));
-+	KUNIT_EXPECT_EQ(test, 0, skb_shinfo(skb)->gso_size);
-+
-+	/* not TCP: accepted and left alone */
-+	skb = ibmveth_test_tcp_skb(test, false, 2896);
-+	((struct iphdr *)skb->data)->protocol = IPPROTO_UDP;
-+	KUNIT_EXPECT_TRUE(test, ibmveth_rx_mss_helper(skb, 1448, 1));
-+	KUNIT_EXPECT_EQ(test, 0, skb_shinfo(skb)->gso_size);
-+}
-+
-+/**
-+ * ibmveth_rx_csum_helper_test - unit test for ibmveth_rx_csum_helper
-+ * @test: pointer to kunit structure
-+ *
-+ * A large send IPv4 header checksum of 0xffff is rebuilt. Headers that
-+ * do not fit the frame, an IPv4 ihl below 5, or a TCP fragment, clear
-+ * CHECKSUM_UNNECESSARY instead of being read.
-+ *
-+ * Return: void
-+ */
-+static void ibmveth_rx_csum_helper_test(struct kunit *test)
-+{
-+	struct sk_buff *skb;
-+	struct tcphdr *tcph;
-+	struct iphdr *iph;
-+
-+	skb = ibmveth_test_tcp_skb(test, false, 100);
-+	iph = (struct iphdr *)skb->data;
-+	iph->check = (__force __sum16)0xffff;
-+	tcph = (struct tcphdr *)(skb->data + sizeof(*iph));
-+	tcph->check = (__force __sum16)htons(1);
-+	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	ibmveth_rx_csum_helper(skb, NULL);
-+	KUNIT_EXPECT_EQ(test, 0, (__force u16)ip_fast_csum(iph, iph->ihl));
-+	KUNIT_EXPECT_EQ(test, CHECKSUM_UNNECESSARY, (int)skb->ip_summed);
-+
-+	skb = ibmveth_test_tcp_skb(test, false, 100);
-+	iph = (struct iphdr *)skb->data;
-+	iph->ihl = 0;
-+	iph->check = (__force __sum16)0xffff;
-+	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	ibmveth_rx_csum_helper(skb, NULL);
-+	KUNIT_EXPECT_EQ(test, CHECKSUM_NONE, (int)skb->ip_summed);
-+	KUNIT_EXPECT_EQ(test, 0xffff, (__force u16)iph->check);
-+
-+	/* IPv4 options past the frame; UDP, so no TCP check follows */
-+	skb = ibmveth_test_tcp_skb(test, false, 0);
-+	iph = (struct iphdr *)skb->data;
-+	iph->protocol = IPPROTO_UDP;
-+	iph->ihl = 15;
-+	iph->check = (__force __sum16)0xffff;
-+	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	ibmveth_rx_csum_helper(skb, NULL);
-+	KUNIT_EXPECT_EQ(test, CHECKSUM_NONE, (int)skb->ip_summed);
-+
-+	/* a TCP fragment past the first: header and payload left alone */
-+	skb = ibmveth_test_tcp_skb(test, false, 100);
-+	iph = (struct iphdr *)skb->data;
-+	iph->frag_off = htons(185);
-+	iph->check = (__force __sum16)0xffff;
-+	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	ibmveth_rx_csum_helper(skb, NULL);
-+	KUNIT_EXPECT_EQ(test, CHECKSUM_NONE, (int)skb->ip_summed);
-+	KUNIT_EXPECT_EQ(test, 0xffff, (__force u16)iph->check);
-+	KUNIT_EXPECT_EQ(test, 0,
-+			(__force u16)((struct tcphdr *)(skb->data +
-+							sizeof(*iph)))->check);
-+
-+	/* TCP header past the frame */
-+	skb = ibmveth_test_tcp_skb(test, false, 0);
-+	skb_trim(skb, sizeof(struct iphdr));
-+	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	ibmveth_rx_csum_helper(skb, NULL);
-+	KUNIT_EXPECT_EQ(test, CHECKSUM_NONE, (int)skb->ip_summed);
-+
-+	/* IPv6 header past the frame; UDP, so no TCP check follows */
-+	skb = ibmveth_test_tcp_skb(test, true, 0);
-+	((struct ipv6hdr *)skb->data)->nexthdr = IPPROTO_UDP;
-+	skb_trim(skb, sizeof(struct ipv6hdr) - 1);
-+	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	ibmveth_rx_csum_helper(skb, NULL);
-+	KUNIT_EXPECT_EQ(test, CHECKSUM_NONE, (int)skb->ip_summed);
-+}
-+
- static struct kunit_case ibmveth_test_cases[] = {
- 	KUNIT_CASE(ibmveth_remove_buffer_from_pool_test),
- 	KUNIT_CASE(ibmveth_rxq_get_buffer_test),
- 	KUNIT_CASE(ibmveth_rxq_harvest_buffer_test),
-+	KUNIT_CASE(ibmveth_rx_mss_helper_test),
-+	KUNIT_CASE(ibmveth_rx_csum_helper_test),
- 	{}
- };
- 
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
