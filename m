@@ -1,130 +1,143 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC158490BE4
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:04:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4295C48EC62
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871471; cv=none; b=Fyel/mX/l1FikC4s2yIb1YqEk02wLwQMcwce9I/SF4pbTNO+A3UNPkdVxq20iHFvbuTcXVshr88ksNVaWUTmMGTaJv8UwFpw1G4jOiSCl3zxA4BnWMWfJRFLTk6H7jalQOVknKfbFDmKV+JOJT+p007WxgO3Rk8Ii+F3uqK7d3E=
+	t=1791871477; cv=none; b=sK5M8y671btxNOJpODaiUCasAAxIb7KmGI6ffREcSiH8xZ91LLCjcJXwngwVkTOCjd5F3RZEqnKEmGtq75qMNSIjGT4TYlHThr3pUScNhOhzmr3PUkIrwVV2plkt4mqyUmI8X02jmOaKhmR8qCDruQGGaOHAVFW+VJ9E110b67Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871471; c=relaxed/simple;
-	bh=/GcmAYDK5wL1XhmTAdpTBXowDwSgyF/0xtR7hRDKYus=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VbxNGCC89C6lLWxZC1Qiyyjn8PTDU5aPiyqpbrfNq4y1bOf6MXwvVPUK8/xuTDkTqo4By8NFq+/xou5CQpjLsdY702wWHFiN9xl2gomdj6LbhTSmwh0rcLvD4aew/7FAf/5C4UQZOy24TjeR996LkRZtu3sZgmZiNjU7No+DjMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com; spf=pass smtp.mailfrom=tyhicks.com; dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b=WO7a8LDP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=HeKDEmsg; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
+	s=arc-20240116; t=1791871477; c=relaxed/simple;
+	bh=Rjpe9v6RRYU+NG7RT5Zptya1DV0KrnwiYyeVJX03vKw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hj9gKGxRdJOSIDBM/dCXRbgszMxC/6TX3qf+ZYaXj8QN1MycBIpKKrpHdcXAjMu6H5FHdxJhDKuiV5QelUxJOfaJuLsZwXQnzNCf9NrY68u55WYGSq54x0c2LpNpcssjkhy/VDb11v0qheyD2HYfetuuLQ0nsTGeLFUqvluu8mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q4hbr3ff; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b="WO7a8LDP";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="HeKDEmsg"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 0082C1400144
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:04:28 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Tue, 13 Oct 2026 02:04:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1791871467; x=1791957867; bh=4DriwNVYMZ
-	WY7vbH3ttBAHXAnJyW0W1thNNddn0x8vk=; b=WO7a8LDPmVLwoHuTLEqjopFvrx
-	Qp2YkFQeWs1bEj3csEeNQaY3z2PAp1Lwde74Hz3csbdfp/m1laXtocqWtDs97gKf
-	AUQVFAnnKDVclY7vrA+FkMsUWH2qZAmYks3oHlfkGqrtOFpoBzBAkQ0+4Q1ASQfV
-	nA7o20SAUiXNEOmRPtzwSjRErbLHFXA3ShUIDfTe3H/YevA2z4yk+GDyCI7mU2iY
-	WBRBIoYqqIQ3+OLzsbW5ebQ1pS7DZNTrYfPX4KgdXiKS7Z+lrHojrWEfYxomSusk
-	KORpZwv9b2P2wBPH5/16pFq30BnzRRp3kr7hIQt+pIQ0kyXdF65R0QJ8wX4A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791871467; x=1791957867; bh=4DriwNVYMZWY7vbH3ttBAHXAnJyW0W1thNN
-	ddn0x8vk=; b=HeKDEmsgJYxoYv8Q8uLw3DL9vt6uTRNxBIuc7rm4TyVaYv6dogQ
-	GtPbV1aniXa87UHjVIEBgucmlO1Uj0bho5yWSyDQ7fRUHqOgDTE2ze/4tEYsI13D
-	a1R2ZhC0nuNg0le/U1tlvQ8hcwEpNl4VlZUHTVRBgbZIjsjelVsHjTFZS8Vlp/YL
-	TJF0BBITh+UM44755ozo1vbHqaMNPNR0bSG2AHUMdB1xASc9BmLfkafuUxMC3xsx
-	B/cyXjSl/p1uuAn4vHSUeRNeoEkh8JheyNAwXo4UEhAsIWHHoXILYqLNy8MjPgxj
-	qARFaPw3+qRJ+GI6fofFucApeM3FpY7wDqg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=tyhicks.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791871467; d=tyhicks.com;
-	mf=PGNvZGVAdHloaWNrcy5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:fUuNbCxSTdMUaAJf11LNZqyUvOuk72JFwRpyEp3VInr2iQF
-	j48jv2xcNFbCEGz+zwuHSCTrXuwNItRAxMMVO7D7ZftiTmU9BOoc29czrz+xJTQz
-	v9LLRTh/uV3TW1Yka2UPPhG//nvWuaDXLOu8yq/p4zRw/w8ca+WEKNTHWUmvTxZ5
-	u6e+8qzXdEQkK8d3PzGq1sVfFhKXCqmU1S17W3mQ2qU20CKVvCBN9PWe/DNd1O//
-	ODbvwLbTq8pg6ZLVuHVPbCAClRtezqaz9PvxX0aIMcCt5oyyBYdsMlfhLBR6xOem
-	DZHuiZEUlLJP8kjJEiM3mox192alrMQDF/fmYBg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:TJvoFdFxiGHiRzNLSSyBbmE8BkDG6CdQarPY0/FhhOM=:/GcmAYDK5wL1XhmTAdpTBXowDwSgyF/0xtR7hRDKYus=;
-X-ME-Sender: <xms:68nNahaY5DGlUWh6iVOxQAiysVeKi91KcSm5Z_T2lVFWqNLubr3m-Q>
-    <xme:68nNaj3T1jWh1UyVEbfUka5EId2kLRuBXN5w38Gl2FwkIybc2NnVKsb2k3LJulplZ
-    j3r8YUQRFHb-a17kpnol3DVcr3vzGZ57RWAMtJ0iIXMSpVQSw0En2jn>
-X-ME-Received: <xmr:68nNanfSZxhpUHLu5cAwYebmXgWY9RdSOTjn0jGQF-i7xrhsXqJ7hw>
-X-ME-Proxy-Cause: dmFkZTEOXKhrMJJY6a0IAErbCsJr74e03FrSXF5dfwYePwqhWGJUT58wtgJPEYb0w5OxqA
-    lmZkI9acsqzoEai6lUcecBS2/qbgoQ9HY4RcEUMhvLeGgZGXg0K1qB2O2KOUQkI8+Fp02Y
-    8Gh9RT3Zuh/IT0pRYf7dWbv8JIn4dCmXtQxHf+6crVJa7P69JxCbLyggEdoA+MOP2d5wJ/
-    aUpEhrgANJE5DxVmQyxBcQIxYbOk/7kppobeyZqaDrnCvjVR5IvjBKsi202XZi8Ouai4n/
-    Mkck9EYSHnc2DrUQxgoYrQL6sK3T/NAJrguiDyAmNTBZ6qft/MIrk9RlKyO1AwalVLpZVD
-    /wK0OEuZ/Tna00grSUKkPo/wC2O71oEIAFlCgbprhs7423/vw3/JXsubX5H0WOwc7CUKWC
-    DCLVuiD7taEjv2RlaRBeuiC7N4LgIXxqz4a6g9FAH2QykFuYUDdeP11TrqgBjmG4IVwyXS
-    QxMzeNVt/w0ZZMl5uvI9viSt2bbbVvZSV8GW95ypbi1ph93xgPNT8uiatI1lNoR7ln81Ip
-    uXY95O8mk929jOAzSOyWPuWyq26TfYFbvlosHA6nO0TRyscnZzvXRGAMBaUyCWVn+y1fcb
-    RE5CTP94xVMyZfHpUZHj6nuZzMPs/wFuf1uWncB5baP4S7a1WxVvMoNPK+Mw
-X-ME-Proxy: <xmx:68nNakFtLP4G5SEvA_TxT3VuJuczmxaDGzZm1D_62GI7my6W2_e7GA>
-    <xmx:68nNao19EdxQsSRmjTWzSRf6aRaRcqtRIWFKsEqth0S6BgS0vBZ15w>
-    <xmx:68nNaklN3PMvfIwXmsdEOtjEVZwG2vwDPF7fpHR7ErfJCrQXPLWv6Q>
-    <xmx:68nNag87noS2aO8pYzpKfiIddBLITYAkqKr5kDat5SJEq7XBSOPsbQ>
-    <xmx:68nNanPsYv2RNtsmDBomt4FjAV8iW8PcvNk0n2jq2SZ3A7kAMr1UipfR>
-Feedback-ID: i78e14604:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 02:04:27 -0400 (EDT)
-Date: Tue, 13 Oct 2026 01:04:25 -0500
-From: Tyler Hicks <code@tyhicks.com>
-To: syzbot <syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com>
-Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in
- ecryptfs_write_tag_70_packet
-Message-ID: <as3J6RH4QPNIl-b0@elm>
-References: <6ab152fc.71f81b7d.15fa6d.0030.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q4hbr3ff"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so2088507a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:04:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791871475; x=1792476275; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=acEtVgfuadFdXlisXUuNZxKScLo0hQqEFXfuOZQe1a4=;
+        b=q4hbr3ff9+S1j+R8AimLPx1f70G9+88Mad16Fi+2kjmlnO8Muo4ejlkIYcpmiO/AqZ
+         YQxKNykLymkr6GhC1rtdzxwPb+ajPnj+VSY2anvgna8RaUkG2BYnGXV81+wWSwwMb5KT
+         k3vHc2jN09FhdmRZyxuBconP8xia5Mm5SCYkaJUQlOgwwNwrJNNLCVGKyJNVyWnVUlw6
+         gjIU/cCMjxmce2di5+I1JstYEs0KfQW8vf1lrfodYYxwE27dfz/hy7fNeoik3p9rLqmL
+         ToKrpIwTbXt8NOf09GntKF/swwY0uIXmZg7MF4JHE2wFwcXN/FHZRcgdPvSGgjOWu3kE
+         afHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791871475; x=1792476275;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=acEtVgfuadFdXlisXUuNZxKScLo0hQqEFXfuOZQe1a4=;
+        b=W3SDIbsz7pAgE93feEMfEv5jnThfFEtHr/ErebI693k0UCJfKq6zZDjZcA74TdDAOj
+         mUAhIeVlKSCxX1FraUidio5AfAQrN8KpNhcoyxYBMhYCSG0tUwwZLZK356HPYa4tbiol
+         7BeLdox7Jfg98wnaU8ZM/YT51APIkgOLHJ+qENHnZcvDZuE4oRo9CbDUrbSWVcF6qic0
+         nxalkIuqmyX6XEhTv1ADjoq9Jno+O4stwrTL6POzkKQ6aFPaxGXfbFDTCXz6bMhjpNL3
+         xp9y4NUUuhMLvYltVyJxYwmA+ckkCAmh2HPTDkqJojFANPNOSY4+z77nmBaQrZ4IVhg9
+         BeUw==
+X-Forwarded-Encrypted: i=1; AKwUvBwsxta2SVN5tnhLz1BOUmdskId70+uBaUoiXxsARqGncl6W16MIsor7DMb0dTbWl76QU8jIzkkInOwqQJA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHfvgPoURmktTOH/rjettlOIbHbLkX8U5Q23ITDN41tte7JYsv
+	w8VwYPx88XVCnAx1tIi3Xj7PFCnJVP8StT3fijfTqaGRDwhVQl8/gaH2
+X-Gm-Gg: AYBFou0C2OxKFY33YOyU74ebealHMyWwfxKC3tCLbuNBKMvx7899x3rQ+K41q++sI6F
+	ho58AbabsFI5xHtpCv9el4UPbliAMi0y/KWzPWmJrEmBZ+apm0VEFxWsIiwf9vYCpgO5trE7wSK
+	6zKxOpI3kVYKu5RV27MFesD2xOn2yHco0Z7NLJofw8jQVqyWKInT9jr989bHbuG+DF2tXoeAKW3
+	b0MvfZNYRsAuqpmjhhXtMRl5Zq4x0z3CyATqROaKH8QWJTnnbLkKMCv+IfNfI9rwT9L8fKoSd8R
+	y+xxEU0tyAqEk9nmPupATEcUIhd7bJVGpTnq6ZK+9ud0FobvQobo+ABra4mRWfKL2hvxVdQ5uQi
+	pb14W2YYatY5v3layzJIpKET5xzvB/rQGuY8zyc3flzMrvOo5UKcfFs/o7U4it9L3wWoKJZfKOD
+	Q7c47AN/zjwy/YmIN+t1PUiHNrKPTnI0A2jx5mu/0Wfq66O6pjvYQmIQfGLPlaABk/NutcjX/o/
+	2osE4lzthEWGxPOPvE=
+X-Received: by 2002:a17:90b:4d86:b0:3a8:6571:b43f with SMTP id 98e67ed59e1d1-3ab3a9f7f28mr9589394a91.29.1791871475585;
+        Mon, 12 Oct 2026 23:04:35 -0700 (PDT)
+Received: from [10.25.160.252] ([165.85.154.27])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f4863esm23035084a91.11.2026.10.12.23.04.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 23:04:34 -0700 (PDT)
+Message-ID: <14bbf027-4a16-4bac-b530-d4654ed38d4a@gmail.com>
+Date: Tue, 13 Oct 2026 14:04:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6ab152fc.71f81b7d.15fa6d.0030.GAE@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 18/24] ASoC: imx-pcm-rpmsg: Fix imx_rpmsg_pcm_close()
+ being skipped on rollback
+To: phucduc.bui@gmail.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ povik+lin@cutebit.org, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Andrei Simion <andrei.simion@microchip.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: Kees Cook <kees@kernel.org>, Syed Saba Kareem <syed.sabakareem@amd.com>,
+ wangdicheng <wangdicheng@kylinos.cn>,
+ Chris Bainbridge <chris.bainbridge@gmail.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Neo Chang <YLCHANG2@nuvoton.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ u.kleine-koenig@baylibre.com, Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Hemanth Selam <hemanth.selam@gmail.com>,
+ Md Shofiqul Islam <shofiqtest@gmail.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Zain Aboobacker <zainaboobacker33@gmail.com>,
+ Sang-Heon Jeon <ekffu200098@gmail.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Bo Shen <voice.shen@atmel.com>, Vinod Koul <vkoul@kernel.org>,
+ linux-sound@vger.kernel.org, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com,
+ linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev,
+ linux-rockchip@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261008103831.542533-1-phucduc.bui@gmail.com>
+ <20261008103831.542533-19-phucduc.bui@gmail.com>
+Content-Language: en-US
+From: Chancel Liu <chancel.liu@gmail.com>
+In-Reply-To: <20261008103831.542533-19-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-09-21 08:53:32, syzbot wrote:
-> Hello,
+On 10/8/2026 6:38 PM, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> syzbot found the following issue on:
+> snd_pcm_hw_constraint_integer() may return 1, which is then returned
+> from imx_rpmsg_pcm_open(). ASoC only marks the component as opened
+> when .open() returns 0, so .close() can be skipped on rollback.
 > 
-> HEAD commit:    518e5b794c06 Merge tag 'for-7.3-rc3-tag' of git://git.kern..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=17e5fff9580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=c3bddd52b22c2498
-> dashboard link: https://syzkaller.appspot.com/bug?extid=e4391e0d6e7c89b8c84e
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1015fff9580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10b73915580000
+> Return 0 explicitly on success.
 > 
-> Downloadable assets:
-> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-518e5b79.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/5307a29f916b/vmlinux-518e5b79.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/7d4c698a99b1/bzImage-518e5b79.xz
-> mounted in repro: https://storage.googleapis.com/syzbot-assets/4a20c8843682/mount_0.gz
->   fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=13e5fff9580000)
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
+> Fixes: 3c00eceb2a53 ("ASoC: imx-pcm-rpmsg: Add platform driver for audio base on rpmsg")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/tyhicks/ecryptfs.git next
+Reviewed-by: Chancel Liu <chancel.liu@gmail.com>
+
+Regards,
+Chancel Liu
