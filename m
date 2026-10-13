@@ -1,241 +1,249 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EBC518154;
-	Tue, 13 Oct 2026 15:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850885187EC
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:11:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904259; cv=none; b=oe4lLy2Iqu/D3xurugD3RKwWZgiJhOfd7GgtoFa3sdi2XEJi/v2k7BRLOkZqrmUuS1T4iL4hO8cIr7Ej/e/HK2xhCyS2/X4Owt/+k/VkrkZgxwYFXJVUuFFg0rj6wgPddP1HaczXEqeBnykQv7Hq1lKfwnto99QvsnGbNTh1z3E=
+	t=1791904263; cv=none; b=iaXL6doibOmybbBx4zJIkHXBQTkkaorlmN8HxRl1NNI7L+sQdo3QhLC1GJh4EKfQXAvV97dxk3WlD1+5PphEcNFc1Rh0EKZPN3xOtEwZb5n8zAHLTeHGE5PIbaOKHiQ3MssMYz4i7IPz/q9tXXlh9LWU6ADDZIp73NGUpxAGsrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904259; c=relaxed/simple;
-	bh=of2UYRzW7yp+Q771g+lXdFKJWDHV724vw+P2aUhj3j8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=epFKrrk8wpM/bEO+LsFzDhC3W1ceMUAQ8owa0eBefFlMS9hLYOlqAPX6Mu4KWRmj87mo4RG61AV1yq9mOH77faYdXDMmdwJUhGAjzPpadD/eCGsCQFaXRTWDKtwwbgJ9pyOAwIT5msl2CTRVWGF5GJI3PVdNAOQ5U2I2yiNVsFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2+L9Q/z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904263; c=relaxed/simple;
+	bh=bceBj1lCDVf8rlvw9Pnq+5QiEUpw58usmClWP5+lnkY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rS7ApGbKwr1715d/eTydo47rRNQ3FSBBSw+HyKM42GKkoO7cT9N7BRDqGAzb25D4sFNPRnB+Zy/GkhtiLFkHAvjeN6dwn+F8B2vNhI+RctarV/uesLUiuFgo65QDz+3uzYTZaEGK0L/vgQ21f7oJZ5WiaaVaOlVCMo06FeMu960=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HtGXlp7H; arc=none smtp.client-ip=91.218.175.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2+L9Q/z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5DAD1F00893;
-	Tue, 13 Oct 2026 15:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904258;
-	bh=mU7Y5nNDVHDzKFrw1lrh3bp+5Qbf32xd91WOb6VG+Eg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=K2+L9Q/zk5F1JMZQoVNEvJJrDJntVi7BRnwxv6VxSVhHPIGwIZuO6hsP6antZRApX
-	 uJutW5uu2S2oKbCLLYqTfVbV5yLuZ4VIAOMRulD5xbCnMFHVOfEekoZbDQSPzErySo
-	 xoJKnXc+Ul7hckWVUy1rnU5nhunwRAgAVjP/O3fXcZ+T0NAKr5vdjHfla7vtxP6vkk
-	 l5HYOND8EECqPb3irEk3KXmmEnaoQ7ffjrhf/H1ZpsvesyaIvLGEKDlNSSQqnNO4aT
-	 x5cP7oPFadXNoagrLSzTBY2couFGw3Z0Z7vIUed7GNHJhZMqjWaMOTWvRjwJGyMDoW
-	 4OE2dXSjJ5jjw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:49 +0100
-Subject: [PATCH v6 09/39] docs: filesystems: update mmap_prepare docs for
- discontig kernel pgs
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HtGXlp7H"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bceBj1lCDVf8rlvw9Pnq+5QiEUpw58usmClWP5+lnkY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791904259; v=1; x=1792509059;
+ b=HtGXlp7HdsU1MrQuqwiw9TlpTVxg8+B367C+6XmUokvnjnAmqzJ1bEOJkqSvPrpCLl2Bf5tg
+ Cu5ndTkyLR+sOmEKfLBCQabrmiY+9e/NsRG3Re7Y8rKhGYGpbNUrqTFp4wsn8MEIJpY4d10N5OU
+ TtLbv+nctJHKnxQWVxsYfwZ4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 3d5937a095650203;
+	Tue, 13 Oct 2026 15:10:59 +0000
+X-Mizu-Trace-ID: 3d5937a095650203
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	chengming.zhou@linux.dev,
+	dsterba@suse.com,
+	hannes@cmpxchg.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	nphamcs@gmail.com,
+	terrelln@fb.com,
+	yosry@kernel.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	senozhatsky@chromium.org,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	kernel-team@meta.com
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH v3 3/3] mm: zswap: use stack requests for synchronous decompression
+Date: Tue, 13 Oct 2026 08:09:37 -0700
+Message-ID: <20261013151007.2093943-4-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261013151007.2093943-1-usama.arif@linux.dev>
+References: <20261013151007.2093943-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-9-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4636; i=ljs@kernel.org;
- h=from:subject:message-id; bh=of2UYRzW7yp+Q771g+lXdFKJWDHV724vw+P2aUhj3j8=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZzQKHWd53gm5uqihtiapbWCx05c2W61+NmV67/2e
- D24mDw1oKOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATkbdj+M3CWBf53tyX0yFp
- N+O0OiZlv2df96y+p26+eE3mhkpP43uMDF/s1oh3aD4OzFXh12H4fbVLvWRnbZLL1fh3HM+vdDw
- 7wg4A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-Describe the newly introduced discontiguous kernel page mapping mechanism,
-detailing how to use it sensibly and how the API looks.
+With separate requests for compression and decompression, loads still
+serialize on the per-CPU decompression mutex. A low-priority load that
+is preempted after the codec drops its stream lock keeps holding the mutex
+and stalls every other load on that CPU, including higher-priority ones.
 
-Explicitly detail the various discontiguous actions available and how to
-use them.
+Synchronous algorithms can use an on-stack request, so decompress with
+one and take no zswap lock. All in-tree software compressors qualify.
+The Crypto API enforces MAX_SYNC_COMP_REQSIZE during initialization,
+so checking acomp_is_async() is sufficient. Asynchronous algorithms
+keep the per-CPU request and mutex, which is still taken before the
+zsmalloc read lock.
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reading the per-CPU context without the mutex is safe. Since
+commit ef3c0f6cb798e ("mm: zswap: tie per-CPU acomp_ctx lifetime to the
+pool"), it is set up before its CPU comes online and is not torn down
+until the pool is destroyed. The codecs keep their own stream locks, and
+crypto_acomp_decompress() rejects on-stack requests only for
+asynchronous transforms, which never take this path.
+
+For software compressors this drops the heap request added for
+decompression. The on-stack request and wait take 216 bytes, which
+makes the load path about 270 bytes deeper on x86-64. Asynchronous
+algorithms pay this too.
+
+Acked-by: Nhat Pham <nphamcs@gmail.com>
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- Documentation/filesystems/mmap_prepare.rst | 81 ++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ mm/zswap.c | 87 ++++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 59 insertions(+), 28 deletions(-)
 
-diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
-index 82c99c95ad85..b5afbb33e5c8 100644
---- a/Documentation/filesystems/mmap_prepare.rst
-+++ b/Documentation/filesystems/mmap_prepare.rst
-@@ -164,5 +164,86 @@ pointer. These are:
-   sufficient entries in the page array to cover the entire range of the
-   described VMA.
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 23c4298765795..beacdf83c8b31 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -153,7 +153,7 @@ struct zswap_comp_ctx {
+ struct crypto_acomp_ctx {
+ 	struct crypto_acomp *acomp;
+ 	struct zswap_comp_ctx comp;
+-	struct zswap_acomp_req decomp;
++	struct zswap_acomp_req decomp;	/* unused with on-stack requests */
+ };
  
-+* mmap_action_map_discontig_kernel_pages() - Maps a discontiguous range of
-+  `struct page` pointers over the VMA. They must span from the start of the VMA,
-+  but may terminate prior to the end (leaving the remainder unmapped).
+ /*
+@@ -803,6 +803,18 @@ static void zswap_entry_free(struct zswap_entry *entry)
+ /*********************************
+ * compressed storage functions
+ **********************************/
++static void zswap_set_acomp_req_callback(struct acomp_req *req,
++					 struct crypto_wait *wait)
++{
++	/*
++	 * if the backend of acomp is async zip, crypto_req_done() will wakeup
++	 * crypto_wait_req(); if the backend of acomp is scomp, the callback
++	 * won't be called, crypto_wait_req() will return without blocking.
++	 */
++	acomp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
++				   crypto_req_done, wait);
++}
 +
- **NOTE:** The ``action`` field should never normally be manipulated directly,
- rather you ought to use one of these helpers.
+ static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
+ 				struct crypto_acomp *acomp)
+ {
+@@ -812,14 +824,7 @@ static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
+ 		return -ENOMEM;
+ 
+ 	crypto_init_wait(&areq->wait);
+-
+-	/*
+-	 * if the backend of acomp is async zip, crypto_req_done() will wakeup
+-	 * crypto_wait_req(); if the backend of acomp is scomp, the callback
+-	 * won't be called, crypto_wait_req() will return without blocking.
+-	 */
+-	acomp_request_set_callback(areq->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
+-				   crypto_req_done, &areq->wait);
++	zswap_set_acomp_req_callback(areq->req, &areq->wait);
+ 
+ 	mutex_init(&areq->mutex);
+ 	return 0;
+@@ -856,15 +861,19 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
+ 		goto fail;
+ 	}
+ 
+-	if (zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp) ||
+-	    zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
+-		pr_err("could not alloc crypto acomp_request %s\n",
+-		       pool->tfm_name);
+-		goto fail;
++	if (zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp))
++		goto req_fail;
 +
-+Discontiguous Actions
-+=====================
++	/* Skip the per-CPU request when decompression can use the stack. */
++	if (acomp_is_async(acomp_ctx->acomp)) {
++		if (zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp))
++			goto req_fail;
+ 	}
+ 
+ 	return 0;
+ 
++req_fail:
++	pr_err("could not alloc crypto acomp_request %s\n", pool->tfm_name);
+ fail:
+ 	acomp_ctx_free(acomp_ctx);
+ 	return ret;
+@@ -956,19 +965,14 @@ static bool zswap_compress(struct folio *folio, long index,
+ 	return comp_ret == 0 && alloc_ret == 0;
+ }
+ 
+-static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
++static bool __zswap_decompress(struct zswap_entry *entry,
++			       struct zswap_pool *pool, struct acomp_req *req,
++			       struct crypto_wait *wait, struct folio *folio)
+ {
+-	struct zswap_pool *pool = zswap_entry_pool(entry);
+ 	struct scatterlist input[2]; /* zsmalloc returns an SG list 1-2 entries */
+ 	struct scatterlist output;
+-	struct crypto_acomp_ctx *acomp_ctx;
+ 	int ret = 0, dlen;
+ 
+-	if (WARN_ON_ONCE(!pool))
+-		return false;
+-
+-	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
+-	mutex_lock(&acomp_ctx->decomp.mutex);
+ 	zs_obj_read_sg_begin(pool->zs_pool, entry->handle, input, entry->length);
+ 
+ 	/* zswap entries of length PAGE_SIZE are not compressed. */
+@@ -985,15 +989,13 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
+ 	} else {
+ 		sg_init_table(&output, 1);
+ 		sg_set_folio(&output, folio, PAGE_SIZE, 0);
+-		acomp_request_set_params(acomp_ctx->decomp.req, input, &output,
+-					 entry->length, PAGE_SIZE);
+-		ret = crypto_acomp_decompress(acomp_ctx->decomp.req);
+-		ret = crypto_wait_req(ret, &acomp_ctx->decomp.wait);
+-		dlen = acomp_ctx->decomp.req->dlen;
++		acomp_request_set_params(req, input, &output, entry->length, PAGE_SIZE);
++		ret = crypto_acomp_decompress(req);
++		ret = crypto_wait_req(ret, wait);
++		dlen = req->dlen;
+ 	}
+ 
+ 	zs_obj_read_sg_end(pool->zs_pool, entry->handle);
+-	mutex_unlock(&acomp_ctx->decomp.mutex);
+ 
+ 	if (!ret && dlen == PAGE_SIZE)
+ 		return true;
+@@ -1007,6 +1009,35 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
+ 	return false;
+ }
+ 
++static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
++{
++	struct zswap_pool *pool = zswap_entry_pool(entry);
++	struct crypto_acomp_ctx *acomp_ctx;
++	bool ret;
 +
-+Some actions can be performed across discontiguous ranges.
++	if (WARN_ON_ONCE(!pool))
++		return false;
 +
-+Map kernel pages
-+----------------
++	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
++	/*
++	 * Use a private on-stack request when the transform supports it.
++	 * Otherwise serialize decompression on the shared per-CPU request.
++	 */
++	if (!acomp_ctx->decomp.req) {
++		ACOMP_REQUEST_ON_STACK(req, acomp_ctx->acomp);
++		DECLARE_CRYPTO_WAIT(wait);
 +
-+To map kernel pages discontiguously, you must provide hooks using ``struct
-+discontig_kernel_page_ops``:
++		zswap_set_acomp_req_callback(req, &wait);
++		return __zswap_decompress(entry, pool, req, &wait, folio);
++	}
 +
-+.. code-block:: C
++	mutex_lock(&acomp_ctx->decomp.mutex);
++	ret = __zswap_decompress(entry, pool, acomp_ctx->decomp.req,
++				 &acomp_ctx->decomp.wait, folio);
++	mutex_unlock(&acomp_ctx->decomp.mutex);
++	return ret;
++}
 +
-+    struct discontig_kernel_page_ops {
-+        int (*init)(void *vm_private_data, void **private);
-+        int (*get)(struct discontig_kernel_page_state *state);
-+    };
-+
-+The ``init`` hook is optional and allows state to be established before the
-+operation starts, for instance taking a reference count. Nothing is invoked
-+after the operation, so ``init`` must not leave locks held, and state that must
-+be released once the mapping goes away should be released in
-+``vm_ops->close``.
-+
-+The ``init`` hook, if provided, is invoked prior to the operation starting. It
-+may update what is pointed to by ``vm_private_data`` and/or ``private``. If an
-+error is returned, then the operation is aborted. The ``private`` field can be
-+reassigned.
-+
-+**NOTE:** The operation may sleep between invocations of ``get``, so locks
-+needed to stabilise state must be taken and released within each hook.
-+
-+The ``get`` handler is the key means through which the operation is
-+executed. The current state of the operation is provided through ``struct
-+discontig_kernel_page_state``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_state {
-+        /* Map state. */
-+        unsigned long start;            /* Start address of VMA. */
-+        unsigned long end;              /* End address of VMA. */
-+        unsigned long addr;             /* The current address to be mapped. */
-+        pgoff_t pgoff;                  /* The current pgoff to be mapped. */
-+        unsigned long nr_pages_mapped;  /* The number of pages mapped. */
-+        unsigned long nr_pages_remain;  /* The number of pages remaining. */
-+
-+        /* User-defined state. */
-+        void *vm_private_data;          /* VMA private data. */
-+        void *private;                  /* Mapping private data. */
-+
-+        /* Users should not touch these, use discontig_kernel_map_*() helpers. */
-+        ... internal fields ...
-+    };
-+
-+With ``private`` being an additional user-controllable state variable,
-+initialised via ``mmap_action_map_discontig_kernel_pages()``, and
-+``vm_private_data`` being equal to the ``desc->private_data`` field set in
-+the ``mmap_prepare()`` hook.
-+
-+In the ``get`` hook, the user must choose how to map kernel pages:
-+
-+* ``discontig_kernel_map_abort()`` - Call this to abort the operation, whatever
-+  has been mapped so far will be retained, the rest of the mapping will SIGBUS
-+  if accessed.
-+* ``discontig_kernel_map_page()`` - Maps a single page, correctly handling
-+  compound pages (if the compound page is bigger than the remaining pages in the
-+  VMA, then only those pages that fit will be mapped). For a compound page, the
-+  head page must be passed.
-+* ``discontig_kernel_map_pages()`` - Map an array of pages of a specified
-+  size. As with a compound page, if more pages are specified than remain in
-+  the VMA then only those that fit will be mapped.
-+
-+If an error arises after ``init`` succeeded, the core unmaps the VMA, invoking
-+``vm_ops->close`` if set, which is therefore the place to release any state
-+that ``init`` established.
-
+ /*********************************
+ * writeback code
+ **********************************/
 -- 
-2.55.0
+2.53.0-Meta
 
