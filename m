@@ -1,313 +1,242 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D988551D523
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898166; cv=pass; b=hV1vt1UEphn6b/vVZpcRXRD3SC27BUO3xSIBLuaz5i+88XOMS9IDOs0TEy4F4NsiHl1l00TBrRZBcIt9W3gndGU81+VO7VnsMNFN7sNhTVMdYH/GAFfmtHn2x82po7KEEWsC4++sk1b7RDjJFG/3pn8zvKEH8YSEcolpRrs+Nh4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898166; c=relaxed/simple;
-	bh=xFG8pRzJwqHSYz1ahl0Nv6+CxBGkp2FcavjQZZvSvWk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eDwifmb3SUwxAUZEQFeddwEwN9wk2jI84MbppkarGZwVT2dJPV7DQ/iHObiZ7RESlCHaVBhA2JkCmtvAHq0dpZg+F014beg4uou+EabSLwhs8R2S779SnEuSQUyZ4/X6u61XDc88P+sys7MektrbIxhIFHQTvJ6xLMZRGopTMuo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YtNH8fIT; arc=pass smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDAC4F7995
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:30:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791898209; cv=none; b=hG5sndSwjxPVwskCCkS9BL07M9zESe7ZZmNHAgJ6Y+jwrVtIHLxMSpgAPiwsYLG9Koz0fI8E344syB6TH8gTUDOA4NOJgldyS6djgCFKP7aX8F60asp72RtptA7bEQQOckTLLopmrT/HOcTlBBTsKx/mdOSjsLDrLrGCKrUN/k4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791898209; c=relaxed/simple;
+	bh=MYb+KZhXthdS1tI1u5L6tYn5kd9NKgccGuIs3/6bcFo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=mkqIyFwpZK9lr7m2cEQCl+cwdhp8U0skS7d+XrkS5bhJto/beUwVxj9Pi1c6dHrMyWOzOuzZqe4F+UfKtZ+Pyy2z4KhWhD6s6kaPD/wVAh8uNkdhh+ZJoJQF+TMUMB7DWTAGgQTZ8rVs2gcipxKiC+MvdUOE505UhxOwze1Odso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bOuNoX9W; arc=none smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YtNH8fIT"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-533202fe429so739001cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:29:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791898164; cv=none;
-        d=google.com; s=arc-20260327;
-        b=H6PZfoueZ61jpSQA2U6htDIRCNQZRx5OZltCGIiJKS7L/cuHahpul2S/UFWJon+cYa
-         K7evAejhXfbdKJycx9k2jv2XY62xutqWymWzGvCQvtNtnCG45Rp+ZOy8wfmeCAE2sRg7
-         pR9x8dpK71O5QOa0LxWDIbEO0j7p2fmmbu7U4Jfkb/Afgef0bWkP1vpo+ufRrTG0qQlR
-         rnPiuETsddi8TSeIl6nbIyoVtieQZnPggNSgz/KQ9u2Cg76tLfHGxkhLiMvsmPtml1ju
-         2bX90doDUu9SDJF6YrLvyIwKBv3r8DnU3lS5KMovXXq2IA++D06VeEw6CnOiMAdeg2ma
-         ThAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=k2ZJ67cl4IO2/wFBLGAmZXVM6FrfonA4qhd6y3/BX5E=;
-        fh=VeZSPjgUiR5/yTX2sfprcvU6IRIAU56aI7s2zmads4s=;
-        b=WKaNQU9iEjVfBNWeXtdyztIO0a1o76/nbPXuc+8TOaHlTufM12W8JSxxBYtk2/l5yx
-         cO8a7+mAiLHbmY2ftwOlyU9z+n7xfQxPiDZs0PaL2tda/BFAQOV+wNjQmkfpT0AdEHDc
-         6airNbfc77K04dGU6YISdLQF0XrTlVwH0PKdEh3X4/qW9NX1ADKBvR1GTiUXocM7Z3NZ
-         8qUyfdA4aVgP2K61hNk+a3kO37KST3MQVy2zgbk+2DW5rqtguxU6/3IBDypFVxjpQTTQ
-         zEk1imifH18iv/My7G4eONSUPzCKp626Af3eN3FcVf9IDDT4pdOMfMb+JX+qZitq7SD9
-         2Yzw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bOuNoX9W"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5356b6a7fe5so37731001cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:30:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791898164; x=1792502964; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k2ZJ67cl4IO2/wFBLGAmZXVM6FrfonA4qhd6y3/BX5E=;
-        b=YtNH8fITsvMujN7RZkU30AVJ43qxbhH8Nscqj2RI3xtLnFjxUaAYK/U4oupekgX9Rs
-         r6ONbx7WMkpPaWhf/NfIIz5H6hcpUUqBJ0zZtgmJHr5uWo8rOVvorpYFeLkpD0kaa3mv
-         5Xoee0IU5P7A0XKwIVLl0F51vFlj7nh0wA3npOJTVrP6nTl9ZZOgsozbMjlcpaKOkx75
-         l4oaVwhSOaFVW9SSDvaP2S7/7nEOBHjb801f4ynipHdNXz81JPJlHNSgVr1jaaDbDCAx
-         aydpreIqB1AZ/dgThdL4fOa2JoQF2cGsPZfZbcH8shngkilrDGyEjX3++vcU/GyH6Tim
-         FZMA==
+        d=gmail.com; s=20251104; t=1791898206; x=1792503006; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HdYWexqI8VnjnVIAaPxGnMoLpd+H3V236ImJISdPKrc=;
+        b=bOuNoX9WU76ro+ZOSrp0N2Fba0IRKIAIg80EFZvmjoIo0RW919eSojewJuu94sNM2E
+         AA0/2arLdp96VSdm0c7s//SUwMKP+b966JoASumBME3WSENL9LE0rFhaoMdUy6n2LNvI
+         x3w4YnKAPUZNNVbbT1x62nB8+Z4MWc2oyaLeK+hufkJT2NhoptaWpBW70D5gCSy6kMoh
+         UeFKAUMhWbGh/9Jn6zCuVI7acQ++15yvhq3wVHim7sOmv+silQnRJ25EHBzHGH+r6a2s
+         d1LRnFFNAWZlLBJ6xzYJzMiHNNj3w6jkJvIn/3NosvDD+nk++Sc8DQMDzi4W/RSMcEEQ
+         8n7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791898164; x=1792502964;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791898206; x=1792503006;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=k2ZJ67cl4IO2/wFBLGAmZXVM6FrfonA4qhd6y3/BX5E=;
-        b=xiRPzxcCD8UPpQp475vozMFUNETxMIXW+UfgZwIHu03EyWnFxI4EptsFCVkwZCG4ae
-         vMTkywjGvmjHMlZZFRlnB/pR9MZFGqtkT2v4od+e5ORB2bABCzlJRZhB8+4qe4WSTrQ+
-         qpiugt70znuFIwXJg1IxP26YVLNMLia211YtnDfip6IGGZMZtFF+tdIFUSGP/s72+cxh
-         +tLyiBS0akhovojnaHGs/NY1umDD8tYQ/K4yGlxHOGECijvSiZl2Y4djVVITe2uzolzY
-         OrJLxET0EuU/0gatUkLBbX1aIcI+t4IYRhFNJZmzTEKvuc8VOwpuY2tAC+4lgVqM1J4P
-         e6fg==
-X-Forwarded-Encrypted: i=1; AKwUvBz5hTUhZ3TAGaZwi/OUY0MIVHsKDEMon157FYPxuae9sEGgYmhkVqhm5v+kKgO0tvOaygBwHvk5RiNHi2Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLN7ygtWNMlXn/Atpu7FNKoyzX18DPDUrg5uxQs59TMsg8vgpmY
-	E6ev+qss93CISx50MxARwjesVqbKFQpyp85GIyjXbYF2OfH0litkUk/wo8ADwzZ/P9F9j452j/v
-	Fjh/j2hcAf2jTvChs9rnfpqlFWs6Ms5rwLhs9ewph
-X-Gm-Gg: AYBFou2HgDv0RS5Buhsb2fpBQTOAb2KICT7X4353U2jjbkNRb4/5GHjwLjSPlgwTUoU
-	+4p/A5D+Oijkla0L/P7snsCnzeMSFGnS2A3OGd/QR+aq1hoQF04hLqVEId62+cR1xmYOKTNc1QZ
-	zFJsWE6SE2ZAbjGuj4fuDi0ZPY8kbpPZUS/hGb3lQSev3wwLx77UopIqmPGaQcL1ki8m5WhP0Q8
-	jQEaWsSmm8RPTDnK4omBSdQY+TFmzV29pbCxZ1Ij5F0PkqVmcMJzHrgJpVnF253pP8etdumppiv
-	zniq1nOJ0IMifYq4GRHoGUvrbWF1v1WUeBJeY9Fkzt6YczjTonF9ybTl
-X-Received: by 2002:a05:622a:1f0c:b0:534:b7b2:634f with SMTP id
- d75a77b69052e-535b4eca219mr52262061cf.8.1791898162935; Tue, 13 Oct 2026
- 06:29:22 -0700 (PDT)
+        bh=HdYWexqI8VnjnVIAaPxGnMoLpd+H3V236ImJISdPKrc=;
+        b=1aMdi2OVJXylERtR7ME7sKGixPBqn/6KnmHcc+OJreZNKpiYB4Q9R+skJC7yvuhahs
+         4OoEdDGBxS5RzK9JcD8MlzGaasntzNg7/NDZI3CpKLuwxYahyHFOrFrRbCx5WXVE89BX
+         VquIzwggvPRDX3FQlx3U4gvzAs+4M4iE9ljQz25RXolJz3ee0o6TdDkE39nVYk1hPzvN
+         JOSOtR+9u9Dqf6EbAxY+lZl+uz9F2bJtAw1fA4Ch76rckB6YDE7q2WgrDFRuZ5pve8zv
+         K7iQ1O+i5rnQrKo5R4I2WAA6ViBZ+YqhLLa/37g2W3TVFYux55Kql90B7Boa2ibrBy/9
+         jGaw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUmZFVaEZvry5cnoH+rmKFGavrU1a3xDzmI6PZJxv2dOm+aTYOFeoh3eVfKff3TrtRJVlAUwNC8UwUQX0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqbjCA4TZTteq0p5aJKG7KIbr5ivWlYkG73fn/N4Lcxqxx4Zav
+	o+bgmVzP/au5ridZHQpwXONU6s7X9gopEyvLKyH8XMbMFBKXzZ0Pde5F
+X-Gm-Gg: AYBFou3FR9G63c7nGpDjVhym5NbuHJ+aeFXfCw7+RuuXA5j4wvWouPeKJ5i7badPqct
+	Ls6gZch31lP4OrrgZLPFrHixzJwEZW177K5oYNjU2jjZUZIimeKd+aQ7Q7BcZz/EaUXf4t8L0VV
+	I58VKq0Rd4+wX6qFidl2MhbcbavHn29hylcmV91OHs7kI8cpTn86NN+GORGGccIwNtm24vie9Ee
+	VveTwWRZZS94LeiImVBfL77rVwVrWLP7iOsg+zTVT0kgwJ0CCmT9qwNps6FfTpZDabU8zx87VXD
+	m1+I83fgZKAF6Fr6G2OQYkAH9Szn09HWpI0akbkP4+B7sScE0pefZGJIU1UYvIZ7xn2WOV57/3B
+	7zeXYsr4NmYCmpvMh+fWVeGpJ+hFT3KHe0dQRBLDGYAJGB1so/9j8EepwCKOqYdgSZmCZOKRKks
+	rr8TVR0/BgU/WyuFFC/R4gTM7uhCZmU1qHNpw7GOtN3xW202Wa4kMD8p2anh6Yd1bny6eiX2uBy
+	m4=
+X-Received: by 2002:a05:622a:1e1b:b0:533:386a:edca with SMTP id d75a77b69052e-5359fae2dd8mr197794911cf.16.1791898205969;
+        Tue, 13 Oct 2026 06:30:05 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-535e652f3c7sm24443901cf.26.2026.10.13.06.30.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 06:30:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261013130052.3012773-1-max.kellermann@ionos.com>
-In-Reply-To: <20261013130052.3012773-1-max.kellermann@ionos.com>
-From: Ian Rogers <irogers@google.com>
-Date: Tue, 13 Oct 2026 06:29:10 -0700
-X-Gm-Features: AclHuK9sirKJ2K2WjUv42s8M4AHEmquQGSkkZvKFoqEcv8urLNEiHGZTNG_l-lQ
-Message-ID: <CAP-5=fVPtjkxcjEkR9r6QZGsoKe=_rZssjZp1FcJ7rCgntpPng@mail.gmail.com>
-Subject: Re: [PATCH] perf: skip unnecessary userspace map synthesis
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Dapeng Mi <dapeng1.mi@linux.intel.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 09:30:02 -0400
+Message-Id: <DM3QWDZ4B408.2O12B5PXKY8AR@gmail.com>
+Cc: <alexanderduyck@fb.com>, <kuba@kernel.org>, <kernel-team@meta.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <pabeni@redhat.com>,
+ <ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
+ <john.fastabend@gmail.com>, <sdf@fomichev.me>, <edumazet@kernel.org>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <bpf@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 2/4] eth: mpnic: report per-queue stats
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20261012-mpnic-counters3-v2-2-8afba81c2d5a@gmail.com>
+ <179189313526.434549.10762925482009523771@kernel.org>
+In-Reply-To: <179189313526.434549.10762925482009523771@kernel.org>
 
-On Tue, Oct 13, 2026 at 6:00=E2=80=AFAM Max Kellermann <max.kellermann@iono=
-s.com> wrote:
+On Tue Oct 13, 2026 at 8:05 AM EDT, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 >
-> Reading `/proc/PID/task/PID/maps` for existing processes is expensive
-> on systems with many processes.  `perf record` already allows skipping
-> these reads with the `--synth=3D` option, but `perf top` has no
-> equivalent option.
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
 >
-> Skip userspace map synthesis by default in `record` and `top` when all
-> events exclude userspace and no sample feature needs user mappings.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
 >
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
->  tools/perf/Documentation/perf-record.txt |  4 +++
->  tools/perf/builtin-record.c              |  8 +++++
->  tools/perf/builtin-top.c                 | 19 +++++------
->  tools/perf/util/evlist.c                 | 40 ++++++++++++++++++++++++
->  tools/perf/util/evlist.h                 |  1 +
->  tools/perf/util/record.h                 |  1 +
->  6 files changed, 64 insertions(+), 9 deletions(-)
+> - [Medium] This patch reports the RCQ `rcq.packets` and `rcq.bytes`
+>   counters as the netdev qstats `rx-packets` and `rx-bytes` attributes.
 >
-> diff --git a/tools/perf/Documentation/perf-record.txt b/tools/perf/Docume=
-ntation/perf-record.txt
-> index 178f483140ed..cdef14f22df3 100644
-> --- a/tools/perf/Documentation/perf-record.txt
-> +++ b/tools/perf/Documentation/perf-record.txt
-> @@ -696,6 +696,10 @@ Available types are:
->    - 'all'     - synthesize all events (default)
->    - 'no'      - do not synthesize any of the above events
->
-> +By default, userspace MMAP synthesis is skipped if all events exclude
-> +userspace (for example, with --all-kernel or -e cycles:k) and their
-> +samples do not need userspace maps.
-> +
->  --tail-synthesize::
->  Instead of collecting non-sample events (for example, fork, comm, mmap) =
-at
->  the beginning of record, collect them during finalizing an output file.
-> diff --git a/tools/perf/builtin-record.c b/tools/perf/builtin-record.c
-> index a57987851cf0..f8b4e5279fca 100644
-> --- a/tools/perf/builtin-record.c
-> +++ b/tools/perf/builtin-record.c
-> @@ -2574,6 +2574,13 @@ static int __cmd_record(struct record *rec, int ar=
-gc, const char **argv)
->
->         evlist__config(rec->evlist, opts, &callchain_param);
->
-> +       if (!opts->synth_set && !opts->full_auxtrace &&
-> +           !opts->auxtrace_sample_mode && !rec->off_cpu && !rec->buildid=
-_all &&
-> +           !evlist__needs_user_mmaps(rec->evlist)) {
-> +               opts->synth &=3D ~PERF_SYNTH_MMAP;
-> +               pr_debug("Skipping synthesis of userspace maps for kernel=
--only recording\n");
-> +       }
-> +
->         /* Debug message used by test scripts */
->         pr_debug3("perf record opening and mmapping events\n");
->         if (record__open(rec) !=3D 0) {
-> @@ -3412,6 +3419,7 @@ static int parse_record_synth_option(const struct o=
-ption *opt,
->                 pr_err("Invalid synth option: %s\n", str);
->                 return -1;
->         }
-> +       opts->synth_set =3D true;
->         return 0;
->  }
->
-> diff --git a/tools/perf/builtin-top.c b/tools/perf/builtin-top.c
-> index 570410599f1b..d85ecc140eda 100644
-> --- a/tools/perf/builtin-top.c
-> +++ b/tools/perf/builtin-top.c
-> @@ -1017,14 +1017,6 @@ static int perf_top__start_counters(struct perf_to=
-p *top)
->         struct evlist *evlist =3D top->evlist;
->         struct record_opts *opts =3D &top->record_opts;
->
-> -       if (perf_top__overwrite_check(top)) {
-> -               ui__error("perf top only support consistent per-event "
-> -                         "overwrite setting for all events\n");
-> -               goto out_err;
-> -       }
-> -
-> -       evlist__config(evlist, opts, &callchain_param);
-> -
->         evlist__for_each_entry(evlist, counter) {
->  try_again:
->                 if (evsel__open(counter, counter->core.cpus,
-> @@ -1265,6 +1257,14 @@ static int __cmd_top(struct perf_top *top)
->         if (ret)
->                 return ret;
->
-> +       if (perf_top__overwrite_check(top)) {
-> +               ui__error("perf top only support consistent per-event "
-> +                         "overwrite setting for all events\n");
-> +               return -1;
-> +       }
-> +
-> +       evlist__config(top->evlist, opts, &callchain_param);
-> +
->         if (perf_session__register_idle_thread(top->session) < 0)
->                 return ret;
->
-> @@ -1296,7 +1296,8 @@ static int __cmd_top(struct perf_top *top)
->                 pr_debug("Couldn't synthesize cgroup events.\n");
->
->         machine__synthesize_threads(&top->session->machines.host, &opts->=
-target,
-> -                                   evlist__core(top->evlist)->threads, t=
-rue, false,
-> +                                   evlist__core(top->evlist)->threads,
-> +                                   evlist__needs_user_mmaps(top->evlist)=
-, false,
->                                     top->nr_threads_synthesize);
->
->         perf_set_multithreaded();
-> diff --git a/tools/perf/util/evlist.c b/tools/perf/util/evlist.c
-> index c3d784727810..6636edee0d2b 100644
-> --- a/tools/perf/util/evlist.c
-> +++ b/tools/perf/util/evlist.c
-> @@ -1990,6 +1990,46 @@ bool evlist__exclude_kernel(struct evlist *evlist)
->         return true;
->  }
->
-> +bool evlist__needs_user_mmaps(struct evlist *evlist)
-> +{
-> +       struct evsel *evsel;
-> +       bool has_kernel_event =3D false;
-> +
-> +       evlist__for_each_entry(evlist, evsel) {
-> +               struct perf_event_attr *attr =3D &evsel->core.attr;
-> +
-> +               /* Tracking events do not produce samples, regardless of =
-modifiers. */
-> +               if (evsel__is_dummy_event(evsel))
-> +                       continue;
-> +
-> +               if (!attr->exclude_user)
-> +                       return true;
-> +
-> +               /* Kernel samples can still contain a userspace callchain=
-. */
-> +               if ((attr->sample_type & PERF_SAMPLE_CALLCHAIN) &&
-> +                   !attr->exclude_callchain_user)
-> +                       return true;
-> +
-> +               /*
-> +                * These may reference userspace even when the sampled
-> +                * IP is in the kernel.  Keep maps for opaque trace
-> +                * payloads and AUX trace decoding too, whose address
-> +                * requirements are PMU specific.
-> +                */
-> +               if (attr->sample_type & (PERF_SAMPLE_ADDR | PERF_SAMPLE_R=
-AW |
-> +                                        PERF_SAMPLE_REGS_USER | PERF_SAM=
-PLE_STACK_USER |
-> +                                        PERF_SAMPLE_BRANCH_STACK | PERF_=
-SAMPLE_AUX))
-> +                       return true;
-> +
-> +               if (evsel__is_aux_event(evsel))
-> +                       return true;
-> +
-> +               has_kernel_event =3D true;
-> +       }
-> +
-> +       return !has_kernel_event;
-
-Thanks for the contribution! I can see if there's a user event then
-evlist__needs_user_mmaps will return true, otherwise we'll return
-false if there's a kernel event but true if the list is empty or just
-contains dummy events. Why do the empty list and dummy case need the
-user mmap events?
-
-Thanks,
-Ian
-
-> +}
-> +
->  /*
->   * Events in data file are not collect in groups, but we still want
->   * the group display. Set the artificial group and set the leader's
-> diff --git a/tools/perf/util/evlist.h b/tools/perf/util/evlist.h
-> index 838e263b76f3..b208bf7211e8 100644
-> --- a/tools/perf/util/evlist.h
-> +++ b/tools/perf/util/evlist.h
-> @@ -631,6 +631,7 @@ struct evsel *evlist__find_evsel_by_str(struct evlist=
- *evlist, const char *str);
->  struct evsel *evlist__event2evsel(struct evlist *evlist, union perf_even=
-t *event);
->
->  bool evlist__exclude_kernel(struct evlist *evlist);
-> +bool evlist__needs_user_mmaps(struct evlist *evlist);
->
->  void evlist__force_leader(struct evlist *evlist);
->
-> diff --git a/tools/perf/util/record.h b/tools/perf/util/record.h
-> index 93627c9a7338..1317ddce3cf0 100644
-> --- a/tools/perf/util/record.h
-> +++ b/tools/perf/util/record.h
-> @@ -80,6 +80,7 @@ struct record_opts {
->         int           ctl_fd_ack;
->         bool          ctl_fd_close;
->         int           synth;
-> +       bool          synth_set;
->         int           threads_spec;
->         const char    *threads_user_spec;
->         u64           off_cpu_thresh_ns;
 > --
-> 2.47.3
 >
+> eth: mpnic: report per-queue stats
+>
+> This commit exposes the per-ring packet and byte counters through the
+> netdev queue stats API. Counters for deactivated rings are reported
+> through the base stats.
+>
+>> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c b/drivers/ne=
+t/ethernet/meta/mpnic/mpnic_netdev.c
+>> index 5164475a0f943..c2f4a326a8f0f 100644
+>> --- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
+>> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
+>
+> [ ... ]
+>
+>> @@ -146,6 +147,77 @@ static const struct net_device_ops mpnic_netdev_ops=
+ =3D {
+>>  	.ndo_get_stats64	=3D mpnic_get_stats64,
+>>  };
+>> =20
+>> +static void mpnic_get_queue_stats_rx(struct net_device *dev, int idx,
+>> +				     struct netdev_queue_stats_rx *rx)
+>> +{
+>> +	struct mpnic_net *mpn =3D netdev_priv(dev);
+>> +	struct mpnic_ring *rxr =3D mpn->rx[idx];
+>> +	struct mpnic_queue_stats *stats;
+>> +	unsigned int start;
+>> +	u64 bytes, packets;
+>> +
+>> +	if (!rxr)
+>> +		return;
+>> +
+>> +	stats =3D &rxr->stats;
+>> +	do {
+>> +		start =3D u64_stats_fetch_begin(&stats->syncp);
+>> +		bytes =3D u64_stats_read(&stats->rcq.bytes);
+>> +		packets =3D u64_stats_read(&stats->rcq.packets);
+>> +	} while (u64_stats_fetch_retry(&stats->syncp, start));
+>> +
+>> +	rx->bytes =3D bytes;
+>> +	rx->packets =3D packets;
+>> +}
+>
+> [Severity: Medium]
+> Do rcq.packets and rcq.bytes match the qstats meaning of rx-packets and
+> rx-bytes?
+>
+> The netdev.yaml spec defines rx-packets as "Number of wire packets
+> successfully received and passed to the stack". It defines rx-bytes as
+> "Successfully received bytes, see rx-packets".
+>
+> In mpnic_clean_rcq() in mpnic_txrx.c, packets++ runs for every META
+> completion, including completions where the driver drops the packet:
+>
+> drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:mpnic_clean_rcq() {
+>     ...
+> 			if (likely(!(rcd &
+> 				     MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK) &&
+> 				   !state->pkt.add_frag_failed)) {
+> 				bytes +=3D xdp_get_buff_len(&state->pkt.buff);
+> 				skb =3D xdp_build_skb_from_buff(&state->pkt.buff);
+> 			}
+>
+> 			if (likely(skb)) {
+> 				napi_gro_receive(&nv->napi, skb);
+> 			} else {
+> 				mpnic_put_pkt_buff(&state->pkt, true);
+> 				if (rcd & MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK)
+> 					errors++;
+> 				else
+> 					dropped++;
+> 			}
+>
+> 			state->pkt.buff.data_hard_start =3D NULL;
+> 			packets++;
+>     ...
+> 	u64_stats_add(&rcq->stats.rcq.packets, packets - errors);
+> 	u64_stats_add(&rcq->stats.rcq.bytes, bytes);
+> 	u64_stats_add(&rcq->stats.rcq.dropped, dropped);
+>     ...
+> }
+>
+> Only errors are subtracted from packets. If add_frag_failed is set, or if
+> xdp_build_skb_from_buff() returns NULL, the packet is counted in dropped
+> and also in rx-packets.
+>
+> The buffer length is also added to bytes before xdp_build_skb_from_buff()
+> runs. A failed skb build therefore still counts toward rx-bytes. An
+> add_frag_failed drop adds to packets but not to bytes, so the two
+> counters also disagree with each other.
+>
+> mpnic_get_base_stats() reports the same values once
+> mpnic_aggregate_ring_rcq_counters() folds them into base->rx. The
+> miscount carries over after a ring is deactivated.
+>
+> fbnic_clean_rcq() handles this by jumping to next_dont_count for dropped
+> packets, so they are counted in neither packets nor bytes. Could mpnic
+> do the same?
+>
+
+v1 of this series matched fbnic in this regard, but the bot pointed out
+correctly that rtnl stats docs say that packets received ok at the host,
+but dropped in the driver (mainly skb allocation failure here), should
+be counted in rx-packets.
+
+> The counter semantics come from "eth: mpnic: count packets, bytes, and
+> drops per ring" earlier in this series. This patch is the one that
+> exposes them as qstats rx-packets and rx-bytes.
+>
+> The later patch "eth: mpnic: count Rx allocation failures" also counts
+> skb build failures in alloc_failed. Those packets still stay in packets
+> and bytes.
+>
+> [ ... ]
+
+So, the question is whether or not rx-packets, reported both to rtnl
+stats and qstats, should count drops in the driver. Here, drops are
+either running out of shinfo frags, but really just skb allocation
+failure.=20
+
+The docs for rtnl stats strongly suggest an skb allocation failure
+should still be counted for rx-packets.
+
+The docs for qstats imply the opposite. Especially when xdp is not
+present, which is the case as of this point. Once xdp is introduced,
+though, counting an skb allocation failure in rx-packets becomes
+reasonable by the qstats docs, because xdp runs before the point of skb
+allocation.
+
+Another option would be reporting rx-packets differently for the two
+APIs. I think this is not desirable, and seems to violate what is in
+the stats.py selftest.
+
+So, I could either submit a v3, which would just be reverting to v1, or
+take the approach here as is.
+
+I'm going to hold off on sending a v3, unless there is some human
+feedback.
