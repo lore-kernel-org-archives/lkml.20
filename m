@@ -1,304 +1,223 @@
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BB74F93AD
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E804F96CF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:57:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892653; cv=none; b=YWKZIE8ABv0PgCDm3Eb7xOM+V2Ti5XL8m/DqX06SmH9CJOro59y70hTSJQhDJxBPPEUKk7VpBtQKcq+Jf/Xo43FuxtDlO3Ihy/nbXYBuuQemEJwNHfJ1jD2wZLPaMDZVXySpz2CVPxj0eA6oood1Fn6fYos+dEmde7nI6glKPwU=
+	t=1791892657; cv=none; b=ib46qPWcoPxpjoEb3Vn2QFAbld6vqyPiVLsOmqU7FDZv1NgtMO8lsl9BVaSgISugRHfdAzBpvjM1wb4jLFbXfbtV2+Kr9Q70Y+n7fJDnLoQAL1oUruwAkGx1Cs6rAfx7e5zq516IPUS1Y5d1MG6tT76+W41nx5MId1A45SzJ8VA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892653; c=relaxed/simple;
-	bh=AHw6Bf13raUR4J91CWzBLYaYoTidZP9qEYsmTEI5MNY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aUkgMLEk1wGi0YdS1IS8MzNGrneytTJP2EOsV5rTPUx1jaHDXna5u8RZU85/KASihV0Kj0vZGnzBPRBn8TaT+4TT9d+XuC6VeMAqQcrpFCfWUTu2fSZBTf7na3U5ulGAbg4Dg1WO4vGsD5QalE+xcZAQbSu+lz/e+sRNJGnbuBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LLzC1pYP; arc=none smtp.client-ip=74.125.227.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791892657; c=relaxed/simple;
+	bh=Ubwq4HzMIOAqdWk4/8deqrzN3Z40S1+279VGBFr1eww=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S+6f9NEyYg39rVZRFAc/O1EAiUF+qX/pZ1o/FYzWWau2Wg00xTvU9o6fnEgvxs8o8VnSqmtzKTgnnjO1aX9KjzmzbGnmy4rDhLIp08bar7EBg0nk2zlzfJr7Ub+2uGLIUMZIkPxEFjLPRwwYpfMNA8chZh5sBL1/CNhV9lnMejw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ALZ7XHVG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KR9U/GuC; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LLzC1pYP"
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso1376571a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:57:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ALZ7XHVG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KR9U/GuC"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D89Bkx3054903
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:57:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=tzZokV4UDOIHODHJyTn32egA
+	FPE75bJMpUh7wLNQ3Sw=; b=ALZ7XHVGdqgJAdRs3FEVk0H90aYVKF4mPQYBSP2/
+	/NOXb4QkHzh/vCS0gefaO2JrwvUhzHtJ7A/LfQ9c5QJqhikU9sGmGAxsTLpd+y7w
+	HBZoMEIhzxKVHnnfx+GHnQiJlUttfX4SWhhyiL/m6C/t9ntZlP2g8n4qjDX7GxfP
+	SH4eShtmRFqMRG8CzFDh7Ar3DKNZfQZheSHRWWJLWLDaEXDf5PqQXnPUvT/mXfI7
+	EWxsa/u6vEo6lmMjq3N+lW5/d2TD9TVJoo5Nk47brUxAphdEG8+i+pBAs1cpAQ+f
+	6mtebk9hL3s8gJJUMFtw6h5+uIgQX4oVi3+FhQaap3+cJA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h93aev5aq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:57:34 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93bf4c0af4eso976333785a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:57:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791892651; x=1792497451; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PCytcjZSgMUY384rNP4MPOBmVD1ndl+qrXFK7w2nFwg=;
-        b=LLzC1pYPomY+k0uj2DzCdEDV/HAravoWqXYx7XKa/F/Lc+wXm9DH7n37qGsLijcTrQ
-         1xOeQYIcHbeG2eSMlRykCQyMy//8ZK7TWZiOV4mhP5JLVQ0GU5x6bvRwe8BZVXT0IBTq
-         cDYP/aq5k+2c8Z6v35gAG0xgvWWCHukvPrrE6NGmvAOrjy6qIPriue2bd+VQWXyMLjRU
-         3GBWRQmGoBvyXhRbHMueQj629vpaOFYNZ4vjNQwjuhMb6YkNMl/xcnOFoBIME2NvhElu
-         QWTFq/DupuoacFzzDWMhAhTuwozBGwth42w51PtslPv6ykePQl0UE8DLpOHPtIITI1+V
-         lMbQ==
+        d=oss.qualcomm.com; s=google; t=1791892654; x=1792497454; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tzZokV4UDOIHODHJyTn32egAFPE75bJMpUh7wLNQ3Sw=;
+        b=KR9U/GuCuyay9jb3m5x3m2hCvxvHRJFvp2YCnXmt16ME3ft9c/hQLR0QfmaQil3+NF
+         s+mzB2GX2mqmXsZwKuWoGM/+lbvqR3LswZc6DcLnpQ8PLUxjzuESElTACZtwwsq9eZZS
+         5Y5sR+j1mkNMpJhJJuz4BBmPp3y2ES3KkuZSM5T/8AsUWV2Fh2KPpxasAFaKrxZJgVep
+         NwW73E3ZVLMV+lJwz1isGeHaPLo1MR8LPY+x8AXXSIqHVUbJy/b9Uo9pFYOmEGDov8J2
+         o7tW8IM4O9Ox2nb2Tja2b+89Zf9wQjYNSCHdAQOKu0f+Q6Lu4FD5gtJA9wWGTdNvj9pE
+         sPQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791892651; x=1792497451;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PCytcjZSgMUY384rNP4MPOBmVD1ndl+qrXFK7w2nFwg=;
-        b=ecestOPBOF7rBQehw3drsbAFJTUkR3CWufVJPSOJy9zp97QfOv8v5QZnI+o3UUwUwk
-         RYlPF3bLiP5epm/XynnBoWNPdbss2k9BVRmIg1Q5+EY+p3DqYONUQ/hIhgWRhgh6jqJu
-         2EIbv2scQqHVQgd8jNKGXqVp5Z6GyNmBeYKzTfhfnaZMv6ww30GtkeQNd/hFjSx2A9dI
-         BHFvqCea1sijS1x/zEmWRuij7f69cPCQNZHhNRUkuJGl0mzSgL6MW+MaCH1fPrD84tN4
-         oyZ52tfJyeG6rleiuUnr3MWDwYcJLUGMN5lMIWlxHNxXTYo5C70DBMx1BFkuB4LnRdhx
-         06yg==
-X-Forwarded-Encrypted: i=1; AKwUvBwBjr7SeEDHG0i/jrf4fS8jgzTBFcoUIqlsOz5zHudjYa03OPn7/K5pYdAjgeIQYqJaZS1qEoKfP0R0jLo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKH154+V9zi2A9q3GvARGWO2Q1h4XG4+itXJ3N+WhtB6gnFxJ2
-	v7s0WFPkMWTeDYywp57yjeqDgbJcbeHG4GdTvBFHa18Q3Oc/PaXqSTtF
-X-Gm-Gg: AYBFou1e/mmHFoN/s9tYFDNp4WNQRD5JS6ID1tYx5/k2FMKJSNfNNcLxrsnkF0p7x3p
-	S3t1De5n0OvNuF4qmgknqyt3Ltfvq/Ca6ri8USTSFqm65m57N4CxHdsyo16S8tGW9lL2TJ07QJb
-	wVggXjj+PWrzZk5LjSdl7tCxrRwyfoQQPxV3JZCzEetoG2Onn8HWmp4F/ficeaZRQGfn3M1E4CU
-	g6OpxljKwwYaOq/hs3qORjQKWwzZCl5xfqDbb5ylKf/7oBhcLZl1qxQiupKviWAQ5ftEuo9Txks
-	A8i7IU6++ZEyOWi57fHjsrbhC9xKIj+XWIYjsrF/63ysmkqhMrqcVs5N4zBsKHHqyyyxkDNizbl
-	XaA6E0+SHH8mZg+q3tuIVZ9KEOvjGyWU/mAqNuGMQVyZ1NBjv/HcVnryIEcxty6H5MzcC2uclCg
-	EgCkKawPHGq7UvBha0woK5lF0S/9PJ4xdpioafFlbo530HRD1petPcdSkxmqJc9onJ+9hmH6QVw
-	4p6zCFWXwqyhjSUpLZrFwb0+hI2IFdb6rzm
-X-Received: by 2002:a17:90b:2886:b0:39e:6c6a:6577 with SMTP id 98e67ed59e1d1-3ab3a966524mr10308058a91.58.1791892650937;
-        Tue, 13 Oct 2026 04:57:30 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm21248516a91.13.2026.10.13.04.57.26
+        d=1e100.net; s=20260707; t=1791892654; x=1792497454;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tzZokV4UDOIHODHJyTn32egAFPE75bJMpUh7wLNQ3Sw=;
+        b=Mu8sm6GK0uVMxxVfls3Z6A9OdBoRwj54sTOYqbGRc4kvWjv9aQ87p2UDjI9tX6QlSD
+         Vu6xWwTmftyirTrFBK60503htUj9b5xzuIX7Qzc7cBD5AvJCPjzivBm0LXJ7AXVko/wY
+         +lNwzAzcFWPMvY6CBde3jPdxhIpDvmR8zl7syhu+W0u1EYpKVLFodlojWqYeFzp7/liK
+         x+l0IeGHkdSkdT/v+sxFzLYwjaQx231qCbFg+jfnU/HFJzZnk3UJcGANFlISWaoTckBC
+         rMQZ/tCTCpkQ7zId2wwuPpxtULszhLcfTjntW6LMTVbEb7nUBDThR0k7mi1P6nptLYXY
+         gGhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBymh7lvEfrwN6TTxIkBCDuee9ZVobx2Ul5moA1ytbkjV+QVPvgIp+3j1z3BltiCNsFSxU3FtU3/XrXu8DE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLc0UabhgTx0nxJ7KLBfQvqf6pge2619/eR6XTIY+H3moqVO1Ay
+	CZfQDnrDsxDl+ElS7I6sObxRJhHOgBnO0Nw34YxhVwP9vYm7Plx29JrQ+ODMogHvFNVLxOjIXrb
+	EygKVITU1gPOK11t3JL9gcaojgK/4g1y0MGCUI/azekz9X0LRpuDYeIr+D4EUZ8qUKUU=
+X-Gm-Gg: AYBFou3GGN6vzaekxLETTeN5mYOPXMSjJmatMTh2xlkhwyCa4oJFfjslK7afvZzI/SV
+	cn0y6B5CB9czp4FugP7gl8teynJc/GNhwnwrTvoc0VV3t8n8Y0YKGv3PguIBSFaV2ofpVXkmqeB
+	KgZ74rWgo7Ie9ynqUuWKpek7nOHwxNUxzT295WGTQ6RvUUD4tXhh43OGowHnZSbulunba/dW1WU
+	8M4u9YvJZOOYkfP7iVm9Nj8XB8XhRAPLhG1AmqhA706i721WjHeIxF2UxImrzzeG70FmQHP9wTg
+	RgeEgWcHXJwzfiQpVUd6l/o4cL6zPsZcVeqU21kWAXha6vqAPmB00bCWtsAr9ma5SBaQzxySDPs
+	xbxi/RuqHOjgm9pCsxmOOqYhHuB7bM8/pAcxcXhUCYuVeoLJ4wK4pDHWKqV4jAgI0d0UDXNuNvC
+	mpz4RSYmhpHIF1
+X-Received: by 2002:a05:620a:1a03:b0:93c:6e1d:96b0 with SMTP id af79cd13be357-93eb96174d8mr2042570485a.17.1791892654169;
+        Tue, 13 Oct 2026 04:57:34 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a03:b0:93c:6e1d:96b0 with SMTP id af79cd13be357-93eb96174d8mr2042566785a.17.1791892653560;
+        Tue, 13 Oct 2026 04:57:33 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9e4c55247sm14672161fa.17.2026.10.13.04.57.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:57:30 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: [PATCH v4 13/18] f2fs: handle partial truncate of large folio dirty subpages
-Date: Tue, 13 Oct 2026 19:56:16 +0800
-Message-ID: <20261013115621.968742-14-nzzhao.sigma@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
-References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+        Tue, 13 Oct 2026 04:57:32 -0700 (PDT)
+Date: Tue, 13 Oct 2026 14:57:30 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Val Packett <val@packett.cool>,
+        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        linux-doc@vger.kernel.org
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+Message-ID: <lm7u5tcnccbtbxqeyyqzzvmmhpy2dfhgnyz3giqtt5toejy7pj@7bwixidtqxfz>
+References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+ <asyAObcpbFy3OeE2@houat>
+ <7pptulwzceqg7xozps5boncgcpd5fpw2pdabcslp4den34ixjn@rzgkoe36itwm>
+ <as3sI-N3VeG_pL0U@houat>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as3sI-N3VeG_pL0U@houat>
+X-Proofpoint-GUID: j-yii4XrkBfro2P0_5KKSA7GmB9HM8wp
+X-Authority-Analysis: v=2.4 cv=JJuuIMKb c=1 sm=1 tr=0 ts=6ace1cae cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=iLRE3vLiE8gXMxKRWqAA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0NyBTYWx0ZWRfX7LLQ+Tm5BcN1
+ u5ZZeaHCBXn+wgC+XFytwSzhD2Mg2Bgd4a/ruSsuCawAIsiX7StHDnNgb258JEbSJXwMS5ADeGL
+ P2vvWtgD7XFNF1jvCxZx0W77cBiLwl0=
+X-Proofpoint-ORIG-GUID: j-yii4XrkBfro2P0_5KKSA7GmB9HM8wp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0NyBTYWx0ZWRfXzYUNPMY5StPj
+ 41aqq7tfiCJh9T0nfWR40K0z5zTh9moPURimM7+gb6uEUOBciKcCR74YFDZ+Y/vZfwICzuU6nvx
+ e25JYnHEO/mDryM4/+Ub8k7X44In2XzDs8120r5M+QDwLymnqNXUSbYcZ/dy6AkOKOwgFHHd2X6
+ hvni8eWKGjd8A1ybkccKTad/2Vzz1sfx5aNWXGPLeVewUtIbXDa+ZDQAjz3W4x6UFQypTxxy5sp
+ s5jdVptMDJhSXWYwv1QuQ/5cI+r84C+ox1dfCkVsGxZKZ4enztSFA7x7FHIrEERKzXzDb/5p1Ea
+ 4/StfkUOb/GXIXRN3aWet/4pzmymDnFx/XaMXGCEb6nLoJR4EPJO/yi6LnIkQsLe4NNbl7cuu2o
+ g8TXpbJuy0DuSYXkctausRtSgNPqnXLBuI+ylkEcUCQUGq1J+pcbJfL23Sno6oqnvbE2PXtx8xK
+ aqFsDDfFw/yu5nAjNGg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130047
 
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+On Tue, Oct 13, 2026 at 10:37:19AM +0200, Maxime Ripard wrote:
+> On Tue, Oct 13, 2026 at 10:51:38AM +0300, Dmitry Baryshkov wrote:
+> > On Mon, Oct 12, 2026 at 08:40:33AM +0200, Maxime Ripard wrote:
+> > > On Thu, Oct 08, 2026 at 04:14:22PM +0300, Dmitry Baryshkov wrote:
+> > > > Panel drivers don't have an atomic state and so they can't handle
+> > > > additional data to be stored at the atomic_check time or to be retrieved
+> > > > at the enable/disable time. For example, it prevents panel drivers from
+> > > > supporting multiple display modes or making DSC being optional in a
+> > > > clean way. Drivers like panel-novatek-nt35950, save the connector
+> > > > pointer in get_modes() and later dereference
+> > > > connector->state->crtc->state from prepare() without holding any locks.
+> > > > The panels also have no way to reject the configuration they cann't
+> > > > handle, as it doesn't take part in the atomic check.
+> > > > 
+> > > > The panel already embeds a drm_bridge, and the bridge has an atomic
+> > > > state which is property handled. Subclass it to provide atomic state for
+> > > > the panels. The callbacks can find the state of the other related
+> > > > objects (e.g. CRTC state to get the display mode).
+> > > > 
+> > > > The atomic state is opt-in. A panel that doesn't implement the state
+> > > > callbacks keeps working exactly as before, with the plain bridge state,
+> > > > so there is no need to touch the existing drivers. The panels which do
+> > > > implement them can only be driven through the embedded bridge, since
+> > > > there is no commit to hand over when the host calls drm_panel_prepare()
+> > > > and friends directly. Those entry points warn and refuse to handle such
+> > > > panels. There are still a dozen of display drivers calling these
+> > > > functions, and the panels used with them can not be converted until the
+> > > > hosts are switched to the panel bridge.
+> > > 
+> > > I really don't think we should extend the panel API. All panels are
+> > > bridges now, consumers only care about bridges as well, and the bridges
+> > > API provides what you want already.
+> > > 
+> > > Why not simply turn the panel drivers we want into bridges, possibly
+> > > with a bunch of specialized helpers to manage a panel state, and call it
+> > > a day?
+> > 
+> > I think that panels provide good abstraction on top of the drm_bridge.
+> > For example, bridges don't have orientation, panels do.
+> 
+> That's easy to add.
 
-A large folio can be partial truncated and stays in folio mapping, we
-need to clear the subrange dirty bits and uptodate bits that the partial
-truncate covers. If this partial truncate happens to clear the last
-subrange dirty bits, then cancel the whole folio dirty state.
+What would it mean for the bridge? I was thinking about pulling
+orientation from the per-panel code to a generic code path, including
+reading and handling it. I'm not sure if it should be done in the
+drm_bridge code if we declare drm_panel deprecated.
 
-Also add a guard in f2fs_write_folio_dirty_range() so a large folio
-subpage whose disk block was already truncated (NULL_ADDR) is skipped
+> > Also panels have followers, while bridges do not.
+> 
+> Ditto
+> 
+> > I don't think that either of those APIs make sense for bridge.
+> 
+> Why not? In a world where we have bridge hotplug for example, it would
+> make total sense to me to have bridge followers. I think Luca even had
+> that at some point in his series (and still might?).
+> 
+> > Last, but not least, we have drivers that were not converted to the
+> > bridged approach (*).
+> 
+> I'm not disputing that, but it's a matter of months at this point, Luca
+> already did a significant part of it.
 
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
----
- fs/f2fs/data.c | 128 ++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 122 insertions(+), 6 deletions(-)
+Sure.
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 0c4c41871..61fe4a0c5 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -328,6 +328,27 @@ static void f2fs_read_end_io(struct bio *bio)
- 	f2fs_verify_and_finish_bio(bio, intask);
- }
- 
-+static bool f2fs_ffs_has_dirty_subpage(struct folio *folio)
-+{
-+	struct f2fs_folio_state *ffs;
-+	unsigned long flags;
-+	unsigned int nr_subpages;
-+	bool dirty;
-+
-+	if (!f2fs_folio_has_ffs(folio))
-+		return false;
-+
-+	ffs = (struct f2fs_folio_state *)folio->private;
-+	nr_subpages = folio_nr_pages(folio);
-+
-+	spin_lock_irqsave(&ffs->state_lock, flags);
-+	dirty = find_next_bit(ffs->state, 2 * nr_subpages,
-+				nr_subpages) < 2 * nr_subpages;
-+	spin_unlock_irqrestore(&ffs->state_lock, flags);
-+
-+	return dirty;
-+}
-+
- static void f2fs_write_end_bio(struct bio *bio)
- {
- 	struct f2fs_sb_info *sbi = bio->bi_private;
-@@ -379,7 +400,8 @@ static void f2fs_write_end_bio(struct bio *bio)
- 			wake_up(&sbi->cp_wait);
- 
- 		if (finished) {
--			folio_clear_f2fs_gcing(folio);
-+			if (!f2fs_ffs_has_dirty_subpage(folio))
-+				folio_clear_f2fs_gcing(folio);
- 			folio_end_writeback(folio);
- 		}
- 	}
-@@ -2923,6 +2945,40 @@ static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
- 		folio_mark_uptodate(folio);
- }
- 
-+static void ffs_clear_subrange_uptodate(struct folio *folio,
-+					size_t offset, size_t len)
-+{
-+	struct f2fs_folio_state *ffs;
-+	unsigned int nr_subpages, start, end;
-+	unsigned long flags;
-+
-+	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-+
-+	if (!f2fs_folio_has_ffs(folio))
-+		return;
-+
-+	ffs = (struct f2fs_folio_state *)folio->private;
-+	nr_subpages = folio_nr_pages(folio);
-+	start = offset >> PAGE_SHIFT;
-+	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-+	end = min(end, nr_subpages);
-+
-+	spin_lock_irqsave(&ffs->state_lock, flags);
-+	bitmap_clear(ffs->state, start, end - start);
-+	spin_unlock_irqrestore(&ffs->state_lock, flags);
-+}
-+
-+static void f2fs_clear_truncated_page_state(struct folio *folio, pgoff_t i)
-+{
-+	if (f2fs_folio_has_ffs(folio)) {
-+		ffs_clear_subrange_uptodate(folio,
-+				(loff_t)i << PAGE_SHIFT, PAGE_SIZE);
-+	} else {
-+		folio_clear_uptodate(folio);
-+		folio_clear_f2fs_gcing(folio);
-+	}
-+}
-+
- bool f2fs_ffs_test_blk_dirty(const struct folio *folio, pgoff_t index)
- {
- 	struct f2fs_folio_state *ffs;
-@@ -3807,12 +3863,31 @@ static int f2fs_write_folio_dirty_range(struct folio *folio, int *submitted,
- 		}
- 
- 		err = f2fs_get_dnode_of_data(&dn, data_idx, LOOKUP_NODE);
--		if (err)
-+		/*
-+		 * If a subpage of folio for a cow file is dirtied but not
-+		 * reserve a cow block, fallback to original inode to lookup
-+		 * block address
-+		 */
-+		if (atomic_commit && (err == -ENOENT ||
-+		    (!err && dn.data_blkaddr == NULL_ADDR))) {
-+			f2fs_put_dnode(&dn);
-+			set_new_dnode(&dn, inode, NULL, NULL, 0);
-+			err = f2fs_get_dnode_of_data(&dn, data_idx,
-+						     LOOKUP_NODE);
-+		}
-+		if (err && err != -ENOENT)
- 			goto block_done;
- 		dn_held = true;
- 
- 		fio.old_blkaddr = dn.data_blkaddr;
- 
-+		/* This page is already truncated */
-+		if (err == -ENOENT || fio.old_blkaddr == NULL_ADDR) {
-+			f2fs_clear_truncated_page_state(folio, i);
-+			err = 0;
-+			goto block_done;
-+		}
-+
- got_it:
- 		if (__is_valid_data_blkaddr(fio.old_blkaddr) &&
- 		    !f2fs_is_valid_blkaddr(sbi, fio.old_blkaddr,
-@@ -4360,6 +4435,7 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
- 		bool verity_in_progress;
- 		int folio_submitted = 0;
- 		bool bias_added = false;
-+		bool dirty;
- 
- 		submitted = 0;
- 		retry = false;
-@@ -4481,8 +4557,9 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
- 		 * partially written back), the folio must stay dirty so that
- 		 * the remaining subranges are written back later.
- 		 */
--		if (f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
--					(err ? pos : end_pos) - folio_pos(folio)))
-+		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
-+					(err ? pos : end_pos) - folio_pos(folio));
-+		if (dirty)
- 			folio_redirty_for_writepage(wbc, folio);
- 		else if (!f2fs_folio_has_ffs(folio))
- 			inode_dec_dirty_block(inode);
-@@ -4493,6 +4570,14 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
- 		 */
- 		if (bias_added &&
- 		    atomic_dec_and_test(&ffs->write_pages_pending)) {
-+			/*
-+			 * For a large folio we clear PAGE_PRIVATE_GCING only
-+			 * when the last dirty bit is cleared, otherwise the
-+			 * remaining subpages are no longer written back as
-+			 * checkpoint-guaranteed data (f2fs_is_cp_guaranteed()).
-+			 */
-+			if (!dirty)
-+				folio_clear_f2fs_gcing(folio);
- 			folio_end_writeback(folio);
- 		} else if (!folio_submitted && folio_test_writeback(folio)) {
- 			/*
-@@ -5310,10 +5395,41 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 
- 	if (inode->i_ino >= F2FS_ROOT_INO(sbi) &&
--				(offset || length != folio_size(folio)))
-+				(offset || length != folio_size(folio))) {
-+		size_t clear_start = round_up(offset, PAGE_SIZE);
-+		size_t clear_end = round_down(offset + length, PAGE_SIZE);
-+		size_t clear_length;
-+		bool dirty;
-+
-+		/*
-+		 * If the truncated range falls within a single subpage, no
-+		 * subpage state needs to be cleared.
-+		 */
-+		if (clear_start >= clear_end || !f2fs_folio_has_ffs(folio))
-+			return;
-+
-+		clear_length = clear_end - clear_start;
-+		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio,
-+						clear_start, clear_length);
-+		ffs_clear_subrange_uptodate(folio, clear_start, clear_length);
-+		folio_clear_uptodate(folio);
-+
-+		/*
-+		 * If the truncated subrange happens to clear the remaining
-+		 * dirty bitmap of the whole folio, cancel the folio-level
-+		 * dirty state.
-+		 */
-+		if (!dirty && folio_test_dirty(folio))
-+			folio_cancel_dirty(folio);
-+		if (!dirty && !folio_test_writeback(folio))
-+			folio_clear_f2fs_gcing(folio);
- 		return;
-+	}
- 
--	if (folio_test_dirty(folio)) {
-+	if (f2fs_folio_has_ffs(folio)) {
-+		f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
-+							folio_size(folio));
-+	} else if (folio_test_dirty(folio)) {
- 		inode_dec_dirty_block(inode);
- 		f2fs_remove_dirty_inode(inode);
- 	}
+> > As such I think we should evolve the drm_panel, extending it to
+> > support atomic state.
+> 
+> I still think that drm_panel is on the way out with bridges taking over
+> for years now, and we should accept it. Otherwise we'll just end up with
+> two concepts with the same purpose which isn't great.
+
+Ack. Let me check if I can get rid of drm_panel_funcs easily, because
+then we can start using atomic ops for the panels, while phasing out the
+drm_panel abstraction.
+
 -- 
-2.43.0
-
+With best wishes
+Dmitry
