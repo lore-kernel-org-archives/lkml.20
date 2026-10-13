@@ -1,220 +1,83 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013043.outbound.protection.outlook.com [40.93.201.43])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0E65476DE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791925920; cv=fail; b=f3mPOC8GAC0qlpWBxygpJBI7bNkVI/CEu/whNAOVkvB6ffymS0XKDeWPGcOUywVqHvj2nTmahfOWe+XFMyyy7n6CarVcsZR3q6telewU8k8P8ZbEeIoywqkWlKX76OPmC47ueEsFSWX+qy7Ya7QscPTjmD8zPlc/4OtjIPX7wSc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791925920; c=relaxed/simple;
-	bh=gn4o/z3OaU/rT1uniJXwSF4IQyYSEFeExwKeqpLnWbo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=lSVRgbtcewsrFh3Ry2bp/SPiyBQXgj9flWcjiysn0x0k/HhkCh379WMXZKIs2xyCAYmQ4kPAOSVxTsSm8xPJQtcNI5kko4OfwsojjFzNYIfRjR/hxU0BMgNGEyB5BVPl7e/1YAXGyo7eTQmoIRtt8OEsGui5iWpnW9Qw7aO+3lk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=vngMrzNw; arc=fail smtp.client-ip=40.93.201.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3257037267A;
+	Tue, 13 Oct 2026 21:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791926015; cv=none; b=L2KunHAwnzq9dmirZ7dJbyasPjlCQK5iygE+Nt62edzmQ6TBaMwmtMZCuOtnl5v3Ry1ZecpmsfCRZDX46hzKpy1zlobRFc/iWQFNAusSbwIq9imKD6zrYkrhbGD+ZIodFHNQy1E+Fd/t4Y4tWoUf8gJst6VfeKNKzisQohLhh1c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791926015; c=relaxed/simple;
+	bh=vb+/L5DrD8P4i5I3JmtjCZ64SxVzPyuxRci20FwgNwc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dhiTFj3l+cH6Ymv0AQ90NBFnJ5zkbwTUEaQ0Hjp0YMq6dQzjayyHSqlFKEz47gFD0K8I+E175PfseARivBXo6//HEuefkTuaX8HxkVI7J1olP9J2Fdr6ZbQGG4ahyeaAeV17kyLH3ZTZ6m5mDQmDFDDSvDhNZWEbu5gaK8VlsLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=t0QIdCoq; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="vngMrzNw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XETfERaQBsPY0XFA/xebWadP/MXJnoPomj/2sPY12zNln5rz6p0r3QIRFQsfcp/K4pz+zjAuWxIg72u8+R8yIVS2UBZT7jvefPXf0II+mPkgTezTnhVCvQhnwIYeDQAcFoSTepHK7L9N+otXpP1T7zKgoTjJSBs57jxmb2ye4DrYOqjAus8cIe6e4Rss/iej8+g402NBRHbLZfAwu7clvLX9U4YB440F+QJvdT+flrB4IQNP5iA7z6CmKdX7QYE49eggGz7j52LPf5ukChPgnqf2tctrWRevu6bGMInj9LUvba+ItL9xSQv4CYrrRWppfwBYpn4X+jZwrZo2xdTFbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jUI2xC9rHkUOv6/vUJ4MXb0p/l1tcZbr/it3b6gXXxE=;
- b=AxSwGSi0OsK0+2wMC7ZmWRWpHlDNR4I8rw+fpH7fQH9b1AP/xrAu+mFfkMCJcRvBIf5Y2nYf2VAkIt6xRGt9q0nW9SsL4wEV3DK+S9CiaLREPwu45eXhzRd+UzWid3pOfIUyADYxLq2umG6UO6IQKgMyE9t+rvY+Ou9i5vWJfKNCfhDDzVUTFmEfgl/t6EJl3u+xfA+zzTvEmNq1QJjiqvYt2tFGHPj8Q8UYJoyKJZop8nU2bUoyRNE5p9W3LTXB5x3Ry6bEGt3Kgp/7MUMCG0Seg8tQCfF1r+Jmz5CyT9pa2/L8O4pgpgC7Cc1eMpY4navYdBf3WZS8n2kpkwM7Og==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jUI2xC9rHkUOv6/vUJ4MXb0p/l1tcZbr/it3b6gXXxE=;
- b=vngMrzNwq6yTgOZfiGXnsQNp0SKHz+A5CQ9A/Iite63WdZKRD6zrsbteoaRe2QxfJVwyd3nq6vkVsBtpE9IfZq1+/FxGDAhI05/XgCx2xDqUL5/0pBvnaQJ3oCK7urRP3zgS2Ef2+LbnEG4UpqfAQYUmG6rGqwqGakG0rnGjkyc=
-Received: from PH8PR22CA0022.namprd22.prod.outlook.com (2603:10b6:510:2d1::17)
- by DM6PR12MB4140.namprd12.prod.outlook.com (2603:10b6:5:221::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 21:11:50 +0000
-Received: from SJ5PEPF000001F3.namprd05.prod.outlook.com
- (2603:10b6:510:2d1:cafe::34) by PH8PR22CA0022.outlook.office365.com
- (2603:10b6:510:2d1::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
- 13 Oct 2026 21:11:50 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001F3.mail.protection.outlook.com (10.167.242.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 21:11:50 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 16:11:44 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 16:11:43 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 13 Oct 2026 16:11:43 -0500
-Message-ID: <160b6982-7d87-547c-9d84-cb689b35f04f@amd.com>
-Date: Tue, 13 Oct 2026 14:11:48 -0700
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="t0QIdCoq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=I8Pm8HNepE95itWfgTl7gsXRQvYzWAvqH3Xb35WTFZ8=; b=t0QIdCoqO7+iId2qjBqXfbTsQ3
+	Y3Dce4bEIGPb5Lg38EMUrBnz6qfT9tSyobJOijsJTa6xLdl1oBkY7xKWl72DpVZ/9TWZQugamS4DS
+	DS61xGRd+DUSq4xUvqIuKlUO4dssuXOheNmqgsWxJ7V+Blhv7vf4nL9oOXuHLuwiUzUIQJPBROoJ0
+	BqFpUbU6ODoFOsTmXTSxrV94rUEoDBhFYlHQ5d4DITyaOOL86A3PVJHFW7SRaifG/71psarx8penN
+	ecTJ0v9s+JOZ8p9rGZfmWFKERt4CpP510TQbAX3iXHdJ6T00HGr19D90az/gM8wgTTr9e6oBnr/WL
+	CBwwFiyQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xGjoJ-0000000E4Xt-3Jem;
+	Tue, 13 Oct 2026 21:13:25 +0000
+Message-ID: <127cc922-79e3-4e62-a5ba-67655caa2d56@infradead.org>
+Date: Tue, 13 Oct 2026 14:13:21 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Serialize HMM range faults on one umap
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] dmaengine: shdma: move shdma_chan and shdma_desc
+ structs to private header
+To: Frank.Li@oss.nxp.com, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ "open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM"
+ <dmaengine@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Cc: imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
+References: <20261013203433.337893-1-Frank.Li@oss.nxp.com>
 Content-Language: en-US
-To: Matthew Brost <matthew.brost@intel.com>, Max Zhen <max.zhen@amd.com>
-CC: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
-	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
-	<karol.wachowski@linux.intel.com>, <linux-kernel@vger.kernel.org>,
-	<sonal.santan@amd.com>, "Zhang, yidong" <yidong.zhang@amd.com>
-References: <20261012203139.2573687-1-lizhi.hou@amd.com>
- <7a29937c-b591-40fc-95cf-021799ea52a7@amd.com>
- <as21qsFsf9HepYok@gsse-cloud1.jf.intel.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <as21qsFsf9HepYok@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F3:EE_|DM6PR12MB4140:EE_
-X-MS-Office365-Filtering-Correlation-Id: fcb42618-580a-4168-2707-08df296e993e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|22082099003|18002099003|10067099003|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ipBnHtJZn8QZvKtoucMbybkZB879OMADirkbqWTHlrauCMFBjHDT47CSGUFcn0550TeTLCwwnSgb0h7IzG0ge/FvgFw7D5ms6lePIYjJ0ZxafBsFaQrX2IFX9+ZfCPmgrlF0coBdToc5zAyMuEG5G0ul21w8rGENHPv941883P/wBIHrR7cwxdK1Pu0/ZtJzJvpMrnjJhLvx3/iIBbMriSSp68+S+JuI4XV/9dKeZ2lx57JekAPxYTVZtuwlXrfGq03CEXanFdBHjPMlS/jowdfLFi/xjLyAijt3NfbBfo11JiFvb4Uk/Amzoenp9G9q+rqj8mMeWrHQGhs+gfuxa/2JUeN8EPopWWg98BRChk3hDIk0Hj+MbTumr4zEs6ptBZxQonO5h5oPiBUoYxI9MUtlyOSdj8wrhuNE+tIisVkhHYcD/oeoboa1mpMPMgfE6o2JGiKpIWLHmPOiX6E+rbQdPMG8sREtajidphGkbMqVmAJSSVBprI6PmALWfqJkbekXgmacTi2YQ89DO+3m5Ya5QGBinB9Ldel/0/rap5o3hR+MozNqYrGaON2Ce3SMV/9MrYnvsCpe1bVRcOwBlxTsY0X2mAa8/biNrkodvkiNmKnfgdP7taw747zIPk+mFiQ8e5WC7CZb/Ot996zHig==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	A8e+6YXCR1U2vUydc5/oTd6RDHVvIPQhMCNPs1cx7acwgVi8lU4g1Cphmzgf2WAN6suu2Ra1nbiAleSjl/WyG2EEMz+NXt+Gqy3+yK4em4EmKD+3P6J3SnK9d4nWIDoG2W/IQB17/tFE7y8bjs27EsLI1qYjm0au7kIwi6IoDDrhHfre48yoZ37qNAP2erbba2LYfoYaILQyFu0tC+1Pr4cEP/mkK77aKnCV824zBs5egYJyTtsXYvaCQH5hRVqNA6c9QYnM2yeRZ6hK7Fk6x4CX0PyAaHyLXaXrNPme1vEuys6S4Dj0GyIvDSAetNdAexb4WQKnv3VqB346aaEpY0z6pjwV7rvSewGnckZxLFNrkc3j5ClW9kmOfCgbBP5eeWsJ2+JJfiF2adgGjVTEmr6fsjGae7IPsCf6yCdwwGpw+a3eUK7fhkK2SCEzB8tA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 21:11:50.2992
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fcb42618-580a-4168-2707-08df296e993e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4140
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261013203433.337893-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-On 10/12/26 21:38, Matthew Brost wrote:
-> On Mon, Oct 12, 2026 at 09:10:15PM -0700, Max Zhen wrote:
->>
->> On 10/12/2026 Mon 13:31, Lizhi Hou wrote:
->>> Two hardware contexts can submit jobs that use the same GEM object while
->>> a user mapping is invalid. aie2_cmd_submit() drops the reservation and
->>> notifier_lock before aie2_populate_range(), and that function takes a
->>> reference on the first invalid umap without clearing invalid until the
->>> fault returns. Both submissions then call
->>> hmm_range_fault_unlocked_timeout() on the same struct hmm_range. That
->>> structure is not safe for concurrent callers. The calls write
->>> notifier_seq and hmm_pfns[] at the same time, so mmu_interval_read_retry()
->>> can see the other call's sequence, miss an invalidation, and clear
->>> invalid. The job is then pushed while the pages may already be gone.
->>> Give each umap its own mutex and hold it from the fault through the retry
->>> check and the store that clears invalid. notifier_lock is dropped before
->>> this mutex is taken, and the fault drops mmap_lock before notifier_lock
->>> is taken again.
->>>
->>> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
->>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
->> Reviewed-by: Max Zhen <max.zhen@amd.com>
-> I was browsing dri-devel and this hmm interaction annoyed me enough to
-> ask my AI to fix this and converge properly on a DRM framework:
->
-> https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commits/local_dev/amd_hmm_cleanup
 
-The patch looks clean.  I pull it on top of latest drm-misc-next and run 
-some regression tests. It works fine too. :)
+On 10/13/26 1:34 PM, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Move struct shdma_chan and struct shdma_desc from the public header
+> include/linux/shdma-base.h into the driver-private header
+> drivers/dma/sh/shdma.h. These structs are only used internally by the
+> shdma driver and do not need to be exposed to external users.
+> 
+> Prepare to make struct dma_async_tx_descriptor private.
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-Lizhi
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
->
-> Improper HMM or abuse affects the entire kernel, hence we should
-> converge.
->
-> Please consider the AI suggestions (last 3 patches) instead of open
-> coding this.
->
-> Matt
->
->>> ---
->>>    drivers/accel/amdxdna/aie2_ctx.c    | 7 ++++++-
->>>    drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
->>>    drivers/accel/amdxdna/amdxdna_gem.h | 1 +
->>>    3 files changed, 9 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
->>> index d927c8c9d557..4db67a789c34 100644
->>> --- a/drivers/accel/amdxdna/aie2_ctx.c
->>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
->>> @@ -1155,19 +1155,24 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
->>>    		return -EFAULT;
->>>    	}
->>> +	mutex_lock(&mapp->lock);
->>>    	ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
->>> -	if (ret)
->>> +	if (ret) {
->>> +		mutex_unlock(&mapp->lock);
->>>    		goto put_mm;
->>> +	}
->>>    	down_write(&xdna->notifier_lock);
->>>    	if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
->>>    		up_write(&xdna->notifier_lock);
->>> +		mutex_unlock(&mapp->lock);
->>>    		amdxdna_umap_put(mapp);
->>>    		mmput(mm);
->>>    		goto again;
->>>    	}
->>>    	mapp->invalid = false;
->>>    	up_write(&xdna->notifier_lock);
->>> +	mutex_unlock(&mapp->lock);
->>>    	amdxdna_umap_put(mapp);
->>>    	mmput(mm);
->>>    	goto again;
->>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
->>> index f14484bc31ec..37bfa5058095 100644
->>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->>> @@ -318,6 +318,7 @@ static void amdxdna_umap_release(struct kref *ref)
->>>    	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
->>>    	mmu_interval_notifier_remove(&mapp->notifier);
->>> +	mutex_destroy(&mapp->lock);
->>>    	kvfree(mapp->range.hmm_pfns);
->>>    	kfree(mapp);
->>>    }
->>> @@ -402,6 +403,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
->>>    		goto free_pfns;
->>>    	}
->>> +	mutex_init(&mapp->lock);
->>>    	down_write(&xdna->notifier_lock);
->>>    	if (list_empty(&abo->mem.umap_list))
->>>    		abo->mem.uva = addr;
->>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
->>> index 9b4aa21a37c9..456a537eb68c 100644
->>> --- a/drivers/accel/amdxdna/amdxdna_gem.h
->>> +++ b/drivers/accel/amdxdna/amdxdna_gem.h
->>> @@ -19,6 +19,7 @@ struct amdxdna_umap {
->>>    	struct kref			refcnt;
->>>    	bool				invalid;
->>>    	bool				unmapped;
->>> +	struct mutex			lock; /* protect range */
->>>    };
->>>    struct amdxdna_mem {
+> ---
+>  drivers/dma/sh/shdma-base.c |  2 +-
+>  drivers/dma/sh/shdma.h      | 80 +++++++++++++++++++++++++++++++++++++
+>  include/linux/shdma-base.h  | 80 +------------------------------------
+>  3 files changed, 83 insertions(+), 79 deletions(-)
+
+-- 
+~Randy
