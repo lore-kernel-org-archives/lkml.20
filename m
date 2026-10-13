@@ -1,107 +1,123 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f5.google.com (mail-yx2-f5.google.com [74.125.224.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703DE421245;
-	Tue, 13 Oct 2026 17:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43AB476CF1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:33:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912768; cv=none; b=ZoH7fJ6spMzuT1gtc1B/F1vj6lOsVYloxliOUAMd4ny8EzZoXkHEyyKXW9pyE9fGN/yeYVwvliY6BhGPZYXZrWDOTX/J2s4QN/7xS9/x+M6ZSWhSrOy430mAWt3F1zQFUx9syaSRwX85gQ5J+dXasQKiadeHilXMnWEHSuWm49o=
+	t=1791912804; cv=none; b=I9BwFA/4e4eT3qIPhLPCCD2UHYRw9PohWhhGL46pbxymZxHZTbUt2DJ1pGPYjHgYFYEJAzY9QRoBxzLx0mz16yD9IVdzvE/kFsk5P82uw9nXV683dxdUUsLXe3j3MPihvQzwexIA6YQv/GeyGd0bkMggQnVXK4Qdug3sRLY08P4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912768; c=relaxed/simple;
-	bh=xhyOmlY04l3SVooKPFR6wWaAfhoNF1ej31jWi9WMbns=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MB0RNubBryzXRs2Sywf3YVfdz3hM+CeRaJXiGMugM/WonT1xnbrhVYpFW99JcJgjbjjdXRKuLgpi06xsihrKaPJqbDJo8hwLUV86uWAP6gTWsQC0XpF5tLTdVdnjyhKRKOl/qyrACeeiGX2x0ahVvX2LwybRUY8DpdQSkVpRMk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=D+jcCMQO; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791912804; c=relaxed/simple;
+	bh=JVFkb7Cu6YP094+ZnATto6Q9s4QbtUg3QlEdZAc0Qo4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rAoOXAx5kXImoesHWc23bJTaVntKZfOeF/zczTDUNYYGWsjdqrj/l2LBEh1yCcNmod1s1r5u5UuM3xVRNU4M6e29iTkVOyYXKWJlXb0myFcVoLcFwvADOUdoSfpE+7O7OIZbwSiGkUstT92P8FGjecLNtKIDr/2qxaqtFURjtqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AiqjafpK; arc=none smtp.client-ip=74.125.224.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="D+jcCMQO"
-Received: from killaraus.ideasonboard.com (85-76-151-95-nat.elisa-mobile.fi [85.76.151.95])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3CC9619C;
-	Tue, 13 Oct 2026 19:30:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791912642;
-	bh=xhyOmlY04l3SVooKPFR6wWaAfhoNF1ej31jWi9WMbns=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=D+jcCMQOrybt5E0xK7HdqVioNujBVrA5c9LVXwD6sOnxWQ00hvUJbxK2GZzQ/JOmS
-	 3gqlFaUgO3vGZoobF9Sb3KUFdJHO3h0O313Xgg7ae9nz4vXkvon4ZERIDb2b3MSKRW
-	 PGyukK2XCLs74urx4TZN7Ki/fTc5kj1wZ/KBGXdY=
-Date: Tue, 13 Oct 2026 19:32:40 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>,
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AiqjafpK"
+Received: by mail-yx2-f5.google.com with SMTP id 956f58d0204a3-672d92bbfd3so1444269d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:33:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791912802; x=1792517602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ktaJr2DM5Zu0cnAztDTvIMhfnw3Hsx1asRS1ecJrXeg=;
+        b=AiqjafpK1JYuCmn+s3TiNuPOZcd9gH6oLc0ptahOzx4EMyOWymGzmF43/cg+rE4h/z
+         DWLLDpTEmEX+1qUBfe9zkkJSk/KWhxS7D/IMwyQeHiTl+25Fr1oGh6ueEGoOdPD/30kH
+         9xpDhE6rKyDWK+sHipKQcBJtbAWPqTBA4juOAmRDB77qtH7M+gfSOU7SffhwJxQeWaLH
+         BO09wPhjIcEqMtDriZvP27sPMgnlVFusMUc2cipCF5iaF4blzTN/kfVw3gNt6ic3Ly5f
+         bTFYI2T6Lk6JX5UqXWsZqm4iQZwxC78BUrprcUrupB/ICwS6wiuVs5iuyOV1oAiJ5Sgk
+         H77Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791912802; x=1792517602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ktaJr2DM5Zu0cnAztDTvIMhfnw3Hsx1asRS1ecJrXeg=;
+        b=HP1UcYARy3TMAP8Tnlycxwssut9SFyRVjdwOePTwqxxG5xJhCT0+LwcrGBNwv8Tvb+
+         F9/TYFgpQiH461gm/wPUd9K4ok9EhyAptrAFSNfK/TfPyLdWLBSCqWbuo9eShkIAa7X3
+         E+SIT0YYxHTEIN2mY+uXX7sqEUYIKATu2ky/yFLK4ABzTg4t+J8QuHM0Hk9byGHFEomo
+         LEvSe26SIA46Nk/Z4qkzxyyc7wG+UFvgxP/CLqQKDHuKvhhlraHbyq7YrPBAFM+46L00
+         MJneT7v+gCaIlsC/72aU1SFr9wsal3smElE6jDEQQ46ufkMiUdEnvkdV2DAgUXtGX4oE
+         J3Fw==
+X-Forwarded-Encrypted: i=1; AKwUvBz1anb+I68qHgQQsDQp75PWFs4XDcAAnz2gnEqSk4iFzdMjeTIjRfWTFG/R1/fEUCnDCFzbpmMlQi3aiRQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJSPVVW9Ql7XOb8SC3xy6fWCKYszZkYa9jPHHmyK2o8NUwXlvvs
+	LyHuq9+l1yXBJdqlwzBHTT+kG+3u6gcJxiCwK+BPKBfPdoFvTT+OX6dZ
+X-Gm-Gg: AYBFou1ZpJuJ1rG0UoN2X5QSRvid9Z+kHRkhNgZSuYgBPBqDrHSEvLn4J0vjEDbGkHl
+	hpfchdldYxl9ndyCCN7a4gSB6H0hvMN20NEMUWulUorNoAxk+/H4zSSEniN/TaTFBqQEf5inTdx
+	Rxz4bP7A7ibqfhWNh1O90AsH6FldG68tX8DgF76ttFDYmSgST4HQpm6l1/+TXo+ITDhSGo4f+o1
+	rGXsWiBX9jJsqKo6tO62Whv+oup4SguZt+Enwsph/GavrMUf+8V4UxncN0908IIJhBXer5YoYuY
+	PvArdoMfApFvyB69dhyAzeOi6NiiERDISqicnd3zVrGSLzg89MqALWS6eyNTxDOLEkryubyQqfK
+	BoEQM4j23Na4QIfQF7GmCbrNGlfNdJb/lGxKtl6PUxASDqlxoCSHT6Z+YonjXGMVHm+Df+z1m1b
+	v146w931j0B1NV5/PDY9Ujq31SAOT8T5hgkqMMHV9lkwBGiS6bFqwnPeCKO1r3KOYiCcKr4jOu
+X-Received: by 2002:a05:690e:14c1:b0:675:40a6:142c with SMTP id 956f58d0204a3-67935f1c770mr4649463d50.22.1791912801676;
+        Tue, 13 Oct 2026 10:33:21 -0700 (PDT)
+Received: from paradox ([98.122.223.224])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1ecbfbsm46571567b3.23.2026.10.13.10.33.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 10:33:21 -0700 (PDT)
+From: Martin Belanger <martin.nvme.dev@gmail.com>
+To: linux-nvme@lists.infradead.org,
+	kbusch@kernel.org,
+	sagi@grimberg.me,
+	hch@lst.de
+Cc: axboe@kernel.dk,
+	hare@suse.de,
 	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
-	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH] docs: remove Assisted-by references
-Message-ID: <20261013173240.GK4214@killaraus.ideasonboard.com>
-References: <20261009083137.3-1-sashal@kernel.org>
- <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
- <asz9AeFe3CutP73z@gremlin>
- <20261013123132.GC4214@killaraus.ideasonboard.com>
- <as4pAEnLd4H68W4W@gremlin>
- <20261013131243.GM56180@killaraus.ideasonboard.com>
- <as4xMnT8a75pIw9v@gremlin>
+	security@kernel.org,
+	Martin Belanger <martin.nvme.dev@gmail.com>,
+	stable@vger.kernel.org,
+	Daniel Wagner <wagi@kernel.org>
+Subject: [PATCH] nvme: make the DH-HMAC-CHAP secret attributes readable by root only
+Date: Tue, 13 Oct 2026 13:32:41 -0400
+Message-ID: <20261013173241.1713708-1-martin.nvme.dev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <as4xMnT8a75pIw9v@gremlin>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 02:29:08PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Oct 13, 2026 at 03:12:43PM +0200, Laurent Pinchart wrote:
-> > On Tue, Oct 13, 2026 at 01:59:33PM +0100, Lorenzo Stoakes (ARM) wrote:
-> 
-> > > Ignoring is the only workable long-term solution.
-> >
-> > How do you decide which patches to ignore ?
-> 
-> Anything that looks schloppy. ATM it's very easy to tell.
-> 
-> In future it will be newcomers who do anything but the most trivial work. Or
-> they will at least be super-deprioritised.
+The dhchap_secret and dhchap_ctrl_secret sysfs attributes have mode
+0644. Their show functions return the secret, so any local user can
+read the DH-HMAC-CHAP secrets of a connected controller.
 
-As people tend to quote Linus in this mail thread, it's important to
-recall what he (and others) said during the maintainer summit: the
-kernel developers who code without using LLMs are not just tolerated, we
-*want* them. We want them to learn and contribute, we *want* more
-juniors who are genuinely participating.
+Change the mode to 0600. Writing the attributes was already limited to
+root and is not changed.
 
-It was very clear during the discussions that raising the barrier to
-entry applied to LLM-generated contributions ("they have no excuse for
-being anything but perfect" - not a litteral quote as I didn't record
-the conversation, but the closest I can do based on my memory), not to
-human coders.
+Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
+Cc: stable@vger.kernel.org
+Cc: Daniel Wagner <wagi@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Martin Belanger <martin.nvme.dev@gmail.com>
+---
+ drivers/nvme/host/sysfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> Yes there will be collateral damage, but it's that or no more open source (we're
-> not the only ones going through this!)
-
-Think how you will feel the day you will be treated as collateral
-damage.
-
-I find this mail thread it taking an almost cynical and violent turn.
-Are people rejoicing at the prospect of actively discriminating against
-sincere contributors, or am I misreading it ? The kernel community needs
-more care.
-
+diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
+index e1e3dcfd084b..e0cb34545b97 100644
+--- a/drivers/nvme/host/sysfs.c
++++ b/drivers/nvme/host/sysfs.c
+@@ -864,7 +864,7 @@ static ssize_t nvme_ctrl_dhchap_secret_store(struct device *dev,
+ 	return count;
+ }
+ 
+-static DEVICE_ATTR(dhchap_secret, S_IRUGO | S_IWUSR,
++static DEVICE_ATTR(dhchap_secret, 0600,
+ 	nvme_ctrl_dhchap_secret_show, nvme_ctrl_dhchap_secret_store);
+ 
+ static ssize_t nvme_ctrl_dhchap_ctrl_secret_show(struct device *dev,
+@@ -922,7 +922,7 @@ static ssize_t nvme_ctrl_dhchap_ctrl_secret_store(struct device *dev,
+ 	return count;
+ }
+ 
+-static DEVICE_ATTR(dhchap_ctrl_secret, S_IRUGO | S_IWUSR,
++static DEVICE_ATTR(dhchap_ctrl_secret, 0600,
+ 	nvme_ctrl_dhchap_ctrl_secret_show, nvme_ctrl_dhchap_ctrl_secret_store);
+ #endif
+ 
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
