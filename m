@@ -1,195 +1,155 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2013F345750
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDD13321C2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:02:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791867632; cv=none; b=M4S8VVvLoen5ToKWIK8v3LbmwcJ21hQKbY7QPViqcHzHhOls/M2aJytQNpXfFzsySf5IGUUfV55wyV9o53ZVkFF11B2qpN/HvcWL3wGHJ0YtaUuHzuIHton14sQcCG6+00xtbdD0YIMphKguou0mRa8uePOCISvwvKbTLUHkjtg=
+	t=1791867768; cv=none; b=EpOytzytY8X9PLmy/ZzFCiSB6NvMfFzTC53Af72ZYT8iF933lT8WsUsR2TUYnfzMKx4ki1U8/5SvF2gDKOetITYQaW0yB3xVPlEUMbreqOiIeN0g3JLob+by34ZDtzduifWpxMTahfHQ6M9qzBp+aeTquWq0hIwMjB+ICfKY8oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791867632; c=relaxed/simple;
-	bh=LdE0xymDLLhP6FyFsOtswIPlcVUTACJJ3icf151iCu4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P1tQnmsJVnyz3SompSFGvz4+yJctBuwUKQka6ikKL8Fkjw8G6fNBTPwVxuXzNi7+fpKlDopGnbfeBvm7ms7BECfho73OfBjsPMHPp0WLXuEnC8YtDf5uo/9AhYO6Hc2wHF/ElpvTMtnOziANgHQsNNj5DGheehUhldoE7YR9H7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com; spf=pass smtp.mailfrom=tyhicks.com; dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b=eag8rL17; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=w0ouBNIB; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
+	s=arc-20240116; t=1791867768; c=relaxed/simple;
+	bh=h5+rSj/bCzh4KisRqwxzi0aZUIfxwQb53cIVUp+xnT0=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=mgeMAEJqy8ihPj0c8Lm7B8rNIsU3HdZNSgTHff/Vn2YGkdRxwlhbfyhCGfxbXXU9JQRxlSDJshSrX37DeZXj1Y0ENzN9QlLn2JOuvKo75SiqJtVwt24Lt2oylxA4XlgVPKNOwl3uKKFDVS9iffE5VPVMNU8mwvt6rdLn9JeJWp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l5zTJmR5; arc=none smtp.client-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b="eag8rL17";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="w0ouBNIB"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 83BED1D000FF
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:00:29 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Tue, 13 Oct 2026 01:00:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1791867629; x=1791954029; bh=6ytJmHD3Qx
-	XFaO1zCqmFc2AaBnITHvr88LGMaQ4ENDo=; b=eag8rL17nQ9UA0APcrIic6/uYg
-	0P0aBBgb1PDHCd9AJicriBpDblBboakOpyHLu46It2e8z6d1/Ox1p3VTZwOacbhy
-	4jegFmfdI2jlIArowJwsHxXGVkCIG9Lua6HioGH6BZDaobRQO+RYWbE7dICszIHB
-	AF2Q24yZWMYdsrWG+xs6u5ZuuFo4Wss3/gZIiWK1Lgc4nO7OcPXWaeV33KAr0Efz
-	IlApYwiop70mCKuA9QG8pHdRstDchq1v63azl0rQK1CMw0HKo5ulabqzbTV8BJC0
-	y6AflAMfy/j8PO3hywlcTwuOEONBQNpkyFtzx0r50eIHXfflqCJLCsnpW7Dg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791867629; x=1791954029; bh=6ytJmHD3QxXFaO1zCqmFc2AaBnITHvr88LG
-	MaQ4ENDo=; b=w0ouBNIB3yj512V6kKlp7eojd/DDD2BFR0wvAWCygSRB9m1Jpdc
-	LxfAah1fAMvZYMYgTaDsvRvcc36jxYKAtD6UJo5/rH+kKdvZZ4xaSq5aS4/uorhG
-	cLMBgrRE2pq/TNLohoWJsczKJfio4mQvxtrITX3NfXvhrM9fyO0hN+osneDHmZ/x
-	P0RZpnAXJTHfe1MO+ZOCtJns6pLTqf1zErKF0hvkSCExxXwJht/aFX5zy0dj5qi4
-	uys0KgO/YfLOn877mgMcnx1qy1VMr/Vv0Xa+tT0emLhIo/jb/jGHCtzxSwXyb4UN
-	nCjmuTRpo3XodgybTFqxEMyHFft+LC5NQzg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=tyhicks.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791867629; d=tyhicks.com;
-	mf=PGNvZGVAdHloaWNrcy5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:SOXX2e0LjwYj2RY6T21/zeYSrW5Iztw6CQiwt3Jd+BhDlw6
-	CVbCdODDQJxRrpITw7NqLkzV55X54xY4TUZrglf+YX3jf3PtXC3FtbeNl4WnIm5X
-	RnTs+Kh6BE0cj1XXuJJrZaNv29xwVk2bJ3VLFdCdNekWD5gA5pR/OKrcZcic6p8S
-	kozhDjsbTlB0Q8TjHCkVKAzJNpxLUCuCK4Viv4RrFxM5fE6RiFM/05UZcWEbJ/Sr
-	SemFpbHI95pDxY+ab3Mvjp7XNbohDaw+3wdw3PXPoobZxQQRxjnrbYiuS7ZvhpSa
-	VxrguGL4cFF51lIdgvo5EZ9UbVufvoKR3UhM2lg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:a4spjgoiUCy+Zyrkwu0Pu2oiBQZigTPC/TVWWKiQGK0=:LdE0xymDLLhP6FyFsOtswIPlcVUTACJJ3icf151iCu4=;
-X-ME-Sender: <xms:7LrNagm1J0Mx9u10ZkDhBHodl9Qp4NLINQId6aIaAzDH6uRy9p8ryA>
-    <xme:7LrNaiEvqPUzAd80uFhpQS8_s4so9Kp219WIQ2BKy3qY8jSrmHU5IMAV9XrKV8Rxt
-    IiyPJV6VxQVzk9oVrVcFisuHSKY2_hQZhrFQd0UjWAnIiExTfxfi3hV>
-X-ME-Received: <xmr:7LrNag6To64Mn8-KYkAzl5ByfHffQbY325jAgAwNHjo5_0lsc1N89Q>
-X-ME-Proxy-Cause: dmFkZTEn+yWHwxafRD/i2Vu8vELSZ1/iKjbNbXn0i7w9Im0HrUqudqVifejFm9Qp+sAbJC
-    +XvdV9pmwM/vTEQ7i2TdcQ+4rwzNabERTdWqfJ/DUqPouY0vrWoQbnXKWKG5YyTHWaSA3j
-    mcTXaffJFOnVtuZv4Q5riWYpbXYgAncPUxnENp3KKMXgVc+CCPZa7kjYgzU0t060AK/iix
-    yo9fYxCNR8vLQxfo6gdZbRoqMOiP8VV/NhNLVYX7HTsKCXD8tDgU7DHBBxFd4sT0GW5npM
-    SrZm97EtwOXxNZtMsvbSW3ibj6AinD5sgojUwpyugEaNQ76bEgJpfM21KRbxvDm5RbpFWB
-    ISMXB0vp6PsLLVh6c4YtsGmmHnvL57kgQPUu3LX8oKjRuJ3YFNParlJfedjMf1Z88Qox5l
-    rhMV44IhQ8lZfLVstEAjgWDMnBa1CJOK9IQEpr7+2CcgjxqXRPrEJoahVF5G57xZsiMMiC
-    wBDCoH4XbxyxL5UB+g9P8rz7hZMeUULGZlgvOerT2RBp7iktIKAgvR/ZLFltWG4xHEZxlH
-    JW7RyCxEud1Y5OtiAlheTdOauYLhpwF1f7IJZ8cSJf622pKbPzBmYQsqbymbDYDiPU/bpZ
-    WQFlVTkIgMkMk3RrVphGmJZv0/u5fUcZxAZu+byp3H8KsZXHOCG1Je8odcSQ
-X-ME-Proxy: <xmx:7LrNaimfW5UlM5a3IfvRFyeShFNpgotYPrplnHJW7_bHylQ5h7o2Cg>
-    <xmx:7LrNatpugnhZfQh-DPh7MVBlKBHn_NBYNbDHylhPLFYgmrltvii-Cg>
-    <xmx:7LrNaptuZg4MfcOGgX_51Nmsoj3wy1zcuEwv8BsM-gBvhAJbwJO4Rg>
-    <xmx:7LrNaqG1uv2gUVrqI-BaR41fxf8A8iqrYkv3kS2ybR3YJoAM2lzTEg>
-    <xmx:7brNaiZODYEMrVUKdXpMV8f7bxIpZY0CAVQihktsRgvST68IKTQiWrNh>
-Feedback-ID: i78e14604:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 01:00:28 -0400 (EDT)
-Date: Tue, 13 Oct 2026 00:00:26 -0500
-From: Tyler Hicks <code@tyhicks.com>
-To: Adriano Cordova <adrianox@gmail.com>
-Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com,
-	Nguyen Duy Nhat Anh <neganhat@gmail.com>
-Subject: Re: [PATCH v2] ecryptfs: validate auth tok payload size
-Message-ID: <as266is_fT232oMM@elm>
-References: <20261004123755.14642-1-adrianox@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l5zTJmR5"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a75f960be3so22724501fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:02:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791867765; x=1792472565; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=h5+rSj/bCzh4KisRqwxzi0aZUIfxwQb53cIVUp+xnT0=;
+        b=l5zTJmR5XyNMAdfQFLDSzbYMpXKXrrL49qd0yOhMqwLKJgoiRGS50C2j6y2cmiTloN
+         t9bpAJXYICgsLEt676nP6a0nSOip2V42AJ+uTt88o7VkehCoqKgjU9g0B1ppJFFC1SzY
+         8g8j8E5AjgyamB9R32za0zFAowZvras8RVqRvWNx38GHNGIgwcEPzoYGIHmtKIz43/IC
+         PP9BL33RO9DsNRIbA3KvnSaesEzozCYKIoMWGMiNozqSGLlwPR5tdFu4SeGIMBzlk5Te
+         aloBVy9+74De/j4w9Wf8NwRwBfb93vobM8xqMbdNuZMz70mVniQKePGuzyXF7fwtfvn0
+         BPNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791867765; x=1792472565;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h5+rSj/bCzh4KisRqwxzi0aZUIfxwQb53cIVUp+xnT0=;
+        b=AhDbF6Dihg8P64+0GjbjnnohEiK1fwu/rekp/c3RfEURDzpAhDNawXtQ/kbUKOv02z
+         AqhawAoWb85c/v6ZkaHs9NtgYtS/HFJdq9ndmWBJRt++xQDpUgmpQAgQXUT+REBIzVNz
+         GdhbUrxjvipoujfkVmso+jfwBPteI9RBnVP0niovNpjvNuXNxSA1MyYGppNjTBZgqaai
+         tNrv86p797HvVPXnHynTg302zYNPZdCLqVoA1g/7Q4WbUS0LBL1/LvxUPe8xfWRvQi0r
+         cfOQi5Tymha2nRJribYoUXcmrgRtJSe24Nxfg06k1KTju9SiMd+yxn1lfNIl1O27TUBZ
+         eO4w==
+X-Forwarded-Encrypted: i=1; AKwUvBx86PC8PelTjf9VvwAHctAjcA4Kno442gjYGgLY7J4vdT/1zpveCax4y3X98E38y/sorFFxUk1pPJgS/zA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3/YlpXit62YEjGo5BKIysWvKYldV+iWThsi4/lOspyjAvdPhS
+	SxsVRyNvzNSMof3VlMw4PAmfcrske/RdERfVT6LZ7aqWdf1GZttzPXdy
+X-Gm-Gg: AYBFou1DzBpNM1OHww1I8h0m4454iMp7nZspDJoyiLhtMeZ/t5mXkLFf0KdclSqmjpk
+	fypSraRPoAheQkaI0AMXc1qJkYrMcaQ9Tp59gzg0+HAcY9Ud3HfzoExo/VVaZm7G7QobgmAaweR
+	lyD9k/tY5xz2ImEsty0+xRRzXEzmkFhSdIeU1WVZoI2AFKanBfAo2HL2Q2p8cPkmCHQp6SIpvyO
+	9L5wqqRJ+PqHfxZqaWP/3i7Y8SYnMc2Xb6lMgRkpj5YNNpl9iGouhv2JHrNLZxuXxM/RBvKcZe2
+	8sCeMIBIIy+BON+MYsOI1xtQR4l5sVCaV4jiwOLPQczlX7whXmCvmrALRtaD5+FqFbD6tOsF0XX
+	oYsVgbYlfqlucR97OPx69+3Svxmsifk1fA/C7pmkbCIlU/xyyNnYTCjCrn173pJM37INCTxkMPd
+	mGwsTB8i73mmxTvJao3vQ4u45Wy/4V9mBm6o9VtHyTmUpF/BmY412EaKb1sXTxEpaFuOArQ9J7f
+	KpdlwkZV5pgp7ZyCRCg80sNH6ZchQ==
+X-Received: by 2002:a05:6512:3f20:b0:5b6:4ae:d87 with SMTP id 2adb3069b0e04-5bcde6c3cb1mr3982535e87.27.1791867764438;
+        Mon, 12 Oct 2026 22:02:44 -0700 (PDT)
+Received: from smtpclient.apple ([87.200.95.144])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde912a7sm3212589e87.18.2026.10.12.22.02.40
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 12 Oct 2026 22:02:42 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004123755.14642-1-adrianox@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.3\))
+Subject: Re: [PATCH] drm/panfrost: reset the Amlogic GXM GPU on runtime resume
+From: Christian Hewitt <christianshewitt@gmail.com>
+In-Reply-To: <179184031154.1056803.12154076398577087527.b4-review@b4>
+Date: Tue, 13 Oct 2026 09:02:27 +0400
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6B9C57A7-8BE5-461B-B44B-EF91FC2D2D93@gmail.com>
+References: <20260930125629.2691968-1-christianshewitt@gmail.com>
+ <179184031154.1056803.12154076398577087527.b4-review@b4>
+To: =?utf-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+X-Mailer: Apple Mail (2.3864.700.51.1.3)
 
-On 2026-10-04 09:37:55, Adriano Cordova wrote:
-> Validate that a key payload is large enough to hold a struct
-> ecryptfs_auth_tok, and that the password token's
-> session_key_encryption_key_bytes fits within
-> session_key_encryption_key[], before the payload is dereferenced.
+> On 13 Oct 2026, at 1:25=E2=80=AFam, Adri=C3=A1n Larumbe =
+<adrian.larumbe@collabora.com> wrote:
+>=20
+> On Wed, 30 Sep 2026 12:56:29 +0000, Christian Hewitt =
+<christianshewitt@gmail.com> wrote:
+>> After its first runtime suspend, every power-off of the Mali-T820 in
+>> Amlogic GXM SoCs times out and floods the log with shader, tiler and =
+L2
+>> power transition timeouts. Following a soft reset the cores report =
+not
+>> ready but PWRTRANS never clears, however long the driver waits.
+>=20
+> Would you mind building the driver from the latest drm-misc-next and =
+testing
+> whether this is still the case? Today I merged a patch series with a =
+fix
+> for a long-standing bug that prevented the device from going into =
+suspension
+> because of mismanagement of the PM refcount. It might be that what you =
+report
+> as an issue triggered by power transitions is something altogether =
+different.
 
-Hi Adriano - Thank you for the fixes!
+I=E2=80=99d tested with the v12 iteration of your series in my =
+amlogic-7.3.y [0] tree
+before generating the patch I submitted. I=E2=80=99ve now tested with =
+v15 (as merged)
+and other recent panfrost patches you submitted (which v15 depends upon) =
+and
+with this patch reverted, and the timeout issue with T820 remains. I =
+also saw
+a splat that I wasn=E2=80=99t seeing with the v12 iteration [1].
 
-> 
-> Cc: <stable@vger.kernel.org>
-> Reported-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
-> Reported-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
-> Tested-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
-> Link: https://syzkaller.appspot.com/bug?extid=03c68e42ce4b33f7ce9b
+[0] https://github.com/chewitt/linux/commits/amlogic-7.3.y
+[1] https://paste.libreelec.tv/desertic-cataleya.log
 
-Change this tag from `Link:` to `Closes:`, please.
+After reinstating this patch on v15 + dependencies dmesg is clean again =
+[2].
 
-> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
-> ---
-> Changes in v2:
-> - Add Reported-by tag.
-> 
->  fs/ecryptfs/ecryptfs_kernel.h | 6 ++++++
->  fs/ecryptfs/keystore.c        | 7 +++++++
->  2 files changed, 13 insertions(+)
-> 
-> diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
-> index 58165928ed1e..4315c18ba1cd 100644
-> --- a/fs/ecryptfs/ecryptfs_kernel.h
-> +++ b/fs/ecryptfs/ecryptfs_kernel.h
-> @@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *key)
->  	if (!payload)
->  		return ERR_PTR(-EKEYREVOKED);
->  
-> +	if (payload->payload_datalen < sizeof(struct ecryptfs_auth_tok))
-> +		return ERR_PTR(-EINVAL);
-> +
+[2] https://paste.libreelec.tv/leptosomatic-cherlyn.log
 
-This change should be in its own patch with the following Fixes tag:
+>> The transitions complete normally when the GPU comes out of a =
+hardware
+>> reset, as it does at probe. Use runtime PM with reset and clock =
+control
+>=20
+> panfrost_device_reset() is always called as part of the PM runtime =
+resume
+> operation, so I'm assuming what you mean here is that reset control is
+> deasserted at runtime resume when the SoC supports it
 
-  Fixes: 1252cc3b232e ("eCryptfs: added support for the encrypted key type")
+I=E2=80=99m firmly at the hobbyist end of kernel contributors and I=E2=80=99=
+m not able to
+technically explain the patch Claude created. It=E2=80=99s entirely =
+possible that it
+pokes around in the right area of code but is not the correct fix, but I =
+lack
+the knowledge to dig further without explicit guidance. I can also give =
+you
+remote access to a Khadas VIM2 board if that would be easier or useful?
 
->  	return (struct ecryptfs_auth_tok *)payload->payload_data;
->  }
->  
-> @@ -124,6 +127,9 @@ ecryptfs_get_key_payload_data(struct key *key)
->  	if (!ukp)
->  		return ERR_PTR(-EKEYREVOKED);
->  
-> +	if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
-> +		return ERR_PTR(-EINVAL);
-> +
+Christian
 
-Nguyen Duy Nhat Anh submitted this fix prior to your v1 so it is best if
-I take that initial patch. Please drop this change.
-
->  	return (struct ecryptfs_auth_tok *)ukp->data;
->  }
->  
-> diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
-> index 51651314b7a6..7f2dbc81fcbc 100644
-> --- a/fs/ecryptfs/keystore.c
-> +++ b/fs/ecryptfs/keystore.c
-> @@ -477,6 +477,13 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth_tok_key,
->  		rc = -EINVAL;
->  		goto out;
->  	}
-> +	if ((*auth_tok)->token_type == ECRYPTFS_PASSWORD
-> +	    && (*auth_tok)->token.password.session_key_encryption_key_bytes
-> +	       > ECRYPTFS_MAX_KEY_BYTES) {
-> +		printk(KERN_ERR "Invalid password auth_tok sKEK size\n");
-> +		rc = -EINVAL;
-> +		goto out;
-> +	}
-
-This change should be in its own patch with the following Fixes tag:
-
-  Fixes: 9c79f34f7ee7 ("eCryptfs: Filename Encryption: Tag 70 packets")  
-
-Thanks again!
-
-Tyler
-
->  out:
->  	return rc;
->  }
-> -- 
-> 2.51.0
-> 
