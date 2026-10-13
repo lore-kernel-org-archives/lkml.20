@@ -1,95 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339BA4052C3;
-	Tue, 13 Oct 2026 09:14:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6723F4078C1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882897; cv=none; b=bX3Jtsm2bg8ZUj1XH0xyA5nXBuVB9XXhzoKOe+FGhjdJOozp0/itUJ1ZymzoiLzH5Jeo4aHo4hgZTkc1l9TO4BKhN4Q3U7aqH4GZ7h5am49HMkiW5Oum1YrqfiBH1bpuQpkiEsrFxR5JFh3RyDQ0OzJM9ofZ5DhdlO6bZWwJn3w=
+	t=1791882902; cv=none; b=LN9H9ZqINX8eGa6RpNnpeo/5fGQitj0g0sRNnhq1jquYyqb7uLdk6K+7gXAlY54YySI/Yk9Y6+JJxPSVG16sq21Ko7DlXtReimMQA9oQxzWoJWwWSI4IHT32S1ckIxuL6oNTTnmtMTJ1dDuS3khLPDnYnP7i8xtT2uPFtih//Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882897; c=relaxed/simple;
-	bh=yq1DW4B98q3ykUVmxx7VhPNPveKqVufbEQJS2l2Rgac=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L6Bs8MMVvJUND7RR+EA92Bp+d1xhZqiUi06iWaCO6YfqosdZbJKMT6Hv1rrKAV26aFvi0RNxcQwfGpx/GcPBdkiU1/jdfpkRnr5WCXdqe5QoIuqREusN5roFkA1aw7MX6ZBE1bu3FvjGoHdCL1rXAmw8Pcrch7/2/aqeaxNVDHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hTn979i0; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791882902; c=relaxed/simple;
+	bh=HRzu/NeteCSAqDRszJlhquR7COIV1cN9uotsLhhDSbw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=esVe1UXbkD2KsBEWM1dE63SDFo+8gEGRU61oYkQYoqGNZx0vq0ZckLqwZgAIDvJfg3h6rwo3aZhDXEo8pcGl9UUJRJNas/TcRgV1iAvdj6DdZRI2MMtygkXNeX0BIZHtsz7zdrSP5mekyd06mynwReBlN8uC6wILtrVHrouuthY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JPSItfwk; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hTn979i0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791882896; x=1823418896;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=yq1DW4B98q3ykUVmxx7VhPNPveKqVufbEQJS2l2Rgac=;
-  b=hTn979i0m3GpbIsDHYg5/U+wb022sHP2Rifhp+pbw7aB23nKbIYkNdH5
-   yH6WwTzXEoS21Q/4ESae66Xp4TWy8PXX8yX852pIJhjc8miticJf4FuiI
-   nZtCh9jQ6zsvUKfYf6N1VYPDWEAljpWUPUfCcZOT0/Um7gSTRd/fMXku5
-   ViqcFcfHAjTFSCU9sf26dv0HM0Mpnz9QMMw7U3Z9GFccMA6pwB49r3qx4
-   q1R+x0Rb3Xz00j4MTeaQROEeS9yDAuy8Z0+woRQkecfA6B5IIZ+2dOy3P
-   EBXWVDnZv5gevlTJC9EdhOSIhjvoiiP/GA9he8zNBdJ4SC254W/+Chd71
-   Q==;
-X-CSE-ConnectionGUID: VQIFFCxlR0S74VCBMsXgNw==
-X-CSE-MsgGUID: KYeanXggQgCSXCDUapONpw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="595066"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="595066"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:14:55 -0700
-X-CSE-ConnectionGUID: CPECFWMgTNSg6V1rkc8ZYg==
-X-CSE-MsgGUID: TJBctzN1TqG0w+AK2af23g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1442850"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:14:54 -0700
-Date: Tue, 13 Oct 2026 12:14:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	David E Box <david.e.box@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 17/20] platform/x86/intel/tpmi: Use scnprintf() to
- build the debugfs names
-Message-ID: <as32iyeK1okylcYI@ashevche-desk.local>
-References: <20261006183037.1507007-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20261006183037.1507007-18-sathyanarayanan.kuppuswamy@linux.intel.com>
- <as0-s6JyjfA2zY-B@ashevche-desk.local>
- <24aaf825-ae8b-b19d-4f7f-d5fedc5bcd44@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JPSItfwk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791882900;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D6s5PxnFvY+34GX/yIqUx0m5MKvROFlmTvgdbaAooWs=;
+	b=JPSItfwkT/1tdJGy0bpEDGzGq1whuZ4IQSM+Vik02S51BpNvzk6uBBTeOae+Ub6QjicLK2
+	3j5xAKZdVr+epSnyYbpTfedqDDXNVWosjkBKoqgW1E0ucQDbsKxh0pPhA2d8b7A+DgtgXL
+	2plDIQ5RRyJLLeO1/JL5PMRFpWwduZI=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-680-N6SVC6UsPXm-ahh4pDJ6aA-1; Tue,
+ 13 Oct 2026 09:14:53 +0000
+X-MC-Unique: N6SVC6UsPXm-ahh4pDJ6aA-1
+X-Mimecast-MFC-AGG-ID: N6SVC6UsPXm-ahh4pDJ6aA_1791882892
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4D83F1964CD2;
+	Tue, 13 Oct 2026 09:14:51 +0000 (UTC)
+Received: from [10.43.2.199] (unknown [10.43.2.199])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C929C472;
+	Tue, 13 Oct 2026 09:14:47 +0000 (UTC)
+Message-ID: <f145db3d-11a2-4786-a1eb-b0f939542b22@redhat.com>
+Date: Tue, 13 Oct 2026 11:14:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <24aaf825-ae8b-b19d-4f7f-d5fedc5bcd44@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 04/12] dpll: sit9531x: read DPLL types and
+ pin properties from system firmware
+To: Ali Rouhi <arouhi@sitime.com>, Jiri Pirko <jiri@resnulli.us>
+Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>,
+ Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261009183151.78497-1-arouhi@sitime.com>
+ <20261009183151.78497-5-arouhi@sitime.com>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <20261009183151.78497-5-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Tue, Oct 13, 2026 at 11:42:00AM +0300, Ilpo Järvinen wrote:
-> On Mon, 12 Oct 2026, Andy Shevchenko wrote:
-> > On Tue, Oct 06, 2026 at 11:30:34AM -0700, Kuppuswamy Sathyanarayanan wrote:
-> > > snprintf() is on its way out in favour of scnprintf(). Neither of the two
-> > > callers in tpmi_dbgfs_register() looks at the return value, so the
-> > > difference in what the two return does not matter here.
-> > 
-> > I believe I asked it already: Why do we care? Do you get any compilation
-> > warning (assuming `make W=1`)?
+On 10/9/26 20:31, Ali Rouhi wrote:
+> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 > 
-> I do care that we've two functions for essentially the same thing and 
-> would prefer to have just one that remains (and obviously that would be 
-> the c variant).
-
-I see, thanks for the hint, but it's not clear from the commit message.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> The DPLL core wants a type per device and a property set per pin: a
+> label, the direction, the capabilities, and the frequencies the pin
+> supports.  None of that can be read from the chip -- which frequencies a
+> board actually presents on a given input is a board fact -- so they come
+> from the firmware node, with defaults for a node that does not describe
+> them.
+> 
+> Input pins are interleaved P and N lanes of four differential pairs, so a
+> logical index maps to a pair and a lane, and a pair configured
+> single-ended presents two independent inputs where a differential one
+> presents one.  The labels follow from that, and the two extra input
+> positions -- the crystal and the inter-PLL sync net -- are named
+> separately.
+> 
+> One of the advertised properties is worth naming.  An output whose node
+> lists no supported frequencies is advertised as a continuous range rather
+> than nothing at all, since those pins do accept a frequency set; a
+> request inside the range that the integer output divider cannot produce
+> is refused when it is made.
+> 
+> Kept in its own file, and introduced before anything is registered, so
+> the registration code that follows has nothing to say about firmware.
+> 
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: LLM
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+Reviewed-by: Ivan Vecera <ivecera@redhat.com>
 
