@@ -1,505 +1,542 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01E15328DF
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7BE5328A1;
+	Tue, 13 Oct 2026 18:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791915997; cv=none; b=HVUZWgtY4EwV3q8oZ1Z1V9PScjzMgCRDmSgPrt2riJhBgiDRVpTmiQjEynrT5E3dacgc3r6SZMhWGh7HFolYgmO4oemOxKfr0ffQd8z/1ma+PJ54mYGL7dJnq1GNkyc6OgqnfQUKFHiFBo6rkTiba+Goa7TnIkdqw2DvsgGCfTk=
+	t=1791915998; cv=none; b=R6E1NaJhvVVlVZ/k1YHaUZtIZaWolac1VjHAyzk4PCJmQEoSEN9vFz3ldAfD/HzQfsvXgr2i2Wswj9Mc+y7wxStw+/Tu8okkn1vVTvM4/Nco8Y5gCaHhn6GdkXeWKgCEuJrZcehcMlVCCu8je3mnIKBAxI4dzJm58ltw7yze6to=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791915997; c=relaxed/simple;
-	bh=BlhK9sh79umMCWRLraqa7Qbx7ApWW9yCgqHBIgaEtZo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=r445Twzb7o03DNgpxETwCqvlcnOMhOLFc2luxS18Dnb3RlVjIZYFrwnamDZ2oDAeN5i8CaE6FDgMV4Jii4sslzZvP4oveqDNzmxemZ8F6U+zdq032vKac9pt603jkH4YsVQfzZD/9ZrNoRwo1tzzInp30h74vfnNmqJjYjI3+BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u8pwmpM9; arc=none smtp.client-ip=74.125.82.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1791915998; c=relaxed/simple;
+	bh=Rw//lETCW434AchMGDTCH/kN5vndDeh2t0JchEcS0M0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WIeupqiN3bfiqD/8/xvOEiUKYYaAvuJC0npIOnB9Kq5Czii3qopT4LGNCqFO+CUKdNYI98GUjnftj4mhEEggJ4sl38WkOqNQOXQQjj1z1gdJGC2vr+4WV0qK9pz4btfGSNu+yOvBzNE+b3MIV+3bLQKd8Hn14ngMRCqJRMEbkvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=axZeSP1S; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u8pwmpM9"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so8887458eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:26:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791915993; x=1792520793; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MAsvADi7aJrmU0fFcmnPh2evEqX3fDBYv6iyZOoloMo=;
-        b=u8pwmpM9lztne/tJ4WNfrOKrwThxYjrIf40U2N0DLv+IG8ilMVvzl/0aeKJslrCaW9
-         lRqOV9A+kqq2IyMXBJtnHbNhw3D8cBXaOIfgub8gP/0agv5qf46NT6FU2cKUTt8WHfkE
-         vzen40ZvgdFx05AT18RdMN2zi3PgpYyGYOZvlXDXrJ1G3PdPZy+RyWaYW6jfxIFA/GDi
-         h7z7t+T3YaUnikmuOLE7Ezhuy4reVyaMXgV4C7R90TfaCZJ4Y6uUbYNms0AHyoPr/l11
-         Bq8VJIlE7L8vYc7LZBVEZf4dAFSMuxYwvDVe2ccKiYr7sC5/bSGqG31asTqLKA2qdrkE
-         KYJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791915993; x=1792520793;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MAsvADi7aJrmU0fFcmnPh2evEqX3fDBYv6iyZOoloMo=;
-        b=RJXzmfXYuFMr1CNW5/kaev9M+ZWpbpZ7EIDTCNN9+kJNlPoIg8iUbHhYDeKU0wV7GU
-         xk+cZFEzD3gWAlf/SojFc+86e+BpMGcoQQmYY4oucci8K1/o51KAUwDyXslAcFyi5dLo
-         5jXd5lX3uZqYUh9MYuFKxM5lF7EqEbnZTbVwIo6TMeTJE2z6nW68H6rdbO7SZN0CehM9
-         dsA7xh+ubHtPToTjjKqMqHGN1LRdpIp8kP3UXA+BuWyePkCGKB1T9ExASdro6/mCjn98
-         /IPfFQMEZEGHrf5FVo21bLcwj0qqrYQoIvy1bSVTu7QSgZ3G5Bpsj5zTCsYboHJonJC9
-         H7iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzk6skNTEvuKHEJoLm9mh3NbWss9nnyKiPEgjYOvV932JDwQrscJCUdLT9wyJsigTlFNxGXRlSspOhvDnc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLw3MS9LcoV1wF40WnBYfxja01x2cAzGa5HPQG26Yosx3a5HH5W
-	F+LvN5Kp9NPju7jshWdPkv3qctVoPEI+1yNo0k4g5dhoL0uU9CHeq8x8RFNrDRe5MQZcU669kAo
-	Z3rSSEvXR7A==
-X-Received: from dycnh21.prod.google.com ([2002:a05:7300:ce95:b0:353:5cf3:d9])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:78c9:b0:34e:e7f4:cc78
- with SMTP id 5a478bee46e88-3537de1cfd3mr17558772eec.5.1791915992368; Tue, 13
- Oct 2026 11:26:32 -0700 (PDT)
-Date: Tue, 13 Oct 2026 11:24:50 -0700
-In-Reply-To: <20261013182458.1234616-1-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="axZeSP1S"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791915995; x=1823451995;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Rw//lETCW434AchMGDTCH/kN5vndDeh2t0JchEcS0M0=;
+  b=axZeSP1SY/mtFlW95Mc7qjUP0ao6dFmBaK2woWPGz3I0WCoQjTIVqp45
+   lfU6IlX0Fc4uko4fp9H5filLoRErgSrp0jxxq6Nluz1sfZ0UtZqoPr530
+   n13RCWt9287H6OsY839iV4NtY7qloEtsylpXUTnvhYmsz5OHPGISr7De/
+   1LVGU6uT+2Tu56ovoQ+f7k2zw0gxXHXrEFoxa+7H+y5GfMHfpWf1gbezE
+   NaP7hOdCxpFNEFRjrTmnRzmOHiRHji5lD0CS/NfTEQAo0BZj9K4QdJqmH
+   uT5LX4RYyTXZTK+I7SGJHDT+GEC874Ovujm/pBVFtsdJrwChb1RQrODW1
+   g==;
+X-CSE-ConnectionGUID: wy0nQDq4Sg2n2iqYs+5+Qg==
+X-CSE-MsgGUID: NF4sak1QR+itMDU0jzBbuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="754590"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="754590"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:26:34 -0700
+X-CSE-ConnectionGUID: 3tQDvxivSCa39imKn3pDcA==
+X-CSE-MsgGUID: gyMWdFf/TOuv6Tmdpv866w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1157519"
+Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
+  by orviesa005.jf.intel.com with ESMTP; 13 Oct 2026 11:26:31 -0700
+From: Ajay KV <ajay.k.v@intel.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: chandrashekar.devegowda@intel.com,
+	kiran.k@intel.com,
+	linux-kernel@vger.kernel.org,
+	luiz.dentz@gmail.com,
+	marcel@holtmann.org,
+	stable@vger.kernel.org,
+	chethan.tumkur.narayan@intel.com,
+	lakshmipathi.k@intel.com,
+	Ajaykv <ajay.k.v@intel.com>
+Subject: [PATCH v1 1/3] Bluetooth: btintel_pcie: Add initial YoYo debug support
+Date: Tue, 13 Oct 2026 21:26:24 +0300
+Message-ID: <20261013182627.81957-1-ajay.k.v@intel.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261013182458.1234616-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013182458.1234616-3-irogers@google.com>
-Subject: [PATCH v1 02/10] tools headers compiler: Synchronize compiler_types.h
- with the kernel sources
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Marco Elver <elver@google.com>
-Cc: Bart Van Assche <bvanassche@acm.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Synchronize the non-__KERNEL__ sections of
-tools/include/linux/compiler_types.h and
-tools/include/linux/compiler-gcc.h with the kernel sources (including
-___PASTE/__PASTE, BTF_TYPE_TAG, object-size helpers, asm_goto_output,
-ASM_INPUT_*, asm_inline, __typeof_unqual__/__unqual_scalar_typeof,
-__signed_scalar_typeof, __native_word, compiletime_assert, and the
-__diag pragma helpers required by compiler-context-analysis.h), and
-remove the duplicated definitions from tools/include/linux/compiler.h.
+From: Ajaykv <ajay.k.v@intel.com>
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/include/linux/compiler-gcc.h   |  55 ++++++-
- tools/include/linux/compiler.h       |  50 +------
- tools/include/linux/compiler_types.h | 206 ++++++++++++++++++++++++++-
- 3 files changed, 258 insertions(+), 53 deletions(-)
+Add an optional YoYo firmware configuration path to the Intel PCIe
+Bluetooth driver. Read DBG_PATH and ENABLE_INI from
+ibt_bt_dbg_cfg.ini, and load intel/ibt_debug_yoyo.bin only when YoYo
+is enabled and host DRAM routing is selected.
 
-diff --git a/tools/include/linux/compiler-gcc.h b/tools/include/linux/compiler-gcc.h
-index e20f98e14e81..9213691e8e09 100644
---- a/tools/include/linux/compiler-gcc.h
-+++ b/tools/include/linux/compiler-gcc.h
-@@ -1,7 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _TOOLS_LINUX_COMPILER_H_
-+#ifndef __LINUX_COMPILER_TYPES_H
- #error "Please do not include <linux/compiler-gcc.h> directly, include <linux/compiler.h> instead."
--#endif
-+#endif /* __LINUX_COMPILER_TYPES_H */
+Introduce a runtime context and bounded TLV-stream validation helper.
+Initialize and clean up the context with PCI probe and removal, while
+falling back to legacy debug behavior if optional YoYo data is missing
+or invalid.
+
+Runtime validation of the complete P1-P3 series produced:
+[    3.286504] Bluetooth: Core ver 2.22
+[    3.297359] Bluetooth: HCI device and connection manager initialized
+[    3.297373] Bluetooth: HCI socket layer initialized
+[    3.297376] Bluetooth: L2CAP socket layer initialized
+[    3.297384] Bluetooth: SCO socket layer initialized
+[    3.332848] Bluetooth: YoYo: configuration loaded and validated
+[3.360857-3.361712] Bluetooth: DBGC1-3: each 16 x 256 KiB (4 MiB)
+[3.361715] Bluetooth: MDBGC DBGC1-3: each 16 x 256 KiB
+[    3.397439] Bluetooth: hci0: Device revision is 0
+[    3.397442] Bluetooth: hci0: Secure boot is enabled
+[    3.397443] Bluetooth: hci0: OTP lock is disabled
+[    3.397444] Bluetooth: hci0: API lock is enabled
+[    3.397444] Bluetooth: hci0: Debug lock is disabled
+
+Signed-off-by: Ajaykv <ajay.k.v@intel.com>
+
+diff --git a/drivers/bluetooth/Makefile b/drivers/bluetooth/Makefile
+index d5eb2568af2e..7d933755b291 100644
+--- a/drivers/bluetooth/Makefile
++++ b/drivers/bluetooth/Makefile
+@@ -14,7 +14,7 @@ obj-$(CONFIG_BT_HCIBTUSB)	+= btusb.o
+ obj-$(CONFIG_BT_HCIBTSDIO)	+= btsdio.o
  
- /*
-  * Common definitions for all gcc versions go here.
-@@ -33,10 +33,59 @@
- #define __packed	__attribute__((packed))
- #endif
- #ifndef __noreturn
--#define __noreturn	__attribute__((noreturn))
-+#define __noreturn	__attribute__((__noreturn__))
- #endif
- #ifndef __aligned
- #define __aligned(x)	__attribute__((aligned(x)))
- #endif
- #define __printf(a, b)	__attribute__((format(printf, a, b)))
- #define __scanf(a, b)	__attribute__((format(scanf, a, b)))
-+
-+/*
-+ * Turn individual warnings and errors on and off locally, depending
-+ * on version.
+ obj-$(CONFIG_BT_INTEL)		+= btintel.o
+-obj-$(CONFIG_BT_INTEL_PCIE)	+= btintel_pcie.o btintel.o
++obj-$(CONFIG_BT_INTEL_PCIE)	+= btintel_pcie.o btintel.o btintel_pcie_debug.o
+ obj-$(CONFIG_BT_ATH3K)		+= ath3k.o
+ obj-$(CONFIG_BT_MRVL)		+= btmrvl.o
+ obj-$(CONFIG_BT_MRVL_SDIO)	+= btmrvl_sdio.o
+diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
+index 3a555aa50c87..e28f527d6d29 100644
+--- a/drivers/bluetooth/btintel_pcie.c
++++ b/drivers/bluetooth/btintel_pcie.c
+@@ -203,6 +203,103 @@ static inline bool btintel_pcie_dbg_to_wifi(struct btintel_pcie_data *data)
+ 	return data->dbg_path_cache != BTINTEL_PCIE_DRAM;
+ }
+ 
++/* Name of the optional INI file used to override the default dbg_path
++ * (data->dbg_path_cache) and yoyo ini settings.
 + */
-+#define __diag_str1(s)		#s
-+#define __diag_str(s)		__diag_str1(s)
++#define BTINTEL_PCIE_DBG_INI_FILE "ibt_bt_dbg_cfg.ini"
 +
-+#ifdef __clang__
-+#define __diag_clang(version, severity, s) \
-+	__diag_clang_ ## version(__diag_clang_ ## severity s)
-+
-+/* Severity used in pragma directives */
-+#define __diag_clang_ignore	ignored
-+#define __diag_clang_warn	warning
-+#define __diag_clang_error	error
-+
-+#define __diag(s)		_Pragma(__diag_str(clang diagnostic s))
-+
-+#define __diag_clang_all(s)	__diag(s)
-+
-+#define __diag_ignore_all(option, comment) \
-+	__diag_clang(all, ignore, option)
-+
-+#define CC_HAS_TYPEOF_UNQUAL (__clang_major__ > 19 || (__clang_major__ == 19 && __clang_minor__ > 0))
-+#else /* !__clang__ */
-+#define __diag_GCC(version, severity, s) \
-+	__diag_GCC_ ## version(__diag_GCC_ ## severity s)
-+
-+/* Severity used in pragma directives */
-+#define __diag_GCC_ignore	ignored
-+#define __diag_GCC_warn		warning
-+#define __diag_GCC_error	error
-+
-+#define __diag(s)		_Pragma(__diag_str(GCC diagnostic s))
-+
-+#if GCC_VERSION >= 80000
-+#define __diag_GCC_8(s)		__diag(s)
-+#else
-+#define __diag_GCC_8(s)
-+#endif
-+
-+#define __diag_GCC_all(s)	__diag(s)
-+
-+#define __diag_ignore_all(option, comment) \
-+	__diag(__diag_GCC_ignore option)
-+
-+#define CC_HAS_TYPEOF_UNQUAL (__GNUC__ >= 14)
-+#endif /* __clang__ */
-diff --git a/tools/include/linux/compiler.h b/tools/include/linux/compiler.h
-index f2f54b038168..86d628ba8d60 100644
---- a/tools/include/linux/compiler.h
-+++ b/tools/include/linux/compiler.h
-@@ -1,41 +1,11 @@
- /* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _TOOLS_LINUX_COMPILER_H_
--#define _TOOLS_LINUX_COMPILER_H_
-+#ifndef __LINUX_COMPILER_H
-+#define __LINUX_COMPILER_H
- 
- #ifndef __ASSEMBLY__
- 
- #include <linux/compiler_types.h>
- 
--#ifndef __compiletime_error
--# define __compiletime_error(message)
--#endif
--
--#ifdef __OPTIMIZE__
--# define __compiletime_assert(condition, msg, prefix, suffix)		\
--	do {								\
--		extern void prefix ## suffix(void) __compiletime_error(msg); \
--		if (!(condition))					\
--			prefix ## suffix();				\
--	} while (0)
--#else
--# define __compiletime_assert(condition, msg, prefix, suffix) do { } while (0)
--#endif
--
--#define _compiletime_assert(condition, msg, prefix, suffix) \
--	__compiletime_assert(condition, msg, prefix, suffix)
--
--/**
-- * compiletime_assert - break build and emit msg if condition is false
-- * @condition: a compile-time constant condition to check
-- * @msg:       a message to emit if condition is false
-- *
-- * In tradition of POSIX assert, this macro will break the build if the
-- * supplied condition is *false*, emitting the supplied error message if the
-- * compiler has support to do so.
-- */
--#define compiletime_assert(condition, msg) \
--	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
--
- /* Optimization barrier */
- /* The "volatile" is due to gcc bugs */
- #define barrier() __asm__ __volatile__("": : :"memory")
-@@ -48,10 +18,6 @@
- #define __always_unused __attribute__((__unused__))
- #endif
- 
--#ifndef __noreturn
--#define __noreturn __attribute__((__noreturn__))
--#endif
--
- #ifndef unreachable
- #define unreachable() __builtin_unreachable()
- #endif
-@@ -68,11 +34,6 @@
- #define __naked __attribute__((__naked__))
- #endif
- 
--/* Are two types/vars the same type (ignoring qualifiers)? */
--#ifndef __same_type
--# define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
--#endif
--
- /*
-  * This returns a constant expression while determining if an argument is
-  * a constant expression, most importantly without evaluating the argument.
-@@ -237,11 +198,6 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
- 	__u.__val;					\
- })
- 
--
--/* Indirect macros required for expanded argument pasting, eg. __LINE__. */
--#define ___PASTE(a, b) a##b
--#define __PASTE(a, b) ___PASTE(a, b)
--
- #ifndef OPTIMIZER_HIDE_VAR
- /* Make the optimizer believe the variable can be manipulated arbitrarily. */
- #define OPTIMIZER_HIDE_VAR(var)						\
-@@ -258,4 +214,4 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
- 
- #endif /* __ASSEMBLY__ */
- 
--#endif /* _TOOLS_LINUX_COMPILER_H */
-+#endif /* __LINUX_COMPILER_H */
-diff --git a/tools/include/linux/compiler_types.h b/tools/include/linux/compiler_types.h
-index b3adbf5682f0..31e9f7d2a466 100644
---- a/tools/include/linux/compiler_types.h
-+++ b/tools/include/linux/compiler_types.h
-@@ -2,8 +2,6 @@
- #ifndef __LINUX_COMPILER_TYPES_H
- #define __LINUX_COMPILER_TYPES_H
- 
--/* Builtins */
--
- /*
-  * __has_builtin is supported on gcc >= 10, clang >= 3 and icc >= 21.
-  * In the meantime, to support gcc < 10, we implement __has_builtin
-@@ -13,6 +11,23 @@
- #define __has_builtin(x) (0)
- #endif
- 
-+/* Indirect macros required for expanded argument pasting, eg. __LINE__. */
-+#define ___PASTE(a, b) a##b
-+#define __PASTE(a, b) ___PASTE(a, b)
-+
-+#ifndef __ASSEMBLY__
-+
-+/*
-+ * Skipped when running bindgen due to a libclang issue;
-+ * see https://github.com/rust-lang/rust-bindgen/issues/2244.
-+ */
-+#if defined(CONFIG_DEBUG_INFO_BTF) && defined(CONFIG_PAHOLE_HAS_BTF_TAG) && \
-+	__has_attribute(btf_type_tag) && !defined(__BINDGEN__)
-+# define BTF_TYPE_TAG(value) __attribute__((btf_type_tag(#value)))
-+#else
-+# define BTF_TYPE_TAG(value) /* nothing */
-+#endif
-+
- #include <linux/compiler-context-analysis.h>
- 
- /* Compiler specific macros. */
-@@ -20,14 +35,101 @@
- #include <linux/compiler-gcc.h>
- #endif
- 
-+#ifndef __compiletime_error
-+# define __compiletime_error(message)
-+#endif
-+
-+#ifndef __noreturn
-+# define __noreturn __attribute__((__noreturn__))
-+#endif
-+
-+#endif /* __ASSEMBLY__ */
-+
-+/*
-+ * When the size of an allocated object is needed, use the best available
-+ * mechanism to find it. (For cases where sizeof() cannot be used.)
++/* Loads optional "DBG_PATH=<value>" and ENABLE_INI=<value>
++ * overrides from BTINTEL_PCIE_DBG_INI_FILE
++ * and applies them to data->dbg_path_cache and data->enable_ini.
 + *
-+ * Optional: only supported since gcc >= 12
++ * DBG_PATH accepts BTINTEL_PCIE_WIFI_DBGC (0x06, default) and
++ * BTINTEL_PCIE_DRAM (0x01, legacy); an invalid or missing entry leaves
++ * the cached value set by the caller unchanged.
 + *
-+ *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Object-Size-Checking.html
-+ * clang: https://clang.llvm.org/docs/LanguageExtensions.html#evaluating-object-size
++ * ENABLE_INI accepts 1 (enabled) or 0 (disabled); an invalid or missing
++ * entry leaves data->enable_ini unchanged.
 + */
-+#if __has_builtin(__builtin_dynamic_object_size)
-+#define __struct_size(p)	__builtin_dynamic_object_size(p, 0)
-+#define __member_size(p)	__builtin_dynamic_object_size(p, 1)
-+#else
-+#define __struct_size(p)	__builtin_object_size(p, 0)
-+#define __member_size(p)	__builtin_object_size(p, 1)
-+#endif
++static void btintel_pcie_load_dbg_path_from_ini(struct btintel_pcie_data *data)
++{
++	const struct firmware *fw;
++	const char *ini_file = BTINTEL_PCIE_DBG_INI_FILE;
++	char *buf, *cursor, *line;
++	bool dbg_path_applied = false;
++	int err;
 +
-+/*
-+ * Determine if an attribute has been applied to a variable.
-+ * Using __annotated needs to check for __annotated being available,
-+ * or negative tests may fail when annotation cannot be checked. For
-+ * example, see the definition of __is_cstr().
-+ */
-+#if __has_builtin(__builtin_has_attribute)
-+#define __annotated(var, attr)	__builtin_has_attribute(var, attr)
-+#endif
++	err = request_firmware_direct(&fw, ini_file, &data->pdev->dev);
++	if (err < 0) {
++		BT_ERR("%s not found (%d), using dbg_path=0x%02x ",
++		       ini_file, err, data->dbg_path_cache);
++		return;
++	}
 +
-+/*
-+ * Optional: only supported since gcc >= 15, clang >= 19
-+ *
-+ *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html#index-_005f_005fbuiltin_005fcounted_005fby_005fref
-+ * clang: https://clang.llvm.org/docs/LanguageExtensions.html#builtin-counted-by-ref
-+ */
-+#if __has_builtin(__builtin_counted_by_ref) && \
-+    !defined(CONFIG_CC_HAS_BROKEN_COUNTED_BY_REF)
-+#define __flex_counter(FAM)	__builtin_counted_by_ref(FAM)
-+#else
-+#define __flex_counter(FAM)	((void *)NULL)
-+#endif
++	buf = kmemdup_nul(fw->data, fw->size, GFP_KERNEL);
++	release_firmware(fw);
++	if (!buf)
++		return;
 +
-+/*
-+ * Some versions of gcc do not mark 'asm goto' volatile:
-+ *
-+ *  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103979
-+ *
-+ * We do it here by hand, because it doesn't hurt.
-+ */
- #ifndef asm_goto_output
--#define asm_goto_output(x...) asm goto(x)
-+#define asm_goto_output(x...) asm volatile goto(x)
-+#endif
++	cursor = buf;
++	while ((line = strsep(&cursor, "\n"))) {
++		char *eq;
++		char *val;
++		uint parsed;
 +
-+/*
-+ * Clang has trouble with constraints with multiple
-+ * alternative behaviors ("g" , "rm" and "=rm").
-+ */
-+#ifndef ASM_INPUT_G
-+  #define ASM_INPUT_G "g"
-+  #define ASM_INPUT_RM "rm"
-+  #define ASM_OUTPUT_RM "=rm"
-+#endif
++		line = strim(line);
++		if (!line[0] || line[0] == '#' || line[0] == ';')
++			continue;
 +
-+#ifdef CONFIG_CC_HAS_ASM_INLINE
-+#define asm_inline asm __inline
-+#else
-+#define asm_inline asm
-+#endif
++		eq = strchr(line, '=');
++		if (!eq)
++			continue;
 +
-+#ifndef __ASSEMBLY__
-+/*
-+ * Use __typeof_unqual__() when available.
-+ */
-+#if (defined(CC_HAS_TYPEOF_UNQUAL) && CC_HAS_TYPEOF_UNQUAL) || defined(__CHECKER__)
-+# define USE_TYPEOF_UNQUAL 1
-+#endif
++		*eq = '\0';
++		line = strim(line);
++		val = strim(eq + 1);
 +
-+/* Are two types/vars the same type (ignoring qualifiers)? */
-+#ifndef __same_type
-+# define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
- #endif
++		/* Accept "DBG_PATH"/"dbg_path"
++		 * case-insensitively as the key.
++		 */
++		if (!strcasecmp(line, "DBG_PATH")) {
++			BT_INFO("Read DBG_PATH from %s: '%s'", ini_file, val);
++
++			/* base 0 lets kstrtouint accept "0x06", "6", etc. */
++			if (kstrtouint(val, 0, &parsed) == 0 &&
++			    (parsed == BTINTEL_PCIE_DRAM ||
++			     parsed == BTINTEL_PCIE_WIFI_DBGC)) {
++				data->dbg_path_cache = parsed;
++				dbg_path_applied = true;
++				BT_INFO("WRT dbg_path accepted: 0x%02x",
++					data->dbg_path_cache);
++			} else {
++				BT_ERR("Invalid DBG_PATH='%s' in %s, using dbg_path=0x%02x",
++				       val, ini_file, data->dbg_path_cache);
++			}
++		} else if (!strcasecmp(line, "ENABLE_INI")) {
++			BT_INFO("Read ENABLE_INI from %s: '%s'", ini_file, val);
++
++			if (kstrtouint(val, 0, &parsed) == 0 &&
++			    (parsed == 0 || parsed == 1)) {
++				data->enable_ini = !!parsed;
++				BT_INFO("WRT enable_ini accepted: %u",
++					data->enable_ini);
++			} else {
++				BT_ERR("Invalid ENABLE_INI='%s' in %s, using enable_ini=%u",
++				       val, ini_file, data->enable_ini);
++			}
++		}
++	}
++
++	if (dbg_path_applied)
++		BT_DBG("Loaded dbg_path=0x%02x from %s", data->dbg_path_cache, ini_file);
++	else
++		BT_ERR("No valid DBG_PATH in %s, dbg_path=0x%02x", ini_file, data->dbg_path_cache);
++
++	BT_DBG("ENABLE_INI effective state: %u", data->enable_ini);
++
++	kfree(buf);
++}
++
+ /* Helper function to allocate and setup a debug buffer group
+  * @data: driver data structure
+  * @buf: pointer to data_buf array pointer
+@@ -4097,10 +4194,25 @@ static int btintel_pcie_probe(struct pci_dev *pdev,
+ 	data->boot_stage_cache = 0x00;
+ 	data->img_resp_cache = 0x00;
+ 	data->dbg_path_cache = BTINTEL_PCIE_WIFI_DBGC;
++	data->enable_ini = false;
++	btintel_pcie_yoyo_init(&data->yoyo);
+ 	/* FLR can be invoked by echoing to debugfs path, so explicitly
+ 	 * initialized
+ 	 */
+ 	data->reset_type = BTINTEL_PCIE_IOSF_PRR_FLR;
++
++	btintel_pcie_load_dbg_path_from_ini(data);
++	if (data->dbg_path_cache != BTINTEL_PCIE_DRAM)
++		data->enable_ini = false;
++
++	if (data->enable_ini) {
++		err = btintel_pcie_yoyo_load_and_parse(&data->yoyo, &pdev->dev);
++		if (err) {
++			BT_WARN("YoYo is not configured (%d)", err);
++			btintel_pcie_yoyo_cleanup(&data->yoyo);
++		}
++	}
++
+ 	err = btintel_pcie_config_pcie(pdev, data);
+ 	if (err)
+ 		goto exit_error;
+@@ -4128,11 +4240,14 @@ static int btintel_pcie_probe(struct pci_dev *pdev,
+ 	if (err)
+ 		goto exit_error;
  
- /*
-  * __unqual_scalar_typeof(x) - Declare an unqualified scalar type, leaving
-  *			       non-scalar types unchanged.
++	data->yoyo.hdev = data->hdev;
+ 	bt_dev_dbg(data->hdev, "cnvi: 0x%8.8x cnvr: 0x%8.8x", data->cnvi,
+ 		   data->cnvr);
+ 	return 0;
+ 
+ exit_error:
++	btintel_pcie_yoyo_cleanup(&data->yoyo);
++
+ 	/* reset device before exit */
+ 	btintel_pcie_reset_bt(data);
+ 
+@@ -4173,6 +4288,8 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
+ 	if (current_work() != &data->reset_work)
+ 		disable_work_sync(&data->reset_work);
+ 
++	btintel_pcie_yoyo_cleanup(&data->yoyo);
++
+ 	btintel_pcie_disable_interrupts(data);
+ 
+ 	btintel_pcie_synchronize_irqs(data);
+diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
+index 3030b4e8b750..0a4e508d0beb 100644
+--- a/drivers/bluetooth/btintel_pcie.h
++++ b/drivers/bluetooth/btintel_pcie.h
+@@ -6,6 +6,8 @@
+  *  Copyright (C) 2024  Intel Corporation
   */
-+#ifndef USE_TYPEOF_UNQUAL
- /*
-  * Prefer C11 _Generic for better compile-times and simpler code. Note: 'char'
-  * is not type-compatible with 'signed char', and we define a separate case.
-@@ -45,5 +147,103 @@
- 			 __scalar_type_to_expr_cases(long),		\
- 			 __scalar_type_to_expr_cases(long long),	\
- 			 default: (x)))
-+#else
-+#define __unqual_scalar_typeof(x) __typeof_unqual__(x)
-+#endif
+ 
++#include "btintel_pcie_debug.h"
 +
-+#endif /* !__ASSEMBLY__ */
-+
+ /* Control and Status Register(BTINTEL_PCIE_CSR) */
+ #define BTINTEL_PCIE_CSR_BASE			(0x000)
+ #define BTINTEL_PCIE_CSR_FUNC_CTRL_REG		(BTINTEL_PCIE_CSR_BASE + 0x024)
+@@ -737,6 +739,8 @@ struct btintel_pcie_data {
+ 	u32	boot_stage_cache;
+ 	u32	img_resp_cache;
+ 	u32	dbg_path_cache;
++	bool	enable_ini;
++	struct btintel_pcie_yoyo_ctx yoyo;
+ 
+ 	u32	cnvi;
+ 	u32	cnvr;
+diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
+new file mode 100644
+index 000000000000..0e933f4ec376
+--- /dev/null
++++ b/drivers/bluetooth/btintel_pcie_debug.c
+@@ -0,0 +1,161 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * __signed_scalar_typeof(x) - Declare a signed scalar type, leaving
-+ *			       non-scalar types unchanged.
++ * Intel Bluetooth YoYo Debug Framework
++ *
++ * Copyright (C) 2026 Intel Corporation
++ *
++ * Runtime-configurable TLV-based debug collection framework for loading and
++ * parsing the optional YoYo firmware configuration used to enable debug
++ * regions, triggers, HCI commands, and configuration sets.
 + */
 +
-+#define __scalar_type_to_signed_cases(type)				\
-+		unsigned type:	(signed type)0,				\
-+		signed type:	(signed type)0
++#include <linux/errno.h>
++#include <linux/module.h>
++#include <linux/string.h>
++#include <linux/unaligned.h>
++#include <net/bluetooth/bluetooth.h>
++#include "btintel_pcie_debug.h"
 +
-+#define __signed_scalar_typeof(x) typeof(				\
-+		_Generic((x),						\
-+			 char:	(signed char)0,				\
-+			 __scalar_type_to_signed_cases(char),		\
-+			 __scalar_type_to_signed_cases(short),		\
-+			 __scalar_type_to_signed_cases(int),		\
-+			 __scalar_type_to_signed_cases(long),		\
-+			 __scalar_type_to_signed_cases(long long),	\
-+			 default: (x)))
-+
-+/* Is this type a native word size -- useful for atomic operations */
-+#define __native_word(t) \
-+	(sizeof(t) == sizeof(char) || sizeof(t) == sizeof(short) || \
-+	 sizeof(t) == sizeof(int) || sizeof(t) == sizeof(long))
-+
-+#ifdef __OPTIMIZE__
 +/*
-+ * #ifdef __OPTIMIZE__ is only a good approximation; for instance "make
-+ * CFLAGS_foo.o=-Og" defines __OPTIMIZE__, does not elide the conditional code
-+ * and can break compilation with wrong error message(s). Combine with
-+ * -U__OPTIMIZE__ when needed.
++ * Parse the optional YoYo firmware TLV stream and validate each record.
++ * This is the entry point for the runtime debug configuration payload.
 + */
-+# define __compiletime_assert(condition, msg, prefix, suffix)		\
-+	do {								\
-+		/*							\
-+		 * __noreturn is needed to give the compiler enough	\
-+		 * information to avoid certain possibly-uninitialized	\
-+		 * warnings (regardless of the build failing).		\
-+		 */							\
-+		__noreturn extern void prefix ## suffix(void)		\
-+			__compiletime_error(msg);			\
-+		if (!(condition))					\
-+			prefix ## suffix();				\
-+	} while (0)
-+#else
-+# define __compiletime_assert(condition, msg, prefix, suffix) ((void)(condition))
-+#endif
++static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
++					      const u8 *buf, size_t buf_len)
++{
++	const struct btintel_pcie_tlv_hdr *tlv;
++	const u8 *ptr = buf;
++	size_t remaining = buf_len;
++	u32 count = 0;
 +
-+#define _compiletime_assert(condition, msg, prefix, suffix) \
-+	__compiletime_assert(condition, msg, prefix, suffix)
++	while (remaining >= sizeof(*tlv)) {
++		size_t tlv_size;
++		u32 type, len;
++
++		tlv = (const struct btintel_pcie_tlv_hdr *)ptr;
++		type = get_unaligned_le32(&tlv->type);
++		len = get_unaligned_le32(&tlv->length);
++
++		if (len > remaining - sizeof(*tlv)) {
++			BT_ERR("YoYo: tlv %u truncated (len=%u rem=%zu)", count,
++			       len, remaining);
++			return -EBADMSG;
++		}
++		tlv_size = sizeof(*tlv) + len;
++
++		switch (type) {
++		case BTINTEL_PCIE_TLV_TYPE_DBG_INFO:
++		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
++		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
++		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
++		case BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET:
++		case BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC:
++		case BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE:
++			BT_DBG("YoYo: valid tlv type 0x%x len=%u", type, len);
++			break;
++		default: /* Log and continue, do not fail*/
++			BT_DBG("YoYo: unknown tlv type 0x%x len=%u", type, len);
++			break;
++		}
++
++		ptr += tlv_size;
++		remaining -= tlv_size;
++		count++;
++	}
++
++	/* If no TLVs were parsed, the YoYo binary is considered invalid */
++	if (remaining || count == 0) {
++		BT_ERR("YoYo: trailing %zu bytes after tlv stream", remaining);
++		return -EBADMSG;
++	}
++
++	BT_DBG("YoYo: parsed %u tlv's", count);
++	return 0;
++}
 +
 +/**
-+ * compiletime_assert - break build and emit msg if condition is false
-+ * @condition: a compile-time constant condition to check
-+ * @msg:       a message to emit if condition is false
-+ *
-+ * In tradition of POSIX assert, this macro will break the build if the
-+ * supplied condition is *false*, emitting the supplied error message if the
-+ * compiler has support to do so.
++ * btintel_yoyo_init - Initialize the YoYo context
++ * @ctx:   Pre-allocated context (typically embedded in driver data)
 + */
-+#define compiletime_assert(condition, msg) \
-+	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
++int btintel_pcie_yoyo_init(struct btintel_pcie_yoyo_ctx *ctx)
++{
++	if (!ctx)
++		return -EINVAL;
 +
-+#define compiletime_assert_atomic_type(t)				\
-+	compiletime_assert(__native_word(t),				\
-+		"Need native word sized stores/loads for atomicity.")
++	memset(ctx, 0, sizeof(*ctx));
++	INIT_LIST_HEAD(&ctx->region_list);
++	INIT_LIST_HEAD(&ctx->trigger_list);
++	INIT_LIST_HEAD(&ctx->hcmd_list);
++	INIT_LIST_HEAD(&ctx->config_set_list);
 +
-+/* Helpers for emitting diagnostics in pragmas. */
-+#ifndef __diag
-+#define __diag(string)
-+#endif
++	/* set it to true after successful TLV parsing */
++	ctx->enabled = false;
 +
-+#ifndef __diag_GCC
-+#define __diag_GCC(version, severity, string)
-+#endif
++	return 0;
++}
++EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_init);
 +
-+#ifndef __diag_clang
-+#define __diag_clang(version, severity, string)
-+#endif
++/**
++ * btintel_yoyo_cleanup - Clean up the YoYo context
++ * @ctx:  YoYo context to clean up
++ */
++void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
++{
++	if (!ctx)
++		return;
 +
-+#define __diag_push()	__diag(push)
-+#define __diag_pop()	__diag(pop)
++	ctx->enabled = false;
++}
++EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
 +
-+#define __diag_ignore(compiler, version, option, comment) \
-+	__diag_ ## compiler(version, ignore, option)
-+#define __diag_warn(compiler, version, option, comment) \
-+	__diag_ ## compiler(version, warn, option)
-+#define __diag_error(compiler, version, option, comment) \
-+	__diag_ ## compiler(version, error, option)
++/**
++ * btintel_yoyo_load_and_parse - Load ibt_debug_yoyo.bin and parse TLVs
++ * @ctx:  Initialized YoYo context
++ * @dev:  Device for firmware loading (typically &pdev->dev)
++ *
++ * Uses request_firmware_direct, since the YoYo binary
++ * is optional. On success, sets ctx->enabled.
++ */
++int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
++				     struct device *dev)
++{
++	const struct firmware *fw;
++	int ret;
 +
-+#ifndef __diag_ignore_all
-+#define __diag_ignore_all(option, comment)
-+#endif
- 
- #endif /* __LINUX_COMPILER_TYPES_H */
++	if (!ctx)
++		return -EINVAL;
++
++	ret = request_firmware_direct(&fw, BTINTEL_PCIE_YOYO_FW_NAME, dev);
++	if (ret) {
++		BT_WARN("YoYo: failed to load %s (%d)",
++			BTINTEL_PCIE_YOYO_FW_NAME, ret);
++		return ret;
++	}
++
++	/* Sanity check firmware size */
++	if (fw->size < sizeof(struct btintel_pcie_tlv_hdr)) {
++		release_firmware(fw);
++		return -EBADMSG;
++	}
++
++	BT_DBG("YoYo: loaded %s (%zu bytes)", BTINTEL_PCIE_YOYO_FW_NAME,
++	       fw->size);
++
++	ret = btintel_pcie_yoyo_parse_tlv_buffer(ctx, fw->data, fw->size);
++	release_firmware(fw);
++
++	/* File Corruption / TLV validation failed */
++	if (ret) {
++		BT_ERR("YoYo: tlv parsing failed (%d)", ret);
++		return ret;
++	}
++
++	ctx->enabled = true;
++
++	BT_INFO("YoYo: feature enabled and configured");
++	return 0;
++}
++EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_load_and_parse);
++
++MODULE_DESCRIPTION("Intel Bluetooth yoyo debug framework");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
+new file mode 100644
+index 000000000000..b0b94c2a169d
+--- /dev/null
++++ b/drivers/bluetooth/btintel_pcie_debug.h
+@@ -0,0 +1,77 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Intel Bluetooth YoYo Debug Framework
++ *
++ * Copyright (C) 2026 Intel Corporation
++ *
++ */
++
++#ifndef __BTINTEL_PCIE_DEBUG_H__
++#define __BTINTEL_PCIE_DEBUG_H__
++
++#include <linux/list.h>
++#include <linux/types.h>
++#include <linux/device.h>
++#include <linux/firmware.h>
++
++/* External YoYo binary file */
++#define BTINTEL_PCIE_YOYO_FW_NAME	"intel/ibt_debug_yoyo.bin"
++
++/* TLV type codes */
++#define BTINTEL_PCIE_TLV_TYPE_DBG_INFO		0x1000005
++#define BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC		0x1000006
++#define BTINTEL_PCIE_TLV_TYPE_DBG_HCMD		0x1000007
++#define BTINTEL_PCIE_TLV_TYPE_DBG_REGION		0x1000008
++#define BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER		0x1000009
++#define BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET		0x100000A
++#define BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE	0x100000B
++
++/* TLV header */
++struct btintel_pcie_tlv_hdr {
++	__le32 type;
++	__le32 length;
++} __packed;
++
++/* Debug header common to all debug TLVs */
++struct btintel_pcie_dbg_hdr {
++	__le32 tlv_data_version;
++	__le32 domain;
++} __packed;
++
++/* Address/value pair */
++struct btintel_pcie_addr_value {
++	__le32 address;
++	__le32 value;
++} __packed;
++
++/*
++ * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
++ * @enabled: Whether the loaded YoYo configuration passed validation
++ * @region_list: Parsed debug-region entries
++ * @trigger_list: Parsed debug-trigger entries
++ * @hcmd_list: Parsed HCI command entries
++ * @config_set_list: Parsed configuration-set entries
++ * @hdev: Associated HCI device; NULL until successful HCI registration
++ *
++ * Stores the validation state and parsed TLV data for the optional YoYo
++ * firmware configuration.
++ */
++struct btintel_pcie_yoyo_ctx {
++	bool			 enabled;
++
++	struct list_head	 region_list;
++	struct list_head	 trigger_list;
++	struct list_head	 hcmd_list;
++	struct list_head	 config_set_list;
++
++	struct hci_dev		 *hdev;
++};
++
++int  btintel_pcie_yoyo_init(struct btintel_pcie_yoyo_ctx *ctx);
++void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx);
++
++/* Load and parse the external .bin file */
++int  btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
++				      struct device *dev);
++
++#endif /* __BTINTEL_PCIE_DEBUG_H__ */
 -- 
-2.56.0.385.gd3acb90ef8-goog
+2.53.0
 
