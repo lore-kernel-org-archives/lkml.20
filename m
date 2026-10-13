@@ -1,72 +1,71 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82414B486B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40424B4873
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791873224; cv=none; b=WveYAgYBuI380Qnch9IshY2h3WNoOg+rlNT5yLj7yooZBvHufrfgbTxN911uHzxs5mf5spR35ymeYfNyuqEFfEfOJ8b72BmAyjtp8z7ERQTMmWYGcVYvhpx5mZCwBUGUWSoCIRMFk9deOnqOwI7WkMwssb650wq3AktP5v6n8Ag=
+	t=1791873226; cv=none; b=d2a7uyWJERPHZqanJv68MArQVWIaGMwV9rCt+GOmXAotJao0wWKqDqBXF1+01/18drnvWVgLLPXbynIymDWcpVOUTVdPGCkrIbWB0p8OyPnGeNhZlPNzPPqGd//6eZe6N79VlDDVc2Pd6x44eZsPFM6/hf0+ZEhKltRsIRJnE30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791873224; c=relaxed/simple;
-	bh=VIsUhK5OkSROG5eFSvmZnb/wTuPuytrUiH5wxuWr8Wc=;
+	s=arc-20240116; t=1791873226; c=relaxed/simple;
+	bh=BnICTOirhKw3nfpXzrb69X/m6lphJO6tTNr5tzRTrRI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Wu1lZLeajLBjrJBlLuGvAnjC8SZU6T/Q/xBhzwkLhy7CueCac2ifvy52zdLlzrZur5hwQ662OB7bGXCDeGQxiIjYTq+tkTDlTn1Lt5XpULR6f5b/wutyhWTfdgzzvm/o9OUrydAPJtUYWgoFh2P5wW1ChJdRDklObDGWYMv0QzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cnb+gF9C; arc=none smtp.client-ip=209.85.216.46
+	 MIME-Version; b=CPKRg3W/MDGOvgp/tkO5d5ojA4pMHDR36tAjxZ7iIKQ3OYaK6XSEkrSklj7G5jM5RNoLA59nKPDSUQawV6EorlkmnUkq7UtzWgWiHBOOl/X3RQKy0GD4Ym9FTW13cZbuz84tH4uXMDK28hhYs27THXQ3JZ9H3bOsFKGTw2T+ejs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aUcqn13m; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cnb+gF9C"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac397836fbso399746a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:33:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aUcqn13m"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so2771136a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:33:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791873222; x=1792478022; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791873224; x=1792478024; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vhwyrLo3nugAHu+/mjnfuhNK77ERkWaoh4yz+8v/dy0=;
-        b=cnb+gF9C3J5ci3INifrrE/ox0PgN36bdtZneTaWpKw8K7BzSNUgBRzn8nX1sb7PS50
-         w21VaoOb4+RawTrdnGKjhpts81YqqWd2hp3Ek6NgxMo24Hb9YD5L9Ohd7tuzhQA1Gzoh
-         DunNNcOqSdXp2RF6ZG9VSiPuyBHB1C5gmg+4IIxRMZQ6lBSI8A1OIH3VRrft+yPOWGJ8
-         sEsrJEDrInsjKrcbNsQl7AtV3lL4LAWlMw4uJG0GT/n29VWDXecb6E4fcWOM4qJfaMtl
-         ai076CscOpF4j2b6hUe7un+vTK9OkF7SJZ4Zl26/umI/ZtxwlEdOdCrLJbXSg+At16So
-         BoPQ==
+        bh=WApmH6KSOyvplNUAO8ZIsi5ChpYHEUPqlrpAEqDzH6o=;
+        b=aUcqn13m/R2IhONoekrkO5vz3VEgRYOMN8QK023K6NqDuKExVEype5BlkG8TagwnDv
+         jo05j4ZDWAgEv3pvmDuOvnpAWfD4FhNBabk6wxEU94u3dCuBYfYWmDujKYoYFTq9LmEe
+         5QgbIchOeoSP/GdrrMhvj5VsOIa+uCfWBAo18OcPkJuHi9Qjf2VLpL801C6l3qGMRw4/
+         s+dc1DxfbwFZbo2+Gl6+Jbi8R+6rbigkkbCOHg5m4YsNMpHWSxN+XTM76SeMP8AOiFLA
+         P1hD2Rqi7FwUHqXsRgQ2F+cZriGTs8QqoZmRnjKTPX+qmDEe3fyTY7hG4aUZbWWAl8u+
+         PkhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791873222; x=1792478022;
+        d=1e100.net; s=20260707; t=1791873224; x=1792478024;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vhwyrLo3nugAHu+/mjnfuhNK77ERkWaoh4yz+8v/dy0=;
-        b=l5BlFlwpq2GCL2l5c03cjQMzkbh3VY6Yx2Zb7x92eQjpso/9RtftEOyzAvlQ8god2H
-         vPsRvPxQ8l6NAzj8DJo0Ief7tmWdBxdJQMcvPcWay4R7v3b8bjY5K+jHpye5vuZgQYku
-         qEY7bkyJY0Xr5D64kO2kSCSJvBVbl0sUGQkycKTPxa0WiVR5Sg6HE2R/GmmfdRJK7m5N
-         WNqjEPFx4drPOkwkv1OoBgXjv2Sm+IA7EYyavJwOrWXNYRYN/8qUhMYnncbMMN20URfq
-         TwR7Mqfs4uymdPfrnSpZBX/sP6xVyHOU/chWSMP26mD5NPyGvkolIheBQGsY7l1hv7qU
-         Kvdg==
-X-Gm-Message-State: AFq9FYIJYK+aAimtbsTMA5FR1KjGxS8CYPGyVD/v6HoPlX5ZHgjrdwpp
-	Er5Yd8PWtDH6oSZsYp6G44WgNEzPvDCA5iR7OEhe9v2bSwA4OM+8A9RCaO6ZOA==
-X-Gm-Gg: AYBFou0EI2Pa4KcpfaTb2TSca8at0SarETbyQ6woF7QwOiRFDNt5b2uMZVsblPebox1
-	FZhXtv05oZM2X4UB5iK0jUktLN2k+6SVzjVEYhdUDkzzt8OebqBQc6pJO5vyYaLA8pvpO/xL9ga
-	Cv1hc20u+k2VwX/QFTg3bcFikJQJmGxsrDhld53TbOKjdv83390Qq4p8owZBsKfAyQZ+aMNuIm6
-	nn5TMTpr7gJ5slTuFNCcRk/e65DuyiHpLUNW+2umOqZR6JLsKCxCUQfuDt0mM1MRKi1IHdUED5c
-	kRJbOR3aGiyjCDCkU/wLhD0sIiDv1+qOyXplOk3Zmb5zqrWQwN5f9Hvrevv+/uC5feU0I506RQu
-	++6pNb8zBW5zUlnQvl+Ez195s5WGKD7qqILlzbq++A/Ckdp7mwLyVrKKrrfFO2yOvzAjx+5prbR
-	L0MAmDYPPNrB2L8IRoacssVCZB9XpPNXq7XWCKBP689tvEoSP8yTGEAayMy1FLgYZ7bgb8eB2O8
-	xQ/rlzztqIR1iJeOuCfKl9FbfK1EiWkaagJB6ic
-X-Received: by 2002:a17:90b:2e8c:b0:3ab:1e1c:837b with SMTP id 98e67ed59e1d1-3ab3a9183b3mr10030590a91.63.1791873221997;
-        Mon, 12 Oct 2026 23:33:41 -0700 (PDT)
+        bh=WApmH6KSOyvplNUAO8ZIsi5ChpYHEUPqlrpAEqDzH6o=;
+        b=rQnEZ5UhjbZR81o13f/TpF+3DMRRmMnf+EE7u8Lfm3GERtQ4UhvYCYLG14RTCnjGp1
+         Np5bj4Gryzv8qH9FovatEXiqdZu9gtDZJ14EQ5g40P7tMLcqspkEF1VxM19Kz1SfVx1b
+         MPnZVfUTFCoPAzvkLtW/hUEZD+1d6PDGh4aGZLdKmPIZssGSm1dWeSbVHpQhUJGiLGYd
+         eUAyVADu7FMmwhamlStiyCpAn819vNRJzTBCsxZV2vle1UeaTLQvLFXLrZHdDTR+Cz0Y
+         0TeotXzbJOajz1FKiGZeTwTS/iP+/ZxmFCzdVAQZIS5i1/bHrY5P4vJoLbDNDLMEimeY
+         gOYg==
+X-Gm-Message-State: AFq9FYLAff3QAVc+znQfRTUwCzjczujZYjcDqoGpU2XGRwceNHwxGMp9
+	MGdR7yeYbBeaRHNd+pDJI9iSdV9n3/AJWYmf/xulkbBKCryfB/g3T2FN
+X-Gm-Gg: AYBFou1IZRjiFnNY27pwOrmkfx6Z/y6stzg96i5sS3rIvIAnHn9MWD3Ki7KgqDfq7Z0
+	CS/k3kM6PZwTEGxhz/DwvCNkkECV5gsVXai/H7uwC78lW6XDP1dDBk1gPmR/gP2oBQNUwyfh2Ez
+	yVCbI05xgsl81OKxRxKUVFJMdJenCinAUU5mNmxdwy4+vnFeYnEN6WXEZBeOVIajpYTm+FpldUv
+	C0QD1I5M/nqVdeww2AaaMzTJ7z+6Y7xMoIMHOKJGmHZ7oDqEjK+9+m2ZWNGYFSDPx7z5M/+nFq1
+	PzwaQPvJqMn18r9RxM9SpPDW/sl8iDr9naxepwmCKccSNeC4CQAf9IrVmGqzwa5rWV7dJcSmkJw
+	d8fa9+jSxPZvvWABUFDRHCgCQAbF/kyQBk0H3T/sUb6eg8FCJDPBSBClRvoSuq9t/mkBP6oH8Ym
+	EVsoumfhMVpnCHeXFk/wzl1AGyRiqxBMu3bLjqAd8+8CVBwgPjBBI4daOu6jpaRF77bTFCTS7L5
+	tuCk1r+K+DEMi3qUrp64+rfGj5yyg7AzGAkUK4V
+X-Received: by 2002:a17:90b:1d50:b0:3ab:4e4:e97a with SMTP id 98e67ed59e1d1-3ab3ab227d9mr6479494a91.26.1791873223941;
+        Mon, 12 Oct 2026 23:33:43 -0700 (PDT)
 Received: from hcdev-d520mt2.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f4863esm23169595a91.11.2026.10.12.23.33.40
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f4863esm23169595a91.11.2026.10.12.23.33.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 23:33:41 -0700 (PDT)
+        Mon, 12 Oct 2026 23:33:43 -0700 (PDT)
 From: a0282524688@gmail.com
 To: lee@kernel.org,
-	Ming Yu <tmyu0@nuvoton.com>
+	Ming Yu <a0282524688@gmail.com>
 Cc: linux-kernel@vger.kernel.org,
-	Ming Yu <a0282524688@gmail.com>,
 	mfd@lists.linux.dev
-Subject: [PATCH v9 01/12] mfd: nct6694: Validate the USB endpoints
-Date: Tue, 13 Oct 2026 14:32:47 +0800
-Message-Id: <20261013063259.2734757-2-a0282524688@gmail.com>
+Subject: [PATCH v9 02/12] mfd: nct6694: Check the length of received USB packets
+Date: Tue, 13 Oct 2026 14:32:48 +0800
+Message-Id: <20261013063259.2734757-3-a0282524688@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261013063259.2734757-1-a0282524688@gmail.com>
 References: <20261013063259.2734757-1-a0282524688@gmail.com>
@@ -80,20 +79,12 @@ Content-Transfer-Encoding: 8bit
 
 From: Ming Yu <a0282524688@gmail.com>
 
-The probe reads endpoint[0] of the current altsetting without checking
-that the interface describes any endpoint, and the bulk endpoints used
-for the command transfers are never validated. A malformed device can
-make the driver read past the endpoint array or submit URBs to
-endpoints of the wrong type.
+The response status and the interrupt status are parsed without
+checking how many bytes were actually received. A short or zero-length
+packet leaves stale data in the buffer, which is then taken as a valid
+status and may repeatedly dispatch the same interrupts.
 
-The interface exposes several interrupt and bulk endpoints, of which
-only EP1 IN, EP2 IN and EP3 OUT carry the command interface, so the
-endpoints cannot be looked up by type. Check that the expected
-endpoints are present with usb_check_{bulk,int}_endpoints(), and take
-the polling interval from the interrupt endpoint actually used.
-
-Define the interrupt endpoint by its number, like the bulk endpoints,
-as the pipe macros expect an endpoint number rather than an address.
+Reject short response packets and ignore short interrupt packets.
 
 Fixes: 51dad33ede63 ("mfd: Add core driver for Nuvoton NCT6694")
 Signed-off-by: Ming Yu <a0282524688@gmail.com>
@@ -102,86 +93,52 @@ Changes in v9:
 - None.
 
 Changes in v8:
-- Also validate the bulk endpoints. Keep the fixed endpoint numbers and
-  check them with usb_check_{bulk,int}_endpoints() instead of looking
-  up the first endpoint of each type, as the interface exposes several
-  interrupt and bulk endpoints.
-- Take the polling interval from the interrupt endpoint actually used,
-  and define it by its number like the bulk endpoints.
+- New patch. Check the length of the response and interrupt packets
+  before parsing them.
 
-Changes in v7:
-- New patch.
-
- drivers/mfd/nct6694.c       | 29 +++++++++++++++++------------
- include/linux/mfd/nct6694.h |  2 +-
- 2 files changed, 18 insertions(+), 13 deletions(-)
+ drivers/mfd/nct6694.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/drivers/mfd/nct6694.c b/drivers/mfd/nct6694.c
-index 308b2fda3055..b9526b22754c 100644
+index b9526b22754c..de0027c98726 100644
 --- a/drivers/mfd/nct6694.c
 +++ b/drivers/mfd/nct6694.c
-@@ -273,13 +273,25 @@ static const struct irq_domain_ops nct6694_irq_domain_ops = {
- static int nct6694_usb_probe(struct usb_interface *iface,
- 			     const struct usb_device_id *id)
- {
-+	static const u8 bulk_ep_addr[] = {
-+		USB_DIR_IN | NCT6694_BULK_IN_EP,
-+		USB_DIR_OUT | NCT6694_BULK_OUT_EP,
-+		0
-+	};
-+	static const u8 int_ep_addr[] = {
-+		USB_DIR_IN | NCT6694_INT_IN_EP,
-+		0
-+	};
- 	struct usb_device *udev = interface_to_usbdev(iface);
--	struct usb_endpoint_descriptor *int_endpoint;
--	struct usb_host_interface *interface;
- 	struct device *dev = &iface->dev;
- 	struct nct6694 *nct6694;
-+	unsigned int int_pipe;
- 	int ret;
+@@ -117,6 +117,12 @@ int nct6694_read_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *c
+ 	if (ret)
+ 		return ret;
  
-+	if (!usb_check_bulk_endpoints(iface, bulk_ep_addr) ||
-+	    !usb_check_int_endpoints(iface, int_ep_addr))
-+		return -ENODEV;
++	if (rx_len != sizeof(msg->response_header)) {
++		dev_err(nct6694->dev, "Expected response length %zu, but got %d\n",
++			sizeof(msg->response_header), rx_len);
++		return -EIO;
++	}
 +
- 	nct6694 = devm_kzalloc(dev, sizeof(*nct6694), GFP_KERNEL);
- 	if (!nct6694)
- 		return -ENOMEM;
-@@ -318,17 +330,10 @@ static int nct6694_usb_probe(struct usb_interface *iface,
+ 	/* Receive data packet from USB device */
+ 	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), buf,
+ 			   le16_to_cpu(cmd_hd->len), &rx_len, NCT6694_URB_TIMEOUT);
+@@ -173,6 +179,12 @@ int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *
  	if (ret)
- 		goto err_ida;
+ 		return ret;
  
--	interface = iface->cur_altsetting;
--
--	int_endpoint = &interface->endpoint[0].desc;
--	if (!usb_endpoint_is_int_in(int_endpoint)) {
--		ret = -ENODEV;
--		goto err_ida;
--	}
--
--	usb_fill_int_urb(nct6694->int_in_urb, udev, usb_rcvintpipe(udev, NCT6694_INT_IN_EP),
-+	int_pipe = usb_rcvintpipe(udev, NCT6694_INT_IN_EP);
-+	usb_fill_int_urb(nct6694->int_in_urb, udev, int_pipe,
- 			 nct6694->int_buffer, sizeof(*nct6694->int_buffer), usb_int_callback,
--			 nct6694, int_endpoint->bInterval);
-+			 nct6694, usb_pipe_endpoint(udev, int_pipe)->desc.bInterval);
++	if (rx_len != sizeof(msg->response_header)) {
++		dev_err(nct6694->dev, "Expected response length %zu, but got %d\n",
++			sizeof(msg->response_header), rx_len);
++		return -EIO;
++	}
++
+ 	/* Receive data packet from USB device */
+ 	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), buf,
+ 			   le16_to_cpu(cmd_hd->len), &rx_len, NCT6694_URB_TIMEOUT);
+@@ -207,6 +219,9 @@ static void usb_int_callback(struct urb *urb)
+ 		goto resubmit;
+ 	}
  
- 	ret = usb_submit_urb(nct6694->int_in_urb, GFP_KERNEL);
- 	if (ret)
-diff --git a/include/linux/mfd/nct6694.h b/include/linux/mfd/nct6694.h
-index 6eb9be2cd4a0..a5ad7be47bf9 100644
---- a/include/linux/mfd/nct6694.h
-+++ b/include/linux/mfd/nct6694.h
-@@ -10,7 +10,7 @@
++	if (urb->actual_length < sizeof(*status_le))
++		goto resubmit;
++
+ 	int_status = le32_to_cpu(*status_le);
  
- #define NCT6694_VENDOR_ID	0x0416
- #define NCT6694_PRODUCT_ID	0x200B
--#define NCT6694_INT_IN_EP	0x81
-+#define NCT6694_INT_IN_EP	0x01
- #define NCT6694_BULK_IN_EP	0x02
- #define NCT6694_BULK_OUT_EP	0x03
- 
+ 	while (int_status) {
 -- 
 2.34.1
 
