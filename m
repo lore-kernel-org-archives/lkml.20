@@ -1,77 +1,367 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70204FECC6;
-	Tue, 13 Oct 2026 13:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C523B51617E;
+	Tue, 13 Oct 2026 13:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899084; cv=none; b=pLjumUDBYsLZMhHQmkKn+fxMEcy4HbDfH1wNUotuaZO3P0e4wUCPYs7un0cOltLhMNmNd74F8Cbeg3yCnPD1Ar15a3YY2UF+Iol5ER/4HVA5vRe45y6fmQOR+gBkFGXMYaYQEBfyM+8vq9LlZ/iXN/4VQlY0BthodDL6Jy1ca8o=
+	t=1791899108; cv=none; b=TF5eTUjxOkTH1ndbcqiEZojAYHKioxBRaUcKVy4FDtuGUD3sJUgfqVEHop7OCHfy7W7jjiCl7XWOlSQ50qKF1aFW575iDqRJtwtCCOBTzO0f6JPQyw7SWJHexHFBkPN2oV3hZulDRTi0hgfSfF/5LOKr4Tnn9oLNSuMcHiyMTtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899084; c=relaxed/simple;
-	bh=piAiww51YRB6HNo2b8t6J4hR12jxUaVQeDexGXvZqnc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=PIQm7rpHp5d3szQDH9RxEtBLH59Tak05oBLJZGV++DB/p4P89k6xnRHq7/G2aMRgE0Yw8v/vnwC1+Ogoly+Y/Ta6FfsMUp8XM+GabNrmXcKrm+G9jQ3RoMSnMDQjRZHWGUY8OHVnTgyYUexD3YTTxLJ8T2FMn3X4Fq8h7DYogoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=hisilicon.com; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hisilicon.com
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j3wHN66pRzKm9J;
-	Tue, 13 Oct 2026 21:32:16 +0800 (CST)
-Received: from kwepemf200017.china.huawei.com (unknown [7.202.181.10])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1345340586;
-	Tue, 13 Oct 2026 21:44:38 +0800 (CST)
-Received: from [10.67.121.58] (10.67.121.58) by kwepemf200017.china.huawei.com
- (7.202.181.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 13 Oct
- 2026 21:44:37 +0800
-Message-ID: <96db6147-f9f2-4f27-b43c-e3c3f9e9f94f@hisilicon.com>
-Date: Tue, 13 Oct 2026 21:44:36 +0800
+	s=arc-20240116; t=1791899108; c=relaxed/simple;
+	bh=2K9esb2rxxIjaO8PGqyYEZ2UlYuHirbY9KcLIPGdtGs=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Fno13TjHmAt2qGVRzskdPlOFj4QSlxvl1yCp8nVRG7ba8kpzMvJhIAjjZCtVBhQHrhwprGwEOIbET2BlvI4NwoTIZaiHInvbiWrbR/aZ8KpMZgIBcAXCLS7bYmO5srwgEW3rk09/3lqLYGFm9nqf8JF3SS2Yk39mrd4GfE3qlj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=NNttS5tC; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="NNttS5tC"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B459FA154E;
+	Tue, 13 Oct 2026 15:44:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791899102; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=sWP5ScqijjiEIoYGO8EKPnLgF0QAEOdTW4fqk62uGLw=;
+	b=NNttS5tCQicUvNK/mvWIvrvXIDVdAVtkxEBy+DpChtGemfOWOw3fc0r/YNOtqUijJRSS1U
+	m1o2H8jWSdkwunQNHv3SwJT/4hDlLrDsRla9hQI0VADf75UInKIvwmqJid/qG4CmGuW13F
+	XvIjR1+7ompviHNY2X0pZqByaUrJ1NIYjvMaGyw8Ir4UcqPDfOSDJ+/ejzvnhOesSdwES2
+	9VttJYiobP4b9GPdpot9JA+d+PYYPFafjCkJXL+PQkl9f3ezCjgMkCSvs4GaM33fVxvXIE
+	izBznE8vUIUcZbW4H7ehGK9U1W5Q6JlOCfE7diXjXWp3oqIS94y5PKx4YBPJfA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] i2c: hisi: Add I2C bus recovery support
-To: Bowen Yu <yubowen8@huawei.com>, <linuxarm@huawei.com>,
-	<liudingyuan@h-partners.com>, <andi.shyti@kernel.org>,
-	<linux-i2c@vger.kernel.org>, <acpi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <rafael@kernel.org>, <lenb@kernel.org>
-CC: <prime.zeng@hisilicon.com>, <wanghuiqiang@huawei.com>,
-	<xuwei5@huawei.com>, <ouyiyong1@huawei.com>
-References: <20260929121348.109556-1-yubowen8@huawei.com>
- <20260929121348.109556-3-yubowen8@huawei.com>
-Content-Language: en-US
-From: Jie Zhan <zhanjie9@hisilicon.com>
-In-Reply-To: <20260929121348.109556-3-yubowen8@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemf200017.china.huawei.com (7.202.181.10)
+Date: Tue, 13 Oct 2026 15:44:59 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dave.stevenson@raspberrypi.com, justin.chen@broadcom.com,
+ pierremarinleclercq88@gmail.com, f.fainelli@gmail.com
+Subject: Re: [PATCH net-next v4 7/8] net: bcmgenet: allow the MTU to be
+ changed
+In-Reply-To: <179188315964.434549.2607094947649815116@kernel.org>
+References: <20261012-nb-genet-mtu-nn-v2-v4-7-2e2e3bfaf8cc@tipi-net.de>
+ <179188315964.434549.2607094947649815116@kernel.org>
+Message-ID: <92aa4715d68679c8c33d4c40bdd75ae5@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-
-
-On 9/29/2026 8:13 PM, Bowen Yu wrote:
-> When the I2C bus is stuck due to a slave device holding SDA low
-> (e.g. during an incomplete transfer), the master has no way to recover
-> the bus through normal operation. Add bus recovery support using the
-> subctrl register to manually toggle SCL and generate clock pulses to
-> release the bus.
+On 13.10.2026 11:19, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
 > 
-> The recovery is performed via a second register resource (sctrl_base)
-> that provides direct control over SCL/SDA lines through mux and
-> output-enable bits. After recovery, the I2C controller is reset through
-> the ACPI _RST method and reconfigured.
+> Critical: 0 · High: 0 (1) · Medium: 2 · Low: 1
 > 
-> Recovery is only registered when the subctrl resource is provided in
-> the firmware description, keeping backward compatibility with existing
-> platforms.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let 
+> patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your 
+> reply
+> (one such reply per series is enough).
 > 
-> Signed-off-by: Bowen Yu <yubowen8@huawei.com>
-> ---
->  drivers/i2c/busses/i2c-hisi.c | 142 ++++++++++++++++++++++++++++++++++
->  1 file changed, 142 insertions(+)
-This version looks good to me now.  Thanks!
+> - [Medium] An RX filter update can be lost during the MTU change.
+> - [Medium] The live MTU change leaves the PHY state machine running
+>   (bcmgenet_netif_stop(dev, false)), but nothing stops the PHY link…
+> - [Low] The patch fixes two existing bugs, but neither the commit 
+> message
+>   nor a Fixes: tag mentions them.
+> 
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but the patch 
+> adds
+>   priv->datapath_up and leaves this path unguarded.
+> 
+> --
+> 
+> net: bcmgenet: allow the MTU to be changed
+> 
+> This commit sets dev->max_mtu for GENET v2 and later, derived from the
+> packet ready threshold and the one page descriptor limit. It adds an
+> ndo_change_mtu that rebuilds the DMA rings and MTU registers in place 
+> while
+> the PHY keeps running, and retries the old MTU if allocation fails. A 
+> new
+> priv->datapath_up flag tracks whether the datapath has already been 
+> torn
+> down.
+> 
+> Link: https://github.com/raspberrypi/linux/issues/5561
+> 
+>> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
+>> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> index e00661b2414b9..f158d6bc314b9 100644
+>> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> 
+> [ ... ]
+> 
+>> @@ -3179,8 +3185,12 @@ static int bcmgenet_init_rx_queues(struct 
+>> net_device *dev)
+>>  	/* Initialize Rx priority queues */
+>>  	for (i = 0; i <= priv->hw_params->rx_queues; i++) {
+>>  		ret = bcmgenet_init_rx_ring(priv, i, end - start, start, end);
+>> -		if (ret)
+>> +		if (ret) {
+>> +			/* Only the rings before this one hold a NAPI */
+>> +			while (i--)
+>> +				netif_napi_del(&priv->rx_rings[i].napi);
+>>  			return ret;
+>> +		}
+> 
+> [Severity: Low]
+> This isn't a bug, but this unwind and the new priv->datapath_up 
+> handling in
+> bcmgenet_close(), bcmgenet_suspend() and bcmgenet_resume() look like 
+> they
+> also fix two existing problems. The commit message doesn't mention 
+> either
+> of them.
+> 
+> Before this patch, if bcmgenet_init_rx_ring() failed for ring i, the 
+> NAPIs
+> of rings 0..i-1 stayed listed after a failed bcmgenet_open() or
+> bcmgenet_resume(). The next netif_napi_add() would then hit the
+> already-listed warning.
+> 
+> Also, bcmgenet_close() used to call bcmgenet_netif_stop() 
+> unconditionally.
+> A close after a failed resume would call napi_disable() on NAPIs that 
+> were
+> already disabled during suspend, and then kfree() rx_cbs/tx_cbs a 
+> second
+> time. That path has nothing to do with the MTU, but the new comment in
+> bcmgenet_close() only says:
+> 
+>     /* A failed MTU change can have torn the datapath down already */
+> 
+> Could these fixes be split into separate patches with Fixes: tags so 
+> they
+> can go to net and stable? The rx unwind is needed for the MTU retry, 
+> which
+> calls bcmgenet_init_dma() twice in a row, so it could come first in the
+> series.
 
-Reviewed-by: Jie Zhan <zhanjie9@hisilicon.com> 
+The Rx NAPI unwind stays here. The retry path calls bcmgenet_init_dma()
+twice in a row, so this patch would be broken without it. A Fixes: tag
+would also pull the whole MTU feature into stable.
+
+> 
+> [ ... ]
+> 
+>> @@ -3622,7 +3633,11 @@ static int bcmgenet_close(struct net_device 
+>> *dev)
+>> 
+>>  	netif_dbg(priv, ifdown, dev, "bcmgenet_close\n");
+>> 
+>> -	bcmgenet_netif_stop(dev, false);
+>> +	/* A failed MTU change can have torn the datapath down already */
+>> +	if (priv->datapath_up) {
+>> +		bcmgenet_netif_stop(dev, false);
+>> +		priv->datapath_up = false;
+>> +	}
+> 
+> [ ... ]
+> 
+>> +static int bcmgenet_change_mtu(struct net_device *dev, int new_mtu)
+>> +{
+> 
+> [ ... ]
+> 
+>> +	/* The watchdog trips on an idle queue once the rings are gone */
+>> +	netif_device_detach(dev);
+>> +
+>> +	/* Only the buffers and the MTU registers change, leave the PHY up 
+>> */
+>> +	bcmgenet_netif_stop(dev, false);
+>> +	priv->datapath_up = false;
+>> +
+>> +	WRITE_ONCE(dev->mtu, new_mtu);
+>> +	priv->rx_buf_len = bcmgenet_rx_buf_len(new_mtu);
+>> +	bcmgenet_set_mtu_regs(priv, new_mtu);
+> 
+> [Severity: Medium]
+> Can the first link-up enable the MAC again in the middle of this
+> reconfiguration?
+
+Yes, nothing prevents it. In v5 I will hold phydev->lock across the 
+rebuild so
+bcmgenet_mac_config() cannot run inside it.
+
+(Although I couldnt't reproduce it on a CM4 in ~550 MTU changes, 173 of
+them with CMD_SW_RESET still set...)
+
+> 
+> After ifup and before the first link-up, UMAC_CMD still has 
+> CMD_SW_RESET
+> set from init_umac()->reset_umac(). In that state umac_enable_set() 
+> returns
+> without writing anything:
+> 
+> drivers/net/ethernet/broadcom/genet/bcmgenet.c:umac_enable_set() {
+>     ...
+> 	if (reg & CMD_SW_RESET) {
+> 		spin_unlock_bh(&priv->reg_lock);
+> 		return;
+> 	}
+>     ...
+> }
+> 
+> So the MAC disable inside bcmgenet_netif_stop() has no effect.
+> 
+> The PHY state machine keeps running here. A link-up in this window runs
+> bcmgenet_mii_setup()->bcmgenet_mac_config() under phydev->lock, not 
+> RTNL:
+> 
+> drivers/net/ethernet/broadcom/genet/bcmmii.c:bcmgenet_mac_config() {
+>     ...
+> 	if (reg & CMD_SW_RESET) {
+> 		reg &= ~CMD_SW_RESET;
+> 		bcmgenet_umac_writel(priv, reg, UMAC_CMD);
+> 		udelay(2);
+> 		reg |= CMD_TX_EN | CMD_RX_EN;
+> 	}
+>     ...
+> }
+> 
+> The MAC would then be enabled while bcmgenet_set_mtu_regs() rewrites
+> UMAC_MAX_FRAME_LEN and the RBUF/TBUF thresholds. That function's own
+> comment says "Call with the MAC disabled". It would also be enabled 
+> while
+> bcmgenet_init_dma(priv, true) flushes the RBUF and rebuilds the rings.
+> 
+> Open and resume program these registers before phy_start(), so only the
+> new path is exposed. The window includes the 10-20 ms sleep in the DMA
+> teardown, so a network manager that sets the MTU right after ifup could
+> hit it. Does anything prevent this?
+> 
+>> +
+>> +	ret = bcmgenet_init_dma(priv, true);
+> 
+> [ ... ]
+> 
+>> +	bcmgenet_hfb_restore(priv);
+>> +	bcmgenet_netif_start(dev, false);
+>> +
+>> +	/* bcmgenet_netif_start() only restores the link interrupt */
+>> +	if (bcmgenet_has_mdio_intr(priv))
+>> +		bcmgenet_intrl2_0_writel(priv, UMAC_IRQ_MDIO_EVENT,
+>> +					 INTRL2_CPU_MASK_CLEAR);
+>> +
+>> +	/* A link event latched while the interrupts were off is gone. 
+>> Internal
+>> +	 * PHYs on GENET v1-v4 are not polled, so resync the state machine.
+>> +	 */
+>> +	phy_mac_interrupt(dev->phydev);
+>> +
+>> +	priv->datapath_up = true;
+>> +	netif_device_attach(dev);
+> 
+> [Severity: Medium]
+> Can a concurrent RX address list update get lost here?
+> 
+> bcmgenet_netif_start() programs the RX filters through
+> bcmgenet_set_rx_mode() under netif_addr_lock_bh() and then drops the 
+> lock.
+> The device stays detached until the netif_device_attach() above. A 
+> unicast
+> or multicast list change in that window reaches __dev_set_rx_mode(), 
+> which
+> drops it:
+> 
+> net/core/dev_addr_lists.c:__dev_set_rx_mode() {
+>     ...
+> 	if (!netif_device_present(dev))
+> 		return;
+>     ...
+> }
+> 
+> netif_device_attach() doesn't resync the RX mode, and bcmgenet has no
+> ndo_change_rx_flags, so nothing queues the update for later.
+> 
+> RTNL is held here. However, IPV6_ADD_MEMBERSHIP
+> (ipv6_sock_mc_join()->__ipv6_dev_mc_inc()->dev_mc_add()) runs under the
+> socket lock and mc_lock, not RTNL, so it can race with this. The new 
+> group
+> would then sit in dev->mc without reaching the MDF filter until some
+> unrelated RX mode change.
+> 
+> Would it help to call bcmgenet_set_rx_mode() again after
+> netif_device_attach()?
+
+Yes. v5 will do that under netif_addr_lock_bh().
+
+> 
+> [ ... ]
+> 
+>> @@ -4510,6 +4602,7 @@ static int bcmgenet_suspend(struct device *d)
+>>  	} else {
+>>  		/* Teardown the interface */
+>>  		bcmgenet_netif_stop(dev, true);
+>> +		priv->datapath_up = false;
+>>  	}
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but the new 
+> priv->datapath_up
+> flag tracks exactly this state, and bcmgenet_suspend() still never 
+> checks
+> it. Can a second system suspend hang after a failed resume?
+> 
+> The sequence would be:
+> 
+> 1. A non-WoL suspend runs bcmgenet_netif_stop(dev, true). Its
+>    napi_disable() calls leave NAPI_STATE_SCHED|NPSVC set.
+>    bcmgenet_fini_dma() then deletes the NAPIs and frees rx_cbs/tx_cbs
+>    without NULLing them.
+> 
+> 2. bcmgenet_resume() fails in bcmgenet_init_dma() (kzalloc failure, 
+> Tx/Rx
+>    DMA halt timeout, or Rx buffer allocation failure):
+> 
+> 	ret = bcmgenet_init_dma(priv, false);
+> 	if (ret) {
+> 		netdev_err(dev, "failed to initialize DMA\n");
+> 		goto out_clk_disable;
+> 	}
+> 
+>    The device is left detached, netif_running() is still true and
+>    datapath_up is false.
+> 
+> 3. On the next system suspend, bcmgenet_suspend() sees netif_running() 
+> and
+>    reaches bcmgenet_disable_tx_napi(). In this branch that happens 
+> through
+>    bcmgenet_netif_stop(), and the WoL branch calls it directly.
+> 
+> napi_disable_locked() would then loop forever in:
+> 
+> 	while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
+> 		usleep_range(20, 200);
+> 		val = READ_ONCE(n->state);
+> 	}
+> 
+> That happens because the earlier disable left those bits set. Even if
+> suspend got past that point, bcmgenet_fini_dma() would kfree() rx_cbs 
+> and
+> tx_cbs a second time.
+> 
+> bcmgenet_close() is now guarded by priv->datapath_up. Should the 
+> teardown
+> in both branches of bcmgenet_suspend() check it too?
+
+Agreed. But that is pre-existing, so I will do this in a follow up, 
+together
+with the dangling rx_cbs/tx_cbs which make the second teardown a double 
+free.
+
+---
+pw-bot: cr
