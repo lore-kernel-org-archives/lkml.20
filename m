@@ -1,32 +1,33 @@
-Received: from mta0.migadu.com (out-12.mta0.migadu.com [91.218.175.12])
+Received: from mta1.migadu.com (out-110.mta1.migadu.com [95.215.58.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D65652CCC9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A14352E042
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914354; cv=none; b=coGWWM4QgQUqMcAmusJeEPg84lT9IYGk2bgG0MuMXpmViGA+Z2hx4/GZhJHM5Phf09R9df6dAipLKp2cqC4DoF9Y7LprsVnDO2IWSe9Z2bikI4tmQ27MgDUpgfrF65+/7TCGOm9Q4mYmnqyPggN8NBwGwo5ldfaBF4+EPYZmQPs=
+	t=1791914356; cv=none; b=GIFeX3bFXSzwwgfwXCJwZiWo34qQLeddzdyMXHBdWklwOqZtpyAxsSJytSnAHvHp07Nws+wua8FAx1P5k+KQErA/oPd0IB0ktF1KuLPuzoodmu8FRYbBUJ9V0zKWwNysIpFwhc2iHTKFPCBx5vu8dXJRRBF/vM+Y2+b21B7fucQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914354; c=relaxed/simple;
-	bh=X1V1CfzprcJNalDbhBAN3MBfTAGwlskY0D+/vWCYLmg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Bo5fQ8eG1GBLOrAUlYlSCSPyjnOQPQOGfDm7WxIU6wOSQ+NzcaXYACCTqtvTO3mH/yADCtKrFv/0uJoCGm6UeBsvSQfTlDoCB0+ccUPH5X+Gy/e4Yk8KYiImufGXL8s3DhpO89fRH7T4HE4EBrZLxLZeLD21xHK3imCkCzuozzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mjfdeM8m; arc=none smtp.client-ip=91.218.175.12
+	s=arc-20240116; t=1791914356; c=relaxed/simple;
+	bh=lFj4P1C84GknCzyL3LN9APTN5ny8dDAsCuZSO8sswvg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=iOuD+YgsDQRxIs9QcKC5Vq3mLIxxHLGcMuzzz8RXIHLIrmCfqfz3/C/cSVZaXjjTqUeB5PHplKDorryumvAqEPEEU8qDU2ElOCxkX4TK9eDuG3AW/oo+584PazFGVNR6ZJp6OGc5W1Acw25G5/nPqCNQSeoTT+k5ifOeWqg/OqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KaU9Ylp0; arc=none smtp.client-ip=95.215.58.110
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mjfdeM8m"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KaU9Ylp0"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X1V1CfzprcJNalDbhBAN3MBfTAGwlskY0D+/vWCYLmg=;
+DKIM-Signature: a=rsa-sha256; bh=lFj4P1C84GknCzyL3LN9APTN5ny8dDAsCuZSO8sswvg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791914347; v=1; x=1792519147;
- b=mjfdeM8mQIrcsQmttYN0E6+e/wyTDLuv10u9rYFusbHGBCvr8TA6ZC7z5h6c59iW/h0DuxYF
- hIRrTHkcUbYNxr1KStoVDQ9D22xH9qXQzy+5ZmNsQoNyb9De5SS67Wrge01BWbbM82fN5NHNibo
- j5mVUjBnjlAIbA5epjnNsX3o=
+ t=1791914352; v=1; x=1792519152;
+ b=KaU9Ylp0pxQg3dFPVC2t4nu2TilfAxu+Jkj2PgHdWq1D7D/JW30DIUrh3gNORy00XV3FwSiY
+ P0NcmGiJfk9LJ86+RsDoUD3PLv08cN2hC+qGE5uEbU9QpdQcsx+MU/NuE8HomcIrd6dzamVD2Bm
+ EERBcadolSFGey9fiB1H7gwY=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id cb33ef432d5e52a9;
-	Tue, 13 Oct 2026 17:59:06 +0000
-X-Mizu-Trace-ID: cb33ef432d5e52a9
+Received: by mta11.migadu.com with ESMTPS id ec7c469c793e45a9;
+	Tue, 13 Oct 2026 17:59:11 +0000
+X-Mizu-Trace-ID: ec7c469c793e45a9
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
@@ -39,10 +40,12 @@ Cc: Eric Dumazet <edumazet@google.com>,
 	linux-rt-devel@list.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH v6.1-rt 00/15] net: Backport backlog-NAPI threads to resolve PREEMPT_RT softirq warning in SMP flush
-Date: Wed, 14 Oct 2026 01:58:34 +0800
-Message-Id: <cover.1791912669.git.wen.yang@linux.dev>
+Subject: [PATCH 01/15] Revert "net: Avoid the IPI to free the"
+Date: Wed, 14 Oct 2026 01:58:35 +0800
+Message-Id: <3cbe89d9d68c4a6cde983624b6849a05373c6361.1791912669.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1791912669.git.wen.yang@linux.dev>
+References: <cover.1791912669.git.wen.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,240 +56,138 @@ Content-Transfer-Encoding: 8bit
 
 From: Wen Yang <wen.yang@linux.dev>
 
-*** Overview ***
-Backport the backlog-NAPI smpboot-thread mechanism and its prerequisite
-NAPI/RPS/defer_list work from upstream (v6.4 - v6.9) to v6.1-rt-next.
+This reverts commit 8d152d22d9f056f87875f97aec016a65622abbf0.
 
-*** Problem ***
-On PREEMPT_RT, RPS steers packets to a remote CPU's backlog by sending an
-IPI. The IPI handler (rps_trigger_softirq) calls ____napi_schedule(), which
-raises NET_RX_SOFTIRQ. do_softirq_post_smp_call_flush() then sees a softirq
-pending that was not pending before the flush, and NET_RX_SOFTIRQ is not
-masked by SCHED_SOFTIRQ_MASK, so it fires:
+That commit is an RT-only workaround. skb_attempt_defer_free() collects
+skbs allocated on a remote CPU on a per-CPU list and, once the list passes
+half its watermark, pokes that CPU with an IPI to raise NET_RX_SOFTIRQ so
+the list gets drained. On PREEMPT_RT that IPI wakes ksoftirqd from hardirq
+context, which is undesirable, so the commit redirected the deferred skb
+recycling to a workqueue (sd->defer_work) instead.
 
-  WARNING: CPU: 1 PID: 0 at kernel/softirq.c:315 do_softirq_post_smp_call_flush+0x3d/0x50
-  Call Trace:
-   <TASK>
-   flush_smp_call_function_queue+0x50/0x70
-   do_idle+0x178/0x260
-   cpu_startup_entry+0x21/0x30
+It is reverted here for two reasons.
 
-The same path then calls invoke_softirq() -> wakeup_softirqd() with IRQs
-disabled in interrupt context, which the RT maintainers consider a design
-violation ("raising a softirq from an SMP call function").
+First, it is incomplete. It only covers the defer_list path. RPS steering
+still pokes the remote CPU with an IPI from napi_schedule_rps(), and that
+IPI handler (rps_trigger_softirq) still calls ____napi_schedule() ->
+raise_softirq_irqoff(NET_RX_SOFTIRQ). That is the path that trips
+do_softirq_post_smp_call_flush() on PREEMPT_RT, and the workaround does
+nothing about it.
 
-Commit 8d152d22d9f0 ("net: Avoid the IPI to free the") worked around this
-only for the skb defer_list by delegating the purge to a workqueue. That was
-incomplete: it did not touch RPS steering, and workqueue scheduling adds
-latency to deferred skb recycling.
+Second, it is superseded. The following patches backport the upstream
+backlog-NAPI smpboot threads (dad6b9770263 and friends). With those,
+use_backlog_threads() is unconditionally true on PREEMPT_RT, so both the
+cross-CPU backlog enqueue and the defer_list purge wake a per-CPU
+"backlog_napi/%u" thread with wake_up_process() instead of sending an IPI.
+Deferred skbs are then freed from the same NAPI loop that is already going
+to run, without the workqueue round-trip.
 
-*** Solution ***
-Upstream v6.9 dad6b9770263 ("net: Allow to use SMP threads for backlog NAPI")
-adds per-CPU smpboot threads ("backlog_napi/%u"). On PREEMPT_RT
-use_backlog_threads() is unconditionally true, so cross-CPU backlog and
-defer_list work bypasses IPIs and softirqs entirely:
-  1) Cross-CPU backlog enqueue sets NAPI_STATE_SCHED_THREADED and wakes the
-     remote CPU's backlog_napi thread with wake_up_process().
-  2) defer_list cleanup is folded into the same thread (80d2eefcb4c8).
-  3) The old defer_work workaround is reverted (patch 01).
+Reverting first restores the upstream 6.1 code shape so the rest of the
+series applies unmodified.
 
-*** Backport Adjustments ***
-All 15 patches apply cleanly in sequence against 6271c130c6e5. Two patches
-needed hand work. Every deviation from the upstream text is listed below,
-together with the base difference that forced it -- there is no edit made
-just for the sake of editing.
+Signed-off-by: Wen Yang <wen.yang@linux.dev>
+---
+ include/linux/netdevice.h |  4 ----
+ net/core/dev.c            | 37 +++++++++----------------------------
+ net/core/skbuff.c         |  7 +------
+ 3 files changed, 10 insertions(+), 38 deletions(-)
 
-1. Patch 06 (____napi_schedule): upstream 8b43fd3d1d7d writes
-   __raise_softirq_irqoff(); the backport keeps raise_softirq_irqoff().
-   Reason: 6.1-rt's ____napi_schedule() already uses raise_softirq_irqoff(),
-   because stable 533824e6a0fb (upstream 77e45145e303, "net: Handle
-   napi_schedule() calls from non-interrupt") deliberately added the
-   ksoftirqd wakeup there to fix the NOHZ tick-stop "local softirq work is
-   pending" stall. Applying the 2023 upstream text verbatim would silently
-   revert that later fix. The 2023 commit predates it, so this is a
-   forward-port artefact, not a behavioural choice.
-
-2. Patch 13 (backlog-NAPI threads): five hunks were re-anchored. None changes
-   behaviour; each is forced by a 6.1-vs-v6.9 base difference, verified
-   against 6271c130c6e5:
-   a) backlog_napi percpu definition
-        upstream anchor : "unsigned int sysctl_skb_defer_max"
-        6.1 anchor      : "int netdev_max_backlog"
-      Both variables sit in the same block right after the "Receiver
-      routines" comment, so the declaration lands in the identical place.
-      Pure textual anchor.
-
-   b) ____napi_schedule(): WRITE_ONCE(napi->list_owner, ...) dropped
-      napi_struct has no list_owner member on 6.1 (grep over 6271c130c6e5's
-      netdevice.h returns nothing), so keeping the line does not compile.
-      list_owner only backs the napi_by_id()/list-ownership bookkeeping from
-      a later upstream series; it is not consulted anywhere on the backlog
-      path, so omitting it cannot change behaviour.
-
-   c) napi_threaded_poll() split into napi_threaded_poll_loop() + wrapper
-      Not a deviation: the same split, applied to 6.1's function body, which
-      after patches 09-11 is textually the upstream pre-image. Verified: the
-      extracted napi_threaded_poll_loop() is byte-identical between upstream
-      dad6b9770263 and this backport.
-
-   d) smpboot block anchor
-      Upstream anchors the new backlog_threads block on the code following
-      net_page_pool_create(); 6.1 has no net_page_pool_create() (0
-      occurrences in 6271c130c6e5). The block is anchored on the comment
-      preceding net_dev_init() instead. The inserted code is identical.
-
-   e) net_dev_init()
-      Same cause: the "if (net_page_pool_create(i)) goto out;" context lines
-      do not exist on 6.1 and were dropped. Both substantive additions are
-      kept verbatim, and one of them is load-bearing, not cosmetic:
-        INIT_LIST_HEAD(&sd->backlog.poll_list);
-
-      6.1 never initialises backlog.poll_list (no INIT_LIST_HEAD and no
-      netif_napi_add for the backlog NAPI in 6271c130c6e5's dev.c). That was
-      harmless while the backlog NAPI was only ever reached via
-      list_add_tail(), which does not require a pre-initialised node. The
-      threaded path calls __napi_poll() on the backlog NAPI with no
-      list_add() at all, and __napi_poll() tests:
-
-          if (unlikely(!list_empty(&n->poll_list))) {
-                  pr_warn_once("%s: Budget exhausted after napi rescheduled\n",
-                               n->dev ? n->dev->name : "backlog");
-                  return work;          /* leaves *repoll unset */
-          }
-
-      (the "backlog" fallback in that message shows upstream expects this
-      NAPI to reach it). On a zeroed node list_empty() returns false, so the
-      backlog thread would take this branch on every budget exhaustion,
-      print the spurious "backlog: Budget exhausted after napi rescheduled"
-      warning and stop repolling. The INIT_LIST_HEAD is therefore required
-      for correctness on 6.1, exactly as it is upstream.
-
-*** Test ***
-Environment: virtme-ng (vng 1.38) + QEMU/KVM, x86_64, 4 vCPU, 2 GiB.
-  baseline: Linux 6.1.183-rt68-rc1
-  patched : Linux 6.1.183-rt68-rc1-00015-g567a12e641cc
-  config  : CONFIG_PREEMPT_RT=y CONFIG_RPS=y CONFIG_VETH=y CONFIG_SMP=y
-            CONFIG_NR_CPUS=4 CONFIG_IRQ_TIME_ACCOUNTING=y
-
-Topology: veth pair, RPS on veth_rx (rx-0/rps_cpus = 1 << 1) steering all RX
-to CPU 1. The flood is generated from CPU 0 with ping -f; the peer netns
-kernel answers ICMP, so no userspace server is needed.
-
-The key metric is CPU 1's hardirq time, read from /proc/stat field 7 with
-CONFIG_IRQ_TIME_ACCOUNTING=y. It is accounted inside the guest kernel, so it
-is immune to host vCPU scheduling noise -- unlike userspace wall-clock
-measurements, whose run-to-run variance (~3%) exceeds the effect.
-
-Run with: vng --run <bzImage> --cpus 4 --memory 2G \
-              --qemu-opts='-machine accel=kvm' --exec 'bash this-script'
-
-  #!/bin/bash
-  # cross-CPU RPS IPI cost on PREEMPT_RT.
-  # Requires CONFIG_IRQ_TIME_ACCOUNTING=y (hardirq time = /proc/stat field 7).
-  set -uo pipefail
-  CPU=${CPU:-1}; SECS=${SECS:-20}; HZ=$(getconf CLK_TCK)
-
-  ip netns del ns_rx 2>/dev/null; ip link del veth_tx 2>/dev/null
-  ip link add veth_tx type veth peer name veth_rx
-  ip netns add ns_rx; ip link set veth_rx netns ns_rx
-  ip addr add 192.168.100.1/24 dev veth_tx; ip link set veth_tx up
-  ip netns exec ns_rx ip addr add 192.168.100.2/24 dev veth_rx
-  ip netns exec ns_rx ip link set veth_rx up
-
-  sleep 1
-  ip netns exec ns_rx sh -c "echo $((1 << CPU)) > /sys/class/net/veth_rx/queues/rx-0/rps_cpus"
-
-  irq() { awk -v c="cpu$CPU" '$1==c{print $7}' /proc/stat; }   # hardirq ticks
-  rps() { awk -v c=$CPU 'NR==c+1{print $10}' /proc/net/softnet_stat; }
-
-  i0=$(irq); sleep $SECS; i1=$(irq)                            # idle baseline
-  dmesg -C; r0=$(rps); j0=$(irq)
-  timeout $SECS taskset -c 0 ping -f 192.168.100.2 >/dev/null 2>&1
-  j1=$(irq); r1=$(rps)
-
-  idle=$(( (i1 - i0) * 1000 / HZ )); load=$(( (j1 - j0) * 1000 / HZ ))
-  ipis=$(( 16#$r1 - 16#$r0 ))
-  echo "[$(uname -r)]  CPU$CPU, ${SECS}s windows"
-  echo "hardirq time : ${idle} ms idle -> ${load} ms loaded"
-  echo "cross-CPU IPIs: ${ipis}"
-
-  [ "$ipis" -gt 0 ] && echo "ns/IPI       : $(awk -v t=$load -v n=$ipis 'BEGIN{printf "%.1f", t*1e6/n}')"
-  echo "warnings     : $(dmesg | grep -c do_softirq_post_smp_call_flush)"
-
-  ip netns del ns_rx 2>/dev/null; ip link del veth_tx 2>/dev/null
-
-Results (20 s windows, ping -f flood CPU 0 -> CPU 1):
-  Metric                        Unpatched        Patched      Change
-  ------------------------------------------------------------------------
-  CPU1 hardirq time (idle)      10 ms            10 ms        -
-  CPU1 hardirq time (loaded)    910 - 960 ms     40 ms        ~-96%
-  as fraction of CPU1 wall time 4.6 - 4.8%       0.2%         -
-  cross-CPU IPIs                2.13M - 2.37M    0            -100%
-  per-IPI hardirq cost          406 - 428 ns     n/a          -
-  do_softirq_post_smp_call_flush 2               0            eliminated
-
-  Two independent unpatched runs gave 960 ms / 2,365,244 IPIs (406 ns/IPI) and
-  910 ms / 2,125,950 IPIs (428 ns/IPI). The per-IPI cost is stable across runs
-  and the total scales linearly with the IPI count, which closes the
-  attribution. The patched kernel stays at the idle floor (40 ms) because no
-  IPI is sent at all.
-
-The unpatched IPI path therefore burns ~1 second of the RT CPU's time per 20 s
-of cross-CPU RPS load (4.6-4.8% of that CPU) at ~400 ns per IPI. CPU 1's
-softirq time also drops to zero on the patched kernel: the packet-processing
-work moves out of softirq context into the backlog_napi thread, which is
-exactly the intent of the series.
-
-RT wakeup latency was also measured separately (SCHED_FIFO:90 task waking every
-200 us on CPU 1 under the same flood, 8 rounds): p50 ~2.2 us and p99 ~5-8 us on
-both kernels, with no significant difference. On PREEMPT_RT the softirq path is
-already forced into ksoftirqd, which cannot preempt a SCHED_FIFO task, so the
-IPI path does not extend RT wakeup jitter. The gain of this series is CPU time
-and correctness, not wakeup latency.
-
-*** Summary of measured benefit ***
-  - Eliminates the do_softirq_post_smp_call_flush WARN_ON_ONCE (2 -> 0) and
-    removes the invoke_softirq()/wakeup_softirqd() call from IPI context.
-  - Removes 100% of cross-CPU RPS IPIs (2.1-2.4M -> 0) under load.
-  - Recovers ~1 s of CPU time per 20 s of load on the RT CPU, i.e.
-    4.6-4.8% -> 0.2% of that CPU spent in hardirq context, at ~400-430 ns
-    per IPI on the unpatched kernel.
-  - Micro-architectural: patch 02 saves ~14 cycles (~4 ns) per
-    skb_defer_free_flush() lock (upstream measurement); patches 05/06 avoid
-    redundant NET_RX_SOFTIRQ raises inside net_rx_action(); patch 08 relaxes
-    sd->defer_lock to BH-only.
-  - No regression in RT wakeup latency; the loopback/same-CPU path keeps the
-    inlined fast path (use_local_napi).
-
-
-Eric Dumazet (9):
-  net: napi_schedule_rps() cleanup
-  net: add softnet_data.in_net_rx_action
-  net: optimize napi_schedule_rps()
-  net: optimize ____napi_schedule() to avoid extra NET_RX_SOFTIRQ
-  net: add debugging checks in skb_attempt_defer_free()
-  net: do not provide hard irq safety for sd->defer_lock
-  net: move skb_defer_free_flush() up
-  net: make napi_threaded_poll() aware of sd->defer_list
-  net: optimize napi_threaded_poll() vs RPS/RFS
-
-Jesper Dangaard Brouer (1):
-  net: avoid irqsave in skb_defer_free_flush
-
-Sebastian Andrzej Siewior (4):
-  net: Remove conditional threaded-NAPI wakeup based on task state.
-  net: Use backlog-NAPI to clean up the defer_list.
-  net: Allow to use SMP threads for backlog NAPI.
-  net: Rename rps_lock to backlog_lock.
-
-Wen Yang (1):
-  Revert "net: Avoid the IPI to free the"
-
- include/linux/netdevice.h |   9 +-
- net/core/dev.c            | 304 +++++++++++++++++++++++++-------------
- net/core/skbuff.c         |  17 +--
- 3 files changed, 215 insertions(+), 115 deletions(-)
-
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index fbd3b17463da..e97967ca2760 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -3199,11 +3199,7 @@ struct softnet_data {
+ 	int			defer_count;
+ 	int			defer_ipi_scheduled;
+ 	struct sk_buff		*defer_list;
+-#ifndef CONFIG_PREEMPT_RT
+ 	call_single_data_t	defer_csd;
+-#else
+-	struct work_struct	defer_work;
+-#endif
+ };
+ 
+ static inline void input_queue_head_incr(struct softnet_data *sd)
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 5d6ca8510227..f44ffac6cba6 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -4712,6 +4712,15 @@ static void rps_trigger_softirq(void *data)
+ 
+ #endif /* CONFIG_RPS */
+ 
++/* Called from hardirq (IPI) context */
++static void trigger_rx_softirq(void *data)
++{
++	struct softnet_data *sd = data;
++
++	__raise_softirq_irqoff(NET_RX_SOFTIRQ);
++	smp_store_release(&sd->defer_ipi_scheduled, 0);
++}
++
+ /*
+  * Check if this softnet_data structure is another cpu one
+  * If yes, queue it to our IPI list and return 1
+@@ -6772,30 +6781,6 @@ static void skb_defer_free_flush(struct softnet_data *sd)
+ 	}
+ }
+ 
+-#ifndef CONFIG_PREEMPT_RT
+-/* Called from hardirq (IPI) context */
+-static void trigger_rx_softirq(void *data)
+-{
+-	struct softnet_data *sd = data;
+-
+-	__raise_softirq_irqoff(NET_RX_SOFTIRQ);
+-	smp_store_release(&sd->defer_ipi_scheduled, 0);
+-}
+-
+-#else
+-
+-static void trigger_rx_softirq(struct work_struct *defer_work)
+-{
+-	struct softnet_data *sd;
+-
+-	sd = container_of(defer_work, struct softnet_data, defer_work);
+-	smp_store_release(&sd->defer_ipi_scheduled, 0);
+-	local_bh_disable();
+-	skb_defer_free_flush(sd);
+-	local_bh_enable();
+-}
+-#endif
+-
+ static __latent_entropy void net_rx_action(struct softirq_action *h)
+ {
+ 	struct softnet_data *sd = this_cpu_ptr(&softnet_data);
+@@ -11620,11 +11605,7 @@ static int __init net_dev_init(void)
+ 		INIT_CSD(&sd->csd, rps_trigger_softirq, sd);
+ 		sd->cpu = i;
+ #endif
+-#ifndef CONFIG_PREEMPT_RT
+ 		INIT_CSD(&sd->defer_csd, trigger_rx_softirq, sd);
+-#else
+-		INIT_WORK(&sd->defer_work, trigger_rx_softirq);
+-#endif
+ 		spin_lock_init(&sd->defer_lock);
+ 
+ 		init_gro_hash(&sd->backlog);
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 665be0ad4b8d..a66066bc9861 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -6746,11 +6746,6 @@ nodefer:	__kfree_skb(skb);
+ 	/* Make sure to trigger NET_RX_SOFTIRQ on the remote CPU
+ 	 * if we are unlucky enough (this seems very unlikely).
+ 	 */
+-	if (unlikely(kick) && !cmpxchg(&sd->defer_ipi_scheduled, 0, 1)) {
+-#ifndef CONFIG_PREEMPT_RT
++	if (unlikely(kick) && !cmpxchg(&sd->defer_ipi_scheduled, 0, 1))
+ 		smp_call_function_single_async(cpu, &sd->defer_csd);
+-#else
+-		schedule_work_on(cpu, &sd->defer_work);
+-#endif
+-	}
+ }
 -- 
 2.25.1
 
