@@ -1,56 +1,56 @@
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEE0563281
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78605625EF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:26:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791930413; cv=none; b=pciKrkOhKuWTNPhC23Qmtk8txrPO4fUPosFT+dZQcP+j7fjB/wD/E3Sabs+Zpry3yuy+TEk8BaIklnaMm0owXL7tlMPMHfzo+lOAg0ZdfDK8hSDq6+3fgboVCg93We8EBPr60/vUT+4cZXNr/i6RaDALHROd2qyU4BuseQTpG10=
+	t=1791930419; cv=none; b=sFeqECPsVmd157VwbLo5sDTzJnjLnF3mOGb4q6QJGclmvBXNCyNB1ScNum9znP0txED3bzf3haDnFLSeECUWPI3qixpEr/mRgqrsuh83JZxmIPIp5R2ACmEQDz5gso0H31PLwIkZjPMtpFPDrOWUoD+TNBZOy4asjzyuDLj8Fcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791930413; c=relaxed/simple;
-	bh=qz98LWjBN7vuyhktaur2iXpicZss29gzxpSAse2Me08=;
+	s=arc-20240116; t=1791930419; c=relaxed/simple;
+	bh=7US1K91tc/xAY0auUwgzNKlEZEip4CvIibxK9/lCxAI=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=l2R4hhaf/7WDXWCa8KP4RWZY5iczrgF3yCxQ+LUtyfGzFjyzvWFcdnuOY+XeyqNnvYsKv7ZJbSQNDr7WcGLJ6fpwvdkiaffol0EPzqx2ZA61oLAVG+Qv14wVDFaZyC6aBfeFUctLvWT9x3eBSHLYoDMjTdVEjvG1CgX7P7N5oa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iOIXhUzo; arc=none smtp.client-ip=74.125.82.72
+	 To:Cc:Content-Type; b=Zq5wnOEctPtrCt4pZi3n1ofizH978DKxaT4aC6n/x9SD0P3xwxfaGBaw+hPY7jP5Do7A9AbttOoqW5iUxh0dq46oRYdZkmC3JwRmgZZU5Vl1MUVoo/NDu+SI4qKaJDOaapdIssrToxX1cVt1UPrwPygvSV61mDqjTyiFw7247Ds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=J6l5DEg9; arc=none smtp.client-ip=74.125.82.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iOIXhUzo"
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1383723dfddso662289c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:26:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="J6l5DEg9"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso7811495eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:26:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791930411; x=1792535211; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791930417; x=1792535217; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DM2MthsEYIVhdmp2494m0lpQjS73jUhrnW6tHHeF46g=;
-        b=iOIXhUzo1LqxuFMuH8DEPr5YpMoQlaaNdQCuHaN7JxGK0lRPwcRgtKm64F8UiHjdtZ
-         26qnGOYGfNff9Qv/z0ZLY896xWo/3wWYTfrsCq2wy1s4wAK613MTyacVgqOak++khgIL
-         qD5CawjKhjZM3Til328R0he+pOpa1MFCU196hM6mBBqgXAcfMz34k6eB7ZfxWhLabPjE
-         mpFSd6rld3EpTLoWKB9MuC2rbM9Bo9nQn7o5UdzhKMOlNMvefXgmKQJkD0nAGEs6kR3v
-         niHxgexE9/VRLNtFLPNvBWrA0p+5jaUo8HZRd4bQSQ2LqUWx2pflAgKQQgfCm16rouix
-         AC3A==
+        bh=Eg1RxKBzAbpEvTU/GlXM2uZlQTXEQK/Sj0ELzD775os=;
+        b=J6l5DEg9hh9IMH/vf4nPH2n9K+JS+qOZjXwA3eDeaFYZ0k8p+1MiHOeYbnxoLsQTmq
+         o7xWp9qi4XM/jbC9bsOSj001HHkgqgtOQE9+pCktp3rJVzSU1XQVVS73IPuhgEJb8Bdp
+         td7rDnHRjNbR+BaxVA/Ma/WofXd1tyBOzJ/tt/11Griz1i04rWeGeTx4YLFLeEnTZvTn
+         CnDle7OK4Hzk1N18uiBTxCRN52D8BChms2QLKdEOfEww6qW5qeMKXyjUyyrjPB65L1iM
+         2Ac7EQAjlp94tV6E47ozztt/IzSUFlLMARHcD9DXGJGl3kvVKa0thjDXdP0FghKAljZe
+         46aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791930411; x=1792535211;
+        d=1e100.net; s=20260707; t=1791930417; x=1792535217;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DM2MthsEYIVhdmp2494m0lpQjS73jUhrnW6tHHeF46g=;
-        b=Y3Kqo2xZG7A3c9K/1EfJxxSDng4l8JJROAwNlofMa+PkDaAhIUsx8rnwBwvWsu2MS1
-         aEVmzKERAYc4/Xbi2o/qG8P8nLwdSq+WUh8w4p1QvWY9AgHgbhTKPvWS8IOzwGiVul/x
-         644ILvu1z4EuAbLZGbNUQ4abtaBgkqGy7+b1/2+Xn/u6D197gvtGitEhTwjVSzZZGfPj
-         xqp7Yy30shrUzrWniXMf8BuwtpWMkHBf3fljHSJd9PSa42zrpfg7xrCJaxgz+RXbF7y7
-         YDhO71Ya9jg4feUK+0Mbia87h0xnSlkB3qf4TYzaelO/50kIhWALxp9tV+oTUMU8oYtS
-         XzCw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoJiD0BFTaqeCLhQ0vDtB9TjjLUzJosxLZ+rGSHYewBRQ2xQeauWaSIUCO/KUUaHeLroJI7X/Q8V7O+Ro=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9S5EdM8HpwgR8sDVX9iE7iEI7R7vXcCDAOI/MOgU0GefwuGWI
-	qxCvZJmjs6PjJAn5qZdG5uYSjquAYhWs1cv/GHMrWBJEspK3G4Wo6V/ymFddNEQAeXnDQGmg9aI
-	tY0wQjtbiMA==
-X-Received: from dldyr19-n2.prod.google.com ([2002:a05:701b:4513:20b0:143:75c2:6d21])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2412:b0:137:fa50:a242
- with SMTP id a92af1059eb24-16a586a3183mr17963824c88.1.1791930410665; Tue, 13
- Oct 2026 15:26:50 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:26:18 -0700
+        bh=Eg1RxKBzAbpEvTU/GlXM2uZlQTXEQK/Sj0ELzD775os=;
+        b=PdehjI2T0u3/DVYcfnEdZxWAugjxW6a95p3nNCr9hF1TgYB6GUV2NBwR0TYFQm2bos
+         566CPTfYP1+PAVL4tnw3SpbLcjJ1copFR6m3O6jt34nHEvIq/WOamIaXmQvkLLYSXYr3
+         7pcO3edmRVba/GBeitkb0cdxtquXjP7wslfyIOMZsnN8TLL4zBTegOX7yGOy3NYOTZqQ
+         yggA9s0cqtSLf7SUh8eAqK8Hz2XRoZ31co+Q4CJryPE+Ls2GGy60CHLdAWErT6ONCFeS
+         nuwPgGYzfGWC5lO0/4Q81AsVXdqK8g+fuXh9cTcnxgbyVfYTEk8dBZx2O1wZ4yERGzrc
+         2KbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBLRA5GCTLd5EG5T4yshLYZr7nxA+61yqA8NoS25wTy598h9wvBOEtUnhC5Wg+KqaZOHhB9Yg5BAQ/J9I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIj7t5S0kIB93I03fjEaFOacE/8MT6WES27YTTfDaow++kauFH5
+	tmVhySFyj/1MSzVaTj0mfbri+ALr1G5eD/Dw6+fqWfbOrkDh/bg45hJCJ+7HT3zZC9BIE1ZODe7
+	MDxBVmUsQjg==
+X-Received: from dyr7.prod.google.com ([2002:a05:693c:4007:b0:359:72f9:2aab])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:1a3:b0:35b:7dcd:dd57
+ with SMTP id 5a478bee46e88-35b7ddd267emr6892890eec.10.1791930416351; Tue, 13
+ Oct 2026 15:26:56 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:26:20 -0700
 In-Reply-To: <20261013222622.1822619-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261013182458.1234616-1-irogers@google.com> <20261013222622.1822619-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013222622.1822619-7-irogers@google.com>
-Subject: [PATCH v2 06/10] perf comm: Add __guarded_by annotations to struct comm_strs
+Message-ID: <20261013222622.1822619-9-irogers@google.com>
+Subject: [PATCH v2 08/10] perf thread: Expand context analysis annotations to
+ threads and namespaces_lock
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, bvanassche@acm.org, james.clark@linaro.org, 
@@ -71,34 +72,162 @@ Cc: adrian.hunter@intel.com, bvanassche@acm.org, james.clark@linaro.org,
 	ndesaulniers@google.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Annotate strs, num_strs, and capacity in struct comm_strs with
-__guarded_by(&lock) and __pt_guarded_by(&lock) so Clang verifies all
-accesses hold comm_strs->lock.
+Annotate shard and last_match in struct threads_table_entry with
+__guarded_by(&lock) and add __must_hold_shared()/__must_hold() to the
+last_match helpers in util/threads.c.
+
+In util/thread.h and util/thread.c, add __returns_ctx_lock() to
+thread__namespaces_lock() and thread__comm_lock(), annotate
+namespaces_list and comm_list with __guarded_by(), and add
+__must_hold_shared()/__must_hold() to the namespaces_list helpers.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/comm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ tools/perf/util/thread.c  |  2 ++
+ tools/perf/util/thread.h  | 28 +++++++++++++++++-----------
+ tools/perf/util/threads.c |  4 ++++
+ tools/perf/util/threads.h |  6 +++---
+ 4 files changed, 26 insertions(+), 14 deletions(-)
 
-diff --git a/tools/perf/util/comm.c b/tools/perf/util/comm.c
-index 6343a3c9debe..9fc4e91a36e9 100644
---- a/tools/perf/util/comm.c
-+++ b/tools/perf/util/comm.c
-@@ -16,9 +16,9 @@ DECLARE_RC_STRUCT(comm_str) {
+diff --git a/tools/perf/util/thread.c b/tools/perf/util/thread.c
+index 616d5bf87baf..af761b1fc5d5 100644
+--- a/tools/perf/util/thread.c
++++ b/tools/perf/util/thread.c
+@@ -149,6 +149,7 @@ void thread__put(struct thread *thread)
+ }
  
- static struct comm_strs {
- 	struct rw_semaphore lock;
--	struct comm_str **strs;
--	int num_strs;
--	int capacity;
-+	struct comm_str **strs __pt_guarded_by(&lock) __guarded_by(&lock);
-+	int num_strs __guarded_by(&lock);
-+	int capacity __guarded_by(&lock);
- } _comm_strs;
+ static struct namespaces *__thread__namespaces(struct thread *thread)
++	__must_hold_shared(thread__namespaces_lock(thread))
+ {
+ 	if (list_empty(thread__namespaces_list(thread)))
+ 		return NULL;
+@@ -169,6 +170,7 @@ struct namespaces *thread__namespaces(struct thread *thread)
  
- static void comm_strs__remove_if_last(struct comm_str *cs);
+ static int __thread__set_namespaces(struct thread *thread, u64 timestamp,
+ 				    struct perf_record_namespaces *event)
++	__must_hold(thread__namespaces_lock(thread))
+ {
+ 	struct namespaces *new, *curr = __thread__namespaces(thread);
+ 
+diff --git a/tools/perf/util/thread.h b/tools/perf/util/thread.h
+index 9d0ce7742c06..a7850eebce4e 100644
+--- a/tools/perf/util/thread.h
++++ b/tools/perf/util/thread.h
+@@ -48,10 +48,10 @@ DECLARE_RC_STRUCT(thread) {
+ 	bool			exited;
+ 	bool			comm_set;
+ 	int			comm_len;
+-	struct list_head	namespaces_list;
+ 	struct rw_semaphore	namespaces_lock;
+-	struct list_head	comm_list;
++	struct list_head	namespaces_list __guarded_by(&namespaces_lock);
+ 	struct rw_semaphore	comm_lock;
++	struct list_head	comm_list __guarded_by(&comm_lock);
+ 	u64			db_id;
+ 
+ 	void			*priv;
+@@ -230,30 +230,36 @@ static inline void thread__set_comm_len(struct thread *thread, int len)
+ 	RC_CHK_ACCESS(thread)->comm_len = len;
+ }
+ 
+-static inline struct list_head *thread__namespaces_list(struct thread *thread)
++static inline struct rw_semaphore *thread__namespaces_lock(const struct thread *thread)
++	__returns_ctx_lock(&RC_CHK_ACCESS(thread)->namespaces_lock)
+ {
+-	return &RC_CHK_ACCESS(thread)->namespaces_list;
++	return (struct rw_semaphore *)&RC_CHK_ACCESS(thread)->namespaces_lock;
+ }
+ 
+-static inline int thread__namespaces_list_empty(const struct thread *thread)
++static inline struct list_head *thread__namespaces_list(struct thread *thread)
++	__must_hold_shared(thread__namespaces_lock(thread))
+ {
+-	return list_empty(&RC_CHK_ACCESS(thread)->namespaces_list);
++	/* Readers hold the shared lock; writers hold the exclusive lock. */
++	return context_unsafe(&RC_CHK_ACCESS(thread)->namespaces_list);
+ }
+ 
+-static inline struct rw_semaphore *thread__namespaces_lock(struct thread *thread)
++static inline int thread__namespaces_list_empty(const struct thread *thread)
++	__must_hold_shared(thread__namespaces_lock(thread))
+ {
+-	return &RC_CHK_ACCESS(thread)->namespaces_lock;
++	return list_empty(&RC_CHK_ACCESS(thread)->namespaces_list);
+ }
+ 
+-static inline struct rw_semaphore *thread__comm_lock(struct thread *thread)
++static inline struct rw_semaphore *thread__comm_lock(const struct thread *thread)
++	__returns_ctx_lock(&RC_CHK_ACCESS(thread)->comm_lock)
+ {
+-	return &RC_CHK_ACCESS(thread)->comm_lock;
++	return (struct rw_semaphore *)&RC_CHK_ACCESS(thread)->comm_lock;
+ }
+ 
+ static inline struct list_head *thread__comm_list(struct thread *thread)
+ 	__must_hold_shared(thread__comm_lock(thread))
+ {
+-	return &RC_CHK_ACCESS(thread)->comm_list;
++	/* Readers hold the shared lock; writers hold the exclusive lock. */
++	return context_unsafe(&RC_CHK_ACCESS(thread)->comm_list);
+ }
+ 
+ static inline u64 thread__db_id(const struct thread *thread)
+diff --git a/tools/perf/util/threads.c b/tools/perf/util/threads.c
+index 6ca0b178fb6c..39b3c420635a 100644
+--- a/tools/perf/util/threads.c
++++ b/tools/perf/util/threads.c
+@@ -21,6 +21,7 @@ static bool key_equal(long key1, long key2, void *ctx __maybe_unused)
+ }
+ 
+ void threads__init(struct threads *threads)
++	__context_unsafe(/* initialization */)
+ {
+ 	for (int i = 0; i < THREADS__TABLE_SIZE; i++) {
+ 		struct threads_table_entry *table = &threads->table[i];
+@@ -32,6 +33,7 @@ void threads__init(struct threads *threads)
+ }
+ 
+ void threads__exit(struct threads *threads)
++	__context_unsafe(/* teardown */)
+ {
+ 	threads__remove_all_threads(threads);
+ 	for (int i = 0; i < THREADS__TABLE_SIZE; i++) {
+@@ -63,6 +65,7 @@ size_t threads__nr(struct threads *threads)
+  */
+ static struct thread *__threads_table_entry__get_last_match(struct threads_table_entry *table,
+ 							    pid_t tid)
++	__must_hold_shared(&table->lock)
+ {
+ 	struct thread *th, *res = NULL;
+ 
+@@ -76,6 +79,7 @@ static struct thread *__threads_table_entry__get_last_match(struct threads_table
+ 
+ static void __threads_table_entry__set_last_match(struct threads_table_entry *table,
+ 						  struct thread *th)
++	__must_hold(&table->lock)
+ {
+ 	thread__put(table->last_match);
+ 	table->last_match = thread__get(th);
+diff --git a/tools/perf/util/threads.h b/tools/perf/util/threads.h
+index da68d2223f18..54fba16657db 100644
+--- a/tools/perf/util/threads.h
++++ b/tools/perf/util/threads.h
+@@ -11,10 +11,10 @@ struct thread;
+ #define THREADS__TABLE_SIZE	(1 << THREADS__TABLE_BITS)
+ 
+ struct threads_table_entry {
+-	/* Key is tid, value is struct thread. */
+-	struct hashmap	       shard;
+ 	struct rw_semaphore    lock;
+-	struct thread	       *last_match;
++	/* Key is tid, value is struct thread. */
++	struct hashmap	       shard __guarded_by(&lock);
++	struct thread	       *last_match __guarded_by(&lock);
+ };
+ 
+ struct threads {
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
