@@ -1,245 +1,139 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C38DB3D0BE1;
-	Tue, 13 Oct 2026 14:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13FA3EFD26
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:03:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900205; cv=none; b=nA8KhbE7+wqEYx40m0jSQoDRI1WSKFNrXv2QfUOdpvPOemmow2VwmiBr8v427EKdHGph4hZH9TQX9R3XaV1vGZQCB3VdeHQcMkpK2w5+brR3NJ308AO1cNYNFq8CKIkH1pbOSIkZUDqAA5iq2BUHGOVLtTXC6QBXdaGZK+an2ek=
+	t=1791900231; cv=none; b=SnfVz7JrvqhP1QllHlm1AtIEK1o8Oof6Tr7UeBKO1YtDq1Uii50fgEICUFTWFiDrRKT05e7vYdyR9UW3ArVWklptGCx29ES1eIn8DTwWx9d2aL/+dEjLFigfJ6y7vwZDBe/USXl/l03g/iJxdZ4SeAbfX93sKFcLoiun9Ir99T0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900205; c=relaxed/simple;
-	bh=1IefC3iuQUrnFqoYEi0MFPNxQjrKAvxqtbUvGiWeLsc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rpKi/5ZX/35Ue+gXAe8JxbEOOV9AMxlwvufI9Bve6cA0rEKdzw83aE3PD/jsdv581szU89oVJTJ6+3r9bCacWzbpNb3Gppqx5ftTTZye4LRfOsOfT3mohXhx2+fflTvrICrAEmwMsDS0JB17+OKNaD01qfzZK6y7nSfeJIwmALA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Z2Cw41gu; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791900231; c=relaxed/simple;
+	bh=UHry0BPkquJw/CuJwnGhyuxl/slkjmr1qnD/xn81qew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I5FWVtQVIPnWcESUZ7dwePHHNj0WI8HvFE8CQZIspdYtHg9jJ4ik4aFhY3d0D7mwkgUlV2Ed0pP2deNspvBL7inLcujA1z4n/ifrb/Jfw/xXxUgGXw7ailVSGY+Gec5W2PPfjcX00TzrdIdtNkvWoG+isyGW9widX9m/voijACU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=CBEzo/4j; arc=none smtp.client-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Z2Cw41gu"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D04F9169E;
-	Tue, 13 Oct 2026 07:03:18 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9C3F03F7B4;
-	Tue, 13 Oct 2026 07:03:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791900202; bh=1IefC3iuQUrnFqoYEi0MFPNxQjrKAvxqtbUvGiWeLsc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Z2Cw41guH8GdudzEKSB7rd8ujbuphgZqVU4LW2T+IQrL6T21Zy11jE3OaKQsDLwRC
-	 othZfQKLHSspMreGKNHWL9k0xpwsRfwXQfuc3DCcvZUhCbY4ofr3q2EKx605NiZGtL
-	 pjM52We2Gi12vcgotT+j2A4R9qWqC8yg14Yd9xIw=
-Message-ID: <35a421f1-c3f2-4863-938b-b516f5e3d2e6@arm.com>
-Date: Tue, 13 Oct 2026 16:03:17 +0200
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="CBEzo/4j"
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-98929bb8eb0so790093241.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:03:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1791900229; x=1792505029; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sxRXmPGGOdI1+4/8LW6E01BCp/MjtS9NyfOV1SrhfSY=;
+        b=CBEzo/4jeiz4WlID7U/njZM7AWjCMFsKhRPE2lZcPfdbjT5/IhMC7CPhAthUzS/zjC
+         7JdpJuzrx/MaN0DflF6oAbENcPd/EKLzlkXO3xhW/4F5syHofVyYESUmZBXMOG8P4d/o
+         U0+8nId/s3j8PBkkGKMw9+6JThitqmt/tGl1U5Nh1xq4Hd0djOAhqJt0lU/i0VlyiGGx
+         3lIrp+VrVqteNUBHh72uss+6qHhfv911OjNj/lBhTo0M3tCp5OKbWWQv6+N+m74fPDOO
+         CCafrXkio5dlBgBy0OeRosZpOR483gn1R9Bmc9hfkBJ3Hjq6TdOR8etcp4eTP7mIJR7u
+         MRrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791900229; x=1792505029;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sxRXmPGGOdI1+4/8LW6E01BCp/MjtS9NyfOV1SrhfSY=;
+        b=xTVCu0Nv+yERpT7d7Hs64xx1nMZ28xhEnsgN8unL+B5Pi9d5eCg7tfe0zJ4BOsP45P
+         xDDTpM2SYegHtyRm8u5zCm+8O3pH2uCPL19zPYvTLf3lMewaiJnoOrZf2o0DMNYw4iBW
+         KJLJKXOg5bToSZRreGShCwR66Gnj8pbc8uvaUvgCEIA/8G8too+1mWTNR2OP9fGi4uUr
+         ORn49NB0dhvxLT//H7iCJxLLS/jqAzu69ClvB6NEIP90KS4Lv9ni8G07lgGDEQfNTiwA
+         xJOMby/e8kbhncbBPZQthPrJbOzfHrSViJaVB3BWZkll6zYwUCwyCuDKq7iFAqOwZmwT
+         EcDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwvtbWZArVJykyYTG0rHLb/jU2rDD1ZQWqvvjcJJex117Rq7czoMloA485T8neuR0fTm4Emiht2uQJzE7Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTZvlIVn4RVTgLT3YemAlY612q8+kFV1tpHF2ECLyTeZT4fsul
+	XI/eDdoAzFm7dzHuZhvCjAIQsuDSrpjbnJmncdFcZi6/KKMa5Ssdt4j2FLUAjZkii7w=
+X-Gm-Gg: AYBFou0pQDcQU2+OdlnQ7KWkDTna5IenkP0KhWCzmoKkgt79PMefvTImHXRYXVyCI2Z
+	ZroQPyRZD9gq4iAl1782DOsikP0RQ24SqFcMlkA3s7PkQCZSzwVDtt7DcjJQG2llQqUE2AZGdFQ
+	bgWL0jchgIqV+NT80H3ld27nxjmZ2wLQxlrHyKjl5ME/wS8DUbX6rsfmDMrCNS5o8d1FDgI+TiL
+	nglsldAv70W2KSFYaspfl7CtvJgsse3/VBAtA8Ks/dRkLgywgk75pc3bStqKDi9wKtzJIyTz86l
+	HGujpFOZv0xqefHbKdEnM+BitNgXblUPvKAsthFZcR50cKZjBNNojULELtIwJVY/v6VwKQSUIru
+	xJfZebLUFG/AC1cQzyUKGox/B1wO0HSIPTG6VEi7nUvvjsYqbdaiK44iAHjdNQLvVFr6F4D++gi
+	5NyYPB0R1sW0GCCfgJQEEZO8EUpcXaq23p2aCCjO7Jh0MrLFpBei9eQiu2rDGx3XS+zekltbkma
+	LqK2Bx7gynMJz8dr9IWIVshVPYIli6W1RxB3226+dSeZNkXRS6tXydCKw==
+X-Received: by 2002:a05:6102:a48:b0:7c3:875e:593b with SMTP id ada2fe7eead31-7cb373fae29mr3183710137.32.1791900228555;
+        Tue, 13 Oct 2026 07:03:48 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97bdfb89sm25903626d6.40.2026.10.13.07.03.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 07:03:47 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xGd6X-00000009i6J-387e;
+	Tue, 13 Oct 2026 11:03:45 -0300
+Date: Tue, 13 Oct 2026 11:03:45 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Cc: alex@shazbot.org, ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org, bhelgaas@google.com,
+	jjohnson@kernel.org, johannes@sipsolutions.net,
+	kevin.tian@intel.com, kvm@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-wireless@vger.kernel.org,
+	mani@kernel.org, skolothumtho@nvidia.com, yishaih@nvidia.com
+Subject: Re: [PATCH 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
+Message-ID: <20261013140345.GK14213@ziepe.ca>
+References: <20261011132558.GD14213@ziepe.ca>
+ <20261013134317.174234-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] pinctrl: sunxi: a733: program the two-bit I/O voltage
- fields
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, linusw@kernel.org
-Cc: wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261012184130.548261-1-vinicius.eduardo.pedrosa@gmail.com>
- <20261012184130.548261-2-vinicius.eduardo.pedrosa@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261012184130.548261-2-vinicius.eduardo.pedrosa@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261013134317.174234-1-jtornosm@redhat.com>
 
-Hi,
-
-On 10/12/26 20:41, Vinicius Pedrosa wrote:
-> The A733 GPIO_POW_MOD_SEL register has a two-bit field per bank, but
-> the A733 uses the helper written for one bit per bank, so a request
-> for one bank can change the field of another one. With the register
-> as firmware leaves it on a Radxa Cubie A7Z (the fields of PB, PC, PD,
-> PE, PG, PH, PJ and PK in automatic mode, 0x01155550), a PJ request at
-> 1.8 V turns the PE field into fixed 1.8 V (0x01155750).
+On Tue, Oct 13, 2026 at 03:43:13PM +0200, Jose Ignacio Tornos Martinez wrote:
+> Hi Jason,
 > 
-> Add a variant that takes the field of each bank from a mask table. It
+> I understand the concern about compatibility implications, but to
+> clarify, my intention is not to create an ABI or a "MSI caching
+> concept". 
 
-Why do we need a table? The bit assignment is a linear
-[bank * 2 + 1:bank * 2], no?
+It very much is an ABI, you defined a new ABI in the config space a
+layout between guest and host that we have to maintain forever.
 
-> keeps automatic mode and a fixed 3.3 V mode that already fits, and
-> writes only the field of the requested bank. PF is left out: its field
-> (11:10) is known, but it is tied to the MMC vqmmc voltage switching.
+Just for a hacky solution, it is not so nice.
 
-I don't think this redirection is legit. Yes, PortF could be supplied by 
-VCC-IO, but surely that port always has to stay at 3.3V, as the 
-datasheet requires.
-So I would not treat PortF special here.
+> I can explore converting ath11k/ath12k to
+> platform_device_msi_init_and_alloc_irqs(). However, if I understood
+> correctly, the VM problem remains identical after that change — the
+> firmware still needs physical host addresses, and device MSI domains
+> in the VM would still provide virtual ones.
 
-> PI is left out as well, since its supply domain is not documented.
+Yes, but it removes the solution of copying data from the existing
+MSI-X table from consideration, which is the primary hacky thing here.
 
-Mmmh, but isn't that just because it's not exposed on the A733 package? 
-Similar to what we saw on the A523: the registers for the banks are 
-clearly there, it's just the manual doesn't mention them, because they 
-are not used in the particular SoC version. If I read 0x2000480, I see 
-at least 8 pins there (all bits set), and 0x2000488 reads 0xf, so there 
-are 17 pins on PortI.
-And if we don't use PI pins or the PI supply in the DT, we will never 
-try to adjust the PI voltage withstand, so there is no problem.
+> I'm happy to do this refactoring if it opens a path to get these
+> devices working in VMs. What VM mechanism would you accept for
+> exposing physical MSI values through device MSI domains?
 
-> Only silicon revision B, as reported through SMCCC, is programmed,
-> since the encoding is documented for that revision only.
+Once you have a MSI domain you just need a driver wired into it that
+can request and get the physical addresses from the hypervisor. Then
+when that domain is in use the guest will always see true physical.
 
-Where does this come from? Where is it documented to be applicable for 
-only a single revision?
+That part is easy enough, it already exists and you don't need any
+driver changes.
 
-I will send what I came up with in a minute, feel free to poke holes in 
-there (it's just compile tested).
+The bit that isn't clear is how you get the domain in the first
+place. I suppose something like a virtio-msi is a good starting point,
+but I don't know enough about ACPI/etc to imagine how to wire it into
+the flow.
 
-Cheers,
-Andre
+IIRC hyperv does this, so maybe there is something to follow there..
 
-> Computed with both helpers on that register value, the old one changes
-> it and the new one leaves it as it is.
-> 
-> Fixes: 0535bfbfa97b ("pinctrl: sunxi: add support for the Allwinner A733")
-> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-> ---
->   drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c | 15 +++++-
->   drivers/pinctrl/sunxi/pinctrl-sunxi.c       | 57 +++++++++++++++++++++
->   drivers/pinctrl/sunxi/pinctrl-sunxi.h       |  6 +++
->   3 files changed, 77 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-> index ca82f08a3a65..6f5757b8adea 100644
-> --- a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-> @@ -21,10 +21,23 @@ static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
->   /*	  PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
->   	{  0, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14};
->   
-> +/* PA is not implemented. PF and PI are left to the firmware, so are not listed. */
-> +static const u32 a733_io_bias_masks[SUNXI_PINCTRL_MAX_BANKS] = {
-> +	[1] = GENMASK(25, 24),	/* PB, VCC-IO */
-> +	[2] = GENMASK(5, 4),	/* PC */
-> +	[3] = GENMASK(7, 6),	/* PD */
-> +	[4] = GENMASK(9, 8),	/* PE */
-> +	[6] = GENMASK(13, 12),	/* PG */
-> +	[7] = GENMASK(15, 14),	/* PH */
-> +	[9] = GENMASK(19, 18),	/* PJ */
-> +	[10] = GENMASK(21, 20),	/* PK */
-> +};
-> +
->   static struct sunxi_pinctrl_desc a733_pinctrl_data = {
->   	.irq_banks = 10,
->   	.irq_read_needs_mux = true,
-> -	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
-> +	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL_2BIT,
-> +	.io_bias_masks = a733_io_bias_masks,
->   };
->   
->   static int a733_pinctrl_probe(struct platform_device *pdev)
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-> index 3ee5012463da..8e62111d3409 100644
-> --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-> @@ -10,6 +10,8 @@
->    * warranty of any kind, whether express or implied.
->    */
->   
-> +#include <linux/arm-smccc.h>
-> +#include <linux/bitfield.h>
->   #include <linux/clk.h>
->   #include <linux/export.h>
->   #include <linux/gpio/driver.h>
-> @@ -722,6 +724,58 @@ static const struct pinconf_ops sunxi_pconf_ops = {
->   	.pin_config_group_set	= sunxi_pconf_group_set,
->   };
->   
-> +/*
-> + * The two-bit encoding is documented for A733 silicon revision B, which
-> + * firmware reports through the SMCCC SOC_ID call. Do not assume it for any
-> + * other revision, or when the firmware does not tell.
-> + */
-> +#define SUNXI_A733_SOC_ID		0x091e1903
-> +#define SUNXI_A733_REV_B		1
-> +
-> +static bool sunxi_pinctrl_a733_rev_b(void)
-> +{
-> +#ifdef CONFIG_HAVE_ARM_SMCCC_DISCOVERY
-> +	s32 id = arm_smccc_get_soc_id_version();
-> +
-> +	/* Bit 23 is the JEP106 parity bit. */
-> +	return id >= 0 && (id & ~BIT(23)) == SUNXI_A733_SOC_ID &&
-> +	       arm_smccc_get_soc_id_revision() == SUNXI_A733_REV_B;
-> +#else
-> +	return false;
-> +#endif
-> +}
-> +
-> +/*
-> + * Fields: 0 and 2 fixed 3.3V, 1 automatic, 3 fixed 1.8V. Leave automatic
-> + * mode and any other supply voltage to the firmware, and touch only the
-> + * field of this bank.
-> + */
-> +static void sunxi_pinctrl_set_io_bias_2bit(struct sunxi_pinctrl *pctl,
-> +					   unsigned int bank, int uV)
-> +{
-> +	u32 mask = pctl->desc->io_bias_masks[bank];
-> +	unsigned long flags;
-> +	u32 val, cur, reg;
-> +
-> +	if (!mask || !sunxi_pinctrl_a733_rev_b())
-> +		return;
-> +
-> +	if (uV >= 1620000 && uV <= 1980000)
-> +		val = 3;
-> +	else if (uV >= 2970000 && uV <= 3630000)
-> +		val = 2;
-> +	else
-> +		return;
-> +
-> +	raw_spin_lock_irqsave(&pctl->lock, flags);
-> +	reg = readl(pctl->membase + pctl->pow_mod_sel_offset);
-> +	cur = field_get(mask, reg);
-> +	if (cur != 1 && cur != val && !(val == 2 && cur == 0))
-> +		writel((reg & ~mask) | field_prep(mask, val),
-> +		       pctl->membase + pctl->pow_mod_sel_offset);
-> +	raw_spin_unlock_irqrestore(&pctl->lock, flags);
-> +}
-> +
->   static int sunxi_pinctrl_set_io_bias_cfg(struct sunxi_pinctrl *pctl,
->   					 unsigned pin,
->   					 struct regulator *supply)
-> @@ -795,6 +849,9 @@ static int sunxi_pinctrl_set_io_bias_cfg(struct sunxi_pinctrl *pctl,
->   		       pctl->membase + pctl->pow_mod_sel_offset);
->   		raw_spin_unlock_irqrestore(&pctl->lock, flags);
->   		return 0;
-> +	case BIAS_VOLTAGE_PIO_POW_MODE_SEL_2BIT:
-> +		sunxi_pinctrl_set_io_bias_2bit(pctl, bank, uV);
-> +		return 0;
->   	default:
->   		return -EINVAL;
->   	}
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.h b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
-> index 7c2f29e75519..c37170b2e4f4 100644
-> --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
-> @@ -130,6 +130,11 @@ enum sunxi_desc_bias_voltage {
->   	 */
->   	BIAS_VOLTAGE_PIO_POW_MODE_CTL,
->   	BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV,
-> +	/*
-> +	 * Bias voltage is set through two-bit fields in PIO_POW_MOD_SEL_REG,
-> +	 * whose positions are given by io_bias_masks[], as seen on A733.
-> +	 */
-> +	BIAS_VOLTAGE_PIO_POW_MODE_SEL_2BIT,
->   };
->   
->   struct sunxi_desc_function {
-> @@ -155,6 +160,7 @@ struct sunxi_pinctrl_desc {
->   	bool				irq_read_needs_mux;
->   	bool				disable_strict_mode;
->   	enum sunxi_desc_bias_voltage	io_bias_cfg_variant;
-> +	const u32			*io_bias_masks;
->   };
->   
->   struct sunxi_pinctrl_function {
+> Jeff is escalating to Qualcomm engineering again (thank you for
+> that), but users with deployed hardware need something working in a
+> reasonable timeframe.
 
+Yes, but it has already been years, and Qualcomm doesn't seem to care
+about these uses cases, so I'm not sure I see the urgency to do a bad
+ABI hack..
+
+Jason
