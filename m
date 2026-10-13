@@ -1,94 +1,111 @@
-Received: from mail-m15599.qiye.163.com (mail-m15599.qiye.163.com [101.71.155.99])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0413C7DEB;
-	Tue, 13 Oct 2026 09:10:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1305F3B52F8;
+	Tue, 13 Oct 2026 09:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882647; cv=none; b=T7u5L9GTgeLPOEZ+mpnFCIkBlHiSsMaJ8UYQ07+ICUgJk30n/VdK7HArd1kze2Uo1Cvr0yJYhMM8m20VYcVqKXvZKqVJm/EbLRdhHrxGnqADr3gKQP/ueA/DFAWbINDiDFs4j7p6uY4hIheV9jeRoQ4nlQVdqwxK9TTNqPPV1DM=
+	t=1791882667; cv=none; b=dCOaapNuAsxNuT59Ls+W2Pr8o8Y0rIxp7SnWhYtsXqGp7jyamw30pVkX/UE+BdbPJypyvuDSr/3eks9YyHTyQmbL9HCV/V8/3q/Kb5aDDgbhIDV7S+2YoramTiMwn1FRC2/DXU7ojMec3c/S1WZf89RTKQosFZp1qQXzgllmAQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882647; c=relaxed/simple;
-	bh=+A5rM5nul/qVEMnGB3L4YcbBECC9pN/mZtMqKAgGMP8=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=XsMs7JaOmpA16qeLKxERDSyT9mtO+EwBRNSCUqKmnYZW7H7O7qJ3mwZOD9JF7biaulEu2ElAA6nFL8+iJGG2WSqJVT/HUp1ndzqG9g8lWwuLCvJAHEbbsd2gFah1uJePO1Y1rgUM94U08OiV3Nd1Mp5HEGE+58nbh5W3g4igLGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=XjRm8gCq; arc=none smtp.client-ip=101.71.155.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1791882667; c=relaxed/simple;
+	bh=wEkKnl14EWDac6YT/V5RPV0TcwtWSsadHLQpgVHtVDg=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=S6GahL3526qaqM3ck/CVCTLtdbPG454ZWJN02KL99g3PkMFqhiCJO7YZCyMmpISw8JOjdIGgvNqIbSyszAuvoIXp+XMtEkV8Q8LzmEDhZV8A718fcKtF6awwMXxGzrZUHWGsXS413eMogyZFut3oXilHe7OJtKuHpyNy2J6QBXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YrJ6B9jZ; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="XjRm8gCq"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50dc42bd7;
-	Tue, 13 Oct 2026 17:05:25 +0800 (GMT+08:00)
-Message-ID: <2a29adf5-2a59-4287-8b10-68a62f317421@rock-chips.com>
-Date: Tue, 13 Oct 2026 17:05:23 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YrJ6B9jZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791882666; x=1823418666;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=wEkKnl14EWDac6YT/V5RPV0TcwtWSsadHLQpgVHtVDg=;
+  b=YrJ6B9jZrEjfzWzAIaDpT3DFKuUn0LXXVWQ+I71fiDa/CmWFOSPxWtGb
+   CqB8XU7okkAkhPmBuMmLU63bS/Up4WdHNwTx1pMyRVzfupGK/jnrUbdgl
+   9A+2yOtu2aGPJxgDBYuf3xLNlhCkcQjj5LF3qomLP8QZNcQCXtkZZ96nQ
+   qglDRJiVsLKzrZcoMWHDed9PWyA7nrZBpQ7d9XtMxYHk2y34JMhGBkY/7
+   VYOWVBFLxEEV49ZuktoluWGp4xfxojZE9K8cgMn9Rgppa2Jh6fY6zcz4s
+   HEKkQ2XDjCui6hFce+FUm77ZV5rt+LqoGLSiT4e8gGV4/D20is03/Bdx5
+   Q==;
+X-CSE-ConnectionGUID: kVqkJqK8Q4aIHO4nEZ7Uuw==
+X-CSE-MsgGUID: J3Ee3IfFQ3ylXckqlmam5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="499142"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="499142"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:11:05 -0700
+X-CSE-ConnectionGUID: meKhYLfJSKiSndj1n/6ziA==
+X-CSE-MsgGUID: C5/LtQBlTziiMzaCwSe7YA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1071020"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:11:02 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 13 Oct 2026 12:10:57 +0300 (EEST)
+To: Armandas Kvietkus <armandas.kvietkus@proton.me>
+cc: luke@ljones.dev, denis.benato@linux.dev, Hans de Goede <hansg@kernel.org>, 
+    corentin.chary@gmail.com, fxzxaxon@outlook.com, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] platform/x86: asus-wmi: suppress -ENODEV warning in
+ fan_curve_get_factory_default()
+In-Reply-To: <178975588661.29716.3167848890407727242.b4-ty@b4>
+Message-ID: <52694840-d2ee-e860-3e89-133cb577d730@linux.intel.com>
+References: <20260825-fan-curve-v3-1-617f8e661e9c@proton.me> <178975588661.29716.3167848890407727242.b4-ty@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Adrian Hunter <adrian.hunter@intel.com>,
- Ulf Hansson <ulfh@kernel.org>
-Subject: Re: [PATCH] mmc: sdhci-of-dwcmshc: downgrade HS200/HS400 clock-reduce
- message to dev_dbg
-To: Jun Yan <jerrysteve1101@gmail.com>
-References: <20261009084604.385664-1-jerrysteve1101@gmail.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261009084604.385664-1-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa134826bd403a4kunmdb6e1c8e27d5c7
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTUIZVh8fTkkaGB5PSEMZHlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=XjRm8gCq5oo8/+aTfVq3gyvd5pwz955UVSIvjT16tDQMbmWgnWeiZzOj1xIH15DrxtZOvC6eCFMlIv31LZOMijrhVHvL+Jbzq6oms28fakrXHE1A6IbVAwqPeL+MmBiWM8F4Kz/EzVG2F+KYsHbQ+iIfB6Wi1Z9MjgYOgdknNiM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=WiaJHlPPwn3yO4hvyZolRZvDDzjb6V8u/pwfkykJyXo=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/mixed; boundary="8323328-2118916778-1791882657=:1237"
 
-Hi Jun
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-在 2026/10/09 星期五 16:46, Jun Yan 写道:
-> dwcmshc_rk3568_set_clock() refuses to lower the bus clock below 52 MHz
-> when the eMMC is in HS200/HS400 mode, since those modes require a
-> minimum 52 MHz bus clock.  This is expected behaviour, but it is
-> currently reported at dev_err level and therefore fires on every boot
-> and on every suspend/resume cycle, cluttering the kernel log.
-> 
-> Demote the message to dev_dbg so it stays out of the default log while
-> remaining available via dynamic debug.
-> 
+--8323328-2118916778-1791882657=:1237
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-ios.clock and ios.timing are independent fields, updated by the MMC core
-through separate calls. During card init, the core will hit this that
-clock <= 52 MHz  but timing in {HS200, HS400}, so it is a normal,
-intermediate state, not an error. So the message on every boot.
+On Fri, 18 Sep 2026, Ilpo J=C3=A4rvinen wrote:
 
-Changes it to dev_dbg is fine to me:
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+> On Tue, 25 Aug 2026 00:47:07 +0200, Armandas Kvietkus wrote:
+>=20
+> > When firmware does not support the fan curve WMI method,
+> > asus_wmi_evaluate_method_buf() returns -ENODEV. Callers treat this
+> > as non-fatal, but the pr_warn() here still fires, producing
+> > spurious boot noise on unsupported hardware. Downgrade the message
+> > to pr_debug().
+> >=20
+> >=20
+> > [...]
+>=20
+> Thank you for your contribution, it has been applied to my local
+> review-ilpo-next branch. Note it will show up in the public
+> platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+> local branch there, which might take a while.
+>=20
+> FYI [if applicable to your patch], as per Linus' policy change, also
+> fixes are mostly routed through for-next unless the fix is for a
+> commit introduced in the most recent cycle or is clearly a regression
+> fix.
+>=20
+> The list of commits applied:
+> [1/1] platform/x86: asus-wmi: suppress -ENODEV warning in fan_curve_get_f=
+actory_default()
+>       commit: 9af7fddef448d649fa1332d86a14465a1d1fafe3
 
-Thanks.
+I had to dropped this patch because it's lacking a proper Signed-off-by=20
+tag.
 
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> ---
->   drivers/mmc/host/sdhci-of-dwcmshc.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/mmc/host/sdhci-of-dwcmshc.c b/drivers/mmc/host/sdhci-of-dwcmshc.c
-> index c688f3eaf468..b4fb1c1e6d99 100644
-> --- a/drivers/mmc/host/sdhci-of-dwcmshc.c
-> +++ b/drivers/mmc/host/sdhci-of-dwcmshc.c
-> @@ -790,7 +790,7 @@ static void dwcmshc_rk3568_set_clock(struct sdhci_host *host, unsigned int clock
->   	if (clock <= 52000000) {
->   		if (host->mmc->ios.timing == MMC_TIMING_MMC_HS200 ||
->   		    host->mmc->ios.timing == MMC_TIMING_MMC_HS400) {
-> -			dev_err(mmc_dev(host->mmc),
-> +			dev_dbg(mmc_dev(host->mmc),
->   				"Can't reduce the clock below 52MHz in HS200/HS400 mode");
->   			goto enable_clk;
->   		}
+Please see Documentation/process/submitting-patches.rst for more=20
+information on what is required and send a new version with the problem=20
+corrected.
 
+
+--=20
+ i.
+
+--8323328-2118916778-1791882657=:1237--
