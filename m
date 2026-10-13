@@ -1,96 +1,96 @@
-Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl [85.128.243.59])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CF151DE15;
-	Tue, 13 Oct 2026 16:50:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.128.243.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF825111A5
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910237; cv=none; b=ZBRERfLS1gdfIGsVnG09v9jUQhW3N1cCF3OIRRub09eoTa1E8W4v4T74x1xNMpO8iVPyTGpBmN+a89yIA9+TG31uSyAt7x1pyFVTIG0t9ZmHh4fMY4ucR+KH8wXALwuZJEY3yUFk83uX6gSCfuEfOwZxJonmmNFSyU2WwTSavKQ=
+	t=1791910319; cv=none; b=qeLbb4e45Mfh8ZpRWe22ZY3275zb76gUlWkqGGJ6cRKAErLOmN3aZRKtZ1+ttqTzDjsflxhnh0MjE1tLaiMUSfz3Z0U+Irg9EJGnQOS/Lz05+xCQ1+D4bUyddX/mC23Rgic8+uStRLbvAKibD9nFXt3Tjir/E7slmYgWg6/8Ud4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910237; c=relaxed/simple;
-	bh=Bse3v3aUReRKkjZOVkof+Rdh5eQLC+3BQAjNGbp2Qa4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nuaKxYpSBx7FvWiGeHwFq7o8BLzw1ZRMxCBphoYOfQCr7f6jLxKshrkAf3EFHI6IDle2r6WP1TVLGyBYJWGDSRj+Sv+8dn/DfsgEqVgx1NV3HNanztcGOa2kQc+dpDdKBTZjFiTe+uDWDdhVdOnlxN27xYRJrIEyg8hl/hHXDHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net; spf=pass smtp.mailfrom=asmblr.net; dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b=N+CP4Rpn; arc=none smtp.client-ip=85.128.243.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmblr.net
+	s=arc-20240116; t=1791910319; c=relaxed/simple;
+	bh=0ViHQJP6tSLk1UV3pfKJO29C714UPZR37o6g6K/Byng=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=difRksKTdMC5pFxSMx9Wh9UJVCq56qp5qHfq5YlIxGH/jNycN9CroMgvGHG0aTMKNtcjS5jbwKmPkGD7YfB5bjiYpKv9gna/09bqeXxqaJ0P12MIv6tIwAJheGwhJPX0Kj4R0b6NbhUEuedALNmiAAKppiE0/jnHVyB7hz2f928=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HvWia53Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b="N+CP4Rpn"
-X-Virus-Scanned: by amavisd-new using ClamAV (15)
-X-Spam-Flag: NO
-X-Spam-Score: 3.474
-X-Spam-Level: ***
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
-	s=1706450368.internal; t=1791909783;
-	bh=6DGDy3S1nheW0M1w5J8nM3L5079YPGJJ2rrmIz0yFo4=;
-	h=From:To:Cc:Subject:Date;
-	b=N+CP4RpntsGsuMyZlx96/6F2RsK2dL5ne6Z6EXgd7Ne1vugfDnkkbztzVoqWZiDrg
-	 UESOpgkJiIPQ/ctBOqQiySEEU7BZUDdAtDSU2ckuyodlNfSAMBTJsIvWxnpBpkVOIo
-	 BPMnZ5iveCebFJoc8KRGHViG5onyutx5aQdWncz8/NqHHfMOJDwm35IgYpJ+66mzXk
-	 5Re9HYcvpshjPXTjrnRBt5h9YA+OhyeqVNuH42Quwfo9hj9+IupTHRnPfqz8AfhBXN
-	 mpivPgl1LgGGVCdMjpx69FyIMCzRjwFonFmHF15f6lku+L6KRzmi4LFP09WL0NMx2T
-	 4Cl4wsfOE+pBg==
-Received: from milkyway (91-150-221-36.dynamic.play.pl [91.150.221.36])
-	by server753313.nazwa.pl (Postfix) with ESMTP id CBCF41BDDE7;
-	Tue, 13 Oct 2026 18:43:03 +0200 (CEST)
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-Subject: [PATCH] ALSA: pcm: Fix driver_tstamp value reporting
-Date: Tue, 13 Oct 2026 18:42:56 +0200
-Message-ID: <20261013164256.4949-1-amade@asmblr.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HvWia53Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D256A1F00893
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:51:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791910316;
+	bh=l3/WP5D92dJn63pBVARZJXVp+tuxI1GnuqurUpTZ5jA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=HvWia53ZYyhgcZ+OXH68fzSeCTvCqsiRulCTPfoxOQFfsZUMZ7HrmAVwxHq0TSIhj
+	 0p0utXPvGUyGvZfDQB4Zcxctz5BdVh9RNiCElplGq3DFOQ58ymsICvXX2ZTjDpPP4B
+	 X0wiA+SPk4Lsr7Lf84b/BHLe6yTWho8RUweV+v0/4IPNRf3MO6T4p9lFHjOlHvuMRv
+	 KDbjyXUs12NH2QVqjoNNpwHh39PeyGCKmtbRFz3nSwX8yaEs0h5ugUoL2dsycH0fjl
+	 yTrrtTaV2/funlxY0mmHwruBFnUq4eeaX+TzpQ6hDC5aiF2tziZWKHelXDMRPTCo4h
+	 Tmxw75p8hc4Og==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bcb3726952so1453621e87.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:51:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx8G3mtVrKhta28vASYARIjNxJMVZhZrkXBGjIsVZKVUTsdMXZLM0N79sEiGqiEEtt+C/eLcqghKJn9Sfw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKe1RflyRPAfQmcdSrGako6dhRMo/MifWOViI6LNFB+HwWaya/o
+	JotPIeicLJvZ90hzw9AEj83jS7JBqpYx0jg/91MgnPDcSxbBkkjclzh66cnn1CU735am2JKXgh+
+	keyO/m16DSh4iQRHKd87WMjb+ftj8Hp0=
+X-Received: by 2002:a05:6512:2245:b0:5ae:b7bc:27a7 with SMTP id
+ 2adb3069b0e04-5bcde35cab3mr4460647e87.6.1791910315615; Tue, 13 Oct 2026
+ 09:51:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261013-gpio-mxc-cleanup-v7-0-c4d769587d3e@nxp.com> <20261013-gpio-mxc-cleanup-v7-1-c4d769587d3e@nxp.com>
+In-Reply-To: <20261013-gpio-mxc-cleanup-v7-1-c4d769587d3e@nxp.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 13 Oct 2026 18:51:42 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm3vuQr7WeYGMVVaNN5MuzuQvGrZFA4jboYBrTfCUfy8Q@mail.gmail.com>
+X-Gm-Features: AclHuK_fxfc0XIQk4rQosnKB8so3c6I-uEvWCQIJ_fa7_pXjDsATNC4VePcqcl4
+Message-ID: <CAD++jLm3vuQr7WeYGMVVaNN5MuzuQvGrZFA4jboYBrTfCUfy8Q@mail.gmail.com>
+Subject: Re: [PATCH v7 1/4] gpio: mxc: fix race between chained IRQ handler
+ install and probe completion
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
+	Andy Shevchenko <andy.shevchenko@gmail.com>, linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Peng Fan <peng.fan@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In some cases (system32 and compat64) due to incorrect assignment wrong
-value is being reported. Fix it.
+On Tue, Oct 13, 2026 at 8:03=E2=80=AFAM Peng Fan (OSS) <peng.fan@oss.nxp.co=
+m> wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> mxc_update_irq_chained_handler() is called before the IRQ domain, the
+> generic IRQ chip, and the port list entry are set up. If an interrupt
+> arrives in that window:
+>
+>  - mx3_gpio_irq_handler() calls generic_handle_domain_irq() with
+>    port->domain still NULL.
+>  - mx2_gpio_irq_handler() walks mxc_gpio_ports, but the port has not
+>    been added to the list yet.
+>
+> Additionally, if any of the subsequent probe steps
+> (gpio_generic_chip_init(), devm_gpiochip_add_data(),
+> irq_domain_create_legacy(), or mxc_gpio_init_gc()) fail, the error
+> paths never unregister the chained handler, leaving a dangling handler
+> that points at freed memory.
+>
+> Move the handler installation after all its dependencies are ready and
+> after list_add_tail(), so the handler is never live while the data
+> structures it touches are incomplete, and is never installed if probe
+> fails.
+>
+> Fixes: 5f6d1998adeb ("gpio: mxc: release the parent IRQ in runtime suspen=
+d")
+> Assisted-by: LLM
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 
-Fixes: 3ddee7f88aaf ("ALSA: Avoid using timespec for struct snd_pcm_status")
-Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
----
- sound/core/pcm_compat.c | 4 ++--
- sound/core/pcm_native.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-diff --git a/sound/core/pcm_compat.c b/sound/core/pcm_compat.c
-index 55ecf87586c4..359197aa6076 100644
---- a/sound/core/pcm_compat.c
-+++ b/sound/core/pcm_compat.c
-@@ -219,8 +219,8 @@ static int snd_pcm_status_user_compat64(struct snd_pcm_substream *substream,
- 		.audio_tstamp_data = status.audio_tstamp_data,
- 		.audio_tstamp_sec = status.audio_tstamp_sec,
- 		.audio_tstamp_nsec = status.audio_tstamp_nsec,
--		.driver_tstamp_sec = status.audio_tstamp_sec,
--		.driver_tstamp_nsec = status.audio_tstamp_nsec,
-+		.driver_tstamp_sec = status.driver_tstamp_sec,
-+		.driver_tstamp_nsec = status.driver_tstamp_nsec,
- 		.audio_tstamp_accuracy = status.audio_tstamp_accuracy,
- 	};
- 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index f774358629bb..fcd3594e4bdf 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -1206,8 +1206,8 @@ static int snd_pcm_status_user32(struct snd_pcm_substream *substream,
- 		.audio_tstamp_data = status64.audio_tstamp_data,
- 		.audio_tstamp_sec = status64.audio_tstamp_sec,
- 		.audio_tstamp_nsec = status64.audio_tstamp_nsec,
--		.driver_tstamp_sec = status64.audio_tstamp_sec,
--		.driver_tstamp_nsec = status64.audio_tstamp_nsec,
-+		.driver_tstamp_sec = status64.driver_tstamp_sec,
-+		.driver_tstamp_nsec = status64.driver_tstamp_nsec,
- 		.audio_tstamp_accuracy = status64.audio_tstamp_accuracy,
- 	};
- 
--- 
-2.56.0
-
+Yours,
+Linus Walleij
