@@ -1,114 +1,110 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46451415F09
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6D703D565A;
+	Tue, 13 Oct 2026 10:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887363; cv=none; b=fzNQIOLGRYscykHP/L2g0S8wg8f12m2rTgCT+LOevhj7BcqqohYIoe1hHCXgewt5nA7hfTQe7BmOWh9LGODVK+r0U2rRM7TfHP2pX/m15qXtTs+ELuK9uZd7pa1+Yd2oG2TFcyeJBhh/V9AeUvCqB6gCFN8mv+QXhV3CmBwNVdE=
+	t=1791887383; cv=none; b=ZgMeyqerbGdf4iWfjDdTbhKp6m+uYEay31SPTZ8PCwzobsxPd+o+jZUcG+NqG1fzclFFvCFbdvUEd9SxhLSZ9Hz7RISQW3S92NqNnma4h7v+PKLeoS5EA1Y/mN4W7N9gdgIu4PmXxPGy0gJiC6gKEtIvFjWSY/qL4OMZA3JAv5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887363; c=relaxed/simple;
-	bh=x6lJXlnw+7kScGp+KyssmQC0Hf4Uca7kpbxm6mYDoZw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=sNRqRNPj31Eh/ygCGGtTZpNYCA2DCB2d67CixiSJB3AfxYvVtWFoCS8trlyfvT8PKB25/xm6EHn95TGK0Vk/rZmfw5M5YQwrNvkztP6piSn0Y+I+ZM4RJL/5TVMzwJpqizSrgWEpVjGm6ezsJI60BZxV47sjbgOQl1ML9M3dZLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=icUNwOJD; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1791887383; c=relaxed/simple;
+	bh=KV2fhQ+VsW72SdSqkuBQ+5P9KRTk6Q9FJ/4848ulqT8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lJpOuddlXqKMAY4rCbFJhw+ozVrzdH8bmmQi4nhYAx8j3U3tT87DV8kjWmMUruJOJ5X9+ZxAvmh99NWluDN/8HSZYqA3p93WXQv2i1lh23hOagTCtmdRCh/bxWVyA9TCndEHDiTn9Goc2Zilt7HYLdap+ZlmKLt79nOUQUxHsJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=LwuvA/M1; arc=none smtp.client-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="icUNwOJD"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e60bb65626so30451695ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:29:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="LwuvA/M1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791887362; x=1792492162; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rjHP0ikJt34WZ/clkFc39YeDIx8IXxXSFzB3iNtX7ts=;
-        b=icUNwOJD7N8eie3CRf7qB2s49zgTClW++D4bV2Agy7y9ZHoiVsTtOSfRc3UOt0MhH1
-         JdRcvnt1PXbPqoQsZQIOZOqXpcjp4pv1OZ0M9pVfVC7R95cB4vHstnAUaYF/qf/FNLxD
-         NTF22CEYCLTus3164iJs+hQSDyXIkl/od4tu4B+SWA+Fwn/6Tl85giKX3EEDedBWohIq
-         fuGxpqm+BkkdY9bBg10EkmfPz3bzAIZrsKKF0LxV66GELJ0FdJtlt+6Da32eWQ/C37+n
-         wf55cahQ66pTGSHLQw1zsA1uMct/ZbnJlTIeHUUFXhDaFA/IYSKDJmqTd/ifH1UvSkBt
-         LbTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791887362; x=1792492162;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rjHP0ikJt34WZ/clkFc39YeDIx8IXxXSFzB3iNtX7ts=;
-        b=gRr8RbhH6by8s1T4W/AuFUWrE9SDGAOqozNvk3dTuQE44EXJ1TL+T1fpXtAa8uLTkX
-         OxZ3estp747mjdbsByT2zux1pucAh3iCdQaPzO/i9oIII53zhKsW1lkeo8yP6IOfplsM
-         SG+Sfm6EPGe/tyrHhUZ1UFPNHSkdfeTR4/KPd1fW0JbVpICbuzBsX45y002OXx0iJj9U
-         fWc32/AwDEuHUOj2EymsYp6FWCsnmloIwsnT6Z3Lc3d3LqH/FanLfjNI8KpLXx7fX4Ej
-         WNdXu4k7daPcek1NqiLFdtcix1glMyeghhxw52KMCU95Jmx/SfidCAo0INMgv2/yD8Wy
-         HqiA==
-X-Forwarded-Encrypted: i=1; AKwUvBxr34wG+iyodmdxCX3FUgYCcaso3dJkKpfIgrtke/gSP2BIiwPfURbpeLPdDhFPFHLa9lnZbsoLGrFEyvA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKqhLIwAWHGkUG4cgNSjDcKTwaehRSw12oz6/9L4YSNZgmaXWy
-	9hc18AVzVXyWi8RthNGK4ywdb2YN6BLlqlzd5smRPYA6i9thyVR0KmSWLOuW6J2D/BiVyaT/BcQ
-	okDIl4EaekXDJ9B+GPSlsRg==
-X-Received: from plei20.prod.google.com ([2002:a17:902:e494:b0:2e2:cb09:d4a2])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:d4d1:b0:2e4:905f:5a3a with SMTP id d9443c01a7336-2e8428359eamr73415145ad.2.1791887361273;
- Tue, 13 Oct 2026 03:29:21 -0700 (PDT)
-Date: Tue, 13 Oct 2026 18:29:13 +0800
-In-Reply-To: <20261013102913.948718-1-stanleyjhu@google.com>
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=NYLS86OtLvumaJVUFdq6GXyQjyeMreAbgB
+	Xg1Vwdfis=; b=LwuvA/M1bvhywh7WWRc+SM0juq6H63vdR34y+RFrUi4EGID7KZ
+	yGOz9ddyB+wElS+93H8oRPMwDBJRsIELQjhYdgScMtzdp/ElMpqUi2BDAM6EefHm
+	1/7lflM0U7TstnBdWdPOVZxDCvazTynPKOIOzDU+gXLKGpPwJMoQTWAXs=
+Received: from 5700g-x8664.ustc.edu.cn (unknown [114.214.192.228])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXEikHCM5q2w3hAQ--.890S3;
+	Tue, 13 Oct 2026 18:29:28 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	linux-usb@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH 1/3] dt-bindings: usb: snps,dwc3: document usb-psy-name
+Date: Tue, 13 Oct 2026 18:29:25 +0800
+Message-ID: <20261013102927.1141696-2-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261013102927.1141696-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261013102927.1141696-1-xiaqinghuan@mail.ustc.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261013102913.948718-1-stanleyjhu@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013102913.948718-4-stanleyjhu@google.com>
-Subject: [PATCH 3/3] scsi: ufs: core: Clear stale UIC result byte before peer
- DME retries
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K. Petersen" <mkp@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
-	Peter Wang <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgAXEikHCM5q2w3hAQ--.890S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7urW7tFyUXrW3tw1DZF45trb_yoW8Xw1xpa
+	92krWUtF4ftw1fuws7t3WUCw17WFyDGrW3Gr40qw17t3s8ZayFkrWakwn8Xr1UArn7AFWY
+	9ayFkF98W3W2kr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUm014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
+	A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+	xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
+	kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
+	6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0x
+	vEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVj
+	vjDU0xZFpf9x0JUs2-5UUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARETB2rNcIlM4gAWsi
 
-Peer DME get and set retry a failed attempt with the same struct
-uic_command. UIC completion ORs the ConfigResultCode into
-argument2[7:0], and nothing clears it before the next attempt. Once an
-attempt fails, every retry keeps reporting that error code, even when
-the device returns success, so a transient failure becomes a hard
-failure after three retries. Each such retry also triggers the
-WARN_ON_ONCE() in ufshcd_dispatch_uic_cmd().
+From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
 
-Clear the result byte before each attempt.
+The dwc3 driver looks up "usb-psy-name" to find the power supply which
+accepts the input current limit requested by the gadget after USB
+configuration, and while the bus is suspended or resumed
+(dwc3_vbus_draw_work()), but the property is not described by any
+binding:
 
-Fixes: 64238fbd15ea ("scsi: ufs: add retries to dme_peer get and set attribute")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+  $ git grep -n usb-psy-name -- Documentation/
+  (no match)
+
+As a result, any DTS using it fails dtbs_check.  The property is read
+from the DWC3 device node, which for the single-node flavours (e.g.
+qcom,snps-dwc3.yaml) is the node that $refs this file, so document it
+here.
+
+Signed-off-by: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
 ---
- drivers/ufs/core/ufshcd.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../devicetree/bindings/usb/snps,dwc3-common.yaml          | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index bcc2512bf34b..9adb3b576e28 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -4398,6 +4398,7 @@ int ufshcd_dme_set_attr(struct ufs_hba *hba, u32 attr_sel,
- 	int retries = UFS_UIC_COMMAND_RETRIES;
+diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+index 6c0b8b6538..6609a709c1 100644
+--- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
++++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+@@ -51,6 +51,13 @@ properties:
+       - items:
+           pattern: "^usb(2-([0-9]|1[0-4])|3-[0-3])$"
  
- 	do {
-+		uic_cmd.argument2 &= ~MASK_UIC_COMMAND_RESULT;
- 		/* for peer attributes we retry upon failure */
- 		ret = ufshcd_send_uic_cmd(hba, &uic_cmd);
- 		if (ret)
-@@ -4465,6 +4466,7 @@ int ufshcd_dme_get_attr(struct ufs_hba *hba, u32 attr_sel,
- 	}
- 
- 	do {
-+		uic_cmd.argument2 &= ~MASK_UIC_COMMAND_RESULT;
- 		/* for peer attributes we retry upon failure */
- 		ret = ufshcd_send_uic_cmd(hba, &uic_cmd);
- 		if (ret)
--- 
-2.56.0.385.gd3acb90ef8-goog
++  usb-psy-name:
++    description:
++      Name of the USB power supply accepting the input current limit
++      requested by the gadget after USB configuration, and during bus
++      suspend and resume.
++    $ref: /schemas/types.yaml#/definitions/string
++
+   snps,usb2-lpm-disable:
+     description: Indicate if we don't want to enable USB2 HW LPM for host
+       mode.
 
