@@ -1,322 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6522D274B46;
-	Tue, 13 Oct 2026 08:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791881251; cv=none; b=BeAP5ruF2vFs3GCZz5PpT7fF7ilC+J+GMgtBu+k0et75uNbLOncrFlLnIbII6Sf4cf9i3ZU4U0AW6SxC/C1xkqLmfaT4UeYxu6yD+MEfwrLd+0uwxAlohUlgBHNlYvrupUZj3jTunGB9IM9oN+5ON+84dBFrxI+l4YHMuourxsU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791881251; c=relaxed/simple;
-	bh=L6OWFspRKJLxpUf6i7t4p7fTPApz6UBhiCJkvkj09bU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WK0cCvhQ5WTY0vlotb2PdWEplH4D93YRivbIx4KUtsOtx7U9G88numYYUwsL/OhP5orInhXJHdZDJqI5jssp0Q/s3A32Ip04VY+DoqxjQhqpL6mTERgzVyxcmSXgrasD5JjzFn4MtlLIz6tEaIEoUI5pKvZNBO9Qw12vXpJbfRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTbq4RtK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC48E2EBBA1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791881283; cv=pass; b=c+2ohyRl3V3pEdzsDE0UrL/gETvLvOFDjqaKZlfJZnQb2A6nHEpbP+rDskLPrTWXviwNZitxXZbANPKES+DrK9Yh0JY9vrB/ZIhBAjnXie6/HRWm4DaIIQ8smSj8bDmKwqke8cfnGjdiIRKClyvvxD5AY6lzwIxkrcEtHWVRruM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791881283; c=relaxed/simple;
+	bh=CLDYnK6SJJppn6ruFYkJBkFq1xs1TunxHWw8XvTRdp0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sgF2sC+gATM23GPvkHFJPZx2F3tX1I7+wvquKRekBFP3a41CpTmOFXwW+reUiXve3BlivZ1gCySimhEXkhM4SkRmxryf4w65DCUQx8rIMqxNeNfIXnJIWBSeK7Y8VNyk8vemUknL+uGpLTBiSQe/7upl3Oi4NtlI1ZELJ5DqISk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nearthlab.com; spf=pass smtp.mailfrom=nearthlab.com; dkim=pass (1024-bit key) header.d=nearthlab.com header.i=@nearthlab.com header.b=kXrNiLzh; arc=pass smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nearthlab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nearthlab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTbq4RtK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF6C1F000FF;
-	Tue, 13 Oct 2026 08:47:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791881250;
-	bh=5J+TDdB61jyzAhsIsbEgjO7KGpnGc9F+JSCzxz101VE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QTbq4RtKj3yoBjkCBAjrPSgAUdYfPEHeRgXVcqEPA6KEWCGEXgHPY30v7NurdI3sL
-	 e3I4tlBR999grxq+ky2Pvs/pIZEXKX/zjtaF5GyYt6cfCcrUaHXQ4Bp8+y2X5ip52k
-	 KyTn5W2epJuHaW8L/tGmP7mYh3/mn8Yb6AbAifkQQunppXim+sd76LrJPidx1ljBIj
-	 tIAdg2H/nXKS0DZgzxxAeeBrEiyyTHomx1RbY6hhD4OFrbfQeLPLsK7KF9DuD8xT3p
-	 swmhM6Wo2Xgo7QP0g/rkEaF5OE8bo1+57+WP9mXdVYmzBAOOKPnThyQIhd5VfNUqFf
-	 0JB071+gQEFjw==
-Received: by pali.im (Postfix)
-	id 07376365; Tue, 13 Oct 2026 10:47:32 +0200 (CEST)
-Date: Tue, 13 Oct 2026 10:47:32 +0200
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>
-Cc: linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 8/9] cifs: Add support for parsing WSL symlinks in
- version 1 format
-Message-ID: <20261013084732.po2kddv7vshutuz3@pali>
-References: <20260821214722.q7rkflclyyugdxll@pali>
- <20260825230622.24617-1-pali@kernel.org>
- <20260825230622.24617-9-pali@kernel.org>
+	dkim=pass (1024-bit key) header.d=nearthlab.com header.i=@nearthlab.com header.b="kXrNiLzh"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so1531166a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:48:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791881281; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q4byTUUHEiRbuoXyv6P1821YW62Vgo9C9rzx/PiKjZrQmaCS78OeQK51AZ7RIRtaGA
+         8mFB9N1kKQwBQPf7nZBgX/pUGikeXULiAG1ENfDj1mOIhBXmQKjEO310jXzrq3CqtnyR
+         DZs7ien59qD5cZPz554UFcuvOSmA+4qJ/XaygjDbDALlubQ7EOlpqCLuUPO68nSlwx9V
+         B/3doWHT+VJkxU0519CBAT4L6y5ci8FCo6uKWA2gUOb/qWUUPtlqJUULRHE86tRpEzkS
+         uro3r9/dzYUF5TmfIRUIK93OAGKW+WAz4dujtupyoZYPsATf8/tL0VICFT+iPb3su/Qq
+         gVCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rzNVaT90GYZEug/T1ZLZlSqiBeontwDSLfIxns+H/So=;
+        fh=CU09pDVctdx9CQyiC2Y1S0w3mGOJyZvEMZqM41iDnMA=;
+        b=FSfo9S+usIXdeQILZwN7vK1dVdUQydNyVNB3S8cxkobDYI6X47ebvIZgQe7JYCLLt0
+         2Rluc8sKe0HO6CuQIG97/vPJ+ZfW1cROscpTko7XNmTfoBJwnEEA8B77wrPrdmvfDk32
+         44L8J4e8U1TdztrBfLptpV1GRkytcQRbYMHfHsPPQtDFiUInE9BY3/fReqfdCpVMDCJU
+         tWKfzKaNmy7CXKBsYDmzwH1+70rE80BfnhCXsWhQphXePwfCtR2H6I1dCw0IEQ/LaEhE
+         IlHJnRhgyF7kTffCx6QgKDRdzVHMsbQkT/+iFCzh+EadO6RizXHIGylDpw9KkBM+RpZf
+         iuyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nearthlab.com; s=google; t=1791881281; x=1792486081; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rzNVaT90GYZEug/T1ZLZlSqiBeontwDSLfIxns+H/So=;
+        b=kXrNiLzh0PnIgjxOsK3cc8dYdJIdDsyOHw6NTjXS68McRrAuBat6n3Ooj5aprup66u
+         LbZvXRddhOKoF9diZwwmaYmvREe4l2YE/1zEMBFx3NvmIyAj1IyzWgjwPZ/DKGsAsCTT
+         gssSCHrRFrByDrdpJE33mpfa9mdK2T/k75Ia0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791881281; x=1792486081;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rzNVaT90GYZEug/T1ZLZlSqiBeontwDSLfIxns+H/So=;
+        b=1R2ye05iWPUBqy3z6Dxn2rwT5AaBov9hA7Kd/g0V2QqjO0tNVpluYwcvZ9sWWFLzoj
+         +2NI/bRp457SxuHEOUgJO/8MSALNKuv822h6LUq15rPZgOyHjRhJNB1hZkeq03DewM8c
+         iPyN76h80fLqhuKSw8loSbnEdKM+5AFIDteRVAM0rA/Ogg4zvjn8QQl0NjWtYxbBQ3b4
+         ovjiQUgY1d+8TQgQa5lFmnsv2MemFDtVCotBtpZ5WzU/8hhLZs1SJFH8CK0796xIsiF2
+         FDrUi1aDapu2MKFiNDd5R/QZW8Tmp539sQ8nVomuJxkXqHuHsxu/2zvG1lbBGu6xGO+w
+         SrHg==
+X-Forwarded-Encrypted: i=1; AKwUvBwAdQ3KIyKc0fFIL5BY/iT8yDWlBTSwaHiG6hcb53SUdj4BAE1bf2JArcRmOsz0nDVtdBGatFZIUTax2D8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdknhPEaRrQRp8QC8oEttSL66F/8rfBee7JfRNPf/ILUYuLceS
+	tcC8wezqA3/YIA4Z3IZVE0kdX2KU/j/favG1/QJ/0FJVb/+YyuvlwvBASZ2xug2nfVewOjg4IXQ
+	k4lWFhvdgj3zal2Nh05en/v+tv5llNIYo1fXnPngYsw==
+X-Gm-Gg: AYBFou3YEUb6XzpE12TcXUmPGGNGjXbZnMeS48iBk/97y69RnLtTNdoRIg/smfcBKh4
+	Y7Jhgx665hDi6FzS0ahb7ZVtTBI6/GDK8a+d/9rbBfMa/V+bXh72zM9O1sPtWns7w6dF5kvoppa
+	eDfnH3RTKXj9EGsHHwBERaIkL9255T5oi9ebORv7Wrj73fCjbo7+FYr/Pv12/vf25pLbBTjSOfP
+	axSOsqZG7A3iawNKJGUqUvM5Q1ROEtQAdCLwUxJtTQz12sBHgpd2oIIdk0LB5xKegqE0NMe6FcH
+	TTpN6OnpDI0c7iunC6J3WQvsm8zsootmCZFt3QclpAKTcpVT+/dvTfqB
+X-Received: by 2002:a17:90a:d006:b0:3a7:bf13:6007 with SMTP id
+ 98e67ed59e1d1-3ab3a9128c8mr9969201a91.14.1791881281048; Tue, 13 Oct 2026
+ 01:48:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260825230622.24617-9-pali@kernel.org>
-User-Agent: NeoMutt/20180716
+References: <871pa9gqy0.ffs@fw13> <20261012214737.GA1400495@bhelgaas>
+In-Reply-To: <20261012214737.GA1400495@bhelgaas>
+From: =?UTF-8?B?SGFuIC8g7ZWc7IOB7JqwU2FuZ3dvbw==?= <sangwoo.han@nearthlab.com>
+Date: Tue, 13 Oct 2026 17:47:49 +0900
+X-Gm-Features: AclHuK_m5ccTa8frqqq3Xr7dirm-kMGsCwAMeH37wK9ea3ERtMGi0K_ixLEeTqU
+Message-ID: <CAFg7d9becn9_=ZzNwQ7bSBBNid28t_RnofL-Vb1cZVHVHxS9fw@mail.gmail.com>
+Subject: Re: [PATCH] PCI: brcmstb: Reserve only the MSI vectors that are
+ handed out
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, jim2101024@gmail.com, florian.fainelli@broadcom.com, 
+	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
+	bhelgaas@google.com, bcm-kernel-feedback-list@broadcom.com, robh@kernel.org, 
+	linux-pci@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Inochi Amaoto <inochiama@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wednesday 26 August 2026 01:06:21 Pali Rohár wrote:
-> MS-FSCC 2.1.2.7 for IO_REPARSE_TAG_LX_SYMLINK reparse points currently
-> documents only layout version 2 format.
-> 
-> IO_REPARSE_TAG_LX_SYMLINK reparse point buffer of layout version 1 format
-> is documented in the newly released Microsoft WSL source code at github:
-> https://github.com/microsoft/WSL/blob/2.5.8/test/windows/DrvFsTests.cpp#L775-L815
-> 
-> Difference between version 1 and version 2 is that version 1 stores the
-> symlink target location into data section of the file, but version 2 stores
-> it directly into the reparse point buffer.
-> 
-> This change implements support for parsing WSL symlinks in this layout
-> version 1 format by Linux SMB client and so allow to recognize these type
-> of symlinks like Windows WSL.
-> 
-> Signed-off-by: Pali Rohár <pali@kernel.org>
-> ---
->  fs/smb/client/cifsproto.h |   1 +
->  fs/smb/client/inode.c     |   1 +
->  fs/smb/client/reparse.c   | 123 ++++++++++++++++++++++++++++++++------
->  fs/smb/common/fscc.h      |   5 +-
->  4 files changed, 110 insertions(+), 20 deletions(-)
-> 
-> diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
-> index 00168839c123..1202934d7b94 100644
-> --- a/fs/smb/client/cifsproto.h
-> +++ b/fs/smb/client/cifsproto.h
-> @@ -390,6 +390,7 @@ int cifs_update_super_prepath(struct cifs_sb_info *cifs_sb, char *prefix);
->  char *extract_hostname(const char *unc);
->  char *extract_sharename(const char *unc);
->  int parse_reparse_point(struct reparse_data_buffer *buf, u32 plen,
-> +			unsigned int xid, struct cifs_tcon *tcon,
->  			struct cifs_sb_info *cifs_sb, const char *full_path,
->  			struct cifs_open_info_data *data);
->  int __cifs_sfu_make_node(unsigned int xid, struct inode *inode,
-> diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-> index 4ccfc83f7d3b..8d0282599876 100644
-> --- a/fs/smb/client/inode.c
-> +++ b/fs/smb/client/inode.c
-> @@ -1175,6 +1175,7 @@ static int reparse_info_to_fattr(struct cifs_open_info_data *data,
->  
->  			reparse_buf = server->ops->get_reparse_point_buffer(iov, &reparse_len);
->  			rc = parse_reparse_point(reparse_buf, reparse_len,
-> +						 xid, tcon,
->  						 cifs_sb, full_path, data);
->  			/*
->  			 * If the reparse point was not handled but it is the
-> diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
-> index 4dd81e40e947..bed6f764c0bc 100644
-> --- a/fs/smb/client/reparse.c
-> +++ b/fs/smb/client/reparse.c
-> @@ -1060,51 +1060,129 @@ static int parse_reparse_native_symlink(struct reparse_symlink_data_buffer *sym,
->  }
->  
->  static int parse_reparse_wsl_symlink(struct reparse_wsl_symlink_data_buffer *buf,
-> +				     unsigned int xid,
-> +				     struct cifs_tcon *tcon,
->  				     struct cifs_sb_info *cifs_sb,
-> +				     const char *full_path,
->  				     struct cifs_open_info_data *data)
->  {
->  	int len = le16_to_cpu(buf->ReparseDataLength);
->  	int data_offset = offsetof(typeof(*buf), Target) - offsetof(typeof(*buf), Version);
-> -	int symname_utf8_len;
-> +	bool free_symname_utf8 = false;
-> +	struct cifs_open_parms oparms;
-> +	struct cifs_io_parms io_parms;
-> +	unsigned int symname_utf8_len;
-> +	char *symname_utf8 = NULL;
->  	__le16 *symname_utf16;
->  	int symname_utf16_len;
-> +	struct cifs_fid fid;
-> +	u64 file_size;
-> +	__u32 oplock;
-> +	int buf_type;
-> +	int rc = 0;
->  
-> -	if (len <= data_offset) {
-> +	if (len < data_offset) {
->  		cifs_dbg(VFS, "srv returned malformed wsl symlink buffer\n");
-> -		return smb_EIO2(smb_eio_trace_reparse_wsl_symbuf,
-> +		rc = smb_EIO2(smb_eio_trace_reparse_wsl_symbuf,
->  				len, data_offset);
-> +		goto out;
->  	}
->  
-> -	/* MS-FSCC 2.1.2.7 defines layout of the Target field only for Version 2. */
->  	u32 version = le32_to_cpu(buf->Version);
-> +	switch (version) {
-> +	case 1:
-> +		/*
-> +		 * Layout version 1 stores the symlink target in the data section of
-> +		 * the file encoded in UTF-8 without trailing null-term byte.
-> +		 */
-> +
-> +		file_size = data->contains_posix_file_info ?
-> +			le64_to_cpu(data->posix_fi.EndOfFile) :
-> +			le64_to_cpu(data->fi.EndOfFile);
-> +
-> +		free_symname_utf8 = true;
-> +		symname_utf8_len = file_size;
-> +		symname_utf8 = kmalloc(symname_utf8_len, GFP_KERNEL);
-> +		if (!symname_utf8) {
-> +			rc = -ENOMEM;
-> +			goto out;
-> +		}
-> +
-> +		oparms = CIFS_OPARMS(cifs_sb, tcon, full_path, FILE_READ_DATA,
-> +				     FILE_OPEN, CREATE_NOT_DIR | OPEN_REPARSE_POINT,
-> +				     ACL_NO_MODE);
-> +		oparms.fid = &fid;
-> +		oplock = tcon->ses->server->oplocks ? REQ_OPLOCK : 0;
-> +		rc = tcon->ses->server->ops->open(xid, &oparms, &oplock, NULL);
-> +		if (rc)
-> +			goto out;
-> +
-> +		buf_type = CIFS_NO_BUFFER;
-> +		io_parms = (struct cifs_io_parms) {
-> +			.netfid = fid.netfid,
-> +			.pid = current->tgid,
-> +			.tcon = tcon,
-> +			.offset = 0,
-> +			.length = symname_utf8_len,
-> +		};
-> +		rc = tcon->ses->server->ops->sync_read(xid, &fid, &io_parms,
-> +						       &symname_utf8_len,
-> +						       &symname_utf8,
-> +						       &buf_type);
-> +		if (!rc && symname_utf8_len != file_size)
-> +			rc = -EIO;
->  
-> -	if (version != 2) {
-> +		tcon->ses->server->ops->close(xid, tcon, &fid);
-> +
-> +		if (rc) {
-> +			cifs_dbg(VFS, "cannot read wsl symlink target location: %d\n", rc);
-> +			goto out;
-> +		}
-> +
-> +		break;
-> +	case 2:
-> +		/*
-> +		 * Layout version 2 stores the symlink target in the reparse buffer
-> +		 * field Target encoded in UTF-8 without trailing null-term byte.
-> +		 */
-> +		symname_utf8_len = len - data_offset;
-> +		symname_utf8 = buf->Target;
-> +		break;
-> +	default:
->  		cifs_dbg(VFS, "srv returned unsupported wsl symlink version %u\n", version);
->  		return smb_EIO1(smb_eio_trace_reparse_wsl_ver, version);
->  	}
->  
-> -	/* Target for Version 2 is in UTF-8 but without trailing null-term byte */
-> -	symname_utf8_len = len - data_offset;
-> +	if (symname_utf8_len == 0) {
-> +		cifs_dbg(VFS, "srv returned empty wsl symlink target location\n");
-> +		rc = -EIO;
-> +		goto out;
-> +	}
-> +
->  	/*
->  	 * Check that buffer does not contain null byte
->  	 * because Linux cannot process symlink with null byte.
->  	 */
-> -	size_t ulen = strnlen(buf->Target, symname_utf8_len);
-> +	size_t ulen = strnlen(symname_utf8, symname_utf8_len);
->  
->  	if (ulen != symname_utf8_len) {
->  		cifs_dbg(VFS, "srv returned null byte in wsl symlink target location\n");
-> -		return smb_EIO2(smb_eio_trace_reparse_wsl_ver,
-> +		rc = smb_EIO2(smb_eio_trace_reparse_wsl_ver,
->  				ulen, symname_utf8_len);
-> +		goto out;
->  	}
->  	symname_utf16 = kzalloc(symname_utf8_len * 2, GFP_KERNEL);
-> -	if (!symname_utf16)
-> -		return -ENOMEM;
-> -	symname_utf16_len = utf8s_to_utf16s(buf->Target, symname_utf8_len,
-> +	if (!symname_utf16) {
-> +		rc = -ENOMEM;
-> +		goto out;
-> +	}
-> +	symname_utf16_len = utf8s_to_utf16s(symname_utf8, symname_utf8_len,
->  					    UTF16_LITTLE_ENDIAN,
->  					    (wchar_t *) symname_utf16, symname_utf8_len * 2);
->  	if (symname_utf16_len < 0) {
->  		kfree(symname_utf16);
-> -		return symname_utf16_len;
-> +		rc = symname_utf16_len;
-> +		goto out;
->  	}
->  	symname_utf16_len *= 2; /* utf8s_to_utf16s() returns number of u16 items, not byte length */
->  
-> @@ -1112,14 +1190,23 @@ static int parse_reparse_wsl_symlink(struct reparse_wsl_symlink_data_buffer *buf
->  						       symname_utf16_len, true,
->  						       cifs_sb->local_nls);
->  	kfree(symname_utf16);
-> -	if (!data->symlink_target)
-> -		return -ENOMEM;
-> +	if (!data->symlink_target) {
-> +		rc = -ENOMEM;
-> +		goto out;
-> +	}
->  
-> -	return 0;
-> +out:
-> +	if (free_symname_utf8)
-> +		kfree(symname_utf8);
-> +
-> +	return rc;
->  }
->  
->  int parse_reparse_point(struct reparse_data_buffer *buf,
-> -			u32 plen, struct cifs_sb_info *cifs_sb,
-> +			u32 plen,
-> +			unsigned int xid,
-> +			struct cifs_tcon *tcon,
-> +			struct cifs_sb_info *cifs_sb,
->  			const char *full_path,
->  			struct cifs_open_info_data *data)
->  {
-> @@ -1137,7 +1224,7 @@ int parse_reparse_point(struct reparse_data_buffer *buf,
->  	case IO_REPARSE_TAG_LX_SYMLINK:
->  		return parse_reparse_wsl_symlink(
->  			(struct reparse_wsl_symlink_data_buffer *)buf,
-> -			cifs_sb, data);
-> +			xid, tcon, cifs_sb, full_path, data);
->  	case IO_REPARSE_TAG_AF_UNIX:
->  	case IO_REPARSE_TAG_LX_FIFO:
->  	case IO_REPARSE_TAG_LX_CHR:
-> diff --git a/fs/smb/common/fscc.h b/fs/smb/common/fscc.h
-> index e46d3379b779..dee4fb6af16a 100644
-> --- a/fs/smb/common/fscc.h
-> +++ b/fs/smb/common/fscc.h
-> @@ -69,12 +69,13 @@ struct reparse_nfs_data_buffer {
->  	__u8	DataBuffer[];
->  } __packed;
->  
-> -/* For IO_REPARSE_TAG_LX_SYMLINK - see MS-FSCC 2.1.2.7 */
-> +/* For IO_REPARSE_TAG_LX_SYMLINK - see MS-FSCC 2.1.2.7 and
-> + * https://github.com/microsoft/WSL/blob/2.5.8/test/windows/DrvFsTests.cpp#L775-L815 */
->  struct reparse_wsl_symlink_data_buffer {
->  	__le32	ReparseTag;
->  	__le16	ReparseDataLength;
->  	__u16	Reserved;
-> -	__le32	Version; /* Always 2 */
-> +	__le32	Version; /* 1 - stores symlink path in file data section; 2 - stores symlink path in Target[] field */
->  	__u8	Target[]; /* Variable Length UTF-8 string without nul-term */
->  } __packed;
->  
-> -- 
-> 2.20.1
-> 
+Hi Bjorn, Thomas,
 
-For visibility, this is oneliner fixup for sashiko review:
+> > Good. Can you please retest with the updated patch?
+>
+> Sangwoo, any update on this?
 
-diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
-index 8db3e4917788..c3e125669e9b 100644
---- a/fs/smb/client/reparse.c
-+++ b/fs/smb/client/reparse.c
-@@ -1173,7 +1173,6 @@ static int parse_reparse_wsl_symlink(struct reparse_wsl_symlink_data_buffer *buf
+Sorry for the silence.
 
- 		buf_type = CIFS_NO_BUFFER;
- 		io_parms = (struct cifs_io_parms) {
--			.netfid = fid.netfid,
- 			.pid = current->tgid,
- 			.tcon = tcon,
- 			.offset = 0,
+I have not been able to retest yet. I have several work items on a
+tight schedule right now, and I am currently working on a different
+board for another project, so I cannot get to this at the moment.
+
+For the KASAN slab-out-of-bounds report, I will follow up within
+October.
+
+For the retest with the updated patch, I cannot give a date right now.
+I am sorry about that.
+
+Thanks,
+Sangwoo
+
+2026=EB=85=84 10=EC=9B=94 13=EC=9D=BC (=ED=99=94) =EC=98=A4=EC=A0=84 6:47, =
+Bjorn Helgaas <helgaas@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Thu, Oct 01, 2026 at 09:29:27PM +0200, Thomas Gleixner wrote:
+> > On Mon, Sep 21 2026 at 18:05, Han / =ED=95=9C=EC=83=81=EC=9A=B0Sangwoo =
+wrote:
+> > > I tested Thomas's patch on the same hardware setup with the 5-vector
+> > > MSI endpoint. The patch was applied as posted on top of 6.12.93
+> > > (rpi-6.12.y).
+> > >
+> > > With the patch applied:
+> > >
+> > > - The MSI base hwirq remained at 0x8 across 200 driver reload cycles.
+> > > - The driver got all 5 requested vectors on every cycle, with no
+> > > single-MSI fallback. Multiple Message Enable remained at 8.
+> > > - The brcmstb inner-domain mapping returned to baseline after each
+> > > unload/reload, with 12 mapped while the driver was loaded and 4 after
+> > > unload.
+> > > - A kprobe showed one allocation of 8 vectors followed by eight
+> > > single-vector frees, with nothing left over.
+> >
+> > 8 single vector frees?
+> >
+> > Seems I got something wrong there verus the bulk free. Updated patch
+> > below.
+> >
+> > > The MSI vector exhaustion issue I originally observed no longer
+> > > reproduces with the patch.
+> >
+> > Good. Can you please retest with the updated patch?
+>
+> Sangwoo, any update on this?
+>
+> I don't see this patch in linux-next (next-20261012), so I don't think
+> this will be fixed for v7.4 unless something moves it ahead.
+>
+> > > I also observed a KASAN report with managed affinity. Using a small
+> > > out-of-tree test module bound to the same endpoint and requesting 1..=
+3
+> > > vectors with PCI_IRQ_MSI | PCI_IRQ_AFFINITY, a request for 3 vectors
+> > > resulted in:
+> > >
+> > > BUG: KASAN: slab-out-of-bounds in __irq_alloc_descs+0x158/0x460
+> > >
+> > > Requests for 5 and 7 vectors were capped to 4 on this 4-CPU system an=
+d
+> > > did not trigger the report. I have not checked this against the
+> > > unpatched kernel yet, so I cannot tell whether it is related to the
+> > > patch.
+> >
+> > Any updates on that? Also please provide the source for that test.
+> >
+> > Thanks,
+> >
+> >         tglx
+> > ---
+> > --- a/kernel/irq/irqdomain.c
+> > +++ b/kernel/irq/irqdomain.c
+> > @@ -1610,6 +1610,17 @@ static void irq_domain_free_irqs_hierarc
+> >       if (!domain->ops->free)
+> >               return;
+> >
+> > +     /*
+> > +      * MSI device domains are capable of bulk free.
+> > +      *
+> > +      * CHECKME: Are all MSI parent domains capable?
+> > +      */
+> > +     if (domain->flags & (IRQ_DOMAIN_FLAG_MSI_DEVICE | IRQ_DOMAIN_FLAG=
+_MSI_PARENT)) {
+> > +             if (irq_domain_get_irq_data(domain, irq_base))
+> > +                     domain->ops->free(domain, irq_base, nr_irqs);
+> > +             return;
+> > +     }
+> > +
+> >       for (i =3D 0; i < nr_irqs; i++) {
+> >               if (irq_domain_get_irq_data(domain, irq_base + i))
+> >                       domain->ops->free(domain, irq_base + i, 1);
+> > --- a/kernel/irq/msi.c
+> > +++ b/kernel/irq/msi.c
+> > @@ -1333,20 +1333,28 @@ static int __msi_domain_alloc_irqs(struc
+> >
+> >               ops->set_desc(&arg, desc);
+> >
+> > -             virq =3D __irq_domain_alloc_irqs(domain, -1, desc->nvec_u=
+sed,
+> > +             /* Make sure a MULTI-MSI allocation is power of two */
+> > +             unsigned int nvec_aligned =3D roundup_pow_of_two(desc->nv=
+ec_used);
+> > +
+> > +             virq =3D __irq_domain_alloc_irqs(domain, -1, nvec_aligned=
+,
+> >                                              dev_to_node(dev), &arg, fa=
+lse,
+> >                                              desc->affinity);
+> >               if (virq < 0)
+> >                       return msi_handle_pci_fail(domain, desc, allocate=
+d);
+> >
+> > -             for (i =3D 0; i < desc->nvec_used; i++) {
+> > +             for (i =3D 0; i < nvec_aligned; i++) {
+> >                       irq_set_msi_desc_off(virq, i, desc);
+> >                       irq_debugfs_copy_devname(virq + i, dev);
+> >                       ret =3D msi_init_virq(domain, virq + i, vflags);
+> >                       if (ret)
+> >                               return ret;
+> >               }
+> > +
+> >               if (info->flags & MSI_FLAG_DEV_SYSFS) {
+> > +                     /*
+> > +                      * This only exposes desc->nvec_used and ignores =
+the
+> > +                      * overallocated MULTI-MSI ones.
+> > +                      */
+> >                       ret =3D msi_sysfs_populate_desc(dev, desc);
+> >                       if (ret)
+> >                               return ret;
+> > @@ -1610,13 +1618,15 @@ static void __msi_domain_free_irqs(struc
+> >                       continue;
+> >
+> >               /* Make sure all interrupts are deactivated */
+> > -             for (i =3D 0; i < desc->nvec_used; i++) {
+> > +             unsigned int nvec_aligned =3D roundup_pow_of_two(desc->nv=
+ec_used);
+> > +
+> > +             for (i =3D 0; i < nvec_aligned; i++) {
+> >                       irqd =3D irq_domain_get_irq_data(domain, desc->ir=
+q + i);
+> >                       if (irqd && irqd_is_activated(irqd))
+> >                               irq_domain_deactivate_irq(irqd);
+> >               }
+> >
+> > -             irq_domain_free_irqs(desc->irq, desc->nvec_used);
+> > +             irq_domain_free_irqs(desc->irq, nvec_aligned);
+> >               if (info->flags & MSI_FLAG_DEV_SYSFS)
+> >                       msi_sysfs_remove_desc(dev, desc);
+> >               desc->irq =3D 0;
