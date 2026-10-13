@@ -1,72 +1,63 @@
-Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDB63BADB2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:06:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.9
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67938378823;
+	Tue, 13 Oct 2026 08:06:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791878773; cv=none; b=TYvrP/FjzbrMbgn6T+OYEqOvCzqgtPYUg3LQNr3emrufmCqn/PUf8Vq5D4u7s4TtUm9nBR2XiOpLC6ZFumidFqfsHlVQ7WNu0U7qNXqLETAQEatEOb/nDcj7WIgs7EDWzm+FiCzldBcRT53IwGXgtbbIyCi9+mwDjGDu6S5CkYQ=
+	t=1791878775; cv=none; b=OSwUc+2ICi2P0YCYOkGVDWKIRPgqz6XsVMQUAGeOKJ5J0fXzlnVCaw3iXYI2bfK8eY5ADtbpAJnk6Ioxz7h0qUD3rljXW4pbHA/ul9jmdRM/cIFKXt50BoVYUwKjtYlIMisvIgGre8MvWpFLGsxj4fXJu2+q5nIGTQuzPpgaCFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791878773; c=relaxed/simple;
-	bh=5icz/Osaq4nbrxptLHQ15ei//5WgXiX7yg8tjTBrNwg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CSSI6nXg3somCIl6n6CKONiFVyB6IwSXbFsGPcP4TlmzdlKvh9nBA2x3wv+4gULJC+6XSi6Xtq+vdnFcfVR5wwJhnFKRwWDVK8SKw//YEPSRNS1dwffj5qH1USqZW3V31vQuiDp8sqaEV1HTtQ2DY+Yo0ZZJEjuG316KwxCGx3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=LFgtoK4j; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=B8rtpI2k; arc=none smtp.client-ip=148.163.158.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
+	s=arc-20240116; t=1791878775; c=relaxed/simple;
+	bh=pbAXSIZkKgVhH4wE60X6F4FA3h51XSTny77Y9S5Sc1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kK7BptSektf4YqPxEPbws6S6G2FXxclXlQvrIe7jLy9RJNPTo9gfEZDNJCYVJlcgZTEwoaXIfZ6y7KSNagbg9iB1NA4O6JqAuVAQQ2hxTOZwoAfWoHEyNuH8FLqk20/55dODzPquiu4lnVtSIY9AmSV+lr8rIiPSB8xjAuKzJV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=SSDN+b6a; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="LFgtoK4j";
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="B8rtpI2k"
-Received: from pps.filterd (m0098572.ppops.net [127.0.0.1])
-	by mx0b-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D41XiL3475927;
-	Tue, 13 Oct 2026 01:06:04 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pfptdkimsnps; bh=kR5QykO/
-	Vk11bC/9NXruxKVCgYN7g0iJ+LfDGZ2iKFI=; b=LFgtoK4jK+CiBNgix1bbqa9F
-	x+lRA7iJm0ZTFXsfHexDFrzojVPrMKAOIq0VuP2ZndOJOK1CZDAiIslTg6/xKSz/
-	vR41IxK/QfPYOFWDIFTd9qQBmP2HbkIeW9dcj4XMhI6ISNoqktHaXNCtC5Zuqlb7
-	lKGm5nLubTVMr+dA0l7Al4LXNSE0KPS7oNv7yqfZUozZrZOlYcSzWrj8q4+kYZKy
-	trKQpeOwmIWLgJ0ZPBvV+ZePD1Qqn8Rn5rc9QA+BFwQNnZcHSzYK2lATmWVM38FV
-	JsZQwVUzBOQBPQubbalAMREgfLTy0oM1ENlxcxAZEb6cvi0j9ZIVrmHBjyZdjw==
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.73.133])
-	by mx0b-00230701.pphosted.com (PPS) with ESMTPS id 4h9419c24s-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 01:06:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
-	t=1791878763; bh=5icz/Osaq4nbrxptLHQ15ei//5WgXiX7yg8tjTBrNwg=;
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="SSDN+b6a"
+Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
+	by linux.microsoft.com (Postfix) with ESMTPSA id F3D8720B7169;
+	Tue, 13 Oct 2026 01:06:07 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com F3D8720B7169
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791878769;
+	bh=J9vvytcy+SETWNcX/SNHHHUbv5Y1aPQOWiaQeBsTpmA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=B8rtpI2kQUNrbcCEjOeKhyk9Aj+vPXAs55IY8UoltpGPZvhOuHgBXA/fN7yLy1fp4
-	 OsYYyxQ94ADHRotJC6R6VIpDfDf2gL5cFvgLgO+ABgMvn3R7TItLqUoQc9LlDlTt34
-	 e0yhn11ui0dj3EPD/lK6DXWiuMWvjza6fZ0xIaHyuQTQhRK65OmXP0Cr4R/kTLqYiQ
-	 ID0a5MExjjUqkMVnPLDX2n8qk7kd4Es4H6xrveBEMuUxrCKxWh/9ztCnFns5ErEAco
-	 UQHuqKKPdqq9yC8J631+OPVrXCvwm8Ast5OQ97Tuyg+wiaHGT+EZQj9Cy/7A0au2/e
-	 ZKOhl4SUzmdYQ==
-Received: from mailhost.synopsys.com (eudc-mailhost2.synopsys.com [10.213.161.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
-	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 7D737404F3;
-	Tue, 13 Oct 2026 08:06:03 +0000 (UTC)
-Received: from Ubuntu.internal.synopsys.com (unknown [10.150.7.185])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mailhost.synopsys.com (Postfix) with ESMTPSA id 6331CC0081;
-	Tue, 13 Oct 2026 08:06:00 +0000 (UTC)
-X-SNPS-Relay: synopsys.com
-From: Dineshkumar Parameswaran <Dineshkumar.Parameswaran@synopsys.com>
-To: linux-i3c@lists.infradead.org
-Cc: alexandre.belloni@bootlin.com, Frank.Li@nxp.com,
-        linux-kernel@vger.kernel.org,
-        Dineshkumar Parameswaran <Dineshkumar.Parameswaran@synopsys.com>
-Subject: [PATCH 2/2] i3c: master: dw-i3c-master: add HDR-BT transfer support
-Date: Tue, 13 Oct 2026 13:34:13 +0530
-Message-Id: <20261013080413.7470-3-parame@synopsys.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261013080413.7470-1-parame@synopsys.com>
-References: <20261013080413.7470-1-parame@synopsys.com>
+	b=SSDN+b6aPDYR97lF3qag2/TIgteXUfqLNEip6DTZQzR8D7UU3SIonaYCdBOAGQ7q9
+	 o/qj1dzR3iibnBDn68PyywmheZovSi1ywXUOC6J1QxxDnoIbP9Vw8sCsSg1Mx5Gakt
+	 XbsdH4PyV9I/FSiAuQhj5+PJ5k50d6Vilv+DM8Hc=
+From: Wei Hu <weh@linux.microsoft.com>
+To: longli@kernel.org,
+	kotaranov@microsoft.com,
+	kuba@kernel.org,
+	davem@davemloft.net,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	jgg@ziepe.ca,
+	leon@kernel.org,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	shradhagupta@linux.microsoft.com,
+	horms@kernel.org,
+	ernis@linux.microsoft.com,
+	stephen@networkplumber.org
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	gargaditya@linux.microsoft.com,
+	kees+treewide@kernel.org,
+	kees@kernel.org,
+	mawasthi@linux.microsoft.com,
+	weh@microsoft.com,
+	edumazet@kernel.org
+Subject: [PATCH net-next v7 4/4] net: mana: add dynamic HWC queue depth with reinit path
+Date: Tue, 13 Oct 2026 08:05:52 +0000
+Message-ID: <df59976f0f5e51ea5766451f02878bd04a4907cc.1791561995.git.weh@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1791561995.git.weh@linux.microsoft.com>
+References: <cover.1791561995.git.weh@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,279 +65,560 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzMSBTYWx0ZWRfX8mGMnrshaZIk
- 2CecC5L0ilklEIqKCw9+F+GhnN+B68lLBnj6lJz6jvzMNk0KKhEqTZS74dd3HPt0yJoU1n346Ht
- OY3ueim+z/Mct3tlJw5YXkey7+gKnGNhUMpraQ69fl5Osm3D0Ydbm01DbXkoYPeBY0LM9zQfd6s
- +NHHVonQaCCrFsXWVObGTzcJtQtrVpMJvgwHIKOQnEClh8ZGzAOzSfX/QdQ7SnMcvbFxiYFUEzC
- qaxhVD9QtsQhAbiQabiOcthvxnUQpP2D19SFU9Tba+wF70/DH3K+P42wGiSeXXnSNCkekeJie9m
- fpzK2HPObaJNmTsu/oloH0yFnDQ5LLPQoLqfXgZEk3hjC6vGwH8LoY9dFU9KNaucdsNsa9s4FvG
- ClnASjGD4D6zKhelwgb/1fBflhq08f8iD/mZX7wsK9uUr02M0E+FBhT/FbCwpQekRet4Sm0CiSG
- zgvTOz16fuuWB/x/hcw==
-X-Proofpoint-GUID: zlyKckK0hSn_yIDtGKLtr0Yl60HvqiSv
-X-Proofpoint-ORIG-GUID: zlyKckK0hSn_yIDtGKLtr0Yl60HvqiSv
-X-Authority-Analysis: v=2.4 cv=bZf+w+PB c=1 sm=1 tr=0 ts=6acde66c cx=c_pps
- a=8EbXvwLXkpGsT4ql/pYRAw==:117 a=8EbXvwLXkpGsT4ql/pYRAw==:17
- a=660iZSQnnn4A:10 a=qPHU084jO2kA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=tU_645BZ7FZt8VqRJtHG:22 a=jSPayVjLy6xbsuKauFBc:22 a=jIQo8A4GAAAA:8
- a=9Sy5TLg2mR2rO9kXXZsA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzMSBTYWx0ZWRfX8YMNo344DsoM
- szXf4nz8cdCzGvRAVxY/6TGvKFxhwj8CfhfoVfCPKs79jT4JN1zZ8SDEZFltn2Lb4tyVfdkrsEI
- gqdXAFyPzvtmFlrneDNqNORbwdM4i34=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
- policy=outbound_active_cloned score=0 priorityscore=1501 impostorscore=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 phishscore=0 adultscore=0
- spamscore=0 clxscore=1015 bulkscore=0 classifier=typeunknown authscore=0
- authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2610080000 definitions=main-2610130031
 
-Key differences:
--Add HDR-BT support for the DesignWare I3C master by introducing the
-unified command format required by HDR-BT transfers.
--The current driver builds legacy cmd_lo/cmd_hi command entries for SDR and
-HDR-DDR only. HDR-BT requires a 4-DWORD unified command layout, so HDR-BT
-transfers cannot be described correctly with the existing path.
-- HDR BT mode uses to send data in blocks and protected using CRC.
+From: Long Li <longli@microsoft.com>
 
-Signed-off-by: Dineshkumar Parameswaran <parame@synopsys.com>
+The HWC starts with depth-one bootstrap queues. Treat the PF-reported depth
+as a maximum and rebuild the channel exactly for reports from 2 through
+128. Keep the untouched bootstrap queues for depth one and reports above
+128, and require a rebuilt channel to repeat the selected depth.
+
+Treat the reported request and response sizes as directional maxima.
+Rebuild only when both reports equal the 4096-byte bootstrap allocation,
+then enforce the effective report/allocation limit on every request and
+expected response.
+
+Keep each candidate channel private through queue creation, establishment
+and the direct EQ test. Publish only the final tested channel. If a rebuild
+fails after acknowledged teardown, destroy that candidate and establish
+fresh bootstrap queues; never reuse mappings already handed to the PF.
+
+Invalidate the previous HWC doorbell before every ESTABLISH_HWC. Accept a
+new doorbell only after validating the BAR0 page geometry and reported
+index, and suppress MMIO while re-establishment leaves the HWC doorbell
+invalid.
+
+Do not advertise the proposed dynamic-depth capability bit. Driver-version
+advertisement occurs after HWC establishment and cannot negotiate behavior
+needed while the channel is being created.
+
+Use focused build, validation, rebuild and fallback helpers instead of the
+goto-heavy creation flow from v5.
+
+Link: https://lore.kernel.org/r/20260908035201.402424-5-longli@microsoft.com
+Signed-off-by: Long Li <longli@microsoft.com>
+Signed-off-by: Wei Hu <weh@microsoft.com>
 ---
- drivers/i3c/master/dw-i3c-master.c | 146 +++++++++++++++++++++--------
- 1 file changed, 106 insertions(+), 40 deletions(-)
+ .../net/ethernet/microsoft/mana/gdma_main.c   |  24 +-
+ .../net/ethernet/microsoft/mana/hw_channel.c  | 290 +++++++++++++++---
+ include/net/mana/gdma.h                       |   2 +
+ include/net/mana/hw_channel.h                 |  10 +-
+ 4 files changed, 266 insertions(+), 60 deletions(-)
 
-diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-index 58c54746bbe5..fc58dea8fe4f 100644
---- a/drivers/i3c/master/dw-i3c-master.c
-+++ b/drivers/i3c/master/dw-i3c-master.c
-@@ -65,6 +65,29 @@
- #define COMMAND_PORT_DEV_COUNT(x)	(((x) << 21) & GENMASK(25, 21))
- #define COMMAND_PORT_ADDR_ASSGN_CMD	0x03
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index e4a732039dbc..a73618a422bd 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -588,12 +588,26 @@ static int mana_gd_disable_queue(struct gdma_queue *queue)
+ #define DOORBELL_OFFSET_EQ	0xFF8
+ #define DOORBELL_OFFSET_DIM	0x820
  
-+#define COMMAND_PORT_UNIFIED_DWORD0_CMD			0x04
-+#define COMMAND_PORT_UNIFIED_DWORD0_TID(x)		(((x) << 3) & GENMASK(6, 3))
-+#define COMMAND_PORT_UNIFIED_DWORD0_RnW			BIT(8)
-+#define COMMAND_PORT_UNIFIED_DWORD0_DEV_INDEX(x)	(((x) << 9) & GENMASK(13, 9))
-+#define COMMAND_PORT_UNIFIED_DWORD0_SPEED_MODE(x)	(((x) << 19) & GENMASK(22, 19))
-+#define COMMAND_PORT_UNIFIED_DWORD0_WROC		BIT(30)
-+#define COMMAND_PORT_UNIFIED_DWORD0_TOC			BIT(31)
++bool mana_gd_is_valid_doorbell(struct gdma_context *gc, u32 db_id)
++{
++	if (!gc->db_page_size || gc->db_page_off >= gc->bar0_size)
++		return false;
 +
-+#define COMMAND_PORT_UNIFIED_DWORD1_DATA_LENGTH(x)	((x) & GENMASK(22, 0))
-+#define COMMAND_PORT_UNIFIED_DWORD1_MLANE_MODE(x)	(((x) << 24) & GENMASK(26, 24))
-+#define COMMAND_PORT_UNIFIED_DWORD1_MLANE_CODE(x)	(((x) << 27) & GENMASK(29, 27))
++	return gc->db_page_off +
++	       gc->db_page_size * ((u64)db_id + 1) <= gc->bar0_size;
++}
 +
-+#define COMMAND_PORT_UNIFIED_DWORD2_IDB0_CCC_CMD0(x)	((x) & GENMASK(7, 0))
-+#define COMMAND_PORT_UNIFIED_DWORD2_IDB1_DB_CMD1(x)	(((x) << 8) & GENMASK(15, 8))
-+#define COMMAND_PORT_UNIFIED_DWORD2_IDB2_HDRCMD_CMD2(x)	(((x) << 16) & GENMASK(23, 16))
-+#define COMMAND_PORT_UNIFIED_DWORD2_IDB3_CMD3(x)	(((x) << 24) & GENMASK(31, 24))
-+
-+#define COMMAND_PORT_UNIFIED_DWORD3_CONTROL(x)		((x) & GENMASK(7, 0))
-+
-+#define HDR_BT_SPD_MODE		0x8
-+#define SINGLE_LANE		0x0
-+#define SIZEOF_UNIFIED_CMD	4
-+
- #define RESPONSE_QUEUE_PORT		0x10
- #define RESPONSE_PORT_ERR_STATUS(x)	(((x) & GENMASK(31, 28)) >> 28)
- #define RESPONSE_NO_ERROR		0
-@@ -247,8 +270,15 @@
- #define DW_I3C_ACPI_SKIP_CLK_RST	BIT(3)
- 
- struct dw_i3c_cmd {
--	u32 cmd_lo;
--	u32 cmd_hi;
-+	bool is_unified_cmd;
-+	union {
-+		struct {
-+			u32 cmd_lo;
-+			u32 cmd_hi;
-+			u32 data[2];
-+		};
-+		u32 unified_cmd[4];
-+	} cmd_data;
- 	u16 tx_len;
- 	u16 rx_len;
- 	u8 error;
-@@ -402,7 +432,7 @@ dw_i3c_master_alloc_xfer(struct dw_i3c_master *master, unsigned int ncmds)
- static void dw_i3c_master_start_xfer_locked(struct dw_i3c_master *master)
+ static void mana_gd_ring_doorbell(struct gdma_context *gc, u32 db_index,
+ 				  enum gdma_queue_type q_type, u32 qid,
+ 				  u32 tail_ptr, u8 num_req)
  {
- 	struct dw_i3c_xfer *xfer = master->xferqueue.cur;
--	unsigned int i;
-+	unsigned int i, k;
- 	u32 thld_ctrl;
+-	void __iomem *addr = gc->db_page_base + gc->db_page_size * db_index;
+ 	union gdma_doorbell_entry e = {};
++	void __iomem *addr;
++
++	if (unlikely(db_index == INVALID_DOORBELL))
++		return;
++
++	addr = gc->db_page_base + gc->db_page_size * db_index;
  
- 	if (!xfer)
-@@ -422,8 +452,14 @@ static void dw_i3c_master_start_xfer_locked(struct dw_i3c_master *master)
- 	for (i = 0; i < xfer->ncmds; i++) {
- 		struct dw_i3c_cmd *cmd = &xfer->cmds[i];
- 
--		writel(cmd->cmd_hi, master->regs + COMMAND_QUEUE_PORT);
--		writel(cmd->cmd_lo, master->regs + COMMAND_QUEUE_PORT);
-+		if (cmd->is_unified_cmd) {
-+			for (k = 0; k < SIZEOF_UNIFIED_CMD; k++)
-+				writel(cmd->cmd_data.unified_cmd[k],
-+				       master->regs + COMMAND_QUEUE_PORT);
-+		} else {
-+			writel(cmd->cmd_data.cmd_hi, master->regs + COMMAND_QUEUE_PORT);
-+			writel(cmd->cmd_data.cmd_lo, master->regs + COMMAND_QUEUE_PORT);
-+		}
+ 	switch (q_type) {
+ 	case GDMA_EQ:
+@@ -1533,13 +1547,7 @@ int mana_gd_register_device(struct gdma_dev *gd)
+ 		return err ? err : -EPROTO;
  	}
+ 
+-	/* Validate that doorbell page for db_id is within the BAR0 region.
+-	 * In mana_gd_ring_doorbell(), the address is calculated as:
+-	 *   addr = db_page_base + db_page_size * db_id
+-	 *        = (bar0_va + db_page_off) + (db_page_size * db_id)
+-	 * So we need: db_page_off + db_page_size * (db_id + 1) <= bar0_size
+-	 */
+-	if (gc->db_page_off + gc->db_page_size * ((u64)resp.db_id + 1) > gc->bar0_size) {
++	if (!mana_gd_is_valid_doorbell(gc, resp.db_id)) {
+ 		dev_err(gc->dev, "Doorbell ID %u out of range\n", resp.db_id);
+ 		return -EPROTO;
+ 	}
+diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+index 9fdd84ccba65..c9f7db5a76a5 100644
+--- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
++++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+@@ -227,8 +227,16 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
+ 	switch (event->type) {
+ 	case GDMA_EQE_HWC_INIT_EQ_ID_DB:
+ 		eq_db.as_uint32 = event->details[0];
++		if (!mana_gd_is_valid_doorbell(gd->gdma_context,
++					       eq_db.doorbell)) {
++			dev_err(hwc->dev, "HWC: invalid doorbell %u\n",
++				eq_db.doorbell);
++			break;
++		}
++
+ 		hwc->cq->gdma_eq->id = eq_db.eq_id;
+ 		gd->doorbell = eq_db.doorbell;
++		hwc->hwc_init_doorbell = true;
+ 		break;
+ 
+ 	case GDMA_EQE_HWC_INIT_DATA:
+@@ -250,7 +258,8 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
+ 			break;
+ 
+ 		case HWC_INIT_DATA_QUEUE_DEPTH:
+-			hwc->hwc_init_q_depth_max = (u16)val;
++			/* Preserve the full 24-bit report for validation. */
++			hwc->hwc_init_q_depth_max = val;
+ 			break;
+ 
+ 		case HWC_INIT_DATA_MAX_REQUEST:
+@@ -617,7 +626,8 @@ static int mana_hwc_alloc_dma_buf(struct hw_channel_context *hwc, u16 q_depth,
+ 
+ 	dma_buf->num_reqs = q_depth;
+ 
+-	buf_size = MANA_PAGE_ALIGN(q_depth * max_msg_size);
++	/* mana_gd_alloc_memory() requires a power-of-two length. */
++	buf_size = roundup_pow_of_two(MANA_PAGE_ALIGN(q_depth * max_msg_size));
+ 
+ 	gmi = &dma_buf->mem_info;
+ 	err = mana_gd_alloc_memory(gc, buf_size, gmi, false);
+@@ -823,10 +833,15 @@ static int mana_hwc_test_channel(struct hw_channel_context *hwc)
+ 	return err;
  }
  
-@@ -784,10 +820,10 @@ static int dw_i3c_ccc_set(struct dw_i3c_master *master,
- 	cmd->tx_buf = ccc->dests[0].payload.data;
- 	cmd->tx_len = ccc->dests[0].payload.len;
+-static int mana_hwc_establish_channel(struct hw_channel_context *hwc,
+-				      u16 *q_depth,
+-				      u32 *max_req_msg_size,
+-				      u32 *max_resp_msg_size)
++struct mana_hwc_init_report {
++	u32 queue_depth;
++	u32 max_req_msg_size;
++	u32 max_resp_msg_size;
++};
++
++static int
++mana_hwc_establish_channel(struct hw_channel_context *hwc,
++			   struct mana_hwc_init_report *report)
+ {
+ 	struct gdma_context *gc = hwc->gdma_dev->gdma_context;
+ 	struct gdma_queue *rq = hwc->rxq->gdma_wq;
+@@ -838,6 +853,18 @@ static int mana_hwc_establish_channel(struct hw_channel_context *hwc,
+ 	u32 cq_id;
+ 	int err;
  
--	cmd->cmd_hi = COMMAND_PORT_ARG_DATA_LEN(ccc->dests[0].payload.len) |
-+	cmd->cmd_data.cmd_hi = COMMAND_PORT_ARG_DATA_LEN(ccc->dests[0].payload.len) |
- 		      COMMAND_PORT_TRANSFER_ARG;
++	hwc->hwc_init_q_depth_max = 0;
++	hwc->hwc_init_max_req_msg_size = 0;
++	hwc->hwc_init_max_resp_msg_size = 0;
++	hwc->hwc_init_max_num_cqs = 0;
++	hwc->hwc_init_cq_id = 0;
++	hwc->hwc_init_doorbell = false;
++	gc->hwc.pdid = INVALID_PDID;
++	/* Re-establish must not rearm through the previous channel's doorbell. */
++	gc->hwc.doorbell = INVALID_DOORBELL;
++	hwc->dest_vrq_id = 0;
++	hwc->dest_vrcq_id = 0;
++
+ 	init_completion(&hwc->hwc_init_eqe_comp);
  
--	cmd->cmd_lo = COMMAND_PORT_CP |
-+	cmd->cmd_data.cmd_lo = COMMAND_PORT_CP |
- 		      COMMAND_PORT_DEV_INDEX(pos) |
- 		      COMMAND_PORT_CMD(ccc->id) |
- 		      COMMAND_PORT_TOC |
-@@ -823,10 +859,10 @@ static int dw_i3c_ccc_get(struct dw_i3c_master *master, struct i3c_ccc_cmd *ccc)
- 	cmd->rx_buf = ccc->dests[0].payload.data;
- 	cmd->rx_len = ccc->dests[0].payload.len;
+ 	err = mana_smc_setup_hwc(&gc->shm_channel, false,
+@@ -852,9 +879,14 @@ static int mana_hwc_establish_channel(struct hw_channel_context *hwc,
+ 	if (!wait_for_completion_timeout(&hwc->hwc_init_eqe_comp, 60 * HZ))
+ 		return -ETIMEDOUT;
  
--	cmd->cmd_hi = COMMAND_PORT_ARG_DATA_LEN(ccc->dests[0].payload.len) |
-+	cmd->cmd_data.cmd_hi = COMMAND_PORT_ARG_DATA_LEN(ccc->dests[0].payload.len) |
- 		      COMMAND_PORT_TRANSFER_ARG;
+-	*q_depth = hwc->hwc_init_q_depth_max;
+-	*max_req_msg_size = hwc->hwc_init_max_req_msg_size;
+-	*max_resp_msg_size = hwc->hwc_init_max_resp_msg_size;
++	if (!hwc->hwc_init_doorbell) {
++		dev_err(hwc->dev, "HWC: missing valid doorbell in init data\n");
++		return -EPROTO;
++	}
++
++	report->queue_depth = hwc->hwc_init_q_depth_max;
++	report->max_req_msg_size = hwc->hwc_init_max_req_msg_size;
++	report->max_resp_msg_size = hwc->hwc_init_max_resp_msg_size;
  
--	cmd->cmd_lo = COMMAND_PORT_READ_TRANSFER |
-+	cmd->cmd_data.cmd_lo = COMMAND_PORT_READ_TRANSFER |
- 		      COMMAND_PORT_CP |
- 		      COMMAND_PORT_DEV_INDEX(pos) |
- 		      COMMAND_PORT_CMD(ccc->id) |
-@@ -924,8 +960,8 @@ static int dw_i3c_master_daa(struct i3c_master_controller *m)
- 	}
- 	cmd = &xfer->cmds[0];
- 	cmd->rx_len = master->maxdevs;
--	cmd->cmd_hi = COMMAND_PORT_TRANSFER_ARG;
--	cmd->cmd_lo = COMMAND_PORT_DEV_COUNT(master->maxdevs - pos) |
-+	cmd->cmd_data.cmd_hi = COMMAND_PORT_TRANSFER_ARG;
-+	cmd->cmd_data.cmd_lo = COMMAND_PORT_DEV_COUNT(master->maxdevs - pos) |
- 		      COMMAND_PORT_DEV_INDEX(pos) |
- 		      COMMAND_PORT_CMD(I3C_CCC_ENTDAA) |
- 		      COMMAND_PORT_ADDR_ASSGN_CMD |
-@@ -999,33 +1035,63 @@ static int dw_i3c_master_i3c_xfers(struct i3c_dev_desc *dev,
- 	for (i = 0; i < i3c_nxfers; i++) {
- 		struct dw_i3c_cmd *cmd = &xfer->cmds[i];
+ 	/* Snapshot the device-reported count and id once, so the same value
+ 	 * sizes, bounds and indexes cq_table even across the sleeping
+@@ -904,6 +936,9 @@ static int mana_hwc_init_queues(struct hw_channel_context *hwc, u16 q_depth,
+ {
+ 	int err;
  
--		cmd->cmd_hi = COMMAND_PORT_ARG_DATA_LEN(i3c_xfers[i].len) |
--			COMMAND_PORT_TRANSFER_ARG;
++	if (q_depth > U16_MAX / 2)
++		return -EINVAL;
++
+ 	err = mana_hwc_init_inflight_msg(hwc, q_depth);
+ 	if (err)
+ 		return err;
+@@ -936,6 +971,7 @@ static int mana_hwc_init_queues(struct hw_channel_context *hwc, u16 q_depth,
+ 
+ 	hwc->num_inflight_msg = q_depth;
+ 	hwc->max_req_msg_size = max_req_msg_size;
++	hwc->max_resp_msg_size = max_resp_msg_size;
+ 
+ 	return 0;
+ out:
+@@ -943,6 +979,44 @@ static int mana_hwc_init_queues(struct hw_channel_context *hwc, u16 q_depth,
+ 	return err;
+ }
+ 
++static void mana_hwc_clear_cq_table(struct gdma_context *gc)
++{
++	struct gdma_queue **cq_table;
++
++	cq_table = READ_ONCE(gc->cq_table);
++	WRITE_ONCE(gc->max_num_cqs, 0);
++	/* Stop new table readers before waiting for prior RCU readers. */
++	smp_store_release(&gc->cq_table, NULL);
++	synchronize_rcu();
++	vfree(cq_table);
++}
++
++/* Setup owns an unpublished HWC and has no runtime senders here. */
++static void mana_hwc_destroy_queues(struct hw_channel_context *hwc)
++{
++	struct gdma_context *gc = hwc->gdma_dev->gdma_context;
++
++	if (hwc->cq) {
++		mana_hwc_destroy_cq(gc, hwc->cq);
++		hwc->cq = NULL;
++	}
++	mana_hwc_clear_cq_table(gc);
++
++	if (hwc->txq) {
++		mana_hwc_destroy_wq(hwc, hwc->txq);
++		hwc->txq = NULL;
++	}
++	if (hwc->rxq) {
++		mana_hwc_destroy_wq(hwc, hwc->rxq);
++		hwc->rxq = NULL;
++	}
++
++	kfree(hwc->caller_ctx);
++	hwc->caller_ctx = NULL;
++	mana_gd_free_res_map(&hwc->inflight_msg_res);
++	hwc->num_inflight_msg = 0;
++}
++
+ static int mana_hwc_publish_channel(struct hw_channel_context *hwc)
+ {
+ 	struct gdma_context *gc = hwc->gdma_dev->gdma_context;
+@@ -1060,17 +1134,11 @@ static void mana_hwc_fence_channel(struct gdma_context *gc,
+ 		mana_hwc_unpublish_cq(gc, hwc->cq->gdma_cq);
+ }
+ 
+-static bool mana_hwc_release_channel(struct hw_channel_context *hwc)
++static int mana_hwc_teardown_queues(struct hw_channel_context *hwc)
+ {
+ 	struct gdma_context *gc = hwc->gdma_dev->gdma_context;
+-	struct gdma_queue **old_cq_table;
+ 	int err;
+ 
+-	mana_hwc_stop_channel(hwc);
 -
--		if (i3c_xfers[i].rnw) {
--			cmd->rx_buf = i3c_xfers[i].data.in;
--			cmd->rx_len = i3c_xfers[i].len;
--			cmd->cmd_lo = COMMAND_PORT_READ_TRANSFER |
--				      COMMAND_PORT_SPEED(dev->info.max_read_ds);
--
-+		if (mode == I3C_HDR_BT) {
-+			cmd->cmd_data.unified_cmd[0] = COMMAND_PORT_UNIFIED_DWORD0_CMD |
-+				COMMAND_PORT_UNIFIED_DWORD0_TID(i) |
-+				COMMAND_PORT_UNIFIED_DWORD0_DEV_INDEX(data->index) |
-+				COMMAND_PORT_UNIFIED_DWORD0_SPEED_MODE(HDR_BT_SPD_MODE) |
-+				COMMAND_PORT_UNIFIED_DWORD0_WROC;
-+			if (i3c_xfers[i].rnw) {
-+				cmd->rx_buf = i3c_xfers[i].data.in;
-+				cmd->rx_len = i3c_xfers[i].len;
-+				cmd->cmd_data.unified_cmd[0] |= COMMAND_PORT_UNIFIED_DWORD0_RnW;
-+			} else {
-+				cmd->tx_buf = i3c_xfers[i].data.out;
-+				cmd->tx_len = i3c_xfers[i].len;
-+			}
-+			cmd->cmd_data.unified_cmd[1] =
-+				COMMAND_PORT_UNIFIED_DWORD1_DATA_LENGTH(i3c_xfers[i].len) |
-+				COMMAND_PORT_UNIFIED_DWORD1_MLANE_CODE(SINGLE_LANE) |
-+				COMMAND_PORT_UNIFIED_DWORD1_MLANE_MODE(SINGLE_LANE);
-+			cmd->cmd_data.unified_cmd[2] =
-+				COMMAND_PORT_UNIFIED_DWORD2_IDB0_CCC_CMD0(0x00) |
-+				COMMAND_PORT_UNIFIED_DWORD2_IDB1_DB_CMD1(0x00) |
-+				COMMAND_PORT_UNIFIED_DWORD2_IDB2_HDRCMD_CMD2(0x00) |
-+				COMMAND_PORT_UNIFIED_DWORD2_IDB3_CMD3(0x00);
-+			cmd->cmd_data.unified_cmd[3] = COMMAND_PORT_UNIFIED_DWORD3_CONTROL(0);
-+			if (i == (i3c_nxfers - 1))
-+				cmd->cmd_data.unified_cmd[0] |= COMMAND_PORT_UNIFIED_DWORD0_TOC;
-+			cmd->is_unified_cmd = true;
- 		} else {
--			cmd->tx_buf = i3c_xfers[i].data.out;
--			cmd->tx_len = i3c_xfers[i].len;
--			cmd->cmd_lo =
--				COMMAND_PORT_SPEED(dev->info.max_write_ds);
--		}
- 
--		cmd->cmd_lo |= COMMAND_PORT_TID(i) |
--			       COMMAND_PORT_DEV_INDEX(data->index) |
--			       COMMAND_PORT_ROC;
--
--		if (mode == I3C_HDR_DDR)
--			cmd->cmd_lo |= COMMAND_PORT_CP |
--				COMMAND_PORT_CMD(I3C_CCC_ENTHDR(0)) |
--				COMMAND_PORT_SPEED(DW_I3C_HDR_DDR_SPEED);
--
--		if (i == (i3c_nxfers - 1))
--			cmd->cmd_lo |= COMMAND_PORT_TOC;
-+			cmd->cmd_data.cmd_hi = COMMAND_PORT_ARG_DATA_LEN(i3c_xfers[i].len) |
-+				COMMAND_PORT_TRANSFER_ARG;
-+
-+			if (i3c_xfers[i].rnw) {
-+				cmd->rx_buf = i3c_xfers[i].data.in;
-+				cmd->rx_len = i3c_xfers[i].len;
-+				cmd->cmd_data.cmd_lo = COMMAND_PORT_READ_TRANSFER |
-+					COMMAND_PORT_SPEED(dev->info.max_read_ds);
-+
-+			} else {
-+				cmd->tx_buf = i3c_xfers[i].data.out;
-+				cmd->tx_len = i3c_xfers[i].len;
-+				cmd->cmd_data.cmd_lo =
-+					COMMAND_PORT_SPEED(dev->info.max_write_ds);
-+			}
-+
-+			cmd->cmd_data.cmd_lo |= COMMAND_PORT_TID(i) |
-+				COMMAND_PORT_DEV_INDEX(data->index) |
-+				COMMAND_PORT_ROC;
-+
-+			if (mode == I3C_HDR_DDR)
-+				cmd->cmd_data.cmd_lo |= COMMAND_PORT_CP |
-+					COMMAND_PORT_CMD(I3C_CCC_ENTHDR(0)) |
-+					COMMAND_PORT_SPEED(DW_I3C_HDR_DDR_SPEED);
-+
-+			if (i == (i3c_nxfers - 1))
-+				cmd->cmd_data.cmd_lo |= COMMAND_PORT_TOC;
-+		}
- 	}
- 
- 	dw_i3c_master_enqueue_xfer(master, xfer);
-@@ -1162,15 +1228,15 @@ static int dw_i3c_master_i2c_xfers(struct i2c_dev_desc *dev,
- 	for (i = 0; i < i2c_nxfers; i++) {
- 		struct dw_i3c_cmd *cmd = &xfer->cmds[i];
- 
--		cmd->cmd_hi = COMMAND_PORT_ARG_DATA_LEN(i2c_xfers[i].len) |
-+		cmd->cmd_data.cmd_hi = COMMAND_PORT_ARG_DATA_LEN(i2c_xfers[i].len) |
- 			COMMAND_PORT_TRANSFER_ARG;
- 
--		cmd->cmd_lo = COMMAND_PORT_TID(i) |
-+		cmd->cmd_data.cmd_lo = COMMAND_PORT_TID(i) |
- 			      COMMAND_PORT_DEV_INDEX(data->index) |
- 			      COMMAND_PORT_ROC;
- 
- 		if (i2c_xfers[i].flags & I2C_M_RD) {
--			cmd->cmd_lo |= COMMAND_PORT_READ_TRANSFER;
-+			cmd->cmd_data.cmd_lo |= COMMAND_PORT_READ_TRANSFER;
- 			cmd->rx_buf = i2c_xfers[i].buf;
- 			cmd->rx_len = i2c_xfers[i].len;
- 		} else {
-@@ -1179,7 +1245,7 @@ static int dw_i3c_master_i2c_xfers(struct i2c_dev_desc *dev,
- 		}
- 
- 		if (i == (i2c_nxfers - 1))
--			cmd->cmd_lo |= COMMAND_PORT_TOC;
-+			cmd->cmd_data.cmd_lo |= COMMAND_PORT_TOC;
+-	/* An unacknowledged destroy leaves the PF's mappings live.  Fence
+-	 * software dispatch, but retain every PF-visible allocation.
+-	 */
+ 	err = mana_smc_teardown_hwc(&gc->shm_channel, false,
+ 				    &hwc->setup_active);
+ 	if (err) {
+@@ -1078,31 +1146,26 @@ static bool mana_hwc_release_channel(struct hw_channel_context *hwc)
+ 			"HWC teardown failed: %d, retaining PF-visible resources\n",
+ 			err);
+ 		mana_hwc_fence_channel(gc, hwc);
+-		mana_hwc_retain_channel(hwc);
+-		return false;
++		return err;
  	}
  
- 	dw_i3c_master_enqueue_xfer(master, xfer);
+-	/* Fence the EQ before releasing any state its handlers can reach. */
+-	if (hwc->cq)
+-		mana_hwc_destroy_cq(hwc->gdma_dev->gdma_context, hwc->cq);
+-
+-	/* Reset only after mana_hwc_destroy_cq() has cleared the CQ table
+-	 * slot, so it is not left dangling.
+-	 */
+-	WRITE_ONCE(gc->max_num_cqs, 0);
+-
+-	if (hwc->txq)
+-		mana_hwc_destroy_wq(hwc, hwc->txq);
++	mana_hwc_destroy_queues(hwc);
+ 
+-	if (hwc->rxq)
+-		mana_hwc_destroy_wq(hwc, hwc->rxq);
++	return 0;
++}
+ 
+-	kfree(hwc->caller_ctx);
+-	hwc->caller_ctx = NULL;
++static bool mana_hwc_release_channel(struct hw_channel_context *hwc)
++{
++	struct gdma_context *gc = hwc->gdma_dev->gdma_context;
++	int err;
+ 
+-	mana_gd_free_res_map(&hwc->inflight_msg_res);
++	mana_hwc_stop_channel(hwc);
+ 
+-	hwc->num_inflight_msg = 0;
++	err = mana_hwc_teardown_queues(hwc);
++	if (err) {
++		mana_hwc_retain_channel(hwc);
++		return false;
++	}
+ 
+ 	hwc->gdma_dev->doorbell = INVALID_DOORBELL;
+ 	hwc->gdma_dev->pdid = INVALID_PDID;
+@@ -1110,36 +1173,150 @@ static bool mana_hwc_release_channel(struct hw_channel_context *hwc)
+ 	kfree(hwc);
+ 	gc->hwc.gdma_context = NULL;
+ 
+-	old_cq_table = READ_ONCE(gc->cq_table);
+-	/* Stop new table readers before waiting for existing IRQ readers. */
+-	smp_store_release(&gc->cq_table, NULL);
+-	synchronize_rcu();
+-	vfree(old_cq_table);
+-
+ 	return true;
+ }
+ 
+-static int mana_hwc_create_bootstrap_channel(struct hw_channel_context *hwc)
++static int
++mana_hwc_validate_report(struct hw_channel_context *hwc,
++			 const struct mana_hwc_init_report *report,
++			 u32 expected_depth, bool check_depth,
++			 bool require_exact_msg_sizes)
++{
++	if (!report->queue_depth || !report->max_req_msg_size ||
++	    !report->max_resp_msg_size) {
++		dev_err(hwc->dev,
++			"HWC: invalid maxima depth=%u req=%u resp=%u\n",
++			report->queue_depth, report->max_req_msg_size,
++			report->max_resp_msg_size);
++		return -EPROTO;
++	}
++
++	if (require_exact_msg_sizes &&
++	    (report->max_req_msg_size != HW_CHANNEL_MAX_REQUEST_SIZE ||
++	     report->max_resp_msg_size != HW_CHANNEL_MAX_RESPONSE_SIZE)) {
++		dev_err(hwc->dev,
++			"HWC: rebuilt message maxima req=%u resp=%u, expected %u/%u\n",
++			report->max_req_msg_size, report->max_resp_msg_size,
++			HW_CHANNEL_MAX_REQUEST_SIZE,
++			HW_CHANNEL_MAX_RESPONSE_SIZE);
++		return -EPROTO;
++	}
++
++	if (check_depth && report->queue_depth != expected_depth) {
++		dev_err(hwc->dev, "HWC: rebuilt depth %u, expected %u\n",
++			report->queue_depth, expected_depth);
++		return -EPROTO;
++	}
++
++	return 0;
++}
++
++static int mana_hwc_build_channel(struct hw_channel_context *hwc, u16 q_depth,
++				  struct mana_hwc_init_report *report)
+ {
+-	u32 max_req_msg_size, max_resp_msg_size;
+-	u16 q_depth_max;
+ 	int err;
+ 
+-	err = mana_hwc_init_queues(hwc, HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH,
++	err = mana_hwc_init_queues(hwc, q_depth,
+ 				   HW_CHANNEL_MAX_REQUEST_SIZE,
+ 				   HW_CHANNEL_MAX_RESPONSE_SIZE);
+ 	if (err) {
+-		dev_err(hwc->dev, "Failed to initialize HWC: %d\n", err);
++		dev_err(hwc->dev, "Failed to initialize HWC depth %u: %d\n",
++			q_depth, err);
+ 		return err;
+ 	}
+ 
+-	err = mana_hwc_establish_channel(hwc, &q_depth_max, &max_req_msg_size,
+-					 &max_resp_msg_size);
+-	if (err) {
+-		dev_err(hwc->dev, "Failed to establish HWC: %d\n", err);
++	err = mana_hwc_establish_channel(hwc, report);
++	if (err)
++		dev_err(hwc->dev, "Failed to establish HWC depth %u: %d\n",
++			q_depth, err);
++
++	return err;
++}
++
++static int
++mana_hwc_restore_bootstrap(struct hw_channel_context *hwc,
++			   struct mana_hwc_init_report *report)
++{
++	int err;
++
++	err = mana_hwc_build_channel(hwc,
++				     HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH,
++				     report);
++	if (err)
+ 		return err;
++
++	return mana_hwc_validate_report(hwc, report, 0, false, false);
++}
++
++static int mana_hwc_rebuild_channel(struct hw_channel_context *hwc,
++				    u16 q_depth,
++				    struct mana_hwc_init_report *report)
++{
++	int cleanup_err;
++	int err;
++
++	err = mana_hwc_teardown_queues(hwc);
++	if (err)
++		return err;
++
++	err = mana_hwc_build_channel(hwc, q_depth, report);
++	if (!err)
++		err = mana_hwc_validate_report(hwc, report, q_depth, true, true);
++	if (!err)
++		return 0;
++
++	dev_warn(hwc->dev,
++		 "HWC depth %u rebuild failed, restoring bootstrap: %d\n",
++		 q_depth, err);
++
++	cleanup_err = mana_hwc_teardown_queues(hwc);
++	if (cleanup_err)
++		return cleanup_err;
++
++	return mana_hwc_restore_bootstrap(hwc, report);
++}
++
++static int mana_hwc_prepare_channel(struct hw_channel_context *hwc)
++{
++	struct mana_hwc_init_report report;
++	u16 rebuild_depth;
++	int err;
++
++	err = mana_hwc_build_channel(hwc,
++				     HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH,
++				     &report);
++	if (err)
++		return err;
++
++	err = mana_hwc_validate_report(hwc, &report, 0, false, false);
++	if (err)
++		return err;
++
++	if (report.queue_depth > HW_CHANNEL_MAX_QUEUE_DEPTH) {
++		dev_warn(hwc->dev,
++			 "HWC depth %u exceeds limit %u, keeping bootstrap\n",
++			 report.queue_depth, HW_CHANNEL_MAX_QUEUE_DEPTH);
++	} else if (report.queue_depth >
++		   HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH &&
++		   (report.max_req_msg_size != HW_CHANNEL_MAX_REQUEST_SIZE ||
++		    report.max_resp_msg_size != HW_CHANNEL_MAX_RESPONSE_SIZE)) {
++		dev_warn(hwc->dev,
++			 "HWC maxima req=%u resp=%u differ from rebuild policy %u/%u, keeping bootstrap\n",
++			 report.max_req_msg_size, report.max_resp_msg_size,
++			 HW_CHANNEL_MAX_REQUEST_SIZE,
++			 HW_CHANNEL_MAX_RESPONSE_SIZE);
++	} else if (report.queue_depth >
++		   HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH) {
++		rebuild_depth = report.queue_depth;
++		err = mana_hwc_rebuild_channel(hwc, rebuild_depth, &report);
++		if (err)
++			return err;
+ 	}
+ 
++	/* MAX_REQUEST sizes the RQ; MAX_RESPONSE sizes the SQ. */
++	hwc->rx_msg_size_limit = report.max_req_msg_size;
++	hwc->tx_msg_size_limit = report.max_resp_msg_size;
++
+ 	err = mana_hwc_test_channel(hwc);
+ 	if (err)
+ 		dev_err(hwc->dev, "Failed to test HWC: %d\n", err);
+@@ -1177,7 +1354,7 @@ int mana_hwc_create_channel(struct gdma_context *gc)
+ 	gd->pdid = INVALID_PDID;
+ 	gd->doorbell = INVALID_DOORBELL;
+ 
+-	err = mana_hwc_create_bootstrap_channel(hwc);
++	err = mana_hwc_prepare_channel(hwc);
+ 	if (err) {
+ 		mana_hwc_release_channel(hwc);
+ 		return err;
+@@ -1329,8 +1506,19 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
+ 	struct gdma_req_hdr *req_msg;
+ 	struct hwc_caller_ctx *ctx;
+ 	u32 command;
++	u32 req_limit;
++	u32 resp_limit;
+ 	int err;
+ 
++	req_limit = min(hwc->tx_msg_size_limit, hwc->max_resp_msg_size);
++	resp_limit = min(hwc->rx_msg_size_limit, hwc->max_req_msg_size);
++	if (req_len > req_limit || resp_len > resp_limit) {
++		dev_err(hwc->dev,
++			"HWC: message sizes req=%u/%u resp=%u/%u exceed channel maxima\n",
++			req_len, req_limit, resp_len, resp_limit);
++		return -EMSGSIZE;
++	}
++
+ 	err = mana_hwc_get_msg_index(hwc, resp, resp_len, &ctx);
+ 	if (err)
+ 		return err;
+diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
+index 1e653b7cad72..c30a7eb6f7d3 100644
+--- a/include/net/mana/gdma.h
++++ b/include/net/mana/gdma.h
+@@ -594,6 +594,8 @@ void mana_gd_fence_eq(struct gdma_context *gc, struct gdma_queue *queue);
+ 
+ int mana_gd_poll_cq(struct gdma_queue *cq, struct gdma_comp *comp, int num_cqe);
+ 
++bool mana_gd_is_valid_doorbell(struct gdma_context *gc, u32 db_id);
++
+ void mana_gd_ring_cq(struct gdma_queue *cq, u8 arm_bit);
+ 
+ ssize_t mana_gd_read_ring(struct gdma_queue *q, char __user *buf,
+diff --git a/include/net/mana/hw_channel.h b/include/net/mana/hw_channel.h
+index 01568d10b6fd..896effd1f716 100644
+--- a/include/net/mana/hw_channel.h
++++ b/include/net/mana/hw_channel.h
+@@ -11,6 +11,9 @@
+ 
+ #define HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH 1
+ 
++/* Largest supported rebuild depth; larger reports retain bootstrap queues. */
++#define HW_CHANNEL_MAX_QUEUE_DEPTH 128
++
+ #define HWC_INIT_DATA_CQID		1
+ #define HWC_INIT_DATA_RQID		2
+ #define HWC_INIT_DATA_SQID		3
+@@ -198,12 +201,17 @@ struct hw_channel_context {
+ 
+ 	u16 num_inflight_msg;
+ 	u32 max_req_msg_size;
++	u32 max_resp_msg_size;
++	/* Immutable reported maxima for the final RQ and SQ directions. */
++	u32 rx_msg_size_limit;
++	u32 tx_msg_size_limit;
+ 
+-	u16 hwc_init_q_depth_max;
++	u32 hwc_init_q_depth_max;
+ 	u32 hwc_init_max_req_msg_size;
+ 	u32 hwc_init_max_resp_msg_size;
+ 	u32 hwc_init_max_num_cqs;
+ 	u32 hwc_init_cq_id;
++	bool hwc_init_doorbell;
+ 
+ 	struct completion hwc_init_eqe_comp;
+ 
 -- 
-2.34.1
+2.43.0
 
