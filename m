@@ -1,175 +1,346 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADFF3E2771
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875019; cv=none; b=TfHbInjXCbpk+wT+LveiGAlrTmMbhK8PdQ3cJ1LwZzq+PLL1FEEEjQyy8EDoPvAe05W+CB7ED1DedgSra8byKKF4PE39sESMi03bEqKt24g/ST0K3/WiXswKMpug+tX8dVTRUO/TiSCn319A9/tg5woCnNHzbrrXgcVWJahN4bY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875019; c=relaxed/simple;
-	bh=bpVKy2BhDr0Xypr7ffunLET37+ynqUZSFqpwnsDkUiI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=V6N2c3683v0R1ItLl7Rlf2g7Lue6IgHonY4OUlKxyqNOZEDBFv2JFN7zOicejXJRrFu+Hk2Xk7FsOUONwMrnnj3EH4oB3pyVlicst6iyvNUCwxlQdJrmLsgpISdV3u5T+mQ1Inzy0KPynn/KEKUwZG7VTlGffNVUYJ5MQTrdrJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aL738snE; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731533DA7E0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791875254; cv=pass; b=gpZk2xrAuM4KK0m6phAbwCcZVwe8vu758WUvSx3U7SERdbylZ6EeZ65JPD9qn8c1nK2LCRFKk2Fk9BtaPfk+tbNHHh15BU3X1ViEyOUy0nRcpzFdovrcJeATrW56+JOS87eOs26vbH0KzaTEJ7i25cuHsOMM1NNIhNWeKKLpzek=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791875254; c=relaxed/simple;
+	bh=oXyc8GuTOf52/4BncIPkQWfGRE4BC3arhoX1HvczZLY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JJkjj/gHlA6gwT4OHK+WGBbwRpryG9sJ3T4IXshqfLqli/ihh9kNii0rLqagw7umskTsrxgPgg5wWpH9q449OOXcXgfYd3Jp3vbOStPgPi0OCJjvfx8PzZzmAqJy467nP66OkJ+JnhegFumEhEsqxxMEH+amwjyMKjD7LX5akvM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=M/UuYL+V; arc=pass smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aL738snE"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso33237905e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:03:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="M/UuYL+V"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15ea896ddc8so3717881c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:07:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791875251; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hTNHkIg82ToRuUG8OA8os40S5jLaitU/Oq8od6bsQdx5uERWZ5ELuJsCc6KQRp+DLA
+         ZMLthmOcofH+q4GSFjPBFn0AkGhntnRC5M2YD9/2whhg/HbbrcO91qYm9x6ZLeNkxM2J
+         Okd7w58Yuhn7hsTHSt2SuZssWthSQ7/FRxZB3HkrJ4hrnz9wP4qtho4nZlHmBrZZ8J/y
+         SxQNOwneLH2xryFsgL8LLOvpmUFXRLboSpoxNX8IHqsYnRl8XGnbEBt53KlEkibGE6tP
+         TAl8BF+Sn1q7tn4H442XxnE157vI6NvmJA08GjBOdcGwZ6wpkgNMtlk9PbtX4ooFlRFG
+         dYSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nlQ4HdbyutB2k+eyayYrtNRFvZWrd3c6UOg+ikmNles=;
+        fh=G2PSSehM/NSbGZUN37prV09CiUz7fnbAJeXW9Vfwvoo=;
+        b=oW6+g3ImksnjX4xoFVWCElrrKztogQ/u1mQg/Gt1mhm/RnFxWjGp3ZrGP1tyqqzSUG
+         2Rw13NvQPuG5bKXsEakbZJ2RO+D5lk6EtiMTJwnS3OcJ1foAcgoQ2w3a5F/BzF3TBM/H
+         GumgHuvM+2+rjEaenIIa1aQMsvtl6FxjPxEemx1RK4YuM8s07S4RmKDOdYIvSTKKKuSI
+         kUzBl1tN74RF8JDE5HYt9xaKQmbtfkWy4EtNXh5OQHy+vO6XAUC4xQ8qcPP/1Yo/Aap7
+         uEUEMaTsU9wzzGVbusEbRBINt5evLVKHtv2x0PgpjtmpwFLzS0eZJdCCpjMDLEAoyCju
+         Mo1Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791875016; x=1792479816; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gfEF2n+OMurtKnv7qxvMH9ExfmZTYZWpuDvpjIsu/+o=;
-        b=aL738snE2xmARTbvpsgE+9sM2qigUWJOQIS9SCYHWFaPSKoL7mBiPlAdKHM8a1pV8y
-         k5vskTYfBH/6I+4lFdlgE8RMcI8Sdw27xhpPAGzGfNTRERMW3MvCTgw2BSomh+fhQIwR
-         kUHXoQgtupczQGIEs7u8lOXb0XNFrf1/9QAWXVXvRhExs7IScF4XoT4dmrZGC/OzVs/u
-         yC6FLv8H82sdph6TD+P851kdbQRLxYYnLdCqrVjmm/JuoeKksQkc+J19dRL7JgAej3N7
-         +zszAaWpL0Jv3JxJALsqxRsQheDL+4ip4LUfIgVqQv3o1T5Wgn04CBXiBnc+vP+oVHR+
-         7TGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791875016; x=1792479816;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=google.com; s=20251104; t=1791875251; x=1792480051; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gfEF2n+OMurtKnv7qxvMH9ExfmZTYZWpuDvpjIsu/+o=;
-        b=IwHhFJ+SK8MV0noa6zKl1ADgj4d9Ks271l9MFlSl4+MO+kPWyxxEf+sChDeeEDm937
-         4aKdcZLytbsL6vnTxZfRLidYdIU9MMFM/2n+b3NCst/xduYYpqbYMA61rEN/OgfwLF5u
-         PJjm/8aAAlklfEGACBTkWaGdzYvglN/hSXtMc0Wxudkxfh+njxlRTN6CDvOkkQaiPXdj
-         aHgi7Jn9h3YVFk3ukvIBe98MbI8IQxxaOeDbflss18GFml64cQ315ldXHimf7sND6nuH
-         txQfzaM9q4bjW7ShVIls8JKtzk/qwFg7TQ7DldddbOGPhdphB5GqTpFO0jdP9xzI77cc
-         TgAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0x01IO4yYUF4AXJkyFaOMlIUCCuA403DiJR/r+lCp+M+dvdogJRFUElCFzKZB+myfySwkgXAUkF5+8xg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLK1b9CWDiYJp+jfdvzMJOhQZHiz+NdGlzH5A6L5Q/bt8/BRlqm
-	OSpxFaYIJNA0QTd3D7znQlz6MxU4sr28ZBz6+aqqjozgFWQVSEL0iSpg2Au2wML2mRw=
-X-Gm-Gg: AYBFou1nwElFSNIqvM2RafYqMJ1BmF0Bqz1aHvA169ZLF/pbVQB0A1xzWNE5Gajoeza
-	aUyTXweoIlEH+HzBYL8zDgmdBrdFJLpUsntE2dcVu0Dq9bcamEP8kacTo4bxLmWuQ8ncwxHIRbz
-	W71FH3iSa9r3ZfeZDWzx02WIhws8mPS7tIIxLjWuBIQG8q5mj/1IcwOTxOdJkyDCbc9tjCw0YzE
-	XSHiCCzkIIiCWClyxzoPiNTKsg3oy13FQ+Hli1YE0lr0FiloyqkVrMKja8dRKN3FTXKfoXUIHvS
-	COrZ+92fpI8q/Nmbbs0jRVIOr4ziXnRFgA12DQcH9aadRmZiofBJzuhHrsnTCExXRK/dE1MRo22
-	oVR/juRpv6AUB348p5ESxJmPZbrKuDeKPTqOEP1bGW/7RbE3mrCxBrOVyeJGJVg8yh0f2F91uC0
-	+GUwEoOE+01nplOI4JCzCy34c5keSz2uJNNn4tj8niO0rvkXKcJU1oj4FAg7bn1BSD15oGdGPxE
-	vKSS4XHMbawfPlbMxLPWfLymsuy
-X-Received: by 2002:a05:600c:3146:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a18e4a7cb9mr228807105e9.14.1791875016083;
-        Tue, 13 Oct 2026 00:03:36 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19c8244edsm174001365e9.2.2026.10.13.00.03.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 00:03:35 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Alex Elder <elder@riscstar.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, Brian Masney <masneyb@kernel.org>, Daniel
- Thompson <daniel@riscstar.com>
-Subject: Re: [PATCH v3 2/4] clk: toshiba: introduce a TC9564 SoC clock driver
-In-Reply-To: <10007ecc-3604-4c58-9da7-f056dd4355a1@riscstar.com>
-References: <20261012152408.3729237-1-elder@riscstar.com>
- <20261012152408.3729237-3-elder@riscstar.com>
- <179183220207.266355.11690534397452731561.b4-review@b4>
- <10007ecc-3604-4c58-9da7-f056dd4355a1@riscstar.com>
-Date: Tue, 13 Oct 2026 09:03:34 +0200
-Message-ID: <1jtsmq9j5l.fsf@starbuckisacylon.baylibre.com>
+        bh=nlQ4HdbyutB2k+eyayYrtNRFvZWrd3c6UOg+ikmNles=;
+        b=M/UuYL+V70xKIIwJWc2yffs1gzpPjlzpaY3VuFED6Gr0y1Vu1oeCMEDr6/CZAfhEJf
+         IpzLnCltj4c1GkNPZ8Dcu4zkfQEUPrXD3TOt0KE8PzKrOBqf7ZIn/LGhrEt49YsTKKRD
+         MwCOQ5QGlmsAmAtMxUCOPGjijAjs+MP8AvAXVH1uJlL5dydCETwE1li4u0lId9te4H3b
+         9c+J6dFt+Nsn0K9GGGYSLAIxWQ23B51ILN/niQyEh7HeWs5JsLx2PT5LN6TDjRjgHuOd
+         6OaTPuW80HX6mJaqErb1qEdLuj4fsv5NCY5InCPlQ/LQ2iADXEkIqiG8vtnoNxVdYjhY
+         pQpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791875251; x=1792480051;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nlQ4HdbyutB2k+eyayYrtNRFvZWrd3c6UOg+ikmNles=;
+        b=vUCRZJPXwTo37SaKroyloVLlwob6S/q2UEsv1e3oBD4FdSiq1dCe1vj69uKm9UFDPM
+         ZHHx9ZBh71CnM5KSdDmKKyV6jXwAUc9hNKqxJELF1Rcm+2ebkhHJfmbn+0DawGmK2pfT
+         v5TgE79XDnFJevUQdZOUJcnBFajrKlnp1sjVlGeJiHQ3fxOzKvN0p7OOtbZv9ESn13x/
+         9B4fyLvCtfQssj0GF5B1HUVX26S3lldZ6VgBPM6/9HAL71zI+xoTzpnAfX4raCdq6Rst
+         0k4PEmjOf39jhe9EYYwaQLP1OCXN3KpLWZPI+UymesXSxaoG/RIKTR3HnCWz5bnsamXS
+         oTJw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqI+KlbeE4hJ/G7XuTbToEpBmUTB93TrJbydYdrD8b+fCBHec531TG/FW37ztTgOxBAyH6bg+yNpbg2lw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4rsmtXUrBxDWUHYrXVsD8BBfJmU/+kA7Y3pmk8bQKPx688XiD
+	fcGJDo1I+57L9U0VCnYZ1pjSQE4bTFjUnm4paqN9naP568Px++a564lsmANtQwZ502WzST7DwvP
+	E4jr9/E1lFE+0aiE0DSxCCfz6HZdy7V9KYCn2Xrld
+X-Gm-Gg: AYBFou3G32iO7vQMyVYdt42NbHZ0iewnvJqD+T52XREJK5eGBqfJMcHKqiHuoQC/GxE
+	XBrw5yCCNVYXpFRFvSh2WjUoJZ2U62gg1qs7mD72q1djKIc6oWJfTb7sKJ0OAgRAIQBeReJv+3o
+	EYKXI/eMujHzt3Zdktk08tBEw7wr1Trx7790OPzG7yTqZPR9wOAH3vYtI+9eyvjYgpAJhWtsrnU
+	c4ZRf6Dp3mLgK83sgfnv0YJROJrEJ4pIfkQTX0NpGGs/F3Ff+BDyfbaRREcn91N7/mRRfrTBU1x
+	uDg9B6HRGE4NdcbmsIoSBt/b/7wY8BDnqGYmAhp87k/y5GOzPju6BcTXvEOPO7VJqOhlNDVJFPR
+	16vE12kAlZU0aHqf6igTJHPgjKpTHkgaClWCKAUuB1mGlZm5C2n+V/sFxs8ilJqSVoRUu85x7pa
+	jS5qJ2oW+sexfgYtQGf3VRXlJ4
+X-Received: by 2002:a05:701b:4506:20b0:14a:8cff:fbb8 with SMTP id
+ a92af1059eb24-16a6081143cmr15076986c88.28.1791875250520; Tue, 13 Oct 2026
+ 00:07:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261012060152.2930-1-nashuiliang@gmail.com> <179187482010.434549.10175777615206996282@kernel.org>
+In-Reply-To: <179187482010.434549.10175777615206996282@kernel.org>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Tue, 13 Oct 2026 00:07:18 -0700
+X-Gm-Features: AclHuK_qLoE1qaHmsDAUK6leR_AX-pzKQ_LHFF1aVMB4WDdWUsaNoh4FTBWFZyo
+Message-ID: <CAAVpQUBEBPNMqsWChsAhTt47zNaTB5Y13Y5r0cBrmD=LYg2SUA@mail.gmail.com>
+Subject: Re: [PATCH net-next v11] net: reduce ARFS flow updates by checking
+ LLC affinity
+To: netdev-bot+sashiko@kernel.org
+Cc: nashuiliang@gmail.com, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf.kernel@gmail.com, 
+	liuhangbin@gmail.com, skhawaja@google.com, ncardwell@google.com, 
+	roman.gushchin@linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On lun. 12 oct. 2026 at 14:59, Alex Elder <elder@riscstar.com> wrote:
-
->>> +	TC9564_CLOCK_INIT0(MAC0_TX, 7),
->>> +	TC9564_CLOCK_INIT0(MAC0_RX, 14),
->>> +	TC9564_CLOCK_INIT0(MAC0_125M, 29),
->>> +	TC9564_CLOCK_INIT0(MAC0_312_5M, 30),
->> 
->> Are those really just providing the oscillator parent ?
->> That is what they will appear to do without a proper recalc_rate()
+On Tue, Oct 13, 2026 at 12:00=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wr=
+ote:
 >
-> They are fixed clocks that can be gated, but their
-> rate cannot be changed.
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 4
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The new LLC skip in set_rps_cpu() (net/core/dev.c:5196-5199)
+>   assumes that `old_cpu` shows where the NIC currently delivers the flow.
+> - [Low] The new user-visible sysctl net.core.arfs_llc_affinity
+>   (net/core/sysctl_net_core.c:563-569) has no documentation.
+> - [Low] The config guards for the sysctl and its only user do not match.
+> - [Low] The commit message says the results "demonstrate that filtering
+>   updates by LLC affinity significantly reduces driver lock contention=E2=
+=80=A6
+> - [Low] In this tree, cpus_share_cache() (kernel/sched/core.c:4008-4014)
+>   returns `per_cpu(sd_llc_id, a) =3D=3D per_cpu(sd_llc_id, b)`.
+>
+> --
+>
+> net: reduce ARFS flow updates by checking LLC affinity
+>
+> This commit adds an opt-in sysctl, net.core.arfs_llc_affinity. When it is
+> set, set_rps_cpu() skips the ARFS hardware steering update
+> (ndo_rx_flow_steer) if the flow's previous RFS CPU and the new one share
+> an LLC. The rflow->cpu bookkeeping is still updated, so software RFS keep=
+s
+> steering packets to the CPU the application runs on.
+>
+> > These results demonstrate that filtering updates by LLC affinity
+> > significantly reduces driver lock contention and improves overall
+> > CPU efficiency under heavy network load.
+>
+> [Severity: Low]
+>
+> Does the data above support this claim? The only number given is the
+> mlx5e_rx_flow_steer() call rate, which drops from about 200k/s to about
+> 10/s. There are no throughput, latency, CPU utilisation or lock
+> contention numbers.
+>
+> The commit message also leaves out the trade-off. When the hardware
+> update is skipped, the flow stays on its old queue. get_rps_cpu() then
+> hands every packet to next_cpu with a remote enqueue_to_backlog() plus an
+> RPS IPI. After a completed ARFS steer, the packet would instead be
+> handled on the queue's own IRQ CPU.
+>
+> The phrase "subsequent packets take the fast path in get_rps_cpu()
+> (tcpu =3D=3D next_cpu)" could be read as local processing. The packets ar=
+e
+> still moved to a remote CPU.
+>
+> The opening paragraph names rps_record_sock_flow() as the motivation.
+> Since v10, though, the patch only changes set_rps_cpu() and get_rps_cpu()=
+.
+> Could that paragraph be reworded to match?
+>
+> > diff --git a/net/core/dev.c b/net/core/dev.c
+> > index a6951ea08961e..434ad5499906d 100644
+> > --- a/net/core/dev.c
+> > +++ b/net/core/dev.c
+>
+> [ ... ]
+>
+> > @@ -5179,6 +5180,24 @@ set_rps_cpu(struct net_device *dev, struct sk_bu=
+ff *skb,
+> >               if (!skb_rx_queue_recorded(skb) || !dev->rx_cpu_rmap ||
+> >                   !(dev->features & NETIF_F_NTUPLE))
+> >                       goto out;
+> > +
+> > +             /*
+> > +              * ARFS LLC Affinity Feature:
+> > +              * Reduce ARFS flow updates by checking LLC affinity.
+> > +              *
+> > +              * Frequent flow table updates can trigger constant hardw=
+are steering
+> > +              * reconfigurations (e.g., ndo_rx_flow_steer), leading to=
+ significant
+> > +              * contention on driver internal locks (like mlx5's arfs_=
+lock).
+> > +              *
+> > +              * Skip the expensive hardware steering update if the flo=
+w's previous
+> > +              * target CPU and the new one share the last level cache:=
+ cache locality
+> > +              * for the application is preserved either way.
+> > +              */
+> > +             if (static_branch_unlikely(&arfs_llc_affinity) &&
+> > +                 old_cpu < nr_cpu_ids && cpu_online(old_cpu) &&
+> > +                     cpus_share_cache(old_cpu, next_cpu))
+> > +                     goto out;
+>
+> [Severity: Medium]
+>
+> Is old_cpu a reliable sign of where the NIC currently delivers this flow?
+>
+> get_rps_cpu() passes in tcpu =3D rflow->cpu. That value is read from the
+> hashed slot in the flow table of the queue the packet arrived on. It only
+> records the last software RFS target for that slot, and it may have no
+> hardware filter behind it. For example:
+>
+> - ndo_rx_flow_steer() returned rc < 0, but set_rps_cpu() still did
+>   WRITE_ONCE(rflow->cpu, next_cpu) on the arrival queue's slot.
+>   mlx5e_rx_flow_steer() can return -EPROTONOSUPPORT, -ENOMEM, or -EPERM
+>   while MLX5E_ARFS_STATE_ENABLED is clear.
+>
+> - The tmp_rflow collision check or the !q_tag_ptr check took goto out.
+>
+> - The slot still holds a CPU left by an earlier flow that hashed to the
+>   same rfs_slot(). store_rps_dev_flow_table_cnt() sets RPS_NO_CPU only
+>   when the table is allocated.
+>
+> - The driver flushed or re-created its filters.
+>
+> In each of these cases, if old_cpu and next_cpu share an LLC, the new
+> check skips ndo_rx_flow_steer() and then reaches:
+>
+>         WRITE_ONCE(rflow->cpu, next_cpu);
+>
+> On later packets tcpu =3D=3D next_cpu, so get_rps_cpu() never calls
+> set_rps_cpu() again. Hardware steering is not retried while the
+> application stays within that LLC. A new flow that lands on a stale slot
+> in the same LLC would never get an ARFS filter at all.
+>
+> Before this patch, every CPU change triggered a new steering attempt, so
+> a failed or missing filter recovered on its own.
+>
+> Without a filter, the flow stays on its RSS queue, which may be serviced
+> in another LLC or NUMA node. Every packet is then handed over by software
+> RFS. cpu_rmap_update() ranks queues by sibling, package and NUMA node,
+> not by LLC. Nothing guarantees an LLC relationship between the receiving
+> queue and old_cpu. Doesn't that contradict "cache locality for the
+> application is preserved either way"?
+>
+> Could the skip be limited to the case where this flow has a live
+> hardware filter, for example rflow->filter !=3D RPS_NO_FILTER &&
+> rflow->hash =3D=3D hash? Another option would be to compare next_cpu with
+> the CPU that actually services the receiving queue, rather than with
+> rflow->cpu.
 
-It is not a problem if the rate cannot be changed but still
-a consumer could call clk_get_rate() and change its behavior
-based on the result, so it is better if it does reflect the
-reality to some extent.
+Eric used raw_smp_processor_id() in the v9 thread:
+https://lore.kernel.org/netdev/CANn89iJkPPXruitnot9D28Xe5LWnD-irtgCUEOpmFfV=
+kG4M=3D-g@mail.gmail.com/
 
-Just add fixed_factor clock elements on the path of clocks
-where do know the output does not match the input osc
 
 >
-> Looking at __clk_core_init(), should I define a
-> recalc_rate() callback that just returns the
-> equivalent of get_rate()?
+> [Severity: Low]
 >
->> Their names suggest that maybe, it is not the osc coming out
->> of them ...
+> Can cpus_share_cache() return true here for CPUs in different LLCs? In
+> this tree it is:
 >
-> We have requested a clock tree that explains exactly
-> how these clock rates are derived from the 25 MHz
-> oscillator.  They're all fixed rates, and although
-> we could easily speculate how they're derived, we
-> don't have the documentation.
-
-If you know the input and output, you have enough to figure
-out a fixed factor. If later on someone gets more information
-than you, they'll just modify the clock tree.
-
-If you no idea what the ouput rate is, at least clearly say
-so in the comment so a future user or contributor can easily
-understand the situation.
-
->>> +	TC9564_CLOCK_INIT0(MAC0_ALL, 31),
-
-[...]
-
->>> +
->>> +	clk = devm_clk_get(dev, NULL);
->>> +	if (IS_ERR(clk))
->>> +		return dev_err_probe(dev, PTR_ERR(clk),
->>> +				     "failed to get input clock\n");
->> 
->> Nothing is using this. This is not how you set the parent. See above
+> kernel/sched/core.c:cpus_share_cache() {
+>         if (this_cpu =3D=3D that_cpu)
+>                 return true;
 >
-> It will once I have the clocks get properly parented.
-
-No it won't. You don't need a consumer clock reference. just drop it.
-
+>         return per_cpu(sd_llc_id, this_cpu) =3D=3D per_cpu(sd_llc_id, tha=
+t_cpu);
+> }
 >
->>> +
->>> +	clocks = tc9564_clk_init(dev);
->>> +	if (IS_ERR(clocks))
->>> +		return dev_err_probe(dev, PTR_ERR(clocks),
->>> +				     "failed to initialize clocks\n");
->>> +
->>> +	/* Force all clocks to be initially disabled */
->>> +	tc9564_clock_disable_all(clocks);
->> 
->> Why is this needed ? In general a provider should never act the provided
->> clock on its own. Let the framework deal with the used clocks
+> sd_llc_id defaults to -1. It is assigned only in build_sched_domains()
+> and reset to -1 by __sched_domains_free_llc_id().
 >
-> The intent was to start with everything disabled--a known
-> state.  Sashiko pointed out this races with a user that
-> could get the clock right away, so I intend to do this
-> by initially disabling all the clocks before they're
-> all registered.
-
-We do not do that because (in general) there maybe devices already using
-a clock provided by your device and setup at a prior stage (like the
-bootloader). Doing so would break them.
-
-Leave this alone, the framework will disable the unused clock for you
-once the init is done and most devices have probed.
-
--- 
-Jerome
+> sched_cpu_deactivate() calls sched_domains_free_llc_id(cpu) while the CPU
+> is still in cpu_online_mask. CPUs outside any sched domain, such as
+> isolcpus=3Ddomain CPUs, keep -1 permanently.
+>
+> The new check guards old_cpu only with cpu_online(), and next_cpu only
+> with nr_cpu_ids. If both CPUs carry the -1 sentinel, they compare as
+> sharing an LLC and ndo_rx_flow_steer() is skipped. That could happen when
+> an application migrates between two isolated CPUs in different LLCs, or
+> during a hotplug window.
+>
+> The sentinel handling belongs to the scheduler, but should this new
+> networking user guard against it?
+>
+> > +
+> >               rxq_index =3D cpu_rmap_lookup_index(dev->rx_cpu_rmap, nex=
+t_cpu);
+> >               if (rxq_index =3D=3D skb_get_rx_queue(skb))
+> >                       goto out;
+>
+> [ ... ]
+>
+> > diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+> > index 473c162736d69..9ce0bbe454c83 100644
+> > --- a/net/core/sysctl_net_core.c
+> > +++ b/net/core/sysctl_net_core.c
+> > @@ -560,6 +560,13 @@ static struct ctl_table net_core_table[] =3D {
+> >               .mode           =3D 0644,
+> >               .proc_handler   =3D rps_sock_flow_sysctl
+> >       },
+> > +     {
+> > +             .procname       =3D "arfs_llc_affinity",
+> > +             .data           =3D &arfs_llc_affinity.key,
+> > +             .maxlen         =3D sizeof(arfs_llc_affinity.key),
+> > +             .mode           =3D 0644,
+> > +             .proc_handler   =3D proc_do_static_key
+> > +     },
+> >  #endif
+>
+> [Severity: Low]
+>
+> Should this entry, and the arfs_llc_affinity definition in
+> net/core/dev.c, be under CONFIG_RFS_ACCEL instead of CONFIG_RPS?
+>
+> The only reader, static_branch_unlikely(&arfs_llc_affinity) in
+> set_rps_cpu(), sits inside #ifdef CONFIG_RFS_ACCEL. RFS_ACCEL can be
+> turned off on its own ("depends on RPS" in net/Kconfig).
+>
+> On CONFIG_RPS=3Dy, CONFIG_RFS_ACCEL=3Dn kernels,
+> /proc/sys/net/core/arfs_llc_affinity is still registered and accepts
+> writes that flip the key, but nothing changes.
+>
+> [Severity: Low]
+>
+> This isn't a bug, but net.core.arfs_llc_affinity isn't documented in
+> Documentation/admin-guide/sysctl/net.rst. That file covers other
+> net.core knobs, such as rps_default_mask and high_order_alloc_disable.
+>
+> The Accelerated RFS section of Documentation/networking/scaling.rst also
+> still says:
+>
+>   The network stack automatically calls this function every time a flow
+>   entry in rps_dev_flow_table is updated.
+>
+> With the knob enabled, set_rps_cpu() now updates rflow->cpu and
+> rflow->last_qtail without calling ndo_rx_flow_steer() whenever the two
+> CPUs share an LLC.
+>
+> Could the documentation describe the new knob, its default (0) and
+> accepted values, and this exception in scaling.rst?
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261012060152.2930-1-nashuiliang%40gmail.com
