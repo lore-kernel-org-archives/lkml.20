@@ -1,206 +1,175 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517E23DA7E0;
-	Tue, 13 Oct 2026 07:03:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADFF3E2771
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874996; cv=none; b=nw8nVZ8r1QwA/TAXFnnxqxhXpmh0NwcTOgwETyvVIyWKMYD4R6AMdgRgnekH7R9LHYXh548luEYl7jqItw7S7yUomV77j64Ta+os6FiFCl/2aDO59gx2ZJMctxPveaLwLXj6nEK7EWy/CBotRYMzsM/9gSKPJ0a82yAxRRBVGfg=
+	t=1791875019; cv=none; b=TfHbInjXCbpk+wT+LveiGAlrTmMbhK8PdQ3cJ1LwZzq+PLL1FEEEjQyy8EDoPvAe05W+CB7ED1DedgSra8byKKF4PE39sESMi03bEqKt24g/ST0K3/WiXswKMpug+tX8dVTRUO/TiSCn319A9/tg5woCnNHzbrrXgcVWJahN4bY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874996; c=relaxed/simple;
-	bh=5wwJZ0vZK8hd+uIiter0JTWn8aNjRjc46wLa5gabDI4=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fe22QAOwUCueB+byJXPn1R9bR2Nedl7++DVl3wA2BPvIb1Em/k2EsdD3m9bSd6yXVxCvbtjuZ65KlQefa06qU87b+hQPYwsTcKsDP0vFBnT3aVTH47DlA3X65IT+dU1NWnoMaSCjsfcjPT/J7nbjSZSGH9rpbEZ2QAMBS1+O90Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cAwwx89b; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=wWero+X7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cAwwx89b; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=wWero+X7; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791875019; c=relaxed/simple;
+	bh=bpVKy2BhDr0Xypr7ffunLET37+ynqUZSFqpwnsDkUiI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=V6N2c3683v0R1ItLl7Rlf2g7Lue6IgHonY4OUlKxyqNOZEDBFv2JFN7zOicejXJRrFu+Hk2Xk7FsOUONwMrnnj3EH4oB3pyVlicst6iyvNUCwxlQdJrmLsgpISdV3u5T+mQ1Inzy0KPynn/KEKUwZG7VTlGffNVUYJ5MQTrdrJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aL738snE; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cAwwx89b";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wWero+X7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cAwwx89b";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wWero+X7"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1C4011F797;
-	Tue, 13 Oct 2026 07:03:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791874992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RV646GZ4CZypeWdK6yGhZIhdHp8UUH3jItAOqBcImfI=;
-	b=cAwwx89bCRIgu+0Ux1CbNBJBwBhwqtWCF8Dqu3gwC0QhVdCJuGwXpC8gfHqqEtfcDaunQG
-	KEmBvgEKgc45eY1et78dmLdXCgYWd3VF9NQeSvhyRd/OTbHF8MCkNfGCL3kJQASTk9TPT0
-	r4x6k+OaX8cYxDXSm+q9i0b3PxIht4E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791874992;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RV646GZ4CZypeWdK6yGhZIhdHp8UUH3jItAOqBcImfI=;
-	b=wWero+X7VTJScJL8xcME0FOsgZT2FfclVI3pfIGcOG6kKuQgJqP25Z/wZ7yhVFfgrGMEvm
-	E96kv2B2m2lBMVBA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=cAwwx89b;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=wWero+X7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791874992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RV646GZ4CZypeWdK6yGhZIhdHp8UUH3jItAOqBcImfI=;
-	b=cAwwx89bCRIgu+0Ux1CbNBJBwBhwqtWCF8Dqu3gwC0QhVdCJuGwXpC8gfHqqEtfcDaunQG
-	KEmBvgEKgc45eY1et78dmLdXCgYWd3VF9NQeSvhyRd/OTbHF8MCkNfGCL3kJQASTk9TPT0
-	r4x6k+OaX8cYxDXSm+q9i0b3PxIht4E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791874992;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RV646GZ4CZypeWdK6yGhZIhdHp8UUH3jItAOqBcImfI=;
-	b=wWero+X7VTJScJL8xcME0FOsgZT2FfclVI3pfIGcOG6kKuQgJqP25Z/wZ7yhVFfgrGMEvm
-	E96kv2B2m2lBMVBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C7F321349D;
-	Tue, 13 Oct 2026 07:03:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id kq+bJ67XzWquRQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 13 Oct 2026 07:03:10 +0000
-Date: Tue, 13 Oct 2026 09:03:10 +0200
-Message-ID: <87cxteozf5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Zhang Heng <zhangheng@kylinos.cn>
-Cc: tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan den Hollander <johan.den.hollander@finalist.nl>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add GPIO2 low quirk for ASUS E5402WHA
-In-Reply-To: <20261013062532.216712-1-zhangheng@kylinos.cn>
-References: <20261013062532.216712-1-zhangheng@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aL738snE"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso33237905e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:03:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791875016; x=1792479816; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gfEF2n+OMurtKnv7qxvMH9ExfmZTYZWpuDvpjIsu/+o=;
+        b=aL738snE2xmARTbvpsgE+9sM2qigUWJOQIS9SCYHWFaPSKoL7mBiPlAdKHM8a1pV8y
+         k5vskTYfBH/6I+4lFdlgE8RMcI8Sdw27xhpPAGzGfNTRERMW3MvCTgw2BSomh+fhQIwR
+         kUHXoQgtupczQGIEs7u8lOXb0XNFrf1/9QAWXVXvRhExs7IScF4XoT4dmrZGC/OzVs/u
+         yC6FLv8H82sdph6TD+P851kdbQRLxYYnLdCqrVjmm/JuoeKksQkc+J19dRL7JgAej3N7
+         +zszAaWpL0Jv3JxJALsqxRsQheDL+4ip4LUfIgVqQv3o1T5Wgn04CBXiBnc+vP+oVHR+
+         7TGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791875016; x=1792479816;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gfEF2n+OMurtKnv7qxvMH9ExfmZTYZWpuDvpjIsu/+o=;
+        b=IwHhFJ+SK8MV0noa6zKl1ADgj4d9Ks271l9MFlSl4+MO+kPWyxxEf+sChDeeEDm937
+         4aKdcZLytbsL6vnTxZfRLidYdIU9MMFM/2n+b3NCst/xduYYpqbYMA61rEN/OgfwLF5u
+         PJjm/8aAAlklfEGACBTkWaGdzYvglN/hSXtMc0Wxudkxfh+njxlRTN6CDvOkkQaiPXdj
+         aHgi7Jn9h3YVFk3ukvIBe98MbI8IQxxaOeDbflss18GFml64cQ315ldXHimf7sND6nuH
+         txQfzaM9q4bjW7ShVIls8JKtzk/qwFg7TQ7DldddbOGPhdphB5GqTpFO0jdP9xzI77cc
+         TgAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0x01IO4yYUF4AXJkyFaOMlIUCCuA403DiJR/r+lCp+M+dvdogJRFUElCFzKZB+myfySwkgXAUkF5+8xg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLK1b9CWDiYJp+jfdvzMJOhQZHiz+NdGlzH5A6L5Q/bt8/BRlqm
+	OSpxFaYIJNA0QTd3D7znQlz6MxU4sr28ZBz6+aqqjozgFWQVSEL0iSpg2Au2wML2mRw=
+X-Gm-Gg: AYBFou1nwElFSNIqvM2RafYqMJ1BmF0Bqz1aHvA169ZLF/pbVQB0A1xzWNE5Gajoeza
+	aUyTXweoIlEH+HzBYL8zDgmdBrdFJLpUsntE2dcVu0Dq9bcamEP8kacTo4bxLmWuQ8ncwxHIRbz
+	W71FH3iSa9r3ZfeZDWzx02WIhws8mPS7tIIxLjWuBIQG8q5mj/1IcwOTxOdJkyDCbc9tjCw0YzE
+	XSHiCCzkIIiCWClyxzoPiNTKsg3oy13FQ+Hli1YE0lr0FiloyqkVrMKja8dRKN3FTXKfoXUIHvS
+	COrZ+92fpI8q/Nmbbs0jRVIOr4ziXnRFgA12DQcH9aadRmZiofBJzuhHrsnTCExXRK/dE1MRo22
+	oVR/juRpv6AUB348p5ESxJmPZbrKuDeKPTqOEP1bGW/7RbE3mrCxBrOVyeJGJVg8yh0f2F91uC0
+	+GUwEoOE+01nplOI4JCzCy34c5keSz2uJNNn4tj8niO0rvkXKcJU1oj4FAg7bn1BSD15oGdGPxE
+	vKSS4XHMbawfPlbMxLPWfLymsuy
+X-Received: by 2002:a05:600c:3146:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a18e4a7cb9mr228807105e9.14.1791875016083;
+        Tue, 13 Oct 2026 00:03:36 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19c8244edsm174001365e9.2.2026.10.13.00.03.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 00:03:35 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Brian Masney <masneyb@kernel.org>, Daniel
+ Thompson <daniel@riscstar.com>
+Subject: Re: [PATCH v3 2/4] clk: toshiba: introduce a TC9564 SoC clock driver
+In-Reply-To: <10007ecc-3604-4c58-9da7-f056dd4355a1@riscstar.com>
+References: <20261012152408.3729237-1-elder@riscstar.com>
+ <20261012152408.3729237-3-elder@riscstar.com>
+ <179183220207.266355.11690534397452731561.b4-review@b4>
+ <10007ecc-3604-4c58-9da7-f056dd4355a1@riscstar.com>
+Date: Tue, 13 Oct 2026 09:03:34 +0200
+Message-ID: <1jtsmq9j5l.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Spam-Score: -3.51
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,kylinos.cn:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 1C4011F797
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+MIME-Version: 1.0
+Content-Type: text/plain
 
-On Tue, 13 Oct 2026 08:25:32 +0200,
-Zhang Heng wrote:
-> 
-> The internal speaker amplifier on the ASUS ExpertCenter AIO E5402WHA
-> (ALC256, SSID 1043:3500) is enabled via GPIO2 and is active-low.
-> Driving GPIO2 high, as ALC256_FIXUP_ASUS_AIO_GPIO2 does on the ZN270IE,
-> keeps the speakers muted. Add a dedicated fixup that drives GPIO2 low
-> so the internal speakers work.
-> 
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221938
-> Tested-by: Johan den Hollander <johan.den.hollander@finalist.nl>
-> Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
-> ---
->  sound/hda/codecs/realtek/alc269.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-> index 9eeb3a66b2b9..7021a573bd49 100644
-> --- a/sound/hda/codecs/realtek/alc269.c
-> +++ b/sound/hda/codecs/realtek/alc269.c
-> @@ -2809,6 +2809,19 @@ static void alc275_fixup_gpio4_off(struct hda_codec *codec,
->  	}
->  }
->  
-> +static void alc256_fixup_asus_aio_gpio2_low(struct hda_codec *codec,
-> +					    const struct hda_fixup *fix,
-> +					    int action)
-> +{
-> +	struct alc_spec *spec = codec->spec;
-> +
-> +	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
-> +		spec->gpio_mask |= 0x04;
-> +		spec->gpio_dir |= 0x04;
-> +		spec->gpio_data &= ~0x04;
-> +	}
-> +}
-> +
->  /* Quirk for Thinkpad X1 7th and 8th Gen
->   * The following fixed routing needed
->   * DAC1 (NID 0x02) -> Speaker (NID 0x14); some eq applied secretly
-> @@ -4250,6 +4263,7 @@ enum {
->  	ALC256_FIXUP_ASUS_HEADSET_MODE,
->  	ALC256_FIXUP_ASUS_MIC,
->  	ALC256_FIXUP_ASUS_AIO_GPIO2,
-> +	ALC256_FIXUP_ASUS_AIO_GPIO2_LOW,
->  	ALC233_FIXUP_ASUS_MIC_NO_PRESENCE,
->  	ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE,
->  	ALC233_FIXUP_LENOVO_MULTI_CODECS,
-> @@ -5584,6 +5598,10 @@ static const struct hda_fixup alc269_fixups[] = {
->  		/* Set up GPIO2 for the speaker amp */
->  		.v.func = alc_fixup_gpio4,
->  	},
-> +	[ALC256_FIXUP_ASUS_AIO_GPIO2_LOW] = {
-> +		.type = HDA_FIXUP_FUNC,
-> +		.v.func = alc256_fixup_asus_aio_gpio2_low,
-> +	},
->  	[ALC233_FIXUP_ASUS_MIC_NO_PRESENCE] = {
->  		.type = HDA_FIXUP_PINS,
->  		.v.pins = (const struct hda_pintbl[]) {
-> @@ -8124,6 +8142,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x1043, 0x31e1, "ASUS B5605CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
->  	SND_PCI_QUIRK(0x1043, 0x31f1, "ASUS B3605CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
->  	SND_PCI_QUIRK(0x1043, 0x3391, "ASUS PM3606CKA", ALC287_FIXUP_CS35L41_I2C_2),
-> +	SND_PCI_QUIRK(0x1043, 0x3500, "ASUS E5402WHA", ALC256_FIXUP_ASUS_AIO_GPIO2_LOW),
->  	SND_PCI_QUIRK(0x1043, 0x3501, "ASUS PM3606CHA", ALC256_FIXUP_ASUS_SPEAKER_COEFS),
->  	SND_PCI_QUIRK(0x1043, 0x3601, "ASUS PM5406CGA", ALC287_FIXUP_CS35L41_I2C_2),
->  	SND_PCI_QUIRK(0x1043, 0x3611, "ASUS PM5606CGA", ALC287_FIXUP_CS35L41_I2C_2),
-> @@ -8786,6 +8805,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
->  	{.id = ALC256_FIXUP_ASUS_HEADSET_MODE, .name = "alc256-asus-headset"},
->  	{.id = ALC256_FIXUP_ASUS_MIC, .name = "alc256-asus-mic"},
->  	{.id = ALC256_FIXUP_ASUS_AIO_GPIO2, .name = "alc256-asus-aio"},
-> +	{.id = ALC256_FIXUP_ASUS_AIO_GPIO2_LOW, .name = "alc256-asus-aio-low"},
->  	{.id = ALC233_FIXUP_ASUS_MIC_NO_PRESENCE, .name = "alc233-asus"},
->  	{.id = ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE, .name = "alc233-eapd"},
->  	{.id = ALC294_FIXUP_LENOVO_MIC_LOCATION, .name = "alc294-lenovo-mic"},
+On lun. 12 oct. 2026 at 14:59, Alex Elder <elder@riscstar.com> wrote:
 
-We don't need to add a fixup model string for usual cases any longer;
-you can invoke the quirk with the alias.  Could you drop this part and
-resubmit?
+>>> +	TC9564_CLOCK_INIT0(MAC0_TX, 7),
+>>> +	TC9564_CLOCK_INIT0(MAC0_RX, 14),
+>>> +	TC9564_CLOCK_INIT0(MAC0_125M, 29),
+>>> +	TC9564_CLOCK_INIT0(MAC0_312_5M, 30),
+>> 
+>> Are those really just providing the oscillator parent ?
+>> That is what they will appear to do without a proper recalc_rate()
+>
+> They are fixed clocks that can be gated, but their
+> rate cannot be changed.
 
+It is not a problem if the rate cannot be changed but still
+a consumer could call clk_get_rate() and change its behavior
+based on the result, so it is better if it does reflect the
+reality to some extent.
 
-thanks,
+Just add fixed_factor clock elements on the path of clocks
+where do know the output does not match the input osc
 
-Takashi
+>
+> Looking at __clk_core_init(), should I define a
+> recalc_rate() callback that just returns the
+> equivalent of get_rate()?
+>
+>> Their names suggest that maybe, it is not the osc coming out
+>> of them ...
+>
+> We have requested a clock tree that explains exactly
+> how these clock rates are derived from the 25 MHz
+> oscillator.  They're all fixed rates, and although
+> we could easily speculate how they're derived, we
+> don't have the documentation.
+
+If you know the input and output, you have enough to figure
+out a fixed factor. If later on someone gets more information
+than you, they'll just modify the clock tree.
+
+If you no idea what the ouput rate is, at least clearly say
+so in the comment so a future user or contributor can easily
+understand the situation.
+
+>>> +	TC9564_CLOCK_INIT0(MAC0_ALL, 31),
+
+[...]
+
+>>> +
+>>> +	clk = devm_clk_get(dev, NULL);
+>>> +	if (IS_ERR(clk))
+>>> +		return dev_err_probe(dev, PTR_ERR(clk),
+>>> +				     "failed to get input clock\n");
+>> 
+>> Nothing is using this. This is not how you set the parent. See above
+>
+> It will once I have the clocks get properly parented.
+
+No it won't. You don't need a consumer clock reference. just drop it.
+
+>
+>>> +
+>>> +	clocks = tc9564_clk_init(dev);
+>>> +	if (IS_ERR(clocks))
+>>> +		return dev_err_probe(dev, PTR_ERR(clocks),
+>>> +				     "failed to initialize clocks\n");
+>>> +
+>>> +	/* Force all clocks to be initially disabled */
+>>> +	tc9564_clock_disable_all(clocks);
+>> 
+>> Why is this needed ? In general a provider should never act the provided
+>> clock on its own. Let the framework deal with the used clocks
+>
+> The intent was to start with everything disabled--a known
+> state.  Sashiko pointed out this races with a user that
+> could get the clock right away, so I intend to do this
+> by initially disabling all the clocks before they're
+> all registered.
+
+We do not do that because (in general) there maybe devices already using
+a clock provided by your device and setup at a prior stage (like the
+bootloader). Doing so would break them.
+
+Leave this alone, the framework will disable the unused clock for you
+once the init is done and most devices have probed.
+
+-- 
+Jerome
