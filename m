@@ -1,37 +1,37 @@
 Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758D24F473F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981974EFFAB;
 	Tue, 13 Oct 2026 11:51:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892311; cv=none; b=p42ZeIO7ARGck+vQ2IfpV0AQLJsvNaYXNhnH4iriMA8VBCRa1CTG8TVUwwtnWBiruNWLeiTlrL2I5hXWbDHNqpj88ZGle8cJAH6yeLJ1NjRinBBnrJ4ZOPdZv79WcNW4KXlUyn1RW4ocJTxbKFyo28SoPu10DTsA53msb6iBTYA=
+	t=1791892311; cv=none; b=XviS2sPn5KXgmIsIDHt2xBBOg5uvNovAh5727qZsjJSGljEEBG2+FsBhBBSwatbyPI7ViQC/TaTdVxDqmwKh8S+YcgMWwuhCzeWo7lw7+QPfDFHdjwtvWO/JWWUloz6xjv2I58zWAfkg35W7nmdbHlvWocNMPLY70WpR/0sEtw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791892311; c=relaxed/simple;
-	bh=bbak2Pa+Xa6pT0U72nKivkLCl/5t2TslhXBlYh342Ow=;
+	bh=BF7n2FGU4B0do9nLHQ29jMiLZJa3VCUAns7HbJstgG0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WUxbGmjQ1pSiSVvoAalEIZhW5ZQTgt4i//4J3who9czvRYCQIF3rHAWULvImNTSmRllGScRc40yeSdYET0cL5MJqpgsdF+WDMJuev4uji7B1jHNhyMewc474v9fcs4W7F30R0ahSBiXSudZ81DBcFCjOCt+0Y6a4ZZWo8BI0YZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=Wt1eExD+; arc=none smtp.client-ip=116.203.77.234
+	 In-Reply-To:To:Cc; b=K4ZrnE8izu2k1TxLN5x+Trxp6Iwgz3hCoP1nYisnNS5maKcUe9dvg8q8bb5fUoDeocsydM8LMGteNBQI9TEClk07Zre4jEbLJ4vpUSsMwhmB1QAnKjJuQuLroGYNEpEjNhA53WYISespRjv3hc1YKRbH6+5EDtg33+r0Bhu5tnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=Ib9l6c8U; arc=none smtp.client-ip=116.203.77.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="Wt1eExD+"
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="Ib9l6c8U"
 From: Frieder Schrempf <frieder@fris.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1791892305;
+	t=1791892306;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Q4aN/1amNQxJNk4c7N2lTGAkvvrYpTHFVDkBhjGRCG4=;
-	b=Wt1eExD+TPoERBQDGbN+XBQvFfuMr528XovX906cDMkynjhsvXbGVxhMG02zQylbXhPQCP
-	Hv0QnuClUCLUMgd69kHzWEBJlm5HMc1dItAQKnJbbQswwvGfZsGl9LW4VuFRwdV+jUOjeZ
-	ko72Zv7UGMTzCH6DcMfm2yZR/wym/Xul1vusxo7LUMc+wUP4BOEXRYKZ4iC5aVea+KWk37
-	QRBeYYoqpNtu976UohHatZTarX5R4L+R4283F5044xHn6FMKvuHYbDyCJNKt7+vFYivVP2
-	y+f4Cxc2xYwuPLC+2UWbaI+j17o47xifyej9sDmpn+GZOoWJL4posszw0hcIjg==
-Date: Tue, 13 Oct 2026 13:51:10 +0200
-Subject: [PATCH v2 5/9] arm64: dts: imx8mm-kontron: Fix wrong label for
- SPI_A_SDI_(IO0) pad
+	bh=iPeplPkVfjQbU+WDmS7ovub5xCS4NSxvEFYqSztNHkI=;
+	b=Ib9l6c8Uepb0LhqKr7Gyhb2VrQ9RROTcoQeDtySWb0Q+gq2lf+g+nxnDlFZ1UCtOk3VX17
+	2n2exJwK25eBoJdfRMEv4oEMA8sD0gtLDYaVkyJwFOi2rYlkjK0SvSpUrKq+4odMfb4enb
+	WrXRkmsKyCvPu1EigfpgK+IagQ8mC7b7VBFf09wQVPzLihdXL3X3T1IrctdNtyVs9+DqkX
+	UuQbRxSRe3xHwO7ninbnY151zsPj+F8WP1FK1FPiqY3q61I8nQzBjhmsN4Dg9gmWDJGAKH
+	oqTr/hFv6vQgkJcW+uSPr449dZqJdlGzk4kKAEfogB2mSkaY4rGeO1VMCKbXXw==
+Date: Tue, 13 Oct 2026 13:51:12 +0200
+Subject: [PATCH v2 7/9] arm64: dts: imx93-kontron: Fix ETH_B_TXD GPIO
+ labels
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-upstreaming-gpio-label-fixes-v2-5-d464ca652c91@kontron.de>
+Message-Id: <20261013-upstreaming-gpio-label-fixes-v2-7-d464ca652c91@kontron.de>
 References: <20261013-upstreaming-gpio-label-fixes-v2-0-d464ca652c91@kontron.de>
 In-Reply-To: <20261013-upstreaming-gpio-label-fixes-v2-0-d464ca652c91@kontron.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -52,42 +52,43 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: Eberhard Stoll <eberhard.stoll@kontron.de>, devicetree@vger.kernel.org, 
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1266;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1357;
  i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=jzjRSZBC4S/DaUSvV4n8aM/sXC+EPXR9oQqPjvOEE/c=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIeuctN/tpfJWG0SqzJYlTt73P57njaj4s+PO3JxPtSe8y
- lmlvDumo5SFQYyLQVZMkUWK3+K1rVmsj/yx6iiYOaxMIEMYuDgFYCJ3pjEy9LHcWvt99Vr2qh05
- SyQjDLTmb/0ZWXToc32kdUd80fLMZkaGLnaOPUUfbm1TM/7oKi+89M0B6UvVGoqM708Y3G9UZP/
- CDAA=
+ bh=NaDCXQ5UyNlXLm2/p0aKHGTYTGZWj500zS6hbQ5zc2Y=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIeuctB+Ln9bd57VRO96r36p8tbd/x5mLv05v3N6QyJJ/r
+ u/1xdVSHaUsDGJcDLJiiixS/Bavbc1ifeSPVUfBzGFlAhnCwMUpABNx02X4zcLNpTvLQEVt+5Nf
+ mxTN2ALc+Fee2ne3KTj5zAKVOUf69zD8D5W7JbTT+KFE57nlNo4SlcbT7T0PPPOcbRT0oFLpzIk
+ DLAA=
 X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
  fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-From: Eberhard Stoll <eberhard.stoll@kontron.de>
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-The OSM-S pad SPI_A_SDI_(IO0) is incorrectly named as SPI_A_SCK.
-Therefore SPI_A_SDI(IO0) is missing and the label SPI_A_SCK is
-duplicated. Fix this.
+The labels for the ETH_B transmit data pads are off by one.
+ENET1_TD3..TD0 map to GPIO4_IO02..05, which are the OSM-S pads
+ETH_B_TXD3..TXD0. There is no ETH_B_TXD4 pad. Fix the labels.
 
-Fixes: 6f5e6d7306c0 ("arm64: dts: imx8mm-kontron: Refactor devicetree for OSM-S module and board")
-Signed-off-by: Eberhard Stoll <eberhard.stoll@kontron.de>
+Fixes: 2b52fd6035b7 ("arm64: dts: Add support for Kontron i.MX93 OSM-S SoM and BL carrier board")
 Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
- arch/arm64/boot/dts/freescale/imx8mm-kontron-osm-s.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-kontron-osm-s.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-kontron-osm-s.dtsi
-index 4fb13d8ecfd45..35b76cd02b1df 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-kontron-osm-s.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-kontron-osm-s.dtsi
-@@ -230,7 +230,7 @@ &gpio5 {
- 	gpio-line-names = "UART_B_TX", "SDIO_B_PWR_EN", "SDIO_B_WP", "PWM_2",
- 			  "PWM_1", "PWM_0", "", "",
- 			  "", "", "SPI_A_SCK", "SPI_A_SDO_(IO1)",
--			  "SPI_A_SCK", "SPI_A_CS0#", "", "",
-+			  "SPI_A_SDI_(IO0)", "SPI_A_CS0#", "", "",
- 			  "I2C_A_SCL", "I2C_A_SDA", "I2C_B_SCL", "I2C_B_SDA",
- 			  "PCIe_SMCLK", "PCIe_SMDAT", "SPI_B_SCK", "SPI_B_SDO",
- 			  "SPI_B_SDI", "SPI_B_CS0#", "UART_CON_RX", "UART_CON_TX",
+diff --git a/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi b/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi
+index 36548d9181695..a6b6128f22ddf 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi
+@@ -83,8 +83,8 @@ &gpio3 {
+ &gpio4 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_gpio4>;
+-	gpio-line-names = "ETH_B_MDC", "ETH_B_MDIO", "ETH_B_TXD4", "ETH_B_TXD3",
+-			  "ETH_B_TXD2", "ETH_B_TXD1", "ETH_B_TX_EN", "ETH_B_TX_CLK",
++	gpio-line-names = "ETH_B_MDC", "ETH_B_MDIO", "ETH_B_TXD3", "ETH_B_TXD2",
++			  "ETH_B_TXD1", "ETH_B_TXD0", "ETH_B_TX_EN", "ETH_B_TX_CLK",
+ 			  "ETH_B_RX_CTL", "ETH_B_RX_CLK", "ETH_B_RXD0", "ETH_B_RXD1",
+ 			  "ETH_B_RXD2", "ETH_B_RXD3", "ETH_MDC", "ETH_MDIO",
+ 			  "ETH_A_TXD3", "ETH_A_TXD2", "ETH_A_TXD1", "ETH_A_TXD0",
 
 -- 
 2.55.0
