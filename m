@@ -1,129 +1,175 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE53E226D18
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BA93A783F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791855914; cv=pass; b=binCWGt89zGu9XULqyfahl7DUBtedInPRfKBWoHIp8ElTS6KH7TGVRGEbyQyAz+yn/arjGJjrWYYMNRelQnsbvrB40KPhZ35uEeJg8hEF9oQIUz48IMND74wUKqcQRm7Rel6V5gl284LM4TzQLLmA2uTRo1VNJEcOjoePOs6Jdg=
+	t=1791856116; cv=pass; b=nL51K8yQT7+FipKN6LregjVzL64Yx0Lw3n854iH9HEkdfWzN/U1cDIQUhrsaMuTpidaK5ydkKe3qkgR1BTnfi6P75xnR9ymvX3kWuT3lW3dhbHuq5JWYhzrptkK44/69QPOaFnSwuf2pYEqiy4Ib5CkhWfg3lF1KVDsodxa6fJk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791855914; c=relaxed/simple;
-	bh=cz+gED3n3VMR1ENKlJ+1/sgawu/JrM1+H8MqpXBZQP4=;
+	s=arc-20240116; t=1791856116; c=relaxed/simple;
+	bh=4IHJ1f+F6bVSBaQKkLY11km9Ol9pfEn82bJjAdkF4dY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AJd2HH2A5701jqNA3hB3mIcWd2emTDnIUWWFgntuZLmNcw8xSJqrbOiepZsylX2B5FfgVfK7s+8G0ud0IfTTtNyVJ12n2s3FWyFCfnXvB7R0xK+5sY589PYZFzGd396h80G1Ul4F8uPe9k/MHJSNBUHFhyf8LXA1NyLJO+ZEdC8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dXsEqth1; arc=pass smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=CIEi+8JWJVKUdkdX7D1aM1/CHW16XHERMoMFgTt+I7gORXVJkW93wVAKF5m7DfzrMCxSTZ5VpYNZikQzSGz3JXj5vVrgSlXekWtvySeX8t+gMqy10gIOqvbAEz+JP6ssipuClIwj9lbJemmEgylM0RGR/Fp59PYrdTY5F6jg0pk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MvM89sZJ; arc=pass smtp.client-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dXsEqth1"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-533952f3714so29252311cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:45:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791855911; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MvM89sZJ"
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-16079d54c17so2933923c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:48:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791856114; cv=none;
         d=google.com; s=arc-20260327;
-        b=ItbSdSz5/USmPPR94wbHDUHWkOT2JAPV4n3cSUvj6yyJltKPEA6TEOsh55ONzjwYS/
-         ANxuatFTar+8cBWpi9qlLL5dVkzwhqL2BVgFCMfizP+inMA8ee7Kke8XabEZc5k0Ljp0
-         tApIY4EhWcd+nsSFKAbrPe0dHtIKbJaR8/nXQ5NYapACTtmVT06LC1kaeJNwgaYdPEdv
-         8kzK3qUQQURje7+hmLR69m19RlOeN8ElUl0ELlzG4HwkfcqUph1d5lHZ6vRwea7wf/IQ
-         4s3c6YCDaLWbrDxEx1reDad6VtmipkYxAvK5aiQiezA4Ja5hysK0ki+u7Wn2yFZ/jive
-         5KlQ==
+        b=Mx2ktVLjB2hyy7UsrwRfqjRE0wFv3fnpeRZxz6o0z5lX0+RS5KsypoMaBNWau0ZHfI
+         MCfMD1CnEyYn3zkJ7hIJVas3uHtDr28xTLK8mMAKvkkyWBrdaKpNGmysjHTQ49Ob+BSR
+         GPyH9KdfbQGyywWUt2vB7b0kQe4xDO6MPAVQRtap1BFG9yw7LJOUNPTJgT8nyWh9KcT2
+         LcYql5bAARBaqida9rUJnERZShx/DzS1EJ1rMwT9vH18vIYLAmTYElyrqsa0l4dhevtw
+         adNh1aZ8Y3yep3EcgxjT/9ZBN61AASfIO5oLqUaPiPtbG/glWEQKa3hzP/ThFIbY+U+i
+         5EiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=cz+gED3n3VMR1ENKlJ+1/sgawu/JrM1+H8MqpXBZQP4=;
-        fh=LuWeaLFusQM8yPh6sV3gmGKtYJdz9ZqGWkgEhzVeh/Q=;
-        b=NJIaFgBPs0eMOJ0eV0bK82xjVsTdogXxKZ/EXPcrXwmxv7scvTMmhgaghYN34fCQKd
-         wXZcYFXJLGohJklAHV7bZQZuRzh2UrQQcGd2Qvzdk4tLUx6MjNxdPUz6sEEne2HDpdQe
-         9DqbnmCKyKj20cXir1+n6O5cKNLKu8U3UitT1dzrul6eBlWDBUFnxG0gPxNHJisCCTO2
-         cZypX4El02Dki4bI1CsNpz7uoLRXavgalDUNEcEiUO74uOrluavC7TC752o+82zfzJZu
-         1QNqGmgOja9MvGz3faKY/vxwmN1ApgwYDGNsXZfVVoPI25EsvdcClDg/4jmKrsquNso9
-         Hdzg==;
+        bh=WwlGR1wR036AjYZy2y39FgAVhGwuJlmWocX1B+EQ2FQ=;
+        fh=7eHGmPw7pEep8GoSN6xjhtnXIhLF3yQIDDSJwJ32cag=;
+        b=AX8fdy06lio1Cl8tG7eniOWOl8jR3Pkn5XbCSHIn60jPZxyrjDMp0l2DHLnJRFhAgw
+         eCHCT7k8XmX/p0X2SKrLwTzFLemgP00bplffUdm1utn7jsUh+xGWhIAyvUCjI9P8dUGH
+         nAc/MLcI0GcZ3qXyfpVhAYWRbeXmRd491AdlbDXqbo797hCYSRF22VyiOpJSmm+j2EtO
+         FW4x0A0ToP7F+z5JguHAe39SNBMGlmulDhygZ2k9iGP8zCkd0EpnWV86Bmvh/+ODO34N
+         WWipDk/rdFNpM7+n2nQueKFCg0Yez4Gs95QcJZs7K1/bnE4CLcz9of1VtUTQsKHLXU+U
+         OLDw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791855911; x=1792460711; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791856114; x=1792460914; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cz+gED3n3VMR1ENKlJ+1/sgawu/JrM1+H8MqpXBZQP4=;
-        b=dXsEqth1P9jLVPPBygKZYVsdWxVsgJ001QvH6xJILCjdlHJNtXXFmUrPWXnAoaYPKf
-         2YaADamCfb47RAK/+GZ5046cFz9FJJpDnLJkI9it/4Hq3rdXleE7Hxrl/O75O0aL68CY
-         CcrmyphYhMN1nt6zk/rGRSdSOYgqW5fJK+YH8pY6JLdO/XMUNf06xVM9b1dvExYXqQ/2
-         3bqQxG5m06URnmTFSCqEPcyziNcgwqLJfg6ayLpJ/z2JHxdF9KE7gcNPeWzmfheCD1Gp
-         5mFlgszfUEdoVWbKZhQsP7WZsBQjnDTSjdR4BpWsN/47562yAJyrA1dDNr0BETOLfzg7
-         CVvg==
+        bh=WwlGR1wR036AjYZy2y39FgAVhGwuJlmWocX1B+EQ2FQ=;
+        b=MvM89sZJa6BPwTI0BYetYfOTERIGMOEFZq5Xcx0Fz7tOOex+/ita6aS327I5mKXZtx
+         jI7fmaGLy7oL341IW+cGbY4eeZkFCccdw+n6FJZByD/JZ7PJ2XCxu2IUAY3R7V+idBLS
+         EOLWid+ZBgbovTR59jtrcnGyUyMVB02zZrJyk/mnveMPSoQtcfXYOK/WJmmmJfEpXZX4
+         Sd0TbeK8qJB9oCQgwcQiXNwwuOAkvd/ukTpDl/Gy6Xz5I9GVU6zorUZxxU0l9L1ZZ7qN
+         O39+DMFUD9jgtAoYCGB+4RGTeiODIw+17r9ZC2LlQt+/9b9bvjMvcFzGTB2mjShXNjAo
+         503Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791855911; x=1792460711;
+        d=1e100.net; s=20260707; t=1791856114; x=1792460914;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cz+gED3n3VMR1ENKlJ+1/sgawu/JrM1+H8MqpXBZQP4=;
-        b=A5CA57hUCjflrH1zAX/KEg+lCxO91Q8ieZq3SeECzqYr4iTvSya+NKdnD5RF9V7JzM
-         QdTdRGOQAX1OofXA7OloFdJbZsew9jeqw7D+Zs3Zz6TFVQiweJ70SJm8Er14is2rI6fs
-         hAmzBWCqIH4WKHsX6vPfgTc20yab9guHCLIYVknSahnRk1OkA0PAxw4cX/Z6lzc34GnM
-         xRFmkZA8CKq0+BXaFcI8548LxLcxI1AsApFKX3d0qc9C8dX0j5a4SjKoh6Y8Rik5XSH4
-         UIXcYWc794sTXrngLR96O4ynVyXN+HwvWqKVatd+HyAS5hBgwMXsFqpT/dYY9Q/nXs7+
-         C0nw==
-X-Forwarded-Encrypted: i=1; AKwUvBwBopONAYk6cfklVgeyPjA6iOQdP9ppuxdADIH3VGntn0A6etE0FQLNfX6p3+gzr4N7u69OMhWI++475Ws=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSgXT1XpYTxmLsNKT/Aw/vaBB+OcIFDU/9qGC/vnV8FNHmFEYv
-	v3H6Dhg7cdrCsoBMsRkOsx8l9o1arrYa7jDRCpMrxzh3ZOrTQGFOv4ZZbMSXKrQ3OwKMJB6D7l9
-	L1ywebk1ZCyOa9xyay2dWZKi4q1VYkXs=
-X-Gm-Gg: AYBFou3XqC/0iiMpiSNTLPdq8Aqg+L+tow1IT+ugZMWR/S3yC9MhTIDddolOeI0CL1p
-	EFiXKc/zdnDwjpXzOVf6DHtT1jJ8P0gkUQEhXtLxghWPlGC/TY+2ph6cc+bXbaksqvirU5yf3fQ
-	gbnoWZmJEDe/hQRNF2Z0NrsiaHXoTzeOqxpH1dxOYJj/6XelVSH8GfbWb+qAdp1BLMnHgroAUck
-	rUK3KucfuBx/WyjxQuNll1LV24KtMTLJXhMP5atib1rAdgdIQevEAr2MFRR/cSH37P8Ld1LYvr2
-	svHk7mbet9lAD0YNBnbwLCCSkzVe3ZpMUoONlOy3k0gNkpZlTad+8affWg96jyw717lzpTQ32jr
-	43EryfFMZXsH8QdjI+D6inEWYLgQ1z31qjTevqiq/E8HZoQE0hi8ydPnACTM4SVlWdbZ16g==
-X-Received: by 2002:a05:622a:342:b0:530:430d:87f7 with SMTP id
- d75a77b69052e-5359fba77f7mr196535301cf.47.1791855910479; Mon, 12 Oct 2026
- 18:45:10 -0700 (PDT)
+        bh=WwlGR1wR036AjYZy2y39FgAVhGwuJlmWocX1B+EQ2FQ=;
+        b=OcSypd3s8e4IUiTyqCF4JA7T2U4i6oqsk2FDntYBaCFA37gIdJfUhrgnGWzqUJuZsG
+         G9xtNkYlWeMlwFR84Hc7iXloAVxJ1y8H2fl06anjnzx61eu+jkgTy2kmVPUUbWrnZJJI
+         rN/BaLJ7EViEngPno0lZe+BJLSggx/N6SMwgduSIPTiOSlxyA/tN4PHFZclLSJIKGSjK
+         CC7HEY7qxp1rrp0UzqR8jGZUPWLJdULP3esQmdwiXIkwCyF/n8HEMPmocGGNZS0S08jX
+         4yJJ27gIfZ2Aj5CuPvgNahBnI48s3JtLDrWKAYP8v+Xbq8sWHSH1W0F2b/Ph69Af/KMm
+         eisA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4jmZIFrK8B4PtQDGXTYd3X4a9KdSA72Y8ULvUjJ+KVpcTErqD2ruxatHO8RRMcJgwpixRCD0gQ4/pLhE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/GaMfvWEKYMKG4eGeqfyxa7+2f2awl9Z7/u52PWIBIXc5Ve5H
+	H4yML6ymykkgII1tDEpuNQ2q/7pU6BGvYDKFXnf8Mrl0fvminrLRtgmLBOWZRbGoQ9H3+9OnVgX
+	GWC84CKxvNZekebDB+trN9Flz+tWWE2Jz98SYegQN
+X-Gm-Gg: AYBFou3bI1k1qML7ilb9fcjsOuu2I3Mt6XShXAsqD2+tx2uk+k6NG9mDLTK1OggO4gE
+	0yNoU/cINZ3T6tRIV1nEaOpUJRGedwCJXbCNOyLt9FG4beVfcWQ+zoawL6ps0j0pkI9ppOdlBK7
+	EyQ/jKFzcrPlTeCSsfwFbusIaShOb8mmuL1MXSaIV54AVhQf35iz+t40/SxyBysgu0RCtHqzKlI
+	S+XQ1s0dQaB7fHHxSndAd03gCvxl8GwRd+pLmVIFfn6LRzzi5oFZ7jLsfjO+k8FiAoTj2xLa/bA
+	qWWxzmKAyBOSw5y9dKKZIrVQGoFN6/zx7fJCYeTSOYiUunV93RorBP/F8dh4wzVeYdqii9SRKqz
+	W7sSDZ7EwTg8ioEliZncT6aMc3CuFKXY+AJXF4bUH7YK03ev3npTnYRSkbFUFVLz5ZwR6LCaaqy
+	ktpwRtCDXGmtHjDDSRH8t6RgyqTCr7Ss9A5Amx
+X-Received: by 2002:a05:701b:2605:b0:13e:5a50:1e17 with SMTP id
+ a92af1059eb24-16a55487e53mr17102214c88.3.1791856113584; Mon, 12 Oct 2026
+ 18:48:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012-vsock-guest-ns-v3-0-b32447c66b23@meta.com> <20261012-vsock-guest-ns-v3-4-b32447c66b23@meta.com>
-In-Reply-To: <20261012-vsock-guest-ns-v3-4-b32447c66b23@meta.com>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Mon, 12 Oct 2026 22:44:55 -0300
-X-Gm-Features: AclHuK-kA8q05fe6Esk_oixM2BCHb47BieLQLjZDYfiDhY6CS2aMRdOMVHtXa5s
-Message-ID: <CAMAsx6fKVQaYLzkK34v5DRkmQS5Ym-XqwNh-+Jj_Uue8NJCNUg@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 4/7] vsock: add a netlink command to assign
- the g2h device to a netns
-To: bobbyeshleman@meta.com
-Cc: sgarzare@redhat.com, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, corbet@lwn.net, 
-	skhan@linuxfoundation.org, stefanha@redhat.com, mst@redhat.com, 
-	jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com, 
-	shuah@kernel.org, rdunlap@infradead.org, donald.hunter@gmail.com, 
-	edumazet@kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com, 
-	bobbyeshleman@gmail.com
+References: <20261008124423.11543-1-parri.andrea@gmail.com>
+In-Reply-To: <20261008124423.11543-1-parri.andrea@gmail.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Mon, 12 Oct 2026 18:48:22 -0700
+X-Gm-Features: AclHuK-7HoCf50g6EjGDuv8XPNEzQqvRnf7ogcg-czX0LK7BftACZiwFnu503kM
+Message-ID: <CAAVpQUAd4QzUDK1wZYpuHJbMSg+PwAGCcaTzayR40DTNkXdwQA@mail.gmail.com>
+Subject: Re: [PATCH net-next] rtnetlink: comment the RCU and SRCU waits in
+ unregister paths
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Em seg., 12 de out. de 2026 =C3=A0s 19:51, Bobby Eshleman
-<bobbyeshleman@meta.com> escreveu:
+On Thu, Oct 8, 2026 at 5:44=E2=80=AFAM Andrea Parri <parri.andrea@gmail.com=
+> wrote:
 >
-[...]
-> + Movement to an unreachable local namespace results in sockets being
-> + closed with ECONNRESET. Peers are not guaranteed to be notified via
-> + an RST.
+> rtnl_link_unregister(), rtnl_af_unregister() and rtnl_unregister_all()
+> wait for readers before tearing down what those readers use, but most
+> of these waits do not say which readers they are waiting for.
+>
+> A missing wait is then easy to overlook: rtnl_link_unregister() lacked
+> its synchronize_rcu() until commit 3b70edea393d ("rtnetlink: wait for
+> RCU readers in rtnl_link_unregister()"). Add a comment to each wait
+> that lacks one, naming the readers it waits for.
+>
+> Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> Link: https://lore.kernel.org/CAL4WiioFMQN4troVjQjCmE6Z9kwwb95SnoEupjD=3D=
+PPSK6Q5f6w@mail.gmail.com
+> Assisted-by: LLM
+> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+> ---
+>  net/core/rtnetlink.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
+> index 15bffafbf0a9c..80f8577816760 100644
+> --- a/net/core/rtnetlink.c
+> +++ b/net/core/rtnetlink.c
+> @@ -526,6 +526,9 @@ void rtnl_unregister_all(int protocol)
+>         }
+>         rtnl_unlock();
+>
+> +       /* Wait for rtnl_get_link() callers under RCU that may still
+> +        * dereference tab.
+> +        */
+>         synchronize_net();
 
-This reads a bit differently from the sysctl documentation in the same
-patch, which says:
+More specifically, this only applies to callers before try_module_get().
 
-Connections established before the move, from a namespace that can no
-longer reach the device, are closed with ``ECONNRESET``.
+>
+>         kfree(tab);
+> @@ -711,6 +714,7 @@ void rtnl_link_unregister(struct rtnl_link_ops *ops)
+>          * not yet taken ops->srcu.
+>          */
+>         synchronize_rcu();
+> +       /* Wait for rtnl_link_ops_get() callers to call rtnl_link_ops_put=
+(). */
+>         synchronize_srcu(&ops->srcu);
 
-The net.rst wording also covers moving the device back to init_net from
-a local namespace, which this sentence does not. Maybe use the same
-wording here:
+I think we don't need comment for srcu as the relation is
+clear via the argument.
 
-Connections established before the move, from a namespace that can
-no longer reach the device, are closed with ECONNRESET. Peers are not
-guaranteed to be notified via an RST.
+>         cleanup_srcu_struct(&ops->srcu);
+>
+> @@ -843,7 +847,11 @@ void rtnl_af_unregister(struct rtnl_af_ops *ops)
+>         list_del_rcu(&ops->list);
+>         spin_unlock(&rtnl_af_ops_lock);
+>
+> +       /* Wait for RCU walkers of rtnl_af_ops, including rtnl_af_lookup(=
+)
+> +        * readers that found ops but have not yet taken ops->srcu.
+> +        */
 
-Daniel
+this can be simply /* see rtnl_link_unregister() */ instead of duplicating
+comments.
+
+>         synchronize_rcu();
+> +       /* Wait for rtnl_af_lookup() callers to call rtnl_af_put(). */
+
+ditto.
+
+>         synchronize_srcu(&ops->srcu);
+>         cleanup_srcu_struct(&ops->srcu);
+>  }
+> --
+> 2.53.0
+>
