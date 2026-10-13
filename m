@@ -1,85 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671F84FDA77;
-	Tue, 13 Oct 2026 13:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F161DE8AE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896516; cv=none; b=tZxc7HzlX9/BZscADWGlbpOEkdbtiYLSBnymdQDo0T4/wAlkmczTzAiQJwIkdMa9buENVWR8jzwT1lV8mMRgEYuS3UEFgk2Qf9vFsoPfm2m89vm9qiz09cUz3xNPA++6pEoKd4x2vFV8tGnHKJqViJhW4qt3BPjzYFFq69RP0ps=
+	t=1791896578; cv=none; b=cbPLG1P2ewhnY6mz+cAl17+tjmPW3Ne+5Cn41DuJVi4Q7un7Q0jjLZ6hP6Zod8dkf3BXU2x0M2AqN0mPzkgYwSU4BUF453Pvpy3FYYpJ2MdqnZkaJEXAAWpvtxK99eIXhbbtxTajp+ue/r163cv/h99Y0Pg1lf6gLT+qDw60jYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896516; c=relaxed/simple;
-	bh=dKD1DuP7nA/1WCRMaM4SY6DfPzfhdDIgSp+12Z9T5Dw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Gp1tUDLBaAJ+yP+SXskK7ta6WkfcMKVZTPYgrK4e4RgMq6V3Yw2ZZpcvy9tE6U6BW/spPFntZZb1VjbxXcGQkfT/j2LssSXK/DwRR987mQ9ikyhfCz/6oTIUaWGq8Kq41OvHw08WtwC5T9CtGSCiwSk4h3XycRB/CBB8Gz+9Qyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VVH55j1F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791896578; c=relaxed/simple;
+	bh=ZrqN4SwiMfEFjFMJxxaia+E+p360c/BMd14mXe0AmBE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XznhlGyjgRbB6A1s7KT0RqbgiLxjURURL+2Z+lCM2+DVXATJA53Zpf8E6qa/8fLbvsVGlCLeh13j71kQKfVuryUW6CuV/T1RNM2XnnEsaQ///2CwfjqnG8lRIQU/E8U+iYLhDjS61S0uEnReHRL1JklIXjRvqhUSnt4xDuCIKlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UvoO1oKv; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VVH55j1F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3AAF1F00893;
-	Tue, 13 Oct 2026 13:01:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791896515;
-	bh=p3fEwqzdUyFVtP8SKxeyVGJSaBF86wuEMEEclRWWWrU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=VVH55j1FwfD0QvYKJktncUMhTL9APb84DAbqwCmgB4/+mWN8nInsUEk7KHNn5isSW
-	 zQRODWqDhikzEy64HoZ3qsgGyvi3+tL4LOrze6AbXlSzS6h+3zcovKJUllc5JV8t2/
-	 N4eBQ6/Q04Wnq/ZvOdmie5V6eR1hF4QM3wcpKFWyamSpboPooSohB0sTThsbGPwCOj
-	 vLXONXIqamuM1jIGjsZMhR8qbPpUUrI/u/sRJy8s6E7cpY4BMbbdEJ/gGq65LS2JpP
-	 UYabKxSisQ1+gCAFiMN31UrJGV+7w7Wa00y2GVA/UstjLt5UbbcT8Fw+czXXMx4HFv
-	 SiqkIWH8O94wg==
-From: Mark Brown <broonie@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261010151459.30560-1-jszhang@kernel.org>
-References: <20261010151459.30560-1-jszhang@kernel.org>
-Subject: Re: [PATCH] spi: dw: Make dw_spi_update_config()
-Message-Id: <179184404859.390394.13085559188873655966.b4-ty@b4>
-Date: Mon, 12 Oct 2026 23:27:28 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UvoO1oKv"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZrqN4SwiMfEFjFMJxxaia+E+p360c/BMd14mXe0AmBE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791896574; v=1; x=1792501374;
+ b=UvoO1oKvm6CIs2UP34wYbPATNuM6vw+boI/0tuolMfoYR2G6PTWd4dYTgAIUgaRu0RCtx+gS
+ Egx9v9DAUxGKKu5AFUw4DU0Ms8HirR3asnLEQ7amTJyNTTYTXqR6z0ASx66fAD5sPppRRmEZx0b
+ RogMUI7aWPUcGM7lcCfHuIvg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5eb0838c8443a40b;
+	Tue, 13 Oct 2026 13:02:54 +0000
+X-Mizu-Trace-ID: 5eb0838c8443a40b
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] arm64: sysreg: Bring field definitions in line with the spec
+Date: Tue, 13 Oct 2026 14:02:43 +0100
+Message-Id: <20261013130247.4135515-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1088; i=broonie@kernel.org;
- h=from:subject:message-id; bh=dKD1DuP7nA/1WCRMaM4SY6DfPzfhdDIgSp+12Z9T5Dw=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOaR/4rX+n+lzgq7SJxU0c5aESJcqSvXnSgbPT/CUiF
- 0o/yGnpKGVhEONikBVTZInL4n5ZX/J6Dd/BhW0wc1iZQIYwcHEKwEQOiTEyfLkiOrdUY4fAQo3X
- 2VNvfam5InpldYOlyakqs3lv56Ys52f4p33wfMDCtaEXZyaE7HP9Zac6aZv49n6G31v+znvXYyr
- xjA0A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Sat, 10 Oct 2026 23:14:59 +0800, Jisheng Zhang wrote:
-> spi: dw: Make dw_spi_update_config()
+Hi folks,
 
-Applied to
+Fixes to definitions in the sysreg file that don't match the current
+spec: three wrong enum values, two misspelt field names, and fields the
+architecture has dropped, including leftovers from FEAT_TME. The last
+patch also removes the BRBE driver's check on two more such
+fields (BRBINFx_EL1.T and LASTFAILED), the only functional change in
+the series.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+These came out of the pKVM feature-bit audit, which led me to check the
+whole file against ARM's register descriptions.
 
-Thanks!
+I plan to look at turning that check into a linter under
+arch/arm64/tools, along the lines Will suggested [1], so the next
+batch doesn't depend on someone reading the spec.
 
-[1/1] spi: dw: Make dw_spi_update_config()
-      https://git.kernel.org/broonie/misc/c/306439eed9ea
+Based on Linux 7.3-rc6 (a90ee4305c4a5).
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Cheers,
+/fuad
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+[1] https://lore.kernel.org/all/20241211224015.GB17836@willie-the-truck/
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Fuad Tabba (4):
+  arm64: sysreg: Fix three incorrect enum values
+  arm64: sysreg: Fix the names of two misspelt fields
+  arm64: sysreg: Mark fields the architecture dropped as RES0
+  perf: arm_brbe: Remove the check for TME transaction states
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+ arch/arm64/kvm/config.c         |  4 ++--
+ arch/arm64/kvm/emulate-nested.c |  2 +-
+ arch/arm64/tools/sysreg         | 28 ++++++++++------------------
+ drivers/perf/arm_brbe.c         | 18 ------------------
+ 4 files changed, 13 insertions(+), 39 deletions(-)
 
-Thanks,
-Mark
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+-- 
+2.39.5
 
