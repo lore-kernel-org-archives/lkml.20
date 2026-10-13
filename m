@@ -1,86 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A594D521886
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:01:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A2A518148;
+	Tue, 13 Oct 2026 21:01:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791925268; cv=none; b=YJ4orENeF8qEriwL5q2Ivg67sRjNA3gudGcOKPu9ZcrDCSZ4d7Gwk6vlbcVXlXLE12kIPpHYiVMg7ZJRYCfOsYQ1R81f0lHEx7gv7f8VSRalYDlFTUQ90nkE1hFMKt3DqCCwjXJ6vnmEkHqvIPn8PwoeCqYfLt5XsgRFhANTMRA=
+	t=1791925281; cv=none; b=HoGsBJlOHyW/R6puQ6d9MSvfKUAgBuDGqqZhxi/L1NP//g0C4ANCX4J50y2SoR6CZA+p40+uPPlFGHcZpQJBPKEDtMmoSZt9qALkAUoOHL+P+XhQzZ9mCLvW9kh1U7ARL6JtgChhLx/44Jy+GPEC/01FR78NXRuMGbvfSHE5U0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791925268; c=relaxed/simple;
-	bh=otzqAwHTarH+nPjYAj7PC0qYusRb59jP1GBa3Q2bM/8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A4QeEI1NUOounoe3qq6xF3oP27VzYntRBZZFTMj5hvtLhzAIU7csdt5734Sxb4K0VJWvYkxEuzJ7bbC4FmIOlSVyDGxEet0NmVM1FNTaVq8gw9mEsPlCo9HlPGfAC6202v3ZSFzibmUpg6wszFI+w2DnLhhXehwQXpV0tTIxizs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ze+YyELs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791925281; c=relaxed/simple;
+	bh=Z5QE8bDGwjv5rpz0E6KvjEKBlO2PL0gMiX6i/nSwbI4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=NvuYQY73552/cGD2sb6pLktiy6ISF2rdgIm3RbTtgS24SvtoOy/C3ltWit+4Ph/4XeStx1fb8UODbrH2dQpgv36DqEai1Oh7DelKXpLdsIjmt29aooBT17yk0mJWkL4YvE2VMizR3xDp9Qtd5cw7RCKIYE6sovPiW4ogkbUloiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bkgxwb8k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ze+YyELs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 487731F00898
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:01:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bkgxwb8k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E7D1F000FF;
+	Tue, 13 Oct 2026 21:01:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791925267;
-	bh=otzqAwHTarH+nPjYAj7PC0qYusRb59jP1GBa3Q2bM/8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ze+YyELsWXzooRsH8Nwdw8sHpfqQhqX57KvCfNiePy+9l8l0oZs5QDWKMeOOMtJCZ
-	 cp9PdgMMnYugE36LIjYfY+bK5/6Bat85gwbdTJRibl+Uf2I9JiUQl/xtsQ3EkHAtAv
-	 w0chzgxOlJL+dtI5vxqJgRiychRWf+GrCt6N7MQs4rOflSwAJEYDAZrrbZpyt4mtvS
-	 9JYZsHtCMHYZ1njOEW7iGJS6evqzPdlPDMv8j6pcIRQCipPYeF3ZDIyUGHukAYefim
-	 HS5s3JwhamteA4n2ZcMBEwFVohicWzhIZ/A1AV4nHmaof/WvK5FcN/jbAs1f5tGVgL
-	 MpkjoRUKLClrw==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c247f6687dcso525801266b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:01:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByRtI+Cd9yKGwSZ+nddB22mK0P5zsL3dJxgMxsZPCxm+11vmtqjnTWwsucDXAn/oCWuOuqIN9mHSolhs1Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpB3X9INJPpj1dTCBd1/vzPdBbpaR1pjo4bhFeGeDSCsuS/NKx
-	gu/NWVmMWqDrF2LtUFF8Q0PR0RYs+lwoE5ybiF31U92DEtgVva4OYmyqgvL5A4dZjXRjDns1IHR
-	9UtVcbVynocUHEHu53Fd2dpu5Gb4h1M4=
-X-Received: by 2002:a17:907:7b8d:b0:c2d:d9f4:2c85 with SMTP id
- a640c23a62f3a-c31aa0c129fmr1295928366b.41.1791925266214; Tue, 13 Oct 2026
- 14:01:06 -0700 (PDT)
+	s=k20260515; t=1791925280;
+	bh=Pi/onS5WtRQMlO8FS9+xnweQOK38nFxgcItu9oVclZc=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=Bkgxwb8kRgeWfVfeeZcRxvKNQNPflLWum9CcF1B566WzH3xACQW7zpJyShAF3K2dH
+	 XWcpqSD2QWZ0fkbe169FnGbQDOg01JCGEM4A883eRARN8SXTyq51ngI8P/hU4SkpRq
+	 oo/SWcbKMuGsyWO8evcVYbeYzfkRmv3Q/o3yGc2+ox8xBdN33R8eUddVcS9d8PCPbY
+	 c7YulMljG+lESEAcAZU8iSMQXQxD3m5/kLgV6vcMC3z8RfjjUmbb2DHzgi7Nq9O6dP
+	 +dnEA9LuTuZkXr2bwVFiOVQX1q6A6iYDlxiZ46FIItWb9lNWrpmzJz5eYuIiPJkxx/
+	 XZjVg/KX3E+lw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261013151007.2093943-1-usama.arif@linux.dev>
- <20261013151007.2093943-2-usama.arif@linux.dev> <CAO9r8zM-utRFYGBfaEb=89LWM0DOKc8dywcDLSb6L7f4c80yuQ@mail.gmail.com>
-In-Reply-To: <CAO9r8zM-utRFYGBfaEb=89LWM0DOKc8dywcDLSb6L7f4c80yuQ@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Tue, 13 Oct 2026 14:00:53 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zO5HgtH0-jgCrj1uyv9fjUrHCxSZA21mWpDVU2B7qS7Ww@mail.gmail.com>
-X-Gm-Features: AclHuK81jQ6rnaJmrP6r3K2lHMSwKc6BJEWDK7sFlCmG2sgXzWUx5CcLolataic
-Message-ID: <CAO9r8zO5HgtH0-jgCrj1uyv9fjUrHCxSZA21mWpDVU2B7qS7Ww@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] mm: zswap: use separate compression and
- decompression requests
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, dsterba@suse.com, 
-	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	nphamcs@gmail.com, terrelln@fb.com, riel@surriel.com, shakeel.butt@linux.dev, 
-	alex@ghiti.fr, senozhatsky@chromium.org, 
-	Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net, 
-	linux-crypto@vger.kernel.org, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 23:01:16 +0200
+Message-Id: <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
+To: "Alan Stern" <stern@rowland.harvard.edu>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] driver core: take parent lock on deferred probe
+Cc: "Johan Hovold" <johan@kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ <driver-core@lists.linux.dev>, <linux-usb@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Mario Peter"
+ <mario.peter@leica-geosystems.com>, <stable@vger.kernel.org>
+References: <20261013140615.1226992-1-johan@kernel.org>
+ <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
+ <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
+In-Reply-To: <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
 
-On Tue, Oct 13, 2026 at 1:57=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
+On Tue Oct 13, 2026 at 9:11 PM CEST, Alan Stern wrote:
+> On Tue, Oct 13, 2026 at 07:43:08PM +0200, Danilo Krummrich wrote:
+>> On Tue Oct 13, 2026 at 4:06 PM CEST, Johan Hovold wrote:
+>> > +void bus_probe_device_deferred(struct device *dev)
+>> > +{
+>> > +	if (dev->parent && dev->bus->need_parent_lock)
+>> > +		device_lock(dev->parent);
+>>=20
+>> This looks like it has the same potential UAF as the other patch.  It's =
+quite
+>> unfortunate we need the whole need_parent_lock thing just for USB.  IIUC=
+ the
+>> main reason USB needs this is because interface devices share resources =
+of USB
+>> devices and we need to keep the locking order to avoid inversions, right=
+?  Is
+>> there more to this from the USB side of things?
 >
-> On Tue, Oct 13, 2026 at 8:10=E2=80=AFAM Usama Arif <usama.arif@linux.dev>=
- wrote:
-> >
-> > Stores and loads serialize on the same per-CPU acomp request and mutex.
-> > A low-priority store can be preempted as soon as the compressor drops
-> > its stream lock, while it still holds the mutex. A higher-priority load
-> > on that CPU then waits until the store runs again, which can take a
-> > long time when other tasks are runnable.
-> >
-> > Give compression and decompression their own request, completion wait
-> > and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
-> > decompression APIs from zsmalloc"), the per-CPU buffer is only used for
-> > compression, so group it with the compression request. Independent
-> > requests can share the per-CPU transform; the codecs and drivers
-> > synchronize their shared state internally. Loads can still wait for
-> > each other on the decompression mutex, and stores still serialize on
-> > the compression mutex.
+> That's pretty much it.
+>
+>> I think we can probably do something like this
+>>=20
+>> 	struct device *parent =3D NULL;
+>>=20
+>> 	scoped_guard(device, dev) {
+>> 		if (dev->p->dead)
+>> 			return;
+>> =09
+>> 		if (dev->bus->need_parent_lock)
+>> 			parent =3D get_device(dev->parent);
+>> 	}
+>>=20
+>> to avoid the problem, but it's still a bit ugly.
+>>=20
+>> > +	__bus_probe_device(dev);
+>> > +	if (dev->parent && dev->bus->need_parent_lock)
+>> > +		device_unlock(dev->parent);
+>> > +}
+>
+> Wouldn't it be simpler just to make each USB interface take a reference=
+=20
+> to its parent device?  And likewise for USB devices, if needed?
 
-Probably worth calling out the extra memory usage pCPU (at least on x86_64)=
-.
+The driver core already holds a reference count of the parent between
+device_add() and device_del(), which is where a "parent" is technically def=
+ined.
+But the deferred retry can extend beyond device_del().
+
+USB interfaces already take an additional reference to their USB device in
+usb_set_configuration() and drop it in usb_release_interface(), so they sho=
+uld
+already be protected against this particular UAF.
+
+The issue concerns a USB device and its parent hub's USB device.  (This mak=
+es me
+wonder whether probing a USB device actually requires the parent USB HUB
+device's lock to be held, or whether this is just a consequence of sharing =
+the
+same usb_bus_type?)
+
+In theory a USB device could also keep a reference count to its parent, but=
+ then
+the driver core code would rely on an implementation detail of its users; I=
+'d
+prefer not to make driver core's access to dev->parent depend on references
+maintained by individual subsystems.
+
+I'd even go a step further any say that if subsystems try to keep this poin=
+ter
+valid beyond what's guaranteed by the driver core, they should do this with=
+ a
+separate bus specific pointer.  The reason is that otherwise the lifetime a=
+nd
+ownership definition of this pointer does not depend on API contracts, but =
+on
+individual implementation details, which is a very common source for all ki=
+nds
+of bugs.
