@@ -1,67 +1,69 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010022.outbound.protection.outlook.com [52.101.85.22])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11022128.outbound.protection.outlook.com [52.101.48.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8A651B178
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CEA3F928E;
+	Tue, 13 Oct 2026 14:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.128
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902991; cv=fail; b=YeprXsovZ2tmo8B4v/XJZPrkNiA+AT2cojmZqKuRSko4a74qd9JqHbjEeszESjoH7+87HA8dqIVrKyla0wjDqmsQDVer/d2AQZfFNF37ZjoMw9oGZliCkHrX9MFnp7arz86XD4HCWAe1NDMAtSHL1iVWPDYwhp8nweQDr2xNW+Y=
+	t=1791903022; cv=fail; b=TEcu/cAgGm+CMSmDb7ktITVKaNiqk7Hf1vQhBcUy2VVXEYNYvAn06p0ahee3pQEBGMZ1HyFCBZsyboMlGc53EcgAGOZEhVq6mVeJPZSY2fz7uK28w7PLxJU9h1ti2GOUKWWQFFdtMPP6qhMx5mWlZcNm6uUvbUhrINVb5TEyY+8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902991; c=relaxed/simple;
-	bh=t0RfikQAHfqsaEClsd3WLTniKVYw2V2cwBWP7ewhU44=;
-	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-Id:MIME-Version; b=r3bqfPK6rHohMmVMr8+4m8J86nG/p8mJv4w+xZgPkNDWGYmJxwkIyv00kUi8WvcqWUUGEIfw30nGdyFD4gBYHJJ0xgLcmUGVFaZTEQ9kiGP7qHvo5phUxia/4zlyXMtehDPxDUiDIywVfKJ03U0UZlKYIEwuHnUb1CCxJMGxDHM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bJ1PiORn; arc=fail smtp.client-ip=52.101.85.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1791903022; c=relaxed/simple;
+	bh=p0/0++l+wLdlsd7XFMQ7YykhCc15hAS9nBeMXp9n/ls=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=AqK5jliyPmj9T5sI/xZSvknRPIMmikAdonhoDWY9qweHtLpsz1AzBiNg/85Elj1Ppu99PYiZJdAe0+IszBMRHOJO1MppeHL4/avsO7kQrAft4lk+X//jMFchbhtc8JFqHQxp5v4WqK/+s4t6USrf+p+5gXNt0JLQeivl7WjnM9k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelburch.net; spf=pass smtp.mailfrom=trailworks.io; dkim=pass (2048-bit key) header.d=michaelburch.net header.i=@michaelburch.net header.b=hmL+YL56; arc=fail smtp.client-ip=52.101.48.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelburch.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailworks.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bJ1PiORn"
+	dkim=pass (2048-bit key) header.d=michaelburch.net header.i=@michaelburch.net header.b="hmL+YL56"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=se6xj2RDJgweGlKm8Bsp+72QZCM3V/+L0FmmmsY+iRIAK0Np5cYHuR530VM8wowBEUlCDC6daB9XAQnVD0h/yR1KlwIr9HsCFuICRBz1L3n3bv0Q851Dc540hyjES8bNVXjfr8FSwJOzKlfsux8u/ZAin+MF9fFrim+KcL/72UZkuGpRtzhg3b0UDNqajc2aZs7zDnOKwY7vGDqJ7W+IYNSW3va3v/Jw6wtmoTUfAoJsqismllSBYXdZ0QDDm7suFemsxS6CEMztKU+f/7yJ2P66Eq/5JtM7SMaWNkRjRu1sOj7i3ufgcsI0qvq4SRXFGHTKb6eGwahVc5AarlWIMQ==
+ b=tfUTUg5kde3kyb873yvorxlogNIg/6caj8hLYXLn9IzCW+c3HwfyvXjkK5fzzt7HNxHeFF+j4ljUkMN9cDmU5C7xgQE/oom6Lirl9LSZsKp7AQOV87MSqJ4lRGO1uizFSdwCDwqgGc2ufU/cfK5BP4jIwxZN1c/YIiOixxgpsQadOTdkvEd3NPRev9lOHR986BFbcjcom+7pv2NQHWMi0h177U4wOMQKfzkY/ZZF6qnCdvo9beeo/iYf0OppRmn26Zwydg6ME2ysbPeicvLjCCeKkPJVqfx8pOS9PJkBDwnml6aUnZq7lbHCB5jFX5LnVVjwuD3g4e3rqqVx9j2eKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SLRHfMDFscCcGCrfkQr+Qkqk3hNWS37Bg0shGQHriyM=;
- b=AaSp3Wj/4T5BeDF6R8mtBV4FPjv+FNbL6J87tCzSY7EBRySBvcfw4OY44S7GDnrfmv7nkNEloQwmtYI3xPJ91s2rmz+NJ1BjGgqGEM5ZDTzy37YH9PjQ7qvbE+qbTlzQ8geK06WPKd2lO89y5nGSuHFROIcts+YByQoRX+Dy4+FWZdDMwwEvvywbhDO6VMpRupEBEppDDUEB+6rV6yvR9VRAMeubcJTHVD2ydjFk/pQ3xjVvzIX11Z4D7R586XNn61W6iElnNghnsKRh0DK7uvk8WgKdfdHc7E3+g/sNgLoVOlaUkYKrduztIY4MRnV3gjVYl3DGYHIITP8SSHbaTA==
+ bh=x3YOJaupWOy9RmQ2FV/swSECxvVIYPpBKr20Al3VxlQ=;
+ b=hYQiQbgkW6ieUbUOOJMj5V/WWcAOm/pCHspShCpbguyp3cR1fzNOTAfvtHCaudxaHocV52jN4GCCjgYfoHzbsPPX4j5LtwupxjIZ6wroc7fcaXq6F4E5rGAYLQEYJkHXjJIj0FnNRuflqQ1YB7XQXjQ7wJH5pvNB//5ASF3KePYvNM5X66nE1phpHKm4T7gfm5Y7huc2EwTvTgtivbj5jCDp/+775SMTbI+RmADD40eXCEdpl+CgCCAGbp+JAsxA4vAg248IqCfedUjVR2eluKziP3hdQyHG0swsoizfE8J6N8o38+ZTweczpw+eujhOKFVuh8czBqLqs72xo3MMwg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=trailworks.io; dmarc=pass action=none
+ header.from=michaelburch.net; dkim=pass header.d=michaelburch.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=michaelburch.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SLRHfMDFscCcGCrfkQr+Qkqk3hNWS37Bg0shGQHriyM=;
- b=bJ1PiORnwOjuQic0hKHCyx3aNW4yxPPRw5jLH+K6Com8RZIny0ivWEhikDTrTRgyhx0Y/VT4CP8WAA+YXnUNZG9KVEnQN5/4MR2bD4ka05gcCc/8EelI+ZJGBfH6WnQ9+mUK/ZcoiV8npJOygWlvOu5RuKyeo46G+YQq67HJK8Jr3ZbJcq0tmtpNwQkoG2aF/H08/mNcVkUC0dlAmHDWDmE8AYyHPQ042B0YfACXGybYW7ne9e9l2eu+OP8CvfLXzlT42bxeoKz2BjyUvW0hJeI7FoSuXVlJ1oouchFkTC4h7Zdaj5Go2CksStrNUt9+WxllE7YAqgTynA0hUreoOw==
+ bh=x3YOJaupWOy9RmQ2FV/swSECxvVIYPpBKr20Al3VxlQ=;
+ b=hmL+YL56nIPq2N9K9AnEoCaUi1Tm1BG6es2oWo64YQFI5uWzMSHn4ow63mEljTm71Wbx/EmU/YSBRxwXyXh/Qy9M+U3/NOU7nhbVOkamJrXj8NSmzphZTV+tmAXytrPtDNJE1fZWGW7fhzPzWC8lF1oObxW00lfG9cSQqiAHa3iikK3tksQUc9q47d9O6B927w2rs+Vf6UfQP6194CHnWw9P/dxxxqWC3ZcE1hYeafoB2saWLifOx9l5eKi3cjeSraNvS451FumaM0P2l2BoNt139wclpC2MwMBLcAefb68qwXAnbDTDrhw93wZrgoSUkPy1nsgwpWVhDXvH8Em07Q==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by IA1PR12MB8311.namprd12.prod.outlook.com
- (2603:10b6:208:3fa::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 13 Oct
- 2026 14:49:39 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 14:49:39 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 03/11] iommu/arm-smmu-v3: Swap EVTQ_MSI_INDEX and
- GERROR_MSI_INDEX
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@nvidia.com, 
- praan@google.com, kevin.tian@intel.com, smostafa@google.com, 
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org, 
- Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>
-In-Reply-To: <630e70ba13639e5bd86fca0b574dd47dddb7fb92.1791226953.git.nicolinc@nvidia.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <630e70ba13639e5bd86fca0b574dd47dddb7fb92.1791226953.git.nicolinc@nvidia.com>
-Date: Tue, 13 Oct 2026 11:49:36 -0300
-Message-Id: <179190297652.2261874.5664965715184131627.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-ClientProxiedBy: YT4PR01CA0118.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d7::10) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+ header.d=none;dmarc=none action=none header.from=michaelburch.net;
+Received: from PH7PR01MB8123.prod.exchangelabs.com (2603:10b6:510:2a4::19) by
+ DS9PR01MB994429.prod.exchangelabs.com (2603:10b6:8:35d::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.23; Tue, 13 Oct 2026 14:50:16 +0000
+Received: from PH7PR01MB8123.prod.exchangelabs.com
+ ([fe80::da98:a31d:73b6:7930]) by PH7PR01MB8123.prod.exchangelabs.com
+ ([fe80::da98:a31d:73b6:7930%5]) with mapi id 15.21.0496.015; Tue, 13 Oct 2026
+ 14:50:16 +0000
+From: Michael Burch <me@michaelburch.net>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jun Nie <jun.nie@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/msm/dpu: count the pending frame before kicking it off
+Date: Tue, 13 Oct 2026 09:50:05 -0500
+Message-ID: <20261013145007.13111-1-me@michaelburch.net>
+X-Mailer: git-send-email 2.56.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA9PR13CA0071.namprd13.prod.outlook.com
+ (2603:10b6:806:23::16) To PH7PR01MB8123.prod.exchangelabs.com
+ (2603:10b6:510:2a4::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,169 +71,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA1PR12MB8311:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88ac272b-0659-4cd7-5b14-08df29393522
+X-MS-TrafficTypeDiagnostic: PH7PR01MB8123:EE_|DS9PR01MB994429:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a950bbc-5b6d-4074-bda5-08df29394b34
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|7416014|11063799006|5023799004|261009223027099003|4143699003|56012099006|22082099003|6133799003|18002099003|10067099003;
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|10067099003|18002099003|261009223027099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	k5CoY/y/oVsU7Ykg+ROKFhB2KEmyzC+x794OZ6qPxU8ScCjgu7DHwBxUQNIP1JcCQj4H7UCweAuwnNU3VtXCCL6+2s7jIdCYD5fanxkiPCmpEEB1wkfMaDor11VVcaC2QK8D4n9f5mG1bw5F7gy5vHqytVi9svcLBmFvEmazd1ZwnWzMqVwJt6f0hskvAfYy7jwE594CHPIhxskVvOyww1df29izOFmqmxT7QQtfgp/wX69py5QwlXOGiJ/71mYjNUBIvGpwTQilxJMxhrfAfqIsShDUASoExlLGlOrTljsB0BLiIW3q7GeMck6eXdshcywwiQncoObgkhZqU0E5cePfJBivLh/fxMgtocZlu/Z0MFhDRalRsVJlabo1cpKxNBizAYgw5iN4VPFSV1zlQN2jx4pIX3FLEpyuCGEpk22HojOGtrSnlhl7xa+oFVKwIkwiNLF0FBynWm22Maz0PWZWoK+PcW/wgkoM5R3w97uh42GPX5BYEHwOF/SiTxer3/DiFDaPHn5URVS9V0+kCHdYesk7QumEM4Qym8u512oHok0Tmx0i9tnKfC3DhLoy7Xgm7Le/71oEImf/4NbuaB0SU8YcDrcSK2LRT2Oo5ogcBmA8B6xD5oR3lzmVaHPCw76xhm7QgS2o6S9WQs3BMjy6pBSgjJggEBk5BgB5uxU=
+	ksKdorAxvHfo9EplrAQ0eQhUn9yh0IR1nBrXzyD1f0W1fMWgEwuWDCk61eMUO8irxifdOOV6Joe2Gs155cM0fBupcXESECMEDkKBCBLPgjvYCEc3xHoFVAPdr29WEbCoMbD7VKLEIoGFoL7EXzIckkyKdX62wEawDzF3VtlAppfcQzlNR8QWZQVh90nyiMHcY02iAbyLYRfVAqKMTt2kovmjp+qm/pE3tOxcx45nN4/CwqWFrKAMXvgenq8ct9txHISSnA22uPMJnSLPGqWFKqvnq8lqhToKPt8I0dIZKKILOhrm16U72DVps2IaNl33Ol4D/JrWmnELxV7bn8htg0hPGMool3Zpu50b+r5WzFhOwlHS9IWpE+4T47FqAji3O5K1J1pkmPdJmV0aP7dew5+GUGUH7XR457EGGQYwWk2NjIfAiWyBT7h6XDJmcGJ7UteX4GNvy69Lr2vEquYVzuvkD5oDiAho4MDAga0yPu2Zaz2KVT2TDAMht13uNmSkCGqg6VCTadKfN0/LZgInbSuVwd3hlFtVWH4mP44Z3VUk8EynKGmkOmhuUA2eIJF+nQ6C1/Cm3YkUhbJFg1yAJrvyj6kOAgkIxXS8fm/H1XOqpjzbaEcLcgK67trO3kq9
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(7416014)(11063799006)(5023799004)(261009223027099003)(4143699003)(56012099006)(22082099003)(6133799003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR01MB8123.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(10067099003)(18002099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZlYrci9TM2FyZmdQbHpyWlRlc3pVYVN6UjZGdnNBL3RqRHhxNUtIZU54aXND?=
- =?utf-8?B?TVdFVDhFUWFURDdLNEJINjZ3Y1BqVDFSN3hIdEdSR1JvTnU5TDh6MTVvN2Va?=
- =?utf-8?B?QVZ6VFJ0TG5jZWdia0NkRFQzbWJka2UrdFdNOFVBaGZMUnE5QTRudkJlSkxJ?=
- =?utf-8?B?bDZicXEreTdmZjFTSndSRHNXOXBpZlhPbGVjTzdDd1dlZ0UxYWJyaEJQVGdS?=
- =?utf-8?B?d1MwYUlFUlRxT05vOVJIbEVVVGxsTVE5TG1IRVphSnRRV0Y4M1pIZVh5bzhx?=
- =?utf-8?B?NllYeERkWkhlbnJxTXFUMzV4THo4aEdWbjFQQWE3MWVsR3dscXZuUnFaNUd2?=
- =?utf-8?B?UitWMWFza2JIMlBpQmd1cGM0MUtpTjJ6V3g0Rm9sMm9mYnE5aWVFMTQ1d0hi?=
- =?utf-8?B?U2dIbSs0VUpRdG9XbWhEU2lHWWx1RS8vYkV6Yk5VVmtBcWRDdHdybFdiMWM5?=
- =?utf-8?B?QXFYRlNkMTRjTGFKNlBhQVdaNmQyQ1dLMmswU1JrM2FvUWcyQjBSV05mTVhB?=
- =?utf-8?B?Y2NyRkZsc1FQQVQwM3FSQnRxd1N6cGpMemlqSXQ4N3Y2YUM2empFR1FycUwr?=
- =?utf-8?B?VTFRd3ZMWDFGV0xLNStFNTMyTU16MkxoNmhKQitHUXJBUTgwL0M4N0FYSmF3?=
- =?utf-8?B?Ly9ucENUeDhxbmYxUTFMWlpwYkM4Wk9PRHV5VGNkRENYeFUvZ3JpS2ZQc2Ev?=
- =?utf-8?B?MWZDSWJCUGtuOUUveHlSOXVIWUhKVlpKZGV6V1BLbzhRMGhYRytWSWIvbTJ6?=
- =?utf-8?B?NjY3eXN3cUkxZEtMYThERDRmaG92VUlLbWJrcTJCNTVpNXluaXluSVRqakgx?=
- =?utf-8?B?MGs0aGlQMTRkYlRPMU8xQmRLR09XdkhPMUZHU2Q1OWJOaWxWZjgwOXlVOUhV?=
- =?utf-8?B?Mjdrb01HMFNLeDhDM3dRQUNZTitlZkdLUVJIQVd5S2g3TUlEeFhQNm1SSFJY?=
- =?utf-8?B?N0ZnTzBSNG1hVnMvTEJua2FaU204L1hpR0dBaTAzTStlQlRZN1dyRFp6LzVl?=
- =?utf-8?B?a1ZJcUxmWjh6M2hHNjZSVEhYN2JRTGIxWEdrYVdSNzJwdVVQb1lEQzhWQUlX?=
- =?utf-8?B?YjR3cjdTWUNFbmo4b0JSRDN2dVh6UmphTDJJazZKQkd3MUZZUGNlWUlGcWJT?=
- =?utf-8?B?YzdDYXVLTFdLVW52VEtuV3RqUTZPN0NneUtEWFQwN0Vkci9QMjd5N055Q3p3?=
- =?utf-8?B?Q1RzUTdxTTVyOWN3VjdoQlBjcnJGd0o1Mk00aDdVY3FvQW1RcmFrd2lKZCtr?=
- =?utf-8?B?TGZzblBYVzdhd3dwckZMRUovMW1YQ0lsaEhpb1JUU1JIUER0N1lKOGRoWita?=
- =?utf-8?B?ODErNUk2SGM1Mi9Mb0dWQUVCc3E0U2RzdHJxN0ZPZHF4S1puZ25qR2MwanA4?=
- =?utf-8?B?Z2dhZ0huN1Nvbm9UbGVPY0RSbjhKRDQrUDFpc0w0eWpMdlN5RlQyTURienFr?=
- =?utf-8?B?aXBtN3hQYlpUQmFKcXhMSFVPVUtGdDBUQ1hRcmh6SFVTdHJYNmhtbUV6TmpB?=
- =?utf-8?B?aDV1TGY4d3Z1aWFtNlo3blVKRlZDMHBSRnJZeWRrT0hTTGpaZTBDUk1ENC80?=
- =?utf-8?B?ZGVzNEhZcHpjcGFLTVNuSWVSVlBmd2d3a1IrRjJGK0syQzlkanJQeFVGRS9o?=
- =?utf-8?B?RHlGUGRrSjNzeUxoQVRYRzhwVHNUUVpkcUdNaG1KZlFVZ0dsUFpoVjVyTmhv?=
- =?utf-8?B?WWFTbFAxcEcyN2paUVdoS3E3VzdnRCtHVWxlUXMvQ0JSVXRXY2pnZk42WWsr?=
- =?utf-8?B?UEZUOWxmcU50cHNYbS9ZOHJvWjM5OUxxOExLeWhSNURGWXM5ZUdDN3VTYU40?=
- =?utf-8?B?aGlwVVFKWW1XTVJvRG54VWNVZUkvOU53QUFRdkZiTjVVaEVWUW9uYVZmYUJo?=
- =?utf-8?B?SjNaUCtCTi9EODdLSUgvVDZJamhGalE4c0xrRzN5RUlIeFRtQkk2ZVJ1bjV2?=
- =?utf-8?B?YWEyVTNwMkprN3VLWE13M0RyVzRlY1k2ay9hMnR2UlF2bE1PQ3RuYmNRYUsw?=
- =?utf-8?B?TXJCMzMwTEhqNWV6bjhhY2FaMjc3WERaYkhvK0ZTNFZaTkluK0VpYk5COHNI?=
- =?utf-8?B?RVhvSWEzNU1zbHh4Z0lPTW9rcVo4OTJnbVNWQlp3NDJwVFBDTTlVMVZxcWJv?=
- =?utf-8?B?ZWlOeGh1QU9YTmpyWVlkcksyRFhOYkp6SW5BVXN6b1Via1BrRUdQajVVM3Y4?=
- =?utf-8?B?S25TYjQ0azU3SXZTcitnc2VMczg0V1p0dnphSGV4MGltZHdOVXlWVnNKalJC?=
- =?utf-8?B?ZnFlekFBWHV3ZmJkZFk5ZngrR0dKbDB5U1dOMzlXM2ZTMDRTcytZejhVdDA5?=
- =?utf-8?Q?jTxyicEiAp7V1wJcjO?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88ac272b-0659-4cd7-5b14-08df29393522
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+	=?us-ascii?Q?EUB4ktc8/rfatJsU3wCFipURhHLkxjo/9iAxv/20ypWERkMZOh+kcSBGK1pu?=
+ =?us-ascii?Q?j+zTFJb8dbeLZE6gi9tQQ1JiNXa6nSeWH0VGzDNiqObB56TXzUt8QIdc3TBa?=
+ =?us-ascii?Q?66BossKeivSbf++NUlmgqt7uwCrmFGx4fTlFReutx4PB1FSB7gkzHuZWfEM3?=
+ =?us-ascii?Q?W3OJTQTms3S0cHiuF0k/BCOHNKXX2KzcJHGbvE3xzcsQBWjFcqT2ajmaEiEz?=
+ =?us-ascii?Q?LMA5dFKlSxbxSGNvjs93gGGyYveF7oihQJ+0Ab/eVUylRMmlOA94pnTLghD1?=
+ =?us-ascii?Q?E2l7dGCgs8och9yoszVHhBlECu4Y+44LmSzFOoogOtxz/H7eGZivS+N8XeUT?=
+ =?us-ascii?Q?GUf0xRLu/oLhe77xNl6cb5kC/ZMcznfWlLoLOUBbTFRWa0gCUxnt/J2NZD1D?=
+ =?us-ascii?Q?pwZRsKEumPqHka47iSfvHF6UCghac+Q5+DrRTDqrZKkeHutw0eVVoUTcybEX?=
+ =?us-ascii?Q?T1d4mDCrmRiMfodsWObuU17HFKCnSYcSc60vOJfelj4WrSNbhANJLXbJYYld?=
+ =?us-ascii?Q?UhHIHRk+/EBmEpyxKxd1hRh5Gnm4JXEbUdsENsnIFTHz2jnXO2JEi0rfGgnE?=
+ =?us-ascii?Q?QDANTejgUV5+LjKC6+GLdLuW/7NhzIyX0S6tHx2lKuRoWkvgp6GXwfURw4yx?=
+ =?us-ascii?Q?gsmMkitSNRDI5tBQ0FIGibmGNWw9NJdoA0zM2hoj+flGX1U4xgUoJEtdc6qQ?=
+ =?us-ascii?Q?pFKu5mdR4SjVVpKRhx/z+lxy9aU5agiAhGDuUKBfXtF3nRkRJBexBO69STAz?=
+ =?us-ascii?Q?2oQY50BzsjNQkJcewhu2pVRsHhE7eiEm5nrKSV5Yx3atNw8pfUfgL5f/vDP9?=
+ =?us-ascii?Q?VlP6vE9DiaJMDVBnyAnO1/wIIRMhA4pBF2SClyqKZtqYfwjUOB33p72BxeBo?=
+ =?us-ascii?Q?IEvvyiP3dK7dWwu6pgzQqdH0A6HrSAr9YS4a3GwVNRIznFMoxp0lxhuBfOSP?=
+ =?us-ascii?Q?oAWQU8tNq+XURAzwrcwyUIK4ksbJ3ZYP3TwcPoqWiEEKFeks2n09x6qyDAtQ?=
+ =?us-ascii?Q?CkK0+asILZJzd/5D9WcExqSjv8z7wBAYsT6AQyieyYWePovYXMiyIssQz7b6?=
+ =?us-ascii?Q?V+gzgAHDU9fUFCZphRbDrFEgy20A9bPei7Xzl1RfLbn6gMV1m4ZhqoDw3nRX?=
+ =?us-ascii?Q?5cBrJF/85i0C8GpFprXOWBRsbSy01047APE5gfnskINpGiy8UJ55nzVtjEO0?=
+ =?us-ascii?Q?TrQBgN3smskpwVMl7S0HcANCm3+OLsv1zj20hF6kzUwW6exys8jX27mxrZTU?=
+ =?us-ascii?Q?MG3RtFz2fjY/b+xKddOpBbsB54FrtiXOHL5JCJNkUuo3jZF4v9fJ9/sh45T2?=
+ =?us-ascii?Q?vsxBH0vdD1Vuz+veUse5nImfUZgfvpO2WOXZzOyJWI0Rm/gbQWgZ6PH0ZkdK?=
+ =?us-ascii?Q?B660gpI8VgJTeeLMn4MWgqiZCzqEccbw6bpfv6FiyYQYz+aX9cD/obRjInCg?=
+ =?us-ascii?Q?fg2Ht+EIJPLijZ/2Z324KFlAiDX4CkoTlIJ/foqcM7blxM6RTzfJRwoyvV4F?=
+ =?us-ascii?Q?/A9XgvnrgqSQLkPq54nUlGX5rgFbYlckkKH8F6b8Mz/DKnpnyDokvRnsD8Zr?=
+ =?us-ascii?Q?Bi4dU7G9joJyNS1zImcmApC3fihRnsVUD7f2RJdw2P/+Nx9RsTfvZZLRy5y3?=
+ =?us-ascii?Q?bX0tGecry85eaDDZXTqaBXmLesvsTxNdhZi0nKavoMGPkqW8Ve9aG+5TCKRC?=
+ =?us-ascii?Q?5ClYxn14fNW62fS26BZ3K8bB8TwOWb76B/8YNrwwArhniarUq9JxqzTvEPmO?=
+ =?us-ascii?Q?IybBFWTBrg=3D=3D?=
+X-OriginatorOrg: michaelburch.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a950bbc-5b6d-4074-bda5-08df29394b34
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR01MB8123.prod.exchangelabs.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 14:49:39.2157
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 14:50:16.2800
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 8256b244-08e6-4df2-b146-877069d9ce10
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G/WvuevR8TiEn4q9hb4VNGEUMjThaw9hkCJ7kxaXmLa/n8r3GvEiU41GmPvX6D2I
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8311
+X-MS-Exchange-CrossTenant-UserPrincipalName: UVrA6oxlQfzRrVyA8EoOEZFRq4pmc4EZiU0lRm2ddA0YrYmJ37eeWOLeJrUX3QBfoceLTAwzWVSy9wAGWere3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS9PR01MB994429
 
-> The nvec trick in arm_smmu_setup_msis() works well on PRIQ since its index
-> is the last index in enum arm_smmu_msi_index, but it does not work well on
-> the EVTQ as its index is 0.
-> 
-> A subsequent change will make EVTQ optional so it can be disabled in kdump
-> mode. This can skip its MSI vector allocation.
-> 
-> The index is driver-internal to select arm_smmu_msi_cfg[] register set and
-> the corresponding MSI slot. Nothing else.
-> 
-> Swap EVTQ_MSI_INDEX and GERROR_MSI_INDEX. Then, arm_smmu_setup_msis() will
-> simply decrease nvec when EVTQ is disabled.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
-> ---
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index aeace4335abfe9..6ff61565f75838 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -57,8 +57,8 @@ static struct iommu_dirty_ops arm_smmu_dirty_ops;
->  static DEFINE_STATIC_KEY_FALSE(arm_smmu_erratum_repeat_tlbi_cfgi_key);
->  
->  enum arm_smmu_msi_index {
-> -	EVTQ_MSI_INDEX,
->  	GERROR_MSI_INDEX,
-> +	EVTQ_MSI_INDEX,
->  	PRIQ_MSI_INDEX,
->  	ARM_SMMU_MAX_MSIS,
->  };
+dpu_crtc_commit_kickoff() increments frame_pending only after
+dpu_encoder_kickoff() has sent the frame to the hardware. If the frame
+completes before the increment, dpu_crtc_frame_event_work() sees
+frame_pending == 0 and ignores the frame-done event. The increment that
+follows is never matched, so the count stays one too high until
+dpu_crtc_disable() resets it.
 
-This is the only change that is really needed
+With frame_pending stuck at 1 or more:
 
-> @@ -68,16 +68,16 @@ static_assert(sizeof(struct arm_smmu_ste) == NUM_ENTRY_QWORDS * sizeof(u64));
->  static_assert(sizeof(struct arm_smmu_cd) == NUM_ENTRY_QWORDS * sizeof(u64));
->  
->  static phys_addr_t arm_smmu_msi_cfg[ARM_SMMU_MAX_MSIS][3] = {
-> -	[EVTQ_MSI_INDEX] = {
-> -		ARM_SMMU_EVTQ_IRQ_CFG0,
-> -		ARM_SMMU_EVTQ_IRQ_CFG1,
-> -		ARM_SMMU_EVTQ_IRQ_CFG2,
-> -	},
->  	[GERROR_MSI_INDEX] = {
->  		ARM_SMMU_GERROR_IRQ_CFG0,
->  		ARM_SMMU_GERROR_IRQ_CFG1,
->  		ARM_SMMU_GERROR_IRQ_CFG2,
->  	},
-> +	[EVTQ_MSI_INDEX] = {
-> +		ARM_SMMU_EVTQ_IRQ_CFG0,
-> +		ARM_SMMU_EVTQ_IRQ_CFG1,
-> +		ARM_SMMU_EVTQ_IRQ_CFG2,
-> +	},
+- dpu_encoder_resource_control(FRAME_DONE) sees a pending count above 1
+  on every frame and never queues delayed_off_work. A video-mode encoder
+  therefore never reaches ENTER_IDLE and keeps its vsync interrupt
+  registered for as long as the display is on.
+- dpu_crtc_frame_event_work() never sees the count drop to zero, so
+  dpu_core_perf_crtc_release_bw() is never called.
 
-The arrays don't have to be in order
+On an X1E80100 laptop with a 120 Hz eDP panel this left the vsync
+interrupt firing 120 times a second on an idle desktop: 14,407 vblank
+callbacks against 21 commits in 120 s, with no vblank events requested
+by userspace. Every frame-done took the frame_event_more_pending path
+(591 of 591 in one trace) and the encoder never entered idle. After a
+suspend cycle reset the count, the same desktop showed 3 commits, 3
+frame_event_done, 3 encoder idle transitions and 25 MDSS interrupts in
+60 s.
 
->  	[PRIQ_MSI_INDEX] = {
->  		ARM_SMMU_PRIQ_IRQ_CFG0,
->  		ARM_SMMU_PRIQ_IRQ_CFG1,
-> @@ -4965,15 +4965,15 @@ static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
->  		return;
->  	}
->  
-> -	/* Allocate MSIs for evtq, gerror and priq. Ignore cmdq */
-> +	/* Allocate MSIs for gerror, evtq and priq. Ignore cmdq */
->  	ret = platform_device_msi_init_and_alloc_irqs(dev, nvec, arm_smmu_write_msi_msg);
->  	if (ret) {
->  		dev_warn(dev, "failed to allocate MSIs - falling back to wired irqs\n");
->  		return;
->  	}
->  
-> -	smmu->evtq.q.irq = msi_get_virq(dev, EVTQ_MSI_INDEX);
->  	smmu->gerr_irq = msi_get_virq(dev, GERROR_MSI_INDEX);
-> +	smmu->evtq.q.irq = msi_get_virq(dev, EVTQ_MSI_INDEX);
->  	smmu->priq.q.irq = msi_get_virq(dev, PRIQ_MSI_INDEX);
+Until commit ad06972d5365 ("drm/msm/dpu: Reorder encoder kickoff for
+CWB") the increment came before the kickoff. Move it back there, and
+undo it if the clone-mode kickoff fails before touching the hardware.
 
-Nor do the assignments.
+Fixes: ad06972d5365 ("drm/msm/dpu: Reorder encoder kickoff for CWB")
+Cc: stable@vger.kernel.org
+Assisted-by: Copilot:claude-opus-5.5
+Signed-off-by: Michael Burch <me@michaelburch.net>
+---
+Tested on a Dell XPS 13 9345 (X1E80100, 120 Hz eDP, video mode) with
+v7.3-rc6 based kernels. With this patch the count no longer leaks in
+normal use: a 120 s trace 50 minutes after boot showed 22 commits, 22
+frame_event_done and 22 encoder idle transitions; about 2 hours after
+boot there were 27,479 vblanks against 16,693 commits over 6,040 s,
+where a leaked count gives about 725,000. Not tested: clone mode or
+writeback, which this machine does not have.
 
-But I'm not really a fan of this design, it is very fragile.
+Jun Nie's "drm/msm/dpu: delete timeout timer when encoder is not busy"
+[1] hits the same window: the frame-done interrupt arriving before
+dpu_crtc_commit_kickoff() gets past dpu_encoder_kickoff().
 
-I think if you want to compress the nvec's array it should be done
-directly.
+[1] https://lore.kernel.org/r/20260903143004.1026181-1-jun.nie@linaro.org
 
-The smmu should have a small array
-   u8 msi_map[]
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-Which holds the xx_MSI_INDEX value. Then arm_smmu_write_msi_msg()
-would indirect to get the config:
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 42d0a529b4d5..c8bd9c305a59 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1105,9 +1105,19 @@ void dpu_crtc_commit_kickoff(struct drm_crtc *crtc)
+ 		}
+ 	}
+ 
++	/* The frame-done event may be handled before the kickoff below returns. */
++	if (atomic_inc_return(&dpu_crtc->frame_pending) == 1) {
++		/* acquire bandwidth and other resources */
++		DRM_DEBUG_ATOMIC("crtc%d first commit\n", crtc->base.id);
++	} else {
++		DRM_DEBUG_ATOMIC("crtc%d commit\n", crtc->base.id);
++	}
++
+ 	if (drm_crtc_in_clone_mode(crtc->state)) {
+-		if (dpu_crtc_kickoff_clone_mode(crtc))
++		if (dpu_crtc_kickoff_clone_mode(crtc)) {
++			atomic_dec(&dpu_crtc->frame_pending);
+ 			goto end;
++		}
+ 	} else {
+ 		/*
+ 		 * Encoder will flush/start now, unless it has a tx pending.
+@@ -1126,12 +1136,6 @@ void dpu_crtc_commit_kickoff(struct drm_crtc *crtc)
+ 		}
+ 	}
+ 
+-	if (atomic_inc_return(&dpu_crtc->frame_pending) == 1) {
+-		/* acquire bandwidth and other resources */
+-		DRM_DEBUG_ATOMIC("crtc%d first commit\n", crtc->base.id);
+-	} else
+-		DRM_DEBUG_ATOMIC("crtc%d commit\n", crtc->base.id);
+-
+ 	dpu_crtc->play_count++;
+ 
+ 	reinit_completion(&dpu_crtc->frame_done_comp);
 
-	phys_addr_t *cfg = arm_smmu_msi_cfg[smmu->msi_map[desc->msi_index]];
-
-And we just compress msi_map as we go through the normal flow
-
-   index_msi[EVTQ_MSI_INDEX] = nvec;
-   smmu->msi_map[nvec++] = EVTQ_MSI_INDEX
-
-Then it isn't fragile at all.
-
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-Jason
+2.56.0
+
