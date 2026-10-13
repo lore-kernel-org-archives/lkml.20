@@ -1,123 +1,85 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900D53515F2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896851; cv=pass; b=gvqnlq037439/gOlrfSSyYwrxZWNkyjvUPodhpTmnef9vFharOo9WfG+5gjIcFV7r7V7Y0eOBBOKPTVCaehGAvQoR0WybKc01YSGxt73orsbGuulPLzhALfDeAgtT1JJVWEF71QbPElhlSJcoX+GPfIgN4UajqDcAdLX/8qJDio=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896851; c=relaxed/simple;
-	bh=6TiVNxxeDpdSAagBOty9+KDqgyZClTo7hXYVmhdgD4I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NCeIQYNDrpInemnx6UIwMhdGQ+DerSy4y7Lb0qQ3JT3Loqe2l+3sRiTemij6lm2kD2bOaytIYVBUfE8nYxC/dzRZV/seNzGHoVUUnl0dx3LsgvPfyuE1umAWe40xdJxK4w3qtkp7+NXyWNy98uyfee5O+jXuQ4lDOnfBn/AvEK4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ChCnLLDN; arc=pass smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDEA4E4300;
+	Tue, 13 Oct 2026 13:07:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791896854; cv=none; b=e3vzAlZfZasp2w2B32r3i05Cgp6DsfXiZ7nqlY6u7jjVFtKR35O0Im4f6SUAdoAW1ZCes7iPx+xpvMKsQHa4Wtr2xnG4Ks+mguhRSTnWfBVtr6a+Qoql5zRZFIJEOe9PYZ1AD6dQGM/59Bh35JzMKuc/CFM5jLLukrxSTnl2lJg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791896854; c=relaxed/simple;
+	bh=yImSNxOm/mWbtqz9ywKlBX/h2PudPleXwHqT+dJ9zbU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gH3M+Gcva4Pzr5+2zvbqf/k7DNPNn4NfAfEWsVt/TTZDGEyu6O0wUMphsjTTNXGeICy138p3GkY4aFxcncUXBdJLiEF7fKxbEbCDFbG+P0n98qWRBU3nWq6jZ50hLRuRjN7S0o1VgyCxWQ17yN8Pqg2UBrnm1i+s7SyVNSZk4u0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VyL13qCx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ChCnLLDN"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-6767d92cde6so2538478d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:07:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791896849; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PdWjW2iR6cHiieA8aPaRLVbrL8+bFhMy0FYBGU7t0Jqzc7QuEl1ccDEpB0qOWG9qLS
-         Pf8aKmfXwKDMpnqaFTeEN7Xe68LOYoBm8gsike0iEMnq+lOaixDzZjaA3/vLj2BLzUnr
-         pFiqkXWntz073TZFfoHpp0xCyEaViFqi/vet2KIGQUTRdB3zsANVgQFZXOXbHEtx0zCW
-         aH3QlCuoihVVaz5AINQepIxSBofIN5oTZc8jFH/lnQarcR947mq3FDVIteYVkWgCy/dY
-         Y4M/UORwY/GcNzKb46A5q3th5ZZNTrjTt8erm33fU4JokEUe8YvfF5I6AFV6ORmajIC8
-         U8Hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=0ncwg+itbdhvll8NWmaHzhsCbDAbH6eG1xlYXFmq6Oc=;
-        fh=EdVgupDAQvAfxKjhVE7rcrbPgWj5H0mMOFFE9O4ACiM=;
-        b=NfiC4ZdeLym0fQbe3+zVCWZZkcVLWvPcwfofP3Jx9ObGdb3YpfBeX2Xg0QSCVasuf7
-         nDsH8KxbzltjB2IRt5NGGpqoSTYkXqnMXu76yWDj7f8X8S2udrPnsJ8LZzV89DCb00gi
-         4KxCQr312/T2hIp5uocfYQA6CWpCTykpaMkGOtR+l2fRoQpU1OfdgGuDBW6GozM8xcSI
-         awVaXx57HhlO+0t4WfLrOiDanpf00m3k8q0lyw3f58jHXFHL+p6/0MlWEDB4KEFWpSli
-         0v6+w7JfTQ+t89kD/V7Z+1MX5BVA9bjKR+yBgpZEUu9+J69MbTF5KqC0/hTayNSiUhoM
-         bWpw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791896849; x=1792501649; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0ncwg+itbdhvll8NWmaHzhsCbDAbH6eG1xlYXFmq6Oc=;
-        b=ChCnLLDN0HrodCru/tKtCUmKXKNwgnQaCvvNBUByqdBDCIQ3mkdmJCGpAeX3jAxF+P
-         R+Oo89B+esq6iTJ3eV/5t9BE3qRS4VEfVQi9pgkqVmt4FF9u0zfVTTj7wNlyRpw5BvvI
-         1TEhSMDZDbfk1ZIu5DcPfBqeOQ9+Q5Itab85rR0g7WWrIEfGe/WNZG9HXPiuVwi+skLr
-         jFZPFRbq4J1Qi8pJaIgXl//pZnHFTo44Vhfa1DRyF/xMxs0LWZQs6rQYxpDRpQr18P35
-         WhU23F57sI9D02Hzcp/l5i0TMBs4CxoJxS6IeQ9yyTueHAm8+WDXoDYChnuDJEmpQVhE
-         xF0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791896849; x=1792501649;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0ncwg+itbdhvll8NWmaHzhsCbDAbH6eG1xlYXFmq6Oc=;
-        b=tK6WaDbQk2FTh1DGFxT2cG/c6+WK9q7UDKOYwRzaFyPSfJ+Z8ALVjEXVmc5BQlCGw0
-         ZSHUerCBJ2Tte7xiZSnY2SUlQ6vbgpsHYjAYYcNArRw26sstXhd/4Izjo2jX7NmGnVdQ
-         re9iaIERQIYSn7f72kAa2DFW/1o96thkpYwec4WOKUSvsr/bQ397z3+A6SuacYiNB+5t
-         +els0KC2Ywe6gsxAmX1rkPdDtq2bBXB/s8lV3bfMSvgky2+2MHZGcdudYsmuW+FMupTZ
-         nTTgwe227XWmdUfoDjJIRbRV76NFhLdE/LikE8g9FpBnedhIdUhSAkUzCHAU07sBmMn+
-         dF2g==
-X-Forwarded-Encrypted: i=1; AKwUvBy9ue/AQ6nuPAJC6VIbEP1fXsJIN7TZsaUfHI1+fUkFA9lux4oBOCTzpfHush8BVxxb1BvHsVrUXntHPvM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJixmLqKSoORe7hrD8mU1SfhS+Zmi8HWXiEVKK5GAIOYec9TATh
-	F40a/M9Eiwa3srGRIjMaNjLSLWS6xHSBnqrLcWbPOFZuErNNpgLceG417cgpTLdHuTfgCYWz+RG
-	gpAQeu1mLVmwEp6F3bkSTgAj8Kof4+/o=
-X-Gm-Gg: AYBFou0+TbJjpT4VXcPypUCWnxN6J7bw9Je3KGU+OTS94GnNYSrVuHDFxunBz+ORjNT
-	KY9sqeMZ4odagdvzxWPtXX0E9R+oG9J5lJBBlTjvmexhFpPfgC2gZ3J/ctjlkuvS8+4CeyzTwA4
-	TOOpxKFosiU4kiVKFT1+DTikJ9rl91QjetQQUZvnkpwG1sBNObXrILxdCUhJLtwztLjCC/k3mpn
-	RvY/YuDg1rE7ZOM6oLjaOu//i8Gd5DntAK3brlE2n/2Q+V45tCLlnxchZ+UXWgDpq4EVcw9VMug
-	bFF8jtAxA8SXmscsd5nOPCTlLcQSUTtm/20/S3tjvLMg0EpyGrYt951LKz6mhNIjRkX7Be9Xg9o
-	35Ir6z0F7
-X-Received: by 2002:a53:ac90:0:b0:677:aa92:7596 with SMTP id
- 956f58d0204a3-679362b5a2amr4638672d50.67.1791896849528; Tue, 13 Oct 2026
- 06:07:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VyL13qCx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8781F000FF;
+	Tue, 13 Oct 2026 13:07:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791896853;
+	bh=yImSNxOm/mWbtqz9ywKlBX/h2PudPleXwHqT+dJ9zbU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VyL13qCxx9F2GYIRkXtrA9S7hxfWu2gvZLmfVAv19+7tgf/LcbAKvYytFY/mqqKdU
+	 yQiolGVDVWbwo6a3Relx0Yd3NMHDWq5/iSurASE5PKnx2quHV2XeRJwUSfTAmLKwqF
+	 8+3PQI7xaPWZUjR8iuXJ/nJAefexMWTBBIVKf1SKdwqFWM4FrHgMYuVGUDmAL5fCIH
+	 vzmTL3l/Wvpgn85uli7Wleo3EFQQaGklxG5Etijn5iltmCLquar+TjI1Pn3MVgb8eJ
+	 TFSvwhUoSi/+FJki4HB8lNn6XBWy8YChmUq4ak8+L80ebhe20f/ep114hLA/emvM9X
+	 Rdd0WbkrbY7fA==
+Date: Tue, 13 Oct 2026 14:07:24 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Sasha Levin <sashal@kernel.org>, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Justin Stitt <justinstitt@google.com>, Carlos Maiolino <cem@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, 
+	Brian Foster <bfoster@redhat.com>, Christoph Hellwig <hch@infradead.org>, 
+	David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>, 
+	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+Message-ID: <as4squcShjtumzg_@gremlin>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+ <asz9AeFe3CutP73z@gremlin>
+ <20261013123132.GC4214@killaraus.ideasonboard.com>
+ <as4pAEnLd4H68W4W@gremlin>
+ <a296bc68-f36b-4db6-abbf-cf565c7cd3c0@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007-b4-landlock-fix-domain-fortify-panic-v1-1-042e9108f5f8@oss.qualcomm.com>
- <CAKwvOd=nPgEm=AZbEu12Eb90GtRUThY6YAjSiHHuNVHP8TZHwg@mail.gmail.com>
- <66usntltyie7ii2rrqajy3izxrvwubwf2vqnery552v3akhwo2@xwb4t76d37wx>
- <CAKwvOd=E7wgGPf+kgOY8sGi0xO-cFMAJK4PMBFknoEupJi1CXw@mail.gmail.com>
- <20261009204554.GA778522@ax162> <EF8E7F67-39BF-4382-AB18-98E9D6111CA5@kernel.org>
- <CAJJ9bXzLgzZG+836_2+pUVOWzndSFNoOh8Xu8Pw++_i1RMJzOg@mail.gmail.com> <20261011.Veiquevah3oh@digikod.net>
-In-Reply-To: <20261011.Veiquevah3oh@digikod.net>
-From: Michael Bommarito <michael.bommarito@gmail.com>
-Date: Tue, 13 Oct 2026 09:07:17 -0400
-X-Gm-Features: AclHuK-jtD50bA_uKkhScngguvSwky5SkR9YZhcx-GIvRlFpZZ6iWS7kxU1PPVI
-Message-ID: <CAJJ9bXwBo2hqcov46pLykJcdWp_fO8r7bXcDEw7JdZjWVkRxaw@mail.gmail.com>
-Subject: Re: [PATCH] landlock: Move the domain layer counter out of the
- anonymous union
-To: =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>
-Cc: Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
-	Bill Wendling <morbo@google.com>, Tingmao Wang <m@maowtm.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Justin Stitt <justinstitt@google.com>, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, llvm@lists.linux.dev, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a296bc68-f36b-4db6-abbf-cf565c7cd3c0@kernel.org>
 
-mic@digikod.net> wrote:
-> Thanks everyone!  We also received another minimal patch that I rebased
-> and applied.  See the final commit:
-> https://git.kernel.org/mic/c/3d8cc52db2f86b624308321c58513019f6b21eec
+On Tue, Oct 13, 2026 at 03:04:11PM +0200, Krzysztof Kozlowski wrote:
+> On 13/10/2026 14:59, Lorenzo Stoakes (ARM) wrote:
 
-2x FYI
+> > Ignoring is the only workable long-term solution.
+>
+> That was also mentioned by a few people according to Jon's report on LWN:
+> https://lwn.net/Articles/1099594/
 
-1. I boot-tested the clang PR in [1] and confirmed it fixes the issue
-on rc5 and rc6 before your patch
+Good, it's a relief for me, because I worried there was a lack of emphasis
+on the asymmetry, and I'm very glad to be proven wrong! :)
 
-2. I boot-tested rc7 after the pull on clang 20 and confirmed we're
-good on this side too
+(I did scan the article, will read it properly when I have a moment.)
 
-Thanks!
+>
+> and I think I could agree with that "ignore". IOW, we should change the
+> contract offer we give to people (see Greg's commitment in "I don't want
+> your code": "Review your patch within 1-2 weeks") to "if I suspect LLM
+> waste of my time, I might never respond".
 
-[1] https://github.com/llvm/llvm-project/pull/228309
+Yeah, it'd be nice to formalise it in a document somewhere, but Linus
+saying so is enough in general I think.
+
+--
+Cheers, Lorenzo
