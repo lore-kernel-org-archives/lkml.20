@@ -1,134 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A0551AEF1
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 333E7515970;
+	Tue, 13 Oct 2026 15:57:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791907034; cv=none; b=kQnEngpRy9FnASOQm9ef9xlOmj1Mo4shubtKSFk2+KyTRlNGaEG3TIjjeEGX+L97NOiopnDVgpJz2zPWc3wwG2O+mBqOuJbSN1OxH/3hodLIGqcNSgTJlRspCCV4AL1uO91w38zNvEj/V8o+Ih20d/QHKIX8Aivq2ksafCZ0Zik=
+	t=1791907070; cv=none; b=uHTYVhvZhbc/15Y5DCkgmO5eyvSORzwnbgMr2Op/ottjDP+AFSyqwIPO+i7Vxvj/oqur8axwF1sS+Rmw/7/4YBtXIXLknG6BaVMAmW/O9z0++CJctPoF2pM/FM4N4yvsc3l9MisQjUQIRQgxnIdEXIQ3ZSZleLq3NHfxWzKGwIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791907034; c=relaxed/simple;
-	bh=Ntm2prIgLBMJ/qc7PaaXwmHZd979g5DWIE9TbqVp2VM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Q3BFysSqis0CgbNh05l8vCcdPdR4v0UJw6MD915OpWZmfOOz+sOWliWiqwfSnRJssoVlIEK2J4qST5QytSPJgsuuDnIRkuFmbQCTvOpXk9NsZ4r32K2GFN/OGsiEaO2jrre4zFgKPAmWIPlOlIXXDD8yBLCDnXIuaPppELcfNcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HR5ZGJ/i; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791907070; c=relaxed/simple;
+	bh=BmgPBft1Gui7lL5HNj3ekId/21AIbJJtYcfNQBDYfy8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NIkVOwHPZhmdkJMBE3bFWZXKKRZI5vVnWoqC3NWfjNYZCrhBsq0iCYaCbyXiDnqAn7XuuUR1auwAUHfAq3ZZw8+4lf6zniZQ44I7JgNAwHcBHMHuv4L4TlDc06Iyo4//VU4PayroVHB2oNIV7OEKvXg+X5CsHI10e2E71kSwmvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=L2uvIf2n; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HR5ZGJ/i"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C68ADC2BCF4;
-	Tue, 13 Oct 2026 15:57:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791907033;
-	bh=Ntm2prIgLBMJ/qc7PaaXwmHZd979g5DWIE9TbqVp2VM=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=HR5ZGJ/ilseKAxK/eQ2lyHKyq2T174kIO5EeVi4TQ4xhNM89gH7pqqIONhz3q9PcX
-	 GItoH19ps9H52JBoIOvR/v1x8opmchWFXDESFsFpbHgktsK/g6xkT+z3vM789rHnmP
-	 M4B5ZxvqTIQBK8KAQdg8rAWqmOw3gh8HZW3mylu6tBm/UOpqY0kKWq2RFq6i3vpQm3
-	 jaH7rR73h33LyAtEX6BSbVxKxl/fa7sePXX1oQfIdURX+9L9nDTCR9m8mEc0O559gK
-	 1HZO0CakxbClAmEMMarg85O0cQJpOQOW9MlCsZ83+PyrOBL6uh0UemRcSd99FZqu5A
-	 UuUK4Qb9D8z4Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0CA0CC6B0E;
-	Tue, 13 Oct 2026 15:57:13 +0000 (UTC)
-From: Juerg Haefliger via B4 Relay <devnull+juerg.haefliger.canonical.com@kernel.org>
-Date: Tue, 13 Oct 2026 17:57:05 +0200
-Subject: [PATCH] drm/panel-edp: Add AUO 0x0db3 panel
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="L2uvIf2n"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4666C1650;
+	Tue, 13 Oct 2026 08:57:45 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3C0C43F673;
+	Tue, 13 Oct 2026 08:57:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791907068; bh=BmgPBft1Gui7lL5HNj3ekId/21AIbJJtYcfNQBDYfy8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=L2uvIf2niOedfNr+LE8u9qeU+als8GL5sn6Fk+M/CRaWLhK8PQ2znJpimWKJLv/yd
+	 +tTdLYlNH2gzYaMJc6Cxw6toOfO+oSrGE9RgNjvRUHg84XCogxrTaRIsFOuQo2Tonx
+	 piT3fnXMwEWhPZenzeqH8AeABXyesoqVf5BlOhiM=
+Message-ID: <f79c5f94-3c5e-4c64-9b6f-95f186e1bdd7@arm.com>
+Date: Tue, 13 Oct 2026 16:57:44 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] fs/resctrl: Assign counters to existing groups
+ when enabling mbm_event
+To: Babu Moger <babu.moger@amd.com>, tony.luck@intel.com,
+ reinette.chatre@intel.com, bp@alien8.de
+Cc: x86@kernel.org, Dave.Martin@arm.com, james.morse@arm.com, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, tglx@kernel.org,
+ mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
+ kas@kernel.org, rick.p.edgecombe@intel.com, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org
+References: <cover.1791589412.git.babu.moger@amd.com>
+ <3d966ae2e051ef54e1aedb1a2839c812ab880bcb.1791589412.git.babu.moger@amd.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <3d966ae2e051ef54e1aedb1a2839c812ab880bcb.1791589412.git.babu.moger@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-panel-edp-add-auo-v1-1-c04bfe6cd9ba@canonical.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTuQxFLQq4iLaeavjkgaEluE0
- rsbdfkt3tuoohgqnbuNClarNqcGf+go3iXdwKbNFFwYvPOBsyQ8GZpZVFmWmR1cHHE8aS8DtS4
- XTPb+PS/Xv+syPhBf3xHt+wekAX0IdQAAAA==
-X-Change-ID: 20261012-panel-edp-add-auo-0e0cbe39d4a6
-To: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Juerg Haefliger <juerg.haefliger@canonical.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2251;
- i=juerg.haefliger@canonical.com; s=F9F8B48C; h=from:subject:message-id;
- bh=GcOUJ+XVwlNhxpKGThhrQ1L3OjN6SagPdh8JW/dIx84=;
- b=owEBbQKS/ZANAwAKAQ/TiwkLpkK3AcsmYgBqzlTYMY0HJoh6TCS7xqgivi7jVcoAV0widqn/e
- rb3Tqo+oumJAjMEAAEKAB0WIQSFl9T3oi6mu+It14sP04sJC6ZCtwUCas5U2AAKCRAP04sJC6ZC
- t4b+D/9KD0hyLheoUCf1djuvfU5xW6TxD2SmskPKqm4Zwf5xStma+W531yOpwJYxWkDmIGnBikP
- EhAxcnjFJu6hu2gcNJ+MQNnUaFP/g2VUPW5DCm6vl4hxi0IdTNRmY5VfjyLxRdOuVPl7TAKzQeh
- X/tULdZZufSfp+siG6Z9e+mz9mLe4ghbOTgggRU8WMQEamseGm4/tYgHwAGHdF7APqzN51P9c/l
- 7otCmOOEVJ8pXMcKkN0G9ZqNHuKIgp/7MhIqdOH9hlIKR4yyLuHAnIBasYX0ykdFWcRPSpaoJ61
- LojlaPyjppb72/G2GYztEFI5v7oosV3RBL+6j4Pj9+72NEUDdA2Ev6taVpQ3WM0I2ywugEdWdX2
- cP2seuAcECumcpknEDdzCQgmVC5V+78riP+KryQKY0gP6DU2VnPw99/AVyzPrGeL49OmIfABJ4n
- Q7+Sn+XcOnLvWcD4pmyKUd9PAHfil4xDe9qDv2URQxrNVRHXU8oe26wEgUsTIw4e9tdDZPSa4aB
- B5bfJdhAzg+m8zXAUpDljNq8WhQvBTCF1EUEtMJEYASmbCJBKweEMEWTgnHVLF7C0Qe1HAvGOSs
- JiLz0XZ+O+ZZm7jYNGDKU4+qyt8NhrsmSyJMWzrnoqtINZ6iJYss28YTJdL3BQorvXJUo5VjJ4Z
- 9STVmjVNcbfhSOA==
-X-Developer-Key: i=juerg.haefliger@canonical.com; a=openpgp;
- fpr=52B5BDD2A6EDC76A0FE0AB4A754C3A96F9F8B48C
-X-Endpoint-Received: by B4 Relay for juerg.haefliger@canonical.com/F9F8B48C
- with auth_id=1135
-X-Original-From: Juerg Haefliger <juerg.haefliger@canonical.com>
-Reply-To: juerg.haefliger@canonical.com
 
-From: Juerg Haefliger <juerg.haefliger@canonical.com>
+Hi Babu,
 
-Add an entry for the AUO 0x0db3 eDP panel used in the HP EliteBook 6 G1q.
+On 10/10/2026 00:44, Babu Moger wrote:
+> When the user switches counter assignment mode by writing "mbm_event" to
+> /sys/fs/resctrl/info/L3_MON/mbm_assign_mode, resctrl frees all assignable
+> counters, resets per-domain RMID state, and enables counter auto-assignment
+> exposed to user space as mbm_assign_on_mkdir.
+> 
+> Even though counter auto-assignment is enabled, groups that already exist
+> at the time of the switch, including the default group created at mount,
+> are not assigned a counter. All MBM events read "Unassigned" until the user
+> assigns a counter by hand.
+> 
+> Walk every existing CTRL_MON and its MON children after the reset and
+> assign counters to their MBM events. Enabling "mbm_event" now leaves the
+> same per-group state that auto-assignment would have produced. There may be
+> fewer available counters than MBM events across the existing groups; in
+> that case stop assignment when no counters remain. Events in the remaining
+> groups read "Unassigned", matching the behavior of creating a group when no
+> counters are available. Also revise the rdtgroup_assign_cntrs() function
+> comments to account for the new callers.
+> 
+> Fixes: 8004ea01cf63 ("fs/resctrl: Introduce the interface to switch between monitor modes")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/8cb66e18e32e4087a9712c1e68ee6da614efe244.1784322818.git.babu.moger%40amd.com
+> Signed-off-by: Babu Moger <babu.moger@amd.com>
+> Cc: stable@vger.kernel.org
+> ---
+> v4: Changelog update (Reinette's input).
+>     Function comment update for rdtgroup_assign_cntrs().
+> 
+> v3: Changelog update.
+>     Code comment cleanup.
+>     Added Cc to stable.
+>     Added Reported-by and Closes tags.
+> 
+> v2: New patch.
+>     This patch addresses the Sashiko comment about documentation issue where
+>     counters are not assigned automatically when mode is switched to mbm_event.
+>     https://sashiko.dev/#/patchset/8cb66e18e32e4087a9712c1e68ee6da614efe244.1784322818.git.babu.moger%40amd.com
+>     In fact, it exposed a real issue. When switching to mbm_event mode, existing
+>     monitoring groups should be assigned counters whenever counters are available.
+>     This provides a smooth transition between modes and aligns the behavior with
+>     the existing auto-assignment mechanism.
 
-The EDID does not contain a product name descriptor nor detailed timings,
-so list as "Unknown" and use the standard AUO power sequence delay which
-works fine.
 
-FWIW, this is likely a panel from the B140UAN series.
+Given the name of the option is 'mbm_assign_on_mkdir' I expected the auto assignment to only occur
+on the creation of ctrl groups or monitor groups. That's not my concern though. As you are now
+treating this as more of a general auto assignment should the assignment also be done when a resctrl
+domain is brought back online.
 
-Raw EDID:
+For illustration on an MPAM model I see:
 
-00 ff ff ff ff ff ff 00 06 af b3 0d 01 01 00 00
-1b 22 01 04 a5 1e 13 78 03 f4 75 91 56 58 93 2a
-20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 0e 3d 80 a4 70 b0 32 40 30 20
-35 00 2d bc 10 00 00 18 b4 28 80 a4 70 b0 32 40
-30 20 35 00 2d bc 10 00 00 18 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 10 3c ff 0f 3c 96 0d 0c 1e 96 00 00 20 01 e8
+/sys/fs/resctrl# cat mbm_L3_assignments
+mbm_total_bytes:2=e;3=e
 
-70 20 79 02 00 22 00 14 8b 62 02 85 7f 07 a3 00
-2f 80 1f 00 af 04 31 00 02 00 04 00 25 01 09 8b
-62 02 8b 62 02 28 3c 80 2b 00 0c 27 00 28 3b 00
-00 27 00 28 3b 00 00 81 00 15 74 1a 00 00 03 01
-28 3c 00 00 53 51 53 51 3c 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 8e 90
+# offline one domain
+/sys/fs/resctrl# for i in $(seq 0 3); do echo 0 > /sys/devices/system/cpu/cpu$i/online; done
+/sys/fs/resctrl# cat mbm_L3_assignments
+mbm_total_bytes:3=e
 
-Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
----
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+# bring the domain back online
+/sys/fs/resctrl# cat mbm_L3_assignments
+mbm_total_bytes:2=_;3=e # Would it be better, or worse, for auto-assignment to occur here?
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 2b455369ed70..6fb60b2b8894 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -1958,6 +1958,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x0290, &delay_200_500_e50, "B140XTN07.5"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x04a4, &delay_200_500_e50, "B122UAN01.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x0ba4, &delay_200_500_e50, "B140QAX01.H"),
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0x0db3, &delay_200_500_e50, "Unknown"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x105c, &delay_200_500_e50, "B116XTN01.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x1062, &delay_200_500_e50, "B120XAN01.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x125c, &delay_200_500_e50, "Unknown"),
+Thanks,
 
----
-base-commit: 705529dab1fa872d8b53b09c95e1b03a95573376
-change-id: 20261012-panel-edp-add-auo-0e0cbe39d4a6
-
-Best regards,
--- 
-Juerg Haefliger <juerg.haefliger@canonical.com>
-
+Ben
 
