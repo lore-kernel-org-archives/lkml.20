@@ -1,146 +1,200 @@
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36D652BE3C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB27952F299;
+	Tue, 13 Oct 2026 17:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914058; cv=none; b=h1yCfE207Ej0UGHTugtsL4wtRvkp80AC6FfCtad6T4iYt64r6o9ztkoPtl/s0Hs7B3kLuV4G5jdweXdKDA6OM7VU+a6fxjBJ6bV2zWrKnuzb6m0AFxRBeXicF9h0k0qaWCMWlUEEEGaBgUqmYIaHmPgNThP3WwhXB6Bpjc7QftM=
+	t=1791914059; cv=none; b=IukolzEjay5gXtduEqEX/ETExqO/KHJNSVuFaiwhfSdkuGctjquDHDzUABu16ApwCUqM39BmiZYPyBq/+0z1jsnxsbPXip7iQlv+erVdY87BIdyA37kOYJlF+2c6zvIGgfDIEd8aDFtWmx1euJrikdZT2Cm0aXa/OZ2Gf6AhYBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914058; c=relaxed/simple;
-	bh=0E6bGmEo1GwhFi1se4trHegbmcoiealEmKFcFtFcwB4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hrYl7utTMJZ8xPpahPqSbZq+BlS3Wn7HHiWKMfremjMfJuVkRk9Y51KjZo0Lkml1iIapsM198mHMOFjLdhNzP3IpLraHzaLNYudfZw6l4RN1mqgoOTpxxoDU06g3SBLL+kA1nbmI5NYMbG7qlbXrFI6WN32OeDhpiuX9oM7WwI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nZJQpuVm; arc=none smtp.client-ip=209.85.161.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791914059; c=relaxed/simple;
+	bh=eQOYa2blZFrbzsNIyojkc8nBl/4ke45XHniunalu22Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iH5xN/F0SUJBS6SB3HutGghNk6hLnKQ3VUD0OToCDghj9e5vJIgwdRlFuO/9E+v3T3jxDguIKZUpu59O+2Zm6CeQ1ge/DO54GHeOuSW3DV81IwP8YO2OQKHVfn3tPFuFlINTE5JhR4R/Z8vPPA6UUE7ZlUr8RHWeA0zeXz0JUGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mSkCYiIY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nZJQpuVm"
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6dcf573c429so2119876eaf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:54:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791914055; x=1792518855; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AoNTFArShrIuErsfoUzGL9W/LuOVl703X8/dX7lKLJs=;
-        b=nZJQpuVmLIblfd0MZMstN6RSp/LPMXj+IlHWCEmIYjKpfbEmjNTwt+JhMSVccHpMqf
-         ab/qL4ATwbTkf+50Bv74dgSv/hoWNEgNrECasxaUCdnK+3Wqnn1Lwh08UAA543w2vIJU
-         sx3CF78z28e9zYs9QhC78OshFMUSEHY1CcCzbbbftYEN44yORFyC5NV7Z5o4aaSYTULF
-         51+a5wYhj50wPloxApLrQx1kLmE+OfvZG/bUtbBOETos/ACuQ3JPggSS+/b5SfFeg96l
-         H7OxrVASQ1tId14jy29K1t7/QAIOFYonye9RGXpBZuGtwERbrckckF1rh+wPlGB8vZMK
-         /mmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791914055; x=1792518855;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=AoNTFArShrIuErsfoUzGL9W/LuOVl703X8/dX7lKLJs=;
-        b=0zLHHQnsM2d9sWpNLxzn0X7HJrtnKLetmhx0yif6/yT87yTSizg5wOS/hPxrPJIJzO
-         bxidAwm+rlVhhisG9+HdIc5qq6Xeia/wdWP85ynG+dv9/RvCIL9qLF+jQt0GSqZA4WDp
-         mmKgZ6NDWzpns+7AzOmZeZx88cDhc9JNqyXP3YReRiSbLtI6xE006qPkIWfibF0Ya3Eb
-         fjmqbF+1RbQK1Tk+6bmo/qGK7lwEk0xjftH1+FwruvFOZ2HuDNw9FZPI6E8tJk1/iaEm
-         D+02xSyVBd60vPkz32ctSE3D0AvyjLB7dU2FwfMPiTWGKInIfyyqj+fWU11joe+oxVBI
-         l5cg==
-X-Forwarded-Encrypted: i=1; AKwUvBwiYo0KzrEtxL70XfHdRh6a7SmSrmhHbynowCLm5OdDxPkO8tAjMqg2cpC2ttL284J5Gbe0jEAihdf/4GY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1y58N4lME+vtWjTWK8SoG1922q2BJsCFbarlXtCi1ZhjZlCRm
-	pbasDuNB+XYCePtS2bUpnhe4EpbllLq5jXAN49u+NjvKTqSN6Mg2yCLS
-X-Gm-Gg: AYBFou00659263KcSNjwvRjbh8OxQGxzBObmTOqAr242kHVLNbsav0xdA417ggZyakh
-	vWxNXFL4Za1uq7BWcmhlHkzU3oJ7/SyoaMax6Z/o9d60wYXo2Fnoq0c6e4/hSbxb5EIqlRiZrPJ
-	mF77RYiATa6OktDTzSfMqZRzGqqgapCSL7EhrQmZ8XQVv4aMNfrzbbH2xHXg1TrVarPLf5qDwOv
-	76xH//AN+oj98MSwoBv+3Y8fXC6P+CiUfaEm22yqMwAKMktOBXrssCrB+v3EyEGePNkDrQMysdp
-	kx3YEYs3Td6gN1dPqCWKwSNiMj4GM5iXHIqKGXv7BF6+6/t3nuDPIQG/qBc4Uewj/YHyFTpNToX
-	ijKwFYC9vTkCzmsFEjudFQU02mzLfsh4PxVqJ4C6W/cHtvj1CrzeP2vCincpMd/sXOIMtl++LeU
-	4b45RJwx9jX7fVar5/8Zxb5ySty+OV/irOloqWsDGRgAF3Ud04Uyt7z48H4Axt0fqokuZNig8ox
-	KYEd6gA9xtPPTC8mB7eelQGY5ILf/W4XVSrvNsa9d9hj1Sb25j1UzVp1+IliJosX+5yzYbHCyun
-	4YmVGCC4fVCPEpXhSm16jnukU8GOJNRByTaaX7e3Tv0wiklb3U4sk0syvMeG9kiLNQqHn2FVUM4
-	1Vs00LaHa1D5usHNamDiKgYHq56C2zr4K
-X-Received: by 2002:a05:6820:a292:10b0:6f5:467a:aed2 with SMTP id 006d021491bc7-6f5467ab923mr3853137eaf.5.1791914055335;
-        Tue, 13 Oct 2026 10:54:15 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfcabc34sm277356fac.15.2026.10.13.10.54.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 10:54:14 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 13 Oct 2026 11:54:13 -0600
-Subject: [PATCH net-next v2] net: stmmac: leave the datapath running for
- normal-size MTU changes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mSkCYiIY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959C31F00899;
+	Tue, 13 Oct 2026 17:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791914056;
+	bh=d46hvuLrcz2FQgTWFsuvIjC/NxsYRt1osxT9oAcU9KU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mSkCYiIY9tz6TwwFwpbZPMeTAe8446xrrZ1rh3HiOeXxMErz7adyXM3ZYhAxoMDyT
+	 sxtl5LzDzM4bczO/Bqp0vTP7rJ/iMhx1kDLfRlQye3a3hUl/+sSR3mvkgsBVgIXCsy
+	 QeoB4w6tAjlokKo5IUu6HtkK9E3Nw+POgc5iao3mFascQitajwZnqSIuCe6On1lMxk
+	 vGOe6Suy1v+RJ0X08yMirbpHBlEofk88VA+fFgFEDsvd+2B5XYMx1WgafkkXaZ3S+Y
+	 GfhlII0ye+bDY20nRjwkjD/4H56WazIBljI7AKPXbaV5Wmtb95fRQOBQRw0CgvE48H
+	 mVrjEPsQjdEIg==
+Date: Tue, 13 Oct 2026 18:54:11 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: tglx@kernel.org, radu@rendec.net, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, p.zabel@pengutronix.de,
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+	danielt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
+Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
+ toshiba,tc9564-msigen.yaml
+Message-ID: <20261013-coexist-sixtyfold-cc6614086d3a@spud>
+References: <20261012190245.3988619-1-elder@riscstar.com>
+ <20261012190245.3988619-2-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-stmmac-mtu-fastpath-v2-1-1e4ce8137689@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OwW7DIBBEf8Xac6kWg2PIqf9R5bDgJUYqdgLES
- hX534vcnnscPc2beUHhHLnAuXtB5i2WuC4t9G8d+JmWK4s4tQw99ie0CkWpKZEXqT5EoFJvVGd
- xMkYqpkk5i9Cat8whPg/rJyxcxcLPCpdfkvn+aDP1DzsqLPyaUqznDgc3oLQOZXBWa+XQEmuel
- KYgpRrIIBntzeGaY6lr/j6ub/KQ/ftyk0KKMI0qqNF4HOXHNVH8em/jcNn3/QcZJUMJDAEAAA=
- =
-X-Change-ID: 20260930-stmmac-mtu-fastpath-68813ead3b90
-To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Christian Marangi <ansuelsmth@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3I3Rp++l/jcJ+LVC"
+Content-Disposition: inline
+In-Reply-To: <20261012190245.3988619-2-elder@riscstar.com>
 
-When both MTUs are at most ETH_DATA_LEN, the receive buffer size and MAC
-receive limit do not change. Update the MTU without restarting the
-datapath.
+--3I3Rp++l/jcJ+LVC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This also avoids rebinding a live AF_XDP pool to a temporary RXQ. XDP
-rejects jumbo MTUs, so all supported XDP MTU changes take this path.
-Jumbo transitions still use the existing reopen path.
+On Mon, Oct 12, 2026 at 02:02:43PM -0500, Alex Elder wrote:
+> Define the binding for the MSIGEN interrupt controller present in the
+> Toshiba TC9564 SoC.
+>=20
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+>  .../toshiba,tc9564-msigen.yaml                | 70 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 76 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/interrupt-controlle=
+r/toshiba,tc9564-msigen.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/toshi=
+ba,tc9564-msigen.yaml b/Documentation/devicetree/bindings/interrupt-control=
+ler/toshiba,tc9564-msigen.yaml
+> new file mode 100644
+> index 0000000000000..39dc63964bd52
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/toshiba,tc95=
+64-msigen.yaml
+> @@ -0,0 +1,70 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/interrupt-controller/toshiba,tc9564-m=
+sigen.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Toshiba TC9564 MSIGEN Interrupt Controller
+> +
+> +maintainers:
+> +  - Daniel Thompson <daniel@riscstar.com>
+> +  - Alex Elder <elder@riscstar.com>
+> +
+> +description: |
+> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+> +  upstream PCIe port on the PCIe switch it implements.  The switch
+> +  includes an embedded PCIe endpoint that provides access to various
+> +  SoC peripherals (including an interrupt controller) via its BARs.
+> +
+> +  The TC9564 MSIGEN (MSI Generator) provides an interrupt controller
+> +  with 25 hardware interrupt lines.  It aggregates internal interrupts
+> +  and generates a single PCIe MSI to the host.  Each PCIe function
+> +  implements an MSIGEN instance.
+> +
+> +  Each MSIGEN uses a gated clock and reset line.  These are provided
+> +  by the clock and reset controllers internal to the TC9564.
+> +
+> +allOf:
+> +  - $ref: /schemas/interrupt-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: toshiba,tc9564-msigen
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  '#interrupt-cells':
+> +    const: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: Gate clock from the TC9564 clock controller
 
-Found by source review while working on the stmmac MTU/resume recovery
-series. The fast path was tested on Allwinner H616 with sun8i EMAC1 and
-an AC300 PHY. The AF_XDP scenario was identified by inspection.
+I'm surprised that the clock is not mandatory.. Realistically the reset
+is also mandatory, there's probably one instance of this on the device,
+where both clock and reset are connected. I'd add both to the required
+list.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Changes in v2:
-- Target net-next and drop the Fixes tag as requested by Jakub Kicinski.
-- Clarify the standalone commit message and how the issue was found.
-- Add Nicolai Buchwitz's Reviewed-by.
-- No code changes.
-- Link to v1: https://patch.msgid.link/20260930-stmmac-mtu-fastpath-v1-1-fd73f378c071@gmail.com
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Otherwise this looks
+fine to me. I know you mentioned this device in the other series that
+we were discussing but I don't see how it is related and is perfectly
+fine to implement as a standalone device as you have done here.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 56d89a696272..50eaee656cfb 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -6257,7 +6257,12 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
- 	if ((txfifosz < new_mtu) || (new_mtu > BUF_SIZE_16KiB))
- 		return -EINVAL;
- 
--	if (netif_running(dev)) {
-+	/* Normal-size frames use the same buffers and MAC receive limits.
-+	 * In particular, do not disturb a live AF_XDP pool: XDP does not
-+	 * support jumbo frames, so it never needs the ring replacement below.
-+	 */
-+	if (netif_running(dev) &&
-+	    (dev->mtu > ETH_DATA_LEN || mtu > ETH_DATA_LEN)) {
- 		netdev_dbg(priv->dev, "restarting interface to change its MTU\n");
- 		/* Try to allocate the new DMA conf with the new mtu */
- 		dma_conf = stmmac_setup_dma_desc(priv, mtu);
+Thanks,
+Conor.
 
----
-base-commit: 05b5019b01fb9443b09ae4ed34af1135a80a84c8
-change-id: 20260930-stmmac-mtu-fastpath-68813ead3b90
+> +
+> +  resets:
+> +    maxItems: 1
+> +    description: Reset signal from the TC9564 reset controller
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupt-controller
+> +  - '#interrupt-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/toshiba,tc9564.h>
+> +    #include <dt-bindings/reset/toshiba,tc9564.h>
+> +
+> +    interrupt-controller@f000 {
+> +        compatible =3D "toshiba,tc9564-msigen";
+> +        reg =3D <0xf000 0x100>;
+> +        interrupt-controller;
+> +        #interrupt-cells =3D <1>;
+> +        clocks =3D <&tc9564_clock0 CLOCK_MSIGEN>;
+> +        resets =3D <&tc9564_reset0 RESET_MSIGEN>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 252b6d7ee1638..9e73a912f0c0f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -28173,6 +28173,12 @@ F:	Documentation/devicetree/bindings/media/i2c/t=
+oshiba,tc358743.yaml
+>  F:	drivers/media/i2c/tc358743*
+>  F:	include/media/i2c/tc358743.h
+> =20
+> +TOSHIBA TC9564 MSIGEN DRIVER
+> +M:	Alex Elder <elder@kernel.org>
+> +M:	Daniel Thompson <danielt@kernel.org>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564=
+-msigen.yaml
+> +
+>  TOSHIBA TC9564 PCI DRIVER
+>  M:	Alex Elder <elder@kernel.org>
+>  M:	Daniel Thompson <danielt@kernel.org>
+> --=20
+> 2.53.0
+>=20
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+--3I3Rp++l/jcJ+LVC
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5wQwAKCRB4tDGHoIJi
+0kRRAP404z1GNo0XPhYPUyViwUnod8PExp3H0HJAWQkizBM7XgEAu0iS7xXASJBZ
+6VUrR1k2qJngl370Dm7O7fVDLnO63wY=
+=6DQv
+-----END PGP SIGNATURE-----
+
+--3I3Rp++l/jcJ+LVC--
