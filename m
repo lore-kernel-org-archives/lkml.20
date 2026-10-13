@@ -1,120 +1,150 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CEAE545DAB
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C906B5476F1;
+	Tue, 13 Oct 2026 20:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791922362; cv=none; b=DuJ4EJuLuqnNLtNDyez8XJspg5mfSipWo7gPLJekhGBxjwzuP+A5Bpl5ezYq8xtUPzNlNT+fdWxIIyqdPqTzzEkysXtZlAAJh8bOfTpjhPYh216rb0kAv82VlzDJCkm11uEmRgPGGkQZwc2vwg3I6qzCmYtl10mkXQC0KSpot3A=
+	t=1791922369; cv=none; b=bq2LHG6rRhldX1NlSIohi0IhPbjEWSFFV/0HNZLAk8Z4FnuYghS3XJ2pcj0pXcu6gxnvTyEWuB+hE9k+632BM+h4bsKZ+IqUx9lOF3KhCpY7eWeQMPxpW6+nf1/aGDQM/BIgS9cT5hzk4jXZqRshl+sfAi7+KVy0SHXX7bMgzaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791922362; c=relaxed/simple;
-	bh=FHANVY32iP02su9AUQalbmIEZKYbDkKq71mSU0vrOUU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CNXCUlhbLBKEIzGHMA5BN+THn/cvvgKqutDDzxd7BycH+TJn8NMkkeVcS2tGvZBhp1DJf21wtYZu1MIARbsJn+xuYR4XaBkKEXBH9FjbYHIQO9W2iLKSQ2Puf39YlraeEsF0+m7EbAIXtCvk7sCrS0NCr1tw8MgXTLZtbMgC4s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=OBrqSUrZ; arc=none smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	s=arc-20240116; t=1791922369; c=relaxed/simple;
+	bh=xNb4HR1SSJK+4fbIYQIcFAbHNxwUdPjA4ionyGzqQGA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=feyF4FcwemYEFa/LwD4WyiyrSXQpxeY3LnywH24sC5z06X1TLrX7QV7DHYQ/xm4CuIPynznBfTi4rIWDNHIyrYTSYBfU8uMgIB3vi0x4spTmtVrOfSkOyJzjSbpQRw/MKj4QmWKvB48gbVjSfNbyiP93lkG8DWUqOYKWbUQFthE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRwnErIZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="OBrqSUrZ"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5338f65913dso38483451cf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:12:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1791922359; x=1792527159; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3TBoL+oiZizwoAHZ61Saznx7uboPW5Y0xvzJblrFEHM=;
-        b=OBrqSUrZiwDrlzhZy6SHKJv2M5/oITjnSKlvgyztDe05OMulV/CmQsBtFksnlkus/E
-         nj910qWcfxiUVutqAJtCfUZzMlUMPHNdgQV1x8+FEKyltCwcxaBDvyCsN4qMF6U9nCWi
-         2L1vO8103dho7Vr2mBAtBK8wyEFJ+mNSVuqIo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791922359; x=1792527159;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3TBoL+oiZizwoAHZ61Saznx7uboPW5Y0xvzJblrFEHM=;
-        b=sv5YZy+O2unPq+CYgAhvzsGYdes8gkq6Soricf/2cmb+35dloUtXmUALnb0AE5s7ij
-         OmrPwqWAVSdE7buqdH21PqXpu0GexzGMLqxRwzZ8BcAXq+RsTWb4hAzGLj2mQz4vAtg/
-         gKQzEZ6q8oSF7L3SUsUH0PAlHB3/da2Hg9m8i3S9UkQT2NnvRA6KJeakpFIk/PKbw30k
-         z+68PmUqlrZpvF9942DFdeCS/IRer8RH7W6cMcKSjm8TlrCYz+1OaZft00JJOrJD/fHn
-         lxA3xlbfcyANUSh5jwlPvm9OMyJ3nvaGch7L7SMDqKIi88RdoLyYfRCzvfO9Ceof8kSg
-         QurA==
-X-Forwarded-Encrypted: i=1; AKwUvBzJtdIGcAX+zrDb2b4aN8482NmBAPt+PGzEKHRsUa5ye2EguSvwXEsZ5hvVXDUH1VWByDG3XPBkb6jfn38=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNAaLowwoylHzwanTjttYQD+GOBcxWeIEG8K8DGI7zY7zuJpW/
-	Jw8IJKmlVyVlv0/n4S729wRQNiIgBWthiE95ImMK9Jalz/EONiqg7XwsE6dtWWLTIA==
-X-Gm-Gg: AYBFou3H0+3EC0S/O5ZQ5FY7oKwX2TXuUGxDBotBNXP4VfyTVKFtPPV9aAwZhs4uB/F
-	hEMmsxAHr1BJ1kvEnDKY6ZaqfzS7QEwbJuyV6kYBu1NnbZHnAj/mhgW9/JXl+G34TM1mcHEkYNb
-	aCluIyrjULmfZ5aaOOaVKv7VNU3w5B5W6/EHeYBCgWoL18kwWACNCAQOs7cbOWlxWUxARsXUGct
-	uqrprud26vant79Uc10Ycg+YtBkrwb35DsPa7DMIid7w/MQZUc3+GG+PXORiLCn1faxXMTr5oQX
-	inEYGoX46y3D0Tz+S8/WxMZj35aoc8n1gjx1d9cxGhObkcDfOgMar8WzyceSjT5GugUxiNXY2ji
-	X/o9NXqxBMsD1EDOELGD/EYUSz/7pPufRg36SnVqlLtnhEqXf78n8+5d6PQ0pWUvASPRyQbzAbz
-	stLmi+VGUX/vD7yiFIY44uEW31ynCBH/k93+mp9C9HjE0++qbYfucay7Z1S2SR0SCWUw==
-X-Received: by 2002:a05:622a:5988:b0:535:dd8:b12b with SMTP id d75a77b69052e-5359faead5cmr230417831cf.13.1791922358809;
-        Tue, 13 Oct 2026 13:12:38 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id d75a77b69052e-5359b7e32cesm106156091cf.28.2026.10.13.13.12.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 13:12:38 -0700 (PDT)
-Message-ID: <fc8053fd-5831-48fb-98a5-f3e81323b51e@ieee.org>
-Date: Tue, 13 Oct 2026 15:12:36 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRwnErIZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7317AC2BCF4;
+	Tue, 13 Oct 2026 20:12:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791922369;
+	bh=xNb4HR1SSJK+4fbIYQIcFAbHNxwUdPjA4ionyGzqQGA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=GRwnErIZQiDrwWon6iRPSkWGd/oOf0ka3GxsJwih81m3psGcCDcXcSDn9M8/hrdt0
+	 5GksBFkCmHxmmVdBX3w12MDw6Cm0qSO/8XcpOSBBP9GeZ4rEpgDwNrkz238vPA6D8e
+	 QO188rh8Oc2SM7AscO6esNHKqQY0TYgG0aVGteK1CdUEydZ+s+pDcxAJtvkMoewwUs
+	 0l9k+kdBpXl7VhLQw27dr1WbtVmRdOS4R/018ixuUyYJPkJUn+fyKIRdvBk3YlETLX
+	 2VPpv3Q5X3NTKKaWETZB57LNhwDg3G9VvEvCWDDXEr7N52If/rbeoFxo1GFuqyPdT4
+	 FnhcNtFD630RQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C6FCCC6B12;
+	Tue, 13 Oct 2026 20:12:49 +0000 (UTC)
+From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
+Date: Tue, 13 Oct 2026 15:12:48 -0500
+Subject: [PATCH net v7 1/4] net/smc: bound the wire-controlled producer
+ cursor to the RMB
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] staging: greybus: Remove unused function
- 'to_fw_mgmt_connection'
-To: Jeremy Dean Clifton <deaner92@yahoo.com>,
- Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
- Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: outreachy@lists.linux.dev, greybus-dev@lists.linaro.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261013181707.29830-1-deaner92.ref@yahoo.com>
- <20261013181707.29830-1-deaner92@yahoo.com>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20261013181707.29830-1-deaner92@yahoo.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-disp-f345196c-v7-1-ef3dddfbfa68@proton.me>
+References: <20261013-b4-disp-f345196c-v7-0-ef3dddfbfa68@proton.me>
+In-Reply-To: <20261013-b4-disp-f345196c-v7-0-ef3dddfbfa68@proton.me>
+To: "D. Wythe" <alibuda@linux.alibaba.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Eric Dumazet <edumazet@kernel.org>, Dust Li <dust.li@linux.alibaba.com>, 
+ Mahanta Jambigi <mjambigi@linux.ibm.com>, 
+ Sidraya Jayagond <sidraya@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: netdev@vger.kernel.org, Simon Horman <horms@kernel.org>, 
+ linux-kernel@vger.kernel.org, Wenjia Zhang <wenjia@linux.ibm.com>, 
+ Tony Lu <tonylu@linux.alibaba.com>, linux-s390@vger.kernel.org, 
+ Guangguan Wang <guangguan.wang@linux.alibaba.com>, 
+ Ursula Braun <ubraun@linux.ibm.com>, linux-rdma@vger.kernel.org, 
+ Stefan Raspl <raspl@linux.ibm.com>, Hidayath Khan <hidayath@linux.ibm.com>, 
+ Wen Gu <guwen@linux.alibaba.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791922368; l=3046;
+ i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
+ bh=9ja5JoT+O2VUsGXhvlsOd1Bx55l6YLeZkBRApwlhPSc=;
+ b=rVYcu4i4oTyDRLtwHGtEjq2DjTHtK80IgFrn7b5X+ZoM5nM630eyXVJvGwmEfj8XrGkYIgnGW
+ bvnALUCmsOTBeGkQlTjfaeEVmS5YcBhwnF2hIsCNki/nNTHkpT5yDEp
+X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
+ pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
+X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
+ auth_id=893
+X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
+Reply-To: hexlabsecurity@proton.me
 
-On 10/13/26 1:17 PM, Jeremy Dean Clifton wrote:
-> Remove unused function from greybus driver to_fw_mgmt_connection.
-> 
-> This function is not exported or called from anywhere tree-wide.
-> 
-> Confirmed with git grep and cscope.
-> 
-> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-Looks good to me.  Are there other unused functions
-like this?
+smcr_cdc_msg_to_host() and smcd_cdc_msg_to_host() import the peer's
+producer cursor from the wire into conn->local_rx_ctrl.prod without
+bounding it to the RMB. smc_cdc_handle_urg_data_arrival() then uses its
+count as a raw index into the RMB, so a producer cursor past
+rmb_desc->len makes the receive tasklet read past the RMB, and
+recv(MSG_OOB) hands that byte to the application.
 
-Reviewed-by: Alex Elder <elder@riscstar.com>
-> ---
->   drivers/staging/greybus/fw-core.c | 7 -------
->   1 file changed, 7 deletions(-)
-> 
-> diff --git a/drivers/staging/greybus/fw-core.c b/drivers/staging/greybus/fw-core.c
-> index 78321be80013..46b35ef55090 100644
-> --- a/drivers/staging/greybus/fw-core.c
-> +++ b/drivers/staging/greybus/fw-core.c
-> @@ -21,13 +21,6 @@ struct gb_fw_core {
->   
->   static struct spilib_ops *spilib_ops;
->   
-> -struct gb_connection *to_fw_mgmt_connection(struct device *dev)
-> -{
-> -	struct gb_fw_core *fw_core = dev_get_drvdata(dev);
-> -
-> -	return fw_core->mgmt_connection;
-> -}
-> -
->   static int gb_fw_spi_connection_init(struct gb_connection *connection)
->   {
->   	int ret;
+Bound the producer cursor count to rmb_desc->len when it comes off the
+wire, for SMC-R and SMC-D. Leave the consumer cursor alone: it indexes
+the peer's RMB, which can be larger than ours, so clamping it to our
+RMB would under-credit peer_rmbe_space and could stall sending to that
+peer. Conforming peers are unaffected.
+
+Fixes: de8474eb9d50 ("net/smc: urgent data support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
+Reviewed-by: Sidraya Jayagond <sidraya@linux.ibm.com>
+---
+ net/smc/smc_cdc.h | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/net/smc/smc_cdc.h b/net/smc/smc_cdc.h
+index 696cc11f2303..4d630a305118 100644
+--- a/net/smc/smc_cdc.h
++++ b/net/smc/smc_cdc.h
+@@ -221,7 +221,8 @@ static inline void smc_host_msg_to_cdc(struct smc_cdc_msg *peer,
+ 
+ static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
+ 					  union smc_cdc_cursor *peer,
+-					  struct smc_connection *conn)
++					  struct smc_connection *conn,
++					  int max_count)
+ {
+ 	union smc_host_cursor temp, old;
+ 	union smc_cdc_cursor net;
+@@ -235,6 +236,12 @@ static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
+ 	if ((old.wrap == temp.wrap) &&
+ 	    (old.count > temp.count))
+ 		return;
++	/* The urgent path uses the producer count as a raw index into our
++	 * RMB, so bound it. max_count == 0 leaves the consumer cursor alone:
++	 * it indexes the peer's RMB, which can be larger than ours.
++	 */
++	if (max_count && temp.count > max_count)
++		temp.count = max_count;
+ 	smc_curs_copy(local, &temp, conn);
+ }
+ 
+@@ -246,8 +253,9 @@ static inline void smcr_cdc_msg_to_host(struct smc_host_cdc_msg *local,
+ 	local->len = peer->len;
+ 	local->seqno = ntohs(peer->seqno);
+ 	local->token = ntohl(peer->token);
+-	smc_cdc_cursor_to_host(&local->prod, &peer->prod, conn);
+-	smc_cdc_cursor_to_host(&local->cons, &peer->cons, conn);
++	smc_cdc_cursor_to_host(&local->prod, &peer->prod, conn,
++			       conn->rmb_desc->len);
++	smc_cdc_cursor_to_host(&local->cons, &peer->cons, conn, 0);
+ 	local->prod_flags = peer->prod_flags;
+ 	local->conn_state_flags = peer->conn_state_flags;
+ }
+@@ -260,6 +268,9 @@ static inline void smcd_cdc_msg_to_host(struct smc_host_cdc_msg *local,
+ 
+ 	temp.wrap = peer->prod.wrap;
+ 	temp.count = peer->prod.count;
++	/* as in smc_cdc_cursor_to_host(): bound prod, not cons */
++	if (temp.count > conn->rmb_desc->len)
++		temp.count = conn->rmb_desc->len;
+ 	smc_curs_copy(&local->prod, &temp, conn);
+ 
+ 	temp.wrap = peer->cons.wrap;
+
+-- 
+2.56.0
+
 
