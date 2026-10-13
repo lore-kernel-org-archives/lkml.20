@@ -1,104 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE1035AC24;
-	Tue, 13 Oct 2026 02:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3244189DE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791858676; cv=none; b=tZC7naY/emznaDIuz6l2cvcjjCCz/Xoe2B9MG6kUoh/47eMZq4vzktaLplESNdThKWQiCBS8oUwCerbA15VFUlrQP5EjsmigaLlKAAK300TfyZbyVoJQc77bdOM1u/fWKwJWOXw7Jk7TWtvlLoF8XVLUnUaghQ1/rQSMThBdJ7A=
+	t=1791858688; cv=none; b=BkYYfH1WXJROZ1hKJ0NKRFRmkSqt9tQOTs3pHo63TTtimZlqohaPTrV16xUysLSbbTv7ugOcZg67UvyayMKo6+/QNV3alYfJXzTPB9mrvBs3JHupcEIic7t4408/s3kPcq9tp5Tka1AALAYI4fccH4F3EsTQmBLPKQhklKSxQ6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791858676; c=relaxed/simple;
-	bh=VVlDTCYpT4L/Bt6WCv3BFWtYDHtR4t8pJNJRYof18UU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=i258zza5kLF8JctJLeBEYyL78v7I+fq/O0fp5/9ZepI+BGl66JegFJAmiLvpo2cEtouZgsgBlnsxeoCXiVPnuQP80zjfAJ2ir61qUC1h5WlizOWEzVs3of55IzYEejG0sKKmwhHPIEUmB4hEaecAHb7KLqWhSOZNyZiaAOUkSqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ex3bO/Fc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791858688; c=relaxed/simple;
+	bh=v5tONA2LxrOLSUjqd88pbtiKH2gaZjORspEuhh6aOns=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=oyIteaUimHNC+jkChFWmNlgRpZjWyRAtZttElgjHbtwFf+MTHz730veSV47LMqUvYRhgaBTLnqmwHzI8n4PL/mMm2f+zcpJXOhTT+Onp0ub1TedA4wpX/iRy+hiyN7g7+s8fDSGG7nv/Op9/JbzQHgVNI16FRKXytMN17iAUe54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WBwdtiT9; arc=none smtp.client-ip=74.125.228.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ex3bO/Fc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AE01F00893;
-	Tue, 13 Oct 2026 02:31:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WBwdtiT9"
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd613507bd1so44971a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:31:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791858675;
-	bh=neF1X1SW8f+CZ9aYnUdm8uqTfZ53Y+iDZ67qd/EFbto=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ex3bO/Fc0+ngjO39stCKwVk9Hhrd7Rifhq8ICQiBsfVb3HzvVvtZSrGzLxkxqd+0U
-	 VLhJbkRlvRhudx0ySSyQeBPTjSDeHdu/kDYU/bsXoTKFOYkEV6o2q2M5XgxrDd31WQ
-	 PGabwoaz3EcC7qUr+ttZxY9i9xXwWCFmuR7C0n1Q=
-Date: Mon, 12 Oct 2026 19:31:14 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, Muchun Song
- <songmuchun@bytedance.com>, David Hildenbrand <david@kernel.org>, Oscar
- Salvador <osalvador@suse.de>, Dave Hansen <dave.hansen@intel.com>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, =?UTF-8?B?Qmo=?=
- =?UTF-8?B?w7ZybiBUw7ZwZWw=?= <bjorn@rivosinc.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Alexander
- Gordeev <agordeev@linux.ibm.com>, Alistair Popple <apopple@nvidia.com>,
- linux-mm@kvack.org, linux-riscv@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
- pagetable_free()
-Message-Id: <20261012193114.77147e0a43affa8ee1ae896c@linux-foundation.org>
-In-Reply-To: <145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
-References: <20261010112457.49485-1-songmuchun@bytedance.com>
-	<20261010112457.49485-2-songmuchun@bytedance.com>
-	<asy-b7_C3SjnmSaS@gmail.com>
-	<145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1791858686; x=1792463486; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v5tONA2LxrOLSUjqd88pbtiKH2gaZjORspEuhh6aOns=;
+        b=WBwdtiT9bnfcR6oU5J9hvGPPsl1VYrtXNfTCfAnjawEHtvD6WikdXXUwNf27v8mMYq
+         i+JF+IDNSKB/6NS/3miLYWZKANDFun1Lvph7k8JKtXrnCCxfTbA9iDUxDOsaB4B8npH9
+         vOR4aYP6p/3DC1/OA0XL/D7QFZjujS70Vf9BM6UoOHLzzLEU6HEMF5yhb1CEJj8ltUMC
+         yoeGE0497bUXj5PzMlrxX/nj+A5ogAgIgEQlrW3ZWVimJ/gBpAqWc44JB43f+jwKOBzN
+         3n10I/tA1Ib2UMbjdZyPb3eeq9fDYHBoxzS5rBgDWWvcg9S7aL54E9E90Osr5utrej75
+         G4eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791858686; x=1792463486;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v5tONA2LxrOLSUjqd88pbtiKH2gaZjORspEuhh6aOns=;
+        b=tOyQvFQ0MU2k7pA3VzhlM5LmTZiICMeBQH90HWfXCS92KgeiGDMa7SoL4crRQkZcmh
+         HWv2J4BOtnUE3tJYMubXtJUz2taa2qL/AWmkh6pY4hyrxEZjEx0fDdZRFB5tQT4x7ky7
+         Orws5BVGYTlq09OlxCytMA5Y6rDlQqd+5yGquFTHci8mlyEHzMTfRiSKKh7/W+oDyg+o
+         1LzJJXRf6EstEozj3X1KyUtXPqxujmTKHiXQu9cPZwn/pY976gMRRSBNaRUzbJgao6FU
+         2ZwbEEyIDy80ASRWfasVAhYGdXwnzQeJW+1n8vh0SFf3Yx2xdRAQjL2pJdT8SwBHcOlu
+         hYJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7vIHukLSs8cS1gCMkmUCEMYrUmOeW/NpbA3W2jNa2iK3WbpYSbZQKe5PoM22CqmU3vKIG70M1qG8cEls=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXr70Rdfg2vvX9FOPU/fxSZgJvsCrgXDtA9QtCFNenOIylSEko
+	C6oDtOsgSi4Uwqj4E7HV5h0YS51Y72t8yODScTNNMftTIo91zl5hxFq7
+X-Gm-Gg: AYBFou1ZwtX5SkzM0q5o04k13NpVkKcA2NUp7EW4KURvBlkAf0jT+qnCDIJkiIqJuUX
+	o7DNen09gpbuVX4liZrQWPsOUqPd5bnnG0IzyMheH77GQ51oDgipB+WFgTCn9yGKdrkrc3Q9YHO
+	X9kP1okM3pbxBq/FiPiWs6mPe3GF00+fH2HuTT6YkMIGyrPrAQNJhLx3FLeDSisTEbi3Oh/A5s6
+	Bz542U5kND87iZEV1BAuTCBNStclBLZApBdhCEGupOvWdhqhLdvt8fEpS+GigTnycde9IT2PCVY
+	bBUB99VdwtCpTSZF5uzB/0nJgH9qP7KMMHTbOmtKZ84jCGktTWSA02zVlc7y1QkCMnOeyandCSi
+	idWAQKr9gwAx6eOIVqZ3v1FirjSP9U5kuDo42wyZtRRqOefnJTeD3j2IiD5df70m5mb6Ia8dFNR
+	LanovHYzHlkZZc8ktVl4Ix681lBr1AzIDtQ66OcczDsOUj6LqWx8KP5A+3EyUUSfelK+6IQ7dhA
+	jXxtFGd+OmW3CpeHv4VvIOuVhblhRodCuFBU5FKEk6coD9tnyFoBBAemGJcEAGZcjQgGyocVj4u
+	zCjoSXoj1htQev6KlCBXu2QXADEDMjCzSltj1CJH
+X-Received: by 2002:a05:6a00:8019:b0:886:84c7:72b3 with SMTP id d2e1a72fcca58-897c78d79d0mr9188887b3a.26.1791858686286;
+        Mon, 12 Oct 2026 19:31:26 -0700 (PDT)
+Received: from localhost (ec2-13-231-150-91.ap-northeast-1.compute.amazonaws.com. [13.231.150.91])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c310738dsm4513065b3a.16.2026.10.12.19.31.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 19:31:25 -0700 (PDT)
+From: jianyungao89@gmail.com
+To: songmuchun@bytedance.com
+Cc: akpm@linux-foundation.org,
+	alison.schofield@intel.com,
+	dave.jiang@intel.com,
+	djbw@kernel.org,
+	joao.m.martins@oracle.com,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	muchun.song@linux.dev,
+	nvdimm@lists.linux.dev,
+	vishal.l.verma@intel.com,
+	Jianyun Gao <jianyungao89@gmail.com>
+Subject: Re: [PATCH v3 1/2] dax/bus: fix mapping attribute error reporting
+Date: Tue, 13 Oct 2026 10:31:21 +0800
+Message-Id: <20261013023121.11036-1-jianyungao89@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260924025035.1265035-2-songmuchun@bytedance.com>
+References: <20260924025035.1265035-2-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 20:55:06 +0800 Muchun Song <muchun.song@linux.dev> wrote:
+From: Jianyun Gao <jianyungao89@gmail.com>
 
-> 
-> 
-> > On Oct 12, 2026, at 19:15, Jose A. Perez de Azpillaga <azpijr@gmail.com> wrote:
-> > 
-> > On Sat, Oct 10, 2026 at 07:24:54PM +0800, Muchun Song wrote:
-> >> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
-> >> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
-> >> tables.
-> >> 
-> >> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
-> >> splitting a PMD. Restoring the vmemmap backing pages does not collapse
-> >> the PTE table, so a later memory hot-remove eventually frees it through
-> >> pagetable_free() on x86-64. That releases the page without running the
-> >> matching destructor and leaves NR_PAGETABLE elevated.
-> >> 
-> >> Make pagetable_free() detect constructor-backed pages and run the
-> >> destructor before releasing their memory to fix the problem.
-> >> 
-> >> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
-> >> Cc: stable@vger.kernel.org
-> > 
-> > is the x86 case covered for 6.16-6.18? as far as I can see, x86
-> > free_pagetable() only uses pagetable_free() since bf9e4e30f353
-> > ("x86/mm: use pagetable_free()") in v6.19, so the backport wouldn't
-> > change anything there. or am I missing something?
-> 
-> Yes, you are absolutely right — thanks for catching this.
-> 
-> I double-checked and indeed x86's free_pagetable() only starts using
-> pagetable_free() since bf9e4e30f353 ("x86/mm: use pagetable_free()"),
-> which landed in v6.19. So for 6.16-6.18 the prerequisite is not present
-> and the backport would be a no-op there.
-> 
-> The correct trailer is:
-> 
-> Cc: <stable@vger.kernel.org> # 6.16-6.18: bf9e4e30f353: x86/mm: use pagetable_free()
-> 
-> Andrew, would you be able to update the trailer in the patch when you
-> pick it up? If there are further review comments that require code
-> changes, I'll fix this trailer as part of the v3 respin. Thanks a lot!
+This patch also fixes the mapping_store() error return issue I reported.
+The fix looks correct to me.
 
-I don't know if/how the -stable maintainers handle a comment like that.
-I expect it's more reliable to do this via Fixes:.  Possible?
-
+Reviewed-by: Jianyun Gao <jianyungao89@gmail.com>
