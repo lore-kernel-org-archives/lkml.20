@@ -1,233 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C8C3921E6;
-	Tue, 13 Oct 2026 16:30:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621C047F3B1;
+	Tue, 13 Oct 2026 16:31:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909036; cv=none; b=amiVFJLS3vWthGBXLVx0+tItp7eTre6YBtIVhS1btL9lFwbZ1RWg0KDyntv/r2kZzwlV6UJQ4Ayr0pem6QRb2RBDb4U6XAvrXYZ9FhKFfGmU3h+9GoD2s+JTbN6mhSTKV/bbs1Z80/aM32FrwWW03SO3miWFPZQB2rLMP7o8Uhw=
+	t=1791909070; cv=none; b=a4Ek9UQ2Go2Hz9HZCqlsypyBAWfZtm4E8mlj3GJHwTuSYobzdKN8qGlMfr/sh/DVKXhlq4apBZJAw80ZedKozJN54zhaUAYZeYttSp1OoUDvBcFgDxIMGbvykp+fq1A4GYlGBBX9b8sP/XLvWLyRw4XXpZhmxMzlFqrKryZcfSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909036; c=relaxed/simple;
-	bh=//YOPY6vQKmq/roFbnBBtV0XyZS3rD1vuPJk0J3JdRI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=usLVt+nc1Q4gMZkbfCElhxk8jSsiW8TPZBzOt6A0hRMmlBEsgNjBEvrnVsRfnjoXZuPbQ7wYVP/pIYuJUIjuS3Ha91SPoP3ACHui17V2fnQn90oLtItak9i3mwMzbEzKu/zrrGW1lBTV3x2OYakn1hWMY73p9N1jTWGEZ/KGAgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICic/5CH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791909070; c=relaxed/simple;
+	bh=3PWdcDHBhbPWpZh4tpl2UNxQ8ZhM6kxojcRsoH1f5fI=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=I58HqvLBJcUHpgNUVIDr+MSJT2cFyelyBgXMg9+uAL5OpqgvMNL0qt5vLqNHXbUkpM6CBw/DR2ObC7J104DAzkNZUMWYho96Uy4NtJn7z506liTtGIrr2A5ivtvSR08xCGyKpVzYEJj8EW2oP1XW7OFt3LJKSirQcDLoHdGyhs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngPdDnNj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICic/5CH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC32D1F000FF;
-	Tue, 13 Oct 2026 16:30:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngPdDnNj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9B351F00893;
+	Tue, 13 Oct 2026 16:31:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791909034;
-	bh=bCylcL8r7dne6e2xSUn57/ruC99iqBkZb4CHlqtT1Rk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ICic/5CHydH+9bIuXE2dag452kYIQD66ar9sDhSFziK7acorOlC2b8bwaJpcjdLTk
-	 pSO4dM9E8PXgsVbA7+4jpxZEeBlys/BOwQcPXPSUg+iSiZY5PGOC+qJMAjAfqZOMJt
-	 KuGn5E/rxXhExFAlde+eF/DzjYHZU7ZQ2cHI7KNz5myUOXQwYxqk6FJTZgXyvVWxHG
-	 nzFDLKHSya7+8Gic0X7znR/feoR8oTgrgYnZqwkmlFr1hT8i+vPr7u2XYmm0mcjO+r
-	 gCTLi2MehvMBJs2UkLM58h7ogPS7qWiQ5lNbm77jBCkaYLHDqRf+MGLDH/gsOjXr/y
-	 kbiwEoTzXL8vQ==
-Date: Tue, 13 Oct 2026 17:30:29 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Steen.Hegelund@microchip.com,
-	daniel.machon@microchip.com, UNGLinuxDriver@microchip.com,
-	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
-	lars.povlsen@microchip.com, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
-Subject: Re: [PATCH 1/6] dt-bindings: hwmon: sparx5: add LAN969x fan
- controller
-Message-ID: <20261013-stylized-plethora-2a9e27545adb@spud>
-References: <20261013125735.1542349-1-robert.marko@sartura.hr>
+	s=k20260515; t=1791909068;
+	bh=OKaeHoDMxbcRdhaEWBqicGHaLuwHpHXnx6ahTNQjleE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=ngPdDnNjKhLyQT2N6RhyXzNbBJDw86DCky0DDkFZybGOWOVKgXN/ad/0sBCVkayei
+	 HNYj9hrjWpWtBFX/UYrVuXDu9Nm7T92X1bPsmBFtk4Y//+tnDFq0hvpgYtRGyFnd2P
+	 c30Gm7kdg0sOrDiIM+eseypQum5fGKkqjPdbpcWGVdosSz8LpVBEl5UHRwM88GzhMF
+	 LxJV4rIAovtRgv9XNXWPgotqgnhY5XjoeljLa9b9heAjpcpggcX2vRtxecvBr3LGzE
+	 e4URZupBZVLhzqUcLPkBuj4YCM0EBklpXxFGlAABFL+uXuGY4FJty1HMPPxJ406n+g
+	 bQsk8Di+vLpcw==
+Date: Tue, 13 Oct 2026 11:31:07 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Nirmal Patel <nirmal.patel@linux.intel.com>,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Jeff Johnson <jjohnson@kernel.org>, linux-pci@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+	ath11k@lists.infradead.org, ath10k@lists.infradead.org,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/8] PCI/ASPM: Add pci_force_enable_link_state() API
+Message-ID: <20261013163107.GA1522779@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XdQaVzIG9Y1sxA5J"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261013125735.1542349-1-robert.marko@sartura.hr>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f1390db8-2369-9ab7-49a9-b7f09ef7b1ea@linux.intel.com>
 
---XdQaVzIG9Y1sxA5J
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Oct 13, 2026 at 02:41:32PM +0300, Ilpo Järvinen wrote:
+> On Mon, 12 Oct 2026, Bjorn Helgaas wrote:
+> > On Wed, Jul 08, 2026 at 04:30:16PM +0200, Manivannan Sadhasivam wrote:
+> > > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> > > 
+> > > pci_enable_link_state() and pci_enable_link_state_locked() APIs only enable
+> > > the ASPM states that were not previously disabled via
+> > > pci_disable_link_state*() API or blacklisted during init (e.g. the pre-1.1
+> > > device blacklist, which is only meant to be overridden with
+> > > 'pcie_aspm=force'). This is an intentional behavior as these APIs must not
+> > > silently re-enable states that were deliberately disabled, since doing so
+> > > could enable ASPM on a link where it is known to be unsafe.
+> > 
+> > I think this is saying that many uses of pci_disable_link_state() are
+> > to avoid hardware errata, i.e., these are basically quirks, and we
+> > should *never* enable those ASPM states.
+> > 
+> > > However, some drivers (e.g. the atheros WLAN drivers) save the currently
+> > > enabled ASPM states, disable all ASPM states before firmware download, and
+> > > then try to restore exactly the states that were enabled before. Restoring
+> > > those states requires re-enabling states that were just disabled via
+> > > pci_disable_link_state() API. But, this cannot be achieved using the
+> > > existing APIs.
+> > 
+> > This sounds like it's also for hardware errata: if ASPM works
+> > correctly, there's no need to disable it during firmware download.  I
+> > think this is *only* the atheros drivers, isn't it?  I didn't see any
+> > others.
+> 
+> There are more that should use disable/enable API. In addition ath*, I had 
+> also these in my unfinished series:
+> 
+>   brcmfmac
+>   ib-hfi1
+>   rtlwifi
+>   rtsx
+>   r8169
 
-On Tue, Oct 13, 2026 at 02:56:25PM +0200, Robert Marko wrote:
-> LAN969x integrates a PWM fan controller with a tachometer input in
-> addition to the Sparx5-compatible temperature sensor. Add a LAN969x
-> hardware-monitor compatible and describe the second register region.
->=20
-> Describe the fan as a child node using a two-cell PWM specifier for the
-> period and standard polarity flags. The child also carries the optional
-> tachometer pulses-per-revolution and thermal cooling properties.
->=20
-> Keep the existing microchip,lan9691-temp compatible for device tree ABI
-> compatibility.
->=20
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> ---
->  .../bindings/hwmon/microchip,sparx5-temp.yaml | 90 ++++++++++++++++++-
->  1 file changed, 87 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-tem=
-p.yaml b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
-> index 611fcadb1e771..e91c2a3ccd3c9 100644
-> --- a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
-> @@ -4,13 +4,15 @@
->  $id: http://devicetree.org/schemas/hwmon/microchip,sparx5-temp.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Microchip Sparx5 Temperature Monitor
-> +title: Microchip Sparx5 Hardware Monitor
-> =20
->  maintainers:
->    - Lars Povlsen <lars.povlsen@microchip.com>
-> =20
->  description: |
-> -  Microchip Sparx5 embedded temperature monitor
-> +  Microchip Sparx5 temperature monitor with a fan controller on LAN969x.
-> +  The fan child's pwms property references this node to specify the
-> +  PWM period and polarity.
-> =20
->  properties:
->    compatible:
-> @@ -18,11 +20,19 @@ properties:
->        - const: microchip,sparx5-temp
->        - items:
->            - enum:
-> +              - microchip,lan9691-hwmon
->                - microchip,lan9691-temp
->            - const: microchip,sparx5-temp
-> =20
->    reg:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  reg-names:
-> +    minItems: 1
-> +    items:
-> +      - const: temp
-> +      - const: fan
-> =20
->    clocks:
->      items:
-> @@ -31,11 +41,67 @@ properties:
->    '#thermal-sensor-cells':
->      const: 0
-> =20
-> +  '#pwm-cells':
-> +    const: 2
-> +    description: |
-> +      Number of cells in a PWM specifier.
-> +      - cell 0: PWM period in nanoseconds
-> +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
-> +
-> +  fan:
-> +    $ref: fan-common.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      cooling-levels:
-> +        description:
-> +          PWM duty-cycle values corresponding to thermal cooling states.
-> +        items:
-> +          maximum: 255
-> +
-> +      pulses-per-revolution:
-> +        minimum: 1
-> +        maximum: 4
-> +        default: 2
-> +
-> +    required:
-> +      - pwms
-> +
-> +    dependencies:
-> +      '#cooling-cells':
-> +        - cooling-levels
-> +      cooling-levels:
-> +        - '#cooling-cells'
-> +
->  required:
->    - compatible
->    - reg
->    - clocks
-> =20
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: microchip,lan9691-hwmon
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 2
-> +        reg-names:
-> +          minItems: 2
-> +      required:
-> +        - '#pwm-cells'
-> +        - reg-names
-> +    else:
-> +      properties:
-> +        '#pwm-cells': false
-> +        fan: false
-> +        reg:
-> +          maxItems: 1
-> +        reg-names:
-> +          maxItems: 1
-> +
->  additionalProperties: false
-> =20
->  examples:
-> @@ -46,3 +112,21 @@ examples:
->          #thermal-sensor-cells =3D <0>;
->          clocks =3D <&sys_clk>;
->      };
-> +
-> +  - |
-> +    #include <dt-bindings/pwm/pwm.h>
-> +
-> +    hwmon: hwmon@e2020100 {
-> +        compatible =3D "microchip,lan9691-hwmon", "microchip,sparx5-temp=
-";
-> +        reg =3D <0xe2020100 0xc>, <0xe2010348 0xc>;
+Thanks for those pointers!
 
-Are these actually the same device? These are somewhat disparate
-register regions - and the second is at a very odd offset.
+> > > Hence, add pci_force_enable_link_state() API for such callers. Unlike
+> > > pci_enable_link_state(), it re-enables the requested states even if they
+> > > were previously disabled via pci_disable_link_state() or disabled during
+> > > init. The caller is therefore responsible for only enabling states the
+> > > device actually supports, typically the ones previously reported by
+> > > pcie_aspm_enabled().
+> > 
+> > The problem is that pci_enable_link_state() cannot enable things that
+> > were disabled by pci_disable_link_state().  They're not symmetric,
+> > which violates the caller's expectation.
+> 
+> Yes.
+> 
+> This patch seems to come with my Suggested-by but what I suggested (and 
+> had a patch for) was to make disable/enable proper symmetric pairs because 
+> it is very trappy otherwise. If something else is needed in addition, that 
+> should be named differently like Bjorn also seems to suggest (however see 
+> my alternative suggestion below).
+> 
+> I renamed the current pci_enable_link_state() to 
+> pci_set_default_link_state() in my own attempt to get room for adding the 
+> symmetric pair.
 
-Thanks,
-Conor.
+We might need new names for pci_enable_link_state(),
+pci_disable_link_state(), and the quirk thing.  If we keep the same
+names, I think it will be pretty complicated to manage the changing
+semantics when backporting driver changes that use them.
 
-> +        reg-names =3D "temp", "fan";
-> +        #pwm-cells =3D <2>;
-> +        #thermal-sensor-cells =3D <0>;
-> +        clocks =3D <&sys_clk>;
-> +
-> +        fan {
-> +            pwms =3D <&hwmon 40000 PWM_POLARITY_INVERTED>;
-> +            cooling-levels =3D <0 128 192 255>;
-> +            #cooling-cells =3D <2>;
-> +        };
-> +    };
-> --=20
-> 2.56.0
->=20
+> > Instead of adding pci_force_enable_link_state(), I think we should add
+> > a new interface for the *quirk* behavior that permanently disables
+> > states.  Then pci_enable_link_state() and pci_disable_link_state()
+> > could be made symmetric.
+> 
+> My suggestion is to make the disables/enables counted per state which 
+> would allow parallel sources of disables to function without clashing.
 
---XdQaVzIG9Y1sxA5J
-Content-Type: application/pgp-signature; name=signature.asc
+By parallel sources, are you thinking of sysfs and driver calls?  If
+locking would be sufficient I think that would end up being simpler.
 
------BEGIN PGP SIGNATURE-----
+But maybe the issue is these devices where we think ASPM breakage only
+happens in certain circumstances, e.g., firmware download, so we want
+to keep states disabled for that period.  Then I guess locking inside
+the enable/disable doesn't prevent sysfs from enabling those states
+during that period.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5cpQAKCRB4tDGHoIJi
-0lm9AQCXQpPsK/Qh9JeeV83vBvj/4SlEGRYK70WcyV1ZZ+XUbwD/RVsReE5mgon+
-LvkceSyYW2eJr5Na+TSfbgUhFxZFYg4=
-=b6zh
------END PGP SIGNATURE-----
+> Disable quirks could simply not have the pairing enable, no special 
+> interface needed.
 
---XdQaVzIG9Y1sxA5J--
+I'm not sure what this looks like to the caller.  A parameter that
+says whether to count the disable?
+
+I think having a different function name would be helpfully
+descriptive because permanently removing an advertised capability is
+different from temporarily disabling a feature.
+
+Bjorn
