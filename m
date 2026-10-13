@@ -1,76 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E254D957E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B4E4D9577;
+	Tue, 13 Oct 2026 23:31:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791934263; cv=none; b=WvNaE/OoRDZgSiJrc6Farm36cqTg0zMHM0Vf8dzLArTALHSBFjMqbF8oGD8+LK1TKc3jO+c1yqv3+DTs8nAlyZz18ZRBEky6cwCBl5eOfBEwefKfP/IxKPOeTyFGpVfhS07NvpXjxtYle2rkosyTvOgIDfQXzv0TbzDTXJCtNBg=
+	t=1791934287; cv=none; b=lefhtNMHEhNHtT0GsAavc8z4uRsGm5ozbOFO3oYZqrMielScaq2DJeJuVM1sfxZ/jNKMX2JNqsUe3F2FVaETD68yboSDuEwBqRXEaogpidYLy1GONYUxtdfFTr3D77m+pQk10563DogE27IV2EHIqAvMHfeBkKJsJkwO1kX5R+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791934263; c=relaxed/simple;
-	bh=9f9NLdM3DRtuPBkjP7egipXAuBf5O2ZQpTJ6081sC5U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OrK6MU4t5yJJifj9+ynWI4OH/td/3z0xjh28bp5FW6UWRpBkcPCxQdazFhaGkLZyHGcsvWV79a9BYaJjd78DPzDuuw8Ng/I6mhOXqW/3SOJXIm4xTL7jL+h6FQxlFGFXMM2Kz44koZJx7MloUTZ6sVMRaG1sSUdkemo77fjD9sU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOvYKe6/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791934287; c=relaxed/simple;
+	bh=u1Ha/Si/8J2pD8iT4rc/MZ9ssmdEQ0bjMSk9Wd6XVKM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-Id; b=eBRVYAy9SH73co8A8yY14b91C4h3dXVvpngK4AKYQ24rcbuYsnXIosIMR6h6Gjz6e1EsxIWaEr7ViN0MzOwJQCjbsBYwCkZr8KPzXbozQO95gxzJHw75KHbQrhL6OsQ6+PbGifjYvkNJb+u4RLJ1eXqF0giJzjDOgMl4RpacV48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXSJPJb3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOvYKe6/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4EAE1F00898
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:31:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXSJPJb3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF091F000FF;
+	Tue, 13 Oct 2026 23:31:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791934262;
-	bh=9f9NLdM3DRtuPBkjP7egipXAuBf5O2ZQpTJ6081sC5U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cOvYKe6/RHWICOEYmRDgV1/CJfXN6zxTPVa/ggFa8azzpJRLfZ2Vo/2Ar2YsPfWVm
-	 0/8zH8osSU/5FsuZbN/LhW8CcX74hIAMvAaMLVB6dWGyntAQI3WxOTDZFW0uMH5HY+
-	 3xv67x1AfqlxAzDEKm14sUDvJ6vWbFZkM8YOKNlydXNENR2kCs5FHFg+m6x7/+LIvV
-	 bayGrYm9IetFKRECdnvKYl4H+hz8yHgWPNfraagJ4b45VPzUv3be/HNt7SgC69VETq
-	 9YZC4+oEPyEj02C9Et6IFBeJ/ho9EA2SQnr51gMlTunqFsvVApghEiDoo65ysfpy3K
-	 pjgmnHQbLaF9w==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a9787a156eso27821131fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:31:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByl1TWlDLYhg6y7iryXMTOurU8ym83X3kKp3EPlH5NzL2QVeLH40yrTjqwAxsnRpRBIZwvqEuWLgZJ1xA0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8RRFJXwDFr9UiiSuwtYq2rY8yRUENx49kh7bzDPXyXfXhBVi9
-	zc4zu3pL9Bv4+AFg35jLvDchWA16ONAMOQfsswsViuTYpRjZ4BRMeoaxN+S+Pn0j8ha9ipwvJa7
-	w8JlWMileCIOs4UPAHp0ovFlZMykvXzo=
-X-Received: by 2002:a05:651c:e17:b0:3aa:e460:a1e with SMTP id
- 38308e7fff4ca-3aae4600da8mr7501681fa.8.1791934261486; Tue, 13 Oct 2026
- 16:31:01 -0700 (PDT)
+	s=k20260515; t=1791934286;
+	bh=APi2ZfgZmahKqfvONReNmB6QiAyaVs+ZKVZwZPGqYh4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PXSJPJb3ZwyaTyYxBAjLq6sUf5snAqcUWFn5362P9BKVrs69z5jtuKBXOK7MgZFhj
+	 vaIbebRCBcIe3qo7EX2QIue+IYOQk85QSc1HSf9sog366F2tvfexS+4+S0Srs9rlY3
+	 tu9PBp5qMgAgFN+zmTzdwu2xBFeDEkwqgrWouzNrV28buHFQbMQrXeYfcVVIMxZgcq
+	 hjnr/maN5XTmY681pZxlgFkAb9xYESxFz0fnpityZ/sHYBe/AIEYgBNRv806/E/nBk
+	 hSVqJ0W5gFuHRjiF+QaIJcH/1crTop/LBq9EC2QpYdFjbiODK4riQu7gxG9kWuUbrU
+	 C3mBPZ7oZAHDw==
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: amachhiw@linux.ibm.com
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, Amit Machhiwal <amachhiw@linux.ibm.com>,
+ Michal =?utf-8?q?Such=C3=A1nek?= <msuchanek@suse.de>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org, kvm-ppc@vger.kernel.org,
+ Mark-PK Tsai <mark-pk.tsai@mediatek.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] tracing: Do not initialize tracefs work if tracing is
+ disabled
+Date: Wed, 14 Oct 2026 08:31:21 +0900
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261009163557.88467-2-amachhiw@linux.ibm.com>
+References: 20261009163557.88467-1-amachhiw@linux.ibm.com
+ <20261009163557.88467-2-amachhiw@linux.ibm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013074327.4961-1-Chloe_Chen@asmedia.com.tw>
-In-Reply-To: <20261013074327.4961-1-Chloe_Chen@asmedia.com.tw>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 14 Oct 2026 01:30:49 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkyvp+DAQTFT2oyydjyCwqSO1DmCgQExbsVsOBYRuQLAQ@mail.gmail.com>
-X-Gm-Features: AclHuK--NzRkxrMOOurKIIgZ9lTUtEMpVE9dR3r-rR7PD9mLnaGJV8p3MYT60oY
-Message-ID: <CAD++jLkyvp+DAQTFT2oyydjyCwqSO1DmCgQExbsVsOBYRuQLAQ@mail.gmail.com>
-Subject: Re: [PATCH v2] gpio: amdptpci: add support for AMD PT PCI controller
-To: Szuying Chen <Chloe_Chen@asmedia.com.tw>
-Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Yd_Tseng@asmedia.com.tw, Jesse1_Chang@asmedia.com.tw, 
-	Richard_Hsu@asmedia.com.tw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <20261013233123.5FF091F000FF@smtp.kernel.org>
 
-On Tue, Oct 13, 2026 at 9:43=E2=80=AFAM Szuying Chen <Chloe_Chen@asmedia.co=
-m.tw> wrote:
-
-> This commit implements the new gpio-amdptpci driver to support the
-> GPIO functionality on AMD PT PCI platforms.
+On Fri, 09 Oct 2026 22:05:56 +0530, Amit Machhiwal <amachhiw@linux.ibm.com> wrote:
+> If trace buffer allocation fails during early boot (e.g.  in
+> early_trace_init() -> allocate_trace_buffers()), tracing_disabled is
+> left set to 1 and the global trace array events list remains
+> uninitialized.
 >
-> Signed-off-by: Szuying Chen <Chloe_Chen@asmedia.com.tw>
-> Co-authored-by: YD Tseng <Yd_Tseng@asmedia.com.tw>
+> Later during boot, tracer_init_tracefs() (invoked via fs_initcall)
+> queues tracerfs_init_work asynchronously without checking if tracing was
+> disabled.  When tracer_init_tracefs_work_func() runs, it calls
+> event_trace_init() and init_tracer_tracefs(&global_trace, NULL)
+> unconditionally.  This leads to __find_event_file() dereferencing an
+> uninitialized tr->events list, causing an early boot NULL pointer
+> dereference Oops:
 >
-> v1->v2:
+>   BUG: Kernel NULL pointer dereference on read at 0x00000010
+>   Faulting instruction address: 0xc000000000485be0
+>   Oops: Kernel access of bad area, sig: 7 [#1]
+>   ...
+>   NIP [c000000000485be0] __find_event_file+0x70/0x3c0
+>   LR  [c000000000448874] init_tracer_tracefs+0x274/0xc80
+>   Call Trace:
+>    init_tracer_tracefs+0x274/0xc80
+>    tracer_init_tracefs_work_func+0x50/0x320
+>    process_one_work+0x1e8/0x5c0
+>    worker_thread+0x1dc/0x3d0
+>    kthread+0x194/0x1b0
+>    start_kernel_thread+0x14/0x18
+>
+> Check tracing_disabled at the beginning of tracer_init_tracefs_work_func()
+> and return immediately if tracing is disabled or failed to initialize,
+> preventing the crash.
+>
 
-NACK
+Looks good to me.
 
-I have provided feedback on v1 which was ignored.
-Read it and incorporate it.
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Yours,
-Linus Walleij
+> Fixes: 6621a7004684 ("tracing: make tracer_init_tracefs initcall asynchronous")
+> Cc: stable@vger.kernel.org
+> Reported-by: Michal Suchánek <msuchanek@suse.de>
+> Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
+> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+> ---
+>  kernel/trace/trace.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+> index e4a490d3d08c..7ac9e1c92702 100644
+> --- a/kernel/trace/trace.c
+> +++ b/kernel/trace/trace.c
+> @@ -9287,6 +9287,12 @@ static struct notifier_block trace_module_nb = {
+>  
+>  static __init void tracer_init_tracefs_work_func(struct work_struct *work)
+>  {
+> +	/*
+> +	 * Do not attempt to initialize tracefs if tracing was disabled or
+> +	 * failed to allocate
+> +	 */
+> +	if (tracing_disabled)
+> +		return;
+>  
+>  	event_trace_init();
+>  
+> -- 
+> 2.54.0 (Apple Git-157)
+>
+
+Thanks!
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
