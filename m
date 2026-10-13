@@ -1,70 +1,83 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545CE5349A5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:53:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D895372E7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906783; cv=none; b=JxiuTnGHDKwx1LEcTPer7pY4yjxpI0XHhyKP+tPOgOlkbZJxjGoB3W57Ij2IAwInYDAPSc83d9X9IyIiGGzfISJ4n8SsTIi+mapBjpIoSiLMSv0CDiBmS8CsdIcigGcIiUNnxaFfyPwFEgN/FVV+N7kbDcjRS7s0U3Ati619Zuc=
+	t=1791906786; cv=none; b=DLoyIX01nLnFMG/UWJWTZGeeCqdckVlJTClzyryES+xbE2VlZUbitbSzJ9r88MU7TQ0o/59m0WZmNS4fx5tOFeCbkHr8eMpsh6Ix3WP1SC7WIv9rtM1YRetLh2plRh5jd5/Cuu3JQbxSKbXl/PtijvT9Vx/CBTJ5p+oxvuSfqcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906783; c=relaxed/simple;
-	bh=ChTKHUNjFcnORbYAjC4fkDktrNorx4Hi2ieqGgB8B4s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZFhodGCsF307Lrwt/661HGUazLVNFePAwKa/ef2+KJgBJRDmqpMJuvpBxdNX8V2wF7ay1kXqxRRwl1EZIu48OTraW3RMfAJ6HVQCvRcGgkF5DMBYHVCD6G0+H3wCzQTqurKxfJPdOEryIQE3FCBnogQjDUj6lnhHyjF3QsFo764=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jzYGwpt+; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791906786; c=relaxed/simple;
+	bh=qOMnAQshZi5I2yY9rgOyo/tDqeNoazX7meSK44gFpfo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=D5AP9g/FYoMFwesRhs2YCBn6Z2vOzcx9B0RcqgrdcB30hHLqX1NS05UvDC49ipu3sAG/qgcnPGDq4L40ItXJ7o8vMrk4wU3BwEVPmQgxZwJ5cPPfJqIixzQ42DFJHb4n+7+OYLJsVqENCQaiLZ63MQbsW5sncsz1iTkMt35y+sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=apNgJkD0; arc=none smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jzYGwpt+"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so1143662a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:53:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="apNgJkD0"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1c9879395so1084635a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:53:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791906782; x=1792511582; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fxh5ACR280mENbrJ33S86tfaesko80xm9BtlJSjT/L8=;
-        b=jzYGwpt+6o6fcWnuBtA8+UuLLuKpNkFl5t/iu6pz1r8RlXN4m78IAwOa66ZrsbeEoR
-         W6A8wufPktxpOlMToOBtk3dBqk+WMNMH+Z3VMRx3ZJVlluutnvEj5hUWkZ4VMgmeluAy
-         Txz+P5lslH9SNtJ7ZSxmeZOiM4ggq6WI03w5TJhd6ARyqVLdrunE0Ey5e835D+3/KmuW
-         isrZZBElQ/HUKMyIlSHb3jL23RtDkz8Sbv9y4ZoOmv11wsWBSWg+ANdlOnkj2dk+sr/X
-         2PBuqMFjHw+2K/kgNHNOS4QCwnKDlGAga4zLL9wqQzCcZ27ZabyIgoDpLvKbYmUOuWX7
-         rtHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791906782; x=1792511582;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791906784; x=1792511584; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fxh5ACR280mENbrJ33S86tfaesko80xm9BtlJSjT/L8=;
-        b=wdXVJ+OiwKprNjpDPADvEWm+7kYxmglQtCDYSGtnt4Q/qaM5zEEAieMgI9kNHAnUHh
-         J+2R/XSMPchir7eBU6jxbs82ic/QT+Lmh/8A00GjZCnDt0Mj4lz8uL65CZh8G4N9hQwx
-         NEBSyaDb/ZUEm2JyH2K1+eCbM2p1npCbfBUe+r6oSKhrZFsFaXMVhlOo6eLgLPSk12nI
-         8POSe/f6FVSGvH/x4wRb8n4Ady8bdPiB81UigwF77BKosvmp5ORhu99c3g/eq1sJcSOq
-         wZ+kIDnSXZLZSVO0Fy+hTWnKHSaKAViiwrnjmV5v7PEKmdchtlv2GU50TdLVHH76XytB
-         MyEQ==
-X-Gm-Message-State: AFq9FYIlh9KqBnyXtUFklKAT3dPNXzHqNTGJ5Az35svtzumorUo6+Ybl
-	KIPpHwh/ll6L2eMonQi+a9vyWWTyaa/WwhXzzArmCYQ1gynHZW7osUPRTnL0emVS
-X-Gm-Gg: AYBFou3/iB28jKFNlROCEvwrWFLNNSXfYK8lQ1KK9eVUwb87kPYj4j27x6Slfq2nxJ8
-	ht9L8OE2Hywh/iMQL1b5wxha/Qp/NdFI1m4UsOizakfcp+VJ3Wg35yY2xdfHT5JheZi+qj7JZuR
-	SiBS1FvtP4pAKyNHSBd3Ic962L5P+71jRuv6AYkj7zqJizpquKmf39WqIKUV14TZNTgMoO1Q74z
-	sJ2SXoe5zIFN8WLpHcfLifSp6iXxEMgLzLK0UcYj1H2huf7UfWMZzftgC+oWbxEnigJj6lP8fRO
-	u5ZdJFb/EarN0TSOyMuGKhYFUi+pdDaCiAZ3cexBt3wFoC/iWLGTSF8T0nFTD8UkVMFcH2u2W9u
-	OhXvKAt4cTBAh0rIYINVutThfiLqubEJGEiJRG7AdkEqki/lIopdHpfzQ0uBnmzjNrEIegrxAlc
-	sPVGxWTPzZkTY9pPvX2AOYEX2Kn0Ofrrk2Am4dtAh4ruZTvV+OaKL8C6K1LY4c8206QimtXdk=
-X-Received: by 2002:a17:90b:384c:b0:3ab:f38:2b43 with SMTP id 98e67ed59e1d1-3ab3ac86fbamr11259302a91.34.1791906781573;
-        Tue, 13 Oct 2026 08:53:01 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45a:2e1e::498:f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac6006280dsm95480a91.6.2026.10.13.08.52.59
+        bh=vlJ72bvKXAZMaGRlcugIP3h82wTWg8aaVMxMBFjQrAs=;
+        b=apNgJkD00Rwd/fWzRGdzIRiHFuDx00OqweM/VVm/BXrJDhuZaV8HFF4EUfhKtyFKdy
+         jywTjAm9BbhrSq/0/uqw4lFGe+fV8f/3BZtCWPvT6IcZRgANll+LBqhstBQx2BZ1D7c8
+         b7Jr+7B9I5rxYTwckyMYkc47hbf/p955tL2wSKP2LTs2753wn1n0ONKCnM4HmFaVRwFX
+         UiI+McEUQZt2lpUItFO9oYLCw8eLyqwMDjihSr8xKM6YaKs6Zo6QFjkSFdComOYV7dyM
+         RnyA9sji5aMS8/7TG1cgMGRQDY5kRiwPcbvfUHqEkiY11J8McPGww3DYFh8PV1xr5ob1
+         Zz4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791906784; x=1792511584;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vlJ72bvKXAZMaGRlcugIP3h82wTWg8aaVMxMBFjQrAs=;
+        b=wWjjhbFqs0AvttdUNZ9GLH7QLmnxBSh7909CKPvqZYvGMpJdhu6q0Av4ldO7bl0ym1
+         oYTq0grLmcnpn8mqegiWTFubLdbj54SFYjFlYz0c8DtkqJIT0m2fSKqYZKZCntslj6Bg
+         JatK3j77Od0cDBZ9h6rd+fOuBLAYCEPE64p4XMN6982TJlcyb2W7ThMjrBuro/KEtDUJ
+         +A5rfV3JgIcvl56gUPNMz+NRrimjlrQlqUiXPQVPT9KkiC/kM2J8HqkxLrBwG3CVL6j6
+         k7p81Z7P3jbaz+muJMBU2V9JmT1Xpa6OcuLgArpjvgWySBidGOtbPqHgg53R8xXUdDEj
+         P+3g==
+X-Forwarded-Encrypted: i=1; AKwUvBygG9eBmKfdy3S95dXd+Uu0kiJViH9bChdts2twUkWvB3XFidb5IzAwhlMGirkzsNvKOja+LOYzxA3h/oc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvAzI1/4LZ0vUn9Bfqib5C+sKZOd/UsxHMzpfAXuMfOXhzwHdR
+	dVSo2hZaZkRnpRN9J4PvjsBAlTVfSa0fAojbo0wDeh0ai31XDWCNGMpQDai1wEY8zJ0=
+X-Gm-Gg: AYBFou3GUCr28tJ255mdk+1UEVsP3Aw1V/2YcivwYnyX6e5WM6WSdWvV3g6yvHCtom3
+	L4q3YJTUVsGtcMh0cWqliOLm4ZBwh9NqFSse2AnBakhJEfDEW5kOx5N7XqH1h8hDMNEIE6KNbnQ
+	Kjj2HXxNEcExCMT3EnDjaBudM+25I123VecW1onMkgHzne23iB1HHfNJZoSdcOCEfK4DtfIBV3u
+	CAkuc3DCHWVh2JO4dGvrfj01f358qNpErSd+06KrEA283am7Ys2Utw4LHUJK0VOoWwilQpygiAq
+	OJmUnhpIKm7mfcmURUlFqSgHl3bUOHs/TnyvwvB48NGicdPQY9qen1q5chUu8WU3PSb/divPaa2
+	Tt49FD/OveBFyAH7lQXhBh1qKZDvjPZVjNal99g+eu/Jquyi4EInUh/K5nnbQBmzb4zuzlABSak
+	OE1Ht3p3in1JNxuCHU58/jLPUOtJf9it8cvWTkU87n7q4DBuRbudackiOZsC2kvWIFZhcr0k/5e
+	y1h7S/GFpk4+PeXUDKr
+X-Received: by 2002:a17:90b:2ccb:b0:3ab:17b6:9a93 with SMTP id 98e67ed59e1d1-3ab3afcdc6emr11228102a91.52.1791906784181;
+        Tue, 13 Oct 2026 08:53:04 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f27d491sm165944a91.12.2026.10.13.08.52.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:53:01 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org,
-	Jan Kara <jack@suse.cz>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	syzbot+d35de3666410c93fd821@syzkaller.appspotmail.com
-Subject: [PATCH] minix: keep the pinned bitmap buffers uptodate when dirtying them
-Date: Tue, 13 Oct 2026 22:52:57 +0700
-Message-ID: <20261013155257.46532-1-ngocthang2710.1999@gmail.com>
+        Tue, 13 Oct 2026 08:53:02 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Nitesh Shetty <nj.shetty@samsung.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	gliuxen@gmail.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: Re: [PATCH v4] nvme: bound FDP config log reads to the received buffer
+Date: Wed, 14 Oct 2026 00:52:36 +0900
+Message-ID: <20261013155236.3188723-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013142003.GA14422@lst.de>
+References: <20261013102812.3020500-1-yhlee@isslab.korea.ac.kr> <20261013142003.GA14422@lst.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,94 +86,6 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-minix reads the inode and zone bitmap buffer heads at mount time, keeps
-them pinned and modifies them in place. If a write to the backing device
-fails, bh_end_write() clears BH_Uptodate on the buffer. The next
-allocation or free then calls mark_buffer_dirty() on it and trips:
-
-  WARNING: fs/buffer.c:991 at mark_buffer_dirty+0x299/0x410
-  !buffer_uptodate(bh)
-  Call Trace:
-   evict+0x624/0xb50 fs/inode.c:822
-   add_nondir fs/minix/namei.c:18 [inline]
-   minix_mknod fs/minix/namei.c:50 [inline]
-   minix_create+0x88/0xb0 fs/minix/namei.c:69
-   lookup_open+0xc0d/0x1a40 fs/namei.c:4596
-
-Reproduced by mounting a minix image on a loop device, making all writes
-to it fail with fail_make_request, syncing and creating a file; the
-warning then comes from minix_new_inode(), and from minix_free_inode()
-when the creation fails and the inode is evicted.
-
-The in-memory bitmap is the only up to date copy, so it is still valid
-after a failed write. Mark it uptodate again before dirtying it, so that
-the bit is written out once the device recovers.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+d35de3666410c93fd821@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d35de3666410c93fd821
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- fs/minix/bitmap.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
-
-diff --git a/fs/minix/bitmap.c b/fs/minix/bitmap.c
-index abec438330a7..011063a8999b 100644
---- a/fs/minix/bitmap.c
-+++ b/fs/minix/bitmap.c
-@@ -39,6 +39,16 @@ static __u32 count_free(struct buffer_head *map[], unsigned blocksize, __u32 num
- 	return sum;
- }
- 
-+/*
-+ * The bitmap buffers are pinned and modified in place, so they stay
-+ * authoritative even if an earlier write failed and cleared BH_Uptodate.
-+ */
-+static void minix_dirty_bitmap(struct buffer_head *bh)
-+{
-+	set_buffer_uptodate(bh);
-+	mark_buffer_dirty(bh);
-+}
-+
- void minix_free_block(struct inode *inode, unsigned long block)
- {
- 	struct super_block *sb = inode->i_sb;
-@@ -64,7 +74,7 @@ void minix_free_block(struct inode *inode, unsigned long block)
- 		printk("minix_free_block (%s:%lu): bit already cleared\n",
- 		       sb->s_id, block);
- 	spin_unlock(&bitmap_lock);
--	mark_buffer_dirty(bh);
-+	minix_dirty_bitmap(bh);
- 	return;
- }
- 
-@@ -83,7 +93,7 @@ int minix_new_block(struct inode * inode)
- 		if (j < bits_per_zone) {
- 			minix_set_bit(j, bh->b_data);
- 			spin_unlock(&bitmap_lock);
--			mark_buffer_dirty(bh);
-+			minix_dirty_bitmap(bh);
- 			j += i * bits_per_zone + sbi->s_firstdatazone-1;
- 			if (j < sbi->s_firstdatazone || j >= sbi->s_nzones)
- 				break;
-@@ -207,7 +217,7 @@ void minix_free_inode(struct inode * inode)
- 	if (!minix_test_and_clear_bit(bit, bh->b_data))
- 		printk("minix_free_inode: bit %lu already cleared\n", bit);
- 	spin_unlock(&bitmap_lock);
--	mark_buffer_dirty(bh);
-+	minix_dirty_bitmap(bh);
- }
- 
- struct inode *minix_new_inode(const struct inode *dir, umode_t mode)
-@@ -243,7 +253,7 @@ struct inode *minix_new_inode(const struct inode *dir, umode_t mode)
- 		return ERR_PTR(-ENOSPC);
- 	}
- 	spin_unlock(&bitmap_lock);
--	mark_buffer_dirty(bh);
-+	minix_dirty_bitmap(bh);
- 	j += i * bits_per_zone;
- 	if (!j || j > sbi->s_ninodes) {
- 		iput(inode);
--- 
-2.43.0
-
+Thanks, all.  No objection to trimming the KASAN trace down to a few
+frames in the commit log if a shorter one reads better -- please feel
+free to cut it down.
