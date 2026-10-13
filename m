@@ -1,154 +1,310 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AC24E4C28;
-	Tue, 13 Oct 2026 11:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F67F3D5657;
+	Tue, 13 Oct 2026 11:41:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891694; cv=none; b=C9iVOE7m4hgpODN1czonydreE0tW7gB0MMGQickcznOFe4lr0eKf5QqHCDWzSPD/OL+lOz+ZSZtg+f6KUGnHcuIMYm0+GO+I9E8LF6/HWeX3vE2PbbAllS6iw5l6egqRwFiqCVQDciUR2M2DFf7obl5M3QlRVTRRGUO5YxjpQ0A=
+	t=1791891707; cv=none; b=P4ztuhMjJylguftLIelepgyWfaY49/87bR7y8B11f6zhPZK4OcogiiJIZXI4W76A/Zb/LJW0/qkkLZMji6xQX1EDpTI1C8NgOJeckvHY9gNz2BhGRFuWRvIBbVp8+8sAMIE+qIIEprafX4AUvKTqkADa3Pj2sI5jtZx7X91LbBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891694; c=relaxed/simple;
-	bh=9fyepUSFbap3das+eKlha3QFUTceWJGofHIg/6dNGCg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=quJsgYcw8sUgLZMynRnsOReM8BUBH1zjH9SjHGod2/G2/m04XPAQEY2/RUEijJutMFt14hz9Erx3+KNi5O8e+Iy6Vye7dogXF76zG8k8AWPKG4TTk8M4uema3e/q93x04pSTn2eb7+184ovJ7w2ydjHZ+ic0lX+DeaIbSNFkmNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OOLZmlgc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791891707; c=relaxed/simple;
+	bh=YAJaHA3FL843BSgj3aVZh2SzSmUdAo8/w5ok0jPj4ro=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Or5E/5zKhlMUEW9rp8T0OlZ1KisoaimlGXsD+DfasfFfpTPPVvJUTIs+DP8u/OXDbqPD/mTN+nz8v0KmahVXDn51VaYqSRq667gtdCqguZI4XvinJtX1g7fanisfFN8t+gztxPYMYy8ljFcKztkQfRIr6e1v4qfUr/x1qY95n3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=npu+QCRd; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OOLZmlgc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B81F1F000FF;
-	Tue, 13 Oct 2026 11:41:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791891693;
-	bh=F93gnhxwnZO5S1/DscLlicVfv27bgs8rbwtUzEPimv0=;
-	h=From:Date:Subject:To:Cc;
-	b=OOLZmlgce05m/yaxI8/uEpHWHpgwwZWngSGvYKvMt2dwL8iUBw3yTtiW2JE1wSqo0
-	 /V88R5r9cuNnozbtMFjr5aHJW0+fUKM65LvgQKklm9RpD/MN9e3EMj4Xz3DReAydiB
-	 gm10EpbDJBWYtymh9vwAaDLXkRP0OENRNrsD9OUNJ2E5q6S5ZR6EGc1kW9lISklk70
-	 f5IsMMJhlEEPafgI+jSCPFzSsz4xKFuZ0RU9iYsJG6N/uigsVV1pGkqgAQhS+NEpKl
-	 IZO5Kqo7VwWVut+6nd/joTJONbId64t663bDwBl6nbNOFxyJ23XgOqSGIyA8PLNpEl
-	 R1ILmp+IVBkmg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 13 Oct 2026 13:41:24 +0200
-Subject: [PATCH] mm: disallow ioremap'ing ordinary RAM in
- generic_access_phys()
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="npu+QCRd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791891706; x=1823427706;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=YAJaHA3FL843BSgj3aVZh2SzSmUdAo8/w5ok0jPj4ro=;
+  b=npu+QCRdxHDeQ+hopmntH8gv6i/ESNlGJk1TX/xF3RNfXOAl+Qx6VW/h
+   ubozrqrGhDTvFDvekO4D98ycDLQ2C/iivUEewR1ALAGOKmuXV/wgKrrGN
+   q4GGAQ0cCtAdY3Xh8vKpwa9Jrvfv6dzYzmW0UPegyiPOpTQwJn+p3ixBF
+   OLmqjkZzKg2ILDlvCWEVfauYx/Jh94j7DXMdO22yYX0K/Cd6pR+L9EjVx
+   3KVnZhFqL2dI0URDrp5Br1i3kRX7biWO87qs97NUAiJuVG3d+ELPZMXlT
+   LqpF60TCsWHuatdhsx2k5f+r50vDiKblsHbwxssCungEOt2Wh+mN+4/d6
+   w==;
+X-CSE-ConnectionGUID: oJRbqSpuR2meDHx38zrtmA==
+X-CSE-MsgGUID: o02KUoaQTKGHApKa9Jwvqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="515081"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="515081"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 04:41:45 -0700
+X-CSE-ConnectionGUID: b8gYIYLoRdyjmsQDQ/nStQ==
+X-CSE-MsgGUID: JaGIfAB3QKqpSXdMgk+ecQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1501815"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 04:41:39 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 13 Oct 2026 14:41:32 +0300 (EEST)
+To: Bjorn Helgaas <helgaas@kernel.org>
+cc: Manivannan Sadhasivam <mani@kernel.org>, 
+    Bjorn Helgaas <bhelgaas@google.com>, 
+    Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>, 
+    Rob Herring <robh@kernel.org>, Nirmal Patel <nirmal.patel@linux.intel.com>, 
+    Jonathan Derrick <jonathan.derrick@linux.dev>, 
+    Jeff Johnson <jjohnson@kernel.org>, linux-pci@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, linux-arm-msm@vger.kernel.org, 
+    linux-wireless@vger.kernel.org, ath12k@lists.infradead.org, 
+    ath11k@lists.infradead.org, ath10k@lists.infradead.org, 
+    Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+    Qiang Yu <qiang.yu@oss.qualcomm.com>, 
+    Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/8] PCI/ASPM: Add pci_force_enable_link_state() API
+In-Reply-To: <20261012225832.GA1415301@bhelgaas>
+Message-ID: <f1390db8-2369-9ab7-49a9-b7f09ef7b1ea@linux.intel.com>
+References: <20261012225832.GA1415301@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAOMYzmoC/yXMQQqDQAxG4atI1h2ISqX1KlLExl+Ni1EmKop49
- 07b5bd47yRDUBiVyUkBm5pOPiK9JSRD43s4baMp46xImZ+uh4+F1I0IzOp5OMxxl4MfXOR8bym
- Wc0Cn++9avf629T1Clu+KrusD+UT1mncAAAA=
-X-Change-ID: 20261009-generic_access_phys-0f3e0806305d
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Benjamin Herrensmidt <benh@kernel.crashing.org>, 
- Peter Zijlstra <a.p.zijlstra@chello.nl>, Rik van Riel <riel@redhat.com>, 
- Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3277; i=david@kernel.org;
- h=from:subject:message-id; bh=9fyepUSFbap3das+eKlha3QFUTceWJGofHIg/6dNGCg=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLOSTx7YW87s+XvMXWn2Z+4+nZU/npuMLN5rZ3H0VTdX
- suDoS8rO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiInzTDP6utt7Qf5NvM7+9+
- nnrm5fEjTTvyK9mqLR/sjOiyubf28m6G/7UHtOZsP9r8sGFl2te4mWqPdbkC5mne/rbjwxe96mu
- Jp9gA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: multipart/mixed; BOUNDARY="8323328-2110680251-1791890800=:1237"
+Content-ID: <eb4da7c3-6b95-7dae-87b6-bb3fda24da91@linux.intel.com>
 
-generic_access_phys() can end up getting called on CoW PFNMAP mappings,
-resulting in it trying to ioremap anonymous folios, which especially
-the x86 code doesn't enjoy, and which is in general just odd/wrong.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-E.g., with a CoW mapping of a PCI BAR:
+--8323328-2110680251-1791890800=:1237
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <6e83485e-223f-0f0c-17ad-c73df48cefdf@linux.intel.com>
 
-ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
-  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
-  Call Trace:
-   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
-   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
-   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
-   mem_rw+0x2a1/0x670 fs/proc/base.c:912
+On Mon, 12 Oct 2026, Bjorn Helgaas wrote:
 
-But more generically, we should disallow access to anything that looks
-like ordinary RAM in the system: including allocating memory (e.g.,
-alloc_pages) and mapping them in a VM_PFNMAP.
+> On Wed, Jul 08, 2026 at 04:30:16PM +0200, Manivannan Sadhasivam wrote:
+> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> >=20
+> > pci_enable_link_state() and pci_enable_link_state_locked() APIs only en=
+able
+> > the ASPM states that were not previously disabled via
+> > pci_disable_link_state*() API or blacklisted during init (e.g. the pre-=
+1.1
+> > device blacklist, which is only meant to be overridden with
+> > 'pcie_aspm=3Dforce'). This is an intentional behavior as these APIs mus=
+t not
+> > silently re-enable states that were deliberately disabled, since doing =
+so
+> > could enable ASPM on a link where it is known to be unsafe.
+>=20
+> I think this is saying that many uses of pci_disable_link_state() are
+> to avoid hardware errata, i.e., these are basically quirks, and we
+> should *never* enable those ASPM states.
+>=20
+> > However, some drivers (e.g. the atheros WLAN drivers) save the currentl=
+y
+> > enabled ASPM states, disable all ASPM states before firmware download, =
+and
+> > then try to restore exactly the states that were enabled before. Restor=
+ing
+> > those states requires re-enabling states that were just disabled via
+> > pci_disable_link_state() API. But, this cannot be achieved using the
+> > existing APIs.
+>=20
+> This sounds like it's also for hardware errata: if ASPM works
+> correctly, there's no need to disable it during firmware download.  I
+> think this is *only* the atheros drivers, isn't it?  I didn't see any
+> others.
 
-For pages with an online memmap, allow only pages marked as reserved
-(PageReserved). This also includes memblock allocations, however,
-distinguishing them from other MMIO is tricky, and nobody should really
-be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
-do not care about).
+Hi,
 
-So only allow access if there is no online memmap, or if the pages are
-marked reserved. Reject other pages with -EINVAL.
+There are more that should use disable/enable API. In addition ath*, I had=
+=20
+also these in my unfinished series:
 
-Note that, just like other pfn_to_online_page() users, we won't care about
-concurrent memory offlining; mapping memory that can concurrently get
-offlined is highly dubious.
+  brcmfmac
+  ib-hfi1
+  rtlwifi
+  rtsx
+  r8169
 
-Reported-by: syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
-Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
-Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
-I went back and forth 10 times and concluded that using PageReserved
-should be the right thing to check for now.
----
- mm/memory.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+> > Hence, add pci_force_enable_link_state() API for such callers. Unlike
+> > pci_enable_link_state(), it re-enables the requested states even if the=
+y
+> > were previously disabled via pci_disable_link_state() or disabled durin=
+g
+> > init. The caller is therefore responsible for only enabling states the
+> > device actually supports, typically the ones previously reported by
+> > pcie_aspm_enabled().
+>=20
+> The problem is that pci_enable_link_state() cannot enable things that
+> were disabled by pci_disable_link_state().  They're not symmetric,
+> which violates the caller's expectation.
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 1f5d5f7d39cd2..5d9f757a00073 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -7226,6 +7226,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	resource_size_t phys_addr;
- 	pgprot_t prot = __pgprot(0);
- 	void __iomem *maddr;
-+	struct page *page;
- 	int offset = offset_in_page(addr);
- 	int ret = -EINVAL;
- 	bool writable;
-@@ -7240,6 +7241,19 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- retry:
- 	if (follow_pfnmap_start(&args))
- 		return -EINVAL;
-+
-+	/*
-+	 * Reject anything that looks like ordinary RAM, including anonymous
-+	 * folios in CoW mappings or allocated kernel memory. Note that we
-+	 * cannot distinguish memblock allocations from non-RAM reliably, so
-+	 * we cannot easily reject them here.
-+	 */
-+	page = pfn_to_online_page(args.pfn);
-+	if (page && !PageReserved(page)) {
-+		follow_pfnmap_end(&args);
-+		return -EINVAL;
-+	}
-+
- 	prot = args.pgprot;
- 	phys_addr = (resource_size_t)args.pfn << PAGE_SHIFT;
- 	writable = args.writable;
+Yes.
 
----
+This patch seems to come with my Suggested-by but what I suggested (and=20
+had a patch for) was to make disable/enable proper symmetric pairs because=
+=20
+it is very trappy otherwise. If something else is needed in addition, that=
+=20
+should be named differently like Bjorn also seems to suggest (however see=
+=20
+my alternative suggestion below).
 
-base-commit: 634cbf5b794b734c78631b92e381cfc85f357bbe
+I renamed the current pci_enable_link_state() to=20
+pci_set_default_link_state() in my own attempt to get room for adding the=
+=20
+symmetric pair.
 
-change-id: 20261009-generic_access_phys-0f3e0806305d
+> Instead of adding pci_force_enable_link_state(), I think we should add
+> a new interface for the *quirk* behavior that permanently disables
+> states.  Then pci_enable_link_state() and pci_disable_link_state()
+> could be made symmetric.
+
+My suggestion is to make the disables/enables counted per state which=20
+would allow parallel sources of disables to function without clashing.
+
+Disable quirks could simply not have the pairing enable, no special=20
+interface needed.
+
+And the lane margining proposal would also just fit in with that approach=
+=20
+as well.
 
 --
+ i.
 
-Cheers,
+> > This API is implemented by adding a 'force' parameter to the shared
+> > __pci_enable_link_state() helper. When 'force' is true, the requested
+> > states are cleared from 'link->aspm_disable' before enabling.
+> >=20
+> > Suggested-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcom=
+m.com>
+> > ---
+> >  drivers/pci/pcie/aspm.c | 37 ++++++++++++++++++++++++++++++++++---
+> >  include/linux/pci.h     |  3 +++
+> >  2 files changed, 37 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/drivers/pci/pcie/aspm.c b/drivers/pci/pcie/aspm.c
+> > index 1c15a14718e8..c04fb71de91c 100644
+> > --- a/drivers/pci/pcie/aspm.c
+> > +++ b/drivers/pci/pcie/aspm.c
+> > @@ -1506,7 +1506,8 @@ int pci_disable_link_state(struct pci_dev *pdev, =
+int state)
+> >  }
+> >  EXPORT_SYMBOL(pci_disable_link_state);
+> > =20
+> > -static int __pci_enable_link_state(struct pci_dev *pdev, int state, bo=
+ol locked)
+> > +static int __pci_enable_link_state(struct pci_dev *pdev, int state, bo=
+ol locked,
+> > +=09=09=09=09   bool force)
+> >  {
+> >  =09struct pcie_link_state *link =3D pcie_aspm_get_link(pdev);
+> > =20
+> > @@ -1527,6 +1528,10 @@ static int __pci_enable_link_state(struct pci_de=
+v *pdev, int state, bool locked)
+> >  =09=09down_read(&pci_bus_sem);
+> >  =09mutex_lock(&aspm_lock);
+> >  =09link->aspm_default =3D pci_calc_aspm_enable_mask(state);
+> > +
+> > +=09/* Force enable states that were previously disabled */
+> > +=09if (force)
+> > +=09=09link->aspm_disable &=3D ~link->aspm_default;
+> >  =09pcie_config_aspm_link(link, policy_to_aspm_state(link));
+> > =20
+> >  =09link->clkpm_default =3D (state & PCIE_LINK_STATE_CLKPM) ? 1 : 0;
+> > @@ -1553,7 +1558,7 @@ static int __pci_enable_link_state(struct pci_dev=
+ *pdev, int state, bool locked)
+> >   */
+> >  int pci_enable_link_state(struct pci_dev *pdev, int state)
+> >  {
+> > -=09return __pci_enable_link_state(pdev, state, false);
+> > +=09return __pci_enable_link_state(pdev, state, false, false);
+> >  }
+> >  EXPORT_SYMBOL(pci_enable_link_state);
+> > =20
+> > @@ -1576,10 +1581,36 @@ int pci_enable_link_state_locked(struct pci_dev=
+ *pdev, int state)
+> >  {
+> >  =09lockdep_assert_held_read(&pci_bus_sem);
+> > =20
+> > -=09return __pci_enable_link_state(pdev, state, true);
+> > +=09return __pci_enable_link_state(pdev, state, true, false);
+> >  }
+> >  EXPORT_SYMBOL(pci_enable_link_state_locked);
+> > =20
+> > +/**
+> > + * pci_force_enable_link_state - Force enable device link state
+> > + * @pdev: PCI device
+> > + * @state: Mask of ASPM link states to enable
+> > + *
+> > + * Enable device link state, so the link will enter the specified stat=
+es.
+> > + * Unlike pci_enable_link_state(), this also re-enables states previou=
+sly
+> > + * disabled by pci_disable_link_state() and overrides the ASPM states =
+disabled
+> > + * during init (e.g., the pre-1.1 device blacklist). The caller is the=
+refore
+> > + * responsible for only enabling states the device supports, typically=
+ the ones
+> > + * previously reported by pcie_aspm_enabled().
+> > + *
+> > + * Note that if the BIOS didn't grant ASPM control to the OS, this doe=
+s nothing
+> > + * because we can't touch the LNKCTL register.
+> > + *
+> > + * Note: Ensure devices are in D0 before enabling PCI-PM L1 PM Substat=
+es, per
+> > + * PCIe r6.0, sec 5.5.4.
+> > + *
+> > + * Return: 0 on success, a negative errno otherwise.
+> > + */
+> > +int pci_force_enable_link_state(struct pci_dev *pdev, int state)
+> > +{
+> > +=09return __pci_enable_link_state(pdev, state, false, true);
+> > +}
+> > +EXPORT_SYMBOL(pci_force_enable_link_state);
+> > +
+> >  void pcie_aspm_remove_cap(struct pci_dev *pdev, u32 lnkcap)
+> >  {
+> >  =09if (lnkcap & PCI_EXP_LNKCAP_ASPM_L0S)
+> > diff --git a/include/linux/pci.h b/include/linux/pci.h
+> > index ebb5b9d76360..be6719626c8f 100644
+> > --- a/include/linux/pci.h
+> > +++ b/include/linux/pci.h
+> > @@ -1918,6 +1918,7 @@ int pci_disable_link_state(struct pci_dev *pdev, =
+int state);
+> >  int pci_disable_link_state_locked(struct pci_dev *pdev, int state);
+> >  int pci_enable_link_state(struct pci_dev *pdev, int state);
+> >  int pci_enable_link_state_locked(struct pci_dev *pdev, int state);
+> > +int pci_force_enable_link_state(struct pci_dev *pdev, int state);
+> >  void pcie_no_aspm(void);
+> >  bool pcie_aspm_support_enabled(void);
+> >  bool pcie_aspm_enabled(struct pci_dev *pdev);
+> > @@ -1930,6 +1931,8 @@ static inline int pci_enable_link_state(struct pc=
+i_dev *pdev, int state)
+> >  { return 0; }
+> >  static inline int pci_enable_link_state_locked(struct pci_dev *pdev, i=
+nt state)
+> >  { return 0; }
+> > +static inline int pci_force_enable_link_state(struct pci_dev *pdev, in=
+t state)
+> > +{ return 0; }
+> >  static inline void pcie_no_aspm(void) { }
+> >  static inline bool pcie_aspm_support_enabled(void) { return false; }
+> >  static inline bool pcie_aspm_enabled(struct pci_dev *pdev) { return fa=
+lse; }
+> >=20
+> > --=20
+> > 2.43.0
+> >=20
+> >=20
+>=20
 
-David
-
+--=20
+ i.
+--8323328-2110680251-1791890800=:1237--
