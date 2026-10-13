@@ -1,107 +1,243 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C03851C04B;
-	Tue, 13 Oct 2026 16:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2432651C04B;
+	Tue, 13 Oct 2026 16:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909488; cv=none; b=hgf/DUTFcuJsdtkLhQjUTxuV6FRBZ5dPly2hBAksTemdGGUUswwZBguenbOYD/mbZoi/NwI2C1CbRQHcHLVsDvEMoTWzj+heCch9bnCV7lCFTpA0QG//t7G7dBJKdgrUjqyOLaV235VoiZhM+fYNp3XtE5m8yyC/XU8EwS5ES88=
+	t=1791909495; cv=none; b=KliJknG3CH53vIYmNWz/j+h9bxuztEqJ54qXuCjkMMexeSe2wLyGrPMhJuoCPBgBnVJUk9G99+xNsZz+JQ4pJvg/hdTh6/diCC3MNLgWb/eunTewE42GRJQ9p8y4RqScVY7EEWD7G49OrxLxwLGPuN5/DU9hJo4w0ctPje0UffI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909488; c=relaxed/simple;
-	bh=+Q3Zno1VCYhLi025pNDCmJZ5SJkmktbvvlNyIe3ul58=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=huWiSHhTFJqFj3Hepp67I3lU1/x5Y0t6mrxgXtGouKMGXCIsbO3HceyX0cjQ5vKzQ/7lutIOY9HynesOlIetRYX0sKyHiZrt4EmiYcMfw8vDYw2P9+VW0n/2bq935uUwFrGASvbh9ifCwz+nV3B0dPWqLx8Md1F8UgwQ/lc7TVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=e1ax7CXa; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791909495; c=relaxed/simple;
+	bh=T6HbvwJs0WFdfIMH7iGZvbiuF8hxNT5sxvPhXCviOuo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HYFKZz194xiy3sVoscQCLM4IrqaH5f2htYB1XVzgr49RbU7jU4HweDnP34RRCwmMxcwb2gCTxoxzkX2wn0HK9bHiul+wKKPtC0OSNujWw9AtmA+6Nza9Z8cukIIvAHH+SZH4ScA7iBy70d4N/k4dbfCufkQ+JHG2Z++X0ure424=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XOPc8K41; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="e1ax7CXa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791909493; x=1823445493;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=+Q3Zno1VCYhLi025pNDCmJZ5SJkmktbvvlNyIe3ul58=;
-  b=e1ax7CXarPloee56z0IK/h4iNJMBei/CbIEhywO9Gl9/jXWmS3wv7684
-   4BuMLVaNkshri/BJltObI8V0UJ77CZ/jEcycxTiOxy9qqVz88JAy6g8Zc
-   blk4CRaPCPRhQ/zIv7pkAJaFV91WkRCuVLNx9PguX+mitHy7mnA9CgmBR
-   XxouKqXL4LkDNt8upsTR4CLcGaxYr9myuTlGgHh52s+nfr6Cw5iVigT4T
-   UXyOm/7OGdg4n2qthNinHg1iKa20Ixbeq3I9Gs54q0ee1u9B9S3Z5HoCK
-   4flPGJj24ucfiQjLvmT9gUmt23yi5KSH+ALlBYwTl7OnzQibhB2xNXdUA
-   A==;
-X-CSE-ConnectionGUID: Sp3osUIdQWWTWm3jf6a2zA==
-X-CSE-MsgGUID: hbxw1M9VQ1CpZaB/MCeBVQ==
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="64973283"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 Oct 2026 09:38:12 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 13 Oct 2026 09:38:05 -0700
-Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 13 Oct 2026 09:38:01 -0700
-From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
-Date: Tue, 13 Oct 2026 18:37:27 +0200
-Subject: [PATCH v11 5/5] ARM: configs: at91_dt_defconfig: enable GFX2D
- driver
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XOPc8K41"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3461F008A1;
+	Tue, 13 Oct 2026 16:38:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791909493;
+	bh=5JjUhGeNIiMMANRRaRsl1pjhnEELfb6stTWkWEvlDGk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XOPc8K41ZtPawQbQY0ycbHdlD1r+q7i2YNb8nWdP3Nki8QCWNHVDWn8Rv9Boj0vA1
+	 h54iiFOgIU5hKxvZ/JnFd2AhxdpFHcPWCFLtawSfiqMR/HqRZyrbHdoKZqK3wdzXZl
+	 4VCOS5dlwpn6j+8pzRpE4DfksdNVr844PnTv91tpdRjL4uEdKPdJk1hxBHX/+c6+Iq
+	 9ugkEdgrOvjXJgUCrboKSoR+vQ4PKlN83dql9jOUE2hy25vcyc8irPF6Z0RKRT+nQ7
+	 ZcFkkgfbUMKLCYRQ3lPWWUXcf9p5bUXrkDwqNEsAtrHvCLY/oin8rUAodncurSG0Xm
+	 l697HdRha7amg==
+Date: Tue, 13 Oct 2026 17:38:08 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, Steen.Hegelund@microchip.com,
+	daniel.machon@microchip.com, UNGLinuxDriver@microchip.com,
+	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
+	lars.povlsen@microchip.com, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
+Subject: Re: [PATCH 1/6] dt-bindings: hwmon: sparx5: add LAN969x fan
+ controller
+Message-ID: <20261013-unnoticed-deviator-fa9263334ad5@spud>
+References: <20261013125735.1542349-1-robert.marko@sartura.hr>
+ <20261013-stylized-plethora-2a9e27545adb@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261013-cpitchen-mainline_gfx2d-v11-5-7527f2efab0a@microchip.com>
-References: <20261013-cpitchen-mainline_gfx2d-v11-0-7527f2efab0a@microchip.com>
-In-Reply-To: <20261013-cpitchen-mainline_gfx2d-v11-0-7527f2efab0a@microchip.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Russell King <linux@armlinux.org.uk>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	Cyrille Pitchen <cyrille.pitchen@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=806;
- i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
- bh=+Q3Zno1VCYhLi025pNDCmJZ5SJkmktbvvlNyIe3ul58=;
- b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9a5uEC+PVJ7HIt7Hz09nzhLY/3rhA8yc+Lqlh75FLxsi
- dsiu3+bO0pZGMS4GGTFFFkOvdnam3n81WO7V6JSMHNYmUCGMHBxCsBEfu5j+MP7cprqJ4Ubkh16
- QTLbF6UGFE3V8vrVFpe5aZ/UFKWbuZsY/nCp9t7wy2Y58Tu1qdWg6QDno+zQBWcsRa6kG+/fsvf
- +RXYA
-X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
- fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dNzm2dIscauwjnQ7"
+Content-Disposition: inline
+In-Reply-To: <20261013-stylized-plethora-2a9e27545adb@spud>
 
-The GFX2D GPU is embedded in both SAM9X60 and SAM9X75; enable the
-driver to use it.
+--dNzm2dIscauwjnQ7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
----
- arch/arm/configs/at91_dt_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+On Tue, Oct 13, 2026 at 05:30:29PM +0100, Conor Dooley wrote:
+> On Tue, Oct 13, 2026 at 02:56:25PM +0200, Robert Marko wrote:
+> > LAN969x integrates a PWM fan controller with a tachometer input in
+> > addition to the Sparx5-compatible temperature sensor. Add a LAN969x
+> > hardware-monitor compatible and describe the second register region.
+> >=20
+> > Describe the fan as a child node using a two-cell PWM specifier for the
+> > period and standard polarity flags. The child also carries the optional
+> > tachometer pulses-per-revolution and thermal cooling properties.
+> >=20
+> > Keep the existing microchip,lan9691-temp compatible for device tree ABI
+> > compatibility.
+> >=20
+> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> > ---
+> >  .../bindings/hwmon/microchip,sparx5-temp.yaml | 90 ++++++++++++++++++-
+> >  1 file changed, 87 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-t=
+emp.yaml b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.ya=
+ml
+> > index 611fcadb1e771..e91c2a3ccd3c9 100644
+> > --- a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
+> > +++ b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
+> > @@ -4,13 +4,15 @@
+> >  $id: http://devicetree.org/schemas/hwmon/microchip,sparx5-temp.yaml#
+> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> > =20
+> > -title: Microchip Sparx5 Temperature Monitor
+> > +title: Microchip Sparx5 Hardware Monitor
+> > =20
+> >  maintainers:
+> >    - Lars Povlsen <lars.povlsen@microchip.com>
+> > =20
+> >  description: |
+> > -  Microchip Sparx5 embedded temperature monitor
+> > +  Microchip Sparx5 temperature monitor with a fan controller on LAN969=
+x.
+> > +  The fan child's pwms property references this node to specify the
+> > +  PWM period and polarity.
+> > =20
+> >  properties:
+> >    compatible:
+> > @@ -18,11 +20,19 @@ properties:
+> >        - const: microchip,sparx5-temp
+> >        - items:
+> >            - enum:
+> > +              - microchip,lan9691-hwmon
+> >                - microchip,lan9691-temp
+> >            - const: microchip,sparx5-temp
+> > =20
+> >    reg:
+> > -    maxItems: 1
+> > +    minItems: 1
+> > +    maxItems: 2
+> > +
+> > +  reg-names:
+> > +    minItems: 1
+> > +    items:
+> > +      - const: temp
+> > +      - const: fan
+> > =20
+> >    clocks:
+> >      items:
+> > @@ -31,11 +41,67 @@ properties:
+> >    '#thermal-sensor-cells':
+> >      const: 0
+> > =20
+> > +  '#pwm-cells':
+> > +    const: 2
+> > +    description: |
+> > +      Number of cells in a PWM specifier.
+> > +      - cell 0: PWM period in nanoseconds
+> > +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
+> > +
+> > +  fan:
+> > +    $ref: fan-common.yaml#
+> > +    unevaluatedProperties: false
+> > +
+> > +    properties:
+> > +      cooling-levels:
+> > +        description:
+> > +          PWM duty-cycle values corresponding to thermal cooling state=
+s.
+> > +        items:
+> > +          maximum: 255
+> > +
+> > +      pulses-per-revolution:
+> > +        minimum: 1
+> > +        maximum: 4
+> > +        default: 2
+> > +
+> > +    required:
+> > +      - pwms
+> > +
+> > +    dependencies:
+> > +      '#cooling-cells':
+> > +        - cooling-levels
+> > +      cooling-levels:
+> > +        - '#cooling-cells'
+> > +
+> >  required:
+> >    - compatible
+> >    - reg
+> >    - clocks
+> > =20
+> > +allOf:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: microchip,lan9691-hwmon
+> > +    then:
+> > +      properties:
+> > +        reg:
+> > +          minItems: 2
+> > +        reg-names:
+> > +          minItems: 2
+> > +      required:
+> > +        - '#pwm-cells'
+> > +        - reg-names
+> > +    else:
+> > +      properties:
+> > +        '#pwm-cells': false
+> > +        fan: false
+> > +        reg:
+> > +          maxItems: 1
+> > +        reg-names:
+> > +          maxItems: 1
+> > +
+> >  additionalProperties: false
+> > =20
+> >  examples:
+> > @@ -46,3 +112,21 @@ examples:
+> >          #thermal-sensor-cells =3D <0>;
+> >          clocks =3D <&sys_clk>;
+> >      };
+> > +
+> > +  - |
+> > +    #include <dt-bindings/pwm/pwm.h>
+> > +
+> > +    hwmon: hwmon@e2020100 {
+> > +        compatible =3D "microchip,lan9691-hwmon", "microchip,sparx5-te=
+mp";
+> > +        reg =3D <0xe2020100 0xc>, <0xe2010348 0xc>;
+>=20
+> Are these actually the same device? These are somewhat disparate
+> register regions - and the second is at a very odd offset.
+>=20
 
-diff --git a/arch/arm/configs/at91_dt_defconfig b/arch/arm/configs/at91_dt_defconfig
-index 830c6c0dbdaf..2a4a2d4c1865 100644
---- a/arch/arm/configs/at91_dt_defconfig
-+++ b/arch/arm/configs/at91_dt_defconfig
-@@ -142,6 +142,7 @@ CONFIG_VIDEO_OV2640=m
- CONFIG_VIDEO_OV7740=m
- CONFIG_DRM=y
- CONFIG_DRM_ATMEL_HLCDC=y
-+CONFIG_DRM_MICROCHIP_GFX2D=y
- CONFIG_DRM_MICROCHIP_LVDS_SERIALIZER=y
- CONFIG_DRM_PANEL_SIMPLE=y
- CONFIG_DRM_PANEL_EDP=y
+Hmm, doubly suspect since there's already a lan9691-temp compatible...
 
--- 
-2.53.0
+> Thanks,
+> Conor.
+>=20
+> > +        reg-names =3D "temp", "fan";
+> > +        #pwm-cells =3D <2>;
+> > +        #thermal-sensor-cells =3D <0>;
+> > +        clocks =3D <&sys_clk>;
+> > +
+> > +        fan {
+> > +            pwms =3D <&hwmon 40000 PWM_POLARITY_INVERTED>;
+> > +            cooling-levels =3D <0 128 192 255>;
+> > +            #cooling-cells =3D <2>;
+> > +        };
+> > +    };
+> > --=20
+> > 2.56.0
+> >=20
 
+
+
+--dNzm2dIscauwjnQ7
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5ecAAKCRB4tDGHoIJi
+0miiAQDcoS6pSOZe09nTKWW5+iqnZh40Ene/HF8ywjE+shE02AD+L+ZLOFQc9oo7
+WY2OttGlEwnYUHuXtVrbQDVuvlVSAAs=
+=YRrz
+-----END PGP SIGNATURE-----
+
+--dNzm2dIscauwjnQ7--
