@@ -1,131 +1,98 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD80752CCFF
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E23C513550;
+	Tue, 13 Oct 2026 17:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914191; cv=none; b=aqXWw6PRME1tRCAX7uvWEJA127WrykL7xW0C9grZzOpJcO/Dpopr6iMAkGglevUuw4hLtLB4Swh5TAvOTzd1TUJ4npeF9cuzgCHpsokzgV9i5XaTqmYwneuRJnX08vNLUz0YeGc5hcylH6EnN0jd+NIQaJQUbpv9z2eCqT9J25g=
+	t=1791914219; cv=none; b=O6D+V7I9a1H4qrCL0g+RJpXGKr8XRfCUTqk+65F3rR6gtfAM3e+6kZBy6cjJiv5VsaVJXKubyPwZ6LblVwA0QDbgg1x+703d5AJgIbzoWBUbVMKFmezSgq1L2krq3IqTZJJDDJs1iJVjgrXEqDu/G1j7M08IRi27W7upSlg3eyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914191; c=relaxed/simple;
-	bh=x3o1DAZn/q9fK5VTxPdRdzWyhUDNB8E+v0vhPr97sVI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QIm7U0oUYSGS2g4aYlulPJ27WsCQ/YJR7bOnRYYASbLtAIbTvEpRPDurmkq2H0OTF38Aako4U4Klxl292LUdYel4vpELBe5sfcPVP3yuzsV1AH+39iYrAMBeGneBJkTP5iH43N8NqCcWpt1T8uhAYfbvizIKWrtREoNHvYgnHEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fiYC/c+H; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791914219; c=relaxed/simple;
+	bh=HHNrM8N88GiZSo/o2R2o2Cp3l5dQUKejHWINk8wME3k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PDmIg6me/oyCpB/wlq5pVm2koH3rwOt/h05NuUppcxmZYUTTQ1eca8UxW1ShpEo3kmF/Q4infsn8ve4bonXeEa6yhB2ShyO+u6ax1xZYoLA0QeMtfcGYhHvdc4CdE6njpoRPMMnlWyIMixgFZTs8QN4daKkiiUYP8a3EyLvCk7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SMQC5mRs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fiYC/c+H"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5C1831A1216
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:56:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3217D60362
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:56:28 +0000 (UTC)
-Received: by mail.galae.net (Postcow, from userid 0)
-	id 79BD611D718C5; Tue, 13 Oct 2026 19:51:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791914187; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=4CnS8TZf6JbIo1PcyuhgihPY/KfHm7HXGTDf4os3Y2U=;
-	b=fiYC/c+H+nUVjVa/UuzUWilQmVubKD3kjfPmMTeS5WNs3KPzNdEMz0bc4laG1FqeWzkxXE
-	5kV98PvMb4XBDlyzaGuqy6v+x1EA3XopvcUOoTyyHcVqoVgbWOxFwlCXL2FXI/FwSMOMnB
-	3GjH1XMncny0Xp8A1mg02h1P7EdNRp4BbYvFaAYyP31lLkaTgeCgmQ5BqTEuwI1IiQFJBT
-	Im77FFzM0W89Btb5do8khb+pBt7Eeud7IgZwyUgacr1a0fp+/RlHDUTgIpTKB6vfPHcFBz
-	4Qw9/65yw908sOsBQFBRgYpnosE7VbspQua/xpVdZoRWLpVeH8TIb2LcwrXNsA==
-Authentication-Results: mail.galae.net;
-	none
-Message-ID: <cf574b62-efc9-4e18-9fd2-8854196823d6@bootlin.com>
-Date: Thu, 8 Oct 2026 10:31:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMQC5mRs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C9F1F000FF;
+	Tue, 13 Oct 2026 17:56:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791914217;
+	bh=hexCFrqj1R7xL2R+of3UaYujoNgio4AbRWP8wGyu7AQ=;
+	h=From:Subject:Date:To:Cc;
+	b=SMQC5mRs6gs5Qsjun6QJrN2hsKmrwuy7doahdGN2JOQMZcBUFmTCObI8HhSFm1spg
+	 oS4aqoMhl10oUpJmSw5YKhJkvlY5fLM7y4cnQKGtwEUPbjMgNn1eGHVQS0PAZ0GLa0
+	 amKFwSSSbucFjtIPz5/Dstr0mHBlkHY6w5wj2Y0TLnpw3lXyKsxJSKRrshhRD8A2NP
+	 DUmkr0ONw+giT1GRLTK5EovlA3kCRs4ibUmjDzAphduFxkuxDqKceqUJyr/gWY6/Sa
+	 BQewZ6DwQ2MZ1n/Q90lVgkAgu+9o4xVQhxT/GFX24X+7UbR+kN5OoqSjue9thS71ur
+	 L3jwmcfvAIjIQ==
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Subject: [PATCH net-next 0/4] mptcp: misc improvements for v7.4
+Date: Tue, 13 Oct 2026 19:56:37 +0200
+Message-Id: <20261013-net-next-mptcp-misc-feat-7-4-part2-v1-0-1181e5d2fda4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 07/10] net: ethoc: move setting of netops to fix crash
-To: David Yang <mmyangfl@gmail.com>, netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Jacob Keller
- <jacob.e.keller@intel.com>, linux-kernel@vger.kernel.org
-References: <20261008022656.3592191-1-mmyangfl@gmail.com>
- <20261008022656.3592191-8-mmyangfl@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261008022656.3592191-8-mmyangfl@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: None
-X-Rspamd-Queue-Id: 79BD611D718C5
-X-Spamd-Result: default: False [2.37 / 30.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DATE_IN_PAST(1.00)[129];
-	MIME_GOOD(-0.10)[text/plain];
-	BAYES_HAM(-0.03)[51.99%];
-	RCVD_COUNT_ZERO(0.00)[0];
-	TAGGED_RCPT(0.00)[netdev];
-	BCC(0.00)[];
-	DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
-	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
-	URIBL_BLOCKED(0.00)[bootlin.com:mid,bootlin.com:email,localhost:rdns,localhost:helo];
-	TO_DN_SOME(0.00)[]
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNwQrCMBBEf6Xs2YXs0ir6K+Ihxo2u0BiSrRRK/
+ 91Y8TCHxzDzFqhSVCqcugWKvLXqKzWgXQfh4dNdUG+NgR3vyRFjEmuZDcdsIeOoNWAUb3jAHrM
+ vxsjUe3eMnhwP0I5ykajzJjnDfw+XX1On61OCfR2wrh/wYxFzkAAAAA==
+X-Change-ID: 20261012-net-next-mptcp-misc-feat-7-4-part2-214a09fa1025
+To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Christoph Paasch <cpaasch@openai.com>
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
+ Hangbin Liu <liuhangbin@kylinos.cn>, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org, bpf@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1445; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=HHNrM8N88GiZSo/o2R2o2Cp3l5dQUKejHWINk8wME3k=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLLOFTzuusgpUjcr42jwPIcujswdKrarjhfJ3u1QZd/O4
+ /ZsfdGWjlIWBjEuBlkxRRbptsj8mc+reEu8/Cxg5rAygQxh4OIUgIlMmcPwz8xuIo9ovcnSuDcW
+ Gx3/zlgboPts+R2lm5tZ6mbls6+zeM/wz4bB9M48sfDURcp7XsXOn3uz/Mpp718H10c+OCnFpnP
+ sJhcA
+X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
+ fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
+Here are some unrelated improvements for MPTCP and its selftests:
 
+- Patches 1-2: avoid printing (pr_debug) uninitialised data. These are
+  non-urgent fixes that can be backported to silence errors or if it
+  helps with other backports.
 
-On 10/8/26 04:26, David Yang wrote:
-> ethoc_probe() calls ethoc_mdio_probe(), which connects the PHY,
-> before netdev->netdev_ops is assigned. phy_attach_direct() ->
-> phy_link_topo_add_phy() reads dev->netdev_ops through
-> netdev_need_ops_lock() since the commit in question, so probing crashes
-> with a NULL pointer dereference when CONFIG_NET_SHAPER is enabled.
-> 
-> Assign netdev_ops before the PHY attach, as was done for emac in commit
-> 7c9f391ec89c ("net: emac: move setting of netops to fix crash").
-> 
-> Fixes: ded86da4bbb7 ("net: ethtool: relax ethnl_req_get_phydev() locking assertion")
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
+- Patches 3-4: convert IPTables to NFTables in MPTCP selftests.
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+---
+Note: patches 3-4 have been previously sent as part of another series:
 
-Thanks,
+  https://lore.kernel.org/20260926-net-next-mptcp-misc-feat-7-4-v1-0-67af4ab37406@kernel.org
 
-Maxime
+---
+Hangbin Liu (2):
+      selftests: mptcp: convert iptables to nftables for mptcp_sockopt.sh
+      selftests: mptcp: convert iptables to nftables for mptcp_join.sh
 
-> ---
->  drivers/net/ethernet/ethoc.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/ethoc.c b/drivers/net/ethernet/ethoc.c
-> index 0c418557264c..e5b7df43e8f6 100644
-> --- a/drivers/net/ethernet/ethoc.c
-> +++ b/drivers/net/ethernet/ethoc.c
-> @@ -1211,6 +1211,8 @@ static int ethoc_probe(struct platform_device *pdev)
->  		goto free3;
->  	}
->  
-> +	netdev->netdev_ops = &ethoc_netdev_ops;
-> +
->  	ret = ethoc_mdio_probe(netdev);
->  	if (ret) {
->  		dev_err(&netdev->dev, "failed to probe MDIO bus\n");
-> @@ -1218,7 +1220,6 @@ static int ethoc_probe(struct platform_device *pdev)
->  	}
->  
->  	/* setup the net_device structure */
-> -	netdev->netdev_ops = &ethoc_netdev_ops;
->  	netdev->watchdog_timeo = ETHOC_TIMEOUT;
->  	netdev->features |= 0;
->  	netdev->ethtool_ops = &ethoc_ethtool_ops;
+Matthieu Baerts (NGI0) (2):
+      mptcp: options: mpc: avoid printing uninit data
+      mptcp: options: dss: avoid printing uninit csum
+
+ net/mptcp/options.c                                |   9 +-
+ tools/testing/selftests/net/mptcp/config           |  15 +-
+ tools/testing/selftests/net/mptcp/mptcp_join.sh    | 158 +++++++++------------
+ tools/testing/selftests/net/mptcp/mptcp_lib.sh     |   9 +-
+ tools/testing/selftests/net/mptcp/mptcp_sockopt.sh |  53 +++----
+ 5 files changed, 113 insertions(+), 131 deletions(-)
+---
+base-commit: d7804253678eb18d2be950e0542364b50be096a9
+change-id: 20261012-net-next-mptcp-misc-feat-7-4-part2-214a09fa1025
+
+Best regards,
+--  
+Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
