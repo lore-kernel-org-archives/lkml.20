@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D575172EB;
-	Thu, 15 Oct 2026 10:32:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93BC518138;
+	Thu, 15 Oct 2026 10:32:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060325; cv=none; b=HzTkmySqzG8ZC0yc2TkgCSH4RviO6Cm19wEX2phuh2cxDFoE3GY4Re/NI/s4bqfoZgJ/2hYH7Hhg0Sa6qCvViHdYyLgqHV9HV+TU6bWda4zVQXhKPC0vbE75VPDBihdyj4hWeEfoRTe8g45o2pd0LM0Zv95a06amIFOOzjwLQrw=
+	t=1792060329; cv=none; b=gLpgMxapsPDA12HFq5BFlu6quI5WeGV2Ofu/H17HIU3TyXYM2Ve6vF3HY6ikch4EJqlgu18oaaE021LLJtAZaHOWI2IE3LvuuqXqMg2y/P7LU5T03mOtwnVv08GwtF0psEkDIXZDHmz5kjmTL+rUVqOnxAojBW0IRPlvw9kH2vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060325; c=relaxed/simple;
-	bh=nGe6k58I3oJCWTNecGN8SY+3eIvLr3w09JkHMiZvKmo=;
+	s=arc-20240116; t=1792060329; c=relaxed/simple;
+	bh=LcWbFO8zjAN3DhExzsNtFCgaIvqYnv1vk4kMT0BDPig=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=IOwpF3KkFsCjrkz4pCJYkod9gnOmzY7mPV+/6ztJFEEs4BzmJG81I6IQG0bDJaCXPyW6r+yrBTXDm4D8+XagqhKDyN83/QO8Ad/nJz1pJe4dgsBl/0o10MbsAbTGxBIY/Tv4W0smKq0R2O6bKezZX8XVZlr8cVUhkckonNRNT8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDYch1M1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mA7S9xCijGhRETRPkaDjxMEeAtOP6ZAdtvA5BCh1o4QZC7wKGYr9XpzzrgTH2vyYNoo6g7ujQXvNOlWjjRukDwbbuJuFt7XT6TqJ69uyGUrWdR1x+lQY0Ky5LzCImt9AjW6GN6+SWmFC5hntgjJT0yXyGaR5Vw4gvAyIjQEzjYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kWyTJZci; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDYch1M1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6951F000C4;
-	Thu, 15 Oct 2026 10:32:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kWyTJZci"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FFD81F000CA;
+	Thu, 15 Oct 2026 10:32:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792060324;
-	bh=g5fAL6BtxNcOQIXnaFA1UzDQKFUzFJbXS6uRSNGokOs=;
+	s=k20260515; t=1792060328;
+	bh=jDnCgTsFaG3i6YRuANbbCPc4tFO5pxd0EPf4KSAuchY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eDYch1M1AaI/BrViyUWrp4VT7eVkXE/di0KdS1vbPLmmBsmvXiN2+iZ+woVZOBvwi
-	 9gIRThYB+wugKariNCuJ2BHhcRcSUVxFAQGmEfKd4z5MsZ66IAGbW5R6IX/2XJgUS7
-	 nzvS20Aa78IcmM9P4vulC1PB8vNmUJyf8R2Dv9SLYM6Y1QkauenQb+4jyxkbq1GHYs
-	 hToOtTQFVj0coxS6trUj5r6mLT9Jh9CHQeI/o4C/f5x8Dgcc2+bDAFS7fj4Yteq5Ig
-	 pjqFGa1KTGBr2kZjwyZXwNU2WJgcqyTg4yzAQdDMe1nHhRksecxG97ohlH7Z5PtRpi
-	 tNz4LicR+GzPQ==
+	b=kWyTJZciqMqr61y1Ag9eqhBevVezxIM1cEg7awV0qK2CYXyl6Gh/CWopkelhvH5h7
+	 AvewpxGbdsKYm6t3+ayHtbHr3rak1q2SM1MEk39R4MdAojrTVCy5WFQJ1X2LNRNr+0
+	 fCVa5skJYRstfgzWBa2QoNsNSGrkXW5WVdOUtllT67jRG1DKggXE04RZ4mxjypWIf9
+	 aJhqzCbA0CBWq1GLMpVONS+/O76je5L6vL7lXRBIAtMmgTu0FQs3XrkGIWmrl7bTb8
+	 m1BWyrOhiwsAFkAQpdGJymTQZnJnVH4rKErX+MIn50E0AFW4Vv78jPlRL1uCJ5zh03
+	 zyWHiHBmk/K1Q==
 From: Mark Brown <broonie@kernel.org>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Andrei Simion <andrei.simion@microchip.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, phucduc.bui@gmail.com
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>, 
- Cyrille Pitchen <cyrille.pitchen@atmel.com>, linux-sound@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261002043856.97295-1-phucduc.bui@gmail.com>
-References: <20261002043856.97295-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH 0/5] ASoC: atmel-i2s: fix clock error handling
-Message-Id: <179190773817.42298.3099194075465995539.b4-ty@b4>
-Date: Tue, 13 Oct 2026 17:08:58 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Milo Kim <milo.kim@ti.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261013181417.492252-1-clamor95@gmail.com>
+References: <20261013181417.492252-1-clamor95@gmail.com>
+Subject: Re: [PATCH v2 0/7] lp872x: remove platform_data based probing and
+ adjustments
+Message-Id: <179191936114.42298.15974586022772125890.b4-ty@b4>
+Date: Tue, 13 Oct 2026 20:22:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,44 +47,41 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1808; i=broonie@kernel.org;
- h=from:subject:message-id; bh=nGe6k58I3oJCWTNecGN8SY+3eIvLr3w09JkHMiZvKmo=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurJ5/s1776Kugc+Ub+Hb9nmBUXWfR+Hpzqknjkk+MM
- 0x9e+R/dpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAi/18z/OFaqvVf5r/fzy3i
- l5sdH3vN6r3032/1549Htp7cXtGyc3M7I8PZx16HZPJY1rzQlqn9e6LjQYHNpW0MLKrcZprHnDQ
- Pv+MEAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2025; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=LcWbFO8zjAN3DhExzsNtFCgaIvqYnv1vk4kMT0BDPig=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurF56Sp1zo3r8wgPruZ+c2S8kblvH9c3ayO+m1YrZN
+ +2TS1b/7ihlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEbv9kZLji18y440Irf2z3
+ 7sTpIuL3BcP/XLzAscVY+Ynu9yiPNnuGPzwvhA3XzS3ce9FaMd/vadUfQY15Gp+DxH5UsX1Wvbm
+ XmRMA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 02 Oct 2026 11:38:51 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: atmel-i2s: fix clock error handling
+On Tue, 13 Oct 2026 21:14:10 +0300, Svyatoslav Ryhel wrote:
+> lp872x: remove platform_data based probing and adjustments
 > 
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> Hi all,
-> 
-> This series fixes clock error handling in the Atmel I2S driver by
-> propagating errors, using optional clock APIs, and simplifying probe
-> error reporting.
-> 
-> [...]
+> Upgrade schema. Consolidate driver file, remove platform_data based
+> probing and add missing regulator/chip supplies.
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
 
 Thanks!
 
-[1/5] ASoC: atmel-i2s: fix MCK generator error handling
-      https://git.kernel.org/broonie/misc/c/2e2da92de9bf
-[2/5] ASoC: atmel-i2s: use optional API for muxclk
-      https://git.kernel.org/broonie/misc/c/be952abd69c1
-[3/5] ASoC: atmel-i2s: use optional API for gclk
-      https://git.kernel.org/broonie/misc/c/b431a055fb76
-[4/5] ASoC: atmel-i2s: use dev_err_probe() for pclk errors
-      https://git.kernel.org/broonie/misc/c/5421a0a39d43
-[5/5] ASoC: atmel-i2s: remove redundant error message
-      https://git.kernel.org/broonie/misc/c/c501f9873aca
+[1/7] regulator: dt-bindings: ti,lp872x: Deprecate ti,dvs-gpio and ti,update-config
+      https://git.kernel.org/broonie/misc/c/c299083f5d00
+[2/7] regulator: dt-bindings: ti,lp872x: Document input supplies
+      https://git.kernel.org/broonie/misc/c/3fa475838a7c
+[3/7] regulator: lp872x: Fold driver header into driver file
+      https://git.kernel.org/broonie/misc/c/2411d590ac10
+[4/7] regulator: lp872x: Remove redundant regmap wrappers
+      https://git.kernel.org/broonie/misc/c/67b4e8a9426b
+[5/7] regulator: lp872x: Remove platform_data based probing
+      https://git.kernel.org/broonie/misc/c/58f1f2c36970
+[6/7] regulator: lp872x: Add support for input and regulator power supplies
+      https://git.kernel.org/broonie/misc/c/646e25232f75
+[7/7] regulator: lp872x: Use macro to fill regulator descriptor
+      https://git.kernel.org/broonie/misc/c/399bc14dec56
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
