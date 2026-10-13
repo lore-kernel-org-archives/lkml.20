@@ -1,289 +1,308 @@
-Received: from oak.phenome.org (oak.phenome.org [193.110.157.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9FC48641C;
-	Tue, 13 Oct 2026 06:00:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.110.157.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E134B29DB8F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871220; cv=none; b=tSxRbp7DSftrRD9U453H+qZCU1pM7+rb6sxqfQRkFtcmIkZ04PweSRanExUMk6Lxprgs+QqGx1R1LY/u8a7jR9bE8eMeL7qqrJjbip5Xx6JYZL+sqOLcF4YGmuS+Ggin9MCZtpq2I6S6EnLUdaEv8X1MzJIJUJCCRldnouKYjr8=
+	t=1791871238; cv=none; b=bJDb3ZnHfuDCRhyQykwN9PwD1NOizu3w5J64x/vo03/qutpCwi/oqhQKPUKBzIX3WVTFVhQDKbw1o2Tk1op5mVH0c5bkVD9XNnMa3FvqNMJCK6V/x3MKmx/7F10JC0Q05O+ZdSUOlf2A7EGYoeXQz8VegxA5GzfFw56Ef9WUUB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871220; c=relaxed/simple;
-	bh=yVcXeYqVlL1dF3ynvXQd+XxFGCNMSlk4b47CA2WQYB4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XfP6wAfgUgyXNLROuygeDJiMx2EaCBvuQxMTlvlNdP43BCzV2NdzzYNsAFCv2/+AU5jpabBErAQk1CmlcoE6rgH1iPJXmhrCl9/mGw4/0XPIo5tuNYyjkw52ZoMjBjTE3coJnuQeeOzBEAuawiC/3lK0uTdRfoDntOQ2oJSv+1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=phenome.org; spf=pass smtp.mailfrom=phenome.org; dkim=pass (2048-bit key) header.d=phenome.org header.i=@phenome.org header.b=ecPoNpUN; arc=none smtp.client-ip=193.110.157.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=phenome.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phenome.org
+	s=arc-20240116; t=1791871238; c=relaxed/simple;
+	bh=YYRWZl4u3Uh21mQ++xbyke7rOxG/1RLoQw/Of8q5WT0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hvq0R22niThwTiq2pehnVf3Hu+P075XsYi/HbH3nke51Qi1ktTf7R6oQJ2XvUlzqN1tZfP6I/EP8XrZizvdC/Bdlfbv7IwLHN9MMZj1k9S+8vJBgtZKUSjaVI/bB+qPaj/hY0mV2LTEySm7EOZVK/BvnbBgw53R0lILNJJziO28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qFOu6A/R; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=phenome.org header.i=@phenome.org header.b="ecPoNpUN"
-Authentication-Results: oak.phenome.org (amavisd); dkim=pass (2048-bit key)
- reason="pass (just generated, assumed good)" header.d=phenome.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=phenome.org; h=
-	in-reply-to:content-transfer-encoding:content-disposition
-	:content-type:content-type:mime-version:references:message-id
-	:subject:subject:from:from:date:date:received; s=oak1; t=
-	1791871205; x=1792735206; bh=yVcXeYqVlL1dF3ynvXQd+XxFGCNMSlk4b47
-	CA2WQYB4=; b=ecPoNpUNXbRLv4KFGPfhEC2FCLPDNTiVQqdjDSGU9+2Mn0nP2vz
-	XUkz8lKcK7/+XqooQn6joJfT7+ell14kVvYJ0I4m7oul9oUpyNmqyhGez5Q7bFzU
-	9/3H3uPKsSyBagBAOuOsGF3x8EGj03v8FTzFwCXvibFo+d4WXgg2o7zVwhv83bqQ
-	mLEibJTrscMHL0SMClX78JKjD2IidqyoeZblCqSQOHJemrsifB+w/SjRWqWsQkGE
-	CXTElxrqmEYCGD8mNmwtq7PK4bwrrPvdvxDjQdGDW3N1k5itzc4OoVWZx756SeNt
-	GjnEOlQ6/ilrXLN/6dk9FtSS/s26z1637Xw==
-X-Virus-Scanned: amavisd at oak.phenome.org
-Received: by oak.phenome.org (Postfix);
-	Tue, 13 Oct 2026 08:00:02 +0200 (CEST)
-Date: Tue, 13 Oct 2026 08:00:01 +0200
-From: Antony Antony <antony@phenome.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: antony.antony@secunet.com, chopps@labn.net,
-	steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH ipsec v5] xfrm: iptfs: fix pp_ref_count underflow when
- sharing page_pool frags
-Message-ID: <as0sujmhR7dpE-ar@ayla.phenome.org>
-References: <xfrm-iptfs-pp_ref_count-underflow-v5-1-c25508ec9160@secunet.com>
- <179171627713.434549.11629734394381610294@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qFOu6A/R"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a7fecf8440so1283295a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:00:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791871236; x=1792476036; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=odGcP4OG/NlpBPBL4aEpmzbDePI14gC8lqg8uBJDoEU=;
+        b=qFOu6A/RWATz+hD+o5rlQDy8IKPe1gYF/OUeGQ8SRlis0lPrxRqepGrNC47ghZneE1
+         f/98oT656fr+UgPyUsKJdDJNiHSW6Nh5oaesb/o6eZSJaDQhnlBUUYmBLKtYRCJPOCS+
+         TcRtvEKNSUMEitpTUnhsmxLCnS8T5ZBM84z0DWBmjhGkQuAKarkuZoCV6BoCfem8lT5+
+         wkMq4eqwrb8v381BKGWxWmrCk7uHzY7fjs5XQ59hFQGvHm8006kbwrGpkaFxBS5RTvV6
+         Epx/nCCfCB76P+VxCpVAujkGNgG4ER94aJYsN8uwm1OTteRqGxY23JloSRRmkdD5Cz93
+         0Llw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791871236; x=1792476036;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=odGcP4OG/NlpBPBL4aEpmzbDePI14gC8lqg8uBJDoEU=;
+        b=ZBtQQBpJwxHHkzE2xg7TWTQNklxN0WaqdPBL0P3hkNETrEbS+wlvBySIjTU4N8wKnp
+         5i5Z1m24GAjVoK0agQFdoTekrZQ9rh18H+PseK403+U//olljfdJxETkG/XP4kld50r+
+         GhyfGysKrmUes+cPAdSRbgkjXN6O87JSF7W7L4o0mSabZJvzZpmaVolQ4WbycdgV9KSK
+         degMNZ30eqEbIueGrB68XOF984IZ7XH4RAtPL8EZu9yvoT3JKvupRiHmpDtcqx4kdm2E
+         yLk8uf1tBbN9qmn2uCQ3o/ebnNzcw3CZcFWpv3v/CGWxOUsIV0Wd8jiXa85k1QYsDXpK
+         CBaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwhEiiBxG8xKYrMP5RFNeqxgUK3+gx2em+3ohiO/Iw455UxjYWyhldOcOcXzwWiHqT1JKYW4Mq+sHU9gzo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4U5BKiM2nUU38JtFGJrrBaI3YL7ulDbObSjf93xSv+hnsH32K
+	5fEt6PfHx4SecC53Mnt2zsX/SIQQxm7oR590TdApYTN3R1TAsuv2Dv7M
+X-Gm-Gg: AYBFou2nCUgoGTiRTU7MZ9tpFQmOJC1e7bpfAf9UWCLtopQVPhdHLv5McqrS7AaA7QE
+	W9sj56PctB5UeLIZDKYALfuDAEjVfG/FbmKtssAxtzG7oY00nHFe4e9kzko76pkJeWBRGuPYxVv
+	7DqyH7HAivf92sFniT2riZ7zMnY7eov9SF/8pLCwpbH+YdgbX6N4oenLNtMgoZOvTg+syHnaECy
+	AuQ4ewHU+KpGvAuQpMGnloJOiqgGi2r/ntCt1Ydsy++A6qzHtarrCmck2fLL+xlhvk/eTKW+sAq
+	l+lPXVWbY2wM69WnHP0YlpE/lMdzTCgruTcgO8qWANqKz1DT04tLMNZvq4UBZtTERYFg1QpIk+o
+	PsuEkCqEIBQ146qmy9GFggfnscP8TaX8/NLNaUcq4EX34dx6/fqMeuFEjvwbYR8j/Vk6WH4eTPx
+	J4GHzQevM7mjeOu1h9qkv6yn4l3RCCluuFPJb14ozTP5gfVS/tIzLwgfLr2bzcyG88tnRRLnOns
+	GI0P/s=
+X-Received: by 2002:a17:90a:e704:b0:3aa:fc22:8aaa with SMTP id 98e67ed59e1d1-3ab3b0951e9mr9730377a91.67.1791871236081;
+        Mon, 12 Oct 2026 23:00:36 -0700 (PDT)
+Received: from bintable.localdomain ([123.215.20.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ddac6dsm18592915a91.7.2026.10.12.23.00.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 23:00:35 -0700 (PDT)
+From: Jinpyo Lee <bint4b13@gmail.com>
+To: linux-nfs@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	linux-kernel@vger.kernel.org,
+	bobtobabz@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] nfsd: prevent a double put of revoked layout stateids
+Date: Tue, 13 Oct 2026 15:00:21 +0900
+Message-ID: <20261013060021.46543-1-bint4b13@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <133aa8197620ef4f36a48faa62c207f5ee12c0a0.camel@kernel.org>
+References: <133aa8197620ef4f36a48faa62c207f5ee12c0a0.camel@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179171627713.434549.11629734394381610294@kernel.org>
 
-On Sun, Oct 11, 2026 at 10:57:57AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0 (1)
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] The commit message says the iptfs_skb_add_frags() hunk is
->   cosmetic: "Its destination skb never has pp_recycle set today, so…
+nfsd4_free_stateid() finds an admin-revoked layout stateid with
+find_stateid_locked(), which does not acquire a reference. The layout
+case drops cl_lock without marking the stateid closed, then stops fence
+work and calls nfs4_put_stid() without owning a reference. Concurrent
+disposal can therefore access a freed layout stateid or drop a reference
+owned by another holder.
 
-It could be better written. If I have to send another one I woul re-write it.
-Otherwise patch works. If there are no other issues it could be applied.
+Mark the layout stateid CLOSED under cl_lock so only one disposal caller
+proceeds. Take a temporary reference before dropping cl_lock and hold it
+while stopping fence work and draining the remaining layout segments,
+then release that reference with the final put. This keeps the stateid
+alive even though its IDR owns no reference and its layout segments are
+being removed.
 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but it sits in the
->   function the patch edits.
-> - [Low] iptfs_frag_ref() (net/xfrm/xfrm_iptfs.c:453-466) decides whether
->   a frag is page_pool owned differently from the release path.
-> 
-> --
-> 
-> xfrm: iptfs: fix pp_ref_count underflow when sharing page_pool frags
-> 
-> This adds iptfs_frag_ref(). When the destination skb has pp_recycle set
-> and the frag's head page is page_pool owned, it takes a page_pool
-> reference. Otherwise it takes a plain page reference. The helper is used
-> in iptfs_consume_frags() to fix a pp_ref_count underflow on the TX
-> aggregation path, and in iptfs_skb_add_frags() for consistency.
-> 
-> > diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
-> > index 6920940a35b49..86688c0c3db96 100644
-> > --- a/net/xfrm/xfrm_iptfs.c
-> > +++ b/net/xfrm/xfrm_iptfs.c
-> 
-> [ ... ]
-> 
-> > @@ -449,6 +450,21 @@ static bool iptfs_skb_can_add_frags(const struct sk_buff *skb,
-> >  	return true;
-> >  }
-> >  
-> > +static void iptfs_frag_ref(skb_frag_t *frag, bool recycle)
-> > +{
-> > +	netmem_ref netmem = skb_frag_netmem(frag);
-> > +	struct page *head;
-> > +
-> > +	if (recycle && !netmem_is_net_iov(netmem)) {
-> 
-> [Severity: Low]
-> 
-> This is a pre-existing issue, but the net_iov handling here doesn't
-> match the release side.
-> 
-> For a pp_recycle destination, every net_iov frag falls through to
-> __skb_frag_ref() -> get_netmem(), which never touches pp_ref_count.
-> The release path in napi_pp_put_page() does this:
-> 
-> 	netmem = netmem_compound_head(netmem);
-> 
-> 	if (unlikely(!netmem_is_pp(netmem)))
-> 		return false;
-> 
-> netmem_is_pp() returns true for page_pool backed net_iov. If such a frag
-> is shared through iptfs_skb_add_frags(), the release would drop a
-> pp_ref_count that was never taken.
-> 
-> This doesn't look reachable today:
-> 
->   - Software ESP can't pass an unreadable skb on to IPTFS input. When
->     skb_copy_bits() fails, esp_remove_trailer() calls BUG().
->   - mlx5 is the only unreadable-netmem driver with IPsec offload, and
->     mlx5e_xfrm_add_state() rejects modes other than transport and
->     tunnel.
->   - On TX, iptfs_frag_ref() is only called on the head page.
-> 
-> The net_iov behaviour is also the same as before the patch. The commit
-> message already says "The netmem/devmem path is not addressed and
-> probably needs a fix in net/core".
-> 
-> Could this be handled together with that net/core change?
+Use cl_lock for the CLOSED update in LAYOUTRETURN as well, matching the
+common stateid locking rule. Retain ls_mutex from the last segment removal
+through the CLOSED update, and recheck CLOSED under cl_lock after taking
+ls_mutex in LAYOUTGET. This prevents a stale LAYOUTGET from adding a
+segment after the drain. Also make the newly allocated layout stateid the
+error-path put target and update the status-locking comment.
 
-Yes, I'd rather fix net_iov together with a likely net/core change seperate commit;
-not addressed here, as the commit message says
+Restrict nfs40_clean_admin_revoked() to NFSv4.0 clients. Its timer is
+armed only by v4.0 revocations, while session clients dispose of revoked
+stateids through FREE_STATEID. Skipping session clients prevents the scan
+from repeatedly selecting a CLOSED stateid that remains in the IDR while
+an in-flight operation holds a reference.
 
-> 
-> > +		head = compound_head(netmem_to_page(netmem));
-> > +		if (page_pool_page_is_pp(head)) {
-> > +			page_pool_ref_page(head);
-> > +			return;
-> > +		}
-> > +	}
-> > +	__skb_frag_ref(frag);
-> > +}
-> > +
-> 
-> [ ... ]
-> 
-> > @@ -486,7 +502,7 @@ static int iptfs_skb_add_frags(struct sk_buff *skb,
-> >  			tofrag->len -= offset;
-> >  			offset = 0;
-> >  		}
-> > -		__skb_frag_ref(tofrag);
-> > +		iptfs_frag_ref(tofrag, skb->pp_recycle);
-> 
-> [Severity: Medium]
-> 
-> The commit message says this about the hunk:
-> 
->   Its destination skb never has pp_recycle set today, so behaviour
->   there does not change.
-> 
-> Is that accurate for the RX reassembly path?
+The vulnerability research and validation were conducted by members of
+the Tobabz team as part of the Best of the Best 15th program.
 
-No, it isn't accurate for RX reassembly; see below.
+Fixes: 86b9898920a6 ("NFSD: Handle layout stid in nfsd4_drop_revoked_stid()")
+Suggested-by: Chuck Lever <cel@kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jinpyo Lee <bint4b13@gmail.com>
+---
+Changes since v1:
+- Address Jeff Layton's concern by using cl_lock for layout CLOSED
+  checks and updates, without a type-dependent stateid status helper.
+- Move LAYOUTRETURN's CLOSED update outside ls_lock while retaining
+  ls_mutex, and update the status-locking documentation.
+- Clarify the LAYOUTGET serialization and v4.0 cleanup restriction.
+- Credit Chuck Lever's suggestion and mark the fix for stable review.
+- Rebase onto nfsd-testing c807415bc69013a5f162264ee0e14f8742c182f7.
 
-> 
-> In __input_process_payload(), the "Reuse the received skb" branch keeps
-> the skb the driver delivered (skb_pull(skb, data)). That skb keeps its
-> pp_recycle bit. If the inner packet is incomplete, it becomes the
-> reassembly destination:
-> 
-> 		if (skb->len < iplen) {
-> 			/* Start reassembly */
-> 			spin_lock(&xtfs->drop_lock);
-> 
-> 			xtfs->ra_newskb = skb;
-> 
-> On the next ESP packet, iptfs_reassem_cont() uses it as newskb. The
-> sharing gate there only requires pp_recycle to match:
-> 
-> 	if (!skb_has_frag_list(skb) && !skb_has_frag_list(newskb) &&
-> 	    (skb->head_frag || skb->len == skb->data_len) &&
-> 	    skb->pp_recycle == newskb->pp_recycle) {
-> 	...
-> 		iptfs_skb_add_frags(newskb, fragwalk, data, copylen);
-> 
-> On a page_pool NIC, both skbs have pp_recycle set. Before this patch,
-> the shared frags got a plain reference from __skb_frag_ref(), but they
-> were later released through napi_pp_put_page(), which decrements
-> pp_ref_count.
-> 
-> Doesn't that make this hunk a fix for the same underflow on the RX
-> reassembly path, not just a consistency change? Could the commit message
-> say that both the TX aggregation and RX reassembly sharing paths were
-> affected, since that matters for stable backports? 
+Validated on the above nfsd-testing base (2026-10-13):
+- Applied cleanly, passed strict checkpatch, and built and booted an x86_64
+  kernel with GCC 13.3, W=1, Generic KASAN, lockdep, and pNFS block and
+  SCSI layouts enabled.
+- Loopback pNFS SCSI read, shrink, integrity, revocation, and cleanup tests
+  passed, as did NFSv4.2, NFSv4.0, and NFSv3 read/write, fio CRC32C, and
+  unmount tests. Tracing observed two successful LAYOUTRETURNs reach the
+  modified CLOSED update and release their stateids.
+- Two concurrent FREE_STATEID requests from different slots of one NFSv4.1
+  session returned one success and one NFS4ERR_BAD_STATEID. A test-only
+  two-second pause forced the losing request into the disposal window;
+  tracing observed CLOSED, exactly one revoked-layout drain, and one
+  layout-state free.
+- No KASAN, lockdep, refcount, list-corruption, WARNING, or Oops report
+  occurred, and kernel taint remained zero through fixture cleanup.
 
-Yes, you're right. The commit message could be better worded. The
-iptfs_skb_add_frags() hunk also fixes RX reassembly, since the reused
-driver skb keeps pp_recycle. I'll update the commit message in the next
-version. I think the code is clear it fix RX side. If I send another 
-vesion I would re-word it.
+Build note: Existing format-truncation warnings in target_core_transport.c
+were excluded from WERROR; W=1 and WERROR remained enabled otherwise.
 
+The full xfstests suite was not run. Earlier v1 runtime results are not
+used as validation of this revision.
 
-> 
-> >  		shinfo->nr_frags++;
-> >  		shinfo->flags |= SKBFL_SHARED_FRAG;
-> >  
-> > @@ -2171,7 +2187,8 @@ static void iptfs_consume_frags(struct sk_buff *to, struct sk_buff *from)
-> >  		new_truesize = SKB_TRUESIZE(skb_end_offset(from));
-> >  	} else {
-> >  		iptfs_skb_head_to_frag(from, &toi->frags[toi->nr_frags]);
-> > -		skb_frag_ref(to, toi->nr_frags++);
-> > +		iptfs_frag_ref(&toi->frags[toi->nr_frags], to->pp_recycle);
-> > +		toi->nr_frags++;
-> >  		new_truesize = SKB_DATA_ALIGN(sizeof(struct sk_buff));
-> >  	}
-> >  
-> 
-> [Severity: High]
-> 
-> This isn't a bug introduced by this patch, but since
-> iptfs_consume_frags() is being changed: can it corrupt a cloned source
-> skb?
-> 
-> In iptfs_output_queued(), only the destination is checked for clone or
-> shared state:
-> 
-> 		if (shi->frag_list || skb_cloned(skb) || skb_shared(skb))
-> 			share_ok = false;
-> 
-> The per-source test never checks skb_cloned(skb2) or skb_shared(skb2):
-> 
-> 			if (share_ok &&
-> 			    (shi2->frag_list ||
-> 			     (!skb2->head_frag && skb_headlen(skb)) ||
-> 			     skb->pp_recycle != skb2->pp_recycle ||
-> 			     skb_zcopy(skb2) ||
-> 			     (shi->nr_frags + shi2->nr_frags + 1 > MAX_SKB_FRAGS)))
-> 				share_ok = false;
-> 
-> iptfs_consume_frags() then memcpy()s fromi->frags into the aggregate
-> without taking frag references, and does:
-> 
-> 	fromi->nr_frags = 0;
-> 
-> If skb2 is a clone, that skb_shared_info is shared with its sibling. The
-> sibling is left with data_len > 0, nr_frags == 0 and no frag_list, and
-> the aggregate becomes the only owner of the page references. For
-> comparison, skb_try_coalesce() only moves frags when !skb_cloned(from),
-> and takes references otherwise.
-> 
-> Cloned skbs could reach this point with nothing uncloning them before
-> dst_output() -> iptfs_output_collect():
-> 
->   - netem duplicate on an xfrm interface (netem_enqueue() uses
->     skb_clone())
->   - a non-mmap AF_PACKET listener on the xfrmi device
->     (dev_queue_xmit_nit())
->   - tc mirred from xfrmi
-> 
-> In each case the skb can be a forwarded non-GSO, non-linear, head_frag
-> RX skb.
-> 
-> With netem duplicate, the second clone is later accounted with
-> skb->data_len += skb2->len (or sent as a first skb) after its frags are
-> gone. The ESP output path can then hit BUG_ON(len) in __skb_to_sgvec().
-> An AF_PACKET reader could get -EFAULT. A concurrent reader, or DMA on a
-> mirrored device, could access pages after the aggregate frees them.
-> 
-> This dates back to b96ba312e21c and needs CAP_NET_ADMIN configuration.
-> Should the share_ok test also reject skb_cloned(skb2) or
-> skb_shared(skb2)?
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/xfrm-iptfs-pp_ref_count-underflow-v5-1-c25508ec9160%40secunet.com
-> 
+ fs/nfsd/nfs4layouts.c | 34 ++++++++++++++++++++++++++++++++--
+ fs/nfsd/nfs4state.c   | 14 ++++++++++++++
+ fs/nfsd/pnfs.h        |  6 ++++++
+ fs/nfsd/state.h       |  5 ++---
+ 4 files changed, 54 insertions(+), 5 deletions(-)
 
+diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
+index 898776c9d..749ace97e 100644
+--- a/fs/nfsd/nfs4layouts.c
++++ b/fs/nfsd/nfs4layouts.c
+@@ -312,6 +312,7 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqstp,
+ 		status = nfserr_jukebox;
+ 		if (!ls)
+ 			goto out;
++		stid = &ls->ls_stid;
+ 		mutex_lock(&ls->ls_mutex);
+ 	} else {
+ 		ls = container_of(stid, struct nfs4_layout_stateid, ls_stid);
+@@ -324,6 +325,15 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqstp,
+ 			goto out_unlock_stid;
+ 	}
+ 
++	/* A new or looked-up stateid may have been closed before ls_mutex. */
++	spin_lock(&stid->sc_client->cl_lock);
++	if (stid->sc_status & SC_STATUS_CLOSED) {
++		spin_unlock(&stid->sc_client->cl_lock);
++		status = nfserr_bad_stateid;
++		goto out_unlock_stid;
++	}
++	spin_unlock(&stid->sc_client->cl_lock);
++
+ 	*lsp = ls;
+ 	return 0;
+ 
+@@ -537,12 +547,18 @@ nfsd4_return_file_layouts(struct svc_rqst *rqstp,
+ 			nfs4_inc_and_copy_stateid(&lrp->lr_sid, &ls->ls_stid);
+ 		lrp->lrs_present = true;
+ 	} else {
+-		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
+-		ls->ls_stid.sc_status |= SC_STATUS_CLOSED;
+ 		lrp->lrs_present = false;
+ 	}
+ 	spin_unlock(&ls->ls_lock);
+ 
++	if (!lrp->lrs_present) {
++		/* ls_mutex prevents a LAYOUTGET from adding another segment. */
++		spin_lock(&ls->ls_stid.sc_client->cl_lock);
++		ls->ls_stid.sc_status |= SC_STATUS_CLOSED;
++		spin_unlock(&ls->ls_stid.sc_client->cl_lock);
++		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
++	}
++
+ 	mutex_unlock(&ls->ls_mutex);
+ 	nfs4_put_stid(&ls->ls_stid);
+ 	nfsd4_free_layouts(&reaplist);
+@@ -594,6 +610,20 @@ nfsd4_return_all_layouts(struct nfs4_layout_stateid *ls,
+ 	spin_unlock(&ls->ls_lock);
+ }
+ 
++void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls)
++{
++	LIST_HEAD(reaplist);
++
++	/*
++	 * The caller holds a stateid reference until segment draining ends.
++	 * Wait for any LAYOUTGET that passed the CLOSED check.
++	 */
++	mutex_lock(&ls->ls_mutex);
++	nfsd4_return_all_layouts(ls, &reaplist);
++	mutex_unlock(&ls->ls_mutex);
++	nfsd4_free_layouts(&reaplist);
++}
++
+ void
+ nfsd4_return_all_client_layouts(struct nfs4_client *clp)
+ {
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 26d2d56a5..1740b86eb 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -5873,9 +5873,21 @@ static void nfsd4_drop_revoked_stid(struct nfs4_stid *s)
+ 		break;
+ 	case SC_TYPE_LAYOUT:
+ 		ls = layoutstateid(s);
++		if (s->sc_status & SC_STATUS_CLOSED) {
++			spin_unlock(&cl->cl_lock);
++			break;
++		}
++		s->sc_status |= SC_STATUS_CLOSED;
++		/*
++		 * The IDR does not own a layout stateid reference. Keep ls
++		 * alive while draining worker and segment references below;
++		 * the final put releases this temporary reference.
++		 */
++		refcount_inc(&s->sc_count);
+ 		list_del_init(&ls->ls_perclnt);
+ 		spin_unlock(&cl->cl_lock);
+ 		nfsd4_stop_layout_fence(ls);
++		nfsd4_return_revoked_layout(ls);
+ 		nfs4_put_stid(s);
+ 		break;
+ 	default:
+@@ -7901,6 +7913,8 @@ static void nfs40_clean_admin_revoked(struct nfsd_net *nn,
+ 		unsigned long id, tmp;
+ 		struct nfs4_stid *stid;
+ 
++		if (clp->cl_minorversion != 0)
++			continue;
+ 		if (atomic_read(&clp->cl_admin_revoked) == 0)
+ 			continue;
+ 		if (is_client_expired(clp))
+diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
+index 559df0e5b..9b0f17a4d 100644
+--- a/fs/nfsd/pnfs.h
++++ b/fs/nfsd/pnfs.h
+@@ -75,6 +75,7 @@ struct nfsd4_deviceid_map *nfsd4_find_devid_map(int idx);
+ #ifdef CONFIG_NFSD_PNFS
+ void nfsd4_setup_layout_type(struct svc_export *exp);
+ void nfsd4_return_all_client_layouts(struct nfs4_client *);
++void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls);
+ void nfsd4_return_all_file_layouts(struct nfs4_client *clp,
+ 		struct nfs4_file *fp);
+ void nfsd4_close_layout(struct nfs4_layout_stateid *ls);
+@@ -93,6 +94,11 @@ static inline void nfsd4_setup_layout_type(struct svc_export *exp)
+ static inline void nfsd4_return_all_client_layouts(struct nfs4_client *clp)
+ {
+ }
++
++static inline void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls)
++{
++}
++
+ static inline void nfsd4_return_all_file_layouts(struct nfs4_client *clp,
+ 		struct nfs4_file *fp)
+ {
+diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+index 79dfa47b8..63b581104 100644
+--- a/fs/nfsd/state.h
++++ b/fs/nfsd/state.h
+@@ -148,9 +148,8 @@ struct nfs4_stid {
+  * nn->deleg_lock protects sc_status for hashed delegation stateids.
+  * ->cl_lock protects the bits set as one is disposed of
+  * (SC_STATUS_CLOSED, SC_STATUS_FREEABLE, SC_STATUS_FREED) and
+- * sc_status for open and lock stateids. ->st_mutex also protects
+- * sc_status for open stateids. ->ls_lock protects sc_status for
+- * layout stateids.
++ * sc_status for open, lock, and layout stateids. ->st_mutex also protects
++ * sc_status for open stateids.
+  */
+ /*
+  * For an open stateid kept around *only* to process close replays.
+
+base-commit: c807415bc69013a5f162264ee0e14f8742c182f7
+-- 
+2.50.1 (Apple Git-155)
