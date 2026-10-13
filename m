@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3910B5632B4
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CABD2563FC4
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:30:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791930639; cv=none; b=u3CnpebvOlqC/2rI0Lh5xpmznh9LOYjxOex4Guh347FzaByljo0t9dP9Hl5wqMQCD1jtIFkUJzi9EU5DJZFHqcnz6X6HuKbARG/0LC1LDD5+n38ycY7CRxhMoKfft/76LAure8arbbX9Q9yBYEQ9vNXNOCjGB+PMwtexHXfkV5E=
+	t=1791930639; cv=none; b=iYcfIJSgMUcAvcJKJEYSz0radW3soiWbc+ZrxI8gM2xvs4I+PlOYPxfkshSB7S6cxncNK6SYm4LlftHnzk9vzZSYJR+BmgK9AxeueyGfMzt25d6qdiQdZWVUhP32EQAl+pFIhS+BxMMhLBHZaURpm5ople/4vOfioIl6AjnOoxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791930639; c=relaxed/simple;
-	bh=Fix0/iIx48HjkljPrx/F0QU1Z128CIm/c2X15qaCXis=;
+	bh=BaEKBUOKEzQ5b8e/VRsPffHdnf2rXelLGXnVE8WqR8o=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=aJ5U8DXT2cDYL9yX9FVbeHjWesq4atx7eBcACe4aKt2E5aKxEKbwCV8SMHmt0O4kvwUOZtGmDU7aP1TimDDWJLn/Ib5DhK+Lc8546i337caGsEWKSBYs0/R53mtEOTb3+dE+IC85p90cChZVtoo10hGjNoiz5kYlocFe2i2TBKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GwH8nB/E; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=XnYf4XN47P17YV5XRGFauB5RxEtAj8ItSZeMBXc7/cRn16ZHQI5hlXHCW0jHPoJMLvtItoXIzseve2W3Ocnh2YlC9gG+xLDfOvPy9cAPIIYiCgaQJjo8U+cgvOTL4S1cxdXWhnDNiRHI/BsTzUm0NBCINlJKN2PmZ8m+qPkctb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqRYlEbg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GwH8nB/E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840331F00898;
-	Tue, 13 Oct 2026 22:30:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqRYlEbg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81BCC1F0089A;
+	Tue, 13 Oct 2026 22:30:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791930630;
-	bh=V6Fzv/xwZWojt+EWhgu275zfjc+Bzu1Q3i6IRSLhWJM=;
+	s=k20260515; t=1791930633;
+	bh=u+fnW1tPmbxu40oKMWMwFjVwadZ8TEhMJgUbBD5hFcc=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=GwH8nB/EZWv7fu6hE4XEjf+LGHLVoEeoyGgGQ9VD5sdxkr2B3WSq+nfiN6fa0Oa8S
-	 SzjvvVM2etKBOWr+Z5HrKg/ILeSSPbIiqQfvJS+5mAvsU/BImICKiz5rNkCuBjD5hV
-	 n8M1u9NB/9dqVrP1VzbU36OtPg7usUno5DZvaUy90P83aNebWYIN2Vn9RocHEsnzrU
-	 AGpfs4kLEYuTdUR86Y5UirVK1uiHxcw8ZfL4U5NMwXXKD9hjOHaFBdmhTniNleIOqP
-	 VbMag2Pmz3/mBg9yu2jILD+Urc4b7dvNVeDTQWKIi5JtSpNCkcoUmMBtlnmYqWjZfu
-	 vq/nByaXFPrSA==
+	b=gqRYlEbgl30iolJJRxI04b5/+vX2vDUf+gvmTH3AeTOOKftub8TF6ePRgQ1cR2+QQ
+	 Wbsn8pH1VfjK7UartKfdhwrDGiSTiIkwmWyWC4S2D5yPLA8YnXKY7sIXGXyJ//6D0u
+	 NIQxN652R8bmUqYvcwldzYIik0VfvPXl3lArPuovl3VFxYjmIc4l5C9WFv7U1vIIRK
+	 NS6Nq6jL4w8bg897dQF8+ERTCcV1cKPkwJDz9fOf1pIjz+NYVODSE4brQGInR+7CDi
+	 B/3p3E6ypRdsQeBSwEEC8/++3KHYtvybi9gLbSw4m+ryr2SVcZdu4gUCpHvERXCrg+
+	 /DqKbkxAolHgQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7727D39E4DBA;
-	Tue, 13 Oct 2026 22:30:30 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773CD39E4DBA;
+	Tue, 13 Oct 2026 22:30:33 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,48 +37,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH 1/5] f2fs: cache: introduce metadata_cache
- sysfs
- node
+Subject: Re: [f2fs-dev] [PATCH v3 00/17] f2fs: support & optimize large folios
+ for writable files
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <179193062901.1493834.12835445891823777379.git-patchwork-notify@kernel.org>
-Date: Tue, 13 Oct 2026 22:30:29 +0000
-References: <20261007114949.2428048-1-chao@kernel.org>
-In-Reply-To: <20261007114949.2428048-1-chao@kernel.org>
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net
+ <179193063201.1493834.2435628094776916750.git-patchwork-notify@kernel.org>
+Date: Tue, 13 Oct 2026 22:30:32 +0000
+References: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
+In-Reply-To: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Cc: linux-f2fs-devel@lists.sourceforge.net, jaegeuk@kernel.org,
+ chao@kernel.org, baohua@kernel.org, jyescas@google.com,
+ daehojeong@google.com, Dev.Jain@arm.com, David.Hildenbrand@arm.com,
+ linux-kernel@vger.kernel.org, zhangbo56@xiaomi.com, kaleshsingh@google.com,
+ nzzhao@126.com, lipengfei28@xiaomi.com, Ryan.Roberts@arm.com
 
 Hello:
 
 This series was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Wed,  7 Oct 2026 11:49:45 +0000 you wrote:
-> From: Chao Yu <chao@kernel.org>
+On Sat, 10 Oct 2026 00:12:07 +0800 you wrote:
+> This series supports large folios for most readable/writable files
+> in buffered I/O paths, including normal files, block-layer encrypted
+> files, and atomic files except for inline-data files, compressed files,
+> and quota files.
 > 
-> This patch exposes a new sysfs node 'metadata_cache' under
-> /sys/fs/f2fs/features/ to indicate runtime support for the in-kernel
-> metadata cache infrastructure.
-> 
-> Userspace can check this feature entry to determine support before
-> configuring metadata cache knobs (e.g., cache_wb_interval) or parsing
-> per-cache memory statistics in debugfs.
+> It also extends f2fs_folio_state to coexist with f2fs page-private
+> flags and to handle large folio write path and partial truncate of
+> large folios correctly.
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev,1/5] f2fs: cache: introduce metadata_cache sysfs node
-    https://git.kernel.org/jaegeuk/f2fs/c/e881f4730f75
-  - [f2fs-dev,2/5] f2fs: cache: shrink meta and node caches in f2fs_balance_fs_bg
-    https://git.kernel.org/jaegeuk/f2fs/c/7f35dce566fb
-  - [f2fs-dev,3/5] f2fs: cache: wake up f2fs_writeback when exceeding threshold
+  - [f2fs-dev,v3,01/17] f2fs: extend folio state for large folio write path
     (no matching commit)
-  - [f2fs-dev,4/5] f2fs: cache: support asynchronous write_end_io
-    https://git.kernel.org/jaegeuk/f2fs/c/bd09975045fb
-  - [f2fs-dev,5/5] f2fs: introduce max_atc_write_bio_entry_cnt
-    https://git.kernel.org/jaegeuk/f2fs/c/f32744a8b83d
+  - [f2fs-dev,v3,02/17] f2fs: carry subpage offset and count in write IO
+    (no matching commit)
+  - [f2fs-dev,v3,03/17] f2fs: support regular file buffered writes on large folios
+    (no matching commit)
+  - [f2fs-dev,v3,04/17] f2fs: support atomic file large folios buffered write
+    (no matching commit)
+  - [f2fs-dev,v3,05/17] f2fs: support large folio writeback
+    (no matching commit)
+  - [f2fs-dev,v3,06/17] f2fs: account large folio dirty data at block granularity
+    (no matching commit)
+  - [f2fs-dev,v3,07/17] f2fs: remove mappedtodisk flag usage in mmap write path
+    https://git.kernel.org/jaegeuk/f2fs/c/b3c984358925
+  - [f2fs-dev,v3,08/17] f2fs: prepare mmap write faults for large folios
+    (no matching commit)
+  - [f2fs-dev,v3,09/17] f2fs: make GC migration large-folio aware
+    (no matching commit)
+  - [f2fs-dev,v3,10/17] f2fs: optimize small block size large folio read
+    (no matching commit)
+  - [f2fs-dev,v3,11/17] f2fs: support partial uptodate large folio read
+    (no matching commit)
+  - [f2fs-dev,v3,12/17] f2fs: handle partial truncate of large folio dirty subpages
+    (no matching commit)
+  - [f2fs-dev,v3,13/17] f2fs: wait for folio writeback before ffs_detach_free
+    (no matching commit)
+  - [f2fs-dev,v3,14/17] f2fs: fix zeroing paths for large folios
+    (no matching commit)
+  - [f2fs-dev,v3,15/17] f2fs: handle block cloning within the same large folio
+    (no matching commit)
+  - [f2fs-dev,v3,16/17] f2fs: allow large folio support to writeable files
+    (no matching commit)
+  - [f2fs-dev,v3,17/17] f2fs: make compressed files compatible with large folio
+    (no matching commit)
 
 You are awesome, thank you!
 -- 
