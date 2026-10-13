@@ -1,210 +1,420 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858304718FD;
-	Tue, 13 Oct 2026 09:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75960470135;
+	Tue, 13 Oct 2026 09:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884911; cv=none; b=lEFNbhq8/4Z+AEFP3grx0bnvDo1NrkfXV4iDNsMbwmQ0S4u/jx48Va8x4Au+Kc61aZRYvEcVCFzma1J5tgmXbnTmJ6vazfHCeu+fChspzGUk9nsjieB5lf9NQVACdWENyNPydeBITmPtJoalpaP6A0FO2i5nkLKO6FCSSOzv/fI=
+	t=1791884910; cv=none; b=S0z1h6uVxoD5obeuis7M1dI/pYx+NiRxzMojpOQvTa7l4K+EiaJotEMxiii2vZbWsP45OqDq6bfvHa+Ji2wFjWS7W7sAiOUaeqvQRopa2hDgJQb6bs0kUErbZ4ZqTWQAuj3DDK6GC7XIHTmfq5uexs0bpCTqsw2iN3VmiidX4AI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884911; c=relaxed/simple;
-	bh=adYx3/9qwjzcfl0P1PH8mIts+UkvzybnFPplU/EoSJ4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rxrWDlRgx7Wvi1dTYF4uuao20qgfNGw+0bnVoHCpmOx2YvitRCmk5EpYciGPd2xONrB5mMLNGYCF1tv2Gy2JeLQa8MZwWZjjzFrnbVZm+npEevkOmbZdfHNtzUXJO5wi9vZimBe8lp/nYVa2zMGcEyB1jUURxY+raBmk8+YaB+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=no58pOgz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791884910; c=relaxed/simple;
+	bh=ZMzYql+eTPhwIaprwxe8Tk0FIQNw2DXddI0uo8tIaXQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OYKaZRKM7fh6BlXgTtNKLyfHbJFaaneyc5s6RjYO5DBHM6RGJLG5qxesssjMW7T97YOGczOoEzyUUT/LpEtxue0iuD15++TP7BS0J+If+dvWg0HdL5UHcLXCOXUdVFqBTdbF4kna3HJNGYgCgtMgy3Y2TKzzcxCqMAZPzrvQOTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BbfDqsif; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="no58pOgz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2091F000FF;
-	Tue, 13 Oct 2026 09:48:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791884910;
-	bh=ZWMA85UhpZgb1xgUdrTwIN+V9GMQeZAE1Tnoo9sRrhQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=no58pOgzSmPldS01bBjuPk++JqubDKPmL2Ty43rG1Dk1gxqKDHTt3ug4IEX1R4Anh
-	 upFo/sfwURQy4YZ1YuyVJVdC6ZALMDx1eotH8YIlnJy5/3O/63McAEAgeSofDFjwNF
-	 SGSWr1MOetWEtNIx3rkdpKcOEKeeCbKJee5svlDnIlW2F045FDvVE2QC2F/kvaFMJ5
-	 y/tawclwKENd1WOydkibyRSlBpXUqEdLBI95yeEdlBWhYSsAd9WBcq2i+NugsSlZvg
-	 r7dyVlS0osChdnjP0KmEkjI7QLIMNBtensaF3go3Bji51QP5cFa2P/g9eZB+F4o/xy
-	 4QthqCk5pq7Tw==
-Message-ID: <2d970074-c6db-4c18-8103-da0744ca86bb@kernel.org>
-Date: Tue, 13 Oct 2026 11:48:24 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BbfDqsif"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8xvO7790919;
+	Tue, 13 Oct 2026 09:48:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hAR58t+8Ey2kwl+lOWw66wIhet7Ku2N5Gq9T6/zQkJg=; b=BbfDqsifNMHWE4YD
+	hX+BwI+YQTKZZOguoznl+ecrGo1rjeSHOcQaw5pgweUy5ALfJGhl/nJyQ1CzARe9
+	H42/G8oNsRgWP6a/X0xFdhZeLFJtVZsMa9ZnIDKBPNcH+Cl0rr0MzPjbFhWgr/7w
+	zanQUEeNp7LMZLjKpMptmZoLteUJlTVvb3wp3cliNmOv3pdBGFzBHc0WbBt3i5fA
+	sREUU5jjnpEF+JNpw5V161ScG7MQkvROyqeAxFx9/e1t9v1doo7b1oAv3RUmYLZC
+	ITsTjoIQWRcp+bky0btN/0e6YzFs1K71IlHC26kqebf8lawssS5bkDH2roZ0sa10
+	OBECTQ==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9hmjr6w8-6
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 09:48:12 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D5pmoQ651504;
+	Tue, 13 Oct 2026 05:51:48 GMT
+Received: from hu-hgautam-hyd.qualcomm.com (hu-hgautam-hyd.qualcomm.com [10.147.247.91])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69D5plAR651483;
+	Tue, 13 Oct 2026 05:51:47 +0000 (GMT)
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 11:21:24 +0530
+Subject: [PATCH v9 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
+ binding
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v6 2/8] ipc, msg: Account msg_msg allocations
- with GFP_KERNEL_ACCOUNT again
-To: Kees Cook <kees@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>, Christian Brauner <brauner@kernel.org>,
- Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- cgroups@vger.kernel.org, linux-mm@kvack.org, Pedro Falcato
- <pfalcato@suse.de>, Kuniyuki Iwashima <kuniyu@google.com>,
- linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261006092030.got.500-kees@kernel.org>
- <20261006092035.166776-2-kees@kernel.org> <asjhg2e4-WSeKuXd@thinkpad>
- <ask5kpMS4mpI8Api@thinkpad> <202610092014.AAB20B81@keescook>
- <01c89e02-28e0-4424-b32b-50363e4d2b95@kernel.org>
- <202610130141.E186B6E@keescook>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <202610130141.E186B6E@keescook>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-qaif-shikra-audio-v9-1-f3022e28f2fd@oss.qualcomm.com>
+References: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
+In-Reply-To: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfX1sP3aKK20La/
+ CKThpItedhm/7pZt7gtU5Uzeaz86CDhbKuDBC/rYjswhv/mv2db5fJ6/9qtg9pwgcJ2kSBCP2ty
+ WEEYTqT9fs+agrREmekn1DGYsBn5lXg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfXxgqZg+Cee1MI
+ J4jt1bgfozpMzQWqzW/IQ/7kfO/GPPMkbedfELDV86CcBVZd5uWismDu2QbbDJVos4tF1ndOvCS
+ ejMkV13wcX7glQs82gw6KJN6duTga6LqkygZylWyrFSaBZjnk7rSaDeZ4M5qREe3FdFf7U1NeiJ
+ WEAScmU78PRnK8KO8/r/37oury6Aej9FZytZaS5PNzIGIKC6+OozAKpknZDoT6BweKVN/EX801q
+ fg/fe4QXWySXgDf1aRAF9a3y81V+BChomz+E1qvtxTolLETzoXbSpaaeZ5c5E1SWhAHbZ549zYC
+ TI01PL4xQUSEsJsR1EBxuOHPiZnrHgPl1PZxXx6XrOD7QGC3IqY7PhLoqLfeLjA7Sul3RlTMrkZ
+ sstn7pq/MITyBacyigvdZ0yPFiSZoOpTkQATuGr7r5LsZ/tBs23qaKHAwyTu5jJ/LRYQp/JiMhI
+ xRgafxTB2v8udHgIrVQ==
+X-Proofpoint-ORIG-GUID: GNbqad-jRU3ZSnjVcOGHPSKDmlcLO_Nj
+X-Authority-Analysis: v=2.4 cv=O5+sLx9W c=1 sm=1 tr=0 ts=6acdfe5c cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=zGZ061LBWJILYB03ySQA:9 a=QEXdDO2ut3YA:10
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: GNbqad-jRU3ZSnjVcOGHPSKDmlcLO_Nj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130038
 
-On 10/13/26 10:52, Kees Cook wrote:
-> On Mon, Oct 12, 2026 at 11:19:01PM +0200, Vlastimil Babka (SUSE) wrote:
->> On 10/10/26 05:18, Kees Cook wrote:
->> > On Fri, Oct 09, 2026 at 09:39:48PM +0200, Harry Yoo wrote:
->> >> On Fri, Oct 09, 2026 at 04:22:03PM +0200, Harry Yoo wrote:
->> >> > When it falls back to kmalloc, kmem_buckets itself should provide a
->> >> > compatibility layer when falling back to kmalloc.
->> >> 
->> >> For example, calculate_sizes() converts certain SLAB_* flags into
->> >> GFP flags (s->allocflags) for allocation. We can have a similar
->> >> logic when falling back to kmalloc.
->> >> 
->> >> Though current implementation does not allow this and requires
->> >> some rework.
->> > 
->> > I think the current series does everything correctly in the sense that
->> > nothing is allowing for mismatched fallbacks/passthrus. We could iterate
->> > from there once we have a need for this where a non-kmalloc-alignment is
->> > wanted, etc?
->> 
->> I think we can indeed simply make sure buckets have the same alignment as
->> kmalloc. It comes naturally and should (more than) satisfy everyone. I doubt
->> anyone would be needing a more specific alignment than that for a class of
->> allocations with a variable size?
-> 
-> Right, the whole point of kmem_buckets was to replace general kmalloc
-> uses, where no callers cared about alignment.
-> 
->> ctor removal is clear I think
-> 
-> Completely. I was blinded by the API of kmem_cache_create(). :)
-> 
->> for __GFP_ACCOUNT and __GFP_RECLAIMABLE I think what we could do is not to
->> drop the flags argument kmem_buckets_create and instead require that it
->> matches the usage:
->> 
->> __GFP_RECLAIMABLE requires SLAB_RECLAIM_ACCOUNT and vice versa and I can't
->> imagine there would be a buckets instance that would allocate both kinds
->> (either with or without __GFP_RECLAIMABLE)
-> 
-> Okay. (We have no users of this yet, FWIW.)
-> 
->> SLAB_ACCOUNT requires __GFP_ACCOUNT, memcg objexts are always created and used
-> 
-> Right.
-> 
->> SLAB_MAY_ACCOUNT allows __GFP_ACCOUNT, memcg objexts are always created, and
->> used when __GFP_ACCOUNT given
->> - perhaps not as optimal as the separate kmalloc types, but good enough?
+Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU DAI
+controller used on the Shikra audio platform.
 
-Ah there's already a precedent, e.g. specifying __GFP_RECLAIM means you get
-a KMALLOC_RECLAIM cache, but it may or may not be accounted depending on
-passing also __GFP_ACCOUNT and there are no separate sets of slabs for
-these. Also same can happen with kmem_cache_create() cache when only some
-allocations are __GFP_ACCOUNT.
-> I think it's fine from studying what happens with the skb data. Though
-> right now, SLAB_ACCOUNT and SLAB_MAY_ACCOUNT are functionally identical,
-> yes?
+QAIF routes audio between system memory, external PCM/TDM/MI2S serial
+interfaces and the internal Bolero/WCD codec. Platform Devicetree files
+need a binding to describe the controller resources, DAI cells and per-
+interface AIF configuration, and named constants to avoid raw numeric IDs
+in sound-dai references and child-node reg values.
 
-Both mean that objcg pointers might exist for the slabs from the cache, but
-SLAB_ACCOUNT also implies __GFP_ACCOUNT for every allocation from the cache
-even if not given. But for kmem_bucket_alloc() with SLAB_BUCKETS=n with we
-have nowhere to store that this implication should be done (that would be
-the "compatibility layer").
+Describe the MMIO region, interrupt, clocks, DMA IOMMU mapping and
+aif-interface child nodes required by the controller.
 
->> __GFP_ACCOUNT without either SLAB_ACCOUNT or SLAB_MAY_ACCOUNT is wrong,
->> __GFP_ACCOUNT would be ignored
-> 
-> *ignored* is, I think, wrong here. It would create differing behavior
-> between SLAB_BUCKETS=y/n.
+Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+---
+ .../bindings/sound/qcom,shikra-qaif-cpu.yaml       | 290 +++++++++++++++++++++
+ 1 file changed, 290 insertions(+)
 
-Yes that's why we must avoid it. SLAB_MAY_ACCOUNT is a new thing and because
-there were already many caches that may or may not pass __GFP_ACCOUNT, we
-just assume it for now in __kmem_cache_create_args(). But that's a TODO to
-start tightening it. With buckets we only have a handful of users so we
-could try doing that right away, and have warnings in place to catch any
-changes that push it into the "wrong" state.
+diff --git a/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
+new file mode 100644
+index 000000000000..acca6f617751
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
+@@ -0,0 +1,290 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/qcom,shikra-qaif-cpu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm Audio Interface (QAIF) CPU DAI Controller
++
++maintainers:
++  - Harendra Gautam <harendra.gautam@oss.qualcomm.com>
++
++description: |
++  The Qualcomm Audio Interface (QAIF) is a fully configurable DMA-based
++  audio subsystem controller. It serialises and deserialises PCM audio
++  between system memory and external serial audio peripherals (PCM, TDM,
++  I2S, MI2S) through the AIF path, and transfers parallel audio between
++  memory and an internal WCD codec through the CIF path.
++
++  AIF (Audio Interface): up to 13 multi-lane Unified Audio Interfaces,
++  each supporting up to 8 independent data lanes. Each lane is individually
++  configurable as TX (output/speaker) or RX (input/mic). All lanes of an
++  interface share a single bit clock and frame sync. Supported modes are
++  PCM (short/long sync), TDM, and MI2S (stereo/mono). Per-interface
++  configuration includes sync source (master/slave), sync mode, sync delay,
++  sync inversion, slot width (8/16/24/32-bit), sample width, active slot
++  masks (up to 32 slots), bits-per-lane frame size, lane enable/direction
++  masks, loopback, output-enable control, and full-cycle path support for
++  long chip-to-chip connections.
++
++  CIF (Codec Interface): up to 10 RDDMA (playback) and 10 WRDMA (capture)
++  channels connecting to an internal codec over a parallel bus. Each channel
++  supports active-channel enable mask (up to 16 channels), frame-sync
++  selection, frame-sync delay, frame-sync output gating, dynamic clock
++  gating, and 16-bit packing/unpacking.
++
++  Note on RX/TX naming convention: in QAIF, TX refers to the output
++  (speaker/playback) direction and RX refers to the input (mic/capture)
++  direction. This applies to both AIF lane directions and CIF slot/mask
++  properties.
++
++  DMA engine: RDDMA fetches audio from DDR/TCM/LPM into a shared SRAM
++  latency buffer (SHRAM) and drains it to the interface. WRDMA collects
++  data from the interface into SHRAM and writes it to memory. Each DMA
++  owns a private SHRAM region defined by start address and length registers.
++  Burst sizes of 1/2/4/8/16 beats (64-bit) are supported with up to 4
++  outstanding transactions per DMA. Two QSB master ports (QXM0 for TCM,
++  QXM1 for DDR/LPM) provide the memory interface.
++
++  Resources are partitioned among up to 5 Execution Engines (EEs) via
++  EE map registers. Each EE owns a set of DMAs, audio interfaces, and
++  interface groups, and receives its own independent interrupt output.
++  The interrupt hierarchy has a two-level structure: a summary register
++  identifies the event class (DMA period, underflow/overflow, error
++  response, audio interface underflow/overflow, group done, rate detector,
++  VFR), and per-resource status registers identify the specific channel.
++
++  Interface grouping (bonding) allows up to 6 groups of audio and codec
++  interfaces to start synchronously and align their DMA period interrupts
++  within half a frame duration using the RDDMA padding feature.
++
++  Two rate detector blocks measure the frequency of incoming frame sync or
++  word select signals and generate interrupts on rate change, undetected
++  rate, or sync timeout.
++
++  Block diagram::
++
++    System Memory (DDR / LPM / TCM)
++    +---------------------------------+
++    |  Circular Buffers (ping-pong)   |
++    +----------+----------+-----------+
++               |          ^
++         64-bit AXI  64-bit AXI
++               |          |
++    +----------v----------+-----------+
++    |        QSB Master Ports         |
++    |  +----------+  +----------+     |
++    |  |   QXM0   |  |   QXM1   |     |
++    |  +----+-----+  +-----+----+     |
++    +-------|--------------|----------+
++            |              |
++    +-------v--------------v----------+
++    |         Shared RAM (SHRAM)       |
++    |  +------------+  +------------+ |
++    |  | QXM0 Read  |  | QXM0 Write | |
++    |  | SHRAM      |  | SHRAM      | |
++    |  +------------+  +------------+ |
++    |  +------------+  +------------+ |
++    |  | QXM1 Read  |  | QXM1 Write | |
++    |  | SHRAM      |  | SHRAM      | |
++    |  +------------+  +------------+ |
++    +---+--------+--------+-------+---+
++        |        |        |       |
++    +---v--+  +--v---+ +--v---+ +-v----+
++    |RDDMA |  |RDDMA | |WRDMA | |WRDMA |
++    | AIF  |  | CIF  | | AIF  | | CIF  |
++    |[0..n]|  |[0..n]| |[0..n]| |[0..n]|
++    +--+---+  +--+---+ +--+---+ +-+----+
++       |         |       ^          ^
++       | TX      | TX    | RX       | RX
++       v         v       |          |
++    +--+--------------------+  +----+----------+
++    |  Unified Audio Intf   |  | Codec DMA     |
++    |  (AIF 0..12)          |  | Interface     |
++    |                       |  | (CIF)         |
++    |  AUD_INTFa block:     |  |               |
++    |  - Serializer (TX)    |  | RDDMA: DDR -> |
++    |  - De-serializer (RX) |  |   internal    |
++    |  - Sync gen/detect    |  |   codec       |
++    |  - Up to 8 data lanes |  | WRDMA: codec  |
++    |  - PCM / TDM / MI2S   |  |   -> DDR      |
++    |  - Near Pad Logic     |  | Up to 16 ch   |
++    +--+--------------------+  +----+----------+
++       |  Lane 0..7 (TX/RX)       |  Parallel bus
++       |  Bit clk + Frame sync    |  + Frame sync
++       v                          v
++    +--+--------+          +------+------+
++    | External  |          | Internal    |
++    | Serial    |          | Digital     |
++    | Peripherals|         | Codec       |
++    | (PCM/TDM/ |          | (Bolero/    |
++    |  MI2S)    |          |  WCD)       |
++    +-----------+          +-------------+
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: qcom,shikra-qaif-cpu
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++    description:
++      QAIF summary interrupt for this Execution Engine.
++
++  iommus:
++    maxItems: 1
++
++  dma-coherent: true
++
++  clocks:
++    maxItems: 9
++
++  clock-names:
++    description:
++      Core clocks for register access and DMA, followed by one bit
++      clock per AIF interface.
++    items:
++      - const: lpass_config
++      - const: lpass_core_axim
++      - const: aud_dma
++      - const: aud_dma_mem
++      - const: bus
++      - const: aif_if0_ibit
++      - const: aif_if1_ibit
++      - const: aif_if2_ibit
++      - const: aif_if3_ibit
++
++  '#sound-dai-cells':
++    const: 1
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++patternProperties:
++  '^aif@[0-9a-f]+$':
++    type: object
++    description:
++      QAIF AIF interface child node for PCM, TDM or MI2S configuration.
++
++    allOf:
++      - $ref: /schemas/sound/tdm-slot.yaml#
++
++    properties:
++      reg:
++        maxItems: 1
++        description:
++          DAI ID of the AIF interface (QAIF_MI2S_AIF* or QAIF_TDM_AIF*).
++
++      dai-format:
++        description: Serial audio interface format (MI2S, TDM or PCM).
++        enum: [i2s, dsp_a, dsp_b]
++
++      dai-tdm-slot-width:
++        enum: [8, 16, 24, 32]
++
++      dai-tdm-slot-num:
++        minimum: 1
++        maximum: 32
++
++      dai-tdm-slot-rx-mask:
++        minItems: 1
++        maxItems: 32
++
++      dai-tdm-slot-tx-mask:
++        minItems: 1
++        maxItems: 32
++
++      qcom,qaif-aif-lane-map:
++        $ref: /schemas/types.yaml#/definitions/uint32-array
++        description:
++          Per-lane direction map, one entry per lane starting from lane 0.
++          Use 0 for TX (output/speaker) and 1 for RX (input/mic).
++        minItems: 1
++        maxItems: 8
++        items:
++          enum: [0, 1]
++
++    required:
++      - reg
++      - dai-format
++      - qcom,qaif-aif-lane-map
++
++    if:
++      properties:
++        dai-format:
++          enum: [dsp_a, dsp_b]
++    then:
++      required:
++        - dai-tdm-slot-width
++        - dai-tdm-slot-num
++        - dai-tdm-slot-rx-mask
++        - dai-tdm-slot-tx-mask
++
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - iommus
++  - clocks
++  - clock-names
++  - '#sound-dai-cells'
++  - '#address-cells'
++  - '#size-cells'
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        qaif_cpu: audio-controller@a000000 {
++            compatible = "qcom,shikra-qaif-cpu";
++            reg = <0x0 0x0a000000 0x0 0x20000>;
++            interrupts = <GIC_SPI 331 IRQ_TYPE_LEVEL_HIGH>;
++            iommus = <&apps_smmu 0x1c0 0x0>;
++            clocks = <&gcc 213>,
++                     <&gcc 214>,
++                     <&audiocorecc 15>,
++                     <&audiocorecc 17>,
++                     <&audiocorecc 18>,
++                     <&audiocorecc 5>,
++                     <&audiocorecc 8>,
++                     <&audiocorecc 11>,
++                     <&audiocorecc 14>;
++            clock-names = "lpass_config",
++                          "lpass_core_axim",
++                          "aud_dma",
++                          "aud_dma_mem",
++                          "bus",
++                          "aif_if0_ibit",
++                          "aif_if1_ibit",
++                          "aif_if2_ibit",
++                          "aif_if3_ibit";
++            #sound-dai-cells = <1>;
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            aif@b5 {
++                reg = <181>;
++                dai-format = "dsp_a";
++                dai-tdm-slot-width = <32>;
++                dai-tdm-slot-num = <2>;
++                dai-tdm-slot-rx-mask = <1 1>;
++                dai-tdm-slot-tx-mask = <1 1>;
++                qcom,qaif-aif-lane-map = <1 0>;
++            };
++        };
++    };
 
-> If we passed __GFP_ACCOUNT through to general
-> kmalloc when the buckets lacked SLAB_ACCOUNT and SLAB_MAY_ACCOUNT, you'd
-> lose the isolation, but not the accounting. (And could WARN_ONCE about
-> it.) But if it was ignored, you'd lose accounting under
-> SLAB_BUCKETS=y.
+-- 
+2.34.1
 
-We could warn and fallback then, I guess.
-
->> with SLAB_BUCKETS=y these rules could be checked e.g. with a VM_WARN_ON_ONCE()
->> 
->> with SLAB_BUCKETS=n these rules won't be checked but also not matter in practice
-> 
-> Agreed. That's what I was going for on this version. But like above,
-> "SLAB_ACCOUNT requires __GFP_ACCOUNT" means what? Under SLAB_BUCKETS=y
-> the allocation returns NULL? Or it passes through with WARN_ONCE? I'd
-
-"SLAB_ACCOUNT requires __GFP_ACCOUNT" means that if it's not done and
-SLAB_BUCKETS=n, then we get the issue that patch 2 fixes, and have no way to
-actually find out and warn that it's the case (with SLAB_BUCKETS=n... the
-warning can be issued with SLAB_BUCKETS=y and then it passes through as if
-there was __GFP_ACCOUNT).
-
-> rather not break something completely; better to fallback on a mismatch
-> so the requested type happens (be it DMA, ACCOUNTing, etc).
-
-Also instead of the scheme above, maybe we could explore the idea of
-"compatibility layer" too. It would mean that even with SLAB_BUCKETS=n,
-kmem_buckets_create() would create some object to hold the gfp_flags we want
-to append to all allocations from that bucket. But then kmem_buckets_alloc()
-would have to do something a bit more than map to __kmalloc_node_noprof
-(with PASS_KMALLOC_PARAMS directly). Of course SLAB_BUCKETS=y would be using
-this way too then to avoid further complication. Maybe the result would be
-more cleaner (simplifying PASS_KMALLOC_PARAMS and getting rid of
-PASS_BUCKET_PARAMS?) but I can't say immediately how well it would work.
