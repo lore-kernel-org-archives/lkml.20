@@ -1,124 +1,181 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1C64078C0;
-	Tue, 13 Oct 2026 14:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902649; cv=none; b=Rt9bh9wdK5p7WNx7bLRdmKne0FCrC1pN0xBDDPiQw9p1LiOkY8ficeD4ezHGQ8zrryzuNk0X8Pc21PF/1ZE63yuk5nHDXnBKDe+ZLX/IFCAS8XekJtyBIVrlx3jvQsEUo0R36odrGnfw4v5Bg417MYqO843nLwfgWVAheYgV/lU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902649; c=relaxed/simple;
-	bh=Amh8o+ETNNEm6WYXIFVGpviCVtj9ZnAIuTaXyZIXBmQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JFT0qBQ9cTyoAvjob1RkTG4yTLywe5W4UYy6MmLjJj5PsFn/9LVYSmW/AUIHm/nbyecXiJa52jsXpfj6mvcHeli5N+qO9eodwN0mWaOzRVQZ8pv835YDxXbydYd+hOigrU5efqNqwXLUAiiqpmFlCN6DUE5en5lVSh5CCYmRnV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cI9n1+4l; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF416404BE9
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791902650; cv=pass; b=sRy3POI1GBNgbeWJ9Tr7FbS5lZvIGNq+/gdfkwjXQmSG4LWNEk8M9PPsEUGiZyrn7IhLlFwTNJD9TanmK3uiJ+drD3KO6NtDy0jh4Zh/qWttUJg5TD9cEb6Pr7LKQ7OuceESMtTI84rEA5KtG/arS7fbwuHGID8CeglSiQiP/Lw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791902650; c=relaxed/simple;
+	bh=MA6sP6dXRxWesg/4OAgbGsLj9XIL/e42mlrA2trIl3k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PNWVNGbFf2OfqYb9DxvYjmEjCOltJpYB1j0sXbrkTZ3k49dkOa593KFifG0nHAuyetZKum1j/ESwxUlKr+hcpb+dCO1bwD5olQeY5hZPY7ZzgVqSk4v989AbbTftJCgetVH26bE/Om5MGkRJ6gLFwqoKE1/c5mkHxv1ZRY9o2Tg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oioxcsSV; arc=pass smtp.client-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cI9n1+4l"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DDdDmD2016202;
-	Tue, 13 Oct 2026 14:44:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=NJ50x9XZV4rMl1mnyhjlA62Bq/86Qe
-	yubCAiT/O6+5w=; b=cI9n1+4lUgLsYJq5ZtyQNZ3D48gLMo0BpD3uKUqDXrCtl9
-	e2HoqYb3D1ARcFRCZmKssxKp8duTig/pmgJd8g2s4d9Ph6ckFfLGZ0o+rn1yAciy
-	AAXWhh1RFA5YAEIrebyFGiQ6m7C5BjuDq1F4rlka9dgga6dNYagPKoD/znTcIiuw
-	LE3lcF0k+36nxUmTNqN3Z2DY5N7RnQ5Ip+eAWKzKD9s95qZ+ZAkXIc5dzvl5i5kd
-	/zJIAdUIV6f0NdcL2i8HGCnuCZdeHlX9k6p5UmK0O7JldBc6BqmD1nj72LBP6+li
-	gHJlDo9Ibjd2922ozVEAmNUBXASYsuqIlHE/ykKw==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugerw8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 14:43:59 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69DCU3xV2709266;
-	Tue, 13 Oct 2026 14:43:58 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816h2apj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 14:43:58 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DEhsS245089106
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 14:43:54 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7CB4F2004B;
-	Tue, 13 Oct 2026 14:43:54 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 05D3620040;
-	Tue, 13 Oct 2026 14:43:54 +0000 (GMT)
-Received: from osiris (unknown [9.111.34.214])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue, 13 Oct 2026 14:43:53 +0000 (GMT)
-Date: Tue, 13 Oct 2026 16:43:52 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-        Muhammad Usama Anjum <usama.anjum@arm.com>, linux-s390@vger.kernel.org,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        kasan-dev@googlegroups.com
-Subject: Re: [PATCH v8 10/15] s390/mm: Cleanup pXXp_flush_lazy() routines
-Message-ID: <20261013144352.128264A4e-hca@linux.ibm.com>
-References: <cover.1791365932.git.agordeev@linux.ibm.com>
- <964adeedfd20d4dbcc9a6341f57ec7aaac6c6adc.1791365932.git.agordeev@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oioxcsSV"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-677bc4704cbso2667193d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:44:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791902648; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gQw2j8O/krqtNkjbMT5lcGZzN0gHLXwEQB1iqmspOThtxC8gyqoZ4GUf2rcjIE0C8y
+         feHzDr/GqBW93sPS5kVK8guQSvJJx3BU3/8Ia4UrIin1zN65QYoIG8B3t66+shS7ilJ4
+         RGbAz+2Tt/x+9hCf+yko01qnJ/qE7dEcHs9PIjmi/Q6ANrBCwWqDVlxG5l0aQeg9zVRy
+         zxBT82kb2ERJHLvx4znj0ClX5lE7tYK6+BcpWtA+UH/Ttp81eenoN72W1ry+sjyKfNGe
+         qhSYWDAE4TuYqZfybeyhNI+GyUhquJn4Ua+zX4U0fA6i4Tr7pOU6DbKtPm3FTo7xFha8
+         DqFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=atduYo+ztkM6ugcnct8YLiRvmZz5QJJQ9yuNM0yfFDk=;
+        fh=CmX8DuFzrJ7BKUwG9Qrd1ydJdsyFpu7k4/Q8/WPrz5A=;
+        b=dhD+3H/yJAz2xpCf5iCK9+h6KsMgYUWTbXlVkQ4Dsu6aHvrD+4oywCgGW8inMhQLf+
+         QBetMHvBUW++Jg6kYpY5qXEhRj3cf9bgpv0hws2gO2r1/rwt7qUYA3OCYteavVAewl2/
+         mr3EtYc/F0l0y2ix39FC2P2VtPM7XBZcjjxsnYva4N7FvTvIO8sF5vVgLVRewfDvZP0i
+         UZQlR7tm547QaMQ2fuzmdGtjrByJbNCmixNEMBf90JtaOW8Pr14OzLfCNG7kXxUIKGAT
+         wIkFjoYqq2vMYXsEuTPykSK+A0+2PGsIsd/pLzhk1EzWHKAIpLXd0taPG0EEV0cY0pA5
+         lLug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791902648; x=1792507448; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=atduYo+ztkM6ugcnct8YLiRvmZz5QJJQ9yuNM0yfFDk=;
+        b=oioxcsSV1jX4G6SkVvKEn08Rh1wVAG78rQv3RdEpdS/4e/XZvcfL4jqTBNT3z7CTTS
+         IjuwObMFQ0RlBIU+3NKn3H0p06yspFjapBEF2Bbw+fAaU8RIeos46SAQ1sFQdRJToo8x
+         i7RdOu3/ucEwQGkeDHbQpv2P812EfBULHcf/XkJJVvKobqAIqp+zPK8/2YFzRc97im5h
+         RUNOluwU/R8DSon4caf6kUZzlhymwHcru40ZzEcTWOfnBNcBmLRCUM+Kq/2lHBRSX+KJ
+         NzJvIMb4kSzdAHy/+DxLYPcOEY67xXJSNhhuahAwJntQtvj0PeixUiGAJTDfdHJZH5/A
+         oQ+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791902648; x=1792507448;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=atduYo+ztkM6ugcnct8YLiRvmZz5QJJQ9yuNM0yfFDk=;
+        b=eggheoM+y9++z3W98+5rFsC66EKq7y7UIsPaHbwIWHF1heQUlBTdtruei6WTa5IR/q
+         Mk1PDQcU42Ypj80OOsMZXnkBWumv4Fda+ZQFRPyJoVn1wPMBq6WayjCGcRxjC1i8dAFj
+         xdrven64ytOxOXtO87xGe+r9tkWJTzDddT3JxAi3F9aXGlBD37GPODBnpZpOfeLJ2A3P
+         uCGAUhcD68ikNQFTCWFlPb8lrBcm1fxtQL9kMCclrm2fAC+3xLay7WSgbyctRWg/pDys
+         faVBwzej1tizG7vVq+upl3C1Jy9V94V1iT9rm/27eeucDS6Mq9/Gy8F5aK3A+NSCsjr7
+         9Zgw==
+X-Forwarded-Encrypted: i=1; AKwUvByTs5mqaRStfxPtmphqenc0exe31AJcqK3AAw5Se85TaNfPXeXHCoNhZo/x/UG64Ox5f/MmYfnzuqFb+lM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiKiA8qDLGNCEvHcs+HIJNbRfcMbnBhVVSyek2Y/r1qhtpsH2t
+	svUsB60L9hcLtTIaWEDjlswjl2FToRKE+QwaL4HnZ4dYPebmrpFD2dPCaGaKMyinRAfwhnBtOHF
+	p0VNBN1LNl48jT9ShODZ18wTcbz2GE3U=
+X-Gm-Gg: AYBFou0JBavMfGcDDFJZcvw8dHKiJpcQRsBFdIzXlO8mJn0VwcEXYzJ72/4OOgIpcyE
+	swvCOUa2SgNWd8tZPpySNpc49v3QiEOhYPz9TFDhkohrSsG0xcBaS7qZKjrUtsg6x6u56bs2LI3
+	V0NLsa8z74SIxo7SAjhjB/2OdgVHbiv7QDBNOAqpzkqgn5+h6yXaNBL2MJP0ijRbIZ1YYwi1PdO
+	/JFLT2gaiZKL+VB+vLgAdnGm2rs4w7UYftIRA/clMtBSKY1WFAAMH6A6eB8uhU7paRMBccZ5Kg9
+	Bekkzt3kZaF81lxI3DljKzX+wWcY3bu+DJ59JSQ1PEOwwUv7Q1IH3fxEqY7wFUYD76upKc//1oc
+	iyUucgIjidcc+Ssn+9WjPlFv/ykJvvjQehVRuPc3Ejg==
+X-Received: by 2002:a05:690e:43c5:b0:671:3036:42bf with SMTP id
+ 956f58d0204a3-679362d4543mr1887297d50.91.1791902647582; Tue, 13 Oct 2026
+ 07:44:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <964adeedfd20d4dbcc9a6341f57ec7aaac6c6adc.1791365932.git.agordeev@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6ace43af cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=mmsD3Eh6YA-KHFnkoBgA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
-X-Proofpoint-GUID: oWaGvRRXTzXYQwvMlJ1EMK_XRD2gIlgd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1OCBTYWx0ZWRfX+nEyqHNkh3qz
- DhaVa3dj0ROQ6LabrhDVO5Vj99k2pMmy5SA3qr64Df3VgF/CCOKdIGjLZwGPbaDTvUPMjjhp6No
- lBqwFVJxB5w8x/M6AJ6J1GGay0MlXLCTEgJARo+vHtsPGRDbs3wYXDuSaYOM/EoeCBYkEyDsrso
- WnJQzSDnfOltaZNf7fz6jm+wydCfySmPKIYnzS2zmqz2w7A3MjOlfOD65HxBuKCA7VkVoObHTXu
- qS7vtD6cDHTNUZ+DFz5rDqtwGxjl1gzFsRM8ITuMHA5YJXGV+5u2edH9Ds5Y3M+TCCPcJb5VsRd
- 630mvLRM3Ue9GPD7ddXjoP1Hf5ltEdNYXLML/dZYckl8PiuJ63zUr2PUDQa5ynTz4jRGH9wmuHZ
- S68i3VBLZudoL3r0vs/LMiCuy2m0RAqYuNU6sIe049QCX02iibJFrKtpK/KFN0MqzwZ7/V7F/Le
- geE9ThbgH9xRgeLSkGQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1OCBTYWx0ZWRfX+ebmIRF7WKZt
- Bp7b2U5kHDjmI8Pos8BLqth/8SogBIzeXk2haGwf+x0eQI20V8EaD77MijWUfnk4sYCKULYsbEG
- 7qzRI0T+esyLIHZKnYyB5Y+Ig8zRbv0=
-X-Proofpoint-ORIG-GUID: CQ313svkBdd2nH7F9syrZVINxu4jyakU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130058
+References: <20261013031943.489829-1-cochcoder@proton.me>
+In-Reply-To: <20261013031943.489829-1-cochcoder@proton.me>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Tue, 13 Oct 2026 10:43:54 -0400
+X-Gm-Features: AclHuK_yIlUUXWCuWRRo25-uRMur7Xtx4RX0jWSulcxBiJ6GnOX20DiZb3u9uYo
+Message-ID: <CABBYNZJJf3owtAwGs4OuL6+YZz+zuY_kewKFDZPQdfcF-xyFFA@mail.gmail.com>
+Subject: Re: [RFC PATCH] Bluetooth: L2CAP: tolerate zero-ident LE credit indications
+To: Kyle Pepper <cochcoder@proton.me>
+Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 07, 2026 at 01:41:53PM +0200, Alexander Gordeev wrote:
-> Avoid unnecessary pgtable entry read in ptep_flush_lazy() and
-> pmdp_flush_lazy() routines. Use the already obtained value of
-> a pgtable entry instead of dereferencing it again.
-> 
-> It might appear that the optimized out second dereferencing happens
-> under mm_context_t::flush_count lock and therefore a race condition
-> is possible. However, both routines write invalid entry bits to the
-> pgtable entries and therefore no reader is allowed to interpret the
-> rest of the value afterwards.
-> 
-> Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
+Hi Kyle,
+
+On Mon, Oct 12, 2026 at 11:20=E2=80=AFPM Kyle Pepper <cochcoder@proton.me> =
+wrote:
+>
+> A nonconforming ASHA peer sends identifier-zero credit indications
+> that are discarded, reducing usable transmit credits until audio stalls.
+>
+> Tolerate only exact-size credit indications for a connected LE CoC.
+> Preserve the channel reference, lock and credit-overflow checks and do
+> not send a response with identifier zero. Other zero-ID commands and
+> BR/EDR signaling remain unchanged.
+>
+> Core Vol 3 Part A section 4 forbids identifier zero. This is an
+> interoperability RFC requiring maintainer agreement, not a conformance
+> fix or a claim of automatic stream recovery.
+>
+> Assisted-by: OpenCode:gpt-6.1-sol
+> Signed-off-by: Kyle Pepper <cochcoder@proton.me>
 > ---
->  arch/s390/mm/pgtable.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> Submission review notes (not part of the commit message):
+> Core specification forbids identifier zero. This is a narrow opcode
+> interoperability exception, not a conformance fix. N8 captures contain
+> zero-ID credit indications. Native malformed/overflow/teardown and
+> lockdep/KASAN coverage and exception policy remain review gates.
+>
+>  net/bluetooth/l2cap_core.c | 18 +++++++++++++++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
+>
+> diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+> index 49a998804..1a0868437 100644
+> --- a/net/bluetooth/l2cap_core.c
+> +++ b/net/bluetooth/l2cap_core.c
+> @@ -5328,6 +5328,12 @@ static inline int l2cap_le_credits(struct l2cap_co=
+nn *conn,
+>
+>         l2cap_chan_lock(chan);
+>
+> +       /* Tolerate identifier-zero credits only for a live LE CoC. */
+> +       if (!cmd->ident &&
+> +           (!credits || chan->state !=3D BT_CONNECTED ||
+> +            chan->mode !=3D L2CAP_MODE_LE_FLOWCTL))
+> +               goto unlock;
+> +
+>         max_credits =3D LE_FLOWCTL_MAX_CREDITS - chan->tx_credits;
+>         if (credits > max_credits) {
+>                 BT_ERR("LE credits overflow");
+> @@ -5923,11 +5929,21 @@ static inline void l2cap_le_sig_channel(struct l2=
+cap_conn *conn,
+>
+>         BT_DBG("code 0x%2.2x len %d id 0x%2.2x", cmd->code, len, cmd->ide=
+nt);
+>
+> -       if (len !=3D skb->len || !cmd->ident) {
+> +       if (len !=3D skb->len) {
+>                 BT_DBG("corrupted command");
+>                 goto drop;
+>         }
+>
+> +       if (!cmd->ident) {
+> +               if (cmd->code !=3D L2CAP_LE_CREDITS ||
+> +                   len !=3D sizeof(struct l2cap_le_credits))
+> +                       goto drop;
+> +
+> +               /* Credits have no response or identifier-matched transac=
+tion. */
+> +               l2cap_le_credits(conn, cmd, len, skb->data);
+> +               goto drop;
+> +       }
+> +
+>         err =3D l2cap_le_sig_cmd(conn, cmd, len, skb->data);
+>         if (err) {
+>                 struct l2cap_cmd_rej_unk rej;
+>
+> base-commit: 964430c038967fd06643e866f68115664e1a1bd1
 
-Applied, thanks!
+Sashiko flagged a problem with this:
+
+https://sashiko.dev/#/patchset/20261013031943.489829-1-cochcoder%40proton.m=
+e
+
+--=20
+Luiz Augusto von Dentz
