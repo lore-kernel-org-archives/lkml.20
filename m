@@ -1,137 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD7F518156;
-	Tue, 13 Oct 2026 16:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E167519914;
+	Tue, 13 Oct 2026 16:20:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908410; cv=none; b=DzikufrbibK5LNqTYqc2XIlMHsyEI282w9mvSPKl2M9OH3mxy3fpnpyQSJ7OhOyByMtEs2J6I2DrWiCtFjgfKuO02CVciQThCJ1yQSQdNcE5Dt2Bzf9k3swWXGR1GGB61GflNyPtJG7ugdPRV/lM6TjlTq5LVKnDPolofjuEl8U=
+	t=1791908445; cv=none; b=n9xIapHsOBLewH+4RE54VxJnxG4PUDnQAjfrbtO8QheBDAd4m6hRweD/9o0FfKHXZ6SoKrUP7a7a7RA+PMs1WaSuodgr1YKSaZGXBdpW5hM8amDFkWVnQbv1hStvLSIntPhj2lkqQHdV/jtiHZz3yI3HTff6ke/UpuKj8kq3cAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908410; c=relaxed/simple;
-	bh=BbmNPrjSY/tGIxn+E5mxN0X/4tEFCb6SOMm9R5IDjz8=;
+	s=arc-20240116; t=1791908445; c=relaxed/simple;
+	bh=IbeZGNeQdX4zNHtKAEl5D+Z8c7tmAp6pWxJBUX+4t+s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cy2b6ZS7PgXorsHl8dioFeFwfO/kY2tvnX+u+F/0Bk+4HTxbXYyvSEmDfbFpscfnrN7Ng8EdzAWYaytLmQdOm++vDbayja3NIvtbYtEfa0jseNhN9picpa8U+EP3PW9lCrKWbuYZMbWFW8AKQpbMV/DcQYuHIAcn9EED0p03ecQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GjlxOI5D; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=c4eQBqgQeR3MADE3YvLAkt2Z91AtAeJA4+2K1Kpw2aEmyN2qvkpa+ZCUPlIrMxoui3UkZ3w/mHSzajkNz7p2PBRQpbKYE7o4PIRrXANsawdYo3lZqEMiBfHqwzc7KlnNMjfG2bM7oDpDv/62GZFm4joeqXDtxhYunBzH6w8UE1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YtCs1P3z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GjlxOI5D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791908409; x=1823444409;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=BbmNPrjSY/tGIxn+E5mxN0X/4tEFCb6SOMm9R5IDjz8=;
-  b=GjlxOI5D6F/snBld43V92AmFVHbk+4tRxDkSd+3XsvxCVtxV3RcHXiXa
-   UT5oDx23y+Q4/nhzjhK0dVa9+pcJUDjx43SB3GlPEYgatarju3ZRSmo4d
-   pwsGlEekvAgf3jq3/bNjzllV29fjbWP94q5QT4q4mky7kQnGzKNfDLeU3
-   N9wwrRracLnuUqQSgpvOErbf9PTtEjiD9RA/KsQr6yjPeWqYHZSkLKM6w
-   vOSRV02YYN+g94KxzQfanZAm7cr9vy6qR3JCey57OcwPqj/0WqwGWmbAG
-   xz+NxjLvmaqnNTQ4wEatBtrg9or9/zpOwBw30D4fnZT/PmNLn+WEg8boj
-   w==;
-X-CSE-ConnectionGUID: gaQ13R70QsCoVIyUy+YTeg==
-X-CSE-MsgGUID: mqOBxPVTSRmqwOd2zMCfLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="535269"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="535269"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:20:08 -0700
-X-CSE-ConnectionGUID: S2wRa1AQSXCVEP7a4sYSBQ==
-X-CSE-MsgGUID: lepL5JzBQ7SOoHmWUJOaWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1638940"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:20:06 -0700
-Date: Tue, 13 Oct 2026 19:20:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YtCs1P3z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0EB1F000FF;
+	Tue, 13 Oct 2026 16:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791908443;
+	bh=iDX/r33ACF1gN19OAeYUXWdl1mueW1lcEtLS2OKMvFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YtCs1P3zjNoAlzVH2bQ12QTEBH18qidPKXqPorLs/0P44+i37h4wAu9QI0A6sUVxx
+	 iMn6GKHefc/ba0rsMUEEKXK+P9W0jF0SNukv6BYsNhQmISMkByNNY+UmaVoxPxjVxC
+	 WjA9Z+WLX93uIQ7GmB+SeCRxc76lXiBtzmqCNV0TvkcbcIP01z8TZR1ll/7oPpNf8M
+	 vcan39YxM4br/2KXatIrtxM5uP49MTEfTUMIstYu+DES13fubZbJod83soKdJn1FtP
+	 dHtETUxstjI5KQxyrLHP3L0GGRVPVberappR+3sFwKS6W6Y4e/+8boGrsl1/8GftLw
+	 Vob2irlA0Kumg==
+Date: Tue, 13 Oct 2026 18:20:41 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, kwilczynski@kernel.org, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Manikanta Maddireddy <mmaddireddy@nvidia.com>, Vidya Sagar <vidyas@nvidia.com>, 
+	Niklas Cassel <cassel@kernel.org>, linux-pci@vger.kernel.org, linux-tegra@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] media: atomisp: queue: move circbuf types and
- helpers to queue_comm.h
-Message-ID: <as5aM_zYghHjRDsL@ashevche-desk.local>
-References: <20261012230754.1914517-1-vladurares@gmail.com>
- <20261012230754.1914517-4-vladurares@gmail.com>
+Subject: Re: [PATCH v2 1/2] PCI: tegra194: Use dev_err_probe() for PERST# GPIO
+Message-ID: <as5aUXOL7YoHsLE2@orome>
+References: <20261012094815.28160-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sp7y6i2ftncg2vab"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261012230754.1914517-4-vladurares@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Mon, Oct 12, 2026 at 11:07:52PM +0000, Rareș-Mihai Vladu wrote:
-> The remote queue code only needs the circbuf descriptor and element
-> layouts plus five small descriptor helpers from the circbuf library.
-> Move them into ia_css_queue_comm.h and include that header instead of
-> the circbuf ones.
-> 
-> The descriptor and element layouts are shared with the SP firmware and
-> are moved unchanged, including their static_asserts.
-> 
-> While at it, drop the OP___assert() NULL checks from the moved helpers:
-> every caller passes the address of a local variable, so the pointer can
-> never be NULL.
-
-...
-
-> +/*
-> + * @brief Data structure for the circular descriptor.
-> + */
-> +typedef struct ia_css_circbuf_desc_s ia_css_circbuf_desc_t;
-> +struct ia_css_circbuf_desc_s {
-> +	u8 size;	/* the maximum number of elements*/
-> +	u8 step;   /* number of bytes per element */
-> +	u8 start;	/* index of the oldest element */
-> +	u8 end;	/* index at which to write the new element */
-> +};
-> +
-> +#define SIZE_OF_IA_CSS_CIRCBUF_DESC_S_STRUCT				\
-> +	(4 * sizeof(uint8_t))
-
-Why not sizeof(u8) ?
-
-#define SIZE_OF_IA_CSS_CIRCBUF_DESC_S_STRUCT	(4 * sizeof(u8))
-
-...
-
-In the same way for the rest of the similar pieces of code below.
-
-...
-
-> +static inline bool ia_css_circbuf_desc_is_empty(
-> +    ia_css_circbuf_desc_t *cb_desc)
-
-Don't repeat wrong style, correct it here
-
-static inline bool ia_css_circbuf_desc_is_empty(ia_css_circbuf_desc_t *cb_desc)
-
-...
-
-In the same way for the rest of the similar pieces of code below.
-
-...
-
-> +static inline uint32_t ia_css_circbuf_desc_get_num_elems(
-
-While at it, use uXX types directly. Would it compile?
-
-> +    ia_css_circbuf_desc_t *cb_desc)
+In-Reply-To: <20261012094815.28160-1-phucduc.bui@gmail.com>
 
 
--- 
-With Best Regards,
-Andy Shevchenko
+--sp7y6i2ftncg2vab
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/2] PCI: tegra194: Use dev_err_probe() for PERST# GPIO
+MIME-Version: 1.0
 
+On Mon, Oct 12, 2026 at 04:48:14PM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+>=20
+> Use dev_err_probe() when getting the PERST# GPIO to simplify error
+> handling and properly handle -EPROBE_DEFER.
+>=20
+> Reviewed-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+>=20
+> Changes in v2:
+>  - Follow the subject line capitalization style.
+>  - Use "PERST#" in the subject, commit log, and dmesg text to match
+>    spec usage.
+>=20
+>  drivers/pci/controller/dwc/pcie-tegra194.c | 15 +++------------
+>  1 file changed, 3 insertions(+), 12 deletions(-)
 
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+
+--sp7y6i2ftncg2vab
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOWlkACgkQ3SOs138+
+s6Gn3w/+PpoJmJexn1tK9/HjwGoGdE5uaF4eVZQNmDc1hZWUWJo4JAv+dsgP5EFj
+irDwjhL6XebzMk3XMUn11XvP2iS7MBw9Cg8Gk7IqsY1Y5/UUfTzKLmuy4LYJDW9I
+qvno3kmgEHfk5rsH5Je9vVRmCwiSGN5dUQWfSpVmHoyoSv5q4ljEQgiJ+SeFpugF
++YCYkxbcC408Xfd8tLYYiFDoAHypQW7SHaxLcOcFJ1hAjmM68c21HayH9V7rLTQp
+mSDjjjZJXCd75ZAoQ0v/XJ7WSBmScO8BXRvowVTQM+Cqo0vxL/gzsykNV6mQsx5y
+HQPKeemRQt1tvBp/68T+YDgg52oMHQUGc0MQKy81QTYgbQrbtma3IVkEmQN1oapk
+LSj7J6LsY4zLcBMZ5PPXQHcPpEd/dzgSacft4DQZixnf2fpnOkiaTB+sSUnO/IJG
+Bp1soDg2Sp7j3TPK/8rckT08xPPmeayq4YUKHB92tx+K1ib6XZRv5Y7ff/yce8XW
+IcNlRy5Oj6VYbjB8RtZ5T8KihU4KBhzWUAAYFDvzdN5UopEdwVehK1zCSiTFVGD/
+04HSS/srQElbxjOTxKow1WcXKVJjcpvRtZEQhsESBqu2tpjtiJS+dIdgx6cP7Upz
+u85zUpWJ6VsAdhxQgEOEWqTubyK5IP6q+7ML7rL9F1MpYceTIWM=
+=f/kQ
+-----END PGP SIGNATURE-----
+
+--sp7y6i2ftncg2vab--
