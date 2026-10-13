@@ -1,253 +1,124 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A05E2477998;
-	Tue, 13 Oct 2026 19:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4AD52CCF2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919062; cv=none; b=LzUrNT65Cu5rJcGbjpIKw7cso/II+0tv58ChO7aX7E5mun+eOUAZiuvl/ETFIYsNlI9p3gArTmDktHgQO0d3OSUd8y7LFR90LHsFnz19/vqIkqpw2RRxMMr5bXW9+x0mgdQzT5371SQ3d++W5fQ4+JOeM9KSxlW8b/+26M7RjX4=
+	t=1791919186; cv=none; b=aVimSGnMyt6LKqEFOOeWXprf6xaVR4i+g70bKb9S6AWXcpvhlQBo5UWoQrP6tJI6uqH0IFaHGglN+WzcpsQtpZ1fnC+49fOwAgyriCFHR5o/+sRc7XzDQDfNGfHc/7a/OiZmzwvz1EKqBhI9+g+nJ7SvXoLjkkIDDSdmVFr5cJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919062; c=relaxed/simple;
-	bh=tRmtvDD+61LFKfAJ/yki7gSA1SbAatoyJ8YHNw34tdE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G2lLLduqbqQnRTGcjWDRq81p2akbTba81VKg8as53SaTi9RdNpIb1AU/69hEFDFnCtCPKiNlxGg7JIsnxuLUndXLA49OjB6rIwJWQCn7ife0FQGfq40tkobvPxtstiAxY3e+pjzjQKqp2DZW/TXOLXvGs/k34qsFpfy0JP0wQkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WZ+WynWL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791919186; c=relaxed/simple;
+	bh=Q0xoJoHTPOGkBU/ykGam9+aTXGu8sCVurjmTpYiGjKk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UnnZErwG1MYRhgLB9BGQAtx6IOFaxPYhs5Gj98OgTVi51PS/1poeoPApkdUjsrDVt44Q4jfkvBqH5gZNnpwv3mOVhSvBdvPF2RgMzaf2ni44p5x5rLgxM61K2wnYx+Zu/aQfueFqKBHfV7sCOqL/D4zmmUNvhfwcSa6y2oTB/iQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLfz6Jim; arc=none smtp.client-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WZ+WynWL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D3042169E;
-	Tue, 13 Oct 2026 12:17:29 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 09EDC3F673;
-	Tue, 13 Oct 2026 12:17:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791919053; bh=tRmtvDD+61LFKfAJ/yki7gSA1SbAatoyJ8YHNw34tdE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WZ+WynWLIZdtuXPjx12fDmi2/pks5e8wzTiXdv+ov6cMjm4fRm1eMnLdkSsZ8IEPJ
-	 EXYq7kH/LMqkn111w8u5DtTR7w/3k1Q2UIt9wTEvxCdftys8LM/frPxDZgJCF0vZj1
-	 nhAA2D+UAS9mmZIYpHPo5U1fPCjJ+I8OEGC+DUB0=
-Date: Tue, 13 Oct 2026 20:17:27 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
-Subject: Re: [PATCH v7 2/3] kselftest: mm: remove HPAGE_SIZE and HPAGE_SHIFT
- macro
-Message-ID: <as6Dx5WkvTQty9K5@e129823.arm.com>
-References: <20261013-fix_hpage_macro-v7-0-3d77129e0557@arm.com>
- <20261013-fix_hpage_macro-v7-2-3d77129e0557@arm.com>
- <b3f2a0bf-7b41-4cc9-958e-34f1a88ff5bf@arm.com>
- <as48D1SnImCro_Cb@e129823.arm.com>
- <aca0492c-f0d3-4ba7-8671-32952ceff913@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLfz6Jim"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-9178510f3bdso44743386d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:19:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791919183; x=1792523983; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pfgvs3MJEbW2BwnwAhjd9SKbBYEufXUXojUMotaCz9A=;
+        b=aLfz6JimkR0Rtx927ja30vUnHJfI7IGnPW4knsNAOshj4zU4hnyk60MRNOHWTjXXO7
+         tqrY7QbSEy4/LcqbQDykFZCnhB6v1PSDOpU+0JFKxhD++c4Y9sbb682qlPSPHQQXYmRf
+         d1Pvctgl0vcEcywr17rZRRj6FoX3acFhm551uJW4QbTrQV6qPA1OFYFdGGGXBuLPwGxl
+         lBxmKGCZRf+yMuuJQ8tUvBJEulwmxTsW6BsrsiK2Dy0RUvqVeTU0k6gHauupgDp9qa73
+         eooOp4KR+BlAyRtYzg9KsIGT7nyYxl3V3afcXxO2fct6eBKumJ6mDlc/1abg8emOB8t3
+         9eQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791919183; x=1792523983;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pfgvs3MJEbW2BwnwAhjd9SKbBYEufXUXojUMotaCz9A=;
+        b=VVgb/Z+jcuozo34NaS1AESAIfru/91ASpE+xbIJPLxekB+bE8ZmcmZo4wzO6mfCgio
+         giaDFNvYxnJGDYZBRGYi3uQ0JZoIj0NzHdwtmJV9mrf+fKDkDctmPqDXgVq9oWQBV+h3
+         gvsrS4fXXZusLr8wZVAHHfV8p0Di8HaFCwrfk/PGVqSnseubjwe9ldrdgreXYsDkfWyN
+         xcd+O0sr6XNyUteBgKFhpICkRHl5oO5i5YzNdCAhkwvr08EmaQQeDLthG7YjUK6ULv5g
+         xoRkZlP/iuwI4m0k1baCR+/z6en6ZFElmwmZtnUSz7PUwETVeWVbUTDLDwMt1RWXCkDg
+         8Rig==
+X-Forwarded-Encrypted: i=1; AKwUvByc5K/F/VsgZ6SzDzOhYa7sZTWbfBhFtZtFToMyMAdVoSXsmhq32K3G3SsLL3AX13LMbyX1vj4W7fpkiQw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzWt6Tp2HScCAHpClfpEUXBYC+SJVZqz0lpJtc4nC8H4NksJyx
+	HmRijZser9KXycqVQzYR+z7hJuT7+Rls5BN5PzOGw3ZSUmNFq7cshXbC
+X-Gm-Gg: AYBFou06TbVL461trNP+IFT5AQnuW/7AFE1s1Q3z/1yG9glkD8ZfMSNr3+NOUoNh7o/
+	DU6X8qpDNotThQad3FDUhZEFEzyJPHOBl+t0BzK/OJBcR2xAgvS7sgpSg926gbfG0QepSWMwzmr
+	/hDOXgLI/UyPt3nKRP6M+R96rgdfQfLqGNd1+IuKTpgZLhBJy20mYpLHIX9l+4Ii2LC1JVGISMV
+	HuE2GJe4fy3JSLXfpMGzT1MeAtrjNlgL5iIMYgNrpP/C5uccBBA1Nz5gGF6mbi9oZNL45YoV4ot
+	oAsI5IR2GAtLKPMeYhgSdfCkXzwbMTn8Nvff78FMPkS23RvyN2tisZ6uhEodsvbT7XZwu+XUfke
+	B0vxPY6YlHzKjfjwN+RtLSKVHevRwfUYjoIYG4Ya0OFzbUNP5ddGA1jpSrZW7OGmAIVWU1rFjwZ
+	najLDU12SMTTK1g+hghEcm9M1ue8V+EtwJA1WDxdoxYYrz4NdhCGDeXa5DT9cIT92v8R++200jo
+	hd6sd39bw1z6UcRemKhVBT3
+X-Received: by 2002:a05:620a:6606:b0:93e:bcbf:4ad with SMTP id af79cd13be357-93ebd24d7acmr2270223785a.33.1791919183457;
+        Tue, 13 Oct 2026 12:19:43 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5009b87sm305039785a.11.2026.10.13.12.19.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 12:19:42 -0700 (PDT)
+Message-ID: <0b797c37-afae-479b-b84e-68bcd8369f4d@gmail.com>
+Date: Tue, 13 Oct 2026 12:19:38 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aca0492c-f0d3-4ba7-8671-32952ceff913@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
+To: Pavel Machek <pavel@nabladev.com>,
+ Brett A C Sheffield <bacs@librecast.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+ patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261013112920.855194808@linuxfoundation.org>
+ <as4kGIjqjrKzu0O0@auntie.librecast.net> <as4ubep0jWRi-b2G@duo.ucw.cz>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <as4ubep0jWRi-b2G@duo.ucw.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Sarthak,
+On 10/13/26 06:13, Pavel Machek wrote:
+> On Tue 2026-10-13 12:29:12, Brett A C Sheffield wrote:
+>> On 2026-10-13 13:29, Greg Kroah-Hartman wrote:
+>>> This is the start of the stable review cycle for the 6.18.57 release.
+>>> There are 621 patches in this series, all will be posted as a response
+>>> to this one.  If anyone has any issues with these being applied, please
+>>> let me know.
+>>>
+>>> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
+>>> Anything received after that time might be too late.
+>>
+>> Build failing on amd64:
+>>
+>> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_get_mic_v2':
+>> (.text+0xfc2762): undefined reference to `crypto_krb5_get_mic'
+>> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_verify_mic_v2':
+>> (.text+0xfc293a): undefined reference to `crypto_krb5_verify_mic'
+>> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_aead_encrypt':
+>> (.text+0xfc47a1): undefined reference to `crypto_krb5_encrypt'
+>> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_aead_decrypt':
+>> (.text+0xfc48f8): undefined reference to `crypto_krb5_decrypt'
+>> make[2]: *** [scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 1
+>> make[1]: *** [/usr/src/linux-stable-rc/Makefile:1272: vmlinux] Error 2
+>> make: *** [Makefile:248: __sub-make] Error 2
+>>
 > 
+> We see same problem here:
 > 
-> On 10/13/26 7:41 PM, Yeoreum Yun wrote:
-> >> Hi Yeoreum!
-> >>
-> >> On 10/13/26 4:07 PM, Yeoreum Yun wrote:
-> >>> HPAGE_SIZE and HPAGE_SHIFT macro is written based on the 4KB PAGE_SIZE.
-> >>> When this macro is used in some test, test result would be strange in
-> >>> the system where PAGE_SIZE is more then 4KB.
-> >>>
-> >>> Here is the example with transhuge-stress test with 16KB PAGE_SIZE:
-> >>>
-> >>>   transhuge-stress: allocate 61073 transhuge pages, using 122146 MiB virtual memory and 1908 MiB of ram
-> >>>     3.292 s/loop, 0.054 ms/page,  37106.002 MiB/s	2566 succeed, 58507 failed, 2566 different pages
-> >>>     0.591 s/loop, 0.010 ms/page, 206850.792 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >>>     0.527 s/loop, 0.009 ms/page, 231895.107 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >>>     0.527 s/loop, 0.009 ms/page, 231839.704 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >>>     0.528 s/loop, 0.009 ms/page, 231544.782 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >>>     0.528 s/loop, 0.009 ms/page, 231462.074 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >>>     0.527 s/loop, 0.009 ms/page, 231770.300 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >>>     ...
-> >>>   ok 1 Completed
-> >>>
-> >>> Remove the HPAGE_SIZE and HPAGE_SHIFT macro and introduce pmd_pshift()
-> >>> helper to get the HPAGE_SHIFT properly. For HPAGE_SIZE, use pre-existing
-> >>> helper, pmd_psize().
-> >>>
-> >>> Also, run the KSM_MERGE_TIME_HUGE_PAGES test with a size of 512 MiB,
-> >>> which is the least common multiple of the PMD sizes for 4 KiB, 16 KiB,
-> >>> and 64 KiB base pages. Since allocate_transhuge() allocates mappings in
-> >>> PMD-sized units, the test may fail with the previous size of 100 MiB,
-> >>> which is not a multiple of the PMD size when the base page size is
-> >>> 16 KiB or 64 KiB.
-> >>>
-> >>> After this patch, output of transhuge-stress:
-> >>>
-> >>>   transhuge-stress: allocate 3817 transhuge pages, using 122146 MiB virtual memory and 119 MiB of ram
-> >>>     2.558 s/loop, 0.670 ms/page,  47755.759 MiB/s	2585 succeed, 1232 failed, 2585 different pages
-> >>>     2.640 s/loop, 0.692 ms/page,  46268.432 MiB/s	2585 succeed, 1232 failed, 2585 different pages
-> >>>     2.635 s/loop, 0.690 ms/page,  46360.298 MiB/s	2585 succeed, 1232 failed, 2585 different pages
-> >>>     2.782 s/loop, 0.729 ms/page,  43899.795 MiB/s	2616 succeed, 1201 failed, 2616 different pages
-> >>>     2.692 s/loop, 0.705 ms/page,  45380.876 MiB/s	2627 succeed, 1190 failed, 2627 different pages
-> >>>     2.612 s/loop, 0.684 ms/page,  46765.812 MiB/s	2628 succeed, 1189 failed, 2628 different pages
-> >>>     2.683 s/loop, 0.703 ms/page,  45520.990 MiB/s	2630 succeed, 1187 failed, 2630 different pages
-> >>>     2.727 s/loop, 0.714 ms/page,  44789.321 MiB/s	2631 succeed, 1186 failed, 2631 different pages
-> >>>     ...
-> >>>   ok 1 Completed
-> >>>
-> >>> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >>> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> >>> ---
-> >>>  tools/testing/selftests/mm/guard-regions.c    | 10 +++++--
-> >>>  tools/testing/selftests/mm/ksm_tests.c        | 16 ++++++-----
-> >>>  tools/testing/selftests/mm/run_vmtests.sh     |  4 +--
-> >>>  tools/testing/selftests/mm/transhuge-stress.c | 25 +++++++++++-------
-> >>>  tools/testing/selftests/mm/vm_util.c          | 38 +++++++++++++++++++++++----
-> >>>  tools/testing/selftests/mm/vm_util.h          |  9 +++----
-> >>>  6 files changed, 71 insertions(+), 31 deletions(-)
-> >>>
-> >>> diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
-> >>> index f7d53ea3c2527..02f69244f9a42 100644
-> >>> --- a/tools/testing/selftests/mm/guard-regions.c
-> >>> +++ b/tools/testing/selftests/mm/guard-regions.c
-> >>> @@ -2194,14 +2194,20 @@ TEST_F(guard_regions, pagemap_scan)
-> >>>  TEST_F(guard_regions, collapse)
-> >>>  {
-> >>>  	const unsigned long page_size = self->page_size;
-> >>> -	const unsigned long size = 2 * HPAGE_SIZE;
-> >>> -	const unsigned long num_pages = size / page_size;
-> >>> +	const uint64_t hpage_size = pmd_psize();
-> >>> +	unsigned long size, num_pages;
-> >>>  	char *ptr;
-> >>>  	int i;
-> >>>  
-> >>>  	if (!thp_available())
-> >>>  		SKIP(return, "Transparent Hugepages not available\n");
-> >>>  
-> >>> +	if (!hpage_size)
-> >>> +		ksft_exit_fail_msg("reading hpage_size failed\n");
-> >>
-> >> I'm sorry for not catching this earlier, but I don't think calling a
-> >> ksft_exit_fail_msg() for not being able to calculate PMD size is a good
-> >> idea. Maybe call an ASSERT*() here, something like
-> >>
-> >> ASSERT_NE(hpage_size, 0);
-> >>
-> >> so that just this test fails, instead of the whole run exiting with a
-> >> bail out?
-> > 
-> > No. The failure would occur if open() or read() fails, and subsequent
-> > attempts would likely fail for the same reason.
-> 
-> I think I couldn't clearly explain my concern. Let me put it again,
-> please let me know if I am missing something.
-> 
-> I was mistaken, on checking I found that guard_regions runs each test in
-> a separate child process. So calling ksft_exit_fail_msg() won't exit the
-> whole test run.
-> 
-> To reproduce the case, I bind mounted /dev/null over
-> /sys/kernel/mm/transparent_hugepage/hpage_pmd_size in a QEMU so that
-> pmd_psize() returns 0. Then on running ./guard_regions (your patches
-> applied), I got this output (putting relevant section of that since the
-> log is quite long):
-> 
-> 
-> #  RUN           guard_regions.anon.collapse ...
-> Bail out! reading hpage_size failed
-> # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-> # collapse: Test failed
-> #          FAIL  guard_regions.anon.collapse
-> not ok 29 guard_regions.anon.collapse
-> .
-> .
-> ok 58 guard_regions.shmem.pagemap_scan
-> #  RUN           guard_regions.shmem.collapse ...
-> Bail out! reading hpage_size failed
-> # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-> # collapse: Test failed
-> #          FAIL  guard_regions.shmem.collapse
-> not ok 59 guard_regions.shmem.collapse
-> .
-> .
-> #  RUN           guard_regions.file.collapse ...
-> Bail out! reading hpage_size failed
-> # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-> # collapse: Test failed
-> #          FAIL  guard_regions.file.collapse
-> not ok 89 guard_regions.file.collapse
-> #  RUN           guard_regions.file.smaps ...
-> #            OK  guard_regions.file.smaps
-> ok 90 guard_regions.file.smaps
-> # FAILED: 87 / 90 tests passed.
-> # 19 skipped test(s) detected. Consider enabling relevant config options
-> to improve coverage.
-> # Totals: pass:68 fail:3 xfail:0 xpass:0 skip:19 error:0
-> 
-> 
-> which looks weird with all the bailouts. On the other hand, if we
-> replace the ksft_exit_fail_msg() with ASSERT_NE(), here's the output we get:
-> 
-> 
-> #  RUN           guard_regions.anon.collapse ...
-> # guard-regions.c:2205:collapse:Expected hpage_size (0) != 0 (0)
-> # collapse: Test terminated by assertion
-> #          FAIL  guard_regions.anon.collapse
-> not ok 29 guard_regions.anon.collapse
-> .
-> .
-> ok 58 guard_regions.shmem.pagemap_scan
-> #  RUN           guard_regions.shmem.collapse ...
-> # guard-regions.c:2205:collapse:Expected hpage_size (0) != 0 (0)
-> # collapse: Test terminated by assertion
-> #          FAIL  guard_regions.shmem.collapse
-> not ok 59 guard_regions.shmem.collapse
-> .
-> .
-> #  RUN           guard_regions.file.collapse ...
-> # guard-regions.c:2205:collapse:Expected hpage_size (0) != 0 (0)
-> # collapse: Test terminated by assertion
-> #          FAIL  guard_regions.file.collapse
-> not ok 89 guard_regions.file.collapse
-> #  RUN           guard_regions.file.smaps ...
-> #            OK  guard_regions.file.smaps
-> ok 90 guard_regions.file.smaps
-> # FAILED: 87 / 90 tests passed.
-> # 19 skipped test(s) detected. Consider enabling relevant config options
-> to improve coverage.
-> # Totals: pass:68 fail:3 xfail:0 xpass:0 skip:19 error:0
-> 
-> So the issue is not as severe as I'd thought. It can be argued that this
-> is very less likely to happen. But yeah, I feel changing it would be
-> better as it is more suitable with the ksefltest_harness and would give
-> a cleaner TAP output incase this happens. Rest I leave it to you and
-> other folks to decide whether this needs to be changed :).
+> https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/17139116508
 
-Still I don't think it would be more suitable with kselftest_harness.
-Anyway what I can see it's a only difference of the *message* --
-"Bail out! reading hpage_size failed" vs "Expected hpage_size (0) != 0 (0)"
-
-TBH, I don't think this difference makes the TAP output any cleaner.
-I think it's sufficient as long as the message clearly explains the reason
-for the failure.
-
+And here as well.
 -- 
-Sincerely,
-Yeoreum Yun
+Florian
