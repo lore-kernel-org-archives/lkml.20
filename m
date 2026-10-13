@@ -1,95 +1,209 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327AB4B8298;
-	Tue, 13 Oct 2026 23:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE124AF9D1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:25:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791933904; cv=none; b=h55W8jYjt1E/n3FdSBdL/6MkpBwxo37AEoew9vMLeumSAPWOBNkGA4NtuWTAvdcVeC69p+y03U7QuhTGiIPSNwgeM7eSu8bibXgmieI7NNfyQXr9+ZjH6Wzoe5dDpQ6Vi8Jsr9Lazliy7ujTuo1gRP7+zGzh4rOLmWP0hi2gnic=
+	t=1791933916; cv=none; b=AkD54waiuXtoNpTavlYRJCwS7nN5+omUVBVsvImDMT7I9v6g0W6+jNQhDvmSYJFEIrikRuNdCrCf26uRZrVD/sTvra9lFNMUClYPwj5xR2G9t593PYAMCxkkmQEESELsXpSPhHK03+MeWgrjtsljyhqaFMzgtdfVK4+WLPP5aWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791933904; c=relaxed/simple;
-	bh=0Uc5nTrSrEVS61F9ewvawrSUIhc5TtcDIRAD8UZVhEg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OaEkmaacvCzQBl56LxZ3X8gAuosV+OLial2nzsGKmoXJMRVdokWssZIUC0Fz9e1wCXFpemrE6jalM69AHnT5hAzNnOroZdseWSHzUta8ze8n8bwH92A+FywIJ33UXra+7Qx5X12AHkY9EuoTkmBESlaio3jExTDEfnrU4PwZSbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EsKn/uj4; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791933916; c=relaxed/simple;
+	bh=pyp25QtKyLM8BrmBaxXVfW+c86ZxFuXNe529PVbugRo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hnYtjyXwh1SG+Gf9CXPDuvsThTguNAlsqTgpE3IA9kfw0fz0GX5xO3jS2UB1AiYp6UJQtE9FBJTZrj6qola4s8VdbooomrVvZNOY+WxNtWVu0/atDEuEY/t0sHwJjNComzrW6Y9b0YxSuZhfhiwHE+5rf7tklooUU08YiQzsubc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHc+HFoI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EsKn/uj4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=N26AKMAXiTM6rFqNoRgV4qhW8JRriwgrdYp79xxB7vw=;
-	b=EsKn/uj4pQDiiR5eAhBL5w2OrH2ZE50dBrO3s8noaVy6oCy+VH9Y1IQ6ZC7rLE
-	vcbgUXDQ4er+rzetvbYrIkRiWPlpLwdgzWfRzs4y/DWrXxmSKJsLIJ3m/AH7IIe4
-	mrvsmiJ8Dh3c0QJgRxr1RGDP4vchK91cWV6/ZmILB5V7Q=
-Received: from [IPV6:2409:8900:1a87:d0a0:9d82:6fdf:5e33:6bcb] (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD317_Avc5qu_TvEA--.475S2;
-	Wed, 14 Oct 2026 07:24:49 +0800 (CST)
-Message-ID: <1bf29aae-f8f1-4e70-9f06-eb34599bfa60@163.com>
-Date: Wed, 14 Oct 2026 07:24:47 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHc+HFoI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5251F0089B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:25:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791933914;
+	bh=bF+W4sghZSTsd+ZdP1W6Me6PZqk4DiSPea7R/+7acVg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lHc+HFoIiIZdyHrYvGHCmk1Y68/+4V1TwAFb/64uLVSVRLfYYFmwTlT59RWrkryTI
+	 TwdY62kwHmD8VHOxvTE2vR2I6RO1jBYXRvC/TwUAnDcIgTcCb/a91uY+NOFp9NIaIG
+	 LQD0L6VPX5DK+CXT0XPWvBslR27YhMmrIRo1PPEgBB7DilKUMChL2WDm6UeVLoBsa2
+	 7BZ8dPvD/bVGgk9aQP5+vuVZb0DZlGh4f39fq2zbYF4yR2rAO6jWCQBOHpQNdLEdUQ
+	 NFtGj1gq7xOn4FcCxO6vIdaqTRHy0HIUsGHfmajYeJFsvOURsCXx3k4vdBqNWeyYoH
+	 rs/KBnW3Y7I3A==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso1909412e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:25:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzA65Lmr4eHcwAduxEZkx+E29EuAzpUlDQyCy3xPvN9O5Wq6flbaN+vBRi67j+yJqTKPVJCVHbZTChbATg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRM8X04/Y7+WUyn06z6OFrCghDqfwcg/i+UEBTVKVm4NsaOBX7
+	kF7c1xtIJCQ0grQo8myUUWg7GcFIKD3RV/4wZt8/s7faAe0Rjp+QHDjdnVJIyYbPsGyHkqEmdBw
+	9Y9D14EXtNGPWyTjnLTFXuAGeEJUjq30=
+X-Received: by 2002:a05:6512:3d8a:b0:5b8:f048:473d with SMTP id
+ 2adb3069b0e04-5bcde35cad4mr4274371e87.7.1791933913215; Tue, 13 Oct 2026
+ 16:25:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ntfs: flush the block device when syncing a directory
-To: DaeMyung Kang <charsyam@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>,
- Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261013145846.56415-1-charsyam@gmail.com>
- <20261013145846.56415-3-charsyam@gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20261013145846.56415-3-charsyam@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD317_Avc5qu_TvEA--.475S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr4rJFy7Cr45tw1rCFW3Wrg_yoW8GF15p3
-	y2kF9xG3sYvrW8KFnakF4UtFyxuF9rKw4fXFn0vw1furn5Z3ZrWFy3ta40q3W0qFy3A3yU
-	XrW2gFWrAFyUAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2oGLUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gHtuGrOvcE94wAA34
+References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com> <20261012-lstp-usb-adapter-v1-6-aambrozewicz@nvidia.com>
+In-Reply-To: <20261012-lstp-usb-adapter-v1-6-aambrozewicz@nvidia.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 14 Oct 2026 01:25:00 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkru2AL2_7ieOdbYrePAhNSFaa3wwEzCagiPsALgG2GwQ@mail.gmail.com>
+X-Gm-Features: AclHuK8aDJrbMFX2SY9BpZEACe6CGzBOm9_cURajb8zp_6_hmnV2osIeBJ4Fdic
+Message-ID: <CAD++jLkru2AL2_7ieOdbYrePAhNSFaa3wwEzCagiPsALgG2GwQ@mail.gmail.com>
+Subject: Re: [PATCH 06/11] gpio: Add NVIDIA LSTP GPIO driver
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Donald Shannon <donalds@nvidia.com>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-usb@vger.kernel.org, llvm@lists.linux.dev, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Adrian,
 
+thanks for your patch!
 
-在 2026/10/13 22:58, DaeMyung Kang 写道:
-> ntfs_dir_fsync() writes directory metadata and calls sync_blockdev(),
-> but does not flush the block device write cache. A successful fsync()
-> can therefore leave the directory's metadata in a volatile device cache.
-> 
-> Issue a cache flush after successful writeback and return any flush error.
-> This matches the regular-file fsync and syncfs paths.
-> 
-> With QEMU blkdebug injecting -EIO for flush_to_disk, fsync() on an NTFS
-> directory returned 0 before this change while syncfs() returned -EIO.
-> After this change, both return -EIO. A kretprobe confirmed the flush
-> error in the directory fsync path.
-> 
-> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
-> ---
->   fs/ntfs/dir.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/fs/ntfs/dir.c b/fs/ntfs/dir.c
-> index 5a0e21e7c283..fce10baa2b93 100644
-> --- a/fs/ntfs/dir.c
-> +++ b/fs/ntfs/dir.c
-> @@ -1192,6 +1192,8 @@ static int ntfs_dir_fsync(struct file *filp, loff_t start, loff_t end,
->   	err = sync_blockdev(vi->i_sb->s_bdev);
->   	if (unlikely(err && !ret))
->   		ret = err;
-> +	if (!ret)
-> +		ret = blkdev_issue_flush(vi->i_sb->s_bdev);
->   	if (likely(!ret))
->   		ntfs_debug("Done.");
->   	else
+On Mon, Oct 12, 2026 at 7:37=E2=80=AFPM Adrian Ambrozewicz
+<aambrozewicz@nvidia.com> wrote:
 
+> Add a driver for the GPIO channels of NVIDIA LSTP USB adapters. Each
+> channel is registered as a GPIO chip with an interrupt controller for
+> its pins; every line access is a USB transaction, so the chip can
+> sleep. Pins the firmware reports as LEDs are not GPIO lines: the driver
+> hands them to the LED driver as an auxiliary device.
+>
+> At probe the driver reads each pin's interrupt configuration from the
+> device. A reply that misses the response timeout can answer a later
+> request and shift every following pin's state by one, so a single read
+> cannot simply be retried. After a timeout the driver reads all pins
+> again, alternating ascending and descending order, until two
+> consecutive passes without a timeout agree: at most five passes, ending
+> within 10 s of the first timeout, after which the probe fails as
+> before. The probe runs in the context that added the device, often the
+> hub's worker, hence the bound.
+>
+> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+(...)
+> +++ b/drivers/gpio/Kconfig
+> @@ -2051,6 +2051,20 @@ config GPIO_USBIO
+>           This driver can also be built as a module. If so, the module
+>           will be called gpio_usbio.
+>
+> +config GPIO_LSTP
 
-Looks good to me.
+GPIO_USBIO ... GPIO_LSTP?
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+These should be in alphabetical order.
 
+> +#include <linux/atomic.h>
+> +#include <linux/bitmap.h>
+> +#include <linux/build_bug.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/gpio/driver.h>
+> +#include <linux/irq.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/seq_file.h>
+> +#include <linux/slab.h>
+> +#include <linux/string.h>
+> +#include <linux/wait_bit.h>
+> +#include <linux/workqueue.h>
+> +#include <uapi/linux/gpio.h>
+
+Do you really need all this?
+Certainly <uapi/linux/gpio.h> is a mistake, look over all of these.
+
+> +/* clang-format off */
+
+I beg your pardon? What is this?
+
+> +enum lstp_gpio_direction {
+> +       LSTP_GPIO_OUTPUT =3D 0x00,
+> +       LSTP_GPIO_INPUT =3D 0x01
+> +} __packed;
+> +enum lstp_gpio_pin_state {
+> +       LSTP_GPIO_LOW =3D 0x00,
+> +       LSTP_GPIO_HIGH =3D 0x01
+> +} __packed;
+> +enum lstp_gpio_drive_config {
+> +       LSTP_GPIO_PUSH_PULL =3D 0x00,
+> +       LSTP_GPIO_OPEN_DRAIN =3D 0x01,
+> +       LSTP_GPIO_OPEN_SOURCE =3D 0x02
+> +} __packed;
+> +enum lstp_gpio_bias_config {
+> +       LSTP_GPIO_NO_PULL =3D 0x00,
+> +       LSTP_GPIO_PULL_UP =3D 0x01,
+> +       LSTP_GPIO_PULL_DOWN =3D 0x02
+> +} __packed;
+> +enum lstp_gpio_led_support {
+> +       LSTP_GPIO_NOT_LED =3D 0x00,
+> +       LSTP_GPIO_LED_MODE_HOLD =3D 0x01, /* pattern brightness jumps bet=
+ween steps */
+> +       LSTP_GPIO_LED_MODE_INTERPOLATE =3D 0x02, /* pattern brightness in=
+terpolates between steps */
+> +} __packed; /* clang-format on */
+
+This  looks very dense too..
+
+At least a newline between the enums?
+
+What's with the clang-format thing? I don't get it.
+
+> +struct lstp_gpio_priv {
+
+Just call it lstp_gpio
+
+> +       struct lstp_channel *ch;
+> +       struct gpio_chip gc;
+
+Why? Normally drivers get the state container from the
+chip not the other way around.
+
+> +static int lstp_gpio_get_direction(struct gpio_chip *gc, unsigned int pi=
+n)
+> +{
+> +       struct lstp_gpio_priv *priv =3D gpiochip_get_data(gc);
+> +       u8 direction;
+> +
+> +       int ret =3D lstp_gpio_read_direction(priv, pin, &direction);
+> +
+> +       if (ret)
+> +               return ret;
+> +
+> +       if (direction =3D=3D LSTP_GPIO_INPUT)
+> +               return GPIO_LINE_DIRECTION_IN;
+> +
+> +       return GPIO_LINE_DIRECTION_OUT;
+> +}
+> +
+> +static int lstp_gpio_direction_input(struct gpio_chip *gc, unsigned int =
+pin)
+> +{
+> +       struct lstp_gpio_priv *priv =3D gpiochip_get_data(gc);
+> +
+> +       return lstp_gpio_require_direction(priv, pin, LSTP_GPIO_INPUT);
+> +}
+> +
+> +static int lstp_gpio_direction_output(struct gpio_chip *gc, unsigned int=
+ pin, int value)
+> +{
+> +       struct lstp_gpio_priv *priv =3D gpiochip_get_data(gc);
+> +       int ret =3D lstp_gpio_require_direction(priv, pin, LSTP_GPIO_OUTP=
+UT);
+> +
+> +       if (ret)
+> +               return ret;
+> +
+> +       return lstp_gpio_set_value(gc, pin, value);
+> +}
+
+It seems some pins are only input and some are only output.
+
+Have you considered using serialized register access over
+regmap and use regmap-gpio with fixed direction bitmaps?
+
+Yours,
+Linus Walleij
