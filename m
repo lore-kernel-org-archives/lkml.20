@@ -1,239 +1,459 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3483F105B;
-	Tue, 13 Oct 2026 17:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06A047F763
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912706; cv=none; b=E347YHXBZmfUC4Lv4S5fcdXG/Fnr2ja5QuLtrWlTaAvwBWYMbTlQ+ozoyxQFsH0LuQzt4PB3sO/Jmi/HuagWSRpegitUImybP9td7c5QqpRpMFkXSA/aNJVAzmmjF9fPN0YA3jaSMlY7O9mT9/UXzBRMe4tfgXW8dXqug54b79c=
+	t=1791912707; cv=none; b=nD4GfKpm++sVwOc0WwzU4J1Lc6JV0kKCqOymDL5pW89EZdE8FCrPxRGATPn/du6IX5jkz1VxQ0kUBMxCunT9/VoJWIJ4wiD3icpMZvUBrTHvczY8bgel1ZdlafB1SY9PnAktbi5NXa1wL3FEEIwY7pwpGMg8KR4/vLvDePcNMok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912706; c=relaxed/simple;
-	bh=v/vKKtpOzS8YzsPNGdZBQvqeKkAcEpPqOMnXjUDK6v8=;
+	s=arc-20240116; t=1791912707; c=relaxed/simple;
+	bh=WW+mxK7QRr9SqsEeExR34hyW6tG9sPE4TygU7AQm+DM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C6PQiIgyLBg7ds7JTazSqqUlzc1XgMQDa6pcb8jKj+QHlAI3hrt9fswI7NkEYOrgeq0SG7rr8gRgke+CheEdJsMDxES6anAYNoG7kVo0UJ+aoaqIybssxsia+dgtBCuIus0+5yGElOCM+a0zmNF4UnrqvIdgFm2WUsHVEHtneOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RP0AZWag; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=a6NN70w0llXCrZPB8WjpwYvylnuFORTNSvLR7IFsEkq3WEXsq3gAn9NRGy6y06HIWlnuRBWNF4aXitMdlkbzH0IRPAWdRacHTeb8fgGqn4PkFea4vRPccZXiLHkgh33ImOEYTrYCDQ+5kehYYPD2nSbMfNlDYoQDBjFswoByzvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GMHe7pCH; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RP0AZWag"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED681F00893;
-	Tue, 13 Oct 2026 17:31:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791912704;
-	bh=P9yR/iQvDBD3fVqX5zNUr7e6YuxSLAfgJx2C9bX9mSA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RP0AZWagpWx8ooO3zve15EY0NR6XeW6zRpQCg83idaGBKc+gX7vR6qKKLyk+uS6jN
-	 Yy7ZXuHwNEz2fjUp9OmlzJ8LJugiSviNiaL0SxxzJ8eXL6yvBihqKK1AHwj+MJMgsr
-	 C5ONhehkgTm0Cw+F10gs19lNCT7q+NM4ZEcvufCDajHIOT+ckKsa/sB7Q2YuTsSEIx
-	 8fiYDnYMoSCm98ahoETeDjmJDLBYBBl3YLK5x+46iVDZgkSxKg6fd2zGep5uHyfID8
-	 fiFmPc0SlkJsI15Ti7wmOrgILq16GCtGZYZqySaqsjkCzovf3970Z4ynbMtNPVTCpy
-	 zsDMRta+FQj7g==
-Date: Tue, 13 Oct 2026 18:31:39 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Steen.Hegelund@microchip.com,
-	daniel.machon@microchip.com, UNGLinuxDriver@microchip.com,
-	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
-	lars.povlsen@microchip.com, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
-Subject: Re: [PATCH 1/6] dt-bindings: hwmon: sparx5: add LAN969x fan
- controller
-Message-ID: <20261013-footwear-boxer-458afbcff303@spud>
-References: <20261013125735.1542349-1-robert.marko@sartura.hr>
- <20261013-stylized-plethora-2a9e27545adb@spud>
- <CA+HBbNHZZePJh6s2xujmjA57GYZTgwhMqBnf0atM9aPQJP77Rw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GMHe7pCH"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7f84a55e31aso1961767a34.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:31:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791912702; x=1792517502; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ACnJdCVrmaptqY4owXK+MVicpU/I/9HqnPn8Ae728wU=;
+        b=GMHe7pCHE93KCaIn9Zm4/7SQX+MlL+wylqzo8wYafsmveGPjuMpyl/kfUUXTvr7lKz
+         /2u1XzyGD+OzmQCRk2Ph9+qPnZ3BRrYFBB76gOUhgG57pfcpFBNc0EaYOMS41vSFDdQF
+         zvzSF5o60eFmhKmMAKbmkGzkZfOFoP71eU9co/9IKu0JBhMaOwnrMcfGRPYN8QBrSmuo
+         3U02/nxzPPNEgX/H7JDgM5cTrODmNizlFKBD/17P8R952P9zcZG6sVgLqo5nPB/Y3ZR2
+         zOFJeODJULBfsjMZMhLFYk1qJtPXEQXx49com7/9x8DIv8CZEE+vjdBhmZuDYl7j6TS/
+         sfLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791912702; x=1792517502;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ACnJdCVrmaptqY4owXK+MVicpU/I/9HqnPn8Ae728wU=;
+        b=mg71QThxJdYrj5jfYQFDzvKbZZLofeWV+DwR4ci848gyZ20sHsG8pna3h1bJis/2AC
+         Ij1ZrXMmKuv22yUlwtilMzAdG7YpzJgZ+rzcr1Qe/n8kIVHsPrcMwRS9+PiVWaUTv9RT
+         Xls1XUbjj4iotA7Fp/9IScXB6Nyce4GrMk09oGy51VpvnoDTWMm7NOjCN3HJqxQN+e3T
+         F7TL16BrDfaDiCWbduEBTRhJaDMP0oHDwZu7bxT1YAdFjREPa5K3JQFwYErUPfwrz4aD
+         9EPy4AXMy7jF7YeozzuT6whpRX2tJOEWSxlqEgvD6wfVj81p9vnI0zXM+xlOJjimN1vI
+         JC4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxdGwVSt49whp9FV5bnH8YKQE6JtDcrBShHow2OhuIp5ggB2wyQHidD94MYBWT5WXH62hExDs9Z1xf4Sxg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK00T/h9UreTKy2mEGdKbEkzq378/a7yaNGCa7Qe87Qi+iZUgpM
+	wgdUe8GiqicHRH1qLAds1PglObsKbstx2D//N3lEC1D3Xerg1XHRPWvd
+X-Gm-Gg: AYBFou3mhcFmG23JES78OgjM4ufLqNLLl9OrJ96YXbBbgAP6Dh85a+S+1QZjn+RE9k3
+	BYwlE6vT8+coa1WOTpa68JZkGgL7V1f0YdEL0himtYSZRrkwCKcVXrOfMCNyYt2nBVhG6/It+ET
+	LPMcc28LcaaqjAgeyn9IFHMth5QSeWoJjwtZ2lLNWt4XF3DogNcPyYWBxQLpxIvHXmczmc+j1eI
+	nRzA89J0FWqNLwjCEUAYcg7uYRevLg0I8mZbjnh1/tAbM+zF7LOQkNuxMPNQm5IKRp1AvT0wyll
+	/4bKKsl+JuMH6DTg0irqiAWQRqpbxtFtLNrimSyDGZm018Fb2CIMHB5QjF9UD33VpupuP/X4IsU
+	Ujo/A/DztLYmwO7+u4y9XffnIhlJLc/JN2gGV4dqSD5rGlamopIdF0RL4d1OhxKhUIxSy0yAhT0
+	0/325w6EGT4TVXeIAdFQTgiVO8JHyqgD/vCmbv4fW76rP3iwSVdykV3Pvg777CqMBXQdI=
+X-Received: by 2002:a05:6830:2107:b0:81f:6e05:c1aa with SMTP id 46e09a7af769-83096fa8197mr13233766a34.18.1791912701506;
+        Tue, 13 Oct 2026 10:31:41 -0700 (PDT)
+Received: from localhost ([2a03:2880:ff:a::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3e024sm12520057a34.16.2026.10.13.10.31.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 10:31:40 -0700 (PDT)
+Date: Tue, 13 Oct 2026 10:31:39 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Jia Jia <physicalmtea@gmail.com>
+Cc: stefanha@redhat.com, sgarzare@redhat.com, netdev@vger.kernel.org,
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, mst@redhat.com,
+	jasowangio@gmail.com, eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/5] vsock/virtio: amortize RX socket locking
+ for stream packets
+Message-ID: <as5q+7N+wnmi/nOu@devvm29614.prn0.facebook.com>
+References: <20261010142247.99223-1-physicalmtea@gmail.com>
+ <20261010142247.99223-3-physicalmtea@gmail.com>
+ <as1b8+vIy8K8J5cN@devvm29614.prn0.facebook.com>
+ <CAJwVaM+Mht=DiODUJHzokkpGMjcBW9caHh6+Em1+-J-C-_25Yw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GZAyrRYchvfkwe6C"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+HBbNHZZePJh6s2xujmjA57GYZTgwhMqBnf0atM9aPQJP77Rw@mail.gmail.com>
+In-Reply-To: <CAJwVaM+Mht=DiODUJHzokkpGMjcBW9caHh6+Em1+-J-C-_25Yw@mail.gmail.com>
 
---GZAyrRYchvfkwe6C
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Oct 13, 2026 at 07:08:34PM +0200, Robert Marko wrote:
-> On Tue, Oct 13, 2026 at 6:30=E2=80=AFPM Conor Dooley <conor@kernel.org> w=
-rote:
+On Tue, Oct 13, 2026 at 11:28:53AM +0800, Jia Jia wrote:
 > >
-> > On Tue, Oct 13, 2026 at 02:56:25PM +0200, Robert Marko wrote:
-> > > LAN969x integrates a PWM fan controller with a tachometer input in
-> > > addition to the Sparx5-compatible temperature sensor. Add a LAN969x
-> > > hardware-monitor compatible and describe the second register region.
+> > On Sat, Oct 10, 2026 at 10:22:44PM +0800, Jia Jia wrote:
+> > > The virtio-vsock RX worker currently acquires and releases the socket lock
+> > > for every received packet. Keep the lock held while processing a bounded
+> > > run of packets that belongs to the same socket.
 > > >
-> > > Describe the fan as a child node using a two-cell PWM specifier for t=
-he
-> > > period and standard polarity flags. The child also carries the option=
-al
-> > > tachometer pulses-per-revolution and thermal cooling properties.
+> > > Only ordinary RW packets for an established STREAM socket whose transport
+> > > and protocol remain unchanged are eligible. Control packets, SEQPACKET
+> > > traffic, state or transport changes, malformed packets, and sockets whose
+> > > protocol has been replaced end the active batch and retain their existing
+> > > handling.
 > > >
-> > > Keep the existing microchip,lan9691-temp compatible for device tree A=
-BI
-> > > compatibility.
+> > > Serialize the initial eligibility check with sk_callback_lock because
+> > > sockmap removal restores the protocol without taking the socket lock.
 > > >
-> > > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> > > Limit each batch to 64 packets or 64KB of payload, bounding the work under
+> > > one socket lock. Keep the lookup reference until the batch finishes.
+> > >
+> > > Keep a batch only while another skb metadata charge fits in the receive
+> > > buffer. Share this predicate with virtio_transport_inc_rx_pkt(). When an
+> > > enqueued skb consumes the final metadata slot, finish the batch and release
+> > > the socket lock before processing another packet, restoring the reader's
+> > > scheduling opportunity from the per-packet path.
+> > >
+> > > The virtqueue callback remains a queue_work() callback. Batching runs only
+> > > in the process-context RX worker.
+> > >
+> > > Introduce virtio_transport_rx_batch_finish() to tear down the batch and
+> > > release the socket lock and lookup reference.
+> > >
+> > > Signed-off-by: Jia Jia <physicalmtea@gmail.com>
 > > > ---
-> > >  .../bindings/hwmon/microchip,sparx5-temp.yaml | 90 +++++++++++++++++=
-+-
-> > >  1 file changed, 87 insertions(+), 3 deletions(-)
+> > >  include/linux/virtio_vsock.h            |  11 ++
+> > >  net/vmw_vsock/virtio_transport.c        |  29 ++++-
+> > >  net/vmw_vsock/virtio_transport_common.c | 147 +++++++++++++++++++++++-
+> > >  3 files changed, 183 insertions(+), 4 deletions(-)
 > > >
-> > > diff --git a/Documentation/devicetree/bindings/hwmon/microchip,sparx5=
--temp.yaml b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.=
-yaml
-> > > index 611fcadb1e771..e91c2a3ccd3c9 100644
-> > > --- a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.y=
-aml
-> > > +++ b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.y=
-aml
-> > > @@ -4,13 +4,15 @@
-> > >  $id: http://devicetree.org/schemas/hwmon/microchip,sparx5-temp.yaml#
-> > >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+> > > index f91704731057..26dde6909c4e 100644
+> > > --- a/include/linux/virtio_vsock.h
+> > > +++ b/include/linux/virtio_vsock.h
+> > > @@ -282,6 +282,17 @@ void virtio_transport_destruct(struct vsock_sock *vsk);
 > > >
-> > > -title: Microchip Sparx5 Temperature Monitor
-> > > +title: Microchip Sparx5 Hardware Monitor
+> > >  void virtio_transport_recv_pkt(struct virtio_transport *t,
+> > >                              struct sk_buff *skb, struct net *net);
+> > > +
+> > > +struct virtio_transport_rx_batch {
+> > > +     struct sock *sk;
+> > > +     unsigned int pkts;
+> > > +     size_t bytes;
+> > > +};
+> > > +
+> > > +void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+> > > +                                  struct sk_buff *skb, struct net *net,
+> > > +                                  struct virtio_transport_rx_batch *batch);
+> > > +void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch);
+> > >  void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *skb);
+> > >  u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
+> > >  void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
+> > > diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+> > > index 4f9aa9c4c3aa..ef076732158d 100644
+> > > --- a/net/vmw_vsock/virtio_transport.c
+> > > +++ b/net/vmw_vsock/virtio_transport.c
+> > > @@ -629,8 +629,16 @@ virtio_transport_seqpacket_allow(struct vsock_sock *vsk, u32 remote_cid)
+> > >       return seqpacket_allow;
+> > >  }
 > > >
-> > >  maintainers:
-> > >    - Lars Povlsen <lars.povlsen@microchip.com>
-> > >
-> > >  description: |
-> > > -  Microchip Sparx5 embedded temperature monitor
-> > > +  Microchip Sparx5 temperature monitor with a fan controller on LAN9=
-69x.
-> > > +  The fan child's pwms property references this node to specify the
-> > > +  PWM period and polarity.
-> > >
-> > >  properties:
-> > >    compatible:
-> > > @@ -18,11 +20,19 @@ properties:
-> > >        - const: microchip,sparx5-temp
-> > >        - items:
-> > >            - enum:
-> > > +              - microchip,lan9691-hwmon
-> > >                - microchip,lan9691-temp
-> > >            - const: microchip,sparx5-temp
-> > >
-> > >    reg:
-> > > -    maxItems: 1
-> > > +    minItems: 1
-> > > +    maxItems: 2
-> > > +
-> > > +  reg-names:
-> > > +    minItems: 1
-> > > +    items:
-> > > +      - const: temp
-> > > +      - const: fan
-> > >
-> > >    clocks:
-> > >      items:
-> > > @@ -31,11 +41,67 @@ properties:
-> > >    '#thermal-sensor-cells':
-> > >      const: 0
-> > >
-> > > +  '#pwm-cells':
-> > > +    const: 2
-> > > +    description: |
-> > > +      Number of cells in a PWM specifier.
-> > > +      - cell 0: PWM period in nanoseconds
-> > > +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
-> > > +
-> > > +  fan:
-> > > +    $ref: fan-common.yaml#
-> > > +    unevaluatedProperties: false
-> > > +
-> > > +    properties:
-> > > +      cooling-levels:
-> > > +        description:
-> > > +          PWM duty-cycle values corresponding to thermal cooling sta=
-tes.
-> > > +        items:
-> > > +          maximum: 255
-> > > +
-> > > +      pulses-per-revolution:
-> > > +        minimum: 1
-> > > +        maximum: 4
-> > > +        default: 2
-> > > +
-> > > +    required:
-> > > +      - pwms
-> > > +
-> > > +    dependencies:
-> > > +      '#cooling-cells':
-> > > +        - cooling-levels
-> > > +      cooling-levels:
-> > > +        - '#cooling-cells'
-> > > +
-> > >  required:
-> > >    - compatible
-> > >    - reg
-> > >    - clocks
-> > >
-> > > +allOf:
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            const: microchip,lan9691-hwmon
-> > > +    then:
-> > > +      properties:
-> > > +        reg:
-> > > +          minItems: 2
-> > > +        reg-names:
-> > > +          minItems: 2
-> > > +      required:
-> > > +        - '#pwm-cells'
-> > > +        - reg-names
-> > > +    else:
-> > > +      properties:
-> > > +        '#pwm-cells': false
-> > > +        fan: false
-> > > +        reg:
-> > > +          maxItems: 1
-> > > +        reg-names:
-> > > +          maxItems: 1
-> > > +
-> > >  additionalProperties: false
-> > >
-> > >  examples:
-> > > @@ -46,3 +112,21 @@ examples:
-> > >          #thermal-sensor-cells =3D <0>;
-> > >          clocks =3D <&sys_clk>;
-> > >      };
-> > > +
-> > > +  - |
-> > > +    #include <dt-bindings/pwm/pwm.h>
-> > > +
-> > > +    hwmon: hwmon@e2020100 {
-> > > +        compatible =3D "microchip,lan9691-hwmon", "microchip,sparx5-=
-temp";
-> > > +        reg =3D <0xe2020100 0xc>, <0xe2010348 0xc>;
+> > > +/*
+> > > + * Keep a bounded run of packets for one socket under a single socket lock.
+> > > + * Limit packet count and payload size to bound the work done while locked.
+> > > + */
+> > > +#define VIRTIO_TRANSPORT_RX_BATCH_MAX_PKTS   64
+> > > +#define VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES  (64 * 1024)
 > >
-> > Are these actually the same device? These are somewhat disparate
-> > register regions - and the second is at a very odd offset.
->=20
-> Not really, they can be separately configured and have their own register=
- space.
->=20
-> I did not see a point in separate drivers, but we could model these as
-> separate DT
-> nodes with their individual bindings if that is more appropriate.
+> > Why both? Seems like MAX_PKTS would sufficiently bound the lock hold
+> > time.
+> >
+> > > +
+> > >  static void virtio_transport_rx_work(struct work_struct *work)
+> > >  {
+> > > +     struct virtio_transport_rx_batch batch = {};
+> > >       struct virtio_vsock *vsock =
+> > >               container_of(work, struct virtio_vsock, rx_work);
+> > >       struct virtqueue *vq;
+> > > @@ -666,6 +674,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> > >                       /* Drop short/long packets */
+> > >                       if (unlikely(len < sizeof(*hdr) ||
+> > >                                    len > virtio_vsock_skb_len(skb))) {
+> > > +                             virtio_transport_rx_batch_finish(&batch);
+> > >                               kfree_skb(skb);
+> > >                               continue;
+> > >                       }
+> > > @@ -673,6 +682,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> > >                       hdr = virtio_vsock_hdr(skb);
+> > >                       payload_len = le32_to_cpu(hdr->len);
+> > >                       if (unlikely(payload_len > len - sizeof(*hdr))) {
+> > > +                             virtio_transport_rx_batch_finish(&batch);
+> > >                               kfree_skb(skb);
+> > >                               continue;
+> > >                       }
+> > > @@ -680,16 +690,33 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> > >                       if (payload_len)
+> > >                               virtio_vsock_skb_put(skb, payload_len);
+> > >
+> > > +                     if (batch.sk &&
+> > > +                         payload_len > VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES -
+> > > +                                       batch.bytes) {
+> > > +                             virtio_transport_rx_batch_finish(&batch);
+> > > +                     }
+> > > +
+> > >                       virtio_transport_deliver_tap_pkt(skb);
+> > >
+> > >                       /* Force virtio-transport into global mode since it
+> > >                        * does not yet support local-mode namespacing.
+> > >                        */
+> > > -                     virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
+> > > +                     virtio_transport_recv_pkt_batch(&virtio_transport, skb, NULL,
+> > > +                                                     &batch);
+> > > +
+> > > +                     if (batch.sk) {
+> > > +                             batch.pkts++;
+> > > +                             batch.bytes += payload_len;
+> > > +                             if (batch.pkts >= VIRTIO_TRANSPORT_RX_BATCH_MAX_PKTS ||
+> > > +                                 batch.bytes >= VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES) {
+> > > +                                     virtio_transport_rx_batch_finish(&batch);
+> >
+> > I'm not fundamentally opposed to the batch struct, but I wonder if its
+> > needed?
+> 
+> With the byte limit retained, the batch still needs to carry the
+> socket and both counters across calls. A batch may also be finished
+> inside the receive helper, so
+> keeping that state together avoids having the worker maintain a
+> separate counter that can get out of sync. The later notification
+> patches add their pending state to the
+> same object as well, so I would prefer to keep the batch struct.
+> 
+> > If we can get rid of BATCH_MAX_BYTES, then we only need to do
+> > pkts++ in a local var, and can pass an &sk ptr-ptr to
+> > virtio_transport_recv_pkt_batch()?
+> >
+> 
+> My thinking was that the two limits bound different things. The
+> 64-packet limit bounds per-packet work for small packets, while the
+> 64K limit bounds how much data can
+> be queued while the reader cannot acquire the socket lock. A single
+> packet can carry up to 64K, so a packet-only limit could let one batch
+> cover as much as 4M. Since
+> the receive buffer can be enlarged, I do not think the default 256K
+> buffer is a substitute for the byte limit. I would prefer to keep
+> both.
+> 
 
-Doing that seems more appropriate to me.
+Fair enough, makes sense. Probably good to ensure a timely release of
+credits this way too, which won't happen until the batcher releases.
 
---GZAyrRYchvfkwe6C
-Content-Type: application/pgp-signature; name=signature.asc
+Best,
+Bobby
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5q+wAKCRB4tDGHoIJi
-0gzXAP9jIRVOGR1N1MGiguEHKD2U5b6VJpB8hxA7f8I8m727RQD/SdMGdtxaTCdp
-/h5u8x95jfEpATwvdc9htfT3ghTakwo=
-=tl+d
------END PGP SIGNATURE-----
-
---GZAyrRYchvfkwe6C--
+> >
+> > > +                             }
+> > > +                     }
+> > >               }
+> > >       } while (!virtqueue_enable_cb(vq));
+> > >
+> > >  out:
+> > > +     virtio_transport_rx_batch_finish(&batch);
+> > >       if (vsock->rx_buf_nr < vsock->rx_buf_max_nr / 2)
+> > >               virtio_vsock_rx_fill(vsock);
+> > >  out_nofill:
+> > > diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+> > > index e3e75e59896f..a73e37b3fa62 100644
+> > > --- a/net/vmw_vsock/virtio_transport_common.c
+> > > +++ b/net/vmw_vsock/virtio_transport_common.c
+> > > @@ -576,10 +576,16 @@ virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs,
+> > >       skb_queue_splice(&new_queue, &vvs->rx_queue);
+> > >  }
+> > >
+> > > +static bool
+> > > +virtio_transport_rx_skb_has_headroom(struct virtio_vsock_sock *vvs)
+> > > +{
+> > > +     return (u64)(skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0) <=
+> > > +             vvs->buf_alloc;
+> > > +}
+> > > +
+> > >  static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
+> > >                                       u32 len)
+> > >  {
+> > > -     u64 skb_overhead = (skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0);
+> > >
+> > >       /* Allow at most buf_alloc * 2 total budget (payload + overhead),
+> > >        * similar to how SO_RCVBUF is doubled to reserve space for sk_buff
+> > > @@ -588,7 +594,7 @@ static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
+> > >        * queue growth.
+> > >        */
+> > >       if ((u64)vvs->buf_used + len > vvs->buf_alloc ||
+> > > -         skb_overhead > vvs->buf_alloc)
+> > > +         !virtio_transport_rx_skb_has_headroom(vvs))
+> > >               return false;
+> > >
+> > >       vvs->rx_bytes += len;
+> > > @@ -1834,10 +1840,28 @@ struct virtio_transport_rx_pkt_ctx {
+> > >       struct net *net;
+> > >       const struct sockaddr_vm *src;
+> > >       const struct sockaddr_vm *dst;
+> > > +     bool *batchable;
+> > >  };
+> > >
+> > > +static bool
+> > > +virtio_transport_recv_pkt_batchable(struct virtio_transport *t,
+> > > +                                 struct sock *sk)
+> > > +{
+> > > +     struct vsock_sock *vsk = vsock_sk(sk);
+> > > +     struct virtio_vsock_sock *vvs = vsk->trans;
+> > > +
+> > > +     return sk->sk_state == TCP_ESTABLISHED &&
+> > > +            sk->sk_type == SOCK_STREAM &&
+> > > +            READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
+> > > +            !sock_flag(sk, SOCK_DONE) &&
+> > > +            vsk->transport == &t->transport &&
+> > > +            vvs && virtio_transport_rx_skb_has_headroom(vvs);
+> > > +}
+> > > +
+> > >  /*
+> > > - * The caller holds sk's socket lock and must free skb if this returns true.
+> > > + * The caller holds sk's socket lock.  Set @batchable if the socket can remain
+> > > + * locked for another ordinary STREAM/RW packet.  Return true if the caller
+> > > + * must free @skb.
+> > >   */
+> > >  static bool
+> > >  virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+> > > @@ -1850,6 +1874,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+> > >       struct net *net = ctx->net;
+> > >       bool space_available;
+> > >
+> > > +     if (ctx->batchable)
+> > > +             *ctx->batchable = false;
+> > > +
+> > >       /* Check after acquiring the socket lock. Listener sockets accept packets
+> > >        * from any source and are not assigned to a transport.
+> > >        */
+> > > @@ -1891,6 +1918,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+> > >               break;
+> > >       }
+> > >
+> > > +     if (ctx->batchable)
+> > > +             *ctx->batchable = virtio_transport_recv_pkt_batchable(t, sk);
+> > > +
+> > >       return false;
+> > >  }
+> > >
+> > > @@ -1941,6 +1971,117 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
+> > >  }
+> > >  EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
+> > >
+> > > +/*
+> > > + * Finish the RX batch.
+> > > + * For a non-empty batch, the caller must hold the socket lock acquired with
+> > > + * lock_sock(). This function releases the lock and the batch's lookup
+> > > + * reference.
+> > > + * An empty batch is a no-op.
+> > > + */
+> > > +void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
+> > > +{
+> > > +     struct sock *sk = batch->sk;
+> > > +
+> > > +     batch->sk = NULL;
+> > > +     batch->pkts = 0;
+> > > +     batch->bytes = 0;
+> > > +
+> > > +     if (!sk)
+> > > +             return;
+> > > +
+> > > +     release_sock(sk);
+> > > +     sock_put(sk);
+> > > +}
+> > > +EXPORT_SYMBOL_GPL(virtio_transport_rx_batch_finish);
+> > > +
+> > > +void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+> > > +                                  struct sk_buff *skb, struct net *net,
+> > > +                                  struct virtio_transport_rx_batch *batch)
+> > > +{
+> > > +     struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+> > > +     struct virtio_transport_rx_pkt_ctx ctx;
+> > > +     struct sockaddr_vm src, dst;
+> > > +     bool batchable, start_batch;
+> > > +     struct sock *sk;
+> > > +     bool free_pkt;
+> > > +
+> > > +     /* Only STREAM/RW packets can share a socket lock. */
+> > > +     if (le16_to_cpu(hdr->type) != VIRTIO_VSOCK_TYPE_STREAM ||
+> > > +         le16_to_cpu(hdr->op) != VIRTIO_VSOCK_OP_RW) {
+> > > +             virtio_transport_rx_batch_finish(batch);
+> > > +             virtio_transport_recv_pkt(t, skb, net);
+> > > +             return;
+> > > +     }
+> > > +
+> > > +     virtio_transport_recv_pkt_init_addrs(skb, &src, &dst);
+> > > +     virtio_transport_trace_recv_pkt(skb, &src, &dst);
+> > > +
+> > > +     sk = virtio_transport_recv_pkt_find_socket(skb, &src, &dst, net);
+> > > +     if (!sk) {
+> > > +             virtio_transport_rx_batch_finish(batch);
+> > > +             (void)virtio_transport_reset_no_sock(t, skb, net);
+> > > +             kfree_skb(skb);
+> > > +             return;
+> > > +     }
+> > > +
+> > > +     if (!skb_set_owner_sk_safe(skb, sk)) {
+> > > +             WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
+> > > +             virtio_transport_rx_batch_finish(batch);
+> > > +             kfree_skb(skb);
+> > > +             return;
+> > > +     }
+> > > +
+> > > +     if (batch->sk && batch->sk != sk) {
+> > > +             /* Never acquire a second socket lock. */
+> > > +             virtio_transport_rx_batch_finish(batch);
+> > > +     }
+> > > +
+> > > +     if (batch->sk == sk) {
+> > > +             /* Keep the batch reference; drop this packet's lookup reference. */
+> > > +             sock_put(sk);
+> > > +             ctx = (struct virtio_transport_rx_pkt_ctx) {
+> > > +                     .net = net,
+> > > +                     .src = &src,
+> > > +                     .dst = &dst,
+> > > +                     .batchable = &batchable,
+> > > +             };
+> > > +             free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
+> > > +             if (!batchable)
+> > > +                     virtio_transport_rx_batch_finish(batch);
+> > > +             if (free_pkt)
+> > > +                     kfree_skb(skb);
+> > > +             return;
+> > > +     }
+> > > +
+> > > +     lock_sock(sk);
+> > > +     /*
+> > > +      * Sockmap removal restores the native protocol under sk_callback_lock.
+> > > +      * Serialize this initial eligibility check with that update.
+> > > +      */
+> > > +     read_lock_bh(&sk->sk_callback_lock);
+> > > +     start_batch = virtio_transport_recv_pkt_batchable(t, sk);
+> > > +     read_unlock_bh(&sk->sk_callback_lock);
+> > > +
+> > > +     ctx = (struct virtio_transport_rx_pkt_ctx) {
+> > > +             .net = net,
+> > > +             .src = &src,
+> > > +             .dst = &dst,
+> > > +             .batchable = start_batch ? &batchable : NULL,
+> > > +     };
+> > > +     free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
+> > > +     if (start_batch && batchable) {
+> > > +             /* Keep the lookup reference until the batch is released. */
+> > > +             batch->sk = sk;
+> > > +             return;
+> > > +     }
+> > > +
+> > > +     release_sock(sk);
+> > > +     sock_put(sk);
+> > > +     if (free_pkt)
+> > > +             kfree_skb(skb);
+> > > +}
+> > > +EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt_batch);
+> > > +
+> > >  /* Remove skbs found in a queue that have a vsk that matches.
+> > >   *
+> > >   * Each skb is freed.
+> > > --
+> > > 2.34.1
