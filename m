@@ -1,193 +1,399 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3739539799
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1FE5519B3;
+	Tue, 13 Oct 2026 15:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905623; cv=none; b=IgrXRAwzXoMiuPwlv1NUMSSUpnh+nY2Shg0cWdZXkRTdTqKhRH5J7fYaD3H9QxlLeu2yIRIahlKwA53KEmOED3yfRwNlMQM3US055ap4bxbbsFJicnb06QbDbvwUQPfz9YfrR9M1wWTkv5tCOuIi1VK7G83I6MfRbdZljGt5BLQ=
+	t=1791905624; cv=none; b=fGPRKRwZmn+jXG+xr+BrcH83V/af3+GsSm16hZu06kMw4xJenMcHdobw4fIUaFuuR4IVQUoWmkgO1I1ieqYeHtGwKDMWP1EHOCQzKVteA03ZLxinAKGAg3FvfxD5D0q7FWZnTT+9f8xv24fozVCDsqtPj5OcxCKQLTWMS+j1sDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905623; c=relaxed/simple;
-	bh=BXr0rSDhl1hVDGoprcWmOpPBqW62UYFcPxUYtbjxbXc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qBYF3IkPMujbjQ+CbyIHBJmIaIL2VupsMvANI0uqht8wH7Pg4k0gdpbm0kkC36h5dK3bQlILVvhOS4ZDyKfCiltnfqS2iuLUqNzax9eI70T5Jh0WZp4tpGnq+lOp1oqW9/UQCmV06/iEAuXRMD6xt7qJJcz3q6uMh3W4417F5nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=EdHBe7hT; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791905624; c=relaxed/simple;
+	bh=NXBGysr8e/roHDMx+Sg2xtIH34vty0j3VweYJemxJpA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=j7ELsOojAxwXLLhc6wCGeUxDXBPhYmqTqvchvNnlzMQmoYmjYnANNsjfFn3rinVlViCdfABqPvloJw1zw66Kwj+jaeIUY5gQRvmrFzVSGmyMa6xlEMf24ISBFlGgEifAmXzy50AUjvRmXx8M3Yc1hblDCIeAtZAnkqlcMlzh79c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IWhzGdtH; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="EdHBe7hT"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e5fb79ce82so16842175ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:33:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791905616; x=1792510416; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3b6XsX6coe7wQVnv95dimNXsm+R1YHHriqp/Z4dvvWM=;
-        b=EdHBe7hTsr3LWVUVFl0VPWK05G/7MbVxkSbZIgAFlXvAv6vBDh9+eqREwVgBDZTtnJ
-         Rw7UW7M6LbFwSbhDAeHSW0bSelupc3WcOUUzSgG/NbQ2DO9bVn8w+5fzdYK5c946iM4L
-         Wl/qDWAg9jN/+mSAkPpDuh1m/+GP6UaLn/DmknSqngnHZ0B8Or9Rt9NlYgs96t+/UXuL
-         6X/527ZPEaKKHAlsttY7u1YyO1iSTa7MWL3vMt8saPiqsi42vA9Tth4AXTY5JvWXqv/R
-         zIYr5/c5/3wzwWwtD1febtHo6T/sFlFovMyPpW4avYENpnxNRka8W0l2EcNx88igTdT5
-         R4BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791905616; x=1792510416;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3b6XsX6coe7wQVnv95dimNXsm+R1YHHriqp/Z4dvvWM=;
-        b=iJtQM9+5twuEav0DEH3v/wNKr3iwGd489nlaw1zi3iLl/6sGmODBnogVGdcvWS0lD0
-         FTu7nZMz5CSEY1wdJBP1kmVl1E+DaVswj5je4iEbmZGs0thk3haMrpoRetu5IcAv8cf6
-         fnQmdkN7BloTjlnIVHaKJS6KsQ3tI7ROrW1HpldabkOZwTByG+UQIEfFvlyh9x937MM0
-         v9QvL51Ti2nWZXxxOtY0eNhnBFnbU5xCaXaUNQMvD/FeJ+DPrckIgHe3p9//r/ZWyFWx
-         O9UJYuhNMFLlbafzBSOznsU//8ncgDGt5QFnfU3uL7kHPxTnjb1jMnAfq/tVIovh7YHy
-         F6yw==
-X-Forwarded-Encrypted: i=1; AKwUvBwx0FIPmk6J5tsa7+VJh9sNZ0TQ1fdUTD6mIOxJrW+PueSC82xucheXjjobw8CoplROrpYhg4nrr9ixNco=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYxdqYG/2SMeHyIFy6i1XNNJUhni9q/+m4KPpz0dhR+y33RPvR
-	hFU9M11dgvX0vL97eddqAGPZR8nz+01g1YFVJO1vEYJgZyOBhz7AyUwHnHiUfSI+CAk=
-X-Gm-Gg: AYBFou1gnAvusCzM2ypY5oMuAfv+hKf93TwhVDKTV5voo8sdfiRYV2Dc5hu/x6NzN/d
-	yDHRVc42eZTLUEB7HgauH1e5AKcArjmh7cMRzXWqetk/9GWqoVn99rAy89ceUSBYSmoe82gULF6
-	Mw93lyHjEv8SDlGqlYTpH3IPKfw7cjAKNqO5H4B/pVXDH79dRIQI90iQzp3OYrq8YhqqTYu2of8
-	MfGQ1bk2+vI4nEf4ilnQqUZKrCd3BcGl6ymTrZVI3nL4cYFQ77+VKSxdNsTqQP6s/bhvXv2jtB5
-	tTOGruK19CUBWHdC42Bq5tp8SlK2x8/LltHKYYT6eE46eBxODt6aHHrd2EF08AnpAOamoH5iBqi
-	9YKGT8zuxuWxEZqCGqfo/HiHeG/eYj449NYQO8xgsOszVzFF8R0dWgYC67GfgfrfFfVGpulEILc
-	KpvWQB+j8euomBxZAEXwcMn/g2sMNne+b0ydOS5ldDE6fK0qs2bslD5u491uvvfqgN4LRomG7z5
-	ihsiiS9Z1+HB5WJCpk/
-X-Received: by 2002:a17:903:1c7:b0:2d8:d4d3:3fbb with SMTP id d9443c01a7336-2e842ab650cmr108150165ad.15.1791905613073;
-        Tue, 13 Oct 2026 08:33:33 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8dd5sm60841555ad.55.2026.10.13.08.33.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:33:32 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Justin Tee <justin.tee@broadcom.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Keith Busch <kbusch@kernel.org>,
-	linux-nvme@lists.infradead.org
-Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart2021@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v2] nvmet-fc: bound and advertise the maximum FCP data transfer length
-Date: Wed, 14 Oct 2026 00:33:16 +0900
-Message-ID: <20261013153316.3178656-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IWhzGdtH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791905623; x=1823441623;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=NXBGysr8e/roHDMx+Sg2xtIH34vty0j3VweYJemxJpA=;
+  b=IWhzGdtHeIIMh5bD+hqERu0NvD0P0ZOj4uQwyC9rltoozbVWMC3Uwj3h
+   O7nWAbmiBrQ+EBs+aEX9kZ8KZ36RY8i9M3esE49sqRXwCYdpL/z4qOhxb
+   SzMaQaCtzAI9IMdLQpe+29IOb3KgGysnVllDhLoBujm6MPUHe+M1B97LL
+   cRz+OaASEUdA2sL1A0ml5YkPAZa0SC6efCjx2Sr1I7+IW3lOOWktsrYFo
+   aHhg4nDZFokG9qfWwqGIfAcbzgTrnetRJBSLXMnF+t0auq1bB4gFtFr5x
+   /n+vxXgkbIpECXWhJ8/tJFwHSNiZ9CPdya3rvwja31CMFlqon/GdBh3nU
+   A==;
+X-CSE-ConnectionGUID: JSi4to+bTaW0Z2CTfNJLIQ==
+X-CSE-MsgGUID: DDIvwWnHTti/GuYi4XYgFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="643407"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="643407"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:33:43 -0700
+X-CSE-ConnectionGUID: R3XEXgYDTlmVRanWrtqfRQ==
+X-CSE-MsgGUID: kQuVz87nTduuufOmGi3tpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1388181"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO [127.0.1.1]) ([10.239.47.46])
+  by fmviesa001.fm.intel.com with ESMTP; 13 Oct 2026 08:33:38 -0700
+From: Xu Yilun <yilun.xu@linux.intel.com>
+Date: Tue, 13 Oct 2026 23:28:53 +0800
+Subject: [PATCH v4 3/6] x86/virt/tdx: Add extra memory to TDX module for
+ the extensions
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-tdx-module-ext-v4-3-de5ffac65470@linux.intel.com>
+References: <20261013-tdx-module-ext-v4-0-de5ffac65470@linux.intel.com>
+In-Reply-To: <20261013-tdx-module-ext-v4-0-de5ffac65470@linux.intel.com>
+To: x86@kernel.org, linux-coco@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+Cc: Kiryl Shutsemau <kas@kernel.org>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, dave.hansen@intel.com, 
+ kvm@vger.kernel.org, yilun.xu@intel.com, yilun.xu@linux.intel.com, 
+ xiaoyao.li@intel.com, sohil.mehta@intel.com, adrian.hunter@intel.com, 
+ kishen.maloor@intel.com, tony.lindgren@linux.intel.com, 
+ peter.fang@intel.com, baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, 
+ chao.gao@intel.com, artem.bityutskiy@linux.intel.com, nik.borisov@suse.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10797;
+ i=yilun.xu@linux.intel.com; h=from:subject:message-id;
+ bh=NXBGysr8e/roHDMx+Sg2xtIH34vty0j3VweYJemxJpA=;
+ b=owGbwMvMwCH2Zztz45IFPbcYT6slMWSd8wvfVu335Xj/fR7WJ/Gryjd+UxHXUy/aeWB2iO7HZ
+ xGNylafOjpZGMQ4GAzFFFkWeMxymtI+i2nrp53XYOawMoEMEZapzMwpzdOrKHXIzCtJzdFLzs9l
+ 4OIUgKnaUcXIcDLp1JwtgtwpL93+nZWNlJZ/tkvu9i1vcbfpQq8sz79IDWL4H1jwe9n7H7OX3nu
+ iWBqqdXqv6cm3Ok5SWn9rhSYHScjO5AMA
+X-Developer-Key: i=yilun.xu@linux.intel.com; a=openpgp;
+ fpr=A612D44FA98BA699FECC642BE2C8D72186AC3949
 
-nvmet_fc_handle_fcp_rqst() takes the data length straight from the FCP
-command IU (cmdiu->data_len, a 32-bit value from the wire) into
-fod->req.transfer_len and calls nvmet_fc_alloc_tgt_pgs(), which hands it
-to sgl_alloc() with no upper bound.  nvmet_req_init() only parses the
-command and clears transfer_len; nvmet_check_transfer_len(), the only
-other place the length is checked, runs later from req->execute(), after
-the allocation has already happened.
+TDX module extensions need memory for their execution environment to
+serve SEAMCALL leafs. The TDX architecture implements the extensions
+in such a way that they use the memory outside of SEAM range, so the
+kernel should add the memory upfront at initialization time.
 
-The fc transport also advertised no limit: with no ->get_mdts callback the
-target reports MDTS as unlimited, so a host has no indication it should
-keep transfers small.  A remote, effectively unauthenticated host can
-therefore declare a huge transfer length and make the target allocate
-that much kernel memory for a command that never delivers the data.
-nvmet-tcp bounds the equivalent length and the rdma transport is limited
-by its 24-bit SGL length field; the fc transport had neither.
+Introduce a new memory adding process backed by a new SEAMCALL leaf
+TDH.EXT.MEM.ADD. The kernel queries TDX module how much memory needed,
+allocates it, adds it to the module, and never gets it back.
 
-Advertise a Maximum Data Transfer Size through a ->get_mdts callback and
-reject a command whose data length exceeds it before allocating anything.
-The ceiling is 16 MiB, the largest transfer any in-tree fc LLDD can
-describe (lpfc maps up to LPFC_MAX_SG_SEG_CNT 4096 segments, qla2xxx
-1024), so no in-tree configuration is affected: a compliant host now sees
-the limit through MDTS, and a host that ignores it is failed with
-SGL_INVALID_DATA before any allocation is attempted.
+The TDX module accepts the memory in the form of an HPA array. This
+array is passed via a single 64-bit SEAMCALL leaf parameter, which
+encodes two values: the PFN of the container page holding the array, and
+the number of entries in the array. Create a helper to encode this
+format and name it after the TDX module term: HPA_LIST_INFO.
 
-Move the fod->offset reset ahead of the length check so that the new
-rejection path and the existing allocation-failure path both report a
-zero transferred length in their response, rather than the stale value
-left in the recycled command context.
+TDX module extensions consume tens of megabytes memory that will never
+be returned to the host. Use contiguous page allocation to isolate these
+large blocks entirely. This is a simple way to avoid permanent memory
+fragmentation: requiring the full size to be contiguous is more
+expensive than needed but should be good during the boot time. Print the
+allocation amount on TDX module extensions initialization for
+visibility.
 
-Fixes: c53432030d86 ("nvme-fabrics: Add target support for FC transport")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+The TDX module provides a metadata field "required_pages" to indicate
+the required memory size. This metadata is present only when the module
+supports the extensions and is meaningful only after the add-on feature
+configuration. Don't read and cache the metadata in tdx_sysinfo at the
+very beginning of TDX module initialization. Instead read it right
+before allocating memory for the extensions, when it is guaranteed to be
+valid.
+
+AI was used under supervision to review code and workshop logs.
+
+Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
+Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
-v2: advertise the ceiling through a ->get_mdts callback, per Christoph
-    Hellwig's review, and move the fod->offset reset ahead of the length
-    check so the rejection and allocation-failure paths both report a zero
-    transferred length; keep the allocation-time bound as enforcement.
-v1: https://lore.kernel.org/linux-nvme/20261013104038.3078601-1-yhlee@isslab.korea.ac.kr/
+An alternative solution is to use a loop that gives memory on a memory
+error code - TDX_EXT_MEMORY_POOL_REQUIRED, add one page per iteration
+until TDH.EXT.INIT succeeds. Something like:
 
- drivers/nvme/target/fc.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+	do {
+		ret = tdh_sys_init();
+		if (ret == TDX_EXT_MEMORY_POOL_REQUIRED)
+			tdh_ext_mem_add(); //single page
+	} while (ret == TDX_EXT_MEMORY_POOL_REQUIRED);
 
-diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
-index 1b557775e033a..55263d162cb7f 100644
---- a/drivers/nvme/target/fc.c
-+++ b/drivers/nvme/target/fc.c
-@@ -62,6 +62,9 @@ struct nvmet_fc_ls_req_op {		/* for an LS RQST XMT */
- /* desired maximum for a single sequence - if sg list allows it */
- #define NVMET_FC_MAX_SEQ_LENGTH		(256 * 1024)
+This approach is slightly simpler as we don't have to query the module
+for the total memory, no memory pre-allocation or segmentation math.
+But allocating a single 4K page per iteration may cause permanent memory
+fragmentation.
+
+v4:
+ - Rename memory_pool_required_pages to required_pages (Rick)
+ - Rename local var sysinfo_ext to ext
+ - Collect Reviewed-by tags
+
+v3:
+ - Merge remaining pre-check operations from the previous patch (Rick)
+ - Don't save the metadata in tdx_sysinfo (Rick)
+ - Tweak the code comment for memory_pool_required_pages == 0 (Chao)
+ - Re-phrase the code comment for struct tdx_hpa_list (Tony)
+ - Put the error handling comments on top of memory add loop, to avoid
+   moving them around when DPAMT support is added in the following
+   patch.
+ - Print memory size before adding memory; it won't be freed afterward,
+   whether the operation succeeds or fails.
+ - Collect Reviewed-by tags
+
+v2:
+ - Add code comments for container page allocation (Kiryl)
+ - Adjust comments/changelog for contiguous allocation of extensions
+   memory (Kiryl)
+ - s/PFN array/HPA array in commit log (Kiryl)
+ - State the alternative solution (Rick)
+ - Add code comment for struct tdx_hpa_list
+
+v1:
+ - Fix return value for SEAMCALL wrappers (Chao)
+ - Print SEAMCALL error code for SEAMCALL wrappers (Xiaoyao)
+ - Rename local vars to make the ext memory adding loop clear (Rick)
+ - Remove input parameters for tdx_ext_mem_setup() (Kevin)
+ - Add a Macro for tdh_hpa_list size.
+ - Change the SEAMALL wrapper parameter type,
+   struct page *hpa_list => struct tdx_hpa_list *hpa_list
+ - changelog & code comments
+---
+ arch/x86/include/asm/tdx.h                  |   1 +
+ arch/x86/include/asm/tdx_global_metadata.h  |   4 +
+ arch/x86/virt/vmx/tdx/tdx.h                 |   1 +
+ arch/x86/virt/vmx/tdx/tdx.c                 | 138 ++++++++++++++++++++++++++++
+ arch/x86/virt/vmx/tdx/tdx_global_metadata.c |  14 +++
+ 5 files changed, 158 insertions(+)
+
+diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+index 1fcfaed515fe..89e7628796b0 100644
+--- a/arch/x86/include/asm/tdx.h
++++ b/arch/x86/include/asm/tdx.h
+@@ -37,6 +37,7 @@
+ #define TDX_FEATURES0_TD_PRESERVING	BIT_ULL(1)
+ #define TDX_FEATURES0_NO_RBP_MOD	BIT_ULL(18)
+ #define TDX_FEATURES0_DYNAMIC_PAMT	BIT_ULL(36)
++#define TDX_FEATURES0_EXT		BIT_ULL(39)
  
-+/* maximum data transfer length a host may declare in an FCP CMD IU */
-+#define NVMET_FC_MAX_XFR_LENGTH		(16 * 1024 * 1024)
-+
- enum nvmet_fcp_datadir {
- 	NVMET_FCP_NODATA,
- 	NVMET_FCP_WRITE,
-@@ -2576,7 +2579,16 @@ nvmet_fc_handle_fcp_rqst(struct nvmet_fc_tgtport *tgtport,
- 	/* keep a running counter of tail position */
- 	atomic_inc(&fod->queue->sqtail);
+ #ifndef __ASSEMBLER__
  
-+	fod->offset = 0;
-+
- 	if (fod->req.transfer_len) {
-+		if (fod->req.transfer_len > NVMET_FC_MAX_XFR_LENGTH) {
-+			nvmet_req_complete(&fod->req,
-+					   NVME_SC_SGL_INVALID_DATA |
-+					   NVME_STATUS_DNR);
-+			return;
-+		}
-+
- 		ret = nvmet_fc_alloc_tgt_pgs(fod);
- 		if (ret) {
- 			nvmet_req_complete(&fod->req, ret);
-@@ -2585,7 +2597,6 @@ nvmet_fc_handle_fcp_rqst(struct nvmet_fc_tgtport *tgtport,
- 	}
- 	fod->req.sg = fod->data_sg;
- 	fod->req.sg_cnt = fod->data_sg_cnt;
--	fod->offset = 0;
- 
- 	if (fod->io_dir == NVMET_FCP_WRITE) {
- 		/* pull the data over before invoking nvmet layer */
-@@ -2988,6 +2999,14 @@ nvmet_fc_host_traddr(struct nvmet_ctrl *ctrl,
- 	return ret;
- }
- 
-+static u8
-+nvmet_fc_get_mdts(const struct nvmet_ctrl *ctrl)
-+{
-+	int page_shift = NVME_CAP_MPSMIN(ctrl->cap) + 12;
-+
-+	return ilog2(NVMET_FC_MAX_XFR_LENGTH) - page_shift;
-+}
-+
- static const struct nvmet_fabrics_ops nvmet_fc_tgt_fcp_ops = {
- 	.owner			= THIS_MODULE,
- 	.type			= NVMF_TRTYPE_FC,
-@@ -2998,6 +3017,7 @@ static const struct nvmet_fabrics_ops nvmet_fc_tgt_fcp_ops = {
- 	.delete_ctrl		= nvmet_fc_delete_ctrl,
- 	.discovery_chg		= nvmet_fc_discovery_chg,
- 	.host_traddr		= nvmet_fc_host_traddr,
-+	.get_mdts		= nvmet_fc_get_mdts,
+diff --git a/arch/x86/include/asm/tdx_global_metadata.h b/arch/x86/include/asm/tdx_global_metadata.h
+index 8a3cc1a2a41e..f18e63b671c2 100644
+--- a/arch/x86/include/asm/tdx_global_metadata.h
++++ b/arch/x86/include/asm/tdx_global_metadata.h
+@@ -47,6 +47,10 @@ struct tdx_sys_info_handoff {
+ 	u16 module_hv;
  };
  
- static int __init nvmet_fc_init_module(void)
++struct tdx_sys_info_ext {
++	u32 required_pages;
++};
++
+ struct tdx_sys_info {
+ 	struct tdx_sys_info_version version;
+ 	struct tdx_sys_info_features features;
+diff --git a/arch/x86/virt/vmx/tdx/tdx.h b/arch/x86/virt/vmx/tdx/tdx.h
+index db209541d3cd..2adc5d31d258 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.h
++++ b/arch/x86/virt/vmx/tdx/tdx.h
+@@ -50,6 +50,7 @@
+ #define TDH_SYS_UPDATE			53
+ #define TDH_PHYMEM_PAMT_ADD		58
+ #define TDH_PHYMEM_PAMT_REMOVE		59
++#define TDH_EXT_MEM_ADD			61
+ #define TDH_SYS_DISABLE			69
+ 
+ /* TDX page types */
+diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+index f08278a47aff..744ef95e448f 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.c
++++ b/arch/x86/virt/vmx/tdx/tdx.c
+@@ -1220,6 +1220,140 @@ static __init int init_tdmrs(struct tdmr_info_list *tdmr_list)
+ 	return 0;
+ }
+ 
++#define TDX_HPA_LIST_MAX_NR_PAGES	(PAGE_SIZE / sizeof(u64))
++
++/*
++ * TDX module in-memory ABI to specify the memory being added to the TDX
++ * module. An array of HPAs, each element points to a 4K page.
++ */
++struct tdx_hpa_list {
++	u64 phys[TDX_HPA_LIST_MAX_NR_PAGES];
++};
++
++static_assert(sizeof(struct tdx_hpa_list) == PAGE_SIZE);
++
++#define HPA_LIST_INFO_FIRST_ENTRY	GENMASK_U64(11, 3)
++#define HPA_LIST_INFO_PFN		GENMASK_U64(51, 12)
++#define HPA_LIST_INFO_LAST_ENTRY	GENMASK_U64(63, 55)
++
++static __init u64 to_hpa_list_info(struct tdx_hpa_list *hpa_list,
++				   unsigned int nr_pages)
++{
++	return FIELD_PREP(HPA_LIST_INFO_FIRST_ENTRY, 0) |
++	       FIELD_PREP(HPA_LIST_INFO_PFN, PFN_DOWN(__pa(hpa_list))) |
++	       FIELD_PREP(HPA_LIST_INFO_LAST_ENTRY, nr_pages - 1);
++}
++
++static __init int tdx_ext_mem_add(struct tdx_hpa_list *hpa_list,
++				  unsigned int nr_pages)
++{
++	struct tdx_module_args args = {
++		.rcx = to_hpa_list_info(hpa_list, nr_pages),
++	};
++	u64 ret;
++
++	do {
++		/*
++		 * The TDX module overwrites RCX to track progress when this
++		 * SEAMCALL leaf is interrupted. Use seamcall_ret() to save and
++		 * pass the updated value back on retry.
++		 */
++		ret = seamcall_ret(TDH_EXT_MEM_ADD, &args);
++	} while (ret == TDX_INTERRUPTED_RESUMABLE);
++
++	if (ret != TDX_SUCCESS) {
++		pr_err("TDH.EXT.MEM.ADD failed: 0x%016llx\n", ret);
++		return -EIO;
++	}
++
++	return 0;
++}
++
++static __init int tdx_ext_mem_setup(void)
++{
++	struct tdx_hpa_list *hpa_list;
++	struct tdx_sys_info_ext ext;
++	unsigned int added_pages;
++	struct page *page;
++	int ret;
++
++	ret = get_tdx_sys_info_ext(&ext);
++	if (ret)
++		return ret;
++
++	/*
++	 * Skip the memory setup if no memory is required. This may happen when
++	 * no add-on features requiring TDX module extensions are configured
++	 * via TDH.SYS.CONFIG.
++	 */
++	if (!ext.required_pages)
++		return 0;
++
++	/*
++	 * Allocate the container page for the HPA_LIST. tdx_hpa_list is
++	 * guaranteed to be page-sized by static_assert(), so kzalloc()
++	 * guarantees the page alignment.
++	 */
++	hpa_list = kzalloc_obj(*hpa_list);
++	if (!hpa_list)
++		return -ENOMEM;
++
++	/*
++	 * Memory for TDX module extensions is never reclaimed and can be tens
++	 * of megabytes. Allocating a physically contiguous chunk is a simple
++	 * way to avoid permanent memory fragmentation: requiring the full size
++	 * to be contiguous is more expensive than needed but should be good
++	 * during the boot time.
++	 */
++	page = alloc_contig_pages(ext.required_pages, GFP_KERNEL,
++				  numa_mem_id(), &node_online_map);
++	if (!page) {
++		ret = -ENOMEM;
++		goto out_free_hpa_list;
++	}
++
++	/* Print the amount so users know the cost. */
++	pr_info("%lu KB allocated for TDX module extensions\n",
++		ext.required_pages * PAGE_SIZE / 1024);
++
++	/*
++	 * Following TDX operations shouldn't fail, and if they do, things are
++	 * broken enough that complex error handling isn't worth it.
++	 * Intentionally leak all pages on failure, including un-added pages.
++	 */
++	added_pages = 0;
++	while (added_pages < ext.required_pages) {
++		unsigned int chunk_pages = min(ext.required_pages - added_pages,
++					       TDX_HPA_LIST_MAX_NR_PAGES);
++		struct page *chunk = page + added_pages;
++		unsigned int i;
++
++		for (i = 0; i < chunk_pages; i++)
++			hpa_list->phys[i] = page_to_phys(chunk + i);
++
++		ret = tdx_ext_mem_add(hpa_list, chunk_pages);
++		if (ret) {
++			WARN(1, "TDX module rejected memory for extensions, stranded all pages\n");
++			break;
++		}
++
++		added_pages += chunk_pages;
++	}
++
++out_free_hpa_list:
++	kfree(hpa_list);
++
++	return ret;
++}
++
++static __init int init_tdx_module_extensions(void)
++{
++	if (!(tdx_sysinfo.features.tdx_features0 & TDX_FEATURES0_EXT))
++		return 0;
++
++	return tdx_ext_mem_setup();
++}
++
+ static __init int init_tdx_module(void)
+ {
+ 	int ret;
+@@ -1278,6 +1412,10 @@ static __init int init_tdx_module(void)
+ 	if (ret)
+ 		goto err_reset_pamts;
+ 
++	ret = init_tdx_module_extensions();
++	if (ret)
++		goto err_reset_pamts;
++
+ 	pr_info("%lu KB allocated for PAMT\n", tdmrs_count_pamt_kb(&tdx_tdmr_list));
+ 
+ out_put_tdxmem:
+diff --git a/arch/x86/virt/vmx/tdx/tdx_global_metadata.c b/arch/x86/virt/vmx/tdx/tdx_global_metadata.c
+index 98ebf17aab1c..9ab4d021017f 100644
+--- a/arch/x86/virt/vmx/tdx/tdx_global_metadata.c
++++ b/arch/x86/virt/vmx/tdx/tdx_global_metadata.c
+@@ -125,6 +125,20 @@ static int get_tdx_sys_info_handoff(struct tdx_sys_info_handoff *sysinfo_handoff
+ 	return 0;
+ }
+ 
++static __init int get_tdx_sys_info_ext(struct tdx_sys_info_ext *sysinfo_ext)
++{
++	int ret;
++	u64 val;
++
++	ret = read_sys_metadata_field(0x3100000200000000, &val);
++	if (ret)
++		return ret;
++
++	sysinfo_ext->required_pages = val;
++
++	return 0;
++}
++
+ static __init int get_tdx_sys_info(struct tdx_sys_info *sysinfo)
+ {
+ 	int ret = 0;
 
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.43.0
+2.25.1
 
