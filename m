@@ -1,154 +1,123 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EFD5625F6
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D397953D9DB
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791929820; cv=none; b=jaxFlAWNeb37uy46km2KG37k2blBf4bqMobHF7ELBhNWndWIX8iIc6hRRyaBJbbyz9sJJEpBW0mBDm4h7XRY/hQAlcnAMj8Lq63CLWn1ohJ/KQO85gNG0170veFmbK9xHJpMdtbYXTymYFmSmEL3vvTlRu5tY4qq6ynIjRHWrQs=
+	t=1791929862; cv=none; b=boPpjVL+qSDPx3iT7RVuWP9osk258FuRnEXhXpLaX2JyOMCpZtegvO7kvf2LOCHS8XbwvduPba6D07iovmvJ+vSZSFpLmePcpiW2t6jn4SigT4uwzmhaVO4m1Z/O43J4foyH4AsHm9uol0ayGJjNvRSWTrr1TXmZ/l2WpGR830s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791929820; c=relaxed/simple;
-	bh=4A/ANomF4iGWg9aVggtR1rNe+S7/Bw8fq2TxzSqyx/E=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gwLo/dl+D5QbJCCL+JQWeMzh7lOKRhGXrMn8EJS7DKl5jF5p6I0YOCoS0PgqPlm/l43693z5MlnJmLqO+PDIcrzQfWo0zEf2KiSD4KzjL/ZrA0SFNpQoTuIfrpUArx2ipgMG1Vhyn0mcWxgxKa36m4e+YCZh6hmBwhCWFIjXSdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XZr0KG0V; arc=none smtp.client-ip=74.125.82.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1791929862; c=relaxed/simple;
+	bh=JtGF+FGtGT9RJmbUsrjkUwxXXjE5+XdonvoAN0D6Vtk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gUGjs1QeVIaSchPtDg+sEZR+A4FWUyt2oKxdY3T/MRr2yLXfZHs6ZaEtLpZ6+KptepHvYxqPzv5Eb1zZC6BJC09Os+4sFGGn5gD8eHDl9DtcnNZ4bwdcU9c2UNkc/Ky09aZDfPi/3kevW4MotkYXyV2yFSQ2bVisqsIR34c1FAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2D18dtQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XZr0KG0V"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so9371636eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:16:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791929816; x=1792534616; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hA27tTR2dWgZDMscmH9VhLIFtST18vRloUltjoMKrNs=;
-        b=XZr0KG0V26Rr+9h/uEAuU6YAkBnkBfSGtvZcDik1XNVy+26gFyOoFq08ifRG42vRSB
-         XtMgGr1rv1YyYpcpBaYhMQyyxay03fCWM6oplG99L/pyByBJWDcPPDcuQuZwH2CQHxmf
-         jGl9QGxyEQ0pZix1YBSPdkWgAnsx2u7aIk9EMZJio9zk6wojnSx3/WWB3Rorm+EUrnf7
-         pdNIWrygMKTptkTrHqCNBOHyL8CeVVDACUHXzuyvS090MNqopQo1NX1QCYUKTqE71lix
-         mM8b4nfT2iOyZMtrjCyTUyOmOy89MYqSgkQAKo1DN15iTMx/aF9GiDJY6NVQRM5WUrkk
-         7ZeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791929816; x=1792534616;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hA27tTR2dWgZDMscmH9VhLIFtST18vRloUltjoMKrNs=;
-        b=THfQT519eMLBA81sM3SuWBsLD012GCEZC7NoOl0eehT9/vFHJ9kPYB+/FEQ/12wOCk
-         IDYxIDKFnA9UxhBg2Ydd1WPvjDK/uYuXKsjREFUbnZ0J2mORefaF5g4yaUhblwgY0DlX
-         bKW6r7HixdIgM3mRRhoMbMZXBiIlnndVnpZPblISTAUFsCPU6DtijtGqHams9tP4Spmw
-         KJEs6cg2YqrCr7TqUe+KgAqZyRXkzqatF2Hw0eNa08c9J3zH7/HQVN5sdM41DIVBnoBj
-         XdYGnTVPswzmVePzqJY7Pvl5Z5ip794okoylJQ+DSl0HEHxI7uLCd3WnSxef5u7Ezlgt
-         Ml3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwiDBQl3pBXwAYPpUN+jft9IctFwa8t+McqJGENeFyMvWmVb+OxL/izNf+Q3xAmLjAK1XtwvYL9pVtLupQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpu7IFp6VH3hDbebdWc8tNV6+Th5QpGgj/fhSOViPUzQTbjE+s
-	R7pVy2iTFhFOZ9syhYVXbg8NI5i51KOKJmgoeao1oRSqU+PRqDGGuqp+0oBQTcu1gcmeMqkTgSH
-	hykZLmvHxqQ==
-X-Received: from dlep8-n1.prod.google.com ([2002:a05:701b:4588:10b0:17c:109c:db31])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:454b:20b0:144:fa79:174
- with SMTP id a92af1059eb24-16a61f45109mr18552114c88.44.1791929816120; Tue, 13
- Oct 2026 15:16:56 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:16:43 -0700
-In-Reply-To: <20261013221643.1815686-1-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2D18dtQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE72E1F00893
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:17:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791929859;
+	bh=CwKVUc54TR9GsNV4uLfAlgqoISPW2GwsvXsZrez6iv4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=E2D18dtQa6ysXE4OT2W7Qpz65wSpEJE5eQ+tnL0q3MUziJ0J9iSIqpMzDpOng8kYS
+	 PbSao/fGFPIf9Xu2l09Dsj2JCJ2rwleAlhetmV816T+uLpSBTdXkmMRuZ9uNZiaIm0
+	 eKX3xSbgyE/Zr2J2j+mnP8W6KHO/CkM6dJ05ysy3Kp3x2mOGN38yGd/MyNNgoIsqQ/
+	 pBczAW4oKC9hqiIC93aN3rwVquZuJAPCPiD5ZnXKPdDASadvz1MnbwC2RvNBwYk4N9
+	 INEI92XA2FlY3xRUXguPPEwfGL5MdP2/IIl3AIASWLjNaIz8nGhhWlVFJU0NoP4KZ1
+	 cJxPBP2U+t4/A==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c37b612635bso56018266b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:17:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxR1JETFq9rlE26esvXs314brrSEBeTN1zS3eBmn801qPIdFLCcaLWQxovL98UBnKRGNoTF3U1MApv/bMk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8o1DZcb9TXQ994UJOF4suhufw8p8u6h+j3wpNNje2CJHwcSgK
+	M9E86FhwA5+Y05lSerttCC8YrbbRp42D03xajmmYLKfHCBPvE5aKvzCZ9n1giif+B753kY+dFH6
+	iIbggkVyWVsbOj3wheap5GqqXgEio09c=
+X-Received: by 2002:a17:907:7296:b0:c2e:4f16:fbf with SMTP id
+ a640c23a62f3a-c31a9f8af14mr1310034966b.31.1791929858333; Tue, 13 Oct 2026
+ 15:17:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261013221643.1815686-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013221643.1815686-3-irogers@google.com>
-Subject: [PATCH v1 2/2] perf test make: Add BPF skeleton build tests for clang
- and bpf-gcc
-From: Ian Rogers <irogers@google.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Jose E . Marchesi" <jose.marchesi@oracle.com>, David Faust <david.faust@oracle.com>, 
-	Cupertino Miranda <cupertino.miranda@oracle.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Yonghong Song <yonghong.song@linux.dev>, 
-	linux-perf-users@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+References: <20261011115239.1588419-1-charsyam@gmail.com>
+In-Reply-To: <20261011115239.1588419-1-charsyam@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 14 Oct 2026 07:17:25 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_50E7cH51hxKi9xWfE3Hjyj0PhwccgsuGX416pEJVs8A@mail.gmail.com>
+X-Gm-Features: AclHuK8OAWGwLoKzQBG0D3Oot1tstax4BO8bMIAe_7E41NZ5nv9FGQK9zZI9jhc
+Message-ID: <CAKYAXd_50E7cH51hxKi9xWfE3Hjyj0PhwccgsuGX416pEJVs8A@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: truncate files before allocating space below EOF
+To: DaeMyung Kang <charsyam@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add make_bpf_skel_clang (CLANG=clang BPF_GCC=) and make_bpf_skel_bpf_gcc
-(BPF_GCC=bpf-gcc CLANG=) targets to tools/perf/tests/make when the
-corresponding compiler and BPF skeleton dependencies are available on
-the host. Verify with 'perf check -q feature bpf_skeletons' that BPF
-skeleton support is enabled for both targets and disabled for
-make_no_bpf_skel.
+> diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+> index 12a43efdb53f..b155a27eaeac 100644
+> --- a/fs/smb/server/smb2pdu.c
+> +++ b/fs/smb/server/smb2pdu.c
+> @@ -8533,23 +8533,15 @@ static int set_file_allocation_info(struct ksmbd_work *work,
+>         alloc_blks = (alloc_size + 511) >> 9;
+>         inode = file_inode(fp->filp);
+>
+> -       if (alloc_blks > stat.blocks) {
+> -               smb_break_all_levII_oplock(work, fp, 1);
+> -               rc = vfs_fallocate(fp->filp, FALLOC_FL_KEEP_SIZE, 0,
+> -                                  alloc_blks * 512);
+> -               if (rc && rc != -EOPNOTSUPP) {
+> -                       pr_err("vfs_fallocate is failed : %d\n", rc);
+> -                       return rc;
+> -               }
+> -       } else if (alloc_blks < stat.blocks) {
+> +       if (alloc_blks * 512 < i_size_read(inode) ||
+> +           alloc_blks < stat.blocks) {
+>                 loff_t size;
+>
+>                 /*
+> -                * Allocation size could be smaller than original one
+> -                * which means allocated blocks in file should be
+> -                * deallocated. use truncate to cut out it, but inode
+> -                * size is also updated with truncate offset.
+> -                * inode size is retained by backup inode size.
+> +                * Truncate before considering allocation when the new size is below
+> +                * EOF. This avoids allocating holes in a sparse file just before
+> +                * shrinking it. Also release excess blocks if EOF is already
+> +                * smaller than the requested allocation size.
+>                  */
+>                 size = i_size_read(inode);
+>                 rc = ksmbd_vfs_truncate(work, fp, alloc_blks * 512);
+Using alloc_blks * 512 for fallocate() and truncate() doesn't look right.
+MS-FSCC section 2.4.4 describe:
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/tests/make | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+"The file system rounds the requested allocation size up to an integer
+multiple of the cluster size for nonresident files, or an
+implementation-defined multiple for resident files."
 
-diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-index 7524de522802..4e66b93cf12c 100644
---- a/tools/perf/tests/make
-+++ b/tools/perf/tests/make
-@@ -78,6 +78,8 @@ make_extra_tests    := EXTRA_TESTS=1
- make_no_jevents     := NO_JEVENTS=1
- make_jevents_all    := JEVENTS_ARCH=all
- make_no_bpf_skel    := BUILD_BPF_SKEL=0
-+make_bpf_skel_clang := CLANG=clang BPF_GCC=
-+make_bpf_skel_bpf_gcc := BPF_GCC=bpf-gcc CLANG=
- make_gen_vmlinux_h  := GEN_VMLINUX_H=1
- make_no_python_module := NO_PYTHON_MODULE=1
- make_no_scripts     := NO_PYTHON_MODULE=1
-@@ -142,6 +144,20 @@ have_libllvm := $(shell printf '#include <llvm/Support/ManagedStatic.h>\n#includ
- 		$(shell $(LLVM_CONFIG) --system-libs 2>/dev/null) >/dev/null 2>&1 && echo y)
- endif
- 
-+have_bpf_skel_deps := $(shell printf '#include <libelf.h>\n#include <zlib.h>\n#include <linux/bpf.h>\n#include <openssl/opensslv.h>\nint main(){return 0;}\n' | \
-+	$(CC) -x c -I$(srctree)/tools/include/uapi - -o /dev/null -lelf -lz -lcrypto >/dev/null 2>&1 && echo y)
-+
-+ifneq ($(have_bpf_skel_deps),)
-+ifneq ($(call has,clang),)
-+have_clang_bpf := $(shell printf '#if (__clang_major__ < 12) || (__clang_major__ == 12 && __clang_minor__ == 0 && __clang_patchlevel__ < 1)\n#error "old"\n#endif\n' | \
-+	clang -S -g --target=bpf -x c - -o /dev/null >/dev/null 2>&1 && echo y)
-+endif
-+ifneq ($(call has,bpf-gcc),)
-+have_bpf_gcc := $(shell printf '#if __GNUC__ < 14\n#error "old"\n#endif\n' | \
-+	bpf-gcc -E -x c - >/dev/null 2>&1 && echo y)
-+endif
-+endif
-+
- # $(run) contains all available tests
- run := make_pure
- # Targets 'clean all' can be run together only through top level
-@@ -173,6 +189,12 @@ run += make_extra_tests
- run += make_no_jevents
- run += make_jevents_all
- run += make_no_bpf_skel
-+ifneq ($(have_clang_bpf),)
-+run += make_bpf_skel_clang
-+endif
-+ifneq ($(have_bpf_gcc),)
-+run += make_bpf_skel_bpf_gcc
-+endif
- run += make_gen_vmlinux_h
- run += make_no_python_module
- run += make_no_scripts
-@@ -313,6 +335,13 @@ test_make_clang_nondistro     := $(test_make_clang)
- test_make_clang_nondistro_O   := $(test_make_clang_O)
- endif
- 
-+test_make_no_bpf_skel         := test -x $(PERF_O)/perf && ! $(PERF_O)/perf check -q feature bpf_skeletons
-+test_make_no_bpf_skel_O       := test -x $$TMP_O/perf && ! $$TMP_O/perf check -q feature bpf_skeletons
-+test_make_bpf_skel_clang      := test -x $(PERF_O)/perf && $(PERF_O)/perf check -q feature bpf_skeletons
-+test_make_bpf_skel_clang_O    := test -x $$TMP_O/perf && $$TMP_O/perf check -q feature bpf_skeletons
-+test_make_bpf_skel_bpf_gcc    := test -x $(PERF_O)/perf && $(PERF_O)/perf check -q feature bpf_skeletons
-+test_make_bpf_skel_bpf_gcc_O  := test -x $$TMP_O/perf && $$TMP_O/perf check -q feature bpf_skeletons
-+
- test_make_python_perf_so_O    := test -f $$TMP_O/python/perf.so
- test_make_perf_o_O            := test -f $$TMP_O/perf.o
- test_make_util_map_o_O        := test -f $$TMP_O/util/map.o
--- 
-2.56.0.385.gd3acb90ef8-goog
+And the truncate branch skips fallocate(), so it can return success
+without reserving the requested space. For example, if a file has data
+only at offset 1MB, setting AllocationSize to 512 KiB removes that
+data. The file size will be 512KB, but the file will have no allocated
+blocks.
 
+
+> @@ -8559,6 +8551,14 @@ static int set_file_allocation_info(struct ksmbd_work *work,
+>                 }
+>                 if (size < alloc_blks * 512)
+>                         i_size_write(inode, size);
+> +       } else if (alloc_blks > stat.blocks) {
+> +               smb_break_all_levII_oplock(work, fp, 1);
+> +               rc = vfs_fallocate(fp->filp, FALLOC_FL_KEEP_SIZE, 0,
+> +                                  alloc_blks * 512);
+> +               if (rc && rc != -EOPNOTSUPP) {
+> +                       pr_err("vfs_fallocate is failed : %d\n", rc);
+> +                       return rc;
+> +               }
+>         }
+>
+>         fp->allocation_size = le64_to_cpu(file_alloc_info->AllocationSize);
+> --
+> 2.43.0
+>
