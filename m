@@ -1,103 +1,98 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DC643CE53
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E150C51814B;
+	Tue, 13 Oct 2026 14:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901614; cv=none; b=batVqzyDD1TKejHRsOu6dqtH/21vOquaTx8tmN+hZnbQo2uL7mmLzh0BfeQbCwB8rzHdS4+Xy+eZ2mkq0Dl/odPK1uSw98qapCY3sixukzuDEOHL6rDbAmxtpUAaiLF2hb9UeECmR5fzGrSfMLz17fpPJynFmF3RwpuGgq+8xUQ=
+	t=1791901614; cv=none; b=t/BHeGtZ3aDOn2t87hyJ1D8FjIuQMEfuesZT3qK89MRC8+vpC8dSmocowgmMuvn13zZEe1wHNrmbtCKpDzqhA6Qudyo8HhRtQo9zTVDf+77isb5XScKiSX06wTiPI2g+f9B4TtUEpS6rxw1OFXt65EQz7OP4xm4JEFV77b5Z8hY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791901614; c=relaxed/simple;
-	bh=kWlpNPaGDcLsuZssnoBP7oAXtejUUmyAA684fcgF9ws=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fPXt+0XJhUMEgIkhlzMmUVzm/ddAtQy9JlMbehRXBhxVjF24zItCQrg3IRQfIUqvSoI1eVsBLnDwRJTOjjyFZQ0a52x/acL3KJJcHtL/2X5R2mEjKQnM048+HS+A2fPcKup2nTBEFKluN/LhfrfVMz7gwXhBW7popAuCEkMOYCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id EFD88227A88; Tue, 13 Oct 2026 16:26:49 +0200 (CEST)
-Date: Tue, 13 Oct 2026 16:26:49 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Damien Le Moal <dlemoal@kernel.org>, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] nvmet: zns: reject a NUMD whose byte count wraps
-Message-ID: <20261013142649.GD14759@lst.de>
-References: <20261012141239.156408-1-parri.andrea@gmail.com> <20261012141239.156408-4-parri.andrea@gmail.com>
+	bh=XfZVuH37TjJbVLTM/jEvSNl35LQfRki5rmhJIud0Ta0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=W22b3GDrs2wJr2fAAyV3PK9zi0blscSclNyffSYbSfJicAuhCWkTWp52+uEc6mjMJ05de6VpVybUezhfFuHxex3Tw/hzP6OhSSLFYST9J60P62Doi30CStIMEr4MXO4An9rJ5l+AlCQhxXuSl9Hp/CCveWNIV0svv5iJYSDEeXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M84dz03/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M84dz03/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67CAC1F000FF;
+	Tue, 13 Oct 2026 14:26:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791901613;
+	bh=Vu9GFTSwpA+ThnhYFOK02kJtnNFAzU/CFrFuq53MJ60=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=M84dz03/ue983O1uOEriK2mgDcd8I0/vK6Wc4QCEqLcvOhVeUdQBHbaY2nuLf+iK/
+	 XxomRz5py81Ziy9sUEwpXdILr5KvWnvev6t8n7wyw6HkYDK5aoD9KRd8XOOKyvX3rj
+	 GQFYmV+CPCyD+120q7nulE5M9oTcSmjPo88uleWGa83Add7aiqXDFuoeLEX3yUaA9S
+	 V+djX8SDohHXmxu8z+AnJ5ZG5HwMWSwG5XpFun/GHc15TVd3t9wsuZzZ8nS7MEADwm
+	 HOxyxVw/pZ2GfT7d272Ud9GtVDy+bRNWC3M6hvF9U06Dh/vTYKKi+J8Vj14Yq62tZS
+	 EtCRK0fPHxjPg==
+Date: Tue, 13 Oct 2026 16:25:46 +0200 (CEST)
+From: Imre Kaloz <kaloz@kernel.org>
+To: Niklas Cassel <cassel@kernel.org>
+cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    Lee Jones <lee@kernel.org>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, mfd@lists.linux.dev, 
+    linux-serial@vger.kernel.org, 
+    Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+    linux-rtc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+    "David S. Miller" <davem@davemloft.net>, 
+    Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+    Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+    Damien Le Moal <dlemoal@kernel.org>, linux-ide@vger.kernel.org, 
+    Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org, 
+    Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+    Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH v2 00/53] MIPS: SGI-IP27: add support for the IP35 (Bedrock
+ hub) machines
+In-Reply-To: <as4zsLZvV411ooEv@ryzen>
+Message-ID: <24d821f4-63ff-aa35-a36f-a72046fe59a7@kernel.org>
+References: <cover.1791890466.git.kaloz@kernel.org> <as4zsLZvV411ooEv@ryzen>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012141239.156408-4-parri.andrea@gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Type: multipart/mixed; boundary="8323329-1641235930-1791901553=:27186"
 
-On Mon, Oct 12, 2026 at 04:12:30PM +0200, Andrea Parri wrote:
-> Zone Management Receive computes its buffer size as (numd + 1) << 2 in
-> u32, in nvmet_bdev_validate_zone_mgmt_recv(),
-> nvmet_bdev_zone_zmgmt_recv_work() and
-> nvmet_bdev_execute_zone_mgmt_recv(). NUMD is a 32-bit dword count, so
-> any NUMD from 0x3fffffff up wraps.
-> 
-> The data length check in nvmet_bdev_execute_zone_mgmt_recv() sees the
-> same wrapped value, so such a command can pass it. A data length that
-> does not match the wrapped size is already rejected by that check, with
-> Data SGL Length Invalid. Every site agrees on the wrapped size, so the
-> target zeroes and fills only that many bytes and nothing leaks, but it
-> answers a command whose NUMD asks for 4 GiB or more.
-> 
-> Reject a NUMD from U32_MAX / 4 up with Invalid Field, next to the
-> existing check for a NUMD smaller than the report header. Computing the
-> size in size_t instead would still wrap on 32-bit kernels, where
-> nvmet_check_transfer_len() and req->transfer_len are 32 bits wide.
-> 
-> nvmet_io_cmd_transfer_len() in core.c uses the same expression and is
-> left alone here.
-> 
-> Tested over the loop, tcp, rdma and fc transports with a zoned
-> null_blk namespace: a wrapping NUMD, sent with a data length that
-> matches the wrapped size, was accepted before this patch and now fails
-> with Invalid Field, while ordinary NUMD values still succeed.
-> 
-> Fixes: aaf2e048af27 ("nvmet: add ZBD over ZNS backend support")
-> Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> ---
->  drivers/nvme/target/zns.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-> index 78d82b6ff1214..14689ca0c38af 100644
-> --- a/drivers/nvme/target/zns.c
-> +++ b/drivers/nvme/target/zns.c
-> @@ -150,14 +150,17 @@ void nvmet_execute_identify_ns_zns(struct nvmet_req *req)
->  static u16 nvmet_bdev_validate_zone_mgmt_recv(struct nvmet_req *req)
->  {
->  	sector_t sect = nvmet_lba_to_sect(req->ns, req->cmd->zmr.slba);
-> -	u32 out_bufsize = (le32_to_cpu(req->cmd->zmr.numd) + 1) << 2;
-> +	u32 numd = le32_to_cpu(req->cmd->zmr.numd);
-> +	u32 out_bufsize = (numd + 1) << 2;
->  
->  	if (sect >= get_capacity(req->ns->bdev->bd_disk)) {
->  		req->error_loc = offsetof(struct nvme_zone_mgmt_recv_cmd, slba);
->  		return NVME_SC_LBA_RANGE | NVME_STATUS_DNR;
->  	}
->  
-> -	if (out_bufsize < sizeof(struct nvme_zone_report)) {
-> +	/* From U32_MAX / 4 up, the byte count wraps and no longer matches NUMD. */
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Overly long line here.
+--8323329-1641235930-1791901553=:27186
+Content-Type: text/plain; charset=ISO-8859-7; format=flowed
+Content-Transfer-Encoding: 8BIT
 
-> +	if (numd >= U32_MAX / 4 ||
-> +	    out_bufsize < sizeof(struct nvme_zone_report)) {
+Hello Niklas,
 
-I guess to make various sanitizers happy we probably should only
-calculate out_bufsize after bounds checking numd?
+On Tue, 13 Oct 2026, Niklas Cassel wrote:
 
-Otherwise this looks good.
+> Hello Imre,
+>
+> This series is rather large.
+>
+> I would recommend you to submit a minimal patch series
+> to get the basic support for your new board, such that
+> it can boot with a ramdisk and serial console.
+>
+> Then in the next cycle, send separate series for ata,
+> net, leds, mfc, rtc, etc.
 
+Hi Niklas,
+
+Thanks for having a look. I checked what the minimum is: 31 of the 53 
+patches (1, 6-24, 26-29, 31-36 and 39) boot a Tezro to a ramdisk with a 
+serial console. Two mfd/ioc3 patches have to be part of that, as they 
+provide the console UARTs (31 for IOC4 on the Tezro, 36 for the IOC3 on 
+the Fuel). The rest separates cleanly into follow-ups: the remaining 
+Bridge fixes (2-5), ioc3-eth (25, 38), rtc (30), the IO8 serial IRQs (37), 
+machine identification and the Odyssey widget (40-44), ata (45-47, 49), 
+the defconfig refresh (48) and the LEDs (50-53).
+
+I¢ll wait for Thomas to say whether he prefers it split that way for v3.
+
+
+Thanks,
+Imre
+--8323329-1641235930-1791901553=:27186--
