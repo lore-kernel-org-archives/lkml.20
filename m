@@ -1,110 +1,123 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF042566F7
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895444; cv=none; b=sFSUov2gy/ml16Wd1rfvUJoROYaHuOeog+lg923+O4eqtpFcdni5r50ZSRApkonUT0NpIOD9xtvgCDjSYcQ/8MUFZKYr7sN0VxAxQarC4UGPsBtm58ay+pY1ukF99dalha/j4cLa+FoSoA03fl3haDp3KALaxcBuN0/CRItHcFc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895444; c=relaxed/simple;
-	bh=Ffj0rg1ejA7e68ABDtZ/JEnCcPZ/obpgDVy5o1iSi8k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PiPav3uPEeHqb5nu+fPY0eZeJ/6WHdTnydg83gQvGpW+EBq7yMQTCjARYp/fqnIzQ8eNfTeXCx29wKga4Ol/oeAdsnScnfvxZL0T3L6zAlltKBZpJYmUMSBkMwg1Z5066Ua8zd8V1CO8a7trz8SI2UEkkTQXtcgC6yw0aITSjE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=WuF3M2ac; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B051DA0E1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791895470; cv=pass; b=YWDFIIbWLqE1KCb6wSjszs+pNh9GbLj+21nvHXFBxtgsglAyY3kmYm7HtQjNbuYRGegzk6Jxivgs8Dm/jLhcEu5tpMuAROJF9hM/X5JbLR9Kbah5NgcRgbl87AV11OFMFxuTeUu/JZ6bCI92TZvfX2jDtQu/w+yvWi4EkvQX5gY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791895470; c=relaxed/simple;
+	bh=kkCg+gaCabuK60oXkcXkFbigpaP3hK8YeCB+Qci9cLc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O7j6+We9Obgw5QZ17E8FBXX5r2GBfijbGuR7OIraT8G9ju/Ssj+peQIX24EipxhZusCjd2JjE7K4ch/IOUE98JgQotwbtY2SJVs0umCXUVoiSVO0WAOcnz2O6MCmN1ew+97tGj99m3NBQE5fU9D38T8Gd98mjdPFS5Ufe+/fEM8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SdQigEBV; arc=pass smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="WuF3M2ac"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e63522076so218176985a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:44:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SdQigEBV"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-150b2fbd784so139998c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:44:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791895469; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OI2MVn8glvpvwsGuX5/7jbpmv4X+NR2jTSi5rDFlsMovHrd44b7pnH7PcZHDWT22+U
+         a6l7LLaywNOtqiyjs0k3YxTzGnMKd7ZlRYW3j6IevJp2QXd1zhOfftslDhDfUghXhF+N
+         PuCDepELga37wcx+Fo98pa4Sot8fxtgiHjqyzfCBjmOVrYESXQHmuEVp1+I28d3m8qHR
+         mewABZWT4tWN+uG1sL0IsHyd7djsX0eMaoea6VbNeU0BPPjUClDTA5NBPBGcd1KP7oxX
+         MXCId5gJz4ct0xPzbuU9X/3iTIgCQrMTULaC0cEvN+sKSCMBFlWi03+sStI1u+gB92Si
+         x3aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kkCg+gaCabuK60oXkcXkFbigpaP3hK8YeCB+Qci9cLc=;
+        fh=mpW4983a4GPGrGuBpBzvP2mGsm/lbL1XTuqFjwuffik=;
+        b=pihjoCyOYamR/wrK2tfC/sqYKaq5cj1JrbDxVTGZUmQvPJXvgwE/4Dexc9x/iiCHMX
+         o3syp26cBc4kB53vVZh9g9qL3seVQ750RvwtSJvTFz2CALktA1h1Ja4v40bZIRMmEqR4
+         JqpYbP3pzcM0f1cZS7wMXcGOz7cYEZbwmlmHF2yE4rhyawx0xYTfJoU2ZHHlxwYjELlq
+         tV0hm4BD2DYuognFYlfGwG7myaEiRZhHrUi14bKJeFTck2KSWVhWCOLoPmM5TvTxQcYd
+         qIXOP0BTnSZPbVhT+PpY3rl823ZyLstSjIhnrkANZUsJzcZ9Ed2mssIp8Xenqw9jdqXd
+         UtCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1791895442; x=1792500242; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791895469; x=1792500269; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Ffj0rg1ejA7e68ABDtZ/JEnCcPZ/obpgDVy5o1iSi8k=;
-        b=WuF3M2actgR41s6uqx9M+gd7bUkn6deQjRRk1n10hEyH/VOQAmJP1azBNCVsv4SdwM
-         DQvcic/XvtLGJMOQvJVgc1Ndao8JG5/yFNu+RfIgF3RHK0eyv/vJuPtF9YaI7d0VL4lS
-         tnjvppT6e4X1eRhzsu1WmTEgNKj3XLi6Vr1hsFKV7pgEbh4BTbtOIjMy4eFpy1jfzZI1
-         0yGDpXedesnJLdl53zz22GxaF5MBwB8kcjOdGuOpngLq/PdW2hpTdtyvSEmiijC+XToQ
-         cpULqVNKzrRWw1pjkMPeJpXFM6jfi/ZJ8iyaoVSo1IIxdp3LhSH+dlBI4dzqrYjyJG4l
-         LNpA==
+        bh=kkCg+gaCabuK60oXkcXkFbigpaP3hK8YeCB+Qci9cLc=;
+        b=SdQigEBVG3gsnV20LSBx7Dt4PpvJmaCtdTCwIjyXjyJEpUekMLib6yx4Zs+sQfkGAW
+         tJtttOq375cZ7Cv1yRvcHyCUFqOkxNIXVp5cGy4eBc1RSG5+PumUK5+o293xEmg/xcSo
+         iucF2PSamQQmufr3vavzZVzsM28i+O5YzKaUJAJmtQasJ7Cwtv6yQGpB65rZTiiH8wXd
+         6+zTGWzxaqt/2GtFcZm2gAjZw3QM82J4//zkkhm90ZlpcMFVo9xxhzGx8Y2ExO2Hf/c1
+         i3ssJajiFwD49uwi6McCX0Hr/A6Cmopo4qJLPK86YZVwMtj3M8VSX1BTswNbVd3gYxq6
+         BxJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791895442; x=1792500242;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791895469; x=1792500269;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ffj0rg1ejA7e68ABDtZ/JEnCcPZ/obpgDVy5o1iSi8k=;
-        b=wjpHpqbVHsTo7H29VndMY8gzIELr4ZmTg3Tqg+rpW7PHmv3aZCAVShCOKx/EvjjUqu
-         MD9qJDiQXNmjYcAEqiCgcjkRJxS4anxIFiU6zkxwPATkv2bkTGYHnyzexvbhux0tXF54
-         LCySkNjWAQdqY34UrlYmFpNoteTqXwQH0A50J8inODTtca9fShlDxwa/1MUO8xWG4zWw
-         KRn8Hn3zz9Tbo8PD9WYOICNd7HMes+klRqGZUrXYe60/h6iCzT6oa8A1EJjSNrovJois
-         WgHRbWM9L64O0ses+EaV6xNEwfTGrSYzK82dztto4U9CbmzQIhrxv7IY+D9aLMlicKc3
-         OKtg==
-X-Forwarded-Encrypted: i=1; AKwUvBzXFkPp5K31E0kYGUJRPiKJ1MbpLgWidrWCi16M2tzCiI/bJTGuRXQeSpr8Kj7oISueEflqjy94gNdKCGM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxz1iPzod9EsLgIS7JEd0HrPHijn+P7dRxeSpDxqUnyId+D8Bs
-	k1UdsdYZTrS7dQ9qGRb830Jc2ZIxE73fAEiXv+0+N3TYZclVbN9ongKc72Ez4LZDBJk=
-X-Gm-Gg: AYBFou2g/Ts/iGcyNEwf5KS3BxYqSO/0KzaY6PV0qavlbablD47ulI4h3MmHXZ2d2sM
-	GfGZiD3c9439IEey8wfCyY8zeGcvKBNR2gQNjBC3LbwH2RiEVnuBt+2SYanSxQGqFJ/mFkR96mO
-	zDOo5Cq4X6/Nbr0m5+2LJbDxPnT+KsdFLjL9v8AxL2SFM/WlHv4y00978L0DMyGaGboBXWyOpRW
-	1Sput96/jDPzgbUCPHM5Us0+itIVf8Gp4IDeEckJQ359X9Uevnf6/TubFdq0cvJr2umeMep/DXQ
-	fGlC1DyeuKrYOqN3BLULslH0RUoEqxzZJIJUMoaHMkeTDhMKKi8VJT5a7yhM8EHgLlmUi1vVXKe
-	LA3RgZl9wg1+m+h7oomBv10Z8UGOFK6kjNICtRyUBFD3UD3eUrInrv9nD8Ju4CFc5WRDpO8ikkg
-	kCMPPcrx/9DyGL3vnar69sZNLdAKm3Hh236IbExaP7DxCK/uHTbOKD7kvA+dxJEV8busPdIhYvo
-	GhyZa4TT4FTAjhof4Tv7OEH6odZJY7tgGhbD6WQYKMooMmHHrWaE0Ub
-X-Received: by 2002:a05:620a:6601:b0:93e:6ff1:b67c with SMTP id af79cd13be357-93ebd1e0149mr2182476585a.20.1791895442098;
-        Tue, 13 Oct 2026 05:44:02 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5009ca3sm227528285a.7.2026.10.13.05.44.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 05:44:01 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xGbrM-00000009Wdr-3fVQ;
-	Tue, 13 Oct 2026 09:44:00 -0300
-Date: Tue, 13 Oct 2026 09:44:00 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Nicolin Chen <nicolinc@nvidia.com>, Peng Fan <peng.fan@oss.nxp.com>,
-	Will Deacon <will@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v6 5/5] iommu/arm-smmu-v3: Wire up shared-SID STE
- ordering and feature gating
-Message-ID: <20261013124400.GI14213@ziepe.ca>
-References: <20261011-smmu-shared-sid-v6-0-cb76b89dc612@nxp.com>
- <20261011-smmu-shared-sid-v6-5-cb76b89dc612@nxp.com>
- <aszfVNP6DGzWYdK0@shlinux89>
- <as1zR1wc7ERxvR1F@nvidia.com>
- <e8c22eb2-ed1f-47c7-b2ac-c56ead1cba8b@arm.com>
+        bh=kkCg+gaCabuK60oXkcXkFbigpaP3hK8YeCB+Qci9cLc=;
+        b=CEhNVKe+GS7JMR7TT1doCHKa0fl10S1quLZnKRUWyc76D89QvfoCgLKi3zz/kkd8gr
+         kxGU1hOAOoHKGVPPM+O/jSJU0bYgJURCDy2aumdwfYF1zbWx6OeiXXFaiPugI9L96RAG
+         GcNnVKjYnIwBv9JPswiaQGpCWoqCACO4zmYENh4aoWCYSe+yG4LRHOMNq4maP6cND/xb
+         97ZYC0s0hQuNuZTFeTgiBc7vAneUjmOawPIYTfwyk2A1xWD631YD+Xc/DMN1FHDgKxiW
+         mZng6f6N+kkWnwnSZ/YObZezGUeX1gm02OGcyB68i3SxF3/w7ScX775Yly5rBO57LA7D
+         GMPg==
+X-Forwarded-Encrypted: i=1; AKwUvBxk9nIKYpAaG79TCEVco/wY2Dmna5vLCPHoc7bjbHeX0sRWxStxHLT+c/Z22JusqrnlBr7WLimGQWh7shc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTmFQgstUd3jE2mMOCbLjfxaQQhOmIuYJgiDDRTPg6956mqAbC
+	mceu4/G8RaiddH6Pn2ZmcjE1WMAZfIMeNh3lvMM2eb+rWuV3W7/gmj2oWCMzeTd/iA+kAatAy5k
+	xR+72eQ8S1WHx7iU0rVY9YUOxKnKQfYA=
+X-Gm-Gg: AYBFou1E9ALaA4viZFc2xSa3QMIlUtAPWW3otX3sx39K/9/SSSRIwVLdzucTjl5+zaf
+	BKFg/BJ2x5gMw/ZJUvMzM414E95WwkN7KHHZop4Pr2mmIzv1kcQrvI8EqK5u3rSNdxrrLzCCFGX
+	Jlaphfwyr33wOTFqqDQAf6vq/TE9qQjtwXcmzOIwM21xQXEd9aYoptYgoCch7V/Syk0hFb0AFQ6
+	iRJF069ZvhDrh7PZbJ9VrulGd59pKD/U0ebmc0gs34Z9uVSkCLQRVR723LUkrpaIpBZKR1OoNRG
+	HsYOR35Bp4QAyLFNoDE8TkEybGy+EKFw5g9qJc2HQHy6mkutKmePoj/87XEPehzwgwpF7+A/R3y
+	hieVMhjsZje2eFaDXTxtlDK3bN6sE/C8XmZOnmVbR4i4Ue9RSjlMGrFeX8khMiD+MaiIYyga9SD
+	6uOnpIkCVqR8AyK2Vg8Olf3N8Q07hbg9KY18d1ICY42qc77fit0fbX70kmq73i8Q==
+X-Received: by 2002:a05:701b:4515:20b0:144:fd17:3b21 with SMTP id
+ a92af1059eb24-16a4e2f6033mr25321390c88.0.1791895468496; Tue, 13 Oct 2026
+ 05:44:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e8c22eb2-ed1f-47c7-b2ac-c56ead1cba8b@arm.com>
+References: <20261013-binder-consolidate-txn-prints-v2-0-cf78927dab23@google.com>
+ <20261013-binder-consolidate-txn-prints-v2-1-cf78927dab23@google.com>
+In-Reply-To: <20261013-binder-consolidate-txn-prints-v2-1-cf78927dab23@google.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 13 Oct 2026 14:44:13 +0200
+X-Gm-Features: AclHuK9BCT2j2yMCpeZmg1z4Lfq84BK59tzr4n_wHbwb_FqttuaC0SVmRy_niRs
+Message-ID: <CANiq72mfVY7a9+GyHsO_MWXiXhjS-Nj7ki54HJrMCqnQ-RgOmg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] rust: error: implement ZeroableOption for Error
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
+	=?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 12:22:06PM +0100, Robin Murphy wrote:
-> If we're not going to support PASID for shared streams (which I suggest we
-> don't...) than we shouldn't strictly need to worry about CD tables anyway.
-> So rather than having to special-case CD table sharing for shared streams,
-> perhaps it might make sense to generalise back to a "default" per-domain CD
-> for non-PASID use, which can then get switched for the private per-stream
-> cd_table if and when a device does enable PASID?
+On Tue, Oct 13, 2026 at 2:38=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> w=
+rote:
+>
+> Rust Binder wants to store an Option<Error> in TransactionInfo, which
+> derives Zeroable. Implement ZeroableOption for Error so that
+> Option<Error> implements Zeroable.
+>
+> Acked-by: Miguel Ojeda <ojeda@kernel.org>
+> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 
-If we have stared STEs then the group becomes the per-STE data
-structure not the master.. We don't have any way right now to do that,
-but it would make some sense for the group to store the shared CD
+Greg: if you don't plan to pick this series this cycle, then I am
+happy to pick this one (#1) this cycle if that helps.
 
-Jason
+Cheers,
+Miguel
