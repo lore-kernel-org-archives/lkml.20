@@ -1,104 +1,79 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56921384242;
-	Tue, 13 Oct 2026 06:44:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA42D384242;
+	Tue, 13 Oct 2026 06:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791873853; cv=none; b=J0OQkYsXgxx42b0mcP5TuMjhXlrXmKXeNp8qJSNG5lxe1B2egg5zcO9fV9hk3sLsCpNIXcFMIm10byIqDeV4sy8EI7oKlp2NCAqpAzUegal6yKB9fkQr4u+t8D7dDCZF0yMKZdlQjCceYqiK/yypT/oFT/favDJ5Q0jzduDJ6CE=
+	t=1791873895; cv=none; b=gQfnmnAjBs0VFaPEuLYxVF4SUVRbZHq6UwPT746NRMQEft0747HjsN3paOjC3gzdl2Tw12cFTfum/K6iel5b9CT2H21QixNubMHg0mOW6qPU/OOwA/Q+VrOzapj3IP/gPX44HncjGnfXzUfSVMp+3rfyYmVcY2iAIh0JdpLABuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791873853; c=relaxed/simple;
-	bh=vrSavS8p7pUR78E2HEuhtydxzFGUu7iY/A0/B0lAOIQ=;
+	s=arc-20240116; t=1791873895; c=relaxed/simple;
+	bh=rKzcYvUF0MTtrWzr8w21BcuSnYY1JHXhpx5c8qIFJdA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PCQGD/o+mJcCSzTCY0LcT9ffMOwqvuU6SvRKwr6n8PYVwy/30eF0tt0kbC7Vo1pNwIC/MmCXP+UXW94qyV+v3f8nE5bDasutW/ecdWTFrmTwmt5BUEoKLRNsaBJoLv1BLsMryRSfqjWJJcwMmLBoqdEkBcKZO+I6BWynV8m+NPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=IfgQKdEf; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=IPBzDWsr78T0ZSXIgX/sdxTZsgEL4XYQa0aFGIY/MJbzF0PLF9Nc1oOuDW912IMSqYx0oFDFY9olkpWrV7xDbqjGquqU8BRoQQ08dkVgkSH+eiOMOoZZ+R6q5BeQtdrmxrvkDkxdAwPy/k+5UksSH3NNtkxkhKsQ2B6svn2u8us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JTFgFvmx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="IfgQKdEf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=+4sQpvtGl8rbG3DbVItMctIXcxgPZJH09YxXRKbkwvU=; b=IfgQKdEfl9R7LR8+vnN3pB1F1G
-	mJBfAzdHrzDOBqzOc7XL+xnjQTnRqGY1GA7ewTFPklo9jrywi89bXQMH7KQTEbRY3ONWeRotV+4BN
-	h18kM73ewhIQaHjVog2bCvFmPTRQ2xIhqtSBl0LPPLSdEV/Awba7SbAjVGAdFvbNnNIwz1kIOzaBO
-	2W9GO3EZXWbWId9xeRan9ezzNSy3q8DLkFlBzLUrYxfQG652QThr3K540FTV37fTLnG28ZvWoJEX/
-	9Ha0FJ6r4iVfl9KlR1yjymvLrZj3WUK5YycBNlg1ichGZCSx6YQ1NhBg3+tF+YPkpV33yM9pUvuAC
-	zFlfSWlQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xGWF4-0000000Bobs-3VoA;
-	Tue, 13 Oct 2026 06:44:06 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 068F930045A; Tue, 13 Oct 2026 08:44:06 +0200 (CEST)
-Date: Tue, 13 Oct 2026 08:44:05 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 3/3] objtool: Skip jump table jumps in the kCFI indirect
- call check
-Message-ID: <20261013064405.GY2009045@noisy.programming.kicks-ass.net>
-References: <20261012090424.i.497-kees@kernel.org>
- <20261012090436.1676525-3-kees@kernel.org>
- <20261012092250.GO4121339@noisy.programming.kicks-ass.net>
- <20261012183925.ca026d-kees@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JTFgFvmx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B99D1F000FF;
+	Tue, 13 Oct 2026 06:44:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791873893;
+	bh=GuXm5gBL1DdcdZs9QrDVPnY+/wBXXe8hkEN4rR1MOOU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JTFgFvmxgAFrwjJZARatj6cTapS+RDW7uiPc/W9FPQOJSvUJZ0zeCY/OY9L9dOhmf
+	 1JQ0AaEwMIIJGEtcLgZiKuo/3MTlVpRbLAItsrHh4s0xAVtPtqNhpRiCTS61RJdRHz
+	 NuckPFDzgMzUctjA7szk121Luz7vPU2a67nSFoTB/rqfY8RTCAoyBSzmJs69a9reyV
+	 A49OGzvjIYapJ1sbiqLthf3wgxCRdT6gsOBXtc1U4RO4xcm6Udrvk3LoDSf98OQaJK
+	 vlMVEyHnv8QRuh79AIMXKY8QT5Jbqu7ULfoa6m3KebCDLcc7o4WhUhEhLxrCpnCZBd
+	 oKZXQSq4I/PCA==
+Date: Tue, 13 Oct 2026 08:44:49 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: crypto: Adjust Shikra compatible
+ hierarchy
+Message-ID: <20261013-pastoral-magic-perch-1a2e5a@quoll>
+References: <20261006-shikra_qce_fix-v1-0-8ac54d81edb4@oss.qualcomm.com>
+ <20261006-shikra_qce_fix-v1-1-8ac54d81edb4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261012183925.ca026d-kees@kernel.org>
+In-Reply-To: <20261006-shikra_qce_fix-v1-1-8ac54d81edb4@oss.qualcomm.com>
 
-On Mon, Oct 12, 2026 at 11:41:03AM -0700, Kees Cook wrote:
-> On Mon, Oct 12, 2026 at 11:22:50AM +0200, Peter Zijlstra wrote:
-> > I am confused.. I don't see a computed goto in __bpf_prog_run(), and we
-> > build with -fno-jump-tables.
-> 
-> It's the interpreter, ___bpf_prog_run() (three underscores) in
+On Tue, Oct 06, 2026 at 04:44:03PM +0530, Kuldeep Singh wrote:
+> Shikra reuses the same QCE integration as Agatti and should follow the
 
-Durr, clearly I wasn't wearing my glasses or something.
+`git grep Agatti` gives zero.
 
-> kernel/bpf/core.c, not the __bpf_prog_run() wrapper in filter.h:
+> corresponding binding requirements too.
 > 
-> 	static const void * const jumptable[256] __annotate_jump_table = {
-> 		[0 ... 255] = &&default_label,
-> 		...
-> 	};
-> 	...
-> 	select_insn:
-> 		goto *jumptable[insn->code];
-> 
-> So it's a manually constructed jump table, not the "normal"
-> table-from-switch stuff that -fno-jump-tables suppresses (though see
-> below about Clang). objtool already knows about it, with annotations
-> added back in 2019 in commit e55a73251da33 ("bpf: Fix ORC unwinding in
-> non-JIT BPF code").
-> 
-> With retpolines, GCC emits a single dispatch that every handler uses:
-> 
-> 	movzbl (%rbx),%esi
-> 	movzbl %sil,%edx
-> 	mov    jumptable(,%rdx,8),%rdx
-> 	jmp    __x86_indirect_thunk_rdx
-> 
-> Clang never has this jump: with retpolines, LLVM's IndirectBrExpand pass
-> turns the label addresses into indexes and the "goto *" into a switch,
-> which Clang's -fno-jump-tables then makes a compare tree. So it's only
-> constructed this way under GCC, but since now we can turn on kCFI with
-> GCC, the objtool warning about indirects without kcfi protection trips.
+> Move the Shikra compatible to the appropriate binding hierarchy
+> (matching qcom,qcm2290-qce) to reflect the underlying hardware
+> description.
 
-OK, then the next question; do we *want* to allow a 'naked' indirect
-branch to survive?
+You do not change any binding hierarchy. You are changing fallback
+compatible which is ABI break without any reason.
 
-We can simply disable the whole interpreter when kcfi=y. Isn't that
-thing recommended disabled anyway?
+> 
+> Fixes: 45834ff95a6f ("dt-bindings: crypto: qcom-qce: Document the Shikra crypto engine")
+> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
+Drop, that's v1, so this likely did not happen. Anyway, your SoB is
+supposed to be last.
+
+Best regards,
+Krzysztof
+
