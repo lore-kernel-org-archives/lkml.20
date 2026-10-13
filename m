@@ -1,162 +1,91 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA86443A80A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1D3372B2F;
+	Tue, 13 Oct 2026 02:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791856746; cv=none; b=Ti/gKkBSl1/jWIlFJX4ZeRrCq1Q4sm+znmjHG/94NJji4Gj4qmvy++PfJg2eddRlMxvpyJbiyO14XmmcN89CdOx7zwf8t53HUxB59AEQR66TQEpO0ZXe8M5vmM8FUPgqPoaSZHxSGRiC1oWai6mLWIkV4fWb5mUtnwia0eUnU7U=
+	t=1791856899; cv=none; b=YlM4t0q58LGwa1BIi5o6mngD2luJfXHKcYAo8Sz6j6lrsIYfn00LYNhCTapdAxrbHJSmOfC8XBt60Pq3YMzEhSIddOXEXUGZ/xqDrl7OnHZ5LQiHEI0Cefy14oeyfbK65yHLMfuKYiF0ODkaFs1HJNBMBDo4c/t3G9Pi5VljTPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791856746; c=relaxed/simple;
-	bh=gdrhrrhojiYmNOqh2JvMQwXyKcDnKZ5DGo+JK3pZzbk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IaNWMeJ5+WFjrbG3XEr95jeNgr2yEjcZSsEP5V+EHCQ+kylK4iSNLYHGq0yANQXYNdApeqos1/k6QjwAvevO4drtMJunf6d2Ngz5Ckmvh2pak6ozEh5C+qf9c9FI4OQG5LoKk/U5iISvlo5CuqwL75Qqmcd6TCVjWhUnARHfYfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CjP94FxT; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791856899; c=relaxed/simple;
+	bh=qD5BRu6JzvSGrOoFHTmszzALfagOJF4o1AbImbC9OeY=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=KFYpGBoUb/VlqxwI2+X5iwlkWQaAuPmerQlT/BtZdLZiGdPvyazLCgaNCwu3OjYwEF12Z2UzEh4nKyMhAgKDaukrPC1nB49krjStD8PSvOsAZ5dGZVz5DH/i5RR60Edc0R8cGBkJLltDERlaDh22duZBvrHOxLzQYuANH9Li2YM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=XjBIN0xk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CjP94FxT"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab8309dcbaso1641149a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:59:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="XjBIN0xk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54DB1F000FF;
+	Tue, 13 Oct 2026 02:01:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791856745; x=1792461545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VulKwxghGCCa25Yap2OP81AUAKiRy4s4zXpBxbouW5A=;
-        b=CjP94FxTyMtSuqAlDGaKklMK/IWfJFFjzcGwBGe/QLVbcexszJjnVZ+PMknVtEo/uI
-         BMHDC48hkUyoKEKAO2DsspE4NxpV9EaV68FiImo1yohtc5WN6HbZec3BGXobJXboPaB8
-         AC5nH/KfzcupUwqjT9tpXnbXf9Ef/Cdqf4MmvzJKw/Z/EStV2rT/aelBhkdPOlJPEz+y
-         6paONU96Khdvw+HV3K6k8fsndT4L+Dss5F2mBNQlcnQmh1XCP/P3TjzPhTOeP2rbEsDy
-         grfVakYjVaXD8Bw+6Vfm7+NNq8Rn8Glxx/YXRGqIotJ5Wf8on2VF45yx5tMSUnPcF8UW
-         UOaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791856745; x=1792461545;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VulKwxghGCCa25Yap2OP81AUAKiRy4s4zXpBxbouW5A=;
-        b=IX36yq/lCqGnS76wJ39HsYtbnOrr9qkn37afl9blqgd7IHnYCapyleAa8smnXOKldQ
-         eeQ2g+lYVEtd+PMSwtHOp5LPE2ZNIaU6XRLdZWgnazlI8WbO0kjJV+JO6vcxHT6/nj7v
-         rcmBKFB1xCF0H8Gy6YC/B5O28+5xTv15YtH/4Y7YIvyFK+3vX39stpsnuBfp5rlG61q1
-         J8I2ZRCCviYnUfM7T1NszxjaHGuhU3oPoA0HNh5xUoqFC+693anWljEMGSHsGQWdbGH/
-         ade9rQdK2PXBtU1C0RWVV1oLdeU9GKcRhQPfrOpBWQJrG1BqO3peJ1bKE2JLQZ9LIrW+
-         oFVw==
-X-Forwarded-Encrypted: i=1; AKwUvBym/2K7W9fjqPw11tu7nY1YPXKqKLBwVmwzMK7Nq+8UR1oBJ6HzfH/mN5shIfgz1dd3JmPDC/mwceeqek4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI17j1N/Lwzq4BPwuNlwoOKoXJrRyD8Kv4y5xc+uYKSJ5fxUmjp
-	wpAE8zLStyWMWWrJH2pTCDa9Th8iwgJ2Joz/G7vda7UbBJASLICOFyNN
-X-Gm-Gg: AYBFou22kPCgVD9nCBD7mNb4evTLjDX/ASvvMVWNn6dHnyjfd5CgeNIArJxionwmOcn
-	798SvySHeI0ZjyXXlj2cdg5HIpAnXu8BP1Cyt/iksOGT4K/DsYOq7hV1P6keZdIkrkEG1RacSTt
-	0BUr7FvQfmIhuQAaD3TYkpQ6MKIq+1mxUrNmbbtjhajfaQJlYDd1GPE9+ixWfvu8r1D9WJu4Say
-	qUCybL8YRCQz6HzTYWXxpFGRTIdC/ImOlkoCulb/BkkogOQUBDF5dxQBFT8qIqcfO8TintxlMVv
-	2yCFnCCrSUnReb8SqdVxNEzoCvZwt9q0YkWqVJUdeeg8Y1criISNyJ8n7JgaPnSBWGQcUVNG0sW
-	g9nO2vf2Xfi+V4cWvzCcmv6ortV9neCMboOqKgjEpDimQP1ID+n8zGV3AnsXLzq/UlVborgDC3i
-	aqsgMP5s86DIwjJucDp1KtYJxjmrRSZwnw8f1+9t210EcW10/jdc9Dlg7NI1FZZiJnjg==
-X-Received: by 2002:a17:90a:5185:b0:3a0:bf71:eccf with SMTP id 98e67ed59e1d1-3ab3a9533ecmr4229118a91.14.1791856744976;
-        Mon, 12 Oct 2026 18:59:04 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ff0ce7sm19784735a91.15.2026.10.12.18.59.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 18:59:04 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	ghe@suse.com,
-	akpm@linux-foundation.org
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: Publish the filecheck owner before adding sysfs attributes
-Date: Tue, 13 Oct 2026 09:58:58 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0086-v4-1b3a3c5fd05c1fb41df9@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	d=linux-foundation.org; s=korg; t=1791856898;
+	bh=90W+a59SeWDzS2sKdXAfXinvf5qK+MDO1trY3bKDzpw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XjBIN0xk63p//9x9QZVkFqR/WBNgSRZUQc3b9MdStWw6XaHSxHKNzGU70UzQlpHwL
+	 HITPZx4KQaWEJeFYwDwLYPbHB9IsMya63I5Isz7e3rLS9UqJqthAasqU824G2yks36
+	 +tmunTACXhLQa6tluY2VYvKffI/Ki7ax5vyhHPPg=
+Date: Mon, 12 Oct 2026 19:01:37 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <paul@pwsan.com>,
+ David Hildenbrand <david@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next
+ Mailing List <linux-next@vger.kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: linux-next: manual merge of the risc-v tree with the mm tree
+Message-Id: <20261012190137.9734b57074f35e540733b9e3@linux-foundation.org>
+In-Reply-To: <as0D2sHzh_UnNF5L@sirena.org.uk>
+References: <as0D2sHzh_UnNF5L@sirena.org.uk>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-ocfs2_filecheck_create_sysfs() initializes the filecheck allocation
-before calling kobject_init_and_add(), but assigns entry->fs_fcheck
-only after that call returns. The default attribute group can already
-be visible while registration is in progress. A concurrent read can
-therefore enter ocfs2_filecheck_attr_show() with a NULL fs_fcheck and
-try to lock its fc_lock.
+On Mon, 12 Oct 2026 16:59:22 +0100 Mark Brown <broonie@kernel.org> wrote:
 
-Assign the initialized owner before adding the kobject, so every
-activated attribute has valid state. Clear the pointer when addition
-fails, preserving the existing teardown guard and error cleanup.
+> Hi all,
+> 
+> Today's linux-next merge of the risc-v tree got a conflict in:
+> 
+>   arch/riscv/mm/init.c
+> 
+> between commit:
+> 
+>   f02f1d1437449 ("riscv/mm: fix hotplug page-table destructor handling")
+> 
+> from the mm tree and commit:
+> 
+>   79113093e9dc3 ("riscv: convert pgtable_l4|l5_enabled to inline function")
+> 
+> from the risc-v tree.
+> 
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
 
-A controlled probe-instrumented test kernel with the original OCFS2
-registration ordering produced this Oops during a concurrent sysfs read:
+Thanks.
 
-  KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
-  RIP: 0010:kasan_byte_accessible+0x15/0x30
-  Call Trace:
-   <TASK>
-   __kasan_check_byte+0x13/0x50
-   lock_acquire+0x113/0x300
-   _raw_spin_lock+0x31/0x40
-   ocfs2_filecheck_attr_show+0x138/0x5f0
-   ocfs2_filecheck_show+0x5d/0x90
-   sysfs_kf_seq_show+0x1d3/0x360
-   seq_read_iter+0x480/0x1110
-   kernfs_fop_read_iter+0x419/0x5a0
-   vfs_read+0x7d2/0xc20
-   ksys_read+0x111/0x200
-   do_syscall_64+0x114/0x620
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-  Modules linked in:
+> diff --combined arch/riscv/mm/init.c
+> index 6f6b04795bb23,e2b738ca90cf3..0000000000000
+> --- a/arch/riscv/mm/init.c
+> +++ b/arch/riscv/mm/init.c
 
-Fixes: 5f483c4abb50 ("ocfs2: add kobject for online file check")
-Assisted-by: LLM
-Cc: <stable@vger.kernel.org>
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Well that's ugly.
 
----
-Changes in v2:
-- Explain why fs_fcheck must be cleared on registration failure.
-- Retain that cleanup guard and add an inline error-unwind comment.
-- Rebase on 35eb6a2f; keep the original diagnostic unchanged.
+I'll disable "riscv/mm: fix hotplug page-table destructor handling" for
+now to make this go away.
 
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0086-v2-646731c4254a02823b4d@gmail.com
+A decent approach would be to add that patch via the riscv tree.  Muchun,
+please confirm that this has no dependencies on anything else?
 
- fs/ocfs2/filecheck.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Otherwise I'll leave it disabled and revisit after -rc1.
 
-diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
-index be713d7d24a76b9aa8fcded3d83b3d91d124eb6e..75334e4bd0823fd8154717290bfe57d2e5198176 100644
---- a/fs/ocfs2/filecheck.c
-+++ b/fs/ocfs2/filecheck.c
-@@ -179,17 +179,20 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
- 	fcheck->fc_size = 0;
- 	fcheck->fc_done = 0;
- 
-+	/* Publish the initialized owner before activating its sysfs callbacks. */
-+	entry->fs_fcheck = fcheck;
- 	entry->fs_kobj.kset = osb->osb_dev_kset;
- 	init_completion(&entry->fs_kobj_unregister);
- 	ret = kobject_init_and_add(&entry->fs_kobj, &ocfs2_ktype_filecheck,
- 					NULL, "filecheck");
- 	if (ret) {
-+		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
-+		entry->fs_fcheck = NULL;
- 		kobject_put(&entry->fs_kobj);
- 		kfree(fcheck);
- 		return ret;
- 	}
- 
--	entry->fs_fcheck = fcheck;
- 	return 0;
- }
 
-Fixes: a860f6eb4c6a ("ocfs2: sysfile interfaces for online file check")
- 
