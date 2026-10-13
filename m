@@ -1,174 +1,271 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6C635AC24
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:15:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791857752; cv=none; b=SQSXBeOCBOGxxnDRwxRY1nGq295PTd+TWenFjiaqO1RszVm8CRuVt7nFnu6g/GsFPm2dpRK7PYcDGPq/EG7Nsvz9faBgq48a2uYELUGb/jbGKg3MZQ5Hk/IuWwBK29uR28GjtnYxOBZoIfOh92KU5ZQg/BQYWXNWOLxRT1wKTBs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791857752; c=relaxed/simple;
-	bh=tX57hGNQ7+NLNQofa+VJcdpDL9MFD2u8xR7G3kHptcg=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=APsT0DIAhY62DiMsKED7Z2/1c8mO6Zgaom53McVpBdm+tVnt6YmM/9jp9ei4uoR5AbJ+cWAKsYMUMJqlRhuKSuPci/lbOlg063p9l8vDqADVqz0I8vtLePgbl4LCwyY6nfxrlP9cJqVQ/EeKwx3gmYmGSmp6ZdhYoHM5nuu6dpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=CVYa7y/t; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E0B360EED;
+	Tue, 13 Oct 2026 02:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791857812; cv=fail; b=iaBjvA2yxyN4t4lwaVURYfb9a/yUXDVI4L8pngctuwviwSBJsizrJeltEYZBxj9mrEtpeU6VbCl7QPSMcv+GqRixwyI/biv3wWYcMudY2sFqbH6xLUdoiZlKSNpXRfqxHt2Tb2cHwM/GqL54kIyesfQLMipW5SYkR/jejKWS6r4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791857812; c=relaxed/simple;
+	bh=6WtRmSQvfYL/h8mYnuwZ+VCU7BkLUfi1F1vx9URo2SU=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=dpqzOkIn5IWZ4RP42dM/ePSHxu05VMHUAQ/5AA51gaeBvfFxEubgck8vhnY4LNsJ+YzIevNr0POOhtwn3yU5KhPO4G9ZXPBrva81+gYPHn/esayW9+1TcjgKlYn4MDGaWd6UWi979rMUAWk0akUSHN5TC4jbfVcm/GD+CJC4jZM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dM34SxPL; arc=fail smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="CVYa7y/t"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Q85ygIiAoY+q0RpnUiItrY/4wrTsA/2qV3ljC2Zfm/4=;
-	b=CVYa7y/tNdiMXVJFDMiTP0ZYKUFgt+/qlzcRN/shTnpSNSOy7dEfj+U3dbcCJsHw/g0tF+Hb5
-	+ygT/AJChlg+HSkUlo0O0aTlzJWKdy7qRPhGdA+/o0MeR5/t97XvCp2tgezTrk0l+uMubyPCH+S
-	6dtxH4VHh3dthSBCA+svVxM=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4j3d0f6D7jzLlX5;
-	Tue, 13 Oct 2026 10:03:30 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6A44040586;
-	Tue, 13 Oct 2026 10:15:48 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dM34SxPL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791857810; x=1823393810;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=6WtRmSQvfYL/h8mYnuwZ+VCU7BkLUfi1F1vx9URo2SU=;
+  b=dM34SxPLCKfYNTTzTnbyxS15t2RpYOm7wJs0otxkNqaMy9UEimWrruPu
+   kJg6AS3AhWGpo1oik4bQ9ClPaV1Npj5Ybt1UwoEZA5620fJMxP0TRVgDn
+   /O3q4FSGYnw6GD7Q/ABsGCMFVWh7NuZkz+Ut1+tJr7npHUQfOCt/PBc5T
+   P3MuOTpfvZj5LKTIS6ujwC2aVKSLP/gSHOnBSxA1qGKEku8AP8VuRnHrq
+   SwtuY20wI3eBR380uOg1CF62FBxN/KcCh4KGksGP/M2JSiraYSqPQ4ft0
+   if8QrMeTXYNiLBRNrd3tYYBWICN5Eaet7lbLHyt942XpEBlZLIBgtA+86
+   w==;
+X-CSE-ConnectionGUID: 4xto8IKoSeGgc/E+rfCPRQ==
+X-CSE-MsgGUID: yyF4znwhS8GfKkJqXi4FWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="578527"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="578527"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 19:16:49 -0700
+X-CSE-ConnectionGUID: 5l3R5duaTFq6rgBfs5z+uA==
+X-CSE-MsgGUID: 8ecGdL2oT6e88OrVdJX4aQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="1047421"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 19:16:49 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 13 Oct 2026 10:15:47 +0800
-Subject: Re: AW: [PATCH] ubifs: fix host inode TNC offset when deleting an
- xattr
-To: Richard Weinberger <richard@nod.at>, Nan Lin <lin.nan@h3c.com>
-CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<wangxiaoqing@h3c.com>, <zhou.kete@h3c.com>
-References: <20261012075046.1268480-1-lin.nan@h3c.com>
- <mv5oa6u2.f135b439-8d58-4f22-b346-3aacaa66e9e4@nod.at>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <6bbe3bbe-ea29-97d8-20d8-97723570a426@huawei.com>
-Date: Tue, 13 Oct 2026 10:15:46 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ 15.2.2562.49; Mon, 12 Oct 2026 19:16:48 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 19:16:48 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.43) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 19:16:47 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MjYXCDqBpcJ7hzIfUzorg0URuwMfdygKVfVdzihcGq42IOD7I3UJWbfPud2xCsSX/vUWvxZmY+tcHBdfSFRlyg2XFyrcVZF3yDJ2vOVM6LcT4Reh2WSNZ6jcdqcvcuWSe2njCAI6ysVewOy1HS+yPqtAts9WaRVgrFq8ZvpSdxpzCKxr8N00jDsdwKewcFTSdAYCruH4wLFzMzvQbxqbb69WI63BggyutUI//OsLYaUDfCCZjBR49rRepAi7Za/llZI8pqV8YbQCICT58+9jgoiGJVrtr558pZLOozSS+T39mPsCU5ef8Yd0STIlQjG7kQlCy7Gnzs1c/hOebL7mlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4v2WgawMy/03rSFqvkk+AL+teWnUkikeWe1L+jHUZiU=;
+ b=TCAnNhgzhd7/gcGdnd1+Kl2qILZzVVumpfN7dpwnjFn4Ts2XsyG1ugMuV3VMEFyPj2DGSBGeuIFyyNI3m++LEYG9lWCnkjMq7r0ObvA3rHQ7srSBOtsOQME5dnQi+mhn/CkpgywUZbcDoBRy7JsgRv+KWlsByBg2SzO8dJUh4bQwxqP6CK9JdjNGfgiZQoKlsZmQCJq2Qd2/I3+EIxfusnI5Wmq72ThjwNVprMviaiDLLOs+LXYg1q/vhpdG64dtzMU+5VYz9sbViYVg2LtBQT0nW8tMhmtQJzxpuU2HBxTohn+FzafivZsSKy44Jl3YYbWvhq2WUQttb+jqcqDYYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB8379.namprd11.prod.outlook.com (2603:10b6:208:488::20)
+ by SA2PR11MB4937.namprd11.prod.outlook.com (2603:10b6:806:118::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 13 Oct
+ 2026 02:16:45 +0000
+Received: from IA0PR11MB8379.namprd11.prod.outlook.com
+ ([fe80::549f:e4b3:e10d:aaa6]) by IA0PR11MB8379.namprd11.prod.outlook.com
+ ([fe80::549f:e4b3:e10d:aaa6%6]) with mapi id 15.21.0496.019; Tue, 13 Oct 2026
+ 02:16:45 +0000
+Message-ID: <3e7f1507-2a82-44a1-a06b-52b6a49d971c@intel.com>
+Date: Mon, 12 Oct 2026 19:16:41 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] fs/resctrl: Assign counters to existing groups
+ when enabling mbm_event
+To: "Moger, Babu" <bmoger@amd.com>, Babu Moger <babu.moger@amd.com>,
+	<tony.luck@intel.com>, <bp@alien8.de>
+CC: <x86@kernel.org>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
+	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <kas@kernel.org>, <rick.p.edgecombe@intel.com>,
+	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-coco@lists.linux.dev>, <kvm@vger.kernel.org>
+References: <cover.1791589412.git.babu.moger@amd.com>
+ <3d966ae2e051ef54e1aedb1a2839c812ab880bcb.1791589412.git.babu.moger@amd.com>
+ <918780dd-30ad-429d-ac35-25d79d47450d@intel.com>
+ <92529635-c9be-4edb-842d-7817fafd5523@amd.com>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <92529635-c9be-4edb-842d-7817fafd5523@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR04CA0092.namprd04.prod.outlook.com
+ (2603:10b6:303:83::7) To IA0PR11MB8379.namprd11.prod.outlook.com
+ (2603:10b6:208:488::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <mv5oa6u2.f135b439-8d58-4f22-b346-3aacaa66e9e4@nod.at>
-Content-Type: text/plain; charset="gbk"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemo200011.china.huawei.com (7.152.185.179)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB8379:EE_|SA2PR11MB4937:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c040ac5-f102-4769-f14b-08df28d0079d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|18002099003|10067099003|22082099003|11063799006|4143699003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info: ASFwd8EQJEFuszgUS922M/Ut0PyqGJO7Bc5uDioCmLBW34YDK0wmODmLwyDqmQ0Dih5EptEWYL4eRNLXngH2zizDIhxdo6GjhqE4p/V+FkZ3EE2hu/7ohwBEnS//jZbpu5Lro4BjmBnrv3LxEqRaMrVcDVNQ5kYVnNijUUAUS1IAHUd7RZxQ5+f+kXPQ7U8oG5rL9BNueVwuGk3NK/a/UxnlPm7EQzwdncw9p7Lst8Qu1NdH+a29lYb95SWTCFffMF3Y1GWBzlWKC/oF2sWzyZX9L/0JUD7joA7oswl29ZDQjZPVtF1YDta7FflnLx0ng9C+HqEFvWgCGt8PuAJAKkw8FvlA19YrspVu5Sir6IrvSpHdlkCP0hNvSPDWzmxMQvz89T5IM0owR6yio5hzlR9RERvOlP7NmpfaJqO/mG5h2i738glhK3qmeXfhte4AL39i7hxya7VyfqWPVNXGZb3UeUymAF+pVKHu/g+pu6Vm3DPztmE75SSDlsr4TXxP+4y/ym/7Z0R958b9Ah6w5MF76Dw6NSNOyp2gjkjz819XG8WU/4LuHmmIm09pJxH7cV+gtrOCFwk0WJKU7PrFTpVNj8as9c9FQ/jCWNPfupYEw6RJ7iXm3/xFHXcSwrpb2L25omVd4A9VM7H43ZRLWAUQIwb6LSxhW0Ybz4yNK/A=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8379.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(18002099003)(10067099003)(22082099003)(11063799006)(4143699003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0ZBWWx3eGNadndZYTRWd3FoNkFsQUhRam8wWUh4S2M3Q2piSGdzdjhFN080?=
+ =?utf-8?B?MXNIb3k2MVRxK1QxWmE4V00yL1l0MWxKWEYxOXJLMWNFM1NnNllOaHEwa2hI?=
+ =?utf-8?B?VUU5M1FpcWRjV240T2MyMTdGZnJvUHFFdU1MVlZaR3YvWWIvWVRzaE9DYVli?=
+ =?utf-8?B?OVZST0ZpLzlwZUhGUDhicXZIb2ZFejZTSGdjL3dwcDQyQ0tvUjhOVnZYRnpW?=
+ =?utf-8?B?THY3N0ppQjFVTUFUc2ZuNDRiL0EyancwVkZUQStCYUttb0ZiSzYxSTkyZE5U?=
+ =?utf-8?B?TmhGUmpqT0tqTDVmcDYzekNYNnc2NDk4SGE1MFJveTdFNmsyQ25XWlVpMWFP?=
+ =?utf-8?B?dWFNQ0Vtb0pxcEU2RlVmV0Z0anVRdjBiM1pidFkzVkhLMlRmRWxZZklaUk9q?=
+ =?utf-8?B?MDd2emV2S3lQcHpmTDA0RUFXdTQrQUY4aHRXaWJBTGo4eXFFV0h0dm9qR0dH?=
+ =?utf-8?B?c2F5VUpGVlBkc2hMMk9GbWZxb1RIOHVaQ0RCTHNwMld4THpZbWtvS2dOWmM4?=
+ =?utf-8?B?OHdRZGZMTGFuK2p0Z2Y0MmtBN2NycWphbmV4TTF4SmlQN0NmZ25XUjQyZTcw?=
+ =?utf-8?B?aHREWTJiZVlWb2xZMkQrNG1UV3NaVVNJNEpKRlE0TmN1a3VFOUhiMUFpRmV3?=
+ =?utf-8?B?OEpqdE5GM1I2S2dSeEpNTVdmNXgzcXdUaGZ5WkViemh0eFk5TndjNHpXVGNZ?=
+ =?utf-8?B?eG00TjVDZ2JvbFgxcUNqVHpEYS9GVU1OeFl1YTR1YlVBT29ub1pZYWlQaUs4?=
+ =?utf-8?B?ekMyWit4RWs5VndJaXRQTGZhM1FPY3hwWkpEcTMwYzhKVHFIYjdWOUFYczFL?=
+ =?utf-8?B?VXUyU1MzSTNlclRINHM0eUdJanVjekFUdER3V0pVSXk0VnJTTjhsZDg2b3Uw?=
+ =?utf-8?B?LzJObzVDaXRTRmJnTW0zUDUwV0d2MC94NThZRHhwOEpoY2xjUlAvNkgrckZz?=
+ =?utf-8?B?T2F2eGRCQ1V0cVIyUU9KTWoxaExMOXNvZW55VkJvaFEwME5CZ0Ywakg2RXY5?=
+ =?utf-8?B?MWhhR1ErUXhmclNpeXJHb3Z4ekVzRzFMMWFCdTZ3OWc5b3lKWFNNOTdBVktC?=
+ =?utf-8?B?UlorUkdYcFM2SWRYamw0cHRJN1lUdnhIQzhGeGlqcVNmVUh4SjVHU2hrOXpL?=
+ =?utf-8?B?ZDZMMFY4YXhNaTh1YyswVkJ4dTU5dW5VZ1J4cnJ4aGFsbS9aWDN1SVFLcXA3?=
+ =?utf-8?B?LzlpNmtmcEdLWS9wd2xSR0hoN0I2cXlyaXMxRHBrZlk1NHRmRmFLRjhJSFNp?=
+ =?utf-8?B?MjVkU09BR0tYZkxOaUhlRFZUVGdoRzZ0OWZNQUh2WEpKOFVvNi85MXV5anZR?=
+ =?utf-8?B?QUJ4OU5Ld1M3S1JqUW5McFNBMFZ4Ri9EeHh6bVpEdGxoSlkzSnFWQkdCbG9B?=
+ =?utf-8?B?TXpmSXhvSmJ6SDlqNFZpSm44clVDTmhYOGlCcDFhRXpDb2twZXJreFFtUHhh?=
+ =?utf-8?B?NFlqRHZ4SmlDTVcvUnhyL0djUVpuYXJoamJaS2VlZzBoVTBkZ3A5WEM2MkdJ?=
+ =?utf-8?B?T2RZb09EOEFYVXcyenpKTDR4RVp3RksrMGhyRnZNYUpTVm8wS2Npc3hjaWVX?=
+ =?utf-8?B?TG13Z0Yyc1JoMEhLU1dBOVFIbTFXZ08vYkJHZjQwV1lUQzl3MXFiditzV2F4?=
+ =?utf-8?B?VW1sSmZ0b0k4bFJMdkRaRy9wMk00endvRFJYWnErbFZrL2kzVU9nUS9qMHFi?=
+ =?utf-8?B?d1JWcko1Z2hVT0NQT2hLNlN5MHBzWWZUd0V3cmRXYktXMUEwWk5KRytKaUFO?=
+ =?utf-8?B?WndHVlQ1MGVveDlHbVJGcXFkTGJSRDZFbzRDcW00MUxzMVlxWTNEUFNOZ01m?=
+ =?utf-8?B?S3hZdzJGVWRMSlpMUkgxeTRHR21ESW5jbUtaSFVEREc5VG1xaTN3bjZsb3hF?=
+ =?utf-8?B?MFRIUWl1dzBmNkxyd0s4c2p4bDZ6cDJaaFZBZld2MURway9oTTZVeGw5UE9k?=
+ =?utf-8?B?YnpjR1g3dTFrbHdpMnFDRENlQmFMeDVraFB4aUhDSHV5L29kRmZ2SVhnNmht?=
+ =?utf-8?B?WSs3T1h1a1FzZmRBMFh4MGZQSWl1L3JFWG1FUVVKSHBpa0RSTzZRbnJ6UWtW?=
+ =?utf-8?B?dFY1WUJ2NjFCTzZ6VVplK1FISkQxU1drL2ZuU3FacE5UNVJkMy9qelZZazh0?=
+ =?utf-8?B?aTdwSFIxWEwwaUpLMmxLcURwbldLVVE3bmpPanhGUkRSbjEvOFE1SlN5NGdQ?=
+ =?utf-8?B?ZlhYbVNnY0N5alBPK1NST2krVXJ1aGVPaXJxQmpVNGpsY2JGcSsrM09zNCtC?=
+ =?utf-8?B?U3owRG81SEZzLzBsenhVWGZraGo4M0s0VlNKaGxGY1Z4K3phd0RCc1VMOGxs?=
+ =?utf-8?B?QWI3WktIVFppdlgxWDhBVGZid005S0h2dWI2SUhOczVXYW9xZzVBOFd1YjBy?=
+ =?utf-8?Q?KusUnT0tv/lPLuDc=3D?=
+X-Exchange-RoutingPolicyChecked: VduDFQtZr/xbOITjUuVYrDb9x9YkIbOuuHwXuGx4SEMpuJ11kiORJmMsrrRaT3MSrQcH6IiIYJ5ukP8L2wsGD3MSJkhmdCrRjcyXm141myD8LIWXoyEpEARiKwmqN6S2Pxi5uGx2DiFLEsiWaMLqlmSlABM60y9JMyWot+RgoKEyWkIum+LUOa1PLpgczFlUFvp/Cd7A7pIw4C+/5fxsvAQvPNFexepO6eu4rNySedAcnwVgUoGMdL4LGfg48JAN/Mi8UiWbKeG2Eo2HRRpBoSWWOIAfZseO+zs+KBAY3oryKosxSclQFvKlwrJBPV/SWDTPK1jgxvcKlB4GSj9+Mw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c040ac5-f102-4769-f14b-08df28d0079d
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8379.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 02:16:45.7254
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T+Ps5f14zQX5CU+Ka5YGD5D2LtkGgneY3jbEdCitu7hvFEMaZ+ZI8ey+JyMEsuHuM9j8pd8AN/d7VVb7yEZjuXWUjWiRG9Tl0OkmXsutV+w=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4937
+X-OriginatorOrg: intel.com
 
-�� 2026/10/13 3:56, Richard Weinberger д��:
-> Am Mon, Oct 12, 2026, 09:58 schrieb Nan Lin <lin.nan@h3c.com>:
->> When ubifs_jnl_delete_xattr() deletes an extended attribute, it writes
->> a group of three nodes to the base head: the xent node, the xattr
->> inode node and the host inode node. The host inode node is actually
->> packed at xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, but the
->> position registered into TNC is computed backwards as
->> xent_offs + len - hlen. The two differ by the group tail padding,
->> ALIGN(hlen, 8) - hlen.
+Hi Babu,
+
+On 10/12/26 6:02 PM, Moger, Babu wrote:
+> On 10/12/2026 1:44 PM, Reinette Chatre wrote:
+>> On 10/9/26 4:44 PM, Babu Moger wrote:
+
+...
+
+>>> @@ -1611,6 +1627,19 @@ ssize_t resctrl_mbm_assign_mode_write(struct kernfs_open_file *of, char *buf,
+>>>               mbm_cntr_free_all(r, d);
+>>>               resctrl_reset_rmid_all(r, d);
+>>>           }
+>>> +
+>>> +        /*
+>>> +         * Counters were freed above, so both new groups (via mkdir) and
+>>> +         * the groups that already exist need assignments. Groups created
+>>> +         * while in "default" mode have no counter assigned, including the
+>>> +         * default group created when resctrl is mounted. Assign counters
 >>
->> Whenever the host inode's data_len is not a multiple of 8, the offset
->> registered in TNC points 1 to 7 bytes past the real node header. The
->> wrong offset gets committed into the on-flash index, and on the next
->> mount read_znode() fails the offs & 7 alignment check, returns -EINVAL
->> and switches the filesystem to read-only mode, reporting
->> "bad indexing node ... error 2".
+>> This patch refers three times to how "default group" receives counters during auto assignment.
 >>
->> Which inodes are affected depends on data_len:
->>   - block/character devices always carry data_len = 4 and are always
->>     affected;
->>   - symlinks carry data_len = strlen(target) and are affected unless
->>     the target length happens to be a multiple of 8;
->>   - regular files, FIFOs and sockets carry data_len = 0 and are
->>     unaffected.
+>> How important is it that the default group is assigned counters when switching to "mbm_event" mode?
 >>
->> The bug reproduces by setting an xattr on a symlink with attr -Rs and
->> removing it with attr -Rr: after unmount and remount, readlink()
->> fails, the index node is rejected with error 2 (bad branch offset) and
->> the filesystem turns read-only.
+>> This patch implies that auto assignment will always include the default group but that cannot be
+>> guaranteed since the default group is always at the end of the rdt_all_groups list. This means
+>> that when traversing rdt_all_groups in resctrl_assign_cntrs_allrdtgrp(), whether default group
+>> receives counters would depend on how many other CTRL_MON and MON groups there are.
+> 
+> Good point. I recreated the problem. It is not always guaranteed that the default group gets the counter with the current logic.
+> 
 >>
->> Fix the offset computation by accumulating the group layout forward
->> instead of subtracting from the total length: register the host inode
->> at xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, which matches the
->> packed position exactly. The host node length hlen is already correct
->> and stays unchanged.
+>>
+>>> +         * to them so that enabling the mode leaves the same assignments
+>>> +         * that mkdir would have made.
+>>
+>> Related to previous comment is that the changelog mentions "same per-group state that auto-assignment
+>> would have produced" that repeats a similat claim made above that states "same assignments that mkdir
+>> would have made". This behavior assumes that a CTRL_MON group is created with all its MON groups before
+>> the next CTRL_MON group is created *and* that enough counters are available for all groups. If
+>> there are not enough counters then the most recent CTRL_MON groups will receive counters first potentially
+>> leaving the first "mkdir" created CTRL_MON groups without counters.
+>>
+>> It is not clear to me whether default group requires counters. Separately, I do not see whether resctrl
+>> can or should support the same ordering as what "mkdir" would have produced. If these are not actually
+>> requirements then the patch is fine but the comments, documentation change, and changelog need to change
+>> to match the code.
+>>
+>> If the default group does require counters then we either need to change how groups
+>> are added to rdt_all_groups or how resctrl_assign_cntrs_allrdtgrp() traverses the list.
 > 
-> Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-> Cc: stable@vger.kernel.org
 > 
->> Signed-off-by: Nan Lin <lin.nan@h3c.com>
->> ---
->>   fs/ubifs/journal.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
+> We have always treated the default group as a special case. I think
+
+In general I think the special treatment results from the default group
+always being present. It is not clear to me that this implies that the default
+group needs to have counters assigned when switching to mbm_event mode.
+
+
+> we should ensure that the default group gets counters before any
+> other group. How about adding logic to give the default group
+> priority when assigning counters? 
+
+I do not find there to be a strong motivation for this assignment but it
+should be fine to establish such expectation at this point. Just to confirm, you
+explicitly only consider the default group and not also the monitoring groups
+belonging to the default group?
+
+> How about something like this?
 > 
-> Good catch!
+> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+> index 9e705eafe873..5f3711d78a19 100644
+> --- a/fs/resctrl/monitor.c
+> +++ b/fs/resctrl/monitor.c
+> @@ -1339,8 +1339,10 @@ static void resctrl_assign_cntrs_allrdtgrp(void)
+>  {
+>         struct rdtgroup *prgrp, *crgrp;
 > 
-> Please ask your LLM to write less wordy commit messages.
-> How about something like that:
+> +       rdtgroup_assign_cntrs(&rdtgroup_default);
+>         list_for_each_entry(prgrp, &rdt_all_groups, rdtgroup_list) {
+> -               rdtgroup_assign_cntrs(prgrp);
+> +               if(prgrp != &rdtgroup_default)
+> +                       rdtgroup_assign_cntrs(prgrp);
 > 
-> ubifs: fix host inode TNC offset when deleting an xattr
+>                 list_for_each_entry(crgrp, &prgrp->mon.crdtgrp_list, mon.crdtgrp_list)
+>                         rdtgroup_assign_cntrs(crgrp);
 > 
-> ubifs_jnl_delete_xattr() writes a group of three nodes: the xent, the
-> xattr inode and the host inode. The host inode is packed at
-> xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, but its TNC position is
-> computed backwards as xent_offs + len - hlen. Since len includes the
-> group's tail padding, ALIGN(hlen, 8) - hlen, the two differ whenever
-> the host inode's inline data length is not a multiple of 8. This
-> affects symlinks and device nodes.
-> 
-> The unaligned offset ends up in the on-flash index and the next mount
-> rejects the index node, turning the filesystem read-only.
-> 
->> diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
->> index 40a95a2fad50..1a32d641e658 100644
->> --- a/fs/ubifs/journal.c
->> +++ b/fs/ubifs/journal.c
->> @@ -1943,7 +1943,9 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
->>   
->>   	/* And update TNC with the new host inode position */
->>   	ino_key_init(c, &key1, host->i_ino);
->> -	err = ubifs_tnc_add(c, &key1, lnum, xent_offs + len - hlen, hlen, hash);
->> +	err = ubifs_tnc_add(c, &key1, lnum,
->> +				xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ,
->> +				hlen, hash);
-> 
-> How about adding a new variable instead of open coding the offset?
-> The offsets are already super hard to understand, more magic doesn't
-> make it better.
-> 
-> e.g.
-> host_offs = xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ;
 > 
 
-The problem can be easily reproduced by following script:
-mnt=/mnt
-mknod $mnt/node c 0 0
-setfattr -n security.123 -v 123 $mnt/node
-setfattr -x security.123 $mnt/node
-umount $mnt
-mount /dev/ubi0_0 $mnt
-dmesg
-[60700.197045] UBIFS error (ubi0:0 pid 8770): ubifs_load_znode [ubifs]: 
-bad branch 2
-[60700.197352] UBIFS error (ubi0:0 pid 8770): ubifs_load_znode [ubifs]: 
-bad indexing node at LEB 11:2048
-[60700.197604] 	magic          0x6101831
-[60700.197610] 	crc            0x374e477d
-[60700.197616] 	node_type      9 (indexing node)
-[60700.197622] 	group_type     0 (no node group)
-[60700.197629] 	sqnum          28
-[60700.197634] 	len            88
-[60700.197640] 	child_cnt      3
-[60700.197645] 	level          0
-[60700.197650] 	Branches:
-[60700.197655] 	0: LEB 12:2280 len 160 key (1, inode)
-[60700.197667] 	1: LEB 12:2048 len 61 key (1, direntry, 0x1b1f5d0)
-[60700.197678] 	2: LEB 12:4332 len 164 key (65, inode)
-[60700.197698] UBIFS error (ubi0:0 pid 8770): ubifs_iget [ubifs]: failed 
-to read inode 1, error -22
+ok. If you go this route, please add a small comment to highlight why the list
+traversal is done in this unexpected way. If you do so, please take care with
+potential duplicate comments between this function and its caller.
 
-The reason we haven't discovered this issue for so long might be that 
-ordinary people don't set xattrs on symlinks or device nodes.
-BTW,
+I do not have a preference about which groups need counters assigned when
+switching to mbm_event mode. Please just ensure that the documentation (resctrl.rst,
+changelog, code comments) match the behavior and explains why.
 
-Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Thank you very much.
+
+Reinette
+
