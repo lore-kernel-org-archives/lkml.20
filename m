@@ -1,240 +1,178 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF98322A2E;
-	Tue, 13 Oct 2026 09:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F04439EF20
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885186; cv=none; b=EPEdKwFNn3dEwJMRfqaBcwo6iQvgfHH1S8dNdmfHVVe1BwWkmvxiAlPCSI44vcImeE8rFq1ANJxgP8pUc21ms9eC1kUgeph80NhLEDSF3/qoL23DOXLAcl43HbjAxlT9HvRFQnTcQ35HiXCXVX0u0jGw8ZGaFikc+E+ujhf0fh4=
+	t=1791885254; cv=none; b=SDCEeClGGGVYEJ76ZoixBBNER/QH2XCThUd59PwbsU0sC2UViK3lP8kg4Lt45F0yNGEp7X9W4NMF2dU85H7fdyhInUuYiYCix8C8JFMY82o+E5MPve1bPTKX2Ra+DmezgbanGnbAQ+Awkgr5XQwj4UgNqMNXnDzQWpxKrKyxU6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885186; c=relaxed/simple;
-	bh=50CYxcAt+PdnYSTKLTPrImEuPfLgAEZMJJXM77Th0Eg=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KRlgGFBRw//H01rlj04cRc9YtV31g4VXMWleBmO6U5AAqoXhRBbIKiAZmC/HXZgwjroFTq25Zn1UktB/oIiHCKr2ij2NeynKlUK3AMABHAztl3wSgXcUSPXb80r1hT6tkEP1tbc3IkjgnrVTKSZGgMPE2uE0B1tuiBdRskjaNvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GQZw7Nhf; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=e6dI9lDP; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Ge8G8tYZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=PKjrMQe0; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791885254; c=relaxed/simple;
+	bh=bLkEdoC/s2ohCzLHE4r6Q3cM1e+diUmnTJyVdXz9CjY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dlzAo6kVeF8gUf0Zq7agMmzbwhPiX6fdcwbPXBgXO6xrPXUQTwvL7x+KgqE6jQI11je5XYFr8W42kGoUoHzclOjUNt3h1w1KixqQNDl0DlXcYxacJtz2dykv+GI83OezKoA/4sdvFvJAd+vyMeg2QNBqT+cnLaI9JvmMTuQSCb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=hGBrsswo; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GQZw7Nhf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="e6dI9lDP";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ge8G8tYZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PKjrMQe0"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D1BCD22018;
-	Tue, 13 Oct 2026 09:53:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791885183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dLGrRVGebtrrYnhzcB26rT1FNHoeKMuAoOsUQCo7tQY=;
-	b=GQZw7NhfG04R3W6i5E0dg77K2bZs/ZUaAIF0HSYHj/MorljtTr3ABRgQH0Gk7HgWDqv44R
-	AY6fdmzrNBOxHAYRIzZB5/DJPUmeLwTcVW1Ugg8iA2rfwI3Nu441v+4XVak5h89XBAmQTB
-	lLhBcIf/o8dIR7QzL1zH0W2aXa9aFfc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791885183;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dLGrRVGebtrrYnhzcB26rT1FNHoeKMuAoOsUQCo7tQY=;
-	b=e6dI9lDP3wv8LAL8cezud999vq1dGLaT0iMjghFOisZxScoHPXQoJhZhrptHyrrMxDST0t
-	qsOFXGfGn7YoQAAw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ge8G8tYZ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=PKjrMQe0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791885181; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dLGrRVGebtrrYnhzcB26rT1FNHoeKMuAoOsUQCo7tQY=;
-	b=Ge8G8tYZ0ZIWfSBrlcozzrwTcbfgzUCfLRh9etNrZfQZgVpKvz1SI4HTKFA1IztByQcp/l
-	+uS4J15bMG3VRCpCdLVzKCO5qJ+Z4+UEt50uEhO4LTI5zcxGgDK3q8s+dj0B/+WUi0fzx2
-	6ejwUnba8w/npN1VtgSEKLi5PxTG0aI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791885181;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dLGrRVGebtrrYnhzcB26rT1FNHoeKMuAoOsUQCo7tQY=;
-	b=PKjrMQe0wpAN/2ZCiELqteuFhfI9OvQV/LP1aYpnMin8VaSToUO08uqYqS6hcjqlwHpwWu
-	3bWIAVtnxGw2hqCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 33F5913432;
-	Tue, 13 Oct 2026 09:53:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id u1XnA33/zWp0AgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 13 Oct 2026 09:53:01 +0000
-Date: Tue, 13 Oct 2026 11:53:00 +0200
-Message-ID: <877bjmgc5f.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	2022090917019@std.uestc.edu.cn,
-	hemanth.selam@gmail.com,
-	nfraprado@collabora.com,
-	songxiebing@kylinos.cn,
-	sammiee5311@gmail.com,
-	kees@kernel.org,
-	cassiogabrielcontato@gmail.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: Re: [PATCH] ALSA: hda: Serialize virtual-master hook registration
-In-Reply-To: <pm-pmb-c2667fb9cc42fbb7943c-v2-d4b95981cdbb696491c5@gmail.com>
-References: <pm-pmb-c2667fb9cc42fbb7943c-v2-d4b95981cdbb696491c5@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="hGBrsswo"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8897e83332fso1941892b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:54:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791885253; x=1792490053; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w7LIq4BnVsJhg0BWPrBY8yFOcAMplxkq0gIlyozRd1E=;
+        b=hGBrsswo8QHV9iPuZ3uOH5flZa4IfS+WgEnXd24yEmJ00r9SOeZHBxFV759TuaR4Jc
+         q8ZwTo9tEPUG6+iScSfr+LpoU+tz2NYLQJ0o7Sqatn3C6dse3D0+9JEffbJyUK+Y3Kxt
+         ypK04HW2uYkaR0euGA0eFOp61eiOG26zU7gY8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791885253; x=1792490053;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w7LIq4BnVsJhg0BWPrBY8yFOcAMplxkq0gIlyozRd1E=;
+        b=oGlRn8EeWgf5u3l8uzmX8wc/AMt0zhCrxmlDozB4hUb/XHRPnRJKOYTWg5T4eBRxlp
+         gq0hyisAkBqFUWuLUjjn1oc2netodaTYwN+bpOz6auX9+QMdmZNyeA/u3ipMkYo3uTo4
+         BC1Cq9wPNZbcZSj7Oq2ESmSduGtVshOI2U4uB5FmdS5QqF0N6yQilvDBNFWRrbu+K+n5
+         SjBarvYwONsTXGbSxsNMpfywlZphfDykUaGpn7TjsiRaR6DINIMtPgZCATPplxRcqVQ9
+         JQuzS1QfLRvxp9gxO4sm1JRAsDVVLBtOLAgp0L1xcWz7V+hyT5Y1WZ84um3WhwonOf1s
+         UF1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzg2tMMuj4YxMGGxi1xkysLnqAB3TJPPU5s90/kyFV6KDqDn5i1bPW0CPDS/bs6P6BguNIrzUWYBGEroX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZlmGG3bXhfQGtTHNhxgHF5hhaqVId6kWOhKURj4Febgvle7f/
+	cxDKa1pKZPz8C5o7Auz+ANtipOhAHmvR0TmXEI/dJl0zsqK4Oa39f1FnNxbKvcAVvdbRY5Hrr0K
+	L3imECw==
+X-Gm-Gg: AYBFou0CFTViq2iTZBP1zftAHYC8/+I2CqKpDEcHGE9Kvhh6bjLX2fMHVdlE6ACIncQ
+	gouNfQIHzmY3/ZURLmucRsEkvC6FsgppJBs5pObi5W03DO8x8SyEEAqMwdtiik/0NH8ngy9Toc7
+	2wla80vREZiKulJpoYFrX1U6qg1HagWbwOHE1KmqtsdgPe1wwZjz8LIoU1LKHDvw++JH6nr44fz
+	uJjTfnnYEZqDxwVzzaLD0ZzQqOHHEBce3DnZBs7dsx6wvwPN/qODoPqFKw9Z0gOCpvnp+jpLZ25
+	eny8Tvoya4z5Sz/BPgVkf1mzEpU4TK3M+FTt4e4HZHyWlYWkA/OsVXE9MKULRgGyQ2XueJUNEGw
+	xwwiaXj/9Sg7VK6tr3d3IGVulyXkPgd9qhowlk+YnOXxKMLG7/Xe0Ogy8Wb53D0gqCZeKRcci0U
+	qwC3j8L3hFdHxEGHJlK1z45bYNUNHiPF+eeMx0qTCXtY0PwoiKmTVjl0+HgbjuJGAB/du36ukpg
+	lvdMNkq64L6gmCeFtGMVnoZmrv5e+13LxE=
+X-Received: by 2002:aa7:8885:0:b0:87d:df30:d918 with SMTP id d2e1a72fcca58-897d5194b17mr7636961b3a.27.1791885252490;
+        Tue, 13 Oct 2026 02:54:12 -0700 (PDT)
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com. [74.125.82.45])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89a0724a045sm2525345b3a.45.2026.10.13.02.54.10
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 02:54:12 -0700 (PDT)
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15756f82e8aso3701321c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:54:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzfY79sqYCiHvBCek6ljtnUqEc+hH5GquqhUU9lluT98E2P3/h3uCLJnuKMiUf37frKX9uB/wodc2ssU4c=@vger.kernel.org
+X-Received: by 2002:a05:701b:4510:20b0:15b:1439:1fcb with SMTP id
+ a92af1059eb24-16a5b979b4bmr16261285c88.10.1791885249183; Tue, 13 Oct 2026
+ 02:54:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Spam-Score: -2.01
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,std.uestc.edu.cn,gmail.com,collabora.com,kylinos.cn,kernel.org,vger.kernel.org];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: D1BCD22018
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+MIME-Version: 1.0
+References: <20261013065335.2246959-1-clinckx.louis@gmail.com>
+In-Reply-To: <20261013065335.2246959-1-clinckx.louis@gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 13 Oct 2026 17:53:55 +0800
+X-Gmail-Original-Message-ID: <CANiDSCujghpaqP64tWnObOTMUmNTdQp3-6yb2C2MrOC9=48a4w@mail.gmail.com>
+X-Gm-Features: AclHuK_01jiEiqdsSns1DzgI9X840igUpsiES1nGyb81ZHSPK_oSApAFhO_Tx_Y
+Message-ID: <CANiDSCujghpaqP64tWnObOTMUmNTdQp3-6yb2C2MrOC9=48a4w@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: skip bulk output URBs smaller than the
+ payload header
+To: Louis Clinckx <clinckx.louis@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 13 Oct 2026 09:54:55 +0200,
-Cen Zhang wrote:
-> 
-> An HDA virtual-master hook must have its private argument initialized
-> before a control callback can invoke it. snd_hda_add_vmaster_hook()
-> installs the trampoline through snd_ctl_add_vmaster_hook(), which stores
-> master->hook before master->hook_private_data without serialization.
-> 
-> When a codec with a vmaster mute hook binds to an already registered
-> card, snd_hda_gen_build_controls() publishes and initializes the Master
-> Playback Switch before installing the hook. A native write that changes
-> the switch can then run in the following order:
-> 
->   1. The codec bind path publishes and initializes the master control in
->      __snd_hda_add_vmaster(), then calls snd_hda_add_vmaster_hook().
->   2. The hook setter stores master->hook, but has not yet stored its
->      private argument.
->   3. SNDRV_CTL_IOCTL_ELEM_WRITE takes controls_rwsem and calls
->      master_put() while the setter remains between those stores.
->   4. master_put() sees the callback and invokes vmaster_hook() with a
->      NULL argument. The trampoline dereferences it before the setter
->      can complete publication.
-> 
-> The write lock held by snd_ctl_elem_write() does not exclude the hook
-> setter, so this can cause a NULL pointer dereference. Take the same
-> controls_rwsem for writing in snd_hda_add_vmaster_hook() so the callback
-> and its argument are installed together with respect to native control
-> callbacks. Release it when registration returns, before the caller
-> synchronizes the hook.
-> 
-> KASAN report as below:
-> 
->     Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
->     KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
->     CPU: 1 UID: 0 PID: 499 Comm: alsa-vmaster-tr Not tainted 7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     RIP: 0010:vmaster_hook+0x35/0xb0
->     Code: f5 53 48 89 fb 48 83 ec 08 e8 57 f0 9a fc eb 50 e8 50 f0 9a fc 48 8d 7b 08 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 75 59 48 8d 7b 10 48 8b 43 08 48 ba 00 00 00 00 00 fc
->     RSP: 0018:ffff888117647cd0 EFLAGS: 00010212
->     RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff84e9ff50
->     RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000008
->     RBP: 0000000000000001 R08: 0000000000000001 R09: 0000000000000001
->     R10: ffffffff89427457 R11: ffff888115ad1d00 R12: ffffffff84e9ff30
->     R13: ffff888114943ca0 R14: 0000000000000000 R15: 0000000000000001
->     FS:  00007fe8167b3780(0000) GS:ffff88826b7e3000(0000) knlGS:0000000000000000
->     CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->     CR2: 0000557c8c2842a8 CR3: 000000011579f005 CR4: 0000000000770ef0
->     PKRU: 55555554
->     Call Trace:
->      <TASK>
->      master_put+0x20e/0x2b0
->      snd_ctl_elem_write+0x37f/0x5e0
->      snd_ctl_ioctl+0x997/0xdd0
->      ? __pfx_snd_ctl_ioctl+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? selinux_file_ioctl+0xaa/0x280
->      ? __pfx_snd_ctl_ioctl+0x10/0x10
->      __x64_sys_ioctl+0x163/0x1d0
->      do_syscall_64+0x115/0x6a0
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     RIP: 0033:0x7fe8168c291b
->     Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
->     RSP: 002b:00007fffab0cb150 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
->     RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007fe8168c291b
->     RDX: 00007fffab0cb310 RSI: 00000000c4c85513 RDI: 0000000000000003
->     RBP: 00007fffab0cb310 R08: 0000000000000000 R09: 0000000000000000
->     R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
->     R13: 00007fffab0cb1c0 R14: 0000000000000001 R15: 0000557c4f71fd10
->      </TASK>
->     Modules linked in:
->     ---[ end trace 0000000000000000 ]---
-> 
-> Fixes: ee52e56e7b12 ("ALSA: hda - Fix mute-LED fixed mode")
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+HI Louis
+
+Thanks for your patch
+
+On Tue, 13 Oct 2026 at 14:56, Louis Clinckx <clinckx.louis@gmail.com> wrote:
+>
+> For a bulk video output stream, uvc_video_encode_bulk() starts each
+> payload by writing a fixed 2-byte header with uvc_video_encode_header()
+> and subtracts it from a signed length counter initialised to the URB
+> size:
+
+Out of curiosity, do you have a UVC output device? I would really like
+to test one out, but I could not find anything on the market.
+
+>
+>         int len = stream->urb_size;
+>         ...
+>         len -= uvc_video_encode_header(...);    /* always returns 2 */
+>
+> An output device can describe a bulk endpoint with wMaxPacketSize 1 and
+> negotiate dwMaxPayloadTransferSize 1, which leaves stream->urb_size == 1.
+> len then becomes -1, and uvc_video_encode_data() casts it to unsigned:
+>
+>         nbytes = min((unsigned int)len, buf->bytesused - queue->buf_used);
+>
+> so (unsigned)-1 does not clamp and the following memcpy() copies the
+> whole frame past the one-byte URB buffer.
+>
+> A URB that cannot hold the 2-byte header cannot carry a payload, so skip
+> it instead of letting the length underflow.
+>
+> Signed-off-by: Louis Clinckx <clinckx.louis@gmail.com>
 > ---
-> 
-> diff --git a/sound/hda/common/codec.c b/sound/hda/common/codec.c
-> index 18838a45e6f72b838eace2d7b21d7a0a3b21017b..029e56ae78727c8cb3c3edbace8b27a5615c2a3c 100644
-> --- a/sound/hda/common/codec.c
-> +++ b/sound/hda/common/codec.c
-> @@ -2024,6 +2024,8 @@ int snd_hda_add_vmaster_hook(struct hda_codec *codec,
->  {
->  	if (!hook->hook || !hook->sw_kctl)
->  		return 0;
-> +	/* Serialize hook registration with control callbacks. */
-> +	guard(rwsem_write)(&codec->card->controls_rwsem);
->  	hook->codec = codec;
->  	snd_ctl_add_vmaster_hook(hook->sw_kctl, vmaster_hook, hook);
->  	return 0;
+>  drivers/media/usb/uvc/uvc_video.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -1701,7 +1701,14 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+>         if (buf == NULL) {
+>                 urb->transfer_buffer_length = 0;
+>                 return;
+>         }
+>
+> +       /* The 2-byte payload header must fit; a smaller URB would make len
+> +        * underflow and uvc_video_encode_data() copy past the buffer. */
+> +       if (len < 2) {
+> +               urb->transfer_buffer_length = 0;
+> +               return;
+> +       }
+> +
+>         /* If the URB is the first of its payload, add the header. */
+>         if (stream->bulk.header_size == 0) {
+>
+I'd also detect that the configuration is broken, maybe in
+uvc_init_video_bulk() ?
 
-It's not nice to use such a low-level guard here in the upper driver.
-So I guess it's better to move the rwsem guard into
-snd_ctl_add_vmaster_hook().  But it'd need to pass the card pointer,
-too.
-
-Alternatively, you can rearrange the assignment in
-snd_ctl_add_vmaster_hook() and put a barrier to assure the
-hook_private_data store, too.
+and a bit nitpick. I think this is slightly more idiomatic than your check.
 
 
-thanks,
+diff --git a/drivers/media/usb/uvc/uvc_video.c
+b/drivers/media/usb/uvc/uvc_video.c
+index ec76595f3c4b..03940b62b250 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1373,6 +1373,8 @@ static void uvc_video_decode_end(struct
+uvc_streaming *stream,
+ static int uvc_video_encode_header(struct uvc_streaming *stream,
+                struct uvc_buffer *buf, u8 *data, int len)
+ {
++       if (len < 2)
++               return -ENOSPC;
+        data[0] = 2;    /* Header length */
+        data[1] = UVC_STREAM_EOH | UVC_STREAM_EOF
+                | (stream->last_fid & UVC_STREAM_FID);
+@@ -1656,6 +1658,10 @@ static void uvc_video_encode_bulk(struct
+uvc_urb *uvc_urb,
+        /* If the URB is the first of its payload, add the header. */
+        if (stream->bulk.header_size == 0) {
+                ret = uvc_video_encode_header(stream, buf, mem, len);
++               if (ret < 0) {
++                       urb->transfer_buffer_length = 0;
++                       return;
++               }
+                stream->bulk.header_size = ret;
+                stream->bulk.payload_size += ret;
+                mem += ret;
 
-Takashi
+-- 
+Ricardo Ribalda
