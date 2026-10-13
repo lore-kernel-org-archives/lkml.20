@@ -1,134 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4614F30CB
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD1E389104
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:57:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896250; cv=none; b=ZrIpY6cXmW9Co4cdVVltdVEJ6RDDupvHN5gVd4yGrFunaL2dYK5P+grw3bN97Q0ztFzQyVBdhx2px7v9h7oZonQ9ntImg2QJbziYO8MOgZNdlLTZyk0lwlA/DZsR3w6v0IRrQ4+mXUGqBwddwrC7IcjmD7f12spfJ23GVypuDOE=
+	t=1791896271; cv=none; b=UfhBt/gu5yxto80rixx62/+CnMH6dQPi8TezM7XdnrYehqOmg93b4fSMX8jntGJZTyMV8MKWofP9SHyAHllN42xSKa5i4sZf9NiWAfPDJibXnd/0FLhWoM2dn2XJdwz8DXMold057AshYpq9kEiQP1FWTx4RpdUGJ2qZnEwMP1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896250; c=relaxed/simple;
-	bh=EMvZFec+aEZgob/bO36XSk9Xavr5m3zM18K2N4GEyaI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c0M8prIH+k3KkrAZSJ5PHY+90SCJ/SZdhFk5nC27CEhNo47ZsGujUzUrNKaFb5Gq8VvE0CRSTqLsQ4lm/KfRfCCTZ/W7gG9Uf0eHIbxqKPxi4HIh3FIl4rMRcz/AKZnrF6zf+aelBg57nZR08mvXIJxHWD9K9hbYQsszy6rkDRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XkezcZFO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791896271; c=relaxed/simple;
+	bh=lkbzM8u6Ksurvv8STfByGe12+IIc/BqAKbB9v2Dn01E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eTnpmag9gzvp+wWXEx9UJWREPDNw0EmHUu9pwlYYC27OCpwitp0EpUEGUrwROGW5j9bvMni+Xf5621MAIZbojiQWUSHySOPi6pNzogj2OIHDm7af+ah+p3Z9jTEFO93Chkxw/2dRF0RydOkI4KENSK/VnKIlaKOufE4q6I5FymQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=eikGID/a; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XkezcZFO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B431F00893;
-	Tue, 13 Oct 2026 12:57:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791896247;
-	bh=X9BFwpcjmKrDdzhZwTDHl5KDt9LrzcnjBY0dqWfL9Uo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XkezcZFOnBges/No52JV7lJNChBh2uB/GmGh3tX/uB94BDHnIf+kSMHqz0Vs5wEM2
-	 U+eP0xko4YeYYnKDCOCOyXyrxGwNLfEhR3p1Lnkv9eoef7oLmBNoZMZgjvJBKgisqr
-	 fX3GPojftjXN8slL6pIFo+UY+/OiqBGSJ4GCYNdCtV9/o9d4041q8eV7EU5s63CCqC
-	 tYeDXHaD8ItI5Q172odKRM7uPdhkQLYKqZUOZ776OhtXwJxVuB/cb4b2tZH6NRnuVR
-	 rAKBkQh5k60awOuaonXW0fkUiRnZDkBHh2aG/rVUvjZ6M+JFW1mdkG1ryWakILxnV6
-	 QTeixMb1Zgpcw==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id B609F198003A;
-	Tue, 13 Oct 2026 08:57:22 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Tue, 13 Oct 2026 08:57:25 -0400
-X-ME-Sender: <xms:sirOaj7t20PPBmC0VgF_kX-BH_szYJkQ1lz5y8Ujzn6YONWN3iITRw>
-    <xme:sirOalU4gdiujkt2P6LsVs_jbh5nWBI8zXgOpKSF_RPczri9K0FzdUDoz1dwCjYRJ
-    vK6XnP2jojY0Tjhg_kQ3F6X_RGlAEMhwuWmWVpwnICQIvQ0_usyvsWJ>
-X-ME-Received: <xmr:sirOahul2_b8Rh5BgbU47dVYAXwNtIUY0HIB8RfgeWHEA0qicCsOa_LHdAY>
-X-ME-Proxy-Cause: dmFkZTEetqmizud+clew86He+iiifUKs94ePsfMAGNNPMmxgxaJcQtNwftmQ4FOsIRMZFd
-    p1MeZZgEA67dwqEqwnkr9c8OjvKQsDfeAsifflVQReL3Pft+JJQzZK/OJoNXOjH6QFKY1a
-    532uP9WhuX8Gl/oakRel8YxZcScQ182XP8mCDVloKrpc1ubB/YrgUwTFFzCtyoDK8vabJ4
-    KmBMY3r/03LHp3KTiVQvPSpcMw8RIXIkBRo7d2UWWyg5HdQDMUQ5SJD4LgUB2hnRqejjuE
-    E1ZFIiECiniGuVUPUMgC7vY+pflwKfQx2mdVyPbFen760/u7kdhq25cN79pi87MrgbR2HB
-    i9QhoZxOz7VJYTBjfS2SH6+BIM6AqXvlQY7HkAxNrn/CUD3hBligPhZqBs1MWtMk1rjQrR
-    CdLfeZu3RDnu2z2nrTqzR3NwlFsfj3utQppyMi+BQeDGbR2iO2rxS/p49qPmDzD6HmCLG+
-    Dx8/Gem37n8bZyTqaMbP7yuyN4BXCyyTLaJCOhtODibFchmq18+3ExOlh0DHAaJmILTeYz
-    NHZyQ9ZtbVyS+Qat+s5v5hPzl/+hCEfxyaOVr70AjmzlWwcuyHHjrvN4xJWidHZfUMsVLj
-    qhKdlGgOAZX5kE2Jmf5p+9IAEihQKqaiu7KnsGEes40g2HF423c3tJ48JKyw
-X-ME-Proxy: <xmx:sirOaqqqFM4nvubugARgJOFlU8NG2zgnWtQ1wJg84r-NRAMqsopH3g>
-    <xmx:sirOanbLvGRBuLjeMPAKNFk2MMGzUwpGA7huIAcIBmf-Xy8vPEnIsQ>
-    <xmx:sirOajycdr5YvGZP8lhrx023NDnRgbjQybVtD2iDv9z_H26Fx0wjDg>
-    <xmx:sirOal9iEI2KeJoJunp9ApN6o8vMcOa5Okfy0tlrdFxwzWnVS8-HcA>
-    <xmx:sirOahW_uXsL7xG2EIb5ixBaQ85q3xBwRNBArPSHh6vnFgNYgSzpac1p>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 08:57:21 -0400 (EDT)
-Date: Tue, 13 Oct 2026 13:57:20 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Ying Huang <huang.ying.caritas@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Chuanhua Han <hanchuanhua@oppo.com>, Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
-Message-ID: <as4qKLx_XwQ6qY3p@thinkstation>
-References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="eikGID/a"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c3762b0d45aso65909866b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:57:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1791896268; x=1792501068; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uhznKuYnN5ZlVlaqPy/qLcJWMqnPhwIquwlakdmcYyI=;
+        b=eikGID/a0PzhTKWjihDtoyGQCpXMB6PZTPzrpqyaMSwJKawTd0t3thc3ppO+PSwqyd
+         bNOelHj0fO0PbISxFPQ2dPsGcOhUW8G7LwlLjnnBTzBCaGrV2e8xzVcAnmVu8urr2F10
+         nGabXO/0Nr26GtQt0l7/MLhp3RBm7glj2UrsQZgeGXcSSxaHW6Sr+0pRD+UOJ54IQyJf
+         vs2kIP56hqTpjMTzPikc2ETvpYLPoEW0ExEap978XaAzOzMRXpMB5xswSW33+1zwryW0
+         ivMPkV5yUlvbaXSVfHgZiqfaV9id3l7ZCCbB0/92vJiQyCzHc4GHuVNDalykygPdp+rx
+         IVAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791896268; x=1792501068;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uhznKuYnN5ZlVlaqPy/qLcJWMqnPhwIquwlakdmcYyI=;
+        b=vE4AAKg0pW2VEO5mal7YpG3Rz/Ey0FFDQ2EtFd00TaKyvBjNIQkcZ8B/zjijfAwlve
+         fHch6Ul5frxW6YsuuY+vn4ypllk+NkDRNEiHx1Vk4ha9KEWvwoNxUT82UAwLOz08SYg7
+         bjldebXFdueqWu7x9QqHcNk9+wPWTbmT7SEnJ3s7BALdedZ6+rI+rT9N8xSFEc11WHEe
+         lEHsx78K07K0l6NK54z73783BX0Wak0I7KkxlofZq4Ce8b0YCgd/L935yMtECFGjd1lO
+         9OK5sqnFBjHkpu2OaOjrOzm/QjLJAi+u2wcPW7a0jHWWuvm/X4Np5Pn1H7reAOYHLF9I
+         GFUA==
+X-Forwarded-Encrypted: i=1; AKwUvBxNKVOIKSVGaLa+vTDLno4L70gwsAXprsoZsJFK7gGDGk7TxxAQs81s1D9vnJle+2hVdpiSAy49iQfSLOk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNBPAqUCWUqQ2WTGqw38A7rQ4EkhEz7POMj6Vc6Ww8HqXoP1Vx
+	F+H3EP4z5xvMhT3KdUXTT0yZwAaScB9eaQ8vIji45D67v4AUXrXpCIluCzn2jFJq1nI=
+X-Gm-Gg: AYBFou2rFoESL0m5iDklUNe+44tz72rdw6YdVPtaLtmGGgsrUB1bod7ifehiqRYxMuG
+	4C9Sir5nmRIIAwGqOJkXu0Xi0CQMUVWmQnqaJWtss9W4wPHfrpHCCgoSu6EJ7YW1A5IQgVkHdeW
+	7v9feWtvWCBnkBag+LVJQAEeIyrCt+vo23Br2ubtinfEEzt/8ZwL/y0XILpjhN2E2ZpKnt3KRTT
+	kRcazuLajSoKmxwVSkSMsfCQ8r5b90asUT3yKCqUlqgYAXA30QYbrdwQhu5ClFnPUIdXB7dklEk
+	lQ8Xdl7CBFD8HAGve63aKTX+W9P4nOVooEYhx2EMh8y9KiY7jlGNCc1O4d80YSlfF8j4U/BGDUm
+	QSPZ1tRb+ORd/0E6iC97JwOBKAMSZ9adxG2JUjZdQfWd6IQiltqxFXfdAbS/EhDEfy3YRqAqh1H
+	1HoMGt30d5/v95z/9vr7N8rrqeHFYL6jzmUZ7XslnrkV8smUz4pCuuZWSwRO34lOMh+OqlrCiY1
+	Svt1wokbYuAPvmUxCFlDsN70ASXpyTxNQGVctlnEo8CyIDNt/1IHQs3EIJkN0D+OXJnam9yT1SS
+	mGb8s9TNAHB5ixmHIfC83jTnfHF5xCY=
+X-Received: by 2002:a17:906:e114:20b0:c33:62c0:d8cf with SMTP id a640c23a62f3a-c3362c15642mr504101666b.13.1791896268023;
+        Tue, 13 Oct 2026 05:57:48 -0700 (PDT)
+Received: from threadripper-fedora-workstation (d-zg2-045.globalnet.hr. [213.149.37.45])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac9ecfsm605985766b.74.2026.10.13.05.57.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:57:46 -0700 (PDT)
+From: Robert Marko <robert.marko@sartura.hr>
+To: linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Steen.Hegelund@microchip.com,
+	daniel.machon@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	nicolas.ferre@microchip.com,
+	claudiu.beznea@tuxon.dev,
+	lars.povlsen@microchip.com,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: luka.perkov@sartura.hr,
+	Robert Marko <robert.marko@sartura.hr>
+Subject: [PATCH 1/6] dt-bindings: hwmon: sparx5: add LAN969x fan controller
+Date: Tue, 13 Oct 2026 14:56:25 +0200
+Message-ID: <20261013125735.1542349-1-robert.marko@sartura.hr>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 02:30:37PM +0200, David Hildenbrand (Arm) wrote:
-> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
-> generating an address wraparound, crashing the kernel. All that's required
-> is to map a tail page of a large folio close enough to the start/end of
-> the address space to e.g., make
-> 
-> 	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
-> 
-> to wrap around.
-> 
-> Let's fix it by providing a better helper, folio_pte_scan_range(), that
-> takes care of staying within VMA and page table boundaries while
-> handling possible wraparounds.
-> 
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
-> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
->  1 file changed, 29 insertions(+), 14 deletions(-)
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 1f5d5f7d39cd2..a3823010aa981 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
->  	} while (--nr_pages);
->  }
->  
-> +/*
-> + * Get the address range in which a folio might be mapped, assuming its pages
-> + * are mapped consecutively and the folio page at the given idx is mapped at
-> + * the given address.
-> + */
-> +static void folio_pte_scan_range(const struct folio *folio,
-> +		const struct vm_area_struct *vma, unsigned long addr,
-> +		unsigned long idx, unsigned long *start, unsigned long *end)
-> +{
-> +	/* Stay within the page table and VMA boundaries. */
-> +	const unsigned long pmd_start = addr & PMD_MASK;
-> +	const unsigned long pmd_end = pmd_start + PMD_SIZE;
-> +	const unsigned long lower = max(pmd_start, vma->vm_start);
-> +	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
+LAN969x integrates a PWM fan controller with a tachometer input in
+addition to the Sparx5-compatible temperature sensor. Add a LAN969x
+hardware-monitor compatible and describe the second register region.
 
-These -1/+1 gave me a pause. I guess it is for pmd_end wrapping to 0 in
-the top PMD? A comment would be nice.
+Describe the fan as a child node using a two-cell PWM specifier for the
+period and standard polarity flags. The child also carries the optional
+tachometer pulses-per-revolution and thermal cooling properties.
 
-Otherwise:
+Keep the existing microchip,lan9691-temp compatible for device tree ABI
+compatibility.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+---
+ .../bindings/hwmon/microchip,sparx5-temp.yaml | 90 ++++++++++++++++++-
+ 1 file changed, 87 insertions(+), 3 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
+index 611fcadb1e771..e91c2a3ccd3c9 100644
+--- a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
++++ b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
+@@ -4,13 +4,15 @@
+ $id: http://devicetree.org/schemas/hwmon/microchip,sparx5-temp.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Microchip Sparx5 Temperature Monitor
++title: Microchip Sparx5 Hardware Monitor
+ 
+ maintainers:
+   - Lars Povlsen <lars.povlsen@microchip.com>
+ 
+ description: |
+-  Microchip Sparx5 embedded temperature monitor
++  Microchip Sparx5 temperature monitor with a fan controller on LAN969x.
++  The fan child's pwms property references this node to specify the
++  PWM period and polarity.
+ 
+ properties:
+   compatible:
+@@ -18,11 +20,19 @@ properties:
+       - const: microchip,sparx5-temp
+       - items:
+           - enum:
++              - microchip,lan9691-hwmon
+               - microchip,lan9691-temp
+           - const: microchip,sparx5-temp
+ 
+   reg:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
++
++  reg-names:
++    minItems: 1
++    items:
++      - const: temp
++      - const: fan
+ 
+   clocks:
+     items:
+@@ -31,11 +41,67 @@ properties:
+   '#thermal-sensor-cells':
+     const: 0
+ 
++  '#pwm-cells':
++    const: 2
++    description: |
++      Number of cells in a PWM specifier.
++      - cell 0: PWM period in nanoseconds
++      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
++
++  fan:
++    $ref: fan-common.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      cooling-levels:
++        description:
++          PWM duty-cycle values corresponding to thermal cooling states.
++        items:
++          maximum: 255
++
++      pulses-per-revolution:
++        minimum: 1
++        maximum: 4
++        default: 2
++
++    required:
++      - pwms
++
++    dependencies:
++      '#cooling-cells':
++        - cooling-levels
++      cooling-levels:
++        - '#cooling-cells'
++
+ required:
+   - compatible
+   - reg
+   - clocks
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: microchip,lan9691-hwmon
++    then:
++      properties:
++        reg:
++          minItems: 2
++        reg-names:
++          minItems: 2
++      required:
++        - '#pwm-cells'
++        - reg-names
++    else:
++      properties:
++        '#pwm-cells': false
++        fan: false
++        reg:
++          maxItems: 1
++        reg-names:
++          maxItems: 1
++
+ additionalProperties: false
+ 
+ examples:
+@@ -46,3 +112,21 @@ examples:
+         #thermal-sensor-cells = <0>;
+         clocks = <&sys_clk>;
+     };
++
++  - |
++    #include <dt-bindings/pwm/pwm.h>
++
++    hwmon: hwmon@e2020100 {
++        compatible = "microchip,lan9691-hwmon", "microchip,sparx5-temp";
++        reg = <0xe2020100 0xc>, <0xe2010348 0xc>;
++        reg-names = "temp", "fan";
++        #pwm-cells = <2>;
++        #thermal-sensor-cells = <0>;
++        clocks = <&sys_clk>;
++
++        fan {
++            pwms = <&hwmon 40000 PWM_POLARITY_INVERTED>;
++            cooling-levels = <0 128 192 255>;
++            #cooling-cells = <2>;
++        };
++    };
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.56.0
+
