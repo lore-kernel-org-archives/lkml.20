@@ -1,149 +1,200 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330BC3C278A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613BF40F8FC
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887940; cv=none; b=JALSzuvF4xtQ88lDYvaPceIm59kh5qu6rMWryUbebno4tKPKBWD1m7UY45Zgp2EOOkM5U0g8NTJFwxxLW7WvCG1eA5lMp5OVKaVLtwHxqioC8yW/OCc09wO10OMHtk3Op2HAPhKu9M1QfBlmqz+LqYcmxfBYasGSZWeeP1LN5CQ=
+	t=1791887953; cv=none; b=tSORRUoeVrPBkzG/hRu3XfNRTxynCVcQMhiSVaK6eMkhLknBCwMpRBl+74J6LMTf/xY0u71FMpJq/o+K+ZzsIE/4qyQfb9Ke9PzEq+apB0YUbr6utzN53sYdWibh/+QfZESTJPoE8Iy2Vrg4Vx2YpZMDTVlAeyjUqkuzHydivTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887940; c=relaxed/simple;
-	bh=/gsGpTTN5NSPm+Jmv2ESZ+joUPJVjv92q4cmcpfiVX8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hiYA7sfhyQ8HtVjBDqdp3uyUCL2NZsBS0RjRkdme8C77aMNIvTO8m4Hj8jbrZBhXIt4piPNdnZno2JFPiz36A+9BwIZFzFC6E9+srh9T8hAoR+IJkGlOcNTaEU/aECIztWRHsaqbuZ+VbjnoHZC7FWa6U1PxHnjKLlQinF8x45c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NBL4xTER; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XpO3J7gM; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791887953; c=relaxed/simple;
+	bh=MOY5s2x3l4fytmxVNA6OCa/Ehzog/oyOEDrzzWNi6Sk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JkQhu+ILCdf4hMahlNHPHZJCQJSu5ZGQBLiqF8uqWfzucKtabhvaWM4qIIPLO8nPfdrqegUgL4cSCUtDCtpluEI5OlObAZr2djzRJA9r+uON2P4rR8cxarp87JovugO41pUXs8GSck7yOlR7kUwobyMggQqJl9opRhWU2SaV5EE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=G8St/8lV; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NBL4xTER";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XpO3J7gM"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D7OXgl015275
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:38:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	D0tnguisxm+NfZOb1TyPdU15DKMG6Z+tm0A66q1LuA4=; b=NBL4xTER/co8/kJF
-	7DSfXerpcioiw/bezO0kWygHrgEkzJz/LxAw6aNneLmt9/vcnhlKO+ahCN7qVA4e
-	zgh/Plm1Y/Ydf21ofFkhdDO1/qZGs/za6D+4F+mB1DuVkIHrsKJoiyaXSqyPgdZJ
-	7drK/V3h/rvpDcfTH3RyweFSo39wU9Asgt3HbbJIkRY8BNH8QSLRQ4Y7jfxWO4If
-	U0iYrJUW6/+mBOjwCuToNlNfVl2S7BaUnVWLs8inpZ3j8NjrNYyOABQS0HjqPyAJ
-	JpQbMUKhFyz9VTHAokGwfQg4PTaUoxybTjbnMZaitL+l5XClj+48IdMFE8zbmm7z
-	Br3C0Q==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9g7ugtf0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:38:58 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ea6b66e53so40018485a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:38:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="G8St/8lV"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e36c3478aso359402566b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:39:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791887937; x=1792492737; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D0tnguisxm+NfZOb1TyPdU15DKMG6Z+tm0A66q1LuA4=;
-        b=XpO3J7gMVIRq0JVCW3FkY4JcuuOU3tMrA06/7NLqeT5iHKWV64biI4U7GLzLK8XjsR
-         KOSR+L5+k3parWEanuq+MjfFQQImAn0vov5LEE903FKYzbQLkfQm+l/FhLQNH5Z1nlIH
-         0NkTqPP4M3aJ0hjlBRV4F0Gi4BY69n7tXnOxiBWP1uhWhyDjJZZZNJG/UP+nKxhODRyp
-         PeBu1YOB60AobzjUb2DGqx1JPKVmxnxyiHDCxcJVLffWUXKTjSYVYRHpg8OrcwCOZ0qP
-         /txsnjwCoF96Z9kNZkiwvVFkDfHSQze7VTky385W0omVbT5Zc/2nFJ4W2XM9AV1ZzzX/
-         E1aA==
+        d=cloudflare.com; s=google09082023; t=1791887949; x=1792492749; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wcYYVZ6kSKJctnaWoWaxCg0rByraUo6R00V4/dmaqd0=;
+        b=G8St/8lV4Ysm5FKhvQ5kFsqlOJV3853Nwh54lp/zRIVEVe/5s84a1G01jwxnrH2JIj
+         cjuMxca1nRQVRquXN52tayKRW4ERlV7nHhDxvA401NbSXU5cfvvy1tK0CwefN5toG6yL
+         BvMDto3qESfe9dVhZvAGbbWLYrXB/j5WawP9qM2/vIit/HPOpF6qHU2+2qMrEV9rPPBL
+         fkqyY1xKyj2jNMvyUbaV11NyFhvMZNLixVHvC79a8vZkaZDWUmjbWcuiRGDUDG+fpJwS
+         UQ8jb24oUHj2pJKmulLplOCk7TLlCJDEci4zZHqC6KBTGcUaUDKKbaiSkS/Tx1GVWe4e
+         Jurg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791887937; x=1792492737;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791887949; x=1792492749;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=D0tnguisxm+NfZOb1TyPdU15DKMG6Z+tm0A66q1LuA4=;
-        b=FJMyv6ds1e+bgTTo98wB2Uf7fTHWvpgtYDKSA4tduRYk/9YOg8Fpe8A8rrqH0KxMSO
-         TLHKquMdLumniqv1d2p1tLyNt5m/4DowP4ywo1dQg8gqfgpUgBHkwwdaUMAVGvs71QyV
-         6kk9TaCp/ClL/IzA9nMIymE4XkZsYqmPmn1bTGbRnE6Kdvq+MY4w3bm+z9vhtIjI1TQS
-         f9KrCIoeN3I1+KJkFc8yWT+HBoyZUeg3F/ciJYkn4parCWTeOHG2SdpDmoUq+VE7luBe
-         kYnAV+50RND6skmSZKYkzMn3xptUva7W1Gjpu2vchxev4XIaKLkKjhVMmv/IOBIWAFrr
-         iccw==
-X-Forwarded-Encrypted: i=1; AKwUvBynWEhRcioZvTFZgk+agElXjsTDCJ8N9SD0GW8ObQVHa/tNnmp9gh47akPG2R4CZ2jbmpsXm337xjaf2Fc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAczpDpUTaV+v7UhlxyWPqgMy9s2C+oDIQhVYx7FiRdSCgmiLf
-	BLGD4xX7PtBi7dzk0xhiYSEpybqwcaA6iCguhnVgmncusgKq5yNd7JkJVXUgGJc0CarnJbZvTG6
-	sE5kx21qPI6VxvrT83bX0yYB5dG+/9wEPYas57E/7SMZZ4wkinsYbIaEauQnCrSUV2PI=
-X-Gm-Gg: AYBFou3n3NeuG1vkCidq9PTGyfNoGuhy7+myYrz7YfSWXu12BA/ibatIfqzbs83dHS+
-	9Km/xXo0AiRMN/CPkI+kefTs5epwwP+8Pc0j+H+3CoNSUOaF2mifHngLwN3cVrwCJM6PwHAJc5K
-	oq5sUaWJYU+S8ZLXb1zGthG9jpuy6LmoD5mMKv/VuAA8MDfYYDNCePEfT9Ye9wTb0+PPkpkzf4S
-	Ga85RRu5aXd77rey7yC5qkA4id6hoIFj+gYBQW6//DAc6Ww2AqgP13HwoUqm9GOD4EbPg69ziu7
-	ShDeX9FNYSCZ9+yTLCAoHF5qwv1yJRLEvytIsXtBe7ygDWVkLuiBpWyd77Ff35KGEMeGvV47tow
-	kcvzl/Bdth0auqhcVsEGHvg==
-X-Received: by 2002:a05:620a:458f:b0:93c:61e0:81ff with SMTP id af79cd13be357-93ebd0a3722mr2416253085a.1.1791887937276;
-        Tue, 13 Oct 2026 03:38:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:458f:b0:93c:61e0:81ff with SMTP id af79cd13be357-93ebd0a3722mr2416251185a.1.1791887936833;
-        Tue, 13 Oct 2026 03:38:56 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3527f0295asm208034866b.72.2026.10.13.03.38.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 03:38:56 -0700 (PDT)
-Message-ID: <61840bbe-8167-44a4-a127-469697e4525e@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 12:38:54 +0200
+        bh=wcYYVZ6kSKJctnaWoWaxCg0rByraUo6R00V4/dmaqd0=;
+        b=ceMZ5EO46bP1tkD3QjnVjlwG6iWe6kssxarZilSAAXCMpOkezCBTQ86kIws0BgNspR
+         uKfSjVz0bQ8PNoMEwvx17zhvcLk4uonr6/cObDfKOs0sDUUQDYGhA3Gk8k815AuFZ2iw
+         JqJ35WoVOBwahPhaTHATNn74W/ClQTApXp24mt6L+g7Ls/vM2kDBpW2tCn8M1nul/RJb
+         HzdWi2Q0b3DHUAPndHA7YVmZGgCe6Nm3xv96Va5To/cft25+mzY9THVjJsz+UPx9Lr/x
+         6Ly6359kxTZ7D1s4tRd5kTzJ5H2odW5ADNedryg9l5qSrcW7GLNmq8AGdKAN0H/oW413
+         Ze2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxklDE6Ip6nL2dD/F0e5s556XjDNscbiu/KB6U8oTh/bTZd2Q/6VgfcpmoxZ4pKZ5nPzaT9pJCEDTGh4qQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBG1/OK9kTX9+ac2zRejlg8IKUizdLXBMyzm1KO3+LU2676rOy
+	IccUyqXEBw1Ga5WQpWTtovryb8ZJxTfxNLHGYyjgsMwo9KFbxlCQ/FmHyqSRG4mV7TA=
+X-Gm-Gg: AYBFou2AD3wbm9xOPruFZTMntfeDpPk65QO9ggVqhJ3KhEzSZ3qxkX3QTbNeD3dg2s2
+	DTx9ksrrKaSe4fbFQG6U18fSDghnoWioIoXafNVMjQNDVeOPqiLDRTIHXeGVHRgqsLltJZxybhq
+	8d/O8iKVVhX822ANENBn1yNvYFs4LwFVylKpB/Te/4rCJinT7EOAqhkxxNWMjRfKNGQy3bp16hn
+	feE/xtTXkC7DetwYfc77gVOr9dkk+uAJcVLbggRtMF11+zfd1ZhCiWpoOq1U1/eHR2flE8Df4sh
+	WqMs5Y5idXrJ6rXiW8CRRsqDYQZ7zDlXaocMNc78oCqPJ1I/TbxF7+k37lK0nwmdpp18j/m+A7M
+	TySaEexfjpsw/f+VfXChBnpZhdPm0RJxKuo9La+MIXVAAOfaUIho4MhTL39nYxhf09cKJOUtqql
+	t52LdeBbrXyEweN+nqcOX1NZDwduWOU6UQMSN6XquXffPONOrtkg/cpFM2O9tHnaEsku7BkGmZt
+	cPCU9lFRecsFl+FnC4DSBFmAvyk9U9ynTvP
+X-Received: by 2002:a17:906:dc8e:b0:c29:4513:f6fd with SMTP id a640c23a62f3a-c31aa081b78mr1169935566b.35.1791887949584;
+        Tue, 13 Oct 2026 03:39:09 -0700 (PDT)
+Received: from 8951987238ab.arnhem.chello.nl ([104.28.187.84])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac62a7sm552462166b.63.2026.10.13.03.39.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:39:09 -0700 (PDT)
+From: Willem Ferguson <wferguson@cloudflare.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	ncardwell@google.com,
+	bpf@vger.kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	linux-doc@vger.kernel.org,
+	corbet@lwn.net,
+	linux-kselftest@vger.kernel.org,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@cloudflare.com
+Subject: [RFC PATCH net-next 0/4] tcp: carry a BPF-chosen identifier in TSval low bits
+Date: Tue, 13 Oct 2026 10:39:02 +0000
+Message-ID: <20261013103906.2660384-1-wferguson@cloudflare.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soc: qcom: pmic_glink_altmode: acknowledge notifications
- on undescribed ports
-To: Rahul Pon <theflyingrahul@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260930111657.1147-1-theflyingrahul@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260930111657.1147-1-theflyingrahul@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MiBTYWx0ZWRfXzWYq9kLhZOn5
- i+4d93bK1Oamv/svJObJzkNNkgmPendQeixnZRM202GT1mHEJa825OeoBkuTHcYLmpxjgqrMeO+
- Mncwh3KJ3lZSAnr1XF1Fq85gjQbqTv9cffaNEMUXTCdVdGiuPqW7ZjZRZ8NZ1RhHxYK4jdggrat
- +JiL9vhsE0LXVAorcjJ+1nWicsuvXluXOHkzrvQQy2cpcR0rmR25dwKK9C6LmptVAu+C8dtNbC1
- 5hSAN/JIYzAoCiqhyFjm7Sa0r3PE9puBMh7BMCWQN8duZDZCpc53cqDh6nZn6XIpxaS0LETsBmc
- w4r95AZ+QnGXOqQxlxZVGsVjCUH48jCHIsVaLoKzqx+JdldwbiGBJpGmzeC+iU/YLWUmMrSWad+
- GgP4bpSc5BnXMY/AZNo1PeHYma/qa00XekHimPLbdPGt0Lr+1VRWHjbVpTsox7QufooOa+vR5vt
- wK/sYeioXUZFGym/ONA==
-X-Authority-Analysis: v=2.4 cv=Z495j3RA c=1 sm=1 tr=0 ts=6ace0a42 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=5B3i7hfZnreuUmc6IpwA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: saqKuhs2BSk_c0_KFkOcmzrRxPFqFEYa
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MiBTYWx0ZWRfXzFVwySnnfIiH
- VVC/g6rZrBjWTXxPd0y8RuMgHweGVzZBiqvPfX5Gh6G1714TAW7q9+AmFo3agFRfRquXYWr/4Gg
- RFUG2pkLm5eb3pnaQy0Z6P+RA1ON+rE=
-X-Proofpoint-GUID: saqKuhs2BSk_c0_KFkOcmzrRxPFqFEYa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
- malwarescore=0 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130042
+Content-Transfer-Encoding: 8bit
 
-On 9/30/26 1:16 PM, Rahul Pon wrote:
-> The driver enables port notifications from the firmware (ALTMODE_PAN_EN)
-> for every port, but only acknowledges them (ALTMODE_PAN_ACK) from the
-> worker of a port that has a connector node. A notification for any other
-> port is logged at debug level and dropped without an acknowledgment.
-> 
-> On an HP OmniBook 5 (Snapdragon X2, Mahua) whose device tree does not
-> yet describe the USB-C connectors, the firmware kept charging on the
-> connector that was plugged in, but once a notification had gone
-> unacknowledged (on unplug), its UCSI connector status reported no
-> connection on either port through repeated replugs, and no charging
-> session started again. The firmware also reports more UCSI connectors
-> than a board may describe to this driver (here a third, USB Standard-A,
-> port).
+This series lets a listener encode a small per-connection identifier in
+the low bits of the TCP timestamp values it sends. The peer echoes TSval
+back in TSecr, so every segment the peer sends after the handshake
+carries the identifier in its TSecr.
 
-Please fix your DT instead, all you need is to copy-paste some
-boilerplate.
+In Anycast networks, mid-stream path changes caused by BGP route flapping
+or ECMP shifts frequently deliver active TCP packets to an ingress Point
+of Presence (PoP) that lacks the flow's socket state, resulting in abrupt
+connection resets (RST). While protocols like QUIC avoid this using explicit
+Connection IDs, TCP lacks an in-band routing token to help ingress
+nodes identify where a flow actually lives. To address this problem,
+we propose embedding an N-bit data center ID into the lower-order bits
+of the TCP Timestamp option (TSval, RFC 7323), allowing edge load balancers
+to recognize misdirected packets and steer them to the correct origin data
+center holding the active session.
 
-Konrad
+How it works:
+
+ - tcp_ts_id_bits (per netns, 0..8, default 0) sets how many low TSval
+   bits are reserved. The millisecond clock is shifted up by that many
+   bits.
+ - A sock_ops program opts a listener in with
+   BPF_SOCK_OPS_TCP_TS_ID_CB_FLAG and is called with
+   BPF_SOCK_OPS_TCP_TS_ID_CB for each SYN, before the SYN-ACK is sent.
+   It sees the SYN and optionally returns the identifier
+ - The identifier and width are stored in the request socket, then in
+   the full and timewait sockets. Incoming TSecr values are decoded
+   before RTT estimation and PAWS use them.
+ - TCP_TS_ID reads back the identifier, and /proc/net/netstat gains
+   TCPTSIdAssigned, TCPTSIdDeclined, TCPTSIdSkipped and
+   TCPTSIdEchoMismatch.
+
+RTT estimation on the encoding host sees the same decoded timestamps
+as before, so they are unchanged. On the peer, PAWS keeps working too;
+the only effects are a shorter idle limit and a narrower tolerance for
+reordered segments, both described below.
+
+Scope and limitations:
+
+ - Passive opens only. SYN cookies, microsecond timestamps and peers
+   without timestamps are left unencoded.
+ - The peer sees a clock running 2^bits times faster. That narrows the
+   real-time span of its PAWS window, so the width should be no larger
+   than the identifiers need.
+ - Peers that keep ts_recent for the RFC 7323 24 days (e.g. FreeBSD,
+   macOS) stall connections that stay idle longer than 24.8/2^bits days
+   (about 37 hours at 4 bits). Linux peers stop enforcing PAWS after
+   TCP_PAWS_WRAP and are unaffected.
+ - TCP_REPAIR cannot restore the identifier, so hosts that migrate
+   established connections should leave the feature off.
+
+All of this is documented under tcp_ts_id_bits in ip-sysctl.rst. With
+the sysctl at 0 (the default) the only new cost on the established fast
+path is one likely() branch when parsing TSecr.
+
+Questions for reviewers:
+
+ 1. Is encoding an identifier in the low bits of TSval acceptable in
+    principle, given the trade-offs above?
+ 2. If so, what feedback do you have on the implementation?
+
+Patch 1 adds the encoding and decoding, which stay inert until patch 2
+lets BPF set an identifier. Patch 3 adds the TCP_TS_ID read-back, and
+patch 4 adds a BPF selftest.
+
+Testing:
+
+ - A kernel with this series and tcp_ts_id_bits=7 is serving production
+   traffic on a few Cloudflare hosts and assigning ids to all CDN
+   connections. Key TCP metrics on those hosts show no difference from
+   hosts without the series.
+
+Willem Ferguson (4):
+  tcp: add plumbing to carry an identifier in TSval low bits
+  tcp: add BPF_SOCK_OPS_TCP_TS_ID_CB to assign a TSval identifier
+  tcp: add TCP_TS_ID socket option
+  selftests/bpf: add tcp_ts_id test
+
+ Documentation/networking/ip-sysctl.rst        |  38 +++++
+ .../net_cachelines/netns_ipv4_sysctl.rst      |   1 +
+ .../networking/net_cachelines/tcp_sock.rst    |   2 +
+ include/linux/tcp.h                           |   8 +
+ include/net/netns/ipv4.h                      |   1 +
+ include/net/tcp.h                             |  58 ++++++-
+ include/uapi/linux/bpf.h                      |  15 +-
+ include/uapi/linux/snmp.h                     |   4 +
+ include/uapi/linux/tcp.h                      |   8 +
+ net/core/filter.c                             |   2 +
+ net/ipv4/proc.c                               |   4 +
+ net/ipv4/syncookies.c                         |   2 +
+ net/ipv4/sysctl_net_ipv4.c                    |  10 ++
+ net/ipv4/tcp.c                                |  16 ++
+ net/ipv4/tcp_input.c                          |  61 ++++++-
+ net/ipv4/tcp_ipv4.c                           |   1 +
+ net/ipv4/tcp_minisocks.c                      |  27 +++-
+ net/ipv4/tcp_output.c                         |  15 +-
+ tools/include/uapi/linux/bpf.h                |  15 +-
+ .../selftests/bpf/prog_tests/tcp_ts_id.c      | 150 ++++++++++++++++++
+ .../selftests/bpf/prog_tests/tcpbpf_user.c    |   2 +-
+ .../selftests/bpf/progs/test_tcp_ts_id_kern.c |  32 ++++
+ .../selftests/bpf/progs/test_tcpbpf_kern.c    |   2 +-
+ 23 files changed, 459 insertions(+), 15 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/tcp_ts_id.c
+ create mode 100644 tools/testing/selftests/bpf/progs/test_tcp_ts_id_kern.c
+
+
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
+--
+2.47.3
+
