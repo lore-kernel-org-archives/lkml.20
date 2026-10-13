@@ -1,78 +1,82 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EE8388396
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51923D7D64
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888038; cv=none; b=bTsublaH9Z5kj3NZ6zE3icySuq1C4/bXKAsLIpWQwY5N8qGqhRE8u4Hc9cetg3T4+mfiV0fr3m26ctWPWLx16kb3V6NreMfbe63Ci/GiXZxDXuMR5ZsKjPK+HEqQ50aNj5IUdsvV5Ui1HtT8R81niubpr1pkkOAEyKd0gTUsXBI=
+	t=1791888039; cv=none; b=UKCvLKFwAi8YejllPBm2Ih5lFLMaD9otqzOlN4TNRgys0Bhl2pINpzZt4AmcG8vLWcKVvNI/X2WpDI6lxsST6ARnk98unXiMKjMrLnrEn5fD0ZAf+JyL6KUv5oeovpTZixyyUQM6Z0FbkWiZqdBEzhNttVgtW25nu3+FhKiwPUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888038; c=relaxed/simple;
-	bh=J75o9yQ4QEnGm/Ofm0EAdYOD7d1uBAmCB87/l3oscZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pr0uJ4lI+k88JQFL/q6iys9ddKVhBsh38eV/ybDGitXcGJPJUE4/e0/2F5vOcUacAVTGe9+r5YdVOq7bBnmW43inD790xLDHzaaR8nK9zYqRKvPTQo+uK4gPSByhl8RPXWViHtf/zcLm81+9P7l5Gdx3S8RlbB+qhGOm42qyzZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PCUziM0J; arc=none smtp.client-ip=209.85.221.48
+	s=arc-20240116; t=1791888039; c=relaxed/simple;
+	bh=0fzWyAy/nfhnOtEhk+RqCh8SWnJzy8Q8sfxOeIbh9H8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hAy21afcKm0nJEu5wNo8M51UIt2NfAy9hPuRBRKW9mFZBYfEeCiF9hydpJKPovjYeyzMoY0jtjMp928chdxyW6KnmJa18fJ0Aes5vLY2D/jy1dFg8LRzqJ7CpESaTZtuS1xN5Z2j4EJ6gE4rIZXBBGSQ0jq9bYGSkRu1bZp2y0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HXbAEoY6; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PCUziM0J"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2678818f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:40:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HXbAEoY6"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so25448585e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:40:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791888035; x=1792492835; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rs5a1E1r4/yCTP7mpX4ij8UiFP5xrJDZBhszngJHLds=;
-        b=PCUziM0JBBjpQ5tzs1AiWgDyVQOuP/ElIgPgQIOz7HFkfddbOlYKOMhheim5/PVdTG
-         NoBPcGm2hLWOvbnnF1/X0NKMYSc/nHB1vr2ehzce/IPHXbTTDZBo3vEUNgi2q80GEks9
-         kBrszLyWmVPgSIP7o8Yc5LIzztWrBB007YIqx+EBgf7bzu0IyRwq2FDWHhGR7KmEByBD
-         Cum0kGQTsHwFndXmmJTiBLUTmYmosP96D3FVt0VoFLpBNpyDmVTLHb6GX+JaF0rgBBg7
-         EEgJpXBSnAKlTooF89lD6ZA1BaLDF4zu003M6cnxvnc+BHiijNvPn/Pf88SsCEiBnmbx
-         dWHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791888035; x=1792492835;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791888036; x=1792492836; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Rs5a1E1r4/yCTP7mpX4ij8UiFP5xrJDZBhszngJHLds=;
-        b=z+aGXuoM2jUgkSUbXQobFzJi/XElXZXWGOc5lKjxy/q/dQRj+UFnNDVAkH7SVlRh3u
-         O/JV3iRyNiAHNTEBvm7HhdeJIxOt1L8Era2ZUcr2uxLv9aVkuF9szsfDMkrg9zgk17D+
-         Xv57zsm+8cxsuZ4Ri50FthINaJdzdn+eSNXvKMIg6mIQxk6hUcfIwBqzkgLlIR0XRB/R
-         99RVa53pSc2GwpBDgsWuAnyFMDUmE1brhv4hWsrRB1IezcUuXPvmVO2EbPYCMro27+xS
-         3GfVtkiPO1mXMFdnKiBAJl2Hc3M3ghGuq20Whzox/sOR4NbIO3s3RSnZUjYEL79jpcgA
-         4fdA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQqHXNPAsEh4qjEfFq0a5s327BBy6r6I8S+sC5TPoSe+HGk0ORpwhAOVluP4vIG3MG+yl/InHqsInmk70=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhoAkDltNEXfvmtYZ1pMf8rwf8ddWZta6K0kZ9QI/g7IyXBTLr
-	rCaD6JwHEl+td6oeXAGKRue7w+UuXwkEA0lB1IOtB1NlfupSMgpyDpyZ
-X-Gm-Gg: AYBFou2yB6uh15dY5xpptERa2OtD7Aj/Qxs8ysdXoLiLwB6CADrzTMTuLdU9PL06maP
-	B6GBUhjpUHRLncWHPloM67FGqmJIt6evpMpGRd5ydGCGB+Hb65gMbotx2XgKm/3o+t7oP1F89sr
-	VjZgA62v/TGS/3TtUBpiPZGjJ9T6b2fz6yMZf9j4QPk+y0xfVVXJUA97nWQv849jYJ1t0mrvGTQ
-	psKdnjDFwIq5PjEl6G4DyekclYRFmJmvfcJu3p25BF3PpXGVYAWoU/HV6q0EV6JJLtC40RdpH9k
-	ludKzlxa6XkkmW+P27nNIPYO8ggS+cg3S1K2b5iYi4lkl4vE4xpcRIZ6CO86Hl20hrgxIfsftEX
-	5/V4FFFdxfhnaXggxNZxprtgyhPgGhm0j+HYoQI0QS0xAKOYyVR8rKIYavSYqpKZaYhW4M1cexp
-	ybmb0VrVfl5Oi6JuY9uxfxj4ci7gqSuH0l01Y6VfA97syQkpSq/kRySfi9bcA/Bt2yUomeXFzlE
-	/QwA4JvcQBUIgOv55Bps2WYnFT3TdX/NRd10B52QogX1FXo0R0mLN30dQ==
-X-Received: by 2002:a05:6000:4a15:b0:48d:bc33:fa82 with SMTP id ffacd0b85a97d-48dbc33fd9cmr20808675f8f.11.1791888034492;
-        Tue, 13 Oct 2026 03:40:34 -0700 (PDT)
+        bh=gONIKQ4rX9ITqHiZzYiyq+xmnMFwrf3i6s0S4mlLaM4=;
+        b=HXbAEoY6gXiXFR8ZrN73wDY1VKGJfZqLp4LcAMWj8oY3NTO+l7SgUyJVWnN1D3eotK
+         bevjTfe9p7E8PIQCdNy/KLcb54sGNdrJqen1wK7m2kII7o9OMe3OKWbHnY6eiIN23XQ5
+         hG/hFfZBQu2OfnR0x9Thki9HZWxPW7WkM8aHoQiOx19rAkNzclCFtcoVq3w8m14d/gAG
+         C5gzeIa16IiqT2dagQ+Iq/AoTRrraa/GY9obnszYmkklO3UPF2c/KiFu0KUyjaGN/Lkv
+         o4jCWWevSqMZ4tz8jyoUZj6cLgxNa/qWosuoU4nmtTiLeQP2aK8O5pqfitTKfUmfk53d
+         608Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791888036; x=1792492836;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gONIKQ4rX9ITqHiZzYiyq+xmnMFwrf3i6s0S4mlLaM4=;
+        b=Pmr/tTsOaaNrCH8qOia2XCIvR9aj8l/I4AZ+/qho0rlc6+5JuztK5QNTSSAaTSPymd
+         Ej7WFHlRuaQuufkqvWsE1C7lJxxvc9NwBW1D7Po0su4RAxbg1i2PhABGWdbea9ScQesI
+         KNYZF/Ky4qEash/VrzNLZkhmtjBxAxBs4/ZFDBR1ePstQGeq28vr1UbT/dGO3V2CN9iK
+         7jNx47+aQs1RQmVQdcUcflddv2PXDFQrFjFFQaRLimnjSYuUmFiutX4YSzw2A+74K5ZN
+         7U1t11XgOFTcm9bjG8yKyJxV3NxG+eppHpcuwZJi8SANAIzEHLUcGimMLOk0kzqbvtVk
+         SgOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzSZiIeO50He9JqxAKqcXV/7ztyr6vhhpstDp+Iao/OUOTPA9gq1jzJY+r++HxWgOkVTGRFfrdJUioyeWQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIP9keLSPf2XKms1Z6w2uKLrEdkx/W87GsxAzf30WlNI25I/7M
+	WoPXollvNpedxex2urPTZyoQwdbNSGToMI0P9EYlrTqnYlrdrW6dD2nj
+X-Gm-Gg: AYBFou1G57+swJx4kPWQSN4oD7XmQcyLN9MHnUQTh06bZBzsrLnlagCtfteM9SH1yk8
+	u2gYaTsY2ZX2TikF+3MOkiHr3kigPek1O4J12CUVQlfZVoeujeFe6szb1WKpat3nFSbk/XkTHtK
+	OqOQlhK6RYX1AvS96TMlpMy9TheomEFgtMIXBpL7zrYzdO9trgK7Md0AFnWbF3qprnW+S2WtQ8v
+	XRvh7zXE2FlXMwkOB+xMlWPYve7KmzLM8i+sWBemBrwDq1Ebc29m6psg5/SW4IsKJyx7xxWn1cA
+	rXErdV+4w6NGOuj5YPCh9iTvNYIaEe8NolQGIaBvW7JsdNJ7Ujpp+D0gvfCwHvQcdLJBV78ghGB
+	r86l+ZEoCJ3sbdEBVpAi1joKhsbjCf6Ax2RP5fOnp5Iv66GH0RQDTRL+7hbJ4eD97uZWTy9uuwy
+	eIxSgY5w0Kb3CxpRVL6xkB4oVHY3+725KqrK1z3iahRN0x/WfuvMVynSaEUW8fU1CRMnoQEi1bE
+	iU45PvoUZFuRvwxRbRgl3buBRPVplQ0L1n4lZrm6AulnLNEZXsDdvt1BA==
+X-Received: by 2002:a05:600c:3ba8:b0:4a0:174:579e with SMTP id 5b1f17b1804b1-4a18e4ab221mr274320445e9.28.1791888035627;
+        Tue, 13 Oct 2026 03:40:35 -0700 (PDT)
 Received: from gmail.com ([2a01:e11:1403:8620:e22b:cb88:4091:8aab])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967a0dsm4434024f8f.3.2026.10.13.03.40.33
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19471edd5sm455396445e9.11.2026.10.13.03.40.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 03:40:33 -0700 (PDT)
+        Tue, 13 Oct 2026 03:40:35 -0700 (PDT)
 From: Paolo Pisati <p.pisati@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
+Cc: Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Luke Jones <luke@ljones.dev>,
-	Joshua Leivenzon <hacker1024@users.sourceforge.net>,
 	Ivan Levchenko <me@livan.pro>,
 	=?UTF-8?q?Rebecca=20Mara=20M=C3=BCller?= <rebecca.mara@posteo.de>,
 	Nathan Chancellor <nathan@kernel.org>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v3 0/7] HID: asus: ASUS Zenbook Duo keyboard support
-Date: Tue, 13 Oct 2026 12:39:57 +0200
-Message-ID: <20261013104033.36079-1-p.pisati@gmail.com>
+Subject: [PATCH v3 1/7] HID: asus: Fix up Zenbook Duo report descriptors
+Date: Tue, 13 Oct 2026 12:39:58 +0200
+Message-ID: <20261013104033.36079-2-p.pisati@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013104033.36079-1-p.pisati@gmail.com>
+References: <20261013104033.36079-1-p.pisati@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,94 +86,124 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add support for the detachable USB/Bluetooth keyboard of the ASUS
-Zenbook Duo line (UX8406MA, UX8406CA, UX8407AA): hotkeys, keyboard
-backlight and the platform profile key, over both transports.
+From: Joshua Leivenzon <hacker1024@users.sourceforge.net>
 
-This patchset is a collective effort, gathered here:
+The Zenbook Duo keyboards (UX8406MA, UX8406CA, UX8407AA) ship the same
+broken vendor hotkey collection as the T100CHI/T90CHI keyboard docks:
+the Input item of report 0x5a is preceded by a single Usage (76h)
+instead of a Usage Minimum/Maximum range, so none of the hotkey codes
+get mapped and every key press logs
 
-  https://github.com/NeroReflex/asusctl/issues/25
+  Unmapped Asus vendor usagepage code 0x76
 
-Tested on a UX8407AA against 7.3, docked and over Bluetooth: hotkeys,
-keyboard backlight, Fn+F profile cycling, and the touchpad staying with
-hid-multitouch. Rebecca tested v2 the same way on her UX8407AA.
+Extend the T100CHI/T90CHI fixup to the Zenbook Duo: the descriptor is
+90 bytes long with the bogus usage at offset 66 on the USB hotkey
+interface, and 257 bytes long with the usage at offset 176 over
+Bluetooth.
 
-Rebecca Mara Müller posted an independent patch for the UX8407AA
-keyboard in August [1]. This series follows it in using
-HID_CONNECT_HIDINPUT_FORCE and in binding the IDs by group, and
-carries her re-sent handshake as the last patch.
+The dock fixup only moves the 12 bytes between the usage and the End
+Collection item, as nothing but a bogus trailing 0 byte follows them.
+That is not true of the Zenbook Duo: the collection goes on with a 15
+byte feature report (also ID 0x5a) after the Input item, and over
+Bluetooth a further collection follows it, which a 12 byte move
+corrupts, leaving stray 0 bytes at the end. Move everything after the
+usage instead, after dropping any trailing 0 bytes, and allocate the
+two bytes the usage range adds. The result for the T100CHI/T90CHI is
+unchanged.
 
-Changes in v3:
-- Queue at most one platform profile cycle at a time, so that a device
-  repeating the key cannot grow the worker's action list (Sashiko).
-- Bind the Bluetooth IDs to HID_GROUP_GENERIC as well: over Bluetooth
-  the touchpad is a second HID device with the same IDs, which hid-asus
-  must leave to hid-multitouch (Sashiko).
-- Say "15 data bytes, 16 with the report ID" where the feature report
-  size is discussed: hid_report_len() counts the ID, so the 16 byte
-  handshake is sent whole (Sashiko).
-- Add Rebecca's Tested-by, and Assisted-by on her patch at her request.
+Signed-off-by: Joshua Leivenzon <hacker1024@users.sourceforge.net>
+[pisati: fold the USB offsets and the padding removal into this patch,
+ bound the padding removal, move the whole tail of the descriptor, and
+ end the branch chain with a plain else so clang does not warn that
+ rsize_orig may be uninitialized]
+Assisted-by: LLM
+Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
+Tested-by: Rebecca Mara Müller <rebecca.mara@posteo.de> # UX8407AA
+---
+ drivers/hid/hid-asus.c | 38 ++++++++++++++++++++++++++------------
+ 1 file changed, 26 insertions(+), 12 deletions(-)
 
-Changes in v2:
-- Rebase onto hid.git#for-7.4/asus; QUIRK_ZENBOOK_DUO_KEYBOARD moves to
-  BIT(16) as BIT(15) is taken now.
-- Fold the USB descriptor offsets and the padding removal into the
-  descriptor fixup patch; fix the padding removal, which read past the
-  end of the descriptor and could write past the end of the new one,
-  and move the whole remainder of the descriptor instead of 12 bytes,
-  as the Zenbook Duo collection does not end there (Sashiko).
-- End the fixup's branch chain with a plain else so clang does not warn
-  that rsize_orig may be uninitialized (kernel test robot, Nathan).
-- Drop the MyASUS key mapping, which is upstream as KEY_PROG1 now and
-  matches asus-nb-wmi (Sashiko).
-- Use HID_CONNECT_HIDINPUT_FORCE on the vendor interface instead of
-  injecting a fake keyboard collection into its descriptor (Sashiko
-  flagged the malformed padding item).
-- Cycle the platform profile from the driver's worker instead of the
-  HID event callback, consume the event, and only build the call when
-  ACPI_PLATFORM_PROFILE is reachable; v1 did not link on architectures
-  without ACPI (Sashiko).
-- New: cap feature report writes at the declared report length; the
-  Zenbook Duo does not answer the 64 byte writes the driver sends for
-  the backlight since 7.3.
-- Bind the USB IDs to HID_GROUP_GENERIC so hid-multitouch keeps the
-  touchpad interfaces, and leave Fn-lock out, see that patch.
-- New: re-send the handshake after probe (from Rebecca's patch).
-- Use the "HID: asus:" subject prefix, write commit messages for every
-  patch, and fix the Signed-off-by chains.
-
-Not covered: Fn-lock (see patch 6). On the UX8407AA the screen swap key
-sends a Super+P chord by itself; the 0x9c mapping is for the UX8406MA.
-Sashiko also pointed out, on v2 4/7, that the worker's WMI fan fallback
-takes driver_input_lock while hid_device_remove() holds it around
-asus_remove(), which waits for the worker; that predates this series
-and is better fixed separately.
-
-v2: https://lore.kernel.org/r/20261009153459.124752-1-p.pisati@gmail.com
-v1: https://lore.kernel.org/r/20260513163248.16483-1-p.pisati@gmail.com
-[1] https://lore.kernel.org/r/20260811125548.1975748-1-rebecca.mara@posteo.de
-
-Joshua Leivenzon (4):
-  HID: asus: Fix up Zenbook Duo report descriptors
-  HID: asus: Add missing Zenbook Duo hotkeys
-  HID: asus: Force hid-input to bind to the Zenbook Duo hotkey interface
-  HID: asus: Cycle the platform profile from the Zenbook Duo profile key
-
-Luke Jones (1):
-  HID: asus: add prod-id, quirk for Zenbook Duo keyboard
-
-Paolo Pisati (1):
-  HID: asus: Do not send feature reports larger than declared
-
-Rebecca Mara Müller (1):
-  HID: asus: Re-send the Zenbook Duo keyboard handshake after probe
-
- drivers/hid/hid-asus.c | 194 +++++++++++++++++++++++++++++++++++++----
- drivers/hid/hid-ids.h  |   6 ++
- 2 files changed, 185 insertions(+), 15 deletions(-)
-
-
-base-commit: 8099f9da59f1c338bf88e25b7aa2a7fdf840879c
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index bd46aba6622a..34739198d90e 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -100,6 +100,7 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+ #define QUIRK_ROG_ALLY_XPAD		BIT(13)
+ #define QUIRK_HID_FN_LOCK		BIT(14)
+ #define QUIRK_FILTER_CAMERA_COMPANION	BIT(15)
++#define QUIRK_ZENBOOK_DUO_KEYBOARD	BIT(16)
+ 
+ #define I2C_KEYBOARD_QUIRKS			(QUIRK_FIX_NOTEBOOK_REPORT | \
+ 						 QUIRK_NO_INIT_REPORTS | \
+@@ -1579,43 +1580,56 @@ static const __u8 *asus_report_fixup(struct hid_device *hdev, __u8 *rdesc,
+ 		hid_info(hdev, "Fixing up Asus T100 keyb report descriptor\n");
+ 		rdesc[74] &= ~HID_MAIN_ITEM_CONSTANT;
+ 	}
+-	/* For the T100CHI/T90CHI keyboard dock */
+-	if (drvdata->quirks & (QUIRK_T100CHI | QUIRK_T90CHI)) {
++	/* For the T100CHI/T90CHI keyboard dock and Zenbook Duo keyboards */
++	if (drvdata->quirks & (QUIRK_T100CHI | QUIRK_T90CHI | QUIRK_ZENBOOK_DUO_KEYBOARD)) {
+ 		int rsize_orig;
+ 		int offs;
+ 
+ 		if (drvdata->quirks & QUIRK_T100CHI) {
+ 			rsize_orig = 403;
+ 			offs = 388;
+-		} else {
++		} else if (drvdata->quirks & QUIRK_T90CHI) {
+ 			rsize_orig = 306;
+ 			offs = 291;
++		} else if (hid_is_usb(hdev)) { /* QUIRK_ZENBOOK_DUO_KEYBOARD */
++			rsize_orig = 90;
++			offs = 66;
++		} else { /* QUIRK_ZENBOOK_DUO_KEYBOARD over Bluetooth */
++			rsize_orig = 257;
++			offs = 176;
+ 		}
+ 
+ 		/*
+ 		 * Change Usage (76h) to Usage Minimum (00h), Usage Maximum
+-		 * (FFh) and clear the flags in the Input() byte.
+-		 * Note the descriptor has a bogus 0 byte at the end so we
+-		 * only need 1 extra byte.
++		 * (FFh) and clear the flags in the Input() byte, shifting
++		 * the rest of the descriptor by the 2 bytes that adds. Drop
++		 * the bogus 0 bytes some descriptors end with first, but
++		 * never the Input() item that follows the usage.
+ 		 */
+ 		if (*rsize == rsize_orig &&
+ 			rdesc[offs] == 0x09 && rdesc[offs + 1] == 0x76) {
++			unsigned int new_rsize = rsize_orig;
+ 			__u8 *new_rdesc;
+ 
+-			new_rdesc = devm_kzalloc(&hdev->dev, rsize_orig + 1,
++			while (new_rsize > offs + 14 && rdesc[new_rsize - 1] == 0)
++				--new_rsize;
++
++			new_rdesc = devm_kzalloc(&hdev->dev, new_rsize + 2,
+ 						 GFP_KERNEL);
+ 			if (!new_rdesc)
+ 				return rdesc;
+ 
+ 			hid_info(hdev, "Fixing up %s keyb report descriptor\n",
+-				drvdata->quirks & QUIRK_T100CHI ?
+-				"T100CHI" : "T90CHI");
++				drvdata->quirks & QUIRK_T100CHI ? "T100CHI" :
++				drvdata->quirks & QUIRK_T90CHI ? "T90CHI" :
++				"Zenbook Duo");
+ 
+-			memcpy(new_rdesc, rdesc, rsize_orig);
+-			*rsize = rsize_orig + 1;
++			memcpy(new_rdesc, rdesc, new_rsize);
++			*rsize = new_rsize + 2;
+ 			rdesc = new_rdesc;
+ 
+-			memmove(rdesc + offs + 4, rdesc + offs + 2, 12);
++			memmove(rdesc + offs + 4, rdesc + offs + 2,
++				new_rsize - (offs + 2));
+ 			rdesc[offs] = 0x19;
+ 			rdesc[offs + 1] = 0x00;
+ 			rdesc[offs + 2] = 0x29;
 -- 
 2.43.0
 
