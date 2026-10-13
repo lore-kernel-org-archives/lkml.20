@@ -1,53 +1,71 @@
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9355370ADA;
-	Tue, 13 Oct 2026 14:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906DF3F58F0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900558; cv=none; b=A07iVOSjs9pNL43r0Zx+oB5l42cwbVvvn+5VNyHf+Iuc1+jm+RonG+7CjeQjnh3xJA4IrhyqwCVvFS2Y/GCOEyNeFq2CbGTWDG3Hc+Mi3fZh3AbER4g+FiSRBqg0gwJF25Tm5Ys3QuU+CNdFZB0sWpa2JeZh3m64wKUG1xEZlrc=
+	t=1791900588; cv=none; b=nU4WHVjnCDjqlpwvKhTwloJSreF35yiZy3tKBE3dZBX+1Oa07i2triAiXoqu47VXW9xVQNef2fE9OE0+7IwqJ6FcpFxBSFPaz67uepgbGVgtRWB5sh7KJXq/TnuwVwfzeT9pBxo4AWluObxdyrvHEDCg1cpTVbHGIZkicbPGJkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900558; c=relaxed/simple;
-	bh=Suo0YfCYPtCoLBJ8iZXRfc+dw40jvIHLkG13JRnjZUY=;
+	s=arc-20240116; t=1791900588; c=relaxed/simple;
+	bh=owMijsIp74FmdN5ni11gCTZYts5QncbUEPKxaSS5ctc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SBhfoX/PxLWKD3CamJYY8SUFS7v796gXmZuA7p7WY/dsQHAiTFzzCcntDSp7OD9YeECQrTphJx5lwmcSi+TGysqSWP5mAVhs0AUZC8oco7ucy1IsxYwzpCpwJ7HzT5qESobCaFddKAFDcqM+OLcaQZemvF6CHyOhDAIWw2QuMWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=unknown smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=kL9ibrJg; arc=none smtp.client-ip=178.63.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=tempfail smtp.mailfrom=hallyn.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=k+2dz14+JH5EHFoqYhFNA7ur3NM/RCH0glgoMrtYJWkGCXmIRdBLBQNZpNOw48FumA71zLLhE744lZQZM8ihp7eE1KQfhqj+Smm8oyieyMsw0g0Jn9luAXqJrmeicUjCoqL5IlnhGStrSLyD3MjPyOLPA8A0O7x0SFeEw+jhK3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HAF1Ryta; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="kL9ibrJg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1791900547; bh=Suo0YfCYPtCoLBJ8iZXRfc+dw40jvIHLkG13JRnjZUY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kL9ibrJga4YY3RAquWvtOegRsAK6JNwI4zXpQH4mv6j2Vsk9CY8qfIhLg/GbWf10M
-	 DeXquRyTooElnL5wcZ6eBAgd3kldWf1/1DVrk/QnE7SSW6X/eN/0nBES3D+BgjTlUU
-	 C/Rx2MZe3C0Slal4i45wXX+ZGEjf9NEkolx65kLPAJurAwcIqT7Fgf9sZxk/YpgtAy
-	 XDKHXmjY/8nxliaKEOZl8gn/L8ISgxycaCqcVMdYGSSfKRj3VaBKUpf5cLXmVPw2xG
-	 o/e7XKeKzb8AwNvzLFiFE90IPPcFzQuMfwogAUoL6N27g/9+hdqYmLbjfnu+6mI3om
-	 KyZ826JuJNe2w==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id 2638A6FA; Tue, 13 Oct 2026 09:09:07 -0500 (CDT)
-Date: Tue, 13 Oct 2026 09:09:07 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: kees@kernel.org, akpm@linux-foundation.org, david@kernel.org,
-	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com,
-	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, paul@paul-moore.com,
-	jmorris@namei.org, shuah@kernel.org, oleg@redhat.com,
-	brauner@kernel.org, alexjlzheng@tencent.com, jannh@google.com,
-	jaime.saguillo@gmail.com, elver@google.com, blbllhy@gmail.com,
-	bvanassche@acm.org, pjw@kernel.org, broonie@kernel.org,
-	debug@rivosinc.com, tglx@kernel.org, aleksey.oladko@virtuozzo.com,
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, morgan@kernel.org
-Subject: Re: [RFC PATCH v2 0/3] security: Add PR_CAPBSET_DROP_MASK
-Message-ID: <as47g9Ofa7hgDDLp@hallyn.com>
-References: <20260929130200.1638343-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HAF1Ryta"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2dd9cbb661bso22395185ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:09:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791900587; x=1792505387; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4TUuZT1wFoqbpc7B/LNd/6pZfnJKi059fMqGVzqoVyA=;
+        b=HAF1RytaC3wsjGApoKFWtMyAKh9w0agxUdBJzrYVAKrXryP3Q+Yq3kDitIAHGU/BrS
+         Rt6CkBHEgDR/ai+apaNS9LuNA1u4q8xVJMYVVuvIdx5wDvTPB/Zg6fW5C2DoBu5r9B1G
+         xoFkAzZ9bDe2uYT7eISqw1Q2uvh0O7fQl0VryaL1y9JtPym1prleNbFWuWOZ6iA5AmjY
+         n4E3l6+aaeRRAUXIe1R02pAU1Huw/an006GwYDsVY9v/BxCwWaQTsxETNor4W5WMhXa2
+         fiyEeWNbiNZlVcMTX62PvxdATS4nJUgvaIAh4oPLdyhPuqGWFIo8ik1E0sjzUDVJVIiW
+         MFYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791900587; x=1792505387;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4TUuZT1wFoqbpc7B/LNd/6pZfnJKi059fMqGVzqoVyA=;
+        b=deXo637bukvsKm5lCjNzyDSYHiTGcDLQ/x7CXj/xxCjxS24kP/+2k5ZkHdHosYAhHu
+         jznld/duzym7ahviBkexdCCw/uhlr5u80Intgnkb2Y9Smglj+QjsVjf0FcVl3AWuT2q3
+         Ax8yTzDB5jnZSrV7y3PjKcss0WS+u0SGmUyA+Y1TNbwFaQwNQzRDGf5zDBkc4Z218pph
+         MmTfLG+A9HHtQZz7rfUTSE4pgs+WKue3T495bo4rZGQXtTpvxaA5nqoADkC/VRcFXc6J
+         9aDqcLxaWMxoLb7GfjTMDSHehzVDt73OvM7HjgQRFfXfO5SwnKpNO6aj0wKXV3dXXQDp
+         iMHg==
+X-Forwarded-Encrypted: i=1; AKwUvBwA55y+QCLfXclbNPQ6tGZOUgic+XAF9Uenv2LK5uWO+G4Y+0FHRikaOs3AEl4/BD/nAXqJ+xXMA0NmuRI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHIWTSh/kKTX6aIb+rM6A3lGOfBgGXjWGOVaS6+N4J6Z8Pgn1E
+	4B2nGOLoCEE9NiXZM74ireTtATMEc2F/9Ic23U6dbUqv4U/v/mFAHXY8
+X-Gm-Gg: AYBFou0pW+vcQI9J2Ph1IPkYdk2iEsShsvZXNTKRm/OkvVedPECH3G88QzL5odrc5RR
+	GfSOA6gAmSsBW0tDwonLXPH5+NYiZQYAa9U7ZT8Uuy6pT3fgNTFhrIeOD6QmIlcwrjshRBuV86D
+	spuYVBQ+FZI1YhP15yF4FsLIn+ykZHlxRPP381qWkphitJjjT9pPdlDN6ffBdNacc5vgTNx7ZxS
+	Hy5hR9B2SOGqFId+GeVJqd4hiv1BLnl1URvfBUdgWEY7JI7eYu1SLZu0mPWxt5F1T/S7qIP4qqH
+	Cta9GC+WdeZoOQC50ilJWCkEamOoOfiEclep+eQi2++lLV3y7OMytGBzRh53mugm0WYo6dAl+lw
+	uUy5daCZrOuoXjnSDsyrctnN2fGi9bhB3p6ECQws3dbK/nbKu/loQJL0rpdplVRVKiD7rJtA4rY
+	zkrm0fWhi4yCumnbdCM6PIgFqGEAOTO9VM3sx/BcSrrIf7g0eBUcgKoRl+8lJSY88=
+X-Received: by 2002:a17:902:e884:b0:2e8:b4a:43a4 with SMTP id d9443c01a7336-2e842ac3d95mr116552135ad.34.1791900586736;
+        Tue, 13 Oct 2026 07:09:46 -0700 (PDT)
+Received: from gmail.com ([183.34.68.117])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8c6esm54023525ad.61.2026.10.13.07.09.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 07:09:46 -0700 (PDT)
+Date: Tue, 13 Oct 2026 22:09:36 +0800
+From: Yonghao Zhang <hyz3367@gmail.com>
+To: andersson@kernel.org, mathieu.poirier@linaro.org
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] remoteproc: core: Fix the error unwind paths
+Message-ID: <20261013140721.fbmsl2xn4xi5ljn6@gmail.com>
+References: <20260929075453.2324597-1-hyz3367@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,50 +74,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929130200.1638343-1-ruanjinjie@huawei.com>
+In-Reply-To: <20260929075453.2324597-1-hyz3367@gmail.com>
 
-On Tue, Sep 29, 2026 at 09:01:57PM +0800, Jinjie Ruan wrote:
-> PR_CAPBSET_DROP only affects the calling thread, so dropping capabilities
-> for a whole process means one call per capability per thread.  For a
-> long-lived, multi-threaded process such as gVisor's sentry this is
-> stop-the-world signal delivery and costs milliseconds per sandbox on a
-> many-core host.
-> 
-> This series adds PR_CAPBSET_DROP_MASK, which removes a 64-bit mask of
-> capabilities from the whole thread group in a single call.  The drop is
-> recorded per thread group and folded into the bounding set wherever it
-> gates gaining a capability, so already-running, concurrently-created and
-> later-created threads -- as well as children forked by a sibling -- all
-> observe it.
-> 
-> Trimming 41 capabilities in an arm64 KVM guest goes from ~8.5-23.6ms with
-> the per-thread loop to ~11-14us, independent of the thread count.
-> 
-> Changes in RFC v2:
-> - Solve concurrently clone and concurrently drop mask problem.
-> - Solove sashiko problems in [1].
-> - Link to RFC v1: https://lore.kernel.org/all/20260922095816.1191799-1-ruanjinjie@huawei.com/
-> [1] https://sashiko.dev/#/patchset/20260922095816.1191799-1-ruanjinjie%40huawei.com
+On Tue, Sep 29, 2026 at 03:54:49PM +0800, Yonghao Zhang wrote:
 
-Sorry, somehow I didn't notice this version until today.  I will take
-a close look later this week.  Thanks.
+Hi Mathieu,
 
-> Jinjie Ruan (3):
->   capability: Move mk_kernel_cap() to header
->   security: Add PR_CAPBSET_DROP_MASK for process-wide bounding-set drops
->   selftests: prctl: add process-wide bounding-set drop tests
+Gentle ping on this series: it makes rproc_free_vring() reset freed
+vring entries to FW_RSC_ADDR_ANY, guards the error-path stop() call
+in rproc_start() against implementations without stop(), rolls a
+failed attach back with detach() when available, and releases the
+resources and power references left behind by a failed recovery.
+
+Happy to provide anything else you need.
+
+Thanks,
+Yonghao
+
+> The remoteproc core unwinds failed boots, failed attaches and failed
+> recoveries in a handful of places, and those paths have drifted over
+> the years: an unconditional stop() here, a missing cleanup there, a
+> reset value a running remote processor could misread.  This series
+> fixes four of them.  The success paths are untouched, and no in-tree
+> driver changes behaviour when nothing fails.
 > 
->  fs/proc/array.c                               |   3 +-
->  include/linux/capability.h                    |  10 +
->  include/linux/sched/signal.h                  |   8 +
->  include/uapi/linux/prctl.h                    |   1 +
->  kernel/capability.c                           |   5 -
->  kernel/fork.c                                 |   1 +
->  security/commoncap.c                          |  91 ++-
->  tools/testing/selftests/prctl/Makefile        |  12 +-
->  .../selftests/prctl/cap-bset-drop-test.c      | 641 ++++++++++++++++++
->  9 files changed, 759 insertions(+), 13 deletions(-)
->  create mode 100644 tools/testing/selftests/prctl/cap-bset-drop-test.c
+> The single-sided ops configuration that two of the patches guard
+> against is not hypothetical.  Version 9 of the TI k3 refactor series
+> briefly introduced it [1]: ti_k3_dsp registered in IPC-only mode
+> with start() kept and stop() cleared, on the reasoning that
+> rproc_attach() never invokes start().  The shape sat on the list for
+> a month before the rework that finally landed removed the ops
+> overrides altogether (commit 41d746b3423a ("remoteproc: k3-dsp: Don't
+> override rproc ops in IPC-only mode")).  The point stands: nothing in
+> the core would have caught the intermediate version, and a driver
+> sent today with the same single-sided ops would pass rproc_validate()
+> just the same.
 > 
+> Patch 3 mostly benefits the attach-on-recovery users (imx_rproc when
+> the Mcore resource is owned by another partition, xlnx_r5 when the
+> RPU is already running firmware): since attach recovery was introduced
+> (commit ba194232edc0 ("remoteproc: Support attach recovery after rproc
+> crash")), a failed re-attach was unwound with an unconditional
+> ops->stop() -- powering off a processor which, per the feature's own
+> contract, "does not need help from Linux to recover... Linux just needs
+> to attach", and which zynqmp_r5_rproc_stop() would additionally flip out
+> of attach recovery mode by clearing the feature bit.  With the unwind
+> detaching instead, the processor keeps running under its original owner
+> and the next attempt attaches again; attach()/detach() stay paired
+> one-to-one with the attach() calls that succeeded.
+> 
+>  - 1/4: rproc_free_vring() writes FW_RSC_ADDR_ANY rather than 0 into
+>    a freed vring entry, for the callers that reach it while the
+>    remote processor is running and the reset lands in the installed
+>    resource table.
+>  - 2/4: rproc_start() no longer calls stop() unguarded when it
+>    unrolls a failed subdevice registration.
+>  - 3/4: __rproc_attach() rolls a failed attach back with detach()
+>    when available, keeping the resource table accounting and the
+>    state consistent, instead of unconditionally stopping a processor
+>    that was started by another entity.
+>  - 4/4: a failed recovery releases the resources of the boot it was
+>    trying to restore and voids the power count, which nothing else
+>    can drain once the processor is offline or detached.
+> 
+> Testing: on an Allwinner T153 (sun8iw22) with an E907 remote core,
+> driven by an out-of-tree platform driver for the Allwinner remoteproc
+> hardware.
+> 
+> The error paths of patches 1 and 3 were hit on this hardware rather
+> than constructed.  During development, a subdevice registration
+> failure during rproc_attach(), unwound by an intermediate version
+> that called detach() without the resource table reset, left the
+> freed vring entries at da 0 in the installed table: the next
+> rproc_attach() failed in rproc_check_carveout_da(), called from
+> rproc_alloc_vring(), with "Registered carveout doesn't fit da request"
+> That trace motivated the reset bookkeeping of patch 3 and the
+> FW_RSC_ADDR_ANY reset value of patch 1; with the series applied, a
+> failed attach can simply be retried.
+> 
+> The failure path of patch 4 was exercised by renaming the firmware
+> file once the processor was up and then crashing the remote core:
+> recovery fails in request_firmware() as expected, and after the
+> file is restored the next rproc_boot() performs a real new boot
+> instead of silently returning success on the stale power count,
+> with no "already associated to resource table" leftovers from the
+> failed recovery.
+> 
+> [1] [PATCH v9 17/26] remoteproc: k3: Refactor .start rproc ops into
+>     common driver, 2025-03-17:
+>     https://lore.kernel.org/all/20250317120622.1746415-18-b-padhi@ti.com/
+> 
+> Yonghao Zhang (4):
+>   remoteproc: core: Reset freed vring entries to FW_RSC_ADDR_ANY
+>   remoteproc: core: Guard against a missing stop() in rproc_start()
+>   remoteproc: core: Roll a failed attach back with detach() when
+>     available
+>   remoteproc: core: Clean up after a failed recovery
+> 
+>  drivers/remoteproc/remoteproc_core.c | 144 +++++++++++++++++++++++----
+>  1 file changed, 127 insertions(+), 17 deletions(-)
+> 
+> 
+> base-commit: 586a2fadadb160295a93e5d5d32db1a2558a4d3f
 > -- 
 > 2.34.1
+> 
