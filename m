@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBFB494801;
-	Tue, 13 Oct 2026 06:13:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A0A49B5AB;
+	Tue, 13 Oct 2026 06:14:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872004; cv=none; b=Fin/HsCnqW0u2URuZYc/rOWljpnEaTarBbvl8qp1JeFxAuMrDpyXezR5nVhymPmtOz0BFE+Dyek/vClssdCcHPZWlM/i1Kp2QTY4Ke/KAjqbMw16INBmUBCdoRkxNZ+KTt/XUkNjzkL2unuNxOz2l7CL+90ftyy0wKd1k8k8Pdc=
+	t=1791872049; cv=none; b=WWPsrvlBDHytbTAVdPtD0Gt4V2EXPmSNNP+qkTRMZwrcGtymBNco5am51L0X1PQLZsBlrcasgH8h85OLZL4b4esq4sTna2Gi2DNlsbhhrrIky3JMLIt+cp/edHATRpVUR6/kSnKoV7vrN3fTpiWDwvrV1ya4PaoKi3vGGiEjKo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872004; c=relaxed/simple;
-	bh=uCfDu7NGVDS/BJcOCzDXY18dfkRzCnjRUgoQirT3was=;
+	s=arc-20240116; t=1791872049; c=relaxed/simple;
+	bh=D+XjgK9TSECFVWpYMAABiQWEZXi+AJq4rnbSwTRUiaQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ik40fFbqajIaQYMnnJyZxf7FbGTyLroKJgDnHlz2IBd3GuZA2cWhuB/6tjXREWWNftbG6eKqy5Oi9iOkgx+bVQCp5xISUfr75HoOPxrtcCY8BbCoePu4QeZ6+atWdkKoTc/pNexAsodGnlcKe34hkL4BF3GVnNnOgaJXFQeiLTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VL4Lvvo0; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=H8mERwPzC+fWlXDrH5XPuo0gEIibfHXkWRUGw9h71Ek49NFAkIq8ICXLoPbxvL0rTjIMcZJ/pCEjMtPhq9thjsz1gbo579weOWLCxuMwT+DL3YPdeKJOANGlyS85LSCP7E4g7/IWJRQANiq/ctymVoxm0GhceG1MKSi5rQHYlo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9ArvrCk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VL4Lvvo0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB421F000FF;
-	Tue, 13 Oct 2026 06:13:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9ArvrCk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4431F000FF;
+	Tue, 13 Oct 2026 06:13:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791872002;
-	bh=VAjJS8y/pwKMxfnMR6HNsywNq05ihnTtIJYUO0nsExg=;
+	s=k20260515; t=1791872045;
+	bh=YzIyLaCQVYyFvJr0HYNnDsB1AeI73g+HQRH1Lm1z4vA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VL4Lvvo09cynrt6fzqpM7YovtfU6yGr0oCjv3yJCv2D6cPfMA1XW0OqSEN61iAmeN
-	 DyYQjEn96WlKOPOd4NEfQCgwYY6jjyCv+Q8LqHhZp9XPwDl+P6w1LATOcj3WcRAsYo
-	 XujztSqk/D7aYkjrWqBce/k2xosvWpKZ36rG86XUYTk+iIfv7lTuzPjiFwt6hswciW
-	 SMsqTh8gD+6Vrm8psGWg6iMJUkwjePrfjksSXXDUFbqeV9oH0CPj3iUIwiwqAY62mV
-	 KVveEwYQxL51CGVWMpuPbY2KSTVI7a1uqN2lSMuhBE+ga7lkqnkhNBHe2Zqnp78A3Z
-	 vtkeNfngzXHyg==
-Message-ID: <c83d3a5e-d782-4086-8604-e5d214355b7c@kernel.org>
-Date: Tue, 13 Oct 2026 08:13:17 +0200
+	b=i9ArvrCk6y2JT7SFZ8TC2coKR32sMlGjZNT2ur0EQXl++EKq7u+/Sq96LZ2zVz1u8
+	 PF/7z53jLdSTrOz9I2Xv+chK02rzYTfeM9/umtsloeAwPepL6SykLGlIv7RQaeR4xO
+	 8bC2k3MewAzDx5grtHAaxR6tNcYW7r1Db0TaMaw6iieqw/iq8B5em+MbePXPNgn4OY
+	 E4f2WCFhwoNchILXcy/n80hUlZeVIbebxXKSr7gdLKoj5UIYaMj4EPQaZLBZlrVh5P
+	 0Y9IgnPVoVJiDRtqbgyIdjBi8O6exHxB9FlUyhtXCdlFOYPoFekfrpOHC9Gpptpz8U
+	 SNS76fV1/hSvQ==
+Message-ID: <abe6e89f-2379-4928-a77e-0baee12b23e4@kernel.org>
+Date: Tue, 13 Oct 2026 08:13:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,15 +35,21 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/11] dt-bindings: usb: Add NVIDIA LSTP USB adapter
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Donald Shannon <donalds@nvidia.com>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
- <20261012-lstp-usb-adapter-v1-4-aambrozewicz@nvidia.com>
+Subject: Re: [PATCH v2 10/11] ARM: multi_v7_defconfig: Enable Cortina Systems
+ CS75xx GPIO, I2C and TWD watchdog
+To: filipp.dunsky@gmail.com, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>,
+ Arnd Bergmann <arnd@arndb.de>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
+References: <20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com>
+ <20261013-b4-cs75xx-s2-v2-10-94f8c0a90cda@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,75 +95,44 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261012-lstp-usb-adapter-v1-4-aambrozewicz@nvidia.com>
+In-Reply-To: <20261013-b4-cs75xx-s2-v2-10-94f8c0a90cda@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/10/2026 19:36, Adrian Ambrozewicz wrote:
-> Add the binding for the NVIDIA LSTP USB adapter. The device multiplexes
-> SPI, I2C, GPIO, IPMI and UART channels over the bulk endpoints of one
-> interface and reports its channels itself, so it needs no device tree
-> to work. A node describes what the device cannot report: peripherals on
-> its buses, GPIO line names and hogs, and LEDs.
+On 13/10/2026 05:47, Fil Dunsky via B4 Relay wrote:
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
 > 
-> Channel nodes go under the device node or under the interface node, as
-> usb-device.yaml lays out for the device's descriptors. The GPIO, I2C
-> and SPI channels reference their own schemas. The IPMI and UART channel
-> nodes are defined here and carry only compatible, reg and status; they
-> exist for status = "disabled", which keeps a channel the firmware
-> reports from being used.
+> Enable the GPIO and I2C drivers of the Cortina Systems CS75xx SoCs and
+> the ARM TWD watchdog driver, which is needed on the Securifi Almond+
+> because its bootloader starts the watchdog.
 > 
-> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 > ---
->  .../devicetree/bindings/usb/nvidia,lstp.yaml  | 280 ++++++++++++++++++
->  MAINTAINERS                                   |   1 +
->  2 files changed, 281 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/nvidia,lstp.yaml
+>  arch/arm/configs/multi_v7_defconfig | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/usb/nvidia,lstp.yaml b/Documentation/devicetree/bindings/usb/nvidia,lstp.yaml
-> new file mode 100644
-> index 000000000000..62b21051ab20
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/nvidia,lstp.yaml
-> @@ -0,0 +1,280 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/usb/nvidia,lstp.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: NVIDIA LSTP USB Multi-Function Device
-> +
-> +maintainers:
-> +  - Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-> +  - Donald Shannon <donalds@nvidia.com>
-> +
-> +description: |
-> +  The NVIDIA LSTP (Low-Speed Transport Protocol) device is a USB device
-> +  that exposes function channels (SPI, I2C, GPIO, IPMI, UART) over one USB
-> +  interface.  Channel traffic is multiplexed over the bulk endpoints of
-> +  that interface.
-> +
-> +  The device reports its channels, their types and their IDs itself, so
-> +  it needs no device tree to work.  A node adds only what the device
-> +  cannot report: peripherals on its SPI and I2C buses, GPIO line names
-> +  and hogs, and LEDs.  As for any USB device, a node is matched to the
-> +  device by position alone, each level by the port number in reg, so a
-> +  node suits only an LSTP device hard-wired on the board.
-> +
-> +  Each channel node is matched to a firmware-reported channel by reg (the
-> +  channel ID) and compatible (the channel type).  A channel without a node
-> +  is still usable.  A channel whose node has status = "disabled" is not
-> +  used at all.
-> +
-> +  Where the channel nodes go follows the rules for USB device and
-> +  interface nodes in usb-device.yaml, which depend on the device's
-> +  descriptors and not on its compatible:
+> diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
+> index 23f144359..9a161f8bd 100644
+> --- a/arch/arm/configs/multi_v7_defconfig
+> +++ b/arch/arm/configs/multi_v7_defconfig
+> @@ -423,6 +423,7 @@ CONFIG_I2C_ASPEED=m
+>  CONFIG_I2C_AT91=m
+>  CONFIG_I2C_BCM2835=y
+>  CONFIG_I2C_CADENCE=y
+> +CONFIG_I2C_CS75XX=y
 
-You again explain bindings. Description explains hardware, not repeats
-schema.
+This should be module.
 
+>  CONFIG_I2C_DAVINCI=y
+>  CONFIG_I2C_DESIGNWARE_CORE=y
+>  CONFIG_I2C_DIGICOLOR=m
+> @@ -492,6 +493,7 @@ CONFIG_PINCTRL_QCOM_SSBI_PMIC=y
+>  CONFIG_PINCTRL_RZA2=y
+>  CONFIG_PINCTRL_RZN1=y
+>  CONFIG_GPIO_ASPEED_SGPIO=y
+> +CONFIG_GPIO_CS75XX=y
+
+This as well.
 
 Best regards,
 Krzysztof
