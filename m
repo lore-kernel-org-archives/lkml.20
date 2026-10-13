@@ -1,419 +1,192 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011026.outbound.protection.outlook.com [40.107.130.26])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3314AE8C3;
-	Tue, 13 Oct 2026 10:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887428; cv=fail; b=tLVnKkZ9QpvYKCKXdrtnmtZjOoVKYz8llcow4y9u7b+55VFv+rpqpJzXnw0JqOWthmnhtk2ng5HeiTc4U6VIlCAzMKORjjQu8ZfT5rXRzjVGMp7VFGk5nrd3IU6JNBrkebK1Q9vbbquCJmcLSEAvXEigrd8JUHB0N2pi4r3lV3I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887428; c=relaxed/simple;
-	bh=Piqo9AW2sCzv7pOOjKFfy3/5GioimBVRss4fH1SZPzI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LhMs7LgdwpiQESH8EWypUgwuRuNHy9Cpd/C3S8rPbDgK6pQSfCUcYCD0ZRB+i4rHCaxYn3Gcghx9pn16Prq+InwQqXyTJtE2PwQk+o/eDtgU/mWXZ4lCHDunklJSgr1vvk/CVYW7Cei3rMvRDZMTSEf/hVyFiiED9CEtkpeazRs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=T1y//D11; arc=fail smtp.client-ip=40.107.130.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A81A47427E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791887432; cv=none; b=AWrF97sju3XDzUJxj0YSX8rJ8Qo+Oh68aJCXddv0LbQoWzZgvyHaujwAXKBAqLhDNTFl/MSYHDmiwp4Ez3BjWgTHO00ckBI4efQLHeEcAMBFQ48adrDJhQzcWGlEYp1PPu31XUyWIlitMmYln5wLaWG11ZFLeDUmoZ8sO8nKNfo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791887432; c=relaxed/simple;
+	bh=llUSfK/j52895Up498qaYYkhoVfBtms/teGO4gw9de4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QuMMr9YKt8Bt6Kwf70RJe9m0tx677uHGsfBADrQyebGHl90666xFxF/f8YOpzNHeWG5U0IxA1WxycxjWJZr6WDSqvVc4CDs9LOlx00XcXxLUTVGP6JJ7A+c3uIM8NpwQRJCpauVTSFE40goPHZvT7DwhIq0wMJ5NBkzuNYxFCBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UyBmbbDZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fEMfScuG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="T1y//D11"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C8v+WDQyaXwDcj+C1APK6HkLJ4AGgDpdTS7cp27qk1P3MvAwezNSIVyT2RMIkGNjbADcbvZ3rZ0snV5zJRHzj9nBjU3Oi9GrR3oVN1qkV8ESg3xxCYraCx6VLJX1TXYs1WmrdtjAuOoYKCJ9y+Vfyx9U5lcFjJTw17uuE7A9jNhe6nFINaSgZvz9i5py6p8jTcJpPqwDwFEJNu3Xp2QILsarEepzUzBT8bE/aOqz9K3SM3Eehh18qh8g0S7Be/HvsAK6Y3auHqY95ucdaoWSe9gJ0z+FdmNFEi4TVXelbLw8UCxpkcYfiWfREbWXfPH0bjCu/8/4jyxr6AY0PR2FQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h/QaA4vzdZhASucmd2Z3xDC6EBTYt3WgHZHST7xmgIg=;
- b=ePTiCl+I8fZuFt3Xni3IuGeFx7G/z35iGlfOKXMFUB4zPSgORfn0NXSAp6cmJgVxfs5IFEwRxVgG5tNLh0zXubPALF9GzbgMdtTJIruRVv3YCiEMgu8NHl0ap6jTrUAKkojCQCTFYvZXwhhgp2Gx4+jZepl9k8PhD22EqfcxWrO2VsaN8Oq8t8TtSUgHVEjqWlz+mJoYeO14FcGTRsI1jCkoG8GD5BgrRvS4DE3Fk5X1P6w72NlLfIZAmfg1cgvThaVVfQubYU8m+qEpUoU0l7/cjUcpqWCuFVfopOwW5LNrLEStcDFaDDxnMU5sijrMOeuY4jPdtTHlnjpCixQMHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h/QaA4vzdZhASucmd2Z3xDC6EBTYt3WgHZHST7xmgIg=;
- b=T1y//D11gLr0TGZna52fbLTVQpEotRTXfEozJTsmb6SsSUBncJ0AwXGRA+JJPaOAd1DM+Z7sL4CLeegwXolvw1rl0uS30OKYiRQ8dNA8O3W/IyF3W8CbHOZHa1hDCfb3q0bNVxHARUL+Dgpff5jLLALEdPR9+MJtVud0N0YihWBUx2pICM7Jym/xmLD4xb9avmPeKrFc13dbQ6HzJP7Ggc4GqbESQMGmC9Z2pz1a//9otFYZW+lnTq3J44ksF2z4Ps8dhLmXD9uRmOvd+5G+rZuu/bw8Nc3i7GIIsxAJoOMrxPRscbdr/5bC+QwZBiXVOiy5C6XfJUsmFVO83WFjPg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10) by VI1PR04MB7133.eurprd04.prod.outlook.com
- (2603:10a6:800:126::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 10:30:20 +0000
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 10:30:20 +0000
-From: Larisa Grigore <larisa.grigore@oss.nxp.com>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Pedro Sousa <pedrom.sousa@synopsys.com>,
-	Hannes Reinicke <hare@suse.de>,
-	Joao Pinto <Joao.Pinto@synopsys.com>
-Cc: linux-scsi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	clizzi@redhat.com,
-	aruizrui@redhat.com,
-	eballetb@redhat.com,
-	echanude@redhat.com,
-	Stanley Jhu <stanleyjhu@google.com>
-Subject: [PATCH v8 04/12] ufs: host: Add common Hibern8 TX FSM polling helper
-Date: Tue, 13 Oct 2026 12:29:55 +0200
-Message-ID: <20261013103003.373156-5-larisa.grigore@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013103003.373156-1-larisa.grigore@oss.nxp.com>
-References: <20261013103003.373156-1-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0028.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::19) To GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UyBmbbDZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fEMfScuG"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8Ur8k922843
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=i8/Q4Tq+4DZuh8QWu6beqC
+	0Jl3juQa3zTScBd6grHSw=; b=UyBmbbDZT32sylslpoJIJjCZWWne/CFTe7nuUN
+	+0PkAsJIkRpr1xIuhlvUc0ekv1U2y/apFjgTmNoTRQgZyTICSZlZqysUfYC8gJqz
+	YXEmg1pq3JJMOEuWAuEiqfySSZiarVcGRD6pTuym0VaGW7abJEeZvNQ/sje0BQxm
+	qXm2leegsgzZLCxj58MxhjDUVHkvqVvNYJ0IJnHKO4gbVnUgNeAE4ib8R3MfhFN3
+	czM+UAEqH5IKns8/25Eoi69nwxlldd/rgGzdyJOWzmtU/xT1FQIlhhmANnqvM+Uq
+	2p4LUZGqijQ/pwZ8XTC57RNycTP6WACybKAAmiEK0rbv3G3Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98h1tf6u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:30 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93dd3c3badbso628909185a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:30:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791887429; x=1792492229; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=i8/Q4Tq+4DZuh8QWu6beqC0Jl3juQa3zTScBd6grHSw=;
+        b=fEMfScuGkS6Au2LwbLgBu/EGRk088/exRNhNbRQxtNwFNKbOL1zS0AawCynt9fbvgU
+         q046qwWG/NE7YeFhIN9gehpl6sK5+iY2511olbbCPKh3++QLUf9km12yPkYN1Em4TxiN
+         uPHrD2XmZT94W23ZNgfhWlLt1C5C+L1i7Ap9KSckyLEZq02LszQQfziogRuGJtE+MoMl
+         mf99o+ZHoArRIVDrxEoL7svWjNlzaZduH5OW4CCkw2sW/LN6wV7YwiX8Ak4r4rh05Twv
+         ZPA3ExGJ40/SE93J8PgDieJH1saM9od5LvA+VyFq9AZuiBWOeihBlh95RSIjgK6+i4iz
+         menA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791887429; x=1792492229;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=i8/Q4Tq+4DZuh8QWu6beqC0Jl3juQa3zTScBd6grHSw=;
+        b=Vm6ZeT/pfTCHL9sPqN9sCvfjzQOuCglz7TdjpBOvPuKQXrPCWJ1zG3vm6NF8jAwXHb
+         Jrw8ZaiIMlfWgopkNWmxjZBhP1F2JMq2fOGqaQ1kb5eUwkaC1vEB/o6kMZLAbq/Ckzoa
+         E8U7OvdTb+6DPApfWroV2V6K4uPS50ccyj+MjADAdxfA5spA8LH6a7qUd4OqA/9TVSyB
+         HhZXpLRvrhtHXo6QCvzlorNJWhBjP4J0R1COhYyfIWhTqv//tsgHLV+jedlfRSBAAatg
+         7ZwwAWsFjtb8Pzqv2Pft2dP/Hovp8PZfkkx1epyumP19TaAgS1gWl3pOc14y9kRdn7Zy
+         OCiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzgmA4t2g5aVATjuyZ8s5V4/vnyTzkdaXY9LcY+uE6l2AVDAADA50W3YXZB3n6W97rXurjjwXZXudmGocY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLoV6924uNF5SQ/WDCgiCA7DOcVpBXhlGcWM/2iMa4OM5xzwXrV
+	lDj9wpXawa/AWi/LL1DkTl/IxZMuYJdp8IR0NxwU+0Ep54peS6txRr2XRdbFvRza84cwSpPHzGE
+	r7SUXMzH/moGj/BqFLL3L1NXWC+li5yqxlrgFmY9FcmgChZUMKHo6JoJ13MxxVJZ79/Fw3O3jHp
+	Pt69Yg
+X-Gm-Gg: AYBFou2jzrnE51hT99pupdwcZW6nTuiDLm73bmmGwWBoGK+uPI2zd6ENKiVbVmSvI0L
+	fRZb/QEn16pFTPRGWujYqoAWO5UU5OFa+IfuIEUKeS0sAVMxTxsApDUj/GBPqZIcClDL7w6kbsn
+	Kw023quE/ZDtKF479oL1eCcJSaL8xiuuglpyrXe1WAIBHRM0yWD4WVPK/dY+oor1IHqd60WC01a
+	lP2KP0F11LlUxFPfduHd5GfdX6zfwycyE7JKYL5WO1uxnZCn3JzdtvarhaAXX0dMEDppslERIj0
+	7HSC36660Gz3NWkR8fXQSBrzolT8SJ7dvQY6jm6IHkz90Ex8UaOUkuxWx45TvcLTgYH41cECN3W
+	aotPL/ho0hmTjilFNJmBaPzuVF7yHu2BA5ZZ9saGInGeJcQHQBdjQlzuS8wQCfFSk16fUoOd7B1
+	fBKTDxcm457Xfd4eLrLCaKadlKS4vXnjvJhwXvVghKzQlPwuR3g08=
+X-Received: by 2002:a05:620a:29c8:b0:93c:6450:9ceb with SMTP id af79cd13be357-93ebd0c3781mr1856371685a.1.1791887428926;
+        Tue, 13 Oct 2026 03:30:28 -0700 (PDT)
+X-Received: by 2002:a05:620a:29c8:b0:93c:6450:9ceb with SMTP id af79cd13be357-93ebd0c3781mr1856366785a.1.1791887428306;
+        Tue, 13 Oct 2026 03:30:28 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:d108:3895:812b:662a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be964dfsm349955115e9.7.2026.10.13.03.30.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:30:27 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v2 0/6] i2c: qcom-cci: Runtime capability detection and
+ improved read/write
+Date: Tue, 13 Oct 2026 12:30:24 +0200
+Message-Id: <20261013-cci-imp-v2-0-6873326b44a3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|VI1PR04MB7133:EE_
-X-MS-Office365-Filtering-Correlation-Id: 634245ca-fccb-42ce-5e5a-08df2914fb45
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|23010399003|7416014|1800799024|376014|366016|22082099003|10067099003|18002099003|921020|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- nrwMCxx3EBSFNcHBo4m1MBHvENb07GriwLB5EwQZFEO0tjsCuhoGtAaH+PCPjiKp+COlTO9em9A7kNLBR2GTIaTxUz00N+/2zc6FsBNaV0ZQ+LVC5YKsfzJvdSg9io2WH+JTQpaDo8Hnayg+bSWkvOa87ji1uPKf+3uiz5G/ZSknt6K0+uNvER7vNuikSkv9VUL5/+WSXhEPufWpIPG3G4yn2X6Qfd+I13twaOEd9s/Q0vDw57iEg0YJzmjKzdF/pwVjCDSnJvWW+aCGSBa/ocsx1UCu0RJ8/X8Jo5kgHTTQXyj/WsGnEaU6qzpfjVShkbgO0AvURtqLFmARnB2u5DTMYAm7tLgxZtMbvbt7lbDG6LoQ7peOSuYeOCyFQo+9MDfRMElmkODskimdRLY/RyopqVN5PoZKEfLh5HyUoRYe33atV0XwGry94QsreCkB53DdKPSwLR3ZRJF4whWvbOHdoxns/SOWs49gEOAQjyPi7C+rD7doMuDUt3JqQrfuASrilNr6w+2+yUGxNJGnKZQN/dGCrVSScGDO3iB6kPZwMLmTDvCNwK7knImouURCj7kLI5LuSRrRtSdt3gIelLvv9xBCInrTVKA9UIbdWGdcKu7asA5kLBRD/sxDoZn8AuGH24X7rTtHwvFibfg8vR1OF1UHcDVu5vy5ZZlmqUoDxKmOswEzjGx3yZ2meP+EY3tOZ7//IjnnMlO1pDyCow==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(1800799024)(376014)(366016)(22082099003)(10067099003)(18002099003)(921020)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?ZnplZ3Y5VHI5dmw2NHZzVnVMeXp4WHBEUng4bFAxSWU4MUVQbFZ1QkViZ29a?=
- =?utf-8?B?S29oUjhyWXVwY3N0YkxFS2d3cWNNTHY5NStVcE1kdU8vbUlqRnFwTmhEMW1i?=
- =?utf-8?B?b0VJWGd0dng0NElBR2ZFOHdxMndJYlJjZnU5bDMzQUdoWGNKMS9PVFlINTdn?=
- =?utf-8?B?ZmVsSTRwYUNWV2RrZzFUS1NKWDRTZ003RDlCcFFXQ3E3Q3o4bnB0ZVNRSTlo?=
- =?utf-8?B?dTRzcnVHSWc0dEt5cUJFL3BBUHJLbE5KSXZ5UnZCZ21HMVcyM0htRld3Y2I5?=
- =?utf-8?B?aHFmTUg1bFdRMjVEQjBnRGxmaXR0VXM5ZitUeWxFei9yT2pMQTFMVnRaS0ZY?=
- =?utf-8?B?UDduU1dwa3RtZ2pkM2FnaFAwZGFzSTFwZHhCSTFtdW5CWlc1OXR3NnpCOGhK?=
- =?utf-8?B?MUhaT0NsQzZyNklJNFFkQUZPTnNoenkxbisxazFVSFQvK05RVTJ5VS93ZmQr?=
- =?utf-8?B?SkRiR2xWMW0ycGUxS0NOTGRaQVYrSUdGdjJJSTdKVTRra3pHdHdQMjhtQVJC?=
- =?utf-8?B?eWFIUHRHaVMvWDBNTEYxdk5VZXZ0d2pFajZpRUtRVzk3V0dMcHUyQzZZRUNZ?=
- =?utf-8?B?bEh4WFE4bHZwQ1YyRkRyY3RiKzV6TTJhMmorcmFVcHQ0NE9YOElSVkIvNWl1?=
- =?utf-8?B?NStBT09RN2owOFMzTVdUaWRLRi82Rm9BcEx5R1cvT1hSMUUweFZ0eEJjUjNY?=
- =?utf-8?B?QlIxTFc4YkFwbHhTdXpDRGwrcjNDN01UZUc0OEthMDUyT0tEYXZIQ2FLVEFk?=
- =?utf-8?B?V0s1ZXJqdDJ1K0dlc3VWUXBRMUphMXJJQ0RDaVNpeU50SlRhYVQxYWZQN0tR?=
- =?utf-8?B?VS9Ebjg3SHFhZHpUTHJMT0JFQXZiSUlpK1B3T2M0RWhzcG5WaDV3S0Eyd2FB?=
- =?utf-8?B?eG9Ud0hQRmpNaWk3UkprWEFWMkhLTmN3d0loOCtObUowOW5KWCtGSWlnM1Jv?=
- =?utf-8?B?azlIM0VqeW9LZ01CZGxONzI4ZlFBZWZzUTl1bHQzTE9WaTE4Z1pXV2VYdVVW?=
- =?utf-8?B?aDE5dDFBOGZON1o0MnRzUlYzaUY2UXNVM0tVTFBRN1lKTHEzQ1VCMzlvUGV0?=
- =?utf-8?B?N2xXdUphUS9maVh4MG4rZDc3ZUp4VUMzcy9qcjZiZU1DWk94eEw2SlhURzVk?=
- =?utf-8?B?Mmwvblhaa1hLVDFxeXEwTHVwWEVBeWVUS1pLMGJHVG91RHVIeHhsRUlkTXF3?=
- =?utf-8?B?Z3BYdUdhTENuVm1iTWp1b0ZYa0ZYOEZKZDkwcVd0TGlHcHJURFp1b3NPYmRl?=
- =?utf-8?B?OHR3aldaRUhxUjNBZGhJNkxvcE5NcXJSZFBxM3lKL1dsYi9sUWoyWVdiSVBz?=
- =?utf-8?B?WFVjWVlKdUxIdDlzckFwYXhaVFBXZkZmbGdleHlNR1lpcllxWElSNGhHcXFP?=
- =?utf-8?B?RDBMeGtiQVhwaFhMbGo0dllaL1RxQkZkbnlabi8vL2JEOGROS2VCclRpNXVq?=
- =?utf-8?B?ZHZxa0E2RDNrM0RoYzV3R3FVWXZidjZING5VekEyaWxEeGVkYU9yanBENmhs?=
- =?utf-8?B?eE9zUGs1OERZb0JVcTduNDhHdTdRZXh1em1yTmk2dkVkWUMzZ1NwOGtuWFph?=
- =?utf-8?B?ZnB6dCthQU14c2JSdnFrdVJwOU5aTk5tL1RQZStrY1hVTi8wYVdnS040STJB?=
- =?utf-8?B?OWtxdFZ3UWhWUEJyL0d3dVl2Y2E0T2FoZVFkVlA5WjhTTkg5L2J2VVFub3h2?=
- =?utf-8?B?NUhUOWlaZFp2eFh4bEVpblpYWGMwU1RtNGQvdnRXVXBGcVh4Um9rR2R0T05K?=
- =?utf-8?B?RytnRVlKZkxXMDQ0QlVmc0ZpVmJHbDljSUVyNFltTDlWOVRWSmRUNXV1MlRu?=
- =?utf-8?B?dm1abUdIUkVUaVNKWmFMU3d6UFJDcUxHeXNvb0psTVNIRTlTa05CY2pFd0VY?=
- =?utf-8?B?SDVCZFNRdFNPbUNZTTRzdW9XVFBqYlhGRnZod2FQVHBsdzB6bm9PZER1Vkkr?=
- =?utf-8?B?UVhwQWJCemk5VGVPSmZxTStMRFF1cTd5Y1Yya05LbkFjME4rc2xWTlNLWm5Y?=
- =?utf-8?B?YzdDN0xVZDNFd3ZOUktjR1I1SXN4Qm5DcitIWXdjY0FiemExUUt6ZWF5UDgw?=
- =?utf-8?B?R2FjbXJNczlHNUpxTmNpdmU1Z2pKTE9oaDdDWVlXdmhLNnB0dHd3UHZCRVI2?=
- =?utf-8?B?clEvczhqYnl6L3RvZW1EcEdFWUo4cUUrUTJwMmcwWUE5VTZJNlh0ZDJVWElH?=
- =?utf-8?B?QzZud0hudXBBNDJ4c1daMEpaVkl4SjFTaFJlWEtMZC9ja25CQUdXQ3pxOUZD?=
- =?utf-8?B?UHVBU2VJSDVCbEhia3FhOWhyL2ZJNHhzVFhrOWtqSFl5SnZWZDFqYVhIUm5s?=
- =?utf-8?B?NFI0ZEVEcFBJWVU3bXFvUnluVEs3YURnQ2F0bXNqeEdLTWxsRElaQT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 634245ca-fccb-42ce-5e5a-08df2914fb45
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 10:30:20.2602
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KZtZ7I8iRNvnhqnEKK+wTqYu+xG9in84HVEpzmic++9SmKZVyyv6IAaLC/GeLEyDMdEbeXwgD+I58SVaQVTYzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7133
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEAIzmoC/0WNQQ6CMBREr0L+2pL202jrynsYFlCq/MRSaKHRE
+ O5uxUQ3k7zJ5M0K0QayEc7FCsEmiuSHDHgowPTNcLeMusyAHI9co2bGECM3MtU2lZIV11oi5PU
+ Y7I2eu+lafznYacnC+V/2FGcfXvtbEp92FwvO5U+cBOMM8dQJNK1UqC8+xnJamofxzpU5oN627
+ Q36A0cyugAAAA==
+X-Change-ID: 20260929-cci-imp-8ba384309942
+To: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Authority-Analysis: v=2.4 cv=VqC2kO2n c=1 sm=1 tr=0 ts=6ace0846 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=fqBssBKcfzBu9c0AyzoA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: RtUHt6mryAD7gFMq6r_XE0XiAruYjm-V
+X-Proofpoint-ORIG-GUID: RtUHt6mryAD7gFMq6r_XE0XiAruYjm-V
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX9y8PNxlEGZaE
+ cgnQuX/TfsDSR95qs/NU6ZizWXV5df0QQVGno3H2i5nO/H7aBrrsD1PthgfKlxMr/4zakGcXWy6
+ i8dZuypnQgCBmaEPpRJK5Y8bdwe9frk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX7LqcNSWgzMPH
+ yZr/PHJ9BnB1A9lfZF2T/tG8yMoNqSOz9f1qSFmLAynH+R7IxQdNzEUvLjqsuegCVT8q4J+OtRq
+ V9uCZ6CDmdbM1xr+EkC1Vjz+9C7Ej5Aig7A7jIFy/2dl/Sb0PUfIh/ViqvF0bFFur/NhjRxtLGk
+ 1mzYQZvx32u0RSxG1TBP8cF+sV2hWICuv3QZHhO3NgxJOvaoZ5nZksCML1yIlIUIxrVis5qHmC7
+ M/hVUQpkfZwd8SPv6yqK7Eo6CuxJuS7yM86BrXR/OPw79F4/sSNhhgpGwNh3bYQAI6AUSFGV9fX
+ x7gwVX970xAw0W+YytfeqSAxo/p55UOe/BsGxQ98d7ByQN1Me/462zxS7z0cHxnrD0y+w7jd27+
+ oOYeG3bM0APnZEW48P4yfNhsxCSDIm6j+D4VRWWripvqpVLhwFDPTSCbpcF+OFKNTfiWCKcSufr
+ aMup7uUNwWrz+OjxI4A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130041
 
-Factor out the common logic used to poll TX_FSM_STATE until the TX lanes
-enter Hibern8 into ufshcd_check_hibern8().
+Improves the Qualcomm CCI I2C driver read/write in different ways:
 
-The HiSilicon and Qualcomm drivers currently implement similar checks
-using the UniPro TX_FSM_STATE attribute after link/PHY bring-up. Move
-this logic to a common helper in ufshcd so it can be shared across host
-controller drivers.
+- Capabilities (queue sizes, max transfer lengths, supported I2C mode)
+  are currently hardcoded per DT compatible string in a handful of
+  cci_data instances. Patch 4 replaces the static per-compatible
+  structs with a single version-sorted capability catalog resolved
+  at runtime from CCI_HW_VERSION.
 
-Switch the HiSilicon and Qualcomm drivers to use the new helper and drop
-their local implementations. While at it, normalize the "TX lane failed to
-reach Hibern8" error path to return -ETIMEDOUT instead of the raw
-TX_FSM_STATE value (qcom) or -1 (hisi), so all callers get a proper errno.
-This is an intentional, harmless change of the returned error value; the
-pass/fail behaviour at the call sites is unchanged.
+- The driver only supported single-command writes, capped at 11 bytes
+  regardless of how much space the command queue actually has. Patches
+  2 and 5 factor out the write-command queueing into a reusable helper
+  and then add burst-write support, chunking longer writes
+  across the whole queue instead of a single command's payload.
 
-Unlike the initial implementation, the timeout error is now reported only
-once by ufshcd_dme_check_tx_hibern8() after its final check, instead of
-per lane.
+- The FIFO read path hardcoded a fixed 12-byte limit unrelated to the
+  actual per-revision FIFO size, with a special-cased drain loop.
+  Patch 6 simplify the FIFO read/drain-loop and derive the read-side
+  limits from each revision's FIFO size
 
-This also prepares for reusing the same UniPro-specific Hibern8 check in
-a subsequent commit.
+- Add burst-read support using threshold interrupts, allowing reads of
+  arbitrary size by draining the FIFO incrementally during the transfer.
 
-Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
+Also add overflow and underflow IRQ reporting, as queue/fifo limits are
+now derived from the hardware capabilities and exercised more
+aggressively.
+
+Support for unbounded write transfers using the threshold IRQ
+mechanism is planned as a follow-up and not part of this series.
+
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/ufs/core/ufshcd.c   | 73 +++++++++++++++++++++++++++++++++++++
- drivers/ufs/host/ufs-hisi.c | 48 +-----------------------
- drivers/ufs/host/ufs-qcom.c | 42 +--------------------
- include/ufs/ufshcd.h        |  3 ++
- 4 files changed, 78 insertions(+), 88 deletions(-)
+Changes in v2:
+- Split the HALT_ACK reset fix out into its own patch (Andi)
+- Fix a typo in the "Detect capabilities from CCI_HW_VERSION" commit
+  message (Andi)
+- Use GENMASK()/FIELD_GET() to decode the CCI_HW_VERSION fields (Konrad)
+- Derive the number of masters from the DT i2c-bus subnodes instead of
+  encoding it per compatible string (Konrad)
+- Add burst read support via RD_THRESHOLD/RD_PAUSE IRQs
+- Link to v1: https://lore.kernel.org/r/20261004-cci-imp-v1-0-227d12cb4829@oss.qualcomm.com
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index ca8329052cbc..58f235e45817 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -4448,6 +4448,79 @@ int ufshcd_dme_get_attr(struct ufs_hba *hba, u32 attr_sel,
- }
- EXPORT_SYMBOL_GPL(ufshcd_dme_get_attr);
- 
-+/**
-+ * ufshcd_poll_tx_hibern8_lanes - Check TX_FSM_STATE of all TX lanes once
-+ * @hba: host controller instance
-+ * @num_lanes: number of TX lanes to check
-+ *
-+ * Read TX_FSM_STATE for every lane and verify it reached Hibern8.
-+ *
-+ * Return: 0 if all lanes are in Hibern8, -EAGAIN if any lane is not (yet)
-+ * in Hibern8, or a negative errno (e.g. -ETIMEDOUT from a hard UIC command
-+ * timeout) if the attribute read fails.
-+ */
-+static int ufshcd_poll_tx_hibern8_lanes(struct ufs_hba *hba,
-+					unsigned int num_lanes)
-+{
-+	u32 tx_fsm_val = 0;
-+	unsigned int i;
-+	int err;
-+
-+	for (i = 0; i < num_lanes; i++) {
-+		err = ufshcd_dme_get(hba,
-+				UIC_ARG_MIB_SEL(TX_FSM_STATE,
-+					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(i)),
-+				&tx_fsm_val);
-+		if (err) {
-+			dev_err(hba->dev,
-+				"%s: unable to get TX_FSM_STATE for lane %u, err %d\n",
-+				__func__, i, err);
-+			return err;
-+		}
-+
-+		if (tx_fsm_val != TX_STATE_HIBERN8)
-+			return -EAGAIN;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * ufshcd_dme_check_tx_hibern8 - Check if all TX lanes entered Hibern8 state
-+ * @hba: host controller instance
-+ * @num_lanes: number of TX lanes to check
-+ * @timeout_ms: overall timeout in milliseconds shared by all lanes
-+ *
-+ * Return: 0 on success, negative errno on failure.
-+ */
-+int ufshcd_dme_check_tx_hibern8(struct ufs_hba *hba, unsigned int num_lanes,
-+				unsigned int timeout_ms)
-+{
-+	int err, ret;
-+
-+	if (!num_lanes)
-+		return -EINVAL;
-+
-+	/*
-+	 * Poll every lane until ufshcd_poll_tx_hibern8_lanes() stops returning
-+	 * -EAGAIN, i.e. all lanes reached HIBERN8 (err == 0) or a real error
-+	 * was hit.
-+	 */
-+	ret = read_poll_timeout(ufshcd_poll_tx_hibern8_lanes, err,
-+				err != -EAGAIN, 200,
-+				(u64)timeout_ms * USEC_PER_MSEC, false,
-+				hba, num_lanes);
-+	if (ret) {
-+		dev_err(hba->dev,
-+			"%s: timeout waiting for TX lanes to enter HIBERN8\n",
-+			__func__);
-+		return ret;
-+	}
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(ufshcd_dme_check_tx_hibern8);
-+
- /**
-  * ufshcd_dme_rmw - get modify set a DME attribute
-  * @hba: per adapter instance
-diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
-index bd223bda1ce2..b84075dfe00d 100644
---- a/drivers/ufs/host/ufs-hisi.c
-+++ b/drivers/ufs/host/ufs-hisi.c
-@@ -22,50 +22,6 @@
- #include <ufs/ufshci.h>
- #include <ufs/ufs_quirks.h>
- 
--static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
--{
--	int err = 0;
--	u32 tx_fsm_val_0 = 0;
--	u32 tx_fsm_val_1 = 0;
--	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
--
--	do {
--		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
--				      &tx_fsm_val_0);
--		err |= ufshcd_dme_get(hba,
--		    UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
--		if (err || (tx_fsm_val_0 == TX_STATE_HIBERN8 &&
--			tx_fsm_val_1 == TX_STATE_HIBERN8))
--			break;
--
--		/* sleep for max. 200us */
--		usleep_range(100, 200);
--	} while (time_before(jiffies, timeout));
--
--	/*
--	 * we might have scheduled out for long during polling so
--	 * check the state again.
--	 */
--	if (time_after(jiffies, timeout)) {
--		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
--				     &tx_fsm_val_0);
--		err |= ufshcd_dme_get(hba,
--		 UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
--	}
--
--	if (err) {
--		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
--			__func__, err);
--	} else if (tx_fsm_val_0 != TX_STATE_HIBERN8 ||
--			 tx_fsm_val_1 != TX_STATE_HIBERN8) {
--		err = -1;
--		dev_err(hba->dev, "%s: invalid TX_FSM_STATE, lane0 = %d, lane1 = %d\n",
--			__func__, tx_fsm_val_0, tx_fsm_val_1);
--	}
--
--	return err;
--}
--
- static void ufs_hisi_clk_init(struct ufs_hba *hba)
- {
- 	struct ufs_hisi_host *host = ufshcd_get_variant(hba);
-@@ -224,9 +180,7 @@ static int ufs_hisi_link_startup_pre_change(struct ufs_hba *hba)
- 
- 	/* Unipro VS_mphy_disable */
- 	ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(0xD0C1, 0x0), 0x0);
--	err = ufs_hisi_check_hibern8(hba);
--	if (err)
--		dev_err(hba->dev, "ufs_hisi_check_hibern8 error\n");
-+	err = ufshcd_dme_check_tx_hibern8(hba, 2, HBRN8_POLL_TOUT_MS);
- 
- 	if (!(host->caps & UFS_HISI_CAP_PHY10nm))
- 		ufshcd_writel(hba, UFS_HCLKDIV_NORMAL_VALUE, UFS_REG_HCLKDIV);
-diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
-index 1e492dac8d93..815ca82a0878 100644
---- a/drivers/ufs/host/ufs-qcom.c
-+++ b/drivers/ufs/host/ufs-qcom.c
-@@ -382,46 +382,6 @@ static int ufs_qcom_init_lane_clks(struct ufs_qcom_host *host)
- 	return 0;
- }
- 
--static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
--{
--	int err;
--	u32 tx_fsm_val;
--	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
--
--	do {
--		err = ufshcd_dme_get(hba,
--				UIC_ARG_MIB_SEL(TX_FSM_STATE,
--					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
--				&tx_fsm_val);
--		if (err || tx_fsm_val == TX_STATE_HIBERN8)
--			break;
--
--		/* sleep for max. 200us */
--		usleep_range(100, 200);
--	} while (time_before(jiffies, timeout));
--
--	/*
--	 * we might have scheduled out for long during polling so
--	 * check the state again.
--	 */
--	if (time_after(jiffies, timeout))
--		err = ufshcd_dme_get(hba,
--				UIC_ARG_MIB_SEL(TX_FSM_STATE,
--					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
--				&tx_fsm_val);
--
--	if (err) {
--		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
--				__func__, err);
--	} else if (tx_fsm_val != TX_STATE_HIBERN8) {
--		err = tx_fsm_val;
--		dev_err(hba->dev, "%s: invalid TX_FSM_STATE = %d\n",
--				__func__, err);
--	}
--
--	return err;
--}
--
- static void ufs_qcom_select_unipro_mode(struct ufs_qcom_host *host)
- {
- 	ufshcd_rmwl(host->hba, QUNIPRO_SEL, QUNIPRO_SEL, REG_UFS_CFG1);
-@@ -607,7 +567,7 @@ static int ufs_qcom_hce_enable_notify(struct ufs_hba *hba,
- 		break;
- 	case POST_CHANGE:
- 		/* check if UFS PHY moved from DISABLED to HIBERN8 */
--		err = ufs_qcom_check_hibern8(hba);
-+		err = ufshcd_dme_check_tx_hibern8(hba, 1, HBRN8_POLL_TOUT_MS);
- 		ufs_qcom_enable_hw_clk_gating(hba);
- 		ufs_qcom_ice_enable(host);
- 		ufs_qcom_config_ice_allocator(host);
-diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
-index dfd302f2dc7c..0d9d0a26eb20 100644
---- a/include/ufs/ufshcd.h
-+++ b/include/ufs/ufshcd.h
-@@ -1556,6 +1556,9 @@ extern int ufshcd_dme_set_attr(struct ufs_hba *hba, u32 attr_sel,
- 			       u8 attr_set, u32 mib_val, u8 peer);
- extern int ufshcd_dme_get_attr(struct ufs_hba *hba, u32 attr_sel,
- 			       u32 *mib_val, u8 peer);
-+extern int ufshcd_dme_check_tx_hibern8(struct ufs_hba *hba,
-+				       unsigned int num_lanes,
-+				       unsigned int timeout_ms);
- extern int ufshcd_change_power_mode(struct ufs_hba *hba,
- 				    struct ufs_pa_layer_attr *pwr_mode,
- 				    enum ufshcd_pmc_policy pmc_policy);
+---
+Loic Poulain (6):
+      i2c: qcom-cci: Factor out write command queue programming
+      i2c: qcom-cci: Handle and report queue overflow/underflow interrupts
+      i2c: qcom-cci: Detect capabilities from CCI_HW_VERSION at runtime
+      i2c: qcom-cci: Add burst write support
+      i2c: qcom-cci: Extend i2c read limits based on CCI revision
+      i2c: qcom-cci: Add burst read support
+
+ drivers/i2c/busses/i2c-qcom-cci.c | 429 +++++++++++++++++++++++++++++---------
+ 1 file changed, 325 insertions(+), 104 deletions(-)
+---
+base-commit: d6dc536a4c8bb99dd822bc349a9e801be7ea81c9
+change-id: 20260929-cci-imp-8ba384309942
+
+Best regards,
 -- 
-2.43.0
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
