@@ -1,149 +1,149 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.185])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7145C4BD785
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3182547CA69
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890455; cv=none; b=U5drZpTDFawZ/smlBABXBqVlfJqpAsBFFUgSHTbBm6B/zFuhB1eeXVSVBrSSiKMaDsvrMT8TeE7AdBYBDYTvnZB7CdEn85k6ZQ3hfjAecKzWfj2VKtkvLw3ctB+UNA60m59UVbvXMv5q9Q+w1bhvOX4kcRWUbwlkr31FLJvvuHQ=
+	t=1791890509; cv=none; b=NeUtNwHKT5J81rI/aMrr5Mvd7Fpb5CB3f14DDbkJikYOiOfEDz1VF1FDHLtdxAYXuzxTccGv06jXKAAT9yDXARt1ydZr0o0jPrCPjtaCY8hnjbNNTYHxRJEBGc2aUOVc2XUiHpEEnXO8YJ1nsymkE/URkVvOnsyJjlwu/kRxVEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890455; c=relaxed/simple;
-	bh=wgqVJLV/dQe4e9VtDaaTOVnmJg6e9jAeMeClWRY1LTY=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=R6YiXkHoZH1FhDTsM9uFDYJ8jRafG+WuHQ9yNW4qq3crC+jhQXnjSffmayrlsQUbJCigf/uCbJwPXXw1KLdISj6LM0OFl1BrVitKwsaJPN/5FtvbW7JkSxmDOKhiLseeqt6A/PDHgt7gbHeXDMAF1k33uosAFsal7+JrRAcRMT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=G4znXjQV; arc=none smtp.client-ip=195.121.94.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	s=arc-20240116; t=1791890509; c=relaxed/simple;
+	bh=1b2YdOinPgswRzD0U/ah6zIq9R/wJFvfLi8bFpVXbWE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NNtl8hzlByJ7139AEQZFaVNqcLLmYjy2weiuaJ/DbSRuw0NPw2RIIhfftD10MBiejO38Kz0ybFrIeQ2BHkj6eMBYiqbCT0qrj5gv8kC+myksaZ65HtVgOrvv0g4Cfcm+dDEobuHeWHyPGSpGfGcagvGt28NOtTbRfBAlbEOv62w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XBTgvb3G; arc=none smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="G4znXjQV"
-X-KPN-MessageId: fb6d40cc-c6f7-11f1-9e93-005056999439
-Received: from mta.kpnmail.nl (unknown [10.31.161.189])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id fb6d40cc-c6f7-11f1-9e93-005056999439;
-	Tue, 13 Oct 2026 13:19:40 +0200 (CEST)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id fb6bc9e6-c6f7-11f1-a0c5-0050569981f5;
-	Tue, 13 Oct 2026 13:19:40 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XBTgvb3G"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so20781181fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:21:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=t1SGlL/BePqefUk3qCiIk7sSBJhTQ6u8DFwYLs470as=;
-	b=G4znXjQVADtsvQmD7uHk2RiDSOBUKpD+H54IKon0bVvSv6KyPRDji3at9UpDPP1dnK5n3M5tLi8dO
-	 fdynzPVRhUL2k41AYUkLMWNG65Ri5ABWMvJeZQR/0K2RCQy6Czl9YTiuhNLu7f83VNcQM18HzyC9gm
-	 1q8Ckzu81MVHzsZlq/4FFGiEt+9Lw1T8WPKk5I5Kmsfz9UmbZXGn2/eUk1k5AX963ujolF/AG3KgnF
-	 g7k3ShWVT+hHjNh+fopj8U4ufUetsqMHbCj1fjs8VCs8+UX85Y1GhVxL07b3UGuByf6QSPbgp0Kgbr
-	 PYFncKoL5Uh7AGJWXDWKlm9HYKjRzdw==
-X-KPN-MID: 33|Fvy5v/AaIo+DnVdExlWXq6Es8fbvnE6y60RXW368qrbAGVoaBIzyDOB2m9eiqCr
- sGbW6/ntDSXOOl9hdwgiErVDXRpd/mfR3vMZWmS4xCEs=
-X-CMASSUN: 33|r2N/P5s9JvZ3IDHSvve5BuFey5ISOOE9+B2Xk4VdfgjsHf0pJD6/5n22eWSpYYd
- R+rgRl5jg2QcXX6lKGcNrNg==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh02 (cpxoxapps-mh02.personalcloud.so.kpn.org [10.128.135.208])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id fb607a94-c6f7-11f1-8edd-00505699eff2;
-	Tue, 13 Oct 2026 13:19:40 +0200 (CEST)
-Date: Tue, 13 Oct 2026 13:19:40 +0200 (CEST)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, corbet@lwn.net
-Cc: skhan@linuxfoundation.org, rdunlap@infradead.org,
-	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Carlos Maiolino <cem@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
-	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Message-ID: <1716819121.765615.1791890380179@kpc.webmail.kpnmail.nl>
-In-Reply-To: <asz9AeFe3CutP73z@gremlin>
-References: <20261009083137.3-1-sashal@kernel.org>
- <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
- <asz9AeFe3CutP73z@gremlin>
-Subject: Re: [PATCH] docs: remove Assisted-by references
+        d=gmail.com; s=20251104; t=1791890505; x=1792495305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KkAADBUNoE9vkJ6CKgpfe3PgX88GbGiCjcr9TkKhtAA=;
+        b=XBTgvb3GK2k2spGG1AW1sw2g3iNC67XaLOnouOHiMHVjGJgGKzOLA0UXkLC+PTWcpV
+         8RsPdkpeb0AA74ZzI+LyZ6pk8hfsbNbxZq6n2LcArb0Schi6OQaXKG7RJbBIGglzpUQ4
+         bOyQ9Ukwx5eE8UydtRzXjyrBCjdBny4GegdXbrVX4xgFpkc460X+Pgf/Vs13o5yBUL7U
+         lNQB/bOr6VkZdki7duiAKxNNJJpQsldnOEVCdpU/2r7nm73Xa5iMg8Uc3Pe425AOlNWP
+         S49NtBZvYJ3xkAqsW32w58d5icSCoNj0TJascgxgWhsSynvuxFzg2YAW2iSQuX3NvoSm
+         9z+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791890505; x=1792495305;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KkAADBUNoE9vkJ6CKgpfe3PgX88GbGiCjcr9TkKhtAA=;
+        b=IiDm7t+IkdjZ1zTJaJAiqyi9FlRod+tpWeTMEAbYzJpPEYKYJfJbv17dguoNKpPCdb
+         ip/v9yLhUxwWTjWIhxYorlUIkUmuqAFH8aTWfha5AM11W5V6P1HsPE+ZdDQfRDg94lGx
+         1BAaD8Q88+sm6Yc51rBMHpbh+KG5yA5fBTqkVyz6pHuRWAW2OwBSZTWvon6ZkCklQcle
+         WWC5OaG5cnrgesGVwqZqEQ31fYLSGQaI9UZDdH3diNLh1SOlMC3VXMznmSPiWPhXlBv1
+         ztiDUQ65rwzwSHlRtEAL0rDkFfcgYgkHdLyQAX08hEOvsc3GXh7KN0hkKcoMj5IThQdj
+         ZAYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxnxsMQbEct4de31yIsV1bMjtLYJZMY5A6ECqsC3KRUe1cSy/f5oeJqVcQXFtAd6owo0fUJ2kgUVqNuiFo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiFTF7YhiAlLsN4BGeCZ87zFJwst5G2vXA2lTsaZ/6yXtQMlN7
+	Z1LIe6eukF9sxJ8c62NJmplOgLiLDYKhckbFQbfkIT/VF4C3vRbbK/dIW8mSpDAD
+X-Gm-Gg: AYBFou3xPpMyaf2UroEuhOzko81X1fQlMUP3pCnqrjKrI59kzifosi/6TXtUk6BCu8f
+	nTZ7jLs0tnTAY46+cPjW+fSnmtX4sCgAyfQRjUVtRzBXyo6yD4Qnphjzr4e84i5IC5scIfm3Da3
+	mtjwelFYNfEtNfajiKEdDRx4lGniDGUtj1DGmEXHDc2tBfZj3UrAZ0ZTdW52WP5CW8Uv/jTQz3e
+	e/i/0ZjCBqITyND9Gg/wfBs4He1BJI7ZkZtZ/q9WctEMs6rMucf/RwHOkK6VxgGGxCRFv8uJ79h
+	ofZL1ymLCoFpVtFKiQ0YyrRbbqbda7ohIL9nebE8cEgtJW9yN/WNl+fD6lc0v1AP0bk+C0MUI/U
+	sZbM7mYVTKH3mgTN3dzAks4g5gKlTI1NKmb1E0o1f/dtBN1RU/GFO3Mvh5y3el76sSupYI1bX94
+	McIvCl5pOfz5tW5DlSfYG+rRgz2ff5gWFo3nvsCIU8clU7KGjuh1Yg6XjHpAm5PzqWH2Dnys5Xm
+	YPLKpRFgbKcVDyVuwioWjXQSKv6ObpxYZRID+VdwTehkRQNtIHLevUMKx4zzEe6oqmN17033X3b
+	lTR+/qaZKvuqE+myXY7v9OviGe4=
+X-Received: by 2002:a05:651c:1542:b0:3a6:3c86:df91 with SMTP id 38308e7fff4ca-3a9c538ca71mr36501091fa.23.1791890504793;
+        Tue, 13 Oct 2026 04:21:44 -0700 (PDT)
+Received: from M-K2012N0113010.localdomain ([88.119.128.229])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcf8a3970asm1116148e87.79.2026.10.13.04.21.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 04:21:44 -0700 (PDT)
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: [PATCH v2 0/6] iio: pressure: dps310: fix pressure overflow, add Zilltek ZTS8032
+Date: Tue, 13 Oct 2026 14:21:18 +0300
+Message-ID: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
+Content-Transfer-Encoding: 8bit
+
+The Zilltek ZTS8032 is a register compatible DPS310 with two more
+pressure calibration coefficients. Bringing it up showed that the DPS310
+pressure compensation overflows s64 at most oversampling rates, so patch
+1 fixes that first (Fixes: + stable); the rest adds the ZTS8032.
+
+1: Evaluate the compensation polynomial in Q20 fixed point. The current
+   p^3 * c30 / kP^3 sum overflows, losing the c30 term: about 20 Pa low
+   near sea level at oversampling 2, 4, 8, 64 and 128.
+2-3: Vendor prefix and the zilltek,zts8032 compatible.
+4: Per-chip data in the I2C and ACPI match data, no functional change.
+5: OF match table.
+6: ZTS8032 chip data: the coefficient count (c31, c40) and the TMP_CFG
+   startup value, since TMP_CFG bit 7 is a rate bit on the ZTS8032.
+
+Based on iio/togreg, on top of 4334dc4092c2 ("iio: pressure: dps310: fix
+CFG_REG bit definitions"), without which oversampling 16 and above
+returns -ERANGE.
+
+Testing: ZTS8032 on an arm64 (MT7987) board, the series backported to
+6.12. in_pressure_input matches the datasheet formula evaluated from the
+raw and coefficient registers to within 1 Pa at every oversampling rate
+from 1 to 128; the fixed point math was also checked against a floating
+point model over 300-1200 hPa for all rates. Every patch builds without
+warnings with W=1 on x86_64 and i386, dt_binding_check passes. I have no
+DPS310, so patches 1 and 4-5 are untested on one.
+
+checkpatch --strict suggests BIT_ULL() for DPS310_Q_ONE; it stays a
+signed 1LL << 20 because it multiplies signed raw values.
+
+An LLM coding assistant (Claude Code) was used for this series: it
+found the overflow while porting the ZTS8032 vendor driver, wrote the
+code and changelogs, the floating point model and the hardware test
+scripts, under my direction. I reviewed and tested the result.
+
+Changes in v2:
+- Split the driver patch into per-chip data (4), OF match table (5) and
+  ZTS8032 support (6) (Andy)
+- Drop the linux/mod_devicetable.h include (Andy)
+- Return -ENODATA when there is no match data (Andy)
+- Add Conor's Acked-by to 2-3
+- Link to v1: https://lore.kernel.org/r/20261012114550.1680054-1-paulius.zaleckas@ui.com
+
+Paulius Zaleckas (6):
+  iio: pressure: dps310: fix overflow in the pressure compensation
+  dt-bindings: vendor-prefixes: Add ZillTek Technology
+  dt-bindings: iio: pressure: infineon,dps310: Add Zilltek ZTS8032
+  iio: pressure: dps310: add per-chip data
+  iio: pressure: dps310: add an OF match table
+  iio: pressure: dps310: add Zilltek ZTS8032 support
+
+ .../iio/pressure/infineon,dps310.yaml         |   4 +-
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/iio/pressure/Kconfig                  |   4 +-
+ drivers/iio/pressure/dps310.c                 | 148 +++++++++++-------
+ 4 files changed, 98 insertions(+), 60 deletions(-)
 
 
-> Op 12-10-2026 17:42 CEST schreef Lorenzo Stoakes (ARM) <ljs@kernel.org>:
-> 
->  
-> +cc the participants from that thread FYI. The original patch is at [2].
-> 
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+-- 
+2.55.0
 
-Thanks, Lorenzo.
-
-> On Fri, Oct 09, 2026 at 12:05:06PM +0200, Krzysztof Kozlowski wrote:
-> > On 09/10/2026 10:31, Sasha Levin wrote:
-> > > The Maintainers Summit reached consensus to deprecate the Assisted-by
-> > > tag. Remove the documentation requiring it.
-> >
-> > Please provide here some sort of arguments used in that summit
-> > consensus/discussion. This basically reverts/changes previous consensus
-> > [1], which is fine itself, but it lacks reasoning.
-> >
-> > [1] https://lore.kernel.org/workflows/2026070224-unholy-commode-cf45@gregkh/
-> 
-> Thanks for linking that! It is important to ack previous discussion on
-> this. Also LWN article is up now at [3].
-> 
-> I'm less bothered than you might think by this change.
-> 
-> The tag's useful for push back on review, but the only long-term strategy for
-> slop is to aggressively ignore it.
-> 
-> Linus has made that clear that that's fine.
-> 
-> What kills the project is having 1,000 slop submissions that 2 or 3 people have
-> to do something with.
-> 
-> The only long-term solution to that is to hit mark read 1,000 times :)
-> 
-
-There's a way to nuke drive-by authors and that is to require them to do
-some kind of "proof-of-effort." So you want to contribute to the kernel?
-Good, come to one of the OSS conferences, or LPC, or have some well-known
-maintainer vouch for you, or do the kernel mentorship program. The point
-is not that this cannot be gamed, but that the "gaming" in itself requires
-some kind of investment, like proof-of-work.
-
-We may miss the savant that for whatever reason cannot show up to a conference,
-but Linux Foundation is already very supportive of funding people. And besides,
-Linus has already made it clear that we can expect of people to be able to grow
-into serious community members (which may include being able to effort time and/or
-money for LLM access.)
-
-This would solve most slop immediately, and we will know about LLM found bugs
-anyway from cooperation with Anthropic and just the maintainers using LLMs.
-
-Best,
-Jori.
-
-> Sasha - maybe worth linking the LWN article now it's up in the commit message
-> and adding a little more detail around the decision?
-> 
-> Otherwise LGTM:
-> 
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
-> --
-> Cheers, Lorenzo
-> 
-> [2]:https://lore.kernel.org/all/20261009083137.3-1-sashal@kernel.org/
-> [3]:https://lwn.net/Articles/1099594/
