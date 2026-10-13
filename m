@@ -1,199 +1,157 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010043.outbound.protection.outlook.com [52.101.85.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4594EBAD7;
-	Tue, 13 Oct 2026 12:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894140; cv=none; b=eJJaI+zCtzV6qVyKTMdSb1pWu+CMtnJIhqqRuGuoMV9uV7793jE0omAcoBZ2xFfRQ8/4gvKtJVtv1VXw2l+nsngijwnmpzH5uuOmuO55EJ8bsIYfRWG3DAsQPkrlFxcXziAP93wUcrLH6o5udroBrHQX516OsuboTVgXvbLWDSw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894140; c=relaxed/simple;
-	bh=ywiK+gX4Ip4X5HnD6TkPjtQdir8vLr/kQpjH/ztlvWU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kGfRzYF+GvDqwTpfD6zQUil2yJpzidheqdstV7zftG1sGRxzqnBZzZZjmo8BJqoWLBzpWUPMrhMDOfXtqaixgxdsbwE82U62IDOpe+COe1SWiIajngV+Okra9TIwPSpTogF1HBOdES1Tv1h5+YPWtKADmjCz66xZ2x0zP3KSPvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=smWi1ihr; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=R/MV1V77; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TsWWu4sq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=HUwylZ2E; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2073B892D;
+	Tue, 13 Oct 2026 12:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791894168; cv=fail; b=P18JjqWsdCn0e1SXk6Y5kzNO2CuCp69u2GBXV1HwnGO7QZoX53CQx93cOEXY+sY3Ns1zbJw4wiPmnZHxYpRlpUjYpJ9YvbzVhXqAXbp7NI+vy7bFkUhAcaDlDgRpg2ll0fmWLbo8hWiCrSyvI+7Yn7e5nnLY1nDkr9OJWvdz7fU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791894168; c=relaxed/simple;
+	bh=wXmyGuPqtt4tOahdNTPMAEJMyYtSrcYOpWAFAg4iirM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=nlLFWbexDEQ8HjfqE2/ou0TcehSLWzygxtSctoSruEoufGTobPkRfAHJYfBzxW3oJSWL6dMA2Y6vKll6HTVtJnR5GLWTHK+NdidcA5aOEagUIlBMMWljldTtWaacMYfm0t3yESr9Js1G3Ry1Jv8K9iYWC0fxySTawHemmwXSiV8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rNN0xJWg; arc=fail smtp.client-ip=52.101.85.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="smWi1ihr";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="R/MV1V77";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TsWWu4sq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HUwylZ2E"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DF94A21C31;
-	Tue, 13 Oct 2026 12:22:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791894137;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IGCmAGsfmmXxLdQJhGZGWtXqoVqw59mTSVOU4W5s73c=;
-	b=smWi1ihr3Wn5DwWOO1A/HEA/fFdDBhYQ8U3qst/njHUlnlS3rQv8Jmz4GDmlZO0g3VJ+k3
-	Em2irRAKZ5wmB6c7evXyBjjDrPzf/M04+o1Ik7arUJvliSD04Yyl7IjMf2mTJ69l1o1CnA
-	B+NOGSQAgn1pjoP8n1TytiWdtQipDV8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791894137;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IGCmAGsfmmXxLdQJhGZGWtXqoVqw59mTSVOU4W5s73c=;
-	b=R/MV1V77GKww1wb/2MUCXM0RDXLxGlch2S45diOH/tVTZ+lRAx+cO8zAZx/5xnc6PzqnUx
-	DzqBCrjRN3kS6jBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791894135;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IGCmAGsfmmXxLdQJhGZGWtXqoVqw59mTSVOU4W5s73c=;
-	b=TsWWu4sqKithahyKDI8QBWU6SbzOuIxn4ELfReGkSZt9uUppY8QcXfT8wJWn37AnbFWOrV
-	NClVXwSfVJ1alPC60sBz4xuUm+AZ63G4XpKy2J6dMJpodW2I6iM23o4/wBjfwrBS4gpa7c
-	wBs4MgKvvt1EtLkUgMog1GXayXiFr1U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791894135;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IGCmAGsfmmXxLdQJhGZGWtXqoVqw59mTSVOU4W5s73c=;
-	b=HUwylZ2EsPrgfhRXxbs/QdO2kmR8gscRbK4mmKCI5rYyID6UcLG085iYssqJXOlLY1b4F1
-	78dMxoklf3sSSECg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A533213341;
-	Tue, 13 Oct 2026 12:22:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8ln0H3cizmovKQAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Tue, 13 Oct 2026 12:22:15 +0000
-Date: Tue, 13 Oct 2026 14:22:14 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
-	Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rNN0xJWg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bSfg7CoM7QN4YaVYBMxYHLVqzT9OyC8v4HndltKDq/Fla6LeQQTpzBnxklCSV4To4PUCiOZMYP/RIUvykHpElGfYd+W+CU8/hQh29krtKJQ90Hm9+FxkJus/wQKd9XkRoObSgcfe4NqiI0Ug+3yYpaY++/fJJSwnXRCvAg5zoFyBZr1aEwbJp0JDzg8WgW8kCLJb+2f4Ss30pCrOchd36C3FnmutgMImKoDc6S09RjYqwSwBno1/DXh2K9/bD6rjDay+FLt9UkvpYF/7nvOSFvt5JRweIOnJqetvaZWSgBSRs8vpZRMbhwJqzRQ9s9EsTCUwGkrI4J22FkYj4V6JJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v+wEt9RoxMstqYDfMgU/aZVdd2TgXoSCaXwYp6a3UlQ=;
+ b=d5ulFDfOVrErUJITsFWBTOQ5Bij0WHKcutJTwhPLOO94bNOq2OJU5IRCnyBLbr5DR3YDi0ui/5zls5lBHMb9gvGPo9wzW4s2tThIp7SKawDgoQwvUzgnUbMa4Ewre1l359tqQ9sPdEJX4GysfwtVEVT1Rb+JUxGTjNE2w3KPwDNycif+rGYRiJUY16kt9kjH4JSEz7kRGWxai+cQibo+bFxf/qEj0sBRH4hUL/lmjIfG8l++9FBl95VxGC2c4yzRNrDTBz7GQI3tYaLZZM6R1hudhAt/4qcqOJIlNPm4Za0qBqzrSFJshtLnVP3Yi26eYfuMELbNgBLvB2osBnjjYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v+wEt9RoxMstqYDfMgU/aZVdd2TgXoSCaXwYp6a3UlQ=;
+ b=rNN0xJWgfZd3UxFXfL/HshtKE+k5cpt0+Zka8o4/RC0WsvbzTsduN8LWSfOi5k+6DsPBV73A68l8nclDuZsUkKBoGD4vRELlgBp8hLYCwvzuGJNmhvOLaalP9T5U2gcXCxIA0ANF2RKSI8pnfg6AYTHqbPzxUX9oWkkWHHvg4v0jTibFtn5Fa3GuqVB5rSPaMGWtZ8SCDYztUWAJPxzzQPUtCfA69eXOwH0aNWAWF/pxUXwfY01i6Llh312C5/BJJc/rsdgRZmqQFvW6gE1MUiLErH+tD7Ep2kcimBRfgvwOcX+ABw0EMf+3TbfXT8tqWgg5tgP3UrIs0PkSg7pCTw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by PH7PR12MB6564.namprd12.prod.outlook.com
+ (2603:10b6:510:210::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 13 Oct
+ 2026 12:22:42 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 12:22:42 +0000
+Date: Tue, 13 Oct 2026 09:22:41 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Peizhe Liu <peizheliu@utexas.edu>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, iommu@lists.linux.dev,
+	linux-mm@kvack.org, cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 00/18] btrfs: remove the v1 space cache
-Message-ID: <20261013122214.GA1310987@suse.cz>
-Reply-To: dsterba@suse.cz
-References: <20261012-btrfs-remove-v1-space-cache-v4-0-f125bd8c07f9@columbia.edu>
+Subject: Re: [PATCH] iommu/sva: Charge IOPF allocations to the faulting mm's
+ memcg
+Message-ID: <20261013122241.GR13920@nvidia.com>
+References: <20261012200823.699316-1-peizheliu@utexas.edu>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012200823.699316-1-peizheliu@utexas.edu>
+X-ClientProxiedBy: YT4P288CA0074.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d0::7) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-btrfs-remove-v1-space-cache-v4-0-f125bd8c07f9@columbia.edu>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[msgid.link:url,imap1.dmz-prg2.suse.org:helo,suse.cz:replyto];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|PH7PR12MB6564:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0839bd9a-38bb-4261-506b-08df2924adc1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|11063799006|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	4C7mDuG3OVog8beT9u+Y1yc35wX/9HZEKKX4mQuoaOWo7dzgJSgXH+1nVmkKYrH24jTdD9e9+SoSQ7MYP076uNnRq/aOH5W8gGCBxsUPo3L43UV+GSbO+CgUne1m4870DBXSr63LY6TwYy5tVC6nSxPavmdqGi/dIZ8bsC9omVKRCYY9bTyVgPu6HoOz/vBNuH+4ABJrDor8LRR45ViwVrmO3+WGVjgyozzYxlvY94qoPd14joWWxLwBsikqBGksGHjxvcyhrSX26JWaU7wLoz3apnRrBqA77q26DrPaffSznUm96tgWKZEGPQEXVzbB1dvDggwcf8fQ8AaopOuOp5c1bRs/iG/M1fGGmtsr6W4chXmEPS73uH97CP7HWBODVUNw/W6UYHCcWwmgKuh1nHjkwBuhfmv8p74Bow+XFpPlx0+OLPlnB4JqmKliuByTtKp+i0FLVozuqr2aM6Q56gE7Won86WFxoUb9zzqAmfoVN1GQ4Nk65+IESpIz2eUfh5JNZx4wRVLoFoGia5LzK9mAe9b1urXshJ7I0kYiaROnz4//hZO7s2fLMdt+4Hbu6Jf3RvkBfAe+DvJZMdZlhV4mceFJqurqVLMz7oveo3jv8vLHM+i5uLDnm4SHEyDjA4wOnptHeyTGWz2dmc7hL3E/S/20Anho0nc6Y5sDxYM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?MSI7gjAPuPZPDZ8HyZUkQer2I654r5rtTSnJh3Q19ZkAamr1ZPaTDcu9DWSe?=
+ =?us-ascii?Q?hUzxRtF7UPZxBILmOy3FALR+GrMtbr6rC38QDxgln6R/KVMCpJLpkkPY3lKW?=
+ =?us-ascii?Q?jUoZveMFET84lvXESSpJ6OryxwBVA2oh7ldWG7qU6+5S6ign7qQ4g+CLtcRo?=
+ =?us-ascii?Q?M9B8R3Grr4wjojjsVVstcX281DR3J55sPkz1aj6vPEouGLVH3iGFKLhtNtGa?=
+ =?us-ascii?Q?XLU6xUcQ/VU8wmMtzXBwyMviBMKiqTvTZyHBX2Kt+/l0xoethtOIoUpSmBoI?=
+ =?us-ascii?Q?Qf7xcAFE/80xx0v8aUHL26+kIBltQ48bG5CXQStv6c+bmqs3khtCKSzc6D35?=
+ =?us-ascii?Q?KPEEXR4tOMI8Ed05geZ1G56q8ZKUBm3onnvl+EGXal442b0CidD29Rg7CjqQ?=
+ =?us-ascii?Q?VpzRfiQ7iyoSSdcPXzaN9rfDJOKrpTnb4qHC2C1aRSmE5Xn+c++NB5ie/MYC?=
+ =?us-ascii?Q?j8m3sLcWlFWvKqYDb01c0YUPu+TRc7Hs7qsL2aBnbnwcVUZZ9TQDfPRG2nHs?=
+ =?us-ascii?Q?iMFfJUzOSieA+SJIt4otVHLHlsD90nVnjNIbFC9jPmkoyR9YxjvQqB+msaqT?=
+ =?us-ascii?Q?yIPP7pb6aKEg0ollFbman8o+ffyV+bfgkJuryELvVWhBmBX8Y9TjNjRQAJVk?=
+ =?us-ascii?Q?ws2LCzRMD+tvRMy2y0Vzn9QMh4TidV7jn2BNzLco9SaNZ5FsT1EbO6j+xhHL?=
+ =?us-ascii?Q?98aK/LEHSoweECWe3yQijsaxHRpXyUpuXGLElkCeFdZNC6/ldYvR7AS7taPx?=
+ =?us-ascii?Q?ujgS5r8AVJkYw20e8gPlakMIxeNNR9eVNohwvphaCNAjXtx2aFOMhYeblZ36?=
+ =?us-ascii?Q?xM6lp53QPquYXqM5iX6K8J5aBtkBn0mt9VP1OluMe688kjlvYV7PqtBGnJeY?=
+ =?us-ascii?Q?RJEYzjEvhTDNbgKipuwGgUo3zagOxvvpRNzUD5070gZgQFhPW2WBbaX54mWV?=
+ =?us-ascii?Q?xa9SmwE0oePVUMq0SD+dP3Eo7qgxyK4nX6CJrdsibfASSWrgcnq5vbTJmlFO?=
+ =?us-ascii?Q?c7v6vO3lhlapy5GrQMMhrYDaBwsaSb5PVpyMm+lSz8PSAz6eJZQm2vev349Y?=
+ =?us-ascii?Q?pTJYBgXMAtOub5xHOdgY99eqY7TUoTq/J5ndCCaqBZvg5U5FR0Qu4H7Dqo8P?=
+ =?us-ascii?Q?Se5MtENZoBIeRsd9IP4ZlXKR9xOdCoQm7vGOwKO3jt9gHa6P7nY6GXTn06hx?=
+ =?us-ascii?Q?Lw+rd6enUpP2k48qBtgBPT8V+dGJnfJhuygGEEHYbQQkyc1qqhkh0BIp84Ek?=
+ =?us-ascii?Q?ptwi+7dJdYOQyDrT54i78+XhZVq78Dd4ntOaj7w41nrrHcgB/CaUhjYb/r4j?=
+ =?us-ascii?Q?BFmiZPa4F2dzR2JmJxvX7mgeA51MhLtDtev1wLuMW+PXzny1ekVk4IsfILUA?=
+ =?us-ascii?Q?PziPWd5Owe78HN0pgMtQnb+ngH8kYaXlX7ViW8UoOE6qIpgDiozDIB3yR5dt?=
+ =?us-ascii?Q?/S9QGYUN2DJMLGqbM3CByVP2dIEjpyvtUKQLOxk57drsVglLQR58vCAV4cEJ?=
+ =?us-ascii?Q?onRYtyEm8WGV9m1tcPqXljSkItua/1kmgqnxSnsfsOEy+llfzKGhQnwfqHUj?=
+ =?us-ascii?Q?2SAVZO7WcoIlvZHDge84h6KxG4BdApfgQmsKzn3B4j3UaEUAONAnWHIXwUEn?=
+ =?us-ascii?Q?K0vKRbiGBZ2FsrWjWoMqTCNJ2jQX4uRyV7VsGLlBDkE6RztbQ3sqByjrD9nm?=
+ =?us-ascii?Q?3xV+gYh0mX3WZoDEi5U+/KUuj5yQJgDRLqlyw9jY0AO1Nkr8?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0839bd9a-38bb-4261-506b-08df2924adc1
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 12:22:42.1288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jEbfVCIIfBCSWUdevXGyJzlhCxBYsCFWZSUBSuQDUnnnZVBkr0OXI3cU+LWGXAnZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6564
 
-On Mon, Oct 12, 2026 at 12:28:12PM -0400, Tal Zussman wrote:
-> Since commit 545e560a5b0f ("btrfs: disable v1 space cache") the mount
-> options can't select the v1 space cache anymore, but the code is all
-> still there, and a filesystem with an old cache and no free space tree
-> still enabled it from the superblock. Qu suggested removing it rather
-> than converting its page handling to folios [1].
+On Mon, Oct 12, 2026 at 03:08:23PM -0500, Peizhe Liu wrote:
+> iommu_sva_handle_mm() runs from the IOPF workqueue and calls
+> handle_mm_fault() for the faulting mm, but does not set the active
+> memcg. File-backed faults can allocate page cache through
+> mem_cgroup_charge(folio, NULL, gfp), which falls back to the root memcg
+> when the worker has neither an active memcg nor a current->mm. Page
+> cache faulted in by a device is therefore charged to root and escapes
+> the task's memory.max.
 > 
-> Patch 1 fixes a pre-existing leak in the cleanup path, where a crash
-> before the delayed iput evicts a cache inode left it unreachable with
-> its link count still set.
+> Set the active memcg to the one associated with the faulting mm while
+> handling the fault, and restore the previous value afterwards.
 > 
-> Patch 2 stops enabling the cache from the on-disk state, so an existing
-> cache is cleaned up on the next read-write mount, as -o nospace_cache
-> already did. This is the one user-visible change: the cleanup is now
-> unconditional, and a read-write mount fails if it fails. There are two
-> ways to fix this failure:
-> 
-> 1. Convert to the free space tree during mount (the recommended
->    conversion), but this could fail for the same reason.
-> 
-> 2. Run 'btrfs rescue clear-space-cache v1' on an unmounted filesystem.
-> 
-> Patches 3-7 remove the write path, 8 and 9 the load path and
-> disk_cache_state, and 10 and 11 the SPACE_CACHE flag and the unused
-> half of the cleanup helper. Patches 12-17 remove the trimming ranges
-> and the free space inode special cases in the write path, which only
-> the v1 writer used. Patch 18 removes TRANS_JOIN_NOLOCK, which the space
-> cache was the only user of.
-> 
-> What's left is what's needed to find and delete the cache inodes of an
-> existing filesystem:
-> 
-> 1. lookup_free_space_inode(), btrfs_remove_free_space_inode(), and
->    btrfs_cleanup_free_space_cache_v1(), which runs on the first
->    read-write mount and zeroes cache_generation in the super block.
-> 
-> 2. btrfs_truncate_free_space_cache() and delete_v1_space_cache(), which
->    relocation uses to get a cache inode's extents out of a block group.
-> 
-> 3. btrfs_is_free_space_inode(), for the evict and inode update paths.
-> 
-> 4. The on-disk definitions: cache_generation in the super block,
->    BTRFS_FREE_SPACE_OBJECTID, and the free space header and entry
->    items.
-> 
-> space_cache and space_cache=v1 still fall back to nospace_cache with a
-> warning.
-> 
-> This also removes the page-based I/O in the free space code.
-> btrfs_io_ctl used a struct page array and was one of the last users
-> of clear_page_dirty_for_io().
-> 
-> Tested with fstests (btrfs and generic quick groups), with and without
-> the free space tree, with no regressions against the base kernel.
-> Upgrading from a filesystem with an existing v1 cache written by a 6.8
-> kernel was also tested. The cache is removed on the first read-write
-> mount and on remount from read-only, and the resulting filesystem is
-> clean under btrfs check and still mountable by the old kernel.
-> 
-> Based on the misc-next commit in btrfs for-next (a5c77fde6730).
-> 
-> [1] https://lore.kernel.org/linux-btrfs/e1dd5a75-9a67-4bc6-b8d8-bfff79b5b907@suse.com/
-> 
+> Fixes: fc36479db74e ("iommu: Add a page fault handler")
+> Signed-off-by: Peizhe Liu <peizheliu@utexas.edu>
 > ---
-> Changes in v4:
-> - Patch 1 (new): Write the zero link count when removing a free space
->   inode, so an interrupted cleanup can't leak it.
-> - Patch 2: Clear FREE_SPACE_TREE in btrfs_reconfigure() whenever the
->   free space tree is not on disk, so a remount that only warns about
->   the free space tree no longer leaves the option set, per Sashiko.
-> - Patch 2: Dropped review tag.
-> - Patch 16: Also drop the tree root check from the delalloc metadata
->   release.
-> - Patch 18: Redo against the TRANS_* flag cleanups in for-next.
-> - Link to v3: https://patch.msgid.link/20260916-btrfs-remove-v1-space-cache-v3-0-10ebde03b96f@columbia.edu
+> Tested on a Xeon Gold 5512U with Intel DSA, based on iommu/next.
+> Before/after testing confirmed that the block-on-fault case charges
+> the page cache to the task's memcg after this change and is subject
+> to memory.max.
+> 
+>  drivers/iommu/iommu-sva.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-Thanks, unfortunatelly this did not make it into the 7.4 pull as the
-freeze was yesterday and I was not able to process the v3 last week.
-The v4 still has some issues reported by sashiko. It could be still
-possible to send that separately as 2nd pull to 7.4 because the code has
-been in linux-next, small fixups would be possible, and it's code
-removal.
+It makes sense to me
+
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+
+Jason
