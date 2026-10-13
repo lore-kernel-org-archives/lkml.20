@@ -1,302 +1,145 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5AE4EB844
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1043C3C2798
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890921; cv=none; b=BRMDd1tP/FPLE7wnnAzBDfumSQqRoDPHAKHVySuO0Lp2RsAonqglam+fH5ffZjlixiLksw7kbE6XtLqzKgTFP862E72SLhRvRw4ASmVN8y+5lb5yLcrDn7zr1PHnW+L6kNbhl3EIP+TJzcrBu9fYtfw5cETRhVQ4zAvQaJZWsIs=
+	t=1791890952; cv=none; b=sYvoVZaD+u2/mEMy5aUSnrF51kzXVjTRXnSy79ZpXrM1gTFUOopaACuaxcJWlhfh67DED31mwFdJ3llwMHWFoLzvrtjC/FaEn4Gda3sME77ejqL0q6Z9MuHzW7rkuVbkac7HWS1IIdQB483y9spOJzU6cm+3VQT8VeDpgEteezU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890921; c=relaxed/simple;
-	bh=HN6XptzcoudNzRj4ZXmG0JwPr60rSlO5PO4+/eOdLdI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KBdODgyoTENNvZaQD81yqFXYkWZlnMZmTuHbmbiC00Oj/NdAxFg5BFF3cD07i1RSqSvfhLj9z3SezRl9CKViTY52Dlrkq+5K0t3PWMFsnhSKLWCCD6TAnaiCkDCp1GC/w/U8++1Q5WCkv19ZyT1HTam6vhjmKCvnlSo9NVhiqY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nniA5vjR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=igL2ODX0; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791890952; c=relaxed/simple;
+	bh=Fxs65loBaQS2zVzidqe0drHOuX+q77A6m71fokX95P8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mFLbxwHNyC7uRkC5l/8CCMUO4vVdPJxzKkjXo6/dzw5x0xS2ThiKRV0hdoASoOfpb+5onSEAYI/W28ZA9UsGJ7FpPkzrcVGgal1d/EnpTWnWPvPTmNlpfp/PNrbQZKBnAEDfFv4iCXGbpsymX4OnSWgg5HjBg7v8YsNDQ1lkZyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZEUQP54E; arc=none smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nniA5vjR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="igL2ODX0"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8HQB8922856
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:28:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Rcn4mFMnCGkwABHUVZsFsGzh0zOF9QcSjkE0SqwCV14=; b=nniA5vjRz/7Sqnh/
-	n2s2MJ5TTbRUcfl7FZMHhIc487f3zmV+fWV2YSPDKoZOZxFILHnYCdoG/VQp8imV
-	pOBpj503tejv5N/JeE5kev3PQSZ8WCzP5sbJwvt5NE7MtpGApwpjhrJMDtqTEpzB
-	VDyHtNAvvcfsZ/DCSfRwwT5tBYxPHysCuTsd0e2mh7wqzubUU4Cokh8usHXlWvo5
-	xtD2PZQLvLagAG69+9hymmaPn5lT+soxbzsSYk0p+lP/VEd+7KmQw9bnf5dQ+fqN
-	Tnr2L5qXa6R4eq5KEShVQSAjCet/n39lH5NTkLw+siYbzQBeHXYDrKcqpm6QJjcv
-	VgwobA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98h1tp6r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:28:39 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab868fe362so3308791a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:28:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZEUQP54E"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-154e9d2d979so1940691c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:29:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791890918; x=1792495718; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rcn4mFMnCGkwABHUVZsFsGzh0zOF9QcSjkE0SqwCV14=;
-        b=igL2ODX00HG6npZPgZ7ANdiApWwzqv+BHtDvOAAWd3i5zYzNd5YEdUSz/8bM6xCYpU
-         C+ujlgeTL0dLRzKXMv3lVkqqGSakqpVMZIfTUYYmlymBmxUIMPzDKj3KQKYKTFjf4C4N
-         39BsyJj1P5vWZ+vtxSCwPCKQXKFIwgcEmIzDV8x6xHprrP/dSxMTI6jEKgdRD7iuXMf+
-         FFNK8WRYtfmaxrbBauCG5XkA/cpWYli3Hfcg5jQExxj3upfSBRYI6q+JNdK02XADTsI2
-         uOhdc24VIAgrEqRM4B3ByLKm+XLI2wzuZeZ1ADrX7tgcaOkgwnXdn9jugT86VVh66L/d
-         +saw==
+        d=gmail.com; s=20251104; t=1791890950; x=1792495750; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RTC8837Ay1vHzPauMz2Nn9szcxCcdh/p3wgAS9dtrx0=;
+        b=ZEUQP54EftHQIlNMId3bDKyhOtkXPq7TcIN8mDJTxI706dgfrM2gwNUFl8o0lR6lYv
+         xVetdrLTNPr46jcg9+6xPr69cFPnRb50L7jL8uB64ffZCC66JuWM8e8ojr3VBe+ozYsc
+         T8PqM+ZwFOCBPXY3Fh88fl9flUMZ/8LyJVvS7xV76FTWVKUFFjml5cwR3Dy7qoFSD88r
+         k0V5+ZNR/o2MCqyKdjUkeUzzBGUwuEYyFiO/o/KmT9gTldZiP41pB0bxsK/XX9XHZyRY
+         O0aeX6D4twkJeB6cFK3SqDwMIc5xrfhhdxmIo3hjaIEILaRmhsfsN8/A0Ve6iHKWaCMk
+         KWUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791890918; x=1792495718;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791890950; x=1792495750;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Rcn4mFMnCGkwABHUVZsFsGzh0zOF9QcSjkE0SqwCV14=;
-        b=LffwgKsuVjRTAEBfn2FRZec9qFMm4aoHn7uqOF7s/rMt4Kqr00wQbwbnaCv/icyQ8e
-         fod3ijm1ExVVMr9D3UWLiziITbSlhsHyHKmUp3nwr4M2/HbGGZBvuwy4pEqPbf36VO4V
-         TH6axiOzn2c+JvPgOWfAYXprzBVhR/2L2MNFd4jMqxry/NbbBsumGNqJA2zRDTawWxbh
-         LjN5952VO5IIS+8eFZ5aFugWucP2nIC+vgp+evWSzluj6QCxrtwioOyQnTqtPD0GIu7V
-         u9IfQZP6sHChESAFW6At7Y/OBL2NC+lN05zXSrnYyvq/4oK8YHMzzP5JFMg/o9ZrI223
-         IR3Q==
-X-Gm-Message-State: AFq9FYJz3A+gShhxrX5hDoNcKCN5tx0PP8Pm+XRF+G4YtbTqHyaBrPpu
-	z+eB6yCSGDtjddKhmiAzFoWxQCncEj1qeei3m/p4EPkguFrb+RfwAIP8piA5LSdEKQkSZwOvoQl
-	5F0JPEW9TQ1CI6bC0aPCkga15iFfsseVu2OUFL1QbOEK6ivnFwaj/vYgf4xHVGQtGWg8=
-X-Gm-Gg: AYBFou0K1zgRv722WbHqGEHkT9H9yWMScPvcBbjRpmGC61pQ191yvFu01JOCjMLz95j
-	Ea2GOIGIBXfCJu8bLUDbihmzlnQuSVKLFIriV4VEgeiVql1iOWnva6uM4sP1WUL+yU2ybrGH4GO
-	7dgC9jDu8uxFZ07guuEfH0QgN+Suszx993MU0NJUGPBPwTz3Zb4DRNPgQncT0AfQn9JRxJoIc4+
-	0zNz6FoIYdff631QIpLYOpal3jumMnfBugKp7v8IrAey08EJ5nnxwlF6AqVt8lr0sIZ96Vzegtl
-	ECo71yrWQiBfSaFJ/3nU/GvZFmeweALniWJcTbDi2lm5B8xK9jiMKi+OV8/Z548g/HPXbvD+qLV
-	vazQ3JXyiuenjgi6FM0wJmUGCsQUTlSgUThrog0PP/SBGx13NPKFZozY4Rm9KsPgwxs9uObEq
-X-Received: by 2002:a17:90b:4c4f:b0:3ab:27eb:338e with SMTP id 98e67ed59e1d1-3ab3ac54a33mr9617236a91.52.1791890918317;
-        Tue, 13 Oct 2026 04:28:38 -0700 (PDT)
-X-Received: by 2002:a17:90b:4c4f:b0:3ab:27eb:338e with SMTP id 98e67ed59e1d1-3ab3ac54a33mr9617204a91.52.1791890917770;
-        Tue, 13 Oct 2026 04:28:37 -0700 (PDT)
-Received: from [10.133.33.242] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab393efd88sm12249694a91.3.2026.10.13.04.28.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 04:28:37 -0700 (PDT)
-Message-ID: <77749e58-84d6-43c1-bd37-98d0046231a1@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 19:28:31 +0800
+        bh=RTC8837Ay1vHzPauMz2Nn9szcxCcdh/p3wgAS9dtrx0=;
+        b=rYGmiUCRpQmJeMjwAmykUn09ZlsNCqSCsnNsCJK3sizOJ96M1CS3488ui8mKagCbl0
+         2A5aTBTmQUuC8TctAIcZJfN7gLvFO/PuanarIL/rq32kzaXhi9NZT0wtDPQBf6ut0ujN
+         0axbJzkBcv8gZ8NJQZdLmj+JTZsHZgcaEtVJhKia4hCBGCNw3WRC1jJwolHrMXuIcPmA
+         tdYnesbHCq9MNFxHG/0Q9tAii+hiokEqJxg+ahHq7q3b9BhY8bT2Z5HBMLNlikQz+Bv2
+         wXhlHuBj2IV3LSi38g1KPykz1BKngdRpqjsBqYAYBkYKhU5UJ9pV8wUQ9xYSJYYRhTql
+         XPUA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAkHd44NgIk3jr4A4WsXwyJH7UQnwfm+rN9km1IjOMIHIWMnghdeHBb20LHTHxvLUHmPxUr6+lpu6YZq0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUVKUDxaK/XlRyQ9lkp/mSQnW22l5E6UM3p7CtL1xJBpeAhIUM
+	z9k8hZhOBOUBYNulMzFWcAyQEqmDmzi8ZE1KcK6zFNpgybUlsBl0CX2O
+X-Gm-Gg: AYBFou3Z/op8xccNIM4FpoL9lCklRGe5th3eD4Jvx/Sxw2c7aG7BI2llFlj8UEi/u9w
+	osFbIvADHQ1rjTjQo9+IAzoDOH9VhEVuutdMqyTv17ntFcXpvwCrM+7NWueSYgyF9Lnu1bp5OVI
+	kZN4k1FFRDsT0WhZZiuX+5/Gw25iPucfY8BdC2d9O7oRrP3bv7S9Zy6uMuMscmJXvgNpN4RRlXr
+	lo2BviZDTX4NOsvwLFWjhcS5V3YJ636bgdRHKf4wLtm3mzDRtPGtFMUZ9ZfH+XhviUrThYa5A/Y
+	dyWvYQ1MIUDJ6x4WhPK026cygDEbi3hOjJfW3wLr+rZ8T+4as268WC9zb/BBvgZ1+pWpzOhZBmj
+	5kLgW96PIE5NOXzKnuJy3RNH4YxsYmEd2cbMx9bUHcD+G64KmcIxl6sw3Ywhgnh8MPGqFTD0VBf
+	Uiwjx3ZJR2a9ZaF7Xla+JwUznwv4F/6q037Gxf2gEkacXvFDqcC559uG392J/cHZI/1q74oQ==
+X-Received: by 2002:a05:7022:7e8c:b0:143:1bb1:b3c3 with SMTP id a92af1059eb24-16a5ce94210mr18091905c88.14.1791890949866;
+        Tue, 13 Oct 2026 04:29:09 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7ac0:50::247:c9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16997c21ff3sm38478114c88.2.2026.10.13.04.29.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 04:29:09 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>,
+	Breno Leitao <leitao@debian.org>,
+	linux-kernel@vger.kernel.org,
+	syzbot+8922e6b8343f70be92e8@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH v2] workqueue: annotate the lockless nr_running increment racing with need_more_worker()
+Date: Tue, 13 Oct 2026 18:29:05 +0700
+Message-ID: <20261013112905.9673-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] arch_topology: seed capacity_freq_ref with highest
- available frequency
-To: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Ananthu C V <ananthu.cv@oss.qualcomm.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Jie Zhan <zhanjie9@hisilicon.com>,
-        Pierre Gondois <pierre.gondois@arm.com>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-pm@vger.kernel.org,
-        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-        Oleg Keri <okerixx@gmail.com>, zhongqiu.han@oss.qualcomm.com
-References: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
- <20260929-schedutil-boost-frequency-handling-v3-1-68de169498c7@oss.qualcomm.com>
- <fbd7fe35-5e14-4589-a072-909e49a92e76@oss.qualcomm.com>
- <cfb79ffe-41b7-4e58-b3f5-fc9a28a4e413@arm.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <cfb79ffe-41b7-4e58-b3f5-fc9a28a4e413@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=VqC2kO2n c=1 sm=1 tr=0 ts=6ace15e7 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=9bVTjAMtGWzbgpHzqb8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: NCMeDaX_fEs-HJ-3vGOPGtYKHLkQRFCu
-X-Proofpoint-ORIG-GUID: NCMeDaX_fEs-HJ-3vGOPGtYKHLkQRFCu
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0NSBTYWx0ZWRfX5ON7Vm7PYpyI
- pdek7XsQUp8obIHxJq43Oxpv5wj9Y+FkEf+hMh9KRUZ9/jOAobNlKu5TZU/0BRgsWpM6/0aoLh0
- 3322N0e6YUQRpZSPgXNuSeSdkNw1dak=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0NSBTYWx0ZWRfX5sqb0i/5kELI
- U41mQuCwqa6R1KNWxIMBQOvpCThNcG7QmED61Z2fyAHbpz6B5iEpvpPSLcqeSRVIDBiGqlrqmUj
- eLqzu2FzA2Bhpc6Bk+Bc9iV/TT61idER947MQzMwEwmDdYg/kYSlmXnUmsHIfQmq6EgWaB/QsYU
- ELtgk9w3gk0U15RLIK/UHxpWOSRgBFi3VSZcyKHoM2caRPZFshcWrxjixYw6mAy0KbslicM8G08
- tOs4+38+5QRc5AsjiAxg5Bq7p+IXlvIk7J4tt4OqfgpD2bGI9cf2Z/wH2G3et5AhyRhhqoIGNgm
- vrGYyFOSY/37E16yGTaV/6hiSIgPAwnIPLN5AgJt5hpGRj9as/teMwpYT81TPGQO0MjWsReA4vN
- csb1zA7F2cntBPdoHcwCQ5zKQehTH5WRo7qpG2sFhDmEmRMJ69wqUQPtDLKpX1Ix8w6PUvZnaBP
- ij08X/uwvydF9A7GACg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130045
 
-On 10/13/2026 2:45 AM, Dietmar Eggemann wrote:
-> On 11.10.26 16:16, Zhongqiu Han wrote:
->> On 9/29/2026 7:38 PM, Ananthu C V wrote:
-> 
-> [...]
-> 
->> Besides, could you comment patch v2 Dietmar's comments? It seems that
->> patch 1/2 exposes a pre-existing ordering issue. On DT systems,
->> cpu_scale is normalized only from the CPUFREQ_CREATE_POLICY notification
->> of the last policy, so the cpufreq pressure of every other policy is
->> computed in cpufreq_init_policy() from the raw, not yet normalized,
->> capacity, and stays cached until the next cpufreq_set_policy() for that
->> policy. So far this was harmless because capacity_freq_ref == policy-
->>> max at boot, so the pressure was 0 regardless of the capacity. With
->> 1/2, capacity_freq_ref covers the boost frequencies while boost is
->> disabled at boot, so policy->max < capacity_freq_ref becomes the common
->> case and the stale value becomes visible (102 vs 79 on Juno R0, as
->> reported by Dietmar). Perhaps the limits of all policies could be
->> refreshed once from parsing_done_workfn(), after the capacities have
->> been normalized?
->>
->> --- a/drivers/base/arch_topology.c
->> +++ b/drivers/base/arch_topology.c
->> @@ -454,9 +454,27 @@ core_initcall(register_cpufreq_notifier);
->>
->>   static void parsing_done_workfn(struct work_struct *work)
->>   {
->> +    int cpu;
->> +
->>       cpufreq_unregister_notifier(&init_cpu_capacity_notifier,
->>                        CPUFREQ_POLICY_NOTIFIER);
->>       free_cpumask_var(cpus_to_visit);
->> +
->> +    /*
->> +     * The cpufreq pressure of all policies but the last one has been
->> +     * computed before topology_normalize_cpu_scale(), so refresh it now
->> +     * that cpu_scale is final.
->> +     */
->> +    for_each_possible_cpu(cpu) {
->> +        struct cpufreq_policy *policy __free(put_cpufreq_policy) =
->> +            cpufreq_cpu_get(cpu);
->> +
->> +        if (!policy || cpu != policy->cpu)
->> +            continue;
->> +
->> +        guard(cpufreq_policy_write)(policy);
->> +        refresh_frequency_limits(policy);
->> +    }
-> Yes, IMHO, something like this is needed.
-> 
-> [    1.169158] cpufreq_notifier_max(): current=[kworker/u26:0 46] policy->related_cpus=[]												(1)
-> [    1.169209] init_cpu_capacity_callback(): current=[kworker/u26:0 46] policy->related_cpus=[0,3-5]
-> [    1.169992] cpufreq_update_pressure(): current=[kworker/u26:0 46] policy->related_cpus=[0,3-5] policy->max=700000 pressure=102 max_capacity=578 capped_freq=700000 max_freq=850000
-> [    1.170203] cpufreq_update_pressure(): current=[kworker/2:2 67] policy->related_cpus=[0,3-5] policy->max=700000 pressure=102 max_capacity=578 capped_freq=700000 max_freq=850000 	(2)
-> [    1.170835] cpufreq_notifier_max(): current=[kworker/u26:0 46] policy->related_cpus=[]												(1)
-> [    1.170872] init_cpu_capacity_callback(): current=[kworker/u26:0 46] policy->related_cpus=[1-2]
-> [    1.174516] cpufreq_update_pressure(): current=[kworker/u26:0 46] policy->related_cpus=[1-2] policy->max=800000 pressure=280 max_capacity=1024 capped_freq=800000 max_freq=1100000
-> [    1.175261] cpufreq_update_pressure(): current=[kworker/2:2 67] policy->related_cpus=[1-2] policy->max=800000 pressure=280 max_capacity=1024 capped_freq=800000 max_freq=1100000	(2)
-> [    1.187698] cpufreq_update_pressure(): current=[kworker/2:0 28] policy->related_cpus=[0,3-5] policy->max=700000 pressure=79 max_capacity=446 capped_freq=700000 max_freq=850000	(3)
-> [    1.187847] cpufreq_update_pressure(): current=[kworker/2:0 28] policy->related_cpus=[1-2] policy->max=800000 pressure=280 max_capacity=1024 capped_freq=800000 max_freq=1100000	(3)
-> 
-> The work scheduled in (1) also still operates on raw capacity (2).
-> 
-> (3) shows your extension in parsing_done_workfn() work function which
->      gets scheduled when all CPUs are initialised, so
->      topology_normalize_cpu_scale() had been called.
-> 
-> Not sure whether we can call cpufreq_update_limits(cpu) there instead
-> (maybe extended with a 'only do this for policy->cpu'?). So we won't
-> have to expose cpufreq internals in /drivers/base/arch_topology.c.
+wq_worker_running() increments pool->nr_running with only preemption
+disabled, while kick_pool_pick() reads it via need_more_worker() under
+pool->lock, so the two can run concurrently on different CPUs. KCSAN
+reports:
 
-Thanks for the test verification and the discussion.
+  BUG: KCSAN: data-race in kick_pool_pick / wq_worker_running
 
-Unless I'm missing something, it seems to me that
-cpufreq_update_limits() is mainly intended for platform limit changes.
-When a driver implements ->update_limits(), it is up to the driver
-whether the policy gets refreshed at all (it seems that amd-pstate only
-updates the preferred core ranking). Otherwise, it goes through
-cpufreq_policy_refresh(), which calls ->get() first and WARNs and skips
-the refresh if that returns 0, for example when the policy goes inactive
-under us.
+  write to 0xffff888059c2af24 of 4 bytes by task 3007 on cpu 0:
+   wq_worker_running+0x114/0x130
+   schedule_timeout+0x16e/0x180
+   io_schedule_timeout+0x4c/0x70
+   submit_bio_wait+0xd7/0x110
+   blkdev_issue_flush+0x4c/0x70
+   ext4_sync_file+0x60d/0x6c0
+   aio_fsync_work+0x7f/0x270
+   process_one_work+0x4ae/0xa00
 
-In comparison, refresh_frequency_limits() seems to match what we need
-here more closely: it simply re-applies the limits and therefore
-recomputes the pressure, without going through any of the above.
+  read to 0xffff888059c2af24 of 4 bytes by task 3001 on cpu 1:
+   kick_pool_pick+0x7a/0x3a0
+   __queue_work+0x72d/0xcf0
+   queue_work_on+0x9d/0xb0
+   schedule_on_each_cpu+0x11a/0x2d0
+   vmstat_refresh+0x23/0x140
+   proc_sys_call_handler+0x2b9/0x4f0
 
-However, calling refresh_frequency_limits() directly from drivers/base
-arch_topology.c does expose some cpufreq internals there. I wonder if it
-would make sense to add a wrapper around cpufreq_update_pressure()
-directly, something like:
+The race is benign. The increment in wq_worker_running() is the only
+lockless write to nr_running; decrements and the reset are done under
+pool->lock, so a reader holding the lock sees either the old or the new
+count. A stale 0 costs at most a spurious wakeup of an idle worker. A
+nonzero count is correct because the incrementing worker is running and
+re-checks the worklist under pool->lock before it stops counting. The
+increment can also go 1 -> 2, e.g. when a worker sleeping in a work item
+wakes up after kick_pool() woke another worker.
 
---- a/drivers/base/arch_topology.c
-+++ b/drivers/base/arch_topology.c
-@@ -454,9 +454,19 @@ core_initcall(register_cpufreq_notifier);
+Annotate the read in need_more_worker() with data_race().
 
-  static void parsing_done_workfn(struct work_struct *work)
-  {
-+	int cpu;
-+
-  	cpufreq_unregister_notifier(&init_cpu_capacity_notifier,
-  					 CPUFREQ_POLICY_NOTIFIER);
-  	free_cpumask_var(cpus_to_visit);
-+
-+	/*
-+	 * The cpufreq pressure of all policies but the last one has been
-+	 * computed before topology_normalize_cpu_scale(), so update it now
-+	 * that cpu_scale is final.
-+	 */
-+	for_each_possible_cpu(cpu)
-+		cpufreq_refresh_pressure(cpu);
-  }
+Reported-by: syzbot+8922e6b8343f70be92e8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8922e6b8343f70be92e8
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+v2:
+ - Fix subject: the read is under pool->lock, the lockless side is the
+   increment (Tejun).
+ - Rewrite the "why benign" paragraph accordingly (Tejun).
+ - Replace the duplicated comment with a pointer to @nr_running (Tejun).
+ - Code unchanged.
+v1: https://lore.kernel.org/all/20261012143605.281358-1-ngocthang2710.1999@gmail.com/
 
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -2611,6 +2611,27 @@ static void cpufreq_update_pressure(struct 
-cpufreq_policy *policy)
-  		WRITE_ONCE(per_cpu(cpufreq_pressure, cpu), pressure);
-  }
+ kernel/workqueue.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-+/**
-+ * cpufreq_refresh_pressure() - Recompute cpufreq pressure for a CPU's 
-policy.
-+ * @cpu: CPU whose policy's cpufreq pressure is to be recomputed.
-+ *
-+ * To be called when arch_scale_cpu_capacity() of @cpu has changed while
-+ * the limits of its policy have not.
-+ *
-+ * Takes the policy rwsem, so the caller must not hold it.
-+ */
-+void cpufreq_refresh_pressure(unsigned int cpu)
-+{
-+	struct cpufreq_policy *policy __free(put_cpufreq_policy) = 
-cpufreq_cpu_get(cpu);
-+	if (!policy)
-+		return;
-+
-+	guard(cpufreq_policy_write)(policy);
-+
-+	if (!policy_is_inactive(policy))
-+		cpufreq_update_pressure(policy);
-+}
-+
-
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -251,6 +251,7 @@ u64 get_cpu_idle_time(unsigned int cpu, u64 *wall, 
-int io_busy);
-  void refresh_frequency_limits(struct cpufreq_policy *policy);
-  void cpufreq_update_policy(unsigned int cpu);
-  void cpufreq_update_limits(unsigned int cpu);
-+void cpufreq_refresh_pressure(unsigned int cpu);
-  bool have_governor_per_policy(void);
-  bool cpufreq_supports_freq_invariance(void);
-  struct kobject *get_governor_parent_kobj(struct cpufreq_policy *policy);
-
-
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index 1ae3732a2c51..102e1ab2bb7b 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -951,7 +951,8 @@ static unsigned long work_offqd_pack_flags(struct work_offq_data *offqd)
+  */
+ static bool need_more_worker(struct worker_pool *pool)
+ {
+-	return !list_empty(&pool->worklist) && !pool->nr_running;
++	/* Racy against the lockless increment, see @nr_running. */
++	return !list_empty(&pool->worklist) && !data_race(pool->nr_running);
+ }
+ 
+ /* Can I start working?  Called from busy but !running workers. */
 -- 
-Thx and BRs,
-Zhongqiu Han
+2.43.0
+
