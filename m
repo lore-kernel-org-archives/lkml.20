@@ -1,192 +1,66 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194923EB819
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:07:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F09C3EFFAF;
+	Tue, 13 Oct 2026 14:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900477; cv=none; b=foXKllqgAwFSV8XphgfEv3+g1oBUaLL+fgkzeYefXae+wyWDLN4FXJDa4UZymgcStg3lx6f7H6RVuQ7Daj8SZ6Rq35OjKcAIjAQC5XKVaAjSVNtYzXuGtJYdjp8sXt2DXhPu/OY/QuYDMVzCRIyWuqdsMjbmfYNU9X33A7uEkRg=
+	t=1791900490; cv=none; b=k3Grye+/vmgqJjqSX3hIVFkTskY/c6FB3A4ryPA7kjCqOf7FpRlwSpYJkC2Gg2SxctV+hpI6nEbPKhHFiajiyBWVSp/uz61JbZigaEXyHrIBeskPk+yDvPQII58fmbqvy17vx6DlF9/xoknnvEruWI9lnAxja+nemE5sOKiA0Ns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900477; c=relaxed/simple;
-	bh=OzuAp0rlEJdsfQomS5ope4HzayW0l3aekZR9Acx0XzE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=on/lwToBykEU0HBbRKh793PUbTwaBP+2TvMVH6EJb5oDORuD0BQ5Kwx4EStTZtvk+3v5gZRzAV7SsDCc4DKhc8ghG2gLSXHE21y063hrj+LUMbkHwbW7q7odBseHMCLvQ4JBpxasHlhLns1jhpzsOlpipX8DysWbbzkGOzqTfRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BUk/GI4W; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791900490; c=relaxed/simple;
+	bh=ofF+xAv1HUwEzJtyxlkVeGbz3J3xNSCbNgxFLjDsHxA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=XJ9K02MSQ8nAk6Tttizv2ed5qO36xg8DrWCzIcOhYJOe5y3BQHP5Rcfae5u5wpfxvJ5PC/VwBnzTWbUdBBcXmVTPW5eigrbOQbHigQalYd4NBw1Xrv9Xg5BlQ+k2M9aSx3371c0SyEBUwQ4E68wxlOzafc4RFnC+I/goMJDY7hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BbdU7hhV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BUk/GI4W"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-82374c2d7aeso2215436a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:07:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791900475; x=1792505275; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8sNOFg4Wj9OYyKeIVnikxJmvj26NKKSzvljXjsvUtTY=;
-        b=BUk/GI4WpKFi1kxDhm1sTBlrEmU1Co3SCKtDsEDF/5wUMztCOSMxHgUVwS43gvXJnP
-         OxUTyaD8xK6TXM1Xwm2ICoxAvtfq3YSBN1XmMvinoJKhhxLvVBdGchn3QyKelCtGVzy9
-         fiNNvfXTTwnsGRtUSWVfyKrhL1q/i/UjrX0KnVlhLFCpEvCTGzkRY0xYAKDAdR3fUpCQ
-         OoSIKPhgvfarvqswKWvSs2SkZ+Cc9CcyhFt9u/6u1TyjRpElE2K8WqFVb3gtiY5qVZdg
-         ip8PJKep9E4oQDFly2RsT3VvvOr3n+QJSj1rDVw78Or0oaVFunzBdXkO41FBPj0lDbKt
-         c60A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791900475; x=1792505275;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8sNOFg4Wj9OYyKeIVnikxJmvj26NKKSzvljXjsvUtTY=;
-        b=jWJfX8/Noz8P9jzbd+Ris2ejR2bGr2TPkLuppbmUi+/ESbYI01TA6nc+APGhXOsIlo
-         brs/w6WTDlcjSoY9k6Xhs6Q9VxcPqhIkOBhL13TSs0zAnD9G9d0yT3hbAlElfBGRk3Oh
-         O34icCtwbGhOQA9srz4ysQWzRR9/1+RUQE0/IA94xhwzXmjoRjMbBtuTKkeaU834VoOv
-         gRSL3VkH5nuyFsP0NQ+u6xmOujmdTVWmHvoxcCX+jmxIoWBcApWUeCSqXlTVCKhS4WpT
-         DUWrdNN9/4y7/xZoffoVR8UztvDJW1Pz4wHaCszM62YSLW7hsHFiZ1jM6MPS+cfxC19I
-         ObUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxU/x6gjw0UU+ZwgpD5VvdF5vwEIO/qf/wK3B6vs8oy8TwONId7YWMhXln2iei3YS8ZISDnKp4S0pN3d7c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdjVZRkBq3KZ2K6UajDoj9GPv8ZcHGdxAKkU6DEYZOhBm9Izyr
-	h0QUqjYsOh+Zewu/6n297YD8/Iz9ILdyPW32fTB9yH+ske6AQ0oIjbHX
-X-Gm-Gg: AYBFou1uXk3HW/suiqR+Gkk7n8sm2NxUg7H5N9QLSxgtI7jYIab3KJxZYhP9HemnSKW
-	rgndkp7QB/3UZZNsBP50qaRhUhRobZMvU4JGtrdZYeaWDANZbhs037Mae4Qbpt57r2u43dsVtGI
-	nCKKKtWxyRIi9ALrYAH9KGdfj7LeMzhIkY18X+DUVeHmcnGewo5QVz1I7LxtlK9xcjZuh8Vwdij
-	jSqITh7TDsqBpIShpoc3IUH1N0i2K04QX61ySl5d+tHO+QtRxPV9EaHk0GD7G13yQQu/MyEbaiN
-	xlyvHbNEQ3CHAeT20+L+7mB0wMQ+xpmlU6yHoDq7lHFzInDilKXi4HgBRUTBbfxKtVMyuj++YKG
-	CU5soCjZLbF8XeGU4ZgIkFJNm/bO1O0Pp3xNaMynI+LV0eFzMbUB7v7ak7qR92rYe+Zg2cpfe9n
-	2ZhWJ93dWUC25ZjtwIVE4BYViJGIGLNNRGG2Ztg6/Xr8rM3jxdDMEXHQfXcmpjyrGimgb/5x24I
-	LnuQGDPt0ZqZsjJN1e8L1ilkU32fY6ClkcmJTmebNKhE+XRA37Lckm2K1VaLYL9stmQJTZFDwiF
-	msk=
-X-Received: by 2002:a05:6830:854b:10b0:839:c62a:1661 with SMTP id 46e09a7af769-839c6398053mr1807548a34.7.1791900474853;
-        Tue, 13 Oct 2026 07:07:54 -0700 (PDT)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3dfa1sm12646295a34.18.2026.10.13.07.07.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:07:54 -0700 (PDT)
-Date: Tue, 13 Oct 2026 09:07:46 -0500
-From: Ming Lei <tom.leiming@gmail.com>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, tj@kernel.org,
-	neelx@suse.com, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
- cpumask is empty
-Message-ID: <as47Mma7pksi_i9C@fedora-laptop>
-References: <20261012012905.267920-1-atomlin@atomlin.com>
- <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
- <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
- <asxLLWOQQzolER0a@fedora-laptop>
- <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
- <as4j_Zk7zcNsBuo1@fedora-laptop>
- <i4xh6jsm222rtn7pka57fuo3scelrlzywrvq5kor5sy2jjlrmq@tkqbbrzimfrd>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BbdU7hhV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559671F00893;
+	Tue, 13 Oct 2026 14:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791900488;
+	bh=2HVKqoOB1X7GP/aZfzXLhT5w/2aArkSIVTL6S5zxtZ0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=BbdU7hhVb2m0vf4h/kUmfhG/IcB+v5tX83qb+/F7HVjDxoOBjgF4kchTqcPDo0EJK
+	 WeHml9CCKvXP4vjO67BSqNyFFWcz16ogOBLPxFH9rbfOMGX5jvF3FwFu0D/uNKKeYn
+	 ZHSXyBWAGhdqBClGTS/gL3DXoOskIHqQ/7Ct1xS/p7v6SM719A4ajHvHO+W2gmVXHT
+	 1HHWJfd4kpRoOn68l8aWHGUUje6RICpXqAXArNRQPixR7Ho3LJ8ycSx2ZfPAD079ub
+	 mcUu20JaHxC7WfCH+i9yFiaCLwU9FQAsjuDNlgTnOrr9OntkZNm3w6WWdL2p7KXz5d
+	 AftwrNYC9pFNQ==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Flora Fu <flora.fu@mediatek.com>, Alexandre Mergnat <amergnat@baylibre.com>, 
+ "Rob Herring (Arm)" <robh@kernel.org>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
+In-Reply-To: <20260921232632.3131680-1-robh@kernel.org>
+References: <20260921232632.3131680-1-robh@kernel.org>
+Subject: Re: (subset) [PATCH] dt-bindings: mfd: mediatek: Allow MT6357 ADC
+Message-Id: <179190048608.3947243.2010641297800575324.b4-ty@b4>
+Date: Tue, 13 Oct 2026 15:08:06 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <i4xh6jsm222rtn7pka57fuo3scelrlzywrvq5kor5sy2jjlrmq@tkqbbrzimfrd>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-On Tue, Oct 13, 2026 at 09:33:42AM -0400, Aaron Tomlin wrote:
-> On Tue, Oct 13, 2026 at 07:28:45AM -0500, Ming Lei wrote:
-> > No.
-> > 
-> > For example, schedule_work() is queue_work_on(WORK_CPU_UNBOUND, system_percpu_wq),
-> > a WQ_PERCPU workqueue, so every schedule_work() from an isolated CPU runs
-> > on that CPU. blk-mq isn't special here; this is the general tradeoff of
-> > submitting IO from an isolated CPU.
-> 
-> Fair point regarding schedule_work(). I concede that mechanically,
-> kblockd_workqueue is not unique in accepting WORK_CPU_UNBOUND on a per-CPU
-> workqueue. schedule_work() indeed directs WORK_CPU_UNBOUND to
-> system_percpu_wq, which resolves to raw_smp_processor_id() within
-> __queue_work().
-> 
-> However, the crucial distinction lies in the semantic contract and intent.
-> Callers of schedule_work() seek local (or best-effort local) execution;
-> there is neither an assumption nor a guarantee that schedule_work() avoids
-> isolated CPUs.
+On Mon, 21 Sep 2026 18:26:31 -0500, Rob Herring (Arm) wrote:
+> MT6357 PMIC nodes can contain an adc child using the MT6359 AUXADC
+> binding. Add the child node reference so the ADC subnode is evaluated
+> instead of rejected.
 
-Then you admit the same generic problem, nothing different with blk-mq.
+Applied, thanks!
 
-> 
-> By contrast, blk-mq has an explicit architectural contract to avoid running
-> block kworkers on isolated CPUs. In commit a46c27026da1 ("blk-mq: don't
-> schedule block kworker on isolated CPUs"), the intent was to deliberately
-> excluded isolated CPUs from hctx->cpumask precisely because:
-> 
->     "blk-mq kworker shouldn't be scheduled on isolated CPUs."
+[1/1] dt-bindings: mfd: mediatek: Allow MT6357 ADC
+      commit: 89089e041cd522b5e64c3f0c5782361db13322d7
 
-I am pretty sure that the pre-condition is that IO isn't submitted from isolated
-CPU. You can send a patch to make the point explicitly.
+--
+Lee Jones [李琼斯]
 
-> 
-> Furthermore, blk_mq_run_hw_queue() explicitly honours this policy:
-> 
->     if (async || !cpumask_test_cpu(raw_smp_processor_id(), hctx->cpumask)) {
->         blk_mq_delay_run_hw_queue(hctx, 0);
->         return;
->     }
-> 
-> When executing on an isolated core (!cpumask_test_cpu(...)), blk-mq
-> deliberately refrains from inline dispatch specifically to offload the work
-> asynchronously via blk_mq_delay_run_hw_queue().
-> 
-> When all CPUs mapped to that hardware queue are isolated
-> (blk_mq_hctx_empty_cpumask(hctx)), commit a46c27026da1 added:
-> 
->     /* Switch to unbound if no allowable CPUs in this hctx */
->     if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
->         return WORK_CPU_UNBOUND;
-> 
-> The express intention of that change was to switch away from the isolated
-> CPUs. However, because kblockd_workqueue is WQ_PERCPU, returning
-> WORK_CPU_UNBOUND inadvertently resolves to raw_smp_processor_id(), queuing
-> the work right back onto the isolated CPU that blk-mq just went out of its
-> way to avoid.
-> 
-> That is why blk-mq is in an unusual position; it intended to avoid isolated
-> cores, but relied on WORK_CPU_UNBOUND to achieve that on a bound per-CPU
-> workqueue where that mechanism cannot take effect.
-> 
-> > You already disturb isolated CPUs by submitting IO via syscall in this
-> > case, so why does it matter here to dispatch on same isolated CPU one more
-> > time?
-> 
-> There is a fundamental difference between synchronous syscall execution and
-> asynchronous background kworker execution:
-> 
->     1.  When an isolated user task issues a synchronous I/O request (e.g.
->         via write(2)), execution occurs synchronously within the task's own
->         context and CPU accounting. The application remains in control of
->         when this overhead is incurred.
-> 
->     2.  When dispatch must be deferred (e.g. BLK_STS_RESOURCE), blk-mq
->         queues &hctx->run_work. A background kworker runs under
->         SCHED_NORMAL. On isolated cores, workloads typically execute under
->         real-time scheduling classes (SCHED_FIFO, SCHED_RR, SCHED_DEADLINE)
->         or tight polling loops. A SCHED_FIFO task executing on that core
->         will completely starve the local kworker. Consequently,
->         blk_mq_run_work_fn() never runs, hardware dispatch stalls, pending
->         completions cannot occur, and the I/O pipeline hangs indefinitely.
-> 
->     3.  Even where starvation is avoided (e.g. via the EEVDF scheduler's
->         Fair server or cooperative yielding), queuing bound work on a
->         nohz_full isolated core forces the scheduler tick to re-activate,
->         injecting unwanted jitter and defeating deterministic isolation
->         guarantees.
-> 
-> Steering deferred queue dispatch to an online housekeeping CPU via
-> housekeeping_any_cpu(HK_TYPE_TIMER) sidesteps these pitfalls entirely.
-> The kworker executes promptly on a housekeeping core without priority
-> inversion, hardware dispatch proceeds unhindered, and the isolated CPU's
-> low-latency domain is preserved.
-
-Any user visible effect? Both are a piece of code running on isolated CPU,
-the choice is in application. If they want to run IO on isolated CPU, we
-do it in same way. Otherwise, we won't schedule work on isolated CPU for
-respecting the kernel interface.
-
-
-Thanks,
-Ming
