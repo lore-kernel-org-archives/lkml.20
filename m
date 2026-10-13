@@ -1,130 +1,85 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 808B13B42C7;
-	Tue, 13 Oct 2026 08:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3433837E5D4;
+	Tue, 13 Oct 2026 08:42:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791880920; cv=none; b=SAyUFJ5CGQRQZfExllYFKbrI4y5aKksizcZbwP9a0pzEyE866fER8sHbafsXmh46Rn1GdOdqbfoReIodH/0EJs2fUMaQgNudyTisSvY9euLmUwLawyT3ZfZF6nSBSYvl//SxI9dRPiOdY/DgKLovJ/6ZstGo/BNHG+vO7u+ZpAI=
+	t=1791880929; cv=none; b=CJRVFkRjCoIWTOs2aFr6VMyVn/+d6b6TTvAKWtZ8VV2HkGWphvEQvETTjPE2vIM4R+h5Hmv1LSI50f7jpzdl7A4ZE5hS7LXROt0T/Q1Ik0kd2yMBaOl+0RMUnz0JlNv9Z7wZPUE/2PxRCyXSXCQvJxX+RCQeEz8BF6e/sA9TS6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791880920; c=relaxed/simple;
-	bh=NI8CmL/lnRoC7aE++YpF7fiq+bAGnCCUDMqbYkmDDew=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TLLq5FJRA5/x7iyR4SkX3ocsC0RM1sx5yewA5XAgYeWHxORnEf8L7T3LxjVIA0yD0exShE2VpYqk88A0d306lq4ScijplzeaH5ypolXC4CRMYjii+sFvE4IohUJhtRwsuPb+KiZV4NG2pwDA+wLuZo8scIEVFgrus7DF4rn3acU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bZqkt7Lf; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791880929; c=relaxed/simple;
+	bh=ioXqXj9qHHUZuRd1ZaNfaD7DBkCAGpwnNskU7Up9e8g=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Dpv4L+wsyDcsXCe1kMe8gUIcVt2ktRBtgdhSpAVEeTr+N4x72cAxk0rIuGK8UBUqxE0uAs16EPyXSXEzw48nYVbJ9T6vVKm/j75PPvG8Zp9WMJsjFF3LP4WcLihZ67O34p4FLT/VdLjk6l9eqP43X4pyqAjK9EipKe/xMUkfnBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d16CxHQX; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bZqkt7Lf"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6FDCC169C;
-	Tue, 13 Oct 2026 01:41:52 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 702B53F66F;
-	Tue, 13 Oct 2026 01:41:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791880915; bh=NI8CmL/lnRoC7aE++YpF7fiq+bAGnCCUDMqbYkmDDew=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bZqkt7LfHhgrP+LpLkfSWkgVJSZiTZFy4lKziZu5iR37k9EFAy02+ty8P4ISH7oZJ
-	 KekFmta7QOPeZeaIU4GpQdPFpSIaN4Jm43CjCrlwnAe9zBdYufWXPGSmiCV/ITKyn4
-	 5OZk62xDJBVPfh1/7axdbnw2G3tJM7jWkrMYzZEU=
-Date: Tue, 13 Oct 2026 09:41:49 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: GONG Ruiqi <gongruiqi1@huawei.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Roberto Sassu <roberto.sassu@huaweicloud.com>,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Dan Williams <djbw@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Suzuki Poulose <suzuki.poulose@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sami Mujawar <sami.mujawar@arm.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>
-Subject: Re: [PATCH RFC 0/3] security: ima: support TSM measurement registers
-Message-ID: <as3uzQ7L6tJ-Lu-Q@e129823.arm.com>
-References: <20260930-ima_tgx_integration_v2-v1-0-722c35370548@arm.com>
- <ebe68f6463f8ece8a5cd8ce70bba292ec4f64a41.camel@huaweicloud.com>
- <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
- <ar5tOUor0bp3MtQ6@e129823.arm.com>
- <9e74ff9d-e8a3-425e-bf7c-f973d06e6cdf@huawei.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d16CxHQX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791880927; x=1823416927;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=ioXqXj9qHHUZuRd1ZaNfaD7DBkCAGpwnNskU7Up9e8g=;
+  b=d16CxHQXStofBMHx9yWRM9bG9jxATZl0kZ+JpBiVWgdEVzLPi5oUrFSv
+   S8VnxfzKlX03I7w/7L5f7JF/mNiFQHlNxPjOvnHGY0msJzqSI4L5JyUk7
+   /sVldc0tQtCS5eSkp0FXucJZIAghAsFbnOOf8Vku9scS4hx6nQE28WvK0
+   UimQ9d60fqC8P39NhifdFJB7nb1oFohZTtNAiOR09SL38xurUBrEbLoNF
+   BCWhsvOqhkZ6A0pwE+uTd3fnrAeQT5IV29wXE4vQrpPSBrVmg7mMfXBii
+   msuCxuHvdPi5quCyOG9oKobLGYBsXet4F4kstyirS8U1i1h0403I5MX2a
+   A==;
+X-CSE-ConnectionGUID: hSt/8MYORfeLFbERbyKqkQ==
+X-CSE-MsgGUID: zEc+l3R0Q9+uL38BUljmRQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="606405"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="606405"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 01:42:06 -0700
+X-CSE-ConnectionGUID: zolFQM1xQ1uan/wne63aBg==
+X-CSE-MsgGUID: zpmUX4WSSt2OJjWGV/WjTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1160938"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 01:42:05 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 13 Oct 2026 11:42:00 +0300 (EEST)
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+cc: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+    Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+    Hans de Goede <hansg@kernel.org>, 
+    David E Box <david.e.box@linux.intel.com>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 17/20] platform/x86/intel/tpmi: Use scnprintf() to
+ build the debugfs names
+In-Reply-To: <as0-s6JyjfA2zY-B@ashevche-desk.local>
+Message-ID: <24aaf825-ae8b-b19d-4f7f-d5fedc5bcd44@linux.intel.com>
+References: <20261006183037.1507007-1-sathyanarayanan.kuppuswamy@linux.intel.com> <20261006183037.1507007-18-sathyanarayanan.kuppuswamy@linux.intel.com> <as0-s6JyjfA2zY-B@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9e74ff9d-e8a3-425e-bf7c-f973d06e6cdf@huawei.com>
+Content-Type: text/plain; charset=US-ASCII
 
-> On 10/1/2026 10:24 PM, Yeoreum Yun wrote:
-> > Hi Roberto,
-> > 
-> >> On Thu, 2026-10-01 at 13:27 +0200, Roberto Sassu wrote:
-> >>> On Wed, 2026-09-30 at 14:43 +0100, Yeoreum Yun wrote:
-> >>>> Confidential computing guests without a TPM can use TSM measurement
-> >>>> registers to record IMA measurement digests instead of TPM PCRs.
-> >>
-> >> + Gong Ruiqi, of course.
-> >>
-> >> Roberto
-> 
-> Hi Roberto,
-> 
-> Thank you for involving me!
-> 
-> >>
-> >>> Hi Yeoreum
-> >>>
-> >>> a similar patch set has been sent to the linux-integrity mailing list:
-> >>>
-> >>> https://lore.kernel.org/linux-integrity/20250630125928.765285-1-gongruiqi1@huawei.com/
-> >>>
-> >>> Could you please work with Gong Ruiqi to have a unified proposal?
-> >>>
-> >>> Thanks
-> >>>
-> >>> Roberto
-> >>>
-> > 
-> > Thanks for letting me know and I think the proposal is almost the same
-> > with the different terminology only.
-> > 
-> > @Gong, what do you think?
-> 
-> Hi Yeoreum,
-> 
-> Nice to see this topic picked up again — I'm glad the IMA RoT framework
-> series I posted last year is still of interest.
-> 
-> Yes, I'd be happy to work with you on a unified proposal. It's been a
-> while since I last worked on that series, so I'll first revisit my
-> previous patch set, and then follow up with you to discuss the code details.
-> 
-> Looking forward to working with you.
-> 
-> BR,
-> Ruiqi
+On Mon, 12 Oct 2026, Andy Shevchenko wrote:
 
-Hi Ruiqi :)
+> On Tue, Oct 06, 2026 at 11:30:34AM -0700, Kuppuswamy Sathyanarayanan wrote:
+> > snprintf() is on its way out in favour of scnprintf(). Neither of the two
+> > callers in tpmi_dbgfs_register() looks at the return value, so the
+> > difference in what the two return does not matter here.
+> 
+> I believe I asked it already: Why do we care? Do you get any compilation
+> warning (assuming `make W=1`)?
 
-Thanks for replying and I'm happy with you too.
-However, I think we need to rework based on the Jiri's patch [0].
+Hi Andy,
 
-Any thought?
-
-Link: [0] https://github.com/jpirko/linux_mlxsw/tree/wip_attestation_pre_rfc_draft1 
-
+I do care that we've two functions for essentially the same thing and 
+would prefer to have just one that remains (and obviously that would be 
+the c variant).
 
 -- 
-Sincerely,
-Yeoreum Yun
+ i.
+
