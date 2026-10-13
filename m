@@ -1,187 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA957501299;
-	Tue, 13 Oct 2026 12:53:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23AA139FCD7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:54:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895999; cv=none; b=Hnly0BchmUp8zc/3mR+3Bi6m7qzJftty4hTO3G2aKY/LKpCUy1e224RThf7QEwd+8/b/py5IYG3u+Mdnl+obdh7r6+hGEO6wJ9OUzQ+sEF3j2+MT+p7UdYRlpB1+p5h70nuIQXZ6fTj8FWbK1NJgEzYrGDeRypImUSC9GMXRQyA=
+	t=1791896096; cv=none; b=GJ9+MFxNBWjQljmcL/fZLvn8mBTBNL7sTyNxU8tIzDxdfhW+GeM3is79Ox1psmU0MfkV0LL4AiDWRuI6B/arkTHOY6sSoCxMRjkADUhnoBgfd5X7lbUpM3pOoFCKrDBbApMHO7kUrzir+zaw2G5o+m9duCBZ5HeFGtesHtB4Q2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895999; c=relaxed/simple;
-	bh=axOM5j3vOY7t9ZLps+wPbthA9ApS1l0Pw7wVAlogkDc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dri7Miz8Ojdf45I7lBjuQQi813p5/hRUTXnACRRD9UPxQDxi1czxEmIM3TaVTFZzlC2A/6aVXX3QAWTZ0ya/kDFxH805/gJ6dXJeZIH1bwML4aqnV+nkNMV98nhPQBZEmTv3LrNIk7eC0XNXCL5iw45CLnX+0PoaSLMxRZBaxXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KHGkjZku; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791896096; c=relaxed/simple;
+	bh=g9ZBkxWQkJ/c+RVm6Yxc9chr+fL1IMnzCQEXKVZqpT0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DDwzibp66AGwdoCRg/lmAoKxhg4o8uDkAd56MiFhmcEfGsi/xd5btrCOhoFAxca+DHMSwtw2RQGnWbsXfMnSy1PcOWS3zcX+GhvIkNl+gxUY/Bbpt6fJADKTSexBgSnUUa4a0GbfY09mTvX6SM0hPIncWZQy3VYV72ev3yhPx5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=hkOtcR1I; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KHGkjZku"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791895998; x=1823431998;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=axOM5j3vOY7t9ZLps+wPbthA9ApS1l0Pw7wVAlogkDc=;
-  b=KHGkjZkuLRAYuiI/EhiyzJTJ7dptm1DvbYj9gScAffWtvU/nBsyxKq3R
-   /ihUq9NutsqIcXjBL2/fpy8/Bhel/KFfCKrHpoe6l9ry/TLlGPbIraZN0
-   tR0ia5gOJFmENT3mtfAfphyS0grcX6vc9avpIKERtn7iYYpPZ2hbNUGjX
-   M4MI2/E/0Ryy+0+saxe0KP8p+sHIq0HdSWR1NXRvsLkpTkvjnVHZnrorK
-   0b9azZDGfc9nXXWHxEIdewRYoO1m2Qm8+qyVGb98DwuCSrEUSe7skqVjm
-   6Rz5xDQ4AiNVWof7cosXx/dRohooSXHuoY8ytIa8u12I+3MOEzLqRotLI
-   A==;
-X-CSE-ConnectionGUID: IWaWJgvPSOeiINzu+RUoZA==
-X-CSE-MsgGUID: 3w53d/FMQQK2qu3+nATHIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="721127"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="721127"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 05:53:17 -0700
-X-CSE-ConnectionGUID: rkZEuAPGSFixoIRqexWFAQ==
-X-CSE-MsgGUID: jtkGNHzqTl20mhueRPt3oA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1229565"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 05:53:11 -0700
-Message-ID: <becc5593-69ef-4800-bc2b-0fb217165910@linux.intel.com>
-Date: Tue, 13 Oct 2026 20:53:08 +0800
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="hkOtcR1I"
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 63C9C3F289
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:54:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1791896090;
+	bh=0xB5BDPUdJFu48nRTbI7VW4KLiWRolohDwA7T2NysT4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+	b=hkOtcR1IkdZ+yl5WxM9Ioux4fpXILBRzHAWC93rOjauhjhfy4k945sT6q0S/mg2bV
+	 f4IKXwqqgnQe2Gxd3f2qHM9iLw9kb44mIYmEVR1dcEl9xIPD2AU82HXEUqCAtggdjt
+	 KWgInk6XTNFla5u/y2aorc9Nzt7JvyKvvmRmKkD+Va1A45GGPAIsUQIwu66OFFxEax
+	 Q9wxnKbdW7ivCTlXhwpm30BaZmEadCFlzJETx1jbvT4XSphu0jpyrN5WZ3qGpQyPKE
+	 KqjSmZDdmjt3vpNwy6uJ2NJp3r2LP2dolFlBW1u4Mxi0Pier9A/7lX2283bkofy13o
+	 xqEsfmoszFJ8wF2yoTFWhp0PE5hvoEp7sX4csl+95SiI2iDEKpb9x79VamzAgD/HlS
+	 6jOawttEb4WMvcMGGCgUUSqcBUm+quysEN02g+uXpChlLkLXmVhbiSqgxtzcqI/ExL
+	 E/ubnuLXqJodZs992+QwS5ZK6KPT9OPIJVQpG4swdtrbWcnBejboYHe99j1HcF1MN/
+	 +acQVNWvbo6ga4S+hY9wP/ofiJ5YM7XhBIiJnbq5EgGUs+4BJziSJOjLyiTrpyPpnM
+	 XYmFL7CkmW1509fivvMwu2ek7WWbrvb09B4kHO/Vxe72t1MlftVsEQzqmhBeBLYwqi
+	 XUiP4bM0wpK6VnHXex0Sc6pU=
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d904f64a30so3216545ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:54:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791896089; x=1792500889;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0xB5BDPUdJFu48nRTbI7VW4KLiWRolohDwA7T2NysT4=;
+        b=JcMP85/3kggOMlTC2XvivJdZtol2YMuuKM2lxYr2m+xdxqyaf3Sr/rj1M9NMksVlsA
+         DE1z5hBIwkTyTwtPKr6c6H6RM1Psn6y2eSLCFZl1QUlY2nuCesbtLWEsmcr4Xtr6aN3d
+         CpmgzZZjT9GL0T7figuAhAxPAFZU7l32mbZcz0psNpu2HArZXYoptAz2wmWLyRi3Mq5B
+         RlRmUxR7Trtggvyg4IcNmNuAGWGHg82ZtF1N5zXmcvjaeumrLaByH9IpaK3U8xYZhkl3
+         bU3fFIL0pHNvAhrVEvubQDMZ56WOkSAvRNA9MFBQAza/jHdyZekRg++r+c1G8Eo3NIia
+         BKJg==
+X-Forwarded-Encrypted: i=1; AKwUvBw1A6ztGFmyXBd8E/Wl1z0UiAB6Ur03rQWXap0s5rgY+8EpfeTTz0UhhhRMdW171u16eVnEgFghS4xA6Cw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUE0+g4mh8U3ftIYSIFTaEyiQVSMam0d57F2bxKrX90Zo2hZgS
+	g4MatIQcBNyV+H62t50Yjwy1xffQ36sM5898vBWxOEGCGD/bzRjdq8poC/52WFLrnVNTwzAn4jn
+	bRWD2vL+snmBIXugH+SfDkzziLm+ispFkjQxekwnPczQpjkiqbg8iqXCvxqBCMCKaZostQPi2sW
+	nwHB/q8/7aDEZoLg==
+X-Gm-Gg: AYBFou1Ag46dXxxIIFU9/GcPj85UJLXCr7HOqKnpd95qWj+dGCnY7p9o3nBG4SdUyF+
+	2A2ELWay1PwwOdiY4oFFiyUHUKnAhBUYESV1Z8ZXAzYRVLAVGM+T+/2XlQZ/exFNUDq9DE2Ifhy
+	GJBAm4yHDo+zteSW4gws4/BXiQTwyW27rql8lQCBlDOl6/Dl8ZRTJG9mIZvhcq/a2YGUAMqAcaf
+	uVDCdJvz/Pa0AIwmL8d0yE/IRjYJRQVOxLuuV4u1TfVkVz0R2iqHvl5MMJ0Ojjr8pkodFLLDViG
+	60O5CDbmPB4XTqd0eX5+hslbHeYEgSuv4dgJbhx6iS72P4adQ8hXQeBu+8M2o/bYc9QyeYrM/pn
+	BYcSxkQ9RZQ0JrmakEC3ieU4JmdjNBa0eUY24lzhDaGUnACefgM9qYF6u7LCHwXVzlz0snKQL+o
+	z/nDt/6ArbC9q+jWop7s49ZOzc3Hpzi6Aq4yZT0lDtMi3hPYfFUGVEveJqO9qRkdOkcKvsEVDoi
+	2AM2L9kr938cCCJmFKOgEKAwOlfl+DX3sTwn+NwqoA=
+X-Received: by 2002:a17:902:dac2:b0:2dd:b95a:e1db with SMTP id d9443c01a7336-2e8429a9f89mr170224585ad.3.1791896088733;
+        Tue, 13 Oct 2026 05:54:48 -0700 (PDT)
+X-Received: by 2002:a17:902:dac2:b0:2dd:b95a:e1db with SMTP id d9443c01a7336-2e8429a9f89mr170224335ad.3.1791896088316;
+        Tue, 13 Oct 2026 05:54:48 -0700 (PDT)
+Received: from an-XPS-15-9520.buildd (2001-b011-2008-445c-d938-97aa-f951-52ea.dynamic-ip6.hinet.net. [2001:b011:2008:445c:d938:97aa:f951:52ea])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a05f70sm54894715ad.7.2026.10.13.05.54.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:54:47 -0700 (PDT)
+From: ChunAn Wu <an.wu@canonical.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	kiran.k@intel.com,
+	chandrashekar.devegowda@intel.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] Bluetooth: btintel_pcie: guard debug dump before hdev setup
+Date: Tue, 13 Oct 2026 20:52:41 +0800
+Message-Id: <20261013125241.1230408-1-an.wu@canonical.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf/x86/amd/lbr: Limit branch snapshots to valid entries
-To: Peter Zijlstra <peterz@infradead.org>, Sandipan Das <sandipan.das@amd.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
- Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
- Ravi Bangoria <ravi.bangoria@amd.com>,
- Ananth Narayan <ananth.narayan@amd.com>
-References: <20261007181002.4005262-1-sandipan.das@amd.com>
- <20261012153014.GU4121339@noisy.programming.kicks-ass.net>
- <94d387f2-ff07-4895-a722-e8ded4203309@amd.com>
- <20261013074625.GC2009045@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20261013074625.GC2009045@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+An MSI-X interrupt can reach the debug-dump helper before
+btintel_pcie_setup_hdev() initializes data->hdev. The helper then
+passes NULL to hci_get_drvdata() and crashes the interrupt thread.
 
-On 10/13/2026 3:46 PM, Peter Zijlstra wrote:
-> On Tue, Oct 13, 2026 at 12:14:58PM +0530, Sandipan Das wrote:
->> On 12-10-2026 21:00, Peter Zijlstra wrote:
->>> On Wed, Oct 07, 2026 at 11:40:02PM +0530, Sandipan Das wrote:
->>>> The branch snapshot callback used by bpf_get_branch_snapshot() copies
->>>> up to x86_pmu.lbr_nr entries from cpuc->lbr_entries[], even when the
->>>> last LBR read kept fewer branches. The entries past lbr_stack.nr are
->>>> invalid, but they end up reaching BPF programs.
->>>>
->>>> Limit copying to lbr_stack.nr entries and also reset lbr_stack.nr when
->>>> amd_pmu_lbr_read() skips reading the registers, so that a stale count
->>>> is never reused.
->>>>
->>>> Fixes: a4d18112e531 ("perf/x86/amd: Support capturing LBR from software events")
->>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>>> Closes: https://lore.kernel.org/all/sashiko-outbox-163130@kernel.org/
->>>> Signed-off-by: Sandipan Das <sandipan.das@amd.com>
->>>> ---
->>>>  arch/x86/events/amd/core.c | 2 +-
->>>>  arch/x86/events/amd/lbr.c  | 4 +++-
->>>>  2 files changed, 4 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
->>>> index 49b6b8fce566..bf631f60757c 100644
->>>> --- a/arch/x86/events/amd/core.c
->>>> +++ b/arch/x86/events/amd/core.c
->>>> @@ -944,7 +944,7 @@ static int amd_pmu_v2_snapshot_branch_stack(struct perf_branch_entry *entries, u
->>>>  	cpuc = this_cpu_ptr(&cpu_hw_events);
->>>>  
->>>>  	amd_pmu_lbr_read();
->>>> -	cnt = min(cnt, x86_pmu.lbr_nr);
->>>> +	cnt = min(cnt, cpuc->lbr_stack.nr);
->>>>  	memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry) * cnt);
->>>>  
->>>>  	amd_pmu_v2_enable_all(0);
->>>> diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
->>>> index 1e1b2f08cb51..a00d3850c4a8 100644
->>>> --- a/arch/x86/events/amd/lbr.c
->>>> +++ b/arch/x86/events/amd/lbr.c
->>>> @@ -165,8 +165,10 @@ void amd_pmu_lbr_read(void)
->>>>  	struct branch_entry entry;
->>>>  	int out = 0, idx, i;
->>>>  
->>>> -	if (!cpuc->lbr_users)
->>>> +	if (!cpuc->lbr_users) {
->>>> +		cpuc->lbr_stack.nr = 0;
->>>>  		return;
->>>> +	}
->>>>  
->>>>  	for (i = 0; i < x86_pmu.lbr_nr; i++) {
->>>>  		entry.from.full	= amd_pmu_lbr_get_from(i);
->>> You now seem to deviate from what the Intel code does. Please clarify.
->> Yes, it is a deviation. I thought of proposing the following but didn't
->> proceed because I was not sure about the if condition in the second hunk
->> which considers things other than cpuc->lbr_users for an early return.
-> Dapeng, can you look into this? I would really like to keep behaviour
-> consistent where possible.
+Return early when hdev is not available. This covers the GP1 and GP0
+error paths while leaving interrupt handling unchanged.
 
-Sure.
+Fixes: 190377500fde ("Bluetooth: btintel_pcie: Dump debug registers on error")
+Cc: stable@vger.kernel.org
+Signed-off-by: ChunAn Wu <an.wu@canonical.com>
+---
+Changes in v2:
+- Add the missing Fixes: tag required for the stable CC.
 
+---
+ drivers/bluetooth/btintel_pcie.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
->
->> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
->> index 0a34d674df59..5dfb9e9156e8 100644
->> --- a/arch/x86/events/intel/core.c
->> +++ b/arch/x86/events/intel/core.c
->> @@ -2822,7 +2822,7 @@ __intel_pmu_snapshot_branch_stack(struct perf_branch_entry *entries,
->>         struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
->>
->>         intel_pmu_lbr_read();
->> -       cnt = min_t(unsigned int, cnt, x86_pmu.lbr_nr);
->> +       cnt = min_t(unsigned int, cnt, cpuc->lbr_stack.nr);
->>
->>         memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry) * cnt);
->>         intel_pmu_enable_all(0);
->> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
->> index 0b446d8912e4..6b070490f461 100644
->> --- a/arch/x86/events/intel/lbr.c
->> +++ b/arch/x86/events/intel/lbr.c
->> @@ -1026,8 +1026,10 @@ void intel_pmu_lbr_read(void)
->>          * but this simple approach seems to work for now.
->>          */
->>         if (!cpuc->lbr_users || vlbr_exclude_host() ||
->> -           cpuc->lbr_users == cpuc->lbr_pebs_users)
->> +           cpuc->lbr_users == cpuc->lbr_pebs_users) {
->> +               cpuc->lbr_stack.nr = 0;
-I checked the code, and it looks safe to clear cpuc->lbr_stack.nr here. For
-PEBS events with the LBR group, the LBR stack is populated again for each
-PEBS record, so this should not affect the LBR trace for PEBS events.
+diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
+index ac7193400769..8d7927bd75b6 100644
+--- a/drivers/bluetooth/btintel_pcie.c
++++ b/drivers/bluetooth/btintel_pcie.c
+@@ -297,12 +297,17 @@ static void btintel_pcie_prepare_tx(struct txq *txq, u16 tfd_index,
+ 
+ static inline void btintel_pcie_dump_debug_registers(struct hci_dev *hdev)
+ {
+-	struct btintel_pcie_data *data = hci_get_drvdata(hdev);
++	struct btintel_pcie_data *data;
+ 	u16 cr_hia, cr_tia;
+ 	u32 reg, mbox_reg;
+ 	struct sk_buff *skb;
+ 	u8 buf[80];
+ 
++	if (!hdev)
++		return;
++
++	data = hci_get_drvdata(hdev);
++
+ 	skb = alloc_skb(1024, GFP_ATOMIC);
+ 	if (!skb)
+ 		return;
 
-But I’m not fully sure if it's intentional for the
-bpf_get_branch_snapshot() helper. Clearing lbr_stack.nr to 0 prevents the
-BPF helper from reading LBR data from PEBS although the LBR data could be
-stale since it comes from the past PEBS record instead of the runtime
-hardware LBR state. That seems reasonable and correct, but the side effect
-is that the BPF helper can't read the LBR stack when all LBR events are
-PEBS events. Not sure if it's intentional and expected. 
-
-I’d like to run some tests for this change tomorrow to confirm the
-behavior. Thanks.
-
-
->>                 return;
->> +       }
->>
->>         x86_pmu.lbr_read(cpuc);
->>
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.34.1
