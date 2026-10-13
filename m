@@ -1,92 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453463DB620;
-	Tue, 13 Oct 2026 07:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67D523C51D;
+	Tue, 13 Oct 2026 07:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874876; cv=none; b=JkN53Kb19BvqEVC1uHyHuZf31HzTgSFUrBrqoRwznWhJeG0UhrTfnEN1HzqhIrYtLKP4zpPcdCsLNPBmvuz5xyFYxaQU59UvgUHzZxUlPa3IzvIoIxCd4FTa7DLT5Rt1fsD8MRzQCcp/aOvIVJhzv1rbV2MJsx4RBxAO/J/tnps=
+	t=1791874910; cv=none; b=ACbljryHri+iThSc8hB1MzYpsuhVp3UFMW6nwBWWD7tYFaA8vxhQg7z2bztfl58oIhPV5XibsfXdrOvPcms/QRq9mH1fNt4CLenfrMFSFsLbPdEJw/uy2yXk7qJ294RakMLsHnks9LMZap/HzU9xUGORWnqLOz2paD1Gm2If8B0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874876; c=relaxed/simple;
-	bh=dg9qupcEHrhYb1J+oPV/YrQmEv6l8/l0Q0LndazHQ1w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bkYzqc+Xm1ez79EkTHIcTyMGlgakeoiZDa/16TB0U//qBmTNXCX11SU5iKNGwaSUSID+vXCJ1H0wUExjQZVUI3zR3X17rw4znDvHPvyTNVE5WdLpcmfC9BADb6y+kuQ0R576FocnrEbQr6XV734sLh0YVc+6mCDGBDFkCWSI8HM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I19Y/ZD6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791874910; c=relaxed/simple;
+	bh=+UPy/6krrTstZIJcIRr+67NPGDaB4I5n1hfTassAHUA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qJnmPoNDG87B1YnAcrGAz/Tg/uZ1hoeDalHqYzg4qBm0ivC8mfP793YJdilc5Tz1fTzrZzoHXE4cNFHXLhoJejis/uiE5/rqbGsOTDSqDdgH8cYd3HFIRmOj/tLge5UBQjCOq44hfrwFQskqeMLvCMGe+wlzM4MNcroa1bkh6Xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UD079zL6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mwnM5NZr; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UD079zL6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mwnM5NZr; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I19Y/ZD6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36CF81F000FF;
-	Tue, 13 Oct 2026 07:01:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791874875;
-	bh=LM9iJk4mh3/UxpN7ZEsQZ+FE3MHzMPp3PV2jueTNYck=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I19Y/ZD6BA36W8BpvA0CW/zPEgxggpYEPttXAeZTFdsoZ3cERAjcSfXQ0QJaUzsu2
-	 ppGejED5fCcY1Unch7HN5bagvna+UcTGfhCB5qC3EW4uOvJbPjLljt/yFeEwIcykX6
-	 ArQFMZycYQbSxue0OqbslDPRVZb1gniKJXWf3S9f4PhE3D29mQWhRxB5GU1qEk5xhO
-	 KC11WhETcSDs9NCbsDau2y/Qvg763zMZ7fMhWue+UPSfVfLYXtcohXagwrb5kvkNYk
-	 scWsSKeD67TKkar4Am0qvELEoE2PlOLOL2bEvX87mCmPpI69LChhZVqylqCabcYUOk
-	 S2rUQEIHDTyNQ==
-Date: Tue, 13 Oct 2026 09:01:11 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Srinivas Kandagatla <srini@kernel.org>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 1/7] ASoC: dt-bindings: ti,pcm1681: Document the
- optional SCK clock
-Message-ID: <20261013-supportive-imported-spider-c6e28d@quoll>
-References: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
- <20261009-nord-asoc-driver-support-v3-v3-1-0c1897f21ccf@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UD079zL6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mwnM5NZr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UD079zL6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mwnM5NZr"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 904B721F74;
+	Tue, 13 Oct 2026 07:01:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791874906; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KIBB+mMs3l3hO4ztZ2Dclh+qECMa9VM5UD8OyPCvaq4=;
+	b=UD079zL62yuhyqQHDySMvwBs+cXXkiFXrRFPYtCkNTywO6zg4VXZVavh2ICMmXDGNOd8/e
+	k1vhkVAYdfNdRWGsTu1hHh8LXokehf7Tvx0BwsNDqClQlx5SJXApjPZD4mPQ9AHK3EhrBx
+	hsBRwyOy6+5tQoocB5G3uziCJg3/g/Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791874906;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KIBB+mMs3l3hO4ztZ2Dclh+qECMa9VM5UD8OyPCvaq4=;
+	b=mwnM5NZr9sxCZDLV1IzJy5871X08ZQDtxBz8NSbxDSYRrB3jUQUalslOoTxL6ds/0buaM2
+	4u9zZS/SBgQbijCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=UD079zL6;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=mwnM5NZr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791874906; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KIBB+mMs3l3hO4ztZ2Dclh+qECMa9VM5UD8OyPCvaq4=;
+	b=UD079zL62yuhyqQHDySMvwBs+cXXkiFXrRFPYtCkNTywO6zg4VXZVavh2ICMmXDGNOd8/e
+	k1vhkVAYdfNdRWGsTu1hHh8LXokehf7Tvx0BwsNDqClQlx5SJXApjPZD4mPQ9AHK3EhrBx
+	hsBRwyOy6+5tQoocB5G3uziCJg3/g/Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791874906;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KIBB+mMs3l3hO4ztZ2Dclh+qECMa9VM5UD8OyPCvaq4=;
+	b=mwnM5NZr9sxCZDLV1IzJy5871X08ZQDtxBz8NSbxDSYRrB3jUQUalslOoTxL6ds/0buaM2
+	4u9zZS/SBgQbijCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 21B831349D;
+	Tue, 13 Oct 2026 07:01:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id eseHOVnXzWrERAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 13 Oct 2026 07:01:46 +0000
+Date: Tue, 13 Oct 2026 09:01:45 +0200
+Message-ID: <87ecduozhi.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ali Ahmet =?ISO-8859-2?Q?Memi=BA?= <aliamemis@disroot.org>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+40b06a86af225236fdb4@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] ALSA: hda: intel: Don't free card in the probe work
+In-Reply-To: <20261012162841.1879278-1-aliamemis@disroot.org>
+References: <20261012162841.1879278-1-aliamemis@disroot.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261009-nord-asoc-driver-support-v3-v3-1-0c1897f21ccf@oss.qualcomm.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-2
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 904B721F74
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[40b06a86af225236fdb4];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,syzkaller.appspot.com:url,appspotmail.com:email,suse.de:dkim];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
 
-On Fri, Oct 09, 2026 at 06:42:47PM +0530, Mohammad Rafi Shaik wrote:
-> The PCM1681 can use an external system clock supplied on the SCK input
-> pin. Platforms that provide this clock need a way to describe the clock
-> connection in Device Tree.
+On Mon, 12 Oct 2026 18:28:16 +0200,
+Ali Ahmet Memiº wrote:
 > 
-> Document the optional 'clocks' and 'clock-names' properties and define
-> the clock name as "sck" to represent the external system clock source.
+> If the delayed probe fails, azx_probe_work() frees the card and clears
+> the drvdata. azx_remove() reads the card before it waits for the probe
+> work with cancel_delayed_work_sync() so when the device is removed while
+> the probe work is running, it frees the card again after the work has
+> already freed it.
 > 
-> This allows boards using an externally supplied SCK clock to accurately
-> describe the hardware configuration.
+> Only disconnect the card in the work so that its slot is released right
+> away and leave freeing it to azx_remove().
 > 
-> Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/sound/ti,pcm1681.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml b/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
-> index 1f0e6787a..1b3803518 100644
-> --- a/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
-> +++ b/Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
-> @@ -21,6 +21,13 @@ properties:
->    reg:
->      maxItems: 1
->  
-> +  clocks:
-> +    maxItems: 1
-> +    description: System clock (SCK)
-> +
-> +  clock-names:
-> +    const: sck
+> Fixes: 39173303c838 ("ALSA: hda: Free card instance properly at probe errors")
+> Reported-by: syzbot+40b06a86af225236fdb4@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=40b06a86af225236fdb4
+> Signed-off-by: Ali Ahmet Memiº <aliamemis@disroot.org>
 
-Drop the names. If they are needed for any reason, then use the same
-name other device uses already, so scki.
+Applied to for-next branch now.  Thanks.
 
-Best regards,
-Krzysztof
 
+Takashi
