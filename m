@@ -1,166 +1,124 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679293F5BF5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1C64078C0;
+	Tue, 13 Oct 2026 14:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902622; cv=none; b=gaQ3uw6G/qZcmnSibjZlEHgdDLx978aapapB91k9un2UlUtLJq/OljZ/x6Fx3jDdA2ST2g8YxD6ZNrc/oCKJUmKxk5T2ZST6P9ssPD/gjtKYhvzCYajI/HH353frolK9WH4xAYNASV4Pyfm2a64TrAe5zMBnNhxdwyTRNzC0ckY=
+	t=1791902649; cv=none; b=Rt9bh9wdK5p7WNx7bLRdmKne0FCrC1pN0xBDDPiQw9p1LiOkY8ficeD4ezHGQ8zrryzuNk0X8Pc21PF/1ZE63yuk5nHDXnBKDe+ZLX/IFCAS8XekJtyBIVrlx3jvQsEUo0R36odrGnfw4v5Bg417MYqO843nLwfgWVAheYgV/lU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902622; c=relaxed/simple;
-	bh=hRee58Kt7S5y/UGwQRupQTcuC10MswKmClFHJFzTshw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TWiAswfi/JNyzOjUpQsTzfJowTTtshR0XGgjT4wfp4NuQZvXVlo6gjHwDYXDj8A96fgERk7X1TOqsqFR9NT3n01YNaCGHcYtimjXvAKvCAjsdrTrceqGiuwL0+9s+2UGGCHdVvntDWpbzWED6DVaTsh3MJh0AZCoUBSZDUDc+Fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NkmMHhqg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Sp72T/LC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791902649; c=relaxed/simple;
+	bh=Amh8o+ETNNEm6WYXIFVGpviCVtj9ZnAIuTaXyZIXBmQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JFT0qBQ9cTyoAvjob1RkTG4yTLywe5W4UYy6MmLjJj5PsFn/9LVYSmW/AUIHm/nbyecXiJa52jsXpfj6mvcHeli5N+qO9eodwN0mWaOzRVQZ8pv835YDxXbydYd+hOigrU5efqNqwXLUAiiqpmFlCN6DUE5en5lVSh5CCYmRnV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cI9n1+4l; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NkmMHhqg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sp72T/LC"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DE3rqc1999317
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:43:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XGrFsGdzOaW98t5aAcMeDng2+ODIxPogmmneM/3dCzg=; b=NkmMHhqgRbencrNw
-	RJwnSiavZsDuBaUzcUXIqxcOFMR2Z0zTQsSmUVrUEBx/RT/HmlX5CcLI0YbI4W7+
-	DlHA7scOvyPFOb94xonF+aEuCJc9338TJduxFC5VeQ3zPymQt8Ey+4QWJCVpoFtg
-	8r1Uscj8L+jmk0uR+YesT+3g60g7bI0bZ8vBZJjqr2ev0BdkB6/uZM8WFu04SmM3
-	oimIHGuXAegGfdYYbuSMOqBGlZYdYXM11eAimmOZNQdTpPGjmhvB2TlLTn/pKvDK
-	MiHF32EH35fzMT/wnfoKS+3CXr/rRgd9Cy85KOgb9vreN65kR0HP1+ZXc1+FoCkn
-	t940hA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9f62a5mk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:43:40 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934a8cd3a8bso40771585a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:43:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791902620; x=1792507420; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XGrFsGdzOaW98t5aAcMeDng2+ODIxPogmmneM/3dCzg=;
-        b=Sp72T/LCMTI0OgALyLF/x9KP3PuJhqMfxPMHDf463bjSNXmyGuSZvaYQLVbtaudvmg
-         ikBBxCEm8zcwKUVZOnkQf0V0HtrMBxZIXv0ygEvmUIDuJ1m7SmgQvwrlifA10Q0ewBOA
-         HxItJ+GceZNu8rvaiIqx4luRvSuDyeTqeOk2DibP2lkbI+G+anv7kr9Gfb4uWCFlxVrd
-         y/clb2F6Is0WBe88quaA9TKelPNruxkR09A11sDC+ctl12ds8mLpLUNIx8pWA8HIfDuX
-         +HW2nEG2l2NvUORSjaD2edL14Z9Dbe4OLa4VxQZAHLmzCmB6vPnNo8cJN3CERUVQqtau
-         d8bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791902620; x=1792507420;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XGrFsGdzOaW98t5aAcMeDng2+ODIxPogmmneM/3dCzg=;
-        b=v2u8rQ8HwfN+SLMqwcgYEETtjb2D+r4dxdXcEDhFqJb+ntqSuEZXcqz00kv/Iziwjc
-         es4XsPyGIAaC+2XWfZf7fgWfSuaqOElIezDSBa5t+uziApHlQCh2QG4lAJGEdSH/Vego
-         m0m52gqmM2YKQBWkLEZqATytLmJBC6oZQ2Vt5CV1YkGDgUFlFMKK9bP0BU5RmlwNu2/a
-         HWu6MK5VjDKqeT4i47LQQ9SBK+oSteMC9bQDxZs66BM1LlUPbMQ0kWaWPfqg+QUBKiOB
-         9NbGeiXYPrZwOColyjIyTVvxl64QHnp4WlwyCgeLUU5BZIapQSkOKR01ZdoDQRAfnKtq
-         hPvA==
-X-Forwarded-Encrypted: i=1; AKwUvByRBg5NmbbfTS+BqnmtDIHFOWgvVrcVwAc+dljYIqnjcSHHoWFUfC13hB1kC4xz1lMHtrqBBMMN/k9tAzs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTGd+Jo31WZ2BVUG96PVhcSoZo3hGRy+3YoVCIcjHymikUcl8E
-	6WAlUJ+LpF+fxPRVKOjX0/rjLruKwraUd3GJMidtpucR72MubHAJNDqCzqJYBITiixluFtapJgJ
-	d6cZRP25Tl0SriE48a12li8zJzJpIMid4DMJFuOFmP2KUKR2ndCrFPMmAVfyyF/2o+wXx8gWPkM
-	0=
-X-Gm-Gg: AYBFou3vTUDi+HbpJhcj1I8QNGnAUczgBXeYUCgLMyZJsM0q+T8Rzc7wCWg87K7fWrf
-	giaNkQHIVlXIXlD83JwepO1NkaJ3unjHs8QQBcdkT71tVyggSb4CemoMxGrby/knz+b6yAbSmB9
-	5SvD5uodeAgEgszvfp5+yLxvIb9aPxs+Z0xPtdK/m8I2fgW6ZsVcZAleFCLxVwv4biUASTyXW2v
-	2b7ST+o6VqHaxL2mczng0SteDgdUf+khhpCwIfgXMA6Y05WvxZpCdvtFGoxjdhuJfsaa4aSkUcH
-	orMnizHVE/WzBK1aACf0pggrb2rq12UasoY1KvZG4kcnuupMflWXxi5aUVrNtw9badYdYp2UaYm
-	RZW7vv0/sqOW6o9F25gk44w==
-X-Received: by 2002:a05:620a:269a:b0:93a:14c:329c with SMTP id af79cd13be357-93ebd0c2693mr2404963085a.1.1791902619668;
-        Tue, 13 Oct 2026 07:43:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:269a:b0:93a:14c:329c with SMTP id af79cd13be357-93ebd0c2693mr2404959085a.1.1791902619270;
-        Tue, 13 Oct 2026 07:43:39 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac9ecfsm620584966b.74.2026.10.13.07.43.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 07:43:38 -0700 (PDT)
-Message-ID: <a7f04052-37d1-452c-8755-013e6e16414b@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 16:43:36 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cI9n1+4l"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DDdDmD2016202;
+	Tue, 13 Oct 2026 14:44:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=NJ50x9XZV4rMl1mnyhjlA62Bq/86Qe
+	yubCAiT/O6+5w=; b=cI9n1+4lUgLsYJq5ZtyQNZ3D48gLMo0BpD3uKUqDXrCtl9
+	e2HoqYb3D1ARcFRCZmKssxKp8duTig/pmgJd8g2s4d9Ph6ckFfLGZ0o+rn1yAciy
+	AAXWhh1RFA5YAEIrebyFGiQ6m7C5BjuDq1F4rlka9dgga6dNYagPKoD/znTcIiuw
+	LE3lcF0k+36nxUmTNqN3Z2DY5N7RnQ5Ip+eAWKzKD9s95qZ+ZAkXIc5dzvl5i5kd
+	/zJIAdUIV6f0NdcL2i8HGCnuCZdeHlX9k6p5UmK0O7JldBc6BqmD1nj72LBP6+li
+	gHJlDo9Ibjd2922ozVEAmNUBXASYsuqIlHE/ykKw==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugerw8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 14:43:59 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69DCU3xV2709266;
+	Tue, 13 Oct 2026 14:43:58 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816h2apj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 14:43:58 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DEhsS245089106
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 14:43:54 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7CB4F2004B;
+	Tue, 13 Oct 2026 14:43:54 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 05D3620040;
+	Tue, 13 Oct 2026 14:43:54 +0000 (GMT)
+Received: from osiris (unknown [9.111.34.214])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 13 Oct 2026 14:43:53 +0000 (GMT)
+Date: Tue, 13 Oct 2026 16:43:52 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+        Muhammad Usama Anjum <usama.anjum@arm.com>, linux-s390@vger.kernel.org,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        kasan-dev@googlegroups.com
+Subject: Re: [PATCH v8 10/15] s390/mm: Cleanup pXXp_flush_lazy() routines
+Message-ID: <20261013144352.128264A4e-hca@linux.ibm.com>
+References: <cover.1791365932.git.agordeev@linux.ibm.com>
+ <964adeedfd20d4dbcc9a6341f57ec7aaac6c6adc.1791365932.git.agordeev@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 06/11] arm64: dts: qcom: ipq5210: Add ICE support to
- SDHCI
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261012-08-dts-v7-0-77bd3d68d850@oss.qualcomm.com>
- <20261012-08-dts-v7-6-77bd3d68d850@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261012-08-dts-v7-6-77bd3d68d850@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=FOKOVOos c=1 sm=1 tr=0 ts=6ace439c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=lT5hrBjHAMB7_Zzis_wA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1OCBTYWx0ZWRfXzFmAJPhDE8CP
- sKFZZITPDXkeabaoYT72LdJLhnFz/XaHbv+pLB+C7J1X6+KkzQT5fRh7Z0IJN/3efnKWq3h07u9
- lqFtC+MrzDTcrrf6ObYT7NvxLr20a5w=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1OCBTYWx0ZWRfXxSrLtL4GygVc
- kLGkZNzjdhq8z7ymVU5bVN/l/iBXA31nisKAAHI0Qj8hyWXGRc4mZV2DjX6Bg02tazHbAeDzxig
- /HsDqd+G6SMNKTrA/3eyeWSFYzIu7CekefobG7DBlat6meWtOe5Z2EwBzKDY8AKI1nUpF2lNt9G
- MhsevWATUGw78u2Zym7Engt8il1I43NwAyJFB+9K7JK/XtbaLEvOfnqpoW5tLxIYCoYA5lenyJu
- SI1zHRA4QzMdjmu1jwYPp6pHGoEi5hIFraqNqbGPOBkSHwdc1htrNFPLylRMq/DVJjRt5bPlOml
- hfsu+9x5P0zaNgW0A/raku5QFoz4YynOII3uIu4iXX0jgXNgOLg+vYCcEtVYRaHUO5u7P6Ht3p3
- Ylnabt5mhshDHgJkcS+8d2YsBxla5aSdfcSrqW3LbeffDccDuGjl6ZmWaU8VaY75DxXuNDsLS2d
- CcmDa8+CAOUNfPW8jIg==
-X-Proofpoint-GUID: 7TN8x8omm7j6OYvNIerEuXmU93hXjoEC
-X-Proofpoint-ORIG-GUID: 7TN8x8omm7j6OYvNIerEuXmU93hXjoEC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <964adeedfd20d4dbcc9a6341f57ec7aaac6c6adc.1791365932.git.agordeev@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6ace43af cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=mmsD3Eh6YA-KHFnkoBgA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+X-Proofpoint-GUID: oWaGvRRXTzXYQwvMlJ1EMK_XRD2gIlgd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1OCBTYWx0ZWRfX+nEyqHNkh3qz
+ DhaVa3dj0ROQ6LabrhDVO5Vj99k2pMmy5SA3qr64Df3VgF/CCOKdIGjLZwGPbaDTvUPMjjhp6No
+ lBqwFVJxB5w8x/M6AJ6J1GGay0MlXLCTEgJARo+vHtsPGRDbs3wYXDuSaYOM/EoeCBYkEyDsrso
+ WnJQzSDnfOltaZNf7fz6jm+wydCfySmPKIYnzS2zmqz2w7A3MjOlfOD65HxBuKCA7VkVoObHTXu
+ qS7vtD6cDHTNUZ+DFz5rDqtwGxjl1gzFsRM8ITuMHA5YJXGV+5u2edH9Ds5Y3M+TCCPcJb5VsRd
+ 630mvLRM3Ue9GPD7ddXjoP1Hf5ltEdNYXLML/dZYckl8PiuJ63zUr2PUDQa5ynTz4jRGH9wmuHZ
+ S68i3VBLZudoL3r0vs/LMiCuy2m0RAqYuNU6sIe049QCX02iibJFrKtpK/KFN0MqzwZ7/V7F/Le
+ geE9ThbgH9xRgeLSkGQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1OCBTYWx0ZWRfX+ebmIRF7WKZt
+ Bp7b2U5kHDjmI8Pos8BLqth/8SogBIzeXk2haGwf+x0eQI20V8EaD77MijWUfnk4sYCKULYsbEG
+ 7qzRI0T+esyLIHZKnYyB5Y+Ig8zRbv0=
+X-Proofpoint-ORIG-GUID: CQ313svkBdd2nH7F9syrZVINxu4jyakU
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
- spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 bulkscore=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130058
 
-On 10/12/26 9:23 AM, Varadarajan Narayanan wrote:
-> Describe the SDHCI ICE register region and clock, and enable CQE support
-> for the IPQ5210 SDHCI controller.
+On Wed, Oct 07, 2026 at 01:41:53PM +0200, Alexander Gordeev wrote:
+> Avoid unnecessary pgtable entry read in ptep_flush_lazy() and
+> pmdp_flush_lazy() routines. Use the already obtained value of
+> a pgtable entry instead of dereferencing it again.
 > 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> It might appear that the optimized out second dereferencing happens
+> under mm_context_t::flush_count lock and therefore a race condition
+> is possible. However, both routines write invalid entry bits to the
+> pgtable entries and therefore no reader is allowed to interpret the
+> rest of the value afterwards.
+> 
+> Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
 > ---
->  arch/arm64/boot/dts/qcom/ipq5210.dtsi | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> index d28d68a10958..c14b42c22616 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> @@ -416,9 +416,11 @@ uart1: serial@1a84000 {
->  		sdhc: mmc@7804000 {
->  			compatible = "qcom,ipq5210-sdhci", "qcom,sdhci-msm-v5";
->  			reg = <0x0 0x07804000 0x0 0x1000>,
-> -			      <0x0 0x07805000 0x0 0x1000>;
-> +			      <0x0 0x07805000 0x0 0x1000>,
-> +			      <0x0 0x07808000 0x0 0x2000>;
->  			reg-names = "hc",
-> -				    "cqhci";
-> +				    "cqhci",
-> +				    "ice";
+>  arch/s390/mm/pgtable.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-This should be a separate node, like on other SoCs to allow things
-like frequency scaling
-
-Konrad
+Applied, thanks!
