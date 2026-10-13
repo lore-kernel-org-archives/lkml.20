@@ -1,145 +1,139 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527BC3E024B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18F33E6DE7;
+	Tue, 13 Oct 2026 09:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885435; cv=none; b=PJXDeB0+u1FEvs2fQmo+qSU3pbGezE1WzkYoz8MXcc6nw/9YpAekyvd3FMD+Ch1SmC1da3dUl3g7Tp4X3lE9hdGw8bGc0iLK5lOn/9tssy/hVqvV1RWuaAgrx49NHCxQM0O2sCxqxZn/plHzuIa4lhP3Ghcj2+8gVSddw5NsVb4=
+	t=1791885436; cv=none; b=oNinB4LXC0IuuRFSZoo2QokV9l/Y80rljjPHYC2owiuvX6e2qDyKtuJ2VPy4iBJFhQv4gvaSRKIxqw90IOHKDMQkTaBZXLG2jkaOKghPoLfmWhkZGaCybIBsNozNGy6vEQ6A+UM54nVcxov+xs10XYp42fwfmhVRrdIi0GIQqMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885435; c=relaxed/simple;
-	bh=3abKAhIkx78dcddudfnNcTjPTC2m93Ecx/g3mCrvIXA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Es/+dgyjnyC6O1AP+/0Abbx2HLBj5VTr8a4QKsZG7lkP/ifA+oKQS8iETnBbO2V+iznZnYmwWVK7uGdmTccjGmmb2v8RCij538Vu5Vr/VQYGqaOjmeDiNdN/UqMrL8Tf5VbmAEbD7ob4fF17MEvhLVcK+HXei6blCo/ImAjASLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NZj7fXTe; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791885436; c=relaxed/simple;
+	bh=6TYElkl1vMwUo8ragwlZEazBoe8TG/eKKLf7zn241E8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oelB5N4FVixD3XAR0gcPLFaoBbtHrTLzuVCFSEzE1aSs9hqgRGPFQHO4dfXhw0yotdl/G0p5bM9roQysTP+38LfCVdX5tzHU3ALESr/j/97hMkakmoJf3UjJnqbyIChBOXqQE0vk46qZ07TYmrfQY+G4tayLGkdT8Gnx6NLovAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SUkGAmqp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NZj7fXTe"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e60f9af6e6so22910005ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:57:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791885433; x=1792490233; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/PxcGxjYizPXeuPKAi/3W+fOgW1EHAMoCbtXdC0dqqY=;
-        b=NZj7fXTemd3FwIdCzbH1u/+9FZlh25O6xVetzf/4AyjbPX7IlmyMirqlvrYsITTaBm
-         upLkG6jmM9zMQPHw9BIq/hr0ZPwesvXcS5FVzeeWmYx1pdHHpTRTmlQzuJG9gBE13seG
-         fZluWV38mVPOxtKHDd4mwYgYK+PQCaaSIp6NAfKkqZ/SUcOPE/42ht3T4Z2J7x42xWqc
-         jVCFGVqu7EbkC2UGS6XFgLuPEuxOTvRw6YV1GIfTVzvzsWOVrWA4S63+GydnwOlEjTPY
-         P6UCvXTMQ8IqU5Vdf40r7WAntDo8PhnCPgGerUXxe+wEtyQ+wlLc/8ZNxePkL55g2N/z
-         qizA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791885433; x=1792490233;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/PxcGxjYizPXeuPKAi/3W+fOgW1EHAMoCbtXdC0dqqY=;
-        b=ygZBN1/1uLO5x/GvyyO1SvEqcm95VO5saHEosgjSuzTzPMjsRYeIGO2lgVJCNyCm50
-         FAwI/j1EaeRkyP+jwwqJi2671t0GHS9Zz2DyHG5OznwNqFs2JshB6dCqi9M/9/sAwM8K
-         aQKVqdPoX9g8socpNeCvUnU9tZG4CeWJNwwd3e9iutbFQ44Ftl5JK2doRMB8mh93eC8V
-         SEPTGy6bsp5o2XHVJ1yD65TZqDVnbhr4O7gnyyOn6M137rzExG+BisMS0VQgjCVBlOPX
-         UAMQsV5pkUmo2APxgDTBd92HfDsKiHYnlu3l3CetMdktlU1OgguCbvb0rhFgO3VeSiwc
-         b8gA==
-X-Forwarded-Encrypted: i=1; AKwUvBzv5JkqGNMxNSDxP4+BRYSPo2/lfte66V4OvGJmDCUGiyl2zvwq3Wq7fggdft90+YYqHOOoNJMzJdx0cZA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoCGlMVmIouyHfMPKhQJj4nX5B7u50j88MvINxiGX51fXCCul6
-	11/rccIFfxoUaNjlQBd/sUvsbquxhNqjAmAGOTRRQDI4tYrsvLzLvCo=
-X-Gm-Gg: AYBFou0oDrHUwAdQZRXUprR7uz25fNpwL4h1/Ftczrpj25vPXYVzWunmjrCNL7pbZ6y
-	kr0CVfEio5WxwvzHhPH6/j4jaE437IUgNt90rLv50f9RTrHrqo+P249qrTbuJzUpf+klxxbrYL/
-	yhRFsIXAZVBAknaOPKx8xA3ywc0udGPAJDnLTBbH/D9TQqpR0JHyzqkVSf56BtH9GGY0M4aWBaB
-	wO/ihLchv+YfUuSTUZQZKts18O476X2PDTvX+xda5xJcdcUApCaN+GwgksjunAB57MySos+UoV2
-	+AcSpTnMquF4fY66hDjm4w93sdpzI6PmJyXv/6QJwZaZ5oskffk5lG20cfPccd/f+J/yx0fcgRf
-	Mn30nW+hBcjqElTPkzFPaufpaDk3p2eEIc3wKVg/2l324c48srZxox4xJzI+cYGW/gQRT6BO2bI
-	HAll4+Eq2Za2ukhmt5UAI1A5dK30C4QVBgkNPLkNYjDDNOxDQRzTAeOcKlYW7vuEziT51NZfRr9
-	EbuAKJWMw==
-X-Received: by 2002:a17:902:e551:b0:2df:8430:a580 with SMTP id d9443c01a7336-2e876ca7075mr85664185ad.45.1791885433158;
-        Tue, 13 Oct 2026 02:57:13 -0700 (PDT)
-Received: from localhost.localdomain ([185.220.238.36])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e6aasm51797055ad.18.2026.10.13.02.57.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 02:57:12 -0700 (PDT)
-From: Wang Yibo <szwyb123@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Bera=20Y=C3=BCzl=C3=BC?= <b9788213@gmail.com>,
-	Jennifer Guo <guojy.bj@gmail.com>,
-	Ethan Tidmore <ethantidmore06@gmail.com>,
-	Adriano Cordova <adrianox@gmail.com>,
-	Azamat Rakhim <azamatrakhim8@gmail.com>,
-	Nikolay Kulikov <nikolayof23@gmail.com>,
-	=?UTF-8?q?Michael=20Steinm=C3=B6tzger?= <m.steinmoetzger@gmail.com>
-Subject: [PATCH] staging: rtl8723bs: remove unused defines in odm.h
-Date: Tue, 13 Oct 2026 17:57:07 +0800
-Message-Id: <20261013095707.387341-1-szwyb123@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SUkGAmqp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00971F000FF;
+	Tue, 13 Oct 2026 09:57:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791885434;
+	bh=T7aNwfsLUa94zkJPIVd3zM4XapiCDmPKjk2jNb3L81I=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SUkGAmqp3aoA8ktn4n8Gsbp9VbnU1Fh8xO9f58NT3iKDAVnY8R/kV7KMU0j/opvcL
+	 q7lC5Zn45JjGiOaTOdl4deAzc1fX3EuPws9qc6/ZRK3iyLvmBCYzScddaNnpTA7jPs
+	 kohMfpp57vQ5xafz57XGHosdIWc4o5f06naKxWfvg70V431UfnRTFk2GAuUdhMnU0X
+	 PhXJKMe049iY+yXDIDPBymcwdxddiPzXgdk+vR4xzAAjNrltaTXXYgLsu6Tsqxss+l
+	 JAybER+rseRcQZRlH9hha8cssVmI6OfGmWEK1tClK7f7vMCQ0yFHgYZ+ObzNxpYnDK
+	 +hzQkWyZagSug==
+Subject: Re: [PATCH net-next v4 3/6] net: ti: icssg-prueth: Move long delayed
+ work on system_dfl_long_wq
+From: netdev-bot+sashiko@kernel.org
+To: marco.crivellari@suse.com
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, tj@kernel.org,
+ jiangshanlai@gmail.com, frederic@kernel.org, bigeasy@linutronix.de,
+ mhocko@suse.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ enelsonmoore@gmail.com, linux-usb@vger.kernel.org
+Date: Tue, 13 Oct 2026 09:57:13 +0000
+Message-ID: <179188543334.434549.2591392619037446016@kernel.org>
+In-Reply-To: <20261012095452.135828-4-marco.crivellari@suse.com>
+References: <20261012095452.135828-4-marco.crivellari@suse.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-hal/odm.h still defines several constants that no code in the driver
-ever references:
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-  BAND_NUM, AFH_PSD, Adaptive_SIR
-  ANTTESTALL, ANTTESTA, ANTTESTB
-  AUX_ANT
+Low priority / nit picks for your consideration:
 
-They come from the PSD and antenna-diversity sections of the vendor ODM
-code and were never wired up for the RTL8723BS.  The "/* ANT Test */"
-comment is removed together with the defines it introduced.
+- [Low] The stats_work conversion is only half done because the SR1
+  driver variant was missed.
+- [Low] The commit message is boilerplate copied from the delayed-work
+  conversions and does not describe this diff.
 
-No functional change intended.
+--
 
-Signed-off-by: Wang Yibo <szwyb123@gmail.com>
----
- drivers/staging/rtl8723bs/hal/odm.h | 9 ---------
- 1 file changed, 9 deletions(-)
+net: ti: icssg-prueth: Move long delayed work on system_dfl_long_wq
 
-diff --git a/drivers/staging/rtl8723bs/hal/odm.h b/drivers/staging/rtl8723bs/hal/odm.h
-index 3532f0d79363..8a357658fdb5 100644
---- a/drivers/staging/rtl8723bs/hal/odm.h
-+++ b/drivers/staging/rtl8723bs/hal/odm.h
-@@ -29,12 +29,10 @@
- #define TXSCALE_TABLE_SIZE		37
- #define TXPWR_TRACK_TABLE_SIZE	30
- #define DELTA_SWINGIDX_SIZE     30
--#define BAND_NUM				4
- 
- /* 3 PSD Handler */
- /* 3 ============================================================ */
- 
--#define	AFH_PSD		1	/* 0:normal PSD scan, 1: only do 20 pts PSD */
- #define	MODE_40M		0	/* 0:20M, 1:40M */
- #define	PSD_TH2		3
- #define	PSD_CHMIN		20   /*  Minimum channel number for BT AFH */
-@@ -46,7 +44,6 @@
- #define   Smooth_Size_3		20
- #define	Smooth_TH_3	4
- #define   Smooth_Step_Size 5
--#define	Adaptive_SIR	1
- #define	PSD_RESCAN		4
- #define	PSD_SCAN_INTERVAL	700 /* ms */
- 
-@@ -56,16 +53,10 @@
- #define		DM_DIG_HIGH_PWR_THRESHOLD	0x3a
- #define		DM_DIG_LOW_PWR_THRESHOLD	0x14
- 
--/* ANT Test */
--#define			ANTTESTALL		0x00		/* Ant A or B will be Testing */
--#define		ANTTESTA		0x01		/* Ant A will be Testing */
--#define		ANTTESTB		0x02		/* Ant B will be testing */
--
- #define	PS_MODE_ACTIVE 0x01
- 
- /* for 8723A Ant Definition--2012--06--07 due to different IC may be different ANT define */
- #define		MAIN_ANT		1		/* Ant A or Ant Main */
--#define		AUX_ANT		2		/* AntB or Ant Aux */
- #define		MAX_ANT		3		/*  3 for AP using */
- 
- /* Antenna Diversity Type */
+This patch changes the first queueing of emac->stats_work in
+emac_ndo_open() from the per-CPU system_long_wq to the unbound
+system_dfl_long_wq. The goal is to let the scheduler place the work.
+
+> Currently the code enqueue work items using {queue|mod}_delayed_work(),
+> using system_long_wq. This workqueue should be used when long works are
+> expected and it is a per-cpu workqueue.
+>
+> The function(s) end up calling __queue_delayed_work(), which set a global
+> timer that could fire anywhere, enqueuing the work where the timer fired.
+
+[Severity: Low]
+Does this description match the diff?
+
+The only line changed is in emac_ndo_open() in icssg_prueth.c, and it
+uses queue_work(), not {queue|mod}_delayed_work():
+
+    queue_work(system_dfl_long_wq, &emac->stats_work.work);
+
+queue_work() is queue_work_on(WORK_CPU_UNBOUND, wq, work). It queues the
+embedded work_struct right away. It arms no timer and does not go through
+__queue_delayed_work().
+
+The delayed re-arm that the message describes lives in
+icssg_stats_work_handler() in icssg_stats.c. The companion patch
+"net: ti: icssg-stats: Move long delayed work on system_dfl_long_wq"
+converts that one.
+
+Could the message describe the immediate first kick of stats_work instead,
+and mention the companion patch?
+
+> diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth.c b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
+> index 591be5c8056b4..0fba22c1046e9 100644
+> --- a/drivers/net/ethernet/ti/icssg/icssg_prueth.c
+> +++ b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
+> @@ -1100,7 +1100,7 @@ static int emac_ndo_open(struct net_device *ndev)
+>
+>  	prueth->emacs_initialized++;
+>
+> -	queue_work(system_long_wq, &emac->stats_work.work);
+> +	queue_work(system_dfl_long_wq, &emac->stats_work.work);
+
+[Severity: Low]
+Should the SR1 variant of this driver get the same change?
+
+emac_ndo_open() in drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c still
+does this:
+
+    queue_work(system_long_wq, &emac->stats_work.work);
+
+Both drivers set up stats_work with the same shared handler:
+
+    INIT_DELAYED_WORK(&emac->stats_work, icssg_stats_work_handler);
+
+After the companion icssg-stats patch, icssg_stats_work_handler() re-arms
+itself on the unbound workqueue:
+
+    queue_delayed_work(system_dfl_long_wq, &emac->stats_work,
+                       msecs_to_jiffies((STATS_TIME_LIMIT_1G_MS * 1000) / emac->speed));
+
+So on SR1 hardware, the first run after ndo_open goes to the per-CPU
+system_long_wq. Every later run goes to system_dfl_long_wq.
+
+The commit message reasoning ("the workqueue work doesn't rely on per-cpu
+variables") applies to the SR1 call site too. Nothing else in the series
+seems to convert it.
+
+>
+>  	return 0;
+>
+
 -- 
-2.25.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012095452.135828-1-marco.crivellari%40suse.com
