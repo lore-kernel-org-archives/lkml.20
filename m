@@ -1,135 +1,131 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9ED641DE0A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875688; cv=pass; b=QW+NRwvB2yy72Y2VJfVbJSoQeahPRWrnELKP3naUyqpUJnDUzcFxTfJqSrQn5F93UbW1jU3Q695dhsxgxnncvZ1xq6HvQexcOM7S6gVokQb1SlGt/LTiDqhr3OWO7iACzyljYWMhZWG913QIojwMJkNqelnZlc/g5bqslVhFXG4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875688; c=relaxed/simple;
-	bh=Oab5q36RLcRFvq5kzowaoH9lXYz57V+AFbZGkJbzRns=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DAZnqO25D0qWS/MGSxGhoF7ijJmBYjC5j2g2AQ7H2daVj1pW4RZCGIZaHjsnr77p9rzkmeyG1zFykge2vRe7u2MRgrML7yok/TDpm89uFfwzUppM0p6CTUWZ0M1iYX3fxBSjw51twSyqO7MvxkMmZRFQ4sGGpx6n2LVHUocg3pU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gM2OZmHe; arc=pass smtp.client-ip=209.85.210.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66E62594BD;
+	Tue, 13 Oct 2026 07:15:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791875745; cv=none; b=jS4KvjEcTx/nWbmflyBPPK7XCHLUwkPN69jJAca2qnEtjOTldOPsgRj/ntkbsLW/IqyxiU1u+hWqGD4JekX/gfFXHT/iqwYLrqaRqQ/q2hy/YuTJ72pkJrOXsJSiujmrdi3XxuJepGtDEafC/6UekXB25TFVQSxDDpov48hUqPY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791875745; c=relaxed/simple;
+	bh=gDqyjItqcFJs3+oth4ya+T936777FQ8zxquu4J6iUow=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aYH1IM7FLNIgh/VemrXtMnAAclux6QyxaytG8/5m+8RkEQ0C6hxe/MjfiGkPeQ2Q0W6RnQxTwiWYcXVs7m3vrApic1WHvXgTxfz7PzPlGhtF50D1iJw+2hFab9RdW3HTNTeF07ltumnnH4C6QkdrXFS3IohkABfDO8EW8i6Q/bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cVrIf3YL; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gM2OZmHe"
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7fccba9c675so5629625a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:14:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791875685; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q086PevNJ1zkgLqFZubeqjRIMH/tlXeSqRDYxgzl5Ok+OPd0PABNQJapBJzZcjX9Tf
-         O1+mRPaVQpfd6q0+31EIE5o4HD/YGac4zlAyk909llz8QFwGlLXOt9JEDTJV4nVQUCT+
-         fzBp53Q2GXPYSYwwWxelCI1VbWQlICeOTLQpWGiwgg2+lnkci4ZzOixE1SSQaiEseGAO
-         lmta4abGV9OCUrN4gSkVKPlpVTB8CQRgsaJm3Z079KX5vpkZMxuuOMQAu6GfUg3zuww1
-         XlTrhy5ugtsBK6110ASVKKGo+5FycYxe9zcNy08DErrRWxOvP3IefN+LZWaKLHDehGYM
-         pOOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Oab5q36RLcRFvq5kzowaoH9lXYz57V+AFbZGkJbzRns=;
-        fh=zI+3jt3vK/uCgS8ncNgcX0eiUdWdj7DddzDRrHJ9/zc=;
-        b=UphdH1+5CxoE528VdBhDNT8+zBn639dkEyIA/JceRWd4G0pOJEx+KhBLSasPH9SxB8
-         ZVR8G8GS/sEHuWLOfVnhfZ4UaSEDhhZ6PmS2DX7BdV4W7iXC3fQtEaAkRxRnScU5/9su
-         I54Cbs56o8229eHrW45HEASTKNrGYw4msMFajfjGnzFe1CpC6JcKux/+TFAo8nFfmVLn
-         f1J3K+WR1mE9xQCRBwC4plGejYQsFNftZodEkJ1eTuGKogj8i47YKRZHwXiR0QBDVlz9
-         DeeyUrnepeMVE9rCN9OGTHUrJ11RAjpq30q6+u6VgMyg13bnxmPA3g8KEfaBxOuukkd0
-         SkrA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791875685; x=1792480485; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Oab5q36RLcRFvq5kzowaoH9lXYz57V+AFbZGkJbzRns=;
-        b=gM2OZmHeiqL0xiQxjAAqlsAzVMHrKVPK2rU0w4j1ofH6x5oIWWQE/8SdowtSvQE6Cr
-         +5Mt/BOyAsGiEwR/zTUHoU9/Hy/JH0TDhQI+X3tlIt3kiZXrfmzT534KWBSZ2hkkN4MU
-         klHALIlA0ZemLbRTZlm8Oj891qv8jdwIMvV7ohiniZSrE5TzIOOSnEj7gvaKCpXdzEgs
-         lh+wtVbK/RwB03cyoRwNdxMIf261jTq6aQCHBhHLemDPFHkuNpN8e2zlKsinJHJ+Ckvl
-         f/9uR+Y3cFBs39F2zA4Jw430o/94XPaVNCZgLMWGkxSHhr9XzFWd/S5xwyVv3nCAGGdQ
-         hhjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791875685; x=1792480485;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Oab5q36RLcRFvq5kzowaoH9lXYz57V+AFbZGkJbzRns=;
-        b=vsXW6Xr2xKsMUAQGpcXKDF0kUs/YPo9gt9Uaafi5Ak6SfRHtMGMBlEEq3yuel5P+7g
-         kdcqOLCGApiiB5r6J2XJy/Q+74wcit8rNgX+q4GDSMysOM/8t1UeJoTRl4dnT81IhL+u
-         HkkKE21rZmCs0MeGAqbPGozNF33wCm79JcE/RcXMEUWX35ng/xgwcMC2dT2e+vhDpFE8
-         I9e3SQ+hdq0JeOWyZAHFHygoPk3ihhU+5HcjrBvvFMp7VUj4E0piiKXBPOA1dEDI6NdC
-         UxuTuu06sPSlKZ/DF1VJPILJ8BUAPvvbbo5GWupT+M1CLWt6uncMZBkZ1wcnJ2QP/3mu
-         ZXGA==
-X-Forwarded-Encrypted: i=1; AKwUvBynhcxbuH9yaHYa05MBY9Rji+E6cqB/0nwIMbQOqNxK/1dM6DzZ9owVsifqtYWpG8+4B3kpsa8RO1zw/+0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDumIw3eRFW3m3XT+MdK2dflhzVWcAnNOADqKaXGKVB9YGWlZj
-	xRHoiMQd6gZAAFkb/RnNpzQU8g8ubzALZglTvKCncoXINNdviDSER+6+cAWzolSpm8lWUbFweKG
-	pz8YPRSnazAnWU/FQ3enqM0l+gHQEj4Q=
-X-Gm-Gg: AYBFou0DjMc97v8UUSucqtClJ9MAVFD00OglT0kjwwHvbb0O5/UHjDL21wAxoSY7mrG
-	sSoXu+4LyXlLqWr4lCtv6ThiYs2xKS8ek9X0VXZ/2mBMvveWEnqbbBDrUPUDqqAhd7MdoFQif3S
-	akjIE3auYYvuvp3ozUWHcXJXeuIqqIesBc70altwDzbDKQdHC67YLSh0KnH93yO4s+MJrMvIRKD
-	HPRmG4irMESPhHLYESTjiltR0omtR5GKqBjkL6ziHQKgzvd0H8HKkj98wVVHNuIUxW24Z4bUzDZ
-	B5o/Dih0ebHRqphyeGB/df6wUud6WxTuV8N+NLGdg4zn8tuqaaE1oTRG2T7HbVHeHzG3htORRzJ
-	eYO3RwrgdOCoEx8xUMwIhJuF56d+eMRlgB5GeFgfWQ+7hAqTWvC5icIC6QRGK09dCRV95k4wxv9
-	LwZsm2xNNFrA9Iov7ORcqd6u6YsS7bXJJk4/3/oApaZ6RocDwSIfk=
-X-Received: by 2002:a05:6808:30aa:b0:495:ce6d:7d48 with SMTP id
- 5614622812f47-50c4e67cdf5mr8677005b6e.9.1791875685589; Tue, 13 Oct 2026
- 00:14:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cVrIf3YL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791875744; x=1823411744;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gDqyjItqcFJs3+oth4ya+T936777FQ8zxquu4J6iUow=;
+  b=cVrIf3YL6mHab1GPvWv0ttdDKtodQ41yzBIu3MAqobsJl4SrWRVPhp1F
+   N4pm3cj/rTUTT4RTWrDPC32o6P3MWU+akiJKHxAJrXdNBfIf0O9x2tdL9
+   F4pyi8hmox7RNcDP0CTN5Fb6D+uw64pVjXyPrYUQUHKs/F6e+B1BtxASU
+   gM185ZMDiNV4dvIaT7cvxkuKPY9mfDKkBJtmjVjDTgYGs/bTS0csopZGr
+   NaQu3OkKzYr+XIz+aezPAYhdEA0fjicldwsk9a8Xx93B49wdDoVp4lrGD
+   Lm3iv8aaGC2gjpPBvKWzJ8Z0WqAv7Fi9N/PG5N/xjjftwQxPJUbfQyQay
+   w==;
+X-CSE-ConnectionGUID: +ohWW+4FREee2Ys232DLjw==
+X-CSE-MsgGUID: HAmrjClATd68ESoRDykCdQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="478203"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="478203"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:15:44 -0700
+X-CSE-ConnectionGUID: Vb+1qpWmRleRzNBkDmQvwg==
+X-CSE-MsgGUID: egUEnzGFTqmiMAh4/+Xqfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1420700"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:15:40 -0700
+Date: Tue, 13 Oct 2026 10:15:37 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6/7] gpio: pl061: switch data path to gpio-regmap
+Message-ID: <as3amWxGvbUdwE7k@ashevche-desk.local>
+References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
+ <20261009-cv75-gpio-v1-6-5836bd438423@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
- <20261004-macaudio-v2-9-7b47ed6335a8@gmail.com> <3698d260-13c5-4050-8f03-61f7b7185514@intel.com>
- <l_pd6lBHQaWNYoohhfxhFw@gmail.com> <8fcdfd97-fcc5-4ed9-8a9a-3e7eac53fed3@intel.com>
-In-Reply-To: <8fcdfd97-fcc5-4ed9-8a9a-3e7eac53fed3@intel.com>
-From: James Calligeros <jcalligeros99@gmail.com>
-Date: Tue, 13 Oct 2026 17:14:34 +1000
-X-Gm-Features: AclHuK8TJXmdm-cxsbCKrijwUibcd22A39HSUGZRpbNW3PHDJmMdVBEajRXhBY0
-Message-ID: <CAHgNfTyTQW2vMieSo+U7CTTuckrLZL+PuEKXfKCHYMFDBCFWng@mail.gmail.com>
-Subject: Re: [PATCH v2 09/21] ASoC: apple: Add macaudio machine driver
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
-	patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, Hector Martin <marcan@marcan.st>, 
-	Sasha Finkelstein <k@chaosmail.tech>, David Rhodes <david.rhodes@cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
-	Sen Wang <sen@ti.com>, Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-cv75-gpio-v1-6-5836bd438423@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 12, 2026 at 8:03=E2=80=AFPM Cezary Rojewski
-<cezary.rojewski@intel.com> wrote:
-> How does one know the speaker died? Is there some kind of signal, event
-> or an interrupt we could depend on? As delayed-work is a mechanism of
-> choice here for handling the case, I believe there is still a gap and a
-> chance for bad things to happen.
+On Fri, Oct 09, 2026 at 06:57:59PM +0800, Long Zhao via B4 Relay wrote:
 
-speakersafetyd is a userspace daemon, not hardware. It cannot generate
-interrupts. The daemon puts a magic value into a kctl every run of its
-safety model to signal to the driver that it is alive. The driver checks
-every time this kctl is put (see macaudio_slk_put) and schedules delayed
-work for the timeout, resetting the timeout if the correct value is put. If
-the kctl is not put within the timeout (e.g. if the daemon crashes),
-it locks the speaker amp volumes to a safe level that will not cause
-damage.
+> Move get, set and direction onto gpio-regmap. ARM PL061 sets
+> GPIO_REGMAP_QUIRK_SET_AFTER_DIR so the output value is written
+> after the direction change.
+> 
+> Keep a custom irqchip and irq domain. Create the domain with
+> the PL061 private data and let gpio-regmap attach it.
+> 
+> Check the chained-handler regmap_read() return and always run
+> chained_irq_exit(). irq_type still ignores MMIO write returns.
+> 
+> irq_set_parent() nests the GPIO irq_desc under the AMBA parent
+> for irq_set_wake() and lockdep; checked with PROVE_LOCKING on
+> CV75.
 
-We do not want these checks running when the PCM is idle however,
-so when there are no longer any active DAI BEs, we disable the timeout.
+...
 
-> Czarek
+> -static bool pl061_is_data_reg(unsigned int reg)
+> -{
+> -	return is_power_of_2(reg) &&
+> -	       reg >= BIT(PL061_DATA_OFFSET) &&
+> -	       reg <= BIT(PL061_DATA_OFFSET + PL061_GPIO_NR - 1);
+> -}
+> -
+> -static bool pl061_volatile_reg(struct device *dev, unsigned int reg)
+> -{
+> -	switch (reg) {
+> -	case GPIOMIS:
+> -	case GPIOIC:
+> -		return true;
+> -	default:
+> -		return pl061_is_data_reg(reg);
+> -	}
+> -}
+> -
+> -static const struct regmap_config pl061_regmap_config = {
+> -	.reg_bits = 16,
+> -	.val_bits = 8,
+> -	.reg_stride = 4,
+> -	.max_register = GPIOIC,
+> -	.volatile_reg = pl061_volatile_reg,
+> -	.fast_io = true,
+> -	.use_raw_spinlock = true,
+> -};
 
-James
+No, I have already told you do not move these. If you need to rename, just make
+sure it's named accordingly in the previous patch that introduced this.
+
+...
+
+I have a feeling that you ignored my last review. I stop it here, you need to
+carefully read *all* the comments and act accordingly.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
