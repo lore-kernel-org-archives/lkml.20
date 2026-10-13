@@ -1,135 +1,145 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811725221C2;
-	Tue, 13 Oct 2026 17:09:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911391; cv=pass; b=cEDfTwCZUtIWygtdBy8WwTxtRX6hF/t6da6DEoc+VDIO90EyA7b7P3WTUonsjFFlYYswP2m6kJoiS0D1xe6kyhyL4CGVpctyURG0W2QWfnhu2FC1ECeDE2RR10BPHwAihZAdSQAPGjmLZofj+ceBw0G2rjJYTvHXu0e/TFXrceo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911391; c=relaxed/simple;
-	bh=TB+JseLUYT8n0DkEqlZC2H6pyyPCbhmati5tlqp2pG4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dl01GQzMICXk8wdOxhxelP4ucaDeMF93hr4kOfeRxa8phEQAxQLrwrFh0xQIJGasOf1boR5un7u9QjG0SuBeMeCAgDXQnrHbvPbOKUsnS36Ghd5Ktgn4RIa+kZ7M0CqNgOxJtPVLNV3h4C91SN7ByZd+Q2geXkCIICtekDLrsGU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=GHgDEjJf; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6493521218
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791911400; cv=none; b=C8jzI+MxJ6LiuOJnbXMktJt39Om1+HYVWFXiZTaUgJOEEeR6fZ6mSrlpaAdpknp7nf+zXB7aPRetas58yUOjs6jrPUPuUIO5uteg/TzafaxZL/iH1308GN24RLsjaXT0McdFzztAu8MwHssp9g0dBV7YJU/+oAM2xzjQnrNxSao=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791911400; c=relaxed/simple;
+	bh=jKcoMmiIjHzkYBS2xCxAla4EG+wZPXIe7oERrnhY3Hg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XQIFTppZTeF4+QlXVTUlTFA1oAUmwzNhllG17HQ/HqiANGS9ASZYuIf1JFezKA8lbi+aK5fKw+dyZZV5CzZb1kvNJwOWA672F+Yc/fg2IVbjA+WNAScEKUhBuguxaY2vnQLmuBih6vqJEEYu7z0fyzYSJr1gYmKqUyURmDTOATY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E0/LujpG; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="GHgDEjJf"
-ARC-Seal: i=1; a=rsa-sha256; t=1791911342; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=nUb2gW+xFqgpMAwl8+TMG1uhCxTOLhe7buueIvF8WWdpyW+lc5w/juslXnMLbNTuedbIojlqQ6j3VvzCHzHzjzYgqSjKGmCU8E+yxF+lV5JimBX9ppYAGovfnEnPO7gz+3wlbgnuhrHVXGsHlUH+NqymriEZ110PvnIp3Uy/4v0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791911342; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Lyc1dDQ9Iy8yCVUiIeNJJ20m7/W1KAudCcRvkhlLRBI=; 
-	b=WMNsm6VdMcUUidCdo8cipj9A/fKkIOd8lIMS2GJsPFz3L6GVyGJ9MdnbyOpapQ+d1IC3efyu3XAXkikQS7hwbBphez1l0mGHc3x++R49lidYz6L98hjcNWhC8Tc8n3j5mqkWRYcqi3O3m+p9brL1lxC7jHWqUcj5CdOz+9wmqsE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791911342;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=Lyc1dDQ9Iy8yCVUiIeNJJ20m7/W1KAudCcRvkhlLRBI=;
-	b=GHgDEjJfBJgpG41vjA8swMigsWRcM/jDsU/mVMstGmV/kylWu4HaH9kt75oHOpQO
-	xGHUq8dJYxTaWcpTOCRz3Mgx3DHRwAPx0HW5teZWPU3F3WXjvwxDnOautFY65TuB6KH
-	osg6ak5FCo4mKXipv/WnHOu6xovMdVhtVPwOpTOA=
-Received: by smtp.zohomail.com with SMTPS id 1791911341251740.8870883036564;
-	Tue, 13 Oct 2026 10:09:01 -0700 (PDT)
-From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Tue, 13 Oct 2026 14:07:46 -0300
-Subject: [PATCH v6 7/7] pwm: th1520: Lock clock rate with
- clk_rate_exclusive_get
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E0/LujpG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791911397; x=1823447397;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=jKcoMmiIjHzkYBS2xCxAla4EG+wZPXIe7oERrnhY3Hg=;
+  b=E0/LujpGAyjMWF3UA4GLoi/yHpP1dtOkLUo1W/yZfajSqQ7DAPykFlYv
+   vXisvbUULTgnuYFEWCxEhz3uIVEctLaAD3u0Uo9YX14XFZC3XbsZWV02E
+   352Cnn7taS5AZmhpZ+GqWKy2zAdIqhJx0xLP9H+6mhc97jrVfxTUvQJyt
+   T4bLXJtQfA2a7COiBZZM1sbFTdPwJMVvxljSdeaxM9Iu9zkssdftDLIus
+   qHzA5n1vrvO1Z8yL1CYYde9XKT5F5v735qDEon1/tg6qbkZtfJl8vLy+Z
+   BcCA1XlEON1WqKQQsERN6h64zD21f0lYzQuexBJZ/vU0J05dRiF7yY2d3
+   g==;
+X-CSE-ConnectionGUID: mhlHgxhRRGW2aXKVcWcwWg==
+X-CSE-MsgGUID: mIuGpin1Q3CFQy7MSPRd9w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="739351"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="739351"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:09:56 -0700
+X-CSE-ConnectionGUID: NUYiTlxhRGqkyO2rrIRZOA==
+X-CSE-MsgGUID: on//JLpuRE21U+Pwawr9wQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1180790"
+Received: from unknown (HELO [10.241.242.105]) ([10.241.242.105])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:09:56 -0700
+Message-ID: <fa7a1d9240b0401c9f73f4978b6f60b3fa9206e6.camel@linux.intel.com>
+Subject: Re: [PATCH v2] sched/cache: Avoid publishing partial LLC utilization
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Jemmy Wong <jemmywong512@gmail.com>, mingo@redhat.com,
+ peterz@infradead.org, 	kprateek.nayak@amd.com, yu.c.chen@intel.com
+Cc: juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, 	rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, 	linux-kernel@vger.kernel.org
+Date: Tue, 13 Oct 2026 10:09:55 -0700
+In-Reply-To: <20261013084338.55100-1-jemmywong512@gmail.com>
+References: <20261013084338.55100-1-jemmywong512@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-clk-type-state-v6-7-a5e9977b3509@collabora.com>
-References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
-In-Reply-To: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
- Fu Wei <wefu@redhat.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
- linux-pwm@vger.kernel.org, linux-clk@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Maurice Hieronymus <mhi@mailbox.org>
-X-Mailer: b4 0.15.2
-X-ZohoMailClient: External
 
-From: Maurice Hieronymus <mhi@mailbox.org>
+On Tue, 2026-10-13 at 16:43 +0800, Jemmy Wong wrote:
+> update_sg_lb_stats() sums utilization over the CPUs in both
+> sched_group_span(group) and env->cpus, but takes capacity from
+> group->sgc->capacity for the whole group. record_sg_llc_stats()
+> publishes both.
+>=20
+> Rejecting an all-affinity-pinned source runqueue removes that CPU from
+> env->cpus and retries group selection. The retry can publish the
+> partial utilization with the full capacity.
+>=20
+> can_migrate_llc() then treats a busy preferred LLC as having spare
+> capacity. More tasks can aggregate into it, migrations out can be
+> blocked, and two busy LLCs may not fall back to generic balancing.
+> This increases CPU contention and task latency. Found by inspection.
+>=20
+> Skip publication on affinity retries using LBF_ALL_PINNED, retaining
+> the first-pass snapshots and avoiding repeated cpumask checks. On the
+> first pass, publish either shared LLC statistic only when env->cpus
+> covers the whole group. Load balancing still uses the affinity-filtered
+> statistics.
+>=20
+> The same window exists during CPU hotplug. env->cpus drops a CPU at
+> set_cpu_active(false), but the group span and sgc->capacity still
+> include it until cpuset_cpu_inactive() rebuilds the domains. Keeping
+> the previous snapshot avoids the mismatched publish. After the rebuild,
+> the next periodic balance records both statistics again.
 
-The driver derives period and duty cycle from the clock rate read at
-probe, so a later rate change would silently miscompute waveforms.
-Switch to the new ExclusiveClk wrapper to hold the rate for the lifetime
-of the driver data and drop the corresponding TODO.
+Thanks.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Michal Wilczynski <m.wilczynski@samsung.com>
-Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
-[ Adapted to ExclusiveClk<Enabled> and ExclusiveClk::new(), and rebased
-  onto the vertical imports and DevresIoMem conversion. - Daniel ]
-Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
----
- drivers/pwm/pwm_th1520.rs | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
 
-diff --git a/drivers/pwm/pwm_th1520.rs b/drivers/pwm/pwm_th1520.rs
-index 5180b912efad..9be0a7f210b9 100644
---- a/drivers/pwm/pwm_th1520.rs
-+++ b/drivers/pwm/pwm_th1520.rs
-@@ -23,7 +23,8 @@
- use kernel::{
-     clk::{
-         Clk,
--        Enabled, //
-+        Enabled,
-+        ExclusiveClk, //
-     },
-     device::{
-         Bound,
-@@ -94,7 +95,7 @@ struct Th1520WfHw {
- struct Th1520PwmDriverData {
-     #[pin]
-     iomem: DevresIoMem<TH1520_PWM_REG_SIZE>,
--    clk: Clk<Enabled>,
-+    clk: ExclusiveClk<Enabled>,
- }
- 
- impl pwm::PwmOps for Th1520PwmDriverData {
-@@ -318,10 +319,8 @@ fn probe<'bound>(
-         let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
- 
-         let clk = Clk::<Enabled>::get(dev, None)?;
-+        let clk = ExclusiveClk::new(clk)?;
- 
--        // TODO: Get exclusive ownership of the clock to prevent rate changes.
--        // The Rust equivalent of `clk_rate_exclusive_get()` is not yet available.
--        // This should be updated once it is implemented.
-         let rate_hz = clk.rate().as_hz();
-         if rate_hz == 0 {
-             dev_err!(dev, "Clock rate is zero\n");
+Tim
 
--- 
-2.56.0
-
+>=20
+> Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
+> Fixes: f025ef275388 ("sched/cache: Record per LLC utilization to guide ca=
+che aware scheduling decisions")
+> Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
+> ---
+>=20
+> v1: https://lore.kernel.org/r/20261010113425.34829-1-jemmywong512@gmail.c=
+om/
+>=20
+> Changes since v1:
+> - Skip publication on affinity retries using LBF_ALL_PINNED, retaining
+>   first-pass snapshots and avoiding repeated cpumask checks, as suggested
+>   by Prateek and Tim. Keep cpumask_subset() for partial group coverage
+>   during CPU hotplug on the first pass.
+> - Update the comment and commit message to explain the retry behavior.
+> - Add Fixes and Suggested-by tags.
+>=20
+>  kernel/sched/fair.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 57360f5cdde4..dc01fdc0526d 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -12111,6 +12111,14 @@ static void record_sg_llc_stats(struct lb_env *e=
+nv,
+>  	if (env->sd->child !=3D rcu_dereference_all(per_cpu(sd_llc, env->dst_cp=
+u)))
+>  		return;
+>=20
+> +	/*
+> +	 * A redo repeats stats published on the first pass. Hotplug can
+> +	 * still leave env->cpus partial, so util would not match capacity.
+> +	 */
+> +	if ((env->flags & LBF_ALL_PINNED) ||
+> +	    !cpumask_subset(sched_group_span(group), env->cpus))
+> +		return;
+> +
+>  	/*
+>  	 * At this point we know this group spans a LLC domain.
+>  	 * Record the statistic of this group in its corresponding
+>=20
+> --
+> 2.54.0 (Apple Git-157)
