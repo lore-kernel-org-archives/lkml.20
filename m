@@ -1,238 +1,283 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636C23FC5B5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884289; cv=none; b=JxPAzAeio32mfAQP89PHLYjWtYTjgNAuPCewYSnt7IHnHLZehGgIlS/xX2BJUooisKM29kwrwlBN/Nq+1gGFYftv6sZ9JU8Fm+Hpd0AD9/4V/5WlFy4EmCcMc/3S23VhZQw1pAv0lD9UJLm4AgJqd0ptLuwDEfuXzILgTk33Eco=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE023F65F7;
+	Tue, 13 Oct 2026 09:38:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791884289; cv=fail; b=i11VwBHdmYEk0XXgDMn5bhpVCItTjx/gkDjOMGPyPwh7xL9EDqoacbHpJzw+Aa0HsbWhdaK1J8CXCTARXPTtcU11u4USUPLAXThnajgP+OYmNOzdJLB+Ax5+d4jlVM0yMMz1P+GKBQRt3RvenZAgL1jF2mEqazxSAHW5Jon6f6Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791884289; c=relaxed/simple;
-	bh=8PSxlgB1MhX1jN/IO/b9YvOnW2qaH4L30mn3Qh5Ixk4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jg8IRkI7HqLqbfkkcKwAIIXLcnPjqdf/3UnCS+9gRTWyMNuevQAkcNmeAQqO+JgCcrS+OxC6imA6NkYsDDhC5hZbP0ugdliBqo+5IB1NJLVhT0XgyxDtNSMZfyn20ruRUvMZ2E80Ml0L0bI0476lQZ7GH1vjNbEiXNFQa7QB94M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=APD9cjJ8; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	bh=N4sFKjJTzF/ujxtaq5jV7HhgtObxGRY+UETOir7W8gc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=l2BDnsvfJnWzvj5ZA7UxYV+MmBGDOshuanhVixbqVBtmdQZYDI8WGdKRTQJf1b8A9LxzA7B04zkeK4PgCVIMurF8Qb7jfiWAd3nwvhAXwgrm2Y71WSoq9jGcg/h2FqYIKmu3D8e/9/m44N/Pqoq1Ha+0d3jO4exZUBGOhQbGhiw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=nVs2sKPT; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=F7IVu22p; arc=fail smtp.client-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="APD9cjJ8"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so32878975e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:38:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="nVs2sKPT";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="F7IVu22p"
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2Bpso3197994;
+	Tue, 13 Oct 2026 09:38:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=i66nFE/3stomT3hiXygtbbWR/swB2TUQrDP+noR5ZhI=; b=
+	nVs2sKPT8NrdVLZynZJXLSdNnCEdkMHX9VVmejSVWHA4vRbD49Zpy8/hDH3BTzii
+	CXdIjfXLaXwBa83/02gBi8IgIzohNrPlAMSfiEaV4UN5lIFl5DLkwfcI+1RE4jPk
+	RGk+VtQKYLCE9I9M+VWdMp+WT5xkRurbepCEg5hJ6PY+yXd+QtEf4FezKBjlnHLz
+	VR2unBjikewNiCyfzdl61Htv3t+ewa8vTwewzeHpy0uX/H3HBe1jzXJjvxQ/c69n
+	TEf0fFozAqZ9e1Mgez/U6yxz5UA2lnIXjfUqpfomcXsnd6dAZ7C72yJtxmvfUgVG
+	R5gr0BO/E9ciVwABvHJzXg==
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7dcsbqk9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 09:38:02 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69D9aKwn026366;
+	Tue, 13 Oct 2026 09:38:01 GMT
+Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013013.outbound.protection.outlook.com [40.93.201.13])
+	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4h7bt925em-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 13 Oct 2026 09:38:01 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tG4t32ZIelybq8kvl/bDowZ4OXxieU1fwhXYASAK01ntKruq3pug0W10refS3B2TTy39orW3CjfrgA+Ctcg9rR7fUJcfuN9uzZryFU2H7b1Px95hA3ze4fh1hGiB+0L5YgE+GTIgjt9L5O/FYwm6gdhFcEnSGdKxKUWZ5/1J4Pld89HLS5aakOvy2KRrWeUKOo7QKHlrOgkQ46GsY3GQVaUQYT5hDSS80RY8Wib8NmvDLU0zcU7277mA5NWgtF/Hjz3c7aMGuHQx/xZ1wjGVyl7i3GRNJ0CoT7ny20xhPL85bFrqvi3MsGCsojjdGP9WqjtHeNoKPW7P3aeLitaRhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i66nFE/3stomT3hiXygtbbWR/swB2TUQrDP+noR5ZhI=;
+ b=chLxtZ6o9/xw8DKpxDIIwGCTxYKR8akLp0X5HitaSgsZQmimnJpBwShiAoNxP72//BESXbvp5/LoDpSBmci5EQqZw9e+d/fMKSQo+Ud+RgQlnt5pDZE9gIrCcSmBCbdRKPuv2CGHZDqhfCBnb1T89nQ2oK7LY8lWbXZNlabHQYHkgOHXgx9vGlSN3ZxZD0tS8ukz9g5cdKTs7ckVUPlE1slWSszj00KPARIjjl49c5OnbfZ6p74kHXJMO0c/ONTigQRumZ1xf7LymDbifsYTK6Zf/pLva9oC2GFB1KI46u7UQTfeztumAKYeo0nDXkwIMcPyKTrLAMxJpqa8poiIpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791884285; x=1792489085; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oTxQfKp3tqhTG4A8e3eA1UWYq0qoe3PSOMQA99g87ls=;
-        b=APD9cjJ8IyWGJRb4VjyiLjZcEuT0O27WLgQnT/nIGrVSc8FuFp6Ndtjb5gtkbYc1OA
-         s7ISXwHxUS1yQoSahG961TT4f5MRoxXh6q8+otBG5FhL/y6wWufifOkNYRrJKHPwq6SU
-         RJ4HJvA+/2HKRbhMvTS0tjLUHgjEVTDJnXtAZoJUyE7Q3eFpA+18qtDgmpcvhkswJyPp
-         DC8jfS0enDFj+/dkcgE07bQ0g71mgGhY/HfHzKhYPtVTvHrDjfFUopmRhSoHbVLjRNrf
-         XzQtpz3DW0omdOQzl/DGAfQToT0Uk1AQnXTw0nnekLppfxTCYbWT4YWJhB95WIa48KR9
-         fB3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791884285; x=1792489085;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oTxQfKp3tqhTG4A8e3eA1UWYq0qoe3PSOMQA99g87ls=;
-        b=A292Xce8/8c1yrUKJWscOKcbc+PCQyVZDA/ov0iCRG/m7niWK6chXy3WutlxMfVNaU
-         sIRWuwALiG6nyfXA0pPblaw2c0uuVgLaw48t+O35N3gXD6vC8SR7O1woomLYZeChkW9V
-         oRoDwGD9YAOrtalft2ztJGuCpue/tFiamU2RTVyl1lQlZGu3vQFRM+XReyovB0oj4fuu
-         0vYCXKYDbAPw5K+6iBr8AQR3Wt0F6fCGzvdWRGurKBAZU+KPyiGBLJUQGLZyh9OD4uh4
-         ocR8SF//RoMy7ortI5ePyxWAavK77pFpY5QCxNFCdO7X4DbCzCCneI4bP0SUfk9gBU5+
-         jwEA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyYL3yCYnzMPjDqTYjv+4KnvKhO+k25LuiQevtMg30AD11kkM2MK9/1EhXyPeFu0P+PTQsUc0wOgdkW7c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJWsfHZ6Z69XTCfSwm6rhjWsYj5/a0BSuEMqjA/kgTcAPYnLRTb
-	UaNkGcUvvnXQ8dpyioasTr9+er6wwn04DAgIV91jospb8HvW5XyTDtmQGibJm+CK/A==
-X-Gm-Gg: AYBFou0u0ziHib1GYOvHEQQYuU5ZsHGh1T0zqe2LR3/t88SEvn009pOU1vegZB86HmX
-	rIaVxXgDq7vGz3s7mgvf/iwHr9UXQPbbhB0aBfQT76Cu5MdkGS2r1k45ZSareGvll8Ixi214Ulr
-	maDhSLaKJ5oUxhUIwIBxfuuQW7P2Ln3z+HNAtDga/7pSbEijUABOtSc/lFTO+EmiAhzE/YZu7uA
-	b59H6AzvG7C2qFn8lGNeKH4WC+tDl9jxb1cvMM+Rvi1MtislYajR2wWPBpCc6wZLJ6q54unIyt0
-	xyB7mpucY7ny7SI8Hv6oHhmuW4RdoW/JwEtBb7u1kLcignYocCdMgZZRrbhZYESsCDQTzXZaLFh
-	fH5OWB36AHFhfJvt4osfPj54fgCkMO9mKi/FmteP99juogq3SNBEo5qDTyoa0eHcQvB+cs08qr2
-	U2rar9mUumi+VK+MwXqmpSYV5rs7/ZdIjMaJ/dy6zCqB3goEH28JKHFqHfmp1sVkReDYPF8JnMm
-	z0Z+N+e5ycoy45Z9/3iwmJnI2jCl0pnDPqGsbkJZBM=
-X-Received: by 2002:a05:600c:c049:b0:4a1:9a97:c88 with SMTP id 5b1f17b1804b1-4a19a971118mr97040485e9.5.1791884284684;
-        Tue, 13 Oct 2026 02:38:04 -0700 (PDT)
-Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaabb8sm4646155f8f.15.2026.10.13.02.38.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 02:38:04 -0700 (PDT)
-Date: Tue, 13 Oct 2026 10:37:59 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: Will Deacon <will@kernel.org>, brendan.jackman@linux.dev,
-	catalin.marinas@arm.com, rppt@kernel.org, akpm@linux-foundation.org,
-	sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org,
-	mark.rutland@arm.com, ardb@kernel.org, thierry.reding@kernel.org,
-	david@kernel.org, danielmentz@google.com,
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
-	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
-Message-ID: <as3798SFCfKFirag@google.com>
-References: <20260921110050.3977591-1-vdonnefort@google.com>
- <arIYtjmSKCs14SqO@sumit-xelite>
- <arKW_91EeKA-w96m@willie-the-truck>
- <are21BjeS1O3RYE3@sumit-xelite>
- <aruh86rd5FMv2i9G@willie-the-truck>
- <ar5TPvANFUoosxGW@sumit-xelite>
- <asOAYODGZa-7EIV1@google.com>
- <asOD31rTX6dNfD1o@google.com>
- <aszdnInyJxLhSQRp@sumit-xelite>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i66nFE/3stomT3hiXygtbbWR/swB2TUQrDP+noR5ZhI=;
+ b=F7IVu22pbDbtXw+BGQW04kqnP3muXOLYv7Gr51APyd1JCSCmnFG/SR/15GdTdc+vgqUpcwg/Jr4SLgc6XoR1HVeiKhiI29DnjHxnHRRI9dyeGx05pqdjQRlZ8Tr4l/vE+2bjRQQRmLof03fHEXtugjcFJcdiVSVCfQt/SciTegE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from DM4PR10MB7505.namprd10.prod.outlook.com (2603:10b6:8:18a::7) by
+ CH2PR10MB4392.namprd10.prod.outlook.com (2603:10b6:610:79::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.12; Tue, 13 Oct 2026 09:37:59 +0000
+Received: from DM4PR10MB7505.namprd10.prod.outlook.com
+ ([fe80::f14:5389:d117:967c]) by DM4PR10MB7505.namprd10.prod.outlook.com
+ ([fe80::f14:5389:d117:967c%4]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 09:37:59 +0000
+From: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+To: "Darrick J . Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org,
+        stable@vger.kernel.org
+Cc: Dave Chinner <dchinner@redhat.com>, linux-kernel@vger.kernel.org,
+        Sasha Levin <sashal@kernel.org>,
+        Mark Tinguely <mark.tinguely@oracle.com>
+Subject: [PATCH RESEND 6.12 v2 5/6] xfs: factor out stale buffer item completion
+Date: Tue, 13 Oct 2026 15:07:28 +0530
+Message-ID: <6e5d8c0bb75cfa49044d7d5c5535c40e27cf7da2.1791883280.git.siddh.raman.pant@oracle.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1791883280.git.siddh.raman.pant@oracle.com>
+References: <cover.1791883280.git.siddh.raman.pant@oracle.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SG2PR02CA0125.apcprd02.prod.outlook.com
+ (2603:1096:4:188::13) To DM4PR10MB7505.namprd10.prod.outlook.com
+ (2603:10b6:8:18a::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aszdnInyJxLhSQRp@sumit-xelite>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR10MB7505:EE_|CH2PR10MB4392:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09a60c09-c4aa-406b-e7b1-08df290daab9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|23010399003|376014|366016|10067099003|261009223027099003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	/Ne2b3qLNlPh6l2FJEWWnaIgFYqvTz0EbG2vTOegUIpKsWfAG1gAkbxYcOLSy+FfODjaFQS14iE4toPjLTcQxSIC7qnM2rpxY5s96u+6N2mjvgJVUflKhwJFRPOGnwNAdpy66opecA308y0jhFZvM0ewak204gJF5oiSH5JriryD4DbF0MksWU1aIcby9bQeKsIht6gdYvZjZ/frx7sRLfFEPLC7A1Xg6RFuZ02c8wXo9FMhDWNxE5NWxk5zTxZx3Ya+rI0uiCbR6QXb/dq4U3p92fvIlsIInO3/LJONt4SskJWzQYJQsdAvyzUfq8ZSPY0kd0rlKlq0yeTtx2+X7oSXPyXwtpz1L3FPVZQW0Yj6+5RaEQdhi+3oe41bfNQ8FhpnPsH/IjR651e92JR+vRd/XfFnDnF4AdIoY0H42VzSc2rhohc5rJtdKcdhloIFOA9TRQVLK4iYLP6lG+zBwXR6XoLeqeGFdPxPyR/mn5MwpYTniDZKUR5qCiAHZapV28cOj3SkOX5AXqw7TbBZDi+2eOA74t0Pkh8ZLkCMTr37w0Y4vJUjvAwm9RWi3UCuPp4TTakdmCOEjtL8eZAGbcICcVHFKRsw4GAudB919tqm1fYgoPiU7Fgqcw6vD+jSv3Jtz6M4/LnJpQphExah0aIYOc6HlXcDMTx4YDc5i1s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(23010399003)(376014)(366016)(10067099003)(261009223027099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?hiZQgGDwNwAUZt+NDgrNn3zFTTJWTrCyU+7csDD9QQJcBfGQEc9D19T3yhMS?=
+ =?us-ascii?Q?O8uttrsXFPTykBQHKoelNUxBrCH+kxdZn0aWwy/gtEFI7Os4yYc66b/oEWDI?=
+ =?us-ascii?Q?ZTiXfsMfsCHWrow+nho1fE2DRgAqWihBCEBVMcZHWlvCTNiKWvlCIEqnAz/u?=
+ =?us-ascii?Q?qA5KCSYtN/0yho7HlWNO9T+rsmB09y9UK+JSY/3FML4uM+E1OH6aG/4PnSre?=
+ =?us-ascii?Q?57gseZYKPwIrLH9IQ+XNr8y3Y5TunCp5xHpU38i1VZTaV/NCzTC7lrrWpibm?=
+ =?us-ascii?Q?kFR9t3vc+5SGnr9geAg2EYMSWLQVzlL3Vnr9AqEyrMHe0cR4pD39D6CMRdHL?=
+ =?us-ascii?Q?xV8JS3iym/rYMBLWrrtDM+jcUHR910esZZ8Ngld5bmLi3DeDGb20Uj9WQuWe?=
+ =?us-ascii?Q?k1AFVokacVfrvItxgAsDSNqtEyJp7HSXsiqojgDWiAGQpVcP8FlZQl6QkLbJ?=
+ =?us-ascii?Q?Z9/zjycmuZnhCxv1nW+X6qd05kU9z3UuJbcISOUuNNbv3Zp4B0/TP1n3hfEy?=
+ =?us-ascii?Q?nnuTrUZJWjqn5H3HNIqKapxZrkojbmH0xKrrnEVDaAok14fmYZk0PAnXlIpz?=
+ =?us-ascii?Q?9lJzmHn7QRuYTmSDIhWBYZGhdfovT5Kcl1MLpT/uc4vdUuXGslqvvULumW9A?=
+ =?us-ascii?Q?INlRZmj5g5QpraPVM+KdPyf+STgckKASUI3YTy88Uaesi0ADdVkCpldM0mqn?=
+ =?us-ascii?Q?RX1Gj4w2haLRZPmg6xPqMBpGxB8H/1jQZsXbySieujOEVxJiLAJGrniuUnvX?=
+ =?us-ascii?Q?33R6lzKjhyttcNrkhcS4FMMApNTQbHLerCb5sZ+7KbI3iUI1OnoK1LvSU1TL?=
+ =?us-ascii?Q?yEnuONof/TaV9GToDA/e232J1ull00V5BFjlu5LUmzQWVLm/TJ/Y/vcnT0ew?=
+ =?us-ascii?Q?c8/67Ii3aUHSDr/NyvZIzABTBOnFfJzFTrkuuHQEqJ2EcAAzzlUsRP0X9cDV?=
+ =?us-ascii?Q?bekgcCCbmeZZFcKZV7DYzJeOd0CaxY15pHrPMEnNlW/ysk3pOTM15vwdhYfR?=
+ =?us-ascii?Q?Cv1oKai9OEOx6m7RZGMvTYIIzPu52snGmock+6Yzi4v0OFeS15PAZPGKqrMl?=
+ =?us-ascii?Q?D1beYFEnL93+qJEbTaMNAzByKi9smwuYadlBGeyzHLfc7QQ2upDxFickFiIh?=
+ =?us-ascii?Q?YlcQMEieZOfYBONFHt9GC9YaDHo4yTHIzAMukssmXcMwWf3e4EsCa1UjiGTx?=
+ =?us-ascii?Q?U/7sRnfA0tCkPgxHibRa7P1TW3SE487Yf+iHFKiq2LK+3PEX3lnjTp86LFje?=
+ =?us-ascii?Q?wL3G3wmmND0pAVHFDGQ8jGP/l9jrQS5tym+Zxohn7wjXAW+V1WBR7Rr0FbWX?=
+ =?us-ascii?Q?q5sL2YwvkwUenFVRJ22GG3Mah75nSPPgpWpM4xtv4QFrgZW6olG5a2y4H1pW?=
+ =?us-ascii?Q?bcfj1lvH9b1ef5iEijMIhsthd40J44kSzvEyK2WxAWKWAGkbhDcYGN0r6SRY?=
+ =?us-ascii?Q?TXmzYcB5HBF23ftqJQbyfNLk2TIRwC7V+XCvsOuB/XQ4rvDthVRyjF8Shpmu?=
+ =?us-ascii?Q?aEeBFv5tLgDz9KuJRuig3Z4jytOgV7s47Jx2MnqBcUfofrCRu+zS+dtsjumx?=
+ =?us-ascii?Q?ipk5rwV4dEUpBml6IHeKUTvukwBuIGCTb8AbpAW/qWGPLOTwqNJANBkNv7sl?=
+ =?us-ascii?Q?xfzj5p90it90gIPLR0Mnc9bihSSjab7HA5/1+UiWv+oKogVv8o5HMk4mdX58?=
+ =?us-ascii?Q?hcR24Jm2lvtuA1QvsLmXWSCQQhL26LNawIpXD47FT3IDO0jb36ESjj9iUSmZ?=
+ =?us-ascii?Q?9DLDufnYqFYYq1NfPSFLKcuzCgOq6JyXwRKOcMT2bJefX/n+KzujeOCk9fA4?=
+X-MS-Exchange-AntiSpam-MessageData-1: QXeJ4gKtH8lJRege+I63hUxzoPDyiLaIJpQ=
+X-Exchange-RoutingPolicyChecked:
+	4omV5F28vQASseaSXW1jaxkt6yJffyWmyWoazwGoZb229RhxNFwV78YAWmQYlyznNxokq8KRF960l4jdlTSOn7QLBrg7g1bWCSgAP5Ih+IXxvAsuW6tO5AYx3di8AVg9Kt/K2LtS8FZBFLyOb7Egd3Wut4obeQQq7paF60wp/ZTAiyOG/m06MhcKomufOn3YLpAInfXUYHLNAMhDD/7ZJUXl9g9GrfKQCL/NVezWd5TarX387h2YD4x03HyMMCIbfQ8z3RbVSkSrS0M5J9l9wJcabD10mOw1SqmoEuVWoXizmRQXlotnQt8KRsZFVvQQ52L+75qcGzYojYJn1aKg/A==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	H9jTB2B42HgJwmweeOVLJYHg+yNSpyZ5Yb2uqlc47jT3agFVI8dInVziSeFhbORQgILC/AMl26ykSrEQogMIsf7n0x7LSmMzVV6zWPVGr4YMeSbCwSlkr9S2cGCB3k4423eEn5pYY/FuV0H/YTv+Znq9GXMMvvOCUabJ+PP0WfniLz+2LmVcFDtgdHss1TyZEfpLKBY8/9L3Jh9yLUQYOrYiDCTUApf3H4LTJr14qm8vzQzTXaRJhfqmnzSHK4g11q1PNuk+zHTw2H1tIUF07BBybcB0y3NVhoVHi1FG1lI/4WzTwccW7z/LF9OiRhimh/zC+54sBxMdRvGcTLb9oDYdnaJf5qStsTMc2UJ6ZQg06Tk2tczo0AdysQY337uGDYwTzCeNpiOvHUBGLC7p8AAEppXdX2Q7kakqN6/88v1eDB+pshxpGtClmB4wCnmBAI44JtoTdsupflAh7bn7ekZ7XeCVazmntacuH4GuLxvL11ZzNitSLSHkGoR4/tbHzHBTJa6rNMmEQqnR/Twogqt8wiT2BYYztmWBR2C6xIBR50wnnqsQtAQsUFOyhn/5OoakA9lPwG72LTf1YIyKVtywWZM1YgGUJi97nXVbkp4=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09a60c09-c4aa-406b-e7b1-08df290daab9
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB7505.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 09:37:58.9116
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W5t36MFExQfJYpig+6UQn8z9X13IAj9GwO39GHgC/hkS5KcZVS5G7J/R21h8GfdbHjc2R8ZxNNXLjinkaDseBCsaOj35lrkFMV3tC+G9zmA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR10MB4392
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ phishscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 mlxlogscore=999
+ mlxscore=0 suspectscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2610020000 definitions=main-2610130038
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfX0do+tMfii3T1
+ lPLwols8vE5Z5FgKL0beXjBbMmuqlWGqO9zc+LBmDRCH97hS7urzdNhfYEE0EZkWVN7HVDuI/Fq
+ xwu5PpeTjjnnuouk8viczyo4vzPTSZF75mDngfLl2kvTXH4WwGZx
+X-Proofpoint-GUID: Vg7Y6yzekWoHqQRbsMsb08RIVQEasKsA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfX3PFdQ+3Ih+hg
+ x1NfpV/0/INTgTygHFH0/ckI0P9ZRNdfr0EHEkIXD9K6QvDK48NUBk7u2hZKa0BkleoHcb3B+KQ
+ y4xQLdIHzrVQ7LAVgdg91cs7H9F0WCp9DYjJoebayGFkL2mD/p+GWoSqLB0wSOzmCE+3w69e+7d
+ qEnGY5DcSeDA9+rfIH5ZntgsDwA6jKC43tQcpcotZz6/148Jhx/A4kbm3mVyrc0DELUA2GvobQO
+ ZIx8pdMX9KHk6JMwYU5z4blDRMMgTh2zWke+XDy8TxutoRNU6geyagHn7QDiUgnKLX0+cHhffML
+ 9COmNd0sbz9s7cw1aByOVPNwSDZeVWM+iI5XtlTuifXZNR4PCVE95ORByYwZ3ZYeSiH1T/0Xaol
+ QbVbYxlbAmA9/312jiC2c5rA7r/Xjcjfm7EA7UbJsD282gvSfUWPyHuGD+yABhEubXF+72UeS6m
+ C/mc266J164MKG4Sc8w==
+X-Proofpoint-ORIG-GUID: Vg7Y6yzekWoHqQRbsMsb08RIVQEasKsA
+X-Authority-Analysis: v=2.4 cv=EdZd0/mC c=1 sm=1 tr=0 ts=6acdfbfb cx=c_pps
+ a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
+ a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=o5oIOnhZENCTenyL_yNV:22 a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
+ a=HRhzHcoIBzGTXiVGymcA:9
 
-On Mon, Oct 12, 2026 at 06:46:12PM +0530, Sumit Garg wrote:
-> On Mon, 05 Oct 2026 at 12:02:55 +0100, Vincent Donnefort wrote:
-> > Sorry, not sure why Sumit's email was dropped...
-> 
-> The problem was with my mutt config, it should be fixed now.
-> 
-> > 
-> > On Mon, Oct 05, 2026 at 11:48:00AM +0100, Vincent Donnefort wrote:
-> > > On Thu, Oct 01, 2026 at 06:04:06PM +0530, Sumit Garg wrote:
-> > > > On Tue, 29 Sep 2026 at 12:33:07 +0100, Will Deacon wrote:
-> > > > > On Sat, Sep 26, 2026 at 05:43:08PM +0530, Sumit Garg wrote:
-> > > > > > Looks like you dropped me from your reply.
-> > > > >
-> > > > > Huh, that's weird. If I hit reply-all ('g') in mutt, it moves the entire
-> > > > > CC list to To: and drops you. I suspect the same thing happened to Thierry
-> > > > > when he replied here:
-> > > > >
-> > > > > https://lore.kernel.org/all/arJcN60nagFKXj2Q@orome/
-> > > > >
-> > > > > I can't figure out why that's happening :/
-> > > > > I manually tried to fix the To: and Cc: lines in this message.
-> > > >
-> > > > Thanks.
-> > > >
-> > > > >
-> > > > > > On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
-> > > > > > > I spoke to Brendan at LPC (?) last year but this doesn't really work
-> > > > > > > for arm64 because it relies on being able to unmap arbitrary parts of
-> > > > > > > the linear map, which isn't generally possible unless you force pte-level
-> > > > > > > mappings for everything, which is prohibitive for perf/power.
-> > > > > >
-> > > > > > As per the cover letter it's about allocating pages that are not present
-> > > > > > in the direct map. This essentially fits the protected DMABufs use-case
-> > > > > > where we don't want any kernel mapping to exist at any time. Bufers
-> > > > > > allocated from protected DMABufs are only meant to be accessed by the
-> > > > > > TEE implementation or HW accelerators like in the secure media pipeline.
-> > > > >
-> > > > > That sounds like it should probably build on top of this series, then.
-> > > >
-> > > > The main problem I see with this series is it tries to move from the generic
-> > > > CMA allocator to a reserved FF-A CMA pool which again comes from the
-> > > > DT. We already support reserved pool allocations via "no-map" which are
-> > > > discovered dynamically from OP-TEE.
-> > > 
-> > > I can't think of a way around a DT declaration. We need to know what region is
-> > > PTE-level before the direct map is installed and of_reserved_mem is very handy
-> > > for that purpose. And as this PTE-level mapping is costly we certainly only want
-> > > to enable it for platforms that absolutely need it.
-> > > 
-> 
-> I am rather thinking of a way to turn the default CMA allocator to be
-> PTE-level mapped. Since the overall idea for this dynamic protected
-> buffers was to reuse memory efficiently, otherwise the reserved buffer
-> approach is already there to use as "no-map" via DT.
+From: Dave Chinner <dchinner@redhat.com>
 
-When the default CMA allocator is setup, it is already too late
-(dma_contiguous_reserve() is called after map_mem()). I am not sure this can be
-reordered easily due to the dependency on dma_limits_init().
+The stale buffer item completion handling is currently only done
+from BLI unpinning. We need to perform this function from where-ever
+the last reference to the BLI is dropped, so first we need to
+factor this code out into a helper.
 
-So the only case it would work would be when a reserved memory has set
-"linux,cma-default". 
+Signed-off-by: Dave Chinner <dchinner@redhat.com>
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+(cherry picked from commit 816c330b605c3f4813c0dc0ab5af5cce17ff06b3)
+Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+---
+ fs/xfs/xfs_buf_item.c | 60 ++++++++++++++++++++++++++-----------------
+ 1 file changed, 37 insertions(+), 23 deletions(-)
 
+diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c
+index 042282a08216..9e6a68367ca9 100644
+--- a/fs/xfs/xfs_buf_item.c
++++ b/fs/xfs/xfs_buf_item.c
+@@ -539,6 +539,42 @@ xfs_buf_item_pin(
+ 	atomic_inc(&bip->bli_buf->b_pin_count);
+ }
+ 
++/*
++ * For a stale BLI, process all the necessary completions that must be
++ * performed when the final BLI reference goes away. The buffer will be
++ * referenced and locked here - we return to the caller with the buffer still
++ * referenced and locked for them to finalise processing of the buffer.
++ */
++static void
++xfs_buf_item_finish_stale(
++	struct xfs_buf_log_item	*bip)
++{
++	struct xfs_buf		*bp = bip->bli_buf;
++	struct xfs_log_item	*lip = &bip->bli_item;
++
++	ASSERT(bip->bli_flags & XFS_BLI_STALE);
++	ASSERT(xfs_buf_islocked(bp));
++	ASSERT(bp->b_flags & XBF_STALE);
++	ASSERT(bip->__bli_format.blf_flags & XFS_BLF_CANCEL);
++	ASSERT(list_empty(&lip->li_trans));
++	ASSERT(!bp->b_transp);
++
++	if (bip->bli_flags & XFS_BLI_STALE_INODE) {
++		xfs_buf_item_done(bp);
++		xfs_buf_inode_iodone(bp);
++		ASSERT(list_empty(&bp->b_li_list));
++		return;
++	}
++
++	/*
++	 * We may or may not be on the AIL here, xfs_trans_ail_delete() will do
++	 * the right thing regardless of the situation in which we are called.
++	 */
++	xfs_trans_ail_delete(lip, SHUTDOWN_LOG_IO_ERROR);
++	xfs_buf_item_relse(bip);
++	ASSERT(bp->b_log_item == NULL);
++}
++
+ /*
+  * This is called to unpin the buffer associated with the buf log item which was
+  * previously pinned with a call to xfs_buf_item_pin().  We enter this function
+@@ -588,13 +624,6 @@ xfs_buf_item_unpin(
+ 	}
+ 
+ 	if (stale) {
+-		ASSERT(bip->bli_flags & XFS_BLI_STALE);
+-		ASSERT(xfs_buf_islocked(bp));
+-		ASSERT(bp->b_flags & XBF_STALE);
+-		ASSERT(bip->__bli_format.blf_flags & XFS_BLF_CANCEL);
+-		ASSERT(list_empty(&lip->li_trans));
+-		ASSERT(!bp->b_transp);
+-
+ 		trace_xfs_buf_item_unpin_stale(bip);
+ 
+ 		/*
+@@ -605,22 +634,7 @@ xfs_buf_item_unpin(
+ 		 * processing is complete.
+ 		 */
+ 		xfs_buf_rele(bp);
+-
+-		/*
+-		 * If we get called here because of an IO error, we may or may
+-		 * not have the item on the AIL. xfs_trans_ail_delete() will
+-		 * take care of that situation. xfs_trans_ail_delete() drops
+-		 * the AIL lock.
+-		 */
+-		if (bip->bli_flags & XFS_BLI_STALE_INODE) {
+-			xfs_buf_item_done(bp);
+-			xfs_buf_inode_iodone(bp);
+-			ASSERT(list_empty(&bp->b_li_list));
+-		} else {
+-			xfs_trans_ail_delete(lip, SHUTDOWN_LOG_IO_ERROR);
+-			xfs_buf_item_relse(bip);
+-			ASSERT(bp->b_log_item == NULL);
+-		}
++		xfs_buf_item_finish_stale(bip);
+ 		xfs_buf_relse(bp);
+ 		return;
+ 	}
 -- 
-Vincent
+2.53.0
 
-> 
-> If we can have "cma_unmap" cmdline option alongside "cma" then it can
-> turn the existing default CMA allocator to support unmapping buffers.
-> Not requiring a DT change at all, although we can have the DT property
-> for the default pool too if platforms want to opt for.
-> 
-> > > >
-> > > > If we can rather support a generic CMA like allocator for arm64 which
-> > > > can support unmapped allocations then I am all for it. These platform
-> > > > specific reserved pools isn't a scalable solution.
-> > > 
-> > > What do you mean by generic CMA allocator here? An extension to
-> > > shared-dma-pool? Or having the CMA automatically doing the unmap/map on
-> > > cma_alloc() cma_release()?
-> > > 
-> > > Right now I have created an API for the unmapping/remapping part. It adds a
-> > > burden on the caller, but the alternative solution is introducing post-alloc
-> > > pre-dealloc callbacks in the CMA, which looked a bit overkilled to me when
-> > > the users of that "ffa-pool" are only optee and the nvidia video dma-buf heap.
-> > > 
-> 
-> I am not too worried about where the actual implementation lives but
-> looks like CMA driver to be the better place. I think use-cases like
-> guest_memfd proposed as a user for __GFP_UNMAPPED on arm64 will also be
-> looking for this feature.
-> 
-> -Sumit
-> 
-> > > 
-> > > >
-> > > > > You could allocate the DMABufs from a CMA region that has no linear alias.
-> > > >
-> > > > Allocation from generic CMA pool is already the case here:
-> > > >
-> > > > tee_shm_alloc_dma_mem() ->
-> > > >   dma_alloc_pages()
-> > > >
-> > > > Do you mean it's just fine to unmap buffers allocated from generic CMA
-> > > > region since it doesn't have any linear alias?
-> > > >
-> > > > >
-> > > > > > > Vincent's series tackles that by using a pool so that only that part of
-> > > > > > > memory requires the pte-level mappings in the linear map. That's the
-> > > > > > > whole point of it, so I don't think it makes sense to drop it in favour
-> > > > > > > of Brendan's approach (which doesn't work).
-> > > > > > >
-> > > > > >
-> > > > > > For protected DMABufs, we even don't require any pte-level mappings in
-> > > > > > linear map. The whole idea of mapping and unmapping is just a bottleneck
-> > > > > > for performance sensitive secure media pipeline use-cases. That's why if
-> > > > > > we can support __GFP_UNMAPPED with the memory allocator on arm64 would
-> > > > > > be the best fit for this use-case.
-> > > > >
-> > > > > The point is that you will require pte-level mappings for the linear map
-> > > > > if you want to unmap from it at runtime on arm64. If you don't, then you
-> > > > > can end up needing to split a block mapping (e.g. pmd-level) when you
-> > > > > decide to unmap only part of it and there isn't a safe way to do that on
-> > > > > arm64 without transiently unmapping the entire block, which can lead to
-> > > > > fatal translation faults during that window.
-> > > >
-> > > > I agree with you here, what I am rather trying to find if on arm64 there
-> > > > is any possibilty to have a generic allocator for unmapped pages. That's
-> > > > the use-case here as well as what Brendan't patch-set was trying to address.
-> > > >
-> > > > >
-> > > > > > Now the question is why arm64 can't support __GFP_UNMAPPED similar to
-> > > > > > how Brendan is doing it for x86?
-> > > > >
-> > > > > Because arm64 != x86? Presumably x86 doesn't have the strict
-> > > > > break-before-make requirements we have on arm64.
-> > > > >
-> > > >
-> > > > Sure, sounds like you are eluding to that the generic MM flag
-> > > > __GFP_UNMAPPED being proposed can't be supported on arm64, right?
-> > > >
-> > > > -Sumit
-> > 
-> > -- 
-> > Vincent
