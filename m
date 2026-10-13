@@ -1,226 +1,156 @@
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SEVP216CU002.outbound.protection.outlook.com (mail-koreacentralazolkn19012062.outbound.protection.outlook.com [52.103.74.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099D53D903C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883111; cv=none; b=HeNYYOCrUDRgKATZlMXgaqZvMF2LrnKxbrlchu4MeIcm2WJof9Dwzf4NvYOr0ZXS417N6XFyOzsEKM0bhsjGwLvfjxAhgTIAkDfwuW2MPwzo1BllOk4Vjp1wfUEUiSBUNPoaOPGompBsOD2xcd3u+jp754KEO+t3QwXbc/a9KFE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883111; c=relaxed/simple;
-	bh=Qw8zae9NOxAk0It4XupnieJPLdroSQEYcZSuuA8SXV4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EPW01npG103UiMYGQpD1bW7yn/MtyA1CK/YlLQWCnNbXis2HnKrXSbU5ylACku1Q7cFlTRwhwg8+FjR0TahotoORqEcQfczrTpwyWIm4f/tlF/CEPGjGLTMi9bodYdzyYjFsGECYMIzXhAxVZkzGSowMPZSaqlYsBtsyiNNaYvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hRSPCnVn; arc=none smtp.client-ip=74.125.82.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hRSPCnVn"
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-142eed7df08so230589c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:18:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791883108; x=1792487908; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XJeGv4gE+1nP/kqGfhMNUpT5saqR4ArNAelaYTNhWl0=;
-        b=hRSPCnVnM+EHmuYlE6ocgu8bFlYbbx0yCbV2F6dkIDyPBWkKHOffX8JJhRlcrv5N8+
-         2zga9kSqa1Os9SMjjI/Dp+IA5OU8ID7CsEDA5DIGR1cqp3Ou4cjHYvmb/4KLprqJfk82
-         B9RDQdRqMDQgjt/cSOBuD8LRNW4CR142xkWL9vYPOcPkhyX3tD9RwSt0X/ByxWVBH8q2
-         Ajc6u9oqWonfo4LMiWOElLSBqwdiZWVKGVGolb029gkYrKiKXEejg8a0VlJYe++z1ndE
-         go/l1R8QZjlfOsa6SV9emb7iPHXHaIgLoNeAG2WQOCn89P+jkXmDXXecrNYXIPovevrV
-         iBvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791883108; x=1792487908;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XJeGv4gE+1nP/kqGfhMNUpT5saqR4ArNAelaYTNhWl0=;
-        b=i7OxkPUxdP/qGMhuwP0f5yZ4kRF16uluaom/8hCgbQsTVRfbaMHXE35sgLiIJePRDo
-         wMpTxPH5egvmTbaXCC3gMAPBeMoa5I5EtG+b8eCBqVpUHcF1jKxOdzh34QsPdkzPIrtl
-         CTAgWT4MxKDGHyWqxRNs/fdFSVrIb1ufbPBzkDd7Y17Pkm6rrztP2YaISRBAAQ+M//6w
-         2rGce8pIy+zm+u3Uw5q3lyYFB8Em47Lf75eOO7kf2sFD9mC/Q7UqR1ao17FWL+qSamhA
-         Fq7gvCG0VIv8uWnQKvEYLIHXyAHXLv8BlyC6yLJkJgDJWpUVLW6J+SkQvxkboVN+T7Bx
-         9iDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8YZnU7xF8oPJm9ADJjZDDaqGZla+uX2HDYE8x/BxV2Y7nqB377stzUEtoh97A5r4u/5wRfYL1f0si6Ow=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRhi4ryFiQl95QA1Ba5s7frR0lnNWzw/W5wYAjMXenKqCh0t41
-	GKwN9ZKJyXccGkMBIECXApeP59sFJAlFgwXpBmz1WdWPBFqmMOl3aArK
-X-Gm-Gg: AYBFou09rmBJxeHEUKQw+vmiKeMMG0z8HF14uvPLjgQ9b6+ph+8K8j5xMT1nO1b/hxX
-	59JUTTfwbbB7nSkWnSR9xJ/XmET0yNRfj/LD32PHdZROvqZ/X400qsvE12vQSwktee6Mi960uq6
-	F0fqHAJx/hrZcZeOFNSQA2xVYelKUVyPz9jiFx8QN9ElaIKbuur0WZoWLNcLwpX/HN4gl6Dg/NW
-	9IivZia5gTwpTSCT7hEW82tw1rAWza/oO5FWk5JhNA1t1cMze3gyhhX/LrhCD2OexujVne1ow/N
-	N41J+zTQHO3OPHXWJBlz1BqLS9dZlGtPBEQ7jbmzFTROJjVIfbp7+qT+5Ku7/FbiqY2O7MJeUYD
-	JUfOcxOveFfzPL7RoCTBlurMAsMYTvsR3DibAdC6RGwbfmrconTd1B9qvpVka7PR2xQVCpMGqcn
-	RVqaRb3//RhqXKPy1asinVHD08oJ7kir/BeX+oqmnoH1RgoyovWKIk5BiPiX8rF2b0a89ElKDl8
-	qmCqtCtGTrxOieGG8D4sOEZ1Ff9c29Xq6UP0l6nPz3k0RRdp8ZOskZ4agObYrd6xSZaPY51u6U=
-X-Received: by 2002:a05:7300:d40a:b0:359:8492:20f8 with SMTP id 5a478bee46e88-35984922315mr16399593eec.2.1791883107751;
-        Tue, 13 Oct 2026 02:18:27 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm41437975eec.30.2026.10.13.02.18.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 02:18:26 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: alibuda@linux.alibaba.com,
-	dust.li@linux.alibaba.com,
-	sidraya@linux.ibm.com,
-	mjambigi@linux.ibm.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: tonylu@linux.alibaba.com,
-	guwen@linux.alibaba.com,
-	horms@kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v3 3/3] net/smc: hold a link group reference for free work
-Date: Tue, 13 Oct 2026 17:17:16 +0800
-Message-ID: <20261013091716.1210420-4-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013091716.1210420-1-nicoyip.dev@gmail.com>
-References: <20261013091716.1210420-1-nicoyip.dev@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29713EB11C;
+	Tue, 13 Oct 2026 09:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.74.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791883115; cv=fail; b=mV0pRkfZ2+md9MlteaI4+2GqV8nfZYWWaxufeQ+V2BqIhaC8Z2lOt1aoHxoNFNf5m/yvHWdA2QysQt4Dy94AsB2/tZZAyVbcWMl+asNAvI4PkzYOYKie61H0XozHwxdkGh5AWo2a1zp4ZxgD605V99bOZT8fiMYYs+3CBkVCWxo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791883115; c=relaxed/simple;
+	bh=aLMNZo3SXbCUldio1tIYlzOH7bYzwXtHtbT5ETM1YQM=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=SVQcu9y1WlWPB+5lbz/KN6cF7TSOXRRk2lMlJfsaDcQ+QGkVJ+GQZI1ljjQEHaPVSW1Ul2SF1P8y94ObIv2AxBAqSDT0//4aNfC6HqBll698OwbIECMvXzXKAEiM6hTb/7ISzBkvnPgI3VDG9B+SRqD0GSsjU5/BOObaqBBkFQo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexvernel.com; spf=pass smtp.mailfrom=alexvernel.com; arc=fail smtp.client-ip=52.103.74.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexvernel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexvernel.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RdcUDW8sSQlRbsETfg1o/4NXZqgCmUVm2GueQIV1rmxqiXI1KYciypEEl+xxRZOjhFRX7I754OBIeJe/DwcVliRZi71iiFhbbe7J0/Iltnux3zFK2MEmtWcwJ4Vrl9sf5RvjH/fNNslwtd8GkHPrUr7RsI/FFcicHowRrdEYB05yCVFzAysXgQdSHrwwBCcNrN6xcILc/zb+i0rNTZ3j+LSbaB/fLUCjMRwDMX2vIHGFgS0rxjnGxsYvYnIIB6RuRZ6H2uZqDMKu6eP1KC54Kj363BVlgpM775c0g+1S5b1AX7O12VSEwQ/8BMM0NxXFv7nKIlmLznbGMl9/PNocTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zudCnU/np8rvVbLaDB5FDwBNS2Unmc6zx8KK8mzsmUA=;
+ b=NNnlQl7onDB5PgkIqjA/Zi+66jeI/hCA0HuvBjeAsFJEsWltO3BJs1FCPPpO87otrEeJZy3wpBQFC/eLp/D1vZfmRy9FTpMNeb64jyYtjgL+uiyvy+RnfjT9T3LIBqRGOHDVZqQjxwYD81NCSOxs1GXmhw988nMmsbqz5twxh3GI3ABnc9OEGIILaa4MJmzpRtOYTStUqpogztPiXv8OpiffEe/D8Dieljb7dokcqwDOjcPKGu/3wpR8bPZXBXmPmEwINo4sYiHO6LBlK5cabujvliOj7mx6Jo8DXbQR7loNq2+pB/CLHRDztmvyXX8uTS7y/hceuZshk1g0T+FBoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Received: from SLXP216MB1067.KORP216.PROD.OUTLOOK.COM (2603:1096:101:9::6) by
+ SE2P216MB2952.KORP216.PROD.OUTLOOK.COM (2603:1096:101:28b::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.23; Tue, 13 Oct 2026 09:18:25 +0000
+Received: from SLXP216MB1067.KORP216.PROD.OUTLOOK.COM
+ ([fe80::3dce:2b67:b21b:6152]) by SLXP216MB1067.KORP216.PROD.OUTLOOK.COM
+ ([fe80::3dce:2b67:b21b:6152%7]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 09:18:25 +0000
+From: Alexander Vernel <alex@alexvernel.com>
+To: linux-wireless@vger.kernel.org
+Cc: loic.poulain@oss.qualcomm.com,
+	wcn36xx@lists.infradead.org,
+	stephan@gerhold.net,
+	kvalo@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wireless 0/1] wifi: wcn36xx: fix scan RX panic on WCN3620
+Date: Tue, 13 Oct 2026 22:18:01 +1300
+Message-ID:
+ <SLXP216MB10675081A1D858B6421D5AF3B39E2@SLXP216MB1067.KORP216.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.56.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AK1P299CA0023.NZLP299.PROD.OUTLOOK.COM
+ (2603:10c6:108:17::7) To SLXP216MB1067.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:9::6)
+X-Microsoft-Original-Message-ID:
+ <20261013091802.1064081-1-alex@alexvernel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SLXP216MB1067:EE_|SE2P216MB2952:EE_
+X-MS-Office365-Filtering-Correlation-Id: b93650a8-ed9d-4de0-1382-08df290aeeda
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|24021099003|5072599009|23021999003|15080799012|260925184616899003|39105399006|25010399006|20031999006|8060799015|19110799012|4140399003|440099028|3412199025|40105399003|2607281247196008|30101999006|10035399007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?yEJO4IARhrPXYzOdmP5ny4ZzDTK43Cp1NCwK8XGiBP8snBY32YoazF0MhsEv?=
+ =?us-ascii?Q?56qRW/cnSR3LP+GhZ+dW+DmzSBJsbM8kfTkDuHVm3cYtjpTVArPv5557/iYq?=
+ =?us-ascii?Q?MFqz0rqOwMMWlQK441V84Z/o8VV25nJ/7wgf6x0jMJpECY3BGkTceF8pAt3v?=
+ =?us-ascii?Q?Qb+mDZfOjHq4B1CggTug8ERKyhYhpCtYpbbAL5PYsd/TXbkizJH/yCt/XWHb?=
+ =?us-ascii?Q?8fQ0AbtnTfBaV/9wwFDwk8Gh7eN/bELS8VWVswYxG9OSF/0lJlN4JHHbU0nb?=
+ =?us-ascii?Q?mYQdLrbnilFrwB1ZPQJOTeh0G4rA32/kwBLmt219qRUG3vWIx1Iv6FI+aHti?=
+ =?us-ascii?Q?0U3hX+Ac6L2PT2rz6ZRiiNLxDwdCAJP8edHhtLgNW/2SJ3h9HvoEKO5L7Nbq?=
+ =?us-ascii?Q?p3zHglmK+SeYwcQ4aGJXVsOhNreVseLWD5n4tj7leLngf2h5d42OYASLYfkR?=
+ =?us-ascii?Q?uf1oSjVmH26doPpN+cXvVUmcv+Vhr2ASixrv+LrMzFbYh5tD3wVrdmIqI7mt?=
+ =?us-ascii?Q?f4JLgv+VsM/mKXiQPyEklipUIZPmHgwa8Q9cV958TtG9ACJWEmXFjpozJX0+?=
+ =?us-ascii?Q?VaAhtu3bI2u4BIbnQSzr4edRnWmhg68Ho9MFVMyKZqBGtVeRPx/sy9k1uVVM?=
+ =?us-ascii?Q?Gv4hPhpMUvFN1d0otKvxd5nrvV5nZsj5xydMgNo4MhCqH03q9TUbRWEZJJRH?=
+ =?us-ascii?Q?le6FnPLxg0OfLo5iQg1qreQrso8wo7/DTdtfPz5BddS3RTPD8uM7T2/EuSdg?=
+ =?us-ascii?Q?z+I4J6GyU8WBG09nPPlVCOTMX0Dnl3sBX0YS1ns7Bp77NhW5mfPSGUmgpNmA?=
+ =?us-ascii?Q?OaQpb92/jJciGSxXlkEpAkDvnzd+r7SgMjQlrOoqlPdTzP2rnTDH7QnYos3b?=
+ =?us-ascii?Q?YJiuoPOs7K2XFj/M95+3vEzoGPiyOrUwtXLvnAeUVF1exkKBtXv2AJAVmDhz?=
+ =?us-ascii?Q?x1kWVw0kj2GWer1+rYU2dkfSFmQR5MNnbcUrHowTmAM=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?v+C3Gng7isfk3yLMQ8gWynD0xpVp7YrEga7+VkB65kV7+jF3U3rfgN0ZXJgL?=
+ =?us-ascii?Q?PDCQzJy57ColKcue5rwDAGwfoHpMp+7cqY1gxeTN4GWxWNadhZGVQ86o3OVd?=
+ =?us-ascii?Q?D2ny/z+MgjlN9UU22MNyClPoc3hNzcplLET63NykCulR9Nj8wHIC1VQnykeN?=
+ =?us-ascii?Q?B5Evk5cuBbcFlEgHhC78KZpUsrR8U0kHaQ8AwWR/E8BUOoV+QHRPFjPvYYE1?=
+ =?us-ascii?Q?XFhI3n81mRjrzLZsOTDA5LHRNpVllL/h+5sFXadanXgSAs7RoDKI3i820ByJ?=
+ =?us-ascii?Q?gVxJRWeXOPSorxCv0bRU0RH7gvQWZjHazM4Ocbrbl1FgzaEJpTXiZRTyaWWL?=
+ =?us-ascii?Q?Vj6HEFmi6i+L5V8ANlOekgzalb1ILge/hqcIg1Mn5SPhwdA7uD8eFlQwwaRA?=
+ =?us-ascii?Q?s/xalAAgqBfGAmx6RdyXtHM4o9MmZ1KrGINAY9O93kAS+wXWjOXv4gSPyrjI?=
+ =?us-ascii?Q?F1OIW3qawWt8yhkMi4yojPfWUlJPDBg+wpo92mtKxJcJ5VMwLF/O86r2CEJI?=
+ =?us-ascii?Q?47Imd0dU5/GeX4xK2M/JaHyaJoW+XAmEFPgVT8Da7hkavsPdfdNY+eyZ1c1M?=
+ =?us-ascii?Q?19QzVQLks7Gxby7V5Kt8UNUjbKgryjaymfsnyg18+H0MG591uvbNVGJJ5s6m?=
+ =?us-ascii?Q?xZ8Vo9veaeELA6TSY6Jy6QNKT6BgRczGvzlHcjpn49XaJVxPfstxsAxsoSST?=
+ =?us-ascii?Q?6Le/NdnyIVp55NuZ1uPIB34CJYAC+mjFvD/90bhgGsfVt+qHX3F0qyJLYPGZ?=
+ =?us-ascii?Q?hSe6azwaBsGgjDUSoJVW1L4CY1OlUqcw5dZQFWsnC6Q3lWm0BPPGtqJjOqjx?=
+ =?us-ascii?Q?SSO3E1IFmsGcbe2lEjE8fgmvA8/3/Iwl8FCckLHqgduOkUDgS6Ex/19lG8Da?=
+ =?us-ascii?Q?X1pyjn7MAW8AiqsFQ0LYeQaoT6YO/em0ZvvTOcet4bDKM2qbNcmedbjCWpl1?=
+ =?us-ascii?Q?DRs6M2fCIGJ73w4sEdpU1ucTpFfBsWOih9a3QRXgIfhWoal0MNw6tFY1ChpN?=
+ =?us-ascii?Q?zRlL76kxahefEQUrmq5s3RZi0Gi2D+Ir+XNXPnN6QoYU5ylrovqwuuop0vXe?=
+ =?us-ascii?Q?lBPMy0gf0kLPK6vI2Y1xfINMHq9slRgdS8b+43sfBHjHCFlI6igy7UuXpdhX?=
+ =?us-ascii?Q?PoQTia+oZQWimnsBkTsWzf2BYJhzP4N5soZlGBwJzPYLZe3SqIpU9n/oGrZe?=
+ =?us-ascii?Q?lfguNQJU5yv7a6xh9GGtX94kLITCpalrbjJDbyGRUJ9xY+5VKyNeVOrdiYZB?=
+ =?us-ascii?Q?eRXhw/FDTYhJurO+YmHUfohl8gQaNM0Z6n3SCzCB4GYJ6/ACjG2I4KK9+Toj?=
+ =?us-ascii?Q?MrxyH9fPlwgg4RZKYWPzyzeTOvOj07NkZJnlqFCrC0DcxBtfuF+d/KhMC3g2?=
+ =?us-ascii?Q?ZzS4iyepeiDoZjwZGpT6mIssXicUdx25r6fVX7MDduIGGFR/bw=3D=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-94596.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: b93650a8-ed9d-4de0-1382-08df290aeeda
+X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1067.KORP216.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 09:18:25.7696
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE2P216MB2952
 
-__smc_lgr_terminate() cancels free_work asynchronously. If the callback
-has already started, it can still access the group after the terminator
-drops the last reference. The callback has to dereference the group to
-find its list lock and check freeing, so that check cannot protect its
-own access to the allocation. This lifetime gap was identified during
-code review of the scheduling and early-cleanup fixes.
+Hi,
 
-Take a group reference before mod_delayed_work(). Keep it when a new
-execution is queued, including when a previous callback is still running.
-If the work was already pending, release the extra reference because that
-pending execution already owns one. Release the queued reference when
-cancellation succeeds, or at every callback exit when it executes.
+I hit a kernel panic while working on display support for my Lenovo
+TB-X103F and tracked it down to the wcn36xx receive path.
 
-Use the reference-aware cancellation helper for connection reuse,
-termination and cancellation of a rearmed instance by the free worker.
-The callback's reference keeps the group alive even after smc_lgr_free()
-drops the teardown owner's reference.
+The tablet uses a WCN3620, which only supports 2.4 GHz. A firmware scan
+result was being interpreted as 5 GHz, and the driver dereferenced the
+missing band in wcn36xx_update_survey(). The frequency in the crash was
+5280 MHz.
 
-Keep cancellation asynchronous. Waiting for free_work from connection
-setup can deadlock: the free worker drains tx_wq, whose worker needs the
-socket lock held by setup.
+Stephan Gerhold already had a workaround for this in the msm8916 tree [1].
+This patch follows the same approach, but checks the registered bands
+rather than the radio ID. It also drops scan results if the resulting
+frequency isn't in the channel tables.
 
-This builds on "net/smc: serialize link group free work scheduling" and
-"net/smc: serialize early link group cleanup with termination". Together
-they close admission before cancellation and give resource teardown a
-single owner; the work reference then protects callbacks that are already
-running when that owner cancels pending work.
+With the fix, the tablet completed a 20-minute run with Wi-Fi scan requests
+and file transfers without another panic. I haven't confirmed whether the
+bad firmware report occurred again during that run. A host test reproduces
+the NULL-band failure with the original code and passes with the fix.
+Hardware testing so far is WCN3620 only.
 
-Link: https://lore.kernel.org/r/179113886433.434549.10069135669585050618@kernel.org/
-Fixes: 13085e1b5cab ("net/smc: fix deadlock triggered by cancel_delayed_work_syn()")
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6.1-Sol
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-New in v3:
-- Address the independent running-free_work lifetime issue reported against
-  both v2 patches by sashiko, with the complete reference protocol in this commit.
-- Cover new scheduling, rearming, all three cancellation sites and every
-  callback exit while retaining asynchronous cancellation.
+AI tools assisted with crash analysis, adaptation of the workaround,
+testing and preparation and review of this submission.
 
-Review: https://lore.kernel.org/r/179113886433.434549.10069135669585050618@kernel.org/
-Review: https://lore.kernel.org/r/179113886579.434549.12546097168507601074@kernel.org/
+Thanks,
+Alex
 
- net/smc/smc_core.c | 32 +++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
+[1] https://github.com/msm8916-mainline/linux/commit/0be2d63a476e83c757d9caafc22eae00bcfd1df8
 
-diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-index c1bb284c4233..9b54f873c6a9 100644
---- a/net/smc/smc_core.c
-+++ b/net/smc/smc_core.c
-@@ -89,14 +89,22 @@ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
- 	 * otherwise there is a risk of out-of-sync link groups.
- 	 */
- 	if (!lgr->freeing) {
--		mod_delayed_work(system_percpu_wq, &lgr->free_work,
--				 (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
--						SMC_LGR_FREE_DELAY_CLNT :
--						SMC_LGR_FREE_DELAY_SERV);
-+		smc_lgr_hold(lgr); /* released by the worker or cancellation */
-+		if (mod_delayed_work(system_percpu_wq, &lgr->free_work,
-+				     (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
-+					     SMC_LGR_FREE_DELAY_CLNT :
-+					     SMC_LGR_FREE_DELAY_SERV))
-+			smc_lgr_put(lgr); /* pending work already owns a reference */
- 	}
- 	spin_unlock_bh(lgr_lock);
- }
- 
-+static void smc_lgr_cancel_free_work(struct smc_link_group *lgr)
-+{
-+	if (cancel_delayed_work(&lgr->free_work))
-+		smc_lgr_put(lgr); /* cancelled work will not release its reference */
-+}
-+
- /* Register connection's alert token in our lookup structure.
-  * To use rbtrees we have to implement our own insert core.
-  * Requires @conns_lock
-@@ -733,19 +741,19 @@ static void smc_lgr_free_work(struct work_struct *work)
- 	spin_lock_bh(lgr_lock);
- 	if (lgr->freeing) {
- 		spin_unlock_bh(lgr_lock);
--		return;
-+		goto out;
- 	}
- 	read_lock_bh(&lgr->conns_lock);
- 	conns = RB_EMPTY_ROOT(&lgr->conns_all);
- 	read_unlock_bh(&lgr->conns_lock);
- 	if (!conns) { /* number of lgr connections is no longer zero */
- 		spin_unlock_bh(lgr_lock);
--		return;
-+		goto out;
- 	}
- 	list_del_init(&lgr->list); /* remove from smc_lgr_list */
- 	lgr->freeing = 1; /* this instance does the freeing, no new schedule */
- 	spin_unlock_bh(lgr_lock);
--	cancel_delayed_work(&lgr->free_work);
-+	smc_lgr_cancel_free_work(lgr);
- 
- 	if (!lgr->is_smcd && !lgr->terminating)
- 		smc_llc_send_link_delete_all(lgr, true,
-@@ -755,6 +763,8 @@ static void smc_lgr_free_work(struct work_struct *work)
- 	if (!lgr->is_smcd)
- 		smcr_lgr_link_deactivate_all(lgr);
- 	smc_lgr_free(lgr);
-+out:
-+	smc_lgr_put(lgr); /* smc_lgr_hold in smc_lgr_schedule_free_work() */
- }
- 
- static void smc_lgr_terminate_work(struct work_struct *work)
-@@ -1576,8 +1586,8 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
- 
- 	if (lgr->terminating)
- 		return;	/* lgr already terminating */
--	/* cancel pending free_work */
--	cancel_delayed_work(&lgr->free_work);
-+	/* A running free_work holds its own link group reference. */
-+	smc_lgr_cancel_free_work(lgr);
- 	lgr->terminating = 1;
- 
- 	/* kill remaining link group connections */
-@@ -2029,8 +2039,8 @@ int smc_conn_create(struct smc_sock *smc, struct smc_init_info *ini)
- 			conn->lgr = lgr;
- 			rc = smc_lgr_register_conn(conn, false);
- 			write_unlock_bh(&lgr->conns_lock);
--			if (!rc && delayed_work_pending(&lgr->free_work))
--				cancel_delayed_work(&lgr->free_work);
-+			if (!rc)
-+				smc_lgr_cancel_free_work(lgr);
- 			break;
- 		}
- 		write_unlock_bh(&lgr->conns_lock);
--- 
-2.43.0
+Alexander Vernel (1):
+  wifi: wcn36xx: validate scan bands against radio capabilities
 
+ drivers/net/wireless/ath/wcn36xx/txrx.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+
+base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
