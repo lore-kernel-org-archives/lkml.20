@@ -1,134 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5344F797D;
-	Tue, 13 Oct 2026 17:14:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6DF47B43B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911642; cv=none; b=oPzYIdiDrT2sbukxY8GUtaIxH9Aeg/xR5iXSSw0kBJXlWIZab859xPaYGAFV16o4mhVYWXUs0rHhS/kZrowp98lMCn60t2ZRe2v0A/O4jpcCKq46d2Flv+NB5QE8VG4kAHlsWXqqwrYursmgYIEn6BkwlYQg9pgcODxhlSAlkfQ=
+	t=1791911658; cv=none; b=V493qbr8fTucTQCCV6ef74qf2N+4qPcGoE9YCTLeEs22u9hehvjCwglHBfQa1+/C8Yj3A1LhPPiJ6nT7u9/psCP8Ivg0UdmPYD6MtMBB3CTL/WewfdU7odqoj5ZEZuEqyWErgJjE7MkmS2/jJeFgNYSedB8+70Z9tb+SReYCQYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911642; c=relaxed/simple;
-	bh=9nlt+18NrRMJ7S8N2uVdvOMt2RPfB2bA47UwhU1ntXg=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Q1xal6QeDAZxkFJcpHeYjOh43IOgVcHe7OHETOJZ2R0qGLtUKdRlSj/YmFB36yHHsISwpCT/UKXGyKffsmbw2oDOt1dq2v0Dut3p3Tvg2rzXWLaClaiw2kB2WuLU0fd6iNhp8CL4W4wAbp8qI1F75tTYchAMIBtgOs9B5tFcTqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UtgR1KVK; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791911658; c=relaxed/simple;
+	bh=OUz+o44EoyAaEgyls2XUlOxTe0oqUC2leYnQbuKd4RM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VLfeFvCOd0W2tZhFidiAjlkf855qujBKvlQZvBexM+tmBag9EWLu35sA4DGubg9617uWKiQdfpNb8XrouZuyL8iVFGa0arpl5eiFD7pYehlu3+IsQmvMTKI8l8hqRJE0j/af+Ut+ihrXkIVQpFQZFhKfsfAvjFaRrWpIFYlE3cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YuFOSSlq; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UtgR1KVK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791911641; x=1823447641;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=9nlt+18NrRMJ7S8N2uVdvOMt2RPfB2bA47UwhU1ntXg=;
-  b=UtgR1KVKVuVhfIH+4sUIoeV0YQtRbAK1AyfzInIJOStlp3X4xP1shO2Z
-   awRveds2Hf+NS9kJMniKuM+5YNW0cCOrASSMXgTRx3du1ovW8t55dE/G0
-   Ek/vKglshcHDkbPZfSqBXNCBhl2dmyVuKe3/uPX7uELWyDB7PEsvZaGiR
-   RrPaM5p/i/1mMHnqkezWPzWJWW4wqzCovYQiji2nVJm16y188itNQEoTi
-   QMdfONBrZMgIvYcOvXxBWquUBITRRFypxWUE7evQblhalnh7u5DQL33hY
-   s81seBxaHYbgMebPJQL7QNLdJ181bx8mxbAzlQPyNc1BuZ8h84EC3zVSc
-   g==;
-X-CSE-ConnectionGUID: Pdz8vEegQZ6Vm76i9au8sA==
-X-CSE-MsgGUID: N7ydk0eiTvqTWBg49ZQ9zQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="654215"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="654215"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:14:01 -0700
-X-CSE-ConnectionGUID: S0ad3VuESFeXvAgQlQ5l9A==
-X-CSE-MsgGUID: zh4nLjdeR9us/LBVvA1/rA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1246745"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:13:58 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 13 Oct 2026 20:13:55 +0300 (EEST)
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
-    Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-    Hans de Goede <hansg@kernel.org>, 
-    David E Box <david.e.box@linux.intel.com>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 17/20] platform/x86/intel/tpmi: Use scnprintf() to
- build the debugfs names
-In-Reply-To: <cefad53c-3bc5-4c1e-9fed-9e6eae3bac41@linux.intel.com>
-Message-ID: <7929c6ca-d2d3-d616-db8f-1af5c800bfdd@linux.intel.com>
-References: <20261006183037.1507007-1-sathyanarayanan.kuppuswamy@linux.intel.com> <20261006183037.1507007-18-sathyanarayanan.kuppuswamy@linux.intel.com> <as0-s6JyjfA2zY-B@ashevche-desk.local> <24aaf825-ae8b-b19d-4f7f-d5fedc5bcd44@linux.intel.com>
- <as32iyeK1okylcYI@ashevche-desk.local> <cefad53c-3bc5-4c1e-9fed-9e6eae3bac41@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YuFOSSlq"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49d04e4a943so2789975e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:14:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791911655; x=1792516455; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OUz+o44EoyAaEgyls2XUlOxTe0oqUC2leYnQbuKd4RM=;
+        b=YuFOSSlqslBRjGWLj82KahR/XomOZlC9BttAN17zEBOUdip5R47V7BbiZ+sEID9DWt
+         I2PRoPf5BPgpS/vi1tXs5AhkIZJSN42o1ByxWB3NY4TjagZafKRZhwdDlf91QqWn21bU
+         uBv5cXVJnmsHGwV6ehEVrN5VJvHh6vqe57bz5YLFNXBOe4IAOsFH4yxSHXYUpnSs/def
+         KrO7HBGwuxhhBw+BP1ifJWofNCiFlFkfhXWMiNzXBQbCsB8TugVu2fCGlaiWbvDEOzY7
+         QXFIdcsEo0S32cizOrC3L3zdZPpOjZmSmLvZTa2841/gTMM8eRd0LhGTmHnT5XJbc0Lc
+         I/Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791911655; x=1792516455;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OUz+o44EoyAaEgyls2XUlOxTe0oqUC2leYnQbuKd4RM=;
+        b=SYyHdlceLuSC/L0V+GzdryMlfS2SXPqbzg4VPQul7VLgKS7P3TUe5N3432lrZSEs1I
+         A0uQW73XzpgI38GjkOw7YOvGjszhccHaM3zlu8JkFPDQM2naeknQgMtJGCzA8deByZYC
+         A2qw9g/kv7s/CCp3o4lXhK+cim5eHKz3JSDwjCJ/wuE5UN/CBLamGGW+zg3yj+jwo9rm
+         veSFODMtYtwlGFo0sphwelyj4CAz86p0wX01ZZSViOlcLoL1QqvhLWuySszWpIsMW1hL
+         fXOhBV9RlvFi3AJ7i4NpLP76eyNfXgasK//IjswUFl/A8ottd1xpssZ58Y5Cv7ubcSvp
+         yUlg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1SMBtGTYYPycm87E15A2ZUE7MrAyVNDpUawY0qciuUPVMpO7hda/1YfrtJarCiGQxfTmHH+CI7Z5L8Gw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6i7gsQX31L3kvyhmSgCBoXDnsWs+q07Z1gOP+A2dLuqK6/N0R
+	tjUe8g+amyVDkyS6+vGkjUH1beoDaTvfAPS9L2E7e1pGsXadXIydG/0s
+X-Gm-Gg: AYBFou1nlzhVpu+XVxaqzPZ10rvrN7TErdEuLM1nLWgoKv5evITNVL+OQ2t0fbrc6OU
+	+0UCkYcPFUE6G0zv1vfCparIRKqgFzpQJ+Jageq3k41jSh7NtE/0DRthcQN8gLB76xemSvebJb6
+	UhvgOrQzSKHpSXFkODui+Neb+Pfz7irg+q69B659GBnZHbrnqdpNyLnkQcHdIDpI8dXwzJQl0VT
+	Gg18BJQtHeb3JC3ocKzostHta2ZnKZxNzLlxnpMgT5vbP3b3/Q8fCcLWkTI4sU85PAkkluAiwUP
+	E6o3M9ifHzvNWUB6jlygQQXI+XEmISqOF34p7+I9QNdYsjcLO1/WS1Wykaas0NzStMS/L9cVIvc
+	ZIoOaO5L89gT7E2Z34S8rU18fnFAAGQwb/uQPyxwNTVaWyjwIAr3c8N/OVCV/Mte7GGhrTak7mc
+	im2HkNhppShleDPxpkKPZdtoHcbU1WlyNJN90YtVJEepxep43t5hp89cFsSPOGjZI7+ZAa29PgV
+	FEmLa2p5p4Ez69aNnlK
+X-Received: by 2002:a05:600c:5246:b0:4a1:7e9b:e0b5 with SMTP id 5b1f17b1804b1-4a18e3ee9d3mr221469835e9.0.1791911655077;
+        Tue, 13 Oct 2026 10:14:15 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm330932235e9.3.2026.10.13.10.14.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 10:14:14 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@kernel.org,
+	rostedt@goodmis.org,
+	tj@kernel.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com,
+	Kayra Cizmeci <kayracizmeci@gmail.com>
+Subject: Re: [PATCH v2 1/4] sched: Rename/clarify sched_class::task_tick(.queued) argument
+Date: Tue, 13 Oct 2026 20:14:10 +0300
+Message-ID: <20261013171410.58340-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260929085319.981147568@infradead.org>
+References: <20260929085319.981147568@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1513346938-1791911635=:21507"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+> For some reason the sched_class::task_tick() argument that indicates it being
+> an hrtick, is called @queued. I'm sure naming is hard and all, but lets fix
+> this.
 
---8323328-1513346938-1791911635=:21507
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+"For some reason"...
 
-On Tue, 13 Oct 2026, Kuppuswamy Sathyanarayanan wrote:
-> On 10/13/2026 2:14 AM, Andy Shevchenko wrote:
-> > On Tue, Oct 13, 2026 at 11:42:00AM +0300, Ilpo J=C3=A4rvinen wrote:
-> >> On Mon, 12 Oct 2026, Andy Shevchenko wrote:
-> >>> On Tue, Oct 06, 2026 at 11:30:34AM -0700, Kuppuswamy Sathyanarayanan =
-wrote:
-> >>>> snprintf() is on its way out in favour of scnprintf(). Neither of th=
-e two
-> >>>> callers in tpmi_dbgfs_register() looks at the return value, so the
-> >>>> difference in what the two return does not matter here.
-> >>>
-> >>> I believe I asked it already: Why do we care? Do you get any compilat=
-ion
-> >>> warning (assuming `make W=3D1`)?
-> >>
-> >> I do care that we've two functions for essentially the same thing and=
-=20
-> >> would prefer to have just one that remains (and obviously that would b=
-e=20
-> >> the c variant).
-> >=20
-> > I see, thanks for the hint, but it's not clear from the commit message.
->=20
-> Agreed. There is no W=3D1 warning behind this. It is only about convergin=
-g
-> on scnprintf(), as Ilpo explained. Below is a reworded commit message
-> that says so directly.
->=20
-> Ilpo, would you prefer that I send a v5 with this change, or are you
-> fine with updating the commit message when you apply the series?
->=20
-> ---
-> platform/x86/intel/tpmi: Use scnprintf() to build the debugfs names
->=20
-> The kernel has both snprintf() and scnprintf() for formatting into a
-> fixed size buffer. The preference is to settle on scnprintf() and stop
-> adding snprintf() users, so that only one of the two remains in use.
->=20
-> Convert the two callers in tpmi_dbgfs_register(). Neither of them looks
-> at the return value, so the difference in what the two functions return
-> does not matter here.=20
->=20
-> No functional change intended.
->=20
-> Suggested-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@lin=
-ux.intel.com
+I grepped. I think task_tick_stop() is skipped. That's a nit.
+Just sayingggggg........
 
-Hi,
+Aside from that, or with that IDC.
 
-The proposed text seems fine.
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
 
-I'm afraid I might forget to change it so sending v5 is safer from that=20
-perspective. Closing an old version from patchwork is pretty simple for=20
-me.
+(How y'all find things to review? I just go to the threads that I see the messages of. I think
+That's why I'm a bit late :<)
 
---=20
- i.
-
---8323328-1513346938-1791911635=:21507--
