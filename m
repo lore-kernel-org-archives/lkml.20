@@ -1,174 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4F54FD294;
-	Tue, 13 Oct 2026 12:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7DC4FDA6F;
+	Tue, 13 Oct 2026 12:05:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791893138; cv=none; b=NtuRzfIy46DpBNTcn8T9osgLfn0lMH7GRxl6DoOA7KPhGMTZ6GI0rjPbVQeuUT+AYjnq+n/aAZQnYcBzbfKFXqG5nJ6fKxhIpGo5/WaVhFuwFODNerWDIKDUTq7baeArJvJtD9wpQOnc6yhW+hLKOKYjNKpzuHDdyBGwaMdAy3g=
+	t=1791893140; cv=none; b=oVvHLK/obGT/C47iOifm3V9sfFW0WGxciHlN3dmH7MEdpDnyvzuXhYkFB/cIF56wzhgOyks7OtpIMJmEuw0Btx2jJsvW2r8GlcK/HOIDjLt5eGjTD0hzp5mCjuwzXmVJ3kBw/4IU3/eLsSMkk7g+E49ml42QX5mEi9YFmYSn4Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791893138; c=relaxed/simple;
-	bh=RDMRTrW0f3C3n6sfr4GOtlMFWKPHFCkzDNSTMcYfzBA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HuzHBzXE97svt4uMJqxLwdsPa92KXqJVxcZRmsQmPcffmXgLOOAmMsnENgZjTVXno5C5CEAULEVsswGp/JyudWpGJV4df8a5SX8VTL/bPwagXqa+JAk5kw4y+NHPGHo0atQDS90+QSww5n7OxXkJcFQ6FWOo5c0VtqWaMNqUOaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UYUCUYBu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791893140; c=relaxed/simple;
+	bh=Tne7BpBxI6kMvfAFkDYGfWzbeskucMHztVo32OT9KGc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KanY4qjzBH5JmAsFGj/2sAn5jL28aoBv1IUGgjfPDv4yuFTxyE76yP7vn8CrFdOfIYDOnrVDbJOG6q+Tj8g4rkHZwWE+RsyhDXGcOCjgteh2Ci6mfVewd8NRjENcdDSlE2+s6IXBJgedEQtDnAAxAXIqAewTsc/ZPxtsK0knBtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vjVA5FIQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=AcyQbZ/O; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=P++0mhRW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=c3ItBisc; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UYUCUYBu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A44081F000FF;
-	Tue, 13 Oct 2026 12:05:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791893136;
-	bh=eLuxRn0HI2+L+S6CnDQ4l8LJp0sYjVvvTXXp9+IBAHo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UYUCUYBuiyIaDPFtO253R/aGLmOqURdE9bx4Xmeo1IwU7pyr7f4mZy3waipQkeLq/
-	 P02AKQBdjt9YhjniVh2YTLHsid5FRMGZMnFFM55Kebr/cm9w8HKONzxyJf1T1B2OeC
-	 2gQ13mS8/xAyrBJwoxvSujWXqNKJ/w2YdCWXOQvNtX5m8BMPwo59louhBkl22ijTGr
-	 ChosmSQtL38e8ayWUX0zBTCsz+ni6qxPuajw3nsC0n0wP7fEPS6HNb+x+pNwdinVnn
-	 /sf8hoXfBa7j43AEvTkChC+7f3E/SMyAPw+flSv+r/518az5eHXiBaHDrH5kgy2JzU
-	 dY+oou8JXsueA==
-Subject: Re: [PATCH net-next v2 2/4] eth: mpnic: report per-queue stats
-From: netdev-bot+sashiko@kernel.org
-To: daniel.zahka@gmail.com
-Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, pabeni@redhat.com, ast@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
- sdf@fomichev.me, edumazet@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Date: Tue, 13 Oct 2026 12:05:35 +0000
-Message-ID: <179189313526.434549.10762925482009523771@kernel.org>
-In-Reply-To: <20261012-mpnic-counters3-v2-2-8afba81c2d5a@gmail.com>
-References: <20261012-mpnic-counters3-v2-2-8afba81c2d5a@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vjVA5FIQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AcyQbZ/O";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="P++0mhRW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="c3ItBisc"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C465421E90;
+	Tue, 13 Oct 2026 12:05:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791893137; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=hh3B6JhZ6zCtOMAfUG7Lob3y0RyFjH+ORRrFBP6OKwg=;
+	b=vjVA5FIQCfyOajX3VHYU5viScKo9qhLh452UXoUyVBGnpIy43lj7XpvBZg7v6eRtJLGdQe
+	umqNpXrB+WcnauavJhw1SOlIH+dXLpfwUzVaCMivKv2CaViiMaWaW9HuIr2AI0S9DPVGDA
+	QK4wLdR3xZW0ARxd7vigQ5GdZyCCYRk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791893137;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=hh3B6JhZ6zCtOMAfUG7Lob3y0RyFjH+ORRrFBP6OKwg=;
+	b=AcyQbZ/OGHJmLToVOLHYCJSfj4s4gjNI86HebyzREyGwJSdSmtPOYrgVtZM5iDm/2NQezO
+	IwSgine5ws8emWDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=P++0mhRW;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=c3ItBisc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791893136; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=hh3B6JhZ6zCtOMAfUG7Lob3y0RyFjH+ORRrFBP6OKwg=;
+	b=P++0mhRWaVNLhpH26xcdOdnRbRX+tOhhDorSlmyBMg+jJTl7cRBvW+JiqrPFxrDQm2vV61
+	D3+UXQgjsLmbn7F6FkeH/itxnhSkV71ufyeIK8R16srAIQEc25cFD147Egnu6U4o2NAIKz
+	upLDMCxs4+7ZfX/BwdHNsMHR14C2gng=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791893136;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=hh3B6JhZ6zCtOMAfUG7Lob3y0RyFjH+ORRrFBP6OKwg=;
+	b=c3ItBiscHS19FmzU7upLFN2F0cVPe+PQH5rBlKKG8VaTWaJaYPbDdtfZnjWCJqZT98+nd6
+	9OReLSICN9+tvfCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8802A13341;
+	Tue, 13 Oct 2026 12:05:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6Ox+GJAezmrxFQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 13 Oct 2026 12:05:36 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] ALSA: yet more fixes for Sashiko bug reports
+Date: Tue, 13 Oct 2026 14:05:21 +0200
+Message-ID: <20261013120528.52586-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: C465421E90
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	RCPT_COUNT_TWO(0.00)[2];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+here is yet another series of small fixes for issues reported by
+Sashiko.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
 
-- [Medium] This patch reports the RCQ `rcq.packets` and `rcq.bytes`
-  counters as the netdev qstats `rx-packets` and `rx-bytes` attributes.
+Takashi
 
---
+===
 
-eth: mpnic: report per-queue stats
+Takashi Iwai (4):
+  ALSA: jack: Fix kctl free at error in snd_jack_kctl_new()
+  ALSA: usb-audio: Use fixed control index for us16x08 mixer elements
+  ALSA: pcm: Protect delay DMA sync in forward and rewind, too
+  ALSA: line6: Use kzalloc() for PCM buffer allocation
 
-This commit exposes the per-ring packet and byte counters through the
-netdev queue stats API. Counters for deactivated rings are reported
-through the base stats.
-
-> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-> index 5164475a0f943..c2f4a326a8f0f 100644
-> --- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-
-[ ... ]
-
-> @@ -146,6 +147,77 @@ static const struct net_device_ops mpnic_netdev_ops = {
->  	.ndo_get_stats64	= mpnic_get_stats64,
->  };
->  
-> +static void mpnic_get_queue_stats_rx(struct net_device *dev, int idx,
-> +				     struct netdev_queue_stats_rx *rx)
-> +{
-> +	struct mpnic_net *mpn = netdev_priv(dev);
-> +	struct mpnic_ring *rxr = mpn->rx[idx];
-> +	struct mpnic_queue_stats *stats;
-> +	unsigned int start;
-> +	u64 bytes, packets;
-> +
-> +	if (!rxr)
-> +		return;
-> +
-> +	stats = &rxr->stats;
-> +	do {
-> +		start = u64_stats_fetch_begin(&stats->syncp);
-> +		bytes = u64_stats_read(&stats->rcq.bytes);
-> +		packets = u64_stats_read(&stats->rcq.packets);
-> +	} while (u64_stats_fetch_retry(&stats->syncp, start));
-> +
-> +	rx->bytes = bytes;
-> +	rx->packets = packets;
-> +}
-
-[Severity: Medium]
-Do rcq.packets and rcq.bytes match the qstats meaning of rx-packets and
-rx-bytes?
-
-The netdev.yaml spec defines rx-packets as "Number of wire packets
-successfully received and passed to the stack". It defines rx-bytes as
-"Successfully received bytes, see rx-packets".
-
-In mpnic_clean_rcq() in mpnic_txrx.c, packets++ runs for every META
-completion, including completions where the driver drops the packet:
-
-drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:mpnic_clean_rcq() {
-    ...
-			if (likely(!(rcd &
-				     MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK) &&
-				   !state->pkt.add_frag_failed)) {
-				bytes += xdp_get_buff_len(&state->pkt.buff);
-				skb = xdp_build_skb_from_buff(&state->pkt.buff);
-			}
-
-			if (likely(skb)) {
-				napi_gro_receive(&nv->napi, skb);
-			} else {
-				mpnic_put_pkt_buff(&state->pkt, true);
-				if (rcd & MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK)
-					errors++;
-				else
-					dropped++;
-			}
-
-			state->pkt.buff.data_hard_start = NULL;
-			packets++;
-    ...
-	u64_stats_add(&rcq->stats.rcq.packets, packets - errors);
-	u64_stats_add(&rcq->stats.rcq.bytes, bytes);
-	u64_stats_add(&rcq->stats.rcq.dropped, dropped);
-    ...
-}
-
-Only errors are subtracted from packets. If add_frag_failed is set, or if
-xdp_build_skb_from_buff() returns NULL, the packet is counted in dropped
-and also in rx-packets.
-
-The buffer length is also added to bytes before xdp_build_skb_from_buff()
-runs. A failed skb build therefore still counts toward rx-bytes. An
-add_frag_failed drop adds to packets but not to bytes, so the two
-counters also disagree with each other.
-
-mpnic_get_base_stats() reports the same values once
-mpnic_aggregate_ring_rcq_counters() folds them into base->rx. The
-miscount carries over after a ring is deactivated.
-
-fbnic_clean_rcq() handles this by jumping to next_dont_count for dropped
-packets, so they are counted in neither packets nor bytes. Could mpnic
-do the same?
-
-The counter semantics come from "eth: mpnic: count packets, bytes, and
-drops per ring" earlier in this series. This patch is the one that
-exposes them as qstats rx-packets and rx-bytes.
-
-The later patch "eth: mpnic: count Rx allocation failures" also counts
-skb build failures in alloc_failed. Those packets still stay in packets
-and bytes.
-
-[ ... ]
+ sound/core/jack.c         |  2 +-
+ sound/core/pcm_native.c   | 10 ++++++++++
+ sound/usb/line6/pcm.c     |  2 +-
+ sound/usb/mixer.c         |  6 ++++--
+ sound/usb/mixer.h         |  5 +++--
+ sound/usb/mixer_quirks.c  |  2 +-
+ sound/usb/mixer_us16x08.c |  3 ++-
+ 7 files changed, 22 insertions(+), 8 deletions(-)
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-mpnic-counters3-v2-0-8afba81c2d5a%40gmail.com
+2.55.0
+
