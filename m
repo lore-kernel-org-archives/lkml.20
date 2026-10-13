@@ -1,202 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEC6513545;
-	Tue, 13 Oct 2026 15:14:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC47515889
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:14:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904473; cv=none; b=LV0s7mDFA0iWp+dFAFYHsN0WJGhWGtLld8U4Lzrj0N/6dQISWbjn3wG5UPWL/IvEtVsBC8yGFl5WAQxiPIvUk/QeKvuRfSORQSBeOLimcwgY5G9yeud2BbvlvGJcAwI4MR4YWoBjgr9mV0mxwFbd+7fXk/ghD//SuN8tOxVd6DI=
+	t=1791904494; cv=none; b=jtmNpS5j+SqK81cn9nmHmBhI8+zDzbckKIImMEDp/yCZNU6/ibO1KBEPC/ms04oXw2JNHr3DWFrRT+LnEfewgZmeQ9EMOewH9qcNGu3qaOaI6UN4utnZ0+mWS63DyDi3eCCueubC5m6qx4qdDDiuUftz9M6hBUhv56BJonOJxLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904473; c=relaxed/simple;
-	bh=QlFqjTLTYzRUYg3EKhTpkPQpznpxyXAxuZd3Zxh5TsA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=F1dy6lBd8ylr52nZMvSlnclVnoxsISRVd16A6ojLMgYRpTrCyHFSH6tKhk+0nKirTXnf18CeIliIPVyOTkbRZy9UktU3e+/yUlqzor323dNevyf9XcaEFsx6td8WQMwimIXUi6DeAyxLi+mYhfzVXUnkh+BZ+WaOpUOtHErYD4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJxoQW45; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904494; c=relaxed/simple;
+	bh=i+Kgazn/A26d/jnqiULLIMIDKPiJkQnG+4y4AEyQ0QM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=Ex9yD8zpBFVOEgtBEShqLlm7s8TZ/uqSMt49l38stUkuksqsrW3ypDgqHnPvii7VL5iFcUiEyu6bOFrsOUlvnXtjX2QyjDMR270aQZF7quR+wdjOpIxRc0jO3IcOctLmaTmaM+Pp3cMP2g+Hz8/QIM37sxIBh0xw0EShYJpbT+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=J+XhwAOA; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJxoQW45"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 613AA1F000FF;
-	Tue, 13 Oct 2026 15:14:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904472;
-	bh=0bnu6UG4IVOs8k1+HPoNuLyLEAARmeUBUO1+fNpEoMo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=DJxoQW45L0WEIzWaYdq/0lXV8eINLp+/fpnrparhMe5MG9AzSehV4ukQfCXiulbH4
-	 KMBNwPuOg+U4yWCQO1euexl6hY2jhzdR8wi/ukfqvioKd+JNNcKEfWOPf5AOfauu77
-	 AgQkxbzNyRjjuPeMIPOa4jHL84oahLD9POgs4m19S4xwVjJ+CpxKJnln0kXlZ3Wzab
-	 3dhsXSFqtXLPBsZha2SAd4yLHzLKWurjaNEBAOCkBMLX8L+SZgA9ZYiSLtCv6aoU6p
-	 SZRoJL9Mhx4vLrwPIONT7Vq2ClIIE8BmdRRVOAwi7hCFDR9M/KxusscElO8/Z1sHBA
-	 OHfc5zd/43WAw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:56 +0100
-Subject: [PATCH v6 16/39] mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT
- if not mm-managed
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="J+XhwAOA"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261013151449euoutp01c1df306d103844a952749ded6649a722~eH6Ou0TR01757917579euoutp01D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:14:49 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261013151449euoutp01c1df306d103844a952749ded6649a722~eH6Ou0TR01757917579euoutp01D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791904489;
+	bh=TucBtbT8WUZnaL4AAJ/KHE6ifLcnYplyyYn4+mym8U0=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=J+XhwAOA1Ibu2V+msB3Z0/x6R4HuqR9MG22HyLGM7owRGWCRXUhVdxR5ueM45Dkxe
+	 +h5MPmkK3ly/kBNnW0tobrHknGR3YSCnvms3hmIrsV0lAKjHyIWxY2i0a1hKd+fUbw
+	 x3DbyRVnt0NbAqmkuY5NdDJTr9fRu6XScs7BXLJg=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261013151449eucas1p25f9863bc10f769dc04db0e1cc7d22a8b~eH6OfGkV41073110731eucas1p2Y;
+	Tue, 13 Oct 2026 15:14:49 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261013151448eusmtip2e76adc8617f398a4f3b94dab5e502846~eH6N6x-bM1039010390eusmtip2y;
+	Tue, 13 Oct 2026 15:14:48 +0000 (GMT)
+Message-ID: <2f3f6025-1bea-4957-ae2f-219666c426aa@samsung.com>
+Date: Tue, 13 Oct 2026 17:14:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma-debug: Skip cacheline tracking for MMIO mappings
+To: Robin Murphy <robin.murphy@arm.com>, Leon Romanovsky <leon@kernel.org>,
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+	Arnd Bergmann <arnd@arndb.de>, Vinod Koul <vkoul@kernel.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <e7b6e74a-4ec9-4146-a6b0-9183a9fb7933@arm.com>
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-16-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2352; i=ljs@kernel.org;
- h=from:subject:message-id; bh=QlFqjTLTYzRUYg3EKhTpkPQpznpxyXAxuZd3Zxh5TsA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZx0rjt68Vui83tvJ9uLzP4vG0v53iQLzkjZ5X7hh
- mhIpufKjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkSjwjw63a7keHP/7YX8Ho
- +DDwZUn/ZPa/Qg3Xnx68KXc9/0ituj4jw7sLR07XPL7w71iLE+esqZ9OMgVcmJTdc2IV190Pwar
- hUUwA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-CMS-MailID: 20261013151449eucas1p25f9863bc10f769dc04db0e1cc7d22a8b
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261013124404eucas1p18634616550d426fa68a0e919b73be3bb
+X-EPHeader: CA
+X-CMS-RootMailID: 20261013124404eucas1p18634616550d426fa68a0e919b73be3bb
+References: <20261013-dma-debug-fixes-v1-1-1ad1f471cc61@nvidia.com>
+	<CGME20261013124404eucas1p18634616550d426fa68a0e919b73be3bb@eucas1p1.samsung.com>
+	<e7b6e74a-4ec9-4146-a6b0-9183a9fb7933@arm.com>
 
-For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
-the underlying file is itself read-only.
+On 13.10.2026 14:43, Robin Murphy wrote:
+> On 13/10/2026 12:44 pm, Leon Romanovsky wrote:
+>> From: Leon Romanovsky <leonro@nvidia.com>
+>>
+>> Mapping one MMIO dma-buf for many RDMA importers overflows dma-debug's
+>> cacheline overlap counter and triggers a warning. DMA_ATTR_MMIO mappings
+>> must never be CPU-cacheable, so CPU cacheline overlap tracking does not
+>> apply to them.
+>>
+>> Skip MMIO entries in both cacheline insertion and removal. Keep them in
+>> the DMA entry hash so mapping and unmapping checks still run.
+>
+> Seems fair;
+>
+> Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+>
+> [...]
+>>
+>> Fixes: 0e74b34dfc33 ("dma-debug: add support for resource mappings")
+>
+> Although it would be a challenge to backport _that_ far, so more realistically I'd probably say:
+>
+> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+>
+> since regular dma_map_resource() users are still never going to hit this making their one-off mapping of a UART FIFO or whatever.
 
-This means that mprotect() cannot mark a shared mapping of a read-only file
-as read/write, as doing so would violate the read only attribute, and
-permit writes.
 
-In general, we do not want file systems to be able to do this for
-read/write files.
+Applied to dma-mapping-for-next with updated Fixes: tag, thanks!
 
-Doing so would violate fundamental user expectation of file attributes and
-likely break userspace.
 
-However, drivers pose a tricky problem here - the /dev/xxx file may be
-read/write but provide access to a resource which is fundamentally
-read-only.
-
-Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
-
-To achieve both of these things, forbid this for mm-managed mappings as
-identified by vma_flags_is_mm_managed().
-
-This constrains this ability to drivers which own the mapping's contents,
-whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
-map themselves, and so define its semantics.
-
-Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
-across drivers, filesystems and bpf, establishes a mapping which is not
-mm-managed,
-with usbmon and the ALSA PCM status page converted earlier in this series
-to do so.
-
-Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
-disable MAP_PRIVATE-file-backed mapping CoW semantics.
-
-This is perhaps not always intended, but we retain this capacity to
-maintain existing behaviour.
-
-As no driver which clears VMA_MAYWRITE_BIT establishes an mm-managed
-mapping, no functional change is intended.
-
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/vma.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/mm/vma.c b/mm/vma.c
-index c067d6a4c826..39ceb03023e2 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2801,6 +2801,11 @@ static int mmap_validate(unsigned long orig_start, unsigned long orig_end,
- 	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
- 		return -EINVAL;
- 
-+	/* mm-managed mappings may not clear VMA_MAYWRITE_BIT. */
-+	if (vma_flags_is_mm_managed(curr_flags) &&
-+	    WARN_ON_ONCE(was_maywrite && !is_maywrite))
-+		return -EINVAL;
-+
- 	return mmap_validate_vma_flags(curr_flags);
- }
- 
-
+Best regards
 -- 
-2.55.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
