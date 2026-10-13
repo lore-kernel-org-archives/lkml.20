@@ -1,72 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC892471CEE;
-	Tue, 13 Oct 2026 02:45:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569F8377A95
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791859522; cv=none; b=os1dWJx0YG0DCmp8MIafJZp7AEYDIu8lZET32HG4JFhLHII1m8uzfLoZr0/27cOp0/OoVq10ClFaBKl54afmjyEf5P2Ys7upI74ndHAtmqATr9GM2ogtr1jTXyirGdaH3/n32KJQuIhZiY0xH5Dcr+R5+Z7bCbbXIXP/TGYNjCw=
+	t=1791859634; cv=none; b=hkpctJXka6TTZ2Ln68HorHDS/y12eqKiyO/SHAXKkgBgeHzPnMfyPrQ22Dm7cyc5bGUfXbH5iXZYLh1hVscZtYMJHFtKVlsQ46of8z3XFpk7jv/PATMYqBVHnq4QSTFq06pmy23jF35v/PsnopkAt76+YNo4bmcGH/BjhfClfCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791859522; c=relaxed/simple;
-	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=J17M0MrKnc8CMNyfvu9Sa8IFrTQCiY4AeFI4e/hkP1VV/PaEzBgTSWrWHdf0uI6iweE6HVAIbRMkiCRTUCUl9xyVRzwrelNZRnLMgks/lIjMs9sP7rixjzN082eHrxsWLawJrFUAHKlnZ/wnsEynsbJlCdqbClupAYU44PTaVog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dNpEYsi7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791859634; c=relaxed/simple;
+	bh=e5qJ7/cHRftpI/ExivZm6EQbTQ/U1hWJ1r+cnnvzTAQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=X2Igd8AaBlcA6T5nOMdKqQdvQg3dchlS5w8tsWoZFUs+WHRfU8AeCX4ATE6k0w299XRObCfu21Ta+mC6VIYmyzKT6DUjKxJOxBaikiQ2uddBtyYEj3+IAbkQngAEVSfFwJD0iCSQy3r6g0iokNCjx4UbwmlKD9NvxUhGBSNhdjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HbLdQSZ7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dNpEYsi7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA281F000FF;
-	Tue, 13 Oct 2026 02:45:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HbLdQSZ7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E64F51F008A2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:47:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791859521;
-	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dNpEYsi7mypoqxTJFWCvHUeYojSdeVC8TxfChC6yjtILgQkX35f2noKLr/H3Suz60
-	 y7kXn96E1EW/qdq5YKuyf5HP7xX3OsnTQW78WdxtV45Ot2ZTWARoNhKAABweyOCPz9
-	 tWG1Toepc/O5HjgY8quT6Mo0uoOWWd2qpN2IzUgcJzeC5Omt+8HAUBYMggm+rCuBms
-	 jUNgYOWO//DFHFnVKvHFKH1NFtYihe4DxLBvN0Z9Z5jkvSq8i5T/10nOu7jhgCFjuF
-	 APIe23QkwPJtShSQI08RK9T/8O8K4I9EdmG7xo/iMn9q8wl0+a3TGOj7myYs+Jicq0
-	 o7/GPwuKD0LBA==
-From: netdev-bot+sinfo@kernel.org
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: Eric Dumazet <edumazet@kernel.org>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Nicolas Dichtel <nicolas.dichtel@6wind.com>, Kees Cook <kees@kernel.org>,
- Ilya Maximets <i.maximets@ovn.org>, Breno Leitao <leitao@debian.org>,
- Jeff Layton <jlayton@kernel.org>, Kexin Sun <kexinsun@smail.nju.edu.cn>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] netlink: fix out-of-bounds bitmap access clearing
- stale mc groups
-Date: Tue, 13 Oct 2026 02:45:19 +0000
-Message-ID: <179185951975.2527009.10474280775372209757@kernel.org>
-In-Reply-To: <20261013023859.3075601-1-bsdhenrymartin@gmail.com>
-References: 
- <CAL4WiipgL26xjM+0+wT-NUVx9ppjQEJj+oShdew-mbzrRVU=dA@mail.gmail.com>
- <20261013023859.3075601-1-bsdhenrymartin@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1791859631;
+	bh=Py5W+zOf8jcv9SphAVIYRIsYaiROXNPiORfkJ1reQcA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=HbLdQSZ7lUz9oL05RWz6k+V6Qv3JS5sb152wnuh9/C7fqzhiLnol9W4Zo/AYHud5+
+	 G9kAB19LQKv+cDKB7IHLRfqSBGQmXA5Zjuv8mZFFEkFrZaCX93O2qHj9diPwd7wT/o
+	 iQxSjMRoHzmyMWaMQng0yWVlJzy3frz4iMdaiYe0qKzQcNccon0pYeugOwWqt63NKk
+	 CvskBZhjH7jFs18BsTCEE/HnXlyziHvOoW2FIvNg/52GfWxYuRgsYprVUK5/LSneiD
+	 nUyyAsuRweVt25aLYJHkWXWRZ6RYIZ/Ppmq8Ce0nTi6sOXlUmqso/KpyfuXJcscrNw
+	 d9zzw0VVzbABw==
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1aa377c61so2619004a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:47:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxplD864N0FzgSxBMmeW3DWgb6TMATxI/MiPykOPcgvEQ6UrZRINh1vSwoxf89JpmKZNWX7oaoe2JNe3UQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLl5OOeRVZbNw+MmatQ60oUdlt5qRat/+hSrs2l0S+n61EHNFKT
+	KZ+uRPa11CB10dSaq3vq1H0a/U/7Ndtp/eHDkjhrexl12a9ebMfgWQnZSeJsELo2nUwGZTKmsgZ
+	yJero+2YFuCZ1biQwy49jUZuTMGDWXJY=
+X-Received: by 2002:a05:6402:1d49:b0:6b1:c327:a9d0 with SMTP id
+ 4fb4d7f45d1cf-6b1c327b8acmr3296104a12.40.1791859630439; Mon, 12 Oct 2026
+ 19:47:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261012090431.TF3iVDsk@linutronix.de> <CAAhV-H4=nnhbJS4srmt7dNdgpkEZ8_RQ5Z+0baYMiXF1UrJ3KA@mail.gmail.com>
+ <20261012102143.lpVrHb9R@linutronix.de>
+In-Reply-To: <20261012102143.lpVrHb9R@linutronix.de>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Tue, 13 Oct 2026 10:46:59 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7xME-UrgMHcfY41793yxWyvgEMAufwgcboEL2q3Jg+VA@mail.gmail.com>
+X-Gm-Features: AclHuK-5nGNIjnalns2TTYeuiR7MEop7yTmsqLsf4e42_RR9QXEQZeMe2PdFpnw
+Message-ID: <CAAhV-H7xME-UrgMHcfY41793yxWyvgEMAufwgcboEL2q3Jg+VA@mail.gmail.com>
+Subject: Re: [PATCH v4] ARM, ARM64, LONGARCH, XTENSA: Delay HW BP notification
+ to task_work()
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+	loongarch@lists.linux.dev, Mark Rutland <mark.rutland@arm.com>, 
+	Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Oleg Nesterov <oleg@redhat.com>, 
+	WANG Xuerui <kernel@xen0n.name>, Will Deacon <will@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, 
+	Waiman Long <longman@redhat.com>, Clark Williams <clrkwllms@kernel.org>, 
+	"Luis Claudio R. Goncalves" <lgoncalv@redhat.com>, James Clark <james.clark@linaro.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Chris Zankel <chris@zankel.net>, 
+	Max Filippov <jcmvbkbc@gmail.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Jiri Olsa <jolsa@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+On Mon, Oct 12, 2026 at 6:21=E2=80=AFPM Sebastian Andrzej Siewior
+<bigeasy@linutronix.de> wrote:
+>
+> On 2026-10-12 18:15:51 [+0800], Huacai Chen wrote:
+> > Hi, Sebastian,
+> Hi Huacai,
+>
+> > > diff --git a/include/linux/hw_breakpoint.h b/include/linux/hw_breakpo=
+int.h
+> > > index db199d653dd1a..91e8d80220c54 100644
+> > > --- a/include/linux/hw_breakpoint.h
+> > > +++ b/include/linux/hw_breakpoint.h
+> > > @@ -85,6 +85,9 @@ extern int register_perf_hw_breakpoint(struct perf_=
+event *bp);
+> > >  extern void unregister_hw_breakpoint(struct perf_event *bp);
+> > >  extern void unregister_wide_hw_breakpoint(struct perf_event * __perc=
+pu *cpu_events);
+> > >  extern bool hw_breakpoint_is_used(void);
+> > > +extern void perf_arch_hwbp_send_sig(struct perf_event *bp);
+> > > +extern void perf_hwbp_notify(struct perf_event *bp, struct perf_samp=
+le_data *data,
+> > > +                            struct pt_regs *regs);
+> > Maybe this declaration can be put in one line because there is no 80
+> > characters limit now.
+>
+> We don't save much, do we? It looks more readable. Maybe if the perf
+> maintainer requests it. Looks like waste to repost it just for that.
+>
+> Any comments on the looong bits?
+Others look good to me.
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+>
+> > Huacai
+>
+> Sebastian
