@@ -1,78 +1,104 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DABC552ED39;
-	Tue, 13 Oct 2026 15:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A548852ED30;
+	Tue, 13 Oct 2026 15:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906408; cv=none; b=X0Z/UMshibxNz+OmEWdErBRyP5P5wJQmUcu9llCrdYoDBMxC71o2++FAZwwM6zlb7NBszw/DVwg120ipo3JSAu9iH0oCcbBY7xrAYF8o9SRqMiGY3JeajKn32np89tHvA4+u3vge1VIRTjkSa3RgPpRZGTXqt4PikjUeLgIYG4I=
+	t=1791906420; cv=none; b=IHdwjrb+VJicbWreuzyuv8OMOk6aPAPOezHdpNzMx7cLWTDrg/AAB/ct2Vxi3gXpG+k/OmpmDJ+T0VSlclrUBtm26cNiAP3jtXTHmcVPq2LlmhxATsG9itMyrmT6dp9JvbAPNg48AZIf2y4xednqB7Tq9RzVsvY+ARoSITA2peA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906408; c=relaxed/simple;
-	bh=JeRaURUo5EbmMLuGd0BOhxrctGp6NHfz84lMXFt/WCo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QdUsf8MhgQtHBEXPW6gK/WiGu1kzqz2JgXyZVYtQkll7+hPea+I615bvxgoIIrH9QuMgDagCrqaKFlfVsQC9TGlFNWrOeky76LHoRVMAtxJKVWENYcE1BKwWdy8hXD07fhcsxkUt2ijKOVPsXIBH2nrqmr6dyMoj0yQLjAaUlV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=X75FUdGM; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791906420; c=relaxed/simple;
+	bh=B23L31nRXwSGz7un2PjEyk/lXVDXO2QexEoFL0fy/ic=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FYLUZDtlCGU4r1nqRTxLa2ji3A2MrAtMkz7i05OGbAHGR5gkHnSVkYXhBhlnFPRQLC1cKUyRNKt/Pgji7plQ4sA0lGcUTdNm09MjJM3vQvFt9IucyXaHmFM8A6qoryVglvqlgntgQxhzNtZew2a8zl+H7yNwEpKxZDguaEYlTfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdqC9gMj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="X75FUdGM"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D442A169E;
-	Tue, 13 Oct 2026 08:46:41 -0700 (PDT)
-Received: from [10.57.13.106] (unknown [10.57.13.106])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2D4FF3F673;
-	Tue, 13 Oct 2026 08:46:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791906405; bh=JeRaURUo5EbmMLuGd0BOhxrctGp6NHfz84lMXFt/WCo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=X75FUdGMBAZYYdPrK2BcgKxQkWiUuX/Mev7U3QTFrR/D2ZaBM94pw0qWGcNhIsrhi
-	 HNgW0pdzZ0TS8JEbWeGOyWyZ+WWETzZd6VBjM69GJs3SFC+HdmB5a8oKbOxUfqjRFR
-	 QT19CD1NHaJSx1sqnq4l1v9tXFIlJQAsH36l+TS4=
-Message-ID: <9a36345e-5301-4636-aabe-557d923e61f9@arm.com>
-Date: Tue, 13 Oct 2026 17:46:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdqC9gMj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB201F000FF;
+	Tue, 13 Oct 2026 15:46:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791906419;
+	bh=zrrwM+OoTQ5n+oUmClj8UHVrIw8n458ireLa+GKP5qM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BdqC9gMjE6f5EWWl1Xlpzgq2aOqELdaPtElELJu1ZCWu54KCsQoAD9g8r5t2rDi4o
+	 djw2jbEX0/MkPGgXpPDTCGuKmo24p0IuekQLxf6x1cuLJdDC3cunM45pw8Az2kWEfM
+	 ePK9sXqi3/K6TN1zi7I0dicxeuCMvq1uXcQUYNiL1HyCx5QjqM9G9Dnajn4MMimxwt
+	 JyEWcIJ1rbyqOG0SOgwVo+XP4LXaRm4mDWWNR/Agx7cClMcB7mcsuVYj4ZlED/P7Yd
+	 murSJvxLGW7OiJnPcKNfmu+pcczAFox3+JODJeTxENdI/IH+xarXL8w2KS7H0NrGug
+	 w0poGpFVwgbfg==
+Date: Tue, 13 Oct 2026 17:46:56 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Sasha Levin <sashal@kernel.org>, Aaron Kling <webgeek1234@gmail.com>, 
+	Diogo Ivo <diogo.ivo@bootlin.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	Aaron Kling <webgeek1234@gmail.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: gpu: nvidia,gk20a: Allow a fuse clock
+ after the reference clock
+Message-ID: <as5R_xrDv4eVPdtz@orome>
+References: <20261013145210.103565-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] arm64/mm: fix destructor for unconstructed hotplug
- page tables
-To: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
- Dave Hansen <dave.hansen@intel.com>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@rivosinc.com>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org,
- linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Muchun Song <muchun.song@linux.dev>
-References: <20261010112457.49485-1-songmuchun@bytedance.com>
- <20261010112457.49485-5-songmuchun@bytedance.com>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261010112457.49485-5-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nnyddv2boxnoq3dq"
+Content-Disposition: inline
+In-Reply-To: <20261013145210.103565-1-sashal@kernel.org>
 
-On 10/10/2026 13:24, Muchun Song wrote:
-> Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
-> hot-removed page tables") made free_hotplug_pgtable_page()
-> unconditionally run the page-table destructor. This matches page
-> tables allocated by the arm64 mapping code, which runs the
-> corresponding constructors. However, arm64 also uses the generic
-> sparse-vmemmap population code. Runtime intermediate page tables
-> allocated by that code do not run a page-table constructor. Freeing
-> one during memory hot-remove therefore runs a destructor without a
-> matching constructor and corrupts NR_PAGETABLE accounting. Free
-> intermediate page-table pages through pagetable_free(). It runs the
-> destructor only for constructor-backed pages and then releases the
-> page through the page-table freeing path. Fixes: c594b83457cc ("arm64:
-> mm: call pagetable dtor when freeing hot-removed page tables") Cc:
-> stable@vger.kernel.orgAssisted-by: LLM Signed-off-by: Muchun Song
-> <songmuchun@bytedance.com>
 
-Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+--nnyddv2boxnoq3dq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/3] dt-bindings: gpu: nvidia,gk20a: Allow a fuse clock
+ after the reference clock
+MIME-Version: 1.0
+
+On Tue, Oct 13, 2026 at 10:52:08AM -0400, Sasha Levin wrote:
+> GM20B needs both its reference clock and the fuse clock while it is
+> powered, so allow "fuse" as a fourth clock after "ref".
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/gpu/nvidia,gk20a.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+
+Aaron, Diogo,
+
+I'm fairly sure I remember at least one of you mentioning that GM20B
+wasn't always working reliably. Would you mind giving this series a spin
+on your devices to see if it fixes any issues you were seeing, too?
+
+Thierry
+
+--nnyddv2boxnoq3dq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOUnAACgkQ3SOs138+
+s6E07xAAhV16aE/vTmdXCWNQFDANmFHYGGkbT8iB51pQecVSkYApSpthdGshj822
+8aL9r+P3JKo6enP2M0iITNX71JEw6W/s7btdKO9ur0lAmT7OQkZbr0cBbHFDkeek
+Rx5fZYDM8M/Xf5t3/Yka+rQTJpmPSWwqljLYcqcQBChdPkG35VuWS/Df5PwTK5tu
+9j+SWtpNRg1CPCNIvNiZzltE8Vdkp662vSrucQyzTp9UWws5DIgPI3qhPGTQlbjt
+rZVi7cWLawCw2Tnl4WeXOlEPDS0s0sh+w9dmQhpgjeJWBGJYhTms06X7qX7lJ0fd
+2ncmditmQrBk0JCu94YQFx7tjSxjUSXTXSPPw+HzZXDtPuHaRAp5+75jqeqg2wIg
+zG6Tv3+QIpEONMXKZtdu72/o8cPJuXFnXNTWqMY2GITRFmBR+3zt+DnVgXXwvj7V
+JHr0iYWp40CRIZTgq9lcNlQdMnqzjm1g8oV7g1RAXdhZHp3FU6RBpAoe0kUOmyFw
+RAqb6V/lXF89WgzrZ0qlSG9s/8NkjmJaMj04wiU7YA3xLNCeBPw4rzR8hMNzteV0
+VyK7BQeV8T39SBG+D1Muwyq4quFQO0QLHen6YmPSf3SMdEikNwl5JT2ZGziUGtKq
+X/IOENvD1mK9kvYwQFnZ6YCdez2KwN45NDtWe+Tm6MFviXE0WNU=
+=ovYf
+-----END PGP SIGNATURE-----
+
+--nnyddv2boxnoq3dq--
