@@ -1,124 +1,201 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607D251CF6F
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A60515968;
+	Tue, 13 Oct 2026 13:17:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897445; cv=none; b=RWTbPAmDRB17uhZntV5W/iwf3mfp1wwkkn9hWcC/sYufJ/d78Cp78MPGf4NPBVb3IrnvpBwtH57spLKAiF9NZOhJ49OdteuEtdAxZz1ZSq129Up9z/sSHVG7Y9oMLhASieIFzYo1av81pkT15bUHRNVJedn5ewN+oa1zzzTuaZA=
+	t=1791897454; cv=none; b=lo0AfRF44yGG8Rw33z7DYNtapMyAhZbxBOQzRRlGGkXtNd13eUXKMbLvqjobMTU1r7kSipdXElWrHF67ZOu+MC3XBeBCgOYBNb1szcN1Hw01gKXmIVnIp71+8JSBoG7XaoUc7auVqS4OIpBZ1dpMyTumqVK83DImVHohdyPkv+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897445; c=relaxed/simple;
-	bh=Y2g6FYFbg4SoUd7Lte7y5l1+lGhMg31jzgWlIk4Ie4g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Mx8yiG1WEwi7b9K5HuHwoNYNZO+L0oQ1pCxINss1Y9ILwpkni2tF/Rl3B/w+NLPUTwAEuUvjgQwzUem4z1VOjm7CFFkVdw3oMi7herCoAizPgPkRPEU3qbwKDzxv/Ep27C4DtIOT/sAQN1qMIUSV9aryXG04Owo6TNI3bHx3tBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=U0+3FzcN; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791897454; c=relaxed/simple;
+	bh=M5bb2vuxIRX0JCYXwwLTaUqn1FwIZqc8uMadChtrgmU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=r9NKn/IK7jlTT+IxTmymDW4bqQjeLpY+ukGUVQEVWmpEoF7YfWeg24+HieTNip2xIzCt1npc1CU9oI+i+Fw7TOvAlxejRD91wVe69QbH+Tf9kpQn6CP7pnzpYZBIAFAaHLNeN/PmqkmgqK153mxuBoigYcD2TojObLDDpq+4SCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=qdXCvWfD; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=ybe1AGUB; arc=none smtp.client-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="U0+3FzcN"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 65A3CC653ED;
-	Tue, 13 Oct 2026 13:18:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D9EDF60362;
-	Tue, 13 Oct 2026 13:17:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4F03E11D713F1;
-	Tue, 13 Oct 2026 15:17:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791897440; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+pDMpK4r/RgjFjmJUy9RXdPHOlPlNSL+byaGSghb5iA=;
-	b=U0+3FzcNLPJp7xtCfz5mskmEF6yO3xODuDRJ7U4361pgLIeWg1+hAN9Y5PKrMAmIM+4HpM
-	MZErxS4a4GVkTIk+N2kMTiqmsT50t7wyLabkQc2/vMNI1x6Shn6wi4dFl64IrZ+RxE0kMr
-	57n93l/dH2UrY4cmFmwlopRFC/1CzV3/IxVENzcPIAFIuRMrEEf4CRkMvN435OvP3IGPwt
-	+EN7QWviq8s6PuIhTInsfmA47j/LHPugLv7g7w8ejwpdcp35sFyf3hcMdZ17HSR2jGYP+H
-	bBsp9mdtSW+uU6iyCmdTdfs7swqVUMLg1KgAIY0b5K5zouxIioTfLPz0i5V7uQ==
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Tue, 13 Oct 2026 15:16:47 +0200
-Subject: [PATCH net-next v11 9/9] net: macb: use context swapping in
- .ndo_change_mtu()
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="qdXCvWfD";
+	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="ybe1AGUB"
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id BAB8F26F7697;
+	Tue, 13 Oct 2026 22:17:29 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1791897449;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FMOGi9Alv0yO8V9KRbfuZjnW9LLoZol04WAXwOWhrBA=;
+	b=qdXCvWfDUsNwY2vcZvD5tJpF8lSsxDurxwiw0t0RCG0Gv7uj91eKjtB+VMox1nRTsEz/4T
+	EAmfadyGhH9fp235dKXPJl5H1LRkYyoSQ7j0pSh62cmnYEX196CKv+a6HrmazyR9+IGRks
+	64p1ojzkRjFOC6b9GATdLoSxx5BZSuliCWSvRPKuB7dlLitBqyQpXtWH1TR+uQIqkYaUXD
+	mzeniZoVivkbr62xZWD+YbH4Vol0rBbdDCaNnJvwoG/wV3UPMd1n0tPvAv2fW7ArwIUCDs
+	0jDAzL9c1S8lGd7umjtbxTvC+ZikCoM2XDYunyrI7B9tJFaq2rzUSwC/b6dqZw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1791897449;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FMOGi9Alv0yO8V9KRbfuZjnW9LLoZol04WAXwOWhrBA=;
+	b=ybe1AGUBnQpV6AAXjn4ods+7+Z42zJc2hrX/4RHCwW5noqmqk+fTp9P91cGQuVhANnmCjm
+	uVpLQX9hVOmF6KDw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 4A039E00149;
+	Tue, 13 Oct 2026 22:17:29 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 3DA2522000A7; Tue, 13 Oct 2026 22:17:29 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
+ linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] fat: support adding multiple clusters
+In-Reply-To: <20261012171106.146243-3-matheus.aalmeida@inf.ufrgs.br>
+References: <20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br>
+	<20261012171106.146243-3-matheus.aalmeida@inf.ufrgs.br>
+Date: Tue, 13 Oct 2026 22:17:29 +0900
+Message-ID: <87h5ipn3iu.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261013-macb-context-v11-9-b27785167566@bootlin.com>
-References: <20261013-macb-context-v11-0-b27785167566@bootlin.com>
-In-Reply-To: <20261013-macb-context-v11-0-b27785167566@bootlin.com>
-To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Russell King <linux@armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paolo Valerio <pvalerio@redhat.com>, Nicolai Buchwitz <nb@tipi-net.de>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 
-Use newly introduced context buffer management to implement
-.ndo_change_mtu() as a context swap: allocate new context ->
-reconfigure HW -> free old context.
+Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
 
-This resists memory pressure well by failing without closing the
-interface and it is much faster by avoiding PHY reinit.
+> fat_add_cluster() currently adds only one cluster to a file's chain,
+> requiring multiple calls when adding more clusters.
+>
+> Add a fat_alloc_chain() helper that allocates a cluster chain
+> but only returns the first cluster. Extend fat_add_cluster()
+> to add multiple clusters in a single call and rename it to
+> fat_add_clusters() to reflect the new behavior.
+>
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 
-AT91 EMAC is handled differently as their buffer management is separate
-and they don't do NAPI. They cannot land in macb_change_mtu as they use
-a different ndo struct. We still defensively protect against it in code.
+Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
----
- drivers/net/ethernet/cadence/macb_main.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+Looks good. Thanks.
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 6bacf3e3caab..f087f278f9e5 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -3658,11 +3658,29 @@ static int macb_close(struct net_device *netdev)
- 
- static int macb_change_mtu(struct net_device *netdev, int new_mtu)
- {
--	if (netif_running(netdev))
--		return -EBUSY;
-+	struct macb *bp = netdev_priv(netdev);
-+	bool running = netif_running(netdev);
-+	struct macb_context *new_ctx;
-+
-+	if (running) {
-+		/* Context swapping is not supported for AT91. */
-+		if (bp->caps & MACB_CAPS_MACB_IS_EMAC)
-+			return -EBUSY;
-+
-+		new_ctx = macb_context_alloc(bp, new_mtu,
-+					     bp->configured_rx_ring_size,
-+					     bp->configured_tx_ring_size);
-+		if (IS_ERR(new_ctx))
-+			return PTR_ERR(new_ctx);
-+
-+		macb_context_swap_start(bp);
-+	}
- 
- 	WRITE_ONCE(netdev->mtu, new_mtu);
- 
-+	if (running)
-+		macb_context_swap_end(bp, new_ctx);
-+
- 	return 0;
- }
- 
+> ---
+>  fs/fat/fat.h    |  3 ++-
+>  fs/fat/fatent.c | 18 ++++++++++++++++--
+>  fs/fat/file.c   |  2 +-
+>  fs/fat/inode.c  |  8 ++++----
+>  4 files changed, 23 insertions(+), 8 deletions(-)
+>
+> diff --git a/fs/fat/fat.h b/fs/fat/fat.h
+> index 61338413d..b18385461 100644
+> --- a/fs/fat/fat.h
+> +++ b/fs/fat/fat.h
+> @@ -395,6 +395,7 @@ extern int fat_ent_write(struct inode *inode, struct fat_entry *fatent,
+>  			 int new, int wait);
+>  extern int fat_alloc_clusters(struct inode *inode, int *cluster,
+>  			      int nr_cluster);
+> +int fat_alloc_chain(struct inode *inode, int *cluster, int nr_cluster);
+>  extern int fat_free_clusters(struct inode *inode, int cluster);
+>  extern int fat_count_free_clusters(struct super_block *sb);
+>  extern int fat_trim_fs(struct inode *inode, struct fstrim_range *range);
+> @@ -440,7 +441,7 @@ static inline unsigned long fat_dir_hash(int logstart)
+>  {
+>  	return hash_32(logstart, FAT_HASH_BITS);
+>  }
+> -extern int fat_add_cluster(struct inode *inode);
+> +extern int fat_add_clusters(struct inode *inode, int nr_cluster);
+>  
+>  /* fat/misc.c */
+>  extern __printf(3, 4) __cold
+> diff --git a/fs/fat/fatent.c b/fs/fat/fatent.c
+> index bfab8eab5..8897a5dd5 100644
+> --- a/fs/fat/fatent.c
+> +++ b/fs/fat/fatent.c
+> @@ -488,7 +488,8 @@ static int fat_flush_bhs(struct super_block *sb, struct buffer_head **bhs,
+>  	return 0;
+>  }
+>  
+> -int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
+> +static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster,
+> +				bool return_all)
+>  {
+>  	struct super_block *sb = inode->i_sb;
+>  	struct msdos_sb_info *sbi = MSDOS_SB(sb);
+> @@ -531,7 +532,10 @@ int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
+>  				if (sbi->free_clusters != -1)
+>  					sbi->free_clusters--;
+>  
+> -				cluster[idx_clus] = entry;
+> +				if (return_all)
+> +					cluster[idx_clus] = entry;
+> +				else if (!idx_clus)
+> +					*cluster = entry;
+>  				idx_clus++;
+>  
+>  				if (nr_bhs + fatent.nr_bhs > MAX_BUF_PER_PAGE) {
+> @@ -581,6 +585,16 @@ int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
+>  	return err;
+>  }
+>  
+> +int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
+> +{
+> +	return __fat_alloc_clusters(inode, cluster, nr_cluster, true);
+> +}
+> +
+> +int fat_alloc_chain(struct inode *inode, int *cluster, int nr_cluster)
+> +{
+> +	return __fat_alloc_clusters(inode, cluster, nr_cluster, false);
+> +}
+> +
+>  int fat_free_clusters(struct inode *inode, int cluster)
+>  {
+>  	struct super_block *sb = inode->i_sb;
+> diff --git a/fs/fat/file.c b/fs/fat/file.c
+> index 1c835ca5f..41d49e9de 100644
+> --- a/fs/fat/file.c
+> +++ b/fs/fat/file.c
+> @@ -292,7 +292,7 @@ static long fat_fallocate(struct file *file, int mode,
+>  
+>  		/* Start the allocation.We are not zeroing out the clusters */
+>  		while (nr_cluster-- > 0) {
+> -			err = fat_add_cluster(inode);
+> +			err = fat_add_clusters(inode, 1);
+>  			if (err)
+>  				goto error;
+>  		}
+> diff --git a/fs/fat/inode.c b/fs/fat/inode.c
+> index f775a004c..141276fcf 100644
+> --- a/fs/fat/inode.c
+> +++ b/fs/fat/inode.c
+> @@ -101,16 +101,16 @@ static struct fat_floppy_defaults {
+>  },
+>  };
+>  
+> -int fat_add_cluster(struct inode *inode)
+> +int fat_add_clusters(struct inode *inode, int nr_cluster)
+>  {
+>  	int err, cluster;
+>  
+> -	err = fat_alloc_clusters(inode, &cluster, 1);
+> +	err = fat_alloc_chain(inode, &cluster, nr_cluster);
+>  	if (err)
+>  		return err;
+>  	/* FIXME: this cluster should be added after data of this
+>  	 * cluster is writed */
+> -	err = fat_chain_add(inode, cluster, 1);
+> +	err = fat_chain_add(inode, cluster, nr_cluster);
+>  	if (err)
+>  		fat_free_clusters(inode, cluster);
+>  	return err;
+> @@ -152,7 +152,7 @@ static inline int __fat_get_block(struct inode *inode, sector_t iblock,
+>  	 */
+>  	if (!offset && !(iblock < last_block)) {
+>  		/* TODO: multiple cluster allocation would be desirable. */
+> -		err = fat_add_cluster(inode);
+> +		err = fat_add_clusters(inode, 1);
+>  		if (err)
+>  			return err;
+>  	}
 
 -- 
-2.56.0
-
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
