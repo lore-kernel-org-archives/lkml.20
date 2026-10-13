@@ -1,62 +1,63 @@
 Received: from mail-wm2-f8.google.com (mail-wm2-f8.google.com [74.125.225.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B1F53CA7F
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:15:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7CF53E310
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:16:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791918960; cv=none; b=nJGt4m8u85S3FTxgGRqgLj6A43gi6GoNqHkAeXDU63NON8Y4bfi2J8eW5R6wQtG4d/qa9HxcFwjB84zI01HgVvsCxMc+yZ1zJMDiE5dAvRh1XBGHrr7EoktKCvC/DtUsljk6z4tu0OGGvbxKTF/VQh/Gi8wwB2Y+5xOY8lM5Lrg=
+	t=1791918966; cv=none; b=ltndSMNxhtwZU4z89nQnezjOE8Tt0YbB57YKvlg3GXm07a6j6M4ZDZoKjwbOEu8cCzwJk/TDLIwbDqExgqzDWP1gDDWXnEaR246vOzPeKbYBR9B3HIHyehjBucNnwtDveNOi4VHmwbaxX2fX8o6M+4uvbzqLEZHs2Fepli5dhzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791918960; c=relaxed/simple;
-	bh=YqIFBD0cMGaqBJVTPfg5GHhAEe9OSyYJzacDjggqHpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HbaETuRk9gJAUJRfLGXJ4lTUXwyreKndfe/6L3gFuHIerFIO59eHyqbnyjal1VdszQsIRhkB42Tt6c70PwR5kSk89PqHBsunvtx7+VKQzNXE5U7YhfF7f5QsadpeGg8ThY799sdoCxJIeL5KskYJEH23DPYMSW9Wdy8bZlrLZ88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G5yQ+Lk4; arc=none smtp.client-ip=74.125.225.136
+	s=arc-20240116; t=1791918966; c=relaxed/simple;
+	bh=IDJqFbIJ+Lq1Jf9DcU0KCW0ttxfoA2bTcIvvprI6nfs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Kw1cAD+oW/xAH7aG0Ytpt2yjn0mu6Ff5+momFbHWm2gvMmqEA8ecu/4EZhfeHUswPfmyYk/oEzBaMKPYZh7AxKTka/h7zBAILtOtDck0w5GNXI9EMRWTofLOkmPbShaiSR5n1LD/2GZORjQoxUQCvoaTbpqZVZ3HfY1p9aMwv7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a9ORRWo1; arc=none smtp.client-ip=74.125.225.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G5yQ+Lk4"
-Received: by mail-wm2-f8.google.com with SMTP id 5b1f17b1804b1-4a1963cf318so3536415e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:15:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a9ORRWo1"
+Received: by mail-wm2-f8.google.com with SMTP id 5b1f17b1804b1-4a198438aacso5215745e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:16:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791918956; x=1792523756; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xAiWr2qQ//z0iBACrzomuihaSPDdArLye5ron8Ml9Ro=;
-        b=G5yQ+Lk4nW42hdYfeeo+H5t5g3mnehl71V5hX3APP9rWB6W9Kb2Y30hcFqh0vvy6Rf
-         ntLpRwhmZMlC+uweQpNrr/f0JbopPoicLo+4wJ1HfugDVcoKIsCx6dg+owF3g5vrBu+y
-         sfg4Ip11oVOhy4QWs1GvX20txUZOdyqwTGKHxBONuTe7TOZSys2jcTSr5dDD7gGV0SKP
-         7k2mgGogvkNhPUgXMKGc6pWfaI7XjxES+SC+zAU9MSFOJrBS2QoNb/CmhtDjNgt7nNOv
-         NwK6iecicQ6ezoeL3kQ17aW5cFn1JRKjbzEuJh65pbnUKdKXbJEE8f4Aj22qXk2CrRgk
-         9L2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791918956; x=1792523756;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791918963; x=1792523763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xAiWr2qQ//z0iBACrzomuihaSPDdArLye5ron8Ml9Ro=;
-        b=m7zAm9JCzxar3L1c1HLuuji0Gf7SOO0JdGjM3CGKK27dG7sxxX6O/kkUNqBAuQvSgk
-         FyA5I38UrUKtDPaPuxq3B2Rnk18MOyDcq3guIY1hNgo46RGTV3TqIuPGFlt5942JDZ1d
-         U/W+RB4TaZESg5+8yyaye463uYyhB78YEwOZlVfIH1XWWucl+t/tIHB9RAlNDPa14CqN
-         sZRKzEQtC7IBIL+Io4VE74WvEAufQ96kzrFR78BX/VmqucnQmmOLqwH8kSunSMGD68ET
-         +3zPoi5sLURMvDpH3ww3AruKRQtN0H79tSJRld+aSBChmardju7IVpssC9oeWCK7aNY3
-         MBIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy7Le4cRIiPCTEHWSe1InUemSUNfe5AVn1xbXGSno3ash5uXlhngi9UpsuGZOeyaACSykBrQbVraZqhb1I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlTT8ZxTU/ddQz0u7C/AIue7ga26AizaSWGbCdnKOMizK80UrN
-	FNPaWQNC0yyMDtTERPBZpqhXLh3CB+bdaz1/Vcu6dMRoeEYSFEXPTFnx
-X-Gm-Gg: AYBFou3qsDHyiMlg8XjEJwwuoLwU9all4SWo5sNskA9eD2xS6HjQW6YOoYv4Pd1CdoR
-	T2/NQtSy1JcAdyNv0Xa2cglRn2fi3CSlQ5FGSkygxHRqcf5GoU1DvetNqdMTr+QzlfyraonIc7w
-	xQ2vgLBCSr0hSzFguwddqdwxBKKs44OYb66L7FL8FuGnJK7r+RoDwIEzXOc1Cwz7fvUuTVnfYva
-	l/pSPmAMcq+BtewZ5wT0gSFnpxyxkwANhvM4d0rxcpUob0vKqUtALPGS+D/qhTZMIKk1OC+Emke
-	TI27wKToecMBGAvtlqyjOYnQ0FePEnBjGQljOPjxd2dc0hh+RP2aw/d+Z8qbBgNrmSClMtoC74c
-	yD6RIYM1QQHUgt16LX4ocuaZW1WXM2yEZKGkJDDf0NEuN9HWOH63h7HwEXPG/0DssXXOMEPFf9z
-	Psi8RuzIOY8005uEY5W0HMUVvLWVirZagMFfGdzZilsGOVjW5R47x2aSbhJqTiT1U7thzJmgbiK
-	A0UcJWA
-X-Received: by 2002:a05:600c:c3cc:10b0:4a1:a7f8:c12b with SMTP id 5b1f17b1804b1-4a1a7f8c219mr58730485e9.19.1791918955848;
-        Tue, 13 Oct 2026 12:15:55 -0700 (PDT)
+        bh=QDIRPE7o88CGHqIF/j5hvY6UjNuhEKh9m4Ei7y5vR34=;
+        b=a9ORRWo1J4RFsPk9mHFyqSCuJRMI5OF1eAn9irBkupzpw32P4JHJLk9cznLi/mooYU
+         fIsCjr196H6phhd2cjSP6a8m/c74wCpTPTYliiIOHe474lHb1YYZ6jW5SeSN+TVt4xUc
+         0ZpoOlrl1QSvziJTJ0/2mKb8yRkCWGbxzKJpJ7bgJxjTYo/j4tANti25QFmhKwJv18Gq
+         c/XJuQ6paR3XX5dVYa3pBjFrujx1okcibR7+MYUN4f9iiHZBR06rs0MxasIGIrIHqLYR
+         0ztR8mNZZtMKCC/ND5arwqx63KEe6zaiughYzOA7dunXz6a86I2/iF6nCwR0uMx4Yzc2
+         C1Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791918963; x=1792523763;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QDIRPE7o88CGHqIF/j5hvY6UjNuhEKh9m4Ei7y5vR34=;
+        b=kNuX7ukzYgYpdTbk/pINc7xHCouow/Kn33rdZYov2TLir6N8XpzDajqfahLU6ac9Og
+         rpC9q3I3mgAIafU/uJYup7pggXx+LAw5Fi86KJPFdfkYqiN/802WuEzOmmFtwAnumxR0
+         9izJfoIlobzUIXw0DeQaZ4pRKcXCe4tCk7l4pXA/mEMrBKtelJSYsJz2+C/GA0QBx3V4
+         SFgD+2xipolE5G8MexK37E/TN0BealuPcNIuviVvonKx2iY3CQLybnto3B+3UZO4Aa4q
+         ElICsyoc7Gq9VKUiAYIbFcGVB+rmafI63jhp4KCHshSw71DjM2qX+ztPDKoTuf82Mset
+         YOPg==
+X-Forwarded-Encrypted: i=1; AKwUvBxjBnLIArocC+MkQpZi6Mf6gz2Q4wzwsduPcOJO/Wz6zJKdKT9vXPgi58ufauR+Cqz2W/BmS1gw2b3Nm2U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLUl1cqjvE546Fa8NH0S9EALywWXzTRBtHRZHKDHih7tOYCR2r
+	f/m8kKPquzEdY5WG8fT7phVBHK1dGVStstoRxnqabTzd/kHBHgm8j9JB
+X-Gm-Gg: AYBFou07XivfEuS7Bh6SHZpxnTXNObuU3APSt7edYYEMy6C5idakr8T9VIRbu18N9TL
+	3VCtlGOe22fiEpnRC3VSzOjb4Esgk/eY9sX/4yqzu77A3sAVIsiqYVU20FGP4JeITsO2nOAbtDg
+	VRxKCDrHhgrwFFYM99RFvESFLn0FfLccb9cva3Cl+MocSXpBDiHvXFyogWCxwUU1eufH4v+mpAC
+	Jq7ViW2oY+vXaSwhm4ZlyDoQMCTXOYIOy6ZpcIkFYzEt/SQDvZtuZaw1Zpidh0kGnMftnUxocD9
+	oEfkrARvANrZ047BdZoo/i1L/6GQeTZm0VQ1FDmg5FlTXF6ddKWs/ffRkXlVhP2/SrIyZ/+4ZOk
+	euSV4F3LtTCWODaNVKMW4ox9oioAVaMzljVoRCmzc+zc5lgUL97I/Mvopl6MKyyM2ZCdIN5l3Hn
+	hGzzFHVd9dYSymhUcuP6pU59q+bAe8lt/BAQDQ73lS+ldieos6SL8wiRi5y1sdhmxevU6Nqw==
+X-Received: by 2002:a05:600c:4fcb:b0:4a1:811c:8083 with SMTP id 5b1f17b1804b1-4a18e4c3600mr266379435e9.33.1791918963174;
+        Tue, 13 Oct 2026 12:16:03 -0700 (PDT)
 Received: from fedora41 ([37.168.42.171])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b2fc4724sm7229275e9.2.2026.10.13.12.15.54
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b2fc4724sm7229275e9.2.2026.10.13.12.16.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 12:15:55 -0700 (PDT)
+        Tue, 13 Oct 2026 12:16:02 -0700 (PDT)
 From: Timo Joannin <timo.joannin@gmail.com>
 To: gregkh@linuxfoundation.org
 Cc: linux-staging@lists.linux.dev,
@@ -64,10 +65,12 @@ Cc: linux-staging@lists.linux.dev,
 	error27@gmail.com,
 	guojy.bj@gmail.com,
 	Timo Joannin <timo.joannin@gmail.com>
-Subject: [PATCH v5 0/2] staging: rtl8723bs: clean up phy status structs and casts
-Date: Tue, 13 Oct 2026 21:15:01 +0200
-Message-ID: <20261013191503.152056-1-timo.joannin@gmail.com>
+Subject: [PATCH v5 2/2] staging: rtl8723bs: unwind cast mess and remove phy_stat struct
+Date: Tue, 13 Oct 2026 21:15:03 +0200
+Message-ID: <20261013191503.152056-3-timo.joannin@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013191503.152056-1-timo.joannin@gmail.com>
+References: <20261013191503.152056-1-timo.joannin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,50 +79,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hey Now,
+Propagate the real struct type all the way through
+the call chain to remove redundant casts to and from u8 *.
 
-This patch series splits the v3 patch into a 2-part series as requested,
-separating the struct renaming from the cast mess unwinding.
+Remove redundant phy_stat struct, along with the dead function
+prototype rtl8723b_query_rx_phy_status() which referenced it.
 
-Changes in v5:
-- Rebased against the latest staging/staging-testing branch.
-- Resolved minor merge conflicts in odm_HWConfig.c.
+Signed-off-by: Timo Joannin <timo.joannin@gmail.com>
+---
+ drivers/staging/rtl8723bs/hal/odm_HWConfig.c   |  5 +++++
+ .../staging/rtl8723bs/include/rtl8192c_recv.h  | 18 ------------------
+ .../staging/rtl8723bs/include/rtl8723b_recv.h  |  1 -
+ 3 files changed, 5 insertions(+), 19 deletions(-)
 
-Changes in v4:
-- Split monolithic patch into 2-part series.
-- Removed dead struct phy_stat and unused prototype
-rtl8723b_query_rx_phy_status().
-
-Changes in v3:
-- Included patch version changelog (missed in v2, sorry).
-
-Changes in v2:
-- Propagated the real struct type through
-the call chain to remove u8 * casting.
-
-Regarding your question about the existence of struct phy_stat,
-I discovered it was dead code; no function actually used it. Furthermore,
-the rtl8723b_query_rx_phy_status() function prototype referencing
-it was also unused, and was removed.
-
-Patch 1 renames struct phy_status_rpt_8192cd_t
-to rtl8723bs_phy_status_rpt.
-
-Patch 2 unwinds the cast mess and propagates
-the real struct type all the way through
-the call chain, and removes the unused phy_stat struct
-and ghost function prototype.
-
-Timo Joannin (2):
-  staging: rtl8723bs: rename struct phy_status_rpt_8192cd_t to
-    rtl8723bs_phy_status_rpt.
-  staging: rtl8723bs: unwind cast mess and remove phy_stat struct
-
- drivers/staging/rtl8723bs/hal/odm_HWConfig.c  | 215 +++++++++++-------
- .../staging/rtl8723bs/include/rtl8192c_recv.h |  18 --
- .../staging/rtl8723bs/include/rtl8723b_recv.h |   1 -
- 3 files changed, 134 insertions(+), 100 deletions(-)
-
+diff --git a/drivers/staging/rtl8723bs/hal/odm_HWConfig.c b/drivers/staging/rtl8723bs/hal/odm_HWConfig.c
+index fb3a19da5de3..c0a079003e73 100644
+--- a/drivers/staging/rtl8723bs/hal/odm_HWConfig.c
++++ b/drivers/staging/rtl8723bs/hal/odm_HWConfig.c
+@@ -432,8 +432,13 @@ static void odm_Process_RSSIForDM(struct dm_odm_t *pDM_Odm,
+ }
+ 
+ /*  Endianness before calling this API */
++<<<<<<< HEAD
+ void odm_phy_status_query(struct dm_odm_t *dm_odm,
+ 			  struct odm_phy_info *phy_info,
++=======
++void odm_phy_status_query(struct dm_odm_t *dm_odm,
++			  struct odm_phy_info *phy_info,
++>>>>>>> f52adf8 (staging: rtl8723bs: unwind cast mess and remove phy_stat struct)
+ 			  struct rtl8723bs_phy_status_rpt *phy_status,
+ 			  struct odm_packet_info *pkt_info)
+ {
+diff --git a/drivers/staging/rtl8723bs/include/rtl8192c_recv.h b/drivers/staging/rtl8723bs/include/rtl8192c_recv.h
+index b63625ab4e45..072e2b5f6129 100644
+--- a/drivers/staging/rtl8723bs/include/rtl8192c_recv.h
++++ b/drivers/staging/rtl8723bs/include/rtl8192c_recv.h
+@@ -9,24 +9,6 @@
+ 
+ #define MAX_RECVBUF_SZ (10240)
+ 
+-struct phy_stat {
+-	unsigned int phydw0;
+-
+-	unsigned int phydw1;
+-
+-	unsigned int phydw2;
+-
+-	unsigned int phydw3;
+-
+-	unsigned int phydw4;
+-
+-	unsigned int phydw5;
+-
+-	unsigned int phydw6;
+-
+-	unsigned int phydw7;
+-};
+-
+ /*  Rx smooth factor */
+ #define	Rx_Smooth_Factor (20)
+ 
+diff --git a/drivers/staging/rtl8723bs/include/rtl8723b_recv.h b/drivers/staging/rtl8723bs/include/rtl8723b_recv.h
+index e9ebecb224a6..2f230e2d27a4 100644
+--- a/drivers/staging/rtl8723bs/include/rtl8723b_recv.h
++++ b/drivers/staging/rtl8723bs/include/rtl8723b_recv.h
+@@ -84,7 +84,6 @@ struct rxreport_8723b {
+ s32 rtl8723bs_init_recv_priv(struct adapter *padapter);
+ void rtl8723bs_free_recv_priv(struct adapter *padapter);
+ 
+-void rtl8723b_query_rx_phy_status(union recv_frame *prframe, struct phy_stat *pphy_stat);
+ void rtl8723b_process_phy_info(struct adapter *padapter, void *prframe);
+ 
+ void rtl8723b_read_chip_version(struct adapter *padapter);
 -- 
 2.56.0
 
