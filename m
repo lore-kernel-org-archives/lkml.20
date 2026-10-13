@@ -1,77 +1,64 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEBF480DE8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F155208A9;
+	Tue, 13 Oct 2026 16:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910758; cv=none; b=G85po0uG6M0adjHbyqWBTDK/XqQlxKVP7i8zpckQZmK78WoOHI1U+a8bH4dYzRJ2zxwHmMhMdB00XBHK+nRbw2FMOUsfI4wwT8AgiMui05820uOBgFdVrE9ZPBFUcXhQIP9lIUw3q5ZFu9Hgp6CcVxhu0dabgYHEsZy7D9ObHxQ=
+	t=1791910762; cv=none; b=I/vKKP0eRkneUfZOOGK4h0F0Svl04Bfru6T6/69BmAapg34WPn2iPE70JeuH7E+HCz8ZA9AFf4Yc+aaRs3MHrMyEVwhdFyNRZl4SoJganT2zs0BDHyuS/plDsXT+75zgdjIgrqsWFebnxGJD052owgpn03S8g5vODVidmuGCy8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910758; c=relaxed/simple;
-	bh=XwdMfr9FHu6qgYpTDGc2/SsEYhFTb7QX5BQUno/5z5g=;
+	s=arc-20240116; t=1791910762; c=relaxed/simple;
+	bh=iZwcWXW9P1s2FGcBHBY8OWwVOV8yIE8tuCxLW32Qpjs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GYVx1+gLiovAknZRcZPMAsvtoEiDiLVD5+ueom1HyXsr8+QNoR/cDiMgmglP38PRpCaRZvzf5IJyH/NPMbXTWf2i6oZU3wLufiJC/RwIsQup8TfBg2RirCIpV5JZa+a+62PKYyLgcq1iXRMNDhJYtNTDP0oYEnXLkzb5NEy3gMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=WVQ/B9R4; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=QVeQFOHkwxHuMVkHXSRxCrR7qWV3Jo0wxdoRohYMF7MoZ4glldzfcna78KHQO7SGYE0aCNRiT4ootrHwbr4vQH75GUhipqLfbPurmtzu29RHgHExXcA4znVPMVEItlQKChePp4LdcQaSu6vNewffB9N/Cd+rYxsVIMgZyCgCMkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QyP4vueB; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="WVQ/B9R4"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8ab8d96d02aso24994117b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:59:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1791910754; x=1792515554; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mjPFoJ0mDKhZbg4j/RMY3/uLWUv+CViZqO8+0A6BckY=;
-        b=WVQ/B9R4l18arz0ykyBxhulVwYtf5HGXglWOs8CrzOoCMbgGGSoQQExakmxIlcNu+d
-         J/5mtqHXf6tfxitXGy5TLc+r7UhL8cuhBKrNpUV/ixVelSTZRboIli3bouosUJJktye5
-         T+xyVkz//Wb11vvooWvsGurmaQEJsGn9MpiSUOHXbRTtUpCSLE1ZmHckNqUxsXbAZZ5x
-         rDeul2HXZHUNxRYmW31w5N2h0bQBuaHjoie/7jP32XHknNVn2xmpM1mBrT2phrDXg++R
-         AXy5SXr/1ORtFWqr4MkkobYg5MTEk14L4r93ZivxV7zUDXT27+z51pTPfNFoPy0yYTnA
-         G37w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791910754; x=1792515554;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mjPFoJ0mDKhZbg4j/RMY3/uLWUv+CViZqO8+0A6BckY=;
-        b=GPSNYiJkoQzkN/cRI2Carh9wcck+hdFbN8Yx25hGkJmjDv5JWRS3vcWPH1sCb7Rt4R
-         Y1owQeL5m+KiZePUinNJOML+xKFJOuBnz6U/YMel0L81DbooUwnbEAlNmT4lzB8/lIKc
-         F5eyZuHzNsv490Q2EOAV5CHwl824VH22xUrfLPFrwERVXJwAEWtGeySnRJDOxBcVvVTr
-         NeYFjknVz9VG4h2A+PCNuvwInbRSQSpCAzvf4/cxxKhjtyjeUMjrJaQyZJX/JBuPUENk
-         8TCqDgK7+AOhis7g5/mODUtxZ1dq6cbHMGuJYCMTnUnQMk4jeIprQZ7VpGLive/6phrt
-         AUtg==
-X-Forwarded-Encrypted: i=1; AKwUvBztIR6MXCZCpUwNhgB88dXsyAyz2+L/gqHskmagGYHzJQ67UyOeD2nQu97ZjhA/u1HKVV7Vd+gbmyC0Yfo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKACAedm9CqoYNWeat9YGG71ySwCvy50xUe6JHzjcS+7Bc001kT
-	ye5H9DBvU4Lt0NgFUyZ4TyitcUOIT7/Vic68t57xHagB6A2wTFT8oy/NnVb9LgV3oFomo7yQXM5
-	1LIysO4DOKA==
-X-Gm-Gg: AYBFou21itvcOb2jrOOWc+UxawESYZMZL26uTwEQqWiOWaftZe7/68hs+nnffrENxmT
-	66gHmvcIVgUaZOX43+SwIIQGGk5c+CXf/RELW8qF6BQgcg//OBlqSVf2sVI+R62vWxURUw0RqBc
-	IfkrNwn27XehrvhbG3cIyv0G7kQsYtyXP7T8GC2wN/eVklwA3ctlI+rUo5IrnQagDhLwrTDObL3
-	tNTfWQbgoPvreC1Xnu93VFEkSqynGbeyRgq8pcXc2am0hVpQ2TDAt0j08GbctlFAkSu+0oLdS7x
-	Ytd5EAJb4gOZS4AcP0FNAZEkKBgFlQVg3DNPFh9Fiot6eOFUeiJWujR6bdBOtx1s7+rA8R8ndII
-	Fdcp28xiHeW97yxrAWaDORSbRdH/poc2RxkMZoqgsEEIEnZvH2VFJ4G2rJ/CjolUTBj2P8BH+P2
-	hS/5hrH7iCtZlaTMq7SZrRrOspW40zgNUiUza6JpLh67ucEvzVvK5fOIMX19DwJv2NF9VSWeV2s
-	06TmUkQwwJdaUoSQtyk
-X-Received: by 2002:a05:690c:5310:b0:8ae:1acc:ad33 with SMTP id 00721157ae682-8b07ee0118fmr31810657b3.58.1791910753585;
-        Tue, 13 Oct 2026 09:59:13 -0700 (PDT)
-Received: from localhost ([2600:1700:220:5c80:d01e:ebe9:3ad:261f])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07ee8a075sm49030607b3.5.2026.10.13.09.59.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 09:59:13 -0700 (PDT)
-Date: Tue, 13 Oct 2026 11:59:12 -0500
-From: Andy Chiu <tchiu@tenstorrent.com>
-To: Samuel Holland <samuel.holland@sifive.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>,
-	Palmer Dabbelt <palmer@dabbelt.com>, linux-kernel@vger.kernel.org,
-	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 1/3] riscv: Drop CONFIG_RISCV_ISA_V_DEFAULT_ENABLE
-Message-ID: <as5jYIDw-VVi_tuT@Tao-Chiu's-Mac>
-References: <20261007085126.222688-1-samuel.holland@sifive.com>
- <20261007085126.222688-2-samuel.holland@sifive.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QyP4vueB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791910760; x=1823446760;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=iZwcWXW9P1s2FGcBHBY8OWwVOV8yIE8tuCxLW32Qpjs=;
+  b=QyP4vueBtRk8GlsW04Q1R3IuC3NQR8wjk8dkO3NE0HE9K6CXeK+JXsxt
+   rC9OLnGR950H86Q2PGyuLUADHlr+PC7TEgH0nWZB/SMPh+DUudzNVsr+2
+   XWs5B8QmaiZCceEfc2yr4DAfHXA50sYTHmdDcSY2iOoCCmLFv83N5E9LM
+   N4pZEzsjy4UH6i9dFyYd9L+MRnxt7j5mQUD2HSNOuMsDZ27weh+QtMjod
+   WhumKMq16wc4MC+j1hVsq/MeX+4uQqZW/QzdJrF4+1VW4KFVXkqNd/wBc
+   Xg1t0ec3bxU3f7f1Eg1Yc4CWrh93uOkbcszrhSiN1vqT4jvEbOxmA8EIm
+   g==;
+X-CSE-ConnectionGUID: DHPhrAPMR7Cs++BxpH10zg==
+X-CSE-MsgGUID: IjsXISVeQi2CqRjCnnLF8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="530703"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="530703"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:59:19 -0700
+X-CSE-ConnectionGUID: yeQrbO5FQVaXF7XDvrw0MA==
+X-CSE-MsgGUID: MYBPdhK7RtCYBfQ6CPBcVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1551482"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:59:15 -0700
+Date: Tue, 13 Oct 2026 19:59:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 6/6] iio: pressure: dps310: add Zilltek ZTS8032 support
+Message-ID: <as5jYcTlEuOzD6go@ashevche-desk.local>
+References: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
+ <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,68 +67,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261007085126.222688-2-samuel.holland@sifive.com>
+In-Reply-To: <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Oct 07, 2026 at 01:51:16AM -0700, Samuel Holland wrote:
-> The ability to prevent userspace from executing vector instructions was
-> provided as a escape hatch for software that was broken by adding vector
-> state to the signal context. This appears to be unused in practice, and
-> creates confusion in the extension support returned by hwprobe(), as in
-> this one special case an extension reported as present by hwprobe() is
-> unusable.
+On Tue, Oct 13, 2026 at 02:21:24PM +0300, Paulius Zaleckas wrote:
+> The Zilltek ZTS8032 has the DPS310 register map, scale factors and
+> compensation, with these differences:
 > 
-> Since we believe it is safe to always allow vector usage, start removing
-> this functionality by dropping the Kconfig option. It is possible to get
-> equivalent behavior by setting the sysctl at boot via the kernel command
-> line, but that method will also soon be deprecated.
+> - two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
+>   c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
+> - TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
+>   the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
+>   bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
+>   25/16 Hz background rate instead of the external sensor.
+> - product ID 0x11 instead of 0x10, the driver does not check it
 > 
-> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+> Add its chip data, reading 22 coefficient bytes and leaving TMP_CFG at
+> 0, and the I2C and OF IDs.
+> 
+> Tested on a ZTS8032 at 0x76 over I2C: in_pressure_input is within 1 Pa
+> of the datasheet formula evaluated from the raw and coefficient
+> registers at every oversampling rate from 1 to 128, and TMP_CFG reads
+> 0x00 after probe.
 
-Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
+...
 
-Thanks!
+>  	help
+> -	  Support for the Infineon DPS310 digital barometric pressure sensor.
+> -	  It can be accessed over I2C bus.
+> +	  Support for the Infineon DPS310 and Zilltek ZTS8032 digital
+> +	  barometric pressure sensors. They can be accessed over I2C bus.
 
-> ---
-> 
->  arch/riscv/Kconfig         | 11 -----------
->  arch/riscv/kernel/vector.c |  2 +-
->  2 files changed, 1 insertion(+), 12 deletions(-)
-> 
-> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> index d6c2dbf8455ce..e26450f0d38fb 100644
-> --- a/arch/riscv/Kconfig
-> +++ b/arch/riscv/Kconfig
-> @@ -650,17 +650,6 @@ config RISCV_ISA_V
->  
->  	  If you don't know what to do here, say Y.
->  
-> -config RISCV_ISA_V_DEFAULT_ENABLE
-> -	bool "Enable userspace Vector by default"
-> -	depends on RISCV_ISA_V
-> -	default y
-> -	help
-> -	  Say Y here if you want to enable Vector in userspace by default.
-> -	  Otherwise, userspace has to make explicit prctl() call to enable
-> -	  Vector, or enable it via the sysctl interface.
-> -
-> -	  If you don't know what to do here, say Y.
-> -
->  config RISCV_ISA_V_UCOPY_THRESHOLD
->  	int "Threshold size for vectorized user copies"
->  	depends on RISCV_ISA_V
-> diff --git a/arch/riscv/kernel/vector.c b/arch/riscv/kernel/vector.c
-> index b112166d51e9f..9641343732782 100644
-> --- a/arch/riscv/kernel/vector.c
-> +++ b/arch/riscv/kernel/vector.c
-> @@ -20,7 +20,7 @@
->  #include <asm/ptrace.h>
->  #include <asm/bug.h>
->  
-> -static bool riscv_v_implicit_uacc = IS_ENABLED(CONFIG_RISCV_ISA_V_DEFAULT_ENABLE);
-> +static bool riscv_v_implicit_uacc = true;
->  static struct kmem_cache *riscv_v_user_cachep;
->  #ifdef CONFIG_RISCV_ISA_V_PREEMPTIVE
->  static struct kmem_cache *riscv_v_kernel_cachep;
-> -- 
-> 2.52.0
-> 
+Please, format it to be scalable:
+
+	  Support for the following digital barometric pressure sensors:
+	  - Infineon DPS310
+	  - Zilltek ZTS8032
+	  They can be accessed over I2C bus.
+
+>  	  This driver can also be built as a module.  If so, the module will be
+>  	  called dps310.
+
+...
+
+>   * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
+>   *
+> + * The Zilltek ZTS8032 is register compatible, with two more pressure
+> + * calibration coefficients (c31, c40) and temperature calibrated against
+> + * the internal sensor.
+
+Any datasheet link?
+
+...
+
+> -	u8 coef[DPS310_COEF_LEN];
+> +	u8 coef[ZTS8032_COEF_LEN];
+
+I would add
+
+#define MAX_COEF_LEN	18
+
+to the first patch along with the HW specific define and use here (in that patch)
+
+	u8 coef[MAX_COEF_LEN];
+
+so, in this patch you will just add a new HW definition and bump
+
+#define MAX_COEF_LEN	22
+
+...
+
+> +	if (data->info->coef_len == ZTS8032_COEF_LEN) {
+
+This is a bit fragile. What if it will be HW in the future that has 22+ size
+but incompatible with ZTS case?
+
+> +		data->c31 = sign_extend32((coef[18] << 8) | coef[19], 15);
+> +		data->c40 = sign_extend32((coef[20] << 8) | coef[21], 15);
+> +	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
