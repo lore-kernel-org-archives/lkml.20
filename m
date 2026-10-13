@@ -1,148 +1,126 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993C54FD789;
-	Tue, 13 Oct 2026 12:55:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD80199EAD;
+	Tue, 13 Oct 2026 12:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896142; cv=none; b=lj0SOUCPA2DjNiVlTWKuURchnpcRuJLX2li5KxqJwh631sxezbLQtz9d0bVc/EUp3hn26HCylA3alA02EypfoC2aSl4hG6DgDdTS5lHbDHyJWuHoy65OKwV7CkZtnvNjmNdMsmGgpVPTb+hYVwOJYpqLIPztrLWoU4VBbZ0H0kI=
+	t=1791896173; cv=none; b=PDdBF/8rKjD2y70xxcchqt5SIXlw953gT+eNyHEFFEsH1DLvClFSyFfne0BZdbhNzIuWyUc4U5nABPFRofSiRQ0s+kNIZRmeSk708AKp8LznZTUkLRBmhyKTsoRuCWBrPY+l75ISOLrcpeaEkICzEpQUKVt1yij3rj3Zg9nDNC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896142; c=relaxed/simple;
-	bh=7i9Epf4o0SHeMIr1rVNgs8LOdyoj+UszO1GeXaq3+r0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o9mjEoy38uBz2fWt4EyleJ2Rox8qyQB6S+ea8s7hbyEXDxLjekPNQNzBfZSDikTRYm9hGSkVnmi9dhnqQA6XKI3V+BVpvkAZ9epfCciwmqM62dBDB1W9i/B1CedaioWx1DmHs1EpHYs+zONUA8sEu5/o5QfkY5cABUUYNiZmCvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=IPDMhIFt; arc=none smtp.client-ip=188.68.63.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1791896173; c=relaxed/simple;
+	bh=i5TTd5EpEwRGqjaeKmwJZyvVeQHKs7QXG0k5nXK/izU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fEfVGSyQHCo5L0qOGfr6o7N6fWUKjOxp3EtB/Gddl2aFqHCmeSEzPF+Ud5Hshs6Qwz/XKMbTT0xhn68kX4rVTjKnEgCxCeYkDS7D/uiC64vG7N5NaBZ/+/gh9uwBJBGUrEvwTq2hxneyUNX/zBjuLFzMJZlpP4QJu6rcyILFtm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=VYuBpQQq; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="IPDMhIFt"
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j3vS15CyTz439n;
-	Tue, 13 Oct 2026 14:54:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1791896081;
-	bh=7i9Epf4o0SHeMIr1rVNgs8LOdyoj+UszO1GeXaq3+r0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=IPDMhIFtTX5JNjv33QQAgGOHFvY1X2wH7yLR566ThKimdwjWcpqIpNQb1mb76ujaC
-	 6FALGKixxQqRgbzpR209ybwsC4GWk1TdV0fY3Oj+WltERtQ5qQ9rPdwxdZo3LyVTUV
-	 8F8ELTDSh15hBG1K8xZ/U3EiLA5nV7fVt3Gghg0gaUk60XwyzKGM+/970KdmLEXhk7
-	 YT90/8i+mLfZ3yW54jSzHE/MGFMeHVb9ViJNBGfQxWvALGyYu5AYimP5uPWeQndaV5
-	 F9cCKh0TCXmEHy0nCfqm5k3sdF4EdmlCKAZdr5pkP1uVvwBWh4JREzmFyrTToIQu/Q
-	 a6bPe07pzZYHg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j3vRY3hN2z46VD;
-	Tue, 13 Oct 2026 14:54:17 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.898
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4j3vRV056lz8tYV;
-	Tue, 13 Oct 2026 14:54:13 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id D26885FA0A;
-	Tue, 13 Oct 2026 14:54:08 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <fe51a4ac-540f-4d14-ba76-b69b0eb17164@leemhuis.info>
-Date: Tue, 13 Oct 2026 14:54:08 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="VYuBpQQq"
+Received: from killaraus.ideasonboard.com (unknown [185.104.138.147])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F246B1E4;
+	Tue, 13 Oct 2026 14:54:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791896048;
+	bh=i5TTd5EpEwRGqjaeKmwJZyvVeQHKs7QXG0k5nXK/izU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VYuBpQQqo3+RGfvaIRHim0upgn0O/SIm//xEMRl0iXvJV+eSd+5uDT1p5xDEVN+M1
+	 GAbvmOZwbq90aYJzAaUkBqWrQgwPwYYImj241GScdawWnuNYZOIAy+kGNOPgOwFJZZ
+	 1gHKuAQZ8UWBCtkzE9RDTTbW6RhchXZ3DittGJfc=
+Date: Tue, 13 Oct 2026 14:55:59 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Jori Koolstra <jkoolstra@xs4all.nl>
+Cc: Kees Cook <kees@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
+	skhan@linuxfoundation.org, federico.vaga@vaga.pv.it,
+	apw@canonical.com, joe@perches.com, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: remove Assisted-by reference
+Message-ID: <20261013125559.GG4214@killaraus.ideasonboard.com>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <202610122124.08E058768D@keescook>
+ <ea3ff257-70e2-43e4-aba7-140e84994872@infradead.org>
+ <202610130120.E43D236E@keescook>
+ <as4gLo_6acb_zZu0@daedalus>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] HID: usbhid: skip interrupt IN polling for devices
- with no input reports
-To: Ahmed Yaseen <yaseen@ghoul.dev>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: Denis Benato <denis.benato@linux.dev>,
- Antheas Kapenekakis <lkml@antheas.dev>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Alan Stern <stern@rowland.harvard.edu>,
- Kerim Kabirov <the.privat33r+linux@pm.me>, GameBurrow <gameburrow@pm.me>,
- regressions@lists.linux.dev, linux-usb@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260828104159.62399-1-yaseen@ghoul.dev>
- <20260828104159.62399-2-yaseen@ghoul.dev>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260828104159.62399-2-yaseen@ghoul.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179189604945.249777.13990098998483599791@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: D26885FA0A
-X-NC-CID: 4pRg8IrCsnexsSi7MDa3wWNm3fLMh/H76nHXDh6n6IC4i3wBeSA=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <as4gLo_6acb_zZu0@daedalus>
 
-On 8/28/26 12:42, Ahmed Yaseen wrote:
-> usbhid starts polling a device's interrupt IN endpoint on open
-> (usbhid_open() -> hid_start_in()). If the report descriptor declares no
-> input reports there is nothing to read there, so the poll is useless,
-> and on some composite devices it is also harmful.
->
-> The ASUS ROG N-Key keyboards expose a second, input-less interface used
-> only for RGB control via feature reports. Opening its hidraw node (any
-> hidraw reader does, including SDL/Steam Input or a plain cat) starts the
-> pointless IN poll and keypress reports on the keyboard interface get
-> dropped for as long as the node stays open: a lost key-down drops a
-> letter, a lost key-up leaves the key stuck. usbmon shows the dropped
-> reports never reach the URB layer.
+On Tue, Oct 13, 2026 at 02:28:43PM +0200, Jori Koolstra wrote:
+> On Tue, Oct 13, 2026 at 01:25:59AM -0700, Kees Cook wrote:
+> > On Mon, Oct 12, 2026 at 10:56:59PM -0700, Randy Dunlap wrote:
+> > > On 10/12/26 9:24 PM, Kees Cook wrote:
+> > > > On Fri, Oct 09, 2026 at 04:31:37AM -0400, Sasha Levin wrote:
+> > > >> The Maintainers Summit reached consensus to deprecate the Assisted-by
+> > > >> tag. Remove the documentation requiring it.
+> > > >>
+> > > >> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > > > 
+> > > > Yup, it has become as redundant as specifying what editor I use. ;)
+> > > > 
+> > > > Reviewed-by: Kees Cook <kees@kernel.org>
+> > > 
+> > > and for those of us who don't know details about the discussion,
+> > > how is it redundant?
+> > 
+> > No, I mean I use an LLM constantly for almost all aspects of my
+> > development work, in multiple dimensions, so if the old tag requirement
+> > held, my email body template would just put "Assisted-by: LLM" in there
+> > because at the very least, it drove the build and test stage. It was
+> > redundant in the sense of "yeah, of course I used an LLM at some point
+> > for this patch". ("This tag means nothing *from* me")
+> > 
+> > > Do you assume that everyone now uses it (LLM), just as everyone
+> > > uses an editor?
+> > 
+> > I don't make that assumption, but I always held the position that the
+> > tag was meaningless because it's the human wielding it that matters:
+> > they either sent a good patch or a bad patch, and if it was mangled by
+> > gmail or an LLM, it doesn't really matter. ("This tag means nothing *to*
+> > me")
 > 
-> The useless poll itself is long-standing; commit 4ac74ea68f64 ("HID:
-> asus: early return for ROG devices") is what exposes it on these
-> devices by keeping the input-less interface alive instead of ejecting
-> it, so its hidraw node can be opened and the poll started.
+> I think the tag did have a genuine purpose for a while. Now we have just
+> decided to implicitly attach it to every new submitter (because
+> basically that is the case.) The point was that a patch that was
+> obviously LLM generated could be rejected for not carrying the tag, and
+> a patch that carried the tag could be asked to explain further (if they
+> had not done so.) Or at least, that is how I felt and have understood
+> Greg, for instance :)
+> 
+> Essentially, the way I read it, is that Linus said we don't need this
+> roundabout way because we can just reject effortless LLM generated
+> patches outright. This is good and an improvement.
 
-Hmmm, what's the status here? Ahmed, is this still needed, or was this
-fixed in some other way? From the the outside it looks a lot like this
-regression fix feel through the cracks, but would be good to get into
-7.4-rc1 to finally fix the dropped keypress reports.
+The absence of the tag on a suspicious series offered a low-effort way
+for maintainers to push back. What's the proposed low-effort replacement
+?
 
-Ciao, Thorsten
-> Skip the poll in usbhid_open() when the device has no input reports.
-> Feature reports and hidraw output keep working over the control and OUT
-> endpoints, so the interface is otherwise unaffected.
-> 
-> Fixes: 4ac74ea68f64 ("HID: asus: early return for ROG devices")
-> Link: https://discuss.cachyos.org/t/keyboard-input-issues-on-asus-rog-strix-16-2025-with-cachyos-during-gaming/30823
-> Link: https://github.com/ublue-os/bazzite/issues/4590
-> Cc: stable@vger.kernel.org
-> Tested-by: Kerim Kabirov <the.privat33r+linux@pm.me>
-> Tested-by: GameBurrow <gameburrow@pm.me>
-> Signed-off-by: Ahmed Yaseen <yaseen@ghoul.dev>
-> Reviewed-by: Denis Benato <denis.benato@linux.dev>
-> ---
->  drivers/hid/usbhid/hid-core.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hid/usbhid/hid-core.c b/drivers/hid/usbhid/hid-core.c
-> index 96b0181cf819..d7cf2b56e117 100644
-> --- a/drivers/hid/usbhid/hid-core.c
-> +++ b/drivers/hid/usbhid/hid-core.c
-> @@ -688,7 +688,14 @@ static int usbhid_open(struct hid_device *hid)
->  
->  	set_bit(HID_OPENED, &usbhid->iofl);
->  
-> -	if (hid->quirks & HID_QUIRK_ALWAYS_POLL) {
-> +	/*
-> +	 * ALWAYS_POLL devices are already polled from usbhid_start(), and a
-> +	 * device with no input reports has nothing to send on the interrupt
-> +	 * IN endpoint. In some cases polling is harmful: on the ASUS ROG
-> +	 * N-Key keyboards it makes the sibling interface drop keypresses.
-> +	 */
-> +	if ((hid->quirks & HID_QUIRK_ALWAYS_POLL) ||
-> +	    list_empty(&hid->report_enum[HID_INPUT_REPORT].report_list)) {
->  		res = 0;
->  		goto Done;
->  	}
-> 
-> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+> What do you think about requiring people to explain how they used an LLM
+> for code generation? I don't care if someone uses it for review, or
+> brainstorming, or whatever, and I have never understood the tag to be
+> required for that. But if the code is LLM generated, it would be nice to
+> know for instance what prompts you used. We should have some way to not
+> devolve into the maze that Jonathan Corbet has sketched, where no one
+> really knows what's going on.
 
+Listing the prompts seems fairly useless to me. Not only do prompts
+capture only a small submit of the information you would want (many
+people use custom agent files with lots of rules that supplement the
+prompts), they don't show that the submitter understands what they're
+doing.
+
+Mesa has a policy that LLM-generated code *must* have a human-written
+commit message. They go one step further by requiring all comments in
+the code to also be human-written. That seems a better (but possibly not
+good enough) way to try and gauge the level of understand from the
+submitter.
+
+-- 
+Regards,
+
+Laurent Pinchart
