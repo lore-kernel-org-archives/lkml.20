@@ -1,94 +1,96 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B97654CF76;
-	Tue, 13 Oct 2026 20:41:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D75521207
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791924063; cv=none; b=Uk9wr1VRVmxf5UD1nQI41bJBLLZ1426Sg/7kOV5c6IbhhImd1W0bOAQitqmWjSsvdqRahjqh1uEyywDng3MDq9+xiSEwX5psmTP61orolHgyRbD1Qae+oG3uUKVTbGwgYxIEYlClkzzEM9dZAynNSkCBEXSO6tOEupbjAer82E0=
+	t=1791924089; cv=none; b=GIC/u486GSivG4ibw5JiZDpcC8HpHMxhy14UHNznT4AjrC6gwzt68ByLAk2NHTvuAMMZywzdsB62CmK4bugl5jEQXSGEaOvce76DPzFgzunIpZO45dTafHDOuEH5v8Fx+3aDQnHTEhoffhEPlKvRgAJjUl0Mzd5tUox+YpSI9u4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791924063; c=relaxed/simple;
-	bh=uclqN8RJfyf8Rv9TDvNHTiHrO9mdVmgptS3BIIH+DWc=;
+	s=arc-20240116; t=1791924089; c=relaxed/simple;
+	bh=wvfWH+QJTkRnPqJKdcdsA70fOCFk5+tEIxUuMj2YLoY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OGmMyJ8ZSUoTtp0Oy9bLItCQhhZdWHW0KjkhgE81muY1d7lvo2dyV+LYxUUEDXapxu2e3qYP1wX/nBcoSjLGd1uh3AJur9k/DxjdtF2SZaAeEyAJfJ5dMypNvoszYl1tFD8YuKV2Xt5oiev2f5VPSyy6muAPzR/4qWtHOiHVIBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=t-8ch.de; spf=pass smtp.mailfrom=t-8ch.de; dkim=pass (1024-bit key) header.d=t-8ch.de header.i=@t-8ch.de header.b=WTpxCQku; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=t-8ch.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=t-8ch.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=syphA8bHwPy45KnbPqP5NOnwRw3Ha+lRSotPepAGbnFEDPs3GCV8RG/AKIzUpPa9P53B+0Z49r4H3bLi+2UqV3IVNL12I5J08teuYkoOgwrlaxdTvWwCXS2B1X+tLFyGdUbkUnPfARgfEWb8Vs0OnpDPYfMQ+v5cd9xik7feITg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I4qhHO7g; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=t-8ch.de header.i=@t-8ch.de header.b="WTpxCQku"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=t-8ch.de; s=mail;
-	t=1791924060; bh=uclqN8RJfyf8Rv9TDvNHTiHrO9mdVmgptS3BIIH+DWc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WTpxCQkuSUfT4AOK+1RAJ6+JYlpvb/k4yKU3iqZ1dbaW/6JaE0CciXJtlD0hqDXgk
-	 PHalu4j1+CI1QtWxUfex2bJgKIxv8qn9bKqL1FdYehLM1pOrkRtnhhMy0U4QhoJcvv
-	 hr8cw62xouS04vpQ0wJzOtV4iANQORFz2XTfIbQ0=
-Date: Tue, 13 Oct 2026 22:41:00 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas@t-8ch.de>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	linux-kbuild@vger.kernel.org, Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Ian Rogers <irogers@google.com>, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 4/6] tools: build kernel selftests in tools_build
-Message-ID: <8ee33f00-bd8f-4cf2-90c4-2961f443af60@t-8ch.de>
-References: <20261011233647.2454648-1-sashal@kernel.org>
- <20261011233647.2454648-5-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I4qhHO7g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791924086; x=1823460086;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=wvfWH+QJTkRnPqJKdcdsA70fOCFk5+tEIxUuMj2YLoY=;
+  b=I4qhHO7gIRsJ+7iMUXj8tJEmKW5VGC7toxH08HL2nPbJcGEulku1RBZl
+   j0Z7BGDe8DxKkW41d1dJrsHF2G7T85KEskiNm+i8zHgj6HvoHQShZBzlt
+   H5S4f/sUcZuI3wkU7TaizGa2u56+CsjMFd3Z3IaxXP4x8MBFLiDlacRY/
+   N4bkNk5eZqijyxKGGsA19j65Mtp4Trez0QtuL9MZ1OPxHu3/VBWvEFbcI
+   0VyqvLYUxaQOBWSza8HSjKbeVhRoZJzS1PeRdlhw3nH4e+3hw1w30G+GV
+   MZ1qhYJEf70KQT4IowswsEmBNxlsDGAfl5skQevXeM6h+zv1UE2u3jrVP
+   g==;
+X-CSE-ConnectionGUID: 6SPleMAWRNe+sO41HLterw==
+X-CSE-MsgGUID: 5zsZN0bXQp6dSgpfPZlNvQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="671492"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="671492"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 13:41:25 -0700
+X-CSE-ConnectionGUID: Gc5No3pUSm6Vfkp14o2KJA==
+X-CSE-MsgGUID: b8EKutncS/61izjqdtwlPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1283468"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 13:41:24 -0700
+Date: Tue, 13 Oct 2026 23:41:20 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Tamir Duberstein <tamird@kernel.org>
+Cc: Petr Mladek <pmladek@suse.com>, linux-kernel@vger.kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v1 1/1] lib/vsprintf: Use EXPORT_SYMBOL_IF_KUNIT() to
+ export symbols
+Message-ID: <as6XcMDhDGoCHYP0@ashevche-desk.local>
+References: <20260714122143.743227-1-andriy.shevchenko@linux.intel.com>
+ <CAJ-ks9ky8BxXmmZQ5aayyXtzQsWF-Bpxxs_+-=pUM2uT4shAyQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261011233647.2454648-5-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJ-ks9ky8BxXmmZQ5aayyXtzQsWF-Bpxxs_+-=pUM2uT4shAyQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 2026-10-11 19:36:43-0400, Sasha Levin wrote:
-> Add a "Kernel selftests" sub-menu with one entry per selftests directory
-> that builds with only a C library and does not write into the source
-> tree. Each is built as "make kselftest-all" builds it, with KHDR_INCLUDES
-> pointing at the UAPI headers installed in the object tree, but by its own
-> make, so the selected ones build in parallel. Selftests whose Makefile
-> does not use KHDR_INCLUDES still build against the C library's copy of
-> the UAPI headers.
+On Tue, Jul 14, 2026 at 03:39:23PM +0100, Tamir Duberstein wrote:
+> On Tue, Jul 14, 2026 at 5:21 AM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> >
+> > Replace EXPORT_SYMBOL_FOR_MODULES() with EXPORT_SYMBOL_IF_KUNIT()
+> > to mark the symbols as visible only if CONFIG_KUNIT is enabled.
+> >
+> > Kunit test should import the namespace EXPORTED_FOR_KUNIT_TESTING to
+> > use these marked symbols. This is the standard way for all KUnit
+> > tests.
+> >
+> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > 
-> The selftests do not track header dependencies, so a selftest is built
-> again from scratch when its own directory, a header or makefile any
-> selftest may share, or a kernel source it includes directly (the vDSO
-> test includes the architecture's vDSO code) is newer than its last
-> build.
-> 
-> Selftests that need libraries beyond the C library, a vmlinux with BTF,
-> or a sanitizer runtime are left out for now.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  tools/Kconfig         | 239 ++++++++++++++++++++++++++++++++++++++++++
->  tools/Makefile.kbuild | 100 ++++++++++++++++++
->  2 files changed, 339 insertions(+)
+> Acked-by: Tamir Duberstein <tamird@kernel.org>
 
-(...)
+Thanks!
 
-> diff --git a/tools/Makefile.kbuild b/tools/Makefile.kbuild
-> index 62fd494253eca..c31347258d0a9 100644
-> --- a/tools/Makefile.kbuild
-> +++ b/tools/Makefile.kbuild
-> @@ -92,6 +92,106 @@ PHONY += perf
->  perf: FORCE
->  	$(call build,$(outdir)/perf,-C $(toolsdir)/perf -f Makefile.perf O=$(outdir)/perf $(perf-flags) $(perf-flags-y),,TOOLS_BUILD_PERF)
+Petr, does this fall in cracks? Can it be applied or do you have any comments
+on this? Or may be I missed something?
 
-(...)
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> +# Unlike tools/build, the selftests do not track header dependencies. A
-> +# selftest is built again from scratch when its own directory, a header or
-> +# makefile any selftest may share, or a kernel source it includes directly
-> +# is newer than its last build.
-> +selftest-shared := $(outdir)/selftests/.shared
-> +selftest-extra-vDSO := $(abs_srctree)/arch/$(SRCARCH)
 
-Can we not fix the selftests to properly track header dependencies?
-That has been an annoyance of mine for quite some time.
-It would also get rid of a whole bunch of hackery here.
-
-(...)
