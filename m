@@ -1,263 +1,209 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE30C51AFFC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410265208A0;
+	Tue, 13 Oct 2026 16:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908878; cv=none; b=t1ahylb2mKinf2vnp6iROdhkELUFgjUq6eaYEZTA4vWjkXVKd6O0YK6KwotVdeCbJiUbDyuSOj5sr+/hrt0bcIgNUjGrvtbYidcHl8DksCIH1P/jqvTtftLXH7RYjyUXqa2wdf0C0T6mpeuiRxBh0uEBbBazfkg13HA3zE6svs0=
+	t=1791908888; cv=none; b=nfVUvdOq3vmL6m9lUw5bpsqNCPOB0bY98IAWrHzoJy8FWYDGhqXvE3fC6bCQv1jepSyuvhuqDeYyjffoyLkqOc7FSekOqIFo2ZA7S2YPlS86lPYY10FhADnmYnfnIlPd04CivgInIncFTvzQGMXSZ8u+/dyQ+GoQYVaOQLxwuto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908878; c=relaxed/simple;
-	bh=3+FSu1EZiZ2U+kF1Je24pZDfwzm8Gy1f4FvIgng7gEA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=KW0g4QqnkeOKZ+DM5UPOLa6eFzthJvuA33jfRg46RxWY2HlEkqxQXFEo82R60CQIRFSm/1/3Zyt1+QbLx2fGI9v/uKEeFlyRs7kbUVSGmSmguEl06TaT9/HScgAxCoFaPyXbyMpGtHthIQjbN97tGHvwtx6qS+aTigUvzeWO5PU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fliaGSaR; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791908888; c=relaxed/simple;
+	bh=ry1zMcfYwKFFs/NdI1mzS9damOmuJGURuz21CLKVnsw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WJGfFX7YeMgJ14wf9r4DVa2yT8vXe2/rk+bESGYnfDupgwDTzVK8Zdh4amIfS7MXIEduhlPiLQajOc7ZkmmmWuObOwI0ixcJn8/stLxRIfE9Jb9qy8LJDwVMQco81lfN+ANBO9JH5HTjM+sCsZpWuoHurytjFeDUzpUEtAzFItE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHnqvybe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fliaGSaR"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso8948a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:27:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791908876; x=1792513676; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8ySY4mluh9FDUuDDo9BjGrurmg9uPaaktdpdGujHzIw=;
-        b=fliaGSaRKta7/wJKlLNll48cmVlsN9RKysWUvypi+CqXbij3GH69FysuyZ9KEU+T8/
-         UIV3kV/7JL0H2l+JNVG0kVdDczv0rxuQgXTJwRkJ91AYPud+qQnTNAaNrM5fVyRF/Rrw
-         2ueEHn9a69Uovha+hYkC7OdyC5hYjDzRxY3BwEy0Y59nX4EcFwLlrNSZ8UCseupLdNne
-         STGDNZbKomBLIvHFHLHh3vd0fkKF7iFDWQxYAnmPzCcMyMTZ6Q8+FIdCPIgbVPgyjdkr
-         UfobDPlFHnY4HN5BYzk06NFXrPYzQBJVy8YPhdU0/GGg5t7C0ugE3mCNjXyQdc4O/a8X
-         +Vsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791908876; x=1792513676;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8ySY4mluh9FDUuDDo9BjGrurmg9uPaaktdpdGujHzIw=;
-        b=sxDx0hZ1CKTZr3G/Sss11qE15yfh0Lpg6uHlu+vORxfpfI2CZsc1ksMQd9WzHkUtGZ
-         sOkM8AaJjXbxPR4ZovlDUEFR2bCBDe2NesF1Wt3ckcaoxCiey1r1+A/LSQebqS1On7wJ
-         uNhXqpYj1JnCcA8ffUASvinGHmrVKad8hbLBL0hUjtq8H7XR0NEjZXZtd10JP0gltX64
-         YUhcQ2zpt3/U7LXy61H3a6SKm+Bp/uN78Zi/wIGQVXsol2qcx6WKrrFzRZw+5Hl7lkub
-         uNOsUM1Pc0ET1TYOfgk1a+uHFdB36KAPIr3C4KmoAB17YR+1gr/WI/81Zyv+mEgIJ2dI
-         BpeQ==
-X-Forwarded-Encrypted: i=1; AKwUvByrqKmzHGMxxqBGuTLKmT0bbFl/UDJb8Qfi0GoTAecsgPE4JoZ9DGeQJpiSH3SB/ALpqjaRldk7kUymiVg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISMcDbRuay4NWVaIPvGWv26/ecC0szIqYevsrZDehDgvWHp8wt
-	+TcErnx5O9aXo1C6lRNfFzFFgCCMkzSzU0PywTP+zsS7+YCExDcXrt71
-X-Gm-Gg: AYBFou0/X7zCaNhPCW4zybloQaqCCfeedw0ykcyWk3r7itLemoHTCh0qASVWxHll8HL
-	RMeFNTSYIVqcF8RhK7ai/j3v8dtJ2J7snz2Afq54w9mo59PmvdprlZUHw47O3O0y94AHHvZW0ec
-	pdtU/ciobGAlCJZVQLwf2/cN+W/RRa9c8psPE/Yc/+bKqfj07Tq51XJSYFIeNqvwGhkZIKyCLsU
-	nAehUmYyh8pRCMFyURJSO1ejNJT2Zl7408E+6RUCn5lln1prdbpRH1x7LdyOYotx7u9ZrdwE2V+
-	gtF4bcjWD9WbT6jYZvBRAvrrWs4P0WHOTjPjjeQWeb8odEslJ6wo+2XlDf2fAtsKMFpCsPMkT1r
-	pdn498/IUfZJHF8k1mk1Q0oxLf8h+HgmCeNOvT4YPy7ukE/Bh0ALsHNBtrRxLI1pfB627LQsagR
-	nfVxioinjCJJEik/IMwXITHp8rsuJD5uRYwa5RU8mZjHjWkktiSB+u2X5Ry1riSt5/Sw==
-X-Received: by 2002:a17:90a:1582:b0:3ab:9f1a:3825 with SMTP id 98e67ed59e1d1-3ab9f1a4af4mr4935062a91.4.1791908876092;
-        Tue, 13 Oct 2026 09:27:56 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f202d78sm348392a91.3.2026.10.13.09.27.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 09:27:55 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: hci_sync: Protect accept list membership lookups
-Date: Wed, 14 Oct 2026 00:27:48 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0118-v7-e6b713327ef914d6d02a@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHnqvybe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B901F000FF;
+	Tue, 13 Oct 2026 16:28:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791908886;
+	bh=4qECQLBZag2Z6hnsQn+EA+w/xPg1/6d82FsVEqu9mG4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lHnqvybeUm68HtG0je9hHehQZb1iLVcY8LX/J9SX3k+HW+8U8w430Fcs7sX4q06bW
+	 AfmKm8zZmQFVMGq4CpZ282GvKj9wkQe8RLCEbjtvI2npp4qlvVR9Po3ckajrny29Z5
+	 bFrrz9zQVWF3c6SNKuFoV84wATd5LW9+aXaVz1im4uhPx9uJzyzd6CsheXWNjofVLc
+	 MG2ZQ5lB5IOU8Wg4aprhq8foSZTy3GMG56EntshrsBoY8vSAGQ+WU51/Fghd6jVgIR
+	 DBvpEvu7dKYH2dHFtYBaWbJDz/BC/2QMbLll2jyGn33eXBXpw+T7yQqxz2MmBbnwOt
+	 TnfjHgPBeYlZQ==
+Date: Tue, 13 Oct 2026 17:28:02 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: iio: add: document the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <20261013-subtract-oblong-cc6cd3d9cee2@spud>
+References: <20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org>
+ <20261013-topic-sm8x50-iio-max34417-adc-v3-1-d3604ae4a229@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="olTPtcV1frKmgnZT"
+Content-Disposition: inline
+In-Reply-To: <20261013-topic-sm8x50-iio-max34417-adc-v3-1-d3604ae4a229@linaro.org>
 
-Entries in hdev->le_accept_list must remain allocated while a reader
-compares their address and type. hci_le_del_accept_list_sync() and
-hci_le_add_accept_list_sync() call hci_bdaddr_list_lookup() without
-hdev->lock, although command-complete handlers modify and free entries
-under that mutex. The request worker's req_lock does not serialize raw
-HCI commands or their completions.
+--olTPtcV1frKmgnZT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-With a nonempty accept list and scanning disabled for passive-scan
-reconciliation, a successful raw LE Clear Accept List completion can
-overlap a membership check. For example, removing the last pending peer
-A stops scanning but leaves A in the accept list. Adding a new pending
-peer B then reaches deletion of stale A:
+On Tue, Oct 13, 2026 at 04:07:11PM +0200, Neil Armstrong wrote:
+> Document the Maxim MAX34417 Four-Channel High Dynamic Range Power
+> Accumulator used to monitor power consumption of portable systems.
+>=20
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-  1. The request worker holds req_lock, enters
-     hci_le_del_accept_list_sync() and obtains entry A during
-     hci_bdaddr_list_lookup(), without hdev->lock.
-  2. A CAP_NET_RAW sender submits LE Clear Accept List through a raw HCI
-     socket. The event worker handles its successful completion in
-     hci_cc_le_clear_accept_list(), takes hdev->lock, then unlinks and
-     frees A through hci_bdaddr_list_clear() and releases hdev->lock.
-  3. After that free, the request worker compares A's bdaddr_type.
+Previous review still applies?
+https://lore.kernel.org/all/20260924-circling-punk-e75ea71e60b0@spud/
 
-The final comparison reads freed memory; KASAN reported a one-byte read
-22 bytes into the bdaddr_list allocation. Hold hdev->lock across both
-membership checks so the clear completion cannot free an entry during
-the traversal. Keep the delete command's address copy under that lock
-as well, because its caller can pass an address embedded in the list
-entry. Release the mutex before resolving-list operations or synchronous
-HCI commands, whose completion handlers also acquire it.
+pw-bot: changes-requested
 
-KASAN report as below:
+Thanks,
+Conor.
 
-    BUG: KASAN: slab-use-after-free in hci_bdaddr_list_lookup+0x107/0x120
-    Read of size 1 at addr ffff8881058e8c56 by task kworker/u17:0/501
+> ---
+>  .../bindings/iio/adc/maxim,max34417.yaml           | 100 +++++++++++++++=
+++++++
+>  1 file changed, 100 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yam=
+l b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
+> new file mode 100644
+> index 000000000000..058af61cc04e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
+> @@ -0,0 +1,100 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/maxim,max34417.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Maxim MAX34417 Four-Channel High Dynamic Range Power Accumulator
+> +
+> +maintainers:
+> +  - Neil Armstrong <neil.armstrong@linaro.org>
+> +
+> +description: |
+> +  The MAX34417 is a specialized current and voltage monitor used to dete=
+rmine
+> +  power consumption of portable systems. The device has a very wide dyna=
+mic
+> +  range (20,000:1) that allows for the accurate measurement of power in =
+such
+> +  systems. The device is configured and monitored with a standard I2C/SM=
+Bus
+> +  serial interface. The unidirectional current sensor offers precision
+> +  high-side operation with a low full-scale sense voltage.
+> +
+> +  Specifications about the device can be found at:
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/ma=
+x34417.pdf
+> +
+> +properties:
+> +  compatible:
+> +    const: maxim,max34417
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +  vio-supply: true
+> +
+> +patternProperties:
+> +  "^channel@[0-3]$":
+> +    $ref: adc.yaml
+> +    type: object
+> +    description:
+> +      Represents the internal channels of the sensor.
+> +
+> +    properties:
+> +      reg:
+> +        items:
+> +          - minimum: 0
+> +            maximum: 3
+> +
+> +      label: true
+> +
+> +      shunt-resistor-micro-ohms:
+> +        description:
+> +          Value in micro Ohms of the shunt resistor connected between th=
+e RS+ and RS- inputs.
+> +        minimum: 1000
+> +        maximum: 100000
+> +        default: 1000
+> +
+> +    required:
+> +      - reg
+> +
+> +    unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        sensor@10 {
+> +              compatible =3D "maxim,max34417";
+> +              reg =3D <0x10>;
+> +
+> +              #address-cells =3D <1>;
+> +              #size-cells =3D <0>;
+> +
+> +              channel@0 {
+> +                  reg =3D <0>;
+> +                  label =3D "ch0";
+> +                  shunt-resistor-micro-ohms =3D <5000>;
+> +              };
+> +
+> +              channel@1 {
+> +                  reg =3D <1>;
+> +                  label =3D "ch1";
+> +             };
+> +
+> +              channel@2 {
+> +                  reg =3D <2>;
+> +             };
+> +        };
+> +    };
+>=20
+> --=20
+> 2.34.1
+>=20
 
-    Workqueue: hci0 hci_cmd_sync_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? hci_bdaddr_list_lookup+0x107/0x120
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? hci_bdaddr_list_lookup+0x107/0x120
-     kasan_report+0xe0/0x110
-     ? hci_bdaddr_list_lookup+0x107/0x120
-     hci_bdaddr_list_lookup+0x107/0x120
-     hci_le_del_accept_list_sync.isra.0+0xa1/0x310
-     ? __pfx_hci_le_del_accept_list_sync.isra.0+0x10/0x10
-     ? hci_passive_scan_sync+0xd88/0x2090
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x280
-     hci_passive_scan_sync+0x10a7/0x2090
-     ? __pfx_hci_passive_scan_sync+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? pmbd_probe_hit_cookie+0x10/0x1c0
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ? hci_update_passive_scan_sync+0x43f/0x9f0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x280
-     hci_update_passive_scan_sync+0x473/0x9f0
-     hci_cmd_sync_work+0x1b3/0x450
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+--olTPtcV1frKmgnZT
+Content-Type: application/pgp-signature; name=signature.asc
 
-    Allocated by task 504:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     hci_bdaddr_list_add+0xdf/0x2c0
-     hci_cc_le_add_to_accept_list+0x17a/0x230
-     hci_cmd_complete_evt+0x37d/0xb60
-     hci_event_packet+0x4e8/0xc70
-     hci_rx_work+0x367/0xf00
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
+-----BEGIN PGP SIGNATURE-----
 
-    Freed by task 504:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     hci_bdaddr_list_clear+0x134/0x230
-     hci_cc_le_clear_accept_list+0x13d/0x240
-     hci_cmd_complete_evt+0x37d/0xb60
-     hci_event_packet+0x4e8/0xc70
-     hci_rx_work+0x367/0xf00
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5cEgAKCRB4tDGHoIJi
+0jYtAQDG/Kdajpu4lXNcTYJNmvR0ro/5maQnxMwQuxIRbf88EQD/Uq+r1EcahyWw
+CUFXkn1dVvJ/uVGHOLSwm4kEvAchUww=
+=iQGf
+-----END PGP SIGNATURE-----
 
-    The buggy address belongs to the object at ffff8881058e8c40
-                                                                which
-                                belongs to the cache kmalloc-32 of size 32
-    The buggy address is located 22 bytes inside of
-                                                                freed
-                                32-byte region [ffff8881058e8c40,
-                                ffff8881058e8c60)
-
-    The buggy address belongs to the physical page:
-        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
-    pfn:0x1058e8
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-        raw: 0200000000000000 ffff888100042780 dead000000000100
-    dead000000000122
-        raw: 0000000000000000 0000000000400040 00000000f5000000
-    0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff8881058e8b00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-     ffff8881058e8b80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-    >ffff8881058e8c00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-                                                     ^
-     ffff8881058e8c80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-     ffff8881058e8d00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-    ==================================================================
-
-Fixes: e8907f76544f ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue set 3")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index efbd2e5387c0b..4e41c78a336b8 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -2473,11 +2473,16 @@ static int hci_le_del_accept_list_sync(struct hci_dev *hdev,
- 	int err;
- 
- 	/* Check if device is on accept list before removing it */
--	if (!hci_bdaddr_list_lookup(&hdev->le_accept_list, bdaddr, bdaddr_type))
-+	hci_dev_lock(hdev);
-+	if (!hci_bdaddr_list_lookup(&hdev->le_accept_list, bdaddr,
-+				    bdaddr_type)) {
-+		hci_dev_unlock(hdev);
- 		return 0;
-+	}
- 
- 	cp.bdaddr_type = bdaddr_type;
- 	bacpy(&cp.bdaddr, bdaddr);
-+	hci_dev_unlock(hdev);
- 
- 	/* Ignore errors when removing from resolving list as that is likely
- 	 * that the device was never added.
-@@ -2653,9 +2658,13 @@ static int hci_le_add_accept_list_sync(struct hci_dev *hdev,
- 	}
- 
- 	/* Check if already in accept list */
-+	hci_dev_lock(hdev);
- 	if (hci_bdaddr_list_lookup(&hdev->le_accept_list, &params->addr,
--				   params->addr_type))
-+				   params->addr_type)) {
-+		hci_dev_unlock(hdev);
- 		return 0;
-+	}
-+	hci_dev_unlock(hdev);
- 
- 	*num_entries += 1;
- 	cp.bdaddr_type = params->addr_type;
+--olTPtcV1frKmgnZT--
