@@ -1,125 +1,438 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DB43E024B;
-	Tue, 13 Oct 2026 10:01:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F77443AB7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885709; cv=none; b=metvPdN2YIExr2fRd17lWShLd7RNU5S/Cs+O6MElcGBAjTpdPjZnM5H7QktUUIYXpawPCXM+CsBxMmrKebQH53SDdj+KcUL2L5gTxpOeDE8Y97+A707JiukO94uFWym8jAaEqKBfCeHVc53Mka47haNSCaI1K/zAC0byZk5eZb8=
+	t=1791885734; cv=none; b=rMI4RGTnDceBziHDgEkKvvH61pKlVEo6q/wqLyVSgBKJDjq3f22eWEJuaWUsYibOmv8YNHri9l7g6m68j4P2DVahLhI/j/ab1FbL/GG8hOyxt/fDMfh70bHhbzGRFQqO1pTcYdtlTNvFS9+udsSpPztvXvaC3HZiIiBEa6k6Mbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885709; c=relaxed/simple;
-	bh=bSqWRS+oNbzfGzSTqwVOAZcthxcUCgPbR4fGQEtmJ04=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pl67zvi+7kmmZALCOSHHuKcEGDy7rfoZkGKJuKrUdgGbVuXE+x2Z71R94Y3m8AxPHZPYZwdhe4yy2Uh2cecMRodK5AvkUsFE4XgKI7k7R7HcgPamdf7HTIRtIDH18oUm3ol6AuFXqM7kk2gM8NcEzgDjgnUIvh0cszwedE7cp9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jk06kKyG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791885734; c=relaxed/simple;
+	bh=7lTd1oAUrS5SwOED/Fuu8Ie9D785+dcFp8G5m3mmf4w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AtOXcf2R4fG8TO6+buBC8dXzr4t/oib4Wf4srM76f1DhBM6VdjOVW8SScxp684VV1io99R3E4OQGe2eXF9BNOZnyWixROCm5cE12l/FVaMZd6RWYGrkzKYT6vxrrN/5uzuqJSm7He362hjPKZaAutHxBZhFXp4bCejZOe63Cfx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Yb7kiuKd; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jk06kKyG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BE41F000FF;
-	Tue, 13 Oct 2026 10:01:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791885708;
-	bh=B3KRNL7AZbCA4kJkWYYfzsHXsy+q+1VNr95bneYpC6w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Jk06kKyGuoFy0AuuOAsyqvfTgqMKECiFMOf1bs2MPbwGXZieDzgOQAQs2UNXxvD88
-	 8vMjHuhX9elbcatCkfpq1iYO9Np4DoLH6Y8+hQWMOVPS/JzNMfqaLfN+erUKJZuOlL
-	 aBFVCgFdlHJlCi8o2Uyy5/d0uoy8n+RjPR2Ddzeh8o4Qv+6SIqKbWKHx1N0y9tAUNi
-	 Z1V0GueI2c/3mAJBgZXeMwHQqGc0zo1BJhX0Kvm3xvtURuT5tzNN72V8TeaI3eXiMz
-	 wzH3ZK+ZjkC8SG9cJHaFoKYh14U+EWcNNMIwRb8lPzirQrJeawfxJfCrkZ4dCbDDV7
-	 +Df3VL8Up+mXg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xGZKL-00000002IE3-2eKc;
-	Tue, 13 Oct 2026 10:01:45 +0000
-Date: Tue, 13 Oct 2026 11:01:44 +0100
-Message-ID: <86wlrl2a2f.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Oliver Upton <oupton@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and DISCARD
-In-Reply-To: <as3_NKT20MNdqaJR@kernel.org>
-References: <20261013081646.933312-1-fuad.tabba@linux.dev>
-	<as3_NKT20MNdqaJR@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Yb7kiuKd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791885731;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hkZEUG83rOyNhEtN3y5WDfO091gbVPHLi8EBmYraIwY=;
+	b=Yb7kiuKdyfPXeYE8jxImWbGk85j0XQDCVXg+uM5nvBRRxjPY+U3coc8Kg6D3YIXfjI+Ytr
+	iQZ7ybVLqzQOUXDr0ZcgxVsfS58p0HOfRGG6rHgYJArE4/643TGtG1HzhT1MUa+QZMZlvN
+	7U9j4YIwhae+y38dWe258PLv0HcnjFs=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-685-6SyeDFIUN2mKYxnKPpja0w-1; Tue,
+ 13 Oct 2026 10:02:08 +0000
+X-MC-Unique: 6SyeDFIUN2mKYxnKPpja0w-1
+X-Mimecast-MFC-AGG-ID: 6SyeDFIUN2mKYxnKPpja0w_1791885726
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 28003195FDD7;
+	Tue, 13 Oct 2026 10:02:06 +0000 (UTC)
+Received: from [10.43.2.199] (unknown [10.43.2.199])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 79225195608C;
+	Tue, 13 Oct 2026 10:02:02 +0000 (UTC)
+Message-ID: <96179bac-03aa-472a-bffc-51a5252a2089@redhat.com>
+Date: Tue, 13 Oct 2026 12:02:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, andre.przywara@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 10/12] dpll: sit9531x: add support to adjust
+ output phase
+To: Ali Rouhi <arouhi@sitime.com>, Jiri Pirko <jiri@resnulli.us>
+Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>,
+ Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261009183151.78497-1-arouhi@sitime.com>
+ <20261009183151.78497-11-arouhi@sitime.com>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <20261009183151.78497-11-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Tue, 13 Oct 2026 10:51:48 +0100,
-Oliver Upton <oupton@kernel.org> wrote:
+On 10/9/26 20:31, Ali Rouhi wrote:
+> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 > 
-> On Tue, Oct 13, 2026 at 09:16:44AM +0100, Fuad Tabba wrote:
-> > Hi folks,
-> > 
-> > Changes since v1 [1]:
-> >   - Dropped the second mapping of an LPI at MAPTI, instead of keeping a
-> >     doubly mapped LPI out of GICv4 forwarding. (Marc)
-> >   - Keyed that check on whether an ITE maps the LPI, not on whether its
-> >     vgic_irq exists.
-> >   - Added a patch that makes DISCARD remove the pending state. (Marc)
-> > 
-> > Two fixes to the ITS emulation. The first stops a guest from mapping
-> > one LPI from two events, which can oops a GICv4 host when the VMM then
-> > routes an assigned device's MSI to the second event. The second makes
-> > DISCARD remove the LPI's pending state, as the spec requires.
-> > 
-> > Tested on QEMU, which emulates a GICv4 ITS. A local reproducer with two
-> > vCPUs DISCARDs an LPI that's pending in the other vCPU's list register.
-> > On rc3, and with patch 2 but without its halt, the guest still takes
-> > the LPI. With the series applied, it doesn't.
-> > 
-> > Based on Linux 7.3-rc3 (fd73f4a665989).
-> > 
-> > Cheers,
-> > /fuad
-> > 
-> > [1] https://lore.kernel.org/all/20261012084743.2228612-1-fuad.tabba@linux.dev/
-> > 
-> > Fuad Tabba (2):
-> >   KVM: arm64: vgic-its: Don't map an LPI from more than one event
-> >   KVM: arm64: vgic-its: Remove the pending state of a discarded LPI
+> Shift an output in time against the others driven by the same PLL.  The
+> device has a coarse delay counted in VCO cycles and a three-bit fine field
+> in fixed thirty-picosecond steps, so a requested offset is split between
+> the two and what the core reads back is what the registers hold rather
+> than what was asked for.  The divider spends two VCO cycles acting on a
+> programmed delay before it releases the output, so the registers hold the
+> request plus those two cycles and the read-back takes them off again.
 > 
-> Looks good. As all of these VGIC fixes depend on reliably synchronizing
-> hwstate I'll assume Marc will apply this patchset after his own series.
+> The window advertised to the core is one millisecond either way: the
+> device holds a delay anywhere within the output period, so on a slow
+> output the bound is the signed 32-bit picosecond attribute rather than
+> the hardware, and a round figure below it costs nothing and is what
+> keeps the subsystem from refusing every request; the granularity is one
+> picosecond, because the achievable delays are whole VCO cycles plus
+> thirty-picosecond steps and so form no uniform lattice for the core to
+> check against.
+> 
+> Delay only ever advances, so an offset larger than one output period is
+> folded back into a single period -- for a periodic signal that is the
+> same phase.  The fold is counted in VCO cycles, since the period is
+> exactly the divider's count of them, and the quantizer takes whichever
+> of the neighbouring whole cycles with the fine steps lands nearest.  An
+> advance is held as the complementary delay and reads back as an advance
+> only where the period exceeds the advertised window; elsewhere the two
+> describe the same edge and the delay form is reported.  A delay the
+> loaded configuration left beyond the window is reported clamped and is
+> not carried into a later rate change.  A rate change on an output with a
+> programmed delay re-times it inside the rate change's own programming
+> window, so there is one sequence and one flush, and a flush that failed
+> after the delay was committed is retried by the next request.  The write
+> takes effect in the programming state, which is left with the loops
+> re-locked even when a write inside it failed.
+> 
+> The device has no per-output phase flush, so realigning the adjusted
+> output restarts the divider phase of every output that PLL drives.  On a
+> part where outputs are deliberately skewed against each other that is a
+> visible edge jump on the others, and there is no register that would let
+> the driver avoid it.  A PLL the loaded profile builds without the
+> phase-flush feature has no flush to fire; realigning its outputs
+> restarts the whole PLL, so a phase adjust or a rate change on such a PLL
+> is a loss of lock as well as an edge jump on its other outputs.
+> 
+> Suggested-by: Ivan Vecera <ivecera@redhat.com>
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: LLM
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> ---
+>   drivers/dpll/sit9531x/core.c | 662 +++++++++++++++++++++++++++++++++--
+>   drivers/dpll/sit9531x/core.h |  22 ++
+>   drivers/dpll/sit9531x/dpll.c |  80 +++++
+>   drivers/dpll/sit9531x/prop.c |  22 ++
+>   drivers/dpll/sit9531x/regs.h |  37 ++
+>   5 files changed, 798 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+> index 19aeabd3cd4f..8a8872b18d2c 100644
+> --- a/drivers/dpll/sit9531x/core.c
+> +++ b/drivers/dpll/sit9531x/core.c
+> @@ -2264,11 +2264,422 @@ static int sit9531x_output_divo_read(struct sit9531x_dev *sitdev, u8 out_idx,
+>          return *divo ? 0 : -ENODATA;
+>   }
+> 
+> +/*
+> + * Phase adjust (PRG_RST_DELAY register-based).
+> + *
+> + * The chip exposes a per-output 34-bit coarse delay measured in VCO
+> + * clock periods plus a 3-bit fine delay in fixed 30 ps steps.  The
+> + * five bytes PROG6..PROG2 hold the field across registers:
+> + *   base + 0  PROG6  [7:5] OPSTG_VCASC_BUMP (preserved via RMW)
+> + *                    [4:2] PRG_RST_FINE_DELAY
+> + *                    [1:0] PRG_RST_DELAY[33:32]
+> + *   base + 1  PROG5  PRG_RST_DELAY[31:24]
+> + *   base + 2  PROG4  PRG_RST_DELAY[23:16]
+> + *   base + 3  PROG3  PRG_RST_DELAY[15:8]
+> + *   base + 4  PROG2  PRG_RST_DELAY[7:0]
+> + *
+> + * Slots 0-5 live on Page 3, slots 6-11 on Page 4, with each slot's
+> + * block at base = 0x15 + 16 * (slot % 6); the slot is the physical
+> + * output position from clkout_map[], not the logical output index.
+> + *
+> + * The chip only supports unsigned positive delay.  Requests are folded
+> + * modulo one output period: positive delays wrap naturally and a negative
+> + * phase adjustment (advance) is rendered as (T_out - |phase|).
+> + */
+> +
+> +/*
+> + * Register of byte @i (PROG6 first) of an output's PRG_RST_DELAY block.
+> + *
+> + * The logical output index maps to the chip's physical output slot.  On
+> + * SiT95317 the eight logical outputs land on chip slots {0, 3, 4, 5, 7,
+> + * 8, 9, 11}; on SiT95316 the map is identity.  Page and base address the
+> + * slot, not the logical index.
+> + */
+> +static unsigned int sit9531x_output_prg_reg(struct sit9531x_dev *sitdev,
+> +                                           u8 out_idx, u8 i)
+> +{
+> +       u8 slot = sitdev->info->clkout_map[out_idx];
+> +       u8 page = (slot > SIT9531X_PAGE_OUTSYS0_SLOT_MAX) ?
+> +                 SIT9531X_PAGE_OUTSYS1 : SIT9531X_PAGE_OUTSYS0;
+> +       u8 base = SIT9531X_OUT_PRG_DELAY_BASE +
+> +                 SIT9531X_OUT_PRG_SLOT_STRIDE * (slot % 6);
+> +
+> +       return SIT9531X_REG(page, base + i);
+> +}
+> +
+> +/* Read the PRG_RST_DELAY bytes of an output, PROG6 first. */
+> +static int sit9531x_output_phase_bytes_read(struct sit9531x_dev *sitdev,
+> +                                           u8 out_idx, u8 *bytes)
+> +{
+> +       int rc;
+> +       u8 i;
+> +
+> +       for (i = 0; i < SIT9531X_OUT_PRG_BYTES; i++) {
+> +               rc = sit9531x_read_u8(sitdev,
+> +                                     sit9531x_output_prg_reg(sitdev, out_idx, i),
+> +                                     &bytes[i]);
+> +               if (rc)
+> +                       return rc;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +/*
+> + * Encode a quantized delay into the register bytes.  @old_bytes supplies
+> + * the PROG6 bits that are not the delay's, which are preserved.
+> + *
+> + * The register value carries the divider's own settling time: the
+> + * quantizer works in the delay the caller asked for, the register wants
+> + * that plus the two VCO cycles the divider spends acting on it, and a
+> + * request of zero still waits those two.  Only the register value carries
+> + * them; @coarse stays the requested delay, which is what gets cached.
+> + */
+> +static void sit9531x_output_phase_bytes_build(const u8 *old_bytes, u64 coarse,
+> +                                             u8 fine, u8 *new_bytes)
+> +{
+> +       u64 prg_coarse = coarse + SIT9531X_OUT_PRG_DIVO_CYCLES;
+> +
+> +       /* PROG6 RMW: preserve OPSTG_VCASC_BUMP in [7:5] */
+> +       new_bytes[0] = old_bytes[0] & SIT9531X_OUT_PRG_OPSTG_MASK;
+> +       new_bytes[0] |= (fine << SIT9531X_OUT_PRG_FINE_SHIFT) &
+> +                       SIT9531X_OUT_PRG_FINE_MASK;
+> +       new_bytes[0] |= (u8)((prg_coarse >> 32) &
+> +                            SIT9531X_OUT_PRG_COARSE_HI_MASK);
+> +       new_bytes[1] = (u8)((prg_coarse >> 24) & 0xFF);
+> +       new_bytes[2] = (u8)((prg_coarse >> 16) & 0xFF);
+> +       new_bytes[3] = (u8)((prg_coarse >> 8) & 0xFF);
+> +       new_bytes[4] = (u8)(prg_coarse & 0xFF);
+> +}
+> +
+> +/*
+> + * Write an output's delay bytes.  The caller must already be in the
+> + * programming state.  On a failure every byte is put back, the one whose
+> + * write reported the error included, since it may have reached the part.
+> + */
+> +static int sit9531x_output_phase_bytes_write(struct sit9531x_dev *sitdev,
+> +                                            u8 out_idx, const u8 *new_bytes,
+> +                                            const u8 *old_bytes)
+> +{
+> +       int rc, ret, rb_rc = 0;
+> +       u8 i;
+> +
+> +       for (i = 0; i < SIT9531X_OUT_PRG_BYTES; i++) {
+> +               rc = sit9531x_write_u8(sitdev,
+> +                                      sit9531x_output_prg_reg(sitdev, out_idx, i),
+> +                                      new_bytes[i]);
+> +               if (rc)
+> +                       goto rollback;
+> +       }
+> +
+> +       return 0;
+> +
+> +rollback:
+> +       for (i = 0; i < SIT9531X_OUT_PRG_BYTES; i++) {
+> +               ret = sit9531x_write_u8(sitdev,
+> +                                       sit9531x_output_prg_reg(sitdev, out_idx, i),
+> +                                       old_bytes[i]);
+> +               if (ret && !rb_rc)
+> +                       rb_rc = ret;
+> +       }
+> +       if (rb_rc) {
+> +               dev_err(sitdev->dev,
+> +                       "out%u: phase-adjust rollback failed (%d), the delay registers are part old and part new\n",
+> +                       out_idx, rb_rc);
+> +               if (!rc)
+> +                       rc = rb_rc;
+> +       }
+> +
+> +       return rc;
+> +}
+> +
+> +/*
+> + * Error of realizing @abs_ps as @cycles whole VCO cycles plus the fine
+> + * steps that come nearest, which are returned through @fine.
+> + */
+> +static u64 sit9531x_output_phase_quant_err(u64 abs_ps, u64 fvco, u64 cycles,
+> +                                          u8 *fine)
+> +{
+> +       u64 cycles_ps, steps = 0;
+> +
+> +       cycles_ps = mul_u64_u64_div_u64(cycles, 1000000000000ULL, fvco);
+> +       if (abs_ps > cycles_ps)
+> +               steps = div64_u64(abs_ps - cycles_ps +
+> +                                 SIT9531X_OUT_PRG_FINE_STEP_PS / 2,
+> +                                 SIT9531X_OUT_PRG_FINE_STEP_PS);
+> +       *fine = min_t(u64, steps, SIT9531X_OUT_PRG_FINE_MAX);
+> +
+> +       return abs_diff(abs_ps, cycles_ps +
+> +                       (u64)*fine * SIT9531X_OUT_PRG_FINE_STEP_PS);
+> +}
+> +
+> +/*
+> + * Quantize a phase request: fold @phase_ps into one output period and
+> + * split it into whole VCO cycles (@coarse_out, without the divider's
+> + * settling cycles) and fine steps (@fine_out).  @phase_adj gets the delay
+> + * the two realize, in the request's sign and bounded to the advertised
+> + * range, which is what the cache holds.  Pure arithmetic against @fvco
+> + * and the divider @divo the output runs on, so a caller can encode
+> + * before it enters the programming state.
+> + */
+> +static int sit9531x_output_phase_encode(u64 fvco, u64 divo, s32 phase_ps,
+> +                                       u64 *coarse_out, u8 *fine_out,
+> +                                       s32 *phase_adj)
+> +{
+> +       u64 abs_ps, cycles, frac_ps, coarse = 0, coarse_ps, t_out_ps;
+> +       s64 phase_norm_ps = 0;
+> +       u8 fine = 0;
+> +
+> +       t_out_ps = mul_u64_u64_div_u64(divo, 1000000000000ULL, fvco);
+> +       if (!t_out_ps)
+> +               return -EINVAL;
+> +
 
-Yeah, I now have a series that has the counting pause, your single
-vcpu pause (fixed to DTRT), and the LPI disabling fix. Patch #2 of
-this series can probably make use of the single-vcpu stunning.
+I think you can do this here:
 
-As for the OUTSIDE_GUEST discussion, I've had a long discussion with
-Will where we reversed engineered the synchronisation requirements,
-and concluded that there was nothing to fix on that front (the logic
-is incredibly subtle and counter-intuitive, but overall sound). This
-patch is therefore dropped.
+if (!phase_ps) {
+	*coarse_out = 0;
+	*fine_out = 0;
+	*phase_adj = 0;
+	return 0;
+}
 
-I'll post that today, and we can assemble a series.
+and saves CPU cycles consumed by divisions below.
 
+> +       /*
+> +        * Convert to unsigned absolute delay.  Both signs are folded
+> +        * modulo one period: positive delays wrap naturally, negative
+> +        * delays are rendered as T_out - |phase|.  abs() is safe here
+> +        * because the core rejects anything outside the advertised phase
+> +        * range, which is +/-1 ms.
+> +        *
+> +        * The period is exactly DIVO VCO cycles, whereas in picoseconds it
+> +        * is a fraction more often than not: 7812.5 ps at 128 MHz from a
+> +        * 5.12 GHz VCO, and a fold on the truncated 7812 drops the half
+> +        * picosecond once per period folded away, so 100 us -- 12800
+> +        * periods exactly -- would come out as 6400 ps rather than nothing.
+> +        * Fold the whole VCO cycles of the request modulo DIVO instead, and
+> +        * carry the sub-cycle part across as it is.  div64_u64_rem() rather
+> +        * than the % operator: a 64-bit modulo has no compiler helper on
+> +        * 32-bit targets and leaves the module with an undefined __umoddi3.
+> +        */
+> +       abs_ps = abs(phase_ps);
+> +       cycles = mul_u64_u64_div_u64(abs_ps, fvco, 1000000000000ULL);
+> +       frac_ps = abs_ps - mul_u64_u64_div_u64(cycles, 1000000000000ULL, fvco);
+> +       div64_u64_rem(cycles, divo, &cycles);
+> +       abs_ps = mul_u64_u64_div_u64(cycles, 1000000000000ULL, fvco) + frac_ps;
+> +       /*
+> +        * The truncations above can put a request within a picosecond of a
+> +        * whole period a picosecond past it; that is the same edge as none.
+> +        */
+> +       if (abs_ps >= t_out_ps)
+> +               abs_ps = 0;
+> +       phase_norm_ps = phase_ps < 0 ? -(s64)abs_ps : (s64)abs_ps;
+> +       abs_ps = (phase_ps < 0 && abs_ps) ? t_out_ps - abs_ps : abs_ps;
+> +
+> +       if (abs_ps) {
+> +               u64 floor_cycles, err, alt_err;
+> +               u8 alt_fine;
+> +
+> +               /*
+> +                * coarse_cycles = abs_ps * Fvco / 1e12 ps/s.
+> +                * mul_u64_u64_div_u64() avoids overflow when abs_ps approaches
+> +                * one second of 1 PPS wrap-around.
+> +                */
+> +               floor_cycles = mul_u64_u64_div_u64(abs_ps, fvco,
+> +                                                  1000000000000ULL);
+> +
+> +               /*
+> +                * Fine = round((abs_ps - coarse * vco_period_ps) / 30 ps).
+> +                * The fine field spans 210 ps, more than one VCO cycle in
+> +                * every band, so the cycle count that floors the request is
+> +                * not always the nearest encoding: one cycle more can land
+> +                * closer than any fine code when the remainder sits just
+> +                * under a cycle, and one cycle fewer with a larger fine code
+> +                * can land closer or exact -- 210 ps at 5 GHz is seven fine
+> +                * steps, not a cycle and a ten picosecond remainder.  Take
+> +                * the nearest of the three, the floor on a tie.
+> +                */
+> +               coarse = floor_cycles;
+> +               err = sit9531x_output_phase_quant_err(abs_ps, fvco, coarse,
+> +                                                     &fine);
+> +               alt_err = sit9531x_output_phase_quant_err(abs_ps, fvco,
+> +                                                         floor_cycles + 1,
+> +                                                         &alt_fine);
+> +               if (alt_err < err) {
+> +                       coarse = floor_cycles + 1;
+> +                       fine = alt_fine;
+> +                       err = alt_err;
+> +               }
+> +               if (floor_cycles) {
+> +                       alt_err = sit9531x_output_phase_quant_err(abs_ps, fvco,
+> +                                                                 floor_cycles - 1,
+> +                                                                 &alt_fine);
+> +                       if (alt_err < err) {
+> +                               coarse = floor_cycles - 1;
+> +                               fine = alt_fine;
+> +                       }
+> +               }
+> +
+> +               /*
+> +                * A delay that quantizes to a whole output period or beyond
+> +                * is the same edge as no delay at all; program none, so the
+> +                * registers hold no residual past the period and the cache
+> +                * below describes exactly what they realize.
+> +                */
+> +               coarse_ps = mul_u64_u64_div_u64(coarse, 1000000000000ULL, fvco);
+> +               if (coarse_ps + (u64)fine * SIT9531X_OUT_PRG_FINE_STEP_PS >=
+> +                   t_out_ps) {
+> +                       coarse = 0;
+> +                       fine = 0;
+> +               }
+> +
+> +               if (coarse + SIT9531X_OUT_PRG_DIVO_CYCLES >=
+> +                   (1ULL << SIT9531X_OUT_PRG_COARSE_BITS))
+> +                       return -ERANGE;
+> +       }
+> +
+> +       coarse_ps = mul_u64_u64_div_u64(coarse, 1000000000000ULL, fvco);
+> +       abs_ps = coarse_ps + (u64)fine * SIT9531X_OUT_PRG_FINE_STEP_PS;
+> +       /*
+> +        * Quantization can also land a few picoseconds past the end of the
+> +        * advertised range, which the getter must not report.  Bound both
+> +        * signs to the range; the positive one is also what keeps the cast
+> +        * to the s32 the ABI carries safe.
+> +        */
+> +       if (phase_norm_ps < 0)
+> +               *phase_adj = abs_ps ?
+> +                            -(s32)min_t(u64, t_out_ps - abs_ps,
+> +                                         SIT9531X_OUT_PHASE_ADJ_MAX_PS) : 0;
+> +       else
+> +               *phase_adj = (s32)min_t(u64, abs_ps,
+> +                                        SIT9531X_OUT_PHASE_ADJ_MAX_PS);
+> +
+> +       *coarse_out = coarse;
+> +       *fine_out = fine;
+> +
+> +       return 0;
+> +}
 Thanks,
+Ivan
 
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
