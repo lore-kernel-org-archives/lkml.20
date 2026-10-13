@@ -1,150 +1,210 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB49B54145F;
-	Tue, 13 Oct 2026 19:40:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CF751AEC9;
+	Tue, 13 Oct 2026 19:40:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791920402; cv=none; b=qxeuMu5PPsOLSKbQamVIUgXvCocJXAGya1lxwk/o0elKSWRXUUQGWRG+KcNwzjGrGEwf2vyrn7tkYOnf+C+/wo/rnd7kGQz1Pel3pdGTApQnoaD9FQejl1kPEgWtZPblN6f0hsTW2af1xFdvaTvjFeWoRaVkConZOBnHPPwE/EY=
+	t=1791920428; cv=none; b=tFYMYngN9gWbG5DQ8wUXjtXKe1h46HUGnsw+JdFcjwerm/gTdYHkKx/Jd4t15wcZA2qibGZX/d9CeqFzRc8zYmfblNPmof/yOkInVYLKGxFXTy6qIXZ3LTtw7fa4N0M5XM1gTY/CvjWvr851KHyoCyFSvkIhcniKT+OdoVdXeRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791920402; c=relaxed/simple;
-	bh=MZg58M268Eh0VZqIkyS55G+P1rLcbo9ml1/whWRf554=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=sLKocZ7fUcZGdhkuVGyTC/iOcfm36d+xNiSZIy7k67z1hlvhqAbsGVcFjpkwYJ6sZ4IUx1MzzVYYy5RC/Sgf2IErm22b7rdzf6j7QKKFGbKbpETYOGzKdlv21Ki9XgylKEtC9f9WXl0BpPak+Gmh6/XmIh4ZNxIg7WdtsoP0YK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJh8OY5d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791920428; c=relaxed/simple;
+	bh=9ziVJdy+b1bhW1y6oYHX9sOcF9xtQOEucBLYSrTtguA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EBBy/pN2tuT2rTKnsHh29MpzrF4aBCvML3fkEgrxQyutJq2fDPyqSrUKVURF5X+dx2oha0tKwqZr6yBtggSyhBJoqMXRmwBfJO5GdpBbpE7J+ePAFiLb1A5s+hY/g+EtqAqDirm2kAh74Ahm7NXnFW5PiUwKtEtVdDnVFFAUeqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hl2UzerT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJh8OY5d"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0109B1F000FF;
-	Tue, 13 Oct 2026 19:39:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hl2UzerT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E11F1F000FF;
+	Tue, 13 Oct 2026 19:40:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791920400;
-	bh=2qwfRg5DXWganUmwiKbDvHA+hLYxjOJ4/zQ8YVt+nQc=;
-	h=From:To:Cc:Subject:Date;
-	b=KJh8OY5dsfrlTbt0uZJ/ZgQGpO/tCEXqLvPkvaMtVhFsS402ePkcQ0P/m91P0jtnL
-	 mU8rOj+SSPn8nTHhlls4+jy9HpL7NMS0pFQmooOiIaymZ0NZVUSsZ0RY3wbUXq3PvE
-	 GfeUjzCPG7a2PkxsE3dKQh4QURT/EOvCwJ4inqOFkShTvZp6ZiRUvs/H6EAFwhiWAK
-	 711Q7MIl66NZPQchto9gEL4vFkTtHRVqOIVXT68Om+PQ0+fsaD/SJj6GI15McWd+Dr
-	 mdgC4pyxhZhAT5oeH5ieb1yFgZUtEYVdv+sEqAppozHdY5YP7FyiAqoQWf308JUMqi
-	 VsVj5SwXECzEA==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com, Aleksandr Nogikh <nogikh@google.com>, "Konstantin Komarov" <almaz.alexandrovich@paragon-software.com>, <ntfs3@lists.linux.dev>, "ZhengYuan Huang" <gality369@gmail.com>
-Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-Subject: [PATCH] fs/ntfs3: use ni_lock_dir() in ntfs_readdir()
-Message-ID: <09f6cbed-aafb-4e5b-8b0f-36d55a248644@mail.kernel.org>
+	s=k20260515; t=1791920426;
+	bh=gGEdva0B7T4OPQRwnKbjRWDsGnhVZMphnfZfZ2crsUI=;
+	h=From:Date:Subject:To:Cc;
+	b=Hl2UzerTz2USfL3Kc3QJ1bMmVsF3b/JgbrRDUwBSQTwWw0zSiWogUCweQZHj02pWC
+	 +kHGupVx42+5sPAdrsC8GHec5SpT93GO5EiE2vJHfYfxiix4YWmgUblwSUsMxBo+85
+	 h+jcmmyYIa6TE3/XRE73zg3Mg3Lx+GfIAkfey5eY9XCv/4YImMalZyk0dmAkyP+VAn
+	 QyZ71KABka1yufikFOazJH/almB3cpCler6IhSAR9lhhyO6RmOfdzmebvzYaPXJunL
+	 DsNihtOm6V2XoMeKwrLB+WTD65UqLFNAe4gWbWwS7y2PLkibO+kY7xbrrSKwcmiOXX
+	 mdN03K0sEsuiA==
+From: Mark Brown <broonie@kernel.org>
+Date: Tue, 13 Oct 2026 20:40:00 +0100
+Subject: [PATCH] selftests: kselftest_deps.sh: Support LLVM
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Tue, 13 Oct 2026 19:39:59 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-kselftest-deps-llvm-v1-1-f2ee70ae1b79@kernel.org>
+X-B4-Tracking: v=1; b=H4sIABCJzmoC/yXMQQ6CQAxG4auQrm3SYiTEqxgXwvxodUQyHYgJ4
+ e6OuvwW763kSAanY7VSwmJur7FAdxX1t8t4BVsoplrqRkX3/HDEIcMzB0zOMS5PPmiHNmgjIi2
+ VckoY7P27ns5/+9zd0efvirbtA6D3TXt3AAAA
+X-Change-ID: 20261013-kselftest-deps-llvm-51be8d160008
+To: Shuah Khan <shuah@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4820; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=9ziVJdy+b1bhW1y6oYHX9sOcF9xtQOEucBLYSrTtguA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOdape8zpSsHXFwXlu93Y9+Ra4ct/GJH3XebHrZ2fsz
+ xd9t3m3QEcpC4MYF4OsmCJLXBb3y/qS12v4Di5sg5nDygQyhIGLUwAmYvSRkeF8hyfnrk3xvnFC
+ viqd7Z+OrOaOE/pn+kdqY5Qrx/ao9wyMDKuWbWX4I/da9uWT1AozAwUdkcgXJ1as5TQv3sPOcmT
+ +bQYA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Aleksandr Nogikh <nogikh@google.com>
+The kselftest_deps.sh script currently takes a compiler as the first
+argument and uses it to check that libraries needed by the selftests
+are installed.  This works well for GCC where a separate binary is
+provided for each target architecture but is less of a good fit for
+LLVM where a single compiler binary can target all of the supported
+architetures.  Extend the script to accept "LLVM" as the compiler with
+an additional optional ARCH= argument so that it can be used when
+building with LLVM in a similar fashion to how the actual build works.
 
-A circular locking dependency warning is detected by lockdep between
-&ni->ni_lock and mapping.invalidate_lock when getdents64() writes into a
-memory-mapped buffer while an operation such as fallocate() runs
-concurrently on a regular file:
+The duplication with the main Makefile isn't ideal here.
 
- WARNING: possible circular locking dependency detected
- task is trying to acquire lock:
- ffff88819b6dbb20 (mapping.invalidate_lock#3){++++}-{4:4}, at:
- filemap_fault+0x6e0/0x13c0 mm/filemap.c:3585
- but task is already holding lock:
- ffff88819b6997e8 (&ni->ni_lock/5){+.+.}-{4:4}, at:
- ntfs_readdir+0x717/0xf70 fs/ntfs3/dir.c:541
- which lock already depends on the new lock.
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ tools/testing/selftests/kselftest_deps.sh | 83 +++++++++++++++++++++++++++++--
+ 1 file changed, 80 insertions(+), 3 deletions(-)
 
- the existing dependency chain (in reverse order) is:
-
-  -> #1 (&ni->ni_lock/5){+.+.}-{4:4}:
-        ni_lock fs/ntfs3/ntfs_fs.h:1247 [inline]
-        ntfs_fallocate+0x56a/0x1080 fs/ntfs3/file.c:535
-        vfs_fallocate+0x663/0x7f0 fs/open.c:338
-        ioctl_preallocate fs/ioctl.c:289 [inline]
-        file_ioctl+0x5db/0x7e0 fs/ioctl.c:332
-        do_vfs_ioctl+0xc2a/0x1550 fs/ioctl.c:576
-
-  -> #0 (mapping.invalidate_lock#3){++++}-{4:4}:
-        filemap_invalidate_lock_shared include/linux/fs.h:1089 [inline]
-        filemap_fault+0x6e0/0x13c0 mm/filemap.c:3585
-        __do_fault+0x138/0x2a0 mm/memory.c:5565
-        handle_pte_fault mm/memory.c:6558 [inline]
-        __handle_mm_fault mm/memory.c:6707 [inline]
-        handle_mm_fault+0x100a/0x28a0 mm/memory.c:6876
-        do_user_addr_fault+0x746/0x1340 arch/x86/mm/fault.c:1394
-        exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
-        filldir64+0x2bc/0x620 fs/readdir.c:-1
-        dir_emit include/linux/fs.h:3610 [inline]
-        ntfs_dir_emit fs/ntfs3/dir.c:388 [inline]
-        ntfs_read_hdr+0x8a7/0xc10 fs/ntfs3/dir.c:429
-        ntfs_readdir+0x9ab/0xf70 fs/ntfs3/dir.c:589
-        iterate_dir+0x3ea/0x8a0 fs/readdir.c:114
-        __do_sys_getdents64 fs/readdir.c:404 [inline]
-
-The warning occurs because ntfs_fallocate() on a regular file acquires
-mapping.invalidate_lock and then calls ni_lock(), which locks the regular
-file inode's ni_lock with the default subclass NTFS_INODE_MUTEX_NORMAL
-(subclass 5). Meanwhile, ntfs_readdir() on a directory inode also uses
-ni_lock() with subclass 5, and while holding the lock across directory
-traversal, calls dir_emit() to fill directory entries into the user buffer.
-If that buffer is backed by a memory-mapped file, writing to it triggers a
-page fault (filemap_fault()), which acquires the mapped file's
-mapping.invalidate_lock. Because lockdep sees mapping.invalidate_lock ->
-ni_lock (subclass 5) in fallocate and ni_lock (subclass 5) ->
-mapping.invalidate_lock in readdir, it flags a circular locking dependency.
-
-This is a false positive because the two operations involve distinct
-inodes: readdir holds the mutex of the directory inode, while the page
-fault acquires the invalidate_lock of the regular file whose pages back the
-user buffer, so an actual deadlock cannot occur.
-
-In ntfs3, directory inodes are intended to be locked with ni_lock_dir(),
-which uses the lockdep subclass NTFS_INODE_MUTEX_PARENT (subclass 6). This
-subclass hierarchy is already used by other directory operations like
-ntfs_lookup(), ntfs_create_inode(), ntfs_link(), ntfs_unlink(), and
-ntfs_rename(). Replace ni_lock() with ni_lock_dir() in ntfs_readdir() when
-loading subrecords and when traversing directory metadata. This changes the
-directory lock subclass to NTFS_INODE_MUTEX_PARENT (6), establishing the
-hierarchy ni_lock_dir (subclass 6) -> mapping.invalidate_lock -> ni_lock
-(subclass 5) and eliminating the false lockdep warning.
-
-Fixes: d62cf685d12e ("fs/ntfs3: hold ni_lock across readdir metadata walk")
-Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+7736960b837908f3a81d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=7736960b837908f3a81d
-Link: https://syzkaller.appspot.com/ai_job?id=fae916f3-c2b4-47da-86b5-063a011b5c01
-Signed-off-by: Aleksandr Nogikh <nogikh@google.com>
+diff --git a/tools/testing/selftests/kselftest_deps.sh b/tools/testing/selftests/kselftest_deps.sh
+index 487e49fdf2a6..70b834361cb7 100755
+--- a/tools/testing/selftests/kselftest_deps.sh
++++ b/tools/testing/selftests/kselftest_deps.sh
+@@ -10,13 +10,20 @@
+ usage()
+ {
+ 
+-echo -e "Usage: $0 -[p] <compiler> [test_name]\n"
++echo -e "Usage: $0 -[p] <compiler> [ARCH=<arch>] [test_name]\n"
+ echo -e "\tkselftest_deps.sh [-p] gcc"
+ echo -e "\tkselftest_deps.sh [-p] gcc mm"
+ echo -e "\tkselftest_deps.sh [-p] aarch64-linux-gnu-gcc"
+-echo -e "\tkselftest_deps.sh [-p] aarch64-linux-gnu-gcc mm\n"
++echo -e "\tkselftest_deps.sh [-p] aarch64-linux-gnu-gcc mm"
++echo -e "\tkselftest_deps.sh [-p] LLVM"
++echo -e "\tkselftest_deps.sh [-p] LLVM ARCH=arm64 mm\n"
+ echo "- Should be run in selftests directory in the kernel repo."
+ echo "- Checks if Kselftests can be built/cross-built on a system."
++echo "- Compiler can be given as LLVM to use clang, as with LLVM=1 in"
++echo "  the kselftest build. LLVM=<prefix>/ and LLVM=-<suffix> select"
++echo "  the clang binary as in the kselftest build. ARCH=<arch> selects"
++echo "  the clang target architecture, defaulting to the host; it is"
++echo "  ignored for other compilers."
+ echo "- Parses all test/sub-test Makefile to find library dependencies."
+ echo "- Runs compile test on a trivial C file with LDLIBS specified"
+ echo "  in the test Makefiles to identify missing library dependencies."
+@@ -53,13 +60,32 @@ while getopts "p" arg; do
+ 	esac
+ done
+ 
++# Pull an optional ARCH=<arch> out of the remaining arguments. The
++# environment is used if it is not given on the command line, as with
++# make.
++args=()
++for arg in "$@"; do
++	case "$arg" in
++		ARCH=*)
++		ARCH=${arg#ARCH=};;
++		*)
++		args+=("$arg");;
++	esac
++done
++set -- "${args[@]}"
++
+ if [ $# -eq 0 ]
+ then
+ 	usage
+ fi
+ 
+ # Compiler
+-CC=$1
++case "$1" in
++	LLVM|LLVM=*)
++	setup_llvm "${1#LLVM}";;
++	*)
++	CC=$1;;
++esac
+ 
+ tmp_file=$(mktemp).c
+ trap "rm -f $tmp_file.o $tmp_file $tmp_file.bin" EXIT
+@@ -178,6 +204,56 @@ exit $?
+ }
+ # end main()
+ 
++# Mirror the LLVM handling in lib.mk: LLVM=<prefix>/ or LLVM=-<suffix>
++# select the clang binary, and ARCH selects the target triple with the
++# host as the default.
++setup_llvm()
++{
++	local llvm=${1#=}
++	local llvm_prefix=""
++	local llvm_suffix=""
++	local clang
++	local target
++
++	declare -A clang_target
++	clang_target[arm]=arm-linux-gnueabi
++	clang_target[arm64]=aarch64-linux-gnu
++	clang_target[hexagon]=hexagon-linux-musl
++	clang_target[i386]=i386-linux-gnu
++	clang_target[m68k]=m68k-linux-gnu
++	clang_target[mips]=mipsel-linux-gnu
++	clang_target[powerpc]=powerpc64le-linux-gnu
++	clang_target[riscv]=riscv64-linux-gnu
++	clang_target[s390]=s390x-linux-gnu
++	clang_target[x86]=x86_64-linux-gnu
++	clang_target[x86_64]=x86_64-linux-gnu
++
++	case "$llvm" in
++		*/)
++		llvm_prefix=$llvm;;
++		-*)
++		llvm_suffix=$llvm;;
++	esac
++	clang=${llvm_prefix}clang${llvm_suffix}
++
++	if [ -z "$ARCH" ]; then
++		target=$($clang -print-target-triple 2>/dev/null)
++		if [ -z "$target" ]; then
++			echo -e "\tUnable to run $clang ..."
++			exit 1
++		fi
++	else
++		target=${clang_target[$ARCH]}
++		if [ -z "$target" ]; then
++			echo -e "\tUnknown ARCH $ARCH for LLVM, supported:"
++			echo -e "\t$(echo "${!clang_target[*]}" | xargs -n1 | sort | xargs)"
++			exit 1
++		fi
++	fi
++
++	CC="$clang --target=$target -fintegrated-as"
++}
++
+ all_tests()
+ {
+ 	for test in $l1_tests; do
+@@ -285,6 +361,7 @@ print_results()
+ {
+ 	echo -e "========================================================";
+ 	echo -e "Kselftest Dependency Check for [$0 $1 $2] results..."
++	echo -e "Compiler: $CC"
+ 
+ 	if [ $print_targets -ne 0 ]
+ 	then
 
 ---
-diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
-index eb9152e9f..8bf62d2fb 100644
---- a/fs/ntfs3/dir.c
-+++ b/fs/ntfs3/dir.c
-@@ -522,7 +522,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
- 		 * Load all subrecords to avoid 'write' access to 'ni' during
- 		 * directory reading.
- 		 */
--		ni_lock(ni);
-+		ni_lock_dir(ni);
- 		if (!ni->mi_loaded && ni->attr_list.size) {
- 			err = ni_load_all_mi(ni);
- 			if (!err)
-@@ -538,7 +538,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
- 	 * once is not enough if concurrent writeback can still compact ATTR_LIST
- 	 * entries and free the record that ntfs_read_hdr() is currently walking.
- 	 */
--	ni_lock(ni);
-+	ni_lock_dir(ni);
- 
- 	root = indx_get_root(&ni->dir, ni, NULL, NULL);
- 	if (!root) {
-
-
 base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm master
+change-id: 20261013-kselftest-deps-llvm-51be8d160008
+
+Best regards,
+--  
+Mark Brown <broonie@kernel.org>
+
