@@ -1,80 +1,85 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B7D47ACD7
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:31:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B92D374E5A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:31:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791862298; cv=none; b=c1K0pqq696OApKeHuEgNMmGHL2FCouJJQQ4wbpHXV9xRehtR9A9duKSUYByUNPCMzQDVYoQuEj0QhWu9isVKoXES9d5LgVZ1XEAaSn2UOOIGluzJ+m//QMEQhSGRWBZtWKazdl2bJxuf+hgjPcbfraDtuhoKllf+VkjAJHOEb2A=
+	t=1791862303; cv=none; b=KwqV8cKn7X54f8O7UUWRJ4wZGEEk3K1UbSdLmzMogXIaeOMoYNeP6L5Qg/68/FnzS7QQHTkbpAECvrgRx/hitICOnGOpRsKmY4YaxQD0MOgJeAZCjdC89mwa8TGZ/MKeGxJN+n/hEokxAXnRCFQkCKTnNRXt0926kN+uI5xK7rM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791862298; c=relaxed/simple;
-	bh=cjyBjRJkApVsOaANK3jfZk+FCb9JFAhCOpaDsfDJ12s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dd080DBh+j8fsvrk2UnZEO/uNO8Sfez5AmDD9gK3cf6X/cHcqYR74GxzCG8emgFrgI9n/h39IKfGIR5VSnR/+EiQCjOMoM24i8kmk1sSTa43HlsqcB3aE8XUta/Fvj1ZMs6wsfMoQHb86DqiZjy7M9nL+eE1AMWMjTYyl9hnWIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=eWUN1mCY; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	s=arc-20240116; t=1791862303; c=relaxed/simple;
+	bh=V9rJqv7hUU1JgZ/pRuiuMmTNntLvY7jN6ZhKiY35cX8=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=GG6mDKUXHjIhoS5o+IcAeqJ35P+6UuA42Eg8FHJplA+PtfAY1kZ6OCTQGN/ve3TMRUtqzMzJz0gUu0hUyD+bqA/FI04DNXkyi1w5iMJYsbdtn+udSktYoPjfzz+u3RKjqqYbZswVOC7ze3VcHmgc4muFN74CxqYheuvFZfA0NxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=dVVY3dkm; arc=none smtp.client-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="eWUN1mCY"
-Received: from macsyma.thunk.org (pool-173-48-111-204.bstnma.fios.verizon.net [173.48.111.204])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69D3VPQV026428
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 23:31:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1791862288; bh=d4H1hHVaQBRXson3FwMJdk9nzEsQQmVUiNyZKfJ6bNw=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=eWUN1mCYULi7ZnKjU3d2UCy6E14hFO95ypvxx0FutOyDf2C9kXSYgW1Oq1YczokIz
-	 me8Ma8dWsMJ5NYEdT6h4p0RSMRrnj1ColeXRnHL5O1mDwkmfHg4z79AkC37H0b8XJz
-	 WUTnyxElFYDF0l2evtl6OqIR3VJq++KGTBceRWSzUBBxgl3ogy0vu7gakzL6C5YDwy
-	 WVnq75i/lviMtxQEgVaXNM3CODPKbncR/rMOolahFqhwpj6Q4KBXjf4WMAHlIn6TvT
-	 JyYLRS5j7KCGW5ksH/HJPV0sE8N99oKQ9ZYS9iiMmIuTiofxBawZY7phu6hzmLUdzs
-	 6x/w6QuHMXnHw==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id B3BB320508A9; Mon, 12 Oct 2026 23:30:25 -0400 (EDT)
-Date: Mon, 12 Oct 2026 23:30:25 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: Jan Kara <jack@suse.cz>, linux-ext4@vger.kernel.org,
-        linux-kernel@vger.kernel.org, guozh23@xiaopeng.com
-Subject: Re: [PATCH] ext4: check CAP_SYS_ADMIN in ext4_ioctl_get_tune_sb()
-Message-ID: <as2h06UOO7zRzrHk@mit.edu>
-References: <20261012060844.836001-1-zhugl3@xiaopeng.com>
- <20261013020145.1297074-1-zhugl3@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="dVVY3dkm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791862298; x=1792121498;
+	bh=V9rJqv7hUU1JgZ/pRuiuMmTNntLvY7jN6ZhKiY35cX8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=dVVY3dkmGMLfOU1dFTYWTso0b7bC2dQa4+1GRWS7YclaP0Zl9FzT5Wz+pVFE8Wci6
+	 VMaxdUMkt1prpilsaNZARhYgtCdC1fzfddGyexn/q1oYpWwiKAgMhTp5NOuieLhC0e
+	 ZvQ3Bp06xG/IGyNx0c12Ta8bzVvzlYySAoxDRmCXhr597w4u6ZLFNwz/H8jqiAS30n
+	 nZ2hgCtlY1HrL9nihQA8yqrSso659w1mwnKYW7BB4oZ23N9T0YCnTV2XuJVkx0+D/5
+	 XhM6K7DYbD7wb8knUwLyJ6TZlkZ1AMhm9B1ICb+79hI/2/nyjsWAczhMLHdlIa2qJq
+	 6ysWLFy4y/ZMg==
+Date: Tue, 13 Oct 2026 03:31:34 +0000
+To: linux-bluetooth@vger.kernel.org
+From: Kyle Pepper <cochcoder@proton.me>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] Bluetooth: l2cap: honor local LE connection interval range
+Message-ID: <20261013033118.501182-1-cochcoder@proton.me>
+Feedback-ID: 97716137:user:proton
+X-Pm-Message-ID: e63ffc2cffa8789562b0c5bc2d9b42c897eea017
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013020145.1297074-1-zhugl3@xiaopeng.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 10:01:45AM -0500, Guanglei Zhu wrote:
-> 
-> You are probably right that reading these parameters is not
-> sensitive on its own: most of them are already visible through
-> /proc/mounts or statfs(), and the superblock is readable by anyone
-> with read access to the block device.  The argument of my patch was
-> the asymmetry with the SET side rather than an actual leak.
-> 
-> I'm happy to drop this patch if Ted confirms that the missing check
-> was deliberate.
+Intersect a valid peer request with the locally configured interval
+range. Reject disjoint ranges and preserve validation of the original
+request before applying local policy.
 
-Yes, it's deliberate, precisely because the parameters are visible in
-/proc/mounts and in /proc/fs/ext4/<block>/options.  (The latter shows
-*all* of the mount parameters currently active, whereas the former
-show those mount options which differ from the defaults.)
+Assisted-by: OpenCode:gpt-6.1-sol
+Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+---
+Submission review notes (not part of the commit message):
+October 12 no-intersection trial accepts [16,24] and completes 30 ms
+with STATUS 03 02 18 and normal host TX; the user hears silence. Volume
+and multi-day acoustic comparison controls are incomplete. The working
+intersection yields 20 ms. Maximum-only rejection failed in kernel 5
+and is not this proposal. Generic minimum/range policy and LL-path
+consistency remain RFC questions, not established by one renderer.
 
-There should be nothing in the file system parameters which are
-secret; things like keying information for fscrypt are not passed in
-the mount options, for Very Good Reasons; instead we use the Linux Key
-Management facility[1].  As far as I'm concerned, storing passwords in
-the mount options ala cifs[2] is an anti-pattern.
+ net/bluetooth/l2cap_core.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-[1]  https://man7.org/linux/man-pages/man7/keyrings.7.html
-[2]  https://man7.org/linux/man-pages/man8/mount.cifs.8.html
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 49a998804..49e201d3e 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -4968,6 +4968,13 @@ static inline int l2cap_conn_param_update_req(struct=
+ l2cap_conn *conn,
+ =09memset(&rsp, 0, sizeof(rsp));
+=20
+ =09err =3D hci_check_conn_params(min, max, latency, to_multiplier);
++=09if (!err) {
++=09=09/* Apply local policy only after validating the peer's request. */
++=09=09min =3D max_t(u16, min, hcon->le_conn_min_interval);
++=09=09max =3D min_t(u16, max, hcon->le_conn_max_interval);
++=09=09err =3D hci_check_conn_params(min, max, latency, to_multiplier);
++=09}
++
+ =09if (err)
+ =09=09rsp.result =3D cpu_to_le16(L2CAP_CONN_PARAM_REJECTED);
+ =09else
 
-     	   	 	       	      	       - Ted
+base-commit: 964430c038967fd06643e866f68115664e1a1bd1
+
