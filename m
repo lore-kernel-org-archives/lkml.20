@@ -1,96 +1,63 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+Received: from mail-24430.protonmail.ch (mail-24430.protonmail.ch [109.224.244.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DE252E046;
-	Tue, 13 Oct 2026 23:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33790489FC9
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791932850; cv=none; b=R57IuXy41HpY7HTsYqM3dAb6GH1vrNH3obVpjiux2VccJDxAWpejjHh0WUURT+A4fU0kZ4hajm2iL80sw1kGfUleWf7GuZpsmC215ttP1hn6nSI+iF4PXWcXHe97TG8okPpSGaDEiGMpVlXcAeWvNyf4xEmbAutFXotFFj2JnqE=
+	t=1791932903; cv=none; b=k+tLNcXOC99E/ZNBFgy3DuKE6/Qzl8YWshvrTP1pGtPYjfgMUA2JrEjlEyefF3q3Xr98xUx9oVzdzDFKWiCnYnwHPpLIPGTHj+H1kOf1zS9aZId1UdGSmsL3sGPSv8VrStDHktgqgb35H5p3zd8yCilzw0EL2ExM57D+X12vBRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791932850; c=relaxed/simple;
-	bh=3y7Xw7YkNHnuviBgkfoYmKWc1LtddiF+VIJ9Q5vJFCI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AGGGf1V/ukRxL4i2/NMVdReXpCDL4H9zxYf0TRZiqyQFezI6aIAWmeeIGwS90lgdd/rkPGsENwHq7iebT5UUTdJt/v1NBgB/iz5LB3IcG2X2EJcmSF+3A55AYZGVIpxlsk/56YxLgDWOtFuJltEQOgKGyWsmD2663SIV6Tjz0gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=TzF5CbIh; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	s=arc-20240116; t=1791932903; c=relaxed/simple;
+	bh=iz4G0JfeyhfEiK4Pr8aTSOcc82ATpgxlT7irZ/dtCiE=;
+	h=Date:To:From:Subject:Message-ID:MIME-Version:Content-Type; b=Sfv+Q5KM1nU40cj+0m1JIr+fPuLXk9UItBpdcMyZAv+/sDUZRqpChn7pO9bSdRyFxcHJK/28NrGwLk84pvB+26mi3N0K2asB7htVO3VZ/fc8xK2Qw1ZIkVQJG2B2f0oexeVc0H6fNJzPDs/Yzk7eaTdCkH2CuvMqSnJ5vCLxAZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=D0bYQWvX; arc=none smtp.client-ip=109.224.244.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="TzF5CbIh"
-Received: from [IPV6:2601:646:8003:f231:356f:4b4f:2ec9:d15a] ([IPv6:2601:646:8003:f231:356f:4b4f:2ec9:d15a])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69DN6o573850101
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Tue, 13 Oct 2026 16:06:50 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69DN6o573850101
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026092801; t=1791932812;
-	bh=JJmD+/QY5os8wQkB/X/NCAurpKkUQhavruhI2yQUGvA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TzF5CbIhbMJrANvDVDlsjrXZffPmaHwe6HTcaeZpFw0yw+73stVWu3k82+jxkOrGy
-	 YTHVCg8DGFcK4PL35piseSZW4rYX7/REXaxlyZrGZwh2IFfJDOGqZxPiYQhgmf47al
-	 Z3aYh4AzgBYpGLKe2kB0uHjvc4J9MAi+cTmneTGlJUqrdwSnbsgzItKQUW3TpC5Zow
-	 0Nt2KoYcLIBxM2hWp14omb6TjNa4mTI/5rmopZSRZ+dR688jlyFw2WqGHi2JppdGr5
-	 gJonWVvvwT68a1D7RXLYudQyZlKZKkVRRb16zSlevHkkkrfSt0aPp+rKE8WF0jcwTT
-	 X5j/GO9BCA8Wg==
-Message-ID: <59691ed7-1da5-44b4-8b6b-c7eae92b6161@zytor.com>
-Date: Tue, 13 Oct 2026 16:06:44 -0700
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="D0bYQWvX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791932897; x=1792192097;
+	bh=iz4G0JfeyhfEiK4Pr8aTSOcc82ATpgxlT7irZ/dtCiE=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=D0bYQWvXJ0hpLrY/Hjsx0ENqeUNU11q07xJ/rLyOWZyo8S8t4mShMSotnyidO6qPL
+	 5VU2o2qzbR3eQ+k519yu6stP+R6X/0wPiegN/zJWxm80guMx9sL7oJwwJijPoQl1Gz
+	 WBK5+sEZqX38zzyQSyDbnOCnU0n1GKX+uBDaY1iYMmNirbkmE94GfFNTghVq7mBlxh
+	 XjxxSIiG1WSVwegQVJRe63suuXwKjyRdqClZ7CNfeGWAsI4bw33uREILDZ4x+OFMsY
+	 YUNu9ZuRaoCw/GM3nYIRv5qcXzgGEmr9OYrbHPU5thDE42P6coPpYHnuboLQ3Y7HZv
+	 fTtchPmJnFLcA==
+Date: Tue, 13 Oct 2026 14:57:58 +0000
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "tkjos@android.com" <tkjos@android.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+From: kerhunt <kerhunt@proton.me>
+Subject: [PATCH/report] binderfs: minor leaked in binderfs_binder_ctl_create() error path
+Message-ID: <EfcKCYFZFr2LlmJSGpFxiQv77ehjbo1f3S703D_9lI10n6CGsc_Fs8D1toldbaCG5NU50SqHQ6jpWdo98iXI2F2sKoZ4FuC2BPsJR_iNc9A=@proton.me>
+Feedback-ID: 227694322:user:proton
+X-Pm-Message-ID: e29011ffffeffd7cef63defa488d1d78c7e9f725
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] selftests/x86: Add a test for LASS enforcement
-To: Sohil Mehta <sohil.mehta@intel.com>, x86@kernel.org,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-        Shuah Khan <shuah@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        "Chang S . Bae" <chang.seok.bae@intel.com>,
-        Kishen Maloor <kishen.maloor@intel.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Paolo Bonzini
- <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20261009020025.4175228-1-sohil.mehta@intel.com>
- <b6cee0b8-c5cf-4136-928f-96cb0a58eaa3@zytor.com>
- <c5c1fec0-8cd7-47dc-9a22-d90c80b2429a@intel.com>
-Content-Language: en-US, sv-SE
-From: "H. Peter Anvin" <hpa@zytor.com>
-In-Reply-To: <c5c1fec0-8cd7-47dc-9a22-d90c80b2429a@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-13 12:51, Sohil Mehta wrote:
-> 
-> I had it in v1 of this patch. It seemed excessive to do specifically for
-> LASS:
-> https://lore.kernel.org/lkml/20260806011536.4172258-8-sohil.mehta@intel.com/
-> 
+Hi Greg, Todd,
 
-"Specificially for LASS" is the problem here.
+binderfs_binder_ctl_create() (drivers/android/binderfs.c) leaks
+the allocated minor if d_alloc_name() fails after the
+ida_alloc_max() call: the error path frees the device and puts
+the inode but never calls ida_free() on binderfs_minors, so the
+minor is permanently lost from the global pool. The success path
+releases it correctly via evict_inode() (binderfs.c:259-277).
 
-This goes under the "do it generally, do it right, do it once." Librarize it.
+Fix: ida_free(&binderfs_minors, minor) in the error path (or
+restructure so the minor is freed on all failure exits after
+allocation).
 
-> I agree, adding them as generic selftest helpers may be useful. But,
-> /proc/cpuinfo has been unreliable in general. It is currently buggy for
-> some features with Kconfig options. See:
-> 
-> https://lore.kernel.org/lkml/f6f113b46199d996c4f81fc89858c2f484256418.1774623092.git.m.wieczorretman@pm.me/
+Confirmed on linux-6.12.112 (7aba70ab) and mainline HEAD.
+Happy to send the formal patch. Please credit "kerhunt
+<kerhunt@proton.me>".
 
-> Also, (I think) we have been generally discouraging folks to add more
-> bits there. So, I don't know if creating these library routines is
-> useful right now. IIUC, Boris said that the CPUID rework would make some
-> of cpuinfo stuff moot.
-> 
-> https://lore.kernel.org/lkml/20260331140216.GDacvT6IPW1gf003z-@fat_crate.local/
-
-> Thoughts?
-
-This is a great example of why these interfaces *are* useful and why they
-*should* be fixed.
-
-	-hpa
-
+Best regards,
+kerhunt
