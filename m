@@ -1,235 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F88526A84;
-	Tue, 13 Oct 2026 17:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7A0522EF1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:23:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912123; cv=none; b=bYbjGfOy+8rMVPCyvsRBZYT/QRG8wWHAPg+TgvAVatnaUt0SYaLeYl/59cMY7SVAtwsnEyT/ZAVDLeJNsTrF4ZRvThtponlIeqvFuzUwqvQy2jTPsbTW8VIZ1niXOSV0t1pBDFgjqfAAspQMdk9dSFyYoUEJjaTWFURJqQhdrr4=
+	t=1791912184; cv=none; b=io0kmydwOEqFUlhikbmgkpf1KaN26khW7cYKNXk5ALHTbxhfDKaPNRb0taLcZ5HrVT1NhQ8ZhfXuJqnj9IKezFo/1JjXxsAuonIKlaBo0JRwGCi6urOstbBA54LsA6VlUWupot5fvxijlPmDNn9/WSozYbXO5UZsiglrZ0nKNBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912123; c=relaxed/simple;
-	bh=pRgKuzltqTP5qq1iYZ9yMeN36SmF92IJPhyTgPfkC/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F3XRXodN4xE/r5A6+lOzcE137dxIN/JWOxioAr5ZiGlaZ6ZCdwuYvSGU/KT6+CA7vf6XEGbHrXnhgw/m7WHgEu0MXzG4/n709cqhPjwftz4VAE95DnFk1HKAuE0pRnNCj09nRWlH4QTr3Zmtt/2G4j/dikiFdp6uaF7J5CnlWzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PU03vraH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791912184; c=relaxed/simple;
+	bh=6oHp6iOgu3vSfUvFoKGR28aA37BnryUeRpYDhY2R2Vw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EHrvArwXSWmdcdKPsF6kjJQZa+qvaatR+xyq9b2s9cb08v8v5qhA7m40wvZk6TT8wWLqiPoUW39j7K/cV5BuxRebZi1Aomnz4dcMGH9HLSKb203vyoRRu/5XmuEskoMVcAZ7K/N3XayftKIQp7HPhQ/kG5XQweyWKwQArrRSsg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bM4vImJe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PU03vraH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 798161F0089B;
-	Tue, 13 Oct 2026 17:22:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bM4vImJe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACEE71F0089D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:23:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791912121;
-	bh=3O2IenCH6/sxzWAWX9Q8FmEqaJVAZBedcZz7xsAkbgI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PU03vraHXg0QJugqD2lokCDsJzRLkWqjWtJY7LMWQqvVpyCwGvnprU1zcDRDtvCFf
-	 N7mfDxv7VZyhyU3XYE419FpQCsbAegAVVkBS3a3jOwydOrSMzZsWZdYDQCrloQFyz7
-	 oKgFwB0rvvtYAgkCL+ZSiiJT/5265XN17anpG6KnY87gL8TtM5EmdBr2Zk69xlcmUB
-	 EsomMgdlgsngwnFmQB4k80MAzGAIbQ2S1s0X21kahoSxOWbW/XtAr2nMdVban6BYqC
-	 wQi9Qr2SQG2GRq90uwVsgK6Ka84BWnuFntEA2Wth/Pmr8IgRmhvZA1DKmiER7wAX30
-	 +cGSCG+7udqsQ==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org
-Subject: [PATCH v5 10/11] perf annotate: Simplify symbol__disassemble() with dso binary_type
-Date: Tue, 13 Oct 2026 10:21:54 -0700
-Message-ID: <20261013172155.160869-11-namhyung@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261013172155.160869-1-namhyung@kernel.org>
-References: <20261013172155.160869-1-namhyung@kernel.org>
+	s=k20260515; t=1791912182;
+	bh=58vcH4XOh3Uxb0/yHZpvGzQapqHFOqeDk7/phElXVhw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bM4vImJeNOabcnbRhYbq9bIHyCVf6FStYaRomHk+BwpDrO8rxLv/G/eqw/PQT4a4O
+	 9zdDaMeFWhCffixJHEoQ6Q01mBo+I89j+lWWvCy4PB/z8l/10Bgo6hgo34ToVcVrI9
+	 Lzj1m/uhPzx5smipyd+L9dSHjKU/91/R1Q/wFVbcCRmCsP3dWI2LNSG3bpFYPuKExD
+	 +PfJTT7QOVaDF//gYqAjKu3nnXEGnLaCTOA0lJy0pSuWStN4EVTJNFIPls9OifnZsE
+	 JFwN3qFYqyRdnLx5JdVtMARHzUV+xTCOwQq5U9UFMW5wvo61rg264FFxbda+3yxpcZ
+	 LskmvOEsJjBXg==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5ba328513b9so2621382e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:23:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy+q018xdikhOTQUAVQGKj62uAtck7tX6eA2r+bHZwPZQx7LTsQ24p5nBlPTClFeDXEl1RpZrn+KFnwjsU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoAJvH7JRMWx3Dg9GpD2t1YE4IoqhJtP7sHkvoba7y+fFdjGE6
+	mE+mbHjZcse17ekfmr/9zvXVdt1MHNCbBaTNVPhEB3jtc94UlNCJKCxmbJUi1yH3TrfqXX8/XRP
+	phOuFKKE8E3XFTjTNCHzY7ahV2o9gtsA=
+X-Received: by 2002:a05:6512:1389:b0:5b8:f3d5:f301 with SMTP id
+ 2adb3069b0e04-5bcde35148bmr4362168e87.6.1791912181025; Tue, 13 Oct 2026
+ 10:23:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
+ <20261012225141.13683-1-aliamemis@disroot.org> <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
+ <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com> <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com>
+In-Reply-To: <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 13 Oct 2026 19:20:55 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com>
+X-Gm-Features: AclHuK8Dko4T7OiAi5h3jqpw8o-XWUajlqhmOiANoa1OJ9welDWIOCCTNuHuWCM
+Message-ID: <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
+ complete callback
+To: johannes.goede@oss.qualcomm.com
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>, 
+	Len Brown <lenb@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
+	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
+	linux-pm@vger.kernel.org, regressions@lists.linux.dev, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Now it should set the binary type of a DSO properly.  No need to figure
-out a filename suitable for disassembly.
+Hi Hans,
 
-Just call dso__find_binary_type() and dso__get_filename() for that type.
+On Tue, Oct 13, 2026 at 3:36=E2=80=AFPM <johannes.goede@oss.qualcomm.com> w=
+rote:
+>
+> Hi Rafael,
+>
+> On 13-Oct-26 13:58, Rafael J. Wysocki (Intel) wrote:
+> > On Tue, Oct 13, 2026 at 11:33=E2=80=AFAM <johannes.goede@oss.qualcomm.c=
+om> wrote:
+> >>
+> >> Hi,
+> >>
+> >> On 13-Oct-26 00:46, Ali Ahmet Memi=C5=9F wrote:
+> >>> Since commit d33e89d12295 ("thermal: core: Suspend thermal zones late=
+r
+> >>> and resume them earlier"), thermal zones are resumed from dpm_complet=
+e(),
+> >>> before the PM_POST_SUSPEND notifier that re-reads _BIX and _BST. On
+> >>> ThinkPad P1 Gen2 and P53, INT3403 _TMP calls \GTST which switches the=
+ EC
+> >>> page selector (HIID) without taking the BATM mutex used by the batter=
+y
+> >>> methods. ACPICA releases the interpreter lock around EC accesses
+> >>
+> >> I'm wondering if this "ACPICA releases the interpreter lock around EC
+> >> accesses" is not the real problem here.
+> >
+> > Yes, it most likely is.
+> >
+> > What actually happens is that ACPICA drops the interpreter lock and
+> > the namespace lock in several cases listed in the
+> > acpi_ex_exit_interpreter() documentation comment, the majority of
+> > which involve having to wait.
+> >
+> > The bottom line though is that the interpreter and namespace locks
+> > cannot be expected to be held throughout AML evaluation because it is
+> > not known in advance if any of the cases in question will appear.
+> >
+> >> Recently I've learned / heard
+> >> from a trusted source that Windows ACPI subsystem is very much single
+> >> threaded. So it is nice that ACPI has these mutexes and other stuff
+> >> to support multi-threading but as long as Windows ACPI interpreter is
+> >> not multi-threaded I think we may need to consider to copy Windows
+> >> behavior.
+> >
+> > This is also my conclusion, at least to some extent.
+> >
+> > The problem with it though is that in some cases parallel evaluation
+> > of AML is actually useful.  For example, say two PCI devices are
+> > powered up at the same time and AML waits for each of them.  The async
+> > suspend/resume aligns those waits to take place simultaneously instead
+> > of serializing them which allows some time to be saved.
+> >
+> >> So maybe the EC accesses should keep the interpreter lock locked durin=
+g
+> >> EC accesses.
+> >
+> > The problem here is that it is hard to say in advance whether or not
+> > _BIX or _BST will access the EC and whether or not that will clash
+> > with _TMP evaluation for a seemingly unrelated thermal zone.
+> >
+> >> And even go further and maybe we need to introduce a big-acpi-lock,
+> >> which I guess the interpreter lock more or less is? And just serialize
+> >> all ACPI accesses since most ACPI tables clearly do not handle
+> >> multi-threaded access to ACPI methods well ?
+> >
+> > I would be inclined to do so except for device power management
+> > methods, that is _ON, _OFF, and _PSx, that are not the problematic
+> > ones, at least as far as I know.
+>
+> That sounds like a reasonable compromise which should fix both
+> this case as well as help with bko221065 .
+>
+> >> Another example of multi-threaded ACPI calls causing problems is:
+> >>
+> >> https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
+> >
+> > Right.
+> >
+> > So I guess the idea would be to add locking to acpi_evaluate_object()?
+>
+> Yes that seems like a nice single point of entry to do this where
+> all the various helpers eventually end up.
 
-Reviewed-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
----
- tools/perf/util/disasm.c | 124 ++++++++-------------------------------
- 1 file changed, 24 insertions(+), 100 deletions(-)
+That, of course, would require updating ACPICA code and I'm not sure
+if doing it upstream is useful.  For example, if some hosts already
+use locking around acpi_evaluate_object(), this modification won't
+help them and it will certainly be a change in behavior.
 
-diff --git a/tools/perf/util/disasm.c b/tools/perf/util/disasm.c
-index 5478c134e7e3b8df..7c289b67b5bde899 100644
---- a/tools/perf/util/disasm.c
-+++ b/tools/perf/util/disasm.c
-@@ -1176,84 +1176,6 @@ int symbol__strerror_disassemble(struct map_symbol *ms, int errnum, char *buf, s
- 	return 0;
- }
- 
--static int dso__disassemble_filename(struct dso *dso, char *filename, size_t filename_size)
--{
--	char linkname[PATH_MAX];
--	char *build_id_filename;
--	char *build_id_path = NULL;
--	char *pos;
--	int len;
--
--	if (dso__symtab_type(dso) == DSO_BINARY_TYPE__KALLSYMS &&
--	    !dso__is_kcore(dso))
--		return SYMBOL_ANNOTATE_ERRNO__NO_VMLINUX;
--
--	build_id_filename = dso__build_id_filename(dso, NULL, 0, false);
--	if (build_id_filename) {
--		/*
--		 * This is a path in perf's own build id cache, not a path on
--		 * the profiled system, so the symfs layout does not apply.
--		 */
--		path__join(filename, filename_size, symbol_conf.symfs,
--			   build_id_filename);
--		free(build_id_filename);
--	} else {
--		if (dso__has_build_id(dso))
--			return ENOMEM;
--		goto fallback;
--	}
--
--	build_id_path = strdup(filename);
--	if (!build_id_path)
--		return ENOMEM;
--
--	/*
--	 * old style build-id cache has name of XX/XXXXXXX.. while
--	 * new style has XX/XXXXXXX../{elf,kallsyms,vdso}.
--	 * extract the build-id part of dirname in the new style only.
--	 */
--	pos = strrchr(build_id_path, '/');
--	if (pos && strlen(pos) < SBUILD_ID_SIZE - 2)
--		dirname(build_id_path);
--
--	if (dso__is_kcore(dso))
--		goto fallback;
--
--	len = readlink(build_id_path, linkname, sizeof(linkname) - 1);
--	if (len < 0)
--		goto fallback;
--
--	linkname[len] = '\0';
--	if (strstr(linkname, DSO__NAME_KALLSYMS) ||
--		access(filename, R_OK)) {
--fallback:
--		/*
--		 * If we don't have build-ids or the build-id file isn't in the
--		 * cache, or is just a kallsyms file, well, lets hope that this
--		 * DSO is the same as when 'perf record' ran.
--		 */
--		if (dso__kernel(dso) && dso__long_name(dso)[0] == '/')
--			snprintf(filename, filename_size, "%s", dso__long_name(dso));
--		else
--			__symbol__join_symfs(filename, filename_size, dso__long_name(dso));
--
--		mutex_lock(dso__lock(dso));
--		if (access(filename, R_OK) && errno == ENOENT && dso__nsinfo(dso)) {
--			char *new_name = dso__filename_with_chroot(dso, filename);
--			if (new_name) {
--				strlcpy(filename, new_name, filename_size);
--				free(new_name);
--			}
--		}
--		mutex_unlock(dso__lock(dso));
--	} else if (dso__binary_type(dso) == DSO_BINARY_TYPE__NOT_FOUND) {
--		dso__set_binary_type(dso, DSO_BINARY_TYPE__BUILD_ID_CACHE);
--	}
--
--	free(build_id_path);
--	return 0;
--}
--
- static int symbol__disassemble_raw(char *filename, struct symbol *sym,
- 					struct annotate_args *args)
- {
-@@ -1566,14 +1488,29 @@ int symbol__disassemble(struct symbol *sym, struct annotate_args *args)
- 	struct annotation_options *options = args->options;
- 	struct map *map = args->ms->map;
- 	struct dso *dso = map__dso(map);
--	char symfs_filename[PATH_MAX];
-+	char *symfs_filename;
- 	bool delete_extract = false;
- 	struct kcore_extract kce;
-+	enum dso_binary_type dbt;
- 	bool decomp = false;
--	int err = dso__disassemble_filename(dso, symfs_filename, sizeof(symfs_filename));
-+	int err;
- 
--	if (err)
--		return err;
-+	dbt = dso__find_binary_type(dso);
-+
-+	if (dbt == DSO_BINARY_TYPE__KALLSYMS)
-+		return SYMBOL_ANNOTATE_ERRNO__NO_VMLINUX;
-+
-+	mutex_lock(dso__lock(dso));
-+	symfs_filename = dso__get_filename(dso, "", &decomp, dbt);
-+	mutex_unlock(dso__lock(dso));
-+
-+	if (symfs_filename == NULL) {
-+		if (dbt == DSO_BINARY_TYPE__BPF_PROG_INFO ||
-+		    dbt == DSO_BINARY_TYPE__BPF_IMAGE)
-+			symfs_filename = (char *)dso__long_name(dso);
-+		else
-+			return SYMBOL_ANNOTATE_ERRNO__COULDNT_DETERMINE_FILE_TYPE;
-+	}
- 
- 	pr_debug("%s: filename=%s, sym=%s, start=%#" PRIx64 ", end=%#" PRIx64 "\n", __func__,
- 		 symfs_filename, sym->name, map__unmap_ip(map, sym->start),
-@@ -1581,9 +1518,7 @@ int symbol__disassemble(struct symbol *sym, struct annotate_args *args)
- 
- 	pr_debug("annotating [%p] %30s : [%p] %30s\n", dso, dso__long_name(dso), sym, sym->name);
- 
--	if (dso__binary_type(dso) == DSO_BINARY_TYPE__NOT_FOUND) {
--		return SYMBOL_ANNOTATE_ERRNO__COULDNT_DETERMINE_FILE_TYPE;
--	} else if (dso__is_kcore(dso)) {
-+	if (dso__is_kcore(dso)) {
- 		kce.addr = map__rip_2objdump(map, sym->start);
- 		kce.kcore_filename = symfs_filename;
- 		kce.len = sym->end - sym->start;
-@@ -1591,18 +1526,8 @@ int symbol__disassemble(struct symbol *sym, struct annotate_args *args)
- 
- 		if (!kcore_extract__create(&kce)) {
- 			delete_extract = true;
--			strlcpy(symfs_filename, kce.extract_filename, sizeof(symfs_filename));
--		}
--	} else if (dso__needs_decompress(dso)) {
--		char tmp[KMOD_DECOMP_LEN];
--
--		if (dso__decompress_kmodule_path(dso, symfs_filename, tmp, sizeof(tmp)) < 0)
--			return -1;
--
--		/* empty pathname means file wasn't actually compressed */
--		if (tmp[0] != '\0') {
--			decomp = true;
--			strcpy(symfs_filename, tmp);
-+			dso__put_filename(dso, symfs_filename, decomp);
-+			symfs_filename = kce.extract_filename;
- 		}
- 	}
- 
-@@ -1660,11 +1585,10 @@ int symbol__disassemble(struct symbol *sym, struct annotate_args *args)
- 			pr_debug("Disassembled with %s\n", perf_disassembler__strs[dis]);
- 	}
- out_remove_tmp:
--	if (decomp)
--		unlink(symfs_filename);
--
- 	if (delete_extract)
- 		kcore_extract__delete(&kce);
-+	else if (dbt != DSO_BINARY_TYPE__BPF_PROG_INFO && dbt != DSO_BINARY_TYPE__BPF_IMAGE)
-+		dso__put_filename(dso, symfs_filename, decomp);
- 
- 	return err;
- }
--- 
-2.56.0.385.gd3acb90ef8-goog
+This means that we'll likely end up with a Linux-specific divergence
+from the upstream which can be lived with, but it won't be nice.
 
+> > An alternative might be to introduce an "exclusive" variant of
+> > acpi_evaluate_object() with built-in locking and use it in the cases
+> > that are known-problematic.
+>
+> So here we have _TMP and _BIX / _BST and in bko221065 we have
+> a bunch of again batteyr methods + UCSI racing. I'm afraid if
+> we add something like acpi_evaluate_object_exclusive() we'll end
+> up eventually using that almost everywhere.
+
+While I think that your concern is valid, this can be done without
+touching the ACPICA code at all.
+
+Also, we don't actually know how many "bad" cases there are and so far
+we have identified a few.  If they are not too widespread, changing
+behavior everywhere for everyone may not be adequate.
+
+> Maybe do things the other way around and serializing all the calls
+> by default and adding an acpi_evaluate_object_unlocked() to be used
+> in cases where we want the speedup of multi-threading like
+> the _ON, _OFF and _PSx you mentioned above ?
+
+Yes, depending on which way is more practical, that can be done.
