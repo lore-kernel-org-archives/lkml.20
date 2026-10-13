@@ -1,123 +1,83 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9294D4876
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A734D9F7C;
+	Tue, 13 Oct 2026 10:53:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888801; cv=none; b=YPos/D00drAwWhY41XyB/LHdJ9vAJq4eDcUb9JQwqqrQRAO+ynLO0sx7wIAbyTsyicoL8TZ0sL2DNF39MGSWME76hAGhgZyR/dT5zzfE3RzARRAnCU1ih7n9aMUXlZqEiWiCimnuZuQ98ckQ5hjb/JDWkHUWskIrGZhtAA9MC0Y=
+	t=1791888807; cv=none; b=ppJGGKfVsco2drqrt+HDMIezyOm/B3Xtz0b5imccwxRWm1or7rnW1qxzdQe4qgO2w2h2S+B+gqcLDJ/znQcNLPQIruvEfXgOrUsGWrWKrIaRD8SzPHfLV3dA8r7tga2ceWvyafGp/+8LVlDm/qQdMGUEWet4KEivEXq7P0iMXEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888801; c=relaxed/simple;
-	bh=OeqZFh2AYWYR7ltZDBpLKceGFxH4LNQaJv7496x0jRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tmGoz40i9MU9+rMPdwuLqztuP3vX1SC7lAa9/bBU9QYZLUIKNn4/g1gN3rEG88xQXWCZdx8K3GmNaHgkYSqd9snX39pN5qNIRLhJnVSTpLRrO5/WXx/Cwh68dJp6oZrx1m/JKq3OaDbd9pGhAKYxPChdi2Yz+bWqRyG9jiAtG88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LIrt/bvi; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791888807; c=relaxed/simple;
+	bh=LSjuzUEAq8Wk3tQTOOwKYqxu4oAa3MOlcx+xHkKIvtM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F/HjMBJgryYgYSyWtYKg4jgFQB/qVtUjq+SkCek0LKfnZcvJoxo1Ao71NOSjO5XZNEHcBWhCNpYrLh2ov7f1YtacCRzg5NtQ8a7FpSzrNP7co1Ck7M1aCPGEIDmv4rc+xWMkMVe1F5z2X+r+uHpA6r8R/jpmpxH4vvvZgzVflUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WD5PPs/T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LIrt/bvi"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2690901f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:53:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791888798; x=1792493598; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=weAsaaLz8bOtBYNYCdIRoGplN8xEUwEYdEIJVgSddI8=;
-        b=LIrt/bviJxfsvKM6143rYC+2KkjxJ8T9A+LufpnasZYVShIj/U+suM+7r8v8TFekwG
-         P6ADJd8PK93PKdUBDHaYgBrBeqipIlR2aD/E7Hf6xc1X2b96aJE86EZr1OG9k+hcGf+M
-         cMn+zq5/Or7okg66GhzkWsCvATRFrEivWxe+lD8TCTamnGf+OZZgoOznmtDbTgqCI4zc
-         WUT72SPO30beijLx42R5yFax2OlTUQ/dRoVTZBPnixTKO/QGfzpbRkC8oGNWUvD7Dzr/
-         2c42XKvaOZxUMZuAliL17/rGunUwJGeb9oiPXHhZwFcCG/wuVzmCnePRr85lnGD0QNSL
-         G1/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791888798; x=1792493598;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=weAsaaLz8bOtBYNYCdIRoGplN8xEUwEYdEIJVgSddI8=;
-        b=RChkt21TUHRXpoQqQUX5krLunll7AxTypnFKZQ8LYQIobvnH6rEmdipIBXKKPKQ9QF
-         zd6kcGy+eMDZdWW0vsrfC0yBhNpDG0AVrnJLMtazUV9ZOXEWBiOfm/npDBEw5OCAlZef
-         9jqxPBa0XRckYVf8uC3Q6MIwjLWmHeMb/7qWHINzsSC3+L6IwvYD+G2JxpZOOXC+zSvH
-         jgQjGK+B04xKMeHBoK/nUOfyZ1cTFRrfLrBKpXJIE1vktOfRR95dEnOEMP7pL7QmOP5p
-         LzIVRNX0JyeyCKZkNgg9j07+XjOGS6ONdF34ilnlzhnqNYRI4SFykCcuxlljtZO7U9kO
-         dC5A==
-X-Forwarded-Encrypted: i=1; AKwUvBzC/9JIUKDNeYCCdgQUpt4b1nvYyH0/y8nefqVF038bMc++bkrTEtNzaBsMI+BcEDuYIu3P2lutkgsG9Dw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIllx+HWBiztCuPJwavaXdo7UdGEyJQYxUHIh2PsDp/T2Uxiqcl
-	qKEiVovnrBCA6SPcBMGWfTEWMZh0n2XjJk8WyEMHPAK0+yi0pIM/k8XR
-X-Gm-Gg: AYBFou0XYquyS9uUZBGpmvpWF+DNZmDRYOja5AVLupMIQ3Jrm/xK7Hd/4qSqjgMn5Yc
-	plt1g4KFzHlii1xZKKvhhd/xF7C3k2XXXeYAQaxRt8Ta1njC1muup1fEh1Si2o7k/QLx6KspJSC
-	9OLlS4nqiCznX+DB81CVo1GaeS51GtScZL9NELLfuTSepSka+OdubNogjLiaRpGVTk39NP4O6Lf
-	YplaeaBvSyL3SvF0+cokTNISRBHQGjMubbD6whzL6Bn1ovgkzGt29qlzKaaFIDsy9MKKa6koTbh
-	I80nzT+c3SdX5dmhM5fOZiF1rlNc4yhpCFEw5bro6SGZoscE1cCUqoAyi2mUNjw/Uiz/kiahcdf
-	Xml11kKeNC4lZUE2lNO0GGA0q3wuvc7X6mLYH9biaxKBlziLMWaxQEBZxiGo2mp+x9GzAO3mzLI
-	ZERvifLONeo3k1sgBZwCLvsB6C3suKczJs9++87iayDygGMqDnoiRr5VeTpBB/pdz9nTcBrhr1K
-	0c3XUV0QrMjcAy6Q+sW7hfKQObsnnHESqtOrO4Nm9n7Wg==
-X-Received: by 2002:a05:600c:138a:b0:4a1:7bd4:d07d with SMTP id 5b1f17b1804b1-4a18e4c85fdmr257515105e9.34.1791888798168;
-        Tue, 13 Oct 2026 03:53:18 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.109.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm507133205e9.6.2026.10.13.03.53.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 03:53:17 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] rtnetlink: comment the RCU and SRCU waits in unregister paths
-Date: Tue, 13 Oct 2026 12:52:58 +0200
-Message-ID: <20261013105301.9037-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAAVpQUAd4QzUDK1wZYpuHJbMSg+PwAGCcaTzayR40DTNkXdwQA@mail.gmail.com>
-References: <20261008124423.11543-1-parri.andrea@gmail.com> <CAAVpQUAd4QzUDK1wZYpuHJbMSg+PwAGCcaTzayR40DTNkXdwQA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WD5PPs/T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BD3C1F000FF;
+	Tue, 13 Oct 2026 10:53:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791888805;
+	bh=LSjuzUEAq8Wk3tQTOOwKYqxu4oAa3MOlcx+xHkKIvtM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WD5PPs/THEv2joNRH3WUmDo9s5GnnDNgZOHkdN1MKdFDJ5P+RoF3vjre+MLj9Lzde
+	 J/r1l1cE80Fl9tsP/pDuNmpPqveMAwrXPluqdOOErmr/fvEars2VcJqW2VVWr5AI3y
+	 6MMR+oO+uLU6pQ40J7QNyGLpQsrZwsU0lTPqV6zF1W51Df5YqsR7cWYXhyH6+WuBoP
+	 m8W5IH7aEK4mb8pFHkwmPcab99tX+G0UsbAkYveF9q+TGB8TwKPPyKew7x3z3AMFeN
+	 GD0jbDXaH1lR5Z/471/RWxvYtIUr01Hjd0flILYpnHy/xPlHNefE/dHNV6hPyES7aM
+	 vtFinet7XTULQ==
+Date: Tue, 13 Oct 2026 11:53:21 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	linux-sound@vger.kernel.org, tiwai@suse.com, perex@perex.cz,
+	amade@asmblr.net, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] ASoC: core: Create new components in sane state
+Message-ID: <ed059f1e-2390-4e1d-bd1a-cff08a3441ad@sirena.org.uk>
+References: <20261007133353.455185-1-cezary.rojewski@intel.com>
+ <87pkxexyr6.wl-kuninori.morimoto.gx@renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-On Mon, Oct 12, 2026 at 06:48:22PM -0700, Kuniyuki Iwashima wrote:
-> > +       /* Wait for rtnl_get_link() callers under RCU that may still
-> > +        * dereference tab.
-> > +        */
-> >         synchronize_net();
->
-> More specifically, this only applies to callers before try_module_get().
-
-Right, the later lookup in rtnetlink_rcv_msg() runs under RTNL.  I'll
-name rtnetlink_rcv_msg() and try_module_get() in v2.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3CL9J8o+SSu9pZ3m"
+Content-Disposition: inline
+In-Reply-To: <87pkxexyr6.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: Some equipment shown is optional.
 
 
-> > +       /* Wait for rtnl_link_ops_get() callers to call rtnl_link_ops_put(). */
-> >         synchronize_srcu(&ops->srcu);
->
-> I think we don't need comment for srcu as the relation is
-> clear via the argument.
+--3CL9J8o+SSu9pZ3m
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Agreed, I'll drop both srcu comments.
+On Mon, Oct 12, 2026 at 11:52:45PM +0000, Kuninori Morimoto wrote:
 
+> I would like to review this patch, but unfortunately I'm busy this week.
+> Actually, I'm now posting cleanup snd_soc_component_xxx(),
+> which has many steps, and is now under progress.
 
-> > +       /* Wait for RCU walkers of rtnl_af_ops, including rtnl_af_lookup()
-> > +        * readers that found ops but have not yet taken ops->srcu.
-> > +        */
->
-> this can be simply /* see rtnl_link_unregister() */ instead of duplicating
-> comments.
+> I will review your patch next week, but I guess some of them (= not all)
+> are conflicts to mine...
 
-The two waits cover different readers, though.  Besides
-rtnl_af_lookup(), the synchronize_rcu() in rtnl_af_unregister() also
-waits for the RCU walkers of rtnl_af_ops that invoke callbacks without
-ops->srcu: rtnl_link_get_af_size(), rtnl_fill_link_af() and the
-IFLA_STATS_AF_SPEC paths.  link_ops has no analogous RCU-only list
-walkers, so a pointer there would miss them.  I'd prefer to keep a
-local comment, reworded in v2 to mention those walkers.
+Ah, unfortunately I already applied it since we're in the last week
+before the merge window and it didn't get a reply - sorry about that.
 
-Thanks,
-  Andrea
+--3CL9J8o+SSu9pZ3m
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrODaAACgkQJNaLcl1U
+h9AFHQf+IFmoF0+3WVE3eyIy0t8RAwZtBuH9xEuxRlH9R7XOa97Qo5nmEiBpjp9W
+onlbEWX4w8FW0RN69NIReP/OGf5hO5zoCeTfUJfB5Bs4inS8UVE21UMCeUMQuqIH
+TKP786SM8cXYx8nz1AOaQfnYj4wS7EpVXEg9pPpIL5iNsO5pbzUytmgoLGBB0Rnc
+vH+vfp4UzzDZPszfh+IdabrtuTZ3VPgoT7S2UuWfJdgAjwU7ZEvdiwiG0MSTVBTi
++dAoclL7xD2f9Oo6HQazprRBpyEHk5IB1fc5lZiZoqniAUY17AeMIEBLQ9cxxOi9
+JZEuU15DHb63VxvyEx33nCfs8iWvAQ==
+=v9/1
+-----END PGP SIGNATURE-----
+
+--3CL9J8o+SSu9pZ3m--
