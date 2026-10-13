@@ -1,80 +1,104 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B675372D7
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:09:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A0251AFD5
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:10:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791918566; cv=none; b=PdJuxGe5+D8GysmnW7xEVnu5kFTOC3iIFnY+b2kPR3MBIZ228jYmJfpL4md0UYmN9DEFfUL1ldTy2PiHbGocEQJ3dC8H+HUwjoAEJO9sWeO1mKUOWSYeE3U7CWT8Nf0JtZbS/wHXdsuj7p54kQzmDq3CAVFqkJBsp5hS77SNvSo=
+	t=1791918614; cv=none; b=o3NcdE+XhS3TVF2eKDuBwR/S1vgSUoyz56m3EOPRAxFY4Sh3mxuxRTF6mz2jUJv+XHaf9SnS/RkEBzXvUr9Sj172TEgeSmyzTcxA0BbJj+wiH883+yJ9Cg3IPLAKYk1C4GZyAoTF96M2ikA9zU9jjhbdXeSsF7iScG+qIrJ9fUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791918566; c=relaxed/simple;
-	bh=KnY7puTEBrlSoKgf5txDwkeSvVbTfaBxMhDuJBqd4KY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mK1Ar5xu24BBBEydZyNaEBdsq8Tu6vIYngq+AmARnFJ/C8wtNkXjIllGv9b4Pmzwh6OatGRLV+2sxdK0WJJUUyfVxKzx4LbKEz7VYizIVFT+K7yQoXnX/T1YyJl1VPARmZJLgEopjaEDSN1gvoCWmJzQsViPUqgatQy+QYalUrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=COrbBHtQ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791918614; c=relaxed/simple;
+	bh=kgDt0QtjD4rWqE26JI0a9S1+vEnqhAt5PUTkanFcZfU=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=YWN5rmZa9diGaY5mjkjNsY67ndmXB+50CZYnnPqFulaXRoSsMjymKsqZyxJcjjeIPy/9j97BWBArR0XXqOI6GdAMgVGCv07vsvE9zUzKKYXxu/b4DGruhGOl/zTpbDaM8HdqWr9zv78LR9hLmwghDBWWoXSuZ6Y2qToQQea+R68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ojerFzHZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="COrbBHtQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791918564;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N5zgZEyxVzojLlUpj6Xv5ojPWw9NEstp7+yq+nb41Is=;
-	b=COrbBHtQU8fkEDjGoihSJ5Vk8caIQyGOvjWbXtffjhe3YQTwfAnzYrgaKQtb8u5GsWXCv5
-	t+p/6wfjY/gZlNVFHx5c4KkWGxaFwpfzx5Sg2y2PAItFext4ZOwNIWGN6evfMm7KGbYNH6
-	Y6/bWnr6z1tGoZBL6p/pNySDQ5RJvtw=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-561-Nk0ZBTR6OoWWEr9xIRiitA-1; Tue,
- 13 Oct 2026 19:09:22 +0000
-X-MC-Unique: Nk0ZBTR6OoWWEr9xIRiitA-1
-X-Mimecast-MFC-AGG-ID: Nk0ZBTR6OoWWEr9xIRiitA_1791918561
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BF64B182FA5A;
-	Tue, 13 Oct 2026 19:09:20 +0000 (UTC)
-Received: from localhost (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id F31A5769;
-	Tue, 13 Oct 2026 19:09:19 +0000 (UTC)
-Date: Tue, 13 Oct 2026 15:09:19 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Bobby Eshleman <bobbyeshleman@meta.com>
-Cc: netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	kvm@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
-	Bobby Eshleman <bobbyeshleman@gmail.com>
-Subject: Re: [PATCH net] MAINTAINERS: add Bobby Eshleman as vsock reviewer
-Message-ID: <20261013190919.GB1301500@shajnocz.csb>
-References: <20261012-add-maintainers-v1-1-ef0488f460db@meta.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ojerFzHZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA79A1F00898;
+	Tue, 13 Oct 2026 19:10:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791918613;
+	bh=kgDt0QtjD4rWqE26JI0a9S1+vEnqhAt5PUTkanFcZfU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=ojerFzHZ3Jv0HbWBtEvWogBd3/IjAJvSjKjmwWaJljCGEAtNjitfw+fz7sNCsu8HI
+	 EQz2UD62CGs53pf7oUX6RFgilpPbeXzHYsnNYl6I0dIpRUKqzEBwzqn7xZB9RvDr4n
+	 MzFDrCSgI6cdKwc6NK/LdB5hni0jfmYQtGEWOfBS/eLpuPqpK7vndmSUO7SYBlcDGq
+	 Zf8KMlF4kCCvW8BaV8sjnHmiGEZIQwXMYq+vF+SmIXI5zVE+uOjZW2axd/iO300i9h
+	 7KDy2Q1wxFg+hws2x7/MtXAP7pe4lTKm2NQXbaVMd7+DoJDfBaQ9Fa4Y0GBixhZeqt
+	 5QrP6+Tq4Mvdw==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 0B698F4006E;
+	Tue, 13 Oct 2026 15:10:12 -0400 (EDT)
+Received: from phl-imap-04 ([10.202.2.82])
+  by phl-compute-02.internal (MEProxy); Tue, 13 Oct 2026 15:10:12 -0400
+X-ME-Sender: <xms:E4LOai7NwwzcOj5yPSHhAcrG0DFsxalVL1g2QCFRExdeqfBDZyNOcw>
+    <xme:E4LOamuErD-5mlaxYBv3ZdHISliI-m8WGLImH_6EwyG0S9AZTAH_imJEMJnzOdd7T
+    8UZyT7N_V6h4AIBFZNI46aLpATCeGBcTSqcv0kV1urFG2y_zp1xTWg>
+X-ME-Proxy-Cause: dmFkZTEd2rtBwbkaWrWZrgOaUkT88gktJFrEb1+xB9o1IS+tF4mNpE+JoW1KBvYanzbv8H
+    8AzTLM0sfXqxsSG43v2DDjP4caaBbtwOoyBCWgwm3F2vpqKZ4cD+zawhdI4WQzoshFmMnz
+    Ky18dABWABv5alNWKLXmiRSkBIj86NXxwyEjFf0QhIGQxPLnQ49TScqRAOAT84yCMaQpo/
+    gmAWziumX9+Ne3+8BSKagAy1p9GffjLtBAL23Glv9SNJVjeCjzhwLQOUcxQI1HhoIR0dee
+    hsisNXNb68zWdc1tE8JS2Xr9/O3IOOBzD9LsNQEkLhZYsin+IVdY40SQrGiLLHbvXMExt2
+    EHz45EJIdCPELCbDDlAyuv/8mIT9OyjKAPo0E+Y6okaAw905BU3eDeeVpTL5OUIStM0Exm
+    v7VFX7ErUFpswDUYWxPYiPr2r/ESURCo1x77Fr+kxB7F03P39cXDbbJqoERGspF56RJnHv
+    jCjwJhp/qk20ufp6fD/mO3p4Y+game6GjvBT1VYI+6aRDsRQwTa3hneI3ge4LZPnSH/wQi
+    o+XbTIFkJewx33XrkBHVyNsFj0wo5afK8ScxKKcOjQIriHYcbKMJxFmAMbOIHZ8Pt0f8Mq
+    BlHd8VTp53Sjwhx+38+e6zV2xGGBUgUiI3eHFKJbV6Uxn1F0gFlRzahJic0Q
+X-ME-Proxy: <xmx:FILOan-jRc7qYnm5STOz9B6hlKAmAwBeCmo7VS0rat5K9PtMJkTfrg>
+    <xmx:FILOaiyyB869pxSlApWtFY_2F1HhN9_dzpzsarsPm71H_83hY_Db_A>
+    <xmx:FILOarMid582NGA4UWxH5T6bdpgRmyQ3uFTdf-V9dMUdo3qPTvX8NA>
+    <xmx:FILOav-105pApJ_bNKqdTIbaXh16jc7r_NeqidZ9ovJwqfkDvPqRPg>
+    <xmx:FILOag4m-jJ1-dmPmNOXvFGOtbAkFEwRRUYcIfw2XRpegKNisvinqzgZ>
+Feedback-ID: i20964851:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id DF2A8B6006E; Tue, 13 Oct 2026 15:10:11 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-add-maintainers-v1-1-ef0488f460db@meta.com>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-ThreadId: A1CqOqGV3QlV
+Date: Tue, 13 Oct 2026 15:09:50 -0400
+From: "Anna Schumaker" <anna@kernel.org>
+To: "Tim Menninger" <tmenninger@everpuredata.com>,
+ "Trond Myklebust" <trondmy@kernel.org>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, "Eric Badger" <ebadger@everpuredata.com>,
+ "Jon Curley" <jcurley@everpuredata.com>
+Message-Id: <04579cd9-a4bf-435e-86a1-4d5e55005e76@app.fastmail.com>
+In-Reply-To: <20261013135327.1695983-1-tmenninger@everpuredata.com>
+References: <20260921235520.502987-1-tmenninger@everpuredata.com>
+ <20261013135327.1695983-1-tmenninger@everpuredata.com>
+Subject: Re: [PATCH] NFSv4/pNFS: Preserve layoutreturn seqid while lsegs drain
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 12:58:08PM -0700, Bobby Eshleman wrote:
-> I've been reviewing vsock via lore+lei for a while now.
-> 
-> Finally adding myself as a formal reviewer, since vsock will continue
-> being stuck with me for the foreseeable future.
-> 
-> Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
-> ---
->  MAINTAINERS | 2 ++
->  1 file changed, 2 insertions(+)
+Hi Tim,
 
-Acked-by: Stefan Hajnoczi <stefanha@redhat.com>
+On Tue, Oct 13, 2026, at 9:53 AM, Tim Menninger wrote:
+> Hi Trond, Anna,
+>
+> Please hold off on applying this patch for now.
 
+Will do!
+
+>
+> Further testing has revealed incomplete recovery under sustained
+> pNFS/RDMA I/O. Some workload ranks remain slow after DS recovery, even
+> with the reconnect loop gone.
+>
+> I have not yet established whether this patch is incorrect or exposes
+> another layout-recovery issue.
+
+Makes sense. I'll keep my eyes out for an updated patch
+once you track down what's happening.
+
+Anna
+
+>
+> Apologies for the noise.
+>
+> Thanks,
+> Tim
