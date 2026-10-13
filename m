@@ -1,205 +1,225 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545AF421245
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:05:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885925; cv=fail; b=GtIfG6ZoRNF/QXG1ljlyFChxhJN7QLXVr+XXh4ByV7YdrDEZVgaMtf7M3A0dd85zAEbtg8Zk333e0b5uAop6havMZ4Lc9/dsqr03+7XrMIo58/5AhQxhYrYTz5ftkzQfN/Br7scmhcjSunVE7H7jru77F+PgIU0zrSMZVNyy/vI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885925; c=relaxed/simple;
-	bh=cS5FO8Rcc+HZSklSWi/LaVB62r0Y5y+eDGYzfG00O14=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=uH5J9pqRdkeHf3L99SM2BxLqM0hxl8pM1jMZRzzy8WZqXxIeZpQC0SYrZYbEnCopimRYeh6FrgiJ899qNt0RzWVjEsaRyGJsDUBG9f7EvF/5BAf19nrD78mQLKbHl1xIy6L6I1P2FurXHgQIFeeQve5cVZ8hxhZhdPfmHesBWag=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R9WIITSg; arc=fail smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7373CAE8D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791885988; cv=none; b=AYyoIiQwcd886pSVlSNhbTQ2yqV8WN5vcX+fCVamA88nfoM7V5cj/R51STGF7ur/CbSrZS2Iz0p3CF2ugdbANt0NM09Dj1BGLw+4EmnvgtPVMZAP69e3DSxAwQOOoAqId8WKhRl7Rki6vNeNIETwl1dvvgkeVJnFGCspnvWJXZ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791885988; c=relaxed/simple;
+	bh=5J7ZXcMBhy88P4Tb1h53+bKR7D6qYw8eLnQAP0vYU9s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WDkkh3V9VVBLKrgCnIhjA+6UACiDW7/oIVTQtAwvi/76k6y2Ydt/Pp+xKXRpzpYHCW93Pwuc0RqVVHo5mG5b0Tl44HFfDrkF3TvHdPOLsnghKLMiBthKm4XmC+Cltw9zy01iiOq3zf0HhZNNOX02+nKzSdCBuZaxVxO6zjaHnNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K/CX9FFg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JuY/ZweT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R9WIITSg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791885924; x=1823421924;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=cS5FO8Rcc+HZSklSWi/LaVB62r0Y5y+eDGYzfG00O14=;
-  b=R9WIITSgNsv0OWSVwgcEgnHVmMknQiBhVVzBEosukgn9m55g7yxjWXXz
-   ns91fjJJoJZCxopJ9CTSPBKDznoKevQbze2oNvDLDgPwKFNohxdIqXWbY
-   NxgSNNiDdDx9NhY9uW440tfn91lRk8hRQEKJmDAORPbTan1qrKjv5fvn3
-   SCoIZOwylrAwDYO5Fr9B8uGO37pAhfyg/LQPF2fH33IxLsa8Upux3fHdq
-   iZGbECLx3GZAe4THo9yR0o1tjZrR1T552FfBGNGyFpGSZ1+XDG1Yu1AJP
-   6m5UVrulZBXF9x3pOCyB5RdI9iqxNe0ksVMWgYzd7gT6LrVYGIdtaCj9A
-   w==;
-X-CSE-ConnectionGUID: z8QglN0cSVSHuGMqZvqhiA==
-X-CSE-MsgGUID: FaKz7N72RpiPTs2p+Ulnxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="509151"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="509151"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 03:05:23 -0700
-X-CSE-ConnectionGUID: maRVwQvISVyM4za8N7tgpw==
-X-CSE-MsgGUID: KjKhRdvZTvqoEqepjr8vrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="2899114"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 03:05:22 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 13 Oct 2026 03:05:22 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 13 Oct 2026 03:05:22 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.35) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 13 Oct 2026 03:05:21 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cdds/KTe1Rlj9Ni4AVWaWJr5/tMPMJHUE8tJXM81ttZwY/Gste3hUoWg28Bvd6T/Teo/Yy6jV46Pti1dKCYElJTkXIKVySTWrXOvz6njlA/TrHMR6hbP7X816elkLMjCUHWFQi7po8mWYuhxcBDXqTCvfP9+gnZ39976Tb/98gwhuaQtyDNhrS1mOptx6NKTeMZOCQpkVPcDrUA0TqBQzl7Ir/QSLCThThfsduVHg6Ydl1dNFujg/WnZfhqPyxs3Fr/ZIFKK41MlhP8wlXuEoub6ceYGSuscsll+xW9fgvKk6dOc/TWVzMzliFtQuL8BOn9V7JYkz5AyH3t/8AEkxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5sGTvwVEnSGxNJGDvEtHk3FXU1u313FxewTkK52IO80=;
- b=dBMEx5vdgdPWsF30WHT/xhvepPs9II9CPPKcHmrDWpsbm8KiWsgO76eT2kqF/c/fpi7Urfl/+hYui42P0Cy0Z3rlZzPmKp9Y5mMs4p4PQZdvAcr4dWykLgQI5CStt9oDOEdWlkxBIN2mxtK8YP2dyATI8WDg6Iv6EtELN12TguTwOD69QEDecNiEBFsiUE2dtHJ5qIfJK4PPX0HvpbUhhHnD3xDojJ9k/+eowMwSKcap3G5zTAhxXYt4PZoPURby7TEwkPoOcJpsvHP4fOD0wk2KDZVKPAzi/IV5AG/uJNJ9Cro7TJEKlVNzFiEp9cXlOkkjfUngDAutv7pzQgGXGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- SA0PR11MB4653.namprd11.prod.outlook.com (2603:10b6:806:94::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.23; Tue, 13 Oct 2026 10:05:19 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%3]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 10:05:19 +0000
-Message-ID: <51744944-51c2-4989-8ca8-41a8c53ed1e2@intel.com>
-Date: Tue, 13 Oct 2026 18:05:08 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] powerpc/topology: Introduce llc_override debugfs
-To: Tim Chen <tim.c.chen@linux.intel.com>, Shrikanth Hegde
-	<sshegde@linux.ibm.com>
-CC: <christophe.leroy@csgroup.eu>, <linux-kernel@vger.kernel.org>,
-	<ritesh.list@gmail.com>, <kprateek.nayak@amd.com>, <vineethr@linux.ibm.com>,
-	<vincent.guittot@linaro.org>, <srikar@linux.ibm.com>, <npiggin@gmail.com>,
-	<mpe@ellerman.id.au>, <maddy@linux.ibm.com>, <linuxppc-dev@lists.ozlabs.org>,
-	<peterz@infradead.org>
-References: <20261012102037.2477378-1-sshegde@linux.ibm.com>
- <0cbd60fcf328ffcb317739f60d327da3af6145f1.camel@linux.intel.com>
-Content-Language: en-US
-From: "Chen, Yu C" <yu.c.chen@intel.com>
-In-Reply-To: <0cbd60fcf328ffcb317739f60d327da3af6145f1.camel@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: KU0P306CA0042.MYSP306.PROD.OUTLOOK.COM
- (2603:1096:d10:29::9) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K/CX9FFg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JuY/ZweT"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D9b6lH173399
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:06:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Cc5HyoFkGPJVfeGm4KD7sIDe
+	TX94ZStbYHeauo9HSgI=; b=K/CX9FFgg+/BWI4wOBi8hfK07oZj03mKYM4qjJZE
+	uoNG1AaIZPwysBcm98YzEmbUPQ/XrFq9PwRx188wfJ1EEyqGulJgrecUtfMpyBNx
+	BSuECtEDqbr4bAalXGgxaPR5jcazVbOK0lltueKZFq3NAxmul76MVPJjA4P86l0P
+	xT4es64W+nac52AEGshRfapy5hTbYOi5KqegMWSY/FbeQsm4wzEjXzKCS5c7zBn0
+	+DwaGiKYivMW+YRFbCMtzSPR+PI37/53ZNkan8wCkPmuYw4KqoWnxfYwh2hXyXGs
+	aQVyyrh1AQnMMLJsCaLjz6IcZU+1ybYsnrwuC/25SXwsyA==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9daqsdd3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:06:25 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1383723dfddso2600278c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:06:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791885985; x=1792490785; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Cc5HyoFkGPJVfeGm4KD7sIDeTX94ZStbYHeauo9HSgI=;
+        b=JuY/ZweT43V0l5YgMnrNoEjyOGYt60DmL119AkAzJ/Mzjgd/prQ9PF5LdF59DIdhC5
+         v9BP8Njpbx3qU0OhQgvHUu/35+Dki9AqvBZxVGs+v0xHKGUPED0GGn9C5Eu87CXFjQN5
+         G/OW+VVitHhPryz0qGBhRchgH8h4mk4i1ApXggaPyi7QqvtDIZxKrlrUE8n2jMY2UXtW
+         ElWB+37RVyWQN4Zl+8jpbTCKLQ6pz6HeGxJVwL+SSwOTkbtaKeaA2WQVKGVUxfMzgDe0
+         6UlskqqwN8omFW9FPIBWJQ7LJzFQVeP2XrZY2cBLzXFQE8PuoCy7xfWVLOIGu7yfSoQN
+         VsOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791885985; x=1792490785;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Cc5HyoFkGPJVfeGm4KD7sIDeTX94ZStbYHeauo9HSgI=;
+        b=0rjM3zRdps6l5yBNiEFMHonWVoAd0wcdsCt2oQUM74UlNKxs3VlVpzSGafrbGI3DyD
+         +l99dImY+z2t05jkNFK+neeYQHSyaQfJQjEyM9pV4wa+H1/BTw7O3MENKgDB/IJMtC3R
+         //vqcBrOxgx7iYdGY9FYT2XaQrvohntsncXsba8203Nwl9Wds/MNC9jGL+phGcxKSTGF
+         eSRdzCqqxCnWcjvQGsQWBQu4X7iXZDp4dOVabLHfBdQuVEfWWUxeOPo0V/ZCNBJQjFrz
+         CHw3tm/b2VWWpZOClr4lcdVEjWCUjx8fDYyh83qpmDA7YJD+wb//yVAstZqI7GBusZrc
+         Bw6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxK3K6JIXQiLEJnr80EpL+SoQVYDnmiGZ6K1umSmKrqXK+Tz4nqliLncPUpj+Uer9LeQvsavlwydF0gEJM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJObIZulwwOSTHRWyYq5vzv/YvnW8aKgnlF04LxytXgXaknE3l2
+	nrH3cQovz1OG9xcsjzENU0/vAHLNk+9JOaks6civ3aLxC48fQl/yOmPz1z1WDQChiGcSFTAlJ/j
+	kWcIt7eXBPCdg8UWeXVmJFLtaVRzl+vWmz2IJBM09eF4VzO1WSUmFZcpeBwYKYc4NT/8=
+X-Gm-Gg: AYBFou1IlIcRzHPwgRmcPskKi6VChGxIyuBGxUIBzp5QnDitFWJdwY+Fwr2fDmiZ0cI
+	3dGHFBLUdbBYAmldgZHEoDZua7fZS8D1YCizrd37BjKASO1MWPmU4QYORpK91oqDK4ZhVmlRdnB
+	+IOV71DTsmD3SkFso+7CpYmurWmznENJptnGhA58vSTz416Fn6H10APu13UTHp6ZZbOYEHyivOp
+	fqcqFpWIh34W3OWfvtXofFujt5lu4Cm3fBK6IFLYuqqfqpB1zgDBGl85gLAstjQ0BbxAJEHlnKR
+	iDmQ+Ni1GQrisE9yGB+Um8EQ/tFVon+ed54xkOZJK9OS/1nSe9kJFIlMCuJ7xcjgECUmm4+XsM+
+	phTVC/Melq2p674RBItMjXZqz1Pc=
+X-Received: by 2002:a05:7022:f512:b0:16e:4723:5f86 with SMTP id a92af1059eb24-16e472365c0mr11218766c88.29.1791885984731;
+        Tue, 13 Oct 2026 03:06:24 -0700 (PDT)
+X-Received: by 2002:a05:7022:f512:b0:16e:4723:5f86 with SMTP id a92af1059eb24-16e472365c0mr11218754c88.29.1791885983981;
+        Tue, 13 Oct 2026 03:06:23 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442ac67sm57824909c88.18.2026.10.13.03.06.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:06:23 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:36:17 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>, andersson@kernel.org,
+        mathieu.poirier@linaro.org, konrad.dybcio@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] remoteproc: qcom: pas: pass no resource table when the
+ firmware has none
+Message-ID: <20261013100617.5dh2lw2wngqvbbdl@hu-mojha-hyd.qualcomm.com>
+References: <20261005125411.2151326-1-jorge.ramirez@oss.qualcomm.com>
+ <20261005161224.umj6zzov57tifv7v@hu-mojha-hyd.qualcomm.com>
+ <asQQJNOd_p9acgT1@RAMIREZO.na.qualcomm.com>
+ <20261006100344.piyiffp6rwvt3w2s@hu-mojha-hyd.qualcomm.com>
+ <asogqMMvsGTTmHr1@sumit-xelite>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|SA0PR11MB4653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f00e8ef-5230-4b88-e2b8-08df29117cba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|4143699003|11063799006|56012099006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info: WKf+XX3pRkxWHbPVqVTDfDtOnrDvya2JDgwbztVC4c1I+AZ7/Ju8ZXOA/7LpNd0nS+wPEWptVKIj8O5f4iR8RKglIkLQtgTUPpdzEnFGw396sqjCagXEx7NL+GMHQFIZWwRKywNOpJ7HTBcsfDlBaq4mDS+wS3unEm7HRbP3CeSYYAEACsz0LGBhsgss+0uJ3mXk4s995SsZ5Oj+4GlwhpTEZs+tU3ZLCpKCA01NDmKXqAP9fEF71vogdxwkeqh56417QGLc5pkjQ7ibsWGGgrDIcWmaK0JDydjTOfTzguKlu4lrNdHggc1pQ4GIaPMIMmFX5hT90FX1XBIooW7mP8H1vnGVq2ur7ziaMpdyP9D2Jo+6l9axfQi729n7c7aXE4pQJvZ7sPTsdN+243JbOZqrrFacBn1EnAbUZAGqxQ1v3403WWDjh1mFOTofln+TjcJuuoZGfQ801ZJzC+FauRrB6VQM4Iiqb2C4eZiSC9jR02X7LVsK6N1w+Pol6TmxKXXb+9pWGEr+skwOH/x9ff4F2b8C4DiOZLo8GB1JpnY86z6TLU8pYn1xOWXboCZvJV2jZHHZpj795P2DUI0QwrzGyeIEJaN0PnZ+ycfUEZwRozsN95qNEn/+CCSMVVzaSRugQVn8qiWwca9QiFnfMIS8ZWElQc3zW5jwqTfVRvo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZWdKMTlla2NYUFJKemlwcFQ2MHRGMlFCbnF0UW5SbDcxYlBWWFFxbkJvQnBZ?=
- =?utf-8?B?RXUvR0Zwb3Y3SkY5SHorVEdYNVFacmdWa1NkYmJwQnFBSEtUdzFZVXhQYU1T?=
- =?utf-8?B?ZjRTZlIxY0FUVWFuRnpid0RMUjFtMDZzdzV5cExJK0tDdFVhQUR6N2RIdGdx?=
- =?utf-8?B?dVBmU1QzSW9VcTh6NWp3Ymx4cGJOZHVrbmlFL0wvV0hmdWI2bll5UEZHRG5t?=
- =?utf-8?B?QlBqd0JlamErZnZrY0hzWGhyZllZMnBVT0pCZy9pcmF0UXFLeUZFNUlsN1hE?=
- =?utf-8?B?eWRnVnlpU3dxUytZM3lTL3dBby8rOVRXU2JEcWovV0ZyajErcDRoQi9LSVh0?=
- =?utf-8?B?cHZyc25IQWZYaGN3R21OVTFYTEkrK2VTb092Z3pQd0pySFl5dXlBbWh5bUhE?=
- =?utf-8?B?Wm95cFlGWDZ2c0FlTHVySkFIWmZkOXQxVHR5RzBYcjJkMzVpVFpvalQ5MnNO?=
- =?utf-8?B?dUdjY1dTK3oxbWYvWnF2S3R3TW5tRXBZNVpPM0tXaWtyMnVNUVFpL3huV1BZ?=
- =?utf-8?B?UytSOHA0QmNNN1ZNanMzeFZYTlY4Y2xsSll2Y0ppSE81c2hyYWlyZEhFekhF?=
- =?utf-8?B?eFUyWllCRGw5K3YrUVdsUTlsOHFaMytwWXJobFVXVUdadmhOZU9EcG9KYTBw?=
- =?utf-8?B?SjRELzhQeTNQd0xhZndQSSt5WXJ6bHh5MWMzQk9mQVk2VVQvMDN2SjN3UDRS?=
- =?utf-8?B?SGdMV05QNm96Ym9LeUpNTUpLajl3WHd5MXp0dFJ0M0NaMDV0V2hZTXRVclJL?=
- =?utf-8?B?bkFTaWdsMlc3UnV3NDYxVlhRS0hWajZSbjY0OEVYRW1oOTNsNzRGY3FKU3VQ?=
- =?utf-8?B?V3loRWprM1FUN0VTTFEvQi80dU1SR1hCYTg0OGpleW9vQU8vbzd6V0tUTC96?=
- =?utf-8?B?bk80T0hQVnBkUTNKeElvY0FEYStkTy9GZUVLK1N5YkZGUGVJR1NEN0tvUDNC?=
- =?utf-8?B?ajlrMVQrTFZLKzE2alo2aXNmK3ZhR2RIcWZ1MWtKSXNQTUZFQmFJdXhvZzd1?=
- =?utf-8?B?SUVrdU1OamprNUpmZW15UFAzNHZ1TjZId3pzQStubll0ZERGQ0R4Vm8rTzJN?=
- =?utf-8?B?NGdoWjZrZlF0clRFOEYxNTZxN21UUnlNbHlRWFJyc2phcGp4d1ZWVjJuWDRh?=
- =?utf-8?B?ckduQ1Z0UHg3ekd6Y2s4WjVydkpIYSt5TGgraWhXNmRMNHBpTnRXeDI4SEtn?=
- =?utf-8?B?cGo5TGpnbE8yTmRpZHlQWmU2MEFRVXNmWkNXSEViOU9ZSlVvaXBhbzRCaFAy?=
- =?utf-8?B?bUUzUXlUWnFKRTJzVTdqcllIQjhhMnRrcTQrT0M3VnROSldBdTZpS1VNNjdS?=
- =?utf-8?B?VTNPaERMd3hubXJBZzU5djVRLzNML0xKb3U0Z01MdmdueGs1ZXl3bmloLyt1?=
- =?utf-8?B?R1QyY3VoeUE3YXdPQzNYU0srcmpvbk5zMmNYekNIVEJsTm5ucGp1MHdPdGox?=
- =?utf-8?B?MFdtMnZSOHIxL0s0eEo2YS9JWHdOKy9HMzZGdjdwM2JjMzJDK0JUY1NXRmtn?=
- =?utf-8?B?RFZ3RmNuQWk0bG54eXFsNGNMc0hmakFVRGhCRERXL21jOVNOaWlEWTdBVjdH?=
- =?utf-8?B?NzMvU05hUGZwRjlrTmQxbnI1ajAvRUd4MTl4T1JSTVZ1RERxWXVRbHZPQ1hZ?=
- =?utf-8?B?MTd1SE5FbW1JaTBpUXJFNWROWTczQTZ5ZEtmVEFwaUhMb05EekxkUDNQMG1F?=
- =?utf-8?B?c29WdTBYL1BGSU95L3dHK2cxbWlLbGhONHUxakdqblB3UTNEZVNnb0M5cUI0?=
- =?utf-8?B?T0NOcE9GZjdhK3QwUHErcXprMEE4L1JmVkNUaHB2RU44bkcwR2d1UThlL3l5?=
- =?utf-8?B?YlhNWERzdFlwb01qRVczNG1CdDdJVlo2dUJhY1p0ZHhwdDlOdUdYYXNnQ3hk?=
- =?utf-8?B?VXVCK1c0ckU0Vk05Vmd2YVJ0M2ltRjUrZFpOR25BaTBVckdNeVYvbW5sUW1C?=
- =?utf-8?B?TncvZCswKytNcVpyNks3NWx4bHFoenh1TEVOSGhicXpWYklSUk1OMllSb3k3?=
- =?utf-8?B?WHBrMTRITlNnbGNZbHBoMTBxazRhMVdXUVZlek9tQzM4clFFYjVOOGl3T1pD?=
- =?utf-8?B?UkhRbWJMWmMvQlgvM1NSRzMyZHZHNmNZTU55ZEl4MWlscnZ0Tkpld1M5RXh3?=
- =?utf-8?B?ZFFRMk5oVkN0dmRFU3BUb1crd1k3NzEwYkZPWW9zNDFLMzFGQndJdHNweUhp?=
- =?utf-8?B?SXdiWWJVVlVhRVZPaGs0eHhSYjBZUDh5ZE4vQnNNRG1WUUhDUGhoWXJsK0Fm?=
- =?utf-8?B?RkMvRFVLcVcvbVFOTlBKN2RwT2t6VFRvRXV5d2g3WW85cFdRaWg0N25QWkJh?=
- =?utf-8?B?WjlNa0xXVVdQWEVuU0w1T1dJd0YyQnhvc09uc2pXL24reXBYVXdldz09?=
-X-Exchange-RoutingPolicyChecked: XV6O/332L0stTQvVNzPGkrcqoGdB4aOok7wy0pg+fYuYdFgHTCKPTKVEa2MgZxbxAS202t3pG2NII4wZdxyilDYYyqzxry85M9N1A7k+NisKkYsCqeloDjmrjSjIO/98kWBaciwI0NngZ23W2Ch6E8vs1CWym8Nwdpei9PHNDiMM/q2RgX9EqgqWuQu16Fmp60/xkOa3ECLT9yArYBwXNIA0/a7dNqHBjxPgeR/Vl+ID+nIo+kMPCoPyWhePSizdylQ9s21tUmGnQ5/sK/y/I4XtPNUYZjlSS+D2JXe+hsipi/eZBLO6eiMvb9oczUl6QLICJuhrduF8SRMLROHX0A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f00e8ef-5230-4b88-e2b8-08df29117cba
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 10:05:19.5381
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: orANKaI37F+lD82DbRwxOGHeNc7mAVzQD3fS+Jt36rGZHgDIjI7C3r+SrQOw5J/KRxKZmr6d2jqwCCCPsvG2uA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4653
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asogqMMvsGTTmHr1@sumit-xelite>
+X-Proofpoint-GUID: OSfUYJzT1ntShZb8NxjLDtTYzzqGIeyf
+X-Authority-Analysis: v=2.4 cv=FZuiV5+6 c=1 sm=1 tr=0 ts=6ace02a1 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=RZYooTeZZn4JW5UmQ-YA:9 a=CjuIK1q_8ugA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MCBTYWx0ZWRfXyl5lNG7n8mGd
+ zuGuHXC2WriIKH9UXnJQY934mYQ1hunajbN/DQooYmKKhSDgyV3n7/isbjj00hCUaZldhDsFRfd
+ F4mwG9rL8OjIwqfQsEXZZM65cCl73PM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MCBTYWx0ZWRfX/Lb38WhSpVur
+ M3sr+kIx33yDzDHIab4CtdurPghTvw4C1suJt9JZBsb/y7woHBvOXTlFBuR5N9dmbXYBtnvXJFS
+ Cedc+CaBQ8a5aF2N2sYbaODIOuVpurTRRkYMJ4y/J5f+49kiE7REC15NoNsp+Wp9CPxXI7GDEsU
+ J0BaxXvmoGleHKowE9WIU95qJRup2w1X1Bnbb5HWvrMdpwHUZtBiAgosCP+yeZg/Ja2n/xcjRTT
+ yQ46yT5uJkfXiqqHWv6/H7f2Po0cyLRlF0BlHJF1QGaQoVhGQNTgxYIHCpzrSfHb+HJETri0QDA
+ KomcyKzARFI4vrf0V1peV8BbsIV9sLgNMQ/xfSns/lJzxJCfnhGG/rH2mQNP7VfH1Q+jWo3AZGS
+ 5+zcqYQEW6mFenat9xlZvB4N204AfntGpr7uRkJpdRSSF2nT9M9dtklnSG76eJjnQgmjUdirEqM
+ SAYUI7iazKPoFVtMsTA==
+X-Proofpoint-ORIG-GUID: OSfUYJzT1ntShZb8NxjLDtTYzzqGIeyf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130040
 
-On 10/13/2026 5:15 AM, Tim Chen wrote:
-> On Mon, 2026-10-12 at 15:50 +0530, Shrikanth Hegde wrote:
-
-[ ... ]
-
->>
->> Tim, Chenyu, Peter,
->> Are there any selftest or patches which is used for
->> functional validation of cache aware scheduling?
+On Sat, Oct 10, 2026 at 04:55:28PM +0530, Sumit Garg wrote:
+> Hey Mukesh,
 > 
-> We haven't created one. We validate mostly with workloads such as
-> hackbench, schbench and yogini (which can vary the number of threads
-> over time and track CPU assignment). I agree they are not ideal for
-> functional checks of the load balance path.
+> On Tue, 06 Oct 2026 at 15:33:44 +0530, Mukesh Ojha wrote:
+> > On Mon, Oct 05, 2026 at 11:01:24PM +0200, Jorge Ramirez wrote:
+> > > On 05/10/26 21:42:24, Mukesh Ojha wrote:
+> > > > On Mon, Oct 05, 2026 at 02:54:00PM +0200, Jorge Ramirez-Ortiz wrote:
+> > > > > The firmware resource table is passed to the PAS backend even when the
+> > > > > firmware carries none. This only works on the first boot, while the
+> > > > > cached pointer and its size are both zero.
+> > > > >
+> > > > > Stopping the remote processor, or failing to start it, frees the cached
+> > > > > table and clears the pointer but leaves the size set. The next start
+> > > > > then pairs a NULL table with a non-zero size.
+> > > > >
+> > > > > The SCM backend substitutes an empty table and hides the problem. The
+> > > > > TEE backend copies from the NULL pointer:
+> > > > >
+> > > > >   remoteproc remoteproc2: powering up cdsp
+> > > > >   pc : __pi_memcpy_generic+0x110/0x22c
+> > > > >   lr : qcom_pas_tee_get_rsc_table+0xf4/0x25c
+> > > > >   Call trace:
+> > > > >    __pi_memcpy_generic+0x110/0x22c (P)
+> > > > >    qcom_pas_get_rsc_table+0x38/0x60
+> > > > >    qcom_pas_parse_firmware+0xa0/0x100
+> > > > >    rproc_boot+0x2d4/0x380
+> > > > >    state_store+0x40/0x100
+> > > > >
+> > > > > Fixes: a4584bff63c8 ("remoteproc: pas: Extend parse_fw callback to fetch resources via SMC call")
+> > > > > Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+> > > > > ---
+> > > > >  drivers/remoteproc/qcom_q6v5_pas.c | 11 ++++++-----
+> > > > >  1 file changed, 6 insertions(+), 5 deletions(-)
+> > > > >
+> > > > > diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> > > > > index a005546c265d..e871e03ba794 100644
+> > > > > --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> > > > > +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> > > > > @@ -463,7 +463,7 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
+> > > > >  	struct resource_table *table = NULL;
+> > > > >  	size_t output_rt_size;
+> > > > >  	void *output_rt;
+> > > > > -	size_t table_sz;
+> > > > > +	size_t table_sz = 0;
+> > > > >  	int ret;
+> > > > >
+> > > > >  	ret = qcom_register_dump_segments(rproc, fw);
+> > > > > @@ -476,11 +476,12 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
+> > > > >  		return 0;
+> > > > >
+> > > > >  	ret = rproc_elf_load_rsc_table(rproc, fw);
+> > > > > -	if (ret)
+> > > > > +	if (ret) {
+> > > > >  		dev_dbg(&rproc->dev, "Failed to load resource table from firmware\n");
+> > > > > -
+> > > > > -	table = rproc->table_ptr;
+> > > > > -	table_sz = rproc->table_sz;
+> > > > > +	} else {
+> > > > > +		table = rproc->table_ptr;
+> > > > > +		table_sz = rproc->table_sz;
+> > > > > +	}
+> > > >
+> > > >
+> > > > Earlier code was intentional please read the comment below.. /**...*/
+> > > >
+> > > 
+> > > AFAICS the comments say that the call might pass NULL and zero as input
+> > > resources. And this patch does exactly that - it doesnt allow NULL and
+> > > non-zero.
+> > > 
+> > > did I miss something?
+> > 
+> > No, you did not miss anything.. I just wanted to highlight that I
+> > did not keep else statement in my initial implementation
+> > intentionally and relied table_ptr and size will be NULL on
+> > failure of rproc_elf_load_rsc_table()..
 > 
->> per-LLC occupancy in /proc/{PID}/schedstat may not tell the full
->> story when there are multiple processes and multiple LLC's.
->>
->> Atleast for functional verification, we might need one if there is
->> not one already. The reason being,
->> - At present, we may need a custom workload. hackbench/schbench are
->>    wakeup intensive and typically bail out even before load balance.
->> - stress-ng is per process. So doesn't get cache aware scheduling.
->> - A selftest could spwan specific number of threads till llc size etc
->>    and ensure packing happens till core_count(llc_size) by default.
->>    This could also be used for tunable verfifications.
->> - Provide an ability to observe how much of the workload was contained
->>    within the LLC due to cache aware scheduling or number of load
->>    balances stopped due to preferred llc.
-> 
-> A selftest would be great and much welcomed.
-> 
+> Looks like you still haven't understood the problem this patch is trying
+> to solve. It's the PIL restart sequence where the table_ptr is NULL and
+> size being passed as non-zero which is incorrect from caller point of
+> view.
 
-Yes, that would be very useful. For functional testing, previously we
-asked AI to generate a trial test script to launch a random number of
-while(1) tests and watch their occupancy on each LLC.
+As per my understanding, you will only see this issue when you do a start,
+shutdown, and then a fresh start again.  Normal remoteproc recovery is not
+broken?
 
-thanks,
-Chenyu
+If it is indeed an issue during rproc_shutdown() where table_ptr is NULLed
+while table_sz is not NULLed, should that not be fixed in
+rproc_shutdown itself ?
 
+-- 
+-Mukesh Ojha
