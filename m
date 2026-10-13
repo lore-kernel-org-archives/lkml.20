@@ -1,120 +1,101 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E7A47A88E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358434078C1;
+	Tue, 13 Oct 2026 09:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884643; cv=none; b=lQy4/AVQDR4cAyik6fkV8poYmk9QKxk+xc1tNpa+jE3GWUbXzZmjUkh9T9mRCdlqJn40j1qQvLLkYpZ2TE8Oi72NN1zs6PsJtfsHiyeozPYa3sZ/yb8h98W4/QNJr1QYFkQTT3UEdOzmQzCu0lUShq4KX0gFiAwslTuE2hRLhKc=
+	t=1791884663; cv=none; b=biQZL76ioNrfVS15KzK5D8SgLspYAulqXbqls/LruVaT1F7Sahldhzy7Npwha3r1gx3iy4W+RKujdhivjIQFKSaX7VeosYsgm6ywrdlbzE9GzbgQ3pQrVjwtXLOz8F1cdoGU9wXxm5C/7oLnRM4QHzijCV8RvhYu/Za82ljPJ2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884643; c=relaxed/simple;
-	bh=megV711P3ZBKFFEbDOD59/fypEHRtoKAwJFtOspSGBs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sjcghW6f52SicuwKMtVCCKmC8AgHt5wjKhs1MgVWPNK2HKh5Wa0Hd/MAdI2B4gtir3XbZAUK55g1XrKPC7jx5AXezfvNJUgl6MevWZ3xw2xNExPZ6OWprckgVQuFzUx+RL+WR/jAa907ATE018BjzeYHBeaZgNKdLDtVBLcs6FY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QVURB7bQ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791884663; c=relaxed/simple;
+	bh=PA557b9FgSWoKUFTpah05tJEQ/RR3TM1v7v/HWiizfY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sGvArqf7rVRjsZ7K5x1/+AlwGYd/5DlBeODlsyPKL4tCFKpcjj0AVSv3N1rWNlkR5/L3WR0+W1lXsBDdt8Z+lcwSxUwEqr4XT4fi5TjIQqHG9RhgsYhtrtJ5fT6bWuUiVI/J0qYFpuCKQSOGCgwCD6PCaXpFMsz8FgTW2ZEvJkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kd5A6s14; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QVURB7bQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791884640;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UTfhRUiKt73k975RZbk3Fp/cv7PEgh/2KD1HG5cwm9o=;
-	b=QVURB7bQI9VnhIPqSKpoDAWqLumO1MJ7lNSOaspG69B8lAHiS6cNtlup3bLu3vdDTilA1t
-	l5YsApWXLT/O1u1BsB5uBhsTyl2dafI8aO17R78mMS+ZR+6COK9zrXhxFoXc93AuJny+ci
-	Y1QSYZlcCD4ZeqxEpwoU6ii89Pfx0zw=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-587-9eTuBplINxmVl3SDUR16LQ-1; Tue,
- 13 Oct 2026 09:43:57 +0000
-X-MC-Unique: 9eTuBplINxmVl3SDUR16LQ-1
-X-Mimecast-MFC-AGG-ID: 9eTuBplINxmVl3SDUR16LQ_1791884635
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 604BC1955DAB;
-	Tue, 13 Oct 2026 09:43:55 +0000 (UTC)
-Received: from [10.43.2.199] (unknown [10.43.2.199])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5D8B9195608B;
-	Tue, 13 Oct 2026 09:43:52 +0000 (UTC)
-Message-ID: <14809cb9-8147-415a-8b7c-ec6ab3b488d2@redhat.com>
-Date: Tue, 13 Oct 2026 11:43:51 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kd5A6s14"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791884661; x=1823420661;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=PA557b9FgSWoKUFTpah05tJEQ/RR3TM1v7v/HWiizfY=;
+  b=kd5A6s14hd5gVnX2mvrUPCAffu+1C5C3j5cYlFW9mkWuA60oFGsAYruV
+   rSvFPZHZj6cvoqKH5Xg2dCax105EDSjGPEN2qrM+qwh6PST8yUMegYLJE
+   X1tGZtydPI5uyTYecSt5ypnUaA50Z1XkpmzUvcSePDb1+nCocdyrZKmX7
+   yeatiq9U6RMSmX13hneZO969uhKawO5E6hzBK49LFuieGkANXJtAHebDC
+   /oY8d+vydUx/YvacN5LdKHi1APzNrjf7GFXfVllWnRSee3iHX3yHlx1vn
+   VFQrci0qYvl1UJlvom/y38kYchwUYeP7+0/vsrIgU1yvFJHgY3wwQT+Ng
+   w==;
+X-CSE-ConnectionGUID: /SVEZO3tRqKN/QpqUHAtUA==
+X-CSE-MsgGUID: ohfL3mEhT1asqGVyMgixuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="502648"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="502648"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:44:20 -0700
+X-CSE-ConnectionGUID: uZUKsXKaS96/TS8bvh3UbA==
+X-CSE-MsgGUID: OGtE7D/dSu+nEKffZ6cwwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1445296"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa009.fm.intel.com with ESMTP; 13 Oct 2026 02:44:19 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 1600D99; Tue, 13 Oct 2026 11:44:18 +0200 (CEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 1/1] gpiolib: shared: Don't define variable in the middle of the code
+Date: Tue, 13 Oct 2026 11:44:12 +0200
+Message-ID: <20261013094412.945609-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 07/12] dpll: sit9531x: add support to get and
- set priority on input pins
-To: Ali Rouhi <arouhi@sitime.com>, Jiri Pirko <jiri@resnulli.us>
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>,
- Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261009183151.78497-1-arouhi@sitime.com>
- <20261009183151.78497-8-arouhi@sitime.com>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <20261009183151.78497-8-arouhi@sitime.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Transfer-Encoding: 8bit
 
-On 10/9/26 20:31, Ali Rouhi wrote:
-> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> 
-> When the device has to choose a reference, it takes the first slot of
-> its priority table that has signal.  The driver keeps a
-> priority per input and PLL and builds the table from it (previous
-> patch), so getting a priority reads that value without touching a
-> register, and setting one records it and, for an input the PLL lists,
-> rewrites the table in the new order.  When the new order puts a
-> different input with signal first, the PLL moves to it; a change further
-> down the table leaves the PLL where it is.
-> 
-> Priority and state are separate attributes, and neither moves the other.
-> A priority can be set on a disconnected input and takes effect when it is
-> connected; disconnecting an input and connecting it again brings back the
-> priority it had.  Setting one input's priority leaves every other input's
-> as it was, so the named pin is the only one whose priority changes and
-> the core's own notification covers that; when the new order moves the
-> active selection, the siblings' operational state follows on the next
-> poll.  A priority the table write refused is not kept: the configured
-> value goes back to what it was, so nothing reports a priority the
-> device never took.  The range is 0 to 255 against a table of eleven slots:
-> inputs of equal priority keep the order the table already has them in,
-> so distinct values are what fix an order.  An input the PLL has never
-> listed reports the lowest slot, the priority it would be connected at.
-> 
-> A table rewritten behind the driver -- a profile reload, a direct I2C
-> tool -- is taken as the new configuration and the priorities are
-> re-seeded from it, so the poll now watches priority and operational state
-> as well as state, and notifies a pin when any of them moves.  The
-> notifications go out after the walk over the pins, outside multiop_lock,
-> since the helper takes locks the callbacks run under.
-> 
-> A pin's baseline for that watch -- state, operational state and priority
-> -- is taken when the pin is registered, under the device lock, rather
-> than by the first tick, so a change between the probe-time fetch and
-> that tick is reported instead of absorbed into the baseline.  The device
-> lock status is seeded the same way, so the first tick announces only
-> what moved since registration.
-> 
-> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Assisted-by: LLM
-> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
-> ---
-Reviewed-by: Ivan Vecera <ivecera@redhat.com>
+While the C11 allows us to define variables in the code, we do not
+do this style (see more at [1]). Move the declaration to the top of
+the function.
+
+Link: https://lore.kernel.org/lkml/58fd478f408a34b578ee8d949c5c4b4da4d4f41d.camel@HansenPartnership.com/ [1]
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/gpio/gpiolib-shared.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
+index 5f9623e40b0f..40c08f1ae5f0 100644
+--- a/drivers/gpio/gpiolib-shared.c
++++ b/drivers/gpio/gpiolib-shared.c
+@@ -196,6 +196,7 @@ static int gpio_shared_of_traverse(struct device_node *curr)
+ 		for (i = 0; i < count; i++) {
+ 			struct device_node *np __free(device_node) = NULL;
+ 			char *con_id __free(kfree) = NULL;
++			struct fwnode_handle *curr_fwnode;
+ 
+ 			ret = of_parse_phandle_with_args(curr, prop->name,
+ 							 "#gpio-cells", i,
+@@ -261,8 +262,7 @@ static int gpio_shared_of_traverse(struct device_node *curr)
+ 				con_id[con_id_len - suffix_len] = '\0';
+ 			}
+ 
+-			struct fwnode_handle *curr_fwnode =
+-				fwnode_handle_get(of_fwnode_handle(curr));
++			curr_fwnode = fwnode_handle_get(of_fwnode_handle(curr));
+ 			ref = gpio_shared_make_ref(curr_fwnode, con_id, args.args[1]);
+ 			if (!ref) {
+ 				fwnode_handle_put(curr_fwnode);
+-- 
+2.50.1
 
