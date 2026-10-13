@@ -1,42 +1,42 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3DA51474E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D22514764;
+	Tue, 13 Oct 2026 13:17:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897419; cv=none; b=GlWBjNs1x4YVKNBKEnyEGW0vCFwiHiVdsuMvbCAycwlAMy+tx8xXcsTJ1j16kBbsmN3rXQKiqOu3k5Kou47BBjh1evWtZ+WC+BhZ+GcrE/wAZoa7onMfD6rExkFsYmGIMvmEhnNiJkMBOfQ8gybcJLqmWDwJZXomf17JQ8GEyuI=
+	t=1791897426; cv=none; b=dm6wAeHc60F5snL2EwBVHFDJ6qVpOid3Xi88BkMQ0aGUPbdPgHaVmKgxTq0Aca4dJ+oWBYRrasWPf8x7aFf2A3F4HPLHIjN/wjXI/UlmDxt+XJozoR1RVK0d29fSfKV7i3XPR1pkmw0VstxHLySbPsvz9A0Q0KxOoPi2g1LdRjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897419; c=relaxed/simple;
-	bh=Lj4HaogCSbrmG1eVb9OwvFIRS92jSROtoImp0Ifbs7U=;
+	s=arc-20240116; t=1791897426; c=relaxed/simple;
+	bh=1snf4fpmi0B71IKgS9ucddkhaZQt9Hq5VcaTWkAj77E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IQzFNj5V9vd3hpTbhyMQkWv6UHe5EIbPhk19kuxIQoQdV6I4pssaDJQiPc1ONxWWzXLivuZfAEAbUDtFHiLre5YZPKqWzqDcJ5fMeAKj2m5e32EVsRuWkaKL7krdAf7zrJGeis6C1FEmOWmbrmpbjhGjgx7TBNwEmu8p02+ZolM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZSl3l2LS; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=XVkK6Xh1FKaeWHEpTrPU0Sr7qtH08X3PXhtIqnBjDs6F0cCYDDVCKqI77n2rkcbwnis5sxvzSalFMo8gw32QsB/NNKkm233IW2qaw6/ViZX21kBp/6XVitlYMw/H+9w/9TBhBg4eDxq5TJec8ASz/Xag262r4jEghBjLL6OzfHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=H7geelwm; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZSl3l2LS"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="H7geelwm"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 70CA64E41209;
-	Tue, 13 Oct 2026 13:16:56 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 99F0A1A120C;
+	Tue, 13 Oct 2026 13:17:03 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3CFF560362;
-	Tue, 13 Oct 2026 13:16:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A27B11D713E2;
-	Tue, 13 Oct 2026 15:16:51 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6301360362;
+	Tue, 13 Oct 2026 13:17:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4CD0D11D713D8;
+	Tue, 13 Oct 2026 15:16:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791897413; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1791897420; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=jirAU7SfjsoxERJ8F/71yDpIgGLAO187DNBquktolsU=;
-	b=ZSl3l2LS5K+nrjMIh74BbIYUi+a2Fgjn6ISDI/sl4Bzc8gpQgKpJ4pbSw6I0AaHLq95Muy
-	/Y5WN91IGpksWItruTaBii9P1F92MGkjSWC2yqjTfdDHkipWGt8t5F/Oiik+1YbqZmA8WQ
-	LXIUHiJcZYH6g/QxoKUyZMz5C8FwSdK7Pb36QAgSAU14A8LEuk1wzoO25IH672+MIKkX14
-	2SZ0XcY+LK8E4T5w0+gMstoOVy0mnbAVxCqeZnNRoo4PFy/yVfa3U3FVfZppnzTsVRdlzW
-	uFbiezU612cwksemHJNIB/C+dKPJmY4SRo6OL+eGGz1FbT/OEqKgAGytOJM00g==
+	bh=QvtvKqHlDNZ/wVNOxE6lTQB+2t0bRlf71CJkAF46Q4k=;
+	b=H7geelwm7TN/hXxMTUU/vgzMAKM5o0BQeKYQI13parc8a3COIBEyPA4PyMHfzvzizTAMFy
+	EL0diTKPvxyJE+Wwum536UwzJvYMEYFWyu5EzuPQ0QAwxMgqAjZL2FvjB5076madPnzWTa
+	QVYP49qLiNU2wSkudLynR7Dh6CQ/E9HNrkmITvpSVNn5KZRIC68kWe1abNrm+FxTv3g+8w
+	zZmmxvdXFokSNi8umEkrLroCYKnUhElpHc1cZOg6Tm54P6YsRsWOhQM93MgSKbd4A53S9S
+	w6C66QWyFvGdymxrYwAlUJNDU0/wzn6GS3Fok/+q1sowNtBfjC+9OD0LvsU4mA==
 From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Tue, 13 Oct 2026 15:16:39 +0200
-Subject: [PATCH net-next v11 1/9] net: macb: close race between NAPI polls
- & ndo_stop
+Date: Tue, 13 Oct 2026 15:16:41 +0200
+Subject: [PATCH net-next v11 3/9] net: macb: avoid
+ macb_init_rx_buffer_size() modifying state
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261013-macb-context-v11-1-b27785167566@bootlin.com>
+Message-Id: <20261013-macb-context-v11-3-b27785167566@bootlin.com>
 References: <20261013-macb-context-v11-0-b27785167566@bootlin.com>
 In-Reply-To: <20261013-macb-context-v11-0-b27785167566@bootlin.com>
 To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
@@ -61,65 +61,82 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Gregory CLEMENT <gregory.clement@bootlin.com>, 
  =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
  Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- stable+noautosel@kernel.org, Sashiko <sashiko-bot@kernel.org>
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 
-In ndo_close, we call napi_disable() then free the ring buffers
-queue->rx_ring|tx_ring. In the NAPI poll functions, after
-napi_complete_done() we might enable interrupts and might re-check the
-next ring buffer slot.
+macb_init_rx_buffer_size() takes the macb private data struct and
+overrides its bp->ctx->rx_buffer_size. To make it usable with multiple
+contexts, make it return its value.
 
-This is a use-after-free race on our ring buffers because napi_disable()
-only waits for napi_complete_done() to return, it does not wait for
-NAPI poll functions to finish.
+Also, move the `bufsz` computation into it. The value is only used if
+GEM, and for historical reason it currently lives in macb_open().
 
-The poll function sequence must stay as-is, see commit 0bf476fc3624
-("net: macb: Fix lost RX packet wakeup race in NAPI receive") which
-explains why the sequence must be napi_complete_done() -> arm IRQs
--> re-check ring slot.
-
-Fix by waiting for full end of NAPI poll functions using
-synchronize_net() in our ndo_close implementation.
-
-This bug has never been reproduced and was reported by Sashiko. The
-chances of facing it in practice sound tiny: it needs a system without
-any phylink attached, running PREEMPT_RT and with a kernel preemption
-on the NAPI poll at the right instant.
-
-We fix it here before introducing context swapping, which is another
-place where the race could appear (and Sashiko complains on this
-series).
-
-Fixes: 138badbc21a0 ("net: macb: use NAPI for TX completion path")
-Fixes: 1900e30d0ef7 ("net: macb: simplify/cleanup NAPI reschedule checking")
-Cc: stable+noautosel@kernel.org  # too unlikely and never reported by users
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001-macb-context-v10-0-beb541bbb7df%40bootlin.com?part=7
-Link: https://lore.kernel.org/all/179115680572.434549.1016291990685937691@kernel.org/
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/net/ethernet/cadence/macb_main.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 020a47353d01..d414d00d93ce 100644
+index 9db03b0f082e..537fa570846f 100644
 --- a/drivers/net/ethernet/cadence/macb_main.c
 +++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -2059,6 +2059,12 @@ static void macb_quiesce_start(struct macb *bp)
- 		napi_disable(&queue->napi_tx);
+@@ -2743,25 +2743,26 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb,
+ 	return ret;
+ }
+ 
+-static void macb_init_rx_buffer_size(struct macb *bp, size_t size)
++static unsigned int macb_rx_buffer_size(struct macb *bp, unsigned int mtu)
+ {
+-	if (!macb_is_gem(bp)) {
+-		bp->ctx->rx_buffer_size = MACB_RX_BUFFER_SIZE;
+-	} else {
+-		bp->ctx->rx_buffer_size = MIN(size, RX_BUFFER_MAX);
++	unsigned int size;
+ 
+-		if (bp->ctx->rx_buffer_size % RX_BUFFER_MULTIPLE) {
++	if (!macb_is_gem(bp)) {
++		size = MACB_RX_BUFFER_SIZE;
++	} else {
++		size = mtu + ETH_HLEN + ETH_FCS_LEN + NET_IP_ALIGN;
++		size = MIN(size, RX_BUFFER_MAX);
++
++		if (size % RX_BUFFER_MULTIPLE) {
+ 			netdev_dbg(bp->netdev,
+ 				   "RX buffer must be multiple of %d bytes, expanding\n",
+ 				   RX_BUFFER_MULTIPLE);
+-			bp->ctx->rx_buffer_size =
+-				roundup(bp->ctx->rx_buffer_size,
+-					RX_BUFFER_MULTIPLE);
++			size = roundup(size, RX_BUFFER_MULTIPLE);
+ 		}
  	}
  
-+	/* NAPI instances still access Rx/Tx rings after their
-+	 * napi_complete_done() calls! Callers to macb_quiesce_start()
-+	 * free rings, so wait for all NAPI handlers to be done.
-+	 */
-+	synchronize_net();
-+
- 	/* Must be done after napi_tx is disabled: its completion re-arms
- 	 * the LPI timer.
- 	 */
+-	netdev_dbg(bp->netdev, "mtu [%u] rx_buffer_size [%u]\n",
+-		   bp->netdev->mtu, bp->ctx->rx_buffer_size);
++	netdev_dbg(bp->netdev, "mtu [%u] rx_buffer_size [%u]\n", mtu, size);
++	return size;
+ }
+ 
+ static void gem_free_rx_buffers(struct macb *bp)
+@@ -3346,7 +3347,6 @@ static void macb_set_rx_mode(struct net_device *netdev)
+ 
+ static int macb_open(struct net_device *netdev)
+ {
+-	size_t bufsz = netdev->mtu + ETH_HLEN + ETH_FCS_LEN + NET_IP_ALIGN;
+ 	struct macb *bp = netdev_priv(netdev);
+ 	int err;
+ 
+@@ -3364,7 +3364,7 @@ static int macb_open(struct net_device *netdev)
+ 	}
+ 
+ 	/* RX buffers initialization */
+-	macb_init_rx_buffer_size(bp, bufsz);
++	bp->ctx->rx_buffer_size = macb_rx_buffer_size(bp, netdev->mtu);
+ 	bp->ctx->rx_ring_size = bp->configured_rx_ring_size;
+ 	bp->ctx->tx_ring_size = bp->configured_tx_ring_size;
+ 
 
 -- 
 2.56.0
