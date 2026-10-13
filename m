@@ -1,262 +1,286 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F6A519922;
-	Tue, 13 Oct 2026 22:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A009D545DB6;
+	Tue, 13 Oct 2026 22:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791931928; cv=none; b=UMfadM5iQoSWVAI2cxW2rPQ+EsSjHPqsfsiB5vUzC7SJtPBkFP09VD3zB0M+HnRHJfRgzxtX2NA6B+3TjcAZUuxv05fYz67B49U0mCsMfq4hDkOVGT3aWoE6QyQ8LNRF4wwhpasKxKLcKKTd90ZxOaRs2I8cepXO0UyFz4a5iTo=
+	t=1791931929; cv=none; b=jU4aQb709HSeZDAHcNzPhOMyKch40QkStekWemsTuGJ9kxeLqh9+tpu19PD1/wklqrwguC+/8gRs3Gl2ojnlOopPQvkqfXXm+QjnSdxIja6lFe4tM8pAQqhYq9VEXhD23sO7yAlJeUit4bCrZVCq4j408X5fWwyLbRZTlIZNykE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791931928; c=relaxed/simple;
-	bh=zvmrfl0wIlPrQzTG6BzYpoFiY1TWBC1KaLC3+hI5dpM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QvvtHIOfl+lNLsN60t2KX8tFOonOebPKDs0aTsAyWuSnvi0/g3fNyBEGh9jllCMRNnd+oFb3LA7Yt1bLzro7DCcN7FJJhg2MJFi4iBz0pNR5iDGlrmBpkxKogyC6oEvoHdg7rgdMAhsyptqjXR7VdVWh4Di+yq+9L1y++TEWW4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NXyNhdS/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791931929; c=relaxed/simple;
+	bh=hvWdJ69mM+J4kuIJVLecF3GZlHnrtRwAfhlvCxEoTvM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rTTbjQizA97XHv6L8FSwPv/GeY4wFNp5W0KJu/bivVZgYntwhwjMEmJ3pevq4xQUiwMspdNPdw/1aWg2GczqVpsLLpipPqyBg7zKz7pv3ApcfrERK5ueG9AbXHGCepI2ABur9AXlks84oXwXOzAqOHJVCamXD4Kpu7+gxFF7eSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=DwSTBTR7; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NXyNhdS/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D041F00893;
-	Tue, 13 Oct 2026 22:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791931919;
-	bh=SxFpD0jFUukbA8RESTUQDKcCYWdjCShdI2BwwoNvpEs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NXyNhdS/xbrhc0XdQeQZtaipaPCTHAD2MfiNpLo8oVOgmfUxBEojHsWPuG7NO5ai5
-	 SRiT9jgR14kBOFTw0I2anDlpK41EiqiULO1Wpx0SBOU+pDNr64J7KiviqD9d06MmwP
-	 OGJHEBx6Mkv4Y4sK/P66823jS11ZgVWtslmUFM7NwKcHnz0ytGjbmqu2li8fOmtTj7
-	 PFrxVa1nrg/5iIYtrJ2JdtrBl7cfVEDmS0Uolg0JffPlc17ROtx4GvzrTeqHueMsBa
-	 tFjf0zscZ2ZivXD2FQiT8jviM2WJYKAThqW4miAtAGKO2gxr6+J2DBS5ppnA9DkuRV
-	 HGZEyrfrLTxlg==
-Subject: Re: [PATCH net-next v3 5/7] vsock/virtio: support guest device
- network namespace
-From: netdev-bot+sashiko@kernel.org
-To: bobbyeshleman@meta.com
-Cc: sgarzare@redhat.com, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, stefanha@redhat.com, mst@redhat.com,
- jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com,
- shuah@kernel.org, rdunlap@infradead.org, donald.hunter@gmail.com,
- edumazet@kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org,
- linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com,
- bobbyeshleman@gmail.com
-Date: Tue, 13 Oct 2026 22:51:57 +0000
-Message-ID: <179193191764.434549.1279241501217519580@kernel.org>
-In-Reply-To: <20261012-vsock-guest-ns-v3-5-b32447c66b23@meta.com>
-References: <20261012-vsock-guest-ns-v3-5-b32447c66b23@meta.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="DwSTBTR7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791931912;
+	bh=hvWdJ69mM+J4kuIJVLecF3GZlHnrtRwAfhlvCxEoTvM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=DwSTBTR7mEnpATJYkkEKIwVcEr37n2KuoHdOlGWQ9LdcY4r8Yl5ATwKeAJbLwugH+
+	 xxPcEd/Xv8rquPEHs+IWS1TFocIpOW0MT7eQPj90Q+YYBRGkSpDySGnkNu3Kary/sp
+	 F6mwdnhcrFQ8xsBBBzTzIGGyanG13bfJVDNJFPr1kc3pZ/23F+/RQpVQEg25qM788f
+	 wPc+4nuCxNV48ayEpADZoI4mGfzG4i10Ztav7BTn0cBjHvClOzDUh/M/oJujlljURc
+	 g6iaJxOPvqE6vD5J0UydgL1vahXQC2NVLPmvFqG7J6MAUFQlC79l3wediM7Pyi73so
+	 TfjJoFLGcLXrQ==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id CE74D17E0C98;
+	Wed, 14 Oct 2026 00:51:52 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Wed, 14 Oct 2026 01:51:20 +0300
+Subject: [PATCH v5 03/15] drm/rockchip: vop2: Balance state on
+ atomic_enable() error paths
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-dw-hdmi-qp-yuv-v5-3-6fab0fe43a9b@collabora.com>
+References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
+In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Daniel Stone <daniel@fooishbar.org>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Igor Paunovic <royalnet026@gmail.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+vop2_crtc_atomic_enable() prepares vp->dclk and, for the first CRTC,
+calls vop2_enable(), incrementing the shared vop2->enable_count before
+programming VOP2 registers.  Two later failure points return early with
+only vop2_unlock(), leaking the dclk prepare, the enable_count
+increment, and the core clocks / PM runtime reference from
+vop2_enable().
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 2
+Since the disable path decrements enable_count unconditionally, the
+leaked increment skews the count, causing an underflow or premature
+shutdown of core clocks and PM runtime while another CRTC is active.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Moreover, cleaning up on the enable error paths alone is insufficient.
+A CRTC whose atomic_enable() bailed is still committed as active, so
+vop2_crtc_atomic_disable() still runs its full teardown, releasing the
+same dclk prepare and enable_count a second time, thus underflowing both
+counts and, where vop2_enable() ran, touching VOP registers with core
+clocks gated.
 
-- [Medium] A socket closed by device reassignment can still send packets
-  through the device it supposedly lost access to.
-- [Low] The implementation-notes comment at the top of
-  net/vmw_vsock/af_vsock.c still gives virtio-vsock as the example of a…
-- [Low] The dev-netns-set uAPI doc in
-  Documentation/netlink/specs/vsock.yaml (added by the earlier commit…
+Fix this by reverting exactly what was set up on failure, and track the
+per-VP bring-up state so atomic_disable() skips teardown when
+atomic_enable() never completed.  Additionally, ensure any further
+hardware programming is also skipped within the affected RPM commit
+tail, i.e. in the callbacks gated by drm_atomic_helper_commit_planes():
+vop2_crtc_atomic_begin(), vop2_plane_atomic_update{update|disable}() and
+vop2_crtc_atomic_flush().
 
-Pre-existing issues:
-- [High] This problem was not introduced by this patch, but the patch's
-  new isolation can be bypassed through vsock packet capture.
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Tested-by: Igor Paunovic <royalnet026@gmail.com>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 68 ++++++++++++++++++++++------
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  6 +++
+ 2 files changed, 59 insertions(+), 15 deletions(-)
 
---
-
-vsock/virtio: support guest device network namespace
-
-This commit makes the virtio-vsock guest device assignable to a network
-namespace. It re-reads the assigned netns for each packet in
-virtio_transport_rx_work(). It also uses vsock_maybe_set_connected() so
-that new connections are added to the connected table atomically with
-respect to namespace assignment.
-
-> diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
-> index eced6929405df..4123924536dd6 100644
-> --- a/net/vmw_vsock/virtio_transport.c
-> +++ b/net/vmw_vsock/virtio_transport.c
-> @@ -542,7 +542,7 @@ static bool virtio_transport_msgzerocopy_allow(void)
->  
->  bool virtio_transport_stream_allow(struct vsock_sock *vsk, u32 cid, u32 port)
->  {
-> -	return vsock_net_mode_global(vsk);
-> +	return vsock_g2h_net_reachable(sock_net(sk_vsock(vsk)));
->  }
-
-[Severity: Medium]
-virtio_transport_stream_allow() gates new connections. Now that the
-device can be assigned, can a socket closed by
-vsock_g2h_reset_unreachable() still put packets on the device?
-
-The sweep only changes sk_state and sk_err, then removes the socket from
-the connected table:
-
-net/vmw_vsock/af_vsock.c:vsock_g2h_reset_unreachable() {
-    ...
-			sk->sk_state = TCP_CLOSE;
-			sk->sk_err = ECONNRESET;
-			sk_error_report(sk);
-
-			__vsock_remove_connected(vsk);
-    ...
-}
-
-It does not touch vsk->transport or sock->state, which stays
-SS_CONNECTED. vsock_shutdown() only rejects SS_UNCONNECTED:
-
-net/vmw_vsock/af_vsock.c:vsock_shutdown() {
-    ...
-	if (sock->state == SS_UNCONNECTED) {
-		err = -ENOTCONN;
-		if (sock_type_connectible(sk->sk_type))
-			goto out;
-	} else {
-		sock->state = SS_DISCONNECTING;
-    ...
-			vsock_send_shutdown(sk, mode);
-    ...
-}
-
-So calling shutdown() on the old fd goes through:
-
-vsock_send_shutdown()
-  virtio_transport_shutdown()
-    virtio_transport_send_pkt_info()
-      virtio_transport_send_pkt()
-
-virtio_transport_send_pkt() never uses its net argument before it queues
-the packet on the device. sock->state never goes back to SS_UNCONNECTED,
-so this can be repeated.
-
-The wire header carries only CIDs and ports. Suppose the newly assigned
-local namespace reuses the same guest/host port tuple. Could these
-SHUTDOWN packets then tear down a host connection that now belongs to
-the new owner?
-
-Even without a tuple collision, the namespace that lost the device can
-still send traffic on it. That seems to contradict the documented rule
-"assigned to a local mode namespace - only that namespace may use it".
-
-[ ... ]
-
-> @@ -587,6 +587,7 @@ static struct virtio_transport virtio_transport = {
->  		.seqpacket_has_data       = virtio_transport_seqpacket_has_data,
->  
->  		.msgzerocopy_allow        = virtio_transport_msgzerocopy_allow,
-> +		.netns_assign_allow       = true,
-
-[Severity: Low]
-This isn't a bug, but the implementation notes at the top of
-net/vmw_vsock/af_vsock.c still use virtio-vsock as the example of a
-transport without local mode support:
-
- *       a different transport that *does* support local mode. For
- *       example, virtio-vsock may not support local mode, but the socket
- *       may still accept a connection from vhost-vsock which does.
-
-This patch sets netns_assign_allow, and virtio_transport_rx_work() now
-delivers into the assigned namespace. So virtio-vsock can serve a local
-mode namespace once the device is assigned.
-
-Should this example be updated? It also seems to conflict with the
-sysctl doc, which says "Of the in-tree guest transports, only
-virtio-vsock implements it."
-
-[Severity: Low]
-This is the first transport to set netns_assign_allow, so the
-dev-netns-set behaviour becomes reachable with this patch. The uAPI doc
-in Documentation/netlink/specs/vsock.yaml, added earlier in this series,
-says:
-
-        Movement to an unreachable local namespace results in sockets being
-        closed with ECONNRESET. Peers are not guaranteed to be notified via
-        an RST.
-
-However, vsock_g2h_reset_unreachable() closes every socket that fails
-vsock_g2h_reachable_sk() after any move:
-
-			if (vsk->transport != t ||
-			    sk->sk_state == TCP_CLOSE ||
-			    vsock_g2h_reachable_sk(vsk))
-				continue;
-
-That includes moving the device out of a local namespace L and back to
-init_net or another global namespace. vsock_net_check_mode(L, init_net)
-is false, so every connected socket in L is closed with ECONNRESET.
-
-Should the yaml text also cover moves out of a local namespace? The
-sysctl doc already does ("from a namespace that can no longer reach the
-device").
-
-[ ... ]
-
-> @@ -682,10 +688,15 @@ static void virtio_transport_rx_work(struct work_struct *work)
->  
->  			virtio_transport_deliver_tap_pkt(skb);
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Can
-the vsock tap path bypass the isolation that this patch adds?
-
-virtio_transport_deliver_tap_pkt() runs for every received packet,
-before any namespace is applied. vsock_deliver_tap() then clones the
-packet, payload included, to every entry on the global vsock_tap_all
-list:
-
-net/vmw_vsock/af_vsock_tap.c:__vsock_deliver_tap() {
-    ...
-	list_for_each_entry_rcu(tmp, &vsock_tap_all, list) {
-		ret = __vsock_deliver_tap_skb(skb, tmp->dev);
-    ...
-}
-
-vsock_add_tap(), called from vsockmon_open(), only checks the device
-type:
-
-	if (unlikely(vt->dev->type != ARPHRD_VSOCKMON))
-		return -EINVAL;
-
-Nothing on the tap path filters with net_eq() or vsock_net_check_mode().
-vsockmon has no netns restriction either. So CAP_NET_ADMIN over any
-netns, including one owned by a user namespace, is enough to create a
-vsockmon device, bring it up and capture on it with AF_PACKET.
-
-Once the guest device is assigned to a local mode namespace, can any
-other namespace still read all guest<->host vsock traffic this way?
-
-The TX side in virtio_transport_send_pkt_work() appears to have the same
-exposure, and vhost-vsock local mode already had it. By contrast, nlmon
-taps are kept per netns.
-
->  
-> -			/* Force virtio-transport into global mode since it
-> -			 * does not yet support local-mode namespacing.
-> +			/* Only grab a reference if the net changes underneath
-> +			 * us.
->  			 */
-> -			virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
-> +			if (unlikely(!vsock_g2h_net_eq(net))) {
-> +				put_net_track(net, &ns_tracker);
-> +				net = vsock_g2h_net_get(&ns_tracker);
-> +			}
-> +
-> +			virtio_transport_recv_pkt(t, skb, net);
-
-[ ... ]
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index e0caea93a896..36384f029ef7 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1033,6 +1033,9 @@ static void vop2_crtc_atomic_disable(struct drm_crtc *crtc,
+ 
+ 	vop2_lock(vop2);
+ 
++	if (!vp->enabled)
++		goto out_unlock;
++
+ 	old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
+ 	drm_atomic_helper_disable_planes_on_crtc(old_crtc_state, false);
+ 
+@@ -1063,11 +1066,14 @@ static void vop2_crtc_atomic_disable(struct drm_crtc *crtc,
+ 
+ 	clk_disable_unprepare(vp->dclk);
+ 
++	vp->enabled = false;
++
+ 	vop2->enable_count--;
+ 
+ 	if (!vop2->enable_count)
+ 		vop2_disable(vop2);
+ 
++out_unlock:
+ 	vop2_unlock(vop2);
+ 
+ 	if (crtc->state->event && !crtc->state->active) {
+@@ -1197,13 +1203,21 @@ static void vop2_plane_atomic_disable(struct drm_plane *plane,
+ 	struct drm_plane_state *old_pstate = NULL;
+ 	struct vop2_win *win = to_vop2_win(plane);
+ 	struct vop2 *vop2 = win->vop2;
++	struct vop2_video_port *vp;
+ 
+ 	drm_dbg(vop2->drm, "%s disable\n", win->data->name);
+ 
+ 	if (state)
+ 		old_pstate = drm_atomic_get_old_plane_state(state, plane);
+-	if (old_pstate && !old_pstate->crtc)
+-		return;
++
++	if (old_pstate) {
++		if (!old_pstate->crtc)
++			return;
++
++		vp = to_vop2_video_port(old_pstate->crtc);
++		if (!vp->enabled)
++			return;
++	}
+ 
+ 	vop2_win_disable(win);
+ 	vop2_win_write(win, VOP2_WIN_YUV_CLIP, 0);
+@@ -1298,6 +1312,9 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
+ 	if (WARN_ON(!crtc))
+ 		return;
+ 
++	if (!vp->enabled)
++		return;
++
+ 	if (!pstate->visible) {
+ 		vop2_plane_atomic_disable(plane, state);
+ 		return;
+@@ -1803,8 +1820,11 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 		return;
+ 	}
+ 
+-	if (!vop2->enable_count)
+-		vop2_enable(vop2);
++	if (!vop2->enable_count) {
++		ret = vop2_enable(vop2);
++		if (ret)
++			goto err_unprepare_dclk;
++	}
+ 
+ 	vop2->enable_count++;
+ 
+@@ -1831,10 +1851,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 		clock = vop2->ops->setup_intf_mux(vp, rkencoder->crtc_endpoint_id, polflags);
+ 	}
+ 
+-	if (!clock) {
+-		vop2_unlock(vop2);
+-		return;
+-	}
++	if (!clock)
++		goto err_put_enable_count;
+ 
+ 	if (vcstate->output_mode == ROCKCHIP_OUT_MODE_AAAA &&
+ 	    !(vp_data->feature & VOP2_VP_FEATURE_OUTPUT_10BIT))
+@@ -1852,8 +1870,7 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 		default:
+ 			drm_err(vop2->drm, "Unknown DRM_MODE_CONNECTOR %d\n",
+ 				vcstate->output_type);
+-			vop2_unlock(vop2);
+-			return;
++			goto err_put_enable_count;
+ 		}
+ 	else
+ 		out_mode = vcstate->output_mode;
+@@ -1965,6 +1982,18 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 
+ 	drm_crtc_vblank_on(crtc);
+ 
++	vp->enabled = true;
++
++	vop2_unlock(vop2);
++
++	return;
++
++err_put_enable_count:
++	if (!--vop2->enable_count)
++		vop2_disable(vop2);
++
++err_unprepare_dclk:
++	clk_disable_unprepare(vp->dclk);
+ 	vop2_unlock(vop2);
+ }
+ 
+@@ -2023,6 +2052,9 @@ static void vop2_crtc_atomic_begin(struct drm_crtc *crtc,
+ 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
+ 	struct vop2 *vop2 = vp->vop2;
+ 
++	if (!vp->enabled)
++		return;
++
+ 	vop2->ops->setup_overlay(vp);
+ }
+ 
+@@ -2034,13 +2066,19 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
+ 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
+ 	struct vop2 *vop2 = vp->vop2;
+ 
+-	/* In case of modeset, gamma lut update already happened in atomic enable */
+-	if (!drm_atomic_crtc_needs_modeset(crtc_state) && crtc_state->color_mgmt_changed)
+-		vop2_crtc_atomic_try_set_gamma_locked(vop2, vp, crtc, crtc_state);
++	if (vp->enabled) {
++		/*
++		 * In case of modeset, gamma lut update already happened
++		 * in atomic enable.
++		 */
++		if (!drm_atomic_crtc_needs_modeset(crtc_state) &&
++		    crtc_state->color_mgmt_changed)
++			vop2_crtc_atomic_try_set_gamma_locked(vop2, vp, crtc, crtc_state);
+ 
+-	vop2_post_config(crtc, false, crtc_state, old_crtc_state);
++		vop2_post_config(crtc, false, crtc_state, old_crtc_state);
+ 
+-	vop2_cfg_done(vp);
++		vop2_cfg_done(vp);
++	}
+ 
+ 	spin_lock_irq(&crtc->dev->event_lock);
+ 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index ffcb39c130aa..b209b2d5b96d 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -243,6 +243,12 @@ struct vop2_video_port {
+ 
+ 	struct completion dsp_hold_completion;
+ 
++	/**
++	 * @enabled: CRTC fully brought up by atomic_enable(); allows
++	 * atomic_disable() to skip teardown after a failed enable.
++	 */
++	bool enabled;
++
+ 	/**
+ 	 * @win_mask: Bitmask of windows attached to the video port;
+ 	 */
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-vsock-guest-ns-v3-0-b32447c66b23%40meta.com
+2.55.0
+
