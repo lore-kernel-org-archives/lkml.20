@@ -1,391 +1,295 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72033389104;
-	Tue, 13 Oct 2026 11:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C804F3ED5;
+	Tue, 13 Oct 2026 11:53:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892312; cv=none; b=jeUaQ4Oz7oAP6BXMeQ37UJBXfj99uV1HwaE0t5qzNkdosazVnlWBWkdX7HcxWEOWclNouKzVSpbHWQbmC15x0DXqps9eExAjZujWygtUgXPp78lhW54NftIEyWS3bGizb+96jBkQDTbz/kXn4+cPEFmvCImnJPzcLbBfjqHsabI=
+	t=1791892406; cv=none; b=ALoEQYyMfkehFLaXNx6f/Ouf0B7QzoqeAW1iZIdpVyfJRtW/hNjNOa0jR2naXn3We/W/vUDm1mo74rRrQYfM3uveDxK5dc2wE7NHYf/hwejPe474TNSpvf4glP3ufrvYXMI/aK3dDyn0vHP45qk2F8aWl9FR/3cKOTDaqK9mcIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892312; c=relaxed/simple;
-	bh=Nh3EWY6Qf3SWKHyBzyosLrzbl2u4ADCKvvfT0FTmCNg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Wike/NBb/0N3hWOqfxPaWUM9BDT77SV62iiWRjho+n0/DFZHqDakQ0GH/zai7g8HrymZwN/s0aFe7z+eJ8fKPsC3S6O1PCuTYnyBKVqFVne9TwIDk0NKXlPaWbnahVP8GvOVdc1IxEJkH8R0Ub51Rotn/vSaf6crg40W9v+IFRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=LbTRI2b/; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1791892406; c=relaxed/simple;
+	bh=6ShjShKDTTxDAF/xMVOi+x0WdmQR/3lmrLONlX+ziBk=;
+	h=Message-ID:Content-Type:MIME-Version:From:To:Cc:Subject:Date; b=jI4snaaU9n+3uH2rMAj3Slpky7NhrEibxP3mEpoP4dZSgqMsFkfIecLCXIXqwZh5pQC8eAJMgOEqBP4eNng56jATbeM9TfqtUU3kqNTaWSKiNePlFiFf2pAm1ZmnKPDMM/+zhIVHzH+VLBhBJtB2/DiAoXaEIaoQ++cmuXvs2GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=AdiMTpNX; arc=none smtp.client-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="LbTRI2b/"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1791892304;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BUAOO2g1S6N+IEVzTRP75gwGuHNEJ0tzC+aT31NxblU=;
-	b=LbTRI2b/G0N1TC6nbovg5lKcAu9kya64pYvS7hLimCqkP8niOgs2DZvrJwbEld1stC2igi
-	AHUxfbOHloi6QqPN1cq4IFzuEmGkAN6Xg1evWqb1/JYnbU98rsEQxHQNSqmBqD1oknyxQy
-	fqs9GsUdSGREC0ZYP10cFT+CiadLdgnArR9Tp1piOPTAsdOBWo08GkUTzIxMo/frDndZGQ
-	k3uisSYE5YOO77kVKvGZoz06kDkJgeruUZ5pXfCXXscvrVFGm3uioYMqKS+beUP6LIdexX
-	mBy1iiPnWk3QRXCNPorZAweNy52oDje0NUbSFwZwzdMHfVArkNS9NpiZ7AJ2Rw==
-Date: Tue, 13 Oct 2026 13:51:08 +0200
-Subject: [PATCH v2 3/9] arm64: dts: imx8mp-kontron: Fix GPIO labels
- according to OSM spec
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="AdiMTpNX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791892387; bh=6ShjShKDTTxDAF/xMVOi+x0WdmQR/3lmrLONlX+ziBk=;
+	h=From:To:Cc:Subject:Date;
+	b=AdiMTpNXKAOQwJsc/yRO5Zh4gP4n6htdVgsFBQ7oKPmnvkcrzdmEwGvF5oaCbaEXC
+	 L7MvXb2ccnwakZn/XQdWMBV1A0YSiGy5v5cWW2c70xf+AyDZgH1TvQ8RI87uDShvJd
+	 XdebbISixJW3UlPuW1r0Z5TYUHl4AYniN9d1McRI=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id CF429CFF; Tue, 13 Oct 2026 19:51:52 +0800
+X-QQ-mid: xmsmtpt1791892312tfggc2kgp
+Message-ID: <tencent_30C554296ACA4722AA33D5E81B7C24CF6905@qq.com>
+X-QQ-XMAILINFO: NLYZ3YmleWNDsyx5bcB1NM75E7YCS8SXnPhmxz1jF5CYlX/3bLaQODuDnTfVkk
+	 K2LoiiQCvbdKlR9rZJtWqrJ1Cz1yAXtLWujOfdcURG+kgpvoKWgpMcJhs+0GnUZuQzxqUcQfUFi8
+	 pUscFfCtneIYqPT2yjuTx+bpiAKSUy7KT62M+qD8dfSixI5zvEJ76ebAiNlKrJuVP6eGdYPzdIsg
+	 QQ2tAriWrBEt4fuc+XeTw3pYSyBL3DMtG/TJMjnoyKt6lPkeOk33U5Gv29NcSP2JblVyWZxeh4uU
+	 F0pXgKivOcQDksQImTNuPzf2LCrEF+9MUiPdAknd9TvyuKXkzRnf7qLJkZazg5M0badh25/RW0RR
+	 AI5QrtIobAwjNZY2P4Q0wdGBkDc2xe1fSDlsRBICjxJVRMnpJ0GOddptmU94NjtdKDkOCYln0VYg
+	 KYJVrGu3oug97mCwVsRBB5c090CUDOw7Y7m+CeX0Q5yN31DQYZ27M6jFUNXbh74dgPXXVPXvDD8U
+	 jF7wfKEFTQhFY/klsLfoPENyi4/zmgD8jKYPmErYLTig6rQ/p9Gkk97Z/asXAmy74xy232X21LXO
+	 Yf3KV7Y0U+XDkwPDXd5ShCkRX35ldSD5eJBJVDot2Mm9l/MIIg6FNcoYj7qUpQtr3QxpX/wPZIGL
+	 1OfOCbXks4RipKGiE3U79LcIILP4aAowj5AEnaiQMX12P8vTxfhAEktUR49lALTsWRVATflt7uEW
+	 4ToQuRNhm9wu7vK75mb1izoaOqp/uz3FR24LVDz6+MdnJD8iFPMRgxKnug/rsViBpw7yf14WI/pH
+	 KU+ePNiRVtliB+oQe9vXQhVF+E1ckb8nzL9VS5VVJByj1RHxmxwFFxkEX1RN2/2FqjBf/MrWEUd1
+	 shUm+qBACyc64m1SyE5g/IaAp76tvO13KFfQ+TEsgGIzM2DZDoI7b9eOBubNlT4sWdAw8+GDz9DT
+	 O/dp1dYEArNMNdepDiKyD992wR+hEFfK9iwzMhBbZ15ht1bus6OVRhr9zispLLRU+TlPJgpAb/AN
+	 SZW3kl6bzwsXOztvv3W54FDpPOAAclsGU72UfKotwuzDiCNUg6SMPBe2Z5t0SqTOQgbilQHgvaSa
+	 i+kFPU6yKUW/b0BeTTBP9zAz6NXV8TZ9mn2xRGUOSWvNa8Yrg=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+Content-Type: multipart/mixed; boundary="===============1862422436374644438=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-upstreaming-gpio-label-fixes-v2-3-d464ca652c91@kontron.de>
-References: <20261013-upstreaming-gpio-label-fixes-v2-0-d464ca652c91@kontron.de>
-In-Reply-To: <20261013-upstreaming-gpio-label-fixes-v2-0-d464ca652c91@kontron.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>
-Cc: Eberhard Stoll <eberhard.stoll@kontron.de>, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+From: yangguikun <yangguikun19@qq.com>
+To: linux-ext4@vger.kernel.org
+Cc: "Theodore Ts'o" <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
  linux-kernel@vger.kernel.org
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13713;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=CVbrqOYOR/kudULUbAIkDjJqdA8G3mDUbqVWz9U+PYA=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIeuctB+LQ8KRnvtXfyi2qe7+venXnyUPo2JfPFesu3pF1
- 21Skv2LjlIWBjEuBlkxRRYpfovXtmaxPvLHqqNg5rAygQxh4OIUgInELGBk2LF92aO7f2etlDe6
- /1aIr9p3y6JdAqekH89ijbtSa3Rego3hr8h/5Xt3H9ut+vWm/v685OyAziw/jnccLIeyU3Y/3Gi
- RyQkA
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+Subject: [Bug report] ext4: mount-time orphan recovery silently truncates a
+ LIVE file (crafted s_last_orphan;
+ only log line is the routine "1 truncate cleaned up")
+Date: Tue, 13 Oct 2026 19:51:51 +0800
+X-OQ-MSGID: <179189231167.69340.11182677440881480361@yangguikun19.qq.com>
+X-Mailer: mutt-like (python smtplib)
 
-From: Eberhard Stoll <eberhard.stoll@kontron.de>
+--===============1862422436374644438==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 
-The OSM specification provides generic names for all pads. Fix the
-GPIO labels to use the correct pad names in order to align the
-labels with the spec and with other OSM module devicetrees.
+SGksCgpEdXJpbmcgZmllbGQtc2VtYW50aWMgY29ycnVwdGlvbiB0ZXN0aW5nIG9mIGV4dDQgaW1h
+Z2VzLCB3ZSBmb3VuZCB0aGF0IHRoZQptb3VudC10aW1lIG9ycGhhbiByZWNvdmVyeSBwYXRoIHRy
+dW5jYXRlcyBhIGZ1bGx5LWxpdmUsIGxpbmtlZCBmaWxlIHdoZW4KZm91ciBpbmRpdmlkdWFsbHkt
+cGxhdXNpYmxlIG9uLWRpc2sgZmllbGRzIGFyZSBtYWRlIG11dHVhbGx5IGluY29uc2lzdGVudCDi
+gJQKYW5kIHRoZSBvbmx5IGtlcm5lbCBsb2cgbGluZSBpcyB0aGUgcm91dGluZSByZWNvdmVyeSBt
+ZXNzYWdlLCBtYWtpbmcgdGhlCmRlc3RydWN0aW9uIGluZGlzdGluZ3Vpc2hhYmxlIGZyb20gbGVn
+aXRpbWF0ZSBjcmFzaCByZWNvdmVyeS4gRGV0ZXJtaW5pc3RpYwpyZXByb2R1Y2VyIGJlbG93IChl
+MmZzcHJvZ3MgKyBvbmUgbW91bnQ7IG5vIHN5c2NhbGxzIG5lZWRlZCBhZnRlciBtb3VudCkuCgoj
+IyBUaGUgY29ycnVwdGlvbgoKRm91ciBjb29yZGluYXRlZCBlZGl0cyBvbiBhIHN0b2NrIDFNQiBl
+eHQ0IChta2UyZnMgLU8gXmhhc19qb3VybmFsLF5tZXRhZGF0YV9jc3VtLAp0aHJlZSA4S0IgZmls
+ZXM7IC9maWxlMSBpcyBhIG5vcm1hbCBsaXZlIGZpbGUsIG5saW5rPTEsIGhhcyBhIGRpcmVudCk6
+CgogICAgMS4gc19sYXN0X29ycGhhbiAoc2IrMHhFOCkgOj0gL2ZpbGUxJ3MgaW5vZGUgbnVtYmVy
+CiAgICAyLiAvZmlsZTEgaV9kdGltZSA6PSAwCiAgICAzLiBzX3N0YXRlOiBjbGVhciBFWFQ0X1ZB
+TElEX0ZTCiAgICA0LiAvZmlsZTEgaV9zaXplIDo9IDQwOTYgICAocmVhbCBkYXRhOiA4MTkyKQoK
+Tm90aGluZyBpcyBvdXQgb2YgYm91bmRzOyBldmVyeSBmaWVsZCBpcyBpbmRpdmlkdWFsbHkgdmFs
+aWQuCgojIyBPYnNlcnZlZCAoZGV0ZXJtaW5pc3RpYywgMy8zKQoKICAgICQgbW91bnQgLXQgZXh0
+NCAvZGV2L2xvb3A3IC9tbnQgICAgICAgICAgIyB0aGUgZW50aXJlIGF0dGFjayBzdXJmYWNlCiAg
+ICBbICAgXSBFWFQ0LWZzIChsb29wNyk6IDEgdHJ1bmNhdGUgY2xlYW5lZCB1cAogICAgJCBzdGF0
+IC1jICJzaXplPSVzIG5saW5rPSVoIiAvbW50L2ZpbGUxCiAgICBzaXplPTQwOTYgbmxpbms9MSAg
+ICAgICAgICAgICAgICAgICAgICAgICAjIHdhcyBzaXplPTgxOTIg4oCUIGhhbGYgdGhlIGZpbGUK
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgc2lsZW50bHkg
+ZGVzdHJveWVkCgpleHQ0X29ycGhhbl9jbGVhbnVwKCkgLT4gZXh0NF9vcnBoYW5fZ2V0KCkgYWNj
+ZXB0cyB0aGUgaW5vZGU6IGl0IHZhbGlkYXRlcwp0aGUgaW5vZGUgbnVtYmVyLCB0aGUgaW5vZGUg
+Yml0bWFwIGJpdCwgYW5kIHRoYXQgTkVYVF9PUlBIQU4gKGlfZHRpbWUsIHRoZQpvcnBoYW4tbGlz
+dCBsaW5rKSBpcyB3aXRoaW4gcmFuZ2UsIGJ1dCBuZXZlciBjaGVja3MgdGhhdCB0aGUgdmljdGlt
+IGlzCmFjdHVhbGx5IG9ycGhhbmVkLiBJbiA3LjMtcmM1IChmcy9leHQ0L2lhbGxvYy5jOjEzOTYp
+IHRoZSBjb21tZW50IGV4cGxhaW5zCndoeSBpX25saW5rPT0wIGlzIGRlbGliZXJhdGVseSBOT1Qg
+cmVxdWlyZWQ6CgogICAgLyogT3JwaGFucyBhbHNvIGluY2x1ZGUgaW5vZGVzIHRoYXQgd2VyZSBi
+ZWluZyB0cnVuY2F0ZWQsIHNvIHdlIGNhbid0CiAgICAgKiBjaGVjayBpX25saW5rPT0wLiAqLwoK
+YW5kIHRoZSBzdWJzZXF1ZW50IGNoZWNrIG9ubHkgcmVqZWN0cyAoaV9ubGluayAmJiAhZXh0NF9j
+YW5fdHJ1bmNhdGUoKSkg4oCUCmkuZS4sIG9iamVjdHMgdGhhdCBDQU5OT1QgYmUgdHJ1bmNhdGVk
+LiBBIG5vcm1hbCBsaXZlIHJlZ3VsYXIgZmlsZQoobmxpbms9MSwgdHJ1bmNhdGFibGUpIGlzIGFj
+Y2VwdGVkLCBhbmQgZXh0NF9wcm9jZXNzX29ycGhhbigpIHRoZW4gcnVucwp0cnVuY2F0ZV9pbm9k
+ZV9wYWdlcygpICsgZXh0NF90cnVuY2F0ZSgpIG9uIGl0IGF0IG1vdW50IHRpbWUuCgpUaGUgY29k
+ZSBpbnZvbHZlZCBpcyB1bmNoYW5nZWQgaW4gY3VycmVudCBtYWlubGluZTogZnMvZXh0NC9vcnBo
+YW4uYywKaWFsbG9jLmMgYW5kIGlub2RlLmMgYXJlIGJ5dGUtaWRlbnRpY2FsIGJldHdlZW4gNy4z
+LXJjNSBhbmQgY3VycmVudAptYWlubGluZS4KCiMjIFdoeSB3ZSB0aGluayB0aGlzIGlzIHdvcnRo
+IGEgbG9vayBiZXlvbmQgImNvcnJ1cHQgZnMiCgotIFRoZSBkYW1hZ2UgaXMgY3Jvc3MtZmlsZSBh
+bmQga2VybmVsLWluaXRpYXRlZDogb25lIHN1cGVyYmxvY2sgdTMyIHNlbGVjdHMKICBBTlkgaW5v
+ZGUgb24gdGhlIGZpbGVzeXN0ZW0gZm9yIGRhdGEgZGVzdHJ1Y3Rpb24gYXQgbW91bnQsIHdpdGgg
+emVybwogIHN5c2NhbGxzIGZyb20gdGhlICh1bnByaXZpbGVnZWQtYWZ0ZXItbW91bnQpIHBvaW50
+IG9mIHZpZXcuCi0gSXQgaXMgc2lsZW50OiB0aGUgb25seSBsb2cgbGluZSAoIk4gdHJ1bmNhdGUg
+Y2xlYW5lZCB1cCIpIGlzIGV4YWN0bHkgd2hhdAogIGxlZ2l0aW1hdGUgcmVjb3ZlcnkgcHJpbnRz
+LiBBbiBvcGVyYXRvciBtb3VudGluZyBhIHN1c3BlY3QgaW1hZ2UgZ2V0cyBubwogIHNpZ25hbCB0
+aGF0IGEgbGl2ZSBmaWxlIHdhcyBkZXN0cm95ZWQuCi0gVGhlIGNvbW1lbnQncyAiSGF2aW5nIHRo
+ZSBpbm9kZSBiaXQgc2V0IHNob3VsZCBiZSBhIDEwMCUgaW5kaWNhdG9yIHRoYXQKICB0aGlzIGlz
+IGEgdmFsaWQgb3JwaGFuIiBob2xkcyBvbmx5IGlmIHRoZSBpbm9kZSBiaXRtYXAgaXMgdHJ1c3R3
+b3J0aHk7CiAgd2l0aCBhIGNyYWZ0ZWQgaW1hZ2UgYm90aCB0aGUgYml0bWFwIGJpdCBhbmQgdGhl
+IGNoYWluIGhlYWQgYXJlCiAgYXR0YWNrZXItY2hvc2VuLCBhbmQgdGhlIG5vLW5saW5rLWNoZWNr
+IGRlc2lnbiBkZWNpc2lvbiBiZWNvbWVzIHRoZQogIGFtcGxpZmljYXRpb24gcG9pbnQuCgpXZSBh
+cHByZWNpYXRlIHRoZSB0cnVuY2F0ZS1pbi1mbGlnaHQgb3JwaGFuIHVzZSBjYXNlIHRoYXQgbW90
+aXZhdGVzCnNraXBwaW5nIHRoZSBubGluayBjaGVjaywgc28gYSBmdWxsICJtdXN0IGJlIHVubGlu
+a2VkIiBydWxlIGlzIG5vdCB0aGUKYW5zd2VyLiBUd28gZGlyZWN0aW9ucyB0aGF0IG1pZ2h0IGJl
+IGNoZWFwIGVub3VnaDoKCiAgYSkgd2FybiBsb3VkbHkgKGV4dDRfd2FybmluZyB3aXRoIGlub2Rl
+IG51bWJlciBhbmQgb2xkL25ldyBzaXplKSB3aGVuZXZlcgogICAgIG9ycGhhbiBjbGVhbnVwIHRy
+dW5jYXRlcyBhbiBpbm9kZSB3aXRoIGlfbmxpbmsgPiAwIOKAlCB0dXJuaW5nIHRoZQogICAgIHNp
+bGVudCBkZXN0cnVjdGlvbiBpbnRvIGFuIG9ic2VydmFibGUgZXZlbnQsIG9yCiAgYikgcmVjb3Jk
+aW5nIHRoZSB0cnVuY2F0ZWQgaW5vZGVzIChlLmcuIHJhdGUtbGltaXRlZCBwZXItbW91bnQgc3Vt
+bWFyeQogICAgICJvcnBoYW4gY2xlYW51cCB0cnVuY2F0ZWQgTiBsaW5rZWQgaW5vZGVzIikgc28g
+cG9zdC1tb3VudCBmb3JlbnNpY3MKICAgICBjYW4gZGlzdGluZ3Vpc2ggdGhpcyBmcm9tIG5vcm1h
+bCByZWNvdmVyeS4KCkhhcHB5IHRvIHRlc3QgYW55IHBhdGNoOyByZXByb2R1Y2VyIGFuZCBtZXRo
+b2RvbG9neSBub3RlcyBhdHRhY2hlZC4KCiMjIFJlcHJvZHVjZXIKCiAgICBjcmFmdF9mNS5weSAg
+ICAgICBidWlsZHMgdGhlIGltYWdlIGZyb20gc2NyYXRjaCAoZGQvbWtlMmZzL2RlYnVnZnMpCiAg
+ICBmNS5pbWcueHogICAgICAgICBwcmUtYmFrZWQgaW1hZ2UgKG9uZSBtb3VudCBwZXIgY29weTog
+c19sYXN0X29ycGhhbiBpcwogICAgICAgICAgICAgICAgICAgICAgY2xlYXJlZCBieSB0aGUgZmly
+c3QgcmVjb3ZlcnksIGFzIGluIHJlYWwgcmVjb3ZlcnkpCiAgICBmNV9kbWVzZy5sb2cgICAgICBl
+dmlkZW5jZSBsb2cgbGluZXMKICAgIFJFQURNRSAgICAgICAgICAgIG5vdGVzCgpFbnZpcm9ubWVu
+dDogUUVNVS9LVk0geDg2XzY0LCBEZWJpYW4gMTEgZ3Vlc3QsIGtlcm5lbCA3LjMuMC1yYzUgKEtB
+U0FOCmdlbmVyaWMsIFNMVUJfREVCVUcpLiBGcmFtaW5nOiByb2J1c3RuZXNzL29ic2VydmFiaWxp
+dHkgaXNzdWUgb24KYXR0YWNrZXItY29udHJvbGxlZCBpbWFnZXM7IHdlIGFyZSBub3QgY2xhaW1p
+bmcgYSBwcml2aWxlZ2UtYm91bmRhcnkKY3Jvc3NpbmcuCgpUaGFua3MsCnlhbmdndWlrdW4gPHlh
+bmdndWlrdW4xOUBxcS5jb20+Cg==
 
-Also align the labels in the BL and SMARC board devicetrees that
-override the GPIO labels of the SoM.
+--===============1862422436374644438==
+Content-Type: text/x-python
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="craft_f5.py"
 
-Fixes: 946ab10e3f40 ("arm64: dts: Add support for Kontron OSM-S i.MX8MP SoM and BL carrier board")
-Signed-off-by: Eberhard Stoll <eberhard.stoll@kontron.de>
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- .../boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts | 37 ++++++++------
- .../boot/dts/freescale/imx8mp-kontron-osm-s.dtsi   | 50 +++++++++++--------
- .../boot/dts/freescale/imx8mp-kontron-smarc.dtsi   | 58 ++++++++++++----------
- 3 files changed, 83 insertions(+), 62 deletions(-)
+IyEvdXNyL2Jpbi9lbnYgcHl0aG9uMwoiIiJHZW5lcmF0ZSB0aGUgbWluaW1hbCBGNSByZXBybyBp
+bWFnZSBmcm9tIHNjcmF0Y2gg4oCUIGUyZnNwcm9ncyBvbmx5LgoKQ3JlYXRlcyBhIDFNQiBleHQ0
+IChubyBqb3VybmFsLCBubyBtZXRhZGF0YV9jc3VtKSB3aXRoIHRocmVlIDhLQiBmaWxlcywKdGhl
+biBhcHBsaWVzIHRoZSBmb3VyIGNvb3JkaW5hdGVkIGVkaXRzIHRoYXQgdHVybiBhIHBsYWluIHJ3
+IG1vdW50IGludG8gYQpzaWxlbnQgdHJ1bmNhdGlvbiBvZiB0aGUgTElWRSAvZmlsZTE6CgogIDEu
+IHNfbGFzdF9vcnBoYW4gKHNiKzB4RTgpIDo9IC9maWxlMSdzIGlub2RlIG51bWJlcgogIDIuIC9m
+aWxlMSBpX2R0aW1lIDo9IDAgICAgICAgICAgICAgICAgICAgICAgKHBhc3NlcyByZWNlbnRseS1k
+ZWxldGVkIGdhdGUpCiAgMy4gc19zdGF0ZSAmPSB+RVhUNF9WQUxJRF9GUyAgICAgICAgICAgICAg
+ICAodW5jbGVhbiDigJQgZW5nYWdlcyByZWNvdmVyeSkKICA0LiAvZmlsZTEgaV9zaXplIDo9IDQw
+OTYgICAgICAgICAgICAgICAgICAgIChyZWFsIGRhdGEgODE5MiDigJQgcGF5bG9hZCkKClVzYWdl
+OiBweXRob24zIGNyYWZ0X2Y1LnB5IFtvdXQuaW1nXQoiIiIKaW1wb3J0IHJlCmltcG9ydCBzdHJ1
+Y3QKaW1wb3J0IHN1YnByb2Nlc3MKaW1wb3J0IHN5cwoKSU1HID0gc3lzLmFyZ3ZbMV0gaWYgbGVu
+KHN5cy5hcmd2KSA+IDEgZWxzZSAiZjUuaW1nIgpCUyA9IDQwOTYKCgpkZWYgcnVuKGNtZCwgb2s9
+VHJ1ZSk6CiAgICByID0gc3VicHJvY2Vzcy5ydW4oY21kLCBjYXB0dXJlX291dHB1dD1UcnVlLCB0
+ZXh0PVRydWUpCiAgICBpZiBvayBhbmQgci5yZXR1cm5jb2RlICE9IDA6CiAgICAgICAgcmFpc2Ug
+UnVudGltZUVycm9yKGYie2NtZH06IHtyLnN0ZGVycn0iKQogICAgcmV0dXJuIHIuc3Rkb3V0CgoK
+cnVuKFsiZGQiLCAiaWY9L2Rldi96ZXJvIiwgZiJvZj17SU1HfSIsICJicz0xTSIsICJjb3VudD0x
+Il0pCnJ1bihbIm1rZTJmcyIsICItcSIsICItRiIsICItdCIsICJleHQ0IiwgIi1iIiwgc3RyKEJT
+KSwgIi1JIiwgIjI1NiIsICItTiIsICI0OCIsCiAgICAgIi1PIiwgIl5oYXNfam91cm5hbCxebWV0
+YWRhdGFfY3N1bSIsIElNR10pCmZvciBuYW1lIGluICgiZmlsZTAiLCAiZmlsZTEiLCAiZmlsZTIi
+KToKICAgIG9wZW4oZiIvdG1wL2Y1X3tuYW1lfSIsICJ3YiIpLndyaXRlKGIieCIgKiA4MTkyKQog
+ICAgcnVuKFsiZGVidWdmcyIsICItdyIsICItUiIsIGYid3JpdGUgL3RtcC9mNV97bmFtZX0gL3tu
+YW1lfSIsIElNR10pCgpnZW8gPSBydW4oWyJkdW1wZTJmcyIsIElNR10pCml0YWIgPSBpbnQocmUu
+c2VhcmNoKHIiR3JvdXAgMDouKj9Jbm9kZSB0YWJsZSBhdCAoXGQrKSIsIGdlbywgcmUuUykuZ3Jv
+dXAoMSkpCnZpY3RpbSA9IGludChyZS5zZWFyY2gociJJbm9kZTpccysoXGQrKSIsCiAgICAgICAg
+ICAgICBydW4oWyJkZWJ1Z2ZzIiwgIi1SIiwgInN0YXQgL2ZpbGUxIiwgSU1HXSkpLmdyb3VwKDEp
+KQoKYnVmID0gYnl0ZWFycmF5KG9wZW4oSU1HLCAicmIiKS5yZWFkKCkpCnZvID0gaXRhYiAqIEJT
+ICsgKHZpY3RpbSAtIDEpICogMjU2CnN0cnVjdC5wYWNrX2ludG8oIjxJIiwgYnVmLCB2byArIDIw
+LCAwKSAgICAgICAgICAgICAgIyBpX2R0aW1lID0gMApzdHJ1Y3QucGFja19pbnRvKCI8SSIsIGJ1
+Ziwgdm8gKyA0LCA0MDk2KSAgICAgICAgICAgICMgaV9zaXplIDgxOTIgLT4gNDA5NgpzdHJ1Y3Qu
+cGFja19pbnRvKCI8SSIsIGJ1ZiwgMTAyNCArIDB4RTgsIHZpY3RpbSkgICAgICMgc19sYXN0X29y
+cGhhbgpzdCA9IHN0cnVjdC51bnBhY2tfZnJvbSgiPEgiLCBidWYsIDEwMjQgKyA1OClbMF0Kc3Ry
+dWN0LnBhY2tfaW50bygiPEgiLCBidWYsIDEwMjQgKyA1OCwgc3QgJiB+MHgxKSAgICAjIH5FWFQ0
+X1ZBTElEX0ZTCm9wZW4oSU1HLCAid2IiKS53cml0ZShieXRlcyhidWYpKQpwcmludChmImNyYWZ0
+ZWQge0lNR306IHNfbGFzdF9vcnBoYW4gLT4gbGl2ZSAvZmlsZTEgKGlubyB7dmljdGltfSksICIK
+ICAgICAgZiJpX3NpemUgNDA5NiAoZGF0YSA4MTkyKSwgZHRpbWUgMCwgc19zdGF0ZSB+VkFMSURf
+RlMiKQo=
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-index b6ffea952b69f..831bf8cfc5bd1 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-@@ -127,7 +127,7 @@ &gpio2 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio2>;
- 	gpio-line-names = "", "", "", "", "", "", "", "", "", "", "", "",
--			  "SDIO_A_CD", "SDIO_A_CLK", "SDIO_A_CMD", "SDIO_A_D0",
-+			  "SDIO_A_CD#", "SDIO_A_CLK", "SDIO_A_CMD", "SDIO_A_D0",
- 			  "SDIO_A_D1", "SDIO_A_D2", "SDIO_A_D3", "CAN_ADDR2",
- 			  "CAN_ADDR3";
- };
-@@ -139,13 +139,13 @@ &gpio2 {
-  *   GPIO_B_1      -> IO_EXP_RST
-  */
- &gpio3 {
--	gpio-line-names = "PCIE_WAKE", "TFT_STBY", "PCIE_A_PERST", "SDIO_B_D5",
-+	gpio-line-names = "PCIe_WAKE#", "TFT_STBY", "PCIe_A_PERST#", "SDIO_B_D5",
- 			  "SDIO_B_D6", "SDIO_B_D7", "UART_B_RX", "I2S_LRCLK",
- 			  "UART_B_RTS", "UART_B_CTS", "SDIO_B_D0", "SDIO_B_D1",
- 			  "SDIO_B_D2", "SDIO_B_D3", "SDIO_B_WP", "SDIO_B_D4",
--			  "PCIE_SM_ALERT", "SDIO_B_CLK", "SDIO_B_CMD", "IO_EXP_INT",
--			  "IO_EXP_RST", "", "BOOT_SEL0", "BOOT_SEL1",
--			  "", "", "SDIO_B_CD", "SDIO_B_PWR_EN",
-+			  "PCIe_SM_ALERT#", "SDIO_B_CLK", "SDIO_B_CMD", "IO_EXP_INT",
-+			  "IO_EXP_RST", "", "BOOT_SEL0#", "BOOT_SEL1#",
-+			  "", "", "SDIO_B_CD#", "SDIO_B_PWR_EN",
- 			  "HDMI_CEC", "HDMI_HPD";
- };
- 
-@@ -157,10 +157,14 @@ &gpio3 {
-  */
- &gpio4 {
- 	gpio-line-names = "", "", "", "",
--			  "ETH_A_MDC", "ETH_A_MDIO", "ETH_A_RXD0", "ETH_A_RXD1",
--			  "ETH_A_RXD2", "ETH_A_RXD3", "ETH_A_RX_DV", "ETH_A_RX_CLK",
--			  "ETH_A_TXD0", "ETH_A_TXD1", "ETH_A_TXD2", "ETH_A_TXD3",
--			  "ETH_A_TX_EN", "ETH_A_TX_CLK", "CSI_ENABLE", "",
-+			  "ETH_MDC", "ETH_MDIO",
-+			  "ETH_A_(S)(R)(G)MII_RXD0", "ETH_A_(S)(R)(G)MII_RXD1",
-+			  "ETH_A_(R)(G)MII_RXD2", "ETH_A_(R)(G)MII_RXD3",
-+			  "ETH_A_(R)(G)MII_RX_DV(_ER)", "ETH_A_(R)(G)MII_RX_CLK",
-+			  "ETH_A_(S)(R)(G)MII_TXD0", "ETH_A_(S)(R)(G)MII_TXD1",
-+			  "ETH_A_(S)(R)(G)MII_TXD2", "ETH_A_(S)(R)(G)MII_TXD3",
-+			  "ETH_A_(R)(G)MII_TX_EN(_ER)", "ETH_A_(R)(G)MII_TX_CLK",
-+			  "CSI_ENABLE", "",
- 			  "USB_HUB_RST", "TFT_RESET", "CAN_A_TX", "UART_A_CTS",
- 			  "UART_A_RTS", "CAN_A_RX", "CAN_B_TX", "CAN_B_RX",
- 			  "I2S_B_DATA_IN", "CARRIER_PWR_EN", "I2S_A_DATA_IN", "I2S_B_DATA_OUT";
-@@ -168,20 +172,21 @@ &gpio4 {
- 
- /*
-  * Rename SoM signals according to board usage:
-- *   SPI_A_SDI	-> CAN_ADDR0
-- *   SPI_A_SDO	-> CAN_ADDR1
-+ *   SPI_A_SDI_(IO0) -> CAN_ADDR0
-+ *   SPI_A_SDO_(IO1) -> CAN_ADDR1
-  */
- &gpio5 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio5>;
- 	gpio-line-names = "I2S_BITCLK", "I2S_A_DATA_OUT", "I2S_MCLK", "VCC_PANEL_EN",
- 			  "PWM_1", "PWM_0", "SPI_A_SCK", "CAN_ADDR1",
--			  "CAN_ADDR0", "SPI_A_CS0", "SPI_B_SCK", "SPI_B_SDO",
--			  "SPI_B_SDI", "SPI_B_CS0", "I2C_A_SCL", "I2C_A_SDA",
--			  "I2C_B_SCL", "I2C_B_SDA", "PCIE_SMCLK", "PCIE_SMDAT",
--			  "I2C_CAM_SCL", "I2C_CAM_SDA", "UART_A_RX", "UART_A_TX",
-+			  "CAN_ADDR0", "SPI_A_CS0#", "SPI_B_SCK", "SPI_B_SDO",
-+			  "SPI_B_SDI", "SPI_B_CS0#", "I2C_A_SCL", "I2C_A_SDA",
-+			  "I2C_B_SCL", "I2C_B_SDA", "PCIe_SMCLK", "PCIe_SMDAT",
-+			  "I2C_CAM_SCL/CSI_TX_P", "I2C_CAM_SDA/CSI_TX_N",
-+			  "UART_A_RX", "UART_A_TX",
- 			  "UART_C_RX", "UART_C_TX", "UART_CON_RX", "UART_CON_TX",
--			  "PCIe_CLKREQ", "UART_B_TX";
-+			  "PCIe_CLKREQ#", "UART_B_TX";
- };
- 
- &hdmi_pvi {
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
-index 3c183ab573bed..3459ee2c0eb64 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
-@@ -141,16 +141,19 @@ &gpio1 {
- 	gpio-line-names = "GPIO_A_0", "GPIO_A_1", "", "",
- 			  "", "GPIO_A_2", "GPIO_A_3", "GPIO_A_4",
- 			  "GPIO_A_5", "USB_B_EN", "USB_A_ID", "USB_B_ID",
--			  "USB_A_EN", "USB_A_OC","CAM_MCK", "USB_B_OC",
--			  "ETH_B_MDC", "ETH_B_MDIO", "ETH_B_TXD3", "ETH_B_TXD2",
--			  "ETH_B_TXD1", "ETH_B_TXD0", "ETH_B_TX_EN", "ETH_B_TX_CLK",
--			  "ETH_B_RX_DV", "ETH_B_RX_CLK", "ETH_B_RXD0", "ETH_B_RXD1",
--			  "ETH_B_RXD2", "ETH_B_RXD3";
-+			  "USB_A_EN", "USB_A_OC#","CAM_MCK", "USB_B_OC#",
-+			  "ETH_B_MDC", "ETH_B_MDIO",
-+			  "ETH_B_(S)(R)(G)MII_TXD3", "ETH_B_(S)(R)(G)MII_TXD2",
-+			  "ETH_B_(S)(R)(G)MII_TXD1", "ETH_B_(S)(R)(G)MII_TXD0",
-+			  "ETH_B_(R)(G)MII_TX_EN(_ER)", "ETH_B_(R)(G)MII_TX_CLK",
-+			  "ETH_B_(R)(G)MII_RX_DV(_ER)", "ETH_B_(R)(G)MII_RX_CLK",
-+			  "ETH_B_(S)(R)(G)MII_RXD0", "ETH_B_(S)(R)(G)MII_RXD1",
-+			  "ETH_B_(R)(G)MII_RXD2", "ETH_B_(R)(G)MII_RXD3";
- };
- 
- &gpio2 {
- 	gpio-line-names = "", "", "", "", "", "", "", "", "", "", "", "",
--			  "SDIO_A_CD", "SDIO_A_CLK", "SDIO_A_CMD", "SDIO_A_D0",
-+			  "SDIO_A_CD#", "SDIO_A_CLK", "SDIO_A_CMD", "SDIO_A_D0",
- 			  "SDIO_A_D1", "SDIO_A_D2", "SDIO_A_D3", "SDIO_A_PWR_EN",
- 			  "SDIO_A_WP";
- };
-@@ -158,13 +161,13 @@ &gpio2 {
- &gpio3 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio3>;
--	gpio-line-names = "PCIE_WAKE", "GPIO_A_7", "PCIE_A_PERST", "SDIO_B_D5",
-+	gpio-line-names = "PCIe_WAKE#", "GPIO_A_7", "PCIe_A_PERST#", "SDIO_B_D5",
- 			  "SDIO_B_D6", "SDIO_B_D7", "UART_B_RX", "I2S_LRCLK",
- 			  "UART_B_RTS", "UART_B_CTS", "SDIO_B_D0", "SDIO_B_D1",
- 			  "SDIO_B_D2", "SDIO_B_D3", "SDIO_B_WP", "SDIO_B_D4",
--			  "PCIE_SM_ALERT", "SDIO_B_CLK", "SDIO_B_CMD", "GPIO_B_0",
--			  "GPIO_B_1", "", "BOOT_SEL0", "BOOT_SEL1",
--			  "", "", "SDIO_B_CD", "SDIO_B_PWR_EN",
-+			  "PCIe_SM_ALERT#", "SDIO_B_CLK", "SDIO_B_CMD", "GPIO_B_0",
-+			  "GPIO_B_1", "", "BOOT_SEL0#", "BOOT_SEL1#",
-+			  "", "", "SDIO_B_CD#", "SDIO_B_PWR_EN",
- 			  "HDMI_CEC", "HDMI_HPD";
- };
- 
-@@ -172,10 +175,14 @@ &gpio4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio4>;
- 	gpio-line-names = "GPIO_B_5", "GPIO_B_6", "GPIO_B_7", "GPIO_C_0",
--			  "ETH_A_MDC", "ETH_A_MDIO", "ETH_A_RXD0", "ETH_A_RXD1",
--			  "ETH_A_RXD2", "ETH_A_RXD3", "ETH_A_RX_DV", "ETH_A_RX_CLK",
--			  "ETH_A_TXD0", "ETH_A_TXD1", "ETH_A_TXD2", "ETH_A_TXD3",
--			  "ETH_A_TX_EN", "ETH_A_TX_CLK", "GPIO_B_3", "GPIO_B_4",
-+			  "ETH_MDC", "ETH_MDIO",
-+			  "ETH_A_(S)(R)(G)MII_RXD0", "ETH_A_(S)(R)(G)MII_RXD1",
-+			  "ETH_A_(R)(G)MII_RXD2", "ETH_A_(R)(G)MII_RXD3",
-+			  "ETH_A_(R)(G)MII_RX_DV(_ER)", "ETH_A_(R)(G)MII_RX_CLK",
-+			  "ETH_A_(S)(R)(G)MII_TXD0", "ETH_A_(S)(R)(G)MII_TXD1",
-+			  "ETH_A_(S)(R)(G)MII_TXD2", "ETH_A_(S)(R)(G)MII_TXD3",
-+			  "ETH_A_(R)(G)MII_TX_EN(_ER)", "ETH_A_(R)(G)MII_TX_CLK",
-+			  "GPIO_B_3", "GPIO_B_4",
- 			  "GPIO_B_2", "GPIO_A_6", "CAN_A_TX", "UART_A_CTS",
- 			  "UART_A_RTS", "CAN_A_RX", "CAN_B_TX", "CAN_B_RX",
- 			  "I2S_B_DATA_IN", "CARRIER_PWR_EN", "I2S_A_DATA_IN", "I2S_B_DATA_OUT";
-@@ -183,13 +190,14 @@ &gpio4 {
- 
- &gpio5 {
- 	gpio-line-names = "I2S_BITCLK", "I2S_A_DATA_OUT", "I2S_MCLK", "PWM_2",
--			  "PWM_1", "PWM_0", "SPI_A_SCK", "SPI_A_SDO",
--			  "SPI_A_SDI", "SPI_A_CS0", "SPI_B_SCK", "SPI_B_SDO",
--			  "SPI_B_SDI", "SPI_B_CS0", "I2C_A_SCL", "I2C_A_SDA",
--			  "I2C_B_SCL", "I2C_B_SDA", "PCIE_SMCLK", "PCIE_SMDAT",
--			  "I2C_CAM_SCL", "I2C_CAM_SDA", "UART_A_RX", "UART_A_TX",
-+			  "PWM_1", "PWM_0", "SPI_A_SCK", "SPI_A_SDO_(IO1)",
-+			  "SPI_A_SDI_(IO0)", "SPI_A_CS0#", "SPI_B_SCK", "SPI_B_SDO",
-+			  "SPI_B_SDI", "SPI_B_CS0#", "I2C_A_SCL", "I2C_A_SDA",
-+			  "I2C_B_SCL", "I2C_B_SDA", "PCIe_SMCLK", "PCIe_SMDAT",
-+			  "I2C_CAM_SCL/CSI_TX_P", "I2C_CAM_SDA/CSI_TX_N",
-+			  "UART_A_RX", "UART_A_TX",
- 			  "UART_C_RX", "UART_C_TX", "UART_CON_RX", "UART_CON_TX",
--			  "PCIe_CLKREQ", "UART_B_TX";
-+			  "PCIe_CLKREQ#", "UART_B_TX";
- };
- 
- &i2c1 { /* OSM-S I2C_A */
-@@ -623,7 +631,7 @@ pinctrl_pcie: pciegrp {
- 			MX8MP_IOMUXC_UART4_RXD__PCIE_CLKREQ_B		0x19 /* PCIe_CLKREQ# */
- 			MX8MP_IOMUXC_NAND_CE1_B__GPIO3_IO02		0x19 /* PCIe_A_PERST# */
- 			MX8MP_IOMUXC_NAND_ALE__GPIO3_IO00		0x19 /* PCIe_WAKE# */
--			MX8MP_IOMUXC_NAND_READY_B__GPIO3_IO16		0x19 /* PCIe_SM_ALERT */
-+			MX8MP_IOMUXC_NAND_READY_B__GPIO3_IO16		0x19 /* PCIe_SM_ALERT# */
- 		>;
- 	};
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi
-index d63c10b9b3d72..a88883e847457 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi
-@@ -82,22 +82,25 @@ ethphy0: ethernet-phy@1 {
-  *   GPIO_A_5 -> GPIO3
-  *   USB_B_EN -> n.a.
-  *   USB_B_ID -> n.a.
-- *   USB_B_OC -> n.a.
-+ *   USB_B_OC# -> n.a.
-  */
- &gpio1 {
- 	gpio-line-names = "GPIO_A_0", "GPIO_A_1", "", "",
- 			  "", "GPIO0", "GPIO1", "GPIO2",
- 			  "GPIO3", "", "USB_A_ID", "",
--			  "USB_A_EN", "USB_A_OC","CAM_MCK", "",
--			  "ETH_B_MDC", "ETH_B_MDIO", "ETH_B_TXD3", "ETH_B_TXD2",
--			  "ETH_B_TXD1", "ETH_B_TXD0", "ETH_B_TX_EN", "ETH_B_TX_CLK",
--			  "ETH_B_RX_DV", "ETH_B_RX_CLK", "ETH_B_RXD0", "ETH_B_RXD1",
--			  "ETH_B_RXD2", "ETH_B_RXD3";
-+			  "USB_A_EN", "USB_A_OC#", "CAM_MCK", "",
-+			  "ETH_B_MDC", "ETH_B_MDIO",
-+			  "ETH_B_(S)(R)(G)MII_TXD3", "ETH_B_(S)(R)(G)MII_TXD2",
-+			  "ETH_B_(S)(R)(G)MII_TXD1", "ETH_B_(S)(R)(G)MII_TXD0",
-+			  "ETH_B_(R)(G)MII_TX_EN(_ER)", "ETH_B_(R)(G)MII_TX_CLK",
-+			  "ETH_B_(R)(G)MII_RX_DV(_ER)", "ETH_B_(R)(G)MII_RX_CLK",
-+			  "ETH_B_(S)(R)(G)MII_RXD0", "ETH_B_(S)(R)(G)MII_RXD1",
-+			  "ETH_B_(R)(G)MII_RXD2", "ETH_B_(R)(G)MII_RXD3";
- };
- 
- /*
-  * Rename SoM signals according to SMARC module usage:
-- *   SDIO_A_CD -> SDIO_CD
-+ *   SDIO_A_CD# -> SDIO_CD
-  *   SDIO_A_CLK -> SDIO_CK
-  *   SDIO_A_CMD -> SDIO_CMD
-  *   SDIO_A_D0 -> SDIO_D0
-@@ -117,7 +120,7 @@ &gpio2 {
- /*
-  * Rename SoM signals according to SMARC module usage:
-  *   GPIO_A_7 -> TEST
-- *   PCIE_A_PERST -> PCIE_A_RST
-+ *   PCIe_A_PERST# -> PCIE_A_RST
-  *   SDIO_B_D5 -> n.a.
-  *   SDIO_B_D6 -> n.a.
-  *   SDIO_B_D7 -> n.a.
-@@ -131,20 +134,21 @@ &gpio2 {
-  *   SDIO_B_D3 -> GPIO11
-  *   SDIO_B_WP -> n.a.
-  *   SDIO_B_D4 -> n.a.
-- *   PCIE_SM_ALERT -> SMB_ALERT
-+ *   PCIe_SM_ALERT# -> SMB_ALERT
-  *   SDIO_B_CLK -> GPIO6
-  *   SDIO_B_CMD -> GPIO7
-  *   GPIO_B_0 -> LCD0_BKLT_EN
-  *   GPIO_B_1 -> LCD1_BKLT_EN
-- *   BOOT_SEL0 -> BOOT_SEL2
-- *   SDIO_B_CD -> n.a.
-+ *   BOOT_SEL0# -> BOOT_SEL2
-+ *   BOOT_SEL1# -> BOOT_SEL1
-+ *   SDIO_B_CD# -> n.a.
-  *   SDIO_B_PWR_EN -> n.a.
-  *   HDMI_CEC -> n.a.
-  *   SDIO_B_PWR_EN -> n.a.
-  */
- &gpio3 {
- 	pinctrl-0 = <&pinctrl_gpio3>, <&pinctrl_gpio3_smarc>;
--	gpio-line-names = "PCIE_WAKE", "TEST", "PCIE_A_RST", "",
-+	gpio-line-names = "PCIe_WAKE#", "TEST", "PCIE_A_RST", "",
- 			  "", "", "SER2_RX", "I2S0_LRCK",
- 			  "SER2_RTS", "SER2_CTS", "GPIO8", "GPIO9",
- 			  "GPIO10", "GPIO11", "", "",
-@@ -176,10 +180,14 @@ &gpio3 {
-  */
- &gpio4 {
- 	gpio-line-names = "", "", "", "LED",
--			  "ETH_A_MDC", "ETH_A_MDIO", "ETH_A_RXD0", "ETH_A_RXD1",
--			  "ETH_A_RXD2", "ETH_A_RXD3", "ETH_A_RX_DV", "ETH_A_RX_CLK",
--			  "ETH_A_TXD0", "ETH_A_TXD1", "ETH_A_TXD2", "ETH_A_TXD3",
--			  "ETH_A_TX_EN", "ETH_A_TX_CLK", "ETH2_INT", "USB_HUB_RST",
-+			  "ETH_MDC", "ETH_MDIO",
-+			  "ETH_A_(S)(R)(G)MII_RXD0", "ETH_A_(S)(R)(G)MII_RXD1",
-+			  "ETH_A_(R)(G)MII_RXD2", "ETH_A_(R)(G)MII_RXD3",
-+			  "ETH_A_(R)(G)MII_RX_DV(_ER)", "ETH_A_(R)(G)MII_RX_CLK",
-+			  "ETH_A_(S)(R)(G)MII_TXD0", "ETH_A_(S)(R)(G)MII_TXD1",
-+			  "ETH_A_(S)(R)(G)MII_TXD2", "ETH_A_(S)(R)(G)MII_TXD3",
-+			  "ETH_A_(R)(G)MII_TX_EN(_ER)", "ETH_A_(R)(G)MII_TX_CLK",
-+			  "ETH2_INT", "USB_HUB_RST",
- 			  "ETH1_INT", "GPIO4", "CAN0_TX", "SER0_CTS",
- 			  "SER0_RTS", "CAN0_RX", "CAN1_TX", "CAN1_RX",
- 			  "", "CARRIER_PWR_EN", "I2S0_SDIN", "";
-@@ -194,28 +202,28 @@ &gpio4 {
-  *   PWM_1 -> LCD1_BKLT_PWM
-  *   PWM_0 -> LCD0_BKLT_PWM
-  *   SPI_A_SCK -> SPI0_CK
-- *   SPI_A_SDO -> SPI0_DO
-- *   SPI_A_SDI -> SPI0_DIN
-- *   SPI_A_CS0 -> SPI0_CS0
-+ *   SPI_A_SDO_(IO1) -> SPI0_DO
-+ *   SPI_A_SDI_(IO0) -> SPI0_DIN
-+ *   SPI_A_CS0# -> SPI0_CS0
-  *   SPI_B_SCK -> ESPI_CK
-  *   SPI_B_SDO -> ESPI_IO_0
-  *   SPI_B_SDI -> ESPI_IO_1
-- *   SPI_B_CS0 -> ESPI_CS0
-+ *   SPI_B_CS0# -> ESPI_CS0
-  *   I2C_A_SCL -> I2C_PM_CK
-  *   I2C_A_SDA -> I2C_PM_DAT
-  *   I2C_B_SCL -> I2C_GP_CK
-  *   I2C_B_SDA -> I2C_GP_DAT
-- *   PCIE_SMCLK -> HDMI_CTRL_CK
-- *   PCIE_SMDAT -> HDMI_CTRL_DAT
-- *   I2C_CAM_SCL -> I2C_CAM1_CK
-- *   I2C_CAM_SDA -> I2C_CAM1_DAT
-+ *   PCIe_SMCLK -> HDMI_CTRL_CK
-+ *   PCIe_SMDAT -> HDMI_CTRL_DAT
-+ *   I2C_CAM_SCL/CSI_TX_P -> I2C_CAM1_CK
-+ *   I2C_CAM_SDA/CSI_TX_N -> I2C_CAM1_DAT
-  *   UART_A_RX -> SER0_RX
-  *   UART_A_TX -> SER0_TX
-  *   UART_C_RX -> SER3_RX
-  *   UART_C_TX -> SER3_TX
-  *   UART_CON_RX -> SER1_RX
-  *   UART_CON_TX -> SER1_TX
-- *   PCIe_CLKREQ -> PCIE_A_CKREQ
-+ *   PCIe_CLKREQ# -> PCIE_A_CKREQ
-  *   UART_B_TX -> SER2_TX
-  */
- &gpio5 {
+--===============1862422436374644438==
+Content-Type: text/x-shellscript
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="run_f5.sh"
 
--- 
-2.55.0
+IyEvYmluL2Jhc2gKIyBGNSByZXBybzogZ2VuZXJhdGUgaW1hZ2UsIG1vdW50IHJ3IG9uY2UsIG9i
+c2VydmUgdGhlIHNpbGVudCB0cnVuY2F0aW9uLgojIFJ1biBhcyByb290IG9uIGFueSBMaW51eCB3
+aXRoIGUyZnNwcm9ncyArIHB5dGhvbjMuIE5PVCBmb3IgcHJvZHVjdGlvbgojIG1hY2hpbmVzIChp
+dCBtb3VudHMgYSBkZWxpYmVyYXRlbHkgY29ycnVwdGVkIGZpbGVzeXN0ZW0pLgpzZXQgLWUKY2Qg
+IiQoZGlybmFtZSAiJDAiKSIKcHl0aG9uMyBjcmFmdF9mNS5weSBmNS5pbWcKCmxvc2V0dXAgLWQg
+L2Rldi9sb29wOSAyPi9kZXYvbnVsbCB8fCB0cnVlCm1rZGlyIC1wIC9tbnQvdApsb3NldHVwIC9k
+ZXYvbG9vcDkgZjUuaW1nCmRtZXNnIC1DIDI+L2Rldi9udWxsIHx8IHRydWUKbW91bnQgLXQgZXh0
+NCAtbyBydyAvZGV2L2xvb3A5IC9tbnQvdAoKZWNobyAiZmlsZTEgYWZ0ZXIgbW91bnQ6IgpzdGF0
+IC1jICIgIHNpemU9JXMgbmxpbms9JWgiIC9tbnQvdC9maWxlMQplY2hvICIoZXhwZWN0ZWQ6IHNp
+emU9NDA5NiBubGluaz0xOyBjcmFmdGVkIGRhdGEgd2FzIDgxOTIg4oCUIGhhbGYgZGVzdHJveWVk
+KSIKCnVtb3VudCAvbW50L3QKbG9zZXR1cCAtZCAvZGV2L2xvb3A5IHx8IHRydWUKCmVjaG8gIi0t
+LSBrZXJuZWwgbG9nIGZvciB0aGlzIG1vdW50IC0tLSIKZG1lc2cgfCBncmVwIC1FICJ0cnVuY2F0
+ZSBjbGVhbmVkfEVYVDQtZnMiIHwgdGFpbCAtNAplY2hvCmRtZXNnIHwgZ3JlcCAtcSAidHJ1bmNh
+dGUgY2xlYW5lZCIgXAoJJiYgZWNobyAiUkVQUk9EVUNFRDogbGl2ZSBmaWxlIHRydW5jYXRlZCBh
+dCBtb3VudCAoc2lsZW50IHJlY292ZXJ5IGxpbmUpIiBcCgl8fCBlY2hvICJub3QgcmVwcm9kdWNl
+ZCB0aGlzIHJ1biIK
+
+--===============1862422436374644438==
+Content-Type: application/x-xz
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="f5.img.xz"
+
+/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM7///AkJdAABv/f//o7d/aqdSmpJgJdwMnMxRI+w1ENFk
+DWEtVuQJYUR8SnH+K06obTrKo3NolqAk5A6TpeQexoKOpw/mToJXk+XHgxDXFB8kQ4bCDAeMZI1a
+63FhMs6Gpqnr+MrtQggifU7vxRXz5DOlnbWtBF0/GC6fZ5FTkWyg5JtzffYnuWiyal0phYrvWSj8
+dLygfMNEy2nGgQLKuOL3UueemC1uSh3j7wcTE3uQ791iisUkEUNSaGHW5cuRVOk1qzJZsMLdRVTc
+bWUUK57QwSlOPu1STjAmekhkSWN7XCP2W2mDUrUa47C8I356AsIWnJ0lXuCyf+UqFD73vrFx/UNr
+fSR64IXCbrjcJrdJvexOJPOfvyZ8A9PQqRPYIGLmnfJRMoX02z1c5Oh+1oCCwLr1JlGx6HsQSAU4
+biIZ6SwTISAFnPJ/Y3yAqPkI3cyzphX5McD4PVRhZQm5FbsAY3y+BsdFCEtPcuj4+a8YffGajm7x
+F+H9mlC2xzj3/mXGiqPjQLUvSF9w25GWzT4q/zDJpSm5q5P3txrw/sKiFOsoBoq7ch5tjwfCxmdu
+dOP+/qy40tntk93ThShWRCIEDYLAccZ3XBEkGN/3NQE3YPZiVoKkP+3OsScYXFmG6WZSWL7pdqxZ
+5OVbBQj5x9qt/PtSK3TNHlsgQvndUz34KWQJO4DLKmzftTvwxL0uX6oPPktmQpATDv8Qk/hxeFn4
+C83/lShGD6n8fN77mjAuVsCPhfODgcBlxCVT+PWRNjEFpZcJErXLAAAALUIM/1oZ8pAAAd4EgIBA
+APzt9OKxxGf7AgAAAAAEWVo=
+
+--===============1862422436374644438==
+Content-Type: text/plain
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="f5_dmesg.log"
+
+IyBGNSBldmlkZW5jZTogdGhyZWUgZnJlc2gtaW1hZ2UgaXRlcmF0aW9ucywgZ3Vlc3Qga2VybmVs
+IDcuMy4wLXJjNQojIChmcm9tIGY1X3ZlcmlmeV8zeC5zaDsgZWFjaCBpdGVyYXRpb24gPSBuZXds
+eSBjcmFmdGVkIGltYWdlLCBvbmUgcncgbW91bnQpCiMKIyBpdGVyYXRpb24gMQpzaXplPTQwOTYg
+bmxpbms9MSAgICAgICAgICAgICAgICAgICAgICAgPC0gL2ZpbGUxIGFmdGVyIG1vdW50ICh3YXMg
+ODE5MikKWzEyNjYxLjkxNDU3OV0gRVhUNC1mcyAobG9vcDkpOiB3YXJuaW5nOiBtb3VudGluZyB1
+bmNoZWNrZWQgZnMsIHJ1bm5pbmcgZTJmc2NrIGlzIHJlY29tbWVuZGVkClsxMjY2MS45MTcxNjRd
+IEVYVDQtZnMgKGxvb3A5KTogMSB0cnVuY2F0ZSBjbGVhbmVkIHVwClsxMjY2MS45MTc0MzRdIEVY
+VDQtZnMgKGxvb3A5KTogbW91bnRlZCBmaWxlc3lzdGVtIGFkYWJhYzM5LTVkMzItNDNkNS04Mzky
+LTdmY2JiMGNhOWY3NSByL3cgd2l0aG91dCBqb3VybmFsLiBRdW90YSBtb2RlOiBub25lLgojCiMg
+aXRlcmF0aW9uIDIKc2l6ZT00MDk2IG5saW5rPTEKWzEyNjYyLjYxNDI5NV0gRVhUNC1mcyAobG9v
+cDkpOiAxIHRydW5jYXRlIGNsZWFuZWQgdXAKWzEyNjYyLjYxNDY2MV0gRVhUNC1mcyAobG9vcDkp
+OiBtb3VudGVkIGZpbGVzeXN0ZW0gNmRiNjFjMGEtNjE3MS00ZjM5LTk2OWItMzkwZWQwYTlmMmQy
+IHIvdyB3aXRob3V0IGpvdXJuYWwuIFF1b3RhIG1vZGU6IG5vbmUuCiMKIyBpdGVyYXRpb24gMwpz
+aXplPTQwOTYgbmxpbms9MQpbMTI2NjMuNjUwOTU4XSBFWFQ0LWZzIChsb29wOSk6IDEgdHJ1bmNh
+dGUgY2xlYW5lZCB1cApbMTI2NjMuNjUxMzc2XSBFWFQ0LWZzIChsb29wOSk6IG1vdW50ZWQgZmls
+ZXN5c3RlbSA4NDEyNTFkOS0zNjY1LTQzYzItOTE4Ny0wZDlkODMyZjZiOGYgci93IHdpdGhvdXQg
+am91cm5hbC4gUXVvdGEgbW9kZTogbm9uZS4KIwojIE5PVEU6IHRoZSBPTkxZIGFub21hbHktaW5k
+aWNhdGluZyBsaW5lIGlzIHRoZSByb3V0aW5lIHJlY292ZXJ5IG1lc3NhZ2UKIyAiMSB0cnVuY2F0
+ZSBjbGVhbmVkIHVwIiDigJQgaWRlbnRpY2FsIHRvIGxlZ2l0aW1hdGUgY3Jhc2ggcmVjb3Zlcnkg
+b3V0cHV0Lgo=
+
+--===============1862422436374644438==
+Content-Type: text/plain
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="README"
+
+IyBGNSBtaW5pbWFsIHJlcHJvZHVjZXIg4oCUIGV4dDQgbW91bnQtdGltZSBvcnBoYW4gcmVjb3Zl
+cnkgc2lsZW50bHkgdHJ1bmNhdGVzIGEgTElWRSBmaWxlCgpUYXJnZXQ6IExpbnV4IDcuMy4wLXJj
+NSB4ODZfNjQgKCtLQVNBTjsgdGhlIG9ycGhhbi1yZWNvdmVyeSBsb2dpYyBpcwpsb25nc3RhbmRp
+bmcgbWFpbmxpbmUpLiBEZXRlcm1pbmlzdGljIDMvMy4KCiMjIENvbnRlbnRzCgp8IGZpbGUgfCBy
+b2xlIHwKfC0tLXwtLS18CnwgYGNyYWZ0X2Y1LnB5YCB8IHNlbGYtY29udGFpbmVkIGdlbmVyYXRv
+ciAoZGQgKyBta2UyZnMgKyBkZWJ1Z2ZzICsgNCBlZGl0czsgZTJmc3Byb2dzIG9ubHkpIHwKfCBg
+ZjUuaW1nLnh6YCB8IHByZS1iYWtlZCBjcmFmdGVkIGltYWdlICg2NDQgYnl0ZXMgY29tcHJlc3Nl
+ZCkgfAp8IGBmNV9kbWVzZy5sb2dgIHwgZXZpZGVuY2U6IHRoZSBPTkxZIGtlcm5lbCBvdXRwdXQg
+aXMgdGhlIHJvdXRpbmUgbGluZSB8CnwgKGVtYWlsLnR4dCwgU0VORF9DSEVDS0xJU1QubWQgbGl2
+ZSBvbmUgZGlyZWN0b3J5IHVwKSB8IHwKCiMjIFJ1bgoKYGBgYmFzaApweXRob24zIGNyYWZ0X2Y1
+LnB5IGY1LmltZwpsb3NldHVwIC9kZXYvbG9vcDkgZjUuaW1nICYmIG1rZGlyIC1wIC9tbnQvdApt
+b3VudCAtdCBleHQ0IC1vIHJ3IC9kZXYvbG9vcDkgL21udC90CnN0YXQgLWMgInNpemU9JXMgbmxp
+bms9JWgiIC9tbnQvdC9maWxlMSAgICAgIyAtPiBzaXplPTQwOTYgbmxpbms9MSAod2FzIDgxOTIp
+CmRtZXNnIHwgdGFpbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyAtPiAiMSB0cnVu
+Y2F0ZSBjbGVhbmVkIHVwIiBvbmx5CmBgYAoKT25lIG1vdW50IHBlciBpbWFnZSBjb3B5OiByZWFs
+IHJlY292ZXJ5IChhbmQgdGhpcyB0cmlnZ2VyKSBjbGVhcnMKc19sYXN0X29ycGhhbiwgc28gcmUt
+bW91bnRpbmcgYSBjb25zdW1lZCBpbWFnZSBpcyBjbGVhbiDigJQgc2FtZSBhcyBnZW51aW5lCmNy
+YXNoIHJlY292ZXJ5IGJlaGF2aW9yLgoKIyMgVGhlIGZvdXIgZWRpdHMgKGFsbCBpbmRpdmlkdWFs
+bHkgdmFsaWQsIG11dHVhbGx5IGx5aW5nKQoKMS4gYHNfbGFzdF9vcnBoYW5gIChzYisweEU4KSA6
+PSBsaXZlIC9maWxlMSBpbm9kZSAoMTMpCjIuIC9maWxlMSBgaV9kdGltZWAgOj0gMAozLiBgc19z
+dGF0ZWAgJj0gfkVYVDRfVkFMSURfRlMKNC4gL2ZpbGUxIGBpX3NpemVgIDo9IDQwOTYgKHJlYWwg
+ZGF0YSA4MTkyKQoKIyMgV2h5IGFjY2VwdGVkICg3LjMtcmM1LCBmcy9leHQ0L2lhbGxvYy5jIGV4
+dDRfb3JwaGFuX2dldCkKCi0gY29tbWVudDogdHJ1bmNhdGUtaW4tZmxpZ2h0IG9ycGhhbnMgYXJl
+IGxlZ2FsIHdpdGggbmxpbms+MCwgc28KICBgaV9ubGluaz09MGAgaXMgZGVsaWJlcmF0ZWx5IE5P
+VCBjaGVja2VkOwotIHRoZSBvbmx5IG5saW5rIGd1YXJkIGlzIGAoaV9ubGluayAmJiAhZXh0NF9j
+YW5fdHJ1bmNhdGUoKSlgIOKAlCBhIG5vcm1hbAogIHJlZ3VsYXIgZmlsZSBwYXNzZXM7Ci0gImJp
+dG1hcCBiaXQgPSAxMDAlIHZhbGlkIG9ycGhhbiIgYXNzdW1wdGlvbiBob2xkcyBvbmx5IGZvciB1
+bmNyYWZ0ZWQgaW1hZ2VzLgoKRWZmZWN0OiBrZXJuZWwtaW5pdGlhdGVkLCBjcm9zcy1maWxlLCB6
+ZXJvLXN5c2NhbGwgZGF0YSBkZXN0cnVjdGlvbjsgdGhlCmxvbmUgbG9nIGxpbmUgaXMgaW5kaXN0
+aW5ndWlzaGFibGUgZnJvbSBsZWdpdGltYXRlIHJlY292ZXJ5LiBTdWdnZXN0ZWQKZGlyZWN0aW9u
+cyBpbiB0aGUgZW1haWw6IGxvdWQgd2FybmluZyBvbiB0cnVuY2F0aW5nIGxpbmtlZCBpbm9kZXMs
+IG9yIGEKcGVyLW1vdW50IHN1bW1hcnkgb2YgbGlua2VkLWlub2RlIHRydW5jYXRpb25zLgo=
+
+--===============1862422436374644438==--
 
