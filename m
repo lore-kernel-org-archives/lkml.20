@@ -1,122 +1,147 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0896448F010
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56693472094
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:05:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871502; cv=none; b=ImpCZfM4uh3CE3qtqeF3kY+Wy4qMA6MQke9XxPXAbsMzYcTckHfHDGKs0NG2L6nBDTu6rfGWTBTwDl8KItXgXzdMwjoVaAuaqsCsnLzARcQeemL1RQ2F4wJQDYSAEiNGztPtMxuKsu7kfImEDg0u4ilAPCMcRKGKZz7ZFN9vSrQ=
+	t=1791871522; cv=none; b=Xynprp/tyNGXW0Av1eiWUfbAzNL5ACeHN8xKGiren2KwyF0q1dCPSQXuf3fRyErwzIQNgH/hPu2sMQDt4RICz/klAo2eAyH4Hz8nNYAIccqkzSeaJFSebMDrltbkk/x7833mhmjphZpxEmTWsX3sCEbSW6SYGNTqshkm6pmBU9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871502; c=relaxed/simple;
-	bh=viqZW+BW8+aUZcrv1Za0cw6q2eFNj4tmzZDo73Zko6A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nzs+a7JsJyu9U2BIu1L+Dn9wuywoGx0xMhWRLL5cED2f6kV8xMfuKIRG1GhR+6cTZZs8vHSK54hG6RMAaYgX4XcdffNG56vpZ9w4VZnQGam91cE0/VbkdE6HeXBZLgZ8tXVCfybH1Q2evRCGNUgXKitDdPngni1ie/DQq0/wejI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com; spf=pass smtp.mailfrom=tyhicks.com; dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b=r0b1Omdv; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DLfcmRBI; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
+	s=arc-20240116; t=1791871522; c=relaxed/simple;
+	bh=8smPzC6WPvtEwm+XZWJBwBTm5+97GG8lV9M0W09pETg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kBnn7yQz4kWXkd+KurI54Q+xI1XbQVo7HUOlXmcS4yw4/omaHrf0YiNTH+N3cW3iKXUkMqxL1K7/QN8Rf+3YSwnRgnQigfCBtQVwxOXHk/8FsctqxkROysxvXqNUiKyIiL8kzdALrxrNGhEYVfjq2D0u6SJUkRCtKgdjA1ZwmWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CILSu49C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b="r0b1Omdv";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DLfcmRBI"
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 29134140014F
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:05:00 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Tue, 13 Oct 2026 02:05:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1791871500; x=1791957900; bh=dJ3QQ/AUDN
-	q2K1mdApU4CdYI/tyF2gyK4GPNBRr2D+I=; b=r0b1Omdvshw70FM9bW4q1NXM7n
-	ZV9Rf0yZEf/B1me0Bn/mpdi2pAKsg2nguEhbxqhyVE42ECS6tQdYksG5VUf+Rdr1
-	/Vxeq4Y3uY095Q+GeSXhD3j8qqy6Lexa4WB7ZsIWtS7/IGa7ARdu5WuU59oNvxbA
-	UMqzbcScIi7t1YsSeuXv+TYRmGUalx5BF2MdH6X9qvGv1W4imA/GHoyPPb82Nrxo
-	4lGx5NiRND1XdySLDvYGbjQzWzAV7KJKLTm6cA24lSC00jbMg5m+CPzjVPa+DoDq
-	lDuTO3THpCQ76e4qN4Bpt+51T1LcYsPuoMlr8pzHTkPUkS1koCXO0cEDrgeg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791871500; x=1791957900; bh=dJ3QQ/AUDNq2K1mdApU4CdYI/tyF2gyK4GP
-	NBRr2D+I=; b=DLfcmRBII/ER5SSzDuxEgZGON3Ur/3klKDOEbu5XSEIXKYTMM7+
-	ggEQAuMx1m0KdIz+BNOCikv1YDI9DJYBaad9Km9W7xAhGzjR5a/H7tMyI0w3ofMb
-	+A0T0V5WtyKYS4T+Nn0AZ16E420I4jYx97f1AEXYqZf2cCpq4Qx0boMecAQ/FnKr
-	g2ECMUhFuxq+oNyoNjhAOzkqCbfNpVp01LF/4eGEQ/OIX4hCHleSSYpxKotC2iK7
-	Ew22nAcrQlkYTd1bXBt+gvvmGnKXhsqpm4wVtI+wJwJbWqOrthCU/Iq94gmYh+A5
-	5qKluQxgtcF/2du7PQFz2BHGEnOJAcsjHZg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=tyhicks.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791871500; d=tyhicks.com;
-	mf=PGNvZGVAdHloaWNrcy5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:EhwICGNI9Ry1ewRbfw+Z8i1/xNkcgBNX3XgItuYO82KR6Rr
-	ifdGviHu2T6WOPp/TMlwQcy/pu7m+G5dsBpbqD16D2C4yYTI5mzYueRLpC4rBaNj
-	6XCHoSf7QAOVN5Sd3791vIsU44Al0sVua8zz7nR/xr9pWzYMHoQae7Swrw5hLiNi
-	2i3MtSPWB6p2OrHrWD4ID6Ho9eOkxpR1skM8cYOcQ+MJ9vVKWKCYpk4AmAMMKMpe
-	njliKDCU4PomJZeHLMsNKLjQrLddnNJusO/oL4yfJlhABFQ6EMwcAlTjkmEfvwuc
-	GnqXuA6NC8mlZTnsvmLUIMTDsbZ7/mUIFfI9orA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:i79Wi+dJiKYvL8zgMZocEvLLxodKDNetc/3niFvZsOY=:viqZW+BW8+aUZcrv1Za0cw6q2eFNj4tmzZDo73Zko6A=;
-X-ME-Sender: <xms:DMrNau9YXI8msWj2ipb8BCKuCyz8i5SV0IoAabyTRbaNNiN4fzMOxA>
-    <xme:DMrNaqLlIo_8y70b20DnxagLclcJB9Pf5uDON1IOhO4Wn4vqP1eB-2yutsT7aXYCL
-    BjlDc6pYQpINmBONbKDOFNoofMfsiHNWvJWtM1swfuP0cMaxuiDxgOf>
-X-ME-Received: <xmr:DMrNanhlbgH4UuZLrqm9-NPUsksdNiEiLUpT_fClVkaEIomhSLmPcQ>
-X-ME-Proxy-Cause: dmFkZTElX5oqfZTkvmVbevczNiVRrdnFT+gNTWcM/SQ80Gtw0fKUZ0M8raayoaNOcjyBJR
-    75xk2Wk21Cg5gF8eb7d5jIcA/bcCdwLaBpdxj9RacezDOMpJwSr8FwTf5WJ1lpWo7g2Evz
-    aWM47vFgEsnR/NPO2rM1FO+mo8mhV+YMs0rzVuBicmw04Tzc7znMhxyRXJMmEKj9pD5DBU
-    W7cCxNRcHO+PDchRMw4FEeCWIdcMD9Lvkw6hajAEhTHVAXQwt6/ZZ1pMtrr+0M8HL8QKAn
-    qamhWr97T9WbPPFDfk/ADMoolskjbxwZtbm/xsDk8eSoEdLC0M0k05Gi2Oc/cfU8XPCmYY
-    wubG5hZRx0REZLdL3/Z489E8j2ci28mu9xU7staST0qztNpEXPau7FcG+svZCW8BXi8fjY
-    /Nlaa/FPSVMWFzlegZVyRgoRsmEmJaJSI0Is4RVbWq6ELxykHAp/T037RRdmF8uC1JEnyY
-    l8V+NfHPZ4yPokDcSkHbZfsIANDMr13TXITKFGQdz99pUultuO9mWdL1eVxvigoAZxOCKp
-    qiHPIEzkp+jSlByL/BAP/azGlWBK1+UJJIhpntFAt49nN7sd0fByWQj+Y4i2xm0a/2egPX
-    vmXYUj8hZ237SPTgGJts9D+iloRVjohwZHqw8E/ZgINcXnF2a5hVkqw9PhKw
-X-ME-Proxy: <xmx:DMrNaq7q94BqhFRAxCXpraVLhXpFJeVsAkT16oC0nf1NM9GA5sDbTg>
-    <xmx:DMrNavbS4YWR7TEuI27ImbCZPwSJ7w9qEKnYhvcqU1LznWzZGXqpZg>
-    <xmx:DMrNav4AGTknXWWSgC3zevvKbKZ_0_eR1xXhumvRf1-He_K0gD2y7A>
-    <xmx:DMrNaiBdxykTBGDqnW-35cmeRNNijo1YBtxn8XX4h0qlRlF4gJyE1A>
-    <xmx:DMrNausPqmr3UUI72IItuWYpfHB-1Tkr6O1F0aePFeKFR9co-3s8VjLX>
-Feedback-ID: i78e14604:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 02:04:59 -0400 (EDT)
-Date: Tue, 13 Oct 2026 01:04:58 -0500
-From: Tyler Hicks <code@tyhicks.com>
-To: syzbot <syzbot+dc50906b100ac7a1c34d@syzkaller.appspotmail.com>
-Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in
- ecryptfs_from_hex
-Message-ID: <as3KCmgfQJQnPIkK@elm>
-References: <6acb17ba.a150a118.27e199.0035.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CILSu49C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0A481F000FF;
+	Tue, 13 Oct 2026 06:05:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791871520;
+	bh=uScoy2H3OSHAs7yinIbTWsFjT1gxqmZ8XBt3nXP+ePo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CILSu49CFKyPD7iQRHyf2nkc0hv446jb6fM5JgkrcLDuyVP4wPJpEewks5ACDI40b
+	 bWG39LQNT7f1ahbM5GT2uVZqayLTyb5D9s3ydVGxWahL5EN/RQjK6vZiTUJMK1dPe3
+	 JKtyV1Or7p04s+TqJQc6sAnhTAIioLwAhYaPlmAlJao3ePWTg8seuyfUlGXwinclIf
+	 pd3UtUa862ZQQaqtej5oEVPHJLP2GVYaQyrXCuKKycPLiozzYuniAB6Yk5NOR2pJyG
+	 qBk9VLxw5c0Uny46j4ltiscp5nx1ucmkjFpNr/SCK28+oEdxeZ1A26mY8ukH/2lQVH
+	 rLybtMqLzxxzg==
+Message-ID: <1106b5dd-5453-46e4-90a4-7c7673cd4dd3@kernel.org>
+Date: Tue, 13 Oct 2026 08:05:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6acb17ba.a150a118.27e199.0035.GAE@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 3/6] dt-bindings: phy: realtek,usb2phy.yaml: extend for
+ resets and RTL9607C support
+To: Rustam Adilov <adilov@disroot.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Stanley Chang <stanley_chang@realtek.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+References: <20261012173739.36377-1-adilov@disroot.org>
+ <20261012173739.36377-4-adilov@disroot.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261012173739.36377-4-adilov@disroot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-10-10 21:59:38, syzbot wrote:
-> Hello,
+On 12/10/2026 19:37, Rustam Adilov wrote:
+> Add the "realtek,rtl9607-usb2phy" compatible for USB2 PHY on the RTL9607C
+> SoC series.
 > 
-> syzbot found the following issue on:
+> Add a resets property to properties to describe the usb2phy reset line.
 > 
-> HEAD commit:    a5ebb76233b7 Merge tag 'edac_urgent_for_v7.3_rc7' of git:/..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=15b396d1580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
-> dashboard link: https://syzkaller.appspot.com/bug?extid=dc50906b100ac7a1c34d
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=117119a9580000
+> In RTL9607C, USB2 PHY reset line is from "IP Enable controller" which is
+> multipurpose and handle activating various SoC peripherals.
 > 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+dc50906b100ac7a1c34d@syzkaller.appspotmail.com
+> It is unclear whether RTD SoCs have something similar to that so set
+> the resets to false for these devices.
+> 
+> RTL9607C requires the "resets" to be specified so add the corresponding
+> if check for the "realtek,rtl9607-usb2phy" compatible.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Signed-off-by: Rustam Adilov <adilov@disroot.org>
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/tyhicks/ecryptfs.git next
+Please use scripts/get_maintainers.pl to get a list of necessary people
+and lists to CC. It might happen, that command when run on an older
+kernel, gives you outdated entries. Therefore please be sure you base
+your patches on recent Linux kernel.
+
+Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+people, so fix your workflow. Tools might also fail if you work on some
+ancient tree (don't, instead use mainline) or work on fork of kernel
+(don't, instead use mainline). Just use b4 and everything should be
+fine, although remember about `b4 prep --auto-to-cc` if you added new
+patches to the patchset.
+
+You missed at least devicetree list (maybe more), so this won't be
+tested by automated tooling. Performing review on untested code might be
+a waste of time.
+
+Please kindly resend and include all necessary To/Cc entries.
+
+
+Please use subject prefixes matching the subsystem. You can get them for
+example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+your patch is touching. For bindings, the preferred subjects are
+explained here:
+https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+
+There is never "yaml" in any prefix. Don't come up with own style.
+
+
+Best regards,
+Krzysztof
