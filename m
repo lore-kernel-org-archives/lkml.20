@@ -1,119 +1,138 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C583D9DDB
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1CE3E2AD8;
+	Tue, 13 Oct 2026 09:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883151; cv=none; b=me3WQtJliDI/7XvZXpIEFgMhQ/QbiiicE9oTs0vvCTT2HCSaJXOchG/HzHzI8d5BcwX8Ql1RO/N1NML5VggJDPy5fpbicwAEpjKBbdhiWFv5SdyC50IlaSxrtZGV0F7iQf5Cpbr+JpM6aGxMshUCaJeUyuzOHI0fgcMSodSN13A=
+	t=1791883159; cv=none; b=uw8gDkbgs94syoVDVLnSrbTp4NAu1373yJ58zMvtVQe/GLq+ywZE3AW59gFHYBydaB83EjCtZgfCLVSgqVzqyxOpGixQ7l3N6LYeIkXQKprQ49usSWTe4eEAvKspNJxMz9RzllgJmSWVRTMArePwnHmXqKpF+MtKTYJXwISFn8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883151; c=relaxed/simple;
-	bh=cP8IeFdxUJbvzxVL94FhkpC9ulhfQWnYw/ZdjHJG40M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RsSY7UJyKVXPT+JuqME6h2b4WTyU9bMsscqGuL3GmZQvFOI8iFxVIxvpkM9SibSE02Ulr9w4KgDWaOLqec1hU0dONWxWW1SWlxLguWCp9dxJAIOsFgyboSC1TLzxagmQAqvCGrNyZil+dtmyDyNZnmEZ4j1USZUH67FvIMl/h1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IKJJMuYe; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791883159; c=relaxed/simple;
+	bh=ZiEo/LyxIg3ieQ/yURSFdVujpqUp3YNqG+fhUaDlAlk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PO5Wz2EU2HZpQC39B5yhD1efbCsL0jPZJ0UUySjQ+07vv7dbU9kQ0Tmz7AQbjN5d9Ms6HCchA5SIvv8mxOW/3SiKg7R/mJwoWX8Yv6t0M29DIlYiDWZ58dCbaCcCuJRN2XTWZXU0tHvK5jh5XEqp5Wswf/zb2COddgeE0c6nuUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fK/jreiK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IKJJMuYe"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-885cd98d226so1169276b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:19:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791883149; x=1792487949; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0WIM0K+EJDsmmn42t1zm2SXiTTg7zUFvkgTfGvuF3T0=;
-        b=IKJJMuYe06QNMN1Vwz3XfFEnOrrkx7i70IY8Hg1VYRGFly+G28VApRguoARloXaGYk
-         nZoMxx/XIypVAp0kXlG2A2kgrAsfl1O/WqprXkxLeIsD3ExSDH7PGBzEZvZd8GUQoYkT
-         TwTMJ0TV8JVuZ7izzceHewhzxMgVBbMv4IGSHf44+maqJp/PBcCj4H7xBPparg26dAAC
-         bO5NbbOcOdGUL0RNebDmeL+jQ+yBXyetZ3vLGKI5JVyWBzA/sNFH3RzY4LwWPNOx0v8p
-         nfyZwLDV2UuDPhOFCvXPae9kzkUpxV+EmvpP8RiGZop9nPCp+IlFgB3ybQZofCCT5auh
-         MZJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791883149; x=1792487949;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0WIM0K+EJDsmmn42t1zm2SXiTTg7zUFvkgTfGvuF3T0=;
-        b=a+D9fxUwoZFG6zHmMkUgbNU4+PzWaeMUWnqegDMStcdpLcDD4X/Unbrq5Caj/UH6jn
-         6oeHuVoKAZbGeAyJr5vV/RnzzRUODlhrH4cRR0RNVRg/s2ZIgooTxO0dPVLbtTz2U9sI
-         6egIwk8nEssjze58amFwZcnF4jPX8460hn3glTi3+0LbjM3O+GDSFZo0RTnkB/ihWG4z
-         d/rCpPPgXyMy/4BzgR+qMEPawZyvLygZ7I7lksHTSSKxGPw7vkEqO9Qhd+Te5RzYsq9y
-         LpJPqJtsSnJKPQqbz3VNpyO/qYIuK4YsZN2mkGwhhB/YS7kVTlSC74fIAE6IxTzsLQWD
-         Ct0g==
-X-Forwarded-Encrypted: i=1; AKwUvBz1MXvlDlhCjN89CzGNqQm51YEuDVsR2fG7Z7uMszYSyzcNZj3tJRp4SLCVqeVMD4Fs+yS1AsAi+82PYLA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLib9RrlLcJyJZrz0lHR+f7sz1+Y08/UM8YW/TvFGROQG3qlx6A
-	1KWwABJUaHqGRLmWk6E5b0nfoDc/ku993GVs5R1o0Tu3t3tHcWCyBKPZ
-X-Gm-Gg: AYBFou3nUCX3ntbRxxUGaNN3brpoSO7WD4ghiu19EIgxD/LFltgWlmJvN5ppLsfVcqz
-	tdwO+p0ln8mBedFUiDaDtD/3PslMYLHKB8ddZ0wbrIhkf7cRYi/QqeTLcK/gnB7JipVJT2nc4GP
-	8Cq0tnnTfabxjUmOoI75a062GdZrsDAyCNYOThluLPM/6rZNFrL9TnBKJZOHYggYvD9CiAvUwZ1
-	RyE5671bMbhlewZM1Rv98wfnlGcxZUAALxe+o6vJs8s+p4fypYf2hhhhEhB6TNuaLGshenfsYKn
-	Syc2dItInDa2g9PC6AmRgvpylmrkMxw11HJT+t00YdPsexpfhiOZSh9qcKcllyqEHWl3ulPJRcM
-	Pn0+4LA25R101rFjAWDj0nUSnFykkeoKtHHwaVQs0/LrmHcXHdKGdj7pT2bhJSUeijnGigkl1MN
-	Nm0ZvPNLMNMhkqjWuUQT4NbgU6lLu/+s9K8rw12yXu/WiFrX/F2g7rfPveG7ZnfdK7BGg3aKIM3
-	LpJqBxCkCGA4HM0KBKFXDJ9RwAO/g==
-X-Received: by 2002:aa7:8892:0:b0:886:95df:c50c with SMTP id d2e1a72fcca58-897d5096429mr7333750b3a.26.1791883149366;
-        Tue, 13 Oct 2026 02:19:09 -0700 (PDT)
-Received: from drobotics-thinkpad-t14p-gen-1.. ([183.243.208.130])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c37e267csm4818608b3a.27.2026.10.13.02.19.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 02:19:08 -0700 (PDT)
-From: Baineng Shou <shoubaineng@gmail.com>
-To: Eugeniy.Paltsev@synopsys.com,
-	vkoul@kernel.org
-Cc: Frank.Li@nxp.com,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH v2] dmaengine: dw-axi-dmac: demote apb_regs warning to debug
-Date: Tue, 13 Oct 2026 17:18:40 +0800
-Message-Id: <20261013091840.3962663-1-shoubaineng@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918101414.4104604-1-shoubaineng@gmail.com>
-References: <20260918101414.4104604-1-shoubaineng@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fK/jreiK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541361F00893;
+	Tue, 13 Oct 2026 09:19:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791883158;
+	bh=0N4zGrHaxNZRb9Fu+dO3kSzaMrwBFwNNBPMCaUoq704=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fK/jreiKt+lkQMV02PMzTmJTxqFvNNIf+Xn0PUQY+Vi3g/Hb7vQIYUuygnq7eT8WD
+	 cLaRIu967Lt9qrFFXW4o/A0RqlviSyh58RBAUmMzZf6UWHhtF2wzeP5jEiEWnbKt6k
+	 kgkmGbjyNniBDrjt+zJ5zJVDMWfkbA+3vNBwUmfRGSiRQpfdNJI8yWpl30qGaMlPyi
+	 vPn/NxQERUEYaixoXe0iOwJ8XPpP2X4fBhXE9IZ9CNb2RA+/xkCe7YIOtlizAptQAC
+	 gvyoUlHU8QSXBx+LtRJGX4qyIHRXAMpF7O/LeItUdftmELlo0sS36CyHY4uKN3l+Zd
+	 H9JEr9+yQGJaA==
+Subject: Re: [PATCH net-next v4 3/8] net: bcmgenet: allow a continuation
+ descriptor without the alignment pad
+From: netdev-bot+sashiko@kernel.org
+To: nb@tipi-net.de
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dave.stevenson@raspberrypi.com, justin.chen@broadcom.com,
+ pierremarinleclercq88@gmail.com, f.fainelli@gmail.com
+Date: Tue, 13 Oct 2026 09:19:16 +0000
+Message-ID: <179188315684.434549.13806745531353419743@kernel.org>
+In-Reply-To: <20261012-nb-genet-mtu-nn-v2-v4-3-2e2e3bfaf8cc@tipi-net.de>
+References: <20261012-nb-genet-mtu-nn-v2-v4-3-2e2e3bfaf8cc@tipi-net.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-dw_axi_dma_set_hw_channel() logs "apb_regs not initialized" at err
-level when apb_regs is absent. However, only Intel KeemBay
-("intel,kmb-axi-dma") carries apb_regs; all other supported SoCs
-(snps,axi-dma-1.01a, sophgo,cv1800b, starfive,jh7110/jh8100) operate
-without it. For those, reaching this path during slave/cyclic prep and
-terminate is the normal no-op case, not an error, and the err log spams
-dmesg on every transfer.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Demote it to dev_dbg to match the identical check in
-dw_axi_dma_set_byte_halfword().
+Low priority / nit picks for your consideration:
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
----
+- [Low] Commit message accuracy / dead code at this point in the series
+  (baseline verdict: discard, resolved later in the series).
 
-Changes in v2:
-- Collect Reviewed-by from Frank Li. No functional changes.
+--
 
- drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+net: bcmgenet: allow a continuation descriptor without the alignment pad
 
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-index bcefaff03b5c..d829b9af5491 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-@@ -574,7 +574,7 @@ static void dw_axi_dma_set_hw_channel(struct axi_dma_chan *chan, bool set)
- 	unsigned long reg_value, val;
- 
- 	if (!chip->apb_regs) {
--		dev_err(chip->dev, "apb_regs not initialized\n");
-+		dev_dbg(chip->dev, "apb_regs not initialized\n");
- 		return;
- 	}
- 
+This changes the RX length check in bcmgenet_desc_rx() so that only a
+descriptor with DMA_SOP has to cover the 2 byte alignment pad. A
+continuation descriptor now only has to cover the 64 byte status block.
+The commit message says this prepares for a larger MTU.
+
+> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> index 86c8f8f8fe151..9f9c3fde87250 100644
+> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+
+[ ... ]
+
+> @@ -2372,8 +2374,12 @@ static unsigned int bcmgenet_desc_rx(struct bcmgenet_rx_ring *ring,
+>  			  __func__, p_index, ring->c_index,
+>  			  ring->read_ptr, dma_length_status);
+>  
+> +		/* Only the first descriptor carries the alignment pad */
+> +		min_len = dma_flag & DMA_SOP ? GENET_RSB_PAD
+> +					     : sizeof(struct status_64);
+> +
+>  		/* Reject lengths that would underflow the SKB build path. */
+> -		if (unlikely(len > RX_BUF_LENGTH || len < GENET_RSB_PAD)) {
+> +		if (unlikely(len > RX_BUF_LENGTH || len < min_len)) {
+>  			netif_err(priv, rx_status, dev,
+>  				  "invalid packet length %d\n", len);
+>  			BCMGENET_STATS64_INC(stats, length_errors);
+
+[Severity: Low]
+At this commit, does the relaxed bound change which frames are accepted?
+Right after the length check, bcmgenet_desc_rx() still has this
+unchanged check:
+
+    if (unlikely(!(dma_flag & DMA_EOP) || !(dma_flag & DMA_SOP))) {
+        netif_err(priv, rx_status, dev,
+                  "dropping fragmented packet!\n");
+        BCMGENET_STATS64_INC(stats, fragmented_errors);
+        ...
+        goto next;
+    }
+
+At this point in the series the driver has no frag_head or
+bcmgenet_add_frag() reassembly. So every descriptor without DMA_SOP is
+still dropped, whatever the MTU.
+
+The only visible change is in the accounting. A non-SOP descriptor with
+len 64 or 65 now increments fragmented_errors and logs "dropping
+fragmented packet!". Before this patch it incremented length_errors and
+logged "invalid packet length".
+
+The commit message says:
+
+  "The MTU cannot produce a frame past the threshold yet, so nothing
+  hits this today. It is preparation for the larger MTU."
+
+Would it be more accurate to say this depends on the reassembly patch
+rather than on the MTU change? A larger MTU alone would still hit the
+fragmented check above.
+
+The new bound also accepts len == 64 for a continuation, which is a
+descriptor with no payload. The commit message only argues for the
+single byte (len == 65) case.
+
+Both points are handled later in the series. "net: bcmgenet: reassemble
+jumbo frames from status block fragments" adds the reassembly path and
+rewrites this logic. The non-SOP minimum becomes
+sizeof(struct status_64) + 1, and a SOP descriptor without EOP gets
+min_len += ETH_HLEN.
+
+Would it make sense to fold this change into that patch, or to reword
+the commit message so the dependency is clear?
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-nb-genet-mtu-nn-v2-v4-0-2e2e3bfaf8cc%40tipi-net.de
