@@ -1,157 +1,154 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010016.outbound.protection.outlook.com [52.101.85.16])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87B45208D1;
-	Tue, 13 Oct 2026 15:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906506; cv=fail; b=UvM88sifuFQ5O8G6nSfYoJ/v0GsGXPKfzZ0Thvt8885j1JuQsZUDGb3V4/SS7FnmBJmZLeoKVDSJIkWXPzEjB1JcmsmtT7Y0cgZ04IUHQt0ux5BUEN2cWQm98S4BeGUkC0k/xhiRqxyjYG5fBbJSLhgbPX1+mJXWo1hHUOn6UTw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906506; c=relaxed/simple;
-	bh=6/MZkYvLJPngPFGb4TVkMWAkxigbEWMVGvCPDtBDXqY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rksRKDFXd3nuzxAXks1iUUHpuVDPNVGGFE6BeJ/q/MrNjx8/Ziljhhi6XEfe41ISxtXhtemLxBX2s0GfYV6OVdIZxKbjJk5++H6BBCQR8PxTL/rY+8WGH+Wjwxlc3unfseH0XatkhlXozbh4RvAGVs+rvxHjme6+oHQVdbMBwxM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rcjsAW12; arc=fail smtp.client-ip=52.101.85.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E58052120D;
+	Tue, 13 Oct 2026 15:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791906511; cv=none; b=aenV6UvNvvQyALLZsCLcw72dsufMTiowvPonNDEMIgnPGrKmyhS8bGb9c6wRhXFbDHr6440JbpQCnGpHzm2ZflAiie6gnw87MUoB2EaA3Ui9tpO0CSDrGUTUmomisFnCCncnJpjtMDNiDmvZgi8EVnDdkSltVJsVxsexhj+6N9Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791906511; c=relaxed/simple;
+	bh=g80R4+/eZeabAUVwDGl5wHDT0KFztyhPDglDl7tKId4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nHN3fzSp7T0DxH0vliExjtjtBQiJ/xQAGxmCwudtf9nt2XjzVIs10LfJfkQNn2jpYb/0jUTkp88y44d0eHF60pNyz3uX88sNiYxsASAiL8G6uuaTyZxz+ZTlIhGPFl4sekiutctT7Djxu4htYQYyltJnl+bxkdmU0FW5DZtPdm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GK2y5Vvn; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rcjsAW12"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vbT53zBKWqGz7IbAteFQPafU/k7g8dZpB9BvoyhbDxa7Jy+fa1bRMWf9XPJALZdHClyUHCTE1A9Q+wbjlLYmKuIaD4xBIT7PrlHnUl4GbO1X6TLqQw0QlBZ+EFpXg8qoMzXfljzcM6N8b18e4yAKnuifmLcWzICs/6TcrbIIIliTPzCwVml4QRWTXknTErd9R3zdhYGUZKGyP+FCQ7f9FtQTypNj/eE9a67N6ZyZVXEuxIyftFunPbOxtI7bH907scGUtnViri5u/mExLslp/jUYXOkP9Hommpk0ZsQoWGoLS06uDAfJitGc94NJ5//7FNH8Si8SdwsGlSGxckyBJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=om9tuvhRHcnLtVZQqdBvfwddX5+Ep98xURSjkDQaU1A=;
- b=Q/uUtxuABzembVTbZQ5BqP2eB2W5aVJCsBf4Geke/XVtQvvL25Hpq9kz6W/AT/ERfKU6LysYrm3atxs9eVozn3skgsxrHUwYSY6le6o2646pdCAw5rjJQc0oBZPjZHMa0NesOW6OG78UeOCuUqvXnVwh8A6cce3kfDSFnsWiGLkvVpzWfR/+9uCIITD8Hj6KiMkPw4s44+hxzcqV0EKluqmXKQeeYvgo5ea8Sj/i4GjYos2gJMHd50fJkXVXBIyYCpLbFQX61vWQprXrBhRRomfaqrrRbPOg2qafPwOxHaUS3c4QDPysY/r/jf+/5lnIf5IPRHPjPk1oaKzHmG6QBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=om9tuvhRHcnLtVZQqdBvfwddX5+Ep98xURSjkDQaU1A=;
- b=rcjsAW12FXh+NyiVG18KTZlIL594f5KDlbTfrTRIIfuQ3hXyFfPA7MNVcPy9mwbQwI/ZKMSeNS23Q0MLfftpY48KNj/w54QJv2VNCK+0ZZQHkRUVaLVCp9PwzPUDKr/8hwtDKFfVzcERSACsi1wy+ugaf/UFqMvr9BlG2yd5DqI=
-Received: from DS7PR03CA0224.namprd03.prod.outlook.com (2603:10b6:5:3ba::19)
- by FT1PR12MB455478.namprd12.prod.outlook.com (2603:10b6:170:3d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 15:48:22 +0000
-Received: from DM2PEPF00003FC4.namprd04.prod.outlook.com
- (2603:10b6:5:3ba:cafe::44) by DS7PR03CA0224.outlook.office365.com
- (2603:10b6:5:3ba::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 15:48:22 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DM2PEPF00003FC4.mail.protection.outlook.com (10.167.23.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 15:48:22 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 10:48:05 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 10:48:05 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Tue, 13 Oct 2026 10:48:00 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
-	<tiwai@suse.com>, <yung-chuan.liao@linux.intel.com>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
-	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
-	<Vijendar.Mukunda@amd.com>, <linux-sound@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <sound-open-firmware@alsa-project.org>
-Subject: [PATCH 6/9] ASoC: SOF: amd: consolidate local variable declarations
-Date: Tue, 13 Oct 2026 21:11:38 +0530
-Message-ID: <20261013154644.3788064-7-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20261013154644.3788064-1-Vijendar.Mukunda@amd.com>
-References: <20261013154644.3788064-1-Vijendar.Mukunda@amd.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GK2y5Vvn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791906510; x=1823442510;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=g80R4+/eZeabAUVwDGl5wHDT0KFztyhPDglDl7tKId4=;
+  b=GK2y5VvnDkwjImsmck+YIdkefJhzljRGCI4Z9Md5lwuej38pmKceGPo/
+   ugEO5qD/ytbaOrvlwfinCZI2x5tTQTJDnQNIQ61tYB6VdLBP3MwngWtnJ
+   fdtsPbubdBAGFX4jK44LmGqy1sNuVMZ5bAlOX6pC3+btpoYKyNgLAG1Bi
+   H2fEGkl1Ss+dgFoPqPKnPdajaG3B2PnjTzzlmV/5F1n8+u40vHktZrJZv
+   KSJYnnJKpkpGzN0HSbZ5tsHNGYAGU4IkVDEFaj9joCs8IYPlk8skx4lND
+   x3DyhzSp5AawSkxKqJBhn2DY/e5RkXbj9gvVn0Gv3RmCxZmU2RTiUjDKh
+   w==;
+X-CSE-ConnectionGUID: fTEEwFmJQv690hAZtJEnpw==
+X-CSE-MsgGUID: pEpSvO7qSNCIM6fLzsh/kA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="644525"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="644525"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:48:29 -0700
+X-CSE-ConnectionGUID: V3c6m8oSRguzy9dQ4arp+Q==
+X-CSE-MsgGUID: UWLnhG4TRjiRC6Cfa8QoPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1517171"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:48:27 -0700
+Date: Tue, 13 Oct 2026 18:48:24 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 4/6] gpiolib: cdev: don't sleep in the SRCU read section
+ in read()
+Message-ID: <as5SyJjLd24B8jde@ashevche-desk.local>
+References: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
+ <20261012-gpiolib-chip-removal-v1-4-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC4:EE_|FT1PR12MB455478:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7987053-6180-42b9-2385-08df29416917
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|18002099003|22082099003|10067099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	PPVi+89ToTApho96Z4WIA0B2cbOlf/iLtIhWxbhg5RkzuqABvKMqRrY0RGHwHgGoymo8FwSDiBl+TRovP4zLQv3Q3Hg5GAywePpBhL4FpNpE9zTtSSXhTTTVm08DX2ENBZaYCXzY+D7TmRVGQKX+SYSoWDTa7sbN0nbgel7PAfT7sBlfZh72mBgP2T6ycsuJWeO6DACbmqO7IGEPUCdXzoHBqhT27y1a/WApgVq+Ku3fDNH42filCWzAcXirb+bOPCMErhRkCmv7o73dl/VkQjHnYvmLOyWdYKKHxcH5QIhoiSW2MEo+sLm59Ct0PwwB1sSNyC6OCeyQNX+aS3sPQ5jvhYfHNHvW0xq4hsh63ZU/VhqozJ6XaftocIYorx0SFUsfVTqR9uxAIvmV38ZlOJ9GfimpzZ/kAIEvq4hkLA8AQMeoQJ/VgX6+W95r46Ep5wxp5KkwbywZm3W9cGtCJMfxlequXfTjtHcU3tmNa6IAG4fW0aIM1SHie+bIXBkDcj5QPb68wm6y27TjafBj93Paa9AJPq3uIpgXq9OkvjQGlohmQQaj7jwhnTtZpSGcJNb77rFUeu3yea7BwdPgh00548ZOOPOsy5e0QfyjzX5TxNrJ38cyfYdWMt8zUNXJwjgcSJZDok2zQVC7CUTopIi5JPPLDxmGUtGz68OwR/Popw8s1oaA7aAOpc99fgCB9PILIH64LGBf42eGIicJEQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(18002099003)(22082099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Rlh3JXC4iicaD+mqG919DPd6wbymfEO8fo+sB5Hu7+YpHIzE5JpEL2Tyy8rey2GklwdRo4MdhNK7WRUouDb+c4yauTGerb9c9wrnnp/VOMOMlOsAOPbU06I1WKsds4VFWaAIpd16Mq9LSD1fwxsSThFmYjRnImJ5hx22G4dByM127LE+wF+JaYmUB/J3SLDeCnHe7V/IGOI8EH0QkZ6wANg9+hu5c2aQhjtygN99cASZu38ZQCpVUJRSx7KwE0Lo0BhJ4vPSV98x7vxmd9dCcmXbVHqJsSGHLWP5D22IQBtQkyoqP2XlcaQd9L1YywmfrOaLP/AV2dOGp5J9aaSBABVarlSTNgoiy43jZ0oD7uCozHQGXFAJKXImj4uXX3xjX5Q4Eok1XbakAIFWPFyKBWfg97cdWiKdbL946KzdXIdaxzjkQduSlU4FVIHnmCY3
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 15:48:22.1877
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7987053-6180-42b9-2385-08df29416917
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM2PEPF00003FC4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB455478
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-gpiolib-chip-removal-v1-4-aambrozewicz@nvidia.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Use u32 instead of unsigned int for hardware register variables and
-combine related declarations onto single lines in
-sof_amd_check_and_handle_acp7x_sdw_wake_irq() and
-handle_amd_sof_acp7x_sdw_pme_event().
+On Mon, Oct 12, 2026 at 04:49:58PM +0300, Adrian Ambrozewicz wrote:
+> linereq_read(), lineevent_read() and lineinfo_watch_read() enter the
+> gdev->srcu read section to check that the chip is still there and stay
+> in it while they sleep waiting for an event. gpiochip_remove() clears
+> the chip pointer and then calls synchronize_srcu() on gdev->srcu, which
+> cannot return while a reader sleeps there. The wake-up meant for that
+> reader is sent by the device notifier, which runs later in
+> gpiochip_remove() and would not end the wait anyway, as the wait
+> condition only looks at the event FIFO. Unless an event arrives, a
+> process blocked in read() on a line request, a v1 line event or a chip
+> file with watched lines holds up the removal of the chip until it is
+> signalled:
+> 
+>   task:init state:D stack:0 pid:1 tgid:1 ppid:0
+>   Call Trace:
+>    __synchronize_srcu
+>    gpiochip_remove
+>    release_nodes
+>    devres_release_all
+>    device_unbind_cleanup
+>    device_release_driver_internal
+>    bus_remove_device
+>    device_del
+>    platform_device_unregister
+>    gpio_sim_device_deactivate
+>    gpio_sim_device_config_live_store
+>    configfs_write_iter
+>    vfs_write
+> 
+> and since the device lock is held meanwhile, so does device_shutdown()
+> on power-off.
+> 
+> Check the chip pointer in a scoped SRCU section only. Nothing after the
+> check dereferences the chip, the request and its FIFO belong to the
+> file. Also end the wait once the chip is gone, which the notifiers'
+> wake-ups now see, and return -ENODEV if there is no event to report.
+> 
+> This dates back to the RW semaphore that the SRCU section replaced,
+> which these functions also held while sleeping and gpiochip_remove()
+> took for writing.
+> 
+> Reproduced with gpio-sim: one thread blocked in read() on a line
+> request while another sets the chip's configfs "live" attribute to 0.
+> The write does not return until the reader is killed; with this change
+> it returns at once and read() fails with -ENODEV.
 
-No functional change.
+...
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/sof/amd/acp.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+> -	guard(srcu)(&lr->gdev->srcu);
+> -
+> -	if (!rcu_access_pointer(lr->gdev->chip))
+> -		return -ENODEV;
+> +	/*
+> +	 * Don't stay in the SRCU read section while sleeping: that would stall
+> +	 * gpiochip_remove() until an event arrives.
+> +	 */
+> +	scoped_guard(srcu, &lr->gdev->srcu) {
+> +		if (!rcu_access_pointer(lr->gdev->chip))
+> +			return -ENODEV;
+> +	}
 
-diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
-index 71c39eb36194e..790af65be34a2 100644
---- a/sound/soc/sof/amd/acp.c
-+++ b/sound/soc/sof/amd/acp.c
-@@ -674,9 +674,8 @@ static int sof_amd_check_and_handle_acp7x_sdw_wake_irq(struct snd_sof_dev *sdev)
- {
- 	struct acp_dev_data *adata = sdev->pdata->hw_pdata;
- 	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
--	unsigned int ext_intr_stat1;
--	unsigned int sdw_pme_stat, sdw_wake_en;
--	unsigned int i;
-+	u32 ext_intr_stat1, sdw_pme_stat, sdw_wake_en;
-+	u32 i;
- 	bool sdw_wake_irq = false;
- 
- 	ext_intr_stat1 = snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->ext_intr_stat1);
-@@ -1445,10 +1444,7 @@ static void handle_amd_sof_acp7x_sdw_pme_event(struct snd_sof_dev *sdev)
- {
- 	struct acp_dev_data *adata;
- 	struct amd_sdw_manager *amd_manager;
--	u32 sdw_pme_stat;
--	u32 sdw_wake_en;
--	u32 pme_reg;
--	u32 wake_mask;
-+	u32 sdw_pme_stat, sdw_wake_en, pme_reg, wake_mask;
- 	unsigned int instance;
- 
- 	adata = sdev->pdata->hw_pdata;
+It's duplicated a few times, perhaps you can make a static helper?
+
+static int ...()
+{
+	guard(srcu)(&gdev->srcu);
+
+	if (!rcu_access_pointer(gdev->chip))
+		return -ENODEV;
+
+	return 0;
+}
+
+Caveat: not an SRCU expert, so it might be actually wrong from run-time
+behaviour perspective.
+
 -- 
-2.48.1
+With Best Regards,
+Andy Shevchenko
+
 
