@@ -1,183 +1,403 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11021135.outbound.protection.outlook.com [40.93.194.135])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C70C514740;
-	Tue, 13 Oct 2026 14:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.135
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901596; cv=fail; b=YLo/VKrrzDjnvnWFZ7uNc+tULORR53hAYXOvbzIzHXr0Youc7f/b1SYFok98YQwyCKRvCFHY2Qw6H4SNHTfailSO/OOj3lXrSqHoncSMT87zJYEXtGmzgIxZRC6N6l3laF9laaEic1Hzrp7uYt7heqyqI3TZzGu2pnvA6Ueu72g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791901596; c=relaxed/simple;
-	bh=PgH8omHxWdGk3FJ12QWbnpIXACv1reB05dCE3LiiMoI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAC5516172;
+	Tue, 13 Oct 2026 14:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791901601; cv=none; b=eLAX1UoHC2I0ejjg2d59y3CVnGDmSWT5i6mexdWqlRziMTs6T6OXYoohB6jHhAMg434Vbo6avtc/tLcH7g85cMiKM+8mk8w+LJ3l4FTzk6QgOTBpMy2CD6D6YlbTbGh+GbuNW6n8ZLusFPuRUTuuyKKodAqT6CWrnnswt8VnNYk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791901601; c=relaxed/simple;
+	bh=eVgDhmktm2ID3yrO5hkWMRP5POsIIOJKQYn+KUzGGAU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lQx4NLKHGd5zryyHuqPbbzVA3yeJhFq5ydx0FC0dliiWGLItUnh11aLoY2AJBwUjEy57Bfi/NXqgekNc2ZldKzyWnyYmf+qWyc9qPj96OgXpwc3NumoYcm4Fh+SKYi8f9Rp+y6dzWORfnXFPLgnTpmwUu9AFAP+jvzHp8Sxym5E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelburch.net; spf=pass smtp.mailfrom=trailworks.io; dkim=pass (2048-bit key) header.d=michaelburch.net header.i=@michaelburch.net header.b=pFXqpAGI; arc=fail smtp.client-ip=40.93.194.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelburch.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailworks.io
+	 MIME-Version:Content-Type; b=pNRYscJg/QQE2cnwQYFYqu6aGaANM7UOX8iaKQmzeGv5MVw8KUKYXnLMr/KFchdVfYT2AlDuqkRJKXxfusHsjOGHVcfj+Zwz2BnWOAKjZ5gX8LFtcuhRtUwF3peaFH8HXYNugb0OAkwyM5809oxPNuHbyGj9XxKiyvX+WhWjYrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hckA3dfL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=michaelburch.net header.i=@michaelburch.net header.b="pFXqpAGI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZIWYYVoQF8QtA47UGDopwXMzi4Zia9wMzfk2D9MGG7LqOGgzlmtNg+FGG9DPpdltd96FqPJA5wZJArzr7FsFQaab0dyUY0Y6TEq65A7eVpFtx4enGYLxcfi94VONIw4gE62Ef7U6z4WHs8KrWyjG2m2P9DDzItgq7XJV3erVd6p/7B5lI/EXj6Ue6ffVxB5dYX7bzCdkJY3luIhQfw0BGFurgQXCP/oyjJBUlrb3Lpsj9N/RempQnLiAqnhjrkeSu7+9dVGMNfK5ZVEbBaaHwcOkIKbkb5v3mWAD+psusqtmgM8e6lkwFEtR9oAwioadN/a6jtbIZVNYOWCO/O5zmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TzuXkWtft/NRmmBriE60SwiLFY8ZDsH64Ez4OgqK7QE=;
- b=khgpC06s3J50mDP9Dpk2a4BnOvWaYrkDaNC+F12CAJzvSlLpc6RvUTWPQvhrRh2K7BtZf9G7RVjPlGzb3616y1IADIH2bMfwciPpN31+qaOm7fEVm87OcbVXZxpT0SCfEjgZNJSHKwd5hUwObS6HGMrlrz0KCnqTaBvWsD/F5VQjpNfkE6O33SHZxMoc6/Nl9bSUJScWEkQwloSpq9tyHo6K2wJC/xxSzqVSSgepc+N49DatJ5zn3j5Q9GGfwKNmurE5qgSLXRR1IkHylaDbxg6PjVYkDY31m7PPlWgGoXSP9SnUv3NEZdjv04pK+J5G2JHytdDF/VgHfdoGFr+kmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=trailworks.io; dmarc=pass action=none
- header.from=michaelburch.net; dkim=pass header.d=michaelburch.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=michaelburch.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TzuXkWtft/NRmmBriE60SwiLFY8ZDsH64Ez4OgqK7QE=;
- b=pFXqpAGIW7UcAQNfYwMuVFf7vm31QoeR8skkWepOYx5GAg3KtpFHTUONTElFEnorVCot1o/YUt3c0CxvyTCFXP9MPTd1NUcQ1X3WAW4T4lLXFqifEh95v/eaTr0SbVTbEUBgtaVJSzAizJ6Ur0EiX7GqA0QIQcbIGGkwQpM2KRdzDgQO0sg4UCTTrCVNNk2GUD8xgFHcReJCz3jSVoB+/aKP6t7G/fsffmNHKzgADNjnrRK3D1YAuy3yOtYmR4B0lwIEoxI4qqfAGLqPH5ckyDS/YaukgVzota/4HwK24Hiew+Ritg9xMFvnEQ0f4i1K3parkwCzF81Jgqv3/K554A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=michaelburch.net;
-Received: from PH7PR01MB8123.prod.exchangelabs.com (2603:10b6:510:2a4::19) by
- SN4PR01MB7454.prod.exchangelabs.com (2603:10b6:806:201::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.23; Tue, 13 Oct 2026 14:26:30 +0000
-Received: from PH7PR01MB8123.prod.exchangelabs.com
- ([fe80::da98:a31d:73b6:7930]) by PH7PR01MB8123.prod.exchangelabs.com
- ([fe80::da98:a31d:73b6:7930%5]) with mapi id 15.21.0496.015; Tue, 13 Oct 2026
- 14:26:30 +0000
-From: Michael Burch <me@michaelburch.net>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pci@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hckA3dfL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8635F1F00893;
+	Tue, 13 Oct 2026 14:26:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791901599;
+	bh=tRrrVZZV2OW/P/qYc4cTmGf7NKNnra7EkLMYeNbv9Js=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hckA3dfLdXXV3fuAlqrpyPpv7T5w4mBTuQASXZJl9GYFhxOD7Il4s3eTVUOiOJGV+
+	 ndUmeozd9UgjphNYwfy0XFxl7g4eTCnN9Kk2wB6YqwPYB3nQFgbAmqBxg7KNaShpH8
+	 0lrExvZxcpRqdrTmSqZnSniA8du0kNoKhnXTdRMwA20LxFk31v/gp1E7gYVRZf4Qon
+	 mlRjqKXiDlVkxhiuca0o5wMkwk6vT59Gv2ROPRH/dON2aqRVeQGyLN6ZqqW0Tt6uPp
+	 XCOOWz21o7skY9/L+NOCxCAU9sAbQZ65JaFI3V4Z44bWanNl+tyoigOxtNG/RX84kK
+	 oarHlcz+e6Bxg==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org
-Subject: Re: [PATCH 4/4] phy: qcom-qmp-pcie: Split phy_ops into init/exit/reset/power_on
-Date: Tue, 13 Oct 2026 09:26:19 -0500
-Message-ID: <20261013142621.10328-1-me@michaelburch.net>
+	linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH v11 13/19] PCI/P2PDMA: Add KUnit tests for the ACS routing decisions
+Date: Tue, 13 Oct 2026 17:25:21 +0300
+Message-ID: <20261013-fix-p2p-acs-v4-0-v11-13-72cf8c96e617@nvidia.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260915-align_pcie_init_sequence_0916-v1-4-0b2195836f30@oss.qualcomm.com>
-References: <20260915-align_pcie_init_sequence_0916-v1-0-0b2195836f30@oss.qualcomm.com> <20260915-align_pcie_init_sequence_0916-v1-4-0b2195836f30@oss.qualcomm.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SA0PR12CA0021.namprd12.prod.outlook.com
- (2603:10b6:806:6f::26) To PH7PR01MB8123.prod.exchangelabs.com
- (2603:10b6:510:2a4::19)
+In-Reply-To: <20261013-fix-p2p-acs-v4-0-v11-0-72cf8c96e617@nvidia.com>
+References: <20261013-fix-p2p-acs-v4-0-v11-0-72cf8c96e617@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR01MB8123:EE_|SN4PR01MB7454:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3746569e-a5ff-48e4-b389-08df2935f96f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|7416014|261009223027099003|10067099003|4143699003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	zORX+ggSHsZk57BKCyF2ET2J2GEphkyMX0IH95O111cR9kJbr5pxgDkpqj7rdZEJimY5txzzRKVQgvzmI/+wvA5G2BpemlRERw8ZKpFtbsVuLkrvHTiqF3Kn1fO6g/D2Nq9MCJR6FyklUfY5D18SvBxTo1PMwtXXJXn1WgCXsMIXaZ1FaEyWfuzd3TVAIXywFeeAbi8mzw8cXvZlvJ7+2cwMGLfFDucm5F1NGYHi/FLVScWR1/gCDZKQ3iVz3Nj5xhsL4f+LpKS2nJLS/sJ3ZlwP8zTNXNSVsmApSDVdhNLLwqTJgiYjqDFeOL8si935zbOmLJd0ww0saY2+u3vLy1ciTBI5tArjaDvSkIOnfBBxoOAxWjBTtkIc7GsVJsCO0uSkO1glqyWQGnexpHbM7ZbboqaAO14AXjKi8vXNF9ifFWogXD+mUhEsOJGJJ+lJ4ZzN53PnQB+/Qb7qynqX9I70qAe2+X3Z0jC0scYFRE6ak8rkSxEF+qgKb+QIJ2YXCtkr3q+Q+W02iDze0OTctHAKZ8aiVvDCrIEpfXM6XN6j+KYMMbA7ZA20gg29mCfJYQwcesJCvJOt+VfmSvHoJhF9DDToE+p/iy0j03mWM54=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR01MB8123.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(7416014)(261009223027099003)(10067099003)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?s1/f5lfkzDrt3PW52KiU+PlFOd3Pt7TSodOrJEMMR/qak4avkjD2b+5VtpQe?=
- =?us-ascii?Q?+HgUuYsmP0JR+/qiRcpUtXhJIDxSquchFFnrk3oHkjjS7jkgXsDPHfBs/PGH?=
- =?us-ascii?Q?I066Quf40sNj4IbFHAkNB6DNOTwnpBsxWJicOIr9YbDzuSFAHRtl6TPhrozD?=
- =?us-ascii?Q?ivNm4z/DWkmJbf9+fLNThvaQjB5GfY0p4jdXrYRx5uq6lTi0NgTMS2nQ5gcw?=
- =?us-ascii?Q?RzaqA67yTWdY6EByZzufxIME4f5ZoHM8oVele7qkmCnNnRtr+6CEdlz6RVUU?=
- =?us-ascii?Q?LZ6Gm4aL1Rur1UmCrcYi0/PC3xqEeKimC0QLZWqb7w+O+8ML/7t0jfVLHSsQ?=
- =?us-ascii?Q?MVZEt/Ue6D0dHP4w7eON5csjp97RhDH6MbCIZGyY6rYn9/cgeDi2TS03RVuJ?=
- =?us-ascii?Q?M11nfbW6HUpZjFbJatdtnsPGJdrObrnqEBxVHGwcw9OKjjRZwT5BlYLgWioq?=
- =?us-ascii?Q?07v5hUOD3ouLJWGY/OKgMJMRLgoqxsB/U2ysCBbhZXHFQ0wNkve0VtQbDMda?=
- =?us-ascii?Q?Lwh6eVpxgk6G5uHt4rg/GFIwCxCtnpxtwixUVKlYCT3fR9m1/JLh5b4C71Hb?=
- =?us-ascii?Q?jlxiUMYgVvxuQr5TKnPTnb2Iz+WagbuHUtJ7QApWJcK3JWdMqPs+I5C8RazQ?=
- =?us-ascii?Q?sKakyJsKkS02ak+A4dTv+S9U8NOFXHQL8/yGAFB6kK3M7hbrJcQlIu3HF7kA?=
- =?us-ascii?Q?rdEFs/+e9hTAwNwHw0NAwVr6OBjRC5aJ5K8NkJWjmJN0t/Y5Ahw+RPGflq2/?=
- =?us-ascii?Q?NdE03hVB1vCv8EHRyBIOuGAwryzaiQvArNAHECIq5c5OCDfh/nXMlVzYEvc4?=
- =?us-ascii?Q?voK9b2wTrUVeDY553ALa5/gNnzV2S03dc2Voqlc5oejdG6wp+xTWfnxYrNvR?=
- =?us-ascii?Q?49TuchyOuW+TeynUTi/vWLj8VFkBUYkwbymldWsfeLYut3PD7+S2pVSb4L/q?=
- =?us-ascii?Q?z25MTsJsr1SXU1DtW3gGf5SKVHT2VNwZu6tX2xHxH4MpPGMw5PbfotHGDVnL?=
- =?us-ascii?Q?T/FelqCV3DVbCpopvKmFCye5NPurm0oEoxnZZ7EnaljiwDnoNAButCj0GSSW?=
- =?us-ascii?Q?f3jTwx1lIfRcJpHb5TDIuo2hKbbMQhij8L7UH7WyTS1UipgdhtaWDFf+72Cd?=
- =?us-ascii?Q?q0DbfbzYELqoA4/JDOcVpY5/GcBGiu6ddO0haTjahl3va2SCTwDW+GZE3vr8?=
- =?us-ascii?Q?QuvWmaQMFHzEhrfuGBiCtPrIi3a0RA7zgm5Ypa9qLOP+gr4qVDBAxdH9aeLV?=
- =?us-ascii?Q?S50bBA13W44GukIpwWgLUb8ZfFpXSFplG7KeVKg6kcqkeXYZ7l0ReuTs4UQ0?=
- =?us-ascii?Q?aV5N+2sU0YP+6vQctBqWaoh8Ud+HdaZn8uFXu4GYdIW87XBUk//a5Sz2xh2W?=
- =?us-ascii?Q?4DRfJkPy2K1dOaxIvS4KKAN0d9YEbxgX4eAdVW7yMScOxr42ZuwdbRiRh/VQ?=
- =?us-ascii?Q?e+lxZ7S6rIuXWqX9LlpbuOa6GnOEBVA9+1MdYU6Qo0zX5Dh7kXpacvZI8AMo?=
- =?us-ascii?Q?GZYU/FgmwNgYhdb8KogQXfwWfSnL9NALsNCn28s1lWuvTpkK8vEP4MDPd54h?=
- =?us-ascii?Q?mi2jaK0jyV+Ijm0LP9GJP2bI/0K138WaafDjcn+MIbTbQ3XBc/QBYVktqh1D?=
- =?us-ascii?Q?Nwru3knXlKHoJsCQ8jhO9HpgXNcefEkyPFDCmlXG5+Y/8yh7TXxC2dXYO32E?=
- =?us-ascii?Q?2NhqunD5K2YPbb6hMAc4f1L37JR3hv1SZASAnFFzech5kYNVOf4etPfSD9iL?=
- =?us-ascii?Q?CRXd3NzH2Q=3D=3D?=
-X-OriginatorOrg: michaelburch.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3746569e-a5ff-48e4-b389-08df2935f96f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR01MB8123.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 14:26:30.5887
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8256b244-08e6-4df2-b146-877069d9ce10
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TfsgLxjJdoefzb6qf3Wq2b+gt4CyoYYI66wfYysSqwl7N5cPFY4hZYJA6cklIM8k4yb/E+9J8+lZthPdUgOotg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR01MB7454
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 11:04:24PM -0700, Qiang Yu wrote:
-> -	skip_reset = qmp->skip_init && !qphy_checkbits(pcs, cfg->regs[QPHY_PCS_STATUS],
-> +	qmp->skip_reset = qmp->skip_init && !qphy_checkbits(pcs, cfg->regs[QPHY_PCS_STATUS],
->  							    cfg->phy_status);
+From: Leon Romanovsky <leonro@nvidia.com>
 
-[...]
+pci_acs_p2pdma_request() and pci_acs_p2pdma_completion() turn an ACS
+Control register and a TLP class into a routing decision. Which bits apply
+to which direction and which class is easy to get wrong, and hardware that
+exposes a given combination may not be at hand.
 
-> +static int qmp_pcie_reset(struct phy *phy)
-> +{
-> +	struct qmp_pcie *qmp = phy_get_drvdata(phy);
-> +	const struct qmp_phy_cfg *cfg = qmp->cfg;
-> +	int ret;
-> +
-> +	if (qmp->skip_reset)
-> +		return 0;
+Drive both from a table of register values and classes, covering the
+redirect controls per direction and Translation Blocking, Direct Translated
+P2P and Relaxed Ordering. Direct Translated P2P gets a case with and
+without a redirect to override, since it changes nothing without one.
+Exposing the two helpers moves their state enum and the TLP flags into
+pci.h.
 
-This keeps the skip from 910b828b22b7 ("phy: qcom: qmp-pcie: Skip PHY
-reset if already up"). That skip stops v7.3-rc7 from booting on the
-Dell XPS 13 9345 (X1E80100), and I've sent a revert [1].
+Tested-by: Tushar Dave <tdave@nvidia.com>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+ drivers/pci/Kconfig        |  15 ++++++
+ drivers/pci/Makefile       |   1 +
+ drivers/pci/p2pdma.c       |  38 ++------------
+ drivers/pci/pci.h          |  41 +++++++++++++++
+ drivers/pci/pci_acs_test.c | 122 +++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 183 insertions(+), 34 deletions(-)
 
-UEFI boots from the NVMe behind pcie6a, so the PHY is already up when
-Linux probes it and the no-csr reset is skipped. pcie-qcom still
-asserts PERST# and resets the controller, so the link has to train
-again, and it doesn't:
+diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+index 0c7408509ba2..7a3eb5beb328 100644
+--- a/drivers/pci/Kconfig
++++ b/drivers/pci/Kconfig
+@@ -226,6 +226,21 @@ config PCI_P2PDMA
+ 
+ 	  If unsure, say N.
+ 
++config PCI_ACS_KUNIT_TEST
++	tristate "KUnit tests for PCI ACS P2P routing" if !KUNIT_ALL_TESTS
++	depends on PCI_P2PDMA && KUNIT
++	default KUNIT_ALL_TESTS
++	help
++	  Enable KUnit tests for the PCI ACS peer-to-peer routing decision
++	  logic, including direction-specific Request and Completion
++	  controls that cannot all be exercised on typical peer-to-peer
++	  hardware.
++
++	  For more information on KUnit and unit tests in general, refer to
++	  the KUnit documentation in Documentation/dev-tools/kunit/.
++
++	  If unsure, say N.
++
+ config PCI_LABEL
+ 	def_bool y if (DMI || ACPI)
+ 	select NLS
+diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
+index 41ebc3b9a518..6305d128d3df 100644
+--- a/drivers/pci/Makefile
++++ b/drivers/pci/Makefile
+@@ -31,6 +31,7 @@ obj-$(CONFIG_PCI_STUB)		+= pci-stub.o
+ obj-$(CONFIG_PCI_PF_STUB)	+= pci-pf-stub.o
+ obj-$(CONFIG_PCI_ECAM)		+= ecam.o
+ obj-$(CONFIG_PCI_P2PDMA)	+= p2pdma.o
++obj-$(CONFIG_PCI_ACS_KUNIT_TEST) += pci_acs_test.o
+ obj-$(CONFIG_XEN_PCIDEV_FRONTEND) += xen-pcifront.o
+ obj-$(CONFIG_VGA_ARB)		+= vgaarb.o
+ obj-$(CONFIG_PCI_DOE)		+= doe.o
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index d9f6b05cb3c0..340f149a4d88 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -530,38 +530,6 @@ static u16 pci_acs_p2pdma_quirk_redirect(struct pci_dev *pdev, u16 ctrl)
+ 	return ctrl;
+ }
+ 
+-/**
+- * enum pci_p2pdma_tlp_flags - Properties of the TLPs a client will issue
+- *
+- * These describe the traffic rather than the topology, and select which ACS
+- * controls apply along the peer-to-peer path. A value of 0 means strictly
+- * ordered Requests carrying an Untranslated address.
+- *
+- * @PCI_P2PDMA_TLP_TRANSLATED: Requests carry an ATS Translated address. PCIe
+- *	r7.0 sec 6.12.3 routes those to the peer regardless of ACS P2P Request
+- *	Redirect and ACS P2P Egress Control wherever ACS Direct Translated P2P
+- *	is enabled.
+- * @PCI_P2PDMA_TLP_RELAXED_CPL: Non-Posted Requests carry the Relaxed
+- *	Ordering attribute, and PCIe r7.0 sec 2.2.9.1 requires the Completer to
+- *	return it in their Completions. Sec 6.12.1.1 never redirects those, so
+- *	ACS P2P Completion Redirect does not gate the path.
+- */
+-enum pci_p2pdma_tlp_flags {
+-	PCI_P2PDMA_TLP_TRANSLATED	= 1 << 0,
+-	PCI_P2PDMA_TLP_RELAXED_CPL	= 1 << 1,
+-};
+-
+-/* Every combination of the flags above selects one routing class. */
+-#define PCI_P2PDMA_TLP_CLASSES \
+-	((PCI_P2PDMA_TLP_TRANSLATED | PCI_P2PDMA_TLP_RELAXED_CPL) + 1)
+-
+-enum pci_acs_p2pdma_state {
+-	PCI_ACS_P2PDMA_NOT_SUPPORTED,
+-	PCI_ACS_P2PDMA_DIRECT,
+-	PCI_ACS_P2PDMA_REDIRECT,
+-	PCI_ACS_P2PDMA_BLOCKED,
+-};
+-
+ /*
+  * Decide how a peer-to-peer Request at an ACS-capable ingress port routes,
+  * from that port's ACS Control register and the Request's Address Type.
+@@ -571,7 +539,7 @@ enum pci_acs_p2pdma_state {
+  * selects are a direct route and an ACS Violation, and neither one lets peer
+  * bus addressing be assumed.
+  */
+-static enum pci_acs_p2pdma_state
++VISIBLE_IF_KUNIT enum pci_acs_p2pdma_state
+ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
+ {
+ 	if (tlp_flags & PCI_P2PDMA_TLP_TRANSLATED) {
+@@ -598,6 +566,7 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
+ 	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
+ 		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
+ }
++EXPORT_SYMBOL_IF_KUNIT(pci_acs_p2pdma_request);
+ 
+ /*
+  * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
+@@ -605,7 +574,7 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
+  * affects a Completion, and that one leaves Completions carrying the Relaxed
+  * Ordering attribute alone.
+  */
+-static enum pci_acs_p2pdma_state
++VISIBLE_IF_KUNIT enum pci_acs_p2pdma_state
+ pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
+ {
+ 	if (tlp_flags & PCI_P2PDMA_TLP_RELAXED_CPL)
+@@ -614,6 +583,7 @@ pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
+ 	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
+ 				   PCI_ACS_P2PDMA_DIRECT;
+ }
++EXPORT_SYMBOL_IF_KUNIT(pci_acs_p2pdma_completion);
+ 
+ static const char *pci_acs_p2pdma_state_name(enum pci_acs_p2pdma_state state)
+ {
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index ba3c3fddddc2..302b79d3977f 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -2,6 +2,7 @@
+ #ifndef DRIVERS_PCI_H
+ #define DRIVERS_PCI_H
+ 
++#include <kunit/visibility.h>
+ #include <linux/bug.h>
+ #include <linux/align.h>
+ #include <linux/bitfield.h>
+@@ -1093,6 +1094,46 @@ resource_size_t pci_min_window_alignment(struct pci_bus *bus,
+ 
+ void pci_acs_init(struct pci_dev *dev);
+ void pci_enable_acs(struct pci_dev *dev);
++
++/**
++ * enum pci_p2pdma_tlp_flags - Properties of the TLPs a client will issue
++ *
++ * These describe the traffic rather than the topology, and select which ACS
++ * controls apply along the peer-to-peer path. A value of 0 means strictly
++ * ordered Requests carrying an Untranslated address.
++ *
++ * @PCI_P2PDMA_TLP_TRANSLATED: Requests carry an ATS Translated address. PCIe
++ *	r7.0 sec 6.12.3 routes those to the peer regardless of ACS P2P Request
++ *	Redirect and ACS P2P Egress Control wherever ACS Direct Translated P2P
++ *	is enabled.
++ * @PCI_P2PDMA_TLP_RELAXED_CPL: Non-Posted Requests carry the Relaxed
++ *	Ordering attribute, and PCIe r7.0 sec 2.2.9.1 requires the Completer to
++ *	return it in their Completions. Sec 6.12.1.1 never redirects those, so
++ *	ACS P2P Completion Redirect does not gate the path.
++ */
++enum pci_p2pdma_tlp_flags {
++	PCI_P2PDMA_TLP_TRANSLATED	= 1 << 0,
++	PCI_P2PDMA_TLP_RELAXED_CPL	= 1 << 1,
++};
++
++/* Every combination of the flags above selects one routing class. */
++#define PCI_P2PDMA_TLP_CLASSES \
++	((PCI_P2PDMA_TLP_TRANSLATED | PCI_P2PDMA_TLP_RELAXED_CPL) + 1)
++
++enum pci_acs_p2pdma_state {
++	PCI_ACS_P2PDMA_NOT_SUPPORTED,
++	PCI_ACS_P2PDMA_DIRECT,
++	PCI_ACS_P2PDMA_REDIRECT,
++	PCI_ACS_P2PDMA_BLOCKED,
++};
++
++#if IS_ENABLED(CONFIG_KUNIT)
++enum pci_acs_p2pdma_state pci_acs_p2pdma_request(u16 ctrl,
++						unsigned int tlp_flags);
++enum pci_acs_p2pdma_state pci_acs_p2pdma_completion(u16 ctrl,
++						    unsigned int tlp_flags);
++#endif
++
+ #ifdef CONFIG_PCI_QUIRKS
+ int pci_dev_specific_acs_enabled(struct pci_dev *dev, u16 acs_flags);
+ int pci_dev_specific_enable_acs(struct pci_dev *dev);
+diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
+new file mode 100644
+index 000000000000..18bcc4b8e758
+--- /dev/null
++++ b/drivers/pci/pci_acs_test.c
+@@ -0,0 +1,122 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * KUnit tests for PCI ACS peer-to-peer routing decisions.
++ *
++ * These exercise Request and Completion routing independently of the ACS
++ * settings exposed by available PCIe hardware.
++ */
++#include <kunit/test.h>
++
++#include <linux/pci.h>
++#include <linux/pci-p2pdma.h>
++#include <linux/pci_regs.h>
++
++#include "pci.h"
++
++struct acs_decision_case {
++	const char *desc;
++	u16 ctrl;
++	unsigned int tlp_flags;
++	enum pci_acs_p2pdma_state expect;
++};
++
++/* Shorthands to keep the tables below readable. */
++#define ACS_DIRECT	PCI_ACS_P2PDMA_DIRECT
++#define ACS_REDIR	PCI_ACS_P2PDMA_REDIRECT
++#define ACS_RO		PCI_P2PDMA_TLP_RELAXED_CPL
++#define ACS_AT		PCI_P2PDMA_TLP_TRANSLATED
++#define ACS_BLOCK	PCI_ACS_P2PDMA_BLOCKED
++
++/* Request routing ignores Completion Redirect. */
++static const struct acs_decision_case acs_request_cases[] = {
++	{ "req/none", 0, 0, ACS_DIRECT },
++	{ "req/rr", PCI_ACS_RR, 0, ACS_REDIR },
++	{ "req/cr", PCI_ACS_CR, 0, ACS_DIRECT },
++	{ "req/rr_cr", PCI_ACS_RR | PCI_ACS_CR, 0, ACS_REDIR },
++	{ "req/ec", PCI_ACS_EC, 0, ACS_REDIR },
++	{ "req/ec_cr", PCI_ACS_EC | PCI_ACS_CR, 0, ACS_REDIR },
++
++	/*
++	 * Direct Translated P2P overrides the redirect controls, but only for
++	 * a Request that actually carries a Translated address.
++	 */
++	{ "req/dt", PCI_ACS_DT, 0, ACS_DIRECT },
++	{ "req/dt_rr", PCI_ACS_DT | PCI_ACS_RR, 0, ACS_REDIR },
++	{ "req/at", 0, ACS_AT, ACS_DIRECT },
++	{ "req/at_rr", PCI_ACS_RR, ACS_AT, ACS_REDIR },
++	{ "req/at_dt", PCI_ACS_DT, ACS_AT, ACS_DIRECT },
++	{ "req/at_dt_rr", PCI_ACS_DT | PCI_ACS_RR, ACS_AT, ACS_DIRECT },
++	{ "req/at_dt_ec", PCI_ACS_DT | PCI_ACS_EC, ACS_AT, ACS_DIRECT },
++
++	/*
++	 * Translation Blocking rejects a Translated address outright, and
++	 * makes the port ignore Direct Translated P2P.
++	 */
++	{ "req/tb", PCI_ACS_TB, 0, ACS_DIRECT },
++	{ "req/tb_rr", PCI_ACS_TB | PCI_ACS_RR, 0, ACS_REDIR },
++	{ "req/at_tb", PCI_ACS_TB, ACS_AT, ACS_BLOCK },
++	{ "req/at_tb_dt", PCI_ACS_TB | PCI_ACS_DT, ACS_AT, ACS_BLOCK },
++};
++
++/* Completion routing depends only on Completion Redirect. */
++static const struct acs_decision_case acs_completion_cases[] = {
++	{ "cpl/none", 0, 0, ACS_DIRECT },
++	{ "cpl/rr", PCI_ACS_RR, 0, ACS_DIRECT },
++	{ "cpl/cr", PCI_ACS_CR, 0, ACS_REDIR },
++	{ "cpl/rr_cr", PCI_ACS_RR | PCI_ACS_CR, 0, ACS_REDIR },
++	{ "cpl/ec", PCI_ACS_EC, 0, ACS_DIRECT },
++	{ "cpl/ec_cr", PCI_ACS_EC | PCI_ACS_CR, 0, ACS_REDIR },
++
++	/* Relaxed Ordering Completions are never redirected. */
++	{ "cpl/ro", 0, ACS_RO, ACS_DIRECT },
++	{ "cpl/ro_cr", PCI_ACS_CR, ACS_RO, ACS_DIRECT },
++	{ "cpl/ro_rr_cr", PCI_ACS_RR | PCI_ACS_CR, ACS_RO, ACS_DIRECT },
++};
++
++#undef ACS_DIRECT
++#undef ACS_REDIR
++#undef ACS_RO
++#undef ACS_AT
++#undef ACS_BLOCK
++
++static void acs_decision_desc(const struct acs_decision_case *c, char *desc)
++{
++	strscpy(desc, c->desc, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(acs_request, acs_request_cases, acs_decision_desc);
++KUNIT_ARRAY_PARAM(acs_completion, acs_completion_cases, acs_decision_desc);
++
++static void pci_acs_p2pdma_request_test(struct kunit *test)
++{
++	const struct acs_decision_case *c = test->param_value;
++
++	KUNIT_EXPECT_EQ(test, pci_acs_p2pdma_request(c->ctrl, c->tlp_flags),
++			c->expect);
++}
++
++static void pci_acs_p2pdma_completion_test(struct kunit *test)
++{
++	const struct acs_decision_case *c = test->param_value;
++
++	KUNIT_EXPECT_EQ(test, pci_acs_p2pdma_completion(c->ctrl, c->tlp_flags),
++			c->expect);
++}
++
++static struct kunit_case pci_acs_test_cases[] = {
++	KUNIT_CASE_PARAM(pci_acs_p2pdma_request_test,
++			 acs_request_gen_params),
++	KUNIT_CASE_PARAM(pci_acs_p2pdma_completion_test,
++			 acs_completion_gen_params),
++	{}
++};
++
++static struct kunit_suite pci_acs_test_suite = {
++	.name = "pci_acs",
++	.test_cases = pci_acs_test_cases,
++};
++kunit_test_suite(pci_acs_test_suite);
++
++MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("KUnit tests for PCI ACS peer-to-peer routing decisions");
 
-  qcom-pcie 1bf8000.pcie: Device found, but not active
+-- 
+2.55.0
 
-910b828b22b7 only changes whether that reset runs, and reverting it
-fixes boot.
-
-With patch 1/4, X1E (qcom_pcie_init_2_7_0()) would run:
-
-  qcom_pcie_perst_assert()
-  phy_init()                        skip_reset = true
-  reset_control_assert(res->rst)
-  phy_reset()                       returns 0, PHY not reset
-  reset_control_deassert(res->rst)
-  phy_power_on()                    skip_init: no tables, no SERDES start
-
-That is the same sequence as 910b828b22b7, so this series would bring
-the failure back. It also doesn't follow the HPG order in the cover
-letter: the controller reset is toggled, the PHY reset isn't.
-
-Could qmp_pcie_reset() always toggle the reset that skip_init selects,
-with qmp->skip_reset dropped? If link retention comes back, the
-controller knows whether it is keeping the link, so it can skip both
-its own reset and phy_reset() then.
-
-[1] https://lore.kernel.org/r/20261013-qmp-pcie-skip-reset-revert-v1@michaelburch.net
-
-Michael
