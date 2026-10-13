@@ -1,107 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569F8377A95
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F103A27FD74
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791859634; cv=none; b=hkpctJXka6TTZ2Ln68HorHDS/y12eqKiyO/SHAXKkgBgeHzPnMfyPrQ22Dm7cyc5bGUfXbH5iXZYLh1hVscZtYMJHFtKVlsQ46of8z3XFpk7jv/PATMYqBVHnq4QSTFq06pmy23jF35v/PsnopkAt76+YNo4bmcGH/BjhfClfCw=
+	t=1791859687; cv=none; b=RP0a/E3oBxknCTc64HypfHD1gWqfCdNkU/2U+POfEmJPYcc8F3/x0idu01BChJaxyEPTbbWcVlnCSgQsLaPtuzODerr61cEoirJDpA3iqUwX7xhn0JeFskLfCJn9y+jdcuW0zaCi/FwNnHehuVUQlls3kMrILtaEiAZ/wm0jEqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791859634; c=relaxed/simple;
-	bh=e5qJ7/cHRftpI/ExivZm6EQbTQ/U1hWJ1r+cnnvzTAQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=X2Igd8AaBlcA6T5nOMdKqQdvQg3dchlS5w8tsWoZFUs+WHRfU8AeCX4ATE6k0w299XRObCfu21Ta+mC6VIYmyzKT6DUjKxJOxBaikiQ2uddBtyYEj3+IAbkQngAEVSfFwJD0iCSQy3r6g0iokNCjx4UbwmlKD9NvxUhGBSNhdjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HbLdQSZ7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791859687; c=relaxed/simple;
+	bh=/nq9ULOagF8TNdNkpu6Q5sv3UadZrrvNv8JRzSgtxuk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O2I7qPm0Bhl0Rdhv+y+pkqnZzIevJk348lnse0YBcjDiZE90GLmRgH84m4VcNxOjdglFZhhKH5IHxfvqsTwVKhtjGynkZcHZ6zHuIVb4PbWL4D03Ou2NosWMt+ff9nz1n8QLNqoSyw00IYP2g2UO7ut7UJROaLEf1AsspTpK6fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sqIrQNZd; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HbLdQSZ7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E64F51F008A2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:47:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791859631;
-	bh=Py5W+zOf8jcv9SphAVIYRIsYaiROXNPiORfkJ1reQcA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HbLdQSZ7lUz9oL05RWz6k+V6Qv3JS5sb152wnuh9/C7fqzhiLnol9W4Zo/AYHud5+
-	 G9kAB19LQKv+cDKB7IHLRfqSBGQmXA5Zjuv8mZFFEkFrZaCX93O2qHj9diPwd7wT/o
-	 iQxSjMRoHzmyMWaMQng0yWVlJzy3frz4iMdaiYe0qKzQcNccon0pYeugOwWqt63NKk
-	 CvskBZhjH7jFs18BsTCEE/HnXlyziHvOoW2FIvNg/52GfWxYuRgsYprVUK5/LSneiD
-	 nUyyAsuRweVt25aLYJHkWXWRZ6RYIZ/Ppmq8Ce0nTi6sOXlUmqso/KpyfuXJcscrNw
-	 d9zzw0VVzbABw==
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1aa377c61so2619004a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:47:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxplD864N0FzgSxBMmeW3DWgb6TMATxI/MiPykOPcgvEQ6UrZRINh1vSwoxf89JpmKZNWX7oaoe2JNe3UQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLl5OOeRVZbNw+MmatQ60oUdlt5qRat/+hSrs2l0S+n61EHNFKT
-	KZ+uRPa11CB10dSaq3vq1H0a/U/7Ndtp/eHDkjhrexl12a9ebMfgWQnZSeJsELo2nUwGZTKmsgZ
-	yJero+2YFuCZ1biQwy49jUZuTMGDWXJY=
-X-Received: by 2002:a05:6402:1d49:b0:6b1:c327:a9d0 with SMTP id
- 4fb4d7f45d1cf-6b1c327b8acmr3296104a12.40.1791859630439; Mon, 12 Oct 2026
- 19:47:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sqIrQNZd"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-887beafb714so1150315b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:48:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791859684; x=1792464484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S/CQGMpBuy/7FJjcfHtn4Lxv99je/uyA1AfUbEVnRss=;
+        b=sqIrQNZds3xFmRLXdaMHSF8btDZx3ZrJbYWNGitFywvjWYRvXhj7fW8FPXmqy47L7f
+         4R4E3o1EHAJYNhO87Te1XIHk0rl2E5tF6BRN0qzg8AJqc3tu+uME9O8ZNJigABnl7xYV
+         A8gZbvcvIR5/9Op0W9xGrxxScN6kaqDC/z4u2Dv2XrGVnkLddQRaNRPI05Ieg2GUZzpJ
+         vvyxwN0InN6oCEaubqC1Q9TOYRLy64sRiXi60aQHvwhqlzEIb3aNotiFg7VYLPneln/n
+         qxanFs7s95ViAtXuv9vSr/ilNLgo9LNZT58P4pPDyy9jK5nrxFT/+YnavuyJc7cMuC1N
+         69dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791859684; x=1792464484;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S/CQGMpBuy/7FJjcfHtn4Lxv99je/uyA1AfUbEVnRss=;
+        b=MIgfqiH7NDVZCNhBd2x/JPN7+wZfGiT8bdCQHb8vpZXZqt8lxkRbKa738jawyw6cX9
+         Wo7GhJHcFp+si/n9bihCIrvDpEAwwsX6wQxDoBroFbCRIxz+J67VAHUOmCgRn2xe73LH
+         uUJLMHhOgG2jc3t+5r7K3jUCsaObGt6mkwknMJp8/PaLJL1bpCTFut6Eb6hnEyKSWsvf
+         k25n45o7TG3cpDf6YKhppGrDJU8F0Bg4+Z99XfFAgPFW9Y/Q/Qia/Umu8g2X4CboL9zF
+         NKnEdHXBWm1divQJkiHV9UTCDyPhWuEN2uIBTDQdov5WxRYV+9NBBV/eHmjS49RGFDIs
+         lZgg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwomRcr+KE8dx9E7AqerXaRTdUffSpx+aB0PRCTWvSf2rRUwoUPvyLzs0EUga24DQtn+06qmNoe7MJico=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKHezVjALncMSQsoadu8zSse/OdAhPlTcDo5YQnICjogxcFCCe
+	xSg+7G5M9ec1irj7GV5WL+/2+62/BDbZn43q9MnLIU4EbmTTqtgTd3oY
+X-Gm-Gg: AYBFou0oOfRVEmW0QTaWZ44ufBARnY95n2Ek54StWbJRKPnZQPKe93PvOxdjaLfxCdb
+	4OoBAekd/L35Mal2VdxRoXw4yPB4ILYje8um45brujwnAtzIasBVN5oyHdWj+f+SK+OPENWUUiH
+	Q3aAF2yXhEWMqYIP9HrsHH/vv1xEVFNMnhkCJO46LFdrY6Xc1GvKLiUfu/rP2r1/uE37IGb1JBU
+	Jwv6xSSjLLVK6EtJIrcOCiSSqTzC6IkO7ZZUx4aPfBZRUySAU8wKBpWBiWDeWv8RR1bnhbWiy8v
+	kduCjfllNhH6+snSwIpPzF31ytNX99TJrWBc5klANmUJaYLO4VLpzqS4flEmGHoY+Wovxz/XABu
+	6ID7w9cn6eTjvMVhYIObBLYPw30c64G4fjepUbIPeRizb+EB6vlu2Dna2foEzQDr7R0G51UNB3w
+	Ei3RJRK+2bBHKEwHWEMCKO5ra+pcjj2cWInWbuBbYi4EJ/6UbdQudiFc12ZjJH/bkOp8v/JzRMg
+	Kues+owYQo=
+X-Received: by 2002:a05:6a00:951a:b0:882:2b16:c314 with SMTP id d2e1a72fcca58-897c7cd1127mr9507515b3a.52.1791859684155;
+        Mon, 12 Oct 2026 19:48:04 -0700 (PDT)
+Received: from online.mioffice.cn ([2408:8607:1b00:8:5e2a:b6c:f432:a6f3])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c42b4549sm4466018b3a.44.2026.10.12.19.47.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 19:48:03 -0700 (PDT)
+From: Pengfei Zhang <zhangfeionline@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>,
+	EricChan <chenchuangyu@xiaomi.com>,
+	Simon Horman <horms@kernel.org>,
+	zhangpengfei16@xiaomi.com,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: stmmac: xgmac: do not treat TBU as a TX event
+Date: Tue, 13 Oct 2026 10:47:47 +0800
+Message-ID: <20261013024747.2688984-1-zhangfeionline@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012090431.TF3iVDsk@linutronix.de> <CAAhV-H4=nnhbJS4srmt7dNdgpkEZ8_RQ5Z+0baYMiXF1UrJ3KA@mail.gmail.com>
- <20261012102143.lpVrHb9R@linutronix.de>
-In-Reply-To: <20261012102143.lpVrHb9R@linutronix.de>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Tue, 13 Oct 2026 10:46:59 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7xME-UrgMHcfY41793yxWyvgEMAufwgcboEL2q3Jg+VA@mail.gmail.com>
-X-Gm-Features: AclHuK-5nGNIjnalns2TTYeuiR7MEop7yTmsqLsf4e42_RR9QXEQZeMe2PdFpnw
-Message-ID: <CAAhV-H7xME-UrgMHcfY41793yxWyvgEMAufwgcboEL2q3Jg+VA@mail.gmail.com>
-Subject: Re: [PATCH v4] ARM, ARM64, LONGARCH, XTENSA: Delay HW BP notification
- to task_work()
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev, linux-perf-users@vger.kernel.org, 
-	loongarch@lists.linux.dev, Mark Rutland <mark.rutland@arm.com>, 
-	Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Oleg Nesterov <oleg@redhat.com>, 
-	WANG Xuerui <kernel@xen0n.name>, Will Deacon <will@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, 
-	Waiman Long <longman@redhat.com>, Clark Williams <clrkwllms@kernel.org>, 
-	"Luis Claudio R. Goncalves" <lgoncalv@redhat.com>, James Clark <james.clark@linaro.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, Chris Zankel <chris@zankel.net>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Jiri Olsa <jolsa@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 6:21=E2=80=AFPM Sebastian Andrzej Siewior
-<bigeasy@linutronix.de> wrote:
->
-> On 2026-10-12 18:15:51 [+0800], Huacai Chen wrote:
-> > Hi, Sebastian,
-> Hi Huacai,
->
-> > > diff --git a/include/linux/hw_breakpoint.h b/include/linux/hw_breakpo=
-int.h
-> > > index db199d653dd1a..91e8d80220c54 100644
-> > > --- a/include/linux/hw_breakpoint.h
-> > > +++ b/include/linux/hw_breakpoint.h
-> > > @@ -85,6 +85,9 @@ extern int register_perf_hw_breakpoint(struct perf_=
-event *bp);
-> > >  extern void unregister_hw_breakpoint(struct perf_event *bp);
-> > >  extern void unregister_wide_hw_breakpoint(struct perf_event * __perc=
-pu *cpu_events);
-> > >  extern bool hw_breakpoint_is_used(void);
-> > > +extern void perf_arch_hwbp_send_sig(struct perf_event *bp);
-> > > +extern void perf_hwbp_notify(struct perf_event *bp, struct perf_samp=
-le_data *data,
-> > > +                            struct pt_regs *regs);
-> > Maybe this declaration can be put in one line because there is no 80
-> > characters limit now.
->
-> We don't save much, do we? It looks more readable. Maybe if the perf
-> maintainer requests it. Looks like waste to repost it just for that.
->
-> Any comments on the looong bits?
-Others look good to me.
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Commit 8d07a7930434 ("net: stmmac: xgmac: Do not enable TBU interrupt")
+removed TBUE from the default DMA interrupt mask, but did not remove the
+TBU check from dwxgmac2_dma_interrupt().
 
->
-> > Huacai
->
-> Sebastian
+TBU is set whenever a TX channel runs out of descriptors. Since TBUE is
+not enabled and only enabled bits are cleared, the TBU status bit is
+never cleared. As a result, TBU stays set on every idle TX channel,
+regardless of whether there is any TX traffic.
+
+With a shared interrupt, stmmac_dma_interrupt() checks all channels,
+so every interrupt from any source schedules TX NAPI on every idle TX
+channel.
+
+Only use TI to trigger TX processing.
+
+Fixes: 8d07a7930434 ("net: stmmac: xgmac: Do not enable TBU interrupt")
+Signed-off-by: Pengfei Zhang <zhangfeionline@gmail.com>
+---
+Tested on a board with 8 RX/TX DMA channels behind one shared
+interrupt. A peer sends 10k UDP packets/s to the board and the board
+sends nothing back, so there should be almost no TX work. Every idle
+channel reads DMA_CH_STATUS 0x4 (TBU only).
+
+Per second, averaged over 10 s:
+
+                       before    after
+  hw interrupts          9071     8580
+  tx_normal_irq_n       72572        1
+  tx_clean             ~73000        9
+
+- hw interrupts: the shared interrupt line, from /proc/interrupts.
+  Unchanged, the RX watchdog sets the rate.
+- tx_normal_irq_n (ethtool -S): how often dwxgmac2_dma_interrupt()
+  returned handle_tx. Before the fix every interrupt reports it for
+  all 8 channels.
+- tx_clean (ethtool -S): stmmac_tx_clean() runs, i.e. TX NAPI polls.
+  Each spurious handle_tx schedules one. What is left after the fix
+  is real TX and the TX coalesce timer. The "before" value is from a
+  separate run with the same setup.
+
+No packet loss before or after.
+
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index ff83858ebc..0a6e82a155 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -346,7 +346,7 @@ static int dwxgmac2_dma_interrupt(struct stmmac_priv *priv,
+ 		u64_stats_update_end(&stats->syncp);
+ 		ret |= handle_rx;
+ 	}
+-	if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
++	if (likely(intr_status & XGMAC_TI)) {
+ 		u64_stats_update_begin(&stats->syncp);
+ 		u64_stats_inc(&stats->tx_normal_irq_n[chan]);
+ 		u64_stats_update_end(&stats->syncp);
+-- 
+2.54.0
+
