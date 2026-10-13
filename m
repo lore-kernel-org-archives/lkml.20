@@ -1,167 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682E549B5DE;
-	Tue, 13 Oct 2026 06:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8880497384;
+	Tue, 13 Oct 2026 06:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871878; cv=none; b=AtU0IzGsFNiNnZXxRlFgCE6R2r24h32UzRasAWbsQZeZwrS0GYWTALQFFYqrbYFUZGoEMevGop26Nw770brknJa7KKBrINz5lKTIUQW28MZRYqwMdl+y5z8habNrHHn/RfcFFG+SW2pRq6PZOXZ1O7uDJAjF94wiMd1Jz5OCDUE=
+	t=1791871891; cv=none; b=GNydG3Bd1ha8WluazgK4kquzMURvmArFiHp/0lxHb2WMn6oWU1qJVx5LY54sETq4P7+L6euvIAfA+XqO3mXKXimBuiZffPPOOTd48E0hPM4BQS2RwaD2+vJr4q/fXgOSW5ELMOW1JRO4fdBGd1h5n4nY+ZjaURXX4vLelVjLzow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871878; c=relaxed/simple;
-	bh=bZCryCaE81/PP/pc+Hgv31p+qdLWaTjK3f7Lg80CbBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F1TfsgtG5JVca+hO1QENwFxSQaSsg5MU2laiRSB7NSYww6/xdogEVqtVn8E7KqAty9G+pjExLkj9UZ6HkYs+gHMCO9u5jcJkoerNOkbci6uxuLc1us1edO54kOocUCZTnbVVZFIo3mvMiPgM64L7kLz+BGBq8M6zUsPRCoe1I/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GXoUvSjU; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791871891; c=relaxed/simple;
+	bh=1uJssuIx+fJPv46TRohcdFm+x29PPaeHtDJ++Ee5/E0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a5BhPuWLkFNF7sB/mm0r2Jlsxh10I5eDTQpNQ/VvBA/0dq+ebxlOf1RYAauF39+2byF1lPKcaaTLkGupGj5O7mKV85oyJmJEMXkhi+1yIes/YBBWOUrR/syFdjsGsijR0vk9P4SS8JgoTprWZTckiF6gVTYEFy1h/mop9VKL3Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgMR6Wq4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GXoUvSjU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791871876; x=1823407876;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=bZCryCaE81/PP/pc+Hgv31p+qdLWaTjK3f7Lg80CbBM=;
-  b=GXoUvSjUDtoQi9Tuy0D1nZO6Coxpr+z6WKTk0iNlh3+sd5x0yvbqLatY
-   ggHL425BDtN+aHg5S9cXkauX+joCX0d/QzKiVkPNWhSIG8xQbIEVL6qXX
-   u/Qr+Dj51kh5bPDArpbSevqXPC+nKugYS4gz2IB5LVFajkfSp9bKjAIMF
-   EVYF2VDHDMnT+fU730QmdR1CdBEaUkmwqUTOX93j0CI/Zu3zzFkyI++RE
-   p6qUvrQb80WLggBQSzPYF4KQyUMHvlNSj5zOhokLaCPsdRMQ8FyUgdXVN
-   B1BNkDNbFwHsuXGTrdQA9NaTDD70i9qRONO7jEXvyKzEMP1Udt39IG+at
-   Q==;
-X-CSE-ConnectionGUID: X6H3+cmnQk2/s1C65eLMUw==
-X-CSE-MsgGUID: 8vvbq3/6R1K5nMXeh8ihDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="592546"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="592546"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 23:11:15 -0700
-X-CSE-ConnectionGUID: bUS/U4RbRLOGF0ixRHSvRQ==
-X-CSE-MsgGUID: P88hj0ooTWqjFlVDp4fQGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="981242"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 23:11:11 -0700
-Date: Tue, 13 Oct 2026 09:11:08 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
-	linux-iio@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Fabrice Gasnier <fabrice.gasnier@st.com>,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 3/5] PM: runtime: Propagate last_busy from dependent to
- dependency
-Message-ID: <as3LfIU9bi5GY2cm@ashevche-desk.local>
-References: <20261002230714.507921-1-briannorris@chromium.org>
- <20261002160309.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
- <asEdiIT7l49vhn7i@ashevche-desk.local>
- <asPm6HYpEIAYJ4a3@google.com>
- <as074Em1m9d5s1yO@ashevche-desk.local>
- <as1qe_J37Njol797@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgMR6Wq4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BCD31F00898;
+	Tue, 13 Oct 2026 06:11:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791871888;
+	bh=RyDYjZkFiyjGza0mTZubRFZRXHB6qfDlNws3iq8P+6w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cgMR6Wq4mGmYaTY7BDNHGPXgYtVjRiGmYt+wS/ZSTHkX4ppNbXDdiCqtnO9RLc+dw
+	 Dy9Mjx94mojmFpxuhoEx+a55bA/oMfe9JcjSFOjAvZEYea1JGOsTmuWf0pP/H2VcqD
+	 jDLQhq8OMq0m70TR3ujgph80MQkOySL5utED1SrE1W5BTN7f5wi6s2ARjTiKafgwMv
+	 dxNMc8BzbUI5jcRgw5F3NbP7rrdtfUxxnyQgg5OCEqrap2sUUtetG9BRBoSfjjRCis
+	 q8mcNjxfL3r1OcDH+oEu+eXA3lqTZ+9ZNpZIxUw80US1slAWnGiMAQOsc40axwvnXI
+	 rv/+Jt8AcvVaw==
+Message-ID: <0de13e2d-db34-4ad7-aca7-2a42d64f8e7f@kernel.org>
+Date: Tue, 13 Oct 2026 08:11:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <as1qe_J37Njol797@google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/11] dt-bindings: spi: Add NVIDIA LSTP SPI
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Donald Shannon <donalds@nvidia.com>, linux-usb@vger.kernel.org,
+ linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
+ <20261012-lstp-usb-adapter-v1-3-aambrozewicz@nvidia.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261012-lstp-usb-adapter-v1-3-aambrozewicz@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 04:17:15PM -0700, Brian Norris wrote:
-> On Mon, Oct 12, 2026 at 10:58:24PM +0300, Andy Shevchenko wrote:
-> > On Mon, Oct 05, 2026 at 11:05:28AM -0700, Brian Norris wrote:
-> > > On Sat, Oct 03, 2026 at 06:21:44PM +0300, Andy Shevchenko wrote:
-> > > > On Fri, Oct 02, 2026 at 04:03:07PM -0700, Brian Norris wrote:
-
-...
-
-> > > > > Cc: Ulf Hansson <ulfh@kernel.org>
-> > > > 
-> > > > Can go under the '---' cutter, so it won't pollute the commit message in the
-> > > > Git history.
-> > > 
-> > > This is a well-documented convention.
-> > > 
-> > > Documentation/process/submitting-patches.rst
-> > > 
-> > >   If a person has had the opportunity to comment on a patch, but has not
-> > >   provided such comments, you may optionally add a ``Cc:`` tag to the patch.
-> > >   This tag documents that potentially interested parties have been included in
-> > >   the discussion.
-> > > 
-> > > I'm directly referencing Ulf's suggestions (Link tag), so I'm also
-> > > making it explicit that I'm CC'ing him.
-> > 
-> > This piece of the documentation was written long time ago before we have got
-> > the kernel.org controlled mailing archives (now it's lore.kernel.org). I argue
-> > that this piece is outdated and we need to look at all aspects of the commit
-> > message. Perhaps having one might not lead to the issue, but exempli gratia 20
-> > is. I still think it should be moved to under '---' to show the good example.
+On 12/10/2026 19:36, Adrian Ambrozewicz wrote:
+> Add the binding for an SPI controller channel of an NVIDIA LSTP USB
+> adapter. Peripherals on the bus are child nodes, as for any SPI
+> controller. The firmware reports the number of chip selects and the bus
+> speed; only chip selects 0 and 1 can be addressed.
 > 
-> Well, it's not 20; it's 1, with a clear reason.
+> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+> ---
+>  .../bindings/spi/nvidia,lstp-spi.yaml         | 68 +++++++++++++++++++
+>  MAINTAINERS                                   |  1 +
+>  2 files changed, 69 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/spi/nvidia,lstp-spi.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/spi/nvidia,lstp-spi.yaml b/Documentation/devicetree/bindings/spi/nvidia,lstp-spi.yaml
+> new file mode 100644
+> index 000000000000..5a96faab9106
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/spi/nvidia,lstp-spi.yaml
+> @@ -0,0 +1,68 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 
-Yes, I aware of that — "having one might not lead to the issue".
+All comments apply here as well.
 
-> So not sure what you're saying. Anyway, I've prepped that for v2.
-
-> Do you think you could propose a documentation update, if it's really so
-> out-of-date with current practice?
-
-I posted some a few months ago, when I pointed out to that noise in the commit
-messages, it was like a pushback, but since that I have convinced several
-developers to follow, so it might be worth to try again (but it should not be
-insisting, just a recommendation). Also note, that even in the cited piece
-there is no clear point where to put that Cc tag. It's only required for
-stable backporting process to be in the commit message, otherwise that tag
-may well be located after the '---' line which still makes it a (email)
-tag, but visible in the commit message.
-
-> FWIW, a quick look at the v7.1..v7.2 git log shows over 10,000 Cc lines
-> that aren't for stable@ or similar, with over 900 different addressees,
-> across roughly 1300 different commits. (For comparison, there are 17,833
-> commits in v7.1..v7.2.)
-
-Have you checked in dynamics? (Note, most of those Cc comes from Andrew
-Morton's scripts and TIP tree.)
-
-I used this:
-
-$ git log --no-merges --grep '^Cc:' --pretty="%(trailers:key=Cc)" v<$A>..v<$B> | grep -v '^$' | grep -v 'stable@vger.kernel.org' | grep -v stable.*@kernel.org | wc -l
-
-where <$A> and <$B> give a range.
-
-v6.19..v7.0: 11525
-v7.0..v7.1: 11594
-v7.1..v7.2: 10946
-v7.2..v7.3-rc7: 8696
-
-You see, it works!
-
-> It seems like you'll have a hard job trying to apply your rule to
-> everybody's changes, especially if it conflicts with the documentation.
-
-As I explained above it doesn't really conflict, it rather old established
-process when people want to have that Cc be recorded, now we have
-lore.kernel.org for that and I successfully convinced several people to follow.
-
-> > > > > Signed-off-by: Brian Norris <briannorris@chromium.org>
-> > > > > ---
-> > > > 
-> > > >  Cc: ...
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Krzysztof
