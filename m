@@ -1,86 +1,84 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FD652B1F0;
-	Tue, 13 Oct 2026 18:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F115349DD;
+	Tue, 13 Oct 2026 18:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791917371; cv=none; b=B8hyu6qbxYN0RqmOMNeDtIygWEUFTp0bxi/MvC3edbHtYj6t08JIvk/CCWHfuGRfFXrBkBorEjFvivsNZRZDC3z7pCcYGgApHFke0TtSnyy9XdaZitLJlgXDwQ/ydtUiXsoZtnTPaVNUemQvWyClWVpUwPzphgdCYwSasCKRkjU=
+	t=1791917388; cv=none; b=UfvVLJzVfJHj5hNH1q/WF2ow47ARxfap6fMi8ghBorKiQiJKA1GdQwSyK/HRYIRTggKxc+A8MNFeWQXdM+plYgpfYw1WNF5mzrzJNhIkr+8zUIrpeaXpMhX1Ze8EZ/vgeK1iX0ZaHgw3iXSGs7E5ExczgQkOXW9nCU0438+JBMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791917371; c=relaxed/simple;
-	bh=GcgTGTUKLZsBicwTKKTvC1tAzZpQbTxTHC2mXGx8u50=;
+	s=arc-20240116; t=1791917388; c=relaxed/simple;
+	bh=2hgOvZw3kNSqCxlZci2oAYXD7N2Bd+0CQorMdKpwmYU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=evUQYQvVs9NhN0+EZ0g1ROQHTtoCG/QhQdc8+L54ePUq7VpQvgf4iTW9F4FmgQ1BQrWQLC0WEtlis++y6i9Gs+mGLP+ULAOJjVIEjKvgR0s0kMeSvmSkwIxgOYgNWypuqdFoY6G4O3RUJS+DsvFuEENAWKtR84No9kFGl/tRpAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L/hYYL0m; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=e/HCdKfoG2LYL5YgVBbAqGLFASf1yCDlM6veCph3bFOy3vamLvAF5LfcUlHwKM+YAcuzA3wkOCdu94uWCoabNP0tAt1ko4B6l5oeRmFHh5bq4hxw6Mw88UWNmPY6WttCNa5ZnC9vXAFeZ2R/hE+LkVwdlYBO8sFllWC0BOkPM0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XkqyyUkM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L/hYYL0m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791917369; x=1823453369;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GcgTGTUKLZsBicwTKKTvC1tAzZpQbTxTHC2mXGx8u50=;
-  b=L/hYYL0mXUSyuZ+GADYAOLcBeBMGA1bhrhrkt2QRpOXFRnADS303W7C6
-   cwUYYwiwo//zlKO8PN6e64KElhiJ33x+xo7coWi5ixqsehhl1tWENu5yL
-   jDGInvikY3ijE5Xs3X04WjXOPo5gcI5yFWA155Lr5b0aBvbAPkYzLmkBJ
-   HKYHMbsi0QoJU2tR1Of7xC9SMyuhls7mEFcou79nCFNYoHP8QEY1TSbC9
-   qt3f17xR/unbHxjfOp3kB4eQgANT9X71nfTLyEef7s1/V52h9QxMJUvOg
-   uSqJxfy36zMThVBwG1x0hwv996k0yHJFcyqqiQa+OtJnVCgdX6dBepKh0
-   g==;
-X-CSE-ConnectionGUID: qAUi5msWSWW6AyoGoUXGpQ==
-X-CSE-MsgGUID: hM/vf18MSu+T0pXnDQN65A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="647880"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="647880"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:49:28 -0700
-X-CSE-ConnectionGUID: CIKezkIdQ0WeZ0M8NropCg==
-X-CSE-MsgGUID: +R+yUuQ1Tna+whYr5+JBQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1122609"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:49:26 -0700
-Date: Tue, 13 Oct 2026 21:49:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH RFC v2 2/4] lib: test-kstrtox: add E notation tests for
- kstrto[u]dec64()
-Message-ID: <as59M3m-Xdc5RDBg@ashevche-desk.local>
-References: <20261013-e-notation-v2-0-d4adb5e193fc@analog.com>
- <20261013-e-notation-v2-2-d4adb5e193fc@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XkqyyUkM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517921F000FF;
+	Tue, 13 Oct 2026 18:49:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791917387;
+	bh=2hgOvZw3kNSqCxlZci2oAYXD7N2Bd+0CQorMdKpwmYU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XkqyyUkMMfO6XOG4t0n8VrIRXLBViT54XTKerD04IYrix2p4+uSgR8/t5Y3bdU46A
+	 bLgCLdKhZBZt/1CAJyfVFbXi1MZFFXuJBSlrY2vIXNqd3Ha7CEY7NB7auJ5myCWaU8
+	 Lw9hjAnXLnD48s0iW2vSRbDfg0kCCgSvJNp84hfH5fcV9tWTEPCfBFWUBp6oKZkIr1
+	 LimJ8JX8qtK8dFfezPQxZiqIdmMCFNkMQC2vA2xrqz8ALaevOoGqtrmrlpy4szHT1R
+	 QPkEMHZwrMTs9CvydZf2IkNscF0GZdlfmR3TIrFhmLmjE8O6WGoqnHLnPnl2tX4Wcm
+	 rOWtpLmZgsBdA==
+Date: Tue, 13 Oct 2026 19:49:42 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/2 RESEND] ASoC: codecs: Add support for Fortemedia
+ FM34NE DSP
+Message-ID: <ebfcdeef-d0dd-4c4a-87bf-4ef3fd505b5f@sirena.org.uk>
+References: <20261013184755.530392-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EpxNXgxlQQ8aoE/S"
+Content-Disposition: inline
+In-Reply-To: <20261013184755.530392-1-clamor95@gmail.com>
+X-Cookie: Some equipment shown is optional.
+
+
+--EpxNXgxlQQ8aoE/S
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013-e-notation-v2-2-d4adb5e193fc@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 10:36:45AM -0300, Rodrigo Alencar via B4 Relay wrote:
+On Tue, Oct 13, 2026 at 09:47:51PM +0300, Svyatoslav Ryhel wrote:
+> The Fortemedia FM34NE is digital sound processing chip used for
+> active noise suppression mainly on ASUS Transformers.
+>=20
+> Resending since previous attempt seems to be malformed.
 
-> Cover E notation parsing in kstrtoudec64() and kstrtodec64(): positive,
-> zero and negative exponents, upper case 'E', an explicit '+' sign,
-> truncation of integer digits by negative exponents, large values, and
-> failures for overflowing and invalid inputs.
+Please send a new version if you have rebased, tooling gets very
+confused about which v1 it's talking about.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+--EpxNXgxlQQ8aoE/S
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Always a green light for the test cases.
+-----BEGIN PGP SIGNATURE-----
 
--- 
-With Best Regards,
-Andy Shevchenko
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOfUYACgkQJNaLcl1U
+h9Cf2Qf/ab2mIIZbOJnQzp6aTP+sgDe5dnkhSCQjRG2SX8vFG64LvhoVOQ7F47NM
+Os74DVb+v4fH0QOI1nxdC3hUZoh7PUjoxErBaahpjW0hW+3Jvkb3+yQ8dz6MpJno
+Mm5ZLqvTF+9UJRX4NFazvptGch153CRnWjcgEzsYo/ExJ2sj/Ljtj7yd/AbbTyw/
+u2YWAkp2+0MVo5FyOjjnyCmQP4fKQG4BszU8qqQHhiFx/CZcHgjebQzWbpZ9EbcY
+MdC2ckdfbyMr1U5lYYMPFPLzsio29cqjufP+bMaaE5478WTNuJD9CqIOORfUQ0JH
+qEUFF80AjouxfrD6UM8t5qzXvjM7Uw==
+=EPkF
+-----END PGP SIGNATURE-----
 
-
+--EpxNXgxlQQ8aoE/S--
