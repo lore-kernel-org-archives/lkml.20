@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091E3524B14;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D616525A8C;
 	Tue, 13 Oct 2026 17:22:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912122; cv=none; b=sTOWC7vbJrOMwPRX6ew9jrDg4wNnvZJJ0nIlI6vhuKa49Gw5UIe9PcBeUI1nTtkyuJoUJwA21Ff57NCe4xN6mgDzKjX2+yCGhN9doIhb1z3mcENbkeJ8oy5EEy9wl/xyn4QIhGivSec9GnA3ldxACFlmsGwo5mZ89Iv/1mMyu0M=
+	t=1791912123; cv=none; b=DFGL6oYG78j4TZBIOhRGdrB1cP8Z1YJnV8/C3Ak0P2WVTgKnlopHO5TN+A9NNoA6WIW9JNeU2aXIoXJg1H9ynAMm7J52MKgTMJBtPpfxaZJF2p+0clmxf/b9Gzkr40CjwQ6vPMkXIJnKEakXnljRUjmeecb4e/l02mpSBPQ/jN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912122; c=relaxed/simple;
-	bh=ud4WWh8RUuNJmjMxj9NMd03ppEn0qDJz9Tqkf06RD0s=;
+	s=arc-20240116; t=1791912123; c=relaxed/simple;
+	bh=yU+IuLum0EhshCvoU2fSFEy2wdHpcbGdoVmlaIsdQRM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GWAO8TMrJFu2uk/RwO9GKQo0SN86DUPh/O+MWyWZAdnFgT3B89pKduvH28PB3ZABzNv/4vmuYN66BAcl9+sjcSUra27ih3/n8yig59ERU+uEe6XVzm1iURxLWL+rKLUml1ryFrSgvXkEUQIXKYTKnYmiemTF8B9xeVz3iprFJjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A+yaTVuY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=clFISVsNfxqXHopgNp1LyHu555BmK+Kw7I0BAPd0wNR+J55pviytKjzNzVfl1RmMkVuLo2r/FQpKh8w3UU8ZccE7+nIAKwPKeafl4ndHl+W+9Evm3MueszDr1TOKD5gerUM988cM/Zwmy79GQLJ0vZLIXC+MTlB3FrL81GmAA9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZzuojoa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A+yaTVuY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F8E1F00899;
-	Tue, 13 Oct 2026 17:22:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZzuojoa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 144A31F00893;
+	Tue, 13 Oct 2026 17:22:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791912120;
-	bh=nlNWeB+9FkyeYzISPfZxDiG41XzV77zEy8rHeT2l9uk=;
+	s=k20260515; t=1791912121;
+	bh=mIAqTHoeg8uGwxo/TJzpHP8yh7LXLsB4Unu125bcb9k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A+yaTVuYykZng+OzeMwt9xMzXxTsrqreq93T3OaBUPEk9fNKlEzo7ii1dVpr4FXtG
-	 U7Mf42dS78p2NM0p+7S/Es9OiaoYEeQE09oVsFSaXWYJzEuxxr0UAOvwX1CBNvNZyP
-	 0x7uZ9oMQ60Wx7MskXI54o9aXNlzi3fK2OBQXySE6SfQHbaJXogSfMV+5pc8lEjW7u
-	 L3nL/ab1hugT2fbzB+sBpQLDK76jKyLoEyU5LRh/JCtC+E5eRQHpuRsHY6zV5J1HXC
-	 mGWOAgLdMyBdNwkb80DWwM8AsLTXQ+g2Pm3BxBuNPRsdoW/7l/4hgZUQNxLztsJWlu
-	 qfRG/gDSJXomg==
+	b=SZzuojoaYrdke50r8GT4TGcvmLCyp1MVijDDpJfNCJasMsayXD7C8L5t160/lwjdn
+	 RIFHl37Z7xnpYNyq2AP0dc4yS0ZB/E9myHIKKI+/M7U3UNaZSpOCHnG1KkcjolcMv5
+	 HTlaeHp+qMawpw2B1paSn0KlGd9ZzmJbxv4H+RIZOeyxYD0ZyLNjhI7rBTnrW9O/Qd
+	 maBLo0mBKfzrUGwoYrzl4NDJYpxquOFCkR6+3Vy62CVdxLAqXs0J69WRunr8IZzSt5
+	 +HC58iaT7BuB0ovLbh8EOM107HNthZJY0IjusRjAZOAi7Qru5nayylsxt5yv149aCp
+	 lkEs40qKdSd+Q==
 From: Namhyung Kim <namhyung@kernel.org>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>
 Cc: Ian Rogers <irogers@google.com>,
@@ -36,9 +36,9 @@ Cc: Ian Rogers <irogers@google.com>,
 	Ingo Molnar <mingo@kernel.org>,
 	LKML <linux-kernel@vger.kernel.org>,
 	linux-perf-users@vger.kernel.org
-Subject: [PATCH v5 08/11] perf symbol: Set binary type for JIT map DSOs
-Date: Tue, 13 Oct 2026 10:21:52 -0700
-Message-ID: <20261013172155.160869-9-namhyung@kernel.org>
+Subject: [PATCH v5 09/11] perf symbol: Do not set binary type from symtab type
+Date: Tue, 13 Oct 2026 10:21:53 -0700
+Message-ID: <20261013172155.160869-10-namhyung@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 In-Reply-To: <20261013172155.160869-1-namhyung@kernel.org>
 References: <20261013172155.160869-1-namhyung@kernel.org>
@@ -50,29 +50,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The perf-<pid>.map files contain symbol name of JIT functions.
-As they don't have the binary data (instructions) no need to try
-for dso_data.  Let's set the binary type regardless of the result
-of symbol loading so that it can be ignored.
+The DSO binary type is to access the binary (e.g. instruction) data
+while symtab type is for the symbol table.  They may or may not be in
+the same file.  We should track them separately and correctly.
+
+As special binaries already set their type before loading symbols, leave
+the binary type info and only update it when actually opening the DSO.
 
 Reviewed-by: Ian Rogers <irogers@google.com>
 Signed-off-by: Namhyung Kim <namhyung@kernel.org>
 ---
- tools/perf/util/symbol.c | 1 +
- 1 file changed, 1 insertion(+)
+ tools/perf/util/dso.c    |  3 ++-
+ tools/perf/util/symbol.c | 13 -------------
+ 2 files changed, 2 insertions(+), 14 deletions(-)
 
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index 47241077ad260744..1ca4cc5ec7db027a 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -1491,9 +1491,10 @@ uint16_t dso__e_machine_endian(struct dso *dso, struct machine *machine, uint32_
+ 			       bool *is_big_endian)
+ {
+ 	uint16_t e_machine = EM_NONE;
++	enum dso_binary_type dbt = dso__find_binary_type(dso);
+ 	int fd;
+ 
+-	switch (dso__binary_type(dso)) {
++	switch (dbt) {
+ 	case DSO_BINARY_TYPE__KALLSYMS:
+ 	case DSO_BINARY_TYPE__GUEST_KALLSYMS:
+ 	case DSO_BINARY_TYPE__VMLINUX:
 diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
-index a7afecb5816c25f8..4a8c298039447cec 100644
+index 4a8c298039447cec..116870595f75c7dd 100644
 --- a/tools/perf/util/symbol.c
 +++ b/tools/perf/util/symbol.c
-@@ -1847,6 +1847,7 @@ int dso__load(struct dso *dso, struct map *map)
+@@ -1943,19 +1943,6 @@ int dso__load(struct dso *dso, struct map *map)
  
- 	if (perfmap) {
- 		ret = dso__load_perf_map(map_path, dso);
-+		dso__set_binary_type(dso, DSO_BINARY_TYPE__JAVA_JIT);
- 		dso__set_symtab_type(dso, ret > 0
- 				? DSO_BINARY_TYPE__JAVA_JIT
- 				: DSO_BINARY_TYPE__NOT_FOUND);
+ 		if (next_slot) {
+ 			ss_pos++;
+-
+-			/*
+-			 * The binary type is used to find the file containing
+-			 * the executed instructions, so prefer the types that
+-			 * refer to the actual object over debug-only files such
+-			 * as DSO_BINARY_TYPE__DEBUGLINK.
+-			 */
+-			if (dso__binary_type(dso) == DSO_BINARY_TYPE__NOT_FOUND ||
+-			    symtab_type == DSO_BINARY_TYPE__BUILD_ID_CACHE ||
+-			    (symtab_type == DSO_BINARY_TYPE__SYSTEM_PATH_DSO &&
+-			     dso__binary_type(dso) != DSO_BINARY_TYPE__BUILD_ID_CACHE))
+-				dso__set_binary_type(dso, symtab_type);
+-
+ 			if (syms_ss && runtime_ss)
+ 				break;
+ 		} else {
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
