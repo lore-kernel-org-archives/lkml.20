@@ -1,177 +1,195 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68B4517BA3
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A96C519E15
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902941; cv=none; b=HTA7+0emGHY2wUuczgLfoTN9dNtKBcBykeMbLhINNIXdBtCwrzozhTPirK8b/tcX6/8lboxC6OluLlMKdYswmCtdKJjwBj3b0KIevBgMT98/mM7E7sTmn1aBa5lcqFCmJfUVMgOKKhZVC+0gmTBuRJ1W5MaY0s4gYA+G3mqkkgo=
+	t=1791902977; cv=none; b=VHw8uU4kxv6Pqo1Cu0YdOeqJJjJe/9Alg7k6lsis3biqMCAC4xzMLy4RWbrWPAdJOqupwdmXmLp6iu9U0ZANSG6lsfr7DdRr0yJAw8FwJDCISHE4KHAGYlGwFP/Ui4RoTXO4gNC5jeq+pScXVPEArHC+9Gjb87yZUn/yUQy4eds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902941; c=relaxed/simple;
-	bh=cVA4vzCqXXIeCeCWsLEP13aJ1NxrMANcqoblpdZR14Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gpllyKSD2jW+6EzjcdDUUUHbak+ya1HksKjLNr3cTCii0YLC5jGr2qh3oFKlxUEsAzuTxvL8Lbynr52WOT6an6SAGRTC7ffyhYTrFpeCHkSkFF0SJgwzSO7ZJ9llO0x8ELrhr1xvaxQbo9eqyEmrNoOs2uQqwgIoi4Mdc5kp7CE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L22LOjbw; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791902977; c=relaxed/simple;
+	bh=4shNFslN/2vm+UbR7hXkck3vWhQGQ0XGUbraVpHrNto=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iwVj/6cQ+nn5va7qAvKP95oTaiK5DT7t8mKBek5Kj5JuSG+uQN3Ew7y9c5sPuR3x/lEl8wdzBsAGJ3VP9LR6Dm25/FGFQjXnuaYSNfX2ZvKJVXrHhDp+tDfogDeHqK/68sceXcs2YkenhUlb+x3GgwoJw6Ea9a9NIY9OXnJNhxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CBRnzOnK; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L22LOjbw"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso1207895a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:49:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CBRnzOnK"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so28133655e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:49:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791902940; x=1792507740; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=baylibre.com; s=google; t=1791902973; x=1792507773; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=tQnPST9S9TXx/lpXdW6R6/PTycYLIXzyk2fMAOlKVx0=;
-        b=L22LOjbwcAv30k3FN8mD4y2Y8JD4ehjLesxHyj1YhOgY12eg3W/jwXt244sYXGRBiv
-         nF58V542nATq/Rkohay331L6XSnqEa60jBtSZTwUVz69Sm1GaBAl7aWHuEwoiL0tEa2E
-         kJ7k9VpRVA59g7V8eiVOt8tf1wdnI47DUY53TW0zXhqTkz2qOSlCZwCS+PfQYOtxh0TR
-         /GS3XLC5IgsQ++gKb1yyZ+3bEsL3nXuNl8yuZ/dj2Y6s0K/vIEFAOgAJRCGLujkSg0Nj
-         OkY0WFAOShjS5G7kvNFlozrjYMjqkjirU2pEwNXjzm9/NgHbODZBIWihqtRKZpcgpkjU
-         W4pQ==
+        bh=PIfoOZUaMPo6S3doq93G1Tv0En9Cid2ywRGemat7sLE=;
+        b=CBRnzOnKCaTVvpE93/PJ1W8brRdcAkS8D3vjclbv+3UnOwtH/FNazRk6bwqy5Wckwo
+         /EtJ5+ecUKygzSmrqYa88Hx4ysTUwVrmlzztR6Q7vhrYTDsJlObzRLdfWnNvp865r7vH
+         6E0DNijkZTQfKER/+MjgU1v18rgaJUf2X9cCANMJeeNTTwUVIObOj2ViC90k4pzBQiav
+         vtYdvIbuBpVbDJkhFz4M8KqlOFFJ83Ax6AJxGZadNTNLGO2My+L3EWIyuGzCYBqcCVoi
+         0ALSt2xWPIkIWFC+RoyGGj5Ul2IJAdtdQi5gF9oybJX/BwaKPou1ECWcYI+YBWWFRVP5
+         Ofqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791902940; x=1792507740;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791902973; x=1792507773;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tQnPST9S9TXx/lpXdW6R6/PTycYLIXzyk2fMAOlKVx0=;
-        b=atXAETHweJQj+TB9JNXoKIHZu7UcrX1HsQm9zlvSVq650I7P3UWINyHXlWhC7ZD8GD
-         zS9y2gnjtRdPKp1sXi4tTLXooTT5zL1cKaD38px7RZi1CEmPiWjb9hs2q95sxTQNf4yN
-         gc+stbxCSPtJm9vGO7mmUhJZbUPeMOOVYj5gI8bnJIFaUWlfbO6CXlcEI9fxyI98+FI+
-         hFQWaDvb08vIEqa54nZiUdW2YwYNxhIxcP9Q/anJBeLAkO3XS6YmVlGuRJyrqGZ0MlDO
-         4GmSfVE81XF0Ffhgd876lvh6LrRrEpgadUl2hYbNotRSqQANQ++/nv8vGLh5KozIvSBp
-         OBTA==
-X-Forwarded-Encrypted: i=1; AKwUvBwAbfreO3yOeUeoa7r0shAeGFr0f14TOk/lVn0MpMCZLaiXcmHEoWE1Ya1odWuGiYTnNPHkwSC4B5Nxa5w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIngtm+Geiz1QEFn9sfJSp75SLhPwAilGIHpxhYnqTPA5xgK3k
-	m2xBfZeEd6TdIQr0yZQANC0E3C3yH1bnV9hPYxLnjyg8GV0xR9n9Z5Nk
-X-Gm-Gg: AYBFou1iTqUf3/ZOW/VoHyOSjsIHmlgfzabLbtSsoyZEd/Wr7FLXp+N0xH2rf03e1Ul
-	RRSAchWxv2cSOhPD03BZdv8A7Sqm04ZPtBcJTTWSf3vN4+ljfmiyh19gCfregSWzpxwx1/rATPX
-	Sj2yk4Qn0Y4ZtoPnbce7c2SYlVlNMPFkuJs8xG97uzo3AMuSJgIDaogJzZo5x0WbrsdUsAi3fPE
-	fka6DnVzGvzBNEgQjG/iVyfCQGshiafKgaUjiesb1Ka+di7fzHxjGwGpPAUGJA7+jzcTdtjNryM
-	y1Pe4WZBGD975mgUGZaXovCB3hZwdwq/nj6XXymTj5kIH2Ki+MHGDzA3kGi+WTyLgjZbQta/rOf
-	D5eLu3ECvOf2l6BQfBzjxO6sfo6pio9I/ewKLObDCLYg4VbDaAiSi3BJNE/aG7foI+pRynzGzwK
-	DI3k90hL/aKlremUN2prOcFln4pVmdiiTWuQJ9EbY9Pi4oeyU81eF98C6GyNeGhm/etysFpY1YJ
-	B1UeKywbRXFA+en69EY3w==
-X-Received: by 2002:a05:6a20:9c15:b0:3e0:bbb8:bbdb with SMTP id adf61e73a8af0-3e16be9eb80mr11142742637.47.1791902939830;
-        Tue, 13 Oct 2026 07:48:59 -0700 (PDT)
-Received: from arch.localdomain ([161.118.199.118])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896b68ef2easm5380700b3a.7.2026.10.13.07.48.55
+        bh=PIfoOZUaMPo6S3doq93G1Tv0En9Cid2ywRGemat7sLE=;
+        b=0Ge9olt1NXyJTGkhjN9a7DPVIUzeBszNH2p/UatFbep/vdn+mqqY9ZpLvBhG7zxEG+
+         9Nf3g25Fe1CkVXpZnrEq7GqtaJ9FBDMbVxBuxvWpwfdC8fA15xD7GUviczbHWrXJpWzk
+         Du/fn8P+VMioxGZQoCWa9gPAg2b9mfMxvHpx00tGd9Ya6bxsPdwivIzBDT6cQwWg3jVg
+         qk764Hl6FpztjsqLZe0cdHBs4H9nL2/ciFXGRZ2NZipE/WpOsF0i4juK1wcMpGzcUWKo
+         vJSlNih3h1QlrOx0rhJwH8lzjHmxNAGsJl4pUsU7k4VZZzplI9GXTzyD85Ug2uBNz9AZ
+         DM7g==
+X-Forwarded-Encrypted: i=1; AKwUvBzSYb79L+3fNQUxGtMKo34zpiOOwOhENp9OB+0yFMz+0wR8GabM+KmpT6woB5r2A5xeF8aviN++2rcCT5o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITdvvSynbFyvxhMLe5auat4zk8IJ/U74EuVt1cOR9FD1eRAV0F
+	XQiQiP7SzOZX9mUcZr1RRLKBjtkJW96IPbXPPAk3KgnAtUVoV7JXl8PTIed85CkBmkY=
+X-Gm-Gg: AYBFou3Vlmned4AQRzzvzMyB5DpJMHqyrsgHVBc3WFX56NVRnMgLbp6AV3T5W3NlnJw
+	TrTU7Ht/ZsLvtku9YpleeTYk6Pq8wJPltyLsDMLwYbNYL6f7NcNlafktE1WHB94NtP2XKBLKrGk
+	my4bAKXT4FFITa1usZxugMAw6oZN9a2W8fB/0PEPPGWuBk+e5kds7ntLftYXZWOm+WxVBZzDCzJ
+	3gb6yIV+sAJJxJGhlwcQOBVJvkDzEc5GDlXzvPpqRC9IGxLCnTCDYMHAtRyFDLN/SlBf18nSTLZ
+	htxOJnPeT57ghG8ASnUVyjcZWvLr7PY3oIw0tkuKwTsIoo2H9Yy04zy5NRzvJRYjD7fJBmt0pAu
+	26I4i7fysLWOscVr/2tIUvekAi03gNqK7RvulkKXZNYNNeed86dUxuXOKuLiKMvZkzY+spPXLIt
+	ANXw83sFCwUEmWgtHlkqh7hwMC2WliavZfmBIH3whY9Ius6ehZZLC7wrvBKfIT9resAsdzXHkwo
+	FZm
+X-Received: by 2002:a05:600c:8b78:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4a18e47acf5mr286180385e9.11.1791902972584;
+        Tue, 13 Oct 2026 07:49:32 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a19c71a1d7sm183592355e9.5.2026.10.13.07.49.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:48:59 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: dianders@chromium.org
-Cc: airlied@gmail.com,
-	dri-devel@lists.freedesktop.org,
-	jerrysteve1101@gmail.com,
-	jesszhan0024@gmail.com,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH] drm/panel-edp: Add BOE NV140FHD-N43 panel
-Date: Tue, 13 Oct 2026 22:48:48 +0800
-Message-ID: <20261013144849.343351-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <CAD=FV=VZs9bZciynpey2O6Yy5DQJqeq9Rgz_Ks6dgsBhVUkenA@mail.gmail.com>
-References: <CAD=FV=VZs9bZciynpey2O6Yy5DQJqeq9Rgz_Ks6dgsBhVUkenA@mail.gmail.com>
+        Tue, 13 Oct 2026 07:49:31 -0700 (PDT)
+Date: Tue, 13 Oct 2026 16:49:30 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, 
+	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] iio: pressure: dps310: add Zilltek ZTS8032 support
+Message-ID: <as5EOfOqsF5iEHct@monoceros>
+References: <20261012114550.1680054-1-paulius.zaleckas@ui.com>
+ <20261012114550.1680054-5-paulius.zaleckas@ui.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wvuvco4nogl7rfck"
+Content-Disposition: inline
+In-Reply-To: <20261012114550.1680054-5-paulius.zaleckas@ui.com>
 
-Hi,
 
-> Hi,
-> 
-> On Sun, Oct 11, 2026 at 9:44=E2=80=AFAM Jun Yan <jerrysteve1101@gmail.com> =
-> wrote:
-> >
-> > Add the BOE NV140FHD-N43 14.0" 1920x1080 eDP panel found in the
-> > Sunniwell Z96A.
-> >
-> > raw EDID:
-> >
-> > 00 ff ff ff ff ff ff 00 09 e5 f4 03 00 00 00 00
-> > 13 1c 01 04 a5 1f 11 78 02 3f 62 94 5e 56 94 28
-> > 21 4f 58 00 00 00 01 01 01 01 01 01 01 01 01 01
-> > 01 01 01 01 01 01 c8 36 80 cc 70 38 14 40 30 20
-> > 36 00 35 ae 10 00 00 1a 86 24 80 cc 70 38 14 40
-> > 64 64 44 05 35 ad 10 00 00 1a 00 00 00 fe 00 53
-> > 54 41 52 52 59 0a 20 20 20 20 20 20 00 00 00 fe
-> > 00 4e 56 31 34 30 46 48 44 2d 4e 34 33 0a 00 97
-> >
-> > Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> > ---
-> >  drivers/gpu/drm/panel/panel-edp.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
-> nel-edp.c
-> > index ac815729aa83..ba981581f3b4 100644
-> > --- a/drivers/gpu/drm/panel/panel-edp.c
-> > +++ b/drivers/gpu/drm/panel/panel-edp.c
-> > @@ -1972,6 +1972,7 @@ static const struct edp_panel_entry edp_panels[] =
-> =3D {
-> >         EDP_PANEL_ENTRY('A', 'U', 'O', 0xd497, &delay_200_500_e50, "B120X=
-> AN01.0"),
-> >         EDP_PANEL_ENTRY('A', 'U', 'O', 0xf390, &delay_200_500_e50, "B140X=
-> TN07.7"),
-> >
-> > +       EDP_PANEL_ENTRY('B', 'O', 'E', 0x03f4, &delay_200_500_e50, "NV140=
-> FHD-N43"),
-> >         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0607, &delay_200_500_e200, "Unkn=
-> own"),
-> >         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0608, &delay_200_500_e50, "NT116=
-> WHM-N11"),
-> >         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0609, &delay_200_500_e50_po2e200=
-> , "NT116WHM-N21 V4.1"),
-> 
-> Things look pretty reasonable, but before landing I'd love a little
-> more background about this panel and where your timings come from. Do
-> you actually have a datasheet here, or are the timings a guess based
-> on nearby panels? This panel is also curious in a few other ways:
-> 
+--wvuvco4nogl7rfck
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 4/4] iio: pressure: dps310: add Zilltek ZTS8032 support
+MIME-Version: 1.0
 
-Thanks for your review.
+On Mon, Oct 12, 2026 at 02:45:50PM +0300, Paulius Zaleckas wrote:
+> From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+>=20
+> The Zilltek ZTS8032 has the DPS310 register map, scale factors and
+> compensation, with these differences:
+>=20
+> - two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
+>   c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
+> - TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
+>   the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
+>   bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
+>   25/16 Hz background rate instead of the external sensor.
+> - product ID 0x11 instead of 0x10, the driver does not check it
+>=20
+> Add a per-chip table holding the coefficient count and the TMP_CFG
+> startup value, and an OF match table to select it.
+>=20
+> Tested on a ZTS8032 at 0x76 over I2C: in_pressure_input is within 1 Pa
+> of the datasheet formula evaluated from the raw and coefficient
+> registers at every oversampling rate from 1 to 128, and TMP_CFG reads
+> 0x00 after probe.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+> ---
+>  drivers/iio/pressure/Kconfig  |  4 +--
+>  drivers/iio/pressure/dps310.c | 66 ++++++++++++++++++++++++++++++-----
+>  2 files changed, 60 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/drivers/iio/pressure/Kconfig b/drivers/iio/pressure/Kconfig
+> index cef8b90b9ae7..e407243e131c 100644
+> --- a/drivers/iio/pressure/Kconfig
+> +++ b/drivers/iio/pressure/Kconfig
+> @@ -115,8 +115,8 @@ config DPS310
+>  	select IIO_BUFFER
+>  	select IIO_TRIGGERED_BUFFER
+>  	help
+> -	  Support for the Infineon DPS310 digital barometric pressure sensor.
+> -	  It can be accessed over I2C bus.
+> +	  Support for the Infineon DPS310 and Zilltek ZTS8032 digital
+> +	  barometric pressure sensors. They can be accessed over I2C bus.
+> =20
+>  	  This driver can also be built as a module.  If so, the module will be
+>  	  called dps310.
+> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+> index 3bc690cc8609..3b0f6d344409 100644
+> --- a/drivers/iio/pressure/dps310.c
+> +++ b/drivers/iio/pressure/dps310.c
+> @@ -7,6 +7,10 @@
+>   *
+>   * https://www.infineon.com/dgdl/?fileId=3D5546d462576f34750157750826c42=
+242
+>   *
+> + * The Zilltek ZTS8032 is register compatible, with two more pressure
+> + * calibration coefficients (c31, c40) and temperature calibrated against
+> + * the internal sensor.
+> + *
+>   * Temperature calculation:
+>   *   c0 * 0.5 + c1 * T_raw / kT =B0C
+>   *
+> @@ -18,6 +22,7 @@
+>  #include <linux/i2c.h>
+>  #include <linux/limits.h>
+>  #include <linux/math64.h>
+> +#include <linux/mod_devicetable.h>
 
-Regarding the NV140FHD-N43 panel: I could not find its dedicated datasheet.
-Instead, I referenced the similar NV140FHM-N43 panel [0], which shares the same
-resolution but is 6-bit.
+Adding that header mainly results in pulling in many unneeded
+dependencies, so please don't.
 
-As I understand it, per section 8.0 POWER SEQUENCE:
+of_device_id is already provided by <linux/i2c.h>, so you can just drop
+the #include.
 
-- hpd_absent maps to T3 (200ms)
-- unprepare maps to T10 (500ms)
-- enable maps to T17 (20ms).
+>  static const struct acpi_device_id dps310_acpi_match[] =3D {
+> -	{ "IFX3100" },
+> +	{ "IFX3100", (kernel_ulong_t)&dps310_chip_info },
+>  	{ }
+>  };
 
-[0] https://raw.githubusercontent.com/yjun123/e-waste/master/sunniwell-z96a/datasheet/NV140FHM-N43_GZ.pdf
+While touching that struct, please make this:
 
-Since delay_200_500_e20 is not defined, I'd avoid adding a new delay entry.
-Reusing delay_200_500_e50 is acceptable and works fine on hardware.
+	{ .id =3D "IFX3100", .driver_data =3D (kernel_ulong_t)&dps310_chip_info },
 
-> 1. ID (0x03f4) is much lower than other panels.
-> 
-> 2. The EDID contains the string "STARRY", which is weird for a BOE panel.
-> 
+Best regards
+Uwe
 
-These two points are indeed strange and I have no good explanation for them. 
-That said, I found a third‑party EDID for this same panel [1].
+--wvuvco4nogl7rfck
+Content-Type: application/pgp-signature; name="signature.asc"
 
-It contains identical information to the EDID I extracted from the panel, so
-this is not an isolated case.
+-----BEGIN PGP SIGNATURE-----
 
-[1] https://github.com/linuxhw/EDID/blob/9c0c1bffc9c0f1cb2044115149a5ecb1652803f8/Digital/BOE/BOE03F4/C26FE7F0F22E
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrOROwACgkQj4D7WH0S
+/k7wVwf+Ont9281p5OIPzkHrOql/yBXJItCWMp58XtyibFpc3rlNGmaenj029PMM
+qTuPIiOben02yMTKVJO6D/HSeWlynTqxekqGABABKERhjZ5uLTuv6jVaMWAJFC1P
+xPGeFxfDlRQk2WK/QG/iwUwdM3sL3GmDK2Uxz1ZfUDwsk5b24WynLydHJCR8qQmE
++bs3a6Bze5ORCtjvZPXgcsU1EsWZyYmBH3YxFeditn4ANM7bs5WrV+LmmenffWKU
+sx01Iu3ITwRoLSratszOJC3R56tDK+qFJ19MnkclyT2KPQs0iAZj6ukk5T5FNiwY
+oiWHYppEVw9nolSDk+74pWu9NpixUQ==
+=90IN
+-----END PGP SIGNATURE-----
 
-> None of that is necessarily blocking, but I wanted to get a little
-> more info. Thanks!
-> 
-> -Doug
-
+--wvuvco4nogl7rfck--
