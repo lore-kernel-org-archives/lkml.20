@@ -1,294 +1,959 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9977B3B6BEE;
-	Tue, 13 Oct 2026 08:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791879329; cv=fail; b=FIFOYju27D5kFlxNxlum0zeuW3IsuZvDUp1ZZv5yz4bI8tOhvXHoyUE+4sX7+M0OVQ5y/1q4fRcjjCXfnopj9i1EgAlebM0xH6LPTlQPOk9TDi2dwZIayn/cwhlLXzR/J5LcT5sc+crV9vgP4X/4ZCWrcC72BlISWiSmvxdmBsM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791879329; c=relaxed/simple;
-	bh=z8aHxSDwEttOXWdAdjD3gOnEhrAj36zTNfGkn60B3qs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NMkrVrEd2AKgKJFLhVamToCCZkK4AtLwIfkyeJbH25NJ6Dn+xNSmjehu7zUdE08VluwQnAIuIz/HcnzanEjrdJnF3MYGo7tm2f4tZKqP4FrsJBVXDPWORkBxQIhUh3RD8x+gH6TaiqAlNYhk/ieUbiMnSnAWwBTgz+6HwPg5Ykg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=lApLmy53; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=MyovARn7; arc=fail smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B9441E6DB
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791879331; cv=none; b=YTE/p31VvctsRLQBSbg0/H6hicGIxDSwiZLK942KB9PP+Jd1DDTeJlmqpWxSr6niyQ0TD3c6C2Jj/NrifNjxdB5rOmJQOx5BWQ9WgXmGy64oPMHUrWge13t4hkapcchrq4u246FsvwBSYpChr3B1DssVcXDwMELzjlRWvoTKMCw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791879331; c=relaxed/simple;
+	bh=986An/0l/b5loBwJrlBhRTpyxow6TTHiAodYkSHssxw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=g2ZUlj2z3b+2mbce3ASZ0sZ4svYyhNlnxhVgDhcA24lLmYR2nx5W2RK59n9saRxqB/ywTlsUatgu3MbOITH0IkDuutAZjeFmNlcGTr4Ua2yxIYoF4b1ijCvpN3yXUa5N6DLd5UmfCEkR5UiN0BQrfnndPUdyOLI5cCO/2h3tqPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ns04meMQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=XpOquaSu; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="lApLmy53";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="MyovARn7"
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2BplZ3197994;
-	Tue, 13 Oct 2026 08:15:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=A8jiv1xOvTlKjZs3CWsewBp8jIWBfcptJshjU8eO40I=; b=
-	lApLmy531ffjKg6NJQKjArrioXVkULzrWwFtqKsZwTH0twZY5m3VOMynNAS5lxQe
-	VUMJnCMbtgpSmI7AN8EIyPRcopJxXPc0ggMZYZZHY+szexx09nEuuh9OHAHfDsdW
-	BSOQttwFUz79Bo24J+HnabuqtZR9HIAT0vAhGb7lBMtuyNdWYTTslHjUpgrAfCAj
-	z0RV+5ieFkPG1JkARFXgasTOg052RWT1KBgh3FQHsL38Y4Ff3KfU8fay6mQ6AR63
-	4DZNb9OHyRXZWUjzTpDizO1wpszCfWu1PeKqJXBh8Fo31vpVEWxohUkQi9Obb1/6
-	QlJdL/aQeUhAoI+aSC4HRw==
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7dcsbkx5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 08:15:25 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69D86QAU002088;
-	Tue, 13 Oct 2026 08:15:24 GMT
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012046.outbound.protection.outlook.com [40.93.195.46])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4h7bt8yr7v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 13 Oct 2026 08:15:24 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cKaRVXJ0gucZYLUZUBeNl2rU8s2ypGWE/zo8YxuGxn69g9TIGIY9vJi+2bS4yynRM1LkI57BP2IvCkdiLx9e1moRFtTTj+jaQchumyhh4q19EAzImVp8tkq5O3r3HCr3f+uibaZa5q9oA05uVtxNUa6dVF11LdS1vVNJ2cxc7QoVJpTFPF2kGGt2bhw/Bv4ynQownwAvLUwKa3dbChLroMO4SY0I/r8SaynCwiMoAoLnOKq4We5NjANIbWZ2le0eVqdJUII8AmRMoN2dOL533ix/0UB60WLjljRQn7uXoMdahxzwJdFui7LxAlYStE8+xvyJBN+iAD3U0kYOonWu2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A8jiv1xOvTlKjZs3CWsewBp8jIWBfcptJshjU8eO40I=;
- b=Hm2OE4NH12enMkrOVEkfU8C6ge5oEej/nxARQDA0GJCE9sOFIxTWqJroRRF0G7fIjTDSGdzxUPu8e4+A2tVgE4Gz+rvHRNJq9B87zl/kYFPQssdIKPfUAD/x4RwRnODWTXqnMvo2OxuvooNxT7BQPMJNcxo+3w+kgdGgJYrT4JBLu8RSB4rWxjudqtukBxU3rdM3wT8n9CrNfnggHlMGBaA7mIHI4sz6r9aPfU/YfRpaQ7RsycckCIDcEPj0l/rvtJsKOXhAn9nz1fXTpPEHadTpAil400kvKEQrQ7J2cAqaeT/LFgkm1n4CTkbmBaWqE+0SWf8sEfuv77zKlI/xlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ns04meMQ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="XpOquaSu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791879327;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ImKAcRelEC90byXajVp4krfoSiChsTHlVCrCTr80AKM=;
+	b=Ns04meMQAMaymDxvBAXHp0LleMMiqw0ruTT3ahnU1oUeusAksFhIIECbvFRp2sEH0dHnmd
+	LYcofF/3zKPG9aHrb0RFy4mlO0dBzGIzV+Qp1ScE0nPK5va0R1OX/2Pz2Q1dtJQvvATfED
+	2D76ZE//ry6TMXUMVE321CuIaBCZpZI=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-447-1Wp4qPb-MrWkB6FSvpQLTw-1; Tue, 13 Oct 2026 08:15:26 +0000
+X-MC-Unique: 1Wp4qPb-MrWkB6FSvpQLTw-1
+X-Mimecast-MFC-AGG-ID: 1Wp4qPb-MrWkB6FSvpQLTw_1791879325
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b027578a4so2236419f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:15:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A8jiv1xOvTlKjZs3CWsewBp8jIWBfcptJshjU8eO40I=;
- b=MyovARn7btALmtkWHJO+Bgzz3aBA+Nd0pG0eBi6E4qA6yu2uYEVod9Da40ELBIFEtHl8Gc1lZTKnZlQjLh5eWlCzWGV9QhRrexdsXwUqe+r/KZs2Zey4hySJr/cWuL513JTb1Ss63dXH4RQu7l/9clbAB63YbkRqW+anc/I6Ng4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from DM4PR10MB7505.namprd10.prod.outlook.com (2603:10b6:8:18a::7) by
- LV8PR10MB7992.namprd10.prod.outlook.com (2603:10b6:408:1fd::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.7; Tue, 13 Oct
- 2026 08:15:21 +0000
-Received: from DM4PR10MB7505.namprd10.prod.outlook.com
- ([fe80::f14:5389:d117:967c]) by DM4PR10MB7505.namprd10.prod.outlook.com
- ([fe80::f14:5389:d117:967c%4]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 08:15:21 +0000
-From: Siddh Raman Pant <siddh.raman.pant@oracle.com>
-To: "Darrick J . Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org,
-        stable@vger.kernel.org
-Cc: Dave Chinner <dchinner@redhat.com>, linux-kernel@vger.kernel.org,
-        Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 v2 03/19] xfs: hoist recovered rmap intent checks out of xfs_rui_item_recover
-Date: Tue, 13 Oct 2026 13:44:47 +0530
-Message-ID: <d2ff467512de99344122cdac20d4f2732e67daf6.1791877866.git.siddh.raman.pant@oracle.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1791877866.git.siddh.raman.pant@oracle.com>
-References: <2026-10-01-1-daily-reply-0012-re-xfs-umount-hang-backports@kernel.org> <cover.1791877866.git.siddh.raman.pant@oracle.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SG2PR01CA0193.apcprd01.prod.exchangelabs.com
- (2603:1096:4:189::18) To DM4PR10MB7505.namprd10.prod.outlook.com
- (2603:10b6:8:18a::7)
+        d=redhat.com; s=google; t=1791879325; x=1792484125; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ImKAcRelEC90byXajVp4krfoSiChsTHlVCrCTr80AKM=;
+        b=XpOquaSutHn9owjQBb7Ma+bFyQncaJqCQUGZr2aZX5bS+Rnmj3cJY3+aRMqR0AqhfO
+         JZDYtHOJf7siunUNj40ULGwZ9bcziaW/MIfTxOVfK07H2lJqLa9B4AybcdsQB8YtAI44
+         rqcF4HquXJBPnJzeGZOmHbvP09e/alQoQhw9lHQiH6bUk8A6JmAqpt21UzHoKHPUKzNm
+         /R0ZPze9XH6A8bMObw1WHdZvbl8kN/WTa+RqUk0IwcGP/UkUFFcJrSnYj2myTY1XBEvM
+         x1wR9Vp0sZJ2nnY3+JGHx4teQZgLQY+ouCF9uDfec+Fn1x/EdrTj+cAmT76ECYPqILFV
+         /TWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791879325; x=1792484125;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ImKAcRelEC90byXajVp4krfoSiChsTHlVCrCTr80AKM=;
+        b=kTcGOdihbPt5j9LIBvMPstWSHX1n8EaJ9jc/dkrwF27DJyfdo7DVyfJxVrkSxpSYFx
+         VHQ5afh+rulRd81fO5G2fEO8SjK/K4dVL2v0z12FQE3bADOngtcKQduKYfjIVyTCNMri
+         BlaKo9nQckBKb8UNKniohMeqpV8oFuH/wwbEz3/Gac07YPf2JKuf7QuETFhxTEp8F0+H
+         B0o/ezeVjr7vmqbYvRSLqJxuhVOQWVETPXOOr/Z4aLoxXeH05IOArzrrMiqIVS0JXLLP
+         VVYAeY4Qjvq8IJQZFYwqph81lfYGBYVx+YaDgophmjvG2cOU/oS3hPe/RCjM8Iqv0MOs
+         5Tbw==
+X-Forwarded-Encrypted: i=1; AKwUvBwuw6VuvuUxFWt2g0qsGiRudE2hscIR+1cIFt8jTZI+KjH6Q67Plu1fD46hUJDQTZxgRNAVMKqN/BGLEx0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLueX58/KL/+ajNFUrhJydX/FTgeil9aPDZFCA1aGO/YmApBPkW
+	l51vgq5x8k3bHfEPcaAulJEUVKd+FrEm7XZZfJEI516xk4g5ZJFBbtV7pRd3sd+vVdGB2vsmI89
+	O8mqaZLlWzgc8cdbDVSHT4PgVxkt6H9WP9APR5tx+GDyO+LoJYPhv3ByonqWRLuBIlg==
+X-Gm-Gg: AYBFou3x3LxEhuvUNyKurz3FygBf9yn6L5FUywHFz+CsN+kUFQRlpWjGYkA/IKI9gTy
+	1WV7VA9znUMlLDO09rnxeb/MS2LJFOc3uEIh/yt5kmq7sJP7XFriItueVBGpnUj8UE9gxgO3Tcj
+	GObyYyAENGdxiT4sWf97Miq7wK7fo3+FkEEsj08schF3MiRoicvzyxpOGIN1zrXHkEZVC9rVChQ
+	7Ln1uMM1h0LRw8wX2D39KKFXME/RZ85paFSioGln67Epa4SFGFJ1UVgtXygYbhePf16SEF67olQ
+	zlz3YjzThpCB2+lRgWi5LA6+otdkS+ZcX/5yegIecNkTs2IgVPIJZKg4lkoPdIWDHAeexsN4wRf
+	1WozGsRcqKl3t+/kUyxy7QAenawfP
+X-Received: by 2002:adf:efc3:0:b0:48b:6f3:667f with SMTP id ffacd0b85a97d-48dbacef900mr17118167f8f.56.1791879324787;
+        Tue, 13 Oct 2026 01:15:24 -0700 (PDT)
+X-Received: by 2002:adf:efc3:0:b0:48b:6f3:667f with SMTP id ffacd0b85a97d-48dbacef900mr17118114f8f.56.1791879324220;
+        Tue, 13 Oct 2026 01:15:24 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5262sm3808098f8f.22.2026.10.13.01.15.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 01:15:23 -0700 (PDT)
+Message-ID: <b5d9041971e2d033df78ada10977fd1e566f1bef.camel@redhat.com>
+Subject: Re: [PATCH v2 04/15] rv: Cast result of model_get_*_name()
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Nam Cao <namcao@linutronix.de>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Steven Rostedt
+	 <rostedt@goodmis.org>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Wen Yang
+	 <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>, 
+ Viktor Malik <vmalik@redhat.com>
+Date: Tue, 13 Oct 2026 10:15:22 +0200
+In-Reply-To: <87jynmgm94.fsf@yellow.woof>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+	 <20261001152042.124445-5-gmonaco@redhat.com> <87jynmgm94.fsf@yellow.woof>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR10MB7505:EE_|LV8PR10MB7992:EE_
-X-MS-Office365-Filtering-Correlation-Id: 324e3124-293e-45b5-50d1-08df29022007
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|10070799003|366016|376014|56012099006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	3qmgJvIh9MoAoxaWUQc4K/xjhnLjpqpHtWNV6yQ1h8cGjPK0pYCsatJ3kD7keVS87PkUYkPm1KxImxgeBVTvwo6RzKwSRO3bZ+wW7inAXiKNsQ9Cu7q+Cl8YzaxECt0hEjiqC+nnf6WxzumG8IA5T0gIgDbD7Pzye6eJb/nHwj3WkmnVZXAMitmRs0yTR1VTYKK7r8Sr9chEYLbPUZwLgCoUATiT71XwyX02VjRM7QV3hjNyu8nE05lzqh2JWYuBkdq7mxj0yguttMGP4vFMOA7dJoId1i+9yb3wIYBdk3EFXv1CCvxwviTYjcLNGhiDRpmBE6VoQA4CKk0/wbBCF4IQpAif79vTf0V2Hjf8zclr5IwrJ6YZc8LyqfS9wvXgiJ2+2AHpJ93b0G6GZQzCG4sAmzTx4RtFYJxxWUYlXx447L7PUvHLoZ8DRz0BWcau5V5ZdUlX1Plw0rubr+X9QU0NV4WHpJw5rI8zEpgenM9h/N312/+AkmCO/cOp/eYz3dOM4MxHCXw4PtbW/Z9YREWEuomiXvEyQo6UhvjU0Mzft/ahgwxokc/7i7qryOlmfgCSiZABzvdNUnfpUIqMpW5boZ6jITsXWS6ABwiFjJdbVgi0mdi1K8nnWA5bqIC6LmxsZnRqNYOpHgde9uWeJqvmTS839ck588bGrHqEPO0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(10070799003)(366016)(376014)(56012099006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?EGJuXexE3tkvVzt4H4GEY2tGQTYE7ZdEJlBTDOjJqBjzM6XLAMocriLOT1iO?=
- =?us-ascii?Q?Ht4EZwMyj5mn3S0xogS/ZnpTLXp1KuRkW9EUDIAMQzsdYwe1Wuz8QmMlkgqj?=
- =?us-ascii?Q?7YKlQnjn3XLq8eidoMqxZXeFzNAuNYsU5pS/NfnM3weR0v95LdzF8Y/m9Pln?=
- =?us-ascii?Q?WACNgtgguIWfiqovw+/ueQbJDvdcb8qzW8hEdNyFv/4nq34eRRPT0ZvfhcrL?=
- =?us-ascii?Q?voGIcj32Z4Or9zfbBr9LL2hwLbhxwtBMcbCp8H0B42PvdIkcwaYXH/O/6ChU?=
- =?us-ascii?Q?0Y8dLszX55CHKj3LE2pZm2uSLsruXF2w4xnh+MR5GxdfyQ6gma586I5+xDdX?=
- =?us-ascii?Q?yIg1WMftnCmZnd3lx08B/7N34MiR7mbLWoGqdQKr3DRVF8cqg8xbQhZNrqVn?=
- =?us-ascii?Q?GQFPK6XhwQgsdglLFjbNL/Pq9YU4BR/eVDU+io8QLAlViKXV5vhEPVntHO3E?=
- =?us-ascii?Q?LyxPx/jhP1yHjwOYivPKur6DKNv0B3BsUcFjF8LWR/Cftaf3uE6gzw7WYiPj?=
- =?us-ascii?Q?Zt1cUeSvY9fzlMMLLoBUWleaylLKao+AXYYre41yAy3GOjzzCFiae4fA7rRm?=
- =?us-ascii?Q?Pacj1JMhQgY5ZBgmxdr4fExRIeTkPwerzoY8ufXzMllBvCh2VKQC5oUMDbHK?=
- =?us-ascii?Q?xREIs7jtfGY7Hhm5O4QBOp2XhXr66Y73E5WVcZswLNxCwo/JjvQXz0HOxqr2?=
- =?us-ascii?Q?PpozFa3UFxlKBAIgdEsethAl5JNuWeTRvRHOHD23eczIfoTIgLQAN7k+eraR?=
- =?us-ascii?Q?WHDxFsRvmyw+Gq5N6Ld+TxO7i276bq/nlYDzF3WL1eaK0dzUqjY5W+2UBJAd?=
- =?us-ascii?Q?7L8m7h601uckL028mfB/PImTujJVV7+oVyZyasPTQIKuWR3TWP043j33EBfF?=
- =?us-ascii?Q?qPTTiiJuX8vZPi4ofobvUfjSrLWNvdHUb0QY6jIpKDhN19JzlsGt5XstUDQC?=
- =?us-ascii?Q?bq2WMFTC3lFjPaBAfsk8T3dSomYAC32SWQVSgSuU4V2QrXQxXmfG5IPrGFqt?=
- =?us-ascii?Q?GhR+Brq/c63knTp8IzGzuzZAQPZ32YBBfFRAuRDs48C4roj66dQd9Aq9fwU8?=
- =?us-ascii?Q?IxpCDaXJaUqT+gFWWJJKttbNuTP0/c8LJeyHfIMUT677pXaUio/q5qGTZu9i?=
- =?us-ascii?Q?ggLv2R+Oe3T95gv6F9t10uPIdcXlNRGuNYiVbWGiAs5oyi2Kdi+IYxf7Ch8B?=
- =?us-ascii?Q?EZPZwGzH9axSx4rWhJUHxucWteTO3LTOdF8h1G7DsI19VmR5JrEGYM3BmBVO?=
- =?us-ascii?Q?H5+f9GyJ/luycaOcbvlWLUqXP1TIl++uGNqRBG82XSe0iM01FkoCcmDNoJaI?=
- =?us-ascii?Q?s2R+JRJ9QBJQ9AgGX+tkJvwPc3Lq26sd4dxZoEDxsUU/O68bFxASPMtfMLCS?=
- =?us-ascii?Q?uGJ0agpggaAhGN8P3srW+tmofLZKOT7KvF0Ma8QfLSnEk/a9ZGruJuzzRLB3?=
- =?us-ascii?Q?Hu50YJUT6pWZSNlsD411hh0pGy3PteCCFkCfuCTl2lzsDznY1Bxt/kHQJ1w2?=
- =?us-ascii?Q?Gwe1UG9ypxzUHf7baDZiVRq5PBG/a0ve8wo5ZbskjyM2sM9mRUJuumPIF3gu?=
- =?us-ascii?Q?ITFPh2AAZLV0wipIxWqz5M0Btp6P/9iWwvX/JGctxfWe3Hl6obIU8hykD6+D?=
- =?us-ascii?Q?ho4B7JZOtyYAYNj8Op2mrjrCw2fkNZBPhMtEURXFgQH7jmyn8wM/EAG0+phG?=
- =?us-ascii?Q?rMSAsRvN4zOHJIWk/lCE/fMAcxLxz4XjaxIXx5cXEz5R76A8/Jgv4UBV2ln7?=
- =?us-ascii?Q?IiMGfNwRFTVF0WKGE5gx+8hJXZTnjoEoHt0DC4Gkdd08S56wTtQRbjdseIwx?=
-X-MS-Exchange-AntiSpam-MessageData-1: 8dy3cIZXTZ9f5rVJLDRc6ZzqGyukuGiW1eY=
-X-Exchange-RoutingPolicyChecked:
-	a3lgFz+nOAi4gpmwivn07Mw6gFr//U0PlC9FiDNm2Tp4/phJnAUvXKefyVZ9/n8NFNlJWQHGNzbrwFzeIR09+FZOS34iLz7iFZ8O8Gfl9SwbI1FQ6rNQG+vsoxmZJ5JNRGAgfGhQ+iDChp6LF83Li6sG1FXky15HmiFt3G4JKVRVfh5w6/UTCKq5+7m9EdBzdSUrq6BDH07esk21sp03Fa+vesAARaQNuCzyU6ikRDeLwmklOcbaCnmEvWpSgtGwiR5t6kxD9yf69wt2T5MRdZZZoXPDQ9yyNZxsnbDUJ4hlE0qMrWuM0FcR4bfp/OvR94KNc4dB5IhPM3NKSz3CJg==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	+kDKpf5FARCvMSjpvCkMfflv6HWlNK5FJ+Cow7QGJj96Cwgyz4TJtVHmCdSOUoz74rOnL5qY3udWGKt5oK3ENLPwJ6FcfA9vLO5copFhTzaSuhb0XYh3KPg80cq3w9T+XCH4LBaTM8qpStHZBWHIoPrIELZuOlQO6RWGKdhCOGvSF3eSAzu0YpMRPdeSIBQHYiHFHEbK+1IrGJK26DJxagNUnB+BiY7OTD7cL0WCTLV+qwMuJSNmxXPbj0Pt9WzGlkwB5HUmhdR0gyzt4IpUom8urD2D7RX5a09RWfgIBgTUufdjvh8Uh14ZE281bCyOH8k8pIK3jApPg6B9CfPCr6rM7S57HcSMQtFNvAOtD5y/vkzWpaM+XS+9eAma7B1LInfRZtQVl1OQwhU8qSTTp2ctv8eZkpHYhnRAEfQhvLF+dwkVTeEsLMR0l4RJBBbGWfIlYQwy0O++ZFiN1q7PhbU7KdYpweg/HjweT6H46huAQ7osic2ydrJKHyrzjSa00I5K8o3VvSeMh5KZFm4zywp1kqIOZScawdSPT8hSYIfO3jxomZ2Lb/ZbDyn//CUeeRg3JeMgqmlfV3QHoPD6Hb8GWgeC7w9p7QYwJbjj7y8=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 324e3124-293e-45b5-50d1-08df29022007
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB7505.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 08:15:21.5338
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qmqkyGTeBGfODi/ITz2xsV88ybZ9biLu9F4wFa7AgolFGFm8BUBLFRN9EcnOiGvCafnrLZ40KHXS6Xw4AN8QAZX8/Jaf3GAK7vz57dYAxak=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR10MB7992
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- phishscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 mlxlogscore=999
- mlxscore=0 suspectscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2610020000 definitions=main-2610130032
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzMiBTYWx0ZWRfXwqREgdxIhR7J
- XPisiC/zra71PUsOTLkwkOhLJWI2QG7BgmNHs+2YedUGAG6nIF7OFksQJkx7h0Qc3fi+uBWjzEB
- 96U5nqaP3h3I+GijZwAkpDp/hFcBoWB3Vc4KhyOc/b0HJIm4d/oP
-X-Proofpoint-GUID: -IA5Bw0g9Dj8Yft9SyTfeJBWWqSmOG3Y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzMiBTYWx0ZWRfX71ENFsH3SoVX
- PejUfjpymgR7I8QlLmRpNpUmgcWt6btokhmp1SKG/hAeVnkz/8MwPZHz+aWQkKCkjHaJIRoayG9
- hHWqCP3MTDeOUM7V7VwQn1IG1ny3ZBXSkaLVDg4gEIecOFsv9Y2YPEV5pHaAE/EGlK2eR7QyGs3
- khrzSgrYTH8fMQsYrXrSBNGoZ8sjJh2eP1Qmj/KnOakbTsHmw07VjtMbLhpfoDlcEtDl1tUkDQy
- awldn88WiYqEYPf9rBXZvZZ6KMWBCXA9fTXyzI9MBd9nE8sxC0AZKbUEs8EDuSX0oauhSCSv7pU
- ZtRrfKKimIGE4qzIhzigYnJ5nHR8EuaoQzE52QPLH1FuOMB7hv9TF4206iiuaBhAheuHkxeDoUg
- 3Cz4lmA+IRflMdDsEyuVwk6N8COmlj1aJW8Kz20R2e/uB7CFbMcNVq9TW1zR4WYq86wdZEWVZc4
- sY2dlMRFosdO+yeeR9g==
-X-Proofpoint-ORIG-GUID: -IA5Bw0g9Dj8Yft9SyTfeJBWWqSmOG3Y
-X-Authority-Analysis: v=2.4 cv=EdZd0/mC c=1 sm=1 tr=0 ts=6acde89d cx=c_pps
- a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
- a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=o5oIOnhZENCTenyL_yNV:22 a=yPCof4ZbAAAA:8 a=20KFwNOVAAAA:8
- a=XUHDQfcMxKEf4e_NL1gA:9
 
-From: "Darrick J. Wong" <darrick.wong@oracle.com>
+On Tue, 2026-10-13 at 08:14 +0200, Nam Cao wrote:
+> Gabriele Monaco <gmonaco@redhat.com> writes:
+>=20
+> > Functions like model_get_event_name() and model_get_state_name() are
+> > shared with BPF monitors, however those programs don't play nice with
+> > string pointers without fixed length and the event_name and state_name
+> > arrays need to be defined differently. This gets the compiler to notice
+> > those are const char and the above function discard the const qualifier=
+.
+> >=20
+> > Drop the warning by casting the result to (char *). Note, a cleaner
+> > solution would require to modify all callers, but that would require
+> > changing every single monitor's tracepoint and the advantage is minimal=
+.
+>=20
+> I prefer the cleaner solution. Just mass replace "char *" with
+> "const char *", and manually fix up a few errors and we are done.
 
-When we recover a rmap intent from the log, we need to validate its
-contents before we try to replay them.  Hoist the checking code into a
-separate function in preparation to refactor this code to use validation
-helpers.
+Right, no excuse for being lazy in the era of LLMs..
 
-Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Brian Foster <bfoster@redhat.com>
-(cherry picked from commit dda7ba65bf03b6f3a7502b9f85c2524a5ae5aa2e)
-Stable-dep-of: 7b5f775be14a ("xfs: fix unmount hang with unflushable inodes stuck in the AIL")
-Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
----
- fs/xfs/xfs_rmap_item.c | 67 ++++++++++++++++++++++++++----------------
- 1 file changed, 42 insertions(+), 25 deletions(-)
+Thanks for the patch,
+Gabriele
 
-diff --git a/fs/xfs/xfs_rmap_item.c b/fs/xfs/xfs_rmap_item.c
-index 20905953fe76..31cfd734962f 100644
---- a/fs/xfs/xfs_rmap_item.c
-+++ b/fs/xfs/xfs_rmap_item.c
-@@ -460,6 +460,42 @@ const struct xfs_defer_op_type xfs_rmap_update_defer_type = {
- 	.cancel_item	= xfs_rmap_update_cancel_item,
- };
- 
-+/* Is this recovered RUI ok? */
-+static inline bool
-+xfs_rui_validate_map(
-+	struct xfs_mount		*mp,
-+	struct xfs_map_extent		*rmap)
-+{
-+	xfs_fsblock_t			startblock_fsb;
-+	bool				op_ok;
-+
-+	startblock_fsb = XFS_BB_TO_FSB(mp,
-+			   XFS_FSB_TO_DADDR(mp, rmap->me_startblock));
-+	switch (rmap->me_flags & XFS_RMAP_EXTENT_TYPE_MASK) {
-+	case XFS_RMAP_EXTENT_MAP:
-+	case XFS_RMAP_EXTENT_MAP_SHARED:
-+	case XFS_RMAP_EXTENT_UNMAP:
-+	case XFS_RMAP_EXTENT_UNMAP_SHARED:
-+	case XFS_RMAP_EXTENT_CONVERT:
-+	case XFS_RMAP_EXTENT_CONVERT_SHARED:
-+	case XFS_RMAP_EXTENT_ALLOC:
-+	case XFS_RMAP_EXTENT_FREE:
-+		op_ok = true;
-+		break;
-+	default:
-+		op_ok = false;
-+		break;
-+	}
-+	if (!op_ok || startblock_fsb == 0 ||
-+	    rmap->me_len == 0 ||
-+	    startblock_fsb >= mp->m_sb.sb_dblocks ||
-+	    rmap->me_len >= mp->m_sb.sb_agblocks ||
-+	    (rmap->me_flags & ~XFS_RMAP_EXTENT_FLAGS))
-+		return false;
-+
-+	return true;
-+}
-+
- /*
-  * Process an rmap update intent item that was recovered from the log.
-  * We need to update the rmapbt.
-@@ -475,10 +511,8 @@ xfs_rui_item_recover(
- 	struct xfs_trans		*tp;
- 	struct xfs_btree_cur		*rcur = NULL;
- 	struct xfs_mount		*mp = lip->li_mountp;
--	xfs_fsblock_t			startblock_fsb;
- 	enum xfs_rmap_intent_type	type;
- 	xfs_exntst_t			state;
--	bool				op_ok;
- 	int				i;
- 	int				whichfork;
- 	int				error = 0;
-@@ -489,30 +523,13 @@ xfs_rui_item_recover(
- 	 * just toss the RUI.
- 	 */
- 	for (i = 0; i < ruip->rui_format.rui_nextents; i++) {
--		rmap = &ruip->rui_format.rui_extents[i];
--		startblock_fsb = XFS_BB_TO_FSB(mp,
--				   XFS_FSB_TO_DADDR(mp, rmap->me_startblock));
--		switch (rmap->me_flags & XFS_RMAP_EXTENT_TYPE_MASK) {
--		case XFS_RMAP_EXTENT_MAP:
--		case XFS_RMAP_EXTENT_MAP_SHARED:
--		case XFS_RMAP_EXTENT_UNMAP:
--		case XFS_RMAP_EXTENT_UNMAP_SHARED:
--		case XFS_RMAP_EXTENT_CONVERT:
--		case XFS_RMAP_EXTENT_CONVERT_SHARED:
--		case XFS_RMAP_EXTENT_ALLOC:
--		case XFS_RMAP_EXTENT_FREE:
--			op_ok = true;
--			break;
--		default:
--			op_ok = false;
--			break;
--		}
--		if (!op_ok || startblock_fsb == 0 ||
--		    rmap->me_len == 0 ||
--		    startblock_fsb >= mp->m_sb.sb_dblocks ||
--		    rmap->me_len >= mp->m_sb.sb_agblocks ||
--		    (rmap->me_flags & ~XFS_RMAP_EXTENT_FLAGS))
-+		if (!xfs_rui_validate_map(mp,
-+					&ruip->rui_format.rui_extents[i])) {
-+			XFS_CORRUPTION_ERROR(__func__, XFS_ERRLEVEL_LOW, mp,
-+					&ruip->rui_format,
-+					sizeof(ruip->rui_format));
- 			return -EFSCORRUPTED;
-+		}
- 	}
- 
- 	error = xfs_trans_alloc(mp, &M_RES(mp)->tr_itruncate,
--- 
-2.53.0
+>=20
+> diff --git a/include/rv/automata.h b/include/rv/automata.h
+> index 4a4eb40cf09a..e4afd5ba1d06 100644
+> --- a/include/rv/automata.h
+> +++ b/include/rv/automata.h
+> @@ -22,7 +22,7 @@
+> =C2=A0/*
+> =C2=A0 * model_get_state_name - return the (string) name of the given sta=
+te
+> =C2=A0 */
+> -static char *model_get_state_name(enum states state)
+> +static const char *model_get_state_name(enum states state)
+> =C2=A0{
+> =C2=A0	if ((state < 0) || (state >=3D STATE_MAX))
+> =C2=A0		return "INVALID";
+> @@ -33,7 +33,7 @@ static char *model_get_state_name(enum states state)
+> =C2=A0/*
+> =C2=A0 * model_get_event_name - return the (string) name of the given eve=
+nt
+> =C2=A0 */
+> -static char *model_get_event_name(enum events event)
+> +static const char *model_get_event_name(enum events event)
+> =C2=A0{
+> =C2=A0	if ((event < 0) || (event >=3D EVENT_MAX))
+> =C2=A0		return "INVALID";
+> diff --git a/include/rv/da_monitor.h b/include/rv/da_monitor.h
+> index 6fc5ef8142ac..fc830c9f5046 100644
+> --- a/include/rv/da_monitor.h
+> +++ b/include/rv/da_monitor.h
+> @@ -633,8 +633,8 @@ static inline void da_monitor_destroy(void)
+> =C2=A0 */
+> =C2=A0
+> =C2=A0static inline void da_trace_event(struct da_monitor *da_mon,
+> -				=C2=A0 char *curr_state, char *event,
+> -				=C2=A0 char *next_state, bool is_final,
+> +				=C2=A0 const char *curr_state, const char *event,
+> +				=C2=A0 const char *next_state, bool is_final,
+> =C2=A0				=C2=A0 da_id_type id)
+> =C2=A0{
+> =C2=A0	CONCATENATE(trace_event_, MONITOR_NAME)(curr_state, event,
+> next_state,
+> @@ -642,7 +642,7 @@ static inline void da_trace_event(struct da_monitor
+> *da_mon,
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline void da_trace_error(struct da_monitor *da_mon,
+> -				=C2=A0 char *curr_state, char *event,
+> +				=C2=A0 const char *curr_state, const char *event,
+> =C2=A0				=C2=A0 da_id_type id)
+> =C2=A0{
+> =C2=A0	CONCATENATE(trace_error_, MONITOR_NAME)(curr_state, event);
+> @@ -662,8 +662,8 @@ static inline da_id_type da_get_id(struct da_monitor
+> *da_mon)
+> =C2=A0 */
+> =C2=A0
+> =C2=A0static inline void da_trace_event(struct da_monitor *da_mon,
+> -				=C2=A0 char *curr_state, char *event,
+> -				=C2=A0 char *next_state, bool is_final,
+> +				=C2=A0 const char *curr_state, const char *event,
+> +				=C2=A0 const char *next_state, bool is_final,
+> =C2=A0				=C2=A0 da_id_type id)
+> =C2=A0{
+> =C2=A0	CONCATENATE(trace_event_, MONITOR_NAME)(id, curr_state, event,
+> @@ -671,7 +671,7 @@ static inline void da_trace_event(struct da_monitor
+> *da_mon,
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline void da_trace_error(struct da_monitor *da_mon,
+> -				=C2=A0 char *curr_state, char *event,
+> +				=C2=A0 const char *curr_state, const char *event,
+> =C2=A0				=C2=A0 da_id_type id)
+> =C2=A0{
+> =C2=A0	CONCATENATE(trace_error_, MONITOR_NAME)(id, curr_state, event);
+> diff --git a/include/rv/ha_monitor.h b/include/rv/ha_monitor.h
+> index 6e1c7fe5449a..0952a3f161c3 100644
+> --- a/include/rv/ha_monitor.h
+> +++ b/include/rv/ha_monitor.h
+> @@ -87,7 +87,7 @@ _Static_assert(offsetof(struct ha_monitor, da_mon) =3D=
+=3D 0,
+> =C2=A0 * environment constraint is false. This function can be called als=
+o with no
+> =C2=A0 * event from a timer (state constraints only).
+> =C2=A0 */
+> -static void ha_react(enum states curr_state, enum events event, char *en=
+v)
+> +static void ha_react(enum states curr_state, enum events event, const ch=
+ar
+> *env)
+> =C2=A0{
+> =C2=A0	rv_react(&rv_this,
+> =C2=A0		 "rv: monitor %s does not allow event %s on state %s with env
+> %s\n",
+> @@ -98,13 +98,13 @@ static void ha_react(enum states curr_state, enum eve=
+nts
+> event, char *env)
+> =C2=A0
+> =C2=A0#else /* CONFIG_RV_REACTOR */
+> =C2=A0
+> -static void ha_react(enum states curr_state, enum events event, char *en=
+v) {
+> }
+> +static void ha_react(enum states curr_state, enum events event, const ch=
+ar
+> *env) { }
+> =C2=A0#endif
+> =C2=A0
+> =C2=A0/*
+> =C2=A0 * model_get_state_name - return the (string) name of the given sta=
+te
+> =C2=A0 */
+> -static char *model_get_env_name(enum envs env)
+> +static const char *model_get_env_name(enum envs env)
+> =C2=A0{
+> =C2=A0	if ((env < 0) || (env >=3D ENV_MAX))
+> =C2=A0		return "INVALID";
+> @@ -227,7 +227,7 @@ static inline void ha_get_env_string(struct seq_buf *=
+s,
+> =C2=A0
+> =C2=A0#if RV_MON_TYPE =3D=3D RV_MON_GLOBAL || RV_MON_TYPE =3D=3D RV_MON_P=
+ER_CPU
+> =C2=A0static inline void ha_trace_error_env(struct ha_monitor *ha_mon,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 char *curr_state, char *event, char
+> *env,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const char *curr_state, const char
+> *event, const char *env,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 da_id_type id)
+> =C2=A0{
+> =C2=A0	CONCATENATE(trace_error_env_, MONITOR_NAME)(curr_state, event, env=
+);
+> @@ -237,7 +237,7 @@ static inline void ha_trace_error_env(struct ha_monit=
+or
+> *ha_mon,
+> =C2=A0#define ha_get_target(ha_mon) da_get_target(&ha_mon->da_mon)
+> =C2=A0
+> =C2=A0static inline void ha_trace_error_env(struct ha_monitor *ha_mon,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 char *curr_state, char *event, char
+> *env,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const char *curr_state, const char
+> *event, const char *env,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 da_id_type id)
+> =C2=A0{
+> =C2=A0	CONCATENATE(trace_error_env_, MONITOR_NAME)(id, curr_state, event,
+> env);
+> diff --git a/kernel/trace/rv/monitors/nomiss/nomiss.h
+> b/kernel/trace/rv/monitors/nomiss/nomiss.h
+> index 3d1b436194d7..0e74a27bc38c 100644
+> --- a/kernel/trace/rv/monitors/nomiss/nomiss.h
+> +++ b/kernel/trace/rv/monitors/nomiss/nomiss.h
+> @@ -41,9 +41,9 @@ _Static_assert(env_max_stored_nomiss <=3D MAX_HA_ENV_LE=
+N, "Not
+> enough slots");
+> =C2=A0#define HA_CLK_NS
+> =C2=A0
+> =C2=A0struct automaton_nomiss {
+> -	char *state_names[state_max_nomiss];
+> -	char *event_names[event_max_nomiss];
+> -	char *env_names[env_max_nomiss];
+> +	const char *state_names[state_max_nomiss];
+> +	const char *event_names[event_max_nomiss];
+> +	const char *env_names[env_max_nomiss];
+> =C2=A0	unsigned char function[state_max_nomiss][event_max_nomiss];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_nomiss];
+> diff --git a/kernel/trace/rv/monitors/nomiss/nomiss_trace.h
+> b/kernel/trace/rv/monitors/nomiss/nomiss_trace.h
+> index 42e7efaca4e7..8ad43b6dde6a 100644
+> --- a/kernel/trace/rv/monitors/nomiss/nomiss_trace.h
+> +++ b/kernel/trace/rv/monitors/nomiss/nomiss_trace.h
+> @@ -6,14 +6,14 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_NOMISS
+> =C2=A0DEFINE_EVENT(event_da_monitor_id, event_nomiss,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event, cha=
+r *next_state,
+> bool final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event, const
+> char *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event, next_state, fin=
+al_state));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor_id, error_nomiss,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_env_da_monitor_id, error_env_nomiss,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event, cha=
+r *env),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event, const
+> char *env),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event, env));
+> =C2=A0#endif /* CONFIG_RV_MON_NOMISS */
+> diff --git a/kernel/trace/rv/monitors/nrp/nrp.h
+> b/kernel/trace/rv/monitors/nrp/nrp.h
+> index 3270d4c0139f..f6c1ec62233d 100644
+> --- a/kernel/trace/rv/monitors/nrp/nrp.h
+> +++ b/kernel/trace/rv/monitors/nrp/nrp.h
+> @@ -26,8 +26,8 @@ enum events_nrp {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct automaton_nrp {
+> -	char *state_names[state_max_nrp];
+> -	char *event_names[event_max_nrp];
+> +	const char *state_names[state_max_nrp];
+> +	const char *event_names[event_max_nrp];
+> =C2=A0	unsigned char function[state_max_nrp][event_max_nrp];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_nrp];
+> diff --git a/kernel/trace/rv/monitors/nrp/nrp_trace.h
+> b/kernel/trace/rv/monitors/nrp/nrp_trace.h
+> index 2e13497de3b6..bcdb44c8e1fa 100644
+> --- a/kernel/trace/rv/monitors/nrp/nrp_trace.h
+> +++ b/kernel/trace/rv/monitors/nrp/nrp_trace.h
+> @@ -6,10 +6,10 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_NRP
+> =C2=A0DEFINE_EVENT(event_da_monitor_id, event_nrp,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event, cha=
+r *next_state,
+> bool final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event, const
+> char *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event, next_state, fin=
+al_state));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor_id, error_nrp,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event));
+> =C2=A0#endif /* CONFIG_RV_MON_NRP */
+> diff --git a/kernel/trace/rv/monitors/opid/opid.h
+> b/kernel/trace/rv/monitors/opid/opid.h
+> index fb0aa4c28aa6..42680aa81f33 100644
+> --- a/kernel/trace/rv/monitors/opid/opid.h
+> +++ b/kernel/trace/rv/monitors/opid/opid.h
+> @@ -30,9 +30,9 @@ enum envs_opid {
+> =C2=A0_Static_assert(env_max_stored_opid <=3D MAX_HA_ENV_LEN, "Not enough=
+ slots");
+> =C2=A0
+> =C2=A0struct automaton_opid {
+> -	char *state_names[state_max_opid];
+> -	char *event_names[event_max_opid];
+> -	char *env_names[env_max_opid];
+> +	const char *state_names[state_max_opid];
+> +	const char *event_names[event_max_opid];
+> +	const char *env_names[env_max_opid];
+> =C2=A0	unsigned char function[state_max_opid][event_max_opid];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_opid];
+> diff --git a/kernel/trace/rv/monitors/opid/opid_trace.h
+> b/kernel/trace/rv/monitors/opid/opid_trace.h
+> index b04005b64208..daca1f4a1cd6 100644
+> --- a/kernel/trace/rv/monitors/opid/opid_trace.h
+> +++ b/kernel/trace/rv/monitors/opid/opid_trace.h
+> @@ -6,14 +6,14 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_OPID
+> =C2=A0DEFINE_EVENT(event_da_monitor, event_opid,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event, char *next_=
+state, bool
+> final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event,=
+ const char
+> *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event, next_state, final_s=
+tate));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor, error_opid,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event)=
+,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_env_da_monitor, error_env_opid,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event, char *env),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event,=
+ const char *env),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event, env));
+> =C2=A0#endif /* CONFIG_RV_MON_OPID */
+> diff --git a/kernel/trace/rv/monitors/pagefault/pagefault_trace.h
+> b/kernel/trace/rv/monitors/pagefault/pagefault_trace.h
+> index fe1f82597b1a..cd0915a42c85 100644
+> --- a/kernel/trace/rv/monitors/pagefault/pagefault_trace.h
+> +++ b/kernel/trace/rv/monitors/pagefault/pagefault_trace.h
+> @@ -6,7 +6,7 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_PAGEFAULT
+> =C2=A0DEFINE_EVENT(event_ltl_monitor_id, event_pagefault,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(struct task_struct *task, char *state=
+s, char *atoms,
+> char *next),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(struct task_struct *task, const char =
+*states, const
+> char *atoms, const char *next),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(task, states, atoms, next));
+> =C2=A0DEFINE_EVENT(error_ltl_monitor_id, error_pagefault,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(struct task_struct *task),
+> diff --git a/kernel/trace/rv/monitors/sco/sco.h
+> b/kernel/trace/rv/monitors/sco/sco.h
+> index bac3beb51e72..65bcfcb136b7 100644
+> --- a/kernel/trace/rv/monitors/sco/sco.h
+> +++ b/kernel/trace/rv/monitors/sco/sco.h
+> @@ -23,8 +23,8 @@ enum events_sco {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct automaton_sco {
+> -	char *state_names[state_max_sco];
+> -	char *event_names[event_max_sco];
+> +	const char *state_names[state_max_sco];
+> +	const char *event_names[event_max_sco];
+> =C2=A0	unsigned char function[state_max_sco][event_max_sco];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_sco];
+> diff --git a/kernel/trace/rv/monitors/sco/sco_trace.h
+> b/kernel/trace/rv/monitors/sco/sco_trace.h
+> index b711cd9024ec..99bc63873f4a 100644
+> --- a/kernel/trace/rv/monitors/sco/sco_trace.h
+> +++ b/kernel/trace/rv/monitors/sco/sco_trace.h
+> @@ -6,10 +6,10 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_SCO
+> =C2=A0DEFINE_EVENT(event_da_monitor, event_sco,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event, char *next_=
+state, bool
+> final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event,=
+ const char
+> *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event, next_state, final_s=
+tate));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor, error_sco,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event)=
+,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event));
+> =C2=A0#endif /* CONFIG_RV_MON_SCO */
+> diff --git a/kernel/trace/rv/monitors/scpd/scpd.h
+> b/kernel/trace/rv/monitors/scpd/scpd.h
+> index d6329da2671b..e9742c2789f7 100644
+> --- a/kernel/trace/rv/monitors/scpd/scpd.h
+> +++ b/kernel/trace/rv/monitors/scpd/scpd.h
+> @@ -24,8 +24,8 @@ enum events_scpd {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct automaton_scpd {
+> -	char *state_names[state_max_scpd];
+> -	char *event_names[event_max_scpd];
+> +	const char *state_names[state_max_scpd];
+> +	const char *event_names[event_max_scpd];
+> =C2=A0	unsigned char function[state_max_scpd][event_max_scpd];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_scpd];
+> diff --git a/kernel/trace/rv/monitors/scpd/scpd_trace.h
+> b/kernel/trace/rv/monitors/scpd/scpd_trace.h
+> index 6b0f4aa4732e..d9013db67f94 100644
+> --- a/kernel/trace/rv/monitors/scpd/scpd_trace.h
+> +++ b/kernel/trace/rv/monitors/scpd/scpd_trace.h
+> @@ -6,10 +6,10 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_SCPD
+> =C2=A0DEFINE_EVENT(event_da_monitor, event_scpd,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event, char *next_=
+state, bool
+> final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event,=
+ const char
+> *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event, next_state, final_s=
+tate));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor, error_scpd,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event)=
+,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event));
+> =C2=A0#endif /* CONFIG_RV_MON_SCPD */
+> diff --git a/kernel/trace/rv/monitors/sleep/sleep_trace.h
+> b/kernel/trace/rv/monitors/sleep/sleep_trace.h
+> index 22eaf31da987..446c30c3af36 100644
+> --- a/kernel/trace/rv/monitors/sleep/sleep_trace.h
+> +++ b/kernel/trace/rv/monitors/sleep/sleep_trace.h
+> @@ -6,7 +6,7 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_SLEEP
+> =C2=A0DEFINE_EVENT(event_ltl_monitor_id, event_sleep,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(struct task_struct *task, char *state=
+s, char *atoms,
+> char *next),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(struct task_struct *task, const char =
+*states, const
+> char *atoms, const char *next),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(task, states, atoms, next));
+> =C2=A0DEFINE_EVENT(error_ltl_monitor_id, error_sleep,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(struct task_struct *task),
+> diff --git a/kernel/trace/rv/monitors/snep/snep.h
+> b/kernel/trace/rv/monitors/snep/snep.h
+> index 357520a5b3d1..fabc363684d2 100644
+> --- a/kernel/trace/rv/monitors/snep/snep.h
+> +++ b/kernel/trace/rv/monitors/snep/snep.h
+> @@ -24,8 +24,8 @@ enum events_snep {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct automaton_snep {
+> -	char *state_names[state_max_snep];
+> -	char *event_names[event_max_snep];
+> +	const char *state_names[state_max_snep];
+> +	const char *event_names[event_max_snep];
+> =C2=A0	unsigned char function[state_max_snep][event_max_snep];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_snep];
+> diff --git a/kernel/trace/rv/monitors/snep/snep_trace.h
+> b/kernel/trace/rv/monitors/snep/snep_trace.h
+> index 01aad49a949a..d758882e7607 100644
+> --- a/kernel/trace/rv/monitors/snep/snep_trace.h
+> +++ b/kernel/trace/rv/monitors/snep/snep_trace.h
+> @@ -6,10 +6,10 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_SNEP
+> =C2=A0DEFINE_EVENT(event_da_monitor, event_snep,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event, char *next_=
+state, bool
+> final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event,=
+ const char
+> *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event, next_state, final_s=
+tate));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor, error_snep,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event)=
+,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event));
+> =C2=A0#endif /* CONFIG_RV_MON_SNEP */
+> diff --git a/kernel/trace/rv/monitors/snroc/snroc.h
+> b/kernel/trace/rv/monitors/snroc/snroc.h
+> index 88b7328ad31a..12aa743e4f19 100644
+> --- a/kernel/trace/rv/monitors/snroc/snroc.h
+> +++ b/kernel/trace/rv/monitors/snroc/snroc.h
+> @@ -23,8 +23,8 @@ enum events_snroc {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct automaton_snroc {
+> -	char *state_names[state_max_snroc];
+> -	char *event_names[event_max_snroc];
+> +	const char *state_names[state_max_snroc];
+> +	const char *event_names[event_max_snroc];
+> =C2=A0	unsigned char function[state_max_snroc][event_max_snroc];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_snroc];
+> diff --git a/kernel/trace/rv/monitors/snroc/snroc_trace.h
+> b/kernel/trace/rv/monitors/snroc/snroc_trace.h
+> index 50114cef5122..aa9162a2d34d 100644
+> --- a/kernel/trace/rv/monitors/snroc/snroc_trace.h
+> +++ b/kernel/trace/rv/monitors/snroc/snroc_trace.h
+> @@ -6,10 +6,10 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_SNROC
+> =C2=A0DEFINE_EVENT(event_da_monitor_id, event_snroc,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event, cha=
+r *next_state,
+> bool final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event, const
+> char *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event, next_state, fin=
+al_state));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor_id, error_snroc,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event));
+> =C2=A0#endif /* CONFIG_RV_MON_SNROC */
+> diff --git a/kernel/trace/rv/monitors/sssw/sssw.h
+> b/kernel/trace/rv/monitors/sssw/sssw.h
+> index 1a4b806061c3..ad8d7a18c52d 100644
+> --- a/kernel/trace/rv/monitors/sssw/sssw.h
+> +++ b/kernel/trace/rv/monitors/sssw/sssw.h
+> @@ -31,8 +31,8 @@ enum events_sssw {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct automaton_sssw {
+> -	char *state_names[state_max_sssw];
+> -	char *event_names[event_max_sssw];
+> +	const char *state_names[state_max_sssw];
+> +	const char *event_names[event_max_sssw];
+> =C2=A0	unsigned char function[state_max_sssw][event_max_sssw];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_sssw];
+> diff --git a/kernel/trace/rv/monitors/sssw/sssw_trace.h
+> b/kernel/trace/rv/monitors/sssw/sssw_trace.h
+> index 6c03cfc6960b..14d22f793a07 100644
+> --- a/kernel/trace/rv/monitors/sssw/sssw_trace.h
+> +++ b/kernel/trace/rv/monitors/sssw/sssw_trace.h
+> @@ -6,10 +6,10 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_SSSW
+> =C2=A0DEFINE_EVENT(event_da_monitor_id, event_sssw,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event, cha=
+r *next_state,
+> bool final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event, const
+> char *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event, next_state, fin=
+al_state));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor_id, error_sssw,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event));
+> =C2=A0#endif /* CONFIG_RV_MON_SSSW */
+> diff --git a/kernel/trace/rv/monitors/stall/stall.h
+> b/kernel/trace/rv/monitors/stall/stall.h
+> index 638520cb1082..ce38b6b2311e 100644
+> --- a/kernel/trace/rv/monitors/stall/stall.h
+> +++ b/kernel/trace/rv/monitors/stall/stall.h
+> @@ -33,9 +33,9 @@ enum envs_stall {
+> =C2=A0_Static_assert(env_max_stored_stall <=3D MAX_HA_ENV_LEN, "Not enoug=
+h slots");
+> =C2=A0
+> =C2=A0struct automaton_stall {
+> -	char *state_names[state_max_stall];
+> -	char *event_names[event_max_stall];
+> -	char *env_names[env_max_stall];
+> +	const char *state_names[state_max_stall];
+> +	const char *event_names[event_max_stall];
+> +	const char *env_names[env_max_stall];
+> =C2=A0	unsigned char function[state_max_stall][event_max_stall];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_stall];
+> diff --git a/kernel/trace/rv/monitors/stall/stall_trace.h
+> b/kernel/trace/rv/monitors/stall/stall_trace.h
+> index 6a7cc1b1d040..30896932a91c 100644
+> --- a/kernel/trace/rv/monitors/stall/stall_trace.h
+> +++ b/kernel/trace/rv/monitors/stall/stall_trace.h
+> @@ -6,14 +6,14 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_STALL
+> =C2=A0DEFINE_EVENT(event_da_monitor_id, event_stall,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event, cha=
+r *next_state,
+> bool final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event, const
+> char *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event, next_state, fin=
+al_state));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor_id, error_stall,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_env_da_monitor_id, error_env_stall,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event, cha=
+r *env),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event, const
+> char *env),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event, env));
+> =C2=A0#endif /* CONFIG_RV_MON_STALL */
+> diff --git a/kernel/trace/rv/monitors/sts/sts.h
+> b/kernel/trace/rv/monitors/sts/sts.h
+> index 6f7b2d9d72e6..74397c37cb0e 100644
+> --- a/kernel/trace/rv/monitors/sts/sts.h
+> +++ b/kernel/trace/rv/monitors/sts/sts.h
+> @@ -31,8 +31,8 @@ enum events_sts {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct automaton_sts {
+> -	char *state_names[state_max_sts];
+> -	char *event_names[event_max_sts];
+> +	const char *state_names[state_max_sts];
+> +	const char *event_names[event_max_sts];
+> =C2=A0	unsigned char function[state_max_sts][event_max_sts];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_sts];
+> diff --git a/kernel/trace/rv/monitors/sts/sts_trace.h
+> b/kernel/trace/rv/monitors/sts/sts_trace.h
+> index d78beb58d5b3..61e8e414627d 100644
+> --- a/kernel/trace/rv/monitors/sts/sts_trace.h
+> +++ b/kernel/trace/rv/monitors/sts/sts_trace.h
+> @@ -6,10 +6,10 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_STS
+> =C2=A0DEFINE_EVENT(event_da_monitor, event_sts,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event, char *next_=
+state, bool
+> final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event,=
+ const char
+> *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event, next_state, final_s=
+tate));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor, error_sts,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event)=
+,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event));
+> =C2=A0#endif /* CONFIG_RV_MON_STS */
+> diff --git a/kernel/trace/rv/monitors/wakeup/wakeup_trace.h
+> b/kernel/trace/rv/monitors/wakeup/wakeup_trace.h
+> index 7e056183f920..79bfaf91c912 100644
+> --- a/kernel/trace/rv/monitors/wakeup/wakeup_trace.h
+> +++ b/kernel/trace/rv/monitors/wakeup/wakeup_trace.h
+> @@ -6,7 +6,7 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_WAKEUP
+> =C2=A0DEFINE_EVENT(event_ltl_monitor_id, event_wakeup,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(struct task_struct *task, char *state=
+s, char *atoms,
+> char *next),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(struct task_struct *task, const char =
+*states, const
+> char *atoms, const char *next),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(task, states, atoms, next));
+> =C2=A0DEFINE_EVENT(error_ltl_monitor_id, error_wakeup,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(struct task_struct *task),
+> diff --git a/kernel/trace/rv/monitors/wip/wip.h
+> b/kernel/trace/rv/monitors/wip/wip.h
+> index b4c3eea94c86..b65baeae5419 100644
+> --- a/kernel/trace/rv/monitors/wip/wip.h
+> +++ b/kernel/trace/rv/monitors/wip/wip.h
+> @@ -23,8 +23,8 @@ enum events_wip {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct automaton_wip {
+> -	char *state_names[state_max_wip];
+> -	char *event_names[event_max_wip];
+> +	const char *state_names[state_max_wip];
+> +	const char *event_names[event_max_wip];
+> =C2=A0	unsigned char function[state_max_wip][event_max_wip];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_wip];
+> diff --git a/kernel/trace/rv/monitors/wip/wip_trace.h
+> b/kernel/trace/rv/monitors/wip/wip_trace.h
+> index aa2162f47a4c..99cf368a4b03 100644
+> --- a/kernel/trace/rv/monitors/wip/wip_trace.h
+> +++ b/kernel/trace/rv/monitors/wip/wip_trace.h
+> @@ -6,10 +6,10 @@
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_MON_WIP
+> =C2=A0DEFINE_EVENT(event_da_monitor, event_wip,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event, char *next_=
+state, bool
+> final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event,=
+ const char
+> *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event, next_state, final_s=
+tate));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor, error_wip,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(const char *state, const char *event)=
+,
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(state, event));
+> =C2=A0#endif /* CONFIG_RV_MON_WIP */
+> diff --git a/kernel/trace/rv/monitors/wwnr/wwnr.h
+> b/kernel/trace/rv/monitors/wwnr/wwnr.h
+> index a28006512c9b..06d724ac1182 100644
+> --- a/kernel/trace/rv/monitors/wwnr/wwnr.h
+> +++ b/kernel/trace/rv/monitors/wwnr/wwnr.h
+> @@ -23,8 +23,8 @@ enum events_wwnr {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct automaton_wwnr {
+> -	char *state_names[state_max_wwnr];
+> -	char *event_names[event_max_wwnr];
+> +	const char *state_names[state_max_wwnr];
+> +	const char *event_names[event_max_wwnr];
+> =C2=A0	unsigned char function[state_max_wwnr][event_max_wwnr];
+> =C2=A0	unsigned char initial_state;
+> =C2=A0	bool final_states[state_max_wwnr];
+> diff --git a/kernel/trace/rv/monitors/wwnr/wwnr_trace.h
+> b/kernel/trace/rv/monitors/wwnr/wwnr_trace.h
+> index fc97ec7476ad..c36c8935dce5 100644
+> --- a/kernel/trace/rv/monitors/wwnr/wwnr_trace.h
+> +++ b/kernel/trace/rv/monitors/wwnr/wwnr_trace.h
+> @@ -7,10 +7,10 @@
+> =C2=A0#ifdef CONFIG_RV_MON_WWNR
+> =C2=A0/* id is the pid of the task */
+> =C2=A0DEFINE_EVENT(event_da_monitor_id, event_wwnr,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event, cha=
+r *next_state,
+> bool final_state),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event, const
+> char *next_state, bool final_state),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event, next_state, fin=
+al_state));
+> =C2=A0
+> =C2=A0DEFINE_EVENT(error_da_monitor_id, error_wwnr,
+> -	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, char *state, char *event),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0 TP_PROTO(int id, const char *state, const char=
+ *event),
+> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0 TP_ARGS(id, state, event));
+> =C2=A0#endif /* CONFIG_RV_MON_WWNR */
+> diff --git a/kernel/trace/rv/rv_monitors_test.c
+> b/kernel/trace/rv/rv_monitors_test.c
+> index 3ad11195e664..e70ae29da268 100644
+> --- a/kernel/trace/rv/rv_monitors_test.c
+> +++ b/kernel/trace/rv/rv_monitors_test.c
+> @@ -21,7 +21,7 @@
+> =C2=A0static struct rv_kunit_ctx *active_ctx;
+> =C2=A0
+> =C2=A0__printf(1, 0)
+> -static void rv_kunit_mock_react(const char *msg, va_list args)
+> +static void rv_kunit_mock_react(const const char *msg, va_list args)
+> =C2=A0{
+> =C2=A0	if (active_ctx)
+> =C2=A0		++active_ctx->reactions;
+> diff --git a/kernel/trace/rv/rv_reactors.c b/kernel/trace/rv/rv_reactors.=
+c
+> index 2f5fc8d18dea..538fd0d70fc7 100644
+> --- a/kernel/trace/rv/rv_reactors.c
+> +++ b/kernel/trace/rv/rv_reactors.c
+> @@ -71,7 +71,7 @@
+> =C2=A0 */
+> =C2=A0static LIST_HEAD(rv_reactors_list);
+> =C2=A0
+> -static struct rv_reactor *get_reactor_rdef_by_name(char *name)
+> +static struct rv_reactor *get_reactor_rdef_by_name(const char *name)
+> =C2=A0{
+> =C2=A0	struct rv_reactor *r;
+> =C2=A0
+> diff --git a/kernel/trace/rv/rv_trace.h b/kernel/trace/rv/rv_trace.h
+> index 2f8a932432c9..a756c7d11755 100644
+> --- a/kernel/trace/rv/rv_trace.h
+> +++ b/kernel/trace/rv/rv_trace.h
+> @@ -11,7 +11,7 @@
+> =C2=A0#ifdef CONFIG_DA_MON_EVENTS_IMPLICIT
+> =C2=A0DECLARE_EVENT_CLASS(event_da_monitor,
+> =C2=A0
+> -	TP_PROTO(char *state, char *event, char *next_state, bool
+> final_state),
+> +	TP_PROTO(const char *state, const char *event, const char
+> *next_state, bool final_state),
+> =C2=A0
+> =C2=A0	TP_ARGS(state, event, next_state, final_state),
+> =C2=A0
+> @@ -38,7 +38,7 @@ DECLARE_EVENT_CLASS(event_da_monitor,
+> =C2=A0
+> =C2=A0DECLARE_EVENT_CLASS(error_da_monitor,
+> =C2=A0
+> -	TP_PROTO(char *state, char *event),
+> +	TP_PROTO(const char *state, const char *event),
+> =C2=A0
+> =C2=A0	TP_ARGS(state, event),
+> =C2=A0
+> @@ -68,7 +68,7 @@ DECLARE_EVENT_CLASS(error_da_monitor,
+> =C2=A0/* For simplicity this class is marked as DA although relevant only=
+ for HA */
+> =C2=A0DECLARE_EVENT_CLASS(error_env_da_monitor,
+> =C2=A0
+> -	TP_PROTO(char *state, char *event, char *env),
+> +	TP_PROTO(const char *state, const char *event, const char *env),
+> =C2=A0
+> =C2=A0	TP_ARGS(state, event, env),
+> =C2=A0
+> @@ -100,7 +100,7 @@ DECLARE_EVENT_CLASS(error_env_da_monitor,
+> =C2=A0#ifdef CONFIG_DA_MON_EVENTS_ID
+> =C2=A0DECLARE_EVENT_CLASS(event_da_monitor_id,
+> =C2=A0
+> -	TP_PROTO(int id, char *state, char *event, char *next_state, bool
+> final_state),
+> +	TP_PROTO(int id, const char *state, const char *event, const char
+> *next_state, bool final_state),
+> =C2=A0
+> =C2=A0	TP_ARGS(id, state, event, next_state, final_state),
+> =C2=A0
+> @@ -130,7 +130,7 @@ DECLARE_EVENT_CLASS(event_da_monitor_id,
+> =C2=A0
+> =C2=A0DECLARE_EVENT_CLASS(error_da_monitor_id,
+> =C2=A0
+> -	TP_PROTO(int id, char *state, char *event),
+> +	TP_PROTO(int id, const char *state, const char *event),
+> =C2=A0
+> =C2=A0	TP_ARGS(id, state, event),
+> =C2=A0
+> @@ -162,7 +162,7 @@ DECLARE_EVENT_CLASS(error_da_monitor_id,
+> =C2=A0/* For simplicity this class is marked as DA although relevant only=
+ for HA */
+> =C2=A0DECLARE_EVENT_CLASS(error_env_da_monitor_id,
+> =C2=A0
+> -	TP_PROTO(int id, char *state, char *event, char *env),
+> +	TP_PROTO(int id, const char *state, const char *event, const char
+> *env),
+> =C2=A0
+> =C2=A0	TP_ARGS(id, state, event, env),
+> =C2=A0
+> @@ -197,7 +197,7 @@ DECLARE_EVENT_CLASS(error_env_da_monitor_id,
+> =C2=A0#ifdef CONFIG_LTL_MON_EVENTS_ID
+> =C2=A0DECLARE_EVENT_CLASS(event_ltl_monitor_id,
+> =C2=A0
+> -	TP_PROTO(struct task_struct *task, char *states, char *atoms, char
+> *next),
+> +	TP_PROTO(struct task_struct *task, const char *states, const char
+> *atoms, const char *next),
+> =C2=A0
+> =C2=A0	TP_ARGS(task, states, atoms, next),
+> =C2=A0
+> @@ -249,7 +249,7 @@ DECLARE_EVENT_CLASS(error_ltl_monitor_id,
+> =C2=A0/* Tracepoint useful for monitors development, currenly only used i=
+n DA */
+> =C2=A0TRACE_EVENT(rv_retries_error,
+> =C2=A0
+> -	TP_PROTO(char *name, char *event),
+> +	TP_PROTO(const char *name, const char *event),
+> =C2=A0
+> =C2=A0	TP_ARGS(name, event),
+> =C2=A0
 
