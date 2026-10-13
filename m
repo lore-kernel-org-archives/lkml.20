@@ -1,63 +1,65 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD1E389104
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7134E4300
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:57:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896271; cv=none; b=UfhBt/gu5yxto80rixx62/+CnMH6dQPi8TezM7XdnrYehqOmg93b4fSMX8jntGJZTyMV8MKWofP9SHyAHllN42xSKa5i4sZf9NiWAfPDJibXnd/0FLhWoM2dn2XJdwz8DXMold057AshYpq9kEiQP1FWTx4RpdUGJ2qZnEwMP1c=
+	t=1791896272; cv=none; b=r5zQiurBkvupdshJGCDOpiWtARYD4L/Du02mHaP/+rcMifaGjWu0Cev/FYwK8eT39q/UcHnkpzBsifdJ5e0NVgSSkRrURlPLpp6ldhEgA0oDKoMElqZXMdUq5WvI9QxXC+gv27PGt9hFxF1mQNW8O9A6JMfErARjkKiEL8zRy/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896271; c=relaxed/simple;
-	bh=lkbzM8u6Ksurvv8STfByGe12+IIc/BqAKbB9v2Dn01E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eTnpmag9gzvp+wWXEx9UJWREPDNw0EmHUu9pwlYYC27OCpwitp0EpUEGUrwROGW5j9bvMni+Xf5621MAIZbojiQWUSHySOPi6pNzogj2OIHDm7af+ah+p3Z9jTEFO93Chkxw/2dRF0RydOkI4KENSK/VnKIlaKOufE4q6I5FymQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=eikGID/a; arc=none smtp.client-ip=209.85.218.47
+	s=arc-20240116; t=1791896272; c=relaxed/simple;
+	bh=3GF8ccrJ2E7j4uN5tjI8S9AApC9/OI47ZxEUXhdNQ5w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=te2HKpsXy3XyCKEGwKB3OynIVabPTIpOEx6Nc0Y8AbuTyp15Hqi/uX8KTs7PmmKzWJmTiBmEyml89/75hZnWcCrxg6xcutIC2HOOxtaeZz6J7giP1AkkEiq1StfPwjTujCKbCWn5CrBH2QSor9Cx4BiHO4a5wKHYRLb1QCilrVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=xiVmiPVw; arc=none smtp.client-ip=209.85.218.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="eikGID/a"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c3762b0d45aso65909866b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:57:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="xiVmiPVw"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2e4df2e26fso385896066b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:57:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1791896268; x=1792501068; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uhznKuYnN5ZlVlaqPy/qLcJWMqnPhwIquwlakdmcYyI=;
-        b=eikGID/a0PzhTKWjihDtoyGQCpXMB6PZTPzrpqyaMSwJKawTd0t3thc3ppO+PSwqyd
-         bNOelHj0fO0PbISxFPQ2dPsGcOhUW8G7LwlLjnnBTzBCaGrV2e8xzVcAnmVu8urr2F10
-         nGabXO/0Nr26GtQt0l7/MLhp3RBm7glj2UrsQZgeGXcSSxaHW6Sr+0pRD+UOJ54IQyJf
-         vs2kIP56hqTpjMTzPikc2ETvpYLPoEW0ExEap978XaAzOzMRXpMB5xswSW33+1zwryW0
-         ivMPkV5yUlvbaXSVfHgZiqfaV9id3l7ZCCbB0/92vJiQyCzHc4GHuVNDalykygPdp+rx
-         IVAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791896268; x=1792501068;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=sartura.hr; s=sartura; t=1791896269; x=1792501069; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uhznKuYnN5ZlVlaqPy/qLcJWMqnPhwIquwlakdmcYyI=;
-        b=vE4AAKg0pW2VEO5mal7YpG3Rz/Ey0FFDQ2EtFd00TaKyvBjNIQkcZ8B/zjijfAwlve
-         fHch6Ul5frxW6YsuuY+vn4ypllk+NkDRNEiHx1Vk4ha9KEWvwoNxUT82UAwLOz08SYg7
-         bjldebXFdueqWu7x9QqHcNk9+wPWTbmT7SEnJ3s7BALdedZ6+rI+rT9N8xSFEc11WHEe
-         lEHsx78K07K0l6NK54z73783BX0Wak0I7KkxlofZq4Ce8b0YCgd/L935yMtECFGjd1lO
-         9OK5sqnFBjHkpu2OaOjrOzm/QjLJAi+u2wcPW7a0jHWWuvm/X4Np5Pn1H7reAOYHLF9I
-         GFUA==
-X-Forwarded-Encrypted: i=1; AKwUvBxNKVOIKSVGaLa+vTDLno4L70gwsAXprsoZsJFK7gGDGk7TxxAQs81s1D9vnJle+2hVdpiSAy49iQfSLOk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNBPAqUCWUqQ2WTGqw38A7rQ4EkhEz7POMj6Vc6Ww8HqXoP1Vx
-	F+H3EP4z5xvMhT3KdUXTT0yZwAaScB9eaQ8vIji45D67v4AUXrXpCIluCzn2jFJq1nI=
-X-Gm-Gg: AYBFou2rFoESL0m5iDklUNe+44tz72rdw6YdVPtaLtmGGgsrUB1bod7ifehiqRYxMuG
-	4C9Sir5nmRIIAwGqOJkXu0Xi0CQMUVWmQnqaJWtss9W4wPHfrpHCCgoSu6EJ7YW1A5IQgVkHdeW
-	7v9feWtvWCBnkBag+LVJQAEeIyrCt+vo23Br2ubtinfEEzt/8ZwL/y0XILpjhN2E2ZpKnt3KRTT
-	kRcazuLajSoKmxwVSkSMsfCQ8r5b90asUT3yKCqUlqgYAXA30QYbrdwQhu5ClFnPUIdXB7dklEk
-	lQ8Xdl7CBFD8HAGve63aKTX+W9P4nOVooEYhx2EMh8y9KiY7jlGNCc1O4d80YSlfF8j4U/BGDUm
-	QSPZ1tRb+ORd/0E6iC97JwOBKAMSZ9adxG2JUjZdQfWd6IQiltqxFXfdAbS/EhDEfy3YRqAqh1H
-	1HoMGt30d5/v95z/9vr7N8rrqeHFYL6jzmUZ7XslnrkV8smUz4pCuuZWSwRO34lOMh+OqlrCiY1
-	Svt1wokbYuAPvmUxCFlDsN70ASXpyTxNQGVctlnEo8CyIDNt/1IHQs3EIJkN0D+OXJnam9yT1SS
-	mGb8s9TNAHB5ixmHIfC83jTnfHF5xCY=
-X-Received: by 2002:a17:906:e114:20b0:c33:62c0:d8cf with SMTP id a640c23a62f3a-c3362c15642mr504101666b.13.1791896268023;
-        Tue, 13 Oct 2026 05:57:48 -0700 (PDT)
+        bh=nunSQ8CQNv0JezPiian0cV99V25mrgz6BvoT7slRlb0=;
+        b=xiVmiPVwxUa1zJvo/e0Q7CS+8X4bwk599NOa4fh6Ug/D522+oHPeIOA2tYA6QgMgrg
+         oPG/e+hyosFyi3cYXrrruQZ0WloNrWmQOMjXbw4qf+L2gwk9hTwBOHL2tm8kVdawYq9Z
+         MCwmYyv4plNMmZyOGRFrQOq74q6FcJs4hEAz2JmwKYAl8YhO9yYyPRw2hm+C0qIXkWo/
+         rKtM5JH2bgWEmnYjtTMnw7MVmlfTaj6HQKdZl0LfEDSgJMGrrDDenZtKaw0BjT3KcMJ1
+         L/F+WhaH85g1/GWTXwxZjCRD/UGp8WmvucjpL1y/s1JQNqD3JjdiI3fbX8jXmpo6Dgs9
+         9EUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791896269; x=1792501069;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nunSQ8CQNv0JezPiian0cV99V25mrgz6BvoT7slRlb0=;
+        b=M8vhZpjxDR3+YuaJ3HTt0McONRhIUHF5vYH41I1fqQWaDjxVm1NB5YW0E+v66ZPCUO
+         ExNs7DJEHmvTcW70Fk2Hbxf5tX1jMW0jGQORsfGDvRvwsNAeBkfrUcnNWEqrrQWXZIwl
+         56rQVvDAliy20eJB5H7pvXxVKeBMaWdGx/5v+8Nb0KDdongqb3blHK9CBbY2SPWWKMIi
+         jPuqiGO3WcL5cuyYcpuU+Tsme2ypgc3IZENqD23q8N/2E4bCMeQ6+0NihyHmCYSH6kPe
+         8Y4PIsiQye+xCPsOX+xi0pf0wVEjTGEONzS51aOOfOJhgUykKoArcjQBsFvdCfYfc63G
+         wFIg==
+X-Forwarded-Encrypted: i=1; AKwUvBxETAup0VKRFDyM0TRIKhkM+Ntrj2fSTpW4OPXAtGyUBPmb6rq38CHkc52dQmVHCRC+mSJx9IGrkP1OF3g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAY3HicG5f78WdIl4GszTtx997/TRKGnsHXd5/kKHq4TYXzmwj
+	QVUEz6RaSmSfhuYcv1q81LNJL5NeQjlhY56s+brO3OaI8pijbDlw+PpXYuLk6n6aLqY=
+X-Gm-Gg: AYBFou0Rwknf8B8Y8baNUbZJAO23f4F3AS9zbfIofMbjKM5PkSwFgV7m4e3cmzTaCG8
+	9sXgJVluVA984Qm1tlLL+20+W8h9SGusDeKk6U7OR54zWxkLeGSurzaYiPlJHSdcSNMK1FJ5tDU
+	cevddxzcqc3PIdTEtmG1TrQKmkwpdNVRY7lDytt6B3gYAznIwPVQYddpBsNhkzq490JqAVU9yv3
+	W8uxAvMIGUQA8iln31O/qq3MSbsqrqPcX48bauwvP63yMhLfOkKp8QZZbGbpgDsrj6dQci74mMm
+	dkE2j6ER291s49b7GfTG/a6/XHOrdPfaYldL9f/J6pRw4SZL16dIu0MbWFylIsGFwqU8KEWYHjc
+	TXigOI7Mozs8DKvu+NU3jNqNQ76Xft9LLkX0qt8QU4BLSryta60VEpdD+odmZKnutBwHa/uS1wD
+	NZ7+OWwm8sa7gb7rfXxT1M9oDP6BtgtRieBmXpt7QD3d085ZFM1vN7fOtxyTnMoKWZ7FVG4MvLK
+	cuSW21MmY0YVkaliURN2LQgTK/Umlpy9peouaPWoUguHOGYjpT/8rYglXzBQkefAVQ/2qOqfgY0
+	gDt4OMrgFmeriwiIo5Wy0Gh1vSaqiII=
+X-Received: by 2002:a17:907:c317:b0:c2e:62af:b6f3 with SMTP id a640c23a62f3a-c31a9afb29amr1158692166b.15.1791896269434;
+        Tue, 13 Oct 2026 05:57:49 -0700 (PDT)
 Received: from threadripper-fedora-workstation (d-zg2-045.globalnet.hr. [213.149.37.45])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac9ecfsm605985766b.74.2026.10.13.05.57.45
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac9ecfsm605985766b.74.2026.10.13.05.57.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 05:57:46 -0700 (PDT)
+        Tue, 13 Oct 2026 05:57:48 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: linux@roeck-us.net,
 	robh@kernel.org,
@@ -75,10 +77,12 @@ To: linux@roeck-us.net,
 	linux-kernel@vger.kernel.org
 Cc: luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH 1/6] dt-bindings: hwmon: sparx5: add LAN969x fan controller
-Date: Tue, 13 Oct 2026 14:56:25 +0200
-Message-ID: <20261013125735.1542349-1-robert.marko@sartura.hr>
+Subject: [PATCH 2/6] hwmon: sparx5: separate temperature reading from sensor dispatch
+Date: Tue, 13 Oct 2026 14:56:26 +0200
+Message-ID: <20261013125735.1542349-2-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013125735.1542349-1-robert.marko@sartura.hr>
+References: <20261013125735.1542349-1-robert.marko@sartura.hr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,155 +91,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-LAN969x integrates a PWM fan controller with a tachometer input in
-addition to the Sparx5-compatible temperature sensor. Add a LAN969x
-hardware-monitor compatible and describe the second register region.
-
-Describe the fan as a child node using a two-cell PWM specifier for the
-period and standard polarity flags. The child also carries the optional
-tachometer pulses-per-revolution and thermal cooling properties.
-
-Keep the existing microchip,lan9691-temp compatible for device tree ABI
-compatibility.
+Move temperature conversion into a helper and dispatch reads by sensor
+type. Preserve the existing temperature calculation and error handling
+in preparation for adding fan monitoring.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
- .../bindings/hwmon/microchip,sparx5-temp.yaml | 90 ++++++++++++++++++-
- 1 file changed, 87 insertions(+), 3 deletions(-)
+ drivers/hwmon/sparx5-temp.c | 54 +++++++++++++++++++++----------------
+ 1 file changed, 31 insertions(+), 23 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
-index 611fcadb1e771..e91c2a3ccd3c9 100644
---- a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
-@@ -4,13 +4,15 @@
- $id: http://devicetree.org/schemas/hwmon/microchip,sparx5-temp.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/hwmon/sparx5-temp.c b/drivers/hwmon/sparx5-temp.c
+index aa91780737446..0fd5c147f8167 100644
+--- a/drivers/hwmon/sparx5-temp.c
++++ b/drivers/hwmon/sparx5-temp.c
+@@ -37,38 +37,46 @@ static void s5_temp_enable(struct s5_hwmon *hwmon)
+ 	writel(val, hwmon->base + TEMP_CFG);
+ }
  
--title: Microchip Sparx5 Temperature Monitor
-+title: Microchip Sparx5 Hardware Monitor
++static int s5_read_temp(struct s5_hwmon *hwmon, long *temp)
++{
++	int value;
++	u32 stat;
++
++	stat = readl_relaxed(hwmon->base + TEMP_STAT);
++	if (!(stat & TEMP_STAT_VALID))
++		return -EAGAIN;
++	value = stat & TEMP_STAT_TEMP;
++	/*
++	 * From register documentation:
++	 * Temp(C) = TEMP_SENSOR_STAT.TEMP / 4096 * 352.2 - 109.4
++	 */
++	value = DIV_ROUND_CLOSEST(value * 3522, 4096) - 1094;
++	/*
++	 * Scale down by 10 from above and multiply by 1000 to
++	 * have millidegrees as specified by the hwmon sysfs
++	 * interface.
++	 */
++	value *= 100;
++	*temp = value;
++
++	return 0;
++}
++
+ static int s5_read(struct device *dev, enum hwmon_sensor_types type,
+-		   u32 attr, int channel, long *temp)
++		   u32 attr, int channel, long *val)
+ {
+ 	struct s5_hwmon *hwmon = dev_get_drvdata(dev);
+-	int rc = 0, value;
+-	u32 stat;
  
- maintainers:
-   - Lars Povlsen <lars.povlsen@microchip.com>
+-	switch (attr) {
+-	case hwmon_temp_input:
+-		stat = readl_relaxed(hwmon->base + TEMP_STAT);
+-		if (!(stat & TEMP_STAT_VALID))
+-			return -EAGAIN;
+-		value = stat & TEMP_STAT_TEMP;
+-		/*
+-		 * From register documentation:
+-		 * Temp(C) = TEMP_SENSOR_STAT.TEMP / 4096 * 352.2 - 109.4
+-		 */
+-		value = DIV_ROUND_CLOSEST(value * 3522, 4096) - 1094;
+-		/*
+-		 * Scale down by 10 from above and multiply by 1000 to
+-		 * have millidegrees as specified by the hwmon sysfs
+-		 * interface.
+-		 */
+-		value *= 100;
+-		*temp = value;
++	switch (type) {
++	case hwmon_temp:
++		if (attr == hwmon_temp_input)
++			return s5_read_temp(hwmon, val);
+ 		break;
+ 	default:
+-		rc = -EOPNOTSUPP;
+ 		break;
+ 	}
  
- description: |
--  Microchip Sparx5 embedded temperature monitor
-+  Microchip Sparx5 temperature monitor with a fan controller on LAN969x.
-+  The fan child's pwms property references this node to specify the
-+  PWM period and polarity.
+-	return rc;
++	return -EOPNOTSUPP;
+ }
  
- properties:
-   compatible:
-@@ -18,11 +20,19 @@ properties:
-       - const: microchip,sparx5-temp
-       - items:
-           - enum:
-+              - microchip,lan9691-hwmon
-               - microchip,lan9691-temp
-           - const: microchip,sparx5-temp
- 
-   reg:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
-+
-+  reg-names:
-+    minItems: 1
-+    items:
-+      - const: temp
-+      - const: fan
- 
-   clocks:
-     items:
-@@ -31,11 +41,67 @@ properties:
-   '#thermal-sensor-cells':
-     const: 0
- 
-+  '#pwm-cells':
-+    const: 2
-+    description: |
-+      Number of cells in a PWM specifier.
-+      - cell 0: PWM period in nanoseconds
-+      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
-+
-+  fan:
-+    $ref: fan-common.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      cooling-levels:
-+        description:
-+          PWM duty-cycle values corresponding to thermal cooling states.
-+        items:
-+          maximum: 255
-+
-+      pulses-per-revolution:
-+        minimum: 1
-+        maximum: 4
-+        default: 2
-+
-+    required:
-+      - pwms
-+
-+    dependencies:
-+      '#cooling-cells':
-+        - cooling-levels
-+      cooling-levels:
-+        - '#cooling-cells'
-+
- required:
-   - compatible
-   - reg
-   - clocks
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: microchip,lan9691-hwmon
-+    then:
-+      properties:
-+        reg:
-+          minItems: 2
-+        reg-names:
-+          minItems: 2
-+      required:
-+        - '#pwm-cells'
-+        - reg-names
-+    else:
-+      properties:
-+        '#pwm-cells': false
-+        fan: false
-+        reg:
-+          maxItems: 1
-+        reg-names:
-+          maxItems: 1
-+
- additionalProperties: false
- 
- examples:
-@@ -46,3 +112,21 @@ examples:
-         #thermal-sensor-cells = <0>;
-         clocks = <&sys_clk>;
-     };
-+
-+  - |
-+    #include <dt-bindings/pwm/pwm.h>
-+
-+    hwmon: hwmon@e2020100 {
-+        compatible = "microchip,lan9691-hwmon", "microchip,sparx5-temp";
-+        reg = <0xe2020100 0xc>, <0xe2010348 0xc>;
-+        reg-names = "temp", "fan";
-+        #pwm-cells = <2>;
-+        #thermal-sensor-cells = <0>;
-+        clocks = <&sys_clk>;
-+
-+        fan {
-+            pwms = <&hwmon 40000 PWM_POLARITY_INVERTED>;
-+            cooling-levels = <0 128 192 255>;
-+            #cooling-cells = <2>;
-+        };
-+    };
+ static umode_t s5_is_visible(const void *_data, enum hwmon_sensor_types type,
 -- 
 2.56.0
 
