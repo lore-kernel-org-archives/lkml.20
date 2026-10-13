@@ -1,100 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9B251FCAC;
-	Tue, 13 Oct 2026 15:37:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170543515F1;
+	Tue, 13 Oct 2026 15:38:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905864; cv=none; b=udMZceOfGYeKz3xHrpJGuLZfjhmxOQsBEtSjeUJZ/g7milqdvbin3tF8Af+S8SUd2XKmwi3fl5ymzy/iX12hQGlly8TWFyG8RmaFE5BJCF0+WZjp8DInBCRXrfQsOijPXYr08YVRcnOMyHLS/KK/3TOWZQI2XKYr0kTwqL8Ap0Q=
+	t=1791905899; cv=none; b=F4jahcjMGLlS2IkafFspTvfLZfh4QO5PTJAxciHFc9c54wvuHKU2j0rd5/deC9L/L9c40jQhBJeQ42j0QVHtFkI+adKRvXX7Su/B7Cpav4KxnT89nWOvSiyyT3maJfpOkdeQLc1/G+AlKgtyIzyigWU3LiBxyt5Yov62y/vyRHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905864; c=relaxed/simple;
-	bh=s2Da4iTD1ly0nZXSDUZrt1T6ZdRWfAW3P8ALaKGjJKE=;
+	s=arc-20240116; t=1791905899; c=relaxed/simple;
+	bh=kTCzeYGjpwQkoEKHv8h7Ma4D/dFX+AeHEOwDr+fUDZo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XYOSNGkWVBbjEM/pULD7KyKVzP15etU44fgDoaffAZ7VJHBi5oUQTY6NbYcS1UOwNAdMOSO4/JeAH+3nGsf1feUlOhlnwfwpmTRPS3YXySxNnAaXkUhUEWF2ofhaViAE07cTfI5UiqcjX8OTS59SBcYZ+wm8EGfXWpMko18Y5nM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibMAGARp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=E0HWSraDjh9JyiP6HMMSDXbz8b26j7/PeIYYjCW6sh8Gh2LCGPoDZMwshr2gtOkmh/SZ4rej1P40ozvfXdfOBdkmWnTMWP/yPpk0Cf5CErQ8exhdhwWKSjEMfSGvfyxrKRdr9+AuMhlgMHt+pPLkBEY72LHwFkdBRAAnzkPnQSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioCEEFu0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibMAGARp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DFA71F000FF;
-	Tue, 13 Oct 2026 15:37:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioCEEFu0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B31E1F000FF;
+	Tue, 13 Oct 2026 15:38:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791905863;
-	bh=g0v0j3GPIoV5WBVJgFz4OFgpQ37qSKo1OS4tG1mcDzU=;
+	s=k20260515; t=1791905897;
+	bh=fRac/ENAf8sbWAIo8siY+nB/tJsXS7y2nHVsGkQK6zk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ibMAGARpuyRzxeZsfJ1ZxatPqrJ3ScinioYonSVO9G5Y+ttiP1lSQUS8Coty6Tyd5
-	 eJp5DjdFsuoH1CXveQT4IrIh0t7I5bl/cPngZlGH/t54AIs+g2l1WwHG4ogDOACwL9
-	 qFRoS6CizbEWrMgHp6cTJxLN2dEjLFdT9WlSKO6ma8ihv7gQX4t2TfvG88A5PXX5u7
-	 UqozSzgAu1Svpn0Eo3v2QDv3uia6CvR2umW5sl7jnJIm3ufv4F1U+2IBc5NcIjkBXR
-	 weGjUF++il9ye/LPhsfISms3ysDQkvRqh7c48xaTMjImIZ9z/PXo/WL2dVOkPrQjar
-	 7EUE45XGUsP/Q==
-Date: Tue, 13 Oct 2026 17:37:40 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	Aaron Kling <webgeek1234@gmail.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] arm64: tegra: Add the fuse clock to the Tegra210 GPU
-Message-ID: <as5QBASu4BxhZfdK@orome>
-References: <20261013145210.103565-1-sashal@kernel.org>
- <20261013145210.103565-2-sashal@kernel.org>
+	b=ioCEEFu0T8VAMITdUgiseYpyrNZcylEasjSvB/52gdAjb7MpKfrigZtNehfc+4O84
+	 2Ss8bW/XCj2GFuOxCy6cOYxU46pWWLTwCcd7b1HZrrdZCYZ+nGo8aOxHnIt5ihnjpF
+	 Z7NPQyj1Zc9vJhkveWnIGur253+R7yMWwG+Hya6gTdSJyZb1pAkFtEocNRxNd0ym1P
+	 spj4AajzxqpabqMXQctdPSjUdoPYMgy1d/xosgLDq1wI8fL5yRGp3BiEd+oLoQMHxE
+	 Oecrk9BVgP0BFNMaK7fAjJDdC/Hjrn52mn+jFmuGaTp6Mjv4XTJ29jNfkVuQpcvRXr
+	 eumrKq3nLrozA==
+Date: Tue, 13 Oct 2026 09:38:16 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Hannes Reinecke <hare@suse.de>, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] nvmet-auth: serialize access to DH-HMAC-CHAP state to
+ fix UAF
+Message-ID: <as5QaLgssz5ZK7IB@kbusch-mbp>
+References: <20261003210154.2453077-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rpi2rmgxu3mrx2a6"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261013145210.103565-2-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261003210154.2453077-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
+On Sat, Oct 03, 2026 at 09:01:55PM +0000, Jérémy Jean wrote:
+> A REPLY AUTH_SEND command can derive a dhchap_skey key while a
+> concurrent AUTH_RECEIVE command observing this REPLY state executes
+> the failure path and frees that key. The REPLY command then continues
+> and writes into freed memory, causing a use-after-free. KASAN reports
+> it as:
+> 
+>   BUG: KASAN: slab-use-after-free in __sha256_final
+>   Write of size 4 at addr ffff88800359c540
+>   ...
+>   nvmet_auth_sq_free (drivers/nvme/target/auth.c:237)
+>   nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:621)
+> 
+> Add a mutex to each submission queue to serialize authentication
+> commands and timeout handling. Unlock the mutex before completing
+> requests and ignore outdated timeout callbacks. Limit timeout delays
+> to prevent immediate expiry on 32-bit kernels.
 
---rpi2rmgxu3mrx2a6
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/3] arm64: tegra: Add the fuse clock to the Tegra210 GPU
-MIME-Version: 1.0
-
-On Tue, Oct 13, 2026 at 10:52:09AM -0400, Sasha Levin wrote:
-> The GM20B GPU on Tegra210 needs the fuse clock running while it is
-> powered. Describe it so that the GPU driver can keep it enabled.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  arch/arm64/boot/dts/nvidia/tegra210.dtsi | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-
-We already have that FUSE clock in Tegra194, but since this is now
-needed on older models as well, I think we need to add this as far back
-as Tegra124, since it likely has the exact same requirements.
-
-Thierry
-
---rpi2rmgxu3mrx2a6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOUEQACgkQ3SOs138+
-s6FLiQ//UlzHqdcmdtoM754i3mPSyncNcmwBSxfIHSasCUhBfrQLOYpvkc/c9CWX
-RkWIx6MjZCZ2ryapXPPcMUQbt0C2fp8y+CClREKndIsiUadLSxSctfW/oDlmp8Iq
-mozxwUjxr8LIHbRfhrgrL+MFQ7BPr2CQkj3hAJR6SsW6G4GycHp31Ctxsyl6BeRb
-lUKjXI7zM/mvJJ/GLiMvWWct2195NueigYugWT+U4/co7CuekhyxltODj3zQ3DnC
-UaFmi48VYOSTdXvcJH1AeSG4d56JUK22NkUmI06/d8N78B7bdAF/xJcW9Lb0G69k
-536QVNX+vb4M36sxRKU1A36/Z1aIdDz0uvtTuU/AxqOzp95fPw7SHC2VaoHhGD/S
-OaxXKVxvAwFH0kZ5E/6hZ9H8SPfVTxeBmlF5xivct+X1xm+3Mt0c0NYGYOpEiEv4
-v20HR+wxs3JFpSIRhg3HoUgPkeJ8F42XTcrmYxUNee7gfYpjoMn6b2mLNtbPf93R
-NifsPLgSAfwigv8UgGQGVWbEbwKr7D8vmG7tNWiGxlz1VGhEMQxOYEB4W1ORyaEI
-Sn/nyHHRWVoMCLVVLADlOYHBy+1RLu3lye517qiozoDiF5cMUSSQrk0cTEXDG8nV
-rHKdk2aVlW757CtgPzhTGuDoWr38eAix5qFBOpK8NKpR7XTtz5A=
-=mQbV
------END PGP SIGNATURE-----
-
---rpi2rmgxu3mrx2a6--
+Thanks, applied to nvme-7.4.
