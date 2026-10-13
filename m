@@ -1,188 +1,156 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E154F93B8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28094522F12;
+	Tue, 13 Oct 2026 17:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912237; cv=none; b=iDDZ8VDGy5wHr8gXMaZ4EbJmatZugF4WIHtIPlq9CTwvbwFqC3zSxhYrXemN7DrZrvcUi7BDvuKdlud8vStUeY2z5DXBvmhq5Z8Kf2dnHeuNf91O+0tIXmMEzVLKMoACGQDFd1hOCnIBGR9I+RZgumm6fYWwQAolIJpLX91szJQ=
+	t=1791912278; cv=none; b=kWfJDVtMQR/2HtXKgTRejfaKPMTTeMWdldc0yCtMVWgwj+aVkFxjmNsLehJdr6QCEClRXQ34Rm1dmcYVcIQpm5MragQ5DD4Kn3aWQElcasDIFXHMcB0welB2QPQtXO/7s6IGBV7Vf4cwnn7JJkJXdnzHr4P4O0M4KMFR7qaXkDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912237; c=relaxed/simple;
-	bh=tK2OGl3xeNMgKZVkLjUbZxnfRXKUj9NbM/tn9N/vSuA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=roSnFFL5jsat5lYOTsT/JYZC7GL8Gchc+WKMTdkSTsGdnFRJgPIgKmjZZy40qRnLL2N7PX5IWaoqsBoJ4mEiPPOxh9Mdzc+3Mxzq2lrO8KLg/Cm4sph7tc3reCScBNtEI1Z21WyQXAmE8jlyU3i42VKX9CHbq4P7ICYVGXryv34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=E4XZH0iY; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791912278; c=relaxed/simple;
+	bh=5U1IRl6k5HaKJQKXawLO+W6DKf6QnIPO8yJ+DVdAN9w=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TeUUy5SXzQVFmjfz0/5W14DSAIfybF/8TtA+TJnbIeR2CZ4iuglVDXQSl2Jo/PEpddklCeQLUNqphKZQvOlcN4rP7G0sUtGLjI5nQMLv2NdqaBhF+oSFuEjD9c5uUVTrAK1R+BWVcIxGYENoDHzhDxrSIv3hDWi1aHTInhKpOJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=kG800gEX; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="E4XZH0iY"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 8F7E81A1211;
-	Tue, 13 Oct 2026 17:23:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 50B8C60362;
-	Tue, 13 Oct 2026 17:23:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5332411D717E5;
-	Tue, 13 Oct 2026 19:23:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791912228; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=FBCU3cnsQNTB/upJFEC51yCJG78geiS2NW/P2INPGOA=;
-	b=E4XZH0iYJAAyOMdvl3v1KvL0+YIVBzoqcS6hwt7REAmzryrf95QpRY3fs1ZAf8/ZfBMAaX
-	Ndb86G/KMViHNHcklE+A/7MguLJMbGwQetjPGXeJJ7SiW3V6mkEeFTR9Se6THB/REiIb9i
-	vRs7VNN3AXMiCDtwbVnPkL/lZswaX0Xq0G0gzXhbBYAkouwTpZmbnHVteWKSLsIDZ6bH9d
-	Kh91QBh2Sh5rO/aWOMv/xmpWT0g2s/w3s0lIh8Vnij7+1g5wNVzgMK4ejE9wWHqZbMO0w+
-	au96yPsPyBhfEQV4GHvFvX5aCMDNIIy9Tnkq9hBZ3CPSBDo2GzYQAlsgOGPvSQ==
-Date: Tue, 13 Oct 2026 19:23:42 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Ayush Singh <ayush@beagleboard.org>
-Cc: David Gibson <david@gibson.dropbear.id.au>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org, Hui Pu
- <hui.pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-Message-ID: <20261013192342.149768ed@bootlin.com>
-In-Reply-To: <87pkxd4jly.fsf@beagleboard.org>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-16-herve.codina@bootlin.com>
-	<arDMhoNNXcPi81sR@gractus.seuss>
-	<20260925152157.511dc65c@bootlin.com>
-	<as3ZWBr3wRonkxXF@gractus.seuss>
-	<87pkxd4jly.fsf@beagleboard.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="kG800gEX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=lkMIlmwyL70aGujPRKSjGf+Ll52pEew9wb2w9YDr9b4=; t=1791912275;
+	x=1792517075; b=kG800gEX0YmlySIzg8jlCgvclx6VXUA8l3LIez7FCrlHEl0lWpkhzRbcv3/9p
+	pn1dfBbfuhSijSyPc4e94OxTZ+j/IaV7pXgFnLAv4UxquiKP6skUWxX7QlwlVVhmvQHnis5urYP2h
+	DcOvILFnxfmVeGQJKlfrtDgaqQ0C/MmEyAwEA6G5NbTq9Q8ij2U1AqbRUXeRiOfynNTnV77i6O0OS
+	3L+xAM9/vmfrsMnSi89k4iDZbkv9xDx4ONmJYoviTAlmKugJy9Dl5RhF4V4YWu8ySnAwrnsIfMXxn
+	FwTMRioLT+XlQWLYHPkXZtFI5KZ6PLgnl7XsRoD6bex0Xb4QDA==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xGgEq-00000000ueN-3ZWi; Tue, 13 Oct 2026 19:24:32 +0200
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xGgEq-00000000KoU-2X5y; Tue, 13 Oct 2026 19:24:32 +0200
+Message-ID: <74cee094344a529a77edaf1e8d63cf25e79ec058.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] sh: intc: sort the prio and sense lists after filling
+ them
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
+	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
+Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 13 Oct 2026 19:24:31 +0200
+In-Reply-To: <20260927191359.6144-1-kmehltretter@gmail.com>
+References: <20260927191359.6144-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-Hi Ajush,
+On Sun, 2026-09-27 at 21:13 +0200, Karl Mehltretter wrote:
+> register_intc_controller() sorts d->prio and d->sense right after
+> allocating them, with hw->nr_prio_regs and hw->nr_sense_regs as the
+> element count. The lists hold hw->nr_vectors entries and are only
+> filled later, by intc_register_irq().
+>=20
+> On SH7785, sh7785-irq0123 and sh7785-irq4567 have four vectors but the
+> SoC's eleven priority registers, so sort() swaps 88 bytes in a 32 byte
+> kmalloc object at boot. slub_debug=3DFZPU reports "Right Redzone
+> overwritten" in kmalloc-32, and v6.5 and v6.6 panic in
+> __kmem_cache_alloc_node() while registering sh7785-irq0123.
+>=20
+> Found with a custom QEMU model of the SH7785LCR. On it, v6.4
+> sh7785lcr_defconfig boots with SLAB, the defconfig default before v6.5,
+> and hangs before the console is up when built with SLUB.
+>=20
+> Sort the lists once all vectors are registered, with the number of
+> entries that were added.
+>=20
+> Fixes: b59f9f9775e6 ("sh: intc: optimize intc IRQ lookup")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>=20
+> Notes:
+>     Testing, all in QEMU on a custom SH7785LCR model, not on hardware:
+>     - v6.5 and v6.6 sh7785lcr_defconfig hang before the console is up
+>       (gcc 8 and gcc 14). With slub_debug=3DFZPU they boot and validating
+>       kmalloc-32 reports "Right Redzone overwritten" after the object
+>       holding the entries of sh7785-irq4567. With this patch they boot
+>       and the report is gone.
+>     - v6.4 sh7785lcr_defconfig (SLAB) boots. The same v6.4 built with SLU=
+B
+>       hangs, reports the overflow with slub_debug=3DFZPU, and boots with
+>       this patch.
+>     - Current mainline boots with or without the patch, but reports the
+>       overflow with slub_debug=3DFZPU unless patched.
+>     Testing on real hardware is welcome.
+>=20
+>  drivers/sh/intc/core.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/sh/intc/core.c b/drivers/sh/intc/core.c
+> index aa68fe190865d..ffbe60234eefc 100644
+> --- a/drivers/sh/intc/core.c
+> +++ b/drivers/sh/intc/core.c
+> @@ -275,9 +275,6 @@ int __init register_intc_controller(struct intc_desc =
+*desc)
+>  			k +=3D save_reg(d, k, hw->prio_regs[i].set_reg, smp);
+>  			k +=3D save_reg(d, k, hw->prio_regs[i].clr_reg, smp);
+>  		}
+> -
+> -		sort(d->prio, hw->nr_prio_regs, sizeof(*d->prio),
+> -		     intc_handle_int_cmp, NULL);
+>  	}
+> =20
+>  	if (hw->sense_regs) {
+> @@ -287,9 +284,6 @@ int __init register_intc_controller(struct intc_desc =
+*desc)
+> =20
+>  		for (i =3D 0; i < hw->nr_sense_regs; i++)
+>  			k +=3D save_reg(d, k, hw->sense_regs[i].reg, 0);
+> -
+> -		sort(d->sense, hw->nr_sense_regs, sizeof(*d->sense),
+> -		     intc_handle_int_cmp, NULL);
+>  	}
+> =20
+>  	if (hw->subgroups)
+> @@ -357,6 +351,11 @@ int __init register_intc_controller(struct intc_desc=
+ *desc)
+>  		}
+>  	}
+> =20
+> +	sort(d->prio, d->nr_prio, sizeof(*d->prio),
+> +	     intc_handle_int_cmp, NULL);
+> +	sort(d->sense, d->nr_sense, sizeof(*d->sense),
+> +	     intc_handle_int_cmp, NULL);
+> +
+>  	intc_subgroup_init(desc, d);
+> =20
+>  	/* enable bits matching force_enable after registering irqs */
 
-On Tue, 13 Oct 2026 22:34:57 +0530
-Ayush Singh <ayush@beagleboard.org> wrote:
+Merged into for-next for v7.4.
 
-> David Gibson <david@gibson.dropbear.id.au> writes:
-> 
-> > On Fri, Sep 25, 2026 at 03:21:57PM +0200, Herve Codina wrote:  
-> >> Hi David,
-> >> 
-> >> On Mon, 21 Sep 2026 16:20:02 +1000
-> >> David Gibson <david@gibson.dropbear.id.au> wrote:
-> >>   
-> >> > On Wed, Aug 26, 2026 at 10:31:46AM +0200, Herve Codina wrote:  
-> >> > > This v18 version will add support for
-> >> > >   - Structured tags.
-> >> > >     Those tags value definition will allow "old" libfdt, dtc and other
-> >> > >     tools to skip unknown tags if encountered in future dtb version.
-> >> > > 
-> >> > >     libfdt, dtc and other tools implementing version v18 will be able to
-> >> > >     skip unknown tags available in dtbd generated with later version of
-> >> > >     dtc.
-> >> > > 
-> >> > >   - dt_flags header field.
-> >> > >     For now this flag field is set to 0. It is a placeholder for future
-> >> > >     dtb version and could be used to store some dtb related information
-> >> > >     such as the kind of dtb. For instance, the future addons format will
-> >> > >     use this field to clearly identify that the dtb is an addon dtb.
-> >> > > 
-> >> > >   - last_comp_version_w header field.
-> >> > >     This field is similar to last_comp_version but for writing.
-> >> > >     It contains the lowest version of the devicetree data structure with
-> >> > >     which the version used can safely perform modifications (taking into
-> >> > >     account following rules related to unknown tags).
-> >> > >     If this lowest version is greater than the last known supported
-> >> > >     version, modification are simply forbidden and lead to a
-> >> > >     FDT_ERR_BADVERSION error.
-> >> > > 
-> >> > > For modification, when an unknown tag that can be skipped is involved
-> >> > > and last_comp_version_w allows modifications, the following rules
-> >> > > apply:    
-> >> > 
-> >> > "last_comp_version_w allows modifications" is a bit hard to
-> >> > understand.  What exactly is the version number against which we're
-> >> > comparing that value?  
-> >> 
-> >> We had one last_comp_version.
-> >> 
-> >> Now we have two last_comp_version, one for reading and one for writing.
-> >> We compare again the dtb version supported by our libfdt version.
-> >> 
-> >> This comes from the discussion [1]
-> >> 
-> >> [1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdiECtk49on8VfkP7CDvw@mail.gmail.com/  
-> >
-> > Ok, I now see that the logic is you simply fail to proceed with writes
-> > if the library's latest understood version is < last_comp_version_w.
-> >
-> > As I said elsewhere, this approach doesn't particularly make sense to
-> > me.  If lib_version >= last_comp_version you *can* write, even if it
-> > means stripping everything that's not understood at lib_version.
-> >
-> > So the real question here is how do we know, for any given structured
-> > tag, what write operations require the version to be downgraded (which
-> > might in turn require this and/or other structured tags to be stripped
-> > entirely).
-> >
-> > This is related to (though not the same as) the question of whether
-> > introducing a new structured tags requires a bump to the dtb version
-> > (though not to last_comp_version, of course).
-> >
-> > Here's the simplest model I can think of.  It's what I'd suggest,
-> > unless one of it's limitations is a showstopper for what you have in mind:
-> >
-> >  - version and last_comp_version retain their meanings.  No new header
-> >    version.
-> >  - New structured tags *do* require a new version.  If a dtb wants to
-> >    include a specific tag, it must label itself with a version that
-> >    defines that tag.  To enforce that:
-> >     - For read operations, if we encounter a (known) tag that
-> >       doesn't belong in the header version, we throw an error (either
-> >       BADSTRUCTURE, or a new error for the purpose).
-> >        - If version <= FDT_LAST_SUPPORTED_VERSION and we encounter an
-> >          unknown tag that also trips the error (since if it was
-> > 	 defined in this version, we should know about it).
-> >     - For write operations (including in-place), we always error if
-> >       version > FDT_LAST_SUPPORTED_VERSION (done in fdt_rw_probe_()).
-> >     - fdt_open_into() _is_ permitted if version > FDT_LAST_SUPPORTED_VERSION.
-> >       It will strip all unknown structured tags from the entire tree
-> >       and downgrade the version to FDT_LAST_SUPPORTED_VERSION.
-> >
-> > This does mean that every new tag does require a new version, which
-> > may make experimenting with new tags more awkward.  More
-> > significantly, it also means that any change requires a version
-> > downgrade, even if it's just updating a handful of properties.
-> >
-> > On the plus side, it's fairly simple, retains as much as possible
-> > current version semantics.  Most especially there's no tricky
-> > questions about what sorts of writes might invalidate an unknown tag
-> > (they'll all be stripped by the time we permit a write operation).
-> >
-> > If those limitations really are a showstopper, I do have a few other
-> > models that might work, though.  
-> 
-> The limitations do not sound too bad. And it feels easier to implement than
-> keeping track of read and write versions separately for each new tag.
+Thanks,
+Adrian
 
-But it doesn't handle the use case I mentioned in a previous reply :(
-
-bootloader knows about version 2.0
-kernel knowns about version 3.0
-
-dtb 3.0 we want the bootloader to skip tags it doesn't know about but this same
-bootloader has to handle 'unknown' tags on some modification. We want to have 
-possibilities to let this bootloader perform those modifications (under precise
-known rules) and pass this dtb to the kernel.
-
-Best regards,
-Hervé
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
