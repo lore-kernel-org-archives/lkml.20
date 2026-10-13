@@ -1,373 +1,291 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71F04EBAE2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:46:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791935195; cv=none; b=eG4bLd1yr3e70u51rW+e1jjNF02Tq2fjbSpu/5Cb9xcmQcA5JpbmPlkZwjpSvl4BsRCIWuh/h892st7QiAlZpiJ9UAZx3LkLy0qebB5SdapTTi9kmfuZ0OTkWpdjh8y4UatwR2RM55PILqumVGcmNpdzVc03MK/5X0t0c2oLa5E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791935195; c=relaxed/simple;
-	bh=XVN4Ea/3dfzfwFbbKyoxZ9EVJprmBgLiBzp3i6VWXcY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j51YwkdQETsyPg7tIkXnOHTxp18xzpjcildq3q5Dh8bKBQ2Q05Ir8f0Qa4G+P5feeAMOyDV/4zxAcVgbkdM6b/WjrCQaqhYgQnXhFkt++RQ88YKv93SXAD0IiEqeNw+WJX25Na0Fe5MEANGKr2O9X8yh5AX5sRZg5U3ZX+bXb0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mmu2jSo8; arc=none smtp.client-ip=74.125.82.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACB94BEE30
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:47:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791935272; cv=pass; b=Fjk1ocoycRYbGYaTvuDNIIZcEWqVqYLDm/YfwBAFQfOMfFUVd3YEV7qlkGkgl9kqgWPWTmOS2nXpFhWW+vkiLdCvYLlok+vlCXJ9chK4rSK0fc1QJLCU5crm2DXT5RoTe6TcaGtIzIk+C6Gmp/sz+X7OBbv/OuKSV4M/8UZHSvA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791935272; c=relaxed/simple;
+	bh=RpVj60Np2QeJsiDicQft4LScnare6AIB8StmTWAUalo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MlV99McFtUElO/CP+/1b2dJmlTfnH4NqASIfN88QIMNVGeq7/DH6TWXBQ7+ItHVbEq8+I/tRtBcHa2109f8vkYDE/FYlu954EFTAjt0S721Vg43oP1Gsm8HlabOqk32MnZywr/G8rBYQSDxcplgJoWiix9b+TS6DSrOzDNcWbp0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Gme4XrJW; arc=pass smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mmu2jSo8"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so3565920eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:46:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Gme4XrJW"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bcf03d95b8so23817e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:47:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791935268; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GE4ypO1PFTV4d/EPwChgjXT/kizS+D9F5G6zPiBILov/4exTqUnYl1yoXnh+O9/x7j
+         yfYZyI/7ScJrvKQ5hKQ/QyILwqkCFcLVLAGf/b1oAtlnCx+NSYgUPZZov3CSxONQsCAk
+         YFkBnleyUMGAlJ5GwfBt/Zs6SY0sI/+7F1q/xLmXD1HGYOzDEqbpzQtpzaxBkA0dHUs0
+         NIizmV5DRlUwMr6x4N30KG71W/aRJscrA3hywKnsqpAx1nLM7feUk6yYBmtOgQOiXmjm
+         SlV2HqGmVKOY3+pA+XkXtmbhI7kOP2obhmryR9qfxmRJnD3WIzmlhW0/jMY7/N3/lo2W
+         KnBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gWlBab7B3jJux3vwKeZxIpLl3dDCHc4QEgeA5gXUrZ8=;
+        fh=FbEjYzkxFteb5W9Ojn7fIGz5p5Z6pg8RdwCTnhBALqU=;
+        b=bg52lnJKXZ+U1pCBLR57X4oSMmZTH8QUtIYiNBODK5wmUlOX2XQIlsgNYTpaqdKwqo
+         Rbi6QobYgn6f+pMdEBI95GTY71BgSiPNm08QSXp3Z/0xO6DGywywnj/a4XD9Rv8r8uT/
+         xmZTyzFtauCwGRTDtw2LTmaxCrN7JWQHiJUDWKS5vmNFglVduyRrSY6VEwzqvoyNbJVO
+         C1lgEpnQ95xo+g+OVi212j3mCn2HQcBTUKlEfnTMfW+Tnch66+qB1v68/W6hTkYBs4OC
+         6tw+cM9v7ts6RqvPCNyH8SG/OF5g3rn0OlfI2eLNtl2NjJcqayoRvaodi9JwZfQN+4Qn
+         ldAg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791935193; x=1792539993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=google.com; s=20251104; t=1791935268; x=1792540068; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=O4S5pHSre57nDw2geHH7oHS8X31/rtrOL5/WKlFtgbo=;
-        b=Mmu2jSo8PLmN2GkQO/fb8IjuhA68Ov7AbNix36RHZZZC/v7LwYWffLGWHRFuWOsQKd
-         L199GO9zKzokO9rMdB5VgelW+2UfNuRWrgVKuoHUI/l7KwwLlTedWXo2MF9+YV5Xjvy1
-         iekR8VSd/DRFonGuEf4OwxFJf4UQo383biXswu9YbdCvCaSGSwxLck4vHA8tyRz0Ji7B
-         xJHBNGgZB1trbXPANtpJPKHmjVzHcSYMZCe+owMytFVHw0jT6SdkWhQ4mBE6C+jKqGxo
-         qJL22zHNodI7FpYHvvnNKAVdY5r2DM76eB4ugqSoCEcYo5Yyu5f8vPSSCDhLBrTe4RJM
-         HP6w==
+        bh=gWlBab7B3jJux3vwKeZxIpLl3dDCHc4QEgeA5gXUrZ8=;
+        b=Gme4XrJWfSPCRvMteZMCfU+qvW9QMA5XjDeOA4Y0NFJtBr3sbJyn87aQPy/oW30/SU
+         zXtWbpIr/6dj5WHV9JSj02tRGcPESFuUdDPgUvfTOy2JGpJywn/J0apar/mDfHoDXk1/
+         3ufHcYZS6vWI/mVZZ8lhaKgfSGX6tGPLozt/1Qz4dKtwKu2MOEaULrgEtzUJNA5kNIlo
+         yiPkbQuLH0nSjJ9Aud+XnjLL0YTVeje/IVG2BRMgRFHXcBnqAVu2e9mU0yXydgWK6lG3
+         mtGyVOA+g3++UvG827eo2sKMG3YW9/BRmzf2PHC2ksgAp9Kobre2igdnamFCIkla5DTC
+         /r1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791935193; x=1792539993;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791935268; x=1792540068;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=O4S5pHSre57nDw2geHH7oHS8X31/rtrOL5/WKlFtgbo=;
-        b=SIrrFqyUk1WQkOfjLsagLRcuuq2MbMii7eZk612TNepF8NuKdOJRvt7ZILJYidDf7M
-         g0KAWaQGYRhRuUnzESAFCiyHTtB85zBsisW29bAf3XnHTymQzAQc6AVXAvmKg3aFpKGV
-         xTvd6kkt9geouX75iFA8g0TFd23ANZ0YHOzA1tSkBYzCsACk9/GeWrsnxGelMlSZLnR2
-         ae7cEKBMLIJY1jPsbwD7IL6N51zyrDDnGv9gQsjCDPO6LkG7HV9J18KIXr7POsiYbiaf
-         w/mn7xkui6FlP0k/5ceZ0Un3A9XW05jwXJWgDpPhZnfS69gZpVfNqljwEwBZQc4x9vLO
-         Qe3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzG4HsP7rnUWLq4fTeBJI+QPribV67I+N9lW0mlQ505Lk2BFgWBFWDsCTqOEwi0Go+JXKLlzxjDj36zoe4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVq/WL1fr8T8tU3xFtgwuTGCGYf2XGYXG8L3WK7JUdXJvjIbds
-	rf2D5zu5r6C+eOzZOrG7c4lhK4KuEBE7lasL0fmsuCB+u7pWXTCShGIH
-X-Gm-Gg: AYBFou2cgYtCzBt/O/BVztHGpcNY99PR3bToJIJ3qmMGJVBPCxgDs0nxYbfBPCdbljx
-	n05ijeqwFQ5N7tfGkKcdimBu+cX6Jrhog0xXsofr1xzhAPCDuuyW4+lcFzQagySE0MPDE+iUIki
-	NOil0HCOvz59bwIJrBO7hILIMTgmVgXQAhOU+El17esKJXLBmjUqwN6pYieaRaxk4qN9dQSZjr8
-	8qXoa7XQxvemtEYw2HMOnghGCtujJmxL1TCD1x+v/oqCpd4GF6ItMC16L/8QBthMfeqVNh4NCMV
-	KCHoiqD9poRgRiZ6IsD+YQILfJorNCRUwXNCq0s0CTF+9ksIMM3MZsg0I54B+NobK/cMySeYNrS
-	qg5fJiRz830ZRT9La3PgrH1Rv39pn7C7aA0MpRVV9lI1e/9sCMa5RoFj7GLrdLcaCX8GwEjov0z
-	bZ7vBXpqxjiTk88V0qMjA6hrVJnBl/G8HR5G+BnlxpaA1gtCwrZyxz8QY1NevvmSOGG6pVIOrHe
-	y2cN4dTnSVPUg==
-X-Received: by 2002:a05:7300:ac81:b0:34d:de2e:1fca with SMTP id 5a478bee46e88-3537dff5a5cmr29466918eec.21.1791935192571;
-        Tue, 13 Oct 2026 16:46:32 -0700 (PDT)
-Received: from fedora ([2804:29b8:508d:af45:a398:9dc5:b37c:dfa8])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c61eaa0sm51257744eec.0.2026.10.13.16.46.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 16:46:32 -0700 (PDT)
-From: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
-To: Daniel Pereira <danielmaraboo@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lucas Adryell Ramalho <lucasadramalho@gmail.com>
-Subject: [PATCH v1 3/3] docs: translations: pt_BR: Translate stable-kernel-rules.rst
-Date: Tue, 13 Oct 2026 20:45:44 -0300
-Message-ID: <ee88fc5b7ff27dd1325b8a80414615d300b1558d.1791933697.git.lucasadramalho@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1791933697.git.lucasadramalho@gmail.com>
-References: <cover.1791933697.git.lucasadramalho@gmail.com>
+        bh=gWlBab7B3jJux3vwKeZxIpLl3dDCHc4QEgeA5gXUrZ8=;
+        b=lMHGVLKlRhoCwyy+6teqUzJETDZbf+87Nr/FCh/yCrAwGSjYFRdBvWbl65mxtgl+Ku
+         Q+VZSC6gfL7eUGv6of6IescOCiUdBNvT5IMytWgqn8VuheEamWkdrgCmtt1r5as05RZv
+         rxHUseDwBzNh+/vEQHfDwebmKJsM9cus9VKsIV/3AhrUzC8NsReIG6b8wf4FzMuxOf5s
+         2Hprw3voYX7+boLSx3Q7EI2UVQXf8ztmwj6my8o0L7DYI8MyE3qhv921cbxN9CZFMtUx
+         aEHHsC+Km8vY7AlSnoFwlbSLDx9gQb7lqN3U7wjXUG1snEhP8ygG5fegMRFsXDa818Qb
+         WBjg==
+X-Forwarded-Encrypted: i=1; AKwUvBz1hjVGGIU56aE/VHtOxD1iX+kF41VDqXe8dsYjRReVyGK2yZLq0D3GrXa5wV84XY4fsCV1rJVybAHUaf0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5TGC5c3l/45WRMd6fb0LqpApmIgp16kBqIlvOjrGxASpjRSM1
+	Dm9b2wuq7x+vqNx/U4YWojpzoZ5zqxT/Ov+cIP8SZEhgyQg2lSfdRHF19To4lNxStfoF17YaHpq
+	NyhHzMmVvCYypNJvMtGmLghseHOskiPJt2zQIiUdE
+X-Gm-Gg: AYBFou2/mH/eMx6/hrUh4WcNqSqP7mN0mGLSi/7CNfADwX8W7BfM2ANsn3wwCqJd4TT
+	joB/svC5r2OPs2acpZKCAEhpNq9Xm0z1URUxl8b4KOToDwKJ7BjUIArjlBr47VgWwQpYYiBnkdQ
+	mYUs29cg6DtFfjtKnvNoshUnwprK2kwB69qcQC7fBvYhg5H45r46Z+Lk4+wG/FeGwu8fQs2rqMx
+	DHEvYU+ynLE3BYGCBMacaKBIvzvf4cGpoYVBicilI4xnn0pa58Sorzpew1MNTAxaX0Ion5BSwZ7
+	bzJgaCQXo60+j+gq6ax2hfTT4w7910I+NQ4avKeKincYzrTr47rV/26lm4ja3D+xIltUULlmjTC
+	TCOmjM3xOWWOW8Q==
+X-Received: by 2002:a05:6512:3513:b0:5b7:6707:e44c with SMTP id
+ 2adb3069b0e04-5be35cbee5emr1117e87.12.1791935267421; Tue, 13 Oct 2026
+ 16:47:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261013194005.96615-1-zide.chen@intel.com>
+In-Reply-To: <20261013194005.96615-1-zide.chen@intel.com>
+From: Stephane Eranian <eranian@google.com>
+Date: Tue, 13 Oct 2026 16:47:35 -0700
+X-Gm-Features: AclHuK8uZdYqRb8wR6f2pJnkv0TIuw0zO4fvvfTQZQwDMYoL43cTs3jEd7Uem24
+Message-ID: <CABPqkBSn57PLhdZj1syvMTF_LG7NgitKC3xbLMF7vqyK-vyA4w@mail.gmail.com>
+Subject: Re: [PATCH] perf/x86/intel/uncore: Add Granite Rapids CMS PMU support
+To: Zide Chen <zide.chen@intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Andi Kleen <ak@linux.intel.com>, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	stable@vger.kernel.org, Dapeng Mi <dapeng1.mi@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Translate the stable kernel rules documentation into Brazilian Portuguese.
+On Tue, Oct 13, 2026 at 12:50=E2=80=AFPM Zide Chen <zide.chen@intel.com> wr=
+ote:
+>
+> Add support for the CMS (Common Mesh Stop) uncore PMON unit, shared by
+> GNR, SRF, GRR, and CWF. One CMS box exists per CHA box, at a fixed MSR
+> address: 0x3400 + 0x10 * unit_no + <reg offset>.
+>
+> CMS is not enumerated in the discovery table, so it is added as an
+> extra MSR uncore type instead of going through the normal gnr_uncores[]
+> array. Since the CMS unit numbering matches the CHA unit numbering,
+> build the CMS box rb-tree by mirroring the discovered CHA (die, id)
+> pairs, ensuring CMS boxes only appear where a corresponding CHA exists.
+>
+> Make generic_uncore_msr_ops global so the CMS type can reuse it.
+> Opportunistically add the intel_ prefix to match the naming convention.
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+> ---
+>  arch/x86/events/intel/uncore_discovery.c |  4 +-
+>  arch/x86/events/intel/uncore_discovery.h |  1 +
+>  arch/x86/events/intel/uncore_snbep.c     | 81 +++++++++++++++++++++++-
+>  3 files changed, 82 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/x86/events/intel/uncore_discovery.c b/arch/x86/events/i=
+ntel/uncore_discovery.c
+> index 0a22edf4d509..170f299385a0 100644
+> --- a/arch/x86/events/intel/uncore_discovery.c
+> +++ b/arch/x86/events/intel/uncore_discovery.c
+> @@ -532,7 +532,7 @@ static void intel_generic_uncore_msr_disable_event(st=
+ruct intel_uncore_box *box,
+>         wrmsrq(hwc->config_base, 0);
+>  }
+>
+> -static struct intel_uncore_ops generic_uncore_msr_ops =3D {
+> +struct intel_uncore_ops intel_generic_uncore_msr_ops =3D {
+>         .init_box               =3D intel_generic_uncore_msr_init_box,
+>         .disable_box            =3D intel_generic_uncore_msr_disable_box,
+>         .enable_box             =3D intel_generic_uncore_msr_enable_box,
+> @@ -743,7 +743,7 @@ static bool uncore_update_uncore_type(enum uncore_acc=
+ess_type type_id,
+>
+>         switch (type_id) {
+>         case UNCORE_ACCESS_MSR:
+> -               uncore->ops =3D &generic_uncore_msr_ops;
+> +               uncore->ops =3D &intel_generic_uncore_msr_ops;
+>                 break;
+>         case UNCORE_ACCESS_PCI:
+>                 uncore->ops =3D &generic_uncore_pci_ops;
+> diff --git a/arch/x86/events/intel/uncore_discovery.h b/arch/x86/events/i=
+ntel/uncore_discovery.h
+> index 142e1b56cfc2..cececf6ecdc5 100644
+> --- a/arch/x86/events/intel/uncore_discovery.h
+> +++ b/arch/x86/events/intel/uncore_discovery.h
+> @@ -151,6 +151,7 @@ void intel_uncore_generic_uncore_mmio_init(void);
+>  int intel_generic_uncore_msr_init_box(struct intel_uncore_box *box);
+>  void intel_generic_uncore_msr_disable_box(struct intel_uncore_box *box);
+>  void intel_generic_uncore_msr_enable_box(struct intel_uncore_box *box);
+> +extern struct intel_uncore_ops intel_generic_uncore_msr_ops;
+>
+>  int intel_generic_uncore_mmio_init_box(struct intel_uncore_box *box);
+>  void intel_generic_uncore_mmio_disable_box(struct intel_uncore_box *box)=
+;
+> diff --git a/arch/x86/events/intel/uncore_snbep.c b/arch/x86/events/intel=
+/uncore_snbep.c
+> index a97cd029db36..3abbc1bbf577 100644
+> --- a/arch/x86/events/intel/uncore_snbep.c
+> +++ b/arch/x86/events/intel/uncore_snbep.c
+> @@ -6492,6 +6492,32 @@ int gnr_uncore_units_ignore[] =3D {
+>         UNCORE_IGNORE_END
+>  };
+>
+> +/*
+> + * One CMS box exists per CHA box, at a fixed MSR address:
+> + * 0x3400 + 0x10 * unit_no + <reg offset>.
+> + */
+> +#define GNR_CMS_MSR_PMON_BOX_CTL       0x3400
+> +#define GNR_CMS_MSR_PMON_CTL0          0x02
+> +#define GNR_CMS_MSR_PMON_CTR0          0x08
+> +#define GNR_CMS_MSR_OFFSET             0x10
+> +/* Type ID for CMS */
+> +#define UNCORE_GNR_CMS                 50
+> +
+> +static struct intel_uncore_type gnr_uncore_cms =3D {
+> +       /* Keep the PMU name aligned with the published CHACMS event list=
+. */
+> +       .name                   =3D "chacms",
+> +       .type_id                =3D UNCORE_GNR_CMS,
+> +       .event_mask             =3D SNBEP_PMON_RAW_EVENT_MASK,
+> +       .num_counters           =3D 4,
+> +       .perf_ctr_bits          =3D 48,
+> +       .event_ctl              =3D GNR_CMS_MSR_PMON_CTL0,
+> +       .perf_ctr               =3D GNR_CMS_MSR_PMON_CTR0,
+> +       .ops                    =3D &intel_generic_uncore_msr_ops,
+> +       .format_group           =3D &snbep_uncore_format_group,
+> +       .attr_update            =3D uncore_alias_groups,
+> +       .cleanup_extra_boxes    =3D spr_extra_boxes_cleanup,
+> +};
+> +
+>  static struct intel_uncore_type gnr_uncore_ubox =3D {
+>         .name                   =3D "ubox",
+>         .attr_update            =3D uncore_alias_groups,
+> @@ -6595,15 +6621,66 @@ static struct freerunning_counters gnr_iio_freeru=
+nning[] =3D {
+>         [SPR_IIO_MSR_BW_OUT]    =3D { 0x2e0e, 0x10, 0x80, 8, 48 },
+>  };
+>
+> +/*
+> + * Neither the free-running IIO counters nor CMS are covered by the
+> + * discovery table, so both are added as "extra" MSR uncore types, in
+> + * addition to the ones enumerated in gnr_uncores[].
+> + */
+> +#define UNCORE_GNR_MSR_EXTRA_UNCORES   2
+> +
+> +static struct intel_uncore_type *gnr_msr_uncores[UNCORE_GNR_MSR_EXTRA_UN=
+CORES] =3D {
+> +       &spr_uncore_iio_free_running,
 
-Signed-off-by: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
----
- .../translations/pt_BR/process/index.rst      |   1 +
- .../pt_BR/process/stable-kernel-rules.rst     | 258 ++++++++++++++++++
- 2 files changed, 259 insertions(+)
- create mode 100644 Documentation/translations/pt_BR/process/stable-kernel-rules.rst
+I think this SPR uncore IIO is not relvalent to the patch here. It
+should be split.
+Thanks.
 
-diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
-index 31704e28d..29f6c7735 100644
---- a/Documentation/translations/pt_BR/process/index.rst
-+++ b/Documentation/translations/pt_BR/process/index.rst
-@@ -63,6 +63,7 @@ Estas são as regras pelas quais tentamos viver na comunidade do kernel
-    Declaração de Aplicação do Kernel Linux <kernel-enforcement-statement>
-    Declaração sobre Drivers do Kernel <kernel-driver-statement>
-    A interface de drivers do kernel Linux <stable-api-nonsense>
-+   Tudo o que você sempre quis saber sobre as versões estáveis do Linux <stable-kernel-rules>
-    Estilo de gerenciamento do kernel Linux <management-style>
-    Diretrizes para pesquisadores <researcher-guidelines>
-    Assistentes de código <coding-assistants>
-diff --git a/Documentation/translations/pt_BR/process/stable-kernel-rules.rst b/Documentation/translations/pt_BR/process/stable-kernel-rules.rst
-new file mode 100644
-index 000000000..103108be4
---- /dev/null
-+++ b/Documentation/translations/pt_BR/process/stable-kernel-rules.rst
-@@ -0,0 +1,258 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+.. _pt_BR_stable_kernel_rules:
-+
-+Tudo o que você sempre quis saber sobre as versões estáveis do Linux
-+====================================================================
-+
-+Regras sobre quais tipos de correções são aceitos na árvore "-stable" e
-+quais não são:
-+
-+- A correção, ou uma equivalente, já deve existir na linha principal do
-+  Linux (upstream).
-+- Deve estar obviamente correta e ter sido testada.
-+- Não pode ter mais de 100 linhas, incluindo o contexto.
-+- Deve seguir as regras de
-+  :ref:`Documentation/translations/pt_BR/process/submitting-patches.rst
-+  <submittingpatches>`.
-+- Deve corrigir um erro real que afete as pessoas ou apenas adicionar um ID
-+  de dispositivo. Em mais detalhes, o primeiro caso inclui:
-+
-+  - Corrigir um problema como um oops, travamento, corrupção de dados,
-+    problema real de segurança, peculiaridade de hardware, erro de
-+    compilação (exceto itens CONFIG_BROKEN) ou algum problema do tipo "isso
-+    não é nada bom".
-+  - Problemas graves relatados por usuários de um kernel de distribuição
-+    também podem ser considerados se as correções resolverem um problema
-+    notável de desempenho ou interatividade. Como essas correções não são
-+    tão óbvias e apresentam maior risco de causar uma regressão sutil, elas
-+    só devem ser enviadas pelo mantenedor do kernel da distribuição e
-+    devem incluir um complemento com um link para uma entrada no Bugzilla,
-+    se houver, e informações adicionais sobre o impacto percebido pelo
-+    usuário.
-+  - Não são aceitos problemas do tipo "isto pode ser um problema...", como
-+    uma "condição de corrida teórica", a menos que também seja fornecida
-+    uma explicação de como o erro pode ser explorado.
-+  - Não são aceitas correções "triviais" sem benefício para os usuários
-+    (alterações ortográficas, limpeza de espaços em branco etc.).
-+
-+
-+Procedimento para enviar correções à árvore -stable
-+----------------------------------------------------
-+
-+.. note::
-+
-+   Correções de segurança não devem ser tratadas exclusivamente pelo
-+   processo de revisão -stable; devem seguir os procedimentos em
-+   :ref:`Documentation/translations/pt_BR/process/security-bugs.rst
-+   <securitybugs>`.
-+
-+Há três opções para enviar uma alteração às árvores -stable:
-+
-+1. Adicionar uma "stable tag" à descrição de uma correção que será enviada
-+   para inclusão na linha principal.
-+2. Pedir à equipe stable que inclua uma correção já integrada à linha
-+   principal.
-+3. Enviar à equipe stable uma correção equivalente a uma alteração já
-+   integrada à linha principal.
-+
-+As seções abaixo descrevem cada opção em mais detalhes.
-+
-+A :ref:`pt_BR_option_1` é **fortemente** preferida; é a opção mais fácil e
-+mais comum.
-+A :ref:`pt_BR_option_2` destina-se principalmente a alterações para as
-+quais o backport não foi considerado no momento do envio.
-+A :ref:`pt_BR_option_3` é uma alternativa às opções anteriores quando uma
-+correção integrada à linha principal precisa de ajustes para ser aplicada
-+a séries mais antigas (por exemplo, devido a alterações na API).
-+
-+Ao usar a opção 2 ou 3, você pode pedir que sua alteração seja incluída em
-+séries stable específicas. Nesse caso, certifique-se de que a correção ou
-+uma equivalente seja aplicável, tenha sido enviada ou já esteja presente em
-+todas as árvores stable mais novas que ainda recebem suporte. Isso evita
-+regressões que os usuários poderiam encontrar ao atualizar. Por exemplo,
-+uma correção integrada para 5.19-rc1 poderia ser portada para
-+5.10.y, mas não para 5.15.y.
-+
-+.. _pt_BR_option_1:
-+
-+Opção 1
-+*******
-+
-+Para que uma correção enviada para inclusão na linha principal seja
-+selecionada automaticamente depois pelas árvores stable, adicione esta
-+etiqueta à seção de assinaturas (sign-off)::
-+
-+  Cc: stable@vger.kernel.org
-+
-+Use ``Cc: stable@kernel.org`` em vez disso ao corrigir vulnerabilidades
-+ainda não divulgadas: isso reduz a chance de expor acidentalmente a
-+correção ao público por meio do 'git send-email', pois as mensagens
-+enviadas a esse endereço não são entregues.
-+
-+Depois que a correção for integrada à linha principal, ela será aplicada à
-+árvore stable sem que o autor ou o mantenedor do subsistema precise fazer
-+mais nada.
-+
-+Para enviar instruções adicionais à equipe stable, use um comentário em
-+linha no estilo do shell para passar observações arbitrárias ou
-+predefinidas:
-+
-+* Especifique pré-requisitos adicionais para a seleção por cherry-pick::
-+
-+    Cc: <stable@vger.kernel.org> # 3.3.x: a1f84a3: sched: Check for idle
-+    Cc: <stable@vger.kernel.org> # 3.3.x: 1b9508f: sched: Rate-limit newidle
-+    Cc: <stable@vger.kernel.org> # 3.3.x: fd21073: sched: Fix affinity logic
-+    Cc: <stable@vger.kernel.org> # 3.3.x
-+    Signed-off-by: Ingo Molnar <mingo@elte.hu>
-+
-+  A sequência de etiquetas indica que se deve executar::
-+
-+    git cherry-pick a1f84a3
-+    git cherry-pick 1b9508f
-+    git cherry-pick fd21073
-+    git cherry-pick <this commit>
-+
-+  Observe que, em uma série de correções, não é necessário listar como
-+  pré-requisitos as correções que fazem parte da própria série. Por
-+  exemplo, nesta série::
-+
-+    patch1
-+    patch2
-+
-+  patch2 depende de patch1, mas não é necessário listar patch1 como
-+  pré-requisito de patch2 se você já tiver marcado patch1 para inclusão no
-+  stable.
-+
-+* Indique os pré-requisitos de versão do kernel::
-+
-+    Cc: <stable@vger.kernel.org> # 3.3.x
-+
-+  A etiqueta indica que se deve executar::
-+
-+    git cherry-pick <this commit>
-+
-+  em cada árvore -stable a partir da versão especificada.
-+
-+  Observe que essa etiqueta é desnecessária se a equipe stable puder
-+  deduzir as versões apropriadas a partir das etiquetas Fixes:.
-+
-+* Adiar a inclusão de correções::
-+
-+    Cc: <stable@vger.kernel.org> # after -rc3
-+
-+* Aponte problemas conhecidos::
-+
-+    Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for <= 6.3
-+
-+Também há uma variante da etiqueta stable que pode ser usada para fazer com
-+que as ferramentas de backport da equipe stable (por exemplo, AUTOSEL ou
-+scripts que procuram commits com uma etiqueta 'Fixes:') ignorem uma
-+alteração::
-+
-+     Cc: <stable+noautosel@kernel.org> # reason goes here, and must be present
-+
-+.. _pt_BR_option_2:
-+
-+Opção 2
-+*******
-+
-+Se a correção já tiver sido integrada à linha principal, envie um e-mail
-+para stable@vger.kernel.org com o assunto da correção, o ID do commit, o
-+motivo pelo qual você acredita que ela deve ser aplicada e as versões do
-+kernel às quais deve ser aplicada.
-+
-+.. _pt_BR_option_3:
-+
-+Opção 3
-+*******
-+
-+Depois de verificar que a correção segue as regras acima, envie-a para
-+stable@vger.kernel.org e indique as versões do kernel às quais deseja que
-+ela seja aplicada. Nesse caso, você deve indicar o ID do commit upstream no
-+registro de alterações do envio, em uma linha separada acima do texto do
-+commit, assim::
-+
-+  commit <sha1> upstream.
-+
-+Ou, alternativamente::
-+
-+  [ Upstream commit <sha1> ]
-+
-+Se a correção enviada diferir da correção upstream original (por exemplo,
-+porque precisou ser adaptada à API mais antiga), isso deve ser documentado
-+e justificado com muita clareza na descrição da correção.
-+
-+
-+Acompanhamento do envio
-+-----------------------
-+
-+O remetente receberá um ACK quando a correção for aceita na fila, ou um NAK
-+se for rejeitada. Essa resposta pode levar alguns dias, dependendo da
-+disponibilidade dos membros da equipe stable.
-+
-+Se for aceita, a correção será adicionada à fila -stable para revisão por
-+outros desenvolvedores e pelo mantenedor do subsistema relevante.
-+
-+
-+Ciclo de revisão
-+----------------
-+
-+- Quando os mantenedores -stable decidirem iniciar um ciclo de revisão, as
-+  correções serão enviadas ao comitê de revisão, ao mantenedor da área
-+  afetada pela correção (a menos que o remetente seja o mantenedor dessa
-+  área) e em cópia (CC:) para a lista de discussão linux-kernel.
-+- O comitê de revisão tem 48 horas para aprovar (ACK) ou rejeitar (NAK) a
-+  correção.
-+- Se um membro do comitê rejeitar a correção ou membros da lista
-+  linux-kernel apresentarem objeções levantando problemas que os
-+  mantenedores e os membros não perceberam, a correção será removida da
-+  fila.
-+- As correções aprovadas serão publicadas novamente como parte de uma
-+  versão candidata (-rc), para serem testadas por desenvolvedores e
-+  testadores.
-+- Geralmente é publicada apenas uma versão -rc. No entanto, se houver
-+  problemas pendentes, algumas correções poderão ser modificadas ou
-+  removidas, ou outras poderão ser adicionadas à fila. Nesse caso, versões
-+  -rc adicionais serão publicadas e testadas até que nenhum problema seja
-+  encontrado.
-+- É possível responder às versões -rc na lista de discussão enviando um
-+  e-mail "Tested-by:" com as informações de teste desejadas. As etiquetas
-+  "Tested-by:" serão reunidas e adicionadas ao commit de lançamento.
-+- Ao final do ciclo de revisão, a nova versão -stable será lançada com
-+  todas as correções enfileiradas e testadas.
-+- Correções de segurança serão aceitas diretamente na árvore -stable pela
-+  equipe de segurança do kernel e não passarão pelo ciclo normal de
-+  revisão. Entre em contato com a equipe de segurança do kernel para saber
-+  mais sobre esse procedimento.
-+
-+
-+Árvores
-+-------
-+
-+- As filas de correções, tanto das versões concluídas quanto das versões em
-+  andamento, podem ser encontradas em:
-+
-+    https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git
-+
-+- As versões finalizadas e identificadas por tags de todos os kernels
-+  estáveis podem ser encontradas em ramificações separadas por versão em:
-+
-+    https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-+
-+- As versões candidatas de todas as versões do kernel stable podem ser
-+  encontradas em:
-+
-+    https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/
-+
-+  .. warning::
-+     A árvore -stable-rc é um instantâneo da árvore stable-queue e muda com
-+     frequência; por isso, é rebaseada frequentemente. Ela deve ser usada
-+     apenas para testes (por exemplo, por sistemas de integração contínua).
-+
-+
-+Comitê de revisão
-+-----------------
-+
-+- É formado por vários desenvolvedores do kernel que se voluntariaram para
-+  essa tarefa e por alguns que não se voluntariaram.
--- 
-2.55.0
-
+>
+> +       &gnr_uncore_cms,
+> +};
+> +
+> +/* Build the CMS boxes rb-tree by mirroring CHA's discovered boxes. */
+> +static void gnr_uncore_cms_init_boxes(struct intel_uncore_type **uncores=
+)
+> +{
+> +       struct intel_uncore_discovery_unit *cha_unit, *cms_unit;
+> +       struct intel_uncore_type *cha;
+> +       struct rb_root *root;
+> +       struct rb_node *node;
+> +       u16 num_units =3D 0;
+> +
+> +       cha =3D uncore_find_type_by_id(uncores, UNCORE_SPR_CHA);
+> +       if (!cha || !cha->boxes)
+> +               return;
+> +
+> +       root =3D kzalloc_obj(*root);
+> +       if (!root)
+> +               return;
+> +       *root =3D RB_ROOT;
+> +
+> +       for (node =3D rb_first(cha->boxes); node; node =3D rb_next(node))=
+ {
+> +               cha_unit =3D rb_entry(node, struct intel_uncore_discovery=
+_unit, node);
+> +
+> +               cms_unit =3D kzalloc_obj(*cms_unit);
+> +               if (!cms_unit)
+> +                       break;
+> +
+> +               cms_unit->id   =3D cha_unit->id;
+> +               cms_unit->die  =3D cha_unit->die;
+> +               cms_unit->addr =3D GNR_CMS_MSR_PMON_BOX_CTL +
+> +                                cha_unit->id * GNR_CMS_MSR_OFFSET;
+> +
+> +               uncore_find_add_unit(cms_unit, root, &num_units);
+> +       }
+> +
+> +       gnr_uncore_cms.boxes =3D root;
+> +       gnr_uncore_cms.num_boxes =3D num_units;
+> +}
+> +
+>  void gnr_uncore_cpu_init(void)
+>  {
+>         uncore_msr_uncores =3D uncore_get_uncores(UNCORE_ACCESS_MSR,
+> -                                               UNCORE_SPR_MSR_EXTRA_UNCO=
+RES,
+> -                                               spr_msr_uncores,
+> +                                               UNCORE_GNR_MSR_EXTRA_UNCO=
+RES,
+> +                                               gnr_msr_uncores,
+>                                                 UNCORE_GNR_NUM_UNCORE_TYP=
+ES,
+>                                                 gnr_uncores);
+>         spr_uncore_iio_free_running.num_boxes =3D uncore_type_max_boxes(u=
+ncore_msr_uncores, UNCORE_SPR_IIO);
+>         spr_uncore_iio_free_running.freerunning =3D gnr_iio_freerunning;
+> +
+> +       gnr_uncore_cms_init_boxes(uncore_msr_uncores);
+>  }
+>
+>  int gnr_uncore_pci_init(void)
+> --
+> 2.55.0
+>
