@@ -1,874 +1,153 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB365111BC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE225158B1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897159; cv=none; b=sIgeHsfogwT4ZMcf4HAOrJ7Lg5mz5JA4uDaP/zJJfFis7OZcaDlsa8tXlOmBBBVctL8pSsphY2buccONt15pgNbjtoYG5hxOjbKQF0ah49J0FTObSe+odd3TSK12MyN5/ClcSuHXBPyI28fQ3OE72TVAttdOKjLrCL4OfavRh+Q=
+	t=1791897167; cv=none; b=j8dunVcnx2BpNQa0Q6xcg+7CzdMhy8DZLRucnW3qC8CZDyC76W+2Bm3mFgYq3p9Rq2uElryMK/8xBchjiEITHIhidcJqEwuRAxZqGJYTPBsQiJ3uE5s+7vHCy3UyIsOaXOZsb2BX2cxzOoDzbRXqUKJqu21ZSTSJYpN2/sgSO/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897159; c=relaxed/simple;
-	bh=3fplpStM28k0hpjQN+m67wbcou0PiJW+kz4gnKRt218=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cBgktvyxxMI8XeSoVdw1sV8pZbkYCNRDvG+Gp/fb8U/sfx0BPtm9ZnRrTCOLlZJZQKCx2YBH1lvEGQmtx6jJjifIGon/D36KlGWl6UB5qw92UlJ9W8QLQx+aUACbswosPHvCsNUkznE/2xGPfavGo/DDUccP+sFp2E2TGAOaQTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Pe1ZoC7D; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791897167; c=relaxed/simple;
+	bh=dGFgIE1Ak3qC4ku6H3c6KA+1Zmp1EwOYePHWmr/QoHY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=peKyu1CrJHaQfuzabAUFAjdBie6Xu4yxkMTry8g82fLvwQWYU0KHEiqIKZ79fci3UxNC+SMMzJFxQeGOYqmYk9ppkwawIlQfICMB0TjKiaRYKnqzhKk+XUo1avfZ/rkQb44E6oSOpDXpAfaTc6pGzrQJFcE05uEZLsjthGdp3mA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kGxcJwju; arc=none smtp.client-ip=91.218.175.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Pe1ZoC7D"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 2FA4BC653F5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:13:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A168060362;
-	Tue, 13 Oct 2026 13:12:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C20B411D7134E;
-	Tue, 13 Oct 2026 15:12:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791897153; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=vtkxg4ErDhkl1sz0c0t9WHDhwJKjf5x9WQfF6us3tYk=;
-	b=Pe1ZoC7Dmhm1bLCp5qk3IvUDrGYOWCPfEgxinvAzD3dMRbpyforcvmJMKuVzDdF1hnXxUn
-	PVcMiGmJk8QHl5QFJffRq1LV5mkYj8AibIQ1ZQ13K36Vbukj2S4lGQNr4fAT37MZgmZ9k5
-	NmWc+uC1mx7tuJEsyBfL1C5hl+JhhlQ9aSkBFCcy43vj9GBFJM4MNpigjKF2xvz97kmHG2
-	8+cBF+YMpEweQu+B2bhSvs5Y8Ms2SCfPJTKH9NptdWIzsliLb/o+hMExJQ+uc57D8H8AjC
-	nayOgo5BzV3swKIf9WLORQIf8dCsTVy+6+P7ydg14PdDYPHGHCLECEGGa4zcCg==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Tue, 13 Oct 2026 15:11:41 +0200
-Subject: [PATCH v8 15/20] crypto: talitos/aead - Use macro for algorithm
- definitions
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kGxcJwju"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dGFgIE1Ak3qC4ku6H3c6KA+1Zmp1EwOYePHWmr/QoHY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791897163; v=1; x=1792501963;
+ b=kGxcJwjuZg+WkKy0F/T3dV72M22Ii83SGegKddzjlRTTpWidQ75IYu6vBeRy6QlZV9pJn1ss
+ 1RnvEM48gq7JmwwkGPrcFG0tsQHV1nMQeMzkKYIN9C+lgxfuVrpQWTtOfv1RQrN40OYDUVazMvg
+ +oR3gWu9rIBgov+toWXwouUo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4518c51e3d8db235;
+	Tue, 13 Oct 2026 13:12:42 +0000
+X-Mizu-Trace-ID: 4518c51e3d8db235
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH RFC v3 0/7] mm/vmscan: move vmscan tracepoints to a local header
+Date: Tue, 13 Oct 2026 21:12:10 +0800
+Message-Id: <20261013131217.2789684-1-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-7-3-rc2_talitos_cleanup-v8-15-ca02be17696b@bootlin.com>
-References: <20261013-7-3-rc2_talitos_cleanup-v8-0-ca02be17696b@bootlin.com>
-In-Reply-To: <20261013-7-3-rc2_talitos_cleanup-v8-0-ca02be17696b@bootlin.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>
-Cc: Paul Louvel <paul.louvel@bootlin.com>, linux-crypto@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Christophe Leroy <chleroy@kernel.org>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791897108; l=28746;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=3fplpStM28k0hpjQN+m67wbcou0PiJW+kz4gnKRt218=;
- b=VtMP6efCnmtWmPCH9wEjl03pSlNVuIcUv/e3Uxz8tUeQyfNo2+ViBl+i1AjuH+ae2afEIpVT/
- diT0skxsTJAB8yoA8oy07K0pYNBFWmFbXQN4L9HdqgCHm9v4+Q+wC+5
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Replace the repetitive struct initializer entries with preprocessor
-macros.
+From: Ridong Chen <chenridong@xiaomi.com>
 
-The fallback setkey assignment (aead_alg->setkey ?: aead_setkey) is
-replaced by specifying the correct setkey handler directly in each macro
-invocation.
+This series started as an effort to add two tracepoints for MGLRU. In the
+discussion, Steven suggested moving include/trace/events/vmscan.h to
+mm/trace_vmscan.h [1], as several other subsystems already do. Once the
+header lives under mm/, struct scan_control can be moved there too, letting
+the trace events access its fields directly instead of having each callsite
+copy the scalars out by hand.
 
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+The series builds in small steps:
+
+  1) drop the unused vmscan trace include from memcontrol.c;
+  2) move include/trace/events/vmscan.h to mm/trace_vmscan.h, using a
+     relative TRACE_INCLUDE_PATH so no Makefile change is needed;
+  3) move struct scan_control into a dedicated mm/vmscan.h, which
+     trace_vmscan.h pulls in, guarded against the multi-read that
+     define_trace.h performs;
+  4-7) pass scan_control to the vmscan tracepoints and pick the fields
+     out in TP_fast_assign, one group at a time: the reclaim-begin
+     events, the LRU isolate/shrink events, mm_vmscan_reclaim_pages and
+     mm_vmscan_balance_pgdat_end.
+
+Besides the cleanup, this moves the loads of the tracepoint arguments out
+of the reclaim paths and into the trace event callbacks, which only run
+when the event is enabled. On x86_64 with gcc 11.4, the callers in
+mm/vmscan.o shrink accordingly (bytes), e.g.:
+
+  isolate_lru_folios    4060 -> 3896 (-164)
+  __node_reclaim        2258 -> 2076 (-182)
+  isolate_folios        8706 -> 8577 (-129)
+  shrink_active_list    3669 -> 3544 (-125)
+  evict_folios          4787 -> 4698  (-89)
+
+There is no functional change. TP_STRUCT__entry and TP_printk are
+untouched, so the tracefs event format is identical. This was confirmed
+by diffing the tracefs format files before and after, and by capturing
+the direct/memcg/node reclaim-begin events under load in a QEMU guest
+(order, gfp_flags and memcg_id all match). BPF programs attached via
+raw_tp/tp_btf do see the new TP_PROTO and need to be adjusted;
+tracepoints are not a stable ABI (see Documentation/bpf/bpf_design_QA.rst).
+
+highest_zoneidx and nr_reclaimed stay separate arguments: the former is
+a balance_pgdat() parameter (sc.reclaim_idx may differ from it by the
+time the end event fires), and the latter is the return value of
+shrink_folio_list(), which does not update sc->nr_reclaimed.
+
+[1]: https://lore.kernel.org/linux-mm/20260916095122.50cbb620@robin/
+
 ---
- drivers/crypto/talitos/talitos-aead.c | 771 +++++++++++-----------------------
- 1 file changed, 238 insertions(+), 533 deletions(-)
+Changes in RFC v3:
+  - Use "Assisted-by: LLM" (Muchun).
+  - Note the BPF raw_tp/tp_btf impact in the changelogs (Sashiko).
+  - Changelog wording fixes and minor indentation fixes.
+  - Link to RFC v2: https://lore.kernel.org/all/20260928114625.3609130-1-ridong.chen@linux.dev/
 
-diff --git a/drivers/crypto/talitos/talitos-aead.c b/drivers/crypto/talitos/talitos-aead.c
-index 0504b8575e26..60bc727f76dc 100644
---- a/drivers/crypto/talitos/talitos-aead.c
-+++ b/drivers/crypto/talitos/talitos-aead.c
-@@ -405,535 +405,245 @@ static void talitos_cra_exit_aead(struct crypto_aead *tfm)
- 	talitos_cra_exit(crypto_aead_tfm(tfm));
- }
- 
-+#define TALITOS_AEAD_ALG_COMMON(name, driver_name, name_prefix, set_key, block_size, \
-+				max_auth_size, template, priority)      \
-+	{ \
-+		.type = CRYPTO_ALG_TYPE_AEAD, \
-+		.alg.aead = { \
-+			.base = { \
-+				.cra_name = name, \
-+				.cra_driver_name = driver_name"-talitos"name_prefix, \
-+				.cra_blocksize = block_size, \
-+				.cra_flags = CRYPTO_ALG_ASYNC | \
-+					     CRYPTO_ALG_ALLOCATES_MEMORY | \
-+					     CRYPTO_ALG_KERN_DRIVER_ONLY, \
-+				.cra_priority = (priority), \
-+				.cra_ctxsize = sizeof(struct talitos_ctx), \
-+				.cra_module = THIS_MODULE, \
-+			}, \
-+			.ivsize = block_size, \
-+			.maxauthsize = max_auth_size, \
-+			.setkey = set_key, \
-+			.init = talitos_cra_init_aead, \
-+			.exit = talitos_cra_exit_aead, \
-+			.encrypt = aead_encrypt, \
-+			.decrypt = aead_decrypt, \
-+		}, \
-+		.desc_hdr_template = template, \
-+	}
-+
-+#define TALITOS_AEAD_ALG(name, driver_name, set_key, block_size, max_auth_size, template)  \
-+	TALITOS_AEAD_ALG_COMMON(name, driver_name, "", set_key, block_size, max_auth_size, \
-+				template, TALITOS_CRA_PRIORITY)
-+
-+#define TALITOS_AEAD_ALG_HSNA(name, driver_name, set_key, block_size, max_auth_size, \
-+			      template)                                 \
-+	TALITOS_AEAD_ALG_COMMON(name, driver_name, "-hsna", set_key, block_size,     \
-+				max_auth_size, template,                \
-+				TALITOS_CRA_PRIORITY_AEAD_HSNA)
-+
- static const struct talitos_alg_template aead_driver_algs[] = {
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha1),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-sha1-"
--						   "cbc-aes-talitos",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = SHA1_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA1_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha1),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-sha1-"
--						   "cbc-aes-talitos-hsna",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY_AEAD_HSNA,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = SHA1_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA1_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha1),"
--					    "cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-sha1-"
--						   "cbc-3des-talitos",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = SHA1_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA1_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha1),"
--					    "cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-sha1-"
--						   "cbc-3des-talitos-hsna",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY_AEAD_HSNA,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = SHA1_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA1_HMAC,
--	},
--	{       .type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha224),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-sha224-"
--						   "cbc-aes-talitos",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = SHA224_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA224_HMAC,
--	},
--	{       .type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha224),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-sha224-"
--						   "cbc-aes-talitos-hsna",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY_AEAD_HSNA,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = SHA224_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA224_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha224),"
--					    "cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-sha224-"
--						   "cbc-3des-talitos",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = SHA224_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA224_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha224),"
--					    "cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-sha224-"
--						   "cbc-3des-talitos-hsna",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY_AEAD_HSNA,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = SHA224_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA224_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha256),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-sha256-"
--						   "cbc-aes-talitos",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = SHA256_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA256_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha256),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-sha256-"
--						   "cbc-aes-talitos-hsna",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY_AEAD_HSNA,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = SHA256_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA256_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha256),"
--					    "cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-sha256-"
--						   "cbc-3des-talitos",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = SHA256_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA256_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha256),"
--					    "cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-sha256-"
--						   "cbc-3des-talitos-hsna",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY_AEAD_HSNA,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = SHA256_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_SHA256_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha384),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-sha384-"
--						   "cbc-aes-talitos",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = SHA384_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUB |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEUB_SHA384_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha384),"
--					    "cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-sha384-"
--						   "cbc-3des-talitos",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = SHA384_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUB |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEUB_SHA384_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha512),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-sha512-"
--						   "cbc-aes-talitos",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = SHA512_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUB |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEUB_SHA512_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(sha512),"
--					    "cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-sha512-"
--						   "cbc-3des-talitos",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = SHA512_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUB |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEUB_SHA512_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(md5),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-md5-"
--						   "cbc-aes-talitos",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = MD5_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_MD5_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(md5),cbc(aes))",
--				.cra_driver_name = "authenc-hmac-md5-"
--						   "cbc-aes-talitos-hsna",
--				.cra_blocksize = AES_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY_AEAD_HSNA,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = AES_BLOCK_SIZE,
--			.maxauthsize = MD5_DIGEST_SIZE,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_AESU |
--				     DESC_HDR_MODE0_AESU_CBC |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_MD5_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(md5),cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-md5-"
--						   "cbc-3des-talitos",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = MD5_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_IPSEC_ESP |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_MD5_HMAC,
--	},
--	{	.type = CRYPTO_ALG_TYPE_AEAD,
--		.alg.aead = {
--			.base = {
--				.cra_name = "authenc(hmac(md5),cbc(des3_ede))",
--				.cra_driver_name = "authenc-hmac-md5-"
--						   "cbc-3des-talitos-hsna",
--				.cra_blocksize = DES3_EDE_BLOCK_SIZE,
--				.cra_module = THIS_MODULE,
--				.cra_priority = TALITOS_CRA_PRIORITY_AEAD_HSNA,
--				.cra_ctxsize = sizeof(struct talitos_ctx),
--				.cra_flags = CRYPTO_ALG_KERN_DRIVER_ONLY |
--					     CRYPTO_ALG_ASYNC |
--					     CRYPTO_ALG_ALLOCATES_MEMORY,
--			},
--			.ivsize = DES3_EDE_BLOCK_SIZE,
--			.maxauthsize = MD5_DIGEST_SIZE,
--			.setkey = aead_des3_setkey,
--		},
--		.desc_hdr_template = DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU |
--				     DESC_HDR_SEL0_DEU |
--				     DESC_HDR_MODE0_DEU_CBC |
--				     DESC_HDR_MODE0_DEU_3DES |
--				     DESC_HDR_SEL1_MDEUA |
--				     DESC_HDR_MODE1_MDEU_INIT |
--				     DESC_HDR_MODE1_MDEU_PAD |
--				     DESC_HDR_MODE1_MDEU_MD5_HMAC,
--	},
-+	/* AEAD algorithms.  These use a single-pass ipsec_esp descriptor */
-+
-+	/* sha1 auth */
-+
-+	TALITOS_AEAD_ALG("authenc(hmac(sha1),cbc(aes))",
-+			 "authenc-hmac-sha1-cbc-aes", aead_setkey,
-+			 AES_BLOCK_SIZE, SHA1_DIGEST_SIZE,
-+			 DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_AESU |
-+				 DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUA |
-+				 DESC_HDR_MODE1_MDEU_INIT |
-+				 DESC_HDR_MODE1_MDEU_PAD |
-+				 DESC_HDR_MODE1_MDEU_SHA1_HMAC),
-+
-+	TALITOS_AEAD_ALG_HSNA(
-+		"authenc(hmac(sha1),cbc(aes))",
-+		"authenc-hmac-sha1-cbc-aes", aead_setkey, AES_BLOCK_SIZE,
-+		SHA1_DIGEST_SIZE,
-+		DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU | DESC_HDR_SEL0_AESU |
-+			DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUA |
-+			DESC_HDR_MODE1_MDEU_INIT | DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEU_SHA1_HMAC),
-+
-+	TALITOS_AEAD_ALG("authenc(hmac(sha1),cbc(des3_ede))",
-+			 "authenc-hmac-sha1-cbc-3des", aead_des3_setkey,
-+			 DES3_EDE_BLOCK_SIZE, SHA1_DIGEST_SIZE,
-+			 DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_DEU |
-+				 DESC_HDR_MODE0_DEU_CBC |
-+				 DESC_HDR_MODE0_DEU_3DES | DESC_HDR_SEL1_MDEUA |
-+				 DESC_HDR_MODE1_MDEU_INIT |
-+				 DESC_HDR_MODE1_MDEU_PAD |
-+				 DESC_HDR_MODE1_MDEU_SHA1_HMAC),
-+
-+	TALITOS_AEAD_ALG_HSNA(
-+		"authenc(hmac(sha1),cbc(des3_ede))",
-+		"authenc-hmac-sha1-cbc-3des", aead_des3_setkey,
-+		DES3_EDE_BLOCK_SIZE, SHA1_DIGEST_SIZE,
-+		DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES |
-+			DESC_HDR_SEL1_MDEUA | DESC_HDR_MODE1_MDEU_INIT |
-+			DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEU_SHA1_HMAC),
-+
-+	/* sha224 auth */
-+
-+	TALITOS_AEAD_ALG("authenc(hmac(sha224),cbc(aes))",
-+			 "authenc-hmac-sha224-cbc-aes", aead_setkey,
-+			 AES_BLOCK_SIZE, SHA224_DIGEST_SIZE,
-+			 DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_AESU |
-+				 DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUA |
-+				 DESC_HDR_MODE1_MDEU_INIT |
-+				 DESC_HDR_MODE1_MDEU_PAD |
-+				 DESC_HDR_MODE1_MDEU_SHA224_HMAC),
-+
-+	TALITOS_AEAD_ALG_HSNA(
-+		"authenc(hmac(sha224),cbc(aes))",
-+		"authenc-hmac-sha224-cbc-aes", aead_setkey, AES_BLOCK_SIZE,
-+		SHA224_DIGEST_SIZE,
-+		DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU | DESC_HDR_SEL0_AESU |
-+			DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUA |
-+			DESC_HDR_MODE1_MDEU_INIT | DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEU_SHA224_HMAC),
-+
-+	TALITOS_AEAD_ALG(
-+		"authenc(hmac(sha224),cbc(des3_ede))",
-+		"authenc-hmac-sha224-cbc-3des", aead_des3_setkey,
-+		DES3_EDE_BLOCK_SIZE, SHA224_DIGEST_SIZE,
-+		DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES |
-+			DESC_HDR_SEL1_MDEUA | DESC_HDR_MODE1_MDEU_INIT |
-+			DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEU_SHA224_HMAC),
-+
-+	TALITOS_AEAD_ALG_HSNA(
-+		"authenc(hmac(sha224),cbc(des3_ede))",
-+		"authenc-hmac-sha224-cbc-3des", aead_des3_setkey,
-+		DES3_EDE_BLOCK_SIZE, SHA224_DIGEST_SIZE,
-+		DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES |
-+			DESC_HDR_SEL1_MDEUA | DESC_HDR_MODE1_MDEU_INIT |
-+			DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEU_SHA224_HMAC),
-+
-+	/* sha256 auth */
-+
-+	TALITOS_AEAD_ALG("authenc(hmac(sha256),cbc(aes))",
-+			 "authenc-hmac-sha256-cbc-aes", aead_setkey,
-+			 AES_BLOCK_SIZE, SHA256_DIGEST_SIZE,
-+			 DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_AESU |
-+				 DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUA |
-+				 DESC_HDR_MODE1_MDEU_INIT |
-+				 DESC_HDR_MODE1_MDEU_PAD |
-+				 DESC_HDR_MODE1_MDEU_SHA256_HMAC),
-+
-+	TALITOS_AEAD_ALG_HSNA(
-+		"authenc(hmac(sha256),cbc(aes))",
-+		"authenc-hmac-sha256-cbc-aes", aead_setkey, AES_BLOCK_SIZE,
-+		SHA256_DIGEST_SIZE,
-+		DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU | DESC_HDR_SEL0_AESU |
-+			DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUA |
-+			DESC_HDR_MODE1_MDEU_INIT | DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEU_SHA256_HMAC),
-+
-+	TALITOS_AEAD_ALG(
-+		"authenc(hmac(sha256),cbc(des3_ede))",
-+		"authenc-hmac-sha256-cbc-3des", aead_des3_setkey,
-+		DES3_EDE_BLOCK_SIZE, SHA256_DIGEST_SIZE,
-+		DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES |
-+			DESC_HDR_SEL1_MDEUA | DESC_HDR_MODE1_MDEU_INIT |
-+			DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEU_SHA256_HMAC),
-+
-+	TALITOS_AEAD_ALG_HSNA(
-+		"authenc(hmac(sha256),cbc(des3_ede))",
-+		"authenc-hmac-sha256-cbc-3des", aead_des3_setkey,
-+		DES3_EDE_BLOCK_SIZE, SHA256_DIGEST_SIZE,
-+		DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES |
-+			DESC_HDR_SEL1_MDEUA | DESC_HDR_MODE1_MDEU_INIT |
-+			DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEU_SHA256_HMAC),
-+
-+	/* sha384 auth */
-+
-+	TALITOS_AEAD_ALG("authenc(hmac(sha384),cbc(aes))",
-+			 "authenc-hmac-sha384-cbc-aes", aead_setkey,
-+			 AES_BLOCK_SIZE, SHA384_DIGEST_SIZE,
-+			 DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_AESU |
-+				 DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUB |
-+				 DESC_HDR_MODE1_MDEU_INIT |
-+				 DESC_HDR_MODE1_MDEU_PAD |
-+				 DESC_HDR_MODE1_MDEUB_SHA384_HMAC),
-+
-+	TALITOS_AEAD_ALG(
-+		"authenc(hmac(sha384),cbc(des3_ede))",
-+		"authenc-hmac-sha384-cbc-3des", aead_des3_setkey,
-+		DES3_EDE_BLOCK_SIZE, SHA384_DIGEST_SIZE,
-+		DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES |
-+			DESC_HDR_SEL1_MDEUB | DESC_HDR_MODE1_MDEU_INIT |
-+			DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEUB_SHA384_HMAC),
-+
-+	/* sha512 auth */
-+
-+	TALITOS_AEAD_ALG("authenc(hmac(sha512),cbc(aes))",
-+			 "authenc-hmac-sha512-cbc-aes", aead_setkey,
-+			 AES_BLOCK_SIZE, SHA512_DIGEST_SIZE,
-+			 DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_AESU |
-+				 DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUB |
-+				 DESC_HDR_MODE1_MDEU_INIT |
-+				 DESC_HDR_MODE1_MDEU_PAD |
-+				 DESC_HDR_MODE1_MDEUB_SHA512_HMAC),
-+
-+	TALITOS_AEAD_ALG(
-+		"authenc(hmac(sha512),cbc(des3_ede))",
-+		"authenc-hmac-sha512-cbc-3des", aead_des3_setkey,
-+		DES3_EDE_BLOCK_SIZE, SHA512_DIGEST_SIZE,
-+		DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES |
-+			DESC_HDR_SEL1_MDEUB | DESC_HDR_MODE1_MDEU_INIT |
-+			DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEUB_SHA512_HMAC),
-+
-+	/* md5 auth */
-+
-+	TALITOS_AEAD_ALG("authenc(hmac(md5),cbc(aes))",
-+			 "authenc-hmac-md5-cbc-aes", aead_setkey,
-+			 AES_BLOCK_SIZE, MD5_DIGEST_SIZE,
-+			 DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_AESU |
-+				 DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUA |
-+				 DESC_HDR_MODE1_MDEU_INIT |
-+				 DESC_HDR_MODE1_MDEU_PAD |
-+				 DESC_HDR_MODE1_MDEU_MD5_HMAC),
-+
-+	TALITOS_AEAD_ALG_HSNA(
-+		"authenc(hmac(md5),cbc(aes))",
-+		"authenc-hmac-md5-cbc-aes", aead_setkey, AES_BLOCK_SIZE,
-+		MD5_DIGEST_SIZE,
-+		DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU | DESC_HDR_SEL0_AESU |
-+			DESC_HDR_MODE0_AESU_CBC | DESC_HDR_SEL1_MDEUA |
-+			DESC_HDR_MODE1_MDEU_INIT | DESC_HDR_MODE1_MDEU_PAD |
-+			DESC_HDR_MODE1_MDEU_MD5_HMAC),
-+
-+	TALITOS_AEAD_ALG(
-+		"authenc(hmac(md5),cbc(des3_ede))",
-+		"authenc-hmac-md5-cbc-3des", aead_des3_setkey,
-+		DES3_EDE_BLOCK_SIZE, MD5_DIGEST_SIZE,
-+		DESC_HDR_TYPE_IPSEC_ESP | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES |
-+			DESC_HDR_SEL1_MDEUA | DESC_HDR_MODE1_MDEU_INIT |
-+			DESC_HDR_MODE1_MDEU_PAD | DESC_HDR_MODE1_MDEU_MD5_HMAC),
-+
-+	TALITOS_AEAD_ALG_HSNA(
-+		"authenc(hmac(md5),cbc(des3_ede))",
-+		"authenc-hmac-md5-cbc-3des", aead_des3_setkey,
-+		DES3_EDE_BLOCK_SIZE, MD5_DIGEST_SIZE,
-+		DESC_HDR_TYPE_HMAC_SNOOP_NO_AFEU | DESC_HDR_SEL0_DEU |
-+			DESC_HDR_MODE0_DEU_CBC | DESC_HDR_MODE0_DEU_3DES |
-+			DESC_HDR_SEL1_MDEUA | DESC_HDR_MODE1_MDEU_INIT |
-+			DESC_HDR_MODE1_MDEU_PAD | DESC_HDR_MODE1_MDEU_MD5_HMAC),
- };
- 
- int talitos_register_aead(struct device *dev)
-@@ -958,11 +668,6 @@ int talitos_register_aead(struct device *dev)
- 		if (has_ftr_sec1(priv))
- 			alg->cra_alignmask = 3;
- 
--		aead_alg->init = talitos_cra_init_aead;
--		aead_alg->exit = talitos_cra_exit_aead;
--		aead_alg->setkey = aead_alg->setkey ?: aead_setkey;
--		aead_alg->encrypt = aead_encrypt;
--		aead_alg->decrypt = aead_decrypt;
- 		if (!(priv->features & TALITOS_FTR_SHA224_HWINIT) &&
- 		    !strncmp(alg->cra_name, "authenc(hmac(sha224)", 20)) {
- 			continue;
+Changes in RFC v2:
+  - Convert the remaining vmscan tracepoints too.
+  - Move struct scan_control to mm/vmscan.h (Baoquan).
 
+Ridong Chen (7):
+  mm/memcontrol: drop unused vmscan tracepoint include
+  mm/vmscan: move vmscan tracepoints to a local header
+  mm/vmscan: move struct scan_control to a dedicated header
+  mm/vmscan: pass scan_control to the reclaim-begin tracepoints
+  mm/vmscan: pass scan_control to the LRU isolate/shrink tracepoints
+  mm/vmscan: pass scan_control to mm_vmscan_reclaim_pages
+  mm/vmscan: pass scan_control to mm_vmscan_balance_pgdat_end
+
+ MAINTAINERS                                   |   4 +
+ mm/memcontrol.c                               |   2 -
+ mm/shrinker.c                                 |   2 +-
+ .../events/vmscan.h => mm/trace_vmscan.h      |  80 ++++++-----
+ mm/vmscan.c                                   | 136 ++----------------
+ mm/vmscan.h                                   | 118 +++++++++++++++
+ 6 files changed, 178 insertions(+), 164 deletions(-)
+ rename include/trace/events/vmscan.h => mm/trace_vmscan.h (90%)
+ create mode 100644 mm/vmscan.h
+
+
+base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
 -- 
-2.56.0
+2.34.1
 
