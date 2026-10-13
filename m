@@ -1,120 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4344E73AE;
-	Tue, 13 Oct 2026 23:40:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3974B95B9
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:41:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791934839; cv=none; b=ovYVtd5A7+XWqViqr6I1Hk/SLN6jtTxkf1YzR4qkQlu19RXHup/IRdNask1NbOecMt2BCnvQV9SfPma4facrkXdGXfOLX7X43MAPdLv/+U5OoHsiZpMstkIQw5INJ2GXkAWRZ4sNIhKtOuAxJ6ZmM70/YwC/m6cuEGbLvNU5hm4=
+	t=1791934901; cv=none; b=btJmCJhwk0sPvM5upbVcPEVGOgOE1KkL1wfMQ+nX6LQEdG9t+RzSTTagc+sQAx/AkxGcKI9ChnBF3RGaFRnfQJS9p7NvS1WB/+AjiUdDVIOHON00a3hq2aqm1zz/TM1ohvRap41QoJ8Z+zSl1n4p2MeW0p3oWjBfyhzjtFmcFis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791934839; c=relaxed/simple;
-	bh=9yZ1adNk99ubTSg6ZaGlhNogGt7S1nWzDZrrtvfWTlM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=doSKMuCFKnJcfREpv5SK8aia1urYadINjkuU3387qCYxyaQhMbiftrOIHQwoqb22mqUpisQv/MsyCeE6jz7ugRn8JzH1UVblrGrHFNoEo1GG6xL78lxmme+VfmdcX4X2Z9UV/Tz3UFXHoR7v8iAL1z3mr5UNauS5Ri1pVcr/pF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=It1v0KwG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791934901; c=relaxed/simple;
+	bh=A3FUhVOWfdIO0Hl31ZT5JPOkd0XdxMUAl3z6A0+0Pww=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Iap2MzAfDC9jj4xK9B/kV/7akW8PPTPE0rYwe4SAWtVVBY1M7hjO25yyoiAl9n/Gji4jG5BaoIbUri6lnviSfY/yjfZq025C0ughhnhWfuookn81EWnBDaKeijEgbJeF7Ix1jJPGBAeFDDcoWvH/3IaiLt9N0CKll0VUjpddMfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUc/+8zW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="It1v0KwG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400701F000FF;
-	Tue, 13 Oct 2026 23:40:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUc/+8zW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C963D1F0089C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:41:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791934836;
-	bh=ZR0K/zBXcFgt220pxwCaLeRkxeEkOllzFCwAM4z537Q=;
-	h=Date:From:To:Cc:Subject;
-	b=It1v0KwGQvLxNeoU194gizmXxBkJpK/BJi7dPkIvdWIw6x3cRrbw6eweknZ91AYPY
-	 I+PtPj8WFCxZj9MSmHRTRQTKov/g07byEQ0EWw32GHjg2cd7yEHZ7wQFKKvufRxTj4
-	 rqnwEc+ro4ZbbCThxm10z3iyNqUzSORvz8ExhLH8+8AswNs/k+YeylkL4BqaaaBc5A
-	 4LEn0VEAEqPKpcUhFxh2Ef8iJ3gxY2xiSilcWMqAySPqsVtHouKwogp5LpchG3kvvf
-	 lSpVCIxjDWyW+IbSvPkVBGCOwV2Gd2ssjdcGw8P3hWK8UVYveUfijjaxmbZ9vTLs5x
-	 1/bVu3t7zSuxw==
-Received: by venus (Postfix, from userid 1000)
-	id B2F25180F5B; Wed, 14 Oct 2026 01:40:34 +0200 (CEST)
-Date: Wed, 14 Oct 2026 01:40:34 +0200
-From: Sebastian Reichel <sre@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: [GIT PULL] power-supply changes for 7.3-rc
-Message-ID: <as7BWpR9ytU4Ihdd@venus>
+	s=k20260515; t=1791934899;
+	bh=A3FUhVOWfdIO0Hl31ZT5JPOkd0XdxMUAl3z6A0+0Pww=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JUc/+8zWtQEDYr5Anj1fugo+bpaucFV0Oe5d13K8oGe8MRNEXMg1EV+4InNIfz/3C
+	 6mM+RUySLQ7P1YlC8m+BWLmDpzH8CFkQsrVMJalN1IB09qcst9b5jwMcwJMRb3AW6T
+	 /jgw49sFOhXCP1UTaHDpfioI45qnwAxILr8a9OilWQrswOMl2FKGnoO7KW5PVKYY7R
+	 t4l9+lBND9VIEPHhL/vA7qc4gHKTvbdBefZWO4tNhl62xv+I3N6Caqk3wfkvqD0yhA
+	 SBnisRmqWGYZfI8C3bsU3mwsKIKQQN2gz33qUhi/X6dJ5Fm77niAhioi2TtLSidWnE
+	 RQIdOJrg6feDA==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a772ec8389so27679211fa.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:41:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxBkXG8KJVuESkulEzhUoy5M9+LRRK3wZLX+9xEqiM6g7t8d+a8a4BTw2ElBeGq+JN2xWcmBndipmxbDh0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJP58uKrQKIDNdx2oAUd6tKGs1nudz1m4CuPx2yP2GjzyEcZmL8
+	2o2jx0pyIHa5splYRvY2gjdhmzn2FtaYKgIqCDBIlDkBHKhKYsIgeABVXfw36LYnAaacMJKDjwR
+	D0P6dZ7zccbvgt+F+HN8f6ajA9qR8NxQ=
+X-Received: by 2002:a05:651c:3253:b0:3a9:decc:71d8 with SMTP id
+ 38308e7fff4ca-3a9decc7400mr21468171fa.20.1791934898564; Tue, 13 Oct 2026
+ 16:41:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ax27xi7dz555qubz"
-Content-Disposition: inline
+References: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
+In-Reply-To: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 14 Oct 2026 01:41:26 +0200
+X-Gmail-Original-Message-ID: <CAD++jLn9SgrgCoY6rZTeSqtUz2PXitK15cNcw2sxd3gOjG3MvQ@mail.gmail.com>
+X-Gm-Features: AclHuK-5QJaToI1M3VEyCK9SLAW1pZniBd844zSmFeaZWQCAJufzB3jf4co85pc
+Message-ID: <CAD++jLn9SgrgCoY6rZTeSqtUz2PXitK15cNcw2sxd3gOjG3MvQ@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: vendor-prefixes: add Ambarella
+To: longzhao@ambarella.com
+Cc: Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org, 
+	Long Zhao <zl020895@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Oct 13, 2026 at 7:46=E2=80=AFPM Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> wrote:
 
---ax27xi7dz555qubz
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: [GIT PULL] power-supply changes for 7.3-rc
-MIME-Version: 1.0
+> From: Long Zhao <longzhao@ambarella.com>
+>
+> Document the Ambarella, Inc. vendor prefix so Ambarella DT bindings
+> can be applied without waiting for the SoC series.
+>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
-Hi Linus,
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.git tags/for-v7.3-rc
-
-for you to fetch changes up to 5b4bd13e0552926648a46c2c9a12a24dfaee3715:
-
-  power: supply: core: prevent unregistering a power supply while a callback runs (2026-10-04 18:49:02 +0200)
-
-----------------------------------------------------------------
-Power Supply Fixes for 7.3 cycle
-
- * power-supply core
-  - prevent unregistering a power supply while a callback runs
- * power-supply drivers
-  - generic-adc-battery: Fix temperature IIO channel conversion
-  - ds2780: Fix ds2780_get_capacity() returning raw value
-  - max17042_battery: Fix vmin assigned instead of vmax in DT parsing
-  - Fix maintenance charge table kernel-doc
-
-----------------------------------------------------------------
-Alexey Charkov (1):
-      power: supply: core: prevent unregistering a power supply while a callback runs
-
-Karl Mehltretter (1):
-      power: supply: Fix maintenance charge table kernel-doc
-
-Svyatoslav Ryhel (1):
-      power: supply: generic-adc-battery: Fix temperature IIO channel conversion
-
-Xueqin Luo (2):
-      power: supply: max17042_battery: Fix vmin assigned instead of vmax in DT parsing
-      power: supply: ds2780: Fix ds2780_get_capacity() returning raw value
-
- drivers/power/supply/ds2780_battery.c      |  2 +-
- drivers/power/supply/generic-adc-battery.c |  9 +++++++--
- drivers/power/supply/max17042_battery.c    |  2 +-
- drivers/power/supply/power_supply_core.c   | 26 +++++++++++++++++++++++++-
- include/linux/power_supply.h               | 16 +++++++++++++---
- 5 files changed, 47 insertions(+), 8 deletions(-)
-
---ax27xi7dz555qubz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrOwXIACgkQ2O7X88g7
-+pqxNg/7BAZNGBmlx5GgQRyIbzTHJDHYsirXPpANRexVlQTFlZpLlI2lgRALuUyM
-jWqmYMeK6klQBB7+eipVMeIP9gWgjUpR+Ys2v9nzZNslrx0izm1ofAV8FUfRDj/+
-7pOovr0OAoMNcqUk0V28nBAQ+tUX1Pgh280BdscKR3hW+DwFbHgOF+nQXjI/KL2D
-JQWik6zEm+zXRk9LvCLeQPhfsyEvYGpTTEVArEGXe7ftxCmKh8sbVsqG4+SinoFm
-ep96TdeZxhYSCibgUGSiVld7UjUhk1wWLpOwsGGVt3PwqJE323N5BrBIakuC4Aeb
-jI/MhI+jSOFFcGpEwRTTmHWyPA0RFRDiwasUvxcAYtTMsdcci4VEA7JkpSNS9KM8
-a9VAGWaPpg/MvvioNgp+jFCMSiXSIHGgZiGaNJ/H/JC3XtClTHig/SP3E/DI76c3
-8/tgLOk/gcUR8g+6g/ano9iWuPyj1CRcBdwKoqfPBzmYkUIZaDCBtk/SYdI6RC5q
-k5wPDi99Rk+z48+h+8z1+klJCodH1vOI+0PlZET4qMS4hnD/G3VKjek+rMltaFTN
-D9/KtiMsE0nXPbpCz6h+CM3NmYyW2e8lKTcrVK8KhmebFycVGZwTaN35j/r5PqDg
-9vGXQNGZOR879l9Tg+XDDqW7qib2k8potfXU3cBrU4/EdbDMEsM=
-=/r0+
------END PGP SIGNATURE-----
-
---ax27xi7dz555qubz--
+Yours,
+Linus Walleij
