@@ -1,104 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A0251AFD5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526B553C3D0;
+	Tue, 13 Oct 2026 19:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791918614; cv=none; b=o3NcdE+XhS3TVF2eKDuBwR/S1vgSUoyz56m3EOPRAxFY4Sh3mxuxRTF6mz2jUJv+XHaf9SnS/RkEBzXvUr9Sj172TEgeSmyzTcxA0BbJj+wiH883+yJ9Cg3IPLAKYk1C4GZyAoTF96M2ikA9zU9jjhbdXeSsF7iScG+qIrJ9fUo=
+	t=1791918618; cv=none; b=gFkEGIgHCv3ag4oknPNYBLKkq/O7l3aYvqvxKI1Zim6F6d/PUJ8tIN4yxHjW0BbDLneQWvJSMlZijaBmmc0YTTH7TbhJoNfl89wz3hDFm2SQFHswbkE/P/VJ7+WN6IzPDu1HEhfOD6tqlNaynfpnfvCCFmtwrpCjcthM3R5M3OE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791918614; c=relaxed/simple;
-	bh=kgDt0QtjD4rWqE26JI0a9S1+vEnqhAt5PUTkanFcZfU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=YWN5rmZa9diGaY5mjkjNsY67ndmXB+50CZYnnPqFulaXRoSsMjymKsqZyxJcjjeIPy/9j97BWBArR0XXqOI6GdAMgVGCv07vsvE9zUzKKYXxu/b4DGruhGOl/zTpbDaM8HdqWr9zv78LR9hLmwghDBWWoXSuZ6Y2qToQQea+R68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ojerFzHZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791918618; c=relaxed/simple;
+	bh=k5J5sYDm1WpixLDPo6IWZrMHmPPhpzYkFJtt0x2fyjs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E3FGt40cSLSfwkjg4WnEWfmGM5n2YL1FKf8EPnDQ4X8VvxbV8lcOZMTSNkt9P7RB5MRzob7KFNr8WTpyQRd58AENhmIMwmcUkv+VjxE0eS9RUGVFbrwp4USD3khUGvlKzAjeevvrFenHzm9ilQF0gyD0jaS5ePwP4mMKH6uYPTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rwi2orL2; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ojerFzHZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA79A1F00898;
-	Tue, 13 Oct 2026 19:10:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791918613;
-	bh=kgDt0QtjD4rWqE26JI0a9S1+vEnqhAt5PUTkanFcZfU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=ojerFzHZ3Jv0HbWBtEvWogBd3/IjAJvSjKjmwWaJljCGEAtNjitfw+fz7sNCsu8HI
-	 EQz2UD62CGs53pf7oUX6RFgilpPbeXzHYsnNYl6I0dIpRUKqzEBwzqn7xZB9RvDr4n
-	 MzFDrCSgI6cdKwc6NK/LdB5hni0jfmYQtGEWOfBS/eLpuPqpK7vndmSUO7SYBlcDGq
-	 Zf8KMlF4kCCvW8BaV8sjnHmiGEZIQwXMYq+vF+SmIXI5zVE+uOjZW2axd/iO300i9h
-	 7KDy2Q1wxFg+hws2x7/MtXAP7pe4lTKm2NQXbaVMd7+DoJDfBaQ9Fa4Y0GBixhZeqt
-	 5QrP6+Tq4Mvdw==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 0B698F4006E;
-	Tue, 13 Oct 2026 15:10:12 -0400 (EDT)
-Received: from phl-imap-04 ([10.202.2.82])
-  by phl-compute-02.internal (MEProxy); Tue, 13 Oct 2026 15:10:12 -0400
-X-ME-Sender: <xms:E4LOai7NwwzcOj5yPSHhAcrG0DFsxalVL1g2QCFRExdeqfBDZyNOcw>
-    <xme:E4LOamuErD-5mlaxYBv3ZdHISliI-m8WGLImH_6EwyG0S9AZTAH_imJEMJnzOdd7T
-    8UZyT7N_V6h4AIBFZNI46aLpATCeGBcTSqcv0kV1urFG2y_zp1xTWg>
-X-ME-Proxy-Cause: dmFkZTEd2rtBwbkaWrWZrgOaUkT88gktJFrEb1+xB9o1IS+tF4mNpE+JoW1KBvYanzbv8H
-    8AzTLM0sfXqxsSG43v2DDjP4caaBbtwOoyBCWgwm3F2vpqKZ4cD+zawhdI4WQzoshFmMnz
-    Ky18dABWABv5alNWKLXmiRSkBIj86NXxwyEjFf0QhIGQxPLnQ49TScqRAOAT84yCMaQpo/
-    gmAWziumX9+Ne3+8BSKagAy1p9GffjLtBAL23Glv9SNJVjeCjzhwLQOUcxQI1HhoIR0dee
-    hsisNXNb68zWdc1tE8JS2Xr9/O3IOOBzD9LsNQEkLhZYsin+IVdY40SQrGiLLHbvXMExt2
-    EHz45EJIdCPELCbDDlAyuv/8mIT9OyjKAPo0E+Y6okaAw905BU3eDeeVpTL5OUIStM0Exm
-    v7VFX7ErUFpswDUYWxPYiPr2r/ESURCo1x77Fr+kxB7F03P39cXDbbJqoERGspF56RJnHv
-    jCjwJhp/qk20ufp6fD/mO3p4Y+game6GjvBT1VYI+6aRDsRQwTa3hneI3ge4LZPnSH/wQi
-    o+XbTIFkJewx33XrkBHVyNsFj0wo5afK8ScxKKcOjQIriHYcbKMJxFmAMbOIHZ8Pt0f8Mq
-    BlHd8VTp53Sjwhx+38+e6zV2xGGBUgUiI3eHFKJbV6Uxn1F0gFlRzahJic0Q
-X-ME-Proxy: <xmx:FILOan-jRc7qYnm5STOz9B6hlKAmAwBeCmo7VS0rat5K9PtMJkTfrg>
-    <xmx:FILOaiyyB869pxSlApWtFY_2F1HhN9_dzpzsarsPm71H_83hY_Db_A>
-    <xmx:FILOarMid582NGA4UWxH5T6bdpgRmyQ3uFTdf-V9dMUdo3qPTvX8NA>
-    <xmx:FILOav-105pApJ_bNKqdTIbaXh16jc7r_NeqidZ9ovJwqfkDvPqRPg>
-    <xmx:FILOag4m-jJ1-dmPmNOXvFGOtbAkFEwRRUYcIfw2XRpegKNisvinqzgZ>
-Feedback-ID: i20964851:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id DF2A8B6006E; Tue, 13 Oct 2026 15:10:11 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rwi2orL2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791918617; x=1823454617;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=k5J5sYDm1WpixLDPo6IWZrMHmPPhpzYkFJtt0x2fyjs=;
+  b=Rwi2orL2lyoBcufQYe34eDxuTM9t8eCBWQEofoPuVudYGPh9grOjmUNJ
+   HRJTmxJD1RaIlZGIZ2HCMeSiJV83yO/yH/CnzCJ5Zhx/FhyMkL34yp8rN
+   Xj+kkz6p932vb488xHT3n5dyxSWL8euSlEZRMd0xz/X/qLIknhRUk2G8q
+   ifjE5qKQdnuqTOlu3rpymhEfohGBF9/pwzAiBi03kDrJMKKexKgF2bgol
+   nyha62Ulp33zpbPVIjnVPqAbCQE3W0BAhsJGDd48LU1GkAJRK+pudeWZ/
+   2oE7D08Yu5VGG6Gu5UiJ5HZwAtZeoO5Irn9BkrbOi7oMSm85pYH1a/++X
+   w==;
+X-CSE-ConnectionGUID: fhibYaRKT7KRs3jyhR1qhg==
+X-CSE-MsgGUID: gNkUkiS6Snm9JKeUj3dLaA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="661609"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="661609"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:10:17 -0700
+X-CSE-ConnectionGUID: ift1l/QVRciaZpFVslV2YQ==
+X-CSE-MsgGUID: YK0AieNmSl6ltkVzuUQSHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1243597"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:10:15 -0700
+Date: Tue, 13 Oct 2026 22:10:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: rodrigo.alencar@analog.com
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>
+Subject: Re: [PATCH RFC v2 4/4] iio: test: add kunit tests for channel info
+ writes
+Message-ID: <as6CFEHp1_69JGWL@ashevche-desk.local>
+References: <20261013-e-notation-v2-0-d4adb5e193fc@analog.com>
+ <20261013-e-notation-v2-4-d4adb5e193fc@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A1CqOqGV3QlV
-Date: Tue, 13 Oct 2026 15:09:50 -0400
-From: "Anna Schumaker" <anna@kernel.org>
-To: "Tim Menninger" <tmenninger@everpuredata.com>,
- "Trond Myklebust" <trondmy@kernel.org>
-Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "Eric Badger" <ebadger@everpuredata.com>,
- "Jon Curley" <jcurley@everpuredata.com>
-Message-Id: <04579cd9-a4bf-435e-86a1-4d5e55005e76@app.fastmail.com>
-In-Reply-To: <20261013135327.1695983-1-tmenninger@everpuredata.com>
-References: <20260921235520.502987-1-tmenninger@everpuredata.com>
- <20261013135327.1695983-1-tmenninger@everpuredata.com>
-Subject: Re: [PATCH] NFSv4/pNFS: Preserve layoutreturn seqid while lsegs drain
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-e-notation-v2-4-d4adb5e193fc@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Tim,
+On Tue, Oct 13, 2026 at 10:36:47AM -0300, Rodrigo Alencar via B4 Relay wrote:
 
-On Tue, Oct 13, 2026, at 9:53 AM, Tim Menninger wrote:
-> Hi Trond, Anna,
->
-> Please hold off on applying this patch for now.
+> Add a KUnit test suite covering iio_write_channel_info(), the sysfs
+> store handler that parses a channel info value according to the format
+> reported by write_raw_get_fmt() and hands it to write_raw(). The
+> function is made visible to KUnit through VISIBLE_IF_KUNIT and
+> EXPORT_SYMBOL_IF_KUNIT, so it stays static in regular builds.
+> 
+> The suite uses an unregistered iio_dev allocated on a KUnit device,
+> with stub write_raw_get_fmt() and write_raw() callbacks that select
+> the format under test and capture the parsed values. Cases are grouped
+> by format:
+> 
+>   - IIO_VAL_INT: decimal, hex and octal input, decimal fallback with
+>     truncation and E notation, and 32-bit range checks.
+>   - IIO_VAL_INT_PLUS_MICRO / IIO_VAL_INT_PLUS_NANO: sign handling,
+>     truncation of extra digits, E notation and malformed input.
+>   - IIO_VAL_INT_PLUS_MICRO_DB: optional "dB" / " dB" suffix.
+>   - IIO_VAL_CHAR: single character input.
+>   - IIO_VAL_INT_64 and IIO_VAL_DECIMAL64_*: 64-bit values split into
+>     val/val2, including the S64_MAX / S64_MIN boundaries.
+> 
+> Further cases cover unsupported formats, the default micro precision
+> used when write_raw_get_fmt() is absent, a missing write_raw(), and
+> error propagation from write_raw().
 
-Will do!
+Please, add 'dBm' to the test cases.
 
->
-> Further testing has revealed incomplete recovery under sustained
-> pNFS/RDMA I/O. Some workload ranks remain slow after DS recovery, even
-> with the reconnect loop gone.
->
-> I have not yet established whether this patch is incorrect or exposes
-> another layout-recovery issue.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Makes sense. I'll keep my eyes out for an updated patch
-once you track down what's happening.
 
-Anna
-
->
-> Apologies for the noise.
->
-> Thanks,
-> Tim
