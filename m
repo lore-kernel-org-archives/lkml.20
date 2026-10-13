@@ -1,115 +1,187 @@
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BE251A72C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:29:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF65253F6AE;
+	Tue, 13 Oct 2026 19:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919768; cv=none; b=o+9wuUNMuqWF4Btx+goETEulQAguNShWS2Out3Bmdwe7GBy5toUi9NMFiSZIX9FJiw/poALTO4gZiOt/kfpLwt04vyaCqFdmTAQ8226T+5dtO7RskNHgHoCCfA3yBzpN+2j8o6fS5lK4Lmz/fg0u+Q10IlRILG/Oc1SurfuQO6s=
+	t=1791919792; cv=none; b=pi/psj/m95gHVVeaUpujZ/NP04J0PX2CaU1L3ZF3e94NI9C4OFTJTCPS9cZ5mZ2eXfQAulXhJKgUSNDOYzu4EWp7ElqR/Oia3QJEvuz1hTxZUTgZiYPyj3YA8xROLmGuFrUrqiM1YVZSlal8L4BL4qxF5aTs4Rpe6qwFlmjzm5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919768; c=relaxed/simple;
-	bh=HFB6DyseJTdbQfG1DZ6MXg0hnr9XmayZmDxutEscNow=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pA38dcBaQ6rXm1XV9DTWy/t3gXG8WfjtVufKGn4uONlrD0yDWA3NJy0a+C2pkw1+2A7W9Sxs3tkvAcZLL33T0mN58hTVJjnfQlp6TAO+I1SaoKh4nQogqylV8Zye5Q84d7XufvZ3g9xLFBnsbfMq6X+uEm8WVA0Y3oi+aLGBoSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SkTvqIiA; arc=none smtp.client-ip=209.85.161.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1791919792; c=relaxed/simple;
+	bh=R6dsZrhu9NgBwhhSFSnog9rmIHrIC0UuWb7KJIsDK+E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bq247vmvt3UdGt8RUOQjWbr2+SZ9V0Jtd//go4LpPG6cgy161RB+nRtcardQekGHqHFFkDV9ROFPHLfU+fFJzRZg+uNSEzPKpE/goRE/p8A9C6a/0SlDptn/93fijtlzBKB4+S2rLv158hImhyokPRATdW2GBp4dXYUJ1Trm2i4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QVyJOQm5; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SkTvqIiA"
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6dfd530a2d5so1805536eaf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:29:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1791919765; x=1792524565; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FOxgkNuwHKNgVFVQaM+OBUUFEqO0M0muHBMxUHjrBmQ=;
-        b=SkTvqIiA7vr8JdA7bRhOV0Ijo+RNsveUSQpUJqUqmTESqBbZfENP2lD88rRRillW15
-         ys2GG5hsB9vHt97BdHz1tW9LWRvwEOUPVKEfgXonYSTYSs4zZ8/h6ww8ZLBIo4CM+1i0
-         rTS6kswASnjWNcuXNpBD8nI+kll1UZ7FC7Ka4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791919765; x=1792524565;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FOxgkNuwHKNgVFVQaM+OBUUFEqO0M0muHBMxUHjrBmQ=;
-        b=PN2nDgocjcRgzEIDEHIOO04bJW6r3tCmQpom4itx+Mr2svReCjWIg0NCzin467NAlX
-         gzkdjjxlcIrEK5YfyoxYtT3Hz9+jY+WnVvb+g4/ajOAgr1wg8PT2x8pZ0TwQlz90v2A+
-         gMhBGw2/wMFj7170W8zDAJ75VqAgjX3apJmbNzJJJbS//bPccYF3ElXsYDPJKutYrOlx
-         /0u5HFRNF6kWXoD8HRhKM4lFG/Nbc1XQXvcn9CY/BeKWyXwH/64+aCbd2Zx/kKjQhRE5
-         HaM2/fxL97WPtDivoyHf7L5DtYP+ydNMqe6xtTxeZb2rOoAwhbT+fy/6yMCl/fZ84mq3
-         ng0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxQnSeT5Gga0f6eQBaa7UNAUdDU1O1r2sZU6Eqy1FOa7eU2JwZeMgPdRY7Gv6rzYj0FAJTvksBSN0/zkIk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3q891GecyjY8BRGSzxg0gQYmQdBhuJ7ipGvBrHRtJFycd2PJI
-	ffud9cGDmQU8+pMOXb/dk6ohcc/mqLvlQ11zZ5Z8GJgx1l3PUNqfBptVc91NpcwzPgM=
-X-Gm-Gg: AYBFou2SjhqL+WnmsDvITr/3OBTPE0QJ5j8FZ8VisEdYNUr1cemvARMtw3aP3BTJRka
-	UJ9EoeGfPDPSzphCKDQKuInfKVH7oFoqQDRV4JqPlrezE/NNJtJl/dFG8k7aTWQpOSY7hB2Akg+
-	sGZS7GoCNi/DDp2rVyXK053F4/8wm4kC6ccn30CURcHBt4xz713Sns9Gqtj5gzX948i7Ubb4ER2
-	jVu9ccp44RNAs0dhXEslXKPBGb/pqkPIwR0fyVj3CP/kmP5CxwK/WcHR5F1YDwHgxgWBvwD44HB
-	c45n2/7w23NxvMLFYX5rZVB851vU5MobOBwDTLRcUj86UsUztoORqMHS707gjs7lSP9tp9OZtmt
-	TP342Q5o+Z+v3EyWkyKLyWJmXtfQr+PUN69mb8B6aD9rquTDdfAaLvQb65YbtihBoAR/qsdhREn
-	F2c3qBRwmCllq8mgWOZAg42ixNkY2hApdmMAW7TJr81J6R7moPFMHBbgDqtZtvOoAPh1MocMxnY
-	rM5S/ID
-X-Received: by 2002:a05:6820:198a:b0:6ca:3ce1:ed36 with SMTP id 006d021491bc7-6ef100968e7mr11004632eaf.47.1791919765182;
-        Tue, 13 Oct 2026 12:29:25 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfd0b149sm437488fac.18.2026.10.13.12.29.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 12:29:24 -0700 (PDT)
-Message-ID: <08e8e221-4e46-41a1-baa5-bade8ee20730@linuxfoundation.org>
-Date: Tue, 13 Oct 2026 13:29:22 -0600
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QVyJOQm5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791919789; x=1823455789;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=R6dsZrhu9NgBwhhSFSnog9rmIHrIC0UuWb7KJIsDK+E=;
+  b=QVyJOQm54i/xE2EelrZ//cUcbBJesdiYMNwGyUDACNld69FUXZ3sDXPz
+   GgfmNgJBHPvngdOtmxSkuXZp+1jQnOpcfLxavUSMUr1IttbRNKE1xiLqF
+   JGqRoL72fG98dS6x8UlxfqVQKxksoYHPMW9Fj8YDti0tsCNEAOha8pBeb
+   p8XXRhW33LJcBqaFoR4gay4+C0SUblDeQCWX9d3ILVl4XupaQ+hB6A8m5
+   Q1fan18mO/8gX7ZLAnDDLx8vWbN1JYXQSRNGl2Dfn8ZbHUGQrelAiVL4O
+   KQamdpYilpEUvYeRd07pAdMYUPutKWbJuI6UahCk6yL8/s4NjqESDm0pv
+   Q==;
+X-CSE-ConnectionGUID: HJAqYcsHQd264fD9LsNxHg==
+X-CSE-MsgGUID: zKjHCdCkQzq2mYosCfjrdg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="544108"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="544108"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:29:48 -0700
+X-CSE-ConnectionGUID: 4g/LgQhVSK+VGBq5ekVu0w==
+X-CSE-MsgGUID: 9qaBn0yoRfmMgR1GFv6ntA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1167655"
+Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:29:48 -0700
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	David E Box <david.e.box@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 01/20] platform/x86/intel/tpmi: Use static strings for the feature device names
+Date: Tue, 13 Oct 2026 12:29:16 -0700
+Message-ID: <20261013192935.2243291-2-sathyanarayanan.kuppuswamy@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013192935.2243291-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+References: <20261013192935.2243291-1-sathyanarayanan.kuppuswamy@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 4/6] tools: build kernel selftests in tools_build
-To: Sasha Levin <sashal@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org
-Cc: Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261011233647.2454648-1-sashal@kernel.org>
- <20261011233647.2454648-5-sashal@kernel.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261011233647.2454648-5-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/11/26 17:36, Sasha Levin wrote:
-> Add a "Kernel selftests" sub-menu with one entry per selftests directory
-> that builds with only a C library and does not write into the source
-> tree. Each is built as "make kselftest-all" builds it, with KHDR_INCLUDES
-> pointing at the UAPI headers installed in the object tree, but by its own
-> make, so the selected ones build in parallel. Selftests whose Makefile
-> does not use KHDR_INCLUDES still build against the C library's copy of
-> the UAPI headers.
-> 
-> The selftests do not track header dependencies, so a selftest is built
-> again from scratch when its own directory, a header or makefile any
-> selftest may share, or a kernel source it includes directly (the vDSO
-> test includes the architecture's vDSO code) is newer than its last
-> build.
+tpmi_create_device() builds the auxiliary device name in an on-stack
+buffer and hands it to intel_vsec_add_aux(), which stores the pointer in
+auxdev->name without copying the string. The auxiliary device outlives
+tpmi_create_device(), so auxdev->name is left pointing into a stack frame
+that has already been torn down.
 
-Is there a way you can fold in kselftest_deps.sh run into this
-so users know why some tests didn't build. Also we want to make
-sure kselftest build doesn't fail if a test fails to build to
-keep the current kselftest build behavior.
+Nothing dereferences auxdev->name after intel_vsec_add_aux() returns
+today: auxiliary_device_init() only checks it for NULL and both
+dev_set_name() calls copy into dev->kobj.name, while driver matching and
+the modalias use dev_name() instead. So this is a latent problem rather
+than a live one, but the auxiliary bus expects the name to outlive the
+device, and the other intel_vsec_add_aux() caller already passes a string
+literal.
 
-tools/testing/selftests/kselftest_deps.sh
+Convert intel_tpmi_name() into a lookup of a static array of string
+literals that already include the "tpmi-" prefix, and pass its return
+value straight to intel_vsec_add_aux(). Using a static array instead of
+a switch statement makes the lifetime of the returned strings obvious:
+they are valid for as long as the module is loaded. The snprintf() along
+with its on-stack buffer and length define are no longer needed.
 
-> 
-> Selftests that need libraries beyond the C library, a vmlinux with BTF,
-> or a sanitizer runtime are left out for now.
+The resulting device names are unchanged, so the feature drivers keep
+matching on "intel_vsec.tpmi-<feature>" as before.
 
-Great. That is good for this round.
+No functional change intended.
 
-thanks,
--- Shuah
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+---
+ drivers/platform/x86/intel/vsec_tpmi.c | 41 +++++++++++++-------------
+ 1 file changed, 20 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/platform/x86/intel/vsec_tpmi.c b/drivers/platform/x86/intel/vsec_tpmi.c
+index 0153dd57838e..9b2bd0c8cbe2 100644
+--- a/drivers/platform/x86/intel/vsec_tpmi.c
++++ b/drivers/platform/x86/intel/vsec_tpmi.c
+@@ -47,6 +47,7 @@
+  */
+ 
+ #include <linux/align.h>
++#include <linux/array_size.h>
+ #include <linux/auxiliary_bus.h>
+ #include <linux/bitfield.h>
+ #include <linux/debugfs.h>
+@@ -579,33 +580,31 @@ static void tpmi_set_control_base(struct auxiliary_device *auxdev,
+ 	tpmi_info->tpmi_control_mem = mem;
+ }
+ 
++/*
++ * The TPMI IDs are sparse, so the unused entries are left NULL and are
++ * rejected by the caller like any other unsupported feature.
++ */
++static const char * const intel_tpmi_names[] = {
++	[TPMI_ID_RAPL]		= "tpmi-rapl",
++	[TPMI_ID_PEM]		= "tpmi-pem",
++	[TPMI_ID_UNCORE]	= "tpmi-uncore",
++	[TPMI_ID_SST]		= "tpmi-sst",
++	[TPMI_ID_PLR]		= "tpmi-plr",
++};
++
+ static const char *intel_tpmi_name(enum intel_tpmi_id id)
+ {
+-	switch (id) {
+-	case TPMI_ID_RAPL:
+-		return "rapl";
+-	case TPMI_ID_PEM:
+-		return "pem";
+-	case TPMI_ID_UNCORE:
+-		return "uncore";
+-	case TPMI_ID_SST:
+-		return "sst";
+-	case TPMI_ID_PLR:
+-		return "plr";
+-	default:
++	if (id >= ARRAY_SIZE(intel_tpmi_names))
+ 		return NULL;
+-	}
+-}
+ 
+-/* String Length for tpmi-"feature_name(upto 8 bytes)" */
+-#define TPMI_FEATURE_NAME_LEN	14
++	return intel_tpmi_names[id];
++}
+ 
+ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
+ 			      struct intel_tpmi_pm_feature *pfs,
+ 			      u64 pfs_start)
+ {
+ 	struct intel_vsec_device *vsec_dev = tpmi_info->vsec_dev;
+-	char feature_id_name[TPMI_FEATURE_NAME_LEN];
+ 	struct intel_vsec_device *feature_vsec_dev;
+ 	struct tpmi_feature_state feature_state;
+ 	struct resource *res, *tmp;
+@@ -634,8 +633,6 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
+ 	feature_vsec_dev->num_resources = pfs->pfs_header.num_entries;
+ 	res = feature_vsec_dev->resource;
+ 
+-	snprintf(feature_id_name, sizeof(feature_id_name), "tpmi-%s", name);
+-
+ 	for (i = 0, tmp = res; i < pfs->pfs_header.num_entries; i++, tmp++) {
+ 		u64 entry_size_bytes = pfs->pfs_header.entry_size * sizeof(u32);
+ 
+@@ -654,9 +651,11 @@ static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
+ 	 * delete is required on error or on module unload.
+ 	 * feature_vsec_dev and res memory are also freed as part of
+ 	 * device deletion.
++	 *
++	 * "name" must outlive the auxiliary device, as the auxiliary bus
++	 * stores the pointer rather than a copy of the string.
+ 	 */
+-	return intel_vsec_add_aux(&vsec_dev->auxdev.dev,
+-				  feature_vsec_dev, feature_id_name);
++	return intel_vsec_add_aux(&vsec_dev->auxdev.dev, feature_vsec_dev, name);
+ }
+ 
+ static int tpmi_create_devices(struct intel_tpmi_info *tpmi_info)
+-- 
+2.43.0
+
