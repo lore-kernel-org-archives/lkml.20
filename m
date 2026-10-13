@@ -1,80 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15B03F20EC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4643ED13E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899411; cv=none; b=bg9nV/9gzuUqoYuk0EdzPJh2vj8otgDrA8RltCQb0yBC6LHWSnq3Bb8Wsv37w2sKBkAYnN/FHn2qdbf3PlSV3+NN+oKrcjGEB8MZB+7fDosqhJR668Ojlt5buTGD61ZiG0qZ5YLYzDolZ7TGm2kpZQ5Fu4CjCUSr/U/ati/1vBI=
+	t=1791899399; cv=none; b=Ydd/QeJ+W/TuhKQTI2FHs8r51GJQZ+hFNB9MjLQwZvJ2SVmhxHlrOMk34AXcY0lcV4W9+YC7e4EZkPoL5n1PbQnA0+dL/8xZ24i7BkWUnr+BktcxG9PaFbj0TMnjSzVSsMsyj2tewU4g0wUxpXNX0X3ThIKJwxJU3yPQ1q63lIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899411; c=relaxed/simple;
-	bh=u2R4FX3sAaS8bNjFmpo/yIP900gduD1Adg8MdK0PCmo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qSNZUfRau7s86jcFXh4cgZcrxjdENhz5hf6nXV8wjtdfifnCN30M/MFxVoX7dnoXlhUf3W/Dw/vB/Ukyk4Ym2DjY6A04OgKVlvaIv+69LIC1L33gvTpkocIHz/W1jvfDauyy+kzUd9WVj6zKUlZV9z74bPsvJjIoxXaRivJq7js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eGMNFbX4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791899399; c=relaxed/simple;
+	bh=dd3fcn/F2sggw0zAtVRgF9IsxhP0ljsHGj1cvw8OcfE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Gp/ESfr2wB7iQ3eJNsXWoA3zcsSyYT77TLo3YB+NZGdp3E4/ijyLjQdXs5mAnJXDPvKhWSK/3Q6ItqBLVaE3elu4A1Kwafjod7LSxlpt4ltRY8XJmlT3g80Dcd5Fl+22p8VWqo8ALKlU8l+0dOR6lHft7QnDNP7pMtghT0n5Dec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=w0WBAbj1; arc=none smtp.client-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eGMNFbX4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0BB1F000FF;
-	Tue, 13 Oct 2026 13:50:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791899410;
-	bh=3eVggJ7yHFgpFKsfcgizT1UKfTovdZjYdBw/AnJqqcM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eGMNFbX4F3Hbx7SeI/Lx1lm3LWxtHOfC7/QNY5shYjLkTBJ4aIK7N2JriRLB8qo9h
-	 o023BXK/IEvuzw/twwVk8q7GaHbf6bgy/z03yvzGsoP46du/0hb153LcSK60YY5HnO
-	 Ash1Wlmn7KSaP93ydg7MaDfyy/NJENqiha8FqAfA=
-Date: Tue, 13 Oct 2026 15:50:15 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Yang Zi <2959243019@qq.com>
-Cc: abbotti@mev.co.uk, hsweeten@visionengravers.com,
-	u.kleine-koenig@baylibre.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] comedi: addi_apci_3xxx: fix subdevice count
- underallocation
-Message-ID: <2026101308-unified-catwalk-f818@gregkh>
-References: <tencent_BC89ED84AE795F9D75CCF0A65E679B78490A@qq.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="w0WBAbj1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791899386; x=1792158586;
+	bh=zFVLVHwVTi3WchYGs3T1OwLjPTCHRmKYetRDrPdxeDI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=w0WBAbj13qALA2/oRDkHN6BFNtRONxvuuWO0foECvSfS5vQ8FZ1VhA5FQ7xIDS3dv
+	 Wwiq9t7ir8dcXMxKAJ3zC1bBFS4iN7P114pVXi67kId8Jy0m/7UR4wuAn1XRmWGYE9
+	 3Zrwi4dEcaxEYXVMJPCdrqyzdQj7ak151NR7u9cfLegCAHrsoTThs9OjZmRwyeiqhU
+	 UDRmp2oEM7wFlaJTyldY2N6D6AT0Qnk392VNgxnbepDWA+YkxmbE9XytXnfmEcx7Vr
+	 xdlfy+mba1P+fhnnxuObiWgK2moX8knuh+5DN49sbMQgtzXnhyC1pHire3BmpBWYbI
+	 L0yDHBE7Dh5pw==
+Date: Tue, 13 Oct 2026 13:49:42 +0000
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+From: Lorenzo Delgado <lnsdev@proton.me>
+Cc: Lorenzo Delgado <lnsdev@proton.me>, linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, Thorsten Blum <blum@kernel.org>, Francis Laniel <laniel_francis@npnm.eu>
+Subject: [PATCH v2 1/2] rust: non_empty: add NonEmpty
+Message-ID: <20261012-nonempty-slice-v2-1-0f2b67d9463e@proton.me>
+In-Reply-To: <20261012-nonempty-slice-v2-0-0f2b67d9463e@proton.me>
+References: <20261012-nonempty-slice-v2-0-0f2b67d9463e@proton.me>
+Feedback-ID: 53083996:user:proton
+X-Pm-Message-ID: 3836cfe81c449243ce521f12054c0d71bad73362
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_BC89ED84AE795F9D75CCF0A65E679B78490A@qq.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 05:07:54PM +0800, Yang Zi wrote:
-> In apci3xxx_auto_attach(), the number of subdevices is computed with
-> 
->     n_subdevices = (board->ai_n_chan ? 0 : 1) + board->has_ao + ...
-> 
-> The ternary is inverted: when the board has analog input channels
-> (ai_n_chan != 0), it counts 0 instead of 1, so the AI subdevice that is
-> actually created is not accounted for. As a result
-> comedi_alloc_subdevices() allocates one entry too few, and the later
-> subdevice initialization (notably the TTL Digital I/O subdevice, which
-> is populated last) writes past the end of the allocated array, causing a
-> slab out-of-bounds write.
-> 
-> Flip the ternary to count 1 when ai_n_chan is non-zero and 0 otherwise,
-> matching the subdevice creation order in the function.
-> 
-> Signed-off-by: Yang Zi <2959243019@qq.com>
-> ---
-> diff --git a/drivers/comedi/drivers/addi_apci_3xxx.c b/drivers/comedi/drivers/addi_apci_3xxx.c
-> index 695cce103177..1dcda82d9503 100644
-> --- a/drivers/comedi/drivers/addi_apci_3xxx.c
-> +++ b/drivers/comedi/drivers/addi_apci_3xxx.c
-> @@ -787,7 +787,7 @@ static int apci3xxx_auto_attach(struct comedi_device *dev,
->              dev->irq = pcidev->irq;
->      }
->  
-> -    n_subdevices = (board->ai_n_chan ? 0 : 1) + board->has_ao +
-> +    n_subdevices = (board->ai_n_chan ? 1 : 0) + board->has_ao +
->                 board->has_dig_in + board->has_dig_out +
->                 board->has_ttl_io;
->      ret = comedi_alloc_subdevices(dev, n_subdevices);
-> 
-> 
+Some functions reject an empty container up front and later rely on it
+having at least one element. The type system does not see that check,
+so the later access ends up as an `unwrap_unchecked()` with a SAFETY
+comment pointing back at it, or as an `unwrap()` or an error path that
+can never be taken. `strcpy_into_buf()` in uaccess is one such case.
 
-This is corrupted and can not be applied :(
+Add `NonEmpty<C>`, a transparent wrapper that can only be created from
+a container its `IsEmpty` implementation reports as non-empty. It
+dereferences to the container, and a method whose `Option` only exists
+for the empty case can be shadowed by a version that returns the value
+directly.
+
+`DerefMut` is implemented per container, only where a mutable reference
+cannot change the length. For a growable container it would let
+`clear()` break the invariant.
+
+For now only slices are supported. A slice of unknown length goes
+through `try_from_mut()`, which returns `None` if it is empty. An array
+goes through `from_array_mut()`, which checks the length at compile
+time instead of returning an `Option`, so a caller with a fixed-size
+buffer needs no runtime check. The only accessor is `last_mut()`,
+which uaccess needs. Other containers and accessors can follow with
+their users.
+
+Suggested-by: Gary Guo <gary@garyguo.net>
+Link: https://lore.kernel.org/rust-for-linux/DM0D9TERQAM3.2Y3HV6P68E2N8@gar=
+yguo.net/
+Link: https://github.com/Rust-for-Linux/linux/issues/1262
+Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
+---
+ rust/kernel/lib.rs       |   1 +
+ rust/kernel/non_empty.rs | 122 +++++++++++++++++++++++++++++++++++++++++++=
+++++
+ 2 files changed, 123 insertions(+)
+
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 7225abc64084..8e1928deac35 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -105,6 +105,7 @@
+ pub mod module_param;
+ #[cfg(CONFIG_NET)]
+ pub mod net;
++pub mod non_empty;
+ pub mod num;
+ pub mod of;
+ #[cfg(CONFIG_PM_OPP)]
+diff --git a/rust/kernel/non_empty.rs b/rust/kernel/non_empty.rs
+new file mode 100644
+index 000000000000..fc23fe00c3e0
+--- /dev/null
++++ b/rust/kernel/non_empty.rs
+@@ -0,0 +1,122 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Containers that are known not to be empty.
++
++use crate::build_assert::const_assert;
++use core::ops::{
++    Deref,
++    DerefMut, //
++};
++
++/// A container that can report whether it holds any element.
++///
++/// The result must not change while the container is only reachable throu=
+gh a shared reference.
++///
++/// Unsafe code may only rely on the result for a container type whose imp=
+lementation it trusts,
++/// such as the ones in this module, since a safe implementation can retur=
+n anything.
++pub trait IsEmpty {
++    /// Returns `true` if the container holds no element.
++    fn is_empty(&self) -> bool;
++}
++
++impl<T> IsEmpty for [T] {
++    #[inline]
++    fn is_empty(&self) -> bool {
++        <[T]>::is_empty(self)
++    }
++}
++
++/// A container that holds at least one element.
++///
++/// [`NonEmpty`] dereferences to the container it wraps, so the container'=
+s API stays available.
++/// Methods whose result is only optional because the container could be e=
+mpty can be shadowed by
++/// versions that return the result directly. They are added as users need=
+ them. For now that is
++/// only [`NonEmpty::last_mut`] on a slice, which returns `&mut T` instead=
+ of `Option<&mut T>`.
++///
++/// # Invariants
++///
++/// The wrapped container is not empty. Unsafe code may rely on this only =
+for container types
++/// whose [`IsEmpty`] implementation is in this module.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::non_empty::NonEmpty;
++///
++/// let mut buf =3D [1u8, 2, 3];
++/// let slice =3D NonEmpty::from_array_mut(&mut buf);
++/// *slice.last_mut() =3D 0;
++/// assert_eq!(slice.len(), 3);
++/// assert_eq!(buf, [1, 2, 0]);
++///
++/// let mut buf =3D [1u8, 2, 3];
++/// let slice =3D NonEmpty::try_from_mut(&mut buf[..2]).ok_or(EINVAL)?;
++/// *slice.last_mut() =3D 0;
++/// assert_eq!(buf, [1, 0, 3]);
++///
++/// let mut empty: [u8; 0] =3D [];
++/// assert!(NonEmpty::try_from_mut(&mut empty[..]).is_none());
++/// # Ok::<(), Error>(())
++/// ```
++#[repr(transparent)]
++#[derive(Debug)]
++pub struct NonEmpty<C: ?Sized>(C);
++
++impl<C: ?Sized + IsEmpty> NonEmpty<C> {
++    /// Creates a [`NonEmpty`] from a mutable reference to a container, or=
+ returns [`None`] if the
++    /// container is empty.
++    #[inline]
++    pub fn try_from_mut(container: &mut C) -> Option<&mut Self> {
++        if container.is_empty() {
++            return None;
++        }
++
++        // INVARIANT: `container` was checked to be non-empty above.
++        // SAFETY: `NonEmpty<C>` is transparent to `C`, so the cast keeps =
+both the layout and the
++        // pointer metadata, and the pointer comes from a valid `&mut C` w=
+ith the same lifetime.
++        Some(unsafe { &mut *(core::ptr::from_mut(container) as *mut Self) =
+})
++    }
++}
++
++impl<T> NonEmpty<[T]> {
++    /// Creates a [`NonEmpty`] slice from a mutable reference to an array.
++    ///
++    /// Unlike [`NonEmpty::try_from_mut`], this does not return an [`Optio=
+n`]: the array length is
++    /// checked at compile time, and using it with an empty array is a bui=
+ld error.
++    #[inline]
++    pub fn from_array_mut<const N: usize>(array: &mut [T; N]) -> &mut Self=
+ {
++        const_assert!(N > 0);
++
++        let slice: &mut [T] =3D array;
++        // INVARIANT: `slice` has `N` elements, and `N > 0` was checked at=
+ compile time.
++        // SAFETY: `NonEmpty<[T]>` is transparent to `[T]`, so the cast ke=
+eps both the layout and
++        // the pointer metadata, and the pointer comes from a valid `&mut =
+[T]` with the same
++        // lifetime.
++        unsafe { &mut *(core::ptr::from_mut(slice) as *mut Self) }
++    }
++
++    /// Returns a mutable reference to the last element of the slice.
++    #[inline]
++    pub fn last_mut(&mut self) -> &mut T {
++        // SAFETY: By the type invariant, the slice is not empty, so it ha=
+s a last element.
++        unsafe { self.0.last_mut().unwrap_unchecked() }
++    }
++}
++
++impl<C: ?Sized> Deref for NonEmpty<C> {
++    type Target =3D C;
++
++    #[inline]
++    fn deref(&self) -> &C {
++        &self.0
++    }
++}
++
++// `DerefMut` is only sound for containers whose length cannot change thro=
+ugh a mutable
++// reference. For a growable container such as `KVec`, `clear()` would emp=
+ty it.
++impl<T> DerefMut for NonEmpty<[T]> {
++    #[inline]
++    fn deref_mut(&mut self) -> &mut [T] {
++        &mut self.0
++    }
++}
+
+--=20
+2.55.0
+
+
