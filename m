@@ -1,120 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59FA51FCAC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:59:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910763; cv=none; b=RPIugOwJWAJ3/P+yoDDSa9nn/Ef0QYFmv0PPQ2GoOFFbK1OyQ61ufz4kCTbaAw+PKfyndwwIubKrE/xIQBGUCqyEVVCgK04UG8Jyn4P3EoKE6tmq19VA7ZXTswIgiJWSzDLygtLp8aEXzx48jy2Y5bzXAOAPifJ1N5zPVc40Uck=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910763; c=relaxed/simple;
-	bh=Em0J4kFPQkpc6DtvJOpGf2IR0VZFxoTRpJ6JXd5k4yw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8603C51FCBC
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791910779; cv=pass; b=uaW/9PXWjWO/iLK7xFJnRq/NEZcDDh3nYLGAdm8Bs/JF/JiQFVmVSEZBptLTUjU20L5L2Nc20c7c/Uu9B5D691fnpgef7JOmBn/WMmm6nMpQ1Xf79Z929w2tfyNUS18sCuaIp28i4ifoPjMFUEyl7H0c/t/Q3ZAhR/xZLJYJhQI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791910779; c=relaxed/simple;
+	bh=Irc52p7IpU94MjhUuTv/4weSSBLioQxa3X0dPTYCCpw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JXya4DU/VOEWd/ECz+PwOca8k1mbb/NhvRMoQB39yzSnkfAtI1CmfXr0wkjyU5wiRO8qWiuv9zL1wN5iDVnbTrY2pJKuLrfMuKMMKGN9uHH95H0XyeWbdjtjF5kSUfeGBodOUOW2+gsLgCmIkyZdASiprSI9Q13HcEo4eVpZgsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NnY9OryH; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=ngJM3oaApXhNCPSNI5d6QNFs+tmRtZyYFV2/khrBOT6EXq1FeGyrVGNchNz6lE40RuilwepP7DAYGw0kTa4ZeOHW7M0WIfhAEg4l6Bz2iyp+MzSYy4KKXxyTTq6+E7qjs1PnRh5pqm3RMjxqCwdzWe5ZSy1hHghI5cI1aSK3WfY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EpOXiEQ2; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NnY9OryH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3FD31F00899
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791910762;
-	bh=N1+Y8UcbV3j4gztto6Wz9a9MFiofJ01PDbTLcnyXQoY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NnY9OryHtHJIel8UNv5f+AGAi81aEBCtoARkeyf0ziaFlyzh4VtDnXtHwi49nICP6
-	 NVuN5bMhuwtBOvlEqdxAVdF/CLjEQCrxrPrSXkEvE2sAjQDMa8LcLJhZZqGdM4CnFx
-	 GY0L3LlDtpceVmsjbk4Bx9PV4S7tzCi9PmFDIL5DG3iW4wpAzA9r/9HiIT4zBm/m4N
-	 8viphVEmp7UMLUMACskdV7NVh6hc8CWYNKJ3CR0CG1ELz6tHKA1Y4FrIwdiwrD10WL
-	 hGbAxhlPgA/1Ua7RsqtYfAsqh/F/F9l0hJuf5HH720Ff4o4K1Ux+Z3iUlW0JwJUaUh
-	 +gk85jfYy2a7g==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a75f960be3so1646671fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:59:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw7vX8HIsOXMUa0bGm5cjKke6T/mNwi8w4IG+yLn2xEFrqQbdaFpBddm7yqBTgkwiZr6FEPXaaEdN5BRWA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMyYj0Nlh9M/hZeW2ndR60Dls7pwKGixUCQY9Nrsaay/eVb6PP
-	qpevTq5sAfmZF+ZGr/bdToTwF1McY/a4gEKMdV9r1FmLubC35L0qp+7UvR7DnVasBWcjnxImOPu
-	M/lpBX2EJ2PeQQyWEZRmid9UjYN1bxac=
-X-Received: by 2002:a05:6512:304a:b0:5bc:d39d:9b38 with SMTP id
- 2adb3069b0e04-5bcde6c4cacmr4486252e87.32.1791910761041; Tue, 13 Oct 2026
- 09:59:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EpOXiEQ2"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2e5f8fe879so517843466b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:59:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791910776; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MCO3mE3enHIzBjjXR74o8sj3Bpu8TfUODI7sWVtrtuockdMg7AxTIeeA0av1O2wjbF
+         IE/ZLeBo/4VSuAnKgqn9Ps3mGVi7KHkAbinKR3jHS/99EwiUu8pzFaoT9ulG834YqCzX
+         5vUrZfLylCuWsJxJl5ehVfcuA8iOWwgc3JfSxuBQ7DvYMoXXxS8g2LE+fgoTM3SXZ9iu
+         Zr0xY+EfbFvgHdIjrQ/BpB5po3TJQuwuq7+sT2yxgvs2FfDlXz9HygRXaHHx2n58t5gK
+         Aj0LHsveU8z5YnLd+n/7wOH4Tb12X0NvA0xmSf/WmHScPXChprOEtTYZgxJyK9qn06+Z
+         Tkvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Irc52p7IpU94MjhUuTv/4weSSBLioQxa3X0dPTYCCpw=;
+        fh=/npVV/k+0nykZX/ijXvdb1jZj+jz3+YzOSJtmrAjF7A=;
+        b=SJGz/GWEbuIvkvilc5OJIL3VuYS/alj9Mu8dck5ztn//fAw73UNN1fRi3SsLI7xhrn
+         8TVKfCnX60N4IawpnVctn5aoXR5tK5MDzJx1oLjFJpt0FjcMdi8/GSc4ajy9xZ9IY3lj
+         qHAAhD5FW7GKqQj52Ur+d/tj8+m/j3jcplueLw6Npq8vANJU6wGR7Y5M/hLKlFFx1lHh
+         v2U5Y0kU4BhfYH2mZFqUUkXOTXtJVkZwKM+le5IMd5MySJwowd4CHbwUzxMuVgaRUbPS
+         tT23sDqzJdkdVnKUp1xgnYjZNI24Ue98MfJEEp6abrfE0qsbG3fD0PVTGvCzVitz3qHb
+         HcTQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791910776; x=1792515576; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Irc52p7IpU94MjhUuTv/4weSSBLioQxa3X0dPTYCCpw=;
+        b=EpOXiEQ2SPQ6ZYYS52bSNKUx9gytoN2jhpEeJXfbT14FmKBNspqqzphM0++IIjSFFi
+         tj2gzp6usgLn0QMPxtm1jfEG11DNn9aiUjDZ3pJYl3NmGZvPQ77rhTH/iostTGbD2/gB
+         7KUxKMaCmJzVnW3Vr5/inj8DWr6sk5Pakw7Smk3lFXcvr1rLx/g6ZW/ViOTX1LrB9zoJ
+         fsKkqVjdG8zYiGuYzeQo7KIpXSAYQbozbikn6G1G0zEzlWUnXoYG/QYUeOD6XJk4IoVf
+         wBuxjgbYBwHk/wtgEKXIdE0CzYxI5cBz6mgybhU/XYNw8MxT2++D5PxvHRY3oE6rVocE
+         tEDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791910776; x=1792515576;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Irc52p7IpU94MjhUuTv/4weSSBLioQxa3X0dPTYCCpw=;
+        b=sJDxMEfdFJztQsHptowMM3SVdv6lIU+un5P834sN+cNLYkVCwWkp+pDNR1KCJU55Mu
+         p3sMv0hB2+ztOM7fWc7mX25OQSiCHJNvlucYzBsGGXH540k//c2yEaRkgrkbKYYwLDG7
+         9qvC5h0tegVKlCAS/d+gFifRlQVpM8k5CoLyKHUT67cHoxYxac3DEc8H1zm/bq8XUxuy
+         X5ua26PPaYXSc6QnVP7J/EX+RPQCrNcqYN1UaFe8TQoROwSyI0YHceDNu04FTMST5e7k
+         v3oTId1cXCSWYMBgaccl91aUpRZofBlw22olPCzO5DlJGmDaAUmn7qGSXxJXZkgu8tqX
+         iNmw==
+X-Forwarded-Encrypted: i=1; AKwUvBw9qsFFfQG5EEkfk4g77N3viNiNPL1Eu+14ANhkOG46N4+u18FksqXaPhDZHmfPTyHXyTOVBCY3m3Sz5M0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJk49s7P8BeuemkV1NLs/TLEkrSsnTGO5GgjupDsVXeDmG+bbEi
+	G5HiG9wBy2kJPLrDpH5H65qy3hBjDAM+/bCyDsTJWJL9V5QutdsZO90QPabS4YuoJ+7xg7Mw2Mm
+	MLjJWxce0hJfx4gZKnrzuMaI8pELbBw4=
+X-Gm-Gg: AYBFou30CNN6KcrlfWPlCk1pcMJEYYVlNESp79r2XgvDG/UXpGDEFTAywLzprBdE/Bs
+	hXNY5Z23UlPqN3NR4ghzSbSzXpafah3a9fn+UhHZsCyntaMh6bSdDqtjZD/GSJEyYJE7P1hDR+n
+	xhIl0x4R46fGRx0fFqZfY3irKXVfjd1y89ZM9GOigpfitZ3W5JvjCf8+6s0dTzXa8P/Xy6YAjCb
+	I12tOG2GJTSW1d+QgcJDyoP67dQufBvkZjmVvEPlUI8UZIG9x/2R0q7KSvqT4HaSWZk5u3tj3uA
+	pQnlpyVdtHJwfAU46F+StKDIuC6RK0gfGChDreYqegZS4opMmDQj3zOaaGnsx9lA46HqP73/39t
+	J+VDERL2p1bYE
+X-Received: by 2002:a17:907:3d0b:b0:c31:7495:e5b with SMTP id
+ a640c23a62f3a-c31a9feb26amr1246342766b.10.1791910775410; Tue, 13 Oct 2026
+ 09:59:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012104645.975190-1-keng-yu.lin@hpe.com> <CAJZ5v0iGhqaF1m-Vc2xdXQXj_BxPFFWCBTP=Ypg_gWQEqWkNfg@mail.gmail.com>
- <642c49e1-7d47-44fd-b597-e5ff0877bb56@amd.com> <20261013060957.1023448-1-keng-yu.lin@hpe.com>
- <CAJZ5v0hndk_ck1hcgWXyGX=OHmbfbhKsrJQsNQF9DQrucRNMDw@mail.gmail.com>
- <d11aa70c-4753-4a28-9955-990c45649677@amd.com> <CAJZ5v0h2-S=Yf84LveK=36AkeutJxj5qYzVXnjhAnawi097x0g@mail.gmail.com>
-In-Reply-To: <CAJZ5v0h2-S=Yf84LveK=36AkeutJxj5qYzVXnjhAnawi097x0g@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 13 Oct 2026 18:57:15 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0ie2AvCbdv8-zkpYzHLcTwUPUj+=WWOQjDAPmSepSAQPg@mail.gmail.com>
-X-Gm-Features: AclHuK-kpBBJjgT_J-9UdGMEksfS5T7DW_cr_Uqhmch-I8vSerRUvLqL95_av1o
-Message-ID: <CAJZ5v0ie2AvCbdv8-zkpYzHLcTwUPUj+=WWOQjDAPmSepSAQPg@mail.gmail.com>
-Subject: Re: [PATCH v2] PCI/PM: Restore BARs after powering up during enumeration
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Keng-Yu Lin <keng-yu.lin@hpe.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Matthew Ruffell <matthew.ruffell@canonical.com>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, andy.liang@hpe.com, david.chang@hpe.com, 
-	s.collins@hpe.com, jenifer.golmitz@hpe.com, pravallika.kamma@hpe.com, 
-	zhen-dong.lai@hpe.com, zachary.pabor-ext@hpe.com
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org> <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com> <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
+In-Reply-To: <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Wed, 14 Oct 2026 00:58:59 +0800
+X-Gm-Features: AclHuK-dRyf9eKLDd-E-CAUCwm0MgTdU0FQN2EyVlbP88Wn126rzBlk5l-Sic0w
+Message-ID: <CAMgjq7CT2O2VHpwZazugQRopi4grF+T4oOxZznoAGvy93Yjh-A@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 5:52=E2=80=AFPM Rafael J. Wysocki (Intel)
-<rafael@kernel.org> wrote:
+On Mon, Oct 5, 2026 at 8:19=E2=80=AFPM David Hildenbrand (Arm) <david@kerne=
+l.org> wrote:
 >
-> On Tue, Oct 13, 2026 at 5:41=E2=80=AFPM Mario Limonciello
-> <mario.limonciello@amd.com> wrote:
+> On 9/22/26 15:38, Chris Li wrote:
+> > On Mon, Sep 21, 2026 at 8:56=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> w=
+rote:
+> >>
+> >> On Fri, Sep 18, 2026 at 11:50=E2=80=AFPM Chris Li <chrisl@kernel.org> =
+wrote:
+> >>> No that time slot is too late for Asia developers. I don't think we
+> >>> should use that time slot for swap alignment.
+> >>>
+> >>> We should find a time slot more friendly to Asia.
+> >>
+> >> Any time slot would have that kind of problem. We're spread out across
+> >> the globe.
+> >>
+> >> Let's just use a standardized time slot we have for MM alignment sessi=
+ons.
 > >
+> > There are more swap maintainers in Asia than in the US + Europe, at
+> > least based on the maintainer file. Please be more inclusive. If the
+> > alignment is done without key stakeholders, it miss the point.
 > >
+> > Sigh, we can't even align on a time slot.
 > >
-> > On 10/13/26 10:23, Rafael J. Wysocki (Intel) wrote:
-> > > On Tue, Oct 13, 2026 at 8:10=E2=80=AFAM Keng-Yu Lin <keng-yu.lin@hpe.=
-com> wrote:
-> > >>
-> > >> Hi Rafael, Mario,
-> > >>
-> > >> The initial read is not needed to fix the reported D3hot-to-D0
-> > >> failure. I added it to avoid extra BAR writes on devices already
-> > >> in D0.
-> > >>
-> > >> pci_power_up() does update current_state, but need_restore is
-> > >> calculated before that update. The check includes:
-> > >>
-> > >>          dev->current_state >=3D PCI_D3hot
-> > >>
-> > >> For an initially unknown device with PMCSR reporting D0 and
-> > >> No_Soft_Reset clear, this still requests a BAR restore. Reading
-> > >> the state first avoids that request, although the final
-> > >> current_state is D0 either way.
-> > >
-> > > Fair enough, but if the device is in D0 already, it need not be
-> > > powered up, so if you make a point to update the power state upfront,
-> > > you may as well skip the power up if the outcome is D0.
-> >
-> > It actually does need to have all the ACPI calls that happen as part of
-> > the D0 transition though like _REG.
+> > In that case, let's keep discussing on the mailing list. At least it
+> > is accessible to every one.
 >
-> Good point.
+> Looking at the mailing list, that approach doesn't seem to work.
 >
-> This basically means that the upfront power state check belongs to the
-> logic to determine whether or not to restore the BARs which should be
-> part of pci_power_up().
+> Finding a time slot that makes US, Europe and Asia happy is ... tricky.
 >
-> So now the question is, if this upfront power state check is done, is
-> it still useful to read PMCSR after calling
-> platform_pci_set_power_state() in pci_power_up()?
+> 1 AM is certainly unpleasant.
+>
+> US vs. Asia is also tricky, but doable.
+>
+> China 8AM vs. US West Coast 5PM?
+>
+> China 9AM vs. US West Coast 6PM?
 
-Or what about using the following sequence:
+Hi David,
 
-pci_update_current_state(dev, PCI_UNKNOWN);
-if (dev->current_state =3D=3D PCI_D0) {
-        /* No need to do a full power-up, just sync-up the platform state. =
-*/
-        platform_pci_set_power_state(dev, PCI_D0);
-} else {
-        /* Power up the device and restore BARs if necessary. */
-        pci_set_full_power_state(dev, false);
-}
-pci_update_current_state(dev, PCI_D0);
+Thanks so much for suggesting this. Sorry for the late response; last
+week's travel resulted in a lot of piled-up work for me.
+
+Both slots look fine to me.
