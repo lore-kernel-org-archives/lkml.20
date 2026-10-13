@@ -1,218 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A7037C0FE;
-	Tue, 13 Oct 2026 06:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FE937A83D;
+	Tue, 13 Oct 2026 06:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791873999; cv=none; b=qF8GblseiEtSkzE1TUQvBbVFZAJ6feS3J3nByIwr8NNHhduusJvyr09j0HaA70kwCBPBJBAAZDKCLuzRlwSdyzYB9etbyCWzELbB88dBiipAhiyb9P2OFNUULWwP5XTb1qM3/LDV/QXzkOk/d06xOXQ2NvxJG49gAZVt4rzcq3s=
+	t=1791874041; cv=none; b=hMKrzpVFqUUiK9mRXYKunjbG48t4C6WbT9B760D/mkE7Js6nQT0ygyyoO0jWFT1goctq/lrLoFoQLzVta+h49jgZbaXmGFud2nEDR0gZ7plGxcROURGoZ9pIubhf547KsV6uYjgT7Qmi4/scQB1BlhbDJf2hBxcFqFuwKFttbG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791873999; c=relaxed/simple;
-	bh=Bt8S+QvWEJ2vxbGW/Bc/Iggjt5S+Yu2pXWLuG0jsRlU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bUMJguOTQxpwFeTikFWAjQa1FP9gqPmK0qWF/QC7KXmAvrC1LodX3yFUnh5BQn6iLIMWGsuEvUWVHGzxS+SNVswLCsK4YDgGzEztlwOJ/kzB+0an+Uz4iyRcUEHjjwZXWFS8T1qqWTR9S/gSQssgPJdGRliKU6FuU7NG2FBOcxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5ghejg4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791874041; c=relaxed/simple;
+	bh=z/0RGM361wfCXCOt+CPmz0u/LJ99vEiwt6H6yWglVI8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QVBmGqdRf0hWbZS+DBYpPlnb7NXyfLFjxbBFNf1lgQvk/W/urBprWjMaGytY97sda3iSKCjHYjNXBmz4rDI5kBtwJyK+XF/Mq+XziLnrRs34CGUVUBYjCTsLsE2uXi4x6sGEOGnXVApeTcc5N/77sWBjdOENY3YnBn2Y4k9dKIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bsx6fm1P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5ghejg4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D8B0FC2BCF7;
-	Tue, 13 Oct 2026 06:46:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791873998;
-	bh=Bt8S+QvWEJ2vxbGW/Bc/Iggjt5S+Yu2pXWLuG0jsRlU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=V5ghejg4RhgH+vHWRHgeiujAHHML3C4AMhtLNcfIZFdIzT0Rh+zSgmltjVs0ej5GP
-	 4iVMllcDTioLi9tmXUs5wDrUpY5F1HTVFUUkURbiTIg/AP0S3pwyousQH7/8trda84
-	 brEkGesnmjswrr2ovgM6ty1JV7QFEIfCDhyQU8PPYnucOuoSaMDqh/1YOvhggoF6UY
-	 zqgMNYcMXrLHh/64RXjhMhKRit3UqCzgpiiX4dcyDeXwjd6VfuTHGPWGBYFXM7Dy/f
-	 7P2AiOJ2pwmPWpZOugAqASvDF+00E2BvKsIHQywYGUmVjQC7DD4vYDWv0rB/NwU5Ip
-	 tOOURSceBlrlA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B5122CC6B0F;
-	Tue, 13 Oct 2026 06:46:38 +0000 (UTC)
-From: Shashikirana H K via B4 Relay <devnull+shashikiranah.chromium.org@kernel.org>
-Date: Tue, 13 Oct 2026 06:46:32 +0000
-Subject: [PATCH v2] HID: vivaldi: Extract feature report value directly in
- vivaldi_feature_mapping()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bsx6fm1P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFCCB1F000FF;
+	Tue, 13 Oct 2026 06:47:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791874039;
+	bh=YgubnauHoRzWWNqrJG9hHcLGUmIImOLCkWtfx/PDZCs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Bsx6fm1PRkMz7Y4e5P/667vo9dTLauDRCPCS5rQUNclF8LwLkVfzYzVW4bZNWhaFO
+	 ZCxZV1KZbsIzL0QebMXP19qkvDEpPmQiKLTyGvdCoQExlbTkTNmbraGO0sLhLaKRyG
+	 Ljeb6BykUdbwxf1/7CoIqgPqtVSpymkSAv9vbQ59kzP3/JC8OST1a5m37MMwj870VR
+	 JEGBFgEWHqmthxpvCnc28O7kkKqbRF3EFn+Dbig50eAoSpMgB6MbAEj6MH+wat0Hfl
+	 5uJIHe28MUr+O1BjsMacr/Mllpno5OPw5m6HNACQxGCpFkIcrgtNDcoxrtc5f2g/q/
+	 9xB93UYoqxphg==
+Date: Tue, 13 Oct 2026 08:47:15 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Georgi Djakov <djakov@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/4] dt-bindings: clock: ipq9650-apss-clk: Add IPQ9650
+ apss clock controller
+Message-ID: <20261013-quantum-keen-mongrel-c3736c@quoll>
+References: <20261007-ipq9650_apss_clk-v1-0-fd4c2b3cbdea@oss.qualcomm.com>
+ <20261007-ipq9650_apss_clk-v1-3-fd4c2b3cbdea@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-upstream-vivaldi-fix-v2-1-ecc20329d24c@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAMfTzWoC/4WNQQ6CMBBFr0JmbU3baKWuvIdhUcoAkwglU2g0p
- He3cgGX7yX//R0iMmGEe7UDY6JIYS6gTxX40c0DCuoKg5baKCmN2Ja4MrpJJEru1ZHo6S3sVbb
- aelvr2kCZLoxFH9lnU3ikuAb+HC9J/eyfYFJCibb11t16dUFnHn7kMNE2nQMP0OScv21OMK27A
- AAA
-X-Change-ID: 20261006-upstream-vivaldi-fix-950b29c98286
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Stephen Boyd <swboyd@chromium.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tzung-Bi Shih <tzungbi@chromium.org>, Sean O'Brien <seobrien@chromium.org>, 
- Shashikirana H K <shashikiranah@chromium.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791873997; l=5158;
- i=shashikiranah@chromium.org; s=20261006; h=from:subject:message-id;
- bh=Uerfha3eGEZ1SCVeNARcy7ol0qFI4FCN37EPZpgAXgY=;
- b=7GWizpMDZQvd9VbIJZdUXTY/VNUOgamzk2eSK5pR65NaySkpWGSCdAx7iABheqzssY3wTRLIj
- D9JANc4VRoxDzVNY28tfy55xuE0KTB/bBwyYSo5eeH3OAT6o8KUPtHU
-X-Developer-Key: i=shashikiranah@chromium.org; a=ed25519;
- pk=bCw+8sjBcORxp4WEsvVPTz+Jb/+irkV4RK/8uR5xsYI=
-X-Endpoint-Received: by B4 Relay for shashikiranah@chromium.org/20261006
- with auth_id=1124
-X-Original-From: Shashikirana H K <shashikiranah@chromium.org>
-Reply-To: shashikiranah@chromium.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261007-ipq9650_apss_clk-v1-3-fd4c2b3cbdea@oss.qualcomm.com>
 
-From: Shashikirana H K <shashikiranah@chromium.org>
+On Wed, Oct 07, 2026 at 12:20:46PM +0530, Kathiravan Thirumoorthy wrote:
+> The APSS clock controller on IPQ9650 provides the CPU and L3 clocks and
+> has a register space separate from the GCC. The four Cortex-A55 cores,
+> the Cortex-A78 core and the L3 are each clocked by their own Zonda PLL,
+> selected through a glitch-free mux whose parents are XO, GPLL0 and the
+> corresponding PLL. The L3 needs to be scaled along with the CPUs, so the
+> controller is also an interconnect provider.
+> 
+> Add the binding, the clock indices for the Cortex-A78 (gold) cluster to
+> the shared APSS header, and the interconnect IDs for the CPU and L3
+> nodes.
+> 
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> ---
+>  .../bindings/clock/qcom,ipq9650-apss-clk.yaml      | 58 ++++++++++++++++++++++
+>  include/dt-bindings/clock/qcom,apss-ipq.h          |  5 ++
+>  include/dt-bindings/interconnect/qcom,ipq9650.h    |  4 ++
+>  3 files changed, 67 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,ipq9650-apss-clk.yaml b/Documentation/devicetree/bindings/clock/qcom,ipq9650-apss-clk.yaml
+> new file mode 100644
+> index 000000000000..6b47183edd56
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/qcom,ipq9650-apss-clk.yaml
+> @@ -0,0 +1,58 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/qcom,ipq9650-apss-clk.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm APSS IPQ9650 Clock Controller
+> +
+> +maintainers:
+> +  - Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> +
+> +description:
+> +  The APSS clock controller provides the CPU and L3 clocks on IPQ9650 and
+> +  has a register space separate from the GCC. The four Cortex-A55 cores,
+> +  the Cortex-A78 core and the L3 are each clocked by their own Zonda PLL.
+> +  Each clock is selected through a glitch-free mux (GFM) whose parents are
+> +  XO, GPLL0 and the corresponding PLL.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,ipq9650-apss-clk
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Reference to the XO clock.
+> +      - description: Reference to the GPLL0 clock.
 
-Currently vivaldi_feature_mapping() passes the raw buffer returned by
-hid_hw_raw_request() to hid_report_raw_event() with the descriptor-declared
-report_len just to populate field->value[usage->usage_index].
+Why do you need a new file? Looks exactly the same as existing
+ipq5424-apss-clk.
 
-Since vivaldi_feature_mapping() already has the target report, field, and
-usage in hand, and nothing else consumes field->value[] for this report,
-verify that hid_hw_raw_request() returns the expected report_len, ensure
-usage->usage_index is within field->report_count, and extract the value
-directly using hid_field_extract(). Also use __free(kfree) to simplify
-buffer cleanup.
-
-Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Fixes: 33bbe04a15f2 ("HID: google: extract Vivaldi hid feature mapping for use in hid-hammer")
-Cc: Tzung-Bi Shih <tzungbi@chromium.org>
-Cc: Sean O'Brien <seobrien@chromium.org>
-Signed-off-by: Shashikirana H K <shashikiranah@chromium.org>
----
-Changes in v2:
-- Drop hid_report_raw_event() call and extract feature value directly via
-  hid_field_extract() after verifying ret != report_len, as suggested by
-  Dmitry Torokhov.
-- Check usage->usage_index >= field->report_count before extracting.
-- Use __free(kfree) for automatic buffer cleanup.
-- Link to v1: https://lore.kernel.org/r/20261006-upstream-vivaldi-fix-v1-1-bbc9a7f14ea6@chromium.org
----
- drivers/hid/hid-vivaldi-common.c | 72 +++++++++++++++-------------------------
- 1 file changed, 26 insertions(+), 46 deletions(-)
-
-diff --git a/drivers/hid/hid-vivaldi-common.c b/drivers/hid/hid-vivaldi-common.c
-index b12bb5cc091aa..1359a107e63bd 100644
---- a/drivers/hid/hid-vivaldi-common.c
-+++ b/drivers/hid/hid-vivaldi-common.c
-@@ -5,11 +5,13 @@
-  * Copyright (C) 2022 Google, Inc
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/export.h>
- #include <linux/hid.h>
- #include <linux/input/vivaldi-fmap.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/slab.h>
- #include <linux/types.h>
- 
- #include "hid-vivaldi-common.h"
-@@ -33,13 +35,14 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
- {
- 	struct vivaldi_data *data = hid_get_drvdata(hdev);
- 	struct hid_report *report = field->report;
--	u8 *report_data, *buf;
--	u32 report_len;
- 	unsigned int fn_key;
-+	unsigned int offset;
-+	u32 report_len;
- 	int ret;
- 
- 	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP ||
--	    (usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL)
-+	    (usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL ||
-+	    usage->usage_index >= field->report_count)
- 		return;
- 
- 	fn_key = usage->hid & HID_USAGE;
-@@ -49,54 +52,31 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
- 	if (fn_key > data->num_function_row_keys)
- 		data->num_function_row_keys = fn_key;
- 
--	report_data = buf = hid_alloc_report_buf(report, GFP_KERNEL);
--	if (!report_data)
-+	u8 *buf __free(kfree) = hid_alloc_report_buf(report, GFP_KERNEL);
-+	if (!buf)
- 		return;
- 
--	report_len = hid_report_len(report);
--	if (!report->id) {
--		/*
--		 * hid_hw_raw_request() will stuff report ID (which will be 0)
--		 * into the first byte of the buffer even for unnumbered
--		 * reports, so we need to account for this to avoid getting
--		 * -EOVERFLOW in return.
--		 * Note that hid_alloc_report_buf() adds 7 bytes to the size
--		 * so we can safely say that we have space for an extra byte.
--		 */
--		report_len++;
--	}
--
--	ret = hid_hw_raw_request(hdev, report->id, report_data,
--				 report_len, HID_FEATURE_REPORT,
--				 HID_REQ_GET_REPORT);
--	if (ret < 0) {
--		dev_warn(&hdev->dev, "failed to fetch feature %d\n",
--			 field->report->id);
--		goto out;
--	}
--
--	if (!report->id) {
--		/*
--		 * Undo the damage from hid_hw_raw_request() for unnumbered
--		 * reports.
--		 */
--		report_data++;
--		report_len--;
--	}
--
--	ret = hid_report_raw_event(hdev, HID_FEATURE_REPORT, report_data,
--				   report_len, report_len, 0);
--	if (ret) {
--		dev_warn(&hdev->dev, "failed to report feature %d\n",
--			 field->report->id);
--		goto out;
-+	/*
-+	 * hid_hw_raw_request() will stuff report ID (which will be 0)
-+	 * into the first byte of the buffer even for unnumbered
-+	 * reports, so we need to account for this to avoid getting
-+	 * -EOVERFLOW in return.
-+	 * Note that hid_alloc_report_buf() adds 7 bytes to the size
-+	 * so we can safely say that we have space for an extra byte.
-+	 */
-+	report_len = hid_report_len(report) + !report->id;
-+
-+	ret = hid_hw_raw_request(hdev, report->id, buf, report_len,
-+				 HID_FEATURE_REPORT, HID_REQ_GET_REPORT);
-+	if (ret != report_len) {
-+		dev_warn(&hdev->dev, "failed to fetch feature %d: %d\n",
-+			 report->id, ret);
-+		return;
- 	}
- 
-+	offset = field->report_offset + usage->usage_index * field->report_size;
- 	data->function_row_physmap[fn_key - MIN_FN_ROW_KEY] =
--		field->value[usage->usage_index];
--
--out:
--	kfree(buf);
-+		hid_field_extract(hdev, buf + 1, offset, field->report_size);
- }
- EXPORT_SYMBOL_GPL(vivaldi_feature_mapping);
- 
-
----
-base-commit: 51f2727a01219375781e8912f994701b7c3bb36c
-change-id: 20261006-upstream-vivaldi-fix-950b29c98286
 
 Best regards,
--- 
-Shashikirana H K <shashikiranah@chromium.org>
-
+Krzysztof
 
