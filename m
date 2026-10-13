@@ -1,143 +1,65 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1944237E5EC;
-	Tue, 13 Oct 2026 07:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10B61C695
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:21:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791876053; cv=none; b=PNakQQCZqiR+3TB60lmyI/qF66yb26In1eU+lBFDx8rJAq4zmeNGCd1OvvToNgAIRDp92Iaal8gy1ntQvUTZJtRpqBR4uSxPN+1UgBW7ms5rOGx3OKPRT7AIFlVAbLbuyNFtRI+NZkMzqi7agfyykuZX3BqLal+xFV1NRv3RAvw=
+	t=1791876119; cv=none; b=SwS4OE2240sv5ZPF/Iw1tvHO0K8UjxFm1pIHfl4zzgFw+wmlOkOvi0NTPixArgHlEcHGFoMkqbkdA/lj+YVufkkNA7riqi0i3shEcdJwgUk0nm1oW+BP2Drvcn7laKWSLskQCTBzmVqesxkXiq0hyu5F0VTwcml93aKa+sXfCBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791876053; c=relaxed/simple;
-	bh=8ruDrG+7kblQv4lEuAMqrKGPI8cdAOGgFsd8qtmamyk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UO8Q/CGUl8HT/AaoyzWsW+9RKaJdkVkpcHGwepsifZsJN41cr39kpPNdidzpvwd996k0rS9/zDBqN4i2mKYrYvuIDMO+XARSQ3oUTr1tdJAMVN3c8MKa+GzARtsxDy1LI0spjBwjAps0GNfXNhkq7se3wvcoFKzokvQV1pVlxRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=1bPKAiZO; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1791876119; c=relaxed/simple;
+	bh=4zNkciEYj/XTFa74Bmw90DL+won+DqeeMtDTOsn2C14=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=THfQ2hvdeF2v7pdc6Gcw/5/tRjYTOuSSnhZpNDbRY/8Z1nyi3O0II3G5qxhaJuaIEb7Wjdf8Xuyc7KZ1ZY84JDrwi9uDykhn0sFKuEllyIsZTq018mzS+yEh6GQpygYNKdbLPzs1HnF9hdd7XYqyEXG5UB93GNJE9wLoknen/So=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TrcGOPD/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="1bPKAiZO"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=bQTKbkQaInLeC4sRW42x65VDz7oCWXwEaQmK5R5AmlQ=;
-	b=1bPKAiZOkgGAECHcWr14IPZZGIm+ZyLZZ8lbAITUekWLnsdVyZMf4Wc34hr9JNGccznlqXdYr
-	exd0bQuRAWoodJQFqogzgNzvCcmmBsuGF2Z+OLVTAmi3Z+m3A1eKWSg0jdU6zY470tpUDf/l23P
-	QNVGFSiWl9MfRVrtvu+1mY0=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j3lmz0rm1z12LF9;
-	Tue, 13 Oct 2026 15:08:51 +0800 (CST)
-Received: from whupemk100014.china.huawei.com (unknown [7.152.184.20])
-	by mail.maildlp.com (Postfix) with ESMTPS id BE5DF4057F;
-	Tue, 13 Oct 2026 15:20:45 +0800 (CST)
-Received: from huawei.com (10.50.163.32) by whupemk100014.china.huawei.com
- (7.152.184.20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 13 Oct
- 2026 15:20:44 +0800
-From: Longfang Liu <liulongfang@huawei.com>
-To: <alex.williamson@redhat.com>, <jgg@nvidia.com>
-CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<liulongfang@huawei.com>
-Subject: [PATCH v6 2/2] hisi_acc_vfio_pci: reject live migration on 64KB page with QM_HW_V3 hardware
-Date: Tue, 13 Oct 2026 15:19:29 +0800
-Message-ID: <20261013071929.3988687-3-liulongfang@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013071929.3988687-1-liulongfang@huawei.com>
-References: <20261013071929.3988687-1-liulongfang@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TrcGOPD/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5173F1F000FF;
+	Tue, 13 Oct 2026 07:21:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791876118;
+	bh=Ne45YMLLRuVqti2IdldwjaSUIC4ERusRykIBg9Q9oY0=;
+	h=From:To:Cc:Subject:Date;
+	b=TrcGOPD/7Vx/C1PeHoHQQI0drSu68ZYXIDMHCseTp949INso10czeghKAQM6dVjge
+	 xVGtjOjreMtU9spQBkaNVlPA6EiR28UOYyl3+ZA+xwBVoZyIGEVHDZ9rXf8QLPIZe4
+	 4juzwDx26HC6QMbnFwO1tN7YayVzkyAuvMvJn8dks51nCrg/LIRusn3ausT5n3z2XZ
+	 Jem7NXS4k++fvTAjUCyCwFNFS6RFyOM5dliQzPImplLAlpXnXF+XQdd8Ta7nOl2qa/
+	 masaDCbvU+KotSIWDb/RnLONLIg7bNVyVpy5FrxmmrrrqvwMkJS6OF+rS2a/I0586d
+	 JwXeKKlyK2jkg==
+From: Thorsten Blum <blum@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] lib: kstrtox: Use isdigit() in _parse_integer_limit()
+Date: Tue, 13 Oct 2026 09:21:10 +0200
+Message-ID: <20261013072108.4407-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=605; i=blum@kernel.org; h=from:subject; bh=4zNkciEYj/XTFa74Bmw90DL+won+DqeeMtDTOsn2C14=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlnbz+Z9mLW35jn6bNnfuzZXrzmlenM/JIbMlsO7zTsO DGbTVc2vqOUhUGMi0FWTJHlwawfM3xLayo3mUTshJnDygQyhIGLUwAmsrCV4Z+Bzd2CIznCKneW /5Tb8G3mjGtzmnp1p19cqT171hfPpwu+M/yPvd9uclfLK6TwkI2c+HruXau2HNPRC7/srO26bJn /kwscAA==
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- whupemk100014.china.huawei.com (7.152.184.20)
 
-On QM_HW_V3 (VF_CTRL mode) hardware with 64KB pages, the functional
-region and migration registers share one BAR2 physical page with no
-isolation, which leaks migration registers to the guest and causes
-guest kernel calltrace under the KVM emulated device scheme.
+Use isdigit() to replace the open-coded implementation.
 
-The previous fix rejected the device in hisi_acc_vf_qm_init() during
-open_device, returning -EINVAL and breaking passthrough entirely.
-Move the drv_mode check into a helper called from probe() so that a
-VF_CTRL device on a 64KB page is bound to the generic ops, keeping
-passthrough working while disabling live migration.
-
-Fixes: b0eed085903e ("hisi_acc_vfio_pci: Add support for VFIO live migration")
-Signed-off-by: Longfang Liu <liulongfang@huawei.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
- .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 32 ++++++++++++-------
- 1 file changed, 20 insertions(+), 12 deletions(-)
+ lib/kstrtox.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-index e6fdf4d2e581..818ad5112d7b 100644
---- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-+++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-@@ -1195,13 +1195,6 @@ static int hisi_acc_vf_qm_init(struct hisi_acc_vf_core_device *hisi_acc_vdev)
- 	struct hisi_qm *vf_qm = &hisi_acc_vdev->vf_qm;
- 	struct hisi_qm *pf_qm = hisi_acc_vdev->pf_qm;
- 	struct pci_dev *vf_dev = vdev->pdev;
--	u32 val;
--
--	val = readl(pf_qm->io_base + QM_MIG_REGION_SEL);
--	if (pf_qm->ver > QM_HW_V3 && (val & QM_MIG_REGION_EN))
--		hisi_acc_vdev->drv_mode = HW_ACC_MIG_PF_CTRL;
--	else
--		hisi_acc_vdev->drv_mode = HW_ACC_MIG_VF_CTRL;
+diff --git a/lib/kstrtox.c b/lib/kstrtox.c
+index bac1c057e1b0..1b3f0d3fff37 100644
+--- a/lib/kstrtox.c
++++ b/lib/kstrtox.c
+@@ -69,7 +69,7 @@ unsigned int _parse_integer_limit(const char *s, unsigned int base, unsigned lon
+ 		unsigned int lc = _tolower(c);
+ 		unsigned int val;
  
- 	if (hisi_acc_vdev->drv_mode == HW_ACC_MIG_PF_CTRL) {
- 		/*
-@@ -1669,21 +1662,34 @@ static void hisi_acc_vf_debugfs_exit(struct hisi_acc_vf_core_device *hisi_acc_vd
- 	hisi_acc_vdev->debug_migf = NULL;
- }
- 
-+static enum hw_drv_mode hisi_acc_vf_get_drv_mode(struct hisi_qm *pf_qm)
-+{
-+	u32 val;
-+
-+	val = readl(pf_qm->io_base + QM_MIG_REGION_SEL);
-+	if (pf_qm->ver > QM_HW_V3 && (val & QM_MIG_REGION_EN))
-+		return HW_ACC_MIG_PF_CTRL;
-+
-+	return HW_ACC_MIG_VF_CTRL;
-+}
-+
- static int hisi_acc_vfio_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
- 	struct hisi_acc_vf_core_device *hisi_acc_vdev;
- 	const struct vfio_device_ops *ops = &hisi_acc_vfio_pci_ops;
-+	enum hw_drv_mode drv_mode = HW_ACC_MIG_VF_CTRL;
-+	resource_size_t func_len;
- 	struct hisi_qm *pf_qm;
--	int vf_id;
- 	int ret;
- 
- 	pf_qm = hisi_acc_get_pf_qm(pdev);
- 	if (pf_qm && pf_qm->ver >= QM_HW_V3) {
--		vf_id = pci_iov_vf_id(pdev);
--		if (vf_id >= 0)
--			ops = &hisi_acc_vfio_pci_migrn_ops;
-+		func_len = pci_resource_len(pdev, VFIO_PCI_BAR2_REGION_INDEX) >> 1;
-+		drv_mode = hisi_acc_vf_get_drv_mode(pf_qm);
-+		if (drv_mode == HW_ACC_MIG_VF_CTRL && func_len < PAGE_SIZE)
-+			pci_warn(pdev, "migration not supported on 64KB pages with QM_HW_V3\n");
- 		else
--			pci_warn(pdev, "migration support failed, continue with generic interface\n");
-+			ops = &hisi_acc_vfio_pci_migrn_ops;
- 	}
- 
- 	hisi_acc_vdev = vfio_alloc_device(hisi_acc_vf_core_device,
-@@ -1691,6 +1697,8 @@ static int hisi_acc_vfio_pci_probe(struct pci_dev *pdev, const struct pci_device
- 	if (IS_ERR(hisi_acc_vdev))
- 		return PTR_ERR(hisi_acc_vdev);
- 
-+	hisi_acc_vdev->drv_mode = drv_mode;
-+
- 	dev_set_drvdata(&pdev->dev, &hisi_acc_vdev->core_device);
- 	ret = vfio_pci_core_register_device(&hisi_acc_vdev->core_device);
- 	if (ret)
--- 
-2.43.0
-
+-		if ('0' <= c && c <= '9')
++		if (isdigit(c))
+ 			val = c - '0';
+ 		else if ('a' <= lc && lc <= 'f')
+ 			val = lc - 'a' + 10;
