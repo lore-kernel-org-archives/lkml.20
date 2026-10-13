@@ -1,164 +1,197 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12B63E5A1F
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8411B3E5A1F;
+	Tue, 13 Oct 2026 07:10:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875416; cv=none; b=qD9Xp7MZ9HQtA58cbmerlThpwXcTkPPXiodUFpWHJqm8gwmQNk+277Ozd2/UNE/VvqoRw1kKJkjIZSNZSM11wpFzz64GnBH/rYaUlcxcT/0xAZIif5fIEGTzRRuKaWfAsqLENvH4dvdUvF1Hc+iGuFQkP72cB+f0EpOoh2em8rs=
+	t=1791875424; cv=none; b=cVyu2FJsQZHgaOrR5tvRNK/xIowzfOhOx/8UNc410hWVDyS12wYTJTrZmR8gQ/PSwStNzyZdk2NemkUpsbyNmuVE+udUoG1//AIifX5CqKxiWnKdO3usOHqQIMHjkmfE1731CTLtpNSGe3S1oczLH6hcWPk2ud3sevk4I85d9ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875416; c=relaxed/simple;
-	bh=uKLWTrcDR7c+0GER3Ovnt8iy0jidYHa0ZNUnMq1N7iM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CKjcTik2EaTjDu+wiXmdePn4huoLF8FXFAdTnNthy85+u92ixSyoIA1Nzdz2L4EkyWWMNhILRAwlVkOfIIQBiE36f6BiqdzvzWZnlWNTBAd4f9d6BMxGzlrmIrRdWMbmzQ0UrRkG9wXPH+t6uqwKQFZZTF5bV5YZlB6dOvSRd44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nwIUozhn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TDW8Ckxi; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791875424; c=relaxed/simple;
+	bh=40UxKO6+x+fC3YVsdc6BFyvhZNRTxQba4nAox1wImeo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BdhN/N1TJXJPrzcRSuhRBDbmmgzLFitMTDhrt1obbORAAtBOKj0YmslD4ulPArRtsSnXthPQ8JCOPFvrrnWGzIf+HjGNXQFc/yH/Z62xpFKPVxrBV2NTB//VAs0v0XIePtjLxqOBR0WAEGhrBnoNFxrE5RVFPo9EqUcM+3bJurE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PCbX5wNo; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nwIUozhn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TDW8Ckxi"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D21CBi3054806
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:10:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NZw9sWzUNq4w+U3H1PQGNb7dsdduCmaMFKqaVwAgHa4=; b=nwIUozhnlodgFMfQ
-	fTrYp4goMiGU85bztPsWLGH/E8v2BkfnbUCRm3z7mTmbHApk96JFSSlODnC3HT0K
-	v6T+VezMNnkAS48ETfQcnlQ8sq4eTJJ9xUsGKXBiE08KnXrwE2Yildj+YyISnzo1
-	2ETyBIGO1GJLm2OEE5W6+R7bTPvqJQJHreswJob0ZiaInHtYOSJ7h68GNWDhgjZ2
-	SYZY0znCcoFKqc/YALmwJpXtRxLxJsKwDdX5ziInM6D0HZ2DHhaDEg47a+Zx6hb7
-	KCyJUw5L9Du13+rgbVSiHpa14tJ5P0bMw/SOBtj390Ph3zHcdgoH26USG91DuE6V
-	GBrmlw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h93aetxw0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:10:14 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35a4d2e39acso6912956eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:10:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791875413; x=1792480213; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NZw9sWzUNq4w+U3H1PQGNb7dsdduCmaMFKqaVwAgHa4=;
-        b=TDW8Ckxi7B1ufv3nu/q7bjbX0y+CLiE+8D5ujcHyWS39SfkzKOg0L0qiQtKcpPzOOK
-         z+jxIcnWyfgQi7AkOXPx/JzcsGQ71/yeIwJhHv7MTdElx17bsDTvgQFLnYOvJo8CjYtR
-         u4dDZxpfDS4ZCew/RvGcAEQvGV/i4/XbH4Ew9qQUhkL5rj/J4lX5w/qnTghZXA6siGoV
-         P8H/T9tKctlJmQXehPiAnBh92vIKs4kgU2Y683ikTVLWAkuzeqRSnmwAlaP/wqEregtJ
-         n5RX69yVp99lHIK2vU6OhYT0U/fVwum4N/V7TM4hpeeHf+8ANLF9VzEWNMewA9tbtuoS
-         KDFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791875413; x=1792480213;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NZw9sWzUNq4w+U3H1PQGNb7dsdduCmaMFKqaVwAgHa4=;
-        b=gfKUzt3HHnvm1tfSR5qWRHfzVpimFJBdAHeDOl/Fawv9vHl8VE0AKNc0WTZde0PAwc
-         xWJunsY6DLnQiCjHLR53dmTdr7xeV8oI0PzsL0cs/clhfTQQkObnEyqBK4Dff7sZbzBM
-         fy4k5In7UVohrBD1fif/KUEiPTu5nJxlTUwka3+5/rA5135g6T3SogZh+EnP6xXQClV+
-         6qeG2jMHbw+gqPLwc0pAMJ3iLdzA5cvXZYBz9JJeYyMhWAGxWYMl5w//qIpJXMBP3hma
-         BW/eNr0C8R4NO4BwUZPJ82DnpUqDlyMvVcpDggVNR/iMarYKHIOEYJUo8BSqRKvkShvY
-         TCCg==
-X-Gm-Message-State: AFq9FYL1lMxiLtzlnPJ5uvI/DrYNuoMiNUD3y8BhA184dFhkeZ+AeGoJ
-	LEj3GtOfZPCxRKKFsiNk6KzGYkVlj5QbQTrYl7+lrcJc8KWEWLjTnwKuDrryKkJ4gEcbut129Uy
-	gxNa2AnBw/ql0HZOsTwzyhAg03Uzqegz45pVvUZQ9d7w5mnhaA89to50dxWUloHHvP1M=
-X-Gm-Gg: AYBFou09kuZpNKLxlgQY1xVrT1LpsfquKyV9OmDV6UQvvCrCp7/0xGh+K1sYgR2tdcO
-	4dmaZ0zp54fAMFL4m36uEkzOdSHQEFjPAhz5t2gTbaPa0TU71wg1HOsfGD2+/RnFfpoHmIB2vsU
-	PkjXHzmpTn70uO8bVh34IGPVfaJRAEPkV0BVxfiCqm3PIcIB4QxkYegBisaOZlRHfs7frRcKsy7
-	ZnKF2VNMMMdNCCIrZtj5aJRjsyiRLQaBLymY0mTRod9vsnL4cLmA8l8NH6NRkdIFhcplDACukdO
-	AOwDjrwM21qyXH9HChP5+FHriRCS8eKPrnRyE84BdI4i0CpckVlMnoQaiicnyuqB4IRQS/3P6Zo
-	mUUP3XA5A4lJA3wK1sYWhzvlc3EOe8tZMYvi9ElHJ3WnxnJ7TZN7GF1wNYt+M/j0DVdJCelwqmg
-	7C+u4fSBuC20/bMrlhiB+tID/n6jYuQw==
-X-Received: by 2002:a05:7301:c016:b0:351:1cc6:995e with SMTP id 5a478bee46e88-3537dde3aeemr16364095eec.5.1791875412970;
-        Tue, 13 Oct 2026 00:10:12 -0700 (PDT)
-X-Received: by 2002:a05:7301:c016:b0:351:1cc6:995e with SMTP id 5a478bee46e88-3537dde3aeemr16364064eec.5.1791875412510;
-        Tue, 13 Oct 2026 00:10:12 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cab27d5sm46081248eec.17.2026.10.13.00.10.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 00:10:12 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 12:39:45 +0530
-Subject: [PATCH v2 3/3] arm64: dts: qcom: ipq5210: Enable interconnect
- capability to clock controller
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PCbX5wNo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791875422; x=1823411422;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=40UxKO6+x+fC3YVsdc6BFyvhZNRTxQba4nAox1wImeo=;
+  b=PCbX5wNoYcAiylQDo1OfObH0UOGieWz0wsjFNpU0n/rxIMm5J07hCY6i
+   DvLU1Vn92Z2QYzTOhVmP7pmmWS4/519hx9QB3ZiX7Yqyo2gpJ8JRsK9w+
+   sLafMpQjWOsxizkrSx8lbFgcgRTqo1fYi2hs2WRSIhgh3o4njnlHpIVsv
+   QAw08x9RP/frertG1XKuC9sSLM7WKPfeLX4y1DUzB6mH6GciuUMsHve6H
+   /HFAAOT3SMtgIYVHXQhjgLMnE98jzYRU2y1PqwBixYnE6lJ96DnMOZhXN
+   Ev/Yn16NYHDCo5BpPy1bT5y6CsIgarDlXDH0yNd7ZYsg/l6XMGS3U633e
+   w==;
+X-CSE-ConnectionGUID: GJES+LywRNuVl8XaEyDxxA==
+X-CSE-MsgGUID: TAA7S5EWSjyyBcHmzUl3Pw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="488229"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="488229"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:10:21 -0700
+X-CSE-ConnectionGUID: 1W9NQU1kQm6uPTwR4G1eDA==
+X-CSE-MsgGUID: yTGA8lL0QdqXc4qqXsqUpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1065334"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:10:18 -0700
+Date: Tue, 13 Oct 2026 10:10:10 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org,
+	Chanho Min <chanho.min@lge.com>
+Subject: Re: [PATCH 3/7] gpio: pl061: convert register access to regmap
+Message-ID: <as3ZUgUkZbqw40e6@ashevche-desk.local>
+References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
+ <20261009-cv75-gpio-v1-3-5836bd438423@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-icc-v2-3-196b219e25c1@oss.qualcomm.com>
-References: <20261013-icc-v2-0-196b219e25c1@oss.qualcomm.com>
-In-Reply-To: <20261013-icc-v2-0-196b219e25c1@oss.qualcomm.com>
-To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-clk@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-GUID: nOVcdAv55vd-3D80R5yLK4Hf4jdOPSyE
-X-Authority-Analysis: v=2.4 cv=JJuuIMKb c=1 sm=1 tr=0 ts=6acdd956 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=JR9XVsisKQFD673mhBYA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAyOCBTYWx0ZWRfXy4vkFYP1FYJ4
- +ORNddFMEsGjCNVisSwL7qE6wozUNz2/CJsmchwoQcZ3L509DJaC4xpFQwTgtWVX4sF7q7iLpPQ
- QC52gQBrQPr5x9KI8N3eU9J19rWczdU=
-X-Proofpoint-ORIG-GUID: nOVcdAv55vd-3D80R5yLK4Hf4jdOPSyE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAyOCBTYWx0ZWRfXxrClwqs0xDbi
- 8JnL4FrHMgNnF96/Jpy5Tq+jU4M2lmrGTVYOnGYQC5LRV703L2aJc5pFF4tdMlKOKmLc9BF9DuS
- 3lFyBqblt3m3bgUC02+FkkdDrwc3Spr0aPMBRzPUMf+ySt1aep8I41TiZWaK1LjDLiKaBLVfVSQ
- OfmkOHnoeJ6YDQ7LXf77j28yuvF4LxTiC5TOIRw5QaTLswED08N/rkpce4DEKVld2V7ifzSi+Mv
- fMYHNSWZvQe1AcJugnWPqNj4WF7h0LRHIWvIKaFjP0lHXIcf6N+27bqvMv3MJkmt5dBi/HA+SMx
- tVc3DGarNPXarXinyFCt+pohc5IHt6G+aK35xbibKg4NCLzL+mtC+469i1obqqx4eZKSc8R/KA9
- tIizyRkj1TilgVvpFp8YiNNAKtMI2b4p+wSN6BCpIwbtVgy7Rz7iqgCGEiZAE+InHSoQzsZTun/
- jkk6B37No3l44comiKA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
- impostorscore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130028
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-cv75-gpio-v1-3-5836bd438423@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add 'interconnect-cells' to the clock controller node. This will be
-used for enabling NOC related clocks using icc-clk framework.
+On Fri, Oct 09, 2026 at 06:57:56PM +0800, Long Zhao via B4 Relay wrote:
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/ipq5210.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+> Replace readb()/writeb() with a MMIO regmap while keeping the existing
+> gpio_chip and girq irqchip. Use a raw spinlock so irq_ack() can run
+> under the irq descriptor lock.
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-index 2cdc10529c48..20e8b240642c 100644
---- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-@@ -152,6 +152,7 @@ gcc: clock-controller@1800000 {
- 				 <0>;
- 			#clock-cells = <1>;
- 			#reset-cells = <1>;
-+			#interconnect-cells = <1>;
- 		};
- 
- 		tcsr_mutex: hwlock@1905000 {
+...
+
+> +static const struct regmap_config pl061_regmap_config = {
+> +	.reg_bits = 16,
+> +	.val_bits = 8,
+> +	.reg_stride = 4,
+> +	.max_register = GPIOIC,
+> +	.volatile_reg = pl061_volatile_reg,
+
+But this might be a dead code as long as there is no regcache defined.
+Should we specify the cache type here?
+
+> +	.fast_io = true,
+
+No need, this is provided by struct regmap_bus::regmap_mmio in regmap-mmio.c.
+
+> +	.use_raw_spinlock = true,
+> +};
+
+...
+
+> static int pl061_direction_output(struct gpio_chip *gc, unsigned offset,
+
+>  {
+>  	struct pl061 *pl061 = gpiochip_get_data(gc);
+>  	unsigned long flags;
+> -	unsigned char gpiodir;
+> +	unsigned int mask = BIT(offset);
+>  
+>  	raw_spin_lock_irqsave(&pl061->lock, flags);
+> -	writeb(!!value << offset, pl061->base + (BIT(offset + 2)));
+> -	gpiodir = readb(pl061->base + GPIODIR);
+> -	gpiodir |= BIT(offset);
+> -	writeb(gpiodir, pl061->base + GPIODIR);
+> +	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
+> +		     !!value << offset);
+
+regmap_assign_bits()
+
+> +	regmap_set_bits(pl061->regmap, GPIODIR, mask);
+>  
+>  	/*
+>  	 * gpio value is set again, because pl061 doesn't allow to set value of
+>  	 * a gpio pin before configuring it in OUT mode.
+>  	 */
+> -	writeb(!!value << offset, pl061->base + (BIT(offset + 2)));
+> +	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
+> +		     !!value << offset);
+
+Ditto.
+
+I already pointed out twice to this...
+
+>  	raw_spin_unlock_irqrestore(&pl061->lock, flags);
+>  
+>  	return 0;
+>  }
+
+...
+
+>  static int pl061_set_value(struct gpio_chip *gc, unsigned int offset, int value)
+>  {
+>  	struct pl061 *pl061 = gpiochip_get_data(gc);
+>  
+> -	writeb(!!value << offset, pl061->base + (BIT(offset + 2)));
+> +	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
+> +		     !!value << offset);
+
+Ditto.
+
+>  	return 0;
+>  }
+
+...
+
+> static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+
+>  	struct pl061 *pl061 = gpiochip_get_data(gc);
+>  	int offset = irqd_to_hwirq(d);
+>  	unsigned long flags;
+> -	u8 gpiois, gpioibe, gpioiev;
+> -	u8 bit = BIT(offset);
+> +	unsigned int gpiois = 0, gpioibe = 0, gpioiev = 0;
+> +	unsigned int bit = BIT(offset);
+
+Since these are long lines, try to move them up to follow the reversed xmas
+tree order.
+
+...
+
+>  static void pl061_irq_handler(struct irq_desc *desc)
+>  {
+>  	unsigned long pending;
+> +	unsigned int mis = 0;
+>  	int offset;
+>  	struct gpio_chip *gc = irq_desc_get_handler_data(desc);
+>  	struct pl061 *pl061 = gpiochip_get_data(gc);
+
+>  	chained_irq_enter(irqchip, desc);
+>  
+> -	pending = readb(pl061->base + GPIOMIS);
+> -	if (pending) {
+
+This is a dup check, please, add a precursor patch that just drops this
+redundant 'if (pending) { }' check.
+
+> +	regmap_read(pl061->regmap, GPIOMIS, &mis);
+> +	if (mis) {
+> +		pending = mis;
+>  		for_each_set_bit(offset, &pending, PL061_GPIO_NR)
+>  			generic_handle_domain_irq(gc->irq.domain,
+>  						  offset);
 
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
