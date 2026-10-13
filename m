@@ -1,141 +1,159 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017713E40FE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791869791; cv=none; b=C8t6XIF0+THjB3Pf0ondiC7cUtHraDBNfbWScgC0F1jX2VlvVQOvDF8xh5WOfy4lcXEkX/SMTJ3QJaFPd6DTOa+tMGBu3hnkNzNiJy8av7L8Z1pKNL5q3YnfPOifs6iv7kF0bGtrDdxogRbuCtDEx6d6TddK3b/U0NtdVjyCj9I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791869791; c=relaxed/simple;
-	bh=JOAhONCDvIV93MM10QEhfZjZAUjlaFLYtJjIVb7TC10=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DoRHf0KdmAE5w6nob6CwBRSyAWGCkDbYtD5I475HSeHZgyNNicPDYYy2PJ4gMjU5HpGPAKCeL5Dsslo7y7/Bp6HWVMumIQqhFv6BhfDXejZysdJuyDCwFDZIyKQrsVNPn1MMHHtKFnHvc6F9/wZLleRqJdndu5onK6aYOMDojEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CiG+D6uc; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B8B3A7F6B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791869864; cv=pass; b=TIkyylNv8gdCmaC9zby3driCsOe5/8qSClw5gqbXRMgvbsq86F9OXCO0P7bDeTO0WtXgYSyrg36oJB8GvPFEg0zEg6xEsLuKNX1lFn/6NwNNY6mN3UYgtoPOsnog6OS9CP3/cw7sJ8PJeVRiF6c6rojuVWvhzBwLS4rlVHrE90E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791869864; c=relaxed/simple;
+	bh=/zPpkCpGpUzh14I3YBtDsGa/MwxiYOQTelF5FVqDA5M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Vj6Ott6W1HDkJlE6THHdxuQpmflwd794IjGNfGISJj4XIUZxVqy1HCB1hdF1hboYTcHyEtxefNbh64Sb1HK7ni7OYKVIGBwBEQ47MlUtqvpru1h8CaSvIUZ1voS5bEXWUjDbZUSX8PINV4+vdnud6jC6aZpq9+bmR+4301IFPYc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GkzzHC5I; arc=pass smtp.client-ip=209.85.208.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CiG+D6uc"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4b62d118aso1523197a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:36:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GkzzHC5I"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so3754451a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:37:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791869862; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PqDfXjn9HR6P6aVjzkNmCJHB9Zc71x0sM+ihJilJbQlkT9acdJedJjXtber0hf8k3d
+         OIUWF1gSNLnAZQpP9d2NpCsKgJQPxIVfVlyqDuaqMD05O7CujxdC6o53R8YyowkhNdrc
+         nxmkQcyHsv5ynrJrDmFIs2a5065Kjc6EqGCw0/nr8217kITXkGG6KWmcnK07EwL+uDdL
+         XKZlNdmUjoLsBtqcDPls29zP+v56gbqc+ZbJjLg1K3Sn5KV/16U2YSfhC5XYJ0+gJ4qD
+         Q3kSQeIkYN+VKe0WFB7wH4kUXozliyEHHcj5F0YCRYMuaNpIT1nT3wC3ahUulj2XvbVH
+         /orw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Emtdx2R9x4ZRsBc5vXH6nvBta4+jFC7pIdT0qhibpOk=;
+        fh=b3pooTrgzopGJUiyMJWiwRPMfcDwZhvoZ4kULB7VyV8=;
+        b=KnxMLJZYzrCNHp3V07TcHjnTHO1/wqchUvt5CXDQz9PH9xvYM/x4TL8Qqj4BEmTQ35
+         wf+EWy0hDZ2UKxqsSiMKalJJWU9YWBRaiSKol7H4ufN1607d7vHoPLZGTo7YWUIa676u
+         Hm08FX/QyDlXnigW4UyoGEfty0CPZI/55/Ir/V2XIHu7W4usWJnhdAbLIYt2K8U0Iwom
+         0LBGUOwaWkUYRzuyuW2aV5BS9w7lRAIrRCsJPaotNlWL57EAcHmkF+Iaz65UmMK6yxVf
+         L0UfDkYOAoREivUOGmMR/Whygq+TahF/fHOgR7X0chPUFMcLzDlsUSa9BVkkRx1QkDFb
+         yHUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791869789; x=1792474589; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=31jej+zw5eC3wdks2N/0FrXz19KzIMeRP96y4F0yMqY=;
-        b=CiG+D6ucqU8Gg9vTIE+dFGErX7y2+M7tkAdSwGCRSxQVQLiMsAMGaUPFygXRB/pyR3
-         KHTEvj7NCzPUkA9bxrqB1j5qEL5EPXR0Sr42hu/ZD56MSGa2t5ICQCaqUB1PPvaPPwPr
-         67Jwb/zNE8RhM4ZnYDlz6rmX2BeabubW70Kg055mIaFi5Ql4LHXjpo0DIkAG4E62sLVe
-         j7MupaKgHzp4HH115weChFmKEeIXbQX/638DYaiw55ztvZJ9bnd5V+LEzLVEEUHQy0eN
-         lXm5K3l+mwsDApJI9dyoV98aW5IAuFY//Vk1Hy+tRnsloWxuNf6RxFaVwWLAX29u4OW+
-         HccA==
+        d=gmail.com; s=20251104; t=1791869862; x=1792474662; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Emtdx2R9x4ZRsBc5vXH6nvBta4+jFC7pIdT0qhibpOk=;
+        b=GkzzHC5InTs1tqSjidKObNm9WcOOzoN+GZLlzNjA0NLYFlxFQJYN82AZNrlfFErxSP
+         u0urpKrjahsLtAcV/TRWafmmZWHLUuzvCFf2ROEutpnNGowrdZYH15QuJL+NxDScyFQw
+         ieSVly4yu1Zpb4LUD6HJ/3lonOJA/eDS2Xxo7KrdLxRDlbTnfs10GTip0Kq29PCeIAbM
+         mU0LppOnUi22+a8UIRjZGf0bW+UYFBphetfDZZHYzhvoFU0BgBe8Q3BFvXDmKucqe9kj
+         lmmPTQa22/ZRzyujiVlua+X1KUAo4eJzLziqQyAPm1fQ5DNbZCG1PNFE9Gj7CuczWu8X
+         uWDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791869789; x=1792474589;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=31jej+zw5eC3wdks2N/0FrXz19KzIMeRP96y4F0yMqY=;
-        b=gjs9EkVp0qi+arCeaG5+1uVZfQoBHnQk2tLhJ+TZX0p0ITs5QnwGwWHFR5SK3AyoK/
-         64ARb4up1pT8WqUvmtaU6pUt9yMN5sTF/4huPTnWa/V3EAWFemOp19wrPWOXGSsnduEu
-         fcr4hMnwGJIPmpwWTBGNlE2pn72vO4c2gME8j81qN1BIABjj89DVNSbRqhpaWwYWjvcF
-         hNUVSgak8lMK3qZzloiN1cnbfvVJgM09C1gtPFSiwqwFNppU/ev6xDBtuFOmHFaEFxf0
-         nEtjoXyDjz/DpDBhpCdB5K062CxFWh6/R2IVMjLDOQSvB4o+cD2/C4FWKEUn4oLFwG5w
-         aHGg==
-X-Forwarded-Encrypted: i=1; AKwUvByExZG/7w8pqz3HW4GpakLIzeec4KQwx3xCd75KzNDi8HWa+Z7wdxydroaw+JjBCNJOsnkryYB47TU/tOQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCQ+9QNOc76pRe2AFVEQALCbkbNgS9SDavkgzjXjKot8nENpjf
-	2BW1hxzi99ySRBNATuluwKdzpiChk0hLMO1wSlV+sOwsXt6EcTkmqahg
-X-Gm-Gg: AYBFou3HWOe6u2lz8FKG47maSX8KvXJAvHqLif47DvhQ2ul2SGnr2PPrbMfQeReqgZn
-	zbjjY1TaEkx+SH9CkTe2T/KAKC+oYqzHN6DbzcuUDtdK6n1azbLUcjk2Wd3UjxWiAlO8jj7x6xy
-	71XPyJv5krcwYc6NERyuuRqYft8uJB9rCx6LhzYmMIpUqk/5b7kBi5AQc2S+W1WQvT42evgTMPm
-	ubiJU4znELaM3YxD5iCc6yvzUyMGovhFr+T8RPLwQa/FfFxNp47GRozajFEY8lBjzalQV+DJq11
-	AiRedeoG6eRgrG8JUyl+6ZyRvWFptvYuIALQPC5yIz0sqtw9pq5EUJm6MMO4c5oTYEVhaT0GSem
-	RT0fu7zMnFDJ03xeJGUUaV98RMNkrWJYqP5wbXs0xIUpPyiCSd8FeXuUty18sYEH5LA4Pw6+O2T
-	GMCz/gBXpY7eRqDKSo08ODlx89Njq3BxgL2B4BazedjAZ6VsmvbQv9KblqgU1LZU85U0PjlFQ+b
-	BWvb+rdiLq7YQ/d2VwcUcu2XcrvOtKWRP+a3PiFehDmpek9xTnReuvCEw==
-X-Received: by 2002:a17:90b:314e:b0:3ab:3201:310c with SMTP id 98e67ed59e1d1-3ab3a9aa90amr9458427a91.63.1791869789235;
-        Mon, 12 Oct 2026 22:36:29 -0700 (PDT)
-Received: from laptop ([175.157.230.130])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f4863esm22898117a91.11.2026.10.12.22.36.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 22:36:28 -0700 (PDT)
-From: Teshan Kannangara <tpk.teshan@gmail.com>
-To: jgross@suse.com
-Cc: sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	Teshan Kannangara <tpk.teshan@gmail.com>
-Subject: [PATCH] xen/platform-pci: Disable device before releasing PCI regions
-Date: Tue, 13 Oct 2026 11:06:14 +0530
-Message-ID: <20261013053614.1337340-1-tpk.teshan@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1791869862; x=1792474662;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Emtdx2R9x4ZRsBc5vXH6nvBta4+jFC7pIdT0qhibpOk=;
+        b=KMZVDt2BoJNGqoED2WUozrrQ3YDZ1K8x4ymC3ldg8pAcvSts2WpvndAbUDGY9SRAfz
+         rFCWzTWzJcAyeUZEe4Rd0W+HySo5shcyq07petNtyFtRLl15YkBwe8VJrlShxRN6FDAZ
+         Kmt5bcQq+WdxlL09Qf2368n+uiCReguBvssaMAOTtv5hqTlehxuKz++KItTtESNdkFsH
+         Jo2BSRbEeD0+UGvB4WCdM7UDQr3cVTP+EpWEhWFKoIbwFcaOgEbXdQZxakY5E766xJgd
+         RCdHiw2MYS5LLN4pc25Cj0adCANg3OnzrlwKdvtZFyE3vO1ERB6ygsBvpg2MaXcXE/EI
+         WFCw==
+X-Forwarded-Encrypted: i=1; AKwUvBwqsnA3r4Y5ReU2KBq2/hPuF+4a4F1FlaMI8Gl5/gNfy95wCK1ww3JJyesrV4JsmhPQh/KVHAUbhb3I7FU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOvtawmDH8/lJ3bTZqZ1iv/LfgdbnC6KZhUzq2RvUb7FTldmrI
+	v3b6rU9CXzROpWHpAXYJ4NsBpymWM29PEJt9iLyv9hZfJT1yJ1ycd9jCaR7YJk6ds4gUqZGkzNs
+	/gKC8ve7U2zOK6ttVmFU+ZfoBDS1ZdsFuwUz3aJ8=
+X-Gm-Gg: AYBFou0UDpIZBH4XujHF6AlW/ukA0DOuz1UppN8LHmuSELZAoeMzFJKeSml8Anaf7oA
+	6AkwC76zdc8kMIo69qeF9pNk0Abl5MEJQF0YJcksgTSLEWm97oZZvzj5kORnpKEhO5tm5WsRC7R
+	YDT3FtYiF/ncau9Dqcx83dNmBM69I0PUaeDzgF1AJ3lOGz+Wc1jn7dCBvGKcECefUW13kMY5tFZ
+	wi9i4CZRZ0YGlLrRFpaP7uBfodw/hoi3pmTR+BZyOpDZAcJaRTZa/48Vq41E2tRO4iQJJOYw7BA
+	PN2U8CkT2OdNJahNoxRWk3oAzV/qatmKKCZdTRsBB6g8CKaj2tko8hjl12+BBDyqPxU+hrQNgLN
+	hHK8O459aUGYixDlUzYSTrz5+mKgBYIoSO8pNlvDIA9mWn7uVXV38
+X-Received: by 2002:a05:6402:5193:b0:6ab:e30:c9ac with SMTP id
+ 4fb4d7f45d1cf-6b17c2002d1mr8952418a12.6.1791869861425; Mon, 12 Oct 2026
+ 22:37:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261011191344.981000-1-linmag7@gmail.com> <20261011191344.981000-7-linmag7@gmail.com>
+ <CAEdQ38GoGhoaoymQER16qF2NHwhOGjGsTh68B8oqSzeR-LL-uA@mail.gmail.com>
+ <CA+=Fv5TC4OTgVKXdnqDWawXBm4M1m8ZHPJoX6wL8K8fdyPo5xw@mail.gmail.com> <CAEdQ38Gcfco9N62rXueiwFBF+r=7A+SptYUsecOdq_ipihKmKA@mail.gmail.com>
+In-Reply-To: <CAEdQ38Gcfco9N62rXueiwFBF+r=7A+SptYUsecOdq_ipihKmKA@mail.gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Tue, 13 Oct 2026 07:37:30 +0200
+X-Gm-Features: AclHuK_636Ez25TyDTMPAHDw8LMknG62w8SHUbBj7c5o_llp9_f4GKNC3D5_8zo
+Message-ID: <CA+=Fv5R6AjLuNhQ+1BLjjkUh+LLmzbte4HM=S=1+8ReBvoj4CQ@mail.gmail.com>
+Subject: Re: [PATCH v6 6/6] alpha: stop on fatal Tsunami system ECC and write
+ parity errors
+To: Matt Turner <mattst88@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-   The probe error paths release the PCI regions before disabling the
-   device. Documentation/PCI/pci.rst specifies that drivers should disable
-   the device before releasing its regions to prevent devices from
-   colliding on the same address range.
+Hi Matt,
 
-   Track successfully requested BARs in a bitmask and use a common cleanup
-   path to disable the device before releasing those regions.
+On Tue, Oct 13, 2026 at 5:20=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> On Mon, Oct 12, 2026 at 12:58=E2=80=AFAM Magnus Lindholm <linmag7@gmail.c=
+om> wrote:
+> >
+> > Hi Matt,
+> >
+> > On Sun, Oct 11, 2026 at 10:01=E2=80=AFPM Matt Turner <mattst88@gmail.co=
+m> wrote:
+> > >
+> > > > +#define TSUNAMI_PERROR_FATAL (perror_m_uecc | perror_m_perr)
+> > >
+> > > Why PERR and not RDPE? Bad parity on data read from PCI seems just as
+> > > bad for the consumer. If the HRM says the Pchip poisons that data and
+> > > the CPU takes a 670 for it, please say so in the changelog.
+> > >
+> > > > +             perror =3D live.perror[0] | live.perror[1];
+> > >
+> > > The changelog says incidental PERROR state on a CPU or environmental
+> > > vector cannot trigger the panic. It still can on a system vector: UEC=
+C
+> > > or PERR latched before an unrelated NXM will panic here. That may be
+> > > what you want, since the error is real either way, but the changelog
+> > > should cover it. It also depends on the PERRMASK question I asked on
+> > > patch 4.
+> > >
+> > > Two things that I think belong in the changelog:
+> > >
+> > > A CPU-detected uncorrectable ECC error (670 through
+> > > ev6_machine_check()) still does not panic, so after this patch the
+> > > policy differs by who detected the error.
+> > >
+> > > A PCI card with a marginal connection that asserts PERR# now takes th=
+e
+> > > machine down, where before it logged and carried on.
+> >
+> > Thanks, these are good points. Would it make sense to drop patch 6
+> > for now and address the panic policy in a follow-up? That would let
+> > us consider RDPE, CPU-detected ECC and previously latched errors
+> > alongside UECC/PERR, including the impact of a device asserting PERR#.
+> >
+> > V7 could then focus on the reporting and acknowledgment improvements.
+> > That would preserve the existing continuation behavior for now,
+> > without implying that continuing after an uncorrectable error is safe.
+> >
+> > Magnus
+>
+> Yeah, that seems reasonable to me.
 
-Signed-off-by: Teshan Kannangara <tpk.teshan@gmail.com>
----
- drivers/xen/platform-pci.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+I'll put out a v7, focusing on reporting and acknowledgment
+improvements, preserving the existing continuation behavior.
 
-diff --git a/drivers/xen/platform-pci.c b/drivers/xen/platform-pci.c
-index f2438232518c..a12ac57274a6 100644
---- a/drivers/xen/platform-pci.c
-+++ b/drivers/xen/platform-pci.c
-@@ -95,6 +95,7 @@ static int platform_pci_probe(struct pci_dev *pdev,
- 			      const struct pci_device_id *ent)
- {
- 	int i, ret;
-+	int requested_bars = 0;
- 	long ioaddr;
- 	long mmio_addr, mmio_len;
- 	unsigned int max_nr_gframes;
-@@ -115,16 +116,18 @@ static int platform_pci_probe(struct pci_dev *pdev,
- 	if (mmio_addr == 0 || ioaddr == 0) {
- 		dev_err(&pdev->dev, "no resources found\n");
- 		ret = -ENOENT;
--		goto pci_out;
-+		goto out;
- 	}
- 
- 	ret = pci_request_region(pdev, 1, DRV_NAME);
- 	if (ret < 0)
--		goto pci_out;
-+		goto out;
-+	requested_bars |= BIT(1);
- 
- 	ret = pci_request_region(pdev, 0, DRV_NAME);
- 	if (ret < 0)
--		goto mem_out;
-+		goto out;
-+	requested_bars |= BIT(0);
- 
- 	platform_mmio = mmio_addr;
- 	platform_mmiolen = mmio_len;
-@@ -165,11 +168,8 @@ static int platform_pci_probe(struct pci_dev *pdev,
- 	if (!xen_have_vector_callback)
- 		free_irq(pdev->irq, pdev);
- out:
--	pci_release_region(pdev, 0);
--mem_out:
--	pci_release_region(pdev, 1);
--pci_out:
- 	pci_disable_device(pdev);
-+	pci_release_selected_regions(pdev, requested_bars);
- 	return ret;
- }
- 
--- 
-2.53.0
 
+Regards,
+Magnus
