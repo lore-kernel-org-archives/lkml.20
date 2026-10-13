@@ -1,47 +1,39 @@
-Received: from mta1.migadu.com (out-114.mta1.migadu.com [95.215.58.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331BA49B205
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D64B49B5A3;
+	Tue, 13 Oct 2026 06:15:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872065; cv=none; b=qoRkD2+dOSN+Yn/oVAn51l4Z6iFaYDRLdz9exRJt19NDHdArxH8hCzmL1fevhmWcd0CHezk9BAUEcZgc8HkxZysXhR7mJlxXVe3IB2IV4AujJY5yRYjBwf8BPX9xf5H0ID4Njlor4QTSWvrd/uQvYke3GYdxiDErR2Cfw8W/4q8=
+	t=1791872107; cv=none; b=E90mihSwJCk8+ksBJlje582xEVDtPT7I3FkKvV2/KldqVToBiyL1CkuoUuKLox55suPgMAUZ3nCoJcO2SyFKabK/GeoArLRo70FoDRrg+mzfQKjQelAa76Ziiff/S55dmjBcAzF5cB2d9GhhZNfsuh6aCDfAukIR7UE5VmCdq5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872065; c=relaxed/simple;
-	bh=QsATYXt1xHNBXewMknM+2vvG4ngat0gGUTbIS3kxIak=;
+	s=arc-20240116; t=1791872107; c=relaxed/simple;
+	bh=B4TLxFoA5fWGo+aRQuYubbWnjGZ23wQ62C9vjrtxZrk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a0JiZH8Rj+W3VxtPS8SvIX0iNRgLphvXg4IZYA1BoilTxaZ0krtJ987pTCZSTXJ8rBuRKY232zdBqgFYFOq7aDZtU7jSVwX5aR9qr0HFdfqvBgfY6sRififEXOBaigQFF4vhbSJ/slrRPo4LXXmXRReaHqqFsJFTF2oKv/ZdVW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fsHpCK7i; arc=none smtp.client-ip=95.215.58.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y7YEMi1uJjAn/PTVAhowx8kmZ3yirq5mR76Bw7IjPf6JID5jxxFzeMiaoSGcKTd0YAyeTr9hL2jHk9CHQ4B5D/MGPm7qiqB2TLyuxMB1S65jmGGKQFuLjvwgaESaLf6/5O5h+A4X/WCA45XH1u7sp9sVKQ3qLjeUwyRTMYs6YfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j1j/+2z1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fsHpCK7i"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=QsATYXt1xHNBXewMknM+2vvG4ngat0gGUTbIS3kxIak=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791872058; v=1; x=1792476858;
- b=fsHpCK7iecW9ZuemkYkY+Wqtt92aVrb8hy9OVMoq9lvDe9YOFhIS+HN/WUPl/Fe4AE501Ji5
- 8m8X/a+zb9pLY7fEf8+TwDs85nIOi2mqd4Ub1v5iCLzWsB8llGyq1xT+43s2dkhURaH9ljaeYRd
- L/yf8LOsfUcxk6lL31PWZFpw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 72a19cc71d4d7199;
-	Tue, 13 Oct 2026 06:14:18 +0000
-X-Mizu-Trace-ID: 72a19cc71d4d7199
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 13 Oct 2026 14:14:02 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Gabriel Goller <g.goller@proxmox.com>
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5] net: ipv6: seg6: report lwtunnel setup
- errors via extack
-Message-ID: <as3MKiW1mqrX1MgC@fedora>
-References: <20261009152015.462383-1-g.goller@proxmox.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j1j/+2z1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26D301F000FF;
+	Tue, 13 Oct 2026 06:15:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791872103;
+	bh=7/HTcd/ghZikP278E0wslLpipCm1hEHgi+NqiFxc0II=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j1j/+2z1Ywm2IjgdeSC6wnOBeckzqqQCEyrm8eUUw7oreNW/mpC1jINTyAdFWYTOh
+	 Mqi0HfS58D6kTgyefnu6cbSgtx4cx7KSL5wNYcVuMcpqMZlE37/V9zqoqkrK0QY2Qp
+	 lczB/+6W8vDADXs/nfjtETfbz/puZAcLz9dr9iRY=
+Date: Tue, 13 Oct 2026 08:15:08 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jeremy Dean Clifton <deaner92@yahoo.com>
+Cc: Marc Dietrich <marvin24@gmx.de>, ac100@lists.launchpad.net,
+	linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, outreachy@lists.linux.dev,
+	Julia Lawall <julia.lawall@inria.fr>
+Subject: Re: [PATCH v2] staging: nvec: use guard(mutex) in nvec_write_sync()
+Message-ID: <2026101335-expansive-veteran-c4d6@gregkh>
+References: <20261012222926.7754-1-deaner92.ref@yahoo.com>
+ <20261012222926.7754-1-deaner92@yahoo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,119 +42,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009152015.462383-1-g.goller@proxmox.com>
+In-Reply-To: <20261012222926.7754-1-deaner92@yahoo.com>
 
-Hi Gabriel,
-On Fri, Oct 09, 2026 at 05:20:13PM +0200, Gabriel Goller wrote:
-> seg6_build_state() rejected invalid configurations with a generic -EINVAL,
-> so "ip route add ... encap seg6 ..." sometimes reported "Invalid argument".
+On Mon, Oct 12, 2026 at 10:29:26PM +0000, Jeremy Dean Clifton wrote:
+> The three return paths of nvec_write_sync() each release
+> sync_write_mutex with explicit unlock calls.
 > 
-> Add extack messages to the checks that lacked one, and use
-> NL_REQ_ATTR_CHECK() for the missing SRH attribute so that userspace can
-> tell which attribute is missing. The checks themselves and their return
-> values are unchanged.
+> Use guard(mutex) to unlock the lock automatically on any return
+> path.
 > 
-> Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
+> This removes the three mutex_unlock() calls.
+> 
+> No functional change.
+> 
+> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
 > ---
-> 
-> v5 (https://lore.kernel.org/all/20261005140637.644840-1-g.goller@proxmox.com/):
->  * use NL_REQ_ATTR_CHECK() for the missing SRH attribute (Jakub)
->  * reword the inline mode message to "inline mode requires the IPv6
->    address family", since it also applies to IPv4 nexthop objects
->    (Andrea)
->  * consistently call the header "IPv6 Segment Routing Header" (RFC 8754)
->    in all messages (Andrea)
->  * include the offending mode value in the invalid mode message
->  * reword the commit message to match
-> 
-> v4 (https://lore.kernel.org/all/20260923120228.172643-1-g.goller@proxmox.com/):
->  * use NL_SET_ERR_MSG when the SRH attr is missing
->  * use NL_SET_ERR_MSG_ATTR when we have an invalid attr
-> 
-> v3 (https://lore.kernel.org/all/20260922090851.38978-1-g.goller@proxmox.com/):
->  * format fix
->  * use NL_SET_ERR_MSG_ATTR
-> 
-> v2 (https://lore.kernel.org/all/20260918153544.1178884-1-g.goller@proxmox.com/):
->  * dropped tests
-> 
->  net/ipv6/seg6_iptunnel.c | 26 +++++++++++++++++++++-----
->  1 file changed, 21 insertions(+), 5 deletions(-)
-> 
-> diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
-> index 69a6ef5c5317..0d39a38a5dd2 100644
-> --- a/net/ipv6/seg6_iptunnel.c
-> +++ b/net/ipv6/seg6_iptunnel.c
-> @@ -762,8 +762,11 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	struct seg6_lwt *slwt;
->  	int err;
->  
-> -	if (family != AF_INET && family != AF_INET6)
-> +	if (family != AF_INET && family != AF_INET6) {
-> +		NL_SET_ERR_MSG(extack,
-> +			       "unsupported address family for SRv6 encapsulation");
->  		return -EINVAL;
-> +	}
->  
->  	err = nla_parse_nested_deprecated(tb, SEG6_IPTUNNEL_MAX, nla,
->  					  seg6_iptunnel_policy, extack);
-> @@ -771,7 +774,7 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	if (err < 0)
->  		return err;
->  
-> -	if (!tb[SEG6_IPTUNNEL_SRH])
-> +	if (NL_REQ_ATTR_CHECK(extack, nla, tb, SEG6_IPTUNNEL_SRH))
->  		return -EINVAL;
->  
->  	tuninfo = nla_data(tb[SEG6_IPTUNNEL_SRH]);
-> @@ -782,13 +785,19 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	 */
->  	min_size = sizeof(*tuninfo) + sizeof(struct ipv6_sr_hdr) +
->  		   sizeof(struct in6_addr);
-> -	if (tuninfo_len < min_size)
-> +	if (tuninfo_len < min_size) {
-> +		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
-> +				    "truncated IPv6 Segment Routing Header attribute");
->  		return -EINVAL;
-> +	}
->  
->  	switch (tuninfo->mode) {
->  	case SEG6_IPTUN_MODE_INLINE:
-> -		if (family != AF_INET6)
-> +		if (family != AF_INET6) {
-> +			NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
-> +					    "inline mode requires the IPv6 address family");
->  			return -EINVAL;
-> +		}
->  
->  		if (tb[SEG6_IPTUNNEL_SRC]) {
->  			NL_SET_ERR_MSG(extack, "incompatible mode for tunsrc");
-> @@ -804,12 +813,19 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	case SEG6_IPTUN_MODE_L2ENCAP_RED:
->  		break;
->  	default:
-> +		NL_SET_ERR_MSG_ATTR_FMT(extack, tb[SEG6_IPTUNNEL_SRH],
-> +					"invalid SRv6 encapsulation mode %d",
-> +					tuninfo->mode);
->  		return -EINVAL;
->  	}
->  
->  	/* verify that SRH is consistent */
-> -	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
-> +	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
-> +			       false)) {
-> +		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
-> +				    "invalid IPv6 Segment Routing Header");
->  		return -EINVAL;
-> +	}
->  
->  	newts = lwtunnel_state_alloc(tuninfo_len + sizeof(*slwt));
->  	if (!newts)
-> -- 
-> 2.47.3
-> 
-> 
+> v2:
+>  - Reword the commit message to state the motivation and to make
+>    clear that removing the mutex_unlock() calls is the result of
+>    the change (Julia Lawall).
+> v1: https://lore.kernel.org/all/20261012171312.5998-1-deaner92@yahoo.com/
 
-Thanks for the update.
+Please read the archives for why I will not take guard() rewrites of
+staging drivers (nor do I want to see you use a LLM in here either.)
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+sorry,
+
+greg k-h
