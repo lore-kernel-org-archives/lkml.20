@@ -1,259 +1,300 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53AC3A1685
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791878320; cv=pass; b=DRLPTxDOH5TeTdnhuMl4Arydkg+A46sgjM/p99n/4mb2xVl9IGUsDf8511nvzJEjru3bwSo9ceAxt18ZHAidc3S7CIHOUFnWMr3/hEgY+0AA818HYtfuXJL7a6yT0xet2nFiMzS2EI5CBFi7vitfqBWSgvjtbixgtfGhRgbTCm0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791878320; c=relaxed/simple;
-	bh=vNp49wadhCyKSF1m1qU6P8mKiYTomG6dKJ+OnIMl/gU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AFkbpVBopueL+TccMle/yqHlLjrF0rnWi7FpLNo+mnzUbN4yQhSFP7aKLQ+Dr6zNyEWQPu0GR70rSmirySAKMZKtvLuV/BZlCmvFcOWkqEfdkg39smc6VtZZvaNXdQbLcBbkT3NgoULRCoG6BWwN7zFBLzrBn8kJyO6JfDBLmT0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nhrjQesj; arc=pass smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A2E392831
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791878475; cv=none; b=RuWhtUWfMU40rwA+m5nV9bvJMwOCSTbe0/hRDu4MmNkmicT4MFdgMLsnpgmYlyx+Y62JexsGzhaswh6J6tAISlDXOnrV4xXM5vehMaf7FkpsDrXrBsOGd3q0fq3AhVREOu/0HPh9wvwSdKhpWCyiSF8g5JjQNT9HZfP9n5I05eM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791878475; c=relaxed/simple;
+	bh=/PgnKTMD8+F3H2CRjecH3dstZ2TPaAecnQNfB+S5sqw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=PU/6syB0nsnTC3Nih1QINWtvuiuDal5u7cybxSAmD/FrzbWFnzvtHMH3OFKgn1m2PdWQ8Y44E0N3wOTNHMt4BSHLNc+7ailT07t9PIQP95QB9BxiGLjySvMRTbjujHqatxOaUWjaDxQNVbs3COyYTfhPbYLF4s/NFrI1nCmbf1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DbUI6iIM; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nhrjQesj"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2afa22e1dcso368307266b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:58:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791878317; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZualN7s4GIhNLmEuf6nRvI5jAhoIKv6aIL2xjo1AIuYDzgOq+4gKfjjstCapJjhl7G
-         fQA/znzlZzHBmJx0OHygG284knDbW8+64ou0BUaHnRk7wPJEFe2UWbDwjBoS3TQJMXLK
-         jT7ETUp71S7wc6aB7ap/qKAHxZUslNL5NymvLp5v15VxW/uD0oxbbLXGLYOt+m5KmTuB
-         hiRAwdY/t+QvmPv7xlKNQYLZlHMng1vpP+Pa+OgWMhJXjyc7XRRfHC48yZMIPMlqwz3o
-         3/KTCXhFQ+ZsqpeYn3pG8DHiV6tYitNnvb+BfvGOyfrt/FY5X78Z2kVkSozlKmoJwrNs
-         Ft3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=L+QLlHRQXQf5lsk8RqoHBERYMxWpafP+2BPykSM1NBk=;
-        fh=9C4Pq4dzDP3yJi/lfiuoy7biMcU/9gT69dnv2bm4lCE=;
-        b=r5N3f+oIXH6+IfoO9C6/SN8dd1xBrCpBpKq/SVQBrDnzHqRqn5r7HfFmKEQwgUsIcA
-         qTgEr+0qgzXVW0mU0/A9/zmN3rgv9hZUeUkJc+wx6dVmfmfRFXAjVn7N/js0Jb8Wie7J
-         jGh0LygFi/YD/SZ1sTNPvp+8RCRawKqvoMYVpxedzFiUwlR4Be3fZfIkomYa1S/f9xVR
-         pdlInmM5hJpNOqwb5X5iDu5gmVqf8f7SF6YJqLLb7nH1zVY26jBAAzAcctHfHSg/KAnv
-         HIpENgzbcotGweNFbaUBFn8F6N9PtxX8nbdIf3/V6S4gaR+nhQi9Z8/CH47pzOS+Ryu+
-         GeYg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DbUI6iIM"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2db710396ffso26689255ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:01:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791878317; x=1792483117; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791878473; x=1792483273; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=L+QLlHRQXQf5lsk8RqoHBERYMxWpafP+2BPykSM1NBk=;
-        b=nhrjQesjbfyNezbzg+sjjVC3hSAth3SyLJbbvh3YxmHIE7sIlluuqUJTqx61oLv5zM
-         lGsId0276WuksCKHNFs3Wxr63e2VY8Da457NXC9mXMKJ4WdqkvKIRPGINWuc69U9KpnA
-         qV8hVz1DviPoX61seDwd/UDg69FSKXCGHW9Ga/0Kc5Kor66wp11k9ziOdR4WNgvG/Gcs
-         uRE+O9Pp0AKDiADWFgK7TdpD3rdQ3Hc5OFG/NmkhX9DSjB8WHxitGo0bGXM/PCpayWOY
-         FdMDeIdrEvPZkme9oKcstizUtP3XOosXo0ko7P/6LpIOiJQRYcze0CRc15UMsiuORx3k
-         hhMw==
+        bh=YrS9XfS6gUAwTQT6s4escVSU2ej1iWqHwjdTNOy38t4=;
+        b=DbUI6iIMc9c2Ww+8J1SG1MzaDg00Mvq7hPjUKj46C2Z5BEI6WeJA0s7vF9LLCG2aYE
+         jjgAVJZabsCg2tCayUvMi3VXDDFOoJ38D/UT27XYVIYolcfVRNxQHAp/0rYp6IgRr7Qo
+         UibdjiUUwL7KIGDo7eG4KspG62Tyb/WEgU9164tq33s26gPiSWtbNG0bdhLeWoPMZ7RQ
+         1CJ3PRqGRKiWh9l0qr1BKEXhQFedxxROanjSnf3w5zcDyYqrdo3HXxMp09VsuxqAMsot
+         o5pyF8QcYzRcPzuRAObFa3MI3qFfyC81P0kSgnDf9/zPsQeD9WmfTKL21M2fxrdwLH5m
+         ub7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791878317; x=1792483117;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=L+QLlHRQXQf5lsk8RqoHBERYMxWpafP+2BPykSM1NBk=;
-        b=Pv9WUTr7IukQQfpnATa48oyrJw9et2jcEDrzvMF9xDUQAbrqKJZ2lqwAsVLi4xDww6
-         lsn05gdOaTSsEAlP2be6BAMOU+togG369bQd8yEECeZgGsaEh06SnYD7PuvmNpP67D5X
-         z9AF2yw2BR+6XzCUZSi0jsWpbn2dYecIV6fdc1+UE78sq6Dw+f5irvLGSpR5KXsLcP9y
-         BymQVpus0b3zHWXXwCcCMm4OdgYlfmFPm/7VYdS+PV0qSBYqr/Xrf0BGP+T6NvbSnzhT
-         wjOO9TU8s4w6aZjnjm+BK/DGrFk9ZiN6C7iwVRzswAxuqSdp4qBmMBUMquannoC9uSE7
-         JuJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBysOWd1wwroHZX4suPy3WUAj0iLXQY8SZvHO1lUAnypQQ5n5Gt0QFwPDxmVCq3DKcDJ22MXtxVd5FegmcU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjJOqPHlSoRg9AfpB4KXQZWyJ7qydB/3h6nmy3Hl4/Bm0mc62Q
-	vQAIRYAqR41SEzQWAiScjATV5YymY2z56ubsGUzd6PAcxP5/QTGs9rfnqRy32U6aw58rSO23IKB
-	1px7pNBjrmKYTT7NOk/EUFZBG/gcJwLjLmO/5RVkJMQ==
-X-Gm-Gg: AYBFou2spZCuJUlNGmej53CDIWIZi0MgypINm8I436vdNUP2zusYI5fcZqFVw/6optC
-	DEGYTTBrtcMR2lRrJjqJugKn9dDJEeQT7GZYRnDiR+CuS2NqJMLjbyuyAIK5cbLLQ8xANDId5eD
-	SG7gOhAMKV2U22ZSClPfmK5WCatpyV0jqtjeIaStzKeNF0ZttMNvV1VUNt0/cpaWA9YMRtvL64Q
-	ikKzJTLfXfEZvKcwd7+jNoWfsTdlAt36w1K/W29vaIdVLvaVQMoWnF0Of3c65g9dBm9QyBk+3gN
-	yWPbZEzYWbd+3mEDCkCNZw7fmtciGljJXEXhBX73K2w3tNpXs2SHwihPJyYbWmjZpI8WfJpNENa
-	Ev2QXowjBlkxD
-X-Received: by 2002:a17:906:f5aa:b0:c26:19de:9ac5 with SMTP id
- a640c23a62f3a-c31aa0960bamr1072385066b.29.1791878316702; Tue, 13 Oct 2026
- 00:58:36 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791878473; x=1792483273;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YrS9XfS6gUAwTQT6s4escVSU2ej1iWqHwjdTNOy38t4=;
+        b=n9MRywwuhV4g69VjCP2uSPRSVFKWkDBVFJGA/N374tiTOou5yOz4s7rF7RYikZSQJn
+         I6ULwk/dq5Ph+NrknafNZpDsn2x6ppdU48mNaRZ+8re4dZlBLV//XfhHu/k5wCzQL17w
+         aWDviod9ALJGIsyq2Crd70q/e2VIizFnLf7sBWzAhRzUr2wRheu98ff04l7iUOkxaFO6
+         RANn7t8q9nQly3XDxOkRDL/aiFK5WQN4WpJh3Fi/xBOkOL9ozd2u6tTdm6rBXDE0THAp
+         /v9lxY8EcdLzhWdzoW17SBCf6CIdcmuWeMJzEgDsgkIfJ/Ft6SxeVC8Wx4pU9Tt57T2Q
+         f2AQ==
+X-Forwarded-Encrypted: i=1; AKwUvByB0ktMlAVXmm2ki5uePQaX7gZaYYqjJwWFCsXJbFO3b1ejvH8pLwyKzzbrW/Rsb+GKavIpMjBRzWZ3gnE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITJwLtxjUQYHxBo37Z+Agzuwc1TQC0rwQncw4sm9xq3tRd3a0D
+	OsDkhWi/OQudtyepQaQ02z9+pTHkq5skOYohFFmo+f3MlsgU4BvI7YZa
+X-Gm-Gg: AYBFou2KwhA//cpDPEtH8p3djMiI6F5FYZ4PSIWW7zpoCDsWsI3tyHz1YKqsQeBhZdY
+	S55NSLZSpoyloXXNt1LcKWOCEiMZJ/OH7X/8ucx4KUY33aSFAbGOctJNMntHMBH6UKBDFivmbCQ
+	oTlTTLicSJU+GZoCoNA/55H4M9ErlswyUjm4M0n/upvUJriKATv9r+EpYzEuyM/sdt2FfeKl/uO
+	xs3KkQR4jjnd6hsb+QZ+RG+UCKNtNXdm+oWWRXmAiZorWAJ7dTaYp021X6F/DO/qrld2YVNXED/
+	Ch0T6uYdHIJ9f6HZr4RltOEdG0ymcE2sgm9Vc1oBDlJznt+mFvp4Efu6dEh3bb+2kXlCgKRPBep
+	/UVgZk3sW0jEA9vU6chZGGzgsZlnz1c2GTNnLqVMKW0VpWaQUA67XSWvcpc6yaBIhWsc0RTiFjb
+	6eGKlJNUEeU1VzA4+GqSSYTciwaaILC14Ysz3AGuAQK3qFsLnLnE/ama53+S+Dtg8FHg==
+X-Received: by 2002:a17:902:e748:b0:2e6:1c24:d5f2 with SMTP id d9443c01a7336-2e840542be6mr82916565ad.36.1791878473362;
+        Tue, 13 Oct 2026 01:01:13 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8483c3dfcsm50221715ad.24.2026.10.13.01.01.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 01:01:12 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	phucduc.bui@gmail.com,
+	cassiogabrielcontato@gmail.com,
+	cezary.rojewski@intel.com,
+	zzzccc427@gmail.com,
+	kees+treewide@kernel.org,
+	yilinzhang@moonshot.ai
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: [PATCH] ALSA: pcm: Protect delay DMA sync against concurrent HW_FREE
+Date: Tue, 13 Oct 2026 16:01:06 +0800
+Message-Id: <pm-pmb-d74585d187e0b1810c08-v2-25432d0951f67fdaa1a9@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop>
- <b2dd8374-63d4-4b04-9e2c-f6a84728f092@amd.com> <69622916-cc8a-44d5-b776-6e25f79aceda@amd.com>
-In-Reply-To: <69622916-cc8a-44d5-b776-6e25f79aceda@amd.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Tue, 13 Oct 2026 09:58:25 +0200
-X-Gm-Features: AclHuK9g15YDV-yHRM5uL2DgWogsr1gbJ5sCUnbM48tOY-bQf9aIPbrLsDo25b4
-Message-ID: <CAKfTPtDz35egMZEVz+wb5kytgVrv7APcVOYBkCByvzPSCH7Meg@mail.gmail.com>
-Subject: Re: [BUG] Apparent lost wakeups
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: paulmck@kernel.org, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 13 Oct 2026 at 08:46, K Prateek Nayak <kprateek.nayak@amd.com> wrote:
->
-> On 10/13/2026 11:36 AM, K Prateek Nayak wrote:
-> >> The following command reproduces the lost-wakeup problem, which shows
-> >> up as RCU CPU stall warnings caused by rcu_torture_reader() kthreads:
-> >>
-> >> tools/testing/selftests/rcutorture/bin/kvm.sh --allcpus --duration 20m --configs '19*TREE01' --bootargs "nohz=off rcutorture.onoff_interval=0 rcutorture.nocbs_nthreads=0 rcutorture.shuffle_interval=0" --trust-make
-> >
-> > tl;dr
-> >
-> > I could hit that WARN_ON() from your debug patch with the above test
-> > even under rq_lock. Seemed like a missing resched_curr() but it
-> > turned out to also be related to rq->next_class interaction.
-> >
-> > I haven't been able to hit the warnings with the below diff. Could
-> > you please try this:
-> >
-> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > index 0f63c30b4324..f2f8af3cdfb5 100644
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -11239,6 +11245,11 @@ void sched_change_end(struct sched_change_ctx *ctx)
-> >               if (p->sched_class->switched_to)
-> >                       p->sched_class->switched_to(rq, p);
-> >
-> > +             if (ctx->queued && sched_class_above(p->sched_class, rq->next_class)) {
-> > +                     rq->next_class = p->sched_class;
-> > +                     resched_curr(rq);
-> > +             }
-> > +
-> >               if (ctx->running) {
-> >                       /*
-> >                        * If this was a class promotion; let the old class
-> > ---
->
-> And now that I've finally woken up just like that task, it can be
-> simplified to:
->
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 0f63c30b4324..b37c771c41ad 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -11256,6 +11262,9 @@ void sched_change_end(struct sched_change_ctx *ctx)
-                 if (ctx->running) {
-                         /*
-                         * If this was a class promotion; let the old class
-                         * know it got preempted. Note that none of the
-                         * switch*_from() methods know the new class and none
-                         * of the switch*_to() methods know the old class.
-                         */
-                         if (sched_class_above(p->sched_class, ctx->class)) {
-                                 rq->next_class->wakeup_preempt(rq, p, 0);
-                                 rq->next_class = p->sched_class;
-                         }
-                         /*
-                         * If this was a degradation in class; make sure to
-                         * reschedule.
->                          */
->                         if (sched_class_above(ctx->class, p->sched_class))
->                                 resched_curr(rq);
-> +               } else if (ctx->queued) {
-> +                       /* Check if we need can preempt the current task. */
-> +                       wakeup_preempt(rq, p, 0);
+A PCM DMA buffer must remain allocated until explicit DMA synchronization
+finishes. snd_pcm_delay() calls snd_pcm_dma_buffer_sync() after dropping
+the stream lock, without participating in the buffer-access exclusion
+used by HW_FREE.
 
-Isn't what we have for ctx->running above what we also want in this case ?
-Then sched_balance_newidle() will detect it with
+With a managed NONCONTIG buffer requiring explicit sync, HW_PARAMS can
+allocate a separate runtime descriptor when the requested ring exceeds
+the preallocation. In PREPARED state with mmap_count zero, concurrent
+HWSYNC and HW_FREE calls on the same open PCM file can interleave:
 
-                 /* If a higher prio class was modified, restart the pick */
-                if (rq_modified_above(this_rq, &fair_sched_class))
-                         pulled_task = -1;
+1. HWSYNC checks the state in snd_pcm_delay() under the stream lock and
+   releases that lock.
+2. The sync helper fetches runtime->dma_buffer_p and enters
+   snd_dma_noncontig_sync() with that descriptor.
+3. HW_FREE takes the negative buffer-access count, checks PREPARED under
+   the stream lock, releases the lock, and frees the DMA allocation and
+   dynamic descriptor through snd_pcm_lib_free_pages().
+4. The sync callback resumes and reads the freed descriptor.
 
->                 }
->         } else {
->                 p->sched_class->prio_changed(rq, p, ctx->prio);
-> ---
->
-> Peter, what do you think?
-> > Lightly tested with TREE01 which passes without complains after
-> > adding the above diff. Your mileage may vary :-)
->
-> That disclaimer still applies.
->
-> P.S. This is the output I see with the fix on my 512 CPUs machine
-> and 64*TREE01. I hope this is the expected stuff:
->
->   TREE01 ------- 34879 GPs (29.0658/s) [rcu: g238089 f0x0 total-gps=59806]
->   TREE01.10 ------- 33788 GPs (28.1567/s) [rcu: g234153 f0x0 total-gps=58824]
->   TREE01.11 ------- 35987 GPs (29.9892/s) [rcu: g245677 f0x0 total-gps=61702]
->   TREE01.12 ------- 34864 GPs (29.0533/s) [rcu: g239025 f0x0 total-gps=60039]
->   TREE01.13 ------- 34143 GPs (28.4525/s) [rcu: g234145 f0x0 total-gps=58821]
->   TREE01.14 ------- 34603 GPs (28.8358/s) [rcu: g238249 f0x0 total-gps=59848]
->   TREE01.15 ------- 34654 GPs (28.8783/s) [rcu: g236633 f0x0 total-gps=59444]
->   TREE01.16 ------- 34714 GPs (28.9283/s) [rcu: g236617 f0x0 total-gps=59438]
->   TREE01.17 ------- 33838 GPs (28.1983/s) [rcu: g233041 f0x0 total-gps=58545]
->   TREE01.18 ------- 34119 GPs (28.4325/s) [rcu: g232869 f0x0 total-gps=58502]
->   TREE01.19 ------- 34087 GPs (28.4058/s) [rcu: g234413 f0x0 total-gps=58888]
->   TREE01.2 ------- 33669 GPs (28.0575/s) [rcu: g231649 f0x0 total-gps=58198]
->   TREE01.20 ------- 33240 GPs (27.7/s) [rcu: g228757 f0x0 total-gps=57475]
->   TREE01.21 ------- 33656 GPs (28.0467/s) [rcu: g230577 f0x0 total-gps=57929]
->   TREE01.22 ------- 34505 GPs (28.7542/s) [rcu: g233817 f0x0 total-gps=58741]
->   TREE01.23 ------- 35031 GPs (29.1925/s) [rcu: g239141 f0x0 total-gps=60071]
->   TREE01.24 ------- 34771 GPs (28.9758/s) [rcu: g237589 f0x0 total-gps=59683]
->   TREE01.25 ------- 33751 GPs (28.1258/s) [rcu: g229969 f0x0 total-gps=57778]
->   TREE01.26 ------- 35695 GPs (29.7458/s) [rcu: g244333 f0x0 total-gps=61369]
->   TREE01.27 ------- 33001 GPs (27.5008/s) [rcu: g227229 f0x0 total-gps=57093]
->   TREE01.28 ------- 33399 GPs (27.8325/s) [rcu: g230181 f0x0 total-gps=57830]
->   TREE01.29 ------- 34602 GPs (28.835/s) [rcu: g235361 f0x0 total-gps=59125]
->   TREE01.3 ------- 35795 GPs (29.8292/s) [rcu: g243365 f0x0 total-gps=61126]
->   TREE01.30 ------- 34129 GPs (28.4408/s) [rcu: g233673 f0x0 total-gps=58704]
->   TREE01.31 ------- 34713 GPs (28.9275/s) [rcu: g236941 f0x0 total-gps=59521]
->   TREE01.32 ------- 33953 GPs (28.2942/s) [rcu: g233017 f0x0 total-gps=58540]
->   TREE01.33 ------- 34353 GPs (28.6275/s) [rcu: g234397 f0x0 total-gps=58885]
->   TREE01.34 ------- 34836 GPs (29.03/s) [rcu: g238653 f0x0 total-gps=59948]
->   TREE01.35 ------- 33714 GPs (28.095/s) [rcu: g232241 f0x0 total-gps=58344]
->   TREE01.36 ------- 34704 GPs (28.92/s) [rcu: g236349 f0x0 total-gps=59373]
->   TREE01.37 ------- 34205 GPs (28.5042/s) [rcu: g232549 f0x0 total-gps=58424]
->   TREE01.38 ------- 33833 GPs (28.1942/s) [rcu: g232017 f0x0 total-gps=58292]
->   TREE01.39 ------- 34001 GPs (28.3342/s) [rcu: g233089 f0x0 total-gps=58558]
->   TREE01.4 ------- 35768 GPs (29.8067/s) [rcu: g243141 f0x0 total-gps=61069]
->   TREE01.40 ------- 35209 GPs (29.3408/s) [rcu: g239941 f0x0 total-gps=60272]
->   TREE01.41 ------- 34950 GPs (29.125/s) [rcu: g237825 f0x0 total-gps=59743]
->   TREE01.42 ------- 34396 GPs (28.6633/s) [rcu: g234305 f0x0 total-gps=58863]
->   TREE01.43 ------- 33162 GPs (27.635/s) [rcu: g227049 f0x0 total-gps=57046]
->   TREE01.44 ------- 34965 GPs (29.1375/s) [rcu: g238837 f0x0 total-gps=59994]
->   TREE01.45 ------- 33531 GPs (27.9425/s) [rcu: g229529 f0x0 total-gps=57665]
->   TREE01.46 ------- 34167 GPs (28.4725/s) [rcu: g235829 f0x0 total-gps=59242]
->   TREE01.47 ------- 34538 GPs (28.7817/s) [rcu: g236357 f0x0 total-gps=59375]
->   TREE01.48 ------- 34491 GPs (28.7425/s) [rcu: g235029 f0x0 total-gps=59042]
->   TREE01.49 ------- 36278 GPs (30.2317/s) [rcu: g245997 f0x0 total-gps=61784]
->   TREE01.5 ------- 35415 GPs (29.5125/s) [rcu: g240741 f0x0 total-gps=60471]
->   TREE01.50 ------- 34928 GPs (29.1067/s) [rcu: g236977 f0x0 total-gps=59529]
->   TREE01.51 ------- 33065 GPs (27.5542/s) [rcu: g226573 f0x0 total-gps=56929]
->   TREE01.52 ------- 34111 GPs (28.4258/s) [rcu: g234373 f0x0 total-gps=58878]
->   TREE01.53 ------- 35627 GPs (29.6892/s) [rcu: g242797 f0x0 total-gps=60985]
->   TREE01.54 ------- 33155 GPs (27.6292/s) [rcu: g227505 f0x0 total-gps=57160]
->   TREE01.55 ------- 34386 GPs (28.655/s) [rcu: g233137 f0x0 total-gps=58571]
->   TREE01.56 ------- 35130 GPs (29.275/s) [rcu: g237817 f0x0 total-gps=59740]
->   TREE01.57 ------- 34660 GPs (28.8833/s) [rcu: g236409 f0x0 total-gps=59389]
->   TREE01.58 ------- 34901 GPs (29.0842/s) [rcu: g236937 f0x0 total-gps=59521]
->   TREE01.59 ------- 34915 GPs (29.0958/s) [rcu: g238425 f0x0 total-gps=59892]
->   TREE01.6 ------- 35682 GPs (29.735/s) [rcu: g239305 f0x0 total-gps=60112]
->   TREE01.60 ------- 34643 GPs (28.8692/s) [rcu: g235361 f0x0 total-gps=59126]
->   TREE01.61 ------- 34343 GPs (28.6192/s) [rcu: g234857 f0x0 total-gps=58999]
->   TREE01.62 ------- 34592 GPs (28.8267/s) [rcu: g233665 f0x0 total-gps=58703]
->   TREE01.63 ------- 35315 GPs (29.4292/s) [rcu: g239865 f0x0 total-gps=60250]
->   TREE01.64 ------- 34793 GPs (28.9942/s) [rcu: g240109 f0x0 total-gps=60311]
->   TREE01.7 ------- 34171 GPs (28.4758/s) [rcu: g233977 f0x0 total-gps=58779]
->   TREE01.8 ------- 33806 GPs (28.1717/s) [rcu: g233497 f0x0 total-gps=58659]
->   TREE01.9 ------- 34083 GPs (28.4025/s) [rcu: g237765 f0x0 total-gps=59727]
->    --- Done at Tue Oct 13 06:44:58 AM UTC 2026 (22:16.0) exitcode 0
->
-> I miss those days where I could just turn around and ask Neeraj
-> if this was correct at the office!
->
-> --
-> Thanks and Regards,
-> Prateek
->
+The stream lock does not cover the allocation's release, and the sync
+operation has no positive buffer-access count to prevent it. The stale
+read causes a use-after-free in snd_dma_noncontig_sync(). DELAY uses the
+same snd_pcm_delay() path.
+
+Take a positive buffer-access count before checking the state and keep it
+until the DMA sync finishes, as the transfer and mmap paths already do.
+HW_FREE then returns -EBUSY while this access is active. If a buffer
+writer has already entered, snd_pcm_delay() returns -EBUSY before using
+the buffer. Keep the sync outside the stream lock and balance the count
+on the state-error path as well.
+
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+    Read of size 4 at addr ffff888108f58584 by task pcm-uaf-fixture/487
+
+    CPU: 1 UID: 0 PID: 487 Comm: pcm-uaf-fixture Not tainted 7.2.0-rc6-pmb-alsa-functional-v2+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+     kasan_report+0xe0/0x110
+     ? snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+     ? __pfx_snd_dma_noncontig_sync+0x10/0x10 [snd_pcm]
+     snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+     ? __pfx_snd_dma_noncontig_sync+0x10/0x10 [snd_pcm]
+     snd_dma_buffer_sync+0xc9/0x110 [snd_pcm]
+     snd_pcm_delay+0x3bd/0x550 [snd_pcm]
+     snd_pcm_common_ioctl+0x1e7/0x3aa0 [snd_pcm]
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? do_vfs_ioctl+0x1f5/0x1280
+     ? __pfx_do_vfs_ioctl+0x10/0x10
+     ? ioctl_has_perm.constprop.0.isra.0+0x34f/0x500
+     ? __pfx_snd_pcm_common_ioctl+0x10/0x10 [snd_pcm]
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
+     ? __pfx_snd_pcm_ioctl+0x10/0x10 [snd_pcm]
+     __x64_sys_ioctl+0x163/0x1d0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    RIP: 0033:0x7f1cae7ab91b
+    Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+    RSP: 002b:00007ffe12d544f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+    RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00007f1cae7ab91b
+    RDX: 0000000000000000 RSI: 0000000000004122 RDI: 0000000000000003
+    RBP: 00000000000001ee R08: 0000000000000073 R09: 00000000ffffffff
+    R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000003
+    R13: 0000000000000001 R14: 00005584f32b1398 R15: 00005584f32b2ce8
+     </TASK>
+
+    Allocated by task 487:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     snd_pcm_lib_malloc_pages+0x27c/0x9f0 [snd_pcm]
+     snd_pcm_hw_params+0x171c/0x1d10 [snd_pcm]
+     snd_pcm_common_ioctl+0x1f62/0x3aa0 [snd_pcm]
+     snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
+     __x64_sys_ioctl+0x163/0x1d0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 499:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     snd_pcm_lib_free_pages+0x1c9/0x420 [snd_pcm]
+     snd_pcm_common_ioctl+0x2bd3/0x3aa0 [snd_pcm]
+     snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
+     __x64_sys_ioctl+0x163/0x1d0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    The buggy address belongs to the object at ffff888108f58580
+     which belongs to the cache kmalloc-64 of size 64
+    The buggy address is located 4 bytes inside of
+     freed 64-byte region [ffff888108f58580, ffff888108f585c0)
+
+    The buggy address belongs to the physical page:
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x108f58
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+    raw: 0200000000000000 ffff8881000428c0 dead000000000100 dead000000000122
+    raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
+    page dumped because: kasan: bad access detected
+
+    Memory state around the buggy address:
+     ffff888108f58480: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff888108f58500: 00 00 00 00 00 06 fc fc fc fc fc fc fc fc fc fc
+    >ffff888108f58580: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+                       ^
+     ffff888108f58600: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff888108f58680: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+    ==================================================================
+    Disabling lock debugging due to kernel taint
+    ------------[ cut here ]------------
+    kernel BUG at kernel/dma/mapping.c:417!
+    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+    CPU: 1 UID: 0 PID: 487 Comm: pcm-uaf-fixture Tainted: G    B               7.2.0-rc6-pmb-alsa-functional-v2+ #1 PREEMPT(lazy)
+    Tainted: [B]=BAD_PAGE
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    RIP: 0010:__dma_sync_sg_for_cpu+0x230/0x360
+    Code: df 48 c1 e8 03 80 3c 10 00 0f 85 fa 00 00 00 4c 8b 35 d4 6b 7a 09 e8 7f e2 17 00 83 fd 02 0f 86 39 fe ff ff e8 71 e2 17 00 90 <0f> 0b e8 69 e2 17 00 be 08 00 00 00 4c 89 ff e8 bc 5f 77 00 4c 89
+    RSP: 0018:ffff888111f3fc50 EFLAGS: 00010293
+    RAX: 0000000000000000 RBX: ffffffffc0250d10 RCX: ffffffff816d395f
+    RDX: ffff88810836ba00 RSI: ffff888108f58580 RDI: ffffffffc02510d8
+    RBP: 00000000ffff8881 R08: 0000000000000000 R09: fffffbfff804a239
+    R10: ffffffffc02511cf R11: 6e696c6261736944 R12: ffff888108f58580
+    R13: 0000000002ce00e5 R14: ffffffffc0258720 R15: 0000000000000000
+    FS:  00007f1cae69c780(0000) GS:ffff8881fd861000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 000055d1affa2480 CR3: 0000000108fc0003 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     snd_dma_noncontig_sync+0x15a/0x310 [snd_pcm]
+     ? __pfx_snd_dma_noncontig_sync+0x10/0x10 [snd_pcm]
+     snd_dma_buffer_sync+0xc9/0x110 [snd_pcm]
+     snd_pcm_delay+0x3bd/0x550 [snd_pcm]
+     snd_pcm_common_ioctl+0x1e7/0x3aa0 [snd_pcm]
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? do_vfs_ioctl+0x1f5/0x1280
+     ? __pfx_do_vfs_ioctl+0x10/0x10
+     ? ioctl_has_perm.constprop.0.isra.0+0x34f/0x500
+     ? __pfx_snd_pcm_common_ioctl+0x10/0x10 [snd_pcm]
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
+     ? __pfx_snd_pcm_ioctl+0x10/0x10 [snd_pcm]
+     __x64_sys_ioctl+0x163/0x1d0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    RIP: 0033:0x7f1cae7ab91b
+    Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+    RSP: 002b:00007ffe12d544f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+    RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00007f1cae7ab91b
+    RDX: 0000000000000000 RSI: 0000000000004122 RDI: 0000000000000003
+    RBP: 00000000000001ee R08: 0000000000000073 R09: 00000000ffffffff
+    R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000003
+    R13: 0000000000000001 R14: 00005584f32b1398 R15: 00005584f32b2ce8
+     </TASK>
+    Modules linked in: snd_pcmtest snd_pcm
+    ---[ end trace 0000000000000000 ]---
+    RIP: 0010:__dma_sync_sg_for_cpu+0x230/0x360
+    Code: df 48 c1 e8 03 80 3c 10 00 0f 85 fa 00 00 00 4c 8b 35 d4 6b 7a 09 e8 7f e2 17 00 83 fd 02 0f 86 39 fe ff ff e8 71 e2 17 00 90 <0f> 0b e8 69 e2 17 00 be 08 00 00 00 4c 89 ff e8 bc 5f 77 00 4c 89
+    RSP: 0018:ffff888111f3fc50 EFLAGS: 00010293
+    RAX: 0000000000000000 RBX: ffffffffc0250d10 RCX: ffffffff816d395f
+    RDX: ffff88810836ba00 RSI: ffff888108f58580 RDI: ffffffffc02510d8
+    RBP: 00000000ffff8881 R08: 0000000000000000 R09: fffffbfff804a239
+    R10: ffffffffc02511cf R11: 6e696c6261736944 R12: ffff888108f58580
+    R13: 0000000002ce00e5 R14: ffffffffc0258720 R15: 0000000000000000
+    FS:  00007f1cae69c780(0000) GS:ffff8881fd861000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 000055d1affa2480 CR3: 0000000108fc0003 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Kernel panic - not syncing: Fatal exception
+    Kernel Offset: disabled
+    Rebooting in 1 seconds..
+
+Fixes: a25684a95646 ("ALSA: memalloc: Support for non-contiguous page allocation")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index defbb2977efe9dcd8d48b934c3944d3fe159bcd6..f774358629bbc611bd15a1f8cbd4dda3ba7f45b6 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -3116,14 +3116,19 @@ static snd_pcm_sframes_t snd_pcm_forward(struct snd_pcm_substream *substream,
+ static int snd_pcm_delay(struct snd_pcm_substream *substream,
+ 			 snd_pcm_sframes_t *delay)
+ {
++	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	int err;
+ 
++	/* Keep the DMA buffer alive through the sync below. */
++	if (!atomic_inc_unless_negative(&runtime->buffer_accessing))
++		return -EBUSY;
+ 	scoped_guard(pcm_stream_lock_irq, substream) {
+ 		err = do_pcm_hwsync(substream);
+ 		if (delay && !err)
+ 			*delay = snd_pcm_calc_delay(substream);
+ 	}
+ 	snd_pcm_dma_buffer_sync(substream, SNDRV_DMA_SYNC_CPU);
++	atomic_dec(&runtime->buffer_accessing);
+ 
+ 	return err;
+ }
