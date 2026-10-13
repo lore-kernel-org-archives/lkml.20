@@ -1,252 +1,163 @@
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E91B4E06D0
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0619A2E06E4
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896643; cv=none; b=Da9xsW1kkrj6CbVvWlsSspe79im0S0fzkDJ3R1mSUy+nwlXEJ8lV3KKHCd90OoXaih0smeAOT0D4ncsqWTP0tPJ0JF+hVNkOWhtC8VaWhtfcxf+wjKH+5l4jnK+5l+xI47LBBVrtSwIeRFDoGjq61u/7Yx/CpytjFoDj9UVT14I=
+	t=1791896661; cv=none; b=NdyYrhr0K4sV3mnT1jCg+zxg6q/a1LauLHToM+5oRsigh5jsax9CuaxgScFKzUD74Ve4cIp0nI4ttCcotGslNDqjyY9a6L9AhdP1nyuK7UStXRwo7iZBTNuszBfPObUXZgUIpbWigi0E8Q/xN4+H29SVVMrqjJEX+j8HcV57M3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896643; c=relaxed/simple;
-	bh=4vcsZ25CqlYw8WtJq/H02IRIUQgh0pu2X9tLpE8GNk8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dMID1XV75UkMNJtrQ7Nfpga2NqbrkeZF9pwBk2cRIOvqzYs9s2TPcIMhBmU7WBiUCMi2yDdcM2OT4lkc1NXb2+ycCjxKdNdqn1FNKV7rhBjt3gJZcIfnHbxi+IXUvLhMV/5+jO9/kPSQUlivb7Ix6qs4OXkL7i1PRyPmF4vIGsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R+yCwFhQ; arc=none smtp.client-ip=74.125.224.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791896661; c=relaxed/simple;
+	bh=lrijtuWmKwDDILeCMwYY3Sd3CUnCrwDE7vsIgjD++7A=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=qacE1YTBQ8UlDzuAiqL3uWsb/ybKWHoijRcuExC+bHuI1tt5ckfyjZPWg/FGAWCV+lNUDBpqtKCWzS8Wcqa9pJoIgO7/w2zgeEUiXjmCo+lhMlFEoAVY5isuHlU76WRECHTQ3eQTIMgRVt3uHuswkWO9Tv9tp5CvvuZpk+mSlh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=HJIqfHnN; arc=none smtp.client-ip=195.121.94.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R+yCwFhQ"
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-677b5148acaso2739886d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:04:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="HJIqfHnN"
+X-KPN-MessageId: 6ffd0a7b-c706-11f1-bfc1-00505699b430
+Received: from mta.kpnmail.nl (unknown [10.31.161.188])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id 6ffd0a7b-c706-11f1-bfc1-00505699b430;
+	Tue, 13 Oct 2026 15:03:08 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id 6ff27a77-c706-11f1-ac16-00505699693e;
+	Tue, 13 Oct 2026 15:03:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791896641; x=1792501441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YIO78QiWK8kgfOkXvN+ipmBt58jQOeWlhfCMdouHK3g=;
-        b=R+yCwFhQMLCIBoDakgw/bAbGsRo9erl6M+TAPv3Y9XFRS3kOfQl+EdfSrVrO62pu49
-         AA+D3Sz3skQWOnfVYHh4pImWXW8JBgdB+IssI13oEpsttytDniyC40p4LWR/D4mdXxvc
-         YTCnj8F+eq+QfOmHQOiWX21MxaBLOntFgh5GJOQcEfy/Zc/HV3AhpUgOZiZKELzxbMNo
-         /pbiYQenZfej+Fq84qZ+q7bJPPJBZyd+7zl0a1PqSGvrMOrjB9K92elJppeXgn6BGup8
-         hI5gJbXTeQ5FAJ7dofqKzucPmHvLZAP0L2LJJ1tpjW484HVhvtkZFN9T3YxhrnOZ1x/o
-         dCwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791896641; x=1792501441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YIO78QiWK8kgfOkXvN+ipmBt58jQOeWlhfCMdouHK3g=;
-        b=jOZ2tqE4y9Ye3Eo+JDVzHufoYCDqe4vXGVCsLjAsHKU3aO+zfKG7qTSGwQxl7bAnvl
-         Lhs4Sy3uYZm/izGJiPFLoKp6pPEt1bUu7v/BAJA4nPtN8tbziRKn73Li9qsEwexTOFt5
-         0wWm/ugRU+hidamuCvLdWbGhAce+Ev4g6kbqWr7GkZnXnGRNe1xDh8J8Ep4jQbT9Xmpo
-         4Ro99xFkh9DLLNbEffL+mgbZB0mbAFJtJmnw3tiEg0TVJmVBsak90xB7VLBAUGbp4A25
-         9hwaHo3tJjghdGz4nn00aHKu24v/NnB428t3EsoLdGoUAPw3THq42w50yJKGVMTM+3mT
-         5rYg==
-X-Gm-Message-State: AFq9FYJulLF7TMlwNCxSAbyAhOk798tCedu67sJoldLgAm88tLivObGO
-	P/9HK1sl2aOPXbCfFvZxt+6M0dapJmCuCcfbuycDFor1Y7JBfBVlNd9Z
-X-Gm-Gg: AYBFou2urwRIN+7Wxgd5d9u4Szzgdp+SREgRvk3IHbHClRLOL7Td5Q1b4eVDPCM6HQi
-	R3KUORu9iSkXEYnhfwfZAPUxZeuEOvIoWF/57ISCmrRymyByvUPy2nRQCd9WIgp4KAQVDoopN7c
-	w/0l4w5bz5UqdEfHMPeoXcew1beU6P7XctjJ9bgfz4ElyHw2+QadX0n+PCfgX8NdrS2a2n+5/B6
-	l8NiXHWjoLFgn5VX29vzYasX3qS3bSL8lamBAP7GinHAwqM9MrV202QwQxKNe9Rin6Zrj7rvaU0
-	ZJsl2Ft1tsHnRR85eQWkMW5ogjBhAwSgffm0CdngHuT0NjGzrnCzXYITPgFdiliC61YvY0uhV21
-	AMEtF+1KFjMVc6w1DjScSLeKalKrCRo/M/NGfn9tV7LLKc6GowVK30Glajjb1pS4JrnZ+6BRPD3
-	LhTLRcx8BdToisyU7RpUq7UncxBWT9ubAK5l09QD9xXBuGYz+fxkIYEqvCG8JFdLTQB9VED/uQf
-	2IzHBYJBFlyWg==
-X-Received: by 2002:a05:690e:4893:10b0:677:bb44:c06c with SMTP id 956f58d0204a3-6793602f9b7mr1988403d50.55.1791896640746;
-        Tue, 13 Oct 2026 06:04:00 -0700 (PDT)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679356ffbecsm4797166d50.23.2026.10.13.06.03.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 06:03:48 -0700 (PDT)
-From: Ping Li <leeonion.muyu@gmail.com>
-To: james.morse@arm.com,
-	ben.horgan@arm.com
-Cc: linux-kernel@vger.kernel.org,
-	reinette.chatre@intel.com,
-	fenghuay@nvidia.com,
-	Ping Li <leeonion.muyu@gmail.com>
-Subject: [PATCH v6] arm_mpam: Use an atomic counter to schedule mpam_enable_once()
-Date: Tue, 13 Oct 2026 21:03:34 +0800
-Message-Id: <20261013130334.337468-1-leeonion.muyu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <019fee57-8984-4bd6-8912-ec9b1718eb08@arm.com>
-References: <019fee57-8984-4bd6-8912-ec9b1718eb08@arm.com>
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=+vQgJL8MMGFhwYStVksSoppS6NdeKAy6mIy/hJhtSag=;
+	b=HJIqfHnNYGjyT668OaUoDe3gsYQQk2nGPABNaz8iL5iiAZHci+2hKcWWYGhWSG+rmvseLzkLUWBVh
+	 oSz5d+54F95pmsZD044t2nlPMM6kSG+7pmvAcbrM+jvV2U9epWbCSyUPqGqzL7OkiTn5CPPsjN8xvs
+	 SQvo2NBF+HpJZ68N1mHF6tnuWEmb1/5UXd9K8erm6WEc5oaVaQkguj8PlD09LNdS4CUKFjHOQeGDOG
+	 nwDKLTKAbwh6I0xEzRWcvc1ejYcD4EibpZbVcj/X4/+1CwGmBUADo9QjJ8hm2tmivTnjICN8gOpxqK
+	 cTMU8Q3/Mys3sn0+LnUWwDnPeDUG6pw==
+X-KPN-MID: 33|H4Vr3p2pgw67wyy+j6XhcwTitlw3OHPFMqwUz7Vjlwd2gL/tI8tzZP22Gdg7Opc
+ XG4+qvfu0SUEZoYi26tVvaK9lCh1TKSKv1iGSaOhj7BM=
+X-CMASSUN: 33|JoxRtGfIGlM4EJ2UoF9A67B7jdn2tU0ZuGu9Leo4e2sOROFV2UBL2zT/b6Gbabb
+ X22GoYSqAJ9ZO5FUkY3lmfw==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh05 (cpxoxapps-mh05.personalcloud.so.kpn.org [10.128.135.211])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id 6fe0ea2e-c706-11f1-916a-005056995d6c;
+	Tue, 13 Oct 2026 15:03:08 +0200 (CEST)
+Date: Tue, 13 Oct 2026 15:03:08 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Kees Cook <kees@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
+	skhan@linuxfoundation.org, federico.vaga@vaga.pv.it,
+	apw@canonical.com, joe@perches.com, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <158571150.788122.1791896588591@kpc.webmail.kpnmail.nl>
+In-Reply-To: <20261013125559.GG4214@killaraus.ideasonboard.com>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <202610122124.08E058768D@keescook>
+ <ea3ff257-70e2-43e4-aba7-140e84994872@infradead.org>
+ <202610130120.E43D236E@keescook> <as4gLo_6acb_zZu0@daedalus>
+ <20261013125559.GG4214@killaraus.ideasonboard.com>
+Subject: Re: [PATCH] docs: remove Assisted-by reference
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
-mpam_discovery_cpu_online() scheduled mpam_enable() after each MSC
-probe, and mpam_enable() walked the whole MSC list taking each probe
-lock in turn to check if all the MSCs had been probed.
 
-Count the MSCs that have had their hardware probed with
-mpam_num_msc_probed, and schedule mpam_enable_once() directly when the
-count reaches fw_num_msc, the number of MSCs reported by firmware.
-MSCs that were already probed no longer cause work to be scheduled.
+> Op 13-10-2026 14:55 CEST schreef Laurent Pinchart <laurent.pinchart@ideasonboard.com>:
+> 
+>  
+> On Tue, Oct 13, 2026 at 02:28:43PM +0200, Jori Koolstra wrote:
+> > On Tue, Oct 13, 2026 at 01:25:59AM -0700, Kees Cook wrote:
+> > > On Mon, Oct 12, 2026 at 10:56:59PM -0700, Randy Dunlap wrote:
+> > > > On 10/12/26 9:24 PM, Kees Cook wrote:
+> > > > > On Fri, Oct 09, 2026 at 04:31:37AM -0400, Sasha Levin wrote:
+> > > > >> The Maintainers Summit reached consensus to deprecate the Assisted-by
+> > > > >> tag. Remove the documentation requiring it.
+> > > > >>
+> > > > >> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > > > > 
+> > > > > Yup, it has become as redundant as specifying what editor I use. ;)
+> > > > > 
+> > > > > Reviewed-by: Kees Cook <kees@kernel.org>
+> > > > 
+> > > > and for those of us who don't know details about the discussion,
+> > > > how is it redundant?
+> > > 
+> > > No, I mean I use an LLM constantly for almost all aspects of my
+> > > development work, in multiple dimensions, so if the old tag requirement
+> > > held, my email body template would just put "Assisted-by: LLM" in there
+> > > because at the very least, it drove the build and test stage. It was
+> > > redundant in the sense of "yeah, of course I used an LLM at some point
+> > > for this patch". ("This tag means nothing *from* me")
+> > > 
+> > > > Do you assume that everyone now uses it (LLM), just as everyone
+> > > > uses an editor?
+> > > 
+> > > I don't make that assumption, but I always held the position that the
+> > > tag was meaningless because it's the human wielding it that matters:
+> > > they either sent a good patch or a bad patch, and if it was mangled by
+> > > gmail or an LLM, it doesn't really matter. ("This tag means nothing *to*
+> > > me")
+> > 
+> > I think the tag did have a genuine purpose for a while. Now we have just
+> > decided to implicitly attach it to every new submitter (because
+> > basically that is the case.) The point was that a patch that was
+> > obviously LLM generated could be rejected for not carrying the tag, and
+> > a patch that carried the tag could be asked to explain further (if they
+> > had not done so.) Or at least, that is how I felt and have understood
+> > Greg, for instance :)
+> > 
+> > Essentially, the way I read it, is that Linus said we don't need this
+> > roundabout way because we can just reject effortless LLM generated
+> > patches outright. This is good and an improvement.
+> 
+> The absence of the tag on a suspicious series offered a low-effort way
+> for maintainers to push back. What's the proposed low-effort replacement
+> ?
+> 
 
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-Suggested-by: Ben Horgan <ben.horgan@arm.com>
-Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
----
-Changes in v6:
-- Drop the redundant initialisation of err, per review feedback.
+To ignore it, really. Even less effort :)
 
- drivers/resctrl/mpam_devices.c  | 71 +++++++++++----------------------
- drivers/resctrl/mpam_internal.h |  2 -
- 2 files changed, 23 insertions(+), 50 deletions(-)
+> > What do you think about requiring people to explain how they used an LLM
+> > for code generation? I don't care if someone uses it for review, or
+> > brainstorming, or whatever, and I have never understood the tag to be
+> > required for that. But if the code is LLM generated, it would be nice to
+> > know for instance what prompts you used. We should have some way to not
+> > devolve into the maze that Jonathan Corbet has sketched, where no one
+> > really knows what's going on.
+> 
+> Listing the prompts seems fairly useless to me. Not only do prompts
+> capture only a small submit of the information you would want (many
+> people use custom agent files with lots of rules that supplement the
+> prompts), they don't show that the submitter understands what they're
+> doing.
+> 
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index dd422c56fbb1..0d0803146f24 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -49,12 +49,20 @@ static LIST_HEAD(mpam_all_msc);
- 
- struct srcu_struct mpam_srcu;
- 
-+/* Number of MSCs reported by firmware */
-+static int fw_num_msc;
-+
- /*
-  * Number of MSCs that have been probed. Once all MSCs have been probed MPAM
-  * can be enabled.
-  */
- static atomic_t mpam_num_msc;
- 
-+/* Number of MSCs that have had their hardware probed */
-+static atomic_t mpam_num_msc_probed;
-+
-+static void mpam_enable_once(struct work_struct *work);
-+
- static int mpam_cpuhp_state;
- static DEFINE_MUTEX(mpam_cpuhp_state_lock);
- 
-@@ -72,7 +80,7 @@ static DEFINE_SPINLOCK(partid_max_lock);
-  * scheduled via this work_struct. If access to an MSC depends on a CPU that
-  * was not brought online at boot, this can happen surprisingly late.
-  */
--static DECLARE_WORK(mpam_enable_work, &mpam_enable);
-+static DECLARE_WORK(mpam_enable_work, &mpam_enable_once);
- 
- /*
-  * All mpam error interrupts indicate a software bug. On receipt, disable the
-@@ -1850,9 +1858,8 @@ static int mpam_cpu_online(unsigned int cpu)
- /* Before mpam is enabled, try to probe new MSC */
- static int mpam_discovery_cpu_online(unsigned int cpu)
- {
--	int err = 0;
-+	int err;
- 	struct mpam_msc *msc;
--	bool new_device_probed = false;
- 
- 	if (mpam_is_enabled())
- 		return 0;
-@@ -1863,24 +1870,22 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
- 		if (!cpumask_test_cpu(cpu, &msc->accessibility))
- 			continue;
- 
--		mutex_lock(&msc->probe_lock);
--		if (!msc->probed)
--			err = mpam_msc_hw_probe(msc);
--		mutex_unlock(&msc->probe_lock);
-+		guard(mutex)(&msc->probe_lock);
-+		if (msc->probed)
-+			continue;
- 
--		if (err)
--			break;
--		new_device_probed = true;
--	}
-+		err = mpam_msc_hw_probe(msc);
-+		if (err) {
-+			mpam_disable_reason = "error during probing";
-+			schedule_work(&mpam_broken_work);
-+			return err;
-+		}
- 
--	if (new_device_probed && !err)
--		schedule_work(&mpam_enable_work);
--	if (err) {
--		mpam_disable_reason = "error during probing";
--		schedule_work(&mpam_broken_work);
-+		if (atomic_add_return(1, &mpam_num_msc_probed) == fw_num_msc)
-+			schedule_work(&mpam_enable_work);
- 	}
- 
--	return err;
-+	return 0;
- }
- 
- static int mpam_cpu_offline(unsigned int cpu)
-@@ -2107,8 +2112,6 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
- 	return msc;
- }
- 
--static int fw_num_msc;
--
- static int mpam_msc_drv_probe(struct platform_device *pdev)
- {
- 	int err;
-@@ -2715,7 +2718,7 @@ static int mpam_allocate_config(void)
- 	return 0;
- }
- 
--static void mpam_enable_once(void)
-+static void mpam_enable_once(struct work_struct *work)
- {
- 	int err;
- 
-@@ -2869,34 +2872,6 @@ void mpam_disable(struct work_struct *ignored)
- 	pr_err_once("MPAM disabled due to %s\n", mpam_disable_reason);
- }
- 
--/*
-- * Enable mpam once all devices have been probed.
-- * Scheduled by mpam_discovery_cpu_online() once all devices have been created.
-- * Also scheduled when new devices are probed when new CPUs come online.
-- */
--void mpam_enable(struct work_struct *work)
--{
--	static atomic_t once;
--	struct mpam_msc *msc;
--	bool all_devices_probed = true;
--
--	/* Have we probed all the hw devices? */
--	guard(srcu)(&mpam_srcu);
--	list_for_each_entry_srcu(msc, &mpam_all_msc, all_msc_list,
--				 srcu_read_lock_held(&mpam_srcu)) {
--		mutex_lock(&msc->probe_lock);
--		if (!msc->probed)
--			all_devices_probed = false;
--		mutex_unlock(&msc->probe_lock);
--
--		if (!all_devices_probed)
--			break;
--	}
--
--	if (all_devices_probed && !atomic_fetch_inc(&once))
--		mpam_enable_once();
--}
--
- #define maybe_update_config(cfg, feature, newcfg, member, changes) do { \
- 	if (mpam_has_feature(feature, newcfg) &&			\
- 	    (newcfg)->member != (cfg)->member) {			\
-diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-index def0e3a65c23..021dedb9eab7 100644
---- a/drivers/resctrl/mpam_internal.h
-+++ b/drivers/resctrl/mpam_internal.h
-@@ -456,8 +456,6 @@ extern struct list_head mpam_classes;
- extern u16 mpam_partid_max;
- extern u8 mpam_pmg_max;
- 
--/* Scheduled work callback to enable mpam once all MSC have been probed */
--void mpam_enable(struct work_struct *work);
- void mpam_disable(struct work_struct *work);
- 
- /* Reset all the RIS in a class under cpus_read_lock() */
--- 
-2.34.1
+I'm not sure. Maybe requiring prompts is not the best way to go about it,
+it may be a lot of annoyance to go back through your conversations and
+see what prompts were relevant. I do think the prompts still likely show
+whether you understood what you're doing, assuming they were authentic.
 
+> Mesa has a policy that LLM-generated code *must* have a human-written
+> commit message. They go one step further by requiring all comments in
+> the code to also be human-written. That seems a better (but possibly not
+> good enough) way to try and gauge the level of understand from the
+> submitter.
+> 
+
+Yes, requiring human written commit message sounds like a good idea. Only
+leaves the issue of people using LLMs for translate. But I think we could
+find a way around that.
+
+> -- 
+> Regards,
+> 
+> Laurent Pinchart
