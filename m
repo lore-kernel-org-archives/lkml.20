@@ -1,125 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0384C5208D3;
-	Tue, 13 Oct 2026 15:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E725349CA
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904757; cv=none; b=E9aSb4pY9cDKmNeM+ikf3Liiny2c0VZSYVA1fMX7cBUil791Q22qRMkDXEDQju0j6d1C6l9xEqShazGO1VIij0AgLShCrrk5FPAW1E3AriAFStXMf0ycouITEHGZdTiHnsKnSe6Q5gDqdVQIcxvJLdfhdJKJTKQiP07xa8w8FV4=
+	t=1791904759; cv=none; b=jtebLjuHpaAuYeoXpfIMazbuN0al4Z5nrB4munlr+2YHqS3Rq95cq1VOaOumDLhOP5f0tuAeRSELuDSlSGnlAMZthAzQmQhHz7PzceWHFYs6nQUkimxy+6rcIrt/cBw6MuTpSSKUOuwOaN2+8tiGM7gDqunqTwMln3/2CStkHZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904757; c=relaxed/simple;
-	bh=aq1LtrJiZzcOmtwaEYAnONhZq3mO+nDJo0OJJel8eEM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UIngc61IdsBjMkwiT6KZf+cXYxRKyAiZlYLh5b0UJ99kp9/Mf1YxdV0/TzFBTjRQlAEa7tIjD91tWwRbNBWHZhYI1IyfGW5C7TyjmvPW4NIqhqA8+gLVYj3lQV1q3zavA8RgFWaZ8X0wKcge+C3G+ojnxfC41gpwTspGYMXEErw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j1fImolW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904759; c=relaxed/simple;
+	bh=74VHLSgwRzNKKyzn4xtt5CJpDC+AOHiXpkoywV8LdL0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bEV7QRnU7h/jF//f/bVPKoDiXAxLiBK/MFVxfhMyqznvbDVFREH3NFytHhm0GLny7pRZ6nRukwp4BoHjJSeQCpXZAE2V6raDAyoKd82CJX9xRO+NyTvepi3a+lWBb1Eg0FXFvL2lPhXR0JKpfIaJC22aLQVJM/K7stGOIXqcVwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z+AHiyHK; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j1fImolW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5BB41F00898;
-	Tue, 13 Oct 2026 15:19:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904755;
-	bh=EexDq1u/xndQZSFFx7puoFiCPyMWXR4BU0RYci2Ma20=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j1fImolWVrRSI+rN7ZLhWyihQOJBo337t8OKdI+kJD6gis733boLvDaA890qxdLuQ
-	 P+fLED+B6cJqs49qN7zkT1v3KjxBBixe8iAltF/f9NmtN13sSk4Qhlc8DYvMXJ0azj
-	 lo03cE4/sGj5dl1eC0T21ubCFR1MqZdXHdfdrZ1VHNzXVvhai6vy0OXZE9pFkoMdm+
-	 QTBgcdpsQTz/Ay5XGaLoDAak0cyru2UJ2OowCvZGJD8DsOO5ImOgYF2jKayp5O8tKZ
-	 tVKMLy0L8aR6+5zuaR2SGUI1K20MLCSi7xMh4WpslI+Aj3+wzBBQVuRbQ07XmBuoGm
-	 thcNp6of7XtpQ==
-Message-ID: <b6baacab-6311-42f1-a386-4ec9a121da12@kernel.org>
-Date: Tue, 13 Oct 2026 17:19:06 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z+AHiyHK"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd60d155070so766543a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:19:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791904758; x=1792509558; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0H70aAMMimCbLXT1pVFm2uX6egTnEDs8iDKGzFjDDBI=;
+        b=Z+AHiyHKK2m3bW0twaTi6bwgeZ5nZojGRvq8mQbuVtxVsJBytZh52YfPtPqcOBE8Bh
+         /QfpAbcPw1bUgzPmFcn3foc56qyqSkWFfDe1t2gPW1SzNDms6xskUjZkXDc18skyYtWD
+         Dkyc7NDWQCyYAcqooUmQaJwSI8R0jRGMCbtNBAli4IFikKwToKViMa3scC6reFWSitVE
+         pb137j4dl0cD7vwgtzhOfFbXNgIl9KmUJCaJBqevmA11irKlDl5T3jmb8IJfHFWF2Wej
+         5WWvsRqIkK+8kk207tIwh2wO8Sx7hcC7NVed42ExqixkOa5M6gslSEeuU85epsBmtUqV
+         ++Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791904758; x=1792509558;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0H70aAMMimCbLXT1pVFm2uX6egTnEDs8iDKGzFjDDBI=;
+        b=F/TNked5Rl35xqkfDnb9c7tm4x8IJtB60LpOm8E2JJrLRRnJERufURYYawBDjosK5I
+         /429/qq5EpYjQkneVeFpa1DtBRlAUDLOQvqEfhNXsX+Psc8LUL4SfDWTxoZPi+6xO4T9
+         PRAMw1ddS4Uj7APuehSOPn6PBOZFiEn7m4ZcBopipB0zcL2kvf4Vmnyb09Ia8oIIc0Id
+         m5spe12E15IFInbTaq/7Os5aEx1f80PJLdro9Mp1N04QpveiQaHVL12trkblB4GEQdsr
+         ZI4oBd9vxxXrul3NedYaNHDYxhwmB4ienjENqxqgbJicY/lsPQzKHgviaxrLaUEyT282
+         BcIw==
+X-Forwarded-Encrypted: i=1; AKwUvBx1x9Zbw1GDMee2/07p3ATTAHeQXXs6tldUJ7i1/vKmBdpykmpx3iW7gn0sQlnnS4cFAwEM7jsrPyzKWRo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUM2QzkFbHrCMi8NmelVOWlH2qIK+JfawQng4HKWPFF9MhlYBE
+	dbDI+fvueM8T4l5DyvUp/+av4BnupsfxByiI8e6kbAUJoBHknSelMhjg
+X-Gm-Gg: AYBFou3MQQVTW/Ut9oS4yD/JY7cItJPiP33JOSGkQOmoW+sYaf/Zjto8PcZ4b83bXbt
+	RhaY9dJxxvgNJzVO1h7l2LhDWP/OfCRF9b18qTSxJ/wmm21Y48gfokpR/mSZ0bbNMhQ/As47rHJ
+	OMb4SPnsGUuRgAep3V4peqNT/7ECAYNYo1NBpXitjwsASHeOQO66porNydcmM8VDMYhWpzRsF2r
+	U8S773slZZnkXQpTdzpuywJMlJAfFZUe2UZdGSyV6+sWjpayB80nhfL7SiZfwgp51VlVftmzmOj
+	kkYoYudPCuaHYhszyCxhd/BleJAfMK32IFXXtQYGO4UZNBJYCwILxBzd/ACY2NiyfZCQpeTrGGb
+	+TaOhI3l4TTi4eO893z9PITnv/dwd7ycqM8C7T3+tXDbp3U2uD6ys92Z5i8maXhAN4rDWYeHMnd
+	UDodirh5+I9/a2FHUg3MqVUdr8Uc1FhQRgIlbvYA22eseZWrSdfWpf0QnxsehAQEDMoYTPdD6NR
+	ChC7oZC9GzfblXm2/+O02S8k3BgLUQ3v0lumfA=
+X-Received: by 2002:a05:6a21:8216:b0:3de:b120:bb88 with SMTP id adf61e73a8af0-3e16bb71260mr12893094637.2.1791904758027;
+        Tue, 13 Oct 2026 08:19:18 -0700 (PDT)
+Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.19.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 08:19:15 -0700 (PDT)
+From: Akari Tsuyukusa <akkun11.open@gmail.com>
+To: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Yassine Oudjana <y.oudjana@protonmail.com>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kees Cook <kees@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Haotian Zhang <vulab@iscas.ac.cn>,
+	Miles Chen <miles.chen@mediatek.com>,
+	Sam Shih <sam.shih@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
+	Laura Nao <laura.nao@collabora.com>,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?= <nfraprado@collabora.com>,
+	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
+	linux-kernel@vger.kernel.org (open list),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
+	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
+	Akari Tsuyukusa <akkun11.open@gmail.com>
+Subject: [PATCH v2 14/35] clk: mediatek: Add child-device population to probe/remove helpers
+Date: Wed, 14 Oct 2026 00:17:13 +0900
+Message-ID: <20261013151734.3177690-15-akkun11.open@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013151734.3177690-1-akkun11.open@gmail.com>
+References: <20261013151734.3177690-1-akkun11.open@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net 0/4] mptcp: misc fixes for v7.3-rc8
-To: netdev-bot+sinfo@kernel.org
-Cc: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- Quanye Yang <quanyeyang@proton.me>, stable@vger.kernel.org,
- Ruide Cao <caoruide123@gmail.com>, Kyle Zeng <kylebot@openai.com>,
- David Lee <david.lee@trailofbits.com>, Vega <vega@nebusec.ai>,
- Ren Wei <weir@nebusec.ai>, Neal Cardwell <ncardwell@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Daniel Borkmann
- <daniel@iogearbox.net>, Martin KaFai Lau <kafai@fb.com>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261013-net-mptcp-misc-fixes-7-3-rc8-v1-0-932c9b182fc7@kernel.org>
- <179190204581.2527009.15289846980073982527@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Content-Language: fr
-Autocrypt: addr=matttbe@kernel.org; keydata=
- xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
- YBNdx5Xl74NLSgx6y/1NiMQGuKeu+2BmtnkiGxBNanfXcnl4L4Lzz+iXBvvbtCbynnnqDDqU
- c7SPFMpMesgpcu1xFt0F6bcxE+0ojRtSCZ5HDElKlHJNYtD1uwY4UYVGWUGCF/+cY1YLmtfb
- WdNb/SFo+Mp0HItfBC12qtDIXYvbfNUGVnA5jXeWMEyYhSNktLnpDL2gBUCsdbkov5VjiOX7
- CRTkX0UgNWRjyFZwThaZADEvAOo12M5uSBk7h07yJ97gqvBtcx45IsJwfUJE4hy8qZqsA62A
- nTRflBvp647IXAiCcwWsEgE5AXKwA3aL6dcpVR17JXJ6nwHHnslVi8WesiqzUI9sbO/hXeXw
- TDSB+YhErbNOxvHqCzZEnGAAFf6ges26fRVyuU119AzO40sjdLV0l6LE7GshddyazWZf0iac
- nEhX9NKxGnuhMu5SXmo2poIQttJuYAvTVUNwQVEx/0yY5xmiuyqvXa+XT7NKJkOZSiAPlNt6
- VffjgOP62S7M9wDShUghN3F7CPOrrRsOHWO/l6I/qJdUMW+MHSFYPfYiFXoLUZyPvNVCYSgs
- 3oQaFhHapq1f345XBtfG3fOYp1K2wTXd4ThFraTLl8PHxCn4ywARAQABzSRNYXR0aGlldSBC
- YWVydHMgPG1hdHR0YmVAa2VybmVsLm9yZz7CwZEEEwEIADsCGwMFCwkIBwIGFQoJCAsCBBYC
- AwECHgECF4AWIQToy4X3aHcFem4n93r2t4JPQmmgcwUCZUDpDAIZAQAKCRD2t4JPQmmgcz33
- EACjROM3nj9FGclR5AlyPUbAq/txEX7E0EFQCDtdLPrjBcLAoaYJIQUV8IDCcPjZMJy2ADp7
- /zSwYba2rE2C9vRgjXZJNt21mySvKnnkPbNQGkNRl3TZAinO1Ddq3fp2c/GmYaW1NWFSfOmw
- MvB5CJaN0UK5l0/drnaA6Hxsu62V5UnpvxWgexqDuo0wfpEeP1PEqMNzyiVPvJ8bJxgM8qoC
- cpXLp1Rq/jq7pbUycY8GeYw2j+FVZJHlhL0w0Zm9CFHThHxRAm1tsIPc+oTorx7haXP+nN0J
- iqBXVAxLK2KxrHtMygim50xk2QpUotWYfZpRRv8dMygEPIB3f1Vi5JMwP4M47NZNdpqVkHrm
- jvcNuLfDgf/vqUvuXs2eA2/BkIHcOuAAbsvreX1WX1rTHmx5ud3OhsWQQRVL2rt+0p1DpROI
- 3Ob8F78W5rKr4HYvjX2Inpy3WahAm7FzUY184OyfPO/2zadKCqg8n01mWA9PXxs84bFEV2mP
- VzC5j6K8U3RNA6cb9bpE5bzXut6T2gxj6j+7TsgMQFhbyH/tZgpDjWvAiPZHb3sV29t8XaOF
- BwzqiI2AEkiWMySiHwCCMsIH9WUH7r7vpwROko89Tk+InpEbiphPjd7qAkyJ+tNIEWd1+MlX
- ZPtOaFLVHhLQ3PLFLkrU3+Yi3tXqpvLE3gO3LM7BTQRV4/npARAA5+u/Sx1n9anIqcgHpA7l
- 5SUCP1e/qF7n5DK8LiM10gYglgY0XHOBi0S7vHppH8hrtpizx+7t5DBdPJgVtR6SilyK0/mp
- 9nWHDhc9rwU3KmHYgFFsnX58eEmZxz2qsIY8juFor5r7kpcM5dRR9aB+HjlOOJJgyDxcJTwM
- 1ey4L/79P72wuXRhMibN14SX6TZzf+/XIOrM6TsULVJEIv1+NdczQbs6pBTpEK/G2apME7vf
- mjTsZU26Ezn+LDMX16lHTmIJi7Hlh7eifCGGM+g/AlDV6aWKFS+sBbwy+YoS0Zc3Yz8zrdbi
- Kzn3kbKd+99//mysSVsHaekQYyVvO0KD2KPKBs1S/ImrBb6XecqxGy/y/3HWHdngGEY2v2IP
- Qox7mAPznyKyXEfG+0rrVseZSEssKmY01IsgwwbmN9ZcqUKYNhjv67WMX7tNwiVbSrGLZoqf
- Xlgw4aAdnIMQyTW8nE6hH/Iwqay4S2str4HZtWwyWLitk7N+e+vxuK5qto4AxtB7VdimvKUs
- x6kQO5F3YWcC3vCXCgPwyV8133+fIR2L81R1L1q3swaEuh95vWj6iskxeNWSTyFAVKYYVskG
- V+OTtB71P1XCnb6AJCW9cKpC25+zxQqD2Zy0dK3u2RuKErajKBa/YWzuSaKAOkneFxG3LJIv
- Hl7iqPF+JDCjB5sAEQEAAcLBXwQYAQIACQUCVeP56QIbDAAKCRD2t4JPQmmgc5VnD/9YgbCr
- HR1FbMbm7td54UrYvZV/i7m3dIQNXK2e+Cbv5PXf19ce3XluaE+wA8D+vnIW5mbAAiojt3Mb
- 6p0WJS3QzbObzHNgAp3zy/L4lXwc6WW5vnpWAzqXFHP8D9PTpqvBALbXqL06smP47JqbyQxj
- Xf7D2rrPeIqbYmVY9da1KzMOVf3gReazYa89zZSdVkMojfWsbq05zwYU+SCWS3NiyF6QghbW
- voxbFwX1i/0xRwJiX9NNbRj1huVKQuS4W7rbWA87TrVQPXUAdkyd7FRYICNW+0gddysIwPoa
- KrLfx3Ba6Rpx0JznbrVOtXlihjl4KV8mtOPjYDY9u+8x412xXnlGl6AC4HLu2F3ECkamY4G6
- UxejX+E6vW6Xe4n7H+rEX5UFgPRdYkS1TA/X3nMen9bouxNsvIJv7C6adZmMHqu/2azX7S7I
- vrxxySzOw9GxjoVTuzWMKWpDGP8n71IFeOot8JuPZtJ8omz+DZel+WCNZMVdVNLPOd5frqOv
- mpz0VhFAlNTjU1Vy0CnuxX3AM51J8dpdNyG0S8rADh6C8AKCDOfUstpq28/6oTaQv7QZdge0
- JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <179190204581.2527009.15289846980073982527@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hello,
+MediaTek audio clock drivers call devm_of_platform_populate() after
+mtk_clk_simple_probe(). Extend __mtk_clk_simple_probe() to run
+of_platform_populate() when the new 'populate_children' flag is set,
+reducing boilerplate.
 
-On 13/10/2026 16:34, netdev-bot+sinfo@kernel.org wrote:
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-I'm not sure for which patches this is about, but I guess not patches
-3-4 which have stack traces. For the others and as mentioned in their
-commit messages, the issues have been reported by Clashiko. A human has
-confirmed the issues can happen -- one in an error path leaving
-undisconnected sockets, the other one is a data race -- but no
-reproducers for them. (They wouldn't have reproduced a stack trace or
-error messages anyway.)
+Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+---
+Changes in v2:
+- Use non "devm_" helper (based on Chen-Yu Tsai's review)
+---
+ drivers/clk/mediatek/clk-mtk.c | 18 +++++++++++++++++-
+ drivers/clk/mediatek/clk-mtk.h |  1 +
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
-Cheers,
-Matt
+diff --git a/drivers/clk/mediatek/clk-mtk.c b/drivers/clk/mediatek/clk-mtk.c
+index e06cd40d995a..1172e76516c0 100644
+--- a/drivers/clk/mediatek/clk-mtk.c
++++ b/drivers/clk/mediatek/clk-mtk.c
+@@ -12,6 +12,7 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
++#include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/slab.h>
+@@ -603,7 +604,16 @@ static int __mtk_clk_simple_probe(struct platform_device *pdev,
+ 		r = mtk_register_reset_controller_with_dev(&pdev->dev,
+ 							   mcd->rst_desc);
+ 		if (r)
+-			goto unregister_clks;
++			goto unregister_provider;
++	}
++
++	if (mcd->populate_children) {
++		r = of_platform_populate(pdev->dev.of_node, NULL, NULL,
++					 &pdev->dev);
++		if (r) {
++			of_platform_depopulate(&pdev->dev);
++			goto unregister_provider;
++		}
+ 	}
+ 
+ 	if (mcd->need_runtime_pm)
+@@ -611,6 +621,9 @@ static int __mtk_clk_simple_probe(struct platform_device *pdev,
+ 
+ 	return 0;
+ 
++unregister_provider:
++	of_clk_del_provider(node);
++	platform_set_drvdata(pdev, NULL);
+ unregister_clks:
+ 	if (mcd->clks)
+ 		mtk_clk_unregister_gates(mcd->clks, mcd->num_clks, clk_data);
+@@ -658,6 +671,9 @@ static void __mtk_clk_simple_remove(struct platform_device *pdev,
+ 	struct clk_hw_onecell_data *clk_data = platform_get_drvdata(pdev);
+ 	const struct mtk_clk_desc *mcd = device_get_match_data(&pdev->dev);
+ 
++	if (mcd->populate_children)
++		of_platform_depopulate(&pdev->dev);
++
+ 	of_clk_del_provider(node);
+ 	if (mcd->clks)
+ 		mtk_clk_unregister_gates(mcd->clks, mcd->num_clks, clk_data);
+diff --git a/drivers/clk/mediatek/clk-mtk.h b/drivers/clk/mediatek/clk-mtk.h
+index b6504b3e77ed..11939e3e0b38 100644
+--- a/drivers/clk/mediatek/clk-mtk.h
++++ b/drivers/clk/mediatek/clk-mtk.h
+@@ -265,6 +265,7 @@ struct mtk_clk_desc {
+ 	unsigned int mfg_clk_idx;
+ 
+ 	bool need_runtime_pm;
++	bool populate_children;
+ };
+ 
+ int mtk_clk_pdev_probe(struct platform_device *pdev);
 -- 
-Sponsored by the NGI0 Core fund.
+2.56.0
 
