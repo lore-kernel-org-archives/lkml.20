@@ -1,72 +1,86 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5BE4BA9FA
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890E04BB81D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791873230; cv=none; b=H+e1wQr3lRYEYzXbgNgNHxFuyqfWxaINsLyinHqHB4XxQccw/LZ9lsNGJZIczr5BV8rr1ZaBdYtcZDdtcaYuxuyUrppCzOmA5H8hCL+inMq4zzw4X1VACINfwObhj4UcMtLK4aJ1BpdQfYCOLv5sskjsuJfKQbaR9XEAFPU3Yb4=
+	t=1791873236; cv=none; b=i8DJ4aTrkgIrG1XEvS6Ga2K6HUjwqD3pZmp0iBJjUCFryuV5L7u0VvGn5Xh/dEA9iy02NBYWVNuutHqVV7m+0GUk4pKsASAAIXwUtSoOlH+yP9IJ18dgWeoE/77C24kzl0RcNPo1dHFhd6EnUaCozKNNdghZmDPWjoy+bFwKgSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791873230; c=relaxed/simple;
-	bh=gL2uXimjW+ctN5CVpAlBDjhvmt8ZTYS/skb+o/gYgB8=;
+	s=arc-20240116; t=1791873236; c=relaxed/simple;
+	bh=PKDt9a17x5JwDBBG2cr351fvRdaGcmqb74KmAxG/+jI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JrzK38vvIw9mljVFpX5nSy32kBiMXazfF2lt2y3uF4mIZqHeU7cnEXx4Csvy0VrDUSFLonnuaPgdTE/m6nhkQbv1P5xNxpwZ9+glD/AG6iA8t08GBfAoPwZLX+ZoMd62YHN+al0sqmuKxTfx+inSpLgcmv6FnEpP+depd3kPphs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NLFxx3i1; arc=none smtp.client-ip=209.85.215.173
+	 MIME-Version; b=DOgvOb7IOzhmaogLQZvjnfA+312A80t73v4mDwWcSZrewoli+mPXvVDL2xHzZKwUhHK5sdTZJSaqdcYlzE+kNVYDHFOO58tVItDoW+b7dk09b+I43Ky9Gt0tTS2xK+hbZsRCMNhxqxwUV+0HKVkqXiqiB8UprOs6+uhn7oJxCgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=myzr4P6w; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NLFxx3i1"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso956012a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:33:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="myzr4P6w"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ab98332238so1257873a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:33:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791873229; x=1792478029; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791873234; x=1792478034; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VA4Kb9cF79nLL0HozCFLR3qs0FajCpT1qffuu3vcWEU=;
-        b=NLFxx3i1J/ZQo8KooxqGWy0Qd0ptOSBVlUVAw3UzHY7Nm357znmkbhXHuTi9GIfMIH
-         l+Oqk9+7xL8XTLIWg4urnTE+hm7CZRkS4O0wWAXDLbAqu7iyF7InN5vLyrtQyZNWrfg4
-         w3/32Iiywqz7U842UP+gfYARLHT7TG1wdKPhhLO7LYyHNt20xMjeGFCpvfsztc/R4bpX
-         q6BY/3AKQvjBpP4PEZMVllzyCrAj5DyM2s7LRXF+hug+m2+OeMOH56qEVRuaPOrB7lpJ
-         L3m4HKWzRxP7k0/pg/uF4ipgP8bH/SPxbnwytKsDgfOiFSW2yoVONYXCrkwU1khzKPJQ
-         BfSw==
+        bh=oTNsy5m2fl3FNNHCS2M1Dkdj9lpqET4GIobo7b5ehNE=;
+        b=myzr4P6wCvoZJlBMOFMxmkdSIEPnMsg6M4vjI+H+7NW2TPn0QXtMC5IBAzW1QRId2J
+         XJE09aNDoZsJQqoZLoR7UfRaP2SXqjc0K4TuV7i2scG4fWwcsg2xHwtWYyduxm7QUvvv
+         Ba5kC7IAZCDUYHYN4Z0TBWGv88XsIYhNa9ESxsqCsjBlICkpXRMSgyp1hjHTlk/+e6mO
+         HkP+xaP9nlpkU21qHiKpO2NMr8zjCRzE5jeILBJUTgQTcvG9nVLMLQMpynjz3w0HNbSe
+         7hkotiRDIXagzJ+5T1eBADkm2Vpk7/JvzZ+s3vMH+WCbH27ScyFS31mqLXGdQGdXIFin
+         HNUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791873229; x=1792478029;
+        d=1e100.net; s=20260707; t=1791873234; x=1792478034;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VA4Kb9cF79nLL0HozCFLR3qs0FajCpT1qffuu3vcWEU=;
-        b=udP/iQfK83XzYuyRyEx19k7Ca5/bC1xAmqCg2r75T4Eid4YTcyQKap6W0UQ9xQM39F
-         AsWH1rqnwSi3+k6lhOj+0heXD3LGWGAvY+vumsVCQKkcnbOOa2uTBoiCzclIyKAcFWm8
-         7DNLObAwfclWUQId+4mnOh69xSswbfFfOOTyo65gzplWb+T0mfyJj89Tj2m4pooIRjwS
-         AlrH1Zn7iNpkWoCJnl6vefsw5SFe9uPHFEsiOSeKZPNUm5Hn6bLn8VyRE778Lo4ck3y/
-         SvmfLSqfEG1hhVct83nm2ALOmlNdBbMuicUr8EokChn3MKNc7b5GhljDwrJzR8YUHEVM
-         lLlQ==
-X-Gm-Message-State: AFq9FYJl1GKYK4kuC3SxggAXyx783uL9WRfroloc5Hpi1LLt83y0Ib5h
-	zvFp5u9nIkMUbDukpLbzsUwunT9EgODRf5vNZG0yUdUtouaoMsqvq4MG
-X-Gm-Gg: AYBFou1OTnOsQ3l6qkoywSMx5/1pjZXsZHYdfHuA+WITzBLHQq5xsHQnZz7fW6/JeEl
-	tqmfcYgGcmSW4kaEzNV+2wWlGTnAtxrpmrfcQbVA2/c6nco2dgUweKBlJXxWWEiItkUGTx+34Qf
-	Pl7mCAREuLmB2FkP1ZhxEGIC2KeibUm6VWvyeTr2FOdS3RkmcE600+91ddeowpm7LDoWbI0PcN7
-	L3FoYrcSwzhVqTLTja5CkLGDNpujZownV0Bxb0uUewGvNDD3CyK1lJGvrauYIACX70XiJ89W81j
-	fYB5xvQEmr/fWR/jGplLi/gZ++WSMnwGS/fKNsq96iXBDpG9IxC/AuBk0vsOOgMHLBXXwmQjb4h
-	qnW7ra4B8tHoVQVkSU4ltcMCeeM7OLWRdS6EJXa3hr1ShvSEdv6J4tpcIg124hz3IVHyvIMGG3I
-	dBsLvOBrXFkdriTwml85JjjR7zFucCySE0jQEN/QsIxvGZZymQYgLs48I5a1MjcZi7ug/ADgAMo
-	ZO2Rf7wAv87gOepRFrHh66o5JSvkSTP3AN+4Vu4tYXzDaAyFR0=
-X-Received: by 2002:a17:90a:d44d:b0:3a2:bb45:d37b with SMTP id 98e67ed59e1d1-3ab3aafb452mr9592963a91.25.1791873228563;
-        Mon, 12 Oct 2026 23:33:48 -0700 (PDT)
+        bh=oTNsy5m2fl3FNNHCS2M1Dkdj9lpqET4GIobo7b5ehNE=;
+        b=CeutZtekh9orELWMhp4cty8FgiU5SWDq6AQglhv/pYtZRvDqb0E5o1TX/EFjjh1P+i
+         sBHhWKh2X4V6gPN4rYNKNsS9+6c0FBtb24mCowv/UK7SeiEZdjFUuuUoXhuv4ZzHvLok
+         IKcqpEopcKDo3dbZtri0TW3mJYMuga7Dplm5pEd4F2Fm3t+CxnmTnzi1DiRrf7yT8BR3
+         DsLN+f+OVmbop+awrWppoeBK7AgcZ5k8whN50HGF5L/VOh2P9YrbJPfbg4hrO0K9heLf
+         ASyZhJgzuRDNkYj7siyMYyKq+mT1ZkZrjxekYgowRXU/QQ6+FU1cwsX/WXQ68v4KAXuP
+         OatQ==
+X-Gm-Message-State: AFq9FYItE3NK/p+cPvHS2lqEuRDs4GEBwxkCvn0PUkzhAuSBqVISnqU4
+	qXmx5+2hG/ru/z7vJ4FPsBohkRqFW90uUfx4i6WSzDXvpAzoQM/XYgR9
+X-Gm-Gg: AYBFou3IGIVXdYkKSovYhQEzPRv1ndmkxUjH+irKdL3N6tzvL1bN2Z22EChSEzpgN8j
+	m7gC02yAHaAb0SZP8fpEoMpriXCQ/mgDueB4wuoOqafP0qVE7Fz1wRdA+g1DaX1LyyqVNzm4lpx
+	YdVUk7wleeL73bg9uaNvBiaqtjRzUksLJ+8TwEUcPNj8XyrltMWyWbBTBHBnVOGedIq/nspxqJ5
+	CTqsMmhBFflY6lr49I+9qO2KnJTwA1wfiqBcYKivMW5tm6Be0ZLh24xjPRObn/Av1xBEzYi1rZS
+	SXSe63MG8PgxO4LDePIIsB+YSQH6HvAGV98IjQrZOnZarP+ZuKQiU2hBDmpHNbnwoUPJZlA4BJs
+	mrLlQaJtNHN6Jo0t3ZybznqFxZf4wnQsX2WLeraf7Z6WdD/UPxO96Cuz4J936AX2gVmBCA2xHfT
+	+3ilP1p0Pw6gk8UI/rMc0ncRDU3G1jKC3qG7RD6gKawJ1bKLl8ZwJsuoRR9iCVHStFmZ3Lx+1Fq
+	4973grLPcSIdEGJyPo5Ias1LVffuHRVovyWZBkeGWGilejMjLE=
+X-Received: by 2002:a17:90b:1dc1:b0:39e:4c7f:7304 with SMTP id 98e67ed59e1d1-3ab3ac9f622mr8108214a91.27.1791873233720;
+        Mon, 12 Oct 2026 23:33:53 -0700 (PDT)
 Received: from hcdev-d520mt2.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f4863esm23169595a91.11.2026.10.12.23.33.46
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f4863esm23169595a91.11.2026.10.12.23.33.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 23:33:47 -0700 (PDT)
+        Mon, 12 Oct 2026 23:33:53 -0700 (PDT)
 From: a0282524688@gmail.com
 To: lee@kernel.org,
-	Ming Yu <tmyu0@nuvoton.com>
+	Ming Yu <tmyu0@nuvoton.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>
 Cc: linux-kernel@vger.kernel.org,
 	Ming Yu <a0282524688@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-can@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
 	mfd@lists.linux.dev
-Subject: [PATCH v9 04/12] mfd: nct6694: Transfer data packets via a dedicated buffer
-Date: Tue, 13 Oct 2026 14:32:50 +0800
-Message-Id: <20261013063259.2734757-5-a0282524688@gmail.com>
+Subject: [PATCH v9 05/12] mfd: nct6694: Move module type macros to shared header
+Date: Tue, 13 Oct 2026 14:32:51 +0800
+Message-Id: <20261013063259.2734757-6-a0282524688@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261013063259.2734757-1-a0282524688@gmail.com>
 References: <20261013063259.2734757-1-a0282524688@gmail.com>
@@ -80,159 +94,200 @@ Content-Transfer-Encoding: 8bit
 
 From: Ming Yu <a0282524688@gmail.com>
 
-The caller's buffer is passed straight to usb_bulk_msg(). Sub-device
-drivers embed those buffers in their private data, so they are neither
-cacheline aligned nor exclusively owned by the transfer, and mapping
-them for DMA can corrupt adjacent fields on non-coherent architectures.
+Each sub-device driver defines the module type used by its own
+commands. The upcoming HIF transport also needs to recognise
+NCT6694_RPT_MOD, as report accesses are served from a separate
+register space rather than through the command mailbox.
 
-Transfer the data packets through a buffer owned by the transport, and
-reject commands exceeding the maximum data length.
+Move all module types into the shared header so that the transports
+and the sub-device drivers use a single set of definitions.
 
-Fixes: 51dad33ede63 ("mfd: Add core driver for Nuvoton NCT6694")
+No functional change.
+
+Reviewed-by: Andi Shyti <andi.shyti@kernel.org>
 Signed-off-by: Ming Yu <a0282524688@gmail.com>
 ---
 Changes in v9:
-- None.
+- Added Andi's Reviewed-by.
 
 Changes in v8:
-- Moved before the refactoring so it applies to the original driver.
-- Renamed xfer_buf to data_buf, len to data_len and
-  NCT6694_MAX_PACKET_SIZE to NCT6694_MAX_DATA_LEN.
+- Reworded the commit message to explain why the transport needs the
+  module types.
 
 Changes in v7:
-- New patch.
+- None.
 
- drivers/mfd/nct6694.c       | 37 +++++++++++++++++++++++++++----------
- include/linux/mfd/nct6694.h |  4 ++++
- 2 files changed, 31 insertions(+), 10 deletions(-)
+Changes in v6:
+- None.
 
-diff --git a/drivers/mfd/nct6694.c b/drivers/mfd/nct6694.c
-index 4f5a5b855de2..f9ae8476fcae 100644
---- a/drivers/mfd/nct6694.c
-+++ b/drivers/mfd/nct6694.c
-@@ -98,8 +98,12 @@ int nct6694_read_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *c
- {
- 	union nct6694_usb_msg *msg = nct6694->usb_msg;
- 	struct usb_device *udev = nct6694->udev;
-+	u16 data_len = le16_to_cpu(cmd_hd->len);
- 	int tx_len, rx_len, ret;
+Changes in v5:
+- Split from the monolithic v4 patch to follow the single logical change
+  principle.
+
+ drivers/gpio/gpio-nct6694.c         |  7 -------
+ drivers/hwmon/nct6694-hwmon.c       | 21 ---------------------
+ drivers/i2c/busses/i2c-nct6694.c    |  7 -------
+ drivers/net/can/usb/nct6694_canfd.c |  6 ------
+ drivers/rtc/rtc-nct6694.c           |  7 -------
+ drivers/watchdog/nct6694_wdt.c      |  7 -------
+ include/linux/mfd/nct6694.h         |  9 +++++++++
+ 7 files changed, 9 insertions(+), 55 deletions(-)
+
+diff --git a/drivers/gpio/gpio-nct6694.c b/drivers/gpio/gpio-nct6694.c
+index a8607f0d9915..53bfc5983648 100644
+--- a/drivers/gpio/gpio-nct6694.c
++++ b/drivers/gpio/gpio-nct6694.c
+@@ -13,13 +13,6 @@
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
  
-+	if (data_len > NCT6694_MAX_DATA_LEN)
-+		return -EINVAL;
-+
- 	guard(mutex)(&nct6694->access_lock);
+-/*
+- * USB command module type for NCT6694 GPIO controller.
+- * This defines the module type used for communication with the NCT6694
+- * GPIO controller over the USB interface.
+- */
+-#define NCT6694_GPIO_MOD	0xFF
+-
+ #define NCT6694_GPIO_VER	0x90
+ #define NCT6694_GPIO_VALID	0x110
+ #define NCT6694_GPI_DATA	0x120
+diff --git a/drivers/hwmon/nct6694-hwmon.c b/drivers/hwmon/nct6694-hwmon.c
+index 9a9a4db434c4..bd4c106305c7 100644
+--- a/drivers/hwmon/nct6694-hwmon.c
++++ b/drivers/hwmon/nct6694-hwmon.c
+@@ -15,13 +15,6 @@
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
  
- 	memcpy(&msg->cmd_header, cmd_hd, sizeof(*cmd_hd));
-@@ -124,17 +128,19 @@ int nct6694_read_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *c
- 	}
+-/*
+- * USB command module type for NCT6694 report channel
+- * This defines the module type used for communication with the NCT6694
+- * report channel over the USB interface.
+- */
+-#define NCT6694_RPT_MOD			0xFF
+-
+ /* Report channel */
+ /*
+  * The report channel is used to report the status of the hardware monitor
+@@ -38,13 +31,6 @@
+ #define NCT6694_TIN_STS(x)		(0x6A + (x))
+ #define NCT6694_FIN_STS(x)		(0x6E + (x))
  
- 	/* Receive data packet from USB device */
--	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), buf,
--			   le16_to_cpu(cmd_hd->len), &rx_len, NCT6694_URB_TIMEOUT);
-+	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), nct6694->data_buf,
-+			   data_len, &rx_len, NCT6694_URB_TIMEOUT);
- 	if (ret)
- 		return ret;
+-/*
+- * USB command module type for NCT6694 HWMON controller.
+- * This defines the module type used for communication with the NCT6694
+- * HWMON controller over the USB interface.
+- */
+-#define NCT6694_HWMON_MOD		0x00
+-
+ /* Command 00h - Hardware Monitor Control */
+ #define NCT6694_HWMON_CONTROL		0x00
+ #define NCT6694_HWMON_CONTROL_SEL	0x00
+@@ -53,13 +39,6 @@
+ #define NCT6694_HWMON_ALARM		0x02
+ #define NCT6694_HWMON_ALARM_SEL		0x00
  
--	if (rx_len != le16_to_cpu(cmd_hd->len)) {
-+	if (rx_len != data_len) {
- 		dev_err(nct6694->dev, "Expected received length %d, but got %d\n",
--			le16_to_cpu(cmd_hd->len), rx_len);
-+			data_len, rx_len);
- 		return -EIO;
- 	}
+-/*
+- * USB command module type for NCT6694 PWM controller.
+- * This defines the module type used for communication with the NCT6694
+- * PWM controller over the USB interface.
+- */
+-#define NCT6694_PWM_MOD			0x01
+-
+ /* PWM Command - Manual Control */
+ #define NCT6694_PWM_CONTROL		0x01
+ #define NCT6694_PWM_CONTROL_SEL		0x00
+diff --git a/drivers/i2c/busses/i2c-nct6694.c b/drivers/i2c/busses/i2c-nct6694.c
+index 1413ab6f9462..ef3329f34246 100644
+--- a/drivers/i2c/busses/i2c-nct6694.c
++++ b/drivers/i2c/busses/i2c-nct6694.c
+@@ -12,13 +12,6 @@
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
  
-+	memcpy(buf, nct6694->data_buf, data_len);
-+
- 	return nct6694_response_err_handling(nct6694, msg->response_header.sts);
- }
- EXPORT_SYMBOL_GPL(nct6694_read_msg);
-@@ -154,12 +160,17 @@ int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *
- {
- 	union nct6694_usb_msg *msg = nct6694->usb_msg;
- 	struct usb_device *udev = nct6694->udev;
-+	u16 data_len = le16_to_cpu(cmd_hd->len);
- 	int tx_len, rx_len, ret;
+-/*
+- * USB command module type for NCT6694 I2C controller.
+- * This defines the module type used for communication with the NCT6694
+- * I2C controller over the USB interface.
+- */
+-#define NCT6694_I2C_MOD			0x03
+-
+ /* Command 00h - I2C Deliver */
+ #define NCT6694_I2C_DELIVER		0x00
+ #define NCT6694_I2C_DELIVER_SEL		0x00
+diff --git a/drivers/net/can/usb/nct6694_canfd.c b/drivers/net/can/usb/nct6694_canfd.c
+index e5f7f8849a73..262b4c26c9d4 100644
+--- a/drivers/net/can/usb/nct6694_canfd.c
++++ b/drivers/net/can/usb/nct6694_canfd.c
+@@ -18,12 +18,6 @@
  
-+	if (data_len > NCT6694_MAX_DATA_LEN)
-+		return -EINVAL;
-+
- 	guard(mutex)(&nct6694->access_lock);
+ #define DEVICE_NAME "nct6694-canfd"
  
- 	memcpy(&msg->cmd_header, cmd_hd, sizeof(*cmd_hd));
- 	msg->cmd_header.hctrl = NCT6694_HCTRL_SET;
-+	memcpy(nct6694->data_buf, buf, data_len);
+-/* USB command module type for NCT6694 CANfd controller.
+- * This defines the module type used for communication with the NCT6694
+- * CANfd controller over the USB interface.
+- */
+-#define NCT6694_CANFD_MOD			0x05
+-
+ /* Command 00h - CAN Setting and Initialization */
+ #define NCT6694_CANFD_SETTING			0x00
+ #define NCT6694_CANFD_SETTING_ACTIVE_CTRL1	BIT(0)
+diff --git a/drivers/rtc/rtc-nct6694.c b/drivers/rtc/rtc-nct6694.c
+index 35401a0d9cf5..c06902f150c9 100644
+--- a/drivers/rtc/rtc-nct6694.c
++++ b/drivers/rtc/rtc-nct6694.c
+@@ -14,13 +14,6 @@
+ #include <linux/rtc.h>
+ #include <linux/slab.h>
  
- 	/* Send command packet to USB device */
- 	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, NCT6694_BULK_OUT_EP), &msg->cmd_header,
-@@ -168,8 +179,8 @@ int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *
- 		return ret;
+-/*
+- * USB command module type for NCT6694 RTC controller.
+- * This defines the module type used for communication with the NCT6694
+- * RTC controller over the USB interface.
+- */
+-#define NCT6694_RTC_MOD		0x08
+-
+ /* Command 00h - RTC Time */
+ #define NCT6694_RTC_TIME	0x0000
+ #define NCT6694_RTC_TIME_SEL	0x00
+diff --git a/drivers/watchdog/nct6694_wdt.c b/drivers/watchdog/nct6694_wdt.c
+index bc3689bd4b6b..4c06ac105562 100644
+--- a/drivers/watchdog/nct6694_wdt.c
++++ b/drivers/watchdog/nct6694_wdt.c
+@@ -20,13 +20,6 @@
  
- 	/* Send data packet to USB device */
--	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, NCT6694_BULK_OUT_EP), buf,
--			   le16_to_cpu(cmd_hd->len), &tx_len, NCT6694_URB_TIMEOUT);
-+	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, NCT6694_BULK_OUT_EP), nct6694->data_buf,
-+			   data_len, &tx_len, NCT6694_URB_TIMEOUT);
- 	if (ret)
- 		return ret;
+ #define NCT6694_WDT_MAX_DEVS		2
  
-@@ -186,17 +197,19 @@ int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *
- 	}
- 
- 	/* Receive data packet from USB device */
--	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), buf,
--			   le16_to_cpu(cmd_hd->len), &rx_len, NCT6694_URB_TIMEOUT);
-+	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), nct6694->data_buf,
-+			   data_len, &rx_len, NCT6694_URB_TIMEOUT);
- 	if (ret)
- 		return ret;
- 
--	if (rx_len != le16_to_cpu(cmd_hd->len)) {
-+	if (rx_len != data_len) {
- 		dev_err(nct6694->dev, "Expected transmitted length %d, but got %d\n",
--			le16_to_cpu(cmd_hd->len), rx_len);
-+			data_len, rx_len);
- 		return -EIO;
- 	}
- 
-+	memcpy(buf, nct6694->data_buf, data_len);
-+
- 	return nct6694_response_err_handling(nct6694, msg->response_header.sts);
- }
- EXPORT_SYMBOL_GPL(nct6694_write_msg);
-@@ -315,6 +328,10 @@ static int nct6694_usb_probe(struct usb_interface *iface,
- 	if (!nct6694->usb_msg)
- 		return -ENOMEM;
- 
-+	nct6694->data_buf = devm_kzalloc(dev, NCT6694_MAX_DATA_LEN, GFP_KERNEL);
-+	if (!nct6694->data_buf)
-+		return -ENOMEM;
-+
- 	nct6694->int_buffer = devm_kzalloc(dev, sizeof(*nct6694->int_buffer), GFP_KERNEL);
- 	if (!nct6694->int_buffer)
- 		return -ENOMEM;
+-/*
+- * USB command module type for NCT6694 WDT controller.
+- * This defines the module type used for communication with the NCT6694
+- * WDT controller over the USB interface.
+- */
+-#define NCT6694_WDT_MOD			0x07
+-
+ /* Command 00h - WDT Setup */
+ #define NCT6694_WDT_SETUP		0x00
+ #define NCT6694_WDT_SETUP_SEL(idx)	(idx ? 0x01 : 0x00)
 diff --git a/include/linux/mfd/nct6694.h b/include/linux/mfd/nct6694.h
-index a5ad7be47bf9..69e4652cf16c 100644
+index 69e4652cf16c..d46ae34a497e 100644
 --- a/include/linux/mfd/nct6694.h
 +++ b/include/linux/mfd/nct6694.h
-@@ -19,6 +19,9 @@
+@@ -8,6 +8,15 @@
+ #ifndef __MFD_NCT6694_H
+ #define __MFD_NCT6694_H
  
- #define NCT6694_URB_TIMEOUT	1000
- 
-+/* Maximum data packet length the firmware accepts in a single command */
-+#define NCT6694_MAX_DATA_LEN	0x3F0
++#define NCT6694_HWMON_MOD	0x00
++#define NCT6694_PWM_MOD		0x01
++#define NCT6694_I2C_MOD		0x03
++#define NCT6694_CANFD_MOD	0x05
++#define NCT6694_WDT_MOD		0x07
++#define NCT6694_RTC_MOD		0x08
++#define NCT6694_RPT_MOD		0xFF
++#define NCT6694_GPIO_MOD	NCT6694_RPT_MOD
 +
- enum nct6694_irq_id {
- 	NCT6694_IRQ_GPIO0 = 0,
- 	NCT6694_IRQ_GPIO1,
-@@ -92,6 +95,7 @@ struct nct6694 {
- 	struct urb *int_in_urb;
- 	struct usb_device *udev;
- 	union nct6694_usb_msg *usb_msg;
-+	void *data_buf;
- 	__le32 *int_buffer;
- 	unsigned int irq_enable;
- };
+ #define NCT6694_VENDOR_ID	0x0416
+ #define NCT6694_PRODUCT_ID	0x200B
+ #define NCT6694_INT_IN_EP	0x01
 -- 
 2.34.1
 
