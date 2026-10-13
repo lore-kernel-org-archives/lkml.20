@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-113.mta1.migadu.com [95.215.58.113])
+Received: from mta0.migadu.com (out-22.mta0.migadu.com [91.218.175.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D03C52F292
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:59:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4133852BE3A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914364; cv=none; b=tNwna2CnDhJBaOpLBrRXv0WWLkcPcLOUmo7aLhGYHguMLh6vYHkX1ndzQ/jqg0ulX7XnI5U+r7Ft5F5Nl4wN5H6OrFjPdDcg055NButBzuSRL4OoUPUDcj0N5V7s1KUSbPqwjl3zfzS1bsvNi4RXBa4OgOp8w3ezXiQSmMfRSWA=
+	t=1791914374; cv=none; b=aqbChjK6VybPdHBYlyvp1qVJwotgalhLONq0devXUZTzsOVlpEcu57RKQ+uXbIHhOhjA/EJ8P7aDSB1QWYI+M2kNIFJm8LGHYHoyf5Bc1UAfRsBUrs6Lq0EHnQ/Q2WSbYE2yCf4+/oaRylSCSOUB3SPwXlWcwLrRaGxXbdAZ4nQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914364; c=relaxed/simple;
-	bh=UlY7QlMUrNEOh4hmb9le0VB8UsxmrmjM0k/WpNGXkOI=;
+	s=arc-20240116; t=1791914374; c=relaxed/simple;
+	bh=9h/FNSMgG+J6obEKf6fvJS5SmMAncJBwxOlD5ZJEldk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rjeTVh5ai4UGkEzcaJJ+7e0yIsUc9VGwkpJOH750QhVvoUyUYvRhJsVGYyPET5MIps7ukXMlzP5+pMwKqJsW70d/uGZwXaSx0aEjbaZIHP9rI3zY39Ud35a07sOnNUck3U1JBTkf9X/3gRJKTjlf71T+Cw755t7CzswJ/FpG2cM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KPjV+rxi; arc=none smtp.client-ip=95.215.58.113
+	 MIME-Version; b=PK5bwve38bqyoezAQUhANavUfIyxXRebCiJA1kM0vO+WhX/48p5KUAGXU/+AJT5TYaTd+mVcNgLBaV68pOD8Y2Cc4K+48EwPT7niY6VRC79HHbLSNsZ6YLQEB5DBKcpJhSK1l43kNcu0RWdM1Jaj1Nkd13Haqx/KyDoTDRV9uJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ozfBblX2; arc=none smtp.client-ip=91.218.175.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KPjV+rxi"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ozfBblX2"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UlY7QlMUrNEOh4hmb9le0VB8UsxmrmjM0k/WpNGXkOI=;
+DKIM-Signature: a=rsa-sha256; bh=9h/FNSMgG+J6obEKf6fvJS5SmMAncJBwxOlD5ZJEldk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791914360; v=1; x=1792519160;
- b=KPjV+rxiefhviSBnK4gg3Cod99hApXIPI5eN0EcI8wu3BVjV/ocD91lioy17UXKnc6YxP0Ac
- CSzGcmEHY6X6TEKpSjSlwLY7/MjmIJwRgQ/99RwPY6OvSg1Z69VIaabIr3Fp+cWpZE22Xg++Dlv
- Qyy7lf3Uf+PxyddMUvUYJZnk=
+ t=1791914370; v=1; x=1792519170;
+ b=ozfBblX2OlF3ciq6K3bcnIRYWplo7jt+8CJAWU1tnQbZtP76YmD9Xmq6HsFGFwSrKE3O24my
+ xQu39kd79Y4Isvpa9XGzjfe3YfKNajp5c5w16lnTqkf4eVdPE48Ml/NC4fJ+vx32hypgt6d7+kp
+ VoJpmE15Q1gqGRY1bbWqB5cE=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id c84f0cb4edcfb4e0;
-	Tue, 13 Oct 2026 17:59:20 +0000
-X-Mizu-Trace-ID: c84f0cb4edcfb4e0
+Received: by mta11.migadu.com with ESMTPS id 0ab10756c8226aae;
+	Tue, 13 Oct 2026 17:59:30 +0000
+X-Mizu-Trace-ID: 0ab10756c8226aae
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
@@ -39,11 +39,11 @@ Cc: Eric Dumazet <edumazet@google.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-rt-devel@list.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jacob Keller <jacob.e.keller@intel.com>,
+	Jason Xing <kerneljasonxing@gmail.com>,
 	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH 02/15] net: avoid irqsave in skb_defer_free_flush
-Date: Wed, 14 Oct 2026 01:58:36 +0800
-Message-Id: <aa067ff5678ffa30e088d6171b18bceb61fffa86.1791912669.git.wen.yang@linux.dev>
+Subject: [PATCH 03/15] net: napi_schedule_rps() cleanup
+Date: Wed, 14 Oct 2026 01:58:37 +0800
+Message-Id: <9703e2ac1d47f48775c312a6fc54cb3f874142f6.1791912669.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1791912669.git.wen.yang@linux.dev>
 References: <cover.1791912669.git.wen.yang@linux.dev>
@@ -55,67 +55,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jesper Dangaard Brouer <brouer@redhat.com>
+From: Eric Dumazet <edumazet@google.com>
 
-commit 3176eb82681ec9c8af31c6588ddedcc6cfb9e445 upstream.
+napi_schedule_rps() return value is ignored, remove it.
 
-The spin_lock irqsave/restore API variant in skb_defer_free_flush can
-be replaced with the faster spin_lock irq variant, which doesn't need
-to read and restore the CPU flags.
+commit 8fcb76b934daff12cde76adeab3d502eeb0734b1 upstream.
 
-Using the unconditional irq "disable/enable" API variant is safe,
-because the skb_defer_free_flush() function is only called during
-NAPI-RX processing in net_rx_action(), where it is known the IRQs
-are enabled.
+Change the comment to clarify the intent.
 
-Expected gain is 14 cycles from avoiding reading and restoring CPU
-flags in a spin_lock_irqsave/restore operation, measured via a
-microbencmark kernel module[1] on CPU E5-1650 v4 @ 3.60GHz.
-
-Microbenchmark overhead of spin_lock+unlock:
- - spin_lock_unlock_irq     cost: 34 cycles(tsc)  9.486 ns
- - spin_lock_unlock_irqsave cost: 48 cycles(tsc) 13.567 ns
-
-We don't expect to see a measurable packet performance gain, as
-skb_defer_free_flush() is called infrequently once per NIC device NAPI
-bulk cycle and conditionally only if SKBs have been deferred by other
-CPUs via skb_attempt_defer_free().
-
-[1] https://github.com/netoptimizer/prototype-kernel/blob/master/kernel/lib/time_bench_sample.c
-
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Signed-off-by: Jesper Dangaard Brouer <brouer@redhat.com>
-Link: https://lore.kernel.org/r/167421646327.1321776.7390743166998776914.stgit@firesoul
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
+Tested-by: Jason Xing <kerneljasonxing@gmail.com>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- net/core/dev.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ net/core/dev.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
 diff --git a/net/core/dev.c b/net/core/dev.c
-index f44ffac6cba6..efe483d7e03f 100644
+index efe483d7e03f..36dbb86496ec 100644
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
-@@ -6762,17 +6762,16 @@ static int napi_threaded_poll(void *data)
- static void skb_defer_free_flush(struct softnet_data *sd)
+@@ -4722,11 +4722,18 @@ static void trigger_rx_softirq(void *data)
+ }
+ 
+ /*
+- * Check if this softnet_data structure is another cpu one
+- * If yes, queue it to our IPI list and return 1
+- * If no, return 0
++ * After we queued a packet into sd->input_pkt_queue,
++ * we need to make sure this queue is serviced soon.
++ *
++ * - If this is another cpu queue, link it to our rps_ipi_list,
++ *   and make sure we will process rps_ipi_list from net_rx_action().
++ *   As we do not know yet if we are called from net_rx_action(),
++ *   we have to raise NET_RX_SOFTIRQ. This might change in the future.
++ *
++ * - If this is our own queue, NAPI schedule our backlog.
++ *   Note that this also raises NET_RX_SOFTIRQ.
+  */
+-static int napi_schedule_rps(struct softnet_data *sd)
++static void napi_schedule_rps(struct softnet_data *sd)
  {
- 	struct sk_buff *skb, *next;
--	unsigned long flags;
+ 	struct softnet_data *mysd = this_cpu_ptr(&softnet_data);
  
- 	/* Paired with WRITE_ONCE() in skb_attempt_defer_free() */
- 	if (!READ_ONCE(sd->defer_list))
- 		return;
+@@ -4736,11 +4743,10 @@ static int napi_schedule_rps(struct softnet_data *sd)
+ 		mysd->rps_ipi_list = sd;
  
--	spin_lock_irqsave(&sd->defer_lock, flags);
-+	spin_lock_irq(&sd->defer_lock);
- 	skb = sd->defer_list;
- 	sd->defer_list = NULL;
- 	sd->defer_count = 0;
--	spin_unlock_irqrestore(&sd->defer_lock, flags);
-+	spin_unlock_irq(&sd->defer_lock);
+ 		__raise_softirq_irqoff(NET_RX_SOFTIRQ);
+-		return 1;
++		return;
+ 	}
+ #endif /* CONFIG_RPS */
+ 	__napi_schedule_irqoff(&mysd->backlog);
+-	return 0;
+ }
  
- 	while (skb != NULL) {
- 		next = skb->next;
+ #ifdef CONFIG_NET_FLOW_LIMIT
 -- 
 2.25.1
 
