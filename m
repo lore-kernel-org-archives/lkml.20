@@ -1,56 +1,56 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49DA5632A9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50098563287
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791930417; cv=none; b=jMLYqtoGV0bSeZoFAZvZ70EqLOyVNRpkQorRvkPeVWEpgh17v23IfftL1WxyZXnX+LPvGyQMAi77KLb4G6qWEZmcZyXaS9jIFmqixGO1NYzEt1WqeGbcBhg91krHjtVz/DWsxui5vdMVlilEQGjJh8gC1OJCByFt0ZW9zt2fYmw=
+	t=1791930423; cv=none; b=kfcTcvMFILI43N8MqcXUg7esOaGyaKBo5x4uPRpopOUbruZCRmZneQbtpqhdG56OADkeo6sdUMMRK1P9aioCyCbjEvHglhteDN+/X5fipyfbNRXo5fDYfZ6RB5T0p+g1YuWYZGcXiu1Apl62qNw0Gx64haHgIFvjAvTnTRKeI0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791930417; c=relaxed/simple;
-	bh=y3F9Xy4dskAVm4223YtE9IjPGvPgI5+h696DQ/KHXJQ=;
+	s=arc-20240116; t=1791930423; c=relaxed/simple;
+	bh=MQEx+L+bTgjB6LpKQWr8rX315xWt6W85M+PsrrZl3Ww=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=nbvrejZ50DYi4djdaLRtwFYjZh7CIb/5dXJHSeda5LjLe9p0owKpzS2UnEzY+9Y9J4GI63xZB2bALJ/sO/xZoxpBfX4apOwJjVsgnCnxxybNuwzVviBrtwAfwOlUoX3LGlB3UP7K2uNaQrnSNsA7Yeg9LILHTvP4nKKIlnWu1bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rGGYEutI; arc=none smtp.client-ip=74.125.82.198
+	 To:Cc:Content-Type; b=OVwMBdfBioJqvib2pYMFiehN0ESJqJmc4y21lW2TKMeFZwFEI2C3o9fgZ2zJVsp3CJLsLTGljde+zb7yCUfd+lrW/zCsgyh/dfJgIHEE7p7kCKX2wcodoeDkHJNYFVcm9gsKY9JSorDcv4ZQMK06etYImwFlrLcIaQw84RYrae0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZqM9/oFw; arc=none smtp.client-ip=74.125.82.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rGGYEutI"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35c3c370b17so2424540eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:26:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZqM9/oFw"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3552883bd19so4608020eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:27:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791930414; x=1792535214; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791930419; x=1792535219; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=akhiltbw0LF7IWKPfQyuqpmH/j7Qc/MOnF0HaTFVPUE=;
-        b=rGGYEutI7Oy5YnaxsNO03LRhvila+awMyIPIoXRTq1z18CxaJB5N9aszDzzeIQkIi5
-         +em9tbq5OM5UFfeIyKSILX4Hjlz8K55gwMmOhFut3Aw5xMo7AmSxP9mNBpBplpirk5eO
-         WYbe68Fd/VT73incXErAxkqO0sOhNgjdsaYnWVs2Xgp7Urim34pzykyzEg5IR8GtiYAc
-         WVD6VV2ZWs86AmMIx9j5NTpToIOn4d37dGctI27Jo/O1LqsSiec9dNvngW/KU5FdMDAk
-         Dqtv662gpdoNXlyrRQ8pODh5+7pMor/wMqcqn2/v6oLZwCrwgwBlQ3E/c0/iGA8nqx0m
-         lT0A==
+        bh=ZE4+oqWgjisY7ML1bRCEEvBwOPAJPrHwRyt4cCLc/JY=;
+        b=ZqM9/oFwL+mP6BKiC/oNjSxOy39hNWIu1UCxC2CrF39MGRWjTsnbykXbavGLK1KBjp
+         r5tolgpO7VvKjW7aeFQWzar1bjhS+Xsd6kYlTW1aXcn3IGoQCAe9Uj/gtpXzaDmViDly
+         ga8iNkJxrb00BYjj7D3MWcx/Cc3QkU3lLvr78y7OA5cqdPufSa+bKCT7iV1bDXts0Sfr
+         BJt82VslL38H1vuJtaKqC5rqJ6q+t52mUThldiR4cxLCtPucM/xC2YlkxgaCkCuXqrSa
+         cnK/GyeRir2467pxMb57ftIamkR8fDpSMVs9Xp9VUE3wPWBbeyPKISGDmyPP6TJm2alM
+         DQng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791930414; x=1792535214;
+        d=1e100.net; s=20260707; t=1791930419; x=1792535219;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=akhiltbw0LF7IWKPfQyuqpmH/j7Qc/MOnF0HaTFVPUE=;
-        b=yXaSRKLgUtG/Avmb0ejiN2i73SeMAXAesi2Hoi8oJkIOkC+3WijkYCXU2/eOX1bJcU
-         Tna+zWX9fGCFO1+5EgGy578rfRRTfr4ZUTgfDqWS6KmL1nqvXx1eWypZNt5sE6ctiwTK
-         m7Jf5aZigCBkaq+m86V34NVPeGZjCgYyPOxP8JOsEYSEclXZUFpzpLyXbOIRHEEJPh75
-         pQbP4jYjxwLvjwDTQtBj8Ca8TRUjh//NzImx3s6UEDS545vPW+utS93w6xAEpplH913Z
-         tOOq8X8xnjMAHvaZ2L5QO03at7dTrK32Bt56JsAJz6ixX/ZdQd8VasBFBt/tVe4G4gZz
-         QUug==
-X-Forwarded-Encrypted: i=1; AKwUvBxgzoorxbtYKfub5uzLoVQwiLe+SddKGtESJBauqOkssqRagH1wrBAfVXe9951d77/8LT3jVbIsU7EIBzE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3wp9deKQbYY01/M+IhMroTmOOaJyZRLYVMDr/XVtJu1NoKKxb
-	h1nsRj9ny2siV15GHbyYz4KamF0covnzSymcgA2ZY+fc9IGvqoa0uE3UUAbv8Ng/C8THmJh00N7
-	xXsonsMumwQ==
-X-Received: from dlbts25-n2.prod.google.com ([2002:a05:7022:b059:20b0:168:46d:d4f5])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:1713:b0:14d:3c0c:79ec
- with SMTP id a92af1059eb24-16a5dbfddf2mr15065047c88.9.1791930413307; Tue, 13
- Oct 2026 15:26:53 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:26:19 -0700
+        bh=ZE4+oqWgjisY7ML1bRCEEvBwOPAJPrHwRyt4cCLc/JY=;
+        b=SeqopS9wQ/nUys5T6WLuMP/BRl7BZS6aTmE0ctpmt+qGSy7Ty2i+ShOWyNKsllAwtU
+         PwtPtLjsXXRTwNgzC0CZszQdK9EgXTiAWCf4AhAsl7d6a7y/hTdqm2Z6evNi0TugfKeQ
+         +j41qTbjHcUkUJYqUVpkmx2TiMu/jgDkSDBACgTRSAufiLr+LA3ciYx7A/od4Dl+H5ze
+         mqxs/gkUmJRrXtEHQ7aMintc5/4W2dQWME47iHo/Vg+dQ9tkfCAtl4ou0f6rLhbcK68b
+         11BXokCUlmpN5Rw7MC9nUItLS44M+KhK/J2hPJvFqUcB/rRcYh3EW3UKoD72KWHHPYAz
+         /kCA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+xw4A9izI1hq8DcAuW0pY5Kk8B1bhQCM9XKlFMKq1g72Sn2XKcFGy43X4gsttNfYTSyYC7LzttcQt8ss=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJadCeQ/G5VSy7dLOXEGBewz2asO4uIXmSx12bDHoCEcZc6wSEI
+	noFmHj57o42VWGrenxVZkZImT5LDTZC0dZ5ax8WlXgxCaPVVj5bbn3XnjLu0Rdl05dJVv9rzPb7
+	lactHVzUekw==
+X-Received: from dycmq7.prod.google.com ([2002:a05:7301:787:b0:35a:3045:15e9])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:db81:b0:35c:73bb:a81
+ with SMTP id 5a478bee46e88-35c73bb0d65mr4282758eec.36.1791930419031; Tue, 13
+ Oct 2026 15:26:59 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:26:21 -0700
 In-Reply-To: <20261013222622.1822619-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261013182458.1234616-1-irogers@google.com> <20261013222622.1822619-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013222622.1822619-8-irogers@google.com>
-Subject: [PATCH v2 07/10] perf dso: Fix unlocked __dsos__add() in vdso and
- expand lock annotations
+Message-ID: <20261013222622.1822619-10-irogers@google.com>
+Subject: [PATCH v2 09/10] perf config, intel-tpebs, env: Add __guarded_by and
+ __must_hold annotations
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, bvanassche@acm.org, james.clark@linaro.org, 
@@ -72,552 +72,524 @@ Cc: adrian.hunter@intel.com, bvanassche@acm.org, james.clark@linaro.org,
 	ndesaulniers@google.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-__machine__addnew_vdso() called __dsos__add(&machine->dsos, dso) without
-holding machine->dsos.lock. Acquire machine->dsos.lock in write mode,
-double-check __dsos__find() to avoid inserting duplicate VDSO entries
-when racing with another thread, and set the long name before calling
-__dsos__add().
-
-In dsos__findnew_id(), try finding the DSO under the read lock first and
-only acquire the write lock when a new DSO must be inserted or an
-existing DSO needs its ID updated (checked via dso__needs_improve_id()).
-
-In dso__list_del(), release the REFCNT_CHECKING reference directly via
-refcount_dec_and_test() and RC_CHK_PUT() instead of unlocking
-dso__data_open_lock to call dso__put(), keeping dso__data_open_lock held
-continuously across try_to_open_dso() and avoiding lock-order inversions
-and races during EMFILE eviction.
-
-Also replace _dso__data_open_lock and its pthread_once() wrapper with
-DEFINE_MUTEX(dso__data_open_lock), annotate struct dsos fields with
-__guarded_by(&lock), add __returns_ctx_lock() to dso__lock(), annotate
-dso__data_open and fd_limit in util/dso.c with
-__guarded_by(&dso__data_open_lock), and tighten __dsos__findnew_id() and
-__dsos__addnew_id() from shared to exclusive lock requirements.
+Add __guarded_by() and __must_hold() annotations to static parser and
+config state in util/config.c, TPEBS state in util/intel-tpebs.c
+(replacing tpebs_mtx_get() and its pthread_once() init with
+DEFINE_MUTEX(tpebs_mtx), fixing an unlocked read of tpebs_reader_thread
+in tpebs_stop(), and transferring tpebs_cmd.out ownership to
+__sample_reader() so it is not double-closed in tpebs_stop()), and
+bpf_progs and cgroups trees in struct perf_env.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/tests/dso-data.c |  4 ++
- tools/perf/util/dso.c       | 93 ++++++++++++++++++-------------------
- tools/perf/util/dso.h       | 12 +++--
- tools/perf/util/dsos.c      | 31 +++++++++++--
- tools/perf/util/dsos.h      | 12 +++--
- tools/perf/util/vdso.c      | 17 ++++++-
- 6 files changed, 106 insertions(+), 63 deletions(-)
+ tools/perf/util/bpf-event.h   |  5 +-
+ tools/perf/util/config.c      | 43 +++++++++------
+ tools/perf/util/env.c         |  1 +
+ tools/perf/util/env.h         | 19 ++++---
+ tools/perf/util/intel-tpebs.c | 98 ++++++++++++++++-------------------
+ 5 files changed, 87 insertions(+), 79 deletions(-)
 
-diff --git a/tools/perf/tests/dso-data.c b/tools/perf/tests/dso-data.c
-index 46bc3f597260..6753380f36ab 100644
---- a/tools/perf/tests/dso-data.c
-+++ b/tools/perf/tests/dso-data.c
-@@ -116,12 +116,14 @@ static int dso__data_fd(struct dso *dso, struct machine *machine)
+diff --git a/tools/perf/util/bpf-event.h b/tools/perf/util/bpf-event.h
+index da4eeb4a1a73..3f3323f98f49 100644
+--- a/tools/perf/util/bpf-event.h
++++ b/tools/perf/util/bpf-event.h
+@@ -6,11 +6,11 @@
+ #include <linux/rbtree.h>
+ #include <api/fd/array.h>
+ #include <stdio.h>
++#include "env.h"
  
- static void dsos__delete(struct dsos *dsos)
+ struct bpf_prog_info;
+ struct machine;
+ union perf_event;
+-struct perf_env;
+ struct perf_sample;
+ struct perf_session;
+ struct record_opts;
+@@ -42,7 +42,8 @@ int machine__process_bpf(struct machine *machine, union perf_event *event,
+ int evlist__add_bpf_sb_event(struct evlist *evlist, struct perf_env *env);
+ void __bpf_event__print_bpf_prog_info(struct perf_bpil *info_linear,
+ 				      struct perf_env *env,
+-				      FILE *fp);
++				      FILE *fp)
++	__must_hold_shared(&env->bpf_progs.lock);
+ void bpf_metadata_free(struct bpf_metadata *metadata);
+ #else
+ static inline int machine__process_bpf(struct machine *machine __maybe_unused,
+diff --git a/tools/perf/util/config.c b/tools/perf/util/config.c
+index 287401f159e6..a55f7062a09b 100644
+--- a/tools/perf/util/config.c
++++ b/tools/perf/util/config.c
+@@ -64,15 +64,29 @@ struct perf_stat_config stat_config = {
+ 
+ char buildid_dir[MAXPATHLEN]; /* root dir for buildid, binary cache */
+ 
+-static FILE *config_file;
+-static const char *config_file_name;
+-static int config_linenr;
+-static int config_file_eof;
+-static struct perf_config_set *config_set;
++/* Parsing and rewriting share the static parser state. */
++static DEFINE_MUTEX(config_mutex);
++
++/* Serializes whole perf_config__set_variable() updates. */
++static DEFINE_MUTEX(config_update_mutex);
++
++/*
++ * Protects the global config_set. Separate from config_mutex because
++ * initializing config_set parses the config files, which acquires
++ * config_mutex.
++ */
++static DEFINE_MUTEX(config_set_mutex);
++
++static FILE *config_file __guarded_by(&config_mutex);
++static const char *config_file_name __guarded_by(&config_mutex);
++static int config_linenr __guarded_by(&config_mutex);
++static int config_file_eof __guarded_by(&config_mutex);
++static struct perf_config_set *config_set __guarded_by(&config_set_mutex);
+ 
+ const char *config_exclusive_filename;
+ 
+ static int get_next_char(void)
++	__must_hold(&config_mutex)
  {
-+	down_write(&dsos->lock);
- 	for (unsigned int i = 0; i < dsos->cnt; i++) {
- 		struct dso *dso = dsos->dsos[i];
- 
- 		dso__data_close(dso);
- 		unlink(dso__name(dso));
- 	}
-+	up_write(&dsos->lock);
- 	dsos__exit(dsos);
+ 	int c;
+ 	FILE *f;
+@@ -99,6 +113,7 @@ static int get_next_char(void)
  }
  
-@@ -247,6 +249,7 @@ static int set_fd_limit(int n)
+ static char *parse_value(void)
++	__must_hold(&config_mutex)
+ {
+ 	static char value[1024];
+ 	int quote = 0, comment = 0, space = 0;
+@@ -170,6 +185,7 @@ static inline int iskeychar(int c)
  }
  
- static int test__dso_data_cache(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
-+	__context_unsafe(/* single-threaded test */)
+ static int get_value(config_fn_t fn, void *data, char *name, unsigned int len)
++	__must_hold(&config_mutex)
  {
- 	struct machine machine;
- 	long nr_end, nr = open_files_cnt();
-@@ -317,6 +320,7 @@ static long new_limit(int count)
+ 	int c;
+ 	char *value;
+@@ -201,6 +217,7 @@ static int get_value(config_fn_t fn, void *data, char *name, unsigned int len)
  }
  
- static int test__dso_data_reopen(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
-+	__context_unsafe(/* single-threaded test */)
- {
- 	struct machine machine;
- 	long nr_end, nr = open_files_cnt(), lim = new_limit(3);
-diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
-index ff5b30a3d424..21491625ec82 100644
---- a/tools/perf/util/dso.c
-+++ b/tools/perf/util/dso.c
-@@ -523,25 +523,12 @@ void dso__set_module_info(struct dso *dso, struct kmod_path *m,
- /*
-  * Global list of open DSOs and the counter.
-  */
--struct mutex _dso__data_open_lock;
--static LIST_HEAD(dso__data_open);
--static long dso__data_open_cnt __guarded_by(&_dso__data_open_lock);
-+DEFINE_MUTEX(dso__data_open_lock);
-+static struct list_head dso__data_open __guarded_by(&dso__data_open_lock) =
-+	LIST_HEAD_INIT(dso__data_open);
-+static long dso__data_open_cnt __guarded_by(&dso__data_open_lock);
- 
--static void dso__data_open_lock_init(void)
--{
--	mutex_init(&_dso__data_open_lock);
--}
--
--static struct mutex *dso__data_open_lock(void) __returns_ctx_lock(&_dso__data_open_lock)
--{
--	static pthread_once_t data_open_lock_once = PTHREAD_ONCE_INIT;
--
--	pthread_once(&data_open_lock_once, dso__data_open_lock_init);
--
--	return &_dso__data_open_lock;
--}
--
--static void dso__list_add(struct dso *dso) __must_hold(&_dso__data_open_lock)
-+static void dso__list_add(struct dso *dso) __must_hold(&dso__data_open_lock)
- {
- 	list_add_tail(&dso__data(dso)->open_entry, &dso__data_open);
- #ifdef REFCNT_CHECKING
-@@ -552,13 +539,13 @@ static void dso__list_add(struct dso *dso) __must_hold(&_dso__data_open_lock)
- 	dso__data_open_cnt++;
- }
- 
--static void dso__list_del(struct dso *dso) __must_hold(&_dso__data_open_lock)
-+static void dso__list_del(struct dso *dso) __must_hold(&dso__data_open_lock)
- {
- 	list_del_init(&dso__data(dso)->open_entry);
- #ifdef REFCNT_CHECKING
--	mutex_unlock(dso__data_open_lock());
--	dso__put(dso__data(dso)->dso);
--	mutex_lock(dso__data_open_lock());
-+	BUG_ON(refcount_dec_and_test(&RC_CHK_ACCESS(dso)->refcnt));
-+	RC_CHK_PUT(dso__data(dso)->dso);
-+	dso__data(dso)->dso = NULL;
- #endif
- 	WARN_ONCE(dso__data_open_cnt <= 0,
- 		  "DSO data fd counter out of bounds.");
-@@ -567,7 +554,7 @@ static void dso__list_del(struct dso *dso) __must_hold(&_dso__data_open_lock)
- 
- static void close_first_dso(void);
- 
--static int do_open(char *name) __must_hold(&_dso__data_open_lock)
-+static int do_open(char *name) __must_hold(&dso__data_open_lock)
+ static int get_extended_base_var(char *name, int baselen, int c)
++	__must_hold(&config_mutex)
  {
  	do {
- 		int fd = open(name, O_RDONLY|O_CLOEXEC);
-@@ -670,7 +657,7 @@ void dso__put_filename(struct dso *dso __maybe_unused, char *filename, bool deco
+ 		if (c == '\n')
+@@ -237,6 +254,7 @@ static int get_extended_base_var(char *name, int baselen, int c)
  }
  
- static int __open_dso(struct dso *dso, struct machine *machine)
--	__must_hold(&_dso__data_open_lock)
-+	__must_hold(&dso__data_open_lock)
+ static int get_base_var(char *name)
++	__must_hold(&config_mutex)
  {
- 	int fd = -EINVAL;
- 	char *name;
-@@ -703,7 +690,7 @@ static void check_data_close(void);
-  * list/count of open DSO objects.
-  */
- static int open_dso(struct dso *dso, struct machine *machine)
--	__must_hold(&_dso__data_open_lock)
-+	__must_hold(&dso__data_open_lock)
- {
- 	int fd;
- 	struct nscookie nsc;
-@@ -729,7 +716,7 @@ static int open_dso(struct dso *dso, struct machine *machine)
- 	return fd;
+ 	int baselen = 0;
+ 
+@@ -257,6 +275,7 @@ static int get_base_var(char *name)
  }
  
--static void close_data_fd(struct dso *dso) __must_hold(&_dso__data_open_lock)
-+static void close_data_fd(struct dso *dso) __must_hold(&dso__data_open_lock)
+ static int perf_parse_file(config_fn_t fn, void *data)
++	__must_hold(&config_mutex)
  {
- 	if (dso__data(dso)->fd >= 0) {
- 		close(dso__data(dso)->fd);
-@@ -746,12 +733,12 @@ static void close_data_fd(struct dso *dso) __must_hold(&_dso__data_open_lock)
-  * Close @dso's data file descriptor and updates
-  * list/count of open DSO objects.
-  */
--static void close_dso(struct dso *dso) __must_hold(&_dso__data_open_lock)
-+static void close_dso(struct dso *dso) __must_hold(&dso__data_open_lock)
- {
- 	close_data_fd(dso);
+ 	int comment = 0;
+ 	int baselen = 0;
+@@ -549,12 +568,6 @@ int perf_default_config(const char *var, const char *value,
+ 	return 0;
  }
  
--static void close_first_dso(void) __must_hold(&_dso__data_open_lock)
-+static void close_first_dso(void) __must_hold(&dso__data_open_lock)
+-/* Parsing and rewriting share the static parser state. */
+-static DEFINE_MUTEX(config_mutex);
+-
+-/* Serializes whole perf_config__set_variable() updates. */
+-static DEFINE_MUTEX(config_update_mutex);
+-
+ static int perf_config_from_file(config_fn_t fn, const char *filename, void *data)
  {
- 	struct dso_data *dso_data;
- 	struct dso *dso;
-@@ -784,7 +771,7 @@ static rlim_t get_fd_limit(void)
- 	return limit;
+ 	int ret;
+@@ -737,6 +750,7 @@ static int set_value(struct perf_config_item *item, const char *value)
+ 
+ static int collect_config(const char *var, const char *value,
+ 			  void *perf_config_set)
++	__must_hold(&config_mutex)
+ {
+ 	int ret = -1;
+ 	char *ptr, *key;
+@@ -853,11 +867,8 @@ struct perf_config_set *perf_config_set__load_file(const char *file)
+ 	return set;
  }
  
--static rlim_t fd_limit;
-+static rlim_t fd_limit __guarded_by(&dso__data_open_lock);
- 
- /*
-  * Used only by tests/dso-data.c to reset the environment
-@@ -793,10 +780,11 @@ static rlim_t fd_limit;
-  */
- void reset_fd_limit(void)
+-/* Not config_mutex: building the set parses the config files, which takes it. */
+-static DEFINE_MUTEX(config_set_mutex);
+-
+-/* Called with config_set_mutex held. */
+ static int perf_config__init(void)
++	__must_hold(&config_set_mutex)
  {
--	fd_limit = 0;
-+	/* Only called by single-threaded test setup. */
-+	context_unsafe(fd_limit = 0);
+ 	if (config_set == NULL)
+ 		config_set = perf_config_set__new();
+@@ -975,7 +986,7 @@ int perf_config__set_variable(const char *var, const char *value)
+ 
+ 	/* Static: the parser publishes it as config_file_name. */
+ 	{
+-		static char path[PATH_MAX];
++		static char path[PATH_MAX] __guarded_by(&config_update_mutex);
+ 		char *user_config = mkpath(path, sizeof(path), "%s/.perfconfig", getenv("HOME"));
+ 
+ 		config_filename = config_exclusive_filename ?: user_config;
+diff --git a/tools/perf/util/env.c b/tools/perf/util/env.c
+index 50993b0dedc5..9e8e5d1d822a 100644
+--- a/tools/perf/util/env.c
++++ b/tools/perf/util/env.c
+@@ -302,6 +302,7 @@ void perf_env__exit(struct perf_env *env)
  }
  
--static bool may_cache_fd(void) __must_hold(&_dso__data_open_lock)
-+static bool may_cache_fd(void) __must_hold(&dso__data_open_lock)
- {
- 	if (!fd_limit)
- 		fd_limit = get_fd_limit();
-@@ -812,7 +800,7 @@ static bool may_cache_fd(void) __must_hold(&_dso__data_open_lock)
-  * for opened dso file descriptors. The limit is half
-  * of the RLIMIT_NOFILE files opened.
- */
--static void check_data_close(void) __must_hold(&_dso__data_open_lock)
-+static void check_data_close(void) __must_hold(&dso__data_open_lock)
- {
- 	bool cache_fd = may_cache_fd();
- 
-@@ -828,13 +816,13 @@ static void check_data_close(void) __must_hold(&_dso__data_open_lock)
-  */
- void dso__data_close(struct dso *dso)
- {
--	mutex_lock(dso__data_open_lock());
-+	mutex_lock(&dso__data_open_lock);
- 	close_dso(dso);
--	mutex_unlock(dso__data_open_lock());
-+	mutex_unlock(&dso__data_open_lock);
- }
- 
- static void try_to_open_dso(struct dso *dso, struct machine *machine)
--	__must_hold(&_dso__data_open_lock)
-+	__must_hold(&dso__data_open_lock)
- {
- 	enum dso_binary_type binary_type_data[] = {
- 		DSO_BINARY_TYPE__BUILD_ID_CACHE,
-@@ -882,7 +870,7 @@ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
- 	if (dso__data(dso)->status == DSO_DATA_STATUS_ERROR)
- 		return false;
- 
--	mutex_lock(dso__data_open_lock());
-+	mutex_lock(&dso__data_open_lock);
- 
- 	try_to_open_dso(dso, machine);
- 
-@@ -890,13 +878,13 @@ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
- 	if (*fd >= 0)
- 		return true;
- 
--	mutex_unlock(dso__data_open_lock());
-+	mutex_unlock(&dso__data_open_lock);
- 	return false;
- }
- 
- void dso__data_put_fd(struct dso *dso __maybe_unused)
- {
--	mutex_unlock(dso__data_open_lock());
-+	mutex_unlock(&dso__data_open_lock);
- }
- 
- bool dso__data_status_seen(struct dso *dso, enum dso_data_status_seen by)
-@@ -1067,7 +1055,7 @@ static ssize_t file_read(struct dso *dso, struct machine *machine,
- {
- 	ssize_t ret;
- 
--	mutex_lock(dso__data_open_lock());
-+	mutex_lock(&dso__data_open_lock);
- 
- 	/*
- 	 * dso__data(dso)->fd might be closed if other thread opened another
-@@ -1083,7 +1071,7 @@ static ssize_t file_read(struct dso *dso, struct machine *machine,
- 
- 	ret = pread(dso__data(dso)->fd, data, DSO__DATA_CACHE_SIZE, offset);
- out:
--	mutex_unlock(dso__data_open_lock());
-+	mutex_unlock(&dso__data_open_lock);
- 	return ret;
- }
- 
-@@ -1190,7 +1178,7 @@ static int file_size(struct dso *dso, struct machine *machine)
- 	int ret = 0;
- 	struct stat st;
- 
--	mutex_lock(dso__data_open_lock());
-+	mutex_lock(&dso__data_open_lock);
- 
- 	/*
- 	 * dso__data(dso)->fd might be closed if other thread opened another
-@@ -1213,7 +1201,7 @@ static int file_size(struct dso *dso, struct machine *machine)
- 	dso__data(dso)->file_size = st.st_size;
- 
- out:
--	mutex_unlock(dso__data_open_lock());
-+	mutex_unlock(&dso__data_open_lock);
- 	return ret;
- }
- 
-@@ -1417,7 +1405,7 @@ uint16_t dso__e_machine_endian(struct dso *dso, struct machine *machine, uint32_
- 		return EM_NONE;
- 	}
- 
--	mutex_lock(dso__data_open_lock());
-+	mutex_lock(&dso__data_open_lock);
- 
- 	/*
- 	 * dso__data(dso)->fd might be closed if other thread opened another
-@@ -1430,7 +1418,7 @@ uint16_t dso__e_machine_endian(struct dso *dso, struct machine *machine, uint32_
- 	else if (e_flags)
- 		*e_flags = 0;
- 
--	mutex_unlock(dso__data_open_lock());
-+	mutex_unlock(&dso__data_open_lock);
- 	return e_machine;
- }
- 
-@@ -1596,6 +1584,15 @@ const struct dso_id dso_id_empty = {
- 	}
- };
- 
-+bool dso__needs_improve_id(const struct dso *dso, const struct dso_id *id)
-+{
-+	const struct dso_id *dso_id = dso__id_const(dso);
-+
-+	return (id->mmap2_valid && !dso_id->mmap2_valid) ||
-+	       (id->mmap2_ino_generation_valid && !dso_id->mmap2_ino_generation_valid) ||
-+	       (build_id__is_defined(&id->build_id) && !build_id__is_defined(&dso_id->build_id));
-+}
-+
- void __dso__improve_id(struct dso *dso, const struct dso_id *id)
- {
- 	struct dsos *dsos = dso__dsos(dso);
-@@ -1620,8 +1617,10 @@ void __dso__improve_id(struct dso *dso, const struct dso_id *id)
- 		dso_id->build_id = id->build_id;
- 		changed = true;
- 	}
--	if (changed && dsos)
--		dsos->sorted = false;
-+	if (changed && dsos) {
-+		/* dsos write lock held by caller. */
-+		context_unsafe(dsos->sorted = false);
-+	}
- }
- 
- int dso_id__cmp(const struct dso_id *a, const struct dso_id *b)
-@@ -1805,7 +1804,7 @@ struct dso *dso__get(struct dso *dso)
- void dso__put(struct dso *dso)
- {
- #ifdef REFCNT_CHECKING
--	if (dso && dso__data(dso) && refcount_read(&RC_CHK_ACCESS(dso)->refcnt) == 2)
-+	if (dso && dso__data(dso)->dso && refcount_read(&RC_CHK_ACCESS(dso)->refcnt) == 2)
- 		dso__data_close(dso);
- #endif
- 	if (dso && refcount_dec_and_test(&RC_CHK_ACCESS(dso)->refcnt))
-diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
-index 54aaa88f574e..3ad6ab5272bb 100644
---- a/tools/perf/util/dso.h
-+++ b/tools/perf/util/dso.h
-@@ -356,7 +356,7 @@ DECLARE_RC_STRUCT(dso) {
- 	char		 name[];
- };
- 
--extern struct mutex _dso__data_open_lock;
-+extern struct mutex dso__data_open_lock;
- extern const struct dso_id dso_id_empty;
- 
- int dso_id__cmp(const struct dso_id *a, const struct dso_id *b);
-@@ -628,6 +628,7 @@ static inline void dso__set_loaded(struct dso *dso)
- }
- 
- static inline struct mutex *dso__lock(struct dso *dso)
-+	__returns_ctx_lock(&RC_CHK_ACCESS(dso)->lock)
- {
- 	return &RC_CHK_ACCESS(dso)->lock;
- }
-@@ -803,12 +804,13 @@ void dso__delete(struct dso *dso);
- int dso__cmp_id(struct dso *a, struct dso *b);
- void dso__set_short_name(struct dso *dso, const char *name, bool name_allocated);
- void dso__set_long_name(struct dso *dso, const char *name, bool name_allocated);
-+bool dso__needs_improve_id(const struct dso *dso, const struct dso_id *id);
- void __dso__improve_id(struct dso *dso, const struct dso_id *id);
- 
- int dso__name_len(const struct dso *dso);
- 
- struct dso *dso__get(struct dso *dso);
--void dso__put(struct dso *dso) __must_not_hold(&_dso__data_open_lock);
-+void dso__put(struct dso *dso) __must_not_hold(&dso__data_open_lock);
- 
- static inline void __dso__zput(struct dso **dso)
- {
-@@ -918,9 +920,9 @@ void dso__set_module_info(struct dso *dso, struct kmod_path *m,
-  * TODO
- */
- bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
--	__cond_acquires(true, &_dso__data_open_lock);
--void dso__data_put_fd(struct dso *dso) __releases(&_dso__data_open_lock);
--void dso__data_close(struct dso *dso) __must_not_hold(&_dso__data_open_lock);
-+	__cond_acquires(true, &dso__data_open_lock);
-+void dso__data_put_fd(struct dso *dso) __releases(&dso__data_open_lock);
-+void dso__data_close(struct dso *dso) __must_not_hold(&dso__data_open_lock);
- 
- int dso__data_file_size(struct dso *dso, struct machine *machine);
- off_t dso__data_size(struct dso *dso, struct machine *machine);
-diff --git a/tools/perf/util/dsos.c b/tools/perf/util/dsos.c
-index a2cd37bd1660..0e4307e35768 100644
---- a/tools/perf/util/dsos.c
-+++ b/tools/perf/util/dsos.c
-@@ -12,6 +12,7 @@
- #include <unistd.h>
- 
- void dsos__init(struct dsos *dsos)
+ void perf_env__init(struct perf_env *env)
 +	__context_unsafe(/* initialization */)
  {
- 	init_rwsem(&dsos->lock);
+ 	memset(env, 0, sizeof(*env));
+ #ifdef HAVE_LIBBPF_SUPPORT
+diff --git a/tools/perf/util/env.h b/tools/perf/util/env.h
+index 23d35425efe3..6b2083e3640c 100644
+--- a/tools/perf/util/env.h
++++ b/tools/perf/util/env.h
+@@ -139,16 +139,16 @@ struct perf_env {
+ 	 */
+ 	struct {
+ 		struct rw_semaphore	lock;
+-		struct rb_root		infos;
+-		u32			infos_cnt;
+-		struct rb_root		btfs;
+-		u32			btfs_cnt;
++		struct rb_root		infos __guarded_by(&lock);
++		u32			infos_cnt __guarded_by(&lock);
++		struct rb_root		btfs __guarded_by(&lock);
++		u32			btfs_cnt __guarded_by(&lock);
+ 	} bpf_progs;
+ #endif // HAVE_LIBBPF_SUPPORT
+ 	/* same reason as above (for perf-top) */
+ 	struct {
+ 		struct rw_semaphore	lock;
+-		struct rb_root		tree;
++		struct rb_root		tree __guarded_by(&lock);
+ 	} cgroups;
  
-@@ -50,6 +51,7 @@ void dsos__exit(struct dsos *dsos)
- static int __dsos__for_each_dso(struct dsos *dsos,
- 				int (*cb)(struct dso *dso, void *data),
- 				void *data)
-+	__must_hold_shared(&dsos->lock)
- {
- 	for (unsigned int i = 0; i < dsos->cnt; i++) {
- 		struct dso *dso = dsos->dsos[i];
-@@ -182,7 +184,8 @@ static struct dso *__dsos__find_by_longname_id(struct dsos *dsos,
- 		}
- 		qsort(dsos->dsos, dsos->cnt, sizeof(struct dso *),
- 		      dsos__cmp_long_name_id_short_name);
--		dsos->sorted = true;
-+		/* write_locked is true, so dsos->lock is held exclusively. */
-+		context_unsafe(dsos->sorted = true);
- 	}
+ 	/* For fast cpu to numa node lookup via perf_env__numa_node */
+@@ -223,7 +223,8 @@ int perf_env__nr_cpus_avail(struct perf_env *env);
+ void perf_env__init(struct perf_env *env);
+ #ifdef HAVE_LIBBPF_SUPPORT
+ bool __perf_env__insert_bpf_prog_info(struct perf_env *env,
+-				      struct bpf_prog_info_node *info_node);
++				      struct bpf_prog_info_node *info_node)
++	__must_hold(&env->bpf_progs.lock);
+ bool perf_env__insert_bpf_prog_info(struct perf_env *env,
+ 				    struct bpf_prog_info_node *info_node);
+ struct bpf_prog_info_node *perf_env__find_bpf_prog_info(struct perf_env *env,
+@@ -233,9 +234,11 @@ void perf_env__iterate_bpf_prog_info(struct perf_env *env,
+ 						void *data),
+ 				     void *data);
+ bool perf_env__insert_btf(struct perf_env *env, struct btf_node *btf_node);
+-bool __perf_env__insert_btf(struct perf_env *env, struct btf_node *btf_node);
++bool __perf_env__insert_btf(struct perf_env *env, struct btf_node *btf_node)
++	__must_hold(&env->bpf_progs.lock);
+ struct btf_node *perf_env__find_btf(struct perf_env *env, __u32 btf_id);
+-struct btf_node *__perf_env__find_btf(struct perf_env *env, __u32 btf_id);
++struct btf_node *__perf_env__find_btf(struct perf_env *env, __u32 btf_id)
++	__must_hold_shared(&env->bpf_progs.lock);
+ #endif // HAVE_LIBBPF_SUPPORT
  
- 	res = bsearch(&key, dsos->dsos, dsos->cnt, sizeof(struct dso *),
-@@ -194,6 +197,7 @@ static struct dso *__dsos__find_by_longname_id(struct dsos *dsos,
- }
+ int perf_env__numa_node(struct perf_env *env, struct perf_cpu cpu);
+diff --git a/tools/perf/util/intel-tpebs.c b/tools/perf/util/intel-tpebs.c
+index 7c0b8b15bd10..85dcf4f64697 100644
+--- a/tools/perf/util/intel-tpebs.c
++++ b/tools/perf/util/intel-tpebs.c
+@@ -32,12 +32,12 @@
  
- int __dsos__add(struct dsos *dsos, struct dso *dso)
-+	__must_hold(&dsos->lock)
- {
- 	if (!dso)
- 		return -EINVAL;
-@@ -284,12 +288,18 @@ static struct dso *__dsos__find_id(struct dsos *dsos, const char *name, const st
- 	return res;
- }
+ bool tpebs_recording;
+ enum tpebs_mode tpebs_mode;
+-static LIST_HEAD(tpebs_results);
+-static pthread_t tpebs_reader_thread;
++static DEFINE_MUTEX(tpebs_mtx);
++static struct list_head tpebs_results __guarded_by(&tpebs_mtx) = LIST_HEAD_INIT(tpebs_results);
++static pthread_t tpebs_reader_thread __guarded_by(&tpebs_mtx);
+ static struct child_process tpebs_cmd;
+-static int control_fd[2], ack_fd[2];
+-static struct mutex tpebs_mtx;
+-static bool tpebs_stopping;
++static int control_fd[2] = { -1, -1 }, ack_fd[2] = { -1, -1 };
++static bool tpebs_stopping __guarded_by(&tpebs_mtx);
  
-+struct dso *__dsos__find(struct dsos *dsos, const char *name, bool cmp_short)
-+	__must_hold_shared(&dsos->lock)
-+{
-+	return __dsos__find_id(dsos, name, &dso_id_empty, cmp_short, /*write_locked=*/false);
-+}
-+
- struct dso *dsos__find(struct dsos *dsos, const char *name, bool cmp_short)
- {
- 	struct dso *res;
- 
- 	down_read(&dsos->lock);
--	res = __dsos__find_id(dsos, name, &dso_id_empty, cmp_short, /*write_locked=*/false);
-+	res = __dsos__find(dsos, name, cmp_short);
- 	up_read(&dsos->lock);
- 	return res;
- }
-@@ -314,6 +324,7 @@ static void dso__set_basename(struct dso *dso)
- }
- 
- static struct dso *__dsos__addnew_id(struct dsos *dsos, const char *name, const struct dso_id *id)
-+	__must_hold(&dsos->lock)
- {
- 	struct dso *dso = dso__new_id(name, id);
- 
-@@ -330,7 +341,7 @@ static struct dso *__dsos__addnew_id(struct dsos *dsos, const char *name, const
- }
- 
- static struct dso *__dsos__findnew_id(struct dsos *dsos, const char *name, const struct dso_id *id)
--	__must_hold_shared(&dsos->lock)
-+	__must_hold(&dsos->lock)
- {
- 	struct dso *dso = __dsos__find_id(dsos, name, id, false, /*write_locked=*/true);
- 
-@@ -343,8 +354,20 @@ static struct dso *__dsos__findnew_id(struct dsos *dsos, const char *name, const
- struct dso *dsos__findnew_id(struct dsos *dsos, const char *name, const struct dso_id *id)
- {
- 	struct dso *dso;
-+
-+	down_read(&dsos->lock);
-+	dso = __dsos__find_id(dsos, name, id, false, /*write_locked=*/false);
-+	if (dso && !dso__needs_improve_id(dso, id)) {
-+		up_read(&dsos->lock);
-+		return dso;
-+	}
-+	up_read(&dsos->lock);
-+
- 	down_write(&dsos->lock);
--	dso = __dsos__findnew_id(dsos, name, id);
-+	if (dso)
-+		__dso__improve_id(dso, id);
-+	else
-+		dso = __dsos__findnew_id(dsos, name, id);
- 	up_write(&dsos->lock);
- 	return dso;
- }
-diff --git a/tools/perf/util/dsos.h b/tools/perf/util/dsos.h
-index a26774950866..418899c17233 100644
---- a/tools/perf/util/dsos.h
-+++ b/tools/perf/util/dsos.h
-@@ -19,17 +19,19 @@ struct machine;
-  */
- struct dsos {
- 	struct rw_semaphore lock;
--	struct dso **dsos;
--	unsigned int cnt;
--	unsigned int allocated;
--	bool sorted;
-+	struct dso **dsos __pt_guarded_by(&lock) __guarded_by(&lock);
-+	unsigned int cnt __guarded_by(&lock);
-+	unsigned int allocated __guarded_by(&lock);
-+	bool sorted __guarded_by(&lock);
+ struct tpebs_retire_lat {
+ 	struct list_head nd;
+@@ -53,25 +53,11 @@ struct tpebs_retire_lat {
+ 	bool started;
  };
  
- void dsos__init(struct dsos *dsos);
- void dsos__exit(struct dsos *dsos);
+-static void tpebs_init(void)
+-{
+-	mutex_init(&tpebs_mtx);
+-	control_fd[0] = control_fd[1] = -1;
+-	ack_fd[0] = ack_fd[1] = -1;
+-}
+-
+-static struct mutex *tpebs_mtx_get(void)
+-{
+-	static pthread_once_t tpebs_once = PTHREAD_ONCE_INIT;
+-
+-	pthread_once(&tpebs_once, tpebs_init);
+-	return &tpebs_mtx;
+-}
+-
+ static struct tpebs_retire_lat *tpebs_retire_lat__find(struct evsel *evsel)
+-	__must_hold(tpebs_mtx_get());
++	__must_hold(&tpebs_mtx);
  
--int __dsos__add(struct dsos *dsos, struct dso *dso);
-+int __dsos__add(struct dsos *dsos, struct dso *dso) __must_hold(&dsos->lock);
- int dsos__add(struct dsos *dsos, struct dso *dso);
-+struct dso *__dsos__find(struct dsos *dsos, const char *name, bool cmp_short)
-+	__must_hold_shared(&dsos->lock);
- struct dso *dsos__find(struct dsos *dsos, const char *name, bool cmp_short);
- 
- struct dso *dsos__findnew_id(struct dsos *dsos, const char *name, const struct dso_id *id);
-diff --git a/tools/perf/util/vdso.c b/tools/perf/util/vdso.c
-index c12f5d8c4bf6..5f84cc789cf6 100644
---- a/tools/perf/util/vdso.c
-+++ b/tools/perf/util/vdso.c
-@@ -127,13 +127,26 @@ void machine__exit_vdso(struct machine *machine)
- static struct dso *__machine__addnew_vdso(struct machine *machine, const char *short_name,
- 					  const char *long_name)
+ static int evsel__tpebs_start_perf_record(struct evsel *evsel)
++	__must_hold(&tpebs_mtx)
  {
--	struct dso *dso;
-+	struct dso *dso, *existing;
-+
-+	down_write(&machine->dsos.lock);
-+	existing = __dsos__find(&machine->dsos, short_name, true);
-+	if (existing) {
-+		up_write(&machine->dsos.lock);
-+		return existing;
-+	}
+ 	const char **record_argv;
+ 	int tpebs_event_size = 0, i = 0, ret;
+@@ -194,19 +180,19 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
+ {
+ 	struct tpebs_retire_lat *t;
  
- 	dso = dso__new(short_name);
- 	if (dso != NULL) {
--		__dsos__add(&machine->dsos, dso);
-+		/*
-+		 * Set the long name before adding to machine->dsos so that
-+		 * __dsos__add() inserts it in sorted order without needing to
-+		 * re-take machine->dsos.lock.
-+		 */
- 		dso__set_long_name(dso, long_name, false);
-+		__dsos__add(&machine->dsos, dso);
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	if (tpebs_cmd.pid == 0) {
+ 		/* Record has terminated. */
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return 0;
  	}
-+	up_write(&machine->dsos.lock);
+ 	t = tpebs_retire_lat__find(sample->evsel);
+ 	if (!t) {
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return -EINVAL;
+ 	}
+ 	if (should_ignore_sample(sample, t)) {
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return 0;
+ 	}
+ 	/*
+@@ -216,17 +202,17 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
+ 	 */
+ 	t->last = sample->weight3;
+ 	update_stats(&t->stats, sample->weight3);
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 	return 0;
+ }
  
- 	return dso;
+-static void *__sample_reader(void *arg __maybe_unused)
++static void *__sample_reader(void *arg)
+ {
+ 	struct perf_session *session;
+ 	struct perf_data data = {
+ 		.mode = PERF_DATA_MODE_READ,
+ 		.path = PERF_DATA,
+-		.file.fd = tpebs_cmd.out,
++		.file.fd = (int)(intptr_t)arg,
+ 	};
+ 	struct perf_tool tool;
+ 
+@@ -236,15 +222,17 @@ static void *__sample_reader(void *arg __maybe_unused)
+ 	tool.attr = perf_event__process_attr;
+ 
+ 	session = perf_session__new(&data, &tool);
+-	if (IS_ERR(session))
++	if (IS_ERR(session)) {
++		close(data.file.fd);
+ 		return NULL;
++	}
+ 	perf_session__process_events(session);
+ 	perf_session__delete(session);
+ 
+ 	return NULL;
+ }
+ 
+-static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
++static int tpebs_send_record_cmd(const char *msg) __must_hold(&tpebs_mtx)
+ {
+ 	struct pollfd pollfd = { .events = POLLIN, };
+ 	int ret, len, retries = 0;
+@@ -258,7 +246,7 @@ static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
+ 	 * Let go of the lock while sending/receiving as blocking can starve the
+ 	 * sample reading thread.
+ 	 */
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 
+ 	/* Send perf record command.*/
+ 	len = strlen(msg);
+@@ -314,14 +302,14 @@ static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
+ 		pr_err("tpebs: perf record control ack failed\n");
+ out:
+ 	/* Re-take lock as expected by caller. */
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	return ret;
+ }
+ 
+ /*
+  * tpebs_stop - stop the sample data read thread and the perf record process.
+  */
+-static int tpebs_stop(void) __must_hold(tpebs_mtx_get())
++static int tpebs_stop(void) __must_hold(&tpebs_mtx)
+ {
+ 	int ret = 0;
+ 
+@@ -331,13 +319,15 @@ static int tpebs_stop(void) __must_hold(tpebs_mtx_get())
+ 	/* Like tpebs_start, we should only run tpebs_end once. */
+ 	if (tpebs_cmd.pid != 0) {
+ 		pid_t actual_pid = tpebs_cmd.pid;
++		pthread_t reader_thread;
+ 
+ 		tpebs_stopping = true;
+ 		tpebs_send_record_cmd(EVLIST_CTL_CMD_STOP_TAG);
+ 		tpebs_cmd.pid = 0;
+-		mutex_unlock(tpebs_mtx_get());
+-		pthread_join(tpebs_reader_thread, NULL);
+-		mutex_lock(tpebs_mtx_get());
++		reader_thread = tpebs_reader_thread;
++		mutex_unlock(&tpebs_mtx);
++		pthread_join(reader_thread, NULL);
++		mutex_lock(&tpebs_mtx);
+ 		if (control_fd[0] >= 0) {
+ 			close(control_fd[0]);
+ 			control_fd[0] = -1;
+@@ -473,20 +463,20 @@ static int evsel__tpebs_prepare(struct evsel *evsel)
+ 	struct evsel *pos;
+ 	struct tpebs_retire_lat *tpebs_event;
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	tpebs_event = tpebs_retire_lat__find(evsel);
+ 	if (tpebs_event) {
+ 		/* evsel, or an identically named one, was already prepared. */
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return 0;
+ 	}
+ 	tpebs_event = tpebs_retire_lat__new(evsel);
+ 	if (!tpebs_event) {
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return -ENOMEM;
+ 	}
+ 	list_add_tail(&tpebs_event->nd, &tpebs_results);
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 
+ 	/*
+ 	 * Eagerly prepare all other evsels on the list to try to ensure that by
+@@ -520,9 +510,9 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 	if (!tpebs_recording)
+ 		return 0;
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	if (tpebs_stopping) {
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		return -EBUSY;
+ 	}
+ 	/* Only start the events once. */
+@@ -532,17 +522,17 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 
+ 		t = tpebs_retire_lat__find(evsel);
+ 		valid = t && t->started;
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		/* May fail as the event wasn't started. */
+ 		return valid ? 0 : -EBUSY;
+ 	}
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 
+ 	ret = evsel__tpebs_prepare(evsel);
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	if (tpebs_stopping || tpebs_cmd.pid != 0) {
+ 		ret = -EBUSY;
+ 		goto out;
+@@ -567,12 +557,14 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 			goto out;
+ 
+ 		if (pthread_create(&tpebs_reader_thread, /*attr=*/NULL, __sample_reader,
+-				   /*arg=*/NULL)) {
++				   (void *)(intptr_t)tpebs_cmd.out)) {
+ 			kill(tpebs_cmd.pid, SIGTERM);
+ 			pr_err("Could not create thread to process sample data.\n");
+ 			ret = -1;
+ 			goto out;
+ 		}
++		/* __sample_reader now owns and closes the output fd. */
++		tpebs_cmd.out = -1;
+ 		ret = tpebs_send_record_cmd(EVLIST_CTL_CMD_ENABLE_TAG);
+ 	}
+ out:
+@@ -612,7 +604,7 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 			}
+ 		}
+ 	}
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 	return ret;
+ }
+ 
+@@ -632,7 +624,7 @@ int evsel__tpebs_read(struct evsel *evsel, int cpu_map_idx, int thread)
+ 
+ 	count = perf_counts(evsel->counts, cpu_map_idx, thread);
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	t = tpebs_retire_lat__find(evsel);
+ 	/*
+ 	 * If reading the first tpebs result, send a ping to the record
+@@ -641,10 +633,10 @@ int evsel__tpebs_read(struct evsel *evsel, int cpu_map_idx, int thread)
+ 	 */
+ 	if (t && &t->nd == tpebs_results.next) {
+ 		ret = tpebs_send_record_cmd(EVLIST_CTL_CMD_PING_TAG);
+-		mutex_unlock(tpebs_mtx_get());
++		mutex_unlock(&tpebs_mtx);
+ 		if (ret)
+ 			return ret;
+-		mutex_lock(tpebs_mtx_get());
++		mutex_lock(&tpebs_mtx);
+ 	}
+ 	if (t == NULL || t->stats.n == 0) {
+ 		/* No sample data, use default. */
+@@ -683,7 +675,7 @@ int evsel__tpebs_read(struct evsel *evsel, int cpu_map_idx, int thread)
+ 			break;
+ 		}
+ 	}
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
+ 
+ 	if (old_count) {
+ 		count->val = old_count->val + val;
+@@ -708,7 +700,7 @@ void evsel__tpebs_close(struct evsel *evsel)
+ {
+ 	struct tpebs_retire_lat *t;
+ 
+-	mutex_lock(tpebs_mtx_get());
++	mutex_lock(&tpebs_mtx);
+ 	t = tpebs_retire_lat__find(evsel);
+ 	if (t) {
+ 		list_del_init(&t->nd);
+@@ -717,5 +709,5 @@ void evsel__tpebs_close(struct evsel *evsel)
+ 		if (list_empty(&tpebs_results))
+ 			tpebs_stop();
+ 	}
+-	mutex_unlock(tpebs_mtx_get());
++	mutex_unlock(&tpebs_mtx);
  }
 -- 
 2.56.0.385.gd3acb90ef8-goog
