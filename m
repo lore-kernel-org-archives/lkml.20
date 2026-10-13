@@ -1,124 +1,317 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012008.outbound.protection.outlook.com [40.107.200.8])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0CE51AEFB;
-	Tue, 13 Oct 2026 18:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791915142; cv=fail; b=OfeotjsCutLOYfwYaJI0evfEtcC8Coxe+Stog1TYCgxthohBLhFoVxfpK317iLkUSDCnD9s8OMjTEwT0s8AlPtVR8znaplDCGZdHJuUiSormKfrFbpmu8NkCiBa4HsJe1WBWF8WsqKx1+1j8IPwrZ40GkT90OOa1HqO3faOFIBs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791915142; c=relaxed/simple;
-	bh=CVLil9F2Ix9LsWeOzFnNd7/vuDTNKEGRHASKqjhmiJ4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jbF8+ow5fxKfJN5TMg4/ZF7pYn+0F0KTCnDrdoxtj8GpguuWey7fHdk0CH1q4Cj/HupdBmS/e3W0ZFE01SoPW5zVXUWPXf8PeCwF82jqvL2i/yA6yr61L4VeFMUUOJ+n57acwU1BMdX/BHxBCfjw8Us6C3LeQnrGcrHB9xv+Yx8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=V6ONttrR; arc=fail smtp.client-ip=40.107.200.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC8152D2C9
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791915167; cv=none; b=aLgwjSYal1m0ZwOkezD/32zZZBmdAmyjs2Lzf177kYzXdmhGlsXO0kHH8wbJFnHmt8ETA/UggMh3OgsnIvuV8R6FkwYJvwvn65lra/dHAc0FmWdlXVf5t1IIqVhwUlgbe0pSu4a+bEx6OVDtkR/s4Q7gLQ9Ed2CzdC/jff68RgE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791915167; c=relaxed/simple;
+	bh=ZjyoARQmcORLroCUnlpUkjgyfjMdotlcWnJqGJAWQcE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WtoWd8Ileu4SpbA7LuBu7tVd9Nn8xstofjwNKQCsrujSOSNoWrzre/qengKxe3rWDvcaep8kSBhP96E+mPL/vf6t7cKgaRfALl0x0Nvs8X1xdkshEHCI6Y4hQeyrCFOnMwX0IDoC9U8I5GoOHWYoqMY51srURXuXg9pRGTPJCp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Vohszuij; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ENc0xYyy; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="V6ONttrR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qkxY6amCywleWSMNKU/SPFSzO3d0GwnjIHDGOURe5xlZDg7OnThuPUgieapRuOBxxN5CBrWehhfsUD9FrbAq8rnnXgYmCVVEyu87m8O6KT3mKR3uizHaJ31EsLDrkkgc1CZRJ9QDPNUX5TAZjZPWohh5Wqa4npy6NtJgmEuXbsGF92+cHHuiaBXSf49fnDbqfp8DxCUq/+hcmcbt6YmqyWoGd0F/dbay9fZx7eYE0G6C39iRXd7z/6Dlgj5/5288rGJ20MayDksIA/oRPpnUV/Fm7brbaodOCGUiOc4knFE2ca2S/E+UhrO9xtfaJbX5lt2HNmm4pE+v1YdDTYekZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CVLil9F2Ix9LsWeOzFnNd7/vuDTNKEGRHASKqjhmiJ4=;
- b=PBPIJBgGmDt3hkEYdeAD0Wc2JaCFQgaNtkISabbybmDBGayfBpW8N5lDF0WYJ8w8MITolfQ11gNYe46FarnQFuMnYMQXI15VaVxNyoQbDDYu06mJs6FbCF1a9IXifwNycyxACXPBaYAeVaLeyg9opFtmxTsH/wsdK5mK6xZ1sCdfrObIREZUt1elsahx+x6Deh6Qz3QkaUBBojKBvygdN1CvEKlTmBjQZs2lLW5A+O6qVH5Et5h/rge7DPpwoF7KA7e0z2Oz77SW8f1cKiq/CzXgsig9dcz1MaWPeqBywLY8rLj9lU7oyv1W8eq4GrycttfS+E3udJfHFtxqSRd7nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CVLil9F2Ix9LsWeOzFnNd7/vuDTNKEGRHASKqjhmiJ4=;
- b=V6ONttrR6fkcWfYyXF0vPGWgZFvh5LQFvmsxBIlDWCMYYTRumq9mog+QA8ZPMkS6Amk4k7v6RV0b+JzL/giuT58naS8lxg1tdUHyvLNLKYBNmtGuXdxUcf184/2Rma2zLuYMDF1qqM7iGkaPjO5lN6Xdh+HGx+EvPVnosb+YtEGznV9KkTBAGyHPYLR7pmoXUkwhiZvQEI6ZIA7Gt0JLJPsGvXDCXkpzTse72wvWZPnjwNdSEvCted72yBDr+h77S4WB4RxsbD3779Sd6OlWmgEq+qCLulBTjc/SDVQNCbdbjshuR6AjraGqZHVkR5SLP3yhjbnylvB4LCSePJH/pg==
-Received: from MW4PR04CA0312.namprd04.prod.outlook.com (2603:10b6:303:82::17)
- by MW4PR12MB6683.namprd12.prod.outlook.com (2603:10b6:303:1e2::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 18:12:15 +0000
-Received: from CO1PEPF0001885F.namprd02.prod.outlook.com
- (2603:10b6:303:82:cafe::5c) by MW4PR04CA0312.outlook.office365.com
- (2603:10b6:303:82::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 18:12:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CO1PEPF0001885F.mail.protection.outlook.com (10.167.249.248) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 18:12:15 +0000
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 13 Oct
- 2026 11:11:47 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail203.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 13 Oct
- 2026 11:11:46 -0700
-Received: from dgx-1v-42.nvidia.com (10.127.8.11) by mail.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 13 Oct 2026 11:11:46 -0700
-From: Jamie Nguyen <jamien@nvidia.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-CC: Len Brown <lenb@kernel.org>, Tony Luck <tony.luck@intel.com>, "Punit
- Agrawal" <punitagrawal@gmail.com>, <linux-acpi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] ACPI: sysfs: Expose BDAT data region
-Date: Tue, 13 Oct 2026 11:11:46 -0700
-Message-ID: <20261013181146.978514-1-jamien@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAJZ5v0ixQ_5jmrfm4mz50tZtCEq6nJt1b2eMoBdhr0f3AY+k7w@mail.gmail.com>
-References: <20261012230632.3574987-1-jamien@nvidia.com> <20261012230632.3574987-3-jamien@nvidia.com> <20261013021258.3843871-1-jamien@nvidia.com> <CAJZ5v0ixQ_5jmrfm4mz50tZtCEq6nJt1b2eMoBdhr0f3AY+k7w@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Vohszuij";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ENc0xYyy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791915164;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tbzwRKVUEatrjVKlGEIq9cbf69CvktqCMQGFrwSPEpI=;
+	b=VohszuijMdH4NiaVxxIlC/b3Xb4Kdr14gwMPzadQSeGh12Up3t8OsJHAC6kbK0S7NbuPXd
+	hC+6HdcBku6C0sXIz9pjEN8g9oK+vnXI5E83JvNOakTDgHG9CjFlRxaM7T8p7HyEx0qh5V
+	62tpg7MHtKI0HTPiwpF7chPAJJeBXOw=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-79-Wm9W3VtaPy6geEebX2GPPw-1; Tue, 13 Oct 2026 18:12:43 +0000
+X-MC-Unique: Wm9W3VtaPy6geEebX2GPPw-1
+X-Mimecast-MFC-AGG-ID: Wm9W3VtaPy6geEebX2GPPw_1791915162
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so28495935e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:12:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791915162; x=1792519962; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tbzwRKVUEatrjVKlGEIq9cbf69CvktqCMQGFrwSPEpI=;
+        b=ENc0xYyyvArW67NooGA5W1dZ87cYFxN1UlA5lz19PCeIY7ilINGryI+K9JvYSsAS3x
+         wdPuS3af1XzaL0ysanUo3c43q0aMsuKq7WYszxlx00LxhuNkQ0WuZUrGS/I5r4c1EcKS
+         A7KJh8UmIDwxXmmVEXZRHNy8GgADzV9wil4PqXDyZn1jdoMp1HaMbU3tP96tDCS7cOzD
+         2TKrPndMa4+ofJGgdGEGB2pLeLEmzKFq+eGSCZ1UPsR6M2wRFkH1PPW0vpdLGGQUgmSW
+         OaeFuv/JANMNznOnbdOSJ9fjbiQ/rEzTR83c/4iPmUnZx3OKtHckv2ttJQLfU1paG40i
+         Mhpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791915162; x=1792519962;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tbzwRKVUEatrjVKlGEIq9cbf69CvktqCMQGFrwSPEpI=;
+        b=BH6cVxSkTuH8Uu6P4SuRBts1p8bcOUhpZazLAfbAjhgJeONiwEmRSbi/HQRXqS5G1Z
+         rZZyEK9S+6/50i9GGVpvklyy3s6CZtajpkuBy6WQO79XtkkYBatkKJle/ODuPw5JZq71
+         inCKmNcnCzPl6pT59oTL2iGKjH/4Om6DrXdCROlCuY8O0IOUauH0ioYworADLhsTnfZS
+         LxDHOjyUcX9WwBPPZh4q6/tOzQB2nLK9jGyHxYZEQQDdCe12mDRccOUZghiiM0liDPiq
+         F9U9ZfV+Tx+PocB1OJLS5MT/RN4Cx8wbRs0HwAJSUH+iBiyGDRrT5+pAiIphQ8POy1aq
+         WJ2g==
+X-Gm-Message-State: AFq9FYJewwm+g86v3e145NC0hnHb5Ajw1IAfhhAONrR7/QuHOwgSW+Fc
+	acLLnXKKlUJvnvy5Wh4/RsYCDqz0DGaKt39wVczEBWvjoC/MnWBGwsKHFI3kpb0FLtcP32/gndn
+	RwcPjAHVdwc+9+J9DdUl5UqsZKQPLGKzPv74IpjN/qatAM1fS514wSvOCmfRMCj+rdw==
+X-Gm-Gg: AYBFou3/oJ5tUR7flgLVhiAf+DUmQi1lC+oLDvb6ry9YyszrFcf3h+h8XTnwGQrJK1x
+	Xsbr7FeMlvOdA+dgcRBM4zV8eaI3VQr3kIDHfDgv3l9JnR0nggEAKlYppTu1wQIbxaJEgPNPNTq
+	9Uxiti666qxM9YiFE1yzKX+ZhtyVz037sQSZtakiDyUdTPgKNjkxPVOThwXnVu5fcpoTPJ6FdYh
+	B/b785+gQgbsmcZAP+dOOKmtOXlo4yzQqnao5tPUs2hoHGEDmPTSVznfohh3b8lXVZ+L09AbRL/
+	gp3G+863gW7oSXTex/dRrHJuC+uzwJ6u/3yoqQsyt+PWw7w+H0FXDo7loIY0Lu5/izEIRg==
+X-Received: by 2002:a05:600c:4ecc:b0:49c:fa21:e749 with SMTP id 5b1f17b1804b1-4a18e4d55f2mr301269045e9.31.1791915161615;
+        Tue, 13 Oct 2026 11:12:41 -0700 (PDT)
+X-Received: by 2002:a05:600c:4ecc:b0:49c:fa21:e749 with SMTP id 5b1f17b1804b1-4a18e4d55f2mr301268495e9.31.1791915161115;
+        Tue, 13 Oct 2026 11:12:41 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de2e2ef2fsm5001706f8f.59.2026.10.13.11.12.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 11:12:40 -0700 (PDT)
+Date: Tue, 13 Oct 2026 14:12:37 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH net-next 4/4] net: account for ingress-resolved virtio
+ net hdr state
+Message-ID: <20261013141050-mutt-send-email-mst@kernel.org>
+References: <cover.1791887415.git.mst@redhat.com>
+ <d82518764906d3b552fd3ade65b96ac741197d4e.1791887415.git.mst@redhat.com>
+ <87ld81a40i.fsf@all.your.base.are.belong.to.us>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF0001885F:EE_|MW4PR12MB6683:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3bfde012-4008-4c75-560d-08df295582f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|11063799006|4143699003|56012099006|18002099003|22082099003|10067099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	OKV6E+brY3ZrsEefNGGjkWqZLlAcG9vdjjL4AFWUqsbrn8zAC8Of9XauLZqLbUQDijEfQJDpsWADKMV2httCUCMt+6pyHboeay6KBPDAwn6f97H/pjIobKCxyT229n2yoUAYumhCVRkCF3V4rFplEd9KNsHGiJZrg9wfWeZdcBk8utVBvVFYungz0poEDQ/gAGso4Z8BEINz+zowigmEh+uCXPBi1fXIHpvzQ7z3l0ao0XQlvGXhUnRgqYcAShHr4SBuZZRaOst4AJ3+/LvFMsTAkK3p1EvYullIRsnahjzvVQtVbdHyg3kJGi2nkLJZxrFjlWJ1Mx4KnYaWqf3uremCCGMs0tWjMHQEjvQSGzc7Ybew3sPXIeet0+slZKQ5/Vahhx75Xignppr9ONkuu+KEo8gIn/e5FTqJikqVPOqQTJbpXya1bfzGULBjdkyEVMbivwIYCe89FYF9xj5Uu2Bb2eByv5XJwpNXlE6Hqe6Y2Z9v/B9Cq/3Qf/Foeqh/upZwEPzUR+nzeVV9XeK7dVnTfEuNH5ge4bAlnIg/4EG1R0jlSFWLONVUkY0nkpQNnh4kcR4TJkFL/P+jiYYd47vVByjH20RF/MFMsxTSq/IBzp1nBJRPsyadcG+CmuhX8G/hRHqmdunF+Ck2joh89vqAYwKImgnkrmR/OZ5TXQGLZaSCxzhFzcKghxYOhY6fyh8VyIdnzjOM+YaXVECo7g==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003)(10067099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	j3t6wO985+bMPdLByyrGlWhIazHp4Z+479O3KUlFhNCuZytbmoD9QOkeT1sG+cBJc3mt3SGKPmJTg/3B3jS0LjyHRtckdjFJkFwgis7rMuxloP4bRRaoFSoyRhwf6DXBE3udWX1F+qM41D6BpMjYvqNYNu4kGnQDPlEab715l9Rxj+KOdXsmhXMu75cQ40eergbo8Q79laOLGYVAuXoKgVLsM7PNZ/Id1W7+4xahURp25W4G2ltJa+F6/ULrEVcu9wv8kTE72XFMTZkGLrjZDEBUnsl1m6/iRkXzT5ZSgQHUVPiIV47nw9rSNd1WKcQc9SWSBsA9k9MX2F+eHgbuTGg4vL9R63LplFAiwDS97/j7TvLKQ2Qh/p+l1RC6P8+S9tQLw2GdB/5AR114WrjLar+Fx3ohuZrOvgvAjK28Ux26YREfG65+AYpKi368zLNE
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 18:12:15.4192
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3bfde012-4008-4c75-560d-08df295582f0
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF0001885F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6683
+In-Reply-To: <87ld81a40i.fsf@all.your.base.are.belong.to.us>
 
-On Tue, Oct 13, 2026 at 3:53 AM Rafael J. Wysocki <rafael@kernel.org> wrote:
-> > If it's worth tightening anyway, acpi_data_show() could map only the
-> > range being read, which caps each mapping at two pages for all three
-> > tables. I can send that as a separate patch.
->
-> Yes, please!
+On Tue, Oct 13, 2026 at 07:45:17PM +0200, Björn Töpel wrote:
+> "Michael S. Tsirkin" <mst@redhat.com> writes:
+> 
+> > Ingress resolution of uncommon virtio net hdr checksum metadata
+> > (software checksum completion at ingress) adds performance overhead but
+> > is currently invisible: no counter tracks it, so a hypothetical workload
+> > relying on uncommon metadata cannot be distinguished from none at all,
+> > and packets quietly pay the host-CPU checksum overhead instead of offload.
+> >
+> > Have virtio_net_hdr_to_skb() return 1 when it completes an uncommon
+> > checksum in software, and flip every converter call site to test for
+> > negative errno.  Have tun count these events per device as
+> > rx_csum_sw and expose the counter via ethtool -S.
+> >
+> > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > Assisted-by: LLM
+> > Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+> >
+> > ---
+> >  drivers/net/tap.c          |  4 ++--
+> >  drivers/net/tun.c          | 44 ++++++++++++++++++++++++++++++++++++--
+> >  drivers/net/virtio_net.c   |  2 +-
+> >  include/linux/virtio_net.h | 12 +++++++++--
+> >  net/packet/af_packet.c     |  4 ++--
+> >  5 files changed, 57 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/net/tap.c b/drivers/net/tap.c
+> > index ff67d99deb39e..73e8833944463 100644
+> > --- a/drivers/net/tap.c
+> > +++ b/drivers/net/tap.c
+> > @@ -649,7 +649,7 @@ static ssize_t tap_get_user(struct tap_queue *q, void *msg_control,
+> >  
+> >  	if (vnet_hdr_len) {
+> >  		err = tun_vnet_hdr_to_skb(q->flags, skb, &vnet_hdr);
+> > -		if (err) {
+> > +		if (err < 0) {
+> >  			rcu_read_unlock();
+> >  			drop_reason = SKB_DROP_REASON_DEV_HDR;
+> >  			goto err_kfree;
+> > @@ -1084,7 +1084,7 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
+> >  
+> >  	if (vnet_hdr_len) {
+> >  		err = tun_vnet_hdr_to_skb(q->flags, skb, gso);
+> > -		if (err) {
+> > +		if (err < 0) {
+> >  			rcu_read_unlock();
+> >  			goto err_kfree;
+> >  		}
+> > diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> > index 242899f7fd071..138ca8987dfc6 100644
+> > --- a/drivers/net/tun.c
+> > +++ b/drivers/net/tun.c
+> > @@ -210,6 +210,7 @@ struct tun_struct {
+> >  	u32 flow_count;
+> >  	u32 rx_batched;
+> >  	atomic_long_t rx_frame_errors;
+> > +	atomic_long_t rx_csum_sw;
+> >  	struct bpf_prog __rcu *xdp_prog;
+> >  	struct tun_prog __rcu *steering_prog;
+> >  	struct tun_prog __rcu *filter_prog;
+> > @@ -1935,11 +1936,19 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
+> >  		break;
+> >  	}
+> >  
+> > -	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr)) {
+> > +	err = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr);
+> > +	if (err < 0) {
+> >  		atomic_long_inc(&tun->rx_frame_errors);
+> >  		err = -EINVAL;
+> >  		goto free_skb;
+> >  	}
+> > +	if (err > 0)
+> > +		atomic_long_inc(&tun->rx_csum_sw);
+> > +	/* The status is consumed: keep err clear so later exit paths
+> > +	 * (XDP drop via unlock_frags) do not return it to write() as
+> > +	 * a short count.
+> > +	 */
+> > +	err = 0;
+> >  
+> >  	if ((tun->flags & TUN_TYPE_MASK) == IFF_TAP)
+> >  		skb->protocol = eth_type_trans(skb, tun->dev);
+> > @@ -2605,12 +2614,15 @@ static int tun_xdp_one(struct tun_struct *tun,
+> >  	tnl_hdr = (struct virtio_net_hdr_v1_hash_tunnel *)gso;
+> >  	skb->dev = tun->dev;
+> >  	skb_set_network_header(skb, ETH_HLEN);
+> > -	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr)) {
+> > +	ret = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr);
+> > +	if (ret < 0) {
+> >  		atomic_long_inc(&tun->rx_frame_errors);
+> >  		kfree_skb(skb);
+> >  		ret = -EINVAL;
+> >  		goto out;
+> >  	}
+> > +	if (ret > 0)
+> > +		atomic_long_inc(&tun->rx_csum_sw);
+> >  
+> >  	skb->protocol = eth_type_trans(skb, tun->dev);
+> >  	skb_reset_network_header(skb);
+> > @@ -3739,7 +3751,35 @@ static void tun_get_channels(struct net_device *dev,
+> >  	channels->max_combined = tun->flags & IFF_MULTI_QUEUE ? MAX_TAP_QUEUES : 1;
+> >  }
+> >  
+> > +#define TUN_STATS_LEN	1
+> > +static const char tun_ethtool_strings[TUN_STATS_LEN][ETH_GSTRING_LEN] = {
+> > +	"rx_csum_sw",
+> > +};
+> > +
+> > +static int tun_get_sset_count(struct net_device *dev, int sset)
+> > +{
+> > +	return sset == ETH_SS_STATS ? TUN_STATS_LEN : -EOPNOTSUPP;
+> > +}
+> > +
+> > +static void tun_get_strings(struct net_device *dev, u32 stringset, u8 *data)
+> > +{
+> > +	if (stringset == ETH_SS_STATS)
+> > +		memcpy(data, tun_ethtool_strings,
+> > +		       sizeof(tun_ethtool_strings));
+> > +}
+> > +
+> > +static void tun_get_ethtool_stats(struct net_device *dev,
+> > +				  struct ethtool_stats *stats, u64 *data)
+> > +{
+> > +	struct tun_struct *tun = netdev_priv(dev);
+> > +
+> > +	data[0] = atomic_long_read(&tun->rx_csum_sw);
+> > +}
+> > +
+> >  static const struct ethtool_ops tun_ethtool_ops = {
+> > +	.get_sset_count		= tun_get_sset_count,
+> > +	.get_strings		= tun_get_strings,
+> > +	.get_ethtool_stats	= tun_get_ethtool_stats,
+> >  	.supported_coalesce_params = ETHTOOL_COALESCE_RX_MAX_FRAMES,
+> >  	.get_drvinfo	= tun_get_drvinfo,
+> >  	.get_msglevel	= tun_get_msglevel,
+> > diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+> > index daab43ac92ce4..2e6fd81df9c41 100644
+> > --- a/drivers/net/virtio_net.c
+> > +++ b/drivers/net/virtio_net.c
+> > @@ -2519,7 +2519,7 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
+> >  	skb_set_network_header(skb, ETH_HLEN);
+> >  	if (virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
+> >  				      vi->rx_tnl_csum,
+> > -				      virtio_is_little_endian(vi->vdev))) {
+> > +				      virtio_is_little_endian(vi->vdev)) < 0) {
+> >  		net_warn_ratelimited("%s: bad gso: type: %x, size: %u, flags %x tunnel %d tnl csum %d\n",
+> >  				     dev->name, hdr->hdr.gso_type,
+> >  				     hdr->hdr.gso_size, hdr->hdr.flags,
+> > diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+> > index b181183118b3a..d8447db58ac83 100644
+> > --- a/include/linux/virtio_net.h
+> > +++ b/include/linux/virtio_net.h
+> > @@ -14,6 +14,14 @@
+> >  #include <uapi/linux/tcp.h>
+> >  #include <uapi/linux/virtio_net.h>
+> >  
+> > +/*
+> > + * virtio_net_hdr_to_skb() and virtio_net_hdr_tnl_to_skb() return 0 on
+> > + * success and a negative errno on failure.  On success they may also
+> > + * return 1, indicating that an uncommon checksum was completed in
+> > + * software at ingress rather than deferred to the egress path;
+> > + * drivers can use this to account for such packets.
+> > + */
+> > +
+> >  static inline bool virtio_net_hdr_match_proto(__be16 protocol, __u8 gso_type)
+> >  {
+> >  	switch (gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
+> > @@ -292,7 +300,7 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+> >  
+> >  		err = skb_checksum_help(skb);
+> >  		skb->transport_header = old_transport;
+> > -		return err;
+> > +		return err ?: 1;
+> >  	}
+> >  
+> >  	return 0;
+> > @@ -441,7 +449,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+> >  	/* Let the basic parsing deal with plain GSO features. */
+> >  	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
+> >  				      hdr->gso_type & ~gso_tunnel_type, false);
+> > -	if (ret)
+> > +	if (ret < 0)
+> >  		return ret;
+> >  
+> >  	/* In case of USO, the inner protocol is still unknown and
+> > diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> > index 52ae3d875e971..e6aec9ecfa994 100644
+> > --- a/net/packet/af_packet.c
+> > +++ b/net/packet/af_packet.c
+> > @@ -2913,7 +2913,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+> >  		}
+> >  
+> >  		if (has_vnet_hdr) {
+> > -			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le())) {
+> > +			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le()) < 0) {
+> 
+> nit: I don't know if we care, but this sort of breaks bisectability.
+> Previous patch does return ret ?: 1, but it's this patch that does the
+> if-statement fixup. (Same for tun/tap... ^^^)
+> 
 
-Posted here:
-https://lore.kernel.org/r/20261013180728.957618-1-jamien@nvidia.com
+Oh ugh. You are right, I kept rebasing to tweak things and moved it
+by chance. I'll fix it up in v2.
 
-Jamie
+
+> Björn
+
