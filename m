@@ -1,121 +1,179 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A0B3164D6;
-	Tue, 13 Oct 2026 07:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E2137AA94
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:20:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791876019; cv=none; b=U9BuQy8mmG39cUuuYBjA1pswBcI7Ao4XpSPOklsYuSZTQHsuc9SP5OXagqq5zmWShcfO4JaVx2WncI5sSdEzBIGu1mSeI928cO3hoieo6WJyhLtyyh7GG67S/+DEiRthsa3fNQRXxiDr1uwb7x4zeys42FAPIdXLe1zJR8GO6AM=
+	t=1791876029; cv=none; b=qTg/tja4yHswMj9Tnz4Gue4LDSo5DWVB4RqTMrLgvncH0xYBpGhxoo7LEyMWRzs4gZMh5bwu12i67YRmrTgObM4hDMf4MpnfdK51IpBk/UVyl4oAPndTJNIfn/lp/Fa152EQQqOsuBBfLerb4DFqmlFXpKuxRFdbWPgNk8Or5nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791876019; c=relaxed/simple;
-	bh=vHq6pigAqBAOMK8BlCssoXauhb6htINPCS9bc9+IkdY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mOGGTdQbTxCsKcc/Un0OGz9vMy4ZctZoozARQEeyo4JHTJhcPplZ1jVe0Lq3VFPfgW0DoVFVzckB65ZVbdc3TmZ+SjACF3hrOjqGlM0mKVo3EgI+D2NCTkGuKhU27zUxsVwke7znxzW9l82C/G963dkg7fv2PP4JKg29lBGD7fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=wbCLknAX; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1791876029; c=relaxed/simple;
+	bh=l8i76ZuTwyM/teWplUEysZmJ740T2Wnk9pneM6Oir7U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ok7fGZhlRXciBs7BZJVpBpFGicnwssOLPN+9ulnJ9viaLoIdB66DvxQ0fJsYCqjNNORO5o1cIdumsq4FO4W7E/tra7nH4EQ2UfynZ/JBkuPmPPxQN8OOrqBqkh0QzQce1ZBFk9bVH0WN8eXZA3oeF9NZ+xNYsFBjkgP9bAWClzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KovHLKRt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="wbCLknAX"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=WnX6NNL1P9i4EDTKZXyqBYS7whmUcGN3kZ4xLf1zOlw=;
-	b=wbCLknAXLXEXc5Hc3GDGzK451YQDCrT+CLurgxaaXy1WY6EoNa9O9tVSWr1M+fxF4SPMWADuY
-	OuTXCA9Qx0p/3tlH5WTeiAU91VworzWWaf+vleURwC2DUi9kUxO2RN4LTMa4aB90LwqZlZg5V1j
-	uGlyh5XHLJPlIJk5rXI8Rww=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4j3llx4dBtzmV8H;
-	Tue, 13 Oct 2026 15:07:57 +0800 (CST)
-Received: from whupemk100014.china.huawei.com (unknown [7.152.184.20])
-	by mail.maildlp.com (Postfix) with ESMTPS id 824774056A;
-	Tue, 13 Oct 2026 15:20:14 +0800 (CST)
-Received: from huawei.com (10.50.163.32) by whupemk100014.china.huawei.com
- (7.152.184.20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 13 Oct
- 2026 15:20:13 +0800
-From: Longfang Liu <liulongfang@huawei.com>
-To: <alex.williamson@redhat.com>, <jgg@nvidia.com>
-CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<liulongfang@huawei.com>
-Subject: [PATCH v6 1/2] hisi_acc_vfio_pci: fix NULL dereference in reset_prepare on PF passthrough
-Date: Tue, 13 Oct 2026 15:19:28 +0800
-Message-ID: <20261013071929.3988687-2-liulongfang@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013071929.3988687-1-liulongfang@huawei.com>
-References: <20261013071929.3988687-1-liulongfang@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KovHLKRt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980C81F000FF;
+	Tue, 13 Oct 2026 07:20:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791876028;
+	bh=+hvxJuw/onLf9QQABMCfiWLmeIlEWLIH+P2qNg54HLg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KovHLKRtTJ6UpNtOIIBsCRSvaLl1VdKjekjsbMjtbGI6WCJwm/NJM5CakteAbAb8h
+	 ZQkxgU0YCZ7x6WOwxR8IbvXGI0RRfCV4fY1+lYPBmJHwnvZkawr8uw7kV82T4w3hZV
+	 O1qnzbNsymNhR8/gM7sPuaW2JX3I6Z1wSbOYXAPYMSZauMs06sDgH5obl4rl44+bK8
+	 7ZOfHyXE6epVK5252M6UU/wQtxfPF/uRkJNYGQF4SyceqJWA4V5VFsRvIvIGFOyIvg
+	 rguRyCYHqhWasD9R7iTInraEPc4qInweredduAZ7T8zFu1DmwIAnrgxpZBnL1BvWg1
+	 kDEsJMhtyJ3Jg==
+Message-ID: <b101664e-5eff-4ee1-a917-826edb1058cf@kernel.org>
+Date: Tue, 13 Oct 2026 09:20:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- whupemk100014.china.huawei.com (7.152.184.20)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: don't ioremap COWed anon pages in
+ generic_access_phys()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org,
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com, peterx@redhat.com,
+ dave.hansen@linux.intel.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com
+References: <699ae98c.050a0220.340abe.0d31.GAE@google.com>
+ <20261001152524.171115-1-ngocthang2710.1999@gmail.com>
+ <32fe40e2-854a-47ec-9d95-93e23f9a7af4@kernel.org> <ar9omYD3HcTDBpGA@gremlin>
+ <c6253814-0cf6-48f3-8f81-3285466dca45@kernel.org> <ar-BkhuJINKdNpYC@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <ar-BkhuJINKdNpYC@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When a PF is bound to the driver via driver_override and passed
-through to a VM, its pf_qm stays NULL. The PCI error handler
-reset_prepare() runs during open_device through
-pci_try_reset_function(), before the mig_ops gate, and dereferences
-the NULL pf_qm for the timeout log, crashing the kernel.
+On 10/2/26 12:07, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Oct 02, 2026 at 12:02:15PM +0200, David Hildenbrand (Arm) wrote:
+>> On 10/2/26 10:38, Lorenzo Stoakes (ARM) wrote:
+> 
+>>> So I'd say somebody from the core team should take over this if we want to
+>>> come up with a patch.
+>>
+>> Yes, I'll take care of it.
+> 
+> Thanks!
+> 
+>>>
+>>> This looks reasonable but I hate that we have 'special' CoW overrides like
+>>> this :)
+>>
+>> After sending this yesterday, I concluded that we can do this cleaner: just have
+>>
+>> bool normal_page;
+>>
+>> (naming suggestions?)
+>>
+>> that express that this is something refcounted with a struct page, like
+>> documented for vm_normal_page().
+>>
+>> Then we can just refuse all of these.
+> 
+> Yeah it's all a bit tricky.
+> 
+> Maybe is_vm_normal_page ?
+> 
+> Or do we want to default to referring to a folio... but then pfnmap not a
+> folio... ugh.
+> 
+> is_normal?
+> 
+> With a comment explaining in sense of vm_normal_page/folio()?
+> 
+> 
+>>>
+>>> Hmm, if not defined before why would this need a new PUD handler? Do we
+>>> even have PUD-leaf PFN mappings?
+>>
+>> Yes we do. In any case, good for consistency.
+> 
+> In that case then we should definitely have it!
+> 
+>>> Since a folio being 'anon' is vague, because we stupidly made 'anon' vague
+>>> in general.
+>>
+>> For folios it's an established term :)
+> 
+> Yeah, fair enough, that is true.
+> 
+> And makes the anon folio -> tracked as such in my change consistent end-to-end.
+> 
+> I guess we have swapbacked for the shmem stuff as a clear delineation too.
 
-Move the mig_ops check to the entry of reset_prepare() and
-aer_reset_done() so non-migration devices skip the QM_RESETTING
-coordination. The dev local resolved &qm->pdev->dev before the
-gate, so open code it at the dev_err() call where qm is known
-valid. Also clear set_reset_flag together with QM_RESETTING in
-aer_reset_done(); the flag was never cleared before, so a later
-timed-out reset could release a foreign lock.
+The more I look into it, the more complicated it gets.
 
-Fixes: b0eed085903e ("hisi_acc_vfio_pci: Add support for VFIO live migration")
-Fixes: a22099ed7936f ("hisi_acc_vfio_pci: fix VF reset timeout issue")
-Signed-off-by: Longfang Liu <liulongfang@huawei.com>
----
- drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+generic_access_phys() is only used on VM_PFNMAP, so far so good.
 
-diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-index 86362ec424a5..e6fdf4d2e581 100644
---- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-+++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-@@ -1154,14 +1154,16 @@ static void hisi_acc_vf_pci_reset_prepare(struct pci_dev *pdev)
- {
- 	struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
- 	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
--	struct device *dev = &qm->pdev->dev;
- 	u32 delay = 0;
- 
-+	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
-+		return;
-+
- 	/* All reset requests need to be queued for processing */
- 	while (test_and_set_bit(QM_RESETTING, &qm->misc_ctl)) {
- 		msleep(1);
- 		if (++delay > QM_RESET_WAIT_TIMEOUT) {
--			dev_err(dev, "reset prepare failed\n");
-+			dev_err(&qm->pdev->dev, "reset prepare failed\n");
- 			return;
- 		}
- 	}
-@@ -1174,12 +1176,14 @@ static void hisi_acc_vf_pci_aer_reset_done(struct pci_dev *pdev)
- 	struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_drvdata(pdev);
- 	struct hisi_qm *qm = hisi_acc_vdev->pf_qm;
- 
--	if (hisi_acc_vdev->set_reset_flag)
--		clear_bit(QM_RESETTING, &qm->misc_ctl);
--
- 	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
- 		return;
- 
-+	if (hisi_acc_vdev->set_reset_flag) {
-+		clear_bit(QM_RESETTING, &qm->misc_ctl);
-+		hisi_acc_vdev->set_reset_flag = false;
-+	}
-+
- 	mutex_lock(&hisi_acc_vdev->state_mutex);
- 	hisi_acc_vf_reset(hisi_acc_vdev);
- 	mutex_unlock(&hisi_acc_vdev->state_mutex);
+Handling CoW anonymous folios is easy, per previous discussion.
+
+What's not so easy is handling when a driver allocates some pages and
+remap_pfn_range's them in here. And apparently there are some HV thingies that
+can end up in this.
+
+We can try detecting pfn_valid() and refuse accessing them entirely. But that
+might refuse some ranges that just happen to have a memmap.
+
+I tried throwing in a page_is_ram() check but that also just has too many corner
+cases.
+
+I'll ponder some more about this ...
+
 -- 
-2.43.0
+Cheers,
 
+David
