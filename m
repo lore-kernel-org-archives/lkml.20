@@ -1,278 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363FE417BD2;
-	Tue, 13 Oct 2026 06:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871252; cv=none; b=ufj0c90Vq3lYa2iooeNOYKZYyg5gX8v7LkCkzxmLol9wSDWhsC4myhso4jhEdSg823UHCBJSzXo5iPTmwHoT5JGlIr+upmg7YlCXEMj9w3Ufs7gSkbx3Xh/9QyTOaaAPmoaQooVf5uzWKdOSn2mPMD8BHQIdfhAIoP9foXWTJL8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871252; c=relaxed/simple;
-	bh=Yt008CfEfxBHGf9w9KSlikBfgqk+enAZ8EMPBqjDBFo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FED4eoiyaM1e9WSV4PARrfkzXjaqKbqY221xoJWUalzxEGnbascd4e04BWYfiYXnrymWaNTdStpkDQ8/vy8ujJKi9nfuHYQtj+zzhdtSEWrW+KuyGesQ31gUqoWFDXFWvvXoy7s0ULm97bjTvAy5nCjQIFp0xE+nTlKbPI9XVXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uQR3X7tt; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F98E2E737D;
+	Tue, 13 Oct 2026 06:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791871285; cv=fail; b=ZV2H6xjiocpLsmKnalBEODlCcpIQ2NLxMRR21hIXYG4+ZkK7UopB6TLX2XOyqqN8wn7aL4Jpa3HDmlUqjs1PSBPlVs+I7jLlUQR70yrzJ6mNP+ZTNFU4hWHQ0yPmTkrMq5MUAZTfH2UmVXsO6Ggri7m3i13HAhQu2UoCgvuNqWw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791871285; c=relaxed/simple;
+	bh=2ZoYLVzr40yTuCztzd2nFq1UKFaikMzsUBs1WWGehg0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=LH+dT6rMiol+7Nr0J3tAUgVArKkE7AJ6uqrTNkult2uEqaZ2rude+r0Liemhx1OBbdjO6Ko86ftJpVRKGfTHJWVQPHH1HFmRWoyI06qS2kI30ApoAOE/tIjBXQPrlwIZdstvyF3Aelv6tao1qpCxQ7dQD9zJzkY3jjeFJVe7/Vw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Dv0+joP/; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=lCctY0xC; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uQR3X7tt"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AC9C4C2BCFA;
-	Tue, 13 Oct 2026 06:00:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791871251;
-	bh=Yt008CfEfxBHGf9w9KSlikBfgqk+enAZ8EMPBqjDBFo=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=uQR3X7ttolbaJUo+oExrkCcdRXepNxq/rzcASUiSlj1c4ZVFQugRwhIfYcrlE+TTT
-	 4Mr6TxREseJc9pmysptMpEH/R7rnkQbaQkc3/YraPwpP8VPRFi/NXy3ij1tBkHqLsZ
-	 Evh/QjsBDxW1aAPA5HrhiBzfmL6qxmSoIqN6RYbAzV826e7SQ+2RNXelFWuZiqwpJQ
-	 DXPF8sFtnaKFzetCs0onh7OKMew1hPzHatNAXDJoW3JY2PbhEDbLBp7Olx/mEQnb/e
-	 BMKKaC3Z00jb5npceYonNPqk7maI7shZmIlT8FZLgA+IHu5LIDJNtS1GuK/vkN1UVf
-	 T28c05Mu3c4FA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97657CA9ECF;
-	Tue, 13 Oct 2026 06:00:51 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Tue, 13 Oct 2026 15:00:51 +0900
-Subject: [PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Dv0+joP/";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="lCctY0xC"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D23jFI3249029;
+	Tue, 13 Oct 2026 01:01:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=HcFRkbB8F9UxLvPsW60LttK3/xb4xP1Hd/KeORXdp
+	4w=; b=Dv0+joP/bIlk7TVRTx9/dS+KS5GLjkSiyzkqgfeqmZZvtT7IGyKvxTDzY
+	5tBp4s0Oj4tBRZ5Tmfhv/PvxcHmZFiuWNJtT6XuUS6IYIL7UngT2GsK8fQMsyA7r
+	h7wNr/yXWn1dKAfNeaC76XpTYTF11dH6wnDqbWAjuB2PEJMvNu34xU1bVj+8LDGr
+	Mljr7J0k+x1Dn+xm0o5mg1w6RMyIfHQjsYb4dDwtieeoOz+duh9Dfp6owwzQIkAY
+	kbNcmnfDDjKzTG+flNqn0LT5PQwnUneH3XzxaF0TalThFfxkS2IJPDLECG9hNOwb
+	CA/BOc+AtV/9VEe+lXbgLSjvZqGNQ==
+Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013038.outbound.protection.outlook.com [40.107.201.38])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h96tnaxe7-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 01:01:10 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AXdjM2LGzZGbxU/z1GVOVNGwWDcbvnBsO7dlG8e8cg0BtT84xVXvf3zAbtwdlGJckADGDvSUa99bg9xus+2wQHgEBIvCl5UhzZ2RuGSAs9efXxO0m9hMH3rW7JjUmtfivx8lqt8eyFYv+t+ZNUgzRyMaYNdfD3nvQ5v33mF8wrs2TeL8dwAk2EDyX3ElGc2qTT/ncfAhAjiumnN8rD+7RpdVX9TMc2z9r73YOXQsYRY3Arcyuz4iXJfSd5IRs5n12rNmywOYZPBzx3akdIuIQD0nlwtSeKZ7iMjwkjxr/uxSplGUOuIyriyN1IQGg8XPnsdCIpDFEgZZAzV0bM6V0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HcFRkbB8F9UxLvPsW60LttK3/xb4xP1Hd/KeORXdp4w=;
+ b=fTM0ZO3uCDC7+wqLvyuqs7wOz3vArYvFruBzGwKsXdnIsQ2Iop4ESDCPJj22EJO4rg9ca72+F0fl+hYy9wg/uw3EtmE9VFrk5hM3ZZxjgm2mqyOMNc+kSJVYnw86o58w6zmY9yYyxlOCLFzMg6rumrUrum3eAme4zzwTNKzX7edqAbmaOVjV58y4Jm5bQFgvhRgCVtkQzpzScvKHeqpWCR7dcrE0/AwGq2wtohaKKHeIJZzytPoVsX8OQcWWIlRjbTtEHXn2eIi1nXBGspsly8M+Tnr5BeaP1FQfkA8eeWgrWjytdxS+oMh+Fo1sPh/DbTtVGpHGTIxmkoeKvJWkJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HcFRkbB8F9UxLvPsW60LttK3/xb4xP1Hd/KeORXdp4w=;
+ b=lCctY0xCGg7fl5EnzRBRp8nB6HoE4/nRMrxPti95H2TWo8E/r1xrBuZ2Fh+58V+uXViCP3jayL7ePzEW9Nhi7NI8aS1M06XUkQvoOcrbenRXx8tErR2/3yBr6/XwOLmWA/T45bGfBeabfddB+OEXaA38axZfs430/syoGG82EH4=
+Received: from CYXPR02CA0062.namprd02.prod.outlook.com (2603:10b6:930:cd::25)
+ by CY5PR10MB6011.namprd10.prod.outlook.com (2603:10b6:930:28::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.7; Tue, 13 Oct
+ 2026 06:01:06 +0000
+Received: from CY5PEPF00000E75.namprd02.prod.outlook.com
+ (2603:10b6:930:cd:cafe::12) by CYXPR02CA0062.outlook.office365.com
+ (2603:10b6:930:cd::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
+ 13 Oct 2026 06:01:06 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CY5PEPF00000E75.mail.protection.outlook.com (10.167.247.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 06:01:04 +0000
+Received: from DFLE203.ent.ti.com (10.64.6.61) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 13 Oct
+ 2026 01:00:25 -0500
+Received: from DFLE212.ent.ti.com (10.64.6.70) by DFLE203.ent.ti.com
+ (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 13 Oct
+ 2026 01:00:25 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 13 Oct 2026 01:00:25 -0500
+Received: from [10.24.51.219] (abhilash-hp.dhcp.ti.com [10.24.51.219])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69D60L412934168;
+	Tue, 13 Oct 2026 01:00:22 -0500
+Message-ID: <7f734f4a-d54a-46b0-947c-eb7cda00fafa@ti.com>
+Date: Tue, 13 Oct 2026 11:30:20 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-xfs-pnfs-commit-hole-v1-1-740912db9102@samsung.com>
-X-B4-Tracking: v=1; b=H4sIABLJzWoC/x2MywqAIBAAfyX23IIP6PUr0UFszYXS0IhA+veky
- 8AcZgpkSkwZpqZAopszx1BFtg1Yb8JGyGt1UEJ1UkiFj8t4hgobj4Mv9HEntFoYGo0aeqehpmc
- ix8+/nZf3/QDDdNEmZgAAAA==
-To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
- Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, 
- Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Sergey Bashirov <sergeybashirov@gmail.com>, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791871250; l=9109;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=Bi4Nh3asVtu3vWZjxDBfgpyfYTuGljO1+XtVfwgnRxg=;
- b=GJqo7QNKAmRq/d9iJKVk3On4jj+V5vkQ+9TS4l7MnfsXzSyF+O8KdRohMmv2I/kKXd7LoHWCA
- Oe2Go/UzGOUDmEBGh8aEPEUs9/OQAC5FynZst6240gEZUDE3YejQomQ
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] pinctrl: ti: Add TDA54 pin controller driver
+To: Linus Walleij <linusw@kernel.org>
+CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <brgl@kernel.org>,
+        <linux-gpio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <afd@ti.com>, <u-kumar1@ti.com>
+References: <20260930092020.1047221-1-y-abhilashchandra@ti.com>
+ <20260930092020.1047221-3-y-abhilashchandra@ti.com>
+ <CAD++jLm462gGw38acBk1VzwKZq0WE6xfFUKoMsoiVxy4iqfEtg@mail.gmail.com>
+Content-Language: en-US
+From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+In-Reply-To: <CAD++jLm462gGw38acBk1VzwKZq0WE6xfFUKoMsoiVxy4iqfEtg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PEPF00000E75:EE_|CY5PR10MB6011:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57d86fe3-3a20-4512-a309-08df28ef5dff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|82310400026|36860700016|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|261009223027099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	WE1IsWpstLGQ7T6X2Ir46waZKfsIH2+KqJxmaWnGWLbz7i19DLKsmLJE/BrsYuwrAw/6d4g5OQoLITv8quYVji4dyfoiZmHLSv+0wfXo8e/dwMfdASYO3zoY2/C8n/XO58kskKkELkH0pQgW9GOO/ddYigkGD8f+MTq1yvRpw2JhPWZFme2rIStuRsnWsPvPnYB8c2VhTOq4rFqok759CiVTvFIhFrm72yFnkUHE3fhvHj2Mdc9STbeVYVjeOyCrCog3W+6cT8Px4iPzV3jN3kuSFOonPV+zvjgjmsPv5o/rkiylUEsPzxGZhqndlvjoZtcXqUflMHbG2y/fnwlc8AR1mRfdfiIZVC1LwWvTV8cgJ42Ry9rMTD5vus6Iw/CDj0QavMj5ids8RhFfhymbt4cGi04uo4vXSlJjT7tUgzgVRFodb4eR1trHsubw90Ji695+2n/T2Xfl9fXDyJf0IbFNvBeUJBy4jed2sBUsN4N/0DzCgtQ0oVsbMQjvxRvVMWvnzZHGi4pFdu39RVmuY4tueUUa8UAVicSwzq2uPBZrBpnAaR4EXkdn9ZSPeLlkISxobD5YK/EyJMtN5OLyLmXs1M8EjbHXBLCEiYgVEyVc+/hXimFqPE/Uv51g1N/+H+6x09iFCgZKXdFl9iEy+9q+8qq/viQyhQe0Si99y30GE5GrwFR+MKeVxSaeQ1W99zQuoUd/JQ87s+U25CFV6w==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(36860700016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(261009223027099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+Ps/FNbVF0cH6j/PSNGXYY7MzkwFVx+EEWuaRuy1iRdJUjQTcK1OHZXJXMwu03SoLcjlGNm5Ly14i+40Glc3jndqxywQJ8PDIbPi9xUERVbM8q4hxtD5nOHKIuvHdBAwXfHLkffARO+cF/U860sygUHM3K4Ia4nfW0Vp941i3tlttpWIwvyBuTEhuTdW7w+iaeMHzZjM8Oo0W9iam4VhduAk1ryIGSxPdmXdwrL+MYnXqO9Z0hsQ4v+0uhV59dtFx4kwBDcsN1Kh4Z0qwBngLjrZLyfCeMcQaQ/ZbU1LgAuwtGwP7XDTLPTfchinXHMsiXJaNG3L5HOz+6IlPgeYnB/seW1vvglpGPJR3XjjknyReL3uPL671xk02Z4W2mDs0DRjnuMih1rcyY2EBJihrOHQxQfq9gzNMXNlxIabWHUm5d6kpiqCl7dBTJefnGeR
+X-Exchange-RoutingPolicyChecked:
+	kGyJ6Lb/TKJD0TY7DQhf8+xAO+mNqLvaD9fxS0mwo1YThZ/It5QxO565RzPflRZsL2LIbwBO+tkkzBB7dHHzx8WKSYgHI4/GeIa8/EaikoIpfWGtCMciKd90dQrrlsUjXYF/dc6eokEdZcc0ocxH3ZrRJuJBZNpWiudGBsXowtlzP9ubJC15YQY7Wmx8bvvZJY4zwXmUJ70JNg0sKI2lJSDYBZCDdNLQbkwOZJX6Zfhi+evlzWSbsVlbCzbU0/tYqZWjR4F/AMbbteWx2VYV+u1nvANzA5E/PdQlFcJxNYc67VhqySTjU1N7JbHWsPNl7K0DqmC/XS1JOhaLqPvmQw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 06:01:04.8354
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57d86fe3-3a20-4512-a309-08df28ef5dff
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY5PEPF00000E75.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR10MB6011
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAyMyBTYWx0ZWRfXy6MyvGrmxyHq
+ +sWRz+P0K6a+f8+WE9Ts1n4Z0ec+qxRP8Y15eUka4yUKG3kGn62baWMD2Eg0PA5cNsYy712pLfw
+ FluNyqbq2di1dY9vEP7Q+p3yAOQNp3elSE81mfgaVDNuppcZCk4r+92fP0kHErz3pUNavatNQjp
+ 0OLH7YVHY98zShaw3AkeddmHjBbav7Esx/wyremNxOJs1lZ7+qUskT2kC6ii/doMVgtuM/yS4DD
+ /N/xG7o5KFX5Sm5EiP+dZ9SPm7GDsSWw/hKtuDyfZ4RgugSIeg6AyNPmL/LaHgut04ht5DyQVO2
+ hpyJpD3N7HPz7/GDOV+2AqS2F69hzWrhuGGtiOQjvX2RQwvZQUKcQMyCGc2S9xhDyRwmUGwQACU
+ SrVLGgOYIKytLgqxXGBFD6OAgj4Z/9SsSeLw3sPwW9lcjM6nAv7eTqR6VfqllMxuoUSvGuJ3Fa0
+ e39tK92TX31kPitpjOQ==
+X-Proofpoint-GUID: GP5F0QhZ1RdqwChi5L-5NjnNmF-kk--d
+X-Authority-Analysis: v=2.4 cv=Gq7XaU1C c=1 sm=1 tr=0 ts=6acdc926 cx=c_pps
+ a=ZmKEHIpmlwdLtedhitE7eQ==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=W13oF0KrnftOtnmiiEwA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAyMyBTYWx0ZWRfX/eS/XfJAZ9kl
+ BxrTV4PhvWDQLfmmLJC77ACr2Cx8wqZ4H0EHoq6lGNWNzfEis4xAMYpH8vZHQ+8SJLxboC0g816
+ zdOA856EZX6f2xXnokbTIV7eb+krDLA=
+X-Proofpoint-ORIG-GUID: GP5F0QhZ1RdqwChi5L-5NjnNmF-kk--d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ bulkscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130023
 
-From: Daejun Park <daejun7.park@samsung.com>
+Hi Linus,
 
-xfs_fs_commit_blocks() passes every range that a pNFS client commits to
-xfs_iomap_write_unwritten(), whatever is mapped there, and the range can
-be a hole. nfsd does not check the extents of a block or SCSI layout
-LAYOUTCOMMIT against the layouts it handed out, and for a reclaim during
-the grace period it has no layouts to check against, so a client can
-commit a range that it never had a layout for. Blocks under a layout can
-also be freed: blockgc frees blocks past EOF that were already allocated
-when a write layout handed them out, and a check in nfsd would not
-notice that.
+On 02/10/26 02:22, Linus Walleij wrote:
+> Hi Yemike,
+> 
+> thanks for your patch!
+> 
 
-For a hole, xfs_bmapi_write() with XFS_BMAPI_CONVERT allocates new
-blocks as written extents, while the transaction only reserved blocks
-for bmbt splits. A hole larger than that reservation shuts XFS down:
+Thank you for the review and apologies for the delayed response.
 
-  XFS (nvme0n1): Corruption of in-memory data (0x8) detected at
-    xfs_trans_mod_sb+0x817/0x960 (fs/xfs/xfs_trans.c:351).
-    Shutting down filesystem.
+> On Wed, Sep 30, 2026 at 11:21 AM Yemike Abhilash Chandra
+> <y-abhilashchandra@ti.com> wrote:
+> 
+>> The TDA54 pin controller splits the pad configuration across two registers:
+>> PADCFGA holds the mux mode and the functional pin configuration, PADCFGB
+>> holds the wakeup and retention configuration. The controller also supports
+>> two proxy addressing regions and claiming of registers. A register claimed
+>> through proxy 1 becomes read-only at proxy 0 and can only be written
+>> through proxy 1.
+>>
+>> Add support for the pin controller in the TI TDA54 SoC.
+>>
+>> Signed-off-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+> 
+> Overall this looks pretty nice.
+> 
 
-A smaller hole gets blocks that nobody wrote mapped into the file as
-data, so readers see whatever those blocks held, and the LAYOUTCOMMIT
-succeeds.
+Thanks !!
 
-With pynfs as the client and an RW layout for the first 64 KiB of a
-2 MiB sparse file, a LAYOUTCOMMIT of 64 KiB at offset 1 MiB, which no
-layout covered, got NFS4ERR_IO and shut XFS down. A LAYOUTCOMMIT of
-4 KiB at 1 MiB got NFS4_OK, and the file got a written block there. The
-client wrote nothing to the device in either case.
+> Check the Sashiko reviews, there is always something
+> interesting there.
+> 
 
-A client may only write to blocks that a layout handed out, and
-xfs_fs_map_blocks() allocates blocks for any hole in a write layout, so
-a committed range without blocks holds nothing that can be committed.
-Check all the ranges before converting any of them, and fail the commit
-with -EIO if one has a hole or a delalloc extent, as
-xfs_pnfs_validate_isize() does when the new size falls into one. A
-commit refused this way converts nothing: LAYOUTCOMMIT has a single
-status, and after a partial conversion the client could not tell which
-of its extents were committed. The iolock, held across the check and
-the conversion, keeps blocks from being removed in between.
+Yes, found a few interesting things there. Will reply to that
+separately.
 
-With this, both LAYOUTCOMMITs get NFS4ERR_IO, XFS keeps running and no
-block is allocated. A LAYOUTCOMMIT of the laid-out range together with
-the 64 KiB hole also gets NFS4ERR_IO and converts nothing, so the
-laid-out range stays unwritten.
+>> +config PINCTRL_TDA54
+>> +       tristate "TI TDA54 pinctrl driver"
+>> +       depends on OF && (ARCH_K3 || COMPILE_TEST)
+>> +       select GENERIC_PINCTRL_GROUPS
+>> +       select GENERIC_PINMUX_FUNCTIONS
+>> +       select GENERIC_PINCONF
+> 
+> Just
+> 
+> select GENERIC_PINCTRL
+> 
+> and you get all three.
+> 
 
-Also clamp the client's length to what is left below the size before
-adding it to the offset, instead of clamping the sum. The sum can wrap
-around. A wrapped range would skip the new check, and the conversion
-loop already passes the client's length, unclamped, to
-xfs_iomap_write_unwritten(). xfs_bmapi_write() then fails an assertion
-on XFS_DEBUG kernels, which is a BUG with XFS_ASSERT_FATAL, and
-otherwise returns -ENOSR, which nfsd warns about as a non-standard
-errno. With the clamp, an extent of 2^64 - 4 KiB at 4 KiB in the same
-file is checked only up to the size. It gets NFS4ERR_IO for the hole
-after the laid-out range, without a warning or an assertion.
+Done. Thanks.
 
-Fixes: 527851124d10 ("xfs: implement pNFS export operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
----
-Tested on nfsd-testing d918c664efd5 with the same change on top, all in
-QEMU guests with KASAN and lockdep. The block layout was on an NVMe/TCP
-namespace exported by nvmet. The client was pynfs, except for fstests,
-which ran on the Linux NFSv4.2 client. XFS_DEBUG kernels were used for
-one run of the pynfs tests with the patch and for the wrap case without
-it. XFS for-next also has commit e3c682dd1130 ("xfs: map pNFS layouts to
-the end of the extent again") in xfs_fs_map_blocks(), which nfsd-testing
-does not have. xfs_fs_commit_blocks() and xfs_iomap_write_unwritten()
-are the same in both trees. The pynfs tests for this are local; I can
-post them if they are wanted.
+>> +static int tda54_dt_node_to_map(struct pinctrl_dev *pctldev,
+>> +                               struct device_node *np,
+>> +                               struct pinctrl_map **maps,
+>> +                               unsigned int *num_maps)
+> 
+> What is so unique here that you need your own node to map function?
+> 
+> Can't you use pinctrl_generic_pinmux_dt_node_to_map()?
+> 
 
- - A LAYOUTCOMMIT of a 64 KiB hole: NFS4ERR_IO and shutdown without the
-   patch. With it, NFS4ERR_IO, no shutdown and nothing allocated, in 5
-   runs.
- - A LAYOUTCOMMIT of a 4 KiB hole: NFS4_OK and a written block in the
-   file without the patch. With it, NFS4ERR_IO and nothing allocated.
- - The laid-out range and the 64 KiB hole in one LAYOUTCOMMIT: shutdown
-   without the patch. With it, NFS4ERR_IO, and fiemap on the server
-   shows the laid-out range still unwritten.
- - An extent at 4 KiB with a length of 2^64 - 4 KiB: NFS4ERR_IO and
-   "nfsd: non-standard errno: -63" without the patch, and with
-   XFS_DEBUG "Assertion failed: bma.nallocs >= *nmap" in
-   xfs_bmapi_write(). With it, NFS4ERR_IO and no warning, also with
-   XFS_DEBUG.
- - Blocks past EOF freed by blockgc under a layout, without "xfs: mark
-   the inode preallocated for pNFS write layouts past EOF" [1]: the
-   LAYOUTCOMMIT after the client's write shut XFS down without this
-   patch and got NFS4ERR_IO with it. The client's data is still lost
-   there; [1] keeps those blocks.
- - pynfs block and blockextent: same as without the patch (BLOCK3 fails
-   either way, on a bug in the test).
- - fstests generic/075, 091 and 263 over the block layout, with and
-   without the patch: 075 fails with an fsx size error either way, and
-   XFS refused none of the 10331 LAYOUTCOMMITs with the patch.
- - W=1 builds of fs/xfs/xfs_pnfs.o with the patch on XFS for-next
-   0be6da616ab5 and on nfsd-testing d918c664efd5: no warnings.
+I can, thanks for the pointer. I wasn't aware of the generic helper.
+Switched to pinctrl_generic_pinmux_dt_node_to_map() and it works fine.
 
--EIO follows xfs_pnfs_validate_isize() and reaches the client as
-NFS4ERR_IO. No errno maps to NFS4ERR_BADLAYOUT, and the Linux client
-treats NFS4ERR_BADLAYOUT on a LAYOUTCOMMIT as success. For a reclaim,
-RFC 8881 section 18.42.3 requires NFS4ERR_RECLAIM_BAD, which nfsd would
-have to map.
+Thanks and regards,
+Yemike Abhilash Chandra
 
-An nfsd check of the extents against the layouts would be a separate
-change, and for the reasons above would not make this one unnecessary.
-The shutdown came up in the review of the ->map_blocks series [2].
-
-xfs_pnfs_validate_isize() reads the extents under XFS_ILOCK_SHARED,
-which xfs_iread_extents() does not allow when they are not loaded yet.
-That needs a separate fix.
-
-[1] https://lore.kernel.org/r/20261012-xfs-pnfs-eof-prealloc-v1-1-e4864d917a00@samsung.com
-[2] https://lore.kernel.org/r/20261012024846epcms2p7cccc5c988b2553b3f831070eb17e0455@epcms2p7
----
- fs/xfs/xfs_pnfs.c | 60 ++++++++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 57 insertions(+), 3 deletions(-)
-
-diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index ab38561700..da60154198 100644
---- a/fs/xfs/xfs_pnfs.c
-+++ b/fs/xfs/xfs_pnfs.c
-@@ -272,6 +272,46 @@ xfs_pnfs_validate_isize(
- 	return 0;
- }
- 
-+/*
-+ * Ensure the committed range is backed by allocated blocks. A client may only
-+ * write to blocks that a layout handed out, xfs_fs_map_blocks() allocates
-+ * blocks for any hole in a write layout, and no layout hands out a delalloc
-+ * extent. A hole or a delalloc extent in the range was either never laid out
-+ * or lost its blocks after the layout was handed out, so nothing the client
-+ * wrote can be committed there. Converting a hole would also allocate blocks
-+ * that the transaction did not reserve.
-+ */
-+static int
-+xfs_pnfs_validate_commit(
-+	struct xfs_inode	*ip,
-+	xfs_off_t		start,
-+	xfs_off_t		end)
-+{
-+	struct xfs_mount	*mp = ip->i_mount;
-+	xfs_fileoff_t		offset_fsb = XFS_B_TO_FSBT(mp, start);
-+	xfs_fileoff_t		end_fsb = XFS_B_TO_FSB(mp, end);
-+	struct xfs_bmbt_irec	imap;
-+	uint			lock_flags;
-+	int			nimaps;
-+	int			error = 0;
-+
-+	lock_flags = xfs_ilock_data_map_shared(ip);
-+	while (offset_fsb < end_fsb) {
-+		nimaps = 1;
-+		error = xfs_bmapi_read(ip, offset_fsb, end_fsb - offset_fsb,
-+				&imap, &nimaps, 0);
-+		if (error)
-+			break;
-+		if (!nimaps || !xfs_bmap_is_real_extent(&imap)) {
-+			error = -EIO;
-+			break;
-+		}
-+		offset_fsb = imap.br_startoff + imap.br_blockcount;
-+	}
-+	xfs_iunlock(ip, lock_flags);
-+	return error;
-+}
-+
- /*
-  * Make sure the blocks described by maps are stable on disk.  This includes
-  * converting any unwritten extents, flushing the disk cache and updating the
-@@ -305,6 +345,22 @@ xfs_fs_commit_blocks(
- 		size = new_size;
- 	}
- 
-+	/*
-+	 * Check all of the maps before converting any of them, so that a commit
-+	 * refused for a hole or a delalloc extent converts nothing.
-+	 */
-+	for (i = 0; i < nr_maps; i++) {
-+		u64 start = maps[i].offset;
-+		u64 end;
-+
-+		if (start >= size)
-+			continue;
-+		end = start + min_t(u64, maps[i].length, size - start);
-+		error = xfs_pnfs_validate_commit(ip, start, end);
-+		if (error)
-+			goto out_drop_iolock;
-+	}
-+
- 	for (i = 0; i < nr_maps; i++) {
- 		u64 start, length, end;
- 
-@@ -312,9 +368,7 @@ xfs_fs_commit_blocks(
- 		if (start > size)
- 			continue;
- 
--		end = start + maps[i].length;
--		if (end > size)
--			end = size;
-+		end = start + min_t(u64, maps[i].length, size - start);
- 
- 		length = end - start;
- 		if (!length)
-
----
-base-commit: 0be6da616ab5031ea6419dc4fe0bf0e378fb6757
-change-id: 20261012-xfs-pnfs-commit-hole-c30ae9a287f3
-
-Best regards,
--- 
-Daejun Park <daejun7.park@samsung.com>
-
+> Please consult the code in drivers/pinctrl/pinctrl-generic.c.
+> 
+> Yours,
+> Linus Walleij
 
