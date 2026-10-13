@@ -1,107 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.systemli.org (mail1.systemli.org [93.190.126.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C59043BDD0;
-	Tue, 13 Oct 2026 18:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F15051B17F;
+	Tue, 13 Oct 2026 18:04:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.190.126.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914672; cv=none; b=pTXtxORzDz4/Q1fjj3LmXiFwc17fFYTUZA+r6LPROi54Q2XN6AjGirxsM9ZIcymevKC8omDwDPTpJ6oG41nfvCBlcqdCyW92T3he7T7FEFsLVOohLO28rpg/LU8n1gtd/6+xyzBs4WoIlokasNRKWexXGH8B5g07klTd+vaGjtQ=
+	t=1791914702; cv=none; b=YxvhzQc8xUN27FOhYFuPkE9vu6p9gspeILfKK2Tom7ebLVm70RqEVRWI94RdODtQs7Ibpo4Y1qvGEJSpqziYOretdU0/6C1gyOizN2Tzw3+XjY2O8qmih6nqTc0bbrV6T8JymDl0xhS/RL2DuT09YH37skkvaBtpKovzKnfy8PM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914672; c=relaxed/simple;
-	bh=L6JEv9qfHtvpZmPdt8beaHCj8CvQMXxeYuG9Mo656Gs=;
+	s=arc-20240116; t=1791914702; c=relaxed/simple;
+	bh=iounqlr0ghmzA6o+rB5NrROrpFTPWmYgWQS/iCRWrgg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YRkg6iPkuVuJPvBXdSsYsUxwgBspm5ElMc2VJ6/PZf98wT09zgIdzgzCoGazSN6tAtyRgTr+HisVHBtRzjFT2CfheVFyCRXGeUw8FpUiK3MIX+wuTuKh5ZPZweCI8gYcVv2trX4s+5IdgN0N0fPqph3JzmRA3puV3Kq8RPFnL4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8HVMEQS; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=WIH2JpZe+/Az2Lz/Q4ZmFk3IWmDGV8TNcsUgDutrGD+uC/CZYprz7ws9giCh6GRUzTueow/W+uHnEuP1m0/jrB/tomkIpVOTBDR7kdsNU/dWC4d7Fe42ZD7MQbMgsSuYTp038Lf2navjG0U1bnqYQFYRLPbZeqGumIQirZjcr1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=systemli.org; spf=pass smtp.mailfrom=systemli.org; dkim=pass (2048-bit key) header.d=systemli.org header.i=@systemli.org header.b=lO2HLpfW; arc=none smtp.client-ip=93.190.126.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=systemli.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=systemli.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8HVMEQS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A58C1F00893;
-	Tue, 13 Oct 2026 18:04:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791914670;
-	bh=SVZW1RNrpJG6XhKrA3+1X7TURtsoXoyl9erFH/YE3/Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=e8HVMEQScf+8hESZ4Ftgq8ihr/nrxw2ZXCcr0pOF2bU+SfCdnfI2fjK5cTUcepIlH
-	 vp55mLEQjW0pTnOqxyWIPig+qdO+Q1YhybEaQfYcUHXrQazNcbsRVvQ99B2W1wYB6b
-	 NabjgxKw0ZCKsTWP1tFagoUVwGt5nNgco2+wC5Jiy9vUlM1JSK3QAjz/G+8PhufhUS
-	 ceSv/n9v6HVaeqFPG3Vx4wDzib5d+9UMl7XCocuRujAzldJ2AuiLZr6Yw9iMh4gf2h
-	 TRKY9020mx0j09LwtAZslU1M+wYc7//qInIMUNMjmrlL/93c434gOKZbuEQDHJlFBP
-	 1pRvmygpGrbgg==
-Message-ID: <cb094baa-a39a-4a38-94c1-e4a8f03750f6@kernel.org>
-Date: Tue, 13 Oct 2026 20:04:25 +0200
+	dkim=pass (2048-bit key) header.d=systemli.org header.i=@systemli.org header.b="lO2HLpfW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=systemli.org;
+	s=default; t=1791914182;
+	bh=0f8w1KPBYOz2blbtbFQ6Hgoz6pLh4QfF+bptlzDZmiE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lO2HLpfWy9nscnFDSZHRiqHmz0BL+D2s+PBmQNEga5smwGHRjbQSPuJrGQK9KutSY
+	 I+2mehjg1VUcPjP73AgluH9rb8CbKLTnA1WDWB6mBi6qidHuc2MrD+zFvcf9jlaElw
+	 cwGHU+pF4HPMstwpJrU/+Vv4miY2pk0zw68DfMxPyn942Rux5TRisPddbV8KQCjfBc
+	 /D+m8fNDUubGxKXUgkGe8ne5+1yRgNz2HPn59dcPQtlfcfWJVbKhy6Vdsf4PYZSIkZ
+	 M8LPm1iuvRngxd3QXdiTVJEz1ZbK5kYPpBeaiAhIMv0ceIay+gsNnO43IrcOtKZBk5
+	 /3vFaKSM7RQVQ==
+Message-ID: <bc41916b-f88e-4700-b399-418cd28b7126@systemli.org>
+Date: Tue, 13 Oct 2026 19:56:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: vendor-prefixes: add Ambarella
-To: longzhao@ambarella.com, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>, devicetree@vger.kernel.org,
- Long Zhao <zl020895@163.com>
-References: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] wifi: ath9k: restore background spectral scan after reset
+To: linux-wireless@vger.kernel.org
+Cc: =?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+ linux-kernel@vger.kernel.org
+References: <20260915194327.30397-1-vincent@systemli.org>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
-Content-Type: text/plain; charset=UTF-8
+From: nick <vincent@systemli.org>
+In-Reply-To: <20260915194327.30397-1-vincent@systemli.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Spam-Report: 
+	*  0.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+	*  0.0 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
+	*       domain
+	*  0.0 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+	*      envelope-from domain
+	*  0.0 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	*  0.0 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0002]
 
-On 13/10/2026 19:46, Long Zhao via B4 Relay wrote:
-> From: Long Zhao <longzhao@ambarella.com>
-> 
-> Document the Ambarella, Inc. vendor prefix so Ambarella DT bindings
-> can be applied without waiting for the SoC series.
-> 
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+Hi, I did not get any feedback so far, so a friendly reminder. :)
 
+Bests
+Nick
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+On 9/15/26 9:43 PM, Nick Hainke wrote:
+> A reset leaves spectral_mode set to SPECTRAL_BACKGROUND, but resets the
+> spectral registers and receive filter. The driver therefore still reports
+> a background scan even though the hardware no longer produces FFT samples.
+>
+> Re-trigger background spectral scanning after reset recovery so the
+> software and hardware state match again. Do not re-trigger spectral
+> scanning in disabled, manual, channel-scan, radar, or off-channel modes.
+>
+> Assisted-by: Claude:opus-5
+> Signed-off-by: Nick Hainke <vincent@systemli.org>
+> ---
+>   drivers/net/wireless/ath/ath9k/main.c | 12 ++++++++++++
+>   1 file changed, 12 insertions(+)
+>
+> diff --git a/drivers/net/wireless/ath/ath9k/main.c b/drivers/net/wireless/ath/ath9k/main.c
+> index 740a6fc7b067..00e587fe6ee3 100644
+> --- a/drivers/net/wireless/ath/ath9k/main.c
+> +++ b/drivers/net/wireless/ath/ath9k/main.c
+> @@ -231,6 +231,17 @@ static bool ath_prepare_reset(struct ath_softc *sc)
+>   	return ret;
+>   }
+>   
+> +static void ath_restore_spectral_scan(struct ath_softc *sc, bool start)
+> +{
+> +	struct ath_common *common = ath9k_hw_common(sc->sc_ah);
+> +
+> +	if (!start || sc->cur_chan->offchannel || sc->hw->conf.radar_enabled ||
+> +	    sc->spec_priv.spectral_mode != SPECTRAL_BACKGROUND)
+> +		return;
+> +
+> +	ath9k_cmn_spectral_scan_trigger(common, &sc->spec_priv);
+> +}
+> +
+>   static bool ath_complete_reset(struct ath_softc *sc, bool start)
+>   {
+>   	struct ath_hw *ah = sc->sc_ah;
+> @@ -269,6 +280,7 @@ static bool ath_complete_reset(struct ath_softc *sc, bool start)
+>   		ath_restart_work(sc);
+>   		ath_txq_schedule_all(sc);
+>   	}
+> +	ath_restore_spectral_scan(sc, start);
+>   
+>   	sc->gtt_cnt = 0;
+>   
