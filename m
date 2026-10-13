@@ -1,68 +1,68 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F092047252E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:56:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0609A3A6B66
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791860164; cv=none; b=sB2o4LtiOyiYo5p0FiGE14fQuxIi0yZL0slgiJNJVWa16BQxDDSzxjljllkQcl6tle3sSsTnvRwXx9zgAqqZm03Mgo4FgFfxOGNogYU1pypkq0xMyG1aH6uc7rKez5daSRYgIsZYlRovhtGuwsjmyCp9diGYMoXIgwuX0fVukxs=
+	t=1791860170; cv=none; b=ov143oqoI9gqWUz5Sg0COeJtJDwckaRNvOdSXfDO3O3SbOJH5kC/kO6XEZ8AIG08aFZ/JHR58/SG7GftkfW9f97VLMSEl8tniLexA2jZyYjXI/ghqjXBDF6bvHt9h/ac7hV2u9WIt5Z9z7LNsY5chL+cG4xMKfCGb9S+CySBpsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791860164; c=relaxed/simple;
-	bh=Ya5+fvphL83LzsYbeWDighc3P/K+Pmb/K3isgCaZrDo=;
+	s=arc-20240116; t=1791860170; c=relaxed/simple;
+	bh=CJIEnX0P5e5vEIvo4jO29/P3pon7RQPwtjkdjcPRZxE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FwTqQxvaWx7GbJOOBbAxSiARHaEM+F2+CkYo0lNNw+VmZtbZqIan7Px0eynInil1FNuj9HyWN+vpyaHsi46Sc2wEvreTbQud60eAvxN/WmRwAm9fdRLuXJTMgqmGPLu48SY3qoxFtMmJYbH93BbgKmQwkPIXpGquaJF0OHSzpLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YA4/nC6h; arc=none smtp.client-ip=74.125.82.180
+	 In-Reply-To:To:Cc; b=YBOZjDWOb997iJmydpEfZzTFSrpuOu1ZFWCpfKg8qhbfxeOdYh32C0LgKKD03xIEDGpQ/NeX8BuYl4U9ip1RUH5PA4yaREsWZ2zkbgOMH3obZfWsaSNcwhSnA0xA2OMOX4GUi0BwD6rR+PMaHfVzXSHmIWGlScCdoHf1SRa9RJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qnOvKf5E; arc=none smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YA4/nC6h"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso6251334eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:56:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qnOvKf5E"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35b647aac23so865143eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:56:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791860161; x=1792464961; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791860168; x=1792464968; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Z9ESKYxV8GDdBDHayP7DuLtJAcpKYYeJY6d0DDX47M0=;
-        b=YA4/nC6hwGw65yxsnoB4IpZuqRkEdmsNMBSm44I0Zn7iFkPOsAsGexX3UMz/BKtKnL
-         TVbgqJSFFlNPCMkT2CE6boXgVmWasN6x+rCuv2sydJgHB5+5tcbmbs/lmyNoIdH1+O41
-         MBJ8+s2zi9WmsEi5+r2ek2BjhLR3DxlmjDUUIukkvcJmkHY/TjadMH1ssxwGFLKckTXB
-         w/8RHyWr8EoreChCKLGsHkE8MJiukdxsKjjUDrTUVbU+I3ktYlSmEv5iS63t9wwmDes4
-         XKAKQfN1ZgE+txydwBBr3wWpTLDYuQGhMmR7wnhRz5qXjoZqftuC2hbJg1vye4nxrr9V
-         rPVQ==
+        bh=hIfDhWm6ixjJFnpSOj18AG3Xc7oniyYktxCnB0/d6hI=;
+        b=qnOvKf5ELq94ypZS2VjJ8PEaInQHRwYWgWhyIQAs5Q3NxgGlGr5imEc23RLGU9SRM6
+         3ns7iOBLUkLzBusN7/lFnsD1UO6c+J+M2yo7TkxfXs+vD4gClTaIq8Ivvjzp8tGUjexa
+         UeQmY3C4X/kCEuo7O4ehgKAPKclFPXyyGXhUy0QAJNo3ms3CCCMRK9iym5SQKht5C3/2
+         CuX+zBXjHrMGc4ahXzZ92JTRk5FW36k31Bc4W/C0/dPDthOJFRwYEdLzPcjlFenmTAuy
+         u3XroaTcEND8U6oTrOV+qEYNN//QLnopjUNsTA3hnHNaKI1TOXLbW2PcXUfBfg7ozPo+
+         4S7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791860161; x=1792464961;
+        d=1e100.net; s=20260707; t=1791860168; x=1792464968;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Z9ESKYxV8GDdBDHayP7DuLtJAcpKYYeJY6d0DDX47M0=;
-        b=TNJQp1JG4MiA77hA96ZAek+t8cQCe8Qj59OR/tggNZjm8ij841/UiUw/SSpqymGXjm
-         ppTX4n4VcGSrHMLgLttSVGOoHXRjl/LPZtk0lMSbGLRfXCufLxnzbsrxd/Lg2Wlrb0oN
-         A8flg2tcrMBCpZybqIQucZZIDhTEyRCmxrz2aqBtZTC0eQnZEHbwsyTuPmw86VhCjIEF
-         ni52b+Lxzk+aPBb95RCyoZH2yZYKq7aNCxZMGnshroRaIB1SCkv8TpChKCAymrDillYv
-         J7LZEuqZ3011XT8oJm/YGuUF52ai34PizzO2/bNuBh/Vpsv2u/mUoTO7HY1oTfuIHxw3
-         7ktg==
-X-Forwarded-Encrypted: i=1; AKwUvBxX5h3pI1jRXSn+qNK4IPvbshvstzCr0WSrGhlIyYVXkjhfm/iEc9vYBQ0uTKMOhzY+qnjb+LqyAiC0k9Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYe0B4Z10zhqilJT5TGxgkk9nhyOb5nYlRZQUXPTaD4MctUUI8
-	Bgc1o1J9QNIFI5a1XGp6CFcUY1ikrsSxtzfzKSEweRt9o1+4dbrEOwYc
-X-Gm-Gg: AYBFou2SZ3Kje05ixOsFiUO5ij/9g0vZk7GJgmzrJQQQ9uo1dvf5RH60SVdqL5+I2oh
-	NyFQFPfVftK58/ZRZ6G5AzXCpZJiw/zARP4IN0FirxvR4CpFlVcFVKHVCQh6emw5Q9NV15Wnj/c
-	fOMyUU99F97b+vF9PC9bIRt3LPXTapYckXntev4ksyfKmb3sXTI0a5j5Hn2FHNQg6nR99954bE2
-	e4TnXwwaDQhTYyRgalz30BpTttf8jq0DEFuRKsujjgWXBusTzJs2aE15AlJQfy/fh5k76uEUEHR
-	G4rMGoy9/prLSxvXkSviJRQ13IBFFAHIOszMltTfXWiV9qFH+fbYWf5eJat4T299EFDH1rezRK+
-	TW9GTzTuWMtC8cah3Ukpk4FLY+dMblnBFGzbI35QfBDQFxSbuyXjnAvDu2Y3dcsQOXx1k2GPzcJ
-	MzD2wjnM7fM7ftCPrfUTumJQPhjoz+3PUmxoTWZZkjEY9Ma1VxJnjwpbIkPMUfENycSvgvEQUMt
-	g==
-X-Received: by 2002:a05:7300:b913:b0:358:cb31:4277 with SMTP id 5a478bee46e88-358cb3169e2mr16120027eec.28.1791860160954;
-        Mon, 12 Oct 2026 19:56:00 -0700 (PDT)
+        bh=hIfDhWm6ixjJFnpSOj18AG3Xc7oniyYktxCnB0/d6hI=;
+        b=Ej8qFJLO/5qlxb/OFRSDzhMzPJIOgDfGx16dSp/ExBI/YL3jJWBykDZkw02fxVql+V
+         U67oFZ7ZSz7QGixPkoHGRr1gH/TeeRVpD7OfceKLaV0n0V8/0UUULYOV7xWwY1HpL+0I
+         zF4W+Qi209WDesTCQqUpDolTq622G6wfvem5toMvRPM1Db3XuOhXhDq8ythH+ByaIRrf
+         aYD5HajtUaSzT0/BtPGhaggkhLFKnPvzrKjllqKzeej929VbB9XxrLMYSPaesKx/rYTS
+         KiuEoVXFxng3CC93y664z6mALnZJ3ma/tA8K8PwT45BEp4XjefgWEbiXp3DY1rhyKMHK
+         1leg==
+X-Forwarded-Encrypted: i=1; AKwUvByPoVsyrwbUK2SHNT0V9noqsM7PjJLtnRlRD47I6dPplmlDY+2hzXVf/VhoL66ZIWaruwVRkTlHw/83UU8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGbHXcNWDiy+A7SGDhFS4Sz3MY2bgbwJMxqMHsX64SGRuBlSL5
+	KQjONz+kLc18a5QwbC+1Z93qNCEAVn45Lv2k7wKenx1YvrSn4Aeusedd
+X-Gm-Gg: AYBFou2HGqF0XYrVyp+93xHGPVJdKTsN+f6pM36BrSQCDVPgcajb60d8qpYwO71P+uo
+	Ywzn6saRogeQgWD5PVvddg3R0z14u685ZRHWsHa75DXU2P4r9KRISXLTkVrYeEMAyRXWT0DX+eU
+	5pB6UniEox7V7PFk7TPqwX5xK+pEiXda7d/v2fE+qjOH7WVtDtuPOYQbqYGMtJgtQKw+qa2awSP
+	6MOTIqPpqyI0yZIpkcIYS+phoeE0V6Og2S50uQFyZgGsWnTqg5fKHpWBPwuH3Q8iOGhccj1xHor
+	y7yUC2MChPXn3bkIcMKy4KC4142q6PoqgZRBZcPutaeyJ7YdWG4kbk34tFTmiGFZCoKiYzlN9J7
+	83DXSfiV3BTDQmI/yKP+7xJ5OqzCSVYLpzkzp2sKwwV0InyjJOuILG71UcYVKbz4o86UVeYSxoD
+	6A5DCWtad8gKRqCbwF2zHezAbP5pUrhA6WfOIwvXI4p31PfAdBf7x/ipknAKndDbEFZdAzerBHX
+	Q==
+X-Received: by 2002:a05:7301:4694:b0:351:694d:9ca1 with SMTP id 5a478bee46e88-3537b3c7ed1mr16260351eec.27.1791860167835;
+        Mon, 12 Oct 2026 19:56:07 -0700 (PDT)
 Received: from [127.0.1.1] ([2404:f801:8028:3:8056:897e:dae3:8e2e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b556sm50889219eec.9.2026.10.12.19.55.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b556sm50889219eec.9.2026.10.12.19.56.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 19:55:59 -0700 (PDT)
+        Mon, 12 Oct 2026 19:56:06 -0700 (PDT)
 From: Subasri S <subasris1210@gmail.com>
-Date: Tue, 13 Oct 2026 08:25:38 +0530
-Subject: [PATCH RESEND v2 2/3] usb: misc: Use %pe to print error pointers
+Date: Tue, 13 Oct 2026 08:25:39 +0530
+Subject: [PATCH RESEND v2 3/3] usb: typec: Use %pe to print error pointers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-usb-ptr_err_patchset-v2-2-f83351b3fc3d@gmail.com>
+Message-Id: <20261013-usb-ptr_err_patchset-v2-3-f83351b3fc3d@gmail.com>
 References: <20261013-usb-ptr_err_patchset-v2-0-f83351b3fc3d@gmail.com>
 In-Reply-To: <20261013-usb-ptr_err_patchset-v2-0-f83351b3fc3d@gmail.com>
 To: Peter Chen <peter.chen@kernel.org>, 
@@ -88,106 +88,86 @@ Cc: linux-usb@vger.kernel.org, imx@lists.linux.dev,
  linux-atm-general@lists.sourceforge.net, netdev@vger.kernel.org, 
  Subasri S <subasris1210@gmail.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791860140; l=3600;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791860140; l=2977;
  i=subasris1210@gmail.com; s=20260709; h=from:subject:message-id;
- bh=Ya5+fvphL83LzsYbeWDighc3P/K+Pmb/K3isgCaZrDo=;
- b=hlAZNUAuOTsOCAcw7zt+8hO1U/tGYbvnh2BXSwkSTK86cUrFuDH3pxAH0GwvU2uFV4yX9uS5k
- NwCZWiPoNpnD57qx+VgjuMV4QznO8vvH62NNJ4CmZrOD6ieNz9KrL7c
+ bh=CJIEnX0P5e5vEIvo4jO29/P3pon7RQPwtjkdjcPRZxE=;
+ b=CqTrpBWOFP7IoNCOlvIrFBD5UbdJH+gppg/u95/nDgGJAjX+b/exGfLDCfXtlh5uuq2LH1vXW
+ RiZAV3SFerPA8GsjssqIRbmCZ+Q0/MSnQEOT7IZw/FpnBBlI0t3pHAb
 X-Developer-Key: i=subasris1210@gmail.com; a=ed25519;
  pk=6C4wavGFy/OsR8yQQKNWuDXoYPHp2L3sfgNfyzTruTk=
 
 Use the %pe format specifier instead of %ld with PTR_ERR() for printing
-error pointers in various drivers across usb subsystem.
-This prints symbolic error names (e.g.-ENOMEM) instead of
-errno numbers (e.g. -12), making error logs more readable.
+error pointers in various typec drivers. This prints symbolic
+error names (e.g.-ENOMEM) instead of errno numbers (e.g. -12),
+making error logs more readable.
 
-Fix coccinelle reported warnings:
+Fix coccinelle reported warning:
 WARNING: Consider using %pe to print PTR_ERR()
 
 Compile tested only.
 
+Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: Subasri S <subasris1210@gmail.com>
 ---
- drivers/usb/atm/usbatm.c               | 4 ++--
- drivers/usb/core/hub.c                 | 3 +--
- drivers/usb/dwc2/pci.c                 | 3 +--
- drivers/usb/gadget/function/u_serial.c | 4 ++--
- drivers/usb/misc/usb3503.c             | 3 +--
- 5 files changed, 7 insertions(+), 10 deletions(-)
+ drivers/usb/typec/mux/pi3usb30532.c | 6 ++----
+ drivers/usb/typec/tcpm/tcpm.c       | 2 +-
+ drivers/usb/typec/wusb3801.c        | 4 ++--
+ 3 files changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/usb/atm/usbatm.c b/drivers/usb/atm/usbatm.c
-index 9600e1ec0993..c78caa1b57c9 100644
---- a/drivers/usb/atm/usbatm.c
-+++ b/drivers/usb/atm/usbatm.c
-@@ -979,8 +979,8 @@ static int usbatm_heavy_init(struct usbatm_data *instance)
- 	t = kthread_create(usbatm_do_heavy_init, instance, "%s",
- 			instance->driver->driver_name);
- 	if (IS_ERR(t)) {
--		usb_err(instance, "%s: failed to create kernel_thread (%ld)!\n",
--				__func__, PTR_ERR(t));
-+		usb_err(instance, "%s: failed to create kernel_thread (%pe)!\n",
-+				__func__, t);
- 		return PTR_ERR(t);
+diff --git a/drivers/usb/typec/mux/pi3usb30532.c b/drivers/usb/typec/mux/pi3usb30532.c
+index 985683fe49e9..b32f4c433de9 100644
+--- a/drivers/usb/typec/mux/pi3usb30532.c
++++ b/drivers/usb/typec/mux/pi3usb30532.c
+@@ -139,8 +139,7 @@ static int pi3usb30532_probe(struct i2c_client *client)
+ 
+ 	pi->sw = typec_switch_register(dev, &sw_desc);
+ 	if (IS_ERR(pi->sw)) {
+-		dev_err(dev, "Error registering typec switch: %ld\n",
+-			PTR_ERR(pi->sw));
++		dev_err(dev, "Error registering typec switch: %pe\n", pi->sw);
+ 		return PTR_ERR(pi->sw);
  	}
  
-diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 5262e11c12cd..8c750a93c350 100644
---- a/drivers/usb/core/hub.c
-+++ b/drivers/usb/core/hub.c
-@@ -5671,8 +5671,7 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
- 			descr = usb_get_device_descriptor(udev);
- 			if (IS_ERR(descr)) {
- 				dev_dbg(&udev->dev,
--						"can't read device descriptor %ld\n",
--						PTR_ERR(descr));
-+						"can't read device descriptor %pe\n", descr);
- 			} else {
- 				if (descriptors_changed(udev, descr,
- 						udev->bos)) {
-diff --git a/drivers/usb/dwc2/pci.c b/drivers/usb/dwc2/pci.c
-index f3a1e4232a31..7ff9c4df941e 100644
---- a/drivers/usb/dwc2/pci.c
-+++ b/drivers/usb/dwc2/pci.c
-@@ -68,8 +68,7 @@ static int dwc2_pci_probe(struct pci_dev *pci,
- 
- 	phy = usb_phy_generic_register();
- 	if (IS_ERR(phy)) {
--		dev_err(dev, "error registering generic PHY (%ld)\n",
--			PTR_ERR(phy));
-+		dev_err(dev, "error registering generic PHY (%pe)\n", phy);
- 		return PTR_ERR(phy);
+@@ -151,8 +150,7 @@ static int pi3usb30532_probe(struct i2c_client *client)
+ 	pi->mux = typec_mux_register(dev, &mux_desc);
+ 	if (IS_ERR(pi->mux)) {
+ 		typec_switch_unregister(pi->sw);
+-		dev_err(dev, "Error registering typec mux: %ld\n",
+-			PTR_ERR(pi->mux));
++		dev_err(dev, "Error registering typec mux: %pe\n", pi->mux);
+ 		return PTR_ERR(pi->mux);
  	}
  
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc666c4..da31e5cea0a5 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -1311,8 +1311,8 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 	tty_dev = tty_port_register_device(&port->port,
- 			gs_tty_driver, port_num, NULL);
- 	if (IS_ERR(tty_dev)) {
--		pr_err("%s: failed to register tty for port %d, err %ld\n",
--				__func__, port_num, PTR_ERR(tty_dev));
-+		pr_err("%s: failed to register tty for port %d, err %pe\n",
-+				__func__, port_num, tty_dev);
- 
- 		ret = PTR_ERR(tty_dev);
- 		mutex_lock(&ports[port_num].lock);
-diff --git a/drivers/usb/misc/usb3503.c b/drivers/usb/misc/usb3503.c
-index 759770a13260..1160dc594b1c 100644
---- a/drivers/usb/misc/usb3503.c
-+++ b/drivers/usb/misc/usb3503.c
-@@ -202,8 +202,7 @@ static int usb3503_probe(struct usb3503 *hub)
- 
- 		hub->clk = devm_clk_get_optional(dev, "refclk");
- 		if (IS_ERR(hub->clk)) {
--			dev_err(dev, "unable to request refclk (%ld)\n",
--					PTR_ERR(hub->clk));
-+			dev_err(dev, "unable to request refclk (%pe)\n", hub->clk);
- 			return PTR_ERR(hub->clk);
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index 89eec20a2064..ad10470ea73b 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -4796,7 +4796,7 @@ static void tcpm_typec_connect(struct tcpm_port *port)
+ 			port->partner_desc.accessory = TYPEC_ACCESSORY_NONE;
+ 		partner = typec_register_partner(port->typec_port, &port->partner_desc);
+ 		if (IS_ERR(partner)) {
+-			dev_err(port->dev, "Failed to register partner (%ld)\n", PTR_ERR(partner));
++			dev_err(port->dev, "Failed to register partner (%pe)\n", partner);
+ 			return;
  		}
  
+diff --git a/drivers/usb/typec/wusb3801.c b/drivers/usb/typec/wusb3801.c
+index 6062875fb04a..86d13ab41670 100644
+--- a/drivers/usb/typec/wusb3801.c
++++ b/drivers/usb/typec/wusb3801.c
+@@ -277,8 +277,8 @@ static void wusb3801_hw_update(struct wusb3801 *wusb3801)
+ 		if (partner_type != WUSB3801_STAT_PARTNER_STANDBY) {
+ 			wusb3801->partner = typec_register_partner(port, &desc);
+ 			if (IS_ERR(wusb3801->partner))
+-				dev_err(dev, "Failed to register partner: %ld\n",
+-					PTR_ERR(wusb3801->partner));
++				dev_err(dev, "Failed to register partner: %pe\n",
++					wusb3801->partner);
+ 		}
+ 
+ 		data_role = pwr_role == TYPEC_SOURCE ? TYPEC_HOST : TYPEC_DEVICE;
 
 -- 
 2.43.0
