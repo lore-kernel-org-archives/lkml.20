@@ -1,271 +1,206 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010005.outbound.protection.outlook.com [52.101.69.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5A33ECBE4;
-	Tue, 13 Oct 2026 14:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903467; cv=none; b=EnFLIZqeYezspcDpL8Sob81TAJV8mjnE69q8Wqj8rc0NIa2OSIrOYOVAx5XdwcRUsbhC72w2JxPwDkQPGycclJ04A+0mSP2gT2Oqt74RMLo+WmCgcmKwKE86FOtdQK31z0MrELRyYMv/lOUGSdl4JGbUBQCcBjzDo0e19r2fQkU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903467; c=relaxed/simple;
-	bh=/c91QxCu2SOXZsPhldxV8UOiePErjv9gAeXrzyoiZls=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bo7WvA5aayKu1a2iDZCISl2cAx5VA++vOpSHdI9vmrHA32JskNu+0qgt6ZYRgPWratglzcT6vO1qeDmxKGAgyv+TKTg7ONCieiOYqDaZU4PaliBqgMTkXx3anjnz/Pfb4oEWAKMfqJqSrUwKMht4Wij8Yd4hkAHCRmB4mpyVk0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QLoRC2Xk; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C695345FFA7;
+	Tue, 13 Oct 2026 14:57:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791903471; cv=fail; b=i77exbz6Xd5lUQMqQgDCv3tIHoyx0vvqr+jaLqW5MNUSvrY3oZ+1kUsxgQKdVfH7/qNRz9jstGkYwOeyZhJ1JbqRHV/TI59lwXYmrlzxJexWyNSbB3H8S5lMn9mWHN3ZKvwITmf7Uw5eNvbE8/aMq1NLQ/5NmcVVL7A0fTom0CE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791903471; c=relaxed/simple;
+	bh=ff8bRzivavl+zQzIUs/EjnQv9rlH6HLrhFBxBo/q1yQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=lis89mBkFp6xyZIGSqEkob/DSrFF8Q34XAzgExWw/szt4klv2luIACOI6tAmEE8H5o0Qb+g42dBZsaHw6krCyiuwbYbBu6SZEEeXpEnjstecGa2MEfO4Ye3FqpNyESeZdTov4jbksafPRxqiMkVoQnBYZsR9eD38NpH2jkcMDsQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HLVDmwxL; arc=fail smtp.client-ip=52.101.69.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QLoRC2Xk"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 8F90FC653EF;
-	Tue, 13 Oct 2026 14:58:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E5EF460362;
-	Tue, 13 Oct 2026 14:57:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6492011D71780;
-	Tue, 13 Oct 2026 16:57:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791903456; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=FChtDaus9auSoHdeMFvZeQM1/di6hK/usvTVsf7gMt0=;
-	b=QLoRC2Xkd5PDzyPTNolMvjOiZ4ZcCVv6E/TkXZKuk2dYnLOcR0UTzq01dCr1JMWvzHj3i0
-	2yA7gM9D1rTROVwMWTOLBL5kdMg0v7OB81HXBwZPoJg7JTtWqO3LRpllAxUxlVYz/LGsRF
-	4eXFxdsAyF4y4+GQ/CTtRy6YL96E7YESzFQ8lsWOmw9IGCziNr8uqndngWAt8dN4lcWof8
-	iSo6kqPM0nnBARbeR17mO1VfN/D22imDy+4kCloL/tOVZO35/MZNph86WIoSkUT0j73Zgf
-	WvFj2IzXWbJ0qo6I0LChC3kiwnMKXq9uO7scc/DUObyYQWi+VFFyH+G57V77FQ==
-Message-ID: <92efb7e8-e69d-49aa-9cf7-9dc8fc0ead99@bootlin.com>
-Date: Tue, 13 Oct 2026 16:57:29 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HLVDmwxL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pzlAiaLEiDIbWnpWgIHtE5bLI0Ss8m5w7mfEn5a4zyLYKVyCiY+n2jTpJnTRsKr9VAVBiTFbeX+L/+art0J5cuqjrL6L2uwqnQ7y0tW579Q3nSCQqy41RDH7hhnrdAQRYt+xvrgykQ4ASHynWjZmyFVKhNiKCRB7NgOrSTxt4BCY58JZK8aj+S62KzR5c4dzr/mOGziyU0d0/d93EE3x5FsKUrH7dXw7IALbfSigGXvJkO/iSjsvdcCa2uvzkwI6oBC0G52TiwN/rhSuvhcJCD/vbCjB6r+44dCTFsW4bh1oBRq0H9F6y5xQ7U9c08AEybJQV9cHPqxNqeOoYiXSiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dIAj4XCPCYo6zqmKUbSnkn97071yBniV27V1kg4aFic=;
+ b=NJKuPwiy34kWzQh6rGJ2IoO9MXt8BOdQLbmBQn9Q4IH4S9zoy69xlgrk9gnhJ0MCxRnM+qK585akneSQF+uYWaDrvzlPmwSrKmlQwBEpf1S9HW2hW4TDUIL+4NiuAu1Ww3Ch+YT4fM9gQCslj891VKeznhUMidWjy9u19eCpR54C3L9DW0Rz9cOhFSTub+tA7bw4rNuYp4iZmovUatzbwLRXOVXC0RKtzK+AjOw/9vuuYJDeU2pbP88G3pMUFsIG/Wiif6GVRkojvB09cULz9wJXbH34BZtBx/fftVZ+plYR9bdHlFmDJ/Cj8c306aavRgytteCbSzm8tAqVUbfnUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dIAj4XCPCYo6zqmKUbSnkn97071yBniV27V1kg4aFic=;
+ b=HLVDmwxL/lHMbLA2aCbaEadF9ToDfjFYk6Snh5ch+apKQyRxGzAGCVpEJsjWW+D2xQA2iQAon/0RYfSUbQZFVWt4X5pyUQIg7w6Y6FsMevp3g8+q2Pdkv8/MuLfB+xNF1m8kHtt6PX/hTQxzreIXlKvwH7mRjGMWriEphB/XrjSwJU9dG9SDJwQwN4TBgXJBcyPZ0o4Rst9scPux5dPrnx7GghMcEJsQvHsMjcp8+TuUUuX4iF26PL1OTZ3aiOSySCWiOvCUqglIZFHHQy7Rj1ugK3TreQHkU7Dd/ZakXPpOW93kTxahxkA+VddQkDg9zna/S6gOZ3lyknsuuRKYdQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV4PR04MB11852.eurprd04.prod.outlook.com (2603:10a6:150:2dc::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
+ 2026 14:57:44 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 14:57:44 +0000
+Date: Tue, 13 Oct 2026 09:57:28 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Cc: Dave Jiang <dave.jiang@intel.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
+	Shuai Xue <xueshuai@linux.alibaba.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Steve Wahl <steve.wahl@hpe.com>,
+	Bogdan Codres <bogdan.codres@windriver.com>
+Subject: Re: [PATCH 2/6] dmaengine: idxd: fix duplicate memory frees on
+ initialization error path
+Message-ID: <as5G2DmXXSBsjP5c@SMW015318>
+References: <20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com>
+ <20261012-wt-idxd-fixes-v1-2-30a35a445077@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-wt-idxd-fixes-v1-2-30a35a445077@intel.com>
+X-ClientProxiedBy: PH8PR15CA0024.namprd15.prod.outlook.com
+ (2603:10b6:510:2d2::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: pse-pd: Add bindings
- for LTC4266 PSE Controller
-To: Kyle Swenson <kyle.swenson@est.tech>, Rob Herring <robh@kernel.org>
-Cc: "o.rempel@pengutronix.de" <o.rempel@pengutronix.de>,
- "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "edumazet@google.com" <edumazet@google.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
- <pabeni@redhat.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Roland_Kov=C3=A1cs?= <roland.kovacs@est.tech>,
- =?UTF-8?Q?David_Nystr=C3=B6m?= <david.nystrom@est.tech>
-References: <20260927212929.593366-1-kyle.swenson@est.tech>
- <20260927212929.593366-2-kyle.swenson@est.tech>
- <20261007210454.GA281943-robh@kernel.org> <asnpHkvHsFy2dX-9@est-xps15>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <asnpHkvHsFy2dX-9@est-xps15>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV4PR04MB11852:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84c0239f-89e1-42a5-8a63-08df293a561d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|376014|23010399003|6133799003|10067099003|18002099003|22082099003|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	nfRLBqSbjCcgy4AiHTTcLyGdIWuOVE13pekGeoAuslh6b6Tm0I8+dGlF4hi/dbGaXRMgS772KqR78VlN8wbRS7V/QmVdjGOf5gvrCg76mICFnIR3u2zfmdIFfKjmcCK1Y49nO2EfHRlEe27JytxK+eofnrcz/Fp4ssjMiBQhnhkxseRFi/tSsQEv8unHGX8JrtU+ZCCp29hSVsjtptjQL4TY955zrjGyOUverFBKDjC8/5L86pURSyKSCyh8vtOnGNSSCOPwiiOnRrm5887LBVc738Hk86WzYtIZaLZrjBYv4OhyF1oBWv/afz5rSWRB2ildKxnqB4g7yk8gWQMUmhItwjPNy2gRGKp8UpV+rtMxDpwA6ehDyw2Q++ykif8RP6kkagOHID0+izFNw3q4cRodJjPNSEw1wuopuQ8t+otRmkzCKrkspg1KrV0xJmzQUyc/dXKSg6V1xDfgl+yMAOcuqek6yYd2dFGcRnIujCCCXcQxoK66RXMtnNDdkcza6oPojXRbK+DgeIZXOtZjBkI75uwUUurzr6Hqo+iAM/8N/8xuB2YjpqsINwjH+8egvxZ2ne5IolpGcAQfrYGrlrwgUXPd+hBWv/5xr2eXgVPPV7+Fwky2wrDzQqyPplNH
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(376014)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?4giwe9dyCnG2ccvLcx72FdL8GcsjpDJhDflIzu81QqQxMTwQazwN/Km7Unj0?=
+ =?us-ascii?Q?lR4QtHXoNIhFEpNfR2y8Swf1HIRvkRjq/x/n5OZJhxvV55YMOgwBogOqfMEu?=
+ =?us-ascii?Q?XRCmVS6wwyio81sucxlCzp4NrXXixXv/kiE/d8GT6VOz8kRwdy7r1+rZIwlf?=
+ =?us-ascii?Q?Vft99IL8iD+Bdv+jPuhph+pyJwbsNPVayDSVZvw7zgHuFLuXMO+QbllZi/Xv?=
+ =?us-ascii?Q?JdlFvY9WKJ9A0P6ZL1bhsQig4ihq1ynL4a7K0kAaXMqqnWyN5kdFTcxKYmd2?=
+ =?us-ascii?Q?2IpZ2moD8wpyl7nnfM7NUKT4LJbpcSqCuGX1lHQLkASDNZ5vt8IyH+44LgYE?=
+ =?us-ascii?Q?o6G4SSny6CJdxQ+Q5nxaA4P26/M5Wbn4Z5DuIzxwh+DSuvGRIM79e7hnjeUq?=
+ =?us-ascii?Q?1cpDw11TCLgC/xCpLu7jIUejI7Lxvp+9+sqIWkU/jE0qxIsrpKMbPewEu8Dv?=
+ =?us-ascii?Q?KmcGAiOQHSWW5Zkr8j7kR6xbLYLLRUhEp+GKP3vdzfTqn2hcAdTrS1CRpjp0?=
+ =?us-ascii?Q?2Wg776gQy3SySd3OF66plW9HYsEkcbjDoUnMy9vk90csphGIU5KuYjdlQ60o?=
+ =?us-ascii?Q?jGLIzzSrtK6FGG/5WVLYBq43HzcNPD5BmtN+RVCQRgOWjEOsp2FwZB/Ffqdz?=
+ =?us-ascii?Q?oY91N4UNgVC7k+d2I+veUjWI072SWpzGGZkd2WSu2vyVtoofAc5fPSEYpLbq?=
+ =?us-ascii?Q?A0fKTGLl1Vm5NwAXsdCwV3tIQVCjNfevAB34G/9qH7xeGCSp8eYwtFGkdcbH?=
+ =?us-ascii?Q?IJItSCtNHjNSvQ0NERAbd9C0I9t7F3k+j4XRilbhSxNhqhC679QMBJ0gxo8o?=
+ =?us-ascii?Q?6tV6Vhka7U7Fnee3SzB7Ar6nPxfnXC+i7sYRsjRQvhpQDtddjOZh+/jlrcZg?=
+ =?us-ascii?Q?Hq4WRn3iSR4D96506fYd7zfMvCPQj76MwoZ5YmIXOq/Uu6MwsseYF1TDfroL?=
+ =?us-ascii?Q?4WDp6FKTh3ETaR9UGA35xvX4xE2Jqnh5qcbX94pNjwSZ1clbrv52Od/MDA1Z?=
+ =?us-ascii?Q?+xceStQc33uKEI2ivE46bmWMJFGI8Hkq4+Yf/+OQLsm2GhEQfeVWa4RdQ3H8?=
+ =?us-ascii?Q?34v2tXNsN8fB3nzUfCn7bfB8Vx0W5w64TR0a4XwthLQuMwSTtSCG73xSLuAe?=
+ =?us-ascii?Q?qKE0MVCefmT/A+lFUjmgfTJ+v/lG9k/eI2/fJiRTWfWiMewIauGAl2kH+j6h?=
+ =?us-ascii?Q?LE41jOc1m65ZBpy0HFKeA4eqlyOCFlRTTZIuP4KGgutdCLQy7T2+7BqWVk08?=
+ =?us-ascii?Q?BGq1BLF5fUjZhxY4a9FSZqUNXgPyYbMSxqOZ/Q/vXG/PLItRrRSe8XHX2D9n?=
+ =?us-ascii?Q?1tTWarX/f/uaTtbYjjNskIZvboTlfWcg7Qun9fFNiTL62nFndCk8HAl8NZ3O?=
+ =?us-ascii?Q?GuJCr2PcDlxGO8FFMpnMBEK1gj8HNNxKHBVJAtF4bleQgk7+hhKLt//oOyns?=
+ =?us-ascii?Q?8aDn4K8zIJ98NZDBlVuzYb88+LwO0yp0m+hievBB5MURxpAuwuqL2z5n8d2p?=
+ =?us-ascii?Q?LBmdUZv48a6dIDB2WzugAZ3xKeGkyprB6fmmfGxRFNhY6NGN0yPXsPF5pHCX?=
+ =?us-ascii?Q?+hUajHXvnMp1FOPUY4BrH6/O3/EIAN1HS6yQ+pbXTx1ocP8o4XeTP3cNlD2U?=
+ =?us-ascii?Q?kuUBJSAU1ZaM5BRx5Ku9lvZe3vdzeNEb9A7+OJeQthFt5PxKuAFL4sOAbe6A?=
+ =?us-ascii?Q?a20T14ZEbNsoj2Isw1Ct+qxC52kt+aLnwUmW8vNZ0ynitSbowZWxVKJCV6oE?=
+ =?us-ascii?Q?yvJr4W/XIRO33bLHO52CZBfmHgsqxT/PYbK1IohndHTG/EZcixgT?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84c0239f-89e1-42a5-8a63-08df293a561d
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 14:57:44.2346
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZkFNm5RwdBovWx6I27itWJZcmxkvOI/Uzq3zXnxCZCQULM/3McUbZzABTFvecqJ/3xjoQSNgeei/m8IQzDKQw08t4v2UWnMIdCsxVnBvTpPqxYF9WxzPkDZrgjhbEe70
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11852
 
+On Mon, Oct 12, 2026 at 02:38:05PM -0700, Vinicius Costa Gomes wrote:
+> From: Steve Wahl <steve.wahl@hpe.com>
+>
+> Error paths within idxd_pci_probe_alloc and related functions end
 
+idxd_pci_probe_alloc(), check other commit message.
 
-On 10/10/26 09:30, Kyle Swenson wrote:
-> Hello Rob,
-> 
-> On Wed, Oct 07, 2026 at 04:04:54PM -0500, Rob Herring wrote:
->> On Sun, Sep 27, 2026 at 09:29:48PM +0000, Kyle Swenson wrote:
->>> Add the LTC4266 Power Sourcing Equipment controller device tree bindings
->>> documentation.
->>>
->>> Signed-off-by: Kyle Swenson <kyle.swenson@est.tech>
->>> ---
->>>   .../bindings/net/pse-pd/lltc,ltc4266.yaml     | 180 ++++++++++++++++++
->>>   1 file changed, 180 insertions(+)
->>>   create mode 100644 Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
->>> new file mode 100644
->>> index 000000000000..e11c9d601eee
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
->>> @@ -0,0 +1,180 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Linear Technology LTC4266 Power Sourcing Equipment controller
->>> +
->>> +maintainers:
->>> +  - Kyle Swenson <kyle.swenson@est.tech>
->>> +
->>> +allOf:
->>> +  - $ref: pse-controller.yaml#
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - lltc,ltc4266
->>> +
->>> +  reg:
->>> +    maxItems: 1
->>> +
->>> +  interrupts:
->>> +    maxItems: 1
->>> +
->>> +  channels:
->>> +    type: object
->>> +    additionalProperties: false
->>> +    description:
->>> +      Defines the 4 physical delivery channels on the controller that can be
->>> +      referenced by PSE PIs through their "pairsets" property. The actual port
->>> +      matrix mapping is created when PSE PIs reference these channels in their
->>> +      pairsets.
->>> +
->>> +    properties:
->>> +      '#address-cells':
->>> +        const: 1
->>> +
->>> +      '#size-cells':
->>> +        const: 0
->>> +
->>> +    patternProperties:
->>> +      '^channel@[0-3]$':
->>> +        type: object
->>> +        additionalProperties: false
->>> +
->>> +        properties:
->>> +          reg:
->>> +            maxItems: 1
->>> +
->>> +          sense-resistor-micro-ohms:
->>> +            description: Sense resistor connected to the channel's MOSFET, used
->>> +              for current measurement and for overcurrent detection. The I_CUT
->>> +              and I_LIM register encodings depend on which value is fitted, so
->>> +              a wrong value programs the wrong thresholds.
->>> +            enum: [250000, 500000]
->>> +
->>> +        required:
->>> +          - reg
->>> +          - sense-resistor-micro-ohms
->>> +
->>> +    required:
->>> +      - '#address-cells'
->>> +      - '#size-cells'
->>> +
->>> +  pse-pis:
->>> +    type: object
->>> +    additionalProperties: false
->>> +
->>> +    properties:
->>> +      '#address-cells':
->>> +        const: 1
->>> +
->>> +      '#size-cells':
->>> +        const: 0
->>> +
->>> +    patternProperties:
->>> +      '^pse-pi@[0-3]$':
->>> +        type: object
->>> +        additionalProperties: true
->>
->> This cannot be true. That allows adding any property.
->>
-> 
-> So my intent with the additionalProperties: true was to avoid
-> replicating the entire pse-pis node from pse-controller.yaml.
-> Conceptually, my goal was to inherit everything from the
-> pse-controller.yaml binding, except limit the maxItems to 1 (since the
-> LTC4266 only supports power over a single PI).
-> 
-> Is there a better way to express this?
+Frank
 
-I think you can do something like this:
-      patternProperties: 
-  
-
-        '^pse-pi@[0-3]$': 
-  
-
-          type: object 
-  
-
-          $ref: 
-pse-controller.yaml#/properties/pse-pis/patternProperties/^pse-pi@[0-9a-f]+$ 
-  
-
-          unevaluatedProperties: false 
-  
-
-          properties: 
-  
-
-            pairsets: 
-  
-
-              description: The LTC4266 delivers power to a PI over a 
-single 
-
-                pairset, driven by one of the controller's four 
-channels. There 
-
-                is no 4-pair mode spreading a PI over two channels, so 
-exactly 
-
-                one channel phandle is expected. 
-  
-
-              maxItems: 1 
-  
-
-            pairset-names: 
-  
-
-              maxItems: 1
-
->>> +        properties:
->>> +          pairsets:
->>> +            description: The LTC4266 delivers power to a PI over a single
->>> +              pairset, driven by one of the controller's four channels. There
->>> +              is no 4-pair mode spreading a PI over two channels, so exactly
->>> +              one channel phandle is expected.
->>> +            maxItems: 1
->>> +          pairset-names:
->>> +            maxItems: 1
->>
->> An empty node is valid? Needs 'required'.
-> 
-> I thought the 'required' comes from the pse-controller.yaml binding.
-> If I adjust the example dts in the binding with something like
-> 
->             pse_pi2: pse-pi@2 {
-> -            reg = <2>;
-> -            #pse-cells = <0>;
-> -            pairset-names = "alternative-a";
-> -            pairsets = <&phys2>;
-> -            polarity-supported = "MDI";
-> -            vpwr-supply = <&vreg_pse>;
->             };
-> 
-> Then make dt_binding_check will fail with
-> 
->    DTEX    Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example.dts
->    DTC [C] Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example.dtb
-> Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example.dts:83.33-84.17: Warning (unit_address_vs_reg): /example-0/i2c/ethernet-pse@2f/pse-pis/pse-pi@2: node has a unit name, but no reg or ranges property
-> Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example.dtb: ethernet-pse@2f (lltc,ltc4266): pse-pis:pse-pi@2: 'reg' is a required property
-> 	from schema $id: http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yaml
-> Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example.dtb: ethernet-pse@2f (lltc,ltc4266): pse-pis:pse-pi@2: '#pse-cells' is a required property
-> 	from schema $id:
-> 	http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yaml
-> 
-> But I'm probably missing something obvious, so please don't hesitate to
-> point it out or point me to docs.
-You are right on this, it should not be needed.
-
-Regards,
--- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
-
+> attempting to free memory already freed from idxd_conf_device_release
+> via put_device.
+>
+> This was encountered running in a kexec'd kdump kernel with reduced
+> resources, causing the "Device is HALTED!" branch in
+> idxd_device_init_reset to be taken.
+>
+> [   18.628791] idxd 0000:00:01.0: Device is HALTED!
+> [   18.631447] idxd 0000:00:01.0: Intel(R) IDXD DMA Engine init failed
+> [   18.631450] ------------[ cut here ]------------
+> [   18.631451] ida_free called for id=0 which is not allocated.
+> [   18.631462] WARNING: CPU: 0 PID: 11 at lib/idr.c:525 ida_free+0xd3/0x130
+> [   18.631474] CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 6.12.0-1-rt-amd64 #1
+> [   18.631477] Hardware name: Dell Inc. PowerEdge XR8720t/0J91KV, BIOS 1.1.3 02/03/2026
+> [   18.631478] Workqueue: events work_for_cpu_fn
+> [   18.631480] RIP: 0010:ida_free+0xd3/0x130
+> [   18.631492] Call Trace:
+> [   18.631494]  <TASK>
+> [   18.631495]  idxd_pci_probe+0x1b0/0x1860 [idxd]
+> [   18.631506]  local_pci_probe+0x43/0xa0
+> [   18.631508]  work_for_cpu_fn+0x13/0x20
+> [   18.631510]  process_one_work+0x179/0x390
+> [   18.631512]  worker_thread+0x237/0x340
+> [   18.631517]  kthread+0xc6/0x100
+> [   18.631520]  ret_from_fork+0x2d/0x50
+> [   18.631524]  ret_from_fork_asm+0x1a/0x30
+> [   18.631526]  </TASK>
+>
+> In idxd_free and idxd_alloc, do not attempt to free allocations that
+> will already have been freed.
+>
+> Fixes: 90022b3a6981 ("dmaengine: idxd: fix memory leak in error handling path of idxd_pci_probe")
+> Fixes: 46a5cca76c76 ("dmaengine: idxd: fix memory leak in error handling path of idxd_alloc")
+> Reported-by: Bogdan Codres <bogdan.codres@windriver.com>
+> Link: https://lore.kernel.org/all/akLBL7b2h73pK0AC@ilogsc-qemu.local/
+> Signed-off-by: Steve Wahl <steve.wahl@hpe.com>
+> ---
+>  drivers/dma/idxd/init.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
+> index 4b827a329756..4adb3f3bcd01 100644
+> --- a/drivers/dma/idxd/init.c
+> +++ b/drivers/dma/idxd/init.c
+> @@ -581,9 +581,6 @@ static void idxd_free(struct idxd_device *idxd)
+>  		return;
+>
+>  	put_device(idxd_confdev(idxd));
+> -	bitmap_free(idxd->opcap_bmap);
+> -	ida_free(&idxd_ida, idxd->id);
+> -	kfree(idxd);
+>  }
+>
+>  static struct idxd_device *idxd_alloc(struct pci_dev *pdev, struct idxd_driver_data *data)
+> @@ -623,8 +620,13 @@ static struct idxd_device *idxd_alloc(struct pci_dev *pdev, struct idxd_driver_d
+>  	return idxd;
+>
+>  err_name:
+> +	/*
+> +	 * once device_initialize(conf_dev) is called,
+> +	 * put_device(conf_dev) will end up calling
+> +	 * idxd_conf_device_release() which will free the rest.
+> +	 */
+>  	put_device(conf_dev);
+> -	bitmap_free(idxd->opcap_bmap);
+> +	return NULL;
+>  err_opcap:
+>  	ida_free(&idxd_ida, idxd->id);
+>  err_ida:
+>
+> --
+> 2.56.0
+>
