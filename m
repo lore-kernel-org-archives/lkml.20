@@ -1,295 +1,393 @@
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C804F3ED5;
-	Tue, 13 Oct 2026 11:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892406; cv=none; b=ALoEQYyMfkehFLaXNx6f/Ouf0B7QzoqeAW1iZIdpVyfJRtW/hNjNOa0jR2naXn3We/W/vUDm1mo74rRrQYfM3uveDxK5dc2wE7NHYf/hwejPe474TNSpvf4glP3ufrvYXMI/aK3dDyn0vHP45qk2F8aWl9FR/3cKOTDaqK9mcIs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892406; c=relaxed/simple;
-	bh=6ShjShKDTTxDAF/xMVOi+x0WdmQR/3lmrLONlX+ziBk=;
-	h=Message-ID:Content-Type:MIME-Version:From:To:Cc:Subject:Date; b=jI4snaaU9n+3uH2rMAj3Slpky7NhrEibxP3mEpoP4dZSgqMsFkfIecLCXIXqwZh5pQC8eAJMgOEqBP4eNng56jATbeM9TfqtUU3kqNTaWSKiNePlFiFf2pAm1ZmnKPDMM/+zhIVHzH+VLBhBJtB2/DiAoXaEIaoQ++cmuXvs2GQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=AdiMTpNX; arc=none smtp.client-ip=162.62.58.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05094EFFC8
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791892445; cv=pass; b=PgWI12R2t83MOGBRW0HfobNz8BZb7se+aJgZ3kCkOJjG9QLnkSmENVsWP9h2o//8H0cs30UkjT0/af1J4PFuoAuFeDtgKSsuPcUwOZGHTCY0lDA+58MLwlPkacz2ep+Gn/9/Rqz8zc2aMMdHjoWvC4/czw91YkIOcIvdOiZshwA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791892445; c=relaxed/simple;
+	bh=8oEKiTeBHaTRi3F7yMJ7yENZE8ADE+WNsHJTSee7X4s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cGRqROFl3CAiEZHx6hMapz31CJ8BOZx03+C9OSOX36FUQvIF5swf41Qy6GcWPrhqNK0UD8O6OoJH3zJhKgeMBSRSk1f4T83+4fOwA4XYt72OVYzv8zAkj+pXP2vtXsnSCliXt0WQISD9c2a1lcO7/h/jQbfDu5rSunHI+ybBsCc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VwmVGgkK; arc=pass smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="AdiMTpNX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791892387; bh=6ShjShKDTTxDAF/xMVOi+x0WdmQR/3lmrLONlX+ziBk=;
-	h=From:To:Cc:Subject:Date;
-	b=AdiMTpNXKAOQwJsc/yRO5Zh4gP4n6htdVgsFBQ7oKPmnvkcrzdmEwGvF5oaCbaEXC
-	 L7MvXb2ccnwakZn/XQdWMBV1A0YSiGy5v5cWW2c70xf+AyDZgH1TvQ8RI87uDShvJd
-	 XdebbISixJW3UlPuW1r0Z5TYUHl4AYniN9d1McRI=
-Received: from [172.18.4.77] ([111.31.227.58])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id CF429CFF; Tue, 13 Oct 2026 19:51:52 +0800
-X-QQ-mid: xmsmtpt1791892312tfggc2kgp
-Message-ID: <tencent_30C554296ACA4722AA33D5E81B7C24CF6905@qq.com>
-X-QQ-XMAILINFO: NLYZ3YmleWNDsyx5bcB1NM75E7YCS8SXnPhmxz1jF5CYlX/3bLaQODuDnTfVkk
-	 K2LoiiQCvbdKlR9rZJtWqrJ1Cz1yAXtLWujOfdcURG+kgpvoKWgpMcJhs+0GnUZuQzxqUcQfUFi8
-	 pUscFfCtneIYqPT2yjuTx+bpiAKSUy7KT62M+qD8dfSixI5zvEJ76ebAiNlKrJuVP6eGdYPzdIsg
-	 QQ2tAriWrBEt4fuc+XeTw3pYSyBL3DMtG/TJMjnoyKt6lPkeOk33U5Gv29NcSP2JblVyWZxeh4uU
-	 F0pXgKivOcQDksQImTNuPzf2LCrEF+9MUiPdAknd9TvyuKXkzRnf7qLJkZazg5M0badh25/RW0RR
-	 AI5QrtIobAwjNZY2P4Q0wdGBkDc2xe1fSDlsRBICjxJVRMnpJ0GOddptmU94NjtdKDkOCYln0VYg
-	 KYJVrGu3oug97mCwVsRBB5c090CUDOw7Y7m+CeX0Q5yN31DQYZ27M6jFUNXbh74dgPXXVPXvDD8U
-	 jF7wfKEFTQhFY/klsLfoPENyi4/zmgD8jKYPmErYLTig6rQ/p9Gkk97Z/asXAmy74xy232X21LXO
-	 Yf3KV7Y0U+XDkwPDXd5ShCkRX35ldSD5eJBJVDot2Mm9l/MIIg6FNcoYj7qUpQtr3QxpX/wPZIGL
-	 1OfOCbXks4RipKGiE3U79LcIILP4aAowj5AEnaiQMX12P8vTxfhAEktUR49lALTsWRVATflt7uEW
-	 4ToQuRNhm9wu7vK75mb1izoaOqp/uz3FR24LVDz6+MdnJD8iFPMRgxKnug/rsViBpw7yf14WI/pH
-	 KU+ePNiRVtliB+oQe9vXQhVF+E1ckb8nzL9VS5VVJByj1RHxmxwFFxkEX1RN2/2FqjBf/MrWEUd1
-	 shUm+qBACyc64m1SyE5g/IaAp76tvO13KFfQ+TEsgGIzM2DZDoI7b9eOBubNlT4sWdAw8+GDz9DT
-	 O/dp1dYEArNMNdepDiKyD992wR+hEFfK9iwzMhBbZ15ht1bus6OVRhr9zispLLRU+TlPJgpAb/AN
-	 SZW3kl6bzwsXOztvv3W54FDpPOAAclsGU72UfKotwuzDiCNUg6SMPBe2Z5t0SqTOQgbilQHgvaSa
-	 i+kFPU6yKUW/b0BeTTBP9zAz6NXV8TZ9mn2xRGUOSWvNa8Yrg=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-Content-Type: multipart/mixed; boundary="===============1862422436374644438=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VwmVGgkK"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dd33a7bd4so598750f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:54:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791892442; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VSaJSab2weBno4pGvUqYkKrDIFgs21KRdLbhSw3vVpymrN+dAU4UYxS4owUkSB8Ic6
+         avhCHyn8xgkYZ3Ctf8aRu6/nABFHzZ/SX5JCoSjiKDJth+cFB1vlNS49ZicPz2spgTuv
+         WrOfVnorxaokZh7Sks4NpF/9ngpGiPCKR5BerKKuECJiXiumJSVxzCZnHPfu0A+2KoI5
+         WRIZIXTkYgBNE6Wv/XRrXERWj/C2qOngJ5EQ/tu/txpNKVEuiKHZNRW/4jKXqx7AwKsg
+         WtaJZ/bUmW/ju/YYbjwcK/rc0WaI8w88xr/PQzt1XqGrX9mOU47+NoISja/AXqrnzLcQ
+         gaUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vlBithpxv3+SM0u2mf9npK5R1KY9qWHzphcmNHpcqZE=;
+        fh=yl/Si3/mYePVPzfQUAHaO+LLWrkPxclDXHOOej84VX0=;
+        b=kR5fyQmDEg0QSUFWf9SXh6VYgPuIOrt5OQpXSkwjRwgskpBgKwKGLzVjyZrivIY28R
+         L730jfwK9M2SF1MELCvE03FbTNiM8wDq6gsRJxzYbxPihedSHi8NNCz+YMvbJnoIDvqa
+         m4fY5MjLUfH6qySod5zOHymaziw6zp4bQmFYrpzPQF/2Odzw1JJZ+gD0npP+cwf3bHtD
+         0p+qB3loya5NUNG2Fykqa1iAU2gaOfKEg9BaYWfeQP43XS/ibZgYKhMNZgOKAGHf+Qrf
+         38gpxc6nfzmceUOoDHl64NH20aox5opDHxPT9ryjJatPxSskom+s61A98A0RbGqPQOLm
+         6ubA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791892442; x=1792497242; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vlBithpxv3+SM0u2mf9npK5R1KY9qWHzphcmNHpcqZE=;
+        b=VwmVGgkKNUYfDldqs0SnHXUuV7IzYAeh0sLoG7CfA2q9OPbQK5+864mBxcSc8Tb8qG
+         6KZIzxANjNYChwwP7jjyUPfcOICl7ZCWW/ZhSIBGp1PUMw0kKgSB5BY8AVnMXnwoV3MX
+         6x909Hx69RdQJsvhWllG9qPJdRWXfF1h2pIkS8ujteNAdN2p5/lAFxASS/8UPNMVv6/2
+         tE8U9FmEcXLrOpBnFbnAeQcKStQKhPGNEEZBBq9QbK5MlZQ0vRRqkU1D3jgj1bmjTrRp
+         xk9t5xS2e/sdh2jIn+ueYW2kK8I5xhsOqHuNyiYI8vRMFCt7syf/NXaPqfM+clXKYEwI
+         6uaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791892442; x=1792497242;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vlBithpxv3+SM0u2mf9npK5R1KY9qWHzphcmNHpcqZE=;
+        b=FGCkFpJtA/fT7tn/vmuBVQXVPM1aloYmBirzd9jmgwQvPvCy6oCv49mJou/xLCFjcU
+         TX6UyxCvvsiwu9df7S/FimUET1NuzEMAZmnq6/qGpTIPx7jjbSi6fuwJCvIi1HYoQwrz
+         mbM+1xlsSzk47ffpavvQ8qFYQChM/g44due0nb4Y6lAtdWXcPbQXEfH05fWVjKnF818X
+         lECkpqXbE3bnMTIpNu4IYw9rlvWbLP/d9dG0Pub+S+rUzUy6llG+d9gFoX/4VVZKDMkJ
+         4aYS27y9Gw8JREQVlYziC2ypRs9Ar2GwimEz3gSP1N/S1EemwhOhLnwkSGILueASTJW1
+         CNug==
+X-Forwarded-Encrypted: i=1; AKwUvBySOl4z2hE0IeJJwJTGrqF2ka+org2/pzREqVyEVBOojwgqiZ+wTrvc54qu/LOYUTarAisIPFheK7rqyA0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMVuOF0M5MVW6YDnGXHjYZ61IZ8+3aX9vDwSJVNEd+ZGim3bVM
+	8CQ7pCXYRfcv+7FbFTASt36NUDMJrOmEgTjsk+CqGzF6zCxVLi3GHsAme/ZIVrU59jphAzDz1WQ
+	Z8sEC4QeDByvVbgG5PIOSkSqFl21lSu4=
+X-Gm-Gg: AYBFou2CurdYSfyn+rasV2ptMp9juQti/ZrTLt4FIzX6Ayp/WUs8wJvHG4154ovQbDk
+	4G0ilvVdMB3PXswf+5+QM0Bys3ZBro/bpMS4WH8BwuWKJkwn7SuTvp9hxozf9NmvQr3wXs7M9Sn
+	YDBSuOt25SLRfEuO3WUIc5qN+vpmOpx7l3Idj/DkbsQKzBlBqxcqeDLy+KjcVPaUI/40Z+UUJnu
+	ZF2R3M7uLH53aTiVYvIFx3T4bBUDdHVofs1a4Zj1LMQ9zch1q8c1p3Y0szxNTfYF8qzlTpW8bW0
+	lJVCk2tTY7VegaXAu7q8qBV0JINQ1pLItirHJIRriel4h785p5PKTnNSc35igKh6cAwwWNxpfow
+	2WNmwSNZufWITD3LGRfwXzmDxuR16n4WaSZFit+ILTW6Vp/aHCK00s2D5cvinOw9yEIg3Oe6cmw
+	==
+X-Received: by 2002:a05:6000:186f:b0:488:89ad:56b8 with SMTP id
+ ffacd0b85a97d-48de2ba2231mr3749233f8f.0.1791892441488; Tue, 13 Oct 2026
+ 04:54:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: yangguikun <yangguikun19@qq.com>
-To: linux-ext4@vger.kernel.org
-Cc: "Theodore Ts'o" <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
- linux-kernel@vger.kernel.org
-Subject: [Bug report] ext4: mount-time orphan recovery silently truncates a
- LIVE file (crafted s_last_orphan;
- only log line is the routine "1 truncate cleaned up")
-Date: Tue, 13 Oct 2026 19:51:51 +0800
-X-OQ-MSGID: <179189231167.69340.11182677440881480361@yangguikun19.qq.com>
-X-Mailer: mutt-like (python smtplib)
+References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261009184122.1378797-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <TY3PR01MB1134605F95A87C6335DA319C4869F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB1134605F95A87C6335DA319C4869F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 13 Oct 2026 12:53:33 +0100
+X-Gm-Features: AclHuK_vgE7RX-bhU5EsKuw0wEUNHv3FisPOnuwxTo3XomXHMF6LXgDT8XOl2lo
+Message-ID: <CA+V-a8u7ScDHzSmGG-7ObW4HaCRomkLGdvuy2hd5obEBvjF9LA@mail.gmail.com>
+Subject: Re: [PATCH v2 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	"magnus.damm" <magnus.damm@gmail.com>, 
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---===============1862422436374644438==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Hi Biju,
 
-SGksCgpEdXJpbmcgZmllbGQtc2VtYW50aWMgY29ycnVwdGlvbiB0ZXN0aW5nIG9mIGV4dDQgaW1h
-Z2VzLCB3ZSBmb3VuZCB0aGF0IHRoZQptb3VudC10aW1lIG9ycGhhbiByZWNvdmVyeSBwYXRoIHRy
-dW5jYXRlcyBhIGZ1bGx5LWxpdmUsIGxpbmtlZCBmaWxlIHdoZW4KZm91ciBpbmRpdmlkdWFsbHkt
-cGxhdXNpYmxlIG9uLWRpc2sgZmllbGRzIGFyZSBtYWRlIG11dHVhbGx5IGluY29uc2lzdGVudCDi
-gJQKYW5kIHRoZSBvbmx5IGtlcm5lbCBsb2cgbGluZSBpcyB0aGUgcm91dGluZSByZWNvdmVyeSBt
-ZXNzYWdlLCBtYWtpbmcgdGhlCmRlc3RydWN0aW9uIGluZGlzdGluZ3Vpc2hhYmxlIGZyb20gbGVn
-aXRpbWF0ZSBjcmFzaCByZWNvdmVyeS4gRGV0ZXJtaW5pc3RpYwpyZXByb2R1Y2VyIGJlbG93IChl
-MmZzcHJvZ3MgKyBvbmUgbW91bnQ7IG5vIHN5c2NhbGxzIG5lZWRlZCBhZnRlciBtb3VudCkuCgoj
-IyBUaGUgY29ycnVwdGlvbgoKRm91ciBjb29yZGluYXRlZCBlZGl0cyBvbiBhIHN0b2NrIDFNQiBl
-eHQ0IChta2UyZnMgLU8gXmhhc19qb3VybmFsLF5tZXRhZGF0YV9jc3VtLAp0aHJlZSA4S0IgZmls
-ZXM7IC9maWxlMSBpcyBhIG5vcm1hbCBsaXZlIGZpbGUsIG5saW5rPTEsIGhhcyBhIGRpcmVudCk6
-CgogICAgMS4gc19sYXN0X29ycGhhbiAoc2IrMHhFOCkgOj0gL2ZpbGUxJ3MgaW5vZGUgbnVtYmVy
-CiAgICAyLiAvZmlsZTEgaV9kdGltZSA6PSAwCiAgICAzLiBzX3N0YXRlOiBjbGVhciBFWFQ0X1ZB
-TElEX0ZTCiAgICA0LiAvZmlsZTEgaV9zaXplIDo9IDQwOTYgICAocmVhbCBkYXRhOiA4MTkyKQoK
-Tm90aGluZyBpcyBvdXQgb2YgYm91bmRzOyBldmVyeSBmaWVsZCBpcyBpbmRpdmlkdWFsbHkgdmFs
-aWQuCgojIyBPYnNlcnZlZCAoZGV0ZXJtaW5pc3RpYywgMy8zKQoKICAgICQgbW91bnQgLXQgZXh0
-NCAvZGV2L2xvb3A3IC9tbnQgICAgICAgICAgIyB0aGUgZW50aXJlIGF0dGFjayBzdXJmYWNlCiAg
-ICBbICAgXSBFWFQ0LWZzIChsb29wNyk6IDEgdHJ1bmNhdGUgY2xlYW5lZCB1cAogICAgJCBzdGF0
-IC1jICJzaXplPSVzIG5saW5rPSVoIiAvbW50L2ZpbGUxCiAgICBzaXplPTQwOTYgbmxpbms9MSAg
-ICAgICAgICAgICAgICAgICAgICAgICAjIHdhcyBzaXplPTgxOTIg4oCUIGhhbGYgdGhlIGZpbGUK
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgc2lsZW50bHkg
-ZGVzdHJveWVkCgpleHQ0X29ycGhhbl9jbGVhbnVwKCkgLT4gZXh0NF9vcnBoYW5fZ2V0KCkgYWNj
-ZXB0cyB0aGUgaW5vZGU6IGl0IHZhbGlkYXRlcwp0aGUgaW5vZGUgbnVtYmVyLCB0aGUgaW5vZGUg
-Yml0bWFwIGJpdCwgYW5kIHRoYXQgTkVYVF9PUlBIQU4gKGlfZHRpbWUsIHRoZQpvcnBoYW4tbGlz
-dCBsaW5rKSBpcyB3aXRoaW4gcmFuZ2UsIGJ1dCBuZXZlciBjaGVja3MgdGhhdCB0aGUgdmljdGlt
-IGlzCmFjdHVhbGx5IG9ycGhhbmVkLiBJbiA3LjMtcmM1IChmcy9leHQ0L2lhbGxvYy5jOjEzOTYp
-IHRoZSBjb21tZW50IGV4cGxhaW5zCndoeSBpX25saW5rPT0wIGlzIGRlbGliZXJhdGVseSBOT1Qg
-cmVxdWlyZWQ6CgogICAgLyogT3JwaGFucyBhbHNvIGluY2x1ZGUgaW5vZGVzIHRoYXQgd2VyZSBi
-ZWluZyB0cnVuY2F0ZWQsIHNvIHdlIGNhbid0CiAgICAgKiBjaGVjayBpX25saW5rPT0wLiAqLwoK
-YW5kIHRoZSBzdWJzZXF1ZW50IGNoZWNrIG9ubHkgcmVqZWN0cyAoaV9ubGluayAmJiAhZXh0NF9j
-YW5fdHJ1bmNhdGUoKSkg4oCUCmkuZS4sIG9iamVjdHMgdGhhdCBDQU5OT1QgYmUgdHJ1bmNhdGVk
-LiBBIG5vcm1hbCBsaXZlIHJlZ3VsYXIgZmlsZQoobmxpbms9MSwgdHJ1bmNhdGFibGUpIGlzIGFj
-Y2VwdGVkLCBhbmQgZXh0NF9wcm9jZXNzX29ycGhhbigpIHRoZW4gcnVucwp0cnVuY2F0ZV9pbm9k
-ZV9wYWdlcygpICsgZXh0NF90cnVuY2F0ZSgpIG9uIGl0IGF0IG1vdW50IHRpbWUuCgpUaGUgY29k
-ZSBpbnZvbHZlZCBpcyB1bmNoYW5nZWQgaW4gY3VycmVudCBtYWlubGluZTogZnMvZXh0NC9vcnBo
-YW4uYywKaWFsbG9jLmMgYW5kIGlub2RlLmMgYXJlIGJ5dGUtaWRlbnRpY2FsIGJldHdlZW4gNy4z
-LXJjNSBhbmQgY3VycmVudAptYWlubGluZS4KCiMjIFdoeSB3ZSB0aGluayB0aGlzIGlzIHdvcnRo
-IGEgbG9vayBiZXlvbmQgImNvcnJ1cHQgZnMiCgotIFRoZSBkYW1hZ2UgaXMgY3Jvc3MtZmlsZSBh
-bmQga2VybmVsLWluaXRpYXRlZDogb25lIHN1cGVyYmxvY2sgdTMyIHNlbGVjdHMKICBBTlkgaW5v
-ZGUgb24gdGhlIGZpbGVzeXN0ZW0gZm9yIGRhdGEgZGVzdHJ1Y3Rpb24gYXQgbW91bnQsIHdpdGgg
-emVybwogIHN5c2NhbGxzIGZyb20gdGhlICh1bnByaXZpbGVnZWQtYWZ0ZXItbW91bnQpIHBvaW50
-IG9mIHZpZXcuCi0gSXQgaXMgc2lsZW50OiB0aGUgb25seSBsb2cgbGluZSAoIk4gdHJ1bmNhdGUg
-Y2xlYW5lZCB1cCIpIGlzIGV4YWN0bHkgd2hhdAogIGxlZ2l0aW1hdGUgcmVjb3ZlcnkgcHJpbnRz
-LiBBbiBvcGVyYXRvciBtb3VudGluZyBhIHN1c3BlY3QgaW1hZ2UgZ2V0cyBubwogIHNpZ25hbCB0
-aGF0IGEgbGl2ZSBmaWxlIHdhcyBkZXN0cm95ZWQuCi0gVGhlIGNvbW1lbnQncyAiSGF2aW5nIHRo
-ZSBpbm9kZSBiaXQgc2V0IHNob3VsZCBiZSBhIDEwMCUgaW5kaWNhdG9yIHRoYXQKICB0aGlzIGlz
-IGEgdmFsaWQgb3JwaGFuIiBob2xkcyBvbmx5IGlmIHRoZSBpbm9kZSBiaXRtYXAgaXMgdHJ1c3R3
-b3J0aHk7CiAgd2l0aCBhIGNyYWZ0ZWQgaW1hZ2UgYm90aCB0aGUgYml0bWFwIGJpdCBhbmQgdGhl
-IGNoYWluIGhlYWQgYXJlCiAgYXR0YWNrZXItY2hvc2VuLCBhbmQgdGhlIG5vLW5saW5rLWNoZWNr
-IGRlc2lnbiBkZWNpc2lvbiBiZWNvbWVzIHRoZQogIGFtcGxpZmljYXRpb24gcG9pbnQuCgpXZSBh
-cHByZWNpYXRlIHRoZSB0cnVuY2F0ZS1pbi1mbGlnaHQgb3JwaGFuIHVzZSBjYXNlIHRoYXQgbW90
-aXZhdGVzCnNraXBwaW5nIHRoZSBubGluayBjaGVjaywgc28gYSBmdWxsICJtdXN0IGJlIHVubGlu
-a2VkIiBydWxlIGlzIG5vdCB0aGUKYW5zd2VyLiBUd28gZGlyZWN0aW9ucyB0aGF0IG1pZ2h0IGJl
-IGNoZWFwIGVub3VnaDoKCiAgYSkgd2FybiBsb3VkbHkgKGV4dDRfd2FybmluZyB3aXRoIGlub2Rl
-IG51bWJlciBhbmQgb2xkL25ldyBzaXplKSB3aGVuZXZlcgogICAgIG9ycGhhbiBjbGVhbnVwIHRy
-dW5jYXRlcyBhbiBpbm9kZSB3aXRoIGlfbmxpbmsgPiAwIOKAlCB0dXJuaW5nIHRoZQogICAgIHNp
-bGVudCBkZXN0cnVjdGlvbiBpbnRvIGFuIG9ic2VydmFibGUgZXZlbnQsIG9yCiAgYikgcmVjb3Jk
-aW5nIHRoZSB0cnVuY2F0ZWQgaW5vZGVzIChlLmcuIHJhdGUtbGltaXRlZCBwZXItbW91bnQgc3Vt
-bWFyeQogICAgICJvcnBoYW4gY2xlYW51cCB0cnVuY2F0ZWQgTiBsaW5rZWQgaW5vZGVzIikgc28g
-cG9zdC1tb3VudCBmb3JlbnNpY3MKICAgICBjYW4gZGlzdGluZ3Vpc2ggdGhpcyBmcm9tIG5vcm1h
-bCByZWNvdmVyeS4KCkhhcHB5IHRvIHRlc3QgYW55IHBhdGNoOyByZXByb2R1Y2VyIGFuZCBtZXRo
-b2RvbG9neSBub3RlcyBhdHRhY2hlZC4KCiMjIFJlcHJvZHVjZXIKCiAgICBjcmFmdF9mNS5weSAg
-ICAgICBidWlsZHMgdGhlIGltYWdlIGZyb20gc2NyYXRjaCAoZGQvbWtlMmZzL2RlYnVnZnMpCiAg
-ICBmNS5pbWcueHogICAgICAgICBwcmUtYmFrZWQgaW1hZ2UgKG9uZSBtb3VudCBwZXIgY29weTog
-c19sYXN0X29ycGhhbiBpcwogICAgICAgICAgICAgICAgICAgICAgY2xlYXJlZCBieSB0aGUgZmly
-c3QgcmVjb3ZlcnksIGFzIGluIHJlYWwgcmVjb3ZlcnkpCiAgICBmNV9kbWVzZy5sb2cgICAgICBl
-dmlkZW5jZSBsb2cgbGluZXMKICAgIFJFQURNRSAgICAgICAgICAgIG5vdGVzCgpFbnZpcm9ubWVu
-dDogUUVNVS9LVk0geDg2XzY0LCBEZWJpYW4gMTEgZ3Vlc3QsIGtlcm5lbCA3LjMuMC1yYzUgKEtB
-U0FOCmdlbmVyaWMsIFNMVUJfREVCVUcpLiBGcmFtaW5nOiByb2J1c3RuZXNzL29ic2VydmFiaWxp
-dHkgaXNzdWUgb24KYXR0YWNrZXItY29udHJvbGxlZCBpbWFnZXM7IHdlIGFyZSBub3QgY2xhaW1p
-bmcgYSBwcml2aWxlZ2UtYm91bmRhcnkKY3Jvc3NpbmcuCgpUaGFua3MsCnlhbmdndWlrdW4gPHlh
-bmdndWlrdW4xOUBxcS5jb20+Cg==
+On Mon, Oct 12, 2026 at 7:36=E2=80=AFAM Biju Das <biju.das.jz@bp.renesas.co=
+m> wrote:
+>
+> Hi Prabhakar,
+>
+> > -----Original Message-----
+> > From: Prabhakar <prabhakar.csengg@gmail.com>
+> > Sent: 09 October 2026 19:41
+> > Subject: [PATCH v2 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+> >
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which share=
+s the RZ/T2H ADC IP but differs in
+> > channel count, sampling, calibration and resolution support.
+> >
+> > The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
+> > 20 ADCLK cycles, does not support calibration, and supports selectable =
+12-bit and 8-bit conversion
+> > resolution.
+> >
+> > Expose the fixed sampling frequency as a read-only attribute and allow =
+the conversion resolution to be
+> > changed through the scale attribute.
+> > Use extended scan types so the reported scan type follows the selected =
+resolution, and prevent resolution
+> > changes while buffered capture is active.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > ---
+> > v1->v2:
+> > - Updated Kconfig description
+> > - Included array_size.h
+> > - Dropped unnecessary extra line in rzt2h_adc_write_scale
+> > ---
+> >  drivers/iio/adc/Kconfig     |  10 +-
+> >  drivers/iio/adc/rzt2h_adc.c | 201 +++++++++++++++++++++++++++++++++++-
+> >  2 files changed, 205 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig index a8=
+02d8ee4dd9..9a58f8b5868b 100644
+> > --- a/drivers/iio/adc/Kconfig
+> > +++ b/drivers/iio/adc/Kconfig
+> > @@ -1587,14 +1587,18 @@ config RZN1_ADC
+> >         module will be called rzn1-adc.
+> >
+> >  config RZT2H_ADC
+> > -     tristate "Renesas RZ/T2H / RZ/N2H ADC driver"
+> > +     tristate "Renesas RZ/T2H / RZ/N2H (and similar SoCs) ADC driver"
+> >       depends on ARCH_RENESAS || COMPILE_TEST
+> >       select IIO_ADC_HELPER
+> >       select IIO_BUFFER
+> >       select IIO_KFIFO_BUF
+> > +     select POWER_SEQUENCING
+> >       help
+> > -       Say yes here to build support for the ADC found in Renesas
+> > -       RZ/T2H / RZ/N2H SoCs.
+> > +       Say yes here to build support for the ADC found in Renesas SoCs=
+:
+> > +       - RZ/N2H
+> > +       - RZ/T2H
+> > +       - RZ/V2H(P)
+> > +       - RZ/V2N
+> >
+> >         To compile this driver as a module, choose M here: the
+> >         module will be called rzt2h_adc.
+> > diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c =
+index 0703c2025e3f..be8273f3b61d
+> > 100644
+<snip>
+> >  static const struct rzt2h_adc_chip_info rzt2h_adc_info =3D {
+> >       .chan_template =3D &rzt2h_adc_chan_template,
+> >       .sst_to_freq =3D rzt2h_adc_sst_to_freq,
+> > @@ -796,6 +973,7 @@ static const struct rzt2h_adc_chip_info rzt2h_adc_i=
+nfo =3D {  };
+> >
+> >  static const struct of_device_id rzt2h_adc_match[] =3D {
+> > +     { .compatible =3D "renesas,r9a09g057-adc", .data =3D &rzv2h_adc_i=
+nfo },
+> >       { .compatible =3D "renesas,r9a09g077-adc", .data =3D &rzt2h_adc_i=
+nfo },
+> >       { }
+> >  };
+> > @@ -804,8 +982,17 @@ MODULE_DEVICE_TABLE(of, rzt2h_adc_match);  static =
+int
+> > rzt2h_adc_pm_runtime_suspend(struct device *dev)  {
+> >       struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
+> > +     int ret;
+> > +
+> > +     ret =3D pwrseq_disable(adc->pwrseq);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     ret =3D reset_control_assert(adc->rstc);
+>
+> I guess to apply assert reset, IP needs power.
+> So, you need to asset first and then power off.
+>
+The HW manual doesn't mention any ordering of power and reset,
+although it does mention the ordering of power and clock which the
+current code adheres to. For example see the below logs where register
+RZT2H_ADANSA0_REG is written a value of 0x56 at the begining of the
+suspend call and the same register is read back in the suspend call
+after turning off the power and in the resume path the same register
+is read back at the very end and we can see the value of this register
+is reported as 0x0 which is expected to reset to its initial value
+(full log can be seen here
+https://gist.github.com/prabhakarlad/def672bbca9cc51d0398a6549bcf1b80).
+Please let me know if I have misunderstood something here.
 
---===============1862422436374644438==
-Content-Type: text/x-python
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="craft_f5.py"
+Logs:
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=
+<<<<<<<<<<<<<<<
+rzv2h-evk login: root
 
-IyEvdXNyL2Jpbi9lbnYgcHl0aG9uMwoiIiJHZW5lcmF0ZSB0aGUgbWluaW1hbCBGNSByZXBybyBp
-bWFnZSBmcm9tIHNjcmF0Y2gg4oCUIGUyZnNwcm9ncyBvbmx5LgoKQ3JlYXRlcyBhIDFNQiBleHQ0
-IChubyBqb3VybmFsLCBubyBtZXRhZGF0YV9jc3VtKSB3aXRoIHRocmVlIDhLQiBmaWxlcywKdGhl
-biBhcHBsaWVzIHRoZSBmb3VyIGNvb3JkaW5hdGVkIGVkaXRzIHRoYXQgdHVybiBhIHBsYWluIHJ3
-IG1vdW50IGludG8gYQpzaWxlbnQgdHJ1bmNhdGlvbiBvZiB0aGUgTElWRSAvZmlsZTE6CgogIDEu
-IHNfbGFzdF9vcnBoYW4gKHNiKzB4RTgpIDo9IC9maWxlMSdzIGlub2RlIG51bWJlcgogIDIuIC9m
-aWxlMSBpX2R0aW1lIDo9IDAgICAgICAgICAgICAgICAgICAgICAgKHBhc3NlcyByZWNlbnRseS1k
-ZWxldGVkIGdhdGUpCiAgMy4gc19zdGF0ZSAmPSB+RVhUNF9WQUxJRF9GUyAgICAgICAgICAgICAg
-ICAodW5jbGVhbiDigJQgZW5nYWdlcyByZWNvdmVyeSkKICA0LiAvZmlsZTEgaV9zaXplIDo9IDQw
-OTYgICAgICAgICAgICAgICAgICAgIChyZWFsIGRhdGEgODE5MiDigJQgcGF5bG9hZCkKClVzYWdl
-OiBweXRob24zIGNyYWZ0X2Y1LnB5IFtvdXQuaW1nXQoiIiIKaW1wb3J0IHJlCmltcG9ydCBzdHJ1
-Y3QKaW1wb3J0IHN1YnByb2Nlc3MKaW1wb3J0IHN5cwoKSU1HID0gc3lzLmFyZ3ZbMV0gaWYgbGVu
-KHN5cy5hcmd2KSA+IDEgZWxzZSAiZjUuaW1nIgpCUyA9IDQwOTYKCgpkZWYgcnVuKGNtZCwgb2s9
-VHJ1ZSk6CiAgICByID0gc3VicHJvY2Vzcy5ydW4oY21kLCBjYXB0dXJlX291dHB1dD1UcnVlLCB0
-ZXh0PVRydWUpCiAgICBpZiBvayBhbmQgci5yZXR1cm5jb2RlICE9IDA6CiAgICAgICAgcmFpc2Ug
-UnVudGltZUVycm9yKGYie2NtZH06IHtyLnN0ZGVycn0iKQogICAgcmV0dXJuIHIuc3Rkb3V0CgoK
-cnVuKFsiZGQiLCAiaWY9L2Rldi96ZXJvIiwgZiJvZj17SU1HfSIsICJicz0xTSIsICJjb3VudD0x
-Il0pCnJ1bihbIm1rZTJmcyIsICItcSIsICItRiIsICItdCIsICJleHQ0IiwgIi1iIiwgc3RyKEJT
-KSwgIi1JIiwgIjI1NiIsICItTiIsICI0OCIsCiAgICAgIi1PIiwgIl5oYXNfam91cm5hbCxebWV0
-YWRhdGFfY3N1bSIsIElNR10pCmZvciBuYW1lIGluICgiZmlsZTAiLCAiZmlsZTEiLCAiZmlsZTIi
-KToKICAgIG9wZW4oZiIvdG1wL2Y1X3tuYW1lfSIsICJ3YiIpLndyaXRlKGIieCIgKiA4MTkyKQog
-ICAgcnVuKFsiZGVidWdmcyIsICItdyIsICItUiIsIGYid3JpdGUgL3RtcC9mNV97bmFtZX0gL3tu
-YW1lfSIsIElNR10pCgpnZW8gPSBydW4oWyJkdW1wZTJmcyIsIElNR10pCml0YWIgPSBpbnQocmUu
-c2VhcmNoKHIiR3JvdXAgMDouKj9Jbm9kZSB0YWJsZSBhdCAoXGQrKSIsIGdlbywgcmUuUykuZ3Jv
-dXAoMSkpCnZpY3RpbSA9IGludChyZS5zZWFyY2gociJJbm9kZTpccysoXGQrKSIsCiAgICAgICAg
-ICAgICBydW4oWyJkZWJ1Z2ZzIiwgIi1SIiwgInN0YXQgL2ZpbGUxIiwgSU1HXSkpLmdyb3VwKDEp
-KQoKYnVmID0gYnl0ZWFycmF5KG9wZW4oSU1HLCAicmIiKS5yZWFkKCkpCnZvID0gaXRhYiAqIEJT
-ICsgKHZpY3RpbSAtIDEpICogMjU2CnN0cnVjdC5wYWNrX2ludG8oIjxJIiwgYnVmLCB2byArIDIw
-LCAwKSAgICAgICAgICAgICAgIyBpX2R0aW1lID0gMApzdHJ1Y3QucGFja19pbnRvKCI8SSIsIGJ1
-Ziwgdm8gKyA0LCA0MDk2KSAgICAgICAgICAgICMgaV9zaXplIDgxOTIgLT4gNDA5NgpzdHJ1Y3Qu
-cGFja19pbnRvKCI8SSIsIGJ1ZiwgMTAyNCArIDB4RTgsIHZpY3RpbSkgICAgICMgc19sYXN0X29y
-cGhhbgpzdCA9IHN0cnVjdC51bnBhY2tfZnJvbSgiPEgiLCBidWYsIDEwMjQgKyA1OClbMF0Kc3Ry
-dWN0LnBhY2tfaW50bygiPEgiLCBidWYsIDEwMjQgKyA1OCwgc3QgJiB+MHgxKSAgICAjIH5FWFQ0
-X1ZBTElEX0ZTCm9wZW4oSU1HLCAid2IiKS53cml0ZShieXRlcyhidWYpKQpwcmludChmImNyYWZ0
-ZWQge0lNR306IHNfbGFzdF9vcnBoYW4gLT4gbGl2ZSAvZmlsZTEgKGlubyB7dmljdGltfSksICIK
-ICAgICAgZiJpX3NpemUgNDA5NiAoZGF0YSA4MTkyKSwgZHRpbWUgMCwgc19zdGF0ZSB+VkFMSURf
-RlMiKQo=
+WARNING: Poky is a reference Yocto Project distribution that should be used=
+ for
+testing and development purposes only. It is recommended that you create yo=
+ur
+own distribution for production use.
 
---===============1862422436374644438==
-Content-Type: text/x-shellscript
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="run_f5.sh"
+root@rzv2h-evk:~# >>>>>>>>> First Cycle <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+root@rzv2h-evk:~# cat /sys/bus/iio/devices/iio\:device0/in_voltage0_raw
+[   46.125340] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
+k on
+[   46.132399] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
+ on
+[   46.139386] Resuming ADC
+[   46.141915] rzv2h-cpg 10420000.clock-controller: deassert id:110 offset:=
+0x93c
+[   46.149054] Enabling ADC pwrseq
+[   46.152245] ADANSA0_REG: 0x0 in resume
+216
+root@rzv2h-evk:~# [   46.531171] Suspending ADC
+[   46.533951] ADANSA0_REG: 0x56 before power down
+[   46.538732] Disabling ADC pwrseq
+[   46.542095] ADANSA0_REG: 0x56 after power down
+[   46.546681] rzv2h-cpg 10420000.clock-controller: assert id:110 offset:0x=
+93c
+[   46.553829] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
+ off
+[   46.560951] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
+k off
 
-IyEvYmluL2Jhc2gKIyBGNSByZXBybzogZ2VuZXJhdGUgaW1hZ2UsIG1vdW50IHJ3IG9uY2UsIG9i
-c2VydmUgdGhlIHNpbGVudCB0cnVuY2F0aW9uLgojIFJ1biBhcyByb290IG9uIGFueSBMaW51eCB3
-aXRoIGUyZnNwcm9ncyArIHB5dGhvbjMuIE5PVCBmb3IgcHJvZHVjdGlvbgojIG1hY2hpbmVzIChp
-dCBtb3VudHMgYSBkZWxpYmVyYXRlbHkgY29ycnVwdGVkIGZpbGVzeXN0ZW0pLgpzZXQgLWUKY2Qg
-IiQoZGlybmFtZSAiJDAiKSIKcHl0aG9uMyBjcmFmdF9mNS5weSBmNS5pbWcKCmxvc2V0dXAgLWQg
-L2Rldi9sb29wOSAyPi9kZXYvbnVsbCB8fCB0cnVlCm1rZGlyIC1wIC9tbnQvdApsb3NldHVwIC9k
-ZXYvbG9vcDkgZjUuaW1nCmRtZXNnIC1DIDI+L2Rldi9udWxsIHx8IHRydWUKbW91bnQgLXQgZXh0
-NCAtbyBydyAvZGV2L2xvb3A5IC9tbnQvdAoKZWNobyAiZmlsZTEgYWZ0ZXIgbW91bnQ6IgpzdGF0
-IC1jICIgIHNpemU9JXMgbmxpbms9JWgiIC9tbnQvdC9maWxlMQplY2hvICIoZXhwZWN0ZWQ6IHNp
-emU9NDA5NiBubGluaz0xOyBjcmFmdGVkIGRhdGEgd2FzIDgxOTIg4oCUIGhhbGYgZGVzdHJveWVk
-KSIKCnVtb3VudCAvbW50L3QKbG9zZXR1cCAtZCAvZGV2L2xvb3A5IHx8IHRydWUKCmVjaG8gIi0t
-LSBrZXJuZWwgbG9nIGZvciB0aGlzIG1vdW50IC0tLSIKZG1lc2cgfCBncmVwIC1FICJ0cnVuY2F0
-ZSBjbGVhbmVkfEVYVDQtZnMiIHwgdGFpbCAtNAplY2hvCmRtZXNnIHwgZ3JlcCAtcSAidHJ1bmNh
-dGUgY2xlYW5lZCIgXAoJJiYgZWNobyAiUkVQUk9EVUNFRDogbGl2ZSBmaWxlIHRydW5jYXRlZCBh
-dCBtb3VudCAoc2lsZW50IHJlY292ZXJ5IGxpbmUpIiBcCgl8fCBlY2hvICJub3QgcmVwcm9kdWNl
-ZCB0aGlzIHJ1biIK
+root@rzv2h-evk:~# ->>>>>>>>> Second Cycle <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+root@rzv2h-evk:~# cat /sys/bus/iio/devices/iio\:device0/in_voltage0_raw
+[   50.491213] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
+k on
+[   50.498271] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
+ on
+[   50.505242] Resuming ADC
+[   50.507785] rzv2h-cpg 10420000.clock-controller: deassert id:110 offset:=
+0x93c
+[   50.514923] Enabling ADC pwrseq
+[   50.518111] ADANSA0_REG: 0x0 in resume
+126
+root@rzv2h-evk:~# [   50.896990] Suspending ADC
+[   50.899881] ADANSA0_REG: 0x56 before power down
+[   50.904545] Disabling ADC pwrseq
+[   50.907914] ADANSA0_REG: 0x56 after power down
+[   50.912504] rzv2h-cpg 10420000.clock-controller: assert id:110 offset:0x=
+93c
+[   50.919642] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
+ off
+[   50.926761] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
+k off
 
---===============1862422436374644438==
-Content-Type: application/x-xz
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="f5.img.xz"
+root@rzv2h-evk:~#
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=
+<<<<<<<<<<<<<<<
 
-/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM7///AkJdAABv/f//o7d/aqdSmpJgJdwMnMxRI+w1ENFk
-DWEtVuQJYUR8SnH+K06obTrKo3NolqAk5A6TpeQexoKOpw/mToJXk+XHgxDXFB8kQ4bCDAeMZI1a
-63FhMs6Gpqnr+MrtQggifU7vxRXz5DOlnbWtBF0/GC6fZ5FTkWyg5JtzffYnuWiyal0phYrvWSj8
-dLygfMNEy2nGgQLKuOL3UueemC1uSh3j7wcTE3uQ791iisUkEUNSaGHW5cuRVOk1qzJZsMLdRVTc
-bWUUK57QwSlOPu1STjAmekhkSWN7XCP2W2mDUrUa47C8I356AsIWnJ0lXuCyf+UqFD73vrFx/UNr
-fSR64IXCbrjcJrdJvexOJPOfvyZ8A9PQqRPYIGLmnfJRMoX02z1c5Oh+1oCCwLr1JlGx6HsQSAU4
-biIZ6SwTISAFnPJ/Y3yAqPkI3cyzphX5McD4PVRhZQm5FbsAY3y+BsdFCEtPcuj4+a8YffGajm7x
-F+H9mlC2xzj3/mXGiqPjQLUvSF9w25GWzT4q/zDJpSm5q5P3txrw/sKiFOsoBoq7ch5tjwfCxmdu
-dOP+/qy40tntk93ThShWRCIEDYLAccZ3XBEkGN/3NQE3YPZiVoKkP+3OsScYXFmG6WZSWL7pdqxZ
-5OVbBQj5x9qt/PtSK3TNHlsgQvndUz34KWQJO4DLKmzftTvwxL0uX6oPPktmQpATDv8Qk/hxeFn4
-C83/lShGD6n8fN77mjAuVsCPhfODgcBlxCVT+PWRNjEFpZcJErXLAAAALUIM/1oZ8pAAAd4EgIBA
-APzt9OKxxGf7AgAAAAAEWVo=
+Changes made to generate the above logs:
+--------------------------------------------------
+diff --git a/drivers/clk/renesas/rzv2h-cpg.c b/drivers/clk/renesas/rzv2h-cp=
+g.c
+index 7ce94680c79a..eab6237dca4c 100644
+--- a/drivers/clk/renesas/rzv2h-cpg.c
++++ b/drivers/clk/renesas/rzv2h-cpg.c
+@@ -1169,7 +1169,7 @@ static int rzv2h_mod_clock_endisable(struct
+clk_hw *hw, bool enable)
+        u32 value;
+        int error;
 
---===============1862422436374644438==
-Content-Type: text/plain
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="f5_dmesg.log"
+-       dev_dbg(dev, "CLK_ON 0x%x/%pC %s\n", reg, hw->clk,
++       dev_err(dev, "CLK_ON 0x%x/%pC %s\n", reg, hw->clk,
+                str_on_off(enable));
 
-IyBGNSBldmlkZW5jZTogdGhyZWUgZnJlc2gtaW1hZ2UgaXRlcmF0aW9ucywgZ3Vlc3Qga2VybmVs
-IDcuMy4wLXJjNQojIChmcm9tIGY1X3ZlcmlmeV8zeC5zaDsgZWFjaCBpdGVyYXRpb24gPSBuZXds
-eSBjcmFmdGVkIGltYWdlLCBvbmUgcncgbW91bnQpCiMKIyBpdGVyYXRpb24gMQpzaXplPTQwOTYg
-bmxpbms9MSAgICAgICAgICAgICAgICAgICAgICAgPC0gL2ZpbGUxIGFmdGVyIG1vdW50ICh3YXMg
-ODE5MikKWzEyNjYxLjkxNDU3OV0gRVhUNC1mcyAobG9vcDkpOiB3YXJuaW5nOiBtb3VudGluZyB1
-bmNoZWNrZWQgZnMsIHJ1bm5pbmcgZTJmc2NrIGlzIHJlY29tbWVuZGVkClsxMjY2MS45MTcxNjRd
-IEVYVDQtZnMgKGxvb3A5KTogMSB0cnVuY2F0ZSBjbGVhbmVkIHVwClsxMjY2MS45MTc0MzRdIEVY
-VDQtZnMgKGxvb3A5KTogbW91bnRlZCBmaWxlc3lzdGVtIGFkYWJhYzM5LTVkMzItNDNkNS04Mzky
-LTdmY2JiMGNhOWY3NSByL3cgd2l0aG91dCBqb3VybmFsLiBRdW90YSBtb2RlOiBub25lLgojCiMg
-aXRlcmF0aW9uIDIKc2l6ZT00MDk2IG5saW5rPTEKWzEyNjYyLjYxNDI5NV0gRVhUNC1mcyAobG9v
-cDkpOiAxIHRydW5jYXRlIGNsZWFuZWQgdXAKWzEyNjYyLjYxNDY2MV0gRVhUNC1mcyAobG9vcDkp
-OiBtb3VudGVkIGZpbGVzeXN0ZW0gNmRiNjFjMGEtNjE3MS00ZjM5LTk2OWItMzkwZWQwYTlmMmQy
-IHIvdyB3aXRob3V0IGpvdXJuYWwuIFF1b3RhIG1vZGU6IG5vbmUuCiMKIyBpdGVyYXRpb24gMwpz
-aXplPTQwOTYgbmxpbms9MQpbMTI2NjMuNjUwOTU4XSBFWFQ0LWZzIChsb29wOSk6IDEgdHJ1bmNh
-dGUgY2xlYW5lZCB1cApbMTI2NjMuNjUxMzc2XSBFWFQ0LWZzIChsb29wOSk6IG1vdW50ZWQgZmls
-ZXN5c3RlbSA4NDEyNTFkOS0zNjY1LTQzYzItOTE4Ny0wZDlkODMyZjZiOGYgci93IHdpdGhvdXQg
-am91cm5hbC4gUXVvdGEgbW9kZTogbm9uZS4KIwojIE5PVEU6IHRoZSBPTkxZIGFub21hbHktaW5k
-aWNhdGluZyBsaW5lIGlzIHRoZSByb3V0aW5lIHJlY292ZXJ5IG1lc3NhZ2UKIyAiMSB0cnVuY2F0
-ZSBjbGVhbmVkIHVwIiDigJQgaWRlbnRpY2FsIHRvIGxlZ2l0aW1hdGUgY3Jhc2ggcmVjb3Zlcnkg
-b3V0cHV0Lgo=
+        if (enabled =3D=3D enable)
+@@ -1324,7 +1324,7 @@ static int __rzv2h_cpg_assert(struct
+reset_controller_dev *rcdev,
+        u32 mon;
+        int ret;
 
---===============1862422436374644438==
-Content-Type: text/plain
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="README"
+-       dev_dbg(rcdev->dev, "%s id:%ld offset:0x%x\n",
++       dev_err(rcdev->dev, "%s id:%ld offset:0x%x\n",
+                assert ? "assert" : "deassert", id, reg);
 
-IyBGNSBtaW5pbWFsIHJlcHJvZHVjZXIg4oCUIGV4dDQgbW91bnQtdGltZSBvcnBoYW4gcmVjb3Zl
-cnkgc2lsZW50bHkgdHJ1bmNhdGVzIGEgTElWRSBmaWxlCgpUYXJnZXQ6IExpbnV4IDcuMy4wLXJj
-NSB4ODZfNjQgKCtLQVNBTjsgdGhlIG9ycGhhbi1yZWNvdmVyeSBsb2dpYyBpcwpsb25nc3RhbmRp
-bmcgbWFpbmxpbmUpLiBEZXRlcm1pbmlzdGljIDMvMy4KCiMjIENvbnRlbnRzCgp8IGZpbGUgfCBy
-b2xlIHwKfC0tLXwtLS18CnwgYGNyYWZ0X2Y1LnB5YCB8IHNlbGYtY29udGFpbmVkIGdlbmVyYXRv
-ciAoZGQgKyBta2UyZnMgKyBkZWJ1Z2ZzICsgNCBlZGl0czsgZTJmc3Byb2dzIG9ubHkpIHwKfCBg
-ZjUuaW1nLnh6YCB8IHByZS1iYWtlZCBjcmFmdGVkIGltYWdlICg2NDQgYnl0ZXMgY29tcHJlc3Nl
-ZCkgfAp8IGBmNV9kbWVzZy5sb2dgIHwgZXZpZGVuY2U6IHRoZSBPTkxZIGtlcm5lbCBvdXRwdXQg
-aXMgdGhlIHJvdXRpbmUgbGluZSB8CnwgKGVtYWlsLnR4dCwgU0VORF9DSEVDS0xJU1QubWQgbGl2
-ZSBvbmUgZGlyZWN0b3J5IHVwKSB8IHwKCiMjIFJ1bgoKYGBgYmFzaApweXRob24zIGNyYWZ0X2Y1
-LnB5IGY1LmltZwpsb3NldHVwIC9kZXYvbG9vcDkgZjUuaW1nICYmIG1rZGlyIC1wIC9tbnQvdApt
-b3VudCAtdCBleHQ0IC1vIHJ3IC9kZXYvbG9vcDkgL21udC90CnN0YXQgLWMgInNpemU9JXMgbmxp
-bms9JWgiIC9tbnQvdC9maWxlMSAgICAgIyAtPiBzaXplPTQwOTYgbmxpbms9MSAod2FzIDgxOTIp
-CmRtZXNnIHwgdGFpbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyAtPiAiMSB0cnVu
-Y2F0ZSBjbGVhbmVkIHVwIiBvbmx5CmBgYAoKT25lIG1vdW50IHBlciBpbWFnZSBjb3B5OiByZWFs
-IHJlY292ZXJ5IChhbmQgdGhpcyB0cmlnZ2VyKSBjbGVhcnMKc19sYXN0X29ycGhhbiwgc28gcmUt
-bW91bnRpbmcgYSBjb25zdW1lZCBpbWFnZSBpcyBjbGVhbiDigJQgc2FtZSBhcyBnZW51aW5lCmNy
-YXNoIHJlY292ZXJ5IGJlaGF2aW9yLgoKIyMgVGhlIGZvdXIgZWRpdHMgKGFsbCBpbmRpdmlkdWFs
-bHkgdmFsaWQsIG11dHVhbGx5IGx5aW5nKQoKMS4gYHNfbGFzdF9vcnBoYW5gIChzYisweEU4KSA6
-PSBsaXZlIC9maWxlMSBpbm9kZSAoMTMpCjIuIC9maWxlMSBgaV9kdGltZWAgOj0gMAozLiBgc19z
-dGF0ZWAgJj0gfkVYVDRfVkFMSURfRlMKNC4gL2ZpbGUxIGBpX3NpemVgIDo9IDQwOTYgKHJlYWwg
-ZGF0YSA4MTkyKQoKIyMgV2h5IGFjY2VwdGVkICg3LjMtcmM1LCBmcy9leHQ0L2lhbGxvYy5jIGV4
-dDRfb3JwaGFuX2dldCkKCi0gY29tbWVudDogdHJ1bmNhdGUtaW4tZmxpZ2h0IG9ycGhhbnMgYXJl
-IGxlZ2FsIHdpdGggbmxpbms+MCwgc28KICBgaV9ubGluaz09MGAgaXMgZGVsaWJlcmF0ZWx5IE5P
-VCBjaGVja2VkOwotIHRoZSBvbmx5IG5saW5rIGd1YXJkIGlzIGAoaV9ubGluayAmJiAhZXh0NF9j
-YW5fdHJ1bmNhdGUoKSlgIOKAlCBhIG5vcm1hbAogIHJlZ3VsYXIgZmlsZSBwYXNzZXM7Ci0gImJp
-dG1hcCBiaXQgPSAxMDAlIHZhbGlkIG9ycGhhbiIgYXNzdW1wdGlvbiBob2xkcyBvbmx5IGZvciB1
-bmNyYWZ0ZWQgaW1hZ2VzLgoKRWZmZWN0OiBrZXJuZWwtaW5pdGlhdGVkLCBjcm9zcy1maWxlLCB6
-ZXJvLXN5c2NhbGwgZGF0YSBkZXN0cnVjdGlvbjsgdGhlCmxvbmUgbG9nIGxpbmUgaXMgaW5kaXN0
-aW5ndWlzaGFibGUgZnJvbSBsZWdpdGltYXRlIHJlY292ZXJ5LiBTdWdnZXN0ZWQKZGlyZWN0aW9u
-cyBpbiB0aGUgZW1haWw6IGxvdWQgd2FybmluZyBvbiB0cnVuY2F0aW5nIGxpbmtlZCBpbm9kZXMs
-IG9yIGEKcGVyLW1vdW50IHN1bW1hcnkgb2YgbGlua2VkLWlub2RlIHRydW5jYXRpb25zLgo=
+        if (!assert)
+diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+index be8273f3b61d..36ff6da87138 100644
+--- a/drivers/iio/adc/rzt2h_adc.c
++++ b/drivers/iio/adc/rzt2h_adc.c
+@@ -984,9 +984,14 @@ static int rzt2h_adc_pm_runtime_suspend(struct device =
+*dev)
+        struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
+        int ret;
 
---===============1862422436374644438==--
++       pr_err("Suspending ADC\n");
++
++       writew(0x56, adc->base + RZT2H_ADANSA0_REG);
++       pr_err("ADANSA0_REG: 0x%x before power down\n",
+readw(adc->base + RZT2H_ADANSA0_REG));
+        ret =3D pwrseq_disable(adc->pwrseq);
+        if (ret)
+                return ret;
++       pr_err("ADANSA0_REG: 0x%x after power down\n", readw(adc->base
++ RZT2H_ADANSA0_REG));
 
+        ret =3D reset_control_assert(adc->rstc);
+        if (ret)
+@@ -1001,6 +1006,8 @@ static int rzt2h_adc_pm_runtime_resume(struct device =
+*dev)
+        const struct rzt2h_adc_chip_info *chip_info =3D adc->chip_info;
+        int ret;
+
++       pr_err("Resuming ADC\n");
++
+        ret =3D reset_control_deassert(adc->rstc);
+        if (ret)
+                return ret;
+@@ -1011,6 +1018,8 @@ static int rzt2h_adc_pm_runtime_resume(struct device =
+*dev)
+                return ret;
+        }
+
++       pr_err("ADANSA0_REG: 0x%x in resume\n", readw(adc->base +
+RZT2H_ADANSA0_REG));
++
+        if (!(chip_info->features & RZT2H_ADC_FEATURE_CALIBRATION))
+                return 0;
+
+diff --git a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
+b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
+index 40760977f7de..b6886dba92a9 100644
+--- a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
++++ b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
+@@ -8,6 +8,7 @@
+ #include <linux/delay.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/pwrseq/consumer.h>
+ #include <linux/pwrseq/provider.h>
+ #include <linux/regmap.h>
+
+@@ -31,6 +32,7 @@ static int pwrseq_rzv2h_adc_enable(struct
+pwrseq_device *pwrseq)
+        struct regmap *regmap =3D pwrseq_device_get_drvdata(pwrseq);
+        int ret;
+
++       pr_err("Enabling ADC pwrseq\n");
+        ret =3D regmap_clear_bits(regmap, RZV2H_SYS_ADC_CFG,
+                                RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
+        if (ret)
+@@ -45,6 +47,7 @@ static int pwrseq_rzv2h_adc_disable(struct
+pwrseq_device *pwrseq)
+ {
+        struct regmap *regmap =3D pwrseq_device_get_drvdata(pwrseq);
+
++       pr_err("Disabling ADC pwrseq\n");
+        return regmap_set_bits(regmap, RZV2H_SYS_ADC_CFG,
+                               RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
+ }
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+--------------------------
+
+
+Cheers,
+Prabhakar
