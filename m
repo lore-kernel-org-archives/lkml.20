@@ -1,48 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817A437DE8B;
-	Wed, 14 Oct 2026 10:28:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1703D4137;
+	Wed, 14 Oct 2026 10:28:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973713; cv=none; b=LfYBM5nzJjU196yVkjRHO0LAq0knlpJeIues4QxKvCm5SrXmHbDTNQWrRfPWY509nSeW+fICE02L8ru31s5ll7XKn1AB0pwxMaMn13sqxkQyNFbMYLqxqcxOy+EqH59YsDAuFTtxSZLcFRcRpRBi2MuH0hzjKnIZkI2pX823R2U=
+	t=1791973720; cv=none; b=DtBFucJj10QHnCbdVt21Ov5VTy3Qt2fQ7sl0fFXAVlHB5jDtEmCtzdUiCMDF7YqwWtheE9PVAu3hHMGAQLthWKfmFlT15eP7pTfqHXoZeEloMCfakBgHEPZiGzUBpQOPNiuAPW6qch0Z/ciJKfb+PImjFLEXU7EkCQs74yh1OXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973713; c=relaxed/simple;
-	bh=85ePqdUrxlAKgImhGQeGtnMz7AsH4S3r8BPV51Rup88=;
+	s=arc-20240116; t=1791973720; c=relaxed/simple;
+	bh=skJdmd3tUQHGVzD6TZQsGKOJkI7UvX0V36y4xyypgz4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=cGb5UNxqISDcrg1EUe/bNpNTPYIZToHpHxLMNqybdZ5RQANlNjMk/zYKfhpAnNJH2NqolqlPUWv08ArlAMaZhbpwYBN/1KBoWSmYi8xBu3TNBWPLFFecNlkTX6tYg7c0mduN3PRsw0SRTA96jvwlV+F1uWAt6Ch9KNFYwf5SIQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nthlxmwC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Y9rxdn2xBpL5coDHIi6IhkCWi+QGYufxM6XZ9LdHloSok4RJ0VQO6EzszLe+s9U3BOh0uqbJPZR3vKeFCh2wKqKQFP1Qc00KDT7VAqaLlTLSUcWPbdbt7EJPcdkklU4POgtPRRrn5vfX5IH0kZeJ1WjaiPzA5J2xHHdHzNy3hrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cil4DIOK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nthlxmwC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7D3B1F000FF;
-	Wed, 14 Oct 2026 10:28:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cil4DIOK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC03E1F000FF;
+	Wed, 14 Oct 2026 10:28:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791973712;
-	bh=OojGyMZ5eh41Y2wVjeI/8ZXJHmHbXooHvcwTpVEfMY8=;
+	s=k20260515; t=1791973718;
+	bh=LWAleCpYBlToJ7/WPCLhRt8yE2399HoszrhXc5+pn3Q=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=nthlxmwCZNSa7NzKSt41VJhrAobn7kMyHdh+zm4AEHtnNSSWjrrumq5fKNBine4wp
-	 kIjXM1GU6YAsJ6xbdVIKWicELwukF2deWbUv2q/npVfO+tz6Zcl7qbwESll7cGMkCi
-	 sM23xAJR2X6KDLIizdR1SfKUYLoOfoqYzRxJoCAw/z1wv9z2GtA60K4rH05S+jpQ9/
-	 pJquoTVntsiXzjfWAnknvduFoO1Fx/4u/Ugf60lAuoqO+EJFwYmGZzYLI33wZao6Cq
-	 P8/HxHBsY6RsOI22+mhBB6CjuoCvQv00+W6c5gQmwbLIgVm1bLVVcfNAk+ndwU01E5
-	 N2/xDlFK3Awwg==
+	b=Cil4DIOKlCtMK0ChHPWRGsZIkuR+ETSpqNy02sPVq6qd79JT2tCNTFJgNM8Swqxmn
+	 aol69v8n/1Q2kFlnLE84DnP2ABZpg7L8lpRt5fvMvdWQI2h+tuogX7GHZMsYwQvZHl
+	 sb6m98FQDtJAx/zg/RGu1FNkxkXPWNmbjtwpXi3b7arjHiStM3YnRIR5naVxJUrx/a
+	 eZzVmMBN2RLEcxGWajgFN4LleEJRW+NzM/sk2KbrXPlxDCeeDga+ITxHqOfkB5nteI
+	 UQU15jwJ2oabwmaJZo5/361elT8+VpOHlZqB7Zi/h7zYsQVDWGjmNuQNaknGL6ExWi
+	 nu/RHwvE1FR/Q==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- =?utf-8?q?Micha=C5=82_Kope=C4=87?= <michal@nozomi.space>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Alexandre Mergnat <amergnat@baylibre.com>, 
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Trevor Wu <trevor.wu@mediatek.com>, phucduc.bui@gmail.com
+Cc: Liam Girdwood <lgirdwood@gmail.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
- Trevor Wu <trevor.wu@mediatek.com>, linux-sound@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ cassiogabrielcontato@gmail.com, Haotian Zhang <vulab@iscas.ac.cn>, 
+ Christian Marangi <ansuelsmth@gmail.com>, 
+ Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Cyril Chao <Cyril.Chao@mediatek.com>, Tuo Li <islituo@gmail.com>, 
+ Rosen Penev <rosenp@gmail.com>, Garlic Tseng <garlic.tseng@mediatek.com>, 
+ Alexandre Mergnat <amergnat@baylibre.com>, 
+ Dan Carpenter <error27@gmail.com>, linux-sound@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  linux-kernel@vger.kernel.org
-In-Reply-To: <20261003194501.832558-1-michal@nozomi.space>
-References: <20261003194501.832558-1-michal@nozomi.space>
-Subject: Re: [PATCH 0/4] ASoC: Fixes for the MT8188 sound card
-Message-Id: <179192410329.1606900.11713606638187764851.b4-ty@b4>
-Date: Tue, 13 Oct 2026 21:41:43 +0100
+In-Reply-To: <20261006101606.54079-1-phucduc.bui@gmail.com>
+References: <20261006101606.54079-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH 0/4] ASoC: mediatek: Return 0 from FE startup on
+ success
+Message-Id: <179192410143.1606900.17860222773161459120.b4-ty@b4>
+Date: Tue, 13 Oct 2026 21:41:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,29 +55,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2081; i=broonie@kernel.org;
- h=from:subject:message-id; bh=85ePqdUrxlAKgImhGQeGtnMz7AsH4S3r8BPV51Rup88=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLOR/pEr8oJW9Vq7PPuFZ+iUGu/DIdR9+4c2WXyR2v1V
- qYFbIjpKGVhEONikBVTZInL4n5ZX/J6Dd/BhW0wc1iZQIYwcHEKwETYhRn+pwgfC3hQctJLVW+z
- +fH9qznvZ07fNWNP1IR/6zqf5E766cDIsKfWZK/b8ecLFyw3jvlqIrp2x6GO4osRF3ibvn9J0bL
- byAYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1818; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=skJdmd3tUQHGVzD6TZQsGKOJkI7UvX0V36y4xyypgz4=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLORwbGPL+V+6Wu8NuXVRZFikcVeRwqUx/oLOV4qGigb
+ SWmwrqwo5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABOZM4fhv2Oqd3VAaLfuiY6v
+ k0UdLq7lZVwt+tLyfNzEi9PFDLf++sjI0PBzlvkUvZZVjys/zYivKNtsfGNO4cGHqgEL8leEnvE
+ /xAsA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sat, 03 Oct 2026 21:44:57 +0200, Michał Kopeć wrote:
-> ASoC: Fixes for the MT8188 sound card
+On Tue, 06 Oct 2026 17:16:02 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: mediatek: Return 0 from FE startup on success
 > 
-> These patches fix problems found while bringing up audio with SOF on
-> the Lenovo Chromebook Duet Gen 9 (Ciri, MT8188) on a mainline kernel.
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> The first two fix the common MediaTek sound card probe when the card
-> cannot be bound on the first attempt. A missing component made the
-> card fail its rebind because the codec references were already
-> released, and a deferred or failed probe left the static card with a
-> topology name that devm had freed, so the card registered with a
-> garbage name and UCM found no profile for it.
+> Hi all,
+> 
+> Some FE startup callbacks may return a positive value from constraint
+> helpers, but ASoC expects 0 on success. This can cause .shutdown() to be
+> skipped during rollback.
 > 
 > [...]
 
@@ -82,14 +85,14 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: mediatek: common: Keep codec references until the card is bound
-      https://git.kernel.org/broonie/sound/c/6cb1f09e1f69
-[2/4] ASoC: mediatek: Don't keep a freed topology name in the static card
-      https://git.kernel.org/broonie/sound/c/50c5d7f3a9b4
-[3/4] ASoC: mediatek: mt8188: Constrain UL8 FE to its back end's capabilities
-      https://git.kernel.org/broonie/sound/c/76775717c4ad
-[4/4] ASoC: hdmi-codec: Don't parse an empty ELD on startup
-      https://git.kernel.org/broonie/sound/c/d0b9e91b87c9
+[1/4] ASoC: mediatek: common: return 0 from mtk_afe_fe_startup() on success
+      https://git.kernel.org/broonie/sound/c/5bbd6696d75e
+[2/4] ASoC: mediatek: mt8188: return 0 from mt8188_afe_fe_startup() on success
+      https://git.kernel.org/broonie/sound/c/b6b3dbee98f1
+[3/4] ASoC: mediatek: mt8189:return 0 from mt8189_fe_startup() on success
+      https://git.kernel.org/broonie/sound/c/f63317c826c4
+[4/4] ASoC: mediatek: mt8365: return 0 from mt8365_afe_fe_startup() on success
+      https://git.kernel.org/broonie/sound/c/240f11af9c80
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
