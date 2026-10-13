@@ -1,150 +1,121 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A413FFD
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:50:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2EC368291
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791852653; cv=none; b=GhiN8lAuHZ7P0BhfxeRJSwIQ5TCVLKaIq7nuFC3plKT8swyTnmPbexQty9AfYHpXNr7Oft2uaGH05jLC5HqwA2DjAAI6bt4IEwx4WAqCpp+w1HNZ0l2bJhm6BLEEWdT7RITn1ccXjYopmgBbvs8e4kJ80v82AmkNehoyf4o7R1I=
+	t=1791852752; cv=none; b=rcxunAvDzEimRC0wgFEXw03KK+sSqkP4y51/e3G/FVNg9G14/61i5ksdVhbwADO19SgIacR3a3T3iLDdHvF2vjAGhv0FGZMAQvWyKkipyergA2Q5w0aHs5nNQcPx3PiWvUgBacdkImINuMey3VEPEvsXI7e4lDXvh6iVSwG7V1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791852653; c=relaxed/simple;
-	bh=7W28zXbAc258OscpulaQd9eVgbJEA5Vs10RJkU26jko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ieQNgP126tpFp8zZlxVt8DI9maSAtyep9vbXxlS/Ts2oSRzMRTDplkqevtXgjQTJ877tkmHwk1eOGw3PTG+RIbsXm+kduzx63IdZuze1Ckv26q1OpNkejQewNjuUGnRKM5YcHh1pL0CAlreHwghSzS7pbdtxJ7tY3RgtMYmnB9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=je0XxEVu; arc=none smtp.client-ip=209.85.219.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
+	s=arc-20240116; t=1791852752; c=relaxed/simple;
+	bh=dyWWqaEtTbLjjI6LcPg/RWW7c3xDwx0JIAoZ6M2Ek4E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qlEeY6m+rsQdYfAcCzffxoPKpAI1sxTkoO8csqptjLEyzCd75yhboiVd21Pl3oj9dqABC0hG/CIiberiQHO8/GMnLUAKMQpt9gjsdYma9XDhID5lvy17ND1dGEnr+JZKYi3y+rmbpm7VPbgERbVFm+Be2asiSE1d2udob5waFpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9PaM8VX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="je0XxEVu"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91968804af0so28130516d6.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:50:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791852651; x=1792457451; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=06iyY89s7tmiZ8wG9TyA9bzi9/KFey6XFgp9yIv8oXE=;
-        b=je0XxEVutnRNhcTTovnB5BYs3hwL8hTDTBpamYvYm74eACOKI5GikQnMrrotvda4Mh
-         gNVONC5PVIn2QLjgPeF810EEVG/boJqclX+aiR1zOsVQgQ61KNJZhn6sl5BD664ZB1Bn
-         DkVOQBp8UdyDk/bujkJiJBB90o0i5MQhvB2NJbR4h5QEIK9LcGxWc411UHSmMP/GChIc
-         LGLqVFpMTME4Mgh4+uZCWrpO8JMG17VIBQ9aYgN+7unFO+mRfUc6bS/rLQFJWvEP1WjI
-         p18D+AETMd4+MsoSvBE850qSTP/xy3iMIfc7Y2Qco2eHxNQX07Q2ZjTvvPZIgzv/P5aU
-         nu5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791852651; x=1792457451;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=06iyY89s7tmiZ8wG9TyA9bzi9/KFey6XFgp9yIv8oXE=;
-        b=rea5VicP9pqQeHx/A+hw4noB8yMxUiH6SFH266wY/b2a/B9N5ewY+HAQwf1qWT47xk
-         if549x1uxyHAqFWp8kfLMmnr+mLpU5nN6wyGedBgZH3kgNDH78WjyKmL8eL+Bahr7JmN
-         mxlgnj2oNKavlWv7EMeGP9PT2IpKNujFFpEBzeqkQEPIczUz1Ht5DMJnZ+rAufLHsTRT
-         TJ9jiZWcEo81AsBf9/wRGrZ70bJuUeEF+FcjRIj9zKPsGNX5Ef7JTLpG2/PfJzhXblu1
-         0j2G/LRueqWrn2Z/ZE+2jVyXRlaOs4+WThToM18N50c2TaYKVvl7XFRwYBpuB/VkwpKa
-         WIfw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpVq2L4fQ+SZW4/59PapTvNXPb5+vVUzwAjfrFqlnYQtO0QE3/CjPsK7zx0h6X8sZdx1bIyOrHHhTP56A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIinEYjp/aYI/AHuj88j7TAEyNjbBwvW6/c17+gkJGbIXIhsvN6
-	YzbGHumtczAmZw5XUo+WLxN5q+PHsserfrMUPy0ITVBqEZweZO8Sn3s1UCd/vPnMybY=
-X-Gm-Gg: AYBFou0PB/6181H4fTqR/kKO56db4XDulNc7XgvhFmoLezI6rDBwnlHXY3AOY/Um26+
-	kEzQOFj9hpx+EMxQxB4iNdJRHylsNKxgO7hEl6pjm+DuByY3Ce3HSGAk5PuU23frVvUBr6cYpOv
-	j/bBtE1NvWMXKKaqeUkQ3vfKoGh2W2ojLnwJIMUwBtmMaHtGRbzetTIAXELfTrxhA0m+g4tIaiE
-	Mfyvchf67ixsF3aAzREEkMGy2Y+InNfQhNCDmo48ZQQ0vjmJMenJv67C3K/Q652uw8hDfeP/26D
-	AXOInXfhO8CCMm7x/HqSnt+3kLEYlvWLPeW1wHdsaFbgVBmUlFx6U8vMH/pBYfCj3vyZPHtx3Ap
-	chxuhGTwlaumQe4lfL+PiNRU0vtU+8J6WoMSxOqAo7NzJD6obseQ7jh2X6ls635onWEVJy/h0mG
-	RUA3O8x6srmHZ9dVp/W5U3xty/IUEvcmjfqKVD/R1YtapBV3w9KuW+5x2D57pVQVGTQGDhLXHH+
-	4bHhSTsYDs2KSBF6Y0SzH7ssgYtTkFtjwYMmhLQ2KqlZo+z1J5qnL7PbkdY2r2OhyVe7Gf4mi3I
-	/RBG+xDBdghuSPDAfi3hAljCxDes/z9l9xD/KGfymYNArM4U1qt7
-X-Received: by 2002:a05:6214:f09:b0:919:518f:3a92 with SMTP id 6a1803df08f44-91b5549984bmr185414706d6.17.1791852650672;
-        Mon, 12 Oct 2026 17:50:50 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500::662b])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b9ee98365sm704226d6.48.2026.10.12.17.50.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 17:50:50 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Bingbu Cao <bingbu.cao@intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Ramshouriesh R <rshouriesh@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC] media: ipu6: Don't require an ISYS reset after stream stop on IPU7
-Date: Mon, 12 Oct 2026 20:50:48 -0400
-Message-ID: <20261013005048.8601-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9PaM8VX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6409E1F0089B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:52:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791852750;
+	bh=GazLl4ykvN6OWa8y0ujvFAirqTHw+cI5zszsCtx7GT8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=c9PaM8VXdRQz6AD07HoByEed0ogfeuYp50hG7E2KZYFDPDGBtPFNnyZaSbgCtm1Yv
+	 Mk5vez19ZHkEKa0Ts2c+2TGPWdl8YK6xB90aNbqycbTjdrcPimPuy4Oeh2/aAyOPuC
+	 UA7iUDNAG1l5uB2fQK3Lle0ZXqAybdk7F8txHrcTBoGKkp4j4iGZucevoTpLb+cr6Z
+	 IkAdkMzd+qx7g4GLIaevt4xDygcvjOeMy8hnPS2TBJfrlZfvz0DRBh86HTAFMP4Ge3
+	 F/GKN/a+NHHOLAJdodnB6hsQPewl9UVwsfKqD5mSQ+SmkgmOcIiihHVEdqZjzS5qsG
+	 tRt96uwUCcwVw==
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2e6df2742cso356757566b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:52:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByVy3kLvw/SanZDZYXTBQj3ieGifDiksFWlTEhQNmJZjw/Ge0d7jMaYgmJVLi9x8K3hwATsyZERHriENv0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLQWBO1upNn0gq0njKIiCcyvdrJZCW9pnwT8UIcgWz41ruTbKS
+	GTMO0jgjSvNsvzlX5iBcA4uQv493NO9qFMVil45F9YcxwLDLBI7BMUnoIB104HH//lGlxSNk0wI
+	fb80kpTx8wFJpFO0o4uFxHtriqKio8jg=
+X-Received: by 2002:a17:907:6d14:b0:c2e:4292:d261 with SMTP id
+ a640c23a62f3a-c31a9fa122dmr1037010466b.17.1791852748940; Mon, 12 Oct 2026
+ 17:52:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <tencent_8D6FD09121A77E53BCA86E1FB228DC54A107@qq.com>
+In-Reply-To: <tencent_8D6FD09121A77E53BCA86E1FB228DC54A107@qq.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 13 Oct 2026 09:52:16 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_CP7OrKRkLwFkoLh-ADvin+oQXfj1HuDBwiEbG-LWX=Q@mail.gmail.com>
+X-Gm-Features: AclHuK_N69zrMpSrUKk1mYkwI1Ck9ZfJSaad0zElYvRYRH_oPlICIyWNBULcha4
+Message-ID: <CAKYAXd_CP7OrKRkLwFkoLh-ADvin+oQXfj1HuDBwiEbG-LWX=Q@mail.gmail.com>
+Subject: Re: [BUG REPORT] ntfs: NULL pointer dereference in ntfs_ie_add() on
+ mkdir() in a crafted image
+To: 1sh1ro <yangguikun19@qq.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000975b3b065dae3a48"
 
-On IPU7 every stream stop finds buffers on the active list in
-return_buffers(), so need_reset is set and this is logged each time:
+--000000000000975b3b065dae3a48
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  intel_ipu6_isys.isys intel_ipu6.isys.40: buffer list not empty, needs isys reset
+On Mon, Oct 12, 2026 at 5:58=E2=80=AFPM 1sh1ro <yangguikun19@qq.com> wrote:
+>
+> Hi Namjae, Hyunchul,
+>
+> a crafted NTFS image makes the classic NTFS driver (fs/ntfs) dereference =
+a
+> NULL pointer when a directory entry is added, which oopses (and panics
+> outright on kernels built with panic_on_warn/panic_on_oops, as syzkaller'=
+s
+> are).  Found by syzbot-style fuzzing of 7.2-rc5; the code is unchanged in
+> current mainline (checked against 7.3-rc5 sources).
+Can you confirm if an attached patch fixes this issue?
+Thanks!
 
-It reproduces on Panther Lake (IPU 7.5) with a plain capture and no PSYS
-involved:
+--000000000000975b3b065dae3a48
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-ntfs-fix-NULL-dereference-on-index-allocation-open-f.patch"
+Content-Disposition: attachment; 
+	filename="0001-ntfs-fix-NULL-dereference-on-index-allocation-open-f.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mv5yttj70>
+X-Attachment-Id: f_mv5yttj70
 
-  v4l2-ctl -d /dev/video16 --stream-mmap --stream-count=10
-
-The frames themselves are fine. With a single camera the flag is cleared
-again right away, because the ISYS runtime suspends after the stream
-stops. When something keeps the ISYS powered, such as a second sensor in
-use or its PSYS child device, the flag stays set and every later open of
-any capture node fails with -EIO:
-
-  intel_ipu6_isys.isys intel_ipu6.isys.40: isys power cycle required
-
-The staging ipu7 driver has the same loop over the active list in
-return_buffers() but no need_reset. The IPU7 firmware apparently does
-not hand the queued buffers back on stop, so leftover buffers are the
-normal case there. Skip need_reset for IPU7.
-
-Tested on a Dell XPS 16 DA16260 with an OV08X40 and an HM1092: repeated
-start and stop of both sensors, alternating, with the PSYS in use for
-the OV08X40. No reset message and no failed open.
-
-Fixes: 3c2f7033a924 ("media: ipu6: Warn if the active list isn't empty when returning buffers")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
----
-
-RFC because I am guessing at the firmware behaviour from what the staging
-driver does. If the buffers are supposed to come back on stop on IPU7 as
-well, then the bug is elsewhere and this only hides it. Based on
-media-committers next d7e7bca71698.
-
-This came out of retesting the HM1092 on the ipu6 driver, as you asked in
-the other thread. The sensor itself works properly there: v6 plus my ACPI
-patch binds on CSI-2 port 2 and streams Y10 648x368 at link frequency
-180480000, and IR face authentication works on the frames. No ipu7 format
-patch is needed. One thing for Ramshouriesh: v6 no longer builds on
-media/next, set_fmt and get_selection need the new client_info argument.
-I will send v2 of the ACPI patch with these results.
-
- drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-index 23d00e1..4a5f518 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-@@ -463,6 +463,13 @@ static void return_buffers(struct ipu6_isys_queue *aq,
- 
- 	spin_unlock_irqrestore(&aq->lock, flags);
- 
-+	/*
-+	 * On IPU7 the buffers still queued to the firmware are left on the
-+	 * active list by every stream stop. That is not an error there.
-+	 */
-+	if (IS_IPU7(av->isys->adev->isp))
-+		need_reset = false;
-+
- 	if (need_reset) {
- 		mutex_lock(&av->isys->mutex);
- 		av->isys->need_reset = true;
--- 
-2.56.0
-
+RnJvbSA5ZmNiNmY3NjNhMTBiN2MyOWU3NTVhMTRjOTI0M2JkZWM4NGY4Nzg3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBOYW1qYWUgSmVvbiA8bGlua2luamVvbkBrZXJuZWwub3JnPgpE
+YXRlOiBUdWUsIDEzIE9jdCAyMDI2IDA5OjE1OjAwICswOTAwClN1YmplY3Q6IFtQQVRDSF0gbnRm
+czogZml4IE5VTEwgZGVyZWZlcmVuY2Ugb24gaW5kZXggYWxsb2NhdGlvbiBvcGVuIGZhaWx1cmUK
+Cm50ZnNfaW5kZXhfbG9va3VwKCkgcmV0dXJucyAtRU5PRU5UIHdoZW4gbnRmc19pYV9vcGVuKCkg
+ZmFpbHMgdG8gb3BlbiB0aGUKaW5kZXggYWxsb2NhdGlvbi4gVGhpcyBlcnJvciBwYXRoIGxlYXZl
+cyBpY3gtPmliIHVuc2V0LCB1bmxpa2UgYSBtaXNzaW5nCmtleSBpbiBhbiBvdGhlcndpc2UgdmFs
+aWQgaW5kZXgsIHdoaWNoIHJldHVybnMgYW4gaW5zZXJ0aW9uIGNvbnRleHQuCgpudGZzX2llX2Fk
+ZCgpIHRyZWF0cyAtRU5PRU5UIGFzIGEgdmFsaWQgaW5zZXJ0aW9uIHBvc2l0aW9uIGFuZCBkZXJl
+ZmVyZW5jZXMKaWN4LT5pYiB3aGVuIHRoZSBsb29rdXAgaXMgbm90IGluIHRoZSBpbmRleCByb290
+LiBBIGNvcnJ1cHQgJEkzMCBiaXRtYXAKYXR0cmlidXRlIGNhbiB0aGVyZWZvcmUgY2F1c2UgYSBO
+VUxMIHBvaW50ZXIgZGVyZWZlcmVuY2Ugd2hlbiBhZGRpbmcgYQpkaXJlY3RvcnkgZW50cnkuCgpS
+ZXR1cm4gLUVJTyBmb3IgaW5kZXggYWxsb2NhdGlvbiBvcGVuIGZhaWx1cmVzIHNvIGluc2VydGlv
+biBhYm9ydHMgdGhyb3VnaAp0aGUgZXhpc3RpbmcgZXJyb3IgcGF0aC4gS2VlcCAtRU5PRU5UIGZv
+ciBnZW51aW5lbHkgbWlzc2luZyBrZXlzIGFuZApkb2N1bWVudCB0aGF0IG90aGVyIGVycm9ycyBs
+ZWF2ZSBubyB2YWxpZCBpbmRleCBlbnRyeS4KCkZpeGVzOiAwYThhYzBjMWZhMGIgKCJudGZzOiB1
+cGRhdGUgZGlyZWN0b3J5IG9wZXJhdGlvbnMiKQpSZXBvcnRlZC1ieTogMXNoMXJvIDx5YW5nZ3Vp
+a3VuMTlAcXEuY29tPgpTaWduZWQtb2ZmLWJ5OiBOYW1qYWUgSmVvbiA8bGlua2luamVvbkBrZXJu
+ZWwub3JnPgotLS0KIGZzL250ZnMvaW5kZXguYyB8IDUgKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCA0
+IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9mcy9udGZzL2luZGV4
+LmMgYi9mcy9udGZzL2luZGV4LmMKaW5kZXggNDQxMGRmMGE4ZjMxLi5hYzIyZDg0MDdhNzcgMTAw
+NjQ0Ci0tLSBhL2ZzL250ZnMvaW5kZXguYworKysgYi9mcy9udGZzL2luZGV4LmMKQEAgLTgxMiw2
+ICs4MTIsOSBAQCBzdGF0aWMgaW50IG50ZnNfaWN4X3BhcmVudF9kZWMoc3RydWN0IG50ZnNfaW5k
+ZXhfY29udGV4dCAqaWN4KQogICogYWZ0ZXIgdGhlIHNlYXJjaCBAa2V5LCBpLmUuIHRoaXMgaXMg
+dGhlIHBvc2l0aW9uIGluIHRoZSBpbmRleCBhdCB3aGljaAogICogYW4gaW5kZXggZW50cnkgd2l0
+aCBhIGtleSBvZiBAa2V5IHdvdWxkIG5lZWQgdG8gYmUgaW5zZXJ0ZWQuCiAgKgorICogSWYgdGhl
+IGluZGV4IGNhbm5vdCBiZSBzZWFyY2hlZCwgYSBuZWdhdGl2ZSBlcnJvciBjb2RlIG90aGVyIHRo
+YW4gLUVOT0VOVAorICogaXMgcmV0dXJuZWQgYW5kIEBpY3ggZG9lcyBub3QgZGVzY3JpYmUgYSB2
+YWxpZCBpbmRleCBlbnRyeS4KKyAqCiAgKiBXaGVuIGZpbmlzaGVkIHdpdGggdGhlIGVudHJ5IGFu
+ZCBpdHMgZGF0YSwgY2FsbCBudGZzX2luZGV4X2N0eF9wdXQoKSB0byBmcmVlCiAgKiB0aGUgY29u
+dGV4dCBhbmQgb3RoZXIgYXNzb2NpYXRlZCByZXNvdXJjZXMuCiAgKgpAQCAtODc3LDcgKzg4MCw3
+IEBAIGludCBudGZzX2luZGV4X2xvb2t1cChjb25zdCB2b2lkICprZXksIGNvbnN0IHUzMiBrZXlf
+bGVuLCBzdHJ1Y3QgbnRmc19pbmRleF9jb250CiAJLyogQ2hpbGQgbm9kZSBwcmVzZW50LCBkZXNj
+ZW5kIGludG8gaXQuICovCiAJaWN4LT5pYV9uaSA9IG50ZnNfaWFfb3BlbihpY3gsIG5pKTsKIAlp
+ZiAoIWljeC0+aWFfbmkpIHsKLQkJZXJyID0gLUVOT0VOVDsKKwkJZXJyID0gLUVJTzsKIAkJZ290
+byBlcnJfb3V0OwogCX0KIAotLSAKMi4zNC4xCgo=
+--000000000000975b3b065dae3a48--
