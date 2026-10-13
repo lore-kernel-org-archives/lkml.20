@@ -1,191 +1,164 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F1C3FD955
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890002; cv=pass; b=ic7C2Vkxla1JX6gI6KyEF+52770BDLT1+npHKnJUHBhvsyfSkNFMWLYL8+6XRlMipvwqO7J9YcQXMtkAm73HDGeMts1LEdOvuY6jjiQu47nr3whnjVBcphsENKieJXflziAn4ZWTNh5fBnIZ91p6mkh8tntkZ6bN9psI16jbIvY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890002; c=relaxed/simple;
-	bh=W6WTGsXRBI8mYN8L0qSr5GQI9BhXSERGgvRH9PMEXzM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FC44PRsZN9yaMdQA3oHJ+UqvRc3FrwgG1jqLfqJwTM4Kca/zY+BcCZ95NUwMc2qPwp6wwkNwM9HPwt6rydr+kOt6aEwCxf71DYiyoINawfdJFLHP1BnXlWq6QRiEUv8wtOWYoVGuizrv9Nmj2lzn59MBPoUcYOU59AxtowiBSZ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=IDIGWwIa; arc=pass smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F057238C2A7;
+	Tue, 13 Oct 2026 11:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791890067; cv=none; b=Y3mPNd1l9MQwFL/ILo07vLLjnndhiOWyZ28K6VGROmlj0nGBPgRiM6w51OrcMKnyeO/GiHT0ab5LGf+P707PG4OpxFz15MdhC/HPkygCPEeM/L2OjPvXVWQmGHA0qtgSmPPB3C3v7VdF+JESPsY6KDdsc2tq252bWifx8Urmu00=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791890067; c=relaxed/simple;
+	bh=C0gTQkKfJiaXwRj0Z/DdK3x3GiSMWPr/NCOf2/zM7ZY=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=quMpz026Z8MY4gTQbV7TZbGzpmFZxR+FiaAZs1pMub7abyVMoXYmoXEGJcSmD2ysYzfM8UfjHtPgwCKwrt+M/6SPdrPImQpdAY4/TpjfyZtnCFdhzCLBS4xTo8GO4oHuV8waG3R5iZD/1nys0HQ9zQkkaZThXsgyRDdyASp5eLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nnk5byLe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="IDIGWwIa"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so33872055e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:13:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791889998; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k1zfH87FsUb2skqTI9dEff9GrrMJ81IAcouqulsuHJnxbWvnvgmwdLH+sZjXhNRmci
-         qT1Tvt0FF2rcR+6HXiohvw+qsEB6uH7ehUyCsEN8dNA6qNEo6ivFIyx+p1B7HEIw3GCb
-         sUxWsFlfuUtOeLiOEHPz/NtzagA7BVmiIh6aSXXG/MreF8NW0JnIrfCH7+0t6dKQtMRI
-         2ZzgZ46/zHsL2ShZuGIw/hSiOhJoKIbe0TVE5xvSTaLu9HPsCdo2X7gcE8sXFlQxspWy
-         GnBWK2+P1igfiRBFr7lh6+YzWLBrAsj+D/B7vckrtzNWEguREUs3lczh74KdYtNLqFkz
-         hjmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=0al2L/zJTanu+94NFMRYKtJkCF8mmt8cwR1wMSTnrxE=;
-        fh=s5Qcc4LmYxP+90GxeUFGbJywuZXCxxXHGKDzi+nEyK8=;
-        b=dnXY3Dewd3SMyNPU2SLD3KFPxNekGzNRh9ZS/TUOjjtSjcOFqMGDspzEy7GI9rURxv
-         9ia35ryUtzPSPR6SKvsIPC/QKgy7mHGV+7/w2mj4oM6mGAJ4F78dlCWwbcpwB+/TEBUK
-         6WPWWVQiyDCgy5D9Hxx1EU4Z2lo/xmKjyN/E6NMMJjjd+ZBvEwD29SVj7k679yeClA39
-         7AZoTw4hmtc7zai2eyrwG85RgkHMz4zOTnTPG4CEI8bwKPjab4xlEcPZMUNYr3S7nYzF
-         RnG3MOpjOhFLQTVmvq4mDRKSpaKhjrfQZnJajV8fDARUVCNHn8bV68QD6qjxrCML1KTe
-         VX3A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791889998; x=1792494798; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0al2L/zJTanu+94NFMRYKtJkCF8mmt8cwR1wMSTnrxE=;
-        b=IDIGWwIaut2bLfX+1Caef8inF88Pe78St8VQXsVqGztxP7FsItbyyEyMA1bU1h0LMT
-         8cWmtJaHOnOfTNtDToQaepRJhOE1Hw0Cs44t6osAKR5r5XtWhfmnxM0DOQHiFeUg9hk9
-         ZPdADdd/gidkGqSc6TLzBRzb19hZpVvSE4UqvSvqdhQN7yjSBSscYk0ufdn20XfDrKg8
-         7oPB2JTvaPM9yTjcjtPXbB0loYtY8qt3Tbyjjys4hSQbFuy29Ckkbyb4TJCCgWAKw0x7
-         MGNpEi19nI3TqrXspZSVMx3+JeTmv1QoYUxRHdbvME5KdJ3mKWakJrxM/m5BfJDJAbxz
-         wEew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791889998; x=1792494798;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0al2L/zJTanu+94NFMRYKtJkCF8mmt8cwR1wMSTnrxE=;
-        b=FkDV/sWPoyIKAy/wG7xVJ6eSQxGIKTx1KO/wkUcet0nCzSN6CvVvuoT++9xE3kcLGc
-         oz5yg6qhP7VB9PDtKhrovo42jSlo9gsgxUrL5XMXAOi8O/33Ma0oBJnu2EdIC9GcuTPb
-         F0SnpptVtG8Nbgt6QGDVxA9bQdUaC/8AmnUDOmJwqdZ3Gach1sM1yULmItLQnoijK9Yi
-         ucUfcO3o+dh1aaVUdW/K9Zr1Zy3P7TTGWBlOZ4vAW39vUt66OycaN3m2BcYx0elaPpCj
-         6bbsWDuRuNKkYw76UKuw1JeFBsod0DXh6TM+eaptTR4sDN755aGev2M+3ePh7SNw6DPM
-         zOBg==
-X-Forwarded-Encrypted: i=1; AKwUvByjeuAB1l/E+6kqw5kH0my97SYg8V0PWTn8NCvcHSRBHvY3vUYbWq3scMpnngXk1X/wDFw+VlivU/Ve1T0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwLzRYOcoQCG5xpm+rw0/sXAkCQFUTAmL5bJHKyz45w5dUSc5j
-	WBpoiIw3sL0fodGzYuepztlCSTqYONHLG5zEdXTjQ7ZSKwmVOieWJe2NRIICOt4DmIYiYKWSWBL
-	nnlNP3STArA8XgcXUOQkrbh8+aC70XZJ6SqaGxB8wiQ==
-X-Gm-Gg: AYBFou2/3jsmBkG4sUuEssHnktx6QL31RrGi/y63tA0lDZxdcTseLQXxRFfqvML3jcI
-	GeLUg70Q6Lv84rlD8rp7KE/b7VfD1MQrRfaKkdTUA186AmMblA/l3NiTqsBAWtl2Cwhbtnmt5Ey
-	+NeNGYtydAdcPyicuicLPZo309naitaKeQO+J43ReubD18vhS9mu0RqhXtjw3CATXHitXlSMzpE
-	7LtVCxwpHDk5KObz5VC6VoPernaTQuzhkbXOG5EWxVxRiyxfN33H5n+exR34Q7aEoR5MOivO04e
-	8auqUXiUH08S1REAowdtgUSk4KPrUiLqeoL78DxUXwVDveOUqJln/U2ThzUfRIBsA9wxYTRR+cF
-	E0U10u1IQZO4gSHGw9oeUTgTWN44R6eDwVmUTVVh3cct/Yd522fOLxg==
-X-Received: by 2002:a05:600c:6099:b0:4a0:1feb:de6a with SMTP id
- 5b1f17b1804b1-4a18e4e7a85mr231148915e9.30.1791889998109; Tue, 13 Oct 2026
- 04:13:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nnk5byLe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC31D1F000FF;
+	Tue, 13 Oct 2026 11:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791890065;
+	bh=dc7KQNlT5te20bdDQ9rLLBUL1Fuz9llyPp+PLk0sHzA=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Nnk5byLesQLXbv0bHZlsGZ9LM3aGVUvicmPT7+/5Mg1bFSKLuHWhlsJBd0U55My7O
+	 blK8TZos2/XOTOVt0VceZt3NksfyRKcqNpMKyTpzLjzi9FUnF//mp87qjCpWdBqUMB
+	 azY5EH9MXqA9CPGLnc72q1nQkz6scZf14GcwpTQ6VKvRMgXKxBKuuSJMs6TCZjvbUr
+	 lNOqyDvaaJ0W0t093FN+jf8ydCgxD8HS6yTN5SGHDJL18oH5ajHl7jbkxgYxxSVIhH
+	 XEPGubdc1ZP9L7KDH0OnzYFifhLwNHMHXqJLRGNuAN7u0/V1vESg+WHD9DtUYgHT6Q
+	 PX7DffQBzXJRQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <eb63c9f9-a158-4a70-b3ed-30046b15de11@wdc.com> <20261007160349.22411-1-adarshdas950@gmail.com>
-In-Reply-To: <20261007160349.22411-1-adarshdas950@gmail.com>
-From: Daniel Vacek <neelx@suse.com>
-Date: Tue, 13 Oct 2026 13:13:06 +0200
-X-Gm-Features: AclHuK8-yEscoTG0Qgn4MHnDQBj5lanM9_dYA2t6goTepP0TOEot4V9lOrBTODE
-Message-ID: <CAPjX3Fd-MEY5mMk9eu_3ukhZ7yixhWSqECEALCAVFHA0P6HYDg@mail.gmail.com>
-Subject: Re: [PATCH v2] btrfs: unwind device add when sysfs registration fails
-To: Adarsh Das <adarshdas950@gmail.com>
-Cc: johannes.thumshirn@wdc.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mason@kernel.org, 
-	syzbot+3bf3e110b2d406b8166c@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH RFC 2/4] media: qcom: camss: vfe: Describe the IFE
+ pixel pipe per version
+From: bod@kernel.org
+To: William Bright <william.bright@imd-tec.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261013-sm8550-camss-ife-v1-2-d50de00077b7@imd-tec.com>
+References: <20261013-sm8550-camss-ife-v1-0-d50de00077b7@imd-tec.com>
+ <20261013-sm8550-camss-ife-v1-2-d50de00077b7@imd-tec.com>
+Date: Tue, 13 Oct 2026 12:14:21 +0100
+Message-Id: <179189006178.1758911.17982209799976904817.b4-reply@b4>
+X-Mailer: b4 0.17-dev-e5aa4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4714; i=bod@kernel.org;
+ h=from:subject:message-id; bh=C0gTQkKfJiaXwRj0Z/DdK3x3GiSMWPr/NCOf2/zM7ZY=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqzhKN7+YeoNBamNwwy1N+zWAeFmf+i1A+7MNTn
+ 1Da3gHlbnOJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCas4SjQAKCRAicTuzoY3I
+ OlamD/92Xm6W1fDDg7lSms8HHJPyGTRC4OvzLGPnGko/9l91bGX43n14wWRaD74+n7tzswrstnf
+ yypa76WKoHJNeQ28B535PXEyva3c2AbRjkrmE/4JOK+gRn0aD63zuxsZRBXCchAZHNBp0JTv0GK
+ HhiqIm8QMluOWTWS0bnBCOZg2z1NjCNE1cUXmg6nkW1NEnTo77hWFpCaFgJe3mGc8wVvLzYSbLw
+ B9w6UnlWsFhHMdycoG0Pv7eklZnX/6j/W/s7XF9V9yJ91q7BhrIPidNdjMMhollMPPsOMk9Y+di
+ 2eAzz5M6JcP9OUllskAYk/RcmVY+wHpdl93VwANxVYwY0jb7dYquyfCZAAGt3L+8fo+gv7qmOrf
+ TFgA7HuGDXm/SeLzuL9llThKMHiuazdL48zRuRRKX7EawtKcT+gFrbSUbWS1jIjTSh9fTkNZTRb
+ uZQ9zaYZeP+wWDLuAQeIAxX8BJIUZvX1Jv7UZtW2rXI8GniQ07BQfDGbULpEeg8oPsnHnuKAHTi
+ mnxKyz9PV8Ugtdst3RSxyOeV9JiqYxRxh1HOOmaC0LgXNCRP9udGiRZnXVCLZUayzgbwt/pfBng
+ Aj4xpH3cib9S9eCCIAUz/aC8GdAFJRxOl3gVHJ2NC5Yp4+il4qQC/H4pBdROKaURWiIzXJYJgqj
+ oX5Weh6RcbqLOeg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Wed, 7 Oct 2026 at 18:04, Adarsh Das <adarshdas950@gmail.com> wrote:
-> btrfs_init_new_device() ignored the return value of
-> btrfs_sysfs_add_device(). When sysfs link creation failed (e.g. -EEXIST),
-> the add path continued, aborted the transaction with the same errno, and
-> tripped WARN_ON(btrfs_abort_should_print_stack()) while leaving the device
-> half-registered in memory.
->
-> Check the return value and unwind when registration fails, without
-> aborting the filesystem for errnos like -EEXIST. If add failed before
-> anything was published in sysfs, tear down the in-memory device state only
-> and do not call btrfs_sysfs_remove_device(). When the block-device link
-> was created but devid kobject registration fails, drop the link inside
-> btrfs_sysfs_add_device() before returning the error.
->
-> Reported-by: syzbot+3bf3e110b2d406b8166c@syzkaller.appspotmail.com
-> Link: https://lore.kernel.org/all/6a791c94.01d0871a.3a0d52.0099.GAE@google.com
-> Tested-by: syzbot+3bf3e110b2d406b8166c@syzkaller.appspotmail.com
-> Assisted-by: LLM
-> Signed-off-by: Adarsh Das <adarshdas950@gmail.com>
+On 2026-10-13 09:44 +0100, William Bright wrote:
+> The SM8550 IFE 780 runs the same pixel pipe register map as the
+> SM8650 IFE 880 but holds its WB gain in a different format.
+> 
+> Pass the pipe a small description of what differs between the IFEs
+> that run it, starting with the WB gain value for full scale, and keep
+> the IFE 880 on its current 4.0. No functional change.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: William Bright <william.bright@imd-tec.com>
 > ---
-> v2:
->  - Unwind without sysfs remove when add failed (review on v1)
->  - Roll back block-device link if devid kobject add fails
-> v1: https://lore.kernel.org/all/20261003111951.24527-1-adarshdas950@gmail.com/
-> ---
->  fs/btrfs/sysfs.c   | 3 +++
->  fs/btrfs/volumes.c | 7 ++++++-
->  2 files changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/btrfs/sysfs.c b/fs/btrfs/sysfs.c
-> index 39cb01ee441a..2f034689e71b 100644
-> --- a/fs/btrfs/sysfs.c
-> +++ b/fs/btrfs/sysfs.c
-> @@ -2165,6 +2165,9 @@ int btrfs_sysfs_add_device(struct btrfs_device *device)
->         ret = kobject_init_and_add(&device->devid_kobj, &devid_ktype,
->                                    devinfo_kobj, "%llu", device->devid);
->         if (ret) {
-> +               if (device->bdev)
-> +                       sysfs_remove_link(devices_kobj,
-> +                                         bdev_kobj(device->bdev)->name);
->                 kobject_put(&device->devid_kobj);
->                 btrfs_warn(device->fs_info,
->                            "devinfo init for devid %llu failed: %d",
-> diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-> index 85ea9c5d4536..56b38f012093 100644
-> --- a/fs/btrfs/volumes.c
-> +++ b/fs/btrfs/volumes.c
-> @@ -3066,7 +3066,11 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
->         mutex_unlock(&fs_info->chunk_mutex);
->
->         /* Add sysfs device entry */
-> -       btrfs_sysfs_add_device(device);
-> +       ret = btrfs_sysfs_add_device(device);
-> +       if (ret) {
-> +               mutex_unlock(&fs_devices->device_list_mutex);
-> +               goto error_unwind_device;
-> +       }
->
->         mutex_unlock(&fs_devices->device_list_mutex);
->
-> @@ -3147,6 +3151,7 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
->
->  error_sysfs:
->         btrfs_sysfs_remove_device(device);
-> +error_unwind_device:
->         mutex_lock(&fs_info->fs_devices->device_list_mutex);
->         if (seeding_dev)
->                 btrfs_assign_next_active_device(device, seed_devices->latest_dev);
+>  drivers/media/platform/qcom/camss/camss-vfe-780.c    |  8 +++++++-
+>  drivers/media/platform/qcom/camss/camss-vfe-880-pp.c | 20 +++++++++++++-------
+>  drivers/media/platform/qcom/camss/camss-vfe-880-pp.h | 10 +++++++++-
+>  3 files changed, 29 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
+> index 6d483f917d15..c2ffe39f929a 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
+> @@ -236,12 +236,18 @@ static inline void vfe_reg_update_clear(struct vfe_device *vfe,
+>   * Program the pixel pipe outside output_lock, before the write masters and
+>   * the IPP reg update that latches both.
+>   */
+> +static const struct vfe_pp_desc *vfe_pp_desc(struct vfe_device *vfe)
+> +{
+> +	return &vfe_pp_desc_880;
+> +}
+> +
+>  static void vfe_line_prepare(struct vfe_line *line)
+>  {
+>  	struct v4l2_pix_format_mplane *pix = &line->output[0].video_out.active_fmt.fmt.pix_mp;
+> +	struct vfe_device *vfe = to_vfe(line);
+>  
+>  	if (line->is_pix && pix->pixelformat == V4L2_PIX_FMT_NV12)
+> -		vfe_880_setup_pixel_pipe(to_vfe(line), pix->width, pix->height);
+> +		vfe_880_setup_pixel_pipe(vfe, vfe_pp_desc(vfe), pix->width, pix->height);
+>  }
+>  
+>  static const struct camss_video_ops vfe_video_ops_780 = {
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
+> index 9b4bdad6d396..f962016ef3c6 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
+> @@ -313,8 +313,13 @@ static void vfe_setup_chroma_downscale_nv12(struct vfe_device *vfe, u32 w, u32 h
+>  	writel_relaxed(0x00000000, vfe->base + IFE_DOWNSCALE_MN_C_VID_OUT_DOWNSCALE_MN_C_V_PHASE_CFG);
+>  }
+>  
+> -/* Demosaic + WB: sub offsets 0, gains 4.0, add offsets 0 */
+> -static void vfe_setup_demosaic(struct vfe_device *vfe)
+> +/* IFE 880: Q10 gain of 4.0 */
+> +const struct vfe_pp_desc vfe_pp_desc_880 = {
+> +	.wb_gain = 0x00001000,
+> +};
+> +
+> +/* Demosaic + WB: sub offsets 0, full scale gains, add offsets 0 */
+> +static void vfe_setup_demosaic(struct vfe_device *vfe, const struct vfe_pp_desc *desc)
+>  {
+>  	writel_relaxed(0x00000001, vfe->base + IFE_DEMOSAIC_MODULE_CFG);
+>  	writel_relaxed(0x00000080, vfe->base + IFE_DEMOSAIC_INTERP_COEFF_CFG_0);
+> @@ -322,9 +327,9 @@ static void vfe_setup_demosaic(struct vfe_device *vfe)
+>  	writel_relaxed(0x00000040, vfe->base + IFE_DEMOSAIC_INTERP_CLASSIFIER_CFG_0);
+>  	writel_relaxed(0x00000066, vfe->base + IFE_DEMOSAIC_INTERP_CLASSIFIER_CFG_1);
+>  	writel_relaxed(0x00000001, vfe->base + IFE_WB_GAIN_MODULE_CFG);
+> -	writel_relaxed(0x00001000, vfe->base + IFE_WB_GAIN_WB_CFG_0);
+> -	writel_relaxed(0x00001000, vfe->base + IFE_WB_GAIN_WB_CFG_1);
+> -	writel_relaxed(0x00001000, vfe->base + IFE_WB_GAIN_WB_CFG_2);
+> +	writel_relaxed(desc->wb_gain, vfe->base + IFE_WB_GAIN_WB_CFG_0);
+> +	writel_relaxed(desc->wb_gain, vfe->base + IFE_WB_GAIN_WB_CFG_1);
+> +	writel_relaxed(desc->wb_gain, vfe->base + IFE_WB_GAIN_WB_CFG_2);
 
-I'm wondering why not this?:
+wait ... doesn't this write the same value as was already there...
 
-@@ -3066,7 +3066,9 @@ int btrfs_init_new_device(struct btrfs_fs_info
-*fs_info, const char *device_path
-        mutex_unlock(&fs_info->chunk_mutex);
+ah ok your description says no functional change.
 
-        /* Add sysfs device entry */
--       btrfs_sysfs_add_device(device);
-+       ret = btrfs_sysfs_add_device(device);
-+       if (ret)
-+               goto error_device;
+>  	writel_relaxed(0x00000000, vfe->base + IFE_WB_GAIN_WB_OFFSET_CFG_0);
+>  	writel_relaxed(0x00000000, vfe->base + IFE_WB_GAIN_WB_OFFSET_CFG_1);
+>  	writel_relaxed(0x00000000, vfe->base + IFE_WB_GAIN_WB_OFFSET_CFG_2);
+> @@ -611,11 +616,12 @@ static void vfe_setup_ds16(struct vfe_device *vfe, u32 w, u32 h)
+>  }
+>  
+>  /* Called from vfe_line_prepare() for NV12, ahead of the write masters and the IPP reg update */
+> -void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, u32 w, u32 h)
+> +void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, const struct vfe_pp_desc *desc,
+> +			      u32 w, u32 h)
+>  {
+>  	vfe_setup_core_config(vfe);
+>  	vfe_setup_chroma_downscale_nv12(vfe, w, h);
+> -	vfe_setup_demosaic(vfe);
+> +	vfe_setup_demosaic(vfe, desc);
 
-        mutex_unlock(&fs_devices->device_list_mutex);
+yeah it looks OK in principle probably implies some SoC specific params
+will be required for all/some of these setups.
+---
+bod
 
-@@ -3148,6 +3150,7 @@ int btrfs_init_new_device(struct btrfs_fs_info
-*fs_info, const char *device_path
- error_sysfs:
-        btrfs_sysfs_remove_device(device);
-        mutex_lock(&fs_info->fs_devices->device_list_mutex);
-+error_device:
-        mutex_lock(&fs_info->chunk_mutex);
-        list_del_rcu(&device->dev_list);
-        list_del(&device->dev_alloc_list);
-
---nX
