@@ -1,116 +1,103 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AB552FE35
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071C552F277;
+	Tue, 13 Oct 2026 18:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914925; cv=none; b=kMvPzN0S+RTm7SQv3/cSvoWn+QUW7fjxXzBWZo0logKsa20Esv0Nqwi0rHQxNJx43ECk0kFSk2dFOs1jGLgxl4sVsEuEtEkRe0TIwWvR//J1rn6xYvAT53b7Aa9cYjaBA+xKIe0rkemkevV9PWN1JOvf1Fh+p0ZKbCpGDovN8+M=
+	t=1791914965; cv=none; b=i79o+VHhjPXdAgycGQ86L1hIwcQBXjghZ7urZZuG0yZi5+efDQW8m93djmaWVcslUa4nlxJU8BGnYgRoLeom5TumtSPEsNeg7hudUXdAH4bE4tCQCrrtygxLcyk382bt80OyBx2kEa6iyuPVc5YAVRaaLfNUwAeObyU4Vz2dwNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914925; c=relaxed/simple;
-	bh=KZ7Ikw84/BJY3cQYIRg78sbHTdWFC0jbvTc+oRhuWZw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rdyeHXoGF3y0K+HNvc/JiVHJYoaigDzNSMnHqyJLZdYaVi4GEzR0fxKqpgBESrJA6xbldbelA+r47YtXhjIOjKViNfZFruy3GjxvfvEvP5mJwIPi/e324pvliJjOCeKc2tRO5kKy1kDM6QEFQsYYePV5fVcEvEOW8lvMZDBm8CQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=OU6DO7O/; arc=none smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
+	s=arc-20240116; t=1791914965; c=relaxed/simple;
+	bh=ra9TmfFPSk6PZ5bwWVQRAqd0nkB2k78Y7v0WgbbMMDw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=btscK46G9x7nGvfTfCfBEVEFL2ZUeAbVxrZPxqYruQFNN1sKnQxgV99kXcmedPkbxQKyEdysCbFNP8u5IEQuK+9tlAbdAL1XTX+e+ZlygVc4XEdcKd7DK35SxLgTPHnnKUsOQXqePAdpmlq+soHHi9RDBwlff8ivZrRkXmRfiN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HEjTltkS; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="OU6DO7O/"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-30b6dad2382so7561257eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:08:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1791914922; x=1792519722; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KZ7Ikw84/BJY3cQYIRg78sbHTdWFC0jbvTc+oRhuWZw=;
-        b=OU6DO7O/n47QDkP/6ToBGE9uBdfSFxh1qTMQgIUPczVjSDP72WNsLKPTuX9LYtkikB
-         p18y3yTeeAryzeZSji5vOM/KmQ/9TFPmlD8P4nG8VJkfNhRikQNkrVyfRvYFYS1O3ZW0
-         qTBXkbv3VLzQwTKq8YHdGeKuMCronoX7eqx/GHVEkdtI+CLGTIX5EVCdxo7WLydY1h0d
-         QSkmReGcz421PylsasTyX0ESpjzTch4P196B0f61KolydsobT3OZtTOD9cZg+l8PiDfn
-         AND4uFS8X6nHYhBKenRPKx5FJiX6zrwSddead/FlKPPvYfsC7cxqeKDGg2NQ9EXDpX61
-         NyhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791914922; x=1792519722;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KZ7Ikw84/BJY3cQYIRg78sbHTdWFC0jbvTc+oRhuWZw=;
-        b=0EkOqshufBmJbq//dNq4ZCQ9SOQkVwnW8HnqnENVtI4go4DyNhlI76PNH79RiOHTwf
-         7SfsaT3yeoot/nbJd2q3kc1/MdH9049xTkKZUwuMT6l+8GA4RYs6SXZ4D4G8UQNHBhss
-         X6evAgHekIWaU3m+ntONeQ0wQFh2cbOh5TRns5vGw/4gx2VdblKIxqoX/g4LCtwlPZzO
-         UkbZ1vyuwdrU/vxm9pOppgC4wVQtcIkbN4DqZgMMJO2255Q+ftsCJlxXB7K8uNDbjdDG
-         uSSvIyoVji4IstKrLlnZ6Ba2ppXOsuZci843zp/fPNhZpj08MQM4r/I4389XEG5vAZHU
-         sANg==
-X-Forwarded-Encrypted: i=1; AKwUvBwa/yLd4G47r5JNXfbRPhwfMdw56tbOBW+y4oOarfVijSv8Beu88AQR7SjI6x1OQeFsGmEJYym5vQ4CKdY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHzOPCQwv4EiCD1u+n8LUW//aKuJ9pwpAJ2v4XNg/93yi3Xd73
-	Nmn0Y0r17gs88yvK9iBnzmOMe+emXvP+3q9nQWDud89zU/B4JJ8v+6EJy1Y7S0thRVI=
-X-Gm-Gg: AYBFou1SmcCaGKLYvrp2g0xaNeyom0iz38DSt/Ly8i/I8AuI+6Fv5ma+4+0tpFzfKNM
-	btSiqO+bQWl+hZaDrZTm3WuM/CyeSCT1Oazrm4rVFZMqrS1vol4VnbIxlMUUrfJF1hTATUkGNOw
-	kOb5XT3NIug6nxKbk+VF23QHRPOJhkqK72+TnVG8H8eSqU6jbzqt91ouyF+A9KwV3mVF/PqjLuf
-	P0j6fKWA1G8AFrj4Bjoek25IOPvDAlEM+bTnzVIzZBGDwDj0Ieg8CC/rq0t1NASxS29Zdud1cdM
-	pBqImzRGacMA49nB7wflSChgiD39nv8vdFXusG1lIA2jO2Mw0Pm2NP7zRMo5/mv7bMnpc1EYx4O
-	7pFT075sJTjkMdk73lJrTV3QKwjwmoblyCMHCYJ3onSpCJBKh+SS4ZBYQsX6vkBe7l33kvELXKs
-	ZIH57Cbzq+WmJB2rRNJEX/GoHmr8qWnmpKbTTlLrvaefumUuq91lTLgFlu605nRHSAjrJN7XlWT
-	2kMEGe678D18YWts/JlvRHd/1l5Q0pA8N+ShjMZ5eTdbIMeI2XrTrVLOz2ZPiZ+
-X-Received: by 2002:a05:7300:c01b:20b0:354:b5d7:5a8f with SMTP id 5a478bee46e88-354b5e69defmr19403315eec.30.1791914921826;
-        Tue, 13 Oct 2026 11:08:41 -0700 (PDT)
-Received: from devbox.ts.blockcast.net ([69.25.95.32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm43649502eec.28.2026.10.13.11.08.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 11:08:41 -0700 (PDT)
-From: Omar Ramadan <omar@blockcast.net>
-To: netdev-bot+sashiko@kernel.org
-Cc: Taehee Yoo <ap420073@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Simon Horman <horms@kernel.org>
-Subject: Re: [PATCH net v3 0/6] amt: relay tunnel lifetime, validation and request-path hardening
-Date: Tue, 13 Oct 2026 18:08:36 +0000
-Message-ID: <20261013180837.1282896-1-omar@blockcast.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012125943.558629-1-omar@blockcast.net>
-References: <20261012125943.558629-1-omar@blockcast.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HEjTltkS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791914963; x=1823450963;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ra9TmfFPSk6PZ5bwWVQRAqd0nkB2k78Y7v0WgbbMMDw=;
+  b=HEjTltkSl6fHf8GBt4T3Qr6Fsf8JupliLoBbKg7XdpSGj9ddXJyYcWXB
+   Vi326TB02X5pcb8wCaeqlcCLTeMN70fJNqgTqtl495sPQOywi9SbcD4A7
+   HK1c8JWRIkd5gC3F5mTgEF6IZGMNaam0yLIdEtpar7BjE9Mt+Cdqk5kbb
+   vZzMVPO66gk2uKPxsiDzZXxCFFRh4VcucHNlIu1MFM5PrKqI6uLvX1zcC
+   P7pQpj0BW7bHXvYZt0gGYYlINwlEoQdsDJIEE4Ad4ucsKCcKPabuRyzYb
+   cRO3V9mJk1KQZDUhIMfCxhpie9TFFTWpAvp72HYqyXxJJvGrYH+gQ5++U
+   w==;
+X-CSE-ConnectionGUID: AEVheA6BQTqsYIe5sx7aQg==
+X-CSE-MsgGUID: J/e5rPYwSoifx2Q115IqSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="659396"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="659396"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:09:21 -0700
+X-CSE-ConnectionGUID: 8mlNk+jsQS2G3by8VXzeOQ==
+X-CSE-MsgGUID: Dcp/WFp+See0oScltxFBUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="2987263"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:09:18 -0700
+Date: Tue, 13 Oct 2026 21:09:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jan Remes <ciakval@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
+	stable@vger.kernel.org,
+	Martin Triska <martin.triska@mycroftmind.com>
+Subject: Re: [PATCH 1/4] iio: light: tsl2591: don't divide by zero
+Message-ID: <as5zy1LRyE5hr6vn@ashevche-desk.local>
+References: <20261013143943.436816-1-ciakval@gmail.com>
+ <20261013143943.436816-2-ciakval@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013143943.436816-2-ciakval@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thanks for the review. These comments are against the v3 series; v4 has
-addressed the three issues introduced or exposed at those bisect points.
+On Tue, Oct 13, 2026 at 04:39:40PM +0200, Jan Remes wrote:
 
-The Update path now takes tunnel->lock and checks READ_ONCE(tunnel->dead)
-before either the IGMP or MLD report handler. Both tunnel freers set dead
-before clearing groups, so an Update that acquires the lock after teardown
-starts cannot add a group or arm its group_timer. An Update that acquires the
-lock first is covered by the same lock ordering: teardown waits for the
-handler before clearing the group list.
+> The TSL2591 has two raw light channels - CH0 and CH1. The algorithm for
+> calculating illumination from the raw channels requires division by CH0
+> (which can be zero) and by "counts per lux" (CPL) value which is also zero
+> for (gain = LOW, integration time <= 400 ms).
+> 
+> Furthermore, the algorithm assumes CH0 > CH1, which can be violated in
+> almost complete darkness.
+> 
+> As a result, reading from 'in_illuminance_input' results in
+> division-by-zero whenever CH0 is 0 (complete darkness) or whenever the
+> parameters result in CPL being zero. This results in kernel oops on
+> x86_64 and in reading the value as 0 on arm64.
+> 
+> Fix that by:
+> - reporting CH0 <= CH1 as zero (catches also CH0 = 0)
+> - updating the lux algorithm to only do the division at the end
+> 
+> Fixes: 2335f0d7c790 ("iio: light: Added AMS tsl2591 driver implementation")
+> Cc: stable@vger.kernel.org
+> Reported-by: Martin Triska <martin.triska@mycroftmind.com>
 
-amt_dev_stop() no longer uses list_splice_init(). It marks all tunnels dead,
-then removes one tunnel at a time with list_del_rcu() while holding amt->lock,
-and performs cancel_delayed_work_sync(), group clearing, and kfree_rcu()
-outside the lock. Every lockless reader therefore keeps the real list head as
-its terminator, and the post-stop get_or_create() path also rejects creation
-when !netif_running(amt->dev).
+How was it reported? Offline? Off the list?
+Otherwise we have Closes tag to point to the report
 
-The Request-only lifetime issue is removed by v4's final patch. Requests are
-stateless and do not allocate tunnel entries; tunnel state is created only
-after a Membership Update authenticates. last_seen therefore describes a
-valid Update again, and the global and per-source limits cannot be consumed
-by unauthenticated Requests.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-The pre-existing race involving a group_timer callback that is already
-running while amt_clear_groups() calls cancel_delayed_work() remains outside
-this series. It needs a separate lifetime fix for the callback and its gnode;
-we will follow up on that independently rather than widen this stable fix
-series.
 
-pw-bot: cr
