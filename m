@@ -1,110 +1,85 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D704FD268;
-	Tue, 13 Oct 2026 14:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E7B1386C9;
+	Tue, 13 Oct 2026 14:56:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903333; cv=none; b=dNL0XUzQ6rA8lWeN0OjfRJx3s78S2NhCJe6h2E62O//hhGUKJ5bJfPvI+vf/fRC6DKx/tQfG/eeBB1T2RGEHWrv8k6hnl5w8aBg4YDxkDYEYz3P7xE7TFzvCITFAz3rDZzPPWbtKDhoNNaWri5rwoMW1csHWRciZfFix6XiKJPc=
+	t=1791903376; cv=none; b=CJ3jDnzLF/3nwGEIESzduLlZU+6siuH0HmwQNYj0uWPz3zV9kq9V7loFDS9nMpsegMbSRkUBQ50tMPG8qemNRSz7JidnWCQvQ+M2ED0lKiKXfNyr3w6hj2bzv2ETr+1zbBw9BF8nwwArzBXFBt9+Lir1o7JNJu21xJb499gOCJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903333; c=relaxed/simple;
-	bh=Xo0m7VVIUaPwtcfmUqqVROtWZL9F448ygMk93cgJv9A=;
+	s=arc-20240116; t=1791903376; c=relaxed/simple;
+	bh=YF2VkmBRsOzuoyFTDhFxGgzmei/0DrD0kJUmCM8GHXo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CTtIP+hI3DRsjLRb+QZ5N9P//92lkSedL3kRReVJ/1iXt2NzRPp0b4Ee4tYLG86iNwRZOm8vWIz3GtddI74oLs7OQr2L7TlPmKJpK9kEeao07z5MuDXoaSRxfg704TtSFALOLwWMSisqCPsE1wFdfresjsVqj/9gPMgDAg+n3X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fX+oCmtl; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rJjAcbsrYF0LVyCuggFMKgIc/aNKm+HNRS8F1Kwezkgyu3nBiB9+5KS4xia74JFjuURTOhORecRF3RwmzK8ZrDynKttO2U0e/wW4Fllt3Bhz1zWt1c19HHU9+JNJ8xtiEJgzoNAaKiyhf3apP9L1T4gR0QnPgf9OBq17QP73x0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L2cAR/jg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fX+oCmtl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791903333; x=1823439333;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Xo0m7VVIUaPwtcfmUqqVROtWZL9F448ygMk93cgJv9A=;
-  b=fX+oCmtlpKND+O8a/5/L9lmU1PEnKq8zLGssQzszrjpDqIqGQjmsnfD3
-   IkDqKf2crtO3XJdN6JdGKTEOP4pqT4EUIyXi6ZXkiB0RBopX5SZTZz+/K
-   QSMFclx1kE/kpO210l/1mcjjszLdZtwUrKnb49Zm+Y+xkCg7IrpCgyaxo
-   mVLjcDqh65w7hDkqf2WXviyA1p+YYwlCq1QTH2IOeo38bZDzbPxS1hn51
-   t5u+qoKimaly9CgQWvW5kyFUNO64aIFqZVsluj8kCA6kAENBHYVyD3E44
-   l6crsgmhFfac4WCq8KpJ+TpU4WdP59khls2Z3iFYa0pAiALPR1q1szh54
-   A==;
-X-CSE-ConnectionGUID: xGjomppiQKKVXKu/gW8lzA==
-X-CSE-MsgGUID: xjkl5iNfQrikAA54z2t+DA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="532643"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="532643"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:55:32 -0700
-X-CSE-ConnectionGUID: 53eLxZZ8TTWVFx0/oZLHtg==
-X-CSE-MsgGUID: Fed9jcBtSe2kApKT/xbO3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1125043"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 07:55:27 -0700
-Date: Tue, 13 Oct 2026 17:55:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v2 2/8] iio: adc: rzt2h: Wait for the analog part to stop
- after a forced stop
-Message-ID: <as5GXPcMKe-CBLXK@ashevche-desk.local>
-References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261009184122.1378797-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L2cAR/jg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014B71F000FF;
+	Tue, 13 Oct 2026 14:56:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791903374;
+	bh=YF2VkmBRsOzuoyFTDhFxGgzmei/0DrD0kJUmCM8GHXo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L2cAR/jgaFvnqz/+ml4gBaPFTnsa5gwroTiOohvWU86l/GfUyk6Z6537Lqoy5lZz4
+	 uALtttTrmkEn1wiXh2Hyq6rRithWs2EXI9NxdtPammlZW/rv6JIUMMDbD5vPpcbB9b
+	 dHHf60eNDwATIIjbht6BbUQzJbWt9PhSq50EzSpK4Ftafq3nyMhyKH1IUXPNr+I4dX
+	 /xSG/Ak9PzF3BKhbIFKZoPW5CTZY6jSjeDz2fc1Ze3aoPG6Q8YNxnp+NaZeBCWOcNO
+	 Po4nr0oXW1DGpxdJDn0yB/exYR6eY2O4Rsj2/MQmw4w0z0JQWrtoauJA9OfX6Abi8t
+	 5ve6Av9oCu/AA==
+Date: Tue, 13 Oct 2026 15:56:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] arm64: sysreg: Fix the names of two misspelt fields
+Message-ID: <a2e3bd65-f374-4d37-af0f-893308d06892@sirena.org.uk>
+References: <20261013130247.4135515-1-fuad.tabba@linux.dev>
+ <20261013130247.4135515-3-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Sv3KlJBOQ6zDEouw"
+Content-Disposition: inline
+In-Reply-To: <20261013130247.4135515-3-fuad.tabba@linux.dev>
+X-Cookie: Some equipment shown is optional.
+
+
+--Sv3KlJBOQ6zDEouw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009184122.1378797-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Oct 09, 2026 at 07:41:16PM +0100, Prabhakar wrote:
+On Tue, Oct 13, 2026 at 02:02:45PM +0100, Fuad Tabba wrote:
+> Two fields in the sysreg file have the wrong name. In DDI0601 2026-09,
+> bit 10 of HFGRTR2_EL2 and HFGWTR2_EL2, which traps SCTLR2ALIAS_EL1, is
+> nSCTLR2ALIAS_EL1, not nSCTLRALIAS2_EL1, and bits [39:36] of SMPRIMAP_EL2
+> are P9, between P8 and P10, not F9.
 
-> When ADCSR.ADST is cleared to forcibly stop a conversion, the analog part
-> of the A/D converter can take up to 2 ADCLK cycles to stop operating.
-> 
-> Wait for the write to ADCSR to complete and allow the analog part to stop
-> before reconfiguring or restarting the converter.
+Reviewed-by: Mark Brown <broonie@kernel.org>
 
-...
+--Sv3KlJBOQ6zDEouw
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +	/*
-> +	 * When a conversion is forcibly stopped, the analog part of the A/D
-> +	 * converter takes up to 2 ADCLK cycles to stop operating. Read back
-> +	 * ADCSR to make sure the write has reached the hardware before
-> +	 * starting the delay.
-> +	 */
-> +	readw(adc->base + RZT2H_ADCSR_REG);
-> +	ndelay(DIV_ROUND_UP(RZT2H_ADC_STOP_CYCLES * NSEC_PER_SEC,
-> +			    adc->adclk_rate));
+-----BEGIN PGP SIGNATURE-----
 
-A single line (84 characters) is okay in this case.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrORogACgkQJNaLcl1U
+h9BU1wf7BE2VjyOr8aFe2QuONbWs8JFIHDIapTog3Nkys38qJkUOPcdiY8BGlq1J
+7ygK94Z+FHYVx6oOoQQNcPASntkrde2wYxRzHOqPD/IfpljcPO1JfaLLH04N+F83
+9BYsZbxdnZLNBCzks2jSAPSKN4e3GLu7YpehOrwnlx80hm7gLQ8fwp/T1l39zwx0
+vIoqMM96mB03rMTmQTbmqTK7XCpyWn1iMcaXG9YPywDLZHgzqG/893p2zvsGvXEP
+esx7M5MVnVWLqySDkd503wNp6lfT7WOhtDFmjRRBuG0N3HkJUuMzUU0T6acRPj89
+gWqE0kIZQbs3r8/iiSS/F1bo1W98Zg==
+=P7Fn
+-----END PGP SIGNATURE-----
 
-	ndelay(DIV_ROUND_UP(RZT2H_ADC_STOP_CYCLES * NSEC_PER_SEC, adc->adclk_rate));
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--Sv3KlJBOQ6zDEouw--
