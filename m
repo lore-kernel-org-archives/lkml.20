@@ -1,37 +1,37 @@
 Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B874F052F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA95B4F30D7;
 	Tue, 13 Oct 2026 11:51:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892307; cv=none; b=nqYWDXRJPsN9iOq9G8jxVOm9qbaoyM5rzJ2TkiUSwhQbve9g+gJ6B5meXPqmTNyySFBXBptob+9hv2V7ko/sA1HyTU2a5G3NmdEFmrK6kVSg3vFncJjq2g2oWU7GcG5TYNSYq+bD2D3xsIvluT+Xg5yji3gSv9i2Mgb8KJVKrlY=
+	t=1791892308; cv=none; b=iMQ9guRNDXeRc8diYgrCF4KZOX4kHe4455bv7Vdp/xkS9F51j76Ml4ynwbab1UotweOrhZfXOCnvyCx+dftEglqaSZKg7NPELftsuVVIq1HDmZCbdq2xXBqYTJBsh2neWKH1t6ZQ5Nk9iSfadFwtO1QEwhRQR+driCaHG+/JQH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892307; c=relaxed/simple;
-	bh=cIShYeI3uOsgq2p2WGei4CtzmrDQP5XChUf5tYX8QLc=;
+	s=arc-20240116; t=1791892308; c=relaxed/simple;
+	bh=OZyt4IHgkMwX0bJDoEVVa6P56ixpMqpyHvf0smEAU/A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gxBu8tWsiJ86GhHS5usemy8+1AtnZ91nekSMMwTjFyMcUwrIBZVsEz3u7DkPj1GKG+gznyw5uvNwlqgUeeWQXaxoM8EvJ5WMw3ZnkWTpLI/aP+BpOxAkrF6yKOnD2RRlpz4CHANwHMIhXjVk1L7yCQSJ6jNdFup9XMqNjgm6swE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=z8QIS+EK; arc=none smtp.client-ip=116.203.77.234
+	 In-Reply-To:To:Cc; b=c6pZ5I6c0FpcuvSQN5cPs7D2ToKbZwniGKxjQX9Y2bObcOoA7tiOlLl+xAIKno2VvTYDheUOvQ762tul3aJTShitRXM3N3JnGr117Z3/2rI2s2byX55E6cMfL921UJYt6qUgbXswBpaUKzI+9mjDnugUEt4USPJR85xk06Gohi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=sMriuHDb; arc=none smtp.client-ip=116.203.77.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="z8QIS+EK"
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="sMriuHDb"
 From: Frieder Schrempf <frieder@fris.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1791892304;
+	t=1791892305;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KsG4E7aRTBns4kMYtLjpkG5awBdjw9he/iK/yHlji88=;
-	b=z8QIS+EKxKo9K94EIaWFfURwted8ao1VqhfKf1QhehonOMXXeKWt+HtbLbgxlNJwA5Lc97
-	8GsIEFuG6jm6j3kJkUmgadJbn+RZ9mloT0iWbBVmDYvD/lBz6oSxJbqSKIDSlGQl+6yVUP
-	u/2iG8os20G7qh1vx2l2EMAM7ilYVKpHlv6a0h/KzNvFMVQjQJoUkhZZ/42dXCxsvomGN6
-	1c54JAs3wFU76iaKXcc6dBKVhcbBlulcZITjhZg80StbuVSQ7iQiH7HTjC2M5xz4ePziBA
-	s1iJHdm9MDz9dnEA8dMOf1JxW0S9CXctwHxGGSxpBQnHQrf6agq1m9D3sBI9Jg==
-Date: Tue, 13 Oct 2026 13:51:07 +0200
-Subject: [PATCH v2 2/9] arm64: dts: imx8mp-kontron: Fix GPIO for DL panel
- standby signal
+	bh=bUMQVPmAXVyHnbGSMizW+WgNWwNECkBdTvVIDO923a0=;
+	b=sMriuHDbbUocAMam8jKFeNarTr7Hcdg4y+PutzwPz0TzQRSrIUDkO/X3bD6V4jW42PPX76
+	/qK8f3y6bE5ogHHIU3cnz0OShFe3oALxt9RlI9Qf7ldb1I93fXYycD11LT/jj5eVY8Gpwj
+	i6L1E4RiH6dguHJHMGdlSr0NPQPvRTPQADKBuldK0fWhHUHUqxSKq7IEna5NQ8OIS53w/g
+	jq40MSX1FSWq4hPjU+yZm9KnAeSyLPR4WR1yWaZPSc4JhyQVzjUF9M8cVZEqgsz59x4y90
+	W1UhD2wc5YBA8BiWMgKTrKP4I6/R6FKM4MWGGmOosEwZzI+gkOlKXTPRJQmhFA==
+Date: Tue, 13 Oct 2026 13:51:09 +0200
+Subject: [PATCH v2 4/9] arm64: dts: imx8mp-kontron: Remove obsolete
+ VDD_CARRIER regulator
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-upstreaming-gpio-label-fixes-v2-2-d464ca652c91@kontron.de>
+Message-Id: <20261013-upstreaming-gpio-label-fixes-v2-4-d464ca652c91@kontron.de>
 References: <20261013-upstreaming-gpio-label-fixes-v2-0-d464ca652c91@kontron.de>
 In-Reply-To: <20261013-upstreaming-gpio-label-fixes-v2-0-d464ca652c91@kontron.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -52,82 +52,133 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: Eberhard Stoll <eberhard.stoll@kontron.de>, devicetree@vger.kernel.org, 
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1912;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4262;
  i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=zqKe5SSvEE0xziVYkkE5XVoVhrCJnP1Q6qOdqCtplLU=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIeuctF+5kl7Ii5CmTwyJcfb3fU1udvwLzvw95Wutz6k/O
- 4r+7L3SUcrCIMbFICumyCLFb/Ha1izWR/5YdRTMHFYmkCEMXJwCMJGTfQz/1A88TI59fOf9ap/b
- 248b/amXvse3k81hbqZQhBL3H09bS0aG47P5ODek15z/IbDF/eXGc2xnjbjbKkNeHLy1WXvHym0
- BvAA=
+ bh=rxs3VbVI1vjxWa6AD5PEYJSFI5cFMyZj7PFfdoDP6C8=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIeuctJ+3fJFT6u2VWUmfdq95vP3v/APSXJYnxB3PsTo6H
+ 6zVm5zSUcrCIMbFICumyCLFb/Ha1izWR/5YdRTMHFYmkCEMXJwCMJH90YwMh0JW5pjGaRmrrFg4
+ S6H9eNF9+absmvlcLR1THSfM3+PKxshww7CjdevM9bPXXyyeWeUX9X0Fa/6W88w3nX/u3rv3O7c
+ YNwA=
 X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
  fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
+From: Eberhard Stoll <eberhard.stoll@kontron.de>
 
-On the BL carrier board the panel standby signal of the DL display is
-connected to the OSM-S pad GPIO_A_7. On the i.MX8MP OSM-S module this
-pad is NAND_CE0_B/GPIO3_IO01. Due to an incorrect pad mapping, the
-overlay uses SAI3_RXFS/GPIO4_IO28 instead, which is the I2S_B_DATA_IN
-pad.
+For early prototypes, the CARRIER_PWR_EN signal was controlled
+by software. Now, for the regular revisions, this signal is
+controlled by hardware. The corresponding pad is now available as
+GPIO_C_1. Reflect these changes in the devicetree.
 
-Use the correct GPIO for the panel standby hog. GPIO_A_7 is already
-muxed as GPIO by the SoM devicetree, so drop the extra pinctrl group.
+Also update the GPIO label in the BL board devicetree and drop the
+CARRIER_PWR_EN label from the SMARC module devicetree.
 
 Fixes: 946ab10e3f40 ("arm64: dts: Add support for Kontron OSM-S i.MX8MP SoM and BL carrier board")
+Signed-off-by: Eberhard Stoll <eberhard.stoll@kontron.de>
 Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
- .../boot/dts/freescale/imx8mp-kontron-dl.dtso      | 25 ++++++++--------------
- 1 file changed, 9 insertions(+), 16 deletions(-)
+ .../boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts |  2 +-
+ .../boot/dts/freescale/imx8mp-kontron-osm-s.dtsi   | 32 ++--------------------
+ .../boot/dts/freescale/imx8mp-kontron-smarc.dtsi   |  3 +-
+ 3 files changed, 5 insertions(+), 32 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso b/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso
-index 88b30ca66adf5..13c6d55126f44 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso
-@@ -52,22 +52,21 @@ panel_in_lvds0: endpoint {
- 	};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
+index 831bf8cfc5bd1..e7241a71da68b 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
+@@ -167,7 +167,7 @@ &gpio4 {
+ 			  "CSI_ENABLE", "",
+ 			  "USB_HUB_RST", "TFT_RESET", "CAN_A_TX", "UART_A_CTS",
+ 			  "UART_A_RTS", "CAN_A_RX", "CAN_B_TX", "CAN_B_RX",
+-			  "I2S_B_DATA_IN", "CARRIER_PWR_EN", "I2S_A_DATA_IN", "I2S_B_DATA_OUT";
++			  "I2S_B_DATA_IN", "GPIO_C_1", "I2S_A_DATA_IN", "I2S_B_DATA_OUT";
  };
  
--&gpio4 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_gpio4>, <&pinctrl_panel_stby>;
+ /*
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
+index 3459ee2c0eb64..4fd42e7170ee8 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
+@@ -72,29 +72,6 @@ reg_usdhc3_vcc: regulator-usdhc3-vcc {
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-name = "VCC_SDIO_B";
+ 	};
 -
--	panel-rst-hog {
-+&gpio3 {
-+	panel-stby-hog {
- 		gpio-hog;
--		gpios = <21 GPIO_ACTIVE_HIGH>;
-+		gpios = <1 GPIO_ACTIVE_HIGH>;
- 		output-high;
--		line-name = "panel-reset";
-+		line-name = "panel-standby";
- 	};
-+};
- 
--	panel-stby-hog {
-+&gpio4 {
-+	panel-rst-hog {
- 		gpio-hog;
--		gpios = <28 GPIO_ACTIVE_HIGH>;
-+		gpios = <21 GPIO_ACTIVE_HIGH>;
- 		output-high;
--		line-name = "panel-standby";
-+		line-name = "panel-reset";
- 	};
+-	reg_vdd_carrier: regulator-vdd-carrier {
+-		compatible = "regulator-fixed";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_reg_vdd_carrier>;
+-		gpio = <&gpio3 16 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		regulator-always-on;
+-		regulator-boot-on;
+-		regulator-name = "VDD_CARRIER";
+-
+-		regulator-state-standby {
+-			regulator-on-in-suspend;
+-		};
+-
+-		regulator-state-mem {
+-			regulator-off-in-suspend;
+-		};
+-
+-		regulator-state-disk {
+-			regulator-off-in-suspend;
+-		};
+-	};
  };
  
-@@ -127,12 +126,6 @@ &pwm1 {
+ &A53_0 {
+@@ -185,7 +162,7 @@ &gpio4 {
+ 			  "GPIO_B_3", "GPIO_B_4",
+ 			  "GPIO_B_2", "GPIO_A_6", "CAN_A_TX", "UART_A_CTS",
+ 			  "UART_A_RTS", "CAN_A_RX", "CAN_B_TX", "CAN_B_RX",
+-			  "I2S_B_DATA_IN", "CARRIER_PWR_EN", "I2S_A_DATA_IN", "I2S_B_DATA_OUT";
++			  "I2S_B_DATA_IN", "GPIO_C_1", "I2S_A_DATA_IN", "I2S_B_DATA_OUT";
  };
  
- &iomuxc {
--	pinctrl_panel_stby: panelstbygrp {
+ &gpio5 {
+@@ -547,6 +524,7 @@ MX8MP_IOMUXC_SAI1_TXD6__GPIO4_IO18		0x19 /* GPIO_B_3 */
+ 			MX8MP_IOMUXC_SAI1_TXD7__GPIO4_IO19		0x19 /* GPIO_B_4 */
+ 			MX8MP_IOMUXC_SAI1_MCLK__GPIO4_IO20		0x19 /* GPIO_B_2 */
+ 			MX8MP_IOMUXC_SAI2_RXFS__GPIO4_IO21		0x19 /* GPIO_A_6 */
++			MX8MP_IOMUXC_SAI3_RXC__GPIO4_IO29		0x19 /* GPIO_C_1 */
+ 		>;
+ 	};
+ 
+@@ -683,12 +661,6 @@ MX8MP_IOMUXC_HDMI_DDC_SDA__GPIO3_IO27		0x19 /* SDIO_B_PWR_EN */
+ 		>;
+ 	};
+ 
+-	pinctrl_reg_vdd_carrier: regvddcarriergrp {
 -		fsl,pins = <
--			MX8MP_IOMUXC_SAI3_RXFS__GPIO4_IO28		0x19
+-			MX8MP_IOMUXC_SAI3_RXC__GPIO4_IO29		0x19 /* CARRIER_PWR_EN */
 -		>;
 -	};
 -
- 	pinctrl_touch: touchgrp {
+ 	pinctrl_rtc: rtcgrp {
  		fsl,pins = <
- 			MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06		0x19
+ 			MX8MP_IOMUXC_SAI5_RXD3__GPIO3_IO24		0x1c0
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi
+index a88883e847457..599faf4600d48 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi
+@@ -175,6 +175,7 @@ &gpio3 {
+  *   CAN_B_TX -> CAN1_TX
+  *   CAN_B_RX -> CAN1_RX
+  *   I2S_B_DATA_IN -> n.a.
++ *   GPIO_C_1 -> n.a.
+  *   I2S_A_DATA_IN -> I2S0_SDIN
+  *   I2S_B_DATA_OUT -> n.a.
+  */
+@@ -190,7 +191,7 @@ &gpio4 {
+ 			  "ETH2_INT", "USB_HUB_RST",
+ 			  "ETH1_INT", "GPIO4", "CAN0_TX", "SER0_CTS",
+ 			  "SER0_RTS", "CAN0_RX", "CAN1_TX", "CAN1_RX",
+-			  "", "CARRIER_PWR_EN", "I2S0_SDIN", "";
++			  "", "", "I2S0_SDIN", "";
+ };
+ 
+ /*
 
 -- 
 2.55.0
