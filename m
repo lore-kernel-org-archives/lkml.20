@@ -1,87 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E93C51FCBF;
-	Tue, 13 Oct 2026 15:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFCF253162A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:18:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904719; cv=none; b=VI4ZS3Ok8VhomC95HWynj/mMvI7WeAmDgm92ypaeBCmigbxgd/l9Dyi4nSnYbgXHq/qMTcyj7FFzdTT3+PP7on9LEAq8iAH/qgiA/S2DuiQC+9/LP3FLfmMAI9U8S/JNgsfkm2cYRfhmq+4VPCoUNOedbauFVbZlx9ffnUz3obw=
+	t=1791904725; cv=none; b=hgUB5wcAEPNphLrtX/hLCsa+B0CZefeY/iGa/X1FJy0hhIzMzBaRQwNN2nCkmHcLaIC8JTSdq9CAdJSYh5hnMlqOooOKbwk0OvpHLLd9MgjNgtW6TcpZmNbpjhIKDPBi8JZGxRvuhHliYLJp45Dt7Zy1WuKUFUst1zzD0UlZ3wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904719; c=relaxed/simple;
-	bh=wWxY2Yw/ga9e1ydCQegKYPl68q9olWQPLRL6uEygbYo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qzs7Pgh6UQLfajbAWVhjOhUevtQ/JXEBFMxXIU5xJtnBvEM4Vsn4olezp1HDPOSPF/IFnE9PrzfwOWE1v4lKyGalDSjog+zMAzQ4RyqItwoa+rNL8ToQn3g6H15F2m3inknKTwOE1OCvGA+DOkOMh9pDR7BDMiakjnfQQqnpPBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQTlH8YC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904725; c=relaxed/simple;
+	bh=CgYKKy5YlcFezMlDDmRgiWdoBgMJBSqoavgoqfha2dA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=obGX+C5J0HmJ4/ll3M3glZs47xs1i806NbxH1XrXTL0xs6ygtROLJ2gzH+RxzQyZBsEqJ7ZGW6P1nbpYf6roukNFMeuXnbMh3suBh+3uKAYTqDuBlw2lBiJvlsWkK8K3uRdkhFhUdWmdA+ZT4tF+lNsujBReu1ij8JG7bpebang=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sAK5j5uW; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQTlH8YC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75EEA1F0089A;
-	Tue, 13 Oct 2026 15:18:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904718;
-	bh=wWxY2Yw/ga9e1ydCQegKYPl68q9olWQPLRL6uEygbYo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lQTlH8YCdPMxuyW89Cc2eFLAyVA7oBvppONfJBzCxBUG05jfER6HjB4ouRZZjwpBy
-	 oKyUbNUjIBalXeXL7LZbY2gl/uPLYgqfdIiQyvVcECidj9W9dHdtnD2uUBxuOWW2Em
-	 LmPcoCJwqC0wKDGuTx3sIHGLEPvIfunqTP2VQa2Q0pHF9K/NZVinyLa1UulC4ZIWgW
-	 xCEsWPQShPelBzgyC2jfjgKEDX1G99fdPpEhCe+kdx9MFF16o7PqYOFxoiUUzxaLCb
-	 3yR1oMGXLCffEOSj4Ey9ZJVth6ohYyxuU4Il4whmirrnR8gfIfG5awm3kvQdFVgWhD
-	 QAafun6GLfEKQ==
-Date: Tue, 13 Oct 2026 16:18:32 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Jori Koolstra <jkoolstra@xs4all.nl>, Kees Cook <kees@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
-	skhan@linuxfoundation.org, federico.vaga@vaga.pv.it,
-	apw@canonical.com, joe@perches.com, workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: remove Assisted-by reference
-Message-ID: <7524f3d6-02c0-488c-be76-23de8afc2b76@sirena.org.uk>
-References: <20261009083137.3-1-sashal@kernel.org>
- <202610122124.08E058768D@keescook>
- <ea3ff257-70e2-43e4-aba7-140e84994872@infradead.org>
- <202610130120.E43D236E@keescook>
- <as4gLo_6acb_zZu0@daedalus>
- <20261013125559.GG4214@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sAK5j5uW"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd5d2dafeccso1181746a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:18:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791904723; x=1792509523; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mtzOa1NC8kzjOt9xbG2RWY9BgPG84LDft99j4Hfp8TU=;
+        b=sAK5j5uW7BaSgNe6WoDGRhLkxChbAJphm/a3S72C8lPi14ChkPQLgrbw9Zt5HWe4yQ
+         pjhIxU75I3tQWs7YBVKp75PqEuKR7GFSK/mZWJrUyq8JdJrD7+LxrWw0mYYctffawo7D
+         9mb3JC0kx+2TtK8qRIWlFQFWepyc1vAG5/06KtIyeDPRP6pe3gsQFFdLqwKdg3wUzgX8
+         XJoxicpyCtRD00JTcHvojduNVg5233Rx06uZQ1/Ss5+KOAne/Dqbc/mtFZ1rLbfeJQjv
+         jxtQKVi+Ci3WfikbHVAX/teubpu/hqXdTGcbT8VQ8FFeu5DWP/wtZenEKrtFMHeGYvRl
+         Wwgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791904723; x=1792509523;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mtzOa1NC8kzjOt9xbG2RWY9BgPG84LDft99j4Hfp8TU=;
+        b=SAk5LcXNhBKTbsqt6nW8YIu/ZsS+cNYCSAlpUYLLd9NG2DCfAdVHYJwbIZOEk/L7/I
+         kqkIrMzorDJVfkGYzDXQwJRBbP3nNmIY3mHIGZFAdfDmUKw1RutLlKzxKLWzSbSnHB1p
+         G5lLF32L8AhwzbAxdtBMAAMDpzTHcVHi7pxSz/V5w+SKFMjofNsNfNol5ehgxNnzWeku
+         26ez90HZ4S5fzfTVgB7pbxahLdo3GXawAq4/xOexQrB1R7Hy4AFi2htuQEtQ6LXTRwNu
+         YP5I2ygWm6vsuPuiJyvKsUNtu0j1atycSfQ4dOIVLbklltfZmR5LuXNw+2W+61aE7Ezw
+         RpUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxJsBFpr10X03Py9TENkfcuWIS7BVA4wnSDPfhAbObju+wTYOfg+NcEGeTq9j5DRRCQ4sA4vw4l4ycu+k8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIlFmL++mO9ZsoZwprVO7p+iPhQrcTSMtPwo2279eHUNG9wBfIa
+	U7t7vI9sZExMdXJjDEA2P+5ZIbxSlFsT8Vkt+af6xaDpwsC3PhbvogxO
+X-Gm-Gg: AYBFou0SBCXShOaUzvCyyVOLVkgbJ5LJtjZ3iuoejFSNfrHYfN6/wA1uJ9NAhPjvGPr
+	y50Q0Fy922fXBpc7teZ307/wF+pw82FCyVkWEIi+EtYOAOwQfBS7c2Y0nbsDgeZTvhnkMllw+OY
+	SJ8et843j6enwElcyHXMDtjw7kh8FL2JqNZFdfAqoElEOs0X98kNDC77p8BNI+h90ZPuRM0J6Mr
+	IGkc2NEgP2QoaOTYuyT+eQ0xuBdYC6d3iLejZfLKHHuw3SMJBpSdpWoX7WSY+Qnlx5UR+1u40vl
+	+I7mxI6mcqCOKUCwoJfX+0vMOyVw08jhQXMfEHn8PDvJSZvPkytjUp6GE2eOCWTLnD80GAPXvZP
+	ZA6Mrjwozzgw5fBVp1Enr44irtXWFb/DCvNviHcLIlZSYPDG3es9xpjlkF7fkCJexSy97GCmSfS
+	ggZgMFkOJlmryuHT/Ksfs2o7V6/M/QzzbUZVSizJCFv5KwhEHxca12VRRBwtV3Tcppf+jv7mGzz
+	dffpkovnA25FCnohZMoX6fvGhKU
+X-Received: by 2002:a05:6a21:4eac:b0:3dd:a00a:7ac8 with SMTP id adf61e73a8af0-3e16bebfd96mr10253819637.53.1791904723172;
+        Tue, 13 Oct 2026 08:18:43 -0700 (PDT)
+Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.18.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 08:18:41 -0700 (PDT)
+From: Akari Tsuyukusa <akkun11.open@gmail.com>
+To: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Yassine Oudjana <y.oudjana@protonmail.com>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kees Cook <kees@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Haotian Zhang <vulab@iscas.ac.cn>,
+	Miles Chen <miles.chen@mediatek.com>,
+	Sam Shih <sam.shih@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
+	Laura Nao <laura.nao@collabora.com>,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?= <nfraprado@collabora.com>,
+	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
+	linux-kernel@vger.kernel.org (open list),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
+	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 08/35] clk: mediatek: mt7988-apmixed: Add missing MODULE_DEVICE_TABLE()
+Date: Wed, 14 Oct 2026 00:17:07 +0900
+Message-ID: <20261013151734.3177690-9-akkun11.open@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013151734.3177690-1-akkun11.open@gmail.com>
+References: <20261013151734.3177690-1-akkun11.open@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="E1jjKJKaaQTH4Y02"
-Content-Disposition: inline
-In-Reply-To: <20261013125559.GG4214@killaraus.ideasonboard.com>
-X-Cookie: Some equipment shown is optional.
+Content-Transfer-Encoding: 8bit
 
+Add MODULE_DEVICE_TABLE() to the MT7988 apmixedsys clock driver to
+export the Device Tree matching tables.
+This is required so that the clock drivers can be automatically loaded
+when built as modules.
 
---E1jjKJKaaQTH4Y02
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: 4b4719437d85 ("clk: mediatek: add drivers for MT7988 SoC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+---
+No changes in v2.
+---
+ drivers/clk/mediatek/clk-mt7988-apmixed.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Tue, Oct 13, 2026 at 02:55:59PM +0200, Laurent Pinchart wrote:
+diff --git a/drivers/clk/mediatek/clk-mt7988-apmixed.c b/drivers/clk/mediatek/clk-mt7988-apmixed.c
+index 416a4b88d100..24f4e7b87a31 100644
+--- a/drivers/clk/mediatek/clk-mt7988-apmixed.c
++++ b/drivers/clk/mediatek/clk-mt7988-apmixed.c
+@@ -75,6 +75,7 @@ static const struct of_device_id of_match_clk_mt7988_apmixed[] = {
+ 	{ .compatible = "mediatek,mt7988-apmixedsys" },
+ 	{ /* sentinel */ }
+ };
++MODULE_DEVICE_TABLE(of, of_match_clk_mt7988_apmixed);
+ 
+ static int clk_mt7988_apmixed_probe(struct platform_device *pdev)
+ {
+-- 
+2.56.0
 
-> The absence of the tag on a suspicious series offered a low-effort way
-> for maintainers to push back. What's the proposed low-effort replacement
-> ?
-
-Greg's suggested asking "how did you test this?" or similar, a lot of
-people just throwing stuff at the wall simply won't respond.
-
---E1jjKJKaaQTH4Y02
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOS8gACgkQJNaLcl1U
-h9DtUwf/faotOERtWuRqIgmClMa9elJ7lQVjlxinEKZ7/ZlcVksk/UZrQ3KQPao6
-Ja1Je+imr3rOw7yaze3HdhcmeFvP+atKx+yxLOCl0YDduFF4XtkPbthA21iN1aQ3
-cwm91UNfxdce2Wdbx1aSnv/St690NfWLKMia51t0ZaY946+HAug6V8E7TNuzJ7YF
-/mKRyMEeKND9Ezt8moIbLLdJ4eYCeeTSrc95tWRDuGdC4/IGhvJ8Go1IccXdKG0Z
-HLiwz/VjopI11wZo78H0wngFUKQXTrgKq41tmo8H2bkKDonuTiNmYkkXvamVXyIx
-acWfyG9rh92LDsUbF0PKKEO+7MDbrw==
-=GUAS
------END PGP SIGNATURE-----
-
---E1jjKJKaaQTH4Y02--
