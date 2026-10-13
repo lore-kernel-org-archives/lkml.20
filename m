@@ -1,121 +1,146 @@
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8DB3BFACE;
-	Tue, 13 Oct 2026 17:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.145.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16596476CF1;
+	Tue, 13 Oct 2026 17:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912888; cv=none; b=BUySVRZLIKYGIc3jahVOThLsYLLd/bLVVEH4vyhjldz6qi2tF8qj5Og+ldWJScB/DK6C/YvodqEMekuOleNlPVEgUGLQeiKM4EdThCDQnD5F9Gb+LA5iNpGXqdlRjwOjDUHBftwJTw83qHWv2rvW4yjJGRm0p+yQqhUn8cGbeWc=
+	t=1791912904; cv=none; b=I2SX+JiG2a7RBnhlnO7hmqOvB7VLwGZXFhHFis57oQ786LU+RjCn15ES6JW3UfAuRWY2jNutL5n0Oxso9yuOk1aICDXLwFtBngsRkw3wP57OkCbkk/UdQABVP8d1+JGk4/ynPV0vzehX/6iSOO44y++/c70SmY74mNcFDjGm9iU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912888; c=relaxed/simple;
-	bh=D3UYt0i5hAKFhi8tFEEKwRghDne3HmZX19J1SbhWdwA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ui6mcEf7qc71jSTEeZ5QMSyadw7GRlWJU2h45y2zluYsWhtRbtsoSshfNqToRH+74pj2gYlppfANVDd62uS3atoNnF83spzJ1p1bEVaB6081/1jIb38bY8l0uz/IgTEzhbSXkdeqJawL7VN/hh1T0k3CtCw5a7PmOsIbrlD6N7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=AeJxApnX; arc=none smtp.client-ip=67.231.145.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	s=arc-20240116; t=1791912904; c=relaxed/simple;
+	bh=y/X75DFMsJzsDjB9Jbo2Kj0HLFl1a/CrkiotRQ657Is=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tM+4oKOz1kSbIYpNqZTeZ+0HVqhM6QKW+3hL4TYPJUW6q95yFT+GSDAgCsGM3df+s7cd0r+U2eW1XznumDlpUSd9LKSlG4H3YX3pZTdnLsogmuLdoYD4xCk8K2nIu9C83F4BT2cU38JuWDnaR0I+2V+m3w0BQ9RMHrmrDRfkitc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQv3YNpe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="AeJxApnX"
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DH31Na1158838;
-	Tue, 13 Oct 2026 10:34:27 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=LWL/XRN8x3Z/WAwoivm6i1fVHwe3fxfm0cZor
-	ef+30w=; b=AeJxApnXUsz7mSwHpTEM8k99my3aArx+5CsRLETzTtoQj9yegU6AK
-	ghB/sP6YuSGn/oSUHNYIw6KYA9QMKS2Gokzzg5hkYEshs7DyrWvurUdQZhM7MDz4
-	JW6dULZw1HKgDh8olHw+QhkxDrh9AycpnMFOeYzDPvMlp8HrLEdn+uZW1659AzwH
-	tr7QUqt9YP5RlrI+0fk2mzr3yoPpn68OK03+DtnO9WDvFAxEEP75dZbauk2Bd0gy
-	z2MILJ/vsj1WlH+yTelF3WbvveRFDHH7cy62y6Am3ITo2ipKFe4CGqrV6bxZvKtq
-	T1IYGRh5vsa+kPpVmVYJng9Xkk7VYvhQg==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4h9hc43xva-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Tue, 13 Oct 2026 10:34:27 -0700 (PDT)
-Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
- (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.49; Tue, 13 Oct
- 2026 17:34:26 +0000
-Date: Tue, 13 Oct 2026 10:34:26 -0700
-From: Bobby Eshleman <bobbyeshleman@meta.com>
-To: Daniel Pereira <danielmaraboo@gmail.com>
-CC: <sgarzare@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
-        <pabeni@redhat.com>, <horms@kernel.org>, <corbet@lwn.net>,
-        <skhan@linuxfoundation.org>, <stefanha@redhat.com>, <mst@redhat.com>,
-        <jasowangio@gmail.com>, <xuanzhuo@linux.alibaba.com>,
-        <eperezma@redhat.com>, <shuah@kernel.org>, <rdunlap@infradead.org>,
-        <donald.hunter@gmail.com>, <edumazet@kernel.org>,
-        <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <kvm@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-        <sargun@sargun.me>, <jlinbox@meta.com>
-Subject: Re: [PATCH net-next v3 4/7] vsock: add a netlink command to assign
- the g2h device to a netns
-Message-ID: <as5roqKrcZ+0WYIj@devvm29614.prn0.facebook.com>
-References: <20261012-vsock-guest-ns-v3-0-b32447c66b23@meta.com>
- <20261012-vsock-guest-ns-v3-4-b32447c66b23@meta.com>
- <CAMAsx6fKVQaYLzkK34v5DRkmQS5Ym-XqwNh-+Jj_Uue8NJCNUg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQv3YNpe"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B51A3C2BCF4;
+	Tue, 13 Oct 2026 17:35:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791912903;
+	bh=y/X75DFMsJzsDjB9Jbo2Kj0HLFl1a/CrkiotRQ657Is=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=PQv3YNpetWGez1mdIFKP/h4mEuOFFLZ085b/JFXhreEmlZIW3gTbvGsi8YavEQXpN
+	 +cxBA1aFJDGAzp3RDdWtinpFkcxXl07qW9Xb85ZfTCQ5F7vw0aStJnjoOqsnqF+wJC
+	 hw2EFqSTnL9xrcVHTDQ9cnVvwED4Tdx0G/AQHdkw2M25TMHNA/ec+Hgcbe3y7RauW0
+	 0ngQrkMZW1YyZvhix2pzGiH3j7F+iwf0OAtTA2nPyP7U5fSVGbo9QCw4PMR5TQd1oU
+	 Y6vVRGnY0NwlHZKBN8y1w4crN1P8pe0MJEEW0v4bR1MsCCKjxqAbXup3jWBnDnL12v
+	 6RMtThNOwIwoQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AEAACC6B12;
+	Tue, 13 Oct 2026 17:35:03 +0000 (UTC)
+From: Brandon Williams via B4 Relay <devnull+turbine.bmw.gmail.com@kernel.org>
+Date: Tue, 13 Oct 2026 13:34:51 -0400
+Subject: [PATCH] power: supply: qcom_battmgr: Notify charger supplies of
+ online changes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMAsx6fKVQaYLzkK34v5DRkmQS5Ym-XqwNh-+Jj_Uue8NJCNUg@mail.gmail.com>
-X-Authority-Analysis: v=2.4 cv=L86I0OT8 c=1 sm=1 tr=0 ts=6ace6ba3 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=8nJEP1OIZ-IA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=crHB47gyY4rKiduisYu9:22 a=VabnemYjAAAA:8
- a=IhaVPjiSUfC3lUqgL44A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA2OSBTYWx0ZWRfXweRN4xWDXlRU
- QYe3T0G1lTLn8kzE8+h7GJpNcWDizdt2gDMq2z3tkLHOR3BO/csllYNf97Aw8G79kjqnDYWx372
- 9eHx3+N0IrJoKHmFhGifo1o6WS4qR/A=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA2OSBTYWx0ZWRfX1QZzySfg7Iql
- zY4V15sByE3oHUpSIIV3Q6s4f4/6Sj2GnR0xww2Mu1pj48pXZ2DnI/Bs48xyuChTigOYIb8Yg5v
- oJSjFsdMsNNT3fYO+iYQ9oi6QCvFvxj6shYyvnd9XQTU6WWhk+tHBphaC/bn7YdpAcMQ+EN7jpB
- jkMUMHocjxur1dOxBHRmAlzIcqsty66EfL58I6pq6k568m2Q9MxsQp9gtNbEMspz2rRBaQGu2ly
- oWAZlq98ZCpTjGtprTUB2yLtOPvvmlpmO7UDoHPpCfEdJhIlP/xHk/c+BGGqzGATB+mFJS7ZY4B
- bYrWl+/3dgk+OS42jgbLxfSqWWP1fqi9h0rjXsUoIJ4Kd9UsQAW0mkx3ys6CjCF9I9w6E4rtXN9
- xVz3YLbRDUupyT9yfIIH5hO7No3g9GxGbHTJjBNnXzGWbJ6bD7r4kjklqwVdqNmUuC3rBkIbBpc
- V4/EsVtkHqo+KLY4Ihg==
-X-Proofpoint-ORIG-GUID: crBcu5j1ETahNAP4cu-GvJGR3AqHg4Mk
-X-Proofpoint-GUID: crBcu5j1ETahNAP4cu-GvJGR3AqHg4Mk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-upstream-battmgr-charger-online-v1-1-731973e133a0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQqDMBCF4avIrDtgYpHaq5QuknSMU2qUmSiCe
+ HfTdvnB4387KAmTwr3aQWhl5SkVmEsFYXApEvKrGGxtW1ObBpdZs5Ab0bucxyhYZhJJcEofToS
+ hs7YxvnfXWwelMgv1vP0eHs+/dfFvCvmbheM4ARFO3mKDAAAA
+X-Change-ID: 20261013-upstream-battmgr-charger-online-c92231bfa489
+To: Sebastian Reichel <sre@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Brandon Williams <turbine.bmw@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791912902; l=3326;
+ i=turbine.bmw@gmail.com; s=20261013; h=from:subject:message-id;
+ bh=2nahTR5uEsrzwi6gEYo9VL4sGI7ylJdvvKlUHbSEfWM=;
+ b=LM56MtNNV6v+m7qf2P94pum++gKuqCP+2iZYUeT0ZwrYUbcRp4vk1/EeN/2uHg1OKY7eQ8nj4
+ kevYfc+h5ziAyRr/Ifq8E3uREv8SLLuU13AvHBQeYaI/pV8TaeJpTEG
+X-Developer-Key: i=turbine.bmw@gmail.com; a=ed25519;
+ pk=Bpa28klX84MV14dvc8stQXHQtbFQK0xDK15qggaz3JA=
+X-Endpoint-Received: by B4 Relay for turbine.bmw@gmail.com/20261013 with
+ auth_id=1171
+X-Original-From: Brandon Williams <turbine.bmw@gmail.com>
+Reply-To: turbine.bmw@gmail.com
 
-On Mon, Oct 12, 2026 at 10:44:55PM -0300, Daniel Pereira wrote:
-> Em seg., 12 de out. de 2026 às 19:51, Bobby Eshleman
-> <bobbyeshleman@meta.com> escreveu:
-> >
-> [...]
-> > + Movement to an unreachable local namespace results in sockets being
-> > + closed with ECONNRESET. Peers are not guaranteed to be notified via
-> > + an RST.
-> 
-> This reads a bit differently from the sysctl documentation in the same
-> patch, which says:
-> 
-> Connections established before the move, from a namespace that can no
-> longer reach the device, are closed with ``ECONNRESET``.
-> 
-> The net.rst wording also covers moving the device back to init_net from
-> a local namespace, which this sentence does not. Maybe use the same
-> wording here:
-> 
-> Connections established before the move, from a namespace that can
-> no longer reach the device, are closed with ECONNRESET. Peers are not
-> guaranteed to be notified via an RST.
-> 
-> Daniel
+From: Brandon Williams <turbine.bmw@gmail.com>
 
-Thanks Daniel, I forgot to update the docs with that change. Your
-rewording sounds good to me.
+On SC8280XP and X1E80100 the AC, USB and wireless supplies take their
+online state from the charging source in the battery status response.
+The firmware sends no notification for those supplies when the charging
+source changes, and the driver only announces the battery, so userspace
+never learns that the charger was plugged in or out. UPower keeps the
+state it read at startup: a laptop booted on the charger never goes on
+battery.
 
-Best,
-Bobby
+Call power_supply_changed() for a supply whose online state changes when
+a status response is parsed. A supply that is not registered yet, when
+the battery is read during probe, reports its state when it registers.
+
+Tested on a Microsoft Surface Pro 11 (X1E80100): after restarting UPower
+on the charger, unplugging now sets OnBattery, and plugging in clears it.
+
+Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Brandon Williams <turbine.bmw@gmail.com>
+---
+ drivers/power/supply/qcom_battmgr.c | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
+index a7237ba09be1..4ca340981922 100644
+--- a/drivers/power/supply/qcom_battmgr.c
++++ b/drivers/power/supply/qcom_battmgr.c
+@@ -1255,6 +1255,23 @@ static unsigned int qcom_battmgr_sc8280xp_convert_temp(unsigned int temperature)
+ 	return DIV_ROUND_CLOSEST(temperature, 10);
+ }
+ 
++/*
++ * The charger supplies' online state comes from the battery status response,
++ * and the firmware sends no notification of its own when it changes, so
++ * announce the change here. A supply that is not registered yet announces its
++ * state when it is.
++ */
++static void qcom_battmgr_sc8280xp_set_online(struct power_supply *psy,
++					     bool *online, bool value)
++{
++	if (*online == value)
++		return;
++
++	*online = value;
++	if (psy)
++		power_supply_changed(psy);
++}
++
+ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
+ 					   const struct qcom_battmgr_message *resp,
+ 					   size_t len)
+@@ -1324,9 +1341,12 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
+ 		battmgr->status.temperature = qcom_battmgr_sc8280xp_convert_temp(le32_to_cpu(resp->status.temperature));
+ 
+ 		source = le32_to_cpu(resp->status.charging_source);
+-		battmgr->ac.online = source == BATTMGR_CHARGING_SOURCE_AC;
+-		battmgr->usb.online = source == BATTMGR_CHARGING_SOURCE_USB;
+-		battmgr->wireless.online = source == BATTMGR_CHARGING_SOURCE_WIRELESS;
++		qcom_battmgr_sc8280xp_set_online(battmgr->ac_psy, &battmgr->ac.online,
++						 source == BATTMGR_CHARGING_SOURCE_AC);
++		qcom_battmgr_sc8280xp_set_online(battmgr->usb_psy, &battmgr->usb.online,
++						 source == BATTMGR_CHARGING_SOURCE_USB);
++		qcom_battmgr_sc8280xp_set_online(battmgr->wls_psy, &battmgr->wireless.online,
++						 source == BATTMGR_CHARGING_SOURCE_WIRELESS);
+ 		if (battmgr->info.last_full_capacity != 0) {
+ 			/*
+ 			 * 100 * battmgr->status.capacity can overflow a 32bit
+
+---
+base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+change-id: 20261013-upstream-battmgr-charger-online-c92231bfa489
+
+Best regards,
+--  
+Brandon Williams <turbine.bmw@gmail.com>
+
+
