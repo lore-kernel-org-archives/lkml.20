@@ -1,304 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FE03C07A;
-	Tue, 13 Oct 2026 04:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2013F345750
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791867373; cv=none; b=mO/yKPNE7M3CXuiEcaZQCXO8plE1kkqkshLaECPd8bbLwiq99reg5nVtZ7ljzgX46Pdkeurq2RFrfhpV/Ub/5fz71GgkVdQl/oivMq+EaDwSZDr06XVR8RpNE2qpRJNyH2gsD7HtZzvPHJCRflwJehtzntanwx/P0oH4quq9EHg=
+	t=1791867632; cv=none; b=M4S8VVvLoen5ToKWIK8v3LbmwcJ21hQKbY7QPViqcHzHhOls/M2aJytQNpXfFzsySf5IGUUfV55wyV9o53ZVkFF11B2qpN/HvcWL3wGHJ0YtaUuHzuIHton14sQcCG6+00xtbdD0YIMphKguou0mRa8uePOCISvwvKbTLUHkjtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791867373; c=relaxed/simple;
-	bh=niEQADnWy5nSyvj1GZdVw4oCuzIbgdIszJ6wI/WXklk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=b5oglDeOj7i8G6qj+jyPKSCUSNMuTKYLjImRGGIXQgyPw+avhgE81OEMwYnH4KVYu5VdAIDvcxn/hElVloSbov677+lI70VJro2Rk/6rL2JCDgv9ltX05f5FDrQMLsI5naFaAugQVNR8JHyIonZ6QzSCzgKxdHQioj0ULioNCyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDnBnyY/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791867632; c=relaxed/simple;
+	bh=LdE0xymDLLhP6FyFsOtswIPlcVUTACJJ3icf151iCu4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P1tQnmsJVnyz3SompSFGvz4+yJctBuwUKQka6ikKL8Fkjw8G6fNBTPwVxuXzNi7+fpKlDopGnbfeBvm7ms7BECfho73OfBjsPMHPp0WLXuEnC8YtDf5uo/9AhYO6Hc2wHF/ElpvTMtnOziANgHQsNNj5DGheehUhldoE7YR9H7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com; spf=pass smtp.mailfrom=tyhicks.com; dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b=eag8rL17; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=w0ouBNIB; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDnBnyY/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35E391F000FF;
-	Tue, 13 Oct 2026 04:56:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791867371;
-	bh=EvQHcMj8d3foWz+Mob6vBi4q2cLgPonIWsgQ2rwVgTA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kDnBnyY/W5m8T8w0Fv2qWyycHcQERYccJ95t4QIBwQl1ouVge1VPoGkdNjB+8XXi+
-	 YwGLrJ1ssIfpFvfutGYibBRhoVpau05sK3+DFur/pwxgmQAphChlw4wEPtpM/z7J86
-	 1lSHZbI3sKLQYMpKQGdyYjOBOdpIeo0TdkyXOPoZeCFsdDglqlfCVN60t98J2+nEf6
-	 vt7sbRgwUdcDUGsVyA3jKNrkT9Px7mtGhUQqHgQplY2vMtlU3NQvD8Syc5g6gw4gUx
-	 vjGiyLWnq7veDtTCQY+3ci9jNy4FAF/qEgnizaRYOTLGKPtEi9mlsxjWdPrcnUQAT4
-	 CI98bbLZrKfGA==
-Subject:
- Re: [PATCH v3] can: j1939: fix potential race condition in BAM segmentation
-From: netdev-bot+sashiko@kernel.org
-To: alexander.hoelzl@gmx.net
-Cc: o.rempel@pengutronix.de, robin@protonic.nl, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de, linux-can@vger.kernel.org, kuba@kernel.org
-Date: Tue, 13 Oct 2026 04:56:10 +0000
-Message-ID: <179186737069.1406898.4501392866752412525@kernel.org>
-In-Reply-To: <20261011153119.120302-1-alexander.hoelzl@gmx.net>
-References: <20261011153119.120302-1-alexander.hoelzl@gmx.net>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b="eag8rL17";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="w0ouBNIB"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 83BED1D000FF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:00:29 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Tue, 13 Oct 2026 01:00:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1791867629; x=1791954029; bh=6ytJmHD3Qx
+	XFaO1zCqmFc2AaBnITHvr88LGMaQ4ENDo=; b=eag8rL17nQ9UA0APcrIic6/uYg
+	0P0aBBgb1PDHCd9AJicriBpDblBboakOpyHLu46It2e8z6d1/Ox1p3VTZwOacbhy
+	4jegFmfdI2jlIArowJwsHxXGVkCIG9Lua6HioGH6BZDaobRQO+RYWbE7dICszIHB
+	AF2Q24yZWMYdsrWG+xs6u5ZuuFo4Wss3/gZIiWK1Lgc4nO7OcPXWaeV33KAr0Efz
+	IlApYwiop70mCKuA9QG8pHdRstDchq1v63azl0rQK1CMw0HKo5ulabqzbTV8BJC0
+	y6AflAMfy/j8PO3hywlcTwuOEONBQNpkyFtzx0r50eIHXfflqCJLCsnpW7Dg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791867629; x=1791954029; bh=6ytJmHD3QxXFaO1zCqmFc2AaBnITHvr88LG
+	MaQ4ENDo=; b=w0ouBNIB3yj512V6kKlp7eojd/DDD2BFR0wvAWCygSRB9m1Jpdc
+	LxfAah1fAMvZYMYgTaDsvRvcc36jxYKAtD6UJo5/rH+kKdvZZ4xaSq5aS4/uorhG
+	cLMBgrRE2pq/TNLohoWJsczKJfio4mQvxtrITX3NfXvhrM9fyO0hN+osneDHmZ/x
+	P0RZpnAXJTHfe1MO+ZOCtJns6pLTqf1zErKF0hvkSCExxXwJht/aFX5zy0dj5qi4
+	uys0KgO/YfLOn877mgMcnx1qy1VMr/Vv0Xa+tT0emLhIo/jb/jGHCtzxSwXyb4UN
+	nCjmuTRpo3XodgybTFqxEMyHFft+LC5NQzg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=tyhicks.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791867629; d=tyhicks.com;
+	mf=PGNvZGVAdHloaWNrcy5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:SOXX2e0LjwYj2RY6T21/zeYSrW5Iztw6CQiwt3Jd+BhDlw6
+	CVbCdODDQJxRrpITw7NqLkzV55X54xY4TUZrglf+YX3jf3PtXC3FtbeNl4WnIm5X
+	RnTs+Kh6BE0cj1XXuJJrZaNv29xwVk2bJ3VLFdCdNekWD5gA5pR/OKrcZcic6p8S
+	kozhDjsbTlB0Q8TjHCkVKAzJNpxLUCuCK4Viv4RrFxM5fE6RiFM/05UZcWEbJ/Sr
+	SemFpbHI95pDxY+ab3Mvjp7XNbohDaw+3wdw3PXPoobZxQQRxjnrbYiuS7ZvhpSa
+	VxrguGL4cFF51lIdgvo5EZ9UbVufvoKR3UhM2lg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:a4spjgoiUCy+Zyrkwu0Pu2oiBQZigTPC/TVWWKiQGK0=:LdE0xymDLLhP6FyFsOtswIPlcVUTACJJ3icf151iCu4=;
+X-ME-Sender: <xms:7LrNagm1J0Mx9u10ZkDhBHodl9Qp4NLINQId6aIaAzDH6uRy9p8ryA>
+    <xme:7LrNaiEvqPUzAd80uFhpQS8_s4so9Kp219WIQ2BKy3qY8jSrmHU5IMAV9XrKV8Rxt
+    IiyPJV6VxQVzk9oVrVcFisuHSKY2_hQZhrFQd0UjWAnIiExTfxfi3hV>
+X-ME-Received: <xmr:7LrNag6To64Mn8-KYkAzl5ByfHffQbY325jAgAwNHjo5_0lsc1N89Q>
+X-ME-Proxy-Cause: dmFkZTEn+yWHwxafRD/i2Vu8vELSZ1/iKjbNbXn0i7w9Im0HrUqudqVifejFm9Qp+sAbJC
+    +XvdV9pmwM/vTEQ7i2TdcQ+4rwzNabERTdWqfJ/DUqPouY0vrWoQbnXKWKG5YyTHWaSA3j
+    mcTXaffJFOnVtuZv4Q5riWYpbXYgAncPUxnENp3KKMXgVc+CCPZa7kjYgzU0t060AK/iix
+    yo9fYxCNR8vLQxfo6gdZbRoqMOiP8VV/NhNLVYX7HTsKCXD8tDgU7DHBBxFd4sT0GW5npM
+    SrZm97EtwOXxNZtMsvbSW3ibj6AinD5sgojUwpyugEaNQ76bEgJpfM21KRbxvDm5RbpFWB
+    ISMXB0vp6PsLLVh6c4YtsGmmHnvL57kgQPUu3LX8oKjRuJ3YFNParlJfedjMf1Z88Qox5l
+    rhMV44IhQ8lZfLVstEAjgWDMnBa1CJOK9IQEpr7+2CcgjxqXRPrEJoahVF5G57xZsiMMiC
+    wBDCoH4XbxyxL5UB+g9P8rz7hZMeUULGZlgvOerT2RBp7iktIKAgvR/ZLFltWG4xHEZxlH
+    JW7RyCxEud1Y5OtiAlheTdOauYLhpwF1f7IJZ8cSJf622pKbPzBmYQsqbymbDYDiPU/bpZ
+    WQFlVTkIgMkMk3RrVphGmJZv0/u5fUcZxAZu+byp3H8KsZXHOCG1Je8odcSQ
+X-ME-Proxy: <xmx:7LrNaimfW5UlM5a3IfvRFyeShFNpgotYPrplnHJW7_bHylQ5h7o2Cg>
+    <xmx:7LrNatpugnhZfQh-DPh7MVBlKBHn_NBYNbDHylhPLFYgmrltvii-Cg>
+    <xmx:7LrNaptuZg4MfcOGgX_51Nmsoj3wy1zcuEwv8BsM-gBvhAJbwJO4Rg>
+    <xmx:7LrNaqG1uv2gUVrqI-BaR41fxf8A8iqrYkv3kS2ybR3YJoAM2lzTEg>
+    <xmx:7brNaiZODYEMrVUKdXpMV8f7bxIpZY0CAVQihktsRgvST68IKTQiWrNh>
+Feedback-ID: i78e14604:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 01:00:28 -0400 (EDT)
+Date: Tue, 13 Oct 2026 00:00:26 -0500
+From: Tyler Hicks <code@tyhicks.com>
+To: Adriano Cordova <adrianox@gmail.com>
+Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com,
+	Nguyen Duy Nhat Anh <neganhat@gmail.com>
+Subject: Re: [PATCH v2] ecryptfs: validate auth tok payload size
+Message-ID: <as266is_fT232oMM@elm>
+References: <20261004123755.14642-1-adrianox@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004123755.14642-1-adrianox@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+On 2026-10-04 09:37:55, Adriano Cordova wrote:
+> Validate that a key payload is large enough to hold a struct
+> ecryptfs_auth_tok, and that the password token's
+> session_key_encryption_key_bytes fits within
+> session_key_encryption_key[], before the payload is dereferenced.
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 2
+Hi Adriano - Thank you for the fixes!
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> 
+> Cc: <stable@vger.kernel.org>
+> Reported-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
+> Reported-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+> Tested-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
+> Link: https://syzkaller.appspot.com/bug?extid=03c68e42ce4b33f7ce9b
 
-- [Medium] The new BAM-transmitter echo branches can bring an aborted
-  session back to life.
-- [Medium] Forged TP.DT frames can stall a BAM transmission for as long
-  as they keep coming, and it never times out.
-- [Medium] The new re-arm in the RX path (cancel, then schedule) is not
-  atomic and holds no lock, so it can leak session references.
-- [Low] The commit message understates the bug and has no Fixes: tag.
-- [Low] The new J1939_TP_BAM_ECHO_TIMEOUT_MS (250) constant does not
-  control the timeouts that actually wait for an echo.
+Change this tag from `Link:` to `Closes:`, please.
 
---
-
-can: j1939: fix potential race condition in BAM segmentation
-
-This patch moves txtimer scheduling for BAM transmissions out of the
-transmit path and into the echo (tx ack) handlers. The 50ms frame spacing
-timer is now armed in j1939_xtp_rx_rts() and j1939_xtp_rx_dat_one() when
-the looped back BAM or DT frame arrives, instead of in
-j1939_session_tx_rts() and j1939_session_tx_dat().
-
-> If there is a high busload and the BAM frame is stuck in the controller
-> for some time, the txtimer might elapse before the looped back frame is
-> received and the session will stall.
-
-[Severity: Low]
-Is "stall" the right word for what happens before this patch?
-
-If the 50ms txtimer fires before the BAM echo arrives, last_cmd is still 0.
-j1939_xtp_txnext_transmiter() then calls j1939_session_tx_rts() again, and
-that call returns early:
-
-	if (dat[0] == session->last_txcmd)
-		/* done already */
-		return 0;
-
-Nothing re-arms the txtimer after that. The 250ms rxtimer armed in
-j1939_session_tx_rts() then fires, and j1939_tp_rxtimer() aborts the
-session:
-
-	__j1939_session_cancel(session, J1939_XTP_ABORT_TIMEOUT);
-
-So user space sees the transfer aborted with EHOSTUNREACH, not a stall.
-Could the commit message describe that?
-
-This also fixes behaviour that goes back to the original J1939 code. Should
-it carry this tag so stable picks it up?
-
-Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
-
-> diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-> index 8fcfd13e5e6f8..c61a021880c01 100644
-> --- a/net/can/j1939/transport.c
-> +++ b/net/can/j1939/transport.c
-
-[ ... ]
-
-> @@ -26,6 +25,9 @@
->  #define J1939_TP_CMD_BAM 0x20
->  #define J1939_TP_CMD_ABORT 0xff
+> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+> ---
+> Changes in v2:
+> - Add Reported-by tag.
+> 
+>  fs/ecryptfs/ecryptfs_kernel.h | 6 ++++++
+>  fs/ecryptfs/keystore.c        | 7 +++++++
+>  2 files changed, 13 insertions(+)
+> 
+> diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+> index 58165928ed1e..4315c18ba1cd 100644
+> --- a/fs/ecryptfs/ecryptfs_kernel.h
+> +++ b/fs/ecryptfs/ecryptfs_kernel.h
+> @@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *key)
+>  	if (!payload)
+>  		return ERR_PTR(-EKEYREVOKED);
 >  
-> +#define J1939_TP_BAM_FRAME_SPACING_MS 50
-> +#define J1939_TP_BAM_ECHO_TIMEOUT_MS 250
-
-[Severity: Low]
-This isn't a bug, but J1939_TP_BAM_ECHO_TIMEOUT_MS does not seem to set the
-timeouts that actually wait for an echo. Those still use a bare 250.
-
-In j1939_session_tx_rts(), after the BAM is sent:
-
-	if (dat[0] == J1939_TP_CMD_BAM) {
-		j1939_tp_set_rxtimeout(session, 250);
-
-In j1939_session_tx_dat(), after each DT frame:
-
-	if (pkt_done)
-		j1939_tp_set_rxtimeout(session, 250);
-
-The macro is only used in j1939_xtp_rx_rts() and j1939_xtp_rx_dat_one().
-Both run after the echo has already arrived, and j1939_session_tx_dat()
-overwrites that rxtimer about 50ms later.
-
-Should the echo wait sites use the macro instead?
-
+> +	if (payload->payload_datalen < sizeof(struct ecryptfs_auth_tok))
+> +		return ERR_PTR(-EINVAL);
 > +
->  #define J1939_ETP_CMD_RTS 0x14
 
-[ ... ]
+This change should be in its own patch with the following Fixes tag:
 
-> @@ -1806,8 +1814,13 @@ static void j1939_xtp_rx_rts(struct j1939_priv *priv, struct sk_buff *skb,
->  	session->last_cmd = cmd;
+  Fixes: 1252cc3b232e ("eCryptfs: added support for the encrypted key type")
+
+>  	return (struct ecryptfs_auth_tok *)payload->payload_data;
+>  }
 >  
->  	if (cmd == J1939_TP_CMD_BAM) {
-> -		if (!session->transmission)
-> +		if (!session->transmission) {
->  			j1939_tp_set_rxtimeout(session, 750);
-> +		} else {
-> +			j1939_session_txtimer_cancel(session);
-> +			j1939_tp_schedule_txtimer(session, J1939_TP_BAM_FRAME_SPACING_MS);
-> +			j1939_tp_set_rxtimeout(session, J1939_TP_BAM_ECHO_TIMEOUT_MS);
-> +		}
+> @@ -124,6 +127,9 @@ ecryptfs_get_key_payload_data(struct key *key)
+>  	if (!ukp)
+>  		return ERR_PTR(-EKEYREVOKED);
+>  
+> +	if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
+> +		return ERR_PTR(-EINVAL);
+> +
 
-[Severity: Medium]
-Can a late echo bring an aborted session back to life here? The same
-question applies to the new branch in j1939_xtp_rx_dat_one().
+Nguyen Duy Nhat Anh submitted this fix prior to your v1 so it is best if
+I take that initial patch. Please drop this change.
 
-Both branches re-arm the txtimer and rxtimer without
-active_session_list_lock and without checking session->state. Under the
-bus load this patch targets, a BAM or DT echo can arrive more than 250ms
-late. By then j1939_tp_rxtimer() has already taken the abort path under the
-list lock:
+>  	return (struct ecryptfs_auth_tok *)ukp->data;
+>  }
+>  
+> diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+> index 51651314b7a6..7f2dbc81fcbc 100644
+> --- a/fs/ecryptfs/keystore.c
+> +++ b/fs/ecryptfs/keystore.c
+> @@ -477,6 +477,13 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth_tok_key,
+>  		rc = -EINVAL;
+>  		goto out;
+>  	}
+> +	if ((*auth_tok)->token_type == ECRYPTFS_PASSWORD
+> +	    && (*auth_tok)->token.password.session_key_encryption_key_bytes
+> +	       > ECRYPTFS_MAX_KEY_BYTES) {
+> +		printk(KERN_ERR "Invalid password auth_tok sKEK size\n");
+> +		rc = -EINVAL;
+> +		goto out;
+> +	}
 
-j1939_tp_rxtimer()
-    j1939_session_list_lock(session->priv);
-    ...
-        hrtimer_start(&session->rxtimer,
-                      ms_to_ktime(J1939_XTP_ABORT_TIMEOUT_MS),
-                      HRTIMER_MODE_REL_SOFT);
-        __j1939_session_cancel(session, J1939_XTP_ABORT_TIMEOUT);
+This change should be in its own patch with the following Fixes tag:
 
-That sets J1939_SESSION_WAITING_ABORT, sets err to EHOSTUNREACH and arms
-the forced deactivation timer.
+  Fixes: 9c79f34f7ee7 ("eCryptfs: Filename Encryption: Tag 70 packets")  
 
-The session is still on active_session_list, so the late echo is still
-delivered here. j1939_tp_set_rxtimeout() then cancels the abort rxtimer and
-replaces it with a normal 250ms one. The txtimer fires 50ms later:
+Thanks again!
 
-j1939_tp_txtimer()
-  j1939_xtp_txnext_transmiter()
-    j1939_session_tx_dat()
+Tyler
 
-None of these check session->state. More DT frames therefore go out for a
-session that was already reported as aborted.
-
-Each of those echoes goes through the same re-arm in
-j1939_xtp_rx_dat_one(), which pushes the forced deactivation back again.
-The session can even reach j1939_session_completed() after user space was
-told the transfer was aborted.
-
-There also seems to be a narrower window against
-j1939_cancel_active_session() (socket close or NETDEV_DOWN). It cancels the
-timers under active_session_list_lock:
-
-	if (hrtimer_try_to_cancel(&session->txtimer) == 1)
-		j1939_session_put(session);
-
-The RX path still holds the reference from j1939_session_get_by_addr(). If
-it re-arms after this point, one more frame is sent for a session in
-J1939_SESSION_DONE.
-
-Before this patch, the BAM transmitter echo path only updated last_cmd and
-pkt.rx. Should these new branches check session->state under the list lock
-before re-arming?
-
-[ ... ]
-
-> @@ -1961,6 +1974,12 @@ static void j1939_xtp_rx_dat_one(struct j1939_session *session,
->  	} else if (remain) {
->  		if (!session->transmission)
->  			j1939_tp_set_rxtimeout(session, 750);
-> +		else if (j1939_cb_is_broadcast(&session->skcb)) {
-> +			/* cancel the txtimer to avoid leaking session references */
-> +			j1939_session_txtimer_cancel(session);
-> +			j1939_tp_schedule_txtimer(session, J1939_TP_BAM_FRAME_SPACING_MS);
-> +			j1939_tp_set_rxtimeout(session, J1939_TP_BAM_ECHO_TIMEOUT_MS);
-> +		}
-
-[Severity: Medium]
-Can forged TP.DT frames hold off a BAM transmission indefinitely here?
-
-j1939_can_recv() sets J1939_ECU_LOCAL_SRC based only on the SA:
-
-	if (j1939_address_is_unicast(skcb->addr.sa) &&
-	    priv->ents[skcb->addr.sa].nusers)
-		skcb->flags |= J1939_ECU_LOCAL_SRC;
-
-So j1939_xtp_rx_dat() routes any TP.DT frame with the host's SA and DA 0xff
-to the transmitter session's j1939_xtp_rx_dat_one(). That frame can come
-from another node on the bus or from a local CAN_RAW socket.
-
-A frame with packet != session->pkt.rx (for example, dat[0] = 1 sent
-repeatedly) does not advance pkt.rx:
-
-	if (packet == session->pkt.rx)
-		session->pkt.rx++;
-
-It still sets remain, though, so this branch cancels and re-arms the 50ms
-txtimer and the 250ms rxtimer. The memcmp mismatch is only logged once.
-
-Suppose such a frame arrives at least every 50ms. The txtimer never fires,
-so no data goes out. The rxtimer never fires either, so the session is never
-aborted. Later BAM transfers queued for that SA would hang behind it as
-well.
-
-Before this patch, the transmitter paced itself with its own txtimer, and
-this branch ignored transmitter sessions.
-
-Should this branch re-arm only when the frame is the echo of the packet
-just sent (packet == session->pkt.tx - 1), or when pkt.rx actually
-advanced?
-
-[Severity: Medium]
-Could this cancel then re-arm sequence leak session references if two DT
-frames for the same BAM session are processed at the same time?
-
-j1939_tp_schedule_txtimer() always takes a reference:
-
-	j1939_session_get(session);
-	hrtimer_start(&session->txtimer, ms_to_ktime(msec),
-		      HRTIMER_MODE_REL_SOFT);
-
-Nothing serialises j1939_xtp_rx_dat_one() calls for the same session.
-j1939_session_get_by_addr() holds active_session_list_lock only during the
-lookup.
-
-Two CPUs could handle TP.DT frames for this session at once. One example is
-the af_can loopback netif_rx() for a device without IFF_ECHO, racing a
-frame from the bus or an injected one. Another is two CAN_RAW injectors on
-vcan. The interleaving would be:
-
-CPU1                              CPU2
-j1939_session_txtimer_cancel()
-  hrtimer_cancel() == 1, put
-                                  j1939_session_txtimer_cancel()
-                                    hrtimer_cancel() == 0
-j1939_tp_schedule_txtimer()
-  j1939_session_get()
-  hrtimer_start()
-                                  j1939_tp_schedule_txtimer()
-                                    j1939_session_get()
-                                    hrtimer_start()
-
-When the timer fires, only one reference is dropped. The rxtimer has the
-same problem through j1939_tp_set_rxtimeout().
-
-A leaked session never reaches j1939_session_destroy(). Its j1939_priv
-reference and priv_dev_tracker netdev reference are then never released,
-and unregistering the CAN netdev would hang waiting for the device to
-become free.
-
-j1939_xtp_rx_cts_one() already uses the same unlocked pattern for directed
-sessions. Before this patch, though, the RX path never touched the txtimer
-for BAM transmitter sessions.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011153119.120302-1-alexander.hoelzl%40gmx.net
+>  out:
+>  	return rc;
+>  }
+> -- 
+> 2.51.0
+> 
