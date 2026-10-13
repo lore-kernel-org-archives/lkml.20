@@ -1,138 +1,227 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0F72F7F00
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E5351DDED
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910092; cv=none; b=IknFnf5z3HPCmXkKoLVuHaFP4GiLEW0isNv39S3FI9zFGr/CMTk2Mje+u+GPQIlXQxE6L4Lh7W6LXx1Fw4SB2S5tHxAGlYLjz7VHiUubcgEllNgWEi8CVAapPlvMNu9IruAk62WhD34wSy7yDkS1nTWTxjx9DmO+4B8Ff8HbgrQ=
+	t=1791910097; cv=none; b=KbJGdTyaZixWiTQsSKWSDBTKGBbqGxmFBHqoWJMbpi+88M2TA3UdMvGuS/1CnuWeKBay7gQIjlxto/aoSVMSuZr6s+b0QGwMmzoZf352/2YXZIIHbMasMxAg9UHnwJTbf8ZpbOXxc2BtnhwoGocHNIV8vc+3M9MgCs/pUp/z7IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910092; c=relaxed/simple;
-	bh=9KUDlykEh6C5KpXDh9ru042VdpWhJXyoMeTtwyXifSI=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XRblw+Ufjlk+r58xaWrM5hQW0308Ek8DYJxC2PuSUISxA1AdjpjejyGd/lq9LNozjo6K16K/BD3WykY9Ikir6uMGFDyeMoBkV3eU9EZVsQr1NzlrqQnMvxskSJQKEEWaBwy/Z6dMN0DPC7FI8oPivmqeDQXx09jmteK5sj7JaNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6KjUDHh; arc=none smtp.client-ip=209.85.167.45
+	s=arc-20240116; t=1791910097; c=relaxed/simple;
+	bh=fxGS0KDBWStjrqyKtmCx3JA0nIxD5douxgGJQijWt4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NXo9kZ44xTmU1sFq22ELPjowbOuZEzw1PVRv1+KHFEG/MvFhodmvheXzWh5f0XhxncAjjXEPQMNBwqe4F6iNuygg0ph5iWidnZSx/dJdCA6izNgzSdQUZVKntXhquaKGbZZ1+OqUUQTjr9TYgnDwiq1oj1dnQnH+Mj7OD6foYHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=At4VtRdY; arc=none smtp.client-ip=74.125.224.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6KjUDHh"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so2491252e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:48:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="At4VtRdY"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6756a01fa01so3072403d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:48:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791910089; x=1792514889; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JrdkhjVWS0paU+Qy/xA3FUiCVMdE6viTRALFdsJ0zOM=;
-        b=U6KjUDHh9KTz2HLsuhUQPdGYQj19g7gqbvzx1i4glcRbwE1ByUrKoz9iz4X8Kz6VjD
-         7Bu/lbH+7yWTYADv1Iz4trtPZVAA58NblCXLjSa4Kir8rMog+GLvgAdM0yO6olUzw8W4
-         EhGPmZZ3u2gWVoCj9zTxHhK+4XqviSdnv+MnwCxwiVp8Tz4Eq1s1iuf2BMrM5oIXipsT
-         oc7anWNOJc3UUdPtjDiz/+OZcnX8ZL3lK3U69oELD9RfPDBbqRxjBJ9Q5sjZzxGriw/u
-         xuvB8QkehoyvcQ4CDjpx7Yp9CqzUTzs2tlFoNSxiCcWjL6YtdwZWx6fhZTLVIH2rS4j4
-         XaJg==
+        d=gmail.com; s=20251104; t=1791910094; x=1792514894; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F/tCO70XLvBQZ+VECtj2XSlthzSz2vi6dAShJcsMRWs=;
+        b=At4VtRdY3S/4VyjeBEk4k0oigcfYvJeXrsJmEbFJ8sbbQqJ1LEH+P8+kroUbWFdH+1
+         s4fYPclCWVhFG/pVo0PzOEJXWU5VY8cMHA/H3k/6LD4roIV+YX0rM4+0qrk8zafCGNdy
+         M5bPNpsB+TLUY8j3X94X4HcT/Eny1Ml6y7rQ7BXCDSq/IT9Vt6Fw/T1QrOqzCwAcfJBh
+         4IK+3rM8veizHNGr6Nh9hrhOV9W6Aai8Ki/3FxcePdau//2Rg50qsSKmVAADpCsXUX7s
+         +iXo423ah42PUn6PdrknaN8fowULFc7KVuS7u8s1la4hhtIpSyXtcGLjVF6ZHzpz/lcp
+         qsvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791910089; x=1792514889;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JrdkhjVWS0paU+Qy/xA3FUiCVMdE6viTRALFdsJ0zOM=;
-        b=HF8ZSgNgzb5v65v5YKNXqGGbwRV1sY5m2KRh1L6+YoQ8hL4bJNi12a5AjXsIMkarc5
-         gA8k+pwNfF0+PWOssW2aeJlcPITq4TNsZZt+/cMuPuE1dhp1zPoesZJKxcPcOPdHRSxe
-         KKGM9dYRAcvP6m6cW+JSpi1qA38goIywI2PtRW/LB4kASmHbKtfA05H4gbcfEI3e2joA
-         xfQhIvXx4VzzgtxIC0aQogOcghb/74zGVpriCrJwoAKjGyWugMV2qFfxIAwUbtv7rbro
-         lwFuM9k0X1SXy6CIHu9HTvT+s0UnXPn+J8pSyl/yMcAEDULPq3RL4MYkMx8DyR/i6/nd
-         Rp1A==
-X-Forwarded-Encrypted: i=1; AKwUvBzmID6qyNy4OT5mT8qc6PjZaS0p2SdNOZNIWh9xtZzSSdKzeR1ZGr8B8Nk3xSSa6vbKG9OUctc/56Ja2Ys=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9rs2AJwxjuh4KLvmXggO0wYGIJCxEVjOOide57DFyiZE5nMWK
-	KcHSAzR/MtzBMgG+0kqUJX7GGKO0LKuBF/3BCKNXl1p//FOBd9g6v1i8
-X-Gm-Gg: AYBFou3AzvAWznKkD6ThqZnz9uhkbwZWwXzIUfAnHP4PLy+0pTEqIIweiBk56Ha1JJs
-	SRd8z/MY0fWbJCjQO4Pl6NGZTCFBDZz7eC6yfKGpi4eWm4AHX3FCW0/izQxpd031oavls4DaxPN
-	LdmhXbVRbFDEdv15FUYGXTEMAiMMPEnzhffgwJUO+W0LwxcVQ9NaHU7QGFxI5WCT/UUza+WQN3b
-	mPgvOrLZ5LM7mbdbtGddYvFaewTdVdgd/HnEK2ZklY30NLaCxUElk/S6VOBe5chHISFGNa+1oAg
-	LnjFRapEY8ADImBsEdGsPbINW2Fed+MjW/fJdlcS1ZvGJr/PXRi+EWf9Dd511NB/sNWvf02+6Vl
-	+bxdpOanh4HJmaYrVKYaYweKGxeHGSrbTdTFh2kv9iuK1t/+/WvgIhUZtYHs2WggRxn2rmPCN5K
-	RZxtfj3Eh2voUL6CfwJ+xiwfkQYmNOlKnh1FiAYpNSp1ZOgFowZYD1rG2GYcGfZ3JcgNeGK6Xl0
-	rC2Oi9zCjdMsJbDH5zOJXBq
-X-Received: by 2002:a05:6512:3d0c:b0:5b8:f309:f275 with SMTP id 2adb3069b0e04-5bcde8cea91mr4857257e87.58.1791910089239;
-        Tue, 13 Oct 2026 09:48:09 -0700 (PDT)
-Received: from pc636 (host-95-203-22-87.mobileonline.telia.com. [95.203.22.87])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3cd2f24sm37276021fa.28.2026.10.13.09.48.07
+        d=1e100.net; s=20260707; t=1791910094; x=1792514894;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F/tCO70XLvBQZ+VECtj2XSlthzSz2vi6dAShJcsMRWs=;
+        b=YU/uaiuhfOf9FirJwOrRu3D3MdybRXTJ3rykD+NzDUQhSV0NaEQycCXrx3A0jj9V5s
+         OkDUQfNOGPrWwLDpg09cBLANk5Cggdo+u+xCA5+EURgkBaDvqajGHxH/kJbX2oZDN8Zt
+         GzYjQ9KwWsjqwCCrqHcGdetb3y5xWZdA/yFKmolKaHtzUBkHAz0mrmrtTTGxj/tUZ8xw
+         vvIO3xnrSlqjjLagPUhIAKAh1FoovKc672QItiafVUGqQ1sJjbLPL1XWWOQBCIEqdlBT
+         RtXDyhkZyzMudDy4xUi1qU5M52AiX/yN3CuDTx9a2mRbR/xEublBg1KoPLp+gLbJ1mZu
+         lv7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwDH+dldJ22e97/Gk2lrMXxxz0MjusxW5brJVHxAHlwnalfb43RaASa/Fh/mEAbcSrqOMlkU9wN8QD7NCE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8twHzm8ZPnAG7aRmZU6ucCGfTuL99z1kaYv1tVV+FNdlwbntq
+	ziyo4nvTQEioyedjNHKXPE3jWbGaX/l+fiMufYMoq5FX7EhSfrNSwH/k
+X-Gm-Gg: AYBFou18WjqnQtiOP0fMc03OSor0Ovqq474vp67OGkXZtr0UMctDS1ifj4FzJNBDuG4
+	9bpEFC+DV0Wc1TWZweDNvIxUnz4vCdiisFrkHORWlqqsOw6OCGilV4Fy9b594gvMBWavc74Cc6l
+	+FC922mCVWZs75jmfYcwb8ArY9GFRf4/okJ0oAz4Zc7oP1arW+SE/zld9hgTf+LiIxj9JJyKka8
+	uCX0dZI6rpAVHXKeHE69qNBS1hYmBjfyP7PDm4eE9iEh4TV7FkMrxAwRDcAMoZ7mPy/QHpy/34t
+	UrCPyx9Y5TU45uHWdMjuMwTUK2YtHpEpw3ypHWYorj29JnPm650aOwIARGZrWWbGSlR3Tnaqs0O
+	9qWzZw2fnoqAbGnP7rMeVVg0JcZEd4MZajXTSrvMsIkWZbWvC1eCiU8QFBuWxc4Oehya6fHUW+U
+	JbmYkE8cvB0BQFFvSph42tQkr4QaqfmP7B1B1ZIvlkSy7gD+TaDpwRMOjkYoi1UGMRvOzLIxIx
+X-Received: by 2002:a05:690e:1383:b0:671:7e90:70f4 with SMTP id 956f58d0204a3-6793678d44dmr4486938d50.10.1791910094243;
+        Tue, 13 Oct 2026 09:48:14 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:d326:f863:5ae3:683])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67986a89294sm81136d50.15.2026.10.13.09.48.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 09:48:08 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
-Date: Tue, 13 Oct 2026 18:48:06 +0200
-To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>
-Cc: Hao Ge <hao.ge@linux.dev>, Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Uladzislau Rezki <urezki@gmail.com>, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
-	linux-mm@kvack.org
-Subject: Re: [RFC PATCH 4/4] mm/percpu: stop unmapping the CPU that failed to
- map
-Message-ID: <as5gxn6i2DD0iprj@pc636>
-References: <20261009063619.112313-1-hao.ge@linux.dev>
- <20261009063619.112313-5-hao.ge@linux.dev>
- <CAJuCfpGEgTocqrdpOtkOfks-geU0vVMZudNEG5+XWi3sxQdymQ@mail.gmail.com>
+        Tue, 13 Oct 2026 09:48:13 -0700 (PDT)
+From: Justin Suess <utilityemal77@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	NeilBrown <neil@brown.name>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Song Liu <song@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Tingmao Wang <m@maowtm.org>,
+	Justin Suess <utilityemal77@gmail.com>
+Subject: [PATCH bpf-next v1 00/11] fs: unified VFS ancestor walk for Landlock and BPF
+Date: Tue, 13 Oct 2026 12:47:49 -0400
+Message-ID: <20261013164800.2906577-1-utilityemal77@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJuCfpGEgTocqrdpOtkOfks-geU0vVMZudNEG5+XWi3sxQdymQ@mail.gmail.com>
 
-On Tue, Oct 13, 2026 at 03:46:43PM +0400, Suren Baghdasaryan wrote:
-> On Fri, Oct 9, 2026 at 10:36 AM Hao Ge <hao.ge@linux.dev> wrote:
-> >
-> > __pcpu_map_pages() clears the PTEs it installed when it fails, so
-> > pcpu_map_pages() only has to tear down the CPUs it mapped before
-> > the failing one.
-> >
-> > Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> 
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> 
-> 
-> > ---
-> >  mm/percpu-vm.c | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/mm/percpu-vm.c b/mm/percpu-vm.c
-> > index 509d8901835c..59d3a336a6bd 100644
-> > --- a/mm/percpu-vm.c
-> > +++ b/mm/percpu-vm.c
-> > @@ -252,10 +252,11 @@ static int pcpu_map_pages(struct pcpu_chunk *chunk, struct page **pages,
-> >         return 0;
-> >  err:
-> >         for_each_possible_cpu(tcpu) {
-> > -               __pcpu_unmap_pages(pcpu_chunk_addr(chunk, tcpu, page_start),
-> > -                                  page_end - page_start);
-> > +               /* The failing CPU's partial mapping undoes itself */
-> >                 if (tcpu == cpu)
-> >                         break;
-> > +               __pcpu_unmap_pages(pcpu_chunk_addr(chunk, tcpu, page_start),
-> > +                                  page_end - page_start);
-> >         }
-> >         pcpu_post_unmap_tlb_flush(chunk, page_start, page_end);
-> >         return err;
-> > --
-> > 2.25.1
-> >
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Howdy folks,
 
---
-Uladzislau Rezki
+This series adds a VFS API for walking a path's ancestors that covers
+both path-walk modes (refwalk and rcu-walk, plus the hybrid walk)
+through a unified interface, converts Landlock to it, and exposes it
+to BPF LSM programs.  It picks up Song Liu's bpf path iterator series [1]
+where the discussion left it, and tries to be the synthesis of what came
+out of that thread: a combination of the callback and open-coded approaches
+proposed there.
+
+The structure is unchanged from the RFC [2]: a stepwise engine private
+to namei.c, a callback front-end for in-kernel callers (Landlock
+is converted, fixing the follow_up() race Al reported, hence the
+Fixes: tag on patch 3), and open-coded BPF iterators over the engine in
+referenced and rcu flavors, with bpf_path_ancestors_legitimize()
+escalating from the latter to the former mid-walk.  Patch 1 is carried
+from Song's series.  See the RFC cover for the full background and API
+listing.
+
+This is v1 following the RFC and bot feedback, and some of the sillier
+mistakes are rectified.
+
+Biggest change is that Song's patch 4 adding BTF_TYPE_SAFE_TRUSTED is
+dropped, following [3].  This code wasn't an issue in his original
+patchset, because that implementation was refwalk only, whereas this
+one handles rcu-walk.  The problem is that trusted types acquired under
+RCU don't propagate their RCU-ness to their fields.  Thus marking the
+path trusted allows you to use the dentry from an RCU-acquired struct
+path outside RCU.
+
+Verifier fixes propagating the RCU-ness to trusted fields can be done,
+but it's best as a separate series where the idea can be examined more
+closely.  Then marking the dentry as trusted will allow you to use the
+dentry xattr kfuncs.  Nothing in this series strictly depends on having
+a trusted dentry, nor will marking it trusted require changes in this
+API.  See my follow up [4].
+
+Other changes since the RFC:
+
+- vfs_walk_ancestors() is introduced already built on the stepwise
+  engine, and the RFC's restructuring patch became a pure exposure
+  patch (patch 4): the engine is no longer rewritten mid-series.
+- vfs_walk_handover() carries the position's flags over, so an
+  escalated walk no longer drops VFS_WALK_POS_MOUNTPOINT.
+- A failed bpf_path_ancestors_legitimize() marks the destination
+  iterator with BPF_PATH_ANCESTORS_RETRY instead of leaving it
+  indistinguishable from a walk that completed at the root; a drained
+  source returns -ENOENT, a lost race returns -ECHILD.
+- vfs_walk_start() warns on and masks unknown flag bits, which the
+  engine shares the flags word with.
+- mnt_undo_legitimize() asserts it is called inside an RCU read-side
+  critical section.
+- Selftests verify the walk actually reaches / (position count plus
+  end-of-walk flags), use an acquired position only after the iterator
+  is destroyed so the program's reference is provably what keeps it
+  alive and retrigger when a concurrent mount anywhere in the system
+  legitimately ends the lockless walks with RETRY.
+- Stale comments and kernel-doc contracts fixed; notably, rcu-mode
+  callback reads race with concurrent changes exactly as in a
+  referenced walk, now stated at vfs_walk_ancestors().
+
+Stuff deliberately not changed:
+
+- vfs_walk_handover() validates the seqcount before taking the dentry
+  reference, the reverse of __legitimize_path() [5].  That ordering is
+  what lets a failed handover leave nothing to put inside the caller's
+  RCU read-side critical section, and the window it opens is
+  indistinguishable from a rename landing right after a successful
+  handover, which any referenced walk tolerates anyway. This matches
+  behavior with in-tree existing rcu-walk implementations.
+- A callback that stops an rcu-mode walk gets no final seq
+  revalidation [5].  This matches rcu-walk practice: may_lookup()
+  returns hard verdicts from RCU data without one, and d_walk()'s
+  D_WALK_QUIT skips its seqretry.  Keeping a position is what
+  validates, via the handover.
+- An "__uninit" iterator argument is marked initialized as it is
+  processed, so a later "__iter" argument of the same kfunc aliasing
+  the same stack slots would see it as initialized [6].  Reaching that
+  needs a kfunc whose "__uninit" destination and "__iter" source share
+  one iterator BTF type. The slots record the destination's type, so
+  a mismatch fails the "__iter" check regardless of aliasing, which is
+  what makes this immune.  Answered in [7].
+
+Landlock kselftests pass in full (914/914 under UML) on this revision.
+
+[1] https://lore.kernel.org/bpf/20250617061116.3681325-1-song@kernel.org/
+[2] https://lore.kernel.org/bpf/20261006002020.2890858-1-utilityemal77@gmail.com/
+[3] https://lore.kernel.org/bpf/efdfa80872c26e9e1b6fe11957ecba8e1b5ffcdad421e34281ed3ebd017b5752@mail.kernel.org/
+[4] https://lore.kernel.org/bpf/asUBWNVtSzLXkXsF@zenbox/
+[5] https://lore.kernel.org/bpf/20261006003305.44F761F000FF@smtp.kernel.org/
+[6] https://lore.kernel.org/bpf/20261006003716.CC7791F000FF@smtp.kernel.org/
+[7] https://lore.kernel.org/bpf/asUK2i4229DNzXLI@zenbox/
+
+Justin Suess (10):
+  namei: add vfs_walk_ancestors()
+  landlock: convert ancestor walk to vfs_walk_ancestors()
+  namei: expose the stepwise ancestor walk to fs/
+  bpf: add a path ancestor iterator
+  selftests/bpf: exercise the path ancestor iterator
+  fs: add mnt_undo_legitimize()
+  namei: add an rcu-walk mode to the ancestor walk
+  bpf: support "__uninit" iterator arguments in generic kfuncs
+  bpf: add a lockless path ancestor iterator
+  selftests/bpf: exercise the lockless path ancestor iterator
+
+Song Liu (1):
+  namei: introduce __path_walk_parent()
+
+ fs/bpf_fs_kfuncs.c                            | 248 ++++++++++++
+ fs/internal.h                                 |  22 +
+ fs/mount.h                                    |   1 +
+ fs/namei.c                                    | 380 ++++++++++++++++--
+ fs/namespace.c                                |  65 ++-
+ include/linux/namei.h                         |  17 +
+ kernel/bpf/verifier.c                         |  44 +-
+ security/landlock/fs.c                        | 266 ++++++------
+ .../selftests/bpf/prog_tests/path_ancestors.c |  86 ++++
+ .../selftests/bpf/progs/path_ancestors.c      | 146 +++++++
+ 10 files changed, 1098 insertions(+), 177 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/path_ancestors.c
+ create mode 100644 tools/testing/selftests/bpf/progs/path_ancestors.c
+
+
+base-commit: 763187dbbf83764a57d5811168ef9de7b9a60e2d
+-- 
+2.55.0
+
