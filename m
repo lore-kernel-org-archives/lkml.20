@@ -1,190 +1,159 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C62403E8E;
-	Tue, 13 Oct 2026 14:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FAB516147;
+	Tue, 13 Oct 2026 14:47:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902862; cv=none; b=QwFcgXvK/LKXMjx+UN/VM3z53l0wg8SisX2tUmEUck1qhXyIS6dWqWu4b+g5qBngmoRdRLg+pENSLCrnf2ukcsvS71kDWDN855GUTliFnVSekCp29GjaSKvvRp18SA3dgiO/HbAqiRnYH7nQO991uLyebr2dC7i+IEf35W7/nXI=
+	t=1791902869; cv=none; b=fToStU6cPK06zs7A2hKGLcRqQx+YCyjgcYNm+mWO+55vXEBPEkthpmDuodyP4l/eDAbP1kqUJ8Ps6KEqAfl4axN2Zvu+N/5k+yXL6u28eTobva3YsHlku8FuaFBQayp2sC8EnHMPuC7Ikj8/JdP6LNHDwuPi5216YU2zxlOz0lA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902862; c=relaxed/simple;
-	bh=ZnqqAzLOrG9VwtFeqy7PMDqZBMbdLqT3yKpuGrjW1vY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g6H2yaPPXC6K06/v7h/2VEC3Hd8vRgo8Z2Q06PMdi0Q18jKsKUk12afaRpPEwWzjA8GdlRuaAoHBzHcyCf/QYfRGiEtt595dAO07x9MpStWXq+UlHrPeAvJBzGQt24GJk262a+hFLW7X/CyjMSPQZX9BQQuTiCHbi0U7j1r5l3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 023391A0231;
-	Tue, 13 Oct 2026 16:47:39 +0200 (CEST)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id DF3581A022D;
-	Tue, 13 Oct 2026 16:47:38 +0200 (CEST)
-Received: from lsv051416.swis.nl-cdc01.nxp.com (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
-	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 616FA202DA;
-	Tue, 13 Oct 2026 16:47:38 +0200 (CEST)
-Date: Tue, 13 Oct 2026 16:47:38 +0200
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
-	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	imx@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: Re: [PATCH RFC v3 04/12] net: pcs: add NXP SerDes XPCS shared core
-Message-ID: <as5EioEfZqMZhyJg@lsv051416.swis.nl-cdc01.nxp.com>
-References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
- <20260919-s32g_serdes-v3-4-9d68868c1e89@oss.nxp.com>
- <6aabb56e-406f-4d13-9fd8-54822202039f@bootlin.com>
- <assmUIvWMuZsp8OO@lsv051416.swis.nl-cdc01.nxp.com>
- <CALj3r0gQkUARS1e+2CGB3JsrGJ2XrzuoChfz0cWYRpK4kq1Uxg@mail.gmail.com>
+	s=arc-20240116; t=1791902869; c=relaxed/simple;
+	bh=1C8apn9neRC0SCWDM19pG5A1PRdaunbQl6T7NLwPIns=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WnLd/wz4geo4VWSvvfYPtJToHB7zplhJNNuTF+6Dohpl5FTVSfeZowLUUpQdvinS6MaG3VMBXNWDExiZcCJQi6+4V8vrNnw5aPc005SaO5/VyfScDJ0Z9dPmEw4KAG6Zvh5naknzykqfI6LZy99DEkLpdG7hOQwXjuJ296Wpi8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B230CHXY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B230CHXY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A181F000FF;
+	Tue, 13 Oct 2026 14:47:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791902868;
+	bh=XQjV9R4YK4o+krAFe00TSqM9w2aXTDAZXig7Z7r7AXk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=B230CHXYftuO+Chi9CVLZoq7Q1BKh0EH+Ne26kR8Vo00/D3mSTAdsK20zR5g9OyH9
+	 XRGIg0k9uCtepYqigMcL3CIId+tuN4m3DgoAZmznU2VxdvZsPys3s6yIh1f67w84dq
+	 WECj9DK2wzSOJeCTk2W6x8wi+qRLma0sBLJxNbozUBUGXvxIALD3gbH8u13jsPiBIo
+	 679OLFJEZ4+9o4RO8L9K9i9/gkJOhXfL7HPCER3rhMOI/RMY0FYx3f+eQelfU466KY
+	 XmWxZdK9etPq9p87qplAkTC9OeA74bVwRPVuHVV4jTBIWhrqbuXVApCcNjQ0RS/b4J
+	 bgNu/axlo2LqA==
+Message-ID: <0dbd9197-3fce-431c-9874-926f03f662f8@kernel.org>
+Date: Tue, 13 Oct 2026 16:47:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALj3r0gQkUARS1e+2CGB3JsrGJ2XrzuoChfz0cWYRpK4kq1Uxg@mail.gmail.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] docs: remove Assisted-by references
+To: Sasha Levin <sashal@kernel.org>, Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Federico Vaga <federico.vaga@vaga.pv.it>,
+ Daniel Pereira <danielmaraboo@gmail.com>,
+ Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>,
+ Dongliang Mu <dzm91@hust.edu.cn>, Andy Whitcroft <apw@canonical.com>,
+ Joe Perches <joe@perches.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jori Koolstra <jkoolstra@xs4all.nl>, Jeff Layton <jlayton@kernel.org>,
+ Christian Brauner <brauner@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Mark Brown <broonie@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Brian Foster <bfoster@redhat.com>, Carlos Maiolino <cem@kernel.org>,
+ David Disseldorp <ddiss@suse.de>, Jani Nikula <jani.nikula@intel.com>,
+ Justin Stitt <justinstitt@google.com>, workflows@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261013121501.3738437-1-sashal@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261013121501.3738437-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 03:47:58AM +0800, Coia Prant wrote:
-> Hi Jan,
+On 10/13/26 14:15, Sasha Levin wrote:
+> Commit 78d979db6cef ("docs: add AI Coding Assistants documentation") asked
+> contributors to add an Assisted-by tag to patches developed with help from an
+> LLM, and commit 816d9992d9ed ("coding-assistants: simplify attribution") later
+> reduced the tag to "Assisted-by: LLM".
 > 
-> Thanks for the pointers. A few thoughts.
+> A proposal to drop the tag was turned down in July [1]. The main argument for
+> keeping it was that maintainers wanted a signal that a patch was LLM-assisted,
+> so that they could review it accordingly.
 > 
-> > Yes. The S32G accessor is the same DW indirect scheme pcs-xpcs-plat
-> > implements (page into the viewport at 0xff, then the low address byte
-> > at a 4-byte stride), so there is no reason for S32G to carry its own
-> > copy of the XPCS code. The next version drops the shared core, exposes
-> > each XPCS instance as a mii_bus from the SerDes PHY driver and creates
-> > the PCS with xpcs_create_pcs_mdiodev(), much like the RK3568 glue.
-> > Details in my reply to Andrew.
-> >
-> > The part that does not fit pcs-xpcs-plat as-is is ownership, not
-> > access: the XPCS windows sit inside the SerDes subsystem register
-> > space, and their bring-up is ordered against the PCIe lane and the
-> > other XPCS instance, so the bus is registered by the SerDes PHY driver
-> > rather than by a standalone snps,dw-xpcs device. The accessor itself
-> > is a few lines; if Alex's pcs-xpcs-regmap is merged first I will use
-> > it rather than open-code another bus.
+> The tag came up again at the 2026 Maintainers Summit [2]. Roughly 10% of the
+> 18,533 non-merge commits in 7.3 through -rc7 carry an Assisted-by tag, while
+> actual LLM use is far more widespread. Some contributors do not know about the
+> rule, others leave the tag off on purpose, and few maintainers ask about it. As
+> a result, the tag does not provide the signal it was kept for: its absence says
+> nothing about how a patch was made, and for developers who use these tools for
+> almost everything, its presence says little more. The choice was between
+> finding a way to enforce the requirement and dropping it, and there was a
+> strong, though not unanimous, consensus in the room to drop it. Greg
+> Kroah-Hartman, who argued for keeping the tag in July, supports removing it now
+> [3].
 > 
-> On the transport split: I think the cleanest path is to split the MMIO
-> accessor out into its own module, say pcs-xpcs-mmio, exporting the
-> read/write helpers. Then pcs-xpcs-plat can call into those exported
+> Maintainers do still want to know how a patch was created, but the view at the
+> Summit was that this belongs in the cover letter, where it can describe how the
+> tools were used, rather than in the changelog.
+> Documentation/process/generated-content.rst already asks contributors to be
+> transparent about tool use and is not changed here. The rules on the DCO and on
+> the submitter's responsibility for the patch stay as they are.
+> 
+> Remove the Assisted-by sections from coding-assistants.rst,
+> submitting-patches.rst, and the Italian, Brazilian Portuguese and Traditional
+> Chinese translations, and drop the handling of the tag from checkpatch.
+> 
+> [1] https://lore.kernel.org/workflows/2026070224-unholy-commode-cf45@gregkh/
+> [2] https://lwn.net/Articles/1099594/
+> [3] https://lore.kernel.org/all/2026101327-cupid-legal-6cf6@gregkh/
+> 
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Reviewed-by: Kees Cook <kees@kernel.org>
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
 
-Fine with me. The S32G accessor is a few lines, so I will move it onto
-pcs-xpcs-regmap if that lands first, or onto a shared mmio helper if
-you post one. Until then it stays open-coded in the glue.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-> symbols instead of open-coding the page/stride scheme, and S32G can do
-> the same for its indirect window. That way nobody carries a private
-> copy of the accessor. If that turns out to be too invasive for plat,
-> keeping a separate pcs-xpcs-plat copy is workable too, but I'd rather
-> avoid it.
-> 
-> If Alex's pcs-xpcs-regmap lands first, that's the natural place for
-> the S32G accessor; pcs-xpcs-mmio would only be needed if the regmap
-> approach doesn't fit.
-> 
-> > S32G needs the same kind of thing: skip the generic soft reset, and no
-> > EEE registers. I will start with the existing PMA-ID mechanism, since
-> > that is what TXGBE and FBNIC use today, and switch to a callback if one
-> > is agreed in the Rockchip thread. I'll Cc you on those patches.
-> 
-> On the shared-core duplication: rather than copying the whole XPCS
-> core, I'd look at how the existing users express their quirks.
-> 
-> Wangxun has a genuinely different PMA ID, so it can branch on the
-> ID before the reset path and keep the generic core untouched.
-> 
-> The older NXP devices do the opposite: they fake the PCS ID at the MDIO
-> layer so the core sees a magic value it then interprets. That leaves
-> the magic in the core and a fake ID in the glue, and it doesn't scale
-> to a third user.
-> 
-> For S32G, I'd prefer one of these two approaches:
-> 
-> - A flag in struct dw_xpcs, e.g. DW_XPCS_NO_RESET, that the glue sets
->   and the core checks before the soft reset and EEE paths. Works when
->   the quirk applies to a whole instance regardless of the PMA ID.
-> - A platform callback, e.g. plat->pma_config(), where the glue can
->   return early to skip the parts it doesn't need. More flexible, but
->   also more surface area; I'd only go there if flags aren't enough.
-> 
-> Either is better than another fake ID, because the quirk stays visible
-> at the point where it matters instead of being hidden behind a made-up
-> value in the transport layer.
-> 
+-- 
+Cheers,
 
-Agreed on the principle. The problem is that pcs_pre_config and the
-PMA hook are reached only through the ID-keyed compat table, and S32G
-needs a pma_config (link timer, lane on MPLLA). Without a platform
-callback the ID is the only way in.
-
-What I have for v4 is an ID-keyed entry with the two quirks as
-explicit flags in struct dw_xpcs_desc (no soft reset, no EEE), so at
-least the table says what the entry does.
-
-> One question: how does S32G relate to the earlier NXP devices already
-> in pcs-xpcs.c? Same IP, same PCS ID, same quirks, or something else?
-> If they're the same family, it would be good to clean all of them up
-> in one go rather than adding a third mechanism on top of the old
-> fake-ID one.
-> 
-
-Same DW XPCS IP, different integration. SJA1105/1110 are switches with
-the XPCS behind their internal MDIO; S32G is an SoC with the XPCS in an
-MMIO window inside the SerDes, sharing the PMA with a PCIe lane. The
-PMA sequences differ, and so do the quirks. The ID is synthetic in all
-three cases. On S32G the XPCS reports the generic DW ID 0x7996ced0
-and the PMA/PCS/AN MMDs read as zero (checked on an RDB3), so there is
-no hardware ID to key S32G behaviour on.
-
-> Separately, I have a plan to propose platform callbacks for the XPCS core
-> at some point, regardless of whether S32G ends up needing them. The
-> core currently has no way for a platform glue or PMA to limit or override
-> parts of the generic behaviour, and I think that gap needs closing.
-> The exact shape can be discussed once RK3568 lands. Happy to Cc you on
-> the related thread when that happens.
-> 
-
-Yes, please Cc me on the callback thread.
-
-BR.
-/Jan
+David
