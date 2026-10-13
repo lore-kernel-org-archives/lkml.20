@@ -1,162 +1,141 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F3951DB18
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:27:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908842; cv=pass; b=g1UAHvfWXAgu4F2glak3RCRSDE1If01B3heJQKEwnHfXr0avLr/BnBgX5ZAP+hJZk81lrkqcInAqgdbYBLb0xqm/xvWi7PZhAYoWZzM7QO0YVCz88gKln87KgZ4n+QlWPvbTadAzB96SrDlzcf9bcF29QD9gKKUHVBEiLlpFftE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908842; c=relaxed/simple;
-	bh=w0IXztAu98K98cCd8kCaVJg3QAtMwDa5REUQqF4U6dg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bw8vGwGGfmBkG4uZPsmt/vDxKWA7E4rM8ZKko6/LRNVU2N/Jl2mr0BFHxabsXSoHBWjP0xBDHy67zg7nG9m5NB1IAoLnA6LmDNvK64BMmJFvNajdb+z0MWcmRhBOhxRgPcAtz0rFL2h6ggfCrYXGHW3lcTSswdIciNfArjKumO4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kAwz60jT; arc=pass smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502A551DE09;
+	Tue, 13 Oct 2026 16:27:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791908869; cv=none; b=a2gBTpYMO79xcNP0sGW4YmPQpgAb30FTjQFsgeht1s0n9zOCnnreo0FHtqIAOpfRebkZzVPuTrf31pxZqSovVoqR2wQ9ox5QsTiQelBaivp2xGyl7BFtY/+pEiOTFyhj82WWd5XEYCWYV5bFe+TkxR2YJFKdmXo6cY2zl5VwSsk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791908869; c=relaxed/simple;
+	bh=ER4Dd+j8z4PKpBg8k20jDNqMbWHBUM5EcOSDxEz9TV8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B7TaIsrXfNZ4IC4soxJoYbTlQxqCbUQMlbBXhe8SPrP50fj0bVwk7LKGq83pu/Y0zSMIUmfLxKWADkkDJov6bMzcv9+2svI2KiK3C0KcXxQsdru3jPhX6yDg1kl/PAp9aRsa2doqShClLB+kh5LNwvOeNDCe3SMmaYRDONNLZ9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fyEchzav; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kAwz60jT"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3282db206d3so117685eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:27:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791908839; cv=none;
-        d=google.com; s=arc-20260327;
-        b=K9yZwKCqNLp9p4arHF7FvdXg6jnLkPRS6pYu1/Zuy7ypupFw1oESFvz1K/Piv9L7Fn
-         faZAS3PIR3RT56KYZctQ7OPQUgJRkXcudOU0TSPvVJwMjgJRAnkoncFpp2a6NyuNa3VI
-         R/oGCADinW4XsZv/bbvuzG4HlPyaQ9b7KzXSiMnKZIIUwfBvxyKLh/ZqfAyHuNGZ2pXl
-         Y093U/v7ADaSbpBtGrHDSi3wAlzRlqI9EY2Lr4C8JsjIb9+rrQr2Svw0Hy+wAJ2qEZSb
-         OKykWBxfhzrbntRp4pFYz7M7HVTiQ+xIsMjgeCyjlqD2Yw8TkEfQyMYwvdbjIAHRf/qP
-         VZDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XFVRy1ENi3+Slhs3K96teAausjQ0Dg9HVOBBYOnCZ+4=;
-        fh=K3SB4/rVIsoGkuKXULF6mLCcx6qAXoDLOJMfiaSZ5ME=;
-        b=E7p3GBt4+Iy7OvzdAvblvKdZIoKuLKIIL9my+iVv5bcCBaiDrdCS6m1TZU3gGx7wyR
-         nX0Wplwb3pK8G4J+AQVR8K6gRRWen3gHI++Ljwg8yzuMFJ/xUfloPL5jy/Y6wEH7icQ2
-         7b0Rr4Hgz3m6gnJ/PXbe6C+OMmwL7QQFJoAaN3s/CBf6Gevfyk+awRq+7fRyrSEnV1ku
-         N5hlo/GppXxE+aEi9YlUHGCb0mzaJzxg6rbuinHG6Kys6H9TAVcy8BtPc8SmUNeo2Q6D
-         7v4iryUGWOPArtBkJlbL9hMGpvjzXE69mCk1mgwG4FUeh0kWlXR4skN1Z4ia12uzhTQr
-         mwoQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791908839; x=1792513639; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XFVRy1ENi3+Slhs3K96teAausjQ0Dg9HVOBBYOnCZ+4=;
-        b=kAwz60jTjbXZ1371SUWeIG50qMgcdtsu5vM68Do4i7fJ9AvXrLYXxi9ATctv5C4yfu
-         iKRFsv0E+0bVccekECc7CRwDvTecF/0JE3S2LAHroLpe712G+NNAZKESuMmUoSHLjYfV
-         h8rpk5auJVECMX+ymh3Yp3z9dK+JvPvT0mjjf+i77PwAB5KG7sl53zFvVFwtsZBTYl5e
-         wgES8+x8HofSP+HdUOmGgjJaDgxtqUqjfH9aw0FzADG4EOZUqi4MEAMnoAsMS3enx59F
-         P/52p8VFiL50edSVcTU+xfNQUFwJO8xk+bHdZK4/CouCoF5NTSi6OgwQHLGtmBKVJdII
-         P2LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791908839; x=1792513639;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XFVRy1ENi3+Slhs3K96teAausjQ0Dg9HVOBBYOnCZ+4=;
-        b=jB7Nl7Cw4FYQ+MSUUrsWO0FCy4XabY4SIeJH1Pj7hYQ8xmLx0smxzLBImIamymVVO6
-         vv0kU1FY2wODXVE3bg7UE6AZndUtiwRxGKrDURC6zwC2JNmfN33GvjkwuHEMqA9aJTa3
-         FRG0FUUKKJCg9nk/2JV8jK/7cmGDDfDb0iADwatlHpKsgOU6QZmlAHssGMzuw6jfnboI
-         qSFdW+F8PqB4pHEdvA/K5RWNmGC86jl4iQUQfyA7Mdk3fwA1rPjmLF+IS7sRYIomXgc8
-         LIug84VXagdvuQpXlbqM2JohDCyP5TAcbxtjEL/3q8DN6nu/3Y5gEkMezR6KnEiddeJL
-         EkMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy5PEPCYPKH+XgeUnmy8WQcm0JJiMdxpzL/8ptpjf4Ci86enrgBSsFv+OkQMXctJqQjp7mr5zO5YOQDXE8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSvjPvgIEFf6S4FAUh7hStdndneKmOKRyvx/T7AlcL2yRNLg+H
-	StJ5Y3vs8HYKOOAofcwn2UknP5MjUyzWcH09u733nJd/kfWG7uIkRVXH8MYvWZ6e97uWHxpFJru
-	L9cElqbZMtC0cOuIO8uxB2IcEbz9mR9k=
-X-Gm-Gg: AYBFou3+FsgdxLMAfsDUFGQMK86VLSf2ItLd8Ie/ZUClC3YMaB2n2cPCA7JWdxOi1XX
-	Wp9wGeSlvn9ua6KYfbzxzFAqDx0ph0h0n/nUfhbbVINgMkuOpVP8C+h1RdH1UUNY3tnOvobeBp4
-	uXFViLvXWHBZqOo1V6fuW1fRPY8m1GYy7fWFawVXlBD4YqTKUIMxPQlq1qwdsbcp0ZSInoFE04E
-	7icQnG9z35AZ7w5+D0L+R3FtSdsFYYCC5zlrWUHJtZbhWwA7b7BlPt19NZrNnIuOeAbZLRL1AtC
-	RITD0F2HdMoqR+mNsSCGrBhByJZPocJJHubHBnMygSnkSBPvgtFztx1IHnjpspK+A1b26POcJyL
-	u082b4Cptv7kCklRo1ireM/o=
-X-Received: by 2002:a05:7300:e002:b0:35d:5a2c:2321 with SMTP id
- 5a478bee46e88-35d5a2c2980mr575512eec.20.1791908839126; Tue, 13 Oct 2026
- 09:27:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fyEchzav"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791908868; x=1823444868;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ER4Dd+j8z4PKpBg8k20jDNqMbWHBUM5EcOSDxEz9TV8=;
+  b=fyEchzavOeEX2fam7F04gDjnQr0EHcP9mZVuAwmFePt5saeIPgrjtriD
+   KNf582b8G6snKyn4xUatWWRV7AFPfk7WNTfBpli2mDXtEn00u9bwl7SOi
+   7dH8JAG9vyNl0mHfRhDk6Fr37XNysmAwhr8/cdeKcyycm6mHz20XVe/RI
+   hvhPUolhdWDjdLMq9+0FUO3IFeCDpw3ldTuTWM0XSr0kJddkmAaCEYALE
+   guFSuh6vl6xP7rKnTI4//BZkqdJY0pPxa9e03TWw8t7RhOMyz5FteaNCk
+   aBK6ER3MBcl8XCGcDiYRJCixt7sLqs6V+AYQYfGS+9s/gTAB6Q/u2DMjR
+   Q==;
+X-CSE-ConnectionGUID: LinC8IplSMadp4X94djnlg==
+X-CSE-MsgGUID: Ug0PEYFIRO6l8MXhbarZFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="541876"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="541876"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:27:47 -0700
+X-CSE-ConnectionGUID: sWQeqysTS6CC0UIkt7KtJQ==
+X-CSE-MsgGUID: jQFJU3vCTcSJOWNSiAP0LA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1524260"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:27:44 -0700
+Date: Tue, 13 Oct 2026 19:27:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <as5b_jzx5CG_UoZS@ashevche-desk.local>
+References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+ <20261013115639.167433-3-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004154456.145362-1-clamor95@gmail.com> <CAPVz0n1HOWAXMwfeCBV76Z+N+6mgynXW5GeMebnqYQubNDqpOw@mail.gmail.com>
- <CAPVz0n2SmOY3Cw2HpnpYd8eFXw7B=2mjP6LMhKCu5niN=KnOQg@mail.gmail.com> <as5XpdpNm4cRGNcj@orome>
-In-Reply-To: <as5XpdpNm4cRGNcj@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 13 Oct 2026 19:27:07 +0300
-X-Gm-Features: AclHuK_-dlj4_NR-HXsrfbWG6hEOQBskE9gcB79-TNecmzBROYTdvzz-we1jX0Q
-Message-ID: <CAPVz0n3ki1MdkUnK=znzt=uSrwRMbyXfdvGzNrxuB7_mCK9F8w@mail.gmail.com>
-Subject: Re: [PATCH v2 0/9] ARM: tegra: lg-x3: Add newly supported devices and fixes
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ion Agorria <ion@agorria.com>, 
-	Jon Hunter <jonathanh@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013115639.167433-3-marcus.yu.56@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-=D0=B2=D1=82, 13 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:1=
-6 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon, Oct 12, 2026 at 01:56:48PM +0300, Svyatoslav Ryhel wrote:
-> > =D0=BF=D0=BD, 12 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-13:55 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > =D0=BD=D0=B4, 4 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE=
- 18:45 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > > > Add nodes for recently supported device (ALS, LED controllers, hapt=
-ics)
-> > > > along with minor tweaks and fixups.
-> > > >
-> > > > ---
-> > > > Changes in v2:
-> > > > - added USB configuration update commit
-> > > > - added p895 power LED trigger update commit
-> > > > ---
-> > > >
-> > > > Svyatoslav Ryhel (9):
-> > > >   ARM: tegra: lg-x3: Adjust WiFi node
-> > > >   ARM: tegra: lg-x3: Remove pinctrl-* properties duplication
-> > > >   ARM: tegra: lg-x3: Lower supported suspend mode
-> > > >   ARM: tegra: lg-x3: Add light sensor node
-> > > >   ARM: tegra: lg-x3: Add flash LEDs controller node
-> > > >   ARM: tegra: lg-x3: Add haptic engine node
-> > > >   ARM: tegra: lg-x3: Add backlight LED controller node
-> > > >   ARM: tegra: lg-x3: Update USB configuration
-> > > >   ARM: tegra: p895: Update power LED trigger
-> > > >
-> > > >  arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts |   5 +-
-> > > >  arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts |   7 +-
-> > > >  arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi  | 125 +++++++++++++++=
-+++-
-> > > >  3 files changed, 127 insertions(+), 10 deletions(-)
-> > > >
-> > > > --
-> > > > 2.53.0
-> > > >
-> > >
-> > > Hello Thierry!
-> > > May you please pick this patch set if you are ok with it?
-> > > Thank you!
-> >
-> > Oh, you already did. Apologies!
->
-> I picked up version 1. This v2 came in too late. Pull requests go out
-> before -rc6, which in this case was v7.3-rc6, released on October 4.
->
-> Looks like only the last two patches were added in v2, with no other
-> changes to the other patches, so I can pick up the last two after the
-> merge window closes. If you don't hear from me after the first week
-> after v7.4-rc1, you may want to resend the last two patches again.
->
+On Tue, Oct 13, 2026 at 07:56:39PM +0800, Chang Yu wrote:
+> Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
+> 
+> The AS7343 is a 14-channel spectral sensor featuring 11 visible
+> channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
+> flicker detection channel.
+> 
+> The driver exposes 12 spectral channels (11 visible light and 1
+> near-infrared) via sysfs. Runtime PM is implemented to stop
+> measurements when the device is suspended or torn down. Power is
+> never cut (PON=1 always) to preserve register values.
+> 
+> Future patches will add configurable gain and integration time,
+> interrupt support, buffered reads, VIS channel, and flicker
+> detection.
 
-That is correct, v2 has only those 2 patches added. If you don't mind,
-I will include those 2 patches in a different patch set, you don't
-have to worry about them in this patch sequence.
+...
 
-> Thierry
+> +/*
+> + * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
+> + * ATIME must be between 0 and 255, inclusive
+> + * ASTEP must be between 0 and 65534, inclusive
+
+Haven't noticed before, but is it indeed 65534 and not 65535 here (or 255 and
+not 254 above)? Haven't checked datasheet, please double check.
+
+> + */
+
+...
+
+> +static int as7343_read_label(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan, char *label)
+> +{
+> +	int channel;
+> +
+> +	channel = chan->channel;
+> +	if (channel < 0 || channel >= ARRAY_SIZE(as7343_channel_labels))
+
+in_range()?
+
+> +		return -EINVAL;
+
+-ECHRNG ?
+
+> +	return sysfs_emit(label, "%s\n", as7343_channel_labels[channel]);
+> +}
+
+...
+
+> +	/*
+> +	 * Setting a 600 * 2.78us * 30 = 50ms integration time as the default
+> +	 * for now.
+
+Where magic 600 came from? Please, elaborate in the comment.
+
+> +	 */
+> +	ret = as7343_astep_x2780ns(600, &astep);
+> +	if (ret)
+> +		return ret;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
