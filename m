@@ -1,173 +1,106 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012015.outbound.protection.outlook.com [40.93.195.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D8147ECC5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861630; cv=fail; b=T+CzyVZK2FmRDUxYyBcI96JSFbL+M7xxgoPtM/l4LZpNBw3G84u6ikZEhgUG9hGgVA1BnhreRFBID4oDUKt7JABc30njsXr7ayXiENsUuICSS1Ywg5ZmrjfICgf6A8BeiCWZ0TNokJtTC/FHa2noiNbzNMJJc3dRybAC+vnwxuM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861630; c=relaxed/simple;
-	bh=JWJIR7OciLO/FLSYud0LCrzAsUb4j+ZS4y0FSSR/AnM=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KwQRoAtCQzlSRkKyMtfeR93AoxQZi+bAkHbKt31ix/fxaMrzeRY3yoyf9DQs6H3LCVVAYObEDmsWQEg3N6jaiOd+0jzmhw18Neka9NNP9wZpqjVPABFbJHn8I8/NrRdRlAEq5TOWQsxmRBYwWFLrF0MOVq05P+p7dFNkoeTsW3I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=r2SbfN/3; arc=fail smtp.client-ip=40.93.195.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80762376BEA;
+	Tue, 13 Oct 2026 03:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791861807; cv=none; b=K6912cB/V/nswJcXjxYNy3j4w8+ygD7iHTTq48aamAq69c0Pn4zmvsgWL0lO7Zd7zrA03M5HRyjiK09/TdnwHtRRyh26KWMjE4bSHhUTSTQaldGqE124OGF1xx8VpvdDtmmpua1bdpoMVlNvOt2bmF+lrCqYXx7BS0AjTzMFUaI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791861807; c=relaxed/simple;
+	bh=K+j8dwpPG35a0Usc6U/QaOJKVFbDLgR7XlxGxVx6O6I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Yts7RoE/ZdhL70zW0aptQIVVPg3PXGtuLpMtqXPJTB8ZW5Xqkon6NsGtHtky3fci5hLhWFdHRq99YzUChHj4F6AWi50CU2hQTubfwMX7cjlxbkUBQ4gelHq25glCPg/pGy7Gwn+Sl4Pt5yDqS4Dc4d5JoXKrDHARWjL6YMCS5oQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZrmd7AE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="r2SbfN/3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=boxKiCoNoOJ/LBxMLLP+Ih07FqReN/Fo1OxYjJ5OLuutIdiVsICB/LqmSMKQEAPmOHITadYnnyJauwx+IPbu1R2lcNHe5iLncym0FU882/9MV0cs9ZdoD9q9v+Q7GKROnHMOssiMz2TkhBRNzHFWt6mSo+vIJLwfAQzo1PLBdlOqfCk7TgXD9CKwlzt50DABNKsP2LqAGxJl+ieYZtsZE/yxrwQL5aQ67Cjv4zHyI3jRnn7Xk85JmWrDnKZZdaoQN+UdNhpzQkEz/dOOH1/VHf3XBb3Lg8GpHe1FPq2WupU8FFPXwHGSnrA7vFGl/j4oKl3djTWItIUdTkudEbA7lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GRkZK/iuuE3UsBvYNdMfTVUxrvDGE4KD74DhvJNy7nw=;
- b=aJIMU7EbXuQqrwXzFIBkc5VpWYCFmAdDeZdFnWb1Eo15USogjBXAQNfyf08LvX0pkKaUkNiUwY7ig9oPEs+SIM3tKZeEgeHToc28ywDoeUQvZ3ueXk318BuXtgTDOAA5wLWW1o5TiO+Z3V/miaMe8D9MBdDG/AQQlmy2HhTil6Rf0z2UVPiVKi5MUiMEB+qDtCU5cXhIqy/15OhdxpujSCet/z/7rjGhhS5d2jt6/pTYkuCkagF1xAwtjl2fvs16BD9n2YOqBd1g2/pykmWof6V/W4auggpfRr+2x0cIIiVnyfRbFDVT5oNrTbtsPK7L1TXXoLX0D6MJahkCv7L1kA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GRkZK/iuuE3UsBvYNdMfTVUxrvDGE4KD74DhvJNy7nw=;
- b=r2SbfN/3ezRrkJ2pyV6GM7cEYQlMQJPYynMB08FjJr03KGOKqHkGxiFztuh33hV8qx687327XkJkpMUv6/f6SzCbByvEVsZUSEcUr5XJx+4sIVn5b7letbWplf3QPXdFHjLg8mCjaqxq7H3Muun5q6Cs/es6vLxc//DBEHpjJbg=
-Received: from SA9P221CA0010.NAMP221.PROD.OUTLOOK.COM (2603:10b6:806:25::15)
- by SJ5PPF2CD49510F.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::98f) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 03:20:20 +0000
-Received: from SN1PEPF000397B1.namprd05.prod.outlook.com
- (2603:10b6:806:25:cafe::79) by SA9P221CA0010.outlook.office365.com
- (2603:10b6:806:25::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Tue,
- 13 Oct 2026 03:20:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397B1.mail.protection.outlook.com (10.167.248.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 03:20:19 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 12 Oct
- 2026 22:20:13 -0500
-Received: from aocl-turin-03-9e62.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Mon, 12 Oct 2026 22:20:10 -0500
-From: Biplab Raut <Biplab.Raut@amd.com>
-To: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-CC: <akpm@linux-foundation.org>, <hsiangkao@linux.alibaba.com>,
-	<terrelln@fb.com>, <yann.collet.73@gmail.com>, <guoxuenan@huawei.com>,
-	<Biplab.Raut@amd.com>
-Subject: [PATCH] lib/lz4: add software-pipelined prefetch to decode fast loop
-Date: Tue, 13 Oct 2026 03:20:10 +0000
-Message-ID: <20261013032010.2453893-1-Biplab.Raut@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZrmd7AE"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D6D77C2BCC7;
+	Tue, 13 Oct 2026 03:23:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791861806;
+	bh=K+j8dwpPG35a0Usc6U/QaOJKVFbDLgR7XlxGxVx6O6I=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=eZrmd7AEuOtBXIiaAP19y1x1marNskQcpKoGoTt+tOu8Ym0Jr0jMwVIG18GEhuFIH
+	 kQwPrPQU6qR2Ue6MUJrG5khBB9h3hDQJHFByTCEdyZJcxUfVovaniWwtKAKlkBhJSM
+	 uqFSbQUcEbzGWyIWlHYKu1Kyh+A8gv+LmS8KC+0ZfoUdWaPDZl+y55MCBR5dFTIuhF
+	 0scVG6DqnrYEtoCZ1Rz0vqFtL9Qtskjw6DroYLS1XzX+12Ot0ktqUbHMmdjCtuXLgP
+	 DRKx568C3Fv1e3v8HK4uUSJWqDqrJ8bT7OnxsmnCDux5vSlcy2XJTSOh0hXePAyOIv
+	 CbOE5riqym+fA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3517CC6B09;
+	Tue, 13 Oct 2026 03:23:26 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Tue, 13 Oct 2026 03:21:11 +0000
+Subject: [PATCH v2] dmaengine: amlogic: Fix little-endian variable
+ operations issue
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B1:EE_|SJ5PPF2CD49510F:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d1aeae8-73be-49f1-71b1-08df28d8e8b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|11063799006|5023799004|56012099006|261009223027099003|10067099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	hgRXCfJUx8nB2w+M2oNQgF/bp+IIiFtNfrrH0UxLsrQSKJbra3sYlmojz/zAJQIwQH7ehd3QCZGRq/kNo4m6yZrSQ53xa+P43wTuJw66QrdMCg0guHfpcqVLuN2Ld9LxA5Ir9Cfu+4dOrAymODUW6LNIzNKVYAWH2UOBz3oV+6sL15c+BBXZyJGD2dm9ZlEi3oH4TbwswVl340WSwWW7xgQ/Blk+69OoNuNnF4NEYqYoXmyq+5z745MMrmc1RfhFy9cgRtE+s9Aq1CXG9TkU88hxMU2+CtYlkkZV0hxIxiGlU2UJ4cJK5G1QtxJqQfrboN+wA4cPv9ban8ZXNmaEI04espSjhM93+9wJl6eJ1Em4K2bwEUKfV0pEulMLDTm967N9tE2zFtn7DeGxL6qHev8uQpn1MPex+JCDugFTaO17HSNvHLnbBJC1bj4QhKqQXLcxJRdFXxd/yRKYHkseSLOURgryQQjCaABgBrlHQGkG7/YLcIYjxzSPc2IygwbUIdFmMNd7gCQvEQRun73/kbj17qPOTaJJ/+yrcMGgPcsAe8MdmglYjCuliXGKfSUcezxCskEqJoagTe5O5PsWTk27P3XhNYFmW4dtr7FVO1n8dRrf+GRJcQyA8xasYQK+gpi3J4awfh040xEVtRiZw9r6vGurg97jmrzzlukU4CS3lrJ9vmTCZ2IOjNlO11nHEQ9H0WKket71A0QIdyveLw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(11063799006)(5023799004)(56012099006)(261009223027099003)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1PFOC/eqLdZ5EOAAeG25sHZfoYABd6kz31Eua9xdjARu3r/Q7piKiU5uy/6avhjHcatwZvqPjNl57fGqZNIoZ9BvdRzBEEAmIBdTIZtVqhZkTNTUPKrcPI311EWbvQeUCkyyjaxRltES92TnFETm6ijnZvc570wR6pWbwJYocsntKDuNAC6lgcL+sBAvHWFoYfCJp8/3e9tTyArqnVHXKt4KtIpQeT6oZMwOWrc7O46hQWpF/WwNiJzYE6vLlu+4/zboXcGlJ/Q0Qa/4wzvrrecuIJYm9WuBHZZL3mSR4mbNujNRoc1JYImFjFsDzEBGZ1Yvog7p0eF+Zs11N56veT+rdPO/Q7tfUdt/9fX1onXIrgKVSnj54/ayx0PL09NMe/ZKw5Lm0iFoRAIlVQrBb4QlrTcB9fhGBVf1hhuh3H74d06Tz8CCXgkz0r5WuIWW
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 03:20:19.1681
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d1aeae8-73be-49f1-71b1-08df28d8e8b8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397B1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF2CD49510F
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-fix-a9-dma-v2-1-860146b2ef57@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIAKajzWoC/22Myw6CMBBFf4XM2jF9aEVX/odhUdoBJhFKWtNoS
+ P/dytrluTfnbJAoMiW4NRtEypw4LBXUoQE32WUkZF8ZlFBGCqlw4DfaK/rZ4qmnCxnZW3PWUIU
+ 1Un332KOrPHF6hfjZ21n+1r+ZLFGi8q0Woh00aXW38zOM7I4uzNCVUr5HiWJypgAAAA==
+X-Change-ID: 20261012-fix-a9-dma-4be7e61ba653
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791861804; l=1372;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=OZigb4en2c93sg6DmkSHlPZQyczro7uHkaw6ZWL3yJI=;
+ b=Opkm9CijTWMJQVlrV4DIhfX6pYsuf2M4OAlshy3Enz6HJKjzfIBIJ62flw8Gc8SXal7Xj+5BH
+ r8xHqf/gSxqAri6a9j3i1w8NAOZ3F+NxWD62J5HERDOspwkr0wl1iJy
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-From: "S. Biplab Raut" <Biplab.Raut@amd.com>
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-LZ4 decompression of cold 4 KiB pages (the zswap/zram hot path) stalls
-on cache misses because the input stream (compressed) and output buffer
-(uncompressed page) are not resident in L1/L2. Insert read-ahead and
-write-intent prefetch hints at the top of the decode loop in
-LZ4_decompress_generic() to overlap memory latency with decode work.
+In dma_async_tx_descriptor function,fix the situation where the operation
+processing of the little-endian variable requires corresponding conversion.
 
-The prefetch distances (96 B read, 128 B write) are tuned for the
-page-at-a-time workload where both buffers fit in L1d. Prefetch is
-architecturally a no-op hint on all Linux-supported architectures;
-it never faults, never changes correctness, and compiles to nothing
-on targets without hardware prefetch.
-
-Measured on AMD EPYC 9755 (Turin, 2S×128C), Ubuntu 24.04, kernel
-6.8.0-90-generic, real zswap path (cgroup-constrained MADV_PAGEOUT +
-full scan-back), Silesia corpus, 15 paired rounds:
-
-  Kernel LZ4 median scan:  1.0994 s
-  Patched  median scan:    1.0472 s
-  Median paired speedup:   5.09%  (range 4.19%–6.99%)
-  Patched was faster in all 15 rounds.
-
-Signed-off-by: S. Biplab Raut <Biplab.Raut@amd.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610060235.PuCxWQdk-lkp@intel.com/
+Fixes: b84b5197e344 ("dmaengine: amlogic: Add general DMA driver for A9")
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
- lib/lz4/lz4_decompress.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Fix the operation little-endian variable issue.
+---
+Changes in v2:
+- Simplify processing and rename subject to 'dmaengine', suggested by Frank.
+- Link to v1: https://lore.kernel.org/r/20261012-fix-a9-dma-v1-1-2d83008f3e32@amlogic.com
+---
+ drivers/dma/amlogic-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/lz4/lz4_decompress.c b/lib/lz4/lz4_decompress.c
-index 3a2cd9acada4..efbbde7ae58d 100644
---- a/lib/lz4/lz4_decompress.c
-+++ b/lib/lz4/lz4_decompress.c
-@@ -37,6 +37,7 @@
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/kernel.h>
-+#include <linux/prefetch.h>
- #include <linux/unaligned.h>
+diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
+index 78ee2337ae71..dbd23d29397d 100644
+--- a/drivers/dma/amlogic-dma.c
++++ b/drivers/dma/amlogic-dma.c
+@@ -321,7 +321,7 @@ static struct dma_async_tx_descriptor *aml_dma_prep_slave_sg
  
- /*-*****************************
-@@ -122,6 +123,26 @@ static FORCE_INLINE int LZ4_decompress_generic(
- 		const BYTE *match;
- 		size_t offset;
+ 	/* the last sg set eoc flag */
+ 	sg_link--;
+-	sg_link->ctl |= LINK_EOC;
++	sg_link->ctl |= cpu_to_le32(LINK_EOC);
  
-+		/*
-+		 * Software-pipelined prefetch hints.  On the zswap/zram
-+		 * hot path, both the compressed input and the output page
-+		 * are cold (just faulted in or freshly allocated).  Prime
-+		 * the L1d for the next loop iteration so that the actual
-+		 * loads/stores hit warm cache lines.
-+		 *
-+		 * Distances are tuned for 4 KiB page-at-a-time workloads:
-+		 *   96 B read-ahead on ip  ~  6 tokens ahead
-+		 *  128 B write-intent on op ~ 2 long-literal copies ahead
-+		 *  192 B deeper read-ahead  ~  covers the match-copy tail
-+		 *
-+		 * prefetch() / prefetchw() are architecture-portable hints
-+		 * that compile to NOP on targets without HW prefetch.  They
-+		 * never fault, even past buffer boundaries.
-+		 */
-+		prefetch(ip + 96);
-+		prefetchw(op + 128);
-+		prefetch(ip + 192);
-+
- 		/* get literal length */
- 		unsigned int const token = *ip++;
- 		length = token>>ML_BITS;
+ 	return vchan_tx_prep(&aml_chan->vchan, &aml_desc->vd, flags);
+ }
+
+---
+base-commit: 42c31fec1ca76b8b5f7759def122d418dff2cd4b
+change-id: 20261012-fix-a9-dma-4be7e61ba653
+
+Best regards,
 -- 
-2.43.0
+Xianwei Zhao <xianwei.zhao@amlogic.com>
+
 
