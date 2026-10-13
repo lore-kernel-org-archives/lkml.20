@@ -1,45 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FECE3AFCE6;
-	Tue, 13 Oct 2026 13:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B873AFCE6;
+	Tue, 13 Oct 2026 13:16:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897402; cv=none; b=Rc/r0Jer0Gfy6a7Rk2heWF6OhTAcyl+g9BDvwIrzYVe5rOqzMfnHwkjTCideRFMI1Ic8N5lmgnnWc+Z/Uch5uE3oxcOi3z5hZHdv7aVWH9PxBtwV1MxTUZCnPwSQPk/iefdXrBnvs2MafGhAmuFCLIQgWxcF7ft4R6c3qHZWHz8=
+	t=1791897409; cv=none; b=lqZjtC3wI+IT+DEjkW0p/U6XGwOtCL71GFV5le4lT019zNBnWbB1qaxboYLlEHh4EtVS9tlmDflVI0HIG4fNWit8j+e0sr/yIU2GuEqkanOpefD3ZGKOcXc+aLNVyAyLj3DLr7R8cD3M2E7c50deqZo3aLfApJai22EkKiasKJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897402; c=relaxed/simple;
-	bh=sM8pKQRt12vbGbmJ5HjLljfoQ7mT0O8+unjbKXyNcvE=;
+	s=arc-20240116; t=1791897409; c=relaxed/simple;
+	bh=FIPSuuAhJUZjRKHszZhAldZlUkr1RYeuYNKC12aR3Nk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LQk6/I7b+AGkNyR7GtgFQ4D02cf/s2z9bWV8BePc/nIXJpzv7A/7pQB8Lka58DMc4X+da3yrSl7nQ2guC3iid8pSxCrkvWjmsFx1yNyRfflw3EvUqNcXa/lxfV0rMzlKpb8rfbD8G1jUn0v4wkXMudg5u0dLA4VghoKHttp6kdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z6gtwCGX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nw7NbyC2eaU6XZ6+W4kUjbpbmipW+EV5MMhbjHDymmjimNKjzJG+ZOanHlzXZsktwQC6i6GtlBx2mSr2XUxFhxQHPwxWjIfGNeIEdi4sir+5gVUREfaSqGF8EcPyxLfCXd+6/3H8hIV8c3nmeq+J343ck1VCsaqJji509Rn2KMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Lp4/79zN; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z6gtwCGX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C2F1F000FF;
-	Tue, 13 Oct 2026 13:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791897400;
-	bh=/V8zHD2+Tt6ku2GF2WunuVhaxFZWu2UDntjhzyS3j5k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z6gtwCGX2pyuLrsatu/4zpu5TrMYN0jvXrD+PO/uKGY/pWZRkMaqtN1EfoSiY7++n
-	 Hh6739oYwYp91JlfJ7mdHrJ8zpJeeoXhbnLiHE1hEOg8AQ3pP2J01A+kBVungS/5zj
-	 j7cEGQQWaxgfnr56XEe3VSWKgAL7/2S3i24BCL6M=
-Date: Tue, 13 Oct 2026 15:16:45 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: sashiko-reviews@lists.linux.dev, Jiri Slaby <jirislaby@kernel.org>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Kees Cook <kees@kernel.org>, Lukas Wunner <lukas@wunner.de>,
-	John Ogness <john.ogness@linutronix.de>,
-	Jiayuan Chen <jiayuan.chen@shopee.com>,
-	Gerhard Engleder <eg@keba.com>, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] serial: core: Don't clobber the baud rate on
- hangup via B0
-Message-ID: <2026101335-broadside-register-8a53@gregkh>
-References: <alpine.DEB.2.21.2610120150230.55767@angie.orcam.me.uk>
- <alpine.DEB.2.21.2610120231550.55767@angie.orcam.me.uk>
- <sashiko-outbox-167551@kernel.org>
- <alpine.DEB.2.21.2610121325280.55767@angie.orcam.me.uk>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Lp4/79zN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791897409; x=1823433409;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=FIPSuuAhJUZjRKHszZhAldZlUkr1RYeuYNKC12aR3Nk=;
+  b=Lp4/79zN8HEbIVOG+qG6R8jFSlbNv78t0I9W1sqEuBibvFTpFq3lN6iU
+   p3xDeK5MkP1b/XNz5pfWLLo/el2T4MAH8DLLPnFxoiW/yviKMvVwUf+1S
+   MdW09QPWtdML4mjWAm4ID9al+xfQIKAhKvr33EPjtER3l1iLWoi7xE3wH
+   6KkKtKmEkCLGeZEA8cr41UTjrxGc24UNCgATED7X/O6A5ZnXqByNRlXdw
+   5/XlURqWFDt8cWEls+GZh684zID8hlYR0aJyTHUoVjQP9mx0ITJ+NoG5I
+   7oZFL8Il6Qltb7jZuP+046GSsOAh7sKfnvIajKKOtKkvHicUNYrrEyg+t
+   w==;
+X-CSE-ConnectionGUID: TAuF8MoZScyrZ7FS+1Oq1g==
+X-CSE-MsgGUID: 2SRmDVnHTIKQwUp7qKhcoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="716911"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="716911"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:16:48 -0700
+X-CSE-ConnectionGUID: SurxRxWWR++Z/RD+iIDdww==
+X-CSE-MsgGUID: s+kdQgkrTRKlo3wJuiMFgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1091049"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:16:44 -0700
+Date: Tue, 13 Oct 2026 16:16:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ma Ke <make_ruc2021@163.com>
+Cc: antonio.borneo@foss.st.com, linusw@kernel.org,
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+	fabien.dessenne@foss.st.com, linux-gpio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org, stable@vger.kernel.org
+Subject: Re: [PATCH] pinctrl: stm32: Fix fwnode reference leak in
+ stm32_gpiolib_register_bank()
+Message-ID: <as4vOoSRE0zjh8NT@ashevche-desk.local>
+References: <20261011061722.3159941-1-make_ruc2021@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,68 +64,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2610121325280.55767@angie.orcam.me.uk>
+In-Reply-To: <20261011061722.3159941-1-make_ruc2021@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 12, 2026 at 03:37:01PM +0100, Maciej W. Rozycki wrote:
-> On Mon, 12 Oct 2026, sashiko-bot@kernel.org wrote:
+On Sun, Oct 11, 2026 at 02:17:22PM +0800, Ma Ke wrote:
+> stm32_gpiolib_register_bank() walks the "gpio-ranges" property with
+> fwnode_property_get_reference_args().  As documented in
+> drivers/base/property.c:
 > 
-> > > @@ -514,10 +514,12 @@ uart_get_baud_rate(struct uart_port *port, struct ktermios *termios,
-> > >  		 * Special case: B0 rate.
-> > >  		 */
-> > >  		if (baud == 0)
-> > > -			return max(min, 9600);
-> > > +			return port->hup_speed;
-> > 
-> > [Severity: High]
-> > Does this risk a division by zero panic?
-> > 
-> > If a new struct uart_port is initialized, port->hup_speed defaults to 0.
-> > If a B0 rate is requested before any valid rate is set (such as via
-> > console=ttyS0,0 or an early tcsetattr with B0), this returns 0.
+>  * The caller is responsible for calling fwnode_handle_put() on the
+>  * returned @args->fwnode pointer.
 > 
->  Yeah, this has glimpsed in my mind and then I lost it.  Indeed we need to 
-> keep the fallback 9600/min logic after all for the initial setup.  Easily 
-> fixed since it's not in the hot path.
+> The returned reference is never put.  The function calls the helper
+> twice, once directly and then repeatedly in a while loop, and each
+> call overwrites args, so only the last reference is even reachable
+> and all the earlier ones are leaked for good.
 > 
-> > >  
-> > > -		if (baud >= min && baud <= max)
-> > > +		if (baud >= min && baud <= max) {
-> > > +			port->hup_speed = baud;
-> > 
-> > [Severity: Medium]
-> > Could this result in a data race on port->hup_speed?
-> > 
-> > In the standard uart_set_termios() path, uart_get_baud_rate() is called
-> > holding only port->mutex and termios_rwsem, not port->lock.
-> > 
-> > At the same time, atomic console write paths execute asynchronously from
-> > hardirq or NMI holding only the nbcon lock. For example:
-> > 
-> > drivers/tty/serial/8250/8250_port.c:serial8250_console_restore() {
-> > 	...
-> > 	baud = serial8250_get_baud_rate(port, &termios, NULL);
-> > 	...
-> > }
-> > 
-> > This calls into uart_get_baud_rate() without holding port->mutex. A
-> > concurrent tcsetattr() and atomic console write can trigger an unprotected
-> > data race on port->hup_speed. A torn read or write on this variable could
-> > yield a garbage baud rate and lead to hardware misconfiguration.
+> Put the reference as soon as args.args[] has been consumed, both for
+> the initial call and for every iteration of the loop.
 > 
->  This seems like the only exception across all the serial drivers in the 
-> use of uart_get_baud_rate().  Since this is always called to restore the 
-> most recent baud rate setting only, perhaps the path of least resistance 
-> would be just to refrain from updating port->hup_speed if called with the 
-> port lock held?
-> 
->  Otherwise it would require rewriting all the 60+ call sites to use the 
-> port lock to guard the whole sequence from a call to uart_get_baud_rate() 
-> through to the write of the settings obtained to the port registers, which 
-> seems an overkill to me and asking for trouble with some odd hardware.
-> 
->  I'll experiment with the idea outlined or will be happy with any hints 
-> otherwise.
+> Found by code review.
 
-That idea seems sane, thanks for working on this.
+...
 
-greg k-h
+>  		/* get the last defined gpio line (offset + nb of pins) */
+>  		npins = args.args[0] + args.args[2];
+> -		while (!fwnode_property_get_reference_args(fwnode, "gpio-ranges", NULL, 3, ++i, &args))
+> +		fwnode_handle_put(args.fwnode);
+> +
+> +		while (!fwnode_property_get_reference_args(fwnode, "gpio-ranges", NULL, 3, ++i, &args)) {
+>  			npins = max(npins, (int)(args.args[0] + args.args[2]));
+> +			fwnode_handle_put(args.fwnode);
+> +		}
+
+Can we use GPIOLIB facility to fulfil the task? Yeah, it seems non-trivial
+change, so for the quick fix the above seems okay.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
