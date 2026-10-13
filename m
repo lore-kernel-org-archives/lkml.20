@@ -1,130 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A2A518148;
-	Tue, 13 Oct 2026 21:01:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DC9549373;
+	Tue, 13 Oct 2026 21:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791925281; cv=none; b=HoGsBJlOHyW/R6puQ6d9MSvfKUAgBuDGqqZhxi/L1NP//g0C4ANCX4J50y2SoR6CZA+p40+uPPlFGHcZpQJBPKEDtMmoSZt9qALkAUoOHL+P+XhQzZ9mCLvW9kh1U7ARL6JtgChhLx/44Jy+GPEC/01FR78NXRuMGbvfSHE5U0o=
+	t=1791925338; cv=none; b=mZbq1UeBHEFEktk3yBIsCKGHav4RH8+fKvn0LWy97/1sU813Y8J2vGfiOuURLMv/AEJ/j5ndZfqITbYv1X0DJ2HpH+TKRprvXMOCrVtYh+uoM+5arIOJFo6bnvAZvSasJqGSKIpefn/ISYzaUdnANIcClBTxE0xOqSlaUCW819M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791925281; c=relaxed/simple;
-	bh=Z5QE8bDGwjv5rpz0E6KvjEKBlO2PL0gMiX6i/nSwbI4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=NvuYQY73552/cGD2sb6pLktiy6ISF2rdgIm3RbTtgS24SvtoOy/C3ltWit+4Ph/4XeStx1fb8UODbrH2dQpgv36DqEai1Oh7DelKXpLdsIjmt29aooBT17yk0mJWkL4YvE2VMizR3xDp9Qtd5cw7RCKIYE6sovPiW4ogkbUloiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bkgxwb8k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791925338; c=relaxed/simple;
+	bh=UJHR76vl+MEUjiZ//7x/PXjvjCbdvLEy4hJOsBGNIIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AazHTahTvuTEWOiEVNNnNz9UE47xPMYJmID9dHjxr760Li8sxo2AiLKXJIuyZLqEloMn5i5N6YQcMzuk06HXJaJoB1GFJNceiYlTzyGfv6xhA+hmy373SDIuQfKtwFAgjJJTg315sLf/zJ4YuEub2/SYD7ExGDB6WCk5cvyVDSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OvW0QaRw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bkgxwb8k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E7D1F000FF;
-	Tue, 13 Oct 2026 21:01:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OvW0QaRw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3431F000FF;
+	Tue, 13 Oct 2026 21:02:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791925280;
-	bh=Pi/onS5WtRQMlO8FS9+xnweQOK38nFxgcItu9oVclZc=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=Bkgxwb8kRgeWfVfeeZcRxvKNQNPflLWum9CcF1B566WzH3xACQW7zpJyShAF3K2dH
-	 XWcpqSD2QWZ0fkbe169FnGbQDOg01JCGEM4A883eRARN8SXTyq51ngI8P/hU4SkpRq
-	 oo/SWcbKMuGsyWO8evcVYbeYzfkRmv3Q/o3yGc2+ox8xBdN33R8eUddVcS9d8PCPbY
-	 c7YulMljG+lESEAcAZU8iSMQXQxD3m5/kLgV6vcMC3z8RfjjUmbb2DHzgi7Nq9O6dP
-	 +dnEA9LuTuZkXr2bwVFiOVQX1q6A6iYDlxiZ46FIItWb9lNWrpmzJz5eYuIiPJkxx/
-	 XZjVg/KX3E+lw==
+	s=k20260515; t=1791925337;
+	bh=4R7RHEcGGuyj5QBCKA+FhYuw4CzT0viDaHNbHQ0NMQI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OvW0QaRw9OjkDu1ZoiVUnF3yq2owNaS1USUeSE8QF2XjI22jcMkOviIskB14gTtAz
+	 GGqKzofLTmgWKAlurgZ41W/bQ2UrV3nstZqbCKFPS3Hkb8OOBUgfJNOIyQOzZsTkN0
+	 /lQXbGvCtIMYWPEih/ja35XIcczQ+B9wjJXCP6Vc6b/z5kFAGqOdBZP69Umwvj1Jx3
+	 pMnEwYlLgtAVuHvl+tvYEUSp2EdOnJqZv5wNxoBdWlkFD0jnekUNPWIwXkHjVY7BBm
+	 eG4u2z0THoicPERHN20etM/2RtqrkxZq+o5Oc5qe2fm0KXgNUhShL0ffTD+gkarCJp
+	 eJY5fGdXKG3hQ==
+Date: Tue, 13 Oct 2026 14:02:15 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v3 1/4] perf symbol: Fix symbol loading from libbfd
+Message-ID: <as6cV-cm6dgTtzet@google.com>
+References: <20261012235938.87912-1-namhyung@kernel.org>
+ <as557LTNwiigXk0O@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Oct 2026 23:01:16 +0200
-Message-Id: <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
-To: "Alan Stern" <stern@rowland.harvard.edu>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] driver core: take parent lock on deferred probe
-Cc: "Johan Hovold" <johan@kernel.org>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- <driver-core@lists.linux.dev>, <linux-usb@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Mario Peter"
- <mario.peter@leica-geosystems.com>, <stable@vger.kernel.org>
-References: <20261013140615.1226992-1-johan@kernel.org>
- <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
- <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
-In-Reply-To: <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <as557LTNwiigXk0O@x2>
 
-On Tue Oct 13, 2026 at 9:11 PM CEST, Alan Stern wrote:
-> On Tue, Oct 13, 2026 at 07:43:08PM +0200, Danilo Krummrich wrote:
->> On Tue Oct 13, 2026 at 4:06 PM CEST, Johan Hovold wrote:
->> > +void bus_probe_device_deferred(struct device *dev)
->> > +{
->> > +	if (dev->parent && dev->bus->need_parent_lock)
->> > +		device_lock(dev->parent);
->>=20
->> This looks like it has the same potential UAF as the other patch.  It's =
-quite
->> unfortunate we need the whole need_parent_lock thing just for USB.  IIUC=
- the
->> main reason USB needs this is because interface devices share resources =
-of USB
->> devices and we need to keep the locking order to avoid inversions, right=
-?  Is
->> there more to this from the USB side of things?
->
-> That's pretty much it.
->
->> I think we can probably do something like this
->>=20
->> 	struct device *parent =3D NULL;
->>=20
->> 	scoped_guard(device, dev) {
->> 		if (dev->p->dead)
->> 			return;
->> =09
->> 		if (dev->bus->need_parent_lock)
->> 			parent =3D get_device(dev->parent);
->> 	}
->>=20
->> to avoid the problem, but it's still a bit ugly.
->>=20
->> > +	__bus_probe_device(dev);
->> > +	if (dev->parent && dev->bus->need_parent_lock)
->> > +		device_unlock(dev->parent);
->> > +}
->
-> Wouldn't it be simpler just to make each USB interface take a reference=
-=20
-> to its parent device?  And likewise for USB devices, if needed?
+On Tue, Oct 13, 2026 at 03:35:24PM -0300, Arnaldo Carvalho de Melo wrote:
+> On Mon, Oct 12, 2026 at 04:59:34PM -0700, Namhyung Kim wrote:
+> > The dso__load() should return a positive number (number of symbols
+> > loaded) when it succeded to load symbols.  But dso__load_bfd_symbols()
+> > only returns 0 and it's hard to check if it actually loaded symbols or
+> > not.  Let's return the value of dso__has_symbol() and check it in
+> > dso__load() so that it can return 1 for success.
+> > 
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Closes: https://lore.kernel.org/r/sashiko-outbox-162540@kernel.org
+> > Fixes: eac9a4342e5447cad ("perf symbols: Try reading the symbol table with libbfd")
+> > Reviewed-by: Ian Rogers <irogers@google.com>
+> > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> 
+> Thanks, applied to perf-tools-next, for v7.4.
 
-The driver core already holds a reference count of the parent between
-device_add() and device_del(), which is where a "parent" is technically def=
-ined.
-But the deferred retry can extend beyond device_del().
+Thanks Arnaldo!
 
-USB interfaces already take an additional reference to their USB device in
-usb_set_configuration() and drop it in usb_release_interface(), so they sho=
-uld
-already be protected against this particular UAF.
+As you may know, this is from my other series on cleaning up symtab and
+binary types.  I'd like to land it as well so that I can continue
+working on the related issues.  There are some Sashiko feedback left,
+but I think they are either pre-existing bugs or known issues.
 
-The issue concerns a USB device and its parent hub's USB device.  (This mak=
-es me
-wonder whether probing a USB device actually requires the parent USB HUB
-device's lock to be held, or whether this is just a consequence of sharing =
-the
-same usb_bus_type?)
+Thanks,
+Namhyung
 
-In theory a USB device could also keep a reference count to its parent, but=
- then
-the driver core code would rely on an implementation detail of its users; I=
-'d
-prefer not to make driver core's access to dev->parent depend on references
-maintained by individual subsystems.
-
-I'd even go a step further any say that if subsystems try to keep this poin=
-ter
-valid beyond what's guaranteed by the driver core, they should do this with=
- a
-separate bus specific pointer.  The reason is that otherwise the lifetime a=
-nd
-ownership definition of this pointer does not depend on API contracts, but =
-on
-individual implementation details, which is a very common source for all ki=
-nds
-of bugs.
