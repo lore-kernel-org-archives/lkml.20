@@ -1,35 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CCC3F5BD6;
-	Tue, 13 Oct 2026 15:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEA63F5BD6;
+	Tue, 13 Oct 2026 15:16:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904565; cv=none; b=MoIFmaA8aQ9umaCffBE/aNCrcCCyqqQvupAYOx5+F4OTlsOhQkWGVMlEy3Fc0x9AXo0fcAfwedmyPADJOYqZgqTCgClTp2ziKVpyhECXAZlLUus1scVEsXT9MeL/FqtkV88paK4AgLMRESa1sbaPo4O771CHLA+x7uWHra+qqEM=
+	t=1791904573; cv=none; b=Y9uHTd/cVTlHLkWJM09bt/db/qGFiuiufaEEDv2Akh6vSW/s7Yq4PQcamo4PnhY6wEhbeXyIOVV0iJkC30IfK3kd3ZHtj2XPpzX/L3l6KirmWHlkkoFz9sGbKI3rNDolAL8Th7NY8v4R+cg9yDPNTpQ/7M6itNuvxakT5wW47SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904565; c=relaxed/simple;
-	bh=E35+ZMn94RagHNIjsMN4/PIbgNGNlEUqBmCKgWbVnaI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dW8cUGk4O3BkcAmOJ8CVcenYJP1vxLcGorg4beKaM476BdZ5uQ4Cv9QVm9wC6gX+kOaMfqMzy3/1i1L2Ds74gNBJnhu57tuhQD/xemWVYsFUvCbT1dIk/PKYQgpE+jxVc39nxJV3ZfGvms6vZlQYMshKYUzwj/pMNLZqB6pcrUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oXRyBlwb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904573; c=relaxed/simple;
+	bh=mK+BqIvO4TiLfSQXIr9kIsyfliszEQqMsnDO8JqFKpE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=S71/AAuMBTc/2zD0k9oU4CFzkQv5ljBTFogkb6BcFiIewEymUM0aWOnph7q6QCmqAC3NiCwMIYHP9dKgT7DZR08ewjRfi3J7mHvW7Q5bRVPo9v5oXevQJoxJPI+8uFQRIIhUswyUyyqt+PzoPlbXOh2PzFG9zikODpJi668ecDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZmYLtZWt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oXRyBlwb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9B441F00893;
-	Tue, 13 Oct 2026 15:15:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904564;
-	bh=GFhfE0EpCejkYMfipk7Q12g1VtbQ/nJQw01XCYAedo4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=oXRyBlwbANCVnegp8iY5cvbAabzXfj7uUWG6HhCOs/m2gAAg9SHQKtYTIXLYZmhGU
-	 PQ5SLGPgKkNbAUAFxAFzfOy9nOM5On+4vw8QFPdcKNuOiJTEmrNOOQIN7oVMJY9AJh
-	 Z0cLlUEWHBql8lSrt6YwoEYoeBlm3HP99n1KUUtvGcihgzPboSk/CcQQCG7FpQcV9t
-	 zV6piyKQPCpcBp68tfpewArXOCIJzZRK7mFR/LrtCvCcnbllR45tE1dSVaVdR8p1q5
-	 8lZLI5QktBckfspAyjjvz+J0dOMYGDYMsRjt8Swy4F3cjWDlt0zFJKE1VO1eMqL+Za
-	 zTq8OB5/LWNOw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:59 +0100
-Subject: [PATCH v6 19/39] fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO,
- add VM_MIXEDMAP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZmYLtZWt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BD253C2BCF4;
+	Tue, 13 Oct 2026 15:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791904572;
+	bh=mK+BqIvO4TiLfSQXIr9kIsyfliszEQqMsnDO8JqFKpE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ZmYLtZWtZWQro1+dcF7R4dsSMw0tWWGHSCycSn/fQoOLWgXsZ/VUVf8y01baNVmOG
+	 eWaKxVonddQ1c7wg5pUy4lIcDziq3vjXlFlMiGQluUBQTkZgwm3K5NA2YPMBsod2Ke
+	 F2soUz5wdYMY5YIVWf8SGQ1l11jdpbqAH/F9ro91ODhF56Cjsj4/FsWqIUtgM0zZRA
+	 1dGQiVCjS1m5jeD0butVT0jDJsrZiJBBEOsG52/fbZpFM+wqgVQKcGEwN7RPiNYiRE
+	 8gWfh7HhtN2viLkzPQ1BdlougJo+q3kwzMxz1Xv9oHC1HHN+2KuDi2H8DHmQTrZrLs
+	 WganD5OVdW/DA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90C98CC6B12;
+	Tue, 13 Oct 2026 15:16:12 +0000 (UTC)
+From: Vladyslav Yamkovyi via B4 Relay <devnull+hex.aleph0.ai@kernel.org>
+Date: Tue, 13 Oct 2026 17:16:07 +0200
+Subject: [PATCH] drm/i915/psr: Send a frame change notification for async
+ flips
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,160 +40,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-19-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2469; i=ljs@kernel.org;
- h=from:subject:message-id; bh=E35+ZMn94RagHNIjsMN4/PIbgNGNlEUqBmCKgWbVnaI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZy6l/j3/7mDaSI3zSJqPf9uujU3O7z5TcLd1Aff7
- u6sT4u06ChlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEpGYx/I/pkjx+UcHxg5LH
- agEVsX8vptTf5tD7ftf69+arRr/Ot39mZOhUOrvUR+Y8W+6cF+d4Dc9c75k2ja8uK+jOYdt/DtZ
- qX3kA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Message-Id: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2MwQrCMBBEf6Xs2cUk0hb8FfGQpFsTwRh206KU/
+ ruJehreMPM2EOJIAuduA6Y1SnymCvrQgQ823QjjVBmMMoNW+oRzfGEWRivv5LGwTYJ5kYButkP
+ fKzMqP0K9Z6a6/aov1x/L4u7kS/O1hbNC6KrBh1ZN/MAS8/GfsO8fv7BJdJ4AAAA=
+X-Change-ID: 20261013-fix-psr-async-trans-push-bfa6550270c7
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>, 
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Vladyslav Yamkovyi <hex@aleph0.ai>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791904567; l=3338;
+ i=hex@aleph0.ai; s=20261013; h=from:subject:message-id;
+ bh=6OzSRSOPWRw5dMbojgR3kH8JziugVnnnlVANwZ+FMbg=;
+ b=7JBBQ1l0eVLUQse6LiBcfstEJhvVF2lQK3NJy6s5xem1JCwHHrEd+peS8XqwjpYw5M9wbfkFM
+ 7VyRBgJ/a7iBgLXdBJP/CTV1qHiP4Ok2925QSZ6IpSAU6X35x3fOhuz
+X-Developer-Key: i=hex@aleph0.ai; a=ed25519;
+ pk=faUPQ+UBdMQ6ZcbVM9ytjGUZvrhV8mzf+ctgaoVsZy0=
+X-Endpoint-Received: by B4 Relay for hex@aleph0.ai/20261013 with
+ auth_id=1170
+X-Original-From: Vladyslav Yamkovyi <hex@aleph0.ai>
+Reply-To: hex@aleph0.ai
 
-Currently all drivers which use defio allocate system memory. All of them
-also set FBINFO_VIRTFB, other than ssd1307fb, however this driver allocates
-system RAM, so simply failed to set this flag when it ought to.
+From: Vladyslav Yamkovyi <hex@aleph0.ai>
 
-This patch sets FBINFO_VIRTFB on ssd1307fb probe, then drops setting VM_IO
-in fb_deferred_io_mmap() and instead requires FBINFO_VIRTFB to be set,
-erroring out with a kernel warning if not.
+On platforms using TRANS_PUSH for PSR frame-change notifications,
+intel_pipe_update_end() exits early for asynchronous flips, before sending
+the push. The register-based notification is disabled on these platforms,
+and an ORIGIN_FLIP frontbuffer flush does not force PSR to exit.
 
-The logic requires a page from the driver and since commit 1ecbc7dd2902
-("fbdev/deferred-io: Always call get_page() for framebuffer pages") has
-always required it to be refcounted, so this was implicitly already the
-case.
+This can leave an accepted async flip without a completion event after
+PSR2 enters DEEP_SLEEP. On Panther Lake, scanout freezes and the kernel
+reports "[CRTC:152:pipe A] flip_done timed out". Intel IGT kms_async_flips
+reproduces the failure with the compositor inactive when a 200 ms idle
+interval is inserted before an asynchronous atomic flip.
 
-Finally this patch sets VM_MIXEDMAP, as the logic is mapping
-kernel-allocated memory so this is appropriate.
+Send the PSR frame-change notification after plane programming and before
+releasing the existing PSR lock. Restrict the push to CRTC states that use
+TRANS_PUSH for PSR, leaving other async flips and the synchronous and DSB
+paths unchanged.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9582
+Fixes: 129a4da11707 ("drm/i915/psr: Use TRANS_PUSH to trigger frame change event")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM sparse smatch
+Signed-off-by: Vladyslav Yamkovyi <hex@aleph0.ai>
 ---
- drivers/video/fbdev/core/fb_defio.c | 6 +++---
- drivers/video/fbdev/ssd1307fb.c     | 2 ++
- 2 files changed, 5 insertions(+), 3 deletions(-)
+Based on drm-tip (2026-10-13); also applies to v7.3-rc7.
 
-diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
-index fd00b86e1ae6..fb359ecc3966 100644
---- a/drivers/video/fbdev/core/fb_defio.c
-+++ b/drivers/video/fbdev/core/fb_defio.c
-@@ -366,13 +366,13 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
- {
- 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
- 
-+	if (WARN_ON_ONCE(!(info->flags & FBINFO_VIRTFB)))
-+		return -EINVAL;
- 	if (!try_module_get(THIS_MODULE))
- 		return -EINVAL;
- 
- 	vma->vm_ops = &fb_deferred_io_vm_ops;
--	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
--	if (!(info->flags & FBINFO_VIRTFB))
--		vm_flags_set(vma, VM_IO);
-+	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTDUMP);
- 	vma->vm_private_data = info->fbdefio_state;
- 
- 	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
-diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
-index c4fdecafd856..958514a35433 100644
---- a/drivers/video/fbdev/ssd1307fb.c
-+++ b/drivers/video/fbdev/ssd1307fb.c
-@@ -763,6 +763,8 @@ static int ssd1307fb_probe(struct i2c_client *client)
- 	info->fix.smem_start = __pa(vmem);
- 	info->fix.smem_len = vmem_size;
- 
-+	info->flags = FBINFO_VIRTFB;
-+
- 	fb_deferred_io_init(info);
- 
- 	i2c_set_clientdata(client, info);
+Runtime-tested on Panther Lake (xe, eDP-1, 2880x1800) with Ubuntu-based
+7.3.0-rc6 kernels, before and after this fix. IGT kms_async_flips,
+async-flip-with-page-flip-events-tiled-atomic, dynamic subtest
+pipe-A-eDP-1-4-rc-ccs, fails with Flip Timeout before the fix and passes
+afterwards. An LD_PRELOAD interposer inserts one 200 ms idle interval
+before the eighth async atomic commit without changing its request or
+flags. Both runs enter PSR2 Early Transport DEEP_SLEEP with selective
+fetch enabled before that commit.
 
--- 
-2.55.0
+Clang 23.1.2, W=1 builds and Sparse/Smatch checks of the CRTC, PSR and VRR
+translation units for i915 and Xe produced no new diagnostics.
+
+OpenAI Codex (GPT-6-Astra) assisted diagnosis, reproducer and fix
+development, validation and patch preparation, following requests to
+reproduce the freeze independently, trace its driver cause and prepare a
+tested upstream fix. I take direct responsibility for this contribution,
+have carefully reviewed the change and ensured rigorous local testing.
+---
+ drivers/gpu/drm/i915/display/intel_crtc.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 10ed9bdfee76..8ef24cddbaa6 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -736,8 +736,16 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
+ 
+ 	drm_WARN_ON(display->drm, new_crtc_state->use_dsb);
+ 
+-	if (new_crtc_state->do_async_flip)
++	if (new_crtc_state->do_async_flip) {
++		/*
++		 * LNL+ uses TRANS_PUSH for PSR frame-change notifications.
++		 * Async flips skip the vblank path below, but still need to
++		 * notify PSR after programming the new surface address.
++		 */
++		if (intel_psr_use_trans_push(new_crtc_state))
++			intel_vrr_send_push(NULL, new_crtc_state);
+ 		goto out;
++	}
+ 
+ 	trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
+ 
+
+---
+base-commit: eb1bf4700d3b25a1a1e670ef31cc06969fa08019
+change-id: 20261013-fix-psr-async-trans-push-bfa6550270c7
+
 
