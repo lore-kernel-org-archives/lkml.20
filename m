@@ -1,126 +1,321 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3DA0B4D9F96;
-	Tue, 13 Oct 2026 09:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD713EB108;
+	Tue, 13 Oct 2026 09:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884792; cv=none; b=dJdh/QfJ5VTSugRc2XEqqMUjT3bNVCwuHgbWJ70JTTsApdO2472wGejpsR2sssuCQzOhXE1tWCv6PybJSbbJv1Vdjpte/M7IqXLhl8Nk4RyYqYKxwpifM5hGdMPzu/rBtbOQTV/pGXB2TGwYsWhTzK1wZfLdYXwKBuM36Qo7AVY=
+	t=1791884812; cv=none; b=MjugAxvA3aVItY3ljlDkuspYK8lUro5+V6PkPpSwk9XdDMDWPruZQ/QZMn2zVH8kkhgxMAUEjd/BAOW/MHNVYHgtK1srqCpZGiPsEM0PBHb1Nze/aG2IZVjU1pDl8JB8xm+jeIQ3bLuelU3+G+oC2XaXXSXgvst31UZzlvpNu/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884792; c=relaxed/simple;
-	bh=Rk5F+YgXDtLeCJh1Tw15hbS1luettNZ6/VQSYJ/YyaA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FBMjPfwyaLZHXWsJTveGXuv1kep6zaZA11EubDvV5bAV2CzHes2ma7atGxDGqBfaN7eXLX3rUYh4dVlvpeyeLM12CymtW3O1Ql4lGle93kHIBXrdtIQRsXY/SOn/md29O0YdqFrmRgw94FrSgExZ6NgZlVJn/tzqr4sGxJ2kAjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Zzu6nG7s; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791884812; c=relaxed/simple;
+	bh=KzLU9LB04mlAv7uhv2D/w0xj4eeJ/+B41ABvV6jl9Dc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZlC0CLdqrmjF6aGqzhQAyuFhyNEjiOODuHqCrfWXTVhHcLjpOslu4sJH8rsKmjESPEQM3Lffrwls11O6l+gfGnlEWwzFyN827PADFxsKqEXwQfTjNF/l2A+t7SHwoTHnxdqqhtQNVozXU6U3may4qCl+pWjFmE5yXMr1P5JMMxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hk/7DSP3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=bv1d0Lmy; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZKOmSR/4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zvzOT+2T; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Zzu6nG7s"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4638F2934;
-	Tue, 13 Oct 2026 02:46:27 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 04E983F7B4;
-	Tue, 13 Oct 2026 02:46:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791884790; bh=Rk5F+YgXDtLeCJh1Tw15hbS1luettNZ6/VQSYJ/YyaA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Zzu6nG7sEEU3wq7e8YLpxUuKNz7L/c63u5rqI106GFvaosyQWRcwezEQXe1K3q/vI
-	 YGEBPaYtRtcvlW+7g6rjOedPJrEFHKniD55pmEOIoxlPuc06nTV003DfmQfgIaRXIo
-	 F5iCF6UIdMYcGWNbd9sCPj8Dcjbi1F8SL7zacVUs=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Tue, 13 Oct 2026 10:46:06 +0100
-Subject: [PATCH v6 3/3] kselftest: mm: introduce size_to_shift() helper
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hk/7DSP3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bv1d0Lmy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZKOmSR/4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zvzOT+2T"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 556401F799;
+	Tue, 13 Oct 2026 09:46:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791884808; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YL86PCFtdlO3W/EEeLo5lOZSnX1P/YwqNufdTeIUy4c=;
+	b=hk/7DSP3Taw0mjEWbugg0MeY8eaCEBDpezmesUA57ADXVbSCjpx4y12CYc6Yq0Wr3JADKP
+	1usyxqmP56tvCDAB1QyyG2MJMAJtkyqP0i6ZOu7JEnP9ZRctI0VQhk/a9CCHt5yfsvKu7N
+	KCnMCHHpi11KMjvoQFmdZAZDey+NAgo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791884808;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YL86PCFtdlO3W/EEeLo5lOZSnX1P/YwqNufdTeIUy4c=;
+	b=bv1d0LmyHULd6p3idI8sikng9Q69VOcXJg4Ye/z9tu+7XH3bJorHjmxbUvFOvlgoM7MO/I
+	Yy5KCVuPES7rQBAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791884807; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YL86PCFtdlO3W/EEeLo5lOZSnX1P/YwqNufdTeIUy4c=;
+	b=ZKOmSR/4KU1JW7hElgspfOh/rhEddfFYZWX13sP4emBS3fHrlfauX6oJMf4A/4IxCk5GDs
+	cpa/+gjnJk0nsnWi6MJfsxVoBXrhexSvJ8y2NQqCLmIIgvWr4+AO76X5wpWVCv1AfRTvAW
+	asCjuIgtIixd+FMduMF8cypK9qLVJIQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791884807;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YL86PCFtdlO3W/EEeLo5lOZSnX1P/YwqNufdTeIUy4c=;
+	b=zvzOT+2TOasRVEpamR1WYp42AbzQYhnRy3n0D1y4ihLsaFlLFwYA8RRxIfdXOmPZc6HTQr
+	/lrhvqGhS/RLhpDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EFD7213432;
+	Tue, 13 Oct 2026 09:46:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id gIfJMQb+zWpmegAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 13 Oct 2026 09:46:46 +0000
+Date: Tue, 13 Oct 2026 11:46:42 +0200
+Message-ID: <878q42gcfx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	phucduc.bui@gmail.com,
+	cassiogabrielcontato@gmail.com,
+	cezary.rojewski@intel.com,
+	kees+treewide@kernel.org,
+	yilinzhang@moonshot.ai,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH] ALSA: pcm: Protect delay DMA sync against concurrent HW_FREE
+In-Reply-To: <pm-pmb-d74585d187e0b1810c08-v2-25432d0951f67fdaa1a9@gmail.com>
+References: <pm-pmb-d74585d187e0b1810c08-v2-25432d0951f67fdaa1a9@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-fix_hpage_macro-v6-3-2c52d0484de3@arm.com>
-References: <20261013-fix_hpage_macro-v6-0-2c52d0484de3@arm.com>
-In-Reply-To: <20261013-fix_hpage_macro-v6-0-2c52d0484de3@arm.com>
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Peter Xu <peterx@redhat.com>, 
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Sarthak Sharma <sarthak.sharma@arm.com>, Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1845; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=Rk5F+YgXDtLeCJh1Tw15hbS1luettNZ6/VQSYJ/YyaA=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqzf3mXDurSPW14xWa1Yg53Yew0NcF722uPAkgr
- fWCFRdvgNaJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCas395gAKCRBt1cPRWsUx
- M1FQC/4vx32QNecL5GVdpG4R/rcnuylGSMdFDpzHdGPZbebIYCcuYvdcrQUx8rcVf9DbuIlzuHB
- SVP38VmBOdkOstbS8JU5NcxKDuiH/zCGVt1Gmuypzt2hhfA0iXhWOCnAn1uu0fzQdF6vDP1tbof
- 8QpZNGWPeL7vYLPw0vLZV9YuW/NY5+bBbK4xtKwSofXcFOI7oVrJD2s7ctsPjiqsyLbfdxezzv4
- znpkhv6JwYHCfWrN47/rB24a8bEG1eBCoeH8WdCl1AYH6f/YxdY6OD9292CysqK3URfbVR4WkQu
- wYGcjFDCY3goQ+cJ5nxwP5kM+C5KZ/Xmn3Y/f/X+i/3mxb2EGdG0PQjMpKcZyUK80GnMDV61cLd
- xObOA20X0QRx/ieiaVlB9qn0w34wEjRCY/pKY91cC/ew21cG3FrNAlgTDzO9terWydXot3ex/fE
- 4Tpjsk4XUw0T96DCX2C2OgS+9p1w1RY/Kz1tCcxeFuHuMtYeuxTx7OqyLm3f9PVzoLpyE=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[treewide];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,gmail.com,intel.com,kernel.org,moonshot.ai,vger.kernel.org];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-Introduce size_to_shift() for future users that need to
-obtain shift of a huge-page which is other than pmd_psize().
+On Tue, 13 Oct 2026 10:01:06 +0200,
+Cen Zhang wrote:
+> 
+> A PCM DMA buffer must remain allocated until explicit DMA synchronization
+> finishes. snd_pcm_delay() calls snd_pcm_dma_buffer_sync() after dropping
+> the stream lock, without participating in the buffer-access exclusion
+> used by HW_FREE.
+> 
+> With a managed NONCONTIG buffer requiring explicit sync, HW_PARAMS can
+> allocate a separate runtime descriptor when the requested ring exceeds
+> the preallocation. In PREPARED state with mmap_count zero, concurrent
+> HWSYNC and HW_FREE calls on the same open PCM file can interleave:
+> 
+> 1. HWSYNC checks the state in snd_pcm_delay() under the stream lock and
+>    releases that lock.
+> 2. The sync helper fetches runtime->dma_buffer_p and enters
+>    snd_dma_noncontig_sync() with that descriptor.
+> 3. HW_FREE takes the negative buffer-access count, checks PREPARED under
+>    the stream lock, releases the lock, and frees the DMA allocation and
+>    dynamic descriptor through snd_pcm_lib_free_pages().
+> 4. The sync callback resumes and reads the freed descriptor.
+> 
+> The stream lock does not cover the allocation's release, and the sync
+> operation has no positive buffer-access count to prevent it. The stale
+> read causes a use-after-free in snd_dma_noncontig_sync(). DELAY uses the
+> same snd_pcm_delay() path.
+> 
+> Take a positive buffer-access count before checking the state and keep it
+> until the DMA sync finishes, as the transfer and mmap paths already do.
+> HW_FREE then returns -EBUSY while this access is active. If a buffer
+> writer has already entered, snd_pcm_delay() returns -EBUSY before using
+> the buffer. Keep the sync outside the stream lock and balance the count
+> on the state-error path as well.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+>     Read of size 4 at addr ffff888108f58584 by task pcm-uaf-fixture/487
+> 
+>     CPU: 1 UID: 0 PID: 487 Comm: pcm-uaf-fixture Not tainted 7.2.0-rc6-pmb-alsa-functional-v2+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20d/0x410
+>      ? snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+>      kasan_report+0xe0/0x110
+>      ? snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+>      ? __pfx_snd_dma_noncontig_sync+0x10/0x10 [snd_pcm]
+>      snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
+>      ? __pfx_snd_dma_noncontig_sync+0x10/0x10 [snd_pcm]
+>      snd_dma_buffer_sync+0xc9/0x110 [snd_pcm]
+>      snd_pcm_delay+0x3bd/0x550 [snd_pcm]
+>      snd_pcm_common_ioctl+0x1e7/0x3aa0 [snd_pcm]
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? do_vfs_ioctl+0x1f5/0x1280
+>      ? __pfx_do_vfs_ioctl+0x10/0x10
+>      ? ioctl_has_perm.constprop.0.isra.0+0x34f/0x500
+>      ? __pfx_snd_pcm_common_ioctl+0x10/0x10 [snd_pcm]
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
+>      ? __pfx_snd_pcm_ioctl+0x10/0x10 [snd_pcm]
+>      __x64_sys_ioctl+0x163/0x1d0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     RIP: 0033:0x7f1cae7ab91b
+>     Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+>     RSP: 002b:00007ffe12d544f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+>     RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00007f1cae7ab91b
+>     RDX: 0000000000000000 RSI: 0000000000004122 RDI: 0000000000000003
+>     RBP: 00000000000001ee R08: 0000000000000073 R09: 00000000ffffffff
+>     R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000003
+>     R13: 0000000000000001 R14: 00005584f32b1398 R15: 00005584f32b2ce8
+>      </TASK>
+> 
+>     Allocated by task 487:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x251/0x610
+>      snd_pcm_lib_malloc_pages+0x27c/0x9f0 [snd_pcm]
+>      snd_pcm_hw_params+0x171c/0x1d10 [snd_pcm]
+>      snd_pcm_common_ioctl+0x1f62/0x3aa0 [snd_pcm]
+>      snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
+>      __x64_sys_ioctl+0x163/0x1d0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 499:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x307/0x580
+>      snd_pcm_lib_free_pages+0x1c9/0x420 [snd_pcm]
+>      snd_pcm_common_ioctl+0x2bd3/0x3aa0 [snd_pcm]
+>      snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
+>      __x64_sys_ioctl+0x163/0x1d0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     The buggy address belongs to the object at ffff888108f58580
+>      which belongs to the cache kmalloc-64 of size 64
+>     The buggy address is located 4 bytes inside of
+>      freed 64-byte region [ffff888108f58580, ffff888108f585c0)
+> 
+>     The buggy address belongs to the physical page:
+>     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x108f58
+>     flags: 0x200000000000000(node=0|zone=2)
+>     page_type: f5(slab)
+>     raw: 0200000000000000 ffff8881000428c0 dead000000000100 dead000000000122
+>     raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
+>     page dumped because: kasan: bad access detected
+> 
+>     Memory state around the buggy address:
+>      ffff888108f58480: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>      ffff888108f58500: 00 00 00 00 00 06 fc fc fc fc fc fc fc fc fc fc
+>     >ffff888108f58580: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>                        ^
+>      ffff888108f58600: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>      ffff888108f58680: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>     ==================================================================
+>     Disabling lock debugging due to kernel taint
+>     ------------[ cut here ]------------
+>     kernel BUG at kernel/dma/mapping.c:417!
+>     Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>     CPU: 1 UID: 0 PID: 487 Comm: pcm-uaf-fixture Tainted: G    B               7.2.0-rc6-pmb-alsa-functional-v2+ #1 PREEMPT(lazy)
+>     Tainted: [B]=BAD_PAGE
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     RIP: 0010:__dma_sync_sg_for_cpu+0x230/0x360
+>     Code: df 48 c1 e8 03 80 3c 10 00 0f 85 fa 00 00 00 4c 8b 35 d4 6b 7a 09 e8 7f e2 17 00 83 fd 02 0f 86 39 fe ff ff e8 71 e2 17 00 90 <0f> 0b e8 69 e2 17 00 be 08 00 00 00 4c 89 ff e8 bc 5f 77 00 4c 89
+>     RSP: 0018:ffff888111f3fc50 EFLAGS: 00010293
+>     RAX: 0000000000000000 RBX: ffffffffc0250d10 RCX: ffffffff816d395f
+>     RDX: ffff88810836ba00 RSI: ffff888108f58580 RDI: ffffffffc02510d8
+>     RBP: 00000000ffff8881 R08: 0000000000000000 R09: fffffbfff804a239
+>     R10: ffffffffc02511cf R11: 6e696c6261736944 R12: ffff888108f58580
+>     R13: 0000000002ce00e5 R14: ffffffffc0258720 R15: 0000000000000000
+>     FS:  00007f1cae69c780(0000) GS:ffff8881fd861000(0000) knlGS:0000000000000000
+>     CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>     CR2: 000055d1affa2480 CR3: 0000000108fc0003 CR4: 0000000000770ef0
+>     PKRU: 55555554
+>     Call Trace:
+>      <TASK>
+>      snd_dma_noncontig_sync+0x15a/0x310 [snd_pcm]
+>      ? __pfx_snd_dma_noncontig_sync+0x10/0x10 [snd_pcm]
+>      snd_dma_buffer_sync+0xc9/0x110 [snd_pcm]
+>      snd_pcm_delay+0x3bd/0x550 [snd_pcm]
+>      snd_pcm_common_ioctl+0x1e7/0x3aa0 [snd_pcm]
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? do_vfs_ioctl+0x1f5/0x1280
+>      ? __pfx_do_vfs_ioctl+0x10/0x10
+>      ? ioctl_has_perm.constprop.0.isra.0+0x34f/0x500
+>      ? __pfx_snd_pcm_common_ioctl+0x10/0x10 [snd_pcm]
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
+>      ? __pfx_snd_pcm_ioctl+0x10/0x10 [snd_pcm]
+>      __x64_sys_ioctl+0x163/0x1d0
+>      do_syscall_64+0x115/0x6a0
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     RIP: 0033:0x7f1cae7ab91b
+>     Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+>     RSP: 002b:00007ffe12d544f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+>     RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00007f1cae7ab91b
+>     RDX: 0000000000000000 RSI: 0000000000004122 RDI: 0000000000000003
+>     RBP: 00000000000001ee R08: 0000000000000073 R09: 00000000ffffffff
+>     R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000003
+>     R13: 0000000000000001 R14: 00005584f32b1398 R15: 00005584f32b2ce8
+>      </TASK>
+>     Modules linked in: snd_pcmtest snd_pcm
+>     ---[ end trace 0000000000000000 ]---
+>     RIP: 0010:__dma_sync_sg_for_cpu+0x230/0x360
+>     Code: df 48 c1 e8 03 80 3c 10 00 0f 85 fa 00 00 00 4c 8b 35 d4 6b 7a 09 e8 7f e2 17 00 83 fd 02 0f 86 39 fe ff ff e8 71 e2 17 00 90 <0f> 0b e8 69 e2 17 00 be 08 00 00 00 4c 89 ff e8 bc 5f 77 00 4c 89
+>     RSP: 0018:ffff888111f3fc50 EFLAGS: 00010293
+>     RAX: 0000000000000000 RBX: ffffffffc0250d10 RCX: ffffffff816d395f
+>     RDX: ffff88810836ba00 RSI: ffff888108f58580 RDI: ffffffffc02510d8
+>     RBP: 00000000ffff8881 R08: 0000000000000000 R09: fffffbfff804a239
+>     R10: ffffffffc02511cf R11: 6e696c6261736944 R12: ffff888108f58580
+>     R13: 0000000002ce00e5 R14: ffffffffc0258720 R15: 0000000000000000
+>     FS:  00007f1cae69c780(0000) GS:ffff8881fd861000(0000) knlGS:0000000000000000
+>     CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>     CR2: 000055d1affa2480 CR3: 0000000108fc0003 CR4: 0000000000770ef0
+>     PKRU: 55555554
+>     Kernel panic - not syncing: Fatal exception
+>     Kernel Offset: disabled
+>     Rebooting in 1 seconds..
+> 
+> Fixes: a25684a95646 ("ALSA: memalloc: Support for non-contiguous page allocation")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- tools/testing/selftests/mm/vm_util.c |  2 +-
- tools/testing/selftests/mm/vm_util.h | 12 ++++++++++++
- 2 files changed, 13 insertions(+), 1 deletion(-)
+Applied to for-next branch now.  Thanks.
 
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index efd99298be135..7175ac8bfdaa3 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -194,7 +194,7 @@ uint64_t pmd_pshift(void)
- 	if (__pmd_psize != -1ull)
- 		__pmd_psize = pmd_psize();
- 
--	__pmd_pshift = (__pmd_psize > 0) ? ffsl(__pmd_psize) - 1 : 0;
-+	__pmd_pshift = size_to_shift(__pmd_psize);
- 
- 	return __pmd_pshift;
- }
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index ff51c61636505..67ff4bba5707a 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -159,6 +159,18 @@ static inline int sz2ord(size_t size, size_t pagesize)
- 	return __builtin_ctzll(size / pagesize);
- }
- 
-+static inline uint64_t size_to_shift(uint64_t size)
-+{
-+	/*
-+	 * The function returns the corresponding shift only when the size
-+	 * is a power of two; otherwise, it returns 0.
-+	 */
-+	if (!size || (size & (size - 1)))
-+		return 0;
-+
-+	return ffsl(size) - 1;
-+}
-+
- void *sys_mremap(void *old_address, unsigned long old_size,
- 		 unsigned long new_size, int flags, void *new_address);
- 
 
--- 
-2.43.0
-
+Takashi
