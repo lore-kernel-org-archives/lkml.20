@@ -1,204 +1,255 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-114.mta0.migadu.com [91.218.175.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFE5397944
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:46:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFC73AFCE4
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791881172; cv=none; b=slif5AGo2Ds/iaLmUauWwnea4nDNIq+B53pi+aUx8Ee3+3yIW4iGPew8QYul5cqgCbS8VbYKuNicOVgIEFXg6/Cm5wVtMftdBoBpdYtIl2Zq8y9VVLTFibAUXQx1OjKaUlOg84IR9+AjpQJgwCZ3+ZkdDMiooH8CXi8ctHAuzeg=
+	t=1791881181; cv=none; b=FI/9DE2DQWBF5/K3+6jMoDXCrA6rkUdqSIu7sBWYyyv0RtCHwo1oAa4BMM/ATjk86D3toytL2az9xDyiMYRo/ULH+nbrJty8zoI7QE3+zX0DDY+OrsL0vb6+TRbJAmbiZz1QUVrzjxbeYz5PZBa6smTpvRTSg3Yv5v6/NLb3lcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791881172; c=relaxed/simple;
-	bh=2+l0SnJ6xQbWmIt7CHKhLtT8Hjx827L4qCZBd+DMmbE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WsoAoaWGpSK1wMlMep72wXON2x3310XeCD3b750pAI9LPodq63dgr6N/LE15s7CsVLrYHU1DN8m6osK3OtoD7CqlBi035g0MjKOkbJYinXKCs2RD8wgJP+1FIr8mSzdG8QkRrBn7lCELzIjWpPOfvpVp+CTBfgxQLeyX4Qml/WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KhE/ct0o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rwje5vSc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791881181; c=relaxed/simple;
+	bh=H8lllLIff+92B/hWmTd9yFlU51GFwgtXNyQSmhu85r0=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=cvjxyI4m/e0P8H/LEnP73J6o6en1t1hGJUwtAWPJFf4xkwcPadGgC27vsj3nY2639Gj6iRzOl+Eww2ReNZM1pOodgvGT+0ev03Nfp1IEbzj8qYQZAryoA4J3wtxsezmtJiPTzbFLEVkHczqlobuqApnQa6lxGTOmNFhRnR9XTws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eLblAugI; arc=none smtp.client-ip=91.218.175.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KhE/ct0o";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rwje5vSc"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8V0hZ922844
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:46:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vxnCH0NNfcKcGsDeYn21MBx17/efcxQrfrVWQPGiIVQ=; b=KhE/ct0opXgywKQF
-	zc9DGwJVrVbYEoKdqAp29DikI3MOBwcyyKUiIoISqPSefq/Ju9sEMHFz7mKSRhTY
-	S/ewT2kuej3w6UF+EsDs857gctQ3OjyUGwYvFWV3P5rNKJAdzcE5jF53piODgLMG
-	zmWNZBpkDEL6CTjtKO17ZLy6P+ICwCOh4Y6BeaQyhmjT2/1RbHa4BnuFmXsv2srE
-	UDTXVapAX6i9DRHLEceyman4Epgmm+gCil7kkxs7IhmV1xmJJJC8MbhQDxxYfBU4
-	cabnedPnHFcG1qWFYv2ZpW2XLlkXlstppT2Vq4zL8H3I/olUhTScccYBH4wBQDvq
-	WA40bA==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98h1t0wp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:46:10 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-898fe16133eso2090930b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:46:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791881170; x=1792485970; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vxnCH0NNfcKcGsDeYn21MBx17/efcxQrfrVWQPGiIVQ=;
-        b=Rwje5vScCnqi+8CPiTCyqrKmd4KJIkWTKI5C+oP03IiFt5nFQzOe7qZtC9btZj+k35
-         xX2efcPjwK/3z9qYG9X7PxC9MZlQ1WMh7M9dNOb734GxJz0vavcg1DarxtebKi4RBE5y
-         BcQ/iRe9EAnz1itZH3KTYTx5aWKzSkp4eZtxbRkwusSXCajrXFyXhx8YQNGUcvNg3K50
-         FIXJ02BB1ziZIHfdK+jsP7Q/PGu2uxI2IzzCj9wGk90PTRVgzD+r/rCN4GzRS7mkbCnb
-         Z+PKfXDEQX9z0a1z3mgJr4MGQVQDki1ZWcVeZi8vypGS2Jymo9Q0w7ccbL7q3KlO3gk9
-         MSHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791881170; x=1792485970;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vxnCH0NNfcKcGsDeYn21MBx17/efcxQrfrVWQPGiIVQ=;
-        b=Lj6BfFoGqugL81fb9YaGdiHKbykD0IiZDouNmbEhWSTY15VcD4HyRvtSSNBJolvH4+
-         FJiNPoMDaic6QnM9tZVSghl7sqnuU7bNSGIiqLMY7QOSc6KIeP4BRUDaaiPSPHFrFZwB
-         4191bOdZ0FAm/6a5J0rZ6MEDIDv7gtf5oyABqOJxA40AtJ1Of4O34LfK6oThtjBWgEga
-         ZLnUwb/NZHn+2O/APRtCNHaqETuhjIYc3oz6ivQmOHravTQV2c4mE9vC9PWBW4CjVMkT
-         4m2BUeJcSnMsy1BC6uR3M1fqyOsy5i1SnfeQXhdbsulUM4zxtb4aFjcFoWahpGzthDHS
-         yuaA==
-X-Forwarded-Encrypted: i=1; AKwUvBz0MB19XPxDQ4+ROwgevK+nKF/KxOyl/aPHbxJTYvOviKok006VJhyR4QF5Qd3El9mF7IFt92cw3r80bKU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKS1OGqDgpjj7TumYfTdL4LBqfH9hkmj5HRRhhx2tfpFocdLlJT
-	3hWVe2AN2Gj0SENjG0C1vbO40ebVlyJL3+YhgLJ8m73QQGrN00Fmw00z2DYF+OrCDYFSExvZ150
-	fLiucZn9kIFX7P5uDMCR6G+sexFXSQ564n6/8iR/l6Hmtxwy7BxEPG3kATdZooWqkFOg=
-X-Gm-Gg: AYBFou318K3N6DCeqrNUT1jnB92YYQ+lTXBKdjXB5y8OUVjaxRAZbCb/hqramq1W3TO
-	vXTw25nqM5q/8TqweCFsbfQRra42Jj7TsQNTV3tpn+E+1VEz/L1nIfIUnmNFVin2UE+VIhng0UU
-	BK5MzgB+AIChIRSM4gjOQTXfJtZbECeB537I/KIBve3poqIineoAhfYL+JKoxE5whGgYITeVXq0
-	E8I6x1whOCKUA0olJ3Q8OAbZKVZrumle5myLI7QRsmAWwy9sJC8IPrWbEYgKEXfk6XPKoySCyEl
-	CZWn+mSMGyIU73rx7zVVtv0QYrKN9REyJIrT2q42OD1SVUpX4k25q3Jztc+eDxmoKzvMXPhOF9w
-	EzreM4l/dXbjyuD24IDjCdHgjfwSp
-X-Received: by 2002:a05:6a21:a4c9:b0:3dd:a197:735c with SMTP id adf61e73a8af0-3e16c052430mr9179232637.53.1791881170178;
-        Tue, 13 Oct 2026 01:46:10 -0700 (PDT)
-X-Received: by 2002:a05:6a21:a4c9:b0:3dd:a197:735c with SMTP id adf61e73a8af0-3e16c052430mr9179215637.53.1791881169627;
-        Tue, 13 Oct 2026 01:46:09 -0700 (PDT)
-Received: from hu-batta-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da0596f9sm5384721a12.31.2026.10.13.01.46.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 01:46:07 -0700 (PDT)
-From: Kishore Batta <kishore.batta@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 14:15:36 +0530
-Subject: [PATCH v9 5/7] bus: mhi: Load DDR training data using device
- serial number
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eLblAugI"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=H8lllLIff+92B/hWmTd9yFlU51GFwgtXNyQSmhu85r0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791881177; v=1; x=1792485977;
+ b=eLblAugII24POJZpKCdUXBMbM1wuHxxYb5gjVYuK7hExZIYriB6nqhDu8jRNI11ses6cnNP2
+ nr4Q71jWLhEjU1NdePsKO7JyNxxG0HrAH9KYzmHvRKxg+IGDBgpAd50E3eblhAXREj6ypC8YWLM
+ zuVzfmrDeJJT8MAB3mx+i4oY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9fa3813cf037b6ce;
+	Tue, 13 Oct 2026 08:46:17 +0000
+X-Mizu-Trace-ID: 9fa3813cf037b6ce
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-sahara_protocol_new_v2-v9-5-dc9f24357c4a@oss.qualcomm.com>
-References: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
-In-Reply-To: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
-To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-        Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
-        Oded Gabbay <ogabbay@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        mhi@lists.linux.dev, Kishore Batta <kishore.batta@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791881139; l=2312;
- i=kishore.batta@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
- bh=2+l0SnJ6xQbWmIt7CHKhLtT8Hjx827L4qCZBd+DMmbE=;
- b=HnyiFaueBTA9ATyK3dZXMfV2qee62iFqJG+G8cD7P1CuCfQJ+ClZ4AvpSZ0L1UuLOmrq5ceAB
- ADA5An6WtpHC0J7SJF1weIXvXe7vLzFi7gTZcnmhKd1n/BXCyjtx803
-X-Developer-Key: i=kishore.batta@oss.qualcomm.com; a=ed25519;
- pk=vJo8RvTf+HZpRLK2oOIljmbn9l3zFkibCGh+blaqZCw=
-X-Authority-Analysis: v=2.4 cv=VqC2kO2n c=1 sm=1 tr=0 ts=6acdefd2 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=ICgrKnnyuXbdZ-Zkjz4A:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-GUID: MPVUDiUMzbc6rYmyG4xso-AXeAHThGgD
-X-Proofpoint-ORIG-GUID: MPVUDiUMzbc6rYmyG4xso-AXeAHThGgD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX0MnQhhCC9lS6
- Dji5CNH7joycYFIe61o1vYa4Gj7JtC6Z3rC/FZYxb5gnXNlFFVmuuwkKilarlAxmWgLBOFlz4Z7
- ZzIU7xJ3zO68aZ+aHDnAVwwr/yQf5kU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX9MYfL0Nc4N+j
- Vm8bfrIG6lASmHWKZQ5BMpeOY5Nfdai+7NIQWT8vJ/m4jM+efm3l0V9qMu60J1QJJgwQIQFAgcy
- d/ksED5aM/Q1KEoBFEDYVs6C/g5HrjKMM1m/+QefER74aIiu/XPCdkaF5fV0EH6384+Fg3B5Ow6
- vOKcPitHDP14D7qzqUiVPtxMKnK0JlAmytSH3L3/fEq4yEbh2I8gW0yY+4R1G/c83X2KchXV7SX
- 6F7NV2e9qqGvXXDWWbIkPzx9RS9QL6iLVNkT3h1nPoAZoCz4rgwv7zghqZ8KpYY8b0ppMEnfSYF
- BG2Bhl6o1fvXrfvbSDxq5I8+Wgbe/yaKZPunO7kvR+nzkesNqZa9en1edIXDxqYt0/5E/vkb03P
- QaNt/94owURrx6/QIYODyQIY23/TRStMAsXIQ5Pvgqk7nJmWV3CoPDZdYD0sXl5Q00hu8YsHceM
- O/RZO4slOukSrY5cO9Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130034
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v3 2/2] dax/bus: fix Device DAX range alignment validation
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <as15T35oOudDM64C@aschofie-mobl2.lan>
+Date: Tue, 13 Oct 2026 16:45:59 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Dan Williams <djbw@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ nvdimm@lists.linux.dev,
+ linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BE74CAF6-371A-43DB-835A-65C799C5A7B9@linux.dev>
+References: <20260924025035.1265035-1-songmuchun@bytedance.com>
+ <20260924025035.1265035-3-songmuchun@bytedance.com>
+ <as15T35oOudDM64C@aschofie-mobl2.lan>
+To: Alison Schofield <alison.schofield@intel.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-Devices may provide device specific DDR training data that can be reused
-across boot to avoid retraining and reduce boot time. The Sahara driver
-currently always falls back to the default DDR training image, even when
-serial specific training data is available.
 
-Extend the firmware loading logic for the DDR training image to first
-attempt loading a per-device image dervied from the device serial number.
-If the serial-specific image is not present, fall back to the existing
-default image, preserving current behavior.
 
-This allows reuse of previously generated DDR training data when available,
-while keeping the existing training flow unchanged for devices without
-saved data or for all other firmware images.
+> On Oct 13, 2026, at 08:20, Alison Schofield =
+<alison.schofield@intel.com> wrote:
+>=20
+> On Thu, Sep 24, 2026 at 10:50:35AM +0800, Muchun Song wrote:
+>> dev_dax->align describes the page size used by a Device DAX mapping.
+>> Both the start and size of every range must therefore be aligned to =
+it;
+>> otherwise the starting PFN cannot represent a naturally aligned page =
+of
+>> that size.
+>>=20
+>> Only range sizes are currently validated. A dynamic device can =
+therefore
+>> select a large-page alignment and allocate a range whose start is not
+>> naturally aligned to that page size. The device binds successfully, =
+but a
+>> subsequent write to a userspace mapping may trigger a kernel panic.
+>>=20
+>> The automatic resize path can also split a size-aligned request =
+across
+>> arbitrary free gaps. When devices with different alignments fragment =
+a
+>> region, this can extend a range by less than its alignment. A later
+>> allocation then fails, leaving the failed resize partially applied.
+>>=20
+>> Validate both the start and size of allocated and adjusted ranges. =
+Make
+>> the resize path account only for usable aligned space before changing =
+any
+>> ranges, and skip gaps that cannot satisfy the device alignment. =
+Initialize
+>> the device alignment before allocating its initial range so that all
+>> allocations use the same validation. Perform size validation under =
+the
+>> same locks as alignment updates so the alignment cannot change before
+>> resizing begins.
+>>=20
+>> A mapping with an unaligned start is now rejected with -EINVAL, while =
+a
+>> naturally aligned mapping still binds successfully.
+>=20
+> Hi Muchun,
 
-Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
----
- drivers/bus/mhi/host/clients/sahara/sahara.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+Hi Alison,
 
-diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
-index a4b3ef197b303cce5a36cbeda272119f0430e619..62b9c72e826801a77a321991f9bb91af37e0cc8c 100644
---- a/drivers/bus/mhi/host/clients/sahara/sahara.c
-+++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
-@@ -58,6 +58,7 @@
- #define SAHARA_RESET_LENGTH		0x8
- #define SAHARA_MEM_DEBUG64_LENGTH	0x18
- #define SAHARA_MEM_READ64_LENGTH	0x18
-+#define SAHARA_DDR_TRAINING_IMG_ID	34
- 
- struct sahara_packet {
- 	__le32 cmd;
-@@ -225,6 +226,27 @@ static int sahara_find_image(struct sahara_context *context, u32 image_id)
- 		return 0;
- 	}
- 
-+	/* DDR training special case: Try per-serial number file first */
-+	if (image_id == SAHARA_DDR_TRAINING_IMG_ID && context->fw_folder) {
-+		u32 serial_num = context->mhi_dev->mhi_cntrl->serial_number;
+>=20
+> The commit message could be condensed. I think the two failure =
+scenarios and
+> the changes needed to address them are sufficient.Implementation =
+details
+> are excessive.
+
+Yes, I'll trim the commit message.
+
+>=20
+> But before that, need to address something else, see below-
+>=20
+>>=20
+>> Fixes: 6d82120f4156 ("device-dax: add an 'align' attribute")
+>> Assisted-by: LLM
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>> v3:
+>> - Serialize size alignment validation with alignment updates to avoid =
+a
+>>  partial shrink after a concurrent alignment change (reported by =
+Sashiko)
+>> - Document the size validation serialization in the commit message
+>>=20
+>> v2:
+>> - Keep the alloc_is_aligned() name to avoid unrelated helper renaming
+>>  (suggested by Dave Jiang)
+>> - Move this patch after the mapping error reporting fix for =
+independent
+>>  backports (suggested by Dave Jiang)
+>> ---
+>> drivers/dax/bus.c | 144 =
++++++++++++++++++++++++++++++++++++-----------
+>> 1 file changed, 109 insertions(+), 35 deletions(-)
+>>=20
+>> diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
+>=20
+> snip
+>=20
+>=20
+>> @@ -1468,6 +1542,7 @@ static struct dev_dax =
+*__devm_create_dev_dax(struct dev_dax_data *data)
+>> 	return ERR_PTR(-ENOMEM);
+>>=20
+>> 	dev_dax->region =3D dax_region;
+>> + 	dev_dax->align =3D dax_region->align;
+>=20
+>=20
+> Moving this assignment means that initial allocations for static
+> pmem regions now go through the new range_is_aligned() check.
+>=20
+> I'm concerned this may reject existing namespaces with 4K alignment.
+> nd_pfn_validate() doesn't require the data offset to be aligned to
+> memremap_compat_align(), and older namespace formats may have offsets
+> that don't meet that requirement.
+>=20
+> Can you check whether an existing namespace with such an offset
+> would still probe successfully after this change?
+
+Good catch.
+
+I reproduced this with a 4K-aligned, map=3Dmem Device DAX namespace
+created by Linux 4.19:
+
+  ndctl create-namespace -f -e namespace0.0 \
+          --mode=3Ddevdax --align=3D4K --map=3Dmem
+
+The namespace has a version 1.2 info block with an alignment of 0x1000
+and a data offset of 0x22000. Its data range therefore starts at
+0x240022000, which is 4K aligned but not 2M aligned.
+
+The namespace probed successfully on Linux 4.19. With the patch as
+posted, however, dax_pmem failed to probe it with -EINVAL and
+/dev/dax0.0 was not created.
+
+>=20
+> I'm also wondering whether the initial range needs to satisfy
+> memremap_compat_align(), or whether checking dev_dax->align is
+> sufficient here.
+
+Checking dev_dax->align is sufficient for a static Device DAX range.
+
+For static Device DAX, libnvdimm supplies a pre-populated pgmap, and
+nd_pfn_validate() already verifies that the start and end of the full
+pgmap satisfy memremap_compat_align(). The dev_dax range is only the
+usable data subset after the namespace metadata, so it only needs to
+satisfy dev_dax->align.
+
+Dynamic Device DAX is different because its pgmap is constructed
+directly from the dev_dax ranges. Those ranges still need to satisfy
+max(dev_dax->align, memremap_compat_align()).
+
+>=20
+> Have you also tested the static pmem Device DAX path, particularly
+> with namespaces created by older kernels? The reproducer described
+> in the cover letter addresses the alignment failure, but I'd like
+> to make sure we aren't introducing a regression for existing
+> namespaces.
+
+Yes. After making the below change, I booted the same persistent
+namespace created by Linux 4.19 without recreating it or modifying its
+info block. It probed successfully, /dev/dax0.0 was restored, and it
+retained its original 4K alignment and size.
+
+I will include the following change in the next revision:
+
+diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
+index 8616527656d8..5828ab334084 100644
+--- a/drivers/dax/bus.c
++++ b/drivers/dax/bus.c
+@@ -850,15 +850,23 @@ static int devm_register_dax_mapping(struct =
+dev_dax *dev_dax, int range_id)
+
+ static inline unsigned long dev_dax_min_align(struct dev_dax *dev_dax)
+ {
++       /*
++        * A static device has a pre-populated pgmap whose range already
++        * satisfies memremap_compat_align(). Its data range may start =
+after
++        * metadata at dev_dax->align granularity.
++        */
++       if (static_dev_dax(dev_dax))
++               return dev_dax->align;
 +
-+		fw_path = kasprintf(GFP_KERNEL,
-+				    "qcom/%s/mdmddr_0x%x.mbn",
-+				    context->fw_folder, serial_num);
-+		if (!fw_path)
-+			return -ENOMEM;
-+
-+		ret = firmware_request_nowarn(&context->firmware,
-+					      fw_path,
-+					      &context->mhi_dev->dev);
-+		kfree(fw_path);
-+
-+		if (!ret) {
-+			context->active_image_id = image_id;
-+			return 0;
-+		}
-+	}
-+
- 	/*
- 	 * This image might be optional. The device may continue without it.
- 	 * Only the device knows. Suppress error messages that could suggest an
++       /*
++        * The minimum mapping granularity for a dynamic device instance =
+is a
++        * single subsection, unless the arch says otherwise.
++        */
+        return max_t(unsigned long, dev_dax->align, =
+memremap_compat_align());
+ }
 
--- 
-2.34.1
+ static inline bool alloc_is_aligned(struct dev_dax *dev_dax, =
+resource_size_t size)
+ {
+-       /*
+-        * The minimum mapping granularity for a device instance is a
+-        * single subsection, unless the arch says otherwise.
+-        */
+        return IS_ALIGNED(size, dev_dax_min_align(dev_dax));
+ }
 
+Thanks,
+Muchun
+
+>=20
+> -- Alison
