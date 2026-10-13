@@ -1,82 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28EA4BC00B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:28:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E254D957E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:31:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791934094; cv=none; b=tjGAh6H2WV9ysOBPp2ZICM6W+R5Kv/+A6DrPouz0wTE3Tq1pXvv9IcmGoI5cDYW2gSpAhCFrm1gAa13uWNMvPmMXnHmQ5hq9VaIFdmi1Cgh3BK9Beeag8ducRFmqi+vjvh6RSI8zkelQMLPkNasmJj3KcOUNCE593u6Zs/fqQQ8=
+	t=1791934263; cv=none; b=WvNaE/OoRDZgSiJrc6Farm36cqTg0zMHM0Vf8dzLArTALHSBFjMqbF8oGD8+LK1TKc3jO+c1yqv3+DTs8nAlyZz18ZRBEky6cwCBl5eOfBEwefKfP/IxKPOeTyFGpVfhS07NvpXjxtYle2rkosyTvOgIDfQXzv0TbzDTXJCtNBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791934094; c=relaxed/simple;
-	bh=jfICjUN4uGEgxT4SIC11mAwKtjbwwaD5aD305KLzTmY=;
+	s=arc-20240116; t=1791934263; c=relaxed/simple;
+	bh=9f9NLdM3DRtuPBkjP7egipXAuBf5O2ZQpTJ6081sC5U=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SWvI0qGH60mVEoudHcK3Pcx3pEg5vqujVKka2xXAa1b232pAfukMIiY4oGJRY+eiVdnf3RnU7SrQen2Fm/9MxeMUt6ft9EL0aTgldJs5A+jKKSs2sUGOsRXBsAn29lNTcE6+PoWP+Gy0BFG98aDzP0eC9nxuOBlPOpTQLs3LK68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfdIPTVi; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=OrK6MU4t5yJJifj9+ynWI4OH/td/3z0xjh28bp5FW6UWRpBkcPCxQdazFhaGkLZyHGcsvWV79a9BYaJjd78DPzDuuw8Ng/I6mhOXqW/3SOJXIm4xTL7jL+h6FQxlFGFXMM2Kz44koZJx7MloUTZ6sVMRaG1sSUdkemo77fjD9sU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOvYKe6/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfdIPTVi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A211F008A0
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:28:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOvYKe6/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4EAE1F00898
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791934093;
-	bh=jfICjUN4uGEgxT4SIC11mAwKtjbwwaD5aD305KLzTmY=;
+	s=k20260515; t=1791934262;
+	bh=9f9NLdM3DRtuPBkjP7egipXAuBf5O2ZQpTJ6081sC5U=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BfdIPTViqrUvoKgyDOjZ4GSRMmT0vP/qzCOD3dk44TENBobYWugmO75x8KpvaKXFR
-	 uZHwiOmTwA6oHXtcIDpOglH1XPRDx7i6vLwcwKZQdAlbgFynqbh7kkhJCQDW0S2yj7
-	 Gn36ASQ1MT1Jxx/UjSao9nGiRGJK+HJlqSwZ9bLTq/s+1Rm0/Msw+vUU1xsK488r1b
-	 WSyO97dsQQB7phOHs0cbWkhL0OXtospujIT+lQ1uvPaLoWhRhmauU7Xq1dJdAu8IPt
-	 tr+Mwgqq2BQ+wqCsFRbmimP6tdAAUwP2+Jk3vEQj583C/lv9dnmQbiqE43rRQDqYos
-	 /6orbnrnOBs8A==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so48566491fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:28:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByEDCNoc/I8nNkTD+h2deWASrBdNDWyMw86LL1etFWfg9u5bODqlkj5eICbC3bTlzlAOnxEgsF7erMuMjs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLaGhfU7+GyqHGENc/TyMVwpVjDtPkKMMo4bhxC68ZrKHOWupaY
-	mUEYPcIq1R6v3r328OgEWgEZmqUc4zhB5bvB6pBsCKlht5HaAr6o2pDHXalq4AJjcjmsSbr+kR3
-	L4nEXAalOehuyflv3eK8vrKSZ+zRQDUY=
-X-Received: by 2002:a2e:be88:0:b0:3a6:62bb:906e with SMTP id
- 38308e7fff4ca-3a9c2b34d90mr33801471fa.20.1791934092040; Tue, 13 Oct 2026
- 16:28:12 -0700 (PDT)
+	b=cOvYKe6/RHWICOEYmRDgV1/CJfXN6zxTPVa/ggFa8azzpJRLfZ2Vo/2Ar2YsPfWVm
+	 0/8zH8osSU/5FsuZbN/LhW8CcX74hIAMvAaMLVB6dWGyntAQI3WxOTDZFW0uMH5HY+
+	 3xv67x1AfqlxAzDEKm14sUDvJ6vWbFZkM8YOKNlydXNENR2kCs5FHFg+m6x7/+LIvV
+	 bayGrYm9IetFKRECdnvKYl4H+hz8yHgWPNfraagJ4b45VPzUv3be/HNt7SgC69VETq
+	 9YZC4+oEPyEj02C9Et6IFBeJ/ho9EA2SQnr51gMlTunqFsvVApghEiDoo65ysfpy3K
+	 pjgmnHQbLaF9w==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a9787a156eso27821131fa.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:31:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByl1TWlDLYhg6y7iryXMTOurU8ym83X3kKp3EPlH5NzL2QVeLH40yrTjqwAxsnRpRBIZwvqEuWLgZJ1xA0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8RRFJXwDFr9UiiSuwtYq2rY8yRUENx49kh7bzDPXyXfXhBVi9
+	zc4zu3pL9Bv4+AFg35jLvDchWA16ONAMOQfsswsViuTYpRjZ4BRMeoaxN+S+Pn0j8ha9ipwvJa7
+	w8JlWMileCIOs4UPAHp0ovFlZMykvXzo=
+X-Received: by 2002:a05:651c:e17:b0:3aa:e460:a1e with SMTP id
+ 38308e7fff4ca-3aae4600da8mr7501681fa.8.1791934261486; Tue, 13 Oct 2026
+ 16:31:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <b45a3350-44a3-45ad-89cc-452c25edbd7d.ref@yahoo.com>
- <aa5fa12c-e43e-4e5e-9f77-c6eaf477abc4@yahoo.com> <56fb70c5-9e8c-4d7f-af47-46ed3c860694@yahoo.com>
-In-Reply-To: <56fb70c5-9e8c-4d7f-af47-46ed3c860694@yahoo.com>
+References: <20261013074327.4961-1-Chloe_Chen@asmedia.com.tw>
+In-Reply-To: <20261013074327.4961-1-Chloe_Chen@asmedia.com.tw>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 14 Oct 2026 01:27:59 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkwAr7QuJnrvZHao3Y=f4QDtxQQ1e1FMtbRicyhqyNwdg@mail.gmail.com>
-X-Gm-Features: AclHuK8YuIE-kWbk3_VVqYiyOABl7Epu0vDyuoAROAUzyJrvRto2P0FIbcDiEDk
-Message-ID: <CAD++jLkwAr7QuJnrvZHao3Y=f4QDtxQQ1e1FMtbRicyhqyNwdg@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 2/9] net: dsa: realtek: rtl8365mb: add chip
- family infrastructure
-To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net, 
-	edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk, 
-	luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+Date: Wed, 14 Oct 2026 01:30:49 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkyvp+DAQTFT2oyydjyCwqSO1DmCgQExbsVsOBYRuQLAQ@mail.gmail.com>
+X-Gm-Features: AclHuK--NzRkxrMOOurKIIgZ9lTUtEMpVE9dR3r-rR7PD9mLnaGJV8p3MYT60oY
+Message-ID: <CAD++jLkyvp+DAQTFT2oyydjyCwqSO1DmCgQExbsVsOBYRuQLAQ@mail.gmail.com>
+Subject: Re: [PATCH v2] gpio: amdptpci: add support for AMD PT PCI controller
+To: Szuying Chen <Chloe_Chen@asmedia.com.tw>
+Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Yd_Tseng@asmedia.com.tw, Jesse1_Chang@asmedia.com.tw, 
+	Richard_Hsu@asmedia.com.tw
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 10:39=E2=80=AFAM Mieczyslaw Nalewaj <namiltd@yahoo.=
-com> wrote:
+On Tue, Oct 13, 2026 at 9:43=E2=80=AFAM Szuying Chen <Chloe_Chen@asmedia.co=
+m.tw> wrote:
 
-> Add enum rtl8365mb_family and a family member to struct
-> rtl8365mb_chip_info, together with rtl8365mb_get_family() declared in a
-> new rtl8365mb.h so that the VLAN code can use it too. Tag all existing
-> chips as RTL8365MB_FAMILY_C.
+> This commit implements the new gpio-amdptpci driver to support the
+> GPIO functionality on AMD PT PCI platforms.
 >
-> RTL8365MB_FAMILY_D is defined here but no chip uses it yet; it is needed
-> by the following patches, which add family D handling for chips whose
-> register layout differs from the existing ones.
+> Signed-off-by: Szuying Chen <Chloe_Chen@asmedia.com.tw>
+> Co-authored-by: YD Tseng <Yd_Tseng@asmedia.com.tw>
 >
-> No functional change.
->
-> Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+> v1->v2:
 
-Makes sense.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+NACK
+
+I have provided feedback on v1 which was ignored.
+Read it and incorporate it.
 
 Yours,
 Linus Walleij
