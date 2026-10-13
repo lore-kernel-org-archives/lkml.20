@@ -1,91 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27103E639D;
-	Tue, 13 Oct 2026 09:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAD938D014
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884213; cv=none; b=WQizlwZN4itkw9TFAyWPPRloNZOl9QjLx3QnD2Y5/gBjFTUl8oALImgWDxH56p772ShO3rLIFXb9w1qEV9mwpwLOgEjYy8WyxN3xAHOpKi3kkyHLM/+HTk6ZqcC4kFih0S30SttXTYsxclkAiFpoTMKQ6XP7sNYNKC2OpxD0UWc=
+	t=1791884224; cv=none; b=XauOdbvqZX9ITyl/6uY6gqa65h63fiSmui/XQ24s40O8k3/Ube/CuH1VOmtz54azynB9tncn2294ROZ8o7btL2DL++gy++pVxgMPuHBYfPuBz1Nw8l5AVHD/tZRL8cLV9LcInclU33KBHg0/8zZLfWifNL5kj1TduJe22/JQf4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884213; c=relaxed/simple;
-	bh=tNCwhbKQX3GoNtYVyhZBJh2dlGyNtTTcqphKYqvtCK4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e8MYffJ0TYlgGguoqj8w3jHsf8o4lqIaecSb2aKV0UZTiEve3nTlwHZwGqDqCHqxVPLakK5L+UXOlA9acvobSR7EVAA8qgIOIxbJtLjsCXGbKFVUeaFpvbLPYch8f7z9fofJgo4FNULk+VcxLJLIf+gzH6eWifpNWTqv/Nkl128=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihHQIh0u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791884224; c=relaxed/simple;
+	bh=KUkefJ5DSPePM5TbVf/Sx5ia3+ZnO/Cc4dPsCvg8ELw=;
+	h=Cc:Message-Id:To:Content-Type:From:Subject:Mime-Version:Date; b=NmfH1zXW/bJ/apVS9+PYe5VV4Ikirf+grVGLwHV50TYoNb5/7ca7QDhsYDOhu+9Qx0xHA5wUvXLm7AfXoIThR8aEly96QS3jOzefBL8zyYIlG9YHTSxefuo8KkFqTP1zw5XVCkzKLMM0JFJezzXVpVFM7U+qqUlVzu4CKLRsaQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Rp5msHeV; arc=none smtp.client-ip=209.127.230.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihHQIh0u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D991F00898;
-	Tue, 13 Oct 2026 09:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791884212;
-	bh=I13S9NHzPBYqCmO9iZd06Lej7+82C/tFnkGCX+GzMsw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ihHQIh0uvs/YMXqAqc47VvtzXg9IoEtUc0pLV0lEJUJCZZFj44IxUyqA2mDEH0+em
-	 3ii/2NVVohA3q4McFk+Mu+K5rMhO9NEtNsR0BX8rZ+1RvCaYqXSAPklo68HNgQp/2d
-	 e3xXJ/RCnjzOX0bqJ6bRPgUTRS4OztMfXGn1uvsFUmWNJFyt6O2S6PNVfEwJ5x/WxH
-	 SMeKHeZP3vyLCpjvvREvQxpqSELMM5GK5aJ/2KgzohMDpXjZmAHfvL0p+Opkpg5mQR
-	 SPV1UR3LPykn0YVtsSOg3vESrt8A9COHQvJknkIMcQhAWYD7KaI/bE7+KYEhZrVx1M
-	 pB+7n8P+SUoZQ==
-Date: Tue, 13 Oct 2026 11:36:49 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Douglas Anderson <dianders@chromium.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	cros-qcom-dts-watchers@chromium.org, ~postmarketos/upstreaming@lists.sr.ht, 
-	phone-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, Luca Weiss <luca@lucaweiss.eu>
-Subject: Re: [PATCH 2/3] dt-bindings: arm: qcom: Add Samsung Galaxy Book2 Go
-Message-ID: <20261013-naughty-orange-cheetah-db85ba@quoll>
-References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
- <20261012-book2go-v1-2-7188e7ea7a15@fairphone.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Rp5msHeV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791884214; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=q5NdZNxCSRtyhz8oP1rgzjW01hgyzNkTJZX8N4nqPNQ=;
+ b=Rp5msHeVhwkJ8kWCXcuZrQn07ZQRh985KgfVw/dnU4dqwOKwR2oZdeL5ify4q++qetVrRE
+ vjyMg961YU/qOYSW+CmQ/Y/as4NJi726r2Ktd6MwVf4Z+tJzWedcJ1VUcnVB1O5kt9uNH1
+ XzW9TX/GUqNxBiucMZLCcN35UOc0KP18dcfCOYUj8uHfWx/KzBS68uFV1EB1cz96G1Cxlg
+ GAechiEeqyAf1syOtkWy0l1X0Z7OaHccLnybNLp1/ss760Njdi0RnINsQPZpssXUPT4q+Z
+ kU8No9GiDJ0RzASySt8zQU8g3bYT0I0DmIGqjkcRvEptJdvbNp+3jh/qEZu/Kg==
+Cc: <ryan.roberts@arm.com>, <dev.jain@arm.com>, 
+	<baolin.wang@linux.alibaba.com>, <lance.yang@linux.dev>, 
+	<mark.rutland@arm.com>, <akpm@linux-foundation.org>, <david@kernel.org>, 
+	<ljs@kernel.org>, <liam@infradead.org>, <vbabka@kernel.org>, 
+	<rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>, 
+	<linux-arm-kernel@lists.infradead.org>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>, "Zhao Gongyi" <zhaogongyi@bytedance.com>, 
+	<stable@vger.kernel.org>
+Message-Id: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>
+X-Lms-Return-Path: <lba+26acdfba0+a7bde7+vger.kernel.org+zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012-book2go-v1-2-7188e7ea7a15@fairphone.com>
+Mime-Version: 1.0
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Date: Tue, 13 Oct 2026 17:36:00 +0800
+Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 
-On Mon, Oct 12, 2026 at 08:11:04PM +0200, Luca Weiss wrote:
-> From: Luca Weiss <luca@lucaweiss.eu>
-> 
-> The Samsung Galaxy Book2 Go is a laptop with a Snapdragon 7c+ Gen 3 SoC
-> (SC7280).
-> 
-> It appears to exist in three variants:
-> 
->   NP340XNAA-EXP:
->     4GB RAM + 128GB UFS, WiFi-only (NP340XNA-KA1UK)
-> 
->   NP345XNAA-EXP:
->     4GB RAM + 128GB UFS, 5G (NP345XNA-KA1UK)
->     8GB RAM + 256GB UFS, 5G (NP345XNA-KA2UK)
-> 
-> The internal code name is Hermes2-14.
-> 
-> Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index ff8a35df7862..5048e878b7ca 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -887,6 +887,11 @@ properties:
->            - const: google,zombie-sku514
->            - const: qcom,sc7280
+The transparent contpte layer treats PTE_CONT as software state: when a
+PTE has PTE_CONT set, the contpte helpers may align the operation to a
+CONT_PTE_SIZE block and operate on the whole block. That invariant only
+makes sense for valid mappings. Explicit users such as hugetlb manage
+their contiguous encodings separately.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+contpte_set_ptes() currently sets PTE_CONT from alignment alone. Batched
+set_ptes() users can therefore install present-invalid PTEs with
+PTE_CONT set, for example mprotect(PROT_NONE), NUMA hinting through
+modify_prot_commit_ptes(), fork() copying a PROT_NONE large folio, or a
+PMD split installing PAGE_NONE PTEs.
 
-Best regards,
-Krzysztof
+This is not a hardware programming problem: invalid descriptors are not
+translated, so the hardware ignores descriptor bits such as PTE_CONT. It
+is a software-state problem. Some arm64 fast paths intentionally test
+pte_cont() directly instead of pte_valid_cont(), for example commit
+9970a9a27ffc ("arm64: mm: implement the architecture-specific
+test_and_clear_young_ptes()"). Fixing the producer side preserves these
+fast paths and covers all consumers.
 
+In the observed failure, mprotect(PROT_NONE) installed a full
+CONT_PTE_SIZE range of present-invalid PTEs with PTE_CONT set.
+MADV_GUARD_INSTALL then zapped one PTE. The nr == 1 clear_full_ptes()
+path only unfolds pte_valid_cont() entries, so the neighbouring
+present-invalid entries kept PTE_CONT while the target entry became a
+guard marker.
+
+clear_refs_pte_range() then reached the marker through:
+
+  ptep_test_and_clear_young()
+  test_and_clear_young_ptes()
+  contpte_test_and_clear_young_ptes()
+  contpte_align_addr_ptep()
+  __ptep_test_and_clear_young()
+
+The marker changed from old_pte=0x00000000000047c0 to
+new_pte=0x00000000000043c0 by clearing PTE_AF. For swap PTEs, bit 10 is
+part of the swap type field, bits 6-10: 0x47c0 is SWP_PTE_MARKER with
+offset 4, while 0x43c0 has type 15 and is decoded as an ordinary swap
+entry. Zap later warned in swap_put_entries_direct() with a bad swap
+entry.
+
+This is triggerable by a user process against its own address space. On
+systems running with panic_on_warn, the warning becomes a denial of
+service.
+
+Fix the root cause by making contpte_set_ptes() use the transparent
+contpte encoding only for valid descriptors. After this change, the
+transparent contpte layer preserves the invariant that pte_cont(pte)
+implies pte_valid(pte), so fast consumers can keep using PTE_CONT as
+sufficient evidence of a transparent contpte block.
+
+Fixes: 4602e5757bcc ("arm64/mm: wire up PTE_CONT for user mappings")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+Validation on an arm64 QEMU/KVM KASAN setup with CONFIG_ARM64_4K_PAGES=y
+and CONFIG_ARM64_CONTPTE=y, using an out-of-tree guard-region reproducer:
+
+  populate a CONT_PTE_SIZE anonymous THP range
+  mprotect(PROT_NONE) on the range
+  MADV_GUARD_INSTALL on one PTE in that range
+  write "1" to /proc/self/clear_refs
+  restore access and remove the guard marker
+
+  Unfixed kernel: failed in the first iteration, with 65 bad swap
+                  messages and a WARNING in swap_put_entries_direct()
+  This patch:     completed 100 iterations without warnings
+
+Additional producer-side instrumentation confirmed the same invalid
+batch state outside the mprotect reproducer:
+
+  Unfixed fork():     copy_page_range() wrote out_cont=1
+  Unfixed PMD split: split_huge_pmd_locked() wrote out_cont=1
+  This patch:        both paths wrote out_cont=0
+
+ arch/arm64/include/asm/pgtable.h | 5 ++++-
+ arch/arm64/mm/contpte.c          | 7 +++++++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+index 6000905a2..d6246042b 100644
+--- a/arch/arm64/include/asm/pgtable.h
++++ b/arch/arm64/include/asm/pgtable.h
+@@ -1650,7 +1650,10 @@ extern void modify_prot_commit_ptes(struct vm_area_struct *vma, unsigned long ad
+ /*
+  * The contpte APIs are used to transparently manage the contiguous bit in ptes
+  * where it is possible and makes sense to do so. The PTE_CONT bit is considered
+- * a private implementation detail of the public ptep API (see below).
++ * a private implementation detail of the public ptep API (see below). The
++ * transparent contpte layer maintains the invariant that pte_cont(pte) implies
++ * pte_valid(pte); explicit contiguous-encoding users such as hugetlb manage
++ * their entries separately.
+  */
+ extern void __contpte_try_fold(struct mm_struct *mm, unsigned long addr,
+ 				pte_t *ptep, pte_t pte);
+diff --git a/arch/arm64/mm/contpte.c b/arch/arm64/mm/contpte.c
+index 0acab179f..851fa2e44 100644
+--- a/arch/arm64/mm/contpte.c
++++ b/arch/arm64/mm/contpte.c
+@@ -463,6 +463,13 @@ void contpte_set_ptes(struct mm_struct *mm, unsigned long addr,
+ 	if (!mm_is_user(mm))
+ 		return __set_ptes(mm, addr, ptep, pte, nr);
+ 
++	/*
++	 * Keep the producer-side invariant documented in pgtable.h true even
++	 * if a direct caller passes an invalid descriptor with PTE_CONT set.
++	 */
++	if (!pte_valid(pte))
++		return __set_ptes(mm, addr, ptep, pte_mknoncont(pte), nr);
++
+ 	end = addr + (nr << PAGE_SHIFT);
+ 	pfn = pte_pfn(pte);
+ 	prot = pte_pgprot(pte);
+-- 
+2.39.5 (Apple Git-154)
