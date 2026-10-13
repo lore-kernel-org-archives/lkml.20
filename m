@@ -1,111 +1,153 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7994F93B8;
-	Tue, 13 Oct 2026 13:13:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754284FC8E7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897215; cv=none; b=kys5IDaFNAz8uulrxu6LoiINX1zJnVfynBcRV8OqgxJOjsm/VbhYwFjEppvEqaYDuDEsVY2nWL3fknFR8+3HwIS6yZIp8goA3Nig1Rk/pBinbFhqA4O83NqF4/ayXIT0f5a2BMwr/Y8YfZYpGcNQxKP16XwpBA8o8DpIAH2FGJc=
+	t=1791897218; cv=none; b=mzp5STajqQbDbcPqEfW1lTeYGimpJDaB44dlEMqniSz3wTEUSqJmyblKbN40exuEzFiPmfUuKlG6Wo/ZyOwd/flAXr5QSXp1VflUOYrSy1CBX++BKu0OXplbSAOYl/pjB3FJsf/6+hpPcS/PAtmrmBVrVzF2KrDz6hORtDduuV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897215; c=relaxed/simple;
-	bh=oSqzfpW5nTbwNrZBL7FSV+YIsqZvgcikk1ymv71OOVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LAHvp2Qu0IaLBB9jbqs3sLNOzSEisjFrDDvJVB1DDGTkBEMh+NQhxGyJ5AmOrvNRvmDjhV5WX4KA5X8gaYzIm+DvX7nXYIuNU92xoc+ALuie8xiKSz4IXz/VGFD8x96ao/0ufGVFZ7loE7bxPtp1sCCtpVdmJx971ebWcoksuVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=CHm+2Tgu; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1791897218; c=relaxed/simple;
+	bh=dGFgIE1Ak3qC4ku6H3c6KA+1Zmp1EwOYePHWmr/QoHY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VK9ZUKqcfThVYzL05iK6vSbzJmS+Nw3s7QdQKPPq1nr7zZHbIFYg5ptLgQ4SMh/PLfr7cbF2XueJMxBBnJYEIP4Ae/dCbwfsLwE7wHp7PzmqByXDL4nbuKANgqjHcGCmezNifkvzIzoFI3ymFF/5M0oXR55hURTw7bZ4cPt2gdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=clAKT5BL; arc=none smtp.client-ip=95.215.58.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="CHm+2Tgu"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0339B109293;
-	Tue, 13 Oct 2026 15:13:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1791897202;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=iiIT6zWZ/KVEDN/d6m/g5jw3NGQ/LPd5aQ4Ylyijp44=;
-	b=CHm+2TguNGzZaoJQpj0YRLONcrZfKddU8CkddpE5j44aKktVRIJ56BVCqELsdw5Pkqz2gl
-	nuaTOPQxBUVM+D3/d0jjK7ZJN0SuGQSwhYL4m8nurXhPk8yu0JV8+Z/TXYCfep6wP2UfE8
-	T4p4fr/uA9PNL4I0sWAHFkyWBmdiNUpFVJ+uJ774bNVQMvdti7kxhP1ZVlcqbK1KYLo6Zg
-	htG77n/+jJhNmRzSTgZbTUTDNUVvxprphp4lmR6ZUhqhOV9XgLxlpXhUec7sZvMLCGPSR8
-	gpOFRf1FpdgQd7yXrBEmGO7HMUfiZGOgljK66aDL2ztNhAe8Ljh52NLfJM2ntQ==
-Date: Tue, 13 Oct 2026 15:13:17 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Brett A C Sheffield <bacs@librecast.net>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, pavel@nabladev.com,
-	jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
-Message-ID: <as4ubep0jWRi-b2G@duo.ucw.cz>
-References: <20261013112920.855194808@linuxfoundation.org>
- <as4kGIjqjrKzu0O0@auntie.librecast.net>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="clAKT5BL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dGFgIE1Ak3qC4ku6H3c6KA+1Zmp1EwOYePHWmr/QoHY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791897214; v=1; x=1792502014;
+ b=clAKT5BLyo0dgW33OiplwRE7Ov9/Z3epsAeKYFj5MgEKed3wqqMc9pig9oqoThtMKPpXgtSr
+ mzw8LvyyfiwPK1cSRMjWKU6c3+/FQjvguWe2TIHjSuYyUEt2H6zipksTRQ3k3WwKPotvYWybesO
+ 8whm8Op8zUJ5THLX+TQ0Z+/o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2dbbb7a0f42226d5;
+	Tue, 13 Oct 2026 13:13:32 +0000
+X-Mizu-Trace-ID: 2dbbb7a0f42226d5
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH RFC v3 0/7] mm/vmscan: move vmscan tracepoints to a local header
+Date: Tue, 13 Oct 2026 21:13:02 +0800
+Message-Id: <20261013131309.2790253-1-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="b/mMEdGYDAzhgiIm"
-Content-Disposition: inline
-In-Reply-To: <as4kGIjqjrKzu0O0@auntie.librecast.net>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+
+From: Ridong Chen <chenridong@xiaomi.com>
+
+This series started as an effort to add two tracepoints for MGLRU. In the
+discussion, Steven suggested moving include/trace/events/vmscan.h to
+mm/trace_vmscan.h [1], as several other subsystems already do. Once the
+header lives under mm/, struct scan_control can be moved there too, letting
+the trace events access its fields directly instead of having each callsite
+copy the scalars out by hand.
+
+The series builds in small steps:
+
+  1) drop the unused vmscan trace include from memcontrol.c;
+  2) move include/trace/events/vmscan.h to mm/trace_vmscan.h, using a
+     relative TRACE_INCLUDE_PATH so no Makefile change is needed;
+  3) move struct scan_control into a dedicated mm/vmscan.h, which
+     trace_vmscan.h pulls in, guarded against the multi-read that
+     define_trace.h performs;
+  4-7) pass scan_control to the vmscan tracepoints and pick the fields
+     out in TP_fast_assign, one group at a time: the reclaim-begin
+     events, the LRU isolate/shrink events, mm_vmscan_reclaim_pages and
+     mm_vmscan_balance_pgdat_end.
+
+Besides the cleanup, this moves the loads of the tracepoint arguments out
+of the reclaim paths and into the trace event callbacks, which only run
+when the event is enabled. On x86_64 with gcc 11.4, the callers in
+mm/vmscan.o shrink accordingly (bytes), e.g.:
+
+  isolate_lru_folios    4060 -> 3896 (-164)
+  __node_reclaim        2258 -> 2076 (-182)
+  isolate_folios        8706 -> 8577 (-129)
+  shrink_active_list    3669 -> 3544 (-125)
+  evict_folios          4787 -> 4698  (-89)
+
+There is no functional change. TP_STRUCT__entry and TP_printk are
+untouched, so the tracefs event format is identical. This was confirmed
+by diffing the tracefs format files before and after, and by capturing
+the direct/memcg/node reclaim-begin events under load in a QEMU guest
+(order, gfp_flags and memcg_id all match). BPF programs attached via
+raw_tp/tp_btf do see the new TP_PROTO and need to be adjusted;
+tracepoints are not a stable ABI (see Documentation/bpf/bpf_design_QA.rst).
+
+highest_zoneidx and nr_reclaimed stay separate arguments: the former is
+a balance_pgdat() parameter (sc.reclaim_idx may differ from it by the
+time the end event fires), and the latter is the return value of
+shrink_folio_list(), which does not update sc->nr_reclaimed.
+
+[1]: https://lore.kernel.org/linux-mm/20260916095122.50cbb620@robin/
+
+---
+Changes in RFC v3:
+  - Use "Assisted-by: LLM" (Muchun).
+  - Note the BPF raw_tp/tp_btf impact in the changelogs (Sashiko).
+  - Changelog wording fixes and minor indentation fixes.
+  - Link to RFC v2: https://lore.kernel.org/all/20260928114625.3609130-1-ridong.chen@linux.dev/
+
+Changes in RFC v2:
+  - Convert the remaining vmscan tracepoints too.
+  - Move struct scan_control to mm/vmscan.h (Baoquan).
+
+Ridong Chen (7):
+  mm/memcontrol: drop unused vmscan tracepoint include
+  mm/vmscan: move vmscan tracepoints to a local header
+  mm/vmscan: move struct scan_control to a dedicated header
+  mm/vmscan: pass scan_control to the reclaim-begin tracepoints
+  mm/vmscan: pass scan_control to the LRU isolate/shrink tracepoints
+  mm/vmscan: pass scan_control to mm_vmscan_reclaim_pages
+  mm/vmscan: pass scan_control to mm_vmscan_balance_pgdat_end
+
+ MAINTAINERS                                   |   4 +
+ mm/memcontrol.c                               |   2 -
+ mm/shrinker.c                                 |   2 +-
+ .../events/vmscan.h => mm/trace_vmscan.h      |  80 ++++++-----
+ mm/vmscan.c                                   | 136 ++----------------
+ mm/vmscan.h                                   | 118 +++++++++++++++
+ 6 files changed, 178 insertions(+), 164 deletions(-)
+ rename include/trace/events/vmscan.h => mm/trace_vmscan.h (90%)
+ create mode 100644 mm/vmscan.h
 
 
---b/mMEdGYDAzhgiIm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+-- 
+2.34.1
 
-On Tue 2026-10-13 12:29:12, Brett A C Sheffield wrote:
-> On 2026-10-13 13:29, Greg Kroah-Hartman wrote:
-> > This is the start of the stable review cycle for the 6.18.57 release.
-> > There are 621 patches in this series, all will be posted as a response
-> > to this one.  If anyone has any issues with these being applied, please
-> > let me know.
-> >=20
-> > Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
-> > Anything received after that time might be too late.
->=20
-> Build failing on amd64:
->=20
-> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gs=
-s_krb5_get_mic_v2':
-> (.text+0xfc2762): undefined reference to `crypto_krb5_get_mic'
-> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gs=
-s_krb5_verify_mic_v2':
-> (.text+0xfc293a): undefined reference to `crypto_krb5_verify_mic'
-> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gs=
-s_krb5_aead_encrypt':
-> (.text+0xfc47a1): undefined reference to `crypto_krb5_encrypt'
-> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gs=
-s_krb5_aead_decrypt':
-> (.text+0xfc48f8): undefined reference to `crypto_krb5_decrypt'
-> make[2]: *** [scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 1
-> make[1]: *** [/usr/src/linux-stable-rc/Makefile:1272: vmlinux] Error 2
-> make: *** [Makefile:248: __sub-make] Error 2
->=20
-
-We see same problem here:
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/171391=
-16508
-
-Best regards,
-									Pavel
-
---b/mMEdGYDAzhgiIm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCas4ubQAKCRAw5/Bqldv6
-8tCHAJ9F+IraIEYRLM/Shea1iZp/uEN8kQCfQxo9tfvh4Hyp3szwrr1JCyZqRa4=
-=duju
------END PGP SIGNATURE-----
-
---b/mMEdGYDAzhgiIm--
