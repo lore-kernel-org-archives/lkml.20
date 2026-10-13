@@ -1,185 +1,234 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010040.outbound.protection.outlook.com [52.101.46.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8255B39F18F
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791870680; cv=none; b=XT2VOBCSX/R06fxG8WzC0IKkczvZJA+kP3Yqbq5B34khv0anPKIkbgq88FKenCOneYtHLgqLgUVMErnquB1FzBfP1iU8ddUR1EfLtrnHyQ3EOdjTB5W/lvKHffvITxsQCsGl26m5+7JjEeXUZcRX9ZSKk7Tb708YNNkpy7JqHdQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791870680; c=relaxed/simple;
-	bh=gg5xzGeRZT9S/kztnXNypgtbGJjOd7cJmItCl+1bAEw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vn/KdZ8OmH9RbKBxZJppbSWisQevoNfuHbBqjPn0WzmgqOKK53jyooXvhD3WQ+qDWNDi6VeVQF0twPB3FnYe6mxCD5QkES7JlPH7nzVi+9kPeg0qeYYLnapw62omfO0LvbI0UL7XQvq1b4gGMDtNZ6MngI1gktLypF9eITv1il0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com; spf=pass smtp.mailfrom=tyhicks.com; dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b=RmANN8e0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KXp99qSu; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422DA37267A;
+	Tue, 13 Oct 2026 05:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791870771; cv=fail; b=f++QNnXUPGZi+QT+gS0EBcEvYZUGa4WsyzYGK+cOY76rIk5nIGYvjqkVz/6F6MhLB5e/fncK2mgOxbIbs9YLzxlvKego8N1pTv8oKWrttMouUVSci3Fg5FHmpm2fTGvEZKBL6u0PCtGSEgwZmoS4KlHkS2/GRacObDCIq32Spt0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791870771; c=relaxed/simple;
+	bh=BIDBeM+1BqFzOEGmQBxXWdIjxzMnHABM2ZPCCPVFYX4=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=iNmqr8u/47izMjCM82s7X+W6Ko9Y52i1+KiUaGRegH9PRRNCt2XLziBuHI9OmLNOxatJVRNHzZXVi311hAWpI1WhUQlOu8BdmtE1vslcRi6Agy1np4eonk3Uyl8E6PdQ4U9wMWQIy+iLUkcTLm2a+//EDagiExLqjm+iwEkHlOQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=B6FDViOH; arc=fail smtp.client-ip=52.101.46.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b="RmANN8e0";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KXp99qSu"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id F1EB61D00120
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:51:17 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Tue, 13 Oct 2026 01:51:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1791870677; x=1791957077; bh=1qXQBI30vV
-	mPspzTFI9qdidfZ+Xhv2BgqG1F062IFBw=; b=RmANN8e0LB0LfdowURdYceuzBq
-	PrcgE+TrH0ZxfGTeYw6PllERaDdkwTj5vvbwD+C3Ez4NObhlOlBW9/C3bs5zU0kx
-	Hqwz7HcPKUGCv8ZyYotnFF4J1nM00JY8hZEd+usxbu7eQu44Lnsva72QZDFMeVFo
-	U5TCsg8asn8Iu7QRb0kqUPo0+gxQknkP9Z6kJ77YBZ20GNmwJJtbO+XQ6o5BWm8y
-	1tMy76QUu0JtfWogalWfRVtnNvxY3iIKB62/JNui9QreQHBT4aqSa33aWRPdvDRn
-	Qor4xxrK39r7pNoWV0vDU+bxbip+/qztNA2rcujAzi+Kvhuk9dWhGHynVkOA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791870677; x=1791957077; bh=1qXQBI30vVmPspzTFI9qdidfZ+Xhv2BgqG1
-	F062IFBw=; b=KXp99qSugQyGVk8uNM3ppTokLRcK9lqXo8ZY5Vn2RAF28T5XsCj
-	J1RAyOPjrAhiuRY8cnFaHotz5NAkjalP/hB60tTeyMJ91AKPYr1EwwfG1ssr5udI
-	0igBWBeti2qPPICgjU2beeG2v8mdVPBPLS//jDEUY7qG8shLWLqDa813WNciRXBW
-	3O3yG78fU2A7n4B3drec5qUAai3RCmm9imr4VeAy23+Rg8K/qzebKo2mihETyE1H
-	N+McND+n/L0D1Uqu1V+xjgMsGM/DdQ9lAj5YaDmk4y0rR0VoYgulYlcIo2M+L75h
-	i8EtdUdHxW43iGBaPobq4MZbZaGxvxxOvtQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=tyhicks.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791870677; d=tyhicks.com;
-	mf=PGNvZGVAdHloaWNrcy5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:WM2cgoMJkgWoS/F2aoGW7f+blHbvcBOyzf5zIdImEQ6rFzU
-	11AwDci7EkX9Ugi3hYV+io7slwAUMLb7R3sShzM1ZfGHO5gr9WN9l5hxU8xZ1CSa
-	V4FM7DPpBkelWqxnMoUp0xqbbyZLhPMC92zjSF8m5oo2UXQU6NoeVXgRTaxgPZMF
-	/SlVTEFZMDZrY1FsLJm5HbMZVyqNZ9wsrbdhg27xpwxPmo3EB7beKP4nH+fPYl9x
-	EtNg0aTzqr4znhVRUMAIibqWGW+LMKiHn6XjdRGp7KzQ6XUjbyXTDnbrTzHxetCE
-	KY6TDAnCXJZYYjyQa/VHfeHYoucgGGcKKLKViPw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:LlSHrOtzpz7B40CIzfmVVOc9bSw3n5JzWwSBVvHgLOg=:gg5xzGeRZT9S/kztnXNypgtbGJjOd7cJmItCl+1bAEw=;
-X-ME-Sender: <xms:1cbNalyV4-wvUCBLSA486TaNnnG05IUb7Qt1Cv9OZc8QU68nhhV7Fw>
-    <xme:1cbNao-BWMUFLaXcTeI7ATVX98bF3e4IY9gHLnRmY01WdqJ_nUXG_JNFxI0-7GhHV
-    lSX-DJXdWthXBZ0loqKyJzDvJ_DP9_CvpH8_ArEEMFg2NbO1VY_zVkH>
-X-ME-Received: <xmr:1cbNapL-rEU1UBucUsT8mzMpaPVSWNNRNL0QXGA8nq45Cn3TqX_hjw>
-X-ME-Proxy-Cause: dmFkZTEsTU9xCyRnGNf2O8KrrukZOkB1AhEExVz7u+byF70IdbzsNBVuru8eCBPoF/6v2y
-    5BIpfrWJ4X5izWt7wttIBlBtVYleHJ6XvCp8GsvUZ/ZYOaxrURTOG51Xu2dy+tTbw9WqL0
-    1/zRxIP42tGJK5aG4UFIlHrzXCrQbQzXc7X1KWic/lfyPwM4dZRKsS0WI/zlboz+XMPGRN
-    qZ+tnSPMkAslGrSDpRurEjK9C+7cKwQpVZDfNMxWXu8ASR8q2y4672YeZgvAewEB5b80j/
-    qOJp4/TnBK5I0Pdyc8AYJS4jwR06nysZZ+RssSBQduMnCFXC4XzHe3skUXgl8sQYH2qGAU
-    BIM3rMdsYQqIaFq92Mv0Z3XRXy08v/0nXIAnaKTh307HgCecO9SSg+6RmRSkZlp+VY5X24
-    n7fVd6YjAgYh62DKMMp8Lw28FR/MjJ2SI1+TL14zlO7c96ibLayKUeQuz9XiLEOCaoIpYJ
-    sj+S6KzNk9XrgAIXmYMFFUaEYIl9lBQHoBGljrtSx9jPTavRoLXb4i4ip+iBrCkJNHCKFE
-    /3YbrJOKnyjlM6OPI+yNv5UTnBSXllsCXT8h/rrcSUD4eDo05wcP+g3LKSZ7LH7KA/KQiD
-    ZDOaQHK+UqwViNOc5lNT6mB7aqOVxAwnrktJukBtnj/t8ALgfcAIg6CaLYYw
-X-ME-Proxy: <xmx:1cbNauf_5EVimesWAMZw1FgIFmpfXyLC74k6ixeTc0VQfOkvrhRu2w>
-    <xmx:1cbNao9O1CHAM0TrgskOElWaa36XmQwmtgukTm3HHTm2x0J6cfQsYw>
-    <xmx:1cbNaroL_iIyS9hs4JNWRyFSlnelQdzQZiPdD6CXHgXe38cSk56HPw>
-    <xmx:1cbNatCQNE5VFcBOF1lG8uFUMoooqNc1riOK_NKEMzRhWltD1Dk8uA>
-    <xmx:1cbNakT2eN__AzSBhieLrCsvTqHH_niZ74PDvJ6u4GtxRMjpTbNMhxUW>
-Feedback-ID: i78e14604:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 01:51:16 -0400 (EDT)
-Date: Tue, 13 Oct 2026 00:51:15 -0500
-From: Tyler Hicks <code@tyhicks.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+dc50906b100ac7a1c34d@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ecryptfs: validate key payload size before using it as
- an auth_tok
-Message-ID: <as3G00lXXQnXaMmj@elm>
-References: <20261011061902.144716-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="B6FDViOH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d6mz4UYqsp1G7MdKZaIlCoR8VM6Ep9rx7Qyc4chkbYzZiJyLS82+tDT8mXf7eksWYnCeU5oAhZrpIOFqotNCinTYyZ+MM4EM/+MCWSaYqk8P37ivDch5zRxKyDgMU3BCbTuvDoZ84m/Q5EaVVgIXmHbPrNmfUVJS2Yo81c+7dvM+ZEq5CXbdk4neZZYQVHZE0eL/KTwDckti6Zz1eVmBa24lUidxbsFGAXOLFwekyH0tOkZgoYOB80ynZ1INvKlDcdOAI8NkeoNYaYlekRO2bprRsA24mjvEEiLZP3jpnl/WhoyrKARz7woWcOqVDuETSxjx3eDpGmGxZRXUSMZPcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mk6UKyO5nd82vb+0t4tvPFlUFTSkTMlENRh+1W1W3sg=;
+ b=BH3ncR4KzzysNwBw8ZlESYcZEhalTixeh+7J+FD+szPYM7Tdkujizy7n2aSHfUJFxHiawSse77YgZSqPHNnp//52OM4H3M780tTlV0Z2ZvmwDgQxLcJYsIPzes2ZuVb7Q64C8/KZpkToOAl56eozyClyxAzQ5PZ0rG0khbjclTZkN0htJTlwpJelgAUNj3FoJaEVBClvlk26dBVnKd++o/qQoAD3zerVDL5nXS77yR/ab0lR6e2I0Nfhh0VhxWQVAo+jZY8qquhienfqPHbANV0p3gNtnxr5IcWdZaWQUrS3GLNZM94JGeL+tYClLPSlZVolZ7v1MiypTxa+NSjO8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Mk6UKyO5nd82vb+0t4tvPFlUFTSkTMlENRh+1W1W3sg=;
+ b=B6FDViOHjdFqUPrcJKwbjh+74/+k4Q+ipheYokauS5T6Oo3475V3vkrPOdrb285qxK61U3b+x3+fgPATYn2MYaoQRoayjoSQgRRZyw4dqgHnROQXt5/B2aDhewz7Sq/FmB3IL8Sa8KNIHAZB/jQjeC07V6nJDst6/e2Vg5L0hm0D3suOr9GNj0hxYeh6z02gS0o3dJKcEhLFu83yH8Yx4YlJepGwdiEWMFyzm/RbQ2Dpi+au4ucC72g+i0+QOeNhgSzB/DUCIDDWDHwkrEmKGSi//Ew86OhqRTeKDSNVa0O2shwdllbMaarKYuuxg3MDLkYdIK2SyJOP340lbWtGyA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ MW6PR12MB8916.namprd12.prod.outlook.com (2603:10b6:303:24b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 05:52:47 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 05:52:46 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 14:52:43 +0900
+Message-Id: <DM3H68S4CR5K.3K9MG80U5Y9AA@nvidia.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v4 1/2] rust: num: add cv! macro to create values from
+ constant expressions
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260917-cv-v4-0-547ef5727451@nvidia.com>
+ <20260917-cv-v4-1-547ef5727451@nvidia.com>
+ <CANiq72m0PLhT=-ODzQtX7k3jn6=XXpESDUbnHcAmR-1gFqR7uQ@mail.gmail.com>
+In-Reply-To: <CANiq72m0PLhT=-ODzQtX7k3jn6=XXpESDUbnHcAmR-1gFqR7uQ@mail.gmail.com>
+X-ClientProxiedBy: TYWPR01CA0027.jpnprd01.prod.outlook.com
+ (2603:1096:400:aa::14) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011061902.144716-1-ngocthang2710.1999@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MW6PR12MB8916:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98e615e2-0063-43a5-7dbf-08df28ee3509
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|10070799003|366016|6133799003|10063799003|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	JZeplT5RTa+AVPRAVcZ4kNZr/QY1NDaaIq3AprntFNjAZ9zdEuntk2kL8MOu2+D3Pp+4K+nwzaFJ8DCWOPudHX3UAVPdFNPOEXoT0QYNk1oiyS6wl2okf/PEZtWRye8i7lJErOEo7Eb6p7FJgZR7B4W2CBlKf5nQr3C3ApG6be1emDt/4h1abPyvnX41sjQwVQT0BrREAY3+BZFkd8ERrMzLCr4KbFeTJC9B3witkMYIaiOxzkAfgUYuXqzn+enEiCXpSOIX9vkDEuyIM7UFKiMJUdZFnCTkOLYDd/UMpBrRuieSmi1TxdbS7fKJBEuz8ECtkuZ3Hb6GsE3YSN7EIyHrs1qsq09ZUxho2uiuGlhZaY8mWITzMheyDw2u7bgws92I5gafBabcH6jou0ui9JpvM66ym9ZCg7z/voJLbt3xeIyMYTvqWM/zz6N7uJufo6cTtZeBH9jc369rEKbf6bFkoRgc5eFrIWTA+oMwmg03dmG2fjCxo8SfftdxnJIiwuH6H7OkxeDI29RrOtnQap1Hsd2AJfdIRgw9dhEZ1o304olGVgAEs2bwZLhiB9I3JKM6v203rPBUZNkWBx6nDrSfESUfZBy2RsWZBKPBtpiNsHfREDZdhuxx5+sQBQ8Jc13yzlvXHUbBuvmVX+kCxA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(10070799003)(366016)(6133799003)(10063799003)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?emx1dE9QaVlyZlh2OGpIRTFxTkhqcHdDV2NmT3Rtbjk1YnVXMkIrWmttenpN?=
+ =?utf-8?B?MWdmcHllN3ZTS2JVcCtJclBhdjBicXBBNHFKM1NwMVcrUnFtaDJYZk1CdW9G?=
+ =?utf-8?B?aGhQaWt4WndueWtyalVLclBJSTdxN2dMNFp0MERpMlhsYWJWL1ZXL1p1Ritx?=
+ =?utf-8?B?MW9jRWZ2SDBTaWlWc3Ura3Z6dDU4azFZUXhDRFBoOXhPM3JLWWFOcmhwdTZ5?=
+ =?utf-8?B?enZ5dS9ORnE0YTYwT0ZPRkwvWGk0YTJxTkdlb0t2dUwwYVJZejFXYm0zMlc4?=
+ =?utf-8?B?SDhzOXorcnZqOG45dDNRRlB0UTJoMFhyWWFVN3VBZTkxOU9TSXozemdBS0dp?=
+ =?utf-8?B?YmlUMEdXRVpMUG84dFFTTVkwQzl0RnA1MGFiMEhqQXI3ZitMV0lMTmVYcUlm?=
+ =?utf-8?B?Q291bWRoV1BNWE5ha0M4YWIzK2taL2I2NCtjdTlYUnI0c0p0ekZzVDZOSkRE?=
+ =?utf-8?B?VVVDbm0zb2Mxc0pwSnN0R29objJtb2ZOTXRwZW9OcUhoR09RRXd3b3pNYU04?=
+ =?utf-8?B?bGR2c3ZLYXI3VFlLaUNzMDBLeGxnZkQrbDBSalRuN2ZTVE9BU3QvMlBCNllp?=
+ =?utf-8?B?eEl3ZXBxVnIwd0ljTUhPY2tpTTIvWGpJaDlLRWhObU0ybHFJMVlIdUhiTWc3?=
+ =?utf-8?B?cnVqQkQzTStuUVBsSDdzRjMrV0thR1Awd2JST2FpSWlUTzJXd2NidHNHSzZp?=
+ =?utf-8?B?Vys5SjlTcUtEWW9KVmJnREdCVnVrdlJ2ZnFJM1Q0NTAvUzhybGY4aUdmbk1B?=
+ =?utf-8?B?SnFBaUtZMzZOS0tGLzFLb3NZRHVmODQyRHBOMkpRVm4rcHJ3UHRYTG1Ralhw?=
+ =?utf-8?B?UUsxN3M4clJydkJMS2tUbVBjRDdJcFpKS1VuZ2xQc20xTGg2YzE4cm9kcHJB?=
+ =?utf-8?B?bXRVYXliRzlxcjBzOGhtSk9NenFhRWlUNXdjeXdEZVRRaUhPL3ErL0pkWnV4?=
+ =?utf-8?B?V3IvVlVTNEFYMndoMkF2Y1JXVDJUWHFhY1NaVDJpNG5HWmdCVHUzN1hwL2Zy?=
+ =?utf-8?B?MWJ3aUFJRUlDUjVMVlpVTmpWbEsybkxQeXBpMm84ZzFEU3prWHNSdU9xRXEy?=
+ =?utf-8?B?aWxhSjBCZ1ZqSW44QmhCZ1p1UW00OTZqb09tZ3Zud21yOE5YSHVUZVJXVjhp?=
+ =?utf-8?B?MUlXOFNtMDI3VDdSTUljeWJ4MGNEMG1TV3YzcUtmSTN0Z1RWU0lHWE8wVjRS?=
+ =?utf-8?B?WlFncE10RXdZa3N3S1ZOVTNYa0QzZCtUVDVnL3EydFFGYk9TQ0cyVEJqYzlC?=
+ =?utf-8?B?RDVuVGltTGRabmdzVlFaaHl6V1NJSEJOMjdienQvcFZTdGNsVzNTd2trei9R?=
+ =?utf-8?B?Y3NvaGZ1K2RwRWdtSEpYODQzZnVHRjE5a0FhTmtTdnJwODR2aFM4RXR5aExz?=
+ =?utf-8?B?SElPaHExbGsvVmxGSG8xbHpCNUZBamp1cTVxWGJTQU1VTGo2RjhNS0VsaWJn?=
+ =?utf-8?B?OWJIZGZnK1hJdUNuMnBuaUdPUURnMDVrR2E2cXI4QUVWWUtvNVU5bzhFRWU1?=
+ =?utf-8?B?c2FCUmU2RWVza2tGVEJ3MHpKeHpKZTh0SDRYY29UK3ZZblBnSVBsY3crczV4?=
+ =?utf-8?B?Z1VJZTBnM1cxbElkTUpjQUxXWkdMTGgyTE1hQUlCeEdYQ29rQ3VSVVlnc0N2?=
+ =?utf-8?B?VGU3YTcxYVVQTE9DMlR3Y2U4R09xYVd6ckR3bEdzelRxdzhHYjZHSG9TamQy?=
+ =?utf-8?B?VFk0SVV3UzVPdnFiS0pUeGRud09IVVk3ejBkY1pEU2tSTmQzNkhLWVZuaVZB?=
+ =?utf-8?B?QitHeGU2ajZxWklIV1NkN29aSzN0V3ZrVXpiS2JHTWNJcjVBYzIyU3FqRE1y?=
+ =?utf-8?B?K0JwSkZscWl3Y0ZvVGljYTBsQ3BXVjJkN1FlaTNLU0dvZ3dtQkNQREtzREJF?=
+ =?utf-8?B?TTd6YlNURzlmc09QQmlpMEtOTUI1UHQwR0pSSXdHVnVDRkhab3BqSmQrL09p?=
+ =?utf-8?B?elVJMHhFZlAweTZVVUduS1dYSW1NZVI2WDN4Y1NPYlcxWXJ2czdPZ3ZuK25Y?=
+ =?utf-8?B?STYrSGtXTDNZRndMeFVOVUx3WXM0Z1ZSOUF1UFg4bkRtZU01TThJRm9kM0Z1?=
+ =?utf-8?B?eWVFdXlnMEw4dytsUE0yejZHeStPdkRXa0hpeG9WZU5WNjVKNWpCbjFZOWlP?=
+ =?utf-8?B?Q1RPdFVmSHFFK1M2TUhmWnZBTXFZclJWR1Z5aVZQZ2QzRWcyT2p4Z2JpL1Bt?=
+ =?utf-8?B?ZFF3VkwrZXpkZ0xpb0sybmUyWU5JMEZ0TnN1V05yNG1EdU1XdzE1N1FuT254?=
+ =?utf-8?B?NFFRMVdQVTduUkIrZ0I2cnBTRWJ5Y1FlbFVpTXFLdUsvakNTdDF4dmtFeEtW?=
+ =?utf-8?B?RnZoTFJOa3hPNGpYa2YxOTZ5ZGdua2Y1Y0xBN2F6WG4wUnVZUEJneHZ4OWhJ?=
+ =?utf-8?Q?BtufVQeBc/xXJOQwUIyMHuehHrXjjE1pWkg4vTz4+Lqqb?=
+X-MS-Exchange-AntiSpam-MessageData-1: 9+Gg5Tc7JReWSQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98e615e2-0063-43a5-7dbf-08df28ee3509
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 05:52:46.8606
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 10VRfO4GDfLjv6q6rrFfY9HjBj65H36fcKDKbRLRxSPaM/wP0lvIRL+gO2QjjwR1vX52KgzZOY7RyGF8CwWR2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8916
 
-On 2026-10-11 13:19:01, Nguyen Ngoc Thang wrote:
-> ecryptfs_get_key_payload_data() casts the payload of a "user" or
-> "encrypted" key straight to struct ecryptfs_auth_tok. The payload size is
-> chosen by whoever added the key, so a payload shorter than the struct
-> makes later accesses run past the allocation. For example, a 712-byte
-> "user" key makes write_tag_3_packet() read the password signature beyond
-> the end of the kmalloc-1k object:
-> 
->   BUG: KASAN: slab-out-of-bounds in ecryptfs_from_hex+0x18c/0x1d0
->   Read of size 1
->    write_tag_3_packet+0x145/0x1430
->    ecryptfs_generate_key_packet_set+0x7ae/0x1880
->    ecryptfs_write_metadata+0x590/0x930
->    ecryptfs_create+0x393/0x550
-> 
-> Reject payloads smaller than struct ecryptfs_auth_tok with -EINVAL. The
-> callers already propagate errors from this helper, so mounting with such
-> a key now fails cleanly.
-> 
-> Reported-by: syzbot+dc50906b100ac7a1c34d@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=dc50906b100ac7a1c34d
-> Fixes: 237fead61998 ("[PATCH] ecryptfs: fs/Makefile and fs/Kconfig")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+On Sat Oct 3, 2026 at 1:59 AM JST, Miguel Ojeda wrote:
+> On Thu, Sep 17, 2026 at 10:35=E2=80=AFAM Eliot Courtney <ecourtney@nvidia=
+.com> wrote:
+>>
+>> from constants without a verbose turbofish syntax.
+>> For example, `const { NonZero::new(1).unwrap() }` can be written as
+>
+> Word wrap or newline?
+>
+>> +/// Creates a value from an integer constant expression, with validity =
+checked at build time.
+>
+> Maybe:
+>
+>   ... a constant value ("cv") ...
+>
+> since we explain that in the commit message, but not in the actual
+> documentation :)
+>
+> I would also say "at compile time", and possibly mention it is usable
+> in const context (we use "build time" for things like `build_assert!`,
+> which can be much later, e.g. link time).
+>
+>> +    };
+>> +    // Using `FromConst<V>::VALUE` means const generic expressions can'=
+t be used, since it requires
+>
+> Newline between these two lines?
+>
+>> +/// Types that can be created from an integer constant expression valid=
+ated at build time.
+>
+> Ditto (please see above).
+>
+>> +/// Implement this trait to make a type usable with [`cv!`]. Use the [`=
+cv`] macro, not this trait
+>
+> The second intra-doc link should also have a `!` for consistency.
+>
+>> +    /// Fails the build if `V` is not a valid value for `Self`.
+>
+> [`Self`]
+>
+>> +                // CAST: the macro is only used for types up to 64 bits=
+ wide, so `MIN` and `MAX`
+>
+> "CAST: The"
+>
+>> +                // CAST: the assert above confirmed that `V` fits in `$=
+type`.
+>
+> Ditto.
+>
+>> +                // SAFETY: the assert above confirmed that `value` can =
+be represented within `N`
+>
+> Ditto.
+>
+> Acked-by: Miguel Ojeda <ojeda@kernel.org>
+>
+> One thing before that, though: are these assertions expected to fail?
+>
+>     const X: i64 =3D 1 << 31;
+>     const Y: i64 =3D cv!(1 << 31);
+>     assert_eq!(X, Y);
+>
+> Or:
+>
+>     const X: u64 =3D 2 << 31;
+>     const Y: u64 =3D cv!(2 << 31);
+>     assert_eq!(X, Y);
+>
+> Because that is quite surprising, especially since we say "with the
+> target type inferred from the context" in the documentation.
+>
+> I hope that helps & thanks Eliot for working on this!
+>
+> Cheers,
+> Miguel
 
-Hello and thanks for the patch! I've already taken the user key payload
-fix from another contributor and will take the session key encryption
-key check from a separate contributor. You can find the links here:
-
- * https://lore.kernel.org/ecryptfs/20260917044558.41677-1-neganhat@gmail.com/
- * https://lore.kernel.org/ecryptfs/20261004123755.14642-1-adrianox@gmail.com/
-
-> ---
-> Notes (not for the commit log):
-> syzbot reports "KASAN: slab-out-of-bounds Read in ecryptfs_from_hex". The
-> reproducer adds a 712-byte "user" key whose description matches
-> ecryptfs_sig=; the mount succeeds and the first create makes
-> write_tag_3_packet() read the signature past the end of the kmalloc-1k
-> object. Tested in QEMU with syzbot's KASAN config: base kernel hits the
-> KASAN report, patched kernel fails the mount with -EINVAL. Fixes points at
-> the initial ecryptfs commit since the history here is grafted; happy to
-> retarget.
-> 
->  fs/ecryptfs/ecryptfs_kernel.h | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
-> index 58165928ed1e..863761b3847a 100644
-> --- a/fs/ecryptfs/ecryptfs_kernel.h
-> +++ b/fs/ecryptfs/ecryptfs_kernel.h
-> @@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *key)
->  	if (!payload)
->  		return ERR_PTR(-EKEYREVOKED);
->  
-> +	if (payload->decrypted_datalen < sizeof(struct ecryptfs_auth_tok))
-> +		return ERR_PTR(-EINVAL);
-
-I think Adriano's check on payload_datalen is more accurate. I believe
-your check would block legitimate encrypted-keys.
-
-Tyler
-
-> +
->  	return (struct ecryptfs_auth_tok *)payload->payload_data;
->  }
->  
-> @@ -124,6 +127,9 @@ ecryptfs_get_key_payload_data(struct key *key)
->  	if (!ukp)
->  		return ERR_PTR(-EKEYREVOKED);
->  
-> +	if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
-> +		return ERR_PTR(-EINVAL);
-> +
->  	return (struct ecryptfs_auth_tok *)ukp->data;
->  }
->  
-> -- 
-> 2.43.0
-> 
+Miguel, thanks for noticing this! I agree this is surprising and worth a
+pitfalls section like Alex suggests. AFAICT this can only affect
+expressions which use left shift, so at least it's not all arithmetic.
+And we can hit the same thing calling regular functions, e.g.
+i64::from(2 << 31), although the macro does make it feel a bit more like
+it should work. Let me add a pitfalls section for now.
