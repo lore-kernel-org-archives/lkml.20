@@ -1,132 +1,144 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DF43A3E68
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA87B5226A6
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:37:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898627; cv=none; b=eqGpPOftTAvM1Y9pgwbjLQlKUJ0FY3W39qZN1lwNG7FpyHCbJEtBtl9bm5q5AGufNn3W/slkD3yq/LcH/3mT0lf2QatwtAtfNZdl5WU0ehqKPD8ryjN85VdlIY3ESIFI+yUffhMkCnLUirpiqACeGWQRkAEj1ywtYj4jmagvSWw=
+	t=1791898628; cv=none; b=DT62+qWrnMeM5A+amCLmOplFe8E2NtGmzuB/o2uEpaB+HhmNHBun6KrtTLp02f/9kO6rVEq1bqwwA7KVdWPTwYs/NqLKGladpES8FCCSw06ZxMXwyYrEMoZqaXHmNkwESgPN2EjS4e8Cs1/brEyjwoU9WqLRdpqUtgiuBOndwDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898627; c=relaxed/simple;
-	bh=/hCU9eM+EAM+gbO2WZ1UL5JdVd2fGYoXa+LQjApjQ9A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aDuSnoXU/VSdTwGG6Eijcp1BFe2TBKxED2wbpudqfs7ItLJQhhYieh62eJ8BMiIimXsY6VAsZoSBE1LZxiqzsx2p6vcAksIb9VBxqJemn7RHVDejfP87y2oHrqWWUM7dzZdDrwrq3MZAZvRN4zGWJcbJOUReHCBj3It+r7N105Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=MPpzjFTh; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1791898628; c=relaxed/simple;
+	bh=64WuHEmxdRWNJkYPp5WOn0H21zhMZRGRnFl3heqDVqE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FtLlggZ6I6uNME6czjmO7DbdFaraR3BUz1QaiGUx0mtKYBWqpUb1ZcLl6m+ZwsfNbJOFRc7TCoUZxXSzO4USsdNYCBzrxpISnwK64UfA+PtIqSGMOq/5uqgV5IbZFVfuRn5TwCBxSocPPVjN8FEUb0y7H+pbNpL1Q8Vk86TPciM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i7wEF220; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G1oRc7CM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="MPpzjFTh"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e55db58cfso301559485a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:37:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i7wEF220";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G1oRc7CM"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8HQVb922856
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:37:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7l1bK2yIpjG6LSvK1o9zPIjDttYhmCliK1Sp7ju45BI=; b=i7wEF220NTpnp6Xs
+	mnFRt/VjEHRo/jlOJTzWNsVZAC/kiglCevbxfT47GrrTMkydr1jCylzXO55IwF9A
+	7GUI7b+WWXS707qu7gchZ0foZ37CQdSCdurTKUF8Qqgi0nWt0HsmvWP9xbcGmHz1
+	8/Dz9Fm+a3NfcR0YcRLxlqrj4T92u+TDqIXU1tLWSBddUkUTVTBtbJJYfifbiROR
+	uWHV+DIzBNRZYibblKRHtMCWZwFwLDLXdeTjJZej3kkZBl7lr2E/S9o6ExF8RsW8
+	myHvITXP3aB2/zp/q0EqNe8ZpazIZOGeBk3szjv7tyvypXUIsV21krmuNM1ge+mh
+	/SttDQ==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98h1u6qx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:37:07 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7b206156cc6so2489728137.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:37:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1791898625; x=1792503425; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/hCU9eM+EAM+gbO2WZ1UL5JdVd2fGYoXa+LQjApjQ9A=;
-        b=MPpzjFThiloA1rXZ/Xs7+Ba+mlqw222Gl+AL341vd2von9MSnRwrzd9iFiGbSilR/L
-         WFcgZ9zB55znMBK/Rzrzti49PR5I1oiyg+ji6myyeUH+GAHOY2YA26zRZ0U/HnSMRumQ
-         NI8xIdJdHfQjKPn6H7vGGSEVV5KdoJLTtyu7owtx3s9MNvXPUrIB6cOSoLtUE3o8tZuw
-         edAcX/LvBwk9pxMctutv2QEVP7NQTzTDf+DE3uAaq6VyRqd1nC4GkC8zgwD56GZPAiOt
-         67JucTbHLZhY11Ovxr6Me9VENTwee8OOs6xeUAzRWN/i1mYXqpaY1HZ4R62BaxOvjU+1
-         Q+ng==
+        d=oss.qualcomm.com; s=google; t=1791898626; x=1792503426; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7l1bK2yIpjG6LSvK1o9zPIjDttYhmCliK1Sp7ju45BI=;
+        b=G1oRc7CMc0+GnwcxQkw4vbKWBe2soxboIWv01wVyPPgt8GmGB/NLkLZtJ0GdLkYiLD
+         eCzq08XVQLkLjbvst4yP+e2rrGVS5e68WpE+8wuUvzDhrfhEl3zjao0Ab5oK20bfeklP
+         OM8FfiCdp9oT01loGtVXVgaIF5SZd6XBIanZWvNXLr/ahO9ZvxpRtXCSBIV231BqyRVc
+         eWSFBTCAtXc3jj/1uXYUFYggD6DBnVuGNonUNoGrToKEAOhG+UFC9VamU112KTNkob8B
+         P9EIQFkUvZeUllfNQWyQ9jgFaXwoA2EP/+8lmY5lIOZbdQUlD/5BvOZbIl2GlG7jDdbX
+         lp4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791898625; x=1792503425;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/hCU9eM+EAM+gbO2WZ1UL5JdVd2fGYoXa+LQjApjQ9A=;
-        b=hFQmbr9dY9WsBBzTrjm+Yafkr1mNsfZEhgnI7EjsWByhrMlspyNkC/Kwa3ZpVX6+4W
-         pup84sh1zLTh51Eue5/z9qPXzQh7VSy1Fe4x8RKFcGOQVj9zBltPh0gGlI1+FomKeMEv
-         +4cv7tYJqb50pjhLpZFj952K4938OUhe/IdW0R4rpMmcc17T1Scr/i17MBDj7Dy+MwsY
-         XRld+apKvClJAoPgTP+/O8FLxUuiFPHjD7APdMdQT+RRq6woxQg++kQ9919M8u5bx9Jj
-         A/F75cu9olcb8u/Uj8iJ1vqll8vc5GXBvpSxDdb/wfYALeJE7MTeKLk/vf/UZHnHkF6K
-         zn+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw0gIsKmCxrllgQPzJGtHqJpmIngE1U5m0AAMBD8mDjeNIP4b38nCjmpJHW5LgGY3EvvebKOlHJhizapdk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIne+5EZXrRvL0R7M9WifPSZKBzqERWcSWa8UVjHVasQE2KB+F
-	2f2DVIxlwQ6nDXjuBV6EU8kY53DRwDe2rsjhFMHXUA9flAv+QVG+Ld1joBjsAd1uaas=
-X-Gm-Gg: AYBFou3gAjq9GC9plMjXuAzQs5IqsKE75I34oymvwCJYy4FpouB1OV2oZChZD5BJrwH
-	HdfNCG6rEsbw245kgLexFrhnet2IM9ttVG96wusZLzax8Ptdir7qjZ0rsOkr/AJ8uNeuIbk+WMe
-	mx3Reil/qIMeoW6PmcIAK2msTrv1t5q8ZyQD587WXwfWO9tqY2uMzBtYRF4aiRwNxtQJneuY2Nx
-	gR9pINSohxBaeC4UaE2cg9xhQ89lUnlRy02yHLLsqwpBSCChEEt3jt7mX+rKss1RU69H/JWV0rg
-	fSlcnGpOZ9HlbwakcDR+OvatQivtWyzyNDpN1Vp3h3Uo9HzhNxog/nJxVQTmIcFSrAvGoCjM54g
-	NglZhHfJj4aLy74Wps3SNWJ7vAwJJI+/1vlPCSZPcqH9T9MbXzzknQxj7fNrkoWjMYmpQACWtlo
-	p+HuX4mVLO+9JacSrcLlrwoY0pY5qycmGFaazgZqvigz/2ru4XM4r1e1VvCIhc8Oh5H4tgdWjHM
-	fm6/MeY63Bo+ZiOfbyu1efZOtBdoeFx5E69XLvsUOZrUuj2qIS5ixzTJsWL1LnFHyw=
-X-Received: by 2002:a05:620a:1a03:b0:93c:ba44:673d with SMTP id af79cd13be357-93ebd1b7173mr2238297585a.23.1791898624601;
-        Tue, 13 Oct 2026 06:37:04 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50295a7sm238844085a.23.2026.10.13.06.37.03
+        d=1e100.net; s=20260707; t=1791898626; x=1792503426;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7l1bK2yIpjG6LSvK1o9zPIjDttYhmCliK1Sp7ju45BI=;
+        b=uOR3mVb6QUxL1Omuz0aHRBChcNItww1+tZDJwMUCXDl6HMnnqfq6RkFYlYybFRGLg9
+         /kG9GugXVakF23EgPSRVmoLPncjCmpVzOjU1MqsRqr9CtlV7M/KljbmwP7JyMpMzqg6s
+         b8R72oB4pDXgC84AdxKQdTdNdsQqt6RcEOo8WFcNcwpEN9YuzqXOVpGDv6DeC8ZN1Ca/
+         Ti2NY2+7Fv+rI48evRdHSnVAgW+M/eYDX1ZaWRHKX2HIlbDVdbwKTNw/u05Hxj+MDMe1
+         tRSmo6e3uAUnYzmoHvpammfdjyPeA7JAxcZMbNQI6fh/E+vLhtNHaOSPw7C2NAgOsfEr
+         jcyg==
+X-Forwarded-Encrypted: i=1; AKwUvBxJs7g4YnOnMzRA62bOki2Hnzx9wyF7HLomtgpoLMVhG6bWgKE/NVrTj53ACbbmi5Myy7MxuxFRjFSk/WQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQJ+aZIJjkIbDdqyBNOYa7IXtIek6n2HK/N0sKF2Tc80jYfTW8
+	yKRCFPCveYhHDKPvmfjzhjNIqt5ctenXtHjltBBg/255RQXCTeUfWN6gtrVrsbgAaKkxQhhzn8v
+	wp8CmK03yu4r0DsisEgAaG8QGCsOn/f5VdxiiEuCjvG3yyco4gqVf9LGg7QbOopmCpCE=
+X-Gm-Gg: AYBFou3N9wXWZGWJOHjK65BCQ1D9UsuwesIbPyUkhxWjHeoXwYT+F2oPMYAgyxuqi43
+	xbFnuhejzkBlfdnVXcZw3OnK9R5cuuso+t/RKeqNPgs0UTFlAgsG+iVWem1iFarA4DldkxJYqbL
+	pzl7bpKCeMez/nl0cAZ+dXK4i6CvUI4YwfHbFJgwC/FYGN22Y3ChIvY5W9bygY+5haIqOUva+QJ
+	TkgYRylGvLbtYdVWtIZNm80gOTagmQDDiquxZexCXWF8Ud3NVrNV84yJGM++JIIH4x7xIxzNnDF
+	ERyU3OTwVNmcS8lTshrEtS5//RWlnSnhEoosrT9Tk4wfUSK4JJFI0oF/6MAVkrtKxbQMFHe9xh5
+	kjo/skc04u+eG0+NPsrt/9OanSjM=
+X-Received: by 2002:a05:6102:2926:b0:7c3:3f26:8785 with SMTP id ada2fe7eead31-7cb3729bd82mr4019572137.7.1791898625896;
+        Tue, 13 Oct 2026 06:37:05 -0700 (PDT)
+X-Received: by 2002:a05:6102:2926:b0:7c3:3f26:8785 with SMTP id ada2fe7eead31-7cb3729bd82mr4019550137.7.1791898623915;
+        Tue, 13 Oct 2026 06:37:03 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ae0c9fadsm66312755e9.4.2026.10.13.06.37.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 13 Oct 2026 06:37:03 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xGcgh-00000009eSN-12xH;
-	Tue, 13 Oct 2026 10:37:03 -0300
-Date: Tue, 13 Oct 2026 10:37:03 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: GONG Ruiqi <gongruiqi1@huawei.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Roberto Sassu <roberto.sassu@huaweicloud.com>,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Dan Williams <djbw@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Suzuki Poulose <suzuki.poulose@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sami Mujawar <sami.mujawar@arm.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>
-Subject: Re: [PATCH RFC 0/3] security: ima: support TSM measurement registers
-Message-ID: <20261013133703.GJ14213@ziepe.ca>
-References: <20260930-ima_tgx_integration_v2-v1-0-722c35370548@arm.com>
- <ebe68f6463f8ece8a5cd8ce70bba292ec4f64a41.camel@huaweicloud.com>
- <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
- <ar5tOUor0bp3MtQ6@e129823.arm.com>
- <9e74ff9d-e8a3-425e-bf7c-f973d06e6cdf@huawei.com>
- <as3uzQ7L6tJ-Lu-Q@e129823.arm.com>
- <1451a49c-f37a-486f-ac47-e2ff86fef28a@huawei.com>
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, Lee Jones <lee@kernel.org>,
+        mfd@lists.linux.dev
+Subject: Re: [PATCH v1 1/1] gpio: legacy: Kill gpio_set_value_cansleep()
+Date: Tue, 13 Oct 2026 15:36:59 +0200
+Message-ID: <179189861230.27409.6716341566208896281.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260715192415.1326037-1-andriy.shevchenko@linux.intel.com>
+References: <20260715192415.1326037-1-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1451a49c-f37a-486f-ac47-e2ff86fef28a@huawei.com>
+X-Authority-Analysis: v=2.4 cv=VqC2kO2n c=1 sm=1 tr=0 ts=6ace3403 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=gkddGGStw1GqfmxTrhIA:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-GUID: 4aLjuTyrEVATezvFBm1wJ-BvFxGEegB-
+X-Proofpoint-ORIG-GUID: 4aLjuTyrEVATezvFBm1wJ-BvFxGEegB-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1NCBTYWx0ZWRfXxdtO01nEHUxk
+ uXOkb0xYMUtGDBOIDvDMSNo+MaFA2yyoyxv4wG7OM4ywnrsuXZHD4btR8spJBLpqPNCRp1G5SQX
+ Q8bkpVzDmJqA/OM4uv5cbcskXbqGRvk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1NCBTYWx0ZWRfXxm9d4+chw7zW
+ WJtceW5TixffIKt8kmuuAnJbuh7xFGCdC2sPvCgovQCU/vs96VJzf6XZKvymfJkMqFTmJ8NWsRa
+ lvmSaBjBDngST0gtyQzdXR9fbHtKfiIl3Ua+cqaZ99glRMUrnsMj8PkK061dEvWBKroKFRQeD1D
+ QMwquF+m2aX9g1HRyqxe2LjZnySZ1HfSGcFQjaSVDq0V0SyiXZlF2EhmXjyzMI99idoOOMOWQOq
+ h6ubF1N7d2dE+Hz0WnjgXXSvn+bcQnaYvAF+Mkq3xrIqTCbKW0zBfstV2uTFXNeyR8sbSGt1hAx
+ BqBQIgtOkoJXOx3/ysiV0Ssn8WX7Vh41ZoEsRQov+aTJJH2hf6soV47tO2Og46TEbTq5Y+yDC8A
+ pqj8+oCOdEy6kFqCP4EoeWA08vjQVYdN7g1GOCoiBT6YXOwHk5A8GNUAd1UUbCLb3TJBt0eFBKl
+ Znz8+0BaZJreY6OhyZw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130054
 
-On Tue, Oct 13, 2026 at 09:05:37PM +0800, GONG Ruiqi wrote:
-> I'd rather not base our work on Jiri's patch at this stage: it is
-> a pre-RFC draft of the new attestation subsystem, whose design is
-> itself still in progress. Building upon it instead of current
-> mainline would be quite risky — we would be rebasing on a moving
-> target, and merging would be blocked until the whole framework
-> lands, which is realistically far off.
 
-I'm going to be strongly against any work to try and put a ROT
-multiplexor into IMA. This is architecturally the wrong direction and
-is clearly very a short term project that will expose uABI that will
-be difficult to unwind later.
+On Wed, 15 Jul 2026 21:23:30 +0200, Andy Shevchenko wrote:
+> No more users.
+> 
+> 
 
-If you want this to go faster please work with Jiri.
+Applied, thanks!
 
-> I'd suggest we develop the proposal on current mainline, and
-> switch to the new attestation subsystem once it lands. As I
-> understand it, for us that is mostly just a matter of switching
-> to a different set of APIs.
+[1/1] gpio: legacy: Kill gpio_set_value_cansleep()
+      https://git.kernel.org/brgl/c/93f4db6fcf0bf62a4e00c9beb571b35e6e3860de
 
-It isn't, one activity is moving the policy and ROT multiplexer into a
-shared subsystem, the other is building a ROT multiplexer into IMA for
-only IMA to use.
-
-Jaon
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
