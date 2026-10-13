@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30833859EB;
-	Tue, 13 Oct 2026 03:47:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1E448125C;
+	Tue, 13 Oct 2026 03:47:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791863220; cv=none; b=P9WhjCe0g3FskpzIk5Y0o09Z/h3F+dl7mZLukq+Al7MAetVV7uKt2H3ygzhqxleuoN7kcZ6P1LMNd8W4fSW7VZV5G1WQhUCmbp+X/KjAplKx66tF3IKX6zmEQHPPrSZKchoObSen2/564bR8Xlgo418XCPygMd6vMfQ3dXS8OYg=
+	t=1791863221; cv=none; b=YrHnvVqLii+32puEr92+Z+ei4y9kO/GE5k0QOlnC6g1/XqdXCe3uShriATbjYq25FEeQQ3t2Pzg1XvhfENaBOpA8EHwmFZzT/aUA5WBz+ZOzTKsYKA73Opw51YFSSvfQk932KiKgTOmXmbIiazLMOl9M7KjLP+8gxfyNXl4i49k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791863220; c=relaxed/simple;
-	bh=01X+beDrSGNJJ4G5OvNDWCS/lWZ9Oh3+CjbzhGx3BHY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=d9kNA9J7641x+RaAYcWQBGHOxSMJTfBpo2kuIyUpaOLlIn4sTV7RSeBfk6eg/K0LcQ88dbBunlmaKqfrQMXQBP/H1ToLuoR2ePOofl0eeZ4cHALk9FbkLEwlEtFpC8UNJijOQWuN8l/VP7V4YlcHiLmk4M/CWR9MKP5DJUlA3XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsBqXkK5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791863221; c=relaxed/simple;
+	bh=+zZQ85eonvdgpg+CtFUy3LsYAvptEOGqdtBRYiHP3Qs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=skAXI/bKSrPjmc4XkstokCxTON5u56Mh9ZrW/+ThYbhXw8i6s2ZfLSHwdDS/9W2olpD/+kKopjJYaWykt1jonB7AWmiE2CGnK7fdpQbh1asxRqoNgjIO5gNSMRJXFEB5CEteqZ3Z9IoJhDbUOfUGdt3Lw0oRKlZZLiW7JKrXnpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=epO5WyIj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsBqXkK5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 97274C2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="epO5WyIj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D48BFC32781;
 	Tue, 13 Oct 2026 03:47:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791863220;
-	bh=01X+beDrSGNJJ4G5OvNDWCS/lWZ9Oh3+CjbzhGx3BHY=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=CsBqXkK5JhU/9Mdv1ExxoUYh+dBez0KYWrRNms8SWFvS6jio+PYBLWN0aM6ACb9Vn
-	 4Ewp6/F0ZTPuoMRc5hnSM7bLyWYUEjWtCZIwXdSKrxuN39+faH5in1+k0nri29rh5Z
-	 PFB4Qm6OdoZ+EpV5nZmfPo9V7Vb9HBc12F+23yVYx+v3/tIFhDqqBpI3MTJf6yGgGh
-	 wBgj1Zhli5kwz8TE3fLcXaWmZtX/bstfR1Cw3lqiU43j2hhtkm5WY8cGgalU1sj3FA
-	 cQRx6hrmbt0JpjFBWJthJHdve4HsF3J3cK+RTyI42q8/rq58bHpG+hNNMAfNMKDUnA
-	 WxapFbvpOVhOA==
+	bh=+zZQ85eonvdgpg+CtFUy3LsYAvptEOGqdtBRYiHP3Qs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=epO5WyIjYXH2RDoKu09/jAw4bgV04hHZ78fJ1G8gBOtLxROJQOetcYuzKda4LPkRk
+	 QWIA4z1E9G2azur569oZyqL1NKhSveJVoLvOvFIJ3sENb+8NMc1T4UC9MLUzkXHMN2
+	 QvgsOO7dX3qz1HWONDzIVb744lhqbX1I5nR2hg2CznTPC63BQWw9lWtADyHgf36WpI
+	 Ij5hhsm5/QO017406ZuG/e3OxujfawceWXZLz+i9TkvipXI1Y1qISWgofjG2kFxjXj
+	 45mm2NuyiHyyZdY9LXZDXoBykyneNaznq2M8rh5shbY/4+hc8mKMlxbahC2su4LNDj
+	 Z90jUazAoGqcw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83C55CC6B03;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3A1ACA9ED0;
 	Tue, 13 Oct 2026 03:47:00 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Subject: [PATCH v2 00/11] Cortina Systems CS75xx: interrupt controller,
- GPIO, I2C and TWD watchdog
-Date: Tue, 13 Oct 2026 06:46:58 +0300
-Message-Id: <20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com>
+Date: Tue, 13 Oct 2026 06:47:02 +0300
+Subject: [PATCH v2 04/11] gpio: Add Cortina Systems CS75xx GPIO driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,12 +40,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Py2rDMBBFf8VoXRU9PbIpof9RstAo40QljhvJM
- S7B/17ZCbSLLg/cuefOnWVKkTJrqztLNMUch0sB9VKxcPKXI/F4KMyUULUUUnE0PGSw88yz4ra
- zxplGdVYSKydfibo4b3Uf+wfnG35SGNeOZyLR9VY84yPGesrZb562entq9B/NZLnghkB5r50+6
- Ob92Pt4fg1Dv1sb0WfiBfo4tlVtwHRegOgUutKDBh1oKxDAogsaqSbnfWDrulPM45C+t98nuY3
- 5/81JlgnOQ20kAkITfiew/bIsP7ZCTiVGAQAA
-X-Change-ID: 20261012-b4-cs75xx-s2-5f548492f51e
+Message-Id: <20261013-b4-cs75xx-s2-v2-4-94f8c0a90cda@gmail.com>
+References: <20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com>
+In-Reply-To: <20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com>
 To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
@@ -59,11 +55,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org, 
  Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791863218; l=10511;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791863218; l=11756;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=01X+beDrSGNJJ4G5OvNDWCS/lWZ9Oh3+CjbzhGx3BHY=;
- b=CXCO2E4islmDcY9U43eOGdM+JzXa0QCBsW/8C6cx8nYWgWAMHgrSfzNjZKFAWOHwr/YYaP56B
- 2C3V9TsE7bTDzKCtVmPqeVDCDrY8Z2ix0koJBiNzOhOxCkwVclbFty6
+ bh=U8kbFa+ObMQjf4fVSpDRBdQdY5FQbSMl5bKCiv7JH/g=;
+ b=/9ipxxldqhX7xBffcGk1siPn3KkFIxNQqCiq6i6ehyPTVdbIO2/NH2vXARUo2KERAvgHt/GSI
+ zMkR5civDtkB96Br5ZiGvGHWkMG80qfX4cvhEiwDcy8LBFUe93pibB3
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -71,204 +67,404 @@ X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
 X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
 Reply-To: filipp.dunsky@gmail.com
 
-This is the second step of the Cortina Systems CS75xx ("Goldengate G2")
-/ Securifi Almond+ support. It applies on top of the platform series
-"ARM: Add support for Cortina Systems CS75xx and Securifi Almond+"
-v5 [1] and adds:
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-  - a driver for the per-CPU private watchdog of the ARM11 MPCore,
-    Cortex-A5 and Cortex-A9 ("arm,cortex-a9-twd-wdt"),
-  - the peripheral interrupt controller that combines the interrupts of
-    the low speed peripherals into one GIC interrupt,
-  - the GPIO banks,
-  - the I2C controller,
-  - the device tree nodes, including the reset button of the Almond+,
-    and the multi_v7_defconfig and MAINTAINERS updates.
+Add a driver for the GPIO banks of the Cortina Systems CS75xx SoCs. The
+data and direction registers are handled by gpio-mmio; each bank has its
+own interrupt with level and edge triggers, both edges are emulated by
+flipping the polarity.
 
-As in the first series there is no public documentation; register
-layouts come from the GPL vendor kernels (2.6.36 for the Almond+, 4.9
-for the Verizon FiOS G1100 with the same SoC) and were checked on the
-board with the out-of-tree OpenWrt port these drivers are based on.
+A pin only works as a GPIO when its bit in the bank's GPIO_MUX register
+is set. The driver sets it when a line is requested as a GPIO or as an
+interrupt and restores the value found at probe time when the line is
+released.
 
-The patches go to different trees and only depend on each other through
-the device tree: the irqchip (1-2), GPIO (3-4), I2C (5-6) and watchdog
-(7) patches can be picked up independently, the dts, defconfig and
-MAINTAINERS patches (8-11) need the platform series.
-
-TWD watchdog:
-
-The binding "arm,cortex-a9-twd-wdt" (watchdog/arm,twd-wdt.yaml) exists
-and several dtsi files use it, but there has been no driver since
-mpcore_wdt was deleted in v3.11 ("watchdog: delete mpcore_wdt driver").
-The reasons given then were that the watchdog is banked per CPU while
-the driver only programmed the CPU that happened to run the ioctl, that
-it used request_irq() for a per-CPU interrupt, and that it had no users.
-
-This driver does not use the interrupt at all (the watchdog runs in
-reset mode) and programs, pings and stops the watchdogs of all online
-CPUs with on_each_cpu() under cpus_read_lock(). A CPU hotplug state
-arms the watchdog of a CPU coming online while the device is active and
-stops it on a CPU going offline, since an offline CPU cannot ping it.
-A watchdog found running at probe time on any CPU is reported as
-WDOG_HW_RUNNING and reprogrammed with the driver's timeout without
-being stopped; the reset flag sets WDIOF_CARDRESET.
-
-On the Almond+ the stock U-Boot arms the watchdog and the board resets
-after ~300 s unless it is serviced. With this driver the watchdog core
-pings it until userspace takes over.
-
-The driver also registers a restart handler: the CPU that restarts the
-system lets its own watchdog expire right away. The platform series has
-no other way to restart the CS75xx, so without it "reboot" hangs.
-
-Interrupt controller:
-
-A status register shows the level of 15 sources and an enable register
-masks them; the sources are acknowledged in the peripherals. The driver
-uses a generic chip on a linear domain and a chained handler. There is
-a second status/enable pair right behind it whose purpose I do not know;
-it is not described.
-
-GPIO and pin muxing:
-
-Each pin is either a GPIO line or belongs to a peripheral (NAND,
-Ethernet, UART, I2C, PCIe reset, ...). The choice is made per pin in one
-GPIO_MUX register per bank, and these registers live in the global
-control block at 0xf0000000, which also holds the boot straps, the
-clock and PLL settings, peripheral resets and the other pin mux
-registers.
-
-In this version the GPIO node gets its bank's GPIO_MUX register as a
-second reg entry. A line is switched to GPIO when it is requested as a
-GPIO or as an interrupt and switched back to the setting found at probe
-time when it is released. This keeps the driver self-contained, but it
-means that requesting a line that is in use by a peripheral silently
-takes the pin away from it; on this board exporting all lines through
-sysfs hangs it (NAND and Ethernet pins lose their function). Boards can
-list such lines in gpio-reserved-ranges.
-
-I think the proper model is a pin controller for the global control
-block: the block becomes a syscon (it is also needed by the clock driver
-that will replace the fixed-clock), a pinctrl driver on top of it
-describes the pins, the GPIO function and the peripheral groups, the
-GPIO nodes get gpio-ranges and the GPIO driver uses
-gpiochip_generic_request()/gpiochip_generic_free(). Pinmux ownership
-then refuses GPIO requests for pins claimed by a peripheral's pinctrl
-state. The remaining pin mux registers of the block are only partially
-understood, which is why I did not start with that. Would you accept
-the GPIO driver in this form first, with the pinctrl conversion (and a
-binding change to gpio-ranges) later, or should the pin controller come
-first?
-
-I2C:
-
-The controller transfers one byte per command with an OpenCores-like
-command register. The driver supports plain I2C and emulated SMBus
-without quick commands (every message carries at least one data byte)
-and without 10-bit addresses.
-
-Testing:
-
-Tested on a Securifi Almond+ with next-20260929 plus series 1 v4 and
-this series, both CPUs online. The watchdog found the TWD armed by the boot
-loader on both CPUs and took it over ("running on CPU0-1, taking
-over"); pinged for 60 s from userspace and then left alone, it reset
-the board when timeleft reached zero. The I2C and GPIO interrupts are
-delivered through the new peripheral interrupt controller; the reset
-button (GPIO 37) is claimed by gpio-keys as an active-low input and
-reports KEY_RESTART; an I2C read of the touch controller at 0x48 is
-ACKed and an empty address returns -ENXIO without timeouts. reboot(2)
-issued from CPU1 restarted the board through the restart handler.
-The same drivers also run in an OpenWrt image on Linux 6.18 booted from
-NAND through the stock U-Boot, where the SX8650 touchscreen uses a
-level-triggered GPIO interrupt.
-
-Build tested with multi_v7_defconfig (GCC 14 and Clang 21, W=1),
-dt_binding_check and dtbs_check. Not tested: CPU hotplug of the
-watchdog (the platform has no cpu_die yet), repeated START between
-messages on I2C (only single-message transfers were run), GPIO
-interrupts with real edges.
-
-Open questions:
-
-1. GPIO muxing, see above.
-2. The TWD watchdog binding marks clocks as optional, the driver
-   requires them (the rate is needed to compute the timeout). Should
-   the binding be tightened, or should the driver fall back to
-   something when there is no clock?
-3. Is a separate MAINTAINERS entry for the TWD watchdog driver the
-   right thing, or should it be listed under the watchdog subsystem?
-
-[1] https://lore.kernel.org/all/20261013-b4-cs75xx-v5-0-4e72aa383d39@gmail.com/
-
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
-Changes in v2:
-- rebase on v5 of the platform series
-- gpio, i2c, watchdog: do not include <linux/mod_devicetable.h> (Uwe)
-- watchdog: the prescaler cannot be changed in watchdog mode (verified
-  on the board), so a watchdog left running by the bootloader with a
-  different prescaler is stopped before it is reprogrammed (sashiko-bot)
-- i2c: complete a failed transfer only once its stop condition is done,
-  so that the stop interrupt cannot race with the next transfer; take
-  the lock over the whole interrupt handler; report a NACK of the last
-  byte of a write; enable the interrupt again after a reset on timeout;
-  fail with -EBUSY when the bus stays busy (sashiko-bot)
-- gpio: update the both-edges mask only for a valid trigger type and
-  test it under the lock in the interrupt handler; refuse more than 32
-  lines (sashiko-bot)
-- Link to v1: https://patch.msgid.link/20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com
+ drivers/gpio/Kconfig       |  12 ++
+ drivers/gpio/Makefile      |   1 +
+ drivers/gpio/gpio-cs75xx.c | 336 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 349 insertions(+)
 
----
-Fil Dunsky (11):
-      dt-bindings: interrupt-controller: Add Cortina Systems CS7542 peripheral interrupt controller
-      irqchip: Add Cortina Systems CS75xx peripheral interrupt controller
-      dt-bindings: gpio: Add Cortina Systems CS7542 GPIO controller
-      gpio: Add Cortina Systems CS75xx GPIO driver
-      dt-bindings: i2c: Add Cortina Systems CS7542 I2C controller
-      i2c: Add Cortina Systems CS75xx I2C controller driver
-      watchdog: Add ARM TWD (MPCore private) watchdog driver
-      ARM: dts: cortina: cs7542: Add interrupt controller, GPIO and I2C
-      ARM: dts: cortina: almondplus: Add reset button and enable I2C
-      ARM: multi_v7_defconfig: Enable Cortina Systems CS75xx GPIO, I2C and TWD watchdog
-      MAINTAINERS: Add Cortina Systems CS75xx interrupt controller, GPIO and I2C
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index dfdc9ee1a..6b9524f25 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -300,6 +300,18 @@ config GPIO_CLPS711X
+ 	help
+ 	  Say yes here to support GPIO on CLPS711X SoCs.
+ 
++config GPIO_CS75XX
++	tristate "Cortina Systems CS75xx GPIO support"
++	depends on ARCH_CORTINA_ACCESS || COMPILE_TEST
++	select GPIO_GENERIC
++	select GPIOLIB_IRQCHIP
++	help
++	  Say yes here to support the GPIO banks of the Cortina Systems
++	  CS75xx SoCs, including their interrupts.
++
++	  Requesting a line switches its pin from the peripheral function
++	  to GPIO until the line is released.
++
+ config GPIO_DAVINCI
+ 	tristate "TI Davinci/Keystone GPIO support"
+ 	default y if ARCH_DAVINCI
+diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+index 88f748846..a38ad4331 100644
+--- a/drivers/gpio/Makefile
++++ b/drivers/gpio/Makefile
+@@ -59,6 +59,7 @@ obj-$(CONFIG_GPIO_CLPS711X)		+= gpio-clps711x.o
+ obj-$(CONFIG_GPIO_SNPS_CREG)		+= gpio-creg-snps.o
+ obj-$(CONFIG_GPIO_CROS_EC)		+= gpio-cros-ec.o
+ obj-$(CONFIG_GPIO_CRYSTAL_COVE)		+= gpio-crystalcove.o
++obj-$(CONFIG_GPIO_CS75XX)		+= gpio-cs75xx.o
+ obj-$(CONFIG_GPIO_CS5535)		+= gpio-cs5535.o
+ obj-$(CONFIG_GPIO_DA9052)		+= gpio-da9052.o
+ obj-$(CONFIG_GPIO_DA9055)		+= gpio-da9055.o
+diff --git a/drivers/gpio/gpio-cs75xx.c b/drivers/gpio/gpio-cs75xx.c
+new file mode 100644
+index 000000000..d3e8d3a99
+--- /dev/null
++++ b/drivers/gpio/gpio-cs75xx.c
+@@ -0,0 +1,336 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Cortina Systems CS75xx GPIO controller
++ *
++ * Each bank has 32 lines with direction, data and interrupt registers.
++ * Whether a pin is driven by the GPIO bank or by its peripheral function
++ * (NAND, Ethernet, UART, ...) is selected by the bank's GPIO_MUX register
++ * in the global control block. A line is switched to GPIO when it is
++ * requested as a GPIO or as an interrupt and switched back to its initial
++ * setting when it is released.
++ */
++
++#include <linux/bitops.h>
++#include <linux/gpio/driver.h>
++#include <linux/gpio/generic.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/irq.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++
++#define CS75XX_GPIO_CFG		0x00	/* 1: input, 0: output */
++#define CS75XX_GPIO_OUT		0x04
++#define CS75XX_GPIO_IN		0x08
++#define CS75XX_GPIO_LVL		0x0c	/* 1: high level or rising edge */
++#define CS75XX_GPIO_EDGE	0x10	/* 1: edge, 0: level */
++#define CS75XX_GPIO_IE		0x14
++#define CS75XX_GPIO_INT		0x18	/* write 1 to clear */
++
++struct cs75xx_gpio {
++	struct gpio_generic_chip chip;
++	void __iomem *base;
++	void __iomem *mux;
++	u32 mux_init;
++	u32 gpio_used;
++	u32 irq_used;
++	u32 both_edges;
++};
++
++/* Called with the chip lock held */
++static void cs75xx_gpio_update_mux(struct cs75xx_gpio *g, unsigned int offset)
++{
++	u32 mask = BIT(offset);
++	u32 val = readl(g->mux);
++
++	if ((g->gpio_used | g->irq_used) & mask)
++		val |= mask;
++	else
++		val = (val & ~mask) | (g->mux_init & mask);
++
++	writel(val, g->mux);
++}
++
++static int cs75xx_gpio_request(struct gpio_chip *gc, unsigned int offset)
++{
++	struct cs75xx_gpio *g = gpiochip_get_data(gc);
++
++	guard(gpio_generic_lock_irqsave)(&g->chip);
++	g->gpio_used |= BIT(offset);
++	cs75xx_gpio_update_mux(g, offset);
++
++	return 0;
++}
++
++static void cs75xx_gpio_free(struct gpio_chip *gc, unsigned int offset)
++{
++	struct cs75xx_gpio *g = gpiochip_get_data(gc);
++
++	guard(gpio_generic_lock_irqsave)(&g->chip);
++	g->gpio_used &= ~BIT(offset);
++	cs75xx_gpio_update_mux(g, offset);
++}
++
++static void cs75xx_gpio_irq_ack(struct irq_data *d)
++{
++	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
++	struct cs75xx_gpio *g = gpiochip_get_data(gc);
++
++	writel(BIT(irqd_to_hwirq(d)), g->base + CS75XX_GPIO_INT);
++}
++
++static void cs75xx_gpio_irq_mask(struct irq_data *d)
++{
++	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
++	struct cs75xx_gpio *g = gpiochip_get_data(gc);
++	irq_hw_number_t hwirq = irqd_to_hwirq(d);
++
++	scoped_guard(gpio_generic_lock_irqsave, &g->chip) {
++		u32 ie = readl(g->base + CS75XX_GPIO_IE);
++
++		writel(ie & ~BIT(hwirq), g->base + CS75XX_GPIO_IE);
++	}
++
++	gpiochip_disable_irq(gc, hwirq);
++}
++
++static void cs75xx_gpio_irq_unmask(struct irq_data *d)
++{
++	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
++	struct cs75xx_gpio *g = gpiochip_get_data(gc);
++	irq_hw_number_t hwirq = irqd_to_hwirq(d);
++	u32 ie;
++
++	gpiochip_enable_irq(gc, hwirq);
++
++	guard(gpio_generic_lock_irqsave)(&g->chip);
++	/*
++	 * The status of a level interrupt is latched while the line is
++	 * asserted, also after the ack, so it may be stale by now. Clear it,
++	 * it is set again right away if the line is still asserted.
++	 */
++	if (irqd_is_level_type(d))
++		writel(BIT(hwirq), g->base + CS75XX_GPIO_INT);
++	ie = readl(g->base + CS75XX_GPIO_IE);
++	writel(ie | BIT(hwirq), g->base + CS75XX_GPIO_IE);
++}
++
++/* Both edges are emulated by flipping the polarity on every interrupt */
++static void cs75xx_gpio_set_polarity(struct cs75xx_gpio *g, u32 mask)
++{
++	u32 lvl = readl(g->base + CS75XX_GPIO_LVL);
++
++	if (readl(g->base + CS75XX_GPIO_IN) & mask)
++		lvl &= ~mask;
++	else
++		lvl |= mask;
++
++	writel(lvl, g->base + CS75XX_GPIO_LVL);
++}
++
++static int cs75xx_gpio_irq_set_type(struct irq_data *d, unsigned int type)
++{
++	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
++	struct cs75xx_gpio *g = gpiochip_get_data(gc);
++	u32 mask = BIT(irqd_to_hwirq(d));
++	u32 lvl, edge, both_edges;
++
++	guard(gpio_generic_lock_irqsave)(&g->chip);
++
++	lvl = readl(g->base + CS75XX_GPIO_LVL);
++	edge = readl(g->base + CS75XX_GPIO_EDGE);
++	both_edges = g->both_edges & ~mask;
++
++	switch (type & IRQ_TYPE_SENSE_MASK) {
++	case IRQ_TYPE_LEVEL_LOW:
++		lvl &= ~mask;
++		edge &= ~mask;
++		break;
++	case IRQ_TYPE_LEVEL_HIGH:
++		lvl |= mask;
++		edge &= ~mask;
++		break;
++	case IRQ_TYPE_EDGE_FALLING:
++		lvl &= ~mask;
++		edge |= mask;
++		break;
++	case IRQ_TYPE_EDGE_RISING:
++		lvl |= mask;
++		edge |= mask;
++		break;
++	case IRQ_TYPE_EDGE_BOTH:
++		both_edges |= mask;
++		edge |= mask;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	g->both_edges = both_edges;
++	writel(lvl, g->base + CS75XX_GPIO_LVL);
++	writel(edge, g->base + CS75XX_GPIO_EDGE);
++	if (g->both_edges & mask)
++		cs75xx_gpio_set_polarity(g, mask);
++
++	if (type & IRQ_TYPE_LEVEL_MASK)
++		irq_set_handler_locked(d, handle_level_irq);
++	else
++		irq_set_handler_locked(d, handle_edge_irq);
++
++	return 0;
++}
++
++static int cs75xx_gpio_irq_reqres(struct irq_data *d)
++{
++	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
++	struct cs75xx_gpio *g = gpiochip_get_data(gc);
++	irq_hw_number_t hwirq = irqd_to_hwirq(d);
++	int ret;
++
++	/* The boot loader may leave the line configured as an output */
++	ret = gc->direction_input(gc, hwirq);
++	if (ret)
++		return ret;
++
++	ret = gpiochip_reqres_irq(gc, hwirq);
++	if (ret)
++		return ret;
++
++	guard(gpio_generic_lock_irqsave)(&g->chip);
++	g->irq_used |= BIT(hwirq);
++	cs75xx_gpio_update_mux(g, hwirq);
++
++	return 0;
++}
++
++static void cs75xx_gpio_irq_relres(struct irq_data *d)
++{
++	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
++	struct cs75xx_gpio *g = gpiochip_get_data(gc);
++	irq_hw_number_t hwirq = irqd_to_hwirq(d);
++
++	scoped_guard(gpio_generic_lock_irqsave, &g->chip) {
++		g->irq_used &= ~BIT(hwirq);
++		cs75xx_gpio_update_mux(g, hwirq);
++	}
++
++	gpiochip_relres_irq(gc, hwirq);
++}
++
++static const struct irq_chip cs75xx_gpio_irq_chip = {
++	.name			= "cs75xx-gpio",
++	.irq_ack		= cs75xx_gpio_irq_ack,
++	.irq_mask		= cs75xx_gpio_irq_mask,
++	.irq_unmask		= cs75xx_gpio_irq_unmask,
++	.irq_set_type		= cs75xx_gpio_irq_set_type,
++	.irq_request_resources	= cs75xx_gpio_irq_reqres,
++	.irq_release_resources	= cs75xx_gpio_irq_relres,
++	.flags			= IRQCHIP_IMMUTABLE | IRQCHIP_MASK_ON_SUSPEND,
++};
++
++static void cs75xx_gpio_irq_handler(struct irq_desc *desc)
++{
++	struct gpio_chip *gc = irq_desc_get_handler_data(desc);
++	struct cs75xx_gpio *g = gpiochip_get_data(gc);
++	struct irq_chip *chip = irq_desc_get_chip(desc);
++	unsigned long pending;
++	unsigned int offset;
++
++	chained_irq_enter(chip, desc);
++
++	pending = readl(g->base + CS75XX_GPIO_INT) &
++		  readl(g->base + CS75XX_GPIO_IE);
++
++	for_each_set_bit(offset, &pending, gc->ngpio) {
++		scoped_guard(gpio_generic_lock, &g->chip) {
++			if (g->both_edges & BIT(offset))
++				cs75xx_gpio_set_polarity(g, BIT(offset));
++		}
++		generic_handle_domain_irq(gc->irq.domain, offset);
++	}
++
++	chained_irq_exit(chip, desc);
++}
++
++static int cs75xx_gpio_probe(struct platform_device *pdev)
++{
++	struct gpio_generic_chip_config config;
++	struct device *dev = &pdev->dev;
++	struct gpio_irq_chip *girq;
++	struct cs75xx_gpio *g;
++	int irq, ret;
++
++	g = devm_kzalloc(dev, sizeof(*g), GFP_KERNEL);
++	if (!g)
++		return -ENOMEM;
++
++	g->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(g->base))
++		return PTR_ERR(g->base);
++
++	g->mux = devm_platform_ioremap_resource(pdev, 1);
++	if (IS_ERR(g->mux))
++		return PTR_ERR(g->mux);
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
++
++	g->mux_init = readl(g->mux);
++
++	config = (struct gpio_generic_chip_config) {
++		.dev = dev,
++		.sz = 4,
++		.dat = g->base + CS75XX_GPIO_IN,
++		.set = g->base + CS75XX_GPIO_OUT,
++		.dirin = g->base + CS75XX_GPIO_CFG,
++	};
++
++	ret = gpio_generic_chip_init(&g->chip, &config);
++	if (ret)
++		return dev_err_probe(dev, ret, "unable to init generic GPIO\n");
++
++	if (g->chip.gc.ngpio > 32)
++		return dev_err_probe(dev, -EINVAL, "too many lines: %u\n",
++				     g->chip.gc.ngpio);
++
++	g->chip.gc.request = cs75xx_gpio_request;
++	g->chip.gc.free = cs75xx_gpio_free;
++	g->chip.gc.owner = THIS_MODULE;
++
++	/* Mask and clear all interrupts before the parent is set up */
++	writel(0, g->base + CS75XX_GPIO_IE);
++	writel(~0, g->base + CS75XX_GPIO_INT);
++
++	girq = &g->chip.gc.irq;
++	gpio_irq_chip_set_chip(girq, &cs75xx_gpio_irq_chip);
++	girq->parent_handler = cs75xx_gpio_irq_handler;
++	girq->num_parents = 1;
++	girq->parents = devm_kcalloc(dev, 1, sizeof(*girq->parents),
++				     GFP_KERNEL);
++	if (!girq->parents)
++		return -ENOMEM;
++	girq->parents[0] = irq;
++	girq->default_type = IRQ_TYPE_NONE;
++	girq->handler = handle_bad_irq;
++
++	return devm_gpiochip_add_data(dev, &g->chip.gc, g);
++}
++
++static const struct of_device_id cs75xx_gpio_of_match[] = {
++	{ .compatible = "cortina,cs7542-gpio" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, cs75xx_gpio_of_match);
++
++static struct platform_driver cs75xx_gpio_driver = {
++	.probe = cs75xx_gpio_probe,
++	.driver = {
++		.name = "cs75xx-gpio",
++		.of_match_table = cs75xx_gpio_of_match,
++	},
++};
++module_platform_driver(cs75xx_gpio_driver);
++
++MODULE_DESCRIPTION("Cortina Systems CS75xx GPIO driver");
++MODULE_LICENSE("GPL");
 
- .../bindings/gpio/cortina,cs7542-gpio.yaml         |  68 ++++
- .../bindings/i2c/cortina,cs7542-i2c.yaml           |  56 +++
- .../interrupt-controller/cortina,cs7542-intc.yaml  |  57 +++
- MAINTAINERS                                        |  12 +
- .../dts/cortina/cs7542-securifi-almondplus.dts     |  19 +
- arch/arm/boot/dts/cortina/cs7542.dtsi              |  75 ++++
- arch/arm/configs/multi_v7_defconfig                |   3 +
- drivers/gpio/Kconfig                               |  12 +
- drivers/gpio/Makefile                              |   1 +
- drivers/gpio/gpio-cs75xx.c                         | 336 ++++++++++++++++++
- drivers/i2c/busses/Kconfig                         |  11 +
- drivers/i2c/busses/Makefile                        |   1 +
- drivers/i2c/busses/i2c-cs75xx.c                    | 378 ++++++++++++++++++++
- drivers/irqchip/Kconfig                            |  12 +
- drivers/irqchip/Makefile                           |   1 +
- drivers/irqchip/irq-cs75xx.c                       | 103 ++++++
- drivers/watchdog/Kconfig                           |  15 +
- drivers/watchdog/Makefile                          |   1 +
- drivers/watchdog/arm_twd_wdt.c                     | 395 +++++++++++++++++++++
- 19 files changed, 1556 insertions(+)
----
-base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
-change-id: 20261012-b4-cs75xx-s2-5f548492f51e
-prerequisite-message-id: <20261013-b4-cs75xx-v5-0-4e72aa383d39@gmail.com>
-prerequisite-patch-id: 104c6fb668f30ac8c2c5b3b6c524c18caa8808c4
-prerequisite-patch-id: e7d503348cbec7558cd084162133f8e34df1c1bc
-prerequisite-patch-id: 1d5770db02b983d012f6c58806fbf3f5291a06c9
-prerequisite-patch-id: 8515988ae3509d4289a8d845803353f5ed412982
-prerequisite-patch-id: 6c0137d52f201d8ec085ee6cc7b2d49af15583d8
-prerequisite-patch-id: 24e110f3c8c008deffdda079bdc27db729b5014d
-prerequisite-patch-id: a0847948f39b5e1d2ae58bf8b7f51e17f3a63247
-prerequisite-patch-id: 15c11a668a1a281649fa0713371e7f07ee44917e
-prerequisite-patch-id: 9b4a468b7b74861017ef533ba0a5574bc14b212e
-prerequisite-patch-id: 1f232c94dd3fc0d862203b7c0c1449e6ba9a6859
-
-Best regards,
---  
-Fil Dunsky <filipp.dunsky@gmail.com>
+-- 
+2.53.0
 
 
