@@ -1,178 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62ACC4DDB33;
-	Tue, 13 Oct 2026 13:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB377517BA2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.191
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897270; cv=none; b=QyfPNejzQa5NzteoT0efcPcOfukxH6WZBzJTVmhqjmTCba5sfEZHKBLkmO1hzdrph5DBw8KUjs96aYEUdAr96eMtwOQx1BCB6tWaxStm/ohPsKtPoHiJW2f+UujtaFgehCTkuATLB6DdGvjL71oAfNiEno8sddIojHXgvKXLaG8=
+	t=1791897275; cv=none; b=XH0s1cqwy/WYx/MxuYiCCrrbW/hA6B5vyHnbizePXQTr86NrcXQtbPZSv7KYU6V0eiclzG+NJSk66WT31/abhggrX+6uDfFV5OYpo9L5bVJvC0zcETThxWUBqD8p40gWjDSlyoVLrxjlG2Q+1HGfxqaVD/bhbH5dmvVjnXxwujo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897270; c=relaxed/simple;
-	bh=8Bp2bQHVlIW929jOM9HjkLNfhV5PdDCxGvim75qQv4Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HMY0AWSZGlVPQDpvw7ALreZZC+nGhVHlp33zMMkA31+JsH82rtBYCcIs+8OPrfa55vUK2TiOJUdO2rZGEg5ebZEwfnMfcBGDQMlDKfZpCW4rJxLuxoMX5HoJkp1SYerDi/Xvt5zVPsHDRNUXiIytCwUdyc6Ph/VovEECe0+8gbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mC62Rd1C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791897275; c=relaxed/simple;
+	bh=6bPuePUhI/PVXzKlEerl1qF6JNpRJcuQN+73ZZFRPbo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=E3tLYt/fe0yRGcemsTElM8mBCM2FaWwP3V7BtqpNx9+YFyy7Ky+2pWNqaGdDdvGJCqRXV3IzSbiExXKtIWBliSXGr9a/4jFN8F3e3iEemr0PWsOFEFsxNhAmiOhc7Tb4y2YrdN6yib5QsMvkGNVfagaJwq3f4uQwxsyyxZTzvZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Jxh1TFtC; arc=none smtp.client-ip=95.215.58.191
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mC62Rd1C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569751F000FF;
-	Tue, 13 Oct 2026 13:14:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791897268;
-	bh=Y31uLC14PmHEEXewkbQKXC8mc6ByfwR6mALvrM9/fAA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mC62Rd1CgzVxNIGEmsfEhPkhWmxMPHngkYvMWAYoEOzHO0mTfO6GIIwshQyMm0E1I
-	 tyxBy+a8pBGi4Olm9poof9JLd8Yzja5jIi8J2s2aX61AnXHx2BbUeLPPI9w1vJowCp
-	 EjCCJKp3hAlQmwYWaheA9skn/Yft/C0NT6CLn7/g=
-Date: Tue, 13 Oct 2026 15:14:33 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: phil@phil.gs
-Cc: Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Johan Hovold <johan@kernel.org>, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] serial: core: Shut down a running console port before
- removing it
-Message-ID: <2026101302-patronize-rigid-f634@gregkh>
-References: <20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Jxh1TFtC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6bPuePUhI/PVXzKlEerl1qF6JNpRJcuQN+73ZZFRPbo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791897270; v=1; x=1792502070;
+ b=Jxh1TFtCYNeu4mrKeA9a4RADlgvQFU2NJKBRM92OaNhl2OxTB+dgZRhD3yNO0nvUDdUIozpB
+ OAaBSMuUFsuxcqLpE/OBD50puaf7oAXJcYdA53IfSn+TGu1cv4nkbPK6qEsG8jR3GJSXONmitrD
+ 3uidWCCQSJ3vhAPGFsytFyNI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 924dac319db54da7;
+	Tue, 13 Oct 2026 13:14:30 +0000
+X-Mizu-Trace-ID: 924dac319db54da7
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH RFC v3 5/7] mm/vmscan: pass scan_control to the LRU isolate/shrink tracepoints
+Date: Tue, 13 Oct 2026 21:13:07 +0800
+Message-Id: <20261013131309.2790253-6-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261013131309.2790253-1-ridong.chen@linux.dev>
+References: <20261013131309.2790253-1-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 12:49:18PM -0400, Phil Rosenthal via B4 Relay wrote:
-> From: Phil Rosenthal <phil@phil.gs>
-> 
-> A console port is not shut down when its last user closes it:
-> tty_port_shutdown() returns early when tty_port::console is set, so the
-> port stays initialized.  For an 8250 port this leaves its interrupt
-> requested or, for a port without an interrupt, its poll timer armed.
-> 
-> serial_core_remove_one_port() relies on tty_port_tty_vhangup() to shut
-> the port down before releasing its resources, but the hangup reaches
-> uart_hangup() -> uart_shutdown() only when a tty is attached.  For a
-> console that was opened and closed, for example a serial console whose
-> getty has been stopped, nothing shuts the port down.  The console is
-> unregistered, ->release_port() releases the registers and the core frees
-> uport->name while the port is still running.  On tty-next with 8250
-> ports:
-> 
->  - A card bound to 8250_pci with an INTx interrupt and unbound through
->    sysfs keeps its interrupt requested after the driver is gone.  The
->    irqaction name points to the freed uport->name, so reading
->    /proc/interrupts is a slab-use-after-free in irq_seq_show().
-> 
->  - A polled (irq = 0) MMIO port with UPF_IOREMAP keeps running
->    serial8250_timeout() after serial8250_release_port() has cleared
->    membase, which dereferences NULL in timer softirq context about
->    10 ms after "console [ttyS5] disabled".
-> 
-> After unregistering the console and before releasing the resources, shut
-> the port down if it is still initialized.  uart_shutdown() runs with
-> port->mutex held, as for its other callers, and with no tty, so it also
-> drops DTR and RTS.  A port that had a tty attached was already shut down
-> by the hangup and is skipped.
-> 
-> Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM sparse
-> Signed-off-by: Phil Rosenthal <phil@phil.gs>
-> ---
-> This bug was found and confirmed with AI assistance, so it is reported in
-> the open.  It is not a security issue under
-> Documentation/process/threat-model.rst ("Excess of initial privileges"):
-> triggering it needs the privileges to unbind or remove the device.
-> 
-> I hit it on real hardware.  My serial console is a polled ASPEED BMC VUART,
-> then driven by an out-of-tree module.  After I stopped its getty,
-> unloading the driver oopsed in mem32_serial_in() from serial8250_timeout().
-> 
-> History: before 761ed4a94582, uart_close() called uart_shutdown() for
-> every port, consoles included.  761ed4a94582 made console ports skip the
-> shutdown on close.  be2c92b8f164 reverted that part and 4dda864d7307
-> reinstated it, all within v4.9.  Keeping a console running after close is
-> intended, but the removal path was never updated for it.
-> 
-> Tested in a QEMU guest on tty-next 36844ea19656 with KASAN, using in-tree
-> 8250_pci and a "serial8250" platform port.  Reproducers are available on
-> request.  Without this patch:
-> 
->   8250_pci with INTx, reading /proc/interrupts after unbind:
->     BUG: KASAN: slab-use-after-free in string+0x3b6/0x4c0
->      irq_seq_show+0x34d/0x810
->     Allocated by task 1244:
->      kasprintf+0xac/0x100
->      serial_core_register_port+0x55f/0x1720
->     Freed by task 1276:
->      kfree+0x1a0/0x4a0
->      serial_core_unregister_port+0x44d/0xa80
->      serial8250_unregister_port+0x10d/0x6c0
->      pciserial_detach_ports+0x92/0x160
-> 
->   Polled MMIO port (irq 0, UPF_IOREMAP) after removal:
->     printk: console [ttyS5] disabled
->     BUG: kernel NULL pointer dereference, address: 0000000000000008
->     RIP: 0010:mem32_serial_in+0x74/0xa0
->      serial8250_timeout+0x44/0x140
->      call_timer_fn+0x32/0x260
-> 
-> With this patch both cases are clean: the IRQ is freed on unbind,
-> rebinding restores the console, and the polled port is shut down on
-> removal.  A port held open across removal and a console that was never
-> opened did not fail before and still work.
-> 
-> I used plain mutex_lock() rather than scoped_guard() so that the patch
-> also builds on stable trees before 6.5.  It applies from v5.4 to current
-> master, and serial_core.o builds on v6.1 and v6.6.  W=1, sparse and
-> checkpatch --strict are clean.
-> 
-> Also tested on real hardware: the ASPEED BMC VUART that hit the bug
-> (polled MMIO, irq 0) as the console, now bound to 8250_pci with my
-> pending ASPEED support patch [1], on a 7.0.14 distribution kernel with
-> both patches.  After stopping the getty, opening and closing the port,
-> and unbinding the PCI device, there is no oops.  Rebinding restores the
-> console, the getty and in-band IPMI.
-> 
-> Not tested: serial drivers other than 8250.
-> 
-> [1] https://lore.kernel.org/r/20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs
-> 
-> AI assistance: an LLM coding assistant (Claude, model claude-opus-5-5, in
-> Claude Code) analysed the crash, wrote the reproducers and the patch, and
-> built and ran the test kernels.  Two other LLMs reviewed the result
-> (GPT-5.6 Sol via Codex, and Claude Fable 5.1 via Claude Code).  I reviewed
-> it as well.
-> ---
->  drivers/tty/serial/serial_core.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-> index 319a4b427f3a3727d12cb58252bd8959f9be4cd6..104a2b2eec641bbbc23e67522a7812309442de23 100644
-> --- a/drivers/tty/serial/serial_core.c
-> +++ b/drivers/tty/serial/serial_core.c
-> @@ -3239,6 +3239,18 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
->  	if (uart_console(uport))
->  		unregister_console(uport->cons);
->  
-> +	/*
-> +	 * A console port is not shut down on last close (see
-> +	 * tty_port_shutdown()), and the hangup above only shuts down a port
-> +	 * that has a tty attached. A console that was opened and closed is
-> +	 * therefore still running here; shut it down before its resources are
-> +	 * released.
-> +	 */
-> +	mutex_lock(&port->mutex);
+From: Ridong Chen <chenridong@xiaomi.com>
 
-scoped guard?
+mm_vmscan_lru_isolate, mm_vmscan_lru_shrink_inactive and
+mm_vmscan_lru_shrink_active spell out reclaim state (reclaim_idx, order,
+priority) as individual arguments, all of which the caller already holds
+in struct scan_control. Now that the struct is visible from the trace
+header, pass sc directly and pick the fields out in TP_fast_assign.
 
-LLMs don't know about "modern" kernel code.
+No functional change. The tracefs event format (TP_STRUCT__entry and
+TP_printk) is unchanged, so tracefs-based consumers are unaffected.
+BPF programs attached via raw_tp/tp_btf see the new TP_PROTO and need
+to be adjusted; tracepoints are not a stable ABI (see
+Documentation/bpf/bpf_design_QA.rst).
 
-Also, is the comment really needed?
+Assisted-by: LLM
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ mm/trace_vmscan.h | 31 +++++++++++++++----------------
+ mm/vmscan.c       | 14 +++++++-------
+ 2 files changed, 22 insertions(+), 23 deletions(-)
 
-thanks,
+diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
+index 28561fda83b3..aa27cb9524bb 100644
+--- a/mm/trace_vmscan.h
++++ b/mm/trace_vmscan.h
+@@ -350,15 +350,14 @@ TRACE_EVENT(mm_shrink_slab_end,
+ );
+ 
+ TRACE_EVENT(mm_vmscan_lru_isolate,
+-	TP_PROTO(int highest_zoneidx,
+-		int order,
+-		unsigned long nr_requested,
+-		unsigned long nr_scanned,
+-		unsigned long nr_skipped,
+-		unsigned long nr_taken,
+-		int lru),
++	TP_PROTO(struct scan_control *sc,
++		 unsigned long nr_requested,
++		 unsigned long nr_scanned,
++		 unsigned long nr_skipped,
++		 unsigned long nr_taken,
++		 int lru),
+ 
+-	TP_ARGS(highest_zoneidx, order, nr_requested, nr_scanned, nr_skipped, nr_taken, lru),
++	TP_ARGS(sc, nr_requested, nr_scanned, nr_skipped, nr_taken, lru),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(int, highest_zoneidx)
+@@ -371,8 +370,8 @@ TRACE_EVENT(mm_vmscan_lru_isolate,
+ 	),
+ 
+ 	TP_fast_assign(
+-		__entry->highest_zoneidx = highest_zoneidx;
+-		__entry->order = order;
++		__entry->highest_zoneidx = sc->reclaim_idx;
++		__entry->order = sc->order;
+ 		__entry->nr_requested = nr_requested;
+ 		__entry->nr_scanned = nr_scanned;
+ 		__entry->nr_skipped = nr_skipped;
+@@ -466,9 +465,9 @@ TRACE_EVENT(mm_vmscan_lru_shrink_inactive,
+ 
+ 	TP_PROTO(int nid,
+ 		unsigned long nr_scanned, unsigned long nr_reclaimed,
+-		struct reclaim_stat *stat, int priority, int file),
++		struct reclaim_stat *stat, struct scan_control *sc, int file),
+ 
+-	TP_ARGS(nid, nr_scanned, nr_reclaimed, stat, priority, file),
++	TP_ARGS(nid, nr_scanned, nr_reclaimed, stat, sc, file),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(int, nid)
+@@ -498,7 +497,7 @@ TRACE_EVENT(mm_vmscan_lru_shrink_inactive,
+ 		__entry->nr_activate1 = stat->nr_activate[1];
+ 		__entry->nr_ref_keep = stat->nr_ref_keep;
+ 		__entry->nr_unmap_fail = stat->nr_unmap_fail;
+-		__entry->priority = priority;
++		__entry->priority = sc->priority;
+ 		__entry->reclaim_flags = trace_reclaim_flags(file);
+ 	),
+ 
+@@ -517,9 +516,9 @@ TRACE_EVENT(mm_vmscan_lru_shrink_active,
+ 
+ 	TP_PROTO(int nid, unsigned long nr_taken,
+ 		unsigned long nr_active, unsigned long nr_deactivated,
+-		unsigned long nr_referenced, int priority, int file),
++		unsigned long nr_referenced, struct scan_control *sc, int file),
+ 
+-	TP_ARGS(nid, nr_taken, nr_active, nr_deactivated, nr_referenced, priority, file),
++	TP_ARGS(nid, nr_taken, nr_active, nr_deactivated, nr_referenced, sc, file),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(int, nid)
+@@ -537,7 +536,7 @@ TRACE_EVENT(mm_vmscan_lru_shrink_active,
+ 		__entry->nr_active = nr_active;
+ 		__entry->nr_deactivated = nr_deactivated;
+ 		__entry->nr_referenced = nr_referenced;
+-		__entry->priority = priority;
++		__entry->priority = sc->priority;
+ 		__entry->reclaim_flags = trace_reclaim_flags(file);
+ 	),
+ 
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 2979d0d819a8..c25ba910149d 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -1764,7 +1764,7 @@ static unsigned long isolate_lru_folios(unsigned long nr_to_scan,
+ 		}
+ 	}
+ 	*nr_scanned = total_scan;
+-	trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
++	trace_mm_vmscan_lru_isolate(sc, nr_to_scan,
+ 				    total_scan, skipped, nr_taken, lru);
+ 	update_lru_sizes(lruvec, lru, nr_zone_taken);
+ 	return nr_taken;
+@@ -2053,7 +2053,7 @@ static unsigned long shrink_inactive_list(unsigned long nr_to_scan,
+ 
+ 	handle_reclaim_writeback(nr_taken, pgdat, sc, &stat);
+ 	trace_mm_vmscan_lru_shrink_inactive(pgdat->node_id,
+-			nr_scanned, nr_reclaimed, &stat, sc->priority, file);
++			nr_scanned, nr_reclaimed, &stat, sc, file);
+ 	return nr_reclaimed;
+ }
+ 
+@@ -2160,7 +2160,7 @@ static void shrink_active_list(unsigned long nr_to_scan,
+ 		mod_lruvec_state(lruvec, PGROTATE_ANON + file, nr_rotated);
+ 
+ 	trace_mm_vmscan_lru_shrink_active(pgdat->node_id, nr_taken, nr_activate,
+-			nr_deactivate, nr_rotated, sc->priority, file);
++			nr_deactivate, nr_rotated, sc, file);
+ }
+ 
+ static unsigned int reclaim_folio_list(struct list_head *folio_list,
+@@ -4850,9 +4850,9 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	mod_lruvec_state(lruvec, item, isolated);
+ 	mod_lruvec_state(lruvec, PGREFILL, sorted);
+ 	mod_lruvec_state(lruvec, PGSCAN_ANON + type, isolated);
+-	trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
+-				scanned, skipped, isolated,
+-				type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
++	trace_mm_vmscan_lru_isolate(sc, nr_to_scan,
++				    scanned, skipped, isolated,
++				    type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
+ 
+ 	*isolatedp = isolated;
+ 	return scanned;
+@@ -4991,7 +4991,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	if (isolated)
+ 		handle_reclaim_writeback(isolated, pgdat, sc, &stat);
+ 	trace_mm_vmscan_lru_shrink_inactive(pgdat->node_id,
+-			type_scanned, reclaimed, &stat, sc->priority,
++			type_scanned, reclaimed, &stat, sc,
+ 			type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
+ 
+ 	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
+-- 
+2.34.1
 
-greg k-h
