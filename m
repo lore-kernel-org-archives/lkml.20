@@ -1,209 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410265208A0;
-	Tue, 13 Oct 2026 16:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52306516179
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:28:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908888; cv=none; b=nfVUvdOq3vmL6m9lUw5bpsqNCPOB0bY98IAWrHzoJy8FWYDGhqXvE3fC6bCQv1jepSyuvhuqDeYyjffoyLkqOc7FSekOqIFo2ZA7S2YPlS86lPYY10FhADnmYnfnIlPd04CivgInIncFTvzQGMXSZ8u+/dyQ+GoQYVaOQLxwuto=
+	t=1791908904; cv=none; b=QE+Y5v+xCKOKWE7rDus+XDbyrCOWmtzYVPhlOSrlYR5+4S35fqkz29Su9wIfrDBWwk0AF2FbXZCbxPMWvCLckiqobj3Tue5ejsKOlqhgXtdn6mkWv5HciUosJek/efhPkI0d4Hc5CH/+uqrOFK/pAdtjrk2lZ8a7QB36u4aXlTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908888; c=relaxed/simple;
-	bh=ry1zMcfYwKFFs/NdI1mzS9damOmuJGURuz21CLKVnsw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WJGfFX7YeMgJ14wf9r4DVa2yT8vXe2/rk+bESGYnfDupgwDTzVK8Zdh4amIfS7MXIEduhlPiLQajOc7ZkmmmWuObOwI0ixcJn8/stLxRIfE9Jb9qy8LJDwVMQco81lfN+ANBO9JH5HTjM+sCsZpWuoHurytjFeDUzpUEtAzFItE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHnqvybe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791908904; c=relaxed/simple;
+	bh=7Z6sDO9turebYZ6vpFn/ic9FZqBOrH/mbx7fLGTKg20=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=B5wIRD3aoCZ7rBmC0n34BZqO0IDx2dkfdid36S7fRrmr6RUsS2liGUaLOKOD8i929tpx7scFlrLHnFu3TQJVV2rN7f/Lic51isq+OLzqHZ+Y8tqmpa4INkTWm8YjiwpGyVpGMOLOXYp3IW7TKypf3hfPvd3G/Roe3HdClE+IXdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=njm9mppL; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHnqvybe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B901F000FF;
-	Tue, 13 Oct 2026 16:28:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791908886;
-	bh=4qECQLBZag2Z6hnsQn+EA+w/xPg1/6d82FsVEqu9mG4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lHnqvybeUm68HtG0je9hHehQZb1iLVcY8LX/J9SX3k+HW+8U8w430Fcs7sX4q06bW
-	 AfmKm8zZmQFVMGq4CpZ282GvKj9wkQe8RLCEbjtvI2npp4qlvVR9Po3ckajrny29Z5
-	 bFrrz9zQVWF3c6SNKuFoV84wATd5LW9+aXaVz1im4uhPx9uJzyzd6CsheXWNjofVLc
-	 MG2ZQ5lB5IOU8Wg4aprhq8foSZTy3GMG56EntshrsBoY8vSAGQ+WU51/Fghd6jVgIR
-	 DBvpEvu7dKYH2dHFtYBaWbJDz/BC/2QMbLll2jyGn33eXBXpw+T7yQqxz2MmBbnwOt
-	 TnfjHgPBeYlZQ==
-Date: Tue, 13 Oct 2026 17:28:02 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: iio: add: document the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20261013-subtract-oblong-cc6cd3d9cee2@spud>
-References: <20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org>
- <20261013-topic-sm8x50-iio-max34417-adc-v3-1-d3604ae4a229@linaro.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="njm9mppL"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so2243022a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:28:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791908902; x=1792513702; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gh1oeZfnuumQp7OARIaHbjIwNVYBZiUbfkaFZ0S0oq0=;
+        b=njm9mppLnwaKXRcX1e65ebuF5CbjawvinDvNrJiL9VV5aPbX+ZNtvM7ZawgHpIfIY8
+         1MweNKeupGPoTmN03wMeSWl80pEYxZioSXlYzzybLQEL3XF/Ly3r6FpdYY1WkaxoVtGn
+         9Mjpot0d1Sxe0yMZW5z+VYha5cZXznB5ApdykxLS9LI0aqs1x4SRAJa1zrNdXzkLwlXy
+         uKkXPTx/myABR+KZ6j/zCElpnGvdXdcNiTlV+sEqIaruhX4cRoaF3Aom0x1DLKp3CjT0
+         KKlWVFmlTWgjbliXYKjOZTVbe8Fzimkk4S5RcWTTlJEQ0CYM8tF9jjPiqNBdUlAXxRHK
+         jSig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791908902; x=1792513702;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gh1oeZfnuumQp7OARIaHbjIwNVYBZiUbfkaFZ0S0oq0=;
+        b=XYfeb8+suwc4RHWy7yRPMhO7qur/cMk7KNX27fabGbjmlW02SW5Ivg2tZss5uD7eoe
+         LgHWibLWwKpTNcIK+5JTOfR28X4dSc9lK/xmfoQ5qsx/mCzPLTxU2I1LPtzTdol/mrbD
+         H3P8h5ASuTanTIdEEeoVlxwBB8K+x54JYqDMvTxWiCkXJqtyVCu4h10OzgFik4D0y/wi
+         doxDVALkbOv+6PP6dN195ER+I1GAb6bOB/YK8MJsxxa7rDeEju9IbOtQE3mvnUUB6qEo
+         Th1i9LaxIEP6pLDa+S6LdfwCGInU9Fx7bCbYNRTXHO1n/3udN4ym2USqD33zf31OLo3q
+         x9eA==
+X-Forwarded-Encrypted: i=1; AKwUvBwi7huTyM0nzrDTwVgj+GpabpIGl5PNLPcsDO55RN4r4/jFnTkMZdUkua1tbr5jR3eT56yd9stuGWi3QR8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIX4HRAaqp/c30GKNBvRqLZGAT2O2gphmx7bRpPoAtqT2/EudVW
+	Rw+CVJ8uG2QZNUeaZtdoG0Z55XKHAMJTmCgyzy3LHTMhmvB37DXthC/p
+X-Gm-Gg: AYBFou2h/9mWhje/pYfMUz6osjcI4EQcBQ/mVy5vVZ4Igm+clchjqsIWADTjZ66HhTR
+	Nl1QCFZQ5tfizvkc8O5Alzfjl9xjUtuwZoYLikEE9HmSY/k+c+i+P8KrTQyVJLIIzEP1rqbzxMt
+	WbN9xv+pXY2xcu0bdbCYvC1Qaprab0qxqRWkyS68PXg+83rb37LnJ1RQX/ImNslQdf1iyIKla5h
+	IHDy9FMogNUrlPtVxIqhfwMcZN9TJirWU5rmMfwzZuzO2QeYLnniRqZlYQezOYieT2fsb4E44I6
+	tkjyAhG+KUNSABMKOy9JMGWNlN43dgLJ+HO2hfs821eByqABZhknoK9K3wUHbqwaP6fwfSQxsVW
+	Wi/gUf4xETW7sJrT7cggY/yvrJ0a6Yx5ChxJHA0S27nXP/1Ob2vH4xra+D1nRsTYip2ZxYmNMOg
+	ldsyXBJbMY8VkCfNH5JhZcC65KzMhZRVioKm0Jw10oUluo2nbiNy49Pc+i+FRJC5e/qg==
+X-Received: by 2002:a17:90b:4d88:b0:3a4:a850:6982 with SMTP id 98e67ed59e1d1-3ab3a7786e4mr11661087a91.26.1791908901534;
+        Tue, 13 Oct 2026 09:28:21 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f2a88b4sm367921a91.14.2026.10.13.09.28.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 09:28:21 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	padovan@profusion.mobi,
+	johan.hedberg@nokia.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] Bluetooth: MGMT: Serialize power-on with power-off completion
+Date: Wed, 14 Oct 2026 00:28:14 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0063-v7-35a6680c94a332fea155@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="olTPtcV1frKmgnZT"
-Content-Disposition: inline
-In-Reply-To: <20261013-topic-sm8x50-iio-max34417-adc-v3-1-d3604ae4a229@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---olTPtcV1frKmgnZT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+mgmt_set_powered_complete() must only consume the pending command for
+its own request. However, __mgmt_power_off() removes and frees the
+SET_POWERED command before the request's destroy callback runs, and
+mgmt_pending_valid() identifies outstanding commands only by address.
 
-On Tue, Oct 13, 2026 at 04:07:11PM +0200, Neil Armstrong wrote:
-> Document the Maxim MAX34417 Four-Channel High Dynamic Range Power
-> Accumulator used to monitor power consumption of portable systems.
->=20
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+When a powered controller is switched off and another management socket
+requests power-on, the allocator can reuse the old command's address:
 
-Previous review still applies?
-https://lore.kernel.org/all/20260924-circling-punk-e75ea71e60b0@spud/
+  Power-off request worker          Power-on management handler
+  ------------------------          ---------------------------
+  __mgmt_power_off(): free cmd
+  hci_dev_close_sync(): unlock
+  set_powered_sync(): return
+                                    set_powered(): lock hdev
+                                    allocate and link replacement
+  mgmt_pending_valid(): unlink
+    replacement at old address
+  read replacement's cp->val = 1
+  wait for hdev->lock
+                                    submit fails: remove/free cmd
+                                    unlock hdev
+  acquire hdev->lock
+  read freed cmd->opcode
 
-pw-bot: changes-requested
+The old callback can respond through and free the new command instead of
+completing its own request. If hci_cmd_sync_submit() fails to allocate
+its work entry after the callback has unlinked the replacement,
+set_powered() removes and frees it again while still holding hdev->lock.
+The old callback then acquires that lock and reads the freed command.
 
-Thanks,
-Conor.
+Serialize power-on publication with the existing request mutex, which
+hci_cmd_sync_work() holds across the request function and its destroy
+callback. Hold it through submission and error cleanup so the
+replacement cannot be published before the old callback finishes.
+Acquire it before hdev->lock to preserve the worker's lock order.
+Power-off retains its existing cancellation path.
 
-> ---
->  .../bindings/iio/adc/maxim,max34417.yaml           | 100 +++++++++++++++=
-++++++
->  1 file changed, 100 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yam=
-l b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
-> new file mode 100644
-> index 000000000000..058af61cc04e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
-> @@ -0,0 +1,100 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/maxim,max34417.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Maxim MAX34417 Four-Channel High Dynamic Range Power Accumulator
-> +
-> +maintainers:
-> +  - Neil Armstrong <neil.armstrong@linaro.org>
-> +
-> +description: |
-> +  The MAX34417 is a specialized current and voltage monitor used to dete=
-rmine
-> +  power consumption of portable systems. The device has a very wide dyna=
-mic
-> +  range (20,000:1) that allows for the accurate measurement of power in =
-such
-> +  systems. The device is configured and monitored with a standard I2C/SM=
-Bus
-> +  serial interface. The unidirectional current sensor offers precision
-> +  high-side operation with a low full-scale sense voltage.
-> +
-> +  Specifications about the device can be found at:
-> +  https://www.analog.com/media/en/technical-documentation/data-sheets/ma=
-x34417.pdf
-> +
-> +properties:
-> +  compatible:
-> +    const: maxim,max34417
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +  vio-supply: true
-> +
-> +patternProperties:
-> +  "^channel@[0-3]$":
-> +    $ref: adc.yaml
-> +    type: object
-> +    description:
-> +      Represents the internal channels of the sensor.
-> +
-> +    properties:
-> +      reg:
-> +        items:
-> +          - minimum: 0
-> +            maximum: 3
-> +
-> +      label: true
-> +
-> +      shunt-resistor-micro-ohms:
-> +        description:
-> +          Value in micro Ohms of the shunt resistor connected between th=
-e RS+ and RS- inputs.
-> +        minimum: 1000
-> +        maximum: 100000
-> +        default: 1000
-> +
-> +    required:
-> +      - reg
-> +
-> +    unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        sensor@10 {
-> +              compatible =3D "maxim,max34417";
-> +              reg =3D <0x10>;
-> +
-> +              #address-cells =3D <1>;
-> +              #size-cells =3D <0>;
-> +
-> +              channel@0 {
-> +                  reg =3D <0>;
-> +                  label =3D "ch0";
-> +                  shunt-resistor-micro-ohms =3D <5000>;
-> +              };
-> +
-> +              channel@1 {
-> +                  reg =3D <1>;
-> +                  label =3D "ch1";
-> +             };
-> +
-> +              channel@2 {
-> +                  reg =3D <2>;
-> +             };
-> +        };
-> +    };
->=20
-> --=20
-> 2.34.1
->=20
+KASAN report as below:
 
---olTPtcV1frKmgnZT
-Content-Type: application/pgp-signature; name=signature.asc
+        BUG: KASAN: slab-use-after-free in
+    mgmt_set_powered_complete+0x450/0x4d0
+    Read of size 2 at addr ffff88810921ab10 by task kworker/u17:0/500
 
------BEGIN PGP SIGNATURE-----
+    Workqueue: hci0 hci_cmd_sync_work
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? mgmt_set_powered_complete+0x450/0x4d0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? mgmt_set_powered_complete+0x450/0x4d0
+     kasan_report+0xe0/0x110
+     ? mgmt_set_powered_complete+0x450/0x4d0
+     mgmt_set_powered_complete+0x450/0x4d0
+     ? __pfx_mgmt_set_powered_complete+0x10/0x10
+     hci_cmd_sync_work+0x207/0x450
+     ? __pfx_mgmt_set_powered_complete+0x10/0x10
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5cEgAKCRB4tDGHoIJi
-0jYtAQDG/Kdajpu4lXNcTYJNmvR0ro/5maQnxMwQuxIRbf88EQD/Uq+r1EcahyWw
-CUFXkn1dVvJ/uVGHOLSwm4kEvAchUww=
-=iQGf
------END PGP SIGNATURE-----
+    Allocated by task 531:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     mgmt_pending_new+0x60/0x230
+     mgmt_pending_add+0x3b/0x180
+     set_powered+0x2a8/0x7e0
+     hci_sock_sendmsg+0x128b/0x22e0
+     __sys_sendto+0x425/0x470
+     __x64_sys_sendto+0xe5/0x1c0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
---olTPtcV1frKmgnZT--
+    Freed by task 531:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     set_powered+0x336/0x7e0
+     hci_sock_sendmsg+0x128b/0x22e0
+     __sys_sendto+0x425/0x470
+     __x64_sys_sendto+0xe5/0x1c0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    The buggy address belongs to the object at ffff88810921ab00
+                                                                which
+                                belongs to the cache kmalloc-96 of size 96
+    The buggy address is located 16 bytes inside of
+                                                                freed
+                                96-byte region [ffff88810921ab00,
+                                ffff88810921ab60)
+
+    The buggy address belongs to the physical page:
+        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
+    pfn:0x10921a
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+        raw: 0200000000000000 ffff888100042280 dead000000000100
+    dead000000000122
+        raw: 0000000000000000 0000000000200020 00000000f5000000
+    0000000000000000
+    page dumped because: kasan: bad access detected
+
+    Memory state around the buggy address:
+     ffff88810921aa00: 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc
+     ffff88810921aa80: 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc
+    >ffff88810921ab00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+                             ^
+     ffff88810921ab80: 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc
+     ffff88810921ac00: 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc
+    ==================================================================
+
+Fixes: eec8d2bcc841 ("Bluetooth: Add support for set_powered management command")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
+index 9f65863e7457d..d523ae2268be8 100644
+--- a/net/bluetooth/mgmt.c
++++ b/net/bluetooth/mgmt.c
+@@ -1408,6 +1408,13 @@ static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
+ 		return mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
+ 				       MGMT_STATUS_INVALID_PARAMS);
+ 
++	/*
++	 * Wait for the previous power-off completion before publishing a
++	 * new command that could reuse its freed pending-command address.
++	 */
++	if (cp->val)
++		hci_req_sync_lock(hdev);
++
+ 	hci_dev_lock(hdev);
+ 
+ 	if (!cp->val) {
+@@ -1451,6 +1458,8 @@ static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
+ 
+ failed:
+ 	hci_dev_unlock(hdev);
++	if (cp->val)
++		hci_req_sync_unlock(hdev);
+ 	return err;
+ }
+ 
