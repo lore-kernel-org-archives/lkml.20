@@ -1,316 +1,272 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010041.outbound.protection.outlook.com [52.101.201.41])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010059.outbound.protection.outlook.com [40.93.198.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B0F47A882
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:02:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626E24FD78D;
+	Tue, 13 Oct 2026 17:03:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.59
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910950; cv=fail; b=EY19KXSu12sFrrCFAIZYxI6wqiY+tuiN1jIVjaHCbcsWkqNRX78Gf308k0y5q2cJ+HJDEgOZu+Y3p4/vEy+EdXojUFYduLbe5BHQf79NAqKLFXvm9KsA2KVWAtODSgv3kP59bvJDpJJR26dd5jNxsgKwK5Ol4xjScJXx/Q+vdU8=
+	t=1791911019; cv=fail; b=ZgWkUArh7IRI70lAzohSw+blSwf4UIz9KD2U0nSPTqx4a0JJ3XDIsrKM344io3X4UlIiD/+8ls3/fpv+vWep++4XrPDQovlCCKL2LBsJacwsTdSSiji0WqoYw0RCPa0CVP/kPKa9Ro41FbSZh3vodeqgLSKatTFdrVPJ5mOu1ko=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910950; c=relaxed/simple;
-	bh=H1Xxv0MdUrqGtqA8jS2WCjXqtEHYe9WagNqXTVXiAck=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=OO8Uewz+n3yLZk1ljEn8RCAF2e/ZqkOm/YJC1kCap/k5S9U9nVEcd+XrzQHtEzGp3j+elAm43ygjNGLJCFdfaeqne9fi7aNBuRjXMpiqnzz5/tu2GSQ7czGnrsVhwyecSknPA72ewDzgLbEMFt451aVV42KHsleb3Q8EjbG7Fsw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=d6BrB2B0; arc=fail smtp.client-ip=52.101.201.41
+	s=arc-20240116; t=1791911019; c=relaxed/simple;
+	bh=u4GbV/U4Jy2yZKk0wsj/7aKuL0YuqTRRModoj2G0qoc=;
+	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=orsFPAp25BXWQspilG1HIlILc6Kaan+kgFzOTQeXl1JaDcv8H20mqh831g2QlQDgzCwq8zmIzR52MyQccNIhkMPpt4M42JcRcen4Z2vuj/3ZiPO1dlc0K4/Qfn4kGwFgiVY/ROHhZffK8x1/Pky0TdMh/1hcacvrzhJLCqIreRs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=O9l+R/hV; arc=fail smtp.client-ip=40.93.198.59
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="d6BrB2B0"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="O9l+R/hV"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H0QWSKseyQY7g4uanQz/pJtNi5mjwr9IFUYz3mWzuuHo5wm447+M3R7OiDgFwXrkBgL8T5eS8wTpZ7J48ti9tUHhAJ+EQK3I4OIbfwqBBDJA3xoq5rmuTFSXOr6qyf/tVaWpGITrvW0tcmonPBr4ZM9Hd56mEAEu69y3uR94CZZcN7069j755SAJ01FXk6+ib4miE+kOMuwp01/V8nFotPHrncP/+zeqmTaIYiHa63ZbY9wg+toLhG6NRewtMsgVGLBX/FSbgcmTWgR7/wGHIyaht1bUBtcwKSZHNx6kvwJfjPLW05u6FJEZtwUMgbd6i2+Bs6mM/zgbKaJM+Uw/cg==
+ b=L63qhx+llwpjjmhGJr7iSZoY1pT3TVL9CRJqk6e1j2FLSpGGTRrvCWlpX/eWVjkioMUbeq/2At2KtYvPU6BRLsUX9ZkRhtZU5ERPpAv+Yl/JvLP0kOE1ucH6JTYma1dKuTBcCd4WeUfnlbYVM4Uhsl0vIw8g1kOd+zAbNotcCF2tjI+cJFzU4CgI13K7lpYFw+Pa2pGTLPqKuZEIxs2p5MhPLzryspH8zhI7fwpr2TgerBGbB0s8GvERA00b/LAjVe3zRhbGn4Q2+lM0OXFaUxjRDQdvLM0BioWFldrXZFfwRxGiFOlrnTyT2B/QAidLUb8UiOUQd3oq1+W+dhQYoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xkz1cITzTCDFp5cit+obmNcc3zxZueI6dSoCPkUELcE=;
- b=nBmf/j0AEMIGBDZHBDGEi2qHpRvqUzL51hQ9ZrjmVacCRaDI+EAqkkvM6I59nk+ldvilDseBb5DC4Ve4NEJbVt/YZFF2+jY8q0uy1jYEOptqCHONTteVO7Nz1zY80F7Rqld+d10NruNyF4BXQQV57GM75/antSD5yHiv+Q4rcwSM3cDlUYQP0tTVg5adW1LigOIqAZcEr9UpZDjj2RagdldmBqe0k1NlXNaz57DFfNEJCWpoBgUMnyzblyXr6D3Vz0VItCyNiT6xAFwg6e7xvRn5KTX3Nd/4rtS0EyySFzZT39VLBOzpY5ySdLNPe2BzElaS0We4wgAM+xnPlW2rMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com;
- dmarc=temperror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none (0)
+ bh=cF5A4LWpo1rrwiMzr6AhBvxL7/gerOQ2Dk50oTFzea4=;
+ b=eS/LIgUxd3g0BbAGVzIVuAIzIPxvJuuOFGnxVDqpvtcoTMTdgWWTuK/rtCzraYoXNZe3mvGSaQk02Lr2bvAnkMNBXYp18gb4JUbw3x397Wgj+6gCaoJCvZGmBw83r5hoAum7JINMz02ffqyu7+2u6YaDgTIH86RkmzZ91Hh6rTycyMsaPZb2PhVVVBRJBX2F2htVLS1Yf603L25CkCFhGfXUN2MuqI3BZffTgdZi4xCrDUvGouV+S/KxCf9ifdpOEWgxeDsByej0ItNrgtMuHLtYpVAYa7eM+HjGvr1Gqgl239O29xhRacCbUy7N2k/JtTfb946Ix08t+nydDo92uA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xkz1cITzTCDFp5cit+obmNcc3zxZueI6dSoCPkUELcE=;
- b=d6BrB2B0dZAS9v58/DlYqyJfi0iVbsgwoKeIcRFywx0ulYtXvFGjSiwl+N6gb/yzLFPdn6khCoPArShNo5PIc4reJkoclh+DfO5n96CYaCkMukesstAhqItHScUNtBhAWGVReiHWMuWAdPCS4Xtc0oghSGRBCXrXxk3Tzr2M9Z8=
-Received: from BL1PR13CA0348.namprd13.prod.outlook.com (2603:10b6:208:2c6::23)
- by CH1PR12MB9718.namprd12.prod.outlook.com (2603:10b6:610:2b2::13) with
+ bh=cF5A4LWpo1rrwiMzr6AhBvxL7/gerOQ2Dk50oTFzea4=;
+ b=O9l+R/hVluw+ADH5M3UIEo15K0LiX+8f4yNh+KpH1AGeYQJ3ZMSKlNLVhCo4YUnKBmUWFDF3xqlIMvwjfrZy136qxr6M4K1kua0grTUbfB3Up16wmuFjW5of9C/ADgmmwCK9WIrUrNeqosaSw6nC5ExzVU1YflXyfJ5zJ5w8xCw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by DS4PR12MB9745.namprd12.prod.outlook.com (2603:10b6:8:2a9::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 17:02:26 +0000
-Received: from MN1PEPF000793FE.namprd05.prod.outlook.com
- (2603:10b6:208:2c6:cafe::92) by BL1PR13CA0348.outlook.office365.com
- (2603:10b6:208:2c6::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Tue,
- 13 Oct 2026 17:02:26 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=temperror
- (sender IP is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not
- signed) header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MN1PEPF000793FE.mail.protection.outlook.com (10.167.249.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 17:02:26 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 12:02:20 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 12:02:20 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 13 Oct 2026 12:02:19 -0500
-Message-ID: <9a73a766-55f6-386f-0ec2-2ca3f4a987db@amd.com>
-Date: Tue, 13 Oct 2026 10:02:24 -0700
+ 2026 17:03:34 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 17:03:34 +0000
+Message-ID: <ed19c161-9703-4967-997a-b9054e92a216@amd.com>
+Date: Tue, 13 Oct 2026 12:03:30 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/8] PCI/quirks: Avoid certain address on Genoa systems
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Maciej Grochowski <Maciej.Grochowski@sony.com>,
+ Nikolas Joshua Britton <nbritton@exabit.io>,
+ Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>,
+ Alexey Fomenko <alexey.fomenko@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Rob Herring
+ <robh@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ linux-kernel@vger.kernel.org
+Cc: Bradley Morgan <brads@mainlining.org>
+References: <20261013130948.6231-1-ilpo.jarvinen@linux.intel.com>
+ <20261013130948.6231-9-ilpo.jarvinen@linux.intel.com>
+ <e3895e35-a0a2-4c32-8ebb-f726a8c8caae@amd.com>
+In-Reply-To: <e3895e35-a0a2-4c32-8ebb-f726a8c8caae@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CY5PR14CA0005.namprd14.prod.outlook.com
+ (2603:10b6:930:2::14) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Expose NPU device busy time via DRM
- fdinfo
-Content-Language: en-US
-To: Max Zhen <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
-	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20261012180808.2548697-1-max.zhen@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261012180808.2548697-1-max.zhen@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF000793FE:EE_|CH1PR12MB9718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70c0b82e-ac05-4ba5-0077-08df294bc1e2
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DS4PR12MB9745:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1438a77d-272f-4a40-dbe5-08df294bea59
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|56012099006|261009223027099003|11063799006|10067099003|18002099003|22082099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|921020|56012099006|11063799006|4143699003|261009223027099003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	9+Tck8HcTdL649ghbfVs42BZ2GUN6z07STlNyIuwGg4qjWM7XU43BTay+1AZxxpt3WJfSzAv1QdNYxQivmyzWgWoDUenZwM//iFZS98s7d5WogmMcyuxgLXTBKNZOOrOXXdgT/PF+wSQC4q06Mhk7GbdyNArmpmWWh1bbSqbnyHQKz0XhqKWyAFfsQIfqaBguOQGn0LY0l5WcSRLAszyLp/BJs1/GqWVAFRcAEkk0pFmYg9xv5dm+UAPrKEe4HNn4Bv/6DfyZD2+c+uw1DVPA5EoYR13yOUzEWNgM6wMiZ/5O689l3WoZuaJQvUJabZw41pgqPwYT8oDm/Riz+Rg9y8xVONja1KYMrI9W2JA7v2vbkIzMYfIC7sBnvEZvyXd05YFtQg75TwdT58bxbVsQ4EQR8JhPXLYkR99kqLHPBWl6PQI+d8uSvfnFxVH55uKWf8k7+EoJcP0jp/gR3ZSLqRsHi9KTLRavMcoD0RA2s3m27aZr9IkaLNCTBiBYHoBuCH5Cn3aR/N9ig2CpS88VrVMTXzltFGIsQrbKskucDelN/RJe+Cex+SXZelWWk4/ruQXPbGzHc9dRh7ADmwwA54x7wO5dZeq7MxfK40cyRVXy8hBF++ch9C3VD+OJtWJnpdntnMuH/ITH+4pDMa8/crLkcnQYsuIRq4/NhOvTAKXhjgyyARk5afZ0QeAEiWhrnMY+rz0HU4xIztzywZrRQ==
+	JcnSFUxLS12B9NatHimq0E2QtkUOb+hk17kAuwGz9cNrSARHYY+6SGeFYYJQybIgtz83BMGT6wXUEg/J6Y8r8QsMmkIbNcBKGj4R8aOptIU61wtvZEZ/dn1nVO5crTvuwBoumbnSb0zBR+tVP3epd49VIQu/uJtGtRFatL8GHK+2itll+hhfnW+PXvSlJscxjkYB4pXygevv0sX6aJA8VhlEEiP4klvU0YOfWHLGZt7HhK/ybHBvT9UCKoLSr9Oznmj07o2KCXeebBbKkkQP7vWVfaU66RTNDc52m/crYkvPJwEwssi3gn9pgMVRwtFdKeZ5CkS4YZScVFBE5O7TjqWS63dHgshsHW+lB3B3dcQzk2wxz2SwU/sDY3FIFFJDcYGqDoJ6ORwl40/ymkpG0JQTULPXZbDt0VEuOLsZO7Omu1OAmaPSP7MY+HApmFefctmDRNDSKz2b2btaN+i1yBv80SopqmwRb3ea6e3JYDcTWYZl+D7dMA1GMFtvdrh06lk2Zrkn1WLr1TJo/nHS9vvWeYdESB2BsYB+c8bXMVUgoxyqUkeIzhQ2nRjo5wTNmU0KyNf0R/VU4fOm5jqLAwIlFx3S8bKSHkxGiyO/1R3eyvnKRSs3pChSEt5TZF7i2xdR5/kVaimYcDhzUzmlCDBh3VtqiDIWUpvanEiGTpk=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(261009223027099003)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(921020)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Ie10xbys1pH9TmOPqi8uIQ7gM+V9psIgx6Tx6R3Tzf9VbY3rs8mm3XCqRAeRzf/5pyeWZtwXJfwIFutBgcAyGjy2LgRjRLk6V8+ApgR3JD+6e0Zx7ZJF8f/hrKgE+Iyczpz6q4MaRn8Hr05S0F9A16tAyAu4avvBeHiAwVahQTRF0umrhu1o69RYkgXgC+/cAd4JCHT+swe6iWTt78MoVWDcMxB8xChBPfqgATony+LWVf2T3CtLPZkhpqylVUf3xO1Y9XSsRRpGLt2vtziuRih00hhvg+j6qUHM2dtV7bx9Fcyexg2AsyztXDxxlyM5I9Lk6c6rKeP6Ta8KpGWhr9G+6+UMdqq9xj16eHNnJ+uQWTOp7I1VrMAVl0fly0hiDrl9lVoGPmOaPLz0CuV7WZmEfA3DyXDsKXPgh6WeNLewJYWGx2hFYCcAjJ72Ng4x
+	=?utf-8?B?TlN2d3pSK3dXS21zTXRVL2tTdzZFTVZ4K2M0RVkvL01EL0dOVzMrRTRhd29m?=
+ =?utf-8?B?UEY4czJMQ3E2c2VnTmhUbXlXMjQrN3E4NkdlY1hndnZpSzl1Qkk4N2Jzb2F1?=
+ =?utf-8?B?R1ViYTVpNGd1OUFsZndpanppZzFIQzQycGlWbG1ZcWwrRDgxUExZMk1PWCs4?=
+ =?utf-8?B?ZkJQMjdKeFEwejYrSFlGTzIxa05CNEVXdXM3N2xCWFpDMWpaTS9OK3o2aUsx?=
+ =?utf-8?B?d3ZKNEF1dDdsemRBUWlOcWh5QUNjdEN4dTlWeHlrb2ltQXU1RDlLSGRMY1ZI?=
+ =?utf-8?B?OFFndThIeFlxMFh3RGtyaElLYVlDckFyUFFzQ1d1aXFDU2RsWXdTa2UxbkRu?=
+ =?utf-8?B?TE1HRzlLa3pEbExhZUIwOWlhNm1iWXRoL1Vad0FISkNkYlgzc2ZzaHJRWFY2?=
+ =?utf-8?B?dStMTXRQSVNiT1Q3WG1hbDV2VEdkaENkVXZSUWk5MlZGTUs3WXpEaDdwWXlS?=
+ =?utf-8?B?OEtiZHFtbnBDM2RYcDBNUzZIcXI2Yk05MDZnZzJyd2xnbTkyOTZJOWhIUVh1?=
+ =?utf-8?B?V1RQdndFQ2dVdzEwM21Kd25waXhJVVNaVVdRVGdZbzVlQlVlYk4xNndsNmZv?=
+ =?utf-8?B?Y0J4TTlDMXcvc2lTZXFETEhKdUN6KzJhQzA5RmowbGpGd3JpdmpuVFJITEJo?=
+ =?utf-8?B?dmtoQ3FSczVORUpLbjdDQ1ZnUENMUDM0cHZzNGVDakEvMFdxanhPNjNJYnhT?=
+ =?utf-8?B?QXpDMWx5eVdPd2ZMM3duVlZscE55U2ZEVVJiWFFuZUxndzRtOFNuSm9YZldt?=
+ =?utf-8?B?a3ZvaVR1MGVTVzZLNlpCY3BpTEpMbkFVK242Z2pBR1hVUTlGQ1BzZi8yeUtw?=
+ =?utf-8?B?VllUMk1oSnE3cDNDc2FwMlRIeWdieVN3VUM4ZUI4L3l5eUVYMXpwU0V6VklN?=
+ =?utf-8?B?dHR1eE9RZnpwaXZ3cVJsRVRKNUozYmU1STlwVkFCS0UwWGNpS202OHNudjZS?=
+ =?utf-8?B?MEwzcTFyNjdnQ1NsY2Uva0hGR3FoeitCdXIwbit4dzdCZDhkVmQvS0tWZTFn?=
+ =?utf-8?B?M1U0Wnd1YllaeEhySEtoVnNja2Q2ZHM4ZkM2bGhkbmpUZ2lpSVBMck43dWd2?=
+ =?utf-8?B?ZE82eFUzYVFyd1NNNUsyQWJXcW1VRStvb2d5N1p4UUU0MEdnQ2VxaU11QVdT?=
+ =?utf-8?B?Z3MvM1UzZlF0OTEwTUxXbWpmYU94c25FK3Ywd0orcnV6T3RoVmZJdk5LT0F1?=
+ =?utf-8?B?N1JUeUFvWXFsMDNXUzU3RVczNVpHQklVZ1ozUXB3THFMS0diVWdPc1EwbUZ1?=
+ =?utf-8?B?R0g2MnVoR3BLc3hMM3ZyZDlYV1N3a0NsR09PV1NwK2QxNmJ6QUdMVWZvUC95?=
+ =?utf-8?B?aDQwbnJYL0gxS0RqdGhDYk92KzB0aS9PdytPVThsL1JxZUtwTmlaMXN0bS92?=
+ =?utf-8?B?QlhJWkJMV1V4T2I5RVJVUUo2NHZNUmd4cXBOc0M2S1A0bHdhL0Fhek5ISkVa?=
+ =?utf-8?B?OEREandLclJyVmlmWEdqSHFKTmNYTVhBbWQ3aG1SWlZ4TE1iaGhxMzRCRUZR?=
+ =?utf-8?B?dzI4MUlaSzZKS2VoaVgzKzczRTBQYStkZ29kbEs1UFR1d1Vza2ZGN1F4aUlG?=
+ =?utf-8?B?Rkg1S2x3cTgyVW9BYVQ3cTdHUXVKdHAvZ0NaemJpdHhuUXZCK1l0T2plVG41?=
+ =?utf-8?B?UDRNSkhodTN1YUdqZ3F0blAydjFwa1VnRjRXV0dvZWVjRnJrcjViU0o1MnhU?=
+ =?utf-8?B?U0V6N0M4VVJnSjZWTmduVlpFZUQ5a3pZRDZKamdyN3ZUcFU0bWdMSFlZUkE1?=
+ =?utf-8?B?cGxaejdmT0UvMHpxMUNDMjRNNGVxekt0UG54b1hpS25HWWhSWFZSbDBsN1gr?=
+ =?utf-8?B?L0VIdlR2bHV3Sld6NEgxVnhmVTdPS0NndGlTM1pNMDJDZ1RFYjNZTmJLaVFm?=
+ =?utf-8?B?L0RVdjJ3TVlIZE9zV1pjVzZGajJtVGRDZW8wdVhEQkhKSDdRRnZPbmxzNWRN?=
+ =?utf-8?B?QWd6SEl4cXVQN3NxZllzKzhnVDJDUlZ5UDl5dGl2VzNpeEVQVEpFZWxzZFBU?=
+ =?utf-8?B?YnJTTnlaVmtQV3hVN0lLQWdCeUV5RlM1SDZsTUFEZ2M4S3RIOVl4Qkd1OFNi?=
+ =?utf-8?B?T2dYRmhvWkhtWDVOU0lPTFc2YkRMcU4xOGkvNDc0OEJkNVFHWU85c1dyMEpH?=
+ =?utf-8?B?ckdaRTJubys1cnZIMEkwVkNuSlBBY2lZdE5Xckc3cGRGbWtxRmpnbTFSeXpC?=
+ =?utf-8?B?MHNCU2NKTGY5T1pjWlNIakh2ckRMMDhkZXUyWTVkcXlNSFVTVUJaUXNIYkhL?=
+ =?utf-8?B?RkdtWG1sZ2IwZ0tyTjJXZzNRTDdYUmtlL2lGWFdYZ3BNOVBSMlh5SWRkQkFP?=
+ =?utf-8?B?ZHZSQ3lJdXVaRTdQc0tuM1JBbWJGb29WN3VrNUloU0llN3ZGeUZUQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:02:26.1561
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1438a77d-272f-4a40-dbe5-08df294bea59
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:03:34.4476
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70c0b82e-ac05-4ba5-0077-08df294bc1e2
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF000793FE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9718
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wz9p6e3LDLMcJkb3ER30VgaiYr6q9hB5pW5KCXgbpxS6W4kNMwOY9UeWEi0dh8k65xTDXLjZJxYUjkUk0nzG2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9745
 
 
-On 10/12/26 11:08, Max Zhen wrote:
-> Expose NPU device engine busy time through DRM fdinfo to enable
-> standardized userspace monitoring and profiling.
->
-> Add support for reporting per-engine busy time in nanoseconds
-> via fdinfo using the "drm-engine-<driver-name>" key. The value
 
-It should be "drm-engine-npu" key here. I will change it when I merge.
+On 10/13/26 12:00, Mario Limonciello wrote:
+> 
+> 
+> On 10/13/26 08:09, Ilpo Järvinen wrote:
+>> While testing the resource placement changes, tests hit a case where
+>> igb fails to probe when BAR 0 is placed at 0x9c000000:
+>>
+>>     90000000-9cffffff : PCI Bus 0000:a0
+>>    -  90000000-902fffff : PCI Bus 0000:a1
+>>    -    90000000-900fffff : 0000:a1:00.0
+>>    -      90000000-900fffff : igb
+>>    -    90100000-901fffff : 0000:a1:00.0
+>>    -    90200000-90203fff : 0000:a1:00.0
+>>    -      90200000-90203fff : igb
+>>    +  9be00000-9c0fffff : PCI Bus 0000:a1
+>>    +    9be00000-9befffff : 0000:a1:00.0
+>>    +    9bf00000-9bf03fff : 0000:a1:00.0
+>>    +    9c000000-9c0fffff : 0000:a1:00.0
+>>       9c100000-9c17ffff : amd_iommu
+>>       9c180000-9c1803ff : IOAPIC 8
+>>
+>>    -       Region 0: Memory at 90000000 (32-bit, non-prefetchable) 
+>> [size=1M]
+>>    -       Region 3: Memory at 90200000 (32-bit, non-prefetchable) 
+>> [size=16K]
+>>    -       Expansion ROM at 90100000 [disabled] [size=1M]
+>>    +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable) 
+>> [size=1M]
+>>    +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable) 
+>> [size=16K]
+>>    +       Expansion ROM at 9be00000 [disabled] [size=1M]
+>>
+>> igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
+>> ------------[ cut here ]------------
+>> igb: Failed to read reg 0x18!
+>> WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at 
+>> igb_rd32.cold+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
+>> ...
+>>   igb_get_invariants_82575+0xff/0xf00 [igb]
+>>   igb_probe+0x3c8/0x1190 [igb]
+>>   local_pci_probe+0x3b/0x80
+>>
+>> It turns out there is a 64kB iomem black hole at 9c000000 that returns
+>> ~0 and this is where igb's BAR 0 resides. If another BAR of the same
+>> card is placed into that address, it is similarly black holed.
+>>
+>> Mark the problematic 64kB range reserved using a quirk bound to the
+>> bridge found in the problematic system.
+>>
+>> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222074
+>> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+>> Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+>> ---
+>> Cc: Borislav Petkov <bp@alien8.de>
+>>
+>> As an alternative to this, I've also tested reverting the commit
+>> 07eab0901ede ("efi/x86: Remove EfiMemoryMappedIO from E820 map") and
+>> that also resolves the issue by retaining "9c000000-9cffffff : Reserved"
+>> entry in the resource tree.
+>>
+>> ---
+>>   arch/x86/pci/fixup.c | 36 ++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 36 insertions(+)
+>>
+>> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
+>> index b301c6c8df75..cc463bf492b6 100644
+>> --- a/arch/x86/pci/fixup.c
+>> +++ b/arch/x86/pci/fixup.c
+>> @@ -822,6 +822,42 @@ DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 
+>> 0x1571, pci_amd_enable_64bit_bar);
+>>   DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x15b1, 
+>> pci_amd_enable_64bit_bar);
+>>   DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x1601, 
+>> pci_amd_enable_64bit_bar);
+>> +/*
+>> + * TODO: Remove when/if root cause is found.
+>> + *
+>> + * Genoa appears to have a 64kB iomem black hole starting at 0x9c000000
+>> + * address for which all reads return ~0 blocking an overlapping BAR 
+>> from
+>> + * working.
+>> + *
+>> + * Work around the problem by reserving the space prior to making any 
+>> iomem
+>> + * allocations that could overlap with the black hole.
+>> + */
+>> +static struct resource genoa_black_hole = 
+>> DEFINE_RES_MEM_NAMED(0x9c000000,
+>> +                                   SZ_64K,
+>> +                                   "reserved");
+>> +
+>> +static void genoa_iomem_black_hole(struct pci_dev *dev)
+>> +{
+>> +    struct resource *r;
+>> +
+>> +    pci_bus_for_each_resource(dev->bus, r) {
+>> +        if (!r || !r->flags || !resource_assigned(r))
+>> +            continue;
+>> +
+>> +        if (!__resource_contains_unbound(r, &genoa_black_hole))
+>> +            continue;
+>> +
+>> +        if (resource_assigned(&genoa_black_hole))
+>> +            pci_dbg(dev, "iomem black hole workaround already 
+>> applied\n");
+>> +        else if (!insert_resource(r, &genoa_black_hole))
+>> +            pci_info(dev, "iomem black hole workaround enabled\n");
+>> +        else
+>> +            pci_dbg(dev, "iomem black hole workaround add failed\n");
+>> +        return;
+>> +    }
+>> +}
+>> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_AMD, 0x14ab, 
+>> genoa_iomem_black_hole);
+>> +
+>>   #define RS690_LOWER_TOP_OF_DRAM2    0x30
+>>   #define RS690_LOWER_TOP_OF_DRAM2_VALID    0x1
+>>   #define RS690_UPPER_TOP_OF_DRAM2    0x31
+> 
+> I guess it's good we know the root cause is 07eab0901ede. If we're going 
+> down the path of making holes in that we may well put the hole in 
+> efi_remove_e820_mmio() like this (attached).
 
-Lizhi
+I don't really like that though.  If Genoa is affected I would expect 
+plenty of other machines are too they just haven't been found yet.
 
-> reflects the accumulated NPU device execution time for a given
-> process, allowing userspace tools to observe NPU device
-> utilization without driver-specific ioctls.
->
-> Signed-off-by: Max Zhen <max.zhen@amd.com>
-> ---
->   Documentation/accel/amdxdna/amdnpu.rst  |  1 +
->   drivers/accel/amdxdna/aie.c             | 39 +++++++++++++++++++++++++
->   drivers/accel/amdxdna/aie.h             |  4 +++
->   drivers/accel/amdxdna/aie2_ctx.c        |  6 ++++
->   drivers/accel/amdxdna/amdxdna_pci_drv.c |  6 ++++
->   drivers/accel/amdxdna/amdxdna_pci_drv.h |  9 ++++++
->   6 files changed, 65 insertions(+)
->
-> diff --git a/Documentation/accel/amdxdna/amdnpu.rst b/Documentation/accel/amdxdna/amdnpu.rst
-> index 064973bf4893..d72af1b51ccf 100644
-> --- a/Documentation/accel/amdxdna/amdnpu.rst
-> +++ b/Documentation/accel/amdxdna/amdnpu.rst
-> @@ -289,6 +289,7 @@ Example of the output showing the implemented key value pairs:
->           drm-driver:	amdxdna_accel_driver
->           drm-client-id:	3219
->           drm-pdev:	0000:c5:00.1
-> +        drm-engine-npu: 14003870 ns
->           amdxdna_accel_driver-heap-alloc:	60 KiB
->           amdxdna_accel_driver-internal-alloc:	67588 KiB
->           amdxdna_accel_driver-external-alloc:	0
-> diff --git a/drivers/accel/amdxdna/aie.c b/drivers/accel/amdxdna/aie.c
-> index dd6f36f222c7..bf8eb66baab8 100644
-> --- a/drivers/accel/amdxdna/aie.c
-> +++ b/drivers/accel/amdxdna/aie.c
-> @@ -118,6 +118,45 @@ void amdxdna_vbnv_init(struct amdxdna_dev *xdna)
->   	amdxdna_update_vbnv(xdna, info->rev_vbnv_tbl, rev);
->   }
->   
-> +void amdxdna_io_stats_job_start(struct amdxdna_client *client)
-> +{
-> +	int depth;
-> +
-> +	guard(spinlock)(&client->io_stats.lock);
-> +
-> +	depth = client->io_stats.job_depth++;
-> +	if (!depth)
-> +		client->io_stats.start_time = ktime_get_ns();
-> +}
-> +
-> +void amdxdna_io_stats_job_done(struct amdxdna_client *client)
-> +{
-> +	u64 busy_ns;
-> +	int depth;
-> +
-> +	guard(spinlock)(&client->io_stats.lock);
-> +
-> +	depth = --client->io_stats.job_depth;
-> +	if (!depth) {
-> +		busy_ns = ktime_get_ns() - client->io_stats.start_time;
-> +		client->io_stats.start_time = 0;
-> +		client->io_stats.busy_time += busy_ns;
-> +	}
-> +}
-> +
-> +u64 amdxdna_io_stats_busy_time_ns(struct amdxdna_client *client)
-> +{
-> +	u64 busy_ns;
-> +
-> +	guard(spinlock)(&client->io_stats.lock);
-> +
-> +	busy_ns = client->io_stats.busy_time;
-> +	if (client->io_stats.job_depth)
-> +		busy_ns += ktime_get_ns() - client->io_stats.start_time;
-> +
-> +	return busy_ns;
-> +}
-> +
->   int amdxdna_get_metadata(struct aie_device *aie,
->   			 struct amdxdna_client *client,
->   			 struct amdxdna_drm_get_info *args)
-> diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
-> index 0483d582b7f8..1fc5ddfe696a 100644
-> --- a/drivers/accel/amdxdna/aie.h
-> +++ b/drivers/accel/amdxdna/aie.h
-> @@ -117,4 +117,8 @@ void aie_smu_fini(struct smu_device *smu);
->   int aie_smu_set_clocks(struct smu_device *smu, u32 *npuclk, u32 *hclk);
->   int aie_smu_set_dpm(struct smu_device *smu, u32 dpm_level);
->   
-> +void amdxdna_io_stats_job_start(struct amdxdna_client *client);
-> +void amdxdna_io_stats_job_done(struct amdxdna_client *client);
-> +u64 amdxdna_io_stats_busy_time_ns(struct amdxdna_client *client);
-> +
->   #endif /* _AIE_H_ */
-> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-> index d927c8c9d557..9c6b7353cbe9 100644
-> --- a/drivers/accel/amdxdna/aie2_ctx.c
-> +++ b/drivers/accel/amdxdna/aie2_ctx.c
-> @@ -290,6 +290,7 @@ aie2_sched_resp_handler(void *handle, void __iomem *data, size_t size)
->   	int ret = 0;
->   	u32 status;
->   
-> +	amdxdna_io_stats_job_done(job->hwctx->client);
->   	cmd_abo = job->cmd_bo;
->   
->   	if (unlikely(job->job_timeout)) {
-> @@ -322,6 +323,8 @@ aie2_sched_drvcmd_resp_handler(void *handle, void __iomem *data, size_t size)
->   	struct amdxdna_sched_job *job = handle;
->   	int ret = 0;
->   
-> +	amdxdna_io_stats_job_done(job->hwctx->client);
-> +
->   	if (unlikely(!data || size != sizeof(u32))) {
->   		job->drv_cmd->result = U32_MAX;
->   		ret = -EINVAL;
-> @@ -344,6 +347,7 @@ aie2_sched_cmdlist_resp_handler(void *handle, void __iomem *data, size_t size)
->   	u32 cmd_status;
->   	int ret = 0;
->   
-> +	amdxdna_io_stats_job_done(job->hwctx->client);
->   	cmd_abo = job->cmd_bo;
->   
->   	if (unlikely(job->job_timeout)) {
-> @@ -405,6 +409,7 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
->   	kref_get(&job->refcnt);
->   	fence = dma_fence_get(job->fence);
->   
-> +	amdxdna_io_stats_job_start(job->hwctx->client);
->   	if (job->drv_cmd) {
->   		switch (job->drv_cmd->opcode) {
->   		case SYNC_DEBUG_BO:
-> @@ -432,6 +437,7 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
->   
->   out:
->   	if (ret) {
-> +		amdxdna_io_stats_job_done(job->hwctx->client);
->   		dma_fence_put(job->fence);
->   		aie2_job_put(job);
->   		mmput(job->mm);
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index bb339e641416..67a02d6b7f97 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -14,6 +14,7 @@
->   #include <linux/iommu.h>
->   #include <linux/pci.h>
->   
-> +#include "aie.h"
->   #include "amdxdna_cbuf.h"
->   #include "amdxdna_ctx.h"
->   #include "amdxdna_debugfs.h"
-> @@ -151,6 +152,8 @@ static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
->   	filp->driver_priv = client;
->   	client->filp = filp;
->   
-> +	spin_lock_init(&client->io_stats.lock);
-> +
->   	XDNA_DBG(xdna, "pid %d opened", client->pid);
->   	return 0;
->   
-> @@ -287,6 +290,9 @@ static void amdxdna_show_fdinfo(struct drm_printer *p, struct drm_file *filp)
->   	size_t heap_usage, external_usage, internal_usage;
->   	char *drv_name = filp->minor->dev->driver->name;
->   
-> +	drm_printf(p, "drm-engine-npu:\t%llu ns\n",
-> +		   amdxdna_io_stats_busy_time_ns(client));
-> +
->   	mutex_lock(&client->mm_lock);
->   
->   	heap_usage = client->heap_usage;
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> index a997d27a504d..510356a31532 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> @@ -143,6 +143,13 @@ struct amdxdna_device_id {
->   	const struct amdxdna_dev_info *dev_info;
->   };
->   
-> +struct amdxdna_io_stats {
-> +	spinlock_t			lock; /* protect io stats */
-> +	int				job_depth;
-> +	u64				start_time;
-> +	u64				busy_time;
-> +};
-> +
->   /*
->    * struct amdxdna_client - amdxdna client
->    * A per fd data structure for managing context and other user process stuffs.
-> @@ -169,6 +176,8 @@ struct amdxdna_client {
->   	size_t				heap_usage;
->   	size_t				total_bo_usage;
->   	size_t				total_int_bo_usage;
-> +
-> +	struct amdxdna_io_stats		io_stats;
->   };
->   
->   #define amdxdna_for_each_hwctx(client, hwctx_id, entry)		\
+Can we roll back 07eab0901ede and add quirks for the busted machines 
+instead?
+
