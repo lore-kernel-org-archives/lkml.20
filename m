@@ -1,129 +1,133 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82ED3CF043
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:18:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AF33CEB8A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901125; cv=none; b=YC5jH5TBMgdEQr6t1S90cg6j33RXt+qCHPZVbpES1NzFX8rbTGni+/oHQcdi92WJlall32qReVGWEvdctHjCpyHBhmmJicYgJRlGGo5Utx6KaIOvfhCPvbwraea5mYpiK3X6C6Cr+bZf7VTCducguThkU+c/xUUD6iLfxK4s5iM=
+	t=1791901133; cv=none; b=FVWP/cmyrZdzgkh8uFNjT+B5wg85yv5w2hwLohKHtyNmKekh0Tem4oFVEEGmlhU0VLf2u2GK4zgF8iZSnPADjcnaDzGdWGOxr92FA4P+ICKTfNGdP1/JeKuVlffkQJFBRGx9zIS4FsFnqMVic24JNQHcYVlTkT0kKnTJm5wUXh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791901125; c=relaxed/simple;
-	bh=DjN1Z1sIdx3HQP5D5CjZo1VeUEgmovGu3tSOZXPPIL0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=olDduKFtHMCC8nzqKsePBca462yP4LJzpHE8m2+hplne0CZBgmImQAZnauQuMWCrEtsjzJGoYeAM/INl3dN91CfPf38SpnZQfh6NaCgYeaU1OuON1Aj4eZpiOZg3303oGu7N5hc5nvXLQ7Y6dKDNSCbtWZSyN465bcwRvGaQWvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HYszhVmQ; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791901133; c=relaxed/simple;
+	bh=jU/7GX4KXsH1jJRq9lbzfmdldjjzkUh1WHWdc+JQWw0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l+Qf1X0Ffz9SUvwBLr5vi6x6B4Jc6hShvqLAEW0+wna0yLgtvTJJ1ee5IvZxXHdK1QtquSVuR+Dq6NXEnhxOzhYKwMKQHLHcExvZNtmPaFh83DnSmT6V/TGDrVHb3JHREdnR4G4i1N80QLP2W+F+dtCv7y/P+91z5f+ZbnEgiIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=WnqFh5ir; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HYszhVmQ"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1819024e9so3201825e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:18:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="WnqFh5ir"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-917a707f37eso40401426d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:18:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791901122; x=1792505922; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FF7kGrjYVroQvx3Js402xF8Hx+AYtPxucnLzO3Yxey8=;
-        b=HYszhVmQiuUnHNRdYtip6rk2zJFIoYvjziQ3FJCcT8FOhzRzwI+XMn8VPQD9Ab+pZO
-         WPdveNxFNGXiYL7mDhLKZrKpuTK+tJ55RIqSTfbDP/K0j9Ukje9YfZRcyDFpFR5XHblC
-         QSdIpXZIQTaqs6BJ9gFoA2qYk24WyqHO9cMC2jDcA2YyxSYKyBcoeLkHoRNJuRUqGyvF
-         3sdmXkkdSn6+HIa47k6pbyGwTN8V+QVcl0qvnvr78cfnyRpFxJTkwc5m3xtj4sLbpM1A
-         9Ouq1EyD6hOHkJcCjuHTNPMFVNwAnrxTsukiqLL/GH+WCJTa78ecHWFSEdAqsTTAXzVg
-         gj3g==
+        d=rowland.harvard.edu; s=google; t=1791901131; x=1792505931; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hoW0AuPuvcUCxHBlCzsvE/6WR7qHvoTNOr1hSF5UVwI=;
+        b=WnqFh5irUp/jYIh/R55tpbdV+PIO9orqtZdcj1Sgpqj83Bf4uW1j2KPcl0eFF6872D
+         1QxGoeHiARj3nLaGzAuux9F9b5rNswGno1bbTC6LryEg/B1q5JeBMLy0UaF5EDdAGpJ7
+         cnfJpNq8dKKwfwHnTZLSyaWCwd/yCyo+T8xXw6vsf/SoYLjsgfiCZG9iYa8THTGy2Juu
+         JqjXXExf4r9kttzpSf1EKtSSJvYteQOjFMIiJ7MfCIXuVt+HNaQoSq/dAxVGkYgpQ7Tz
+         6ugL5LA/wpIkwQ0/lC8v1TUhG0oDRmdUQ4J3ADEUzS9MNfY/n+XjiHeklCWDqreG9Boo
+         LdPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791901122; x=1792505922;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FF7kGrjYVroQvx3Js402xF8Hx+AYtPxucnLzO3Yxey8=;
-        b=BaKHBvEn19wmJxZiCHrZe3nfGPSMgXsgpM+xhk4GsbdvgObpUojsHVsHDPCboocUfv
-         B4rBlP5Y8YB9BikamjFpQk0b6NhbzevxSd+aI26Vo2DEVdlpbQ+zO7mrhdURK2AHJstd
-         9fOuwjm2j8A5oV4oY2kDeijKg+uChfFUDjrqgC3m5v4GOwZLOm6j3d3fRThYLIMj+BJB
-         lGkOCiEfx7ba1a3SeGlSfk6PFdtLdezTvMfoX/mZmDTRunrqBaQy89gxiVK5hl3+fFdX
-         IAMkQs2reyPT1UrGuFOd1HazCwKLjVOUZGpoGBC6UJ6KqtboDhfOz4nGOiwQxV4A1O12
-         OcMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwVrbh6yY0nhuAeMU9QPVMSrdqstOb0+YKSn8N/xdG56Qu1zTLJFmOAnpA3AkhaOOFbziFVNiCNRMa2SjA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQTG9B1BSrkribw5lajbe4Yf/x3B2Dxg9FnfZl0/Rw6dkhK9H9
-	TIudV47w/P7ilGG448DqEqvZpit/PzRw+XI1jwYDiFKStSUaMwZ1o1r9
-X-Gm-Gg: AYBFou1RdVHqam2AMQwdzoc3EvZtMfOE9c5fSBnlDcawL1iPSIfKs74FR7+QvKxGlFV
-	deNxX5jSJe+SwkhGVU4qhc932jeg2ByzXCgDa35UBAu3iHMiZ/3gZpEizTO1s2uEiFTsJIWmlQJ
-	L+KDZcUCzvx+K8gu+Tug4jj+e3plFE3NEyC6700dA6VJIPjG7eLptXEx2PAQWHoc1ovNEgBcYbq
-	7XzEFHnC84JsLNJDLf1cRAweomkFUKUkm9o/uCo0n4ZyDo9m61JmqxYjji/jMMRMPY98OxnIHev
-	gfMgTyAVeIyorEWcwCSLIpKnY4JSZWgupZt0giVzzWrVtqO+v1Sf1nsQdPuQb+FcOGTmUxyRePM
-	hKDkjS2gIlxYdj60C9HRNggnzRyfT0wJzIk0o1FfcfXcsHcYv6ZY9aoFiqJxKgKTSJBWfIft0Ol
-	4Rmf0hSAkG+hUOnZf1/5yGBd449QVt0f/gJoPCavamvzxjEdH2biGH3yLHs5t24ekMrvVtRtT8b
-	z4BMsTn4C9h4ckL8SCdPw==
-X-Received: by 2002:a05:600c:a086:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4a18e3ea887mr219864785e9.0.1791901121695;
-        Tue, 13 Oct 2026 07:18:41 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be8c5e7sm458795225e9.4.2026.10.13.07.18.40
+        d=1e100.net; s=20260707; t=1791901131; x=1792505931;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hoW0AuPuvcUCxHBlCzsvE/6WR7qHvoTNOr1hSF5UVwI=;
+        b=SKlYZBHURazIfkFGB/uWYmGDTM7pcoNdr4qFmhhLb2y7K23W5gVwoR94At6XIcupcX
+         ++yQN9Ao0nU0hl0OtL4ZcruXyMwNALMXZtzBVh/Dix+55Nd4klzTSmNgz+l/wHVfm/y9
+         xf5bgsnLOSYtxLdFJuR4PESqIAs0Lkj1hGq2fvp7wPWX3DRwqZJU5HbTlxn/HEjH9ggW
+         xNiyo4ReFJ/JwqE+hwP85v5rK0y/cjYs/6ItxRzlvbFRpVsIIlI5a6IEHhRKS77T5bMJ
+         Q825aKbU3XZD/jQUEoHgHb5oJVVEpBc1CHwNJCvePo2BpgUYTj7wnKaSNYfsgOfqybLe
+         hVkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWXfnMEBxruL7mM55qwTW56BdfSELUu7lyUGqHdmJNuFxjQFoJ6FwbMLMqBslIiUJpMf/esJqC1h22IAU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNtp/GQskxnlUkDgithPP5LaxsrAiHPIPJjAPYxYzd3PGsRIvk
+	DjQMvYue2JH1VeDgDDfns/1elIBicYXJxzpLjYRoe2xtvdYYcLetLJ2QDhoxAwMAjw==
+X-Gm-Gg: AYBFou20qTaM3EwVAJuVhIly4cJG2CjHUKmTSbz8QbjwHrxgeVvDjR8tNAPEyVejv9u
+	gQMGW/JXp3g1O7g3Fu8uzaU7mRTYfniVa4EiCyvVjzNnI7smB8TJrA2M51+4XlNuEEaRUD7+11O
+	a8KGugScpkIRZRAoPcelyTDs/EqqdCZ1LCEzLXeXPwC9JhnnCMccBD5MRAGyriAhNbMwHbTl9w/
+	266UqjzkEvpAK0Ik5znDQzO/OquNlQ1iic0ITHk5dryxslZR3Bmpo9a7pNXqz8OfrUSUGT6k5fC
+	6PLygj5B/XLkZG7E9UUFKBrTLJJ155YRIASAFfJQrnMxdIQayA6b7Ug61Ccb/r+HV/SvLaX3X12
+	A7VDd+77arXzVqUiPytXadDSQSsJTHo7+etH9SkzmcZ2ZCNHCA4/rcMYTh0W0Z+i63XK3gP5vz4
+	xv/+6dSATXz02c4Vu8z9AXS/N2vr03s3wt6M/44gOb1+SxAqp+DhL9bHdRtJw60fTBtFgOiNyGf
+	7Uy8ymseNJguEo8
+X-Received: by 2002:a05:6214:ca4:b0:91b:5d3b:4ac0 with SMTP id 6a1803df08f44-91b5d3b4e68mr214148336d6.53.1791901131080;
+        Tue, 13 Oct 2026 07:18:51 -0700 (PDT)
+Received: from rowland.harvard.edu ([140.247.181.15])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b9bda8643sm18530786d6.25.2026.10.13.07.18.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:18:41 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: elif.topuz@arm.com
-Cc: christian.loehle@arm.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
+        Tue, 13 Oct 2026 07:18:50 -0700 (PDT)
+Date: Tue, 13 Oct 2026 10:18:48 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Xuntao Chi <chotaotao1qaz2wsx@gmail.com>
+Cc: linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
 	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	vincent.guittot@linaro.org,
-	Kayra Cizmeci <kayracizmeci@gmail.com>
-Subject: Re: [PATCH] sched/eevdf: Remove redundant RUN_TO_PARITY check
-Date: Tue, 13 Oct 2026 17:18:36 +0300
-Message-ID: <20261013141837.57168-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261012105001.131311-1-elif.topuz@arm.com>
-References: <20261012105001.131311-1-elif.topuz@arm.com>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [BUG] usb-storage: 14cd:1212 returns incorrect data after large
+ READ(10)
+Message-ID: <1ff84ebd-f805-4f16-91cb-ccc805c8e946@rowland.harvard.edu>
+References: <34f2ac0a-04d0-41cf-a2a4-11a93c7c9b91@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <34f2ac0a-04d0-41cf-a2a4-11a93c7c9b91@gmail.com>
 
-> update_protect_slice() is only called from wakeup_preempt_fair() when
-> RUN_TO_PARITY is enabled. Remove RUN_TO_PARITY check inside
-> update_protect_slice() and use cfs_rq_min_slice() directly.
+On Tue, Oct 13, 2026 at 09:41:22PM +0800, Xuntao Chi wrote:
+> Hello,
+> 
+> I would like to report a deterministic silent read corruption issue with
+> 14cd:1212 USB microSD readers and propose adding a MAX_SECTORS_64 quirk.
+> 
+> A READ(10) larger than 64 KiB can cause the following READ(10) to return
+> data from the wrong LBA. The trigger I have found is that the second
+> read starts 64 KiB beyond the end of the first read. Instead of honoring
+> that gap, the reader returns data starting at the end of the first read,
+> that is exactly 64 KiB before the requested address. Both commands complete
+> successfully, but the returned payload contains erroneous data.
+> 
+> The same problem is observed on 3 physically separate readers purchased
+> from 2 different OEMs, all identifying as 14cd:1212 and with the same
+> serial.
+> 
+> Device and environments
+> -----------------------
+> 
+>   VID:PID:         14cd:1212
+>   idVendor:        Super Top
+>   idProduct:       microSD card reader (SY-T18)
+>   bcdDevice:       1.00
+>   iManufacturer:   Generic
+>   iProduct:        Mass Storage Device
+>   iSerial:         121220160204
+>   speed:           USB 2.0 high speed
+>   driver:          usb-storage
+>   logical blocks:  512 bytes
+> 
+> The error is reproduced on an arm64 machine running 6.18.54 kernel, the same
+> machine running a 6.12.112 kernel, and an amd64 machine running 6.8.0
+> kernel, and is confirmed directly using libusb.
+> 
+> This has been observed to cause data silent data corrupting when mounting an
+> ext4 partition from the device, and setting max_sectors_kb=64 as a
+> workaround fixes it completely.
+> 
+> Would adding a US_FL_MAX_SECTORS_64 quirk be appropriate? I retest against
+> the latest mainline if needed.
 
-> Signed-off-by: Elif Topuz <elif.topuz@arm.com>
-> ---
->  kernel/sched/fair.c | 9 ++-------
->  1 file changed, 2 insertions(+), 7 deletions(-)
+Yes, that quirk would certainly be appropriate if it fixes the problem.
 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index b42a0ca2a69e..f493fa29aed6 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -1133,13 +1133,8 @@ static inline void set_protect_slice(struct cfs_rq *cfs_rq, struct sched_entity
->  static inline void update_protect_slice(struct cfs_rq *cfs_rq, struct sched_entity *se)
->  {
->  	u64 vruntime = min_vruntime(se->vruntime, avg_vruntime(cfs_rq));
-> -	u64 slice = normalized_sysctl_sched_base_slice;
-> -	u64 vprot;
-> -
-> -	if (sched_feat(RUN_TO_PARITY))
-> -		slice = cfs_rq_min_slice(cfs_rq);
-> -
-> -	vprot = min_vruntime(se->vprot, vruntime + calc_delta_fair(slice, se));
-> +	u64 slice = cfs_rq_min_slice(cfs_rq);
-> +	u64 vprot = min_vruntime(se->vprot, vruntime + calc_delta_fair(slice, se));
->  
->  	if (sched_feat(PREEMPT_SHORT) && slice != se->slice)
->  		vprot = min_vruntime(vprot, ineligible_vruntime(cfs_rq));
+Note that you can test it with no changes to the kernel, by specifying 
+the appropriate "quirks" module parameter for usb-storage.  For example, 
+before plugging in the device, do:
 
-LGTM.
+	echo 14cd:1212:m >/sys/module/usb_storage/parameters/quirks
 
-> base-commit: 4a3b51aab6e25244d97936aa65e6d5425adf98e1
-
-Finally someone who enters their base commit...
-
-I boot tested the changes. Did some work to test it. It's pointless, but
-still I wanted to do some test. Because IDK.
-
-Yeah well,
-
-Tested-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Alan Stern
