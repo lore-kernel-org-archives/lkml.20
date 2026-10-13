@@ -1,231 +1,123 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012027.outbound.protection.outlook.com [40.107.209.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C6C4BFE9C;
-	Tue, 13 Oct 2026 10:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888690; cv=fail; b=OEDtZIzJNXAgSzU8UMOC/AeHVYDSibNZ7h3RMQu9Sei8dvCEzVZHYwW9RbvPq43P3vQpeO6rrXKKUvihTxLTOhy3X78DE4VLfPtNjxevF06yB7OTxeEEbEn32HInHAX3VKNPNb8DbdBoIZ37jl2ysDvMbXWzfLm0QF1k/vKRsgk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888690; c=relaxed/simple;
-	bh=d9AKBzA0W0XGX2+fAkHbP+XIK62X19QTpRyjc5fDDOs=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=aSCkcaCk9P2mkOmzh736U1Zebyhw1CagrTBQmvQYHoEwGEf3fhNA83ZrKk17D3+9Q5rPPZCahJLoIsKmV2zzKEDj63qd5CUEm2U3df+lMY7CxzR/rbPFnfQlFrfo0kYxDXwlOiTSDJC813WdfH5a9hYWulz7pxS+QXdnQJqh51M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Z2uMLuBD; arc=fail smtp.client-ip=40.107.209.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9294D4876
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:53:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791888801; cv=none; b=YPos/D00drAwWhY41XyB/LHdJ9vAJq4eDcUb9JQwqqrQRAO+ynLO0sx7wIAbyTsyicoL8TZ0sL2DNF39MGSWME76hAGhgZyR/dT5zzfE3RzARRAnCU1ih7n9aMUXlZqEiWiCimnuZuQ98ckQ5hjb/JDWkHUWskIrGZhtAA9MC0Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791888801; c=relaxed/simple;
+	bh=OeqZFh2AYWYR7ltZDBpLKceGFxH4LNQaJv7496x0jRI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tmGoz40i9MU9+rMPdwuLqztuP3vX1SC7lAa9/bBU9QYZLUIKNn4/g1gN3rEG88xQXWCZdx8K3GmNaHgkYSqd9snX39pN5qNIRLhJnVSTpLRrO5/WXx/Cwh68dJp6oZrx1m/JKq3OaDbd9pGhAKYxPChdi2Yz+bWqRyG9jiAtG88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LIrt/bvi; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Z2uMLuBD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kd31/Cu3w94PnyuHY58UBzvRUrHr+ZGPp1gitiTMEw7Y268OfGiukSewTmXSnv0f/luscWoNEpAKVwSuN7q/9QfwgAhT+84U4k24ghKW4jUzrfdx3Uxbbbf5zOeg9R1u08afkEKWYmrmvJPKNgi1O1vRcmXdeicsyavFAW9/TJfF84H4rCAnVzYjxkoDIgaERj7kbXFHBlT8JHWxEZ2Pv4fB8ULgWR8uYYCANxPNUBwrrzW33nvkJJ1ADIKWPK2oYEgYHnCJFOTXcjc4RzL0NuAWKirttoq4Uj2BFhFZgELyx7XxwvpSyPYcwTseAdkTHTC74PvEpoJlVXFddMbHJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C1i8GbZOCVUUEg93QBHyZP4p+14N9bAtHqaxZ6rcVms=;
- b=kQLbM5MbGo9x7/qjRkST0JvkaQXFwwOK/k4vtVMaWEkCJsduAygh2X5QIjqvnORSj4fUKG1OzMwZa8y630H7Le53rWYsnT6xI4cMhl9oQeIo22W/JzJSYSwcxOZCRx8+O3CDybwi0bmAPSDSQR5BEQgpFK9lrqcWvwsT9opw5Fkg/FNs4LVbpCsCgOzyk0hDoI1/3A1bT3C+sUB3uWaNJyM9htYTXrknl1NE6RuXRGdL/N15y6tuXDj6KJe+WhF6xw0JwEWrkM9t4XXGMfdBHlM4fsPE8Y/KondIZOYV0TyG3GbOiuUqoCanZ50OmWLMJown/Bp5zpPopAvDXHqX5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C1i8GbZOCVUUEg93QBHyZP4p+14N9bAtHqaxZ6rcVms=;
- b=Z2uMLuBD7mr4RYy89gCkTyg1WVoBKd3AkdsViVQOqfXG1+eJPoDrJx0S0xfKh9GeqYXm5WThxpPM6GPvbQikdNbyxTnjTDCaIrqAwcs7EF1AdqSHB7IvBGp8acB178lJP/zLeG0ZhA+ilhuGa1qDTS4kkZP0w8V8P8UFnoaEgrvTjUZctuqdrJZUgTaOZMQsAeSh4R5MqmUeBsen/I6E8X+DrXMmtQEZ5VG8r/ubpHUax7YBejVFroKQuraFtVWJ1B6HBpY+GMWaKou/MtXT41mDm1b8c4RQaV8m6/OgxyrT8H9w9ER5e4GToqpik9uJ8E8y5LN8aC89RI4ucYw6yA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by PH7PR12MB6953.namprd12.prod.outlook.com (2603:10b6:510:1ac::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 13 Oct
- 2026 10:51:26 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 10:51:26 +0000
-Message-ID: <ac599c26-563a-45df-af23-a864ec2e541b@nvidia.com>
-Date: Tue, 13 Oct 2026 11:51:21 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 RESEND] pstore/zone: Emit registration message as a
- single pr_info()
-To: Kartik Rajput <kkartik@nvidia.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G . Piccoli"
- <gpiccoli@igalia.com>, Thierry Reding <thierry.reding@kernel.org>,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-References: <20260710094404.995355-1-kkartik@nvidia.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <20260710094404.995355-1-kkartik@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR3P250CA0011.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:102:57::16) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LIrt/bvi"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2690901f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:53:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791888798; x=1792493598; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=weAsaaLz8bOtBYNYCdIRoGplN8xEUwEYdEIJVgSddI8=;
+        b=LIrt/bviJxfsvKM6143rYC+2KkjxJ8T9A+LufpnasZYVShIj/U+suM+7r8v8TFekwG
+         P6ADJd8PK93PKdUBDHaYgBrBeqipIlR2aD/E7Hf6xc1X2b96aJE86EZr1OG9k+hcGf+M
+         cMn+zq5/Or7okg66GhzkWsCvATRFrEivWxe+lD8TCTamnGf+OZZgoOznmtDbTgqCI4zc
+         WUT72SPO30beijLx42R5yFax2OlTUQ/dRoVTZBPnixTKO/QGfzpbRkC8oGNWUvD7Dzr/
+         2c42XKvaOZxUMZuAliL17/rGunUwJGeb9oiPXHhZwFcCG/wuVzmCnePRr85lnGD0QNSL
+         G1/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791888798; x=1792493598;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=weAsaaLz8bOtBYNYCdIRoGplN8xEUwEYdEIJVgSddI8=;
+        b=RChkt21TUHRXpoQqQUX5krLunll7AxTypnFKZQ8LYQIobvnH6rEmdipIBXKKPKQ9QF
+         zd6kcGy+eMDZdWW0vsrfC0yBhNpDG0AVrnJLMtazUV9ZOXEWBiOfm/npDBEw5OCAlZef
+         9jqxPBa0XRckYVf8uC3Q6MIwjLWmHeMb/7qWHINzsSC3+L6IwvYD+G2JxpZOOXC+zSvH
+         jgQjGK+B04xKMeHBoK/nUOfyZ1cTFRrfLrBKpXJIE1vktOfRR95dEnOEMP7pL7QmOP5p
+         LzIVRNX0JyeyCKZkNgg9j07+XjOGS6ONdF34ilnlzhnqNYRI4SFykCcuxlljtZO7U9kO
+         dC5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzC/9JIUKDNeYCCdgQUpt4b1nvYyH0/y8nefqVF038bMc++bkrTEtNzaBsMI+BcEDuYIu3P2lutkgsG9Dw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIllx+HWBiztCuPJwavaXdo7UdGEyJQYxUHIh2PsDp/T2Uxiqcl
+	qKEiVovnrBCA6SPcBMGWfTEWMZh0n2XjJk8WyEMHPAK0+yi0pIM/k8XR
+X-Gm-Gg: AYBFou0XYquyS9uUZBGpmvpWF+DNZmDRYOja5AVLupMIQ3Jrm/xK7Hd/4qSqjgMn5Yc
+	plt1g4KFzHlii1xZKKvhhd/xF7C3k2XXXeYAQaxRt8Ta1njC1muup1fEh1Si2o7k/QLx6KspJSC
+	9OLlS4nqiCznX+DB81CVo1GaeS51GtScZL9NELLfuTSepSka+OdubNogjLiaRpGVTk39NP4O6Lf
+	YplaeaBvSyL3SvF0+cokTNISRBHQGjMubbD6whzL6Bn1ovgkzGt29qlzKaaFIDsy9MKKa6koTbh
+	I80nzT+c3SdX5dmhM5fOZiF1rlNc4yhpCFEw5bro6SGZoscE1cCUqoAyi2mUNjw/Uiz/kiahcdf
+	Xml11kKeNC4lZUE2lNO0GGA0q3wuvc7X6mLYH9biaxKBlziLMWaxQEBZxiGo2mp+x9GzAO3mzLI
+	ZERvifLONeo3k1sgBZwCLvsB6C3suKczJs9++87iayDygGMqDnoiRr5VeTpBB/pdz9nTcBrhr1K
+	0c3XUV0QrMjcAy6Q+sW7hfKQObsnnHESqtOrO4Nm9n7Wg==
+X-Received: by 2002:a05:600c:138a:b0:4a1:7bd4:d07d with SMTP id 5b1f17b1804b1-4a18e4c85fdmr257515105e9.34.1791888798168;
+        Tue, 13 Oct 2026 03:53:18 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm507133205e9.6.2026.10.13.03.53.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:53:17 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] rtnetlink: comment the RCU and SRCU waits in unregister paths
+Date: Tue, 13 Oct 2026 12:52:58 +0200
+Message-ID: <20261013105301.9037-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAAVpQUAd4QzUDK1wZYpuHJbMSg+PwAGCcaTzayR40DTNkXdwQA@mail.gmail.com>
+References: <20261008124423.11543-1-parri.andrea@gmail.com> <CAAVpQUAd4QzUDK1wZYpuHJbMSg+PwAGCcaTzayR40DTNkXdwQA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|PH7PR12MB6953:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89398299-b008-4e3f-f738-08df2917edc7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|11063799006|56012099006|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	Ga2qSJghij0FR2Kcfjitb77hTqEUOYtfHFfth/g/zZFB/Z+3AFj1P8yKyKCzAIql6SjHcVIwlmKYrlRftoTdoaKK/2o0RmwehhfLCs5Zct80zVp7SQ42IYSa7ekYfRd70s83F0u1U0rr3JvdQYr+mRqEyEyXSfFbpN7PpMWueqOvflg3VkMBo43Hch+o/fleD4mDO8dR6v9bNNanbF2Dikbg8gpE6nNKwK8P030QBu+uWbZhH7p6aNbTp9oadBsMAi7B1Lx9xsB4nKu9qpOaoEAKbRDERD5v6+FiH9E3CPa8kA2btLPDzRy3wiWeqNidBgxXFei0CE4PkLIJWZgSfbljXvHfNvmdgkrBAlCMFnWZle1wJ2bo1jDGanGz+ZS2vQZhDWyf8+wKCO26fYBFbmmZFiZs5Avt433LUAU1vZZTkHxqq+f/6HssBGqw6rulAk6lRUa3/lgQMgAk+G9HEMjMfK4wCp7zlTOwqwXFsJv1ilYiZ4gmvugamGRZGCxXUnTr8sT2dQehLKJsjaGtyLUKbSi05hCOBnniIQde88A1w3W3+Q01LvXj/4sprRNx24qm/D86+LLJOMaUoDNpS4tMcYD2rqltUodOXZdVsjnN6/BfxLgmQIUyF17E13St5w/7MKgjJCwGmwUAvRij1P5LGkiEj1WiOzjoX0CFwYs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aThiNTJyQ2duZ3pNb1BCNUoweXVJWUgxVGZvSjFMVU1WYTJFOElsdnNxSkFX?=
- =?utf-8?B?eW5rUWtQdVdRTGUzU3Fqak0xWjVHWXptSTFKRmJlYTlSaU5nZExqL0JNL01X?=
- =?utf-8?B?QSs3eWEwZlhCOG9KZDZuL1lQdkVab0grR2E5RFJNZG13VjZQbUhnM3lQVjh1?=
- =?utf-8?B?U2Q4QUJ4TDhabUFTL0VYMC84Q0tYWE92TTdpK1FsOS9xNWNLc29xMCsrbVQ5?=
- =?utf-8?B?QjlJYjRsUVIyQlgxS0tCeHVaU0FxVklmRVZJamh6U21QZldiVUcvVW0vUmEw?=
- =?utf-8?B?elVqNi9ZMHAyM0cwWGp2WkFHcis4RHdUZnM5TkRYOWRBM1lRaDVUQTNucW1J?=
- =?utf-8?B?blJkZGYxbHprcFl0dVZBUXBTRGU0dDN4bWpjUWNlTVN2SnpzV2hxNjByQmxi?=
- =?utf-8?B?cTZzR0ovUm9ISHBiLzdhTDdjeHVBL3Z4MER4YkYwMWtscm84OG1ITzZIZzdi?=
- =?utf-8?B?eEI1SVhYTUY0bm5JTXBqMzc4cDBFZ2xqVkNzOXVKdHpQeGhTaW9RY2M3NTlv?=
- =?utf-8?B?bmd3S21VV1BURGlMVUkwTEdUalF1MEg2ejdDK01XazBkQnVLV3ZISVIxMVIw?=
- =?utf-8?B?eHVvb0xKVkZQWGZzZjNxVERrd3BZSlV1L3JDUkQxdnVqM2s3am9UNk9palVs?=
- =?utf-8?B?cEtaRy91UUVRMUJXdnhVVlJJNDNhVmxYYWwyVjczc2tMQ2lqRktYaUtlSTF3?=
- =?utf-8?B?WFNQMmRVd0Q4Yk9NWm4vbCtrVk9wcTZWVjJBT3lJdE04UFMwc3dqbXJ4N2NH?=
- =?utf-8?B?c3NvYXc3QWw5YmtId1ZQa1NPb2JJRk1HNjRBUFp2ekRvcG8vQWFOOXBZRXpI?=
- =?utf-8?B?SkdKUnc1dys2dXlZb3Z6TTBCTVVRRmlWQXVySlZtZWE4YU5Dd3E2TktOVkQ4?=
- =?utf-8?B?OGFhQ2RlNlhnQWRHVEpFblpWMzN6S1RDS1ZWRll0MmM4M1l5WS9hY2k4eXZv?=
- =?utf-8?B?NWdFKzJsaFpmcWV4am5PQ2JJMHdFVGpxUTlsdEIwcHBIOUx4VDd0VnU2QXlW?=
- =?utf-8?B?V2cxYW1iM1pTUUdkMUZ3SEkvVmQ1MnA3cVFNcUg2TkFvYTMzOWVJL3pSaTBF?=
- =?utf-8?B?dGtRY1dJNkVlTVFPWW1IS250ZGx6TXZ0Z1lINjEyMm9XckR5VldCMW5YMjlE?=
- =?utf-8?B?UDBSVnpkNTJhcmhtTUZwSmM5ZG5lSTYzTGljVHM0cGhRT21aSFV1WDdiUXor?=
- =?utf-8?B?NU5PYW8yYXNmOGpFb0NUVi9EQmRjMnR0SDIwejVBRkM1UnRuY2tmWTY1WmJQ?=
- =?utf-8?B?ZE1ma0lLN21ub1pCOFBLWFFwcUlZOXVyUGVIa1lFQ0Y5K0d6emlHa1hnUnho?=
- =?utf-8?B?T09RU1Z6NkxmTW9kSTNlYjNReTdVa1ViOVhTRmdKQWs2LzlCRG5Gc2RQS1VH?=
- =?utf-8?B?c2N4ZUNvaHVWR09qU05PZXhodjg3SXk0MloyeE95aGp5R3pyQXVCRGJQaXdM?=
- =?utf-8?B?cXl4b1NNQllvWUNzVjJPbHBKdXNYaGlGVnZ3ampnSk1tN3F0aCtFaXVtZHNP?=
- =?utf-8?B?RXNjWlN2U0ZFZ2VPTGlFS1hNTGVLRGdrNkF0QWVFMXFZQng4a3FGS2RVQ3Js?=
- =?utf-8?B?ek85c0FjOUFYQjF2RnpXVjBZTjBGSDhvNXlnYVhrZm9FeVJpM21EajZCa0c1?=
- =?utf-8?B?bnZYMHhEcnFvalJzb1BVc2VPTmx5R0VvQkFQaFlXQWdodnJNWXBGUFFQZ05K?=
- =?utf-8?B?clRuNm5nNzN6NStoRzArVnpVUXJwejcxRDdSMXlwRFJnZXlxRmJOc0VuSHNr?=
- =?utf-8?B?SlM1RHpxWHNWNElSWVBaQklRaFE1TzhQM2NUd3Y2MU5uRmlEY05xdURQT1FR?=
- =?utf-8?B?ejd6OTI2NnVqeU0rZTBYTGtHWjQrdTM4U3ExbldFaVpoQTMyb1FyL3VYMHBa?=
- =?utf-8?B?ajBsKzFFeDRWdXQ3djRZY3U1VzdlNTYwbWpCbGtSWTZaMjV1UnN1bmN2QlVs?=
- =?utf-8?B?bGpPMDJ1QkNLQW9tMklzWTNLRU8wMzJsOTNaL3dkNXo5RnJzVlFva0lHSEwv?=
- =?utf-8?B?VktiQUg2UXgxL0E4VGhuaGN0NU9MSm9LMWt0UURoSmo2SXpIUzJsbjU4M3Ro?=
- =?utf-8?B?Sm11OHRWalRaZVRoYW50RmdMek8xRGhBNDNTbWVvWHoyeWlNUjhDMmhTQnI4?=
- =?utf-8?B?djcxOVpNTjVibkVtcnE4NWtzVU1vaS9ETTh3MXpYMmhuTDJrWitET0YrTnpa?=
- =?utf-8?B?Yk1hWlBzMlpUOHBkcEJXb3d1NFovWVExeWE4VXRuaGF0Z0dOM3VBaU8zSXhJ?=
- =?utf-8?B?QURUWHZOQTI2ZjhyaTg5NzE0Y3pVb3V6bWU2aFJ1QWZoaWs5dEVzeU5BSmc1?=
- =?utf-8?B?aGJiWW4xUHB4SXMvSzY3Rm9qa2NidmFHYVMvTXY4aHVpcDZKVGUvQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89398299-b008-4e3f-f738-08df2917edc7
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 10:51:26.1799
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1RLQzYw6yLM35C6vcuEQrRsagfT5gqIm/4OFslxDCMgdcmcbgxCNyDQ9+tnQRcwqXTN6d/ECnR52KQJK6Ws5bw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6953
+Content-Transfer-Encoding: 8bit
 
-Hi Kees,
+On Mon, Oct 12, 2026 at 06:48:22PM -0700, Kuniyuki Iwashima wrote:
+> > +       /* Wait for rtnl_get_link() callers under RCU that may still
+> > +        * dereference tab.
+> > +        */
+> >         synchronize_net();
+>
+> More specifically, this only applies to callers before try_module_get().
 
-On 10/07/2026 10:44, Kartik Rajput wrote:
-> register_pstore_zone() prints its "registered ... as backend for ..."
-> summary as a pr_info() followed by several pr_cont() calls.
-> 
-> pr_cont() is not atomic and has no log level of its own. It appends
-> to whichever line was most recently opened by a printk(). If a
-> pr_err() or pr_warn() from another CPU or an interrupt handler
-> preempts the pr_info() / pr_cont() sequence, it closes the
-> continuation between the fragments. This can cause parts of the
-> pstore registration message to appear at the wrong log level and be
-> interleaved with other messages.
-> 
-> Furthermore, this causes the detection of new warning and error
-> messages in the kernel log to be unreliable.
-> 
-> Format the registration line into a seq_buf and emit it with a
-> single pr_info() call, making the line atomic with respect to
-> concurrent printk() callers.  No functional change to registration.
-> 
-> Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
-> Acked-by: Jon Hunter <jonathanh@nvidia.com>
-> ---
->  fs/pstore/zone.c | 23 +++++++++++++----------
->  1 file changed, 13 insertions(+), 10 deletions(-)
-> 
-> diff --git a/fs/pstore/zone.c b/fs/pstore/zone.c
-> index a3b003f9a3a0..004a5d5f376b 100644
-> --- a/fs/pstore/zone.c
-> +++ b/fs/pstore/zone.c
-> @@ -12,6 +12,7 @@
->  #include <linux/slab.h>
->  #include <linux/mount.h>
->  #include <linux/printk.h>
-> +#include <linux/seq_buf.h>
->  #include <linux/fs.h>
->  #include <linux/pstore_zone.h>
->  #include <linux/kdev_t.h>
-> @@ -1301,6 +1302,10 @@ int register_pstore_zone(struct pstore_zone_info *info)
->  {
->  	int err = -EINVAL;
->  	struct psz_context *cxt = &pstore_zone_cxt;
-> +	char buf[256];
-> +	struct seq_buf s;
-> +
-> +	seq_buf_init(&s, buf, sizeof(buf));
->  
->  	if (info->total_size < 4096) {
->  		pr_warn("total_size must be >= 4096\n");
-> @@ -1383,30 +1388,28 @@ int register_pstore_zone(struct pstore_zone_info *info)
->  	}
->  	cxt->pstore.data = cxt;
->  
-> -	pr_info("registered %s as backend for", info->name);
->  	cxt->pstore.max_reason = info->max_reason;
->  	cxt->pstore.name = info->name;
->  	if (info->kmsg_size) {
->  		cxt->pstore.flags |= PSTORE_FLAGS_DMESG;
-> -		pr_cont(" kmsg(%s",
-> -			kmsg_dump_reason_str(cxt->pstore.max_reason));
-> -		if (cxt->pstore_zone_info->panic_write)
-> -			pr_cont(",panic_write");
-> -		pr_cont(")");
-> +		seq_buf_printf(&s, " kmsg(%s%s)",
-> +			       kmsg_dump_reason_str(cxt->pstore.max_reason),
-> +			       cxt->pstore_zone_info->panic_write ? ",panic_write" : "");
->  	}
->  	if (info->pmsg_size) {
->  		cxt->pstore.flags |= PSTORE_FLAGS_PMSG;
-> -		pr_cont(" pmsg");
-> +		seq_buf_puts(&s, " pmsg");
->  	}
->  	if (info->console_size) {
->  		cxt->pstore.flags |= PSTORE_FLAGS_CONSOLE;
-> -		pr_cont(" console");
-> +		seq_buf_puts(&s, " console");
->  	}
->  	if (info->ftrace_size) {
->  		cxt->pstore.flags |= PSTORE_FLAGS_FTRACE;
-> -		pr_cont(" ftrace");
-> +		seq_buf_puts(&s, " ftrace");
->  	}
-> -	pr_cont("\n");
-> +
-> +	pr_info("registered %s as backend for%s\n", info->name, seq_buf_str(&s));
->  
->  	err = pstore_register(&cxt->pstore);
->  	if (err) {
+Right, the later lookup in rtnetlink_rcv_msg() runs under RTNL.  I'll
+name rtnetlink_rcv_msg() and try_module_get() in v2.
 
 
-Any more feedback on this? Or can we queue this one up?
+> > +       /* Wait for rtnl_link_ops_get() callers to call rtnl_link_ops_put(). */
+> >         synchronize_srcu(&ops->srcu);
+>
+> I think we don't need comment for srcu as the relation is
+> clear via the argument.
 
-Thanks!
-Jon
+Agreed, I'll drop both srcu comments.
 
--- 
-nvpublic
 
+> > +       /* Wait for RCU walkers of rtnl_af_ops, including rtnl_af_lookup()
+> > +        * readers that found ops but have not yet taken ops->srcu.
+> > +        */
+>
+> this can be simply /* see rtnl_link_unregister() */ instead of duplicating
+> comments.
+
+The two waits cover different readers, though.  Besides
+rtnl_af_lookup(), the synchronize_rcu() in rtnl_af_unregister() also
+waits for the RCU walkers of rtnl_af_ops that invoke callbacks without
+ops->srcu: rtnl_link_get_af_size(), rtnl_fill_link_af() and the
+IFLA_STATS_AF_SPEC paths.  link_ops has no analogous RCU-only list
+walkers, so a pointer there would miss them.  I'd prefer to keep a
+local comment, reworded in v2 to mention those walkers.
+
+Thanks,
+  Andrea
