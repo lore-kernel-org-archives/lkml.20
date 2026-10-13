@@ -1,344 +1,136 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011059.outbound.protection.outlook.com [40.107.74.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C5C4E66B8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891864; cv=none; b=Tugn5A30qYOGzXM/UQcrVRpvEBZ3/18KMTYo4dKAl2goDYehKDVZ8xGLqx00dHdadbxUQNhatLE+Vp0w/TVFQiXSAHL05onvG2so9z6ATxAdjDaLsP/Up+saLIobM/zyNGNykfr8jmGQpEbk0VfnTnmhHch3bPrWiXFakY3+8Es=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891864; c=relaxed/simple;
-	bh=w1GM1ccsbCNU7bl1E/eCIGy4tB7TjRvFHKKR6yECb0g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=s51neApDllZeb+1GgilCBq5K/a0x8BWqH3heAaAUXeDCwTP2ed4pAygaD44vt7jeEkqonavZxsU/w/nNik1fAiHGSS7GqncNiDMbSgGhrnvDDe/dVW3r+PgppHi8s5YKIPzvFyx6Al4ayoZhicRyj1BAqTlW3wbuwe8SNUL/UvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M+gqIbtk; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HstPepZ+; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210B04F0533;
+	Tue, 13 Oct 2026 11:45:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791891924; cv=fail; b=CDg37WN0KqIA4JB4ITKDnXeGc8gDRzqBODLMprKHiP2dTfkhkfqt5U8zxBh15Z95Y8MvHC8g1CWNOyn6yzbdueVKxYqcRTyzrumRjBcr8Zs+EIUs+ClepEtGzEqaedCxzrrJ7XKh3zEhxuORCmmM6vwDRR7TisVhqFFzC3io36A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791891924; c=relaxed/simple;
+	bh=aW2NyW/YszKZm7If82RgiNEauTaTL61FghDyPaFZy24=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CHJleK2UeCzReFepwlv7F5UCCiJgADDcLtjjbwzIWjBA0Qj8ztMPhHRkD7xfB8gvwm59ZgB9BaG7bY1F+y1y9nEJ508LGbu0KaLChakrZWwZ6pW5dS9fYj6kkAxem7rl3DZi6RxYhmd5enPi4NdKyHTQvpttePbfSzjymmcOAz8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=QO3rFX05; arc=fail smtp.client-ip=40.107.74.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M+gqIbtk";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HstPepZ+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791891862;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ezc60w2EW0Z8miij++dLscNvA7WLeG86FqgXSEBcGis=;
-	b=M+gqIbtkEVfQLZ/c+yA8frU+4rTgl42dMEZnfCWueAJQsz6LKvqTBODCFvjd0zNHjj7sIW
-	x4rPmDO+LwcrNeemztIzbyPAhxaD4P/nH8nv+u4fHs7QXagDLbFafkf3U3xGuZzLA3aoR2
-	XgdYz0MzmSKwDYGNGFKTDMJ/ka+SF/E=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-157-UI6fuMVnMiOWCu6UQVqh9g-1; Tue, 13 Oct 2026 11:43:32 +0000
-X-MC-Unique: UI6fuMVnMiOWCu6UQVqh9g-1
-X-Mimecast-MFC-AGG-ID: UI6fuMVnMiOWCu6UQVqh9g_1791891811
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a022fee32fso22076835e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:43:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791891811; x=1792496611; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ezc60w2EW0Z8miij++dLscNvA7WLeG86FqgXSEBcGis=;
-        b=HstPepZ+0kj5hw4nnEWqL+ohL1agB8HczsFrWHTyCv+531QUSmpVtoAaEVFnq3M+L/
-         TgCBFzyGYz2cU8WAkaXno+Ki0LMoSg9rXdqV7rgRew84SGH4Dx1mDhYlFhr9M0cb91NQ
-         fsmiwqZJrxleb4t6lVNyjRkWXqKNpTvku9MxbAJmfZuv3f18IpCmat/LX1v903CthKAv
-         TVJM7R17Jpsv1i4E1wrOOgELia4zdtRSVXSUx2/JHPQSN7HX8BlIx0tc3fxeEFbvjWAp
-         ooU32/Lx8epvZ2feIfiHM3FVs6eO4kDE6RdO9v2pLjxmcImkORsezCAWkvk+CNIvSn0j
-         K5HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791891811; x=1792496611;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ezc60w2EW0Z8miij++dLscNvA7WLeG86FqgXSEBcGis=;
-        b=BM8lzp59IA/x90OKob919r/zQnMpTTe/4whJ8fQRFPCgC2oF5q63Oso5BbyqNA833h
-         B+bc8d6VxpccabiyoChNh5hST2HToDYGzhvUW/F913d3iFT2Q5PUgQn0TTG76dzTkbeZ
-         yhZeBqEEBfFbn3xDjLrUxz5YrssTO3XC2igFse4PoCMhDDxSNir652lqzDFZWKTUwOvw
-         1Em9TCpRpCu7fL9fuuYFlIlIzYX1+By3yWn588bubzsU7MzX52zTEcqF+hlEiegWT8qm
-         8YgqSDRX/N+2rGZurUHLQAaQatKC5H68GgATIaQKrjg1K/06FkYCFEKbNcaRjKMwLzft
-         zYVQ==
-X-Forwarded-Encrypted: i=1; AKwUvByYeemVOfzm2muOHTEU7bxL7fBs4y7ztG+T+5fx3kfzMYmLkKBGFFWyN/2GA3uzL5nbcOh9AQ8Rmx2gwDY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgP7II7rCD1Qq1pc0Sz4dURspmi5FEIDrzQObDA+iJHXvlVjB7
-	2PcRxEO0AFizqHoV/nErp2iQAKawxbdcvtv0QpzcQL9pjX+q2osfD7fSkigM3GFVeZf46Gq6et7
-	3xXPccGrRYb3/7teHp1yWpQ8kPUadydX9MEsByoN7Kf2/a8rRXdgVNdmwVI93kXtTEg==
-X-Gm-Gg: AYBFou3GyK8UwU6GW1q1N6zKGFn1RQQBlgQJWaG7Oc6iVRGhiwq7PFhFBTPVuU6YYNi
-	8kBJ3x7ffPh1+iM3iw/U7lpVti/UTwnhDvBnGY0zD3DcrclAT//JvbaCuC9v/tH8rYM9WNh95t4
-	1IoLbxCz2TAGNE5RXr7taOYWzRPHrGYhEsa8O1czGoJMShWwh28Gljk3bRpJQFwa30QLSeh7nQS
-	QfV8PcYJKp+mpxms9Zgia/YLnCkTvtsV1A8ygkrGVge8YllLijyon5beEdsZMQhM3LehNE9WVjg
-	dB6NCuSJU3XHipnT7f1UZtlBrBiuq5o2COvu1JjNA69EAUP8vHyL5VAYIla1fcIxsggVYNxoQc2
-	/SN0SdP8q0Hi8sdYeQu8IeSlTT8c6
-X-Received: by 2002:a05:600c:83c6:b0:4a1:7093:40c7 with SMTP id 5b1f17b1804b1-4a18e493048mr222322695e9.8.1791891810961;
-        Tue, 13 Oct 2026 04:43:30 -0700 (PDT)
-X-Received: by 2002:a05:600c:83c6:b0:4a1:7093:40c7 with SMTP id 5b1f17b1804b1-4a18e493048mr222322215e9.8.1791891810454;
-        Tue, 13 Oct 2026 04:43:30 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be8c5e7sm449268585e9.4.2026.10.13.04.43.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:43:29 -0700 (PDT)
-Message-ID: <0eab40ebeb128ca308762f0bf33d2f7084ef32f9.camel@redhat.com>
-Subject: Re: [PATCH v2 2/3] rv: add per-monitor edge-stat facility and stats
- file
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Tobias Schaffner <tobias.schaffner@siemens.com>, Steven Rostedt
-	 <rostedt@goodmis.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>,  Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- rpm@xenomai.org, 	jan.kiszka@siemens.com
-Date: Tue, 13 Oct 2026 13:43:28 +0200
-In-Reply-To: <20260911123439.463052-3-tobias.schaffner@siemens.com>
-References: <20260911123439.463052-1-tobias.schaffner@siemens.com>
-	 <20260911123439.463052-3-tobias.schaffner@siemens.com>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="QO3rFX05"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AQR88AzEcN89rG1tZmN8rM22kQ17xpp9Wlsp5G6alvYGt6/N9MIE+S7v/Mta+aiPy5aCYSZOnijUhdJMLOm0MPe5YqUx8BDdzCeYJ55oW+djJp5X0dYTiimF9TIbUTpY9w9Xw2WWOkWUDrrA4OXsA4pHFkiB2LYKJ2g1cet936VBvzR6gaos5chi0ffsAao1vbV+iaK8pzxYdEqgmu/xmeWvOkiY4H0cFhgXhycatJwdi46ZIyOjSa2eU49810FGVQQDbVYOEneJlPn9tIKIkJphnKtmzc04BOGVOZMSpgQN/1vAUgEtgkMg0VbIZVu+2sf+yMU+E7acxqQljuTqRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ly4XvGD5pppTZDPDOEqP6AmyaK2yGR/pnwe91PJ+Sq0=;
+ b=ozIFAl13nR65nmF4peBBX0fPqcYA1a4eWajyk44/g4ANmzHM/OAst0DXSlpxyxQJnAot5qv1qdWZJbq0/3ph7w8aaHhGN71Qe4FZ4wsURAK2Ub5HuuETyvArgBcB1xzvhl8VCSZk3UR/6/kf26waoJ1rGHNyCU5SbbslDLo4+V1cVdx7r39OZTJ21gAHHQ5KV8gK9EqKvcTW2s8hOkvEwX+nx/x/lDQzGLVZGAlw5/qvyFqCLzfCfaETKlNCY63KoJhJJiv0CCM1ivlHnFjAd6MWKvjr3ayVonYbd2FeBaDbliGcY6OP6cj9NBxPikFHoMnthHfqeiTGKBHgNWmVkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=bootlin.com smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ly4XvGD5pppTZDPDOEqP6AmyaK2yGR/pnwe91PJ+Sq0=;
+ b=QO3rFX059AE5z/VjXJWkUHooWVNKeEEBetXZmi/SdSoYs48O5Z/D5CoNsuZNbdnXOkAg3NbB7CXpuwEK386Lho7LatOvKDKurocVxjc14p5oLQCjswYnL0Ik9AkPMJ9+kqIID1ha6kXOiCYsWzPP/WRaSuQ4DyF5IJpJSDpegF8=
+Received: from OS7PR01CA0099.jpnprd01.prod.outlook.com (2603:1096:604:256::17)
+ by TYVPR01MB11215.jpnprd01.prod.outlook.com (2603:1096:400:367::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 11:45:14 +0000
+Received: from OS1PEPF0000D20D.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:256:cafe::54) by OS7PR01CA0099.outlook.office365.com
+ (2603:1096:604:256::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
+ 13 Oct 2026 11:45:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
+Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
+ OS1PEPF0000D20D.mail.protection.outlook.com (10.167.240.36) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
+ via Frontend Transport; Tue, 13 Oct 2026 11:45:13 +0000
+Received: from vm01.adwin.renesas.com (DEU-5CG20946WF.adwin.renesas.com [10.226.92.5])
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id BF9A23000270;
+	Tue, 13 Oct 2026 20:45:08 +0900 (JST)
+From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+To: maxime.chevallier@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	xiaoliang.yang_1@nxp.com
+Cc: netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Subject: [PATCH net 0/2] net: stmmac: Track and report the TX DMA threshold per queue
+Date: Tue, 13 Oct 2026 11:45:01 +0000
+Message-ID: <20261013114503.57487-1-ovidiu.panait.rb@renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS1PEPF0000D20D:EE_|TYVPR01MB11215:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 023652a3-8aaf-4a21-8d2b-08df291f714a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|82310400026|36860700016|56012099006|11063799006|261009223027099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	s++4ebF6MuWM19CXGVOMtWtd4FiNhWc+f6NEFp0OCDSJ9qLTrJgRXmpWRC5Q16yEMry57Bwq9VhyczOfHklgUP0p0Xq4I7o4ILCvbDbAwipbK1+yuUWfEU86eE2aBj87+v7a9rmua2yho5/HoDXpWrviCOq0h8urWfLnWxAAQD6VOt3+5EunLHB67tJ4SRznVyMHQ8Hl8/CH/hAVuN8iDeKY0wxZfVdDICrsd+eieByBdKzEb7EZSII26dLTo2KHJ2DXv/ICMI4+aawXYJ3U9qWuR4yo0Rsv+tzuuRVsj8i/EAiif2eKLeWmklfk9e04HtYMSNWyGc6F7HfBL9/cUuRUvUd1QsrDXBYCcIxXhlnE5qGvaKuzK229iBk0RFs5qmP8taD58QMFzRZJLsZfp/c2xc+nkej35zuafEkJheTO5m0gRI39vnRLBzppDJipZ7xVqKGfYind+qVFuEdEoShaYAlXCZpoDj6xWP1t+e6FmKvR6Fa86JaTr938NOKH5GrmDMzzVPPxG/vV/5eeh3vobbkvr/dFMk54UKRc9WfnqgbP/XW3KUS4Zix2M7jf2Gl8IvLIyoDBtTH0R+tyM7GQSsgBjkNEBV69JSvXTDlN3D5zuGKwbGcTLy+6x4ge/xobVUMoezfZcTl+NMLbZ71xAr/jRrwKJNN74x1HNDL+tWO/oZtb0RAkO3lZzorwpe0H35K6dEjYIBhfz0k2vw==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	TvFIZhWhZ6YCC25mMC1FzNOSfbyw9/yRXL0ZFGQgNsNI1srONUO3bB/7j9D/TjgeJXlfZ+udwraT093HHrVzefjjQ4BS1KzntavR1KPr03VzSEW6X0wYu9RgPwE/PhoMSy+HlW0/o09No2rnNEjeuRhuYNjN7gWXCBChnmKLq/whh442eFGMPdYVLVqH63RNJByV4G7FsSyMw4WPzQJvXjsdZ5GH+WPbewfaBlf+gC3O06qypIUmRWGYiWWFAgfGDSY61BPZ33pP4aigRJu4KsX0WgHDUbJRhTYgjXyAFDO8F/BudOIEJHrnQHJ4tqcHpqRCCH1oL9da8JGgHm8u5dfPp0USQ7nNv72P2JWGIyswgEs/5itXeDZNM41D4PV8bQpDo/rsvn+txBSS0eSfsL5jb6SNR+SKcGVVrQGSlHxQ2LiOFrqtt8EUWyquJHXj
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 11:45:13.0713
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 023652a3-8aaf-4a21-8d2b-08df291f714a
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: OS1PEPF0000D20D.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYVPR01MB11215
 
-On Fri, 2026-09-11 at 14:34 +0200, Tobias Schaffner wrote:
-> Add CONFIG_RV_EDGE_STAT, an optional feature that records how long a
-> monitor's automaton dwells in a state and exposes it per edge through a
-> per-monitor "stats" tracefs file.
->=20
-> The facility uses a static per-CPU matrix and reports, per edge and per
-> CPU, the count, summed dwell time and maximum dwell time. Only the owning
-> CPU writes the counters, so a reader snapshots them with local64_read()
-> with no IPI and no locking on the accounting path.
->=20
-> Signed-off-by: Tobias Schaffner <tobias.schaffner@siemens.com>
-> ---
-...
+On the Renesas RZ/V2H platform, which has two dwmac4 controllers, we
+observed sporadic iperf3 TCP TX failures on one of the controllers, with
+throughput dropping from >900Mbit/s to ~1Mbit/s due to TX underflows and
+the resulting retransmissions.
 
-> +
-> +/*
-> + * Static storage avoids allocation lifetime races. Only the owning CPU
-> writes,
-> + * so readers can snapshot counters with local64_read().
-> + */
-> +#define RV_THIS_NR_EDGES	(STATE_MAX * EVENT_MAX)
-> +
-> +struct rv_this_edges {
-> +	struct rv_edge_stat	edge[RV_THIS_NR_EDGES];
-> +};
+Commit 3a6c12a0c6c3 ("net: stmmac: bump tc when get underflow error from
+DMA descriptor") made dwmac4 raise the DMA threshold of the queues that
+report TX underflows, by increasing a global module parameter 'tc'.
+However, this logic does not work correctly across multiple queues and
+controllers, and can leave the TX DMA threshold stuck at 64 bytes.
 
-Does this really need to be a new struct? Cannot you just define it as:
+This series fixes that logic to track and report the TX DMA threshold per
+queue for each controller.
 
-DEFINE_PER_CPU(struct rv_edge_stat[RV_THIS_NR_EDGES], DA_MON_EDGES);
+Ovidiu Panait (2):
+  net: stmmac: Track the TX DMA threshold per queue
+  net: stmmac: Report the TX DMA threshold per queue
 
-Then use it as:
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  1 -
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  3 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 33 ++++++++++---------
+ 4 files changed, 21 insertions(+), 17 deletions(-)
 
-per_cpu_ptr(DA_MON_EDGES, cpu), sizeof(DA_MON_EDGES)
-
-struct rv_edge_stat *edges =3D per_cpu_ptr(DA_MON_EDGES, cpu);
-&edges[e].count
-
-> +
-> +static DEFINE_PER_CPU(struct rv_this_edges, DA_MON_EDGES);
-> +static struct dentry *rv_this_stats_file;
-> +
-> +/* Called before tracepoints are registered, so memset cannot race an up=
-date.
-> */
-> +static void rv_edge_stats_reset(void)
-> +{
-> +	int cpu;
-> +
-> +	for_each_possible_cpu(cpu)
-> +		memset(per_cpu_ptr(&DA_MON_EDGES, cpu), 0,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(struct rv_this_edges));
-> +}
-> +
-> +static int rv_edge_stats_show(struct seq_file *seq, void *v)
-> +{
-> +	unsigned int e;
-> +	int cpu;
-> +
-> +	seq_puts(seq, "# cpu edge label count sum_ns max_ns\n");
-> +	/* Include offline CPUs and keep output stable across CPU hotplug. */
-> +	for_each_possible_cpu(cpu) {
-> +		struct rv_this_edges *m =3D per_cpu_ptr(&DA_MON_EDGES, cpu);
-> +
-> +		for (e =3D 0; e < RV_THIS_NR_EDGES; e++)
-> +			seq_printf(seq, "%d %u %s:%s %llu %llu %llu\n",
-> +				=C2=A0=C2=A0 cpu, e,
-> +				=C2=A0=C2=A0 model_get_state_name(e / EVENT_MAX),
-> +				=C2=A0=C2=A0 model_get_event_name(e % EVENT_MAX),
-
-Perhaps you could have macros like DA_EDGE(s, e) or DA_EDGE_TO_EVENT(e)
-DA_EDGE_TO_STATE(s) to make the matrix selection a bit more readable,
-but that's a matter of taste.
-
-> +				=C2=A0=C2=A0 (u64)local64_read(&m->edge[e].count),
-> +				=C2=A0=C2=A0 (u64)local64_read(&m->edge[e].sum_ns),
-> +				=C2=A0=C2=A0 (u64)local64_read(&m->edge[e].max_ns));
-> +	}
-
-I would like to see a way to tell if an edge is invalid or not, we
-expect zero on invalid edges.
-Perhaps that can be a new column so you also show the count in case they
-are not 0.
-
-You can just use model_get_next_state() =3D=3D INVALID_STATE
-
-> +	return 0;
-> +}
-> +DEFINE_SHOW_ATTRIBUTE(rv_edge_stats);
-> +
-> +static int rv_edge_stats_create(struct dentry *parent)
-> +{
-> +	rv_edge_stats_reset();
-> +	/* RV_MODE_READ is private to kernel/trace/rv/. */
-
-I suggested you to use the rv helpers for this, you can obviously also
-use RV_MODE_READ. Now monitors are in kernel/trace/rv/, so it won't be
-an issue.
-
-If we add support for modular monitors, moving the definitions to
-linux/rv.h is the easiest thing to do anyway (you can do it too if you
-really want and/or your agents complain, in a separate commit).
-
-> +	rv_this_stats_file =3D tracefs_create_file("stats", 0440, parent,
-> +						 NULL, &rv_edge_stats_fops);
-> +	return rv_this_stats_file ? 0 : -ENOMEM;
-> +}
-> +
-> +static void rv_edge_stats_remove(void)
-> +{
-> +	tracefs_remove(rv_this_stats_file);
-> +	rv_this_stats_file =3D NULL;
-> +}
-> +
-> +/* A zero timestamp marks resets, which can run on a different CPU. */
-> +#define da_state_entered(s)	da_state_pack((s), local_clock() &
-> RV_TS_MASK)
-> +
-> +static __always_inline void
-> +rv_edge_account(da_state_t old, da_state_t new, enum states curr, enum e=
-vents
-> ev)
-> +{
-> +	struct rv_this_edges *m;
-> +	u64 prev =3D da_ts_of(old);
-> +
-> +	if (!prev)
-> +		return;
-
-This happens only the first time after reset, isn't it unlikely()?
-
-> +
-> +	m =3D this_cpu_ptr(&DA_MON_EDGES);
-> +	rv_edge_stat_account(&m->edge[curr * EVENT_MAX + ev],
-> +			=C2=A0=C2=A0=C2=A0=C2=A0 (da_ts_of(new) - prev) & RV_TS_MASK);
-
-If you decide to go for the macro, this would be DA_EDGE(s, e) or whatever
-looks clear to you.
-
-> +}
-> +
-> +#else /* per-cpu accounting off for this monitor type */
-> +
-> +#define da_state_entered(s)	((da_state_t)(s))
-> +
-> +static __always_inline void
-> +rv_edge_account(da_state_t old, da_state_t new, enum states curr, enum e=
-vents
-> ev) { }
-> +
-> +#endif /* RV_MON_TYPE =3D=3D RV_MON_PER_CPU */
-> +
-> +static __always_inline bool
-> +da_state_try_commit(da_state_t *word, da_state_t *old, enum states next,
-> +		=C2=A0=C2=A0=C2=A0 enum events event)
-> +{
-> +	da_state_t prev =3D *old;
-> +	da_state_t new =3D da_state_entered(next);
-> +
-> +	if (!try_cmpxchg(word, old, new))
-> +		return false;
-> +
-> +	rv_edge_account(prev, new, da_state_of(prev), event);
-> +	return true;
-> +}
-> +
-> +#else /* !CONFIG_RV_EDGE_STAT */
-> +
-> +/*
-> + * Feature off: only the hooks the DA/HA layer calls are provided, as tr=
-ivial
-> + * pass-throughs. da_state_t is a plain state word with no packed timest=
-amp.
-> + */
-> +#define da_state_of(w)		((unsigned int)(w))
-
-Is this cast necessary? We assign it to an enum, the sign isn't really
-important. I guess it's the same for the other implementation of
-da_state_of() (which is now in another patch).
-
-Thanks,
-Gabriele
-
-
-> +#define da_state_entered(s)	(s)
-> +
-> +static __always_inline bool
-> +da_state_try_commit(da_state_t *word, da_state_t *old, enum states next,
-> +		=C2=A0=C2=A0=C2=A0 enum events event)
-> +{
-> +	return try_cmpxchg(word, old, next);
-> +}
-> +
-> +#if RV_MON_TYPE =3D=3D RV_MON_PER_CPU
-> +static inline int rv_edge_stats_create(struct dentry *parent) { return 0=
-; }
-> +static inline void rv_edge_stats_remove(void) { }
-> +#endif
-> +
-> =C2=A0#endif /* CONFIG_RV_EDGE_STAT */
-> =C2=A0
-> =C2=A0#endif /* _RV_EDGE_STAT_H */
-> diff --git a/kernel/trace/rv/Kconfig b/kernel/trace/rv/Kconfig
-> index 3884b14df375..3045037fb36a 100644
-> --- a/kernel/trace/rv/Kconfig
-> +++ b/kernel/trace/rv/Kconfig
-> @@ -59,6 +59,18 @@ config RV_PER_TASK_MONITORS
-> =C2=A0	=C2=A0 This option configures the maximum number of per-task RV mo=
-nitors
-> that can run
-> =C2=A0	=C2=A0 simultaneously.
-> =C2=A0
-> +config RV_EDGE_STAT
-> +	bool "Per-edge dwell-time statistics"
-> +	depends on RV && 64BIT && DA_MON_EVENTS_IMPLICIT
-> +	help
-> +	=C2=A0 Record per-edge dwell-time statistics for per-cpu deterministic =
-and
-> +	=C2=A0 hybrid automaton monitors and expose them through a per-monitor
-> +	=C2=A0 "stats" tracefs file. This times each monitored automaton
-> transition
-> +	=C2=A0 with local_clock(), so leave it off if you do not need the
-> +	=C2=A0 statistics.
-> +
-> +	=C2=A0 If unsure, say N.
-> +
-> =C2=A0source "kernel/trace/rv/monitors/wip/Kconfig"
-> =C2=A0source "kernel/trace/rv/monitors/wwnr/Kconfig"
->=20
+-- 
+2.34.1
 
