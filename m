@@ -1,218 +1,1145 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022095.outbound.protection.outlook.com [52.101.101.95])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3245038F3;
-	Tue, 13 Oct 2026 13:33:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898433; cv=fail; b=YuutOJdsmcm2fVdjM/rhecNgC3MXrzz+D4zHCRJ5NhWCQjcFc7rJNlKJsawT0HdapS9/PVGvV07/chBPuXi8huSfRAhE0gj+xHqzChOEWfRWpu1z7Fus5AY5V0ZLzLt6TdBjlIjriM35uMJ2JpP8+gP0tELepodZ/Z7IQ2EzlxY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898433; c=relaxed/simple;
-	bh=1zUB1hvE7CjvDA9o5+cDOG2QiMkBnTqKyy7/cTJNi4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=TlbSUezwJQhWySgO/LJHT3uKmxJWrSHI9rmEAJt6m0fbPsu2GuyDk8MBg+kYYC4AGf/YGpAJhowyH2e1RmwoURW9ecQgAlcT1cWGpqrlsdUN08DzRz6zGS0GPtXxAohQAyoW+/uV19ha9E+A02o0dH1w/i3+32QYXmoL6GARPT4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x43zUszwlroCMzHpFFsvTXa6OtP0HnJl9YWGbS1ohyXJv0MVex/yKoedfj8mkwcPPJayWnoxn2T8HUrHdoFfO+TrZ8v8pHoyR+kQv2pWTkqVpFCZVmZgz2oladDXeswdkzztLmMwg7ys6YbwaxiqydRnboZUdQKf/zjYvI21KBc+84to7ojy0P/jGTQ4qNiEOGUIiN9AzcN5HQvSREYMgDLdp3ptcVJWr0qGLFt19jczkqk6yl8knFd8ef7/XGUcEqZQN3q6EjUHeiB5xPKvD2kog7MF7HFWZQ5NZy1TQHLqeaQBtrCboyw0o63C3MB23j70Ifsf+3bGeoptwub+rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=DYBxRudDdOvxcPmQXQTxLVffxf4Wc+BkoSM5uvUm544=;
- b=Tx354RzlA6xUclxmLZ3Md1rvqyLHumCL/WaWKX1WC/0bYP5VZSxsWQa1vx3Q4OUytotSwS6tdQ9FbduD/4ciyph9CKGdgM5teKM2V3D5EdNi0f2PiC+5S4A6SaQfj5fTV8xpzjICV6m3/tMV1Bg7RhH1mYwvnn976c/QsHgg22Z4kIUJcdUeaXOHESeqOmfiyBUioe/5gUkJQb+SzszX0GlDZQWIH5Om4M5hyIbamaIZtQVdTmcsFZR8QFgJ19I9+tN5pVjTm5O+V8OjVJwEzdFguz5J713FVmS6wuswjch6l6gE3e9ycyxrr0xfPIXiOcHQ0WLszmHVSDdwFhbjNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by CWLP123MB7344.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:229::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 13:33:47 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 13:33:46 +0000
-Date: Tue, 13 Oct 2026 09:33:42 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Ming Lei <tom.leiming@gmail.com>
-Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, tj@kernel.org, 
-	neelx@suse.com, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
- cpumask is empty
-Message-ID: <i4xh6jsm222rtn7pka57fuo3scelrlzywrvq5kor5sy2jjlrmq@tkqbbrzimfrd>
-References: <20261012012905.267920-1-atomlin@atomlin.com>
- <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
- <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
- <asxLLWOQQzolER0a@fedora-laptop>
- <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
- <as4j_Zk7zcNsBuo1@fedora-laptop>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <as4j_Zk7zcNsBuo1@fedora-laptop>
-X-ClientProxiedBy: MN0P220CA0001.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:52e::29) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8DB5172F3;
+	Tue, 13 Oct 2026 13:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791898444; cv=none; b=c+gFgCumsV5UpM2RHmOsQp2yyNVOyJ8xGNgNOKO+bT9AbuJpbrHsAgWB5Dgd+Pfmfg+PkOB4XSzO53Q7lPEmys/fc89xG3IndJDCHKgBq2wLkL017N0B4rv1QEpajeARVRKeu52/auyAprWP9l/qTUPDOgJ4OK9M0xBB8nBWaX0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791898444; c=relaxed/simple;
+	bh=ql1BKdslu2rxpOjL0saYKsmXwFwyVfYZcSrIp7Ko0U0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F9uK1Siwe+RaFlOMCkIgTQhZPlt9SNzYkB8weOFmouZvyNWfE8pJtSLSKfbag2W/9NJNghPpfdWQovOYIfDIYhi5S02hmK3JG8hQny58BgBirO+MFeKUxPmhIaFQsxZAp7hg/rM9rbdj7GydobwHkCaj7DQCMpSlkCsXUSyXlI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=UgAx16PJ; arc=none smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="UgAx16PJ"
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2CQEn3031808;
+	Tue, 13 Oct 2026 13:33:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=wx3JI7y5SQuIVmLpBPmrwTMBLXOxe1VE8gBskFNlCgw=; b=
+	UgAx16PJglvfHtZZVVBNGbFzZAN9zbw8FWP8awlAn/eH/DqMzmrKgZ9VqqracVhg
+	Uks/xkIW5n53zG7Zsr/J4hxoCPexbGsd9RWKlMqU/MTU7jHW4/2TWmUD+dVnDEOg
+	zE4qYU46me9FDMyoGSZsgSJ6kWRXP2ySeMELus+a1XTecfsvWUWkoYmEXxCMZ04N
+	7RMECyhTdO9sumeObUOuwAr2PKe2ZQgZKYFX4MvVERRCG33ESEAIMxUJBFif35LG
+	/fHJfudvHmMsSiLYXYP7BLUPNXlO3/coEFXMqSEzl/oA+c5wUjG6fS2gzVcsOq0b
+	boVQB3eH0g90LM+nX8CYLA==
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7dwtc1s9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 13:33:32 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69DDLiPE040744;
+	Tue, 13 Oct 2026 13:33:31 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4h7btk3fvy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 13:33:31 +0000 (GMT)
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 69DDXP4f006924;
+	Tue, 13 Oct 2026 13:33:30 GMT
+Received: from lab61.no.oracle.com (lab61.no.oracle.com [10.172.144.82])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4h7btk3fsy-2;
+	Tue, 13 Oct 2026 13:33:30 +0000 (GMT)
+From: =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
+To: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+        Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+        Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Shuah Khan <shuah@kernel.org>
+Cc: John Stultz <jstultz@google.com>,
+        =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>,
+        linux-kselftest@vger.kernel.org
+Subject: [RESEND PATCH v2 1/1] kernel/locking: Add mutual exclusion self-test
+Date: Tue, 13 Oct 2026 15:33:19 +0200
+Message-ID: <20261013133321.2625486-2-haakon.bugge@oracle.com>
+X-Mailer: git-send-email 2.43.5
+In-Reply-To: <20261013133321.2625486-1-haakon.bugge@oracle.com>
+References: <20261013133321.2625486-1-haakon.bugge@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWLP123MB7344:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f220956-61d5-4d7a-312d-08df292e9b97
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|6133799003|10067099003|22082099003|18002099003|4143699003|261009223027099003|56012099006|27256017;
-X-Microsoft-Antispam-Message-Info:
-	25PnpOwGFTIPwU9P43I261tVDZKjyySqlnEfySoNqmKQwNQqGtOimvZtc9EYI6TehnBzcdAN/VVDbB84ldeM+Yql0d9P84dlsGk3+qSn3Nd/JQkFMvVmb1K7LHeplFA1/eTDx/NvD4QefB2lnpSEpJVSDp7ZTOw9Gsiqsbm9ZGfO7W8dnlmmPDxhW3HK5VhyAAC89COFv255GplHGAtv9JAOcypCnyKO8tupvWpRwy/5XBWar9UlhRlU7e8n5FivEdyTxJbSJ+Toz3RHbGO8ZftkSHgdrevUD1N0M2tA8iByqE3ac5DCdqZq42iPwhNJylKA9/Ttq5WUZdFvYElOuOJ8/ZsECmDvXZ2cF3o6g26Az5NeOH1SmR5cFXrQVQls8jeuTsaeBtIfYtvMi5Mao1ALzPOIwvWr9kzAUeDQtshbj2Zgu/qzGvnpsw9FLcUG7xmwLWAo0wzjv7BRrQD1peCEo/VWaFMjyJR6hROhULzqK3OemYUNfAZ7dWQrdkC79vjiKzKELLxJZ4jGqn7G9+2El2ZVF46zySItHJ23jB8TeXIn36knQn536ScgtPpX8EmjBbz8S96XZxxMp0fLfgK4Z/NTSwE5g3PdBfg84/h6mX/yTOEDXYLF64JsBwWQ90yeiZIypaDl5NpHjnoeTYB+5q1uNYGOpWlDDLlHFBxRQKGJrzFpHyuQAB44G3uMq7ZO+/ibbCQSwLsLM3WWPg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(261009223027099003)(56012099006)(27256017);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MFBjUmdkL0g0Nnh4WDRpanFPZG16N3BZZHZMekVLTFZLU3VwcEk4OEIxU1Rx?=
- =?utf-8?B?Q2NTMTU2KzYxWHhpdTNaOElrRFhWVW54a1NpU1p4WmtMaC9pdEZmaGw0SUJK?=
- =?utf-8?B?ZDNYUDh0bWRmS0VXd3VjRy9jRmdPallWNXBLK2M0dzZUaXFEc1pBbWRYRHVX?=
- =?utf-8?B?TTkrbUQzYmtYRGZ5eWxmV25Kck93T3dFTE54a1N2SHhvQks4eDZhVzlhQVpr?=
- =?utf-8?B?c0x1UjNrUWU4Zm1sS2N1dEcxS2J1cGFjNE04UlRJdUQ4YnhIWEJsWTIyOHY3?=
- =?utf-8?B?ek83NUhXRW10SU1pTTFNdlZhRTdDM2JRUjdybTc0WUtQMVFYTnJPWnZIbndN?=
- =?utf-8?B?RzVTbmFHQkhRWWZhSFl0SzcwbGhpU0dnRnpSR0hlRFEyV0xWUWx0ZDUrQUcv?=
- =?utf-8?B?RFBEanRJMmxFeTV2dTF4d2U3c3llM215SWdJVVRjdWlJbmFyZkY2bkpDaTFq?=
- =?utf-8?B?OE45d1QxcXY1a1BBS1ljR0dYbVc4LzJZSUFUUFI4WjdkMnFlbVFFcDRZc0Yy?=
- =?utf-8?B?cHhtTXZqVDVyZmFRdE5KY3Z6Z3d6MnlKbWFzREpXTDZtTTdEMEMxL2lGdkVS?=
- =?utf-8?B?SWpCcnVIS3l5a0ZBbjRqWm9XV1V1d1FFMXBVR2RqVFd5T3dBN0JET3Y1Mkx0?=
- =?utf-8?B?bGJ5QUVOU3NHaW5QYVpIMHc1aUVqMnBtczhqUXJFQkFnMlZtOXNtWkw4RWNh?=
- =?utf-8?B?Q1VIN2FVUy9NNVRKUzg3UXY5UnlWcTNwZjRDMm5IMG9QUE16Z0w1STlReTI1?=
- =?utf-8?B?QWwxYmp3bE1reUVEc1RJL1M5SlQvbnlJRmd6dFoyVCtNRSs5L3V5ZUNtV0Z0?=
- =?utf-8?B?N1ZkOHRzWnhlMHpyWEs1YWFRT2FtYUJsZ3Q2TGVVRzB6OXZJcU16Y2pYZCtX?=
- =?utf-8?B?RXlUZHBySk5YY3pZM0hRbG5VaGdWdnNlcldQZzN1Z3oxMW81RDRGajFIRGNK?=
- =?utf-8?B?R3dsU0k0bW1CY3Zvb1F0SmlvcUI4aWwrQlFGc2Z3eTVPSFJsU1lLQjhLb1FP?=
- =?utf-8?B?aEs1THM2VHpmYVVOaXk5dUI1TkROaHh1NWhERmZLcml1ckNyVGJKRHVMdVNz?=
- =?utf-8?B?bHVta2ptTFluRTc1S3NKa2lXWTBIWWdSeGFldXpwUG9nZ05QMTRjWHZTQm54?=
- =?utf-8?B?Y0x1Q3A5L1hVYVIyajR5Uk11TDF0TDJtWFhKemkrQ2JVdmg1T1EzUVFjdUUy?=
- =?utf-8?B?S3ZpM3QrWXZhSzVRSTNWNWhEaGhFUjRFdHhLcyt4VG1DeEVSOU9sS1QzVGVj?=
- =?utf-8?B?dEE5WVBWcENHWUxxM215NmptaEhYdjZNcU8wU0FKU1RFTjdRWEMxd0VpalFH?=
- =?utf-8?B?b1N0T3JSa1AyVFU5ZTZqa05OdUtWb0JPTkxES3lNMWs1ekpSMUJndlJ6SjA2?=
- =?utf-8?B?WHFZcTVyWjJkeHFuaXNpMHN5M0pkelNJb2R0U1RmNkxJMldmQ2JUYUh6Ykkv?=
- =?utf-8?B?Q3lxSVkyWDJIL3RRK0hidHdWMElRanY4Tm5IVUtlS0dnTlNGK3VENHdBemg5?=
- =?utf-8?B?UXM3YlU4VE1Ba2RYWWRNMy9Rb0JNamxnSmo4cGVwMmh0RjFaVERtWWUyYTY1?=
- =?utf-8?B?MW4wMWtjQnlNTjRSSFZzUU02QXNZdFpOZVZmT1diME9MbTBFOEhrWThNc3k4?=
- =?utf-8?B?aFFVNGVVbmNUY21OMENmRy8yanNOaWd6QzU0dGpTOWo0V2drQ1p5V3FuL0R0?=
- =?utf-8?B?ZnZMY0d2dXg2eHZ1dWUvbUd3a2duK0lUYVFuQXFIU2t3Y2YzbUh3L3lOZTJp?=
- =?utf-8?B?em5uYnk2Z2JmaUIwRlBnMGdsY05jQWNPU3RlZXNkQmhtc3BzbUp0Y1NWK0R1?=
- =?utf-8?B?M2ZrcWJjRUJGRDhjdktKRUFoSDdQditUZExVbTZqTUxFWjFsZkFIeUw4UHRI?=
- =?utf-8?B?SHo3azVWTDZHSWlqWFU4Nzd6Mm9lNHhkbGVGV3huQlFZRUYxZms0NW9aNHJO?=
- =?utf-8?B?QmtpSE04UUVIclkzK21yUHRyN2RRNWRReWY3Z2RZRlF1ZGNXZzVYVDFFYS9I?=
- =?utf-8?B?d25qTktUWnlYSDIxTm9taDNrRzhBOG1yK3lSM2h4VTlVUXN3cHdOV3ZwS2dE?=
- =?utf-8?B?emdxc1ZnbXB4N1lxZ0hxQ2FEZGFxYlNJRDdFZ1Y2WS9SamZRYjJLRjhVandu?=
- =?utf-8?B?REd5WENaVkVVSjhDWVRhcDBJMUpISWVmbEpsejNSbHF2Y3FIVEhqbDRCNXFG?=
- =?utf-8?B?NXl6bk5RRnp3U1h2NWNqR2E5c0lzUkFlRms3dU04bGJkSjd0KzdwTXZyc1F6?=
- =?utf-8?B?ekU2VzVrWUNvYzRZQlM2dE5XZWozajVyUjRydk5oMmo3S0oyVFNZOTJzVnY5?=
- =?utf-8?B?K1pSQ2EvS2tDRWdMOEFmQXUzYXdhcHJuWFpqak9HWlovQlhOeVdmUT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f220956-61d5-4d7a-312d-08df292e9b97
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 13:33:46.6991
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yj8hXHsHWZfnQW0LNsSZ59lG3SUauWieXB+g7c2xgus7lTGD7iVnIBicOyQF6TvoVr9Ju0PSjFrNXnDM9rInUg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP123MB7344
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ adultscore=0 mlxscore=0 mlxlogscore=999 bulkscore=0 lowpriorityscore=0
+ spamscore=0 suspectscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2610020000 definitions=main-2610130053
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1MyBTYWx0ZWRfX7peBO/UAWpeA
+ XRBbz9wzM+U5EueNnYKqQZMOZ3gKY0hfvohoONZdQks8wlGAI75t0mlKc+pueMcyXcCGeudkAb7
+ cnclck95zfB0B8VHp5A4yeGcqpMhxmgql5bWAzzS77XI/7rJ7Bf2xKAOvSgxe2erjeQV4xL1EQ2
+ 9Y6pdHxldGZR/V2wYEUGmbzHzQXzBQUmkjqGmwxwnzcOjgS+nVEIZ0zd+NgTXlOLYXIYo2cDXK2
+ wlQSVHB2HCCOmFfROXvHm/1BulyzHdpOZ+y640gyK0MY/QD4vuqM53es5rFce8KcFF0C+/1Ao9w
+ V6try6nCFEXrJZN9gE6NqKmRX3Fal9DEzrksIRxmzr4R3sl0H8/7O65l/4gtdFnMHBM9FiJSyBV
+ p/+XeaXg9uBQw7EWjEcLNIiwM1VAe/NWDhwEiKaKYPTzAlzpgbqZuyl6AgP8qNZCSMjvHwDFSlZ
+ ZF0RiNcZM1p8T6xn7rKZH5+WnXS5Xn/c0c+chEDg=
+X-Authority-Analysis: v=2.4 cv=Kp7YSmWN c=1 sm=1 tr=0 ts=6ace332c b=1 cx=c_pps
+ a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22 a=7Gl3-_t3PgB9XO-mQDs3:22
+ a=yPCof4ZbAAAA:8 a=YHNDNSdmkXTikWg6I18A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12108
+X-Proofpoint-ORIG-GUID: mAhd-C4L0xNy7vIRe1IO4vQwxP5tKj_o
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1MyBTYWx0ZWRfX8bOwCsB19KD8
+ w20b2xCUDjy/nPIpgnrJRwVNCgmACChg18G2Z7Gg/x3nx/kQkmyJIfr22DD1jRzJs6YsahaI2ot
+ iESOKSC4eSCjaxkCGTpi66zBeHT6WSqluup+uUxCYJ0Fy6ucCALO
+X-Proofpoint-GUID: mAhd-C4L0xNy7vIRe1IO4vQwxP5tKj_o
 
-On Tue, Oct 13, 2026 at 07:28:45AM -0500, Ming Lei wrote:
-> No.
-> 
-> For example, schedule_work() is queue_work_on(WORK_CPU_UNBOUND, system_percpu_wq),
-> a WQ_PERCPU workqueue, so every schedule_work() from an isolated CPU runs
-> on that CPU. blk-mq isn't special here; this is the general tradeoff of
-> submitting IO from an isolated CPU.
+Add a stress test for locking and atomic synchronization primitives.
 
-Fair point regarding schedule_work(). I concede that mechanically,
-kblockd_workqueue is not unique in accepting WORK_CPU_UNBOUND on a per-CPU
-workqueue. schedule_work() indeed directs WORK_CPU_UNBOUND to
-system_percpu_wq, which resolves to raw_smp_processor_id() within
-__queue_work().
+The test maintains an array of elements containing counters
+initialized to zero. It creates four worker threads per online CPU. On
+each iteration, a worker chooses two elements at random, increments
+the first counter, and decrements the second. Each completed pair of
+updates therefore preserves the sum of all counters.
 
-However, the crucial distinction lies in the semantic contract and intent.
-Callers of schedule_work() seek local (or best-effort local) execution;
-there is neither an assumption nor a guarantee that schedule_work() avoids
-isolated CPUs.
+The harness supports variants that protect the counters with an
+explicit locking primitive and variants that use allegedly lock-free
+primitives. A common operations interface allows the same workload to
+exercise different primitives.
 
-By contrast, blk-mq has an explicit architectural contract to avoid running
-block kworkers on isolated CPUs. In commit a46c27026da1 ("blk-mq: don't
-schedule block kworker on isolated CPUs"), the intent was to deliberately
-excluded isolated CPUs from hctx->cpumask precisely because:
+The module accepts the following parameters:
 
-    "blk-mq kworker shouldn't be scheduled on isolated CPUs."
+    mx_nmbr_elems:
+        Number of elements in the array. The default is 2048.
 
-Furthermore, blk_mq_run_hw_queue() explicitly honours this policy:
+    mx_test:
+        Test variant to run. Supported variants include spin_lock,
+        spin_lock_irq, spin_lock_irqsave, and write_lock. Specifying an
+        unknown variant causes the module to print the complete list of
+        supported variants. The default is osq_lock.
 
-    if (async || !cpumask_test_cpu(raw_smp_processor_id(), hctx->cpumask)) {
-        blk_mq_delay_run_hw_queue(hctx, 0);
-        return;
-    }
+    mx_scnds_per_test:
+        Duration of each test run, in seconds. The default is 1.
 
-When executing on an isolated core (!cpumask_test_cpu(...)), blk-mq
-deliberately refrains from inline dispatch specifically to offload the work
-asynchronously via blk_mq_delay_run_hw_queue().
+After all workers have stopped, the test sums the counters and reports
+a failure if the result is nonzero. Such a result indicates that the
+expected invariant was violated. Because this is a stress test, a zero
+result means only that no failure was observed during that run.
 
-When all CPUs mapped to that hardware queue are isolated
-(blk_mq_hctx_empty_cpumask(hctx)), commit a46c27026da1 added:
+The test can expose ordering regressions in atomic bit operations. For
+example, reverting commit 415d83249709 ("locking/atomic: Make
+test_and_*_bit() ordered on failure") causes the
+"test_and_clear_bit_innov" and "test_and_set_bit_innov" variants to
+fail on weakly ordered Arm systems. These variants rely on a failing
+test_and_*_bit() operation to enforce visibility of updates to other
+processors, rather than using smp_mb__before_atomic(). They therefore
+provide regression coverage for commit 415d83249709.
 
-    /* Switch to unbound if no allowable CPUs in this hctx */
-    if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
-        return WORK_CPU_UNBOUND;
+The harness also includes variants that reproduce known incorrect uses
+of these primitives. Before commit 1422f28826d2 ("rds: introduce
+acquire/release ordering in acquire/release_in_xmit()"), RDS used them
+without the required acquire/release ordering. The "rds_busted"
+variant models that bug and fails on Arm systems.
 
-The express intention of that change was to switch away from the isolated
-CPUs. However, because kblockd_workqueue is WQ_PERCPU, returning
-WORK_CPU_UNBOUND inadvertently resolves to raw_smp_processor_id(), queuing
-the work right back onto the isolated CPU that blk-mq just went out of its
-way to avoid.
+The "osq_lock_busted" locking type fails when the Optimistic Spin
+Queue (OSQ) helpers are treated as providing mutual exclusion: under
+the tested conditions, they do not. Whether the helpers should provide
+that guarantee remains under discussion.
 
-That is why blk-mq is in an unusual position; it intended to avoid isolated
-cores, but relied on WORK_CPU_UNBOUND to achieve that on a bound per-CPU
-workqueue where that mechanism cannot take effect.
+Regardless of the intended semantics, this test documents the behavior
+observed in v7.3-rc4. If the helpers are changed to guarantee mutual
+exclusion, the test can then serve as regression coverage for that
+change.
 
-> You already disturb isolated CPUs by submitting IO via syscall in this
-> case, so why does it matter here to dispatch on same isolated CPU one more
-> time?
+The patch also adds a shell script for the CI kselftest framework. The
+script first runs the "busted" variant, which performs the updates
+without synchronization and is expected to fail. If that variant does
+not fail, the script skips the remaining tests because the run did not
+expose even the intentional race, making successful results from the
+other variants inconclusive.
 
-There is a fundamental difference between synchronous syscall execution and
-asynchronous background kworker execution:
+The script then loads the module with an unsupported mx_test value to
+obtain the list of available variants from the kernel log. It parses
+that list and runs every variant whose name does not contain "busted".
 
-    1.  When an isolated user task issues a synchronous I/O request (e.g.
-        via write(2)), execution occurs synchronously within the task's own
-        context and CPU accounting. The application remains in control of
-        when this overhead is incurred.
+For interactive use, the script accepts "-e low", "-e medium", or
+"-e high" to select the test effort.
 
-    2.  When dispatch must be deferred (e.g. BLK_STS_RESOURCE), blk-mq
-        queues &hctx->run_work. A background kworker runs under
-        SCHED_NORMAL. On isolated cores, workloads typically execute under
-        real-time scheduling classes (SCHED_FIFO, SCHED_RR, SCHED_DEADLINE)
-        or tight polling loops. A SCHED_FIFO task executing on that core
-        will completely starve the local kworker. Consequently,
-        blk_mq_run_work_fn() never runs, hardware dispatch stalls, pending
-        completions cannot occur, and the I/O pipeline hangs indefinitely.
+Signed-off-by: Håkon Bugge <haakon.bugge@oracle.com>
 
-    3.  Even where starvation is avoided (e.g. via the EEVDF scheduler's
-        Fair server or cooperative yielding), queuing bound work on a
-        nohz_full isolated core forces the scheduler tick to re-activate,
-        injecting unwanted jitter and defeating deterministic isolation
-        guarantees.
+---
 
-Steering deferred queue dispatch to an online housekeeping CPU via
-housekeeping_any_cpu(HK_TYPE_TIMER) sidesteps these pitfalls entirely.
-The kworker executes promptly on a housekeeping core without priority
-inversion, hardware dispatch proceeds unhindered, and the isolated CPU's
-low-latency domain is preserved.
+v1 -> v2:
+   * Added "osq_lock_busted" as locking primitive. It is "busted"
+     because the osq_lock helpers do not provide mutual exclusion.
+   * Added "atomic_xchg" locking type, in order to mimic the sequence
+     atomic_xchg() in osq_lock() and corresponding
+     atomic_try_cmpxchg_release() in osq_unlock()
+   * Refactored the big union to simplify mx_add
+   * Added "atomic64_add" lockless test type
+   * Having the counters, when needed, as a separate array, which
+     removes the need for the padding logic
+   * Rebased on v7.3-rc4
+---
+ kernel/locking/Makefile                    |   1 +
+ kernel/locking/mx_test.c                   | 723 +++++++++++++++++++++
+ lib/Kconfig.debug                          |  10 +
+ tools/testing/selftests/locking/Makefile   |   2 +-
+ tools/testing/selftests/locking/mx_test.sh | 171 +++++
+ 5 files changed, 906 insertions(+), 1 deletion(-)
+ create mode 100644 kernel/locking/mx_test.c
+ create mode 100755 tools/testing/selftests/locking/mx_test.sh
 
+diff --git a/kernel/locking/Makefile b/kernel/locking/Makefile
+index cee1901d4cff8..240084b4abbb7 100644
+--- a/kernel/locking/Makefile
++++ b/kernel/locking/Makefile
+@@ -38,3 +38,4 @@ obj-$(CONFIG_QUEUED_RWLOCKS) += qrwlock.o
+ obj-$(CONFIG_LOCK_TORTURE_TEST) += locktorture.o
+ obj-$(CONFIG_WW_MUTEX_SELFTEST) += test-ww_mutex.o
+ obj-$(CONFIG_LOCK_EVENT_COUNTS) += lock_events.o
++obj-$(CONFIG_MX_TEST) += mx_test.o
+diff --git a/kernel/locking/mx_test.c b/kernel/locking/mx_test.c
+new file mode 100644
+index 0000000000000..6a2dd23cdbf4c
+--- /dev/null
++++ b/kernel/locking/mx_test.c
+@@ -0,0 +1,723 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/completion.h>
++#include <linux/errno.h>
++#include <linux/init.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++#include <linux/osq_lock.h>
++#endif
++#include <linux/random.h>
++#include <linux/rwlock.h>
++#include <linux/slab.h>
++#include <linux/smp.h>
++#include <linux/spinlock.h>
++#include <linux/vmalloc.h>
++#include <linux/workqueue.h>
++#include <linux/ww_mutex.h>
++
++#if IS_MODULE(CONFIG_MX_TEST) && defined(CONFIG_LOCK_SPIN_ON_OWNER)
++#include "osq_lock.c"
++#endif
++
++/*
++ * The default here is derived from an empirical test, where
++ * "osq_lock_busted" was run 100 times of one second, varying the
++ * number of elements. This was run on a 160 CPU Arm BM system. The
++ * percentage failures were:
++ *    #elements	      percent failures
++ * ===================================
++ *	   1024		     90
++ *	   2048		     95
++ *	   4096		     92
++ *	   8192		     94
++ *	  16384		     85
++ *	  32768		     79
++ *	  65536		     66
++ */
++static unsigned int mx_nmbr_elems = 2048;
++static unsigned long mx_scnds_per_test = 1;
++static char *mx_test = "spin_lock";
++
++module_param(mx_nmbr_elems, uint, 0444);
++MODULE_PARM_DESC(mx_nmbr_elems, "Number of elements (default 2048)");
++
++module_param(mx_scnds_per_test, ulong, 0444);
++MODULE_PARM_DESC(mx_scnds_per_test, "Number of seconds to run for each test iteration (default is 1)");
++
++module_param(mx_test, charp, 0444);
++MODULE_PARM_DESC(mx_test,
++		 "Mutual exclusion method or lock-free method (spin_lock, spin_lock_irq, spin_lock_irqsave, write_lock, ...)");
++
++#define MX_RDS_IN_XMIT 2
++#define MX_SOME_BIT 13
++static DEFINE_WD_CLASS(wd_class);
++static DEFINE_WW_CLASS(ww_class);
++
++enum mx_test {
++	MX_ILLEGAL,
++	MX_BUSTED,
++	MX_SPIN_LOCK,
++	MX_SPIN_LOCK_IRQ,
++	MX_SPIN_LOCK_IRQSAVE,
++	MX_RW_LOCK_W,
++	MX_RW_LOCK_W_BH,
++	MX_RW_LOCK_TRW,
++	MX_RW_LOCK_TRW_BH,
++	MX_MUTEX,
++	MX_ATOMIC_ADD,
++	MX_ATOMIC64_ADD,
++	MX_CMPXCHG,
++	MX_RDS_BUSTED,
++	MX_TEST_AND_SET_BIT_LOCK,
++	MX_TEST_AND_SET_BIT_INNOV,
++	MX_TEST_AND_SET_BIT_PLAIN,
++	MX_TEST_AND_CLEAR_BIT_INNOV,
++	MX_TEST_AND_CLEAR_BIT_PLAIN,
++	MX_SINGLE_WW_MUTEX_WW,	/* Wound-Wait */
++	MX_SINGLE_WW_MUTEX_WD,	/* Wait-Die */
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++	MX_OSQ_LOCK_BUSTED,
++#endif
++	MX_ATOMIC_XCHG,
++};
++
++struct mx_locks {
++	/* This union contains locks and lock-free data types */
++	union {
++		/* Protecting the counter below */
++		spinlock_t spinlock;
++		rwlock_t rwlock;
++		/* Protecting the counter below */
++		struct mutex mutex;
++		atomic_t atomic_lock;
++		atomic_t atomic_counter;
++		atomic64_t atomic64_counter;
++		long cmpxchg_counter;
++		unsigned long bits;
++		struct ww_mutex ww_mutex;
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++		struct optimistic_spin_queue osq_lock;
++#endif
++	};
++};
++
++struct mx_inc_dec_params {
++	struct work_struct work;
++	struct mx_locks *locks;
++	long *counters;
++	unsigned int nelems;
++	unsigned long timeout;
++	enum mx_test mx_type;
++	u64 iter;
++	struct completion completion;
++};
++
++static bool mx_lockless_test(enum mx_test typ)
++{
++	return
++		(typ == MX_ATOMIC_ADD)  ||
++		(typ == MX_ATOMIC64_ADD)  ||
++		(typ == MX_CMPXCHG);
++}
++
++static inline unsigned int mx_rand(unsigned int *seed)
++{
++	*seed = *seed * 69069 + 111;
++	return *seed;
++}
++
++static inline void mx_acquire(struct mx_locks *locks, enum mx_test typ, unsigned long *flags_ptr)
++{
++	int ret;
++
++	switch (typ) {
++	case MX_BUSTED:
++		break;
++	case MX_SPIN_LOCK:
++		spin_lock(&locks->spinlock);
++		break;
++	case MX_SPIN_LOCK_IRQ:
++		spin_lock_irq(&locks->spinlock);
++		break;
++	case MX_SPIN_LOCK_IRQSAVE:
++		spin_lock_irqsave(&locks->spinlock, *flags_ptr);
++		break;
++	case MX_RW_LOCK_W:
++		write_lock(&locks->rwlock);
++		break;
++	case MX_RW_LOCK_W_BH:
++		write_lock_bh(&locks->rwlock);
++		break;
++	case MX_RW_LOCK_TRW:
++		while (!read_trylock(&locks->rwlock))
++			;
++		read_unlock(&locks->rwlock);
++		write_lock(&locks->rwlock);
++		break;
++	case MX_RW_LOCK_TRW_BH:
++		while (!read_trylock(&locks->rwlock))
++			;
++		read_unlock(&locks->rwlock);
++		write_lock_bh(&locks->rwlock);
++		break;
++	case MX_MUTEX:
++		mutex_lock(&locks->mutex);
++		break;
++	case MX_ATOMIC_ADD:
++	case MX_ATOMIC64_ADD:
++	case MX_CMPXCHG:
++		break;
++	case MX_RDS_BUSTED:
++		while (test_and_set_bit(MX_RDS_IN_XMIT, &locks->bits))
++			;
++		break;
++	case MX_TEST_AND_SET_BIT_LOCK:
++		while (test_and_set_bit_lock(MX_RDS_IN_XMIT, &locks->bits))
++			;
++		break;
++	case MX_TEST_AND_SET_BIT_INNOV:
++	case MX_TEST_AND_SET_BIT_PLAIN:
++		while (test_and_set_bit(MX_SOME_BIT, &locks->bits))
++			;
++		break;
++	case MX_TEST_AND_CLEAR_BIT_INNOV:
++	case MX_TEST_AND_CLEAR_BIT_PLAIN:
++		while (!test_and_clear_bit(MX_SOME_BIT, &locks->bits))
++			;
++		break;
++	case MX_SINGLE_WW_MUTEX_WW:
++	case MX_SINGLE_WW_MUTEX_WD:
++		ret = ww_mutex_lock(&locks->ww_mutex, NULL);
++		WARN_ONCE(ret, "ww_mutex_lock returned %d for the single w/w mutex case\n", ret);
++		break;
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++	case MX_OSQ_LOCK_BUSTED:
++		preempt_disable();
++		while (!osq_lock(&locks->osq_lock)) {
++			preempt_enable();
++			cond_resched();
++			preempt_disable();
++		}
++		break;
++#endif
++	case MX_ATOMIC_XCHG:
++		while (atomic_xchg_acquire(&locks->atomic_lock, 1) != 0)
++			cpu_relax();
++		break;
++	default:
++		WARN_ON_ONCE(true);
++	}
++}
++
++static inline void mx_release(struct mx_locks *locks, enum mx_test typ, unsigned long *flags_ptr)
++{
++	switch (typ) {
++	case MX_BUSTED:
++		break;
++	case MX_SPIN_LOCK:
++		spin_unlock(&locks->spinlock);
++		break;
++	case MX_SPIN_LOCK_IRQ:
++		spin_unlock_irq(&locks->spinlock);
++		break;
++	case MX_SPIN_LOCK_IRQSAVE:
++		spin_unlock_irqrestore(&locks->spinlock, *flags_ptr);
++		break;
++	case MX_RW_LOCK_W:
++	case MX_RW_LOCK_TRW:
++		write_unlock(&locks->rwlock);
++		break;
++	case MX_RW_LOCK_W_BH:
++	case MX_RW_LOCK_TRW_BH:
++		write_unlock_bh(&locks->rwlock);
++		break;
++	case MX_MUTEX:
++		mutex_unlock(&locks->mutex);
++		break;
++	case MX_ATOMIC_ADD:
++	case MX_ATOMIC64_ADD:
++	case MX_CMPXCHG:
++		break;
++	case MX_RDS_BUSTED:
++		clear_bit(MX_RDS_IN_XMIT, &locks->bits);
++		/* Deliberately outside the critical region, as RDS did prior to 1422f288 */
++		smp_mb__after_atomic();
++		break;
++	case MX_TEST_AND_SET_BIT_LOCK:
++		clear_bit_unlock(MX_RDS_IN_XMIT, &locks->bits);
++		break;
++	case MX_TEST_AND_SET_BIT_INNOV:
++		/*
++		 * Ensuring global visibility on other processors by
++		 * means of a failing test_and_set_bit()
++		 */
++		(void)test_and_set_bit(MX_SOME_BIT, &locks->bits);
++		clear_bit(MX_SOME_BIT, &locks->bits);
++		break;
++	case MX_TEST_AND_SET_BIT_PLAIN:
++		/* Ensure the counter gets global visiblity before releasing the lock*/
++		smp_mb__before_atomic();
++		clear_bit(MX_SOME_BIT, &locks->bits);
++		break;
++	case MX_TEST_AND_CLEAR_BIT_INNOV:
++		/*
++		 * Ensuring global visibility on other processors by
++		 * means of a failing test_and_clear_bit()
++		 */
++		(void)test_and_clear_bit(MX_SOME_BIT, &locks->bits);
++		set_bit(MX_SOME_BIT, &locks->bits);
++		break;
++	case MX_TEST_AND_CLEAR_BIT_PLAIN:
++		/* Ensure the counter gets global visiblity before releasing the lock*/
++		smp_mb__before_atomic();
++		set_bit(MX_SOME_BIT, &locks->bits);
++		break;
++	case MX_SINGLE_WW_MUTEX_WW:
++	case MX_SINGLE_WW_MUTEX_WD:
++		ww_mutex_unlock(&locks->ww_mutex);
++		break;
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++	case MX_OSQ_LOCK_BUSTED:
++		osq_unlock(&locks->osq_lock);
++		preempt_enable();
++		break;
++#endif
++	case MX_ATOMIC_XCHG:
++		atomic_set_release(&locks->atomic_lock, 0);
++		break;
++	default:
++		WARN_ON_ONCE(true);
++	}
++}
++
++static inline void mx_add(struct mx_locks *locks, long *counters, enum mx_test typ, long addend)
++{
++	long old;
++
++	switch (typ) {
++	case MX_BUSTED:
++	case MX_SPIN_LOCK:
++	case MX_SPIN_LOCK_IRQ:
++	case MX_SPIN_LOCK_IRQSAVE:
++	case MX_RW_LOCK_W:
++	case MX_RW_LOCK_W_BH:
++	case MX_RW_LOCK_TRW:
++	case MX_RW_LOCK_TRW_BH:
++	case MX_MUTEX:
++	case MX_RDS_BUSTED:
++	case MX_TEST_AND_SET_BIT_LOCK:
++	case MX_TEST_AND_SET_BIT_INNOV:
++	case MX_TEST_AND_SET_BIT_PLAIN:
++	case MX_TEST_AND_CLEAR_BIT_INNOV:
++	case MX_TEST_AND_CLEAR_BIT_PLAIN:
++	case MX_SINGLE_WW_MUTEX_WW:
++	case MX_SINGLE_WW_MUTEX_WD:
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++	case MX_OSQ_LOCK_BUSTED:
++#endif
++	case MX_ATOMIC_XCHG:
++		*counters += addend;
++		break;
++	case MX_ATOMIC_ADD:
++		atomic_add(addend, &locks->atomic_counter);
++		break;
++	case MX_ATOMIC64_ADD:
++		atomic64_add(addend, &locks->atomic64_counter);
++		break;
++	case MX_CMPXCHG:
++		do {
++			old = READ_ONCE(locks->cmpxchg_counter);
++		} while (cmpxchg(&locks->cmpxchg_counter, old, old + addend) != old);
++		break;
++	default:
++		WARN_ON_ONCE(true);
++	}
++}
++
++static inline long mx_read(struct mx_locks *locks, long *counters, enum mx_test typ)
++{
++	switch (typ) {
++	case MX_BUSTED:
++	case MX_SPIN_LOCK:
++	case MX_SPIN_LOCK_IRQ:
++	case MX_SPIN_LOCK_IRQSAVE:
++	case MX_RW_LOCK_W:
++	case MX_RW_LOCK_W_BH:
++	case MX_RW_LOCK_TRW:
++	case MX_RW_LOCK_TRW_BH:
++	case MX_MUTEX:
++	case MX_RDS_BUSTED:
++	case MX_TEST_AND_SET_BIT_LOCK:
++	case MX_TEST_AND_SET_BIT_INNOV:
++	case MX_TEST_AND_SET_BIT_PLAIN:
++	case MX_TEST_AND_CLEAR_BIT_INNOV:
++	case MX_TEST_AND_CLEAR_BIT_PLAIN:
++	case MX_SINGLE_WW_MUTEX_WW:
++	case MX_SINGLE_WW_MUTEX_WD:
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++	case MX_OSQ_LOCK_BUSTED:
++#endif
++	case MX_ATOMIC_XCHG:
++		return *counters;
++	case MX_ATOMIC_ADD:
++		return atomic_read(&locks->atomic_counter);
++	case MX_ATOMIC64_ADD:
++		return atomic64_read(&locks->atomic64_counter);
++	case MX_CMPXCHG:
++		return locks->cmpxchg_counter;
++	default:
++		WARN_ON_ONCE(true);
++	}
++	return 0;
++}
++
++static inline void mx_init(struct mx_locks *locks, enum mx_test typ)
++{
++	switch (typ) {
++	case MX_SPIN_LOCK:
++	case MX_SPIN_LOCK_IRQ:
++	case MX_SPIN_LOCK_IRQSAVE:
++		spin_lock_init(&locks->spinlock);
++		break;
++	case MX_RW_LOCK_W:
++	case MX_RW_LOCK_W_BH:
++	case MX_RW_LOCK_TRW:
++	case MX_RW_LOCK_TRW_BH:
++		rwlock_init(&locks->rwlock);
++		break;
++	case MX_MUTEX:
++		mutex_init(&locks->mutex);
++		break;
++	case MX_TEST_AND_CLEAR_BIT_INNOV:
++	case MX_TEST_AND_CLEAR_BIT_PLAIN:
++		set_bit(MX_SOME_BIT, &locks->bits);
++		break;
++	/* The following relies on the vzalloc below */
++	case MX_BUSTED:
++	case MX_ATOMIC_ADD:
++	case MX_ATOMIC64_ADD:
++	case MX_CMPXCHG:
++	case MX_RDS_BUSTED:
++	case MX_TEST_AND_SET_BIT_LOCK:
++	case MX_TEST_AND_SET_BIT_INNOV:
++	case MX_TEST_AND_SET_BIT_PLAIN:
++	case MX_ATOMIC_XCHG:
++		break;
++	case MX_SINGLE_WW_MUTEX_WW:
++		ww_mutex_init(&locks->ww_mutex, &ww_class);
++		break;
++	case MX_SINGLE_WW_MUTEX_WD:
++		ww_mutex_init(&locks->ww_mutex, &wd_class);
++		break;
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++	case MX_OSQ_LOCK_BUSTED:
++		osq_lock_init(&locks->osq_lock);
++		break;
++#endif
++	default:
++		WARN_ON_ONCE(true);
++	}
++}
++
++static inline void mx_fini(struct mx_locks *locks, enum mx_test typ)
++{
++	switch (typ) {
++	case MX_SPIN_LOCK:
++	case MX_SPIN_LOCK_IRQ:
++	case MX_SPIN_LOCK_IRQSAVE:
++	case MX_RW_LOCK_W:
++	case MX_RW_LOCK_W_BH:
++	case MX_RW_LOCK_TRW:
++	case MX_RW_LOCK_TRW_BH:
++	case MX_TEST_AND_CLEAR_BIT_INNOV:
++	case MX_TEST_AND_CLEAR_BIT_PLAIN:
++	case MX_BUSTED:
++	case MX_ATOMIC_ADD:
++	case MX_ATOMIC64_ADD:
++	case MX_CMPXCHG:
++	case MX_RDS_BUSTED:
++	case MX_TEST_AND_SET_BIT_LOCK:
++	case MX_TEST_AND_SET_BIT_INNOV:
++	case MX_TEST_AND_SET_BIT_PLAIN:
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++	case MX_OSQ_LOCK_BUSTED:
++#endif
++	case MX_ATOMIC_XCHG:
++		break;
++	case MX_MUTEX:
++		mutex_destroy(&locks->mutex);
++		break;
++	case MX_SINGLE_WW_MUTEX_WW:
++	case MX_SINGLE_WW_MUTEX_WD:
++		ww_mutex_destroy(&locks->ww_mutex);
++		break;
++	default:
++		WARN_ON_ONCE(true);
++	}
++}
++
++static void mx_inc_dec(struct work_struct *_work)
++{
++	struct mx_inc_dec_params *params;
++	unsigned long flags;
++	struct mx_locks *locks;
++	unsigned int seed;
++	u64 iter = 0;
++
++	params = container_of(_work, struct mx_inc_dec_params, work);
++	locks = params->locks;
++
++	get_random_bytes(&seed, sizeof(seed));
++	do {
++		unsigned int inx1 = mx_rand(&seed) % params->nelems;
++		unsigned int inx2 = mx_rand(&seed) % params->nelems;
++		struct mx_locks *rnd_el1 = locks + inx1;
++		struct mx_locks *rnd_el2 = locks + inx2;
++
++		++iter;
++
++		mx_acquire(rnd_el1, params->mx_type, &flags);
++		mx_add(rnd_el1, params->counters + inx1, params->mx_type, 1);
++		mx_release(rnd_el1, params->mx_type, &flags);
++
++		mx_acquire(rnd_el2, params->mx_type, &flags);
++		mx_add(rnd_el2, params->counters + inx2, params->mx_type, -1);
++		mx_release(rnd_el2, params->mx_type, &flags);
++	} while (time_before(jiffies, params->timeout));
++
++	params->iter = iter;
++	complete(&params->completion);
++}
++
++#define pr_notice_or_err(err, fmt, ...)				\
++	do {							\
++		if (err)					\
++			pr_err(fmt, ##__VA_ARGS__);		\
++		else						\
++			pr_notice(fmt, ##__VA_ARGS__);		\
++	} while (0)
++
++static int run_test(const enum mx_test test, const char *mnemonic, const int threads)
++{
++	struct mx_inc_dec_params *params = kzalloc_objs(*params, threads);
++	unsigned long start_jf = jiffies;
++	u64 total_iters = 0;
++	struct mx_locks *locks;
++	long *counters = NULL;
++	unsigned long ms;
++	long sum = 0;
++	int ret = 0;
++	int i;
++
++	locks = kvmalloc_array(mx_nmbr_elems, sizeof(*locks), GFP_KERNEL | __GFP_ZERO);
++
++	if (!mx_lockless_test(test)) {
++		counters = kvmalloc_array(mx_nmbr_elems, sizeof(*counters),
++					  GFP_KERNEL | __GFP_ZERO);
++		if (!counters) {
++			ret = -ENOMEM;
++			goto exit_free;
++		}
++	}
++
++	if (!locks || !params) {
++		ret = -ENOMEM;
++		goto exit_free;
++	}
++
++	for (i = 0; i < mx_nmbr_elems; ++i)
++		mx_init(locks + i, test);
++
++	for (i = 0; i < threads; ++i) {
++		struct mx_inc_dec_params *p = params + i;
++
++		p->locks = locks;
++		p->counters = counters;
++		p->nelems = mx_nmbr_elems;
++		p->timeout = jiffies + mx_scnds_per_test * HZ;
++		p->mx_type = test;
++		init_completion(&p->completion);
++
++		INIT_WORK(&p->work, mx_inc_dec);
++		queue_work(system_dfl_wq, &p->work);
++	}
++
++	for (i = 0; i < threads; ++i) {
++		struct mx_inc_dec_params *p = params + i;
++
++		wait_for_completion(&p->completion);
++		total_iters += p->iter;
++	}
++
++	for (i = 0; i < mx_nmbr_elems; ++i)
++		mx_fini(locks + i, test);
++
++	if (total_iters > LONG_MAX)
++		pr_warn_once("mx_test: Total number of iterations %llu exceeds LONG_MAX; consider reducing mx_scnds_per_test\n",
++			     total_iters);
++
++	for (i = 0; i < mx_nmbr_elems; ++i)
++		sum += mx_read(locks + i, counters + i, test);
++
++	ms = jiffies_to_msecs(jiffies - start_jf);
++
++	pr_notice_or_err(sum,
++			 "mx_test: %-27s result: %s sum: %ld elements: %7d elapsed: %lu.%03lu seconds\n",
++			 mnemonic, !sum ? "SUCCESS" : "FAILURE", sum, mx_nmbr_elems,
++			 ms / 1000, ms % 1000);
++	if (sum)
++		ret = -EFAULT;
++
++exit_free:
++	kvfree(counters);
++	kvfree(locks);
++	kfree(params);
++	return ret;
++}
++
++static int __init mx_test_init(void)
++{
++	unsigned int threads = 4 * num_online_cpus();
++	enum mx_test test = MX_ILLEGAL;
++	char *mnemonic;
++	unsigned int i;
++	int sts;
++	struct {
++		enum mx_test test;
++		char *mnemonic;
++	} mx_test_types[] = {
++		{
++			.test = MX_BUSTED,
++			.mnemonic = "busted",
++		},
++		{
++			.test = MX_SPIN_LOCK,
++			.mnemonic = "spin_lock",
++		},
++		{
++			.test = MX_SPIN_LOCK_IRQ,
++			.mnemonic = "spin_lock_irq",
++		},
++		{
++			.test = MX_SPIN_LOCK_IRQSAVE,
++			.mnemonic = "spin_lock_irqsave",
++		},
++		{
++			.test = MX_RW_LOCK_W,
++			.mnemonic = "write_lock",
++		},
++		{
++			.test = MX_RW_LOCK_W_BH,
++			.mnemonic = "write_lock_bh",
++		},
++		{
++			.test = MX_RW_LOCK_TRW,
++			.mnemonic = "read_trylock_write_lock",
++		},
++		{
++			.test = MX_RW_LOCK_TRW_BH,
++			.mnemonic = "read_trylock_write_lock_bh",
++		},
++		{
++			.test = MX_MUTEX,
++			.mnemonic = "mutex",
++		},
++		{
++			.test = MX_ATOMIC_ADD,
++			.mnemonic = "atomic_add",
++		},
++		{
++			.test = MX_ATOMIC64_ADD,
++			.mnemonic = "atomic64_add",
++		},
++		{
++			.test = MX_CMPXCHG,
++			.mnemonic = "cmpxchg",
++		},
++		{
++			.test = MX_RDS_BUSTED,
++			.mnemonic = "rds_busted",
++		},
++		{
++			.test = MX_TEST_AND_SET_BIT_LOCK,
++			.mnemonic = "test_and_set_bit_lock",
++		},
++		{
++			.test = MX_TEST_AND_SET_BIT_INNOV,
++			.mnemonic = "test_and_set_bit_innov",
++		},
++		{
++			.test = MX_TEST_AND_SET_BIT_PLAIN,
++			.mnemonic = "test_and_set_bit_plain",
++		},
++		{
++			.test = MX_TEST_AND_CLEAR_BIT_INNOV,
++			.mnemonic = "test_and_clear_bit_innov",
++		},
++		{
++			.test = MX_TEST_AND_CLEAR_BIT_PLAIN,
++			.mnemonic = "test_and_clear_bit_plain",
++		},
++		{
++			.test = MX_SINGLE_WW_MUTEX_WW,
++			.mnemonic = "single_ww_mutex_wound_wait",
++		},
++		{
++			.test = MX_SINGLE_WW_MUTEX_WD,
++			.mnemonic = "single_ww_mutex_wait_die",
++		},
++#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++		{
++			.test = MX_OSQ_LOCK_BUSTED,
++			.mnemonic = "osq_lock_busted",
++		},
++#endif
++		{
++		  .test = MX_ATOMIC_XCHG,
++			.mnemonic = "atomic_xchg",
++		},
++	};
++
++	/* Select the test type */
++	for (i = 0; i < ARRAY_SIZE(mx_test_types); ++i)
++		if (!strcmp(mx_test, mx_test_types[i].mnemonic)) {
++			test = mx_test_types[i].test;
++			mnemonic = mx_test_types[i].mnemonic;
++			break;
++		}
++
++	if (test == MX_ILLEGAL) {
++		pr_err("mx_test: unknown test type %s\n", mx_test);
++		pr_notice("mx_test: legitimate test types:\n");
++		for (i = 0; i < ARRAY_SIZE(mx_test_types); ++i)
++			pr_notice("mx_test_types:	 %s\n", mx_test_types[i].mnemonic);
++		return -ENOPROTOOPT;
++	}
++
++	if (mx_nmbr_elems < 1) {
++		pr_err("Number of elements must be greater than equal to one\n");
++		return -EINVAL;
++	}
++
++	if (mx_scnds_per_test > MAX_JIFFY_OFFSET / HZ) {
++		pr_err("mx_scnds_per_test too large\n");
++		return -EINVAL;
++	}
++
++	sts = run_test(test, mnemonic, threads);
++
++	return sts;
++}
++
++static void __exit mx_test_exit(void)
++{
++}
++
++module_init(mx_test_init);
++module_exit(mx_test_exit);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Håkon Bugge <Haakon.Bugge@oracle.com>");
++MODULE_DESCRIPTION("mutual exclusion tests");
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 134b15a44625e..6b60c66e92627 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -1691,6 +1691,16 @@ config CSD_LOCK_WAIT_DEBUG_DEFAULT
+ 	  This option causes the csdlock_debug= kernel boot parameter to
+ 	  default to 1 (basic debugging) instead of 0 (no debugging).
 
-Kind regards,
--- 
-Aaron Tomlin
++config MX_TEST
++	tristate "miscellaneous lock-full and lock-less selftests"
++	help
++	  This option provides a kernel module that runs tests using
++	  different locking primitives and lockless operations.
++
++	  Say M if you want these self tests to build as a module.
++	  Say N if you are unsure.
++
++
+ endmenu # lock debugging
+
+ config TRACE_IRQFLAGS
+diff --git a/tools/testing/selftests/locking/Makefile b/tools/testing/selftests/locking/Makefile
+index 6e7761ab35360..d9cfb0e565275 100644
+--- a/tools/testing/selftests/locking/Makefile
++++ b/tools/testing/selftests/locking/Makefile
+@@ -5,6 +5,6 @@
+ # No binaries, but make sure arg-less "make" doesn't trigger "run_tests"
+ all:
+
+-TEST_PROGS := ww_mutex.sh
++TEST_PROGS := ww_mutex.sh mx_test.sh
+
+ include ../lib.mk
+diff --git a/tools/testing/selftests/locking/mx_test.sh b/tools/testing/selftests/locking/mx_test.sh
+new file mode 100755
+index 0000000000000..6db2caafd4629
+--- /dev/null
++++ b/tools/testing/selftests/locking/mx_test.sh
+@@ -0,0 +1,171 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++
++declare mx_min_log2_elems=11
++declare mx_max_log2_elems=11
++declare mx_inc_log2_elems=1
++declare mx_seconds=1
++
++# Kselftest framework requirement - SKIP code is 4.
++declare ksft_skip=4
++
++set_low_params() {
++	mx_min_log2_elems=11
++	mx_max_log2_elems=11
++	mx_inc_log2_elems=1
++	mx_seconds=1
++}
++
++set_med_params() {
++	mx_min_log2_elems=6
++	mx_max_log2_elems=14
++	mx_inc_log2_elems=2
++	mx_seconds=2
++}
++
++set_high_params() {
++	mx_min_log2_elems=1
++	mx_max_log2_elems=23
++	mx_inc_log2_elems=2
++	mx_seconds=5
++}
++
++usage() {
++	printf "Usage: %s [-e low|medium|high] [-h]\n" "$(basename "$0")"
++}
++
++unload_module_exit_on_error() {
++	local str="$1"
++	local sts
++
++	if [ -d /sys/module/mx_test ]; then
++		/sbin/modprobe -q -r mx_test
++		sts=$?
++		if (( sts != 0 )); then
++			echo "mx_test: $str Exit status: $sts"
++			exit 1
++		fi
++	fi
++}
++
++run_test() {
++	local test=$1
++	local log2_elems
++	local sts
++
++	# Paranoia check. Unload if loaded.
++	unload_module_exit_on_error "Failed to unload preloaded mx_test module."
++
++	for log2_elems in $(seq $mx_min_log2_elems $mx_inc_log2_elems $mx_max_log2_elems); do
++		/sbin/modprobe -q mx_test mx_test="$test" \
++			       mx_nmbr_elems=$((1 << log2_elems)) \
++			       mx_scnds_per_test="$mx_seconds"
++		sts=$?
++
++		if (( sts == 0 )); then
++			unload_module_exit_on_error "Failed to unload module after test \"$test\"."
++		else
++			return $sts
++		fi
++	done
++
++	return 0
++}
++
++find_eligible_tests() {
++	local test
++
++	# Note, the following modprobe will fail and module is not loaded afterwards
++	/sbin/modprobe -q mx_test mx_test=non_existing_test
++
++	# Skip "busted" and any "foo_busted"
++	for test in $(dmesg -t | \
++			      grep mx_test_types: | \
++			      awk '{ print $2; }' | \
++			      sort -u | \
++			      grep -v busted); do
++		echo $test
++	done
++}
++
++# Run kernel selftests for lock-full and lock-less mutual exclusion tests.
++# First, check module availability.
++if ! /sbin/modprobe -q -n mx_test; then
++	echo "mx_test: module mx_test is not found [SKIP]"
++	exit $ksft_skip
++fi
++
++# Parse arguments
++while getopts :e:h arg; do
++	case $arg in
++		e)
++			case $OPTARG in
++				low)
++					set_low_params
++					;;
++				medium)
++					set_med_params
++					;;
++				high)
++					set_high_params
++					;;
++				*)
++					echo "mx_test: Invalid effort level: $OPTARG"
++					usage
++					exit 1
++					;;
++			esac
++			;;
++		h)
++			usage
++			exit 0
++			;;
++		:)
++			echo "mx_test: Option -$OPTARG requires an argument"
++			usage
++			exit 1
++			;;
++		\?)
++			echo "mx_test: Unknown option -$OPTARG"
++			usage
++			exit 1
++			;;
++	esac
++done
++
++shift "$((OPTIND - 1))"
++
++if (($# != 0)); then
++	echo "mx_test: Unexpected argument: $1"
++	usage
++	exit 1
++fi
++
++# First, run "busted" to verify the test environment. If this test
++# doesn't fail, there is no point in performing more tests in this
++# environment.
++run_test "busted"
++sts=$?
++if (( sts == 0 )); then
++	echo mx_test: The test \"busted\" did not fail. Probable cause: UP kernel or too few CPUs online.
++	echo mx_test: Hence, skipping the rest of the tests.
++	exit $ksft_skip
++fi
++
++eligible_test="$(find_eligible_tests)"
++if [ -z "$eligible_test" ]; then
++	echo mx_test: No tests found. Skipping.
++	exit $ksft_skip
++fi
++
++for test in $eligible_test; do
++	run_test "$test"
++	sts=$?
++	if (( sts != 0 )); then
++		echo mx_test: Test \"$test\" failed
++		exit 1
++	fi
++done
++
++echo mx_test: All tests passed
++exit 0
+--
+2.43.5
+
