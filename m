@@ -1,132 +1,113 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E5F49B1EA;
-	Tue, 13 Oct 2026 09:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2B1421245
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:45:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884704; cv=none; b=E7psixMWRTOk/kyJQefcxTQchpoR92eO+9lGVIugg39UZcf/C9kdsNyoz/CNsiexsf+vY5JAMRFopf5oB95Wd+g0TMVsQYdy2CVKGatr/fK8pVkhGz+avrDiMYZ3O7F9lbn4yX8dunkI21abRKh7nsyecPOoTo2ZvTHvMle3eFQ=
+	t=1791884729; cv=none; b=lkSoukoGgLqyIKTOyD6DERGFY107s5MxH26eC8oBYgl5JkT0+KJ/lNcNZGZ+xqMBIBpoXTk+HzOW6fO/44Kekj9j8iYUqWXyQJ8hx+L6r+NBAFKojWdku95cvB2Gh/0q4WLvGeBuldjzrI8nC/iH3+t2Chj31uUo3yJH3UW8P8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884704; c=relaxed/simple;
-	bh=3dy4YqTorHjhpElLR6e8/eTWi+K/ZuD10wVCNJqhxIM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=inKm6Jh+xh2hnUSi0qEFHRoypVuJV6iYJ3ut8OqJQPsP0nv1vHzlT9RW249BEW1qzL3dUR5M8HbB4RdI6nwus8rWtdGvsZAW0PcsPSt9NIDJ9kKEsiZPKETI2Q/vU9JTIGTF/2wuPRFB/RKFoNiMYCGTaFUSWe/t5G1+kq++OM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=cIkWQNLD; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1791884729; c=relaxed/simple;
+	bh=jN51U1VoMPBxv5NImcV0DrxZSW0vwqbzSIuL5nPXgYY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gV6jWDgif+Lv3AnUYsLS8nIkdZA1Ti1X9Zf/L9yW+ic4WQf83hZb3gwEgumzXAHRIY6WaTxTi9ADZ9lisLZsFKeAKDNY8gucmNHtAGbHEgvVR1pp9ESXInx545t0MAjgTQpJawFBiP06Y/ubWR/esG1B9q5g5PDNQ7Zq4XjATJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bj/NltPG; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="cIkWQNLD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=/e6lP0zIfYuncX6FoWA0t18UOCeFYO98vjWiK3ReD/0=; 
-	b=cIkWQNLD1S1pqISCFa/uvYrI2tDelPCvusuvXE1Wc+Eyfdpg0HLwXvd42R8g+tQ8DQ94se9hwXa
-	XvNWEo7K9qRvhDIQEh2gm2A5fkVsoWjJUXgI8igrg7zyPdnjKOirnl5lSn+J/X/uixXfFSYaHmX6b
-	Gvrcdv4kldAxOgLGiqmUrSXKpqaK4hCjirWY6fvM8n7gu1qFSiifqvrefXqbHy6fv05fOqboFm6yD
-	an2M6KNtpP7NQEikFvPq8dsWSNB3KzGQc30ZRF6uMVG0G5drxOwxqnQ+ZyFqfeNB89yu7ZfxqKUEC
-	zjayKt/tYiX2mO1STYenL3RCDKIal50a0LHA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xGZ3n-00000003KGf-3HDy;
-	Tue, 13 Oct 2026 17:44:40 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 13 Oct 2026 20:44:39 +1100
-Date: Tue, 13 Oct 2026 20:44:39 +1100
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev,
-	dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, nphamcs@gmail.com, terrelln@fb.com,
-	yosry@kernel.org, riel@surriel.com, shakeel.butt@linux.dev,
-	alex@ghiti.fr, senozhatsky@chromium.org, davem@davemloft.net,
-	linux-crypto@vger.kernel.org, kernel-team@meta.com
-Subject: [PATCH] crypto: acomp - Enforce MAX_SYNC_COMP_REQSIZE in init_tfm
-Message-ID: <as39h_dFzL-Al1-r@gondor.apana.org.au>
-References: <20261009163146.83112-1-usama.arif@linux.dev>
- <20261009163146.83112-3-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bj/NltPG"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so27055125e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:45:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791884726; x=1792489526; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X8v0JkLJFzbjbUzSunhsNyUV3+4oWGxJqnDHXmr6loY=;
+        b=Bj/NltPGlupEIygV1kW7Rl8/UCxb7w99HY0DXHVMuWYtuSOF7i5RYjaNkzJiMV7GRC
+         UmCXlXDgc07Fxz50CkYRQfc6g0/9JLK1bMOHUd3WVRO1yp3c/mZvRo4iG5kDzuD1k5br
+         j62gAyFY652WZEmitDHC20xiyylfRT4fYymtM9KNxDJzF5AxpMQ7GkPqUxgMfyth0FRd
+         jCzn+aZfeqexEvZGB9MoJxrD2I26NOnH3rpeY/fMqoYudNlyS2njmeemPq3xz/VEJHEf
+         kei+Ud7bUtgR+BRDlcMLOX4HTV61tato7zTXE9H8n9Rytfg/wXY76vKJ3sgjBsOwNOiY
+         F4Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791884726; x=1792489526;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X8v0JkLJFzbjbUzSunhsNyUV3+4oWGxJqnDHXmr6loY=;
+        b=bt9mIovR5Ss5MGFpu8mtHCeVGpix3DFTksBJ9es4Oe4aU5xp0olP8DDfBZXCWiMV+c
+         im4bvjB6ASFwO+cKIVwlKtMu7UCc/CYVMI7bnAXWb7n4EVXRzWOe2ktjqhR6iMehZobN
+         2dUcSZgGY3GIahHyLJOSWhX/4EmH2pY/h9L7n9uhdDQC+nF4RgByFwiGEvBYbvxmH//o
+         X4fyoE/BLHTMDFvi3GcTzDUI0KawyxDaDbDJXWssYL8VlPoaTbTkRElhK/dnxxfJ2dfk
+         GphUv49PLzl/tGlGVifPwFwSRJr39TsHaSlW92UdVzmHnBwNRkMjRHlghVQJF+JutE1j
+         oaKw==
+X-Forwarded-Encrypted: i=1; AKwUvBxTvG7zp5AjNwJN6e8LoTKdrLhJ0jY0SvBCGqkZoSEOBy7GBA8LSBfuAbxVLnnsHudf2KkCACAQNFG0V40=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsb+av07UOyOtib1zRdtSyPtUKXVCKr57kzW0ko9Qlks+gh7a1
+	zQRucU7nDY9Rj3+BmC2svJj9eSGhj2A3KoujNjQj6QdhK9HNIOyYK9FO
+X-Gm-Gg: AYBFou1jCac/og6Kav+YaJCvbrQj0VmZHYfsdHmxw65kiknmDo+RwqRCAf67yHEHM4E
+	mqee6ncB9ch0dm7PYCaKloZ/DcIyt530yJXFzt2AjwxT8ajHVEzDdtZYCdWeePWAyLCRsMCv6Bb
+	eYSXyHjZvisASr/ziM7fCd8FEIg45A/OO2lbSsQWgS3ii6ku/XwhI5VoF32HrcLCdMklFwlORuF
+	j/lsV0TnEp2hEJqm8mmb4qw//A1WTfPSxYfQ01xIl4RK/yYMtmZJnEIkCzydItOpxA8712OBcHG
+	qonSnUE3iP18OK0q4KRzOeLOn7Da6EBvYcsdKVLToY3EndntqKCCrjf7vrukPxIiJ7r9DgnEbLw
+	OYOyC548KwLoSydfm6njj7Cz+71izdJnA9WV84tvATSXlcxiaPAoSN5UcU/0xOV55rSBqc4R28K
+	UagTFrUCVwvDq6bI0dayHOWUXsPZoYS+QeBXIF9LQiipGbkvGPQQPt0zBc6ut6xZNEFRdSpYedO
+	Iq8keRzdwQP6K/wsNsgFrcltuUee+NijZ989Q==
+X-Received: by 2002:a05:600c:608d:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a18e48d45cmr252151255e9.16.1791884726303;
+        Tue, 13 Oct 2026 02:45:26 -0700 (PDT)
+Received: from [192.168.20.170] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18dd15659sm233154305e9.4.2026.10.13.02.45.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 02:45:25 -0700 (PDT)
+Message-ID: <9c311e76-66e4-4ac4-a59b-f0d7cfeade6e@gmail.com>
+Date: Tue, 13 Oct 2026 11:45:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009163146.83112-3-usama.arif@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mtd: parsers: qcom: drop setting of partition's
+ mask_flags
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra
+ <vigneshr@ti.com>, linux-arm-msm@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261006-qcom-smempart-ignore-mask_flags-v1-1-a48d9395b21b@gmail.com>
+ <87qzhuzsea.fsf@bootlin.com>
+Content-Language: hu
+From: Gabor Juhos <j4g8y7@gmail.com>
+In-Reply-To: <87qzhuzsea.fsf@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 09:30:31AM -0700, Usama Arif wrote:
->
-> diff --git a/include/crypto/acompress.h b/include/crypto/acompress.h
-> index 5d5358dfab734..12c1ce1f6243b 100644
-> --- a/include/crypto/acompress.h
-> +++ b/include/crypto/acompress.h
-> @@ -203,6 +203,19 @@ static inline bool acomp_is_async(struct crypto_acomp *tfm)
->  	       CRYPTO_ALG_ASYNC;
->  }
->  
-> +/**
-> + * acomp_can_use_stack_req() - check whether a transform can use stack requests
-> + * @tfm: ACOMPRESS transform
-> + *
-> + * Return: true if @tfm completes synchronously and its request context fits
-> + * in the storage reserved by ACOMP_REQUEST_ON_STACK(), false otherwise.
-> + */
-> +static inline bool acomp_can_use_stack_req(struct crypto_acomp *tfm)
-> +{
-> +	return !acomp_is_async(tfm) &&
-> +	       crypto_acomp_reqsize(tfm) <= MAX_SYNC_COMP_REQSIZE;
+Hi Miquèl,
 
-I think we should enforce MAX_SYNC_COMP_REQSIZE in the Crypto API
-and then you can simply test against acomp_is_async(tfm).
+2026. 10. 12. 20:27 keltezéssel, Miquel Raynal írta:
+> Hi Gabor,
+> 
+> On 06/10/2026 at 22:00:41 +02, Gabor Juhos <j4g8y7@gmail.com> wrote:
+> 
+>> The 'attr' member of struct 'smem_flash_pentry' is 8 bits wide,
+>> so it is only usable to mask the lower 8 bits in the MTD flags.
+>> However the MTD layer does not define any maskable flags in
+>> these bits at all. Additionally, the meaning of the bits in the
+>> 'attr' field is not documented, so it is not even possible to map
+>> those to the defined MTD flags.
+>>
+>> Due to the reasons above, remove the 'mask_flags' assignment code
+>> since it has no effect anyway.
+>>
+>> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+> 
+> Sorry but it no longer applies after Weigang He's:
+> [PATCH] mtd: parsers: qcom: fix offset/size overflow on large partitions
 
-Feel free to include this patch in your series:
+Sorry, my fault. The patch was based on nand/next.
+I will send a v2 based on tip of mtd/next.
 
----8<---
-Enforce the limit MAX_SYNC_COMP_REQSIZE when an acomp tfm is
-initialised.  All existing algorithms obey this limit.
-
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-
-diff --git a/crypto/acompress.c b/crypto/acompress.c
-index 4de1a2ad577f..c8b4b8589769 100644
---- a/crypto/acompress.c
-+++ b/crypto/acompress.c
-@@ -92,10 +92,6 @@ static int crypto_acomp_init_tfm(struct crypto_tfm *tfm)
- 		if (IS_ERR(fb))
- 			return PTR_ERR(fb);
- 
--		err = -EINVAL;
--		if (crypto_acomp_reqsize(fb) > MAX_SYNC_COMP_REQSIZE)
--			goto out_free_fb;
--
- 		tfm->fb = crypto_acomp_tfm(fb);
- 	}
- 
-@@ -105,15 +101,19 @@ static int crypto_acomp_init_tfm(struct crypto_tfm *tfm)
- 
- 	acomp->base.exit = crypto_acomp_exit_tfm;
- 
--	if (!alg->init)
--		return 0;
--
--	err = alg->init(acomp);
--	if (err)
-+	if (alg->init && ((err = alg->init(acomp))))
- 		goto out_free_fb;
- 
-+	err = -EINVAL;
-+	if (!acomp_is_async(acomp) &&
-+	    crypto_acomp_reqsize(acomp) > MAX_SYNC_COMP_REQSIZE)
-+		goto out_exit_tfm;
-+
- 	return 0;
- 
-+out_exit_tfm:
-+	if (alg->exit)
-+		alg->exit(acomp);
- out_free_fb:
- 	crypto_free_acomp(fb);
- 	return err;
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Regards,
+Gabor
