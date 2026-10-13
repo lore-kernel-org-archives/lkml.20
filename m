@@ -1,93 +1,132 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7DD246781;
-	Tue, 13 Oct 2026 09:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E5F49B1EA;
+	Tue, 13 Oct 2026 09:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884684; cv=none; b=WZbkHRHubbqqUidSyIHQi8UDg+sgg0xpfUY1tmKvBOSbheG4bLlhzobQJl6b0zvIUiVtuBAm0iN4ogbHyOQsXsDxMEIKVTj/0nhaxkNdUCXpQVitgLENx7o2f9g1QJ248cXebu+upof7gqQphtN9wwUeEXWqVJ0rWWFzUGqg6os=
+	t=1791884704; cv=none; b=E7psixMWRTOk/kyJQefcxTQchpoR92eO+9lGVIugg39UZcf/C9kdsNyoz/CNsiexsf+vY5JAMRFopf5oB95Wd+g0TMVsQYdy2CVKGatr/fK8pVkhGz+avrDiMYZ3O7F9lbn4yX8dunkI21abRKh7nsyecPOoTo2ZvTHvMle3eFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884684; c=relaxed/simple;
-	bh=C3f/PU3q3e17UxXNeOIaXS+wMmxjkbvo+XRbZ6ndYcQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kbBtzsA/DXdMued2IUNhK687Wp6Ljh7yp7ZGsD/9h8cJ5zuAeUubb8PTEQ43cefhP54N4h/69/cSBZyADKMmeMY0fEiXc3tGSGsdupKBlRBMKQ0zVfJy4+lp5+N4sAMUaa/hCXx4b8kvT1+wvbwrZmPB/sGrvOeO6V8+FXlks50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net; spf=pass smtp.mailfrom=amieiro.net; dkim=pass (2048-bit key) header.d=amieiro.net header.i=@amieiro.net header.b=eWHrVT6V; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amieiro.net
+	s=arc-20240116; t=1791884704; c=relaxed/simple;
+	bh=3dy4YqTorHjhpElLR6e8/eTWi+K/ZuD10wVCNJqhxIM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=inKm6Jh+xh2hnUSi0qEFHRoypVuJV6iYJ3ut8OqJQPsP0nv1vHzlT9RW249BEW1qzL3dUR5M8HbB4RdI6nwus8rWtdGvsZAW0PcsPSt9NIDJ9kKEsiZPKETI2Q/vU9JTIGTF/2wuPRFB/RKFoNiMYCGTaFUSWe/t5G1+kq++OM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=cIkWQNLD; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amieiro.net header.i=@amieiro.net header.b="eWHrVT6V"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j3qDk5kWwzMlg6;
-	Tue, 13 Oct 2026 11:44:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amieiro.net; s=MBO0001;
-	t=1791884678;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1JByn10oJi/4Szu73S8win3SzOhC2s6rQ+eLKXsUO9U=;
-	b=eWHrVT6VU/CHdPzZgGgvqSNY+mcE4MySX5iW1honivpcJlxzbLNzEp0N/t03/1gNJ/3Td/
-	eLNysE1Q2WH4y53/xklrxcsZsTgm7SB1JnrRa3+Ep1tu7wj5/eZL/igqPhRdIShEJSHX/o
-	85MYqokquUEthSqao2LHRzwLybcqacZMp3M+UWmnVy/zlXyXuXVRwJtHeisbL4deT3x3qC
-	ZXOYnu0W1I66zJ3m4Eh0dzpG40uc/ugXmWIkc2eF7yWUxc69MYTmy33WtdJ5FBsT7w7m7T
-	N9atmNJNzUc1Gm1qedwj5GqZpxOzhLUqdcl72kvDnVqUP1TeJn2f4H/9e07sgg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of flavio@amieiro.net designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=flavio@amieiro.net
-From: Flavio Amieiro <flavio@amieiro.net>
-Date: Tue, 13 Oct 2026 06:43:42 -0300
-Subject: [PATCH v2 2/2] dt-bindings: leds: Add issi,is31fl3206 to
- leds-is31fl32xx
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="cIkWQNLD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=/e6lP0zIfYuncX6FoWA0t18UOCeFYO98vjWiK3ReD/0=; 
+	b=cIkWQNLD1S1pqISCFa/uvYrI2tDelPCvusuvXE1Wc+Eyfdpg0HLwXvd42R8g+tQ8DQ94se9hwXa
+	XvNWEo7K9qRvhDIQEh2gm2A5fkVsoWjJUXgI8igrg7zyPdnjKOirnl5lSn+J/X/uixXfFSYaHmX6b
+	Gvrcdv4kldAxOgLGiqmUrSXKpqaK4hCjirWY6fvM8n7gu1qFSiifqvrefXqbHy6fv05fOqboFm6yD
+	an2M6KNtpP7NQEikFvPq8dsWSNB3KzGQc30ZRF6uMVG0G5drxOwxqnQ+ZyFqfeNB89yu7ZfxqKUEC
+	zjayKt/tYiX2mO1STYenL3RCDKIal50a0LHA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xGZ3n-00000003KGf-3HDy;
+	Tue, 13 Oct 2026 17:44:40 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 13 Oct 2026 20:44:39 +1100
+Date: Tue, 13 Oct 2026 20:44:39 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev,
+	dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, nphamcs@gmail.com, terrelln@fb.com,
+	yosry@kernel.org, riel@surriel.com, shakeel.butt@linux.dev,
+	alex@ghiti.fr, senozhatsky@chromium.org, davem@davemloft.net,
+	linux-crypto@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH] crypto: acomp - Enforce MAX_SYNC_COMP_REQSIZE in init_tfm
+Message-ID: <as39h_dFzL-Al1-r@gondor.apana.org.au>
+References: <20261009163146.83112-1-usama.arif@linux.dev>
+ <20261009163146.83112-3-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-add-is31fl3206-support-v2-2-ca0d2bf5783f@amieiro.net>
-References: <20261013-add-is31fl3206-support-v2-0-ca0d2bf5783f@amieiro.net>
-In-Reply-To: <20261013-add-is31fl3206-support-v2-0-ca0d2bf5783f@amieiro.net>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Flavio Amieiro <flavio@amieiro.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=725; i=flavio@amieiro.net;
- h=from:subject:message-id; bh=C3f/PU3q3e17UxXNeOIaXS+wMmxjkbvo+XRbZ6ndYcQ=;
- b=owGbwMvMwCX2bmrBFGnZ5lDG02pJDFln/2axnG7csCu4R+fjzoiUVXPCzxv83hzWYxHAKvyGW
- 0fx3FrJjlIWBjEuBlkxRRaWMpYy7/aDzbunrZaEmcPKBDKEgYtTAC7CwcjwyjAxw6/vuMKvC7t2
- Trctzn117VB+x7R+73l1W99c2Zv0k+F/JINM1Sv2uEqjcB6HPaqWaQrBnSbsC44+sNYTdxI4+YI
- ZAA==
-X-Developer-Key: i=flavio@amieiro.net; a=openpgp;
- fpr=047604764B87C183BB96AB19EE9570941B1D8355
-X-Rspamd-Queue-Id: 4j3qDk5kWwzMlg6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009163146.83112-3-usama.arif@linux.dev>
 
-This is a 12 channel variant of the is31fl32xx led driver series.
+On Fri, Oct 09, 2026 at 09:30:31AM -0700, Usama Arif wrote:
+>
+> diff --git a/include/crypto/acompress.h b/include/crypto/acompress.h
+> index 5d5358dfab734..12c1ce1f6243b 100644
+> --- a/include/crypto/acompress.h
+> +++ b/include/crypto/acompress.h
+> @@ -203,6 +203,19 @@ static inline bool acomp_is_async(struct crypto_acomp *tfm)
+>  	       CRYPTO_ALG_ASYNC;
+>  }
+>  
+> +/**
+> + * acomp_can_use_stack_req() - check whether a transform can use stack requests
+> + * @tfm: ACOMPRESS transform
+> + *
+> + * Return: true if @tfm completes synchronously and its request context fits
+> + * in the storage reserved by ACOMP_REQUEST_ON_STACK(), false otherwise.
+> + */
+> +static inline bool acomp_can_use_stack_req(struct crypto_acomp *tfm)
+> +{
+> +	return !acomp_is_async(tfm) &&
+> +	       crypto_acomp_reqsize(tfm) <= MAX_SYNC_COMP_REQSIZE;
 
-Signed-off-by: Flavio Amieiro <flavio@amieiro.net>
----
- Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt | 1 +
- 1 file changed, 1 insertion(+)
+I think we should enforce MAX_SYNC_COMP_REQSIZE in the Crypto API
+and then you can simply test against acomp_is_async(tfm).
 
-diff --git a/Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt b/Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
-index 7082ed186dd9..06f85a1c6aaf 100644
---- a/Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
-+++ b/Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
-@@ -11,6 +11,7 @@ Required properties:
- 	issi,is31fl3218
- 	issi,is31fl3216
- 	issi,is31fl3293
-+	issi,is31fl3206
- 	si-en,sn3218
- 	si-en,sn3216
- - reg: I2C slave address
+Feel free to include this patch in your series:
 
+---8<---
+Enforce the limit MAX_SYNC_COMP_REQSIZE when an acomp tfm is
+initialised.  All existing algorithms obey this limit.
+
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+
+diff --git a/crypto/acompress.c b/crypto/acompress.c
+index 4de1a2ad577f..c8b4b8589769 100644
+--- a/crypto/acompress.c
++++ b/crypto/acompress.c
+@@ -92,10 +92,6 @@ static int crypto_acomp_init_tfm(struct crypto_tfm *tfm)
+ 		if (IS_ERR(fb))
+ 			return PTR_ERR(fb);
+ 
+-		err = -EINVAL;
+-		if (crypto_acomp_reqsize(fb) > MAX_SYNC_COMP_REQSIZE)
+-			goto out_free_fb;
+-
+ 		tfm->fb = crypto_acomp_tfm(fb);
+ 	}
+ 
+@@ -105,15 +101,19 @@ static int crypto_acomp_init_tfm(struct crypto_tfm *tfm)
+ 
+ 	acomp->base.exit = crypto_acomp_exit_tfm;
+ 
+-	if (!alg->init)
+-		return 0;
+-
+-	err = alg->init(acomp);
+-	if (err)
++	if (alg->init && ((err = alg->init(acomp))))
+ 		goto out_free_fb;
+ 
++	err = -EINVAL;
++	if (!acomp_is_async(acomp) &&
++	    crypto_acomp_reqsize(acomp) > MAX_SYNC_COMP_REQSIZE)
++		goto out_exit_tfm;
++
+ 	return 0;
+ 
++out_exit_tfm:
++	if (alg->exit)
++		alg->exit(acomp);
+ out_free_fb:
+ 	crypto_free_acomp(fb);
+ 	return err;
 -- 
-2.53.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
