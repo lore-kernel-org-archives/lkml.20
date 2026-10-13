@@ -1,64 +1,64 @@
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0FE49C4CC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F6B4EBADA
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892597; cv=none; b=pZM49Gx38Fv7cAlALIvnNPEsPj4whzGtLiheK7muoq+xLf6lUpjudByq4zEsNuz627E5GofZCiFeu6gQ5vTzC04jFddZI+a0DIm7vZcl5Znqjzaga63QpIE5Mb3PX14vV/u9vmwkpPQb0zqinBwZAEbPZDVUYavWfoWAgQ4Z2hA=
+	t=1791892602; cv=none; b=MAPg7KEHz4H6dzItMKkx0Bk5btSeeRs5QM7xtSDOUgadSd4XxHabI7QNLHe+nB5MJTd4PMykX13dbiNl9Psa9DCHZcXG8NEok0l+aHiHKLH0q9UYM11Sjgjni9iiaYnWmWEQZx8/5Znho1IHaykkVwXf4twku7qjc9AV/TD/PnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892597; c=relaxed/simple;
-	bh=aajoIehjNmVxG+zPDW2Mu4E0IvdQnS07fqtea4FejVo=;
+	s=arc-20240116; t=1791892602; c=relaxed/simple;
+	bh=jta5wjdiHYkDEBCD2FaUvr4GTFcZOd1wWSt7UE0AljA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DZST3eAfX+tA2gQyoRKABnbTnN29mZbedvSejSWxL/zDHP0abzPX/fCpd290UiKfcMWKOJQjS4k1ZF2DniEm0pkyf5U+/sgdBPcogKnr0YOD7Ek+zsWe7tEGCWXBq/LWifxVP9MkXgmnuqMmvkDI2oumyPRZhNHdOSeQxRMksVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AFDB0kx6; arc=none smtp.client-ip=74.125.227.131
+	 MIME-Version; b=q9K27s6oq17MfQaQ0UDDOvIk8dPmzes8HImADZq/WTzo0QlbEV13F8WzVFDlwxGpYoQUMCNp5qtYvMS/9nIgDjxUfnxsXS0vXpQxiCA3JmJMBv7c+R2k5hBKlTuWUwufHa0FDxiYWnO+ElSXLjDCnA0sBbvOOK/MbAlQ1tu8jEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qScQltUU; arc=none smtp.client-ip=74.125.227.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AFDB0kx6"
-Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3ab04c3c533so1302127a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:56:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qScQltUU"
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d6f230d1easo1824185ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:56:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791892595; x=1792497395; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791892600; x=1792497400; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aDr2CmceL3ca2fswvyyunUdCe7sbFULSntXyt994J+0=;
-        b=AFDB0kx6fAKpLPSIdJbimLrhllzTPBDU66dMN+6kRyxobZq4RjBfzPgeVimeOa2X7S
-         BKXDqgUhDQEv57fi7+JOKmsKaMhbSzZg0tAkDXS5vIhEVOOKqta5zCGHmq7kreYNPeKI
-         0p2mMUMEFOhl62DwbbRldJSWDqNNxf04vklAfqHfNdXuDLE+HOWyQudU1h6g5w3TTjlE
-         K644W9JTbbxPOMNcWnEtRNMM794dmrivM2Bt9FNzahLspoqCDsu7EGLNU2NcsgcDJcHz
-         YFytF4zzLg+JNAicCUH7UAEcHiyN7sATJW71YjbzS0KwGeqjSlCcE+7mNK33udeL/BT/
-         t1vQ==
+        bh=ggaf4ZWPiCf8BenJlAZtFehpccMR0Zs42ekbOs3yAZc=;
+        b=qScQltUUkP9Q+z5kB8A7OofnHSzWQqrhr3a/VQ/zI5TwxMGaRqJU8/XFKWb9q41jDx
+         vR5KXzMNlbB/IcXe/OwXN5q8ry4JMd8Ttn1Uvt++tTWzzp5ACDY7RZgaDPz/jExn8GjM
+         HIWY3AKXqK/HhAvlnlW3184j9H0RsDqJDb4hlpa4HMMN6XHHYWGkd0Vd5iKmH/F1S0+R
+         L8M8PBEEke8SHq1IN63vVIA0SG1mRPcsmP0+rKwalS9o1jPLNhPco/uY/6KspURLZdwz
+         +aCvnIW8ZD1aNSOEzqRSLgVT+85jZ76KeRDvI5tiOnlZuwNqKDomC/3LQQiSL41KKc24
+         jBzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791892595; x=1792497395;
+        d=1e100.net; s=20260707; t=1791892600; x=1792497400;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aDr2CmceL3ca2fswvyyunUdCe7sbFULSntXyt994J+0=;
-        b=z1j7PIAchV0b1UQwJApgQzg9eNF5Hdya6uZkEsuq1pbrKpzOuzJG2SjiX1WKvVLrxh
-         lYiBkiRZCkYjN48A33u5Z141/Do7AwM5xSR/6mL8IWixdfOqJwP8+zK9xOdTrnyQ2mZ7
-         3NHJX0okVrdjfFdER4brPM5GpiQaeKW5jEidiB2aWIn/GC9mz1oNiOJPFz6GZFz1aY9S
-         L7tdys/1mjtjPRhl/2G/+RwUh7KKRfVyDYRtChAmreHZNvPfhH5I5NBuC0oNZyXeau64
-         TvAq3N5DfiXZufDKfHgsIV34TgIMX3YY6rpctydnt29cXSFqcHHLqD+/UtxPRJi8wz6+
-         7uHA==
-X-Forwarded-Encrypted: i=1; AKwUvBxqNWakQHg5F22LvCGyGG3m0fzxuVUChmSsxpxv/6TRNqvTOx7eDXR3bURcJj7OcCpRPqL02ETMvA/sS0g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWD0OFcNGs0vqmDSdPzAN+lhbZWdB4Hq04E/gU+k7Xu7ZfAwkU
-	2kGiDlMM8SoeIhHzFIOZXov2Aq6ifKZ+N3FR4J6g43SUyZkqHHv3RTny
-X-Gm-Gg: AYBFou1a9O0kv8e16LqxRn9ZkyENnaFze6J6S6n/Duz7D7zhZ64mhg+quJjWVCrv8iq
-	r21b/gC0i+tDJ/lv9W3xnbK6XN6uH8wuXeMu/sKNmUIy3imsjZaso3M96DIqjA0YGVvO/bI9FZn
-	S6s1Aea9BF6OJ5E3i5cWRYsV19jN2V7t4hwblyoIpvGZCu3IG6BbPN4p70u771uTp5xs3Iu6CD4
-	2At9MlYM5X8F0LzMtgR7aeH0yBECRY1LuNPsJRatT+1BVryQcGW9Efjobs4UdmiCKhMdGCBSc7P
-	LSoKhT3PIDStGFLbqiQnGONFc+Bkj4WEum3XYAYspq7ANGpRn3Z68U31DX7ZmvBevfZHWZZ70nb
-	+UfO9x0URCU4fBfAHPDFjjOu/wL/Au9GM9PPI/fk1UDKqTKElO8Xisc1KP6Hz0XV0omJ4MFstk6
-	a8WDgBJkJW9gzOq0KII0z6mxMadbwjOGGwy1E0sI4KfcJUdn1hL8aPUItZaozjaNXGtkJI+bOyT
-	3f5t3gPgWYVFa/N505e/duAXFPEpaemv9JG
-X-Received: by 2002:a17:90b:3c8c:b0:3aa:6b5d:a018 with SMTP id 98e67ed59e1d1-3ab3af94c34mr9681745a91.67.1791892595477;
-        Tue, 13 Oct 2026 04:56:35 -0700 (PDT)
+        bh=ggaf4ZWPiCf8BenJlAZtFehpccMR0Zs42ekbOs3yAZc=;
+        b=jYk/wd0OaQU1uZnUzU8LnrNCpAYGMrpVp+TVCnxleg+gZ0SCdK8fSskMazTJ+YFrjI
+         emYZazE8M9M6L/0lYMBwqlfkwfi0HMn1PE97veKMdfiTCaaiVgwc7X39fol96oZ7XzAU
+         vtYUT/Gk2PV58wkKaHSIEv3jhEFvjeMDe+44QwD/qg1WM95tvUbBn4Xba/o09rCg60ea
+         HVCq/bboGLEVlbpwNmxVTupChpZQBht6B2pLj7+66aBoTmVcghCUi60/GzZE1vaLQjeP
+         Inb9Wa1OjYEocUtwOtIrQ5xc0r8tmml5mwIQM9UGnhRYnLTycORV/mF6PVCvHk37E6Mn
+         wwkA==
+X-Forwarded-Encrypted: i=1; AKwUvByc+/7A/UwD26KQvvP+GiWmsvol3QCUyhCE9nxY4LbhN6z1CLDLcefXC7vtNniCeiI8GfLQGRpjkrpYsL0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGTuAhctLv4b9CJ8/8jgucXztJzNKFagHVaASYxv74kXnzQd56
+	j38Rz6MX24H1r09DkAaI3N1GCIsMGRfqBnxAzO2x0wcB4P3NUE6nd77I
+X-Gm-Gg: AYBFou06s0w6NH9fHxPbCr3PV2kwI+FaaasKSc1JHnPmAiMmjK+8DLSk2FqQ2waK+2d
+	qp472itd/vAgdB1QJg4GBfmOTMNqG1XKyPsQubQE9M79Z/K+biy7c77L1iYQPXcp2I/u3zhcAf6
+	jJ2Sn5wsnAzD/I4fiqY2BLS7vht5tCDb8yvY/o+/Gm4tbcjloR4As+g0pE3VFsTpFp0n67vChNC
+	swVtd5AHyqEYHEC8zxf9ZFu8sQqZvKAO2/zt020pbJ+mLXls/U3yPs7ogh9s88dOgju0lk6abw+
+	R+r5t2oHXzUbCPdDiVLj5CDZw6cmq7vvgvmPYsnLAa6X/B+V5WInK/qNFitzTlOD/RRNjytdHfn
+	18F7910zgKNKG4cTP9rVLyYWj2n/gRITERi7YRFrVMzrlQhai3+VbJw/sjReJjrG1SZURKCykeY
+	V6//NhZSKcWzYWekkQux4BR4jBei8M7t9D2A5AUz6S0msFoxkTgpkkIQ/7FRQNVGXVe80l49EeN
+	5707ZQx//2e4XwmO4avnVY+ZsfAoRibR1Hk
+X-Received: by 2002:a17:90b:3a48:b0:3a8:337d:228a with SMTP id 98e67ed59e1d1-3ab3a367926mr6555917a91.6.1791892600332;
+        Tue, 13 Oct 2026 04:56:40 -0700 (PDT)
 Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm21248516a91.13.2026.10.13.04.56.30
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm21248516a91.13.2026.10.13.04.56.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:56:35 -0700 (PDT)
+        Tue, 13 Oct 2026 04:56:39 -0700 (PDT)
 From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
 To: linux-f2fs-devel@lists.sourceforge.net,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
@@ -75,11 +75,10 @@ Cc: Barry Song <baohua@kernel.org>,
 	Nanzhe Zhao <nzzhao@126.com>,
 	Pengfei Li <lipengfei28@xiaomi.com>,
 	Ryan Roberts <Ryan.Roberts@arm.com>,
-	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 01/18] f2fs: read i_size once in f2fs_vm_page_mkwrite
-Date: Tue, 13 Oct 2026 19:56:04 +0800
-Message-ID: <20261013115621.968742-2-nzzhao.sigma@gmail.com>
+Subject: [PATCH v4 02/18] f2fs: remove mappedtodisk flag usage in mmap write path
+Date: Tue, 13 Oct 2026 19:56:05 +0800
+Message-ID: <20261013115621.968742-3-nzzhao.sigma@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
 References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
@@ -93,83 +92,77 @@ Content-Transfer-Encoding: 8bit
 
 From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 
-f2fs_vm_page_mkwrite() reads i_size twice: once to check whether the
-folio is partially beyond EOF, and once to calculate the offset for
-folio_zero_segment(). But a concurrent buffered write can extend isize
-and cause the following race condition to corrupt data:
+PG_mappedtodisk was inherited from the nobh/buffer-head era.  However,
+f2fs has no buffer heads and the flag is no longer meaningful.  The only
+user of the flag is the "no holes" shortcut in f2fs_vm_page_mkwrite(),
+which makes mmap write faults skip marking the folio dirty.  Moreover,
+it causes the following race condition with filesystem freezing:
 
-buffered write writes [0,3500)
-
-CPU0 (write fault)                        CPU1 (buffered write)
- ----                                     ----
+ CPU0 (write fault)     CPU1 (freeze_super)
+ ----                   ----
  f2fs_vm_page_mkwrite()
- folio_lock(folio)
- if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
- i_size_read(inode))
- /* i_size_read() = 3500 */
-                                           write(fd, buf, 200, 4096)
-                                           /* writes into page1, does not
-                                              wait for folio lock */
-                                           i_size_write(inode, 4296)
- offset = i_size_read(inode) & ~PAGE_MASK
- /* i_size_read() = 4296, offset = 200 */
- folio_zero_segment(folio, offset, folio_size(folio))
- /* valid data [200, 3500) is zeroed */
+ sb_start_pagefault()
+ /* shortcut: no dirty */
+ sb_end_pagefault()
 
-Fix this by reading i_size once and using the same value for both the
-EOF check and the zeroing offset.
+                        sb_wait_write(SB_FREEZE_PAGEFAULT)
+                        /* no waiter, passes */
+                        sync_filesystem()
+                        /* folio not dirty, skipped */
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261012030315.978375-1-zhaonanzhe%40xiaomi.com
+ finish_fault()
+ /* PTE writable */
+ fault_dirty_shared_page()
+ folio_mark_dirty()
+ /* dirty folio on a frozen fs */
+
+It will also skip APP_MAPPED_IO iostat/REQ_TIME updates and post-EOF
+folio zeroing.
+
+Remove this shortcut in f2fs_vm_page_mkwrite() and stop setting it in
+f2fs_read_single_page().
+
+Reported-by: Chao Yu <chao@kernel.org>
+Link: https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
+Reviewed-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
 Fixes: fbfa2cc58d53 ("f2fs: add file operations")
 Cc: stable@vger.kernel.org
 Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 ---
- fs/f2fs/file.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ fs/f2fs/data.c | 1 -
+ fs/f2fs/file.c | 6 ------
+ 2 files changed, 7 deletions(-)
 
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 29c4a81eb..f2d2f0106 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -2481,7 +2481,6 @@ static int f2fs_read_single_page(struct inode *inode, struct fsverity_info *vi,
+ got_it:
+ 	if ((map->m_flags & F2FS_MAP_MAPPED)) {
+ 		block_nr = map->m_pblk + block_in_file - map->m_lblk;
+-		folio_set_mappedtodisk(folio);
+ 
+ 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
+ 						DATA_GENERIC_ENHANCE_READ)) {
 diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index ed1b944f8..fc959cdb9 100644
+index fc959cdb9..d680f6f8a 100644
 --- a/fs/f2fs/file.c
 +++ b/fs/f2fs/file.c
-@@ -125,6 +125,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	struct dnode_of_data dn;
- 	bool need_alloc = !f2fs_is_pinned_file(inode);
-+	loff_t isize;
- 	int err = 0;
- 	vm_fault_t ret;
+@@ -225,12 +225,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	/* wait for GCed page writeback via generic cache */
+ 	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
  
-@@ -188,8 +189,14 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	filemap_invalidate_lock_shared(inode->i_mapping);
- 
- 	folio_lock(folio);
-+	/*
-+	 * A concurrent buffered write can extend isize, so we store isize in a
-+	 * local variable to let the zeroing offset match the EOF check below.
-+	 */
-+	isize = i_size_read(inode);
-+
- 	if (unlikely(folio->mapping != inode->i_mapping ||
--			folio_pos(folio) > i_size_read(inode) ||
-+			folio_pos(folio) > isize ||
- 			!folio_test_uptodate(folio))) {
- 		folio_unlock(folio);
- 		err = -EFAULT;
-@@ -225,11 +232,10 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 		goto out_sem;
- 
+-	/*
+-	 * check to see if the page is mapped already (no holes)
+-	 */
+-	if (folio_test_mappedtodisk(folio))
+-		goto out_sem;
+-
  	/* page is wholly or partially inside EOF */
--	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
--						i_size_read(inode)) {
-+	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) > isize) {
+ 	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) > isize) {
  		loff_t offset;
- 
--		offset = i_size_read(inode) & ~PAGE_MASK;
-+		offset = isize & ~PAGE_MASK;
- 		folio_zero_segment(folio, offset, folio_size(folio));
- 	}
- 	folio_mark_dirty(folio);
 -- 
 2.43.0
 
