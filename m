@@ -1,183 +1,162 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C292321ABBB
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:16:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC553BFE4F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:18:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791864980; cv=pass; b=ZOyN6PY+r+lDBjHYJsOZWfoMPE1804yMI+Ypwjpm6Iepy2MMlMMA3DA5LbYtMYovkftxOffxfXEKaK3lbsWf+Q35Zgbpazk1HB3OW3MZPOQ+/5ymMw+okc5HdoVmDiJQmi2huBXzv7J6PEL3GP3NVCljg7ZbON1wmb2auj3INGk=
+	t=1791865122; cv=pass; b=bgU7kI2vfVyEo+Sp7pJe4tPvMLDxaG3W8unz+865I3kBszHSI0fbZDvjRylvNzb4eTEcGPSeAMYs/3wP1gHrlUpEYwb7tWsbJc9ueqTtYsjDk+drnz7AG2CO2Po1aesboBtI+U1bEOEPw1L5zMgXOuByUhzPrJT37owgIXbVZgM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791864980; c=relaxed/simple;
-	bh=EuScvzexzPb+xEeXIANQoNoJGGCPYZxFQk+Lqw6x2oM=;
+	s=arc-20240116; t=1791865122; c=relaxed/simple;
+	bh=RXTMOQ3s/A/fpHZbZ7Z1yCnaHYebzC4eV4sd40V0Aoc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OlEI1K7rTJLzTlg+Tgaumd796iyScAl4jxyu9BNrC9+OocqoVCW9W0OY7bZaYXHo0riDAgW2RrTghM12zPuJHEk9JlTXkMxfLQMghI3sBBm9xenbRm1YSwjHDPIzP/D4odg7mKXpbf0Pl3ggNJLgMwqqMBhNGsYoVPNORZdgn1Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DpRpnWmN; arc=pass smtp.client-ip=209.85.160.178
+	 To:Cc:Content-Type; b=ftBahvTLq5QCZ11RrMwlvP8JSkMeSvwu8b0pDc91Y6ACeL+49igD/mBS9yRg6niCmuMfj4BuhGZ6pVq2902sFBKENpafVas+uRjjp6FLZOb0lNT6QkBIM8pPK6FnC1pCjdoqdYgTC4sjAVrayOL4FpnhHAr0huuvGJmfAGTTW2Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gAnGxwWW; arc=pass smtp.client-ip=209.85.210.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DpRpnWmN"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53512cd2f85so33474851cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:16:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791864977; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gAnGxwWW"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-884062f3296so1589876b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:18:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791865120; cv=none;
         d=google.com; s=arc-20260327;
-        b=bvAo1z492vwb1+LaPQTCgK7N6PV+hyFfro+S/m4er/R949+vFu0nI9+bMKugprHHVJ
-         Lw0owlPRpSHlYjB85i8X4gu0uGVlbdCzwmamib04dVisz1OuKg3/TJhpol+3zZrhTkHr
-         QiRysVe/Rlff4+w6LHSG1Gfq0QVktqtatha/8KU80Uw7Dm7Tv8qzJN0USzfM0T8Y965j
-         qRy5T7nd/4FNxXp7qc1lJwFV/8l8Mh4bGAIItnL0beM7TVBHykRUyRlKZUcRkJi9foNB
-         Pp/9ByLx+2Brb2xoBZG3XbLDB3F906h88mm8ErSwJvEuZK8gVj29ISft9TodMc5yMtHN
-         PcNQ==
+        b=LZeiaIfGnIeFzrsgv7lgQJu7FwxO3XSsFbb/sSWzhL9BZ4CgAzU20ftXQ+7KPJhrHf
+         xQATR6/2/5o3nJLy4nFQm/Z0Dq3TINagQ7RAfUZQ/Vw/GC3vplmVmnNgcFx+HvMa5Z3P
+         KsT0xUjbiUC3ZXWmIEvP0hR2fMdhteT5b+xmwKNnWOfZ8RBhLt9H90bQte86uJ7Y3Yjp
+         keqBAkXZ8hQslE0eQKM0GZAKcLcqHs9Fz91pq4bbtpr/QwsCyZKcA3fcRY6pLq3cYGGH
+         BtYx4X+Ivgwa6GZ912mZtjcXxU7wqRM2b6UyplxtQ+JmcWrDpVVjhPYbJCA2+DhQ73S+
+         6L4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=s9nsO0UGothDGSbTzPgGoq1CEP4hbj1NtB+IcAtJLLI=;
-        fh=LN3hmYbfbgwvAdMIFJVlCc2GaqpOKnnzxXdxKGCh0OI=;
-        b=FEsO1O66BWJajei15BW1DNxAB670PGAxIZg+t+zW1GYwgtWLVOjeLvKyuFuRZvRSNh
-         sW7iDhpUOySkKNaSzFaYeQf4pNa3qoH6G5sVVs9AzzrXCWX8mernwhO+nH0LFo+r3Xyi
-         gEjeKYleXACqXJxO42tpAHg9ZabIpo768yNR7g/qCxF1ovoZNpTx4u09aiENtUtpUfqz
-         zKusIx9yl6TUmIx/d13/s+2qQUrrJwb1pFedVE6hDWRMatoK4h/ARseO0bO0vtI7FzZ0
-         9gT9D2R1olqni5YyhD+xLklKwxHzAKQSsYQ9TmcoS5DktzFvia5CySLReNtOu2iSCrTc
-         MA/Q==;
+        bh=RXTMOQ3s/A/fpHZbZ7Z1yCnaHYebzC4eV4sd40V0Aoc=;
+        fh=SmUW6XrM7kZrdznkd9edleGrBklbpyfBhNX19kln2UE=;
+        b=sXKD4KNWsUB+tp2CfZGsEkjYiUTO0lBU7UODM9XALQ3HoerSB6ZLvG90UUoSZyFp1R
+         Tm4wVfepu8vL4BVEMdGw8P2HAy0SZmTPB/1e8q6d6yA+VMqDgfG8pAjOY8WhH3rPNKK3
+         72TtoKHLG28jgwO0A4LB8cc3PRGRyZtXJ31vcCcyS7vXTwppc2LY4gS2yNSaYLu/8uNB
+         wB+id6Ez53yEp3K6K7dJVEph0Z/8ppBTGGhZqu1wki2d4eOwagLdihFld2Bu7flw15Vm
+         RXiP3zGZxCYMjmHBf94hEC4djVK4g6Nu7zucqfcHOji1Nd6Ngd54yH5WVZoZvVTzqt5t
+         HtEg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791864977; x=1792469777; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791865120; x=1792469920; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=s9nsO0UGothDGSbTzPgGoq1CEP4hbj1NtB+IcAtJLLI=;
-        b=DpRpnWmNzQlVIDYZ5GI6LgErg3Lh/tUFAVD1/BmEfypxLeEt8hcJ2N/7+2f7MAKiGh
-         deAgN6QrI1x/XYlWv1rmkU9yAKYU9Wukb/YEFoKhci4RdkfHrhf5/nIi1GCMrLWPTZRV
-         SlAIUyITOJ4hdjtSu2UdCd02tNkR7GzzuOhjdCErxAqfGmM5nicbEJunqh4hWctRmrXX
-         YBywKp9c7P//AcjneCjn8zryDJAs3XLRSqRY1Y+KSsv8XbwFszLIoGBAPG+u9TXOzC9V
-         CeS7ihFhg5IUpMkdL7Np12m7C7KqeWkDlGX+Z2e9Ed+3YYU+Atl7T+vzIal1nNVncMLo
-         ADkQ==
+        bh=RXTMOQ3s/A/fpHZbZ7Z1yCnaHYebzC4eV4sd40V0Aoc=;
+        b=gAnGxwWW1NaLFGFjjBnWuN9tTcCkvKmMsKgTYp6veCaJKVQsFq8Bo4JlG/FVhatgGp
+         2e2cIiPAGB6Qb/MIIA3ZWwBoAGg/ZeVaucb08SaLqLszvh52QBG5vD087h18Dvxm6SJ8
+         +R+HNrAiUOKoQwJSAZtrGhhXqcvbBNJiia+Fzy47GLEXCwTJ11PkKAv850DxYnirs6tv
+         qsbdxYjd83MqOKRm5qRCwUMGQRmoJkaDp8HRpK/PSW7Y061ASPNTrzWLdH/0PLAfDyab
+         PY+ujhonpKwMOnSGLXKjMfMxvpLtjbXyoi3BoRIKNtCojJtFG1FJI5uNdCebMM/aYgH9
+         WR4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791864977; x=1792469777;
+        d=1e100.net; s=20260707; t=1791865120; x=1792469920;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=s9nsO0UGothDGSbTzPgGoq1CEP4hbj1NtB+IcAtJLLI=;
-        b=mRWeRvmLP5366mB1UcmBNXN13nCgKCa89KCkTeFoXcC++bQHzNt61p+q2ysXYPntFg
-         Llir2vz5e5KtwqK03ZK9jgvUqLVQBRCZtVsEtf4jkGBBOP0pMIpHAoBdoc7Eh0kbQ+cg
-         htreCZ8BkS1VtltktSc0Q/H5Jg4L45GlsNpRjaABNARmDIItjdZMW5FHKtBk/JRQmsVN
-         65LI/l189v6Wn26AWPZqbCOs8IyJVViDXJQwgyt29GhSJBg4yIgSCPeY2bVuD72372tS
-         MeBFBqNKd8v1pvZIQ4dK+komaGOqT1LNslxhqIg5F5dCLaIzBFktjULlHfDwP6JN8h30
-         bb0A==
-X-Forwarded-Encrypted: i=1; AKwUvBwl9xdVj0wzwEacmbwYzZ5VQINV8NS1jpzKoxPAdA0GHTY7kgN/pnJCAQYXX+PnsI2QCvsKMQ22qdhkBq0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIh/CLlGsmBMqr+kGC89teyuxj5cXCx8bgT487qsM3pER0mjtPz
-	kq4ncDBTtUKTu376q75BsNcS1oSqEambUq7YzFGb0hFgt4BF/9g/DKHNLWMbYYYbOZOS7U2QR0q
-	TRrpZyLrtiLEXE91fCG4UZRIOgSwfaZg=
-X-Gm-Gg: AYBFou2Elx93DHIvVyM2FdqAweIzAvzUsnn7aDK/8fuqALqlom1TNNpqXf3ZBO7fQS2
-	q37GXA2yUfdFj731PsLemCDH3BTB+b4dQ5VqjDvC53ku9LFXztk5zmrSCOwXPi++t/jqYwGo3Ga
-	g9pXGYo0MoyXTH7J9Ir9AaLx4XeBPLF9Z/+UMzCTFCC3HRBQVlElpVW1KaoReAowJVNjrYQJKYr
-	U5vEwETaD6j23YK7Z31PbLrklqyJ7tHEBFbXkfHkCsqyFwxijaTrxLOMKNgCqX3CRlAu10oJEkQ
-	YkW0Zp9mbJrT4j0pJKbD9LwJuAHJQEHRtgRhT8HHI8BKKLC07DArkvNWBcammgqA/I/2BL1oW/O
-	xU+uHWrJFPB+hebV7oCcaH8/PC6J4K5wyXbRarr9t
-X-Received: by 2002:a05:622a:4d89:b0:533:a8fe:e43b with SMTP id
- d75a77b69052e-5359fb65378mr173702381cf.38.1791864977501; Mon, 12 Oct 2026
- 21:16:17 -0700 (PDT)
+        bh=RXTMOQ3s/A/fpHZbZ7Z1yCnaHYebzC4eV4sd40V0Aoc=;
+        b=Oyr8y3qcfq2n6kcBp1l4qJoZQDhwTNvuzseHdMhqCDnlIiS3x+z+xzTO1Njz5dU78X
+         DyUi/P4BNTBRUW+sH4mjjLTa7DDAizUraYv8k1/N1WKFoust/742JsHZr5iWyZZp/fJu
+         mf3fPI/fLbx5BYI1UFxoJgJt8wVvTo4NEKDrPnajrGlbFJUCMsEg3CTdYGS+K4C+8CMX
+         6mPrZox5ejA/ZIA1mqnXB1caFW7X4UFYjPyR/YgjMliG7aPUdqPbPy0QEIbEG+Tp2aOE
+         lUTQ3kOiJetg20HOwO1vMN9fdvGbp9udxW/5T/xpTlUpw6TqkWtfoDe9ucdueBYKacMr
+         KPXw==
+X-Forwarded-Encrypted: i=1; AKwUvBwI5SbTAKCjQxbBjFXSgA+iJ4Hd4ZJgV/o4OWfmt/Pm0PcsPu6BgCb5IpUsEm8PdR38O7TSroBWDL43g1w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwKFAEk1O+BQ0EclKk+ZzhtsU3QYH5wIJxVO0XJiOc57B2hj6u
+	qizpyX54dFuilyqxyR/lfxeIhMPdx6fkpB9MgPqIQ8wbwO0Iu+w2uP/Dn9W9cu5+LrwNuKh5wok
+	NvYPnW1WAd8yYeACHpT4QAUnXSm8xzR4=
+X-Gm-Gg: AYBFou1I7YTd7MfcVAwbMnOdH5mtcS5pFz1lMyi0i9YdvE7quwe2rDZx4j6inZL9ech
+	AesJq5L4+lp9k+IdzIqANLQmDZvvs9MnCEKHklvkzMzdXCoCFX/yW3J5NPifAVJiV2ocijmQUTw
+	g8zPA0KRrE5uYhYapG0mMcGPMKtiudEVOTwf5nUry2bM78Usw6CLlYdsFZ63G8UoJ6yDt4+w11p
+	getEekFRX1Nnxj6PYbYYsuktPv8NK/o5kikaOzIK28EJ3Z8lNNESj4ay0G3HXvxlvIZcO/Xvayh
+	sd0aOzGq5Ubvjq4GPfrP1K4wBPSfGbYgTt2A0AAHYCNdgPs8V5pSQCgOwnE6Y4UE4cldl45KlMy
+	MYQkwQ1kfX08Cj9pvvPoYZQcO0AVLmBEv0fAhjoCWNHf3eR7w+8ZK2wuTAe10rInPJ4Q=
+X-Received: by 2002:a05:6a21:4eab:b0:3e0:de06:126b with SMTP id
+ adf61e73a8af0-3e16beff287mr10686193637.66.1791865120247; Mon, 12 Oct 2026
+ 21:18:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913084907.520877-2-david@davidgow.net>
-In-Reply-To: <20260913084907.520877-2-david@davidgow.net>
-From: Dave Airlie <airlied@gmail.com>
-Date: Tue, 13 Oct 2026 14:16:05 +1000
-X-Gm-Features: AclHuK_SP0l1zjHTbNHKw24D3i8q_PEVEt7AWawe0CGqkzoKBq90LKfm_nii028
-Message-ID: <CAPM=9twi62M3zJJMGa4M8WybEXhX6VK7VGtGBjrBUX4YQRs9+A@mail.gmail.com>
-Subject: Re: [PATCH v3] drm_buddy: fix power-of-2 rounding errs
-To: David Gow <david@davidgow.net>
-Cc: Jim Cromie <jim.cromie@gmail.com>, "Maciej W . Rozycki" <macro@orcam.me.uk>, 
-	Andrew Morton <akpm@linux-foundation.org>, Matthew Auld <matthew.auld@intel.com>, 
-	Arun Pravin <arunpravin.paneerselvam@amd.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+References: <20261008103831.542533-1-phucduc.bui@gmail.com>
+ <20261008103831.542533-22-phucduc.bui@gmail.com> <87o6cyxyau.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87o6cyxyau.wl-kuninori.morimoto.gx@renesas.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Tue, 13 Oct 2026 11:18:28 +0700
+X-Gm-Features: AclHuK8E-95w9dmy_Nn8Ii2RGxOq8D0J-l4YT38o4WK2kAtoUqqhMqA48tZbgYk
+Message-ID: <CAABR9nHvCfabGfBu85bm1r=hP3b0ZiCsgZfShhOv3gNUfjjhGg@mail.gmail.com>
+Subject: Re: [PATCH 21/24] ASoC: renesas: msiof: Fix msiof_close() being
+ skipped on rollback
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	povik+lin@cutebit.org, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Andrei Simion <andrei.simion@microchip.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, David Rhodes <david.rhodes@cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>, Shengjiu Wang <shengjiu.wang@gmail.com>, 
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
+	Nicolin Chen <nicoleotsuka@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Cezary Rojewski <cezary.rojewski@intel.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Kees Cook <kees@kernel.org>, Syed Saba Kareem <syed.sabakareem@amd.com>, 
+	wangdicheng <wangdicheng@kylinos.cn>, Chris Bainbridge <chris.bainbridge@gmail.com>, 
+	Linus Walleij <linusw@kernel.org>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
+	Neo Chang <YLCHANG2@nuvoton.com>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, u.kleine-koenig@baylibre.com, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, 
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Hemanth Selam <hemanth.selam@gmail.com>, 
+	Md Shofiqul Islam <shofiqtest@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Zain Aboobacker <zainaboobacker33@gmail.com>, Sang-Heon Jeon <ekffu200098@gmail.com>, 
+	Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, 
+	Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>, Bo Shen <voice.shen@atmel.com>, 
+	Vinod Koul <vkoul@kernel.org>, linux-sound@vger.kernel.org, asahi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, 
+	linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev, 
+	linux-rockchip@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 13 Sept 2026 at 18:49, David Gow <david@davidgow.net> wrote:
->
-> The standard roundup_pow_of_two() and rounddown_pow_of_two() macros use
-> unsigned long internally, which on 32-bit architectures (like arm32) is
-> a 32-bit type.
->
-> drm_test_buddy_alloc_exceeds_max_order() uses these on a u64 value,
-> where they silently truncate the 10GB allocation, giving unexpected
-> success in DRM-CI.  (see below the snip).
->
-> Fix this by replacing the those macros with safe 64-bit power-of-two
-> calculations using ilog2().
+Hi Morimoto-san,
 
-If we are going to do this, but fix it properly later, I'd rather we
-add the 2 64-bit macros to the buddy allocator and use them,rather
-than open-coding this, then knowing we did it later.
-so add 64-bit rounddown/roundup macros earlier in this file with a
-comment, then use them here.
+Thank you for your review.
 
-Dave.
 >
-> Fixes: 0a1844bf0b532 ("drm/buddy: Improve contiguous memory allocation")
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> Signed-off-by: David Gow <david@davidgow.net>
-> ---
+> If so,
+
+Although I don't have MSIOF hardware, I tested this on FSI hardware.
+
+I added a .close() callback to fsi_soc_component and forced fsi_dai_startup()
+to fail to trigger rollback in __soc_pcm_open().
+
+When fsi_pcm_open() returned 1 from snd_pcm_hw_constraint_integer(),
+ the .close() callback was skipped during rollback.
+When it returned 0, the callback was called as expected.
+
+>we would like to have such comment to indicate such background,
+> because it is not intuitive for people.
+> Otherwise, someone (maybe me :) will return to the original code.
 >
-> This is a straightforward rebase of patch 39 of v12 of this series:
-> https://lore.kernel.org/all/20260326185413.1205870-40-jim.cromie@gmail.com/
->
-> The only changes are updating the buddy path (as it's no longer a part of
-> DRM), and adding the Fixes tag.
->
-> This is a fairly hacky solution: I've got a nicer series which adds clearer
-> helpers and generally cleans up all of these macros on 32-bit systems, but
-> it's much larger (and growing as more things need cleaning up), so I'd
-> rather have this more urgent fix go in immediately, and save the cleanup
-> for a less-urgent follow-up series:
-> https://lore.kernel.org/all/20260830103321.2042968-1-david@davidgow.net/
->
-> As noted in the original series, this is causing KUnit test failures on
-> all 32-bit architectures:
-> [09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: EXPECTATION FAILED at drivers/gpu/tests/gpu_buddy_test.c:1429
-> [09:01:26]     Expected err == -22, but
-> [09:01:26]         err == 0 (0x0)
-> [09:01:26] WARNING: drivers/gpu/buddy.c:508 at gpu_buddy_fini+0x244/0x2e0, CPU#0: kunit_try_catch/1595
-> [09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:508: gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]))
-> [09:01:26] WARNING: drivers/gpu/buddy.c:516 at gpu_buddy_fini+0x284/0x2e0, CPU#0: kunit_try_catch/1595
-> [09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:508: gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]))
-> [09:01:26] WARNING: drivers/gpu/buddy.c:516 at gpu_buddy_fini+0x284/0x2e0, CPU#0: kunit_try_catch/1595
-> [09:01:26]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:519: gpu_buddy_assert(!mm->used_scoreboard[i])
-> [09:01:26] [FAILED] gpu_test_buddy_alloc_exceeds_max_order
->
-> Cheers,
-> -- David
->
-> ---
->  drivers/gpu/buddy.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index 26e7a48b55f3..964a5ae78f1b 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -1188,7 +1188,7 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->         u64 modify_size;
->         int err;
->
-> -       modify_size = rounddown_pow_of_two(size);
-> +       modify_size = 1ULL << ilog2(size);
->         order = ilog2(modify_size) - ilog2(mm->chunk_size);
->         if (order == 0)
->                 return -ENOSPC;
-> @@ -1435,7 +1435,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
->
->         /* Roundup the size to power of 2 */
->         if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
-> -               size = roundup_pow_of_two(size);
-> +               size = 1ULL << (ilog2(size - 1) + 1);
->                 min_block_size = size;
->                 /*
->                  * Normalize the requested size to min_block_size for regular allocations.
-> --
-> 2.55.0
->
+
+I'll add a comment to explain why the return value must be normalized to 0
+in the affected drivers.
+
+For MSIOF, I noticed that snd_dmaengine_pcm_open() already calls
+snd_pcm_hw_constraint_integer() for SNDRV_PCM_HW_PARAM_PERIODS,
+so the call in msiof_open() seems redundant.
+
+Since the first call succeeds, the second call should return 0.
+Would removing the redundant call be acceptable?
+
+Best regards,
+Phuc
