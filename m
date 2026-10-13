@@ -1,32 +1,33 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5332C3C7E13;
-	Tue, 13 Oct 2026 15:09:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BF4515897;
+	Tue, 13 Oct 2026 15:09:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904149; cv=none; b=ARzEMafnO+jMYF/RQRccHm7I6aA/fMd/FuGSp21UNrFQ9KFI0+5gGCH07ujpLyup9fVetdIP0qtxXeOkSLKD5ddtbPWFWmzgmGEY37Rs1VXYXZLEf573Z8szHf43//IJ/Pj8ADMnsUcJkPKVjc73q12TwsBhbSTMl/GuRad8cPA=
+	t=1791904152; cv=none; b=XppUBD+cxkOGVotonBg3E04SIF9Khzs9lusYtv/yWIL2Ry1VJeMYyt2v220XgWAh1oWVxFzNXzvYYVe7cuc5dAkN1NopMXvIV4/YpuVTdcb0IBGzUUoWBMzrmtpbBlN2Esoy2gGt0XZQDBV6ygtt3fAwCQIN9WdWK+iow4FGdsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904149; c=relaxed/simple;
-	bh=jsPV0JSIGSmCdmGYp+E4FmOl1B850oT6JaQHeCgb8+A=;
+	s=arc-20240116; t=1791904152; c=relaxed/simple;
+	bh=9blUwT6e0Ts6h04B3FpvA5wBGV5BTm958rVQ0HCmK9U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HSfUO/Dmi5If08jPcmNS7977cYncgl3t2x226ikSNRIdxu6W85Cypj9Zk2+kV8bQrkpgh3/WFxX/hmfRfjki/jxHP5Hs999s4SUeafCFkv7/iutiLlb1twnXVAcDT99R23RhQkvKoAWBj8M555unLDskB2rX1W8AwXsq/7ZU4Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=iTcC5Iw3; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	 In-Reply-To:Content-Type; b=mV2CO/kavvkwo9xFZicj363g9TjINH2PCIFe3ZP57w1HJLIJjZiGeaSvRCz9F2dEMXooDgtgcIpcIXS5I931lm6a0TGVA/mWjYlLK/0GnGo3adiPK0J2yD/xVQWMog+JP6WShKYy3MOjSnPVwn50z9MlboS5HhrfUO5edrN136U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EmfZ3myr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="iTcC5Iw3"
-Received: from [10.26.7.43] (unknown [4.213.232.22])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 8542120B7169;
-	Tue, 13 Oct 2026 08:08:58 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8542120B7169
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791904142;
-	bh=e7ew6NMtWrwcepLYlmJQ93zo9inrfT5l5nZou0ZT5RY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iTcC5Iw32vTmbNFHvf+WhuzXJCCLJNjAmxkKgrzfiakgKV6tC4zApuY5ii0iNko4I
-	 2OFi/NuJWKKZ2lpdy0Tty6jPIyoH+A5swfMfG0b+sgXnO3r+iq1h1uospeKogemBm9
-	 LTd996h1eKylLyQoy1dq6Wc1HT3pnrxfAuY1Dr68=
-Message-ID: <083267ab-5989-487f-86c7-7a4b4fe3a6dd@linux.microsoft.com>
-Date: Tue, 13 Oct 2026 20:38:59 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EmfZ3myr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3097F1F0089D;
+	Tue, 13 Oct 2026 15:09:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791904151;
+	bh=orXAxipawcAD57KCvhEp9yEc9EqWE9+dKa+U7k41Y50=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EmfZ3myrFSViuO5vxZpOvDHMlTSxQl6dXxBk9ppNQGjyEaYzJGw7v+RlLZUJt1TQx
+	 48CJhDl52oyae7mYildPISLB2ujwobN08IuONu+Lpa5TfV7/U6VFjMY0Qwe0uCP4sn
+	 M15UnhN2hT/TVmDM4oehdRWnqden70b1/6XToUvjHTYLlRMXh5sfgOkj7f/FK8RWcf
+	 J6C55KmIC8qMNPDkUN/76WTLXmbWhOuBgdk3H7P5EOxv8dB3Tgogch9bRYb0svhLBq
+	 UZ45UVBXLxZXv8UbHVgSRnrYsaO2PxRdS/z2EQyCL1zVT4RDhoMkkYkEw1/ulzXc4i
+	 /dd5QHn0Vl64w==
+Message-ID: <fbfeeee5-3964-4854-a873-30af7f97c49f@kernel.org>
+Date: Tue, 13 Oct 2026 17:09:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,340 +35,121 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net: mana: Add support to process throttled EQEs
-To: netdev-bot+sashiko@kernel.org
-Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, kotaranov@microsoft.com,
- horms@kernel.org, ernis@linux.microsoft.com, gargaditya@linux.microsoft.com,
- mawasthi@linux.microsoft.com, leitao@debian.org,
- linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org
-References: <20261008083315.306076-1-sahilchandna@linux.microsoft.com>
- <179179616248.434549.2649767157991099688@kernel.org>
+Subject: Re: [PATCH v2] fs/proc/task_mmu: fix lost maps entries above 2^63
+To: Stian Halseth <stian@itx.no>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Andreas Larsson <andreas@gaisler.com>,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261013150712.1827315-1-stian@itx.no>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-In-Reply-To: <179179616248.434549.2649767157991099688@kernel.org>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261013150712.1827315-1-stian@itx.no>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12-10-2026 14:39, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential
-> issue(s) to consider.
+On 10/13/26 17:07, Stian Halseth wrote:
+> When a read of /proc/pid/{maps,smaps,numa_maps} resumes, m_start()
+> rewinds *ppos to priv->last_pos so that the vma which did not fit into
+> the previous buffer is shown again. It only does so for last_addr > 0,
+> meaning to exclude the start of the file and SENTINEL_VMA_GATE, but
+> last_addr is a signed loff_t holding a vm_end. sparc64 maps shared
+> libraries, anonymous memory and the stack above 0x8000000000000000, so
+> the rewind does not happen there and one entry is lost at every read()
+> boundary.
 > 
-> Critical: 0 · High: 2 · Medium: 2 · Low: 1
+> Reading the maps file of a process with read sizes from 64 to 8192
+> bytes in steps of 64 loses lines at 126 of the 128 sizes, smaps at 123
+> and numa_maps at 97, and the proc-maps-race selftest fails 4 of its 6
+> tests. Python's sys.remote_exec() reads maps with fgets() and fails
+> intermittently when it misses the libpython data mapping.
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> Skip the rewind only for 0 and the two sentinels instead, with an
+> addr_is_sentinel() helper.
 > 
-> - [High] The throttle-EQE fix only reaches CQs that mana_gd_create_cq()
->   registered in parent->eq.child_cq[], but the patch asks for throttled…
-> - [High] During HWC teardown, the HWC CQ stays published in the HWC EQ's
->   RCU-protected child_cq[] after the state its callback uses has been…
-> - [Medium] The commit message presents the change as a fix: hardware
->   sends type-4 throttle EQEs, the driver drops them, and CQs stall.
-> - [Medium] mana_gd_destroy_cq() now calls synchronize_rcu() once for
->   every CQ that has a parent EQ.
-> - [Low] eq->eq.throttle_count is incremented with a plain '++' in hardirq
->   context (mana_gd_intr -> mana_gd_process_eqe).
+> Fixes: 5631da56c9a87 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
+> Closes: https://github.com/sparclinux/issues/issues/111
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Stian Halseth <stian@itx.no>
+> ---
 > 
-> --
+> Notes:
+>     v2: addr_is_sentinel() covering both sentinels, as the comment says
+>     (David Hildenbrand). No functional change: m_start() returns early on
+>     SENTINEL_VMA_END. Re-tested on the T4 (7.2.10): maps and smaps read at
+>     128 sizes, 200 and 1000 mappings, no lost lines.
+>     v1: https://lore.kernel.org/all/20261011162019.922436-1-stian@itx.no/
+>     
+>     Tested on a SPARC T7-1 (sun4v, 7.3-rc5), a T4-1 (7.2.9) and a Sun Fire
+>     V240 (sun4u, 7.3-rc5): no lost lines at any read size afterwards, and
+>     Python's sys.remote_exec() test passes 20/20. On an amd64 KVM guest maps,
+>     smaps, numa_maps and the proc selftests are unchanged.
 > 
-> net: mana: Add support to process throttled EQEs
+>  fs/proc/task_mmu.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 > 
-> This patch handles the type 4 throttle EQE. The hardware sends it in place
-> of per-CQ completion notifications when an EQ nears full. Each EQ records
-> up to two child CQs and schedules them when a throttle EQE arrives. The
-> patch also advertises a new driver capability bit and adds an ethtool -S
-> counter.
-> 
->> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
->> index ae0ed700b3b93..b8e5ad2c6d312 100644
->> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
->> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
->> @@ -747,6 +747,18 @@ void mana_gd_free_service_wq(struct gdma_context *gc)
->>  	gc->service_wq = NULL;
->>  }
->>  
->> +static void mana_gd_schedule_eq_cqs(struct gdma_queue *eq)
->> +{
->> +	struct gdma_queue *cq;
->> +	u8 i;
->> +
->> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
->> +		cq = rcu_dereference(eq->eq.child_cq[i]);
->> +		if (cq && cq->cq.callback)
->> +			cq->cq.callback(cq->cq.context, cq);
->> +	}
->> +}
-> 
-> [Severity: High]
-> Can this path reach the HWC CQ callback after its state has been freed?
-> 
-> Before this patch, the only way to reach the HWC CQ callback was the
-> GDMA_EQE_COMPLETION case. That case is gated by gc->max_num_cqs and
-> gc->cq_table[]. The throttle path walks child_cq[] directly and skips
-> that gate.
-> 
-> mana_hwc_destroy_channel() tears things down in this order:
-> 
-> drivers/net/ethernet/microsoft/mana/hw_channel.c:mana_hwc_destroy_channel() {
->     ...
-> 	if (gc->max_num_cqs > 0) {
-> 		mana_smc_teardown_hwc(&gc->shm_channel, false);
-> 		gc->max_num_cqs = 0;
-> 	}
-> 
-> 	if (hwc->txq)
-> 		mana_hwc_destroy_wq(hwc, hwc->txq);
-> 
-> 	if (hwc->rxq)
-> 		mana_hwc_destroy_wq(hwc, hwc->rxq);
-> 
-> 	if (hwc->cq)
-> 		mana_hwc_destroy_cq(hwc->gdma_dev->gdma_context, hwc->cq);
->     ...
-> }
-> 
-> mana_hwc_destroy_cq() then frees comp_buf before the CQ is removed from
-> child_cq[]:
-> 
-> drivers/net/ethernet/microsoft/mana/hw_channel.c:mana_hwc_destroy_cq() {
-> 	kfree(hwc_cq->comp_buf);
-> 
-> 	if (hwc_cq->gdma_cq)
-> 		mana_gd_destroy_queue(gc, hwc_cq->gdma_cq);
->     ...
-> }
-> 
-> The HWC EQ interrupt is still registered at that point. Suppose a throttle
-> EQE arrives on the HWC EQ in this window:
-> 
-> mana_gd_intr()
->   mana_gd_process_eqe()
->     mana_gd_schedule_eq_cqs()
->       mana_hwc_comp_event()
->         mana_gd_poll_cq(q_self, hwc_cq->comp_buf, ...)
->         mana_hwc_rx_event_handler() / mana_hwc_tx_event_handler()
-> 
-> Wouldn't this write CQEs into the freed comp_buf, and then dereference the
-> freed hwc->rxq and hwc->txq?
-> 
-> A well-behaved device probably would not post a throttle EQE after SMC
-> teardown. In confidential VMs, though, the driver treats the host as
-> untrusted, and the max_num_cqs gate used to block this route.
-> 
-> Should the CQ be removed from child_cq[], followed by a grace period,
-> before the HWC teardown frees comp_buf, txq and rxq?
-> 
-I will fix this in v2.
->> +
->>  static void mana_gd_process_eqe(struct gdma_queue *eq)
->>  {
->>  	u32 head = eq->head % (eq->queue_size / GDMA_EQE_SIZE);
->> @@ -777,6 +789,11 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
->>  
->>  		break;
->>  
->> +	case GDMA_EQE_THROTTLE:
->> +		eq->eq.throttle_count++;
-> 
-> [Severity: Low]
-> This counter is incremented with a plain ++ in hardirq context, via
-> mana_gd_intr()->mana_gd_process_eqe(). mana_get_ethtool_stats() reads it
-> with a plain load in process context, with no shared lock:
-> 
-> 	apc->eth_stats.eq_throttle_events +=
-> 		apc->eqs[q].eq->eq.throttle_count;
-> 
-> The value can't tear because MANA only builds on 64-bit. Do these accesses
-> still need READ_ONCE()/WRITE_ONCE() annotations? Without them KCSAN will
-> report a data race, and the compiler is free to fuse or reload the
-> accesses.
-> 
->> +		mana_gd_schedule_eq_cqs(eq);
->> +		break;
->> +
-> 
-I will fix this in v2.
-> [ ... ]
-> 
->> @@ -1063,17 +1080,41 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
->>  			      struct gdma_queue *queue)
->>  {
->>  	u32 log2_num_entries = ilog2(spec->queue_size / GDMA_CQE_SIZE);
->> +	struct gdma_queue *parent;
->> +	u8 i;
->>  
->>  	queue->head |= INITIALIZED_OWNER_BIT(log2_num_entries);
->> -	queue->cq.parent = spec->cq.parent_eq;
->> +	parent = spec->cq.parent_eq;
->> +	queue->cq.parent = parent;
->>  	queue->cq.context = spec->cq.context;
->>  	queue->cq.callback = spec->cq.callback;
->> +
->> +	if (!parent)
->> +		return;
->> +
->> +	/* For throttled EQE store the child CQ */
->> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++)
->> +		if (!rcu_access_pointer(parent->eq.child_cq[i])) {
->> +			rcu_assign_pointer(parent->eq.child_cq[i], queue);
->> +			return;
->> +		}
->>  }
-> 
-> [Severity: High]
-> Does this registration cover every CQ the hardware can attach to an EQ?
-> 
-> The capability bit added to GDMA_DRV_CAP_FLAGS1 requests throttled EQEs
-> for the whole function. However, child_cq[] is only filled here. It is
-> only filled when spec->cq.parent_eq is set, and only for the first two
-> CQs.
-> 
-> The mana_ib CQs never go through this path. RNIC CQs are bound in
-> hardware to the mana_ib EQs:
-> 
-> drivers/infiniband/hw/mana/main.c:mana_ib_gd_create_cq() {
->     ...
-> 	req.eq_id = mdev->eqs[cq->comp_vector]->id;
->     ...
-> }
-> 
-> RSS and raw QP CQs are attached to the Ethernet per-vPort EQs:
-> 
-> drivers/infiniband/hw/mana/qp.c:mana_ib_create_qp_rss() {
->     ...
-> 	eq = &mpc->eqs[cq->comp_vector % mpc->num_queues];
-> 	cq_spec.attached_eq = eq->eq->id;
->     ...
-> }
-> 
-> mana_ib_create_qp_raw() does the same. Both kinds of CQ are published only
-> through gc->cq_table[]:
-> 
-> drivers/infiniband/hw/mana/cq.c:mana_ib_install_cq_cb() {
->     ...
-> 	gdma_cq->cq.callback = mana_ib_cq_handler;
-> 	gdma_cq->id = cq->queue.id;
-> 	gc->cq_table[cq->queue.id] = gdma_cq;
->     ...
-> }
-> 
-> Also, mana_ib_create_kernel_queue() builds its GDMA_CQ spec without
-> spec.cq.parent_eq, so mana_gd_create_cq() returns before reaching this
-> loop.
-> 
-> On an RDMA EQ, a throttle EQE would find every child_cq[] slot NULL and
-> only increment throttle_count. On an Ethernet EQ, the two slots already
-> hold the Ethernet TX and RX CQs, so the loop silently skips the RDMA CQ.
-> 
-> In both cases, wouldn't mana_ib_cq_handler() lose its only notification
-> and the CQ stall? That is the stall the commit message says this patch
-> fixes.
-> 
-> Would it work to dispatch to every CQ bound to the EQ, or to scope the
-> capability so it only covers EQs whose CQs are all tracked?
-> 
-This is similar to sashiko review comment, after discussing this
-internally we decided to handle rdma seperately.>>
->>  static void mana_gd_destroy_cq(struct gdma_context *gc,
->>  			       struct gdma_queue *queue)
->>  {
->> +	struct gdma_queue *parent = queue->cq.parent;
->>  	u32 id = queue->id;
->> +	u8 i;
->> +
->> +	if (parent) {
->> +		for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
->> +			if (rcu_access_pointer(parent->eq.child_cq[i]) == queue)
->> +				RCU_INIT_POINTER(parent->eq.child_cq[i], NULL);
->> +		}
->> +
->> +		synchronize_rcu();
->> +	}
-> 
-> [Severity: Medium]
-> Does this add a full RCU grace period to every CQ destroy?
-> 
-> synchronize_rcu() runs whenever the CQ has a parent, even when the CQ was
-> never found in child_cq[]. mana_destroy_txq() and mana_destroy_rxq() loop
-> over apc->num_queues and, for each queue, reach:
-> 
-> mana_deinit_cq()
->   mana_gd_destroy_queue()
->     mana_gd_destroy_cq()
-> 
-> These loops run under the netdev instance lock and RTNL. Ifdown,
-> set_channels, ring size, MTU and XDP changes, and the reset/servicing
-> paths would all wait for 2 * num_queues back-to-back grace periods while
-> holding RTNL. With 64 queues that is 128 serialized grace periods.
-> 
-> Could all child slots be cleared first and synchronize_rcu() called once?
-> Alternatively, the free could be deferred with call_rcu() or kfree_rcu().
-> 
->>  
->>  	if (id >= gc->max_num_cqs)
->>  		return;
-> 
-> [ ... ]
-> 
-I will fix this in v2.
->> diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
->> index c610fc1067e0d..03fe9395604d6 100644
->> --- a/include/net/mana/gdma.h
->> +++ b/include/net/mana/gdma.h
-> 
-> [ ... ]
-> 
->> @@ -752,6 +758,9 @@ enum {
->>  /* Driver supports non-contiguous queue buffers */
->>  #define GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS BIT(30)
->>  
->> +/* Driver supports handling throttled EQEs */
->> +#define GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE BIT_ULL(32)
->> +
-> 
-> [Severity: Medium]
-> The commit message describes this as a fix:
-> 
->   The driver does not handle this event type, so
->   it falls through to the default case and is dropped. Any CQ whose
->   completion notification was replaced by the throttle EQE is then never
->   scheduled again and its queue stalls.
-> 
-> It doesn't mention that the patch also advertises a new capability bit to
-> the device. GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE is added to the
-> common GDMA_DRV_CAP_FLAGS1, which mana_gd_verify_vf_version() sends
-> unconditionally.
-> 
-> If the device only sends type 4 EQEs after the driver sets this bit, can
-> the described stall happen on current kernels at all? If not, this is a
-> feature opt-in rather than a fix.
-> 
-> If the stall can happen today, should the patch carry a Fixes: tag?
-> 
-> The commit message also doesn't mention the new eq_throttle_events
-> counter in ethtool -S. Could both changes be described in the commit
-> message?
-> 
->>  /* Capabilities in the PCI-only group below rely on dynamic MSI-X allocation
->>   * and on the servicing and reset paths reached through
->>   * mana_schedule_serv_work(). Transports that provide neither leave
->> @@ -776,7 +785,8 @@ enum {
->>  	 GDMA_DRV_CAP_FLAG_1_HANDLE_STALL_SQ_RECOVERY | \
->>  	 GDMA_DRV_CAP_FLAG_1_EQ_MSI_UNSHARE_MULTI_VPORT | \
->>  	 GDMA_DRV_CAP_FLAG_1_DYN_INTERRUPT_MODERATION | \
->> -	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS)
->> +	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS | \
->> +	 GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE)
->>  
->>  #define GDMA_DRV_CAP_FLAGS2 0
-> 
-I will fix this in v2.
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index 5c54aebe21182..9fd6a360919b9 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -32,6 +32,11 @@
+>  #define SENTINEL_VMA_END	-1
+>  #define SENTINEL_VMA_GATE	-2
+>  
+> +static inline bool addr_is_sentinel(loff_t addr)
 
-pw-bot: cr
+Nit: no need for the "inline". The compiler is smart enough :)
 
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
