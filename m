@@ -1,43 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F60F37A851;
-	Tue, 13 Oct 2026 07:23:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3788D37A494;
+	Tue, 13 Oct 2026 07:24:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791876223; cv=none; b=ma0Tp3Z2jS8bJZK9tRuj+Hp17mc6A2MX9i4I8BkMWyfJFUCntW1cP4AbTcbHvC7w+s/uTn08Db3UgDjQg4QCiy862v51i8qJ3E9ToABU1/kXs176R2fHReIGSs7HKn9ckZzKWtmU7yF2x2JP2UrkFJ+TUS4ZN+DzXkBhuG2kNnA=
+	t=1791876296; cv=none; b=SKSmGAkQb8Mml03B3aGMsXlrVHh56K4Gr/U8I+cN09n9NdCsFz6sY7rkfX1TJ/QkDaL9tkZUMGBxDTp7CfPYDDQn/wMOQuI2TK5imXtceDRhRl0NIn01kXFLdlS2BmfT0yF1+Ok3y2rw7fK2ItQDsGR7lJ7jSWTSN34ia8U1CpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791876223; c=relaxed/simple;
-	bh=19ToMy2ByqL69aqVkZrVqejSIl4lAIMOCpq9cnNgjlc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tN4pxB4uLUpz0Blbdd86zgxSRNgFFJ0J4FxZrU6SrWQWl/B7ekIYShIHpLXyN9KYSIWcINfA0Jw5FJPmIe1YgRpROOmsM9o3MFQl/t0Qu5ddqeO0kQbBONLyxKQURm09s+bUCgWdQwjqPQqmUSdQ3bSqs08w1VLX7f10E7LA1/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oDBhvRQ1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791876296; c=relaxed/simple;
+	bh=NU9kZMHiVxo9G3T+RrsF+nEu4b7ZsCG+z87a6dHWEk4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=axPs7Poepeqgv3rhUoRqVsOgRSyFTFiibh/m0+YqAFBKYtH/5fsMAg8sRHpajJ9k8QHCTH8tVv/FV9G8DpVaANyy5Yo++bpUqCc/oNqLcPC0g/XaQAYebbrATQZTbb0LcLKohs+yagmPla0S6IdR4/PJm0v4YhJf7hSSn9qS2wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cTD8NIDB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oDBhvRQ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 242641F000FF;
-	Tue, 13 Oct 2026 07:23:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cTD8NIDB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710B91F000FF;
+	Tue, 13 Oct 2026 07:24:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791876222;
-	bh=9E7huG+IX3VUsBj8kOL6lXqalD+ceLUjMJv5mqB6cAM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oDBhvRQ1S511T8QPmZtRW5Ap5VVwJkWVDqP7llNwPtlcttsU0Ipbs5WcKLTXmcXEE
-	 KMzShSDQGz6jDwXEwqInr77zyhSgzOnblV+ZEC2Nh+I1zuARYuwat9mTLEL3LYkkDj
-	 ucoT7cPJHcZNlfr5ldebEX3gNXuDslVOR7meS7VtzORkO6cn6BSqEOWTryszlfJb3q
-	 +0tsWhG50iEUBOyKqfm66cEaKEdrFoyaHLbcw7NcVSI9to5jbTQOvVmrObK9yixgXd
-	 xx4vhFLdlFHi0/w32F+rOjkWtt0k92Ofxyqid14qBaXHqTLTKbSrgUPUtuy5G9o00P
-	 fkadIUI5ZUkhg==
-Date: Tue, 13 Oct 2026 09:23:38 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Adrian Nguyen <thenguyen1024@gmail.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Casey Connolly <casey.connolly@linaro.org>
-Subject: Re: [PATCH v1 1/2] dt-bindings: power: supply: Add Qualcomm SMB1351
- charger
-Message-ID: <20261013-big-honeybee-from-jupiter-4cac08@quoll>
-References: <20261011072135.12757-1-thenguyen1024@gmail.com>
- <20261011072135.12757-2-thenguyen1024@gmail.com>
+	s=k20260515; t=1791876295;
+	bh=NU9kZMHiVxo9G3T+RrsF+nEu4b7ZsCG+z87a6dHWEk4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=cTD8NIDBm/QbjtCpiPuNjA6jkfOIQmawx5fSSvEWQAi2maM5jAVDGWlZApnX6RhEO
+	 Pny9OzC32UbujbBrb+lj8vYEO/RQHlPKp6D1KSxHTjP28nI0Bsi+OAhuxoUyeMOFez
+	 u0ZryZzFp0xPIh0HhbWLOh0e4coIKTzFe1cIfOrowiE96ClnjD4wI9xcS2SZ2RO10j
+	 eKrl/Dwbj3vIIarPmKWQbSk/ttrMDCl3xuwr5iR5I0XU2NR6he9XoiwLFVFVRRPRd9
+	 BQmPVN53f72R1EARpsyI0nU9mfdHaG6KEguCsWzXp+roi6suHuJXItoRju2pDGM3yZ
+	 k27qooCI6uyMA==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Yury Norov <ynorov@nvidia.com>, Miguel Ojeda
+ <miguel.ojeda.sandonis@gmail.com>
+Cc: Yury Norov <yury.norov@gmail.com>, Rasmus Villemoes
+ <linux@rasmusvillemoes.dk>, Burak Emir <burak.emir@gmail.com>, Peter
+ Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Miguel
+ Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes
+ <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Uladzislau
+ Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus`
+ C function
+In-Reply-To: <asz-GkGHJYHdhDLr@yury>
+References: <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org>
+ <CANiq72k-_LX5GVSKWQQ5EJV25GDfXOhOebv3TLqdA63tQHNd-Q@mail.gmail.com>
+ <87cxtvb2qm.fsf@t14s.mail-host-address-is-not-set>
+ <CANiq72kZh4a39hcy0g9sqEmzx3m+dcPRW=omOB2r5DhpRq3BXw@mail.gmail.com>
+ <87a4ozas7q.fsf@t14s.mail-host-address-is-not-set>
+ <CANiq72ki4Pc6y8og2ROLRSeRTZBbnpY41v5EC+qJaTiZWVhwAw@mail.gmail.com>
+ <TlsfpzyqG6QHcTMb-dOQPUP6uXU2G9urfH8AK0nzNO3j5rY0QWjn2ni9zhJ41CpVeppXhpH2E_yJ3LgUTibqbA==@protonmail.internalid>
+ <CANiq72nXsGHbSQ1LfbG1zYaMaZv3X=u0+XzT6vHh=9vxLE8QTg@mail.gmail.com>
+ <87qzi8a4ds.fsf@t14s.mail-host-address-is-not-set>
+ <CANiq72=j1nD6Qy9qKwNKjBw1gc8RPr8CmXKXSSNBp7mARv48VQ@mail.gmail.com>
+ <N2kT-hptgLwPihxLElO65tqya2Wmnmv46TH2XIDsL2pggz0Ezs4mqNk2iHWS1zdaCIlPncbX20HMJuQ-Blrbmw==@protonmail.internalid>
+ <asz-GkGHJYHdhDLr@yury>
+Date: Tue, 13 Oct 2026 09:24:42 +0200
+Message-ID: <87jynmcbb9.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,34 +69,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261011072135.12757-2-thenguyen1024@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 11, 2026 at 02:21:34PM +0700, Adrian Nguyen wrote:
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: qcom,smb1351
-> +      - items:
-> +          - const: qcom,smb1350
-> +          - const: qcom,smb1351
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    description:
-> +      The STAT output, which the chip can drive as an interrupt line.
-> +    maxItems: 1
-> +
-> +  monitored-battery: true
+"Yury Norov" <ynorov@nvidia.com> writes:
 
-Drop, power-supply.yaml brings it.
+> On Fri, Oct 02, 2026 at 11:07:00AM +0200, Miguel Ojeda wrote:
+>> On Fri, Oct 2, 2026 at 10:33=E2=80=AFAM Andreas Hindborg <a.hindborg@ker=
+nel.org> wrote:
+>> >
+>> > I don't think we need to split the helper C files by the headers they
+>> > are defined in. We can include multiple headers in a C file that
+>> > logically lumps things together. If you are worried about finding thin=
+gs
+>> > becoming difficult because they are not in the file one expect, I do n=
+ot
+>> > share the concern. I usually just grep in the directory through my
+>> > editor.
+>>
+>> Of course, it doesn't need to be a strict split. But, where possible,
+>> I think it is better to match the C side for the helpers, because they
+>> are thin wrappers that need to be updated and maintained at the same
+>> time as the C side.
+>
+> Yes, that's correct. This should mirror the kernel file structure
+> unless there's a strong reason to change that.
+>
+> Andreas, can you put this into rust/helpers/cpumask.c, and please have
+> the __rust helper thing on a separate line for better greppability.
+>
+> This patch creates a new file without a maintenance entry, which is a
+> no-go anyways, so we need v4.
 
-With this fixed:
+Ok, thanks.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+@Miguel, feel free to make these changes as you apply. Otherwise I'll
+send v4 next cycle.
 
 Best regards,
-Krzysztof
+Andreas Hindborg
+
+
 
