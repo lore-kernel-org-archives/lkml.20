@@ -1,317 +1,257 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2113.outbound.protection.partner.outlook.cn [139.219.146.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85AB471432;
-	Tue, 13 Oct 2026 10:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.113
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888199; cv=fail; b=Mzlab6t1RJNDh0wRMMBWY6zMdzelNDyDi4wBqRxix9SOxM6oBp3ZeASyV71dk0EUVrS8fKEPwRGllpNMh83Agystq7blJ4mVNJYVP4pTN+OkjGrQTSkGmsQ29jfobMeXGiJiGCmPCBCZwi/noum8YmAnVTSN4zM9JBowSTzJOlU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888199; c=relaxed/simple;
-	bh=QcQSu1mnIlZPrk8Uu3Faz42x2fNYbGzMEj5orf157BY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=foSgNN8pd5i8DloAq04l1qJBZPDGgvcOj/vJQrArHeo42zZPwwSgoflUXmrgyqVoGtzI8cijgXDf7e6dNccK2pKTdmpltiV9BYn25LdkldaBIArtD3npUtzU3KkybkVyfMve0Vy/wtkqQBiyJ1gIje4xYqG97kZL85dt/CVHZkk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RiU8p+g8yBb0uBrO0vrW09DmjfHVUASQHwlaZJx0jLgcq12GfLSzri6UV/WFW/Yf1JuJKEMDXQSKxQ4foBCKwW85GVND+KqhkQiqv2+CmOxq4bg45dR48jfNKuJrqRVZt6REuHh3HOy/QETTcl2CtjFXE7kNXVN+hDCjKcp388QOda+RHHHC9qHGCc+YGZbWyiAmw63Qb7KGnqKlGqgwrWF+qbkZkCWSzVmJEGxJGXiMN/4/Rj0N+pG3irBW/EkV0kWfKUQmuuItHye1jKt5WZPC7neFdXsVhBwcMuzxRgXsK3vGZ72oBvw3Yh15dyKEtDMeyTsZcxKI+u5nQIARXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xun51H6Hs8wkodTe3PnaKo+c8L/r4MLjDymQAigNhBk=;
- b=Otv1rLbLK7OFuH8AA+0IVCJwLyrN1RXSzYfiJKY9/pYr1TzOehC8ywJp4x632+BR2GTwBLEmHfG16YuB/FCyNBEU9Bge5IiFq1Fdv8UpPecJYYT1JNLKiOIUW42S1pNLn5JOAygL9zKmn6SpdFjPXw9f4rRV398zu/iTvZDLdCO2pUQAGAz+ntbuOCXvrNSl7oSzmHc9RbT7NAy7h9pc24j/mbHChlmwBpYFtB9tUxpI5m5x9JfuC+ubOBZd7+CzBUxYyPbykw4wXx39jE/S4mB6nzTVwikbYLXMlw6OCq+ZQ/5eHkVqA0I+fYVIy1YWLPLqFcbo+POQz+eef35uXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1234.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 10:27:25 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0496.021; Tue, 13 Oct 2026 10:27:25 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Brian Masney <bmasney@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v1 5/6] reset: starfive: jh71x0: Support discontiguous reset IDs
-Date: Tue, 13 Oct 2026 03:27:06 -0700
-Message-Id: <20261013102707.9207-6-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261013102707.9207-1-changhuang.liang@starfivetech.com>
-References: <20261013102707.9207-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0027.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::20) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B16547CA69
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:43:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.192
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791888201; cv=none; b=p3emEUnntZaPD7yZAWc8TTikt9jf8GqXiCLWXTizYGcvCxhszPLVvn6ZxFChEkSbf8m0CVt9Ou9Z19dxNRdD2a1i4HqVLvGeu/ZPspiZVL5DRh0c0dcVVOq57tlhltB5Py09gVm4BRCJaYMYEIl2A1cliVNO0tHh4p7a1PDZGdg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791888201; c=relaxed/simple;
+	bh=ByWSXE/7WPxPiNDq+DRGyvhy49vCl/cF9okG2hZGg/w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sojqFxc6anfSTGDwRalPuG6OXPrJxiN3/3+zqS8bdJOYMuc2hH2bC0zXerqi03E8YmuUMnHRfuVr5KChx04fImPMUymjQn85tGY2a2SIKzmE9aDL+9W8lnjaWgKz/r9FXD9XdG1BLn51Oen25HA1JYyUOGHi/lOrOlYy1Xuk/Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kf6r3GJs; arc=none smtp.client-ip=91.218.175.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kf6r3GJs"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ByWSXE/7WPxPiNDq+DRGyvhy49vCl/cF9okG2hZGg/w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791888196; v=1; x=1792492996;
+ b=Kf6r3GJs5jBx4fJr0BPFL3eF88FyyQi1jChmXGlaEyNgPwMwFh5kycydk3a42uCgBKkSMiY9
+ /o6R8ccl7NK/Kbyv+o3c4V6LgcxMPeS8J1ev3wL5HOu4BONbINFzh8nF7J9n0X2r8VvKl2BhpWo
+ X77og7vExEk9JPIt4Zcm9eK4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8e08e36eb5f4ac01;
+	Tue, 13 Oct 2026 10:43:16 +0000
+X-Mizu-Trace-ID: 8e08e36eb5f4ac01
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5c500376-0573-446d-81cf-70bc38ae4aea@linux.dev>
+Date: Tue, 13 Oct 2026 11:43:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1234:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06e0af08-5cf6-4fb1-c65a-08df291492da
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|52116014|1800799024|376014|366016|23010399003|38350700014|56012099006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	JtrbPvaDtYCjQ260xgdJrrWPwNTWaO2hahY8R8oXcnarEVj2JSWyH2xy7mvkemTr2YflonrSd+njvr0nLNP2epE34rYJB+ZbItrGOTlfSRTMdQCFC1krK8l+wtMJhxrbiR1MTBLDmCMVLwbAIgaoXl7hZFFvTA5uMndJDQjCBT8vYQ/U09EATJwscgvSNHN34VrUAuitEaJGulGaYr3N6rPfbfEKpUc+MxZlmf8LIvbezdq/np+wtV50pSCYMms3Vv3GHa7C16mgODS5Hngovyf4EmfJVPsojhD9ciXiLAZgD+21H4cRvMUEBYCnUB6ddCX76JzbKNtiQXpgd7Vr01PjNgm8vQBWkyerEe6vXjorSo0M5po/Q2gbaDLb5xednfu9PfBsLJDGeoyC8zkiM18Gs98daD5iUanodPW7+HbueuWZVnbuWsU3X0CBHBMwk6sP3NN1nUxaSmgCD/ghB1v/7d5JotWQmdZMfmePFQ8o3XDOYvRAtQuZhtPmIxgZdKrj2SfvBckFYz1k5uQR/afzIzq20a7Smp3G7Kmpt76Z+gftibb87lhHYdLf1PRY
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(1800799024)(376014)(366016)(23010399003)(38350700014)(56012099006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?51DN+Zx1vqK8nZVrrRE83/s/aau/+1hpTde932Ds7ScrIsW9pAwEXxE9XjkF?=
- =?us-ascii?Q?W5MS52p6Ba0xnjos13v1Tmcu12kRGnInv366ZOmdZe3YhtwqxCf76vuPksOG?=
- =?us-ascii?Q?UXRYBdVgcXZ5MDw8+QdlMWFOKP+5GphnXB7AC06Jxgp9U+5myDtYpIqQMf0P?=
- =?us-ascii?Q?INlIAGxZIJus3zoAIghwQjRORih+01keIQLk+GUO9P8PmcTw572WoH/PSJaO?=
- =?us-ascii?Q?ZFjO0GT5uMqvTAXSimhchO3QgHBIZp2QBITKFW3YmxzFnDfJg7Cp5YH1BcBq?=
- =?us-ascii?Q?cvJy3KHn3Ugr37+2bIvghbQiQwgMLrLSNs6QQ+d/IpwFttRhJW9JqPH4h3AY?=
- =?us-ascii?Q?Fal8b6gjiJCE5wZp+wItEHD3c0Xoz0ODxLuEcpeCZTWVO2x2gNs0NKXGorFM?=
- =?us-ascii?Q?11ebHo15cRBITa8+R3MNxPTgAx2oLczGD0SsQFwh7cX06JIcweXM80UMO4gS?=
- =?us-ascii?Q?tXnPZLRLdlpYJgT4XFZ91Yfy/VUiWv1y4EkdfOSMT0OHvok5oVRQhtA28On0?=
- =?us-ascii?Q?MXOK2ku4EUCx/kknbyOCyHwZ4le9CohBqhJpEBbnbYWPQqPUKuFgrusnfd9+?=
- =?us-ascii?Q?UlELJ0Mb7KVR+HHBQS9ptd7srDuNqie2WaaMXyDegZl+yqL8OiNOjMyalCRA?=
- =?us-ascii?Q?ZczgSuC7Powet8t4hzcaNEWsC4U1IR1KcKYwdo/KWjfNSB8wmekLlNVUNGSj?=
- =?us-ascii?Q?mkm8Bt2n9WQBq2YOkFYENj9iNBRFBR8Mlc9vNcT6pJrza6KbX5mx4IdERH9U?=
- =?us-ascii?Q?IlT6lz+TGNCww2hTWQOISH9/mZpqIoDS+C+Ey7yHDBbEtVudtK07Ac2h6VEN?=
- =?us-ascii?Q?aIlloj396NDpxHzUzXkHLKLFibcoBcX+a6Cqb18rc8+oJVHZr+VOv57Gl7c3?=
- =?us-ascii?Q?phmmuGrlHpo9gbfxm7knZ3BpxGq25svd78ai78dalkBm7v4AQugxYIdkA0lF?=
- =?us-ascii?Q?HxuAILaXnLlJZHqp38RjKJ3OA+Re08Mch0X/S8ctbCjiL9VBqoOu9TqIIvIE?=
- =?us-ascii?Q?DsQvh5zAP6QXrHNls95oVOUZKFkUBangprJiQRxyPOmHNUAO7BszlqS/zcpB?=
- =?us-ascii?Q?Efd/PvVSxy7mOBNO1NQRhNhnZDR4LUtE28Ovz/7KnRFyxtGz080qKp7NycI9?=
- =?us-ascii?Q?81tVGIjNJcgq0VZ6g0EcfcxOyTPXzDbe+9MrXsAEL59gWPXHtSaiFns6hSXV?=
- =?us-ascii?Q?+RLKM2y4Xfl62PwHRWaoUkERfVzNUtWRMm5Y0FgxVq/K3/nz5vMPYipPEoNL?=
- =?us-ascii?Q?uvoAJ18sw80kew22AMyXtJi5QYs/G+rvbl7S+Fdk59wqt9TQrpwqNZ/KHnmn?=
- =?us-ascii?Q?5PLEFOdr7NKooXvBNUWNcgc6ROtYmq+cWhm41e5enipKo+rZrNHw5RHR0gEi?=
- =?us-ascii?Q?OZsO8zfAfckt1pT3fbwd3vESwoVuTjmYWS+UP4twCD3pMXX/n6hCfrmyU3cr?=
- =?us-ascii?Q?Z9dW111xPs7uhkAwim4HRApuv2Cch6MW30cSb33tVSHf4GgUvV2abMMENxSe?=
- =?us-ascii?Q?GYGkRLhfA7zbz8sfbyKC1qijdVxit2wUHL79nNFvMXfhgg2PhEZ8Egtkt/C9?=
- =?us-ascii?Q?CIU7BqeNjPlgLxtQCO/OZ5/A1Or3e8/vuIWUV4U6Pv7EQANpMPMPrCaaebhI?=
- =?us-ascii?Q?3Cj3XkBPYkUJN9HsGL5Xi9eZkfR39D2yGcElW9aTMcEaI71wkO96ZMTDxtXx?=
- =?us-ascii?Q?Fqj/UP41gm0xh6uU2P7IU3Iv3KbD7FpLe2kFqWw5iVZ6/qa66xlmcL0BeljS?=
- =?us-ascii?Q?bVCBKUGc36Kx6mOmLOiwC4+pN+B0IfGmfECr+9cmz6hlIhrUp1j0?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06e0af08-5cf6-4fb1-c65a-08df291492da
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 10:27:25.0877
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7xpFdvPVBnKXimgnEIz5Bjsvw45KNiUsJgwNk0C4anE3S3dDqo/tOvZ2Rh1EJ54YpdnxKW66vZdGtRDvSB0jy/+ycBnjS1VuFpQoONwdw1UiEyjMBwHP2anMn1JDBKuE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1234
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2] net: stmmac: ptp: switch to gettimex64()
+ interface
+To: James Clark <jjc@jclark.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
+ Miroslav Lichvar <mlichvar@redhat.com>, Nicolai Buchwitz <nb@tipi-net.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261008103809.1848255-1-jjc@jclark.com>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20261008103809.1848255-1-jjc@jclark.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The reset IDs exposed to consumers of the StarFive JHB100 reset
-controllers do not map one-to-one to the hardware reset bits.
+On 08/10/2026 11:38, James Clark wrote:
+> The stmmac PTP support currently implements the gettime64 callback to
+> retrieve the hardware clock time. Update the implementation to provide
+> the gettimex64 callback instead, adding support for the
+> PTP_SYS_OFFSET_EXTENDED ioctl.
+> 
+> The system clock readings are taken around the read of the nanoseconds
+> register in get_systime(), so get_systime() gains a ptp_system_timestamp
+> argument.
+> 
+> Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+> Assisted-by: LLM
+> Signed-off-by: James Clark <jjc@jclark.com>
+> ---
+> Changes in v2:
+> - Read PTP_STNSR with readl() and drop the two rmb() calls
+>    (Nicolai Buchwitz, Maxime Chevallier)
+> - Fix the kernel-doc of stmmac_get_timex() and an over-long line
+>    in stmmac_adjust_time() (netdev CI)
+> - Link to v1: https://lore.kernel.org/netdev/20261006103610.98277-1-jjc@jclark.com/
+> 
+> Tested on a Radxa ZERO 3E (RK3566, DWMAC 4/5) running net-next.
+> Width of the interval between the two system clock readings
+> bracketing each PHC read (2000 calls of 25 samples each):
+> 
+>                                           min      median
+> Before patch (PTP_SYS_OFFSET):           875 ns   1167 ns
+> After patch (PTP_SYS_OFFSET_EXTENDED):   291 ns    583 ns
+> 
+> On this board the 24 MHz arch timer counter advances in steps of 7
+> (~292 ns), so all intervals are multiples of that.
+> 
+>   drivers/net/ethernet/stmicro/stmmac/hwif.h    |  5 ++++-
+>   .../ethernet/stmicro/stmmac/stmmac_hwtstamp.c |  7 +++++--
+>   .../net/ethernet/stmicro/stmmac/stmmac_ptp.c  | 21 ++++++++++---------
+>   .../stmicro/stmmac/stmmac_selftests.c         |  4 ++--
+>   .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |  3 ++-
+>   5 files changed, 24 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> index a8a5c8fdd5e..6efbfe50102 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> @@ -493,6 +493,8 @@ struct stmmac_ops {
+>   #define stmmac_fpe_map_preemption_class(__priv, __args...) \
+>   	stmmac_do_callback(__priv, mac, fpe_map_preemption_class, __args)
+>   
+> +struct ptp_system_timestamp;
+> +
+>   /* PTP and HW Timer helpers */
+>   struct stmmac_hwtimestamp {
+>   	void (*config_hw_tstamping) (void __iomem *ioaddr, u32 data);
+> @@ -502,7 +504,8 @@ struct stmmac_hwtimestamp {
+>   	int (*config_addend) (void __iomem *ioaddr, u32 addend);
+>   	int (*adjust_systime) (void __iomem *ioaddr, u32 sec, u32 nsec,
+>   			       int add_sub, int gmac4);
+> -	void (*get_systime) (void __iomem *ioaddr, u64 *systime);
+> +	void (*get_systime)(void __iomem *ioaddr, u64 *systime,
+> +			    struct ptp_system_timestamp *sts);
+>   	void (*get_ptptime)(void __iomem *ioaddr, u64 *ptp_time);
+>   	void (*timestamp_interrupt)(struct stmmac_priv *priv);
+>   	void (*hwtstamp_correct_latency)(struct stmmac_priv *priv);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> index b9a985fa772..870c740b4a5 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> @@ -183,7 +183,8 @@ static int adjust_systime(void __iomem *ioaddr, u32 sec, u32 nsec,
+>   					 10, 100000);
+>   }
+>   
+> -static void get_systime(void __iomem *ioaddr, u64 *systime)
+> +static void get_systime(void __iomem *ioaddr, u64 *systime,
+> +			struct ptp_system_timestamp *sts)
+>   {
+>   	u64 ns, sec0, sec1;
+>   
+> @@ -191,8 +192,10 @@ static void get_systime(void __iomem *ioaddr, u64 *systime)
+>   	sec1 = readl_relaxed(ioaddr + PTP_STSR);
+>   	do {
+>   		sec0 = sec1;
+> +		ptp_read_system_prets(sts);
+>   		/* Get the TSSS value */
+> -		ns = readl_relaxed(ioaddr + PTP_STNSR);
+> +		ns = readl(ioaddr + PTP_STNSR);
+> +		ptp_read_system_postts(sts);
+>   		/* Get the TSS value */
+>   		sec1 = readl_relaxed(ioaddr + PTP_STSR);
+>   	} while (sec0 != sec1);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> index 3bfcc9760dc..e54a3c88782 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> @@ -89,7 +89,8 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
+>   		u64 cycle_time;
+>   
+>   		mutex_lock(&priv->est_lock);
+> -		priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
+> +		priv->ptp_clock_ops.gettimex64(&priv->ptp_clock_ops,
+> +					       &current_time, NULL);
+>   		current_time_ns = timespec64_to_ktime(current_time);
+>   		time.tv_nsec = priv->est->btr_reserve[0];
+>   		time.tv_sec = priv->est->btr_reserve[1];
+> @@ -114,15 +115,15 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
+>   }
+>   
+>   /**
+> - * stmmac_get_time
+> - *
+> + * stmmac_get_timex - read the PTP clock, with system timestamps if requested
+>    * @ptp: pointer to ptp_clock_info structure
+>    * @ts: pointer to hold time/result
+> + * @sts: pointer to hold system timestamps around the read, or NULL
+>    *
+> - * Description: this function will read the current time from the
+> - * hardware clock and store it in @ts.
+> + * Return: 0
+>    */
+> -static int stmmac_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts)
+> +static int stmmac_get_timex(struct ptp_clock_info *ptp, struct timespec64 *ts,
+> +			    struct ptp_system_timestamp *sts)
+>   {
+>   	struct stmmac_priv *priv =
+>   	    container_of(ptp, struct stmmac_priv, ptp_clock_ops);
+> @@ -130,7 +131,7 @@ static int stmmac_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts)
+>   	u64 ns = 0;
+>   
+>   	read_lock_irqsave(&priv->ptp_lock, flags);
+> -	stmmac_get_systime(priv, priv->ptpaddr, &ns);
+> +	stmmac_get_systime(priv, priv->ptpaddr, &ns, sts);
+>   	read_unlock_irqrestore(&priv->ptp_lock, flags);
+>   
+>   	*ts = ns_to_timespec64(ns);
+> @@ -200,7 +201,7 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+>   
+>   		target_ns = cfg->start.tv_nsec + ((u64)cfg->start.tv_sec * NSEC_PER_SEC);
+>   
+> -		stmmac_get_systime(priv, priv->ptpaddr, &ns);
+> +		stmmac_get_systime(priv, priv->ptpaddr, &ns, NULL);
+>   		if (ns > TIME64_MAX - PTP_SAFE_TIME_OFFSET_NS)
+>   			return -EINVAL;
+>   
+> @@ -304,7 +305,7 @@ const struct ptp_clock_info stmmac_ptp_clock_ops = {
+>   	.pps = 0,
+>   	.adjfine = stmmac_adjust_freq,
+>   	.adjtime = stmmac_adjust_time,
+> -	.gettime64 = stmmac_get_time,
+> +	.gettimex64 = stmmac_get_timex,
+>   	.settime64 = stmmac_set_time,
+>   	.enable = stmmac_enable,
+>   };
+> @@ -321,7 +322,7 @@ const struct ptp_clock_info dwmac1000_ptp_clock_ops = {
+>   	.pps = 0,
+>   	.adjfine = stmmac_adjust_freq,
+>   	.adjtime = stmmac_adjust_time,
+> -	.gettime64 = stmmac_get_time,
+> +	.gettimex64 = stmmac_get_timex,
+>   	.settime64 = stmmac_set_time,
+>   	.enable = dwmac1000_ptp_enable,
+>   };
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+> index 6097f312fce..2ae4f0e760c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+> @@ -1778,7 +1778,7 @@ static int stmmac_test_tbs(struct stmmac_priv *priv)
+>   		return ret;
+>   
+>   	read_lock_irqsave(&priv->ptp_lock, flags);
+> -	stmmac_get_systime(priv, priv->ptpaddr, &curr_time);
+> +	stmmac_get_systime(priv, priv->ptpaddr, &curr_time, NULL);
+>   	read_unlock_irqrestore(&priv->ptp_lock, flags);
+>   
+>   	if (!curr_time) {
+> @@ -1800,7 +1800,7 @@ static int stmmac_test_tbs(struct stmmac_priv *priv)
+>   
+>   	/* Check if expected time has elapsed */
+>   	read_lock_irqsave(&priv->ptp_lock, flags);
+> -	stmmac_get_systime(priv, priv->ptpaddr, &curr_time);
+> +	stmmac_get_systime(priv, priv->ptpaddr, &curr_time, NULL);
+>   	read_unlock_irqrestore(&priv->ptp_lock, flags);
+>   
+>   	if ((curr_time - start_time) < STMMAC_TBS_LT_OFFSET)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> index 42a00446e9b..57ebeb2c19c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> @@ -1070,7 +1070,8 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+>   
+>   	mutex_lock(&priv->est_lock);
+>   	/* Adjust for real system time */
+> -	priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
+> +	priv->ptp_clock_ops.gettimex64(&priv->ptp_clock_ops, &current_time,
+> +				       NULL);
+>   	current_time_ns = timespec64_to_ktime(current_time);
+>   	time = stmmac_calc_tas_basetime(qopt->base_time, current_time_ns,
+>   					qopt->cycle_time);
 
-Add struct jh71x0_reset_info, which describes the number of resets, the
-assert/status register offsets and, for discontiguous controllers, a
-table mapping reset IDs to hardware bits. Add
-reset_starfive_jh71x0_register_with_info() to register such a
-controller, and translate the reset ID in the update and status
-callbacks when a map is provided.
-
-Existing users of reset_starfive_jh71x0_register() are unaffected.
-
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- .../reset/starfive/reset-starfive-jh71x0.c    | 99 ++++++++++++++++---
- .../reset/starfive/reset-starfive-jh71x0.h    | 19 ++++
- 2 files changed, 107 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/reset/starfive/reset-starfive-jh71x0.c b/drivers/reset/starfive/reset-starfive-jh71x0.c
-index 29ce3486752f..fd1c755a0017 100644
---- a/drivers/reset/starfive/reset-starfive-jh71x0.c
-+++ b/drivers/reset/starfive/reset-starfive-jh71x0.c
-@@ -14,6 +14,8 @@
- 
- #include "reset-starfive-jh71x0.h"
- 
-+#define JH71X0_RESET_ID_INVALID	ULONG_MAX
-+
- struct jh71x0_reset {
- 	struct reset_controller_dev rcdev;
- 	/* protect registers against concurrent read-modify-write */
-@@ -21,6 +23,11 @@ struct jh71x0_reset {
- 	void __iomem *assert;
- 	void __iomem *status;
- 	const u32 *asserted;
-+
-+	/* Only exists in reset controllers that use the
-+	 * reset_starfive_jh71x0_register_with_info helper.
-+	 */
-+	const struct jh71x0_reset_info *info;
- };
- 
- static inline struct jh71x0_reset *
-@@ -29,19 +36,40 @@ jh71x0_reset_from(struct reset_controller_dev *rcdev)
- 	return container_of(rcdev, struct jh71x0_reset, rcdev);
- }
- 
-+static unsigned long
-+jh71x0_reset_id_to_hw_id(const struct jh71x0_reset_map *map, unsigned int nr_resets,
-+			 unsigned long reset_id)
-+{
-+	for (u32 i = 0; i < nr_resets; i++) {
-+		if (map[i].reset_id == reset_id)
-+			return map[i].hw_id;
-+	}
-+
-+	return JH71X0_RESET_ID_INVALID;
-+}
-+
- static int jh71x0_reset_update(struct reset_controller_dev *rcdev,
- 			       unsigned long id, bool assert)
- {
- 	struct jh71x0_reset *data = jh71x0_reset_from(rcdev);
--	unsigned long offset = id / 32;
--	u32 mask = BIT(id % 32);
--	void __iomem *reg_assert = data->assert + offset * sizeof(u32);
--	void __iomem *reg_status = data->status + offset * sizeof(u32);
--	u32 done = data->asserted ? data->asserted[offset] & mask : 0;
--	u32 value;
--	unsigned long flags;
-+	unsigned long offset, flags;
-+	void __iomem *reg_assert;
-+	void __iomem *reg_status;
-+	u32 mask, done, value;
- 	int ret;
- 
-+	if (data->info && data->info->discontiguous) {
-+		id = jh71x0_reset_id_to_hw_id(data->info->map, data->info->nr_resets, id);
-+		if (id == JH71X0_RESET_ID_INVALID)
-+			return -EINVAL;
-+	}
-+
-+	offset = id / 32;
-+	mask = BIT(id % 32);
-+	reg_assert = data->assert + offset * sizeof(u32);
-+	reg_status = data->status + offset * sizeof(u32);
-+	done = data->asserted ? data->asserted[offset] & mask : 0;
-+
- 	if (!assert)
- 		done ^= mask;
- 
-@@ -89,10 +117,20 @@ static int jh71x0_reset_status(struct reset_controller_dev *rcdev,
- 			       unsigned long id)
- {
- 	struct jh71x0_reset *data = jh71x0_reset_from(rcdev);
--	unsigned long offset = id / 32;
--	u32 mask = BIT(id % 32);
--	void __iomem *reg_status = data->status + offset * sizeof(u32);
--	u32 value = readl(reg_status);
-+	void __iomem *reg_status;
-+	unsigned long offset;
-+	u32 mask, value;
-+
-+	if (data->info && data->info->discontiguous) {
-+		id = jh71x0_reset_id_to_hw_id(data->info->map, data->info->nr_resets, id);
-+		if (id == JH71X0_RESET_ID_INVALID)
-+			return -EINVAL;
-+	}
-+
-+	offset = id / 32;
-+	mask = BIT(id % 32);
-+	reg_status = data->status + offset * sizeof(u32);
-+	value = readl(reg_status);
- 
- 	if (!data->asserted)
- 		return !(value & mask);
-@@ -132,3 +170,42 @@ int reset_starfive_jh71x0_register(struct device *dev, struct device_node *of_no
- 	return devm_reset_controller_register(dev, &data->rcdev);
- }
- EXPORT_SYMBOL_GPL(reset_starfive_jh71x0_register);
-+
-+int reset_starfive_jh71x0_register_with_info(struct device *dev, struct device_node *of_node,
-+					     void __iomem *assert, void __iomem *status,
-+					     const u32 *asserted,
-+					     const struct jh71x0_reset_info *info,
-+					     struct module *owner)
-+{
-+	struct jh71x0_reset *data;
-+	int ret;
-+
-+	if (info->discontiguous && (!info->map || !info->nr_resets))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "discontiguous controller without a valid ID map\n");
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->rcdev.ops = &jh71x0_reset_ops;
-+	data->rcdev.owner = owner;
-+	data->rcdev.nr_resets = info->nr_resets;
-+	data->rcdev.dev = dev;
-+	data->rcdev.of_node = of_node;
-+
-+	spin_lock_init(&data->lock);
-+	data->assert = assert;
-+	data->status = status;
-+	data->asserted = asserted;
-+	data->info = info;
-+
-+	ret = devm_reset_controller_register(dev, &data->rcdev);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to register reset controller\n");
-+
-+	dev_info(dev, "Registered %u resets\n", data->rcdev.nr_resets);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(reset_starfive_jh71x0_register_with_info);
-diff --git a/drivers/reset/starfive/reset-starfive-jh71x0.h b/drivers/reset/starfive/reset-starfive-jh71x0.h
-index db7d39a87f87..36f198139602 100644
---- a/drivers/reset/starfive/reset-starfive-jh71x0.h
-+++ b/drivers/reset/starfive/reset-starfive-jh71x0.h
-@@ -6,9 +6,28 @@
- #ifndef __RESET_STARFIVE_JH71X0_H
- #define __RESET_STARFIVE_JH71X0_H
- 
-+struct jh71x0_reset_map {
-+	unsigned long reset_id;
-+	unsigned long hw_id;
-+};
-+
-+struct jh71x0_reset_info {
-+	unsigned int nr_resets;
-+	unsigned int assert_offset;
-+	unsigned int status_offset;
-+	bool discontiguous;
-+	const struct jh71x0_reset_map *map;
-+};
-+
- int reset_starfive_jh71x0_register(struct device *dev, struct device_node *of_node,
- 				   void __iomem *assert, void __iomem *status,
- 				   const u32 *asserted, unsigned int nr_resets,
- 				   struct module *owner);
- 
-+int reset_starfive_jh71x0_register_with_info(struct device *dev, struct device_node *of_node,
-+					     void __iomem *assert, void __iomem *status,
-+					     const u32 *asserted,
-+					     const struct jh71x0_reset_info *info,
-+					     struct module *owner);
-+
- #endif /* __RESET_STARFIVE_JH71X0_H */
--- 
-2.25.1
-
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
