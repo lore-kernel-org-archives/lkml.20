@@ -1,299 +1,125 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mta0.migadu.com (out-164.mta0.migadu.com [91.218.175.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9FB37C0FE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D5237C0FE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874055; cv=none; b=BRfJIpRlXtbapNRlHat3yAswEj6bhzpulYAg+jCoxtF+jb+YC9rtZUIe7RyRc7qtx0dGrPIAhZfmB0BvR/FLdg0yDTcEjCat5cv6RQk/RBFTu66841vgQSqJsFakcrxJyr3VbD1ryPpO/RGXz2C1my1pA+C+DKNHq/3pa4esJwc=
+	t=1791874064; cv=none; b=mY3LA71ZK2ndZjsC8Pds8JtC95kaIvDF+sPz2tAGo4QVIYU7ADbpIN4zs5UBawSBacIQDC8HVKpCoKwHV6sXsNgZ/Ds1V7701vjHmhaaqdvQ0jH1taHLihOVsCfo8uzq6QNhZQ94MU6a0lwQ1Mbs2wBY3hzEWx/6UsLE4EVdMMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874055; c=relaxed/simple;
-	bh=G8k1ARucNhABhvPBrGiPOoMqDK8wFePs1k6MrV7Hm0I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YMoSiTQGeKU5WVYB/87oKX2NSf9A+uNTuQyowN3dgPnNRIA9Fvh8O2img9wiAcrOITKlzqUOYlId8Gv6vFjdu6oxseXFFhA7mrVeGBFLP108c7zv2j+hFeAXFQ48AQnuIDBE30r/uOAjfoc1mEfGRQaTsgAEwPLUtWMWNSPXR9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ozrYyjqo; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791874064; c=relaxed/simple;
+	bh=mqDh8Taoi/5OosStcy5PCLFM6IlRW4x/WEjWfMzbF+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QIXkIUYThDz7UYEM8tiqOF1aRA1YQ1UJV8TmcGUP58lk8q2JBpwKvOswqQi1Ai+Q0se0o8xO8Nq+jwaj/WNUI7JZG71OjdeUwqBiKbyBDT/IUnq08rksRGd3VttuCZJXZrzdQ5uHmX+MSYGRgwShj1LRzReGYOX5oh1hWiarXCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kailuf/9; arc=none smtp.client-ip=91.218.175.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ozrYyjqo"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so1075068a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:47:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791874054; x=1792478854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TS1bnNj6YPEDGh6hu3tHyNWvKwTMGGGvQBMH8h5yo6I=;
-        b=ozrYyjqoWSkKe/2tO7TN3Rbk7iCBghtfSwnpqInmDRv1NpqpG1nQlIgKoEMlqkbR6o
-         XiL8wiWxbOCB//Zeebu/0wyt3Vfcb7/XyF99j+woqwvIQd+7n8S7wZT7JHBH5yc/a5HT
-         mPFtP3BeFqiKl0YrMNWdBe0+u6afyj8almk/J/VVh2sxrOYW6jKE/VrvRr5iNSt31PTB
-         /+zWfXZYJ8ENObQtnU7XCocsYyTGVoESIx/NKYNEesHz6NkIEC8faPtW8SCufQsOCc1m
-         nV8XkuxxhohydKiLdWb9RASASFMyvC7qEzhqHQigE4FpZdLNnA63UIbRzRmfmZmKmdFF
-         SL0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791874054; x=1792478854;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TS1bnNj6YPEDGh6hu3tHyNWvKwTMGGGvQBMH8h5yo6I=;
-        b=oyn1nn6fn0i75AbsMsjYzXffcCZWycdzmXau6e6Va2ozFCMEo3riMdZfUplE3B2tnT
-         enDlgWCDRsu4oAZ6N+yTLu2NWgeExkrPAjhg2NIjUhWPQi3UlxUzAxqYDpBJxLyGcPpW
-         xT0QFMWCCNoV/eLKVcodQW3tYPFRKSt4KfHSV1xqrkPD01T2rxsYH0WEJo34UZbi/ny3
-         51SrHUaXIdYKuLd7y9QdVVtspD5jxfR1yB6WiN6GNs8XCZ2VULnUSf6nuJnBDazvP/Rm
-         +xuqG2b/C3KjWzoOK02TmrXbQF/LWFtTYsq3LEiTDAdOjFSJtJGRyMuVy7SPzOk7QuvT
-         N6Og==
-X-Forwarded-Encrypted: i=1; AKwUvBx5DtSzEZ5oZzhL7QioX8j42XV+WyhsoNrAnlMIcR1qgiann39oBZAV+BHmxrpK5BWf4yc64/VdtPH8Jo0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBmRgiW649V/7RA/Aaejd7A1ve5hY5LG+CazglheKIEpXBwAdr
-	DqnfK0NVX0SWGZ7Jo/HRL/enxwOU9pUVZsOOaWYkU4B8Y8RqFgXX4Ysj
-X-Gm-Gg: AYBFou1V6WdytO3rAgouh0MzBd+yS00MhgxKNyeWHhEoiNxpIn85jdtqwNykgEbwqLE
-	AEWHQW045RjYuk6F8ZtfqSM1TqwGQTRbnaVJ/IqWYpA4qOqp2Pz/mjMxKAmEWQ7UufbIs49pgEq
-	LEnAfzZInm00jrwRbRcg4hGQQZTnsBTsJzMgOXK7R9ayFf8pyi5Wc+RJTKZWOV4X5tOdU6uvk1G
-	pdjHbvIo/jt8R9cVCkiDlKxsXjgxSegyVKVxEujMq9IXhkKfA+q1oNLHjh55T/nZ8B9flfqpXoU
-	lpDTIYCw9Ao0BZ20gebh0JSZ/vJmqY30w5JkSkmtVNLgQFaWEtjUaR8PltST4OttCE98tsTrsT8
-	e2zp7cR/9jGNtdOd/QWmuGUOegBE6n3BdY7MZ5BSCFeeuVWWJMHn1oHNkUjNgWj9S6pHTYx1Vt6
-	Uc3KiKVsvH1ZySNFrOSxhFZH/E1/xCLWB9YJUB0t1ZXJDFpCVPtbXqJRZIB4iqMzz1YEUmAMzO6
-	xjpdjq3D5KDxaUNBikvhF3ziYtwUbrqTfMHJ9xdhg2m
-X-Received: by 2002:a17:90b:5444:b0:3aa:f2c4:12df with SMTP id 98e67ed59e1d1-3ab3a236ca5mr9333642a91.9.1791874053712;
-        Mon, 12 Oct 2026 23:47:33 -0700 (PDT)
-Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac38b36fcesm1577115a91.2.2026.10.12.23.47.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 23:47:33 -0700 (PDT)
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-To: tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org
-Cc: cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] selftests/cgroup: test pids.events notification
-Date: Tue, 13 Oct 2026 12:18:12 +0530
-Message-ID: <20261013064812.875787-1-sahaj123.sc@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kailuf/9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mqDh8Taoi/5OosStcy5PCLFM6IlRW4x/WEjWfMzbF+o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791874059; v=1; x=1792478859;
+ b=Kailuf/9q2bG6WqYicwnQ+YVBXzXY9wEGzMcfX6H3w4EPpRr8/OaDT7tDjcJedZkZD+dAO9t
+ +whBJOApDkGDuSLqswUqGnDCmUdxTWWfFFDp3eKcKF2GpTeUtK7z0XBDaLyDE03EceWqFdWoA+V
+ QR3omZ1MsgpPBI88HlBXoLo8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 12800683dfe4e02b;
+	Tue, 13 Oct 2026 06:47:39 +0000
+X-Mizu-Trace-ID: 12800683dfe4e02b
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 13 Oct 2026 14:47:25 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Jiacheng Xu <stitch@zju.edu.cn>
+Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, pabeni@redhat.com, jiri@resnulli.us,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] netdevsim: avoid NULL dereference after failed probe
+Message-ID: <as3T_XTQtC5-S8Dq@fedora>
+References: <20261012135941.78329-1-stitch@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012135941.78329-1-stitch@zju.edu.cn>
 
-Add a selftest for pids.events notifications. When pids_localevents is
-enabled, a fork rejected by pids.max must increment pids.events and
-generate an IN_MODIFY inotify event on that file.
+Hi Jiacheng,
+On Mon, Oct 12, 2026 at 09:59:41PM +0800, Jiacheng Xu wrote:
+> device_register() reports whether device registration succeeded, not
+> whether the matching driver's probe succeeded. If nsim_drv_probe()
+> fails, the driver core leaves the nsim_bus_dev registered while the probe
+> error path clears its driver data.
+> 
+> new_device_store() subsequently marks the nsim_bus_dev initialized. A
+> write to its new_port or del_port attribute therefore passes the init
+> check and calls nsim_drv_port_add() or nsim_drv_port_del() with no valid
+> nsim_dev. Both helpers pass the NULL driver data to priv_to_devlink(),
+> leading to a NULL pointer dereference.
+> 
+> This can be reproduced by creating a netdevsim device for which
+> nsim_drv_probe() fails and then writing to the new_port or del_port
+> attribute of the registered device.
+> 
+> Serialize the driver data check and the port operation with the device
+> lock, and reject the operation with -ENODEV when no driver data is
+> present. This also prevents driver unbind from freeing nsim_dev between
+> the check and its use, and follows the locking used by sriov_numvfs.
+> 
+> Fixes: 794b2c05ca1c ("netdevsim: extend device attrs to support port addition and deletion")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiacheng Xu <stitch@zju.edu.cn>
+> ---
+>  drivers/net/netdevsim/bus.c | 17 ++++++++++++++---
+>  1 file changed, 14 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
+> index 41483e371f05..0ab51306ad0a 100644
+> --- a/drivers/net/netdevsim/bus.c
+> +++ b/drivers/net/netdevsim/bus.c
+> @@ -93,8 +93,13 @@ new_port_store(struct device *dev, struct device_attribute *attr,
+>  		return -EINVAL;
+>  	}
+>  
+> -	ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index,
+> -				addr_set ? eth_addr : NULL);
+> +	device_lock(dev);
+> +	if (!dev_get_drvdata(dev))
+> +		ret = -ENODEV;
+> +	else
+> +		ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
+> +					port_index, addr_set ? eth_addr : NULL);
+> +	device_unlock(dev);
+>  	return ret ? ret : count;
+>  }
+>  
+> @@ -115,7 +120,13 @@ del_port_store(struct device *dev, struct device_attribute *attr,
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index);
+> +	device_lock(dev);
+> +	if (!dev_get_drvdata(dev))
+> +		ret = -ENODEV;
+> +	else
+> +		ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
+> +					port_index);
+> +	device_unlock(dev);
+>  	return ret ? ret : count;
+>  }
+>  
 
-The test creates a cgroup with pids.max set to 1, watches its pids.events
-file, moves itself into the cgroup and forces a rejected fork. It then
-checks both the counter and the notification. It skips when cgroup v2 is
-not mounted, pids_localevents is not enabled or the pids controller is
-unavailable.
+I remember you had a reproducer in v1 patch
+https://lore.kernel.org/netdev/42315c2c.15f85.1a01853d723.Coremail.stitch@zju.edu.cn/
 
-Check for a failed read() of the inotify event before comparing its
-signed ssize_t result with sizeof(struct inotify_event). Otherwise -1 is
-converted to a large unsigned length and the uninitialized event buffer
-is inspected.
+In v2 we talked about try unregister the device if failed. But looks not easy.
+This patch only rebase to latest net tree. But no version tag and change log.
 
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
----
-Changes since v2:
-- v2 was mistakenly sent as an incremental delta on top of v1. This v3 is
-  the complete patch, replacing both v1 and v2.
-- Check for a failed inotify read() before comparing the signed result
-  with sizeof(struct inotify_event) (the v2 change).
+Over all, the code change looks good to me.
 
-Testing:
-- Built with make -C tools/testing/selftests TARGETS=cgroup.
-- On an x86 host the test skips: its cgroup2 mount lacks pids_localevents.
-- On an AM642 board (6.12.57) the test fails with a timeout waiting for
-  the notification. That kernel lacks commit 1765a153d985 ("cgroup/pids:
-  Restore pids.events notifications in local mode"), so this is expected.
-
-v1: https://lore.kernel.org/all/20261007063516.1192279-1-sahaj123.sc@gmail.com/
-v2: https://lore.kernel.org/all/20261012095011.3188830-1-sahaj123.sc@gmail.com/
-
- tools/testing/selftests/cgroup/.gitignore     |   1 +
- tools/testing/selftests/cgroup/Makefile       |   2 +
- .../selftests/cgroup/test_pids_local_events.c | 143 ++++++++++++++++++
- 3 files changed, 146 insertions(+)
- create mode 100644 tools/testing/selftests/cgroup/test_pids_local_events.c
-
-diff --git a/tools/testing/selftests/cgroup/.gitignore b/tools/testing/selftests/cgroup/.gitignore
-index 952e4448bf070..0a00eaab14cb1 100644
---- a/tools/testing/selftests/cgroup/.gitignore
-+++ b/tools/testing/selftests/cgroup/.gitignore
-@@ -8,5 +8,6 @@ test_kill
- test_kmem
- test_memcontrol
- test_pids
-+test_pids_local_events
- test_zswap
- wait_inotify
-diff --git a/tools/testing/selftests/cgroup/Makefile b/tools/testing/selftests/cgroup/Makefile
-index e01584c2189ac..e494487307418 100644
---- a/tools/testing/selftests/cgroup/Makefile
-+++ b/tools/testing/selftests/cgroup/Makefile
-@@ -16,6 +16,7 @@ TEST_GEN_PROGS += test_kill
- TEST_GEN_PROGS += test_kmem
- TEST_GEN_PROGS += test_memcontrol
- TEST_GEN_PROGS += test_pids
-+TEST_GEN_PROGS += test_pids_local_events
- TEST_GEN_PROGS += test_zswap
- 
- LOCAL_HDRS += $(selfdir)/clone3/clone3_selftests.h $(selfdir)/pidfd/pidfd.h
-@@ -32,4 +33,5 @@ $(OUTPUT)/test_kill: $(LIBCGROUP_O)
- $(OUTPUT)/test_kmem: $(LIBCGROUP_O)
- $(OUTPUT)/test_memcontrol: $(LIBCGROUP_O)
- $(OUTPUT)/test_pids: $(LIBCGROUP_O)
-+$(OUTPUT)/test_pids_local_events: $(LIBCGROUP_O)
- $(OUTPUT)/test_zswap: $(LIBCGROUP_O)
-diff --git a/tools/testing/selftests/cgroup/test_pids_local_events.c b/tools/testing/selftests/cgroup/test_pids_local_events.c
-new file mode 100644
-index 0000000000000..59885901fbf51
---- /dev/null
-+++ b/tools/testing/selftests/cgroup/test_pids_local_events.c
-@@ -0,0 +1,143 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define _GNU_SOURCE
-+
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <linux/limits.h>
-+#include <poll.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/inotify.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include "cgroup_util.h"
-+#include "kselftest.h"
-+
-+static int test_pids_events_notify(const char *root)
-+{
-+	union {
-+		struct inotify_event align;
-+		char bytes[sizeof(struct inotify_event) + NAME_MAX + 1];
-+	} event_buf;
-+	struct pollfd pfd;
-+	char *cgroup = NULL, *events_path = NULL;
-+	const char *reason = "pids.events did not notify after a rejected fork";
-+	bool moved = false;
-+	int inotify_fd = -1, ret = KSFT_FAIL, watch;
-+	ssize_t n;
-+	pid_t child;
-+
-+	cgroup = cg_name(root, "pids_local_events_notify");
-+	if (!cgroup) {
-+		reason = "failed to allocate cgroup path";
-+		goto cleanup;
-+	}
-+	if (cg_create(cgroup)) {
-+		reason = "failed to create test cgroup";
-+		goto cleanup;
-+	}
-+	if (cg_write(cgroup, "pids.max", "1")) {
-+		reason = "failed to set pids.max";
-+		goto cleanup;
-+	}
-+
-+	if (asprintf(&events_path, "%s/pids.events", cgroup) < 0) {
-+		reason = "failed to allocate pids.events path";
-+		goto cleanup;
-+	}
-+	inotify_fd = inotify_init1(IN_CLOEXEC | IN_NONBLOCK);
-+	if (inotify_fd < 0) {
-+		reason = "inotify_init1 failed";
-+		goto cleanup;
-+	}
-+	watch = inotify_add_watch(inotify_fd, events_path, IN_MODIFY);
-+	if (watch < 0) {
-+		reason = "inotify_add_watch on pids.events failed";
-+		goto cleanup;
-+	}
-+
-+	if (cg_enter_current(cgroup)) {
-+		reason = "failed to move test into cgroup";
-+		goto cleanup;
-+	}
-+	moved = true;
-+
-+	child = fork();
-+	if (child == 0)
-+		_exit(0);
-+	if (child > 0) {
-+		waitpid(child, NULL, 0);
-+		reason = "fork succeeded despite pids.max";
-+		goto cleanup;
-+	}
-+	if (errno != EAGAIN) {
-+		reason = "fork failed for a reason other than pids.max";
-+		goto cleanup;
-+	}
-+
-+	if (cg_read_key_long(cgroup, "pids.events", "max ") != 1) {
-+		reason = "pids.events did not count the rejected fork";
-+		goto cleanup;
-+	}
-+
-+	pfd.fd = inotify_fd;
-+	pfd.events = POLLIN;
-+	if (poll(&pfd, 1, 1000) <= 0) {
-+		reason = "timed out waiting for pids.events notification";
-+		goto cleanup;
-+	}
-+	n = read(inotify_fd, event_buf.bytes, sizeof(event_buf.bytes));
-+	if (n < 0) {
-+		reason = "failed to read pids.events notification";
-+		goto cleanup;
-+	}
-+	if ((size_t)n < sizeof(struct inotify_event) ||
-+	    !(event_buf.align.mask & IN_MODIFY)) {
-+		reason = "received no pids.events modify notification";
-+		goto cleanup;
-+	}
-+	if (cg_read_key_long(cgroup, "pids.events", "max ") != 1) {
-+		reason = "pids.events did not count the rejected fork";
-+		goto cleanup;
-+	}
-+
-+	ret = KSFT_PASS;
-+
-+cleanup:
-+	if (inotify_fd >= 0)
-+		close(inotify_fd);
-+	if (moved)
-+		cg_enter_current(root);
-+	if (cgroup)
-+		cg_destroy(cgroup);
-+	free(events_path);
-+	free(cgroup);
-+	if (ret != KSFT_PASS)
-+		ksft_print_msg("%s\n", reason);
-+	return ret;
-+}
-+
-+int main(void)
-+{
-+	char root[PATH_MAX];
-+	int ret;
-+
-+	ksft_print_header();
-+	if (cg_find_unified_root(root, sizeof(root), NULL))
-+		ksft_exit_skip("cgroup v2 isn't mounted\n");
-+	if (proc_mount_contains("pids_localevents") <= 0)
-+		ksft_exit_skip("mount cgroup2 with pids_localevents to run this test\n");
-+	if (cg_read_strstr(root, "cgroup.controllers", "pids"))
-+		ksft_exit_skip("pids controller isn't available\n");
-+	if (cg_read_strstr(root, "cgroup.subtree_control", "pids") &&
-+	    cg_write(root, "cgroup.subtree_control", "+pids"))
-+		ksft_exit_skip("failed to enable pids controller\n");
-+
-+	ksft_set_plan(1);
-+	ret = test_pids_events_notify(root);
-+	ksft_test_result_report(ret, "pids.events notifies on a rejected fork\n");
-+	ksft_finished();
-+}
--- 
-2.43.0
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
