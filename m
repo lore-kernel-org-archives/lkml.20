@@ -1,156 +1,124 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28094522F12;
-	Tue, 13 Oct 2026 17:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A945226B7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912278; cv=none; b=kWfJDVtMQR/2HtXKgTRejfaKPMTTeMWdldc0yCtMVWgwj+aVkFxjmNsLehJdr6QCEClRXQ34Rm1dmcYVcIQpm5MragQ5DD4Kn3aWQElcasDIFXHMcB0welB2QPQtXO/7s6IGBV7Vf4cwnn7JJkJXdnzHr4P4O0M4KMFR7qaXkDM=
+	t=1791912307; cv=none; b=ieSj9jV+c9AttXvNcEaM4bj/N3ojGJAlFC8WkJ5wzfLQD/kHhnbvcwLkN1lmmuGSI/vawgLitaEbeb0CQ/kYpZRzXwNd/XQjAApwmPRco7FmERD9wMmHTdDC3vKh6kRLKSKWHDMMQC2YzP99BLFDeRaieSu4ptaywVhPOab34qA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912278; c=relaxed/simple;
-	bh=5U1IRl6k5HaKJQKXawLO+W6DKf6QnIPO8yJ+DVdAN9w=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TeUUy5SXzQVFmjfz0/5W14DSAIfybF/8TtA+TJnbIeR2CZ4iuglVDXQSl2Jo/PEpddklCeQLUNqphKZQvOlcN4rP7G0sUtGLjI5nQMLv2NdqaBhF+oSFuEjD9c5uUVTrAK1R+BWVcIxGYENoDHzhDxrSIv3hDWi1aHTInhKpOJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=kG800gEX; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1791912307; c=relaxed/simple;
+	bh=0NoOIN3mJ4hVaMYqdXrnVr467zs4yRLZ/cjKUHp4vTM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kIStAI40mlpwf4jy808HZIEoxATLQ4fIZwn++27i/B1b6mipHe91jGTQCCUIZhor9EwicbcSREufnG0z+iDYJNuSSPx4AWYTbpa+kc8JExycl4H8N9U3Z3plcbf0+TwcvguTVRrxEYLXcpGWacOaEo/5ZJ1QXi6eJaQ98s7BEsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XZquZLUN; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="kG800gEX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=lkMIlmwyL70aGujPRKSjGf+Ll52pEew9wb2w9YDr9b4=; t=1791912275;
-	x=1792517075; b=kG800gEX0YmlySIzg8jlCgvclx6VXUA8l3LIez7FCrlHEl0lWpkhzRbcv3/9p
-	pn1dfBbfuhSijSyPc4e94OxTZ+j/IaV7pXgFnLAv4UxquiKP6skUWxX7QlwlVVhmvQHnis5urYP2h
-	DcOvILFnxfmVeGQJKlfrtDgaqQ0C/MmEyAwEA6G5NbTq9Q8ij2U1AqbRUXeRiOfynNTnV77i6O0OS
-	3L+xAM9/vmfrsMnSi89k4iDZbkv9xDx4ONmJYoviTAlmKugJy9Dl5RhF4V4YWu8ySnAwrnsIfMXxn
-	FwTMRioLT+XlQWLYHPkXZtFI5KZ6PLgnl7XsRoD6bex0Xb4QDA==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xGgEq-00000000ueN-3ZWi; Tue, 13 Oct 2026 19:24:32 +0200
-Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xGgEq-00000000KoU-2X5y; Tue, 13 Oct 2026 19:24:32 +0200
-Message-ID: <74cee094344a529a77edaf1e8d63cf25e79ec058.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: intc: sort the prio and sense lists after filling
- them
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
-	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
-Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 13 Oct 2026 19:24:31 +0200
-In-Reply-To: <20260927191359.6144-1-kmehltretter@gmail.com>
-References: <20260927191359.6144-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XZquZLUN"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3550c917fd3so154717eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:25:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791912305; x=1792517105; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0NoOIN3mJ4hVaMYqdXrnVr467zs4yRLZ/cjKUHp4vTM=;
+        b=XZquZLUNvZGS7Dqtyk99CBWZ2mctza4orye/gcmmpRe0Wzu3zEUDimzpN0O9ompO2J
+         Q//o+ll+2/tdGNKN2SjXZT7NE0+S0OW1stcepNH0e3sPXiuNhErbo6ZO5ZHQYSf6Ug9G
+         uJ7DWaSnjd/VfAOTF43Xehp/ZQPFVIE2LrLdQFtLN2Yr7ZFpwbwOVwlTvJRbKU6auI+j
+         iAVXqD2FyNMWU5IeZ7fC3D0TYWAeg7QNmmOQBTWwaJAeQht94hmKAsgfAZlq7mmLQFgQ
+         EJqCW0Q7CaM7QUftTTKzhLC7HIAIi4qQB2Vt+YLweTVd/6kFDg7LmIp+pBcxzzEbAO4I
+         MNng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791912305; x=1792517105;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0NoOIN3mJ4hVaMYqdXrnVr467zs4yRLZ/cjKUHp4vTM=;
+        b=HTBbE0Xb4/t9LmDJMm/6ZWtVDgym4wBrcc57GXXtasdez8PoZfiGvKSJzcihRwfq2U
+         fmI8Y3PjkXWHi5aQmYHyWqVUr2QLBzg0RNfmHRpvr5iMPKXSs5hxYup1xZys/r4BN+U2
+         A+jmOzmWOU2Ngjz8ygUud46tOTbD9VXQ7ECc+6qPNBcbvyStGAeaaH12fVz0QbKQGm7t
+         aNtd7O51cId3r0Ee11YHJrcnLzD7zuxBZc5307CzAu2gGs37HLZsqsQdvvggyn0fw6xV
+         3UDzX/H6hIPrwT2fzfbMx96k1C32P9Cnt1Yspywft3ekbZBKCgBMYgziBg0Er2D85yZk
+         Z0jw==
+X-Forwarded-Encrypted: i=1; AKwUvByBOT0mvAMT/4Tl5tI/9B+eQdALV9Vv2TNu8Epv4PyMSZS02lAj4zJpSt76BdQujuK9w8GOLjTNIA/xmfQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqNJ9T+RVNs6LDPMU1yMRL/rUK2Hrv4MAjWy9+3wn0ahlvEaEj
+	ljobAegeK2Y7BM8ubSjkRwh/T7/8Nm1lRGJJ0rgN2w3FMab4YB4zLh19
+X-Gm-Gg: AYBFou1BqP2+wOVZzHU+LdRf6ayfDmymuaqj5+cGqATsNFlhgbC7sL62iJNMw9U6Ev6
+	dToJHPGnNJoQtApUi/kjpwM/ohKGffaxGx5BSKs/MkfZRb/E9/rAlqAsIpLFSDtsPx3jh/ujcoP
+	bZYZCb9MEHhGhEreDtvvcall2PjrBVHTwi9HCj2k/eLsTUN1QiTqpaT5BOreOi9lOvXZtWdVMHS
+	4OyypkjjSxExrkooXYarQhfN7PL1TNfzaIwWtUgvJeP3rV4ZAbIHmkyO1exUJ58p/2r+EwdkGqB
+	coIBkbcU+Qg7Sv4gWN0MW0YFKO6z8ksffLTYKIl50m97l8PMngphzNMoudknFBd8USgi2jMDmd7
+	Pckvaee87jlUBMZWjvzQWSe0bTLg8Ov/jsKQSloBByS2IBRlzRyQMrjMdvwgbyOuprLq7GxDLWR
+	fJWWfqoMTQpIe9LbdWSLCinoNkDYpvjpR5LNQrTvDK8InMC5gTTJmJcCPrBDhANurTn9vtxcg/C
+	yFMIbdgZjjLxLINoHAWr5NcYkIH8HUN2D9F9Wi4VuHo8/jU0lYJoMIjwapdNNEQ4nLHLWLPXm7Y
+	PwVlIPw=
+X-Received: by 2002:a05:7300:ae30:b0:35c:8b96:94d9 with SMTP id 5a478bee46e88-35c8b969a6dmr3374472eec.19.1791912304982;
+        Tue, 13 Oct 2026 10:25:04 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.244.163])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm50303555eec.18.2026.10.13.10.25.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 10:25:04 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Yixun Lan <dlan@gentoo.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFT] pinctrl: sunxi: Fix A733 withstand programming
+Date: Tue, 13 Oct 2026 14:23:38 -0300
+Message-ID: <20261013172427.328177-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013142351.771229-1-andre.przywara@arm.com>
+References: <20261013142351.771229-1-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2026-09-27 at 21:13 +0200, Karl Mehltretter wrote:
-> register_intc_controller() sorts d->prio and d->sense right after
-> allocating them, with hw->nr_prio_regs and hw->nr_sense_regs as the
-> element count. The lists hold hw->nr_vectors entries and are only
-> filled later, by intc_register_irq().
->=20
-> On SH7785, sh7785-irq0123 and sh7785-irq4567 have four vectors but the
-> SoC's eleven priority registers, so sort() swaps 88 bytes in a 32 byte
-> kmalloc object at boot. slub_debug=3DFZPU reports "Right Redzone
-> overwritten" in kmalloc-32, and v6.5 and v6.6 panic in
-> __kmem_cache_alloc_node() while registering sh7785-irq0123.
->=20
-> Found with a custom QEMU model of the SH7785LCR. On it, v6.4
-> sh7785lcr_defconfig boots with SLAB, the defconfig default before v6.5,
-> and hangs before the console is up when built with SLUB.
->=20
-> Sort the lists once all vectors are registered, with the number of
-> entries that were added.
->=20
-> Fixes: b59f9f9775e6 ("sh: intc: optimize intc IRQ lookup")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->=20
-> Notes:
->     Testing, all in QEMU on a custom SH7785LCR model, not on hardware:
->     - v6.5 and v6.6 sh7785lcr_defconfig hang before the console is up
->       (gcc 8 and gcc 14). With slub_debug=3DFZPU they boot and validating
->       kmalloc-32 reports "Right Redzone overwritten" after the object
->       holding the entries of sh7785-irq4567. With this patch they boot
->       and the report is gone.
->     - v6.4 sh7785lcr_defconfig (SLAB) boots. The same v6.4 built with SLU=
-B
->       hangs, reports the overflow with slub_debug=3DFZPU, and boots with
->       this patch.
->     - Current mainline boots with or without the patch, but reports the
->       overflow with slub_debug=3DFZPU unless patched.
->     Testing on real hardware is welcome.
->=20
->  drivers/sh/intc/core.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/sh/intc/core.c b/drivers/sh/intc/core.c
-> index aa68fe190865d..ffbe60234eefc 100644
-> --- a/drivers/sh/intc/core.c
-> +++ b/drivers/sh/intc/core.c
-> @@ -275,9 +275,6 @@ int __init register_intc_controller(struct intc_desc =
-*desc)
->  			k +=3D save_reg(d, k, hw->prio_regs[i].set_reg, smp);
->  			k +=3D save_reg(d, k, hw->prio_regs[i].clr_reg, smp);
->  		}
-> -
-> -		sort(d->prio, hw->nr_prio_regs, sizeof(*d->prio),
-> -		     intc_handle_int_cmp, NULL);
->  	}
-> =20
->  	if (hw->sense_regs) {
-> @@ -287,9 +284,6 @@ int __init register_intc_controller(struct intc_desc =
-*desc)
-> =20
->  		for (i =3D 0; i < hw->nr_sense_regs; i++)
->  			k +=3D save_reg(d, k, hw->sense_regs[i].reg, 0);
-> -
-> -		sort(d->sense, hw->nr_sense_regs, sizeof(*d->sense),
-> -		     intc_handle_int_cmp, NULL);
->  	}
-> =20
->  	if (hw->subgroups)
-> @@ -357,6 +351,11 @@ int __init register_intc_controller(struct intc_desc=
- *desc)
->  		}
->  	}
-> =20
-> +	sort(d->prio, d->nr_prio, sizeof(*d->prio),
-> +	     intc_handle_int_cmp, NULL);
-> +	sort(d->sense, d->nr_sense, sizeof(*d->sense),
-> +	     intc_handle_int_cmp, NULL);
-> +
->  	intc_subgroup_init(desc, d);
-> =20
->  	/* enable bits matching force_enable after registering irqs */
+Hi Andre,
 
-Merged into for-next for v7.4.
+Thanks for the RFT. I found two things when checking it against the A733
+manual and my Cubie A7Z.
+
+PB is an exception to bank * 2: its VCC-IO field is at bits 25:24, while
+bits 3:2 are reserved. With the board's SEL value (0x01155550), a 3.3 V
+request produces 0x01155558, leaving VCC-IO untouched.
+
+I also think we should preserve AUTO (01). On my A7Z with vendor 5.15,
+PF=10 resulted in 22 SDR104 read timeouts and no rootfs, while PF=01 and
+PF=11 reached login. This was one run per setting with one card, not a
+mainline before/after test. In my mainline setup, MMC0 already requests PF
+with a fixed 3.3 V supply, so the RFT would replace AUTO with 10 even
+without voltage switching. Preserving AUTO requires no special case for PF.
+
+I boot-tested your RFT with two small fixups for PB and AUTO on my Cubie
+A7Z (rev B). UART0 and MMC0 work, and GPIO_POW_MOD_SEL remains at
+0x01155550. No voltage-field writes were expected with this DT. I haven't
+tested the RFT as posted.
+
+I agree the full table and PI exclusion aren't needed, and found no
+evidence for restricting the encoding to revision B.
+
+A733-R still needs its own descriptor for the two-bit PL/PM fields. I'm
+happy for your RFT to supersede my patch 1 once PB and AUTO are addressed,
+and I'll rebase the A733-R fix on it.
+
+I have the PB/AUTO fixups and the A733-R patch ready, and can send them if
+useful.
 
 Thanks,
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Vinicius
