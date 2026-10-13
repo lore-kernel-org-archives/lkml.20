@@ -1,221 +1,113 @@
-Received: from smtpcmd11117.aruba.it (smtpcmd11117.aruba.it [62.149.156.117])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA7E5187F3
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CDD5187FF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:09:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791907773; cv=none; b=LmF3gIwbLNIWZgGuPU1RJBWzMh5U/3zX7C9aP+lD3pUMHNz4kPG1P4irm4/ILeLnWigkXATFw0859z3NjkG0lSBtanzhAyM8RKoZ1t/Ry/ZIw6A5ZATVg960j7KbwtuYY+xu5fAXZEqbbJljDVmtFd9U2jyaH2QlUcupaK2XBL4=
+	t=1791907777; cv=none; b=dncyBcXt4ryb75+SxTgUGhYfSF7aGFv6cefw+Wdt/mil7b07mCi2qM0MLcL6sb1tPsPTkvTWZYT0/c3l1SAGkP1iUHg/a3XTeQjSPMzXwWG2PugIr/5uvnkmmdAXGoFYlgLWKEHkUW/nqcIDT1OAVk/w5u4vLZD6pZnWnxROlUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791907773; c=relaxed/simple;
-	bh=Qfh5QWCjb4o37+8Uqlgy4Xz2ZTocmWaQo5YDRfozQks=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OUZSTcn5M3HuAekhcgrjQuEGSbsMsOJo/G9kSK8lawSsLkLJ0dPmrU50m0urROV9m7c0iV8HA7ctwnmfAQ07+5WFWfy3W3MHCY5plf/uCvQW48F9w0PnzucZwasgJuOMTn39JvSwsxmADf0eHP/Ea27hCYvES8SeXDn0IRM1vkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it; spf=pass smtp.mailfrom=mythread.it; dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b=kAaSHeWq; arc=none smtp.client-ip=62.149.156.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
+	s=arc-20240116; t=1791907777; c=relaxed/simple;
+	bh=I68o5gYKqjJpVpdOoELHe4gv1tpEBm64YlxoXNgYMNg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nr3ZFQBrOf7geQnTrbDGJI6hDnVWXuY6iWTLeh8B18DurUpE/I1+9bJ1DMKkAPyC0/3iSCDqr0ClfLbmze136/+iaBgfZvXxyjeR0uYR3M0zPVzg/Ps4Tby8iZjRSYvXEPI7ikG3NLQY+93Vph9YmE9QbKBRR6pPZKNXQMlCgns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clQMuYyC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b="kAaSHeWq"
-Received: from DELL-MOBILE03.ad.smart.it ([77.89.54.34])
-	by Aruba SMTP with ESMTPSA
-	id Gf4BxHTh8XXg5Gf4Bxkq6f; Tue, 13 Oct 2026 18:09:27 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1791907767; bh=Qfh5QWCjb4o37+8Uqlgy4Xz2ZTocmWaQo5YDRfozQks=;
-	h=Date:From:To:Subject:MIME-Version:Content-Type;
-	b=kAaSHeWqKM/+iyRc6vrbC1vXQ+gaThr7R+mrKW9H3C+YJ2ep4XLbwmePTaQyyJv29
-	 PNjXCR0bv+05uud9+TR+sYEIN2dr0vPJqNFvMBfhnNgN3EnONDARbakPEwWf+cn2sA
-	 oh8vu8yM4xmMrYz1OyTL7AcZhMcLCHDxvg6O+ZCGbF335hIUrh/lNKN9N66Jb6ccGu
-	 YgF9MxsEleFH5akj05NtZJqT5ceUsbnft+IoNCibXpuwoGOR1zh6c7BmvgOo+YcC7y
-	 bw4wdlt/XFQhD6vYY7b0HeTAdmAqa5jUKWWnFSWS1hdRC42pV7EQqdc1gTchkOKzMo
-	 2pthwA1y3g1IA==
-Date: Tue, 13 Oct 2026 18:09:25 +0200
-From: Alessio Ferri <alessio.ferri@mythread.it>
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <zajec5@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, Florian
- Fainelli <florian.fainelli@broadcom.com>, Broadcom internal kernel review
- list <bcm-kernel-feedback-list@broadcom.com>, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>, linux-wireless@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: bus: add Broadcom BCM6362 WLAN AXI
- backplane
-Message-ID: <20261013180925.2c93e460@DELL-MOBILE03.ad.smart.it>
-In-Reply-To: <20261012-shaping-runway-7e6065b8d730@spud>
-References: <20261012-bcm6362-wlan-v2-0-4752da7e0982@mythread.it>
-	<20261012-bcm6362-wlan-v2-1-4752da7e0982@mythread.it>
-	<20261012-shaping-runway-7e6065b8d730@spud>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clQMuYyC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC181F00893
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:09:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791907776;
+	bh=I68o5gYKqjJpVpdOoELHe4gv1tpEBm64YlxoXNgYMNg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=clQMuYyChATPUv0Ba5ud7nNEnbaMLyii6+fbiLgbmEdsmozHDx1FKcArNXd/lgY/0
+	 oMPxmen/5yHBir4rVc+4gwBfaEhg1cf47I3di4q3eO+kSHDxI2hhF3Hc9xvQ3L0W40
+	 nO8el0241VpmNMrKBcSpAinRbOS7ZD4X4W5Bs5e4ayUjM2R5kiwvojzfmE+Mu6BFMZ
+	 WTNqygghaWeqf2LDt+N4TUSE+ct6fvqzS6tJy8TvaUcfP1s/T8yPOptWLUZ+5t700u
+	 sIgiKTcGswHwPIdr8StEWzfIJQh8d8+t9INZMXDcdE+oGBY6SVYBYXFl4xsma0V6cV
+	 wXRSDqZiD3/LA==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c169ae1cb26so931315866b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:09:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwx9XyR+DXqCK8HIzA6VacMn1HisWHXH0hCLMLoA+cQ1dPA2GWGXzV8P4WkGYw/TWDZUQTeXpDG+4+7xrQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJB/VgOzumQQoZIxdjT5NSaquQfjD7b53kA2b2Bh5TrMWXyetjA
+	HzBCX8squcaLrPGw1eufp+p5g4SSSuLosGW2RjnbCKiG1+JVsPZufqKhQUzdMZuVhU9Sqd2tZ1d
+	k5zVOUloJZKfHBjtbYsagpqvE/FaO4Ro=
+X-Received: by 2002:a17:907:3f8e:b0:c31:6c9b:5069 with SMTP id
+ a640c23a62f3a-c31a9d6f597mr1316896466b.13.1791907775104; Tue, 13 Oct 2026
+ 09:09:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfGQX3VdRN1HOHP/JcptkJy03D++bct1R0AeS9Utgrcmk7XP11EilVRO6ecTm5pn/q/QaTP6CLWvBmTPSVN0VcwMxTzSELqvhhqJS/87ll+VSqZdCvqyv
- dNZRmpA/PGQzsZhOXcV7/bgFTpy9S0TXRw9fhisHGDlwAgTkh18kgCv09oRfeX8YgtmIXhi+UkTZHagCKFaVr+82EVu0EFzIFoikZMysQROgoKqyJ9vkjIk8
- J9QFeLCD0RO7n/FSVVZNcqIy5ixFbPW+9e5NsD1KrBWHrTfWZ8mxM7CVDvGXBcOCI0jQlXQJGdHBjklaQvmRsQ9ynkOJESgFvwPiDPwavJm202m/xHzQrSpX
- 6SVyblNeMt2/FaEpN7qCXK1HQkF34xhIpdr95knq4GxzPLVEZq5JiiVSj24MaK1jj9uk3y6s7oBlKcwqvbArTqeWm4i3qmwffZz1eaPmDcc6b30gTMqpCYMv
- 3zo+GH+2NiM8TKqfQxNoSNtwxp7VTd61yT5ALmE5k4VUdoeIYXuGMgQkpTUU+Um5gN8dYcHQCtJAO7hQfMPLCZOE9d0k1XSovVNNeYKbD3I7dPA3Jp/GUlQg
- uN6k0Hfmxi9mxHBnzMD7T3RHNU4XY5bg5FvJGbAbdx2XEl2fQV/w0Z0HUQfx6z+2+zE=
+References: <CAO9r8zPOkuRGv0X=nBbAzTUjUyaB7zAJLUigetSXEVPxWpyGxw@mail.gmail.com>
+ <20261013160557.54828-2-itazur@amazon.com>
+In-Reply-To: <20261013160557.54828-2-itazur@amazon.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Tue, 13 Oct 2026 09:09:21 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zN5bDJLvQiyfNZX2Z2W+sL_txT8c6WhfwyXci19rHsJeA@mail.gmail.com>
+X-Gm-Features: AclHuK9_C_4IWAq2FQn6XicUwnHvllAJw9Hr13X655JabnYqdZ6oL3GbW7fxP2M
+Message-ID: <CAO9r8zN5bDJLvQiyfNZX2Z2W+sL_txT8c6WhfwyXci19rHsJeA@mail.gmail.com>
+Subject: Re: [PATCH v3 03/26] mm: introduce AS_NO_DIRECT_MAP
+To: Takahiro Itazuri <itazur@amazon.com>
+Cc: Sean Christopherson <seanjc@google.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	x86@kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
+	rientjes@google.com, Roy Patrick <patrick.roy@linux.dev>, 
+	Andy Lutomirski <luto@kernel.org>, David Kaplan <david.kaplan@amd.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Patrick Bellasi <derkling@google.com>, 
+	Reiji Watanabe <reijiw@google.com>, Nikita Kalyazin <nikita.kalyazin@linux.dev>, 
+	Ackerley Tng <ackerleytng@google.com>, Takahiro Itazuri <zulinx86@gmail.com>, cc-open-source@amazon.com, 
+	Kevin Brodsky <kevin.brodsky@arm.com>, Gregory Price <gourry@gourry.net>, kvm@vger.kernel.org, 
+	Derek Manwaring <derekmn@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 12 Oct 2026 20:13:46 +0100
-Conor Dooley <conor@kernel.org> wrote:
+On Tue, Oct 13, 2026 at 9:06=E2=80=AFAM Takahiro Itazuri <itazur@amazon.com=
+> wrote:
+>
+> On Tue, 13 Oct 2026 08:36:54 -0700, Yosry Ahmed <yosry@kernel.org> wrote:
+> > > 3. ALLOC_UNMAPPED and the mermap
+> > >
+> > > AS_NO_DIRECT_MAP itself works without them, by zapping the direct map
+> > > of each folio. However, guest_memfd will eventually need a temporary
+> > > kernel mapping to populate guest memory via write() [2], because
+> > > folios are already unmapped once they are added to the page cache.
+> [...]
+> >
+> > FWIW, I think the mermap can still be used without ALLOC_UNMAPPED, and
+> > I did have a newer version of the x86 patches repurposing the LDT area
+> > for the mermap, and simplifying the mermap implementation a bit. I can
+> > share them privately if you want to take a look.
+>
+> Yes please, that would be very helpful. Thanks!
+>
+> Agreed that the mermap can be used without ALLOC_UNMAPPED. To give a
+> bit more context from the guest_memfd side: I can't say anything
+> definite until I've gone through the use cases, but as far as I can
+> see now, guest_memfd needs the mermap only for write() support.
+> write() is an optimization for populating guest memory (e.g. when
+> restoring a snapshot) and isn't functionally required, because
+> userspace can also populate guest memory through its own mapping of
+> guest_memfd. So I currently plan to keep write() support, and with it
+> the mermap, out of the guest_memfd direct map removal series itself.
+> Since ALLOC_UNMAPPED is the main user of the mermap, it may make more
+> sense for the two to land together later.
+>
+> One thing I'd like to look into is arm64. Firecracker also runs on
+> arm64, so write() needs to work there too, but the mermap currently
+> relies on the x86 mm-local region, and it sounds like your newer
+> version relies on the LDT area. Kevin, do you happen to have any
+> ideas on how something similar could be done on arm64?
 
-> On Mon, Oct 12, 2026 at 12:45:25AM +0200, Alessio Ferri wrote:
-> > The BCM6362 integrates a WLAN macro on its own AXI backplane.
-> > Unlike the backplanes covered by brcm,bus-axi, its cores have no
-> > wrappers: clock gating and reset are driven through a separate
-> > WLAN control register block, and the macro needs a clock, two
-> > resets and the WLAN pads power domain before the backplane can be
-> > accessed. The backplane registers are big-endian.
-> > 
-> > Add a binding describing the ChipCommon and WLAN control register
-> > blocks, the clock, resets and power domain, and the interrupt-map
-> > used to route core interrupts, following the brcm,bus-axi
-> > convention.
-> > 
-> > Assisted-by: LLM
-> > Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
-> > ---
-> >  .../bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml    | 100
-> > +++++++++++++++++++++ 1 file changed, 100 insertions(+)
-> > 
-> > diff --git
-> > a/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
-> > b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
-> > new file mode 100644 index 000000000000..183de28fd032 --- /dev/null
-> > +++
-> > b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
-> > @@ -0,0 +1,100 @@ +# SPDX-License-Identifier: (GPL-2.0-only OR
-> > BSD-2-Clause) +%YAML 1.2
-> > +---
-> > +$id:
-> > http://devicetree.org/schemas/bus/brcm,bcm6362-wlan-bus-axi.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml# +
-> > +title: Broadcom BCM6362 integrated WLAN AXI backplane
-> > +
-> > +maintainers:
-> > +  - Alessio Ferri <alessio.ferri@mythread.it>
-> > +
-> > +description: |
-> > +  The BCM6362 integrates a WLAN macro on a dedicated AXI backplane
-> > +  (bcma), whose cores are discovered at runtime from the backplane
-> > +  EROM.
-> > +
-> > +  The cores have no DMP wrappers: clock gating and reset of the
-> > +  ChipCommon and 802.11 cores are controlled through a separate
-> > WLAN
-> > +  control register block. The backplane registers are big-endian.
-> > +
-> > +  Interrupts of the cores are described with an interrupt-map,
-> > keyed
-> > +  by the core base address and the core interrupt index, as for
-> > +  brcm,bus-axi.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: brcm,bcm6362-wlan-bus-axi
-> > +
-> > +  reg:
-> > +    items:
-> > +      - description: ChipCommon core registers
-> > +      - description: WLAN control registers
-> > +
-> > +  reg-names:
-> > +    items:
-> > +      - const: chipcommon
-> > +      - const: wlan-ctrl
-> > +
-> > +  clocks:
-> > +    maxItems: 1
-> > +
-> > +  resets:
-> > +    items:
-> > +      - description: WLAN macro reset
-> > +      - description: WLAN UBUS interface reset
-> > +
-> > +  reset-names:
-> > +    items:
-> > +      - const: wlan
-> > +      - const: wlan-ubus
-> > +
-> > +  power-domains:
-> > +    maxItems: 1
-> > +
-> > +  "#address-cells":
-> > +    const: 1
-> > +
-> > +  "#interrupt-cells":
-> > +    const: 1
-> > +
-> > +  interrupt-map-mask: true
-> > +
-> > +  interrupt-map: true  
-> 
-> I'd like to see some constraints on these, particularly since there's
-> a very high chance the mask is fixed and the map has a fixed number of
-> elements.
+Small correction: Brendan's version already reworked the LDT area, I
+just reshuffled things and simplified the implementation.
 
-Yes, you're right, i'll add them in the next batch. 
-
-> 
-> I'd also like to see what the child nodes on this bus look like. Do
-> you have some dts examples?
-> 
-
-the children are enumerated dynamically by bcma itself, so i don't
-expect any. I know that a childless bus is suspect, but bcma seems to
-work this way.
-
+>
 > Thanks,
-> Conor.
-> 
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - reg-names
-> > +  - clocks
-> > +  - resets
-> > +  - reset-names
-> > +  - power-domains
-> > +  - "#address-cells"
-> > +  - "#interrupt-cells"
-> > +  - interrupt-map-mask
-> > +  - interrupt-map
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/clock/bcm6362-clock.h>
-> > +    #include <dt-bindings/reset/bcm6362-reset.h>
-> > +    #include <dt-bindings/soc/bcm6362-pm.h>
-> > +
-> > +    bus@10004000 {
-> > +        compatible = "brcm,bcm6362-wlan-bus-axi";
-> > +        reg = <0x10004000 0x1000>, <0x10007000 0x100>;
-> > +        reg-names = "chipcommon", "wlan-ctrl";
-> > +
-> > +        #address-cells = <1>;
-> > +        clocks = <&periph_clk BCM6362_CLK_WLAN_OCP>;
-> > +        #interrupt-cells = <1>;
-> > +        interrupt-map = <0x00005000 0 &periph_intc 7>;
-> > +        interrupt-map-mask = <0x000fffff 0xffff>;
-> > +        power-domains = <&periph_pwr
-> > BCM6362_POWER_DOMAIN_WLAN_PADS>;
-> > +        resets = <&periph_rst BCM6362_RST_WLAN_SHIM>,
-> > +                 <&periph_rst BCM6362_RST_WLAN_UBUS>;
-> > +        reset-names = "wlan", "wlan-ubus";
-> > +    };
-> > 
-> > -- 
-> > 2.56.0
-> >   
-
-Thanks for the inputs,
-Alessio
+> Takahiro
