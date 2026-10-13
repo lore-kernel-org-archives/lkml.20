@@ -1,22 +1,23 @@
 Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A39836606B;
-	Tue, 13 Oct 2026 13:03:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6963F1077;
+	Tue, 13 Oct 2026 13:03:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.85.9.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896615; cv=none; b=SCcJgyBBGfGna/5tKFFV0N6Yke8R4T6MHrM5i7AAVg+19vlKeqyh/clTX0o/bTB5+lkG5kUoc8UbhxMHLlC6GixoDPdOoYhWPvm8nJ/CVCQZHz5hAdWboheUDcQ79d+zjpT1uydnxyGkyJtoyiGjFdlHWcqHTE/ejW34PS0NWvg=
+	t=1791896616; cv=none; b=LRwVJnp2e0lW2pWNxisIn1O4Wwi5d5yIlL/JNoud69ev1akW6BMbFYPQaVWrqwJAA3w9t5S6QO20F01MfVul0cHbP4Fo2bHWimtd3sPC+wn/TmFObvaJwmDTD1VPS9Bz7Ek5rgPWkfVXh0+oHXDycAj95zkoH+l+aBO3F3zunGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896615; c=relaxed/simple;
-	bh=/+OIcG+CafyzVhe5eezNsS2ymROGZcx58GyFUp1yydg=;
-	h=From:To:Cc:Subject:Date:Message-ID:Mime-Version:Content-Type; b=c9/Q88deMjhDMdI6FI0MypKg63ZmRMVKPzv9j31p1djLrL5r5t8RWDbmmS0S8TvFHOdhsnvoF3z0j1nj/Ge3vnv0eAVSKByzCvQrwgWZtbwpXNHl3J8vlxFGwDSC6wnoQiTzCNx0mf/TX5sUDQhcAvHfNIVxnx5JVaoz4ka555s=
+	s=arc-20240116; t=1791896616; c=relaxed/simple;
+	bh=uVjcc/KF4L/qAuKP4Nvyrp/+uPdvAFWs4UANUOE+N8s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=LTTh1KEZtdKGnZrCSZFZBMQEHc9lOjvQtshFReRQPSDg3tLQdjalzFYXhRNA2XpepYzjDpnESKJY3pPuRhHwS8PZiSto9yh9g+bvEMohIQ9DXV/chp1w1kMIj+/nid840oYv7mfnctIm7c7JLEPqyevA9AXPclBv7iAjlKtxu/s=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu; spf=pass smtp.mailfrom=irl.hu; arc=none smtp.client-ip=95.85.9.111
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
 Received: from fedori.lan (51b68c74.dsl.pool.telekom.hu [::ffff:81.182.140.116])
   (AUTH: PLAIN soyer@irl.hu, )
   by irl.hu with ESMTPSA
-  id 00000000000C70AA.000000006ACE2C23.00339CB5; Tue, 13 Oct 2026 15:03:31 +0200
+  id 00000000000C70B2.000000006ACE2C24.00339CD6; Tue, 13 Oct 2026 15:03:32 +0200
 From: Gergo Koteles <soyer@irl.hu>
 To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
   Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
@@ -24,11 +25,14 @@ To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
   Philipp Oster <philippdev5396@outlook.de>,
   Georg Wenzel <g.wenzel@gmail.com>
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-  alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>
-Subject: [PATCH v2 0/2] ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
-Date: Tue, 13 Oct 2026 15:02:19 +0200
-Message-ID: <cover.1791895478.git.soyer@irl.hu>
+  alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>,
+  stable@vger.kernel.org
+Subject: [PATCH v2 2/2] ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
+Date: Tue, 13 Oct 2026 15:02:21 +0200
+Message-ID: <12a1ab265a1dc0e3a062a54287c8ef48682c4efc.1791895478.git.soyer@irl.hu>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1791895478.git.soyer@irl.hu>
+References: <cover.1791895478.git.soyer@irl.hu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,32 +43,39 @@ Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
 
-Hi,
+Some Lenovo 14ARB7 laptops do not have proper calibration data.
 
-Georg Wenzel experienced a regession with TAS2563 amplifiers. His laptop 
-lacks proper calibration data, and due to a bug, the driver failed to 
-apply them in the v6.16.x. That's why they worked.
+Skip these zero calibration values and fall back to the calibration data
+provided by the DSP firmware.
 
-The amplifiers operate even without calibration data, so the calibration 
-setup can be skipped if the data is invalid.
+Tested-by: Georg Wenzel <g.wenzel@gmail.com>
+Fixes: c3ca4458cc2f ("ALSA: hda/tas2781: add TAS2563 support for 14ARB7")
+Cc: <stable@vger.kernel.org> # 6.18
+Signed-off-by: Gergo Koteles <soyer@irl.hu>
+---
+Changes is v2:
+ - none
 
-The first patch simplifies error paths in the tas2563_save_calibration() 
-function.
+---
+ sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-The second patch skips the zero UEFI calibration data as it is not 
-necessary to apply.
-
-The previous patch for this problem
-3bc4fc135ec7 ("ALSA: hda/tas2781: Enable bass speakers support")
-should be removed/reverted.
-
-Gergo Koteles (2):
-  ALSA: hda/tas2781: Assign total_sz at the end of the function
-  ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
-
- .../hda/codecs/side-codecs/tas2781_hda_i2c.c  | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
-
+diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+index cff8fab8133a..44855f593daf 100644
+--- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
++++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+@@ -372,6 +372,11 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
+ 					i, j, status);
+ 				return -EINVAL;
+ 			}
++			if (*(uint32_t *)&data[offset] == 0) {
++				dev_warn(p->dev,
++					 "Dev %d: Caldat[%d] is zero\n", i, j);
++				return -EINVAL;
++			}
+ 			bedata = cpu_to_be32(*(uint32_t *)&data[offset]);
+ 			memcpy(&data[offset], &bedata, sizeof(bedata));
+ 			offset += TAS2563_CAL_DATA_SIZE;
 -- 
 2.56.0
 
