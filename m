@@ -1,113 +1,252 @@
-Received: from irl.hu (irl.hu [95.85.9.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9683D45E5;
-	Tue, 13 Oct 2026 13:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.85.9.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E91B4E06D0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896616; cv=none; b=fC168AiIdOcOTOG/cCrq2Fl5u66196tRpbuLZTb0KLApS4VS4J5UnaSPtnhMWWcNxmJo44r0KMiOWh6qV/WDedfQJkDDXdBx6unbZ+XXoSFkNQSxxMYytAAhMKj1GzClcrLYOBvk3fJJk5FFNpaNHEE9rlG5zy813kaagkN2WaA=
+	t=1791896643; cv=none; b=Da9xsW1kkrj6CbVvWlsSspe79im0S0fzkDJ3R1mSUy+nwlXEJ8lV3KKHCd90OoXaih0smeAOT0D4ncsqWTP0tPJ0JF+hVNkOWhtC8VaWhtfcxf+wjKH+5l4jnK+5l+xI47LBBVrtSwIeRFDoGjq61u/7Yx/CpytjFoDj9UVT14I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896616; c=relaxed/simple;
-	bh=lA86Al6V7sXU4UI2Kbuzh1w9c2d+appMmJEFQVRANmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=u4TG1vAnXpFWjoBM+3N9bC0Kd2a9dbkFUt8GbzaohZsOSgFc3/bDlhc7Zj1PQaD0ritqnQL8BXhFESn200Eo6LXXz0Myl5BK/SDiUEcx/EKjWn8wtZMEF7TRcxyp4KE6UStJwvfbIqAPDE9c5ifRi00XLiyyaCeDUCNlJs2iWFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu; spf=pass smtp.mailfrom=irl.hu; arc=none smtp.client-ip=95.85.9.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
-Received: from fedori.lan (51b68c74.dsl.pool.telekom.hu [::ffff:81.182.140.116])
-  (AUTH: PLAIN soyer@irl.hu, )
-  by irl.hu with ESMTPSA
-  id 00000000000C70AB.000000006ACE2C24.00339CB6; Tue, 13 Oct 2026 15:03:32 +0200
-From: Gergo Koteles <soyer@irl.hu>
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-  Philipp Oster <philippdev5396@outlook.de>,
-  Georg Wenzel <g.wenzel@gmail.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-  alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>,
-  stable@vger.kernel.org
-Subject: [PATCH v2 1/2] ALSA: hda/tas2781: Assign total_sz at the end of the function
-Date: Tue, 13 Oct 2026 15:02:20 +0200
-Message-ID: <4b357778dce1b70a647e7e47b5ab3f0a6b2fc0cc.1791895478.git.soyer@irl.hu>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1791895478.git.soyer@irl.hu>
-References: <cover.1791895478.git.soyer@irl.hu>
+	s=arc-20240116; t=1791896643; c=relaxed/simple;
+	bh=4vcsZ25CqlYw8WtJq/H02IRIUQgh0pu2X9tLpE8GNk8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=dMID1XV75UkMNJtrQ7Nfpga2NqbrkeZF9pwBk2cRIOvqzYs9s2TPcIMhBmU7WBiUCMi2yDdcM2OT4lkc1NXb2+ycCjxKdNdqn1FNKV7rhBjt3gJZcIfnHbxi+IXUvLhMV/5+jO9/kPSQUlivb7Ix6qs4OXkL7i1PRyPmF4vIGsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R+yCwFhQ; arc=none smtp.client-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R+yCwFhQ"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-677b5148acaso2739886d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:04:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791896641; x=1792501441; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YIO78QiWK8kgfOkXvN+ipmBt58jQOeWlhfCMdouHK3g=;
+        b=R+yCwFhQMLCIBoDakgw/bAbGsRo9erl6M+TAPv3Y9XFRS3kOfQl+EdfSrVrO62pu49
+         AA+D3Sz3skQWOnfVYHh4pImWXW8JBgdB+IssI13oEpsttytDniyC40p4LWR/D4mdXxvc
+         YTCnj8F+eq+QfOmHQOiWX21MxaBLOntFgh5GJOQcEfy/Zc/HV3AhpUgOZiZKELzxbMNo
+         /pbiYQenZfej+Fq84qZ+q7bJPPJBZyd+7zl0a1PqSGvrMOrjB9K92elJppeXgn6BGup8
+         hI5gJbXTeQ5FAJ7dofqKzucPmHvLZAP0L2LJJ1tpjW484HVhvtkZFN9T3YxhrnOZ1x/o
+         dCwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791896641; x=1792501441;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YIO78QiWK8kgfOkXvN+ipmBt58jQOeWlhfCMdouHK3g=;
+        b=jOZ2tqE4y9Ye3Eo+JDVzHufoYCDqe4vXGVCsLjAsHKU3aO+zfKG7qTSGwQxl7bAnvl
+         Lhs4Sy3uYZm/izGJiPFLoKp6pPEt1bUu7v/BAJA4nPtN8tbziRKn73Li9qsEwexTOFt5
+         0wWm/ugRU+hidamuCvLdWbGhAce+Ev4g6kbqWr7GkZnXnGRNe1xDh8J8Ep4jQbT9Xmpo
+         4Ro99xFkh9DLLNbEffL+mgbZB0mbAFJtJmnw3tiEg0TVJmVBsak90xB7VLBAUGbp4A25
+         9hwaHo3tJjghdGz4nn00aHKu24v/NnB428t3EsoLdGoUAPw3THq42w50yJKGVMTM+3mT
+         5rYg==
+X-Gm-Message-State: AFq9FYJulLF7TMlwNCxSAbyAhOk798tCedu67sJoldLgAm88tLivObGO
+	P/9HK1sl2aOPXbCfFvZxt+6M0dapJmCuCcfbuycDFor1Y7JBfBVlNd9Z
+X-Gm-Gg: AYBFou2urwRIN+7Wxgd5d9u4Szzgdp+SREgRvk3IHbHClRLOL7Td5Q1b4eVDPCM6HQi
+	R3KUORu9iSkXEYnhfwfZAPUxZeuEOvIoWF/57ISCmrRymyByvUPy2nRQCd9WIgp4KAQVDoopN7c
+	w/0l4w5bz5UqdEfHMPeoXcew1beU6P7XctjJ9bgfz4ElyHw2+QadX0n+PCfgX8NdrS2a2n+5/B6
+	l8NiXHWjoLFgn5VX29vzYasX3qS3bSL8lamBAP7GinHAwqM9MrV202QwQxKNe9Rin6Zrj7rvaU0
+	ZJsl2Ft1tsHnRR85eQWkMW5ogjBhAwSgffm0CdngHuT0NjGzrnCzXYITPgFdiliC61YvY0uhV21
+	AMEtF+1KFjMVc6w1DjScSLeKalKrCRo/M/NGfn9tV7LLKc6GowVK30Glajjb1pS4JrnZ+6BRPD3
+	LhTLRcx8BdToisyU7RpUq7UncxBWT9ubAK5l09QD9xXBuGYz+fxkIYEqvCG8JFdLTQB9VED/uQf
+	2IzHBYJBFlyWg==
+X-Received: by 2002:a05:690e:4893:10b0:677:bb44:c06c with SMTP id 956f58d0204a3-6793602f9b7mr1988403d50.55.1791896640746;
+        Tue, 13 Oct 2026 06:04:00 -0700 (PDT)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679356ffbecsm4797166d50.23.2026.10.13.06.03.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 06:03:48 -0700 (PDT)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: james.morse@arm.com,
+	ben.horgan@arm.com
+Cc: linux-kernel@vger.kernel.org,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com,
+	Ping Li <leeonion.muyu@gmail.com>
+Subject: [PATCH v6] arm_mpam: Use an atomic counter to schedule mpam_enable_once()
+Date: Tue, 13 Oct 2026 21:03:34 +0800
+Message-Id: <20261013130334.337468-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <019fee57-8984-4bd6-8912-ec9b1718eb08@arm.com>
+References: <019fee57-8984-4bd6-8912-ec9b1718eb08@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-In the tas2563_save_calibration() function, cd->total_sz is assigned in
-several error paths.
+mpam_discovery_cpu_online() scheduled mpam_enable() after each MSC
+probe, and mpam_enable() walked the whole MSC list taking each probe
+lock in turn to check if all the MSCs had been probed.
 
-Move the assignment to the end of the function.
+Count the MSCs that have had their hardware probed with
+mpam_num_msc_probed, and schedule mpam_enable_once() directly when the
+count reaches fw_num_msc, the number of MSCs reported by firmware.
+MSCs that were already probed no longer cause work to be scheduled.
 
-Fixes: b6016332b889 ("ALSA: hda/tas2781: clear cali_data.total_sz when calibration read fails")
-Cc: <stable@vger.kernel.org> # 6.18
-Signed-off-by: Gergo Koteles <soyer@irl.hu>
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+Suggested-by: Ben Horgan <ben.horgan@arm.com>
+Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
 ---
-Changes in v2:
- - Zero total_sz at the beginning of the function as it may run multiple 
-   times (Sashiko)
+Changes in v6:
+- Drop the redundant initialisation of err, per review feedback.
 
----
- sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+ drivers/resctrl/mpam_devices.c  | 71 +++++++++++----------------------
+ drivers/resctrl/mpam_internal.h |  2 -
+ 2 files changed, 23 insertions(+), 50 deletions(-)
 
-diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-index 5e5f46c9fb6b..cff8fab8133a 100644
---- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-+++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-@@ -335,10 +335,11 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 	}
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index dd422c56fbb1..0d0803146f24 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -49,12 +49,20 @@ static LIST_HEAD(mpam_all_msc);
  
- 	cd->cali_dat_sz_per_dev = TAS2563_CAL_DATA_SIZE * TASDEV_CALIB_N;
-+	cd->total_sz = 0;
+ struct srcu_struct mpam_srcu;
  
- 	/* extra byte for each device is the device number */
--	cd->total_sz = (cd->cali_dat_sz_per_dev + 1) * p->ndev;
--	data = cd->data = devm_kzalloc(p->dev, cd->total_sz,
-+	data = cd->data = devm_kzalloc(p->dev,
-+		(cd->cali_dat_sz_per_dev + 1) * p->ndev,
- 		GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
-@@ -352,7 +353,6 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 			if (ret < 0 || ret >= sizeof(var8) - 1) {
- 				dev_err(p->dev, "%s: Read %s failed\n",
- 					__func__, var8);
--				cd->total_sz = 0;
- 				return -EINVAL;
- 			}
- 			/*
-@@ -370,7 +370,6 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 				dev_warn(p->dev,
- 					"Dev %d: Caldat[%d] read failed %ld\n",
- 					i, j, status);
--				cd->total_sz = 0;
- 				return -EINVAL;
- 			}
- 			bedata = cpu_to_be32(*(uint32_t *)&data[offset]);
-@@ -379,12 +378,7 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 		}
- 	}
++/* Number of MSCs reported by firmware */
++static int fw_num_msc;
++
+ /*
+  * Number of MSCs that have been probed. Once all MSCs have been probed MPAM
+  * can be enabled.
+  */
+ static atomic_t mpam_num_msc;
  
--	if (cd->total_sz != offset) {
--		dev_err(p->dev, "%s: tot_size(%lu) and offset(%u) mismatch\n",
--			__func__, cd->total_sz, offset);
--		cd->total_sz = 0;
--		return -EINVAL;
++/* Number of MSCs that have had their hardware probed */
++static atomic_t mpam_num_msc_probed;
++
++static void mpam_enable_once(struct work_struct *work);
++
+ static int mpam_cpuhp_state;
+ static DEFINE_MUTEX(mpam_cpuhp_state_lock);
+ 
+@@ -72,7 +80,7 @@ static DEFINE_SPINLOCK(partid_max_lock);
+  * scheduled via this work_struct. If access to an MSC depends on a CPU that
+  * was not brought online at boot, this can happen surprisingly late.
+  */
+-static DECLARE_WORK(mpam_enable_work, &mpam_enable);
++static DECLARE_WORK(mpam_enable_work, &mpam_enable_once);
+ 
+ /*
+  * All mpam error interrupts indicate a software bug. On receipt, disable the
+@@ -1850,9 +1858,8 @@ static int mpam_cpu_online(unsigned int cpu)
+ /* Before mpam is enabled, try to probe new MSC */
+ static int mpam_discovery_cpu_online(unsigned int cpu)
+ {
+-	int err = 0;
++	int err;
+ 	struct mpam_msc *msc;
+-	bool new_device_probed = false;
+ 
+ 	if (mpam_is_enabled())
+ 		return 0;
+@@ -1863,24 +1870,22 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
+ 		if (!cpumask_test_cpu(cpu, &msc->accessibility))
+ 			continue;
+ 
+-		mutex_lock(&msc->probe_lock);
+-		if (!msc->probed)
+-			err = mpam_msc_hw_probe(msc);
+-		mutex_unlock(&msc->probe_lock);
++		guard(mutex)(&msc->probe_lock);
++		if (msc->probed)
++			continue;
+ 
+-		if (err)
+-			break;
+-		new_device_probed = true;
 -	}
-+	cd->total_sz = offset;
++		err = mpam_msc_hw_probe(msc);
++		if (err) {
++			mpam_disable_reason = "error during probing";
++			schedule_work(&mpam_broken_work);
++			return err;
++		}
  
- 	r->r0_reg = TAS2563_CAL_R0;
- 	r->invr0_reg = TAS2563_CAL_INVR0;
+-	if (new_device_probed && !err)
+-		schedule_work(&mpam_enable_work);
+-	if (err) {
+-		mpam_disable_reason = "error during probing";
+-		schedule_work(&mpam_broken_work);
++		if (atomic_add_return(1, &mpam_num_msc_probed) == fw_num_msc)
++			schedule_work(&mpam_enable_work);
+ 	}
+ 
+-	return err;
++	return 0;
+ }
+ 
+ static int mpam_cpu_offline(unsigned int cpu)
+@@ -2107,8 +2112,6 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+ 	return msc;
+ }
+ 
+-static int fw_num_msc;
+-
+ static int mpam_msc_drv_probe(struct platform_device *pdev)
+ {
+ 	int err;
+@@ -2715,7 +2718,7 @@ static int mpam_allocate_config(void)
+ 	return 0;
+ }
+ 
+-static void mpam_enable_once(void)
++static void mpam_enable_once(struct work_struct *work)
+ {
+ 	int err;
+ 
+@@ -2869,34 +2872,6 @@ void mpam_disable(struct work_struct *ignored)
+ 	pr_err_once("MPAM disabled due to %s\n", mpam_disable_reason);
+ }
+ 
+-/*
+- * Enable mpam once all devices have been probed.
+- * Scheduled by mpam_discovery_cpu_online() once all devices have been created.
+- * Also scheduled when new devices are probed when new CPUs come online.
+- */
+-void mpam_enable(struct work_struct *work)
+-{
+-	static atomic_t once;
+-	struct mpam_msc *msc;
+-	bool all_devices_probed = true;
+-
+-	/* Have we probed all the hw devices? */
+-	guard(srcu)(&mpam_srcu);
+-	list_for_each_entry_srcu(msc, &mpam_all_msc, all_msc_list,
+-				 srcu_read_lock_held(&mpam_srcu)) {
+-		mutex_lock(&msc->probe_lock);
+-		if (!msc->probed)
+-			all_devices_probed = false;
+-		mutex_unlock(&msc->probe_lock);
+-
+-		if (!all_devices_probed)
+-			break;
+-	}
+-
+-	if (all_devices_probed && !atomic_fetch_inc(&once))
+-		mpam_enable_once();
+-}
+-
+ #define maybe_update_config(cfg, feature, newcfg, member, changes) do { \
+ 	if (mpam_has_feature(feature, newcfg) &&			\
+ 	    (newcfg)->member != (cfg)->member) {			\
+diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+index def0e3a65c23..021dedb9eab7 100644
+--- a/drivers/resctrl/mpam_internal.h
++++ b/drivers/resctrl/mpam_internal.h
+@@ -456,8 +456,6 @@ extern struct list_head mpam_classes;
+ extern u16 mpam_partid_max;
+ extern u8 mpam_pmg_max;
+ 
+-/* Scheduled work callback to enable mpam once all MSC have been probed */
+-void mpam_enable(struct work_struct *work);
+ void mpam_disable(struct work_struct *work);
+ 
+ /* Reset all the RIS in a class under cpus_read_lock() */
 -- 
-2.56.0
+2.34.1
 
