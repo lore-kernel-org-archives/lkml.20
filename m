@@ -1,222 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89293C07A;
-	Tue, 13 Oct 2026 04:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973F61A5BAE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:52:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791867101; cv=none; b=S9r/++EiTc3dw8zXbKd1o9YipvvtM3gIsBw6igi4oLZJiS8/i0ywuBznMLZRAtkY/qfkE0NPV7TjOj1EN3WQkC9zNtEUlALiXAY3o1BL0Zlpftdm8EPpLLhkyBmvDtEUza2gQIxhf5ygSeQzkZT46MS3AVcz1SfQJuvSIkYrctM=
+	t=1791867176; cv=none; b=Sv1Z0qpdn5fpcn4FfnHqkkOfYQ2rH36RW6yblykEGsj8CyYZDD4xLrZ8z13BccvkgXoChatXY/qG+t+bNDWHFWDhEF9Zkk9VuHUXJExd+c58H2LI0JxkWDpQ0qa6kcolgGB6/uBIi/O9FfYTdWv4COcAttp+oSXnL4MUCZh7BcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791867101; c=relaxed/simple;
-	bh=7RKZZItk8g+R4JYvSk3BdudnGBrDu4OaXsDqhSZZ/sM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GqTYyUxdTH4vNE3uWlRGYqTcq2yjg9hI1gNH/UEScrmR2kX+K15ypaOWA1e0FM6MdrARCXGn52u5GvhryquES/z2OnbEq6HoGMLAHzJmw5N1BOyrxarp6L894J4IBYHrJYyLJSqJvugQkYwm1cK0V6CsBp0yK9qpD/OmYTrjNwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JL3NE/lv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791867176; c=relaxed/simple;
+	bh=7nJXonqH+rTItmlVnwPmw97jci53LyFWF9nUOD8veiU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mPGoZLZdjhoMCWEBgY3ZBRBQEWx3Tv/5kjFBPCvN4sgYYGWrUcFJv4oumYNHpTmgoDJosmQTPGG2VgdG6/QZfpL0YlBfJF6DzVBMfg4Dx2FfmBOKdWe5squK+Fb+5zzA32Br9VFQdG9R4gpGd4Iijg3uCPs/DT8s1hF4Q7BghjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N7z003vv; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JL3NE/lv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF231F000FF;
-	Tue, 13 Oct 2026 04:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791867099;
-	bh=2uoa3rlTPsqF5WVC1KJ22msnIAaVeXC7kqTLcn+GQmw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JL3NE/lvcnHazw2aBgWOmEGQWiw1FvI+Q+0sWq+2itDqeMap2kB1BU43d7K9lrnvD
-	 n+TV8DuD/vCKi5PknrhzzhEP/kUdrNKTxm4y19xcKc05ms+1GgONJ9qlsjAgo8duVu
-	 9eGqqIm5v/WVuShIgDGEvRKk3J95Ege8YQav7h3RHJAiQRh7BGhFTf4/cxCNI34ODz
-	 rnjiD/QI6oioUY5+cpRa9xcoeEZplIMQrsOvlQrdji07V6IRGOc4yfCgKP5CYBwdlW
-	 3RdUxC0aS4T6UBv/5HSlUn5pxFnmn2p2VvHicnhlGdgebnXC4wD8GCPLXBCGPNKi0c
-	 oUKhpbpxHeRVg==
-Subject: Re: [PATCH net v2] net/sched: sch_netem: prevent packet length
- underflow with negative overhead
-From: netdev-bot+sashiko@kernel.org
-To: dungvn2345@gmail.com
-Cc: stephen@networkplumber.org, jhs@mojatatu.com, jiri@resnulli.us,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, hagen@jauu.net, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 13 Oct 2026 04:51:38 +0000
-Message-ID: <179186709813.434549.16042014331752584322@kernel.org>
-In-Reply-To: <20261012044322.503949-1-dungvn2345@gmail.com>
-References: <20261012044322.503949-1-dungvn2345@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N7z003vv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791867175; x=1823403175;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7nJXonqH+rTItmlVnwPmw97jci53LyFWF9nUOD8veiU=;
+  b=N7z003vvlL1eTibe/Q+GnPScWPB/kWXmaocGF7vmfMLpsV0tTFPYNLGo
+   HOD4XrrOEbhCjfbdCsxcuNy+SLd9TYyhhcDMhjiBj3wmN2kXccP7cfvTw
+   RdYqQkhNDtNywGr9Ns/Vm8SOa2ZWoSE00HuU8q6H7aUQPrZ+sIwNmU7Zy
+   kDPEbrAYTAcpyF/Pxs9+oioQLn1+BF9/H8puZ+u/6poQTLBmpDOoEl8Gj
+   HW7CkIyTFvCbBnTtpgPtwR0SwGXybcZyeZ7SS6V9bceHxbebpqcMqXCy6
+   ZoTOnotiY88rnqaP548Ob0cFiTaH4BcOcnnuXKB7+46G4Bm+dPe2tY4LZ
+   w==;
+X-CSE-ConnectionGUID: 95bHEUSMTgmMAKmaOh3vVw==
+X-CSE-MsgGUID: B/pH/co2TK2SXWZG7RSJQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="587911"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="587911"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 21:52:54 -0700
+X-CSE-ConnectionGUID: xR7btsJ1QyWEWFokvgGAPg==
+X-CSE-MsgGUID: cyp7orBbSmuCSvNAWurFcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="966189"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 12 Oct 2026 21:52:50 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xGUVL-00000000CXQ-2yVE;
+	Tue, 13 Oct 2026 04:52:47 +0000
+Date: Tue, 13 Oct 2026 12:52:40 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lukas Zapolskas <lukas.zapolskas@arm.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, nd@arm.com,
+	=?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>,
+	Lukas Zapolskas <lukas.zapolskas@arm.com>
+Subject: Re: [PATCH v7 6/8] drm/panthor: Implement sample handling
+Message-ID: <202610131207.5wGThJW9-lkp@intel.com>
+References: <20261011-panthor-performance-counters-v7-6-12c32495062f@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011-panthor-performance-counters-v7-6-12c32495062f@arm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Lukas,
 
-Critical: 1 · High: 0 · Medium: 1 · Low: 0
+kernel test robot noticed the following build errors:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+[auto build test ERROR on 4b7a49d66c8398a7984dff4ac54d1acc6b3a58df]
 
-- [Critical] In packet_time_ns() (net/sched/sch_netem.c), the patch swaps
-  `div64_u64(len * NSEC_PER_SEC, q->rate)` for `mul_u64_u64_div_u64(len,…
-- [Medium] The commit message says clamping packet_time_ns() to S64_MAX
-  "prevents the resulting delay from turning negative in s64 delay…
+url:    https://github.com/intel-lab-lkp/linux/commits/Lukas-Zapolskas/drm-panthor-Add-performance-counter-uAPI/20261011-183648
+base:   4b7a49d66c8398a7984dff4ac54d1acc6b3a58df
+patch link:    https://lore.kernel.org/r/20261011-panthor-performance-counters-v7-6-12c32495062f%40arm.com
+patch subject: [PATCH v7 6/8] drm/panthor: Implement sample handling
+config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20261013/202610131207.5wGThJW9-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261013/202610131207.5wGThJW9-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610131207.5wGThJW9-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/panthor/panthor_perf.c: In function 'session_accumulate_sample':
+>> drivers/gpu/drm/panthor/panthor_perf.c:902:57: error: passing argument 2 of 'bitmap_from_arr64' from incompatible pointer type [-Wincompatible-pointer-types]
+     902 |                 bitmap_from_arr64(enabled_ctrs, em->mask[dst_blk->header.block_type],
+         |                                                 ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                                         |
+         |                                                         long unsigned int *
+   In file included from include/linux/cpumask.h:11,
+                    from include/linux/smp.h:13,
+                    from include/linux/interrupt_rc.h:17,
+                    from include/linux/spinlock.h:60,
+                    from include/linux/swait.h:7,
+                    from include/linux/completion.h:12,
+                    from include/drm/drm_file.h:34,
+                    from drivers/gpu/drm/panthor/panthor_perf.c:5:
+   include/linux/bitmap.h:322:58: note: expected 'const u64 *' {aka 'const long long unsigned int *'} but argument is of type 'long unsigned int *'
+     322 | void bitmap_from_arr64(unsigned long *bitmap, const u64 *buf, unsigned int nbits);
+         |                                               ~~~~~~~~~~~^~~
+
+
+vim +/bitmap_from_arr64 +902 drivers/gpu/drm/panthor/panthor_perf.c
+
+   875	
+   876	/**
+   877	 * session_accumulate_sample - Accumulate requested counters into an existing sample.
+   878	 * @ptdev: Panthor device.
+   879	 * @session: Perf session.
+   880	 * @session_sample: Start of the destination sample, including its header.
+   881	 * @perf_sample: Start of the intermediate sample, including its header.
+   882	 *
+   883	 * Firmware enable masks select groups of counters. Copy timestamps and accumulate
+   884	 * only the counters requested by this session.
+   885	 */
+   886	static void session_accumulate_sample(struct panthor_device *ptdev,
+   887					      struct panthor_perf_session *session,
+   888					      u8 *session_sample, u8 *perf_sample)
+   889	{
+   890		const struct drm_panthor_perf_info *const perf_info = &ptdev->perf_info;
+   891		struct panthor_perf_enable_masks *em = session->enabled_counters;
+   892		struct panthor_perf_sample_block_iter iter;
+   893		const u32 counters = perf_info->counters_per_block;
+   894	
+   895		sample_block_iter_init(perf_info, perf_sample, session_sample, &iter);
+   896	
+   897		while (sample_block_iter_next(&iter)) {
+   898			DECLARE_BITMAP(enabled_ctrs, PANTHOR_PERF_EM_BITS);
+   899			const struct panthor_perf_counter_block *src_blk = iter.src_blk;
+   900			struct panthor_perf_counter_block *dst_blk = iter.dst_blk;
+   901	
+ > 902			bitmap_from_arr64(enabled_ctrs, em->mask[dst_blk->header.block_type],
+   903					  PANTHOR_PERF_EM_BITS);
+   904			bitmap_clear(enabled_ctrs, 0, PANTHOR_HEADER_COUNTERS);
+   905	
+   906			dst_blk->counters[PANTHOR_CTR_TIMESTAMP_HI] =
+   907				src_blk->counters[PANTHOR_CTR_TIMESTAMP_HI];
+   908			dst_blk->counters[PANTHOR_CTR_TIMESTAMP_LO] =
+   909				src_blk->counters[PANTHOR_CTR_TIMESTAMP_LO];
+   910	
+   911			for (size_t ctr_idx = PANTHOR_HEADER_COUNTERS; ctr_idx < counters; ctr_idx++)
+   912				if (test_bit(ctr_idx, enabled_ctrs))
+   913					dst_blk->counters[ctr_idx] += src_blk->counters[ctr_idx];
+   914		}
+   915	}
+   916	
 
 --
-
-net/sched: sch_netem: prevent packet length underflow with negative overhead
-
-This patch makes packet_time_ns() return 0 when the effective packet
-length or the cell length is non-positive. A negative packet_overhead
-then no longer wraps len to a huge value and stalls the qdisc. The patch
-also computes cell_len as s64, uses mul_u64_u64_div_u64() for the final
-calculation, and clamps the result to S64_MAX.
-
-> diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
-> index 8a1b89a289d8f..3eccdc93c0b6b 100644
-> --- a/net/sched/sch_netem.c
-> +++ b/net/sched/sch_netem.c
-
-[ ... ]
-
-> @@ -366,17 +367,26 @@ static s64 tabledist(s64 mu, s32 sigma,
->  
->  static u64 packet_time_ns(u64 len, const struct netem_sched_data *q)
->  {
-> +	u64 d;
-> +
-> +	if ((s64)len + q->packet_overhead <= 0)
-> +		return 0;
-> +
->  	len += q->packet_overhead;
->  
->  	if (q->cell_size) {
->  		u32 cells = reciprocal_divide(len, q->cell_size_reciprocal);
-> +		s64 cell_len = (s64)q->cell_size + q->cell_overhead;
->  
->  		if (len > cells * q->cell_size)	/* extra cell needed for remainder */
->  			cells++;
-> -		len = cells * (q->cell_size + q->cell_overhead);
-> +		if (cell_len <= 0)
-> +			return 0;
-> +		len = (u64)cells * cell_len;
->  	}
->  
-> -	return div64_u64(len * NSEC_PER_SEC, q->rate);
-> +	d = mul_u64_u64_div_u64(len, NSEC_PER_SEC, q->rate);
-
-[Severity: Critical]
-Can this trap on x86-64 before the S64_MAX clamp is reached?
-
-mul_u64_u64_div_u64() expands to mul_u64_add_u64_div_u64(). On x86-64,
-arch/x86/include/asm/div64.h implements that as a plain mulq followed by
-divq:
-
-/*
- * Will generate an #DE when the result doesn't fit u64, could fix with an
- * __ex_table[] entry when it becomes an issue.
- */
-static inline u64 mul_u64_add_u64_div_u64(u64 rax, u64 mul, u64 add, u64 div)
-{
-	...
-	asm ("divq %[div]" : "+a" (rax), "+d" (rdx) : [div] "rm" (div));
-	...
-}
-
-include/linux/math64.h also says "Architecture specific code may trap on
-zero or overflow". So this code can't depend on the saturating behaviour
-of the generic version.
-
-The new s64 cell_len also makes the overflow much easier to hit. The old
-expression cells * (q->cell_size + q->cell_overhead) was a u32 product,
-so len * NSEC_PER_SEC stayed within u64. With len = (u64)cells * cell_len,
-len can now get close to 2^62.
-
-get_rate() copies rate, packet_overhead, cell_size and cell_overhead from
-TCA_NETEM_RATE without range checks. For example, with rate=1,
-cell_size=1, cell_overhead=INT_MAX and a 100 byte packet:
-
-  cell_len                 = 2^31
-  len                      = 100 * 2^31   ~= 2.1e11
-  len * NSEC_PER_SEC / 1   ~= 2.1e20      > U64_MAX
-
-The divq would then raise #DE in this path:
-
-netem_enqueue()
-  packet_time_ns()
-    mul_u64_u64_div_u64()
-      mul_u64_add_u64_div_u64()   /* divq */
-
-This runs under the qdisc root lock, possibly in softirq context. The
-first packet enqueued would oops the kernel. Triggering it only needs
-CAP_NET_ADMIN in the netns, and unprivileged user namespaces can provide
-that.
-
-If packet_overhead=INT_MAX is also set, len is about 4.6e18. Any rate
-below roughly 250 MB/s then traps.
-
-The commit message says:
-
-    Computing the final transmission time with mul_u64_u64_div_u64() and
-    clamping to S64_MAX avoids 64-bit multiplication overflow
-
-Could the value be saturated before the helper is called? One option is
-to return S64_MAX when div64_u64(len, q->rate) >= div_u64(S64_MAX,
-NSEC_PER_SEC). Another is for get_rate()/netem_change() to reject rate and
-cell combinations that can overflow.
-
-> +	return min_t(u64, d, S64_MAX);
-
-[Severity: Medium]
-The commit message also says the clamp "prevents the resulting delay from
-turning negative in s64 delay arithmetic". Is that true for the caller?
-
-The clamp only limits the value that packet_time_ns() returns. In
-netem_enqueue() that value is added to a delay that may already be
-positive. The result is then added to a now that may already be a
-deadline far in the future:
-
-net/sched/sch_netem.c:netem_enqueue() {
-    ...
-			if (last) {
-				...
-				delay -= last->time_to_send - now;
-				delay = max_t(s64, 0, delay);
-				now = last->time_to_send;
-			}
-
-			delay += packet_time_ns(qdisc_pkt_len(skb), q);
-		}
-
-		cb->time_to_send = now + delay;
-    ...
-}
-
-validate_time() only checks that the TCA_NETEM_LATENCY64 latency is not
-negative, so delay can already be large before this addition. Adding a
-result close to S64_MAX to any positive delay wraps it negative.
-
-The absolute deadline can wrap even with zero latency. Take
-packet_overhead=0, cell_size=1, cell_overhead=INT_MAX, rate=8 and a 64
-byte packet. The quotient is about 1.7e19, which fits in u64 and gets
-clamped to S64_MAX:
-
-  packet 1: time_to_send = T + S64_MAX
-  packet 2: now = T + S64_MAX
-            time_to_send = T + 2 * S64_MAX  ~= T - 2
-
-tfifo_enqueue() would sort packet 2 ahead of packet 1, and
-netem_dequeue() would treat it as already due. The packet skips rate
-shaping and goes out of order.
-
-Should netem_enqueue() saturate the accumulated delay and
-cb->time_to_send as well, instead of only the per-packet interval?
-
->  }
->  
->  static void tfifo_reset(struct Qdisc *sch)
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012044322.503949-1-dungvn2345%40gmail.com
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
