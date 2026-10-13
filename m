@@ -1,154 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F155208A9;
-	Tue, 13 Oct 2026 16:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59FA51FCAC
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910762; cv=none; b=I/vKKP0eRkneUfZOOGK4h0F0Svl04Bfru6T6/69BmAapg34WPn2iPE70JeuH7E+HCz8ZA9AFf4Yc+aaRs3MHrMyEVwhdFyNRZl4SoJganT2zs0BDHyuS/plDsXT+75zgdjIgrqsWFebnxGJD052owgpn03S8g5vODVidmuGCy8o=
+	t=1791910763; cv=none; b=RPIugOwJWAJ3/P+yoDDSa9nn/Ef0QYFmv0PPQ2GoOFFbK1OyQ61ufz4kCTbaAw+PKfyndwwIubKrE/xIQBGUCqyEVVCgK04UG8Jyn4P3EoKE6tmq19VA7ZXTswIgiJWSzDLygtLp8aEXzx48jy2Y5bzXAOAPifJ1N5zPVc40Uck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910762; c=relaxed/simple;
-	bh=iZwcWXW9P1s2FGcBHBY8OWwVOV8yIE8tuCxLW32Qpjs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QVeQFOHkwxHuMVkHXSRxCrR7qWV3Jo0wxdoRohYMF7MoZ4glldzfcna78KHQO7SGYE0aCNRiT4ootrHwbr4vQH75GUhipqLfbPurmtzu29RHgHExXcA4znVPMVEItlQKChePp4LdcQaSu6vNewffB9N/Cd+rYxsVIMgZyCgCMkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QyP4vueB; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791910763; c=relaxed/simple;
+	bh=Em0J4kFPQkpc6DtvJOpGf2IR0VZFxoTRpJ6JXd5k4yw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JXya4DU/VOEWd/ECz+PwOca8k1mbb/NhvRMoQB39yzSnkfAtI1CmfXr0wkjyU5wiRO8qWiuv9zL1wN5iDVnbTrY2pJKuLrfMuKMMKGN9uHH95H0XyeWbdjtjF5kSUfeGBodOUOW2+gsLgCmIkyZdASiprSI9Q13HcEo4eVpZgsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NnY9OryH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QyP4vueB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791910760; x=1823446760;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=iZwcWXW9P1s2FGcBHBY8OWwVOV8yIE8tuCxLW32Qpjs=;
-  b=QyP4vueBtRk8GlsW04Q1R3IuC3NQR8wjk8dkO3NE0HE9K6CXeK+JXsxt
-   rC9OLnGR950H86Q2PGyuLUADHlr+PC7TEgH0nWZB/SMPh+DUudzNVsr+2
-   XWs5B8QmaiZCceEfc2yr4DAfHXA50sYTHmdDcSY2iOoCCmLFv83N5E9LM
-   N4pZEzsjy4UH6i9dFyYd9L+MRnxt7j5mQUD2HSNOuMsDZ27weh+QtMjod
-   WhumKMq16wc4MC+j1hVsq/MeX+4uQqZW/QzdJrF4+1VW4KFVXkqNd/wBc
-   Xg1t0ec3bxU3f7f1Eg1Yc4CWrh93uOkbcszrhSiN1vqT4jvEbOxmA8EIm
-   g==;
-X-CSE-ConnectionGUID: DHPhrAPMR7Cs++BxpH10zg==
-X-CSE-MsgGUID: IjsXISVeQi2CqRjCnnLF8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="530703"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="530703"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:59:19 -0700
-X-CSE-ConnectionGUID: yeQrbO5FQVaXF7XDvrw0MA==
-X-CSE-MsgGUID: MYBPdhK7RtCYBfQ6CPBcVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1551482"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:59:15 -0700
-Date: Tue, 13 Oct 2026 19:59:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] iio: pressure: dps310: add Zilltek ZTS8032 support
-Message-ID: <as5jYcTlEuOzD6go@ashevche-desk.local>
-References: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
- <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NnY9OryH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3FD31F00899
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:59:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791910762;
+	bh=N1+Y8UcbV3j4gztto6Wz9a9MFiofJ01PDbTLcnyXQoY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NnY9OryHtHJIel8UNv5f+AGAi81aEBCtoARkeyf0ziaFlyzh4VtDnXtHwi49nICP6
+	 NVuN5bMhuwtBOvlEqdxAVdF/CLjEQCrxrPrSXkEvE2sAjQDMa8LcLJhZZqGdM4CnFx
+	 GY0L3LlDtpceVmsjbk4Bx9PV4S7tzCi9PmFDIL5DG3iW4wpAzA9r/9HiIT4zBm/m4N
+	 8viphVEmp7UMLUMACskdV7NVh6hc8CWYNKJ3CR0CG1ELz6tHKA1Y4FrIwdiwrD10WL
+	 hGbAxhlPgA/1Ua7RsqtYfAsqh/F/F9l0hJuf5HH720Ff4o4K1Ux+Z3iUlW0JwJUaUh
+	 +gk85jfYy2a7g==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a75f960be3so1646671fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:59:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw7vX8HIsOXMUa0bGm5cjKke6T/mNwi8w4IG+yLn2xEFrqQbdaFpBddm7yqBTgkwiZr6FEPXaaEdN5BRWA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMyYj0Nlh9M/hZeW2ndR60Dls7pwKGixUCQY9Nrsaay/eVb6PP
+	qpevTq5sAfmZF+ZGr/bdToTwF1McY/a4gEKMdV9r1FmLubC35L0qp+7UvR7DnVasBWcjnxImOPu
+	M/lpBX2EJ2PeQQyWEZRmid9UjYN1bxac=
+X-Received: by 2002:a05:6512:304a:b0:5bc:d39d:9b38 with SMTP id
+ 2adb3069b0e04-5bcde6c4cacmr4486252e87.32.1791910761041; Tue, 13 Oct 2026
+ 09:59:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261012104645.975190-1-keng-yu.lin@hpe.com> <CAJZ5v0iGhqaF1m-Vc2xdXQXj_BxPFFWCBTP=Ypg_gWQEqWkNfg@mail.gmail.com>
+ <642c49e1-7d47-44fd-b597-e5ff0877bb56@amd.com> <20261013060957.1023448-1-keng-yu.lin@hpe.com>
+ <CAJZ5v0hndk_ck1hcgWXyGX=OHmbfbhKsrJQsNQF9DQrucRNMDw@mail.gmail.com>
+ <d11aa70c-4753-4a28-9955-990c45649677@amd.com> <CAJZ5v0h2-S=Yf84LveK=36AkeutJxj5qYzVXnjhAnawi097x0g@mail.gmail.com>
+In-Reply-To: <CAJZ5v0h2-S=Yf84LveK=36AkeutJxj5qYzVXnjhAnawi097x0g@mail.gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 13 Oct 2026 18:57:15 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0ie2AvCbdv8-zkpYzHLcTwUPUj+=WWOQjDAPmSepSAQPg@mail.gmail.com>
+X-Gm-Features: AclHuK-kpBBJjgT_J-9UdGMEksfS5T7DW_cr_Uqhmch-I8vSerRUvLqL95_av1o
+Message-ID: <CAJZ5v0ie2AvCbdv8-zkpYzHLcTwUPUj+=WWOQjDAPmSepSAQPg@mail.gmail.com>
+Subject: Re: [PATCH v2] PCI/PM: Restore BARs after powering up during enumeration
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Keng-Yu Lin <keng-yu.lin@hpe.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Matthew Ruffell <matthew.ruffell@canonical.com>, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, andy.liang@hpe.com, david.chang@hpe.com, 
+	s.collins@hpe.com, jenifer.golmitz@hpe.com, pravallika.kamma@hpe.com, 
+	zhen-dong.lai@hpe.com, zachary.pabor-ext@hpe.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 02:21:24PM +0300, Paulius Zaleckas wrote:
-> The Zilltek ZTS8032 has the DPS310 register map, scale factors and
-> compensation, with these differences:
-> 
-> - two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
->   c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
-> - TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
->   the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
->   bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
->   25/16 Hz background rate instead of the external sensor.
-> - product ID 0x11 instead of 0x10, the driver does not check it
-> 
-> Add its chip data, reading 22 coefficient bytes and leaving TMP_CFG at
-> 0, and the I2C and OF IDs.
-> 
-> Tested on a ZTS8032 at 0x76 over I2C: in_pressure_input is within 1 Pa
-> of the datasheet formula evaluated from the raw and coefficient
-> registers at every oversampling rate from 1 to 128, and TMP_CFG reads
-> 0x00 after probe.
+On Tue, Oct 13, 2026 at 5:52=E2=80=AFPM Rafael J. Wysocki (Intel)
+<rafael@kernel.org> wrote:
+>
+> On Tue, Oct 13, 2026 at 5:41=E2=80=AFPM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+> >
+> >
+> >
+> > On 10/13/26 10:23, Rafael J. Wysocki (Intel) wrote:
+> > > On Tue, Oct 13, 2026 at 8:10=E2=80=AFAM Keng-Yu Lin <keng-yu.lin@hpe.=
+com> wrote:
+> > >>
+> > >> Hi Rafael, Mario,
+> > >>
+> > >> The initial read is not needed to fix the reported D3hot-to-D0
+> > >> failure. I added it to avoid extra BAR writes on devices already
+> > >> in D0.
+> > >>
+> > >> pci_power_up() does update current_state, but need_restore is
+> > >> calculated before that update. The check includes:
+> > >>
+> > >>          dev->current_state >=3D PCI_D3hot
+> > >>
+> > >> For an initially unknown device with PMCSR reporting D0 and
+> > >> No_Soft_Reset clear, this still requests a BAR restore. Reading
+> > >> the state first avoids that request, although the final
+> > >> current_state is D0 either way.
+> > >
+> > > Fair enough, but if the device is in D0 already, it need not be
+> > > powered up, so if you make a point to update the power state upfront,
+> > > you may as well skip the power up if the outcome is D0.
+> >
+> > It actually does need to have all the ACPI calls that happen as part of
+> > the D0 transition though like _REG.
+>
+> Good point.
+>
+> This basically means that the upfront power state check belongs to the
+> logic to determine whether or not to restore the BARs which should be
+> part of pci_power_up().
+>
+> So now the question is, if this upfront power state check is done, is
+> it still useful to read PMCSR after calling
+> platform_pci_set_power_state() in pci_power_up()?
 
-...
+Or what about using the following sequence:
 
->  	help
-> -	  Support for the Infineon DPS310 digital barometric pressure sensor.
-> -	  It can be accessed over I2C bus.
-> +	  Support for the Infineon DPS310 and Zilltek ZTS8032 digital
-> +	  barometric pressure sensors. They can be accessed over I2C bus.
-
-Please, format it to be scalable:
-
-	  Support for the following digital barometric pressure sensors:
-	  - Infineon DPS310
-	  - Zilltek ZTS8032
-	  They can be accessed over I2C bus.
-
->  	  This driver can also be built as a module.  If so, the module will be
->  	  called dps310.
-
-...
-
->   * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
->   *
-> + * The Zilltek ZTS8032 is register compatible, with two more pressure
-> + * calibration coefficients (c31, c40) and temperature calibrated against
-> + * the internal sensor.
-
-Any datasheet link?
-
-...
-
-> -	u8 coef[DPS310_COEF_LEN];
-> +	u8 coef[ZTS8032_COEF_LEN];
-
-I would add
-
-#define MAX_COEF_LEN	18
-
-to the first patch along with the HW specific define and use here (in that patch)
-
-	u8 coef[MAX_COEF_LEN];
-
-so, in this patch you will just add a new HW definition and bump
-
-#define MAX_COEF_LEN	22
-
-...
-
-> +	if (data->info->coef_len == ZTS8032_COEF_LEN) {
-
-This is a bit fragile. What if it will be HW in the future that has 22+ size
-but incompatible with ZTS case?
-
-> +		data->c31 = sign_extend32((coef[18] << 8) | coef[19], 15);
-> +		data->c40 = sign_extend32((coef[20] << 8) | coef[21], 15);
-> +	}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+pci_update_current_state(dev, PCI_UNKNOWN);
+if (dev->current_state =3D=3D PCI_D0) {
+        /* No need to do a full power-up, just sync-up the platform state. =
+*/
+        platform_pci_set_power_state(dev, PCI_D0);
+} else {
+        /* Power up the device and restore BARs if necessary. */
+        pci_set_full_power_state(dev, false);
+}
+pci_update_current_state(dev, PCI_D0);
