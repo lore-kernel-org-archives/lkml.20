@@ -1,76 +1,44 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net [51.250.60.162])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AC1559CB3
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4ABF549378;
+	Tue, 13 Oct 2026 21:22:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.250.60.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791926175; cv=none; b=abmCB0n0AGerujZ7hMfXGhd/5PD1muGooiWe3aUm63mUlRJHCy+SuuNY3Uhgno58rzNonN0yMMTnHLPW5EvFsP4Nn44J6iHGrFvMnPcJTqznTJMir1z6QZkgyxS5Xz5B/0Vny/5yDBu09JcU1zmuAgNIIavriZWRdjnjfLSe8fs=
+	t=1791926575; cv=none; b=hAT0WLmIBNmET+i74Mw0ycnM7iwr9J9pLtOUrG/2kABsmg486uNpIHDQNcRSbphMD9xA+3ALATNs2cnG0a0v60DNvvAOuhx/DUFP7+N0v6vpHrswx5y69DGa/YiTpwe6HJQUtrmtokd+MrHHlL5gc7Nf7d5xaAnw9ffmjwazSPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791926175; c=relaxed/simple;
-	bh=er1ugzqCoO+QdONpDQp5GZS44xOxpB1CWIBfmQh+bRw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Paf/DWFE808TRp63cIUxaCEtxskTuMa0o63rCAn4yk0IBQhMRBpC7vIpgavjbOMLqem+hL4NogZL9v2CyDJRjH8NzC4QDE8d83JghQmcPx44SmgH8u36kkFaKEzj4Kdv0QduMn3AcolpNnT+uJ4K56Om56IhFHfj3XbPL7glTMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VzZYDCsi; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791926575; c=relaxed/simple;
+	bh=5xtSkDqj4IfU8/QNPAcFk2pbH//URijfWwDYonVXG1k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=efKUZQZCfbZc21JmuA0X39LntF1HNFRRg745ByMQfKO3BGuHLBAuIZLZ3cETouIBUiWS7pDW+O5NU2rn/zmHFrS9tZqxEKvy7PHo1O0z6gfXL5N/01Z3xWnAcFjZsU3CMf27OZ0+GAIHoORQbrFPMVlAIPqH+siFYtuannXWsgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=qv3ixbI3; arc=none smtp.client-ip=51.250.60.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VzZYDCsi"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e5e801487so515814866b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:16:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791926164; x=1792530964; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sa/pgNOohYgHmq7QjbKsBkT10GoMHvsPTBaYz24v+Zg=;
-        b=VzZYDCsiIgg5BYjcdgGVOQ+iJz6HIqi4s/DZjQwMakRt3whpD3jfwi/lVCEsuT6zST
-         DL1qVCFGnjEbzhXuPf22tdUSYZur8cDOusPAHHiOw5jdqiNb6r/5iuQR9exM5LmHev3+
-         RLh7YI3ZfKeEu1TtcBJV/w/wPMfFBPLNx5M6bWSnn67XjZ48+P15SqhRQbCZd5h/o7wx
-         U/Ir7WA/H2q7PjMdI3xwQ00XDvyZiXfb5o8B+kYT0/RoePFUYy1uHTJ8KlTkMvdqNFMk
-         r2cnbxL3u1dQG88FKvOtYlp7RuZYh2WaLjlBI7WJgIQayzRpdCf8vZowqsXmgRz8tne8
-         owYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791926164; x=1792530964;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sa/pgNOohYgHmq7QjbKsBkT10GoMHvsPTBaYz24v+Zg=;
-        b=RSfE74rARqY2hIzdr7KMqEGZPnguPa9G93LJ5+NwVHYBRXN7sefbP9r8KMoivwEt5L
-         y1qWUFFn866eBgONGwhoC28Afq6v1w5tLHQmMgnyoU227y9UaMXEMPHBmtPtIb+F3wD6
-         0zM29A5QmQ7R0Ga4AvHDGCnpb4N9oEjlZ3bhPLpYNSJ4Y9fPahOIHw9HkSciti2tCcFY
-         bXS/PrQEYexxqc5gZIRRs0XrlCtLmHQHAlcNwzhM3fZGCJ/rc/T7R+S0aSsGRWqu93AF
-         vHVZKO6xG8qKgR6FmTTHWd3l1zvkplvBzG9x5dCE1DkQtF0o4nuQAraOAL9+P402V+4u
-         H57A==
-X-Forwarded-Encrypted: i=1; AKwUvBzEYQhgCz/XAkGeCLFyYihnNiWQ1dlgjagVJTYHnnBEQvpmV35DX5OAi1hobq/xoAjRMSyp8hOBd9Ub0F4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyX6RHj8rIVx1bHm6QG5SqhcHvVhjwCW/S/Hu7h9jkBPhpKZiC
-	bHRf5buJKzFBOKd7lC7R/FqMkyAiFb0TOlPwQ7LwDZtDUkQJiVlzJzQI
-X-Gm-Gg: AYBFou1SiIqKYz771wLDT4Sa1hlD32CD/SsQYghFFHqPZ1KsvjkzmhdA+c/q7re2Buf
-	5+qvtEaXaNkEW3fjc9Yl1DMab0Pf0vHf0qxd9iTevaCfD6iT4RzvAHYqksbMnvz9I3PDUw3NZ/w
-	LbIHlHSUwjxpJ0b6YO60b2WFGQvkQa2SRYGhL8m6A5bpeDrjx8uDx7e685nhAxvslNK7ROBQr4d
-	C3+Wrfd3eCecGvIBHHzRk06f3j2el0nHDTPYk5wGaSN19TVZ+97+j9bz40UzlAKQYHhYWYuBLR6
-	9aLPg6XaV3QgTyYbXNwLT27lnJoog4eJ1k76JKQUCHuNYkUujSm6fApMlnoZmLBGEFdV9oim1oH
-	fikp5DuLTbSb/xt6P4yZJZ59Eb1MaptQSO61BlsOvSUzl5Yl4AB4JBuYlmAaSjPfDpBaqbvDTEN
-	VL50qjm/SjLZ2mXTyu2jk49PdVsN4hFBnbM6zE8VVrOti8cXK2IcgFv+HaToOWJrNYmrNDbjXSY
-	TV+KlsqSIQ5LX/ZZd3F+gL9UbmGsq80ZhfaE0lw
-X-Received: by 2002:a17:906:f586:b0:c29:6de8:d143 with SMTP id a640c23a62f3a-c31aa00dd05mr1346388066b.19.1791926163536;
-        Tue, 13 Oct 2026 14:16:03 -0700 (PDT)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c355555f483sm256776766b.23.2026.10.13.14.16.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 14:16:03 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: richard.henderson@linaro.org,
-	mattst88@gmail.com,
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="qv3ixbI3"
+Received: from mail-nwsmtp-smtp-production-main-54.klg.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-54.klg.yp-c.yandex.net [IPv6:2a02:6b8:c42:6543:0:640:e955:0])
+	by forward102d.mail.yandex.net (postfix) with ESMTPS id C0E6EC00DF;
+	Wed, 14 Oct 2026 00:22:35 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-54.klg.yp-c.yandex.net (smtp) with ESMTPSA id WMbJYuQtEiE0-LJQ9bWy9;
+	Wed, 14 Oct 2026 00:22:35 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1791926555; bh=sfcmlTR7eCaZWBe1bemIwHZsXa+eE1kUcQCqsEwQKoo=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=qv3ixbI323v+9WoWM368bCJDxuKX0G04owwwcssqkg2wCWWgcYYP96nMM4BXt1UWw
+	 f5zswabM3Iotg6l9DBb13XAAxoU9swmcbvLUdvFvp3zxpVzIXwwL2k4JfnraxtaA2F
+	 /Vf7QA01cayczb9s6LaRggLfCQaSEcE/6Gw0zAsM=
+Authentication-Results: mail-nwsmtp-smtp-production-main-54.klg.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+From: Alexey Subbota <subbota-job@yandex.ru>
+To: platform-driver-x86@vger.kernel.org
+Cc: teackot@gmail.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
 	linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org
-Cc: linmag7@gmail.com
-Subject: [PATCH v7 5/5] alpha: decode Clipper environmental events and retain console logs
-Date: Tue, 13 Oct 2026 23:15:38 +0200
-Message-ID: <20261013211551.991723-6-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013211551.991723-1-linmag7@gmail.com>
-References: <20261013211551.991723-1-linmag7@gmail.com>
+	Alexey Subbota <subbota-job@yandex.ru>
+Subject: [PATCH] platform/x86: msi-ec: Add MSI Creator Z16 A11UE EC firmware
+Date: Wed, 14 Oct 2026 02:22:28 +0500
+Message-ID: <20261013212228.17349-1-subbota-job@yandex.ru>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,579 +47,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Restrict ES40 live environmental decoding to Clipper. Honor print control,
-validate bounds and masks, and separate fault bits from status context.
-Report valid notifications even when no recognized fault bits are set,
-so door-closed and supply-return notifications are not silently discarded.
-Do not infer a recovery transition from a single status snapshot.
+Add EC firmware version 1571EMS1.106 (MSI Creator Z16 A11UE) to the
+list of firmwares handled by CONF14. The EC register layout matches
+CONF14 field for field (verified against the out-of-tree msi-ec
+configuration for this firmware, where it is part of CONF_G2_10).
 
-Keep SMIR bit 0 and inverted halt/reset bits as raw context. During the
-ES40 PSU cable test, bit 0 remained set after the individual PSU failure
-indication cleared. Its polarity/latching is unverified, so do not call
-it a current PSU failure. Use mask 0x14 for the remaining SMIR faults.
-Remove the redundant silent first pass now that every valid environmental
-notification is reported. Include the CPU ID for processor console frames.
-Use plain door-status messages without the manual's "Set =" prefix.
-Dump unknown or truncated environmental frames raw.
+Tested on a Creator Z16 A11UE with this driver built against
+7.2.9: the module loads, charge_control_start_threshold and
+charge_control_end_threshold read the values set by the EC, and
+writing charge_control_end_threshold is applied and reads back.
 
-Register bounded console decoders from the error file, but keep the PCI
-init hook and console-log invocation in sys_dp264.c, as Titan does.
-Limit console-log scanning to Clipper pending older-board firmware tests.
-The ES40 boot and QEMU Clipper test do not establish that nonempty console
-logs are safe on DS10, DS20 or XP1000 firmware.
-
-Print console environmental packets raw: ES40 Table D-18's sys_offset
-conflicts with its field offsets. Actual SRM records are still needed.
-Terminate annotation arrays and reject invalid packet bounds/revisions.
-
-Use a Clipper-only console scanner bounded by the HWRPB log length.
-Check wrapper fields and each child extent before decoding; reject
-unsupported wrappers, including the class-5/type-4 record seen on ES40.
-Retain the firmware log pointer if parsing is incomplete, and print up
-to 1 KiB of raw bytes without reading beyond the supplied log length.
-Only acknowledge a log after reaching a complete termination packet.
-The generic scanner otherwise clears the pointer even on parse failure.
-
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Alexey Subbota <subbota-job@yandex.ru>
 ---
- arch/alpha/include/asm/err_common.h |   2 +
- arch/alpha/kernel/err_tsunami.c     | 460 ++++++++++++++++++++++++++++
- arch/alpha/kernel/proto.h           |   3 +
- arch/alpha/kernel/sys_dp264.c       |   5 +-
- 4 files changed, 469 insertions(+), 1 deletion(-)
+ drivers/platform/x86/msi-ec.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/alpha/include/asm/err_common.h b/arch/alpha/include/asm/err_common.h
-index 610e01fe73ab..63d4320581e2 100644
---- a/arch/alpha/include/asm/err_common.h
-+++ b/arch/alpha/include/asm/err_common.h
-@@ -47,6 +47,8 @@
- #  define EL_TYPE__REGATTA__PROCESSOR_ERROR_FRAME	(1)
- #  define EL_TYPE__REGATTA__SYSTEM_ERROR_FRAME		(2)
- #  define EL_TYPE__REGATTA__ENVIRONMENTAL_FRAME		(3)
-+#  define EL_TYPE__REGATTA__TSUNAMI_PCHIP0_EXTENDED	(6)
-+#  define EL_TYPE__REGATTA__TSUNAMI_PCHIP1_EXTENDED	(7)
- #  define EL_TYPE__REGATTA__TITAN_PCHIP0_EXTENDED	(8)
- #  define EL_TYPE__REGATTA__TITAN_PCHIP1_EXTENDED	(9)
- #  define EL_TYPE__REGATTA__TITAN_MEMORY_EXTENDED	(10)
-diff --git a/arch/alpha/kernel/err_tsunami.c b/arch/alpha/kernel/err_tsunami.c
-index e89a11e567be..f7989008c270 100644
---- a/arch/alpha/kernel/err_tsunami.c
-+++ b/arch/alpha/kernel/err_tsunami.c
-@@ -9,6 +9,7 @@
- #include <linux/pci.h>
- #include <linux/sched.h>
- #include <asm/io.h>
-+#include <asm/hwrpb.h>
- #include <asm/core_tsunami.h>
- #include <asm/smp.h>
- #include <asm/err_common.h>
-@@ -262,3 +263,462 @@ tsunami_machine_check(unsigned long vector, unsigned long la_ptr)
- 		mb();
- 	}
- }
-+
-+static const char * const CLIPPER_EnvQW1SMIR[] = {
-+	"", /* SMIR<0>: retain as raw context until its semantics are known. */
-+	"OCP or RMC halt detected",
-+	"Sys_DC_Notok failure detected",
-+	"",
-+	"System temperature over 50 degrees C failure",
-+	"PCI Bus #0 is in reset",
-+	"PCI Bus #1 is in reset",
-+	"System is being reset"
-+};
-+
-+static const char * const CLIPPER_EnvQW2CPUIR[] = {
-+	"CPU0 regulator is enabled",
-+	"CPU1 regulator is enabled",
-+	"CPU2 regulator is enabled",
-+	"CPU3 regulator is enabled",
-+	"CPU0 regulator or configuration sequence fail",
-+	"CPU1 regulator or configuration sequence fail",
-+	"CPU2 regulator or configuration sequence fail",
-+	"CPU3 regulator or configuration sequence fail"
-+};
-+
-+static const char * const CLIPPER_EnvQW3PSIR[] = {
-+	"Power Supply 0 is enabled",
-+	"Power Supply 1 is enabled",
-+	"Power Supply 2 is enabled",
-+	"",
-+	"Power Supply 0 was enabled but failed",
-+	"Power Supply 1 was enabled but failed",
-+	"Power Supply 2 was enabled but failed"
-+};
-+
-+static const char * const CLIPPER_EnvQW4LM78ISR[] = {
-+	"PS +3.3V out of tolerance",
-+	"PS +5V out of tolerance",
-+	"PS +12V out of tolerance",
-+	"VTERM out of tolerance",
-+	"Temperature zone 0 (PCI Backplane slots 1-3 area) over limit failure",
-+	"LM75 CPU0-3 Temperature over limit failure",
-+	"System Fan 1 failure",
-+	"System Fan 2 failure",
-+	"CTERM out of tolerance",
-+	"",
-+	"-12V out of tolerance",
-+	"",
-+	"",
-+	"",
-+	"",
-+	"",
-+	"CPU0_VCORE +2V out of tolerance",
-+	"CPU0_VIO +1.5V out of tolerance",
-+	"CPU1_VCORE +2V out of tolerance",
-+	"CPU1_VIO +1.5V out of tolerance",
-+	"Temperature zone 1 (PCI Backplane slots 7-10 area) over limit failure",
-+	"",
-+	"System Fan 4 failure",
-+	"System Fan 5 failure",
-+	"",
-+	"",
-+	"",
-+	"",
-+	"",
-+	"",
-+	"",
-+	"",
-+	"CPU2_VCORE +2V out of tolerance",
-+	"CPU2_VIO +1.5V out of tolerance",
-+	"CPU3_VCORE +2V out of tolerance",
-+	"CPU3_VIO +1.5V out of tolerance",
-+	"Temperature zone 2 (PCI Backplane slots 4-6 area) over limit failure",
-+	"",
-+	"System Fan 3 failure",
-+	"System Fan 6 failure",
-+	"",
-+	"",
-+	"Power supply 3.3V rail above high amperage warning",
-+	"Power supply 5.0V rail above high amperage warning",
-+	"Power supply 12V rail above high amperage warning",
-+	"Power supply high temperature warning",
-+	"Power supply AC input low limit warning",
-+	"Power supply AC input high limit warning"
-+};
-+
-+static const char * const CLIPPER_EnvQW5DOOR[] = {
-+	"",
-+	"System CPU door is open",
-+	"System Fan door is open",
-+	"System PCI door is open",
-+	"",
-+	"System CPU door is closed",
-+	"System Fan door is closed",
-+	"System PCI door is closed"
-+};
-+
-+static const char * const CLIPPER_EnvQW6TEMP[] = {
-+	"CPU0 temperature warning fault has occurred",
-+	"CPU1 temperature warning fault has occurred",
-+	"CPU2 temperature warning fault has occurred",
-+	"CPU3 temperature warning fault has occurred",
-+	"System temperature zone 0 warning fault has occurred",
-+	"System temperature zone 1 warning fault has occurred",
-+	"System temperature zone 2 warning fault has occurred"
-+};
-+
-+static const char * const CLIPPER_EnvQW7FAN[] = {
-+	"System Fan 1 is not responding to RMC Commands",
-+	"System Fan 2 is not responding to RMC Commands",
-+	"System Fan 3 is not responding to RMC Commands",
-+	"System Fan 4 is not responding to RMC Commands",
-+	"System Fan 5 is not responding to RMC Commands",
-+	"System Fan 6 is not responding to RMC Commands",
-+	"",
-+	"",
-+	"CPU fans 5/6 at maximum speed",
-+	"CPU fans 5/6 reduced speed from maximum",
-+	"PCI fans 1-4 at maximum speed",
-+	"PCI fans 1-4 reduced speed from maximum"
-+};
-+
-+#define CLIPPER_ENV_LM78ISR_MASK	0xfcdf00df05ffUL
-+
-+static char *el_tsunami_pchip0_extended_annotation[] = {
-+"Subpacket Header",	"P0_PCTL",	"P0_PERRMASK",
-+"P0_WSBA0",		"P0_WSBA1",	"P0_WSBA2",	"P0_WSBA3",
-+"P0_WSM0",		"P0_WSM1",	"P0_WSM2",	"P0_WSM3",
-+"P0_TBA0",		"P0_TBA1",	"P0_TBA2",	"P0_TBA3", NULL
-+};
-+
-+static char *el_tsunami_pchip1_extended_annotation[] = {
-+"Subpacket Header",	"P1_PCTL",	"P1_PERRMASK",
-+"P1_WSBA0",		"P1_WSBA1",	"P1_WSBA2",	"P1_WSBA3",
-+"P1_WSM0",		"P1_WSM1",	"P1_WSM2",	"P1_WSM3",
-+"P1_TBA0",		"P1_TBA1",	"P1_TBA2",	"P1_TBA3", NULL
-+};
-+
-+
-+static struct el_subpacket_annotation el_tsunami_annotations[] = {
-+	SUBPACKET_ANNOTATION(EL_CLASS__REGATTA_FAMILY,
-+			     EL_TYPE__REGATTA__TSUNAMI_PCHIP0_EXTENDED,
-+			     1,
-+			     "Tsunami PChip 0 Extended Frame",
-+			     el_tsunami_pchip0_extended_annotation),
-+	SUBPACKET_ANNOTATION(EL_CLASS__REGATTA_FAMILY,
-+			     EL_TYPE__REGATTA__TSUNAMI_PCHIP1_EXTENDED,
-+			     1,
-+			     "Tsunami PChip 1 Extended Frame",
-+			     el_tsunami_pchip1_extended_annotation),
-+	SUBPACKET_ANNOTATION(EL_CLASS__REGATTA_FAMILY,
-+			     EL_TYPE__TERMINATION__TERMINATION,
-+			     1,
-+			     "Termination Subpacket",
-+			     NULL)
-+};
-+
-+/* ES40 Service Guide EK-ES240-SV A01, live frame: Tables D-20 and D-21. */
-+struct el_clipper_envdata {
-+	u64 summary;
-+	u64 dir;
-+	u64 smir;
-+	u64 cpuir;
-+	u64 psir;
-+	u64 fault;
-+	u64 doors;
-+	u64 temp_warn;
-+	u64 fan_ctrl;
-+	u64 fatal_power_down;
-+	u64 reserved;
-+};
-+
-+static int
-+clipper_print_bits(const char * const *messages, size_t count,
-+		   u64 value, u64 mask, int print)
-+{
-+	size_t i;
-+
-+	if (!(value & mask))
-+		return MCHK_DISPOSITION_DISMISS;
-+	if (print)
-+		for (i = 0; i < count; i++)
-+			if (value & mask & (1UL << i))
-+				printk("%s    %s\n", err_print_prefix, messages[i]);
-+	return MCHK_DISPOSITION_REPORT;
-+}
-+
-+#define CLIPPER_BITS(table, value, mask) \
-+	clipper_print_bits(table, ARRAY_SIZE(table), value, mask, print)
-+
-+static int
-+clipper_process_environment(struct el_common *header, int print)
-+{
-+	struct el_clipper_envdata *frame;
-+	int status = 0;
-+
-+	if (!tsunami_frame_valid(header, sizeof(*frame))) {
-+		if (print) {
-+			printk("%s  Truncated Clipper environmental frame\n", err_print_prefix);
-+			mchk_dump_logout_frame_raw(header);
-+		}
-+		return MCHK_DISPOSITION_UNKNOWN_ERROR;
-+	}
-+	frame = (void *)header + header->sys_offset;
-+	/* Only QW1 through QW7 carry error state in the live 680 frame. */
-+	/* PSU summary and inverted halt/reset signals remain raw context. */
-+	status |= CLIPPER_BITS(CLIPPER_EnvQW1SMIR, frame->smir, 0x14);
-+	status |= CLIPPER_BITS(CLIPPER_EnvQW2CPUIR, frame->cpuir, 0xf0);
-+	status |= CLIPPER_BITS(CLIPPER_EnvQW3PSIR, frame->psir, 0x70);
-+	status |= CLIPPER_BITS(CLIPPER_EnvQW4LM78ISR,
-+			       frame->fault, CLIPPER_ENV_LM78ISR_MASK);
-+	status |= CLIPPER_BITS(CLIPPER_EnvQW5DOOR, frame->doors, 0x0e);
-+	status |= CLIPPER_BITS(CLIPPER_EnvQW6TEMP, frame->temp_warn, 0x7f);
-+	status |= CLIPPER_BITS(CLIPPER_EnvQW7FAN, frame->fan_ctrl, 0x3f);
-+	/* A notification with no recognized fault can describe recovery. */
-+	if (print && !(status & MCHK_DISPOSITION_REPORT))
-+		printk("%s    No recognized environmental fault bits set\n",
-+		       err_print_prefix);
-+	if (print) {
-+		printk("%s  Environmental summary: %016llx DIR: %016llx\n",
-+		       err_print_prefix, frame->summary, frame->dir);
-+		printk("%s  SMIR: %016llx (PSU summary/halt/reset bits undecoded)\n",
-+		       err_print_prefix, frame->smir);
-+		CLIPPER_BITS(CLIPPER_EnvQW2CPUIR, frame->cpuir, 0x0f);
-+		CLIPPER_BITS(CLIPPER_EnvQW3PSIR, frame->psir, 0x07);
-+		CLIPPER_BITS(CLIPPER_EnvQW5DOOR, frame->doors, 0xe0);
-+		CLIPPER_BITS(CLIPPER_EnvQW7FAN, frame->fan_ctrl, 0xf00);
-+		if (frame->fault & (0x3fUL << 42))
-+			printk("%s  Power supply warning source: %llu (3 = reserved)\n",
-+			       err_print_prefix, (frame->fault >> 40) & 3);
-+	}
-+	return MCHK_DISPOSITION_REPORT;
-+}
-+
-+void
-+clipper_machine_check(unsigned long vector, unsigned long la_ptr)
-+{
-+	struct el_common *header = (void *)la_ptr;
-+	char *saved_err_prefix = err_print_prefix;
-+
-+	if (vector != SCB_Q_SYSEVENT) {
-+		tsunami_machine_check(vector, la_ptr);
-+		return;
-+	}
-+	/* Drain pending accesses before inspecting the environmental frame. */
-+	mb();
-+	draina();
-+	err_print_prefix = KERN_CRIT;
-+	printk("%sSystem correctable environmental event (code %x) on CPU %d:\n",
-+	       err_print_prefix, header->code, smp_processor_id());
-+	if (header->code == 0x206)
-+		clipper_process_environment(header, 1);
-+	else {
-+		printk("%s  Unrecognized environmental event; raw frame follows\n",
-+		       err_print_prefix);
-+		mchk_dump_logout_frame_raw(header);
-+	}
-+	err_print_prefix = saved_err_prefix;
-+	wrmces(0x7);
-+	/* Complete acknowledgment before returning from the event. */
-+	mb();
-+}
-+
-+static struct el_subpacket *
-+tsunami_process_subpacket(struct el_subpacket *packet)
-+{
-+	struct el_common *frame;
-+	size_t offset = offsetof(struct el_subpacket, by_type.regatta_frame.data_start);
-+	int status;
-+
-+	/* Raw dumps consume whole quadwords, and the next packet must advance. */
-+	if (packet->length < offsetof(struct el_subpacket, by_type) ||
-+	    (packet->length & 7))
-+		return NULL;
-+	if (packet->revision != 1) {
-+		el_annotate_subpacket(packet);
-+		return (void *)packet + packet->length;
-+	}
-+
-+	switch (packet->type) {
-+	case EL_TYPE__REGATTA__PROCESSOR_ERROR_FRAME:
-+	case EL_TYPE__REGATTA__PROCESSOR_DBL_ERROR_HALT:
-+	case EL_TYPE__REGATTA__SYSTEM_ERROR_FRAME:
-+	case EL_TYPE__REGATTA__SYSTEM_DBL_ERROR_HALT:
-+		if (packet->length < offset + sizeof(*frame))
-+			return NULL;
-+		frame = (void *)packet + offset;
-+		if (frame->size > packet->length - offset || frame->size < sizeof(*frame))
-+			return NULL;
-+		if (packet->type == EL_TYPE__REGATTA__PROCESSOR_ERROR_FRAME ||
-+		    packet->type == EL_TYPE__REGATTA__PROCESSOR_DBL_ERROR_HALT) {
-+			printk("%s  ** Occurred on CPU %d:\n", err_print_prefix,
-+			       (int)packet->by_type.regatta_frame.cpuid);
-+			status = ev6_process_logout_frame(frame, 0);
-+			if (status != MCHK_DISPOSITION_DISMISS)
-+				ev6_process_logout_frame(frame, 1);
-+		} else {
-+			tsunami_process_logout_frame(frame, 1);
-+		}
-+		break;
-+	case EL_TYPE__REGATTA__ENVIRONMENTAL_FRAME:
-+		/*
-+		 * ES40 Table D-18 gives sys_offset=0x20, but places the
-+		 * summary at frame+0x18. Preserve the complete packet until
-+		 * the console layout is verified; do not apply the live layout.
-+		 */
-+		printk("%s  Console environmental layout unverified; raw packet follows\n",
-+		       err_print_prefix);
-+		el_annotate_subpacket(packet);
-+		break;
-+	default:
-+		el_annotate_subpacket(packet);
-+		break;
-+	}
-+	return (void *)packet + packet->length;
-+}
-+
-+/*
-+ * Clipper console logs have an HWRPB byte count. Do not use the generic
-+ * unbounded dispatcher: a rejected record must not acknowledge the log.
-+ */
-+static bool
-+tsunami_console_log(void *data, size_t remaining)
-+{
-+	struct el_subpacket *packet;
-+	unsigned char *pos = data;
-+	size_t size, length;
-+	u32 count;
-+
-+	while (remaining >= offsetof(struct el_subpacket, by_type)) {
-+		packet = (void *)pos;
-+		size = packet->length;
-+		if (size < offsetof(struct el_subpacket, by_type) ||
-+		    size > remaining || (size & 7))
-+			return false;
-+		if (packet->class == EL_CLASS__TERMINATION)
-+			return packet->type == EL_TYPE__TERMINATION__TERMINATION;
-+		if (packet->class != EL_CLASS__HEADER || packet->revision != 1)
-+			return false;
-+
-+		/* Check each header's extent before accessing its union member. */
-+#define CONSOLE_HEADER_SIZE(member) \
-+	(offsetof(struct el_subpacket, by_type.member) + \
-+	 sizeof(packet->by_type.member))
-+		switch (packet->type) {
-+		case EL_TYPE__HEADER__SYSTEM_ERROR_FRAME:
-+			if (size < CONSOLE_HEADER_SIZE(sys_err))
-+				return false;
-+			length = packet->by_type.sys_err.frame_length;
-+			count = packet->by_type.sys_err.frame_packet_count;
-+			break;
-+		case EL_TYPE__HEADER__SYSTEM_EVENT_FRAME:
-+			if (size < CONSOLE_HEADER_SIZE(sys_event))
-+				return false;
-+			length = packet->by_type.sys_event.frame_length;
-+			count = packet->by_type.sys_event.frame_packet_count;
-+			break;
-+		case EL_TYPE__HEADER__HALT_FRAME:
-+			if (size < CONSOLE_HEADER_SIZE(err_halt))
-+				return false;
-+			length = packet->by_type.err_halt.frame_length;
-+			count = packet->by_type.err_halt.frame_packet_count;
-+			break;
-+		case EL_TYPE__HEADER__LOGOUT_FRAME:
-+			if (size < CONSOLE_HEADER_SIZE(logout_header))
-+				return false;
-+			length = packet->by_type.logout_header.frame_length;
-+			count = 1;
-+			break;
-+		default:
-+			return false;
-+		}
-+#undef CONSOLE_HEADER_SIZE
-+		if (length > remaining - size || (length & 7) ||
-+		    count > length / offsetof(struct el_subpacket, by_type))
-+			return false;
-+		pos += size;
-+		remaining -= size + length;
-+		while (count--) {
-+			if (length < offsetof(struct el_subpacket, by_type))
-+				return false;
-+			packet = (void *)pos;
-+			size = packet->length;
-+			if (size < offsetof(struct el_subpacket, by_type) ||
-+			    size > length || (size & 7) ||
-+			    packet->class != EL_CLASS__REGATTA_FAMILY)
-+				return false;
-+			/* This handler checks embedded logout-frame bounds. */
-+			if (tsunami_process_subpacket(packet) != (void *)pos + size)
-+				return false;
-+			pos += size;
-+			length -= size;
-+		}
-+		if (length)
-+			return false;
-+	}
-+	/* Exhaustion without a complete termination packet is incomplete. */
-+	return false;
-+}
-+
-+static void
-+tsunami_console_data_log(int cpu, struct percpu_struct *pcpu)
-+{
-+	unsigned char *data = (void *)(IDENT_ADDR | pcpu->console_data_log_pa);
-+	size_t length = pcpu->console_data_log_length;
-+	size_t dump = length < 1024 ? length : 1024;
-+	size_t i;
-+
-+	printk("%sConsole data log for CPU %d (%zu bytes):\n",
-+	       err_print_prefix, cpu, length);
-+	if (!(pcpu->console_data_log_pa & 7) &&
-+	    length <= ~0UL - (unsigned long)data &&
-+	    tsunami_console_log(data, length)) {
-+		/* Acknowledge only after reaching a valid termination packet. */
-+		pcpu->console_data_log_pa = 0;
-+		return;
-+	}
-+	printk("%s  Incomplete console log; retaining firmware pointer\n",
-+	       err_print_prefix);
-+	/* Byte reads preserve partial headers without rounding beyond length. */
-+	if (dump > ~0UL - (unsigned long)data)
-+		return;
-+	for (i = 0; i < dump; i++) {
-+		if (!(i & 15))
-+			printk("%s  %04zx:", err_print_prefix, i);
-+		printk(KERN_CONT " %02x", data[i]);
-+		if ((i & 15) == 15 || i + 1 == dump)
-+			printk(KERN_CONT "\n");
-+	}
-+	if (dump < length)
-+		printk("%s  Raw console log truncated to %zu bytes\n",
-+		       err_print_prefix, dump);
-+}
-+
-+void __init
-+tsunami_check_console_data_log(void)
-+{
-+	struct percpu_struct *pcpu;
-+	unsigned long cpu;
-+
-+	for (cpu = 0; cpu < hwrpb->nr_processors; cpu++) {
-+		pcpu = (void *)hwrpb + hwrpb->processor_offset +
-+			cpu * hwrpb->processor_size;
-+		if (pcpu->console_data_log_pa)
-+			tsunami_console_data_log(cpu, pcpu);
-+	}
-+}
-+
-+static struct el_subpacket_handler tsunami_subpacket_handler =
-+	SUBPACKET_HANDLER_INIT(EL_CLASS__REGATTA_FAMILY, tsunami_process_subpacket);
-+
-+void __init
-+tsunami_register_error_handlers(void)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < ARRAY_SIZE(el_tsunami_annotations); i++)
-+		cdl_register_subpacket_annotation(&el_tsunami_annotations[i]);
-+	cdl_register_subpacket_handler(&tsunami_subpacket_handler);
-+	ev6_register_error_handlers();
-+}
-diff --git a/arch/alpha/kernel/proto.h b/arch/alpha/kernel/proto.h
-index f138bd494628..a704acd7da6a 100644
---- a/arch/alpha/kernel/proto.h
-+++ b/arch/alpha/kernel/proto.h
-@@ -78,6 +78,9 @@ extern struct _alpha_agp_info *titan_agp_info(void);
- extern struct pci_ops tsunami_pci_ops;
- extern void tsunami_init_arch(void);
- extern void tsunami_kill_arch(int);
-+extern void tsunami_register_error_handlers(void);
-+extern void tsunami_check_console_data_log(void);
-+extern void clipper_machine_check(unsigned long vector, unsigned long la_ptr);
- extern void tsunami_machine_check(unsigned long vector, unsigned long la_ptr);
- extern void tsunami_pci_tbi(struct pci_controller *, dma_addr_t, dma_addr_t);
+diff --git a/drivers/platform/x86/msi-ec.c b/drivers/platform/x86/msi-ec.c
+index 86d488047..5247c25fc 100644
+--- a/drivers/platform/x86/msi-ec.c
++++ b/drivers/platform/x86/msi-ec.c
+@@ -1134,6 +1134,7 @@ static struct msi_ec_conf CONF13 __initdata = {
+ };
  
-diff --git a/arch/alpha/kernel/sys_dp264.c b/arch/alpha/kernel/sys_dp264.c
-index 0a2d319bb1c8..614e989a7849 100644
---- a/arch/alpha/kernel/sys_dp264.c
-+++ b/arch/alpha/kernel/sys_dp264.c
-@@ -32,6 +32,7 @@
- 
- #include "proto.h"
- #include "irq_impl.h"
-+#include "err_impl.h"
- #include "pci_impl.h"
- #include "machvec_impl.h"
- 
-@@ -533,6 +534,8 @@ monet_init_pci(void)
- static void __init
- clipper_init_pci(void)
- {
-+	tsunami_register_error_handlers();
-+	tsunami_check_console_data_log();
- 	common_init_pci();
- 	locate_and_init_vga(NULL);
- }
-@@ -627,7 +630,7 @@ struct alpha_machine_vector clipper_mv __initmv = {
- 	DO_EV6_MMU,
- 	DO_DEFAULT_RTC,
- 	DO_TSUNAMI_IO,
--	.machine_check		= tsunami_machine_check,
-+	.machine_check		= clipper_machine_check,
- 	.max_isa_dma_address	= ALPHA_MAX_ISA_DMA_ADDRESS,
- 	.min_io_address		= DEFAULT_IO_BASE,
- 	.min_mem_address	= DEFAULT_MEM_BASE,
+ static const char * const ALLOWED_FW_14[] __initconst = {
++	"1571EMS1.106", // Creator Z16 A11UE
+ 	"1824EMS1.108", // Raider 18 HX AI A2XWJG (MS-1824)
+ 	"182LIMS1.108", // Vector A18 HX A9WHG
+ 	"182LIMS1.111", // MSI Raider A18 HX A9WJG / Vector A18 HX A9WHG
 -- 
-2.43.0
+2.56.0
 
