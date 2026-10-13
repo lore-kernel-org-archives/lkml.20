@@ -1,135 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D381051CF74;
-	Tue, 13 Oct 2026 16:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910364; cv=none; b=EcXOSB92cctJcY+d+uiqfCHNa7UwK5wMa43/SDfPyHa06iIJ4nsbJyOH1o0iYeuhZMIZfbR4VsQJAUK7t8O/AVmYBT46OIM61UzxDjWwE5il23j87Y5zCNFBWMfx4z+303Mq44S8SRiLWsmrkF8kD2EJeZMB9SfEgYO66YHpWVw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910364; c=relaxed/simple;
-	bh=EjjAyjBU3ZHFg4z47azZ/Od4tQNOANc9AyJ546IQj+E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ie/gYNHLjuYs1P+HC0fPYLliHFBEBlUnx+iKJ0TednAVyjvq23pTPB+qmtupHyYmexWh4kg7DeipOqXYnM2JE/nxzbo6JcBaPt9vBhIbU+qR8DC3nqchxipj7QosTDTY+aI4edDPhFIqLFIo1Dm/6aVeDv/nuJTzKfT1TX+U758=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MRPfkvSg; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F083D5111B2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791910392; cv=pass; b=m94oY7dY5Lpam09VU58toc3JT+e2e89DIswaB+uAzul3nKnSFcHnGuFfDtjBVj0DyBGFl7OXRCSRJ/NhLF+eaMQj40d3MdmPnq4XTH/7NoSjC2UX/DjE2eBO/kqQo5J73zrK8xcw77JDsSGa635UYZ3ijPl0ODl5aLgr4xS82XI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791910392; c=relaxed/simple;
+	bh=JrJT9Fgnmvwrgo0CzZ/f/D0Ld7fALESGF4KCHoPjT5s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S4epbOXNqcKm2Kc8qNMQ7yZbPvQC4S/QjrQygeSD5dGHbXI+Gev0l/UCaw5btyB8k1vuwBtnK/5bADmFCuLukTdt6FNUkSdYK3XmoAiQwQWSDxvZISvUqw2GsCbMwa/g+TyPWow1f7k/zQ9a2s/TiJsaXZwhZwi5U3141lUIE1c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YeDYNpe7; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MRPfkvSg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146A91F000FF;
-	Tue, 13 Oct 2026 16:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791910362;
-	bh=EjjAyjBU3ZHFg4z47azZ/Od4tQNOANc9AyJ546IQj+E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MRPfkvSgsYreau+FlHK4l6TZdXeSqfxnlgeH9mTyZ9Tdhh/jUk7nIuHdL5nWMD6dL
-	 xIKpbWEVPRTEGIOLFJDOlY13m9j7GcE4j74wOihgmaYupV5Bf4NgDk+6185bis5igm
-	 ddUoR6y297V6TZBDvPVXDjCSrdyKGjpPDMXjeMTzmKcMEHSQJZQXG8TMV0VL98K3cL
-	 iRzm+WGF1GOuTevubpBPove9gRDCwSDOXlgCCX9vHR8m6RBQZICTlmgTMVKlHk5dsW
-	 mdrSrGflAyn1USuBrRaCGDmxPgvwe/wZX6mew2neQm9cIuAD+cEprS4j4kLiykr3iN
-	 6FQLVdx7Jrx6w==
-Date: Tue, 13 Oct 2026 17:52:36 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 00/11] Cortina Systems CS75xx: interrupt controller,
- GPIO, I2C and TWD watchdog
-Message-ID: <20261013-plastic-dragging-8232efb058ef@spud>
-References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
- <20261012-dreamlike-hazily-19bb60326f0a@spud>
- <179187542217.3247897.4323160442877168450@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YeDYNpe7"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c169ae1cb26so941061466b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:53:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791910389; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GGByV7se5CRYsV0YBScssUPs79s8qBXM9pA+9t+iQRkVGnOy+FnOFpXWkbCw4KD1wO
+         XvpBTGEKJAB97agO42hJ8g5fjerKj4//2a9zrWZnoOjA7l+sUmQSRh/crvRLQ937c2w7
+         T6Xqi8EtQNlu0O1PTj8AStlN5w2o9ZVJLA/W913S45x1Jh6sTGx1s1+OMzLgI0doYckV
+         gqJV68rf33nUxIyQV72iU+e0P32JmU2B4Mr1LiPdCGlVtLztfN6tZcUeuUQ/v+fuyu07
+         C3I5aRfbCTE2h4uMrzipBzdpicbz6d1wzYp7qZ2+tlQd+sdqI0LA4haGEQY3AQpESsgF
+         /U7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=eKdFq7FTWoKcwpLBOZb0enqci1lvBsV6aNybCVS6wMQ=;
+        fh=rD7rNwIigt+psvWwOG82jnqnLV5s4/MKGtCO/BFCN7g=;
+        b=J6A3XeAfSnpWK49LKzDzCDss+MWW5BlfiL6laLIx1U2cjDJRBbT1qMfNknzmytua3R
+         IqgdA1mBWFGbUIbQEAsJdnIkwCTCLt3kuPXRJc9Ao2obKOuB/WcWH0vbqv8kiE0qhEex
+         t4MKhaBUBu9GQ49NnU4hggbm4ORL24CwnG87fN8JTmsTDBjX8PCRGahhEodL/kjuTcKV
+         UxYboo25NXIONxgiKP7Zoq/EUTwuOYVe4mYLK3sRK0mfbzaCmlz+Ategv1YWIfy2+1kE
+         bcqzmEDwPs2mICxSCDj0srdJLsfSptSpY9dBEuNsk3fEJact5Ao8DqKB3dK6KZMGQ6GH
+         Cnjg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791910389; x=1792515189; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eKdFq7FTWoKcwpLBOZb0enqci1lvBsV6aNybCVS6wMQ=;
+        b=YeDYNpe7v3z3Ki2fIN0PsXwtIq7uAO5IvR6OIVHDktGc/fs78gCq+b4NXYBFfMk13i
+         0nc06iQzHZY4lkK1f14poshO+pRJ5N7E9Z/MhX3SNWBDFYeHav28qshTfadYeoXuCBvl
+         QyJvbkjwSIWWo9XUqMawTEasIp448vURtH/eyLHjKvTqfTDkXBIH5Msf1MgAmS5DcP0x
+         3pJ1tFK1p8hRU8gosYfT9+54WhoDJRHSsISZ2Ol19Pimos9urGbUG4oZH65jpJrLXj0o
+         mQ9e5a4D8G4b+I+Ck2cOQ6t7VeRVJIKp2CNqxD6kgo3mEeeJhS7SC/8GEF44hlBrDciP
+         y5fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791910389; x=1792515189;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eKdFq7FTWoKcwpLBOZb0enqci1lvBsV6aNybCVS6wMQ=;
+        b=NNHIeAIKI8ZKtUIlW/oOn6xOMV2j9vcrP1EG2ZcJDXHmHPJF1t4XTviRBqlYDnEEWc
+         91vhdz83NmQjZWBmRZl5cUXkhsMVeEpZQkDwuMGqANsseV/oNOnI6VVea2jOLbaMS8WH
+         uak+qB4UwQw3YAtL6RsBIAjR09gNaGAvlCwcwxlDJSBUgDeSk7sRB7VtfR6+xemT+D2k
+         jmUD5p7ZY54mysSejASHay9xNu0U/HozJNbPfI8+0ifU1lc5lNg+UOj66nUQfMwXI3cV
+         yqd2vcczi/nLDwUrEk5iRp0P6Me3ZgH90H8vvcqEmBXkbZZEUAXm89bjSWqPWe+ICnyl
+         YQMA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1jx4t78WbKdtO2VqywgU1GLEg0tcKLGFLRQG1FHrnhKiC+zZP2LANdZiynPoMnXcXm6XqqWKWUngajl0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcMdmauNFRXoIQ7AVSy95WtoK/hl6AUgzmp7EbGefLGiRLxSpG
+	y3iMq2OFvnCU7r73JMBOrHDb/GsmcJjFQk63x+uf61g3A8o4/Xf4hiIuYp7ziDmt5zvHKmTaKSm
+	faP0n2vRsnRvuFA3cMrwC5cNJwLeBG29bI1KjZdXv9w==
+X-Gm-Gg: AYBFou2cQbYT9EdKTrnThtWLt4UyvLwrSe9DKZ/loJPjcYrCMSviTaBRatu8FZGrj16
+	gP8ljOUeZ2jNzQxIUpDCOcNXsu/hTF5L3RKcEpIY3EcoJ6MugGec8xDkPvDVrHhXfgwzQubQ1j2
+	iz4021xATj8UC4jyVoLVIBOOYFbdjXznEw+lSYk/4iCyuXNkiw73RmDAwwhUzpb7KqjGXc6FxkW
+	DAAH4hHjTQnmRK//ahrdC7CS9BB3ti6FULSP5FRYmjJ8Ekut1vxxtN+eu7P3zsQvTKZCzr5s5fe
+	xGopPXlrdrPNjpvEDGSr2OXIMnp3LMUQsmZbHcxUFUQpj9JyEAh6GBO5Fa3ZZq0tjB+k4YOIikm
+	n3BpInF473GY=
+X-Received: by 2002:a17:907:6d19:b0:c31:6a37:f281 with SMTP id
+ a640c23a62f3a-c31a9a28baemr1333413366b.2.1791910389011; Tue, 13 Oct 2026
+ 09:53:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9WsB/PUlVzPaxjR8"
-Content-Disposition: inline
-In-Reply-To: <179187542217.3247897.4323160442877168450@gmail.com>
+References: <20260929084923.092062266@infradead.org> <20260929085319.981147568@infradead.org>
+In-Reply-To: <20260929085319.981147568@infradead.org>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Tue, 13 Oct 2026 18:52:57 +0200
+X-Gm-Features: AclHuK_j52oCqxWIVQLwZaDxmqeroBLI3b8LPJrkpHGdgnA4XLuXB4pbSKlQ3fU
+Message-ID: <CAKfTPtCB3rb_LjQtem9USR=Fsk+uGnX6j40=uAdJ2ex=8BT5Gg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] sched: Rename/clarify sched_class::task_tick(.queued)
+ argument
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@kernel.org, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, tj@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
---9WsB/PUlVzPaxjR8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, 29 Sept 2026 at 10:55, Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> For some reason the sched_class::task_tick() argument that indicates it being
+> an hrtick, is called @queued. I'm sure naming is hard and all, but lets fix
+> this.
+>
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-On Tue, Oct 13, 2026 at 10:10:22AM +0300, Fil Dunsky wrote:
-> Hi Conor,
->=20
-> Sorry for the late reply, and for sending v2 and v3 without addressing
-> this - I missed your mail.
->=20
-> On Mon, Oct 12, 2026 at 07:48:00PM +0100, Conor Dooley wrote:
-> > I think what's here looks really suspect - regions of two registers
-> > wide, interlaced between devices etc.
-> > You mention syscons here, and really that's where I think that this
-> > should go. The region at 0xf007_0000 looks exactly like a syscon to me
-> > and should be modelled as one.
->=20
-> Understood. The block at 0xf007_0000 is the "peripheral" register block
-> of the vendor kernel: the interrupt status/enable pairs, the UARTs, GPIO
-> banks, the I2C (BIW), SPI, MDIO and timer registers are all packed into
-> it. Would you be fine with a "cortina,cs7542-peripheral", "syscon",
-> "simple-mfd" node covering it, with the interrupt controller as a child
-> node without its own reg that gets a regmap from the parent? The UART,
-> GPIO and I2C nodes would stay separate devices with their own reg, as
-> you suggest below.
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
 
-If things are just tightly packed, that's fine and you don't need to
-make it a syscon. Just because something looks suspect doesn't mean that
-it is actually wrong.
-
-In your shoes, I think what I would do is leave i2c/interrupt
-controller/gpios etc all as independent nodes.
-
-I would however model the pinctrl as a single node, with
-reg =3D <0xf000001c 0x14>
-I think, rather than 5 instances 0x4 wide.
-
->=20
-> > I think it's fine to make a GPIO controller at this point, and leave
-> > pinctrl to later, but I don't think that it is acceptable to pretend
-> > that the mux registers are part of the GPIO controller. The pinctrl-less
-> > GPIO controller would have to either rely on something else (e.g.
-> > firmware) setting the mux registers or be not entirely functional until
-> > the pinctrl arrives
->=20
-> Agreed. The next version drops the mux register from the GPIO binding
-> and driver and relies on the boot loader's pin mux. A line that the
-> boot loader leaves muxed to a peripheral then stays unusable as a GPIO
-> until the pin controller exists; I will check which of the Almond+
-> lines (reset button, touchscreen interrupt) that affects before
-> sending, and leave those out of the dts if needed.
->=20
-> I will not send it before the interrupt controller question is settled,
-> and not before 48 hours have passed in any case.
-
-My take would probably be not sending new versions until at least 48h
-has passed since the last reply on the current version, rather than 48h
-or w/e from time of posting. Of course, exceptions apply, and you can
-use common sense to guide you.
-
---9WsB/PUlVzPaxjR8
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5h1AAKCRB4tDGHoIJi
-0udqAP0WM0sBTq4yEA+F6vKgUmE8ocwVivM3NUIF83HuZso3pgEAivB/61eJBing
-IjaFuZ7tEIoxs6shBuwSTj5im/+qbQk=
-=Hfgz
------END PGP SIGNATURE-----
-
---9WsB/PUlVzPaxjR8--
+> ---
+>  kernel/sched/deadline.c |    4 ++--
+>  kernel/sched/ext/ext.c  |    2 +-
+>  kernel/sched/fair.c     |   12 ++++++------
+>  kernel/sched/idle.c     |    2 +-
+>  kernel/sched/rt.c       |    2 +-
+>  kernel/sched/sched.h    |    2 +-
+>  6 files changed, 12 insertions(+), 12 deletions(-)
+>
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -2879,7 +2879,7 @@ static void put_prev_task_dl(struct rq *
+>   * and everything must be accessed through the @rq and @curr passed in
+>   * parameters.
+>   */
+> -static void task_tick_dl(struct rq *rq, struct task_struct *p, int queued)
+> +static void task_tick_dl(struct rq *rq, struct task_struct *p, int hrtick)
+>  {
+>         update_curr_dl(rq);
+>
+> @@ -2889,7 +2889,7 @@ static void task_tick_dl(struct rq *rq,
+>          * not being the leftmost task anymore. In that case NEED_RESCHED will
+>          * be set and schedule() will start a new hrtick for the next task.
+>          */
+> -       if (hrtick_enabled_dl(rq) && queued && p->dl.runtime > 0 &&
+> +       if (hrtick_enabled_dl(rq) && hrtick && p->dl.runtime > 0 &&
+>             is_leftmost(&p->dl, &rq->dl))
+>                 start_hrtick_dl(rq, &p->dl);
+>  }
+> --- a/kernel/sched/ext/ext.c
+> +++ b/kernel/sched/ext/ext.c
+> @@ -3809,7 +3809,7 @@ void scx_tick(struct rq *rq)
+>         update_other_load_avgs(rq);
+>  }
+>
+> -static void task_tick_scx(struct rq *rq, struct task_struct *curr, int queued)
+> +static void task_tick_scx(struct rq *rq, struct task_struct *curr, int hrtick)
+>  {
+>         struct scx_sched *sch = scx_task_sched(curr);
+>
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -6772,7 +6772,7 @@ static void put_prev_entity(struct cfs_r
+>  }
+>
+>  static void
+> -entity_tick(struct cfs_rq *cfs_rq, struct sched_entity *curr, int queued)
+> +entity_tick(struct cfs_rq *cfs_rq, struct sched_entity *curr, int hrtick)
+>  {
+>         /*
+>          * Update run-time statistics of the 'current'.
+> @@ -6787,10 +6787,10 @@ entity_tick(struct cfs_rq *cfs_rq, struc
+>
+>  #ifdef CONFIG_SCHED_HRTICK
+>         /*
+> -        * queued ticks are scheduled to match the slice, so don't bother
+> +        * hrticks are scheduled to match the slice, so don't bother
+>          * validating it and just reschedule.
+>          */
+> -       if (queued) {
+> +       if (hrtick) {
+>                 resched_curr(rq_of(cfs_rq));
+>                 return;
+>         }
+> @@ -15309,7 +15309,7 @@ static inline void task_tick_core(struct
+>   * and everything must be accessed through the @rq and @curr passed in
+>   * parameters.
+>   */
+> -static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
+> +static void task_tick_fair(struct rq *rq, struct task_struct *curr, int hrtick)
+>  {
+>         struct sched_entity *se = &curr->se;
+>
+> @@ -15319,7 +15319,7 @@ static void task_tick_fair(struct rq *rq
+>
+>                 for_each_sched_entity(se) {
+>                         cfs_rq = cfs_rq_of(se);
+> -                       entity_tick(cfs_rq, se, queued);
+> +                       entity_tick(cfs_rq, se, hrtick);
+>
+>                         weight = __calc_prop_weight(cfs_rq, se, weight);
+>                 }
+> @@ -15328,7 +15328,7 @@ static void task_tick_fair(struct rq *rq
+>                 reweight_eevdf(cfs_rq, se, weight, se->on_rq);
+>         }
+>
+> -       if (queued)
+> +       if (hrtick)
+>                 return;
+>
+>         if (static_branch_unlikely(&sched_numa_balancing))
+> --- a/kernel/sched/idle.c
+> +++ b/kernel/sched/idle.c
+> @@ -538,7 +538,7 @@ dequeue_task_idle(struct rq *rq, struct
+>   * and everything must be accessed through the @rq and @curr passed in
+>   * parameters.
+>   */
+> -static void task_tick_idle(struct rq *rq, struct task_struct *curr, int queued)
+> +static void task_tick_idle(struct rq *rq, struct task_struct *curr, int hrtick)
+>  {
+>         update_curr_idle(rq);
+>  }
+> --- a/kernel/sched/rt.c
+> +++ b/kernel/sched/rt.c
+> @@ -2541,7 +2541,7 @@ static inline void watchdog(struct rq *r
+>   * and everything must be accessed through the @rq and @curr passed in
+>   * parameters.
+>   */
+> -static void task_tick_rt(struct rq *rq, struct task_struct *p, int queued)
+> +static void task_tick_rt(struct rq *rq, struct task_struct *p, int hrtick)
+>  {
+>         struct sched_rt_entity *rt_se = &p->rt;
+>
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -2737,7 +2737,7 @@ struct sched_class {
+>          * sched_tick: rq->lock
+>          * sched_tick_remote: rq->lock
+>          */
+> -       void (*task_tick)(struct rq *rq, struct task_struct *p, int queued);
+> +       void (*task_tick)(struct rq *rq, struct task_struct *p, int hrtick);
+>         /*
+>          * sched_cgroup_fork: p->pi_lock
+>          */
+>
+>
