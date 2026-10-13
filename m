@@ -1,112 +1,120 @@
-Received: from mailout2.hostsharing.net (mailout2.hostsharing.net [83.223.78.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E8C4E9C3D;
-	Tue, 13 Oct 2026 11:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.223.78.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2D34EA37B;
+	Tue, 13 Oct 2026 11:16:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890143; cv=none; b=O1amOpnt7udyHgmrqoz5rIcwSmyiMjdZ6hxXWykcqHtZGXvmL8NDJbd6oCKkAP9Ma38Q0JKTia4bhwbZyfzQD9Y1zXWyMbRfVOl/jRV4kwHb0oPKQ1SREdT+0jtDJFO0A0xBSfFGrjTACJqWgDjH4azd6H8P34HS6QuV9ZczAMQ=
+	t=1791890173; cv=none; b=TPgv7VQoDXu6o2z2pJXvTTr06ekv14/apuiKlWkcZZmVW2ZzYKySRmcVDiw/MbLdITUHb82SqSKkoaVVmSR4587vm8UKBBRrzvx548qNoCIyC1YGpOr/t0KaGUcHZhU+K93Fh5d65aqkG7fn7o0lyRjXbdDBlAkbnmNypgW39Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890143; c=relaxed/simple;
-	bh=8bS7YvNLYVdkXjgAtzxO0/0ag92VJHNK5hZSq/pHnFg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tKnilp04ZxE29ZFNckeEhKOIJ0HqIgpUBjGZKQ8x7KofgU1lzvIU2od4vJlS0czvzpMTYw7qZ6aSGdoIvQ06x0gqtrrKz+GCEBpS0EvZ99pD/Y2/rhHV4sc+ADeR5DIqhoiZ94UoLVx4j9w9/kJNINLUvvamI5Gl+ksNoNHLYls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=83.223.78.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout2.hostsharing.net (Postfix) with ESMTPS id 3ECB578C4;
-	Tue, 13 Oct 2026 13:15:36 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id 207086106ED7; Tue, 13 Oct 2026 13:15:36 +0200 (CEST)
-Date: Tue, 13 Oct 2026 13:15:36 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
-	Mark Brown <broonie@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Priyank Rathod <rathodpriyank@google.com>
-Subject: Re: linux-next: manual merge of the pci tree with the pci-current
- tree
-Message-ID: <as4S2GFTRLLuwAXS@wunner.de>
-References: <aslAEm5Qsgp-9xD9@sirena.co.uk>
- <CAMuHMdVRP2RaDvX1-usBjiYUW0sCaCccd64a=rAH-LubYMkTyg@mail.gmail.com>
+	s=arc-20240116; t=1791890173; c=relaxed/simple;
+	bh=Nh2S46mF39E1MI11GQxHRN4q+cch/BXqPz79oz31IFc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jsG4uSyZzAcUZx7Rz2sJtV54/3UG9vfi3VjfP2jPCn1ATmBpGmWTtGPnH4Sm41GdzhQwUmFB1rnBnz2T4dib2xCl4v7r6fFg0VrE1ZDCcf2cSjvnjrMBnXS2sHmgaiz3vHt7m8sFQnmCKjWl9ZMRWG03Q+BGB0NBIivjrJFgMAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V1uIN3ay; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V1uIN3ay"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45EFE1F000FF;
+	Tue, 13 Oct 2026 11:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791890172;
+	bh=k0zH0Wnlh/sO6ZQbr+1OS83JkdmxfQFaqrYbJIXwek0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=V1uIN3ayhOIYE1p9Qg95iKfyIODI2N3VGPlSnAjihXP1edyiVdww2p4n/LmCPoACD
+	 Kg+IRNwuy7PogVLswRSIHLmP++sV5vEmijTIYulBJ4oiOCPFV/cBg7LCzNk1QaZ615
+	 E7EBOu/ZPpGOG2eYCxMIH3sOYXSyhU9Egwwut3ZOLZooI7jRzReaywth3YT1oewH25
+	 9vzRzWpjRFfvUiA6L7MnKdNqSC1X36Dw12SFxF4X6tz7NKtQCBE+/aiQHW8vdwdAZE
+	 9pRS0pnX88hjYCfRvEU/rCRYna2j9U3a94QjiXWqnNnzj2Mqn2gkwYUDzFo8IXqPu5
+	 vI+jN2wDm+ruQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xGaUL-00000002KbM-3wmH;
+	Tue, 13 Oct 2026 11:16:10 +0000
+Date: Tue, 13 Oct 2026 12:16:09 +0100
+Message-ID: <86v77526me.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and DISCARD
+In-Reply-To: <CA+EHjTztZpFrmuz9pK+01BsDxHnzpEwUMt6E3nUrgk4NNTsKYQ@mail.gmail.com>
+References: <20261013081646.933312-1-fuad.tabba@linux.dev>
+	<as3_NKT20MNdqaJR@kernel.org>
+	<86wlrl2a2f.wl-maz@kernel.org>
+	<CA+EHjTztZpFrmuz9pK+01BsDxHnzpEwUMt6E3nUrgk4NNTsKYQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdVRP2RaDvX1-usBjiYUW0sCaCccd64a=rAH-LubYMkTyg@mail.gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, andre.przywara@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, Oct 13, 2026 at 09:55:54AM +0200, Geert Uytterhoeven wrote:
-> On Fri, 9 Oct 2026 at 21:36, Mark Brown <broonie@kernel.org> wrote:
-> > Today's linux-next merge of the pci tree got a conflict in:
-> >
-> >   drivers/pci/pcie/aer.c
-> >
-> > between commit:
-> >
-> >   79c168e2aa957 ("PCI/AER: Skip error recovery on false alarms")
-> >
-> > from the pci-current tree and commit:
-> >
-> >   d4c842c3af5bc ("PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is missing")
-> >
-> > from the pci tree.
-> >
-> > I fixed it up (see below) and can carry the fix as necessary. This
-> > is now fixed as far as linux-next is concerned, but any non trivial
-> > conflicts should be mentioned to your upstream maintainer when your tree
-> > is submitted for merging.  You may also want to consider cooperating
-> > with the maintainer of the conflicting tree to minimise any particularly
-> > complex conflicts.
-> >
-> > diff --cc drivers/pci/pcie/aer.c
-> > index 922a726a52a50,c376c3adbefd2..0000000000000
-> > --- a/drivers/pci/pcie/aer.c
-> > +++ b/drivers/pci/pcie/aer.c
-> > @@@ -1393,15 -1383,15 +1391,21 @@@
-> >                 ghes_estatus_pool_region_free((unsigned long)entry.regs,
-> >                                             sizeof(struct aer_capability_regs));
+On Tue, 13 Oct 2026 11:50:09 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
 > 
-> While your resolution looks correct to me, it can be shortened
-> by inserting
+> Hi Marc,
 > 
->     if (!pdev)
->             continue;
+> On Tue, 13 Oct 2026 11:01:44 +0100, Marc Zyngier <maz@kernel.org> wrote:
+> [...]
+> > Yeah, I now have a series that has the counting pause, your single
+> > vcpu pause (fixed to DTRT), and the LPI disabling fix. Patch #2 of
+> > this series can probably make use of the single-vcpu stunning.
 > 
-> here, avoiding the need for breaking long lines.
+> I'll rebase the series on that once it's out, with patch 2 using the
+> single-vcpu stunning.
+> 
+> > As for the OUTSIDE_GUEST discussion, I've had a long discussion with
+> > Will where we reversed engineered the synchronisation requirements,
+> > and concluded that there was nothing to fix on that front (the logic
+> > is incredibly subtle and counter-intuitive, but overall sound). This
+> > patch is therefore dropped.
+> 
+> The first [High] issue Sashiko found on patch 2 [1] holds for DISCARD,
+> because the fold writes back the pending_latch that DISCARD clears.
+> With a 2ms delay after the exit to widen the window, and the DISCARD
+> sent at a varying time, the guest in my DISCARD reproducer takes the
+> discarded LPI in 13 of 20 runs on v2.
+> 
+> A vCPU on its way into the guest does the same: it loads its LRs in
+> kvm_vgic_flush_hwstate() while it's still OUTSIDE_GUEST_MODE, so
+> kvm_arm_halt_guest() doesn't wait for it. With the delay after the
+> flush instead, on v2 plus your 1/7 and 2/7 [2] and both changes from
+> your reply to 1/7 [3], the guest takes it in 9 of 20 runs.
 
-Actually the resolution I would have preferred is:
+Does this mean we still need OUTSIDE_GUEST_MODE to be a store-release
+past the point where we resync the state?
 
-		if (pdev && err) {
-			if (entry.severity == AER_NONFATAL)
-				pcie_do_recovery(pdev, pci_channel_io_normal,
-						aer_root_reset);
-			else if (entry.severity == AER_FATAL)
-				pcie_do_recovery(pdev, pci_channel_io_frozen,
-						aer_root_reset);
-		}
-		pci_dev_put(pdev);
+> Once DISCARD waits for irq->on_lr to clear before clearing
+> pending_latch, the guest takes it in none of 20 runs in either case.
+> I'll add that to v3, unless the single-vcpu stunning already waits for
+> it.
 
-I.e. change the if-condition to "if (pdev && err)" and keep the
-pci_dev_put(pdev) outside the if-clause.
-
-This was documented in my patch submission:
-
-https://lore.kernel.org/r/0552ed277e40a288e0157af799257ee6ec722534.1791460615.git.lukas@wunner.de/
+Polling for on_lr feels very dodgy, and I'd like to avoid this. If the
+OUTSIDE_GUEST release addresses it, I'd rather do that.
 
 Thanks,
 
-Lukas
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
