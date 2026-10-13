@@ -1,188 +1,161 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BDE1A0B0E;
-	Tue, 13 Oct 2026 13:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896871; cv=none; b=CTEJOToc/0AOpCb6lFdghpMyW0LV4qfoGn8SNak31dnA5zIQRtfloArwM+p9tHqbmOoORmNnJyScZc+mwlmtEP2XFpDRTbkbORSmqD83Qj6AvDV13LFSQGGc+wC76J34ZgFHesga3v11ULSxR3xOwdd3edfPE10s/ihCNdI5t7Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896871; c=relaxed/simple;
-	bh=ove0/nJXFIcTyLu4qLUQBXb/WzrHy+edswF6NwYK26Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jMXXIuWNoiocVLyLAzvD6ELDcb91YoeJy7J5CoTWqSyf0K58BeINr4qYxYP5lmxxVN0SzAsdtZC6sz8uIEck/verMeI9fkuHoyQBHD3v5Gm7VhGQFF7/WHj/2rOOChKjGswu74FKLXL/7VSP6cGONHZAJrXTxqUIqoApOEG9JyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=kxzy/1OP; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=4VEQhFWf; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=kxzy/1OP; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=4VEQhFWf; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBF12C11DF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791896876; cv=pass; b=HAHAkCB6T4gpG34wl+OKxKYIyaKvpvHQfiLGJrUN75fXmLyycZm3+B/hFPwp2sB0UqsOF6FwkYV7TUUadSUAknTRJqdvwWtbFulIceML7lJ2LaO9tN37+cUs/fuckq7sR/fqz9YF89xRGo0uifqyS8rdyV42VraoyAGJTNMf+OE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791896876; c=relaxed/simple;
+	bh=xawj7LPCwbMgqnWjYqRMdtxCMjGeDH8k0aCK3wtjkY0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=owrSYqQmTTkTsi2yO5X2yDE+LTxc1XRfIZMqDNQXO5SEmuqbb5nD1G+slJjSM4IeRQefE7n8AQSxtQo4uMQcZ2dJUaw+NajQdhsYepUDvT+JeIchWyxyv/ad0qRPF2eUgB2C+pDTwzEGdJpxmzgcM5hQqZ8RVVFnHRTwD3P6HTs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b1zniEmF; arc=pass smtp.client-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="kxzy/1OP";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="4VEQhFWf";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="kxzy/1OP";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="4VEQhFWf"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5D6981F443;
-	Tue, 13 Oct 2026 13:07:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791896868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4knovqdvVC+Nqda8FHrje2s3FsDBoKFv+b9WLy512J8=;
-	b=kxzy/1OPuD98qwnboQgb4RvgSXDtrK11AcbKYggM3YmnxutyYoZUaN903OSKTf7qM3Vn61
-	NGzkePD6lm7/ykaWYAJBqM6BP0/t50gtpZt00G+UVqtgtUA4mspATTy4xWK07x5xK6FbHb
-	16rNSPp6am+v4rDzFkkfJjzN0hlMJsA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791896868;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4knovqdvVC+Nqda8FHrje2s3FsDBoKFv+b9WLy512J8=;
-	b=4VEQhFWfgic286H/Dcalu5YN1VAhd0Is6UpgVmZhYtiHfqdxZ/zFZpm1jMydX1ysibSXpb
-	hqj1a8BKwdUSfGCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791896868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4knovqdvVC+Nqda8FHrje2s3FsDBoKFv+b9WLy512J8=;
-	b=kxzy/1OPuD98qwnboQgb4RvgSXDtrK11AcbKYggM3YmnxutyYoZUaN903OSKTf7qM3Vn61
-	NGzkePD6lm7/ykaWYAJBqM6BP0/t50gtpZt00G+UVqtgtUA4mspATTy4xWK07x5xK6FbHb
-	16rNSPp6am+v4rDzFkkfJjzN0hlMJsA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791896868;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4knovqdvVC+Nqda8FHrje2s3FsDBoKFv+b9WLy512J8=;
-	b=4VEQhFWfgic286H/Dcalu5YN1VAhd0Is6UpgVmZhYtiHfqdxZ/zFZpm1jMydX1ysibSXpb
-	hqj1a8BKwdUSfGCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 34C06134B8;
-	Tue, 13 Oct 2026 13:07:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id loOMBCQtzmq+WwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 13 Oct 2026 13:07:48 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id B760FA1407; Tue, 13 Oct 2026 15:07:43 +0200 (CEST)
-Date: Tue, 13 Oct 2026 15:07:43 +0200
-From: Jan Kara <jack@suse.cz>
-To: yangguikun <yangguikun19@qq.com>
-Cc: linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>, 
-	Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org
-Subject: Re: [Bug report] ext4: mount-time orphan recovery silently truncates
- a LIVE file (crafted s_last_orphan; only log line is the routine "1 truncate
- cleaned up")
-Message-ID: <ipfpx7fmpmare3lyl52har6up6lqpi7irziiqwiflra5nigy7i@4lhj4asb76hh>
-References: <tencent_30C554296ACA4722AA33D5E81B7C24CF6905@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b1zniEmF"
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4a6bb779d13so646848fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:07:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791896874; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fkYG9fnfdBXIKOC7ILtG1RLb8qmofkbfOLI8nLGSsw5Js5COgmJ7sQh1HuJsovjErl
+         3KfcN9nOP2b+1fahQYXTcMW4XZMUF3o2h2QMXRTsjxxXgLeEh7h1RNnPk5LhU0dsXoLh
+         9LpU04cod6w/HBasDHhN+1l5kRXEHZB2hhqbkvsNyDEAUuzdoy72536GnzBE0ApLyxZB
+         vf9h7nVMICSXGn+OiK5YxfjWBAIQDJgJInsMRq1H9am5lUi6/GBts2xis354gLEoSFIO
+         zIokgdm41WfhVQa/0wY0+Lf4lxemIcRZuFtZE5EA9NavT3UfkIngsWdyxV/2ESFWRrM6
+         purA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Qheg1l+96cWqmrxCXMlwjyQaZbPfzvAfZfTwXsDXnnc=;
+        fh=HaX6fLNrHoEnXKXRiTZYK9Ou+u5dEGTU3efmYvo6A3o=;
+        b=NqCdkOBA+9ME+58FVaP9qRleJJxkXIN7BuC6R8s3Rp9b9fPKP43V8Swt4lSvu2vmIT
+         yxOECV3TUyBl1MJlUs/G7u19zSj2wmEetZgEl4KC94cH3AeM9uqQ3QeBTKWaApePLa9T
+         H1rZbigk7SW87Vhk6LIwQoiyvS3NgRBabWY0ptoEal82lseSU2ijGstNMPvGUw0SDyc6
+         lViRBaL/WZhQTmAoCtEnQV+0aN6z5p9pmaRlZyyqcSdeo2ICVwS+SLLeh6uqtaT9ZTsj
+         TG+zRMZKP2+QlLWtkLDxhgOPZ/uqswUCnd151zCUWfewYfpAYUIxOmRFeAoOur5yo9/T
+         LKWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791896874; x=1792501674; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qheg1l+96cWqmrxCXMlwjyQaZbPfzvAfZfTwXsDXnnc=;
+        b=b1zniEmFdl/6RdrAfnf0sSH89U2wUtZZ4vYOhjdp1cijiEIq/cixfWYcuN0onyIL9D
+         lvTqNOWE29E3xTwtmjnUcZkZICNiXGJtuWJ/6+g+CJpRgLYcza/uIsySfqife+D6SYN1
+         vKkoKlHhbAOW6AULkTyjsuEvfFbPETwcc8IaMzUiwVVaiaHoNFKl8x77oOaTumLGJz/2
+         CyYn3ZzabvWisGjIGI2g23a5PiA/SyVnn86wpEFRAHDPiD2Pq8oZTfMdCiYkp2CvjV5I
+         jhMmDYebvVQ6iULzVTW0gqsk83muR1KDoU13gmBNch0ayJWTRuAH7OrtIJuwlxXSDEPn
+         Oj3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791896874; x=1792501674;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Qheg1l+96cWqmrxCXMlwjyQaZbPfzvAfZfTwXsDXnnc=;
+        b=wICo3MLA8nGguVxEjU6GaxY6hVxwSPefXES2hTW2z8pKB3h1dZFmoLTNdFHLid2RNs
+         gQR3OasPeJ5hQoWR9Xz3FhNlZLahoP7m2PQrrFrlfvyEdHkVtVSxsNL6efdG37Pe1zh+
+         tYsUHs39x15cK53fg8tH8KpNqo+cWjRXVg2tkNhElrmOFBhuV2Yjf8Jsv9n+8T2IVKc9
+         o6shGT1jYZKSS8O0yBlVnXZdvj8E31pZZ4FwUXHhNUdboSRmoWst9H8eeHVoQ1aTkloI
+         buRMu5zBVQfG+Fy4JImTTKnjjqTfPc7SBpbb7I+tUHyQ8zKKJ3bMVAjgGU/XtG6zzZmJ
+         1RVg==
+X-Forwarded-Encrypted: i=1; AKwUvByTkfNUBF79Uovi8fqpvTl6ipjhNU4KXGioz8O6cwUf/5OnsTk/aGC9gYN4qF/67aNyZg1a/5r90tyajew=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMg4BMhDgX3dQqpor3fUrStSe56q0g8HE9yVDtS1rUcs7Lyyug
+	xJhLG5f34MXRjKfJZ925SICJIJEayUxJAVLN4UMwyRR2BGY2Ao2byWwOLdqWyO2bM1Q6LiSuYij
+	c2UFQBzb3+N9m1+v1AqLAnebbyi3oA44=
+X-Gm-Gg: AYBFou3MOzvBDG4jxqVFOFdWocffmgkJewMC/AGqoOXTdCszJuFLRGxUHL/SIv/QhqC
+	j7SM5WDu5qzyUVXo5nsXeGAiOFq4j+gZY1u6nLpuvFtrfNwS+BsV9nCOPY4CoFJa+SELyalitsI
+	jyW74dypM4So2A4M4pLUQbU9ynJDGvPRsxwfePyZ+70zmOCaWNcntmaFRplwttl1dURJl+H2om7
+	ywhKZjipYu57JCJMg6NalOBOJbf3BSaGl34NpeglFz/VgS4SQqMxQiyIHYWqzF1qc3WIJJOlEID
+	R/9XJYEqOvtXEFAz9yyGoByaVEGetlp3rE32y6fPH7E12NOFZLLhwLNMfvqYLLqTSwoOOCByKkc
+	jQYtgVJdC7AJqKA==
+X-Received: by 2002:a05:6871:385c:b0:494:75ba:c6d2 with SMTP id
+ 586e51a60fabf-4a2a895588emr10792549fac.13.1791896874028; Tue, 13 Oct 2026
+ 06:07:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_30C554296ACA4722AA33D5E81B7C24CF6905@qq.com>
-X-Spam-Flag: NO
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[qq.com];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[qq.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+References: <20261012170857.199561-1-hjf3108@gmail.com> <64707239-eac7-4259-a8ff-7ec43d13860e@suse.de>
+ <CABOQOSXgG2kBzs2sBEE69mmPcO0cKVgjyk_6DG5RST_4uL2+sg@mail.gmail.com> <c9460a8d-3fdf-439f-9655-82b60617b85c@suse.de>
+In-Reply-To: <c9460a8d-3fdf-439f-9655-82b60617b85c@suse.de>
+From: Jie Feng <hjf3108@gmail.com>
+Date: Tue, 13 Oct 2026 21:07:18 +0800
+X-Gm-Features: AclHuK_BSShDGM_0lhA2qLrS0hd1Dfj-OXXVUtwJLUikUL0Nv1qjZuflxKv6ilA
+Message-ID: <CABOQOSUE17pQQYydLxCLHg1Jg90dwCEvMZYyo6TzYHMn9RAL2Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/format-helper: Add XRGB8888 to UYVY conversion
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi!
+On Tue, 13 Oct 2026 at 20:32, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+> Hi
+>
+> Am 13.10.26 um 14:17 schrieb Jie Feng:
+> > On Tue, 13 Oct 2026 at 15:11, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> >> Hi
+> >>
+> >> Am 12.10.26 um 19:08 schrieb Ho Jie Feng:
+> >>> Add a helper for devices that use packed UYVY but accept XRGB8888
+> >>> framebuffers.
+> >> Is there a description of UYVY available somewhere?
+> > This is for a reverse engineered usb display adapter, which accepts
+> > input in bytes of U, Y, V, Y in that order. I'm not sure what
+> > counts as a description, apart from it matching DRM_FORMAT_UYVY?
+>
+> I see. The format exists already in DRM.
+>
+> >
+> > This patch is meant to move this out of the driver:
+> > https://github.com/rhgndf/ms912x/blob/main/ms912x_transfer.c#L153
+> >
+> >>> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> >>> ---
+> >>> This is used for a driver, ms912x that I will be submitting. It only
+> >>> supports uyvy framebuffers.
+> >> Please resubmit as part of the driver series. We're not going to merge
+> >> it without callers anyway.
+> >> ...
+> >> For naming, please follow the conventions used by the other helpers in
+> >> this file.
+> > Will send the driver in with this patch and its fixes, thanks for the review.
+> >
+> >> ...
+> >>> +             v = drm_pixel_rgb2_to_v_bt601(r, g, b);
+> >>> +             u = drm_pixel_rgb2_to_u_bt601(r, g, b);
+> >>> +
+> >>> +             transfer_buffer[dst_offset++] = u;
+> >>> +             transfer_buffer[dst_offset++] = y1;
+> >>> +             transfer_buffer[dst_offset++] = v;
+> >>> +             transfer_buffer[dst_offset++] = y2;
+> >> Rather that writing bytes individually, use put_unaligned_le32() or a
+> >> similar helper.  Byte order within a pixel is little endian, although
+> >> I'm not sure what this means for UYVY.
+> > This is meant to be sent over a usb transfer, so byte order needs to be
+> > the same on both little and big endian systems.
+>
+> DRM formats always refer to little endian. As it is implemented now,
+> it's not clear what the endianess of your output is. Please duplicate
+> the other helpers' logic. They all pack the output with appropriate
+> helpers. If the USB device requires BE, you have to write a separate
+> conversion helper for that.
+>
+> BTW, you have an OOB access if the line width is not a multiple of 2.
+How should I handle this? Rounding it within the helper doesn't seem
+to make sense and the function return is a void, so it can't return -EINVAL.
 
-On Tue 13-10-26 19:51:51, yangguikun wrote:
-> During field-semantic corruption testing of ext4 images, we found that the
-> mount-time orphan recovery path truncates a fully-live, linked file when
-> four individually-plausible on-disk fields are made mutually inconsistent —
-> and the only kernel log line is the routine recovery message, making the
-> destruction indistinguishable from legitimate crash recovery. Deterministic
-> reproducer below (e2fsprogs + one mount; no syscalls needed after mount).
-> 
-> ## The corruption
-> 
-> Four coordinated edits on a stock 1MB ext4 (mke2fs -O ^has_journal,^metadata_csum,
-> three 8KB files; /file1 is a normal live file, nlink=1, has a dirent):
-> 
->     1. s_last_orphan (sb+0xE8) := /file1's inode number
->     2. /file1 i_dtime := 0
->     3. s_state: clear EXT4_VALID_FS
->     4. /file1 i_size := 4096   (real data: 8192)
-> 
-...
-> ## Why we think this is worth a look beyond "corrupt fs"
-> 
-> - The damage is cross-file and kernel-initiated: one superblock u32 selects
->   ANY inode on the filesystem for data destruction at mount, with zero
->   syscalls from the (unprivileged-after-mount) point of view.
-> - It is silent: the only log line ("N truncate cleaned up") is exactly what
->   legitimate recovery prints. An operator mounting a suspect image gets no
->   signal that a live file was destroyed.
-> - The comment's "Having the inode bit set should be a 100% indicator that
->   this is a valid orphan" holds only if the inode bitmap is trustworthy;
->   with a crafted image both the bitmap bit and the chain head are
->   attacker-chosen, and the no-nlink-check design decision becomes the
->   amplification point.
+Other helpers ignore the -ENOMEM error when drm_format_conv_state_reserve
+fails, so should it follow this convention?
 
-I'm sorry but all I can read here is: "When you corrupt a filesystem, you can
-silently loose data" which isn't really surprising and I don't really care
-much.
-
-> We appreciate the truncate-in-flight orphan use case that motivates
-> skipping the nlink check, so a full "must be unlinked" rule is not the
-> answer. Two directions that might be cheap enough:
-> 
->   a) warn loudly (ext4_warning with inode number and old/new size) whenever
->      orphan cleanup truncates an inode with i_nlink > 0 — turning the
->      silent destruction into an observable event, or
-
-No. Trucation of inode with i_nlink > 0 is a perfectly valid event so
-warning about it wrong.
-
->   b) recording the truncated inodes (e.g. rate-limited per-mount summary
->      "orphan cleanup truncated N linked inodes") so post-mount forensics
->      can distinguish this from normal recovery.
-
-But this is already reported. There's:
-
-	 ext4_msg(sb, KERN_INFO, "%d truncate%s cleaned up",
-                         nr_truncates, str_plural(nr_truncates));
-
-so I'm not sure what else you're asking for...
-
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Alternatively, drm_fb_xfrm can be exported, and let the driver define
+the rgb->yuv coefficients? But I think it is fine since _to_gray8 also
+cites BT.601.
