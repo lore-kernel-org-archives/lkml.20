@@ -1,93 +1,131 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF4552CCEB;
-	Tue, 13 Oct 2026 17:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E023252ED39
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:54:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914045; cv=none; b=lD4yUvEDM9AIdjm3Mqs78hK9eIEYGmQ2vVTyYddY2+yPwgRXYJmNsEIQztshUIOL5A0Zd5KT0mx8JjO6dD4k2CdtT40CMjr399KuuwZV0Ikik9m6R/nr+kLPM2Y9cybsPE+kL5cXg/cgzfPYYQ16F85SktGlSlRELSeQlMw5/04=
+	t=1791914054; cv=none; b=f9jl51Ac/oG4Z1U+/ePNhfeJfH4K5uq/MIhRhiOM0aQ/jbXKOs/ZRLi3V5+HQ+hSmYV9VHmlgfj2wxHq2wDR9RuBxcxGBZpXHvvHCOBSFTfCPqVQaKqBt+zPdSZuvG8HDHkMZjYMT/dfrqqxASuhPBaxnIb4mvgtSmy4Min9XpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914045; c=relaxed/simple;
-	bh=hp1dTw3hRxiZBvSzxIR3eaRSSMR6S7lRt7/KxcL7YmU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=UMQJkSxW7BYTfdk6GaaiDxU9w1vnnTdK3PtPQvySHxXgdK3z2WgIAf5CtgwwYCyOQOOBPJBPCFwDQaIQ3RDorzm8z3nMEilx78MFyW0I7COm8Z8iMdN7jADl4QwP+/k53RiikeoTmwfvPWJHaPOighGYfzUul/7SarsktK8isKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OWFaVuM9; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791914054; c=relaxed/simple;
+	bh=11qX/LtmkdxDOuJwBBNtWeyelgjadfvSuXYmsDuhOeg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sw2IJjwuPzDRUpCZzGxRQmiiAXW/4PPwqbSxfxHdZI4EDEDUXnq2OmC4FnRJGaWdO3i+asAVb4LCaMiB+i5CBNqu8KyaM9X31kmHpwXPdt+I3ekIu92oNoGGIZJNRkrR3FU2uAMLqCmuvKKGKnXrbqpct8jhZ5Ho8kNa/NWaTc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=LrqWlCuy; arc=none smtp.client-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OWFaVuM9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=hp1dTw3hRxiZBvSzxIR3eaRSSMR6S7lRt7/KxcL7YmU=; b=O
-	WFaVuM93IWPWVHz1DROYW7egfZ3MO/d1MdS/gA7+Jxi5NWJd4PoZrmiHx15AKVZ2
-	4UM4Cwvntj02QhgfOh2yUzLuhNFwL2fTm+PsC0+Y4zrcQoHKQKUn5ibm288MEAes
-	5R0lW7gOOP+J72R9BCZBMfN7yGrWIPetla+gvN6Ux0=
-Date: Wed, 14 Oct 2026 01:51:46 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, longzhao@ambarella.com,
-	"Arnd Bergmann" <arnd@arndb.de>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Jerome Brunet" <jbrunet@baylibre.com>,
-	"Bartosz Golaszewski" <brgl@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re:Re: Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella
- CV75 pinctrl
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAD++jLmrQwAT1Sb8HGgoM8x48rN9-pPT2RB1GE18h5YA7c4CwQ@mail.gmail.com>
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
- <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
- <CAD++jLmKF5XxHsJX29sdXC_6JHKn-7HkE=N+TKtk5xODtQj3_w@mail.gmail.com>
- <b2256847-3ec1-47e8-ac79-ceca86eb09e7@kernel.org>
- <CAD++jLkrXXg9xrhAZ8HETc5Qcv5BbkY-ibjvzBmE5WZVqDEGWQ@mail.gmail.com>
- <a0eca34d-5eb2-4730-b8c7-0f2302bcf265@kernel.org>
- <CAD++jLm=T-U07vAVCogMnfOfkDf=i9QhGGc8ok2N-ZUh50WLNA@mail.gmail.com>
- <56dc6c05-7fd6-43de-bc62-c353ae1dbcc3@kernel.org>
- <54b55ad7.9d3a.1a135b09587.Coremail.zl020895@163.com>
- <CAD++jLmrQwAT1Sb8HGgoM8x48rN9-pPT2RB1GE18h5YA7c4CwQ@mail.gmail.com>
-X-NTES-SC: AL_Qu2SA/WavEEr4CaeZekdnUoTj+Y/XMK0uvwk1YdVc8gEnjjMwxonRUZAE2Xr9+a2LgydoDuVWhh8yd55fo9x/FIZB3Lpfw2lhbgiuZUShQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="LrqWlCuy"
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e6be52a80so532368eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:54:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blockcast.net; s=google; t=1791914052; x=1792518852; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=503NV8Ori3Oqk5W4l1eayXs2I+E5HpZ3zmnZJUojrh8=;
+        b=LrqWlCuyEIAzwg3q/go0QjIgqC9pGSBB4108wme5Oougpqg8gcxkZQyan54eEfAq4B
+         4sfvIZCpX6MnhDWhr3OQRqyzi/mtDqAmI39FcYPzGu3vFabJKcWyaWP/s3FB6B7TSdoU
+         0RWLluCsA9kSEMwN3maSccpzw8ECi8g6jpNsZ43O5bAWsVmIuF66elMsUcWWzTE5Ts6T
+         Ffdx0cWscYognzL1tnGMNBjh4nOOmKZ8N5roLv+GrEnRO2l1gOHfPw7R4njzrQeMHgCc
+         CgwhNXXpBmO2+gNWOoxuf2RIbvNX0Be8zf+9m05dUE5eP3bMKvoopyXZiCGjZk0F6TsK
+         TjpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791914052; x=1792518852;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=503NV8Ori3Oqk5W4l1eayXs2I+E5HpZ3zmnZJUojrh8=;
+        b=wEs+3xeil+TkaBdk9jmCp4v/Wdr7er5qkafPQC8Aegnocqlqys13uKCWWjTmccRByF
+         Tbg7uRiPRZNu3bQXgnY4bVhs5oe7g+hnEVeACCQAUv2AbJLinDMMkxdsaxCmWblL0UVT
+         xeW8WkentpKdVUpN23BBP7Nvw4fZIP4VIk096x12yNF/QjsZyl9PZOL1pt0YjgrkW85V
+         J/uQr1PnNRMDQ81WUCG/p9x/ojiNk1IJ5LC4Lnx8A4yM5fdeZDuzgcAonou4iTNp6v/v
+         9hu5YtFGNdWOYuw1fPuSG12ehaxW61Bi1iy3yTaXZGZXJVSSpd46orezQW28jkUoNtgO
+         +edw==
+X-Forwarded-Encrypted: i=1; AKwUvBy2NJTfesx7dnT17nntvZybB/3Nt+Op7ChQipzX1hWbakHx4BzwrmV7AXqJTGpVipTs41z9UuFEVtpBlUc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzZx6dv9dilC4YWkGuVCd/ZqFdCsB/1Tz5rE6QA8l43n3EWVwp
+	0fIno84koiAssAXnaPrZ09xtuxOX5UxRURfc5bm0s+sgLZ+aAyZPCk8BSchwhfLBv8M=
+X-Gm-Gg: AYBFou3vMqJH83tESAqkYXP8bSq0UvFWFVDF5PdeK3Vpy6buacOCysdIsVafIUgsz3A
+	5LSFGYh7n50QwU3pcxiSaNBuYldlaICRmnRSoorbJlTLTmRAjsNwN9lOitpSgGQ6H/OWwNcDF+j
+	leO9JzQ8ZmRiZQPQgwNW4HaIO6vaiuism4lTEX/K3A6jw+Hn8QbB9KqskSbEiPJ0EsEAAyEC4jg
+	sYbK+AF8/pLwfGUyTIKiCFn4P97VZE8KRAgp8+K5ZYfq4J33UVezE9FPLxoZysxY3XfWHWiKjbb
+	0w43WKjk1NqOodoegUKFtqdfnwuFaDsxAAuHmSHGu/yYumHoCrEmXxQMdJ6Akm9xZvRbVnhahml
+	4dQ9uSxuXcDgKJ3dd+Qmb0XMfe7aIYdus4Pd2PG8MFo/SD5if/97HFUykmwb0sjl/p8XyM49IPO
+	0Z3SgHjujl1vNwUiyq6CcO21Yao+8+fD9c9KRRncZso2bP2X+jxQIIrJLDNqX/Io3Y1aqr0cg5Q
+	2EXI/1MgOVdYmEOvNAh+IgLI08YlxDBqX7paHlOC7WGPG2t79F62EjKLy5irRhXAA==
+X-Received: by 2002:a05:693c:821a:b0:357:ee3a:267a with SMTP id 5a478bee46e88-357ee3a2dd9mr15841199eec.2.1791914051774;
+        Tue, 13 Oct 2026 10:54:11 -0700 (PDT)
+Received: from devbox.ts.blockcast.net ([69.25.95.32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cab27d5sm50183362eec.17.2026.10.13.10.54.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 10:54:11 -0700 (PDT)
+From: Omar Ramadan <omar@blockcast.net>
+To: Taehee Yoo <ap420073@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Simon Horman <horms@kernel.org>
+Subject: [PATCH net v4 0/5] amt: relay tunnel lifetime, validation and request-path hardening
+Date: Tue, 13 Oct 2026 17:54:02 +0000
+Message-ID: <20261013175407.947606-1-omar@blockcast.net>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <69bf6d9d.a86d.1a1366451f1.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:eygvCgD3NyGyb85qV71XAA--.16978W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7hJWx2rOb7KL3QAA3C
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkF0IDIwMjYtMTAtMTQgMDA6Mzg6NDAsICJMaW51cyBXYWxsZWlqIiA8bGludXN3QGtlcm5lbC5v
-cmc+IHdyb3RlOgo+T24gVHVlLCBPY3QgMTMsIDIwMjYgYXQgNDozNuKAr1BNIHpsMDIwODk1IDx6
-bDAyMDg5NUAxNjMuY29tPiB3cm90ZToKPgo+PiBXb3VsZCB0aGlzIHdvcms/OiBJIHNlbmQgYSBz
-dGFuZGFsb25lCj4+ICJkdC1iaW5kaW5nczogdmVuZG9yLXByZWZpeGVzOiBhZGQgQW1iYXJlbGxh
-IiBwYXRjaCB0byBSb2Igd2l0aCBvbmx5Cj4+IHRoZSB0d28gbGluZXMgaW4gdmVuZG9yLXByZWZp
-eGVzLnlhbWwsIGFuZCBkcm9wIHRoYXQgaHVuayBmcm9tIHRoZQo+PiBTb0Mgc2VyaWVzLiBPbmNl
-IHRoZSBwcmVmaXggaXMgaW4gbGludXgtbmV4dCwgdGhlIHZlbmRvci1wcmVmaXgKPj4gd2Fybmlu
-Z3Mgc2hvdWxkIGJlIGZpeGVkLiBUaGUgcmVtYWluaW5nIGV4YW1wbGUgbWF0Y2hlcywgc3VjaCBh
-cwo+PiBhbWJhcmVsbGEsZHJpdmUtc3RyZW5ndGgtc3lzY29uLCBzdGlsbCBuZWVkIHRoZSBzZXBh
-cmF0ZQo+PiBHUElPL1VBUlQvcGluY3RybCBiaW5kaW5ncy4KPgo+VGhhdCB3b3JrcyBmb3IgbWUg
-YW5kIHNvbHZlcyBteSBwcm9ibGVtIHNvIGdvIGFoZWFkLgo+Cj5Zb3VycywKPkxpbnVzIFdhbGxl
-aWoKClNlbnQ6Cmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2MTAxNC1jdjc1LXByZWZp
-eC12MS0xLWZlOTVlZDU2Nzg4MEBhbWJhcmVsbGEuY29tCgpCZXN0IHJlZ2FyZHMsCkxvbmcgWmhh
-bwo=
+Five fixes to the AMT relay data and control paths, found while adding an
+IPv6 outer transport (that feature follows for net-next, rebased on this).
+All are independent of the IPv6 work and belong in net with stable in mind.
+
+1/5 closes the gc_wq re-arm use-after-free and makes device-stop teardown
+safe for lockless RCU readers. 2/5 rejects gateway Query/Data from 0.0.0.0
+before a relay is learned. 3/5 requires exactly four bytes for the IPv4
+input attributes, avoiding silent truncation of larger payloads. 4/5 makes
+pre-Query report drops visible and stops counting forwarded reports as
+drops. 5/5 keys relay tunnels on the (address, port) endpoint, authenticates
+Updates before allocating tunnel state, and closes the report-group and
+post-stop creation races found in review of v3.
+
+Each patch carries a Fixes: tag. The exact tip builds warning-free with
+GCC and Clang, W=1, with IPv6 enabled and disabled. A KASAN + lockdep +
+PROVE_RCU kernel passes amt.sh 6/6 with no splats. The full-table control
+(max_tunnels=1) gives the same result as v3.
+
+v4:
+- 1/5: unlink tunnels in place with list_del_rcu() and defer their free
+  with kfree_rcu(); do not splice onto a stack head visible to RCU readers.
+- 3/5: replace the IPv6-length special case with NLA_POLICY_EXACT_LEN for
+  LOCAL_IP and DISCOVERY_IP. REMOTE_IP is output-only and is unchanged.
+- 4/5: return directly after a successful Membership Update, use
+  DEV_STATS_INC() for tx counters, and clarify the debug message.
+- 5/5: fold v3's endpoint-keying patch into the authenticated-allocation
+  patch, so no intermediate commit allocates unauthenticated port-keyed
+  tunnels; retain four secret generations (180s floor > 125s QQIC);
+  withhold Queries at both tunnel limits and silently drop refused
+  Requests; re-check dead under the tunnel lock before report handling;
+  reject creation after device stop.
+- Rewrap the comments reported by NIPA at 80 columns.
+
+v3: https://lore.kernel.org/netdev/20261012125943.558629-1-omar@blockcast.net/
+v2: https://lore.kernel.org/netdev/20261009201455.1904698-1-omar@blockcast.net/
+v1: https://lore.kernel.org/netdev/20261008003606.3666617-1-omar@blockcast.net/
+
+Omar Ramadan (5):
+  amt: fix use-after-free when a Membership Update re-arms a freed
+    tunnel
+  amt: reject a gateway Query or Data from 0.0.0.0 before a relay is
+    learned
+  amt: require an exact IPv4-sized IFLA_AMT_{LOCAL,DISCOVERY}_IP
+  amt: make pre-query report drops visible
+  amt: harden relay tunnel lifetime and request admission
+
+ drivers/net/amt.c | 389 +++++++++++++++++++++++++++++++++++-----------
+ include/net/amt.h |  27 +++-
+ 2 files changed, 317 insertions(+), 99 deletions(-)
+
