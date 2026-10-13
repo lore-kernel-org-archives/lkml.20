@@ -1,35 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7BA3DAAAF;
-	Tue, 13 Oct 2026 15:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D105172DB
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904536; cv=none; b=YjLnHHU3QOw1bruhbU5emfOws7OdRoGEZJl//ZJRL/aQ4tbfcyTgBlF6yZHdv3JlVGm38wr4Us/zMV8TPZ1DGhwm+EAHHlggxx0PupCNuyTOeklqnmGAhQIkx4l/ld2dLL9NB8HS/ELpn1GQZesQu1AGsYxMye1H/5JcTlzRSUo=
+	t=1791904540; cv=none; b=rGlWSnjRVTRCnuz031JuDm4thRahIwW4k17OS/Usq37qvWaSGi0KhuayDhw9kLHTHHK/zhKO6gbX3vZPWwDJyrBJTVG3cnxFsTKrYdB8sNacQhXGbcW/9+IKuh4tJ0A6aOnyFLh7q1iNZXldvbH1CMV3xE5qTaEDcJ9tdjsVEjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904536; c=relaxed/simple;
-	bh=a3PfLNgLx1GbuXFw7DoxzYfKOvfjucxXwlN8dVffozI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ENFDGlUewEhTwEsG745nAULAvtvSyXttiUG6h5olLROolEt1ZCKLRm0QVJ0fVOkb4RuhbEwa/I3hUcOr2NvqDq3Z82z0XfQh7b6CjY3rDOXtDpB6Tw3fq+jpz/UHYvtkHVa9PPd5uovaVnAIkncBXgJMC4VpLl0iZUc11fy0m4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V+M+VzVD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904540; c=relaxed/simple;
+	bh=wOidxVLM17lR1bDj1xmePaeabjfnEZRB6ayeFW+JFtY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZERww6bLGRttnwMhAm74ehilYdL5+6roaSgJ/AXgJdZyu9IihXGOoO1NrI12+7jePoMiQbdcJyi5IpksKBPrFbzKJG9cDN7NpSO5syCsVLTMyuXGBoBBJJaqGpHz/0iNDKPIarB0ud1KUG02gYeu5E/4FMf60JckoZYXoe/8rvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=JZl4nVXf; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V+M+VzVD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B181F00899;
-	Tue, 13 Oct 2026 15:15:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904534;
-	bh=ytmLoC3zHdwZxCxWy26b8X7pqcm/Lj2djuN1AI4Dw0A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=V+M+VzVDLZ1Jub6DUULYq0X8vyNEJ/40+QVZzwG5sB5opM/2SBJ/MdHOT5WQB/2kp
-	 p39uWASPOa9lQm6xOvaavnvS0ruhHZjzxG22YZ0yjxsHdiTq681eJEc4AtKJiIwrnx
-	 rZgU2/o5LoCWpxJW4K84NTBzTj2cIERPK+0GsZXSdzMQNLPY3YYfQSNwiotiVRB/OG
-	 oSblzECuZI6Vyr80HKcjcSKu2Y2p5wnxQUqxROqaubzZPtjqmmSFMHJlSjtppdX3zo
-	 uBRBo0TNdmf24e5ddyGEBz+7lGi4STJa08iscwFt+2BnHbkU8ASGuqMwubUUc4h4q7
-	 NoM01Kfp/8hVA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:58 +0100
-Subject: [PATCH v6 18/39] scsi: sg: convert mmap hook to mmap_prepare and
- rework
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="JZl4nVXf"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso864734eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:15:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791904538; x=1792509338; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6cn15OBuDdPhmTCMVKwa2oTSO6nmWiZTOYVWRAj9v6k=;
+        b=JZl4nVXfWyLreGgAKG5f8rmt13tT/2Da7dVI1m4gc0CPLbctV4e7lp/Xf00kLrG0oL
+         3yp6LYS9nulGLIX+bGAPEOPdFs5yBb7nHfGfqKFyT0fcIacIdZ9G+jVtK/uQ3C9UiFjV
+         2WdtyXEOcccAav+Fb52cxCeSoKZcX/HEteinyrjWIFQzHp1P7AhVFQ8qMdjNLGkwzgoc
+         Nu4T8dktLrukUTllFQJBUUWq0y0l7UMy+4qLPlTQyxR039sSPUd0jOawAllErbe8ZD0q
+         AlpFUAMlX0Ulm0CZUnxu5XMzaqWpSomCEcfVDImI1H5iXOLB99Rn6AtBFcotjFxDZmFr
+         aqaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791904538; x=1792509338;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6cn15OBuDdPhmTCMVKwa2oTSO6nmWiZTOYVWRAj9v6k=;
+        b=MKrsE5xS97Jth6E9DxtHmtCBWrJIyGJ0snErekWpo6hTAqtAfKUdVuRZ0bxD67FkpB
+         RZGNLsidG74I6LW/lQQ4EZMi+m/udrqhtqJ63WvuPZsWBxHBWEScM8loKSFxg5dLxYWy
+         fKxj/ZaV1wJYsm/nD+dLDz/E5beF0ppgjlcCkS4p/c74zBJ2jMpmwRUNl6zORMBT1QWk
+         QFRrWvAHV8qLv6TDtmx1Qkdh9/AlwEfbe//Omet4dHV+r/+FcxDnEhH0ogguM00A45jL
+         lzNbGUvLYbugOeWJGlLL1ot9jL+VFbwfZlTmPR3/Rsb+00VJpyIQfariIvm/AuIGKZ+D
+         ujow==
+X-Forwarded-Encrypted: i=1; AKwUvByjjSrYmWwSvjErC7qzW/n5joadQqf+z7KJlQXF3XZLiOW63SQ2JmduKWmLk4TXci33Iss+MMmiN1be0b8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcCzJeDqYsviDEdFN0qvpiQZ/MRrfwDVNFPgan0ixjjzaCpSl7
+	q5+nDuMFGvBvTTuvSpNAToB1kphBMqTtYgSSOhNxGA6ZCm+nGfCEvSxvl0lOVhZkL+m0p8c22Ab
+	WiFeLQbg=
+X-Gm-Gg: AYBFou3jakulYEFfpLRHTe1xOIrFQPA4rHy9nAI2UkT1qrHae8bq8W3BMHQxzm5YlSS
+	NLsi/WvDxXIYZDqKoNn69NW+0/iaKxGoCa+igSgZ7jbhtcmgUyBu3ykk6nQZ3UibnbngWIRwdm0
+	TpZFW4ksjmaMCg0Pvq0hX/UGBHZI1/Hr5CWOyKa3/QgMwrQnlOLVjrm8q4lsKUhB3LiCXlvLPZJ
+	1IIqbAlgpJ6O8s48zz/GZ3JuHvwVQCQ35DnMkhOH22iyXF7qpb4WjqlX4t1Yt1zC9+EhpR9AMMC
+	vaLRz2cxt9HLJQNKTte6xuDw0pcCKZGMMI7th+dDYyktU2wTt+F6nstN10wW/XNRcqewNgP9B5T
+	YyNYNtKs3+7k4HNqh8aLg1ZIibDRhxic9LG0R5jpe4XNj3tTlZWLkU5Od/k8Q6uOn7NcJPiMXsB
+	GzbGTZvpWEtZDLJJ3mu3JwcRu6rzJi43/KBrDMwKCjYsPt3MQpOnuMDeRtLlgkjpdKhWCicmwCG
+	k7Rjxb9a8xMuHM=
+X-Received: by 2002:a05:693c:4159:20b0:34c:8c69:529d with SMTP id 5a478bee46e88-3537e0a9695mr19398687eec.26.1791904536420;
+        Tue, 13 Oct 2026 08:15:36 -0700 (PDT)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:49b8:4c98:b3d1:72aa])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358de54fe47sm30691751eec.31.2026.10.13.08.15.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 08:15:34 -0700 (PDT)
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Subject: [PATCH 0/4] Input: use designated initializers for acpi_device_id
+Date: Tue, 13 Oct 2026 16:15:21 +0100
+Message-Id: <20261013-acpi-input-v1-0-53ad09ba82b7@thegoodpenguin.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,284 +71,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-18-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5990; i=ljs@kernel.org;
- h=from:subject:message-id; bh=a3PfLNgLx1GbuXFw7DoxzYfKOvfjucxXwlN8dVffozI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZxcp5exhNMlebKqtbT6WeZtsumst9nVIsr4k95bW
- qstW2nbUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgIko/GH4H2Z7/H+MaUwra29J
- fHaaxJ2P63R3bbRXSTugH+O/bFogC8M/K7cnf3gr5ykX/Li/ccsPvZWPCswOLzmjUhM2l/NKxBE
- lZgA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqAIBBA4avErBPUJKKrRIvSqaaFiT8RSHfPa
+ vkt3ssQ0BMG6KsMHk8KdNgCUVegt8muyMgUg+SyFVw0bNKOGFmXIpNopDJdq5TgUALncaHrmw3
+ j75DmHXV8D3DfD3ssq+ZuAAAA
+X-Change-ID: 20261013-acpi-input-2ed24d864410
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
+ Nick Dyer <nick@shmanahar.org>, Hans de Goede <hansg@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ chrome-platform@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791904532; l=3150;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=wOidxVLM17lR1bDj1xmePaeabjfnEZRB6ayeFW+JFtY=;
+ b=3nBJ7LuFCwN0BxizqOoBp4bXcaIg1JOxRLLNOjgImEEFpTUGRJj9GgEbTgxtJDNlq8bnneSjj
+ d99NFSj62JuCotFSi+uU6I3ZgrlwgwKTTqUE5MdgnHyI2NX9zANx80j
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-Move from the deprecated mmap hook to the new mmap_prepare hook.
+This series is converting lists that contain the acpi_device_id struct,
+which is defined in the include/linux/device-id/acpi.h to make use of named
+initializers (which they do not use currently). This work is part of the on
+going effort in the kernel associated with device-ids [1]
 
-We are mapping kernel pages here, so use the discontiguous kernel mapping
-mmap action to do so.
+The plan is to convert acpi_device_id::driver_data to have an anonymous
+union, similarly to what was introduced for PCI and I2C device ID tables.
+The goal is to increase type-safety (most of the existing casts are gone),
+to improve readability and to make use intent a bit more clear:
 
-Unwind the rather confusing loop and instead map as many pages as we can at
-one time.
+```
+union {
+	kernel_ulong_t driver_data;
+	const void *driver_data_ptr;
+}
+```
 
-Note that we do not need to pay attention to rsv_schp->k_use_sg here, as
-the pages are populated for the length of the buffer at
-rsv_schp->page_order granularity as compound pages.
+But for that to work all lists containing the structs need to use named
+initializers first to avoid triggering -Wmissing-braces. I already have
+patches that implement this and touching a lot of kernel subsystmes that
+use the acpi_device_id struct and that list keeps on growing. Therefore,
+I have decided to split the series per every subsystem into:
+- pre-clean-ups that convert the lists to use named initializers
+  (which is this series)
+- actual implementations that make some of the modules use the new
+  driver_data_ptr member
 
-The discontiguous kernel page mapping logic handles the compound pages for
-us.
+That way the task can be fragmented into manageable and independent chunks
+of work and makes this effort easier to review.
 
-sfp->mmap_called keeps the buffer stable for us. As before it is never
-cleared, so a failed mmap also leaves it set.
+Tested builds on x86-64 and a64 in Yocto using 7.3-rc7.
 
-We also remove some useless vma, vma->vm_file NULL checks - these will
-always be non-NULL if you reached the mmap hook logic.
+[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
 
-We retain log output for consistency, but change what's output on page
-mapping to indicate that sg_discontig_get() does the work now.
-
-Note that we drop the VMA_IO_BIT flag for the VMA here. It was never
-necessary as we invoke alloc_pages() which gives us refcounted folios that
-are fine for GUP to access (VMA_IO_BIT would prevent that).
-
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 ---
- drivers/scsi/sg.c | 115 ++++++++++++++++++++++++------------------------------
- 1 file changed, 51 insertions(+), 64 deletions(-)
+Pawel Zalewski (4):
+      Input: keyboard: use named initializers for acpi_device_id
+      Input: misc: use named initializers for acpi_device_id
+      Input: mouse: cyapa: use named initializers for acpi_device_id
+      Input: touchscreen: use named initializers for acpi_device_id
 
-diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
-index 5408f002e6c0..3f9e08725602 100644
---- a/drivers/scsi/sg.c
-+++ b/drivers/scsi/sg.c
-@@ -1212,85 +1212,72 @@ sg_fasync(int fd, struct file *filp, int mode)
- 	return fasync_helper(fd, filp, mode, &sfp->async_qp);
- }
- 
--static vm_fault_t
--sg_vma_fault(struct vm_fault *vmf)
-+static int sg_discontig_init(void *vm_private_data, void **private)
- {
--	struct vm_area_struct *vma = vmf->vma;
--	Sg_fd *sfp;
--	unsigned long offset, len, sa;
--	Sg_scatter_hold *rsv_schp;
--	int k, length;
--
--	if ((NULL == vma) || (!(sfp = (Sg_fd *) vma->vm_private_data)))
--		return VM_FAULT_SIGBUS;
--	rsv_schp = &sfp->reserve;
--	offset = vmf->pgoff << PAGE_SHIFT;
--	if (offset >= rsv_schp->bufflen)
--		return VM_FAULT_SIGBUS;
--	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
--				      "sg_vma_fault: offset=%lu, scatg=%d\n",
--				      offset, rsv_schp->k_use_sg));
--	sa = vma->vm_start;
--	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
--	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
--		len = vma->vm_end - sa;
--		len = (len < length) ? len : length;
--		if (offset < len) {
--			struct page *page = rsv_schp->pages[k] + (offset >> PAGE_SHIFT);
--			get_page(page);	/* increment page count */
--			vmf->page = page;
--			return 0; /* success */
--		}
--		sa += len;
--		offset -= len;
-+	const unsigned long req_sz = (unsigned long)*private;
-+	Sg_fd *sfp = vm_private_data;
-+	Sg_scatter_hold *rsv_schp = &sfp->reserve;
-+	int err = 0;
-+
-+	mutex_lock(&sfp->f_mutex);
-+	if (req_sz > rsv_schp->bufflen) {
-+		err = -ENOMEM;	/* cannot map more than reserved buffer */
-+		goto out;
-+	}
-+	sfp->mmap_called = 1; /* Prevents changes to buffer size. */
-+out:
-+	mutex_unlock(&sfp->f_mutex);
-+	return err;
-+}
-+
-+static int
-+sg_discontig_get(struct discontig_kernel_page_state *state)
-+{
-+	Sg_fd *sfp = state->vm_private_data;
-+	Sg_scatter_hold *rsv_schp = &sfp->reserve;
-+	const unsigned int order = rsv_schp->page_order;
-+	const pgoff_t nr_pages = state->nr_pages_mapped;
-+
-+	if (nr_pages >= (rsv_schp->bufflen >> PAGE_SHIFT)) {
-+		discontig_kernel_map_abort(state);
-+		return 0;
- 	}
- 
--	return VM_FAULT_SIGBUS;
-+	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
-+				      "%s: offset=%lu, scatg=%d\n", __func__,
-+				      nr_pages << PAGE_SHIFT, rsv_schp->k_use_sg));
-+
-+	discontig_kernel_map_page(state, rsv_schp->pages[nr_pages >> order]);
-+	return 0;
- }
- 
--static const struct vm_operations_struct sg_mmap_vm_ops = {
--	.fault = sg_vma_fault,
-+static const struct discontig_kernel_page_ops sg_discontig_ops = {
-+	.init = sg_discontig_init,
-+	.get = sg_discontig_get,
- };
- 
- static int
--sg_mmap(struct file *filp, struct vm_area_struct *vma)
-+sg_mmap_prepare(struct vm_area_desc *desc)
- {
--	Sg_fd *sfp;
--	unsigned long req_sz, len, sa;
--	Sg_scatter_hold *rsv_schp;
--	int k, length;
--	int ret = 0;
-+	Sg_fd *sfp = desc->file->private_data;
-+	const unsigned long req_sz = vma_desc_size(desc);
- 
--	if ((!filp) || (!vma) || (!(sfp = (Sg_fd *) filp->private_data)))
-+	if (!sfp)
- 		return -ENXIO;
--	req_sz = vma->vm_end - vma->vm_start;
-+
- 	SCSI_LOG_TIMEOUT(3, sg_printk(KERN_INFO, sfp->parentdp,
- 				      "sg_mmap starting, vm_start=%p, len=%d\n",
--				      (void *) vma->vm_start, (int) req_sz));
--	if (vma->vm_pgoff)
-+				      (void *) desc->start, (int) req_sz));
-+
-+	if (desc->pgoff)
- 		return -EINVAL;	/* want no offset */
--	rsv_schp = &sfp->reserve;
--	mutex_lock(&sfp->f_mutex);
--	if (req_sz > rsv_schp->bufflen) {
--		ret = -ENOMEM;	/* cannot map more than reserved buffer */
--		goto out;
--	}
- 
--	sa = vma->vm_start;
--	length = 1 << (PAGE_SHIFT + rsv_schp->page_order);
--	for (k = 0; k < rsv_schp->k_use_sg && sa < vma->vm_end; k++) {
--		len = vma->vm_end - sa;
--		len = (len < length) ? len : length;
--		sa += len;
--	}
-+	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
-+	desc->private_data = sfp;
- 
--	sfp->mmap_called = 1;
--	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
--	vma->vm_private_data = sfp;
--	vma->vm_ops = &sg_mmap_vm_ops;
--out:
--	mutex_unlock(&sfp->f_mutex);
--	return ret;
-+	mmap_action_map_discontig_kernel_pages(desc, (void *)req_sz,
-+					       &sg_discontig_ops);
-+	return 0;
- }
- 
- static void
-@@ -1415,7 +1402,7 @@ static const struct file_operations sg_fops = {
- 	.unlocked_ioctl = sg_ioctl,
- 	.compat_ioctl = compat_ptr_ioctl,
- 	.open = sg_open,
--	.mmap = sg_mmap,
-+	.mmap_prepare = sg_mmap_prepare,
- 	.release = sg_release,
- 	.fasync = sg_fasync,
- };
+ drivers/input/keyboard/applespi.c           |  2 +-
+ drivers/input/keyboard/cros_ec_keyb.c       |  2 +-
+ drivers/input/keyboard/goldfish_events.c    |  4 ++--
+ drivers/input/misc/atlas_btns.c             |  4 ++--
+ drivers/input/misc/drv260x.c                |  2 +-
+ drivers/input/misc/soc_button_array.c       | 12 ++++++------
+ drivers/input/mouse/cyapa.c                 |  6 +++---
+ drivers/input/touchscreen/atmel_mxt_ts.c    |  4 ++--
+ drivers/input/touchscreen/chipone_icn8505.c |  2 +-
+ drivers/input/touchscreen/elants_i2c.c      |  8 ++++----
+ drivers/input/touchscreen/exc3000.c         |  2 +-
+ drivers/input/touchscreen/goodix.c          |  8 ++++----
+ drivers/input/touchscreen/hideep.c          |  2 +-
+ drivers/input/touchscreen/ilitek_ts_i2c.c   |  4 ++--
+ drivers/input/touchscreen/melfas_mip4.c     |  4 ++--
+ drivers/input/touchscreen/raydium_i2c_ts.c  |  4 ++--
+ drivers/input/touchscreen/silead.c          | 18 +++++++++---------
+ drivers/input/touchscreen/surface3_spi.c    |  2 +-
+ drivers/input/touchscreen/wdt87xx_i2c.c     |  2 +-
+ 19 files changed, 46 insertions(+), 46 deletions(-)
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261013-acpi-input-2ed24d864410
 
--- 
-2.55.0
+Best regards,
+--  
+Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 
