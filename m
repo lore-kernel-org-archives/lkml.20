@@ -1,43 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CAFA23ABBF;
-	Tue, 13 Oct 2026 09:30:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1B9163DB332;
+	Tue, 13 Oct 2026 09:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883845; cv=none; b=Ro0WHpw+J/DMOw4A3ErlrkKGXZERu1oU93l/1qnDW060X1E2GHil/w9FBIrWmnrGbXjkj+3AqYqTQG5CRMAsMpnC3OiQTUK+c9PwTL3NNY2s2owTj345GGbX1QrUcJgqn9Gop41ZF9p8npnvB6LRHomwOu5QIrdXbv2nEt3AFfg=
+	t=1791883898; cv=none; b=HhhkbegzlUR0PWWsRFE+SCGxyzzvK8IvlGyasNXS4v2y5qkPj83ry9bNMH3tv0DZqu3NgGO61bch63cUg0UNw1UEHP6b8TwkC/HaryeT6yUjxKacnqm9kPn4XrazCRcOmHB7ybWbfnk2GTawEux4Gnd5eI2iCnargldEXkz5iRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883845; c=relaxed/simple;
-	bh=iQy3zVnbluN2KJGjJ0s/IVJ7Cbz/6lovy1SbuMmgvbg=;
+	s=arc-20240116; t=1791883898; c=relaxed/simple;
+	bh=OqA21yJGURWr+fHR8OGWuJePl6Or9B4i9mUbbo2HePw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cf0mkctRKdbIRZaGzm5uP4PYpZ5C6bWgVhhZqa6u51GQvXeJI5RaYWPKnrYgptELGocaQ1IagE/lobHfJFmTwoesN7B0TKVaduYK97ni/h3O+ke/sMWPf4TfR6scMr2UZpfD+0UdeRIzvO9d/fUTcjcet0zNdVE29lHxIlAtZnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mihHl0rN; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=obEEXZ7B9t96E8LtsBe36UmkpAxHVdgMCLrvOb3F0GbjbJqi6kAP/0XQ+OoAbbyOzLGDYh+I6ziA92/LfE3T9JC83QR2bwljPpJyTUhvGV7CMdP9y1EiIPPqIR/WRvg/bMSujtPMms5sZkVA40QYca12p/zAcDNLfQl3xJvCV3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KFN/Jucf; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mihHl0rN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31AA61F000FF;
-	Tue, 13 Oct 2026 09:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791883844;
-	bh=GDCBsEYoZUsLsXk6wyffkPfdwkrEP+ByhgCH/FzXMM0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mihHl0rNLCQg4W0s0+z1en8+7AJqOHOYrKKJKz5IhLlWBh/WFVyTbeSQjkYoIVSzt
-	 DGPTrHwtRRyDPBfIaEcFHjYmdI9jiru9Fxn6+uf2Fg3fjT5HSDPt1gvNul1q3TwYl4
-	 I7Oeat+WqwQguzZL/k3f5B0O2N10bHH4poIAs2B5oxBRQTxPbNdopI0BoH6kenivHs
-	 6n0br9igd382Ry5UeEOmzq6VovM50w6O4ULlzX2G2Ubxn/ahH/pFLWqkEBX+PnDLhY
-	 nZ11PYfc9VBqj2iBPNUVlwOq1CvyCOPPJ5AomYRjP4Nk7omM6k+IILv674Q4Xl2REy
-	 LS/CIKh05DgiA==
-Date: Tue, 13 Oct 2026 10:30:37 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Rik van Riel <riel@surriel.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
-	Kyle Zeng <kylebot@openai.com>, stable@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm/rmap: don't discard lazyfree THPs at PMD level
-Message-ID: <as36Kesa_k70jOva@gremlin>
-References: <20261012-lazyfree-stable-fix-v2-1-6387d6e30063@nvidia.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KFN/Jucf"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 321E3169E;
+	Tue, 13 Oct 2026 02:31:32 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B0B4C3F7B4;
+	Tue, 13 Oct 2026 02:31:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791883895; bh=OqA21yJGURWr+fHR8OGWuJePl6Or9B4i9mUbbo2HePw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KFN/JucfaG6tVijFPqugjqklOhToK3tk/lGovkOGhrU5S8A/hBH3mHfEusBBzJPzJ
+	 UyD1cF2qpgw4gHADM2nbeK6S2v6bJ9y95xpv4BpMzEMhH6fCnxZBlMCDLZgKWgQOFe
+	 V1OvHKS+j9QazwgOeLl4Usk+vA/oFiPbdqVmRQz4=
+Date: Tue, 13 Oct 2026 10:31:25 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	Tianrui Zhao <zhaotianrui@loongson.cn>,
+	Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jonas Bonn <jonas@southpole.se>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Stafford Horne <shorne@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+	linux-openrisc@vger.kernel.org,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Sohil Mehta <sohil.mehta@intel.com>
+Subject: Re: [PATCH 00/21] mm: change behavior of pXdp_get()/pXd_page() in
+ compile-time folded pgtable
+Message-ID: <as36bbrMVHOESsLd@e129823.arm.com>
+References: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,113 +81,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012-lazyfree-stable-fix-v2-1-6387d6e30063@nvidia.com>
+In-Reply-To: <20260921-dummy_ptxp3-v1-0-cd40cf68242e@arm.com>
 
-On Mon, Oct 12, 2026 at 10:20:16PM -0400, Zi Yan wrote:
-> __discard_anon_folio_pmd_locked() clears a lazyfree THP's PMD before it
-> determines whether the folio can be discarded, and restores it if the folio
-> is dirty or has extra references. It is done under only the PMD lock and
-> the anon_vma read lock inside try_to_unmap_one() and no mmap lock is held.
-> The temporarily none PMD causes UAF.
->
-> A parallel munmap() or mremap() is supposed to serialize with it on the PMD
-> lock, but zap_pmd_range() (called by munmap()) and move_page_tables()
-> (called by mremap()) do not take the lock when they see the temporarily
-> none PMD and skip the PMD. There is no more page table walk after the none
-> PMD is restored:
->
-> - munmap(): free_pgtables() waits in unlink_anon_vmas() for the anon_vma
->   lock, then free_pmd_range() drops the restored PMD as bad without
->   removing the rmap, so the folio keeps a stale mapcount.
->
-> - whole-VMA MREMAP_DONTUNMAP: dontunmap_complete() unlinks the source VMA
->   from its anon_vma while the restored PMD still maps the folio.
->
-> - plain mremap(): the THP is not moved but unmapped, so the THP's data is
->   lost.
->
-> In the first two cases, the folio stays mapped, but no VMA that maps it is
-> linked to its anon_vma. When the anon_vma is freed, it is still reachable
-> when one rmap walks the folio. Racing lazyfree reclaim against
-> MREMAP_DONTUNMAP as an unprivileged user reproduces a KASAN use-after-free
-> in folio_lock_anon_vma_read() as reported in the Closes link.
->
-> One solution is to use an invalidated PMD instead of a cleared one until
-> the discard is committed, but it needs arch fixes first.
-> 1. GUP-fast still follows an invalidated PMD on riscv, LoongArch and s390.
-> 2. sparc64 miscounts thp_pte_count when an invalidated PMD is set again or
->    cleared.
->
-> To keep the fix simple for backport, stop discarding lazyfree THPs at PMD
-> level instead. try_to_unmap_one() splits the PMD and discards the folio at
-> PTE level.
->
-> unmap_huge_pmd_locked() and __discard_anon_folio_pmd_locked() are left in
-> place, unused, to minimize this fix for backport and the invalidated PMD
-> approach is planned as a follow-up series to use them again.
->
+Hi all,
 
-Amazing, thanks for that! All LGTM.
+May I ask there are any further comments on this series?
 
-> Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.com
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Reviewed-by: Kyle Zeng <kylebot@openai.com>
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
+Thanks!
+
+> Using ptep_get() and its counterparts in common code is suboptimal on
+> kernel configurations with generic compile-time folded page tables.
+> By default, ptep_get() and its friends expands to READ_ONCE(),
+> forcing the compiler to emit a load even when the value is not used afterwards.
+> 
+> This issue was recently reported by Christophe Leroy [1] for ppc32
+> preventing futher code conversion to ptep_get()/pmdp_get()/... helper
+> and the same behavior can also be observed on arm64 when built with
+> 2- or 3-level page tables
+> 
+> e.g) perf_get_page_size() in arm64 with CONFIG_PGTABLE_LEVEL=3:
+> 
+> 00000000000052a0 <perf_get_page_size>:
+>     ...
+>     52dc: d53b4234     	mrs	x20, DAIF
+>     52e0: d50343df     	msr	DAIFSet, #0x3
+>     ...
+>     52fc: d35e9a69     	ubfx	x9, x19, #30, #9        /* pud_offset_lockless() */
+>     5300: f9403508     	ldr	x8, [x8, #0x68]
+>     5304: f869790a     	ldr	x10, [x8, x9, lsl #3]   /* pudp_get() */
+>     5308: f90007ea     	str	x10, [sp, #0x8]
+>     530c: f8697908     	ldr	x8, [x8, x9, lsl #3]    /* pudp_get() */
+>     ...
+>     5360: 90000009     	adrp	x9, 0x5000 <perf_prepare_sample+0x548>
+>     5364: 92746908     	and	x8, x8, #0x7ffffff000
+>     5368: d3557675     	ubfx	x21, x19, #21, #9       /* pmd_offset_lockless() */
+>     ...
+>     5394: f8757ac8     	ldr	x8, [x22, x21, lsl #3]  /* pmdp_get() */
+> 
+> Though PGTABLE_LEVEL=3, since the pudp_get() still remain with
+> READ_ONCE(), there's redundant load for the pud which is folded.
+> 
+> To prevent generating suboptimal code, make pXdp_get() return a dummy
+> entry for compile-time folded page tables, make the helpers such as
+> pXd_offset()/pXd_offset_lockless(), set_pXd() validate dummy entries
+> at compile time to catch the wrong usage and prohibit calls to
+> pXd_page() in pgtable-nopXd.h.
+> 
+> This series does not change the behaviour of existing code that directly
+> manipulates folded page-table levels using set_pgd(), pgd_page_vaddr(), and
+> related helpers. Those helpers continue to behave as before.
+> 
+> The new restrictions only apply to code that adopts the pXdp_get()-based
+> access model for compile-time folded page tables.
+> 
+> As the pXdp_get() can return *dummy* entry, some of code using
+> the stack value where saves the pXdp_get() could be a problematic:
+> 
+>   1. Passing address of stack value where saves the pXdp_get() result
+>      to pXd_offset() for example:
+> 
+>        pud_t *pudp, pud;
+>        pmd_t *pmdp;
+> 
+>        pud = pudp_get(pudp, address);
+>        pmdp = pmd_offset(&pud, pud, address);
+> 
+>      (e.g. host_pfn_mapping_level() in loongarch).
+> 
+>   2. Using the pXdp_get() result to use as argument of pXd_val() and
+>      to check prot without checking pgtable is folded.
+>      for example, x86's effective_prot().
+> 
+>   3. Using set_pXd() with pXdp_get() will set problematic dummy entry
+>      in folded page table like:
+> 
+>        set_pXd(pxdp, pXdp_get(pxdp_k));
+> 
+>   4. Using pgd_page_vaddr() to get the first-level pgtable.
+>      passing dummy pxdp_get() for pgd_page_vaddr() will return wrong
+>      address. Therefore, make pgd_page_vaddr() and pXd_pgtable() to
+>      trigger the error for improper usage with folded dummy entry in the
+>      generic compile-time folded pgtable.
+> 
+> Thanksfully, above cases are rare since (1) most of usage using
+> pXd_offset() with result of upper pXd_offset(), (2) it's extreamely
+> rare to use pXd_val() for non-leaf entry in the kernel,
+> (3) is to handle the vmalloc_fault or set the first level of page table
+> and (4) to setup early page table and etc.
+> 
+> Therefore, properly handle this uncommon and problematic pattern, and
+> document the current design of compile-time folded page tables.
+> 
+> This patch is based on mm-unstable.
+> 
+> Future work
+> ===========
+>  - print_bad_page_map() and show_pte() still prints dummy values
+>    instead of printing the same content for all generic compile-time
+>    folded page tables. We might want to skip printing dummy values later.
+> 
+>  - We currently catch abuse of dummy values on the stack at compile-time by
+>    relying on constant propagation by the compiler. Usama's work [3] on using
+>    distinct types for sw vs. hw PTEs could help here as well."
+> 
+>  - Clean up vmalloc fault handling by synchronizing the vmalloc entry on
+>    32-bit architectures. This code is almost identical across architectures.
+> 
+>  - Unfortunately, the current design of compile-time folded page tables appears
+>    to be internally consistent but confusing. For example,
+>    when CONFIG_PGTABLE_LEVELS is 2, p4d, pud, and pmd are expected to
+>    be folded into pgd. However, the architecture code uses set_pmd()
+>    to update the top-level page-table entry, even though it includes pgtable-nopmd.h.
+> 
+>    In the future, it would be good to eliminate this source of confusion,
+>    possibly by treating all folded upper levels consistently as dummy wrappers
+>    around the highest real page-table level:
+> 
+>          NOPGD
+>    --> +------+           P4D
+>        | ptr0 |-------> +------+           PUD
+>        +------+         | ptr0 |-------> +-----+
+>                         | ptr1 |-        | ptr | -------> ...
+>                         | ptr2 | \       | ptr |
+>                         | ptr3 |  \        ...
+>                           ...      \
+>                                     \        PUD
+>                                      +----> +-----+
+>                                             | ptr | -------> ...
+>                                             | ptr |
+>                                               ...
+> 
+> Link: [1] https://lore.kernel.org/all/0019d675-ce3d-4a5c-89ed-f126c45145c9@kernel.org/
+> Link: [2] https://lore.kernel.org/all/20251113014656.2605447-1-samuel.holland@sifive.com/
+> Link: [3] https://lore.kernel.org/r/74182e50-b54f-4d2d-a27f-3a59a538d6bc@arm.com
+> 
+> Patch History
+> =============
+> from RFC v3 to v1:
+>   - Drop and rebase for CONFIG_X86_DIRECT_GBPAGES and use the Dave's
+>     patch (https://lore.kernel.org/all/20260902194718.E1FF3041@davehans-spike.ostc.intel.com/)
+>   - Link to RFC v3: https://lore.kernel.org/r/20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com
+> 
+> from RFC v2 to RFC v3:
+>   - repasre commit message
+>   - move ptdump_pgtable_first_level() into pgalloc.h
+>   - skip the huge pud operation when CONFIG_X86_DIRECT_GBPAGES is disabled
+>   - docuemtns compile-time folded page table
+>   - drop the applied patch.
+>   - Link to RFC v2: https://lore.kernel.org/all/20260722-dummy_ptxp3-v2-0-d9e4bad31e0a@arm.com/
+> 
+> from RFC v1 to RFC v2:
+>   - Restore slient fallback to next pXd in set_pXd() and pXd_pgtable()
+>     and add check whether they're called with dummy entry.
+>   - Add some comment for returning first entry of pgd in arm with
+>     2 pgtable-level
+>   - Link to RFC v1: https://lore.kernel.org/all/20260713135614.1618183-1-yeoreum.yun@arm.com/
+> 
 > ---
-> The proposed fix[1] requires additional arch code fixes[2]. Disable it
-> first for stable fix. The function will be re-enabled along with arch code
-> fixes.
->
-> Link: https://lore.kernel.org/all/20261009165214.40212-2-kylebot@openai.com/ [1]
-> Link: https://lore.kernel.org/all/DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com/ [2]
+> Dave Hansen (1):
+>       x86/mm: Introduce helper for checking direct map 1G page support
+> 
+> David Hildenbrand (Arm) (13):
+>       ARM: mm: make nommu pgd_t a scalar
+>       ARM: mm: make 2-level pgd_t a scalar
+>       ARM: mm: remove custom pgdp_get()
+>       LoongArch: mm: define pud_leaf() only when PUD exists
+>       MIPS: mm: define pud_leaf() only when PUD exists
+>       mm/pgtable: define (pgd|p4d|pud)_leaf() for folded page tables
+>       mm/pgtable: define (pgd|p4d|pud)_offset_lockless() for folded page tables
+>       openrisc/pgtable: drop __pmd_offset()
+>       mm/pgtable: optimize pmdp_get() and friends for folded pagetable levels
+>       mm/pgtable: catch abuse of folded dummy pgd_t/p4d_t/pud_t
+>       mm/pgtable: disallow calling (pgd|p4d|pud)_page, pgd_page_vaddr() and (p4d|pud)_pgtable with dummy
+>       mm/pgtable: disallow calling folded set_pgd/set_p4d/set_pud with dummy
+>       Documentation: mm: clarify behaviour of compile-time folded page tables
+> 
+> Yeoreum Yun (7):
+>       mm: vmscan: remove stack copy address of pud/pmd pass in walk_pud/pmd_range()
+>       loongarch: kvm: remove stack copy address of pXd in pXd_offset()
+>       riscv: kvm: remove stack copy address of pXd in pXd_offset()
+>       riscv: mm: use proper set_pXd() for generic compile-time folded patable in vmalloc_fault()
+>       mm/pgtable: redefine PGTABLE_LEVEL enum with ascend order from PGD
+>       x86: mm: use pgtable_level enum in effective_prot_pXd()
+>       x86: mm: carve out the generic compile-time folded pgtable case in effective_prot()
+> 
+>  Documentation/mm/page_tables.rst            | 84 +++++++++++++++++++++++++----
+>  arch/arm/include/asm/page-nommu.h           |  4 +-
+>  arch/arm/include/asm/pgtable-2level-types.h | 20 +++++--
+>  arch/arm/include/asm/pgtable.h              |  2 -
+>  arch/arm64/include/asm/pgtable.h            | 23 --------
+>  arch/loongarch/include/asm/pgtable.h        |  2 +
+>  arch/loongarch/kvm/mmu.c                    | 20 ++++---
+>  arch/mips/include/asm/pgtable.h             |  2 +
+>  arch/openrisc/include/asm/pgtable.h         |  3 --
+>  arch/riscv/kvm/mmu.c                        | 20 ++++---
+>  arch/riscv/mm/fault.c                       | 52 +++++++++++-------
+>  arch/x86/include/asm/pgtable.h              | 14 +++++
+>  arch/x86/kernel/cpu/common.c                |  2 +-
+>  arch/x86/kernel/machine_kexec_64.c          |  2 +-
+>  arch/x86/mm/dump_pagetables.c               | 18 ++++---
+>  arch/x86/mm/init.c                          |  2 +-
+>  arch/x86/mm/pat/set_memory.c                |  6 +--
+>  include/asm-generic/pgtable-nop4d.h         | 54 +++++++++++++++----
+>  include/asm-generic/pgtable-nopmd.h         | 54 +++++++++++++++----
+>  include/asm-generic/pgtable-nopud.h         | 56 +++++++++++++++----
+>  include/linux/pgtable.h                     | 69 +++++++++++++++++-------
+>  mm/vmscan.c                                 |  4 +-
+>  22 files changed, 371 insertions(+), 142 deletions(-)
 > ---
-> Changes in v2:
-> 1. added more details on how UAF can happen.
-> 2. provides more details on why the invalidated PMD approach is not used.
-> 3. explained why unmap_huge_pmd_locked() and
->    __discard_anon_folio_pmd_locked() are left unused.
-> - Link to v1: https://patch.msgid.link/20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com
-> ---
->  mm/rmap.c | 11 -----------
->  1 file changed, 11 deletions(-)
->
-> diff --git a/mm/rmap.c b/mm/rmap.c
-> index 805db93fe0428..1131b76bbbc28 100644
-> --- a/mm/rmap.c
-> +++ b/mm/rmap.c
-> @@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
->  		}
->
->  		if (!pvmw.pte) {
-> -			if (folio_test_lazyfree(folio)) {
-> -				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
-> -					goto walk_done;
-> -				/*
-> -				 * unmap_huge_pmd_locked has either already marked
-> -				 * the folio as swap-backed or decided to retain it
-> -				 * due to GUP or speculative references.
-> -				 */
-> -				goto walk_abort;
-> -			}
-> -
->  			if (flags & TTU_SPLIT_HUGE_PMD) {
->  				/*
->  				 * We temporarily have to drop the PTL and
->
-> ---
-> base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
-> change-id: 20261009-lazyfree-stable-fix-67712b2049dd
->
+> base-commit: 8d61431ed2607386b427752505379536eb634ce8
+> change-id: 20260722-dummy_ptxp3-3741d78cc70f
+> 
 > Best regards,
-> --
-> Yan, Zi
->
+> -- 
+> Sincerely,
+> Yeoreum Yun
 
---
-Cheers, Lorenzo
+-- 
+Sincerely,
+Yeoreum Yun
