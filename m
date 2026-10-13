@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054384EFFA1
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:21:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 005E44E50D7;
+	Tue, 13 Oct 2026 11:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890520; cv=none; b=k7HgfVh2T1zmz2Gnd9k5tThAaWFosVqEMmFMd3mP9Ku9mgOHNnXrs4OJx7lI+jybV3pgrKFt5cg6v4PqrnvOwSqME+WpqOs+WUAg/A8HS6rAw2S9enqfM6FoX7LEvGvrBE4ZVtumt5ZaKJRI2PmfipojJ7WjcRtehpwAHhVsbXo=
+	t=1791890534; cv=none; b=m2Vcw4Lntu5O5i0JBcoph78Axf3bWNEXlQU0yQY9yxVVL7KGpkL4RRcJy4+breBepEFzJOn48WuBZPR/6gx0qxJ/7aYbkVyCkZaXn2oP5rD7vwfKUg2VV06t1z1evoRXUku5e6tnnpmBshkjf9SGNak5MlUMd4uTeZX+oONAqY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890520; c=relaxed/simple;
-	bh=Ca7l2SoQ59LsCYSjUOtHSvzwcobgCe6/+3uN6E1Y4kQ=;
+	s=arc-20240116; t=1791890534; c=relaxed/simple;
+	bh=RLr0yHOBIlWtoJQFIjulsw9CVLczgK/Gqty1vaAGW0M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qCNDzTjCtn9dMhI5o0Z2v9vax97ik5KwQq0U77qGEWN6mTZtv0iBNCeuYeOfbyE3uSLaD+kFiWi3q16prE3TGIqS3S41hjV+N99HxdFU8O+a8wlzKM2XH7MhtsUtHB46GK6EhL3mJnzjzh+J2uJbdBZ3tYJ3Jj14WxEexvQTS80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aKftdZKo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TPMsHn8G; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=tssPblwF1/i9sOhETt62CEyrBD0f1y+JjKi07vcssbUJKuiUpPsp7DOUOKfBDazREFDS1HmurHUWJTPMQKfRBoNDa5OVziCRcGnK34KXv59Qel0YdotgwgRw+uHkhsdcUXVVkgVNcsuP8CaCaxTF3REBQE2prB8qJ84JigxWfqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Aeav/vQ3; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aKftdZKo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TPMsHn8G"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D907cl791622
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:21:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x7c1avwBI6cCr1P3gl9NUcM/qSQ9a1RvEzOrH3fu0TE=; b=aKftdZKo/F2L0EGM
-	9MuWtaw7fLgd+2/RpTXU4GjRogB6eNKlOz9q5loS5TVXU1o4eZxpvsSs+fImrcwB
-	VZr2nXJ6e8W/fDLMa4PtssqSqCkrDsfNpuKxLu3yOZ90RmwqPEKu6VhQtZNTKdsb
-	F6daRsKrKiuJvYN1uFD8YXiHb5sF6UeWAf2BYKIg2izpAPyrEpoI/lvPQOHpOIu3
-	ySCcj4rzmFvDdrwI8+TMYsISuniZolhQQNZ9KFsdC2MsYA4dZZYrA6UQduBlCH6N
-	o1XXa2vR1cwn/aUgvSUbfRFzpfMS9lrU+UFEE/dBlF3HlmRmBfKP6+a7R0bs2TpH
-	IAF9OA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9hmjrkjm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:21:57 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ea8a9cfe6so37303285a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:21:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791890517; x=1792495317; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x7c1avwBI6cCr1P3gl9NUcM/qSQ9a1RvEzOrH3fu0TE=;
-        b=TPMsHn8G8kXXn0DCnig13wR414Gq4MrXteVvGBtTyYAQwfs4Ku5GmdYlscUydNqPsI
-         47A46+SKQneNhGf1LPIvY1P0GdH+rHy+FiKDlEP5fCRtpJ4GeIdovlULmuqVs044s6yt
-         CH2GxZrPs4HbfjeLkpjn+O/J1JTpCwmIUFcPLucPaRGS7t8ukp86n+8asWRmHw4qYB/f
-         DKFCgOb+dQpf/6UBmCOdRaD87LTrWycxZZG0q8MOWEXb3a82iLv7eFoUgkKN4YeqKrKP
-         +EMVPMvCg5YkRC8n9DDkP/tRBIC0fFW0H2aWHNPZbNQmWJPhoaXAb0pjaDqUJ+tj8qqa
-         g/zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791890517; x=1792495317;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x7c1avwBI6cCr1P3gl9NUcM/qSQ9a1RvEzOrH3fu0TE=;
-        b=D7bS0LN9/bHrcwzCb3cXJ24Rb5k8iCLrXcA8VF5XJ/FFreQ6266UbVTax9LnuEgY/x
-         HKzetcx2xdAAoq6WuppF3xMI3yF116kNNvIn5xE14OhLqnJCFv7G+xD65r6R6qDu6/Q5
-         6zdybOiCphbVm65tJaKPdXtfwt++QwXOQpC+zdR7t5UEOSUXrWYB0m+iNxrXvlra7QEI
-         coiFlyBmauMZ2q1zUy/8Uhhi6UjJGehGM6iKoZSvUXn4Sx4pHttllzXDZH9xrgl0ox8/
-         PBqp9DnDUTMCo1UuBzju1i57DaLQw5rVSAa4k6Ym8Uz7xUZ5PQoxH2kkJxnlj6dw1k7Z
-         XIXg==
-X-Forwarded-Encrypted: i=1; AKwUvBx4lbvvKvyEIomgHMomKWgG6HnOil5IPZsGGnXErEp1m8liK6kHRSMTrzrxbgNdya5SFXUU0YfoBF2jgac=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrKqrat67RSTI7JNUpquvBaIXtiftUDARizObUDxi86vHCkf7l
-	L4c69AXwrMnbjozM5iK2Smmcc10c3rSjXllITSYZPIlLqbJtWqVD3zNhw6W5scxj8l4Z+WSfPsw
-	Ro9INVKcRvgPPnmf6XgnNrVub2hZE5gYKMzMaoMlht8jlz8esOyUgSQq1IfsH1P8bfZ4=
-X-Gm-Gg: AYBFou3FuVQAQxw2uXqJoMLmwa3RxUYRRyS1tDePkmKlNJ2uQQxHVlNY59koM9KCvxz
-	DRhn7Xf3B5rrXxQ6vSFyGKW6YXcgDX3lo4f9rWNaOihylq7u8Bc5KlBXPoADKlZEIWdQvK3Js4x
-	w0QoAantuYMQrKbt/ydJV9Wi73SnLPtTGd/tnBvcDz/ZHuo14EDcYQRq+oqDcH+9/7a2eofopF+
-	3x3gWqoqzCAF/5eGrGwIfxbldtxC2eloEeyVeBjglonKscAmiRDmW8VKm6opkQ7cPpupjU2XjZI
-	GZbfvRK4t8DAZvbtLf3TUhhvJ24h5uclQZ0aZG8D1qWEIkmxes0nkWnI2V7qr0iIv0NuUCTe8+y
-	WhWEfXopLwEMaMUdLazE38w==
-X-Received: by 2002:a05:620a:6498:b0:93e:e111:2771 with SMTP id af79cd13be357-93ee1112d0cmr1076496185a.2.1791890517162;
-        Tue, 13 Oct 2026 04:21:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:6498:b0:93e:e111:2771 with SMTP id af79cd13be357-93ee1112d0cmr1076491285a.2.1791890516636;
-        Tue, 13 Oct 2026 04:21:56 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dc0c2bsm6114822a12.11.2026.10.13.04.21.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 04:21:55 -0700 (PDT)
-Message-ID: <32681ae8-3356-4570-8631-650fcd88c803@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 13:21:53 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Aeav/vQ3"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C9171476;
+	Tue, 13 Oct 2026 04:22:07 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2CFA43F66F;
+	Tue, 13 Oct 2026 04:22:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791890530; bh=RLr0yHOBIlWtoJQFIjulsw9CVLczgK/Gqty1vaAGW0M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Aeav/vQ3OvT5QabGviuydsBH8ty/WEMQW4ieoZhDJE5GN2p6eezLkc4K4JiYJEDCs
+	 gIp0YIapFfZG+H4T9HqxUjj1ShU7RX9VvYPH09Z7n/ao5NblF1OL4SuG0hUoLbkKNZ
+	 LBWQT9p7H+G6jdqXDdNapBSRMay/jlktWjv+xtLo=
+Message-ID: <e8c22eb2-ed1f-47c7-b2ac-c56ead1cba8b@arm.com>
+Date: Tue, 13 Oct 2026 12:22:06 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,85 +35,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] power: supply: qcom_battmgr: report full batteries
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Sebastian Reichel <sre@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org,
-        Sebastian Reichel <sebastian.reichel@collabora.com>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261008-battmgr-full-v1-1-4f5485a9c421@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261008-battmgr-full-v1-1-4f5485a9c421@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH RFC v6 5/5] iommu/arm-smmu-v3: Wire up shared-SID STE
+ ordering and feature gating
+To: Nicolin Chen <nicolinc@nvidia.com>, Peng Fan <peng.fan@oss.nxp.com>
+Cc: Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Thierry Reding <thierry.reding@kernel.org>, Krishna Reddy
+ <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+ Peng Fan <peng.fan@nxp.com>
+References: <20261011-smmu-shared-sid-v6-0-cb76b89dc612@nxp.com>
+ <20261011-smmu-shared-sid-v6-5-cb76b89dc612@nxp.com>
+ <aszfVNP6DGzWYdK0@shlinux89> <as1zR1wc7ERxvR1F@nvidia.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <as1zR1wc7ERxvR1F@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0NSBTYWx0ZWRfX1adTT5+4j6Hu
- KRq7ae3uCPl/INC/eQ2yDTcM270KaohDJneIoSvVwyPCPueRQo8RIrlUXAE0RB45tUhgbaPhUp5
- eSFtHq4ypQhPmaL9XR1yjGq8g0vBn1g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0NSBTYWx0ZWRfX87Xw0RlcWH3H
- RhWQuuDFp/V1yaBYrPkPMivAHpByyAdRfzy0GngwE/gBQ1pueV2+N1HrZkKmHTBgMNh9MmwlGjA
- GdszxLw/6aAyqQAPwhIsogXZQ5qLUsz9Bqh2vH7HvWs0NNxVZApph7rq0AsNCUJ/2l1FvysSqhD
- BUwsQVcWo91XlRxJpVRvn50aVJRCKkcd6hQyGYu6ik6gBYSwNZ/Aw3ia9p710GDuXpfK3GVC2J2
- Gap5rzuIDcIlMLC8Y9ZNAF9DBr08dSm2taFHjlp0SU1ikkhnfbiPelWrWnfDnwLNxQE4pKoMw/r
- N42jt5eIZn4HKY0QFq9Jgi+UwKkOMUa/LyIPGCm7v1XxdleRNrNi9gCUq2IUjF3Sol1Z7a6PmKH
- AML1pMhF4nzhzSFxNkuqjP3PQyIrcLdo60QiFvoT0YKTws/BqexZSAw02z1B4uYYRjOQgfbLMpE
- v/VN0Dg+sV7MAdhD2Ow==
-X-Proofpoint-ORIG-GUID: g_RnK7TjAzIQCwjWi52XMu1xkzV2oSan
-X-Authority-Analysis: v=2.4 cv=O5+sLx9W c=1 sm=1 tr=0 ts=6ace1455 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=adyeotTpviE2zRAQUGEA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: g_RnK7TjAzIQCwjWi52XMu1xkzV2oSan
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501
- bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130045
 
-On 10/8/26 11:14 AM, Bjorn Andersson wrote:
-> The SC8280XP battery-status response has no explicit full state. When a
-> battery reaches its full capacity on external power, neither the charging
-> nor discharging bit is set. The driver consequently reports "Not
-> charging", which can make userspace show the system as battery powered.
+On 13/10/2026 12:54 am, Nicolin Chen wrote:
+> On Mon, Oct 12, 2026 at 09:23:32PM +0800, Peng Fan wrote:
+>>> +static bool arm_smmu_skip_shared_ste(struct arm_smmu_device *smmu,
+>>> +				     u32 sid, bool is_abort)
+>>> +{
+>>> +	struct arm_smmu_stream *stream;
+>>> +
+>>> +	lockdep_assert_held(&smmu->streams_mutex);
+>>> +
+>>> +	stream = arm_smmu_find_stream(smmu, sid);
+>>> +	if (!stream || list_empty(&stream->shared_masters))
+>>> +		return false;
+>>> +
+>>> +	if (is_abort) {
+>>> +		stream->ste_installed = false;
+>>> +		return true;
+>>> +	}
+>>> +	if (stream->ste_installed)
+>>> +		return true;
+>>> +	stream->ste_installed = true;
+>>> +	return false;
+>>
+>> sashiko has comments: https://sashiko.dev/#/patchset/20261011-smmu-shared-sid-v6-0-cb76b89dc612%40nxp.com
+>>
+>> We just need to support a simple case that platform devices(single SID) which
+>> could share there SIDs, such as MMC-0 and MMC-1 share one SID.
+>>
+>> Shared-SID masters are restricted to platform devices sharing a single SID.
+>> SVA, IOPF, and vSMMU nesting are all rejected for shared-SID masters (patch 5),
+>> so VFIO passthrough and direct domain replacement scenarios do not apply.
+>> The only domain transitions are the default DMA domain attach at probe time
+>> and ABORT on unbind. Or I may miss something.
+>   
+> Domain can be switched between DMA and IDENTITY via sysfs.
 > 
-> Use the response's power-online bit and the reported capacity to identify
-> a battery that is full while externally powered. Preserve "Not charging"
-> for a battery whose charging is inhibited below its full capacity.
-
-Let's define that bit, as it's not obvious what it corresponds to.
-
+> I think there should be a way to support that. But, without a concrete
+> use case, it might be easier to add this into the attach_dev callbacks
+> (except arm_smmu_attach_dev_blocked):
 > 
-> Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
-> Assisted-by: LLM
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> ---
->  drivers/power/supply/qcom_battmgr.c | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
+> 	if (arm_smmu_master_shares_sid(master) &&
+> 	    old_domain && old_domain != domain &&
+> 	    old_domain != &arm_smmu_blocked_domain)
+> 		return -EBUSY;
 > 
-> diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-> index 7716eb9e1aff..97cbe966ea84 100644
-> --- a/drivers/power/supply/qcom_battmgr.c
-> +++ b/drivers/power/supply/qcom_battmgr.c
-> @@ -1261,6 +1261,7 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
->  	unsigned int opcode = le32_to_cpu(resp->hdr.opcode);
->  	unsigned int source;
->  	unsigned int state;
-> +	unsigned int power_state;
+> And Sashiko's second remark does reveal a real bug:
+> "Additionally, when devices are detached from a domain, is_abort is true.
+>   arm_smmu_skip_shared_ste() clears ste_installed but unconditionally returns
+>   true for all masters. Will this cause the ABORT STE to never be written to
+>   hardware?"
+> 
+> Given that your use case always group SID-sharing masters in the same
+> iommu_group and attach/replace a domain on those masters together, I
+> think a simpler solution can be to always let stream->master install
+> the shared STE.
+> 
+> One pitfall would be the release domain's attach_dev, which would go
+> through arm_smmu_attach_dev_blocked() just like a blocked domain. So,
+> it has to skip correctly if the shared stream->master == master. This
+> means we might have to add a separate arm_smmu_attach_dev_release().
 
-Reverse-Christmas-tree, please
+Hmm, but in fact why are we worrying about skipping things at all? Yes 
+originally trying to rewrite a "live" STE was a problem, but since 
+Jason's redesign, isn't arm_smmu_write_ste() just going to see that the 
+"new" entry is identical to what's already there and happily do nothing?
 
-Claude also has concerns regarding how this interacts with charge
-limit (although perhaps "not charging" should be good there?)
+> And I realized that there is another problem in your design: the CD
+> table is still allocated per master; see arm_smmu_alloc_cd_ptr(). If
+> STE is shared, its CD table must be shared too.
 
-with that resolved:
+If we're not going to support PASID for shared streams (which I suggest 
+we don't...) than we shouldn't strictly need to worry about CD tables 
+anyway. So rather than having to special-case CD table sharing for 
+shared streams, perhaps it might make sense to generalise back to a 
+"default" per-domain CD for non-PASID use, which can then get switched 
+for the private per-stream cd_table if and when a device does enable PASID?
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thanks,
+Robin.
 
-Konrad
+> You'd need to redirect all the master->cd_table with something like:
+> 
+> static struct arm_smmu_master *arm_smmu_cd_owner(struct arm_smmu_master *master)
+> {
+> 	if (arm_smmu_master_shares_sid(master)) {
+> 		int i;
+> 
+> 		for (i = 0; i < master->num_streams; i++) {
+> 			struct arm_smmu_stream *stream = master->streams[i];
+> 
+> 			if (!list_empty(&stream->shared_masters))
+> 				return stream->master;
+> 		}
+> 	}
+> 
+> 	return master;
+> }
+> 
+>>> @@ -4360,9 +4391,11 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+>> I am thinking to simplify reject if stall_enabled is true:
+>>   			if (list_empty(&stream->shared_masters)) {
+>> +				if (stream->master->stall_enabled) {
+>> +					dev_warn(master->dev,
+>> +						 "Shared StreamID 0x%x rejected: existing master has stall enabled\n",
+>> +						 sid);
+>> +					ret = -EBUSY;
+>> +					break;
+>> +				}
+>   
+> I'd move it upwards: next to the existing "num_streams != 1" guard.
+> 
+> Nicolin
+
