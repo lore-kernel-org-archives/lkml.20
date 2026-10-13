@@ -1,62 +1,58 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F34F52E050;
-	Tue, 13 Oct 2026 20:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7975437CE;
+	Tue, 13 Oct 2026 20:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791924798; cv=none; b=aVB+fosJB2DuugKq1mnN8vm2dLEL4MqH2YMQIIm1jGGv9pERSA1Hj937/rmQbnG8DWd5FyeLhXL9ydY2AoCj5Ft3EkGp7M1X/FO+pdT62E35QdEH5jZnvp3X97TY1cpJCEpLvhqK1/wKAdzzWlbhtV6N07tWccOMUUS32eOmLWM=
+	t=1791924848; cv=none; b=m12mskzNSKQENg/8EY5OuP5FLx/qRbAXB/eZf9A7UU2HBSG4Iq++r2Sft0itYZJWvPvIew7Sz34UNhORguH8Ivd/l8RHwXzjJoODxICJ1FHikowxYF+g7y6YK1nKVU9XvU+86y0TkjaNc4PtFQWZF6LC68garefkHOiGiIS7U/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791924798; c=relaxed/simple;
-	bh=UVNWOJGTtBiwJFwqiBZnC2r1Rg0UYdAGT2BPsnvMjsU=;
+	s=arc-20240116; t=1791924848; c=relaxed/simple;
+	bh=S99ly0hySM1Oppd062WwvIU3tAiY+7B0+KcZ40Lero8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WP1KvJrTEDQVS8jeyLfjC8UfynZlggjxzbfD0RjIpVFKbRmcibyYYR6vrq2oG2XrfIHfatS7IUwELIUBb8QYbeDnSYmqyQVqP+NQTYDGtofrbIRq20fTTeGsb5mFzj5gso2pW2Fx4HrNaXN6Go0JWX0Ilo6fkwG7c9WqQWqI37Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PYZtmJ3J; arc=none smtp.client-ip=198.175.65.10
+	 Content-Type:Content-Disposition:In-Reply-To; b=iqgA+5RKdxItOS3hoyI6a6sYcLiHH+6FBoJtH/mpOVrNnbYgvJlm5wOng32/+ntmclXudq6gOHxkXXjYF3VTdZA0fztEqvlTYT3Tw4lLm3gxbuO5G004owuFF3bvNuMSlC+4c3fAeL1+2ZN2D4X5+42U6FD2dJePLn2EHETbHUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FdG9Le1K; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PYZtmJ3J"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FdG9Le1K"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791924797; x=1823460797;
+  t=1791924848; x=1823460848;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=UVNWOJGTtBiwJFwqiBZnC2r1Rg0UYdAGT2BPsnvMjsU=;
-  b=PYZtmJ3JepwvJe8VDnpcom9dbdftwjzt5l1vAI35nh8qps5NuPf4T4t7
-   dmbCQJYdgkM5MecYh2C3210h3uCq5PGJa8nQn3kqiNlgnwSW1mUkRmDUm
-   P0PA92WhGyVIrNv6Qj9JnyslqCy+Ul23SycGHH+z9AMcp3Up2HaD1U7u/
-   m+oTXPcSZlyRqGf/QFI/Kx4LGbmp+gTQVv6jb1oW53Pb0skHV9nwPpqVm
-   Vurg07YCs2Q8yVhT0bUDP8V91hfT6LcH/Y3J+vUbBDT49TZzAlSM4ydki
-   zCwaFBTz17HQgRyW+o+DvbSzkj7Y+S9HIAV0MM/pnDREe/Er5W23KlolQ
+  bh=S99ly0hySM1Oppd062WwvIU3tAiY+7B0+KcZ40Lero8=;
+  b=FdG9Le1KfBLXfvl339ymSFZxCiCtPmKaXF3A+wTu0Y2D08SA4bka9QvG
+   H17L0JfMV0AbdVc4K3Ve+aumWxWMAHoU4Z9IXDKtzSS/I9RyxmA1x9Z+Z
+   0rrdkNOK6bk802uihxnL8R1+NXRBnIIohLr/bQWW4zkMUjHT3tfgY5x8t
+   J74n8rdovMC0NBc3EV110eRPO+EiHDhyuEGdUkDaQmYRU7Tz7bqokJ87F
+   AWC+kTBlQGI6tdY/cv2XpBBIwqtS3Taj3I0vkgqMzDVqLB/iNXVdRf7/D
+   qX0baVxx80HIO40F1t72qd9R86TYKDXqGWFYTpJmQEPuEYaATW2nQ+f6z
    A==;
-X-CSE-ConnectionGUID: JDwESw4UQfaNlmgbhz4EDA==
-X-CSE-MsgGUID: gWIbZSWLTOKyv6hC8T9jBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="555576"
+X-CSE-ConnectionGUID: e+ukQzGUSJ2FyzNouDkwdw==
+X-CSE-MsgGUID: Yx//+zFXQI2WKlH57Yz/3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="649454"
 X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="555576"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 13:53:17 -0700
-X-CSE-ConnectionGUID: 8dyQYGQFTxm45ly37VT2nA==
-X-CSE-MsgGUID: YY3Sm9JmTbOinpYzN0c9cA==
+   d="scan'208";a="649454"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 13:54:07 -0700
+X-CSE-ConnectionGUID: b8K4uZ5PQnWjXTJAI6OitA==
+X-CSE-MsgGUID: A+jsxrnWTieKBlwuYEL73g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="3017963"
+   d="scan'208";a="1353957"
 Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 13:53:15 -0700
-Date: Tue, 13 Oct 2026 23:53:11 +0300
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 13:54:06 -0700
+Date: Tue, 13 Oct 2026 23:54:03 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Frank.Li@oss.nxp.com
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM" <dmaengine@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 1/1] dmaengine: shdma: move shdma_chan and shdma_desc
- structs to private header
-Message-ID: <as6aN76S6O2M39_l@ashevche-desk.local>
-References: <20261013203433.337893-1-Frank.Li@oss.nxp.com>
+To: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Subject: Re: [PATCH v1 1/1] soc: qcom: cmd-db: Use %*pEhp specifier to add
+ some sanity
+Message-ID: <as6aa0lqhUC8dttv@ashevche-desk.local>
+References: <20261002103209.875124-1-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,21 +61,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013203433.337893-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20261002103209.875124-1-andriy.shevchenko@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 13, 2026 at 04:34:23PM -0400, Frank.Li@oss.nxp.com wrote:
+On Fri, Oct 02, 2026 at 12:30:46PM +0200, Andy Shevchenko wrote:
+> As Sashiko pointed out in [1] the %*pEp makes the whole thing
+> like "no escape". To add some sanity to this the used specifier
+> also includes ESCAPE_HEX.
 
-> Move struct shdma_chan and struct shdma_desc from the public header
-> include/linux/shdma-base.h into the driver-private header
-> drivers/dma/sh/shdma.h. These structs are only used internally by the
-> shdma driver and do not need to be exposed to external users.
-> 
-> Prepare to make struct dma_async_tx_descriptor private.
-
-This kind of changes I like!
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Any comments on this, please?
 
 -- 
 With Best Regards,
