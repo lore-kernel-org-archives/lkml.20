@@ -1,124 +1,92 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215304DDB47
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECCA4DBD95
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888911; cv=none; b=YqohAivEM8IHRohwHD2Zb7CJY1ItA4Av4NK/MRkFcRQp73I5y4wrV3O8Ef87oYGiuwp0bHpiFmgK6W4EW15B3Wg53DLJXxO7lrPVH2lB4GTEWe4bUhz2fSMsshwQvYPxGYVk/+RDeQ3qClk+C8/mqXN49j7dsEe7yk7xulog6cg=
+	t=1791888919; cv=none; b=kT/xxMILxDlVPekkXZwTc/8WZXo8WuJzWk/t4NPfDzPxWIxVk20YEh5ow936rMqcTgs15M1vVrtzYZk1quhkYZQZrtX3Fa6NnheD5NUcM0WS1kmehefCjNwt5gtEoAEzYsPScwCvuFETUDWufS5cmeRY6hozmOxKrx4HiqsEoaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888911; c=relaxed/simple;
-	bh=NOawpwlOwWou1DNRZj9zj71q3lEpGztTs66Z9Sfn8Jc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C81qF+UpgNDISw+SaA44Yl7w46/pdyQA3EllNlKxxGG8b2CfXFVPYbMUhVCnFaGUrEoZoAwU2V5ltVvgG0bSoqx6vfdAh9NtlR7Z2nMSpdOiACjWOML0fMMjT/iiGg7745bRrQKniCsVepP6Iqhgqpb4RXCAHJn0C8x+C5s+YB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XnOaRkJI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791888919; c=relaxed/simple;
+	bh=ds1QPT8yzHdZMuQq3UstL9pPJ7Ci2QOTxip+6JopTkQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dKfByogt3c1Fc2JL4t6xmdMAgfUTex2JtYFMprI2unl5aDfUQExkuHO0ecpj/H3P447+fVed1e8Stwzi5ICmu7icBYRmDBD5xxQxIy231ZYlRw58taBRyAmUwicxuSlxWhIGIiVWmeg9Nh6d6WoptZd7w2qL5L1pJV6Gx0Tl23M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZPJ/boY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XnOaRkJI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791888906;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=UpxcCnPd005/g5FAqjDp0jedDw+f/p4nfDPhOlNi820=;
-	b=XnOaRkJIylWRZcxUmX/cy3UHn0SX736n2lVwXyuEHZ2PmGGuRofWxkXAlonNxE3NTbXDD4
-	BJHqX1m2BGna+niIufs7RweuKNYCLN+HdKiL8VXlpQP3xO1CyvIfH5m8r/F5STrfNAEro4
-	0jkuTzEuTDRhetK+SFGLjYlwYvtGYgk=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-518-MygAFOm6MMKqsw9bNIyp-w-1; Tue,
- 13 Oct 2026 10:55:03 +0000
-X-MC-Unique: MygAFOm6MMKqsw9bNIyp-w-1
-X-Mimecast-MFC-AGG-ID: MygAFOm6MMKqsw9bNIyp-w_1791888902
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5A3DB180AEBD;
-	Tue, 13 Oct 2026 10:55:01 +0000 (UTC)
-Received: from fedora.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6964541B;
-	Tue, 13 Oct 2026 10:54:56 +0000 (UTC)
-From: Anirudh Virdi <avirdi@redhat.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	kees@kernel.org,
-	horms@kernel.org,
-	ast@fiberby.net,
-	linux-kernel@vger.kernel.org,
-	Anirudh Virdi <avirdi@redhat.com>
-Subject: [PATCH net] net: qede: initialize extack in qede_flow_spec_to_rule()
-Date: Tue, 13 Oct 2026 16:24:51 +0530
-Message-ID: <20261013105451.201211-1-avirdi@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZPJ/boY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F401F00893
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791888915;
+	bh=N8rZHN5vr5YYaECJ7sq3JBgr9vWpcUuBt8+2CkZYjRY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BZPJ/boYlaWZJwbOXFprggfIMOaaR0o3HwwlHITrs8md2mUYhZhFkeCcs0Gp+wUti
+	 Wr2px3OpOHikuey4NpAIHjPxdIc1FFrVe3HadHqxMxghqT5k/M99cSN0Za3Edk4E9/
+	 RWMkG2jPKmAUnpAcXRIGi4LTN9UF3DCwKXwTr8goW8i4PXK3uvdGExRcLXGBbJ7h4b
+	 M46NqQoFrtJvFRjSxd8s5GaZ7yBvS2cgdG7evyhu1ZQmLkYmb4Nr/+eiNCeJkodBgJ
+	 Zh3+UgyZmt9iPrwY+sd8mfTscFUpqgBnK3R1b6gEGWIU5R2YLwD6OUdjnG6wgwo+uR
+	 6hs1CB6vKZrUg==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso1099323e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:55:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBznJkBsx/KHV84W89QJb0Vj4xGSC0gMkSF9R6U93FEhGH6csQpHnBjD6nY5/e7TMt0ORKzIz/0cQ4o+DIE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdNG8jP5mQJRJTvmGsFOfEZN82aI1kT2aazdBiw3kvRo75KpBz
+	zpMRGHnmoNskx1pQ0mZupEj/hx+l4untdk+M7NDykI2cI7VnB3tBXSz++cx46aO+Lmc8ZcCIyZ0
+	6B8bdvQJoqECcMMX29j2fHsYAl5LRP6Y=
+X-Received: by 2002:a05:6512:1256:b0:5b8:9ef4:2bdf with SMTP id
+ 2adb3069b0e04-5bcde6c3b8dmr4148449e87.26.1791888913690; Tue, 13 Oct 2026
+ 03:55:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+References: <20261012230632.3574987-1-jamien@nvidia.com> <20261012230632.3574987-3-jamien@nvidia.com>
+ <20261013021258.3843871-1-jamien@nvidia.com>
+In-Reply-To: <20261013021258.3843871-1-jamien@nvidia.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 13 Oct 2026 12:53:07 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0ixQ_5jmrfm4mz50tZtCEq6nJt1b2eMoBdhr0f3AY+k7w@mail.gmail.com>
+X-Gm-Features: AclHuK8XoMtTs7ME2ZEErW2qatvCRY42FZqBIO0txNvRt7YnZAoZnNgZfF4qoWI
+Message-ID: <CAJZ5v0ixQ_5jmrfm4mz50tZtCEq6nJt1b2eMoBdhr0f3AY+k7w@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] ACPI: sysfs: Expose BDAT data region
+To: Jamie Nguyen <jamien@nvidia.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	Punit Agrawal <punitagrawal@gmail.com>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-qede_flow_spec_to_rule() declares a netlink_ext_ack on the stack
-without initializing it. qede_parse_flow_attr() and
-qede_flow_spec_validate() only set extack._msg on error paths via
-NL_SET_ERR_MSG_MOD(), so on a successful parse the err_out block
-reads an uninitialized pointer. If that garbage happens to be
-non-NULL, DP_NOTICE("%s", extack._msg) dereferences it inside
-vsnprintf, causing a page fault and kernel panic.
+On Tue, Oct 13, 2026 at 4:13=E2=80=AFAM Jamie Nguyen <jamien@nvidia.com> wr=
+ote:
+>
+> The Sashiko review of this patch [1] notes that acpi_data_show() maps
+> the whole data region on every read(), and that the unmaps are deferred
+> by RCU, so repeated reads could pile up mappings and exhaust vmalloc
+> space.
+>
+> That code isn't changed by this series. acpi_data_show() has mapped the
+> whole region on every read since BERT support was added in 7dae6326ed76
+> ("ACPI / sysfs: Extend ACPI sysfs to provide access to boot error
+> region"), and BERT and CCEL use the same path.
+>
+> I measured it with v2 on an arm64 server, with 4K and 64K pages and the
+> 90754-byte BDAT region:
+>
+> - Looping full-file reads, with 1 to 64 readers, kept at most about 4500
+>   deferred mappings (426 MiB) in flight. The count stayed flat and went
+>   back to baseline within 2 s of stopping.
+> - The worst case, tight loops of 1-byte reads, peaked at about 34k
+>   mappings and 4.6 GiB of address space, and also drained within 2 s.
+>
+> At those rates, exhausting the 126 TiB of vmalloc space would need the
+> deferred unmaps to stop completing for more than half an hour.
+>
+> If it's worth tightening anyway, acpi_data_show() could map only the
+> range being read, which caps each mapping at two pages for all three
+> tables. I can send that as a separate patch.
 
-This manifests when configuring ethtool ntuple flow rules (ethtool -U
-flow-type tcp4/udp4) on kernels built with CONFIG_INIT_STACK_NONE=y.
-With CONFIG_INIT_STACK_ALL_ZERO=y the bug is masked because the
-compiler zero-initializes extack, making _msg NULL.
+Yes, please!
 
-Reproduced on RHEL 9.8 (kernel-5.14.0-687.47.1.el9_8) and mainline
-(v7.3-rc6) with the following reproducer:
-
-  IFACE=ens2f0
-  ip link set $IFACE up
-  ethtool -K $IFACE ntuple on
-  for i in $(seq 1 100); do
-    ethtool -U $IFACE flow-type udp4 src-ip 192.168.2.$i action -1
-  done
-
-The loop panics reliably after 10-15 iterations with:
-
-  BUG: unable to handle page fault
-  RIP: string+0x49/0xd0
-  Call Trace:
-   vsnprintf
-   qede_flow_spec_to_rule+0x2b6/0x4b0 [qede]
-   qede_add_cls_rule
-   ethtool_set_rxnfc
-
-Zero-initialize extack so _msg is NULL unless explicitly set by an
-error path.
-
-Fixes: eb705d734525 ("net: qede: use faked extack in qede_flow_spec_to_rule()")
-Signed-off-by: Anirudh Virdi <avirdi@redhat.com>
----
- drivers/net/ethernet/qlogic/qede/qede_filter.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/qlogic/qede/qede_filter.c b/drivers/net/ethernet/qlogic/qede/qede_filter.c
-index ab8b818588e2..e63422c945f9 100644
---- a/drivers/net/ethernet/qlogic/qede/qede_filter.c
-+++ b/drivers/net/ethernet/qlogic/qede/qede_filter.c
-@@ -1992,7 +1992,7 @@ static int qede_flow_spec_to_rule(struct qede_dev *edev,
- {
- 	struct ethtool_rx_flow_spec_input input = {};
- 	struct ethtool_rx_flow_rule *flow;
--	struct netlink_ext_ack extack;
-+	struct netlink_ext_ack extack = {};
- 	__be16 proto;
- 	int err;
- 
--- 
-2.55.0
-
+> [1] https://sashiko.dev/#/patchset/20261012230632.3574987-1-jamien%40nvid=
+ia.com
