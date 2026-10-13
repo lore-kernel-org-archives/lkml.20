@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610E947F3AF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D54447FAEE;
 	Tue, 13 Oct 2026 03:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791863166; cv=none; b=icTujpgVLwZHP5+tYO6+uiPgQfIb00pavd1zIthQ1KeKtLP6dS+9rbJkOnp7gqLKEoDblCj7iZvRgbSDaAuPitojlQGqVMy7+7zwvIKaIJYWzFMpXOXIgulgF0RnpswOypYSk3WswtPgt+6PgLT9DIWUBKwW0AN0OrGcpQ1RY/A=
+	t=1791863166; cv=none; b=mgDnVn2sdNciGMgu5BYF5hQRgzjL60eAzSjCQxM3B8llJlmDUiSSvSoWqT2k0vYxaA5Im/E3bdjNBkUrjlCbY53QP8So2jUu1tpRCAEM68MEqD1+f8V6gpmSWo58Hpk1kh3r/ipiSo1bX3u1Uk6xVFf9hFip6UiM2eXs1azSP/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791863166; c=relaxed/simple;
-	bh=8gR7BhNXPoHr5C+6JPztbmGwaJrI/VU6fS5GUB1Vw7A=;
+	bh=ncEev3AGZKvWWkasRL1X0+uWOAP6NQ4Xwr+gcNBRlgg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qZHO/0gYN0+fzbFsHHsngDwU6fuhDeJRURpK0A/m5hIbKW0xqWNyGm3aZXpZuakqkKIJtzsZsxV3siQOMaUIrY3kQwJE7XPVsmaV7mCkBFQpcZKrVOh4SOk9m1+Y8nJ4XtuzAM+r8qx+JtFZVLStee+dbfqBVgXUoE4jILTto68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UT8TgpPS; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=jcu4JEm8F/g4FoiLaz52scUWd0WPWpoQ9xe/6DfXMxikUH3ecF533Q0xK6uIcrMfpSnv+um1xOvX37XcJ2sAS9UuhXbTAND9z2LRRwRy9b5cJA+xPsp21/JTUPzePHtwwQk9Db2bfXE6hYG45tWIgZnRjprTKHb3zAsQeDHiJIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LrEfCR5H; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UT8TgpPS"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EE136C4DDE9;
-	Tue, 13 Oct 2026 03:46:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LrEfCR5H"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2EFD3C4AF67;
+	Tue, 13 Oct 2026 03:46:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791863166;
-	bh=8gR7BhNXPoHr5C+6JPztbmGwaJrI/VU6fS5GUB1Vw7A=;
+	bh=ncEev3AGZKvWWkasRL1X0+uWOAP6NQ4Xwr+gcNBRlgg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=UT8TgpPSKGwNM8yj/rvWbYVxaFED30yBnH52KgvTHDCzB3prK6gdD1tQ6ebhxVRQX
-	 bwDf7ixbxFcZjSGt5CbZmGbPJDgbm9rtgJuhnwdUiVHeahKUTFa7+LrAvq98LCT8VS
-	 RNqJifoowOh2t0kxFldlWSkQRrWvvwPbKEVb+TYiNhPIlv+d00aFsONOk3+SLz24Pd
-	 RaIaInwZtLI9hDB42WirEIHKpY0eYBRxcCneqWqKew9CStcX2Z435MCILV+HE5KXKE
-	 Z4efs+qwcLc/jhSqq+5tag5tP5ZaPvcRVNX0mSYMRc0goGXH4r6fW56+08zRTnbYYt
-	 XSoGyziKwk+mQ==
+	b=LrEfCR5HB1Z7xMoC11LpsV97TSjKmcTp4b5trUsH5d7DK8ijhxDWKiPRaNGzTA8yK
+	 VDUGT1mCjmE5O+kXNU4E8qt0yZFw9W2ya1mf9XfM6aYcpyJvdxLjv0XeDN/xRwHCm3
+	 4tpRNYRZFTFmkB7oHYPXewSU86vMRztNROIiFzO7997yLr6kmFlShSAp6xDzMhxcjL
+	 kiW+40UXXWL4FEGPDTic4IwYLF+Y8i1FVfcuhckdvdyNQ7ZK2UK5diUZITPYsHdB+y
+	 tGSdT4/lnFjS13zrRoxxdzeUnDti95Pnbt7XKmsQUmaD5kK9NrrPD41DdjCyjDBYvy
+	 f007UqVv+/BBQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9562CA9ED0;
-	Tue, 13 Oct 2026 03:46:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D59BCC6B0A;
+	Tue, 13 Oct 2026 03:46:06 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Tue, 13 Oct 2026 06:46:09 +0300
-Subject: [PATCH v5 06/10] dt-bindings: serial: Add Cortina Systems CS7542
- UART
+Date: Tue, 13 Oct 2026 06:46:12 +0300
+Subject: [PATCH v5 09/10] ARM: multi_v7_defconfig: Enable Cortina Systems
+ CS75xx support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-cs75xx-v5-6-4e72aa383d39@gmail.com>
+Message-Id: <20261013-b4-cs75xx-v5-9-4e72aa383d39@gmail.com>
 References: <20261013-b4-cs75xx-v5-0-4e72aa383d39@gmail.com>
 In-Reply-To: <20261013-b4-cs75xx-v5-0-4e72aa383d39@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
@@ -58,11 +58,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Jason Li <jason.li@cortina-access.com>, 
  Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791863163; l=1934;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791863163; l=1073;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=DBYjTP1f13Z8VgqM2RKT5FXuSk8m/3+wuQ5DQ1oXB5o=;
- b=7L0wt+3xmgjQtTNdPSmKzDxji8tKUaLGD3t0doz7lmcLEdkR+DgmJ7r01GgTmBGcptbi/Xnwy
- 2+92vXS+2eUBUmkJaHcY4qyb/D9bT69u4Ve0KR2vcRqHooCRZ/svUxk
+ bh=6lUn6eCTFyPOKvxFHES2Y+JrDHysCcc0CgLi4Om4C1M=;
+ b=xrErsmNg7v40wqydb5oOhf5NBvKH0ywo4TFqhEq5F8X3DHsauQmJjInXLfHuRlLKhktQ8YL71
+ rF1/JCfaR0AD9q8YG18DqBp77djXIaR/b8ex1ukwMt5qqxHopYTDUlZ
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -72,73 +72,36 @@ Reply-To: filipp.dunsky@gmail.com
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Add the binding for the UART found in the Cortina Systems CS75xx
-(Goldengate G2) SoCs such as the CS7542.
+Enable the Cortina Systems CS75xx platform and its UART driver with
+console support, as used on the Securifi Almond+ router.
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- .../bindings/serial/cortina,cs7542-uart.yaml       | 52 ++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+ arch/arm/configs/multi_v7_defconfig | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/serial/cortina,cs7542-uart.yaml b/Documentation/devicetree/bindings/serial/cortina,cs7542-uart.yaml
-new file mode 100644
-index 000000000..2879a7188
---- /dev/null
-+++ b/Documentation/devicetree/bindings/serial/cortina,cs7542-uart.yaml
-@@ -0,0 +1,52 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/serial/cortina,cs7542-uart.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cortina UART
-+
-+maintainers:
-+  - Fil Dunsky <filipp.dunsky@gmail.com>
-+
-+description:
-+  The UART found in the Cortina Systems CS7542 (Goldengate G2) SoC. It has
-+  transmit and receive FIFOs and a 24-bit baud rate divider running from the
-+  peripheral (APB) clock. Other SoCs with the same block, the rest of the
-+  CS75xx family and the Cortina Access parts, are to be added with their own
-+  compatible string and "cortina,cs7542-uart" as the fallback.
-+
-+allOf:
-+  - $ref: serial.yaml#
-+
-+properties:
-+  compatible:
-+    const: cortina,cs7542-uart
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    serial@f0070110 {
-+        compatible = "cortina,cs7542-uart";
-+        reg = <0xf0070110 0x30>;
-+        interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&apb_clk>;
-+    };
+diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
+index 069d5a49f..23f144359 100644
+--- a/arch/arm/configs/multi_v7_defconfig
++++ b/arch/arm/configs/multi_v7_defconfig
+@@ -45,6 +45,7 @@ CONFIG_MACH_BERLIN_BG2CD=y
+ CONFIG_MACH_BERLIN_BG2Q=y
+ CONFIG_ARCH_DIGICOLOR=y
+ CONFIG_ARCH_EXYNOS=y
++CONFIG_ARCH_CORTINA_ACCESS=y
+ CONFIG_ARCH_HIGHBANK=y
+ CONFIG_ARCH_HISI=y
+ CONFIG_ARCH_HI3xxx=y
+@@ -396,6 +397,8 @@ CONFIG_SERIAL_FSL_LPUART=y
+ CONFIG_SERIAL_FSL_LPUART_CONSOLE=y
+ CONFIG_SERIAL_CONEXANT_DIGICOLOR=y
+ CONFIG_SERIAL_CONEXANT_DIGICOLOR_CONSOLE=y
++CONFIG_SERIAL_CORTINA=y
++CONFIG_SERIAL_CORTINA_CONSOLE=y
+ CONFIG_SERIAL_ST_ASC=y
+ CONFIG_SERIAL_ST_ASC_CONSOLE=y
+ CONFIG_SERIAL_STM32=y
 
 -- 
 2.53.0
