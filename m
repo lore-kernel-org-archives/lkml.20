@@ -1,156 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943964DDB47
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF07D4DD3A5;
+	Tue, 13 Oct 2026 10:56:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888960; cv=none; b=AtKi5upzN1C7IjTDBqn+O+x+Dtd3ux/INVU0y+rA2XVsvBXcfn63jTJF/PlH/iUZ3ybfF7MagYFmckvwElKue8aFIlW5blRSI0MS9x6/DFwt9VlWpGeFD+D1Ib1sn+v+ZI6972/I10wRJOM5EBTKV0J/wP1Eqyf0s1x5rG35QJk=
+	t=1791888974; cv=none; b=I2Fgz1MRv9bfYnRISbsLsJcW6myH1mEUZf3MoTaQuQvHN/xSCJZ8GvVl9+LBXbY8inIwIKKCVUTho7B36BQZm5PDDiAhkFhvn1LJCR4Na1ojg0eRoBLRZy66auWvY0Tu5krZeiF0tIDqShs1Ns6bp2RjYFHG6nC4+8+v5/4+psc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888960; c=relaxed/simple;
-	bh=eRUrgmAuPRIuXoJe2LmSXe3PpNsWBeLSdekbDDNQlrk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bo42dHtAN2DA52BuXMLEFhUWoLbdPtBn8Xd5siJ1a1vbfkc2mUNFEUZPiBeAK9J55i84nyUQkcWG6cUWLpUBG7n78yaybrSzK50dRKMd9rqG4Mt7MyCKc632zYmzEkf9IrGShq3SjsDAYqVwSLZ3rGWIDxYhr8XRmqYF+I/2r3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LATEmsWu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791888974; c=relaxed/simple;
+	bh=4t0gCc5/hnG5MdZFl+mUnNykwiB4BkNHEzAvZyd2x78=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fkAyKJU5oDyyJnd0NEnQh0v7P1/Vkq0ZnLDYqNRhwzX4caKif/KZdg5MN+HUJPVKqoM+H4irpWGdxlNDSlV7WGpYU7iQEoWn7g8TJHqWaY8ne8Vx38vHwE6CgUQJfI2K8vb5fP/XWhI+URNlT6//+lMQ3dPGkxvFQnxEKp92Rd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hEJDgx6M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LATEmsWu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F8AE1F00893;
-	Tue, 13 Oct 2026 10:55:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hEJDgx6M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA2B21F000FF;
+	Tue, 13 Oct 2026 10:56:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791888950;
-	bh=NJvSD+gIR0TJD53Ex3slDvieQEd2xTrsZ1lZ54elzsc=;
-	h=From:To:Cc:Subject:Date;
-	b=LATEmsWuJm+s3uPnKytlrQq0s3XJ1v3+TM0Fo5H4NlnwnLCkq5xqPisGJBdP5gptJ
-	 W1evG1sDhhxZgm/Mj5DzSsDIm8kBI1pIaIAuXcN8KUN+dEfheit2F4eQthh49sJ4kD
-	 b4v44P9KVFibyA+HiyLx3uNIKeqwW+nAB2+LFqQlVaYiRWjoApKUBBU+PIZX+TYo3U
-	 50Z1hpD2hXrRk0jsP6FC6tqU1zvJPehviLtwKbWD6SQvhND0yDXHJS8z69fbV83hnq
-	 kuSiv2UWqnUtBOawHBKMUPhZ6VCbf7UjTpP4d146GUx7W7X6uKCdhiR3HuzljUEK2p
-	 2OIyi66b20a0A==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	stable@kernel.org
-Subject: [PATCH] f2fs: fix to invalidate curseg if change_curseg() fails
-Date: Tue, 13 Oct 2026 10:55:38 +0000
-Message-ID: <20261013105538.3636822-1-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	s=k20260515; t=1791888969;
+	bh=InFvmS159g9aQRWPNx+KZVWPATxltcajLyea5HuyXhk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hEJDgx6MhjjvXttf0Cvr9s0JcYPqpMKzeiu6WJbLQkv1zbbf1AyC6XSUbNzhd4YTR
+	 DWiifbMZ8pg8Md5c/dPrPLHDAGfv8CRjDZvWhf5IJgk6HPml2zGHdmLL9oGyCGkuee
+	 eQ4C+ALX0/C3dxioSxIlWwIPG5eSpgm5LehVJ/koLWiJx4l7iOouVd9FvTKUwstnLz
+	 /QyDJLE4Fb/4jzkskTT0x/dAU+d9y8zvLOq5LG5GPAXwlSI15z+yTmPfYuVT3oN6zT
+	 TMdtBav2ldb+1/b6c2Uw8sQrWlkjAOd+Df83liN7Sxxa+ZNoMMfNnCZd/oo/fBMpDy
+	 ptM9BDragGpJg==
+Date: Tue, 13 Oct 2026 11:56:04 +0100
+From: Simon Horman <horms@kernel.org>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+Cc: netdev-bot+sashiko@kernel.org, bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	andrew+netdev@lunn.ch, ast@kernel.org, daniel@iogearbox.net,
+	davem@davemloft.net, edumazet@kernel.org, hawk@kernel.org,
+	john.fastabend@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+	sdf@fomichev.me, sgoutham@marvell.com
+Subject: Re: [PATCH v19 net-next 2/2] octeontx2: add mqprio bandwidth offload
+ for NIX TX schedulers
+Message-ID: <20261013105604.GB83879@horms.kernel.org>
+References: <20261006094357.840823-3-rkannoth@marvell.com>
+ <179162647058.434549.12221340477037180415@kernel.org>
+ <asxY6cs5os_q3mAA@rkannoth-OptiPlex-7090>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <asxY6cs5os_q3mAA@rkannoth-OptiPlex-7090>
 
-From: Chao Yu <chao@kernel.org>
+On Mon, Oct 12, 2026 at 09:20:01AM +0530, Ratheesh Kannoth wrote:
+> On 2026-10-10 at 15:31:10, netdev-bot+sashiko@kernel.org (netdev-bot+sashiko@kernel.org) wrote:
+> > Thank you for your contribution! Sashiko AI review found 12 potential
+> > issue(s) to consider.
+> >
+> > Critical: 0 · High: 1 · Medium: 9 (1) · Low: 2 (1)
+> >
+> > If you believe none of the issues are legitimate, please reply to each
+> > issue of Medium severity or higher and explain why the AI is wrong.
+> > If any of them are legitimate and you plan to respin, please let patchwork
+> > know by including "pw-bot: cr" as a separate line at the end of your reply
+> > (one such reply per series is enough).
+> >
+> > - [High] There is a use-after-free race on the deferred netdev_tc_work
+> >   during device removal.
+> 
+> Not addressing this one; the window is theoretical and the impact is nil in practice.
+> 1. It needs a failing "tc qdisc replace" (validation failure on an existing
+>    offload) to run on CPU A at the exact moment the PCI remove runs on CPU B,
+>    with A reading defer_tc_work just before B sets it. The netdev is already
+>    being torn down, so this is not a realistic configuration path.
+> 2. Even if the work is queued in that window, it is a no-op: the handler
+>    checks defer_tc_work (set by remove) and returns before taking RTNL or
+>    touching any other state. The only access is that single flag read.
+> 3. A use-after-free would also need system_wq to leave the item undispatched
+>    for the whole remainder of remove (unregister_netdev, destroy_workqueue,
+>    mbox teardown, AF detach, ...) until free_netdev(). That is not a
+>    realistic scheduling delay.
+> The flag is accessed with READ_ONCE()/WRITE_ONCE() and ordered by smp_wmb()
+> before cancel_work_sync(), so any tc command that starts after shutdown
+> begins will see it and not queue the work.
+> 
+> > - [Medium] Offload state is leaked when qdisc teardown fails.
+> 
+> Not addressing this one; the trigger is very rare and the failure is reported.
+> The path only runs if the AF mailbox request that clears the per-queue
+> shapers (otx2_nix_tm_clear_queue_shaper()) fails during "tc qdisc del". That
+> means the AF/mailbox is already in a fault state, which is not a normal
+> runtime condition.
+> In that case the driver prints error message.
+> Keeping the state is deliberate. The shapers are still programmed in
+> hardware, so the cached rates and rate_limit continue to describe what the
+> hardware is doing, and they are reapplied consistently on the next open.
+> Dropping the software state while the hardware shapers are still active would
+> leave the two out of sync.
+> The core cannot veto qdisc teardown (mqprio_disable_offload() is void), so the
+> driver can only report the error, which it does.
 
-Our consistency stress test (fsstress + fio + atomic write workers +
-"f2fs_io shutdown 1") triggers below kernel BUG:
+...
 
- F2FS-fs (vdd): Stopped filesystem due to reason: 0
- ------------[ cut here ]------------
- kernel BUG at fs/f2fs/segment.c:3989!
- Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
- Workqueue: writeback wb_workfn (flush-253:48)
- RIP: 0010:f2fs_allocate_data_block+0x257a/0x38e0
- Call Trace:
-  <TASK>
-  do_write_block+0x155/0xc10
-  f2fs_outplace_write_data+0x192/0x340
-  f2fs_do_write_data_page+0xc57/0x1880
-  f2fs_write_single_data_page+0xda9/0x15a0
-  f2fs_write_cache_pages+0x973/0x1f20
-  __f2fs_write_data_pages+0x6c4/0x1890
-  do_writepages+0x21e/0x560
-  __writeback_single_inode+0x119/0x11b0
-  writeback_sb_inodes+0x67d/0x17a0
-  wb_writeback+0x207/0x820
-  wb_workfn+0x128/0xc30
-  process_one_work+0x925/0x1600
-  worker_thread+0x60a/0xff0
-  kthread+0x35f/0x460
-  ret_from_fork+0x474/0x7e0
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
-
-The BUG is f2fs_bug_on(sbi, curseg->next_blkoff >= BLKS_PER_SEG(sbi))
-in f2fs_allocate_data_block(), next_blkoff was 512.
-
-The root cause is a race in between atomic write commit and shutdown
-as below:
-
-Thread A (commit atomic write)  Thread B (shutdown)        Thread C (writeback)
-- f2fs_ioc_commit_atomic_write
- - f2fs_commit_atomic_write
-  - __f2fs_commit_atomic_write
-   - __replace_atomic_write_block
-    - f2fs_replace_block
-     - __f2fs_replace_block
-                                - f2fs_ioc_shutdown
-                                 - f2fs_do_shutdown
-                                 : F2FS_GOING_DOWN_METASYNC
-                                  - f2fs_sync_fs
-                                                           - f2fs_write_single_data_page
-                                                           : pass f2fs_cp_error() check
-                                  - f2fs_stop_checkpoint
-                                  : set CP_ERROR_FLAG
-      - change_curseg
-       - reset_curseg
-       : curseg->segno = new_segno
-       : curseg->alloc_type = SSR
-       : curseg->next_blkoff = __next_free_blkoff()
-         which is BLKS_PER_SEG if there is no free
-         slot in new_segno
-       - f2fs_get_sum_cache
-       : return -EIO due to f2fs_cp_error()
-      : return error w/o restoring curseg
-     : goto out_unlock, skip restoring
-       old segno, blkoff and alloc_type
-                                                            - f2fs_do_write_data_page
-                                                             - f2fs_outplace_write_data
-                                                              - do_write_block
-                                                               - f2fs_allocate_data_block
-                                                               : curseg->segno is valid
-                                                               : f2fs_bug_on(next_blkoff >=
-                                                                 BLKS_PER_SEG)
-
-Since commit 86f33603f8c5 ("f2fs: handle errors of
-f2fs_get_meta_page_nofail"), change_curseg() can fail after the curseg
-has already been switched to the new segment, then the curseg is left
-in an inconsistent state: it points to a segment which may have no
-free slot, its summary block is zeroed, and the caller can not restore
-it. Subsequent block allocation on the curseg will trigger the BUG.
-Moreover, the writeback thread dies with curseg_lock, curseg_mutex and
-sentry_lock held, so the commit, shutdown and other I/O threads hang
-in D state.
-
-Since change_curseg() only fails once CP_ERROR_FLAG is set, no
-checkpoint will be committed afterward, let's invalidate the curseg via
-reset_curseg_fields() on failure, as new_curseg() does for -ENOSPC,
-then f2fs_allocate_data_block() will fail with -ENOSPC on the curseg
-instead of triggering BUG, and do_write_block() can handle the error
-since CP_ERROR_FLAG has been set.
-
-Cc: stable@kernel.org
-Fixes: 86f33603f8c5 ("f2fs: handle errors of f2fs_get_meta_page_nofail")
-Signed-off-by: Chao Yu <chao@kernel.org>
----
- fs/f2fs/segment.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index dab66ab3311d..453f9284ec86 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3243,6 +3243,7 @@ static int change_curseg(struct f2fs_sb_info *sbi, int type)
- 	if (IS_ERR(entry)) {
- 		/* GC won't be able to use stale summary blocks by cp_error */
- 		memset(curseg->sum_blk, 0, sbi->sum_entry_size);
-+		reset_curseg_fields(curseg);
- 		return PTR_ERR(entry);
- 	}
- 	sum_node = SUM_BLK_ENTRY_ADDR(sbi, entry, new_segno);
--- 
-2.49.0
+Reviewed-by: Simon Horman <horms@kernel.org>
 
