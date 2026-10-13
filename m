@@ -1,87 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C1C5293ED;
-	Tue, 13 Oct 2026 13:20:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A393F5172DA;
+	Tue, 13 Oct 2026 13:20:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897601; cv=none; b=Ux1EP4lGtBcyQ/8xAYCZIsgBK3NVIfJ8H94yNU8OxZyl3xETPNAWv1BfE8CafyIYa9RxWlWaSjZOn2Oed2ckpu/RwViBPKu4C35VVJe1k2eEmKDQAktuWICCcML69XyApVa4aAZV0VoQQo5H3+WB5qrwIg0WkgSSx7ZwelNaQAA=
+	t=1791897605; cv=none; b=Ne2lN7KZOljBTWKuk6ouK0C+Zy/gpm4wIPbbBg34r5i72zrQcSo6WtB91GUMWNDo7+nHDNI0UfUWLjbtOYtoMwhJ0KY5Qb2LjGCsr2lfyC7uieH5NdGfApFiA1y16VJIongFQYvLD0DJtvRfxudKTgz204YkbwErJVaxIk8g/60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897601; c=relaxed/simple;
-	bh=NtdDOGwgWT34XeeRg0QmpUJvCIesNmdTfHf/105RBsQ=;
+	s=arc-20240116; t=1791897605; c=relaxed/simple;
+	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e5OW8+qLDv1sWPXpNKfe4zSthKsekfxCBtZsikVlgj3NdSwQkSIqDV35Jm9kua+kFyI9xlmgTwc4vxm2S7EFVJ121pYGxfXMAxPlcb7mrX85UksvH7K9mGLQZbNf5I/Qt9KdaEOns2ufWZSv6JdCsxtwCxxEm7lDzz0NLHkM5mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=biP7WryD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=MkNdVQaGPnAT+LkOn4EV8309qCLENXG8heRShX7hTlCORgfosipSEJq7VM0ZYy/yy5fOx2WVxMG3tJOfzUNoyE11wluPr4Q/9NCFbA7jNoFaZSqvbtHLy5XCm63eZr/ighJISANJBLZ91MxFP+5gb9Lpsa+U1mItxtnr43SOpSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/BKqfjs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="biP7WryD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899AA1F000FF;
-	Tue, 13 Oct 2026 13:19:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/BKqfjs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E48D1F0089A;
+	Tue, 13 Oct 2026 13:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791897600;
-	bh=2VLEnxgRJVX6X3qu7c8Ejb0F4UdBq9TbqlEQsB4ecx4=;
+	s=k20260515; t=1791897604;
+	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=biP7WryDSBkmJClhQVqHK08wCwShGIxdzEpqBpPizSutwq5XT7ayln+WPNfjP3D7q
-	 m1MNTVZ5JKLk8Np6mFH89jLOvwjjRy8F9NUrbJrKm1rAfR0BKSnGydSrzPdXh85zIR
-	 Ncp5CyiHeVQbyjhfmne5vLZDQxa7OYKl36ANIKe53hl++5zgP0WPWx7p2tQqc79Rjd
-	 6rJXqqkrpfzvVvNAgWkNseD3o4wYQq1Y/fE46b9sYJ4A8wgHK0VAj7TSgQYLQqxFAj
-	 bYPv0W28/bWKzqbtjxhso0X2n+Uv/DTK1+9Ti047zgdwIlyqsAvN9yOkNOKaZPv/4v
-	 V62L0bcZVMe/g==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>
-Subject: [PATCH v2 44/53] MIPS: SGI-IP27: give each CPU its own topology package id
-Date: Tue, 13 Oct 2026 15:17:04 +0200
-Message-ID: <0e4c29476c0746ad05c9432bab685c86a398d03a.1791890466.git.kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1791890466.git.kaloz@kernel.org>
-References: <cover.1791890466.git.kaloz@kernel.org>
+	b=P/BKqfjsiA8a0eXO9BAa2eISYrcTKkBDGD4RRIV9X3t+34V3dmtTa+dZRpE1ICBWT
+	 pdDosVVDh5prt2yIi6Luodhgg3e4UwLEplC3qPBjRfxENKrY8HR793E/EXu2rrTewV
+	 qWizS5XvM2lO9lLzFhbcm8/ZIQyBup+nWCuOmjti6Wd4QjNrwMPelb4eervqkiy+Dr
+	 ZR1GL/Ju95hiUw3mHgTn5eHW0K7t6+M2tE5kWu+7j1NKTgbEr5Z98hVD8667ddtxHN
+	 ED0M+9tpnmSFQxrlzCeTkRzXs+3Y6LKVSAEKN/sGYfm9BGDmIhhPkulJhY6yeRgAe6
+	 UG9CltShdOF1w==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?Th=C3=A9o?= Lebrun <theo.lebrun@bootlin.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Paolo Valerio <pvalerio@redhat.com>,
+ Nicolai Buchwitz <nb@tipi-net.de>,
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>,
+ =?utf-8?q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>,
+ Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable+noautosel@kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH net-next v11 0/9] net: macb: implement context swapping
+Date: Tue, 13 Oct 2026 13:20:03 +0000
+Message-ID: <179189760303.2527009.1878014132075349485@kernel.org>
+In-Reply-To: <20261013-macb-context-v11-0-b27785167566@bootlin.com>
+References: <20261013-macb-context-v11-0-b27785167566@bootlin.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-cpu_data[].package is left at its zero-init default, so /proc/cpuinfo
-and cpu_core_map treat every CPU in the system as one package, though
-each PI slice is a separate physical processor. Derive it from the
-klconfig nasid and physid node_scan_cpus() already records as the
-CPU's slice.
+Hi!
 
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
- arch/mips/sgi-ip27/ip27-smp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-diff --git a/arch/mips/sgi-ip27/ip27-smp.c b/arch/mips/sgi-ip27/ip27-smp.c
-index 13b85e3ba311..7739ac9618b8 100644
---- a/arch/mips/sgi-ip27/ip27-smp.c
-+++ b/arch/mips/sgi-ip27/ip27-smp.c
-@@ -47,6 +47,13 @@ static int node_scan_cpus(nasid_t nasid, int highest)
- 				set_cpu_possible(cpuid, true);
- 				cputonasid(cpus_found) = nasid;
- 				cputoslice(cpus_found) = acpu->cpu_info.physid;
-+				/*
-+				 * Each PI slice is a separate physical CPU
-+				 * package; these processors have no on-die
-+				 * multiprocessing, so core is 0.
-+				 */
-+				cpu_data[cpus_found].package =
-+					(nasid << 2) | acpu->cpu_info.physid;
- 				sn_cpu_info[cpus_found].p_speed =
- 							acpu->cpu_speed;
- 				cpus_found++;
-@@ -85,6 +92,7 @@ void cpu_node_probe(void)
- 		if (cputonasid(i) == master_nasid &&
- 		    cputoslice(i) == LOCAL_HUB_L(PI_CPU_NUM)) {
- 			swap(sn_cpu_info[0], sn_cpu_info[i]);
-+			swap(cpu_data[0].package, cpu_data[i].package);
- 			break;
- 		}
- 	}
--- 
-2.47.3
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
