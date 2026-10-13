@@ -1,283 +1,120 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041B71A7264
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894827; cv=pass; b=aIKAh7u7BhJgC3pdoecDZUA2PWOZFK7Ur8I2pn5nQ90XJVoV0ECt2zLWk7Dz9lnQNRGWIdxN7xkzJ+u4U5SguKQAA5eAXPDTCKVlk7wje5bmNxVaXxCCt/RfTjZ71VCGYrGCEZgNpozGIOXGMGWCnNz6OKnBL9ru3vF2YZ5c6w4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894827; c=relaxed/simple;
-	bh=malNc4Z8Q/D3ZpIXlgQO3mA291yVDUA9+s/OmI4RFs8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FNiEY+XNQm5VsEuoPKMCLnV4fkZLYLTLeYVH7anWHLqZmg3n41FRuMLgpVGOgdQhhVdTB1eVAmpxgcqgLqEErfz/kvlIuiTKuLx5LSfciNUwDblFPOksqxbF712EIqjn/ENE1qvVPTQ2pEkAQ5nZ2vegTgssLBBNHl+M+Llu1gc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=gIBKfAmP; arc=pass smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B23C39D3D0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:35:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791894927; cv=none; b=BT+ivZsSThj8FARpYt+Z2uhtxgEiUU5OB7m12Xvz50JvfOzBRJqMeIwBhb6Fl6n/K9Db6tTxBqaANtGfAkQpQ6tGAJ7Qfuj1DGvOuDDfi+mhI5p3vHSxvth9/R+aZasLzEs3LYmSVP7e/5lnYYHUEVpRzyEaF7jS8m9YOpOicek=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791894927; c=relaxed/simple;
+	bh=D5aocd7LzcUTTHKmUFRWoUuPVx4SWmW7g0SA54wCh78=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GqtiQSFsmfhzUWVUzIe0OJ2uxBf+VMLymj1y+uww6RcXDIU6MsVxo2Ccib7/yvqiLqxByuOx91SbgkHU3MtXxMhAXW/qcFOs59ZZ7DHdX8bNAh77xMowY/iE95rNlArM5c3hlxnHTooDVZ4dyIpktvtBniZtmUjDoAm2hd0Z0BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l4ZZyqyJ; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="gIBKfAmP"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ab450c0873so2322279a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:33:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791894825; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PhmrHQOO9H6MuVNQy1wvL+6Oykp4U38lzWcD6UAT4fSPc52S80Rz6yhRc938OA+IDG
-         DjuxejEcUIEUsIrF9boo5EPmAsSA01Oi4ZTehaTV+QlgTqpzq+90XFBBVMxv/h2u7xda
-         ttmBfnLRsrUwI8C1ctIWGGtKfGo/wmE2+tm0zgtYY8nOUtjxPUIeTf94z05FGFxC931W
-         qjGtP+MFjmNWv8oxoHXj0InqNCWHxpGPbx8E2DeBV72GE8ie057Smu3aqWc9TdrYamp2
-         PVzyx43qSuxBYgtX/PVpv6lFynqyBT1YedZFGygt7dWxQHXB4zZ9lCYCT18XVEvE7wCN
-         Ve+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0BcRktes/U5lVo22Fcl1qWv50r+fNV+F5WhzGJEWnCY=;
-        fh=uXekyMuNDqhz4q97agT0jT4n9QgeWOjRiXBxry621qA=;
-        b=C7eFbXhe9R2B/hJYVzFvoVF1gP1hOCmdKAhs1eem2VYF9DWAYDfCEuZPwjEIP+q1Zd
-         SXN5fdbZrA0M+ifdDbCfuVOktCWmczuYcfm6mxg+bDYKIail+VD7aJcYmd/wolMqrdK0
-         OlsZu+lDg7Up8eEQdK39FUKEb9JbLCq/UxRTGfKkgpqhP4qd2ULPDg9HTzpiNTfueWDH
-         f2BMn9+R9BNhb3FKgDmUd+olVywSzJeyaeiuP3sDNWwIIlNuMStVpwIeyRs9/bsFQ1Tt
-         ZPFEtbme6jKQN4IW7NhA1Stl4GgG7Ql5XipkWrwKqCiSkFVpcg6jGMm+LSraAcn/blCf
-         QBlg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l4ZZyqyJ"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b060ec084so1845271f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:35:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1791894825; x=1792499625; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791894925; x=1792499725; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0BcRktes/U5lVo22Fcl1qWv50r+fNV+F5WhzGJEWnCY=;
-        b=gIBKfAmP56mxPQIp8PGfxnufePCCVaHJhdXFJvsP731MWa26QaAKUKgTRM6ww03p93
-         4myXV0bby8j7/vsbHfJK+5LKj7ubcHjmZfU4jZBf74vacA+rID7yhxfv3j/tkr7oTteX
-         wJ+wSUuGwkFmYVD7CDDgvbX2Zcd12/P3L0TZDMZlaaXY3mv0rcYmHa8cS93WlRqv/Cwx
-         xLIQhawdwzbIZCt0JqCGbAgXpnuBTXctz8fGU1zBD708KlX4Tj6JFVuykx1/bwkhUK6u
-         8ASQVb8MMsyxthH826ejYaOQNwuaROL/EfP9Uxmc4fou3Fyk9CbW/dbloqkHmqpUk2xx
-         9eBQ==
+        bh=Ah9kS2eOZPTjVhcN2vGZg1uNRYJuhJ0H56YtxNuvC+c=;
+        b=l4ZZyqyJ87fx5f6T6jsGQlkaJSFAoZnipq7YyLo5Jb/ShuoboXcsvQuitMncNE1jTJ
+         UJpxBoyIpXIXvTUSQs2lkvnKoo1hTf2YRCHb173eC+B1ksGGV8NKHrRelamqMGe0q8Af
+         ncjDzMxuQnAqz8HKUUdJsqRU8pXJ3bENuw5f/k6/dsF0ANNKm0AI/+rfbE4WR1Z9crNk
+         du7QaZDNSjsBO8JaaARiffOCu9AvwgNHaC2ceMa1lnTnBFmCKTNpk8nYESnyxcsy04X2
+         qpqnrNbBDCOk2LGRxk3KLnLsw4sZoohw0TZXY3kgsIu7bp5hanDWh45ua8mzrNYbSf63
+         FPaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791894825; x=1792499625;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791894925; x=1792499725;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0BcRktes/U5lVo22Fcl1qWv50r+fNV+F5WhzGJEWnCY=;
-        b=THy3JhUYmJju/E7P43PUkWmpjoZNciSmii48ebBPAlXmJD3viq+j8FPe+auJ2XzLLY
-         ow1tn7AZ4z1FHfLam8gd7DGn+ebUOkliIFU77BU1SxGm8kQbikkKSeQx3OYIStOFnV9N
-         mNAZ38g2NAnPXZStimKje83Oyp5haGMCd9thfwgSkcdM9UeNsTMTZwWE63WTsAvFedj3
-         XIhz/qyzq2OkCo27YVV8xgANs780rGlGseFDbVSsbhsEseYTIy20JiTWG5RRKHpQMZ5b
-         SnLbui+KRm55uFI1h8yXgcCI4ZJSun2H4g/BU1ryPmQ37qU2+t2kv5uGu5RjrflBIuX3
-         0WiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywsE+36+LGDXe4vlfLhb4/tzJXhfgJFVy8aU0m++q7QAyKEN1IYIA/z42ZiYEOGCJDVXeygaFJB1wYtgs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgwai13Jcrgz/nk2gaLWG9XN3XZDO+fjbkCVVerQGYyl6aaN16
-	YA+uzJrUQltyA36ObrQmDvrfKYrHEcdYrTHz9e3kfYWpMzqjbFNVPuK7ZXxAyLDE2mi8gZvrQ2c
-	tJisCD9m6JOgrbkbcBvCNGM2y67f/85MapicjBbU7WNqVOk3SEJI8
-X-Gm-Gg: AYBFou07ViLSMIIsbsJyHS3hh0WcV+0CduS7fJWIy42lhqkAEua1EesdsIJrV9pHl7u
-	loi6nXEusFyAGK8oVm9jJCbTQw04m2byNNZSqux7mgizTmYosszdsinAtPlh0txAFyW/jrDkf4Y
-	m9l5q6cGB35b3T2qE8xYlvw5uFooFg6n4M3ApJGym8g1HPXzE8+/8gvakDdlwzBjtRFfdZRhVov
-	pFhtC5YDuZber84fwXz+/V5HRP1QmA+1IH0OsR7+nm8wO000Kqp2snX3PGCoNBD0pl262nFx6XC
-	34C2KWNnx9stbAnQqgMZY7yeVRhcQMBUMsi/e33IwPn252RiHxxMd7Vt+L+fdNPzmPNqtM2c+C5
-	5qlRuP6umTtV3i8lDicOxJotJQ0sOtXK4kpWgAMKP1bpKCQ==
-X-Received: by 2002:a17:90b:2688:b0:3a4:adea:50ad with SMTP id
- 98e67ed59e1d1-3ab3a775938mr10437579a91.27.1791894825280; Tue, 13 Oct 2026
- 05:33:45 -0700 (PDT)
+        bh=Ah9kS2eOZPTjVhcN2vGZg1uNRYJuhJ0H56YtxNuvC+c=;
+        b=HaATRHrpqpXlpTHr7RPIMz3hKr7y8WT0Vyg5OsAeawK8rJ+DfJIVspe/cZBHeC8AiG
+         88qLt+XX8M+qUWnMY5JIA9idkEGZMuZJ3svoMB5ZHXTvpprYJEk4w/tuwGvMa6Kn7Jep
+         43mRpq2ukA5mnzzoAaRK+nWjdb3pM3l0nOoivai721Vgt0DV9q/orYnCtEMWkbpfGSo1
+         392nA4DVM3JrJjstVL61e36dX8xK8GbgpxBCj7gvv1B+Ef41qwZDcsmzjLgKwplA4Iep
+         VZiRt2opoBTly3kPv/wroy32hE174ZyiVXIM2zEPk/JvXB6kKc68omHEPkpx3b6uhl6m
+         4Pvg==
+X-Forwarded-Encrypted: i=1; AKwUvBzokcNNOf4tIoGfD2Hz/OM2AZJGnsL4wiO2eY3UqBnfKchadUaRfCr/H2xvCOqh3iskHFTRmwSovIDQgiY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJu2ancGJJT9NWKT9MSdD3Kk6/CQ184e5LIxEsBYwBLIujOcN0
+	F3gT796GqI9AGtEqSLv5aK9EaAH6REb/gmwmJTe+qceqdpTiefS28DDoyfLyHA==
+X-Gm-Gg: AYBFou06NcSumqzYfRe+mUeidoy4+CjwzpFeTLOs/2sfR3g5d/ujseysr+KNZMfin2R
+	AHhOAsRmSHKdAUHuTz7ysh2kOwN1sRG/CMMR9074i17b2wh/Il8LRbzWsxE2TqTJZsSqYx4QRrA
+	YE+S7LjZRjtoeUtD2sXHPOAyU0X6U70w9rDwKjLEUMXQOS752eC7WOM4Kx+lRX04w2L04WvXPQY
+	UDzA1B9fG5QceUrR7OMRLTpWJy+ADsLhc7fkE4eDNppLmwPNIeb2DxymvRYcrRxb2bBQlwmr3wr
+	/3R6+MMcP5rwtNZfrra6G950a/aqeP5zpYDWS891d45FVuMzL+rjbUvuIM65mruLfIl4WmTaWeC
+	FXiiXwveKZreoHhUtGA3JAFm4rAdgoKRpL7Fc/Zvsmbh6UogQZ6KkhUdkISCE64O9Qwq840Nd0g
+	CJQNfIEDSQqU53TGEJqL1498FhqDLiTB/biLMFHVy7gaOO5FR5vJpB2ojQCA3i5GZxlBM4EACEB
+	tog+dPQvf40NdUFArQPz1gHXBgApgPFZbvXNGuBw6/zomv9mZ/QhdYShzE1/9pNiH8+sM4XBHj6
+	wW03hGIk3DCw5Ll7hjL6WVEp580RgmOgkEn+xkfnoR9iuHY1cJXmYUCM0bGhnfWnxy1nQSrNWYm
+	6lYrCHS4AJ8BG6R2reoA35h874u5MnW8tld4VZyTL96HorYV4HoLduIn/zHZW3oBk/s3wCU8JNE
+	NjWSlQ
+X-Received: by 2002:a05:6000:2212:b0:488:823d:5086 with SMTP id ffacd0b85a97d-48dba6f5688mr22978399f8f.0.1791894923407;
+        Tue, 13 Oct 2026 05:35:23 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967affsm4477888f8f.1.2026.10.13.05.35.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:35:23 -0700 (PDT)
+Date: Tue, 13 Oct 2026 14:35:21 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Shi Hao
+ <i.shihao.999@gmail.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <20261013143521.00006de9@gmail.com>
+In-Reply-To: <20261013115639.167433-3-marcus.yu.56@gmail.com>
+References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+	<20261013115639.167433-3-marcus.yu.56@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918153414.909333-1-aubin.constans@microchip.com> <e75041b4-8450-43f6-bf6d-35a31812f8e1@intel.com>
-In-Reply-To: <e75041b4-8450-43f6-bf6d-35a31812f8e1@intel.com>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Tue, 13 Oct 2026 14:33:34 +0200
-X-Gm-Features: AclHuK-ahRr2oJBzP7-hAKuKrqD2xh13uJApDX2EwOd8IrbrNAm5T9Br4ypdnAk
-Message-ID: <CA+HBbNF59tx+FhWke_Q8ie9O5_4RrPPPJm=iALiBKQb0Tp8ChQ@mail.gmail.com>
-Subject: Re: [PATCH] mmc: sdhci-of-at91: disable selectively clocks on pm runtime
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Aubin Constans <aubin.constans@microchip.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Eugen Hristev <ehristev@kernel.org>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Romain Sioen <romain.sioen@microchip.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Ludovic Desroches <ludovic.desroches@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Ryan Wanner <ryan.wanner@microchip.com>, 
-	linux-mmc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 23, 2026 at 4:35=E2=80=AFPM Adrian Hunter <adrian.hunter@intel.=
-com> wrote:
->
-> On 18/09/2026 18:34, Aubin Constans wrote:
-> > From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-> >
-> > SAMA7G5's SDMMC run-time clock disabling is not supported.
-> > Add support to avoid this scenario for SAMA7G5.
-> >
-> > [Amended with a fix from Romain Sioen below this line]
-> >
-> > Sama7 boards are impacted by an unbalanced prepare/unprepare
-> > and enable/disable clock management in sdhci driver due to
-> > the lack of support for SDMMC clock runtime disabling,
-> > managed instead by the PMC driver.
-> >
-> > Add conditions in the preset function to manage clock
-> > depending on if the board support runtime clock disabling
-> > and if we come from the probing or restoring procedure.
-> >
-> > Add boolean start_clks variable to manage condition
-> > in preset function.
->
-> The commit message is a little confusing.  There is no functional
-> change yet - this is just preparation, right?  But it reads like
-> it is making it work for SAMA7G5.  Please make that clearer in
-> the commit message.
+On Tue, 13 Oct 2026 19:56:39 +0800
+Chang Yu <marcus.yu.56@gmail.com> wrote:
 
-Its just preparation, I posted the series for LAN969x which requires the sa=
-me so
-Aubin posted the Microchip tested commit that SAMA7G5 will also use.
+> Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
+> 
+> The AS7343 is a 14-channel spectral sensor featuring 11 visible
+> channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
+> flicker detection channel.
+> 
+> The driver exposes 12 spectral channels (11 visible light and 1
+> near-infrared) via sysfs. Runtime PM is implemented to stop
+> measurements when the device is suspended or torn down. Power is
+> never cut (PON=1 always) to preserve register values.
+> 
+> Future patches will add configurable gain and integration time,
+> interrupt support, buffered reads, VIS channel, and flicker
+> detection.
+> 
+> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> ---
 
-I am waiting on this to post the v3 of LAN969x support.
+I think this is ready to be applied.
 
-Regards,
-Robert
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
->
-> >
-> > Signed-off-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-> > Co-developed-by: Romain Sioen <romain.sioen@microchip.com>
-> > Signed-off-by: Romain Sioen <romain.sioen@microchip.com>
-> > Signed-off-by: Aubin Constans <aubin.constans@microchip.com>
-> > ---
-> >  drivers/mmc/host/sdhci-of-at91.c | 36 ++++++++++++++++++++++++--------
-> >  1 file changed, 27 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-=
-of-at91.c
-> > index 7c4ac65f247d..399856643e57 100644
-> > --- a/drivers/mmc/host/sdhci-of-at91.c
-> > +++ b/drivers/mmc/host/sdhci-of-at91.c
-> > @@ -39,6 +39,7 @@ struct sdhci_at91_soc_data {
-> >       const struct sdhci_pltfm_data *pdata;
-> >       bool baseclk_is_generated_internally;
-> >       unsigned int divider_for_baseclk;
-> > +     bool pm_runtime_disable_clks;
-> >  };
-> >
-> >  struct sdhci_at91_priv {
-> > @@ -149,12 +150,14 @@ static const struct sdhci_pltfm_data sdhci_sama5d=
-2_pdata =3D {
-> >  static const struct sdhci_at91_soc_data soc_data_sama5d2 =3D {
-> >       .pdata =3D &sdhci_sama5d2_pdata,
-> >       .baseclk_is_generated_internally =3D false,
-> > +     .pm_runtime_disable_clks =3D true,
-> >  };
-> >
-> >  static const struct sdhci_at91_soc_data soc_data_sam9x60 =3D {
-> >       .pdata =3D &sdhci_sama5d2_pdata,
-> >       .baseclk_is_generated_internally =3D true,
-> >       .divider_for_baseclk =3D 2,
-> > +     .pm_runtime_disable_clks =3D true,
-> >  };
-> >
-> >  static const struct of_device_id sdhci_at91_dt_match[] =3D {
-> > @@ -164,7 +167,7 @@ static const struct of_device_id sdhci_at91_dt_matc=
-h[] =3D {
-> >  };
-> >  MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
-> >
-> > -static int sdhci_at91_set_clks_presets(struct device *dev)
-> > +static int sdhci_at91_set_clks_presets(struct device *dev, bool start_=
-clks)
-> >  {
-> >       struct sdhci_host *host =3D dev_get_drvdata(dev);
-> >       struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
-> > @@ -174,7 +177,14 @@ static int sdhci_at91_set_clks_presets(struct devi=
-ce *dev)
-> >       unsigned int                    gck_rate, clk_base_rate;
-> >       unsigned int                    preset_div;
-> >
-> > -     clk_prepare_enable(priv->hclock);
-> > +     /*
-> > +      * Manage clock prepare/enable procedure depending on if the boar=
-d
-> > +      * support runtime clock disabling and if we come from the probin=
-g
-> > +      * or restoring procedure (for backup+self refresh).
-> > +      */
-> > +     if (start_clks)
-> > +             clk_prepare_enable(priv->hclock);
-> > +
-> >       caps0 =3D readl(host->ioaddr + SDHCI_CAPABILITIES);
-> >       caps1 =3D readl(host->ioaddr + SDHCI_CAPABILITIES_1);
-> >
-> > @@ -223,8 +233,11 @@ static int sdhci_at91_set_clks_presets(struct devi=
-ce *dev)
-> >       writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
-> >              host->ioaddr + SDHCI_PRESET_FOR_DDR50);
-> >
-> > -     clk_prepare_enable(priv->mainck);
-> > -     clk_prepare_enable(priv->gck);
-> > +     /* Same clock management as for hclock */
-> > +     if (start_clks) {
-> > +             clk_prepare_enable(priv->mainck);
-> > +             clk_prepare_enable(priv->gck);
-> > +     }
-> >
-> >       return 0;
-> >  }
-> > @@ -254,9 +267,11 @@ static int sdhci_at91_runtime_suspend(struct devic=
-e *dev)
-> >       if (host->tuning_mode !=3D SDHCI_TUNING_MODE_3)
-> >               mmc_retune_needed(host->mmc);
-> >
-> > -     clk_disable_unprepare(priv->gck);
-> > -     clk_disable_unprepare(priv->hclock);
-> > -     clk_disable_unprepare(priv->mainck);
-> > +     if (priv->soc_data->pm_runtime_disable_clks) {
-> > +             clk_disable_unprepare(priv->gck);
-> > +             clk_disable_unprepare(priv->hclock);
-> > +             clk_disable_unprepare(priv->mainck);
-> > +     }
-> >
-> >       return 0;
-> >  }
-> > @@ -269,7 +284,7 @@ static int sdhci_at91_runtime_resume(struct device =
-*dev)
-> >       int ret;
-> >
-> >       if (priv->restore_needed) {
-> > -             ret =3D sdhci_at91_set_clks_presets(dev);
-> > +             ret =3D sdhci_at91_set_clks_presets(dev, priv->soc_data->=
-pm_runtime_disable_clks);
-> >               if (ret)
-> >                       return ret;
-> >
-> > @@ -277,6 +292,9 @@ static int sdhci_at91_runtime_resume(struct device =
-*dev)
-> >               goto out;
-> >       }
-> >
-> > +     if (!priv->soc_data->pm_runtime_disable_clks)
-> > +             goto out;
-> > +
-> >       ret =3D clk_prepare_enable(priv->mainck);
-> >       if (ret) {
-> >               dev_err(dev, "can't enable mainck\n");
-> > @@ -344,7 +362,7 @@ static int sdhci_at91_probe(struct platform_device =
-*pdev)
-> >               return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
-> >                                    "failed to get multclk\n");
-> >
-> > -     ret =3D sdhci_at91_set_clks_presets(&pdev->dev);
-> > +     ret =3D sdhci_at91_set_clks_presets(&pdev->dev, true);
-> >       if (ret)
-> >               return ret;
-> >
->
-
-
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
+-- 
+Kind regards,
+Joshua Crofts
