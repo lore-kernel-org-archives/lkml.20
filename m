@@ -1,285 +1,142 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC673A4513
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:56:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4923955CA;
+	Tue, 13 Oct 2026 07:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791878174; cv=none; b=D2FBV0rJh+1uTsRmztIsC81O3LCiElcdMzyVayCRL0uKNJOeWoilmRkEXoLRDMIVznoRV7CZL0SK0xEFZkISd0eTEBZ1pxBswaZ8bsFV9tyjdMhayOVf8kxGQM3/tgw4NO2MCqMwaNxoYxFufW8U7BMTGb0y0h3HbT8pZmRRux4=
+	t=1791878183; cv=none; b=cyrxZqIrAenWPgAZFxE7NSMY/wV6FS95O2T7PMROjqRBxIH9W5Rl8DPzOK9lhNcKcKDxFnIxDwe5iYbl94oJOV5SNFG/rMWQ8YcufUHglUwhKuJH2dMFTAhFCr4sHWZUHqmQptmZ6DRgJwcdR2FBfCZhnDAY2axH46vpnHs72W8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791878174; c=relaxed/simple;
-	bh=MZHRxP8Hr8PDgpPoUtBeq2/VkbH3kDom19l78BFSIDs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=owNPxCS3mqIWxPwcyHmOoNQIW4Fkpj32fb1Cm48mGDiufh3Cz55YfpASpRE0fj0IP8C03NvkeSRbPrI7DppABfiF1H0ytZWBh2mafk4D5ndbX/cgUhmyxXnyoECI7j8QDURd+02yrW6u6pVz1l+bSFKgL8vYqKvvQvi3jIj/dOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YeS85jCe; arc=none smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791878183; c=relaxed/simple;
+	bh=xSIAJ1DaiDyKUyg9EdnSf+IwmHXFwU6ymJI9XH/LEPY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=It12Q6EiY8wTJIEYA0yv1v2cx2WqfUBkCDD/FtfEeCRT77RPJ7F4ewOxKWRt094ziRiiG+Xg8hO/WU+X9SpJk0ce6doCeN54ee2h3jBqnPTGrmg+LeMuGw1IySnEePW6XrOXcnNhlkgImiMyELoLQhOMcXGG6sj41hwthLxzT8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TqJBD840; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YeS85jCe"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3535dd9a601so194912eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:56:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791878171; x=1792482971; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PKr9Fx+KFI5Ax2iGLx+RxplSdarPhpdP5e4xzwI6Vs0=;
-        b=YeS85jCeRsiNkhmpDRySIFeCm88m5N+7H/KtwWZ9St2mH9KtFD5NM7dnAJRIh5IUte
-         GDrQZsC2/wD+6xF2Hlws50B+g18zNZwRucTJktvOdKD2hOYofi6DJjkMjKJgoJ9t0Kma
-         onFpTuGPKAAW9fT3Q8/2+OngOaew7aoK4p53EftW14pV2wl86+cTybGtvQX6EQMz81VR
-         DfFnJ7DQ8anmEBd+/1uG2V/hYBicUiF2GyVxsXTsDYJfW+MyQ9JmtbZmR9ZlTXbutD61
-         jkecqft/1pQXPeOjnMnQHqN0qMaNa4AIHzuyjgodNzIB7esCYYUKrqEEHkvxF9wjjmA+
-         idYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791878171; x=1792482971;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PKr9Fx+KFI5Ax2iGLx+RxplSdarPhpdP5e4xzwI6Vs0=;
-        b=sLVpDigt3kTAHJjtZ1yofq8eaG5tzBpxs5MThQvUhuHrh3kbHV0WWqerLT0bxStpJQ
-         EfMgmMBbWmb88+kL+dCu+YckcyZVgRjVutMSy1emv93D9qMhIW7ZWeJK52fW/Nd4iQsE
-         ie1zJTr/r1v9P3f4BDz+uiI7eW2/65ZwOLPqsLcX475kPRtijGCurepunWdggmdw/Nw0
-         qpmMuYyn12xXa6YNCWZC6tQs0utObmW7Q2s0QBr2loD0Ug8P4KO37b08zabAjqrrYRS6
-         3Mo/WSG7aQMSKWFnLCdICcWz003c9kKrqYwtLxTTXq4n3nwgIaYYgFcBi1T7hd8ELXj6
-         RmeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwNprjxU0sJUtORZd+WVvWEntVZkdXhl+2kE2nk/31iY+o/5ysnv/IfCJFsPUcxor3aj4YTVVkHKnp0lw0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEmCqznj8S8CpVPS4qLUCnlZV8bvKlC6NxqhwADe0r8GQQGM82
-	o8o5BMv6TCkNinMOVQIzl24LMqqei9vht3+I1gjf8oeMX7qyTuD48gFx
-X-Gm-Gg: AYBFou1PWyTd6Z3EH5TNWU1n2L5OQU15JyU5uYUP6V+yMd79Pd2DHBiLNXhix7/IHgt
-	4jkCgUMUZDag6y2dF/uNTW5ejJ2u1Otb88ccvy9mNaEA8MG3UEBrNI6VmpllAVL/83IAbWEH2c4
-	I4ZTYwIrb0vR0aKFUut7gTw0Yy7molPqbzHze8/gO5Dh20p1p3nhNmEt2Ml97q86B/0L6uWwsoA
-	2nzN0s+4zaJdsI1bzesmeX6FQbDG1Vi4qaIzqRhn9QPfNkD96n65NhJfLnQJroOPBqjLqasuS0E
-	f7u5qB9cAX497rPnDsg3Rx9RfmrEaXbEYi4cr8HIhuZNEjiPMpxzQpDfW9ti9ot57mM85w9qiHM
-	aE1hw0V64OLgnvj30AiPtWTPQKiLgu88Fla3tJN0dH65FX5ia/ctiLkIZB8dKFYgxQJxjbqyWnm
-	VVkOOFf4NMe9KYwSIS88fcfggISnEu4fjt2ggepZP3WcFY7m9YQNIHVVgw6lEsvR1vlMcSIfbln
-	l/18hcbM/3jceczxPHhOoD5AlCT6zUy87AgOfQ9IuRHA+fmSiZEUG4YeLNa51AF
-X-Received: by 2002:a05:7300:d18a:b0:340:f698:fd56 with SMTP id 5a478bee46e88-3537e04365dmr25523882eec.2.1791878171246;
-        Tue, 13 Oct 2026 00:56:11 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm40060908eec.28.2026.10.13.00.56.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 00:56:10 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: kuniyu@google.com,
-	horms@kernel.org,
-	fmancera@suse.de,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>
-Subject: [PATCH net v5] net: pin protocol module before inet socket allocation
-Date: Tue, 13 Oct 2026 15:56:04 +0800
-Message-ID: <20261013075604.868273-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TqJBD840"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2Edvx1891473;
+	Tue, 13 Oct 2026 07:56:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=Qw36zJzIfV1HHtX3EMvJVDGnqGH+1Q
+	Yyy5NqHK+ee2Y=; b=TqJBD840LUVKklUlN500LNB0S8XB/G/Egzk+eW2QecBZIM
+	rdzipJWa4XgAbWCP1s/UBZsLh6syAS/1YTc/An58AEopwwBcUV0wXp9KWnmfzCFB
+	6aQ1846qUw/EBnsjj0SOh1BwPLBuTGsBcxZy85VPNpAkIOipSyvE7J56E/4F1gyQ
+	iWedP0bvnooOfFDX4JqdG/8FSl6LOORLjNizU7wpqkeBTPFaVadzyFVtrKwRS0rG
+	/9vbpwW+vwscqNe6VCfl969SRiBgPELb8dzKFah8mhKu6p507ltBMxP7j4/0djTf
+	v/GlpEqiLQOZjvkcOi5hJpVJP/UaJNjat07d20Fw==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3csna-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 07:56:21 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D7GBqh2227415;
+	Tue, 13 Oct 2026 07:56:20 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h80pjrrjb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 07:56:20 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69D7uG0231916516
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 07:56:16 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BCBDF2004E;
+	Tue, 13 Oct 2026 07:56:16 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 78E5320040;
+	Tue, 13 Oct 2026 07:56:16 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.111.64.221])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 13 Oct 2026 07:56:16 +0000 (GMT)
+Date: Tue, 13 Oct 2026 09:56:14 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 1/2] s390/entry: Last breaking event vs invalid kernel
+ stack
+Message-ID: <1a65c29c-60aa-48c4-b82f-ae746d3f0781-agordeev@linux.ibm.com>
+References: <20261002152055.3305184-1-hca@linux.ibm.com>
+ <20261002152055.3305184-2-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002152055.3305184-2-hca@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: RkIfSTtuHVO2tGTH5mTt6xFlrO47eWqC
+X-Proofpoint-ORIG-GUID: RkIfSTtuHVO2tGTH5mTt6xFlrO47eWqC
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6acde425 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=pQxpzdm-b1EoxyHjw28A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzMCBTYWx0ZWRfX3/I2ULnCGFhJ
+ 2IFt66Jw6fPNFNuTPaMhtYymmfrGXB+Nbn/zUU7Pym6Ta/BvnKRbaWbREjrUbMX6IWWTepxAj85
+ 4hnzj/Fw/aU2PYMSz0Z7ALdRlLLVHyc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzMCBTYWx0ZWRfX/tJs5zwtjizO
+ AfFEMOE7SdwcfEzFnGSG40jgBNXbaMqKj8ol5JE7TZzGy7ma0jLE6zDJq6MR0/tkYbV6/NCFLF2
+ 6rDSTc/5FpPnoj2ibKoXEpOeKtg1seSL0ndBfSM4HoqzUt4JCAbkXtprf5MWA4l0SEAY29dd5h0
+ IvwLG13dLcNeez366A9FCCIJ8xacA2PSjen4N+n6zIQGjI7/UU3gW78D3jqavBGG6q4/KTThR/U
+ RaPgRNpe6HFHsTDdoa3RhaeP3h6EiX2Yai/SavNqjOu/Ow36haYZJZgenyoDT+FVii+Y0HKGWtN
+ blp0LD7GafkFWQjHNpDmv0HPNRd/TuGehHiQfjjtufBqbogNR7oIUXfyF0humLWZy9vgEPXCndU
+ ec9WrCwRP048WbHBlcHSN9Wad0DM4T3TR4iUzuRF4nTE3aFpo2HbI8VaObOT5EDzLxr0YkSSpJ8
+ i/V2erSeYfqSnxSm3fw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130030
 
-inet_create() and inet6_create() look up the protocol under RCU, then drop
-RCU before using the resulting proto. A concurrent module unload can
-unregister the protosw, wait for the RCU readers, and destroy the proto's
-slab before sk_alloc() uses it. sk_alloc() may sleep, so the RCU read-side
-critical section cannot simply be extended across the allocation.
+On Fri, Oct 02, 2026 at 05:20:54PM +0200, Heiko Carstens wrote:
+> In case an invalid kernel stack is detected the last breaking event
+> address is copied to the orig_gpr2 member of the generated pt_regs
+> structure. Correct location would be last_break. Fix this.
+> 
+> This adds help information to the printed messages:
+> 
+> Before:
+> Kernel stack pointer invalid
+> ...
+> Last Breaking-Event-Address:
+>  [<0000000000000000>] 0x0
+> 
+> After:
+> Kernel stack pointer invalid
+> ...
+> Last Breaking-Event-Address:
+>  [<000001b802c1ae1c>] proc_reg_write+0x5c/0xd0
+> 
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>  arch/s390/kernel/entry.S | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/s390/kernel/entry.S b/arch/s390/kernel/entry.S
+> index 10dd9bbdf985..4e99ed559dbd 100644
+> --- a/arch/s390/kernel/entry.S
+> +++ b/arch/s390/kernel/entry.S
+> @@ -622,7 +622,7 @@ SYM_CODE_START(stack_invalid)
+>  	stmg	%r8,%r9,__PT_PSW(%r11)
+>  	mvc	__PT_R8(64,%r11),0(%r14)
+>  	GET_LC	%r2
+> -	mvc	__PT_ORIG_GPR2(8,%r11),__LC_PGM_LAST_BREAK(%r2)
+> +	mvc	__PT_LAST_BREAK(8,%r11),__LC_PGM_LAST_BREAK(%r2)
+>  	xc	__SF_BACKCHAIN(8,%r15),__SF_BACKCHAIN(%r15)
+>  	lgr	%r2,%r11		# pass pointer to pt_regs
+>  	jg	kernel_stack_invalid
 
-An LLM-based source scan identified this issue. It was reproduced with
-l2tp_ip by racing socket(AF_INET, SOCK_DGRAM, IPPROTO_L2TP) against module
-unload in a KASAN-enabled QEMU guest. The reproduction used a temporary
-50 ms delay between reading prot->slab and calling kmem_cache_alloc().
-proto_unregister() destroyed the cache before the allocation used it:
-
-  Oops: general protection fault, probably for non-canonical address
-        0xffff1108974182a0
-  KASAN: maybe wild-memory-access in range
-         [0xfff8a844ba0c1500-0xfff8a844ba0c1507]
-  RIP: kmem_cache_alloc_noprof+0x63/0x370
-  Call Trace:
-   sk_prot_alloc+0x74/0x2c0
-   sk_alloc+0x2b/0x6c0
-   inet_create+0x2cd/0xd40
-   __sock_create+0x1c3/0x430
-   __sys_socket+0x116/0x1d0
-
-Cache the proto and its owner under RCU and acquire a temporary module
-reference before dropping RCU. This prevents normal module unload while
-the proto is in use. sk_prot_alloc() takes the socket's own reference;
-drop the temporary reference on every exit after allocation. Use the
-cached proto for the IPv6 backlog callback as well.
-
-A failed module initialization can unwind published protocols despite
-module references. Reject userspace socket creation while the owner is
-MODULE_STATE_COMING, before dropping RCU. Exempt kernel sockets from this
-state check: SCTP creates its kernel control socket from pernet init
-before module initialization completes. These sockets pass kern=true,
-which avoids pinning the network namespace they belong to. Both kernel
-and userspace sockets still acquire the temporary module reference with
-try_module_get().
-
-Fixes: a79af59efd20 ("[NET]: Fix module reference counts for loadable protocol modules")
-Suggested-by: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6-Astra
-Assisted-by: OpenAI Codex
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v5:
-- Reject MODULE_STATE_COMING only for userspace sockets (!kern), as
-  suggested by Kuniyuki. Preserve SCTP kernel control socket creation
-  during module initialization and keep the temporary module reference
-  for both kernel and userspace sockets.
-- Document how the bug was discovered and the test-only delay used in
-  the original KASAN reproduction, as requested by the discovery bot
-  and Jakub. Retain the original fault addresses.
-- Keep the cached owner, balanced temporary reference and cached IPv6
-  backlog callback from v4.
-- Rebase onto net/main at 8e2fbe0e75d3.
-
-Validation:
-- W=1 build with modular SCTP and compilation of both changed objects
-  with CONFIG_MODULES=n.
-- SCTP module loading and 20 socket/netns cycles per boot on baseline
-  and v5, with IPv6 enabled and disabled; module references returned
-  to their initial count after namespace cleanup.
-
-v4: https://lore.kernel.org/r/20261002173844.3537111-1-nicoyip.dev@gmail.com/
-Review: https://lore.kernel.org/r/20261012200752.3771786-1-kuniyu@google.com/
-v3: https://lore.kernel.org/r/20260904111514.584264-1-nicoyip.dev@gmail.com/
-v3 review: https://lore.kernel.org/r/178887699602.219967.13594894510710999619@kernel.org/
-v2: https://lore.kernel.org/r/20260825172349.232794-1-nicoyip.dev@gmail.com/
-v1: https://lore.kernel.org/r/20260823171311.3857087-1-nicoyip.dev@gmail.com/
-
- net/ipv4/af_inet.c  | 15 ++++++++++++---
- net/ipv6/af_inet6.c | 17 +++++++++++++----
- 2 files changed, 25 insertions(+), 7 deletions(-)
-
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index 14ce01092fda6..5c02022c6c182 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -263,6 +263,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 	struct inet_protosw *answer;
- 	struct inet_sock *inet;
- 	struct proto *answer_prot;
-+	struct module *answer_owner;
- 	unsigned char answer_flags;
- 	int try_loading_module = 0;
- 	int err;
-@@ -322,9 +323,15 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 	    !ns_capable(net->user_ns, CAP_NET_RAW))
- 		goto out_rcu_unlock;
- 
--	sock->ops = answer->ops;
- 	answer_prot = answer->prot;
-+	answer_owner = answer_prot->owner;
- 	answer_flags = answer->flags;
-+	if ((!kern && answer_owner && module_is_coming(answer_owner)) ||
-+	    !try_module_get(answer_owner)) {
-+		err = -EPROTONOSUPPORT;
-+		goto out_rcu_unlock;
-+	}
-+	sock->ops = answer->ops;
- 	rcu_read_unlock();
- 
- 	WARN_ON(!answer_prot->slab);
-@@ -332,7 +339,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 	err = -ENOMEM;
- 	sk = sk_alloc(net, PF_INET, GFP_KERNEL, answer_prot, kern);
- 	if (!sk)
--		goto out;
-+		goto out_module_put;
- 
- 	err = 0;
- 	if (INET_PROTOSW_REUSE & answer_flags)
-@@ -398,6 +405,8 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 		if (err)
- 			goto out_sk_release;
- 	}
-+out_module_put:
-+	module_put(answer_owner);
- out:
- 	return err;
- out_rcu_unlock:
-@@ -406,7 +415,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- out_sk_release:
- 	sk_common_release(sk);
- 	sock->sk = NULL;
--	goto out;
-+	goto out_module_put;
- }
- 
- 
-diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
-index 282912a119999..99e57fd643322 100644
---- a/net/ipv6/af_inet6.c
-+++ b/net/ipv6/af_inet6.c
-@@ -110,6 +110,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	struct sock *sk;
- 	struct inet_protosw *answer;
- 	struct proto *answer_prot;
-+	struct module *answer_owner;
- 	unsigned char answer_flags;
- 	int try_loading_module = 0;
- 	int err;
-@@ -167,9 +168,15 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	    !ns_capable(net->user_ns, CAP_NET_RAW))
- 		goto out_rcu_unlock;
- 
--	sock->ops = answer->ops;
- 	answer_prot = answer->prot;
-+	answer_owner = answer_prot->owner;
- 	answer_flags = answer->flags;
-+	if ((!kern && answer_owner && module_is_coming(answer_owner)) ||
-+	    !try_module_get(answer_owner)) {
-+		err = -EPROTONOSUPPORT;
-+		goto out_rcu_unlock;
-+	}
-+	sock->ops = answer->ops;
- 	rcu_read_unlock();
- 
- 	WARN_ON(!answer_prot->slab);
-@@ -177,7 +184,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	err = -ENOBUFS;
- 	sk = sk_alloc(net, PF_INET6, GFP_KERNEL, answer_prot, kern);
- 	if (!sk)
--		goto out;
-+		goto out_module_put;
- 
- 	sock_init_data(sock, sk);
- 
-@@ -201,7 +208,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	sk->sk_family		= PF_INET6;
- 	sk->sk_protocol		= protocol;
- 
--	sk->sk_backlog_rcv	= answer->prot->backlog_rcv;
-+	sk->sk_backlog_rcv	= answer_prot->backlog_rcv;
- 
- 	inet_sk(sk)->pinet6 = np = inet6_sk_generic(sk);
- 	np->hop_limit	= -1;
-@@ -251,6 +258,8 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 		if (err)
- 			goto out_sk_release;
- 	}
-+out_module_put:
-+	module_put(answer_owner);
- out:
- 	return err;
- out_rcu_unlock:
-@@ -259,7 +268,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- out_sk_release:
- 	sk_common_release(sk);
- 	sock->sk = NULL;
--	goto out;
-+	goto out_module_put;
- }
- 
- int __inet6_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
-
-base-commit: 8e2fbe0e75d38690d551456658194c632933cb57
--- 
-2.43.0
-
+Reviewed-by: Alexander Gordeev <agordeev@linux.ibm.com>
