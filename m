@@ -1,197 +1,179 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012061.outbound.protection.outlook.com [40.107.209.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C28247ACEE;
-	Tue, 13 Oct 2026 07:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875323; cv=fail; b=aas6VF4xy55xRwQjcuHQ22sxxwQDZal8Y/jFFXH6t22OWHaO3JDwDtGTzgbg01aZpqFC4GCtlMaRutbUYkcTqs0u4pSDNnZoNn+qXPZGhBuq/rr4IJq6Qr74LChdsw9ckfAobuAixqi/gFBranEWpeiT5Ql+rHR02AEUml2pUgA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875323; c=relaxed/simple;
-	bh=dka16mXj+8OX2P349DzImCklEfQCzdy6cUfg0aGZ93s=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=e77v5C59eZmULrS1QIu+FpqoM4BNcu7/ZzPspr6sMUIJfjd/mhfJniQJHNeA7GVnFHIS7jnQkQZODHbBdKc7B5UkDg5tSexkqcz5rkTPuutE3HEmtH7s3KKaHM4NWqLYi1/505yH8iIqE3X7GWxEwyBksGic5tp+n9ikEFu6M0w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eBxAW0IS; arc=fail smtp.client-ip=40.107.209.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52E73EC832;
+	Tue, 13 Oct 2026 07:08:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791875337; cv=none; b=mbLdTFPsfktir6PVjqKJQ3TICNDv6igB7jsxD9V1rPemXZJ462T5OtUy4hln6XbyAlbvUAi6q506mJRTRLqDOGP5J8768Ce4g6rnXzQLiS8Z1lCdPdh5itOA4+rzHjaLb2ct8cdPFDRvn+JmxllNvu3twNQh+jIDooKpEbDExNY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791875337; c=relaxed/simple;
+	bh=xzhuf8a3G/yxRZCY2nwsVEPZErnxAUGz5psyiIf3LVg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PuVA9jWNHl7X+i9zDxBq06QLzZArmjBEkc3SZDJqTtFqDaVMEjW8ByksPiOdJPgJHwpTx06ucJIdfOkIAy4V5Kf9YSYvLGLfDWN5eB2frtJI6d3k8qD2D6uIBNFTo3KVuJhpfhhfmJXjkXCiupSyJKayQl9SxtiA3I4pFmkUmv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jva6r1C6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=VA1cs4a/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jva6r1C6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=VA1cs4a/; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eBxAW0IS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uIbssjIa7VSx4iSY/4OJq4rOeSgxtqhVqJBhCcYGT4kwAF4nk6ZcbzsNN6VhObGo1dfZAatu4upldjBxQaDhWHa3Iz9FqRDTVAWOLOUU/kByH6xJ+3s2IV1G4dqQaMzHp4Yy08Yjw0Vi7FtrN+uijdnBHT5EP8m0ft1IgPI8R98fyEuH8vPC/g1I0O9uELvzdnyDuOWKDiFzq6yYu0Sd4L15XoaF4J7L1XVF+6RnaNO6bE/K3hYlMLNefJUYsTSTO2QkXjxQuN/HwbU6nSK+148ePMFMsy5vkm65fwoA6YiCNpv9uf2emygtWt/B31DMUc00kLZQOYTxB111jq5d6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OPLRpTX+NIqCylm4WWwp4l1DLdhzvnrMSlv9iAGJ7Ok=;
- b=kAFQKRICmI8OZyNj4z51NfJDz4eI61tzjFZ4eqpj3ZqmPRytFNRyTx/1AC3f0G3Eri/XHUvnPzjn+PdSo9pW9+fJPcbbzARvCF+LTMTYkrVdAB2giRbz2JSdwh1uEZSepthlPfZ9S12dIpemjwHr8dnCAxo+4BIQdh856FVpAQF8NzcazGYoLSlRqgoiLrczn+/e/xtCwI5NKjmVBKfvqIJiHOXHWS9tU1OHN9/iJ1uwodJkcfNxZFWtsBr4d3HHaPTSCSOC48G7L3V3mUP+Gd7D0xys4ZA1faGbuqZAXd1IlzjHgaGiyDiR81esIuuB1d5Y+XnWQZlnnnlVmaDm0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OPLRpTX+NIqCylm4WWwp4l1DLdhzvnrMSlv9iAGJ7Ok=;
- b=eBxAW0ISBdeYoxAzgKKzEZL3fxN6VQiFWfcSQ/5vPp6ft24WfwG2x2DOYoASJIErkOig3gNfdY8ZhzfxuSI0/MOhTy7FbLFNoT+UL88dfphT9sXleuzahIIcAt6bm2HN6uJBg2CKOMLTw1GsVWW6ZLL6asmkNVWrhBIMzD6NOP0MLFMe+hzrB7HSR59rZIOs2vTJe4gze7nqs4cKxj9/nyWyIWTjxNFq7Js95WPuusXVRxni0STe+zTOS6aAnZR47AqC2JZrUvJe13vTjghm1mPor40qCuWG5KLQ842pr5RrbxKRAH3RnztpAlMLc2V9o7GAI76trjB6Ypqb5RIDRg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- PH7PR12MB6418.namprd12.prod.outlook.com (2603:10b6:510:1fe::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 07:08:38 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 07:08:38 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Oct 2026 16:08:34 +0900
-Message-Id: <DM3ISBKLJ754.GDSHT5NYU0G5@nvidia.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
- Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v3 4/8] gpu: nova-core: add NVKV encoder
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
- <20260928-b4-nvkv-v3-4-f04504c262c2@nvidia.com>
- <DLYAO1NDXB2L.3NUUCWAWFK188@nvidia.com>
- <DLYARWONCNC4.16TY7TATZG2DX@nvidia.com>
- <4ac83051-6ac3-4919-b230-bfa059ff956f@nvidia.com>
- <DLYL5E2GFSM7.3SMUQUX8LN0C1@nvidia.com>
-In-Reply-To: <DLYL5E2GFSM7.3SMUQUX8LN0C1@nvidia.com>
-X-ClientProxiedBy: TY6P301CA0009.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3be::6) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jva6r1C6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VA1cs4a/";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jva6r1C6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VA1cs4a/"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2DA7021FAD;
+	Tue, 13 Oct 2026 07:08:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791875333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S6un9ydNa8WO2U6ub8r+hhTamB2qDnnKMVBME28k5wc=;
+	b=jva6r1C6W1ScY0eYPb9dLLIeolSQpi1ckoU5SZPqQ/tKovBm7luIcvJWG+d5wLkAWDVlp6
+	SseI216ueiEksGJywTF1z/Dtq0zo3EQaikWgDAmyJA2GreeXWCAXpkTga5NdaL6WzL941i
+	It/YQTM654VPIqqmWJcPremYt9N1dcI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791875333;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S6un9ydNa8WO2U6ub8r+hhTamB2qDnnKMVBME28k5wc=;
+	b=VA1cs4a/ASvEvQQ6O95DNnjYmgNNqRj//sS60m3MSG0cBlQIINEeJdFdqEJppfZo9TQHbS
+	xhiMBUqYMGbyObDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jva6r1C6;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="VA1cs4a/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791875333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S6un9ydNa8WO2U6ub8r+hhTamB2qDnnKMVBME28k5wc=;
+	b=jva6r1C6W1ScY0eYPb9dLLIeolSQpi1ckoU5SZPqQ/tKovBm7luIcvJWG+d5wLkAWDVlp6
+	SseI216ueiEksGJywTF1z/Dtq0zo3EQaikWgDAmyJA2GreeXWCAXpkTga5NdaL6WzL941i
+	It/YQTM654VPIqqmWJcPremYt9N1dcI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791875333;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S6un9ydNa8WO2U6ub8r+hhTamB2qDnnKMVBME28k5wc=;
+	b=VA1cs4a/ASvEvQQ6O95DNnjYmgNNqRj//sS60m3MSG0cBlQIINEeJdFdqEJppfZo9TQHbS
+	xhiMBUqYMGbyObDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C2C9C1349D;
+	Tue, 13 Oct 2026 07:08:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id NwX6JQTZzWqlSwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 13 Oct 2026 07:08:52 +0000
+Date: Tue, 13 Oct 2026 09:08:52 +0200
+Message-ID: <87bj8yoz5n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH] ALSA: line6: Clear prev_fbuf on capture buffer release
+In-Reply-To: <20261013063554.571-1-25031212351@stu.xidian.edu.cn>
+References: <20261013063554.571-1-25031212351@stu.xidian.edu.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB6418:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6811484-ef63-4932-3d91-08df28f8ce18
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|7416014|10070799003|1800799024|23010399003|11063799006|4143699003|18002099003|56012099006|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	4yJSv5hxBjBPSG7GDAbpcMThHb9/VVt8szHg+05dN3ScUfT8nooYBeRAgevgMv2hpE7ifqnUq9I+GtQSwIORAQjlY3vHt8LCnDB4du3ANqUkMLQP9ygIn17/xvUQlhjwWbK8+8G1IM0KckK8K9TFB56VNyuUYFS6x8Ey0LyKGYoiIhb2QDVP37w84y/vaNKtdKE4+xt3jZuzWj5RCtE4JNDXS+kaeLRPXI/MKo8nI/Y3N64N2kjzovXsOsndekMpfZ+c0p+Oi3qy+bKBa1GqQLtVFraoxMngWNt/zZSi5G+jHtC7wnuhAaqX7+BycQV4AUpaD4I5BbvxZzr0P/RxzBjsdGVDZEPkGwrHI0maCMWPnmSuQzACQd7ne6bBu5puk3h7bht4/+EPkSD+uMkIMP9ExXDtDy6KRb490h+CqWBX/QEKvfDXIMfW8rg67pbkG3IVHQgkRnSgcJ28TEPbOwAbBrjo4wtRTYNJW1xdpLL2F+4ow2/S/xiP23SYqoQummnSVhy46acGHNPbVWpqWB3vXf7Kfd69QNiGWQbjTk/7ZRRDyijVeQ3mc1Gm2lhQeXVVfRnofLckDWj7nocuGD6orv13f7cHPw2FEgtZqR3zYLD2jwelmhcwev7y+bptfDhDGoAo+3nAU6gaybOJQBVXhrBnksINWdAl4hNYTn4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(10070799003)(1800799024)(23010399003)(11063799006)(4143699003)(18002099003)(56012099006)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SWNWNUZlTGZna1crN01yVWhsKzlMMEprMnZsZXRMZUpGcHRVYmNodjV5Sk1O?=
- =?utf-8?B?Vmk5QmlkbzMwNmJ6TGs0S243bnl4czU1MGJYdGlSMDVlSUhNenIvYktndEZB?=
- =?utf-8?B?b3lUQjhMUEJSUGZrNEZmYjhTZEEzRU0rMTNVNDJuOFp0SnRTSEJUWlhLeDYy?=
- =?utf-8?B?QitqeDA1akZWSjJPNk1mbGZVdzM0bU1sUVZXbEtQVkU5RnVZcnpDYTdJUTdu?=
- =?utf-8?B?dXZKa0JOSDBQNWNvc2xkWWhWNEpDSnFSV0ltc2tldnFuQVp3Z1YzclM5MC9t?=
- =?utf-8?B?bWRlRTkyeEl3Q3htekFta2JmRlJBV1RtWDlPQWx0T1cvYjVNTGZwSGVoazBi?=
- =?utf-8?B?bEtIeEU0NUVFN05wMXdJNmo3ZUxEUzhobHNnZkZoRHNIRFNDZW84bmFvc0hF?=
- =?utf-8?B?RjR4MkFuakFpNjVSOFBzdlZTSzVMYWppaEtCOTFHSHRUMjYwK3RuQW1Vb0JO?=
- =?utf-8?B?cE9nb0FjN3BFV0ZIdmVidUZqdWovb1RQWW45OGZ5Y2RkWXhCOTlERHdxL013?=
- =?utf-8?B?QWFNZXhNK056S2VxWnhvazRFbzFDNExIVzU1SEdyNG1MeHpWOXZPRkc3RXpS?=
- =?utf-8?B?bFNkeEU1djB3cS91aEVIdXM4YzZNTXJUaVJ1WnZ6V21nYnhBWm1KMDQ5aXBu?=
- =?utf-8?B?TFN5WTFhVlgzdkFvYTM3QnVjUFo0OGdqdDVoV08yM2lTbVNwbUNiSlI4dzZF?=
- =?utf-8?B?Wm9RZ0V0OC82MXVDZE1POUFDL002WVBHVGVaVU44NXZjbFMzQ1BBajN3MjZO?=
- =?utf-8?B?emc4RUVqYXRvcVdVeTRUcm9CMTBCalk4cnVDdmxpeG5HVXg5bnhhUkFxVnI5?=
- =?utf-8?B?cGJuQXRrRVdYbDBMdkc1Vmp4VlY1MkcxcDZPWk10YTZrdzNIQUlGeXVhbUxu?=
- =?utf-8?B?Y3ZnZW5TSlMzUUdRM3I3bTNqdVMyb0c3VmNVc1JLTVJYOG5qS1JteXg0cWo5?=
- =?utf-8?B?bEk2WHcvMFViVVg4Z1JiQnVhdEhnRXhsK2RMWlowNVBWWldGQXM4RHgvbFlW?=
- =?utf-8?B?VnFOMXZiY1M5Zk5yeVBPdzFudVgzWkhRQ0ZlY09TSmVqYWdoTUdqMFJQREVm?=
- =?utf-8?B?aEhqbExzUkk0Y3dIS3lWNjFMZmJqOXhpcEE5SUhSakdxYjlqZjI2emZRMHVj?=
- =?utf-8?B?Q0VIb2w0OHdiSVE2eDZVNTFwSnVmRCtTcG9vM3hra0RJSVYvWWlOR0syRFJh?=
- =?utf-8?B?U2R2aFhRUGtaeUtxNTJzTEFwSUtiVXRQcjRNU0lubUpZQWhRdkhhblFNSTV0?=
- =?utf-8?B?UzNZbUM1bjN6TTJ3MkdVVEdTWStRZExXT1RWNDBDTlEvTlJMbVJVTnNIWC95?=
- =?utf-8?B?L1F0Nk80NTJZZ2pUYjRSOFpkalhaR3BoMFhIRmVPc0ljYXRaWmN2b0VrQXVO?=
- =?utf-8?B?Z3dSYWhnT09nM2hnaXN1dTNVT1RKb1Z2KysvcTdZZDRoNG9ZNy9xTElLV2Mr?=
- =?utf-8?B?UDd4ckZBVGtSbVB1Nkl3WDdUSFpxTC8wQ0huOGZvdEtoOXNKTTZQdWUxSHlY?=
- =?utf-8?B?Nk5mQXlWSzAweCtncjdsTG00ajFDQU8rK0phOERzNnhPNDFMUEhMdkNqWXJV?=
- =?utf-8?B?T2pqOFM5QXZWa0dDNDRQSzU5ZERNeklHWXdMVUg5aE9KWGQ3OW9XTVpCY2lJ?=
- =?utf-8?B?M3g2eUJPS2NTSmxHbVF4cWF3Rk8zb3A4b0hzcEgvWndDeFFISDlmaTFqSUZB?=
- =?utf-8?B?VjAyS1BNUThJbFUwSEdrb0Z3K0llWnZlaTJlTmt5R1pXeFkxbzlzcnVDRThY?=
- =?utf-8?B?aHA5MXNwS1NSbi8zUmY1KzljR0RCYmFxbTg5YWVGdjB6RzkvVjRZSHgzUHh6?=
- =?utf-8?B?Z0JjaUdhRFZLTTRmb3h4YkRpanNWTWlGdjZ6V3JZc3FjZFBHYUN4dVRKREg4?=
- =?utf-8?B?TnZvRHVPazdVOEtQc1R6RDJIOHh4Tmk5cHE1UmY4Q2lTbm5RaDlnM0p4dTMr?=
- =?utf-8?B?MENLWXNKSWJnOGNsWGZ3WVBxUlUrRXg1dHlHSTZRMzdMdUdieVh1WlpjRDU5?=
- =?utf-8?B?TENZbHZHL3czcGpxV2ZxUDY5M0V3bkIybUplZlVvcGZnR2dmK2pUeDR0VWNH?=
- =?utf-8?B?ZlRXWFJCQXJFdUdIUHdFZzloa2xsK2RuaXJDaDB5S1VvL0c2enJnOGtqcytH?=
- =?utf-8?B?NGw4NVNySnkwaXlHYnlSVXZsVXVNdWVVWDVsTnBsZHdNV3lKK3hvQ2dXeGdr?=
- =?utf-8?B?Z3dINUZBSjhNdk40bW1UUFJBWjl6RldnejBxRzFvc2pwbEo0RmpqQmtmL3pE?=
- =?utf-8?B?UVVFNk5yTnVNbEVHejEydElXdVhseEcrL2l3OUhmenFMOVhCTDgxNUViWjVl?=
- =?utf-8?B?anlLRkhxN05PNjBLN1ZpNTA1dGluYmRBdUhiQ0dCTVZsMXIzbkFlaERNRWRZ?=
- =?utf-8?Q?IinjbaIMsaueaNmtItUxEzd/GjRsEvHY+pF9mUcm4cmIG?=
-X-MS-Exchange-AntiSpam-MessageData-1: CffN3oRklSLsrw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6811484-ef63-4932-3d91-08df28f8ce18
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 07:08:38.6314
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l028mYM0myE3atugmFMKPMX7kLf8VSgRda1dvOtShC6c2jXucQ8+GaDszBYtZYLSzanjcmRvU1VgGGTUm5uaLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6418
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 2DA7021FAD
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,xidian.edu.cn:email,suse.de:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-On Wed Oct 7, 2026 at 8:56 PM JST, Alexandre Courbot wrote:
-> On Wed Oct 7, 2026 at 8:33 PM JST, John Hubbard wrote:
->> On 10/7/26 5:48 AM, Alexandre Courbot wrote:
->>> On Wed Oct 7, 2026 at 12:43 PM JST, Alexandre Courbot wrote:
->>>> On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
->>>> <...>
->>>> ... and that's all I could find on this patch. I particularly like how
->>>> the examples have turned out!
->>>=20
->>> ... although maybe the Sashiko comments are worth considering too. Nova
->>> does depend on little-endian, but it probably wouldn't cost us much to
->>> e.g. call `to_le_bytes` instead of `to_ne_bytes` to make the code more
->>> portable.
->>
->> I recall having this conversation before, and I've tried to consistently
->> say "no". It's not a real thing, and if it ever becomes one it will be
->> a very big deal, not something we would overlook.
->
-> I agree on principle when writing endian-neutral code requires some
-> extra infrastructure or considerably more code, but here we are talking
-> about trading a call to `to_ne_bytes` for one to `to_le_bytes`, which is
-> zero effort.
->
-> ... although the Sashiko warning on `extend_with_padding` *would*
-> require more than just a method call to properly manage arrays of `u32`
-> and `u64`, so maybe we don't need to fix them all, or any at all for
-> that matter since half-fixed code is still broken code.
+On Tue, 13 Oct 2026 08:35:54 +0200,
+Yuanzhe Liu wrote:
+> 
+> From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> 
+> A KASAN slab-use-after-free read was reported in submit_audio_out_urb()
+> when generating an impulse test signal:
+> 
+>   BUG: KASAN: slab-use-after-free in create_impulse_test_signal sound/usb/line6/playback.c:76 [inline]
+>   BUG: KASAN: slab-use-after-free in submit_audio_out_urb+0x1848/0x1b20 sound/usb/line6/playback.c:249
+>   Read of size 2 at addr ffff888008d74870 by task syz.2.3214/7785
+> 
+>   Allocated by task 11:
+>    kmem_cache_alloc_noprof+0x2f0/0x390 mm/slub.c:4144
+>    line6_buffer_acquire+0x1a1/0x220 sound/usb/line6/pcm.c:158
+>    line6_pcm_acquire+0xb6/0x230 sound/usb/line6/pcm.c:329
+>    line6_startup_work+0x3c/0x50 sound/usb/line6/driver.c:728
+> 
+>   Freed by task 7785:
+>    kfree+0xf8/0x390 mm/slub.c:6566
+>    line6_buffer_release sound/usb/line6/pcm.c:176 [inline]
+>    line6_buffer_release+0xa5/0xf0 sound/usb/line6/pcm.c:170
+>    __line6_pcm_release sound/usb/line6/pcm.c:305 [inline]
+>    line6_pcm_release+0x5a/0x80 sound/usb/line6/pcm.c:313
+>    snd_toneport_monitor_put+0x11b/0x190 sound/usb/line6/toneport.c:183
+> 
+> line6pcm->prev_fbuf points into the capture PCM stream buffer
+> (line6pcm->in.buffer), which is updated during audio_in_callback() to
+> feed rate synchronization, software monitoring, and impulse test signal
+> generation on playback side.
+> 
+> When all capture streams are closed, line6_buffer_release() frees
+> pstr->buffer with kfree().  However, it does not clear line6pcm->prev_fbuf.
+> If playback is subsequently started (e.g. via impulse test signal
+> volume control snd_line6_impulse_volume_put()), submit_audio_out_urb()
+> dereferences the stale pointer line6pcm->prev_fbuf under in.lock,
+> resulting in a slab-use-after-free read.
+> 
+> Clear prev_fbuf and prev_fsize in line6_buffer_release() when releasing
+> the capture stream buffer under in.lock, ensuring that no stale buffer
+> pointer can be accessed by submit_audio_out_urb().
+> 
+> Fixes: 63e20df1e5b2 ("ALSA: line6: Reorganize PCM stream handling")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-If I see some code that is explicitly written to handle endianness, it's
-confusing, because it implies that some or all of the code is meant to
-work with variable endianness. But that's not the case, and would leave
-me wondering why just this bit was written in an endianness-neutral way.
-I think we agree on this part though.
+Applied to for-next branch.  Thanks.
 
-For the case where it requires no extra effort, e.g. `to_ne_bytes` vs
-`to_le_bytes`, I think we shouldn't use review time on it. So IMO
-`to_le_bytes` is conceptually slightly more correct here because NVKV is
-little endian regardless of the host CPU, but I would not want to use
-review time on this in the future because:
 
-1. it's wonky to change just some of the handling, and changing more (as
-   you've noted) can require extra infra/copies/affect performance.
-2. I think assessing each `to_*_bytes` call every time it comes up for
-   which one is more conceptually correct (is it host-related, or
-   GSP-related, or if it's both, which one to choose since we're not
-   going to bother adding extra infra for it) is just gonna waste review
-   time.
+Takashi
