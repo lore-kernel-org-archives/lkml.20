@@ -1,35 +1,36 @@
 Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D6C41D239;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C45E434408;
 	Tue, 13 Oct 2026 09:45:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884755; cv=none; b=pC22X31Ju4iqo/201xd/W8QL7cbbZ5bk8WlpXIfSgtANI6UTsdpsUpLkyVj1Jab2DHFkNtBKqpUK8hxqYPqTfrGPN0Wyr+q/lbQ8D1yeiCvhWieJ+rdKloslAk5Wi3O/f45ELNcGbwhC+R7pXlCEhIva3WmIPZYDc7kx8PlC4JM=
+	t=1791884756; cv=none; b=EUXzSfcfhUFgmwYYMXcvYXCMoswMNVHjTRNyKutTQH2rsj0hS2Ud7yEksabJIaSownORwNw/rGV2m1WYJ6H/LqgqrwU3sbYf7dNe/Nm1bfq3w9N1dcWF395si/rnzXEZnCWH2+TAQKLrhSdQz1FA6AfIKCG/qr6kaRMuqOM2QkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884755; c=relaxed/simple;
-	bh=DsmKtAg9kHXbhq0z1HToW5DmnXyp+tUTcmp0uuadwcs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dDnAAzDs2BLhPR9rkgDyOhWaDY7mkRz81a12j0Fms84qlqnstNAOelZTMQtX6hTlPionauW0IE0mIyNCMYI8z8ECv1APEntegwNvl2i4jASlKpLSvB0shjQr/JhFeH7iumhFmt+CwbUQVerwUsIE6676vZj+5EILpfTXBnvELtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=JfXvW/ut; arc=none smtp.client-ip=116.203.77.234
+	s=arc-20240116; t=1791884756; c=relaxed/simple;
+	bh=oQ1HgMMLK7mjhAUv32lUkeAKxYNg94V1vvJ0Nox4AnA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=szexwNS5yWRcB6+m4nqlhLGEAlUGrztR5mCZ+PJU3o8LyDf8hSNWUGPJZ55GXNnztoMz31iqo7+NDrlf/kzaLl4U1csgxEZX8UdXfsl2sU/AvK8LuLQpz6itFfSA/sEAo1Kc7p9SJSCaaIrXAlPvVn5P34hwkvwY6gGUXQAf0c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=T72C/PhT; arc=none smtp.client-ip=116.203.77.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="JfXvW/ut"
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="T72C/PhT"
 From: Frieder Schrempf <frieder@fris.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
 	t=1791884742;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xFlrCpI+Yd6quURj+Qcux9BYhkPUHzJhK85eTLRuPtQ=;
-	b=JfXvW/utIoeD4MZQd3eJagYvekqdJYySucnkcJCxq1c4OU1UjSrqi07ALYjlQtnbtPAAx/
-	Tyn0p1FcYInTRyaXs7BPryg1goO09j8PBBGVRVC2BS84rw6wAnUg7C7MzaHDoCKx7YXGhL
-	iYt6zqc/AlI8zvSqEwjeMHieqzDfODvap0V9oUpssMWchqk56FpqbYFM2br8goGo4+7BAR
-	FHURH/zGUZK9e8ZWZ4JhlzNiTW4OHsJDQVAES0V2yL6c1PwuS39tDNVUWKCO9kM1HIWORY
-	EOMA4AATGd1vd/4A7C8imNpz6xCjPKetqf9zSPpOYu17FYYXqMrtbX323ZJLkw==
-Subject: [PATCH 0/8] arm64: dts: Kontron i.MX OSM GPIO Label Fixes
-Date: Tue, 13 Oct 2026 11:44:45 +0200
-Message-Id: <20261013-upstreaming-gpio-label-fixes-v1-0-94f09ec520ef@kontron.de>
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=spLaJFBDA2I9mv/iGjdSPVlGR48vOUEIla/fx1TJJh0=;
+	b=T72C/PhT8ZNZUOcjrgMiDKhS+DjWiqA58Vnk63sU29TSpoqH/4rH3oc16rH8+yJHl5idbZ
+	2Ma814Zs5xaceblmywgjjAUWz5dss3o+IjQVoW9NWH7/2m4SuqBkzAVJ77PUf/qGBdX2ZL
+	2jUVplLjstEth6ZyInd1u+EBbZ+F8dWD4/BXuxsrsSNmSeQo7mJDpLaxwlFkmOZyZ+QNTa
+	0KINd25aX74q1u6uwNKn2L2UeeX6YHwoFAa/34gBSZE07pBceKU0GBeioBY9+z/hyvyi/3
+	6QG8M0JWIq2TlBqHU3Si6/TGTBtlGPEsiLtwtcShtnHZ8Q1H82KkHwFyPBT42A==
+Date: Tue, 13 Oct 2026 11:44:46 +0200
+Subject: [PATCH 1/8] arm64: dts: imx8mp-kontron: Fix GPIO label assignments
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,10 +39,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTvQtJqFVxEXSfwTR2oaMq0Ip
- Xc36vLjwdtIUQVK526jipeozLnBHDoKd5cTWG7NNPSDNb0ZeS26VLin5MSpyMyT85g4yhvKNkY
- bjuYU7OipLUrFL7TD5fq3rv6BsHyftO8f0SdoR4AAAAA=
-X-Change-ID: 20261013-upstreaming-gpio-label-fixes-6ff6c415c63b
+Message-Id: <20261013-upstreaming-gpio-label-fixes-v1-1-94f09ec520ef@kontron.de>
+References: <20261013-upstreaming-gpio-label-fixes-v1-0-94f09ec520ef@kontron.de>
+In-Reply-To: <20261013-upstreaming-gpio-label-fixes-v1-0-94f09ec520ef@kontron.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
  Sascha Hauer <s.hauer@pengutronix.de>, 
@@ -51,48 +51,63 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: Eberhard Stoll <eberhard.stoll@kontron.de>, devicetree@vger.kernel.org, 
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1456;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2122;
  i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=DsmKtAg9kHXbhq0z1HToW5DmnXyp+tUTcmp0uuadwcs=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIevs3x1rN8ia6Hje3i605r+myoRD26qMDh21s3KMmiej1
- qC0MulURykLgxgXg6yYIosUv8VrW7NYH/lj1VEwc1iZQIYwcHEKwERWdDP8D2G6WP3kyxEH14VC
- T8LrOnh7BarbY5ef754UV9y88OOh6Qz/w+f83Jfe5NZ4qfz93+vO65iMZ6aY6ynrCR5pm/2mOOw
- BLwA=
+ bh=om7LyEc69G6kO1gRBMD5Mt5tCVN+v7qqCDAAFMdEM9g=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIevs3yPzHjO8SlpWzPZU8s1ylzWR7I1/L+lnHJaO3aeXO
+ Xf51+WNHaUsDGJcDLJiiixS/Bavbc1ifeSPVUfBzGFlAhnCwMUpABOZeJiRYfcnhZ/Ws12V2369
+ EO0/H+SeUPfMfE3f6diJjHtm3rX8cpKR4VP93AN9M07qP3h9qF6wO6RzbXiCyiS59z6F2fXKva8
+ O8AAA
 X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
  fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-The OSM spec [1] clearly names all pads and GPIO labels should match
-the spec in order to have unified names across all boards. The intial
-board support uses different labels for some pads and contains bugs.
+From: Eberhard Stoll <eberhard.stoll@kontron.de>
 
-Fix these to provide the correct labels the user expects from the
-documentation. This invalidates some previously used incorrect label
-names.
+The OSM-S pad names GPIO_A_7, UART_B_RX, I2S_LRCLK and PCIe_CLKREQ
+are incorrectly assigned. The labels I2S_B_DATA_IN and I2S_B_DATA_OUT
+are missing and SPI_A_WP/SPI_A_HOLD are unconnected. Fix the labels.
 
-[1] https://sget.org/standards/osm/
-
+Fixes: 946ab10e3f40 ("arm64: dts: Add support for Kontron OSM-S i.MX8MP SoM and BL carrier board")
+Signed-off-by: Eberhard Stoll <eberhard.stoll@kontron.de>
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
-Eberhard Stoll (5):
-      arm64: dts: imx8mp-kontron: Fix GPIO label assignments
-      arm64: dts: imx8mp-kontron: Fix GPIO labels according to OSM spec
-      arm64: dts: imx8mp-kontron: Remove obsolete VDD_CARRIER regulator
-      arm64: dts: imx8mm-kontron: Fix wrong label for SPI_A_SDI_(IO0) pad
-      arm64: dts: imx8mm-kontron: Fix GPIO label for PCIe_SM_ALERT#
+ arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Frieder Schrempf (3):
-      arm64: dts: imx93-kontron: Fix ETH_B_TXD GPIO labels
-      arm64: dts: imx93-kontron: Fix UART RTS/CTS pad names
-      arm64: dts: imx93-kontron: Fix GPIO labels according to OSM spec
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
+index ea69c639b30b8..3c183ab573bed 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
+@@ -158,8 +158,8 @@ &gpio2 {
+ &gpio3 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_gpio3>;
+-	gpio-line-names = "PCIE_WAKE", "PCIE_CLKREQ", "PCIE_A_PERST", "SDIO_B_D5",
+-			  "SDIO_B_D6", "SDIO_B_D7", "SPI_A_WP", "SPI_A_HOLD",
++	gpio-line-names = "PCIE_WAKE", "GPIO_A_7", "PCIE_A_PERST", "SDIO_B_D5",
++			  "SDIO_B_D6", "SDIO_B_D7", "UART_B_RX", "I2S_LRCLK",
+ 			  "UART_B_RTS", "UART_B_CTS", "SDIO_B_D0", "SDIO_B_D1",
+ 			  "SDIO_B_D2", "SDIO_B_D3", "SDIO_B_WP", "SDIO_B_D4",
+ 			  "PCIE_SM_ALERT", "SDIO_B_CLK", "SDIO_B_CMD", "GPIO_B_0",
+@@ -178,7 +178,7 @@ &gpio4 {
+ 			  "ETH_A_TX_EN", "ETH_A_TX_CLK", "GPIO_B_3", "GPIO_B_4",
+ 			  "GPIO_B_2", "GPIO_A_6", "CAN_A_TX", "UART_A_CTS",
+ 			  "UART_A_RTS", "CAN_A_RX", "CAN_B_TX", "CAN_B_RX",
+-			  "GPIO_A_7", "CARRIER_PWR_EN", "I2S_A_DATA_IN", "I2S_LRCLK";
++			  "I2S_B_DATA_IN", "CARRIER_PWR_EN", "I2S_A_DATA_IN", "I2S_B_DATA_OUT";
+ };
+ 
+ &gpio5 {
+@@ -189,7 +189,7 @@ &gpio5 {
+ 			  "I2C_B_SCL", "I2C_B_SDA", "PCIE_SMCLK", "PCIE_SMDAT",
+ 			  "I2C_CAM_SCL", "I2C_CAM_SDA", "UART_A_RX", "UART_A_TX",
+ 			  "UART_C_RX", "UART_C_TX", "UART_CON_RX", "UART_CON_TX",
+-			  "UART_B_RX", "UART_B_TX";
++			  "PCIe_CLKREQ", "UART_B_TX";
+ };
+ 
+ &i2c1 { /* OSM-S I2C_A */
 
- .../boot/dts/freescale/imx8mm-kontron-osm-s.dtsi   |  6 +-
- .../boot/dts/freescale/imx8mp-kontron-osm-s.dtsi   | 84 +++++++++-------------
- .../boot/dts/freescale/imx93-kontron-osm-s.dtsi    | 41 ++++++-----
- 3 files changed, 59 insertions(+), 72 deletions(-)
----
-base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
-change-id: 20261013-upstreaming-gpio-label-fixes-6ff6c415c63b
-
-Best regards,
---  
-Frieder Schrempf <frieder.schrempf@kontron.de>
+-- 
+2.55.0
 
