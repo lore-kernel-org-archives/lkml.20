@@ -1,56 +1,56 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73363563FC3
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:40:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932A75650E8
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:40:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791931225; cv=none; b=DKKgg+DMWPsmBEQjwclPm65xUQVrHxfY+SUi/IbhN3GL/S3zn4TXj7z9Tcp4WUqDnxT5Dh/yTkcorzOZ4+58HJNxH21Jgl4ninJEswoLaLiMS5OUTv/YhxDMRHxZf3aXZC0moCuBFHSPNdWi2S5r430iLoorUoncJnRNTyYDe9w=
+	t=1791931226; cv=none; b=MvJFDQE91LE+SH7FCJPGzsCOFAByTjEUfJwg5L78Ha4P1FFiJ5oqrUmR1peTeqYzdQ7guiaRywNXYjSVbYejRyuNUe/8YwwUS7eKJQ4cCtQeMlB8l4kAXIpLBXlVhsio3A7De9u7vossyg5rB2Ihr28sGkKBu1d+6vxBQdV3j/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791931225; c=relaxed/simple;
-	bh=1NEN+Scbgml9ozAbt8aLROD/kvCT+P1eXcLOXmgikX8=;
+	s=arc-20240116; t=1791931226; c=relaxed/simple;
+	bh=uNMrTEMgpiVDbGIrdW7hNuAL0UJnSkmxUybVeT9BNfA=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Y6zeEvekWPxj91b9HG8VGft7QASvO8EycJkFHZnPzvJV8cCokEt4hAqHWmkye/VpMtiUyJcKNtEVg1IKUE5+XkQxVJXb1nF05MrhY1ghTLljqWr9cB66OIboYz+o9b9ws+WcDH5BAXsP1uhBf6lGGau8XWrqQKCCvv08FDV2JiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p29oeSrJ; arc=none smtp.client-ip=74.125.82.200
+	 To:Cc:Content-Type; b=S4bE/bZkufWsfiEnp7/+N1H2j5wj4ULmD8db1eZp4kB4rXOrltbJmPqNnljxcvK/cNXT824B42wlOvmu6xM56/WHOsm6thFFFoNf2H/9HU2SokeNwc1XhDGU/Efoi0Jgof6JRUs3cjMlUp7KkalBbPpJLM6wDoZSO4RQRLVx5nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kns9kZdQ; arc=none smtp.client-ip=74.125.82.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p29oeSrJ"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3552883bd19so4648304eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:40:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kns9kZdQ"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35a4d2e39acso1187152eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:40:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791931218; x=1792536018; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791931221; x=1792536021; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qdtOvNbLAOJ9idJnmqNXkxs2lXj3bNW1pL8KRmE6mUU=;
-        b=p29oeSrJx8sx71pHHqeoKYpTIv3xL5+8GPbJ84JE4rdi5B1MWGoo1IOyOw5d6DFgdg
-         IRbnlsBCvSfMjK1UeC+3GnjLuJpZsdcB+ZWy9gWdm7TwuoWvqOxue3fQxEuTqR/PA5XZ
-         Rl3qhOI9nPhRsqnK+n+jFiwtO44XfsVNb+A50hgPDLaGNF1Oip6WMD4I9jblXW+4ReAM
-         CQsQzWaMfmqa1Pwmt+T8ZhbnDp1CAyJoSqubS63wqVVF9I4OUZ2PaVFEVYBZJcEQgYM8
-         xan0nG7Fqd4cCW/aAL7sQd1faAZiKWl0Ic6wMvf+k10hxT2rQ+CWvVc26aQaneFrkfCG
-         Z2Ng==
+        bh=4r3hXDLd6Bqk9XmcFR/JS5uHIdkPs2TN+2FSnsngXIE=;
+        b=kns9kZdQnF6cg4c0ebOilPzJCHe8toqjGE3fYLbFm6TYXt+cVn4n8vjUDDFEqtYRdg
+         j214Tc4Y6nRycI8073Q0jtW4bqsD0NBk2H3bvq9dbC5ko9g2XT3yfMelKJiklZEw0LRU
+         1CTrD2WgwNDK0koQYCyIeKRq0ufaSEK39WKRgtAfqk+Go7KP2M7XZ+onpEe4u6Xt6aFJ
+         lceHgBMEhKocQVYKjgPFAjVZz0GXrK3rHcsOO0B23LrtIwXXDGOrIzPoOo51SeWaYuO7
+         hSc3VIWtfqQ2bjH4hs26pU6WB3XzFO3FB5P1K3+iHf8bfphXcqsJAhvcYY+UTh6rXNoa
+         Je/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791931218; x=1792536018;
+        d=1e100.net; s=20260707; t=1791931221; x=1792536021;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qdtOvNbLAOJ9idJnmqNXkxs2lXj3bNW1pL8KRmE6mUU=;
-        b=xkgUYR0TJJHGsfGtuL4ay7me7q71GJr6xYieRjoce6gYlyuPizf2uLraLSEXjjk+jb
-         8fm1DNwTMSU6DjVXxPs0OsQBACmgPr1skH0rC4uZfhBIGn1AA2q8H3gp2tX6RCP5tV4+
-         WFPOc9XHw9qPyA53JD90Cg4A9hJLINUN3FmYzhsy9SjrJpUOYXZLnzStiBzPX70dkbbT
-         C2Ohm0in7NKSwxvR82NQ0b16krhuryV0P4aEXyq1wQf35RUbE/iwv38tIpC+M1XRLgmb
-         kB6am11Q1B06ximI60il/Rqmsd8a77aJ0HoJbaZM3ZE1hCT0hnYRbHVUq8fV+S6FZ9dN
-         3a0A==
-X-Forwarded-Encrypted: i=1; AKwUvBwKsVhbtAGWvX/jJURyFjqb0uU9YDIE0dBj/oPUumEZQzccfNM2dw6VudEldYrk7hO8qcRvkac4CiWG504=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0ZpMpS2/Cj04CLDnaROKGywSSSGlq3470xGxmR/B3tbSJV19j
-	TXIYhZcYejMbnFK3JJTVNZIunZ5CwvVpN9xoClY5wpFvXWcq2yU1FqICdbcCxF469YDArdNvTX3
-	hvVKZw26FqQ==
-X-Received: from dycrm16.prod.google.com ([2002:a05:693c:2a10:b0:358:f250:485f])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:4141:20b0:35c:8d1f:5634
- with SMTP id 5a478bee46e88-35c8d1f58e8mr4713972eec.12.1791931216820; Tue, 13
- Oct 2026 15:40:16 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:39:37 -0700
+        bh=4r3hXDLd6Bqk9XmcFR/JS5uHIdkPs2TN+2FSnsngXIE=;
+        b=cHNWePcAh2rloJxsn1/adhria5lZN4s9L0ZFQqZcd1kX2LYkHuIendJutwzimj2V9Y
+         f0ANN/7DXZWrlAoOBfOemCkB572xjOev0r/Ox0af96BGkkJlHNM/NJ3215zMlzzUq69C
+         oP/t/2IG8Az91Y7bMZmpWDiFVNQtrSU9iitM7MXWuwZOrsrRJ/lQO5SCG9jE0cnxT/5d
+         sG0HDDAUwgiWcB/v4oq1HEUXdZi6mnVIG5EXmF3Czfy+SfGSYyVf/Ow/UazrIKamMxjg
+         lZG0Py/1KQwGigMcM1LoI0eXpoIiNs4aNKx4tPGeyisC+svokxhw6yDz2j6G0CIFcHO6
+         n/xg==
+X-Forwarded-Encrypted: i=1; AKwUvBzs3O5ZAeBkJBRXIKcrqieW8ovL9JDoeN9f6MTXkEPVwYt3NGo/l6Wnzb4rD41bSgaamADcTR9jztG/mwU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+6KLf3nuKCS5/DyNugYXt81nVsv8rEcRs9wIdcQBoMXqgsmA7
+	4r/xUnMhDAgGrLPviQ1PxWebLCZmw2m8mmFHv6+NLkRc6l6ldlHg1xyx07OSEY1d8rHYFgWkZmZ
+	iJMvCCQoJkA==
+X-Received: from dyu6.prod.google.com ([2002:a05:693c:8106:b0:352:94e:a8c9])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:71a8:b0:358:f717:ff61
+ with SMTP id 5a478bee46e88-358f717ff90mr13337962eec.6.1791931219210; Tue, 13
+ Oct 2026 15:40:19 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:39:38 -0700
 In-Reply-To: <20261013223946.1836757-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261013223946.1836757-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013223946.1836757-3-irogers@google.com>
-Subject: [PATCH 02/11] powerpc/secvar: Add missing kobject release callback to secvar_ktype
+Message-ID: <20261013223946.1836757-4-irogers@google.com>
+Subject: [PATCH 03/11] sh: sq: Add missing kobject release callback to ktype_percpu_entry
 From: Ian Rogers <irogers@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
 	Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Kees Cook <kees@kernel.org>, 
@@ -90,39 +90,37 @@ Cc: Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-In add_var(), a struct kobject is dynamically allocated with
-kzalloc_obj() and initialized with secvar_ktype. If kobject_add() or
-sysfs_create_file() fails, kobject_put(kobj) is called to clean up.
-However, secvar_ktype does not define a .release callback, which results
-in a memory leak of kobj (and a pr_debug warning in kobject_cleanup()
-when CONFIG_DEBUG_KOBJECT_RELEASE is enabled).
+In sq_dev_add(), sq_kobject[cpu] is dynamically allocated with
+kzalloc_obj() and initialized with ktype_percpu_entry. When
+sq_dev_remove() calls kobject_put(kobj), the kobject is never freed
+because ktype_percpu_entry lacks a .release callback.
 
-Provide a secvar_release() callback that calls kfree(kobj).
+Provide a sq_kobj_release() callback that calls kfree(kobj).
 
-Fixes: bd5d9c743d38 ("powerpc: expose secure variables to userspace via sysfs")
+Fixes: d7c30c682a27 ("sh: Store Queue API rework.")
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- arch/powerpc/kernel/secvar-sysfs.c | 6 ++++++
+ arch/sh/kernel/cpu/sh4/sq.c | 6 ++++++
  1 file changed, 6 insertions(+)
 
-diff --git a/arch/powerpc/kernel/secvar-sysfs.c b/arch/powerpc/kernel/secvar-sysfs.c
-index 395399bbab2c..f3f6ac25ea78 100644
---- a/arch/powerpc/kernel/secvar-sysfs.c
-+++ b/arch/powerpc/kernel/secvar-sysfs.c
-@@ -126,7 +126,13 @@ static const struct attribute_group secvar_attr_group = {
+diff --git a/arch/sh/kernel/cpu/sh4/sq.c b/arch/sh/kernel/cpu/sh4/sq.c
+index 908a8e09113b..f33864958487 100644
+--- a/arch/sh/kernel/cpu/sh4/sq.c
++++ b/arch/sh/kernel/cpu/sh4/sq.c
+@@ -331,7 +331,13 @@ static const struct sysfs_ops sq_sysfs_ops = {
+ 	.store	= sq_sysfs_store,
  };
- __ATTRIBUTE_GROUPS(secvar_attr);
  
-+static void secvar_release(struct kobject *kobj)
++static void sq_kobj_release(struct kobject *kobj)
 +{
 +	kfree(kobj);
 +}
 +
- static const struct kobj_type secvar_ktype = {
-+	.release	= secvar_release,
- 	.sysfs_ops	= &kobj_sysfs_ops,
- 	.default_groups = secvar_attr_groups,
+ static struct kobj_type ktype_percpu_entry = {
++	.release	= sq_kobj_release,
+ 	.sysfs_ops	= &sq_sysfs_ops,
+ 	.default_groups	= sq_sysfs_groups,
  };
 -- 
 2.56.0.385.gd3acb90ef8-goog
