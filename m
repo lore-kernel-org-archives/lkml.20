@@ -1,87 +1,68 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF7340F747
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A85C513573
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:31:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901910; cv=none; b=otXxnfnIglmP8NUeWE8T46PSZXqzfaUf1vrwQosII6f0INF+ARHK4JQV9CieIyG4hKUkVj79FQChyBs7SrFzAKxeBUfgbWEYT9F6noLmD9wUUKiWAdhVJdgKffUyHf3+xN+ZA+UUHLp3BugVkbRHOEr2L+FT1nlh1BYIcWtRXFw=
+	t=1791901915; cv=none; b=WODiWJ3n5UABj3d8wlQmbzxBQ7BWdt95NSr4F/Pi4kjw7L2T7K+h4fUP9UeFShU/5Z80GhgjdIOIwGBXS49Snl6fuUhTNKwL5U5tY6TPg0usiWmWWQ06mqB6WbeO1MY6rTPPg679Nc6GTSy4qadahlxsVfpIXCuq6O5lMgjz+lM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791901910; c=relaxed/simple;
-	bh=Xc6UXng5AfMa3Tdm3xgVuHWrr4sfMoltxMiAHnxmBU4=;
+	s=arc-20240116; t=1791901915; c=relaxed/simple;
+	bh=Dn5YJ6fUeXM2FMyfRjq3GBx9DkfrtijKmNqEKmlSCtM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NycXfwHgSBOtOaBhB9u1bQcT7GPWe6lP5l3yuBa2sprgTd24r9aMU4BWnyv+u5tQorkMcFTsu5gdjEHcIorMySagyWj7JztMZhoUZ9C1ifuhwp688JCFklgUcEABDuuidnGGBXj8DS20Uy91Rh7cjRX/Pmm1Vy8cspJWDI1iLyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WLZIH1D4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hs0SHoxF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=rk3glc4Q4gU5TMkjYkOB8aHWgRTmC8RrFHiFcLXcwBwpDeqImO6qp73TWNEhtGRwykS7IQYjSaiQHx5g+7YSWlQcyFmrB6RM/1zZtjFdTVwf/EY53L52GYtLgmzIQOY5xviqfw6FQ8cU+M6JBnbtSDQzOQPEUbpB0qw5QN3+xAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=CqLFA4F4; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WLZIH1D4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hs0SHoxF"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DE3w6R1492081
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:31:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/YOqxGlLfUnOc6Yx8cld+aJVHshZXI4bRKRZq6BJB5E=; b=WLZIH1D4gmyHOg/k
-	cBYXf1jWGHJIcH9nlqKa/CSOjlWL6EDg0uiE6jPkwbcE2szL5VWIFy73EM8UDLdI
-	Jkz8PVhdPQY2daA5dW2FHefgwewHjmh8PpVKN2aKgRQ/v/ObUCJSY8jwoN75aA08
-	yw6tBPiJYpflQn+kXKugwDIjlU7OyrYDVWDG3ck7P0b0Cqs4uPkCORrC4iVlN/pm
-	jqDoDj7eExStvPkiVWY2oE23F+oxOMIpK/PbYamPnvsNrvb3jk40vlq6b4ZXGkXw
-	aOXpUnFV6JTuVgmg4OdpMM1TabUilDCXQthS/Y/68nALCHrizB1lF/WLEzIWpfWY
-	07BOPg==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9daqtg54-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:31:48 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5e5a0ad2e81so3808566e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:31:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="CqLFA4F4"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49ff680331aso26456525e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:31:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791901907; x=1792506707; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/YOqxGlLfUnOc6Yx8cld+aJVHshZXI4bRKRZq6BJB5E=;
-        b=hs0SHoxFoNZhCTr9ba7f9r0jw906VQhwQssz13Ur0/2z2kM0wg2i5Lx9Nq/GMZp1D6
-         ovTKz4+DY4n5FDh2nbqACDDXRtyLI3PZ12ghFRqFxP44a6RIpU9njwtR3nUOethhAnz7
-         6GYlpUGmNcoliIwPvs7Igroy9OKpYYm56RSzUnKQVQ6+gdxfulhvBLUZtpHCK+IFFOQV
-         79iW9eg5iWdep5X8ZWVS7W5Z9kS0erEMUp40nnp5XBQY6AyM1C/xiceVbUWQbJUUhMHW
-         QSZfBgGGDeI9rnnc4ikW6+scxJHTN/8Z8dCTiMpMK5rqWSzfYIhYf8P6SCEsrtNqxYIE
-         /1cw==
+        d=suse.com; s=google; t=1791901911; x=1792506711; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Nqy2u8JCfPcvEmUb25Y46fO++lcBUW0oicQeVhEHWMM=;
+        b=CqLFA4F49uTdTp16E3dMTN8wh2cTyJ+xY1bJOKYI51E/vMY9dpQW5cPJZ1x2hXRqmb
+         nnU/Og9/SwrrwjlRgc5Es5MYGKZM5yQyGBuaWv3978FVl0EM/HzyAB80rgXbPgnNvsyh
+         WDIYLWUkVsnMpR+pld7cjnh0PJ6y9MEYEfcy7MhaevfILmAhOWxuzt4/4DCsbzNd9duC
+         kgb7jvrRof0QrqLbXCTtb/aeCgPzeuAOucdu3YuzdPkY7gi/ForiM1fUIoDY6//qM8mk
+         pXbNTfjuJNoaWOoqv0LhKyFRkofeQEJJk2Odg2cl+tsDIlUWR+03eXzwJJHZFZZhg27V
+         DnGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791901907; x=1792506707;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/YOqxGlLfUnOc6Yx8cld+aJVHshZXI4bRKRZq6BJB5E=;
-        b=f2fiMz2Vold1kPqedp7E9tHT+oSqFScYNFbZXV+aCAnphzcJDiFSAQtWRhwlyzojBA
-         fvBBuqBEg6AJdgwFR9tvs2sSsbMffMTWDsEEPl5kpD0ak5IiB+YiywTAcDjxPQHiXpt9
-         KZvpMTfxu/iCI4aOm7Jqsc7lrAo/xMGl4148fTI5KW/+xcNq6ExTU+pBAJesQfJcQMEo
-         lKygmArM5Zra7rt4LRodt7hBpeCikq9t/vyr4kGusJ4ClB7SvwGwdnElZbgiBJzzpeOB
-         3B16CkwoXNZda4KUTtmmeVhQzCaOicKg5wengxm02GFNlWvmrjSK+14LZ3VOU9u52cV7
-         kQIw==
-X-Forwarded-Encrypted: i=1; AKwUvBxwkemW+YH39WpgI3RugU9z1tOX2tC0UcDdyoJgl05EnTMQQYUUUD6eJ7xf7TunQJ8V9Y3AzQ9HgvGs/uo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhpYP281aAeRMeIehVC8mbOUfnIfts2s5hdVEAEtCfBGjhfNDJ
-	otkOD35NypHrQRFZY/im8LH7YW4UMmurSQbUWfTPuXKU0oiuqoR389c2IrWAfLi0AWDqFTe99xR
-	bbtFZnhkHcnUOQB7CkBbve5XugCl4eRaHoHUTJfaJe+lzREkr5CiET6Hj/yOos4ztruQ=
-X-Gm-Gg: AYBFou0MgY1c+1Ub5xYF0EySOJIYtARGojZVPwQnCG5TMWZBVXORJEPVeKJMtWApPJo
-	Po/jVskgD+MRVfjZJCCwDFIbfl2asKY37+Sx/LxGsCp3ZXAvrNHMKShi3I7P57TgUA1lzWn0giH
-	eH2nNrb9BaRw64oir4UIFUkEx1ZHA3vmx58iI88hND7YIjIUUYf+B8fpsBa3ZrEvTbGC2YJARW8
-	gGY889MnVkBXGCLFEQnt6O7SneuSDjC9Ec0weP++GCA8u0RKf2eCKIsFxiUKXcUP7QqedgInNoz
-	KiLSM2GKNwlwjonqol2rU1CjmEcCc/ClAh8XBHimwOAdrvK36kbLE5uSQuQ5kFrg4b6BWYpgSOG
-	H9bOWJnUyP7274Aal
-X-Received: by 2002:a05:6122:6161:b0:5c9:a60c:2732 with SMTP id 71dfb90a1353d-5e91f44e07cmr4248139e0c.10.1791901907027;
-        Tue, 13 Oct 2026 07:31:47 -0700 (PDT)
-X-Received: by 2002:a05:6122:6161:b0:5c9:a60c:2732 with SMTP id 71dfb90a1353d-5e91f44e07cmr4248001e0c.10.1791901905853;
-        Tue, 13 Oct 2026 07:31:45 -0700 (PDT)
-Received: from [192.168.10.46] ([37.167.4.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beacd2csm401121635e9.14.2026.10.13.07.31.42
+        d=1e100.net; s=20260707; t=1791901911; x=1792506711;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Nqy2u8JCfPcvEmUb25Y46fO++lcBUW0oicQeVhEHWMM=;
+        b=p+jGfT2eMYHvYzAe0O+oNily1L8B8fzjNhf2Z4SK8puVVsnDF687wNHC31pIaC/dnu
+         sWe7XPOs1+mJkt3kechxSsUX6fZqVIW6vN44FRaC92+VtfRBhKKE09T2PxnTbX+kV5XM
+         CH9qj0T409ogzffZVLAxvfJbGVnhpTuIhqFmveTnts/UFbC7oAVM+vARPSmKLSRTC33g
+         3BNhOr6xmDbyC5QYdxR2nXsixyUS6TDHPzTNWGY/m2uGd0fTeetgxYIsLYQDFO4St2VN
+         pVgXnK+X+GzvEIyclfPXlDi49SUa7rpzQult4++X/CyIAB6u9qmrsaEjqAU1u+Ja0Waj
+         ATlg==
+X-Forwarded-Encrypted: i=1; AKwUvByM/1NGKYbWBcgZ40ma+TCIjOmKLYp3vA93I0ut2A0znvgKnnBtzfV6aeLYnmgxMIqwppxJNDFhrVFXpNE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZf77qBUXRlW1mkgSTEWKD0qbo7dNIgUhTCpfAUriz7QDGyjtS
+	MtEDUZhY2L7Qif1w4aPglQ3UXQBsBa7CBoTrljTRl/v6rflJRgmRWpaQICat8SWGljc=
+X-Gm-Gg: AYBFou1bgQ0wPy8QbStuUL1v66Pc1IR8wc4lP5Stvm09aPtx1sGkujPbMpwsF8XwJB2
+	tT8Yx7M7sPgwj2fX0pHFDDQKS+PDtwTgX+m6cf955Icw8rRsmzkYouHz6W+9LWYepBQ+cnZmM2T
+	+g55zNkPujvCewvlk0uL9YlJcOktc86kGq2sunrsLax/g0KCeGRPx2/2o36LeIO3ebZfVwEtS9Q
+	K4L+f/Vf4uPxvwsY6XmZeZfksJ4cQGirvoQT/0iwvfXD++5SHPfozNfUfJmAcYAlQizZ1AqvGQr
+	BgCqXdFKamwLjSPfOV5AItselWgb5Obu8ZE3hxz1NezLJSxd2RejzM0YbiKt/+bfoZUc9hgTNQs
+	gosaXhuXnN8SWT4pgBS2YgpNFjldX0onHR19u7VsdG2JLeSBGHD1ZKwo6DQIVIILmX8L5AyppQx
+	vAjvzxxS9J62n/+Y/1tjUHUnncuA1tJn/3FiUBhqHIeBOuY8w12borplfqLUS8wU8qo/6SFCJkn
+	JtUweZ4Bo03JrVRi8iUoSg=
+X-Received: by 2002:a05:600c:4504:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-4a18e4a7839mr272468475e9.25.1791901911290;
+        Tue, 13 Oct 2026 07:31:51 -0700 (PDT)
+Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19303d518sm340155175e9.0.2026.10.13.07.31.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 07:31:44 -0700 (PDT)
-Message-ID: <04a1331f-1375-471e-a674-87039aeb0328@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 16:31:41 +0200
+        Tue, 13 Oct 2026 07:31:47 -0700 (PDT)
+Message-ID: <686a2511-1d4b-47cc-abdb-951693cf1771@suse.com>
+Date: Tue, 13 Oct 2026 17:31:44 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,84 +70,247 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/5] thermal: samsung: Add support for Google GS101 TMU
-To: Tudor Ambarus <tudor.ambarus@linaro.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Peter Griffin <peter.griffin@linaro.org>,
-        =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>
-Cc: jyescas@google.com, linux-kernel@vger.kernel.org,
-        linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-hardening@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org>
- <8142519a-0062-4f0f-b978-980e049f99c1@oss.qualcomm.com>
- <fe159792-c58a-46a9-950b-6c21d2172601@linaro.org>
+Subject: Re: [RFC PATCH 05/15] virt: tdx-guest: Add TDCM helpers and TEE-IO
+ support check
+To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
+ aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
+ pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
+ vishal.l.verma@intel.com, xiaoyao.li@intel.com, kevin.tian@intel.com,
+ chao.p.peng@intel.com
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-6-zhenzhong.duan@intel.com>
+From: Nikolay Borisov <nik.borisov@suse.com>
 Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <fe159792-c58a-46a9-950b-6c21d2172601@linaro.org>
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <20260924041032.1096569-6-zhenzhong.duan@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: kB3aahjGOqi86mW5rddJRJlHiXg0mjyB
-X-Authority-Analysis: v=2.4 cv=FZuiV5+6 c=1 sm=1 tr=0 ts=6ace40d4 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=Pwpi88Ktxb2v7RWwfB9ReQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=GpSJM9idUVmPmik-TdoA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1NyBTYWx0ZWRfX56fJbm8NHrm2
- auUj5ZQLEx/NRbAryThvBnNA1TIdlqOigbOvq25V1kkXx87cswC95qFAfWfL5q6hNZCrqeX3VmF
- IdS2wmJ7gpXR1Oi/4t0/361IJdmdXPE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1NyBTYWx0ZWRfXxPpSI7QVhJtu
- Hri01vSWRsUXZFg5zslIhFkUWtNAsNRrkS4P22eUXRO873U6qbK9q/S4b/5UpshZEB2kUfx8g/T
- mf1k/QDNWFQ0tWV/fyBqeT5a6eMQSbY077ssq2JNgDLspVxEcwgPpya6Ut+aXAyEOJlhlC5HJZh
- 7NJwQ7JUWwEQUB8Wixs+/4DjoMNea0pERQK+BmQkSCbMIGdDD2J3nMZHUIM4iMuoWeA8SzIuMs+
- uh//j9GmlsZzhl/4nBaa2B8imaQGTu5itCLj/yIVHRT0AxDAskWnGmiVl+lab5B3zaAkjITVP0n
- dmtN90E3/T8DzqpKmR0xFg8XI5gz4MtuBlCsAnBoHAORV+rx/aOgneJ3IOculjeWBneFstMLx7K
- tWKbXohK4ALb8FGwSTzcbzZ2vN9OvcAiHhMhZZD871mKr7C6cQtr6Kps/XTlgeDrky+EB7DuSPU
- /CzhgVwxaMW8XHYWuag==
-X-Proofpoint-ORIG-GUID: kB3aahjGOqi86mW5rddJRJlHiXg0mjyB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 impostorscore=0
- adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130057
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 16:26, Tudor Ambarus wrote:
+
+
+On 24.09.26 г. 7:10 ч., Zhenzhong Duan wrote:
+> Implement internal helper wrappers tdx_tdcm_alloc(), tdx_tdcm_run(),
+> and tdx_tdcm_free() to manage execution context lifecycle for TDX Connect
+> TEE-IO Device Control and Management (TDCM) commands.
 > 
+> Use these infrastructures to deploy all TDCM commands to orchestrate
+> trusted device management, beginning with the first command,
+> TDCM_OP_CHECK_TEEIO_SUPP, executed during the secure device locking
+> sequence.
 > 
-> On 10/13/26 4:33 PM, Daniel Lezcano wrote:
->> Hi Tudor,
+> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+> ---
+>   arch/x86/include/asm/tdx.h            |  48 +++++++++
+>   drivers/virt/coco/tdx-guest/connect.c | 139 ++++++++++++++++++++++++++
+>   2 files changed, 187 insertions(+)
 > 
-> Hi!
-> 
->>
->> I noticed I picked up your series without notifying you
->>
->> However, I did not pay attention but picked also the dts files.
->>
->> Shall I drop them ? (AFAICS there is one comment) and let you handle them separately ?
->>
-> 
-> Yes, please. dts and defconfig patches shall go via the Samsung SoC tree.
-> 
-> About the driver itself, I was about to send a v9, where I addressed
-> some issues sashiko spotted. Do you prefer to drop everything and wait
-> for my v9? Otherwise I can do incremental patches.
-Well the v8 is in my tree since a while now and I'm about to send a PR. 
-The patches can be dropped but the v9 will have to wait for the next 
-release. If you want this v8 in, it depends on the sashiko report. Is it 
-minor or major ?
+> diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+> index 4937e23d5483..71cd701d346f 100644
+> --- a/arch/x86/include/asm/tdx.h
+> +++ b/arch/x86/include/asm/tdx.h
+> @@ -105,6 +105,54 @@ int tdx_mcall_extend_rtmr(u8 index, u8 *data);
+>   u64 tdx_hcall_get_quote(u8 *buf, size_t size);
+>   
+>   #ifdef CONFIG_TDX_CONNECT_GUEST
+> +enum tdcm_operation {
+> +	TDCM_OP_CHECK_TEEIO_SUPP	= 1,
+> +	TDCM_OP_BIND			= 2,
+> +	TDCM_OP_GET_DEV_INFO		= 3,
+> +	TDCM_OP_GET_TDI_REPORT		= 4,
+> +	TDCM_OP_START_TDI		= 5,
+> +	TDCM_OP_GET_TDI_STATE		= 6,
+> +	TDCM_OP_UNBIND			= 7,
+> +};
+> +
+> +enum tdcm_status {
+> +	TDCM_STATUS_WAIT		= 0,
+> +	TDCM_STATUS_COMPLETED		= 1,
+> +	TDCM_STATUS_ERROR		= 2,
+> +};
+> +
+> +enum tdcm_error {
+> +	TDCM_ERROR_TDX_MODULE		= 10,
+> +	TDCM_ERROR_TDXIO_DEVICE		= 11,
+> +	TDCM_ERROR_SPDM_MESSAGE		= 12,
+> +	TDCM_ERROR_IDE_KM_MESSAGE	= 13,
+> +	TDCM_ERROR_TDISP_MESSAGE	= 14,
+> +	TDCM_ERROR_INVALID_STATE	= 15,
+> +};
+> +
+> +struct tdvmcall_tdcm {
+> +	__u16 operation;  /* See enum tdcm_operation */
+> +	__u8  version;
+> +	__u8  rsvd0;
+> +	__u32 rsvd1;
+> +
+> +	__u8  status;     /* See enum tdcm_status */
+> +	__u8  error;      /* See enum tdcm_error */
+> +	__u16 rsvd2;
+> +	__u32 rsvd3;
+> +
+> +	__u32 data_length;
+> +
+> +	__u8  data[];
+> +} __packed;
+> +
+> +struct tdcm_rsp_check_teeio_supp {
+> +	__u8 is_supported;
+> +	__u8  data[];
+> +} __packed;
+> +
+> +#define MAX_TDI_REPORT_SIZE	(16 * PAGE_SIZE)
+
+nit: You can use SZ_64K, no  or the report's size indeed scales with 
+whether PAGE_SIZE is 4k or 2m for example?
+
+> +
+>   u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector);
+>   int tdx_mcall_tdi_read(u64 func_id, u64 field, u64 *value);
+>   #endif
+> diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
+> index 80ae7c19e179..1f52a187b30f 100644
+> --- a/drivers/virt/coco/tdx-guest/connect.c
+> +++ b/drivers/virt/coco/tdx-guest/connect.c
+> @@ -7,13 +7,127 @@
+>   
+>   #define pr_fmt(fmt)		KBUILD_MODNAME ": tdx_connect: " fmt
+>   
+> +#include <linux/iopoll.h>
+>   #include <linux/pci.h>
+>   #include <linux/pci-tsm.h>
+> +#include <linux/set_memory.h>
+>   #include <linux/tsm.h>
+>   #include <asm/tdx.h>
+>   
+>   #include "tdx-guest.h"
+>   
+> +/**
+> + * struct tdcm_ctx - TEE-IO Device Configuration and Management (TDCM) context
+> + * @buf: Pointer to 4KB-aligned shared memory (>= one page) used as the command
+> + *       buffer on input and the response buffer on output.
+> + * @buf_size: Total size of the shared memory buffer.
+> + * @max_rsp_data_sz: Maximum expected size of the response data.
+> + * @rsp_data_sz: Actual size of the response data populated by the VMM.
+> + * @devid: Device Identifier.
+> + */
+> +struct tdcm_ctx {
+> +	struct tdvmcall_tdcm *buf;
+> +	size_t buf_size;
+> +	u32 max_rsp_data_sz;
+> +	u32 rsp_data_sz;
+> +	u16 devid;
+> +};
+> +
+> +#define to_tdcm_rsp_data(tdcm)	((tdcm)->buf->data)
+> +
+> +#define TDCM_POLL_DELAY_US	10000
+> +#define TDCM_POLL_TIMEOUT_US	(10 * USEC_PER_SEC)
+
+Shouldn't  POLL_TIMEOUT be a multiple of DELAY_US  for the sake of 
+simplicity? I.e DELAY_US 1000 (wait for 1k usecs) TIME_OUT 10 * DELAY_US 
+(try up to 10 times to get a response?)
+
+> +
+> +static int tdx_tdcm_run(struct tdcm_ctx *tdcm)
+> +{
+> +	struct tdvmcall_tdcm *buf = tdcm->buf;
+> +	u8 status;
+> +	int ret;
+> +	u64 r;
+> +
+> +	r = tdx_hcall_tdcm(tdcm->devid, buf, tdcm->buf_size, 0);
+> +	if (r)
+> +		return -EFAULT;
+> +
+> +	ret = read_poll_timeout(READ_ONCE, status, status != TDCM_STATUS_WAIT,
+> +				TDCM_POLL_DELAY_US, TDCM_POLL_TIMEOUT_US, false, buf->status);
+> +	if (ret) {
+> +		pr_err("TDCM request %d timed out\n", buf->operation);
+> +		return ret;
+> +	}
+
+It's not entirely clear to me why do we have this asynchronous handling 
+of TDCM, we don't have that for any of the other VP.VMCALL leafs? Can 
+you explain this in the changelog. According to GHCI 2.0 TDCM is used:
+
+This is used to allow TD guest TEE-IO Device Control and Management 
+(TDCM) module to
+manage the device. The TDCM leaf functions are defined in the following 
+table
+
+Is TDCM module implemented via the NRX facility ?  The TDX Connect spec 
+never mentions the TDCM module. A bit more details are required in order 
+to better understand why you've implemented this the way you have.
+
+
+
+> +
+> +	/* Ensure subsequent data reads are ordered after the status observation */
+> +	virt_rmb();
+> +
+> +	/*
+> +	 * Cache VMM response data length to avoid referencing buf->data_length
+> +	 * directly in case a malicious VMM changes buf->data_length between the
+> +	 * validation below and the subsequent reads.
+> +	 */
+> +	tdcm->rsp_data_sz = READ_ONCE(buf->data_length);
+> +
+> +	if (status != TDCM_STATUS_COMPLETED || tdcm->rsp_data_sz > tdcm->max_rsp_data_sz ||
+> +	    (tdcm->max_rsp_data_sz && !tdcm->rsp_data_sz)) {
+> +		pr_err("TDCM request %d failed: status 0x%x, error 0x%x, max_rsp_data_sz 0x%x, returned 0x%x\n",
+> +		       buf->operation, status, buf->error, tdcm->max_rsp_data_sz,
+> +		       tdcm->rsp_data_sz);
+> +		return -EIO;
+> +	}
+> +
+> +	return 0;
+> +}
+
+<snip>
+
