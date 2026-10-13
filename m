@@ -1,179 +1,214 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F77E383C83;
-	Tue, 13 Oct 2026 09:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885385; cv=fail; b=Ey1cayvToRhhsdKKhbR+CS83Sfo++7esrW4Gz0anVuDNdCRqls0mA8nuixVHvBJwqNmqTvDbXUf+rSh4QbpQFJ9MykvwMhmlsdCUjjf8DKPmMtwDzGDYoFEnwGXIwJOjrsaC3t5kwPDKTRyWl2kAjM5BXznPWHjxZUzCZURwafc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885385; c=relaxed/simple;
-	bh=gEFyM5FCgVOpRZcqQx8jSv0l3tXeOSM4ZhCvlLqxH2c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CZa/JQHkKeX4V3bTrWQmangqORMZZCpiEK1TWtHu7pOXq0d4AisuEMUT03T+L0H/7+diuFnwGyalWPYddb/QUOXItP1tam8FypfC/S6fUuGFo2QldxiWDGGBdxMi3TtXEGiXtq39m2+hOiT4MU4PCCYJ+LGyFmpMWyxhUrtVemE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=l+InptRW; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=ZFZJBKCZ; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D803F246781;
+	Tue, 13 Oct 2026 09:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791885401; cv=none; b=Ozj3P6aKRFS0ZfSkd/TtnTX2PclYKt2yYUPzIa8MyC9iiXbeYrUHid8oLxvdBzS3p4Lm3Eky06ytKEKYJxXYH0DiuXhuzh0f647fOllYl7XvRJws9A8Rcfuoex98UYWSmHEXb7+23SZz9qQFGOEY80gE+slcSP5NQVObHFIxjVQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791885401; c=relaxed/simple;
+	bh=PlVvTdkWjp0YX/ia1aYjkyxCtGTcPvQfZMqeqi6ZbQU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ifWCR24VWzTwFzleK10Gt5SoM5EQaZ1fX2fcStiK7wIvLctkg2PPKejmc35HZpQ+PFNZN9wNo/ZgfibNtMERDo4XTq6CUYD+HwBt/SmrpIR8ktTcfXO62Fo5PduksQFevI6mQYaa67dpxPhvjgB8kqNyKho2ZT3YQOs6IOYq4VU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FL6bAAK1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="l+InptRW";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="ZFZJBKCZ"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D4m4pO3590564;
-	Tue, 13 Oct 2026 04:55:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=bygHCLtXDI14WP2FnFyAoAOobR9PB0fEsb9yr9fNOfE=; b=
-	l+InptRW2wTvPwJBTMq1mFmezGIcpAZO9lUM09Iom9sy4SD6vMVpf0ALkdZHIyq9
-	zYaMhBwAvD3hsoRnnHKcTrLNtRGcVgymSMq3Dmpl4buMa1VuxegS9x5WiKm7N+nZ
-	0g0D7Ei66D2yoS+a2tCOBHE6N5H0qC4skxAvh1KlbZy2LnPhCHGqF5i8qmxaUnF+
-	r8dNmG1qC94fQPTZd8on8Lzm0odW0DzRkC+7VfQDWub5uzM0Y/tIHpZDghsC46NO
-	Lol0nlXZ5ckwgvoaEJTnLNncRR4JTV/ZY9osHvTSijOOez9/Q4Mt1TvVG1u7QYJl
-	VBmJb9oRXasbZ2ytZ7ksRw==
-Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11020103.outbound.protection.outlook.com [52.101.46.103])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4h7hsg3hyd-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 04:55:45 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=daK0RbWcqtlK/cIKN1Sg8LPNW0uGlgn9FhUs2unm4eJGPeHBAMRQtJRvma43xeUAGCaSeEAjfd9Cji4OUtrJaa+f+RELi/qv9hE+zdTfLLVULwCzCkS6T/GX+kFHq43GeRmvO8idcJZsS1/1brDZp19XRDSa4itnM4sCG2tlW/xzMLFpVfSZNd07s1URSv2/jwPd+q1hHn+/ur9HfQl/elT2C2rEM3mWF/suMJwk6wLme9iMiL5VX29/YgKAV/Xo1ZFXl+feRp4PBYMoK2Q89coO3DbF+/7kNplLf6dc8iBpLOngeH5GujM/kPFLfBOk+c1cs6I+anXVSgfHICo1Ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bygHCLtXDI14WP2FnFyAoAOobR9PB0fEsb9yr9fNOfE=;
- b=HO7w+hR700u8g0IiFkYDh2TKX9wItCRo9oxtg93XHe6VxoISu1nJPD5d4zBZPPP1f8cxY3HxnGF1aNAE84F+yP5koyxv97h/e3FhLS4gdoUoDOeqZu4qQx+eyhfz2mziV88cYVwaH/JycEtarshRWLCJaq4hbHikCInVUFHbniBW+QfCSIrP+2TW9APskYw0k5BAkfXdJmaoH4NujreUr39yuZMP6X9WdLMVx8VimvyCOTTyDMxiBjwg/T5XZEuP7hITlo+oqi1Lt8kKkbueLr8PZok5WnEQFRvt/ncGUleho0zYXcLPCO/mVI1YXi6UAf/5n/XF+d2UbxI4E3CAxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bygHCLtXDI14WP2FnFyAoAOobR9PB0fEsb9yr9fNOfE=;
- b=ZFZJBKCZzDwGcqpt8RmALl6V92NnXkxBFzmWz0wf7a01MS1BSgAtsr3hkoSDHjiw783iB6Eu8uJPCbUSWiE7fAadbykf+KWkA6wzxBnQzQ9F/XsFf9RhL9YNn8x09zCzih4TmBptjH1lX9oj5NMoNR2z043Muynvoc7oE5nvt44=
-Received: from CH5P220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::15)
- by EAYPR19MB614695.namprd19.prod.outlook.com (2603:10b6:303:2dc::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 09:55:41 +0000
-Received: from BN2PEPF0000A803.namprd02.prod.outlook.com
- (2603:10b6:610:1ef:cafe::41) by CH5P220CA0014.outlook.office365.com
- (2603:10b6:610:1ef::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
- 13 Oct 2026 09:55:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BN2PEPF0000A803.mail.protection.outlook.com (10.167.245.164) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
- via Frontend Transport; Tue, 13 Oct 2026 09:55:40 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id A7850406544;
-	Tue, 13 Oct 2026 09:55:39 +0000 (UTC)
-Received: from [198.90.208.11] (ediswws06.ad.cirrus.com [198.90.208.11])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 885F382024B;
-	Tue, 13 Oct 2026 09:55:39 +0000 (UTC)
-Message-ID: <b2bdcc88-5689-470a-ae71-7907a3d6a750@opensource.cirrus.com>
-Date: Tue, 13 Oct 2026 10:55:39 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FL6bAAK1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55F31F000FF;
+	Tue, 13 Oct 2026 09:56:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791885399;
+	bh=Q7fj9Vp+tJj7vJqMJATzo0vyG2yGkhzhjEgsT39DDVI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FL6bAAK1wmdEJY0kUnZUcDtzMSWohJp9SOCaOF43QWDUhT0/iL+EQrzkosR+1+gbK
+	 n3CYnRul7jUIP5IfLrkv+P8pOPh2mpHNS0Uk7wGHOYoV0XS1R0aERG9phPvMAFz/m5
+	 QcZdYbCJMmhUbrAflNX57QafmAdlmP34KxetYLnLS9rdkS7h4MXNYvwBtSTDHXg93c
+	 LXsP/R+zgGNL6f6XUxUQk4JWLfXvGkhLVMFwJUUaIpFMyzcLic/mA0L8NUYvPS8sHb
+	 2QPEtRlQjY4pusEYwNfnlZ8LI5GQyhY4CKycn3vvy+P2KTQn0xXPvmjqDkcMg8QP74
+	 qEjGgM633sPKg==
+Date: Tue, 13 Oct 2026 15:26:30 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Sumit Garg <sumit.garg@kernel.org>, Will Deacon <will@kernel.org>,
+	brendan.jackman@linux.dev, catalin.marinas@arm.com, rppt@kernel.org,
+	akpm@linux-foundation.org, sudeep.holla@kernel.org,
+	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
+	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
+	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <as4ATqhp0bPI03PA@sumit-xelite>
+References: <20260921110050.3977591-1-vdonnefort@google.com>
+ <arIYtjmSKCs14SqO@sumit-xelite>
+ <arKW_91EeKA-w96m@willie-the-truck>
+ <are21BjeS1O3RYE3@sumit-xelite>
+ <aruh86rd5FMv2i9G@willie-the-truck>
+ <ar5TPvANFUoosxGW@sumit-xelite>
+ <asOAYODGZa-7EIV1@google.com>
+ <asOD31rTX6dNfD1o@google.com>
+ <aszdnInyJxLhSQRp@sumit-xelite>
+ <as3798SFCfKFirag@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/9] firmware: cs_dsp: Give the control cache KUnit cases
- distinct names
-To: Mark <broonie@kernel.org>, Simon Trimmer <simont@opensource.cirrus.com>,
-        Charles Keepax <ckeepax@opensource.cirrus.com>,
-        Brendan Higgins <brendan.higgins@linux.dev>,
-        David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap
- <rdunlap@infradead.org>, Theodore Ts'o <tytso@mit.edu>,
-        Andreas Dilger <adilger.kernel@dilger.ca>,
-        Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
-        Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Zhang Yi <yi.zhang@huawei.com>, David Rhodes <david.rhodes@cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
-        linux-doc@vger.kernel.org, linux-ext4@vger.kernel.org,
-        linux-sound@vger.kernel.org
-References: <20261013-kunit-param-names-v1-0-4b22ec5b85b9@kernel.org>
- <20261013-kunit-param-names-v1-5-4b22ec5b85b9@kernel.org>
-Content-Language: en-GB
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20261013-kunit-param-names-v1-5-4b22ec5b85b9@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A803:EE_|EAYPR19MB614695:EE_
-X-MS-Office365-Filtering-Correlation-Id: d688b169-8975-4bc9-7907-08df291023df
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|61400799027|82310400026|376014|7416014|10067099003|3023799007|261009223027099003|921020|11063799006|4143699003|22082099003|18002099003|56012099006|16102099003;
-X-Microsoft-Antispam-Message-Info:
-	bEa5wKBnkXQ4ah+Tqk56XpL18ObBTIsvgoo0zpi3S3LGC4bDXcxEg4lUq7NvQ2BylxPRA5WzCWiHiz+M/Z9X/dUO/xXjOG0a6w86t1HMwByl2JJ+0o5pQtpyZtyPr1O3bMMGGWQbwdXEtQUPeMG9pXV+MtRS2VrBzvS30FlzeAZQ3d4GPaGAo3+FLQ8D2N9Bhv9klK1LyH1pI8Tb+in26Q6UAH5DXVYaJTHQiRBfW4KOZDeLuO/a3F5zdTYi37WspgHH6+RHwdyNjzUx/zImf5Vj09/+6S8CI0HEqdA+Yo6ARtVkEEddoSge5zxw+BkE+UbfITprLgTQNy35n9lNoDcOjOeu2NjtK41230/Lxuv7ZX1J9z3QihE+55US0R+TZRCBKvIFRQcU1yGPbQBcM6Ym0Wo/l15ELAKEFaXW3217ARYubp/cOlgVI0xzlBKvq2HaD1qRWFQ9iQKIRVrpS+WdoVWjN66bUJzN1/s/S1tX9r3c5rZyi6E4zwMrVLDvovtkFD2fJU9d2wDhFEG2eayVbc7QdmFO6gtwPtR9tKk2xxhSg+Fqd1n/bkXedM79r7guWmAP9ZuP5RC4acZ8rOtHQyu3PIJs0kIBEhA9edJHy2SgX08zIajBE1j19yztxYvDohuLAye3EPCBIQ8LIiM7ehtqQ603nDOHZvNEeh+gyM7XTGPweTmJLcOE4ZjoBwjwGqQleGqq7+gd6hefz7LuHYjG0OK034jA12spxptwN/cUZ+IQ8Ci2cOx0qIDO
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(61400799027)(82310400026)(376014)(7416014)(10067099003)(3023799007)(261009223027099003)(921020)(11063799006)(4143699003)(22082099003)(18002099003)(56012099006)(16102099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	9H76IMLdI1+9kA5HUez44+rg3GFCBiT3K0Ag8l90R4g46mqiNBqMflMwsm8waIworT52niKDFgOyMOVXqdHJsqYi2huVqicjNzCvTQaynktB2y2pPWZWism6yfJYE+XxULyg3zM7o8NSy5Yp/a5WRXYbyAL7DCgjBqkYsK/bPEzAB6YmUa6baAsOgUwOK8a8+LC8TALvaF8lYNkmhn9qqKZYmzXzsPXTZhPcsmdbVhBhllcxDA+tWP/OjxuXgikRFZakDD3XaXRLUBgjuwDBHhms80hgWJbpHutPw0utTS/PR4wB2MQ8IrB/PA6CyySXC7fyinU7MLyvoT8/TBYX1w6qUAuaN/0nH5/sEeXG1rIyGA43wm5naAPUOHRPumVwPG+C4pQPEsHOgtWvLFR9TFOmGJ+5Bw6Hi+GIswIFz6Neth6N0gSMbG2dRo4C6epZ
-X-Exchange-RoutingPolicyChecked:
-	4+UdzpezdK6jIQII+d+MC5ejWC7k+z7htyWKR/et1fXjnNtAKapDqwAaHaLolTJmXUY+Nu/BBxwivVXo4jBhd6ZjsnAatW4hnhg+LRaNUTp7vrOgQCj8jG/8R/jbiNGM8D4+36fg6dZlT0/U7grFxYeTF1EM7dlpqreHonq55q6a8sunofWULQBOmKr2Ttr6ogQ+9LAQdqnp7Q+G9tDFP3SYMC900sLARV3KanIDwL8RZuTROjq7eG57DRfHXgEhyeB/5aGtivKcUrHj7lEJYS4jQQdPQXXslDBsVizhI7MsAh2w6wDAwMA/D9oHMDYhSs6W76CsdHko22pZv/dwVQ==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 09:55:40.5826
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d688b169-8975-4bc9-7907-08df291023df
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN2PEPF0000A803.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR19MB614695
-X-Proofpoint-ORIG-GUID: vYxmn76MBQ06_3J_WsEymzqaQkKTtCPt
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzOSBTYWx0ZWRfX9wjRA4kKeqKo
- zZaSLK4lXdcZc/rIgLQXNA8rrODLYKfvD1Z+4IJfgWPIJXS7uoWEeNWDyRTA2h9p6iGWvkrM3zI
- KiHbFE2+ohPdGuaVKhIbZ+Y89iL8NY4=
-X-Proofpoint-GUID: vYxmn76MBQ06_3J_WsEymzqaQkKTtCPt
-X-Authority-Analysis: v=2.4 cv=QufLTlyd c=1 sm=1 tr=0 ts=6ace0021 cx=c_pps
- a=85R27yqqIDOPhBwKPsrjTg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=w1d2syhTAAAA:8 a=Hlguj6pl-HWLELH-vwcA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzOSBTYWx0ZWRfX4v5qs9/hIgJx
- n5oDLR7OEDoFA7YI8lYtnebZ/bFwnTxd7EanewojvxZqHfZl8CLeu9NhzZPksuZ0Rg5Ftzlhnb/
- KDfIU0+fVWKMe5FpQ8oLMtdNWZbp+rOtM3xhcUsXaW/TaEo5apv0bl80jNn+0/4m3uCkOtiCzXI
- i/lp06zHA45I8xw1YjVSzM33hFAPuH3YNgE3rMPzUDLRVx2Bspted1AJ3BXCv0DEGxP15ATPXaa
- lL2k3T3+qHfizpm+1DA6ONscQEcu94VrFR2+BqvvCHZkwefSAiNYWO7OE0MRIsUtrJNxAfyy66T
- loNfjhhiQh4sOYa85OYjEaFhfVdnGVZiB6sQQ1zOXRRnjQITRd6BT3+O0MVHybDcE9LF+SRjr11
- m+yfJvGqzFkXwuWvPgyfU0RE4Vk3j+8u5Zvzrlzufb6gBFqmVaE3Xq93+54swxKXz6YQMjjcIgn
- hWZM1VXAAbiyypC1wkw==
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <as3798SFCfKFirag@google.com>
 
-On 13/10/2026 12:10 am, Mark wrote:
-> The cs_dsp_ctl_cache suites run cs_dsp_ctl_cache_init(),
-> cs_dsp_ctl_cache_writethrough() and
-> cs_dsp_ctl_cache_writethrough_unchanged() against several sets of
-> parameters by listing each function several times with
-> KUNIT_CASE_PARAM(), which names the case after the function. The
-> resulting cases all share a name, so they cannot be told apart in the
-> results.
-> 
-> Use KUNIT_CASE_PARAM_UNIQUE() for these entries so that each case is
-> also named for the parameter generator it is run with, for example
-> cs_dsp_ctl_cache_init-all_pop_varying_len_gen_params.
+On Tue, 13 Oct 2026 at 10:37:59 +0100, Vincent Donnefort wrote:
+>On Mon, Oct 12, 2026 at 06:46:12PM +0530, Sumit Garg wrote:
+>> On Mon, 05 Oct 2026 at 12:02:55 +0100, Vincent Donnefort wrote:
+>> > Sorry, not sure why Sumit's email was dropped...
+>>
+>> The problem was with my mutt config, it should be fixed now.
+>>
+>> >
+>> > On Mon, Oct 05, 2026 at 11:48:00AM +0100, Vincent Donnefort wrote:
+>> > > On Thu, Oct 01, 2026 at 06:04:06PM +0530, Sumit Garg wrote:
+>> > > > On Tue, 29 Sep 2026 at 12:33:07 +0100, Will Deacon wrote:
+>> > > > > On Sat, Sep 26, 2026 at 05:43:08PM +0530, Sumit Garg wrote:
+>> > > > > > Looks like you dropped me from your reply.
+>> > > > >
+>> > > > > Huh, that's weird. If I hit reply-all ('g') in mutt, it moves the entire
+>> > > > > CC list to To: and drops you. I suspect the same thing happened to Thierry
+>> > > > > when he replied here:
+>> > > > >
+>> > > > > https://lore.kernel.org/all/arJcN60nagFKXj2Q@orome/
+>> > > > >
+>> > > > > I can't figure out why that's happening :/
+>> > > > > I manually tried to fix the To: and Cc: lines in this message.
+>> > > >
+>> > > > Thanks.
+>> > > >
+>> > > > >
+>> > > > > > On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
+>> > > > > > > I spoke to Brendan at LPC (?) last year but this doesn't really work
+>> > > > > > > for arm64 because it relies on being able to unmap arbitrary parts of
+>> > > > > > > the linear map, which isn't generally possible unless you force pte-level
+>> > > > > > > mappings for everything, which is prohibitive for perf/power.
+>> > > > > >
+>> > > > > > As per the cover letter it's about allocating pages that are not present
+>> > > > > > in the direct map. This essentially fits the protected DMABufs use-case
+>> > > > > > where we don't want any kernel mapping to exist at any time. Bufers
+>> > > > > > allocated from protected DMABufs are only meant to be accessed by the
+>> > > > > > TEE implementation or HW accelerators like in the secure media pipeline.
+>> > > > >
+>> > > > > That sounds like it should probably build on top of this series, then.
+>> > > >
+>> > > > The main problem I see with this series is it tries to move from the generic
+>> > > > CMA allocator to a reserved FF-A CMA pool which again comes from the
+>> > > > DT. We already support reserved pool allocations via "no-map" which are
+>> > > > discovered dynamically from OP-TEE.
+>> > >
+>> > > I can't think of a way around a DT declaration. We need to know what region is
+>> > > PTE-level before the direct map is installed and of_reserved_mem is very handy
+>> > > for that purpose. And as this PTE-level mapping is costly we certainly only want
+>> > > to enable it for platforms that absolutely need it.
+>> > >
+>>
+>> I am rather thinking of a way to turn the default CMA allocator to be
+>> PTE-level mapped. Since the overall idea for this dynamic protected
+>> buffers was to reuse memory efficiently, otherwise the reserved buffer
+>> approach is already there to use as "no-map" via DT.
+>
+>When the default CMA allocator is setup, it is already too late
+>(dma_contiguous_reserve() is called after map_mem()). I am not sure this can be
+>reordered easily due to the dependency on dma_limits_init().
 
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Yeah I saw that constraint too, let's leave it for future extension
+then although having this reordering dependency fixed will be ideal.
 
+>
+>So the only case it would work would be when a reserved memory has set
+>"linux,cma-default".
+>
+
+Let's rather just turn DT based default CMA pool to support PTE-level
+mapping and keep it configurable via Kconfig or cmdline or DT.
+
+-Sumit
+
+>>
+>> If we can have "cma_unmap" cmdline option alongside "cma" then it can
+>> turn the existing default CMA allocator to support unmapping buffers.
+>> Not requiring a DT change at all, although we can have the DT property
+>> for the default pool too if platforms want to opt for.
+>>
+>> > > >
+>> > > > If we can rather support a generic CMA like allocator for arm64 which
+>> > > > can support unmapped allocations then I am all for it. These platform
+>> > > > specific reserved pools isn't a scalable solution.
+>> > >
+>> > > What do you mean by generic CMA allocator here? An extension to
+>> > > shared-dma-pool? Or having the CMA automatically doing the unmap/map on
+>> > > cma_alloc() cma_release()?
+>> > >
+>> > > Right now I have created an API for the unmapping/remapping part. It adds a
+>> > > burden on the caller, but the alternative solution is introducing post-alloc
+>> > > pre-dealloc callbacks in the CMA, which looked a bit overkilled to me when
+>> > > the users of that "ffa-pool" are only optee and the nvidia video dma-buf heap.
+>> > >
+>>
+>> I am not too worried about where the actual implementation lives but
+>> looks like CMA driver to be the better place. I think use-cases like
+>> guest_memfd proposed as a user for __GFP_UNMAPPED on arm64 will also be
+>> looking for this feature.
+>>
+>> -Sumit
+>>
+>> > >
+>> > > >
+>> > > > > You could allocate the DMABufs from a CMA region that has no linear alias.
+>> > > >
+>> > > > Allocation from generic CMA pool is already the case here:
+>> > > >
+>> > > > tee_shm_alloc_dma_mem() ->
+>> > > >   dma_alloc_pages()
+>> > > >
+>> > > > Do you mean it's just fine to unmap buffers allocated from generic CMA
+>> > > > region since it doesn't have any linear alias?
+>> > > >
+>> > > > >
+>> > > > > > > Vincent's series tackles that by using a pool so that only that part of
+>> > > > > > > memory requires the pte-level mappings in the linear map. That's the
+>> > > > > > > whole point of it, so I don't think it makes sense to drop it in favour
+>> > > > > > > of Brendan's approach (which doesn't work).
+>> > > > > > >
+>> > > > > >
+>> > > > > > For protected DMABufs, we even don't require any pte-level mappings in
+>> > > > > > linear map. The whole idea of mapping and unmapping is just a bottleneck
+>> > > > > > for performance sensitive secure media pipeline use-cases. That's why if
+>> > > > > > we can support __GFP_UNMAPPED with the memory allocator on arm64 would
+>> > > > > > be the best fit for this use-case.
+>> > > > >
+>> > > > > The point is that you will require pte-level mappings for the linear map
+>> > > > > if you want to unmap from it at runtime on arm64. If you don't, then you
+>> > > > > can end up needing to split a block mapping (e.g. pmd-level) when you
+>> > > > > decide to unmap only part of it and there isn't a safe way to do that on
+>> > > > > arm64 without transiently unmapping the entire block, which can lead to
+>> > > > > fatal translation faults during that window.
+>> > > >
+>> > > > I agree with you here, what I am rather trying to find if on arm64 there
+>> > > > is any possibilty to have a generic allocator for unmapped pages. That's
+>> > > > the use-case here as well as what Brendan't patch-set was trying to address.
+>> > > >
+>> > > > >
+>> > > > > > Now the question is why arm64 can't support __GFP_UNMAPPED similar to
+>> > > > > > how Brendan is doing it for x86?
+>> > > > >
+>> > > > > Because arm64 != x86? Presumably x86 doesn't have the strict
+>> > > > > break-before-make requirements we have on arm64.
+>> > > > >
+>> > > >
+>> > > > Sure, sounds like you are eluding to that the generic MM flag
+>> > > > __GFP_UNMAPPED being proposed can't be supported on arm64, right?
+>> > > >
+>> > > > -Sumit
+>> >
+>> > --
+>> > Vincent
+>
