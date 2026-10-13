@@ -1,90 +1,133 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB7F17C203
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DED2478E5B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:13:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861251; cv=none; b=OErYFfc8IwNm/AVZ0N3cadCWjMwuID+ydV7ELqv+nYm7geFE9DPuuYAqoTnscdwkHjbXYoNarF8FuGNCM5epPz6tIwsze3FHjXOeidld0dDVgkBFPWoCfei6mfVli/AEmHuP4lsphnAU74kdYRJcbQfqV6cf4OKPBYH5HdTJKQk=
+	t=1791861241; cv=none; b=Lr/VktGqNbPJonvfQ+yTvB6LvCJyBBnzEFjTkZPvU4pX/UT2q2HRyquihYp9e9ulFtlVUhGfydUwpxHJgfw1yF1DoFQpUMM8ptYyAgYknlQ88VI3v5SVKuqochkKGLaNRUCd1wiAOrY6jwvR7p74NB9VVaqKr2ZJ1OXSZn2qtzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861251; c=relaxed/simple;
-	bh=22LjuzCketjlkzgPm8qMqIEkXwfSP3UnBaL4SB50h+A=;
-	h=Mime-Version:Content-Type:Cc:Subject:Message-Id:In-Reply-To:To:
-	 From:Date:References; b=eTqddqbIg61F+L33ASyvQzI3XXroxJBdHxYhfcBpgdfAaIAizrd5ojlMN16u6fB2pyvoSzaAiPCzgfxbMEkYYayGzVA55ladJaclkTR8351mFpt55nwNhcU+iuOYQ6xJxKZdyzsENo4crW+ZiE96TJfEtFhj9vNw+898UepRPGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=fjitPJwM; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791861241; c=relaxed/simple;
+	bh=fWiT9qYz9GXa8C4RDqGgwU5yH6Bj2XxxOLMaYOZ7rhc=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=R0JxAz7SPPEzFmgUpLgtykyXi4hU3Ytkq40tf5xS2zUTVh4569kCoTkrM1q9GxETp5QY8sc9sXobL42DBlMsjnl1B1kWFkT8gMowERg9ydvzg/fgLXGHIbK0kdpbimpOhRg4TjalqEzpnWuan3DUQLOHT3/I/+Uht+GZMWuQj3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=NUbyfuG1; arc=none smtp.client-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="fjitPJwM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791861243; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=22LjuzCketjlkzgPm8qMqIEkXwfSP3UnBaL4SB50h+A=;
- b=fjitPJwMGer1CFveE8wAMhQdtPxqz/bPkZL/xLGwoOLVN37NdPJcwR9D7X+e1Reyy32Q64
- 2tbrAcFTULrWKrcl41V9uFua51pLxXgxoYAxpovVWYBUt/OQ0EobOnsV+5FIkP8a1YbbPC
- tcMnqWJn61XtUjcf0Qd6pXW+eHQxT8Abl6JSIq8vt2CVxF5156Pk7E9+ONSxn/+0Z475GY
- PLjWEW3wS5+jUP+cZ1BWY4UjYxKf7zIepHKWVsbSxScgqS6kWKNXOaCw1e30AJlOh5erg/
- THknBh9GFjelc5K0KK+DdApXuLhgUtEd5e5YPlRBt/qBoX5IF6EA3D0vqwcYxQ==
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="NUbyfuG1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791861233; x=1792120433;
+	bh=/flxWmjOQT873io2qPY+p7QiHU00nyqrTJb8WXIdw3g=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=NUbyfuG1QkDVpTM5zgTz+/5GVBfJ6LhP1jrR1bsIhvkODSui4liTB0htAAl2jDGqU
+	 e4OIvvMD2wM7G1PhiFpYA/ij6fF8+qZiGGOIYfBP1EJHw/ZLVQe4fgxv7kPxdMQaGP
+	 A+CTlv+N3QgRZ9UEEcBqhRC5XU9r45cMrfs0c63HWS9JYLl8DIUWrser0/w7eQ5m+f
+	 +ws6YjuiJnRgRSR8U0VmJk+1FUAOOS7hYfYoF3NS6HHODBrWEspHpDGQJA2T/+Knn6
+	 BhBXFBQeEO8qgT/2OEVIMQMnVSUApCWL2F2Jvr0KWidYP/eC/mDn8CqKvROrIRG/Gv
+	 eJz3Eiu2XMqUA==
+Date: Tue, 13 Oct 2026 03:13:49 +0000
+To: linux-bluetooth@vger.kernel.org
+From: Kyle Pepper <cochcoder@proton.me>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
+Subject: [PATCH] Bluetooth: hci_sync: scan unfiltered for host-resolved RPAs
+Message-ID: <20261013031329.483597-1-cochcoder@proton.me>
+Feedback-ID: 97716137:user:proton
+X-Pm-Message-ID: b8df25e2198dff611e922a6d1e796b12f58158e1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26acda1f9+cc0e18+vger.kernel.org+lizhe.67@bytedance.com>
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: <Liam.Howlett@oracle.com>, <akpm@linux-foundation.org>, 
-	<aubrey.li@intel.com>, <bsegall@google.com>, <corbet@lwn.net>, 
-	<daniel.m.jordan@oracle.com>, <jannh@google.com>, 
-	<juri.lelli@redhat.com>, <libo.chen@oracle.com>, 
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-mm@kvack.org>, <lorenzo.stoakes@oracle.com>, <mgorman@suse.de>, 
-	<mingo@redhat.com>, <pauld@redhat.com>, <peterz@infradead.org>, 
-	<pfalcato@suse.de>, <shakeel.butt@linux.dev>, <tim.c.chen@intel.com>, 
-	<tj@kernel.org>, <vbabka@suse.cz>, <vschneid@redhat.com>, 
-	<ying.huang@linux.alibaba.com>, <yu.c.chen@intel.com>
-Subject: Re: [PATCH v2] sched/numa: Introduce per cgroup numa balance control
-Message-Id: <20261013031333.10208-1-lizhe.67@bytedance.com>
-In-Reply-To: <ldyynnd3ngxnu3bie7ezuavewshgfepro5kjids6cuxy4imzy5@nt5id7nj5kt7>
-To: <mkoutny@suse.com>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Date: Tue, 13 Oct 2026 11:13:33 +0800
-References: <ldyynnd3ngxnu3bie7ezuavewshgfepro5kjids6cuxy4imzy5@nt5id7nj5kt7>
-X-Mailer: git-send-email 2.45.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 25 Jun 2025 12:19:35 +0000, mkoutny@suse.com wrote:
-> The balancing works with task granularity already and this new attribute
-> is not much of a resource to control.
-> Have you considered a per-task attribute? (sched_setattr(), prctl() or
-> similar) That one could be inherited and respective cgroups would be
-> seeded with a process with intended values. And cpuset could be
-> traditionally used to restrict the scope of balancing of such tasks.
->
-> WDYT?
+On controllers without LL Privacy, the accept list cannot match a bonded
+peer identity against the peer Resolvable Private Address. Background
+scans using the accept-list filter therefore hide those advertisements
+from host-side address resolution and auto-connect never starts.
 
-Following this direction, I posted a per-process/thread-group prctl()
-series for automatic NUMA balancing control:
+When a pending peer has an IRK but controller-side resolution is
+unavailable, use unfiltered scanning while the host is awake. Keep
+accept-list filtering during suspend, where host-side resolution cannot
+run.
 
-https://lore.kernel.org/all/20260908122446.56708-1-lizhe.67@bytedance.com/
+Assisted-by: OpenCode:gpt-6.1-sol
+Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+---
+Submission review notes (not part of the commit message):
+The downstream N8/UB500 recovers an ACL link after range loss.
+No patch-off comparison or changed-RPA necessity test was supplied.
+Do not equate link reconnection with automatic audio/application resume.
+Privacy-capable and suspend/wake regressions remain coverage gaps.
 
-The series keeps kernel.numa_balancing as the global hard-off switch and
-uses a weak two-state process setting: disable to opt out, enable to
-allow participation when the global sysctl and memory policy allow it.
-The configured mode is stored in signal_struct, so CLONE_THREAD threads
-share it, fork inherits it, and exec preserves it. cpuset and memory
-policy still define the placement domain and VMA eligibility.
+ net/bluetooth/hci_sync.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-This is intended to cover the use case raised in this thread without
-adding a cgroup-local NUMA balancing resource knob. Could you please have
-a look and let me know whether this matches the direction you had in
-mind, or whether you would prefer a different ABI such as sched_setattr()?
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index efbd2e538..d0fbb3e08 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -2907,6 +2907,7 @@ static u8 hci_update_accept_list_sync(struct hci_dev =
+*hdev)
+ =09struct bdaddr_list *b, *t;
+ =09u8 num_entries =3D 0;
+ =09bool pend_conn, pend_report;
++=09bool rpa_no_llp =3D false;
+ =09u8 filter_policy;
+ =09size_t i, n;
+ =09int err;
+@@ -3025,6 +3026,17 @@ static u8 hci_update_accept_list_sync(struct hci_dev=
+ *hdev)
+ =09=09=09kvfree(params);
+ =09=09=09goto done;
+ =09=09}
++
++=09=09/* A bonded peer that advertises with a Resolvable Private
++=09=09 * Address can only be matched by the controller's accept list
++=09=09 * if the controller can resolve addresses itself (LL Privacy).
++=09=09 * When it cannot, note the peer so the scan below can fall back
++=09=09 * to host-side resolution instead of accept list filtering.
++=09=09 */
++=09=09if (!ll_privacy_capable(hdev) &&
++=09=09    hci_find_irk_by_addr(hdev, &params[i].addr,
++=09=09=09=09=09 params[i].addr_type))
++=09=09=09rpa_no_llp =3D true;
+ =09}
+=20
+ =09kvfree(params);
+@@ -3047,6 +3059,11 @@ static u8 hci_update_accept_list_sync(struct hci_dev=
+ *hdev)
+ =09=09=09kvfree(params);
+ =09=09=09goto done;
+ =09=09}
++
++=09=09if (!ll_privacy_capable(hdev) &&
++=09=09    hci_find_irk_by_addr(hdev, &params[i].addr,
++=09=09=09=09=09 params[i].addr_type))
++=09=09=09rpa_no_llp =3D true;
+ =09}
+=20
+ =09kvfree(params);
+@@ -3061,6 +3078,16 @@ static u8 hci_update_accept_list_sync(struct hci_dev=
+ *hdev)
+ =09    hdev->interleave_scan_state !=3D INTERLEAVE_SCAN_ALLOWLIST)
+ =09=09err =3D -EINVAL;
+=20
++=09/* If a pending peer advertises with an RPA but the controller cannot
++=09 * resolve addresses (no LL Privacy), accept list filtering would drop
++=09 * its resolvable adverts and it could never be reconnected. Scan
++=09 * unfiltered instead so the host resolves the RPA in software and
++=09 * triggers the connection (see process_adv_report()). Skipped while
++=09 * suspended, where host-side resolution is not available.
++=09 */
++=09if (rpa_no_llp && !hdev->suspended)
++=09=09err =3D -EINVAL;
++
+ done:
+ =09filter_policy =3D err ? 0x00 : 0x01;
+=20
 
-If the direction looks acceptable, I would also appreciate guidance on
-whether the current series has any remaining blockers for being picked
-up.
+base-commit: 964430c038967fd06643e866f68115664e1a1bd1
 
-Thanks,
-Zhe
