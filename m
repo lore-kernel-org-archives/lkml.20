@@ -1,116 +1,102 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AAFF3D0BE1
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689593AFCE6;
+	Tue, 13 Oct 2026 14:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900162; cv=none; b=nWoI7NKP48cNe3fPOoxBHV3oPPqGaHTglRS/zKBnf18jawp2uxn5JMRqMvVNwlppgVh6iudV6MKhs6ZKTsbKfeL6uwBbSqpRt7LoTkAgN0hd3L0s8ZDbQ6dAcAFfLWqSjd4OkDrYDVfxqvty/3vJQsIosux4+hMYwBli0UgZiY4=
+	t=1791900177; cv=none; b=b9qyRxHxjsXTaQBMzYic5n2kW4v6b9NmYK68GI+wx23HwtWFX+R9AmO2CLdNZo2TJ39u/sW9sOXXKnsfgvAmNPaB5WSZFWpgC3waucjenGoeP3qWavd64ZzYCxBBEeNAYBk/r/fx1jMu6mtv+N5Q0WkokXF2GzmNX/OEzxgq/7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900162; c=relaxed/simple;
-	bh=/mEYgtD7sPEZVYSTwXebZ4dJNlAF4fUdeIQAKaL7y9g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UE1Ea1OwewPzWGvqIt77KrMpvTCQ8qmXnRSullFyP11UXAf8cPk64SGqotRnKt0pZ5bwmlLkxO2UvXLpIkt7YfsmOoSLz+K3YU+xnOMa35h56Z6/ac+Lh9qLqAjQGNqn70Vyyg3ma8cRXTZ/HsTI18wg8aHfC74rC0gszzP7p24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=dhRNGbCW; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791900177; c=relaxed/simple;
+	bh=Nug6e4TC91qUr2C8X/81qXdodr2nNa3/8f78LKwCbwQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HmC52dd+mU/M9/n0r6p/dGvlrnWTG/9btYLwe+czyxkQlawwIwJWigiFeHwuLbQB/qmrgHileZHdrMDme8OF41zj//4ZXZYLPNEYhfG6Wqm/RLnkpXlsXKBePBOJfR9cMAor3eKHXOoDYxZfMccBF91r91++JCwAiKz0/sgCLGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DuKoYupv; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="dhRNGbCW"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e831e86ebfso15840355ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:02:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791900160; x=1792504960; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JIwhV2UA408K2f7C4cB3y92uRUokSrDJADAS6XPBFwc=;
-        b=dhRNGbCWtvIjfi6nLMnnC928Ij6k0Or5BOPiijpgLfyHtksIcEvISwo78VBEQSh8iF
-         CTqlbyTSUNTlatgdo1lQqxo9Rlm7ZO+MCW3q7KvcNlEY2SM2iyJ79ftBIaxhXk+fJA2X
-         OvCrVkONMFOK1xk3dnUbPXGn2vZWOmXPoewFzX93lLBfNj7SAj2jRaBUIdHHHOrGLJIn
-         SDEc7PZE6s4t9NPOdXbDPjx0tj50fTq9SLTMGY+4u3GwATPbMSZXv6wHuCkYkHXB07Ms
-         g6Ktz9VJ69eambLRpWmkdoH/FtdIzDjhZyhc6+yxYeFmJi3oPlplg3LUWl7Y0lXC5ztb
-         Z6CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791900160; x=1792504960;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JIwhV2UA408K2f7C4cB3y92uRUokSrDJADAS6XPBFwc=;
-        b=FEZl20U21zQ7jck0odGPGQ7eQFKtHmZOTYEzrn2myUY5TCVQlCbGUjYGcOLPRtYcmh
-         JoLTG8/qTgt88WyXd1JlpmybPiymjx1SrqFFK1A4D2FgaPeq7Len9TiXpIviKGOpmsuV
-         uoXZCsczXja5C8gV7uSZCi0Vx0yj11K6YLn1PWBCQdvdkuMJz/v/3j/qSJP0avWZBnMG
-         BGABcqXggHosbvbInOKiVpRLsu3Te+8hDYL7b16FW+dhwSQ8YNrov2CR+Ly6piHj2Krk
-         cxj212mlCc3m1Xqgy7CNw4x/1xofI+fb+sP21qpGEAFB5dOjrCzO0BnZbvFsOCqBzVCx
-         svVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFaap/arQNkdUXjo3lnY/VkfmokRSBLGI+/WzHwUZtvTr0E/DEykF95TkbVJr0+zCDQUcykmheaau4V08=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIx14W3P2Ej/I/7hfoMSW8Oddi6PBHBlhjgfTEONmalBbi7kKkH
-	l1LEBzEpWJZ+APLAwLnbMBZnK8T6Ynytd7c5s3IbYYKBNjW0nMAwoB7DUVESpndZzh0=
-X-Gm-Gg: AYBFou1Wi47o9dq4CVgzCfXlGhXZuuPyhvk8aCAOnVcj1pb6TAiwWy5x0whtGfiz7HT
-	LXE6981nQGXImd5VdPSVXeSGtN7dbJ8b/J0+OBVbl7eVMcgGzZL7EE5uVPxho+18gY7Ow0UOYEw
-	mu1JiFrHQhcTfKY3Nz52/AaTAaWZS13Sue0dXJGuPqZovMK8Xy6IBdH07KsME1EoAo4biCb/dxe
-	+4HzJ4prsXRg4W0waGp4kzyJEvJ5PDBWud9V6KRcq3nYF4Svca4BW3D/OdcgHICMLP/9Wqc8w4f
-	nGqh5Y3P6JkslrL0+VY2y/u79eHxBFD+r6eEGZGH8Gn4SapaXr3Ki60Fu9ympn4fruRjfv9zAFF
-	nEgZkFWgPLiDHhVEeEEzQbaL5CwramKBfA+jVPYRwniaf+UpsaLUJHoxGCY1GNlifoU1p/aw/9C
-	6Mm+zp/CD1oG6wOUy60VtWSeSViXYvGuZ4qg0mvg9VaXPw2Se15WjpsAFHR7B1lSvGUF8ebLZWn
-	ac9PgJAnLU8cF1JAbJl
-X-Received: by 2002:a17:902:d2c8:b0:2e6:646:8ee5 with SMTP id d9443c01a7336-2e842cd3e90mr106695435ad.39.1791900158216;
-        Tue, 13 Oct 2026 07:02:38 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a02f85sm56433065ad.10.2026.10.13.07.02.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:02:37 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Adaptec OEM Raid Solutions <aacraid@microsemi.com>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH 2/2] scsi: aacraid: bound the HBA sense response copy to the source buffer
-Date: Tue, 13 Oct 2026 23:02:14 +0900
-Message-ID: <20261013140214.3156938-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013140214.3156938-1-yhlee@isslab.korea.ac.kr>
-References: <20261013140214.3156938-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DuKoYupv"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 5CF27C653EF;
+	Tue, 13 Oct 2026 14:03:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C8DCC60362;
+	Tue, 13 Oct 2026 14:02:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BABB811D70A44;
+	Tue, 13 Oct 2026 16:02:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791900173; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=dgP92IK09zmVub/U/y0FIkPvSsCMyVYTFsCcLH2HeNA=;
+	b=DuKoYupvMBFQgyuVyATsmQCsnGF3BxyNMY+F3C7HNOzs0/CzIP9zSaTmhqFbHFVIlYswnu
+	qioK4smPfwrnpEddNa+4kwdC/egIsC1YHDiE4BhEnriSErqt/gCSok/FxzSd32LGchllyz
+	j+fy5Q6jekVKSGLVkbAbqGOH1NUUATVYPJW1Mi0vfmxrgrGqcVcLOxMe9GlzSiWfzHEGCP
+	aZkMAhKjfV0JXj55ZeupwIMk0kQAxZcT+SBTX135+l9ejNNmrEyaV1pSeWRmqcbql68ggt
+	jlRkISE4CXL0kNg0NAXWMsCYOZAt8VR35SeCCKc9YXXD+y1HZiB/7K+dy+s/QA==
+Message-ID: <2a008b68-7f8f-4b30-8026-58d8a64ae5d1@bootlin.com>
+Date: Tue, 13 Oct 2026 16:02:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 2/3] selftests: drv-net: pause: Validate the
+ pause autonegotiation with a partner
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev-bot+sashiko@kernel.org, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ linux@armlinux.org.uk, hkallweit1@gmail.com, corbet@lwn.net,
+ skhan@linuxfoundation.org, o.rempel@pengutronix.de, vladimir.oltean@nxp.com,
+ f.fainelli@gmail.com, thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20260925182628.214667-3-maxime.chevallier@bootlin.com>
+ <179065240018.434549.346139764454021625@kernel.org>
+ <40f413f0-1dfb-4968-b483-f03aa2f1bdbb@bootlin.com>
+ <45340f54-a53b-4d3a-a773-b51cfc88c939@lunn.ch>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <45340f54-a53b-4d3a-a773-b51cfc88c939@lunn.ch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-hba_resp_task_complete() copies the sense data from a native HBA
-response into the command's sense buffer, using a length that is only
-capped at SCSI_SENSE_BUFFERSIZE (96 bytes).  The source,
-err->sense_response_buf, is HBA_SENSE_DATA_LEN_MAX (32 bytes), so an
-adapter that reports a larger sense_response_data_len makes the copy
-read up to 64 bytes past the array and hand that memory to user space
-in the sense buffer.
 
-Cap the copy at the size of the source array.
 
-Fixes: ab5d129f93c9 ("scsi: aacraid: Add task management functionality")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/aacraid/aachba.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 10/13/26 14:37, Andrew Lunn wrote:
+>>> Firmware-managed NICs such as ice also keep the link on close by default.
+>>> In drivers/net/ethernet/intel/ice/ice_main.c, the PHY is only taken down
+>>> on close when ICE_FLAG_LINK_DOWN_ON_CLOSE_ENA is set:
+>>>
+>>> 	if (test_bit(ICE_FLAG_LINK_DOWN_ON_CLOSE_ENA, vsi->back->flags)) {
+>>> 		int link_err = ice_phy_cfg(vsi, false);
+>>>
+>>> On this kind of hardware, a directly connected peer would be cached as
+>>> cfg.lp_controllable = False. pause_aneg_resolution(), and the four later
+>>> tests in the series, would then skip with "is not directly connected".
+>>> That message points at cabling, when the real cause is that the PHY
+>>> stayed powered.
+>>>
+>>> The new remote lp_advertising checks in pause_advertising_test() would
+>>> also be skipped without any notice.
+>>
+>> Not much we can do if the peer doesn't behave as expected here. Not sure this
+>> requires attention.
+> 
+> I sounds like anything with a BMC is going to hit this. So i doubt you
+> will see it with your stmmac boards. Maybe sometime in the future we
+> can query the NIC to see if it supports NCSI and change the test
+> behaviour to fit?
 
-diff --git a/drivers/scsi/aacraid/aachba.c b/drivers/scsi/aacraid/aachba.c
-index 89d8e33517584..23512648e389e 100644
---- a/drivers/scsi/aacraid/aachba.c
-+++ b/drivers/scsi/aacraid/aachba.c
-@@ -3579,7 +3579,7 @@ static void hba_resp_task_complete(struct aac_dev *dev,
- 		int len;
- 
- 		len = min_t(u8, err->sense_response_data_len,
--			SCSI_SENSE_BUFFERSIZE);
-+			sizeof(err->sense_response_buf));
- 		if (len)
- 			memcpy(scsicmd->sense_buffer,
- 				err->sense_response_buf, len);
--- 
-2.43.0
+Maybe the strategy is wrong then, the goal is to check that we're directly
+connected to our test peer through a cable, or indirectly through a switch.
+
+Link flapping seemed to me like the most generic solution, but maybe we can
+do something entirely different ? Like for example trigger a re-negotiation
+with ethtool -r and check for link flap, or maybe more reliably, ask the user
+to pass a flag to the selftest command saying if yes or no we're directly
+connected ?
+
+Maxime
 
