@@ -1,142 +1,168 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F3F3AB284
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912626; cv=pass; b=WDj/PijbBea10N4KNYXisl/g3/VbEH6YAITdHy/85yX6qbMDD/UkjaQpv/DnaGl49Wncpr3HYhQtrtNxWjd147Isd1yf3MTOuAkac7NEH/w9fj6GLw6YPteE1v4q2VzJCO+tbv6TYEY0T4WygdW3Gvdpq5+TGAAIKXRzteyUYFc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912626; c=relaxed/simple;
-	bh=iU59kTEuKu/5Uo6i29XYgWs9QL0GsFGfB4ojSmsY8QM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pfZbEilW9+HSC4wRGjRHHLcgYK2JTV0cgQSLS8hGkN/yjcFHz8eIwd/D+dUPHTIwdcpLIGBSaC0zaD1AWI61v+cfBsHd2lEEiH62nvJ1EW1yZT1Ez0IM9I1rmFyGvWdEC7nZNtePRrCmIdsHh8wFVbEXd4iuoFHs89jYHkwYk2E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RZTqr/YU; arc=pass smtp.client-ip=74.125.82.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A823D3AB284;
+	Tue, 13 Oct 2026 17:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791912633; cv=none; b=c/Og/v3Rxm4B3nqpQYsMb2Oo/xSHSfQecbwL6ZoFvWf4BDwcxiUfFukroIgqX3rcHoMrVibZvgmiC2Kdi3B9BJI82HgYn64uDflK98keVcQlPPvPqD8TQoSJztaaO7QtLfT89Ow1V+sny85cXEhmG0kp9pN4bQzQqgOOHoj9JXM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791912633; c=relaxed/simple;
+	bh=UcpZTfwKxL1YBwr3EUIGYnSVJVbtjoSinaXKwgwAX5E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ksID1L5lCEZrJN0xpmMCEAYH8EERj1NZNiiMwPzD77QyJI9leB/Ukf237S6r5Nd5T+B+jBApnpkH0bN0PAG7VDZrpOu2ONYwdmwTtV7i3MVjX6eSookURgYdBC2h76axQIwH0NVgzhLHQUVkw3ipSJAVBICqdTHNwrb2Gl5w/K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nxfgGVbE; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RZTqr/YU"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15ea896ddc8so182186c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791912624; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oHphryr01ukojrguVfJ2jIOogUzQu0OoYy8eF6Rqxvn+vOSv9P3/dIrZi8FKqNh3/2
-         oIwmDM8LPFdb5NJWvKefmJAS+3w2MaZePlUAnK1QXZd1k4pJZ61Mw0E/um5lOEPcEhCh
-         KsCaDzgyjY1n8UkmtitLZgOwiV6Frsfx8mXXMiFRQhdZ9idyWWwoGvSQ6hkqMM56+BDq
-         NfjWEX6buESC/YbMe9ME/FTDAnVWxI7LNhJ/c9TlcWk49ygvjsPyUi/KpNb8Txppn3uJ
-         UBbwn6PkVwZA2vEOLUJq25XEozPaBV8ruzYRtVvO0XLz5Ue5DZd6cdVAKc6EGFABVlKr
-         Zkmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=iU59kTEuKu/5Uo6i29XYgWs9QL0GsFGfB4ojSmsY8QM=;
-        fh=KT64Yo/TllNrVD5byRJkYBK3JBYmHwwniE+SCZyTBOE=;
-        b=bmCTFpAUiSdu6PpYfpubpO6/ZBVQK/2YEiBmR3LCYUyyfmlw7d3izs74Q/DmeHBkfj
-         asiAA+Gv87Je3fsKunc3fQ3+O7nftNnCEwBoUlt3qQs9zosingOayB+34lvmsWSdNiHy
-         eWtFet48l0RzXXmVskBo27cQFjegBOan3PJz+53ZzWb/0pmTv8178pqnbFVr5QWGUZg9
-         /nmu0YBh+/aUSQpV2QiXWDRrloGbW79af+DVM0fXTIW3Laig50FUoPeeLdbNyaH/Ygjy
-         99z7ACCZa3tncMrpZRVt+qcWbtZy6C1WywkqVj7QKzvVPqxa7ZzK0g1ekcVkNA3jlDU7
-         N2fw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791912624; x=1792517424; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iU59kTEuKu/5Uo6i29XYgWs9QL0GsFGfB4ojSmsY8QM=;
-        b=RZTqr/YUDZ0F1K5EatO6UmZowcZVS+RVi6bSxX9vF7xEzuHVt1M76HMV0AwGBFW6hy
-         WJgcLQ8V1rQDxn5KlipCOsKiZGlqScz3NYzH6okOkZqEEmUyYcjmmFtt0QqOXw3Equ0S
-         Mn5NeG995YwpHdgf5XxJvo7Z36wmNrBZ5+k2fRkoVTdGwE38OfSqrMn1InZNg2nqenrM
-         G8Ci1zp0KJQraGiOrPvA5m507tIIvW/keQaphZ1oFZlODaWYQQhi8eTs9Lg3VPsDdbHX
-         WVfubWmXFfLyw0CiEtNO8jFXGOQbQ2ad0YjDpPO/qClWfg+h+mbs2+bbGtkBgSSemDt5
-         +Bcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791912624; x=1792517424;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iU59kTEuKu/5Uo6i29XYgWs9QL0GsFGfB4ojSmsY8QM=;
-        b=lrR3GKtH7Czar32EVZaQaSOC/ChUKZVbGJPozS00JbGWfA+11hFqY6mX3FKn3fUqX1
-         St45Sj8sYXzCLBoSo3Tr2+McZy7evqrOlg5LPvLg/o0+CXFOimcgwcRNZ0Bt0WyBf1IA
-         8AvfUJWQimOKbfs49/vpX5t48pHzzh2yQD74bR/kK/sNMJIQdu5g7NzPbopuBuOaCz/h
-         a8c1mXyNxbZkUd1dUwhdWuqZAP/XJd2SaR7waN2qFMCI+OT1rEKm2oSn0NF16T+gGg5Q
-         rIARXl+TAKLha/5zCciZp1384XG8cR9kSxVF6VOb2ymzNSbXp/FFRGGB9bspWXCIZLkO
-         TT3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxomsOIX9jJYMkpkdrvhkNekilaM0S8ohHMzPkMfxVs1dMc9TJudkYrvFGGamPoDUlEVhLmkep/EwgF69E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInzRQPBNkJffjE4E61/ABhBr5d9/nWT/oQMcVmGTir0HEdXyzH
-	exrp+HbSzSlhh3F9lpa5Cv8AW6Sm6TNJa5q0VqzalPeXaT9N6lUcdkSTmrGIWYRGuYuUTgtFWdG
-	IXymQD026If7qrcfVBBKjc3IM4OiJggVT9s+b2aOedg==
-X-Gm-Gg: AYBFou1Qtx3RT4fq4gMpHfIKA5RXREvKZAvA/tDP3DYZ2Xk8BgR+Pqg72inLrlfQ2Ph
-	q+pCOZWEbqO10aDTRYpyNRhKZGnaB+1WxFt8EYtOHtIBJZgjvsrOTHyyeUF4zGoqTaOHAOjBup/
-	3uP4kRyB8uvFH7z/aipJ1enVcoHPCBrFq1D5XDgaOzje7rDECxgp6LKVKBz31S9dJleY7Q/7AEl
-	sPV17OtMYqDwC87iNNgdnMVV4iMWbheOueKPLLVxqiGxIhQeSRkjrZ2Sz/94BGsBtrYX2lJB60S
-	jg5uG5FE9iqUKNzH1Axm3zyIew2vhbMjoR79MTsd3zNd//f1A700Jhb2CQz5t5gzvFY+iNHzRFT
-	Glkc2hNgIpUY5qK5/3HPg82QGrJmV5rXQn7k/8RhvGz1WLR0SG5AKp5K5GGF2ZgDAQB+qngLUK1
-	khIo7AWsMD1e9uvNrS/0UtOA==
-X-Received: by 2002:a05:701a:c96f:b0:179:50d7:9ba4 with SMTP id
- a92af1059eb24-17950d79e34mr4981272c88.41.1791912624201; Tue, 13 Oct 2026
- 10:30:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nxfgGVbE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791912632; x=1823448632;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=UcpZTfwKxL1YBwr3EUIGYnSVJVbtjoSinaXKwgwAX5E=;
+  b=nxfgGVbEbmomUx1iv42IR11L5kDRYLOZCu4P401plrHvCsbDh9rWkBkv
+   KYcV45r7mcn9yx3MyfKubrFu6qLF1KrxBzKuR0X9XGZ1BICdLoFjythop
+   vALjdHcIdDb6DlX+A5aFEzvrparZ8yPMmrGbOoKce6m4BB9VdNlS8T+uB
+   9Msf8oB7A0y6mBsEjQwmyELTS193YbI/NKkQXPMDVpBJKWkmr0x5+BjLb
+   X789cgcYejgAvqqDtGEK55wlN3IYZX1er47zFbH9xKemJW3V6QCo4t5IS
+   lhUmLv0jPJ/0uXVflYCfpHNUm9WWLFJjxiAP9tsUZzxuYJbxGEGaW5Ilk
+   A==;
+X-CSE-ConnectionGUID: /xha6wgtTLSszoM0+GmiRw==
+X-CSE-MsgGUID: ryyvR4moS46+TusFQlgXKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="678711"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="678711"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:30:30 -0700
+X-CSE-ConnectionGUID: 33eYYNmiQPGenNtPYjEMkg==
+X-CSE-MsgGUID: MPgmNzm0RPqWlVpb8OwrFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1411680"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.235]) ([10.125.109.235])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:30:29 -0700
+Message-ID: <c58db0c6-3484-436e-892a-a818785996f6@intel.com>
+Date: Tue, 13 Oct 2026 10:30:27 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012034020.100737-1-oliva.scorza@gmail.com> <2026101322-reexamine-astronomy-d4bc@gregkh>
-In-Reply-To: <2026101322-reexamine-astronomy-d4bc@gregkh>
-From: Riccardo Oliva <oliva.scorza@gmail.com>
-Date: Tue, 13 Oct 2026 12:30:12 -0500
-X-Gm-Features: AclHuK9o6enG89TsuG8KKARN_Opz28I22nC75RjQdT0RZsA5K-O7kcwoSpews7g
-Message-ID: <CACseTm=8+20OAgsS+Hsm=1-8rUhs24rz1nyRVr7P2s93Mp5xDQ@mail.gmail.com>
-Subject: Re: [PATCH] staging: vme_user: avoid iterator variable access outside
- list loop
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-
-> How was this found and tested?
->
-> thanks,
->
-> greg k-h
-
-This was found using Coccinelle with:
-linux/scripts/coccinelle/iterators/use_after_iter.cocci
-
-It was compile-tested on x86_64 using defconfig:
-make M=drivers/staging/vme_user
-
-(Note: I do not have access to the physical hardware for testing)
-
-Thanks,
-Riccardo Oliva
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] dmaengine: idxd: Fix potential double free on probe
+ error path
+To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Fenghua Yu <fenghuay@nvidia.com>, Shuai Xue <xueshuai@linux.alibaba.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com>
+ <20261012-wt-idxd-fixes-v1-3-30a35a445077@intel.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261012-wt-idxd-fixes-v1-3-30a35a445077@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-Il giorno mar 13 ott 2026 alle ore 08:40 Greg KH
-<gregkh@linuxfoundation.org> ha scritto:
->
-> On Sun, Oct 11, 2026 at 10:40:20PM -0500, Riccardo Oliva wrote:
-> > In vme_slave_request(), vme_master_request(), vme_dma_request(), and
-> > vme_lm_request(), the list iterators (slave_image, master_image,
-> > dma_ctrlr, and lm) are accessed in the err_alloc error paths after
-> > exiting the list_for_each_entry() loops.
-> >
-> > While the iterator variable retains its pointer value upon hitting a
-> > break, accessing list iterators outside the loop body violates modern
-> > kernel coding standards.
-> >
-> > Fix this by referencing the dedicated allocated resource pointers
-> > (allocated_image, allocated_ctrlr, allocated_lm) in the error cleanup
-> > blocks instead.
-> >
-> > Signed-off-by: Riccardo Oliva <oliva.scorza@gmail.com>
-> > ---
-> > Hi! This is my first patch to the kernel. I am learning the submission
-> > workflow. Any feedback is very much appreciated. Thanks!
->
-> How was this found and tested?
->
-> thanks,
->
-> greg k-h
+
+On 10/12/26 2:38 PM, Vinicius Costa Gomes wrote:
+> On the probe error path the device is released via put_device() ->
+> idxd_conf_device_release(), which frees idxd->wq and the idxd->wqs,
+> idxd->engines, idxd->groups and idxd->wq_enable_map arrays. The
+> idxd_clean_*() helpers and the idxd_setup_*() error unwind paths free
+> the same objects, so they get freed twice.
+> 
+> With commit ec2d428b2e32 ("dmaengine: idxd: fix double free of wq,
+> engine, and group structs") we made use of the kobject lifetime to
+> keep track of device memory allocations. These deallocations were left
+> behind. Remove them as idxd_conf_device_release() is already taking
+> care of that.
+> 
+> Fixes: 3d33de353b1f ("dmaengine: idxd: Fix not releasing workqueue on .release()")
+> Link: https://lore.kernel.org/all/20260615103932.61828-1-bogdan.codres@windriver.com/
+> Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+
+> ---
+>  drivers/dma/idxd/init.c | 11 -----------
+>  1 file changed, 11 deletions(-)
+> 
+> diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
+> index 4adb3f3bcd01..8cf478c5b26d 100644
+> --- a/drivers/dma/idxd/init.c
+> +++ b/drivers/dma/idxd/init.c
+> @@ -166,8 +166,6 @@ static void idxd_clean_wqs(struct idxd_device *idxd)
+>  		conf_dev = wq_confdev(idxd->wqs[i]);
+>  		put_device(conf_dev);
+>  	}
+> -	bitmap_free(idxd->wq_enable_map);
+> -	kfree(idxd->wqs);
+>  }
+>  
+>  static int idxd_setup_wqs(struct idxd_device *idxd)
+> @@ -245,11 +243,8 @@ static int idxd_setup_wqs(struct idxd_device *idxd)
+>  		conf_dev = wq_confdev(idxd->wqs[i]);
+>  		put_device(conf_dev);
+>  	}
+> -	bitmap_free(idxd->wq_enable_map);
+>  
+>  err_free_wqs:
+> -	kfree(idxd->wqs);
+> -
+>  	return rc;
+>  }
+>  
+> @@ -262,7 +257,6 @@ static void idxd_clean_engines(struct idxd_device *idxd)
+>  		conf_dev = engine_confdev(idxd->engines[i]);
+>  		put_device(conf_dev);
+>  	}
+> -	kfree(idxd->engines);
+>  }
+>  
+>  static int idxd_setup_engines(struct idxd_device *idxd)
+> @@ -308,7 +302,6 @@ static int idxd_setup_engines(struct idxd_device *idxd)
+>  		conf_dev = engine_confdev(idxd->engines[i]);
+>  		put_device(conf_dev);
+>  	}
+> -	kfree(idxd->engines);
+>  
+>  	return rc;
+>  }
+> @@ -320,7 +313,6 @@ static void idxd_clean_groups(struct idxd_device *idxd)
+>  	for (i = 0; i < idxd->max_groups; i++) {
+>  		put_device(group_confdev(idxd->groups[i]));
+>  	}
+> -	kfree(idxd->groups);
+>  }
+>  
+>  static int idxd_setup_groups(struct idxd_device *idxd)
+> @@ -378,7 +370,6 @@ static int idxd_setup_groups(struct idxd_device *idxd)
+>  		group = idxd->groups[i];
+>  		put_device(group_confdev(group));
+>  	}
+> -	kfree(idxd->groups);
+>  
+>  	return rc;
+>  }
+> @@ -388,7 +379,6 @@ static void idxd_cleanup_internals(struct idxd_device *idxd)
+>  	idxd_clean_groups(idxd);
+>  	idxd_clean_engines(idxd);
+>  	idxd_clean_wqs(idxd);
+> -	destroy_workqueue(idxd->wq);
+>  }
+>  
+>  static int idxd_init_evl(struct idxd_device *idxd)
+> @@ -459,7 +449,6 @@ static int idxd_setup_internals(struct idxd_device *idxd)
+>  	return 0;
+>  
+>   err_evl:
+> -	destroy_workqueue(idxd->wq);
+>   err_wkq_create:
+>  	idxd_clean_groups(idxd);
+>   err_group:
+> 
+
