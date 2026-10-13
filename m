@@ -1,67 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA66513568;
-	Tue, 13 Oct 2026 13:40:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F174FD274
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898829; cv=none; b=EDIUJz0Pv8PDoZs1L7VM0eE7G86mdVYf5HXFrYq63lv39ED8AiiY3ELD02aQxmllk/w3jL5M0VBYiooQ5GVEMMN4qEhXO44kcja6rympwA0mNGFR/jfCU/InQHWPYGH/BjMKO2F3UcBEn/ild3ALM9QBHtu/YtlaGIwSwyTHhrs=
+	t=1791898888; cv=none; b=ffcKQeF+Sd4DDym8DnAI8Wl1RL2uiouD7ElR/pgXCU4YPHy5JdHJNWmG9WbK77D8irvVbjdl5RVEHYn5UTKrUqcFWXgcP28H+scfGd7h5m1WYM77zocWMI3CBSS+Zu9lGK3d+DUS2uUuuR3Bl94eVH93/GjSjEU7cPCrRRm0tmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898829; c=relaxed/simple;
-	bh=uje7o0BIMPxA5SvurRoEEawiGseQbDd1enGPyMeeYpM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lZ8fTkMZ2MBPZpjMdQkpusBoPPDyXXMDlAgFnfyZ43n4HIZwNFnI8mejRQSD4DUPet43IM/lRckCVzx4HXGi9Z/dftrfmMLqcTBxsJyju1QidrOuyBbVnB2/y3hUjv9j/z1GONxYpgm6WXH5CQU1N4OzgUA5Dv0SGjQ20nx4cdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PxhHALwQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791898888; c=relaxed/simple;
+	bh=/RTu033VlwJ9e0oapQKMl7yfI7+GbcQgR/7ycBUqfuU=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=dDl1Bz9Dd57jSjyRAQLQzbVDb6QWsr6dRRlLYUI3TzZJSxZIYfSfE3hu7wm6fQ4aO1WhAMgawGIKopph6MG/ZWUhVhROGZw/wsqnk9PYAXOkh+X/rsONj7KxnmjSBM3lh7Vom1odnwT0A+uvon+u0BjOWKqKLR+Bz4hWYMJx6kY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RwTrWkLn; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PxhHALwQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC121F000FF;
-	Tue, 13 Oct 2026 13:40:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791898828;
-	bh=WTBxKRgzBzRkJC2FzfhVOVxvKNan9l0/V2ygI6GkHDQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PxhHALwQciW5+qkMsIi3oQqE1PYgqNLn3ftnLI/0TeaBwOcby7ey8j3sXtVgcZn/I
-	 by8/V7V4M9jq9YlUoDXhoXVMXhXiaGg00NCfgJewbvdXhrBzbgjitFifTJor5wpRKl
-	 drV//BPiIwJVbhPVEm7EB61SZBEAH1NABi9Ma+l8=
-Date: Tue, 13 Oct 2026 15:40:33 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Riccardo Oliva <oliva.scorza@gmail.com>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: vme_user: avoid iterator variable access
- outside list loop
-Message-ID: <2026101322-reexamine-astronomy-d4bc@gregkh>
-References: <20261012034020.100737-1-oliva.scorza@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwTrWkLn"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-89a595332c7so1470755b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:41:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791898887; x=1792503687; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UEr7nVXn9dfA+3Y3/gltmjKKnXP6bzWJ0+fALNgm3RI=;
+        b=RwTrWkLn9z9XWTBv7hWVvDMWph3rxROLAV/gaZosBiExni/RYdasHazZtR7Yyxd/uI
+         66CPNp6TzhTOkXz+z8dOGRklOlbyhpAfc1+EQcbX6bjjfB5M9nSwiFp4kSSFIYWKadm5
+         WkKiTrC6BLNjcNp3FuutcOIVg08KTyBSRvzXvnmdQQUT4V8agarO+idIlerjwp653ugj
+         30xo/RzSYHdsp+gzgNmWi0G8ue/vel5WueXe5/IPYNOwPCs6p8bRT7JiFXCKHVPS3cNa
+         i/5oU48DgUbnf6k0pXt7lTgGCwZUg403OgvcvvpyXfLkTA05tjLsfjiL9DLBqabCkUwo
+         BkAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791898887; x=1792503687;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UEr7nVXn9dfA+3Y3/gltmjKKnXP6bzWJ0+fALNgm3RI=;
+        b=r5MEkZVg/FNzpx6ZROb9k0+HipEPqWMqGhXMl7YmmNaR4jhcSOLyEk36HP+2V4AtWa
+         Ub4XewMZ4VI3y9uhGcrw9oCLWdVaFqJYlgJfFokqw1ZceXjYKALw1sxYz+KmXxVrWRP5
+         n4IVZMKj/2eY0T1OJG9UsVbAgyZLs+/phFFXB4jGNclM0p7pJJDGJiOsCmcu05CvDSSV
+         xyrCC68FDr2yAvjKk7j/0Xse4qn/yaJejjF2uiq3wpMrVQUaD0P/1QFOKOL35HvlRwzz
+         S9AhcFyoreLsLwXKtALkV3Wssj9O0yYxDMsUE6KNKcuSTkb2dT5zCdkunO3FyffMoPKY
+         b5GA==
+X-Forwarded-Encrypted: i=1; AKwUvBxlvUSXiiSdZLsbkiArS259juNReTPVUINN8uxLiROG1QcXkeHTbDgihnH3JgOVmyFCt7zbRluD6o2UfpA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIKAjHtxY65ljL+/FxUc+KhRMd2h4Ccave78T3qzeiC2zvvpWQ
+	aiwuREJvy3BBCxNAgHZod3Gt6shyt+2c5AxJ1W5uo6WKqgj+H6Acm8Ri
+X-Gm-Gg: AYBFou2O7jCHWQOQZ41qPKYWm0vHm4vO9OtzBxKc4HsRTgHaHUZlbQXHHLl90ieBjAx
+	oTI8W/b/Lnl6sAjrvbqduwq7p2e4j+7UofWESgMhar4FEfJoaqgnhWvINHGbzgGFvA9jtxP9STu
+	jHjxjpobC9L55+W23aU2wNcLYm27s5v4D9ocOL6sYfed4bgtRJlFOWby7+Un1kLiZsa8grLPJSj
+	qL+QBzodDG0tmzBAJVSzp2itlyZG3uf90oOUUg/mUGrA1IY0LHBUA9GkZGd7Fv4yRRccJTY2RKQ
+	FT7XdWdf6AaAEbxLmYu0Vh50Nj0H8URba3GMqIHYZBc+Z9iPw3I8RLYmzsObQ9RQd/HbCFObVfb
+	bY1goCzFKFzhQQelD1k4zxNCKrhbwaFDqVwsW7981wS9kypfh/QfbIJ2qMpvLLmtjp2ah/Q19J4
+	aNRTpr/ctp/ybZ5ZmhgZE4Lm58r4lAKGbF7TmWbf6i7mQzi+tbama5u8iGnB53MhNZFAJXDIiSP
+	OE359Rxd6QKcNZGHik=
+X-Received: by 2002:a05:6a00:23c8:b0:874:705d:f64d with SMTP id d2e1a72fcca58-897c6443144mr9896972b3a.27.1791898886497;
+        Tue, 13 Oct 2026 06:41:26 -0700 (PDT)
+Received: from [127.0.0.1] ([103.175.98.76])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c310737esm5187059b3a.10.2026.10.13.06.41.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 06:41:25 -0700 (PDT)
+Message-ID: <34f2ac0a-04d0-41cf-a2a4-11a93c7c9b91@gmail.com>
+Date: Tue, 13 Oct 2026 21:41:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012034020.100737-1-oliva.scorza@gmail.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ linux-kernel@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Xuntao Chi <chotaotao1qaz2wsx@gmail.com>
+Subject: [BUG] usb-storage: 14cd:1212 returns incorrect data after large
+ READ(10)
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 11, 2026 at 10:40:20PM -0500, Riccardo Oliva wrote:
-> In vme_slave_request(), vme_master_request(), vme_dma_request(), and
-> vme_lm_request(), the list iterators (slave_image, master_image,
-> dma_ctrlr, and lm) are accessed in the err_alloc error paths after
-> exiting the list_for_each_entry() loops.
-> 
-> While the iterator variable retains its pointer value upon hitting a
-> break, accessing list iterators outside the loop body violates modern
-> kernel coding standards.
-> 
-> Fix this by referencing the dedicated allocated resource pointers
-> (allocated_image, allocated_ctrlr, allocated_lm) in the error cleanup
-> blocks instead.
-> 
-> Signed-off-by: Riccardo Oliva <oliva.scorza@gmail.com>
-> ---
-> Hi! This is my first patch to the kernel. I am learning the submission 
-> workflow. Any feedback is very much appreciated. Thanks!
+Hello,
 
-How was this found and tested?
+I would like to report a deterministic silent read corruption issue with
+14cd:1212 USB microSD readers and propose adding a MAX_SECTORS_64 quirk.
 
-thanks,
+A READ(10) larger than 64 KiB can cause the following READ(10) to return
+data from the wrong LBA. The trigger I have found is that the second
+read starts 64 KiB beyond the end of the first read. Instead of honoring
+that gap, the reader returns data starting at the end of the first read,
+that is exactly 64 KiB before the requested address. Both commands 
+complete successfully, but the returned payload contains erroneous data.
 
-greg k-h
+The same problem is observed on 3 physically separate readers purchased
+from 2 different OEMs, all identifying as 14cd:1212 and with the same
+serial.
+
+Device and environments
+-----------------------
+
+   VID:PID:         14cd:1212
+   idVendor:        Super Top
+   idProduct:       microSD card reader (SY-T18)
+   bcdDevice:       1.00
+   iManufacturer:   Generic
+   iProduct:        Mass Storage Device
+   iSerial:         121220160204
+   speed:           USB 2.0 high speed
+   driver:          usb-storage
+   logical blocks:  512 bytes
+
+The error is reproduced on an arm64 machine running 6.18.54 kernel, the 
+same machine running a 6.12.112 kernel, and an amd64 machine running 
+6.8.0 kernel, and is confirmed directly using libusb.
+
+This has been observed to cause data silent data corrupting when 
+mounting an ext4 partition from the device, and setting 
+max_sectors_kb=64 as a workaround fixes it completely.
+
+Would adding a US_FL_MAX_SECTORS_64 quirk be appropriate? I retest 
+against the latest mainline if needed.
+
+Regards,
+Xuntao Chi
