@@ -1,132 +1,239 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3503F5437FA;
-	Tue, 13 Oct 2026 19:54:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1AE52120A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:55:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791921248; cv=none; b=DkkLmdKc/+COeaut56pTSTlDSspoHJVSMwrRl8H6ps6PBUy/zLlIgaaQRh/e+CXhR2iy8EJp2ZcFWVSVOqpyhjngPT//+VUY5bJ+KpK+HUiONJRsi9eD90bDfASWf2SjHuNGt30y3I3kBX2C1Hruaw1AfyYh2/zRp7koKV5q4jo=
+	t=1791921314; cv=none; b=saROwg4D4WsozS0rD5qSlmy9GIuypHoAJtTE7k8DHnM7D7LTBEYHLJ5BGI2LOywS4fhLrTiOmi1xVDc/i6lMliW3GtYQJ2gQ+/ayRv3haFmSHapPx6NQr0dpJc/deoe4PMPjHTBOfeu17gC0jkilpHI8kNS7msPvUq8dSFbxZk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791921248; c=relaxed/simple;
-	bh=KgBJVhi+a3JJR/FFzMsm9BkMDU3pz5CXbIUC9gHYIwg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WTCXt58BMbAkxxbsna54qhmPwY4SannCHKBMb//1HB7mabIB5vNdcF/PXdQ4itk5Q5eULBqh/FZpfLFD76PuLzNtvH4jg5n9Ie94eqoluTZ9X+XVpZTs1mmu+FuL4PVKJMRNF/V3oH6hmZ2Mk6ie4/cLs9Klrlc/AZDQAAUDN8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KgV+Oq7Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791921314; c=relaxed/simple;
+	bh=VVlHpwsS8FzsyXWOFVF5zN6N66v2fB7F7Ad7vuR3xQ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dVYp8N7f8HOp3XRdkymqow128tqMZ/HDQ3jobFbY0Jx8fXRsbIG1iIuPgwKFkuiJM7RYI/alMT34evNWFu5sTEFYxh0USWr4hOeJBlnVel7Lzpq508IX2O4U2UE9P13PHHXyi6AwSTFGYr2fVK2L+/6aB4IIE3pYsNgBG7MyG9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJeISjl5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KgV+Oq7Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 311211F0089A;
-	Tue, 13 Oct 2026 19:54:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJeISjl5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1283D1F000FF;
+	Tue, 13 Oct 2026 19:55:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791921246;
-	bh=y8BNGx1B+oJ+F1czJnSm0HLm4uNAk3ocNXTsT6UmXCo=;
-	h=From:To:Cc:Subject:Date;
-	b=KgV+Oq7Yicw3cY/oF11b9sTL2uJUm8BHlsqgSoHg/l9GGJWDZI/z3NWdTMfCC5na8
-	 tC6T7tn/JYBTZc6jkFp7LCd77MP20bqNfWjl0/dVNQWxi2IgDa+NZm1fwjgEn7D2Uk
-	 W/xGR4triixpqhc65C7ny6rrxK1C8EpHYH2CQ2TEf2aAqjv9G84XfyvKoaqLH2UlR0
-	 SdREkbyIDLiwk5AGgW4fmL+nvBQyVvzUoG2uTJyDM7WOlqWVr16nIFhKrw10OrmYCQ
-	 a4hyzo+4+GR2wTmnrPj3ZfnEWKwMEPEIiwrL/REA26M6P9V1jnY6MjMJI7hQQwujKs
-	 rhEMNYrPzHeLw==
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Jim Mattson <jmattson@google.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yosry Ahmed <yosry@kernel.org>,
-	stable@vger.kernel.org,
-	Stefan Teodorescu <fane@google.com>
-Subject: [PATCH v2] KVM: SVM: Update tracked pCPU on pCPU switch
-Date: Tue, 13 Oct 2026 19:53:58 +0000
-Message-ID: <20261013195358.163375-1-yosry@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	s=k20260515; t=1791921313;
+	bh=IEA5LNB1JBjcQEQWL03cOzMgDIvjcM9wZx84ylal7QU=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=hJeISjl5Kazo6mHNu9L3EDydavGeyjkdikG6ty3FO8SPi6soH1xvWWTOdr92hP5G/
+	 9gSbXja7+CB1bkEkHSkz5Wr6zRKtHUDlRfGRE/gokxsNv4hwSnRaz/yChZj2urWTDo
+	 oul7hsiuCH56JnFW5nELi/Zak/fAKJxXQ0zGzq4WSAFXEf+0mFQraJ88PFwZPh/pgJ
+	 03cc65McViAahIjlyTaC/7oa/sswyxk7NcGtJsOpO/21bpWSwJPLrO9Uh7BXJDkUS/
+	 RAIZ+kpLmbJHtkvl3TI54PNq8pcpI7WAugrdjxmJ4RuXWvY4C+VW2iDmygNvhL4j41
+	 V9yXbD6OBNwLQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id C8758CE0877; Tue, 13 Oct 2026 12:55:12 -0700 (PDT)
+Date: Tue, 13 Oct 2026 12:55:12 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] sched/core: Call wakeup_preempt() for queued tasks
+ during class change
+Message-ID: <44e3b645-b8d3-4812-930b-0112c05a9132@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop>
+ <20261013152455.9039-1-kprateek.nayak@amd.com>
+ <786f52b9-adef-4246-b83c-fc0081bbabba@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <786f52b9-adef-4246-b83c-fc0081bbabba@paulmck-laptop>
 
-When a pCPU switch is detected in pre_svm_run(), update the tracked pCPU
-and mark all fields dirty in both VMCBs (if nested is initialized), in
-addition to resetting the ASID generation in both VMCBs.
+On Tue, Oct 13, 2026 at 10:57:17AM -0700, Paul E. McKenney wrote:
+> On Tue, Oct 13, 2026 at 03:24:55PM +0000, K Prateek Nayak wrote:
+> > Paul reported recent RCU changes exposed a lost resched where CPU idles
+> > with a rcutorture thread waiting while being completely runnable.
+> > 
+> > Dumping the rq state at the time of idling with runnable tasks showed
+> > the following:
+> > 
+> >   rq->next_class = &fair_sched_class
+> >   rq->nr_running = 1
+> >   rq->cfs.h_nr_queued = 0
+> >   rq->rt.rt_nr_running = 1
+> > 
+> > Although the waiting task was an RT task, "rq->next_class" did not point
+> > to rt_sched_class and was stuck at the lower priority fair_sched_class.
+> 
+> Thank you all very much!  I have started a short test.  If all goes well
+> with the short tests, I will run an overnight test.
+> 
+> I will of course let you know how the individual tests go.
 
-Commit bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both
-VMCBs on pCPU switch") reset the ASID generation in both VMCBs on a pCPU
-switch, but only updated the tracked pCPU for the active VMCB to avoid
-unnecessarily dirtying the inactive VMCB. Leaving the inactive VMCB's
-tracked pCPU set to an old pCPU still allows an ASID allocated on one
-pCPU to be used on another:
+20 minutes of 39*TREE03 (13 hours) on x86 passed!  2 hours of 9*TREE03 (18
+hours) on arm64 in progress.  Starting five hours of 200*TREE03 on x86.
+If that works, 12 hours of same.
 
-- vCPU runs with both vmcb01 and vmcb02 on pCPU A (both track cpu=A).
-- With vmcb01 active, vCPU migrates to pCPU B. vmcb01.cpu is updated to
-B, asid_generation is reset to 0 in both VMCBs, and a new ASID is
-allocated on pCPU B (setting vmcb01.asid_generation = gen_B).
-vmcb02.cpu remains A.
-- vCPU switches to vmcb02 and migrates back to pCPU A before
-pre_svm_run(). Because vmcb02.cpu is still A, no pCPU switch is
-detected, leaving vmcb01 with cpu=B and asid_generation=gen_B.
-Because vmcb02.asid_generation is 0, a new ASID (asid_A) is allocated
-on pCPU A.
-- vCPU switches back to vmcb01 and migrates to pCPU B. Neither a pCPU
-change nor a generation mismatch is detected for vmcb01, so VMRUN on
-pCPU B uses asid_A (allocated on pCPU A), which may collide with
-another vCPU on pCPU B.
+							Thanx, Paul
 
-Because the per-VMCB cpu tracking is shared between ASID management and
-per-pCPU hardware VMCB clean bits, also mark both VMCBs dirty when
-updating their tracked pCPU so that the inactive VMCB does not run with
-stale clean bits when later entered on the new pCPU.
-
-Fixes: bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both VMCBs on pCPU switch")
-Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Yosry Ahmed <yosry@kernel.org>
----
-
-v1 -> v2:
-- Drop confusing comment [Jim].
-
----
- arch/x86/kvm/svm/svm.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 136069dfcd44f..95c61b7a470b8 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -3880,7 +3880,8 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
- 
- 	/*
- 	 * If the previous VMRUN of the VMCB occurred on a different physical
--	 * cpu, then mark the VMCB dirty as hardware's clean bits are per pCPU.
-+	 * cpu, mark the VMCB dirty and reset the ASID generation, as hardware's
-+	 * clean bits and ASIDs are per pCPU.
- 	 *
- 	 * Reset the ASID generation in both VMCBs. This will lead to assigning
- 	 * a new ASID now, and then again when switching to the other VMCB.
-@@ -3894,11 +3895,16 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
- 	 *   another vCPU/VM.
- 	 */
- 	if (unlikely(svm->current_vmcb->cpu != vcpu->cpu)) {
--		vmcb_mark_all_dirty(svm->vmcb);
--		svm->current_vmcb->cpu = vcpu->cpu;
-+		vmcb_mark_all_dirty(svm->vmcb01.ptr);
-+		svm->vmcb01.cpu = vcpu->cpu;
- 		svm->vmcb01.asid_generation = 0;
--		svm->nested.vmcb02.asid_generation = 0;
--        }
-+
-+		if (svm->nested.initialized) {
-+			svm->nested.vmcb02.cpu = vcpu->cpu;
-+			svm->nested.vmcb02.asid_generation = 0;
-+			vmcb_mark_all_dirty(svm->nested.vmcb02.ptr);
-+		}
-+	}
- 
- 	if (is_sev_guest(vcpu))
- 		return pre_sev_run(svm, vcpu->cpu);
-
-base-commit: 6bd2905303c58679e303941b7d8ae8c074cd95ce
--- 
-2.56.0.385.gd3acb90ef8-goog
-
+> > Inspecting sched_change_end() revealed the following race with
+> > __sched_setscheduler() for queued, but non-running tasks:
+> > 
+> >     CPU0                                   CPU1
+> >     ====                                   ====
+> > 
+> >   __schedule()
+> > 
+> >     /*
+> >      * rq->donor is a fair task that blocks.
+> >      * rq->next_class = &fair_sched_class
+> >      */
+> > 
+> >     rq_lock(rq0)
+> > 
+> >     pick_next_task()
+> >       /* nr_running = 0 */
+> >       pick_task_fair()
+> >         sched_balance_newidle()
+> >           raw_spin_rq_unlock(rq0)
+> >                                     rq_lock(rq0)
+> > 
+> >                                     activate_task(rq0, p)
+> >                                       /* p is a fair task */
+> >                                       rq0->nr_running++;
+> >                                       rq0->cfs.h_nr_queued++;
+> >                                       wakeup_preempt(rq, p)
+> >                                         rq->next_class = &fair_sched_class
+> >                                         resched_curr()
+> > 
+> >                                     rq_unlock(rq0)
+> > 
+> >                                     __sched_setscheduler(p)
+> >                                       /* p is moved to SCHED_RR */
+> >                                       task_rq_lock(p)
+> >                                       sched_change_begin()
+> > 
+> > 				      rq0->cfs.h_nr_queued--;
+> > 				      rq0->rt.rt_nr_running++;
+> > 
+> >                                       sched_change_end()
+> >                                         /*
+> >                                          * p->on_rq = 1 (ctx->queued)
+> >                                          * but p is not rq->donor
+> >                                          * (!ctx->running) hence
+> >                                          * resched_curr() is and
+> >                                          * rq->next_class upgrade is
+> >                                          * skipped.
+> >                                          */
+> > 
+> >                                        task_rq_unlock()
+> > 
+> >           raw_spin_rq_lock(rq0)
+> > 
+> >           /*
+> >            * rq->nr_running = 1
+> >            * rq->cfs.h_nr_queued = 0
+> >            * rq->rt.rt_nr_running = 1
+> >            * rq->next_class = &fair_sched_class
+> >            */
+> > 
+> >            if (rq->cfs.h_nr_queued && ...)
+> >              /* Above is false */
+> > 
+> >            if (rq_modified_above(this_rq, &fair_sched_class))
+> >              /* Also false since rq->next_class is still fair */
+> > 
+> >       /*
+> >        * sched_balance_newidle() is considered to
+> >        * have failed to pull any fair tasks and no
+> >        * other wakeups were detected.
+> >        */
+> >        return NULL; /* pick_task_fair() */
+> > 
+> >     pick_task_idle()
+> >       return rq->idle;
+> > 
+> >     next = rq->idle;
+> > 
+> >     /* Preemption indicators are lost */
+> >     clear_tsk_need_resched(prev);
+> >     clear_preempt_need_resched();
+> > 
+> >     rq->curr = rq->idle;
+> > 
+> >   !!! rq->idle switches in with rq->running == 1 but !need_resched() !!!
+> > 
+> > In simple words, enqueue, followed by a class change of the newly queued
+> > task goes unnoticed in rq->next_class indicator and
+> > sched_balance_newidle() sees no fair task, nor any higher priority task
+> > enqueued.
+> > 
+> > The above sequence will lead to CPU idling with a runnable task on the
+> > CPU.
+> > 
+> > Call wakeup_preempt() for ctx->queued cases in sched_change_end() to
+> > re-evaluate rq->next_class after class change (ENQUEUE_CLASS) and set
+> > the NEED_RESCHED indicator accordingly.
+> > 
+> > Newidle balance will correctly see an enqueue of a higher priority
+> > task if a queued task was upgraded when the rq_lock() was dropped and
+> > will retry the pick.
+> > 
+> > Reported-by: "Paul E. McKenney" <paulmck@kernel.org>
+> > Closes: https://lore.kernel.org/lkml/8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop/
+> > Fixes: 1e900f415c60 ("sched: Detect per-class runqueue changes")
+> > Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> > ---
+> > Patches are based on tip:sched/urgent at commit a0bb6fac53fa
+> > ("sched/core: Account PSI IRQ time to the execution context, not the
+> > scheduling context").
+> > 
+> > Tested with sched-messaging and Paul's TREE01 reproducer.
+> > ---
+> >  kernel/sched/core.c | 19 +++++++++----------
+> >  1 file changed, 9 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > index 1fe40de6ebe3..1754d9f95f2c 100644
+> > --- a/kernel/sched/core.c
+> > +++ b/kernel/sched/core.c
+> > @@ -11327,17 +11327,16 @@ void sched_change_end(struct sched_change_ctx *ctx)
+> >  		if (p->sched_class->switched_to)
+> >  			p->sched_class->switched_to(rq, p);
+> >  
+> > +		/*
+> > +		 * Check if the task can preempt the current in case the class
+> > +		 * was upgraded. Note that none of the switch*_from() methods
+> > +		 * know the new class and none of the switch*_to() methods know
+> > +		 * the old class so we must resched here.
+> > +		 */
+> > +		if (ctx->queued)
+> > +			wakeup_preempt(rq, p, 0);
+> > +
+> >  		if (ctx->running) {
+> > -			/*
+> > -			 * If this was a class promotion; let the old class
+> > -			 * know it got preempted. Note that none of the
+> > -			 * switch*_from() methods know the new class and none
+> > -			 * of the switch*_to() methods know the old class.
+> > -			 */
+> > -			if (sched_class_above(p->sched_class, ctx->class)) {
+> > -				rq->next_class->wakeup_preempt(rq, p, 0);
+> > -				rq->next_class = p->sched_class;
+> > -			}
+> >  			/*
+> >  			 * If this was a degradation in class; make sure to
+> >  			 * reschedule.
+> > 
+> > base-commit: a0bb6fac53fa7cf1cadb487b43d4c9276a6b82e3
+> > -- 
+> > 2.34.1
+> > 
