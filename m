@@ -1,137 +1,130 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D533F9F28
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:05:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4281C19644B;
+	Tue, 13 Oct 2026 14:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900349; cv=none; b=EZxSegl0FQmvQsWgY1QDNtz1QzHFsPoPrH0GqVaXIeW2gP2MCFzUsoAxfbEkP62cdpDhDoKiEyyplfvSQJWQSSifeo5ieB4qeLIQd93Mw6xVc7tiB1lrHaD6HVlqDLE52WoQjBIkDOI3aaREGzksqrf6Sr1y1IDTDzPp6enwnk4=
+	t=1791900357; cv=none; b=p8nKodMulqITIOduMAOvRlR8Afaw9Mbkn8V01kiNyENVtjJglwrrO3uSHddvbsTCLN0Z+RalWd+4Bk/PmsiNxNN28TPBg5Gdlb7RpRWvzEuZpGbesKckHPWEBPQq1fZNOCWTGlCT9tgcotWSuHIbuVK1Cz3NRRazXzB9bF5ekDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900349; c=relaxed/simple;
-	bh=IhTLoHrlyl4CrIJgU6a7OH6/1uPW9hR0ITPDoRIiN50=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WoqnskofViofKciK2j9smgEzf3TXd1h20Dg4dy/ySIgQBDj0Y7U9rFBW/DDXvS3xDsb4ZowwUy1JHzQEGkZyAa8GOZXvMPKYK7ZWIe81OLewZHTteKoSD4EEcHctbhCrWodhmNYrmvUX+LxPgcTlCZ7SyuTbXvxqIwzZS3aABVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CnGMMSHg; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Uukf24Os; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791900357; c=relaxed/simple;
+	bh=AxX67jWsUuaTtZEoMRvguycN7NXZniKNWCLhrGf4Z6w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fmPfRtQB6YMjGlNNxltJ1Yf+iNgHhxORzP/LYVOO/v6mqLoboOAvggKp6hWx1i1UUeABO1QUXNdol2EPDhpjVhUrOkiS6Hp6lx0r/oAWehr5lUSoX5DeV2Zc4ihSEHh2Qi65P00eFyGHz+XnKl4xBYGrN+Rq2a8CHquKL9KUHoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SCh9+fKw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CnGMMSHg";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Uukf24Os"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791900347;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GbSa4aMX4ZLanyQchu7pWrasbobdd8GQBaOw6y63Ae8=;
-	b=CnGMMSHgeTJSAUSWI6XDrklCCe3oKMfS1rgv0nkd/0TPL66KvOgjKPZINibCZbDY2qx9ba
-	iKUBzGHSxiF1lFbypdWXaNn5IFgv5hCa0aNDJiP+l4juexRMRoUcSjyn1WWxpxgQytfN09
-	KUe0cC0CgsZVGJia0mtZRA5gEzDN4uU=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-623-Vh6rPqvZPIG1iw7yoHpqqA-1; Tue, 13 Oct 2026 14:05:45 +0000
-X-MC-Unique: Vh6rPqvZPIG1iw7yoHpqqA-1
-X-Mimecast-MFC-AGG-ID: Vh6rPqvZPIG1iw7yoHpqqA_1791900344
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49febef74e3so39134115e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:05:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791900344; x=1792505144; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GbSa4aMX4ZLanyQchu7pWrasbobdd8GQBaOw6y63Ae8=;
-        b=Uukf24Os2aSVACfZ8P/eWG5wGvTwe/X6PH1ykSx/BXZJ48JnXev9xhT0qhk4QWV9SD
-         7VLo7lxtEYRdl3tjKycHEk3yAEgOW8ITHMgJOEsYbzr0YfbFpViQKPGbabhQP6NnVd0j
-         sEwmE7VOtxEQv9TUav++8Tm96Xl6sOxJFMPPQqasvlooSB2YOp99cnvuNnsSL1sRt4LR
-         NuZ8iWKYIGOkwKtMj4/OQsnLSdHM3zw8jHsF2/AfS/firOda/QYSDA4YhiIkoPnkznsB
-         YRAqtXpbPa0WwjXVxtsQUATSRAvXU46GJkZ/Vq6v6XnfMEtzOzJLEG5TCE9EyIHoscyT
-         EKfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791900344; x=1792505144;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GbSa4aMX4ZLanyQchu7pWrasbobdd8GQBaOw6y63Ae8=;
-        b=SI803Z3nFBl1SA4WtrU+AqUk2H0TX3R1XORV5rrDfsM3q48VbZnKe3srOEqu05sLCY
-         pRt0NjgcavQ2HMEmqcHOsCqMwbK6PhfAHlpYOQiSyWS86wWF0qarXb6HbeD65n7xudUt
-         /okHtwKVgqaIcypPsbJOOhUddsDvWAlkvYWX+8IWEK+hN9ha575f7d5XPPEtoySs2++k
-         hMXK3a/7PDo+VctoOS1MFGeKoozidBNdzQauHWQHNwwWbKEvqrAjT3xaUiiPcUuvGC07
-         YxzOHj4jcKAMNnDE7uPHpj73oEIVlNG2VYnBGs3nGAfmXW9C6nOvQ/RSDehyrTs9f/jZ
-         4y5w==
-X-Forwarded-Encrypted: i=1; AKwUvByLzkBEQsF/vaXUvXjXO41cg33rSHnwd84XvDDy6+PLEit3pt/7rcvNqsm1qRC3SL+Tn8hF57DiW3I/I7U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHaGYIsqL9WXsVwmTcGCjwuqmuIpcgSSOW7vf7EcM8qOiurMVL
-	oCeSkFo+LzIWo5+rhDQ0pYTYqXMnhmuE+GH1SMGIqmFz0X8mMi0l7U3THtN2xdo2yrtuN4aZQFE
-	O9Kn1bPNkAL9Yo6RBhw7zIH+lJjp/2MUtx/6Kuckp7e7s1lhHi6knXj4U4+l1RhZRsi4+e5KNGA
-	==
-X-Gm-Gg: AYBFou0LobKa2R2FeFaKfhEy3mHV3ydYrPnNoz/D+11O8xo3bp+AflZmc4P+rbDcsxH
-	3Hsx3Hrw6iVApHcwKu4FTzjq88HImmFmxT+KD3E1VC6p4alCOLMAYbmf8R3jcJrkAo1cfXzXoAF
-	EcgYIqWcoyEIwM/D53hAZdCrcs0d0MKnj/ih8v0LbErBbwz6yN3D6Ppy22WzetlvPNHv26v0ccE
-	OE2N2zPdAiDf1gNfTdX89MV0vtntFOXTWyy526dWX119vmndxNL8KmYBL7Bns8kSJKrob1VhdL3
-	5S0g0+B+DVr0qG7+IonJolBQeaNXuqZ0rsjdHhdCSJhLS2N7kUJVmglJlZM1kB9SfiGzj6+JZvH
-	DsVyxG8Ylrwv+/z/bM7mDEe0iJuuskkPCi2srQxYl3LnruHsR+zkU+RSKWsvGeeq1DWXtJkvjqA
-	==
-X-Received: by 2002:a05:600c:4e92:b0:49e:63cc:6324 with SMTP id 5b1f17b1804b1-4a18e4837e7mr248254385e9.6.1791900343762;
-        Tue, 13 Oct 2026 07:05:43 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e92:b0:49e:63cc:6324 with SMTP id 5b1f17b1804b1-4a18e4837e7mr248253445e9.6.1791900343076;
-        Tue, 13 Oct 2026 07:05:43 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18dd15659sm242588985e9.4.2026.10.13.07.05.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 07:05:42 -0700 (PDT)
-Message-ID: <38ae4fa2-29e5-49a7-8653-88f5a73593dd@redhat.com>
-Date: Tue, 13 Oct 2026 16:05:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SCh9+fKw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 405971F00898;
+	Tue, 13 Oct 2026 14:05:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791900356;
+	bh=wBeiSFuYNJNlJiX0o66jLleHJnMSSH0A/fVVYhXWVUY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SCh9+fKwfPFlbm+dqOFxNbpv7nQ6MvOk6LR1Ba/cFLLZuXLTkf3DILdvZq3mPayjT
+	 1hvZ9F+NKnqBThyFqIW/IKuOfoThJyPDb/GaPLVoH5sAgQeJOWsV0S44UPkrY+CtYv
+	 e3tNkHaOfx0LmP147IciRaRPLxTWxqBRTqkQ6uQuA9CEr5y/tMUBP7mhAWwZJSo07I
+	 b139QjHb2uDs2StIe28gJy4GHJh6DpmcS3G2ArfQrEsto1WXuyIw2Wree5mdNlQ93e
+	 qr5s+jY9CeqtOinGH2PQxsMVeY4tOoiD1+0KDCduy3QuzMib/58ukzYqgNOCwYkZUu
+	 8OkMcFQMKEP0A==
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 4E0D8F4006A;
+	Tue, 13 Oct 2026 10:05:54 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-11.internal (MEProxy); Tue, 13 Oct 2026 10:05:54 -0400
+X-ME-Sender: <xms:wjrOauL_y9xJ-Q9kS9hA3cnVud5YCN6J4BD6r5rvR2uCktdRqg8IVg>
+    <xme:wjrOauiXXZX8pHFIhf2mdBXpgs1aR-KWtsWFi74OGb-A9vzZD7nCARaKSIp_g7y88
+    SrRsmdb3g90REg_u_qARvQMhnkCUrKnGlgdkr5WsAmkkwz8-xHbFGY>
+X-ME-Received: <xmr:wjrOag52-BMR6D7SFv4VPK9p2MbcDQoMpNjTCO8xPjIy7j9N9PPqeEOS08auQtWyuKDTWTMtt_MDz9ibAI43YHh5wfYR-rpi>
+X-ME-Proxy-Cause: dmFkZTGeM/pPa44CJBwRfpoej23aZ7wQowgrer9EOYnL4S+T9oDjmmM52/dhdIHCsg+Ls6
+    9STVkwSeUyJmqbr/FByPDyFPJei87B8sEhOOsEtxIuXosnWBMWLPmykC+c3cd1caU834fA
+    80wCdWNyc91VPDdPYrqHQsK/xQgWNtxN6BKUepHqAX/PnZuOKKRb6dEzYWu9dKhbuQoUbE
+    G7XwEZDYPrLjZ/ut2ClAMDiY4/rUJqZlbRmcLtiY40La0I/8WAci3ATDWaXoEYW9TItW/4
+    x0m4gW/KnRGqvxqgd9MfXICdre5g89hxO1ZNGfnNAu432NftIjHzEhV9Sn+Y3/fBgRt8dg
+    kYqEHcBRRMfmeUpDbD+nAfKGMlmoER4GB1UTppxTH06041K9UZJ4EnQLNau3W/1Y+bvDQV
+    3J9S7JxKY96URtAj2+1UAR93nwpfvg6hllTRrJ5ukfkstZqh4Zx3RQfODNR0h0o4/Y/HV7
+    b0XW0lrdm1KowNdR90sDkhDtJlsCQXaM0yXfc82bDQ9Z++oSfZQI7yNSv8BQAmW+YCNw61
+    MmkVRAj/cO/DQ7+ic/kRNMcG1b8d+VzCllBKsEngsPpT+GjtO/wwK23nXtSE6eGgTJIPEZ
+    dMngKnTowQ24a0MBY/YXIsU1jdO31r51jqMHJuK4L0F5g/sjd1myHwdeAtRw
+X-ME-Proxy: <xmx:wjrOarMJIaUb6vxxRtBCxu7LmsqtyNQuIFYQikBtJHOK-CTEbWLfFw>
+    <xmx:wjrOandcnXLXqRpQdPPCjlEaoirihjWnpvwmgZIFZtZLhIqH4RDv3w>
+    <xmx:wjrOau2n1uGiZnaL06HjPIeQ3MtOte309yVvgIrPPTCmxirdqlj0yw>
+    <xmx:wjrOavMXsvssSlJLPOhRq0cbM2BXsxHsGfYqqHFa-uIHahQUUJjSrQ>
+    <xmx:wjrOahfcU7L2PWCVED0xzu6ZglrZ0ExJQ6qjxvqoLmzsTkzSc2xzVD8N>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 10:05:53 -0400 (EDT)
+Date: Tue, 13 Oct 2026 07:05:51 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Carlos Llamas <cmllamas@google.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rust: workqueue: replace deprecated system_wq with
+ system_{percpu,dfl}_wq
+Message-ID: <as46vy6LubLHHgzP@tardis.local>
+References: <20261013-rust-workqueue-system-fix-v1-1-e9ec616e402b@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 net-next 2/2] octeontx2: add mqprio bandwidth offload
- for NIX TX schedulers
-To: Ratheesh Kannoth <rkannoth@marvell.com>, netdev-bot+sashiko@kernel.org
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, andrew+netdev@lunn.ch, ast@kernel.org,
- daniel@iogearbox.net, davem@davemloft.net, edumazet@kernel.org,
- hawk@kernel.org, john.fastabend@gmail.com, kuba@kernel.org, sdf@fomichev.me,
- sgoutham@marvell.com
-References: <20261006094357.840823-3-rkannoth@marvell.com>
- <179162647058.434549.12221340477037180415@kernel.org>
- <asxY6cs5os_q3mAA@rkannoth-OptiPlex-7090>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <asxY6cs5os_q3mAA@rkannoth-OptiPlex-7090>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-rust-workqueue-system-fix-v1-1-e9ec616e402b@google.com>
 
-On 10/12/26 05:50, Ratheesh Kannoth wrote:
-> On 2026-10-10 at 15:31:10, netdev-bot+sashiko@kernel.org (netdev-bot+sashiko@kernel.org) wrote:
->> Thank you for your contribution! Sashiko AI review found 12 potential
->> issue(s) to consider.
->>
->> Critical: 0 · High: 1 · Medium: 9 (1) · Low: 2 (1)
->>
->> If you believe none of the issues are legitimate, please reply to each
->> issue of Medium severity or higher and explain why the AI is wrong.
->> If any of them are legitimate and you plan to respin, please let patchwork
->> know by including "pw-bot: cr" as a separate line at the end of your reply
->> (one such reply per series is enough).
->>
->> - [High] There is a use-after-free race on the deferred netdev_tc_work
->>    during device removal.
+On Tue, Oct 13, 2026 at 01:51:39PM +0000, Alice Ryhl wrote:
+> From: Danilo Krummrich <dakr@kernel.org>
 > 
-> Not addressing this one; the window is theoretical and the impact is nil in practice.
-The number of known valid issues that you intend not address is
-concerning. Beyond the overall driver quality, please note that any
-later patch touching this area will likely report the same issues,
-require more effort from you to waive them and from us to actually
-process the increasingly large wall of text.
+> system_wq is deprecated and triggers a runtime warning:
+> 
+> 	[    0.857414] workqueue: work func ...WorkItemPointerKy0_E3runB7_ enqueued on deprecated workqueue. Use system_{percpu|dfl}_wq instead.
+> 
+> Replace system() with system_percpu() and system_dfl(), to match the
+> previous behavior of the deprecated system() and convert doc examples
+> and tests to system_dfl().
+> 
+> Fixes: 64d8eae3f895 ("workqueue: Add warnings and fallback if system_{unbound}_wq is used")
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 
-I strongly suggest addressing at least the 'high' one and the others
-with more straight-forward solutions.
+FWIW:
 
-/P
+Reviewed-by: Boqun Feng <boqun@kernel.org>
 
+Regards,
+Boqun
+
+> ---
+> This patch was previously sent as part of other workqueue series [1][2].
+> However it's a fix that is independent of those series, so it's sent on
+> its own here.
+> 
+> [1] https://lore.kernel.org/all/20260726223613.1242940-3-dakr@kernel.org
+> [2] https://lore.kernel.org/all/20260807165252.3849875-2-dakr@kernel.org
+> 
+> Changes since [2]:
+>   - Rebase on v7.3-rc7 and also convert the new SpinLockIrq KUnit test,
+>     which calls workqueue::system() and otherwise fails to build.
+>   - Add Fixes: tag for the commit that made system_wq warn.
+>   - Collect Reviewed-by from Daniel.
+> ---
+[...]
