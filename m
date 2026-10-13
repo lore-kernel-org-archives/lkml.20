@@ -1,105 +1,124 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB657516141
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06A14FE2FE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:43:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899014; cv=none; b=nCKHQ+LdTdeTeaxNy/Bt5gWfsbpEp0oZoaVAcLx3AKgcIN7baN4M6ftAT9gk5q6QAjqT0ybnwkKVvAuxKIoWf+kAiGeH8tKms6PYSlxZfpRGqEgaH49b5wQTgYJuiR5Z8gYMCNf2Ni7lWKV1Ms9fyfLJT49RxGvCXHz4uzEqU0Q=
+	t=1791899026; cv=none; b=qJ4BcvtRjwY8dlr7ehXbX3OtmzI0Bnpl+0WTPKIZjKLB5TMzZYK2tIh0ZEldY8AgZieEYraxMXM+KlHCERuv+8ZTStkSb3CVo1KWaB99OOPTb3jr1gRfnPnHQ8LeAgkCPZT4B1f5yAU0/liut4UkeMjRv84Sev8NyO0hQZZPUss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899014; c=relaxed/simple;
-	bh=nuNOjwtGxdFWi5b1GBEExDlpsvyC11ZHFEhl4qwDTFQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q6pdgfDwGdS8wskYTfIquQskYyqWyJ6nVY68Nc9MnrE4/OzR8tiHgNprZwsD3KZQsDHefh5XpzoRosUwUYc/PqyphsyeEc6AZzNnJJ8foB+4RGOE0+MpWNBiLJG9q1o0IbQnTPJV1EM/VbAAZqOzymo7AqQvUnuWAtzfBI798YM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NtyaMRnI; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791899026; c=relaxed/simple;
+	bh=9k33jwrW4wrJfu2jUWO5z/w/EvrPe0gole5T8Jz02Kg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q5kR/PwAseTs/Up9QSZz+JOk0w4qCbg8Ua6A898GcxWMxkGe5TR0hJ+/Siblef1mkBAdDhV6X7H4RZUx4YOKH+3KA5XjxjdFOml/I3SIhRc7mi5eTJNl9+MmFBhRCJinUPuXFj+RtRrVy3ZI5Jr/x1mrIZhbSyF70WBWgW301WA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MwHH84ts; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TBAGnjXH; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NtyaMRnI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791899011;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MwHH84ts";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TBAGnjXH"
+Date: Tue, 13 Oct 2026 15:43:40 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791899022;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nuNOjwtGxdFWi5b1GBEExDlpsvyC11ZHFEhl4qwDTFQ=;
-	b=NtyaMRnITa3sJgS0zx8IwGRCEg+9a2NO++jvhe+VqeL2i6asaHFK8R1Sk0MhgfKynYdr/t
-	mIwitjYGSefBem0jE+sNgP+O9qMzY81Fz2skODzlrUdHCgeEDHw0M++xrjxt0L5eZoU0Tr
-	UtUojIaRmmFUy7YUBUiAitgdybA08bQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-495-Eo4ETPSKPqS56a6pMauarw-1; Tue,
- 13 Oct 2026 13:43:28 +0000
-X-MC-Unique: Eo4ETPSKPqS56a6pMauarw-1
-X-Mimecast-MFC-AGG-ID: Eo4ETPSKPqS56a6pMauarw_1791899006
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EEF501945CBC;
-	Tue, 13 Oct 2026 13:43:24 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AA6391800592;
-	Tue, 13 Oct 2026 13:43:19 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jgg@ziepe.ca
-Cc: alex@shazbot.org,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	bhelgaas@google.com,
-	jjohnson@kernel.org,
-	johannes@sipsolutions.net,
-	jtornosm@redhat.com,
-	kevin.tian@intel.com,
-	kvm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	mani@kernel.org,
-	skolothumtho@nvidia.com,
-	yishaih@nvidia.com
-Subject: Re: [PATCH 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
-Date: Tue, 13 Oct 2026 15:43:13 +0200
-Message-ID: <20261013134317.174234-1-jtornosm@redhat.com>
-In-Reply-To: <20261011132558.GD14213@ziepe.ca>
-References: <20261011132558.GD14213@ziepe.ca>
+	bh=145qld84tBo3MYktfwGMf1cMjBFj8glXmHtIgipCdnI=;
+	b=MwHH84tskaCoSls3CoTwfmkBri1HiACtIqorZpwTQaNC+Gl2OnKsH95PM/Ee7mN3FYFLZP
+	5m7FcKbzOeT7XB+r/AtdDyE5bR3zv4cZegOLtGkg+ssDHI6L7TPqUotfmUO/yfukdY11FR
+	hpMqcYSvKYvoW0t2IoIjTzx6uNo0y/SszEbT2UqLDInYLr0kngPWZbTA326H2P6M+aD9Kp
+	UwrqJus7Imz/0P7jp8KAHpffYZiCkIegBXGYEZUJaM92ytpMhXaBTk81uL8GF2Ia2rOdN8
+	PghbMER4wOPe+5WN5aecC7lv/ony1RPX8qEfYBZs53znJ0/v7p1Qfgl5Bz27fQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791899022;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=145qld84tBo3MYktfwGMf1cMjBFj8glXmHtIgipCdnI=;
+	b=TBAGnjXHfn2zXdRxuffAG6/IbwGkhnZ6uqesmPwYfQT0j+XW+zWisUL2m6q6gOA/j69oEG
+	JdU0+iiljC1hBQCA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: syzbot <syzbot+6835d5c11145e4f77057@syzkaller.appspotmail.com>,
+	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Subject: Re: [RFC PATCH v2] sched: irq: cpu-hotplug race vs
+ set_cpus_allowed_ptr()
+Message-ID: <20261013134340.Ua8DuZTD@linutronix.de>
+References: <20261012103946.aOSAmrRe@linutronix.de>
+ <20261012143047.GV2009045@noisy.programming.kicks-ass.net>
+ <20261013064617.jw7Sk6un@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261013064617.jw7Sk6un@linutronix.de>
 
-Hi Jason,
+On 2026-10-13 08:46:19 [+0200], To Peter Zijlstra wrote:
+> > I am struggling to follow along. The actual fail scenario is a
+> > combination of hotplug *and* migrate_disable()? Can we get a picture?
+> 
+> let me grab the reproducer and a few tracepoints to make an accurate
+> drawing.
 
-I understand the concern about compatibility implications, but to
-clarify, my intention is not to create an ABI or a "MSI caching
-concept". It is simply passing the necessary information from the
-host driver to the VM driver so the device can work. The mechanism
-uses the existing VFIO variant driver pattern, but I'm open to any
-other mechanism that achieves the same goal.
+CPU1 is actually doing nothing. And migrate_disable() is involved way
+later:
 
-I can explore converting ath11k/ath12k to
-platform_device_msi_init_and_alloc_irqs(). However, if I understood
-correctly, the VM problem remains identical after that change — the
-firmware still needs physical host addresses, and device MSI domains
-in the VM would still provide virtual ones.
+ CPU0
+ _cpu_down(1)
+    set_cpu_dying(1)
+  /* CPU1 is now present in ONLINE and DYING mask */
 
-I'm happy to do this refactoring if it opens a path to get these
-devices working in VMs. What VM mechanism would you accept for
-exposing physical MSI values through device MSI domains?
+  <idle or whatever>
+  try_to_wake_up(p)
+  -> select_fallback_rq() -> falls back to CPU0 because CPU1 is not available
 
-Jeff is escalating to Qualcomm engineering again (thank you for
-that), but users with deployed hardware need something working in
-a reasonable timeframe.
+<irq-thread>
+  irq_thread_check_affinity()
+    set_cpus_allowed_ptr(, 1)
+    /* cpu_valid_mask = cpu_online_mask */
+     -> affine_move_task(dest_cpu = 1);
+       -> stop_one_cpu_nowait()
 
-Thanks
+  /* switch to migration_cpu_stop-0 */
+  migration_cpu_stop()
+  -> __migrate_task(arg->dest_cpu = 1) /* returns rq of 0 */
 
-Best regards
-Jose Ignacio
+  < back to irq-thread >
+  set_cpus_allowed_ptr(, 1) return with cpus_ptr set to CPU1 while running
+  on CPU0.
 
+A schedule out (and sleep) at this point is fine, try_to_wake_up() will
+again go to select_fallback_rq() and schedule the task on 0 with proper
+::cpus_ptr.
+
+If instead the task does
+	migrate_disable()
+	schedule() /* remain running on RQ */
+	-> migrate_disable_switch()
+	   -> set_cpus_allowed_common()
+	      -> p->cpus_ptr = ctx->new_mask; = CPU0
+
+Once back on CPU0, migrate_enable() does:
+	___migrate_enable()
+	-> __set_cpus_allowed_ptr(SCA_MIGRATE_ENABLE | &p->cpus_mask)
+	  /* ::cpus_mask has still the 1 set. There was no wakeup, task
+	     remained on RQ so the mask is not fixed */
+
+Now affine_move_task() will expect task_struct::migration_pending to be
+set but it was never set. The task would have remained on the current
+CPU (0) if the previous set_cpus_allowed_ptr() would not have set an
+invalid CPU mask.
+
+Sebastian
