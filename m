@@ -1,163 +1,137 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0619A2E06E4
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:04:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3593B6356;
+	Tue, 13 Oct 2026 13:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896661; cv=none; b=NdyYrhr0K4sV3mnT1jCg+zxg6q/a1LauLHToM+5oRsigh5jsax9CuaxgScFKzUD74Ve4cIp0nI4ttCcotGslNDqjyY9a6L9AhdP1nyuK7UStXRwo7iZBTNuszBfPObUXZgUIpbWigi0E8Q/xN4+H29SVVMrqjJEX+j8HcV57M3c=
+	t=1791896662; cv=none; b=Ee6R44mrn5Wpu61z/ecyUtmIDcb0J/UnZ3sfjirb1GDi6dhJcnJMWat5AiIZXpEjsh8smFC/Zya+2/PtnxFlo6wMG9WbIFVYTeGU8r4ehah+/pO4MkSNiFDzV/2uYM9QDlveVGsI7QzPO4uY0LU7JNqk17vsKL8mBg0WzcF1vWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896661; c=relaxed/simple;
-	bh=lrijtuWmKwDDILeCMwYY3Sd3CUnCrwDE7vsIgjD++7A=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=qacE1YTBQ8UlDzuAiqL3uWsb/ybKWHoijRcuExC+bHuI1tt5ckfyjZPWg/FGAWCV+lNUDBpqtKCWzS8Wcqa9pJoIgO7/w2zgeEUiXjmCo+lhMlFEoAVY5isuHlU76WRECHTQ3eQTIMgRVt3uHuswkWO9Tv9tp5CvvuZpk+mSlh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=HJIqfHnN; arc=none smtp.client-ip=195.121.94.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	s=arc-20240116; t=1791896662; c=relaxed/simple;
+	bh=fU8Xgkt+xknRAt5sx+YPZ6/50M9Sa3+w1rqnOE3WSSU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qpahm8gg9+Iw1by84KHjNOuRBC80VD3S8CYJ5MBN1jUO10s5jgaL+xmRFxsct7BmL6kZUHeB9kt9PoO0fA1gTMAf8ZjW0xXyD+GaQrIo1GvLJwoPJgVlaRYRTGQYYPNu6mG7+wK+JnuxD+QwHMtikFUrTLnYfyx+BXedPvYVUak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMPqePlk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="HJIqfHnN"
-X-KPN-MessageId: 6ffd0a7b-c706-11f1-bfc1-00505699b430
-Received: from mta.kpnmail.nl (unknown [10.31.161.188])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id 6ffd0a7b-c706-11f1-bfc1-00505699b430;
-	Tue, 13 Oct 2026 15:03:08 +0200 (CEST)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id 6ff27a77-c706-11f1-ac16-00505699693e;
-	Tue, 13 Oct 2026 15:03:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=+vQgJL8MMGFhwYStVksSoppS6NdeKAy6mIy/hJhtSag=;
-	b=HJIqfHnNYGjyT668OaUoDe3gsYQQk2nGPABNaz8iL5iiAZHci+2hKcWWYGhWSG+rmvseLzkLUWBVh
-	 oSz5d+54F95pmsZD044t2nlPMM6kSG+7pmvAcbrM+jvV2U9epWbCSyUPqGqzL7OkiTn5CPPsjN8xvs
-	 SQvo2NBF+HpJZ68N1mHF6tnuWEmb1/5UXd9K8erm6WEc5oaVaQkguj8PlD09LNdS4CUKFjHOQeGDOG
-	 nwDKLTKAbwh6I0xEzRWcvc1ejYcD4EibpZbVcj/X4/+1CwGmBUADo9QjJ8hm2tmivTnjICN8gOpxqK
-	 cTMU8Q3/Mys3sn0+LnUWwDnPeDUG6pw==
-X-KPN-MID: 33|H4Vr3p2pgw67wyy+j6XhcwTitlw3OHPFMqwUz7Vjlwd2gL/tI8tzZP22Gdg7Opc
- XG4+qvfu0SUEZoYi26tVvaK9lCh1TKSKv1iGSaOhj7BM=
-X-CMASSUN: 33|JoxRtGfIGlM4EJ2UoF9A67B7jdn2tU0ZuGu9Leo4e2sOROFV2UBL2zT/b6Gbabb
- X22GoYSqAJ9ZO5FUkY3lmfw==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh05 (cpxoxapps-mh05.personalcloud.so.kpn.org [10.128.135.211])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id 6fe0ea2e-c706-11f1-916a-005056995d6c;
-	Tue, 13 Oct 2026 15:03:08 +0200 (CEST)
-Date: Tue, 13 Oct 2026 15:03:08 +0200 (CEST)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Kees Cook <kees@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
-	skhan@linuxfoundation.org, federico.vaga@vaga.pv.it,
-	apw@canonical.com, joe@perches.com, workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <158571150.788122.1791896588591@kpc.webmail.kpnmail.nl>
-In-Reply-To: <20261013125559.GG4214@killaraus.ideasonboard.com>
-References: <20261009083137.3-1-sashal@kernel.org>
- <202610122124.08E058768D@keescook>
- <ea3ff257-70e2-43e4-aba7-140e84994872@infradead.org>
- <202610130120.E43D236E@keescook> <as4gLo_6acb_zZu0@daedalus>
- <20261013125559.GG4214@killaraus.ideasonboard.com>
-Subject: Re: [PATCH] docs: remove Assisted-by reference
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMPqePlk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DF31F000FF;
+	Tue, 13 Oct 2026 13:04:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791896660;
+	bh=Qf8dcrHSuGMW9yCgxoe30ejRpD8iojCWyvGd88bRkHA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NMPqePlkARBFb+SBYZd9LYZhg79+JC7o8COBDPytkVwmUXvYFP4N/cQDINsE3cyJk
+	 1OddtiKNIn6ft6Thyoako1w6VKcfYbxiipWBUeGb+wZHGzdGdGjn3yg+mxaw92w2gY
+	 uQb1oVvk+bK7xW5mFfvHcGPoFUHa3VWSbYlfl7xwVi3/+c3aHXYUOMGotFoYd7uX0+
+	 x56zqgttXv9u78I3iUy8OVsSAc/URlbhx7Ov/XmQaLBslYR/Vx1kk1P0jkllbEDoUL
+	 3YrjJtEKWQb3Ft/Rx/vDvFX2Kb+olIKP/B7GSQoi0ewm01acRwFpIX/jyWn7nUhogt
+	 +P28fbG95GQtQ==
+Message-ID: <a296bc68-f36b-4db6-abbf-cf565c7cd3c0@kernel.org>
+Date: Tue, 13 Oct 2026 15:04:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: remove Assisted-by references
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, federico.vaga@vaga.pv.it,
+ apw@canonical.com, joe@perches.com, workflows@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Justin Stitt <justinstitt@google.com>, Carlos Maiolino <cem@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
+ Brian Foster <bfoster@redhat.com>, Christoph Hellwig <hch@infradead.org>,
+ David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>,
+ Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org> <asz9AeFe3CutP73z@gremlin>
+ <20261013123132.GC4214@killaraus.ideasonboard.com> <as4pAEnLd4H68W4W@gremlin>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <as4pAEnLd4H68W4W@gremlin>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
 
-
-> Op 13-10-2026 14:55 CEST schreef Laurent Pinchart <laurent.pinchart@ideasonboard.com>:
+On 13/10/2026 14:59, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Oct 13, 2026 at 02:31:32PM +0200, Laurent Pinchart wrote:
+>> On Mon, Oct 12, 2026 at 04:42:46PM +0100, Lorenzo Stoakes (ARM) wrote:
 > 
->  
-> On Tue, Oct 13, 2026 at 02:28:43PM +0200, Jori Koolstra wrote:
-> > On Tue, Oct 13, 2026 at 01:25:59AM -0700, Kees Cook wrote:
-> > > On Mon, Oct 12, 2026 at 10:56:59PM -0700, Randy Dunlap wrote:
-> > > > On 10/12/26 9:24 PM, Kees Cook wrote:
-> > > > > On Fri, Oct 09, 2026 at 04:31:37AM -0400, Sasha Levin wrote:
-> > > > >> The Maintainers Summit reached consensus to deprecate the Assisted-by
-> > > > >> tag. Remove the documentation requiring it.
-> > > > >>
-> > > > >> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > > > > 
-> > > > > Yup, it has become as redundant as specifying what editor I use. ;)
-> > > > > 
-> > > > > Reviewed-by: Kees Cook <kees@kernel.org>
-> > > > 
-> > > > and for those of us who don't know details about the discussion,
-> > > > how is it redundant?
-> > > 
-> > > No, I mean I use an LLM constantly for almost all aspects of my
-> > > development work, in multiple dimensions, so if the old tag requirement
-> > > held, my email body template would just put "Assisted-by: LLM" in there
-> > > because at the very least, it drove the build and test stage. It was
-> > > redundant in the sense of "yeah, of course I used an LLM at some point
-> > > for this patch". ("This tag means nothing *from* me")
-> > > 
-> > > > Do you assume that everyone now uses it (LLM), just as everyone
-> > > > uses an editor?
-> > > 
-> > > I don't make that assumption, but I always held the position that the
-> > > tag was meaningless because it's the human wielding it that matters:
-> > > they either sent a good patch or a bad patch, and if it was mangled by
-> > > gmail or an LLM, it doesn't really matter. ("This tag means nothing *to*
-> > > me")
-> > 
-> > I think the tag did have a genuine purpose for a while. Now we have just
-> > decided to implicitly attach it to every new submitter (because
-> > basically that is the case.) The point was that a patch that was
-> > obviously LLM generated could be rejected for not carrying the tag, and
-> > a patch that carried the tag could be asked to explain further (if they
-> > had not done so.) Or at least, that is how I felt and have understood
-> > Greg, for instance :)
-> > 
-> > Essentially, the way I read it, is that Linus said we don't need this
-> > roundabout way because we can just reject effortless LLM generated
-> > patches outright. This is good and an improvement.
+>>> The tag's useful for push back on review,
+>>
+>> That's the point I raised during the maintainer summit. It's actually
+>> the *absence* of a tag that helps me push back on review. It allows me
+>> to ask submitters if they forgot to add the tag, and in many cases (so
+>> far) they simply don't reply.
 > 
-> The absence of the tag on a suspicious series offered a low-effort way
-> for maintainers to push back. What's the proposed low-effort replacement
-> ?
+> While the tag's useful for pushback, pushing back is the issue.
 > 
-
-To ignore it, really. Even less effort :)
-
-> > What do you think about requiring people to explain how they used an LLM
-> > for code generation? I don't care if someone uses it for review, or
-> > brainstorming, or whatever, and I have never understood the tag to be
-> > required for that. But if the code is LLM generated, it would be nice to
-> > know for instance what prompts you used. We should have some way to not
-> > devolve into the maze that Jonathan Corbet has sketched, where no one
-> > really knows what's going on.
+> The asymmetry between submitter volume/reviewer bandwidth is the MOST
+> CRITICAL issue we face.
 > 
-> Listing the prompts seems fairly useless to me. Not only do prompts
-> capture only a small submit of the information you would want (many
-> people use custom agent files with lots of rules that supplement the
-> prompts), they don't show that the submitter understands what they're
-> doing.
+> If reviewers are required to reply to all of these people, the project's
+> dead, AFAIC.
 > 
+> Ignoring is the only workable long-term solution.
 
-I'm not sure. Maybe requiring prompts is not the best way to go about it,
-it may be a lot of annoyance to go back through your conversations and
-see what prompts were relevant. I do think the prompts still likely show
-whether you understood what you're doing, assuming they were authentic.
+That was also mentioned by a few people according to Jon's report on LWN:
+https://lwn.net/Articles/1099594/
 
-> Mesa has a policy that LLM-generated code *must* have a human-written
-> commit message. They go one step further by requiring all comments in
-> the code to also be human-written. That seems a better (but possibly not
-> good enough) way to try and gauge the level of understand from the
-> submitter.
-> 
+and I think I could agree with that "ignore". IOW, we should change the
+contract offer we give to people (see Greg's commitment in "I don't want
+your code": "Review your patch within 1-2 weeks") to "if I suspect LLM
+waste of my time, I might never respond".
 
-Yes, requiring human written commit message sounds like a good idea. Only
-leaves the issue of people using LLMs for translate. But I think we could
-find a way around that.
-
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
+Best regards,
+Krzysztof
