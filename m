@@ -1,252 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2324D50AC3A;
-	Tue, 13 Oct 2026 15:09:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9024B51992A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:09:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904167; cv=none; b=OHi8EYosKi3GJJNY5b4E7ZoVI5NDhjj4XmKNzGL3wa557ZrPqgem3PRkOpCTsag9/TqxnbkHpdu/D1EW4VOE0dvokaOIhc0+CaknNtKrb7ORTHLzHit9ZJ/1d1hWOUNQeww/9yH8fuLk1vS7b6pA/dKxALB55dE1pmBHbLNP7Bw=
+	t=1791904169; cv=none; b=Vi6lQ706RNCy/Ezt40EFXI+vzfHmwpZBJ/VmLig0BtzY68tnD1CwKRwJDfldDms5cMlfNa9OoNPe10f4Tr3CgoPUpBIKyV5mDX4ZkRPIcPvkefLovS3Y99IeZSionfi8RlpxpnfhX9kJHNiY7HHtN3l0eXJnt2/SMrsUTs2FGEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904167; c=relaxed/simple;
-	bh=nvhkE4iVPWt6ZMbpDqr0VjZaPTTvkSGU9Bdm3A6LGuc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VoZRh+6kLnXboe4+terCzBihMXM07KpztGhN22qArlzEqWGmV9jANF65FYfe93eQsZt5j24OZ6LBqr80lcBD0EESjXFWOTFfBXGtMAOLhpecLDbvATzPWLctiUwIUM7CdkuZwp3JUOvsqRgaGUU5jU3HMewcGDKeif8EwQTz++w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ktqeL2zX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904169; c=relaxed/simple;
+	bh=JzJnXJjt5k2C2q3Rf1h7pvRovHT6SYws8/FAHg3gXmg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IH/8a+s2dCDoCqoDoZDErFCGP5q8lbyLkztpZAVUgIz9sBqvbw45XCjDw22aLylG3IY+Bt/r8S3MvKQMxRRJAvijhJbbR+WJeCRJbbWNd0bPe0xp+adI+rMAvDVK8tA8aikAc8HXSt1QSQU3IMgb0gfUUtV0mqZao0LaH7aF+40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=myMw8iUM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ktqeL2zX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A69E1F000FF;
-	Tue, 13 Oct 2026 15:08:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="myMw8iUM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421E11F000FF
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:09:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904165;
-	bh=+lV50szqwhlOdZvvntvc8L71JtBIxPo0bLUpU4NKXmU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ktqeL2zXS70o90j0mLV87aoV59vXbCAA5RZbizjqijewnPcZxxXxcgaVuM/cJHeZD
-	 +77tfbvmmOOOQzog02DPrCynPFoOSlQGvX65HJWvxXvL3oMYLxXPhSoVSa+3ff8mi8
-	 87JKEIDRjPdM3T36BB+eyice44zILgmAzlQTVOqSI3Bo1nj6l5lq4S4VJC93zGxPJs
-	 eoBsrTqZ1+SgldZldpqy8abg87G9p6tBnin/ovgydcju28x8wXmBn0l0e8wHty3bI7
-	 KxAthEl6r5seQO0FEQzhLLhYkzrc37hYn3auAEejPtkuMirgsi05/hXcCmHwI0gDDI
-	 DwHa0lmyqP51w==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:04:46 +0100
-Subject: [PATCH v6 06/39] mm/vma: tidy up map kernel pages enum values
+	s=k20260515; t=1791904168;
+	bh=JzJnXJjt5k2C2q3Rf1h7pvRovHT6SYws8/FAHg3gXmg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=myMw8iUMj8ew/uSlXxWwXPm4SGmUAylivxBH3Gtr5ryhM1aXUudamajMyG1T0//yX
+	 wjfRLyWFmmxEwYVxFE4cyRZFLN7XXUuHq8TfDtwYWFMv0qIFKBPdWwgguJHYvcTPJJ
+	 Og48A37aKhX7l5Q0gHD2wZCLihKWyDu4C5qYcqjVwUfxliCuZzgMunHcSupxf1wfCq
+	 tbCn6aowlBmrVsXcttEQrEmdxJINOfhfjeeNOsIMu30QcV+naUhhyM7h5kBm49qCxD
+	 1hWBzRbDtObqnYMs0h7D6tNOnZykf+Kw11BAEj6WhqkwSmunmMYakW7L1LsaJbOIlG
+	 NTwaavOCFr1Kg==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ba3ec92031so3232923e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:09:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzTBBfoojTiYMpgJSTyXefgXGAHzwpjQkg2vIi1Aiu3n2zd/kJArFLJiWEc51UrczymenPq6zRG/4vjn20=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4/X8ErwwzeSQcinBqYCTOkNg+rkQ7DBzg8/GhROtPjwiwG+cQ
+	N1v1FyLdGXs88wAFDuHRVL6/6aSH16fJ7aXAw9u6DBley4xM5T5Rk+P48ZiuhOW6agiSwrm7rdn
+	dpxqXWEhr20A5ZkbRDltd0GmkPtY7L84/IpI17IsEJA==
+X-Received: by 2002:a05:6512:6c4:b0:5ba:3abe:425b with SMTP id
+ 2adb3069b0e04-5bcde5aa70bmr4129065e87.40.1791904167039; Tue, 13 Oct 2026
+ 08:09:27 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 11:09:25 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 11:09:25 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <73c4ceaf.9c2f.1a13599e8ca.Coremail.zl020895@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-6-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4144; i=ljs@kernel.org;
- h=from:subject:message-id; bh=nvhkE4iVPWt6ZMbpDqr0VjZaPTTvkSGU9Bdm3A6LGuc=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeRz/czLo4Yv3x6sv1ycktzhI6BvPSbA3Vt26R7t6U
- 9h3++r3HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjI3B0M/4s/fmjaVPJkAXMV
- SytPWMj7OHntZu7UVjF+U9MT1TKtsgz/4wuqT0tnfZ6X1lgsOuH1seNX+dQSXLKMpls+vxFZtci
- QBQA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
+ <CAMRc=MezU71ByUoO-GMxSwsFsGZTUmQisYYrYEwtdbwyFiEqsw@mail.gmail.com> <73c4ceaf.9c2f.1a13599e8ca.Coremail.zl020895@163.com>
+Date: Tue, 13 Oct 2026 11:09:25 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
+X-Gm-Features: AclHuK9_9YzpLfejzw7rn-1jwhqIoegOlkZSxzlWKn2bfBr_tjHwRd0W1yQHDBo
+Message-ID: <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
+Subject: Re: Re:Re: [PATCH 0/7] gpio: add Ambarella CV75 PL061 support
+To: zl020895 <zl020895@163.com>
+Cc: longzhao@ambarella.com, 
+	Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>, Chanho Min <chanho.min@lge.com>, 
+	linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-MMAP_MAP_KERNEL_PAGES is a mouthful, discard the MAP_ as that's implied by
-MMAP.
+On Tue, 13 Oct 2026 16:10:41 +0200, zl020895 <zl020895@163.com> said:
+> Hi Bart,
+>
+> Yes. This is effectively a v10 of the GPIO patches from the combined CV75 series. I split them out and restarted the numbering at v1 because some maintainers preferred separate series, so I am trying that.
+>
 
-Also while we're here delete useless comments for mmap actions whose names
-clearly indicate what they are for.
+Please don't top post on mailing lists and wrap your messages around 80 lines.
 
-Also update the userland VMA tests to reflect this change.
+May I ask which maintainer asked you to reset the numbering? This doesn't make
+any sense, this is a continuation of the other series and should be numbered as
+v10 and include the changelog.
 
-No functional change intended.
-
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- include/linux/mm.h              | 2 +-
- include/linux/mm_types.h        | 8 ++++----
- mm/util.c                       | 8 ++++----
- tools/testing/vma/include/dup.h | 8 ++++----
- 4 files changed, 13 insertions(+), 13 deletions(-)
-
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 0c17f0932b76..a1f2d375cf7d 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4623,7 +4623,7 @@ static inline void mmap_action_map_kernel_pages(struct vm_area_desc *desc,
- {
- 	struct mmap_action *action = &desc->action;
- 
--	action->type = MMAP_MAP_KERNEL_PAGES;
-+	action->type = MMAP_KERNEL_PAGES;
- 	action->map_kernel.start = start;
- 	action->map_kernel.pages = pages;
- 	action->map_kernel.nr_pages = nr_pages;
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 5413bd10fff2..9ca2ea3664bc 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -815,11 +815,11 @@ struct pfnmap_track_ctx {
- 
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
- 
- /*
-diff --git a/mm/util.c b/mm/util.c
-index d809e08c7b4d..1660910e2a22 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1467,7 +1467,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 		return io_remap_pfn_range_prepare(desc);
- 	case MMAP_SIMPLE_IO_REMAP:
- 		return simple_ioremap_prepare(desc);
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		return map_kernel_pages_prepare(desc);
- 	}
- 
-@@ -1498,7 +1498,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 		err = remap_pfn_range_complete(vma, action);
- 		break;
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		err = map_kernel_pages_complete(vma, action);
- 		break;
- 	case MMAP_IO_REMAP_PFN:
-@@ -1521,7 +1521,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle these. */
- 		break;
- 	}
-@@ -1542,7 +1542,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
- 	case MMAP_REMAP_PFN:
- 	case MMAP_IO_REMAP_PFN:
- 	case MMAP_SIMPLE_IO_REMAP:
--	case MMAP_MAP_KERNEL_PAGES:
-+	case MMAP_KERNEL_PAGES:
- 		WARN_ON_ONCE(1); /* nommu cannot handle this. */
- 
- 		err = -EINVAL;
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 077df510a311..023ad6092e9c 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -454,11 +454,11 @@ static __always_inline bool vma_flags_empty(const vma_flags_t *flags)
- 
- /* What action should be taken after an .mmap_prepare call is complete? */
- enum mmap_action_type {
--	MMAP_NOTHING,		/* Mapping is complete, no further action. */
--	MMAP_REMAP_PFN,		/* Remap PFN range. */
--	MMAP_IO_REMAP_PFN,	/* I/O remap PFN range. */
-+	MMAP_NOTHING,
-+	MMAP_REMAP_PFN,
-+	MMAP_IO_REMAP_PFN,
- 	MMAP_SIMPLE_IO_REMAP,	/* I/O remap with guardrails. */
--	MMAP_MAP_KERNEL_PAGES,	/* Map kernel page range from an array. */
-+	MMAP_KERNEL_PAGES,	/* Map kernel page range from array. */
- };
- 
- /*
-
--- 
-2.55.0
-
+Bart
