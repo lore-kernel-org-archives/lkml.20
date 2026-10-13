@@ -1,262 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-85.mta0.migadu.com [91.218.175.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08234C4F55
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7674D4D0A0F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.85
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885888; cv=none; b=rCvqozUk8VXSo8Cyu4n9p/ZPnjL29zqdi9to1XxWLk+jjl2dMdKHTLqjOzT97RuxxHJPMcTt0iE7ZUA9RgiyCJpLIuC8BRnACCInoTiP25kdHl08Q3gSvk8U3E1eofCM/kesntLE0jOAYvQhFw63XiVV6Tz8ea1xnKXctbR8+lU=
+	t=1791885895; cv=none; b=YBZ9fOnPSQH1EMVTfj7BpXTJ8i/2pqvdrqnKKS/LYo3uAOdPWkTnaSwWIEYjOaK01Svd1gmyLWmqQyLp/qJuL3G+fHu6MbbECd2XDVnqwDmFutEEDHcmUBRycgBot/464ZUTRpuXGFKIPRekuRxaboRojQXBekkFdP9NvxXytDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885888; c=relaxed/simple;
-	bh=I5OzhrMn3Q4uSgrAGDrK9oIU396IAJZCBV78ziO/zac=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bmP+mSShI9vrYsGlkqz3PXwZllUJDuNfYludXRC6mVnxUEByVnV2Ifg++bd2splhslJNPosyZbCz8YmlMtLbaWXY8WjIzKCsrnCkUwdZE8mrvh2+h8q/Il5lo/Biu9jq1u+ZUoeUfB4z8Yaa4kIu+O7W6t0/NBUuCwPLkhs7dd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gjILU8j2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791885895; c=relaxed/simple;
+	bh=10sYukvEEIoxfdGdZDO520B+cvwbM5UT4XvPG2jEC1Q=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=r3Ry2801qOkI0GY+RKhfacK2QBDeEg6yl4+s/l1+HaLdT/CVuLzSE95dCZHjSbOXoW4vt3/x/w1MRlNRjzrOYi8hcvlymQyDlBudEFGvcULoQAEeraOkxTIA2GqsUvnYZ8cge29Lw7Mrv+0M+nmhAOJO/oj8Z6XyWuDYQ1Tgt4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e3lvtCtP; arc=none smtp.client-ip=91.218.175.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gjILU8j2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF4C1F00893
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:04:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791885886;
-	bh=W1jYaJsJWKbtGzJy/HJoeJLXuIxCNsYYjZhCxL9zYpc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gjILU8j2DaXsj5n/G8+NiU66FRZ/Loe9pED8Ai9fx9nE6o8YUa00RK/ah7G2jS31f
-	 MHbjHGghZ8gzZWbCR9ogyAs+9wttwr5OjS7BqM712p+PoqW2DKYJUITx3HT9h1RDBJ
-	 F9sSTxCVlvoyN/HY02CKykl5hSEtURYbsXRC36CkenZFgpZWszl/6eAgMK18KnCCLV
-	 jPbv/aZZxqnmc0/oEIk4ZMnohwuYuunpBp1rOZSAsetTyeemE/YZf3sMOzuq84lASx
-	 +DTKHJUAreIy3FZRZDOzYa2Sp6O3E9Jf9NlybuI/0qAjM/15lUji3duEb3hZbYa9x0
-	 uhakwT6fmbd3Q==
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5338c1197easo22481851cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:04:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByUp650vqOMtVqPywUnYXidPjQhXZFSmjzDbh6sA8uMUgVnnKPQQpkmoFzVyWzSS96U6/7ruak9BlA4h4U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKertU8kbS5DPDJ5rH70FzO/hTMo2NeDD7yzQrrwEWyRXUuwwUO
-	rxHzi5pgwwWT+Pkn4lKcrlVd2MUUVHc3cSKBNBkuKaAetQ0QSENZPviYOzSFdy37wM4ZVI3/UuC
-	SXR0YUV+TZgmpq29HTmzXKFc4SX1BWVw=
-X-Received: by 2002:a05:620a:4510:b0:93c:ba88:cd65 with SMTP id
- af79cd13be357-93ebd0bd246mr1824688985a.7.1791885885578; Tue, 13 Oct 2026
- 03:04:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e3lvtCtP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=10sYukvEEIoxfdGdZDO520B+cvwbM5UT4XvPG2jEC1Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791885889; v=1; x=1792490689;
+ b=e3lvtCtP1obAh3hf9yFMoK5ATn+q4DkKKx1XEtFvEL4NQDRAdNg76z8T3aVSCsUEW1Z3sr37
+ DnhiuKegUnDIxFfJu8ShkoMhcUU08owoSzH8zXT2Kd/pqcZeoqNHKyPg9LBe9OLIBKHQkPxiWYm
+ YAjtUTNxgmSOEaWWuvxRDkB4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 00159b9699d5f435;
+	Tue, 13 Oct 2026 10:04:49 +0000
+X-Mizu-Trace-ID: 00159b9699d5f435
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	dsterba@suse.com,
+	hpa@zytor.com,
+	linux-kernel@vger.kernel.org,
+	mingo@redhat.com,
+	terrelln@fb.com,
+	tglx@kernel.org,
+	usama.arif@linux.dev,
+	x86@kernel.org,
+	torvalds@linux-foundation.org,
+	kas@kernel.org,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	kernel-team@meta.com
+Subject: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs without FSRM
+Date: Tue, 13 Oct 2026 03:04:42 -0700
+Message-ID: <20261013100442.2658311-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008120056.575272-1-zhangbo0325@gmail.com>
-In-Reply-To: <20261008120056.575272-1-zhangbo0325@gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 13 Oct 2026 18:04:33 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yVBZReovJhFXoBiyfkZiLB+dXDy10wN+1vncXAtkZViw@mail.gmail.com>
-X-Gm-Features: AclHuK9Ccz7PwMZKiwaGjY52Gw4PLg7A_mwWuGMRFRo1982YaOvUkW7BK5afPPU
-Message-ID: <CAGsJ_4yVBZReovJhFXoBiyfkZiLB+dXDy10wN+1vncXAtkZViw@mail.gmail.com>
-Subject: Re: [RFC PATCH] mm: vmscan: avoid over-reclaim in classic LRU direct
- reclaim path
-To: Bo Zhang <zhangbo0325@gmail.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, kasong@tencent.com, 
-	qi.zheng@linux.dev, shakeel.butt@linux.dev, david@kernel.org, 
-	mhocko@kernel.org, ljs@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, zhangbo56@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 8, 2026 at 8:01=E2=80=AFPM Bo Zhang <zhangbo0325@gmail.com> wro=
-te:
->
-> From: Bo Zhang <zhangbo56@xiaomi.com>
->
-> On production Android devices, direct reclaim is a frequent source of
-> unpredictable, large latency spikes. A direct reclaim request typically
-> asks for only nr_to_reclaim =3D SWAP_CLUSTER_MAX (32) pages, and in the
-> common case completes in well under a millisecond. But the classic LRU
-> path has no reliable "goal met" check, so under memory pressure a single
-> reclaim can scan tens of thousands of pages and free hundreds to
-> thousands - far beyond the 32 requested - before returning.
->
-> Pooling the 20 slowest direct-reclaim events, before this patch the
-> worst case scanned 130,079 pages and reclaimed 1,635, and the average
-> scanned 37,955 pages and reclaimed 881.
->
-> The root cause is over-reclaim: the classic LRU path keeps scanning well
-> past its target in two ways:
->
-> 1. shrink_lruvec() does not stop as soon as nr_to_reclaim is met; it
->    keeps scanning the remaining LRU batches, over-reclaiming past the
->    target.
->
-> 2. shrink_node_memcgs() only breaks early on a partial walk. When the
->    initial partial walk misses nr_to_reclaim, do_try_to_free_pages()
->    retries with a full walk, which has no "goal met" check and shrinks
->    every memcg in the tree even after the target is satisfied.
->
-> Add an early exit to shrink_lruvec() and shrink_node_memcgs(), and the
-> matching check to should_continue_reclaim(), all keyed on
->
->     sc->nr_reclaimed >=3D max(sc->nr_to_reclaim, compact_gap(sc->order))
->
-> The compact_gap() term keeps correctness for high-order reclaim, where
-> nr_to_reclaim alone may be too small to free a block of the requested
-> order; MGLRU's should_abort_scan() uses the same threshold. Using it in
-> all three places keeps the retry decision consistent with where reclaim
-> actually stops.
->
-> After this patch, over the same 20 slowest events the worst case scans
-> 45,593 pages and reclaims 57, and the average scans 6,399 pages and
-> reclaims 38 - reclaim now stays close to the requested target instead
-> of running far past it. Removing this over-reclaim greatly reduces the
-> direct-reclaim tail latency, which significantly cuts the jank caused by
-> direct reclaim on interactive workloads.
->
-> Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
-> ---
->  mm/vmscan.c | 35 +++++++++++++++++++++++++++++++++--
->  1 file changed, 33 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 91295070ca33..b1efbd2a9bb6 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -6236,6 +6236,18 @@ static void shrink_lruvec(struct lruvec *lruvec, s=
-truct scan_control *sc)
->
->                 cond_resched_tasks_rcu_qs();
->
-> +               /*
-> +                * For high-order allocations, nr_to_reclaim may be small=
-er
-> +                * than what is needed to make a block of the requested o=
-rder
-> +                * available for compaction. When memory is plentiful, ke=
-ep
-> +                * reclaiming until at least compact_gap() pages have bee=
-n
-> +                * freed so the target order can actually be satisfied.
-> +                */
-> +               if (!cgroup_reclaim(sc) &&
-> +                   sc->nr_reclaimed + nr_reclaimed >=3D
-> +                   max(nr_to_reclaim, compact_gap(sc->order)))
-> +                       break;
-> +
+Commit 68674f94ffc9 ("x86: don't use REP_GOOD or ERMS for small
+memory copies") stopped selecting REP MOVSB from ERMS alone because it
+is not suitable for short copies. Consequently, ordinary out-of-line
+__memcpy() calls on CPUs with ERMS but without FSRM use memcpy_orig()
+for every length. Its main loop copies 32 bytes per iteration and can be
+slower than REP MOVSB for large copies, as measured below on Cooper Lake.
 
-Let's assume `nr[file] =3D 300` and `nr[anon] =3D 100` for now.
-Breaking out of the loop earlier would break the proportional
-scanning of file and anon.
+This matters for btrfs zstd decompression. The btrfs-tree commit
+e27a6e4823f3 ("btrfs: zstd: avoid a copy in zstd_decompress_bio()")
+removes btrfs' copy from a scratch buffer into the page cache by letting
+zstd write there directly. It does not remove the copies inside
+streaming zstd. ZSTD_decompressStream() still uses memcpy() to flush
+decompressed data from its internal output buffer to the supplied page
+(zdss_flush), and to stage compressed input when the next block crosses
+an input folio supplied by btrfs (zdss_load). In Meta's fleet profile
+of x86 kernels, these two btrfs/zstd call sites accounted for about 34%
+of the sampled profile weight attributed to memcpy_orig().
 
-The current algorithm is:
+On CPUs without FSRM, select REP MOVSB for copies of 512 bytes and above
+when ERMS is present. Keep memcpy_orig() below 512 bytes. The later FSRM
+alternative continues to select REP MOVSB for all sizes, including when
+ERMS is not exposed.
 
-for_each_evictable_lru(lru) {
-        if (nr[lru]) {
-                nr_to_scan =3D min(nr[lru], SWAP_CLUSTER_MAX);
-                nr[lru] -=3D nr_to_scan;
+Userspace replicas of the original and patched entry paths were run on
+a turbo-disabled Xeon Platinum 8321HC (Cooper Lake), capped at
+1.401 GHz. Results average two runs and scale the per-call time to
+65,536 4 KB calls, or 256 MB in aggregate.
 
-                nr_reclaimed +=3D shrink_list(lru, nr_to_scan,
-                                            lruvec, sc);
-        }
-}
+Here "hot" means cache-resident. The rows model zdss_flush() from
+zstd's L2-resident output buffer, zdss_load() from a cold compressed
+folio into zstd's hot input buffer, and a page copy into a cold
+destination.
 
-This results in the following scan pattern:
+                                    orig  REP MOVSB  reduction
+  zdss_flush: L2 -> hot page     28.0 ms   11.9 ms      57.5%
+  zdss_load: cold -> hot buffer  46.1 ms   28.9 ms      37.3%
+  page copy: hot -> cold page    29.8 ms   22.5 ms      24.5%
 
-32 file - 32 anon
-32 file - 32 anon
-32 file - 32 anon
-32 file -  4 anon
-32 file -  0 anon
-32 file -  0 anon
-32 file -  0 anon
-32 file -  0 anon
-...
+REP MOVSB was faster in every tested scenario at 512 bytes and above.
+Copies below 512 bytes showed no consistent performance change across the
+possible function alignments.
 
-Eventually, the proportional scanning balance is still correct.
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+The above benchmarks to model copies in zstd were created using LLM:
+https://gist.github.com/uarif1/8409ccd34284f128dbea5822ec628ef3
+---
+ arch/x86/lib/memcpy_64.S | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-With your earlier exit condition, however, we could end up with:
+diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
+index 12a23fa7c44c5..a7b3ce4fae0b4 100644
+--- a/arch/x86/lib/memcpy_64.S
++++ b/arch/x86/lib/memcpy_64.S
+@@ -31,7 +31,9 @@
+  * which the compiler could/should do much better anyway.
+  */
+ SYM_TYPED_FUNC_START(__memcpy)
+-	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
++	ALTERNATIVE_2 "jmp memcpy_orig", \
++		      "cmpq $512, %rdx; jb memcpy_orig", X86_FEATURE_ERMS, \
++		      "", X86_FEATURE_FSRM
+ 
+ 	movq %rdi, %rax
+ 	movq %rdx, %rcx
+-- 
+2.53.0-Meta
 
-32 file - 32 anon
-32 file - 32 anon
-32 file - 32 anon
--> target reached, exit
-
-In this case, we scan file and anon at a 1:1 ratio, which
-doesn't reflect the intended 3:1 ratio.
-
-The original code maintains the scan ratio by setting the
-smaller count to 0 while keeping a nonzero count for the
-larger one, allowing it to continue scanning:
-
-              /* Stop scanning the smaller of the LRU */
-                nr[lru] =3D 0;
-                nr[lru + LRU_ACTIVE] =3D 0;
-
-                /*
-                 * Recalculate the other LRU scan count based on its origin=
-al
-                 * scan target and the percentage scanning already complete
-                 */
-                lru =3D (lru =3D=3D LRU_FILE) ? LRU_BASE : LRU_FILE;
-                nr_scanned =3D targets[lru] - nr[lru];
-                nr[lru] =3D targets[lru] * (100 - percentage) / 100;
-                nr[lru] -=3D min(nr[lru], nr_scanned);
-
-                lru +=3D LRU_ACTIVE;
-                nr_scanned =3D targets[lru] - nr[lru];
-                nr[lru] =3D targets[lru] * (100 - percentage) / 100;
-                nr[lru] -=3D min(nr[lru], nr_scanned);
-
-This simply reflects the need to respect swappiness.
-
->                 if (nr_reclaimed < nr_to_reclaim || proportional_reclaim)
->                         continue;
->
-> @@ -6345,6 +6357,16 @@ static inline bool should_continue_reclaim(struct =
-pglist_data *pgdat,
->         if (!nr_reclaimed)
->                 return false;
->
-> +       /*
-> +        * Stop once the overall reclaim goal is met, using the same
-> +        * max(nr_to_reclaim, compact_gap()) threshold as the early exits
-> +        * in shrink_lruvec() and shrink_node_memcgs(), so the retry
-> +        * decision here stays consistent with where reclaim actually
-> +        * stops.
-> +        */
-> +       if (sc->nr_reclaimed >=3D max(sc->nr_to_reclaim, compact_gap(sc->=
-order)))
-> +               return false;
-> +
->         /* If compaction would go ahead or the allocation would succeed, =
-stop */
->         for_each_managed_zone_pgdat(zone, pgdat, z, sc->reclaim_idx) {
->                 unsigned long watermark =3D min_wmark_pages(zone);
-> @@ -6442,8 +6464,17 @@ static void shrink_node_memcgs(pg_data_t *pgdat, s=
-truct scan_control *sc)
->                                    sc->nr_scanned - scanned,
->                                    sc->nr_reclaimed - reclaimed);
->
-> -               /* If partial walks are allowed, bail once goal is reache=
-d */
-> -               if (partial && sc->nr_reclaimed >=3D sc->nr_to_reclaim) {
-> +               /*
-> +                * Break loop once the overall reclaim goal is met. For
-> +                * high-order allocations nr_to_reclaim may be too small =
-to
-> +                * free a block of the requested order, so when memory is
-> +                * plentiful keep going until at least compact_gap() page=
-s
-> +                * have been reclaimed. This applies to both partial and =
-full
-> +                * walks: a full walk is only a means to reach the goal, =
-not a
-> +                * requirement to visit every memcg.
-> +                */
-> +               if (sc->nr_reclaimed >=3D max(sc->nr_to_reclaim,
-> +                                           compact_gap(sc->order))) {
-
-Sashiko raised a concern that this might break memcg balancing
-for kswapd. For example, we might keep reclaiming memory from
-the root memcg. This seems to be a valid concern, so perhaps
-this should only apply to direct reclaim, not kswapd.
-
-
->                         mem_cgroup_iter_break(target_memcg, memcg);
->                         break;
->                 }
-
-Thanks
-Barry
