@@ -1,153 +1,141 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B913551986
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791923546; cv=none; b=YibzrlZiJBgLgd4SA1VvgKfEf17GC9Nl6gpZVwR5OdCmAP1I/6uQ1Ih4eJRJ2bL6/4BvawAgVD/dmTJ82jf6ihmsA12fvz1JEqXYW8JPT9drUTXD2BLZaDuQL6uMfXQTRmG1K9Uh4rtG1NueGsGUYiVbscpb/Xnf16q/tewEJUs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791923546; c=relaxed/simple;
-	bh=6JajpgDfEBwfZ8sqZjkLO3o4yng9oDArTPI6I0e/LXg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lHauEBa/HnsSwMCNw5GG3kFo/gT0KmAskOVBQaOhe4lm65w+8EggRy42g2uRW7rmjs5qVMUapyH3p3tZi59NtfppNFPcbrQxRdFE6tkpz1dWDBt2Tds5xe8sG79puguT29VItHnazxn7S195sR8bUdKSd+sb8L9mmrGhN2LEQNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DUVhdNQ8; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4A853E2E3
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:33:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791923587; cv=pass; b=Jzkdb2T2bPooytNd0zDdG9YaQsInxYTTb7FkFYAlbChx1lbVYVQC9ycFFiQYLfIYdibjTumgQbVtmf0BEXukrzdyBdIQR+Yjos08huNidMneCd8CUpfecSJMnsRdo3l32/AECN2WOM0P/EOv2el14b1TOGuT+SdBuznvn0KYTKk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791923587; c=relaxed/simple;
+	bh=guoFD20zEk9cIM8OGpiI6ZacaO2x+w0vW/appO61b84=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jA1/2OSv8dnBwWaUCJHj0HEsUg1qR+D07IaeD2xvoAZ/Ms8oNtZAwKSDfoIbw4VrTUU0baiMhdmTe73pVNQV/jFpRlL6ICbS/Qrtfrmme67p1EksZww/1pQjf9qt1wS3CDbuquYK829OgnxpemCbL+W4hAbmLxJHXvG8Tqua+48=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sCfdEhry; arc=pass smtp.client-ip=74.125.224.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DUVhdNQ8"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so33474155e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:32:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sCfdEhry"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-677b5148acaso3459188d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:33:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791923584; cv=none;
+        d=google.com; s=arc-20260327;
+        b=INTN1AklS2OpZvbv/vNQ9yYwK/MFmVq7rSP51PS9f+WI8NQ4fylWz0l+RkfA3fG/xJ
+         Zlvdgw2o4H6Z0SeTOv14G3BZAfWspryCCatEzLWCBSS7zxO2tpO7GOPC3FTbZI0L1ciK
+         InoTGMmaHEqWsSvVY8DGmFqpPaXHusLrYzH6JBiq9BPrDhyZisS5UMMuSe/UUfjGxb0S
+         GhAWsXxky+BOxb3HPoPe98xF+mwonSpnLvtXwNpQi41sM7SV2Zy15pfuAnWTPz7w2Wd3
+         wF4SEI3bIfClY1HONRT+Po5w312/LG2O1kDvpGDaH0mpSuM2NY54/13UCF9+RfVoCci1
+         mFlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=fjZWNfknzV1F6JAInAE8o3x3W3fwqE841SsbudO4cc8=;
+        fh=Tmd4c2j2aV2yi13pviQNFPXlmeOMP4hZPzhYGlBf6sM=;
+        b=gdwlgwvMzi25mdQiJopUNzkNadH/gag3mK6wS9TU+51rhThwjhyq47DpvIcYPbKjpX
+         90NVTtNXx6hrG0QNGZUIQGjsVGdftUbHb0oXcxfImJ1cI/ll1sgI3cr+DNYKO8pp+DH8
+         59vZkjMghnE7W91Vq65N4mhQXmWJX4WoIC6mb7kz5s0c/MIj+CxpeiMiTmoTEBFBRQ0V
+         1FHWgSitxjaxbWPmua9l9N0JK2bItimebE3Apmq0E9OZs8vDShYjSrafqTUOAUhosxl/
+         n12U1ORAn4yVOwqV+LEIPOp+13fSWuKkb0PKLd2vlrGUjMLRWJUX1j7KWni6xcTs+ema
+         SxwA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791923541; x=1792528341; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6CpVY6MeWJcdZtwhnTmqF4lxIQszWxkfvqL28C9V5KU=;
-        b=DUVhdNQ8Q4JvcGMOe04dpHFK3ORX3KqjCiOru3PpjOdpQvhM+Ch4cwkV9hvgdWNi2Q
-         KA9AHaq51HoR2HfJd6HvVEwa/s2UMtPfZvlnOPYUrL+akMoJNbwsVHvBWbmuHabwZPLu
-         pbFlGAlswpGDYQzHC3xd4XwCNNQ32gmd3KqLt7+gUcH0xzr08BQ7uy31qKTT3H8DlHY1
-         j6cKgnqAYhvwT154g74a/+WzU0JjbpN+eR65e/irUS8lzGteREEpSHpNOB5Y1P/LvLj1
-         W8z7CJqPxg2kyAFeZz81G/E9BTvyFLiZThBgum0/aJEpq/uR+ngBvnp/svCLmTKeHAUt
-         bxvw==
+        d=gmail.com; s=20251104; t=1791923584; x=1792528384; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fjZWNfknzV1F6JAInAE8o3x3W3fwqE841SsbudO4cc8=;
+        b=sCfdEhry7kUMkf8k5wxJjj4TkkJhUY/4aIduFykUdOoGmj4tu4TgmXXNR+WMyjctS5
+         L5RvSWMrLfxAsVZjSGmXYcsf6j75eJfGq9BqeCKu3zfPidhRVTDLris++A2DhOU6fG3/
+         CB5nRdY7foqKxUgrpZPW2teKWAi+WKTr1jmX2xr7OZ0XsvAZ4PoSBshWmbt+LwDxrMiw
+         ys0UTFde17SkQz3X2M/dJ75W/OwxotQQheBI0iEto77knza4pU4ZpztmpFN7P+C9vlsY
+         bhlPuGevilXOBGjNxAGxP34RX7wDviazB9wEwCvZNycFIu98M+B/EJi5+tSX/f1gQFiy
+         pOGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791923541; x=1792528341;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6CpVY6MeWJcdZtwhnTmqF4lxIQszWxkfvqL28C9V5KU=;
-        b=RpY2DWV6noyZZ4dsdUWZFTqqgkEFwo1v4vy78z7cHTpU+K9IYBX6YX2sHWwbCJ8tQf
-         GZPyPLd8y54WeCl1FJvm3O6lASLXTESQSstY3MoKt7RXnylOfQVZb+xcDh8oDLXzkTTL
-         RAJomQ6fUesJ16kiijtiGpRsxBZdHWSsb6jWIkx+ejBLH/IQ9U5rg3pSkwaMgco7fYD6
-         luqPW/W3TANA90wpiQRbKsdCHo/opJBXJr+PvWeJ9NMsj+F8efa0q406EA7ToCYTJbTB
-         vqVupgcXzj0FOpf0tPWliN1ym0B8Iyng4OP2HC+aoGmRmFwhcPv0wS88UTzGtNoyA+iv
-         c5Aw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHNwFu36uu5hGSQ4v7rYKjSABjkg2b4zxO7sBHku7QyWcbRTwSQfi1utuS2++VPR5sGa/uvg+JfggmJss=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIq43pQpgpeB+IyRFF2nQVG2IlHPkNRaf+GCHBxS+3ScyUq3QyX
-	0ruZaHjx7TdpKXqzDe2X85PS+lpmXAh4bfPM+XSL2SCeuu1V9yatz8Cz
-X-Gm-Gg: AYBFou3v2SjF63X/bQ/CK9W2xmopU4cbUGfIMkb1dIbubTYWyf4S1lmrEP5OmmV8ejb
-	eXIZ79+vLYmf869jNEHf2QfFJtqLaNRCgLnaZuyFuapTnO9NTTBV35uOwDxZkHXeX5mU00yNao6
-	tb4fJO+xKGKCoV3dhzFroiMQ2B7wSmfd+e2UaUkAH9j0UYmD7O6QF0UDY3uVabOD4I/x/bpwfmf
-	c+D9jghkMT2JJs3OLwzXOQEJTd40zQ+jfji+Yiky6upJ2QiJg2vGQWbTxH633UNqWkeyTbhV5Ez
-	nLBFdFHP4OesnQt2oMDYnV328w6UG4HH2R2pXfsq9V2WNU1jLUQBrO0PXkFUgaNi2NrQqLMpHkn
-	PkJ3OBwPkTlSIfZgP/iI5Qh+QEP279maNHS598MEq8ZklY97l8sDdDnK+BYh59Db0axdRuavBnA
-	Oy4jZrdY06+115/Auoar9e4Unl8Dqv5LEqOCsulXP5V/UWc3BefLypfmNRBixMhnUtJO556L9Ue
-	taC/m8kfiucJVUEjmA4zS4ZzjwUliW2YY4fhOhihKfxoLgbgFRYbHq/WlZZLBmJEAZ9WEyE3qf4
-	l/ZPNn+Lbb2GAiuaIgFibENmar4mokL9Gjbc5FnhItPLCTb9PT8m+TCnLvdRCYN9UXSppPms6e1
-	s4/a6ZLwYI+DKiXkaBg==
-X-Received: by 2002:a05:600c:3f1a:b0:4a1:ac66:6ac6 with SMTP id 5b1f17b1804b1-4a1ac667160mr69814455e9.26.1791923541329;
-        Tue, 13 Oct 2026 13:32:21 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a189-2701-8c58-155a-0279-7389.310.pool.telefonica.de. [2a02:3100:a189:2701:8c58:155a:279:7389])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b481b7f8sm5237345e9.3.2026.10.13.13.32.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 13 Oct 2026 13:32:19 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Russell King <linux@armlinux.org.uk>,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Christian Schrefl <chrisi.schrefl@gmail.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	rust-for-linux@vger.kernel.org,
-	llvm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 6/6] ARM: rust: Build Rust code for ARMv7 on ARMv7 kernels
-Date: Tue, 13 Oct 2026 22:31:40 +0200
-Message-Id: <20261013203140.31741-7-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261013203140.31741-1-kmehltretter@gmail.com>
-References: <20261013203140.31741-1-kmehltretter@gmail.com>
+        d=1e100.net; s=20260707; t=1791923584; x=1792528384;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fjZWNfknzV1F6JAInAE8o3x3W3fwqE841SsbudO4cc8=;
+        b=aDFK8iPLeyUWDluftl7DnUUnWx7LEzRNkUDlPx3Jc1VGUTud0TQnZPd4cFrJ8fYAHe
+         De9HkqiLCMYcKvgFXfnL2VjRfv+bFR2j5+VEWHdgScjrOfq7bygv5tpoy0r9hReIMn9w
+         hfX+YRFXt1/+GcQa+E4irNUroUVDyFA90NrwoARB+R/KF0p8eqzxHzQDvRAV8glBITUb
+         XkQgPZfxhyw3sfP3X7+5rwpVrdoDvS6dw83/E4Yjdr1p1/6+iBsi2m+oURHaC2b/Q0uv
+         jlbRH630BjN/gspozXSYlOn28WF75+sLi+YMnH0L4utYNddGlhUprGH//Z7vqfFMaExj
+         12eA==
+X-Gm-Message-State: AFq9FYIP8sYrN8QkmTYvzQeQHkDv8OPPWAvPZxAKhXwmAEqZwsk3cPIC
+	atNbTPLmgFwXRCyD9BK8oxc7Rm8g4A2Z9oJtP5UoRcMvAuxNTOZSAfGs7ZLslBxoZOF+WBwf+d6
+	HYGH1uHRYOlOD62EUIyK7EFkZLUhHhzM=
+X-Gm-Gg: AYBFou1QX8yghNYoDlmdjahBwsDFi302/XYTprMq0xkBahLnI6JRA29l1ItIB360XL9
+	qvx+xf0o049D2NVn1cARksh4e6kOn7fi1zkRgikyTU7KcHVpCozLRmsMFmk3/Xg6+kSF4t5VXrM
+	zVYBQYWNo4N/WAf57r4RGQWHm2sVn/fGCXHjXCgkOR7KTU7sq1qmvsgBE4xUkHuOd9D4v1IbbiD
+	WUx2Jp8Dln6zBHTOfRuuG6W9XiZkofw9YCGUDgOsZeJEc625YIzpGNmWoKaFGrPpuGyPu/BSBbt
+	dRyUwhWCHj2V77g4PQPZ6v3/N/hfwdrpFyqOXY8Buus/GPyCtMsvz78DT/EBBScfF+6p9j4cqSh
+	1gMMOFHFVmRg43tgbWh+qFd9P/82G9XLapoOoE1vX
+X-Received: by 2002:a05:690e:168b:b0:675:b778:a423 with SMTP id
+ 956f58d0204a3-679362bf517mr4886393d50.142.1791923584078; Tue, 13 Oct 2026
+ 13:33:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1791887415.git.mst@redhat.com> <e12c6a45aae251d1642af55d8d3121e554993a66.1791887415.git.mst@redhat.com>
+ <20261013070549-mutt-send-email-mst@kernel.org> <CAF=yD-KdTn2rHyp_j8ORr9F5hpm=TzaPRan5+gvLiYBd9HP-sg@mail.gmail.com>
+ <20261013143335-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20261013143335-mutt-send-email-mst@kernel.org>
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Date: Tue, 13 Oct 2026 14:32:26 -0600
+X-Gm-Features: AclHuK_AY3efVdSO1MP2W2AAhlxVTMjkmeXG8cBqCPBuysQoPjuKaPNm0xvEtb8
+Message-ID: <CAF=yD-Lz92nGVFab1Dq8M9VusDsKf-ioda8KrZoyh28x3Xtg4Q@mail.gmail.com>
+Subject: Re: [PATCH net-next 3/4] net: resolve uncommon partial checksums at ingress
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Jason Wang <jasowangio@gmail.com>, 
+	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	virtualization@lists.linux.dev, Max Krasnyansky <maxk@qualcomm.com>, 
+	Rusty Russell <rusty@rustcorp.com.au>
+Content-Type: text/plain; charset="UTF-8"
 
-The arm-unknown-linux-gnueabi target builds ARMv6 code, so ARMv7 kernels
-cannot use ARMv7 instructions in Rust code.
+> > > > +
+> > > > +     if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
+> > > > +                                            inner_proto))
+> > > > +             return 0;
+> > > > +
+> > > > +     if (skb_is_gso(skb))
+> > > > +             return -EINVAL;
+> >
+> > This is a risk the commit message will have to call out.
+>
+> I tried with this:
+>
+>         > > > We can't easily "complete the checksum" for GSO we don't recognize - GSO
+>         > > > assumes knowledge of the protocol. We could segment ignoring the
+>         > > > checksum then do whatever csum_start and csum_offset say, but that
+>         > > > seems like an overkill for something that should happen.
+>
+> I guess I can add a more detailed explanation about what the risk is?
 
-Use armv7-unknown-linux-gnueabi when C is built with -march=armv7-a. The
-target uses the soft-float EABI with NEON disabled and permits unaligned
-word and halfword accesses, matching C on MMU-enabled ARMv7 kernels. A
-kernel that also contains an ARMv6K CPU is built with -march=armv6k and
-keeps the generic target.
+Let's just explicitly mention the consequence: non-standard GSO
+packets that previous would be sent may now fail.
 
-In the tested Raspberry Pi 400 configuration, Rust text grows by 1.9%.
-Six small benchmarks range from 10% shorter to 5% longer runtimes.
+>
+> > I don't see a simple way around it. We discussed segmenting here too,
+> > but that requires intrusive changes to all callers too.
+> > Alternatively,
+> >
+> > 1. call segmentation, but only to see it remove the SKB_GSO_DODGY and
+> > thus verify that the TSO/USO packet is valid. Still drop otherwise.
+> > This also does not add overhead, because it would be called later
+> > anyway.
+> >
+> > 2. a failsafe off-by-default sysctl + static_branch that skips the
+> > drop when set. Messy, but so is the situation we're dealing with.
+>
+> Tack this on top or do you feel it's needed straight away.
 
-Tested on a Raspberry Pi 400 (Cortex-A72, LPAE) with clang 22.1.8 and in
-QEMU virt (Cortex-A15) with the minimum tool versions. Rust modules load
-with the movw/movt relocations.
-
-Suggested-by: Arnd Bergmann <arnd@arndb.de>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- arch/arm/Makefile | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-index a72843890241..28eb8484ff82 100644
---- a/arch/arm/Makefile
-+++ b/arch/arm/Makefile
-@@ -73,9 +73,11 @@ arch-$(CONFIG_CPU_32v4T)	:=-march=armv4t
- arch-$(CONFIG_CPU_32v4)		:=-march=armv4
- arch-$(CONFIG_CPU_32v3)		:=-march=armv3m
- 
--# The rustc target fixes the instruction set. -Ctarget-cpu cannot remove
--# the +v6 of the generic target, so older CPUs need their own target.
-+# The rustc target fixes the instruction set, so pick it like -march above.
-+# The generic target builds ARMv6 code. -Ctarget-cpu cannot remove its +v6.
- rust-target-y				:=arm-unknown-linux-gnueabi
-+rust-target-$(CONFIG_CPU_32v7)		:=armv7-unknown-linux-gnueabi
-+rust-target-$(CONFIG_CPU_32v6)		:=arm-unknown-linux-gnueabi
- rust-target-$(CONFIG_CPU_32v5)		:=armv5te-unknown-linux-gnueabi
- rust-target-$(CONFIG_CPU_32v4T)	:=armv4t-unknown-linux-gnueabi
- 
--- 
-2.39.5 (Apple Git-154)
-
+Not urgent. Can even wait until a report appears. But worth taking a
+look sooner if either of us gets around to it.
