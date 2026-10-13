@@ -1,125 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911054D09F8;
-	Tue, 13 Oct 2026 13:15:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8744F30CB
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:16:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897314; cv=none; b=ozYbSuvc2MNuqHwAnXdTmEWCyVcMAY/PuzlUK3z79HJoNGQJb+nNvqaf5W3uEZygB5fPdFhTd7RBdfEFuqmWX0tmsGSAtxCUTHnZrVzbgWTJOG8koiDw+rhtOX5c7RVKbl3hAYaf3J6YxpnnXvVI37JaxA+tTK1TJxKP2Y2jSRg=
+	t=1791897363; cv=none; b=ugoFZQd0d3V8cfHHgPmkqahpDl11S+sXxnF28UbKfwqf6xYhLfo1noVdryi28iSFM8jyn6DL3ffRIOfJ2cEnnfDU4GIEa7deeYYtkuq42sOvq1/yIu+iKEIrBC+MCtdodgzZW1sFBp4CAz1rnWkQodoHsLBTU1ppH6r+VVdpj7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897314; c=relaxed/simple;
-	bh=0cRmbkSpWqtOkdLJMcGkz9vtYphpfeMhHKc91PFNl/0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LelJ0vu8btEH9G/eaRRKJrhNP4cAK7a81htVCXG9Z6YsyW0xt9jCLSJ7/vIBGJUSf04GvGWaQJH6c+A7QHkQd6h23+lwKOh+SH62wqWKcpR/mw8Y6eldtKTR2X75Jly3JCeqM+ftjrFKs09H1QbsvpfspuEZULDpHGsGTvWwYBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VcHctNc+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791897363; c=relaxed/simple;
+	bh=KYNq+5UASvVLUUueo5+fWrGKvfr+e6x8JGly1DJBrfc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=T40hNX0Gr396ArclxmkmGVy66cPUoKIjH6XlwnW+7EvBekZzyNgvgkb8x9/ph9ctzTde5B9H9eH4mwHa6UyNx3bYbfaYsCy7tmUQP+/9pConPhkcZ75ZBKcjx9Pi5re49W6oaGpl/GrHtN3d4izrLYlmKqxMuQMsR/LJLUJksDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wetterwald.eu; spf=pass smtp.mailfrom=wetterwald.eu; dkim=pass (2048-bit key) header.d=wetterwald.eu header.i=@wetterwald.eu header.b=ksmVfJ1z; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wetterwald.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wetterwald.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VcHctNc+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888561F000FF;
-	Tue, 13 Oct 2026 13:15:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791897313;
-	bh=a3iCVAL8BhnB4sqclc4yd2J5otsrZl54zKQnvrRdjPY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VcHctNc+w54BL+VCFquFWtEY3XTGhE3/2subBJif2ocq17rp+4V30Gi7SJa1jsJlE
-	 SnIjvNo/1QRzf29yezjOc1/OQgTFZZS3FEKcZJSoPSe/lUj8hLn0eGPRSIIzDzHSLo
-	 UhG2fxrDNxZpjSojqtccRGUuSLkRTmFn9HvpuWKFawZ7xPq27aa8ckZa3zm8qJtnEC
-	 EPLK5Swld2vi4Ke1iEmnk2+kUCFVWCekG+OEnfp8V1C4Rp/V+Pk3JPJEntevo7URKE
-	 XK/0boGZ9xoBSzozwJ/ah62y7xiWdeQbeJsKlC7YLdy0jHSNzh1TN8IgcT4MkqNknd
-	 RRXbeATrncJJw==
-Message-ID: <c18f2a40-53e0-4161-9c3f-6511eb5d811b@kernel.org>
-Date: Tue, 13 Oct 2026 15:15:04 +0200
+	dkim=pass (2048-bit key) header.d=wetterwald.eu header.i=@wetterwald.eu header.b="ksmVfJ1z"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso38502405e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:16:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=wetterwald.eu; s=wetter; t=1791897359; x=1792502159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ig0Y0bs9FN6Dhfi95iv4Xq2tV5MXRKRrxHG4lzB5XTM=;
+        b=ksmVfJ1zjB6zXhKuC+/0i6d7SbEyktn0rIojJakhLr+MFNNLwdmdXMA7+h4jDix60l
+         3z04vOak3Pc387gjBE7eZOcueAw3dGs/gqq4RtRf64n/jB/6Jq8PF5j/BdzenWAOjH/8
+         ROht4/qeKV/aoz4pcDaluzEdGZ/DTE4Y72baTMFy7tXG7h6eDtiV2oxWrIkW8Bi7Fq4n
+         0Ecn9Lzrs5qraNo+e3H/8a5R4equDFwH/QtlwSMFcgLn5vuD18220fgRKQ11NpXxt94u
+         a4Gs0+UwwSAK2hSI1UlT/I9QpIhJPsOSDcbMyFaHUoCsDFcetMxTbL5AFuQrsUaHApao
+         9jjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791897359; x=1792502159;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ig0Y0bs9FN6Dhfi95iv4Xq2tV5MXRKRrxHG4lzB5XTM=;
+        b=qUCoV2Mg6s+ug+rYuIvCovbDX8Dvyh3uJoTcTzkAvsiJvSr3HXnXn/K7wuCRwhtjFX
+         DYjacho35+/z070yYwC+PSoXq2shdS+FmWQPVe52IZYTEylkPv2WiU6VsNe477kxeyoK
+         rfHQBIozkUy6UHF7lkv49TwL2sZynim4QTcIQv8RmKUa5Gi3+FIxFTUXy6CoBQRqi7Vd
+         gicMXB2xul6kNHC3+sIq3KnJOcqjFxC6c8bmyVRwIZMDcm/Asy/dOH/HguX4GchqNlK3
+         E10HKp0s2/S1WTei6jcug9JhcMlIgGwtLYE9nKm9mWic5+2mEcFZkXX083Mo3FCwdS5o
+         XgHw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1Y6MK+Wd9yFhEc40DoTFac4uwl+NCCyg9yRa4WoxAXcHz1100N/vlqaLtSavqXE1zGDU0e6eljmoxyag=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2j7lQ1iDiAXBUhCgfnrm3ZAJGpvweTMcNsC5mayk+yvWuoHzx
+	/0EWFE+brnMl2Wch8GUNcr5LLFdOKyySWXDDfYh+zJzXK9R0nLbmjCSnOtPRGdbPWs8=
+X-Gm-Gg: AYBFou0kAe50IZcFYXbPxrhW9Q60Ac7Jtpjk08sh3bMXhtBcyglXzwQju/p6U7kOFhl
+	mKO07dVD9db+wOKuBRBV53AE+YNHaJCmbrx92d4vF3t+BYHau7CHsJY09HoLpsioSSonKR+Qfca
+	egk6invzJ3ZMbZEYvD7NBHzTVJtEqD8RdnfzK/wSIAmAHGFLuRMmaJr/RVKc3zS5pNu+wWCChpV
+	M8n6kjKj0rfjsKbqArQ7oPwNMjoob3CEc9AfW/pVpJ43sVmFvBHnGam4fSqPNQhwofV7ZhJejfr
+	27ZS6lj4IZEk05/g5P5sTeSYenqsl0D2Vek03FB4A63cJ/+d7CfpMeUhboH1fBWZf1aACHEdgfd
+	jMmi36HE+y0mb2kGOuKopamHiN8rGr3JNNLgGNQA2XTP3lvBG1iVe0VCA+Cum+DjuA2oTTSPxmT
+	08cSmZyEwTJ7u6VA35tdR76/yXkwSNd9ioSrf71upumvACXgnorXRdL4LYZg839DV4Mw==
+X-Received: by 2002:a05:600c:3512:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4a18e4913c3mr213743705e9.8.1791897359239;
+        Tue, 13 Oct 2026 06:15:59 -0700 (PDT)
+Received: from Halley ([2a01:e0a:dcd:52a0:bf8b:5759:6fe4:3105])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm520141515e9.6.2026.10.13.06.15.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 06:15:58 -0700 (PDT)
+From: Martin Wetterwald <martin@wetterwald.eu>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Umang Jain <uajain@igalia.com>,
+	Kees Cook <kees@kernel.org>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Martin Wetterwald <martin@wetterwald.eu>
+Subject: [PATCH] platform/raspberrypi: vchiq: register bus at subsys_initcall
+Date: Tue, 13 Oct 2026 15:14:35 +0200
+Message-ID: <20261013131435.1454019-1-martin@wetterwald.eu>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com>
+References: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs: remove Assisted-by references
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Federico Vaga <federico.vaga@vaga.pv.it>,
- Daniel Pereira <danielmaraboo@gmail.com>,
- Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>,
- Dongliang Mu <dzm91@hust.edu.cn>, Andy Whitcroft <apw@canonical.com>,
- Joe Perches <joe@perches.com>, Linus Torvalds
- <torvalds@linux-foundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Steven Rostedt <rostedt@goodmis.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Kees Cook <kees@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
- Jeff Layton <jlayton@kernel.org>, Christian Brauner <brauner@kernel.org>,
- David Hildenbrand <david@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Christoph Hellwig <hch@infradead.org>, Mark Brown <broonie@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Brian Foster <bfoster@redhat.com>,
- Carlos Maiolino <cem@kernel.org>, David Disseldorp <ddiss@suse.de>,
- Jani Nikula <jani.nikula@intel.com>, Justin Stitt <justinstitt@google.com>,
- workflows@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
-References: <20261013121501.3738437-1-sashal@kernel.org>
- <d509cd9d-746c-42ff-97eb-3bddb889a78e@kernel.org>
- <04229bc1-f25c-4733-92f8-4508c1540611@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <04229bc1-f25c-4733-92f8-4508c1540611@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 15:10, Krzysztof Kozlowski wrote:
-> On 13/10/2026 15:08, Vlastimil Babka (SUSE) wrote:
->> +Cc ksummit per [2]:
->> 
->>> There was, finally, a suggestion that the ksummit mailing list could be
->> used more. There are usually interesting discussions there in the lead-up to
->> the event, but then it goes quiet the rest of the year; there is no reason
->> why discussions of that type can't happen there at other times as well.
-> 
-> Then it would be equal to workflows mailing list, no? We already discuss
-> (or supposed to discuss) all process changes on the workflows.
-Yeah somehow that list (unoficially?) evolved from the original "people
-share their wofklows" purpose to discussing process changes. But I wasn't
-sure if enough people are subscribed to there yet vs ksummit. Also this
-patch follows directly from ksummit (maintainers summit) discussions. Can't
-hurt to aim for the widest possible audience of maintainers to see it I think.
+Since the VCHIQ interface was moved out of staging, its bus is no longer
+guaranteed to be registered before its client drivers. bcm2835-audio,
+still in drivers/staging, registers at device_initcall level and now
+runs first:
+
+  Driver 'bcm2835-audio' was unable to register with bus_type
+  'vchiq-bus' because the bus was not initialized.
+
+Register the bus and the platform driver at subsys_initcall so the bus
+exists before any client driver, independently of link order. The
+platform driver probe already returns -EPROBE_DEFER while the firmware
+is not ready, so probing earlier is safe. When built as modules, this is
+equivalent to module_init() and nothing changes.
+
+Tested on Raspberry Pi 1B rev2, 1B+, 2B, 3B and 4B with VCHIQ and
+bcm2835-audio both builtin and both as modules.
+
+Fixes: aa125180c673 ("platform/raspberrypi: Destage VCHIQ interface")
+Reported-by: Martin Wetterwald <martin@wetterwald.eu>
+Link: https://lore.kernel.org/r/CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com/
+Closes: https://lore.kernel.org/r/CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com/
+Signed-off-by: Martin Wetterwald <martin@wetterwald.eu>
+---
+ drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
+index e78641703252..d35f5ac5c2e2 100644
+--- a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
++++ b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
+@@ -1462,7 +1462,7 @@ static int __init vchiq_driver_init(void)
+ 
+ 	return ret;
+ }
+-module_init(vchiq_driver_init);
++subsys_initcall(vchiq_driver_init);
+ 
+ static void __exit vchiq_driver_exit(void)
+ {
+-- 
+2.55.0
+
