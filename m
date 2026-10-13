@@ -1,162 +1,275 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2123.outbound.protection.partner.outlook.cn [139.219.17.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27C93AE6F3;
-	Tue, 13 Oct 2026 05:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.123
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791868521; cv=fail; b=EM+n6tGQECk9E8IVsnsLvZUx/ccZTWamE1/dWJtvYdSJzdkB3gp4r8QxNr49a/l/CVU7CpLse69fQWE3WMu9/yz+KxLD2LYP/J/EZVoU7e53HhadqKUhcIH2Bo0eQoAohRK2uxexfJlrVIZENZuQrWdTcM0ptOH8++fzHt9wGyE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791868521; c=relaxed/simple;
-	bh=E3Vx6AVfZV2kiFIUPzYDTeF7Ao1ftjmZCxWgb1Y2t38=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=rqy94fIIiUinumoCkS4Jh3x6zqg0Aob/juoOVpjPbUifGYuuNYkDDi65xt2rRRooq2H/hd1CVpRv4Oeqag1NYjaA8p4RfKE6MP+QsAHN8odOpnRhbfKdsJwcfRHjl6dV4sbAF8Kl1f8ED1M+wWv2pOEcvceuNNEwbkSvo/RWRdA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e8i1EvEvoZqopBaEqnpM1Ge2CO/sWrk44ZIGHMgKT9PL4hc4qD2A0RwLoxzg+SObMF1IxD+Jy1l6ZJ7eD499MNFDFq23nYxiKzVrMyj22nxRkuDGiZFP1r/b8lmDtQINzwOwgh2o1n+pglCfZtYDhBgFf/4dYXeNq4zJldKssfpxJQmX16h72PnMvDPGN4fhA9oW5CUwdAPg0dw6CayOx3ax1j/ypb+/9vkDcP9sWUKSaj86W8j7hlcSgDqGDml1tf+OTeU0pBbR92//ibSIOwR9VIUtn5Qqht+e+QGbHGYGUETenynAqwYCrQ9qnObIOQB+V4SE1ucyXygvIhb2FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E3Vx6AVfZV2kiFIUPzYDTeF7Ao1ftjmZCxWgb1Y2t38=;
- b=X0mEXbFMCkOuE4D/gozqBmhTihiIa87Hn6ern9lAKuwU3ZY3n77vrdhmCh8sCwVcMHFCpq4yuijyAQY4GF5v/13U0F5aoEOWMFhCCNrI9y3BsqmDESjEZHDmStcdZHxcFTrKriD+AjEbpXjeja7TfCVJsebT6jP3+CrKzj+eeFyE1FQbuoTuLEANJ3m7jqPNyJL6cX5s5/pQeZVs2rpA+FcQsd/epPsHjtCWEupfG92q0oDEXR5i5gnAVW8iVFJYmavEJ6OIxvGp5MT7HL01VyAWnAm1R4BRsL9F4OxS9gavV7nBOViQkMjcmVvRvEWHQf9oMtolHFc2oCh0UgYsbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1283.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:15::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 05:15:04 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0496.021; Tue, 13 Oct 2026 05:15:04 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Jerome Brunet <jbrunet@baylibre.com>, Conor Dooley <conor@kernel.org>
-CC: Brian Masney <bmasney@redhat.com>, Jerome Brunet
-	<jbrunet+clk@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Hal Feng <hal.feng@starfivetech.com>
-Subject: Re: [PATCH v6 00/15] Add basic clocks and resets for JHB100 SoC
-Thread-Topic: [PATCH v6 00/15] Add basic clocks and resets for JHB100 SoC
-Thread-Index: AQHdVyFEHALg98ybyUGSo4TiegrOibb5uLaAgACR5ICAAAN1gIAAp0mg
-Date: Tue, 13 Oct 2026 05:15:04 +0000
-Message-ID:
- <ZQ4PR01MB1202983FF3AB28A60516B2F5F29E2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20261008123338.11081-1-changhuang.liang@starfivetech.com>
- <179180050741.66744.3459927533880490879.b4-review@b4>
- <20261012-grass-guru-1ba876eda895@spud>
- <179183257960.266355.15581316876923702717.b4-reply@b4>
-In-Reply-To: <179183257960.266355.15581316876923702717.b4-reply@b4>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1283:EE_
-x-ms-office365-filtering-correlation-id: c40c18a1-f553-4694-5ac1-08df28e8f086
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|7416014|23010399003|38070700021|56012099006|5023799004|4143699003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- Xde70I7xqHv+urjiOYWka2uSwHhx1MiAS3bY92Dp3IX9QGoAF4mOUPLnLqkYPPU4y9DOrR+q7l7uajIGJyhIGdkwgH8oBdiy3raTVtijrIJkePBaPW3ZkjDo5ba/b6LUZlopy+VV5h4gk1DlrDIX/5lnOxla4JDmdEQNt6sYXOmYDyTBn5lCPqQCP5O9elo0PI5fx7cq/pxFGPOyKqoRxw19mOQlbnPoyJKnj2gzs9z/rNhcdbHN1ZDzV2OmnIvJQ4wlzWD/pjpjARoVTbsVNzMokoXPh8KMg2rqYFM7uYYjZcHH/199UtaBIq679pZPvMVxz+weIYpRMonXJmDNjH7Y1hdc6gUrjAYeJn0G8gI+jK3wPeiiegA/F1F4/P2WywTfHa4fpicwbXX75bKh4mYB39ylT4T3es8YP9z662kH+F+vNYw7yZb5gI8lJo3XbKdxMNJSCfMczveGMNpOyfTsfRJKnsHo1V2N4YHjNZvLtWNpwd2WfGgTa3JmRoUOUA/cMPWQkjvZ66C270VW76cVQ0e7OrEpUbX7EPsfIUjomlfKVnqDkGRTWJayDJ/u
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7416014)(23010399003)(38070700021)(56012099006)(5023799004)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?WkxLY2laVTZNSWUvRjFobC9vQ0lwVWFseTQrOXlSeFo4VllEanpWaXVTdXl1?=
- =?utf-8?B?TW9GV3MxallZSEVINWxWUWdFQm1ldHZER3R2Rk9LWGtONy9pS2l2WGxGcHVl?=
- =?utf-8?B?djZRaFcrWS9pM3VON2ZkQTFGSExOT0U0ckhMTXh3WUpGWFB0ZVBaRm9YV012?=
- =?utf-8?B?NC80bWowQWRrL0dUQlQ4TnhLeGhzR21jNkhUQ1cyTENTQlBvMXFPaVpGZVd0?=
- =?utf-8?B?dzFzSXZ5bXN2NnNiYmRRZXJFcWVrdGorVzd4SlBLZ05LeUxVQWlHdEZoVWY5?=
- =?utf-8?B?Y0c2L1FTMUVKSmJOaXMvVVNobWdkVWl0QU9SWktxdHRRTHMyTU5PSTIxYXhl?=
- =?utf-8?B?NHdjL3VvRitaKzFGYW5EOFVDaHdLaDV3MlRBNDZsaDk4M2dIVHZqaTl4akR2?=
- =?utf-8?B?aUhRWFZuUDgrUUE3N3BHTmh3WDl6aDZCOXlvNXRBeUhvakFUTXdzVmZZQndZ?=
- =?utf-8?B?VjZUbzBsWHZLVVllSTl0TzlJK2h4ZVMreDBNSTN2blB4VEtMd0NKQzVQRHdN?=
- =?utf-8?B?YU9yMXI2VmkzRm1lZVIvbDhYV2pGYmRTTXlYQWxmenBQK084RWN2QTlycUQ0?=
- =?utf-8?B?YURncGhyRlJPSm1hdHlGYXhOWHpLaWNta3JJZXJoUFkrZUZCajVsc01CMmd6?=
- =?utf-8?B?Yy9jdnovMk1IMm5iL0crR25nYkw4TWE0WVFvYkI1V3ltVGN6M2dLWVFMd09V?=
- =?utf-8?B?WG9PNlAvK1k3aW1MNUI1dm9MZWVpY1I0cEg2R1RES2laSlBtcUJjWHFjKzhZ?=
- =?utf-8?B?NG0zUXVYQ0FTSmNDSzQ0V29SMnlydHYzdUI5bUVrbm96U1o4anFoekNYZ2xO?=
- =?utf-8?B?c1FQMHdlRDZrbXpBdVY1UFpzU2FTMWh1Mmo1cTNQOVdWWWFzZ0Y2MmdoQlFP?=
- =?utf-8?B?bHRGblE1a1d6bnJSWDFvV1B4K1VkN1N0OEFkdXZTYXdpNjRjenFsL000ak9s?=
- =?utf-8?B?MGM3TGRJMzlLMzJyZ0ZkRUJwMGFBNW9hTUZBR2p2amNnSHZXUUh1eGRnU2Yv?=
- =?utf-8?B?Wms3WFMyRkM4M2JORTFqMmpZWUkxSmVGQTVlWG5ZNzBlTlMxUzhaUURXSVh5?=
- =?utf-8?B?VENYUXI1QTlVWUROUU83N2l0dG5lZjVTTm5VOEt6UWRUQ0NZejFMSmZ5TmFV?=
- =?utf-8?B?ZjVXQkp6YmNiazcwVzcyUW92TWxGTHpmS1RieTZISFVQa0xmeTlDRm9td3FC?=
- =?utf-8?B?TGF3aGRXZkQwNytFTlcxVlRJbUU0N3lBZW1FWmc3MmR0NUpXN2lCd0Vjc05S?=
- =?utf-8?B?ZFkwQlpSRjJMK2NoZDFNQi9xU0x6VmNKaXRMNTFadnovaXpENkhJOE50TXhk?=
- =?utf-8?B?a2VydHh1K0tqLzhXaEIyN0VQdlNlTDUyZkU3Z0t0cmNWMTlOYnNBSzRlbEpY?=
- =?utf-8?B?UCtHZnVzL2dpcWtzckdBbjZ4b0t6SjVwWjJZZGRVLzE2NmJiVjl4U2JKQ3FD?=
- =?utf-8?B?cURVMnpKbHkvVmxCd2lKM2FLbHRyQlBSL3BMeVFHcElsSHA5RmtXcW5xUE56?=
- =?utf-8?B?c25tRURMSzBibkRtT25hZWxUbGhTeTVSSXJuYm5peDlIbFpkYitkcFNyY2t3?=
- =?utf-8?B?UWJRSlRoY3NwdEtkeDZ4ajlVLzhONTdpbGFRS3Bybi9zNXQrS2Q0SGhBdHVL?=
- =?utf-8?B?L09SNWxhMzdVTzlEUkdVTDRkanp3MUphbktTMjJmV2EybFBUcHRxRXpaUmdl?=
- =?utf-8?B?RkRldFllcGtIU2VsZnlpbE5FVEU5d2J2YVNnSFRUVUh6SklOSTBMbUs0UFBi?=
- =?utf-8?B?VU5IZ0hSQVRGb282NDQ4SHVJazlKWnZ6RDluRjdTWjRJdWIyYU1RV2pFWW54?=
- =?utf-8?B?eklKQmtBajBUMHQ5YzFYSnVxcVBiQzJzQXFXKzZWbHM4TFBqeHl2dFZNM2Fr?=
- =?utf-8?B?YnNyMFRqWWcwR2lwcEEzeDFaL1Z0aUUzSS9paWU1cVZ6ZXpuN2I4SDNkK1hV?=
- =?utf-8?B?Y2x3dFdsSWc5SkQycDNwL0dsWjBzRnhhS0xaYVhqdVA5UllpZEhzUkJ6UUxQ?=
- =?utf-8?B?c3RvTGZpREQ3NlpiY2ROL2JydWZFbnl6dXRrYThuYUFFYW9xcVZLSVpXMks4?=
- =?utf-8?B?QU1LWHBtNHlnNisvb3pvKzNleXlyMzVNN0h1STNSbGpvSlVaTlVOeFhhbkdB?=
- =?utf-8?B?emZnWFBOaURwcHg5SFh2Z0poOGVhNCtyNGlzbisrckNreTNob0hUQTlzVUJV?=
- =?utf-8?B?VGs1MWU1Z0ZIVVBPdU5GeERyT3ZXaVlxYkNEUTE0dVZZZHc4RmgxSE5veWNt?=
- =?utf-8?B?cjUrZzJwbFFBY2RQOHlwOU1GVXlmTFpCV1pROFJwZU0vK2R4LzFHTHg0ZjNK?=
- =?utf-8?B?N1BxdjUzSllVM1VLckJJMTRZQUtSZmNMWjJYTE1FYStjYkdYNTRlZE5EalJs?=
- =?utf-8?Q?Gyl7G9eS2c7t8xXM=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 746B715665C;
+	Tue, 13 Oct 2026 05:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791868569; cv=none; b=k/VXEiJpokx2Z8E/Wc+KmDo2KeOTRuqZHtFarUxjY7mycU0D+8JJJZQa39HzDT0L9RYw4/M9nw/7g7U+bDGrTonycf8I2F/ZGVeCy5oWYn19h8V3ahAtBd7L3mps7Z2aQlzei19bBOGsoZiswJqYPy1sfW7mD4S03led/0HrvXs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791868569; c=relaxed/simple;
+	bh=zL1W/qViDs6/p6ihbWI+s/Hpz9aAWO5kIhNiVtRgxFM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X/gYOY4A0fPhUXUp+Oodohq1KjoEG+oz8NWMHJmi/Ir09fiF+L2jNoKT4pjmqgIxgfBBtZUNUMLclFGEwQDQCIEFgj9VNoJeZgIzckDRH4qO8dKnYyZ+BDPbBujDbTxtVh1YNWyWoV83IyV8SQUCdOGoHz9DQGrH+UMiLLz7Gys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=lx1d1nIh; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="lx1d1nIh"
+Received: from mac.lan (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id BEDBE20B7166;
+	Mon, 12 Oct 2026 22:15:58 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BEDBE20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791868564;
+	bh=LIE+gH2MlvhH5aslepJ+OssT9+tebEO1hNcLMoTf5qs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=lx1d1nIhicb8wAFe946F65ltziTWOVdXZC/x+pzogeX6ycRGbaEDK5GDQ/MeQcDp4
+	 t69lLMTqqTuhQdL3QNLNMY7Bg2UrtNsYcsga/MfefPv6fN4YtezQb0xkbiKL/c3JtX
+	 vThpHJYeyaGmWZ6U/sDJ6DgQ58GEhn/ws3N30lhI=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Kees Cook <kees@kernel.org>,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Hillf Danton <hdanton@sina.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	Francis Perron <francis@akrites.dev>,
+	tgopinath@linux.microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH] Input: uinput - fix use-after-free of FF requests in ioctl handlers
+Date: Tue, 13 Oct 2026 01:15:53 -0400
+Message-ID: <20261013051553.71887-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: c40c18a1-f553-4694-5ac1-08df28e8f086
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 05:15:04.2666
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KpZ0n5GuGB14XlFKZm7ki8iF+yq0hWJ11aWmis8jTa9w/5V7thvwKM8+cjYJ5uNBnMWGpSeR+AF8lY5bo2hoM7pXUcjbdAvt5+8/JKxUnzJpEIIcdQr/K1H8tS/ufPgy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1283
+Content-Transfer-Encoding: 8bit
 
-SGksIEplcm9tZQ0KDQo+IE9uIDIwMjYtMTAtMTIgMjA6MDMgKzAxMDAsIENvbm9yIERvb2xleSB3
-cm90ZToNCj4gPiBPbiBNb24sIE9jdCAxMiwgMjAyNiBhdCAxMjoyMTo0N1BNICswMjAwLCBKZXJv
-bWUgQnJ1bmV0IHdyb3RlOg0KPiA+ID4gPiBUaGUgSkhCMTAwIFNvQyBpbmNsdWRlcyBDUkcgKENs
-b2NrIGFuZCBSZXNldCBHZW5lcmF0b3IpIGZvcg0KPiA+ID4gPiBtdWx0aXBsZQ0KPiA+ID4gPiBz
-dWJzeXN0ZW1zOg0KPiA+ID4NCj4gPiA+IE5vdGhpbmcgcmVhbGx5IGZvcmNlcyB5b3UgdG8gc2Vu
-ZCB0aGVtIGFsbCB0b2dldGhlci4NCj4gPiA+DQo+ID4gPiBJbiB0aGUgZnV0dXJlLCBjb3VsZCB5
-b3UgdHJ5IHRvIHNlbmQgb25lIENSRyBkcml2ZXIgYXQgYSB0aW1lID8NCj4gPiA+DQo+ID4gPiBJ
-dCBpcyBmaW5lIHRvIHNlbmQgYmlnIFJGQyB0byBnaXZlIGNvbnRleHQgYnV0IGFmdGVyIHRoYXQs
-IGlmIHlvdQ0KPiA+ID4gY2FuIG1ha2UgeW91IHNlcmllcyBzbWFsbGVyLCBpdCBpcyBnZW5lcmFs
-bHkgYSBnb29kIGlkZWEgdG8gZG8gc28uDQo+ID4gPg0KPiA+ID4gVGhpcyBoZWxwcyB1cyBpdGVy
-YXRlIG9uIHRoZSBzZXJpZXMgZmFzdGVyIGFuZCB0aGVuIHlvdSBjYW4gZm9sZCBvdXINCj4gPiA+
-IGZlZWRiYWNrIGluIGZvbGxvd2luZyBzZXJpZXMgKGluc3RlYWQgb2YgcmVwZWF0aW5nIHRoZSBz
-YW1lIGNvbW1lbnRzDQo+ID4gPiBvbiBtdWx0aXBsZSBpbnN0YW5jZXMgb2YgdGhlIHNhbWUgdGhp
-bmcpIFRoYW5rcy4NCj4gPiA+DQo+ID4NCj4gPiA+IEFsc28geW91ciBzZXJpZXMgZG9lcyBub3Qg
-YXBwbHkgb24gY2xrLW5leHQgb3IgLXJjMSBhbmQgbm8NCj4gPiA+IHByZS1yZXF1aXNpdGUgYXJl
-IG1lbnRpb25lZCBpbiB0aGlzIGNvdmVyIGxldHRlci4gQ29uc2lkZXIgdXNpbmcgYjQNCj4gPiA+
-IHRvIHBvaW50IG91dCB5b3VyIHByZS1yZXF1aXNpdGUgaWYgYW55DQo+ID4NCj4gPiBUaGUgZGVw
-IHNob3VsZCBiZSB0aGUgUFIgSSBzZW50IHRvIEJyaWFuLCBidXQgSSBzdXNwZWN0IHdoYXQncw0K
-PiA+IGhhcHBlbmVkIGhlcmUgaXMgdGhhdCB0aGUgTUFJTlRBSU5FUlMgcGFydHMgb2YgdGhvc2Ug
-cGF0Y2hlcyAod2hpY2ggSQ0KPiA+IGhhZCBkcm9wcGVkIGJlY2F1c2UgdGhleSB3ZXJlIGFsbCBj
-b25mbGljdGluZyB3aXRoIG15IHRyZWUpIGRpZG4ndCBnZXQNCj4gPiByZWFic29yYmVkIGludG8g
-dGhpcyBzZXJpZXMuIFZlcnkgYW5ub3lpbmcgZm9yIHJldmlldyBvZiBjb3Vyc2UsIGV2ZW4NCj4g
-PiBpZiBpdCdzIGEgbm9uLWZ1bmN0aW9uYWwgY29uZmxpY3QuIE9mIGNvdXJzZSByZWJhc2Ugb24g
-dG9wIG9mIGNsay1uZXh0DQo+ID4gd291bGQndmUgaGlnaGxpZ2h0ZWQgdGhhdCB0byB0aGUgc3Vi
-bWl0dGVyIQ0KPiANCj4gWWVzIGl0IHdhcyBvbmx5IHRoZSBNQUlOVEFJTkVSUyBmaWxlIHdoaWNo
-IEkgZGlkIHJlYmFzZSB0byBjaGVjayBpZiB0aGUgcmVzdA0KPiBhcHBsaWVkIGNvcnJlY3RseS4N
-Cg0KSW4gc3Vic2VxdWVudCB2ZXJzaW9ucywgSSB3aWxsIHBheSBhdHRlbnRpb24gdG8gY29uZmxp
-Y3RzIHdpdGggdGhpcyBmaWxlLg0KDQpCZXN0IFJlZ2FyZHMsDQpDaGFuZ2h1YW5nDQoNCg==
+uinput_request_find() reads udev->requests[id] without holding
+requests_lock, and the UI_BEGIN_FF_* / UI_END_FF_* ioctl handlers then
+keep using the pointer it returned: the BEGIN handlers copy data out of
+the request (including *req->u.upload.effect, which points into the
+evdev caller's stack), the END handlers set req->retval and call
+complete(&req->done).
+
+The problem is that the request is a local variable of the task
+sleeping in uinput_request_submit(). Once that task wakes up it clears
+the slot and returns, and the request is gone. It can wake up at any
+time as far as the ioctl handler is concerned: another UI_END_FF_* may
+have completed it already, uinput_flush_requests() may have completed
+it because the device is being destroyed, or the 30 second timeout may
+have expired. If that happens after the lookup, the handler ends up
+reading from and writing to a stack frame that no longer exists, and
+complete() then tries to take a spinlock that contains whatever the
+stack was reused for.
+
+An easy-to-hit case: two processes sharing a uinput fd and both issuing
+UI_END_FF_UPLOAD for the same request id crash a KASAN kernel within
+seconds.
+
+  Oops: general protection fault, probably for non-canonical address
+    0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:complete+0x95/0x260
+  Call Trace:
+   uinput_ioctl_handler.isra.0+0x4b7/0x1a40
+   __x64_sys_ioctl+0x184/0x1d0
+
+Fix by holding requests_lock from the lookup until we are done with
+the request, similar to what uinput_flush_requests() already does.
+uinput_request_release_slot() takes that lock too, so the submitter
+can not release the slot (and return) while a handler is still using
+the request. Once the slot is released, a lookup can no longer return
+the expired request.
+
+To keep copy_to_user()/copy_from_user() out of the locked region, the
+part of each handler that touches the request is moved into a small
+helper that runs under the lock.
+
+Fixes: 6b4877c7bdc6 ("Input: uinput - avoid crash when sending FF request to device going away")
+Fixes: 8e009118a45a ("Input: uinput - allow FF requests to time out")
+Cc: stable@vger.kernel.org
+Cc: Francis Perron <francis@akrites.dev>
+Reported-by: Hillf Danton <hdanton@sina.com>
+Closes: https://lore.kernel.org/all/20240521113619.2092-1-hdanton@sina.com/
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Assisted-by: LLM
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+---
+ drivers/input/misc/uinput.c | 110 ++++++++++++++++++++++++------------
+ 1 file changed, 73 insertions(+), 37 deletions(-)
+
+diff --git a/drivers/input/misc/uinput.c b/drivers/input/misc/uinput.c
+index d32fa4b508fc..1a294f4e941b 100644
+--- a/drivers/input/misc/uinput.c
++++ b/drivers/input/misc/uinput.c
+@@ -119,16 +119,80 @@ static bool uinput_request_alloc_id(struct uinput_device *udev,
+ 	return reserved;
+ }
+ 
++/*
++ * Find an input request, by ID. Returns NULL if the ID isn't valid.
++ * Requests live on their submitter's stack, so the caller must hold
++ * requests_lock while using the result.
++ */
+ static struct uinput_request *uinput_request_find(struct uinput_device *udev,
+ 						  unsigned int id)
+ {
+-	/* Find an input request, by ID. Returns NULL if the ID isn't valid. */
++	lockdep_assert_held(&udev->requests_lock);
++
+ 	if (id >= UINPUT_NUM_REQUESTS)
+ 		return NULL;
+ 
+ 	return udev->requests[id];
+ }
+ 
++static int uinput_ff_upload_begin(struct uinput_device *udev,
++				  struct uinput_ff_upload *ff_up)
++{
++	struct uinput_request *req;
++
++	guard(spinlock)(&udev->requests_lock);
++
++	req = uinput_request_find(udev, ff_up->request_id);
++	if (!req || req->code != UI_FF_UPLOAD || !req->u.upload.effect)
++		return -EINVAL;
++
++	ff_up->retval = 0;
++	ff_up->effect = *req->u.upload.effect;
++	if (req->u.upload.old)
++		ff_up->old = *req->u.upload.old;
++	else
++		memset(&ff_up->old, 0, sizeof(ff_up->old));
++
++	return 0;
++}
++
++static int uinput_ff_erase_begin(struct uinput_device *udev,
++				 struct uinput_ff_erase *ff_erase)
++{
++	struct uinput_request *req;
++
++	guard(spinlock)(&udev->requests_lock);
++
++	req = uinput_request_find(udev, ff_erase->request_id);
++	if (!req || req->code != UI_FF_ERASE)
++		return -EINVAL;
++
++	ff_erase->retval = 0;
++	ff_erase->effect_id = req->u.effect_id;
++
++	return 0;
++}
++
++static int uinput_ff_request_end(struct uinput_device *udev,
++				 unsigned int id, unsigned int code, int retval)
++{
++	struct uinput_request *req;
++
++	guard(spinlock)(&udev->requests_lock);
++
++	req = uinput_request_find(udev, id);
++	if (!req || req->code != code)
++		return -EINVAL;
++
++	if (code == UI_FF_UPLOAD && !req->u.upload.effect)
++		return -EINVAL;
++
++	req->retval = retval;
++	complete(&req->done);
++
++	return 0;
++}
++
+ static int uinput_request_reserve_slot(struct uinput_device *udev,
+ 				       struct uinput_request *request)
+ {
+@@ -913,7 +977,6 @@ static long uinput_ioctl_handler(struct file *file, unsigned int cmd,
+ 	struct uinput_device	*udev = file->private_data;
+ 	struct uinput_ff_upload ff_up;
+ 	struct uinput_ff_erase  ff_erase;
+-	struct uinput_request   *req;
+ 	char			*phys;
+ 	const char		*name;
+ 	unsigned int		size;
+@@ -1011,19 +1074,9 @@ static long uinput_ioctl_handler(struct file *file, unsigned int cmd,
+ 		if (retval)
+ 			goto out;
+ 
+-		req = uinput_request_find(udev, ff_up.request_id);
+-		if (!req || req->code != UI_FF_UPLOAD ||
+-		    !req->u.upload.effect) {
+-			retval = -EINVAL;
++		retval = uinput_ff_upload_begin(udev, &ff_up);
++		if (retval)
+ 			goto out;
+-		}
+-
+-		ff_up.retval = 0;
+-		ff_up.effect = *req->u.upload.effect;
+-		if (req->u.upload.old)
+-			ff_up.old = *req->u.upload.old;
+-		else
+-			memset(&ff_up.old, 0, sizeof(struct ff_effect));
+ 
+ 		retval = uinput_ff_upload_to_user(p, &ff_up);
+ 		goto out;
+@@ -1034,14 +1087,10 @@ static long uinput_ioctl_handler(struct file *file, unsigned int cmd,
+ 			goto out;
+ 		}
+ 
+-		req = uinput_request_find(udev, ff_erase.request_id);
+-		if (!req || req->code != UI_FF_ERASE) {
+-			retval = -EINVAL;
++		retval = uinput_ff_erase_begin(udev, &ff_erase);
++		if (retval)
+ 			goto out;
+-		}
+ 
+-		ff_erase.retval = 0;
+-		ff_erase.effect_id = req->u.effect_id;
+ 		if (copy_to_user(p, &ff_erase, sizeof(ff_erase))) {
+ 			retval = -EFAULT;
+ 			goto out;
+@@ -1054,15 +1103,8 @@ static long uinput_ioctl_handler(struct file *file, unsigned int cmd,
+ 		if (retval)
+ 			goto out;
+ 
+-		req = uinput_request_find(udev, ff_up.request_id);
+-		if (!req || req->code != UI_FF_UPLOAD ||
+-		    !req->u.upload.effect) {
+-			retval = -EINVAL;
+-			goto out;
+-		}
+-
+-		req->retval = ff_up.retval;
+-		complete(&req->done);
++		retval = uinput_ff_request_end(udev, ff_up.request_id,
++					       UI_FF_UPLOAD, ff_up.retval);
+ 		goto out;
+ 
+ 	case UI_END_FF_ERASE:
+@@ -1071,14 +1113,8 @@ static long uinput_ioctl_handler(struct file *file, unsigned int cmd,
+ 			goto out;
+ 		}
+ 
+-		req = uinput_request_find(udev, ff_erase.request_id);
+-		if (!req || req->code != UI_FF_ERASE) {
+-			retval = -EINVAL;
+-			goto out;
+-		}
+-
+-		req->retval = ff_erase.retval;
+-		complete(&req->done);
++		retval = uinput_ff_request_end(udev, ff_erase.request_id,
++					       UI_FF_ERASE, ff_erase.retval);
+ 		goto out;
+ 	}
+ 
+-- 
+2.55.0
+
