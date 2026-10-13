@@ -1,44 +1,44 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97FD4AF9C5;
-	Tue, 13 Oct 2026 06:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362E14AF9D1;
+	Tue, 13 Oct 2026 06:21:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872476; cv=pass; b=eZF3+v8oI5l0etRtFI7WL7ByboIx3xsiRqTEcWfoZT6aeC9i13s1RD7inzEUXEIQRknUvYqW1ikTgwK7OywNk0jnqO97zLgCFx34/DVDz57tbX66OjgEPtutesX7SHchzWnL67DT7M+pdaELdQXaLxJpGMlvB4qXZIDDXfS1qUc=
+	t=1791872477; cv=pass; b=YLPVZ/OD71Wsnp/3WqrC8x+gP9HFtTAtSA6XyKftJKh7PI6whr/LBZXrEJFxE/weDt8SiHyuV890iYlXDOzmmvxOpIv5TTXHSNDKZvfriBAzFQHpx7IqRsyW3aAD+z6qLfCMrM5M0ui3kW43xIkRro14ZLyg7NnBrfPAD3pDGyo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872476; c=relaxed/simple;
-	bh=nZBa6AonUag7BVGD69Cp5RFNERuQJ1C1Cp8onbxhXgg=;
+	s=arc-20240116; t=1791872477; c=relaxed/simple;
+	bh=P5vuRBOhbsEcKT08GtUQmWhheq+TMxl8t6Locrjd+DA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=utlt6+23UeuYJ/2NYNBGd1SJ05e9V3hZuHj12NaXkho9krPLyaFGa6X13XfPkW2viR7fCW6BjlgUWBrpLVNklTlQNSth/Xw0laKA5RO4b9sg20DS+8pSkx+vfXWvj0lZi6uaGk2YGe7tPSKiprFRlfM37Q6HaaYVPAkvI2gTcC8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=B9/UeEsm; arc=pass smtp.client-ip=185.203.200.13
+	 In-Reply-To:To:Cc; b=B6o9I8NPNxqitAUXLVX90Q+2rxN9su9oYRdK1usQiK5bK2xuJkb85aLBsQbtw3doVMfBGKgH41QfXazbCs/JbykbJ9zOee1NyK1Wl3gYlgILeN84E5Pz8OwU0rNJzJmjiuJ2jYRBePBgXWPf9OVnxDfeDuoJrtZXoGHdFcOiyAI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=ECvHbm2z; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="B9/UeEsm"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="ECvHbm2z"
 Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
 	(Authenticated sender: str@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BDAA62021ED;
-	Tue, 13 Oct 2026 08:21:12 +0200 (CEST)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5A372201EEF;
+	Tue, 13 Oct 2026 08:21:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1791872473;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+wlCTTzhEmqwNRCCk2BDRDkJcEczD//wMLoJIXIrJ0M=;
-	b=B9/UeEsmMuN5ZWalyMX4IDLKP7k6gp3ntBuhudM1CXpp2sDRi+5FOrZD/nsu0D1B4WmPJh
-	uzOaHFIX1Gt4Qh/jJNFIjXbqPTDSlsW+vLfAlxnSJn/iyXegI1QOMxe7IUfMRYE43JAftY
-	KJu8XsDhsz0Lq+rnbqWDR/XsBBnYb2eP8vSUTl/gobR4y6Y5DChAHI6QJ7McPk37uaKXt/
-	Pz0Y/Cl1fpGQwqVcZIQFXhNbpj9/ziqNuNIhgMPPRccJVJMK1UZ0O32i42eRYfAtDdDvrN
-	541t+UzqwthunHgbZknKUqCPNd+eFruGH5cX+i4xsPAWvcFvoA5L3PBMeOVzOQ==
+	bh=0YeFbqI9jChUEohbrQpD0CokfPutK/1MCz5spsJNN6w=;
+	b=ECvHbm2zB9mtTCyuScgBbKXlRNyzZF106jVE3X57a4f85VrAzvY0KPMEQNl/Cx8Ph1Qus2
+	hIKi+X70oKiKIkJhDzAQHaqU7OlFKuvQgTyncvZrXfY9ZO2rU6+1HIVy2UKYFJ2de2ILVQ
+	VC9EPCWVUJT7sbnMbS6YHu6DOMQHGVexjEovudaLLRU38moLuHvIJDJ5WT6w7oybS0phrH
+	1crlzIuzcNYGLMz1aFd1Trv4UVC29Jk1Gv0FIOPQ8MXMeAq+FS3+Laa7RydpwMZM8p/3iR
+	2F3EgrkJCn0jwFxZtFzbZ2nFOswduwr2TZ1N1u6fYVIr3Z2cZ50eyD9eaPuxsQ==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791872473; a=rsa-sha256;
 	cv=none;
-	b=L4iVYsLwas9ejisd/KbU3Z00bTIDdev5ZmaKzKOkZgw2P9jqC+b0pfUFO/10l1NADVaErH
-	oYHy+mqsF7MbDSqr6Fzjadj4u9A5pSP8hv4yehYOfL9Pru7giqfUgPVpnt2G/IBIS5/yFV
-	Db4WLeL8Z/ePJqbVpQ/qCIkShojI4QLRWjl/h9pGyWO1AWpXV9NFzya09iuTQmn9ZfPd1P
-	85B1hy2cl+8Ln5jit9xY6wUhKjwjQkXSjoRJVMBoA5FQOLPGTr8ZEvb3PINAhnXK05oC7S
-	KAlQCSG2FGRH3blhumZiu38mWuwjGk5n3UkhUUtDHIhQHLg512/CtWM0Hda0zw==
+	b=Uj1OnPz9PEOJgDBPHfMSY5+90Uc0MbWytFdIEf9S7sIDmBOfkV+GG2wkPDaH9vY7AQgBkp
+	MYYGV72AP0DNiO6AOt7bmCQ1+7DdrKtcKZEH6Asg06lo3u7rE5qRLJ9MWZWY+25m5uvGiq
+	18cBvEM+5lLpUmYBfGsoWlhT+63JIFnzn0kRgKN4lcyubkOliZ/6v2CKS9ufCAf0fQ1nYF
+	kJ8y0qqvxq3Ur36pc7SzgWPHy6BjxCLkcBHblTy7z6RJRrePEVQdjldPcPNFDTaBAjAF/q
+	MZ2s+2GASnQ96m9ug/Q/6d2GCS+gDuJ93+OOO9CWVCOKf2vXKePRDl07u/37BQ==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
@@ -48,16 +48,16 @@ ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+wlCTTzhEmqwNRCCk2BDRDkJcEczD//wMLoJIXIrJ0M=;
-	b=fEuYkWlaWKe+uQv6nVvfJLaargTTkVJyEE0zcShoJYD/B83iGeQfzP4cbH98r/REa9RKpM
-	MfWRMNY5D4LVqUry2bJuTC7CbeKphxI//WFKd+8uxAwxJEHokaLcz4bDPirvRKNq/9RJCA
-	xoFupj2yZ1s7HCM+4bgOs1lHxwdf2xIMYzG6dJZ01RfgIOUTvKXM3vN/5GSfeXJiNrb7V8
-	QCNCxPlYgMKt31ni5YqGX/I+WMDxfwc2n/vGtSLEbpcONpWEkENWilWcpegu/rwGpK8zB7
-	fQJrE1yxGPoNi/ZWNnA7JpKfkEzYHLQ6KQ6/WuBX/3HE2ADC/feOKyqhSREF5Q==
+	bh=0YeFbqI9jChUEohbrQpD0CokfPutK/1MCz5spsJNN6w=;
+	b=MkqFpx1mv64U+ynGYn+ix1gRBaeMJ4qTYXhOGevK+kYTydTe5xGFfVL0NOZmvXuUxxkDKj
+	Jix3r7I8fwHfv8v1lt0y76E0oihVoHb5/U0zFbkgE+Xh5HluyThVWcdiZF89alQL09SYjB
+	58uaob9yYwdnliOFL+R2hWIMQJAIa+tL5rpWp/cFdQJ13m82Z1omGTYjVM2racunQvzCNF
+	WXyRxIHvPJc2lpva1poHrIrvb458DEjvWybsUOWGi6erKJRm26z/2oQcT0KL5FBuDRoiqZ
+	eG+vm5LfIPJ3lWVcyrtaKXbO98++oZ+pzcSP9S8gmWCtcvleg+ojEbTjkhDUnQ==
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Tue, 13 Oct 2026 08:21:09 +0200
-Subject: [PATCH v11 2/4] dt-bindings: arm: fsl: add compatibles for Skov
- i.MX8MP boards
+Date: Tue, 13 Oct 2026 08:21:11 +0200
+Subject: [PATCH v11 4/4] arm64: dts: imx8mp-skov: support new 7inch panel
+ board
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,7 +66,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v11-2-b97ad841598b@pengutronix.de>
+Message-Id: <20261013-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v11-4-b97ad841598b@pengutronix.de>
 References: <20261013-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v11-0-b97ad841598b@pengutronix.de>
 In-Reply-To: <20261013-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v11-0-b97ad841598b@pengutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -79,42 +79,87 @@ Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
  linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1629;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2667;
  i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=nZBa6AonUag7BVGD69Cp5RFNERuQJ1C1Cp8onbxhXgg=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9bZs9dt7J/v3iD05XrMFv+rOQd9FrlK7FZavkR+8qVFC
- e83WL393VHKwiDGxSArpsiisrCCT9Tjg2fkNBEumDmsTCBDGLg4BWAia78w/PetvGMYU+Q9j9/J
- 5VadOOeko+ucnqatv3/0VPSyJ++rjpozMvRJs7+qzH0+2S+65weTrSSraWDIdIETVaukEp9u0wg
- vZwAA
+ bh=P5vuRBOhbsEcKT08GtUQmWhheq+TMxl8t6Locrjd+DA=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9bZs9ef1919Knn4mHvyuSCr+XphGxvdN/Hrf+xetHr2W
+ vZ3Yv5eHaUsDGJcDLJiiiwqCyv4RD0+eEZOE+GCmcPKBDKEgYtTACbC4MnIcOAt6yfxuIRrgbcZ
+ /remRkwMPvjMbsOih7Kl1pNtK9P7tjIyHPr+Wi/412WBznSDuq+eM3t1sx48jRZTOnZ3reovgz/
+ cDAA=
 X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
  fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-Add a compatible for all revC-based Skov boards with a touch panel.
-
-Also, in preparation for adding a new device tree variant with a
-different 7" panel than the already mainline ones, also describe that DT
-compatible in the binding.
+This board is similar to the already upstream
+imx8mp-skov-revc-jutouch-jt101tm023 but uses a different 7" panel.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- Documentation/devicetree/bindings/arm/fsl.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/freescale/Makefile             |  3 ++
+ .../imx8mp-skov-revc-jutouch-jt070tm041.dtso       | 38 ++++++++++++++++++++++
+ 2 files changed, 41 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-index cb99fb74805bc..3ff8cd69b0830 100644
---- a/Documentation/devicetree/bindings/arm/fsl.yaml
-+++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-@@ -1153,8 +1153,10 @@ properties:
-               - skov,imx8mp-skov-revb-mi1010ait-1cp1 # SKOV i.MX8MP climate control with 10.1" panel
-               - skov,imx8mp-skov-revc-hdmi # SKOV i.MX8MP climate control without panel
-               - skov,imx8mp-skov-revc-bd500 # SKOV i.MX8MP climate control with LED frontplate
-+              - skov,imx8mp-skov-revc-jutouch-jt070tm041 # SKOV i.MX8MP climate control with 7" JuTouch panel
-               - skov,imx8mp-skov-revc-jutouch-jt101tm023 # SKOV i.MX8MP climate control with 10" JuTouch panel
-               - skov,imx8mp-skov-revc-tian-g07017 # SKOV i.MX8MP climate control with 7" panel
-+              - skov,imx8mp-skov-revc-touch # SKOV i.MX8MP climate control revision C with touch panel
-               - ultratronik,imx8mp-ultra-mach-sbc # Ultratronik SBC i.MX8MP based board
-               - ysoft,imx8mp-iota2-lumpy  # Y Soft i.MX8MP IOTA2 Lumpy Board
-           - const: fsl,imx8mp
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index 7c1b61249778e..d06f50bfc2043 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -708,10 +708,13 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
+ 
++imx8mp-skov-revc-jutouch-jt070tm041-dtbs += imx8mp-skov-revc-touch.dtb \
++	imx8mp-skov-revc-jutouch-jt070tm041.dtbo
+ imx8mp-skov-revc-jutouch-jt101tm023-dtbs += imx8mp-skov-revc-touch.dtb \
+ 	imx8mp-skov-revc-jutouch-jt101tm023.dtbo
+ imx8mp-skov-revc-tian-g07017-dtbs += imx8mp-skov-revc-touch.dtb \
+ 	imx8mp-skov-revc-tian-g07017.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt070tm041.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso
+new file mode 100644
+index 0000000000000..7b3535f47f3ed
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso
+@@ -0,0 +1,38 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	model = "SKOV IMX8MP CPU revC - JuTouch JT070TM041";
++	compatible = "skov,imx8mp-skov-revc-jutouch-jt070tm041", "fsl,imx8mp";
++};
++
++&{/panel} {
++	compatible = "jutouch,jt070tm041";
++};
++
++&i2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	touchscreen@2a {
++		compatible = "eeti,exc81w32", "eeti,exc80h84";
++		reg = <0x2a>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_touchscreen>;
++		interrupts-extended = <&gpio4 28 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&gpio4 29 GPIO_ACTIVE_LOW>;
++		touchscreen-size-x = <1024>;
++		touchscreen-size-y = <600>;
++		vdd-supply = <&reg_vdd_3v3>;
++	};
++};
++
++&lvds_bridge {
++	/* IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_DISP2_PIX * 7 */
++	assigned-clock-rates = <0>, <358400000>;
++};
 
 -- 
 2.51.0
