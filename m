@@ -1,88 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EEA4D9540
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85ECA4D7D50
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887443; cv=none; b=AKnMfVe7yRokcgRPRVWoNougxm5TQEb21R2qkprE+pt5I5URBuRKzKD9BQGrFV+HUdOw9YHh++Hu0dL0UDo8rjWRrIWtr+/DvmbLRlvsFQQN8UfubS+E2FX9uLcfwn/6fptiXXXBB/dGiHgkhSxIy6YE4HlbjjT7deQ13V0Ru4g=
+	t=1791887443; cv=none; b=clgn3htwBQgT9QO3ZMnD7cusYAc4G5B0r9+YvfQCSr++6g1DMFqXrve4h56trF6QVyNrBGTzhPE6i7ICGoAf1SFSZzqEnurdDsr7meMvmEK0BMev3UiCyr6eZGatky8a0UyogaGgjimgcdi4yhfKr5X2a4mL5Dw8WwY+CEWDnyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791887443; c=relaxed/simple;
-	bh=9e6MEiIklGJfyndXhTPPr9nVDCPp6b5rGMxzkp0B7YM=;
+	bh=rlLDrbVxx7OktVNZZzwby0arcGlHr/lUer4SD6jeyv4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RQwzp16yLOeakKB5rL1UhSiyYTe8V+gcbNXE7BnruxzTHKklHLYgL3NJDpPmCWIRk6XY5FK8I/6EXxz1N0PrNExIz9asbJSTPITgitwcUHaiLKuERrztzYMxAg95kl3XZu/8kC2zni0sO8BLCUjvxELOUtDA8M2Epar7UL9f/PY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F9DDXyBx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WNjK4RS6; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=TQoQVv+vrdPiNcmUPPhdSkcNtSEAnyxVJlf+dSLmou5am0iuOoU6IHZthP+MmG9kUeXPssPqIh+K5WjPXx/fLGA5v/HsCdzCv8V+R34OF6oLep6Ig00YM+mzHu24E6NE6Y3KuJ1tyUxVr4hFOxmA37Qx4e3SmHVq5QNKD1dS5UM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YklR1vkh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DZmzIPUt; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F9DDXyBx";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WNjK4RS6"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8jiaZ989363
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YklR1vkh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DZmzIPUt"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8jqUt302932
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vRfB3REly7l4Yt4+ScKAJ76g8z3HDR/+4IYPDuXkwL0=; b=F9DDXyBxTg4Q8Gsk
-	f3hDD37cLqRM6RQHwVbJGGj/xPephT0QSlHtWSW87k0hRkr0djLTnqW823uAzb8E
-	W+H7geety4BGl4qwat2G8Y/48YOxrgyyL4BwYHE78vfG28Pwu+t7ldZD3nXkrHad
-	hmQaLt691wlCve/SUNVCEBKF3suRc8e2nq5KI71YC+vvhORrXvkoUdcE87L/a/tZ
-	Btq4vyhw/X01Jrm7e6wDlC5QAL405C8CPCS3OjskN9IqmIMKbw/3kLP9ya9UPnzs
-	2Fp0xMqr6Rvj20RY1sMBd102S1JlYDwzQjP65+01DPiUY6cvEj6qisiiXB1ISQpv
-	B8rtvA==
+	S8NX9xiw5xX66h6BpN1qrXdTi4yOZiML317moCyPLXw=; b=YklR1vkh5yMY0LQH
+	uw+mjIh8zg2VxD++c+5qNk/JTaQm7KTq5JfYLMxhSmJMLmvX54ZoBgFfgKLipwkL
+	9bdWOaJ0k9pYFjm+b5QxbmmJnioX4I4KGr4WwWnd447sYwXttvUnJ+RElFQcH5/P
+	JY1iTg9PCEly9ywPhfCHygS3uhOmF+1+ums829fWnJ+jaLxYBzwPDV3DVtD0m3wD
+	4tdI/j/QmNUKO6v9rA+xW9807RZEI9WRgVxJU+LkeKAYUKLDCmMSoyfHr2/bDiP6
+	1SJlB968t0DTqV7oVjlrA1Q/RECSGShZW9gCKURIbx9gOoyI8L3XquSEOIDFWa3O
+	CZ9u2g==
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98hcaegp-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98sqacxx-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
 	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:40 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ca9b53afaso780106385a.0
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93be1861d2dso427624585a.3
         for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:30:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791887439; x=1792492239; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791887440; x=1792492240; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vRfB3REly7l4Yt4+ScKAJ76g8z3HDR/+4IYPDuXkwL0=;
-        b=WNjK4RS6OKQA79sa1aw9oAQd0UyOLeFnm4ZhJVkMLTm+W65+TSVzLfOjpGAx4348iB
-         1pHeRSadG5ISSd6z0b+0X4xhjZNGanrYlqNtTxxTBkhoncFbVE3lB4CO2uh/VGnlExyV
-         DDsuRi2fPbnmECjE42AAiGekDSgWGvo4nRpYzmEqWOF2thCMU8U1FAuR6uEer/XzJv67
-         JcPm+daVD7GNYl6zWj6/0lms6PJGGYA29xrAoXKB8c6IxW4/kIWs244Esa7nj90ggoQ2
-         HBJ65LGE7NUzHEEnN2RjjNnrMqCgNsqKuRjAtnNFVwzLa5ev5pG3S2YXS+7TrLHX+e2e
-         kcoA==
+        bh=S8NX9xiw5xX66h6BpN1qrXdTi4yOZiML317moCyPLXw=;
+        b=DZmzIPUtgxMSJclrjLNhr2RUUKCBc3dhVFQYiHokFQ1q3q/zlCMKJ1voGNCRmLSPIP
+         ipe/br8guo8647ge3oFMSla0fy+EWVUdXAMzoB82aA0nXiqhW4gjHCZq4pKba75B9xqJ
+         XACCBOhpz3QL9E+5tfUSVmGm1NmSLosyGKlUZIhanalTkYrzlPtz7HjyJhp9AdPtD7Aa
+         6BKpqiiDo9xM8QSzozfAwIFOOIJPpZaOIcMtPjWw3ucrVGQGCwimvzJG/adnoQUUK7fJ
+         jMuIJ/em6zqM7QpPY/h4BOZYyJexrKVkQ1ZqZS8P1sQAws3Z5DjNLspY0/RvLCsBc93n
+         Ms/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791887439; x=1792492239;
+        d=1e100.net; s=20260707; t=1791887440; x=1792492240;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vRfB3REly7l4Yt4+ScKAJ76g8z3HDR/+4IYPDuXkwL0=;
-        b=IWMSgqugzGbOWPBfh5v2JRXtL8xSSWFTtc7U+2CU29JxnWjC0/KiIkmQmkW3sx9Hc/
-         arnA6bzWAfrk9zCSngHa6YA/Chia4D4gt6ZIBThVu28xuQ9DpJYvezIG/sk4Noadn7by
-         JyFWZCYL7ujihYkfO1t1w5crxYkgj696SRmIn1AdyJ9qTRlquauQ8fRcfR7jxIna2jNP
-         OaAuBagcZCgi6bCVgQ9OJJWi7eLLCd4PYgfszYCt9FZkMv2+VwnjfDd+SCfqM7VfTUQz
-         yz58YI1glwiR+2PLQo2jSPPAAURd+ZeSi/XY9Ht5CpRhWMGsLlPYprO+dr467t2/iNMp
-         syZw==
-X-Forwarded-Encrypted: i=1; AKwUvBzPx/NQW4wjKYndxOg0bW2j3lixuO7IwvMsIShlhdZB7MbVhfVxY0sTYH4m9WdBlKNTbK9ZIos2wgQeWP0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyphN8bSs11aEhq1yRTQEQwZmzjYBLGtWkIJdB4jjVgKenh1EI
-	Q4P6Pw7ZkbGKpdWmJwrGmj+Pc2qwA8JeOOx1ayelLGrG1uJtuG/rV7DC25H0vhrkru7SGr/ZDO+
-	9/HBXparUDUTQL82tQJP7DD3Hde/K4e1Mb+9ZeiFqDJgTMzekYZoMyshMK/Z9qM7C90A=
-X-Gm-Gg: AYBFou0rcmc6PEcExWKB9FgJ0X36ZRLUsrCyaKeRqanw8dQNCsp4k0tUYx9NZX059oe
-	rI9D3hZeBpNkm7lX5IOTFHchDyxEfnqssz9k2HFqMW+icPpWPkOSPT29nfn9MvmumMuinaFajrG
-	HeyI++xp4Af8X2daZL6pFceAn1oLuZCWeIy+U+l2tIQUqWrPfbcc+x0OybnRF5cm5s+iq3vVN49
-	hJb5ImyjttnzrFWFmLxinS5qk/EMeyiV+CjvtlK4Xg/DW7aYP8Jf3/8NuKyPefsxcuC58tftwoX
-	mPPdN7x5YoXr5suIqeBR0wD2NmM4aDnp6y2Rf+Yj9O/H2H16qCLrVtwLoVeJaaaj3wgb4WA92Cz
-	iLn6uVVZH7khBBIaB492At7hYOOerA5abCZQz14Xy8VBA6JxeEg5kT1Pw5tNh0Tfe1HvdIE0tzK
-	QXsSkntdit8CdEDxP0/ZZ+/ftrzmjuGAC32joS1iUUTiWFBsiSVic=
-X-Received: by 2002:a05:620a:2989:b0:93b:fde4:4923 with SMTP id af79cd13be357-93ebd2a0815mr1925320985a.63.1791887436820;
-        Tue, 13 Oct 2026 03:30:36 -0700 (PDT)
-X-Received: by 2002:a05:620a:2989:b0:93b:fde4:4923 with SMTP id af79cd13be357-93ebd2a0815mr1925306985a.63.1791887435261;
-        Tue, 13 Oct 2026 03:30:35 -0700 (PDT)
+        bh=S8NX9xiw5xX66h6BpN1qrXdTi4yOZiML317moCyPLXw=;
+        b=xccOCHMdMQt1h6WmdoNcRn264mV85V6AS5/z8Sw5L1gYMVuikvjzXDQqkGE4HVNsKh
+         GRuA3z7chJTvWrQA5NEgfLaFiGFcQ5SGTiZE4sGJKnN9Y2orMzjFdVaSWSWtacJT7W8r
+         nfQ1zT1VDJ7/92OxVeNu+QJNNxmxU/iZlB+CQywRzuF+A8ODETvCzyKNUHjCa1OLSGpz
+         cZBt5fshpoGg8sk5ZAU/fSfCkX+AsGX+24F3MVgrvNTCfIYkUIb4pOeN07e4OXCajPti
+         DAz02A29iRb10KGsFenJjdI6XMten3EWOaS1MNP/I7Szsr+VaLn7FoE/TkU7WlXmTsyA
+         74aQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxfNOjb7zXcMlJxk/O+ogUP24kpaCJd0aukXa6vVNazfT5wYkYb73LO3n4/uXzgp5G5xgQm5dxR1bpYByg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJddKBCJvY6cdxYPOztvWPR3cHyJcPWZB9z9uuRtZkCj45mcRld
+	gRNoQnTDYkBvD5j6XvDMLDLDcjd+HxwTvp6pHpnfJRdjYH0Gp90s86uYe3PSOmKr9pRmcJD0OGL
+	NRvK7PDIa1P7ucW4wKUDeA4/K5MTxWnzLk85y+WTzWPDenVexu1QuFeEKSPVfR967DFs=
+X-Gm-Gg: AYBFou2Z0ySrLY1R8e6VJVo6ySSAMJnTnH3Ui0DLvhvRU/SWzJ2gV4kdCdn75kgQH37
+	L2WSRtmc4oxyJT4avQiq/3TQR6XEtHzaoinx7Hw7EiE5Wj044tpJ+kbkDJ/1Nc+64xX3UJ/4TNg
+	Swu2L5mnVXSoMmjvKK/D0C96epP886kYpM0LIgVNkrT4972R6zMsBBkdxkOlCYGxKFYNPG065yd
+	TPTCjlyzV/Kr6HjUAbOClnw/ePM4CR/og/qghQCAKYL7azeCgEvgA8poQaBbIKeUGMeaUesBl9U
+	Pr9/3lqp1MK6g+kJ+7VyXsxcyXMUSKTeYZewgIdRaH56lJqU799V33JoSx81fehjLIJfSfMJioI
+	dSTSASsDENKnTrL8u9/sglVMJRYdemw1yD7/nSfCf4ECE+AcwkDPU3ng1yI6FCyn/J+Axtt/X5a
+	xXY/ZcjzgTqzNXHujw3ECpMur3SHJonXoIYQMw5mKbOFtVrTExpfA=
+X-Received: by 2002:a05:620a:460d:b0:93c:b766:2bfc with SMTP id af79cd13be357-93ebd22539fmr2129255685a.17.1791887439304;
+        Tue, 13 Oct 2026 03:30:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:460d:b0:93c:b766:2bfc with SMTP id af79cd13be357-93ebd22539fmr2129249985a.17.1791887438710;
+        Tue, 13 Oct 2026 03:30:38 -0700 (PDT)
 Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:d108:3895:812b:662a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be964dfsm349955115e9.7.2026.10.13.03.30.33
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be964dfsm349955115e9.7.2026.10.13.03.30.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 03:30:33 -0700 (PDT)
+        Tue, 13 Oct 2026 03:30:37 -0700 (PDT)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 12:30:28 +0200
-Subject: [PATCH v2 4/6] i2c: qcom-cci: Add burst write support
+Date: Tue, 13 Oct 2026 12:30:30 +0200
+Subject: [PATCH v2 6/6] i2c: qcom-cci: Add burst read support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-cci-imp-v2-4-6873326b44a3@oss.qualcomm.com>
+Message-Id: <20261013-cci-imp-v2-6-6873326b44a3@oss.qualcomm.com>
 References: <20261013-cci-imp-v2-0-6873326b44a3@oss.qualcomm.com>
 In-Reply-To: <20261013-cci-imp-v2-0-6873326b44a3@oss.qualcomm.com>
 To: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
@@ -100,176 +100,359 @@ Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         Loic Poulain <loic.poulain@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX8lzL8DPa6Moq
- 4nbxIZv+Z7rqGLbLUU1OQGD2c+anYyH0hyGT4/ZiBViJ+3fnLXmdv3yNBb87Ud5UonADd4hRMiM
- USaiHAI8Wt08gXqjVwOocawjz1/WbR354KfQ2gxljkTjkHq9ORmiL9mtmJ01qNqQ9XdlB3PMePo
- Q1RZSVES9fd1NbBg9jB5/MnTlqZxNsVHxqoHLXzFHjajE0JQR9r98TpY7pZj0mvBGIZnDmaYn4K
- /MYw5ddz8MHCC6Wubv3tw4sgPSbL7h2gCf33GVU42ihAqS6VnlNQ3VtAHUR4Ex2RGcloVNHDx9Y
- qhfFWt5mrESEz9VBv3PcZgcgmjuaCuRXS2x6P3lTiIkeAR4dUjE5mIlTy80TmbfdBkCKJYn5Fjc
- 6vlzOx1b/4SJ9lcQZt5FkT4mWakS1wCdnc4l2khaBRgj8CuxiISOCSv39046FGX2jsNGx91Fz6/
- NFarr9tmuy6IqC2XYSg==
-X-Authority-Analysis: v=2.4 cv=VPVIDNPX c=1 sm=1 tr=0 ts=6ace0850 cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfXxY0p6IpFDldv
+ s2nLCFLUXalfFVEu8//VrZp3E3mvcgLUNnUF+Aovca1vHUp49H/tYeO2MsYb3NxzKjAG+8gJX3v
+ VfSKvEL6u4VgqqlUk3JQks58AgnySIIK1amOjVVQg0wlikuv+75Q3ijGjHAhyKPBs0rF4ILKEgh
+ pJZqWW5ERWMhhM5J5m//zSHKU6V49CHPN3k54SQSb4I9ePLwqsIpzccs3xHI35HUoDvWOZAXnJV
+ /q4km5U+1fSq5SsAZ9aufU7w3q4dhsPRTXXLMMBrSzZrWXe/snfa8yLK4WLsI0DFzhlvpRkmXJJ
+ dvsJDUt4Cu8Sin1xivYp2DO2s1d3HcIN8K7YR4c7uZLkpR6hqoczJZ2XgfN5nR8GzOKGZ4AbvMp
+ 5VjqiKIbqpalfqZd/YJ+BlT5ehP1LgK/Vt2BBJh3HNzz5NA+D0jc8tiO8mOx82CP/TEI2K8HANl
+ Qni97WK8bjIHXGNszgQ==
+X-Authority-Analysis: v=2.4 cv=JN+uIMKb c=1 sm=1 tr=0 ts=6ace0850 cx=c_pps
  a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=uN0qKeaNodZ6YgCSxmEA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: pzeZ_NU_75kQUc_GtzmZZKy4jy3vtykC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX+7E9af9imRbr
- 8PXQragx6AIno6A7SNkb/BOYLoQJ+2WqbNXxAA2GSGkK6B5h0H5u98OCpU7j1QPR/YX8UuknYMc
- eJwR7WBUxRlTzDn7Uw4nrvXqM+juwFk=
-X-Proofpoint-GUID: pzeZ_NU_75kQUc_GtzmZZKy4jy3vtykC
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=lNqXhXyNEWYzk-AvLucA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfXyO2QRpNqfllI
+ W5cBtyhOzIsCpCRRZx+fA42h7iemTL10UivCfcbTxgCE6XKDvTQ8hteZsrAR25ydu0s/GnP5PJm
+ QGLGfYiQod+pJTedT/z2Q51sg3Zgd8o=
+X-Proofpoint-ORIG-GUID: BnE1C_IgkPqSZJSwUePQOR1thkaA_StW
+X-Proofpoint-GUID: BnE1C_IgkPqSZJSwUePQOR1thkaA_StW
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015
+ spamscore=0 bulkscore=0 priorityscore=1501 adultscore=0 suspectscore=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130041
 
-A single CCI_I2C_WRITE command can only carry up to 11 bytes,
-so every i2c write was capped at that size via i2c max_write
-quirk.
+CCI_I2C_READ transfers are currently limited by max_read_len to the
+amount of data that fits in the read FIFO, as the driver only drains
+the FIFO once after receiving RD_DONE. On current hardware this limits
+reads to at most 254 bytes.
 
-CCI v1.2 introduces burst mode support, where consecutive
-write commands (marked as burst) run back-to-back as a single
-transfer.
+CCI v1.7 and later support reads larger than the FIFO depth by
+generating RD_THRESHOLD interrupts as the FIFO fills, allowing software
+to drain data while the transfer is still in progress. When the FIFO
+becomes full, the hardware can also apply backpressure by stretching
+SCL and reports this condition through RD_PAUSE_IRQ.
 
-Use this in cci_i2c_write() to allow longer writes across the
-whole queue instead of a single command's payload, and raise
-max_write_len accordingly for every CCI revision that supports
-burst mode.
+Program CCI_I2C_Mm_RD_THRESHOLD to half the FIFO depth on hardware that
+supports RD_THRESHOLD and update the read path to drain the FIFO on
+each threshold interrupt until the final RD_DONE event is received.
 
-unlock/lock commands are required to ensure the commands for
-a given transfer are executed atomically.
+Older hardware revisions do not support RD_THRESHOLD, keep their read
+size limited to the FIFO depth and continue relying solely on RD_DONE
+for completion.
+
+Also emit a warning when RD_PAUSE_IRQ is observed, as FIFO backpressure
+is unexpected under normal conditions and may indicate that software is
+not draining the FIFO quickly enough.
 
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/i2c/busses/i2c-qcom-cci.c | 44 +++++++++++++++++++++++++++++++--------
- 1 file changed, 35 insertions(+), 9 deletions(-)
+ drivers/i2c/busses/i2c-qcom-cci.c | 163 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 141 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index 3bca29f1d2699375a0348b18a5a2e646a59fd94c..27bbd1e196f9c55c1af14168b83eb6e6d51c75ed 100644
+index 9a8d201c890622d6c1f7b6b7aa2e0d7c075008ac..2ef4af603aa2b80614c6bff3a56424da6e4b0b5f 100644
 --- a/drivers/i2c/busses/i2c-qcom-cci.c
 +++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -86,14 +86,24 @@
- #define NUM_QUEUES	2
+@@ -13,6 +13,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/pm_opp.h>
++#include <linux/spinlock.h>
  
- #define CCI_I2C_SET_PARAM	1
-+#define CCI_I2C_LOCK		6
-+#define CCI_I2C_UNLOCK		7
- #define CCI_I2C_REPORT		8
- #define CCI_I2C_WRITE		9
- #define CCI_I2C_READ		10
+ #define CCI_HW_VERSION				0x0
+ #define CCI_HW_VERSION_MAJOR_MASK		GENMASK(31, 28)
+@@ -36,6 +37,7 @@
  
-+#define CCI_I2C_REPORT_IRQ_EN	BIT(8)
+ #define CCI_I2C_Mm_READ_DATA(m)			(0x118 + 0x100 * (m))
+ #define CCI_I2C_Mm_READ_BUF_LEVEL(m)		(0x11c + 0x100 * (m))
++#define CCI_I2C_Mm_RD_THRESHOLD(m)		(0x120 + 0x100 * (m))
+ #define CCI_I2C_Mm_Qn_EXEC_WORD_CNT(m, n)	(0x300 + 0x200 * (m) + 0x100 * (n))
+ #define CCI_I2C_Mm_Qn_CUR_WORD_CNT(m, n)	(0x304 + 0x200 * (m) + 0x100 * (n))
+ #define CCI_I2C_Mm_Qn_CUR_CMD(m, n)		(0x308 + 0x200 * (m) + 0x100 * (n))
+@@ -58,6 +60,7 @@
+ #define CCI_IRQ_CLEAR_0				0xc08
+ #define CCI_IRQ_STATUS_0			0xc0c
+ #define CCI_IRQ_STATUS_0_I2C_M0_RD_DONE		BIT(0)
++#define CCI_IRQ_STATUS_0_I2C_M0_RD_UNDERFLOW	BIT(1)
+ #define CCI_IRQ_STATUS_0_I2C_M0_Q0_REPORT	BIT(4)
+ #define CCI_IRQ_STATUS_0_I2C_M0_Q0_UNDERFLOW	BIT(5)
+ #define CCI_IRQ_STATUS_0_I2C_M0_Q0_OVERFLOW	BIT(6)
+@@ -65,6 +68,7 @@
+ #define CCI_IRQ_STATUS_0_I2C_M0_Q1_UNDERFLOW	BIT(9)
+ #define CCI_IRQ_STATUS_0_I2C_M0_Q1_OVERFLOW	BIT(10)
+ #define CCI_IRQ_STATUS_0_I2C_M1_RD_DONE		BIT(12)
++#define CCI_IRQ_STATUS_0_I2C_M1_RD_UNDERFLOW	BIT(13)
+ #define CCI_IRQ_STATUS_0_I2C_M1_Q0_REPORT	BIT(16)
+ #define CCI_IRQ_STATUS_0_I2C_M1_Q0_UNDERFLOW	BIT(17)
+ #define CCI_IRQ_STATUS_0_I2C_M1_Q0_OVERFLOW	BIT(18)
+@@ -81,6 +85,18 @@
+ #define CCI_IRQ_STATUS_0_I2C_M0_ERROR		0x18000ee6
+ #define CCI_IRQ_STATUS_0_I2C_M1_ERROR		0x60ee6000
+ 
++#define CCI_IRQ_MASK_1				0xc10
++#define CCI_IRQ_MASK_1_I2C_M0_RD_THRESHOLD	BIT(16)
++#define CCI_IRQ_MASK_1_I2C_M0_RD_PAUSE		BIT(17)
++#define CCI_IRQ_MASK_1_I2C_M1_RD_THRESHOLD	BIT(20)
++#define CCI_IRQ_MASK_1_I2C_M1_RD_PAUSE		BIT(21)
++#define CCI_IRQ_CLEAR_1				0xc14
++#define CCI_IRQ_STATUS_1			0xc18
++#define CCI_IRQ_STATUS_1_I2C_M0_RD_THRESHOLD	BIT(16)
++#define CCI_IRQ_STATUS_1_I2C_M0_RD_PAUSE	BIT(17)
++#define CCI_IRQ_STATUS_1_I2C_M1_RD_THRESHOLD	BIT(20)
++#define CCI_IRQ_STATUS_1_I2C_M1_RD_PAUSE	BIT(21)
 +
- #define CCI_I2C_WRITE_WC	3
-+#define CCI_I2C_WRITE_MAX_LEN	(CCI_I2C_WRITE_WC * sizeof(u32) - 1)
- #define CCI_I2C_WRITE_NWORDS(len) DIV_ROUND_UP((len) + 1, sizeof(u32))
-+#define CCI_I2C_WRITE_BURST	0xf
-+#define CCI_I2C_BURST_OVERHEAD	4 /* LOCK + SET_PARAM + UNLOCK + REPORT */
+ #define CCI_TIMEOUT	(msecs_to_jiffies(100))
+ #define NUM_MASTERS	2
+ #define NUM_QUEUES	2
+@@ -108,6 +124,9 @@
+ /* The first and last bytes are reserved - not payload */
+ #define CCI_I2C_READ_MAX_LEN(fsize) ((fsize) - 2)
  
--#define CCI_I2C_REPORT_IRQ_EN	BIT(8)
-+/* Largest write that can be bursted through a queue of @qsize words */
-+#define CCI_I2C_BURST_MAX_LEN(qsize)					\
-+	(((qsize) - CCI_I2C_BURST_OVERHEAD) / CCI_I2C_WRITE_WC *	\
-+	 CCI_I2C_WRITE_MAX_LEN)
- 
++/* Unlimited read via threshold-irq support */
++#define CCI_I2C_READ_BURST_NOLIMIT 0
++
  enum {
  	I2C_MODE_STANDARD,
-@@ -521,14 +531,15 @@ static int cci_i2c_read(struct cci *cci, u16 master,
+ 	I2C_MODE_FAST,
+@@ -169,16 +188,52 @@ struct cci {
+ 	int nclocks;
+ 	struct clk *cci_clk;
+ 	struct cci_master master[NUM_MASTERS];
++	/* Protects read-modify-write access to CCI_IRQ_MASK_1 */
++	spinlock_t threshold_lock;
+ };
+ 
++static bool cci_has_threshold_irq(const struct cci *cci)
++{
++	return cci->data->quirks.max_read_len == CCI_I2C_READ_BURST_NOLIMIT;
++}
++
++static void cci_set_rd_threshold_irq(struct cci *cci, u16 master, bool enable)
++{
++	u32 bits, val;
++
++	if (!cci_has_threshold_irq(cci))
++		return;
++
++	guard(spinlock_irqsave)(&cci->threshold_lock);
++
++	bits = master ? CCI_IRQ_MASK_1_I2C_M1_RD_THRESHOLD :
++			CCI_IRQ_MASK_1_I2C_M0_RD_THRESHOLD;
++
++	writel(bits, cci->base + CCI_IRQ_CLEAR_1);
++
++	val = readl(cci->base + CCI_IRQ_MASK_1);
++	if (enable)
++		val |= bits;
++	else
++		val &= ~bits;
++
++	writel(val, cci->base + CCI_IRQ_MASK_1);
++}
++
+ static irqreturn_t cci_isr(int irq, void *dev)
+ {
+ 	struct cci *cci = dev;
+-	u32 val, reset = 0;
++	u32 val, val1 = 0, reset = 0;
+ 	int ret = IRQ_NONE;
+ 
+ 	val = readl(cci->base + CCI_IRQ_STATUS_0);
+ 	writel(val, cci->base + CCI_IRQ_CLEAR_0);
++
++	if (cci_has_threshold_irq(cci)) {
++		val1 = readl(cci->base + CCI_IRQ_STATUS_1);
++		writel(val1, cci->base + CCI_IRQ_CLEAR_1);
++	}
++
+ 	writel(0x1, cci->base + CCI_IRQ_GLOBAL_CLEAR_CMD);
+ 
+ 	if (val & CCI_IRQ_STATUS_0_RST_DONE_ACK) {
+@@ -204,6 +259,28 @@ static irqreturn_t cci_isr(int irq, void *dev)
+ 		ret = IRQ_HANDLED;
+ 	}
+ 
++	if (val1 & CCI_IRQ_STATUS_1_I2C_M0_RD_THRESHOLD) {
++		cci_set_rd_threshold_irq(cci, 0, false);
++		complete(&cci->master[0].irq_complete);
++		ret = IRQ_HANDLED;
++	}
++
++	if (val1 & CCI_IRQ_STATUS_1_I2C_M1_RD_THRESHOLD) {
++		cci_set_rd_threshold_irq(cci, 1, false);
++		complete(&cci->master[1].irq_complete);
++		ret = IRQ_HANDLED;
++	}
++
++	if (val1 & CCI_IRQ_STATUS_1_I2C_M0_RD_PAUSE) {
++		dev_warn_ratelimited(cci->dev, "master 0 read paused (fifo full)\n");
++		ret = IRQ_HANDLED;
++	}
++
++	if (val1 & CCI_IRQ_STATUS_1_I2C_M1_RD_PAUSE) {
++		dev_warn_ratelimited(cci->dev, "master 1 read paused (fifo full)\n");
++		ret = IRQ_HANDLED;
++	}
++
+ 	if (unlikely(val & CCI_IRQ_STATUS_0_I2C_M0_Q0Q1_HALT_ACK)) {
+ 		reset |= CCI_RESET_CMD_M0_MASK;
+ 		ret = IRQ_HANDLED;
+@@ -232,6 +309,8 @@ static irqreturn_t cci_isr(int irq, void *dev)
+ 			dev_warn_ratelimited(cci->dev, "master 0 queue 1 overflow\n");
+ 		if (val & CCI_IRQ_STATUS_0_I2C_M0_Q1_UNDERFLOW)
+ 			dev_warn_ratelimited(cci->dev, "master 0 queue 1 underflow\n");
++		if (val & CCI_IRQ_STATUS_0_I2C_M0_RD_UNDERFLOW)
++			dev_warn_ratelimited(cci->dev, "master 0 FIFO read underflow\n");
+ 
+ 		writel(CCI_HALT_REQ_I2C_M0_Q0Q1, cci->base + CCI_HALT_REQ);
+ 		ret = IRQ_HANDLED;
+@@ -252,6 +331,8 @@ static irqreturn_t cci_isr(int irq, void *dev)
+ 			dev_warn_ratelimited(cci->dev, "master 1 queue 1 overflow\n");
+ 		if (val & CCI_IRQ_STATUS_0_I2C_M1_Q1_UNDERFLOW)
+ 			dev_warn_ratelimited(cci->dev, "master 1 queue 1 underflow\n");
++		if (val & CCI_IRQ_STATUS_0_I2C_M1_RD_UNDERFLOW)
++			dev_warn_ratelimited(cci->dev, "master 1 FIFO read underflow\n");
+ 
+ 		writel(CCI_HALT_REQ_I2C_M1_Q0Q1, cci->base + CCI_HALT_REQ);
+ 		ret = IRQ_HANDLED;
+@@ -389,6 +470,9 @@ static int cci_init(struct cci *cci)
+ 			CCI_IRQ_MASK_0_I2C_M1_ERROR;
+ 	int i;
+ 
++	if (cci_has_threshold_irq(cci))
++		val |= CCI_IRQ_MASK_1_I2C_M0_RD_PAUSE | CCI_IRQ_MASK_1_I2C_M1_RD_PAUSE;
++
+ 	writel(val, cci->base + CCI_IRQ_MASK_0);
+ 
+ 	for (i = 0; i < cci->num_masters; i++) {
+@@ -419,6 +503,18 @@ static int cci_init(struct cci *cci)
+ 
+ 		val = hw->scl_stretch_en << 8 | hw->trdhld << 4 | hw->tsp;
+ 		writel(val, cci->base + CCI_I2C_Mm_MISC_CTL(i));
++
++		if (cci_has_threshold_irq(cci)) {
++			/* Hardware supporting the RD_THRESHOLD interrupt provides a minimum FIFO
++			 * depth of 64 words, with the threshold reset to the full FIFO size by
++			 * default. Configure the threshold to half the FIFO depth to allow burst
++			 * reads while maintaining sufficient headroom to drain the FIFO before it
++			 * fills up.
++			 */
++			val = readl(cci->base + CCI_I2C_Mm_RD_THRESHOLD(i));
++			val = max_t(u32, val, 64);
++			writel(val / 2, cci->base + CCI_I2C_Mm_RD_THRESHOLD(i));
++		}
+ 	}
+ 
  	return 0;
- }
- 
--static void cci_i2c_load_write(u8 *buf, u16 len, void __iomem *loadq)
-+static void cci_i2c_load_write(void __iomem *loadq, u8 *buf, u16 len, bool burst)
+@@ -484,7 +580,7 @@ static int cci_validate_queue(struct cci *cci, u8 master, u8 queue)
+ static int cci_i2c_read(struct cci *cci, u16 master,
+ 			u16 addr, u8 *buf, u16 len)
  {
- 	u32 cmd[CCI_I2C_WRITE_WC] = { };
+-	u32 val, words_read, words_exp;
++	u32 val, words_read;
+ 	u8 queue = QUEUE_1;
+ 	int i, index = 0, ret;
  
--	if (WARN_ON(len >= CCI_I2C_WRITE_WC * sizeof(u32)))
-+	if (WARN_ON(len > CCI_I2C_WRITE_MAX_LEN ||
-+		    (burst && len != CCI_I2C_WRITE_MAX_LEN)))
- 		return;
+@@ -502,27 +598,48 @@ static int cci_i2c_read(struct cci *cci, u16 master,
+ 	val = CCI_I2C_READ | len << 4;
+ 	writel(val, cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(master, queue));
  
--	cmd[0] = CCI_I2C_WRITE | len << 4;
-+	cmd[0] = CCI_I2C_WRITE | (burst ? CCI_I2C_WRITE_BURST : len) << 4;
- 	memcpy((u8 *)cmd + 1, buf, len);
- 	iowrite32_rep(loadq, cmd, CCI_I2C_WRITE_NWORDS(len));
- }
-@@ -537,9 +548,12 @@ static int cci_i2c_write(struct cci *cci, u16 master,
- 			 u16 addr, u8 *buf, u16 len)
- {
- 	void __iomem *loadq = cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(master, QUEUE_0);
-+	bool burst = len > CCI_I2C_WRITE_MAX_LEN;
- 	int ret;
- 	u32 val;
+-	ret = cci_run_queue(cci, master, queue);
+-	if (ret < 0)
+-		return ret;
++	val = readl(cci->base + CCI_I2C_Mm_Qn_CUR_WORD_CNT(master, queue));
++	writel(val, cci->base + CCI_I2C_Mm_Qn_EXEC_WORD_CNT(master, queue));
  
-+	dev_dbg(cci->dev, "master %d write: len=%u\n", master, len);
+-	words_read = readl(cci->base + CCI_I2C_Mm_READ_BUF_LEVEL(master));
+-	words_exp = len / 4 + 1;
+-	if (words_read != words_exp) {
+-		dev_err(cci->dev, "words read = %d, words expected = %d\n",
+-			words_read, words_exp);
+-		return -EIO;
+-	}
++	reinit_completion(&cci->master[master].irq_complete);
+ 
+-	/* The first byte of the read is the slave ID echo, not payload */
+-	val = readl_relaxed(cci->base + CCI_I2C_Mm_READ_DATA(master));
+-	for (i = 1; i < 4 && index < len; i++)
+-		buf[index++] = (val >> (i * 8)) & 0xff;
++	cci_set_rd_threshold_irq(cci, master, true);
+ 
+-	while (--words_read) {
+-		val = readl_relaxed(cci->base + CCI_I2C_Mm_READ_DATA(master));
+-		for (i = 0; i < 4 && index < len; i++)
+-			buf[index++] = (val >> (i * 8)) & 0xff;
++	val = BIT(master * 2 + queue);
++	writel(val, cci->base + CCI_QUEUE_START);
 +
- 	/*
- 	 * Call validate queue to make sure queue is empty before starting.
- 	 * This is to avoid overflow / underflow of queue.
-@@ -548,10 +562,22 @@ static int cci_i2c_write(struct cci *cci, u16 master,
- 	if (ret < 0)
- 		return ret;
- 
-+	if (burst)
-+		writel(CCI_I2C_LOCK, loadq);
++	/*
++	 * Hardware supporting RD_THRESHOLD can handle reads larger than the FIFO size.
++	 * The FIFO is drained each time an RD_THRESHOLD interrupt is received, until
++	 * the final RD_DONE interrupt completes the transfer.
++	 * On hardware lacking RD_THRESHOLD support, reads are limited to the FIFO
++	 * size and only one completion (RD_DONE interrupt) is expected.
++	 */
++	while (index < len) {
++		if (!wait_for_completion_timeout(&cci->master[master].irq_complete,
++						  CCI_TIMEOUT)) {
++			dev_err(cci->dev, "master %d queue %d read timeout\n",
++				master, queue);
++			cci_reset(cci);
++			return -ETIMEDOUT;
++		}
 +
- 	val = CCI_I2C_SET_PARAM | (addr & 0x7f) << 4;
- 	writel(val, loadq);
- 
--	cci_i2c_load_write(buf, len, loadq);
-+	do {
-+		u16 to_write = min_t(u16, len, CCI_I2C_WRITE_MAX_LEN);
++		if (cci->master[master].status)
++			return cci->master[master].status;
 +
-+		len -= to_write;
-+		cci_i2c_load_write(loadq, buf, to_write, len > 0);
-+		buf += to_write;
-+	} while (len);
++		words_read = readl(cci->base + CCI_I2C_Mm_READ_BUF_LEVEL(master));
 +
-+	if (burst)
-+		writel(CCI_I2C_UNLOCK, loadq);
++		while (words_read--) {
++			val = readl_relaxed(cci->base + CCI_I2C_Mm_READ_DATA(master));
++			/* The first byte of the read is the slave ID echo, not payload */
++			for (i = (index == 0) ? 1 : 0; i < 4 && index < len; i++)
++				buf[index++] = (val >> (i * 8)) & 0xff;
++		}
++
++		if (index < len) {
++			reinit_completion(&cci->master[master].irq_complete);
++			cci_set_rd_threshold_irq(cci, master, true);
++		}
+ 	}
  
- 	val = CCI_I2C_REPORT | CCI_I2C_REPORT_IRQ_EN;
- 	writel(val, loadq);
-@@ -713,7 +739,7 @@ static const struct cci_data cci_hw_catalog[] = {
- 		.max_mode = I2C_MODE_FAST_PLUS,
- 		.queue_size = { 64, 16 },
- 		.quirks = {
--			.max_write_len = 11,
-+			.max_write_len = CCI_I2C_BURST_MAX_LEN(64),
- 			.max_read_len = 12,
- 		},
- 	},
-@@ -722,7 +748,7 @@ static const struct cci_data cci_hw_catalog[] = {
- 		.max_mode = I2C_MODE_FAST_PLUS,
+ 	return 0;
+@@ -755,7 +872,7 @@ static const struct cci_data cci_hw_catalog[] = {
  		.queue_size = { 128, 32 },
  		.quirks = {
--			.max_write_len = 11,
-+			.max_write_len = CCI_I2C_BURST_MAX_LEN(128),
- 			.max_read_len = 12,
+ 			.max_write_len = CCI_I2C_BURST_MAX_LEN(128),
+-			.max_read_len = CCI_I2C_READ_MAX_LEN(256),
++			.max_read_len = CCI_I2C_READ_BURST_NOLIMIT,
  		},
  	},
-@@ -731,7 +757,7 @@ static const struct cci_data cci_hw_catalog[] = {
- 		.max_mode = I2C_MODE_FAST_PLUS,
- 		.queue_size = { 128, 32 },
- 		.quirks = {
--			.max_write_len = 11,
-+			.max_write_len = CCI_I2C_BURST_MAX_LEN(128),
- 			.max_read_len = 12,
- 		},
- 	},
-@@ -740,7 +766,7 @@ static const struct cci_data cci_hw_catalog[] = {
- 		.max_mode = I2C_MODE_FAST_PLUS,
+ 	{
+@@ -764,7 +881,7 @@ static const struct cci_data cci_hw_catalog[] = {
  		.queue_size = { 1024, 32 },
  		.quirks = {
--			.max_write_len = 11,
-+			.max_write_len = CCI_I2C_BURST_MAX_LEN(1024),
- 			.max_read_len = 12,
+ 			.max_write_len = CCI_I2C_BURST_MAX_LEN(1024),
+-			.max_read_len = CCI_I2C_READ_MAX_LEN(256),
++			.max_read_len = CCI_I2C_READ_BURST_NOLIMIT,
  		},
  	},
+ };
+@@ -811,6 +928,8 @@ static int cci_probe(struct platform_device *pdev)
+ 	cci->dev = dev;
+ 	platform_set_drvdata(pdev, cci);
+ 
++	spin_lock_init(&cci->threshold_lock);
++
+ 	for_each_available_child_of_node(dev->of_node, child) {
+ 		struct cci_master *master;
+ 		u32 idx;
 
 -- 
 2.34.1
