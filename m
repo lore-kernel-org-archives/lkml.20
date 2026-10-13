@@ -1,218 +1,172 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010038.outbound.protection.outlook.com [52.101.69.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6B754B1DB;
-	Tue, 13 Oct 2026 21:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791928790; cv=fail; b=iYCrHU57rkR5BGp3quLZoIxbZeQWUpiw7at9X33g4RdrJbGNeXyLDDttp3WubLEBhCBdTAMTzgX/gnEj3q0v5PMLetknD7oj/CkgLM/0eU2mjHMFNoB5MMOnfbJuWxerElAlWLNIGd2BpRCxXmV0Rmm2CEplkCqJ2BKeRe895vk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791928790; c=relaxed/simple;
-	bh=Y02WAg9LkfZrWNA+yr+r/LEs+bB8gG44YFIg1oZt3jU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=QpfNJUYUN8rs8j4qp2nEIxgcn1jjFA8PPeBDI2ry5c6yNtNIAcmwCbWMOuyYstGGyt+ZRu/F/AToctp2g+5L3a6RWcvyhSTF7Z1bLTpTtlvg8YADcdqFHgwvj9kFNIQAPAyIuIsOAYKRrVUh+i8/T2bSx/X4MrxQ2dcLis17JI4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=tRmUfM1s; arc=fail smtp.client-ip=52.101.69.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6293C5616A0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:00:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791928836; cv=none; b=MWWZk/VSxZhZlaL9Ah5hVd5sn8GHM9cHY1HrehqFseUxdJmSnlvtXy23GCUs2SWvyGUGHeV3vA/AnOqyEk1og5Dfmh9jyBNu+sj97RksD+MFU+mL91RmpJwoxZDpQaKHhYrvNHwXJzFuFxWf2gpXht6tAJLW8FGhc48O2IoXnfc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791928836; c=relaxed/simple;
+	bh=sn2mLGJH0tgKOcGLdG04mUbQQzWBRolRQ4hI/fHGez0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AsJ+NUl117SiKSbHhwNuvABtByQiuExOQEHQxbchq7n1B1DVCOrvM6JqbnoTC0gE0g+vu45bPZ50n0SaOhl58xcn5uWWmEfF8wlOwh4tpfOP3AoRmJhW6/EjlhBeHAvDXQESb5qeWXNT2espzHJ8u2X6nCB5nIPgcarEV2XMmOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Gawf1Llf; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="tRmUfM1s"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LU/cj1MwpCoIWPXkaPefEwFRqbzDIZaqae297G0b9ou1rLtwfN+ioL4Gz94TO/XXlj1J4NEwbSSPz7mM6YqGPD2qHTLijulci9fn8QLXp1eEzjO3Ks35CROtV7gs/mpSLflnrxv3aWt27YvlgQr0KN4+w9zXmJ6M1SOb/ouvEatyijURFI1adHn8USzz+v3fon02KitosmVy5rgamwI3UrPt9RYAm2yryhMBkwOJzHSO+cK1VrCKm1VC39Pe1WWbkRCPP7Pi0ygm9ODylw9DeV5iBx/gheSJ9e4dNAZviG21qLPzo90+ADqd96gxbxoJZjA74nxBshBThYUzrK1G+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nhe/wjFUoCvty8LtSdiyp7x3mNmPZQcjb6dPJtToQNQ=;
- b=CkPsaf9vlMlC+JQc3NDJjy3EQrDqTxfGr2Ca0ui7DMZjgIhBfxUViY3jjGXKDIWEg9G5Hnv0hc448VmKGTBHoPdbmWXj14HegM/xPfL4NI2sAX9w52lQYGYi305iwVkIctjusoHfese0cAKXRG3DCFDsOkGCeCYl1LuKzsurB4qNNSDx+bffsp6g1zwihE+TvwQIwz2O0hJjTyK66GYhoKJw6WVh0yZlFWUV4qmk8FDTPARlTqYLIbJwfBiRaXxkVWo9zQjVFKyvBDvN73xPN8Gs8z6x7jh04kR9u3ZGSID4B2NwlA8uoITJmrdlDQdoJSIbqrQU0qtZ6Ks5zd6ndQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nhe/wjFUoCvty8LtSdiyp7x3mNmPZQcjb6dPJtToQNQ=;
- b=tRmUfM1scQAZE4kGRfewVK0N2fg64nFWz0GGL/bP0OoRqFqaScoPoVjk6lnjrbrNroh11sjy0JP1xZVK+T6/MwXoARrxw6j7R0WYb5Lv6nBRjM0w0eoIT1zqKm28IycgkbnvgN+dchmDRpYCTdd4544bKv6LuCrrS62RMEz6hbjKYamv/ZqSfbvW7uQOHStRiSLi+uoDdEdb9EkU4WC2mZddeYOlbXWDEE1c1l5OydUUNp6CsuOsdSIRWue3Q1CrIbHokXE6afz4BXxxO1ym7A0a6i6xr3sWPJnBLJ41+MyMl+GkISbRSvPxiErNj8R5OR5K5ZMZiCYhNmXkQY4psA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DB9PR04MB9701.eurprd04.prod.outlook.com (2603:10a6:10:300::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Tue, 13 Oct
- 2026 21:59:34 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 21:59:12 +0000
-Date: Tue, 13 Oct 2026 17:59:05 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dmaengine@vger.kernel.org, Lizhi Hou <lizhi.hou@amd.com>,
-	Brian Xu <brian.xu@amd.com>,
-	Raj Kumar Rampelli <raj.kumar.rampelli@amd.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Michal Simek <michal.simek@amd.com>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	"moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
-Subject: Re: [PATCH v2] dmaengine: xilinx: xdma: use kzalloc_flex()
-Message-ID: <as6pqTKcHpSSjY7b@lizhi-Precision-Tower-5810>
-References: <20261005192621.99880-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005192621.99880-1-rosenp@gmail.com>
-X-ClientProxiedBy: PH7P220CA0068.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32c::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Gawf1Llf"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd5d2dafeccso1336963a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:00:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791928828; x=1792533628; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UI33XHytP9UeW0jMN4hGWfxaoI7IkHXeeChdjxsUSUw=;
+        b=Gawf1LlfFwPJJ/yzr0pEXnALwLMR1MSuVuwaq04nbYEzIL4ZSl3kAr1MFg7fjoZMSM
+         NQoFEW7dlTsQ20Ypf1aoLD7cHJwX7ahaTUPBKkrfRTsk7cgcNYtZZVQ5V16ExMUh0RoF
+         A0ZdoiCmLYcLQ0bRRsULHT2zigxI0LPUI+X5aTDaDOrtNdo0Mld5S2X7CxQL15wwteMV
+         p3xZzZWBAYBjOWfhVZ02EYrfnrkiGY1oIPwEWLfC81ySh9DW9Nhd/QUmVoGSZe2uIGCQ
+         y3nCnZE8/rV8AmjTiHkC+DyBG3R4aFU8tEUAb9Z5Teo2OfWoxuP89f317vYE1vXz4SO0
+         Fz0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791928828; x=1792533628;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UI33XHytP9UeW0jMN4hGWfxaoI7IkHXeeChdjxsUSUw=;
+        b=zjDQhFwgCceiTbOztnbNGn8fXJVg2khzWL8R4MIxb1dpkfnHlJ+w0jR0cVk3XpYZiW
+         PDzajnGQLhoR4+7TxSvtEbqimX4w9dKLReC7MGCsrfu793vBFyol90TrVbjqpcfyXA01
+         gWHw/Jq1IySGcGNT5fxVzybxJjJf4YBsW43/VvP6jKmJDgEoBb9JyTm91+Q5Ry+4Jvnj
+         9of6G4ZZVZENfNBKfuKj2EWQF5EkHIuinaP71UzMk4CjDOTIUDAo7OLy6m6HVjEGLCjS
+         iU+4E+G0A3M6/SNALEdp6PqrTmxWgRhFkEPsnL9/rARr+JeMgbiG97oILVUkjTeNhb0e
+         elJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwR/8/vRGWC5GUOLXcuxWjE566UdqxY7KZSIeYseS1cYVg4W5pzVI6sSZqy6tV7Teo65ExrO44VFMZ/V3E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6+/1ivtpqvOS4B+QCu8sMT/yRpCm1yigEgZFDUe65t2K9/rxe
+	ZIsPth6fYIhXwkfSP/e9MaRSNRYlevUgO7wcZhgckEBz8UgxSpLqui74D4igzgBzNIc=
+X-Gm-Gg: AYBFou2MTS3gtVjiTqWY2+Nx/46NFjA7OjSQqJaDcdD3Wvr9o3rF8rscCxEf46S1b08
+	ycy87ahsc+IVfKG4kihtPp7rSFp8VoClYNRRO35CGi5CCxoypNhaFlkP8rVzpu+WhjokB05aMgg
+	vCOg00GOrYSOJZpVo4mEzzRDYCD/LXdxVLigoIKuZ4w3RJKtRrhAvXnKa34efZxuDM2buXRbRTs
+	IRK823wkqBuHJdcKpio68tLRwHTgvDZZWU3IGvcV2Nn3dH42Ino4I8astW7229sf3OwJyeeBBWa
+	ke3I09w0o6yiqB9C0C+Y5YpQlmUKYOIC+TFHSnP3Q1D5/MBsVFjJWsAFZQp8OpdYD0VN8YX0/tl
+	mGf0b90YLSj1IFSzqQqLqk4Pp/OiZYiJi89AoDhKSBHBrLSRk3HccPuJZs58O2TxhbLT6H8sOjf
+	VUkz0LUy44VmgEFOtnuGzMnfmYOF5LP1/O1Or/3kkYnDNW0igBUBBNbhXNxNnr5s5BgS6EVzjCh
+	w==
+X-Received: by 2002:a17:90b:3d82:b0:3a8:f70f:2437 with SMTP id 98e67ed59e1d1-3ab3ab3771fmr9650115a91.50.1791928828071;
+        Tue, 13 Oct 2026 15:00:28 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:adc4:c3cd:7c5f:3991])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac678d2229sm309218a91.3.2026.10.13.15.00.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 15:00:26 -0700 (PDT)
+Date: Tue, 13 Oct 2026 16:00:22 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+	will@kernel.org, catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
+	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v23 00/14] KVM: arm64: CCA: Add basic plumbing for Realms
+Message-ID: <as6p9q051NgTKHum@p14s>
+References: <20261007073537.2454351-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB9PR04MB9701:EE_
-X-MS-Office365-Filtering-Correlation-Id: deffa7e7-b588-4ced-4c1d-08df2975375b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|7416014|376014|366016|6133799003|18002099003|10067099003|22082099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	bnfgbVYxeW3nRqg/+3G1yjTlpnt1qrMIgVkhMeo3dzugHtPse72mzg/sDeZGUH79dbTn0za6mixSK+281bjKelsVhPeygRuOfrTOZji3/6A4jHxezfhvP5X28sq11WYaC2l+ujtb5kzzdcegexKyEFXLkdArLYvk39HY+soNNrm0swF57f3AAMYLiZdj6+z+9E/ici8qqZecJ/NIRPMgSR8yy1NJKiUmNQpYpvQjy0JqI15vBRQ3cKxEVXqq9wxRfsklHmHHUDCWwoScSZUydYH3kwOO7uOh6y3YiRNzyEVHL1pwdVr6r1oq9v0sobYesTIHR8iU+GhXZe9P2yGghw5VxREbPNeVwFnPVri/PQQ+kXml7+SC37M6/dfcnD/G4elFKADKb1geJ5knwRUrFJldYGX0VieUrOyzctEkO2+8v4gNOORkkPGwpTcLowBT3bqSMJS/Esb8mFLrSrpJfDBVKsTH4ga6tJsc2S1SqqFtw7JbFzpYpDgrYhHw56XW7eqvESHqm+2nmKGskNUhaLqOCSTNqlfwH8XsygFR7vLPo2g9J/WUi6gVjqR7jR+YjKZ7/YdkFYs5xWX0CT6gm19pVmBHmbpykXkI3ZzYdwWk3jRX9pawopHbxgb4lhkHdIltTFLK5TcmVQ3I8bYH22e5I9ibNfK7Eg/BCigHjbI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(7416014)(376014)(366016)(6133799003)(18002099003)(10067099003)(22082099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?KOIBMBRmCo4/6O4KvWNrKY30vr2xgML9acGGSvrzbOTnKpiO1eqF5hFpihiF?=
- =?us-ascii?Q?ihEJN+Mn7e5MaTcS3LLLWhMKslQbaVcdGbK2Y0qQLK5bCIuQz8yWhX7SuEYt?=
- =?us-ascii?Q?/SuFU8mSn9i0cri7nSgVkKzdqYDn33SFqcXOI6cjPO7o4rTIkgpKC66DXNA9?=
- =?us-ascii?Q?JXb7jRqSQJqrYrWRuBK5aiF9QjTM6+R5itUybp/Bx6HPnkOAZMsux429/Z+v?=
- =?us-ascii?Q?8b3jCLGfDsK4AlkQj5WLQLehoFB5N5BVld7cop84sjCbOY1VV9cvzE38EKrQ?=
- =?us-ascii?Q?eUWrrytnphGPdHqLAFrP4hmjWvtOW63S8hHMS/7blK3kVqD9OWRqcHGUc1cT?=
- =?us-ascii?Q?iPWZqPMMpT6XC1Y9dOZ72XMeaTY0fkmAU2+0Uu5SDMs1hHvSigCQvYDWSz2K?=
- =?us-ascii?Q?cSjAaS4vDYbQ7mslUcp94P4qMnllD5ttO9jSalgqvgtwFBdP0fdBIcpOy4AM?=
- =?us-ascii?Q?Zy+uu/a9+2zNemSSQ8M4TzJuo1qcBFHq1BQTgb4dlB4c7aUuq4R+RX3f7tLG?=
- =?us-ascii?Q?q2ndl6/kOlmDDBiolqjqFP2KRqzWo7It6AtTJRL1geszR3ilFyhzCrYy5V7M?=
- =?us-ascii?Q?5kpqThqPFG2CzR0C5NUU22Rsi39hfT2jamLCdRZAJfid1D+Iw4Gj3BV6Xpmk?=
- =?us-ascii?Q?wuFwMA5xtkZUPtyRfKnDJeyn0fV1a3nh7Cvj0YedHlqXyDbZ8kTGD+vR0fqC?=
- =?us-ascii?Q?/aUs4L4pBdtJBEJelLa25v1MyvK3KOYmWHCu6oWhWB/O03PaVN9uMdR1A1/w?=
- =?us-ascii?Q?IxZ5Cxo4Bx1HGusiDY1JxfjDW3c9+4X0OJS1HlFk9SLjr6tRCinZWuKXwrzB?=
- =?us-ascii?Q?WfHv9j0OEuh3BQDWWSbbeK6ZC6ErYVzxH35TdX8L3mZkD6upuDrrH03bLiD+?=
- =?us-ascii?Q?Sli1HsjCQxYnNlAWfKoLuvf4KKHUKji4Ki24FdDW4Zv/RkLhCnQWIB69mcdk?=
- =?us-ascii?Q?YtwvT4Fzingab9fmYip8EtA9PwoOVH7y2AxU/Q4l1zCMnTsi9FRAMYmM4lDN?=
- =?us-ascii?Q?QmxiG2Qw7CeH6btJ5hTdrqHKNSqowMxrGg01EpDamXViQmhQg+3dj8cUbYij?=
- =?us-ascii?Q?HEaBAf2KOX7JasT7rhUktGR5U/brf4F+6NRv6AcrnRIpUf9ov/wJLpbMPGFC?=
- =?us-ascii?Q?RT4kGi9DUnomkURZRXy6GTjbNvlSjjit8JQdlS+01fVSMll69b3taRegxent?=
- =?us-ascii?Q?BkJW/ezPqgeMvo3XSDuX9nxLwTiiqoWfhx35/pO4nJqU4ShJV579Gz8vLWH3?=
- =?us-ascii?Q?4kW6InFYmf8NBDP5Isak1s2Z0gIORosCTZuptrNVqcm6KhnwCjaFa+kZOFnt?=
- =?us-ascii?Q?RkLmxOaH2MhIsB/uxkrBvCz+eMaUH2YCaWx/Lf17mvkxV+6nwPJP8zK7Uf1e?=
- =?us-ascii?Q?fckACr4q4aF5J5+DbZp4gGNWXklaC3u1bvVVutwAaaEXeXwZEmTJe9Gtc1lj?=
- =?us-ascii?Q?EqHd75r5ng2P3etwr+/KaeWWaWd1KBXSH/DbSJ8e/Hzn1+Ycz0Q7urwhsuIF?=
- =?us-ascii?Q?vZvc+d6SLsxnig8f200OkyDH7XhF+hCneLry5SQPE3kS1D+nxzDuN+RBj+9F?=
- =?us-ascii?Q?/xEAIL4PrIBk3j8bueNRi04egYGXDr9VeROXsEt5JEQnThCktJxKAxwja0gN?=
- =?us-ascii?Q?KU1Zl5uqj2U49Zgk9287WUXmCp8wMiVH9oqRW85eBrn2L1aowppyaTw71tJs?=
- =?us-ascii?Q?ptyedckg0x67hJ7DPI+cs0N/fCOMS/ul9YSpNCKC6p0YvgaIeq0M+mA6smyD?=
- =?us-ascii?Q?7LAGdzMrSd99yRg9E+78ZYYzwXqK40Aq09o9jnJefz4Bj3nEgCfT?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: deffa7e7-b588-4ced-4c1d-08df2975375b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 21:59:12.8400
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: laGg/n4MJ5J5sBuP7vr6M53hNn0UB86t5p2kOhwYverJPZthI5eUwfASPe8Mdk0o/hicAbXcYPXUYi7mm41GZmS06F/eNYWNVupo5m9GkTZeRCR2ykxZSCFLyzottKIP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9701
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007073537.2454351-1-suzuki.poulose@arm.com>
 
-On Mon, Oct 05, 2026 at 12:26:21PM -0700, Rosen Penev wrote:
-> Change desc_blocks to a flexible array member so the descriptor and
-> its block array are allocated together, removing one allocation and
-> its error handling.
->
-> Add __counted_by for extra runtime analysis, and set dblk_num right
-> after allocation which is already done by kzalloc_flex() for GCC >= 15.
->
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
+On Wed, Oct 07, 2026 at 08:35:23AM +0100, Suzuki K Poulose wrote:
+> This is a trimmed down and updated version of the v22 of Arm CCA basic
+> plumbing series [0]. I have dropped the CCA specific bits for the sake keeping
+> them separate. This series now only contains the framework for handling
+> different VM types and lay down the path for adding Realm as one of the
+> protected VMs. The full support for running Realms under KVM is available as
+> an integration branch at [1].
+> 
+> The integration branch has been tested with the following components:
+> 
+>   tf-RMM:   main branch (commit 5e6e2acd) compliant to RMM-v2.0-beta3
+>   kvmtool: git@git.gitlab.arm.com:linux-arm/kvmtool-cca.git tag:cca-kvm-v20
+> 
+> [0] Arm CCA KVM basic plumbing v22
+>     https://lore.kernel.org/all/20261005090754.2140522-1-suzuki.poulose@arm.com
+> [1] https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/kvm-v23/integration
+> 
+> Changes since v22:
+>  https://lore.kernel.org/all/20261005090754.2140522-1-suzuki.poulose@arm.com
+>   - Drop the CCA specific patches for now, they are on the integration branch
+>   - system_supported_vcpu_features() - Start off with a base set of features for
+>     the type of VM
+>   - Add () around 'flavor' in KVM_VM_S2_OPS() macro
+>   - Drop BUILD_BUG_ON and redefine {kvm_vm,vcpu}_is_protected() for nVHE
+>   - Drop {kvm_vm,vcpu}_is_protected_pkvm() macros
+> 
+> Changes since v21:
+>  https://lore.kernel.org/all/20261001210703.1597150-1-suzuki.poulose@arm.com
+>  - Keep the kvm_arch struct packed, by moving psci_version, closer to vm_flavor and also moving the vm_s2_ops, closer to vm_flavor.
+>  - Drop the kern_hyp_va() for vcpu_is_protected() in nVHE, instead ban nVHE
+>    code from using vcpu_is_protected() (by using BUILD_BUG_ON()) and convert
+>    all users to vcpu_is_protected_pkvm()
+>  - Drop kvm_vm_is_unprotected_pkvm() in favor of open coded check against VM_PKVM
+>  - Drop WARN_ON_ONCE() in the kvm_vm_ioctl_allowed() to match Fuad's fix merged in v7.3-rc5
+>  - Move '&' to the KVM_*_OPS macros
+>  - Nuke __unmap_stage2_range() and define per-VM callback for stage2_unmap_range, removing the KVM_PGT_FN() hack for the call, and also for the others
+>  - Drop NULL check for vm_s2_ops callbacks and always define everything.
+>  - Add no_age_gfn() which plugs in for pVMs and Realms for the vm_age_*gfn callbacks
+> 
+> Steven Price (1):
+>   KVM: arm64: Avoid including linux/kvm_host.h in kvm_pgtable.h
+> 
+> Suzuki K Poulose (13):
+>   KVM: arm64: protected VM: Handle user writes to CNTVCT_EL0/CNTPCT_EL0
+>   KVM: arm64: Disable Steal time accounting for protected guests
+>   KVM: arm64: Include kvm_emulate.h in kvm/arm_psci.h
+>   KVM: arm64: Track the type of VM in kvm_arch
+>   KVM: arm64: Don't call vcpu_set_pauth_traps for pKVM host
+>   KVM: arm64: Refactor the vcpu_load to allow for VM specific callbacks
+>   KVM: arm64: Add vcpu load/put call backs for flavors
+>   KVM: arm64: Consolidate stage2 unmap range into kvm_stage2_unmap_range
+>   KVM: arm64: Add VM specific callback for S2 MMU operations
+>   KVM: arm64: Use a local kvm pointer in kvm_handle_guest_abort()
+>   KVM: arm64: Abstract out memory abort handling
+>   KVM: arm64: Mandate VGIC v3 for pKVM VMs and Realms
+>   KVM: arm64: Prevent unsupported vcpu features for VM types
+> 
+>  arch/arm64/include/asm/kvm_host.h    |  73 ++++++-
+>  arch/arm64/include/asm/kvm_pgtable.h |  10 +-
+>  arch/arm64/include/asm/kvm_pkvm.h    |   6 +-
+>  arch/arm64/kvm/arch_timer.c          |  12 +-
+>  arch/arm64/kvm/arm.c                 | 275 ++++++++++++++++++++-------
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c       |   6 +-
+>  arch/arm64/kvm/hyp/pgtable.c         |   1 +
+>  arch/arm64/kvm/mmio.c                |   1 +
+>  arch/arm64/kvm/mmu.c                 | 247 +++++++++++++++++-------
+>  arch/arm64/kvm/pkvm.c                |   6 +-
+>  arch/arm64/kvm/pvtime.c              |  14 +-
+>  arch/arm64/kvm/vgic/vgic-init.c      |   2 +
+>  include/kvm/arm_psci.h               |   2 +
+>  13 files changed, 493 insertions(+), 162 deletions(-)
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Version 5 of my QEMU-VMM patchset [1] has been tested on this kernel and things
+work as expected.  Instructions to build and test on the QEMU SBSA architecture
+are located here [2].
 
->  drivers/dma/xilinx/xdma.c | 15 +++++----------
->  1 file changed, 5 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/dma/xilinx/xdma.c b/drivers/dma/xilinx/xdma.c
-> index 8d4a5d14e8db..16d202722245 100644
-> --- a/drivers/dma/xilinx/xdma.c
-> +++ b/drivers/dma/xilinx/xdma.c
-> @@ -81,7 +81,6 @@ struct xdma_chan {
->   * @vdesc: Virtual DMA descriptor
->   * @chan: DMA channel pointer
->   * @dir: Transferring direction of the request
-> - * @desc_blocks: Hardware descriptor blocks
->   * @dblk_num: Number of hardware descriptor blocks
->   * @desc_num: Number of hardware descriptors
->   * @completed_desc_num: Completed hardware descriptors
-> @@ -91,12 +90,12 @@ struct xdma_chan {
->   * @period_size: Size of a period in bytes in cyclic transfers
->   * @frames_left: Number of frames left in interleaved DMA transfer
->   * @error: tx error flag
-> + * @desc_blocks: Hardware descriptor blocks
->   */
->  struct xdma_desc {
->  	struct virt_dma_desc		vdesc;
->  	struct xdma_chan		*chan;
->  	enum dma_transfer_direction	dir;
-> -	struct xdma_desc_block		*desc_blocks;
->  	u32				dblk_num;
->  	u32				desc_num;
->  	u32				completed_desc_num;
-> @@ -106,6 +105,7 @@ struct xdma_desc {
->  	u32				period_size;
->  	u32				frames_left;
->  	bool				error;
-> +	struct xdma_desc_block		desc_blocks[] __counted_by(dblk_num);
->  };
->
->  #define XDMA_DEV_STATUS_REG_DMA		BIT(0)
-> @@ -255,7 +255,6 @@ static void xdma_free_desc(struct virt_dma_desc *vdesc)
->  			      sw_desc->desc_blocks[i].virt_addr,
->  			      sw_desc->desc_blocks[i].dma_addr);
->  	}
-> -	kfree(sw_desc->desc_blocks);
->  	kfree(sw_desc);
->  }
->
-> @@ -276,26 +275,22 @@ xdma_alloc_desc(struct xdma_chan *chan, u32 desc_num, bool cyclic)
->  	void *addr;
->  	int i, j;
->
-> -	sw_desc = kzalloc_obj(*sw_desc, GFP_NOWAIT);
-> +	dblk_num = DIV_ROUND_UP(desc_num, XDMA_DESC_ADJACENT);
-> +	sw_desc = kzalloc_flex(*sw_desc, desc_blocks, dblk_num, GFP_NOWAIT);
->  	if (!sw_desc)
->  		return NULL;
->
-> +	sw_desc->dblk_num = dblk_num;
->  	sw_desc->chan = chan;
->  	sw_desc->desc_num = desc_num;
->  	sw_desc->cyclic = cyclic;
->  	sw_desc->error = false;
-> -	dblk_num = DIV_ROUND_UP(desc_num, XDMA_DESC_ADJACENT);
-> -	sw_desc->desc_blocks = kzalloc_objs(*sw_desc->desc_blocks, dblk_num,
-> -					    GFP_NOWAIT);
-> -	if (!sw_desc->desc_blocks)
-> -		goto failed;
->
->  	if (cyclic)
->  		control = XDMA_DESC_CONTROL_CYCLIC;
->  	else
->  		control = XDMA_DESC_CONTROL(1, 0);
->
-> -	sw_desc->dblk_num = dblk_num;
->  	for (i = 0; i < sw_desc->dblk_num; i++) {
->  		addr = dma_pool_alloc(chan->desc_pool, GFP_NOWAIT, &dma_addr);
->  		if (!addr)
-> --
-> 2.56.0
->
+[1]. https://lore.kernel.org/kvm/20261002202026.1204110-1-mathieu.poirier@linaro.org/
+[2]. https://gitlab.com/Linaro/cca-public/build-instructions/-/tree/upstream-v5-kvmv23?ref_type=heads 
+
+> 
+> -- 
+> 2.43.0
+> 
+> 
