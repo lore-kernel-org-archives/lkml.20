@@ -1,132 +1,202 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA754560ADB;
-	Tue, 13 Oct 2026 22:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A837542EEC;
+	Tue, 13 Oct 2026 22:52:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791931930; cv=none; b=H4XX/T1IeBg8Ct06zKQ/mBfD4xZkR30jb8gKGGHPvgsh1dxcvoDGJPkJwBWd3uGnXve8Jm0Y/39tEvAt1FaxvVtMYILbOltVlPNyB+BnnI4piCbEQi/oEWt8xBf8M02i/qZ9kS3t+tUwN6sJmABdsdv9a1WFrFpgmNa4Nqan8d8=
+	t=1791931930; cv=none; b=cs6NUaiedzijtGwFFLt/X10EOi9uOhuDJEcS2294AZo1yUXIKtHPfTs0K2TOcGiuFBDsOeVZkxHVJEBuExPe5mIxyxcq71bfp3ql2/cc/Tw9s4wlAwiy60YFKtxtyNUaR1492QOHuKTOaI7uZlgq42MQKVF1zAxl8tRLsT/QHLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791931930; c=relaxed/simple;
-	bh=e11OdPT81oEiswOclnJuj1hBcz1HaIKK+zMCIpkyO/M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uwCyLY3i2pw0Tf/Q8g6ebaf8y3KULJh6VL1cxCOGEq9ksHtCxNJuj417WFCRG/+vNx4AiMAmV1MaBSCCskXneHgNtQ6cp+t+w6XleX60fMWAfxsCRAjAzrd4sERZizoedAFOMEcCrTr5BV+zmw5/fh5n+meMf4+nNDN1IsCcysY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=qLo+f+sq; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	bh=28KNQlMmmO/iFDYjZMBSotS+bLn4f7V4VCoGOUUF8y4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Uyfw3iv5L++7pKd98njoOXbUbjJ3hN6DuPQ1fdeS9z6ivs+PgX2RgBC184lPlPqrmmVXDkj/4c4Sdk8UMet92mpUyxu5MhTU3YIaRXt9kkjh2srbSOIqWnGizpoGs/cz3kE+asD6dcE3spHFZ6bZPPOm1RrvDtodXuavkCVUjfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1Ualpo+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="qLo+f+sq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791931913;
-	bh=e11OdPT81oEiswOclnJuj1hBcz1HaIKK+zMCIpkyO/M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=qLo+f+sqMFr3+owkbxcwExKNYhCTGpLuJ1rTW59IMzfFWzbOspiG9vVU57RNFaCTG
-	 Iz0cCgCX2oqAhz1wTw7IXVwUp7TuPaS3W7uGEt92QRdzalPn3TPDZZe/Bjx3h3JQrs
-	 vfEu2VbkKmI22iF+2mKpDPHwxyny3e7lVmtxT1rN54ENr9AJuLlC/qyIx1uzoZQy97
-	 BH5h7YKpjw/eTDvFJfbiUudzCOHtgIN/IE+V6mOqvTssrmMSLP3yZ8/v8l5yp/HC9D
-	 IzzRcW5sAPTXPG29xsuyFAFiZU4utI8FPRC33DTlhqLZ6ORHx0aZxor/cjFQRH3f1u
-	 Phz138BMUkypQ==
-Received: from localhost (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8343F17E0CA6;
-	Wed, 14 Oct 2026 00:51:53 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 14 Oct 2026 01:51:21 +0300
-Subject: [PATCH v5 04/15] drm/rockchip: vop2: Send pending event when
- atomic_enable() fails
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1Ualpo+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0461B1F008A0;
+	Tue, 13 Oct 2026 22:52:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791931923;
+	bh=kdQWcP2STwJQyxJrJaL+639b6p+ci5eTKj3oS8PV6YY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=c1Ualpo+A+pMoSP7Oy/DjCyh+Q9g6y8+ovp35XVqJDeZqDAv8QDZ10Y1Nxsk5GeBw
+	 x+zhJ8/+aK59pOuYUs0k5rRSuho6wLQZDU9+uD3WReK7gsSBx4eCrMBBw5+TGsmkvl
+	 zPNNPPvFNfNeSCkmCk6NRlif9yS/MG4Do4ZaKal+Cr5h3pWmT/W3C+xW/+EAzQbhMd
+	 t562q7pP/ohoy+8aq098D8isNhaPHZtJCTQI/ZEFqakb+ItDd7KYf9Hi1gdJDBj021
+	 MtScxDTTFQeVknmO4vqjjhoatovzBZhh7NoaZnzq6VfPUMt6l0aXfT9X7HHfYIS4vA
+	 EPYcdTCEi7/hQ==
+Subject: Re: [PATCH net-next v3 7/7] selftests/vsock: test the netns assign
+ privilege checks
+From: netdev-bot+sashiko@kernel.org
+To: bobbyeshleman@meta.com
+Cc: sgarzare@redhat.com, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, stefanha@redhat.com, mst@redhat.com,
+ jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com,
+ shuah@kernel.org, rdunlap@infradead.org, donald.hunter@gmail.com,
+ edumazet@kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com,
+ bobbyeshleman@gmail.com
+Date: Tue, 13 Oct 2026 22:52:01 +0000
+Message-ID: <179193192150.434549.17424079500765583387@kernel.org>
+In-Reply-To: <20261012-vsock-guest-ns-v3-7-b32447c66b23@meta.com>
+References: <20261012-vsock-guest-ns-v3-7-b32447c66b23@meta.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-dw-hdmi-qp-yuv-v5-4-6fab0fe43a9b@collabora.com>
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
-In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Daniel Stone <daniels@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Daniel Stone <daniel@fooishbar.org>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Igor Paunovic <royalnet026@gmail.com>
-X-Mailer: b4 0.15.2
 
-vop2_crtc_atomic_flush() stashes the CRTC completion event in vp->event
-and relies on the frame start interrupt (VP_INT_FS_FIELD) to deliver it
-later via drm_crtc_send_vblank_event().  Since atomic_enable() runs
-before atomic_flush(), bailing on an error path makes it skip
-drm_crtc_vblank_on() and leave the video port disabled.  atomic_flush()
-still traps the event in vp->event, but since the port never scans out,
-the frame start interrupt does not fire and the event is not delivered.
-Userspace waiting for the flip completion then blocks indefinitely.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Note the event cannot be flushed from atomic_disable(), as userspace
-waits for the completion before committing the next state, so the
-disable does not arrive and draining it there would deadlock.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Use the newly added vp->enabled flag to detect this in atomic_flush()
-and send the event immediately when the port did not come up, rather
-than deferring it to an interrupt that will never occur.  This also
-avoids the spurious drm_crtc_vblank_get() WARN previously hit on the
-failed enable path, where the vblank is not on.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260706194935.AC7601F000E9@smtp.kernel.org/
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+- [Medium] Neither new privilege test checks why the command failed.
+- [Low] Both new tests are in USE_SHARED_VM, but they skip the shared-VM
+  cleanup that the other ns_guest_assign_g2h_netns_* tests do.
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 36384f029ef7..3bbbe365b5f1 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -2083,8 +2083,19 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
- 	spin_lock_irq(&crtc->dev->event_lock);
- 
- 	if (crtc->state->event) {
--		WARN_ON(drm_crtc_vblank_get(crtc));
--		vp->event = crtc->state->event;
-+		/*
-+		 * A failed atomic_enable() leaves the video port disabled with
-+		 * no scanout, so the frame start interrupt that normally
-+		 * delivers vp->event never fires. Send the event right away in
-+		 * that case to avoid stalling the flip completion.
-+		 */
-+		if (vp->enabled) {
-+			WARN_ON(drm_crtc_vblank_get(crtc));
-+			vp->event = crtc->state->event;
-+		} else {
-+			drm_crtc_send_vblank_event(crtc, crtc->state->event);
-+		}
-+
- 		crtc->state->event = NULL;
- 	}
- 
+--
+
+selftests/vsock: test the netns assign privilege checks
+
+This patch adds two shared-VM tests to vmtest.sh. One checks that
+VSOCK_CMD_DEV_NETNS_SET is refused without CAP_NET_ADMIN. The other checks
+that it is refused when CAP_NET_ADMIN is held only in an unprivileged user
+namespace. The patch also adds setpriv to the ns_guest test dependencies
+and CONFIG_USER_NS to the selftest config.
+
+> diff --git a/tools/testing/selftests/vsock/vmtest.sh b/tools/testing/selftests/vsock/vmtest.sh
+> index 7693d5e0a1d07..d5d7b0660c5da 100755
+> --- a/tools/testing/selftests/vsock/vmtest.sh
+> +++ b/tools/testing/selftests/vsock/vmtest.sh
+
+[ ... ]
+
+> @@ -1909,6 +1919,48 @@ test_ns_guest_assign_g2h_netns_pins_ns_ok() {
+>  	return "${KSFT_PASS}"
+>  }
+>  
+> +test_ns_guest_assign_g2h_netns_no_cap_net_admin_fails() {
+> +	local cmd="unshare -n setpriv --bounding-set=-net_admin"
+> +	local rc
+> +
+> +	vm_ssh "init_ns" -- "${cmd}" python3 /root/ynl/cli.py --no-schema \
+> +		--spec /root/ynl/vsock.yaml --do dev-netns-set &>/dev/null
+> +	rc=$?
+> +
+> +	if [[ "${rc}" -eq 0 ]]; then
+
+[Severity: Medium]
+Does this check show that the refusal came from the CAP_NET_ADMIN check?
+
+vm_ssh returns the exit status of the whole remote command chain, so any
+non-zero status counts as a pass here. That includes:
+
+  - ssh transport failure (255)
+  - unshare -n failing
+  - setpriv rejecting --bounding-set=-net_admin
+  - python or ynl import errors, or a genl family lookup failure
+  - non-permission errors from vsock_g2h_net_assign(), such as -ENODEV,
+    -EOPNOTSUPP, -EADDRINUSE or -EMSGSIZE
+
+test_ns_guest_assign_g2h_netns_unpriv_user_ns_fails() below uses the same
+pattern. Its skip probe also only runs:
+
+    vm_ssh "init_ns" -- "${unpriv} unshare -U true"
+
+If the -r uid/gid mapping or the -n netns creation fails inside
+"unshare -Urn", that test reports PASS instead of SKIP.
+
+The changelog says:
+
+  "Assert only that the command fails, not EPERM: ynl's cli.py does not
+  report the errno"
+
+Is that still accurate? In tools/net/ynl/pyynl/cli.py, main() does:
+
+    except NlError as e:
+        print(e)
+        sys.exit(1)
+
+NlError.__str__() in tools/net/ynl/pyynl/lib/ynl.py appends
+os.strerror(self.error), and NlError.error holds the errno itself.
+
+So when the GENL_ADMIN_PERM check on VSOCK_CMD_DEV_NETNS_SET returns EPERM,
+cli.py prints "Netlink error: Operation not permitted" to stdout. Here,
+&>/dev/null throws that output away.
+
+The commit message says:
+
+  "one confirms that CAP_NET_ADMIN is required even by a privileged user
+  and the other confirms that CAP_NET_ADMIN in an unprivileged user ns
+  alone is insufficient."
+
+As written, both tests only confirm that the command did not succeed. If
+the permission check were removed or relaxed while some unrelated failure
+also happened, both tests would still pass.
+
+Could the tests capture the cli.py output and check for "Operation not
+permitted"?
+
+> +		log_host "assign unexpectedly succeeded without CAP_NET_ADMIN"
+> +		return "${KSFT_FAIL}"
+> +	fi
+> +
+> +	return "${KSFT_PASS}"
+> +}
+> +
+> +test_ns_guest_assign_g2h_netns_unpriv_user_ns_fails() {
+
+[ ... ]
+
+> +	vm_ssh "init_ns" -- "${unpriv} unshare -Urn" \
+> +		python3 /root/ynl/cli.py --no-schema \
+> +		--spec /root/ynl/vsock.yaml --do dev-netns-set &>/dev/null
+> +	rc=$?
+> +
+> +	if [[ "${rc}" -eq 0 ]]; then
+> +		log_host "assign unexpectedly succeeded for unprivileged user"
+> +		return "${KSFT_FAIL}"
+> +	fi
+
+[Severity: Low]
+Should this path, and the matching one in
+test_ns_guest_assign_g2h_netns_no_cap_net_admin_fails(), call
+vm_reset_g2h() before returning?
+
+Both new tests are in USE_SHARED_VM. The other ns_guest_assign_g2h_netns_*
+tests, such as test_ns_guest_assign_g2h_netns_pins_ns_ok(), call
+vm_reset_g2h() on their failure paths once the device may have moved.
+
+If the assign unexpectedly succeeds, dev-netns-set moves the guest's g2h
+vsock device into the throwaway netns created by unshare -n or
+unshare -Urn.
+
+The kernel-doc for vsock_g2h_net_assign() says the move "keeps @net alive
+until the device leaves again". So after the command exits, the device
+stays in that orphaned netns.
+
+run_shared_vm_tests() runs tests in the order given on the command line.
+For example:
+
+    vmtest.sh ns_guest_assign_g2h_netns_no_cap_net_admin_fails \
+        vm_server_host_client
+
+Here the later shared-VM test would run with the guest's init netns cut
+off from vsock, and its failure would be reported against the wrong test.
 
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-vsock-guest-ns-v3-0-b32447c66b23%40meta.com
