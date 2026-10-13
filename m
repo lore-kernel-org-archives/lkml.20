@@ -1,126 +1,157 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906C9480DF7
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F5348876E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912829; cv=none; b=dClN6zAzvHGnNibmTU4TyJZlCjQbNOfhhANjqukUU7Q/RIMVf7x3teukdFA0xXC1rhvQBA+zoSOmIC9GVyJgEGgY4GD4OLlUk7pntmm+hTMUv0aswDnjwEXH3HR1tjmN82qaVFAMIMZocyxCClWDJ4FqTzHoJSPJHs/rn3w8pds=
+	t=1791912832; cv=none; b=ouXZaUEeoR5krEKbf2b5XVHgGuWon9hI4vux+93ZtD4pi77J34PTKXQNeeiXK96EqoWGRc66/jxCYpeudErC1HV5+8+Q/7p+p+LkDiuW5FhJkTOP5dghJrhJbvsVZ7aEwf2Vn/aPzWvottrbcZ5JgJFzGbHph8sMKeE6XwuQodA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912829; c=relaxed/simple;
-	bh=m+i5mTlUxTCnrCi8WzAtmzzFXQV0rJfs+5MtNGiKS8Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b7msHMnpsrjgMNrpztv0PdjPZivxVoHKt9KIpjChrmLaR/c93rVTqtlail472Ln4AZkCf3cdbT6zSS9NUx/oNdm+oeq2Xy/EzbEwhZ3JBCF9E8Dce51LfRpNfYje7TG2/CX+8r3HVpYAQTL1N1/LcDTfawwhJBNyGKSuSOO9q64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=L5Vy0NpU; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1791912832; c=relaxed/simple;
+	bh=8PdWjod07bHKZwUVHLIgVKm3jr0Xu6hUYREqyJ3XlFA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ayQWu9IGP9FUnQ6YLG5uirGp9wm+qbWUWU7hO3eQngBR52PiRpmfm1IqAxs/weA/q9h5fXGgVGIC79BqWH6xvpOcXElYXJOjmDjkLs8iLcmW1yYvq+ieHs0kLL4vW9q+avXZ9uuxEyHFrbK7wHSdzYwfJtjGcnTe2cLRX990ha4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PTFWJnbM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="L5Vy0NpU"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8623790f8so160165ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:33:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791912828; x=1792517628; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qsfJHJAdVQ83GKISdOFSgeXuIu/91TZW8ltTQ/2oo/k=;
-        b=L5Vy0NpUII7ewM/cx4UM0kPWRO2ApbVBxPubGhJKJoRK8E4G23eV28CZ5n2zGZgqCT
-         kWH6aZcup0sUVpj7m+mtINUa9yqzqOfc0Vtdrd5Bsxq0iDa1tJ5a0YvV1bJO+QGxcWF6
-         DWSlHUYrim965MKghcbksimcpWRqKQQG0o6DYAw6BUkoidplq7AQbUdXs4AhDtLzTVeh
-         9zQFu7w+bEvc6/vthrZHX0tCPIK/2anhyYgtUN2ySiCFOHQjHNw4xJBYMuI9aBL6UvkX
-         srwM0xJqVYQq7P7jFtgFh5BM8Kt1PMSJdybasoucH8Rayt8/qW2BviKwHa0ZWQP0sJoO
-         cyVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791912828; x=1792517628;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qsfJHJAdVQ83GKISdOFSgeXuIu/91TZW8ltTQ/2oo/k=;
-        b=V+Qsl33D9+091tjjt9WlE39kzDvSPZSHKWh4JlxOD1vNV7d+HCUGzjiU4noIwpqu1g
-         IdGpqQg3sO30IjFwmRIkrWR1+oPVZdnHAbuJs39/vx7sObMGXvyKJ2or4ELFeo2UsQAJ
-         e8Z66GYAIGYxBYuM1QaBBbWOoIUUSgO+4LXdnDVBrsaU5bvCHNqZf0/Gg4pMnL2GFBNH
-         6K29M3m7Qlm3QI+Oib23OT+T7ryAdocAzjpflcHdC+pSHHdEgv1rb1TVp0yzWPOx4hpt
-         +k9Dj3q/UnK2qA8Jf0fhg5S21HZhvowo4b0YgBVhuGeKvKsMhOBBbz70DAH3QotL4A/M
-         JTGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8jq9Th28UG6rscTrKaGMV+8tIevItyE0YJX+O6wilXnQXaZ0f5dWpOpfczQg2HElGoA02Xgx8uA3WYQQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2oldCce6L0a4rx3HbQIlcnN+718JtvBEeOzOET/3J9/dI8oeo
-	TQuvhA2NTNFuL/OmoWxXCdIGJYTXRWuY6ntCiil9tgi13B7n5YYQ/teE5MbhvEF9Jg==
-X-Gm-Gg: AYBFou3NcQJ72P8KaVlVwS748OJZO++hetlGdusyjnuvbdDTIQHDBgEzFblbtxjRWcY
-	HUEHoVa+I7PqW3mD8P5RRVbxJS6bOnPAaVYd3XjE17t4uZILyjBpVs/qQdhezLDewxvWoX/mRPe
-	O3hiLb4Nca0+kVNY7wAnb8FwUCpQWCuheBZzdSb0+5WB2vDb1rWD1oDJq8dlkcbJDGLP94A20/S
-	nIqeGezSvEftY1qqvySpz2x2cLJ+tS8yyxv6P+l75/sv4I10obQzLagvCz9xFFJp8U1ZBb/D6PR
-	+RFaRlVRB4g5uT2Kjed5Rq7XzIXsM4R3VGCAvXkMFL2wUlw3+lEIbiMRbKoC9A8OSHB0G2C1KJV
-	aL5nVt1Yfmuob2GIAwO/cYiuUOUydut4PYqxlc2/gHCYWQyheA/hdsxVhhxgHsedNrPa/+nAGhz
-	XNIK2vpikV33UjfDNl23NRcRgeiS3ls38X3kNobWZC/YZM5X6pzTdmJ+AGmUusbo4FyLA2O13Vu
-	9halB2WLAZb58hSjm4YEe0/p2e+Qwoe
-X-Received: by 2002:a17:902:ebc6:b0:2e2:d665:6ad8 with SMTP id d9443c01a7336-2e87bc2190fmr12955725ad.4.1791912827258;
-        Tue, 13 Oct 2026 10:33:47 -0700 (PDT)
-Received: from google.com (75.57.168.34.bc.googleusercontent.com. [34.168.57.75])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac600a0619sm637262a91.7.2026.10.13.10.33.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 10:33:46 -0700 (PDT)
-Date: Tue, 13 Oct 2026 17:33:43 +0000
-From: Lisa Wang <wyihan@google.com>
-To: Binbin Wu <binbin.wu@linux.intel.com>
-Cc: Xiaoyao Li <xiaoyao.li@intel.com>,
-	Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	x86@kernel.org, Andrew Jones <ajones@ventanamicro.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Chao Gao <chao.gao@intel.com>,
-	Chenyi Qiang <chenyi.qiang@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
-	Isaku Yamahata <isaku.yamahata@intel.com>,
-	Kiryl Shutsemau <kas@kernel.org>, linux-kselftest@vger.kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Roger Wang <runanwang@google.com>,
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>
-Subject: Re: [PATCH v15 14/23] KVM: selftests: Expose function to allocate
- vCPU stack
-Message-ID: <as5rd8F3pLmimtGe@google.com>
-References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
- <20261001-tdx-selftests-v15-14-7c62a5d8a992@google.com>
- <b2143700-da36-418c-af63-0b50b33f080e@intel.com>
- <932ec219-5951-489b-bda9-1f6e9a605a9b@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PTFWJnbM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C4D1F0089D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:33:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791912830;
+	bh=6awH/vbnBHcu26jrXfWlQmHVLGeEP4ZBKf9jZGLzBIM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PTFWJnbMA4+bEKWldAUflmX5j2RwFNi4/UnAoyDNoVDOazqTbIjD9MMwXSvnCHZGa
+	 fkdJl6q9IZDWa1qvbnTIbzE0Kg2e5UPwhYghe7JYWhIL2eM4ogYFeuBsQTleby6Im4
+	 I+qezXDcll/ewbmkcqF//u2UvWfmMzy+piv+qIOfkp+di6+MV/81BI3R07IJynfbGd
+	 hKM1n5va081aKAE0nH+pjCJfZm6AkRUhHXU0puPIBaaWYcDmPUxvLnu3s/9no6dIsm
+	 t6I/5W2/L9oQXw7QiXn0XCTQVE4esF0LBlmIDxjuuyTxIHlQiVDatV1+Vhe8RW7hRC
+	 q39m1tuWN6mCg==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bcb2ecebb4so2546138e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:33:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwy7zY3Ll83d7ztMxTtJUrNhndCcsl2cjCqmTUwpYg5uJT4eHudQ613wGUtp4Z6nmlPARdict9VPZc5chE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqkHb3kzGoOVLJ2jX8e2LR7Is9xrHSFlufUYEEEm3RUIlUrTwW
+	p65iZxF+GEGSyR98XIKlcUv0vNgoV0//XV2dhK94FtsTaSIFAy+1MGO4tl/p9MUJMfrmKzP1+V7
+	3idLvmbYKXzt7eiLNVZuG2qd1NmO4m8U=
+X-Received: by 2002:a05:6512:3a95:b0:5b2:1de0:5ea2 with SMTP id
+ 2adb3069b0e04-5bcde6bdf43mr4782005e87.16.1791912828699; Tue, 13 Oct 2026
+ 10:33:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <932ec219-5951-489b-bda9-1f6e9a605a9b@linux.intel.com>
+References: <20261013063856.1755787-1-liujinlong176@163.com>
+In-Reply-To: <20261013063856.1755787-1-liujinlong176@163.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 13 Oct 2026 19:31:43 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0j4tFgMMw_y4+ZnM+z9kocnnFPR6zpOk3Q42TQvi+EMLw@mail.gmail.com>
+X-Gm-Features: AclHuK-7KDiwa_4uvqa0A04Agt1etoSv_btEyf-H2k55xkIwAscnz-TuH39ci5s
+Message-ID: <CAJZ5v0j4tFgMMw_y4+ZnM+z9kocnnFPR6zpOk3Q42TQvi+EMLw@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: button: Support separate press and release events
+To: liujinlong176@163.com
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, liujinlong <liujinlong@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 11:54:42AM +0800, Binbin Wu wrote:
-> >>  
-> >> -struct kvm_vcpu *vm_arch_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
-> >> +gva_t kvm_allocate_vcpu_stack(struct kvm_vm *vm)
-> > 
-> > Besides what Sashiko pointed out[1], this patch was just messed up during the
-> > rebase and it even doesn't compile.
-> 
-> 
-> Yes.
-> 
-> And since the upstream code already has vm_alloc_stack(), which basically does
-> the same thing.
-> 
-> I think this patch can be dropped. 
-> 
-> > 
-> > [1] https://lore.kernel.org/all/20261002091331.BA23F1F00893@smtp.kernel.org/
+On Tue, Oct 13, 2026 at 8:39=E2=80=AFAM <liujinlong176@163.com> wrote:
+>
+> From: liujinlong <liujinlong@kylinos.cn>
+>
+> The ACPI button driver only recognizes notify value 0x80 and
+> always synthesizes a press followed by an immediate release.
+> This makes it impossible for userspace to determine the actual
+> duration of a power button press.
+>
+> Add two new notify values, 0x81 and 0x82, that firmware can use
+> to report the press and the release separately.  The 0x80 path
+> is unchanged for compatibility with existing firmware.
 
-Yes.
+You'd need to update the ACPI specification first as that's where the
+notification values are defined.
 
-vm_alloc_stack() can replace kvm_allocate_vcpu_stack(). I will drop this
-patch in the next version.
-
-Thanks!
+> Move the notify value definitions to include/acpi/button.h so
+> they can be shared between the driver and other users.
+>
+> Signed-off-by: liujinlong <liujinlong@kylinos.cn>
+> ---
+>  drivers/acpi/button.c | 24 ++++++++++++++++++------
+>  include/acpi/button.h |  4 ++++
+>  2 files changed, 22 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
+> index cdbb1023a8ee..b72ed9fc429d 100644
+> --- a/drivers/acpi/button.c
+> +++ b/drivers/acpi/button.c
+> @@ -26,7 +26,6 @@
+>  #define ACPI_BUTTON_FILE_STATE         "state"
+>  #define ACPI_BUTTON_TYPE_UNKNOWN       0x00
+>  #define ACPI_BUTTON_NOTIFY_WAKE                0x02
+> -#define ACPI_BUTTON_NOTIFY_STATUS      0x80
+>
+>  #define ACPI_BUTTON_CLASS_POWER                "button/power"
+>  #define ACPI_BUTTON_DEVICE_NAME_POWER  "Power Button"
+> @@ -465,7 +464,8 @@ static void acpi_button_notify(acpi_handle handle, u3=
+2 event, void *data)
+>
+>         switch (event) {
+>         case ACPI_BUTTON_NOTIFY_STATUS:
+> -               break;
+> +       case ACPI_BUTTON_NOTIFY_PRESS:
+> +       case ACPI_BUTTON_NOTIFY_RELEASE:
+>         case ACPI_BUTTON_NOTIFY_WAKE:
+>                 break;
+>         default:
+> @@ -482,10 +482,22 @@ static void acpi_button_notify(acpi_handle handle, =
+u32 event, void *data)
+>         input =3D button->input;
+>         keycode =3D test_bit(KEY_SLEEP, input->keybit) ? KEY_SLEEP : KEY_=
+POWER;
+>
+> -       input_report_key(input, keycode, 1);
+> -       input_sync(input);
+> -       input_report_key(input, keycode, 0);
+> -       input_sync(input);
+> +       switch (event) {
+> +       case ACPI_BUTTON_NOTIFY_STATUS:
+> +               input_report_key(input, keycode, 1);
+> +               input_sync(input);
+> +               input_report_key(input, keycode, 0);
+> +               input_sync(input);
+> +               break;
+> +       case ACPI_BUTTON_NOTIFY_PRESS:
+> +               input_report_key(input, keycode, 1);
+> +               input_sync(input);
+> +               break;
+> +       case ACPI_BUTTON_NOTIFY_RELEASE:
+> +               input_report_key(input, keycode, 0);
+> +               input_sync(input);
+> +               break;
+> +       }
+>
+>         acpi_bus_generate_netlink_event(button->class, dev_name(&device->=
+dev),
+>                                         event, ++button->pushed);
+> diff --git a/include/acpi/button.h b/include/acpi/button.h
+> index af2fce5d2ee3..832f1a308828 100644
+> --- a/include/acpi/button.h
+> +++ b/include/acpi/button.h
+> @@ -6,6 +6,10 @@
+>  #define ACPI_BUTTON_HID_LID    "PNP0C0D"
+>  #define ACPI_BUTTON_HID_SLEEP  "PNP0C0E"
+>
+> +#define ACPI_BUTTON_NOTIFY_STATUS      0x80
+> +#define ACPI_BUTTON_NOTIFY_PRESS       0x81
+> +#define ACPI_BUTTON_NOTIFY_RELEASE     0x82
+> +
+>  #if IS_ENABLED(CONFIG_ACPI_BUTTON)
+>  extern int acpi_lid_open(void);
+>  #else
+> --
+> 2.25.1
+>
+>
+> No virus found
+>                 Checked by Hillstone Network AntiVirus
+>
