@@ -1,64 +1,64 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7924E516171
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB4F5328B2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904730; cv=none; b=Vcbay5ecHwf8aVX3JbA7KZqzWJGKh5C7dNGdLpFggoGKQOI+Q2Q1rU4Ns6/vY7NiHvptH74EAJpJ1pixsP6OkczTtascYZOfXi8JHxcSX0Beg8pw89sAKemQBSY+dzJzgGE05icG9macPuCCQaAXvGvKUV0koR5X2GzjA2sSi2s=
+	t=1791904737; cv=none; b=qmhrCJ5g1Uyo1O15tDCxOcEHzoDUt+/ZaHRF5DEVft/SZgfssXg/oEREEnyVu6si/OG1fq+L6H15QNuDaNAkEgznY2P308yY4GHbjETB+CjThiIcgKfQpJASffYxiTGnobs73o3qhJyxJFB9YgiDt97jANuPSZAOYAiMqAwKnxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904730; c=relaxed/simple;
-	bh=AMCODax57KqUMy5UTX/GawCV8PmBS5pugefjN97Hi2g=;
+	s=arc-20240116; t=1791904737; c=relaxed/simple;
+	bh=6K3SkrEl0hDRYM2P4BpCm5A7jEZueESKwGIgsNB1OBI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p9HckplPSH3+hLTRJ0K5LFgpRL1KD6wMn+xMyV2KaafGgWqNzW7PGvOtJQ3x+/CgGHrRGOubpc4PJOY2QiMza0ViJDqJmsxguzVi7DrRFs4TzvAxuTOrX4KHd2zB35SjhsYECQ+pyVroNdfKv6+A9gNscERvds14XhdFtfBYixI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W757CHfA; arc=none smtp.client-ip=209.85.216.44
+	 MIME-Version; b=i16eRrt3c4n411YCdy0YsQbRp5k9ofGuu+dQY8eRD3vAIpb2zos1N2Xkb5EMmXPaSEJmlxBgF809oXj4nkuum7AVXs/OArAcze4iSkUZXJjDoEq7H13WzUjJrNpje7ncsM0Cmgs0RGimIS4D+oog8WJudOsfmjxUs+4X0LlvwIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lBi04kmp; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W757CHfA"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38759bcd877so1888778a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:18:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lBi04kmp"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a8af3a704fso1521930a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:18:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791904729; x=1792509529; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791904734; x=1792509534; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FrpJ3R8Qy/E0WIUg4/pXUKmtopn00SRG/AnQSF67mz4=;
-        b=W757CHfAlBFqZamzOwiW/GwwVGauALoJ1eX2fw0nKysVtWL0FFg2BFA0oPKPra1wkb
-         49zY88OLy8KejN/gazko/cRZ91E8OVzkbq3EG9CK5QcNNtd1bLWpEsQtpCe/VGm4MXmO
-         6sKp5bQrhuLhXwSflVN7/Fd12loPNJHxP81waWBJXfSK7s8AB5qctmPlKphB3CWbKr+d
-         ZkVX7YnD8MRKNKQmiTZribsOtwbhmCQer+VmP6ef46a8iXSGO69+m06Zm9tY0b4kXidH
-         jGJxBkhdtVFm+++9TRt10xBX1i7vBkuG6XLIWClJ6cboG/2da+Ei2aJt4i5Jmkz2PkAl
-         xWxA==
+        bh=DldAa+NtWBY2ZHtMa/QGhrtb5Vlsja4TWpwxlEVTD6A=;
+        b=lBi04kmpiz2uyX164nXI7S4P7uehh3nkysRF4KFuZjtv/r0Qs1xaWP2X/OprlUg7bT
+         oX6sLE2EXFdjUP+a5W+N4dtZNmOJM7sg0/Xf4oQHlyDAYKY5MZUAlr9CScGgYwb1cXD4
+         laP6wTVfJx+fuRw+c1LKlHRGM1kQl3vfjciPLDFlN2MVUJ0fwRRbKdD5+K7VFodYI0pO
+         Fk/bQc9x2nmvYuc8Ze3UPeknE9pTbH1KgDefw3T+hUznFV+2ZF0kY/Pm0ZB9WoPGqp6K
+         akhrWpqeqBfEr92ZeS72uDXriCBFSnS1kRAD11YxqYsloYWjSBcKNM8Q4jW1tqOQSVpJ
+         e0iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904729; x=1792509529;
+        d=1e100.net; s=20260707; t=1791904734; x=1792509534;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FrpJ3R8Qy/E0WIUg4/pXUKmtopn00SRG/AnQSF67mz4=;
-        b=W28Sr/WViHNkMpS6A0Qi15sear4ChpIAKSL+N11T+KY/jD7mgWhtaW5Kz17ZHkWESL
-         SStMUqZcivzRCGOKhgjOSOHqeNZsq4Mvu2J8DouX416QAyihk9oBwvyHdrQUwhrO51pq
-         6klGHBF5H9FAI6rC5ZfLb2kIXFjDf2Kz+aE7yBsYrF6SUXJAXKtb+6rQpXW9znJswk2A
-         8pmiE79GyLIVfHNufdSW6fJ73EDNotY+XYnEmCPRPPZm2tvopSd6itSuVb6vR0+3V2nX
-         nIyh1tcbp3apSzAUqaOXGOUH2NOtzNtPPp91ZZ8ntxFTpf2eLWz2IH9ZNIt5j84aFZ+S
-         DiCg==
-X-Forwarded-Encrypted: i=1; AKwUvBxzvicYUpdpnODu3bpVxBNi+aKWPZBklILHZH88/CF8jofJwrVL4d+HWjMhPwF5wPYgHw3O1NFCArlP558=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLM252Ao8zmpCXT9CxpLtYJa390kNWWfU7U+XRbYx7itSKa3zYj
-	/ijU2ZWIXysRkjeKyWpUfOm9dH524NKUE4Tr9IucJbygyc/xInoZELE8
-X-Gm-Gg: AYBFou3aDr00O7lkUI0vEbTfcrblvdGbOkDCnhsunkmd4wbUbTYkdzPtwPl9k0hl36r
-	yEdl2TOx4NuH2RNMG0wCyDX9s5b76j6HuvINPAaBAHKIMkEdRDdX5z21z+dEUkwy19aNxOuQrhQ
-	SfwPx/pfDkRadaweqtBEF6bC6Rnd2LVfpwgxlYR5U9wafhfMZI4U/hGCG/V3sY92PiejBGACrF2
-	ZBKazmvVXxoIekk2KQFDi1t1yvt3WFJTvcMH1DliZIWKyGO96Olak4o8u4U/085yYRMG/HH2yAq
-	OPEOWmlJTfF3j8qLaJYbvCxBYKZHtlYBXPpgkAkMF/uoOE5UZaFv4kdO2ifsbalh8HhsW5/nrai
-	frUeik5214aWT7IbFOxoNCzaFQ2uDL5sm9ZzIF4vWJWDgTr46LzAEqgVUqt+LqkxYeAAs1Ez8I7
-	iwPq57uHd6s3dxXenqcwVesJD6+PZzotoqn5zACmiXMDnB81RwtdKXcLsFS4K+d1GlZcdef6MJ0
-	UBfIksKfWic9VFWMZFCAHfWr11K
-X-Received: by 2002:a17:90a:5184:b0:3ac:17c:6e82 with SMTP id 98e67ed59e1d1-3ac15d46137mr2707843a91.45.1791904728712;
-        Tue, 13 Oct 2026 08:18:48 -0700 (PDT)
+        bh=DldAa+NtWBY2ZHtMa/QGhrtb5Vlsja4TWpwxlEVTD6A=;
+        b=G6e4GReOT9AcUCb6EW4Suo2/1HWZPQQYovMoNTX9yUHwqYrQO9YzqXRmvrOA5ilLE5
+         4aQpjOPJPZaQ4c4y2ZpyvlHK2Kj2Q7XmOVKq4HkVMK/+XiHaNB8ckzBypjZ+Up0ijJVn
+         VeHLUCGKFibfzu6S2Heo9s8c8u0oOPfgx2TLAbjmJNq51JNYV60sN23CK7LEzegQL/Ti
+         nNJU69bb+k+gJRhhrxUp6mpebLTkCFS11rzY4GMrpcbSFNtbHoo/Aru7xEV3sOSaSIrf
+         vh4JSOKk+7B8QcKae+imAICZkXELctm7BD9DrsTQSmc9A4RExBY3lXI0RvPpUjykhWFO
+         8eGA==
+X-Forwarded-Encrypted: i=1; AKwUvBzcczsJ+H9BVs6J2I5Bg+Exo1+Dg3WjCom9jLG39wTawHVauKre5N4eG9oEDq14dKwghgMdeCqcgsky2Z0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyJxTOJinN2uEyfooJHgyi7MoIF4yyT3BZCgrt+InzBm/+bm2j
+	utAl4CkKTehk08lH06FIliCB7MBdtQqa0YekOZMjercf38EB2USBNKsb
+X-Gm-Gg: AYBFou3teyjPnv5n8hc/DnCO38/DSgNekDaPxksQXJdpSW3LUwdqD80sNXX0gBFfuFH
+	CaZPVlnFCbYClDrHURIEpsRBXV7S1BbcL05TkGU2epxUxGy5s6VZrWQUADhfuqXgVlMXfCWd9WE
+	LBr+kCHmicZQ3y2h7wDjt/b47tllrKNNeHsyYtJ/Jdr8ZWEQIdqacs229pn9qKcMakBq3VNnY9n
+	sYzmOUxUvw+ATyD8ZUk12V5tvMJv+O0Smww82FkubVK4gXclP/LH6pv0gEJk9GuTRK0GKA1KjP4
+	pX8eoKQxaXRY4HxToWZsMzaXf+tjTGWTiLpITKZKeObqhLxbGYVTHdGX5BY5iuiYfn4HpkZgtE+
+	m+VtazOjLxqE+Qe78BEaPPV5/LrObN3yHFznGteVrmO+zzrnjwRXVy6CRQ3ymzcOMkvPXBG0LO6
+	LTu1/p7qChOv3K1zuTl1vsi/z2cyKEYqDH5UecA5oGAf6dpZFdAzA7qHpYGnIQBwRW4e/E1GK5w
+	BSTFEWJFo6m18wYQinMRCogwgCM
+X-Received: by 2002:a17:90b:2d86:b0:3a7:d2b5:2e99 with SMTP id 98e67ed59e1d1-3ab3a60d1eamr9892006a91.20.1791904734175;
+        Tue, 13 Oct 2026 08:18:54 -0700 (PDT)
 Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.18.43
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.18.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:18:48 -0700 (PDT)
+        Tue, 13 Oct 2026 08:18:53 -0700 (PDT)
 From: Akari Tsuyukusa <akkun11.open@gmail.com>
 To: Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
@@ -87,9 +87,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
 	Akari Tsuyukusa <akkun11.open@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 09/35] clk: mediatek: Fix index in composite clock unwind path
-Date: Wed, 14 Oct 2026 00:17:08 +0900
-Message-ID: <20261013151734.3177690-10-akkun11.open@gmail.com>
+Subject: [PATCH v2 10/35] clk: mediatek: Fix memory leak in mtk_clk_register_gate()
+Date: Wed, 14 Oct 2026 00:17:09 +0900
+Message-ID: <20261013151734.3177690-11-akkun11.open@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261013151734.3177690-1-akkun11.open@gmail.com>
 References: <20261013151734.3177690-1-akkun11.open@gmail.com>
@@ -101,39 +101,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When mtk_clk_register_composites() fails to register a clock, it
-unwinds previously processed entries. The unwind guard incorrectly
-checks clk_data->hws[mcs->id], which refers to the first descriptor,
-instead of the current descriptor.
+When a gate uses the hardware voter ops but the hardware voter
+regmap is missing (e.g. the "mediatek,hardware-voter" phandle is
+absent from the device tree), mtk_clk_register_gate() returns an
+error without freeing the mtk_clk_gate structure allocated earlier.
 
-This can cause the unwind to skip entries that need unregistering
-or pass an invalid pointer to mtk_clk_unregister_composite().
+Free cg on this error path.
 
-Check clk_data->hws[mc->id] instead.
-
-Fixes: 3c3ba2ab0226 ("clk: mediatek: mtk: Implement error handling in register APIs")
+Fixes: e504d3bdb3d0 ("clk: mediatek: clk-gate: Add ops for gates with HW voter")
 Assisted-by: LLM
 Cc: stable@vger.kernel.org
 Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
 ---
 Newly introduced in v2.
 ---
- drivers/clk/mediatek/clk-mtk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/clk/mediatek/clk-gate.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/clk/mediatek/clk-mtk.c b/drivers/clk/mediatek/clk-mtk.c
-index 3dfdd3a422f8..0b10a4b14a6e 100644
---- a/drivers/clk/mediatek/clk-mtk.c
-+++ b/drivers/clk/mediatek/clk-mtk.c
-@@ -363,7 +363,7 @@ int mtk_clk_register_composites(struct device *dev,
- 	while (--i >= 0) {
- 		const struct mtk_composite *mc = &mcs[i];
+diff --git a/drivers/clk/mediatek/clk-gate.c b/drivers/clk/mediatek/clk-gate.c
+index bd2fcd489a3f..0b1389993751 100644
+--- a/drivers/clk/mediatek/clk-gate.c
++++ b/drivers/clk/mediatek/clk-gate.c
+@@ -221,10 +221,12 @@ static struct clk_hw *mtk_clk_register_gate(struct device *dev,
+ 	init.parent_names = gate->parent_name ? &gate->parent_name : NULL;
+ 	init.num_parents = gate->parent_name ? 1 : 0;
+ 	init.ops = gate->ops;
+-	if (mtk_cg_uses_hwv(init.ops) && !regmap_hwv)
++	if (mtk_cg_uses_hwv(init.ops) && !regmap_hwv) {
++		kfree(cg);
+ 		return dev_err_ptr_probe(
+ 			dev, -ENXIO,
+ 			"regmap not found for hardware voter clocks\n");
++	}
  
--		if (IS_ERR_OR_NULL(clk_data->hws[mcs->id]))
-+		if (IS_ERR_OR_NULL(clk_data->hws[mc->id]))
- 			continue;
- 
- 		mtk_clk_unregister_composite(clk_data->hws[mc->id]);
+ 	cg->regmap = regmap;
+ 	cg->regmap_hwv = regmap_hwv;
 -- 
 2.56.0
 
