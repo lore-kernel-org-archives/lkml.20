@@ -1,91 +1,80 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E784E1C81;
-	Tue, 13 Oct 2026 12:28:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D9E3E0C7A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894532; cv=none; b=uSPaUnzxJBAEAADO9noBEwlQWxQzg7+gnCnTyYffy/7Lb2Cnut/gDAdqqHI/1UzTXb5wTUlv/lmUVyNzCoyZnvyWyL4xpJFtFQtfjcVqyZu9jxSpUEhRLaufrWvsMRk4sivFwWVmzL01EdP8SNPlL6bINITJ0QUUuj7D+hoTJQI=
+	t=1791894538; cv=none; b=dG1Q4xktmugJ4nz24z2KI2GZTkXjHRQYEHvvrL8DcD7NryYnqiGe32392VBI+6ltRnpEDjwmr+HUyWEuSTFZtxjrlBS5Rlk5gNASRtFCDK9PWAlVY4/TqgPC9Z4WP7XnRNieNju+cm24W6ILw0gABLhAB+Omf489Fs+ag37RVms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894532; c=relaxed/simple;
-	bh=HNcxujrc0rrQuzgKBt20U4O1Vu0rkLeMsQ+RhP+JRlA=;
+	s=arc-20240116; t=1791894538; c=relaxed/simple;
+	bh=YveNTi8ah6bA5pnf4dMIhjxq/suH8nT/i2ueA0M6OQA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j/wXwWtJk2YiykAnwpeW7aH5v9Ux1i0CV3wXorGu8EI/01cLaAX71H5RGwMclW+I0F+diBkTxvSx0Ph/qPDon5tHakjQYO+hfgE2C5oDkFG99x5OomAxiiTnH3mtv67U2APaBP/vhIz0Mje4R8wYm/mKrnrW1bhA0YgnLh3EOEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=A2DP+Mwz; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=FaVCg0Rt; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=rwqSa5ZQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=MMRut3Pi; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=UZ2Ddf7fVof58Fb6UX1Uz7dGIudjRc6+0Orsj9YStuUECP2rz+tQxn5FxYNaY1+aGkApyMUBxP1Y9XjyJpc2s5lRDvGhgwFn7M8eEo6YrS8h2hIsq6rzvHb89+HvYySL12yzBnFAlgYvaB6yE1P539DyGvzgPaHoRtO/GlGf6oQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qm0BIgro; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="A2DP+Mwz";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="FaVCg0Rt";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="rwqSa5ZQ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="MMRut3Pi"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6A2A11F443;
-	Tue, 13 Oct 2026 12:28:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791894528; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xGG18Y66fbsHodnkVp2rq+uaKysJfSv7BxMclrURpkA=;
-	b=A2DP+MwzX0eWf+jVRkDZPv+eV4HJioHJWt9Y9gW1Jx0SMu2dSrIjP2ulZL4dzJR8IahaqY
-	nnlw53lzlxQ/y8t/k8dRVzBC3vrGaLUZUyow9FPXzBhlSuzbe4O3vyTvxnsr9vHrmYp0dL
-	M14v8POAvAyAf159yA5HAYa1YUSG0fo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791894528;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xGG18Y66fbsHodnkVp2rq+uaKysJfSv7BxMclrURpkA=;
-	b=FaVCg0RtBXG1TTPkevr+IbfjK7U91ppQoB/EvQ8rSbD/0NNysL98BMb36HtVlSgn9w3xSI
-	IHHDOqmrDWXQuuCQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=rwqSa5ZQ;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=MMRut3Pi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791894527; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xGG18Y66fbsHodnkVp2rq+uaKysJfSv7BxMclrURpkA=;
-	b=rwqSa5ZQc61apzsl0qrEpknxL5k6rBU7yZrRMAfCgMxrxjYt4xC6K+p02nlXBMzF6MTmHA
-	yvcbIEKRKHckBYhhBtX53nw4V3bmKcyb3+y8AdfTfbCeywFCOMQGajKBif4t8f87fUqLRA
-	gl+51LIXcDj2cvs+dZmQ68GN5g2ltuM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791894527;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xGG18Y66fbsHodnkVp2rq+uaKysJfSv7BxMclrURpkA=;
-	b=MMRut3Pi07xnoYzUnucCKkEGGjLhsoJUOVpymLylNMqduHvQGT9lExrtnop7XXIHVIUgia
-	fIVpo+yZOI67PoDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 41E0613341;
-	Tue, 13 Oct 2026 12:28:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 5b6qBv8jzmo4MAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 13 Oct 2026 12:28:47 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id D04D0A1407; Tue, 13 Oct 2026 14:28:42 +0200 (CEST)
-Date: Tue, 13 Oct 2026 14:28:42 +0200
-From: Jan Kara <jack@suse.cz>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, Christoph Hellwig <hch@lst.de>, 
-	John Garry <john.garry@linux.dev>, "Darrick J. Wong" <djwong@kernel.org>, 
-	linux-block@vger.kernel.org, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v2 2/3] ext4: never fall back to buffered I/O for
- atomic direct writes
-Message-ID: <dcft3zw2kxwxr47x4ulg5l7jpcqhsghxe6tsupgspfx5ia3rau@c6663nup2pe3>
-References: <20261012-ext4-atomic-no-fallback-v2-0-c4b30c60e500@columbia.edu>
- <20261012-ext4-atomic-no-fallback-v2-2-c4b30c60e500@columbia.edu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qm0BIgro"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e5e801487so426280766b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:28:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791894535; x=1792499335; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MSrW2QsU5sD6aU9GldcitIknJmBTZQB6L4UNDgWjpRU=;
+        b=qm0BIgroWB4dNBPgaUZBIptiUeHsQhlj0vMDwR/abHdMbwQWVqoimkiQysDhLEnlr8
+         mhLJTGKV/wnmyJUZhpcjL0r2xudr1DwQ11BLDQVV3Ph8azHg+nYNY3hlpZfP5qjFqUab
+         W09v72fEJjPVkC6iLlpVto0EQUQ8HDUlkABiKC6lBUfGJADltaAW2pTKcnb4k9Fa2RSd
+         ZfXjy/1f3EcNqS8X5p97aFo1ty4bIslQGAKwsS0dH0zH3RZQwhYukCRfYR9AIPw5FN5J
+         /h74FEDGUZ7S5v5NuCpWQis+53+x5x4wmnkatBhmkzEKXDEBPB7wKbHFz+OMy/a1+y3q
+         jkkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791894535; x=1792499335;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MSrW2QsU5sD6aU9GldcitIknJmBTZQB6L4UNDgWjpRU=;
+        b=2FRHjGtwkSE02ZKl9GcnEezTIBOAPV5maMvtNznqjPjHLLeRDruaLQgmFUMq7iZ72j
+         tQ5l6NUupSIZgmif3jSMskdAaFTP4yX0EmsiqV3RWj1A2FJH9GfQmD7RmfMNdhSdwOeL
+         f8c8Vi4/vRqYwpppnUsSrH4j1O14++Fa5U/LwDvpSVoUDaBXJ07+hifs+mL2N4w4s8do
+         jOhVXhOWNUmHviLwY0OSrlKQTuC7E/OR6fy4zDctNTZ8OXaLi8Dg4s6FvWGGBg0oivYs
+         xiIavG4vUdbUlRK1yOVYtLcGa0TzaP2E/jJWsUJKDTQsOvvhBEiYfyup4GcJJmkC2y87
+         i+WA==
+X-Forwarded-Encrypted: i=1; AKwUvBwcx3fJK5xdzfgWwYn86A1nDS+YisWvnrhwYyJ2kiSRnBvpRK++P9fUnKahrqwe6VxFxpqHUkaWzjjGhU8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIC1TEv95ypi5R2Bf7raICgwhTaETveAHDN08lCUo374+f4wIUe
+	a6bajvtuuxA8olxXFvQ1Epj+aPw7dI4A7kwFuGChHZvL1dswqfiynHsC
+X-Gm-Gg: AYBFou0IEYNc0uQz7vZPb4s+UF3h1c+y/s3gbxhtyuDvbRKIP4pZdFpDsXCW6FK227D
+	ofeVdO0rXGS7aUb+U1+E6aB7xcVJtPWo2I72u7/HH2rm3rJYe/ha2QE01R2CD7GBWV5felh9woX
+	S6b0q53Y40v/9diJOXDm+rnvsox6pIP5Ks5vkPcG0VNNYuCx4t4y1wLy12O2O5P6hBfZVV4tHEI
+	/a00FKTPvWuetd5qILaaF5L/1f+Z1TNCA5tgbkQi2h2x+EMwV0IIZWZgqfjH+KnhykVFraC33vy
+	PETWt4NAd1fyEbbeY/nlm0y3i63rzwoMa6WNa0W0ERcqgvyZ4MwAqjHeHdoib58qIxn+U8Uv65U
+	uKh8eWLYDJEau97Egm1On1LUCOb9P8ZbAmZqngQxEGM63fnEPQWt53QB9XCNJ61cSd7NKA2LUYX
+	Rh7GQOoxd/wGLhCrs/OJN63J/RP3VNSxizJmA56A1j0sy55TEHHvwqwvyQ4+IWIdsrt307s1T+t
+	2sygWIhlchN/KydYuf/rRufqU44V9NHy8XqltIsXCzeZDiK3pBlSxnUGz+V49W1nBDrI9H4rZAb
+	d5E=
+X-Received: by 2002:a17:907:7f90:b0:c26:1648:a061 with SMTP id a640c23a62f3a-c31aa04aabamr1238002866b.28.1791894535091;
+        Tue, 13 Oct 2026 05:28:55 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9766743sm577597466b.4.2026.10.13.05.28.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:28:54 -0700 (PDT)
+Date: Tue, 13 Oct 2026 07:28:45 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, tj@kernel.org,
+	neelx@suse.com, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
+ cpumask is empty
+Message-ID: <as4j_Zk7zcNsBuo1@fedora-laptop>
+References: <20261012012905.267920-1-atomlin@atomlin.com>
+ <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+ <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+ <asxLLWOQQzolER0a@fedora-laptop>
+ <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,104 +83,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012-ext4-atomic-no-fallback-v2-2-c4b30c60e500@columbia.edu>
-X-Rspamd-Action: no action
-X-Spam-Score: -2.51
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RCVD_TLS_LAST(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,lst.de,linux.dev,kernel.org,vger.kernel.org];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,columbia.edu:email,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 6A2A11F443
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+In-Reply-To: <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
 
-On Mon 12-10-26 13:17:41, Tal Zussman wrote:
-> ext4_dio_write_iter() finishes a short direct write through the page
-> cache. ext4_buffered_write_iter() now rejects IOCB_ATOMIC, so a short
-> atomic write would warn and then fail with -EOPNOTSUPP, as if atomic
-> writes were unsupported on the inode.
+On Mon, Oct 12, 2026 at 12:06:25PM -0400, Aaron Tomlin wrote:
+> On Sun, Oct 11, 2026 at 09:51:25PM -0500, Ming Lei wrote:
+> > > Since kblockd_workqueue is WQ_PERCPU, the responsibility rests with blk-mq
+> > > to provide a non-isolated CPU when dispatching &hctx->run_work, no?
+> > 
+> > Does every WORK_CPU_UNBOUND user have to handle it?
 > 
-> This came out of a block device fix [1], where an IOCB_ATOMIC direct
-> write could complete short when only part of the buffer could be
-> pinned, with the rest going through the buffered fallback. Christoph
-> Hellwig noted that ext4 has the same fallback and only warns in it [2],
-> and John Garry agreed it should reject the write instead [3].
+> [Adding Tejun Heo]
 > 
-> In contrast to the block device, nothing reaches the branch on ext4
-> today: iomap requires the mapping to cover the whole atomic write, a
-> buffer that can't be pinned in full fails in iomap before the bio is
-> submitted, and a failed page cache invalidation returns -EAGAIN rather
-> than reaching the buffered fallback. A short atomic write is therefore
-> a bug, and neither a short count nor -EOPNOTSUPP is a valid result for
-> one. Fail the write with -EIO before the fallback, keeping the WARN()
-> so any future bug is visible.
+> No, because almost all other subsystems passing WORK_CPU_UNBOUND do so on
+> unbound workqueues (e.g. system_unbound_wq).
 > 
-> Link: https://lore.kernel.org/linux-block/20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu/ [1]
-> Link: https://lore.kernel.org/linux-block/20260907071217.GD934@lst.de/ [2]
-> Link: https://lore.kernel.org/linux-block/a7752d1e-8ec1-44d1-a266-c287c315e8ab@oracle.com/ [3]
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> In kernel/workqueue.c, when WORK_CPU_UNBOUND is queued on a WQ_UNBOUND
+> workqueue, workqueue core already handles CPU isolation automatically via
+> wq_select_unbound_cpu(), which respects wq_unbound_cpumask and steers the
+> work item to a housekeeping CPU.
+> 
+> kblockd_workqueue is unique in that it is allocated as WQ_PERCPU to
+> preserve per-CPU locality for multi-queue devices. For WQ_PERCPU
+> workqueues, workqueue core cannot silently migrate WORK_CPU_UNBOUND to a
+> remote CPU because callers of bound per-CPU workqueues expect local per-CPU
+> execution. Thus, blk-mq is in the unusual position of passing
+> WORK_CPU_UNBOUND to a bound per-CPU workqueue with the expectation that it
+> avoids isolated cores.
 
-Looks good. Feel free to add:
+No.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+For example, schedule_work() is queue_work_on(WORK_CPU_UNBOUND, system_percpu_wq),
+a WQ_PERCPU workqueue, so every schedule_work() from an isolated CPU runs
+on that CPU. blk-mq isn't special here; this is the general tradeoff of
+submitting IO from an isolated CPU.
 
-								Honza
+> 
+> > > I suspect, steering the asynchronous dispatch to a housekeeping CPU is both
+> > > architecturally necessary and fully aligned with the rest of the kernel,
+> > > no? When a queue is plugged, throttled, or returns BLK_STS_RESOURCE, blk-mq
+> > > defers execution to a background workqueue. That work runs asynchronously
+> > > at some indeterminate time in the future, long after the thread has
+> > > returned to its time-critical user loop. Having a kworker suddenly preempt
+> > > the thread later is likely not desired.
+> > 
+> > We are talking about `if a task executing on an isolated CPU submits I/O `.
+> > 
+> > If the task has been submitting IO on isolated CPU, why can't we keep
+> > scheduling WQ on isolated CPU for running blk-mq queue? I am not sure your change
+> > makes any difference from user viewpoint.
+> 
+> When a task submits I/O, synchronous submission occurs directly in syscall
+> context. Note, in the following example, IOCB_DIRECT is applied since the
+> file was opened with file->f_flags & O_DIRECT:
+> 
+>   __x64_sys_write
+>     ksys_write
+>       vfs_write
+>         else if (file->f_op->write_iter)
+>           new_sync_write(file, buf, count, pos)
+>             // filp->f_op->write_iter(&kiocb, &iter)
+>             ext4_file_write_iter
+>               if (iocb->ki_flags & IOCB_DIRECT)
+>                ext4_dio_write_iter(iocb, from) 
+>                  iomap_dio_rw(iocb, from, &ext4_iomap_ops,
+>                               &ext4_dio_write_ops, dio_flags, NULL, 0)
+>                    __iomap_dio_rw
+>                      ...
+>                      iomap_dio_submit_bio
+>                        blk_crypto_submit_bio(bio)
+>                          if (!bio_has_crypt_ctx(bio) ...)
+>                            submit_bio(bio)
+>                             ...
+>                              __submit_bio
+>                                blk_mq_submit_bio(bio)
+>                                  // blk_mq_run_dispatch_ops(q, blk_mq_try_issue_directly(hctx, rq))
+>                                  __blk_mq_run_dispatch_ops(q, true blk_mq_try_issue_directly(hctx, rq))
+>                                    blk_mq_try_issue_directly(hctx, rq)
+>                                      __blk_mq_issue_directly(hctx, rq, true)
+>                                        // q->mq_ops->queue_rq(hctx, &bd)
+> 
+> 
+> However, if dispatch must be deferred (e.g. BLK_STS_RESOURCE),
+> blk-mq queues &hctx->run_work. Now, if &hctx->run_work is queued on the
+> isolated CPU, it must be executed by the local kworker. Because that
+> kworker runs under SCHED_NORMAL, the user's SCHED_FIFO task completely
+> starves the kworker. As a result, blk_mq_run_work_fn() never executes,
+> hardware dispatch stalls, and the I/O pipeline hangs indefinitely.
+> Albeit, I believe an enabled Fair server, under the EEVDF scheduler, will
+> prevent this stall.
+> 
+> Anyhow, offloading deferred dispatch to an online housekeeping CPU allows
+> the kworker to run immediately and complete dispatch without priority
+> inversion. As noted in commit a46c27026da1:
+>     "it isn't expected to let block IO disturb these CPUs. blk-mq kworker
+>      shouldn't be scheduled on isolated CPUs."
 
-> ---
->  fs/ext4/file.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/ext4/file.c b/fs/ext4/file.c
-> index 19a8843ac420..11e375bd4ed1 100644
-> --- a/fs/ext4/file.c
-> +++ b/fs/ext4/file.c
-> @@ -679,11 +679,12 @@ static ssize_t ext4_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
->  		loff_t endbyte;
->  
->  		/*
-> -		 * There is no support for atomic writes on buffered-io yet,
-> -		 * we should never fallback to buffered-io for DIO atomic
-> -		 * writes.
-> +		 * Buffered I/O provides no torn-write protection, so never
-> +		 * finish an atomic write through the page cache. iomap must
-> +		 * not return a short atomic write, so treat one as a bug.
->  		 */
-> -		WARN_ON_ONCE(iocb->ki_flags & IOCB_ATOMIC);
-> +		if (WARN_ON_ONCE(iocb->ki_flags & IOCB_ATOMIC))
-> +			return -EIO;
->  
->  		offset = iocb->ki_pos;
->  		err = ext4_buffered_write_iter(iocb, from);
-> 
-> -- 
-> 2.39.5
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+You already disturb isolated CPUs by submitting IO via syscall in this
+case, so why does it matter here to dispatch on same isolated CPU one more
+time?
+
+
+Thanks,
+Ming
