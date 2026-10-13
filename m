@@ -1,49 +1,32 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF373F484D
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5963EB11E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:36:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884156; cv=none; b=dovKaSEGGw8sZmNosKKsE/vnG/kR1etdlNSckLPxL6pMdaUlEAs/UCyd16AYE0UtLQKbtHV8krWAHd6qfENK3wgOHe4d9wSV+T6vw+lCsypsnxIEmmplxUkpDIVirDKkgc5sKY5gxWcuMIRMKnPqGqILyzJfhjWeCl6eoe9MnzY=
+	t=1791884176; cv=none; b=GHQJbKjhTmtSB+sf4sPSKv7KKLwm+rr7CfQAylaxWwlgOmWJUrOph+J9Pg4YFrd56vpFtwC17E/mJKhKwItICVfdgFRqr5cYui4odjwDc69O4jljldxJ+7ugBva3yCgHh39Py4Kiz1IQjt8t+9JGYLwM1a1Smb8BPGavcnSTECE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884156; c=relaxed/simple;
-	bh=qSkGUohML2p/xeSbT4MWkS/eFydJi+duS3OhUaoaXUQ=;
+	s=arc-20240116; t=1791884176; c=relaxed/simple;
+	bh=bSYBN0inOYfKRYiITpPuzhlLPrKLq5h/iogkgVYDOdo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bDZiTyMkIDDXhfWIk4FFzlosikH3j+Wm6ed+r4Z0EW55gGZwGFV3CShNfPc7+GIilk5zxF9oBCC/sciHTRi4Ln4zH9zg8QTug1aHrL7nf5kGNRHdAAPoOM4WOTGiy98IIVrfqUNPuE4NSAbdRlbp5XvUdrw0eT3Q6YDAe7aKyyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dBTUPoxh; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=opUtxRNhCcRTdKmWSFwS8EFXmzzcFKvhU6WGBofFJrEGeDaCqQuDzmiqB0/rV0Eh7PgGUMQK8tvpBCjlNrLQbagdZxkcg1qU55CSte1yOtQr3TX4PmDOH6o1FP9mzdWMR8ejiIfj0zTEFEF8ETGzbEMfNBn4Wkb3TpSPJoDw8nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=aAw0UjR0; arc=none smtp.client-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dBTUPoxh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791884154;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ymRVYAINTCGe65FkaCIpcmD55uZ5dvwqAGaT9G+s7bI=;
-	b=dBTUPoxhpmcapQvY3f2SPJFH5VJbuhxutRyoes30JqZI85qpV+RFp6ojVoozXiPUeM9uN5
-	WqMedBmnPZ1XKyzSKkWXffzDCIZEOxrCDFBSiwUyY5u07WUwWDSHGSooWmhgH7fix3ryuf
-	bdLaPr4RtY9L1KE+TyxcGT+7p37+sRg=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-580-pU5W5lYsM7q3g9VjC4EBpQ-1; Tue,
- 13 Oct 2026 09:35:49 +0000
-X-MC-Unique: pU5W5lYsM7q3g9VjC4EBpQ-1
-X-Mimecast-MFC-AGG-ID: pU5W5lYsM7q3g9VjC4EBpQ_1791884147
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D8F7C180133A;
-	Tue, 13 Oct 2026 09:35:46 +0000 (UTC)
-Received: from [10.43.2.199] (unknown [10.43.2.199])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6C1FD1956086;
-	Tue, 13 Oct 2026 09:35:43 +0000 (UTC)
-Message-ID: <ce4b7f56-70c6-4436-a453-91fdc13ef634@redhat.com>
-Date: Tue, 13 Oct 2026 11:35:42 +0200
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="aAw0UjR0"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791884171; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=tf91INvadMxOEv4mOizUmAwHCMyZFOULLoKUW7s5VsI=;
+	b=aAw0UjR0Q00GkVKNB2lASq4k/GVXIlibJ/Ky8QNBqn+05nTDkKtfc/5NiGxIzF7fsysFNUXe9zzOY3ZftdlfnGKsb4Yg65kh1SrSzokIAfyaUteF0gjSXfrU55o9czwjts0FHoXl1bkl0uwnNvq9Z7DIW0yN844dahZcUBBBjaY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XClKMcb_1791884168;
+Received: from 30.74.144.119(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XClKMcb_1791884168 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 13 Oct 2026 17:36:09 +0800
+Message-ID: <405811f5-ee36-4b3c-80d0-7dc6827ab5d4@linux.alibaba.com>
+Date: Tue, 13 Oct 2026 17:36:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,82 +34,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 05/12] dpll: sit9531x: register DPLL devices
- and pins
-To: Ali Rouhi <arouhi@sitime.com>, Jiri Pirko <jiri@resnulli.us>
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>,
- Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261009183151.78497-1-arouhi@sitime.com>
- <20261009183151.78497-6-arouhi@sitime.com>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <20261009183151.78497-6-arouhi@sitime.com>
+Subject: Re: [PATCH v2] mm: memory: fix truncation removing mapped folios
+To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org
+Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
+ pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com>
+ <8245424a-f068-4be5-9e58-713cbff1f8ae@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <8245424a-f068-4be5-9e58-713cbff1f8ae@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On 10/9/26 20:31, Ali Rouhi wrote:
-> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> 
-> Register each of the four on-chip PLLs as a DPLL device, and the crystal
-> that feeds them as a pin on each.  The inputs and the outputs need a
-> state callback the core insists on before it will take a pin, so they are
-> registered by the patches that add theirs; what this patch builds is the
-> device, the pin machinery around it, and the one pin whose state never
-> changes.
-> 
-> The callbacks a device needs from the start come with it -- lock status
-> and the operating mode -- along with the direction of each pin.  The rest
-> of the pin operations follow in later patches.  The device selects its
-> reference by priority, so automatic is the one mode advertised.  A
-> profile that sets manual active select is still reported as automatic,
-> since nothing in the driver drives a manual selection, and probe warns
-> about it.
-> 
-> Both need somewhere to read from.  The chip reports its state across
-> several pages, and a netlink call must not turn into a burst of I2C
-> transactions, so a kthread worker polls the interesting registers twice a
-> second into a per-input and per-PLL cache, and the callbacks answer from
-> it.  Output state is not polled: it changes only through a request, and
-> the getter reads the device again when one could not be confirmed.  The
-> same tick compares the new state against the old and notifies the core
-> only on a change; the first tick takes the baseline.  Where a board wires
-> INTRB, the interrupt schedules that tick immediately rather than
-> replacing it: the poll stays as the fallback, since this device gives no
-> way to be sure an edge was not missed.
-> 
-> Which PLL drives an output is read from the PLLs' output-enable masks,
-> which PLLC and PLLD keep in mirrored bit order.  An output two masks
-> claim goes to the first PLL, with a warning.
-> 
-> The clock_id that keys a device in the DPLL core is built from the SiTime
-> OUI and the part's position: sixteen bits of the I2C bus number and the
-> address.  Bus numbers are not bounded by the number of adapters -- a DT
-> alias or a mux child can number a bus 256 or above on a board with a
-> handful of them -- so the bus gets the width; the variant needs no field,
-> since one address on one bus holds one part.
-> 
-> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Assisted-by: LLM
-> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
-> ---
->   drivers/dpll/sit9531x/Kconfig  |    4 +
->   drivers/dpll/sit9531x/Makefile |    2 +-
->   drivers/dpll/sit9531x/core.c   | 1763 ++++++++++++++++++++++++++++++--
->   drivers/dpll/sit9531x/core.h   |  258 ++++-
->   drivers/dpll/sit9531x/dpll.c   |  411 ++++++++
->   drivers/dpll/sit9531x/dpll.h   |   68 ++
->   drivers/dpll/sit9531x/regs.h   |  259 ++++-
->   7 files changed, 2671 insertions(+), 94 deletions(-)
->   create mode 100644 drivers/dpll/sit9531x/dpll.c
->   create mode 100644 drivers/dpll/sit9531x/dpll.h
-> 
-Reviewed-by: Ivan Vecera <ivecera@redhat.com>
 
+
+On 10/12/26 6:23 PM, David Hildenbrand (Arm) wrote:
+> On 10/10/26 09:22, Baolin Wang wrote:
+>> Ayush reported an issue that shmem/tmpfs folios are still mapped when
+>> truncating them on production:
+>> "
+>> BUG: Bad page cache in process ...  pfn:...
+>> page dumped because: still mapped when deleted
+>> "
+>>
+>> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
+>> branch, and I got the following crash info. From the dump message, we can
+>> see that truncate_inode_folio() is really trying to remove mapped folios,
+>> which is incorrect.
+>>
+>> "
+>> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+>> index:0x3880 pfn:0x191647
+>> [  189.171995] memcg:ffff0000cc073d40
+>> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+>> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+>> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+>> .......
+>> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+>> [  189.172026] ------------[ cut here ]------------
+>> [  189.172027] kernel BUG at mm/filemap.c:155!
+>> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+>> .......
+>> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+>> 7.3.0-rc4+ #277 PREEMPT(lazy)
+>> .......
+>> [  189.183986] Call trace:
+>> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+>> [  189.184391]  __filemap_remove_folio+0x34/0x160
+>> [  189.184633]  filemap_remove_folio+0x4c/0xb0
+>> [  189.184859]  truncate_inode_folio+0x34/0x58
+>> [  189.185087]  shmem_undo_range+0x220/0x658
+>> [  189.185308]  shmem_fallocate+0x2f0/0x470
+>> [  189.185527]  vfs_fallocate+0x128/0x328
+>> ......
+>> [  189.187078]  el0t_64_sync+0x184/0x188
+>> "
+>>
+>> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
+>> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
+>> MADV_DONTNEED synchronously releases the pagetable page before calling
+>> tlb_flush_rmaps(), this could cause another thread's truncation to skip
+>> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
+>> as non-zero. A possible race scenario is as follows:
+>>
+>> CPU 0                           CPU 1
+>> shmem_fallocate                 madvise_dontneed_single_vma
+>>    unmap_mapping_range            .......
+>>    ......
+>>    (filemap_map_pages() remap folios)
+>> 				  zap_pte_range
+>>    truncate_inode_folio		    zap_empty_pte_table(pmd clear)
+>>      unmap_mapping_folio
+>>      ......
+>>        zap_pmd_range (saw pmd none, skip)
+>>
+>>    filemap_remove_folio
+>>      BUG_ON(folio_mapped)
+> 
+> That reminds me of sync_with_folio_pmd_zap() usage in page_vma_mapped_walk().
+> 
+> Isn't that the better approach?
+
+I had considered this approach before, but it is not feasible. IIUC, the 
+sync_with_folio_pmd_zap() is used to address the race with 
+zap_huge_pmd(), and both the PMD clear and the folio mapcount decrement 
+are performed under the PMD lock in zap_huge_pmd().
+
+However, the race here is different: tlb_flush_rmaps() is under the PTE 
+lock, while zap_empty_pte_table() is under the PMD lock, and reordering 
+between the two functions is also possible. That is, the folio mapcount 
+operation could execute after the acquire barrier (spin_lock()) of 
+zap_empty_pte_table(), allowing a reader on CPU 0 to incorrectly observe 
+that the PMD is none while mapcount > 0.
+
+Also, we need to consider the possible reordering on the reader side on 
+CPU 0, as discussed earlier [1].
+
+[1] 
+https://lore.kernel.org/all/1b77c2d7-acc6-476a-b5cd-547471a46409@linux.alibaba.com/
