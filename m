@@ -1,150 +1,183 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56FA217F27;
-	Tue, 13 Oct 2026 13:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9AC1A7264;
+	Tue, 13 Oct 2026 13:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897073; cv=none; b=rf1gbqb+/91rKxxO9jbv5TffXwDP1j2Pf5x+8j2j2PC9ets2JYMysx6bDCLFH6UwPkEsgjz8OqxLpY32i0Uvhx+zGZokaKrPMggyge7cpWYcZwDTdJm5qjZtTxqp4GLbwxIt7qZl3lB0FkqA81u8gIKaPcNP1wB6fY0QPp+5PNc=
+	t=1791897073; cv=none; b=DNj0lzLEatERfP0OMNCi8KM4EmHjlUxqMvJ2zP8oanghUbkXfY/giWPMzUMMAf/4sjx/lQtfL+UgI+jfvR6chW7fXADNq3qsnzE86O17RaEK24RsJhKNGlWyasxyBiIl7K+bsAGMGP/A3IUoIlatsQohWU9ML7ZrRm8fsmShZx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791897073; c=relaxed/simple;
-	bh=sc4YgeHLA3DSN0LORoNUIYzR5PrIZ1JxYbTYLLbLY8I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C21rxLSYlHGone0yltqw25vD8naseItQaPxN2EaYeKijRrTLjqVdgRPhZHBDHGJFvcCnAE+EQYGDoI3LVSiHWFjVjxxYe1WvB09xu/Ubp9u6OnStOLhgk13rr6YaaWw1GiknRK4pXzFsG1j3XdFyzFRv+jRpVYlYmPhvLJtEBY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tbgO+uEG; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	bh=Fp34FYfTQc+YTGKGK6lC+tQUOsD84gcR8WE1MZCV/Mw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=r+0d7wHS4ephoLATA2ulmTQ4fSkKetpYBA8SVVJUboLqCC2vm8Y5yx2FsZr6a/mv4eVaoufXoLDwpkMifZlmiia+dUJHkAZDa1sJGiAm7QL/X8XjX1EEG/sPpdsAP3UbZLCYJWJLbBAJprdC19WQLv6OOObMW9rbJLLBLrneA3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=lf+pnWGm; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tbgO+uEG"
-Received: from killaraus.ideasonboard.com (unknown [185.104.138.147])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3E802230;
-	Tue, 13 Oct 2026 15:09:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791896948;
-	bh=sc4YgeHLA3DSN0LORoNUIYzR5PrIZ1JxYbTYLLbLY8I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tbgO+uEG8y0ny0gtFl+V+3tblulwRVEr8RGfKQivrxbFjRMmZSbZGUC11rdQQ1kQG
-	 HYV4ChIztG4CjjJzUlI2bCiGy0Xsf+yPAxJleg8SQH2eyXNhD6aEmuqQ6xVnQYDSD7
-	 P9IuOk1kH/t1OThTxPUoHh/lBvH6xPGADjnYG9i8=
-Date: Tue, 13 Oct 2026 15:10:56 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Jori Koolstra <jkoolstra@xs4all.nl>
-Cc: Kees Cook <kees@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
-	skhan@linuxfoundation.org, federico.vaga@vaga.pv.it,
-	apw@canonical.com, joe@perches.com, workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: remove Assisted-by reference
-Message-ID: <20261013131056.GI4214@killaraus.ideasonboard.com>
-References: <20261009083137.3-1-sashal@kernel.org>
- <202610122124.08E058768D@keescook>
- <ea3ff257-70e2-43e4-aba7-140e84994872@infradead.org>
- <202610130120.E43D236E@keescook>
- <as4gLo_6acb_zZu0@daedalus>
- <20261013125559.GG4214@killaraus.ideasonboard.com>
- <158571150.788122.1791896588591@kpc.webmail.kpnmail.nl>
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="lf+pnWGm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1791897064;
+	bh=Fp34FYfTQc+YTGKGK6lC+tQUOsD84gcR8WE1MZCV/Mw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=lf+pnWGmlEynW4sOeWDlcSnQWC01WGZgxN8e3CIF+168MqmblIN1yD7cnfCMRHbEb
+	 WWfbLIQvuSY1jtaaDeWIHfNyE+IyQzVJ8kL5yx2vve+ZQ10+fU1fM1vLU07uetzKcb
+	 hScSuztXKesZ/EM99dfuLa2iIhOoZ/khPc25+/JazboE5E//nIFKJEyNLc4aer8/nF
+	 uN9sL8g5UFo8GT8qg8cH7jXoDpiu5y/PaOa6yPC/PmeFAe/88l5kiWUdFW3PJ7T50b
+	 RCh/hk91k/zfVrKTLyalZWsYOhPNCg70jUqgRWw7Gho48MpcqnfjoHpZfyHsF5gtMh
+	 RMzjg3GiTjZxg==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id BFFE625222;
+	Tue, 13 Oct 2026 16:11:04 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Tue, 13 Oct 2026 16:11:03 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.63.202])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3vnM0xN9z19Bw;
+	Tue, 13 Oct 2026 16:09:43 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Cong Wang <xiyou.wangcong@gmail.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Vega <vega@nebusec.ai>
+Subject: [PATCH 5.10] net/sched: sch_htb: limit htb_classify inner-class filter hops
+Date: Tue, 13 Oct 2026 16:09:00 +0300
+Message-ID: <20261013130903.1223-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <158571150.788122.1791896588591@kpc.webmail.kpnmail.nl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/13 12:30:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;patch.msgid.link:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206634 [Oct 13 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/13 04:56:00 #28679670
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/13 12:30:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On Tue, Oct 13, 2026 at 03:03:08PM +0200, Jori Koolstra wrote:
-> > Op 13-10-2026 14:55 CEST schreef Laurent Pinchart:
-> > On Tue, Oct 13, 2026 at 02:28:43PM +0200, Jori Koolstra wrote:
-> > > On Tue, Oct 13, 2026 at 01:25:59AM -0700, Kees Cook wrote:
-> > > > On Mon, Oct 12, 2026 at 10:56:59PM -0700, Randy Dunlap wrote:
-> > > > > On 10/12/26 9:24 PM, Kees Cook wrote:
-> > > > > > On Fri, Oct 09, 2026 at 04:31:37AM -0400, Sasha Levin wrote:
-> > > > > >> The Maintainers Summit reached consensus to deprecate the Assisted-by
-> > > > > >> tag. Remove the documentation requiring it.
-> > > > > >>
-> > > > > >> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > > > > > 
-> > > > > > Yup, it has become as redundant as specifying what editor I use. ;)
-> > > > > > 
-> > > > > > Reviewed-by: Kees Cook <kees@kernel.org>
-> > > > > 
-> > > > > and for those of us who don't know details about the discussion,
-> > > > > how is it redundant?
-> > > > 
-> > > > No, I mean I use an LLM constantly for almost all aspects of my
-> > > > development work, in multiple dimensions, so if the old tag requirement
-> > > > held, my email body template would just put "Assisted-by: LLM" in there
-> > > > because at the very least, it drove the build and test stage. It was
-> > > > redundant in the sense of "yeah, of course I used an LLM at some point
-> > > > for this patch". ("This tag means nothing *from* me")
-> > > > 
-> > > > > Do you assume that everyone now uses it (LLM), just as everyone
-> > > > > uses an editor?
-> > > > 
-> > > > I don't make that assumption, but I always held the position that the
-> > > > tag was meaningless because it's the human wielding it that matters:
-> > > > they either sent a good patch or a bad patch, and if it was mangled by
-> > > > gmail or an LLM, it doesn't really matter. ("This tag means nothing *to*
-> > > > me")
-> > > 
-> > > I think the tag did have a genuine purpose for a while. Now we have just
-> > > decided to implicitly attach it to every new submitter (because
-> > > basically that is the case.) The point was that a patch that was
-> > > obviously LLM generated could be rejected for not carrying the tag, and
-> > > a patch that carried the tag could be asked to explain further (if they
-> > > had not done so.) Or at least, that is how I felt and have understood
-> > > Greg, for instance :)
-> > > 
-> > > Essentially, the way I read it, is that Linus said we don't need this
-> > > roundabout way because we can just reject effortless LLM generated
-> > > patches outright. This is good and an improvement.
-> > 
-> > The absence of the tag on a suspicious series offered a low-effort way
-> > for maintainers to push back. What's the proposed low-effort replacement
-> > ?
-> 
-> To ignore it, really. Even less effort :)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
 
-Are you saying that we should ignore series when we have even a slight
-suspicion they're not perfect ? If not, I don't understand what you're
-proposing exactly.
+commit 729c4896ab829169f95915d65edd530325910b37 upstream.
 
-> > > What do you think about requiring people to explain how they used an LLM
-> > > for code generation? I don't care if someone uses it for review, or
-> > > brainstorming, or whatever, and I have never understood the tag to be
-> > > required for that. But if the code is LLM generated, it would be nice to
-> > > know for instance what prompts you used. We should have some way to not
-> > > devolve into the maze that Jonathan Corbet has sketched, where no one
-> > > really knows what's going on.
-> > 
-> > Listing the prompts seems fairly useless to me. Not only do prompts
-> > capture only a small submit of the information you would want (many
-> > people use custom agent files with lots of rules that supplement the
-> > prompts), they don't show that the submitter understands what they're
-> > doing.
-> 
-> I'm not sure. Maybe requiring prompts is not the best way to go about it,
-> it may be a lot of annoyance to go back through your conversations and
-> see what prompts were relevant. I do think the prompts still likely show
-> whether you understood what you're doing, assuming they were authentic.
-> 
-> > Mesa has a policy that LLM-generated code *must* have a human-written
-> > commit message. They go one step further by requiring all comments in
-> > the code to also be human-written. That seems a better (but possibly not
-> > good enough) way to try and gauge the level of understand from the
-> > submitter.
-> 
-> Yes, requiring human written commit message sounds like a good idea. Only
-> leaves the issue of people using LLMs for translate. But I think we could
-> find a way around that.
+htb_classify() follows each filter-selected inner class by switching
+to cl->filter_list, but never bounds the number of hops. A filter on
+an inner class can point back to itself or to another inner class that
+points back, creating an infinite loop in the packet classification
+path with the qdisc lock held and BH disabled — a soft lockup / panic
+from a single packet.
 
-Automatic translations are fine. They may alter meanings slightly, but
-overall the result should be very close to the original message. Unless
-I'm mistaken Mesa allows computer translations of comments and commit
-messages.
+Bound the traversal with a hop counter and drop the packet with a
+rate-limited warning once the bound is exceeded. The counter is
+incremented at the point the inner filter chain is picked up, after the
+TC_ACT_* switch has consumed the classifier verdict, so a terminal
+TC_ACT_QUEUED/STOLEN/TRAP on the last permitted chain still sets *qerr
+to __NET_XMIT_STOLEN and the packet is not charged as a drop by this
+qdisc or its parent.
 
+The bound is TC_HTB_MAXDEPTH, taken from HTB's own parameters rather than
+from the qdisc hierarchy depth limit. Class levels run from 0 to
+TC_HTB_MAXDEPTH - 1, so a traversal that strictly descends in level can
+take at most TC_HTB_MAXDEPTH hops. That descent is what a sane
+configuration does, but it is assumed here rather than enforced:
+htb_find() resolves a classid against every class in the qdisc, so a
+filter may equally select a sibling or an ancestor. The normal
+root -> inner -> leaf path takes a single hop, so the bound does not
+affect legitimate classification.
+
+htb_classify() can now return NULL irrespective of CONFIG_NET_CLS_ACT,
+whereas previously every NULL return sat inside that ifdef. The NULL
+handler in htb_enqueue() therefore cannot stay conditional either, so
+drop the ifdef around it. This matches hfsc_enqueue(), which has always
+handled a NULL class unconditionally. Without it, a kernel built
+without actions would dereference a NULL class instead of dropping.
+
+Conditions to recreate the bug:
+- CONFIG_NET_SCHED, CONFIG_NET_SCH_HTB, CONFIG_NET_CLS_U32,
+  CONFIG_LOCKUP_DETECTOR.
+- Create an HTB qdisc on a device (e.g. lo), add an inner class
+  1:1 with a leaf child 1:10, install a root u32 filter selecting
+  1:1, and an inner-class u32 filter on 1:1 also selecting 1:1.
+- Send one packet (ping). On the unfixed kernel the classify loop
+  spins with the qdisc lock held; with softlockup_panic=1 it panics.
+- Reachable from unprivileged user via unshare -Urn (CAP_NET_ADMIN).
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Vega <vega@nebusec.ai>
+Co-developed-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260826143339.271935-1-victor@mojatatu.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-90053
+ net/sched/sch_htb.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/net/sched/sch_htb.c b/net/sched/sch_htb.c
+index 75ca5e5def3f..c6cdbbb8c898 100644
+--- a/net/sched/sch_htb.c
++++ b/net/sched/sch_htb.c
+@@ -213,6 +213,7 @@ static struct htb_class *htb_classify(struct sk_buff *skb, struct Qdisc *sch,
+ 	struct htb_class *cl;
+ 	struct tcf_result res;
+ 	struct tcf_proto *tcf;
++	unsigned int hops = 0;
+ 	int result;
+ 
+ 	/* allow to select class by setting skb->priority to valid classid;
+@@ -255,6 +256,10 @@ static struct htb_class *htb_classify(struct sk_buff *skb, struct Qdisc *sch,
+ 		if (!cl->level)
+ 			return cl;	/* we hit leaf; return it */
+ 
++		if (++hops > TC_HTB_MAXDEPTH) {
++			pr_warn_ratelimited("htb: classify loop detected, dropping packet\n");
++			return NULL;
++		}
+ 		/* we have got inner class; apply inner filter chain */
+ 		tcf = rcu_dereference_bh(cl->filter_list);
+ 	}
+@@ -596,13 +601,11 @@ static int htb_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 		} else {
+ 			return qdisc_drop(skb, sch, to_free);
+ 		}
+-#ifdef CONFIG_NET_CLS_ACT
+ 	} else if (!cl) {
+ 		if (ret & __NET_XMIT_BYPASS)
+ 			qdisc_qstats_drop(sch);
+ 		__qdisc_drop(skb, to_free);
+ 		return ret;
+-#endif
+ 	} else if ((ret = qdisc_enqueue(skb, cl->leaf.q,
+ 					to_free)) != NET_XMIT_SUCCESS) {
+ 		if (net_xmit_drop_count(ret)) {
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
