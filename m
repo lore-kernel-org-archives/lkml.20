@@ -1,247 +1,179 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+Received: from mx0b-00256a01.pphosted.com (mx0a-00256a01.pphosted.com [148.163.150.240])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798033B8405
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C603C345D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.150.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791854302; cv=none; b=u0LgukyMfr1yrKoI/i/LEHgrSf4thGKSy871Y+bVgJ4NbpglIfOSeDMQJDC0nvUsG2D0ITwK6X3aHF6kCYKslaKYCcu44aWqtMrUYSHHOKSwOySpDpuceQy4mKVgwaoQ/5Bvj5hZoWNx0GM+C+I6oKBcbRNaeevO6kqB/tspkQQ=
+	t=1791854342; cv=none; b=ap4GaTOyKHtABRe1ht/6j9uZn9cEduMkIGQJcmxv35z3bVAagDZBoaZBFB14tigO1Fnic6efgc4t0DeFP1+Pymmm5usNMckioC2aQc8aE+rTouAqA49qbryGDf8t5S20q/euOOKnfvzZnZlQutLk7sFM8hqYEeoNAt3qk3yoh2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791854302; c=relaxed/simple;
-	bh=AwhZep/3bvPnx8i6gfj06bGfNhmhWzYShvPVu8x+qtM=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=hRnUab1vgpKPKb/UC9gnFCOCq76Fv9BXhqgsotXXN32Lk5iAbnglY9PeQ8RORFkDjFEcIXPMUwYQDsm5QnDqnTcButnca7h/84wUd3t0v+9mgIS9iAm/dom6FDji41VHhNCibRcobgyqz/nrpSqU6YRI4gcrnXXBtVZl7N7GGyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=XLssvf4e; arc=none smtp.client-ip=220.197.31.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1791854342; c=relaxed/simple;
+	bh=fJ06K5m6L9LE3/zkbxLQQBUayogIQbPiGfC/8pn63AM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KX01lnmmcJxehWgxoWu1XnzpZZI1YsA/WLV5MdS6Fi50A1bENj5zJol19r4S1mL6r+xuwRi2IkWXMrxnsdHP+1KcY0TENz2mRl//CeqTVttk6KnBn4AiYYASK41AiySdcAh0fHIOFSeSPz26fDHitEZyMQnPe1U1BQn3rLRI5mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu; spf=pass smtp.mailfrom=nyu.edu; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=aTbPRGJy; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=b9hLp/pT; arc=none smtp.client-ip=148.163.150.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nyu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="XLssvf4e"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=ZXwoL5FVMH7bxKRo2wFtg3gWgI/N31ff7zoUzvI4T7k=;
-	b=XLssvf4eSXAtn9I84sYSrE7OuMXsCRBp5OIw9o7AZgm2t96uta1tlldWVvaUJw
-	13ecXf1B25bZ23cC/9a/JWWPWTHVzCfSlc3fP9/c8Hq2pAYF6VZrIGbQkzKnIwRi
-	uF3hJoFVPFwLgze54K6Lyfa0X+lXoLQplcZNU/jUyiTx0=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnD925hs1qwhA3BA--.62774S2;
-	Tue, 13 Oct 2026 09:17:45 +0800 (CST)
-Message-ID: <6ACD8692.8090204@126.com>
-Date: Tue, 13 Oct 2026 09:17:06 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="aTbPRGJy";
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="b9hLp/pT"
+Received: from pps.filterd (m0142701.ppops.net [127.0.0.1])
+	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D0FrCt147763
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:03:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyu.edu; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=20180315; bh=shOAHS7eof9rEoprRJ+fSO4ABp9x/j4UaqR/
+	F33HHR4=; b=aTbPRGJydGMOo3gZKIuVSABT8mA/1FaYtbPzSnIPqxgtF1e5Grvk
+	ZWLt1AFC4D+Nzsbc5NhUYrTsKiM/KmmArlb5oTQi1wbKYrKISHw9ioR155A2QoHe
+	x4bDB3at1XiD5CdptzWw/z+qy906fgfq25VhwAe6+ukWCJzWvTley71vfwHfswT8
+	7zP/C8WKWs74mMW0RLXeL4Y4z4cnT8FTiomtvDNlxPKVQSwbHFpDMLG+GDM3P+Lr
+	elNXIYns4Ge77WeqP24XGs9dkNKOJlVefgy/dEwhIshWWE2Gp7oMKTSsi1XG7LAP
+	6/3CCmD8YF6mRQsWjzKOXDYio/+L3LrRVQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4h96mgtywp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:03:29 -0400 (EDT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9195c59ac8cso83245016d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 18:03:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nyu.edu; s=nyu-googleapps1; t=1791853408; x=1792458208; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=shOAHS7eof9rEoprRJ+fSO4ABp9x/j4UaqR/F33HHR4=;
+        b=b9hLp/pTlqKwDJNbOe1E0TT0bBOQU022PtJDC71WHzjJOJF+VeIjiP8C6Z1QDraitd
+         xIRqdWqH5473zHbvmY2GFhemG4gqNX/yk5M1Oi9XmalWnqGhGHepfmWBCsyx5rIg8nHq
+         BeudOhsqbZ/S7csic+Ou5G/usWNfuR9xB92hXNA69pclFqzkplLexvgz53I5zs3j8Co8
+         fejUrjqzMSsRc0Hcc80Hv71DNNmO/O+cgornGgTaUix/JCjELh6ehx7/m9/8N23cTqZ7
+         wPwkmuclINMrK83nwcY6RpSTy6Hg9rq+1Jsk4r0U5Snd4ClDCxS+N1VpYarjwWUPC33E
+         kFCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791853408; x=1792458208;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=shOAHS7eof9rEoprRJ+fSO4ABp9x/j4UaqR/F33HHR4=;
+        b=L/lDgNMQrXClcFAv+C3P0239xn36C9WjruPfWRokW+N4kgi18Mo+8C/bFl9TrXXKAT
+         ILtifP98jbxOzjxqrMuQo5udj+HDh04cIbaRtyy4mPdgmmV31z+y4QTIQtNv77srp6Mw
+         xf33LbjhQzhc5rV+9rahiRjGu24nLiWvJOobNtCvuh+ba38h07VYtTwsKAKANijhQfMS
+         +xWWpRuu6+XCw0YE6cZYuW7jILX6CUJb4cqISs0q9ncUOSwy4JjhRp9I/Xvj6bRfOEGh
+         hi8DP6odTbBb5jpBd0biw0fdao2HuGpqdobkrqUwehgPowy1puY09oEa9ejPPRUKHVGM
+         Y3RA==
+X-Forwarded-Encrypted: i=1; AKwUvBy9f82LS+a22NY29dH8ZX/E5IAPUXa/TvcklQBRsexxUoteAwGFVFivf6MG8xmQQVZ9XjAjndFy9e+lzV4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIspue9lrkLI+CzLVV7fXEcCABpSAYGJP26Z+OOUhdkycnQ4h0X
+	dou2BT4oRbBc6y7Wi9BNcNl3Vb2SS39bN15ZO1ZTuBLU79VY6kB9wSEG7QXmNSh04VaX3J9BznQ
+	59os36KXt+1Rr5duA9RIwLHje41ZqgwbP12hQH26+FITmMd5E+WwatLMuUam8w14=
+X-Gm-Gg: AYBFou0Z7gfCJv+/Zso/ZpVO7bfcV91HfGx6ZtS6G5AuvhF0WtXWkZQ5PmmKusv2E4y
+	tOhQGpfOdzfc+QM5PV6Vidve9tldBHxSgdr3S4m54PFq92MFoC/aqzE1IogmCDa7cbAV4ueCN9T
+	neVKSLXoDZ/e1MRwPQnIq8r7ZY8oDx5XWQ4zQn/BPMgazvDjsAhFAmwukxXGH7jIxBbn8TcL8p9
+	CHXCnQLjNKFYCFOl/+diVyXFCGzcYmwuuwZzUoxZ2WyZVxOZFIGuanv6j+AOo1BzlH/YGzVGC+q
+	P3v4hsK8f+Dsn/S4PcK+7pVzm/WZj/SLrTi/wY7wtPuvramUaauVM30k26Q6fIXtODzpQ7IYlea
+	WIFBXkIvbpYzFSfDjhKB6Unny4XnIRIqvfSQ6
+X-Received: by 2002:a05:6214:2dc9:b0:91b:934f:d3ee with SMTP id 6a1803df08f44-91b934fd828mr35837966d6.58.1791853408091;
+        Mon, 12 Oct 2026 18:03:28 -0700 (PDT)
+X-Received: by 2002:a05:6214:2dc9:b0:91b:934f:d3ee with SMTP id 6a1803df08f44-91b934fd828mr35837496d6.58.1791853407440;
+        Mon, 12 Oct 2026 18:03:27 -0700 (PDT)
+Received: from jerrythepro.nyu.edu (216-165-95-137.natpool.nyu.edu. [216.165.95.137])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b62240sm12455926d6.23.2026.10.12.18.03.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 18:03:27 -0700 (PDT)
+From: Kaho Jiang <kj2864@nyu.edu>
+To: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+        kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+        edumazet@google.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        co+71b6509cb791e531@bugs.sh, Kaho Jiang <kj2864@nyu.edu>,
+        stable@vger.kernel.org
+Subject: [PATCH net] net: ipv4: add zero check for snd_cwnd_clamp
+Date: Mon, 12 Oct 2026 21:03:23 -0400
+Message-ID: <20261013010323.1058-1-kj2864@nyu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Hyunchul Lee <hyc.lee@gmail.com>, 
- Hongling Zeng <zenghongling@kylinos.cn>
-CC: linkinjeon@kernel.org, ntfs@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] ntfs: roll back the ACL xattr commit when the WSL
- mode update fails
-References: <20261012073452.90099-1-zenghongling@kylinos.cn> <asytNg4xTuvkSxa-@hyunchul-PC02>
-In-Reply-To: <asytNg4xTuvkSxa-@hyunchul-PC02>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnD925hs1qwhA3BA--.62774S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKw4fWr47Zw13Ww4DGr1DGFg_yoWxXr43pr
-	ZxKF45KF4DJ3sFvrn3tFWDXa4F9ryxKFy8K34xKF17CwnI9r1ftrWak3y7uFykArWFya1F
-	vF4jqrs3Cw15uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jI0PfUUUUU=
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrhndrmrNhrk2EgAA34
+X-Proofpoint-GUID: OpBvt04fgLQ5NHV82OCBZ351LORuDuRv
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAwMyBTYWx0ZWRfX7Ouxkvwr7lHa
+ GldnPsTPrKmtHwY1A7WUrQeYjObGF99j1sOPZGJijFdbEl7loqcL4Y89Z1K3NQpKt9nxVSc94Uf
+ 904iXiUIyQRPcDSyAm1S2tMnQ7p+m7w=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAwMyBTYWx0ZWRfX1KmQJM5jWXzg
+ libqXmRI4BABp50s7jAgSh9y9pLymy06sbPvZNRtYnjyYt3BaD7ywsDi7hJNTPlr7bMngx1Eznh
+ ja8EBdVxj23RG2JTH/5jGLA6drd6uLLkKSO0shQpDvrP1QbjJQXzUNB6ohq0tPasbli9ukBM6eF
+ wdFnrletD1R1Wf3NF/QGQQ9tL2v02M8WW7PFXKOlbHHGqofTb8G6ti5xKALsGNmt77xo1sFx8oA
+ c3Pogpli/AX3CgHvwbrBnCYcm9+7OueQT4+pIO21vfioGkoRC9J3/hdd6H4us6sffZ0oSST3JTy
+ 0SKnQn0T6kXV9jyeus1iVp0G2KYAYlvb52DEcYYCtSNjZJxD3yb2tFuVaXFPPbQSTEJXjMAmee0
+ apqGs2Tq9GESMdqXytjWTpLOmoaH+2lEYJ9qNMnYpcZHffvtSNtiiB3+hQKrLTRleQ/VGiOXc/C
+ hakh84T25CRBVGxbtJg==
+X-Authority-Analysis: v=2.4 cv=R7yWitRX c=1 sm=1 tr=0 ts=6acd8361 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PTGulf1M+RQ7eJaEhEW9rA==:17
+ a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=S0S_EcBMpFAA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Se5WoFf3ZZRiLcel0nel:22 a=CxnIfPQeirmdGRAfp5MW:22
+ a=VwQbUJbxAAAA:8 a=NELHbg8bfhRX9QXGN9IA:9 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-ORIG-GUID: OpBvt04fgLQ5NHV82OCBZ351LORuDuRv
+X-Orig-IP: 209.85.219.70
+X-Proofpoint-Spam-Details: rule=outbound_bp_notspam policy=outbound_bp score=0
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
+ phishscore=0 impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130003
 
-Hi  Hyunchul,
+User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
+This could lead to division of zero error if not checked properly.
 
-     Thanks for the review.
-   I will trim the comments and drop old_exists in favour of
-   old_len >= 0.  Will post v5.
+Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+Call Trace:
+ <IRQ>
+ tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
+ tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tcp_input.c:4440)
+ tcp_rcv_established (net/ipv4/tcp_input.c:6685)
+ tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
+ tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
+ ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
+ ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
+ ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter.h:319 net/ipv4/ip_input.c:262)
+ ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./include/li)
+ __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
+ __netif_receive_skb (net/core/dev.c:6410)
+ process_backlog (net/core/dev.c:6761)
+ __napi_poll.constprop.0 (net/core/dev.c:7830)
+ net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
+ handle_softirqs (kernel/softirq.c:645)
+ __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
+ irq_exit_rcu (kernel/softirq.c:775)
+ sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
 
-Thanks!
-在 2026年10月12日 17:49, Hyunchul Lee 写道:
-> Hi Hongling,
->
-> On Mon, Oct 12, 2026 at 03:34:52PM +0800, Hongling Zeng wrote:
->> ntfs_set_acl_ex() commits the ACL xattr before it rewrites the WSL
->> mode EA, and removes it again when the rewrite fails.  That only
->> undoes a set that created the xattr: when the update replaced or
->> removed an existing one, the old ACL is discarded along with the
->> failed update.  The undo result is discarded and the EA paths record
->> no error state, so when it fails too, the new, typically more
->> permissive, ACL is left on disk while i_mode, the mode EA and the
->> cached ACL keep the old values.  Once the stale xattr is loaded again
->> after a remount, a chmod 0640 -> 0777 that reported failure leaves
->> the file accessible to the relaxed ACL while stat() still reports
->> 0640.
->>
->> Save the previous xattr before committing the update, and restore it
->> when the mode EA rewrite fails.  A removed xattr is restored by
->> creating it again: the removal dropped the entry, and XATTR_REPLACE
->> fails with -ENODATA on a missing entry.  Remove the new xattr only
->> when there was no previous one, and skip the undo when the commit
->> changed nothing, e.g. removing an xattr that never existed.  Fail
->> the update when the previous xattr cannot be read back.  A failed
->> rollback is still recorded: NVolSetErrors(), which the next
->> persistence point persists as VOLUME_IS_DIRTY, and a log message the
->> errors= policy acts on.  The flag cannot be written to disk here
->> directly: the target inode's mrec_lock is held and the $Volume
->> mrec_lock cannot be nested under it.
->>
->> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
->> Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
->> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->> ---
->> Changes in v3:
->> - Save the previous ACL xattr before committing the new one and roll
->>    back to it when the update replaced an existing one, instead of
->>    removing the new one (suggested by Hyunchul Lee)
->> - Fail the update when the previous xattr cannot be read back, and
->>    restore a zero-length previous xattr without XATTR_REPLACE
->> Changes in v4:
->> - Undo a removal too: restore the previous xattr by creating it
->>    again, since the removal dropped the entry
->> - Skip the undo when the commit changed nothing, e.g. removing an
->>    xattr that never existed
->> ---
->>   fs/ntfs/ea.c | 90 +++++++++++++++++++++++++++++++++++++++++++++++++---
->>   1 file changed, 86 insertions(+), 4 deletions(-)
->>
->> diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
->> index 1104fd72cd2a..0577a2adc365 100644
->> --- a/fs/ntfs/ea.c
->> +++ b/fs/ntfs/ea.c
->> @@ -1038,8 +1038,10 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
->>   {
->>   	const char *name;
->>   	size_t size, name_len;
->> -	void *value;
->> -	int err;
->> +	void *value, *old_value = NULL;
->> +	int err, old_len = -ENODATA;
->> +	bool old_exists = false;
->> +	bool acl_committed = false;
->>   	int flags;
->>   	umode_t mode;
->>   
->> @@ -1083,7 +1085,40 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
->>   	}
->>   
->>   	mutex_lock(&NTFS_I(inode)->mrec_lock);
->> +	if (!init_acl) {
->> +		/*
->> +		 * Save the previous xattr so the update can be
->> +		 * rolled back to it when the mode EA rewrite fails.
->> +		 * A new inode cannot have one yet, and one that
->> +		 * cannot be read back fails the update.
->> +		 */
-> Could you shorten this comment? I think that the explanations are already
-> clear from the code.
->
->> +		old_len = ntfs_get_ea(inode, name, name_len, NULL, 0);
->> +		if (old_len >= 0) {
->> +			old_exists = true;
-> Could you remove the old_exists? we can use old_len >= 0.
->
->> +			/* kmalloc(0) returns the non-NULL ZERO_SIZE_PTR. */
->> +			old_value = kmalloc(old_len, GFP_NOFS);
->> +			if (!old_value) {
->> +				err = -ENOMEM;
->> +				goto out_unlock;
->> +			}
->> +			err = ntfs_get_ea(inode, name, name_len,
->> +					  old_value, old_len);
->> +			if (err != old_len) {
->> +				kfree(old_value);
->> +				old_value = NULL;
->> +				if (err >= 0)
->> +					err = -EIO;
->> +				goto out_unlock;
->> +			}
->> +		} else if (old_len != -ENODATA) {
->> +			err = old_len;
->> +			goto out_unlock;
->> +		}
->> +	}
->>   	err = ntfs_set_ea(inode, name, name_len, value, size, flags, NULL);
->> +	if (!err)
->> +		acl_committed = true;
->> +out_unlock:
->>   	mutex_unlock(&NTFS_I(inode)->mrec_lock);
->>   	if (err == -ENODATA && !size)
->>   		err = 0; /* Removing non existed xattr. */
->> @@ -1095,8 +1130,54 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
->>   		mutex_lock(&NTFS_I(inode)->mrec_lock);
->>   		err = ntfs_ea_set_wsl_inode(inode, 0, &ea_size, NTFS_EA_MODE);
->>   		if (err) {
->> -			ntfs_set_ea(inode, name, name_len, NULL, 0,
->> -				    XATTR_REPLACE, NULL);
->> +			if (acl_committed) {
->> +				int undo_err;
->> +
->> +				if (old_exists) {
->> +					/*
->> +					 * Restore the previous xattr.
->> +					 * A removal dropped the entry, and
->> +					 * XATTR_REPLACE fails with
->> +					 * -ENODATA on a missing entry, so
->> +					 * create it.  A zero-length xattr
->> +					 * cannot be restored with
->> +					 * XATTR_REPLACE, which would
->> +					 * remove it again.
->> +					 */
-> And I think this comment can be reduced.
->
->> +					int undo_flags = acl && old_len ?
->> +						XATTR_REPLACE : 0;
->> +
->> +					undo_err = ntfs_set_ea(inode, name,
->> +							name_len, old_value,
->> +							old_len, undo_flags,
->> +							NULL);
->> +				} else {
->> +					/*
->> +					 * No xattr existed before the
->> +					 * update, so remove the newly
->> +					 * committed one.
->> +					 */
-> This branch is self-explanatory from `!old_exists`.
->
->> +					undo_err = ntfs_set_ea(inode, name,
->> +							name_len, NULL, 0,
->> +							XATTR_REPLACE, NULL);
->> +				}
->> +				if (undo_err) {
->> +					/*
->> +					 * The xattr change is committed
->> +					 * already, so a failed rollback
->> +					 * leaves it on disk while i_mode,
->> +					 * the mode EA and the cached ACL
->> +					 * keep the old values.  Record the
->> +					 * error: the next persistence point
->> +					 * persists it as VOLUME_IS_DIRTY.
->> +					 * Run chkdsk.
->> +					 */
-> Same here.
->
->> +					NVolSetErrors(NTFS_I(inode)->vol);
->> +					ntfs_error(inode->i_sb,
->> +						   "Failed to undo the ACL xattr: %d",
->> +						   undo_err);
->> +				}
->> +			}
->>   			mutex_unlock(&NTFS_I(inode)->mrec_lock);
->>   			inode->i_mode = old_mode;
->>   			goto out;
->> @@ -1109,6 +1190,7 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
->>   	}
->>   
->>   out:
->> +	kfree(old_value);
->>   	kfree(value);
->>   
->>   	return err;
->> -- 
->> 2.25.1
->>
+Fix by checking if user pass in zero as parameter,
+if so use the default value of snd_cwnd_clamp.
+
+Fixes: 51c5d0c4b169 ("tcp: Maintain dynamic metrics in local cache.")
+Cc: stable@vger.kernel.org
+Reported-by: co+71b6509cb791e531@bugs.sh
+Assisted-by: LLM
+Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+---
+ net/ipv4/tcp_metrics.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv4/tcp_metrics.c b/net/ipv4/tcp_metrics.c
+index dc0c081fc1f3..ff41804ad086 100644
+--- a/net/ipv4/tcp_metrics.c
++++ b/net/ipv4/tcp_metrics.c
+@@ -484,8 +484,11 @@ void tcp_init_metrics(struct sock *sk)
+ 		goto reset;
+ 	}
+ 
+-	if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+-		tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
++	if (tcp_metric_locked(tm, TCP_METRIC_CWND)) {
++		val = tcp_metric_get(tm, TCP_METRIC_CWND);
++		if (val)
++			tp->snd_cwnd_clamp = val;
++	}
+ 
+ 	val = READ_ONCE(net->ipv4.sysctl_tcp_no_ssthresh_metrics_save) ?
+ 	      0 : tcp_metric_get(tm, TCP_METRIC_SSTHRESH);
+-- 
+2.43.0
 
