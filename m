@@ -1,629 +1,248 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694765012B7
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46CA251EDE7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:57:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910614; cv=none; b=HZShBxAiC47ggStt3f+0qym2E2ISxv97Ubqy17wPA9ek5CZVhWR8zEtkt6dXq0OFOucCVEBnbTrwwmHRE/SJAWI4jtKFIaTOhu75mqy4uT1UpzKPQDhLsQ73Xo1+RkolPNIHA6pi2tzrHkjtc3lCgPMSHYCqDcU5ktwzw+QmzQw=
+	t=1791910653; cv=none; b=D1NuNgtOhMbsoYRwoWJCBqAH7fbllDFFy378kQNLBswCKdBrpRCM1jn+gaT2IMZu3h+UFCYRNFGX4NaSAohml9zDlvU/b08GkARgOgM+vbyaSf0Zv9RKXjDhc4Tp9SmfXHrZutcemIytemUo5qfbGjtNh6XV+2X9E0bzVc6+NPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910614; c=relaxed/simple;
-	bh=mJHqwcgSVpk5DTKtY14oLAv+WKBo5mqYQNIS5dMW+c4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=F/IC7WKNOfefbvM74JSIrMW4xCBPUTrVSg45mP2L+36p9qANv/VvE7CMnYTkNKFFMaPd36WV2R/hkA7jaM84dedMXW841eGXMNrqpdJzsND5Z/5QiwUXD0axSdEzVGSfqRX7aSNzMYPjASuR/GniTXrVxpcTTYhr8/SP7LmdFfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=kY42KNp5; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1791910653; c=relaxed/simple;
+	bh=qYQWDTibvD2MkpejwirfPbddi6j2h68uQWyAL8beWRM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M/GoVX85iRqzkTC/5dQwLnqT8oDsqPnT+BKGf+sjxCKdOad0CZUwjR16PqMhZhrby8bjm/5k2br3yLt5zafWJR4Xhw8Uzt7cOBpVUaSVpmJSbbTIMZpQgDWm9l7K2uyDyaRPOP036CWpjXYqQd+X3XrVLrNRGcy0OPiSxnxYGik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=JUiXyT3j; arc=none smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="kY42KNp5"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 70E17240027
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1791910609;
-	bh=84UAUybAcmHwu6PdtmUeT5FxMfPcwDy64JHXJjt4vm4=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=kY42KNp56C5Nva02G8fDyJ/kF7y+j5oHcxnKd9pvILxEDJ43YiOUVBOVZVqJLNH5g
-	 6rdDYejx6JPOkbinOPnen+DImuW9HXvL16Mh8eLHV2Kzkw8JNIvu6cw6tnWZxgM6Ix
-	 kCd6EzayfUzGpxTK0VLGCkIweqlyu0rWmkFJ7bHc+uEJUdlfqA4T3rGKP2uS5VVoeH
-	 lCQlbftUlOhCd3lO8veYi/P/2IVqettlor7rHVcOKOZOGa0iVLedEuOS0UeUS5Al2P
-	 6RoxwUS2rlK3Gp2dBC9qFjDl22oePPEs4dPWFXPGnO67nIpgcw61Rg9GGTC49mG6/d
-	 NUrYMiV+AzfZA==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4j40qK2nhHz6ty0;
-	Tue, 13 Oct 2026 18:56:45 +0200 (CEST)
-Message-ID: <7c5619f34cdf696a8be2215ee8a4120e3f0ff1a9.camel@posteo.de>
-Subject: Re: [PATCH v3 7/7] greybus: Add Rust UART node driver
-From: Markus Probst <markus.probst@posteo.de>
-To: Ayush Singh <ayush@beagleboard.org>
-Cc: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, Johan
- Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Eric Biggers	
- <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Ayush Singh	
- <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lorenzo Stoakes	
- <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"	
- <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, 
-	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Date: Tue, 13 Oct 2026 16:56:47 +0000
-In-Reply-To: <87y0c14l8b.fsf@beagleboard.org>
-References: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
-		<20261013-gb-uart-transport-v3-7-81d0a8a1acf7@beagleboard.org>
-		<037d7460eae92dd00f9283dd5595a3257212f0b9.camel@posteo.de>
-	 <87y0c14l8b.fsf@beagleboard.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-UqXBVxT8d+O+osTm5faS"
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="JUiXyT3j"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b09e07e149so1450767b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:57:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tenstorrent.com; s=google; t=1791910650; x=1792515450; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xs8kx4XmYGQ3LYVznuwYx1llCxD9uoGbHIj5ZitGfaE=;
+        b=JUiXyT3jQhncfJqytMm1K64OnZ2UI5zTsbZEtfZFzc39V//7ZoorASJT3Yn7W59S6Y
+         LATFgI5UFISSArlwGlyX6qYcEfRo2NWnSZZUd4Zunk1L0je7iJgfqUFgbs070w0qcyEU
+         frjfm6xq8t1WPVmL8ArGDK5cPq3KAl8ZzgbRoSQPXTOdt3Mj5SHtUEpMpverodQUoVRX
+         87hYNxRPAHc66Nna9EnZAem5KO0DglVIK6BFlWfDE9lYSaEHIz2psK8m7a7Xry38Znqb
+         SnSaGrpE/YMz+VmmjR2t6KB1yEXjkG3y12eNed68vvH79MdsN0x4d7KpLR+COofab5Ad
+         nE4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791910650; x=1792515450;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xs8kx4XmYGQ3LYVznuwYx1llCxD9uoGbHIj5ZitGfaE=;
+        b=W63961Ur3eLtpOH6GByAcuAIQVE18c4KJzcAMrbggkMHEwonouTBne7lEi+EAeX+Rw
+         LRmz4YKjzf73zcwjTO2MIiE0RmmzCJ/N6uI0rv21uHc8JiabLOIxuAMNHW6SHv2yJC9k
+         juIhlERocKYqrPg4xtgEQAkwbvgiZWH3yU5gDbt9lIaK/tVtJQ4btaCGoZLYwjDf3svG
+         rM3rDKwew5pK+dEpQJKourL5LCMM3DiCjR6FsTP5UdqHF++5Y3TBf/eVZoh5+qgMWtUo
+         Qad3t6W68KShKH0mNnmeh2Q5uFXu/OD57TtoF2ixNHoPnjD06jPLkSH4PxJL32IrtcSB
+         mY4w==
+X-Forwarded-Encrypted: i=1; AKwUvBzSxA8o7tDyvqoqm2M4rW8FNwrzjwhhi5xaDYsOPvfxsgxiCWjifVcSbum7XONDQvbroNqg/yufdeDFKPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8DJtdGlEx7LzEeC9ZkoM4sbS1TNsb1TyAi/Bxha+NXeA5K2hE
+	8a/Zf4qjeo0DXU+bnQo8xiHEGKhbIhoTgULHq8vRwLEc6JysdCDTxdxbcxL2XHNzQ9hh9BtcSXT
+	yCQvB7Bfiiw==
+X-Gm-Gg: AYBFou2AWMbIYFaOBKEQvUlhy/PBakEDZas5cXb7/pJJBLQ61rq9mlKKJ8x34D+IvEk
+	IOgYDaJ9gV7d83C/qz4UAjHq9Qh9HhAmrjBfQuEs59DkJ/GdXCpOBJZ4kTcM5Inpp3ORTVFL5Pj
+	TK8zRMJdtu+7m0awRrs+SUKtszH/jKiJ1TRJIM94DtTDF4sLYezE8dtpLrnotXOHidb4GNZaOCA
+	iF5+GKP/iIv35iw4Zw/vSiWhorYV/gC5GNshj8qs/JdZJR4EuG1AHZY57AFTz8TzQB2KU6zWos5
+	qqohmnSHqgkb3VUuceMxuoscmsSSlXuEFgwXJHd7Sh5+bEKsFdo5bg9DEdZD92uiwbCHEawFe8J
+	sLroYZs3WZwrMNQyAupqs99YcdLUn6KLPZZAa9hVcqt5zEVFkBOQcrfq8Fv7oO/ZwqMWywTRqna
+	2ybrBIUpMjaB5vJ7T4BPoxoHM24RA84CXohTVT0FwoMONyOfQSM/xOXSWCG766kwfTA85UznxSJ
+	z6fG01pm5vAD/nj/rAt
+X-Received: by 2002:a05:690c:e3ef:b0:8b0:ad16:71f8 with SMTP id 00721157ae682-8b0ad167c9dmr17620697b3.11.1791910650173;
+        Tue, 13 Oct 2026 09:57:30 -0700 (PDT)
+Received: from localhost ([2600:1700:220:5c80:d01e:ebe9:3ad:261f])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f21eccdsm47207617b3.30.2026.10.13.09.57.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 09:57:29 -0700 (PDT)
+Date: Tue, 13 Oct 2026 11:57:28 -0500
+From: Andy Chiu <tchiu@tenstorrent.com>
+To: Samuel Holland <samuel.holland@sifive.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	Palmer Dabbelt <palmer@dabbelt.com>, linux-kernel@vger.kernel.org,
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH 2/3] riscv: Deprecate vector state prctl/sysctl
+Message-ID: <as5i-FZoL79anjkV@Tao-Chiu's-Mac>
+References: <20261007085126.222688-1-samuel.holland@sifive.com>
+ <20261007085126.222688-3-samuel.holland@sifive.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007085126.222688-3-samuel.holland@sifive.com>
 
+On Wed, Oct 07, 2026 at 01:51:17AM -0700, Samuel Holland wrote:
+> The ability to prevent userspace from executing vector instructions was
+> provided as a escape hatch for software that was broken by adding vector
+> state to the signal context. This appears to be unused in practice, and
+> creates confusion in the extension support returned by hwprobe(), as in
+> this one special case an extension reported as present by hwprobe() is
+> unusable.
+> 
+> Since we believe it is safe to always allow vector usage, hide the prctl
+> and sysctl behind a Kconfig option and mark them as deprecated, so they
+> can be removed in the future. Note that significant userspace software
+> like glibc already considers these controls explicitly unsupported.
+> 
+> Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
 
---=-UqXBVxT8d+O+osTm5faS
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
 
-On Tue, 2026-10-13 at 21:59 +0530, Ayush Singh wrote:
-> Markus Probst <markus.probst@posteo.de> writes:
->=20
-> > On Tue, 2026-10-13 at 17:30 +0530, Ayush Singh wrote:
-> > > Add a driver for Greybus nodes attached over a plain serial port. The
-> > > node is registered with the software SVC (gb-softsvc), which handles =
-the
-> > > SVC protocol on behalf of the AP, so no dedicated coprocessor running
-> > > SVC firmware is needed.
-> > >=20
-> > > Greybus messages are carried over HDLC framing on the wire. Each fram=
-e
-> > > carries a one-byte address (0x01 for Greybus) and control byte, follo=
-wed
-> > > by the 16-bit CPort ID and the Greybus message itself.
-> > >=20
-> > > Port parameters are taken from the firmware node: "baudrate" if
-> > > present, otherwise 115200, with flow control and parity disabled.
-> > >=20
-> > > Since gb-uart-node imports types from gb-softsvc, Rust to Rust callin=
-g
-> > > setup from nova-core [0] is being used.
-> > >=20
-> > > [0]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc=
-977@nvidia.com/
-> > >=20
-> > > Signed-off-by: Ayush Singh <ayush@beagleboard.org>
-> > > ---
-> > >  MAINTAINERS                     |   1 +
-> > >  drivers/greybus/.gitignore      |   1 +
-> > >  drivers/greybus/Kconfig         |  15 +++
-> > >  drivers/greybus/Makefile        |  48 ++++++++
-> > >  drivers/greybus/gb_uart_node.rs | 253 ++++++++++++++++++++++++++++++=
-++++++++++
-> > >  5 files changed, 318 insertions(+)
-> > >=20
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index 521bc6c67979..5bdd500ef63e 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -11527,6 +11527,7 @@ M:	Ayush Singh <ayush@beagleboard.org>
-> > >  L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
-> > >  S:	Maintained
-> > >  F:	Documentation/devicetree/bindings/beagle/beagle,beagleconnect-fre=
-edom.yaml
-> > > +F:	drivers/greybus/gb_uart_node.rs
-> > > =20
-> > >  GREYBUS SUBSYSTEM
-> > >  M:	Johan Hovold <johan@kernel.org>
-> > > diff --git a/drivers/greybus/.gitignore b/drivers/greybus/.gitignore
-> > > new file mode 100644
-> > > index 000000000000..ff9c4a3539b4
-> > > --- /dev/null
-> > > +++ b/drivers/greybus/.gitignore
-> > > @@ -0,0 +1 @@
-> > > +exports_gb_softsvc_generated.h
-> > > diff --git a/drivers/greybus/Kconfig b/drivers/greybus/Kconfig
-> > > index 709563f8c0ad..ce2030161f30 100644
-> > > --- a/drivers/greybus/Kconfig
-> > > +++ b/drivers/greybus/Kconfig
-> > > @@ -61,5 +61,20 @@ config GREYBUS_SOFTSVC
-> > >  	  To compile this code as a module, choose M here: the module
-> > >  	  will be called gb-softsvc.ko
-> > > =20
-> > > +config GREYBUS_UART_NODE
-> > > +	tristate "Greybus UART node transport"
-> > > +	depends on GREYBUS_SOFTSVC
-> > > +	depends on RUST_SERIAL_DEV_BUS_ABSTRACTIONS
-> > > +	depends on RUST_GREYBUS_ABSTRACTIONS
-> > > +	select RUST_CRC_CCITT_ABSTRACTIONS
-> > > +	help
-> > > +	  Select this option if you have a Greybus node connected over a
-> > > +	  serial port. The node is registered with the software SVC, which
-> > > +	  handles the SVC protocol on behalf of the AP, so no dedicated
-> > > +	  coprocessor running SVC firmware is required.
-> > > +
-> > > +	  To compile this code as a module, choose M here: the module
-> > > +	  will be called gb-uart-node.ko
-> > > +
-> > >  endif	# GREYBUS
-> > > =20
-> > > diff --git a/drivers/greybus/Makefile b/drivers/greybus/Makefile
-> > > index e6f594128802..bf4d08f728fe 100644
-> > > --- a/drivers/greybus/Makefile
-> > > +++ b/drivers/greybus/Makefile
-> > > @@ -28,3 +28,51 @@ obj-$(CONFIG_GREYBUS_ES2)	+=3D gb-es2.o
-> > >  obj-$(CONFIG_GREYBUS_SOFTSVC)	+=3D gb-softsvc.o
-> > >  gb-softsvc-y			+=3D gb_softsvc.o gb_softsvc_exports.o
-> > > =20
-> > > +obj-$(CONFIG_GREYBUS_UART_NODE)	+=3D gb-uart-node.o
-> > > +gb-uart-node-y			+=3D gb_uart_node.o
-> > > +
-> > > +# Export Rust symbols from gb-softsvc only if gb-uart-node actually =
-references them.
-> > > +gb-softsvc-export-deps :=3D $(if $(CONFIG_GREYBUS_UART_NODE),$(obj)/=
-gb_uart_node.o)
-> > > +
-> > > +rust_needed_exports =3D \
-> > > +	{ $(if $(strip $(2)),$(NM) -u $(2);,) echo "__DEFINED_RUST_SYMBOLS_=
-_"; \
-> > > +	  $(NM) -p --defined-only $(1); } | \
-> > > +	awk -v fmt=3D'$(3)' ' \
-> > > +		/^__DEFINED_RUST_SYMBOLS__$$/ { defs =3D 1; next } \
-> > > +		!defs { if ($$NF ~ /^_R/) needed[$$NF] =3D 1; next } \
-> > > +		defs && $$2 ~ /(T|R|D|B)/ && $$3 ~ /^_R/ && \
-> > > +			$$3 !~ /_(init|cleanup)_module$$/ && \
-> > > +			$$3 !~ /__(pfx|cfi|odr_asan)/ && \
-> > > +			$$3 in needed { printf fmt, $$3 } \
-> > > +	'
-> > > +
-> > > +quiet_cmd_exports =3D EXPORTS $@
-> > > +      cmd_exports =3D \
-> > > +	$(call rust_needed_exports,$<,$(gb-softsvc-export-deps),EXPORT_SYMB=
-OL_RUST_GPL(%s);\n) > $@
-> > > +
-> > > +$(obj)/exports_gb_softsvc_generated.h: $(obj)/gb_softsvc.o $(gb-soft=
-svc-export-deps) FORCE
-> > > +	$(call if_changed,exports)
-> > > +
-> > > +targets +=3D exports_gb_softsvc_generated.h
-> > > +
-> > > +$(obj)/gb_softsvc_exports.o: $(obj)/exports_gb_softsvc_generated.h
-> > > +CFLAGS_gb_softsvc_exports.o :=3D -I $(objtree)/$(obj)
-> > > +
-> > > +ifdef CONFIG_MODVERSIONS
-> > > +# The C export shim declares Rust symbols as `extern int`, so reuse =
-its export
-> > > +# list but generate symbol CRCs from the Rust object instead of the =
-shim's DWARF.
-> > > +$(obj)/gb_softsvc_exports.o: private cmd_gensymtypes_c =3D \
-> > > +	$(call getexportsymbols,\1) | \
-> > > +	$(objtree)/scripts/gendwarfksyms/gendwarfksyms \
-> > > +		$(if $(KBUILD_GENDWARFKSYMS_STABLE), --stable) \
-> > > +		$(if $(KBUILD_SYMTYPES), --symtypes $(@:.o=3D.symtypes),) \
-> > > +		$(obj)/gb_softsvc.o
-> > > +endif
-> > > +
-> > > +# Output gb_softsvc's crate metadata for use by gb_uart_node at comp=
-ile time.
-> > > +RUSTFLAGS_gb_softsvc.o +=3D \
-> > > +	--emit=3Dmetadata=3D$(objtree)/$(obj)/libgb_softsvc.rmeta
-> > > +
-> > > +# Allow nova-drm to import nova-core's types.
-> > > +$(obj)/gb_uart_node.o: $(obj)/gb_softsvc.o
-> > > +RUSTFLAGS_gb_uart_node.o :=3D -L $(objtree)/$(obj) --extern gb_softs=
-vc
-> > > diff --git a/drivers/greybus/gb_uart_node.rs b/drivers/greybus/gb_uar=
-t_node.rs
-> > > new file mode 100644
-> > > index 000000000000..f719ee35e8f3
-> > > --- /dev/null
-> > > +++ b/drivers/greybus/gb_uart_node.rs
-> > > @@ -0,0 +1,253 @@
-> > > +// SPDX-License-Identifier: GPL-2.0
-> > > +
-> > > +//! Greybus UART Node driver
-> > > +
-> > > +use kernel::{
-> > > +    alloc::Flags,
-> > > +    crc_ccitt::crc_ccitt,
-> > > +    device::{
-> > > +        AsBusDevice,
-> > > +        Bound,
-> > > +        Core, //
-> > > +    },
-> > > +    error::code,
-> > > +    new_spinlock,
-> > > +    of, //
-> > > +    prelude::*,
-> > > +    serdev,
-> > > +    sync::{
-> > > +        aref::ARef,
-> > > +        Arc,
-> > > +        SpinLock, //
-> > > +    },
-> > > +};
-> > > +
-> > > +use zerocopy::little_endian;
-> > > +use zerocopy_derive::{FromBytes, Immutable, KnownLayout};
-> > > +
-> > > +const HDLC_MAX_FRAME_LEN: usize =3D 256;
-> > > +
-> > > +const HDLC_FRAME: u8 =3D 0x7E;
-> > > +const HDLC_ESC: u8 =3D 0x7D;
-> > > +const HDLC_XOR: u8 =3D 0x20;
-> > > +const HDLC_EXPECTED_CRC: u16 =3D 0xf0b8;
-> > > +
-> > > +const ADDRESS_GREYBUS: u8 =3D 0x01;
-> > > +
-> > > +#[repr(C, packed)]
-> > > +#[derive(FromBytes, Immutable, KnownLayout)]
-> > > +struct GreybusFrame {
-> > > +    cport: little_endian::U16,
-> > > +    msg: [u8],
-> > > +}
-> > > +
-> > > +struct HdlcRx {
-> > > +    rx_buf: KVec<u8>,
-> > > +    rx_in_esc: bool,
-> > > +    rx_overflow: bool,
-> > > +    sdev: ARef<serdev::Device>,
-> > > +    node: gb_softsvc::Module,
-> > > +}
-> > > +
-> > > +impl HdlcRx {
-> > > +    fn new(sdev: ARef<serdev::Device>, node: gb_softsvc::Module) -> =
-Result<Self> {
-> > > +        Ok(Self {
-> > > +            node,
-> > > +            sdev,
-> > > +            rx_buf: KVec::with_capacity(HDLC_MAX_FRAME_LEN, GFP_KERN=
-EL)?,
-> > > +            rx_in_esc: false,
-> > > +            rx_overflow: false,
-> > > +        })
-> > > +    }
-> > > +
-> > > +    fn frame_finish(&self) -> Result<()> {
-> > > +        if self.rx_buf.len() < 4 {
-> > > +            return Err(code::EFAULT);
-> > > +        }
-> > > +
-> > > +        let crc =3D crc_ccitt(0xffff, &self.rx_buf);
-> > > +        if crc !=3D HDLC_EXPECTED_CRC {
-> > > +            dev_warn!(self.sdev.as_ref(), "CRC failed {}", crc);
-> > > +            return Ok(());
-> > > +        }
-> > > +
-> > > +        let addr =3D self.rx_buf[0];
-> > > +        let _ctrl =3D self.rx_buf[1];
-> > > +        let payload =3D &self.rx_buf[2..self.rx_buf.len() - size_of:=
-:<u16>()];
-> > > +
-> > > +        match addr {
-> > > +            ADDRESS_GREYBUS =3D> {
-> > > +                let frame =3D GreybusFrame::ref_from_bytes(payload).=
-map_err(|_| code::EINVAL)?;
-> > > +                self.node.submit_message(0, frame.cport.into(), &fra=
-me.msg)
-> > > +            }
-> > > +            _ =3D> Err(code::EINVAL),
-> > > +        }
-> > > +    }
-> > > +
-> > > +    fn rx(&mut self, data: &[u8]) -> usize {
-> > > +        for i in data.iter() {
-> > > +            match *i {
-> > > +                HDLC_FRAME =3D> {
-> > > +                    if !self.rx_buf.is_empty() {
-> > > +                        if let Err(e) =3D self.frame_finish() {
-> > > +                            dev_warn!(self.sdev.as_ref(), "bad frame=
-: {e:?}\n");
-> > > +                        }
-> > > +                    }
-> > > +
-> > > +                    self.rx_buf.clear();
-> > > +                    self.rx_in_esc =3D false;
-> > > +                    self.rx_overflow =3D false;
-> > > +                }
-> > > +                HDLC_ESC =3D> self.rx_in_esc =3D true,
-> > > +                // Skip data if buffer has overflown.
-> > > +                _ if self.rx_overflow =3D> {}
-> > > +                _ =3D> {
-> > > +                    let c =3D if self.rx_in_esc { *i ^ HDLC_XOR } el=
-se { *i };
-> > > +                    self.rx_in_esc =3D false;
-> > > +
-> > > +                    if self.rx_buf.push_within_capacity(c).is_err() =
-{
-> > > +                        dev_warn!(self.sdev.as_ref(), "buffer overfl=
-ow. Dropping frame");
-> > > +
-> > > +                        self.rx_overflow =3D true;
-> > > +                        self.rx_buf.clear();
-> > > +                    }
-> > > +                }
-> > > +            }
-> > > +        }
-> > > +
-> > > +        data.len()
-> > > +    }
-> > > +}
-> > > +
-> > > +struct GbNode {
-> > > +    sdev: ARef<serdev::Device>,
-> > > +}
-> > > +
-> > > +impl GbNode {
-> > > +    const fn new(sdev: ARef<serdev::Device>) -> Self {
-> > > +        Self { sdev }
-> > > +    }
-> > > +
-> > > +    fn fill_buf(mut crc: u16, data: &[u8], buf: &mut KVec<u8>) -> Re=
-sult<u16> {
-> > > +        for i in data {
-> > > +            crc =3D crc_ccitt(crc, &[*i]);
-> > > +            if *i =3D=3D HDLC_ESC || *i =3D=3D HDLC_FRAME {
-> > > +                buf.push_within_capacity(HDLC_ESC)?;
-> > > +                buf.push_within_capacity(i ^ HDLC_XOR)?;
-> > > +            } else {
-> > > +                buf.push_within_capacity(*i)?;
-> > > +            }
-> > > +        }
-> > > +
-> > > +        Ok(crc)
-> > > +    }
-> > > +}
-> > > +
-> > > +impl gb_softsvc::InterfaceOps for GbNode {
-> > > +    fn write(&self, data: &[u8], cport: u16, gfp_mask: Flags) -> Res=
-ult<()> {
-> > > +        // SAFETY: `GbNode` only exists while its serdev driver is b=
-ound, so the device is in the
-> > > +        // `Bound` state for the duration of this call.
-> > > +        let bound: &serdev::Device<Bound> =3D
-> > > +            unsafe { serdev::Device::from_device(self.sdev.as_ref().=
-as_bound()) };
-> > > +
-> > > +        let mut buf =3D KVec::with_capacity(HDLC_MAX_FRAME_LEN, gfp_=
-mask)?;
-> > > +
-> > > +        let mut crc =3D 0xffff;
-> > > +
-> > > +        buf.push_within_capacity(HDLC_FRAME)?;
-> > > +
-> > > +        crc =3D Self::fill_buf(crc, &[ADDRESS_GREYBUS, 0x03], &mut b=
-uf)?;
-> > > +        crc =3D Self::fill_buf(crc, &cport.to_le_bytes(), &mut buf)?=
-;
-> > > +        crc =3D Self::fill_buf(crc, data, &mut buf)?;
-> > > +
-> > > +        crc ^=3D 0xffff;
-> > > +        Self::fill_buf(crc, &crc.to_le_bytes(), &mut buf)?;
-> > > +
-> > > +        buf.push_within_capacity(HDLC_FRAME)?;
-> > > +
-> > > +        bound.write_all(&buf, 0)?;
-> > > +
-> > > +        Ok(())
-> > > +    }
-> > > +}
-> > > +
-> > > +#[pin_data]
-> > > +struct GbUartNode {
-> > > +    #[pin]
-> > > +    rx: SpinLock<Option<HdlcRx>>,
-> > > +}
-> > > +
-> > > +impl GbUartNode {
-> > > +    fn init(sdev: &serdev::Device<Core<'_>>) -> Result<HdlcRx> {
-> > > +        if sdev
-> > > +            .set_baudrate(
-> > > +                sdev.as_ref()
-> > > +                    .fwnode()
-> > > +                    .and_then(|fwnode| fwnode.property_read(c"baudra=
-te").optional())
-> > > +                    .unwrap_or(115200),
-> > > +            )
-> > > +            .is_err()
-> > > +        {
-> > > +            return Err(EINVAL);
-> > > +        }
-> > > +        sdev.set_flow_control(false);
-> > > +        sdev.set_parity(serdev::Parity::None)?;
-> > > +
-> > > +        let node =3D gb_softsvc::Module::new(&[Arc::new(GbNode::new(=
-sdev.into()), GFP_KERNEL)?])?;
-> > > +
-> > > +        HdlcRx::new(sdev.into(), node)
-> > > +    }
-> > > +}
-> > > +
-> > > +kernel::of_device_table!(
-> > > +    OF_TABLE,
-> > > +    <GbUartNode as serdev::Driver>::IdInfo,
-> > > +    [(of::DeviceId::new(c"beagle,beagleconnect-freedom"), ())]
-> > > +);
-> > > +
-> > > +#[vtable]
-> > > +impl serdev::Driver for GbUartNode {
-> > > +    type IdInfo =3D ();
-> > > +    type Data<'bound> =3D Self;
-> > > +    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> =3D Some(&O=
-F_TABLE);
-> > > +
-> > > +    fn probe<'bound>(
-> > > +        sdev: &'bound serdev::Device<Core<'_>>,
-> > > +        _info: Option<&'bound Self::IdInfo>,
-> > > +    ) -> impl PinInit<Self, Error> + 'bound {
-> > > +        dev_dbg!(sdev.as_ref(), "Probe gb_uart_node.\n");
-> > > +
-> > > +        try_pin_init!(Self {
-> > > +            rx <- new_spinlock!(Some(Self::init(sdev)?), "gb_uart_no=
-de::rx"),
-> > > +        }? Error)
-> > > +    }
-> > > +
-> > > +    fn receive<'bound>(
-> > > +        _sdev: &'bound serdev::Device<Bound>,
-> > > +        this: Pin<&Self>,
-> > > +        data: &[u8],
-> > > +    ) -> usize {
-> > > +        if let Some(mut guard) =3D this.rx.try_lock() {
-> > > +            if let Some(ref mut hdlc_rx) =3D *guard {
-> > > +                return hdlc_rx.rx(data);
-> > > +            }
-> > > +        }
-> > > +
-> > > +        0
-> > > +    }
-> > > +
-> > > +    fn unbind<'bound>(_: &'bound serdev::Device<Core<'_>>, this: Pin=
-<&Self::Data<'bound>>) {
-> > > +        // Getting a bound device is not possible after this point. =
-So drop HdlcRx.
-> > > +        // This also drops HdlcRx::node, which should ensure that Gb=
-Node::write will not be called
-> > > +        // after this point.
-> > > +        let _ =3D this.rx.lock().take();
-> > Not exactly.
-> >=20
-> > e.g.
-> > ```
-> > struct SerdevDriver<'bound> {
-> >   dev: &'bound serdev::Device<Bound>,
-> > }
-> >=20
-> > impl<'bound> Drop for SerdevDriver<'bound> {
-> >=20
-> >   fn drop(&mut self) {
-> >     // Access to a bound device should still be possible here.
-> >   }
-> >=20
-> > }
-> > ```
-> >=20
-> > So afaik there should be no advantage of manually dropping it here.
-> > Drop of `GbUartNode` should automatically drop the spinlock and the
-> > data contained. The bound serial device is still valid at this point.
-> >=20
-> > This would likely make the usage of Option<> obsolete too.
-> >=20
-> > Thanks
-> > - Markus Probst
->=20
-> My understanding was that the state of serdev device is unknown between
-> unbind and Drop calls. That would make the unsafe Bound device conversion
-> in GbNode::write unsound.
->=20
-> If I don't need to do the early drop, yes, that would remove the Option
-> which would be great.
+> ---
+> 
+>  arch/riscv/Kconfig                 | 10 ++++++++++
+>  arch/riscv/include/asm/processor.h |  4 +++-
+>  arch/riscv/include/asm/vector.h    | 16 ++++++++++++----
+>  arch/riscv/kernel/vector.c         | 10 ++++++++++
+>  4 files changed, 35 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+> index e26450f0d38fb..83e52a0a85ba7 100644
+> --- a/arch/riscv/Kconfig
+> +++ b/arch/riscv/Kconfig
+> @@ -650,6 +650,16 @@ config RISCV_ISA_V
+>  
+>  	  If you don't know what to do here, say Y.
+>  
+> +config RISCV_ISA_V_VSTATE_CTRL
+> +	bool "Deprecated prctl/sysctl for disallowing userspace vector access"
+> +	depends on RISCV_ISA_V
+> +	help
+> +	  Add prctl and sysctl interfaces to disallow userspace to execute
+> +	  vector instructions. These controls are deprecated because they create
+> +	  ambiguity in the ISA extension availability reported by hwprobe.
+> +
+> +	  If you don't know what to do here, say N.
+> +
+>  config RISCV_ISA_V_UCOPY_THRESHOLD
+>  	int "Threshold size for vectorized user copies"
+>  	depends on RISCV_ISA_V
+> diff --git a/arch/riscv/include/asm/processor.h b/arch/riscv/include/asm/processor.h
+> index 815715c67f940..ad64df01417a2 100644
+> --- a/arch/riscv/include/asm/processor.h
+> +++ b/arch/riscv/include/asm/processor.h
+> @@ -121,7 +121,9 @@ struct thread_struct {
+>  	unsigned long envcfg;
+>  	unsigned long sum;
+>  	u32 riscv_v_flags;
+> +#ifdef CONFIG_RISCV_ISA_V_VSTATE_CTRL
+>  	u32 vstate_ctrl;
+> +#endif
+>  	struct __riscv_v_ext_state vstate;
+>  	unsigned long align_ctl;
+>  	struct __riscv_v_ext_state kernel_vstate;
+> @@ -202,7 +204,7 @@ extern int arch_dup_task_struct(struct task_struct *dst, struct task_struct *src
+>  
+>  extern unsigned long signal_minsigstksz __ro_after_init;
+>  
+> -#ifdef CONFIG_RISCV_ISA_V
+> +#ifdef CONFIG_RISCV_ISA_V_VSTATE_CTRL
+>  /* Userspace interface for PR_RISCV_V_{SET,GET}_VS prctl()s: */
+>  #define RISCV_V_SET_CONTROL(arg)	riscv_v_vstate_ctrl_set_current(arg)
+>  #define RISCV_V_GET_CONTROL()		riscv_v_vstate_ctrl_get_current()
 
-.write is still valid inside Drop.
+nit: consider changing the enclosing CONFIG_RISCV_ISA_V at the comment to
+CONFIG_RISCV_ISA_V_VSTATE_CTRL if this needs respin.
 
-Currently there is a small difference between unbind and Drop though
-(that shouldn't matter here):
-
-while unbind, data can still be received.
-while Drop, data can only be sent. No data will be received (Drop and
-receive never runs concurrently).
-
-Thanks
-- Markus Probst
-
-
->=20
-> >=20
-> > > +    }
-> > > +}
-> > > +
-> > > +kernel::module_serdev_device_driver! {
-> > > +    type: GbUartNode,
-> > > +    name: "gb_uart_node",
-> > > +    authors: ["Ayush Singh <ayush@beagleboard.org>"],
-> > > +    description: "Greybus node connected over UART",
-> > > +    license: "GPL v2",
-> > > +}
-> >=20
->=20
->=20
-> Best Regards,
-> Ayush Singh
-
---=-UqXBVxT8d+O+osTm5faS
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmrOYr0bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSI+cP/RuVl+xdxJtdCnt/p3NA
-DLBfxnTSo79NYIOowgE/fES/7vwnt3sWWJ5csSUGuPuIdu6eOvl8+WIOiEDHruJM
-UpV1hoBlBgqHAVwYs+aMJRmJ1ZIYTVskWEyqG5EW2/PjrqQ1DAO7z3950LUNEnQd
-x2yFKskDvvfeU4Jfrtcqv8nYD48APJtvaSK0Q0nuFl8c/4zMJpUXpvSoeRSqxFO9
-27ZP2UzgJPbRAvvgF3mcmhYJs7TJO29PXJDQIZdO2dRR+qkJ9T/afA0cBEMbnYQo
-B+Vw9I8JKD75CICJeK5h5Y4akCauBFPjKZDPJIhwOo+7jZy9qqT4FuUnTZBxaXGn
-ijZo4nP1EmQ623cygDqXZubtjsm5P1prBFqF7pz0oW4iTit/wPJO9CNvPO1Uw54o
-GepcRaTdIaK9yTTei3yH5GAoGFOqQ/GPoanfN78itXMalAv4n3+cKb+u6NgY4RDE
-N7oo6dpeDm5lOsO/33nvoVOF856cZeP+bvE/C7H2T05M5unPNaDzX2KOvd5lS9nu
-UnO+RihOqLI9B3GoQ4p7FqnAyytsz3vqWGtlpnq7uSBS2hXJA8b+yF1E/I9oM19S
-wSeVv/FTX1dWs4E91h7m/idZG/DAjb/G4mHC88XQSBmnjGqFA2gdmz8gZZzai+6S
-WSMuFxoSHmTdBoes/NeojKFp
-=N4cC
------END PGP SIGNATURE-----
-
---=-UqXBVxT8d+O+osTm5faS--
+> diff --git a/arch/riscv/include/asm/vector.h b/arch/riscv/include/asm/vector.h
+> index fffe72a772080..5425a25f8a196 100644
+> --- a/arch/riscv/include/asm/vector.h
+> +++ b/arch/riscv/include/asm/vector.h
+> @@ -404,9 +404,6 @@ static inline void __switch_to_vector(struct task_struct *prev,
+>  	}
+>  }
+>  
+> -void riscv_v_vstate_ctrl_init(struct task_struct *tsk);
+> -bool riscv_v_vstate_ctrl_user_allowed(void);
+> -
+>  #else /* ! CONFIG_RISCV_ISA_V  */
+>  
+>  struct pt_regs;
+> @@ -418,7 +415,6 @@ static __always_inline bool has_xtheadvector_no_alternatives(void) { return fals
+>  static __always_inline bool has_xtheadvector(void) { return false; }
+>  static inline bool riscv_v_first_use_handler(struct pt_regs *regs) { return false; }
+>  static inline bool riscv_v_vstate_query(struct pt_regs *regs) { return false; }
+> -static inline bool riscv_v_vstate_ctrl_user_allowed(void) { return false; }
+>  #define riscv_v_vsize (0)
+>  #define riscv_v_vstate_discard(regs)		do {} while (0)
+>  #define riscv_v_vstate_save(vstate, regs)	do {} while (0)
+> @@ -435,6 +431,18 @@ static inline bool riscv_v_vstate_ctrl_user_allowed(void) { return false; }
+>  
+>  #endif /* CONFIG_RISCV_ISA_V */
+>  
+> +#ifdef CONFIG_RISCV_ISA_V_VSTATE_CTRL
+> +
+> +void riscv_v_vstate_ctrl_init(struct task_struct *tsk);
+> +bool riscv_v_vstate_ctrl_user_allowed(void);
+> +
+> +#else
+> +
+> +static inline void riscv_v_vstate_ctrl_init(struct task_struct *tsk) {}
+> +static inline bool riscv_v_vstate_ctrl_user_allowed(void) { return true; }
+> +
+> +#endif /* CONFIG_RISCV_ISA_V_VSTATE_CTRL */
+> +
+>  /*
+>   * Return the implementation's vlen value.
+>   *
+> diff --git a/arch/riscv/kernel/vector.c b/arch/riscv/kernel/vector.c
+> index 9641343732782..b35d11ff3cc89 100644
+> --- a/arch/riscv/kernel/vector.c
+> +++ b/arch/riscv/kernel/vector.c
+> @@ -20,7 +20,9 @@
+>  #include <asm/ptrace.h>
+>  #include <asm/bug.h>
+>  
+> +#ifdef CONFIG_RISCV_ISA_V_VSTATE_CTRL
+>  static bool riscv_v_implicit_uacc = true;
+> +#endif
+>  static struct kmem_cache *riscv_v_user_cachep;
+>  #ifdef CONFIG_RISCV_ISA_V_PREEMPTIVE
+>  static struct kmem_cache *riscv_v_kernel_cachep;
+> @@ -144,6 +146,8 @@ void riscv_v_thread_free(struct task_struct *tsk)
+>  #endif
+>  }
+>  
+> +#ifdef CONFIG_RISCV_ISA_V_VSTATE_CTRL
+> +
+>  #define VSTATE_CTRL_GET_CUR(x) ((x) & PR_RISCV_V_VSTATE_CTRL_CUR_MASK)
+>  #define VSTATE_CTRL_GET_NEXT(x) (((x) & PR_RISCV_V_VSTATE_CTRL_NEXT_MASK) >> 2)
+>  #define VSTATE_CTRL_MAKE_NEXT(x) (((x) << 2) & PR_RISCV_V_VSTATE_CTRL_NEXT_MASK)
+> @@ -182,6 +186,8 @@ bool riscv_v_vstate_ctrl_user_allowed(void)
+>  }
+>  EXPORT_SYMBOL_GPL(riscv_v_vstate_ctrl_user_allowed);
+>  
+> +#endif
+> +
+>  bool riscv_v_first_use_handler(struct pt_regs *regs)
+>  {
+>  	u32 __user *epc = (u32 __user *)regs->epc;
+> @@ -227,6 +233,8 @@ bool riscv_v_first_use_handler(struct pt_regs *regs)
+>  	return true;
+>  }
+>  
+> +#ifdef CONFIG_RISCV_ISA_V_VSTATE_CTRL
+> +
+>  void riscv_v_vstate_ctrl_init(struct task_struct *tsk)
+>  {
+>  	bool inherit;
+> @@ -330,3 +338,5 @@ static int __init riscv_v_init(void)
+>  	return riscv_v_sysctl_init();
+>  }
+>  core_initcall(riscv_v_init);
+> +
+> +#endif
+> -- 
+> 2.52.0
+> 
