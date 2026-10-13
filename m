@@ -1,125 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAD93B059F
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDC83B71CE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882145; cv=none; b=dBYDs4um4V9Kh7jv59Ct91a57L/TFzk2ahDhuwDNL8x5sBHD1YJBpf5vqkZkuIwlvPXOq8RNq2GF88U8cdPJaHnjVy5jDOQJAttWdrV4JM3TyaV1YzaWXUhGLMhejmp1LWTvfxt7It2JWuZ2hcwJRo5E4CKl+DluifuEr3fknog=
+	t=1791882157; cv=none; b=osr/NlmjUYeLQSu+Q/vISeAZYgXTPySZugUF+tFwcn7DhxLM9hZgqZUMy42e8faCC/krdCh7LjjU8ne8bRVpqgDuNje77U2nLBBXsq1I35eeFnRFUitnAw6e1814zlAYP/svLC1TTlb6G1q0QHS7AhUeVcd1HsMMOi2p4XND+7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882145; c=relaxed/simple;
-	bh=eN7TcJL1EJpdWf7TA2BroTHIBPVO0AzX4LZwa/T68jo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DBJG2fXlr9HBKvlutZM+Y+mAKJjf0WkcHVqXPidOTkU1oJB5cFSdsRRwT5BsQ9V7/RQG/A2ro5XtHpzeQUAoQD30s7vvlptbk6v1EYV+BSh4HdbE6caGXoHxN968EPrFZmh1/NI+x9QM/jkwOUSrJDcBtLhLGMQHpYG4tOd+lpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WSkbhZjm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791882157; c=relaxed/simple;
+	bh=JbciLIm74BwXlCx8BvBBIdoDAcxeKe6KT3Bs0d7Ohk0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kbEQHBBs4uu3LYBlGHbXeunP3WjOr9lXp2Bf/SDS6EeKVyx/++Ydc12c+/bRVaeQMYn6nvriw7lAm0FN5QS5f7YHFvyL2bG/e3d6F73PNJemwHl5dcycMBced3na5zZltnGYTemjPQqwjuGOkXvep02w/8G2rF5mH5MZfvJdub4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dOanNEkR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FCwBck+A; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WSkbhZjm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755671F000FF;
-	Tue, 13 Oct 2026 09:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791882144;
-	bh=isgOp/oWK7UgvcDokY0BIJcX1YHTkMKo0hu92B4JBqE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=WSkbhZjmBqxa/sE2Mnj8bDjz5+8dGlp3i9aHxaj6Eh1hfQ0DAxLPoWWdiZURnF/ca
-	 Tvbld43AOhDlNw9YBllVvmszi7dHcPek92UyqKZQ5o2H52xrnkHnPUyUzTDXKYyNgH
-	 i0a4LNwP7m8WVeUKgeA0cOzJpeOhrIKm2Gkd3T0vDx+8dSeoAuMDXszD3w7bYhbjTE
-	 /ROYm1XgqH1+HjIvKUJTs5jBAfVkmhOy6TB5DUFKovrpNtbOX220LROmoSRL7p03mY
-	 oE+0lCVh7XqFtCADccnxOtMpR8kiH3fyURn5RbjKYISlVtrcEjCoo9x8X28TZqbfM1
-	 ZlVGRj6iDynXQ==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Sourabh Jain
- <sourabhjain@linux.ibm.com>,  kexec@lists.infradead.org,  Alexander Graf
- <graf@amazon.com>,  Andrew Morton <akpm@linux-foundation.org>,  George Guo
- <guodongtai@kylinos.cn>,  Pasha Tatashin <pasha.tatashin@soleen.com>,
-  "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-  linux-kernel@vger.kernel.org,  linux-mm@kvack.org
-Subject: Re: [PATCH] kho: fix global scratch size calculation
-In-Reply-To: <as0UrrAvqjvUPyQx@kernel.org> (Mike Rapoport's message of "Mon,
-	12 Oct 2026 20:11:10 +0300")
-References: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
-	<asC3-4WNiTF3n7l1@kernel.org> <2vxzo6czjaa9.fsf@kernel.org>
-	<as0UrrAvqjvUPyQx@kernel.org>
-Date: Tue, 13 Oct 2026 11:02:20 +0200
-Message-ID: <2vxz33uaj7mr.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dOanNEkR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FCwBck+A"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D6CS9s949398
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:02:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	u3ROTOT5NmCg7aGxkDpwUT2Hj0+sJX/h77YrLceB0Fc=; b=dOanNEkRJMJ/9FLQ
+	+/TI89ktNfkA0ptZV3S/yf4VZQfd48XySBJVRuvB//POAy5ILeSEN+XaWFS4R3gW
+	b2OM66DC05UzUQ/TTkZhq0Cjtich5qzsxV4pbobL1CWA5SVOV4xSajGMjeu7S7O6
+	FfF9160CGS7fe5zU5Wsl5oYnZS2fkWmaIyQ7kiIwzbB4LCtLFjFhFBhqiGsH6iFx
+	KfxaGm57s8lTg2Dr4zN6tvU2yaS2LyY5uTJA+gM4QTqFWgNiU6kveHuGOt3aU5Rd
+	UQlDSJtQV6iNK5+Kq/BzBvYNTcEVw0Mbs9PMva+KirK5vKUEZ69qYIO1Uy/ndoD+
+	JsOddw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9f628p0q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:02:35 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-53389750985so5414311cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:02:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791882154; x=1792486954; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u3ROTOT5NmCg7aGxkDpwUT2Hj0+sJX/h77YrLceB0Fc=;
+        b=FCwBck+A9bDQpqOPqrk70DaqnI4Oi8MUBNe3IRl304RJeZasUUILMX9H7cB8VPuq5W
+         KloIz5nY+njYJypuZjoZoyXSS99NmctqiM9phZMWA5501KAsgi8M6mP0J6oB+kt7/v2d
+         VOo8PMgShLVN8TjAAA34DIs7MHUqskz2oEOHfSy1qPTGaRlynNF1UO4ZUCYuW2+8OqcU
+         cPKFOC4GzAzJibUmGaGSr1B5iQndFazGbWMPmWru7SzYtdwxVIn+TZyG69od2RIFI30W
+         VJfsNENN7LOBg5jjNWzTqQuUqUVTpP4HhYqYcR6N267cHVGZ0N6OOsYNwO4IojLkChap
+         L+6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791882154; x=1792486954;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u3ROTOT5NmCg7aGxkDpwUT2Hj0+sJX/h77YrLceB0Fc=;
+        b=uPNh8lHPwosgAkMbGEfIAjMiv6jibRVD9mhIhbsCQeLw16MnRv9yf1jOUbyhjdkEAm
+         Ir3k7uPnNtTtNO0jkHtt1aJyRnX/BPy4RLPR2gC5HL0SHRdwNTdYbDwAuItB8PoaD6iK
+         shiFYF9ixn1eWpn8g3R8fi6ImWo02uWGqMjZaLjZUYTJdiDILY6xS4lAXq9rz/QmiX9U
+         hE2Mosb2ZwJFvuG66upiqyW174AMT0ltA2bppsRZdGo9s7GKcW9u7JXL3wZAbSnLDcXO
+         NrOiiJ7Ubcy6XjLwTxVcvTkMdwtJvKR+D6ni6284qZJOA7zA2uY+UpDeqGPwMSD4nBAr
+         PxuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwk75Nraw/0pN5nyMhsUup0n/hFCfzz+2KLnZtDk7vaw6mXEbpXLOiSo7bXqwjtZqnlJbgUyo+zPiA/u2E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPwaTFa3aWKHDKDKrZ82K1AuWHBxwgjVJtActppqNNcw+Aj3K2
+	gGAdP52gG7SHlDB8+2CAb6nqBX/hDNk0ViOOMPEjA7L5QKrJCS7ryjH4plVyCdefEAT/CWZyIT/
+	TUL1TxWoMelUZnMgRdXdzwWXeWmklcM0DzmxurOpeWwGF16gJhkHf+cMOTDD/w/ygIuw=
+X-Gm-Gg: AYBFou0lNNFy//y2hABK+EaEk8e78bGi28+Om8CNW8yDmhyAoHDc4To45p4sDgKYvAO
+	4w6B1wM+wccd87qDYApm81GiVkejLlMcgraT1B15tXFR5kw0/GK3/8rTpSWUVB4qHex5Xzaty4U
+	RPWenKUbsByB87Pa/Y+JLYAsVtatliQRECOD+9N1eJpsGljfLuJ185Bye4/oVT0oGofTCg63Xqi
+	icDWiFCCFlopE0d8lzl+PP3vROcVpH3+OJIxrO4ehgb5AEXCDePn3LxNE+dwYXc8NICxk8C1hBe
+	QaRoayXegzMatBtmD6Ztl/vu9ap8kiB42kzsdZ8LpU9ciW4o3iwgePGr6L0JoJni3M7GUmKzxCy
+	S92zUAnadHg/MwjNTeBf3Cg==
+X-Received: by 2002:ac8:59c6:0:b0:52e:3991:84c8 with SMTP id d75a77b69052e-5359f6a0984mr234072331cf.2.1791882154579;
+        Tue, 13 Oct 2026 02:02:34 -0700 (PDT)
+X-Received: by 2002:ac8:59c6:0:b0:52e:3991:84c8 with SMTP id d75a77b69052e-5359f6a0984mr234071911cf.2.1791882153956;
+        Tue, 13 Oct 2026 02:02:33 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9765d1asm549448066b.8.2026.10.13.02.02.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 02:02:33 -0700 (PDT)
+Message-ID: <65609aa6-fb54-4987-8573-36fcd650977e@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 11:02:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] i2c: qcom-cci: Detect capabilities from
+ CCI_HW_VERSION at runtime
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261004-cci-imp-v1-0-227d12cb4829@oss.qualcomm.com>
+ <20261004-cci-imp-v1-3-227d12cb4829@oss.qualcomm.com>
+ <717d9cb2-d7e5-423b-9d0e-fad307385474@oss.qualcomm.com>
+ <CAFEp6-20=Hkb9ZsubULMg9YYVzEc11Y37g90Gu1mxpvOwqJB9g@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAFEp6-20=Hkb9ZsubULMg9YYVzEc11Y37g90Gu1mxpvOwqJB9g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=FOKOVOos c=1 sm=1 tr=0 ts=6acdf3ab cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=9Ai6TmSYiC37dqtxzEEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNSBTYWx0ZWRfX1bp+7B6MoRld
+ lU1XuUxH4k3Nn6DMl2Fe4WXIAQvW1+xxeUu0A/NBikv388JiSQTglxhFmc1zO/CSW8uGx9hQPx1
+ q1zgOVAm95eTcueOs8ac9pSYrunATEg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNSBTYWx0ZWRfX73COcra+aM4j
+ vSn6o0uZSpPodQwZtd3/uiH79UjIQvAN1DpcpEPI7BoLo9WxqiOBvlcXWn+0MpMv5B54HUQJJbf
+ 5uQiJUctvN9WB5zRld4S9/S9UgAIWTMsq9aT2uauZdySXtl5Pjj3MxS02dgXPAp8A++lGXn4JkT
+ uYIJ/QnOO4cbEHPRndVYJx7nn2zNKoqpvtLJRAhdAR7Q478hb7ankm9GnavX49iQIjqDMVJqzsm
+ sAe8NkefWkanmJ2CaN7pmyzAv1a4G/48XIGGWJfunUw0CFTmVUMQD1VGJjwH7mCYw7jjhFWSXay
+ WYo0v/GC1djLvMjZjRjNbGcuUpvtoput1ZLhn5kJkh2A0U8U5kWuqm90m9e7xhttrNXCzdmnNPQ
+ GPxocsDsligD9hV9njVvBbogSzLI3VhLiUn/Fp1Q8ZmyztcnwH2sI/ur8/BVTtZUemGSAUwYyJK
+ F2CJphcMmV5qvIz8vpQ==
+X-Proofpoint-GUID: aCWB0RUazDInDVGp5bYlFDmZgWEx9Bvz
+X-Proofpoint-ORIG-GUID: aCWB0RUazDInDVGp5bYlFDmZgWEx9Bvz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130035
 
-On Mon, Oct 12 2026, Mike Rapoport wrote:
-
-> On Mon, Oct 12, 2026 at 03:52:46PM +0200, Pratyush Yadav wrote:
->> On Sat, Oct 03 2026, Mike Rapoport wrote:
->> 
->> > On Tue, Sep 22, 2026 at 06:42:16PM +0530, Sourabh Jain wrote:
->> >> KHO calculates the global scratch size based on memblock-reserved kernel
->> >> memory. It passes NUMA_NO_NODE to memblock_reserved_kern_size() for
->> >> this calculation.
->> >> 
->> >> When memblock_reserved_kern_size() is called with NUMA_NO_NODE, it
->> >> counts both:
->> >> 
->> >> - memory reserved for a specific NUMA node
->> >> - memory reserved with NUMA_NO_NODE
->> >> 
->> >> KHO needs to distinguish between these two types of reservations.
->> >> When calculating the size of global scratch memory, KHO only needs to
->> >> account for reservations made with NUMA_NO_NODE. Reservations made for
->> >> a specific NUMA node must not be included in the global scratch size.
->> >> 
->> >> Add memblock_reserved_size_nid() to calculate reserved memory for a
->> >> given reservation type and NUMA node. When NUMA_NO_NODE is passed, it
->> >> counts only memory reserved with NUMA_NO_NODE.
->> >> 
->> >> Use the new API for lowmem, global, and per-node KHO scratch size
->> >> calculations. For lowmem and global scratch, count only memory
->> >> reservations that were made with NUMA_NO_NODE. For per-node scratch,
->> >> count only memory reservations that were made with the corresponding
->> >> NUMA node ID.
->> >> 
->> >> Remove memblock_reserved_hugetlb_size() since it has the same
->> >> implementation as the new API and differs only in the memblock
->> >> reservation flag being checked. The new API handles both kernel and
->> >> HugeTLB reservations through its reservation type argument.
->> >> 
->> >> Define the new helper as a static function in the KHO implementation,
->> >> since it is only used by KHO and has no users outside
->> >> kernel/liveupdate/kexec_handover.c.
->> >
->> > I looked again and this feels like a band-aid to me.
->> >
->> > I think we need to step back and rethink the order of the
->> > scratch/kho-bootmem sizing and consider how NUMA and lowmem are involved
->> > there.
->> 
->> Could you elaborate? How else would you calculate the sizes?
->> 
->> To me, the idea sounds fine (although I also share your comments on the
->> code style). This is what the global scratch size should have been doing
->> from the get-go. Today it over-allocates by counting both global
->> allocations and _all_ per-node allocations.
->  
->> There is a separate problem with CONFIG_NUMA=n, but for that I think we
->> should just have a different allocation path where we only do lowmem and
->> global scratch.
->
-> I mean more fundamental code refactoring that takes into the account all
-> cases (and I could miss some)
->
-> - NUMA vs no-NUMA
-> - systems that have global scratch containing lowmem scratch vs those that
->   don't
-> - and of course fix global scratch over-allocation
-
-Fair enough, that makes sense.
+On 10/13/26 10:21 AM, Loic Poulain wrote:
+> On Mon, Oct 12, 2026 at 3:58 PM Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
+>>
+>> On 10/4/26 9:09 PM, Loic Poulain wrote:
+>>> In theory, every SoC integrating a CCI revision that differs from
+>>> an existing one should introduce a dedicated compatible string.
 
 [...]
 
--- 
-Regards,
-Pratyush Yadav
+>> This looks a little sloppy - can we infer the number of masters at
+>> runtime somehow?
+> 
+> Yes, we can either add a small msm8916-specific condition in the probe
+> path, or derive the number of masters dynamically from the number of
+> master subnodes present in the Device Tree.
+
+The latter sounds good
+
+Konrad
