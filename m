@@ -1,133 +1,149 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853F5538D8C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791917777; cv=pass; b=Wf/E4o6tFcsXzC8NEC9V7CPlgJfh/7qxFqlYv7vIcRR8b4FQtT0QFomuNZikIC5LITcqrrWoFVaGwpZXBJkcBhBwblNztPF74dzLfwkWdumWmzScfRSuh9158pYwsPtJ8Y8uIrFVGJr9w3GrTybB0pnSf1jFIsx5Ss1j/Ifgtc0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791917777; c=relaxed/simple;
-	bh=Npz6MJpL4OKnNkDARrkMIsl8yNRoSsqdy7nWQsZF4+k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J5h3/faFE56PVQcLQKYqFrOnUtOfzczFFUAqD/UeUaCzAIy/KuDaZz2gH3dk4448GRcEiRUmPTUaZwj19TgnhpoDok2/nZHUmmJrLrAQjxKs+eBxIdSC+nZfgNFbQblEFAhCRJApJhrO01z//sFkiQ3cKC8YQqHbhcWBy1pSl2U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e3lQaqLb; arc=pass smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4792153977A;
+	Tue, 13 Oct 2026 18:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791917782; cv=none; b=aNhjjDNtyJa5bMqI46Ok5VDSu2C0+a6B909WX/AX1XUNiSvJJudKTwDgS+1oOX/V8FdjaQjv3ZxdWPirPj2588KiYVQ4RvKyTeQpM2DWodlig84CBC/WqtlmFeomGW9DqyDlhda8KMtmkx304WG9t4C30RKZrMdXHxC7xcOzqLk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791917782; c=relaxed/simple;
+	bh=Zr6u91rhqkBjnyQNOXrI3qSFg8iNZIlmX7O9cZBaIvg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=h4JCWQZj9iTKJ4UDrPDXD3Gk+G11JyB6PbqkDvwgupCWkamvHbAfmuJI0094UcMNtXPrBYD02Zjgz78Az+HSNaay0IFdR4n0KZiOkq0mnGYTIQbzpn0GBy/wNZhxveX4YUlQ6H9nTLDHxZm3lErLOssJIZfQI4/n/rajidX6JY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=d5fjw0C9; arc=none smtp.client-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e3lQaqLb"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so299421eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:56:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791917776; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fg4niCN+vzU4uVlEvUN7yk03lk+9ivDh/eYS/oaVFruJNdnMQ3zsHPwBZO4YZC0mbw
-         +BMWInCjT55si0H7y8TkW5FjsaUH5LnHWrzRhhA0QwzCQ+n70jUmAqA8zOB2X7ZegciX
-         OwbDn3jcG4EO7qAgVxCzcxgj8XPn90zsMEECepC3ylE2nkq62IbRWHBLYvVxUgbsSnre
-         R6Oa9U4q2/lo3rLGgn6SIMSNTUTLZyBDCREjzYBYEUyXcwf1R23xJK2OyJ6wE9yDYbnH
-         PZdd+yGBKHbLKysiNnzANep5SidkrYV5cvE0FUHTT9yv6Ib4GacEEoTalM2SiEIRGTaP
-         nvSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sAjbH1ILtBe08WoVw3eugZuZwwhY23ii0JyU7xvzgIk=;
-        fh=R0ILeHY2ZBY50AjBYyRMgPvhEBPnBFr94EanCAWJClU=;
-        b=cbsbUFVZclBFL/O7L+PINWxaN14u8vWFKavFAbimRByOYhruohoMy5uUm6BFEa3S2A
-         7EIV6sshOomU8abD63bkOfUEECyb9HmEgJlf7N2mjjdCM8XEOAW5suy45fInnTlLObqJ
-         9QrcoU0DhdyJB4D/e1IMjSmQpFeDWIJWaHCYKk5ygaHuu8OIbQqducZPp+qwcMkgjqj+
-         s08GXACUldle3KDmykBnALcoAOd3p2TESdcNbcpeRmtpBj1p4eg1vincurFBDCp5X/z6
-         44zElKYIcEZA8TGod1g/tNMZ/h37jDV4H9BnETbTme0n/VHmnaiMygm/OsyrnCg61wAT
-         ok7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="d5fjw0C9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791917776; x=1792522576; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sAjbH1ILtBe08WoVw3eugZuZwwhY23ii0JyU7xvzgIk=;
-        b=e3lQaqLb6B5aGi4qjkf7UDw3znnRWVPNZ/Xi+a/e49uRYul0g8nN3D+HFHfop7vbjL
-         SUpnXHSx/ai8Clo9ZQZyGwK/BduRM55DGLUUFwuUfa7uKEmFbozcNJktf4WZYxBj9Wdp
-         Sru/3KWrKuUurJ2O4T8SfucLWJvHrmhCf2J9BxbTGuR+e8KKU+5CjHCo/KoqWMLVosWz
-         0ufpIlt4gYUzVkR7df1yx97L7SfuujTjvqhLZsw6akRiUJfRjO1e7Gkx+u2C1Yra2mvv
-         FskhKDm1Oot32W6RsNRW0IgWfoKtIZT9g204eWHvYRquz7zcQD58g8vMh9V2Frh5QBTs
-         5u/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791917776; x=1792522576;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sAjbH1ILtBe08WoVw3eugZuZwwhY23ii0JyU7xvzgIk=;
-        b=v4Y/OOoNN4KkVbkNY7vtgLt96P9zyfr8taqFu23uXXW9jKlNTcEohOaJdyjbl28uh0
-         KVb+93G7ZUdrbH4okhmSwgUj32eVGrlgDeuF4QUhwTDCzbCMkhvi48uCuBmJYIg6/6zc
-         R1AE+TQkwPuhQxhRUh1jaAgkbfnnGFXvEv3zsbHzBXWsGN/0sLeBHwCAwwh3Rm0L3Xwk
-         Ct48Ek9i9zXSUmzdaFdOUEUJqscAQ/dDxZ3bNZdScH0nFylNh/vv6XBd2xWhr/+MOpEj
-         Htiqd1SDSFaAVTEqff4BZ/DaYZ0iHJZECfv1vBP5TaZTJ7ouUxysXXgiWjg7fYOn2z8r
-         Cy9A==
-X-Forwarded-Encrypted: i=1; AKwUvBwtsdXeC0MvhdblJNHsZoqolnadcuDxe4mf9ZIbrvCUNGzBs6TmHBlZCC1S8zuMI6+8j++9VO+ZXEhXfhs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUUb0K3Jg9oPUfdOC3iYj0ZEqE4eyBeoCd7g2cvrjVjTVKxLQX
-	ZCojyQWr5yw/STWvla8b1K8FiWUOabkj802LsegQZ42o2A8Z9ReTTAQ9xBuPcDWNmXUqa8DmZTN
-	w2MV6u5gbsu4dxkYphReqMTAR7OJbLJs=
-X-Gm-Gg: AYBFou3bqmJlWKqeWo066D8VHSngN5zgXz0s5vy/pUv2033owx5cPbHK2s1Sfnk2+RJ
-	PQX6JqAapuXCn6+whJa6pMWxEXv7UCBijFuAX3BFuy8uW/GdFqanyX+qlZkILYyBWEO37+4vPO5
-	UPzdY5PwaLMaowcIIIlqedcB1lgoNMXVgD1Pr3TRn6HliotPMJUhX82tMbKn97/R1aGT4iJgjeT
-	w8Y/ilV13l1TFvh1FOSpGaOFEnhAb80JsQoDq8NnuG+j12UWpTDWcRUWTqJ6OXqLJku42sMLAHa
-	J11sjcnJ6QXH6PHOQbdpMIjvQII5tDF5lpmTxRogts/gOVnmlOWNmmzWOyHx1x3QdqJwDhW/2LU
-	+16ty4DBKMBk/
-X-Received: by 2002:a05:7301:4714:b0:359:d728:ea39 with SMTP id
- 5a478bee46e88-359d728ec5amr11295040eec.25.1791917775546; Tue, 13 Oct 2026
- 11:56:15 -0700 (PDT)
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1791917781; x=1823453781;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ExDc15Ef98vtkv2halza2GLOY92o7Aeod/xe2/R8Z/4=;
+  b=d5fjw0C9ZSilqFFY0fvicinohk2ZWZQ15uoKc+VsPEX9jRQQjdayBCjo
+   B1t5anymse+PA7CrPmohFbI2mJnj3dJM9et4zwXWd9TiZODQ+oPSRCBaO
+   bjj6HPO8O64iRKaYtot5Qf88IOMCI68cTxD8YBfe9XexMi6wW6xLvdM61
+   Nlr3Iriguq3AtAPYg6ueWdNgr8nHozgA+oDqkf5X4Xq/rRhIrOYzAw3lX
+   BiQCpw89R/8SupVfQDltUK8hco3w2e4VjcLcrSy5KZhclvwUXxnyaxOa2
+   58d7dTHP9zlaYH/O6GiW91aHVnXcCZDecXhV5ZiGWr5JwfkvCefHWxSIc
+   A==;
+X-CSE-ConnectionGUID: oWznY2ffSqarfFIC8BEq2w==
+X-CSE-MsgGUID: VXbXS8RXQHO3aQJZ0MCX2A==
+X-IronPort-AV: E=Sophos;i="6.27,156,1787011200"; 
+   d="scan'208";a="31152671"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 18:56:20 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:8919]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.32.175:2525] with esmtp (Farcaster)
+ id f1b4118a-6202-4225-89df-e251ce4331da; Tue, 13 Oct 2026 18:56:20 +0000 (UTC)
+X-Farcaster-Flow-ID: f1b4118a-6202-4225-89df-e251ce4331da
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Tue, 13 Oct 2026 18:56:20 +0000
+Received: from u34cccd802f2d52.amazon.com (10.187.170.30) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53;
+ Tue, 13 Oct 2026 18:56:19 +0000
+From: Haris Okanovic <harisokn@amazon.com>
+To: Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>, "Mark
+ Rutland" <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, "Ingo
+ Molnar" <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+CC: Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
+	<jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
+	<adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-perf-users@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <harisokn@amazon.com>
+Subject: [PATCH 0/4] perf: Manage single-CPU PMU affinity in perf core
+Date: Tue, 13 Oct 2026 13:55:59 -0500
+Message-ID: <20261013185603.1347265-1-harisokn@amazon.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013183226.513658-1-clamor95@gmail.com> <20261013183226.513658-3-clamor95@gmail.com>
- <10dca96b-78b2-4f46-bf4f-de67d25c916e@sirena.org.uk>
-In-Reply-To: <10dca96b-78b2-4f46-bf4f-de67d25c916e@sirena.org.uk>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 13 Oct 2026 21:56:03 +0300
-X-Gm-Features: AclHuK_OtQxv-lLSRNaI0a5fKQ3a0f0GrZurL_z_b4XMUDM8898Nfx1Ak8Ju-Do
-Message-ID: <CAPVz0n0X58xfwhQo=V_5UQBc_cLfG8CqFPuoG4FqN9MM8MFisw@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] ASoC: tegra: Support WM8994 by machine driver
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-=D0=B2=D1=82, 13 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 21:5=
-2 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, Oct 13, 2026 at 09:32:26PM +0300, Svyatoslav Ryhel wrote:
-> > Add Wolfson Microelectronics WM8994 codec support to the Tegra ASoC
-> > machine driver. The WM8994 codec is found on devices like LG Optimus 2X
-> > (P990/star) and Samsung Captivate Glide (SGH-i927).
->
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +/*
-> > + * tegra_wm8994.c - Tegra machine ASoC driver for boards using WM8994 =
-codec.
->
-> Please make the entire comment a C++ one so things look more
-> intentional.
->
-> > +static const struct snd_kcontrol_new tegra_wm8994_controls[] =3D {
-> > +     SOC_DAPM_PIN_SWITCH("Int Spk"),
-> > +     SOC_DAPM_PIN_SWITCH("Internal Mic 1"),
-> > +     SOC_DAPM_PIN_SWITCH("Internal Mic 2"),
-> > +     SOC_DAPM_PIN_SWITCH("Mic Jack"),
-> > +     SOC_DAPM_PIN_SWITCH("Line Out"),
-> > +     SOC_DAPM_PIN_SWITCH("FM Radio"),
-> > +};
->
-> There's no Line Out or FM Radio widgets, you should get errors during
-> probe.
+About 25 PMU drivers, nearly all under drivers/perf, drive their PMU from
+a single CPU, and each implements the same logic independently: pick a CPU
+at probe with cpumask_local_spread(), cpumask_any(), cpumask_any_and() or
+similar, register a CPUHP state to handle hotplug migration, bind every
+event to that CPU in event_init(), and publish it via a 'cpumask'
+attribute.
 
-These codec targets. LINEOUT(1P/1N/2P/2N) to Line Out and IN1LP/RP are
-used by LG Optimus 2X P990 (star) for FM Radio.
+Besides the duplicated code, that has two costs. On systems with many
+PMUs, the arbitrary choice tends to land all of them on the same CPU,
+concentrating overhead there. The chosen CPU also cannot be changed
+afterwards, except via hotplug, which is awkward on systems that confine
+background kernel work to housekeeping CPUs or otherwise isolate PMUs
+from latency sensitive work.
+
+These patches move the choice into perf core as a new "device" pmu::scope.
+A driver describes which CPUs are eligible with an optional
+filter_allowed_cpus() callback; core intersects that with the online CPUs,
+picks one with cpumask_any_distribute() so instances spread out, migrates
+events on hotplug, and reports the result through an optional migrate_cpu()
+so the driver can follow with interrupt affinity.
+
+'cpumask' is made writable for device scope, so users can also choose the
+owning CPU deliberately, e.g. to move a PMU onto a housekeeping CPU. The
+attribute is read-only or absent in other scopes. Reusing it was the
+minimal change, and I'm happy to add a separate attribute instead if you
+would rather 'cpumask' stayed read-only everywhere.
+
+Only arm-cmn is converted in this series, as an example and because it is
+what I can test today. I have prototype conversions for the other 24
+drivers locally and will post them if the core approach looks right, but I
+have no access to most of that hardware and will need help testing.
+
+The series also carries two synchronization changes for events left behind
+by migration: the __perf_pmu_remove() fix in patch 1 and the sequence
+counter mechanism in patch 2. Neither problem is new. Under hotplug,
+leftover events are torn down with the dying CPU, which limits the damage.
+Migrating between two online CPUs leaves nothing to clean them up, so they
+matter more once users can request migration. I'm open to suggestions on
+different or better ways to close these races.
+
+Tested arm-cmn on two platforms with CONFIG_PROVE_LOCKING=y:
+
+  AWS m9g.metal-48xl CMN S3,  one mesh,   192 CPUs
+  AWS m8g.metal-48xl CMN-700, two meshes, 192 CPUs
+
+  - Events multiplex on the configured CPU, and the two meshes are placed
+    on distinct CPUs at registration.
+  - Offlining the owning CPU migrates every open event and updates the
+    attribute; nothing is left behind on the dying CPU.
+  - Writing 'cpumask' migrates open events, and offlining the vacated CPU
+    afterwards strands nothing. Bad input is rejected with EINVAL, ERANGE
+    or ENODEV without moving the PMU.
+  - Hammering perf_event_open() from 64 threads while flipping 'cpumask'
+    between two CPUs does not strand events.
+  - No lockdep reports on either platform.
+
+This supersedes the arm-cmn-only approach, following Robin Murphy's
+suggestion that CPU affinity be generalized into perf core:
+
+  https://lore.kernel.org/linux-arm-kernel/2d70be7b-12c0-46e0-b308-744a3159388a@arm.com/
+
+Haris Okanovic (4):
+  perf/core: Fix perf_pmu_migrate_context() leaving events behind
+  perf/core: Add PERF_PMU_SCOPE_DEVICE
+  perf/core: Allow userspace to select a device PMU's CPU
+  perf/arm-cmn: Convert to PERF_PMU_SCOPE_DEVICE
+
+ drivers/perf/arm-cmn.c     | 104 ++++------------
+ include/linux/perf_event.h |  26 ++++
+ kernel/events/core.c       | 247 +++++++++++++++++++++++++++++++++----
+ 3 files changed, 274 insertions(+), 103 deletions(-)
+
+-- 
+Haris Okanovic
+AWS Graviton
+
