@@ -1,156 +1,218 @@
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022095.outbound.protection.outlook.com [52.101.101.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8927D51FCB2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:33:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898431; cv=none; b=sjy6uOICEVz+EZje9Q2WCa7Z2JdzMe/qzV9J+4xWp3W8vqAN9Li/3X6jG9JNh65UCGv3dWSyPv6nQwv3T4AJPZu4+h61P9niW9bFqcaRvFAPPmNL0+36FkcNAAj15eiUHBW8DK0vLm8R8me4YLtOLc/bBsD44pc5nbJd8coPc6g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898431; c=relaxed/simple;
-	bh=58wnVp8UtpC09H6o36Fs8vVg5OTej82YK7v2fSUllDk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WO3cL9NkBDKBj5CzanwGQCl2oNejjYJhFuTL8AEsmrxMT89tYwEwF/pxifVVFzRV2aRX2HZFwF5SO64ejqhax6kxnwxEni2RdU+vhBGpuwmr0Az9I+T5k8ZEKthjjLvtPQ3UK5F5lmRoo3taZVfBz7brYXtoz1ejMf4lHcPezPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=EaV5ABlJ; arc=none smtp.client-ip=205.220.165.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="EaV5ABlJ"
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2BsN41439853;
-	Tue, 13 Oct 2026 13:33:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=corp-2025-04-25; bh=dLUVtjZIJ/v1snvs
-	t+dkbepdyQJMtG/e3rdPXYts+UU=; b=EaV5ABlJsoQVke1t9MaBlv6OzV1ug3wU
-	1LSlZTB9Rql9TYEGGB4BsT5Ag9JEKVpji5PwFX8wYHxU20/wq7o601nuxYXFXMax
-	aM5X0L5lmV5Lqw+8xcNq+0slIeoaHjfhTQ3HoKmTMHNn9uzSR4Stwz/hfprlrKZI
-	fYdA3gNrHPwSafxVr3xwkYkVp4iqDnbNAfh1Qt+VtbteHZeK9ZNWhK40FUcZkrCN
-	5u2eYWbE/wzOvGZP6h9AYVueWLhBavoRhxD6a1HEI7FgjuPHyzTRKnR5tL20GFXz
-	mBk3DrH6bp680h24mSkFLNl/Yu5uHym+mlGG/FjDTOafkhtbmpe+5g==
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7df7v2f9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 13:33:27 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69DDLl0G040806;
-	Tue, 13 Oct 2026 13:33:26 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4h7btk3fts-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 13:33:26 +0000 (GMT)
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 69DDXP4d006924;
-	Tue, 13 Oct 2026 13:33:25 GMT
-Received: from lab61.no.oracle.com (lab61.no.oracle.com [10.172.144.82])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4h7btk3fsy-1;
-	Tue, 13 Oct 2026 13:33:25 +0000 (GMT)
-From: =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
-To: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-        Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-        Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Shuah Khan <shuah@kernel.org>
-Cc: John Stultz <jstultz@google.com>,
-        =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
-Subject: [RESEND PATCH v2 0/1] kernel/locking: Add mutual exclusion self-test
-Date: Tue, 13 Oct 2026 15:33:18 +0200
-Message-ID: <20261013133321.2625486-1-haakon.bugge@oracle.com>
-X-Mailer: git-send-email 2.43.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3245038F3;
+	Tue, 13 Oct 2026 13:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791898433; cv=fail; b=YuutOJdsmcm2fVdjM/rhecNgC3MXrzz+D4zHCRJ5NhWCQjcFc7rJNlKJsawT0HdapS9/PVGvV07/chBPuXi8huSfRAhE0gj+xHqzChOEWfRWpu1z7Fus5AY5V0ZLzLt6TdBjlIjriM35uMJ2JpP8+gP0tELepodZ/Z7IQ2EzlxY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791898433; c=relaxed/simple;
+	bh=1zUB1hvE7CjvDA9o5+cDOG2QiMkBnTqKyy7/cTJNi4k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=TlbSUezwJQhWySgO/LJHT3uKmxJWrSHI9rmEAJt6m0fbPsu2GuyDk8MBg+kYYC4AGf/YGpAJhowyH2e1RmwoURW9ecQgAlcT1cWGpqrlsdUN08DzRz6zGS0GPtXxAohQAyoW+/uV19ha9E+A02o0dH1w/i3+32QYXmoL6GARPT4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x43zUszwlroCMzHpFFsvTXa6OtP0HnJl9YWGbS1ohyXJv0MVex/yKoedfj8mkwcPPJayWnoxn2T8HUrHdoFfO+TrZ8v8pHoyR+kQv2pWTkqVpFCZVmZgz2oladDXeswdkzztLmMwg7ys6YbwaxiqydRnboZUdQKf/zjYvI21KBc+84to7ojy0P/jGTQ4qNiEOGUIiN9AzcN5HQvSREYMgDLdp3ptcVJWr0qGLFt19jczkqk6yl8knFd8ef7/XGUcEqZQN3q6EjUHeiB5xPKvD2kog7MF7HFWZQ5NZy1TQHLqeaQBtrCboyw0o63C3MB23j70Ifsf+3bGeoptwub+rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=DYBxRudDdOvxcPmQXQTxLVffxf4Wc+BkoSM5uvUm544=;
+ b=Tx354RzlA6xUclxmLZ3Md1rvqyLHumCL/WaWKX1WC/0bYP5VZSxsWQa1vx3Q4OUytotSwS6tdQ9FbduD/4ciyph9CKGdgM5teKM2V3D5EdNi0f2PiC+5S4A6SaQfj5fTV8xpzjICV6m3/tMV1Bg7RhH1mYwvnn976c/QsHgg22Z4kIUJcdUeaXOHESeqOmfiyBUioe/5gUkJQb+SzszX0GlDZQWIH5Om4M5hyIbamaIZtQVdTmcsFZR8QFgJ19I9+tN5pVjTm5O+V8OjVJwEzdFguz5J713FVmS6wuswjch6l6gE3e9ycyxrr0xfPIXiOcHQ0WLszmHVSDdwFhbjNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CWLP123MB7344.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:229::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 13:33:47 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 13:33:46 +0000
+Date: Tue, 13 Oct 2026 09:33:42 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Ming Lei <tom.leiming@gmail.com>
+Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, tj@kernel.org, 
+	neelx@suse.com, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
+ cpumask is empty
+Message-ID: <i4xh6jsm222rtn7pka57fuo3scelrlzywrvq5kor5sy2jjlrmq@tkqbbrzimfrd>
+References: <20261012012905.267920-1-atomlin@atomlin.com>
+ <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+ <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+ <asxLLWOQQzolER0a@fedora-laptop>
+ <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
+ <as4j_Zk7zcNsBuo1@fedora-laptop>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <as4j_Zk7zcNsBuo1@fedora-laptop>
+X-ClientProxiedBy: MN0P220CA0001.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:52e::29) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- adultscore=0 mlxscore=0 mlxlogscore=881 bulkscore=0 lowpriorityscore=0
- spamscore=0 suspectscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2610020000 definitions=main-2610130053
-X-Authority-Analysis: v=2.4 cv=N+a8hG9B c=1 sm=1 tr=0 ts=6ace3327 b=1 cx=c_pps
- a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22
- a=R5gcnNxLHOFc8d1k_nsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12108
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1MyBTYWx0ZWRfXw9HGetHMzSRl
- D5yUengOxyGf+7VssBSRdojjgUYfzuCsQNLuqzOfmjoUzy9a+pqNdtQZbe5u5IW5gzxa+mS9NoN
- mKtPvvXCs70NmfYKhiwmpd/i6d7p05HgcZ6/LcuVyK7/xKR1L8DCN4fArFkBWiNclYh7VgsvbUH
- BQwR47rdpRSn3Y8LZCzYrMXbVB3YocrRfa9iW72Oo63LOsEoCHO5glsGjsB09qEjlAR8PTDunSN
- JWYAiBuejWmw0c6BzdGskXSaiTVH1JsIaC9AtGuAe2lb03l+G0xrF70GsBGGlk6/YMoxTeANQUW
- lZBCQaZoaUJFhPGnCJwf6RSmIwhKHkLQsvjvZBTXsNe+qS+lqwxreRamTN6VIg+J14VTVzTiSdG
- YC3dt2AgAgGB7jqMOgKqM3BIl78GtklhjWNS9IAcR1nuzP9A3U1GvnK/fo2GojnrJ7pzihFxECs
- o+LCM5XoyhwaY2VlQHAUDTygBM+gLQeROyue7vj8=
-X-Proofpoint-ORIG-GUID: DaZXWGKfivnR1f2SOIeRZwUlMmAUCyiX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1MyBTYWx0ZWRfX9eaiJK92RBrR
- wlHKxz9egHJkR1idLkDJ8PpK/M4sHaaIP52ZoJP38yECemD9tSER9imrbNKhPDF6JlhEnzua0Yi
- /cAEwE+WWIx2QmXjgW+KaOUyFt2pFS/LWrrSQ4/J3mDczKyYHRj6
-X-Proofpoint-GUID: DaZXWGKfivnR1f2SOIeRZwUlMmAUCyiX
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWLP123MB7344:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f220956-61d5-4d7a-312d-08df292e9b97
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|6133799003|10067099003|22082099003|18002099003|4143699003|261009223027099003|56012099006|27256017;
+X-Microsoft-Antispam-Message-Info:
+	25PnpOwGFTIPwU9P43I261tVDZKjyySqlnEfySoNqmKQwNQqGtOimvZtc9EYI6TehnBzcdAN/VVDbB84ldeM+Yql0d9P84dlsGk3+qSn3Nd/JQkFMvVmb1K7LHeplFA1/eTDx/NvD4QefB2lnpSEpJVSDp7ZTOw9Gsiqsbm9ZGfO7W8dnlmmPDxhW3HK5VhyAAC89COFv255GplHGAtv9JAOcypCnyKO8tupvWpRwy/5XBWar9UlhRlU7e8n5FivEdyTxJbSJ+Toz3RHbGO8ZftkSHgdrevUD1N0M2tA8iByqE3ac5DCdqZq42iPwhNJylKA9/Ttq5WUZdFvYElOuOJ8/ZsECmDvXZ2cF3o6g26Az5NeOH1SmR5cFXrQVQls8jeuTsaeBtIfYtvMi5Mao1ALzPOIwvWr9kzAUeDQtshbj2Zgu/qzGvnpsw9FLcUG7xmwLWAo0wzjv7BRrQD1peCEo/VWaFMjyJR6hROhULzqK3OemYUNfAZ7dWQrdkC79vjiKzKELLxJZ4jGqn7G9+2El2ZVF46zySItHJ23jB8TeXIn36knQn536ScgtPpX8EmjBbz8S96XZxxMp0fLfgK4Z/NTSwE5g3PdBfg84/h6mX/yTOEDXYLF64JsBwWQ90yeiZIypaDl5NpHjnoeTYB+5q1uNYGOpWlDDLlHFBxRQKGJrzFpHyuQAB44G3uMq7ZO+/ibbCQSwLsLM3WWPg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(261009223027099003)(56012099006)(27256017);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MFBjUmdkL0g0Nnh4WDRpanFPZG16N3BZZHZMekVLTFZLU3VwcEk4OEIxU1Rx?=
+ =?utf-8?B?Q2NTMTU2KzYxWHhpdTNaOElrRFhWVW54a1NpU1p4WmtMaC9pdEZmaGw0SUJK?=
+ =?utf-8?B?ZDNYUDh0bWRmS0VXd3VjRy9jRmdPallWNXBLK2M0dzZUaXFEc1pBbWRYRHVX?=
+ =?utf-8?B?TTkrbUQzYmtYRGZ5eWxmV25Kck93T3dFTE54a1N2SHhvQks4eDZhVzlhQVpr?=
+ =?utf-8?B?c0x1UjNrUWU4Zm1sS2N1dEcxS2J1cGFjNE04UlRJdUQ4YnhIWEJsWTIyOHY3?=
+ =?utf-8?B?ek83NUhXRW10SU1pTTFNdlZhRTdDM2JRUjdybTc0WUtQMVFYTnJPWnZIbndN?=
+ =?utf-8?B?RzVTbmFHQkhRWWZhSFl0SzcwbGhpU0dnRnpSR0hlRFEyV0xWUWx0ZDUrQUcv?=
+ =?utf-8?B?RFBEanRJMmxFeTV2dTF4d2U3c3llM215SWdJVVRjdWlJbmFyZkY2bkpDaTFq?=
+ =?utf-8?B?OE45d1QxcXY1a1BBS1ljR0dYbVc4LzJZSUFUUFI4WjdkMnFlbVFFcDRZc0Yy?=
+ =?utf-8?B?cHhtTXZqVDVyZmFRdE5KY3Z6Z3d6MnlKbWFzREpXTDZtTTdEMEMxL2lGdkVS?=
+ =?utf-8?B?SWpCcnVIS3l5a0ZBbjRqWm9XV1V1d1FFMXBVR2RqVFd5T3dBN0JET3Y1Mkx0?=
+ =?utf-8?B?bGJ5QUVOU3NHaW5QYVpIMHc1aUVqMnBtczhqUXJFQkFnMlZtOXNtWkw4RWNh?=
+ =?utf-8?B?Q1VIN2FVUy9NNVRKUzg3UXY5UnlWcTNwZjRDMm5IMG9QUE16Z0w1STlReTI1?=
+ =?utf-8?B?QWwxYmp3bE1reUVEc1RJL1M5SlQvbnlJRmd6dFoyVCtNRSs5L3V5ZUNtV0Z0?=
+ =?utf-8?B?N1ZkOHRzWnhlMHpyWEs1YWFRT2FtYUJsZ3Q2TGVVRzB6OXZJcU16Y2pYZCtX?=
+ =?utf-8?B?RXlUZHBySk5YY3pZM0hRbG5VaGdWdnNlcldQZzN1Z3oxMW81RDRGajFIRGNK?=
+ =?utf-8?B?R3dsU0k0bW1CY3Zvb1F0SmlvcUI4aWwrQlFGc2Z3eTVPSFJsU1lLQjhLb1FP?=
+ =?utf-8?B?aEs1THM2VHpmYVVOaXk5dUI1TkROaHh1NWhERmZLcml1ckNyVGJKRHVMdVNz?=
+ =?utf-8?B?bHVta2ptTFluRTc1S3NKa2lXWTBIWWdSeGFldXpwUG9nZ05QMTRjWHZTQm54?=
+ =?utf-8?B?Y0x1Q3A5L1hVYVIyajR5Uk11TDF0TDJtWFhKemkrQ2JVdmg1T1EzUVFjdUUy?=
+ =?utf-8?B?S3ZpM3QrWXZhSzVRSTNWNWhEaGhFUjRFdHhLcyt4VG1DeEVSOU9sS1QzVGVj?=
+ =?utf-8?B?dEE5WVBWcENHWUxxM215NmptaEhYdjZNcU8wU0FKU1RFTjdRWEMxd0VpalFH?=
+ =?utf-8?B?b1N0T3JSa1AyVFU5ZTZqa05OdUtWb0JPTkxES3lNMWs1ekpSMUJndlJ6SjA2?=
+ =?utf-8?B?WHFZcTVyWjJkeHFuaXNpMHN5M0pkelNJb2R0U1RmNkxJMldmQ2JUYUh6Ykkv?=
+ =?utf-8?B?Q3lxSVkyWDJIL3RRK0hidHdWMElRanY4Tm5IVUtlS0dnTlNGK3VENHdBemg5?=
+ =?utf-8?B?UXM3YlU4VE1Ba2RYWWRNMy9Rb0JNamxnSmo4cGVwMmh0RjFaVERtWWUyYTY1?=
+ =?utf-8?B?MW4wMWtjQnlNTjRSSFZzUU02QXNZdFpOZVZmT1diME9MbTBFOEhrWThNc3k4?=
+ =?utf-8?B?aFFVNGVVbmNUY21OMENmRy8yanNOaWd6QzU0dGpTOWo0V2drQ1p5V3FuL0R0?=
+ =?utf-8?B?ZnZMY0d2dXg2eHZ1dWUvbUd3a2duK0lUYVFuQXFIU2t3Y2YzbUh3L3lOZTJp?=
+ =?utf-8?B?em5uYnk2Z2JmaUIwRlBnMGdsY05jQWNPU3RlZXNkQmhtc3BzbUp0Y1NWK0R1?=
+ =?utf-8?B?M2ZrcWJjRUJGRDhjdktKRUFoSDdQditUZExVbTZqTUxFWjFsZkFIeUw4UHRI?=
+ =?utf-8?B?SHo3azVWTDZHSWlqWFU4Nzd6Mm9lNHhkbGVGV3huQlFZRUYxZms0NW9aNHJO?=
+ =?utf-8?B?QmtpSE04UUVIclkzK21yUHRyN2RRNWRReWY3Z2RZRlF1ZGNXZzVYVDFFYS9I?=
+ =?utf-8?B?d25qTktUWnlYSDIxTm9taDNrRzhBOG1yK3lSM2h4VTlVUXN3cHdOV3ZwS2dE?=
+ =?utf-8?B?emdxc1ZnbXB4N1lxZ0hxQ2FEZGFxYlNJRDdFZ1Y2WS9SamZRYjJLRjhVandu?=
+ =?utf-8?B?REd5WENaVkVVSjhDWVRhcDBJMUpISWVmbEpsejNSbHF2Y3FIVEhqbDRCNXFG?=
+ =?utf-8?B?NXl6bk5RRnp3U1h2NWNqR2E5c0lzUkFlRms3dU04bGJkSjd0KzdwTXZyc1F6?=
+ =?utf-8?B?ekU2VzVrWUNvYzRZQlM2dE5XZWozajVyUjRydk5oMmo3S0oyVFNZOTJzVnY5?=
+ =?utf-8?B?K1pSQ2EvS2tDRWdMOEFmQXUzYXdhcHJuWFpqak9HWlovQlhOeVdmUT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f220956-61d5-4d7a-312d-08df292e9b97
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 13:33:46.6991
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yj8hXHsHWZfnQW0LNsSZ59lG3SUauWieXB+g7c2xgus7lTGD7iVnIBicOyQF6TvoVr9Ju0PSjFrNXnDM9rInUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP123MB7344
 
-Hi,
+On Tue, Oct 13, 2026 at 07:28:45AM -0500, Ming Lei wrote:
+> No.
+> 
+> For example, schedule_work() is queue_work_on(WORK_CPU_UNBOUND, system_percpu_wq),
+> a WQ_PERCPU workqueue, so every schedule_work() from an isolated CPU runs
+> on that CPU. blk-mq isn't special here; this is the general tradeoff of
+> submitting IO from an isolated CPU.
 
-Please consider the following patch for the v7.4 merge window.
+Fair point regarding schedule_work(). I concede that mechanically,
+kblockd_workqueue is not unique in accepting WORK_CPU_UNBOUND on a per-CPU
+workqueue. schedule_work() indeed directs WORK_CPU_UNBOUND to
+system_percpu_wq, which resolves to raw_smp_processor_id() within
+__queue_work().
 
-This patch adds a stress-based selftest for kernel locking and atomic
-synchronization primitives. The test runs concurrent workers against
-an array of counters while maintaining a simple invariant: every
-increment is paired with a decrement, so the sum of all counters must
-remain zero.
+However, the crucial distinction lies in the semantic contract and intent.
+Callers of schedule_work() seek local (or best-effort local) execution;
+there is neither an assumption nor a guarantee that schedule_work() avoids
+isolated CPUs.
 
-A common test interface allows the same workload to exercise a range
-of locking primitives, including spinlocks and rwlocks, as well as
-variants using atomic and bit operations without an explicit
-lock. After the workers complete, the module checks the invariant and
-reports a failure if the resulting sum is nonzero.
+By contrast, blk-mq has an explicit architectural contract to avoid running
+block kworkers on isolated CPUs. In commit a46c27026da1 ("blk-mq: don't
+schedule block kworker on isolated CPUs"), the intent was to deliberately
+excluded isolated CPUs from hctx->cpumask precisely because:
 
-The test provides regression coverage for memory-ordering issues that
-may otherwise be difficult to reproduce. In particular, it can expose
-the regression fixed by commit 415d83249709 ("locking/atomic: Make
-test_and_*_bit() ordered on failure") on weakly ordered architectures
-such as Arm. It also includes a variant modeling the incorrect
-acquire/release ordering formerly used by RDS before commit
-1422f28826d2 ("rds: introduce acquire/release ordering in
-acquire/release_in_xmit()"). This variant fails on Arm systems.
+    "blk-mq kworker shouldn't be scheduled on isolated CPUs."
 
-The patch also adds a kselftest script that:
+Furthermore, blk_mq_run_hw_queue() explicitly honours this policy:
 
-* first runs an intentionally unsynchronized variant to verify that the
-  workload is capable of exposing lost updates;
-* obtains the available test variants from the module;
-* runs each non-broken variant; and
-* supports low, medium, and high effort levels for interactive and CI use.
+    if (async || !cpumask_test_cpu(raw_smp_processor_id(), hctx->cpumask)) {
+        blk_mq_delay_run_hw_queue(hctx, 0);
+        return;
+    }
 
-The module exposes parameters for selecting the test variant, run
-duration, and number of elements.
+When executing on an isolated core (!cpumask_test_cpu(...)), blk-mq
+deliberately refrains from inline dispatch specifically to offload the work
+asynchronously via blk_mq_delay_run_hw_queue().
 
-A successful run does not prove correctness, but the test provides a
-practical way to detect synchronization regressions and reproduce
-known classes of ordering bugs under load.
+When all CPUs mapped to that hardware queue are isolated
+(blk_mq_hctx_empty_cpumask(hctx)), commit a46c27026da1 added:
 
-If this commit gets accepted, I have the intention, subject to other
-work priorities, to expand on the locking primitives, and in
-particular add a double set of ww_mutexes for each counter and attempt
-to acquire both in a random order. Using both the Wound-Wait and
-Wait-Die variants.
+    /* Switch to unbound if no allowable CPUs in this hctx */
+    if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+        return WORK_CPU_UNBOUND;
+
+The express intention of that change was to switch away from the isolated
+CPUs. However, because kblockd_workqueue is WQ_PERCPU, returning
+WORK_CPU_UNBOUND inadvertently resolves to raw_smp_processor_id(), queuing
+the work right back onto the isolated CPU that blk-mq just went out of its
+way to avoid.
+
+That is why blk-mq is in an unusual position; it intended to avoid isolated
+cores, but relied on WORK_CPU_UNBOUND to achieve that on a bound per-CPU
+workqueue where that mechanism cannot take effect.
+
+> You already disturb isolated CPUs by submitting IO via syscall in this
+> case, so why does it matter here to dispatch on same isolated CPU one more
+> time?
+
+There is a fundamental difference between synchronous syscall execution and
+asynchronous background kworker execution:
+
+    1.  When an isolated user task issues a synchronous I/O request (e.g.
+        via write(2)), execution occurs synchronously within the task's own
+        context and CPU accounting. The application remains in control of
+        when this overhead is incurred.
+
+    2.  When dispatch must be deferred (e.g. BLK_STS_RESOURCE), blk-mq
+        queues &hctx->run_work. A background kworker runs under
+        SCHED_NORMAL. On isolated cores, workloads typically execute under
+        real-time scheduling classes (SCHED_FIFO, SCHED_RR, SCHED_DEADLINE)
+        or tight polling loops. A SCHED_FIFO task executing on that core
+        will completely starve the local kworker. Consequently,
+        blk_mq_run_work_fn() never runs, hardware dispatch stalls, pending
+        completions cannot occur, and the I/O pipeline hangs indefinitely.
+
+    3.  Even where starvation is avoided (e.g. via the EEVDF scheduler's
+        Fair server or cooperative yielding), queuing bound work on a
+        nohz_full isolated core forces the scheduler tick to re-activate,
+        injecting unwanted jitter and defeating deterministic isolation
+        guarantees.
+
+Steering deferred queue dispatch to an online housekeeping CPU via
+housekeeping_any_cpu(HK_TYPE_TIMER) sidesteps these pitfalls entirely.
+The kworker executes promptly on a housekeeping core without priority
+inversion, hardware dispatch proceeds unhindered, and the isolated CPU's
+low-latency domain is preserved.
 
 
-Thxs, Håkon
-Håkon Bugge (1):
-  kernel/locking: Add mutual exclusion self-test
-
- kernel/locking/Makefile                    |   1 +
- kernel/locking/mx_test.c                   | 723 +++++++++++++++++++++
- lib/Kconfig.debug                          |  10 +
- tools/testing/selftests/locking/Makefile   |   2 +-
- tools/testing/selftests/locking/mx_test.sh | 171 +++++
- 5 files changed, 906 insertions(+), 1 deletion(-)
- create mode 100644 kernel/locking/mx_test.c
- create mode 100755 tools/testing/selftests/locking/mx_test.sh
-
---
-2.43.5
-
+Kind regards,
+-- 
+Aaron Tomlin
