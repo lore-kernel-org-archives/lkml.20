@@ -1,150 +1,197 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9986E52CCD9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:20:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D740B52D2D1;
+	Tue, 13 Oct 2026 13:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897612; cv=none; b=ZirAYhx2fFnLrqUZ4vyOCwSDn7slwMx+I+TQf2L1tYGXD8GcIOIW23/1uFQ4XPUjXXbPW9dyiqDBtlCcBYXMi3tt2vH5tAa6FkjeNfh/h44oIRd4EWyQEqAvoNjWXyrtAksXLX9WGa88F+6rd+eWb+FgsuG1PvQADxr93vEKBJ0=
+	t=1791897615; cv=none; b=Hclq8dEp1o+048Qfllw+DlNFDrjiB1GUsr5F4vLaXTekoH+nXKXMYbGeEaJ7kltKemFFGY/jxE29RiLVS7nCFNyfSWc+Ocnu/YKpbbeeXXRx/Qm0IHENfAmlpYZH7tNFnIJhGjZC+lzVVFGcBH0D3ckqPELRPPunu4a4Vm7wgdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897612; c=relaxed/simple;
-	bh=mCAEfYC7gA2zgo22YFetK9UJWNkQQOZYOVq3rcdktrk=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=dNkxFI3dbPqOpxJZ6dZoLTtbYmBFKvWAfD8fqi42VbjDMkWHWTKJ05G6za67Cgpzsac7eCfTe6lw8BStNl/Hi0GxG2pS76ZKhU+y5Tt1+AdMMpCb93w4H+tCao1UqJIXakyIt4NVads36l2eMeO4SBesA9yJ0cA7PiKwIB3QoTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=TvtX5ldE; arc=none smtp.client-ip=195.121.94.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	s=arc-20240116; t=1791897615; c=relaxed/simple;
+	bh=PM4Rbtn21bgoM+lLkBjM7wdSl73xTdMGGOQ2yirNnZ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jLDPI648qE+9tpx0Df1SCcAekdovVaoX7xvkFiaG12MSVbUgEZNC16e7wH0+AzIZ3R0b3J/DECqSqBYWCYnoY//hgH5ANBpIyIZiPiv0ob/Vva/ThVm2oLT9IqrmetCtVfg5pM8GIaOq5+kBuRWdKtDisWqJ3TmwgzX1b1hb89I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gb0Km/nn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="TvtX5ldE"
-X-KPN-MessageId: cee888c2-c708-11f1-bfc1-00505699b430
-Received: from mta.kpnmail.nl (unknown [10.31.161.189])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id cee888c2-c708-11f1-bfc1-00505699b430;
-	Tue, 13 Oct 2026 15:20:07 +0200 (CEST)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id ced057b5-c708-11f1-a0c5-0050569981f5;
-	Tue, 13 Oct 2026 15:20:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=HMuumcnvwkny6pDaBpunm3Tcil4T/jXk6RC1uFYHs4Q=;
-	b=TvtX5ldE4ZDP7F0X2rmVFweAzuOFPpxBm1uQii/ZreWk4CoT3v6wg5VX9MjJtkq1BYAeyk/SZhU1n
-	 q0O8QgCioHK4mDCC6bPq1nUvXRcWmTsRQBopRTX3uBTxERhFsanzfh4sAJtk/pIvHbavSmuQmhq0nc
-	 C8/1ZqCl7i7lXznTWjsAaKkdbqNj07SNQrnvj+tEmb3mIdVqoXLkHFwBaICYQZV0Dm6vH5am+muigX
-	 L7v2zqfcO3mgfXGHaaHkKnMwyd9OEkj0UX1npjjjDyHf8mlW34wZ70wl1lllWjoBBX/C+RBIRcPOFQ
-	 fTBQ322Sz8XKmFcUEBbuktojCk1NgsQ==
-X-KPN-MID: 33|58g+Rvqg7XsY2bjCAKIJ2nVOmNJSgncjLbvekHFfu/EUejp6PMwBVzzp1q0aIT4
- 8ZUM94D/z7K2HMhTpptb2Q8yvV3uqe77r+I8zjkqelYI=
-X-CMASSUN: 33|60wl1xjDPaO0RT31BWMemE/Iel8kpLbnkvVQ0N23HHOXvtFQ9vOnwc4ZOEWGitY
- 8JwZjOUs3Krg/6+6dp80jow==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh05 (cpxoxapps-mh05.personalcloud.so.kpn.org [10.128.135.211])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id cebfd0cd-c708-11f1-8edd-00505699eff2;
-	Tue, 13 Oct 2026 15:20:06 +0200 (CEST)
-Date: Tue, 13 Oct 2026 15:20:06 +0200 (CEST)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Lorenzo Stoakes <ljs@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
-	skhan@linuxfoundation.org, federico.vaga@vaga.pv.it,
-	apw@canonical.com, joe@perches.com, workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <28216768.791900.1791897606751@kpc.webmail.kpnmail.nl>
-In-Reply-To: <20261013131056.GI4214@killaraus.ideasonboard.com>
-References: <20261009083137.3-1-sashal@kernel.org>
- <202610122124.08E058768D@keescook>
- <ea3ff257-70e2-43e4-aba7-140e84994872@infradead.org>
- <202610130120.E43D236E@keescook> <as4gLo_6acb_zZu0@daedalus>
- <20261013125559.GG4214@killaraus.ideasonboard.com>
- <158571150.788122.1791896588591@kpc.webmail.kpnmail.nl>
- <20261013131056.GI4214@killaraus.ideasonboard.com>
-Subject: Re: [PATCH] docs: remove Assisted-by reference
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gb0Km/nn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DBF21F000FF;
+	Tue, 13 Oct 2026 13:20:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791897613;
+	bh=P5+i7FvVViqR5XGn7d/roOqUutL/m7YjBgKdURYXQ0Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gb0Km/nnfyjO00zOZ6NrvWE+Qrzx44oWHI1I3Q0uZPtMF5FDrUiI4MSbzg05FUmci
+	 hEK/z7COT3/nz3nuevDkPEGVdUouBFf7/bZmebHW2xCFmodUk2p1CE+SzZIgdqSozs
+	 yiHmE0dOkxHTLGk/4a0u2YtPHNPrELJiAwvzwiaq/CWi+OWUEK+ru9JQ4eAxZbg4ch
+	 6ML0nmzh7IHeChu8oG0VUgHAKlDk5L6heMEGu5mMrpORZ7VzGExl86VZjsFRkWHUMH
+	 W0Ubx3uqiqgVk4llRbLr11uO1Kr2J/fs8xuToSgaOA3JOhe754HbF01RG8VBhxKh5k
+	 3beKhbiwFXuxg==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>,
+	linux-leds@vger.kernel.org
+Subject: [PATCH v2 50/53] MIPS: SGI-IP27: add L1 front-panel LED and display requests
+Date: Tue, 13 Oct 2026 15:17:10 +0200
+Message-ID: <2422a141898801ad0f0ae908382bee1e823517a3.1791890466.git.kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1791890466.git.kaloz@kernel.org>
+References: <cover.1791890466.git.kaloz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
+Content-Transfer-Encoding: 8bit
 
+Add l1_set_leds(), which sets the Fuel and Tezro front-panel LEDs, and
+l1_set_display(), which writes line 2 of the Tezro's L1 display. Both
+can be called from a panic notifier.
 
-> Op 13-10-2026 15:10 CEST schreef Laurent Pinchart <laurent.pinchart@ideasonboard.com>:
-> 
->  
-> On Tue, Oct 13, 2026 at 03:03:08PM +0200, Jori Koolstra wrote:
-> > > Op 13-10-2026 14:55 CEST schreef Laurent Pinchart:
-> > > On Tue, Oct 13, 2026 at 02:28:43PM +0200, Jori Koolstra wrote:
-> > > > On Tue, Oct 13, 2026 at 01:25:59AM -0700, Kees Cook wrote:
-> > > > > On Mon, Oct 12, 2026 at 10:56:59PM -0700, Randy Dunlap wrote:
-> > > > > > On 10/12/26 9:24 PM, Kees Cook wrote:
-> > > > > > > On Fri, Oct 09, 2026 at 04:31:37AM -0400, Sasha Levin wrote:
-> > > > > > >> The Maintainers Summit reached consensus to deprecate the Assisted-by
-> > > > > > >> tag. Remove the documentation requiring it.
-> > > > > > >>
-> > > > > > >> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > > > > > > 
-> > > > > > > Yup, it has become as redundant as specifying what editor I use. ;)
-> > > > > > > 
-> > > > > > > Reviewed-by: Kees Cook <kees@kernel.org>
-> > > > > > 
-> > > > > > and for those of us who don't know details about the discussion,
-> > > > > > how is it redundant?
-> > > > > 
-> > > > > No, I mean I use an LLM constantly for almost all aspects of my
-> > > > > development work, in multiple dimensions, so if the old tag requirement
-> > > > > held, my email body template would just put "Assisted-by: LLM" in there
-> > > > > because at the very least, it drove the build and test stage. It was
-> > > > > redundant in the sense of "yeah, of course I used an LLM at some point
-> > > > > for this patch". ("This tag means nothing *from* me")
-> > > > > 
-> > > > > > Do you assume that everyone now uses it (LLM), just as everyone
-> > > > > > uses an editor?
-> > > > > 
-> > > > > I don't make that assumption, but I always held the position that the
-> > > > > tag was meaningless because it's the human wielding it that matters:
-> > > > > they either sent a good patch or a bad patch, and if it was mangled by
-> > > > > gmail or an LLM, it doesn't really matter. ("This tag means nothing *to*
-> > > > > me")
-> > > > 
-> > > > I think the tag did have a genuine purpose for a while. Now we have just
-> > > > decided to implicitly attach it to every new submitter (because
-> > > > basically that is the case.) The point was that a patch that was
-> > > > obviously LLM generated could be rejected for not carrying the tag, and
-> > > > a patch that carried the tag could be asked to explain further (if they
-> > > > had not done so.) Or at least, that is how I felt and have understood
-> > > > Greg, for instance :)
-> > > > 
-> > > > Essentially, the way I read it, is that Linus said we don't need this
-> > > > roundabout way because we can just reject effortless LLM generated
-> > > > patches outright. This is good and an improvement.
-> > > 
-> > > The absence of the tag on a suspicious series offered a low-effort way
-> > > for maintainers to push back. What's the proposed low-effort replacement
-> > > ?
-> > 
-> > To ignore it, really. Even less effort :)
-> 
-> Are you saying that we should ignore series when we have even a slight
-> suspicion they're not perfect ? If not, I don't understand what you're
-> proposing exactly.
-> 
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+ arch/mips/include/asm/sn/l1.h | 16 +++++++++
+ arch/mips/sgi-ip27/ip27-l1.c  | 67 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 83 insertions(+)
 
-I am saying it is up to the maintainer. The word is out and we are allowed to
-ignore poor contributions, in particular if they are LLM generated. The whole point
-is that in the past poor contributions were still a signal someone was trying and
-it might be worthwhile to help them to grow. It is not that signal anymore per se.
-We need other avenues to identify talent. The kernel mentorship program is one of
-those, as is showing up in person at conferences.
+diff --git a/arch/mips/include/asm/sn/l1.h b/arch/mips/include/asm/sn/l1.h
+index f9fa8a8051e6..42611fe51a3a 100644
+--- a/arch/mips/include/asm/sn/l1.h
++++ b/arch/mips/include/asm/sn/l1.h
+@@ -7,6 +7,7 @@
+ #ifndef __ASM_SN_L1_H
+ #define __ASM_SN_L1_H
+ 
++#include <linux/bits.h>
+ #include <linux/types.h>
+ 
+ /*
+@@ -15,8 +16,23 @@
+  */
+ #define L1_BOARD_COMPONENT_MAX	8
+ 
++/*
++ * Front-panel LEDs of a Fuel or a deskside Tezro. ON and BLINK switch off
++ * every LED outside the mask; OFF switches off only the masked ones.
++ */
++#define L1_LED_RED		BIT(0)
++#define L1_LED_WHITE		BIT(1)
++
++#define L1_LED_ON		0
++#define L1_LED_OFF		1
++#define L1_LED_BLINK		2
++
++#define L1_DISPLAY_WIDTH	16
++
+ int l1_exec_command(const char *cmd);
+ int l1_read_board_partnum(unsigned int component, char *buf, size_t len);
+ int l1_read_brick_type(void);
++int l1_set_leds(unsigned int mask, unsigned int state);
++int l1_set_display(const char *text);
+ 
+ #endif /* __ASM_SN_L1_H */
+diff --git a/arch/mips/sgi-ip27/ip27-l1.c b/arch/mips/sgi-ip27/ip27-l1.c
+index 98c94d14bd5f..3fe0214d0f91 100644
+--- a/arch/mips/sgi-ip27/ip27-l1.c
++++ b/arch/mips/sgi-ip27/ip27-l1.c
+@@ -26,7 +26,9 @@
+ #include <linux/kernel.h>
+ #include <linux/errno.h>
+ #include <linux/etherdevice.h>
++#include <linux/export.h>
+ #include <linux/hex.h>
++#include <linux/panic.h>
+ #include <linux/serial_reg.h>
+ #include <linux/spinlock.h>
+ #include <linux/stdarg.h>
+@@ -81,6 +83,8 @@
+ /* L1_TASK_GENERAL requests */
+ #define L1_REQ_BRICK_ID		0x0003	/* rack, slot and brick type */
+ #define L1_REQ_EEPROM		0x0006	/* access eeprom */
++#define L1_REQ_DISP2		0x1005	/* write line 2 of the display */
++#define L1_REQ_LED		0x1009	/* set the front-panel LEDs */
+ 
+ /* L1_REQ_EEPROM additional argument values (non C-brick component) */
+ #define L1_EEP_LOGIC		0x01	/* logic board */
+@@ -414,6 +418,19 @@ static int l1_response_to_errno(u32 response)
+  */
+ static DEFINE_SPINLOCK(l1_lock);
+ 
++/*
++ * Once a panic has stopped the other CPUs, one of them may hold the lock
++ * for good; the panicking CPU then goes to the wire without it.
++ */
++static bool l1_lock_irqsave(unsigned long *flags)
++{
++	if (panic_in_progress())
++		return spin_trylock_irqsave(&l1_lock, *flags);
++
++	spin_lock_irqsave(&l1_lock, *flags);
++	return true;
++}
++
+ /*
+  * Run one request/response exchange in pkt, which has to be large enough
+  * for both; returns the response's argument count.
+@@ -493,6 +510,56 @@ int l1_exec_command(const char *cmd)
+ 	return rc == 0 ? 0 : -EIO;
+ }
+ 
++int l1_set_leds(unsigned int mask, unsigned int state)
++{
++	u32 address = L1_ADDRESS(L1_TYPE_L1,
++				 L1_ADDRESS_LOCAL | L1_TASK_GENERAL);
++	u8 pkt[64];		/* command and response packet buffer */
++	unsigned long flags;
++	bool locked;
++	int rc;
++
++	locked = l1_lock_irqsave(&flags);
++
++	/* arguments: LED mask, then new state, both INT */
++	rc = l1_transact(get_nasid(), pkt, sizeof(pkt), address, L1_REQ_LED,
++			 NULL, NULL, 2,
++			 L1_ARG_INT, (u32)mask, L1_ARG_INT, (u32)state);
++
++	if (locked)
++		spin_unlock_irqrestore(&l1_lock, flags);
++
++	return rc < 0 ? rc : 0;
++}
++EXPORT_SYMBOL_GPL(l1_set_leds);
++
++/*
++ * Write line 2 of the display; line 1 belongs to the L1. Padding to the
++ * full width leaves nothing of a longer earlier line behind.
++ */
++int l1_set_display(const char *text)
++{
++	u32 address = L1_ADDRESS(L1_TYPE_L1,
++				 L1_ADDRESS_LOCAL | L1_TASK_GENERAL);
++	char line[L1_DISPLAY_WIDTH + 1];
++	u8 pkt[64];		/* command and response packet buffer */
++	unsigned long flags;
++	bool locked;
++	int rc;
++
++	snprintf(line, sizeof(line), "%-*s", L1_DISPLAY_WIDTH, text);
++
++	locked = l1_lock_irqsave(&flags);
++
++	rc = l1_transact(get_nasid(), pkt, sizeof(pkt), address,
++			 L1_REQ_DISP2, NULL, NULL, 1, L1_ARG_ASCII, line);
++
++	if (locked)
++		spin_unlock_irqrestore(&l1_lock, flags);
++
++	return rc < 0 ? rc : 0;
++}
++
+ /* Read a component's board IA record from EEPROM. */
+ static int l1_read_board_ia(nasid_t nasid, int type, unsigned int component,
+ 			    u8 **ria, size_t *rialen)
+-- 
+2.47.3
 
-The tag helped some maintainers to push back (like Lorenzo). The tag isn't needed
-anymore, because the push back isn't needed. I think that's an improvement, and at
-any rate was inevitable.
-
-Best,
-Jori.
