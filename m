@@ -1,131 +1,185 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66E62594BD;
-	Tue, 13 Oct 2026 07:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A544626CE2C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875745; cv=none; b=jS4KvjEcTx/nWbmflyBPPK7XCHLUwkPN69jJAca2qnEtjOTldOPsgRj/ntkbsLW/IqyxiU1u+hWqGD4JekX/gfFXHT/iqwYLrqaRqQ/q2hy/YuTJ72pkJrOXsJSiujmrdi3XxuJepGtDEafC/6UekXB25TFVQSxDDpov48hUqPY=
+	t=1791875756; cv=none; b=OcCvRiij92OveaR+LH5NrPqIFjTg24j+mW7RaSidwKRE8dAkkVUbfol8HQFMbdBJIWa1OMk+uKMc2YjVNU9RFTvEGtV3n9bSfkqIE5FOJWXlyLYHcZyWWfP4r9XpXqfttG2OinGgYfLP0vIS9MYdtulW9TDoizqrbizt0VYLkRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875745; c=relaxed/simple;
-	bh=gDqyjItqcFJs3+oth4ya+T936777FQ8zxquu4J6iUow=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aYH1IM7FLNIgh/VemrXtMnAAclux6QyxaytG8/5m+8RkEQ0C6hxe/MjfiGkPeQ2Q0W6RnQxTwiWYcXVs7m3vrApic1WHvXgTxfz7PzPlGhtF50D1iJw+2hFab9RdW3HTNTeF07ltumnnH4C6QkdrXFS3IohkABfDO8EW8i6Q/bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cVrIf3YL; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791875756; c=relaxed/simple;
+	bh=L4FLZ5chqT8+tAXrT8MgCJFwGMuDBbUdjlAqAI1q+cU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M/K844viq282lz6DzTB/GRFO8MvAwz5BFMPBIMiLc0vCFQ7YFaLhJy9aTM584jq9W/jh5Oa32X/+AY6xSNe4p2/8finYnrVgro7sUkMKiei4VlU6O0kDQnHQKJNiScaF/XzZuXLUUTfbUeQBOTxnW+I2dMFHEkQZR7SG0kgQ1ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tGgUV+Lm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=s2QFJeAc; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=QwYmIcNC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=z03WxFNC; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cVrIf3YL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791875744; x=1823411744;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gDqyjItqcFJs3+oth4ya+T936777FQ8zxquu4J6iUow=;
-  b=cVrIf3YL6mHab1GPvWv0ttdDKtodQ41yzBIu3MAqobsJl4SrWRVPhp1F
-   N4pm3cj/rTUTT4RTWrDPC32o6P3MWU+akiJKHxAJrXdNBfIf0O9x2tdL9
-   F4pyi8hmox7RNcDP0CTN5Fb6D+uw64pVjXyPrYUQUHKs/F6e+B1BtxASU
-   gM185ZMDiNV4dvIaT7cvxkuKPY9mfDKkBJtmjVjDTgYGs/bTS0csopZGr
-   NaQu3OkKzYr+XIz+aezPAYhdEA0fjicldwsk9a8Xx93B49wdDoVp4lrGD
-   Lm3iv8aaGC2gjpPBvKWzJ8Z0WqAv7Fi9N/PG5N/xjjftwQxPJUbfQyQay
-   w==;
-X-CSE-ConnectionGUID: +ohWW+4FREee2Ys232DLjw==
-X-CSE-MsgGUID: HAmrjClATd68ESoRDykCdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="478203"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="478203"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:15:44 -0700
-X-CSE-ConnectionGUID: Vb+1qpWmRleRzNBkDmQvwg==
-X-CSE-MsgGUID: egUEnzGFTqmiMAh4/+Xqfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1420700"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:15:40 -0700
-Date: Tue, 13 Oct 2026 10:15:37 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/7] gpio: pl061: switch data path to gpio-regmap
-Message-ID: <as3amWxGvbUdwE7k@ashevche-desk.local>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <20261009-cv75-gpio-v1-6-5836bd438423@ambarella.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tGgUV+Lm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s2QFJeAc";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QwYmIcNC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z03WxFNC"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A54F01F43B;
+	Tue, 13 Oct 2026 07:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791875752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SjVfiQP7AeHd0++T5S99eU8Nj5puoVDS7wlkNXdkKP4=;
+	b=tGgUV+LmqA/1tFWJataIQA0n+MRpTGj6V5TVnOMJ7I7+DqF/mZRH/AYe6O+euzo3Ie9XGS
+	W5PupmwLQAJwjG6YYNXWuLrLbQmDjWp86MymIuJvzxV3Ag9H9ZAlD7uT7sTVK4dDLHZlxX
+	43DYKNzfYwCoSKppKBmHiZ735P6MTEw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791875752;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SjVfiQP7AeHd0++T5S99eU8Nj5puoVDS7wlkNXdkKP4=;
+	b=s2QFJeAcWWBVhLKJcVqHHO5uR6vc85W88SpcVzv0lhoyPrSrvMvsR9yPe0/i21/qhG4pFa
+	SIwNTelHGEjT0nCw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QwYmIcNC;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=z03WxFNC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791875750; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SjVfiQP7AeHd0++T5S99eU8Nj5puoVDS7wlkNXdkKP4=;
+	b=QwYmIcNCrRntS8ZzFT1/xOLBE6ED9WamNCyRrGEdPcY33lYxtS2avvRzj8Aul7GPGK6FID
+	2+wXBUPGOul/fHhAjR8te464Mpa58Xt3nPnmWDtRxU6O/22C/AyV6NYwycBXcp+ZGa4kcw
+	v9gHzSVO6WX0mhg5L2MfTvwvAQzqtbU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791875750;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SjVfiQP7AeHd0++T5S99eU8Nj5puoVDS7wlkNXdkKP4=;
+	b=z03WxFNCBGSoMVBpmWGylOgMGSsxfQXE8by+zjdVac7oUYn5kMzycPORWdMJJ1iH8FHQb/
+	YsemZEUanv6Gk0Cw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 403421349D;
+	Tue, 13 Oct 2026 07:15:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id zpiHMKXazWpNUwAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 13 Oct 2026 07:15:50 +0000
+Message-ID: <b2a6b9f6-53a8-4250-aae6-a0837f0f598d@suse.de>
+Date: Tue, 13 Oct 2026 09:15:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-cv75-gpio-v1-6-5836bd438423@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dm zoned: back off when reclaim finds no destination
+ zone
+To: illofspeed <volvo.mail@gmail.com>, dm-devel@lists.linux.dev
+Cc: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com,
+ bmarzins@redhat.com, dlemoal@kernel.org, linux-kernel@vger.kernel.org
+References: <20261010105122.398-1-volvo.mail@gmail.com>
+ <20261010105122.398-2-volvo.mail@gmail.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261010105122.398-2-volvo.mail@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spam-Score: -3.00
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.00 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com,lists.linux.dev];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: A54F01F43B
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On Fri, Oct 09, 2026 at 06:57:59PM +0800, Long Zhao via B4 Relay wrote:
-
-> Move get, set and direction onto gpio-regmap. ARM PL061 sets
-> GPIO_REGMAP_QUIRK_SET_AFTER_DIR so the output value is written
-> after the direction change.
+On 10/10/26 12:51 PM, illofspeed wrote:
+> When dmz_do_reclaim() fails with -ENOSPC because no free zone is
+> available to copy the data into, dmz_reclaim_work() still ends with
+> dmz_schedule_reclaim(). If the target is idle, dmz_should_reclaim()
+> keeps returning true, the work is queued again with no delay and the
+> worker spins on the same failing pass.
 > 
-> Keep a custom irqchip and irq domain. Create the domain with
-> the PL061 private data and let gpio-regmap attach it.
+> Re-arm the idle poll instead, so that reclaim is retried after
+> DMZ_IDLE_PERIOD. The next patch makes -ENOSPC the expected result when
+> an idle target has random zones but no free sequential zone.
 > 
-> Check the chained-handler regmap_read() return and always run
-> chained_irq_exit(). irq_type still ignores MMIO write returns.
+> Tested on a 7.2.6 kernel as an out-of-tree dm-zoned module, together
+> with the next two patches, on emulated host-managed drives (tcmu-runner
+> ZBC handler) and on three 27 TB host-managed drives used as md RAID5
+> members.
 > 
-> irq_set_parent() nests the GPIO irq_desc under the AMBA parent
-> for irq_set_wake() and lockdep; checked with PROVE_LOCKING on
-> CV75.
+> Assisted-by: LLM
+> Signed-off-by: illofspeed <volvo.mail@gmail.com>
+> ---
+>   drivers/md/dm-zoned-reclaim.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
+> index c041413c729..315f0da99f3 100644
+> --- a/drivers/md/dm-zoned-reclaim.c
+> +++ b/drivers/md/dm-zoned-reclaim.c
+> @@ -540,6 +540,14 @@ static void dmz_reclaim_work(struct work_struct *work)
+>   	if (ret && ret != -EINTR) {
+>   		if (!dmz_check_dev(zmd))
+>   			return;
+> +		if (ret == -ENOSPC) {
+> +			/*
+> +			 * No zone to copy into: nothing can progress now.
+> +			 * Rescheduling immediately would spin; poll instead.
+> +			 */
+> +			mod_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
+> +			return;
+> +		}
+>   	}
+>   
+>   	dmz_schedule_reclaim(zrc);
 
-...
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-> -static bool pl061_is_data_reg(unsigned int reg)
-> -{
-> -	return is_power_of_2(reg) &&
-> -	       reg >= BIT(PL061_DATA_OFFSET) &&
-> -	       reg <= BIT(PL061_DATA_OFFSET + PL061_GPIO_NR - 1);
-> -}
-> -
-> -static bool pl061_volatile_reg(struct device *dev, unsigned int reg)
-> -{
-> -	switch (reg) {
-> -	case GPIOMIS:
-> -	case GPIOIC:
-> -		return true;
-> -	default:
-> -		return pl061_is_data_reg(reg);
-> -	}
-> -}
-> -
-> -static const struct regmap_config pl061_regmap_config = {
-> -	.reg_bits = 16,
-> -	.val_bits = 8,
-> -	.reg_stride = 4,
-> -	.max_register = GPIOIC,
-> -	.volatile_reg = pl061_volatile_reg,
-> -	.fast_io = true,
-> -	.use_raw_spinlock = true,
-> -};
+Cheers,
 
-No, I have already told you do not move these. If you need to rename, just make
-sure it's named accordingly in the previous patch that introduced this.
-
-...
-
-I have a feeling that you ignored my last review. I stop it here, you need to
-carefully read *all* the comments and act accordingly.
-
+Hannes
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
