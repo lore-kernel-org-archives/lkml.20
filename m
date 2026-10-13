@@ -1,370 +1,99 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D12456E19
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861923; cv=pass; b=uwLfsf2wmqIrfiYC9HS0jkpdNXWEp3wFWMOZgfuvKFBr5YTDmGcG+qbY2WJhado3hBbiunDL60DdyegMsCt7m4wfqXeKno/PNQ805oRlE1CirsUrVE0zBo84kIYPmTAQSoN0IeyYtTnXlFD6mm4n59JmcyTr/iCi6zWD56BGZIE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861923; c=relaxed/simple;
-	bh=0b7OaC4HUufUZhIweIEW73CTwJE8jbl1XyGAQdeamgk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JL2PR8YHNW9ESSe78IIRRvyV673fHtaCSRbEe4iOoZ5X4HqE8/bHYxvK87Rdo689DaQs+Fn5oGBhBgNr2mvFy0t6B9QC+4TpvAEr30V14DFcCHGlq4ckYRAmCpxzrfv55pB2DeJ/DZA7DwYynTKxvpZqPbucmaIl+OQGIJcIbqw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jM/MMwV+; arc=pass smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B253815F0;
+	Tue, 13 Oct 2026 03:25:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791861935; cv=none; b=lCCGuM7ZVjJtw/lqRBfHvwP2KDSAcTsYCUEgD4+9XxwKjQDGcf149fyOclPqsgNvWLePLWZCjjpTFuKlHOAKGuc0CXzz1NR5LcvF5o6+04TuIFfWGzc4TU2s9KUFfGyFXd2Tq0OjLSvjGIEC8qKsyg4pA9rN6Bgb1rU7Hme+xBM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791861935; c=relaxed/simple;
+	bh=hOSsdBCFKim2eSjme5XkOUXmJN5W8YlRsgA6oHvXmZM=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=HLK+OZRKp7KKzEm937GeNJGpri9P8khFt1YQ855Pgn0vtOlNtOOUgIlEd2yXO/oJInLzUFI1/LjpeOa3UbsyjcFcw+30f+sttSHksWJvR1E57AmWLNnkRQYB6qkw6IptbxnPk4uplOxkab/pQykL0JGI2h81ZuUA1hF6zoGN3rA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NyRm1VrF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jM/MMwV+"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e5c8f53a9so209709785a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:25:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791861920; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NPZ2S0p7avjlKLStHqhFz4ID09dSAVsLhbi8f8EcVwpb+GUhR8HtlBQmH9JiwwhgvF
-         OEiklGuIa9+2C5n6NfPjPqtSqlmBkKlTQUTSO9G25b1rHAcOWBAGSjp0wf7LagzcQGwh
-         AbR4hTr0Cx47rChpQhRhUTRcdIznonUbVb/Bea90/R0nZJAGj/KpZzNqb6rkGgltZPaE
-         0R5cw6iQgl8tzRmgMsnolkIeB9hTVQt5a0ZlsmME+Crn3g8VwxZOcYcJ2QlvZIH/MAN+
-         aG1dmoAyF2RoKlEO2x2CkqK+aT2l795hYLacMrhEAkFck/xwtavc97oO8b9h8n8C9pGg
-         vFtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=8btU5rJ+Pel0WPP/jtsdEEDxh2u3x4YA62OOuosbpv4=;
-        fh=m3894ZVJLznCQlsMOW2G/aIZcW1mMdDdYF09/STSvxc=;
-        b=rQ3sBxVABaCKubzprLopws4S90cVDQgfczSLBaP2dliVENDkZ2Q+rniG+RVCNfrIPj
-         5lRPCsKbZZLNEwEQIlQmmojZlPkxPKeTLKHnaopfCSC+TWwPQdFxOsTaF0ZfYPA7DW8t
-         nKMAeJ9yT62XL3LNsLMFXCFeDvBNPKBdZQ/nScaHuCYVc7qhmAGqMoz8lLYiSKIuHesC
-         wLT3727wNokfaStLJvgqokJJJ4x0AwuFsL3y9zVoYKbHBc7pBy9fytRFFZhbgh7rwgmO
-         4rUacOuYFwIYALb1cN3nezgJfcJ69vEvKUIidmvYZ3KwRLHL7ibwATT6K+CyAEc1e6Pg
-         TTGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NyRm1VrF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167851F00893;
+	Tue, 13 Oct 2026 03:25:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791861920; x=1792466720; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8btU5rJ+Pel0WPP/jtsdEEDxh2u3x4YA62OOuosbpv4=;
-        b=jM/MMwV+spQdqLF4vVT1GKlzN7FtZ//7yship3FuXnn54P8A/8P7vr9MIsUglGAD2y
-         pYTS2NZhZJsEQ2AnkMGK7gz5jtsYT7iy4cCtuc8yvjovpeCu+ftRYMgPpybgipk+G7eq
-         ucZ5xgLF6wtocjvfwyHPjOcor9k9y5gKb4CkXkN4zlsf1mPSmEZNeqCLktGNaDUTmuff
-         fy479+R8dLkcNw5QmA3t7eiWPugrSi2uneh1RDXeoBwji1OzO26AyK8mA8oUckiRnr8B
-         Raw8qZqxyup1mJiYOzzwHvtYkXjOT74KtTkHNlRm9G86jpc6D+B0D59u201SmzW9kGfF
-         S9jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791861920; x=1792466720;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8btU5rJ+Pel0WPP/jtsdEEDxh2u3x4YA62OOuosbpv4=;
-        b=qMV7pij5AcEqkymVvVNF7RZ9H6i/Walfz39yqp/NIbu4FHSG8bY4dDB4+DlrAMgQz+
-         orGUw00UQWJPCtJxMgYQdtIPFe2sNwX0cMlTh+BDkx5GfsNLxtCJZCSCLdCfzmdi557Z
-         ICvjlZ3F+PwAfQQrB9R4qsADy/jr06mDGwcIfmygOdi1Gjqufj+Jk388y4O9Kb2qcaxr
-         NK/WSm+ewRBJXrfMMJIp2ul+uaurADfD3dhp1WL7hQVhVw16GDn+Rfl8cPJ+iLSnb6hI
-         Ddm0JxX7W0s3jwwW6n4oX4ksuRqjUi9DhxXG4qPBjO8KH4Yf/0XMixkSgB8HAXdtVQOm
-         xbuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzsuXJ3iOJwtjEMkRyJMBlTuin3sSyX8XIA8gEwgEtJuosHBbWlbXDxc3sGipzKQm4QQh67L6CeeQZYY7s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKapp7qBhcI++yPHkaiQLkQDc1Z+tsn9rVSpjgBtIqBrJQY4flB
-	9lOfW1ARC/KfNJLiBbH3b/J9UExgcy+sSHG8hEE4qpTd38mATVZYRZDbuY7QfzCsZVhK4wymiic
-	yxgKcV8llZZR+K0MZhgBQwDvmxjfiEBE=
-X-Gm-Gg: AYBFou19AMc5ToXjUwapxNG9f1u3dvE80rlS0Ok2AeKcovTsjWrKs5wV9cxLVYWYXho
-	bvgVSzzdcgKKCakNAwFc307ATNjQWyLBtwbrpwaLh9TQGtdqp2eExtwA1PV3OgNyOjwhrhLgEcA
-	rRHvPWUL+j0RBc4+UKjdnivo/s7OjcAJ8lTdKTJQ3GhMl9G6ruGB291v0jfI5+o+7YummJKXxZX
-	Rkvnf0R1bEmHWWfqpSbEP/pObdk1FbRprjhxmBxfTkhMdxbu3z/+/glUm+60kqK4DBMGMA0pPrS
-	6Meyk8v/ZOI11yqUCTX2/HLPZyASU/ZE1OJPYeBi8fhwK/bc/CvlnDQ5aKTYFE4QFw==
-X-Received: by 2002:a05:620a:1981:b0:93c:c7ee:8087 with SMTP id
- af79cd13be357-93ebd262586mr2063648385a.41.1791861918719; Mon, 12 Oct 2026
- 20:25:18 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1791861933;
+	bh=pJssChfaw/WlnaVysEqwe4Z1tfuZOFEKdXZG/EwVI3I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NyRm1VrFt9ZFJC62cb/GZbpmwcM4V21aTV9sKGdVMrIs2z9WqCR99Zm3HyOqUlF7S
+	 ENwjeRfGAaG1XErBHECIiyNgzJtP5yvlDy8GfISuPQkn8Wu67qs4UUCq0v+VtVgB5o
+	 H0cAA5rwHjdJTzV8Yor6vR8GbpG7w74vqDpKdWrs=
+Date: Mon, 12 Oct 2026 20:25:32 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, Muchun Song
+ <songmuchun@bytedance.com>, David Hildenbrand <david@kernel.org>, Oscar
+ Salvador <osalvador@suse.de>, Dave Hansen <dave.hansen@intel.com>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ =?ISO-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Alexander
+ Gordeev <agordeev@linux.ibm.com>, Alistair Popple <apopple@nvidia.com>,
+ linux-mm@kvack.org, linux-riscv@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
+ pagetable_free()
+Message-Id: <20261012202532.f059fd5ab947510a21d34cd1@linux-foundation.org>
+In-Reply-To: <200A83B9-233C-44C7-B4AF-0900BA1E09DF@linux.dev>
+References: <20261010112457.49485-1-songmuchun@bytedance.com>
+	<20261010112457.49485-2-songmuchun@bytedance.com>
+	<asy-b7_C3SjnmSaS@gmail.com>
+	<145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
+	<20261012193114.77147e0a43affa8ee1ae896c@linux-foundation.org>
+	<200A83B9-233C-44C7-B4AF-0900BA1E09DF@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261010142247.99223-1-physicalmtea@gmail.com>
- <20261010142247.99223-2-physicalmtea@gmail.com> <as1SWsJw2dSrPYcL@devvm29614.prn0.facebook.com>
-In-Reply-To: <as1SWsJw2dSrPYcL@devvm29614.prn0.facebook.com>
-From: Jia Jia <physicalmtea@gmail.com>
-Date: Tue, 13 Oct 2026 11:24:42 +0800
-X-Gm-Features: AclHuK8ArxSs8AN-w9MzUrVu9R026x9r6uOWM8JmPA66VFn2x0Xfdd31Fer7qUg
-Message-ID: <CAJwVaMJsQs61+sCun6oJ7bW-Ob76AjdHVxLd+T1EVHvOR5e7Xw@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 1/5] vsock/virtio: split socket lookup from
- locked RX processing
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: stefanha@redhat.com, sgarzare@redhat.com, netdev@vger.kernel.org, 
-	virtualization@lists.linux.dev, kvm@vger.kernel.org, mst@redhat.com, 
-	jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	horms@kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
->
-> On Sat, Oct 10, 2026 at 10:22:43PM +0800, Jia Jia wrote:
-> > Split virtio_transport_recv_pkt() so socket lookup is separate from the
-> > receive state machine that runs under the socket lock.
-> >
-> > Keep virtio_transport_recv_pkt() on its existing per-packet locking path.
-> > Pass the source and destination addresses used for lookup to the locked
-> > receive path so they are decoded only once.
-> >
-> > Pass the network namespace and decoded address tuple through a packet
-> > context to the locked receive path.
-> >
-> > Preserve source validation and failure handling. Keep the lookup reference
-> > separate from the skb owner reference so the locked receive path can manage
-> > the two lifetimes independently.
-> >
-> > Signed-off-by: Jia Jia <physicalmtea@gmail.com>
-> > ---
-> >  net/vmw_vsock/virtio_transport_common.c | 139 ++++++++++++++++--------
-> >  1 file changed, 96 insertions(+), 43 deletions(-)
-> >
-> > diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-> > index f225f53..e3e75e5 100644
-> > --- a/net/vmw_vsock/virtio_transport_common.c
-> > +++ b/net/vmw_vsock/virtio_transport_common.c
-> > @@ -1774,81 +1774,97 @@ static bool virtio_transport_valid_type(u16 type)
-> >              (type == VIRTIO_VSOCK_TYPE_SEQPACKET);
-> >  }
-> >
-> > -/* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
-> > - * lock.
-> > - */
-> > -void virtio_transport_recv_pkt(struct virtio_transport *t,
-> > -                            struct sk_buff *skb, struct net *net)
-> > +static void
-> > +virtio_transport_recv_pkt_init_addrs(struct sk_buff *skb,
-> > +                                  struct sockaddr_vm *src,
-> > +                                  struct sockaddr_vm *dst)
->
-> I'd prefer these calls stay inline, there is nothing complex enough here
-> to justify abstracting IMHO.
->
-> Could we move things around so that we don't have the arbitrary move of
-> virtio_transport_recv_pkt()? It tends to create noise and makes it
-> harder to focus on the more important parts of the patch.
->
+On Tue, 13 Oct 2026 10:50:21 +0800 Muchun Song <muchun.song@linux.dev> wrote:
 
-Sure, I'll update this in the next version.
+> >> The correct trailer is:
+> >> 
+> >> Cc: <stable@vger.kernel.org> # 6.16-6.18: bf9e4e30f353: x86/mm: use pagetable_free()
+> >> 
+> >> Andrew, would you be able to update the trailer in the patch when you
+> >> pick it up? If there are further review comments that require code
+> >> changes, I'll fix this trailer as part of the v3 respin. Thanks a lot!
+> > 
+> > I don't know if/how the -stable maintainers handle a comment like that.
+> > I expect it's more reliable to do this via Fixes:.  Possible?
+> > 
+> 
+> Thanks. I used this format because it is explicitly documented by the
+> stable kernel rules.
+> 
+> The shell-style comment is the format documented in
+> Documentation/process/stable-kernel-rules.rst for specifying additional
+> patch prerequisites:
+> 
+>   Cc: <stable@vger.kernel.org> # 3.3.x: <commit>: <subject>
+>   Cc: <stable@vger.kernel.org> # 3.3.x
+> 
+> See:
+> 
+>   https://docs.kernel.org/process/stable-kernel-rules.html#option-1
 
-> >  {
-> >       struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> > -     struct sockaddr_vm src, dst;
-> > -     struct vsock_sock *vsk;
-> > -     struct sock *sk;
-> > -     bool space_available;
-> >
-> > -     vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
-> > +     vsock_addr_init(src, le64_to_cpu(hdr->src_cid),
-> >                       le32_to_cpu(hdr->src_port));
-> > -     vsock_addr_init(&dst, le64_to_cpu(hdr->dst_cid),
-> > +     vsock_addr_init(dst, le64_to_cpu(hdr->dst_cid),
-> >                       le32_to_cpu(hdr->dst_port));
-> > +}
-> > +
-> > +static void
-> > +virtio_transport_trace_recv_pkt(struct sk_buff *skb,
-> > +                             const struct sockaddr_vm *src,
-> > +                             const struct sockaddr_vm *dst)
-> > +{
-> > +     struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> >
-> > -     trace_virtio_transport_recv_pkt(src.svm_cid, src.svm_port,
-> > -                                     dst.svm_cid, dst.svm_port,
-> > +     trace_virtio_transport_recv_pkt(src->svm_cid, src->svm_port,
-> > +                                     dst->svm_cid, dst->svm_port,
-> >                                       le32_to_cpu(hdr->len),
-> >                                       le16_to_cpu(hdr->type),
-> >                                       le16_to_cpu(hdr->op),
-> >                                       le32_to_cpu(hdr->flags),
-> >                                       le32_to_cpu(hdr->buf_alloc),
-> >                                       le32_to_cpu(hdr->fwd_cnt));
-> > +}
->
-> Any chance we can get rid of this wrapper and just call
-> trace_virtio_transport_recv_pkt() directly? Even from multiple call
-> sites I don't think this is a big simplification win.
->
+Oh.  Consider me educated.  Edited.
 
-Sure, I'll update this in the next version.
+> A Fixes tag alone cannot express this dependency. It does not specify
+> an additional commit that must be cherry-picked first. The documented
+> Cc comment provides both the prerequisite and the required cherry-pick
+> order.
+> 
+> Would this be sufficient for the stable team to pick up the prerequisite?
 
-> >
-> > -     if (!virtio_transport_valid_type(le16_to_cpu(hdr->type))) {
-> > -             (void)virtio_transport_reset_no_sock(t, skb, net);
-> > -             goto free_pkt;
-> > -     }
-> > +static struct sock *
-> > +virtio_transport_recv_pkt_find_socket(struct sk_buff *skb,
-> > +                                   struct sockaddr_vm *src,
-> > +                                   struct sockaddr_vm *dst,
-> > +                                   struct net *net)
-> > +{
-> > +     struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> > +     struct sock *sk;
-> >
-> > -     /* The socket must be in connected or bound table
-> > -      * otherwise send reset back
-> > -      */
-> > -     sk = vsock_find_connected_socket_net(&src, &dst, net);
-> > -     if (!sk) {
-> > -             sk = vsock_find_bound_socket_net(&dst, net);
-> > -             if (!sk) {
-> > -                     (void)virtio_transport_reset_no_sock(t, skb, net);
-> > -                     goto free_pkt;
-> > -             }
-> > -     }
-> > +     if (!virtio_transport_valid_type(le16_to_cpu(hdr->type)))
-> > +             return NULL;
-> > +
-> > +     sk = vsock_find_connected_socket_net(src, dst, net);
-> > +     if (!sk)
-> > +             sk = vsock_find_bound_socket_net(dst, net);
-> > +     if (!sk)
-> > +             return NULL;
-> >
-> >       if (virtio_transport_get_type(sk) != le16_to_cpu(hdr->type)) {
-> > -             (void)virtio_transport_reset_no_sock(t, skb, net);
-> >               sock_put(sk);
-> > -             goto free_pkt;
-> > +             return NULL;
-> >       }
-> >
-> > -     if (!skb_set_owner_sk_safe(skb, sk)) {
-> > -             WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
-> > -             goto free_pkt;
-> > -     }
-> > +     return sk;
-> > +}
->
-> Similarly here, the unrelated functions blending makes for a harder
-> read. Maybe worth moving things around or trying a different diff
-> algorithm?
->
-
-Sure, I'll update this in the next version
-
-> nit: maybe we could just call this virtio_transport_find_socket()? AFAIK
-> the tx side doesn't need a socket lookup since we already have the
-> socket there, so we can omit the disambiguation if it lends a nicer
-> name.
->
-
-Sure, I'll update this in the next version
-
-> >
-> > -     vsk = vsock_sk(sk);
-> > +struct virtio_transport_rx_pkt_ctx {
-> > +     struct net *net;
-> > +     const struct sockaddr_vm *src;
-> > +     const struct sockaddr_vm *dst;
-> > +};
->
-> Let's just pass these directly too...
->
-
-Sure, I'll update this in the next version.
-
-> >
-> > -     lock_sock(sk);
-> > +/*
-> > + * The caller holds sk's socket lock and must free skb if this returns true.
-> > + */
-> > +static bool
-> > +virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-> > +                              struct sk_buff *skb, struct sock *sk,
-> > +                              const struct virtio_transport_rx_pkt_ctx *ctx)
-> > +{
-> > +     const struct sockaddr_vm *src = ctx->src;
-> > +     const struct sockaddr_vm *dst = ctx->dst;
-> > +     struct vsock_sock *vsk = vsock_sk(sk);
-> > +     struct net *net = ctx->net;
-> > +     bool space_available;
-> >
-> > -     /* Check if sk has been closed or assigned to another transport before
-> > -      * lock_sock (note: listener sockets are not assigned to any transport)
-> > +     /* Check after acquiring the socket lock. Listener sockets accept packets
-> > +      * from any source and are not assigned to a transport.
->
-> We can probably remove the first sentence since the function-level
-> comment already declares we are holding the socket lock.
->
-
-Sure, I'll update this in the next version.
-
-> Best,
-> Bobby
->
-> >        */
-> >       if (sock_flag(sk, SOCK_DONE) ||
-> >           (sk->sk_state != TCP_LISTEN &&
-> > -          !vsock_check_source(vsk, &t->transport, &src))) {
-> > +          !vsock_check_source(vsk, &t->transport, src))) {
-> >               (void)virtio_transport_reset_no_sock(t, skb, net);
-> > -             release_sock(sk);
-> > -             sock_put(sk);
-> > -             goto free_pkt;
-> > +             return true;
-> >       }
-> >
-> >       space_available = virtio_transport_space_update(sk, skb);
-> >
-> >       /* Update CID in case it has changed after a transport reset event */
-> >       if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
-> > -             vsk->local_addr.svm_cid = dst.svm_cid;
-> > +             vsk->local_addr.svm_cid = dst->svm_cid;
-> >
-> >       if (space_available)
-> >               sk->sk_write_space(sk);
-> > @@ -1875,12 +1891,49 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
-> >               break;
-> >       }
-> >
-> > +     return false;
-> > +}
-> > +
-> > +/* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
-> > + * lock.
-> > + */
-> > +void virtio_transport_recv_pkt(struct virtio_transport *t,
-> > +                            struct sk_buff *skb, struct net *net)
-> > +{
-> > +     struct virtio_transport_rx_pkt_ctx ctx;
-> > +     struct sockaddr_vm src, dst;
-> > +     struct sock *sk;
-> > +     bool free_pkt;
-> > +
-> > +     virtio_transport_recv_pkt_init_addrs(skb, &src, &dst);
-> > +     virtio_transport_trace_recv_pkt(skb, &src, &dst);
-> > +
-> > +     sk = virtio_transport_recv_pkt_find_socket(skb, &src, &dst, net);
-> > +     if (!sk) {
-> > +             (void)virtio_transport_reset_no_sock(t, skb, net);
-> > +             goto free_pkt;
-> > +     }
-> > +
-> > +     if (!skb_set_owner_sk_safe(skb, sk)) {
-> > +             WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
-> > +             goto free_pkt;
-> > +     }
-> > +
-> > +     lock_sock(sk);
-> > +     ctx = (struct virtio_transport_rx_pkt_ctx) {
-> > +             .net = net,
-> > +             .src = &src,
-> > +             .dst = &dst,
-> > +     }
-> > +     free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
-> >       release_sock(sk);
-> >
-> >       /* Release refcnt obtained when we fetched this socket out of the
-> >        * bound or connected list.
-> >        */
-> >       sock_put(sk);
-> > +     if (free_pkt)
-> > +             kfree_skb(skb);
-> >       return;
-> >
-> >  free_pkt:
-> > --
-> > 2.34.1
-> >
+Hopefully.  I suggest you double-check when you get the emails as these
+are applied to the various stable trees.
