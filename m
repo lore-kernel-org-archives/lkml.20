@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A3D37C916;
-	Tue, 13 Oct 2026 07:31:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D983822B4;
+	Tue, 13 Oct 2026 07:33:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791876716; cv=none; b=GftAqHDnH/vHpzbiGKK+keeikTFm4p2LEsvoGvQDBymARH0wuEmSTXAXlJJWfKsLrwDG25PO1iemGU8kyS/2tc1DHJnCdth4GA7bEwX1ifdB6Krbiixa0yi4MT2x0XNvo5Tufvfimik8Wh3G4UsviwJMoNLm/yuoV+tMGcA1ubY=
+	t=1791876823; cv=none; b=RLi4pDlR2wGzGjPrsixBqJsTXxlCaP+92LyagLqCWC+NB4GNseTBeXLzSgzayhkjB/9AkYN4y1F+X6bUzNwLlxogVuJAJeO0IN6gc05EYOfNn967Kehbu8M6cKz40/CXXmX06nTacZ6gW55DgsbzHZ6JnOCD/GSUvK3RleKQiXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791876716; c=relaxed/simple;
-	bh=sPJmlwD84hnd15C4YMmoNdd6ipPIKkFu9xK0krevNxc=;
+	s=arc-20240116; t=1791876823; c=relaxed/simple;
+	bh=2EXkA8Fu+Cy4V5eADzliUfYzH48QhMCxYHvJVxok4Vc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JFuibfb5TflQI3mXAf+sZtS1zOyfR5QoMs9h0qqKULNSsqte9pHFFyf8JoH0W8V2a/BPWqe40amUPS975GsA5qJoJCFr1jny1xSk1vdZ3jmhFpnk74ckUeikE1cME8VD4N5NfJABp2n5xcrMjf968ArtTp3ml77mt6bCCC89Yn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K11zu38P; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kYb+1+FzKq18vmBqC3CNSwhIL+UGdbzSSLjN2PN1gSAz3HBAr9N7DVrMNQ9EO7qI3Asmh74QLlqbBKYj5Smln+kReLuzBVSIxIgQvKt26BL5EL3wee7gubEftIZaCsGPLDaHLO/o8nrM6ntG71sCTZLWXtrDC2k8Qr5q3eoDi78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VSQonXou; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K11zu38P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EA5D1F000FF;
-	Tue, 13 Oct 2026 07:31:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VSQonXou"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 359F61F000FF;
+	Tue, 13 Oct 2026 07:33:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791876714;
-	bh=H2cpIlZWVloEX3N2xZMYGarwcqerPETDbCefslbFSUY=;
+	s=k20260515; t=1791876822;
+	bh=MtxkqZsYWfDcUkWU6En+19yAwPMCTyC65/gEd56cH1k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K11zu38PP1rUCPb3sidr6HojJXbELy5g+Dkr83EHPsIqLA5J4RxSFXrVQm7XpN95h
-	 ARVCrckHQxMlEdlYeeqME0etYHJdo8eeFTLyjVVXqJ8yiratV68+YFsa1CIE6BUdXd
-	 A/ylDUgd1hHbk0qjob/89w9F1Foe5p5UwhNMnKP4IGUPL5v8KHNcMchfDDmnGIoJ5i
-	 MSRTZXnEiWWu1kURvw8lbfcBFoKG8H86NiKxdyJwK0d4jSuRtVZNkG7Bn29KrYfHmB
-	 mBcx/5jNcHUGjX3hmhEgUA5YFQyepiv4hK6Zyz1JAxSF+nkq2kBptjtZsvxJfCDap/
-	 ZUxbLb+rejtBw==
-Date: Tue, 13 Oct 2026 09:31:50 +0200
+	b=VSQonXouTURdDmZOEnfAJ1ZwBsMub36mFTvktIKLrkdIawbEF2YMFJ7lt2SvIe0bZ
+	 NQ7DEt3hHfFHdJMOIvQJQwwujmwgrktQTbbnnJmHieX9xjcFg4J0mduEl4kzFrTd99
+	 iVakr5+3TKmNNeDnt6nOlcQ5WGGUHfGbiJwSRHKZrMqSY1mZsRSgjHf3I+mGmsXeDe
+	 7hn7mG/CD/dWMd4SjFJtc1wqaxhI97GIP/ycE/dzwk5LTMNdM4/tkx9cfJ3Q4wwxNK
+	 musmcFfdNpeD6WHzlLw2DxhYiYMWPnC7n5EMI30JDKhkmfcLXiuNaUAoAm3Ge3FdsW
+	 Nuyf8kDHQwHXA==
+Date: Tue, 13 Oct 2026 09:33:38 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
-	=?utf-8?B?U8O4cmVu?= Andersen <san@skov.dk>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v10 2/4] dt-bindings: arm: fsl: add compatibles for Skov
- i.MX8MP boards
-Message-ID: <20261013-tough-lionfish-from-lemuria-1e47ed@quoll>
-References: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-0-0906e57486a3@pengutronix.de>
- <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-2-0906e57486a3@pengutronix.de>
+To: Adam Azuddin <azuddinadam@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch, 
+	andersson@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+Message-ID: <20261013-artificial-splendid-goat-d078dc@quoll>
+References: <20261012064518.3497285-1-azuddinadam@gmail.com>
+ <20261012064518.3497285-2-azuddinadam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,17 +47,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-2-0906e57486a3@pengutronix.de>
+In-Reply-To: <20261012064518.3497285-2-azuddinadam@gmail.com>
 
-On Mon, Oct 12, 2026 at 08:30:31AM +0200, Steffen Trumtrar wrote:
-> Add a compatible for all revC-based Skov boards with a touch panel.
+On Mon, Oct 12, 2026 at 02:45:04PM +0800, Adam Azuddin wrote:
+> The RA8875 is an SPI-connected TFT display controller by RAiO
+> Technology Inc. It supports display resolutions of up to 800x480.
 > 
-> Also, in preparation for adding a new device tree variant with a
-> different 7" panel than the already mainline ones, also describe that DT
-> compatible in the binding.
+> Add YAML binding schema for the RA8875 controller, along with
 
-So what skov,imx8mp-skov-revc-touch is? I asked some revisions ago not
-to add generic compatibles.
+So you ignored my feedback.
+
+Not reviewing the rest.
 
 Best regards,
 Krzysztof
