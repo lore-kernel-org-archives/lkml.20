@@ -1,137 +1,136 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537163D8100;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC1E3D667D;
 	Tue, 13 Oct 2026 09:34:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884051; cv=none; b=M/kQGns9NSLrRRqi3XOPtpNBiIG6WTWXBvPlTnkBFr8TR2NfgcLNr/CRaq8nioxXPdLzK3dREDKiWvA9NPAFdxWRMlUx6+EbKWL6UPqcdHNLt2UuEzSxYqB9DRgEBQAmMLULq8/V03N8SYN3UXLM2fZiHhYEISifiuyjUdz6wOs=
+	t=1791884051; cv=none; b=logkZZEwuFzYmy772RN0JnJUrisQyuGlxBDIQrP9maY27R0HOdZfYVOTE7D6jMjXYrUBPJClnCGXq9o87ykR64Kr548636U4/Vg/6U8xpyx3+vhQB56dQyQ8f/YkhStTSJw/fKzvughRmXkY2U7RX9XjnsMEJreVOStOAkUR/S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791884051; c=relaxed/simple;
-	bh=6ZKGxAb0Vnr7qs1xZDZDeWQAwTJ7MDOpOqkpsjJ4gKA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ni8hb8FOO4vo21rdETZKRoLEsWdlEp/VM4Na+ZWPayD+ufPtOD146/wtibrxV2mKJxXA3ZKorh+A/U3PWox9aLy1K0ntLlZwJrv7iF4FMAoFfh7BVTmJVG9sgMT4QKI0LTYw3QsQvj8L1CqAHV7PHAaamqQdNS9Ggc5vVkHL8Fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hYfnUwEb; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	bh=cp7N8ckHf6XYI46zPE7vhku4Cmn3iyfpZZa1m4ykJqo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ioBHxX6VDrlBbvScYNP8yzXHM/Kv+kbcvbHMePja0JZ3+KLKmfCWzZXGT2WfGfOYbINBSKcf/+8CqyxYxt5eSB/dZwQDKXJGFGVnw9SPDtExJmsL+HIm0wTbWTQ3VnEmDVfuPvend81fBac+zhFCDDXyisLNjKU9jYHF6OlXIfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhHvIb82; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hYfnUwEb"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2EUWC725945;
-	Tue, 13 Oct 2026 09:34:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=XyXu/2RpH5p+BQXnwWDaDsAJjOVoJ2
-	19Tn/h1dA8EYI=; b=hYfnUwEbWXw4+9ECgL78e2GSrBUQRD6llmGLzjcfsOhgOE
-	l+z2KNeBAG6fR9bGlsH607Dvy8r0cb/qhDmDAc1yEJiqIYmNsmCL3XOQ3VJeSKyE
-	9l/iLdrtHoNrhoCJeHvSyvf3Mk8Mr5lPq/ZpkmXzs3yvMlhz5h7b2CNz7MG821ji
-	q86cu0nug4PmEGdMoB1q6GglPAygOfoth6BZlYxkcILcnph1OXduIu3gL/b2o9EO
-	UO52r3BgPI8AHD2aYfYK3CZZXBAkjSA3qsk7laBRDiGmJH9yklyvDuyOigQnnH4Z
-	lbk3nBgifOC0klvIXN7JEL4n2NlkSA9MVtb+J0dQ==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv0csvr-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 09:34:02 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8Tri72667556;
-	Tue, 13 Oct 2026 09:34:02 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h802vs6ru-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 09:34:02 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69D9XwSk52953500
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 09:33:58 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5964A2004D;
-	Tue, 13 Oct 2026 09:33:58 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B730020040;
-	Tue, 13 Oct 2026 09:33:57 +0000 (GMT)
-Received: from osiris (unknown [9.111.34.214])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue, 13 Oct 2026 09:33:57 +0000 (GMT)
-Date: Tue, 13 Oct 2026 11:33:56 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Gerd Bayer <gbayer@linux.ibm.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Niklas Schnelle <schnelle@linux.ibm.com>,
-        Benjamin Block <bblock@linux.ibm.com>,
-        Ramesh Errabolu <ramesh@linux.ibm.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Farhan Ali <alifm@linux.ibm.com>, Cam Miller <cam@linux.ibm.com>,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        iommu@lists.linux.dev
-Subject: Re: [PATCH v2 0/3] s390/pci: Updates to PCI insn tracing
-Message-ID: <20261013093356.9443B48-hca@linux.ibm.com>
-References: <20261012-rpcit_trcfh_upstream-v2-0-1812db73dfa5@linux.ibm.com>
- <20261012160049.19350J7a-hca@linux.ibm.com>
- <126474a4cf510aacd256dca642eb013f7e10dda1.camel@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhHvIb82"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF031F00893;
+	Tue, 13 Oct 2026 09:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791884050;
+	bh=S2rMpVXuXZB3WRdRKxL7b0OEx8ULZVVDKPPaqYnOA/c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hhHvIb82W7LfGfsoDenctHqkuLvnaJL/alRRu5j/a23ESLOmyj7dImjA4fz/d5WQS
+	 jny06343Gc/HXeIbln7wwwdUWAcVJVFFQafgLXa7r1LpBhXDxHud6E4o+Vgiz/U+Hj
+	 /Pg+QF0A4fHM/LXvBLGMU+FeqG8gwSnHIXpYDLguLByFejXr+Qg09gQvctR/Rt04k4
+	 EbZtsgVI1+sjUD8KGJFstUxt0rXWcvMviR26BkpMDS2ORyUDxJBwKE+3Yyzgf4uB84
+	 SegR1+bnzGngyNToiY1JpKhx58r43cUqpNHyt0y/uzkXverON0V38jaogAG4J7IN+o
+	 Gmnb2wge2jFhQ==
+Message-ID: <ca132d7b-a0d5-44f2-8b98-24570a88c9ce@kernel.org>
+Date: Tue, 13 Oct 2026 11:34:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <126474a4cf510aacd256dca642eb013f7e10dda1.camel@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNiBTYWx0ZWRfX/qvKHyi8aK7n
- z5FohrKWghYOJ7B0pDC1yhs8b+fiSwizUKJAZKdXmW9OX+zSffp2VN6D/HD6/itvE7MgOULWG2H
- zs70A3mm9A3sBKH8x6MRcyD2PIUdNPddM96tWKlqqNvln8JIabAYwAwFpJMRrX1WOSQsKTKAMLM
- lkZQDmQzAT80y9XH7tLVKZVy/C0mU4/tpMzQ48FVBTn+yfN3jJsdRF1J23kNdG75tQLrKnm4bNY
- 6gZ9ctwhf1Lr+9ihDweAfGdf+j2NPm2UPVin9rwr4TSTaBYVkHNwoB39iEZmS6sqKNxaL/eY7pE
- lyjHkJASoNjiyUbyIiI1zaf+cxm6nos9CbuXaocL2Dxl9c8k3bGWPccArp0PgGryAOIh02Oc0Bu
- 6VWOJWVcLDHR70b3K9HXqCtaHGmLTpVWrFx2BwAsDacPLYOyUZeght1e/W5UXSUmS1k4ecftnjA
- IkE8dlx2VonXZTjvv1A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNiBTYWx0ZWRfX0AmkRWNUowpK
- 2Dt8iptAOO9Xut0Y/dxCj5LjxS61EvD/dUysNaCu8JWeIA4vPQS1rGAuCPRBSp0Af3JH9sTmK9a
- z4JZmThrzRsq0a8wSr6dmdiGS7L7e5A=
-X-Proofpoint-ORIG-GUID: AQMMFFkaki-gBl9BIkrar06WyPTdKGZJ
-X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6acdfb0a cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=9DNx3T0ovit8ovVIW74A:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: AQMMFFkaki-gBl9BIkrar06WyPTdKGZJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130036
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: arm: qcom: Add Talos Lyra EVK board
+To: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
+ Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
+ <20261012-talos-lyra-evk-v2-v2-1-dcc9316ebb59@oss.qualcomm.com>
+ <1cb252eb-a7d9-4eac-8d28-8d7781ea430d@kernel.org>
+ <2c93f85d-a6f0-420a-9b7d-cd72a7963ab8@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <2c93f85d-a6f0-420a-9b7d-cd72a7963ab8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 06:10:55PM +0200, Gerd Bayer wrote:
-> On Mon, 2026-10-12 at 18:00 +0200, Heiko Carstens wrote:
-> > On Mon, Oct 12, 2026 at 04:21:48PM +0200, Gerd Bayer wrote:
-> > > Gerd Bayer (3):
-> > >       s390/pci: Adjust alignment in insn trace
-> > >       s390/pci: Use 32-bit fh outside of inline asm
-> > >       s390/pci: Add function handle to RPCIT insn trace
-> > > 
-> > >  arch/s390/include/asm/pci_insn.h |  2 +-
-> > >  arch/s390/pci/pci_insn.c         | 42 +++++++++++++++++++++++++++++++++-------
-> > >  drivers/iommu/s390-iommu.c       |  8 +++-----
-> > >  3 files changed, 39 insertions(+), 13 deletions(-)
-> > 
-> > Even though this touches drivers/iommu/s390-iommu.c I assume this
-> > should go upstream via s390. Is this correct?
+On 13/10/2026 11:32, Ruchira Revdekar wrote:
+> Hi Krzysztof,
 > 
-> that was my assumption, yes. I hope the iommu-maintainers agree, since
-> patch 2 touches s390 internals, exclusively.
+> On 12-10-2026 16:54, Krzysztof Kozlowski wrote:
+>> On 12/10/2026 08:16, Ruchira Revdekar wrote:
+>>> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+>>>
+>>> Add the qcom,talos-lyra-evk compatible string for the Talos Lyra EVK
+>>> board, which pairs the Talos Lyra EVK SoM with a common carrier board.
+>>>
+>>> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+>>
+>> No, this did not happen.
+>>
+>> Please do not add inapplicable/fake tags.
+>>
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Apologies. The tag was added based on internal validation but Nirmesh
+> had not yet formally posted it to the mailing list at the time of
+> submission. That was a mistake on our part.
+> 
+> Nirmesh has since replied to this thread with his formal Tested-by:
+> 
+> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+> 
+> will include it correctly in v3. The same applies to the identical
+> tag in patch 2.
 
-Ok, since the changes to s390-iommu.c are minimal/trivial I fixed up
-the typo reported by Matthew and applied the series.
+Again, this did not happen, otherwise explain me how did you execute
+this code on the device during your "formal validation".
 
-Thanks!
+Best regards,
+Krzysztof
