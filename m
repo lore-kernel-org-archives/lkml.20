@@ -1,103 +1,78 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7573E7160
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:10:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7593815E1;
+	Tue, 13 Oct 2026 10:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886242; cv=none; b=YD3AscZoQ+GPvavz60K8b6MjmroDcicuVvIqNuZ5rh1WWWoGkkvUrHNO4qcxJG10c6zt6kT5nryi/4pelq7RsGsemZTmC16mhDs8BY96vysXOV/Q0T2xz+RuXAXwm0+ZeFE5KGkR1NUFckAVyg2A3lLwpg/6L0DIaRIzog+Fabk=
+	t=1791886294; cv=none; b=hlpoisZWKh+rdjukT6XzXrAVU2XFWkR+g80QEkm2w6qk2Sg8qpuxsxfPa5N3H5tH8QlFzEBK+/BktsOZfh7XidpjHZFCToACea3/RqaVTvxNpgn/ubvycj9npLKCmUoT6XrYbHauEFCM9SAtikL8oeYAeR1WMvEGgUuHDOEnWas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886242; c=relaxed/simple;
-	bh=rPU66RTkPOm1XDuhtTsXUMgzuLrL8zDkGyJKBwoH8qE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QAv38NXuBYj1PKrkSooaJ5COPi+VBinINhGPw54f3S+C/bLD8Wtqf+d3+h0dfwJ7Y7qel5mOlMkPV224Dp8Zq7mH+xXb4bCsL3DUhu9Nr+4j4YAIlzD0EA8i7Quwa0/LPZaT8zzTltDcrtZjrxggIBMgYG9LA4pWnaVZ65JICRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hx811OpF; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791886294; c=relaxed/simple;
+	bh=PHze5tivd6v131HmvSd2AcJ7T6uJuAs5GpV6IGX7TWM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QsSjHM3+EfNlM+S7Utu4sOTnNCPaDRnW3LhKrtC2ggcn/YVVXQT9tIQnVdbErXEd2SseBbqDgk69wSJVp3y12+mvx2E9hUaIkNoHwwM9pjLjRvc0Q7RxtsHTP0GOKfw8ZgTPFQDAU8ZmZBX0nGJrAB15Z9Cd3mPO0rTuaKHYQa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net; spf=pass smtp.mailfrom=amieiro.net; dkim=pass (2048-bit key) header.d=amieiro.net header.i=@amieiro.net header.b=0hw4U37x; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amieiro.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hx811OpF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791886239;
+	dkim=pass (2048-bit key) header.d=amieiro.net header.i=@amieiro.net header.b="0hw4U37x"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j3qqh1kPRzMlSC;
+	Tue, 13 Oct 2026 12:11:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amieiro.net; s=MBO0001;
+	t=1791886288;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=h1p+nu/hoPn9auVbQdjmwrR26tibasmC89HS5LmsL5A=;
-	b=hx811OpFwdpdj2CFc0sIIK7FGYtWFDhj4n1t1hcBvLILYE7AkSMI5GvsUXpiDjh7NzEabO
-	WK1uDFJ4P1kehOWlR/7nsvHVieXrjYLubQLF0tNdmfHJSjSad16stxfVQ0Akt30IxsqTFD
-	XbeJjsva3+FfS/Qq5xvfr3bGLyhA+Uo=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-207-ZF0yr0d4MZuGG3faoNCPiA-1; Tue,
- 13 Oct 2026 10:10:34 +0000
-X-MC-Unique: ZF0yr0d4MZuGG3faoNCPiA-1
-X-Mimecast-MFC-AGG-ID: ZF0yr0d4MZuGG3faoNCPiA_1791886232
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 84FA1180B5DA;
-	Tue, 13 Oct 2026 10:10:31 +0000 (UTC)
-Received: from [10.43.2.199] (unknown [10.43.2.199])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 637BA1956086;
-	Tue, 13 Oct 2026 10:10:28 +0000 (UTC)
-Message-ID: <1772855d-e738-495e-abb0-7f064a3e3700@redhat.com>
-Date: Tue, 13 Oct 2026 12:10:27 +0200
+	bh=PHze5tivd6v131HmvSd2AcJ7T6uJuAs5GpV6IGX7TWM=;
+	b=0hw4U37xxOxPlzRjzylD+lv95/4n13uG72UMabKVksSYjYKpJE81D7zlpGz6s69CGNIQo2
+	3Kl1Kw1iQ6PpN1gOaYDKQnWEa0hKXXxgexKg5/jTOR+4+Kkrz1TVlyXJv4i9hGUfJjI6pr
+	pMVir6FnkdbkT5VXI1Up8b38as6AjQYAmYB/sdGi4my2ve0y70gLJ3Jw99/mWWQrTgIL/I
+	PBGbzupe1ApBItGaJmJDybKU+/Tr6iQkadmQl4EnRK/OauURXQ6Tbn8pLL8i0T0kqTiQdg
+	IzwjOc5jczmRsNVunNzxbTe7BDT71guWqAqyGUEXJdrbEReMiiU7oGxRKZtF+w==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of flavio@amieiro.net designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=flavio@amieiro.net
+From: =?utf-8?Q?Fl=C3=A1vio?= Amieiro <flavio@amieiro.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: leds: Add issi,is31fl3206 to
+ leds-is31fl32xx
+In-Reply-To: <7f43a5c0-e781-45db-bc8b-db6684c9aac0@kernel.org>
+References: <20261013-add-is31fl3206-support-v1-0-08c066cc241d@amieiro.net>
+ <20261013-add-is31fl3206-support-v1-2-08c066cc241d@amieiro.net>
+ <20261013-jolly-salamander-of-tact-7cf46e@quoll> <87zewhudle.fsf@berlin>
+ <7f43a5c0-e781-45db-bc8b-db6684c9aac0@kernel.org>
+Date: Tue, 13 Oct 2026 07:11:18 -0300
+Message-ID: <87fqy9vrjt.fsf@berlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 11/12] dpll: sit9531x: add support to get
- phase offset on the connected input pin
-To: Ali Rouhi <arouhi@sitime.com>, Jiri Pirko <jiri@resnulli.us>
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>,
- Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261009183151.78497-1-arouhi@sitime.com>
- <20261009183151.78497-12-arouhi@sitime.com>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <20261009183151.78497-12-arouhi@sitime.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain
+X-Rspamd-Queue-Id: 4j3qqh1kPRzMlSC
 
-On 10/9/26 20:31, Ali Rouhi wrote:
-> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> 
-> Report the phase difference between a PLL's reference and the PLL itself,
-> which is the loop's own residual error and therefore trends small on a
-> locked device -- that is the measurement, not an artefact of it.
-> 
-> The value comes from the on-chip time-to-digital converter, read through
-> the debug window: unlock the window, point it at the converter, then read
-> the trigger register, which latches a fresh sample and returns the
-> previous one.  It is read three times per sample for that reason; a single
-> read hands back the sample from the last call, so a repeated measurement
-> would look perfectly steady while saying nothing.  The offset keeps the
-> fraction of a picosecond the converter resolves.
-> 
-> Only the input the device feeds a PLL has a phase offset against it.
-> For any other pin there is nothing to measure and zero is reported,
-> because the core abandons an entire pin dump on an error from any one pin.
-> That pin reads zero too when no sample was taken: the PLL is not
-> tracking, drives no un-muted output, has no usable VCO rate, or the
-> device moved it off the pin, or the lane lost its signal, between the
-> check and the sample.
-> 
-> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Assisted-by: LLM
-> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
-> ---
-Reviewed-by: Ivan Vecera <ivecera@redhat.com>
+Krzysztof Kozlowski <krzk@kernel.org> writes:
+> v1 was sent today, so how could review be after v2?
 
+I sent it last night (in my timezone) and saw Shashiko reviews that
+needed addressing in the morning. That's why I sent v2.
+
+>
+> One version per 24h, so you actually allow people to look at this code.
+>
+
+I didn't know about this rule, but of course it makes a lot of
+sense. I'm sorry about the noise in the list, and I will for sure keep
+this in mind for the future.
+
+Best regards,
+Flavio Amieiro
