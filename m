@@ -1,83 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F3F47ACC7
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC374B95BD;
+	Tue, 13 Oct 2026 10:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887604; cv=none; b=skFP4M0jgf64o3yRZqbf4ZRvMpRtvCOJSeOTHt4Iih4i134gO0zJuhfQq588f7r6P9/5ARcrXq1o/vWgrVa9sD8UGpTBmPHqK1pxenhen5n2LtvzRZPaznIahYq9wS6YD27cnyUgT05mgfcLVorleuYn5S9hr1FPQ7qPfbLImlk=
+	t=1791887615; cv=none; b=Zy5sW96+yjYxRa4o8vCOnGH6YeRiW8h4D50i3RD185vcBXqFOUBc3drHpi4NSC7EPRN4reNv7DuBnQalg5HI08XJ7C5lIolZH1SLFyNBm1x81R1WCJnncK/scm78rAwa+sSRNSdP/d07U7+sQgLVMJ1fIQpEwtGnNYhAk9TS/VE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887604; c=relaxed/simple;
-	bh=XzS7ZZaqQDXfcYnYL4PkBv95T37MmZj8GXp420YL5mI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vFOt1wpTvMkbRiaV0okC5vB3xSZoo7gRgTPBFkmWTYBEqY7EZ2v/bYcWxz1+HyS5mXjO4uFOw9CLu4UXP2pJ1ONc2p9Dayr8U5VKvVZMEiO/O/1IgYbvmVDc4iYTqu+LoT+TrrkOOtrl0WrD8i4tgi/e/yqFPfuPbiIAf5M5NSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKHPTuBm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791887615; c=relaxed/simple;
+	bh=v/JLR1k7vDq5gemTKx0rWQ8eRukOJycBoxATbt53WRk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e0mamQD45dO3gYtHkBikwe2KyFeadVH5dACnbUQjnlR/+n3Y/jninVi4Hm0yzOAomR6adeRV1/XU5hJO5m85Lk/hyhqoxCgKN+a3tWhfKB9ZQ7eVVz1LZ5kpQ/xOet4Bvx+G4eZJkauWSoGoBwxXzwnUqKMbV60buWsyVNl+Brk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lAu/I+8T; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKHPTuBm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCF01F000FF;
-	Tue, 13 Oct 2026 10:33:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791887603;
-	bh=UFfNmiQ8uFdg5KDWX8jozlYpSU9VWRxyP54Yxnv2AEI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jKHPTuBmLFZipjd9P4kREgUhXNCvJCeC2JaAU0iC/JBffENTSJaTkCZu7s981u7Uk
-	 det8OEUxoTnC8iAQKoOaSIgcf6KGQXWjftcVGVZxviw8jds4C/5PHzbNy6VceuuE7z
-	 js+VQ/jlz6s2zAY5fYrPzab0LyQsPk5m6vjpIxzE1rFqG3mywMVnKL+kjsHd4xcISb
-	 h/k9nDaErnfi6zJjuqMY8rUGSUKpgwi6ruLawoqF61ZVJYp19sXUwQncH3+hYbfgEh
-	 UXFgb5mGrfeEc5HkZmqzQKUDuLBsQ4UwI2UBAQDWgNuknib9mIp1606vArV28lOrJB
-	 7Y0Xht+9Z2FbQ==
-Date: Tue, 13 Oct 2026 13:33:16 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Zenghui Yu <zenghui.yu@linux.dev>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
-	peterx@redhat.com, ljs@kernel.org, liam@infradead.org,
-	vbabka@kernel.org, surenb@google.com, mhocko@suse.com
-Subject: Re: [PATCH] selftests/mm: fix uffd move-pmd test crash on 64K base
- page systems
-Message-ID: <as4I7OKld_XJbdb3@kernel.org>
-References: <20261011163527.95988-1-zenghui.yu@linux.dev>
- <67c30e4c-3576-4ded-a71f-b49075ed42e3@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lAu/I+8T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791887613; x=1823423613;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=v/JLR1k7vDq5gemTKx0rWQ8eRukOJycBoxATbt53WRk=;
+  b=lAu/I+8T2Z46LrUTwptpvQDoRXpKUR4PE0DzsRiz4+KigILihaDhsks6
+   BB4+HIOFtbrBgHixLXajsABGQMPvYLTMFXHVfQSAeYJ00doE0p54FANfs
+   Ds0NqOSrG7fpGfjT5nD2k7XmwNet5L1c9kX2madIZsEJNxWRt8gCXzcEG
+   5+dBVM9wtfkt+RKojTnnD0swZsgTYwrN1zqicuwqNVMrMz8q7kXr1FAtV
+   scN+VfUmGs3H4xqg7h2DfOF4qCFdNdglF8p6ySNVpGxIBwzdA0zHXbfB9
+   IlAyZgFUU70Lok8QWnuam5gf+AFcqIrLh1Ar8G6dygo85AieNTgpyjEGI
+   w==;
+X-CSE-ConnectionGUID: 4ddLK11zSQaQGEzbxMF9mw==
+X-CSE-MsgGUID: DahE/FG9QW20fFGim27hhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="504751"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="504751"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 03:33:33 -0700
+X-CSE-ConnectionGUID: LuxTilyERgG79q6+TJlAKw==
+X-CSE-MsgGUID: 3KdVQ1pBSpu0IhMeeBwiGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="2966398"
+Received: from unknown (HELO [10.238.2.98]) ([10.238.2.98])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 03:33:29 -0700
+Message-ID: <f98c219d-61c5-4355-8dd7-6c4d4e20f8e7@linux.intel.com>
+Date: Tue, 13 Oct 2026 18:33:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <67c30e4c-3576-4ded-a71f-b49075ed42e3@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/10] x86/virt/tdx: Use early returns in
+ get_tdx_sys_info()
+To: Chao Gao <chao.gao@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+ kvm@vger.kernel.org, yilun.xu@linux.intel.com,
+ tony.lindgren@linux.intel.com, rick.p.edgecombe@intel.com,
+ nik.borisov@suse.com, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>
+References: <20261012094754.27702-1-chao.gao@intel.com>
+ <20261012094754.27702-10-chao.gao@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20261012094754.27702-10-chao.gao@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 09:39:54AM +0200, David Hildenbrand (Arm) wrote:
-> On 10/11/26 18:35, Zenghui Yu wrote:
-> > From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-> > 
-> > uffd_move_pmd_test()/uffd_move_test_common() splits the test area into
-> > chunks of chunk_size and moves them one by one.  On arm64 with 64K base
-> > pages the chunk_size (read_pmd_pagesize()) is 512MB, which is larger than
-> > the whole 32MB (UFFD_TEST_MEM_SIZE) test area:
-> > 
-> >   step_count = nr_pages / (chunk_size / page_size) == 0
-> > 
-> > Because chunk_size > page_size, the test then aligns both areas up to
-> > 512MB, which points far outside of the 32MB mappings, and decrements
-> > step_count, which underflows to ULONG_MAX.  The verification loop then
-> > runs away and the first dereference of area_src faults with a SIGSEGV.
-> > 
-> > Skip the test when a single chunk cannot fit into the test area.
+On 10/12/2026 5:47 PM, Chao Gao wrote:
+> get_tdx_sys_info() was generated by a script. It chains its metadata reads
+> with:
 > 
-> That leaves 64k untested, though? Why not adjust the chunk size accordingly?
-
-To test anything PMD on arm64 with 64k pages we need to adjust
-UFFD_TEST_MEM_SIZE to have at least 4 pages, i.e 2G :)
-
-Maybe we want UFFD_TEST_MEM_SIZE to scale with the page size?
- 
-> -- 
-> Cheers,
+>       ret = ret ?: get_tdx_sys_info_foo(...);
 > 
-> David
+> The function is maintained by hand now. Use conventional early returns
+> instead.
+> 
+> Print the module version only after its metadata has been read
+> successfully. The "ret ?:" chain has no early exit, so the pr_info() after
+> the version read prints a partially read or all-zero version when that read
+> fails. That is harmless, but once every other read returns on error, a
+> print after a failed read would look like a bug.
+> 
+> AI was used under supervision to review code and workshop logs.
+> 
+> Signed-off-by: Chao Gao <chao.gao@intel.com>
+> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
 
--- 
-Sincerely yours,
-Mike.
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
