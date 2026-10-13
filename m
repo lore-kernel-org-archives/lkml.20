@@ -1,228 +1,154 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F653CE4B5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3393EB11C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875608; cv=none; b=Qi/lFYBUEkpFdNBhdJjzKBhNDlconDZ4+8Quiuh0MD4+KFGcBvXoA8qmkdOMw+6Q3zacbUrjVw2PROTooviwWiwfvHgbcvcD21cOWzL7Y7E38lwPZOpDjUvkrCf2nksADd1Deb0c56kz9SXnoBzPlrlcpMP7ieQvIk+gJj+de4M=
+	t=1791875683; cv=none; b=NfcDmgeexhF5O6FuDPjlb+XDGtW+NA618pkWr8M0DcY1fIHZBlPvt7718emByna2gkuLaQeJaMq7CmQuyP2/LLEeidTUogqvp1r3uMOfOLCtqJkuDH6OcS3G2+m2dcbVyURiBXzNhUFqTOFLLSufuI145HSGn9cBsE/mxkeHL/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875608; c=relaxed/simple;
-	bh=6n1/bklGvRXQfMIJUUkJMJYnLo5+/iBbEmbwF8vc8t8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GYfzB9/vds2WPH113XkhLGd29DSSzhOvD7qk4mOu9fN6Mco0PwgqoDiUnavtzDlxbsfPxvCPPAsq7F9wWdUKR9Ec0bSMX7sO7OjHXVjr/HOc0q6iMK/a7FTvZNnOlEHUpfbtZdWw2a/LisResxTWIvuwZFszGEIFX1gVi5JUkI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gc4hI1eT; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791875683; c=relaxed/simple;
+	bh=cXTuVa3KGjH8lyOe0ao4EW5q0wlCixpiZlI7i4j48U4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EtZtlcmiXkdc6PX66Ix9Xktjfq6U7HJy0kBORrVYGxHfPANzBEb1ieQ1GLFx7SzKhq7k6TjtscXhCKwj/149wiIjIK25uC/yDLGbQnHU8ekHT6VrJrcgzBe1fXRAPnMmK3mZlehO65hHs6hNN6antdil6MKp8SFPaT5e9frPwxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Bk8fI6Nn; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gc4hI1eT"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1495393f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:13:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Bk8fI6Nn"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b9d8055dfso1974561f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:14:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791875604; x=1792480404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p+Wtn59KvC+feTOOdrVuSvpYHmlcgQavv6c7dXxLqcI=;
-        b=Gc4hI1eTSiIc2JB2JEbTSr/3jIL5dVx4fd4WeQSfo7Z9C1CzF7dLFSyVXvbs4YElVh
-         ZjEEXfllYe2/PHySC1uFAXFP+BMg/ms5lI4SdJZlAz9RFdENKb3GZKt6uC8zECTinHwY
-         Bm0n7d901pemP0dsWJ+Epl4KlbOKx64JaVipH0BT67k3vLfnrTDfump5EJ8qFhu1BNOc
-         r+jNxnKnhB58x4fQkCwRjAR2TtHCSsyVa1T5ns17vkswkostnEJn9zzkY3ZL4SNb4hCb
-         gdyBz9ovtPVGBM06cTDddzTxJTkwf1ieVDGKldMEcY+ZI8U3kLYlTfUciwvAmTmrV64Q
-         3s7A==
+        d=baylibre.com; s=google; t=1791875679; x=1792480479; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N/3uZKTyrNaRvsXwszDYWZ0D2uuc7O2dM/xJ/2Buikg=;
+        b=Bk8fI6NncvVLBjXXXxFmxyBnmtq+i7ERE6tKWEMKRR0oGSc+H7TrU9BxN/qzyRrDm3
+         hqTpFiqdTqnrzn+T/4L0zfkzFFOSgSltMbQkRk19KWrq78v/X6RqlUHYXIJia5BnpsP9
+         njM9nEWdPQXoyymKcXuXeaALmaubAr9X79CofOrkrXOTEMIxWATxozSsa3hfQz82vFCD
+         VRrI+Waayr7TAngKYOnORh2HQB4oqzbqGwlBugpkm4atJEZMsxm8iThfpbwXaC3YI5oW
+         N9u8CFhOOTlwWLHz3XKUObSQN+mGM+yNRnaJihZWd5mApwcHwDOlgnJAENgdu0/lMT8p
+         vt7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791875604; x=1792480404;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p+Wtn59KvC+feTOOdrVuSvpYHmlcgQavv6c7dXxLqcI=;
-        b=uxR7xzUI0Ywb/7UYZR1EGe4WJ6i09G0dg2YpjWr5wL4Jb95vU7Tx4yYG7z9JrpuFsJ
-         KjaZXfRk+0FjzxD4vVQ+OY7h+Ed8rCrnr/+VpV2CFl/oWrsD2vPwsC/AsVTJVTM/KqjB
-         usugw6I5rZsNXLrwEBWF/ngk0TZLqn8TMmVIVQSEdk0haWTp9H4XQJk1vwnBb1mv/27j
-         GBeXDs/99q1t+KuAoTsIzu3KD96DEl1o0j+xyuHtA+QKpSsXalTA/U6YiyvfHamc1TwN
-         kfnRvXQyADY1LSIcNTFHggfdL3kx/acbTBkojkY1lajdFuif3yFCjaXjM+VzjwnSeZRL
-         hIjA==
-X-Forwarded-Encrypted: i=1; AKwUvByEAISdSQiodhx3/gtXh5g6fbtstRwZ1n9bVD+UEThDwOe/U6xvVITocq3JFmx7wTrwdukhp1QAL0UGj4I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjd9+8o3Xg0mDZXfpQwYJrtHJq0Lf7Ikg82ZBTWCD1e7Mk8az6
-	mBQXA+vmamWnEA9pN/DSA462Yo/y+LWEOV831xjYR552bgWBukIrfscf
-X-Gm-Gg: AYBFou2rLhJI1k8efsUXoIHkUmBhW3jWpyW3T79I+Z317Sn/L4kG18X8PyNJxaf1JH3
-	3bM18vwwcL4Fe++AzA11o1HnYBqCbzvPwda5MXPSRs3vGR6Z0LqBgkI3YKvLu0DW/LKD9t4Gd47
-	LzYm57h/rPHlwXJNQipoxeWbsD3hHHiqpnRMz0cHEl+hOaGAOset2NDIVioTiUVvGvfj12ranPP
-	H01SmK0O7iYZPG4KDaDYqwfiN5pw9tO5hxWbaYFwmb0h3nDDsUjcyipWKQh+K/BpVBMsuI/dRD/
-	1MVsyRzfuko+d0tts4H77uQvy3awI31ZmpVNmvQ38jDBIWvDKsi68oTjwwNYe1eBx6T2r4svljj
-	IvCDswfWsvaRF+p21FJGsSKxOea0KfNHqhaL6jP3ymiCtVdM6REH/IX/oITuEVQeihkv0F4MRYq
-	nQzt5GjlkjclHLxD9nl9RaS31BGoI6CtNPcCcboxqrxJAIPnPivXw0eGQ+IiY5VKhaLdkJv6K2i
-	TznfooLmpCB8pDmAwyBG/c3HA6ehdNF6JMDtaCaypQo7eaggs8SiR7IeVV5TZonDVgFDXE=
-X-Received: by 2002:adf:f341:0:b0:487:197a:5c1f with SMTP id ffacd0b85a97d-48dbaae84e0mr17789931f8f.49.1791875604065;
-        Tue, 13 Oct 2026 00:13:24 -0700 (PDT)
-Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab4764sm3289111f8f.25.2026.10.13.00.13.19
+        d=1e100.net; s=20260707; t=1791875679; x=1792480479;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=N/3uZKTyrNaRvsXwszDYWZ0D2uuc7O2dM/xJ/2Buikg=;
+        b=dNHB1tRRoTYhR2gl+sEbaD5k1M+uctyn+ReeZwKeF86QUhkbEik4Uq5qXjcsArwRoj
+         04tyBGPR+svl1LO1m0KccJQlPAhz0J4UeZ/Hn7IP9zDMTu5BdQ1DYQ8W/cff7pPFDS5Q
+         pQnBR2PduBiMLI4yaHRYjCEh5RNpBz1wDsBmit8V/guj9L/aVlFPtpWSqqDSe+rCUJxp
+         uR/3y/2MeBh6F6OmABCCV03286nTUC9TfwASZEWuPwEfGfL88vuj3RYP8Id5o8N0XHVt
+         bIFdnGdySBazt187yg8IR8Ln9+/AlU63qc6ZbrSfs4pzQfx6Yst+FDT/uzWZu1FdDYvX
+         jxLA==
+X-Forwarded-Encrypted: i=1; AKwUvBzjIxoCsgqFN/5USMiwgTjmMzL3vaQNLBh/wz/R0L/TMZKZVoDiIeyLIiNL3MOj1XZonDPr1uwlUPzYgEw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIqcdDfPdoDZxolwf5RUdKH4dup5xVXIGxwgn3Hsk1vb/NfIXG
+	oiEDcB0r2P5M1AcqzfOgyKdbvQDFjKYWTNvQdSme7q2+8W8EXEDdPCNf7QOAc4SzHpU=
+X-Gm-Gg: AYBFou0WWZJpQjdhLQ+3zdkWVz7CeTTIQTWF5kuuS0J+Z9PEXKFBMgRi2g9Sbv3kBsS
+	5yXE4nulSSHsZavDM0x04Jbp5z2HNg7BhVloyrhX52qtiZ82CVNd7tb+Kfx2l8RUuHFxfEqzAkG
+	2gk9wPNFyqLWmUZ+hI00HeJ16Xt9ID/Q7zH5axpdIwVrjcDamptZ9gtr49W/eeyPjYRFbk6cCxD
+	gB94sFjCuO+zD6p2huBAO2My3pL3Tcuymd5pCGYDth+E41XozaHvC8QSDjrt+X+sE2ttiBmUkhg
+	M8UGFKXtq4UpByG1QtxFNJlCuwBrycnkoGlT+eiXyL2mNpmn3aRGH7FgB4W9VBljEUvAwMrc1fs
+	Yx5NVBvRm2rcjj5wP6ekMFN3J3iQFUuGuatTfHn3F5/QMxsLkN6NvlQlwWd5ONSML+VHVfmGkI/
+	usY5+kXLdcWBL2WqPmLIAnMRAuSgsKw76wbLLTsqu2IwI+AMNPep7uL5xJiRIyyzMCLEr+8dSWk
+	1jY14L4gSZ1etzfzg==
+X-Received: by 2002:a5d:5846:0:b0:48b:180:b900 with SMTP id ffacd0b85a97d-48dbaadb302mr21043691f8f.16.1791875679329;
+        Tue, 13 Oct 2026 00:14:39 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5b03sm3925157f8f.30.2026.10.13.00.14.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 00:13:22 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Andy Lutomirski <luto@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v2] entry: Account the deferred hrtimer rearm as hardirq context for lockdep
-Date: Tue, 13 Oct 2026 12:13:18 +0500
-Message-ID: <20261013071318.33300-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Tue, 13 Oct 2026 00:14:38 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Kevin Hilman
+ <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Maxime Chevallier
+ <maxime.chevallier@bootlin.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 8/8] dt-bindings: net: ethernet-controller: tabulate
+ who adds the RGMII delays
+In-Reply-To: <20261010105900.247342-9-tanure@linux.com>
+References: <20261010105900.247342-1-tanure@linux.com>
+ <20261010105900.247342-9-tanure@linux.com>
+Date: Tue, 13 Oct 2026 09:14:38 +0200
+Message-ID: <1jqzhu9in5.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On a desktop debug kernel (PROVE_LOCKING, KASAN, LOCKDEP_CHAINS_BITS=19)
-lockdep switches itself off after about two days of uptime with
-"BUG: MAX_LOCKDEP_CHAIN_HLOCKS too low!", and locking is not validated
-until the next reboot. In the last such boot the pool ran out after 46.6
-hours, and a fifth of it, 533509 of 2621431 chain hlocks in 63838 of
-344717 chains, had been created by the deferred hrtimer rearm on return
-from interrupt.
+On sam. 10 oct. 2026 at 11:59, Lucas Tanure <tanure@linux.com> wrote:
 
-Make lockdep account that rearm as part of the timer interrupt it
-belongs to.
+> The informative section explains in prose how phy-mode, the delay
+> properties in the MAC node and the mode handed to the PHY fit together,
+> and says itself that developers often get this wrong. A reader has to
+> work through several paragraphs before answering the one question they
+> usually have: for this phy-mode and these properties, which part adds
+> which delay.
+>
+> Add a table that answers it at a glance, with one row for every
+> combination the properties allow.
+>
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>  .../bindings/net/ethernet-controller.yaml      | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yaml b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+> index 1bafd687dcb1..bba27a9feb61 100644
+> --- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+> +++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+> @@ -339,6 +339,24 @@ additionalProperties: true
+>  # has added. Failure to remove the delay will result in a
+>  # non-functioning link.
+>  #
+> +# Put together, with the two properties in the MAC node, this is who
+> +# adds each delay:
+> +#
+> +#   phy-mode    tx-internal-delay-ps  rx-internal-delay-ps  TX delay    RX delay
+> +#   rgmii       -                     -                     PCB trace   PCB trace
+> +#   rgmii-id    -                     -                     PHY         PHY
+> +#   rgmii-id    present               -                     MAC         PHY
+> +#   rgmii-id    -                     present               PHY         MAC
+> +#   rgmii-id    present               present               MAC         MAC
+> +#   rgmii-txid  -                     -                     PHY         PCB trace
+> +#   rgmii-txid  present               -                     MAC         PCB trace
+> +#   rgmii-rxid  -                     -                     PCB trace   PHY
+> +#   rgmii-rxid  -                     present               PCB trace   MAC
+> +#
 
-Commit 15dd3a948855
-("hrtimer: Push reprogramming timers into the interrupt return path")
-moved the reprogramming of the clock event device out of the timer
-interrupt into the interrupt return path. On return to kernel mode
-irqentry_exit_to_kernel_mode_after_preempt() performs it after
-irq_exit_rcu() has already left lockdep's hardirq context. lockdep
-therefore records hrtimer_bases.lock and the timekeeper sequence count
-as taken by the interrupted context, on top of the locks that context
-holds, and every distinct held-lock stack an interrupt hits adds two
-lock chains. When the rearm runs from irq_enter_rcu() or
-__irq_exit_rcu() it is still inside lockdep's hardirq context, and there
-the same acquisitions reuse one pair of chains.
+That would match how the HW is working on the A733 Allwinner too but I'm
+not entirely sure this is what Andrew had in mind from our previous
+discussion [1]. Adding him to the thread
 
-The dependencies recorded on the return path are "lock held with
-interrupts enabled -> hrtimer_bases.lock". Such a lock is hardirq-unsafe
-and hrtimer_bases.lock is hardirq-safe, so a path in the reverse
-direction is already reported by the irq-safety checks without these
-edges.
+[1]: https://lore.kernel.org/linux-sunxi/491f043e-6dc6-4936-a490-31a3362c5b6e@lunn.ch/
 
-Re-enter lockdep's hardirq context around the rearm on the kernel return
-path. The return to user mode path holds no locks and is left alone, as
-is the rearm in __schedule(), which runs under the runqueue lock.
+> +# A property for a clock the PCB already delays is not in this table.
+> +# It is either the fine tuning described next, or a mistake the MAC
+> +# should report as a fatal error.
+> +#
+>  # Sometimes there is a need to fine tune the delays. Often the MAC or
+>  # PHY can perform this fine tuning. In the MAC node, the Device Tree
+>  # properties 'rx-internal-delay-ps' and 'tx-internal-delay-ps' should
 
-With the same kernel tree, configuration and workload, one hour of
-uptime including a full kernel build, the chains of this shape, with
-hrtimer_bases.lock and optionally the timekeeper sequence count on top
-of a held-lock stack outside the scheduler, go from 13266 (96187 chain
-hlocks, 15.9% of those in use) to 4. Those 4 come from clock_was_set(),
-which takes cpus_read_lock() and each CPU's hrtimer_bases.lock and reads
-the clock under it.
+Acked-by: Jerome Brunet <jbrunet@baylibre.com>
 
-Fixes: 15dd3a948855 ("hrtimer: Push reprogramming timers into the interrupt return path")
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
-v2:
-- Say in the comment above the helper why the return to user mode is
-  left alone (Peter). No code change; the numbers below are from v1.
+> -- 
+> 2.56.0
+>
 
-v1: https://lore.kernel.org/all/20261008204649.62265-1-mikhail.v.gavrilov@gmail.com/
-
-Tested on x86_64 only (Ryzen 9 7950X), PREEMPT_DYNAMIC. Not tested on
-PREEMPT_RT or on the other architectures that use generic entry with
-HRTIMER_REARM_DEFERRED.
-
-Method: tree 0c2669a9f4a1 plus local fixes, the same .config
-(LOCKDEP_CHAINS_BITS=19, LOCKDEP_BITS=16) and gcc 16.2.1 for both kernels,
-built with and without this patch. Each kernel booted fresh and sat at the
-login screen with sleep inhibited; a full kernel build (make clean,
-make -j32) started at 600 s of uptime, and /proc/lockdep_chains and
-/proc/lockdep_stats were read at 3600 s. One run per kernel.
-
-                                                       without    with
-lock chains                                              97283   81257
-chain hlocks used                                       603921  485100
-hrtimer_bases.lock on held-lock stacks outside the
-  scheduler (the shape above)                            13266       4
-  their chain hlocks                                     96187      12
-hrtimer_bases.lock under the runqueue lock (untouched)    5208    4665
-hardirq chains starting with hrtimer_bases.lock             11      11
-direct dependencies                                      36118   34332
-deferred rearms in 2 s (hrtimer_rearm with deferred=1)     534     578
-
-A chain is counted in the third row when it is in process or softirq
-context, hrtimer_bases.lock sits on a non-empty held-lock stack with no
-scheduler lock in it, nothing or one sequence count follows it, and
-debugobjects' obj_hash lock never follows hrtimer_bases.lock on that same
-stack (that would be the stack's own hrtimer_start()/hrtimer_cancel()).
-
-The four left with the patch:
-
-  cpu_hotplug_lock -> hrtimer_bases.lock [-> &____s->seqcount#2]
-  &dev->mutex -> cpu_hotplug_lock -> hrtimer_bases.lock [-> &____s->seqcount#2]
-
-Beyond the removed chains, the total dropped by another 2764 chains
-(2.8%); one pair of runs does not separate that from run-to-run spread,
-the untouched runqueue-lock row moved by 10% between the two runs.
-
- include/linux/irq-entry-common.h | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
-index 0bb6c03..c74b5c8 100644
---- a/include/linux/irq-entry-common.h
-+++ b/include/linux/irq-entry-common.h
-@@ -468,6 +468,25 @@ static inline void irqentry_exit_to_kernel_mode_preempt(struct pt_regs *regs,
- 		irqentry_exit_cond_resched();
- }
- 
-+/*
-+ * The deferred hrtimer rearm is the tail of the timer interrupt, moved to the
-+ * interrupt return path so that it runs after a possible reschedule. By now
-+ * irq_exit_rcu() has left lockdep's hardirq context. Re-enter it for the
-+ * rearm, so that the hrtimer base lock and the timekeeping sequence count are
-+ * not chained onto the locks held by the interrupted context, which would add
-+ * new lock chains for every lock stack an interrupt hits.
-+ *
-+ * The rearm on return to user mode needs no such annotation: no locks are
-+ * held there, so it uses the same lock chains as the rearm in hardirq
-+ * context.
-+ */
-+static __always_inline void irqentry_hrtimer_rearm_deferred(void)
-+{
-+	lockdep_hardirq_enter();
-+	hrtimer_rearm_deferred();
-+	lockdep_hardirq_exit();
-+}
-+
- /**
-  * irqentry_exit_to_kernel_mode_after_preempt - Establish trace, lockdep and RCU state
-  * @regs:	Pointer to current's pt_regs
-@@ -491,7 +510,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
- 		 */
- 		if (state.exit_rcu) {
- 			instrumentation_begin();
--			hrtimer_rearm_deferred();
-+			irqentry_hrtimer_rearm_deferred();
- 			/* Tell the tracer that IRET will enable interrupts */
- 			trace_hardirqs_on_prepare();
- 			lockdep_hardirqs_on_prepare();
-@@ -502,7 +521,7 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
- 		}
- 
- 		instrumentation_begin();
--		hrtimer_rearm_deferred();
-+		irqentry_hrtimer_rearm_deferred();
- 		/* Covers both tracing and lockdep */
- 		trace_hardirqs_on();
- 		instrumentation_end();
 -- 
-2.43.0
-
+Jerome
