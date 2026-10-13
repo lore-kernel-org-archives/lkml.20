@@ -1,136 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4923B841B;
-	Tue, 13 Oct 2026 11:43:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177734EB865;
+	Tue, 13 Oct 2026 11:44:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891833; cv=none; b=GQEzbMzM0IMP3Iwug4fXxOfzKBJr00hXPl+5ouMnjbsMHcge+gQ7M6tgjz0eQSGCV5FnDumF1aipsYbZ6mu9hfrgG+rW1710hzVZu1KnP2aWoPb/Q38Pfpmvl02xMucpT2gH5uUnrDLIpRcXPoj3GNN8WMcOk29Ks7l4z5i8GoU=
+	t=1791891859; cv=none; b=UHiPuo+6cgE9v5XpTh3CM4qf+7lJTJYdQ2peq1vSXX1TGQVzVl2feiMcGOYyV8cQt/TNwDYHSu8W/SS1KCzRfiT0zYovp6Bl15hFI/CFDSVZbzPnNMnbdUmKY9axZ1kJG8Zvc3yKhlLHGh30t5hjbG7D8JVve8u6SMP3dF1QrkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891833; c=relaxed/simple;
-	bh=TaJk7ZnGYmGrARoPE87abyFf7X7nIEAc2yxpu5uWHoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nKjphG+wx8xaBJB4oZwvtMGgcVYFBGTz9BYwkzON8tT2loZiUZMct7oZlcHJEWgo+2k+9ZQnUe/3M8FRYuJ+PXuti37WlqH2ktd9wm+jLaBVUeXP2yxuqOBdVanwa1jWs7Qhkwv6y9bs3i6keVH+jOnsYpoND2+cS8l2auQShF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvOEi1vy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791891859; c=relaxed/simple;
+	bh=4OANBpHEmSdLiZGsXRmRFHuCMBaiRGj7Hu0NZgEdqHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dK02rt/VeTRxlnyud6KXZ2oGpHmHCsy4zuYhop2pn9GXkB6dOMjakBLOXmjkEXneZ4LqNjSTE2kY051rNQETMAvO1991kWS2M8GAyyPUGKJ2eF47H033zqQ6ztmAogUjqJwXD0tYF9FLCTkd3BbwHTGPl5qGO+RVvwcqKrG4VEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kaAPaq2Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvOEi1vy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2ACB1F000FF;
-	Tue, 13 Oct 2026 11:43:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kaAPaq2Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B221F000FF;
+	Tue, 13 Oct 2026 11:44:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791891831;
-	bh=S3kwk859qFodmpxj3OxHRi9StcyZ/IRrGX/kgBYEpD4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JvOEi1vyoPSPHIK+3e1cFSGk5Nq5aIKf+aPMRBqWK+jdkr+GJ34ZVhlK6KFh95ok4
-	 LFLkrLVzES/VjnqmInEE0Ue+CxRK2fSBE6/QrhXBRNAYjd1RCgj1C7FcX3LsnkXKK/
-	 FcPKD5CYRd5utm0PX1a/JlzYfAu81YBwmUTmdu2jSQfZJQIWOLsgxo2IqY17WGdyK/
-	 VwX9jgqE+oS/qTJ+U+MBVqNS1wFKQ3L5PC8a3V+m0KpECoP3Lv5uQdi+xwTGUWhyVU
-	 JXNNX9WvbPCWhJAa1Kpla3Kp/XCy1sGiLGPzH2fxY+k3JRj8YHefM/4npCF3FyIv1o
-	 RUlJ/KsSCGPhA==
-Date: Tue, 13 Oct 2026 12:43:19 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
-	Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, linux-sound@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
-	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Bert Karwatzki <spasswolf@web.de>
-Subject: Re: [PATCH v5 33/38] mm: eliminate VMA_SPECIAL_FLAGS usage when
- hugetlb explicitly tested
-Message-ID: <as4ZGTa7tHwVwv-1@gremlin>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
- <20261009-b4-mmap-prepare-vma-flag-sanify-v5-33-923b70125b1e@kernel.org>
- <e65264f1-52dd-4ed4-a647-87e7a1778b6b@kernel.org>
+	s=k20260515; t=1791891857;
+	bh=D8wETzgZKXMrq+7nqWT6ljvjShoXyOcuU+Ww7Q6v8hk=;
+	h=From:To:Cc:Subject:Date;
+	b=kaAPaq2YJY7rKtY/ZiM31P7I2l+jSK9M6ALmWwjx8qDzY7fvznjp5URlFg9R//V4e
+	 8mxLMTNprwBs7mxo6pZ9NLwg+v/Izdfxbqtu/Ltw3Yo4EUabN1TYdPeKXE9rb0GbNK
+	 1hKZ1OD9oUPrI8w2UVzqQAIYzcdAmFGCo8nJLxad9FHF6FuVYE/xR4G+fqr43vF+Ak
+	 KTqQx3UOD7tozDFpxzPdm8sMlWMi64RV12YXaSgrzUw+sK/BDdzqrQEh0l9h3HPM4U
+	 noki2y+QSkfARff2W+KIDPYdQtZ6MjiwTAhbtHquqTaZqNq+fWJU7HZHWYEl5y79Th
+	 1tlEjCc2bFYNg==
+From: Leon Romanovsky <leon@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	=?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Vinod Koul <vkoul@kernel.org>
+Cc: iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dma-debug: Skip cacheline tracking for MMIO mappings
+Date: Tue, 13 Oct 2026 14:44:09 +0300
+Message-ID: <20261013-dma-debug-fixes-v1-1-1ad1f471cc61@nvidia.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e65264f1-52dd-4ed4-a647-87e7a1778b6b@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20261013-dma-debug-fixes-5aaf1bb17544
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 08:49:11PM +0200, David Hildenbrand (Arm) wrote:
-> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
+From: Leon Romanovsky <leonro@nvidia.com>
 
-> > diff --git a/mm/ksm.c b/mm/ksm.c
-> > index 624f37975e12..ed66a90e0031 100644
-> > --- a/mm/ksm.c
-> > +++ b/mm/ksm.c
-> > @@ -747,9 +747,7 @@ static bool ksm_compatible(const struct file *file, vma_flags_t vma_flags)
-> >  	if (vma_flags_test_any(&vma_flags, VMA_SHARED_BIT, VMA_MAYSHARE_BIT,
-> >  			       VMA_HUGETLB_BIT))
-> >  		return false;
-> > -	if (vma_flags_test_single_mask(&vma_flags, VMA_DROPPABLE))
-> > -		return false;
-> > -	if (vma_flags_test_any_mask(&vma_flags, VMA_SPECIAL_FLAGS))
-> > +	if (!vma_flags_is_mm_backed(&vma_flags))
-> >  		return false;
->
-> Same here, it's hard for me to tell my brain that "permanently lazyfree pages
-> are not backed by core-mm".
+Mapping one MMIO dma-buf for many RDMA importers overflows dma-debug's
+cacheline overlap counter and triggers a warning. DMA_ATTR_MMIO mappings
+must never be CPU-cacheable, so CPU cacheline overlap tracking does not
+apply to them.
 
-Yeah :) 'mm backed' is definitely too broad for this.
+Skip MMIO entries in both cacheline insertion and removal. Keep them in
+the DMA entry hash so mapping and unmapping checks still run.
 
-Will reinstate the explicit droppable check in v6.
+The reported warning was:
+ ------------[ cut here ]------------
+DMA-API: exceeded 7 overlapping mappings of cacheline 0x000000e040000400
+WARNING: kernel/dma/debug.c:465 at add_dma_entry+0x3b5/0x470, CPU#58: dtr/5264
+Modules linked in: xt_conntrack xt_MASQUERADE ip6table_nat ip6table_filter ip6_tables iptable_nat nf_nat xt_addrtype rpcsec_gss_krb5 krb5 auth_rpcgss oid_registry overlay rpcrdma rdma_ucm ib_uverbs ib_iser libiscsi scsi_transport_iscsi ib_umad rdma_cm ib_ipoib iw_cm ib_cm nvidia(O) mlx5_fwctl nvidia_drm(O) mlx5_ib ib_uverbs_support ib_core zram zsmalloc fuse mlx5_core
+CPU: 58 UID: 0 PID: 5264 Comm: dtr Tainted: G           O      J 7.3.0-rc6_for_upstream_debug_2026_10_08_13_46 #1.fc40 PREEMPTLAZY
+Tainted: [O]=OOT_MODULE, [J]=FWCTL
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
+RIP: 0010:add_dma_entry+0x3bf/0x470
+Code: ac e8 f5 89 6e 00 e9 47 fe ff ff 41 f7 c6 00 18 00 00 75 9f 83 fb 07 7e 9a 48 8d 3d eb 02 5f 04 be 07 00 00 00 48 8d 54 24 30 <67> 48 0f b9 3a eb 82 0f 0b 48 c7 c7 80 d3 2a 85 4c 89 e6 e8 a9 1f
+RSP: 0018:ff110001bcb7f230 EFLAGS: 00010002
+RAX: 0000000000000006 RBX: 0000000000000008 RCX: 0000000000000000
+RDX: ff110001bcb7f260 RSI: 0000000000000007 RDI: ffffffff85cfd070
+RBP: 000000e040000400 R08: 0000000000000000 R09: ffe21c0044b8abf5
+R10: ff11000225c55faf R11: 0000000000000000 R12: 0000000000000246
+R13: 1fe220003796fe48 R14: 0000000000000400 R15: 00000000ffffffff
+FS:  00007fa8f91e6b80(0000) GS:ff11000eb81cc000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fa8f5ca80f0 CR3: 0000000164871004 CR4: 0000000000373eb0
+Call Trace:
+ <TASK>
+ ? check_sync+0x2070/0x2070
+ ? find_held_lock+0x2b/0x80
+ ? debug_dma_map_phys+0x588/0x840
+ debug_dma_map_phys+0x267/0x840
+ ? dma_debug_add_bus+0xd0/0xd0
+ ? __sg_alloc_table+0x2b7/0x4d0
+ dma_map_phys+0x10a/0x330
+ ? sg_miter_start+0x130/0x130
+ dma_buf_phys_vec_to_sgt+0x565/0xed0
+ uverbs_dmabuf_map+0x158/0x340 [ib_uverbs]
+ ? uverbs_dmabuf_unpin+0x10/0x10 [ib_uverbs]
+ dma_buf_map_attachment+0x138/0x690
+ ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
+ pagefault_dmabuf_mr+0x172/0xf80 [mlx5_ib]
+ ? do_raw_spin_unlock+0x54/0x210
+ mlx5_ib_init_dmabuf_mr+0x13e/0x200 [mlx5_ib]
+[... '?' frames and user-space registers omitted ...]
+ reg_user_mr_dmabuf+0x3bf/0x760 [mlx5_ib]
+ mlx5_ib_reg_user_mr_dmabuf+0x2dd/0x13b0 [mlx5_ib]
+ ib_uverbs_handler_UVERBS_METHOD_REG_MR+0x76d/0xd90 [ib_uverbs]
+ ib_uverbs_cmd_verbs+0x2337/0x31c0 [ib_uverbs]
+ ib_uverbs_ioctl+0x1c7/0x350 [ib_uverbs]
+ __x64_sys_ioctl+0x72c/0x11f0
+ do_syscall_64+0xa1/0x4f0
+ entry_SYSCALL_64_after_hwframe+0x4b/0x53
+ </TASK>
+ ---[ end trace 0000000000000000 ]---
 
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: 0e74b34dfc33 ("dma-debug: add support for resource mappings")
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+ kernel/dma/debug.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Thanks!
+diff --git a/kernel/dma/debug.c b/kernel/dma/debug.c
+index 026d50de340e..36c1f7cbb2ae 100644
+--- a/kernel/dma/debug.c
++++ b/kernel/dma/debug.c
+@@ -489,8 +489,10 @@ static int active_cacheline_insert(struct dma_debug_entry *entry,
+ 	/* If the device is not writing memory then we don't have any
+ 	 * concerns about the cpu consuming stale data.  This mitigates
+ 	 * legitimate usages of overlapping mappings.
++	 * MMIO mappings are never CPU-cacheable and do not need tracking either.
+ 	 */
+-	if (entry->direction == DMA_TO_DEVICE)
++	if (entry->direction == DMA_TO_DEVICE ||
++	    entry->attrs & DMA_ATTR_MMIO)
+ 		return 0;
+ 
+ 	spin_lock_irqsave(&radix_lock, flags);
+@@ -519,7 +521,8 @@ static void active_cacheline_remove(struct dma_debug_entry *entry)
+ 	unsigned long flags;
+ 
+ 	/* ...mirror the insert case */
+-	if (entry->direction == DMA_TO_DEVICE)
++	if (entry->direction == DMA_TO_DEVICE ||
++	    entry->attrs & DMA_ATTR_MMIO)
+ 		return;
+ 
+ 	spin_lock_irqsave(&radix_lock, flags);
 
---
-Cheers, Lorenzo
+---
+base-commit: 39d3758108bb0ef9da484062d65288bbe9cada0e
+change-id: 20261013-dma-debug-fixes-5aaf1bb17544
+
+Best regards,
+--  
+Leon Romanovsky <leonro@nvidia.com>
+
