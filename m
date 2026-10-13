@@ -1,44 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C8E518127;
-	Tue, 13 Oct 2026 16:16:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72149516166;
+	Tue, 13 Oct 2026 16:17:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908205; cv=none; b=dzejf7wPHQZlrc3MtNaZf6I+FU9oy/kV2kSLoIMp2kp+6dERBiP/8VzyirExmS158HnwyVx2+7aELQGXl3yfpcQidTf1tsI9QmKcBfbuyEE+qOBiLnc7MN0UdGTAf9W4LVDpljpsvgYuluyXdk0i/UvNfU7Jf7KnoejrQecC/Q4=
+	t=1791908249; cv=none; b=V6rhmGI2M6hUKbKaQHQqz/Y1fRY6Hln5pmxVEyyfepLKqmALWQ6g9fzFba2Ypoz8de37hlmkygvXQ7sRsMMmCxVw3j91cDnsrlE2Qj5iqeUof0pwzH2dJk2ZftcWvoEQX9bV1gfhP9dZSCBZcGGjrmzzl3/pRfEkqnULt0M7p6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908205; c=relaxed/simple;
-	bh=qF4da8QJ2gSN8Es+QFMuqDlZutZcvU4LisdiboFkEeE=;
+	s=arc-20240116; t=1791908249; c=relaxed/simple;
+	bh=g5+8ErqXeZDKXcuP7eu3I4DDW1/JmNe0Tn4MK9wTx6A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DwkSfQvZ8Frrm7YF0uCpTM2XyX5tvCeRgge6rUdl4XWb54YFCySYz9LneJbRgRLwL8kk80uPF9kNRp8e/0j59nbssDeGTba4eRvZciPEMwF5rOFIUv2VSTwJhu4qgGx5T/N6J/Fcizg660tVtcDSJQwM7QVoMggZaG9GMUIDZUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a/54xN4j; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ayTt54P5dpureDjaRbLEMukKYKhzMQw0/0OwifFWuia3Cxka4BmZndQOGUaZ06Rt0EQmtk+cpQQcAVXD+Y049SH12o2nkfpfMmKmpXw48IhUgUmo93muEy3cYErJg6leL8dyEauD4kGt/DrELcaw/Y7vehRHHmGj3px0w1/ZEw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRtc0YuL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a/54xN4j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5E331F000FF;
-	Tue, 13 Oct 2026 16:16:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRtc0YuL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE441F000FF;
+	Tue, 13 Oct 2026 16:17:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791908204;
-	bh=1i9DMKcX81xENBpQLvQoPm96RRF25NpHWeWqdoQKaBU=;
+	s=k20260515; t=1791908248;
+	bh=d/AqZyAHTs/5Ze0NJawuBTwqntQ1EEyvYdHwstfLlgs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a/54xN4jagNr9+SrzSqdQtIBLDdHjGeuSUKti5fmmf8eo4GeuvHEpIq20zUscfD6G
-	 oBOYv+z71Ct8Tph5M7Va36865ZJDvkaeiDpnLtJxRXZEy3dnvJqb/5EisytS+WXkC/
-	 qhUZN5f+A5QT3BJDQzvgc4bq/nEt1eYJa4cAXdEdTPfeh81CRISgarylk+EgzJoWZW
-	 d9DAp/aEHRH5BdZeRxqGEUiAzufFUf/GO11mX9sQ7x9Q5Qe31MaeTdwc6yq7RnGWTC
-	 QJSE78V0x/vNsmOOOtSGTAInkfPFR61Md3lAqtmnWklkvhS/cJzxk/8n1j+SgiYdqo
-	 EbDNcSb/WE6uQ==
-Date: Tue, 13 Oct 2026 18:16:41 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ion Agorria <ion@agorria.com>, Jon Hunter <jonathanh@nvidia.com>
-Subject: Re: [PATCH v2 0/9] ARM: tegra: lg-x3: Add newly supported devices
- and fixes
-Message-ID: <as5XpdpNm4cRGNcj@orome>
-References: <20261004154456.145362-1-clamor95@gmail.com>
- <CAPVz0n1HOWAXMwfeCBV76Z+N+6mgynXW5GeMebnqYQubNDqpOw@mail.gmail.com>
- <CAPVz0n2SmOY3Cw2HpnpYd8eFXw7B=2mjP6LMhKCu5niN=KnOQg@mail.gmail.com>
+	b=oRtc0YuLUrkDiSZrEta9ZbfPGe4YcN4dg0b8m/8AWubxvc4grOmzg8WO6T7Oo3/QN
+	 ITtmcNAysxUoKc9jlntXO14pj6PsLmUFLgPbw4C8oTZNyh5RAodoFEo09kFjLHcJHj
+	 KgZrYZIlZfv6I6vPzxymih+kS+WwEMP4eDG+084gTWl+hskXlBuJ0vzzCffC0nzIeU
+	 E5KX0q9UIqEbCHHkBr9FRcgQ+n098/teFuk3wxQJbC7N+Uo8Bw+jneIr0q3sPKgaXV
+	 Sy70rxVC5TuezkUnhslo+Dgb3rttwfup3bKnsUEHtlMsvmGp23L591WZqSl2jqmvgw
+	 KekC5BGC8/9/w==
+Date: Tue, 13 Oct 2026 17:17:22 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Luo Liu =?utf-8?B?KOWImOe9lyk=?= <Luo.Liu@cixtech.com>
+Cc: "vkoul@kernel.org" <vkoul@kernel.org>,
+	"neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
+	"mani@kernel.org" <mani@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	Gary Yang =?utf-8?B?KOadqOaWsOS8nyk=?= <Gary.Yang@cixtech.com>,
+	Fugang Duan =?utf-8?B?KOauteWvjOWImik=?= <fugang.duan@cixtech.com>,
+	"linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>,
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Wuyi Shen =?utf-8?B?KOayiOatpuS5iSk=?= <wuyi.shen@cixtech.com>,
+	Eastlake Yang =?utf-8?B?KOadqOS4nOiZjik=?= <Eastlake.Yang@cixtech.com>
+Subject: Re: =?utf-8?B?5Zue5aSN?= =?utf-8?Q?=3A?= [PATCH v2 1/3] dt-bindings:
+ phy: Add CIX Sky1 DP PHY
+Message-ID: <20261013-retry-unturned-70c276adf382@spud>
+References: <20261012123618.648930-1-Luo.Liu@cixtech.com>
+ <20261012123618.648930-2-Luo.Liu@cixtech.com>
+ <20261012-founding-stench-55cff46fe1a3@spud>
+ <JH0SPRMB0074821E0A55434A23B60E45F59E2@JH0SPRMB0074.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,91 +59,166 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yqks2mjgun77nul3"
+	protocol="application/pgp-signature"; boundary="pQxb2iB7MuCcOiZL"
 Content-Disposition: inline
-In-Reply-To: <CAPVz0n2SmOY3Cw2HpnpYd8eFXw7B=2mjP6LMhKCu5niN=KnOQg@mail.gmail.com>
+In-Reply-To: <JH0SPRMB0074821E0A55434A23B60E45F59E2@JH0SPRMB0074.apcprd06.prod.outlook.com>
 
-
---yqks2mjgun77nul3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--pQxb2iB7MuCcOiZL
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 0/9] ARM: tegra: lg-x3: Add newly supported devices
- and fixes
-MIME-Version: 1.0
 
-On Mon, Oct 12, 2026 at 01:56:48PM +0300, Svyatoslav Ryhel wrote:
-> =D0=BF=D0=BD, 12 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 13=
-:55 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > =D0=BD=D0=B4, 4 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 1=
-8:45 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > Add nodes for recently supported device (ALS, LED controllers, haptic=
-s)
-> > > along with minor tweaks and fixups.
-> > >
-> > > ---
-> > > Changes in v2:
-> > > - added USB configuration update commit
-> > > - added p895 power LED trigger update commit
-> > > ---
-> > >
-> > > Svyatoslav Ryhel (9):
-> > >   ARM: tegra: lg-x3: Adjust WiFi node
-> > >   ARM: tegra: lg-x3: Remove pinctrl-* properties duplication
-> > >   ARM: tegra: lg-x3: Lower supported suspend mode
-> > >   ARM: tegra: lg-x3: Add light sensor node
-> > >   ARM: tegra: lg-x3: Add flash LEDs controller node
-> > >   ARM: tegra: lg-x3: Add haptic engine node
-> > >   ARM: tegra: lg-x3: Add backlight LED controller node
-> > >   ARM: tegra: lg-x3: Update USB configuration
-> > >   ARM: tegra: p895: Update power LED trigger
-> > >
-> > >  arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts |   5 +-
-> > >  arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts |   7 +-
-> > >  arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi  | 125 +++++++++++++++++=
-+-
-> > >  3 files changed, 127 insertions(+), 10 deletions(-)
-> > >
-> > > --
-> > > 2.53.0
-> > >
-> >
-> > Hello Thierry!
-> > May you please pick this patch set if you are ok with it?
-> > Thank you!
+On Tue, Oct 13, 2026 at 08:50:48AM +0000, Luo Liu (=E5=88=98=E7=BD=97) wrot=
+e:
+> HI Conor,=20
 >=20
-> Oh, you already did. Apologies!
+> 	Thank you very much for your reply and suggestions.
+>=20
+> -----=E9=82=AE=E4=BB=B6=E5=8E=9F=E4=BB=B6-----
+> =E5=8F=91=E4=BB=B6=E4=BA=BA: Conor Dooley <conor@kernel.org>=20
+> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2026=E5=B9=B410=E6=9C=8813=E6=97=A5=
+ 2:55
+> =E6=94=B6=E4=BB=B6=E4=BA=BA: Luo Liu (=E5=88=98=E7=BD=97) <Luo.Liu@cixtec=
+h.com>
+> =E6=8A=84=E9=80=81: vkoul@kernel.org; neil.armstrong@linaro.org; mani@ker=
+nel.org; robh@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org; Gary Yan=
+g (=E6=9D=A8=E6=96=B0=E4=BC=9F) <gary.yang@cixtech.com>; Fugang Duan (=E6=
+=AE=B5=E5=AF=8C=E5=88=9A) <fugang.duan@cixtech.com>; linux-phy@lists.infrad=
+ead.org; devicetree@vger.kernel.org; linux-arm-kernel@lists.infradead.org; =
+cix-kernel-upstream <cix-kernel-upstream@cixtech.com>; p.zabel@pengutronix.=
+de; linux-kernel@vger.kernel.org; Wuyi Shen (=E6=B2=88=E6=AD=A6=E4=B9=89) <=
+Wuyi.Shen@cixtech.com>; Eastlake Yang (=E6=9D=A8=E4=B8=9C=E8=99=8E) <EastLa=
+ke.Yang@cixtech.com>
+> =E4=B8=BB=E9=A2=98: Re: [PATCH v2 1/3] dt-bindings: phy: Add CIX Sky1 DP =
+PHY
+>=20
+> On Mon, Oct 12, 2026 at 08:36:16PM +0800, Luo Liu wrote:
+> > Document the dedicated DisplayPort PHY on CIX Sky1, including the=20
+> > optional cix,external-dp board property for external connector swing.
+> > Add a MAINTAINERS entry for the binding and driver.
+> >=20
+> > Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
+> > ---
+> >  .../bindings/phy/cix,sky1-dp-phy.yaml         | 53 +++++++++++++++++++
+> >  MAINTAINERS                                   |  8 +++
+> >  2 files changed, 61 insertions(+)
+> >  create mode 100644=20
+> > Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
+> >=20
+> > diff --git=20
+> > a/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml=20
+> > b/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
+> > new file mode 100644
+> > index 000000000000..c6914cab74e0
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
+> > @@ -0,0 +1,53 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) %YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/phy/cix,sky1-dp-phy.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: CIX Sky1 DisplayPort PHY
+> > +
+> > +maintainers:
+> > +  - Luo Liu <Luo.Liu@cixtech.com>
+> > +
+> > +description:
+> > +  The CIX Sky1 DP PHY provides the PMA/CDB register interface for the
+> > +  dedicated DisplayPort instance on CIX Sky1.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: cix,sky1-dp-phy
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  "#phy-cells":
+> > +    const: 0
+> > +
+> > +  resets:
+> > +    maxItems: 1
+> > +    description: PHY hardware reset
+> > +
+> > +  cix,external-dp:
+> > +    type: boolean
+> > +    description:
+> > +      Use voltage swing values suitable for an external DisplayPort
+> > +      connector instead of the default low-voltage values.
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - "#phy-cells"
+> > +  - resets
+>=20
+> A reset but no clocks? That's a bit hard to believe.
+>=20
+> Seems fine otherwise, unless I am missing some sort of common property fo=
+r the voltage swing stuff.
+>=20
+> Thanks,
+> Conor.
+>=20
+>=20
+> 1=EF=BC=8CRegarding the missing clocks property:=20
+>=20
+> 	The PHY APB clock is physically the same clock as the DPTx controller AP=
+B clock. It is described and=20
+>=20
+> managed only by the DPTx controller driver, so the PHY node does not list=
+ a separate clocks property.
+>=20
+> The PHY driver only implements the standard PHY callbacks. It does not to=
+uch the hardware in probe;=20
+>=20
+> All PHY programming happens later, when the DPTx driver actively calls ph=
+y_init() / phy_power_on() / phy_configure()=20
+>=20
+> and similar interfaces.=20
+>=20
+> 	By that time the shared APB clock is already under DPTx control.
+>=20
+> So from this binding's point of view there are no clocks to describe =E2=
+=80=94 only the reset line owned by the PHY node.
 
-I picked up version 1. This v2 came in too late. Pull requests go out
-before -rc6, which in this case was v7.3-rc6, released on October 4.
+This sounds wrong, if the PHY uses this clock then the "DPTx" (no idea
+what that actually is) it should also have this clock as an input.
 
-Looks like only the last two patches were added in v2, with no other
-changes to the other patches, so I can pick up the last two after the
-merge window closes. If you don't hear from me after the first week
-after v7.4-rc1, you may want to resend the last two patches again.
+pw-bot: changes-requested
 
-Thierry
+>=20
+>=20
+> 2=EF=BC=8COn the voltage swing property: there is no suitable common DT p=
+roperty for this.
+>=20
+> 	The flag only selects which vendor calibration table to use for the same=
+ PHY IP =E2=80=94 the DisplayPort swing/EQ table=20
+>=20
+> versus the eDP table.=20
+>=20
+> 	Runtime swing/pre-emphasis levels still come from phy_configure_opts_dp =
+as usual.
+>=20
+> The old name cix,external-dp was misleading. I will rename it to cix,edp =
+(present =3D> eDP table, absent =3D> DP table)
 
---yqks2mjgun77nul3
-Content-Type: application/pgp-signature; name="signature.asc"
+I dunno, I think "external" is clearer than "e", since eDP is also used
+for embedded displayport?
+
+Thanks,
+Conor.
+
+--pQxb2iB7MuCcOiZL
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOWWkACgkQ3SOs138+
-s6FYdg/+MN5bB8FUDaQ+MIVgPPqZYiTkBxRyGDxfyXQJLMlWl8M881yE64ALHtmE
-P2YpyR70EUhBhsqjaahftoJVF14Gu0i3Vpd1rtl73CrwzyZaw6lSrrb7H6kn2J1x
-tf/u1qejGzdoLrc4ShCyR9VBuO3ki71hWVBWHZgdI9YgM8tuiGszMuM8jfsvSCuB
-zMwNSkS9BvHadkRYH5dgP31G1OStHnGvKScBBBnIIgeiNJkFdM+r1Edb0y33C4XK
-o5Bt3M4G1RC+OPX2XubUBq8fp5lTwlKZIlXy9oQPudcU9ZyM1KBievLSBOBIdLDP
-pTC+rFf70nRoPvG6JC2DIjHAIGmsGUtMy0yjzhbY39BrexTV6CjNaHSkHYK8Ir2l
-wqsvrpWXMrW0lAyjCk5kYOv3b0tJ+4vfjv1KaTWnBcdDdWFvYpcRdPx674I9G8px
-Zz/2QiPkPbiOKDptSYagmXp+lyY1Nk431gEjAYCCDBqnDA/YZipOhHd74fPvwTvF
-lGXIo6u3xFp9G94X5yYWcV69H1m7RLsylYRVPwkGtb0HZn5LohFLlVdmt1uEiSMj
-9yRaeF9X2RglzNITOBmajOpGR0NbLSgwwHRlXwIvlpthqHg3HKDn8YOH6s4db/JZ
-tgTbFdO8WY4leXn4leoI4fdKWvY/c8UwlxwLeV2FdcCW202tZuY=
-=XjX1
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5ZkgAKCRB4tDGHoIJi
+0jyPAQDRmqHdCBu+JEY6WYgMJc70ELue4zQ5RLYDWcTc2EDf6AEA8BKvY64jcv/u
+g0LbGUnfGhL/p52BclTRXUFOId1YRgo=
+=gF/s
 -----END PGP SIGNATURE-----
 
---yqks2mjgun77nul3--
+--pQxb2iB7MuCcOiZL--
