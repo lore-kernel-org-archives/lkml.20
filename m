@@ -1,194 +1,168 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11021090.outbound.protection.outlook.com [52.101.62.90])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C54B51B192
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D415551CF74;
+	Tue, 13 Oct 2026 16:43:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.90
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909773; cv=pass; b=MbgtshSV+u9fT/0RSuu5X8nFEca9y5gNj0AjSLvO1hB5bMhQ1/mV/EuZ2ETkIJI1ePOVJPTn7CLnTx9e4KJ9aqVw9IMR4kcKf834E/+5fbnXvANFhr0CrVBpZQAgZV4I0mfFs5Tf+00xgIm/A17sdP2g/Ssec/NuQQeh13Jqp8o=
+	t=1791909797; cv=fail; b=hwMwDppIKGgeG7HOmZ75QKHb/4ssHSrdwLCbxHE6wFRWyORniv7oYyTz1/E3jlm03nAhHEPow263usEHrgmWG3VQR96gK5J81ktzgbC079c+LUkrVswjnPfk/q/W2gqoYgWP0RoZifpSdO8yrBTDCTgq+q83/dLpmijxcbQyVuc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909773; c=relaxed/simple;
-	bh=YEWBZSCDOHNDO3i+3Dhofyy1g9bLH5Fceh3LVymGhIE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UF88ewV97vnWDMvFIc0QTWA5uGcX0OYHLKkvahoerrclNFL4GGFp+tD2h+H6LiTkpp/CKULeDdB0yuT3x7fjR91HxgI5iR+LlhGTgw87mWuKmFiLLHXdLHs4Xxb6+1809VAVjj2z3pD0bNobL/yVlojjoBrVd6ogLE2MEWv4wPo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dr+We5fX; arc=pass smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791909797; c=relaxed/simple;
+	bh=wwIqjBnL8KxaEN9DZswRblUlYXrnERe0ZXqh0L6WPgw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=dPrd3x/7Q47eAJ6/Y3Bc4f8eSx2AQvjtQhi+ShXmOaC+14oY6JIS6KvNJw3w/Is1Kf+hHMmPiFaOSIAHD1RYfEus8hUs5xWLh0RkWlbB1wjG1I9EMQezY977TzLEIu/Gg++BDLu6I/zCaJp47tsncD3MoH/yWVDm2x800OVRys4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phil.gs; spf=pass smtp.mailfrom=phil.gs; dkim=pass (1024-bit key) header.d=NETORGFT5377951.onmicrosoft.com header.i=@NETORGFT5377951.onmicrosoft.com header.b=FvNgf9AE; arc=fail smtp.client-ip=52.101.62.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phil.gs
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phil.gs
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dr+We5fX"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afbd2c386so1856105f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:42:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791909770; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UlFEXzAya9035Au5+BWTymX7UgIdoXCGlpiStI+8xSM0TImdwyczfM2Tn5TfjhQxEB
-         kVsh/ADUgVdyFEmrTaOQjBQYY81hJR8eCq2Dt7ZQ6TRRtyJyunq/KRWESKhiFhvuFSgc
-         QrY6cU+pomq2X/XX+uMwwZ+aJ63i4/dW3xKhONtD5C66mAb5tB8GVPy4Y292WKlJcfV+
-         e0hv6FDqzZ7GIGnQPzUUx/LGTPHsVLXd3IRVJ+0CYE8DdIfncYgHdP4BaMlKIc+BHPCo
-         4DiUMT2qkNPddU37byCfwC9xNOgETjKFbbdikBiyz2PKzuZ8VesFyyWdOf5JXbuSLY4J
-         atjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YEWBZSCDOHNDO3i+3Dhofyy1g9bLH5Fceh3LVymGhIE=;
-        fh=RtMoTbSEqHiETVGUlu88iRhc9W6RZZO3hH4/UKDgilY=;
-        b=FySXp/8VqUOPZLXZAX+qh5LwZfbDfOwLo5xWxLPn6Ppx4oxGNyBQVImpVm6zi5ji2t
-         8x5jTaXKGqtyL45kK09wtAh1vYOHKzm3majg6lvnFYskjqw6dIUDKDHMkyC1f4MSYWib
-         NRamStlFSdgohgMw9bMLtZ/jnfKsdADq88YN/boywHj/ZypfTv+0u0QBC5nhfGEx6BWT
-         OXuGuTiuJ7Hadm8fC2P0D0d1bnBjydT2q1RVbu0DMvdIBg0NQYoFLOes1aFMZcobR+R+
-         W6F/+bX6xqemy7Og+EWGwWPFkTp59FkxIEvdtbzlCWGU0UIX3hgO3LyJs7o42bRfI6wG
-         xRyw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=NETORGFT5377951.onmicrosoft.com header.i=@NETORGFT5377951.onmicrosoft.com header.b="FvNgf9AE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y2if6eiFmK15fYDDfk404Mz6r5MDOUT+Z6rGYqMiYfuPtEtHMHa6/+RabtdcZnrJHbJ+TbhAT5FZFvYI/cLhoZMCd+HakW4eIL0wnkxFDfZwT5r3TgTflxs7VtKkTQhtF3/l2fQd71JV1KFJLtywz9Af1ibuAecIEdF/rV9/E5ZTvDeWE88KVhQnH6v3H5ASWy15Ofi6PyfFRjMoq2MXiyWkuJquAzTECI4NKIWnlO1vPJP7BBjWGUJlc/Sf7Pv0+P0NT3FSqe1ltaSShj6MmmEU1kdbrJY1ctPkSfjcWngpIaQlAxibqxh2FsJAD4i5um1Ds0+IvA3S46JTQ04yyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FyQiHzqAPKGbIuV31r8QFFCSf8zl9GBm270eKRJaX/0=;
+ b=qPOKCyh7ndDWOtKiiASiRLytKp+VOvAmiE3zuDYaPETX5xvI8kvFfCLs8FPq4c5z50twTeZkYLYRTCy+XUGoRsCdMRn6r008/YHU93QowoSLpmQ6PGt4fuBIUEChuD91OQ80Vh1vRp5dRcTWPMXlStbJDXJCOFpwccoMyUKpAfqy9bdBRgyCPKBBrelN/d+eoCIRsVtn1NK4MK0Y8ANNPHdGLmvGxqNyXBJnRI8AwCTIcQIM9fAqbsNYRQNz8ESdk8Iwxl2+Es8eei06eG1wdHTmHNlxQQRq9yUzVfxCSxSD2ssIl5twfKo3IxALwO1TSos5GNfY9nb0XYNWpyc6YA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=phil.gs; dmarc=pass action=none header.from=phil.gs; dkim=pass
+ header.d=phil.gs; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791909770; x=1792514570; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YEWBZSCDOHNDO3i+3Dhofyy1g9bLH5Fceh3LVymGhIE=;
-        b=Dr+We5fXI0ZNaPKG7rBRB0dP03qa+LQFaUCmT5Xu/RHl6yI6RkPFx7BDHVUp1xGOqd
-         AAaK/92Us7KpgTfw3iXyBqlt2+XNQLy5IV7nCbhixik8kVYx6bW9MYPV8a3GrzWmEyDO
-         7BeMvOshyqGgWpbDfz0ZFlKeTEXkKQcyNExI184FKL4g7mBhgEoJVFL2c6rYQ++SwJXU
-         abSLH43weF9eVvTxPlAouJ8YButzIa/Re50vNDDJXH3H0AmVcy4fSb3fvK65sXvv0kJ8
-         oFxO38AeytdJgPPWofY0fd8kC4Hd0g9jgj8yWpSnmV0nQJY1SlgCQi5qvnMgLeSIiAFU
-         GMMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791909770; x=1792514570;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YEWBZSCDOHNDO3i+3Dhofyy1g9bLH5Fceh3LVymGhIE=;
-        b=yAVGjz+EIN45sh33DdPccloxcFe9v3U8ep5IgPhup5VobzrF5tCq6qWc3OmEJyDkBK
-         MHBaURCRTCcZjDwDYDKSCaOmEdayZQGZ5Yfi40r4oHa5TDubdkt7M9WdHsfRRWcRvtTy
-         zVZtZIdu6GspWs6B1cPHnXNPYE64Qzu5Pj5WXnFd+6pR7xxe3mvthdiXc7RBUyQiZIi1
-         oMWFJq1c2m5uCgzppFbkgegY+CnKlXTT6PwdsrnOx9lqPFvzA89XZESweSuzwD1W/zeq
-         ZWqrakezQFrvotavQyYTCBh8khGLLv40Qi//xu6AH7fO1f3Nll0TeTnCSfuQtOAgBOmX
-         kSLA==
-X-Forwarded-Encrypted: i=1; AKwUvBxphnbmVeCq7lRZwuHk69f7HN5VvX1vDMi0j+9NwctqPTxoRpFDfVWad2Jrt0phjGbN/uE3cjwebfHy3ho=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCnGqWx776h1kA+ThxRmdsVQstnVO1bGaKa1S9DfjGclq2HtKb
-	UiBJe6ndm6hpHu/3AlYXvF3LfbWYwzfb+dmLGztbYwUfi8682vQ68Kxbf95q2jnHxMyWfOAT8v+
-	hGP2tL6lSRoCRLwfXgSWgE3g4klSNlZY=
-X-Gm-Gg: AYBFou3WLL1/u3YNV298Lxzqa3LISiPHpUHuCkSy9QyZGOHZdpMi03iYj8ZzilKsPFx
-	XwAVa6sMYoHKXXuWM6hEseFvsW9oVigsdmprWtc7/LoiA37d3cabxoQa7O8LPn1WlpiOLThZymX
-	VWlwPR6Vm4U+9HrgKqK1vgt/l/+J7FqNBuMO5fXmN7QtpHEzk22jndRxtQbZbrhMuxLM5Nj8t/o
-	bdZG/nX/0r17dPbh060MD6Z7tpomrWmaJsPieTKZSpW7IL8/GH5nv0piQX4JpCRMqc3h2tZrz91
-	NkVMw+kPCEafITazA6ynFJgnaNlmfJemQdb9rFUewnNPkjAn0gmyUlLhn4BacoekkpHEbwPxBhf
-	Hq2NkWZ73Gm556bb1nlrzgSNBzANPwpGDYdnrM537T1Tg15kQMuhqbr3HIadmRpzPVtE3xgU=
-X-Received: by 2002:a05:6000:2212:b0:48c:5cf9:88d6 with SMTP id
- ffacd0b85a97d-48dba7bea17mr24931533f8f.2.1791909769542; Tue, 13 Oct 2026
- 09:42:49 -0700 (PDT)
+ d=NETORGFT5377951.onmicrosoft.com;
+ s=selector1-NETORGFT5377951-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FyQiHzqAPKGbIuV31r8QFFCSf8zl9GBm270eKRJaX/0=;
+ b=FvNgf9AE67UtjO7P1xUxcpfQR/U5fSvjzzu4z/aCb0EpNXHCbxup+XXEil2+VsxX01KblvzeJMHTEpWfEKXm3NXEeGOxHO6+As2IAlcAYna5sHltM0X1aXqC4K4Oasku5civzdsegVFF79R1EoESATlxK1lvaYkDf8zpVi9RBgU=
+Received: from BY5PR04MB6472.namprd04.prod.outlook.com (2603:10b6:a03:1eb::10)
+ by MN2PR04MB6480.namprd04.prod.outlook.com (2603:10b6:208:1ae::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
+ 2026 16:42:47 +0000
+Received: from BY5PR04MB6472.namprd04.prod.outlook.com
+ ([fe80::3a9:9dbc:2aeb:8827]) by BY5PR04MB6472.namprd04.prod.outlook.com
+ ([fe80::3a9:9dbc:2aeb:8827%6]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 16:42:47 +0000
+From: Phil Rosenthal <phil@phil.gs>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Johan Hovold <johan@kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] serial: core: Shut down a running console port before
+ removing it
+Thread-Topic: [PATCH v2] serial: core: Shut down a running console port before
+ removing it
+Thread-Index: AQHdWxwrPqD4KhmrxEqZJAva4oT6Srb7pSwAgAAIToA=
+Date: Tue, 13 Oct 2026 16:42:47 +0000
+Message-ID: <61E0B380-1646-4770-BF37-E1E4329FEE86@phil.gs>
+References: <20261013-serial-console-remove-v2-1-2eca1a92c10d@phil.gs>
+ <2026101326-outmatch-regular-f8ae@gregkh>
+In-Reply-To: <2026101326-outmatch-regular-f8ae@gregkh>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=phil.gs;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY5PR04MB6472:EE_|MN2PR04MB6480:EE_
+x-ms-office365-filtering-correlation-id: 04ef6b07-9045-4d13-59f0-08df29490341
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|19092799006|376014|1800799024|366016|23010399003|10067099003|22082099003|18002099003|38070700021|261009223027099003|7055299009|4143699003|56012099006;
+x-microsoft-antispam-message-info:
+ o5SpXfAFeXumZ9EDlwi/5g184fi8Zt9u2pS/POIWOpvsNoV/hKpmZ+LO0/KHebQaT3qvYeGUP/ivtbgITJiFkEMjdKT3Cxz0K/BSSdleszacHFaIrv2EoZQA6PMyOtgXABl/Fv8LaAz7xVLyyMd3lvbFP9/7TLTxzNigrIi2mNsBxmr6vs28ToTDuTrIOGu+WAy3TJH9QKocYFvWT9XyNIchiZUaEvaJa5o39QtPoAili7pg6EIV8jlBu1PRF2pWw7p8M62Vt53SXabebm/tvtYO87coHOdCjJS7WgoTofvRKhKCtH+b8TfMM9SMUHF1yYhGGKPec2jbCSrdcF0YEwlc4n3Q1+qi7vt4t4su6rw4EmRVCFjTI2mgAPsUvp/HFYgxHY3whOPcstAvkcLN6Ivlmv2PQ7U+zyCFDKM4EtzFzbdwL0Z1yq5+oKBDi2DlkviyLbAAl0Ye/aJmRIOgHby39OHecD09JzlZ0KImCunX1R/jTqva3adSFqXIeQ13IOVxB+JMRqvFOS2PaXOuXgxCHJWNHOUt5WhoFZm9eFqQvDre1uggIWXeB+HaLEFjV/NOYiEg7qtzSl2F64N6D/y/wFgZwl7cnWqI6dxI5lNA4sYlyuUF3bvlpDB1V5RV00qYhHIebw9rCmqqMO2WI1bX3bIb4Dd7b7f+xrnBt01rSvbv16LjwvWqWv8/u5oHK1uf9G9Rnzly8FkzMZz42A==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR04MB6472.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(366016)(23010399003)(10067099003)(22082099003)(18002099003)(38070700021)(261009223027099003)(7055299009)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?n5A2qrd0DILEW/3nBS9jTMxq5ej9nkJJRWtTrF/l8WZoVkUPbb1rsK6cZzgP?=
+ =?us-ascii?Q?lGREyjDPXAYums08ddTEYzEIi0gOggz2KUWKpInZJjrLXYhRa5frLqNWneAM?=
+ =?us-ascii?Q?oeiEjYhckDAfjpANcBl5h4BQwQey0cKn1IvUKivRDrfJ4c0pAS6T4DB1no1Q?=
+ =?us-ascii?Q?ycedM/g/q3RTsMqBiuUhaTgFGN64lMcWJbxYGeit3BDrURxi+de7GUavyfFC?=
+ =?us-ascii?Q?lZWDHk1wRJYp6qRyWxEM76dnQZJSH9jwQ0XrupqlgGy4J956Cpju1qv3xVSd?=
+ =?us-ascii?Q?u/bHHndboI5ule4fCp53KNoYjjq7v7Uz27Dqjndjx5yPTvkzWgqz++AZxPtz?=
+ =?us-ascii?Q?NrrV6yfUtbfYfqse/aZq+OHuLhm0Uej8JTriNrbOR8WyPuclZJFX898zniNG?=
+ =?us-ascii?Q?F8Nh96lhhpS0mCjFQJa3I0cFWl2y7/x1YNVs3YgmvP38BTC1G29Fc1wWqErV?=
+ =?us-ascii?Q?Q2HUmDmnxecjnIMndeW8APlGGygGJPa2GrlyZMvYX0EITi8TDl2jw9O9EOd1?=
+ =?us-ascii?Q?QuiV+zRzSfbzr0UNKYWnNMNZ6WlLm4VFFAWpxrAyxEC+gTifFK5NaUfAjC6L?=
+ =?us-ascii?Q?qIL37mjLzGvo0p2BZILuLcxzcs2Jwu2hv8MuUs6mru75jWMv5nmF1VYUIOdQ?=
+ =?us-ascii?Q?ZuPrjA0zyr204exh13ZyD3piRH0B7uBzf192U6q+fGoFbV3eLN8nlEBw7NMo?=
+ =?us-ascii?Q?7KwPXl9Il0ht7c4ErDQ3Fic0Gesm8lwBMXFN0umOTwg+4xp6LYbYPiqqBOKV?=
+ =?us-ascii?Q?48NKpDuyA/r2BLOQNB2Vh0jZ4vnNOqUyIos7XSLu6poMa9y/v82wTrchpLco?=
+ =?us-ascii?Q?ravv0IcW82/rIlHaE9Z1LknxndHh09tz2V6miHSQ5fxwJ3uEWgpd4aZzsEe7?=
+ =?us-ascii?Q?cQUDtmzqjuCoUcV1hndCTsWih+4UvfEW6fVHgAWUedQMwAkQP9MPah+OGUMy?=
+ =?us-ascii?Q?8pdxx5jjIYpdk6ks79H1uPkhtjPMhU9GYnPbzFYMat+3oAmgd6pvGBPVN7T3?=
+ =?us-ascii?Q?FW3z+OqNlITLVfF2Q3O//To2qDE7HI8c8wKgp8PVP3eipIWi2c4fmd6ZvZgU?=
+ =?us-ascii?Q?2o57Phad4nSJLa8PmKXTWyb/srYPvV8cTHidSVzqr+kHpKEMkM3nxWZg4gBi?=
+ =?us-ascii?Q?mMJZPb0uV3RweIsesE6W+fBwKGjuBP3pO3xezjefMA+PT1GlhjOlRdDVYw6s?=
+ =?us-ascii?Q?utrEIkYEd0KdOLQEHCzoMf4cDHZ51xV5E4nmXbRaZ8Ssy0IYK2RYe7n2sw4z?=
+ =?us-ascii?Q?40p7TvZgkjNlW6VK7vnT3Iot8R6BncS5UJzLcFu5CPjJ5UZl1ysAos0oULjo?=
+ =?us-ascii?Q?qnBrRwnyaSfYydBWaCUanGmuB/3MxMQiREl1CNELFxkbV9ubrGgfGlaZPoDZ?=
+ =?us-ascii?Q?ChbcVHpFnaQ9R/cBmcnQ9bklu3/A6AXSyUY9WHVGJo1ofjhimu5uJav8f7Rq?=
+ =?us-ascii?Q?8hDBIiy4tBEMSjZnTwXwlXDTC8GHx3osLgs79C7h//0zi8IDqHuOdQs3uDsH?=
+ =?us-ascii?Q?bVAsfY4AcwxijdOPHUbA2MOfmiijSW+CvKcsEwxH7MzR8EH1usOefA8AcTQF?=
+ =?us-ascii?Q?qUuutjUlSFGwQjAw/Nv8YCKIRhzdb33tFrhno3YPCX2MjH/70IQU9zz3Xjzh?=
+ =?us-ascii?Q?SYwDaExV8wM7tLEiUsj5LHt34KUDjxUfoMzlSsQ8BA6a9PjaYsl/ixw4Feoj?=
+ =?us-ascii?Q?/uKh+Akb99T7JLF6e7hFk24nqd+lTpbLcjYhSN/8AB8lgFC4?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <72AA720810B06C4E97C6B86562907FB5@namprd04.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003003136.750633-1-hebaoquan@kylinos.cn> <asZt7-8mcxqc1a02@soda.int.kasm.eu>
- <asylV5YyyaHs8rP3@fedora> <565e1744-54ff-4daf-ac14-7b6c49fd3fa2@kernel.org>
- <as33VMjNRIZOG5Ua@MiWiFi-R3L-srv> <d6209813-d53e-428c-90a9-6404618d0804@kernel.org>
-In-Reply-To: <d6209813-d53e-428c-90a9-6404618d0804@kernel.org>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Tue, 13 Oct 2026 09:42:38 -0700
-X-Gm-Features: AclHuK-ryAPyn7SnvcpWGj3a4GSukncAVwfSrD3pFoQuFgdkLOUuj2IqX2pNiK8
-Message-ID: <CAKEwX=M6iVBGDs21obLu3Ese_wHuQnspsSdo+HddhCeecn-L8A@mail.gmail.com>
-Subject: Re: [PATCH v4 00/14] mm, swap: extendable swap devices (xswap phase I)
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Baoquan He <baoquan.he@linux.dev>, Klara Modin <klarasmodin@gmail.com>, 
-	Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org, akpm@linux-foundation.org, 
-	chrisl@kernel.org, kasong@tencent.com, hannes@cmpxchg.org, baohua@kernel.org, 
-	youngjun.park@lge.com, yosry@kernel.org, shikemeng@huaweicloud.com, 
-	chengming.zhou@linux.dev, linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: phil.gs
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR04MB6472.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04ef6b07-9045-4d13-59f0-08df29490341
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 16:42:47.3570
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 47d4f979-ea6f-4fcb-aea9-39371d64bc6b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ca9kmkzJbNTc5nLuwgFLZiLRv5lI72YSlOM3aRuImh7cd5Z2ZfIlV0BPIk0UgxTU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR04MB6480
 
-On Tue, Oct 13, 2026 at 8:08=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 10/13/26 11:18, Baoquan He wrote:
-> > On 10/12/26 at 03:44pm, David Hildenbrand (Arm) wrote:
-> >> On 10/12/26 11:16, Baoquan He wrote:
-> >>> Hi Klara,
-> >>>
-> >>> ...snip...
-> >>>
-> >>> Thanks a lot for careful reviewing, and sorry for late reply.
-> >>>
-> >>> ...snip...
-> >>>
-> >>> Thanks for the comment.
-> >>>
-> >>> Here xswap.max=3D is a global boot parameter, while not a per-device =
-or
-> >>> runtie knob. It sets the space space (si->max) of the xswap device
-> >>> at boot and can't change at runtime. So on the two places: the size i=
-s
-> >>> a global setting, fixed at boot; the priority is per device, it is in
-> >>> the create interface. They are different things.
-> >>>
-> >>> The default is 2xRAM. From our earlier discussion, this is the larges=
-t
-> >>> size we think is sensible, and in practice I don't think it is not
-> >>> reachable in reality. If a system has swapped out 70% of its memory, =
-and
-> >>> even more at 100%, it is already doubtful that it can still function
-> >>> normally. So 2xRAM is an upper bound, not a target.
-> >>
-> >> I remember some overcommitted hypervisor setups where people swapped o=
-ut
-> >> significantly more -- without any issues.
-> >>
-> >> For example, Windows VMs initialize all VM memory when booting up. Aft=
-erwards,
-> >> you might just have plenty of memory that was touched once but will no=
-t really
-> >> be used in any near future.
-> >>
-> >> So I would consider some crazy hypervisor scenarios as well where peop=
-le
-> >> commonly have significant cold memory that is currently not hot (not i=
-n the
-> >> working set) but might possibly used in some distant future.
-> >
-> > Hi David,
-> >
-> > Thanks a lot for the valuable input. This is probably the first first-h=
-and
-> > information I have heard about a production environment. And Klara
-> > measured about 160% of RAM in zswap on her RISC-V box, so the 2xRAM def=
-ault
-> > is reachable in practice, not just in theory.
-> >
-> > So I see 2xRAM as a default, not as a cap. xswap.max=3D already overrid=
-es it.
-> > After your comment and Klara's numbers, I am open to a larger default, =
-or to
-> > a "max" value for the address space. The real limit is still the backin=
-g:
-> > the zswap pool plus the block devices. The address space should no long=
-er
-> > be the limiting factor.
-> >
-> > By the way, in Windows-VM case you mentioned, is there a block swap bac=
-kend,
-> > or is it zswap alone? If it is zswap alone, the knob that matters is
-> > zswap.max_pool_percent, because it sets how much cold memory the pool c=
-an
-> > hold.
->
-> Excellent question: I don't remember all the details. There were talks ab=
-out
-> over-committing up to 400%, and people played with both zswap and zram to
-> avoid/reduce IO.
->
-> I assume as a safety net people would always look for an additional swap =
-backend
-> (that's what I remember, but I don't recall all the details).
+On Tue, Oct 13, 2026 at 06:12:52PM +0200, Greg Kroah-Hartman wrote:
+> Is this the same as:
+> 	https://patch.msgid.link/20261003163337.45577-1-igorpetindev@gmail.com
+> ?
 
-I think the better question is why do we have this knob in the first
-place. If there is no justification for it, we should not add it.
+Yes, it's the same bug and the same fix. I hadn't seen Igor's patch when I
+sent mine, sorry for the noise. His is in tty-testing already, so
+please drop mine.
 
-We should start with the actual usecase, then figure out the
-interfaces that best support it, rather than just expose the whole
-gamut and burden users with potential misconfigurations. New knobs are
-easy to add, but once a knob is added it'd be much more annoying to
-prevent user from misspecifying or to deprecate it.
+> Why does that commit set a field and this change does not?  Which is
+> correct?
+
+Both work. Clearing port->console isn't needed for the fix, and it does
+no harm. uart_shutdown() doesn't look at that flag. It is only read in
+tty_port_shutdown_locked() and tty_port_close(), on the last close of a
+tty, and by this point any open tty has been hung up, so
+tty_port_close_start() returns before either is reached.
+serial_core_add_one_port() sets the flag again when the line is reused.
+
+The other difference is that Igor's patch calls uart_shutdown() only if
+tty_port_initialized(), as my v1 did. Sashiko's review of my v1 pointed
+out that a console port removed while suspended is not initialized but
+still has its suspended flag set and its transmit buffer allocated, and
+uart_shutdown() would clear both. That needs the device to go away
+between system suspend and resume, and I haven't found a way to test
+it. If you want it covered I can send a patch on top of Igor's commit
+that drops the tty_port_initialized() check.
+
+I ran my reproducers on tty-next 36844ea19656 plus 810d467c11f0, in a
+QEMU guest with KASAN. Both cases that fail without it are fixed: the
+8250_pci port with INTx (IRQ freed on unbind, reading /proc/interrupts
+is clean, rebinding restores the console), and the polled MMIO port,
+where serial8250_timeout() no longer runs after removal. A port held
+open across removal and a console that was never opened still work.
+I'll send a Tested-by on Igor's thread.
+
+Thanks,
+Phil
+
