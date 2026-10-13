@@ -1,132 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A22925275AE;
-	Tue, 13 Oct 2026 15:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D947C52844E;
+	Tue, 13 Oct 2026 15:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906278; cv=none; b=VCxNUMY8cjlpohlClLFEwYRjERJpM3oiTHbT5oSxVrh8bOD+MDAtWhOwvEK8jqhTDYT9hp3lHTkUWJ83tcYpZXuyqU1lq50IWALph06hweT7iHBDPSxSCaCXfzuR0RAaTAyOfqW7tCcK0/SExBj42PVfi+aWmoDQUv0FjvJeUrQ=
+	t=1791906280; cv=none; b=ZdVP05T+jLxLGdMrv7W8OS+Rvf8REBY25z8cF+7vZqPMRrirvyCoLXiYmCA6fNNcFlvZz3UUZE/EJi5AjNn2zwv34Db6ETLLQf2PN68F8TJizlC8UsP+sZi9DkMVoKDoq79OVGE/wYLnsrKRtSHsYHH3sel35nKjzIbdUtPmqis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906278; c=relaxed/simple;
-	bh=l0H5Qlc/PH3/u7SQQh0cqFPLqpvcc0kCasrNiwZvpn4=;
+	s=arc-20240116; t=1791906280; c=relaxed/simple;
+	bh=bpYiHUkiDLSsNZGmb/pnOyEnoZtbpqX2C3B3Y7PD/5w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tOwpije1PwY7OKxtl7nyX+ZeHe5/x8lkhsA6kRg0EOaUttY1mnhPwXccUw4t/GoIp+F9c1v6KoVMg9QYBMhEZRUaVGAxkKk4GtBKecMGYB6zjzYpKji3stX0C3kllGNG18U8FlQ9okY8YxyMWpzmQokJYlIAI4p6bLB0SGavq9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8D9GRAw; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=uEuJbkfs5tsEqLSjcF3UjWuyZxwvgvNJfbJmhoUhPaadd47plvJfhXY2P7oK1oY6+EskotgkFX1Nj33bu8cV+HVyD3DlN1cBYSTWEgpnYJvo0RY/P/4MahboJwEJ4V3cN6D9R0k99Ikc0HDhWrw6Z9MHiFzylmi2WAxGc5Zu9IU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lsDydDwk; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8D9GRAw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47E41F000FF;
-	Tue, 13 Oct 2026 15:44:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791906277;
-	bh=o/DpTvlnWWp99dowUQXU1BLV47DN0YMWpoqq38I7qzM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I8D9GRAwFmo1rdK/lDmYrdYP1YtZci3aovsdFYF6SlUWAmrRy6mV2wciVLzUMiFEf
-	 0LFgtUNNx2SIuZBrwH/T1ItrWhdZWqkeC1tBUrlPaxjC0Mr6nxhUvGLOujWy1YLOg4
-	 9NEbdJY/QRp1sIgZ6Us2XxzCei/qNgx18/UlWVSm3fRMrrKzDeY9HvpWpA3BNBq4bK
-	 b7OefKLXCbieobbOpN04MxglenF/Xaoj6LcWWvFoJEj2d8LSYZ1347LawCsnbyBeJK
-	 jumvzfADljgZcIcLRYs1Gx09iTkpCwlhqR+DgQUlNG9p10kBQe3JqbsXncWo2OAW2p
-	 dSgG+v5dFQZmg==
-Date: Tue, 13 Oct 2026 17:44:34 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	Aaron Kling <webgeek1234@gmail.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] drm/nouveau/tegra: Keep the fuse clock enabled while
- the GPU is powered
-Message-ID: <as5Q_Ukc9Ivzpzg0@orome>
-References: <20261013145210.103565-1-sashal@kernel.org>
- <20261013145210.103565-3-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lsDydDwk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791906279; x=1823442279;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bpYiHUkiDLSsNZGmb/pnOyEnoZtbpqX2C3B3Y7PD/5w=;
+  b=lsDydDwkw1f2MOo24OKuiGLfhGia/430X3/F45y+DbUm6x3h2FIrmffq
+   U6ZzLDaLtel0RI4vcU1k/XBHi5jWAKDbRp908Ax9dJpdoQx6J91wSCZoV
+   y1IfPhOaNslRPLo26mQLisMz+oF+cbOEqCT3xL4EETCLqwEqzxIKWaGMl
+   JUDixzWAqGg/qczIqGOKh/XllsDZB8iUoAU9jxuNR5CbjB/90NVaGCMP7
+   tn5yuFyP4beWlvIswTmxB7PdIJ9SPSBkcHG9o0Tb3Ss00Usp0r2g1PG0+
+   wdam+sTYxLbUtoECyhKovxPI9CwJmmnoaBBj7TXA/X6mzzQMmKD7vZquO
+   w==;
+X-CSE-ConnectionGUID: Y5LkYIVESEemeIDiW+p/4Q==
+X-CSE-MsgGUID: oK0b/QmbRCqmI4P1p0fdWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="536893"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="536893"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:44:38 -0700
+X-CSE-ConnectionGUID: mPNPvy5VTbWCXF9BKy9NEg==
+X-CSE-MsgGUID: FWoakw2QR7y+UgC0upoBZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1632690"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:44:36 -0700
+Date: Tue, 13 Oct 2026 18:44:33 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 3/6] gpiolib: cdev: do not free line IRQs again after the
+ chip is removed
+Message-ID: <as5R4WDqXfMXkD2L@ashevche-desk.local>
+References: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
+ <20261012-gpiolib-chip-removal-v1-3-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rs5rzstks4prssel"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013145210.103565-3-sashal@kernel.org>
+In-Reply-To: <20261012-gpiolib-chip-removal-v1-3-aambrozewicz@nvidia.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Mon, Oct 12, 2026 at 04:49:57PM +0300, Adrian Ambrozewicz wrote:
+> Since commit ec8b6f55b981 ("gpio: free irqs that are still requested
+> when the chip is being removed"), gpiochip_remove() calls free_irq() for
+> every action still installed on the lines of the chip. The character
+> device does not know about this: a line request or v1 line event that
+> user space keeps open across the removal still holds the IRQ number and
+> calls free_irq() on it again when it is released.
+> 
+> What that second free_irq() does depends on what happened to the IRQ
+> number in the meantime. If the chip disposed of its mapping, the
+> descriptor is gone and the call returns early, or, when it races with
+> the RCU-deferred free of the descriptor, it touches freed memory, as
+> reported with virtio-gpio. If the number was handed out again, for
+> instance because the same chip was set up again, the call finds a live
+> descriptor without our action and warns:
+> 
+>   Trying to free already-free IRQ 28
+>   WARNING: kernel/irq/manage.c:1881 at free_irq+0x193/0x2d0, CPU#2: gpio-hold/111
+>   Call Trace:
+>    <TASK>
+>    linereq_free+0xd2/0x120
+>    linereq_release+0xd/0x20
+>    __fput+0xed/0x2a0
+>    __x64_sys_close+0x38/0x80
+>    do_syscall_64+0x109/0x5d0
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>    </TASK>
+> 
+> Stop edge detection from the device notifier that gpiochip_remove()
+> already calls into, rather than when the request is released, and only
+> free the IRQ there if it still has an action: chips that never mark
+> their lines as used for IRQs, which gpiochip_lock_as_irq() leaves to
+> the driver, keep theirs past gpiod_free_irqs(). The release path then
+> finds no IRQ left to free. The notifier takes the request's
+> config_mutex, which is otherwise only taken by the ioctls, so that it
+> does not race with a concurrent reconfiguration of the lines.
+> 
+> Reproduced with gpio-sim: request a line with edge detection, set the
+> chip's configfs "live" attribute to 0 while the request is open, set it
+> up again and request the same line, then close the first request. Each
+> of 30 cycles warns as above, for v2 requests with and without software
+> debouncing and for v1 line events; with this change, 100 cycles of each
+> pass without a warning.
+
+...
+
+> +/*
+> + * gpiochip_remove() frees the interrupts still requested on the lines of the
+> + * chip being removed, so once the chip is going away the IRQ may no longer be
+> + * ours to free.
+> + */
+> +static void free_line_irq(unsigned int irq, void *dev_id)
+> +{
+> +	if (irq_has_action(irq))
+> +		free_irq_label(free_irq(irq, dev_id));
+
+In all cases it also checks for irq to be valid, so embed it here and drop
+those checks below.
+
+	if (irq && irq_has_action(irq))
+
+> +}
+
+...
+
+>  static void edge_detector_stop(struct line *line)
+>  {
+>  	if (line->irq) {
+> -		free_irq_label(free_irq(line->irq, line));
+> +		free_line_irq(line->irq, line);
+>  		line->irq = 0;
+>  	}
+
+This, for instance, will become
+
+	free_line_irq(line->irq, line);
+	line->irq = 0;
 
 
---rs5rzstks4prssel
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/3] drm/nouveau/tegra: Keep the fuse clock enabled while
- the GPU is powered
-MIME-Version: 1.0
+...
 
-On Tue, Oct 13, 2026 at 10:52:10AM -0400, Sasha Levin wrote:
-> Since the GPU on the Jetson TX1 was enabled in commit d1b725476104
-> ("arm64: tegra: p2180: Explicitly enable GPU"), nouveau often fails to
-> bring up the GM20B. Either BOOT_0 reads back garbage ("unknown chipset
-> (5ffefa47)"), or PRI reads of the GPC PLL time out ("MMIO read of
-> 00000000 FAULT at 137000 [ TIMEOUT ]"), or the first register reads in
-> nvkm_device_ctor() stall until an asynchronous SError. How often depends
-> on the board; one board fails on every boot.
->=20
-> nouveau powers the GPU up with the fuse clock gated: since commit
-> 24a15252ff04 ("soc/tegra: fuse: Add runtime PM support"), the Tegra fuse
-> driver only enables that clock around its own fuse reads. NVIDIA's
-> downstream nvgpu driver enables the fuse clock along with the other GPU
-> clocks whenever the GPU is powered. Do the same: take an optional "fuse"
-> clock and keep it enabled from before the GPU rail is turned on until
-> after it is turned off.
->=20
-> Tested on eight Jetson TX1 devkits, on mainline and on v6.18. Without
-> this patch, the GPU failed to come up in 27 of 109 boots; with it, in 11
-> of 291, none of them with a garbage BOOT_0. On the board that failed on
-> every boot, 38 of 40 boots now succeed. The remaining failures are
-> mostly a register read that stalls until an SError; wherever the console
-> shows when, nouveau had already finished probing. Such stalls also occur
-> without this patch and are a separate problem. The Jetson Nano, which
-> shares the Tegra210 GPU node, still works (24 of 24 boots).
->=20
-> Fixes: d1b725476104 ("arm64: tegra: p2180: Explicitly enable GPU")
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h  |  1 +
->  drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c | 13 +++++++++++++
->  2 files changed, 14 insertions(+)
+> +static int linereq_unregistered_notify(struct notifier_block *nb,
+> +				       unsigned long action, void *data)
+> +{
+> +	struct linereq *lr = container_of(nb, struct linereq,
+> +					  device_unregistered_nb);
 
-Given the failure rates, I'm almost tempted to say we need to break DT
-ABI and consider the FUSE clock to be required, in which case the driver
-should use the regular devm_clk_get() instead of the optional variant.
+Slightly better to have it
 
-As you said, we probably got away with this for a long time because we
-either didn't enabled the GPU by default or because the FUSE clock was
-always turned on. Or we might've tested GPU as built-in, in which case
-the FUSE clock might have still been on (not disabled after early boot
-yet).
+	struct linereq *lr = container_of(nb, struct linereq, device_unregistered_nb);
 
-Thierry
+or
 
---rs5rzstks4prssel
-Content-Type: application/pgp-signature; name="signature.asc"
+	struct linereq *lr =
+		container_of(nb, struct linereq, device_unregistered_nb);
 
------BEGIN PGP SIGNATURE-----
+> +	unsigned int i;
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOUeIACgkQ3SOs138+
-s6E7Jw//Ra2WC610+ntOAnEJIGZQnFcG+pqpEU+qyfYMtfOhjSe/1LsDl+RjcyWP
-L5QyNudF3CgNdrrdIX4GgSiP9GTndRC/HpSlzhiVE+dzC09OIzeBW7+DQhkqE+b5
-hrA/50PY72fOmVnVQMh+0hJZCpuLXBXsKACfOxe436YP3KRm5ifKIrDw6ISn1NTL
-YwZzwfForf/VA07oeGPYhEiKoQ4aTBnz16Wo3lPO5l3lJySvPR4LHt4TLvOxq9IP
-asx5zqy1CGrQ4Y/WLBvY/ken6ftOqLhfj1vwGa9nY8z8LdQVzB7FBn0icnF4YhQy
-PPvmUlVYLOS0wr0bZUBkzgMXf8oTa4QTSFgd9RBnowKaFSFTvpyZBsLLaSSngvI8
-se1zFuCL+Y24z4ymXkC1G3cWnHBUdWRHEwW8YIXDLmo4BupTwuSaBmoMRI/koO1K
-05ZaItgd6Mg+KRGGjdhxtKGDpC+mui3bgaCnI20yJ+c/7sgoge/7yJc6v+l5mEIJ
-mXQoJStSjCcFI1otGSomsqYrdhr+GSDdz/F94iA4YBj4mImVgr3elFAYwOD5KCqw
-AgrHyC2Ji0/wOC5RIQGsQ5AcSavBD12YN6pLIxUkOQiq9MB4MDqZtpdSx2a2IACw
-HQ+iUVypNFyvsry686OpVM1gnyNIYUQtDvOZuCoXfismGNlLwM0=
-=3s21
------END PGP SIGNATURE-----
+Not used outside of the loop.
 
---rs5rzstks4prssel--
+> +	/*
+> +	 * Stop edge detection now rather than when the request is released:
+> +	 * by then the IRQ numbers of the removed chip may be in use again.
+> +	 */
+> +	scoped_guard(mutex, &lr->config_mutex) {
+> +		for (i = 0; i < lr->num_lines; i++)
+
+		for (unsigned int i = 0; i < lr->num_lines; i++)
+
+> +			edge_detector_stop(&lr->lines[i]);
+> +	}
+> +
+> +	wake_up_poll(&lr->wait, EPOLLIN | EPOLLERR);
+> +
+> +	return NOTIFY_OK;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
