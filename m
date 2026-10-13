@@ -1,78 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9AF3B8BC4;
-	Tue, 13 Oct 2026 09:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068364457D3;
+	Tue, 13 Oct 2026 09:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885442; cv=none; b=omdy/Uyayj/g6+DTw0JKNca9VuYRGZjS3KPGX+UKH4ujpBti1SYsitbJQziBt91yBigW6KiNmVVluSkTO4J0WYf6jNVp0dGSzOJ0jj6CTS/CrwCXCfLs7BoADmMIU1phzWYiUWJLb047QRcMi8PgEVP5vEJqnv/ZWU5jeO/rq2A=
+	t=1791885446; cv=none; b=XNOvenUnpI8hYqIveHmTXlUaBs8Bt+bWCn8bqQCvnkmCK9Yfgs0R5OGiWiRqVM7aWHsBl8KA5GAVA3PU7aPjS/x6raMWU/P5iDzEA7ztaCOUv0aTFaqOGj3yEbKluDIJUrn5O7/vVSEPUZNEB8fvfoqdZbdznrbbh3X3si977E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885442; c=relaxed/simple;
-	bh=HGoeeZITY1yiqWKPCRyOegKLth8A2d88tkJlPFv5jJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bJyeUDuubaJyT1VnAseuYVcepyDAg/vvI3fKtSjy5kZMfGIraK5dFl66vGVSiXKmVxY0VzJ5UIum1+SBrO/HJNoKJPJoZVV0kZlImieLMxEmycAazO9vlGjsuGR0Bh8uAWSW+mb9U55z8XTYc5NWqQCL5YBae71bq1AX2e2TP0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVmjV3TC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791885446; c=relaxed/simple;
+	bh=wAyQuMPhgE7rIEwhefUVJK9Gj7Sb6CQB4NMZXZ/y73U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JS+Er1X1QWAlefnRzdYyyr0nvlY3JC0x3MY7X+kI8HNX3OEij1xVk+qywJfHAaknPipAjMULatp2YX9ewuCh7zEYb5TE1/l9xibBpxBCcKCT2nW7OrIIZijw/3JNdq8daN4e3iQCDnsE4uit6pwSIGCnv8fyrFoZVmkdgmYl+EM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i41BwXJl; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVmjV3TC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FBD1F000FF;
-	Tue, 13 Oct 2026 09:57:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791885441;
-	bh=veCpztZVQ0/cgy+OxvseE+wNCflm5n0ceWAT1R4Yum0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UVmjV3TCF6PyZGIxzC3hOmgxGjwEOr9DY+UYRT3mFLXIkgFwMVepBE2eytkPVczlv
-	 Lifc6k0g+ZxPgi7YH4j7ZXspcPPnr06K5IDXqChhPZ4HNgXOaawufKHBnhTNcFVSql
-	 rAU0PpMlHy9VJuI6CEEMTMOTupR6Y3VdUwTUAoHmxYyULnBJ0UMJeq5rQrfBAgTeyD
-	 VMBx2RRXqDvLbzoSQWV6CxO8mGXDyui8nH5/r/TmTaR+Rm/k/EI3O5gV6vbiCdp1iJ
-	 2iUQHBVPbE5IEoSh1/QfstI22OkftOw877p0qxMv41ZPi+jITo2zrO0a8T2qgHJ7wE
-	 UIZ4rTM3VwE7w==
-From: Mike Rapoport <rppt@kernel.org>
-To: kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	David Matlack <dmatlack@google.com>
-Cc: Mike Rapoport <rppt@kernel.org>,
-	Jordan Richards <jordanrichards@google.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Subject: Re: [PATCH] selftests/liveupdate: Prefer KVM and HVF over TCG in vmtest.sh
-Date: Tue, 13 Oct 2026 12:57:13 +0300
-Message-ID: <179188542242.4186121.17333029282373982813.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261008132813.1966023-1-dmatlack@google.com>
-References: <20261008132813.1966023-1-dmatlack@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i41BwXJl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791885444; x=1823421444;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=wAyQuMPhgE7rIEwhefUVJK9Gj7Sb6CQB4NMZXZ/y73U=;
+  b=i41BwXJlW7jISi1dW+SOi8/3CnUzmoSmFIo9tTF1Ct+rmLumfED1Hrwc
+   RZtz9Grbaaa00qgOnbKQk1ztlt4BLje+G+aOlBCfhfxK/WJzvwwS1le/6
+   tnbLUhn1/rla/3+EJlDi+krg3c3+GN/EiW2/cbfTXXadKnjCRAbncD9I8
+   dazQ+xiN3abkUSqzF89CB2IINlIWaqJrIFDPcUuYuMEcQkc5VDSNJmtVl
+   KyIHJZhAorRWhLmrCyEnpG0J+SEgweogUolRNvscAtuSGCopFUH829778
+   mWwaABW170osG/K6MsPSLQHkZLSoOYfgxMogvxxyfqWKmrarzyAMULRnD
+   g==;
+X-CSE-ConnectionGUID: D+j/ek1mS0SFIhy3NbNrdw==
+X-CSE-MsgGUID: yIaivFhzScGGRLsIujGOTQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="503914"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="503914"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:57:23 -0700
+X-CSE-ConnectionGUID: 6mFUfCpoRmmKhwwO3Js6pA==
+X-CSE-MsgGUID: nJkODKsoTUuyfwXkvOtNng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1055004"
+Received: from unknown (HELO [10.238.2.98]) ([10.238.2.98])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:57:21 -0700
+Message-ID: <4c41933d-b43f-4ae7-8b80-fa97ef4d4623@linux.intel.com>
+Date: Tue, 13 Oct 2026 17:57:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 07/10] x86/virt/tdx: Convert the td_conf metadata
+ reader
+To: Chao Gao <chao.gao@intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+ kvm@vger.kernel.org, yilun.xu@linux.intel.com,
+ tony.lindgren@linux.intel.com, rick.p.edgecombe@intel.com,
+ nik.borisov@suse.com, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>
+References: <20261012094754.27702-1-chao.gao@intel.com>
+ <20261012094754.27702-8-chao.gao@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20261012094754.27702-8-chao.gao@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Mike Rapoport (Microsoft) <rppt@kernel.org>
-
-On Thu, 08 Oct 2026 13:28:13 +0000, David Matlack wrote:
-> Pass the -accel options to QEMU in the order KVM, HVF, TCG, so that
-> vmtest.sh prefers to use KVM and HVF over TCG when they are available.
+On 10/12/2026 5:47 PM, Chao Gao wrote:
+> Continue converting the metadata readers to the table-driven helper.
 > 
-> QEMU uses the first accelerator in the list that initializes, and TCG
-> always initializes, so the tests currently always run under TCG, even
-> though the commit that added vmtest.sh describes "automatic accelerator
-> detection (KVM, HVF, or TCG)".
+> The "TD Configurability" class holds several scalar fields plus two CPUID
+> arrays. The arrays have a fixed capacity, but the number of entries to
+> read is variable and reported by the num_cpuid_config scalar field.
 > 
-> [...]
+> Add a table that pairs each scalar field ID with the 'struct
+> tdx_sys_info_td_conf' member that holds its value, and read those fields
+> by walking that table.
+> 
+> Annotate the table as __initconst as it is referenced only during init.
+> 
+> Leave the two arrays open coded. 'struct field_mapping' pairs one field ID
+> with one structure member, so describing an array would require a field ID
+> per field plus an entry count that is unknown until num_cpuid_config has
+> been read. That is not worth building for the only two arrays the kernel
+> reads.
+> 
+> Read both arrays in a single loop, as both have num_cpuid_config
+> entries. Store each value directly into its array member instead of
+> into a temporary u64 first. The members are u64 already, so the extra
+> copies serve no purpose.
+> 
+> The inner dimension of cpuid_config_values[] is fixed at 2. Read the
+> two values with two calls instead of an inner loop. This saves a level
+> of indentation and is simpler to read.
+> 
+> AI was used under supervision to review code and workshop logs.
+> 
+> Signed-off-by: Chao Gao <chao.gao@intel.com>
+> ---
 
-Applied to next branch of liveupdate/linux.git tree, thanks!
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 
-[1/1] selftests/liveupdate: Prefer KVM and HVF over TCG in vmtest.sh
-      commit: 48e6e4202e12af36671c6479b9ebcb8212d37cbb
+> +static __init int get_tdx_sys_info_td_conf(struct tdx_sys_info_td_conf *td_conf)
+> +{
+> +	int ret, i;
+> +
+> +	ret = read_sys_metadata_table(td_conf_mappings, td_conf);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * The number of CPUID config entries must not exceed the array
+> +	 * sizes.
+> +	 */
 
-tree: https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux
-branch: next
+Nit:
+The comment seems to be redundant since the code itself tells it.
 
---
-Sincerely yours,
-Mike.
+> +	if (td_conf->num_cpuid_config > ARRAY_SIZE(td_conf->cpuid_config_leaves) ||
+> +	    td_conf->num_cpuid_config > ARRAY_SIZE(td_conf->cpuid_config_values))
+> +		return -EINVAL;
+> +
+
+[...]
 
