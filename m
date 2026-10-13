@@ -1,116 +1,93 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6298C3C1991
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF4552CCEB;
+	Tue, 13 Oct 2026 17:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914040; cv=none; b=CUrwgZyp1LQpiIyLYTNmMFFOX/YDUmCrxgj3Vev4oBoRL49zRrIdDpw0zHp43p/i6HzLNxoNBtVDQ1eq1xVdgH0FlHCgutC1jyzTUVk/O/mCPG3V9gNGtWncEWPnUo2WQt35Dak9+qOOIMMCVfZ19l39l9d3Skc2Q+D73YM5m2M=
+	t=1791914045; cv=none; b=lD4yUvEDM9AIdjm3Mqs78hK9eIEYGmQ2vVTyYddY2+yPwgRXYJmNsEIQztshUIOL5A0Zd5KT0mx8JjO6dD4k2CdtT40CMjr399KuuwZV0Ikik9m6R/nr+kLPM2Y9cybsPE+kL5cXg/cgzfPYYQ16F85SktGlSlRELSeQlMw5/04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914040; c=relaxed/simple;
-	bh=7db3oz64b7yxs9ESxCYn1Dz/OmFBsvZAtNt7LTOql5k=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=k0gljRoBEcpFUAjFmTUv4cnISe1aCsm6vCv6Gg7j9eSRi666A1/L5+8oYxxs/mp94Lr/vxyJHoYdnA6OtlbTsVlYqlc35JebSJgLggvm/fpjNPcAcnEoJKc7vplO3bIEDE1qzcoHpujtv7FkapjwirrzGKAJEqQSarIJHQIFTX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=egWSUTHv; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791914045; c=relaxed/simple;
+	bh=hp1dTw3hRxiZBvSzxIR3eaRSSMR6S7lRt7/KxcL7YmU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=UMQJkSxW7BYTfdk6GaaiDxU9w1vnnTdK3PtPQvySHxXgdK3z2WgIAf5CtgwwYCyOQOOBPJBPCFwDQaIQ3RDorzm8z3nMEilx78MFyW0I7COm8Z8iMdN7jADl4QwP+/k53RiikeoTmwfvPWJHaPOighGYfzUul/7SarsktK8isKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OWFaVuM9; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="egWSUTHv"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id F22991A1215
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:53:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C6B8860362
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:53:57 +0000 (UTC)
-Received: by mail.galae.net (Postcow, from userid 0)
-	id 58EA211D717F3; Tue, 13 Oct 2026 19:49:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791914037; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=p8FY1M3Tv1hRQvQP6OVRnYrzYJdfnF28OpzD0RZsP+Y=;
-	b=egWSUTHvm0Xt2ww9jSmj6rYVBIy6xY5n5EOrcs5A3OILu4en/knsWHxZOZEwWdwFqe2wbI
-	Wu92SJL3RHo2AHVkm+HRJjWFo1mzQ4XWm2TjBOqDN6yUAPmKHjd0jBTrP3CTjKFIWC6BTC
-	EOa72MDH4AdCsNOXj6vySle7Bva8ad8PqNxMg7VRJRYzVYefPqJZEgDTE0iMyw0e306u3w
-	MvttzCOKnCjYbTK8r39Hf8a3WMGNdyrpm74o+wc9ziB+r8UXZXxlug0OaAmHt6gR1wjT3+
-	Fm4dmFlAk1ICgAz0SwrnL4LSoU3x97Kk7ml5PUcKiIMT9ADdY9t82t3WHTdY9Q==
-Authentication-Results: mail.galae.net;
-	none
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Orgad Shaneh <orgads@gmail.com>
-Cc: richard@nod.at,  vigneshr@ti.com,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mtd: cfi_cmdset_0002: also clamp the write buffer of an
- x16 part strapped to x8
-In-Reply-To: <20261006052435.319751-1-orgads@gmail.com> (Orgad Shaneh's
-	message of "Tue, 6 Oct 2026 05:24:35 +0000")
-References: <20260916162731.307959-1-orgads@gmail.com>
-	<20261006052435.319751-1-orgads@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 12 Oct 2026 20:28:29 +0200
-Message-ID: <87ld82zsc2.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OWFaVuM9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=hp1dTw3hRxiZBvSzxIR3eaRSSMR6S7lRt7/KxcL7YmU=; b=O
+	WFaVuM93IWPWVHz1DROYW7egfZ3MO/d1MdS/gA7+Jxi5NWJd4PoZrmiHx15AKVZ2
+	4UM4Cwvntj02QhgfOh2yUzLuhNFwL2fTm+PsC0+Y4zrcQoHKQKUn5ibm288MEAes
+	5R0lW7gOOP+J72R9BCZBMfN7yGrWIPetla+gvN6Ux0=
+Date: Wed, 14 Oct 2026 01:51:46 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, longzhao@ambarella.com,
+	"Arnd Bergmann" <arnd@arndb.de>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Jerome Brunet" <jbrunet@baylibre.com>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re:Re: Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella
+ CV75 pinctrl
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAD++jLmrQwAT1Sb8HGgoM8x48rN9-pPT2RB1GE18h5YA7c4CwQ@mail.gmail.com>
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
+ <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
+ <CAD++jLmKF5XxHsJX29sdXC_6JHKn-7HkE=N+TKtk5xODtQj3_w@mail.gmail.com>
+ <b2256847-3ec1-47e8-ac79-ceca86eb09e7@kernel.org>
+ <CAD++jLkrXXg9xrhAZ8HETc5Qcv5BbkY-ibjvzBmE5WZVqDEGWQ@mail.gmail.com>
+ <a0eca34d-5eb2-4730-b8c7-0f2302bcf265@kernel.org>
+ <CAD++jLm=T-U07vAVCogMnfOfkDf=i9QhGGc8ok2N-ZUh50WLNA@mail.gmail.com>
+ <56dc6c05-7fd6-43de-bc62-c353ae1dbcc3@kernel.org>
+ <54b55ad7.9d3a.1a135b09587.Coremail.zl020895@163.com>
+ <CAD++jLmrQwAT1Sb8HGgoM8x48rN9-pPT2RB1GE18h5YA7c4CwQ@mail.gmail.com>
+X-NTES-SC: AL_Qu2SA/WavEEr4CaeZekdnUoTj+Y/XMK0uvwk1YdVc8gEnjjMwxonRUZAE2Xr9+a2LgydoDuVWhh8yd55fo9x/FIZB3Lpfw2lhbgiuZUShQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-TUID: VCcmtab5EvA5
-X-Last-TLS-Session-Version: None
-X-Rspamd-Queue-Id: 58EA211D717F3
-X-Spamd-Result: default: False [-0.10 / 30.00];
-	MIME_GOOD(-0.10)[text/plain];
-	FROM_HAS_DN(0.00)[];
-	BCC(0.00)[];
-	RCVD_COUNT_ZERO(0.00)[0];
-	DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
-	URIBL_BLOCKED(0.00)[localhost:rdns,localhost:helo,bootlin.com:mid];
-	RCPT_COUNT_FIVE(0.00)[5]
+Message-ID: <69bf6d9d.a86d.1a1366451f1.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:eygvCgD3NyGyb85qV71XAA--.16978W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7hJWx2rOb7KL3QAA3C
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Hi Orgad,
-
-On 06/10/2026 at 05:24:35 GMT, Orgad Shaneh <orgads@gmail.com> wrote:
-
-> Commit cfc5ebc9540e ("mtd: cfi_cmdset_0002: cap the write-buffer chunk
-> at 256 bytes on an x8 device") limits a Write to Buffer to 256 bytes
-> when cfi->device_type is CFI_DEVICETYPE_X8, because do_write_buffer()
-> sends the word count as a single bus word and an 8-bit data lane
-> truncates it.
->
-> The M29EW that commit was written for is an x16 part strapped to x8.
-> The probe reports it as
->
->   phys_mapped_flash: Found 1 x16 devices at 0x0 in 8-bit bank.
->   Manufacturer ID 0x000089 Chip ID 0x00007e
->
-> so its device_type is CFI_DEVICETYPE_X16, the clamp does not apply, and
-> every full 512-byte chunk still times out:
->
->   MTD do_write_buffer_wait(): software timeout, address:0x002203ff.
->
-> What limits the count is the width of each device's data lane, not the
-> part's type. Test that instead: map_bankwidth(map) / cfi_interleave(cfi)
-> is 1 for an x8 part, for x8 parts interleaved on a wider bus, and for an
-> x16 part in an 8-bit bank.
->
-> On the board (Octeon CN6335, the same M29EW) writes of 1, 2, 32, 64 and
-> 256 bytes to an erased partition read back correctly and 512, 1024,
-> 2048 and 4096 failed with the timeout above; with this patch every size
-> up to 64 KiB reads back correctly and the u-boot environment can be
-> saved from Linux again.
->
-
-It no longer applies, can you please rebase and resend?
-
-Thanks,
-Miqu=C3=A8l
+CkF0IDIwMjYtMTAtMTQgMDA6Mzg6NDAsICJMaW51cyBXYWxsZWlqIiA8bGludXN3QGtlcm5lbC5v
+cmc+IHdyb3RlOgo+T24gVHVlLCBPY3QgMTMsIDIwMjYgYXQgNDozNuKAr1BNIHpsMDIwODk1IDx6
+bDAyMDg5NUAxNjMuY29tPiB3cm90ZToKPgo+PiBXb3VsZCB0aGlzIHdvcms/OiBJIHNlbmQgYSBz
+dGFuZGFsb25lCj4+ICJkdC1iaW5kaW5nczogdmVuZG9yLXByZWZpeGVzOiBhZGQgQW1iYXJlbGxh
+IiBwYXRjaCB0byBSb2Igd2l0aCBvbmx5Cj4+IHRoZSB0d28gbGluZXMgaW4gdmVuZG9yLXByZWZp
+eGVzLnlhbWwsIGFuZCBkcm9wIHRoYXQgaHVuayBmcm9tIHRoZQo+PiBTb0Mgc2VyaWVzLiBPbmNl
+IHRoZSBwcmVmaXggaXMgaW4gbGludXgtbmV4dCwgdGhlIHZlbmRvci1wcmVmaXgKPj4gd2Fybmlu
+Z3Mgc2hvdWxkIGJlIGZpeGVkLiBUaGUgcmVtYWluaW5nIGV4YW1wbGUgbWF0Y2hlcywgc3VjaCBh
+cwo+PiBhbWJhcmVsbGEsZHJpdmUtc3RyZW5ndGgtc3lzY29uLCBzdGlsbCBuZWVkIHRoZSBzZXBh
+cmF0ZQo+PiBHUElPL1VBUlQvcGluY3RybCBiaW5kaW5ncy4KPgo+VGhhdCB3b3JrcyBmb3IgbWUg
+YW5kIHNvbHZlcyBteSBwcm9ibGVtIHNvIGdvIGFoZWFkLgo+Cj5Zb3VycywKPkxpbnVzIFdhbGxl
+aWoKClNlbnQ6Cmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2MTAxNC1jdjc1LXByZWZp
+eC12MS0xLWZlOTVlZDU2Nzg4MEBhbWJhcmVsbGEuY29tCgpCZXN0IHJlZ2FyZHMsCkxvbmcgWmhh
+bwo=
