@@ -1,249 +1,317 @@
-Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850885187EC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B1B4FD260;
+	Tue, 13 Oct 2026 15:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904263; cv=none; b=iaXL6doibOmybbBx4zJIkHXBQTkkaorlmN8HxRl1NNI7L+sQdo3QhLC1GJh4EKfQXAvV97dxk3WlD1+5PphEcNFc1Rh0EKZPN3xOtEwZb5n8zAHLTeHGE5PIbaOKHiQ3MssMYz4i7IPz/q9tXXlh9LWU6ADDZIp73NGUpxAGsrU=
+	t=1791904289; cv=none; b=VjukVdIOKiarqnzK2V5qk7pUsbR4WI2V4/FKBNUa0TlJrfHCj8QLIStJHvPunVLiFF6C1yZaCK9RAub1Ra+iCOno8NX4E78GdLTieiTd2sebwWXpuEtyPG12YYWl7rbEnsFO0J/9cWEA4vSvqGfbr0C4Yh9gkNnUHN4Ts1Acw+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904263; c=relaxed/simple;
-	bh=bceBj1lCDVf8rlvw9Pnq+5QiEUpw58usmClWP5+lnkY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rS7ApGbKwr1715d/eTydo47rRNQ3FSBBSw+HyKM42GKkoO7cT9N7BRDqGAzb25D4sFNPRnB+Zy/GkhtiLFkHAvjeN6dwn+F8B2vNhI+RctarV/uesLUiuFgo65QDz+3uzYTZaEGK0L/vgQ21f7oJZ5WiaaVaOlVCMo06FeMu960=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HtGXlp7H; arc=none smtp.client-ip=91.218.175.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791904289; c=relaxed/simple;
+	bh=MVQ57kbHbmPy06L79MgXIJ1zXhvIw2KdqOI+DoqsBik=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MKA8KLTntGsNqRPxOp1n5bBEoiLF50ANs4nqRfzligErHjt2LMuAhPslk2V/qo/p/2k/DUDYF2s5UNhf8TyVPgR2+4dOdGyWwuYLKVz1FdnxBIhiSG8I6lAS6mMP4PuoXocISDhT0KJtMCTXPW1G2Qt5BBnKMZ9DY3y7sSeqzCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKIipxQd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HtGXlp7H"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bceBj1lCDVf8rlvw9Pnq+5QiEUpw58usmClWP5+lnkY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791904259; v=1; x=1792509059;
- b=HtGXlp7HdsU1MrQuqwiw9TlpTVxg8+B367C+6XmUokvnjnAmqzJ1bEOJkqSvPrpCLl2Bf5tg
- Cu5ndTkyLR+sOmEKfLBCQabrmiY+9e/NsRG3Re7Y8rKhGYGpbNUrqTFp4wsn8MEIJpY4d10N5OU
- TtLbv+nctJHKnxQWVxsYfwZ4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 3d5937a095650203;
-	Tue, 13 Oct 2026 15:10:59 +0000
-X-Mizu-Trace-ID: 3d5937a095650203
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	chengming.zhou@linux.dev,
-	dsterba@suse.com,
-	hannes@cmpxchg.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	nphamcs@gmail.com,
-	terrelln@fb.com,
-	yosry@kernel.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	senozhatsky@chromium.org,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	kernel-team@meta.com
-Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v3 3/3] mm: zswap: use stack requests for synchronous decompression
-Date: Tue, 13 Oct 2026 08:09:37 -0700
-Message-ID: <20261013151007.2093943-4-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013151007.2093943-1-usama.arif@linux.dev>
-References: <20261013151007.2093943-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKIipxQd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF321F000FF;
+	Tue, 13 Oct 2026 15:10:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791904288;
+	bh=XhhlSsemSmxgXNdMsOuIhrMWTeKjuFdWFETXzMuu8iA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=IKIipxQdSPSYUc5DegrUfXhw+UY8TxEShwIHCPvOyP3Fo7nYLrh2IQNkAXJ8Fk3qG
+	 5NKm3C/qQcM20S5Ki+XOsdy7/PYqEIrWtp8UI6+CeCk8YsmtC1N9fd5BTVf5cFvVNk
+	 NMGpPlHt+op+fQCHjVX5+1fq9U5XJW7JYyarTQkoorG94NXtyMxzn733G9axCeMbJa
+	 lkXYeo/u+cEaIxW4lgGcl+86OYqFfpNunFZ9kYAreq2eu3+0vOqMgkp+CMRpbnQdXp
+	 s5LL1MpV7OhrpBtNQMA+1eZGZAfEWJqNlwJzyWsvPcmiyRSFwkJzjxFLZP17ooUtjE
+	 9tF9+0ODWeiYQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 13 Oct 2026 16:04:50 +0100
+Subject: [PATCH v6 10/39] drivers/usb/mon: update to use mmap_prepare + map
+ kernel pages
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-10-1aa3c9b139f9@kernel.org>
+References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6274; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=MVQ57kbHbmPy06L79MgXIJ1zXhvIw2KdqOI+DoqsBik=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZww8O4S7JCc5rj36DPzyVP0/8QtrKndkVv56HDhg
+ XUSFSuiOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARXWuGf7YXuo3euG15J7w9
+ JGPHn3RlmbKq+WHX9sRN6v6lJRQ3z5uRoc1risU17a+rt+i4RG6aF2+pvbrs2/UKDpHg+av2vJO
+ axA4A
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-With separate requests for compression and decompression, loads still
-serialize on the per-CPU decompression mutex. A low-priority load that
-is preempted after the codec drops its stream lock keeps holding the mutex
-and stalls every other load on that CPU, including higher-priority ones.
+Replace the deprecated .mmap hook with its replacement .mmap_prepare. As
+part of this change, additionally take the approach of mapping pages upon
+mmap rather than providing a fault handler.
 
-Synchronous algorithms can use an on-stack request, so decompress with
-one and take no zswap lock. All in-tree software compressors qualify.
-The Crypto API enforces MAX_SYNC_COMP_REQSIZE during initialization,
-so checking acomp_is_async() is sufficient. Asynchronous algorithms
-keep the per-CPU request and mutex, which is still taken before the
-zsmalloc read lock.
+The page span cannot be mutated when an mmap mapping is in place, so this
+is safe to do in advance (the MON_IOCT_RING_SIZE ioctl operation exits
+-EBUSY if it's attempted, gated by the rp->mmap_active reference count).
 
-Reading the per-CPU context without the mutex is safe. Since
-commit ef3c0f6cb798e ("mm: zswap: tie per-CPU acomp_ctx lifetime to the
-pool"), it is set up before its CPU comes online and is not torn down
-until the pool is destroyed. The codecs keep their own stream locks, and
-crypto_acomp_decompress() rejects on-stack requests only for
-asynchronous transforms, which never take this path.
+Utilise the newly introduced mmap_action_map_discontig_kernel_pages() to do
+this, which allows for iteration over pages in mon_bin_discontig_get().
 
-For software compressors this drops the heap request added for
-decompression. The on-stack request and wait take 216 bytes, which
-makes the load path about 270 bytes deeper on x86-64. Asynchronous
-algorithms pay this too.
+mon_bin_discontig_init() increments the rp->mmap_active reference count to
+stabilise page spans. Should an error arise the core unmaps the VMA and
+mon_bin_vma_close() drops the reference again.
 
-Acked-by: Nhat Pham <nphamcs@gmail.com>
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
+The vm_ops->close hook implemented in mon_bin_vma_close() will ensure
+correct reference count arithmetic upon unmap (with mon_bin_vma_open()
+accounting for splitting).
+
+The existing semantics are all retained, including not mapping past the
+range of available pages, with a SIGBUS being raised in a userland process
+that attempts to access past this point.
+
+Ultimately insert_page() is invoked to insert each page, which increments
+the reference count on each mapped page. This mimics what was being done
+previously, only we pre-map the entire range rather than doing so on
+demand.
+
+The existing fault handler did nothing that required demand paging, and was
+presumably implemented this way for historical reasons.
+
+One behavioural difference: pages are no longer faulted in on demand, so a
+page discarded with MADV_DONTNEED is not repopulated and a subsequent
+access raises SIGBUS, as with other pre-populated kernel mappings.
+
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/zswap.c | 87 ++++++++++++++++++++++++++++++++++++------------------
- 1 file changed, 59 insertions(+), 28 deletions(-)
+ drivers/usb/mon/mon_bin.c | 82 ++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 53 insertions(+), 29 deletions(-)
 
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 23c4298765795..beacdf83c8b31 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -153,7 +153,7 @@ struct zswap_comp_ctx {
- struct crypto_acomp_ctx {
- 	struct crypto_acomp *acomp;
- 	struct zswap_comp_ctx comp;
--	struct zswap_acomp_req decomp;
-+	struct zswap_acomp_req decomp;	/* unused with on-stack requests */
+diff --git a/drivers/usb/mon/mon_bin.c b/drivers/usb/mon/mon_bin.c
+index 687f6a8981f3..9d00b21a8153 100644
+--- a/drivers/usb/mon/mon_bin.c
++++ b/drivers/usb/mon/mon_bin.c
+@@ -1219,6 +1219,15 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
+ 	return mask;
+ }
+ 
++static void __mon_bin_vma_open(struct mon_reader_bin *rp)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&rp->b_lock, flags);
++	rp->mmap_active++;
++	spin_unlock_irqrestore(&rp->b_lock, flags);
++}
++
+ /*
+  * open and close: just keep track of how many times the device is
+  * mapped, to use the proper memory allocation function.
+@@ -1226,64 +1235,79 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
+ static void mon_bin_vma_open(struct vm_area_struct *vma)
+ {
+ 	struct mon_reader_bin *rp = vma->vm_private_data;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&rp->b_lock, flags);
+-	rp->mmap_active++;
+-	spin_unlock_irqrestore(&rp->b_lock, flags);
++	__mon_bin_vma_open(rp);
+ }
+ 
+-static void mon_bin_vma_close(struct vm_area_struct *vma)
++static void __mon_bin_vma_close(struct mon_reader_bin *rp)
+ {
+ 	unsigned long flags;
+ 
+-	struct mon_reader_bin *rp = vma->vm_private_data;
+ 	spin_lock_irqsave(&rp->b_lock, flags);
+ 	rp->mmap_active--;
+ 	spin_unlock_irqrestore(&rp->b_lock, flags);
+ }
+ 
+-/*
+- * Map ring pages to user space.
+- */
+-static vm_fault_t mon_bin_vma_fault(struct vm_fault *vmf)
++static void mon_bin_vma_close(struct vm_area_struct *vma)
+ {
+-	struct mon_reader_bin *rp = vmf->vma->vm_private_data;
++	struct mon_reader_bin *rp = vma->vm_private_data;
++
++	__mon_bin_vma_close(rp);
++}
++
++static const struct vm_operations_struct mon_bin_vm_ops = {
++	.open =     mon_bin_vma_open,
++	.close =    mon_bin_vma_close,
++};
++
++static int mon_bin_discontig_init(void *vm_private_data, void **private)
++{
++	struct mon_reader_bin *rp = vm_private_data;
++
++	/* Dropped by mon_bin_vma_close() on unmap, including on error. */
++	__mon_bin_vma_open(rp);
++	return 0;
++}
++
++static int mon_bin_discontig_get(struct discontig_kernel_page_state *state)
++{
++	struct mon_reader_bin *rp = state->vm_private_data;
+ 	unsigned long offset, chunk_idx;
+-	struct page *pageptr;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&rp->b_lock, flags);
+-	offset = vmf->pgoff << PAGE_SHIFT;
++
++	offset = state->pgoff << PAGE_SHIFT;
+ 	if (offset >= rp->b_size) {
+ 		spin_unlock_irqrestore(&rp->b_lock, flags);
+-		return VM_FAULT_SIGBUS;
++		discontig_kernel_map_abort(state);
++		return 0;
+ 	}
+ 	chunk_idx = offset / CHUNK_SIZE;
+-	pageptr = rp->b_vec[chunk_idx].pg;
+-	get_page(pageptr);
+-	vmf->page = pageptr;
++	discontig_kernel_map_page(state, rp->b_vec[chunk_idx].pg);
++
+ 	spin_unlock_irqrestore(&rp->b_lock, flags);
+ 	return 0;
+ }
+ 
+-static const struct vm_operations_struct mon_bin_vm_ops = {
+-	.open =     mon_bin_vma_open,
+-	.close =    mon_bin_vma_close,
+-	.fault =    mon_bin_vma_fault,
++static const struct discontig_kernel_page_ops mon_discontig_ops = {
++	.init = mon_bin_discontig_init,
++	.get = mon_bin_discontig_get,
  };
  
- /*
-@@ -803,6 +803,18 @@ static void zswap_entry_free(struct zswap_entry *entry)
- /*********************************
- * compressed storage functions
- **********************************/
-+static void zswap_set_acomp_req_callback(struct acomp_req *req,
-+					 struct crypto_wait *wait)
-+{
-+	/*
-+	 * if the backend of acomp is async zip, crypto_req_done() will wakeup
-+	 * crypto_wait_req(); if the backend of acomp is scomp, the callback
-+	 * won't be called, crypto_wait_req() will return without blocking.
-+	 */
-+	acomp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-+				   crypto_req_done, wait);
-+}
-+
- static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
- 				struct crypto_acomp *acomp)
+-static int mon_bin_mmap(struct file *filp, struct vm_area_struct *vma)
++static int mon_bin_mmap_prepare(struct vm_area_desc *desc)
  {
-@@ -812,14 +824,7 @@ static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
- 		return -ENOMEM;
+-	/* don't do anything here: "fault" will set up page table entries */
+-	vma->vm_ops = &mon_bin_vm_ops;
++	const struct file *filp = desc->file;
  
- 	crypto_init_wait(&areq->wait);
--
--	/*
--	 * if the backend of acomp is async zip, crypto_req_done() will wakeup
--	 * crypto_wait_req(); if the backend of acomp is scomp, the callback
--	 * won't be called, crypto_wait_req() will return without blocking.
--	 */
--	acomp_request_set_callback(areq->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
--				   crypto_req_done, &areq->wait);
-+	zswap_set_acomp_req_callback(areq->req, &areq->wait);
+-	if (vma->vm_flags & VM_WRITE)
++	if (vma_desc_test(desc, VMA_WRITE_BIT))
+ 		return -EPERM;
  
- 	mutex_init(&areq->mutex);
- 	return 0;
-@@ -856,15 +861,19 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
- 		goto fail;
- 	}
- 
--	if (zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp) ||
--	    zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
--		pr_err("could not alloc crypto acomp_request %s\n",
--		       pool->tfm_name);
--		goto fail;
-+	if (zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp))
-+		goto req_fail;
+-	vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP, VM_MAYWRITE);
+-	vma->vm_private_data = filp->private_data;
+-	mon_bin_vma_open(vma);
++	desc->vm_ops = &mon_bin_vm_ops;
++	vma_desc_clear_flags(desc, VMA_MAYWRITE_BIT);
++	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
++	desc->private_data = filp->private_data;
 +
-+	/* Skip the per-CPU request when decompression can use the stack. */
-+	if (acomp_is_async(acomp_ctx->acomp)) {
-+		if (zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp))
-+			goto req_fail;
- 	}
- 
++	mmap_action_map_discontig_kernel_pages(desc, NULL, &mon_discontig_ops);
  	return 0;
- 
-+req_fail:
-+	pr_err("could not alloc crypto acomp_request %s\n", pool->tfm_name);
- fail:
- 	acomp_ctx_free(acomp_ctx);
- 	return ret;
-@@ -956,19 +965,14 @@ static bool zswap_compress(struct folio *folio, long index,
- 	return comp_ret == 0 && alloc_ret == 0;
  }
  
--static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
-+static bool __zswap_decompress(struct zswap_entry *entry,
-+			       struct zswap_pool *pool, struct acomp_req *req,
-+			       struct crypto_wait *wait, struct folio *folio)
- {
--	struct zswap_pool *pool = zswap_entry_pool(entry);
- 	struct scatterlist input[2]; /* zsmalloc returns an SG list 1-2 entries */
- 	struct scatterlist output;
--	struct crypto_acomp_ctx *acomp_ctx;
- 	int ret = 0, dlen;
+@@ -1298,7 +1322,7 @@ static const struct file_operations mon_fops_binary = {
+ 	.compat_ioctl =	mon_bin_compat_ioctl,
+ #endif
+ 	.release =	mon_bin_release,
+-	.mmap =		mon_bin_mmap,
++	.mmap_prepare = mon_bin_mmap_prepare,
+ };
  
--	if (WARN_ON_ONCE(!pool))
--		return false;
--
--	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
--	mutex_lock(&acomp_ctx->decomp.mutex);
- 	zs_obj_read_sg_begin(pool->zs_pool, entry->handle, input, entry->length);
- 
- 	/* zswap entries of length PAGE_SIZE are not compressed. */
-@@ -985,15 +989,13 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
- 	} else {
- 		sg_init_table(&output, 1);
- 		sg_set_folio(&output, folio, PAGE_SIZE, 0);
--		acomp_request_set_params(acomp_ctx->decomp.req, input, &output,
--					 entry->length, PAGE_SIZE);
--		ret = crypto_acomp_decompress(acomp_ctx->decomp.req);
--		ret = crypto_wait_req(ret, &acomp_ctx->decomp.wait);
--		dlen = acomp_ctx->decomp.req->dlen;
-+		acomp_request_set_params(req, input, &output, entry->length, PAGE_SIZE);
-+		ret = crypto_acomp_decompress(req);
-+		ret = crypto_wait_req(ret, wait);
-+		dlen = req->dlen;
- 	}
- 
- 	zs_obj_read_sg_end(pool->zs_pool, entry->handle);
--	mutex_unlock(&acomp_ctx->decomp.mutex);
- 
- 	if (!ret && dlen == PAGE_SIZE)
- 		return true;
-@@ -1007,6 +1009,35 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
- 	return false;
- }
- 
-+static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
-+{
-+	struct zswap_pool *pool = zswap_entry_pool(entry);
-+	struct crypto_acomp_ctx *acomp_ctx;
-+	bool ret;
-+
-+	if (WARN_ON_ONCE(!pool))
-+		return false;
-+
-+	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
-+	/*
-+	 * Use a private on-stack request when the transform supports it.
-+	 * Otherwise serialize decompression on the shared per-CPU request.
-+	 */
-+	if (!acomp_ctx->decomp.req) {
-+		ACOMP_REQUEST_ON_STACK(req, acomp_ctx->acomp);
-+		DECLARE_CRYPTO_WAIT(wait);
-+
-+		zswap_set_acomp_req_callback(req, &wait);
-+		return __zswap_decompress(entry, pool, req, &wait, folio);
-+	}
-+
-+	mutex_lock(&acomp_ctx->decomp.mutex);
-+	ret = __zswap_decompress(entry, pool, acomp_ctx->decomp.req,
-+				 &acomp_ctx->decomp.wait, folio);
-+	mutex_unlock(&acomp_ctx->decomp.mutex);
-+	return ret;
-+}
-+
- /*********************************
- * writeback code
- **********************************/
+ static int mon_bin_wait_event(struct file *file, struct mon_reader_bin *rp)
+
 -- 
-2.53.0-Meta
+2.55.0
 
