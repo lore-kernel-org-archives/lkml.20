@@ -1,214 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D803F246781;
-	Tue, 13 Oct 2026 09:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DB139E6C9
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885401; cv=none; b=Ozj3P6aKRFS0ZfSkd/TtnTX2PclYKt2yYUPzIa8MyC9iiXbeYrUHid8oLxvdBzS3p4Lm3Eky06ytKEKYJxXYH0DiuXhuzh0f647fOllYl7XvRJws9A8Rcfuoex98UYWSmHEXb7+23SZz9qQFGOEY80gE+slcSP5NQVObHFIxjVQ=
+	t=1791885402; cv=none; b=sYeDJ1HnaBQuNUvoAtt8QYlSPmF8aV7UXGZ8BQfYNOW2hgRn+/WtRF/57mhxrxVjW11gWtwwakELkXUdluM6p32xpzjKeHeqViiUyNW/3cm3IMoy3VNpaDBRBL2dvgXgPDRmKjny/eji3Fk4t5kgnfVpZpRLd7qVTlnw0b7iCXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885401; c=relaxed/simple;
-	bh=PlVvTdkWjp0YX/ia1aYjkyxCtGTcPvQfZMqeqi6ZbQU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ifWCR24VWzTwFzleK10Gt5SoM5EQaZ1fX2fcStiK7wIvLctkg2PPKejmc35HZpQ+PFNZN9wNo/ZgfibNtMERDo4XTq6CUYD+HwBt/SmrpIR8ktTcfXO62Fo5PduksQFevI6mQYaa67dpxPhvjgB8kqNyKho2ZT3YQOs6IOYq4VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FL6bAAK1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791885402; c=relaxed/simple;
+	bh=HFJ4UjRCkhaihkIH92sybsRJA7S5NLo3OntK/t8+1bY=;
+	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=Vuy60l0uuz9TKE3FTq0DwO5ASFl2vtngAare1bH7EBUWsOqRel2LiVWD1nxJ8oWRLhiagfXaZ9e5gP+XYYJ/TR2oBoXSwH/DnmKFxdeqnBFEqcp8tmn/BntZwFFrgWzN6mlOF+5TfURPsJGJnkt3lOH2nRDeYZkvuOyjeNJAmhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innovatrics.com; spf=pass smtp.mailfrom=innovatrics.com; dkim=pass (1024-bit key) header.d=innovatrics.com header.i=@innovatrics.com header.b=f2qTN+IP; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innovatrics.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innovatrics.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FL6bAAK1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55F31F000FF;
-	Tue, 13 Oct 2026 09:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791885399;
-	bh=Q7fj9Vp+tJj7vJqMJATzo0vyG2yGkhzhjEgsT39DDVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FL6bAAK1wmdEJY0kUnZUcDtzMSWohJp9SOCaOF43QWDUhT0/iL+EQrzkosR+1+gbK
-	 n3CYnRul7jUIP5IfLrkv+P8pOPh2mpHNS0Uk7wGHOYoV0XS1R0aERG9phPvMAFz/m5
-	 QcZdYbCJMmhUbrAflNX57QafmAdlmP34KxetYLnLS9rdkS7h4MXNYvwBtSTDHXg93c
-	 LXsP/R+zgGNL6f6XUxUQk4JWLfXvGkhLVMFwJUUaIpFMyzcLic/mA0L8NUYvPS8sHb
-	 2QPEtRlQjY4pusEYwNfnlZ8LI5GQyhY4CKycn3vvy+P2KTQn0xXPvmjqDkcMg8QP74
-	 qEjGgM633sPKg==
-Date: Tue, 13 Oct 2026 15:26:30 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Sumit Garg <sumit.garg@kernel.org>, Will Deacon <will@kernel.org>,
-	brendan.jackman@linux.dev, catalin.marinas@arm.com, rppt@kernel.org,
-	akpm@linux-foundation.org, sudeep.holla@kernel.org,
-	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
-	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
-	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
-Message-ID: <as4ATqhp0bPI03PA@sumit-xelite>
-References: <20260921110050.3977591-1-vdonnefort@google.com>
- <arIYtjmSKCs14SqO@sumit-xelite>
- <arKW_91EeKA-w96m@willie-the-truck>
- <are21BjeS1O3RYE3@sumit-xelite>
- <aruh86rd5FMv2i9G@willie-the-truck>
- <ar5TPvANFUoosxGW@sumit-xelite>
- <asOAYODGZa-7EIV1@google.com>
- <asOD31rTX6dNfD1o@google.com>
- <aszdnInyJxLhSQRp@sumit-xelite>
- <as3798SFCfKFirag@google.com>
+	dkim=pass (1024-bit key) header.d=innovatrics.com header.i=@innovatrics.com header.b="f2qTN+IP"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so22567145e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:56:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=innovatrics.com; s=google; t=1791885399; x=1792490199; darn=vger.kernel.org;
+        h=content-type:mime-version:date:references:in-reply-to:message-id
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=St+5KkhKptBQbmhWMvm7sQZJ2JL6wlGqGqKQDJo/9iM=;
+        b=f2qTN+IPbgAf9AFTnqIFnA0+EFd9chhkqWbo9ujAYlUoIIB6b94DVLEFvuMMx4MDht
+         rDU7HE0clCOb2uv2Ax05WtETaT+AAYaHDmmY2vekq4etv11VynKz/Uhw/cEtYcYLnVSJ
+         +0JDljA8j7m5b9RdH1PAEZPDC3Xf6DttepzLE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791885399; x=1792490199;
+        h=content-type:mime-version:date:references:in-reply-to:message-id
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=St+5KkhKptBQbmhWMvm7sQZJ2JL6wlGqGqKQDJo/9iM=;
+        b=0Mi2NRZ+pz2oD1zyg7u4SVxWnywBJf2rKHNsWHnodX9BJUbCFejwxxk/eEDzeog1PC
+         +q4Jszacg4Ce1xXDYADl7Ja4H8+Mdfgwl10UQcrPcqNo8/AOSx5tmlNpgaJz2WnqywhF
+         0NpOGebxxJlnMgkl+PLA0Z0FLCuEMLlyWxA+aV/Zus7kqtTpvX5BznX2rIjdsKacN0Rp
+         E1dUwwvU04s/J8OPJn+BrXEWHQehpebM9NYiHT5vAdkoXDhtQxZJkg4Dx6URcU67gcsg
+         QL7wdH62nRSMJ+fsExU7JxrQZKcCcIvfUdcVQVdknyAUQiweQFFjg6ktLmRHsAyRPF6O
+         HaSg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLZ/MSWz1ByQele0e/kzA0nHfjek+EchT2XlumlRfcMSywV9NhE/ogU3z6WTEJCGPWL6dm7ZCLSLXC2Lo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQPHzKR23zGNxTXM5jhWaaK4qhTHY3xfVuOSS5TIs+ZcXc27aN
+	fWLMc50BZhYcqDvPRN8vID7tLmBntVDoHwToil+PTKj4YhG234VLgGjK9suDw8DKCw==
+X-Gm-Gg: AYBFou0qKPdaDd4U7yK6SdeFRvh0mza0I5OXnH5Zdx3O9hVJFRk76DLwX5At1hV/iBt
+	w2WtGlETvuh0StzLHn2YUb1LTIiMejG7tzzQbBxeQVo2ygNRXFolXQYFwY+Xv1r0Os2ZugmBFHt
+	doWVWeGLBB3B5w2Ukl6JglvBsgnwGp8IxQVWp99t7U9OlO03XnlSXjVVqe0vY4+x7Av4s1bC9/H
+	brbW0MLuKu0raFU+xSDH7pzXTMFPd9W5Pb22Rgp+AdWFiGqulHX5GfLmcCuM429hAAoTOOQ41j3
+	xfqaG9AswHfGbOUEKOKVou7yBGea47yMweTKmvr4gGbxZOHbH4zl5HQSQoV4g26zthRdH2yiIcp
+	UyjdfaEPLjK4wKRnBghV9tzHK8qZKqAt4ha4f+5oGeygVkf1/bSXPythQdsTKN1c2JBJhdFpOe4
+	KfYBHIz1WcLPh8VcndNM946BXeCdDmCHfIJxLcGhN8m4s3aMxB7STZ+LY+ikj2YvSrJQfA4nvta
+	QaUG3pPK4DknaHz2u1uZIZcLz+JdPPLgXypWpl3+R5DtMtYwXobNNy/8p2TF/XTZd6r49SWqNR5
+	XLWg+lRMJpVcNQZ6pBZ4CwKHfPSErK8=
+X-Received: by 2002:a05:600c:1c07:b0:4a1:b044:9ccd with SMTP id 5b1f17b1804b1-4a1b0449d00mr3292955e9.28.1791885399299;
+        Tue, 13 Oct 2026 02:56:39 -0700 (PDT)
+Received: from [10.11.72.5] (bip-static-148.213-81-147.telecom.sk. [213.81.147.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm289830295e9.3.2026.10.13.02.56.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 02:56:38 -0700 (PDT)
+From: Petr Chmelar <petr.chmelar@innovatrics.com>
+To: David Howells <dhowells@redhat.com>
+Cc: Christian Brauner <christian@brauner.io>,
+    Paulo Alcantara <pc@manguebit.org>,
+    Matthew Wilcox <willy@infradead.org>,
+    Namjae Jeon <linkinjeon@kernel.org>,
+    Marc Dionne <marc.dionne@auristor.com>,
+    Stefan Metzmacher <metze@samba.org>,
+    Eric Van Hensbergen <ericvh@kernel.org>,
+    Dominique Martinet <asmadeus@codewreck.org>,
+    Ilya Dryomov <idryomov@gmail.com>,
+    netfs@lists.linux.dev,
+    linux-afs@lists.infradead.org,
+    linux-cifs@vger.kernel.org,
+    linux-nfs@vger.kernel.org,
+    ceph-devel@vger.kernel.org,
+    v9fs@lists.linux.dev,
+    linux-fsdevel@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v12 4/5] cachefiles: Don't rely on backing fs storage map
+ for most use cases
+Message-ID: <20261013.cachefiles-partial-zeros-trace.pchmelar@innovatrics.com>
+In-Reply-To: <1655268.1791878098@warthog.procyon.org.uk>
+References: <20260910220242.2165023-1-dhowells@redhat.com>
+ <20260910220242.2165023-5-dhowells@redhat.com>
+ <20261011.cachefiles-partial-zeros.pchmelar@innovatrics.com>
+ <1655268.1791878098@warthog.procyon.org.uk>
+Date: Tue, 13 Oct 2026 09:56:37 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <as3798SFCfKFirag@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-On Tue, 13 Oct 2026 at 10:37:59 +0100, Vincent Donnefort wrote:
->On Mon, Oct 12, 2026 at 06:46:12PM +0530, Sumit Garg wrote:
->> On Mon, 05 Oct 2026 at 12:02:55 +0100, Vincent Donnefort wrote:
->> > Sorry, not sure why Sumit's email was dropped...
->>
->> The problem was with my mutt config, it should be fixed now.
->>
->> >
->> > On Mon, Oct 05, 2026 at 11:48:00AM +0100, Vincent Donnefort wrote:
->> > > On Thu, Oct 01, 2026 at 06:04:06PM +0530, Sumit Garg wrote:
->> > > > On Tue, 29 Sep 2026 at 12:33:07 +0100, Will Deacon wrote:
->> > > > > On Sat, Sep 26, 2026 at 05:43:08PM +0530, Sumit Garg wrote:
->> > > > > > Looks like you dropped me from your reply.
->> > > > >
->> > > > > Huh, that's weird. If I hit reply-all ('g') in mutt, it moves the entire
->> > > > > CC list to To: and drops you. I suspect the same thing happened to Thierry
->> > > > > when he replied here:
->> > > > >
->> > > > > https://lore.kernel.org/all/arJcN60nagFKXj2Q@orome/
->> > > > >
->> > > > > I can't figure out why that's happening :/
->> > > > > I manually tried to fix the To: and Cc: lines in this message.
->> > > >
->> > > > Thanks.
->> > > >
->> > > > >
->> > > > > > On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
->> > > > > > > I spoke to Brendan at LPC (?) last year but this doesn't really work
->> > > > > > > for arm64 because it relies on being able to unmap arbitrary parts of
->> > > > > > > the linear map, which isn't generally possible unless you force pte-level
->> > > > > > > mappings for everything, which is prohibitive for perf/power.
->> > > > > >
->> > > > > > As per the cover letter it's about allocating pages that are not present
->> > > > > > in the direct map. This essentially fits the protected DMABufs use-case
->> > > > > > where we don't want any kernel mapping to exist at any time. Bufers
->> > > > > > allocated from protected DMABufs are only meant to be accessed by the
->> > > > > > TEE implementation or HW accelerators like in the secure media pipeline.
->> > > > >
->> > > > > That sounds like it should probably build on top of this series, then.
->> > > >
->> > > > The main problem I see with this series is it tries to move from the generic
->> > > > CMA allocator to a reserved FF-A CMA pool which again comes from the
->> > > > DT. We already support reserved pool allocations via "no-map" which are
->> > > > discovered dynamically from OP-TEE.
->> > >
->> > > I can't think of a way around a DT declaration. We need to know what region is
->> > > PTE-level before the direct map is installed and of_reserved_mem is very handy
->> > > for that purpose. And as this PTE-level mapping is costly we certainly only want
->> > > to enable it for platforms that absolutely need it.
->> > >
->>
->> I am rather thinking of a way to turn the default CMA allocator to be
->> PTE-level mapped. Since the overall idea for this dynamic protected
->> buffers was to reuse memory efficiently, otherwise the reserved buffer
->> approach is already there to use as "no-map" via DT.
->
->When the default CMA allocator is setup, it is already too late
->(dma_contiguous_reserve() is called after map_mem()). I am not sure this can be
->reordered easily due to the dependency on dma_limits_init().
+David Howells <dhowells@redhat.com> wrote:
 
-Yeah I saw that constraint too, let's leave it for future extension
-then although having this reordering dependency fixed will be ideal.
+> Unfortunately, I can't reproduce this.  Can you get me some tracing?
 
->
->So the only case it would work would be when a reserved memory has set
->"linux,cma-default".
->
+Thanks for looking.  The trace shows reads served from the cache over
+ranges that were never written to it; details below.
 
-Let's rather just turn DT based default CMA pool to support PTE-level
-mapping and keep it configurable via Kconfig or cmdline or DT.
+I think the reason you don't see it is how the file gets into the cache,
+which I should have said in the report.  In your run, fio lays the file
+out through the mount, so the client fills its cache sequentially and the
+object ends up CONTENT_ALL.  In ours, the client never writes the file:
+it is written on the server side beforehand, and the client's cache fills
+only as the client reads it, at random offsets, so the object stays
+BACKFS_MAP.  That is how our training nodes use the cache: they read data
+sets that they didn't write, mostly at random offsets.
 
--Sumit
+I reran it on 9f8b64f66 over 9p with your tracepoints enabled, with the
+same result: 936 of 4096 64 KiB blocks wrong, 825 of them zeros, first
+wrong blocks 10, 13, 15, 24, 26 and 27.  I'm sending you the trace
+off-list; it is 790 KB as bzip2.
 
->>
->> If we can have "cma_unmap" cmdline option alongside "cma" then it can
->> turn the existing default CMA allocator to support unmapping buffers.
->> Not requiring a DT change at all, although we can have the DT property
->> for the default pool too if platforms want to opt for.
->>
->> > > >
->> > > > If we can rather support a generic CMA like allocator for arm64 which
->> > > > can support unmapped allocations then I am all for it. These platform
->> > > > specific reserved pools isn't a scalable solution.
->> > >
->> > > What do you mean by generic CMA allocator here? An extension to
->> > > shared-dma-pool? Or having the CMA automatically doing the unmap/map on
->> > > cma_alloc() cma_release()?
->> > >
->> > > Right now I have created an API for the unmapping/remapping part. It adds a
->> > > burden on the caller, but the alternative solution is introducing post-alloc
->> > > pre-dealloc callbacks in the CMA, which looked a bit overkilled to me when
->> > > the users of that "ffa-pool" are only optee and the nvidia video dma-buf heap.
->> > >
->>
->> I am not too worried about where the actual implementation lives but
->> looks like CMA driver to be the better place. I think use-cases like
->> guest_memfd proposed as a user for __GFP_UNMAPPED on arm64 will also be
->> looking for this feature.
->>
->> -Sumit
->>
->> > >
->> > > >
->> > > > > You could allocate the DMABufs from a CMA region that has no linear alias.
->> > > >
->> > > > Allocation from generic CMA pool is already the case here:
->> > > >
->> > > > tee_shm_alloc_dma_mem() ->
->> > > >   dma_alloc_pages()
->> > > >
->> > > > Do you mean it's just fine to unmap buffers allocated from generic CMA
->> > > > region since it doesn't have any linear alias?
->> > > >
->> > > > >
->> > > > > > > Vincent's series tackles that by using a pool so that only that part of
->> > > > > > > memory requires the pte-level mappings in the linear map. That's the
->> > > > > > > whole point of it, so I don't think it makes sense to drop it in favour
->> > > > > > > of Brendan's approach (which doesn't work).
->> > > > > > >
->> > > > > >
->> > > > > > For protected DMABufs, we even don't require any pte-level mappings in
->> > > > > > linear map. The whole idea of mapping and unmapping is just a bottleneck
->> > > > > > for performance sensitive secure media pipeline use-cases. That's why if
->> > > > > > we can support __GFP_UNMAPPED with the memory allocator on arm64 would
->> > > > > > be the best fit for this use-case.
->> > > > >
->> > > > > The point is that you will require pte-level mappings for the linear map
->> > > > > if you want to unmap from it at runtime on arm64. If you don't, then you
->> > > > > can end up needing to split a block mapping (e.g. pmd-level) when you
->> > > > > decide to unmap only part of it and there isn't a safe way to do that on
->> > > > > arm64 without transiently unmapping the entire block, which can lead to
->> > > > > fatal translation faults during that window.
->> > > >
->> > > > I agree with you here, what I am rather trying to find if on arm64 there
->> > > > is any possibilty to have a generic allocator for unmapped pages. That's
->> > > > the use-case here as well as what Brendan't patch-set was trying to address.
->> > > >
->> > > > >
->> > > > > > Now the question is why arm64 can't support __GFP_UNMAPPED similar to
->> > > > > > how Brendan is doing it for x86?
->> > > > >
->> > > > > Because arm64 != x86? Presumably x86 doesn't have the strict
->> > > > > break-before-make requirements we have on arm64.
->> > > > >
->> > > >
->> > > > Sure, sounds like you are eluding to that the generic MM flag
->> > > > __GFP_UNMAPPED being proposed can't be supported on arm64, right?
->> > > >
->> > > > -Sumit
->> >
->> > --
->> > Vincent
->
+What the trace shows:
+
+ - After the random reads the object is set to BACKFS_MAP:
+
+     cachefiles_coherency: o=00000001 SET ok   B=c4 oz=10000000 c=3
+
+   After dropping the page cache it is looked up again (o=00000002 OK,
+   c=3) and set to c=4.
+
+ - Before the full read, WRIT TERM subrequests cover 2048 of the 4096
+   64 KiB blocks, as expected for half the file.
+
+ - During the full read, READ subrequests from the cache cover 2143
+   blocks, and 936 of those never had a WRIT: the same count as the wrong
+   blocks, starting with the same blocks, 10, 13, 15, 24, 26 and 27.
+   For example this one read:
+
+     R=0000285a[1] READ TERM  f=110 s=7c000 7c000/7c000 s=7 e=0
+
+   covers 0xa0000-0xb0000, 0xd0000-0xe0000 and 0xf0000-0xf8000, and no
+   write ever reached those ranges.  The writes around it were:
+
+     R=00002291[3] WRIT TERM  f=100 s=70000 20000/20000 s=6 e=0
+     R=000024dc[1] WRIT TERM  f=100 s=90000 10000/10000 s=16 e=0
+     R=00002291[4] WRIT TERM  f=100 s=b0000 20000/20000 s=9 e=0
+     R=000024dc[2] WRIT TERM  f=100 s=e0000 10000/10000 s=3 e=0
+
+So for the BACKFS_MAP object, the occupancy the read is based on treats
+the holes between those writes as data.
+
+> One further question occurs to me: does the entire 256M file fit in the
+> test VM's memory?
+
+Yes.  The VM has 7946 MiB of memory with 7498 MiB available, and the page
+cache is dropped before the full read.
+
+The setup, for reference:
+
+ - 9f8b64f66 with netfs, fscache, cachefiles, 9p and 9p fscache built in;
+   QEMU without KVM, 4 vCPUs, 8 GiB RAM
+ - 9p: QEMU virtfs local, security_model=none, the host directory on XFS;
+   mounted with trans=virtio,version=9p2000.L,cache=fscache,msize=1048576
+ - part.bin: 256 MiB from /dev/urandom, written on the host before the
+   mount
+ - cache: XFS on a loop device in the guest, cachefilesd 0.10.10
+
+The trace analysis was done with LLM assistance.
+
+Thanks,
+Petr
