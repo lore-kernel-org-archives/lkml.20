@@ -1,342 +1,151 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11023103.outbound.protection.outlook.com [40.93.196.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6958D52D2CB
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:49:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791913780; cv=none; b=aFSH0j/gZrT+scr1IbuQnbhtcuueYrgEiCtCeyipMz2ZrTaQk8Vl4Q8ARfqzjWPWBjaIJSVulTjEO3eEQvh7ZkdP6RMAh446ZsZnZf+ObWjLj6fDk8yjitvBd+eo8LMkfJjcYoZujzCK7MUCuOW7b1EEq3ks2muUg4kmmRPfo0s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791913780; c=relaxed/simple;
-	bh=uK36CqJkeJUpUtxP+EUGCN+MV4T0uhFT8M6h+OFg+p8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ieH8rAtW9KrNOjAkA/aZ6QpeUDVexzpgoYb02jwDnHO76nXy3Os1SbeEPBHtO0QqhYhw4x98z6oS4HosusKQNPIyNHfhNlxxXNr6ns0hZsZYOXPPTnh+s9YHzdXUwqw8c8tF6bbUongPcytXa3WTR1FNo4L9NDQ/YdDATYWaTtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QmO3Lv1d; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8694652BE3F;
+	Tue, 13 Oct 2026 17:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.103
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791913782; cv=fail; b=f0EFdLBFPEKdgwhi4C39UXpPeyPeC5vidQTUjTla6H9kleJbI4NHX4Dpa2HRWpXvArh5Lyx8b1hfXee4SjPHsjKnSy6h0aKdPu+McSrwAWMl4aOjndyML6Vg9ksxa2bBBsBx2wHRZog4MTOB48mQElZWR4IcVB23P5tHZW1rTlU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791913782; c=relaxed/simple;
+	bh=dIGifGZSdnsmzDMSoqvoGdj4NFx2T8YjxAkh7Yj1MkU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ayAve0drClzf1RjmpElS1smdrhf+t788sR6zD9Bb8twtTlt9AdpkC2O9XU3IwBz0Er6HygW5RWjD4jawfAvccsZNI4Vm0R9eLTWNB/JmL02L7ofJHfgT1GM1hLG+wzWWULCNSvdgGM0FJoN2JHb/8xf3dn0B7ayOqf9FJzIMons=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=wpX2RsUv; arc=fail smtp.client-ip=40.93.196.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QmO3Lv1d"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 2D617C653F9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:50:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8D20560362
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:49:33 +0000 (UTC)
-Received: by mail.galae.net (Postcow, from userid 0)
-	id E2DF411D7183A; Tue, 13 Oct 2026 19:49:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791913773; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=gI7trdo1WKqFoH1Knh8GwOdvv+JqJMYetShyEjJZcmM=;
-	b=QmO3Lv1dADuQ2RmGD0RkIZMERMJm1MpMaEAZ3zsnYxqBzilI63Y55TLPNeeQMLmMta/pD3
-	CqX1IAivL2UvxMafF2Q5gtdV5j/H2W6a1DOl+SQsRBHLKkukJQaYAJnfJJcyhVg3KotsJy
-	xBYgSOeeICt5YvlG29F1bBmhgTXGFCzqAdgtgMxvOHAnzurhk4GKFJQyOFfobJdjHTRRrz
-	2W/xiXghm05pobJ1TSBHNtyCp0jXgnR4X192GBR9rUsxSM3bDDfqU5dDctsuKqUrx0B/FK
-	R9z+8H9yFHpjhsPvo+addZ/o/CZw9SWHvHm2Qa2Zaxb3dlI6WYfxLvnAvgyY+g==
-Authentication-Results: mail.galae.net;
-	none
-Message-ID: <85184f37-32d8-42ce-90db-46cde769ecf5@bootlin.com>
-Date: Thu, 8 Oct 2026 10:32:05 +0200
+	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="wpX2RsUv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t5CU5ikk+xAUzIcY4hp/pSMGZXGlshl1TVjnTSkUsQj+FsYbfTh9nKKZGz53FEyNJAQXcqOVv08Up3IoyqbT8Zycruv5jPnkhcNCtJAzuMQZHbMMlxEy23uURgp+WXZrmcOaULLsOKN8z4cKQ80xbfcZIn/pnsREA1DM+4D/YqTo5k/NIuQLZtHekB5ugHJu8zcJJw3IonP7jPyTWSX9dNci98CqdS0UR+dnst2pQzfc2oSshE67Zni19G5gFS/37A33wqyxbaRJotms33kV9eaXwvBqbdZofOpbddiP57cj5dsAK5JtTtfNFSlL9oKmMYeq74OQBMKtjTIel7H3UA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CWyYUNbxbBarp1rmKTOfT5UGJpJ1iKTZ6rxD4JQ3+5w=;
+ b=b0WN0LOHC8PJos0k8tY7IskuAdyi6fG7SsjLigGGqJt6JXHECnfF2EvGMdo2AbUJRo7Wz1j6T4jPY8xcrIYRjzc1FE0RQ2La1jJT2cznMO6UEa6CdfbNgfFXCYFy/cQBqH/CCpLlTJAlvKgmPzhkm4lVBTBobNPR8JmagJeZ0zvYIEwQqFdurfQcqNndSxcUi8ZGdglD1HCa062xf6y+dnCLN7zV5xGOCCEQseKOLiP6nyznA9WLnL3SIiT0Nc46CiLP/CqdS9eLXpzq+K/wGj2pTqIBEOfMtczUUeSPX8tEc1MObZJc/n90rmsb2mgJg1cFdIxP606J0zJjXjji7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 192.86.86.210) smtp.rcpttodomain=cryptography.com smtp.mailfrom=rambus.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=rambus.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CWyYUNbxbBarp1rmKTOfT5UGJpJ1iKTZ6rxD4JQ3+5w=;
+ b=wpX2RsUv/UNpbn62TvE234eX3O3sctNaC8CCqreBJGH2tWTlzxr4CotfoSTVjcgIStjJ6BkbW2M5S/zAELaA8HREJ0VB4/JbF5F/N+/QRpzXtwoFc0Bx05FX3PqlFQQU2H5y0PyG41YSQ80mvZkIlmqcpYMqi6sxtIucZ5mOaobdH9+X0BdBJYRLbxC13/Aw+YW3FMXF72YMYLc6yOYRA3uKUy+s0wy0xSufNvZ/KfR1UukkixeX4KhN20IFBpqNLHwV3ZaQKac+7MBFTUMYOczKeDG5ERzuINfuoesp0DZcxpsYrpg6rZVYPfnJp5QZO95+bMwY/8jOR5SPIH7QdQ==
+Received: from YT4P288CA0006.CANP288.PROD.OUTLOOK.COM (2603:10b6:b01:d4::12)
+ by DM8PR04MB7893.namprd04.prod.outlook.com (2603:10b6:8:3e::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 17:49:15 +0000
+Received: from BN2PEPF00004FBE.namprd04.prod.outlook.com
+ (2603:10b6:b01:d4:cafe::af) by YT4P288CA0006.outlook.office365.com
+ (2603:10b6:b01:d4::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
+ 13 Oct 2026 17:49:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 192.86.86.210) smtp.mailfrom=rambus.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=rambus.com;
+Received-SPF: Pass (protection.outlook.com: domain of rambus.com designates
+ 192.86.86.210 as permitted sender) receiver=protection.outlook.com;
+ client-ip=192.86.86.210; helo=hqxsv-psmtppxy02.rambus.com; pr=C
+Received: from hqxsv-psmtppxy02.rambus.com (192.86.86.210) by
+ BN2PEPF00004FBE.mail.protection.outlook.com (10.167.243.184) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
+ via Frontend Transport; Tue, 13 Oct 2026 17:49:15 +0000
+Received: from hqxsv-cmdev3-aousherovitch.rambus.com (hqn-lb-int-float.rambus.com [10.12.20.20])
+	by hqxsv-psmtppxy02.rambus.com (Postfix) with ESMTP id 9C197180175F;
+	Tue, 13 Oct 2026 17:49:14 +0000 (UTC)
+From: Alex Ousherovitch <aousherovitch@rambus.com>
+To: Alex Ousherovitch <aousherovitch@rambus.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+Cc: devicetree@vger.kernel.org,
+	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+	linux-crypto@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Thi Nguyen <thin@rambus.com>
+Subject: [PATCH 5/5] MAINTAINERS: add Rambus CryptoManager Hub (CMH)
+Date: Tue, 13 Oct 2026 10:48:47 -0700
+Message-ID: <20261013174847.2192609-6-aousherovitch@rambus.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261013174847.2192609-1-aousherovitch@rambus.com>
+References: <20261013174847.2192609-1-aousherovitch@rambus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 09/10] net: ti: icssm-prueth: Move setting of netops
- to fix crash
-To: David Yang <mmyangfl@gmail.com>, netdev@vger.kernel.org
-Cc: MD Danish Anwar <danishanwar@ti.com>, Parvathi Pudi
- <parvathi@couthit.com>, Roger Quadros <rogerq@kernel.org>,
- Mohan Reddy Putluru <pmohan@couthit.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Jacob Keller <jacob.e.keller@intel.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Nicolai Buchwitz <nb@tipi-net.de>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261008022656.3592191-1-mmyangfl@gmail.com>
- <20261008022656.3592191-10-mmyangfl@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261008022656.3592191-10-mmyangfl@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: None
-X-Rspamd-Queue-Id: E2DF411D7183A
-X-Spamd-Result: default: False [-3.10 / 30.00];
-	BAYES_HAM(-5.50)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DATE_IN_PAST(1.00)[129];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[netdev];
-	RCVD_COUNT_ZERO(0.00)[0];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
-	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
-	BCC(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
-	URIBL_BLOCKED(0.00)[galae.net:url,infradead.org:email,bootlin.com:email,bootlin.com:mid,bootlin.com:url,lunn.ch:email,davemloft.net:email,tipi-net.de:email,localhost:rdns,localhost:helo,intel.com:email,fomichev.me:email,ti.com:email,couthit.com:email];
-	TO_DN_SOME(0.00)[]
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBE:EE_|DM8PR04MB7893:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 09121fae-7111-4936-01bc-08df29524c48
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|7416014|10067099003|22082099003|261009223027099003|11063799006|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	tCJ8hWAbl9ZxfCwKJudCkihDnOfG9sH46FKHAsPLcXdXw1pzFe4zWLvpY5Vla5/eiS0KRn/ljBWGFuX5/WISrCxRwYPafttuau7w9cmlHbQKl8VjvEK6/kPewrnhS0wpMo1xOnbvJQ0s5UtKcym7g8BLEC0tr6+xegzhFb+H7Zm9/O2cBlNJaGmvPyrsVYEiPyoYK0OnY30elm1MVG7IAdrYFf7LDptesdHX+xTB56DUJXUhgQUgmL0Lv14OdVVi8TaktuldhOcPtXuEgkD24//e60ZehBkTKRNqSv5tsYpaxFOCG/E9vklE4bJPGVNcOnEfcK2kHHi00vaRwAgr24hQo3Uh9ZuFBWS9FXzn0CMGU+zLf7oRa2iM3bJDUgMqiTMHaLwL8W9EzGq/uqj3kOiXNbIXUoLOtd3uFi63c5IiuNw3N5v1b2DWhVM+Wc42wE8h9IqPK7fzZsRHiZmXJi76ziTpWldaRWAfijjgbFS4hwhVAc+cL/604l1lkcVwbw7DyEbhBYZfwgE7EhSNB0q3LNU5zOeTXQYwauD2komHeCnBuE6fWUd7ZVrZNR0/vGgKG8Jb1M5WYTkk/xiIgEoRv1vM9DoRavPI3xSYuIsSNBH4XmWYMzgG65f5ZNhnlsI72PXExrBozr9w3SlM2wHIniwhq5kkLws121+MBQ3jFbmmDfoxljm4XM6J+QJAvht1LNu+bN/39bg8e5/zXQ==
+X-Forefront-Antispam-Report:
+	CIP:192.86.86.210;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hqxsv-psmtppxy02.rambus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(7416014)(10067099003)(22082099003)(261009223027099003)(11063799006)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	R7dXEtCKcqXaJa+tI/vrntJd3/W6zJYW41XNoxHH+QgH0UyMfZp6LRUyqfU7KzbSUM2RnONniiEY05fjXGMntU7ATnxA1TdUZZo7p5c53+w4S+k8o8IxbhktcF1N0y3qCzYvd67UeDkktlbzLPai6OYxIp7y0UzdfClF/72YCkk16Z05AaKRAr/LyvbIc02Y9qps/H0RiWb1D6yrDehDi9DiEff2e9COuY6z2/368m6mU4dy/7pS3RBaEMn5xcT8TwJfujKq+fy0Q7FS3t3yQT3WyXZmgD7m5KW9sN65yhZJDd2dhpfCLGKtno2YOG5Bww3ecX9dFQkeYNxwhjmc4dRwR1EAzhzoJgXuwS46omBMCzzzT154whTdaDJ+a+vAx1CF5HC54vzZIahUiDZULq9WKIa2wsxk6mi/CxAKMToghFvIOjqMV7Nh+HyyArUC
+X-OriginatorOrg: rambus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:49:15.2059
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09121fae-7111-4936-01bc-08df29524c48
+X-MS-Exchange-CrossTenant-Id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bd0ba799-c2b9-413c-9c56-5d1731c4827c;Ip=[192.86.86.210];Helo=[hqxsv-psmtppxy02.rambus.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FBE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR04MB7893
 
+Add MAINTAINERS entry for the Rambus CryptoManager Hub (CMH) hardware
+crypto accelerator driver under drivers/crypto/cmh/.
 
+Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
+Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+---
+ MAINTAINERS | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-On 10/8/26 04:26, David Yang wrote:
-> icssm_prueth_netdev_init() calls of_phy_get_and_connect() before
-> ndev->netdev_ops is assigned. phy_attach_direct() ->
-> phy_link_topo_add_phy() reads dev->netdev_ops through
-> netdev_need_ops_lock() since the commit in question, so probing crashes
-> with a NULL pointer dereference when CONFIG_NET_SHAPER is enabled.
-> 
-> Assign netdev_ops before the PHY attach, as was done for emac in commit
-> 7c9f391ec89c ("net: emac: move setting of netops to fix crash").
-> 
-> Fixes: ded86da4bbb7 ("net: ethtool: relax ethnl_req_get_phydev() locking assertion")
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
-
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Thanks,
-
-Maxime
-
-> ---
->  drivers/net/ethernet/ti/icssm/icssm_prueth.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/ti/icssm/icssm_prueth.c b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-> index b7e94244355a..b42c98e861e0 100644
-> --- a/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-> +++ b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-> @@ -1563,6 +1563,8 @@ static int icssm_prueth_netdev_init(struct prueth *prueth,
->  	}
->  	ether_addr_copy(emac->mac_addr, ndev->dev_addr);
->  
-> +	ndev->netdev_ops = &emac_netdev_ops;
-> +
->  	/* connect PHY */
->  	emac->phydev = of_phy_get_and_connect(ndev, eth_node,
->  					      icssm_emac_adjust_link);
-> @@ -1590,7 +1592,6 @@ static int icssm_prueth_netdev_init(struct prueth *prueth,
->  	}
->  
->  	ndev->dev.of_node = eth_node;
-> -	ndev->netdev_ops = &emac_netdev_ops;
->  
->  	netif_napi_add(ndev, &emac->napi, icssm_emac_napi_poll);
->  
-
-text:
-Return-Path: <netdev+bounces-342830-maxime.chevallier=bootlin.com@vger.kernel.org>
-Delivered-To: maxime.chevallier@bootlin.com
-Received: from mail.galae.net ([172.22.1.253])
-	by 9e7fea892943 with LMTP
-	id kOIoI45Wx2pNGRkAtaWaaQ
-	(envelope-from <netdev+bounces-342830-maxime.chevallier=bootlin.com@vger.kernel.org>)
-	for <maxime.chevallier@bootlin.com>; Thu, 08 Oct 2026 10:38:38 +0200
-X-Original-To: maxime.chevallier@bootlin.com
-Received: from smtpin-01.galae.net (smtpin-01.galae.net [51.159.2.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.galae.net (Postcow) with ESMTPS id 23E71103303A7
-	for <maxime.chevallier@bootlin.com>; Thu,  8 Oct 2026 10:38:37 +0200 (CEST)
-Authentication-Results: mail.galae.net;
-	dkim=pass header.d=bootlin.com header.s=dkim header.b="yyHoI/ox";
-	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1");
-	dmarc=pass (policy=reject) header.from=bootlin.com;
-	spf=pass (mail.galae.net: domain of "netdev+bounces-342830-maxime.chevallier=bootlin.com@vger.kernel.org" designates 172.105.105.114 as permitted sender) smtp.mailfrom="netdev+bounces-342830-maxime.chevallier=bootlin.com@vger.kernel.org"
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com;
-	s=dkim; t=1791448718;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:
-	 list-unsubscribe:list-subscribe:dkim-signature;
-	bh=DKhOUStc32yyJJh2yPmsAjtT0L8xYwJmDHCV2AfoKVk=;
-	b=lBhhGBSDLDAjLTzj6d/Nmb9RIIVTA6NokJRlUEd3jLLrd3Wl+dMLz6jNq+d5fGYCZdrFSe
-	qPsIMdCsbAVfi2vkcNOrHqgHhwarwRZ9xlwVoDBwGmMMEu24fCyivb0lPl91YvuqS7bSmk
-	CllzQuAxt9b0dckhvTe0bj1JhqI6f57O7k6ruoJMv7/8J9WiJzq44zh5LZiR5FdYZgVZnT
-	7NWMpSyzoPJblkvsz9gAWd+Rkps3sIfycFh7FsZBVtxnF3cIfEqkLXs2BrySvegS381Cl/
-	5Y/sAD0Gms0lTiC80FUpv4HyP+L3ztWR2Q1qfsGAhErP0Xrsh5dE/BSLHmZppA==
-ARC-Authentication-Results: i=2;
-	mail.galae.net;
-	dkim=pass header.d=bootlin.com header.s=dkim header.b="yyHoI/ox";
-	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1");
-	dmarc=pass (policy=reject) header.from=bootlin.com;
-	spf=pass (mail.galae.net: domain of "netdev+bounces-342830-maxime.chevallier=bootlin.com@vger.kernel.org" designates 172.105.105.114 as permitted sender) smtp.mailfrom="netdev+bounces-342830-maxime.chevallier=bootlin.com@vger.kernel.org"
-ARC-Seal: i=2; s=dkim; d=bootlin.com; t=1791448718; a=rsa-sha256; cv=pass;
-	b=MS0FIWql+kNXTq/h8fQduIOs7sK47/iyh5Rk8Vg5yMPNO99kGL1/qK0Rl+enKeSOTGvyxQ
-	cKnxT6eWYUPPV4lgOxX5wEMywEpQMRS6rvC8QItZRYGW57r7CLenweCWD+HiU8aRFGq8r8
-	qG43lScwrR2Yl6GHoyUkXzKw4geHJNpnoewBEPFin+AMNnLqQh1vTSUY1QNJlH44M33VZz
-	XPhbMIKnSe2Q2rhrRbaeWoSvPKTHanY0h1ESrBCYaEOqsom1NUGtxdVcxsa2wEgoc2v9hL
-	qJ7dYMEq2Kl9kFJGJ2+4TUkIIY+G3/AK0fo15Cf/FdmpdwfJbrKRbLoek+2klA==
-Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
-	by smtpin-01.galae.net (Postfix) with ESMTPS id A11B5342DD9
-	for <maxime.chevallier@bootlin.com>; Thu,  8 Oct 2026 08:38:37 +0000 (UTC)
-Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 174EA2BDAA
-	for <maxime.chevallier@bootlin.com>; Thu,  8 Oct 2026 08:32:22 +0000 (UTC)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2728470E9D;
-	Thu,  8 Oct 2026 08:32:20 +0000 (UTC)
-X-Original-To: netdev@vger.kernel.org
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F3B451991
-	for <netdev@vger.kernel.org>; Thu,  8 Oct 2026 08:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791448339; cv=none; b=S/Y85t+FaTaNMBlF2npqhRjvOoTXTmRf8x3T38WNzx+RBazd5hW+kTPSIWpz7uGAiN0nIVxFlWQrh+fZYgSk6/rTKHLEtR2ErCb03l0/Q4ulPzm9QBk6WCeKvVGMk6ivJ1KGdLkt8czR4k/1EgILb9wChcczYoN/HL2W0Njdztg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791448339; c=relaxed/simple;
-	bh=mKPxpFXIIF8Czy3FxcgFWg1HjY+yIVit76orNJybYUg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TZ+w6TKfrk7kzYC6JVZUsEq209opdLjvtmMhT123pAXVhlInJ2CiwHMrTvjSemQDhUb/QeCBB7yoXvNsDxEBiSf+yxDzWcpf3ST/mxtR/m9K7AGZ0wqF/7bgQ33FucuVI9i/hZ9C5SZuW6iC7VyAg0qwFuH4Q4QT8OSd/AoUSe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=yyHoI/ox; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B2F391A1185;
-	Thu,  8 Oct 2026 08:32:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8189360341;
-	Thu,  8 Oct 2026 08:32:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A1E6E10333850;
-	Thu,  8 Oct 2026 10:32:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791448333; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=DKhOUStc32yyJJh2yPmsAjtT0L8xYwJmDHCV2AfoKVk=;
-	b=yyHoI/oxSfdhJNEDv3/CTjikWXWJLcVViQRDKXaycfcuAlZd406+P127DWOfiugd/D3kPT
-	es+l7ZPrDzzrxVzEGCjdfBHqn7srcDW5pvXitk5X0S/rgaiyKfa/KIOglKufZH+/7Jcr/1
-	iVlNRIJpJJSsJfTI9eA979l45dSzZr5V3SYh7GgA44kO6BrtmjUaBJaLQ+CW6/DU1jaS8l
-	4midyiJUTxJjAnIt/t7/7RoKpo8VHigd7tpdij5H1ztJ9DZHdjDjqdsI5py7gbVE8Tf4eF
-	2MUU0LmXwD+78xuwBWZ2abmo8JXhrmrhTcsfEXOgsygxxCmHje1udtX2G7+HxA==
-Message-ID: <85184f37-32d8-42ce-90db-46cde769ecf5@bootlin.com>
-Date: Thu, 8 Oct 2026 10:32:05 +0200
-Precedence: bulk
-X-Mailing-List: netdev@vger.kernel.org
-List-Id: <netdev.vger.kernel.org>
-List-Subscribe: <mailto:netdev+subscribe@vger.kernel.org>
-List-Unsubscribe: <mailto:netdev+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 09/10] net: ti: icssm-prueth: Move setting of netops
- to fix crash
-To: David Yang <mmyangfl@gmail.com>, netdev@vger.kernel.org
-Cc: MD Danish Anwar <danishanwar@ti.com>, Parvathi Pudi
- <parvathi@couthit.com>, Roger Quadros <rogerq@kernel.org>,
- Mohan Reddy Putluru <pmohan@couthit.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Jacob Keller <jacob.e.keller@intel.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Nicolai Buchwitz <nb@tipi-net.de>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261008022656.3592191-1-mmyangfl@gmail.com>
- <20261008022656.3592191-10-mmyangfl@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261008022656.3592191-10-mmyangfl@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
-X-Last-TLS-Session-Version: TLSv1.3
-X-Spamd-Result: default: False [-5.25 / 30.00];
-	BAYES_HAM(-3.17)[93.35%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	IP_REPUTATION_HAM(-1.41)[asn: 63949(-0.40), country: SG(-0.01), ip: 172.105.105.114(-1.00)];
-	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[bootlin.com,reject];
-	R_DKIM_ALLOW(-0.20)[bootlin.com:s=dkim];
-	R_SPF_ALLOW(-0.20)[+ip4:172.105.105.114:c];
-	MAILLIST(-0.15)[generic];
-	MIME_GOOD(-0.10)[text/plain];
-	HAS_LIST_UNSUB(-0.01)[];
-	MX_GOOD(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	URIBL_BLOCKED(0.00)[bootlin.com:mid,bootlin.com:email,bootlin.com:dkim,tor.lore.kernel.org:helo,tor.lore.kernel.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_MAILCOW_DOMAIN(0.00)[bootlin.com];
-	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
-	MIME_TRACE(0.00)[0:+];
-	BCC(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[bounces-342830-maxime.chevallier=bootlin.com];
-	RBL_SENDERSCORE_REPUT_BLOCKED(0.00)[172.105.105.114:from];
-	DKIM_TRACE(0.00)[bootlin.com:+];
-	DNSWL_BLOCKED(0.00)[212.83.136.155:received,212.83.139.233:received,185.246.84.56:received,172.105.105.114:from,100.90.174.1:received];
-	NEURAL_HAM(-0.00)[-1.000];
-	PRECEDENCE_BULK(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,netdev@vger.kernel.org];
-	ARC_SIGNED(0.00)[bootlin.com:s=dkim:i=2];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[netdev];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DWL_DNSWL_BLOCKED(0.00)[bootlin.com:dkim];
-	ASN(0.00)[asn:63949, ipnet:172.105.96.0/20, country:SG];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	EXTERNAL_RELAY_AUTHENTICATED(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 23E71103303A7
-
-
-
-On 10/8/26 04:26, David Yang wrote:
-> icssm_prueth_netdev_init() calls of_phy_get_and_connect() before
-> ndev->netdev_ops is assigned. phy_attach_direct() ->
-> phy_link_topo_add_phy() reads dev->netdev_ops through
-> netdev_need_ops_lock() since the commit in question, so probing crashes
-> with a NULL pointer dereference when CONFIG_NET_SHAPER is enabled.
-> 
-> Assign netdev_ops before the PHY attach, as was done for emac in commit
-> 7c9f391ec89c ("net: emac: move setting of netops to fix crash").
-> 
-> Fixes: ded86da4bbb7 ("net: ethtool: relax ethnl_req_get_phydev() locking assertion")
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
-
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Thanks,
-
-Maxime
-
-> ---
->  drivers/net/ethernet/ti/icssm/icssm_prueth.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/ti/icssm/icssm_prueth.c b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-> index b7e94244355a..b42c98e861e0 100644
-> --- a/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-> +++ b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-> @@ -1563,6 +1563,8 @@ static int icssm_prueth_netdev_init(struct prueth *prueth,
->  	}
->  	ether_addr_copy(emac->mac_addr, ndev->dev_addr);
->  
-> +	ndev->netdev_ops = &emac_netdev_ops;
-> +
->  	/* connect PHY */
->  	emac->phydev = of_phy_get_and_connect(ndev, eth_node,
->  					      icssm_emac_adjust_link);
-> @@ -1590,7 +1592,6 @@ static int icssm_prueth_netdev_init(struct prueth *prueth,
->  	}
->  
->  	ndev->dev.of_node = eth_node;
-> -	ndev->netdev_ops = &emac_netdev_ops;
->  
->  	netif_napi_add(ndev, &emac->napi, icssm_emac_napi_poll);
->  
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c3bcdcaa9b92..a803cd2a3c9a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22760,6 +22760,19 @@ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+ F:	drivers/net/wireless/ralink/
+ 
++RAMBUS CRYPTOMANAGER HUB (CMH) HARDWARE CRYPTO ACCELERATOR
++M:	Alex Ousherovitch <aousherovitch@rambus.com>
++M:	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
++R:	Joel Wittenauer <Joel.Wittenauer@cryptography.com>
++R:	Thi Nguyen <thin@rambus.com>
++L:	linux-crypto@vger.kernel.org
++S:	Maintained
++F:	Documentation/ABI/testing/debugfs-driver-cmh
++F:	Documentation/ABI/testing/sysfs-driver-cmh
++F:	Documentation/crypto/device_drivers/cmh.rst
++F:	Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
++F:	drivers/crypto/cmh/
++
+ RAMDISK RAM BLOCK DEVICE DRIVER
+ M:	Jens Axboe <axboe@kernel.dk>
+ S:	Maintained
+-- 
+2.43.7
 
