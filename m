@@ -1,469 +1,215 @@
-Received: from mail-m127169.xmail.ntesmail.com (mail-m127169.xmail.ntesmail.com [115.236.127.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA024F392E;
-	Tue, 13 Oct 2026 12:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307AD1F91F6;
+	Tue, 13 Oct 2026 12:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894436; cv=none; b=Fl2KR0eHYlJyoO2SAv3oMv9W/n5ROM2y8nrG8VbqrYzf09K45HuRjQuwF0w1Sqcmxjtxn/Ja6lGlUDkwrWHa86/CqKd4b1iVpNPWZUlhgjNPG3LOmah2p2wU0Gk+h2UqstwiLu6Emcc6SZH+CwyKMy05lJo89vO8/MDxd4jrp04=
+	t=1791894448; cv=none; b=KsXICt6XGy6kjVVq/1mViLG6Ql/WCmnU4idi/uFGEwXTGbUNV7TA66FEhUeN1Ie5oLm0Yr8OYZwZXxApnWHWbysJvdZps3mbMtqhnKdiXmPkB2IfoZrIoUf3lu5Bnm6ZXgBDrgNM3T0Y3V+zOb70noGnbC/A1eNslTdBEdD77hQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894436; c=relaxed/simple;
-	bh=T85QG8xQTty9scZcy5EeVDjKZiKmfut65/Y5zXHlJ+c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=liaYj89k1v5J+SC+TxhCFs8iBRokY+DF/qdpdPCEYNJLDuN+7BKjqIt+5Mscck89LbEV1mIpiPwkqqitDJEkid378Bfm9ZQZ+EfcJGsmG/VWLYcWS/Lf7GfGk+sOgc85VZbiaNlTAe6jxlYfsKT4DR1/FWFX9ORXXd5w49OxWqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=115.236.127.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 200407ef4;
-	Tue, 13 Oct 2026 20:21:50 +0800 (GMT+08:00)
-From: Zhen Ni <zhen.ni@easystack.cn>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	shuah@kernel.org
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v2 6/6] selftests/bpf: add tests for the page_owner bpf_iter target
-Date: Tue, 13 Oct 2026 20:21:25 +0800
-Message-Id: <20261013122125.843451-7-zhen.ni@easystack.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261013122125.843451-1-zhen.ni@easystack.cn>
-References: <20261013122125.843451-1-zhen.ni@easystack.cn>
+	s=arc-20240116; t=1791894448; c=relaxed/simple;
+	bh=LsqRiRT9h/fhM0hOL9YyO/pZkazR0OUZ8W80Cm+GM1E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Iap3BM0x93Ms+r7hif3UWWjpa6wZktZBaMg6LFkCfJBe2hN5cpCcZRQZsgT8j2qbkzB75M30uUjV/85rFFPO9HNwYkSX+J6l7uSfDRyRX4Nj1UDIXhXq+5bIWvMdsHWF5OEFj7Esvbesl/gmr50Xh7IC7qHknF+kAmQeWbQ14og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=GPWqjMJ8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=pGcR327c; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=iIDIhD2C; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=4bE8LT9l; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="GPWqjMJ8";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="pGcR327c";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="iIDIhD2C";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="4bE8LT9l"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5BD1F1F38E;
+	Tue, 13 Oct 2026 12:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791894445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zWVAE1lZRQsxqhvh+wudpgfIToirCW/Iu1gheVKptcc=;
+	b=GPWqjMJ8zlWbUypp8KwTPOCyiQ9EFDNlz0Dqnj7KwqkFBjzyrFXAH0h4IwJvlMzFA3NqMJ
+	hRr1GsFv4he5jK9hkV7qANz3J8R18fPPb4I/sQ/E2N6qMqP93ihcguQQPLdtMnC7FuNe9G
+	Yb+q72dte4Z3aVXj9Hsat1K7VfykfhY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791894445;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zWVAE1lZRQsxqhvh+wudpgfIToirCW/Iu1gheVKptcc=;
+	b=pGcR327cbsogNdP+m+WGWG+x4zJ0ee3pRJan5C68zFF1Vl6Fw9TyGhtrV/gdbtu53t2gvW
+	UyaZCzrJFbU/30Cg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791894443; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zWVAE1lZRQsxqhvh+wudpgfIToirCW/Iu1gheVKptcc=;
+	b=iIDIhD2CDaVoXIIJfYQcTNuXou3RjOYPHLU2SFVUE/32uDqbxswz56LrMXWCdGr86Lq5Xc
+	h9cFYQReblC+Hr7XXLNNdvpUirFLIw7JbdMxrgfuhWjSww3LJH37ZXOWVlsIkXSWdIlBw/
+	Y1B10vKF/rRAR5a9mZYWbgwaycfpwyQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791894443;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zWVAE1lZRQsxqhvh+wudpgfIToirCW/Iu1gheVKptcc=;
+	b=4bE8LT9lZDYlIv/gbCyEnqCcPxsaP0o82x7ZjMSjSw25PP64g/GfMjh/BzEdPyAsJxBF/2
+	iGTEIbgJHsic4+Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 292E313341;
+	Tue, 13 Oct 2026 12:27:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id +b8MAasjzmoQLgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 13 Oct 2026 12:27:23 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id A8A0AA1407; Tue, 13 Oct 2026 14:27:18 +0200 (CEST)
+Date: Tue, 13 Oct 2026 14:27:18 +0200
+From: Jan Kara <jack@suse.cz>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Theodore Ts'o <tytso@mit.edu>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, Christoph Hellwig <hch@lst.de>, 
+	John Garry <john.garry@linux.dev>, "Darrick J. Wong" <djwong@kernel.org>, 
+	linux-block@vger.kernel.org, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH RFC v2 1/3] ext4: reject atomic writes on inodes that
+ can't do direct I/O
+Message-ID: <4ob5pj55nwlizyuftsuioyk3jlvpzm2mmf6hs4fzlbxo6ierca@2sq3zbflyakh>
+References: <20261012-ext4-atomic-no-fallback-v2-0-c4b30c60e500@columbia.edu>
+ <20261012-ext4-atomic-no-fallback-v2-1-c4b30c60e500@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1353642440229kunm0bc94a6a526a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGR9MVhkfSU8dS04eGUNDGlYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-ext4-atomic-no-fallback-v2-1-c4b30c60e500@columbia.edu>
+X-Spam-Flag: NO
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	TAGGED_RCPT(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,lst.de,linux.dev,kernel.org,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,suse.com:email,imap1.dmz-prg2.suse.org:helo,columbia.edu:email,suse.cz:email]
 
-Add a sleepable BPF program and a userspace runner covering the seq_file
-and open-coded page_owner iterators. The test checks:
+On Mon 12-10-26 13:17:40, Tal Zussman wrote:
+> ext4_dio_write_iter() falls back to buffered I/O when the inode can't do
+> direct I/O at all, i.e. journaled data, inline data or verity. That
+> fallback runs before any atomic write handling, and
+> ext4_buffered_write_iter() doesn't look at IOCB_ATOMIC, so an atomic
+> write to such an inode is silently done as a plain buffered write with
+> no torn-write protection.
+> 
+> ext4_inode_can_atomic_write() makes it worse for journaled data by
+> advertising atomic writes for those inodes: statx() reports atomic write
+> limits and the file gets FMODE_CAN_ATOMIC_WRITE, so the write passes the
+> VFS checks and reaches the fallback. This is reachable with
+> data=journal, or with chattr +j on a nodelalloc mount. Inline data
+> inodes don't have the extents flag and verity files can't be opened for
+> writing, so those are refused before ext4 sees the write, but the
+> fallback would still accept them.
+> 
+> Reject IOCB_ATOMIC in ext4_buffered_write_iter(), next to the existing
+> IOCB_NOWAIT rejection, so neither fallback into it can complete an
+> atomic write non-atomically. Also require ext4_dio_alignment() to be
+> nonzero in ext4_inode_can_atomic_write(), so statx() stops advertising
+> atomic writes for these inodes and VFS refuses RWF_ATOMIC early. The
+> runtime check is still needed, as the journal data flag can be changed
+> on an open file.
+> 
+> Fixes: b7987a7d69a4 ("ext4: Support setting FMODE_CAN_ATOMIC_WRITE")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260909-ext4-atomic-no-fallback-v1-1-5a6b9539c002%40columbia.edu
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-  - seq_file walk, unfiltered and pid-filtered: records read back from
-    the iterator fd match the lines the program printed.
-  - open-coded iterator parity with the seq path.
-  - the kfuncs' contracts: a non-empty stack trace, and memcg
-    classification.
+Looks good. Feel free to add:
 
-CONFIG_PAGE_OWNER is enabled in the bpf selftests config so the
-program's page_owner BTF types are available. Skipped when debugfs
-page_owner is unavailable.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
----
-Changes in v2:
-- Drop the get_nid kfunc coverage.
-- Enable CONFIG_PAGE_OWNER in the bpf selftests config.
+								Honza
 
-v1: https://lore.kernel.org/linux-mm/20261009112308.240769-7-zhen.ni@easystack.cn/
----
- tools/testing/selftests/bpf/config            |   2 +
- .../bpf/prog_tests/page_owner_iter.c          | 193 ++++++++++++++++++
- .../selftests/bpf/progs/bpf_iter_page_owner.c | 159 +++++++++++++++
- 3 files changed, 354 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
- create mode 100644 tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
-
-diff --git a/tools/testing/selftests/bpf/config b/tools/testing/selftests/bpf/config
-index ea7044f30adc..731bc3d79881 100644
---- a/tools/testing/selftests/bpf/config
-+++ b/tools/testing/selftests/bpf/config
-@@ -136,3 +136,5 @@ CONFIG_SMC_HS_CTRL_BPF=y
- CONFIG_DIBS=y
- CONFIG_DIBS_LO=y
- CONFIG_PM_WAKELOCKS=y
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_PAGE_OWNER=y
-diff --git a/tools/testing/selftests/bpf/prog_tests/page_owner_iter.c b/tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
-new file mode 100644
-index 000000000000..3684ca308935
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
-@@ -0,0 +1,193 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 */
-+
-+#include <test_progs.h>
-+#include "bpf_iter_page_owner.skel.h"
-+
-+#define DEBUGFS_PAGE_OWNER	"/sys/kernel/debug/page_owner"
-+
-+static bool page_owner_available(void)
-+{
-+	return access(DEBUGFS_PAGE_OWNER, R_OK) == 0;
-+}
-+
-+/* Count link_fd output lines; -1 on error. */
-+static long iter_record_count(int link_fd)
-+{
-+	char *line = NULL;
-+	size_t len = 0;
-+	long count = 0;
-+	int iter_fd;
-+	FILE *f;
-+
-+	iter_fd = bpf_iter_create(link_fd);
-+	if (!ASSERT_GE(iter_fd, 0, "bpf_iter_create"))
-+		return -1;
-+
-+	f = fdopen(iter_fd, "r");
-+	if (!ASSERT_OK_PTR(f, "fdopen")) {
-+		close(iter_fd);
-+		return -1;
-+	}
-+
-+	for (;;) {
-+		if (getline(&line, &len, f) > 0) {
-+			count++;
-+			continue;
-+		}
-+		if (!ferror(f))
-+			break;		/* clean EOF */
-+		/*
-+		 * bpf_seq_read() returns -EAGAIN when a chunk scanned.
-+		 * Not an error, just retry the read.
-+		 */
-+		if (errno == EAGAIN) {
-+			clearerr(f);
-+			continue;
-+		}
-+		ASSERT_OK(errno, "iter_read");
-+		count = -1;
-+		break;
-+	}
-+
-+	free(line);
-+	fclose(f);
-+	return count;
-+}
-+
-+/* Validate bpf_page_owner_get_memcg_info() results from the open-coded run. */
-+static void check_memcg_skel(struct bpf_iter_page_owner *skel)
-+{
-+	fprintf(stderr,
-+		"memcg: seen=%u charged=%u online=%u nodata=%u notsup=%u bad=%u first='%s' name='%s' flags=%u\n",
-+		skel->bss->memcg_seen, skel->bss->memcg_charged,
-+		skel->bss->memcg_online, skel->bss->memcg_nodata,
-+		skel->bss->memcg_notsup, skel->bss->memcg_bad,
-+		skel->bss->memcg_first_path, skel->bss->memcg_first_name,
-+		skel->bss->memcg_first_flags);
-+
-+	if (!ASSERT_GT(skel->bss->memcg_seen, 0, "memcg_seen_gt_0"))
-+		return;
-+
-+	/* all -EOPNOTSUPP: CONFIG_MEMCG is off */
-+	if (skel->bss->memcg_notsup == skel->bss->memcg_seen) {
-+		ASSERT_EQ(skel->bss->memcg_bad, 0, "memcg_stub_invariants");
-+		return;
-+	}
-+
-+	if (!ASSERT_EQ(skel->bss->memcg_bad, 0, "memcg_kfunc_invariants"))
-+		return;
-+
-+	/* Every call is either charged or nodata */
-+	if (!ASSERT_EQ(skel->bss->memcg_charged + skel->bss->memcg_nodata,
-+		       skel->bss->memcg_seen, "memcg_ret_classified"))
-+		return;
-+
-+	if (!skel->bss->memcg_first_saved)
-+		return;
-+
-+	if (!ASSERT_EQ(skel->bss->memcg_first_path[0], '/',
-+		       "memcg_first_path_abs"))
-+		return;
-+
-+	if (skel->bss->memcg_first_name[0])
-+		ASSERT_OK_PTR(strstr(skel->bss->memcg_first_path,
-+				    skel->bss->memcg_first_name),
-+			      "memcg_name_in_path");
-+}
-+
-+void serial_test_page_owner_iter(void)
-+{
-+	struct bpf_iter_page_owner *skel = NULL;
-+	LIBBPF_OPTS(bpf_test_run_opts, opts);
-+	long iter_count, unfiltered_count, oc_diff, pid;
-+	unsigned int printed_before;
-+	int link_fd, prog_fd;
-+
-+	if (!page_owner_available()) {
-+		printf("%s:SKIP:page_owner debugfs unavailable "
-+		       "(CONFIG_PAGE_OWNER + page_owner=on)\n", __func__);
-+		test__skip();
-+		return;
-+	}
-+
-+	skel = bpf_iter_page_owner__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "bpf_iter_page_owner__open_and_load"))
-+		return;
-+
-+	/* --- seq file iterator: unfiltered run --- */
-+	skel->bss->filter_en = 0;
-+
-+	if (!ASSERT_OK(bpf_iter_page_owner__attach(skel), "skel_attach"))
-+		goto destroy;
-+
-+	link_fd = bpf_link__fd(skel->links.dump_page_owner);
-+	iter_count = iter_record_count(link_fd);
-+	if (iter_count < 0)
-+		goto destroy;
-+	unfiltered_count = iter_count;
-+
-+	fprintf(stderr, "iter_count=%ld printed_lines=%u total_seen=%u\n",
-+		iter_count, skel->bss->printed_lines, skel->bss->total_seen);
-+
-+	ASSERT_GT(iter_count, 0, "unfiltered_lines_gt_0");
-+
-+	ASSERT_EQ((long)skel->bss->printed_lines, iter_count,
-+		  "lines_match_printed");
-+
-+	/* unfiltered: every visited page is printed, so the two must match */
-+	ASSERT_EQ(skel->bss->total_seen, skel->bss->printed_lines,
-+		  "unfiltered_all_printed");
-+
-+	/* --- seq file iterator: pid-filtered run --- */
-+	pid = getpid();
-+	skel->bss->filter_en = 1;
-+	skel->bss->filter_pid = (pid_t)pid;
-+
-+	/* printed_lines is cumulative across runs: compare the delta */
-+	printed_before = skel->bss->printed_lines;
-+	iter_count = iter_record_count(link_fd);
-+	if (iter_count < 0)
-+		goto destroy;
-+
-+	fprintf(stderr,
-+		"pid=%ld iter_count=%ld printed_delta=%u\n",
-+		pid, iter_count, skel->bss->printed_lines - printed_before);
-+
-+	ASSERT_GT(iter_count, 0, "filtered_lines_gt_0");
-+	ASSERT_EQ(skel->bss->printed_lines - printed_before, iter_count,
-+		  "filtered_printed_match");
-+
-+	/* --- open-coded iterator parity --- */
-+	prog_fd = bpf_program__fd(skel->progs.scan_open_coded);
-+
-+	ASSERT_OK(bpf_prog_test_run_opts(prog_fd, &opts), "prog_test_run");
-+	fprintf(stderr,
-+		"open_coded_seen=%u nid_seen=%u first_nid=%d "
-+		"stack_bytes=%u stack=[\n%s]\n",
-+		skel->bss->open_coded_seen, skel->bss->nid_seen,
-+		skel->data->first_nid, skel->bss->stack_bytes,
-+		skel->bss->stack_text);
-+
-+	/* same eligibility as the seq path: counts must be close */
-+	ASSERT_GT(skel->bss->open_coded_seen, 0, "oc_seen_gt_0");
-+	oc_diff = (long)skel->bss->open_coded_seen - unfiltered_count;
-+	if (oc_diff < 0)
-+		oc_diff = -oc_diff;
-+	ASSERT_LE(oc_diff, unfiltered_count / 100 + 64,
-+		  "oc_seen_close_to_iter");
-+
-+	/* the nid kfunc returned a valid node for every page */
-+	ASSERT_EQ(skel->bss->nid_seen, skel->bss->open_coded_seen,
-+		  "nid_valid_all");
-+	ASSERT_GE(skel->data->first_nid, 0, "first_nid_valid");
-+
-+	ASSERT_GT(skel->bss->stack_bytes, 0, "stack_snprint_ok");
-+	ASSERT_OK_PTR(strstr(skel->bss->stack_text, "+0x"), "stack_frames");
-+	ASSERT_OK_PTR(strchr(skel->bss->stack_text, '\n'), "stack_lines");
-+
-+	check_memcg_skel(skel);
-+
-+destroy:
-+	bpf_iter_page_owner__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c b/tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
-new file mode 100644
-index 000000000000..be2261b713ea
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
-@@ -0,0 +1,159 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 */
-+
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+__u32 filter_en;
-+__u32 filter_pid;
-+__u32 total_seen;
-+__u32 printed_lines;
-+
-+__u32 open_coded_seen;
-+__u32 nid_seen;
-+__s32 first_nid = -1;
-+char stack_text[2048];
-+__u32 stack_bytes;
-+
-+__u32 memcg_seen;
-+__u32 memcg_charged;
-+__u32 memcg_online;
-+__u32 memcg_nodata;
-+__u32 memcg_notsup;
-+__u32 memcg_bad;
-+__u32 memcg_first_saved;
-+__u32 memcg_first_flags;	/* bit0 is_online, bit1 is_kmem */
-+__u32 memcg_first_path_len;
-+char memcg_pathbuf[4096];
-+char memcg_first_path[4096];
-+char memcg_first_name[80];
-+
-+#define MEMCG_ENODATA 61
-+#define MEMCG_EOPNOTSUPP 95
-+
-+#define MEMCG_F_ONLINE	(1 << 0)
-+#define MEMCG_F_OBJCG	(1 << 1)
-+
-+extern int bpf_iter_page_owner_new(struct bpf_iter_page_owner *it) __ksym;
-+extern struct page_owner_scan *
-+bpf_iter_page_owner_next(struct bpf_iter_page_owner *it) __ksym;
-+extern void bpf_iter_page_owner_destroy(struct bpf_iter_page_owner *it) __ksym;
-+extern int bpf_page_owner_stack_snprint(struct page_owner_scan *scan,
-+					char *buf__uninit, u32 buf__sz) __ksym;
-+extern int bpf_page_owner_get_memcg_info(struct page_owner_scan *scan,
-+					 struct memcg_info *info__uninit,
-+					 char *buf__uninit, u32 buf__sz) __ksym;
-+
-+static __u32 copy_str(char *dst, const char *src, const __u32 max)
-+{
-+	__u32 i = 0;
-+
-+	while (i + 1 < max && src[i]) {
-+		dst[i] = src[i];
-+		i++;
-+	}
-+	dst[i] = '\0';
-+	return i;
-+}
-+
-+/*
-+ * Exercise bpf_page_owner_get_memcg_info() until 32 pages charged to an
-+ * ONLINE memcg have been seen, checking its per-return contract:
-+ *  - 0:          buf holds an absolute cgroup path;
-+ *  - -ENODATA:   buf was NUL-terminated;
-+ *  - -EOPNOTSUPP: counted (CONFIG_MEMCG is off);
-+ *
-+ * The first online charged sample is saved for userspace to print and
-+ * cross-check (name vs basename of path).
-+ */
-+static void check_memcg(struct page_owner_scan *scan)
-+{
-+	static struct memcg_info info;
-+	int err;
-+
-+	err = bpf_page_owner_get_memcg_info(scan, &info, memcg_pathbuf,
-+					    sizeof(memcg_pathbuf));
-+	memcg_seen++;
-+
-+	if (err == 0) {
-+		memcg_charged++;
-+
-+		if (memcg_pathbuf[0] != '/') {
-+			memcg_bad++;
-+			return;
-+		}
-+
-+		if (!info.is_online)
-+			return;
-+		memcg_online++;
-+
-+		/* keep the first online sample for userspace */
-+		if (!memcg_first_saved) {
-+			memcg_first_path_len = copy_str(memcg_first_path,
-+							memcg_pathbuf,
-+							sizeof(memcg_first_path));
-+			copy_str(memcg_first_name, info.name,
-+				 sizeof(memcg_first_name));
-+			memcg_first_flags = MEMCG_F_ONLINE |
-+					    (info.is_kmem ? MEMCG_F_OBJCG : 0);
-+			memcg_first_saved = 1;
-+		}
-+	} else if (err == -MEMCG_ENODATA) {
-+		memcg_nodata++;
-+		if (memcg_pathbuf[0] != '\0')
-+			memcg_bad++;
-+	} else if (err == -MEMCG_EOPNOTSUPP) {
-+		memcg_notsup++;
-+		if (memcg_pathbuf[0] != '\0')
-+			memcg_bad++;
-+	} else {
-+		memcg_bad++;
-+	}
-+}
-+
-+SEC("syscall")
-+int scan_open_coded(const void *ctx)
-+{
-+	struct bpf_iter_page_owner it;
-+	struct page_owner_scan *scan;
-+
-+	bpf_iter_page_owner_new(&it);
-+
-+	while ((scan = bpf_iter_page_owner_next(&it))) {
-+		open_coded_seen++;
-+		if (scan->nid >= 0)
-+			nid_seen++;
-+		if (memcg_online < 32)
-+			check_memcg(scan);
-+		/* grab the stack of the 100th page for userspace to check */
-+		if (open_coded_seen == 100) {
-+			first_nid = scan->nid;
-+			if (scan->po_snap.handle)
-+				stack_bytes = bpf_page_owner_stack_snprint(
-+					scan, stack_text, sizeof(stack_text));
-+		}
-+	}
-+	bpf_iter_page_owner_destroy(&it);
-+	return 0;
-+}
-+
-+SEC("iter/page_owner")
-+int dump_page_owner(struct bpf_iter__page_owner *ctx)
-+{
-+	struct page_owner *po = ctx->po;
-+
-+	if (!po)
-+		return 0;
-+
-+	total_seen++;
-+
-+	if (filter_en && po->pid != (pid_t)filter_pid)
-+		return 0;
-+
-+	BPF_SEQ_PRINTF(ctx->meta->seq, "pfn %llu pid %d comm %s\n",
-+		       ctx->pfn, po->pid, po->comm);
-+	printed_lines++;
-+	return 0;
-+}
+> ---
+>  fs/ext4/ext4.h | 8 +++++++-
+>  fs/ext4/file.c | 8 ++++++++
+>  2 files changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+> index 724a27e8be61..5115f067a9f5 100644
+> --- a/fs/ext4/ext4.h
+> +++ b/fs/ext4/ext4.h
+> @@ -4057,12 +4057,18 @@ static inline int ext4_buffer_uptodate(struct buffer_head *bh)
+>  	return buffer_uptodate(bh);
+>  }
+>  
+> +/*
+> + * Atomic writes are only supported through direct I/O, so an inode that
+> + * can't do direct I/O at all (journaled data, inline data, verity) can't do
+> + * atomic writes either.
+> + */
+>  static inline bool ext4_inode_can_atomic_write(struct inode *inode)
+>  {
+>  
+>  	return S_ISREG(inode->i_mode) &&
+>  		ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS) &&
+> -		EXT4_SB(inode->i_sb)->s_awu_min > 0;
+> +		EXT4_SB(inode->i_sb)->s_awu_min > 0 &&
+> +		ext4_dio_alignment(inode) != 0;
+>  }
+>  
+>  extern int ext4_block_write_begin(handle_t *handle, struct folio *folio,
+> diff --git a/fs/ext4/file.c b/fs/ext4/file.c
+> index 374b4bc25bd5..19a8843ac420 100644
+> --- a/fs/ext4/file.c
+> +++ b/fs/ext4/file.c
+> @@ -339,6 +339,14 @@ static ssize_t ext4_buffered_write_iter(struct kiocb *iocb,
+>  	if (iocb->ki_flags & IOCB_NOWAIT)
+>  		return -EOPNOTSUPP;
+>  
+> +	/*
+> +	 * Buffered I/O provides no torn-write protection. The direct I/O path
+> +	 * falls back here for inodes that can't do direct I/O at all, so an
+> +	 * atomic write must be rejected rather than silently done non-atomically.
+> +	 */
+> +	if (iocb->ki_flags & IOCB_ATOMIC)
+> +		return -EOPNOTSUPP;
+> +
+>  	inode_lock(inode);
+>  
+>  	/*
+> 
+> -- 
+> 2.39.5
+> 
 -- 
-2.20.1
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
