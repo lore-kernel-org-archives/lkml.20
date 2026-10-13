@@ -1,110 +1,238 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E35513560
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362F12D94B5;
+	Tue, 13 Oct 2026 17:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912400; cv=none; b=jJlIoOk9bxD8VBLLZL8TivqoO/zF3WQMxyXxDFz8KFNC2A2fd8y7xqTc8iKIGXWG93xvOr24mGK1Ux/nM9jMEfokk+Kn3uVVS3AWu6YLhtFivo/AfkYI5qJsxImivC8HivagY66qM31S3Xui1hWffOK46YshLt4e2LxBYQu1uyw=
+	t=1791912417; cv=none; b=sbH/1rpMSFpmwIsHQ3L+o4LljyTcF3cbUHbn2GKhNae5C/LMkiQtEOMbUo6R7obcy8A0DeTr39rdpBe2bEGcRrC+bWgunI/L23eUfmnIDm6qjRZilmgQgBdT8JQBNaE/FaPNtlOIkZyitX2KC4qEC3ZXocS5v7Y1KMcvcKMOCs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912400; c=relaxed/simple;
-	bh=nfPcqN6uvjdceL4HmtYr9gSOYZKUut9WQcxMiVGpMss=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r3gZkjR3ZCoszH9KpsZt+F7pwuyPKqaVOUanJcCaUULCDQbZJdSrQCoaK4KHrouBX0kMqT8l8ljVcv2dEhtp/d/q/pCu7YNNthadRP6hZYilNXRv9iALFtOIHj94+BKL6zkFOaDshzC9xXvVbCCYZdoEqHyI64+YOJ3VSQC7gHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JnMx8Iat; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791912417; c=relaxed/simple;
+	bh=bzOfiZ575E4TvgMwJfErqW3q9RXm8And3Sk6/Gr0Zd8=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=YF0Io9G1G/wx2xHh3jgei/xawsb/Jm4lZAHxOXtlJFBT+8aAhpNrIYpYAcA61VOy+8F6TIZY6We4qGKQ3CWWHCc9xsLwbXtZErrzXzHqZhfjRcgSdgohAv2mkbdn1vWThkLKLpEWvzfCArJoOYp1XQL//06me0LuULCQ6Y1pLM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a2BOZcsC; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JnMx8Iat"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824341F0089A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:26:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791912399;
-	bh=YuGU2oRZZMIcanimACiswl0UWpdL+yaEonRTKhjl2lE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JnMx8IatAi4IqSxvaLXG8u7V0ycd2qB41golHtuX4Ft6fxCSM1G8wMnIW4LPq0xgy
-	 6w1tEPuYKUqnwT67ocT4wkw4K2139AT3NpUN6r04RdolCN5WlHsFIQHVvOdbIRaOrG
-	 EJDKlJyiAwCukYIjXDviG6Iktl3B41u77a1FHKiLRQaOxKZoo4l8BJjK4W7HF2ya0O
-	 WIQr1kIJEImfFFnDWoJPmXTlGUmXmBmY0+IEJHVThwKYmm0qHSQcSqJx/kWUp1pMeX
-	 ThSryfxobLBZQyk0H1tDi6folvvgfpEvyHAHe0ERZF5IOtuJxBYPKWduKcFLq/IpVV
-	 GQCbclLXDcIig==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bcc6094d7fso2589610e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:26:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwBYYvIW85h/rJp/e3CCB6YIXUOX/sLUiIPDlzSYnkxfABYj3Ran97jNsTbLZ3qPWlXFCjDFAIIpZkP8+U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqJuj0DoFa5K19OO5su5K+xgZnNTEG1SM/E6WOTogHstkW5LM/
-	08f0zinvhJK9Ox+wa8qTXUSDO/Gd2FGyFWyyNzRFH1bU6wfS02NYHWvUaONRy2H5rEUFB3VCslB
-	NdopSpdZeznWxd2vSzjEr0n+lo2eXWC8=
-X-Received: by 2002:a05:6512:691:b0:5b6:1a7c:27 with SMTP id
- 2adb3069b0e04-5bcde8c0233mr5431703e87.42.1791912397857; Tue, 13 Oct 2026
- 10:26:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a2BOZcsC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791912416; x=1823448416;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=bzOfiZ575E4TvgMwJfErqW3q9RXm8And3Sk6/Gr0Zd8=;
+  b=a2BOZcsCpdFzxQtQktUXn+JRztk/spOP6DzbmtKeQFvm3gfS6UGpoPIO
+   u6/l3Bqpq3Uqf0S/GkCTKFlLVtBvN8M8oYjS456mNGycUvxSeZl9xo8gS
+   jhxM+6UwBqZIptq+10XmO+pJVBOMfaXyEqg2Tg1V/oEwjDEgKg6QgM7rc
+   Ey+lcNlQkxNseTu7v4tBuNK5qnfcV9bY9XSY5M4oCgxkuR/CqwIr2yiXl
+   l179f33NOaPQDQ81PkmagzwGwH2p/NIL4/Vz9ZherJbYn0J7Qa+RWodN1
+   LmIfIQF16hwABQfTATA34GjEqGz7x+zOINg3kGXxQZJa0kWS+M6+T5oin
+   g==;
+X-CSE-ConnectionGUID: bXG4N1+FR72GL1q+uaWgCQ==
+X-CSE-MsgGUID: 3UMSGxUOR2KAtZrsE7Uq2w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="533640"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="533640"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:26:55 -0700
+X-CSE-ConnectionGUID: K86+1HiET+6zIsBuUT++WQ==
+X-CSE-MsgGUID: 930I2P0bQSiVu1vgGGqfCg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1137991"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:26:48 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 13 Oct 2026 20:26:44 +0300 (EEST)
+To: Mario Limonciello <mario.limonciello@amd.com>
+cc: Maciej Grochowski <Maciej.Grochowski@sony.com>, 
+    Nikolas Joshua Britton <nbritton@exabit.io>, 
+    Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>, 
+    Alexey Fomenko <alexey.fomenko@intel.com>, 
+    Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+    Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
+    Rob Herring <robh@kernel.org>, 
+    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kw@linux.com>, 
+    Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+    Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+    x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+    LKML <linux-kernel@vger.kernel.org>, Bradley Morgan <brads@mainlining.org>
+Subject: Re: [PATCH v3 8/8] PCI/quirks: Avoid certain address on Genoa
+ systems
+In-Reply-To: <ed19c161-9703-4967-997a-b9054e92a216@amd.com>
+Message-ID: <01b571a9-06ae-076e-95f4-0851a90d0c44@linux.intel.com>
+References: <20261013130948.6231-1-ilpo.jarvinen@linux.intel.com> <20261013130948.6231-9-ilpo.jarvinen@linux.intel.com> <e3895e35-a0a2-4c32-8ebb-f726a8c8caae@amd.com> <ed19c161-9703-4967-997a-b9054e92a216@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <as5jp0sHNb9GeYY5@sirena.org.uk>
-In-Reply-To: <as5jp0sHNb9GeYY5@sirena.org.uk>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 13 Oct 2026 19:24:31 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hjAdzLi_cJP4Ztq1Rhzg529QZNcLxtPtnu+uBrOJ2Wnw@mail.gmail.com>
-X-Gm-Features: AclHuK8Woi7CUD3V-AAFklFGxH8IKTmfDkXyKGOO7XvJONUuJT3MTGZ7TDTux_w
-Message-ID: <CAJZ5v0hjAdzLi_cJP4Ztq1Rhzg529QZNcLxtPtnu+uBrOJ2Wnw@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the sound tree with the pm tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>, Ma Ke <make_ruc2021@163.com>, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; BOUNDARY="8323328-1816090372-1791911231=:21507"
+Content-ID: <e338d973-52cf-3b53-8e18-7749926388a0@linux.intel.com>
 
-Hi Mark,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On Tue, Oct 13, 2026 at 7:00=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> Hi all,
->
-> Today's linux-next merge of the sound tree got a conflict in:
->
->   sound/hda/codecs/side-codecs/cs35l41_hda.c
->
-> between commit:
->
->   2f47382b3ea31 ("ALSA: hda: cs35l41: Switch to use acpi_bus_get_primary_=
-device()")
->
-> from the pm tree and commit:
->
->   8d70e364e866b ("ALSA: hda: cs35l41: Fix ACPI device reference leak on p=
-robe failure")
->
-> from the sound tree.
->
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
->
-> diff --cc sound/hda/codecs/side-codecs/cs35l41_hda.c
-> index 32abb71dd4019,d50c3d8f5303c..0000000000000
-> --- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
-> +++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-> @@@ -1926,11 -1925,10 +1925,9 @@@ static int cs35l41_hda_read_acpi(struc
->         }
->
->         cs35l41->dacpi =3D adev;
->  -      struct device *physdev __free(put_device) =3D
->  -              get_device(acpi_get_first_physical_node(adev));
->  +      struct device *physdev __free(put_device) =3D acpi_bus_get_primar=
-y_device(adev);
-> -       if (!physdev) {
-> -               acpi_dev_put(adev);
-> +       if (!physdev)
->                 return -ENODEV;
-> -       }
->
->         sub =3D acpi_get_subsystem_id(ACPI_HANDLE(physdev));
->         if (IS_ERR(sub))
+--8323328-1816090372-1791911231=:21507
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <134bf6f9-3b9c-c361-0006-b02b13d129f7@linux.intel.com>
 
-The merge conflict resolution looks good to me, thanks!
+On Tue, 13 Oct 2026, Mario Limonciello wrote:
+> On 10/13/26 12:00, Mario Limonciello wrote:
+> > On 10/13/26 08:09, Ilpo J=E4rvinen wrote:
+> > > While testing the resource placement changes, tests hit a case where
+> > > igb fails to probe when BAR 0 is placed at 0x9c000000:
+> > >=20
+> > > =A0=A0=A0 90000000-9cffffff : PCI Bus 0000:a0
+> > > =A0=A0 -=A0 90000000-902fffff : PCI Bus 0000:a1
+> > > =A0=A0 -=A0=A0=A0 90000000-900fffff : 0000:a1:00.0
+> > > =A0=A0 -=A0=A0=A0=A0=A0 90000000-900fffff : igb
+> > > =A0=A0 -=A0=A0=A0 90100000-901fffff : 0000:a1:00.0
+> > > =A0=A0 -=A0=A0=A0 90200000-90203fff : 0000:a1:00.0
+> > > =A0=A0 -=A0=A0=A0=A0=A0 90200000-90203fff : igb
+> > > =A0=A0 +=A0 9be00000-9c0fffff : PCI Bus 0000:a1
+> > > =A0=A0 +=A0=A0=A0 9be00000-9befffff : 0000:a1:00.0
+> > > =A0=A0 +=A0=A0=A0 9bf00000-9bf03fff : 0000:a1:00.0
+> > > =A0=A0 +=A0=A0=A0 9c000000-9c0fffff : 0000:a1:00.0
+> > > =A0=A0=A0=A0=A0 9c100000-9c17ffff : amd_iommu
+> > > =A0=A0=A0=A0=A0 9c180000-9c1803ff : IOAPIC 8
+> > >=20
+> > > =A0=A0 -=A0=A0=A0=A0=A0=A0 Region 0: Memory at 90000000 (32-bit, non-=
+prefetchable)
+> > > [size=3D1M]
+> > > =A0=A0 -=A0=A0=A0=A0=A0=A0 Region 3: Memory at 90200000 (32-bit, non-=
+prefetchable)
+> > > [size=3D16K]
+> > > =A0=A0 -=A0=A0=A0=A0=A0=A0 Expansion ROM at 90100000 [disabled] [size=
+=3D1M]
+> > > =A0=A0 +=A0=A0=A0=A0=A0=A0 Region 0: Memory at 9c000000 (32-bit, non-=
+prefetchable)
+> > > [size=3D1M]
+> > > =A0=A0 +=A0=A0=A0=A0=A0=A0 Region 3: Memory at 9bf00000 (32-bit, non-=
+prefetchable)
+> > > [size=3D16K]
+> > > =A0=A0 +=A0=A0=A0=A0=A0=A0 Expansion ROM at 9be00000 [disabled] [size=
+=3D1M]
+> > >=20
+> > > igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
+> > > ------------[ cut here ]------------
+> > > igb: Failed to read reg 0x18!
+> > > WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at
+> > > igb_rd32.cold+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
+> > > ...
+> > > =A0 igb_get_invariants_82575+0xff/0xf00 [igb]
+> > > =A0 igb_probe+0x3c8/0x1190 [igb]
+> > > =A0 local_pci_probe+0x3b/0x80
+> > >=20
+> > > It turns out there is a 64kB iomem black hole at 9c000000 that return=
+s
+> > > ~0 and this is where igb's BAR 0 resides. If another BAR of the same
+> > > card is placed into that address, it is similarly black holed.
+> > >=20
+> > > Mark the problematic 64kB range reserved using a quirk bound to the
+> > > bridge found in the problematic system.
+> > >=20
+> > > Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D222074
+> > > Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+> > > Signed-off-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+> > > ---
+> > > Cc: Borislav Petkov <bp@alien8.de>
+> > >=20
+> > > As an alternative to this, I've also tested reverting the commit
+> > > 07eab0901ede ("efi/x86: Remove EfiMemoryMappedIO from E820 map") and
+> > > that also resolves the issue by retaining "9c000000-9cffffff : Reserv=
+ed"
+> > > entry in the resource tree.
+> > >=20
+> > > ---
+> > > =A0 arch/x86/pci/fixup.c | 36 ++++++++++++++++++++++++++++++++++++
+> > > =A0 1 file changed, 36 insertions(+)
+> > >=20
+> > > diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
+> > > index b301c6c8df75..cc463bf492b6 100644
+> > > --- a/arch/x86/pci/fixup.c
+> > > +++ b/arch/x86/pci/fixup.c
+> > > @@ -822,6 +822,42 @@ DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x15=
+71,
+> > > pci_amd_enable_64bit_bar);
+> > > =A0 DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x15b1,
+> > > pci_amd_enable_64bit_bar);
+> > > =A0 DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x1601,
+> > > pci_amd_enable_64bit_bar);
+> > > +/*
+> > > + * TODO: Remove when/if root cause is found.
+> > > + *
+> > > + * Genoa appears to have a 64kB iomem black hole starting at 0x9c000=
+000
+> > > + * address for which all reads return ~0 blocking an overlapping BAR=
+ from
+> > > + * working.
+> > > + *
+> > > + * Work around the problem by reserving the space prior to making an=
+y
+> > > iomem
+> > > + * allocations that could overlap with the black hole.
+> > > + */
+> > > +static struct resource genoa_black_hole =3D
+> > > DEFINE_RES_MEM_NAMED(0x9c000000,
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 SZ_64K,
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 "reserved");
+> > > +
+> > > +static void genoa_iomem_black_hole(struct pci_dev *dev)
+> > > +{
+> > > +=A0=A0=A0 struct resource *r;
+> > > +
+> > > +=A0=A0=A0 pci_bus_for_each_resource(dev->bus, r) {
+> > > +=A0=A0=A0=A0=A0=A0=A0 if (!r || !r->flags || !resource_assigned(r))
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 continue;
+> > > +
+> > > +=A0=A0=A0=A0=A0=A0=A0 if (!__resource_contains_unbound(r, &genoa_bla=
+ck_hole))
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 continue;
+> > > +
+> > > +=A0=A0=A0=A0=A0=A0=A0 if (resource_assigned(&genoa_black_hole))
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pci_dbg(dev, "iomem black hole wor=
+karound already
+> > > applied\n");
+> > > +=A0=A0=A0=A0=A0=A0=A0 else if (!insert_resource(r, &genoa_black_hole=
+))
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pci_info(dev, "iomem black hole wo=
+rkaround enabled\n");
+> > > +=A0=A0=A0=A0=A0=A0=A0 else
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pci_dbg(dev, "iomem black hole wor=
+karound add failed\n");
+> > > +=A0=A0=A0=A0=A0=A0=A0 return;
+> > > +=A0=A0=A0 }
+> > > +}
+> > > +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_AMD, 0x14ab,
+> > > genoa_iomem_black_hole);
+> > > +
+> > > =A0 #define RS690_LOWER_TOP_OF_DRAM2=A0=A0=A0 0x30
+> > > =A0 #define RS690_LOWER_TOP_OF_DRAM2_VALID=A0=A0=A0 0x1
+> > > =A0 #define RS690_UPPER_TOP_OF_DRAM2=A0=A0=A0 0x31
+> >=20
+> > I guess it's good we know the root cause is 07eab0901ede. If we're goin=
+g
+> > down the path of making holes in that we may well put the hole in
+> > efi_remove_e820_mmio() like this (attached).
+>=20
+> I don't really like that though.  If Genoa is affected I would expect ple=
+nty
+> of other machines are too they just haven't been found yet.
+
+That's what I'm worried as well. My own testing can only cover very little=
+=20
+ground here.
+
+> Can we roll back 07eab0901ede and add quirks for the busted machines inst=
+ead?
+
+
+--=20
+ i.
+--8323328-1816090372-1791911231=:21507--
