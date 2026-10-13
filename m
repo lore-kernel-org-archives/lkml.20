@@ -1,144 +1,135 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012050.outbound.protection.outlook.com [40.93.195.50])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBC73AFB1C;
-	Tue, 13 Oct 2026 08:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791881560; cv=fail; b=HJtlAHVDGkIzLJ5eH55BwhIlxN0eoTYUqJSrbhUd3EZvDl59SIF9XV6+o+akw0uHu8LDsbJeXOexBVgCqAOc7XlLGjHvhBfXZaYa7V5/j5Oy+iudvazFjL3umdhHU6g0EJCGbeCxUFDH7KzijQR3QNRJKD5o4nhdR2vWkK6Dqks=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791881560; c=relaxed/simple;
-	bh=ZtbntJycbmSbN6o0sZVzksLKG5qXW2LBBgQv3q0WiPQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cHSjNIl917yS9kc11ROVYoGxXg0HmiTdFHz7Pm+rGUFFwQ2v/UiAHQJBnVNf2HBFu8W8o5aPD/iuqupUF6yJpU23PidmxaOhcOA3xvg18fF6P+csCsNbyu5Kw/OCQ87awbAtcuMv3TN1pkFc8nQfUI2Ujg5Twlxz6f1mNO1HaLI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1WQJaeVx; arc=fail smtp.client-ip=40.93.195.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826703B9D8C;
+	Tue, 13 Oct 2026 08:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791881563; cv=none; b=g/ZaYm5ko/p+v7LiNI3u4oiWYdF1rboFuq8tzmI68n+l45yjla/dAu68APastQ45TmtN5PQUhAvHoWUrzlEgzLB1AuTVbcamx5GxF78kimSzKTjkexA+oLlgxs8Q1FS0749Qyu0TofWFtLVaIKrr9FdtfrK/mR0eQ5sHDwUunXg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791881563; c=relaxed/simple;
+	bh=Fbdb+Ik5HuvM0X+FL4LuDIrjVgtG6QAf/crtrWIiA0I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lv3/rH/I0C9RPEb3zVzco2Xkx+gy2wWgQXV0Ww19UvINNM3Wcj/rBIWN3iIeRkEkZN/mf1GZFppFLriwjnpVVnGsYcqIIKcdycVg/nWNzw1ncFjBQ4Ds7tkgcOVQWhOEVvbSFt/OcOo6e4PgbN/itwPJrlj1y0jBd9NkfVd5Ivg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bU+MNADL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1WQJaeVx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wKFvOgm+GtfUhos3RxH7YA6Wg29WOVsJqS45JyThCk0qUwqFTEa/tM5VMd+WyMNwKcf9cd9WvGzOvQecHk5wkp1lJ6JzFlyb/zkDRFEH6j5Im6hGBwNKLdtlmi/AkeunN+lA+ktmO1cGkwZHtiFJMqvTLdITWYWu9aurHIvY6Psy8lp2BPzmQCBALI9jcI7C8c/DM7eDr/oBNTfBQEGAq/beon0FFlmsVqyttFNonRg/WKtp08KKscrYcreRPp/3UfBHVNXKCWQsAHJbsCva4mlmv+euQeCordISUN9irE8rc0y3XVjtMk6G4U+jv4QDWNP/tNAmgA62LwWVebX0iA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fS3oxGWZfkHEQHkHrwT/tlXhEfWx6AObVf3HmcYXOhs=;
- b=P1ssoSFA3yity1Z0WPj8dFIRuJxxiUaC5n1oz9SR4+AaWWG75bHY4QkWD/RR/qiRQ2YFzQCeySCocsqJjKKT5Gs7+9UUsup07smFF/AK3ihcV3ntQIIQodDuV+988+8NpMOnIJv1fU7F61qfJFEy128ykLy4FT1qKBkjc5sp7jzx9Q5rOftMuiSSgcb4qZD4w0t0HT65/LUzBG+ErlZlJXqlAtHTTsrZ8PqCQWudGR5dZYx4dOqKLyadabfYzhGQfuDg+BEBFssxXlweM9G1+jrHdKzSIIclBEfwbUqil0gbVORp/SUM9AYVGYM9QmRuOjI6Xf9SrS8XYSzExCFt4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fS3oxGWZfkHEQHkHrwT/tlXhEfWx6AObVf3HmcYXOhs=;
- b=1WQJaeVxiUvnUzAgfKkIHo48ataOsGlvUDiPB0ahwV2gn0WUU5KeRQBT6i+fJbxWaBYcZA78H57jijgWmFuPrQgMP/fQPuVbIPjV3WPSAXfFXc7ZxspsgweJnQBdQxppp+egRH8GdX1aL8zDbHgml5z/ePSnDEV4tvRGGXhG3vk=
-Received: from BN0PR03CA0005.namprd03.prod.outlook.com (2603:10b6:408:e6::10)
- by SJ5PPFCD5E2E1DE.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::9a2) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 08:52:34 +0000
-Received: from BN6PEPF00000076.namprd03.prod.outlook.com
- (2603:10b6:408:e6:cafe::64) by BN0PR03CA0005.outlook.office365.com
- (2603:10b6:408:e6::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 08:52:34 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN6PEPF00000076.mail.protection.outlook.com (10.167.248.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 08:52:33 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 03:52:27 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Tue, 13 Oct 2026 03:52:24 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
-	<yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
-	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH V3 06/10] soundwire: amd: propagate amd_init_sdw_manager() error on resume
-Date: Tue, 13 Oct 2026 14:19:27 +0530
-Message-ID: <20261013085111.2009061-7-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20261013085111.2009061-1-Vijendar.Mukunda@amd.com>
-References: <20261013085111.2009061-1-Vijendar.Mukunda@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bU+MNADL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF791F000FF;
+	Tue, 13 Oct 2026 08:52:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791881562;
+	bh=fkY85AEaM1dcKivKhNaNHUeuabYCcoXX8xBxsWbUhJM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bU+MNADLypUQVfbqs4yErGMSqSx8UTEensTSDlB3hILthlX7jXiysW5XCK8w3Wgne
+	 +qsKvAVV67misGTcQFezprIijSe//cDAi61D+HiH+PrXDz66M+RQgAsyepQqatnOkw
+	 C83dhwA6jl7P3WJ+2YNow3ButEoWQcQrQ381Wo2YqHbIp2FI1DvqBlI7RrrfpxPP3D
+	 3WDNSNVnKR/z/zbtd8j1RgF5SPVBsqTN0aiF/CDe/xhAdL4+Nw2L8Xax6doYzIf9OB
+	 svfE9gigE0RcgQBxJbDc8PiWLnzTi5f1OeCjkCKQRjfUTk1SJmatj/E3sZV6pc5eMF
+	 mAVD56KO7uG+Q==
+Date: Tue, 13 Oct 2026 01:52:42 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>, Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, Pedro Falcato <pfalcato@suse.de>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v6 2/8] ipc, msg: Account msg_msg allocations
+ with GFP_KERNEL_ACCOUNT again
+Message-ID: <202610130141.E186B6E@keescook>
+References: <20261006092030.got.500-kees@kernel.org>
+ <20261006092035.166776-2-kees@kernel.org>
+ <asjhg2e4-WSeKuXd@thinkpad>
+ <ask5kpMS4mpI8Api@thinkpad>
+ <202610092014.AAB20B81@keescook>
+ <01c89e02-28e0-4424-b32b-50363e4d2b95@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF00000076:EE_|SJ5PPFCD5E2E1DE:EE_
-X-MS-Office365-Filtering-Correlation-Id: beb5d02a-327c-4250-773b-08df290752bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|376014|1800799024|36860700016|10067099003|22082099003|18002099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	yt8A5chhB+KLVNjovBOOlxrmzXlbisRhTftVbBVDv8tiHwPlqrxDfSG1737846RACbMlzV+XYUqhl+bxHBaPar6+TUCARarQz+UEV9i1E+Ccdd9OCg9lXAb02/0eEO26YfGlm70n7vXWzJdGhOoesTvh93AnrnD0wQuOZ8WxkJZyTjAkkETFSWCP2rSzOfvCDOnfLfTX5X1VW3Tw3au4tfWE6yGDDputZ9I6XXuRJip5kniaYbWomnfFOiUID//niDeHpiN+Trft4ahMBJ1TotfR0QXo2q7X1ShhyRA59aEQNQBlzetQBV10k9oKzL5nYP+TYnjQbs2IpRuUPcdQ4WkTP0wE3PBqymyvRK/OLyx/WflO83bW/RM2SzmxGQyE1zE54GIXnjZreZRDGbGdrQxQwc3qVNGR3u0jawP2J27/LHRpsBkYWoNoM0IDyRpMTg3PHMNCdgUY/HFkXPXwTVvXmlVP0RbfZmQKgN57cdk5bb6weHdI64ql7M8HFxiKGkOo233DKbOYJJ7gp31GR8JneyQv7v/lOfuTeWeHlYOB1Hc3EzCwwNux6pgDMZ4rDI7KSK6gZdRbogyfj0qAB9Ml9q3m+1krRmLHQ2vDEwCGpCxklMIxQrsPVLZKIa8buwpPdTE3bOzyE1pWw/v9dpFHb4rXyJ1B5TGIBLwPpK8G+kzk1KJq8TfiMUFqi6qEzmR2+u7ayWPuxUrDUOricg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(1800799024)(36860700016)(10067099003)(22082099003)(18002099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	D0/iL5MhKkaFJ0z1HY8xj2UfChYq9aOLax4kbziZqTyAIGt9wVoYRUcEzkQkemk56hNhaafyTDA5Swoc4owtSr+lf5Nixsi1PJw87Qj/RrgXptbUtgjBVFyMg4im813kaJ/s9YxY/N61C3HmdgLJT72n/gxhpS0/T1wzz/oqpHFb6gB/Xz1MyujqrXYWgNXK8zwibhUj4WJ0VGkXHfkmVJLNjNb53B6IzshKN0t2hX9J2/EdH/GhHA1lIOP9RhBHkORthR05dw1KCygRVzk+C2gVNl3TiUL8xlLVYPW6PhWiQQUnG+WC3gw2HeCvcM59WSgcBmPfa8veg3T0U71E0up/gOJhfIH526r0+Vdo/IdMjGBTqDzhaygzOT9MybdDLYfZerX4hwJWY1KAFbHf0rmcQCpoNKzTo/IM3JRIax37hxju4aaaCfGgeqKwXX9R
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 08:52:33.9067
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: beb5d02a-327c-4250-773b-08df290752bc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN6PEPF00000076.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFCD5E2E1DE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <01c89e02-28e0-4424-b32b-50363e4d2b95@kernel.org>
 
-In amd_resume_runtime() POWER_OFF_MODE, amd_init_sdw_manager() was
-called without capturing its return value. The function performs
-hardware bus resets using readl_poll_timeout() and can return
--ETIMEDOUT if the hardware does not respond. When that happens,
-execution fell through to amd_enable_sdw_interrupts() and
-amd_enable_sdw_manager() on hardware that may still be in a broken
-reset state.
+On Mon, Oct 12, 2026 at 11:19:01PM +0200, Vlastimil Babka (SUSE) wrote:
+> On 10/10/26 05:18, Kees Cook wrote:
+> > On Fri, Oct 09, 2026 at 09:39:48PM +0200, Harry Yoo wrote:
+> >> On Fri, Oct 09, 2026 at 04:22:03PM +0200, Harry Yoo wrote:
+> >> > When it falls back to kmalloc, kmem_buckets itself should provide a
+> >> > compatibility layer when falling back to kmalloc.
+> >> 
+> >> For example, calculate_sizes() converts certain SLAB_* flags into
+> >> GFP flags (s->allocflags) for allocation. We can have a similar
+> >> logic when falling back to kmalloc.
+> >> 
+> >> Though current implementation does not allow this and requires
+> >> some rework.
+> > 
+> > I think the current series does everything correctly in the sense that
+> > nothing is allowing for mismatched fallbacks/passthrus. We could iterate
+> > from there once we have a need for this where a non-kmalloc-alignment is
+> > wanted, etc?
+> 
+> I think we can indeed simply make sure buckets have the same alignment as
+> kmalloc. It comes naturally and should (more than) satisfy everyone. I doubt
+> anyone would be needing a more specific alignment than that for a class of
+> allocations with a variable size?
 
-Fix by capturing the return value and returning early on failure.
+Right, the whole point of kmem_buckets was to replace general kmalloc
+uses, where no callers cared about alignment.
 
-Fixes: 81ff58ff71ad ("soundwire: amd: add runtime pm ops for AMD SoundWire manager driver")
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- drivers/soundwire/amd_manager.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> ctor removal is clear I think
 
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index bbe1e73ed255..2d2f628230ee 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -1456,7 +1456,9 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
- 		ret = amd_sdw_clk_init_ctrl(amd_manager);
- 		if (ret)
- 			return ret;
--		amd_init_sdw_manager(amd_manager);
-+		ret = amd_init_sdw_manager(amd_manager);
-+		if (ret)
-+			return ret;
- 		amd_enable_sdw_interrupts(amd_manager);
- 		ret = amd_enable_sdw_manager(amd_manager);
- 		if (ret)
+Completely. I was blinded by the API of kmem_cache_create(). :)
+
+> for __GFP_ACCOUNT and __GFP_RECLAIMABLE I think what we could do is not to
+> drop the flags argument kmem_buckets_create and instead require that it
+> matches the usage:
+> 
+> __GFP_RECLAIMABLE requires SLAB_RECLAIM_ACCOUNT and vice versa and I can't
+> imagine there would be a buckets instance that would allocate both kinds
+> (either with or without __GFP_RECLAIMABLE)
+
+Okay. (We have no users of this yet, FWIW.)
+
+> SLAB_ACCOUNT requires __GFP_ACCOUNT, memcg objexts are always created and used
+
+Right.
+
+> SLAB_MAY_ACCOUNT allows __GFP_ACCOUNT, memcg objexts are always created, and
+> used when __GFP_ACCOUNT given
+> - perhaps not as optimal as the separate kmalloc types, but good enough?
+
+I think it's fine from studying what happens with the skb data. Though
+right now, SLAB_ACCOUNT and SLAB_MAY_ACCOUNT are functionally identical,
+yes?
+
+> __GFP_ACCOUNT without either SLAB_ACCOUNT or SLAB_MAY_ACCOUNT is wrong,
+> __GFP_ACCOUNT would be ignored
+
+*ignored* is, I think, wrong here. It would create differing behavior
+between SLAB_BUCKETS=y/n. If we passed __GFP_ACCOUNT through to general
+kmalloc when the buckets lacked SLAB_ACCOUNT and SLAB_MAY_ACCOUNT, you'd
+lose the isolation, but not the accounting. (And could WARN_ONCE about
+it.) But if it was ignored, you'd lose accounting under
+SLAB_BUCKETS=y.
+
+> with SLAB_BUCKETS=y these rules could be checked e.g. with a VM_WARN_ON_ONCE()
+> 
+> with SLAB_BUCKETS=n these rules won't be checked but also not matter in practice
+
+Agreed. That's what I was going for on this version. But like above,
+"SLAB_ACCOUNT requires __GFP_ACCOUNT" means what? Under SLAB_BUCKETS=y
+the allocation returns NULL? Or it passes through with WARN_ONCE? I'd
+rather not break something completely; better to fallback on a mismatch
+so the requested type happens (be it DMA, ACCOUNTing, etc).
+
 -- 
-2.48.1
-
+Kees Cook
