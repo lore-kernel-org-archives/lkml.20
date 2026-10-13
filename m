@@ -1,180 +1,139 @@
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE2C4F93A8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:18:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7924E516171
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904730; cv=none; b=IkZRplpQdrSeG+dz9o05sZweKy8Y8kI6iB97Av6USK03QF35pHr1YW336f1psbf4utxakPma0stSgRzKBvRIAUduQUxsKVtZXz+afwqGs6WbxvUUkOiOxmriWOHkkEqcWi+MyxnLrDU+GHACpq7tzH0qDqwzOe9WU+dcajjYggo=
+	t=1791904730; cv=none; b=Vcbay5ecHwf8aVX3JbA7KZqzWJGKh5C7dNGdLpFggoGKQOI+Q2Q1rU4Ns6/vY7NiHvptH74EAJpJ1pixsP6OkczTtascYZOfXi8JHxcSX0Beg8pw89sAKemQBSY+dzJzgGE05icG9macPuCCQaAXvGvKUV0koR5X2GzjA2sSi2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791904730; c=relaxed/simple;
-	bh=bNEDE1SpAh2ejlUxlHk/QA/uYKxO1QleWjFdbi61d8A=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=RY/bygUCRXE4NPsaZ/CEBXxytnt515Im4Lx+hggqF08p29C0C++ikI26kXDFXfoz3bal9b4ywyLRGhqp3EnoOFYupTB1uc9jwg2g4GlS1HkSrNFN3Hni4KDHJvcCV8mu3wFUcqR8GbVZuKy909bE6CLlo+6tqAVGQ4xBwW4UUE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=apewYZUu; arc=none smtp.client-ip=209.85.208.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	bh=AMCODax57KqUMy5UTX/GawCV8PmBS5pugefjN97Hi2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p9HckplPSH3+hLTRJ0K5LFgpRL1KD6wMn+xMyV2KaafGgWqNzW7PGvOtJQ3x+/CgGHrRGOubpc4PJOY2QiMza0ViJDqJmsxguzVi7DrRFs4TzvAxuTOrX4KHd2zB35SjhsYECQ+pyVroNdfKv6+A9gNscERvds14XhdFtfBYixI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W757CHfA; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="apewYZUu"
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a9b7e63963so3361798a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:18:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W757CHfA"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38759bcd877so1888778a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:18:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791904727; x=1792509527; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WFCGbaDlX/AVQV6RAFUOj0q1sLZPldXZf8616wSFK2M=;
-        b=apewYZUuklkSIvjK5JyX6ENHgr3aVyGkwD5MJpDyMADdnFU6RdvrjC+YAQao4ZH6Q6
-         oz1zvYXdkMis2QCzV4P1/glbAKeuAdsqrNR+efAFg8Wuy+nrZezjVasicFEP8dkr8G/1
-         v3/Gntd2zsZXrFTkdaqhyzorP7wJsC8sIUIi4MMcyMlQCd6VpsD71cMb417ikZamg2BR
-         evyFW/rNHUYD63k8Fr/9Utir1sci2SdQD9Zp9Lcrum7IQgUFnWB2VD/VM74+cB0je74Q
-         +s3IuzSUudbUwSufKfWeTOZuNqozewnCRhyK/lN1nkCxxp1HukYQWhEeqJN66Wwx1FtN
-         Kafg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904727; x=1792509527;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791904729; x=1792509529; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WFCGbaDlX/AVQV6RAFUOj0q1sLZPldXZf8616wSFK2M=;
-        b=Z3lDCng0i8myZ5IZh1gKGr/1DjuD9gffTlq+5GZia59jg7x2NtCdZUMN8wTeGeq7BA
-         Dt+osLxCYqxpmxxbTkS3L+GjMsaNCpeiqU/eRnPXKj7xfJ954htcKA4wjTB2LcccHlmI
-         7Vn2rF1R1jJDPuouYlmP49uPJXk3zD45zRK9U7Rtx+d5lzxE/DCHp9LvmCQJE6UXWQAF
-         iZeuT1zNL24CLGvVLnLpFMwKaWKVsJMgMK0JLsUx6OO4yeR5XVjHv0daV3HB/ZAqxPjD
-         f6Vj5BLBMEErrfhqvK9BrT6FrlPxO1apjYoqacQe912p6/rOWQMwVom5VY65waDN4pce
-         V/0w==
-X-Forwarded-Encrypted: i=1; AKwUvBx1SmZt4WuLHUF3ZjurIebkmqSIPwrgdYpe5SONVFvl1tUT5sdwLel83qahkFP1qVx+VSzd3sEOUaeJd44=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKP2GA79D/wb9VjftsarARVZWc/6WQ4VObU6jg+f/84nW3YkOvm
-	e3poYvPPyWd5XYK66k9bF6DCFqmiWzXt+RUOJxBDkKa8LSRPaGnEPrwRkZTu+ZFtvAi2I1WZF13
-	FLrNzRMMxJNslldQEEg==
-X-Received: from edwl2.prod.google.com ([2002:a05:6402:1242:b0:6b1:a8d5:117d])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:1ed4:b0:6b1:ba86:5f55 with SMTP id 4fb4d7f45d1cf-6b1ba86636dmr5678473a12.35.1791904726451;
- Tue, 13 Oct 2026 08:18:46 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:18:45 +0000
-In-Reply-To: <as4EcgiBH5jjww42@kernel.org>
+        bh=FrpJ3R8Qy/E0WIUg4/pXUKmtopn00SRG/AnQSF67mz4=;
+        b=W757CHfAlBFqZamzOwiW/GwwVGauALoJ1eX2fw0nKysVtWL0FFg2BFA0oPKPra1wkb
+         49zY88OLy8KejN/gazko/cRZ91E8OVzkbq3EG9CK5QcNNtd1bLWpEsQtpCe/VGm4MXmO
+         6sKp5bQrhuLhXwSflVN7/Fd12loPNJHxP81waWBJXfSK7s8AB5qctmPlKphB3CWbKr+d
+         ZkVX7YnD8MRKNKQmiTZribsOtwbhmCQer+VmP6ef46a8iXSGO69+m06Zm9tY0b4kXidH
+         jGJxBkhdtVFm+++9TRt10xBX1i7vBkuG6XLIWClJ6cboG/2da+Ei2aJt4i5Jmkz2PkAl
+         xWxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791904729; x=1792509529;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FrpJ3R8Qy/E0WIUg4/pXUKmtopn00SRG/AnQSF67mz4=;
+        b=W28Sr/WViHNkMpS6A0Qi15sear4ChpIAKSL+N11T+KY/jD7mgWhtaW5Kz17ZHkWESL
+         SStMUqZcivzRCGOKhgjOSOHqeNZsq4Mvu2J8DouX416QAyihk9oBwvyHdrQUwhrO51pq
+         6klGHBF5H9FAI6rC5ZfLb2kIXFjDf2Kz+aE7yBsYrF6SUXJAXKtb+6rQpXW9znJswk2A
+         8pmiE79GyLIVfHNufdSW6fJ73EDNotY+XYnEmCPRPPZm2tvopSd6itSuVb6vR0+3V2nX
+         nIyh1tcbp3apSzAUqaOXGOUH2NOtzNtPPp91ZZ8ntxFTpf2eLWz2IH9ZNIt5j84aFZ+S
+         DiCg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzvicYUpdpnODu3bpVxBNi+aKWPZBklILHZH88/CF8jofJwrVL4d+HWjMhPwF5wPYgHw3O1NFCArlP558=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLM252Ao8zmpCXT9CxpLtYJa390kNWWfU7U+XRbYx7itSKa3zYj
+	/ijU2ZWIXysRkjeKyWpUfOm9dH524NKUE4Tr9IucJbygyc/xInoZELE8
+X-Gm-Gg: AYBFou3aDr00O7lkUI0vEbTfcrblvdGbOkDCnhsunkmd4wbUbTYkdzPtwPl9k0hl36r
+	yEdl2TOx4NuH2RNMG0wCyDX9s5b76j6HuvINPAaBAHKIMkEdRDdX5z21z+dEUkwy19aNxOuQrhQ
+	SfwPx/pfDkRadaweqtBEF6bC6Rnd2LVfpwgxlYR5U9wafhfMZI4U/hGCG/V3sY92PiejBGACrF2
+	ZBKazmvVXxoIekk2KQFDi1t1yvt3WFJTvcMH1DliZIWKyGO96Olak4o8u4U/085yYRMG/HH2yAq
+	OPEOWmlJTfF3j8qLaJYbvCxBYKZHtlYBXPpgkAkMF/uoOE5UZaFv4kdO2ifsbalh8HhsW5/nrai
+	frUeik5214aWT7IbFOxoNCzaFQ2uDL5sm9ZzIF4vWJWDgTr46LzAEqgVUqt+LqkxYeAAs1Ez8I7
+	iwPq57uHd6s3dxXenqcwVesJD6+PZzotoqn5zACmiXMDnB81RwtdKXcLsFS4K+d1GlZcdef6MJ0
+	UBfIksKfWic9VFWMZFCAHfWr11K
+X-Received: by 2002:a17:90a:5184:b0:3ac:17c:6e82 with SMTP id 98e67ed59e1d1-3ac15d46137mr2707843a91.45.1791904728712;
+        Tue, 13 Oct 2026 08:18:48 -0700 (PDT)
+Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.18.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 08:18:48 -0700 (PDT)
+From: Akari Tsuyukusa <akkun11.open@gmail.com>
+To: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Yassine Oudjana <y.oudjana@protonmail.com>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kees Cook <kees@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Haotian Zhang <vulab@iscas.ac.cn>,
+	Miles Chen <miles.chen@mediatek.com>,
+	Sam Shih <sam.shih@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
+	Laura Nao <laura.nao@collabora.com>,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?= <nfraprado@collabora.com>,
+	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
+	linux-kernel@vger.kernel.org (open list),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
+	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 09/35] clk: mediatek: Fix index in composite clock unwind path
+Date: Wed, 14 Oct 2026 00:17:08 +0900
+Message-ID: <20261013151734.3177690-10-akkun11.open@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013151734.3177690-1-akkun11.open@gmail.com>
+References: <20261013151734.3177690-1-akkun11.open@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261008190828.3221718-1-tarunsahu@google.com> <as4EcgiBH5jjww42@kernel.org>
-Message-ID: <9huzecdt633e.fsf@tarunix.c.googlers.com>
-Subject: Re: [PATCH v4 1/2] memblock: drop for_each_memblock_type() and open
- code its users
-From: tarunsahu@google.com
-To: Mike Rapoport <rppt@kernel.org>
-Cc: dmatlack@google.com, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pratyush Yadav <pratyush@kernel.org>, 
-	kexec@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Mike Rapoport <rppt@kernel.org> writes:
+When mtk_clk_register_composites() fails to register a clock, it
+unwinds previously processed entries. The unwind guard incorrectly
+checks clk_data->hws[mcs->id], which refers to the first descriptor,
+instead of the current descriptor.
 
-> Hi Tarun,
->
-> Please for the next time add the cover-letter when sending more than one
-> patch.
+This can cause the unwind to skip entries that need unregistering
+or pass an invalid pointer to mtk_clk_unregister_composite().
 
-Thanks Mike for piking up the patches.
+Check clk_data->hws[mc->id] instead.
 
-Sure, I will take care of adding the cover-letter.
+Fixes: 3c3ba2ab0226 ("clk: mediatek: mtk: Implement error handling in register APIs")
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+---
+Newly introduced in v2.
+---
+ drivers/clk/mediatek/clk-mtk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-You had some nit change suggestion, Let me know if you want
-me send v5 or it is alright.
+diff --git a/drivers/clk/mediatek/clk-mtk.c b/drivers/clk/mediatek/clk-mtk.c
+index 3dfdd3a422f8..0b10a4b14a6e 100644
+--- a/drivers/clk/mediatek/clk-mtk.c
++++ b/drivers/clk/mediatek/clk-mtk.c
+@@ -363,7 +363,7 @@ int mtk_clk_register_composites(struct device *dev,
+ 	while (--i >= 0) {
+ 		const struct mtk_composite *mc = &mcs[i];
+ 
+-		if (IS_ERR_OR_NULL(clk_data->hws[mcs->id]))
++		if (IS_ERR_OR_NULL(clk_data->hws[mc->id]))
+ 			continue;
+ 
+ 		mtk_clk_unregister_composite(clk_data->hws[mc->id]);
+-- 
+2.56.0
 
-~Tarun
-
-
->
-> On Thu, Oct 08, 2026 at 07:08:27PM +0000, Tarun Sahu wrote:
->> for_each_memblock_type() always starts the iteration at index 0 and its
->> body is a trivial 'for' loop, so it hides very little. It also gets in
->> the way of iterating from an arbitrary index, which the next patch
->> needs.
->> 
->> Remove the macro and open code its three users: memblock_add_range(),
->> memblock_isolate_range() and memblock_dump(). While at it, move the
->> region pointer into the loop body scope.
->> 
->> No functional change.
->> 
->> Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
->> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
->> ---
->>  mm/memblock.c | 17 ++++++-----------
->>  1 file changed, 6 insertions(+), 11 deletions(-)
->> 
->> diff --git a/mm/memblock.c b/mm/memblock.c
->> index f5aaa38cfa31..59dda7d085f3 100644
->> --- a/mm/memblock.c
->> +++ b/mm/memblock.c
->> @@ -155,11 +155,6 @@ struct memblock_type physmem = {
->>   */
->>  static __refdata struct memblock_type *memblock_memory = &memblock.memory;
->>  
->> -#define for_each_memblock_type(i, memblock_type, rgn)			\
->> -	for (i = 0, rgn = &memblock_type->regions[0];			\
->> -	     i < memblock_type->cnt;					\
->> -	     i++, rgn = &memblock_type->regions[i])
->> -
->>  #define memblock_dbg(fmt, ...)						\
->>  	do {								\
->>  		if (memblock_debug)					\
->> @@ -615,7 +610,6 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
->>  	phys_addr_t obase = base;
->>  	phys_addr_t end = base + memblock_cap_size(base, &size);
->>  	int idx, nr_new, start_rgn = -1, end_rgn;
->> -	struct memblock_region *rgn;
->>  
->>  	if (!size)
->>  		return 0;
->> @@ -651,7 +645,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
->>  	base = obase;
->>  	nr_new = 0;
->>  
->> -	for_each_memblock_type(idx, type, rgn) {
->> +	for (idx = 0; idx < type->cnt; idx++) {
->> +		struct memblock_region *rgn = &type->regions[idx];
->>  		phys_addr_t rbase = rgn->base;
->>  		phys_addr_t rend = rbase + rgn->size;
->>  
->> @@ -815,7 +810,6 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
->>  {
->>  	phys_addr_t end = base + memblock_cap_size(base, &size);
->>  	int idx;
->> -	struct memblock_region *rgn;
->>  
->>  	*start_rgn = *end_rgn = 0;
->>  
->> @@ -827,7 +821,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
->>  		if (memblock_double_array(type, base, size) < 0)
->>  			return -ENOMEM;
->>  
->> -	for_each_memblock_type(idx, type, rgn) {
->> +	for (idx = 0; idx < type->cnt; idx++) {
->> +		struct memblock_region *rgn = &type->regions[idx];
->>  		phys_addr_t rbase = rgn->base;
->>  		phys_addr_t rend = rbase + rgn->size;
->>  
->> @@ -2194,11 +2189,11 @@ static void __init_memblock memblock_dump(struct memblock_type *type)
->>  	phys_addr_t base, end, size;
->>  	enum memblock_flags flags;
->>  	int idx;
->> -	struct memblock_region *rgn;
->>  
->>  	pr_info(" %s.cnt  = 0x%lx\n", type->name, type->cnt);
->>  
->> -	for_each_memblock_type(idx, type, rgn) {
->> +	for (idx = 0; idx < type->cnt; idx++) {
->> +		struct memblock_region *rgn = &type->regions[idx];
->>  		char nid_buf[32] = "";
->>  
->>  		base = rgn->base;
->> -- 
->> 2.56.0.385.gd3acb90ef8-goog
->> 
->
-> -- 
-> Sincerely yours,
-> Mike.
