@@ -1,149 +1,192 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1892539785
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791917785; cv=none; b=LBWt7bEtd6CX2SJc6xzuRmiYz/s39WNS13ZwnyOHZd5nGtlZF7GdXpdeoQpFxHfQ9xb/+qpSQB6BQPKbuxwpQjfpRADmRhAzTrxXE/ge2j9LxwZ0pJAbVh4rUdks9qDlpF6RbPP0MVKDvjKmHII82a/LSRX6EL0/yqcClZ2J3t8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791917785; c=relaxed/simple;
-	bh=+/rOEJj81OEoAsYzQmF4HZC9WBJAzqVNU2+FK5VdYas=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HejaVtkFV1UYdeMqbimAd1wo97nMeU53R5iq+AYsM5Ef1DQczOIvh8vZ/UuSbOBpKA9pCanYFZWv1b7NBWZUwsTWszdJeU0dLTvWlLeqqNO2cdFvsjlq9QnFMdigBkkHzkQte13BzrYs5V1tllRHe5nHBxQdyyhPOdkVvgHAtYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LyfNmFNM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AGqIf1PR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B0653978E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791917786; cv=pass; b=Y7jQs1Ly/dDQ4teGUMYIM4Gr/8v7R02s9G6JQGLRnv5HtKK9c1R9838v3Fcw9zJb7nf2OsD/B0bIlzxWGeZjtH5ofQB+AtRKZDKCKaiMdeOJNeE9SlusB50MDQP5s0Ur0AwaYZqGXUTLjWS3SNUFDQ3Xyt5nSDSDl2wJX7CEUt0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791917786; c=relaxed/simple;
+	bh=LLB9570GZlD1TXnEKLc4OhUGv79OtGVAQzod4N7fKsY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i80kqkdkyXf0a0pWwhGHctlj2+gYdenh8sVKSTeRyNkcOr9CPObLxQexkGAyRpW0zz//Skds/uiQEUDxii6lkNHK2Y2uZDAJBZ3A8+FU/PDfUVzYLbv2ZEbf6W6A3zJDwmCzR1+8pmEeS9bpt9lGLfes63GUY9DOAj1c7Wmn3WI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R8BArl6u; arc=pass smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LyfNmFNM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AGqIf1PR"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DE3qVQ1999237
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dVW2EdRxla6E0QM69Q3E/be+4rJf2zGLJLbIi+wd6SA=; b=LyfNmFNMtY8X499b
-	2LyB1tCvlZ8nclC5N7sgYScrqzUIsLNu3+SFUC3pZsurc51YQrZiSVpHkxj5EYFN
-	qkuIxvjobU9LZtXEkmWEGvI1mlaDFL1L4iXudWdwHiwSj36z3EVTGzE0wrRxtEam
-	fa8mdjUavJv/yl7SUgduojWx8kWcWVPMkQRjJVhLmKY5H3MEnZzWVTD9OXWY6TLu
-	bcCA+9WieeZwOIeZtStqWQPK4EO2cIiDjOBlb+03D7M2zb51JEHEv1t146UDRf9y
-	gw95ob1mJyLZdufBgK/hHD0LivQu0YJ71JovqpY9U2cY0uWjBIvkka87OFaGJG55
-	Fuw8fA==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9f62bc01-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:56:22 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-16bc6f3fdb1so2890980c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:56:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R8BArl6u"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1ec41d8e9so221079a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:56:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791917783; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LoIcLd0pDLzsdTULrVCkmanjs7zaWrce11/UuuflG9BwYRsGGDB6Y4KOADrAeHK4Fb
+         5pRI7NnwUcXvcCwAgTrBM0mXDAFHvotmrRkxnnzuyMOYBKdIPmI8QYUERhTYinwE+suS
+         3R2vnTeQIaoYjThL7x3oMK7udZ1vwJ+JD4CIYAjCO0uZvcX8nTd6PTH01CVq+LhF6oDI
+         zA/H/FlGUsHdwdBD2YhaLf8LS+JgD9glvnqi1vg5dD4rE4Tvi15XfpPl/NQvIMrQ7x73
+         f3RmNl/eq4kNZ39+GebMZlgiDyskdy5BikoRn42LWCEUYBJPefVrKsvtvmxVwFLoe2UV
+         b0vw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+LzBHj4tBeipNi+QlNyJEU/f9POJz901L8zWPKLrZks=;
+        fh=55UoXtIdiSo/HYI74+i/0mTZDocxgJLvOLtnCCz4DJg=;
+        b=lFD8wkE5dTONODbGR7+FISuFVV0WpjMTquVtKZXu/wBW0JGknoR5A4itxesCo89b+3
+         LGtQMTlwURgbkGfP4ZnP6mzx5XhZ7BuTNC1lCk4i078pSFK7HkIRLhiuPKmt+wRiRgt3
+         xBKMekJyaQAbGA+C0IkQ49TFD0H8Bv8KerMJRcZGXBea9nYUV2TdzmT3R51KWD+sVKSu
+         ZUBjmUjeGrDhHM3A08S9jej96ZHVstfo9L1EHSQjuMdMWPbrZttoBXeqvjPCgrKAobph
+         oEtBaU/aMrfFWp3M2IIywDVHT3qsq9IulQOm+PcNi3JoA0Tf1vbtVYRMTRETXY7ok2/Z
+         k3NA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791917782; x=1792522582; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dVW2EdRxla6E0QM69Q3E/be+4rJf2zGLJLbIi+wd6SA=;
-        b=AGqIf1PR8+quNF5JfEdAW5j78/1U6xaNRn14d7acjsfvfx6KpThgJkGIkfxYArNyzH
-         V3mcHl0AxADfmouS9S4kgcbTriVhA2MO7FPMKXrgskZviD+jwB8EiNGgNA3c4x0xBDU6
-         P+DsMGRpX6HO2wBVP9yc2/NLhusIk+Lh5QgMES3r/pyOZQEgHl2XKnxgPGXJpUhhsxKk
-         /w/aQmKGCo5qNsGQcQbJkE2SIZFh2nX2wBJw3+NLWHQCi3Hj6MP6hPlFlg6CNj+md/xt
-         BekWi/LSAxhIecimMTnGgCduFg3/c5dgxWu5m/uWnmvRqBIElr/daKDHodMMC5g9r+JQ
-         Cv+Q==
+        d=gmail.com; s=20251104; t=1791917783; x=1792522583; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+LzBHj4tBeipNi+QlNyJEU/f9POJz901L8zWPKLrZks=;
+        b=R8BArl6uczXvhDSJFvKJzx+e0sJApDY1JD/zwODaRzHR85VEsFe9+4yUK/cMU+JKm5
+         K/ErDhzw45OTxc879PyXn+6H70CsguNr6vqk58Laxx7e26J662oL3Lyw7LedljPdkOgs
+         WdYoQbnTGs8WAO4bmQJO6nHcGI/dmJM9Jlm9YUPrZvbgWZFmWpIGCR9E2rdzXCGqD5en
+         wFz2EFe+PapAKzEx/J+iF974D72zCGLtUjTD9FYr+K/hpP/23igM1zzp8CEvLY/xSCJG
+         oKleHMY5SBaC9hd0mqQbPOgqCX0zNk7me984SUtSdMTwlyIgYSbscwzOcZVudRlVuZFt
+         7yJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791917782; x=1792522582;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dVW2EdRxla6E0QM69Q3E/be+4rJf2zGLJLbIi+wd6SA=;
-        b=fD9yIiv96Qfb/lsjeVw/uPehLE2l4a67DJmsK9TNgUy2frMfs/LA8XE3QPcMcVpnIi
-         eGY0H7t8u5twfHCPGE1E61523xfEqbmsCtlsFZdx70m0ZfbxLT04Fy1S1KICph8r7ls9
-         uJoa9Xiz848PU1OsrD1A3qSnGVITmjRnI4H5w5LL99lrFwocrn8xeWV0nJedlxTNP5/u
-         udy8QtCwT6ETRDQaMQMMG+xhmtU5fYsNVQ7smxqcgu/hu06AyPUr5cKiCqV1JIR+bGY+
-         F3iVdScjH0SrxrJql2A+EOUu32BFjjSzwNCQPANiIaaU0WwmA/0/OpNUwiYsLtib4zbA
-         0h/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxHENLyH/VhLH9moTENuJ0Acwux+XvGR5kffHzbqWkq4IhudeM1+k1cGb0xC1e4+/C9BcN9rJXSsUsNgz4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuDg8+u6ABpzeS2vuKBVl5E1+RFzwXPkdsHUlrxfE2Gw4dwiSr
-	8WUIGN5eWOxW56ABSxmnuOcQGGwpZAuu8RVvts+AvGhSSLXJorPEaW8lsoTDWXPXjWGQgnkF8XQ
-	c3ltBkfQKet5W6aA8wwKlOK0DXFJXGktZNFzN9LJO5eVQYVlLd0lNC9VZMRq7u88BEGQ=
-X-Gm-Gg: AYBFou3VHhsBBGZmEmERzxKbIOpVkzRUl9iqlQQBl+ZeKKFTShCMEycxpOg/ob5Gzeh
-	JzmWzmHwcwh4QEBTOmWHam2ND7nu7mmqTBdw8HQIaY5GdebEGIGGnZzlgMgGudonaC+35Py417f
-	GrIOE4dGBvs9VzLXzEShCqbhMZ3krlALcYMgTmxAosBSfgiKPb0qAgJt+ZAxDQ7scFQ1kL442qD
-	/V2aTiLFe9Yj5+gX1AWcOLva0wafubSVwCN230PkJ5T4AO0IIcRFBaVPIWuhR3z6IO8DhIOTSIS
-	ONQQSYXUTYd1Qqwtg6AJWRoAy2ZQ1beiHyGqO/wHIn+5uVuqRO2JmgdTQNkxd0jUoKfJHARtAXx
-	fOWLDHeFIJJyKkgv0KNDhO/LD2jAw05idCltd9p5I9FYc/LO7XA==
-X-Received: by 2002:a05:7022:5f18:b0:143:298f:33b6 with SMTP id a92af1059eb24-16a6203ab5emr17121154c88.46.1791917781371;
-        Tue, 13 Oct 2026 11:56:21 -0700 (PDT)
-X-Received: by 2002:a05:7022:5f18:b0:143:298f:33b6 with SMTP id a92af1059eb24-16a6203ab5emr17121056c88.46.1791917779716;
-        Tue, 13 Oct 2026 11:56:19 -0700 (PDT)
-Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1698de65af7sm43594045c88.0.2026.10.13.11.56.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 11:56:19 -0700 (PDT)
-Message-ID: <e6a86bf0-86bd-4010-9d95-5b87bb2a3009@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 12:56:14 -0600
+        d=1e100.net; s=20260707; t=1791917783; x=1792522583;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+LzBHj4tBeipNi+QlNyJEU/f9POJz901L8zWPKLrZks=;
+        b=BcmExpxeEcR25FeOsCtb4vKNc03+QFLTcRW3Yw5C6sjYT5g5WSS21oKOwDAeqIAlT9
+         l+yCW8CsnKMIPPkbCF4zeMRuHzGFLW8SeUi1qW477EwH6+9T0CtAo+Lk1sQoVSWFE+3l
+         W+CpdzD+Pz2ObvT33/GAbke+Cr2EnI0XDRYRDdz/iqYvdbUxZLpeCxOQ0uQZjvWvkKQr
+         h9ex49v8sCXFBbYI6HbkUTmcyeaDMuw69fIFRBE8AXtrOGiRi+mrKyMgu7AUtZRg+F+e
+         3LdOv2+ubtqtXjGnFI8sfgEbdXqt0Htu0zThdmTrMIlWzDw0PI1lVWtym9lATS6EFzuK
+         +qAA==
+X-Forwarded-Encrypted: i=1; AKwUvByXFl8tx4qJdrpP8RQvFn3/O6X93VhwKvqS0uCRw/euheKShLe/IEr7cx40+VXmne0eLoQ13UoIm1Phk+4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfRwlaO4iziiYUbeAQ7lug0IcGxvQvtaLetTepRJfzst64ZQIX
+	R+NSPLFB9SnMx/T9HbeC2XvktIdFknDAo28Nnq34tCs0yZRwyw+xwnIQNwqnrMj+/haa0W7c7GL
+	E1byVW1dgXOcalZZI7Rul6FnK52m0aYY=
+X-Gm-Gg: AYBFou0uslsXIBarqDlhrVyrkH/stSj19zdR+wJM/3gZWOV8cN8Di464eJTRMWuBKlQ
+	pbUty3IrS1CBrQRRZjlWzrI9zfBvizkv8zRUMFxvo7qRuSS1zgbIFb09w8tmtmLUm/TCZ6g/ht1
+	IPphOBdMo+zOBW3LVjIj9cjWZycHyBY7b0pcujyidUcrvEcPYaNooFFgKpJ/hJ5gzsKMM0gBiXG
+	0vFXDxfXDKnBv73pZYtY45NYt1G4R1Rh9Kvi3W2AdPNZ+D4B8EEk0DFp4jj85PU5mrY1enbPdrl
+	+Oif566KgeETNKcTrh2SBGmL3RuhxGCZANvW/3mXhXYqaR+9c61fcGpAOyrGg6a1GYTS4OMs8Vt
+	sQRJXWRYb3oyv
+X-Received: by 2002:a17:906:2081:b0:c33:ca5e:8ddb with SMTP id
+ a640c23a62f3a-c33ca6dd72emr527062066b.28.1791917782642; Tue, 13 Oct 2026
+ 11:56:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/qaic: Protect perf stats BO state with bo->lock
-To: Shuvam Pandey <shuvampandey1@gmail.com>,
-        Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
-        Oded Gabbay <ogabbay@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org
-References: <6a115824.a0bed9bd.3c0137.9edf@mx.google.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <6a115824.a0bed9bd.3c0137.9edf@mx.google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=FOKOVOos c=1 sm=1 tr=0 ts=6ace7ed6 cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=MIdiunF4UWRBeV6dtGUA:9 a=QEXdDO2ut3YA:10
- a=zgiPjhLxNE0A:10 a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3NSBTYWx0ZWRfX1fzbbb615b2w
- 9BvZ95sxejB8HAA+E6oS45MzWVEpWuab20PIHpqilnopQ8dCg9FGLzhQsSUQmdNn1d8TRTYCIbu
- qI47nWwzkhA54wVgqlWK4HC4riTlIlY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3NSBTYWx0ZWRfX+znX6Yh7scfD
- iv3dciymrXIvn77EHJp3d6ekT0v+hXqc0stph6KZxz84RCpKKgibzy4+FTKKmvXPEba5PV1g1gZ
- e3NCl3OWJjjVfsGcqIiODG2kSFmBLvgLs7Vsm+8YwR9A9K6bnomBKX3uhqSJTsRpZ+5P04stlGW
- AQ+Lubf7blqmmIBT6IOwGLVmePXSIZQsYO5IHq78k7LiJ+yjK8WAzi++Yuectk+ofVsaIie9jab
- S69TG4Xpyub9j//1PREaXA/R0C5KqhTXQmExiUJaihPvdaNirCft7Zx/hG0WEXnKlt/ZDcZYlN7
- vdDSTTt+NxCLYwyW/bjG+h/1IhUi0mv37HNL8FIpR7Gs4MRXQcvN+aW7i29kD9FsvbHAYNlObdz
- EQ1vyAiNgo8HdKLVJh0GlXQdFV5FZeQ2qYo0V1mqoCVFGpYjgj582dPYD7OPqUW8Bjp5foXC2dn
- YMBhD2Kyx1LL5jDtCxQ==
-X-Proofpoint-GUID: PeKy8UaWiqqMgEHIv1gkB103HyloMGYy
-X-Proofpoint-ORIG-GUID: PeKy8UaWiqqMgEHIv1gkB103HyloMGYy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
- spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130075
+References: <20261007153915.53429-1-alex@ghiti.fr> <CAO9r8zMHKmAQT8WBAd+kkQEjETVvyHhfbESzKHpXXPQJUB9nVw@mail.gmail.com>
+ <CAGsJ_4x3JL9JW2cBXPo0j_8-2d6XQQGSpBAkSf-8Hw9N=0o=6Q@mail.gmail.com>
+In-Reply-To: <CAGsJ_4x3JL9JW2cBXPo0j_8-2d6XQQGSpBAkSf-8Hw9N=0o=6Q@mail.gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Wed, 14 Oct 2026 02:55:45 +0800
+X-Gm-Features: AclHuK_93vX_-JC5eTa0q4jdwYD54NRJQ--m2zl_el2v0JWsmNB2dSzrEZ0gUQ8
+Message-ID: <CAMgjq7Dfeh9xV+qbooO_8y00WbCuuEvRRa-62d_YGvprVY+WPA@mail.gmail.com>
+Subject: Re: [PATCH v3] mm: bypass swap readahead for zswap
+To: Barry Song <baohua@kernel.org>
+Cc: Yosry Ahmed <yosry@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org, 
+	hannes@cmpxchg.org, nphamcs@gmail.com, shikemeng@huaweicloud.com, 
+	baoquan.he@linux.dev, youngjun.park@lge.com, chengming.zhou@linux.dev, 
+	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, chrisl@kernel.org, 
+	usama.arif@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/23/2026 1:32 AM, Shuvam Pandey wrote:
-> qaic_perf_stats_bo_ioctl() validates each BO by checking bo->sliced and
-> bo->dbc before returning its perf stats. These fields are changed by the
-> detach paths while holding bo->lock, but the perf stats ioctl reads them
-> without that lock.
-> 
-> A concurrent detach can clear bo->dbc and mark the BO unsliced while the
-> perf stats ioctl is validating the BO. Take bo->lock while checking the
-> BO state and copying the per-BO stats into the temporary result buffer.
-> 
-> Fixes: 4ddf4ddfceb4 ("accel/qaic: Ensure entry belongs to DBC in qaic_perf_stats_bo_ioctl()")
-> Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
+On Mon, Oct 12, 2026 at 3:57=E2=80=AFPM Barry Song <baohua@kernel.org> wrot=
+e:
+>
+> On Thu, Oct 8, 2026 at 5:37=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wro=
+te:
+> >
+> > On Wed, Oct 7, 2026 at 8:39=E2=80=AFAM Alexandre Ghiti <alex@ghiti.fr> =
+wrote:
+> > >
+> > > Commit 0bcac06f27d7 ("mm, swap: skip swapcache for swapin of synchron=
+ous
+> > > device") made SWP_SYNCHRONOUS_IO devices (e.g. zram) skip swap readah=
+ead.
+> > >
+> > > zswap is the same kind of in-memory, synchronous backend as zram, not=
+ a
+> > > swap device flagged SWP_SYNCHRONOUS_IO so it still goes through
+> > > swapin_readahead().
+> > >
+> > > Here are the results from bypassing readahead for zswap too: it was
+> > > measured with a kernel build (make -j16) in a memcg, zswap=3Dzstd, sh=
+rinker
+> > > off, on Sapphire Rapids and 3 iterations.
+> > >
+> > >   768M memcg (sustained swap thrash):
+> > >     metric                 mm-new    + bypass    delta
+> > >     build time (s)          405.0       341.7    -15.6%
+> > >     zswap-in (GB)            79.5        53.0     -33%
+> > >     zswap-out (GB)          144.8       115.6     -20%
+> > >     swap readahead (pages)  6.79M       0.45M     -93%
+> > >     swap_ra hit (%)          72.1        89.9     +18pp
+> > >
+> > >   1G memcg (light pressure, build not memory-bound):
+> > >     metric                 mm-new    + bypass    delta
+> > >     build time (s)          177.7       176.0    ~same (no regression=
+)
+> > >     zswap-in (GB)            10.2         7.5     -26%
+> > >     zswap-out (GB)           27.7        25.1      -9%
+> > >     swap readahead (pages)  1.07M       0.08M     -93%
+> > >     swap_ra hit (%)          68.6        87.2     +19pp
+> > >
+> > > Similar gains were observed on an AMD EPYC 7D13 host.
+> > >
+> > > The gain is from no longer prefetching pages that are pointless for a=
+n
+> > > in-memory backend: readahead inflates anon residency and thrashes the
+> > > page cache (file pages get evicted and re-read), lengthens each fault=
+ by
+> > > synchronously (de)compressing a cluster of neighbours, and adds
+> > > compression traffic when those extra pages are reclaimed.
+> > >
+> > > Bypassing swap readahead for zswap therefore makes sense.
+> >
+> > No objection here, I am just thinking about Kairui's LPC presentation
+> > about how compressed swap can (in theory at least) still benefit from
+> > readahead: https://lpc.events/event/20/contributions/2421/attachments/2=
+116/4689/Better%20Anon%20(Swap)%20Readahead%20(2).pdf.
+> >
+> > Seems like a big portion of the fault cost is still outside of
+> > decompression and can benefit from readahead, but that isn't the case
+> > today. I assume any future improvements to readahead and re-enabling
+> > for zram would also cover zswap?
+> >
+>
+> In that case, if we can develop an accurate readahead algorithm with a
+> high hit rate for readahead folios, we will probably also need to map
+> them at the same time, as proposed in [1]. For example, if we readahead
+> 4 folios, we should map them all together in `do_swap_page()`.
+> Otherwise, the cost of future minor faults can still be comparable to
+> the decompression cost. Readahead alone would therefore increase the
+> total work, which can be quite significant for synchronous I/O.
+>
+> [1] https://lore.kernel.org/linux-mm/CAGsJ_4xM=3DWnFO-OuwVude-DQ_UkaCi_zF=
+_bXBP9Li5+ZPNy0VQ@mail.gmail.com/
 
-Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+That's a really nice POC! We should do that IMO, maybe with better
+support for (m)THP readahead too.
 
-Pushed to drm-misc-next.
+We first need a better readahead policy though, or else unmapping
+these folios might cost even more.
 
--Jeff
+For the readahead part I'm thinking about evaluating using shadow as a
+stronger hint for readahead after MGLRU-FG which helps distribute the
+folios based on frequencey more evenly among gens, also with a more
+proactive aging (async aging, or maybe lru_gen_imbalanced as Barry
+once suggested somewhere) so folios in the same gen with same freq
+will be much more likely to be reused. Or something similiar to file
+readahead's PG_readahead based readahead. Well more
+experiments are needed first though.
