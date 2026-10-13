@@ -1,196 +1,140 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD324F68A2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:57:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77BC4EF149;
+	Tue, 13 Oct 2026 11:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892679; cv=none; b=blE3oaxi+hFPEjmXwlCiwm6P7XE1Eayf3ACj5x6/UKgWoQCO/ScKbl7jKYTbBc1dlQ7DkUY0G//aFEYro6sprUiqsUc4rCT5Zgrk0+rqqABC4o4pWnAzDMtug3RcbOpsobVpzidYt/P+hoe6UcBGGmwENi1VEaz66XRwQo/Q4WA=
+	t=1791892692; cv=none; b=nHCFg7QAU/Tlt+Q4Nc4jR/4StEk4PyOIjsL2wI9hwhqOmmSjjtAKiS3ojS5F0fmpaWTFgwevbfJnk4T/8rcFW6Vm9T3qICbdTdlls/e1AKb/7kL2PzEamushuunIpmr6tqc31w4DgkHcOaxtPWwwdnYHlmYRlT98LcJ+iQuY+0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892679; c=relaxed/simple;
-	bh=KKmwFe5PkWAx9GgCZXmK26s3NjYAiBdL3nsUkmCoLvg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pthV3T61H+EjirLBfNJ/3PDgSjl4R2GMoP9tLGYIXZDDHd4YjbYH+XcLpfZ0MQV0AI5gHRgpIJUsNixLTIXU6KMSE0j3VqdRvkJwGfShgNNEdy6vtUr8f60clKHJCu0XEr52aOP2IgFq1d7Wq0ASMwcmuKH3B3bRtVtq8O+zl/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EX8byVtV; arc=none smtp.client-ip=74.125.227.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791892692; c=relaxed/simple;
+	bh=HSOWWU74lDNxt1d+wQt3X3kc79zz+ssUkjfC7waIdoQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=RXOe8x2D9QdGLbhj7Qf8anfSAHqZfHmD8FZ/1uRW1E2kM6bL3VtHYeMtAAPFhirhR6y7Jq4QOu+BloX8kiPFzQ6lwWMDNJoqQvrTJmUbO8omVucFSImoe4nko12+EUbZnUgKtvb4fo0Uqu3i/7pikpcOKbfjprrCmNEX5DInn5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kZqkjOZk; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EX8byVtV"
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3a7026b3123so362332a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:57:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791892677; x=1792497477; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rEuvSE9QQ+v1bO5qTe3vxnOsinVCD9JZyeyKZPpujCg=;
-        b=EX8byVtVY/WQWufogD+NflC+p4lSfI5dexk2OM00HAqYiKAJW/lalU/7Ik2QIwukMA
-         f2+FFMG2Pa0CZrNsTpDIYVlulXD9Vx8MyJqm3nB3kndM12koLN8rVxiVImu4grCyllnd
-         izm6Evuk0YP2/9TQNuu2MFPIlGBAxeSHANW6iL3hu0URAlItJX0GS14AEXYIBD3iLfUx
-         gFJTiv1pJ2Z3B4+P7ykvoeQLx3dv2UzF2FGt4x5dhlx6VaZY53RD8ZN70BHKjty5QrfO
-         hP/NxOCBV0ZHgRJQpIWZjC9pTzYZz6ZJInhwQynO5NkIyBckvcJla8f55jWU4jcssD4a
-         25kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791892677; x=1792497477;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rEuvSE9QQ+v1bO5qTe3vxnOsinVCD9JZyeyKZPpujCg=;
-        b=DuHBV1g5sPBf8+uer/kfCbx0i7oNVUBJncdd/dtZx8tUXZJPOeJiCh7QEKfnFBMCQ0
-         AhQH1vBuUHtmSV45BabaK7NaOuR+MfrSL0n4Hpn33VAIp16ashc7tEXQIRX/jKkPZBOX
-         TzPUYp72NcatJ7b/Ou1a6+wBZE0MPVvaFHHTKGqXIAaWhWkAbCzGDXs3UQDhVPbbirT9
-         vdHoKFOqehOEWZKYXgoekNxHXNttBHUwDCIxzvehAey18Aod90A7WtCUUwc0HcVpa/xX
-         8gENLg9/saa+zuq6u95raE8byUlAS6kYjHf2sdp6pHqh7Q/SJ+TAEXIvyOVa1bPNFSlS
-         Fxqw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/TioUPVSusIX3r657F5BSCYWST0BgpWovZTswStXh0ucwWt71S/NrSQJH9WKKtFTk/C1ghy/PyJWcixs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVv5BKMDaLNw/Py07rkhEziDFhSSoP4LnRCcDbMIn6113K8K2x
-	1UMuPMXCN9rDrlflTxTBS/DzqNdotFsChablrouA63V3KKY8svRtcQdN
-X-Gm-Gg: AYBFou0OBwcfc35T4PFUGwO/KqWzMM1DBHyLe/FbO41793VtGZOD67hMIfcfZu09bG6
-	UUQM2rsB9MrTSS1OLIRXXu1WaYF0l7FNNiWqEBeHKLCNZMIJx/J0VTshKDyAzTYNvTa35562AFD
-	7Pp4knV28juCWBfhBg/h5NPjfXw1f4QSDvEuh1xpbIx3BRXs7zIt0be3b6x1x3mXnZO8Bok6eMu
-	ALvwIjzCjQxZOkpDvUSB6ZMqrYoTbCCjvLYTE7lPQspf4lyfQHqKIaH4Es/0yazxD5kj1I2zYck
-	J+D86g2EuRcgumzXxfcIcXb/0hQl4/FuwlguLwAWzNrFYE9q87Bls1wSwAe2H5U3x0WSkjBybU6
-	SRRvj+m6MRE04wpVzvoN1TB479+zZMBNYYX43+qcyMCkL7Yk1U0ZKMp7LC6l7TZeEIaCeOiwvrA
-	F3zVuxu2E0UCb9FxwSbMZL8NuD2zpsjOf8o0zuBaSlE/ZKYhOfd7TwSYA/jZSs8pJNQwH3v9HYs
-	Iuf2wTjlleyOW5HszSdYNIFB963ncnQW7b4
-X-Received: by 2002:a17:90b:2886:b0:3a6:fec5:c186 with SMTP id 98e67ed59e1d1-3ab3acf7535mr9649908a91.46.1791892677450;
-        Tue, 13 Oct 2026 04:57:57 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm21248516a91.13.2026.10.13.04.57.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:57:56 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: [PATCH v4 18/18] f2fs: make compressed files compatible with large folio
-Date: Tue, 13 Oct 2026 19:56:21 +0800
-Message-ID: <20261013115621.968742-19-nzzhao.sigma@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
-References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kZqkjOZk"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 447EE1A11FE;
+	Tue, 13 Oct 2026 11:58:07 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 170B160362;
+	Tue, 13 Oct 2026 11:58:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4E51811D7080C;
+	Tue, 13 Oct 2026 13:57:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791892685; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=jXUFuuOTF8XeXu/Tjy+acP2BZmhd2fr98R0Z92J5Q4g=;
+	b=kZqkjOZkVy20xkYa6RsVyitkCikl+xV1v9ZoLLUiibvYRoBpyMJQueIZZeoYQEnZ5H7lhV
+	OL49oCCTzGbuv0nqs3SmjbYXgX6mYv3PH2zybHqY45k6u/MP0BC3kKHYkOiZMVCp4D+Owm
+	I9CbI4LgxBfP58tDlh6VrxtePh6w1KJQT/ZajajtZr7uj/b+EsmZLXw5Y+AsNn3LUflJiH
+	i7IgQvdZH4sZYcEfzqymI87yDotN9U2J6iYxdxqdyuD/uJm5AFr0DNWk8n9drJRBVx5KhK
+	ZWLpZ+SSamr2yYEa2RigFWrJlT08dmcLfTu0i7WZX3KnInsDZvvgjbmMcNsGiA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 13:57:56 +0200
+Message-Id: <DM3OXV8IQQKR.36V79A742H52F@bootlin.com>
+To: "Geert Uytterhoeven" <geert@linux-m68k.org>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+Cc: "Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Geert
+ Uytterhoeven" <geert+renesas@glider.be>, "Magnus Damm"
+ <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+ <linux-renesas-soc@vger.kernel.org>, <linux-edac@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "Miquel Raynal"
+ <miquel.raynal@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>,
+ "Wolfram Sang" <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH v6 3/3] ARM: dts: renesas: r9a06g032: add EDAC node
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com>
+ <20261013-paul-v7-3-rc1-edac-v6-3-2f1d6f2f74db@bootlin.com>
+ <CAMuHMdV1nuiSAKbCrD0mWJX7rC4T=fxO5LC5ksRD440YSL_3cw@mail.gmail.com>
+In-Reply-To: <CAMuHMdV1nuiSAKbCrD0mWJX7rC4T=fxO5LC5ksRD440YSL_3cw@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Hi Geert,
 
-The compression flag is the hint indicates that the inode can be
-compressed, when the inode is using large folio, we expected it keeps
-using the large folio read/write paths and its data stays uncompressed
-on disk until the inode is evicted and re-read
+On Tue Oct 13, 2026 at 1:41 PM CEST, Geert Uytterhoeven wrote:
+> Hi Paul,
+>
+> On Tue, 13 Oct 2026 at 12:45, Paul Louvel <paul.louvel@bootlin.com> wrote=
+:
+>> Add EDAC node to the SoC base device tree file.
+>>
+>> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+>> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com=
+>
+>
+> Thanks for your patch!
+>
+>> --- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+>> +++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+>> @@ -164,6 +164,15 @@ dmamux: dma-router@a0 {
+>>                         };
+>>                 };
+>>
+>> +               edac: memory-controller@4000d000 {
+>> +                       compatible =3D "renesas,r9a06g032-ddr-edac", "cd=
+ns,ddr-edac";
+>> +                       reg =3D <0x4000d000 0x1000>;
+>> +                       interrupts =3D <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
+>> +                       clocks =3D <&sysctrl R9A06G032_CLK_DDRC>, <&sysc=
+trl R9A06G032_HCLK_DDRC>;
+>> +                       clock-names =3D "ddrc", "pclk";
+>> +                       status =3D "disabled";
+>
+> Should this node be enabled by default, or am I too naive?
 
-Let f2fs_write_begin() skip the compression overwrite preparation for
-such inodes and remove the compressed-file gate in
-f2fs_read_data_large_folio() so the data is simply read/written as
-regular blocks.
+The bootloader will be responsible to initialize the DDR controller and ena=
+ble
+ECC if specified. On this specific platform (r9a06g032), ECC is disabled by
+default.
+Enabling the ECC require a specific property to be present under the contro=
+ller
+node in U-Boot. I think it make sense to keep it by default disabled.
 
-For the same reason, reject F2FS_IOC_COMPRESS_FILE with -EOPNOTSUPP
-once the inode mapping is switched to large folios.
+>
+>> +               };
+>> +
+>>                 udc: usb@4001e000 {
+>>                         compatible =3D "renesas,r9a06g032-usbf", "renesa=
+s,rzn1-usbf";
+>>                         reg =3D <0x4001e000 0x2000>;
+>>
+>
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
 
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
----
- Documentation/filesystems/f2fs.rst | 10 ++++++++++
- fs/f2fs/compress.c                 |  2 ++
- fs/f2fs/data.c                     |  9 ++-------
- fs/f2fs/file.c                     |  7 +++++++
- 4 files changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
-index 771216f45..b4f436ffd 100644
---- a/Documentation/filesystems/f2fs.rst
-+++ b/Documentation/filesystems/f2fs.rst
-@@ -941,6 +941,16 @@ Compression implementation
-   reserved via ioctl(F2FS_IOC_RESERVE_COMPRESS_BLOCKS) or the file size is
-   truncated to zero.
- 
-+- Compression and large folios are not effective at the same time on a file:
-+  a compressed inode does not use large folios, while an inode which is
-+  using large folios keeps its data uncompressed on disk.  If the compression
-+  flag is set on an inode that is already using large folios, the flag works
-+  as a hint until the inode is evicted: the inode keeps using the large folio
-+  read/write paths, f2fs_write_begin() skips the compression overwrite
-+  preparation, and ioctl(F2FS_IOC_COMPRESS_FILE) fails with -EOPNOTSUPP.
-+  Once the inode is evicted and read back, it uses order-0 folios again and
-+  compression is applied as usual.
-+
- Compress metadata layout::
- 
- 				[Dnode Structure]
-diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
-index 3d26bdd4d..f9839e2e0 100644
---- a/fs/f2fs/compress.c
-+++ b/fs/f2fs/compress.c
-@@ -78,6 +78,8 @@ bool f2fs_is_compressed_page(struct folio *folio)
- 		return false;
- 	if (folio_test_f2fs_nonpointer(folio))
- 		return false;
-+	if (f2fs_folio_has_ffs(folio))
-+		return false;
- 
- 	f2fs_bug_on(F2FS_F_SB(folio),
- 		*((u32 *)folio->private) != F2FS_COMPRESSED_PAGE_MAGIC);
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 0e139b4ca..3647d5e97 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -3243,12 +3243,6 @@ static int f2fs_read_data_large_folio(struct inode *inode,
- 	int ret = 0;
- 	bool folio_in_bio = false;
- 
--	if (f2fs_compressed_file(inode)) {
--		if (folio)
--			folio_unlock(folio);
--		return -EOPNOTSUPP;
--	}
--
- 	map.m_seg_type = NO_CHECK_TYPE;
- 
- 	if (rac)
-@@ -5202,7 +5196,8 @@ static int f2fs_write_begin(const struct kiocb *iocb,
- 	}
- 
- #ifdef CONFIG_F2FS_FS_COMPRESSION
--	if (f2fs_compressed_file(inode)) {
-+	if (f2fs_compressed_file(inode) &&
-+	    !mapping_large_folio_support(inode->i_mapping)) {
- 		int ret;
- 		struct page *page;
- 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 9cee36258..6cd8df7a4 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -5024,6 +5024,13 @@ static int f2fs_ioc_compress_file(struct file *filp)
- 	if (!(filp->f_mode & FMODE_WRITE))
- 		return -EBADF;
- 
-+	/*
-+	 * The mapping is already using large folios, where the data is kept
-+	 * uncompressed, so refuse to start compressing the file.
-+	 */
-+	if (mapping_large_folio_support(inode->i_mapping))
-+		return -EOPNOTSUPP;
-+
- 	f2fs_balance_fs(sbi, true);
- 
- 	ret = mnt_want_write_file(filp);
--- 
-2.43.0
+
+
+
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
