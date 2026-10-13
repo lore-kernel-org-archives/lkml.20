@@ -1,265 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05FB94E3257;
-	Tue, 13 Oct 2026 10:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE974E324E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791889087; cv=none; b=BAPLgwCoRtAuGxbvzuZdhyi9fMqbuUEIRh3TvOyu1RqW9zQN2bT0ZRMjRb0/gZWOhCBkQrj5ZKzXTmpsBq3/z1IhWFnqwjd3rvgWM43LqRMw+Pzu06CZHNss1cWAmC3t/g9o5faRlFOneHU/b8RgetYytWlDtU0pJ/oQ9xZNvR8=
+	t=1791889093; cv=none; b=bjdBmd9euMs4MrdRyKl676Z4eWTQZhrvxRI8HMiz+k77o4emizAECtNvtvvex0yOFqdkshvvgg9DaJ0+zTFH5RWUfa9xqRSH6ZxXiPZETRPI/0Hu35NUeBEP9vn/9D2mwZCBERpDnF7HaE0O9VjKkoaEnGU2Dd+59wrtNX5L5mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791889087; c=relaxed/simple;
-	bh=7eanEjJdrMECPM7v8HhfuSDHAfuKythZ9q9LJ+TfcJw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ahs44OTKAlSmyVUzyFpdUKHZ4lpka9hloC+nY5miWmX/VwQ5WLnu4MJJWfS6Hs/bvbCuUWWnpbMFDv9JbN1tSK5KcefHFn05PCQoUgPnIjgTFWE/h2yWG2MNPGHnU6uXrO+4RLoDocezuxRf/HF26NW+SEXPQigBbSOfDIcQKCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtuHFFRO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791889093; c=relaxed/simple;
+	bh=uohpqKhhxFL4zyRkg0b3es+GFZBemwsbVUZ++JQWt6c=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=aXMImK+JtRyKQUkG+wmPlfoy6wUvQJhWyg6e2L/CvFPwBSDENnTabpK/gYY8Nod+DfAQTRqBuuoMvEvpDpJH/wl9UPB116gA10/WE7DTqeJ1ScsGZmbGu9HFoqZCc3GRPxgLMgUEpRGUnzTChi2ElRZRNNsFhtpjbslC/3DmWao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Et4zMD4k; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtuHFFRO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824E61F0089B;
-	Tue, 13 Oct 2026 10:57:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791889077;
-	bh=QvPQmojfQvdSuKzFwSonxR1bfeKW0jigc5qUQGEDGRc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dtuHFFROKKBVT90olJh3vQshzbvhEZIMKZJInp1SlLIZqBvMSYRGKp0k9GdEp+zR8
-	 hqcia1+sB6J5fdOHUAMFr2WPYpSEDdHCTeLnCUdKJMNETK0izv1r96nZiwlKSpzglY
-	 ScEbsQB5o6XcwiRVHqM+gBy5jLG4lIQ1PWSgrDFfEGjPMQpzCOdkbPFxB3Mpo2Chrs
-	 MkvAqZaozczI8C1+/MFQ3BGdDnoaNecHCfQL1jL8MT1Daupb1XJRqGiwXh4peHKfvI
-	 kLuNyeBn5vGN9taXByqxtg8SldmBQz1aow47h+ONF3DCje0QE9qocxALY3Lr3izKmK
-	 Rx+z7+uPo0WIg==
-Subject: Re: [PATCH v5 net-next 9/9] net: dsa: netc: add PTP one-step
- timestamping support
-From: netdev-bot+sashiko@kernel.org
-To: wei.fang@oss.nxp.com
-Cc: xiaoning.wang@nxp.com, andrew@lunn.ch, olteanv@gmail.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- richardcochran@gmail.com, linusw@kernel.org, wei.fang@nxp.com,
- imx@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
-Date: Tue, 13 Oct 2026 10:57:56 +0000
-Message-ID: <179188907611.434549.18346411156046070175@kernel.org>
-In-Reply-To: <20261012095924.1129312-10-wei.fang@oss.nxp.com>
-References: <20261012095924.1129312-10-wei.fang@oss.nxp.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Et4zMD4k"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so1837844a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:57:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791889077; x=1792493877; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xwPbvwO6MeQ9Rx7dSfDFytJJDwpu+KUB4ZEbKExmA+g=;
+        b=Et4zMD4kohUd88haxX7uJNDjT27AX7KnG+qleRddrmHIlVH+xlUvlW60sUYI9zLzG/
+         8eJhLfE9UPgapO0RKpehUDB67kWkDYS9/BlWBSeCa0sKcAnY1iqr7L9BC67i7viw1oWL
+         vwUJjp7cLZaLcy43ECgvtZntHEZhp5W4t+MzzxBO7qz2FeIqHQAUhlYaPH49GHfUj3US
+         H5aLmD5Jwb0y8BptKgvN/l2FRIA4LCfG9Fe4k8z2ZySngiWiL1c9y9nObhhsqWRrtG4w
+         6O7VI+v4Okbh5v+pdOIiBi9TmXIkhGkzFo4mRHP449fT6vmW/CitbSRqp4u0YOLTZF0M
+         mhHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791889077; x=1792493877;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xwPbvwO6MeQ9Rx7dSfDFytJJDwpu+KUB4ZEbKExmA+g=;
+        b=0JbAQu/9zK1vDGOTuAsSI0vbItb3LjzB8JF1RzNkWKNs5lvxxOaJwnxYvkLcmvP5cc
+         tbOJfaJBJ8z8AfQTOzOR+qPEnVH/IEL/BBxm4Ri46sI6Q/uQsbofA4AgOEEQxzeckmhO
+         wk9W+d5abdCPsMFQP4WERkxsfnOeDxmAnmovsEpqeaObUwpDm2zVzAbknfofkuygC/je
+         g52tesUQuf7f72ArGST6mZUmO/iZ7cT5ddAjucuM767Ez6WeYB+Smxaglpc81IP+6aSm
+         ZlgsbEiGxvkaP2waY30LoYRbCIS0V68H6LAGgLbePDnnR15Bquz+BCMUlebopqc3VIRJ
+         1Zlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwXT41AUPz+pClMUPI/ViKeLIe5rr5mas3CvJdXcGeXuWU7Mx7OukZ6LQDwPbyT9UFJ5npBziC/cwGd8D8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYdCofFh87zURs5B0+IJulx37Uj+sfIVtuvT2I+VDu187mo0cl
+	aXtdOhPI9nhCGmNOYQJHDa5D5zbaIPZoHw6XL08wcj3KyvL/XFmd7jiOvqq5Z3mLaNiXORR4HJ6
+	R0f3sYrIhgUu/qw==
+X-Received: from pfog11.prod.google.com ([2002:aa7:874b:0:b0:890:aa85:1b93])
+ (user=sgsatyam job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a20:eec2:20b0:3e1:af52:6d06 with SMTP id adf61e73a8af0-3e1af527d92mr2564059637.52.1791889076874;
+ Tue, 13 Oct 2026 03:57:56 -0700 (PDT)
+Date: Tue, 13 Oct 2026 10:57:53 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261013105753.1370713-1-sgsatyam@google.com>
+Subject: [PATCH v4] platform/chrome: cros_ec_sensorhub: Modify clock drift estimation
+From: Satyam Gupta <sgsatyam@google.com>
+To: Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Guenter Roeck <groeck@chromium.org>, Gwendal Grignou <gwendal@chromium.org>, 
+	Scott Collyer <scollyer@google.com>, chrome-platform@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Satyam Gupta <sgsatyam@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+From: Scott Collyer <scollyer@google.com>
 
-Low priority / nit picks for your consideration:
+Update the clock drift estimation and timestamp filter to prevent
+monotonic backward skews and Out Of Order (OOO) timestamp errors during
+sensor batching.
 
-- [Low] The commit message does not describe the valid-window recovery
-  that the code implements.
-- [Low] The new one-step code reads the global jiffies_64 directly in two
-  places.
-- [Low] In netc_port_onestep_sync_enqueue(), the queue-full check
-  (skb_queue_len(&np->onestep_queue) >= NETC_ONESTEP_QTH) jumps to…
-- [Low] netc_port_enable_onestep() sets np->onestep_state =
-  NETC_ONESTEP_IDLE without checking the current state.
+To keep the timestamp filter active across normal batching flush
+intervals (which can be 1 to 2 seconds long), increase
+TS_HISTORY_BORED_US from 0.5s to 2.0s. Because transitions between
+active streaming and low-frequency batching may now fall within that 2.0s
+window, detect Output Data Rate (ODR) or mode changes where the time
+delta (dx) changes by more than 10x and reset the filter history so
+streaming and batched samples are not mixed. Additionally, fix the
+history shift loop starting index using min_t() so state->x_history[1] is
+properly populated as soon as history_len reaches 2, and clamp the
+calculated drift slope (m) within +/- MAX_DRIFT_PPM Parts Per Million
+(PPM) so temporary jitter spikes cannot corrupt the median filter.
 
---
+Finally, when a sample timestamp is strictly earlier than the newest
+event seen for that sensor, drop the Out Of Order sample instead of
+clamping its timestamp to last_ts, which previously caused downstream
+batch spreading logic to misinterpret stale samples as a batch of
+identical timestamps.
 
-net: dsa: netc: add PTP one-step timestamping support
+Signed-off-by: Scott Collyer <scollyer@google.com>
+Signed-off-by: Satyam Gupta <sgsatyam@google.com>
+---
+Changes in v4:
+- Reword commit description to clarify why the batching filter changes form a
+  single logical change, and spell out Out Of Order (OOO) and Parts Per
+  Million (PPM).
+- Fix Signed-off-by capitalization.
+- Drop redundant inline comment on TS_HISTORY_BORED_US.
+- Use min_t(int, state->history_len, CROS_EC_SENSORHUB_TS_HISTORY_SIZE - 1)
+  for history shift loop start index.
+- Rename cros_ec_sensor_ring_check_for_past_timestamp() to
+  cros_ec_sensor_ring_is_past_timestamp() and return true when the sample has
+  a past timestamp.
+ .../platform/chrome/cros_ec_sensorhub_ring.c  | 73 ++++++++++++++-----
+ 1 file changed, 55 insertions(+), 18 deletions(-)
 
-This adds one-step Sync offload for NETC switch ports and advertises
-HWTSTAMP_TX_ONESTEP_SYNC. The per-port PM_SINGLE_STEP register is shared,
-so the tagger hands each one-step Sync to the switch driver. The driver
-queues them and sends them one at a time from a work item using a To_Port
-subtype 3 tag. Lost responses are recovered through tstamp_timeout_work
-and a 2^30 ns validity window.
-
-> Since
-> the tag timestamp is only 30 bits wide and the hardware accounts for a
-> single wrap at most, also schedule the work when the PTP time has
-> advanced beyond NETC_ONESTEP_VALID_WINDOW since the in-flight frame was
-> queued, as its correction field can no longer be computed correctly.
-
-[Severity: Low]
-This paragraph doesn't seem to match what netc_onestep_timeout() does. I
-see three differences.
-
-First, the check never reads the PTP clock. It compares jiffies_64 with
-np->onestep_tx_time + 1 + nsecs_to_jiffies64(NETC_ONESTEP_VALID_WINDOW).
-The code comment says this is on purpose, because the PHC may be stepped
-backwards.
-
-Second, np->onestep_tx_time is set in netc_port_onestep_work() just before
-the frame is programmed and passed to onestep_sync_xmit(). It is not set
-when the frame is put on onestep_queue.
-
-Third, netc_onestep_timeout() is only called from
-netc_port_onestep_sync_enqueue(). That means this check only resumes the
-drain when a new Sync is enqueued. If no new Sync arrives, queued frames
-wait for the 5 second tstamp_timeout_work.
-
-Could the commit message be reworded to describe this?
-
-> diff --git a/drivers/net/dsa/netc/netc_ptp.c b/drivers/net/dsa/netc/netc_ptp.c
-> index 756c69a02064e..c3875bce80bc1 100644
-> --- a/drivers/net/dsa/netc/netc_ptp.c
-> +++ b/drivers/net/dsa/netc/netc_ptp.c
-
-[ ... ]
-
-> @@ -68,12 +96,286 @@ static int netc_get_ts_req_id(struct netc_port *np)
->  	return ts_req_id;
->  }
->  
-
-[ ... ]
-
-> +void netc_port_disable_onestep(struct netc_port *np)
-> +{
-> +	struct sk_buff_head free_list;
-> +
-> +	if (!dsa_port_is_user(np->dp))
-> +		return;
-> +
-> +	__skb_queue_head_init(&free_list);
-> +
-> +	spin_lock_bh(&np->onestep_lock);
-> +	skb_queue_splice_init(&np->onestep_queue, &free_list);
-> +	np->onestep_state = NETC_ONESTEP_PORT_INACTIVE;
-> +	spin_unlock_bh(&np->onestep_lock);
-> +
-> +	cancel_work_sync(&np->onestep_work);
-> +	netc_tx_dropped_add(np->dp->user, skb_queue_len(&free_list));
-> +	__skb_queue_purge(&free_list);
-> +}
-> +
-> +void netc_port_enable_onestep(struct netc_port *np)
-> +{
-> +	if (!dsa_port_is_user(np->dp))
-> +		return;
-> +
-> +	spin_lock_bh(&np->onestep_lock);
-> +	np->onestep_state = NETC_ONESTEP_IDLE;
-> +	spin_unlock_bh(&np->onestep_lock);
-> +}
-
-[Severity: Low]
-Is it safe to set NETC_ONESTEP_IDLE here without checking the current
-state? netc_port_enable_onestep() is called from both netc_port_enable()
-and netc_mac_link_up(). The single-outstanding-frame rule for
-PM_SINGLE_STEP depends on NETC_ONESTEP_IN_FLIGHT, and this write
-discards it.
-
-Take a link flap:
-
-netc_mac_link_down()
-  netc_port_disable_onestep()
-    onestep_state = NETC_ONESTEP_PORT_INACTIVE
-    cancel_work_sync(&np->onestep_work)
-  netc_port_mac_tx_graceful_stop()
-
-cancel_work_sync() only waits for the worker. A subtype 3 frame already
-passed to dsa_enqueue_skb()->dev_queue_xmit() may still be in the conduit
-qdisc, the ENETC TX ring or the switch port egress queue. The graceful
-stop only drains the MAC TX FIFO.
-
-netc_mac_link_up()
-  netc_port_enable_onestep()
-    onestep_state = NETC_ONESTEP_IDLE
-
-The next Sync then reprograms PM_SINGLE_STEP while the older frame may
-still be pending. Could the older frame go out with the new frame's
-offset and checksum-update settings? Could it also get a wrong
-correctionField if it waited longer than 2^30 ns?
-
-A Sync sent between .port_enable and the first mac_link_up looks mostly
-blocked, because phylink keeps carrier off until mac_link_up.
-
-[ ... ]
-
-> +	NETC_SKB_CB(skb)->tstamp = tstamp;
-> +	NETC_SKB_CB(skb)->ts_req_id = ts_req_id;
-> +	NETC_SKB_CB(skb)->ptp_flag = NETC_PTP_FLAG_ONESTEP;
-> +	NETC_SKB_CB(dummy_skb)->ts_req_id = ts_req_id;
-> +	NETC_SKB_CB(dummy_skb)->ptp_tx_time = jiffies_64;
-> +	NETC_SKB_CB(dummy_skb)->ptp_flag = NETC_PTP_FLAG_ONESTEP;
-> +	np->onestep_tx_time = NETC_SKB_CB(dummy_skb)->ptp_tx_time;
-
-[Severity: Low]
-Should this be get_jiffies_64() instead of a direct read of jiffies_64?
-include/linux/jiffies.h says:
-
-  The 64-bit value is not atomic on 32-bit systems - you MUST NOT read it
-  without sampling the sequence number in jiffies_lock.
-  get_jiffies_64() will do this for you as appropriate.
-
-netc_port_prepare_twostep() fills the same ptp_tx_time field, for entries
-on the same tstamp_queue, with get_jiffies_64().
-
-On 32-bit builds (possible through COMPILE_TEST), a torn read could make
-netc_port_tstamp_timeout_work() reclaim this token's ts_req_id early or
-very late. The time_after64(jiffies_64, expire_time) check in
-netc_onestep_timeout() below has the same problem. It could report the
-in-flight frame as expired at the wrong time.
-
-[ ... ]
-
-> +static bool netc_onestep_timeout(struct netc_port *np)
-> +{
-> +	u64 expire_time;
-> +
-> +	/* Use monotonic jiffies_64, as the PHC may be stepped backwards.
-> +	 * Add one tick since the ns-to-jiffies conversion rounds down, so
-> +	 * the software window is never shorter than the hardware window.
-> +	 */
-> +	expire_time = np->onestep_tx_time + 1 +
-> +		      nsecs_to_jiffies64(NETC_ONESTEP_VALID_WINDOW);
-> +	if (np->onestep_state == NETC_ONESTEP_IN_FLIGHT &&
-> +	    time_after64(jiffies_64, expire_time))
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
-> +void netc_port_onestep_sync_enqueue(struct dsa_switch *ds, int port,
-> +				    struct sk_buff *skb)
-> +{
-> +	struct netc_port *np = NETC_PORT(ds, port);
-> +
-> +	spin_lock_bh(&np->onestep_lock);
-> +	if (unlikely(np->onestep_state == NETC_ONESTEP_PORT_INACTIVE))
-> +		goto free_skb;
-> +
-> +	if (unlikely(skb_queue_len(&np->onestep_queue) >= NETC_ONESTEP_QTH))
-> +		goto free_skb;
-> +
-> +	__skb_queue_tail(&np->onestep_queue, skb);
-> +	if (likely(np->onestep_state == NETC_ONESTEP_IDLE) ||
-> +	    netc_onestep_timeout(np)) {
-
-[Severity: Low]
-Can the queue-full check keep the drain stalled after
-NETC_ONESTEP_VALID_WINDOW has passed?
-
-If the response for the in-flight frame is lost, onestep_state stays
-NETC_ONESTEP_IN_FLIGHT. Suppose onestep_queue reaches 512 entries before
-the window (about 1.07s) expires. From then on, every enqueue takes the
-goto free_skb path and never calls netc_onestep_timeout().
-
-The only recovery left is netc_port_tstamp_timeout_work() expiring the
-token after NETC_TSTAMP_TIMEOUT (5 seconds). Every Sync that arrives
-before then is dropped.
-
-Would it be better to evaluate netc_onestep_timeout() before rejecting a
-frame because the queue is full?
-
-> +		np->onestep_state = NETC_ONESTEP_SCHEDULED;
-> +		schedule_work(&np->onestep_work);
-> +	}
-
-[ ... ]
-
+diff --git a/drivers/platform/chrome/cros_ec_sensorhub_ring.c b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
+index cc038af59218..20fa47cbee32 100644
+--- a/drivers/platform/chrome/cros_ec_sensorhub_ring.c
++++ b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
+@@ -22,15 +22,21 @@
+ 
+ /* Precision of fixed point for the m values from the filter */
+ #define M_PRECISION BIT(23)
++#define MAX_DRIFT_PPM 200LL
++#define MAX_M ((s64)(MAX_DRIFT_PPM * M_PRECISION / 1000000))
+ 
+ /* Only activate the filter once we have at least this many elements. */
+ #define TS_HISTORY_THRESHOLD 8
+ 
+ /*
+  * If we don't have any history entries for this long, empty the filter to
+- * make sure there are no big discontinuities.
++ * make sure there are no big discontinuities (e.g. after suspend or long idle).
++ *
++ * This is set to 2 seconds to accommodate normal batching flush intervals
++ * (which can be up to 1-2 seconds) without constantly resetting the filter,
++ * while still ensuring a reset occurs during actual long gaps or suspend.
+  */
+-#define TS_HISTORY_BORED_US 500000
++#define TS_HISTORY_BORED_US 2000000
+ 
+ /* To measure by how much the filter is overshooting, if it happens. */
+ #define FUTURE_TS_ANALYTICS_COUNT_MAX 100
+@@ -259,7 +265,7 @@ cros_ec_sensor_ring_ts_filter_update(struct cros_ec_sensors_ts_filter_state
+ 	s64 m; /* stored as *M_PRECISION */
+ 	s64 *m_history_copy = state->temp_buf;
+ 	s64 *error = state->temp_buf;
+-	int i;
++	int i, start;
+ 
+ 	/* we trust b the most, that'll be our independent variable */
+ 	x = b;
+@@ -271,13 +277,36 @@ cros_ec_sensor_ring_ts_filter_update(struct cros_ec_sensors_ts_filter_state
+ 		return; /* we already have this irq in the history */
+ 	dy = (state->y_history[0] + state->y_offset) - y;
+ 	m = div64_s64(dy * M_PRECISION, dx);
++	/*
++	 * Clamp the calculated slope to a realistic range (+/- 200 ppm).
++	 * Temporary large jitter spikes can produce huge slopes (e.g. +/- 20000 ppm)
++	 * that would otherwise corrupt the median filter history.
++	 */
++	m = clamp(m, -MAX_M, MAX_M);
++
++	/*
++	 * Detect ODR (Output Data Rate) or Mode changes (e.g., transition from
++	 * active streaming to low-frequency batching). If the time delta (dx)
++	 * changes by more than 10x in either direction, reset the filter history
++	 * to prevent mixing noisy active samples with batching samples.
++	 */
++	if (state->history_len > 1) {
++		s64 prev_dx = -state->x_history[1];
++
++		if (prev_dx > 0 && (abs(dx) > 10 * prev_dx || prev_dx > 10 * abs(dx))) {
++			state->history_len = 0;
++			m = 0;
++		}
++	}
+ 
+ 	/* Empty filter if we haven't seen any action in a while. */
+ 	if (-dx > TS_HISTORY_BORED_US)
+ 		state->history_len = 0;
+ 
+ 	/* Move everything over, also update offset to all absolute coords .*/
+-	for (i = state->history_len - 1; i >= 1; i--) {
++	start = min_t(int, state->history_len,
++		      CROS_EC_SENSORHUB_TS_HISTORY_SIZE - 1);
++	for (i = start; i >= 1; i--) {
+ 		state->x_history[i] = state->x_history[i - 1] + dx;
+ 		state->y_history[i] = state->y_history[i - 1] + dy;
+ 
+@@ -398,23 +427,29 @@ cros_ec_sensor_ring_fix_overflow(s64 *ts,
+ 	state->last = *ts;
+ }
+ 
+-static void
+-cros_ec_sensor_ring_check_for_past_timestamp(struct cros_ec_sensorhub
+-					     *sensorhub,
+-					     struct cros_ec_sensors_ring_sample
+-					     *sample)
++static bool
++cros_ec_sensor_ring_is_past_timestamp(struct cros_ec_sensorhub *sensorhub,
++				      struct cros_ec_sensors_ring_sample *sample)
+ {
+ 	const u8 sensor_id = sample->sensor_id;
+ 
+-	/* If this event is earlier than one we saw before... */
++	/*
++	 * If this event is strictly earlier than one we saw before, it is truly
++	 * out-of-order and must be dropped to preserve monotonicity.
++	 *
++	 * We intentionally allow duplicate timestamps (==) to pass through here
++	 * because the EC/ISH may report a batch of samples with the same raw
++	 * timestamp. These duplicates are required by the downstream spreading
++	 * logic (cros_ec_sensor_ring_spread_add) to interpolate unique,
++	 * monotonic timestamps for each sample in the batch.
++	 */
+ 	if (sensorhub->batch_state[sensor_id].newest_sensor_event >
+ 	    sample->timestamp)
+-		/* mark it for spreading. */
+-		sample->timestamp =
+-			sensorhub->batch_state[sensor_id].last_ts;
+-	else
+-		sensorhub->batch_state[sensor_id].newest_sensor_event =
+-			sample->timestamp;
++		return true;
++
++	sensorhub->batch_state[sensor_id].newest_sensor_event =
++		sample->timestamp;
++	return false;
+ }
+ 
+ /**
+@@ -547,8 +582,10 @@ cros_ec_sensor_ring_process_event(struct cros_ec_sensorhub *sensorhub,
+ 	for (axis = 0; axis < 3; axis++)
+ 		out->vector[axis] = in->data[axis];
+ 
+-	if (sensorhub->tight_timestamps)
+-		cros_ec_sensor_ring_check_for_past_timestamp(sensorhub, out);
++	if (sensorhub->tight_timestamps) {
++		if (cros_ec_sensor_ring_is_past_timestamp(sensorhub, out))
++			return false;
++	}
+ 	return true;
+ }
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012095924.1129312-1-wei.fang%40oss.nxp.com
+2.56.0.385.gd3acb90ef8-goog
+
