@@ -1,114 +1,74 @@
-Received: from mta0.migadu.com (out-194.mta0.migadu.com [91.218.175.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8254AEBCE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4CA4AEBCE;
+	Tue, 13 Oct 2026 15:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906007; cv=none; b=YJb32NEqITQJ3O8WTws1zkczT2064ARJeQvuPA7NyVyvh9uFRN7YamuY9/fJghugZthMLHEHw+AJt2TIWPHhJsjctYWqWC51FcitVlKu1N4AaORv4f/zdKj8HvjGinsKK6XOLHs07AwOijcitKQpfBVmp1P+qNuvkxOO5LzzIi4=
+	t=1791906012; cv=none; b=FX46ixcAQlvlLv9lYasJAc9Fu0Z8BXFBsXTL3gv6qURHl+LjbIzdqHPlB0S+3hg6TfCtWLD1Wbqfplns5AK5cRc0hz5yIgsd7l6bWdAPwoeRS/mXbguplsn3U1UI/E3YBjZAaFmd4FIQlrlqxZYz0XriwmVjYmNDwIAQkwDMD0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906007; c=relaxed/simple;
-	bh=wvI3yQEb1pra9snQf3HMPf0AqFlWoLGzhzZcKtUO3i8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VHZp4mZzblUE/Ldv+gQwc0ebyJtDSOYUD3lVEqrqCUX5kjF6U/NaMFB3U8qOXGO+DTtFSdQIExgfKlTYNV/ORkVYqgRradQAg07T1hxxmBv2EA0oalcF/ucHoOy1DYXKzoMM/vc20y64uqrkzAjspb6U3EaZS8e7cEh3CBA+TV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CbIVFpFz; arc=none smtp.client-ip=91.218.175.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791906012; c=relaxed/simple;
+	bh=7ituCDYQZcb9BmrS6zWtB4ozB09nWmEmSUX4U1kwARs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XbS+Yok6HQwjv+FKnUxaua04FGG78ozyRbpLxTuTOLqtphOJ5Hl26ZUkACe1VBwdHrrgpALWyGG3ZEOe8AimAVLUZRKd5msCNY7FIC+a+qqDITLdKh5dtdP9sj+Urcv+kapmUySkVss2gJY1D55+UVbGxvJro7oLC3kdcWifH3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mHbshVy/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CbIVFpFz"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wvI3yQEb1pra9snQf3HMPf0AqFlWoLGzhzZcKtUO3i8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791906002; v=1; x=1792510802;
- b=CbIVFpFzbvBZ6HFblwi9Sb2Ng2vo/5CtHr8jdpUpJfyFP0rmHhgvjF6nrCEl3FMJIiJRgIr9
- ZbTVdh9AQTmDCe9FB8/Vz8xt/XXiOxJkF47VA0MZ6d/yz2HAiJ2wybh9QD08SWvhHFaU5MWfNII
- rFg/yXiVkz6lsZ4pqqBAewts=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0335801ba07d6e44;
-	Tue, 13 Oct 2026 15:40:02 +0000
-X-Mizu-Trace-ID: 0335801ba07d6e44
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: zhaogongyi@bytedance.com
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	lance.yang@linux.dev,
-	mark.rutland@arm.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
-Date: Tue, 13 Oct 2026 23:39:53 +0800
-Message-ID: <20261013153953.77575-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261013093600.54995-1-zhaogongyi@bytedance.com>
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mHbshVy/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF1C1F0089D;
+	Tue, 13 Oct 2026 15:40:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791906011;
+	bh=WPJo+6dPMNengqbwJKLwGzFib4PCMTtJCzbNuPBqzbU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mHbshVy/ILGwVFobY0mgFNsu4NM1yzJagYI1kLZLljkIM1QBtmnia92SyMwto5vBQ
+	 kdSGZtvde6JWg95FEkIzIXjGKweM3yjmHnG6Ubw+6TZ36fJMW1aJkmtkH0K/prGxD2
+	 pmGL2sP+/x4Ld7gjzfoHkmc2jk6zm7zpwD1wm1Ec=
+Date: Tue, 13 Oct 2026 17:40:16 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>,
+	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
+	Todd Kjos <tkjos@android.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] rust: error: implement ZeroableOption for Error
+Message-ID: <2026101306-unlimited-pasted-e039@gregkh>
+References: <20261013-binder-consolidate-txn-prints-v2-0-cf78927dab23@google.com>
+ <20261013-binder-consolidate-txn-prints-v2-1-cf78927dab23@google.com>
+ <CANiq72mfVY7a9+GyHsO_MWXiXhjS-Nj7ki54HJrMCqnQ-RgOmg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72mfVY7a9+GyHsO_MWXiXhjS-Nj7ki54HJrMCqnQ-RgOmg@mail.gmail.com>
 
-
-On Tue, Oct 13, 2026 at 05:36:00PM +0800, Zhao Gongyi wrote:
-[...]
->
->Fixes: 4602e5757bcc ("arm64/mm: wire up PTE_CONT for user mappings")
->Cc: stable@vger.kernel.org
->Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
->---
-
-Good catch! Thanks!
-
-[...]
->diff --git a/arch/arm64/mm/contpte.c b/arch/arm64/mm/contpte.c
->index 0acab179f..851fa2e44 100644
->--- a/arch/arm64/mm/contpte.c
->+++ b/arch/arm64/mm/contpte.c
->@@ -463,6 +463,13 @@ void contpte_set_ptes(struct mm_struct *mm, unsigned long addr,
-> 	if (!mm_is_user(mm))
-> 		return __set_ptes(mm, addr, ptep, pte, nr);
+On Tue, Oct 13, 2026 at 02:44:13PM +0200, Miguel Ojeda wrote:
+> On Tue, Oct 13, 2026 at 2:38 PM Alice Ryhl <aliceryhl@google.com> wrote:
+> >
+> > Rust Binder wants to store an Option<Error> in TransactionInfo, which
+> > derives Zeroable. Implement ZeroableOption for Error so that
+> > Option<Error> implements Zeroable.
+> >
+> > Acked-by: Miguel Ojeda <ojeda@kernel.org>
+> > Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 > 
->+	/*
->+	 * Keep the producer-side invariant documented in pgtable.h true even
->+	 * if a direct caller passes an invalid descriptor with PTE_CONT set.
->+	 */
->+	if (!pte_valid(pte))
->+		return __set_ptes(mm, addr, ptep, pte_mknoncont(pte), nr);
+> Greg: if you don't plan to pick this series this cycle, then I am
+> happy to pick this one (#1) this cycle if that helps.
 
-set_ptes() is the only in-tree caller, and it already clears PTE_CONT
-before we get here ... no? Why not fold !pte_valid(pte) into the
-!mm_is_user(mm) check below and return __set_ptes() directly?
-
-	if (!mm_is_user(mm) || !pte_valid(pte))
-		return __set_ptes(mm, addr, ptep, pte, nr);
-
-If a direct caller does pass a !pte_valid PTE with PTE_CONT set, I'd
-rather add a VM_WARN_ON() to catch that. Silently clearing the bit would
-hide a caller bug :)
-
-Cheers, Lance
-
->+
-> 	end = addr + (nr << PAGE_SHIFT);
-> 	pfn = pte_pfn(pte);
-> 	prot = pte_pgprot(pte);
->-- 
->2.39.5 (Apple Git-154)
->
+Already grabbed it :)
