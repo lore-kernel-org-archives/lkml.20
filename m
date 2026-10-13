@@ -1,93 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBD14DF4B5;
-	Tue, 13 Oct 2026 19:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9390553E31C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791921335; cv=none; b=k8rkAv48kwb0kd1K66m9B3ewatu5ZkCq42988809ZQCzcHHLkVHgHcgm9ZEsHMQl91tr5f5SBG0H4fjC51JhpBdwevgRtGE2+MlGFybY2oP94L5gAqcIq8fhZWjU0eqJSshU6jkXdTG1zjMTr/kXZW5BEFLFagz9jlsIjZDkvAU=
+	t=1791921350; cv=none; b=gTnKSBUOICkPCtYcVd0yHjop6NuaM1MMyVfB2y7SKTdiG6yNIUexsFbzZxdl6sWs0qWn+mOZyfBDVD4oGvvr9D/pTeWSP2EsHvVaUOOTCUI7LNKXWxuacB2yCgjZ1iN7Zz+DFc5mAfLrl9z+ZjqAP5dlb7WrOMRpg7WGgDQADdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791921335; c=relaxed/simple;
-	bh=AFu3kmZg6UCAO1SeqDGNz5eHNjjt8p6tQo13dqQuVco=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hTCBvAnROMA9w7O7rFGo4+NDSqJ3NRe580CxuloxAxBVfafcX0uUit6zpr17oq7r2hGuXm17KL8qY7AZy06BI8lqfBpAPs5OCm6E/vO4XAB0BGCS1eKnO6mOmYUZqyyBI89kWu0/6O3dxZgQBdJFtdJh0LL0s1DS9IbNdhUBaXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VLG4QJTe; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791921350; c=relaxed/simple;
+	bh=kHUiE5axvYANqYFGTvm2buddRW6YsS1oOZ5DJXHz0O8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gy3avJdvEM+HAyE+fKstxmHxn+VKmUa5LOPwyqQZPm0RJJ7cQm1LX+oMcWbi0lE/mvIpEMUMbVinIu8fwnj0/sZcf3kHbjJ7IpW97YftmdR0mN/UdMhgEyRCUeCZkBO1ePRtUtINp8aqqbt8OXMWQQDYoSEeCjeeV3AclRz4kaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Srdx6vqR; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VLG4QJTe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791921333; x=1823457333;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AFu3kmZg6UCAO1SeqDGNz5eHNjjt8p6tQo13dqQuVco=;
-  b=VLG4QJTeg/CQBMCef6P+X4M6OtPnUfc2jpfweTxlZYnWcwZ2r3qmeqSL
-   T0CoPun2WHjvnldxffIykF6+vlceyvbVXYmJCKCaDLqSfChM+mLlhJ/Od
-   yeCAiUXt7OixiaHDC/rnHOljl7TLfmIWUMA41Siz7gjujjFPo56ZE5/ml
-   BWSMDp2X3YAX9tu7TSHawWccSMw5eUj/ilyY63sQ54aWXQ0GmZlr97Kkn
-   8pDii5Ons4h8B75zUBjxV+fn19BUm5NwS/EP3y1bYOwQK8+dtMQhW883I
-   V8AbhsuZ2Jat+aDtUCRxI4+mHHIP3oLuyaU1nM1foPcQsvRQNVMRRWSL0
-   A==;
-X-CSE-ConnectionGUID: v5D3E7UKQBWrtHf5oOfIvw==
-X-CSE-MsgGUID: xL9yJCx8QaSkC7z5xOXapA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="555339"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="555339"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:55:33 -0700
-X-CSE-ConnectionGUID: 6+5gckZbTwaENTaTOG1p1A==
-X-CSE-MsgGUID: Za4DN0zvRG63LuHy0DbE9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1277307"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:55:29 -0700
-Date: Tue, 13 Oct 2026 22:55:27 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Joshua Crofts <joshua.crofts1@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Benson Leung <bleung@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, chrome-platform@lists.linux.dev,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: common: cros_ec_sensors: use sensor_scale union
- member for CALIBSCALE
-Message-ID: <as6Mr7BSbJeJRlBq@ashevche-desk.local>
-References: <20261011045410.356156-1-kapoorarnav43@gmail.com>
- <20261011191641.4e9e2ac4@systembl0wer>
- <20261012211733.575305-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Srdx6vqR"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48bbb06e746so2005965f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:55:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1791921347; x=1792526147; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jv8xjU6QFIXZ0JAxxYKajZr9UsaBaFM7IIOQawJA+84=;
+        b=Srdx6vqROq0NVTMRrrffiLmYk3qn1XVfZ+hzBrRmtIyy84Ju+j1OGZmmyZ06cpdV+M
+         QYM3lo1AwpogIHZD86EfkNZtQ1lYUBkYTXNISEhN9CwO0d7iIyp9yOZ8UZ7jJo8BrLcz
+         Sz7+GXOUuz9CHpuweADeotUEevEkLpuDSewjPBCyzQwhfYzQDd627nnaYOIs9pJxUHRJ
+         ejLhh5rIrTHzu2F7wFYYNtMfgUgOkIQJWaoC98BMjHBRgYeL9KjFwOp0nvg9ZmmDa3yx
+         9I2dTf6bqjkKMSdOGGf9Cxk88u0ex+BgABrTt8WJIQz7AI0CHV2kaCrrHtKBuJCGA0Po
+         K8uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791921347; x=1792526147;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jv8xjU6QFIXZ0JAxxYKajZr9UsaBaFM7IIOQawJA+84=;
+        b=f6FShujzBMYfLVJO7RbThzAatfpGaAPPJammuIXp1yZ6c0m12OGYMCXxH9QAy3Y5+O
+         GpC4ydjgMGKU1oYgHMCRkf1wXyCxma8ma3G/zaoLF8qUmbFK6mFkQ05l1vTOAeZWMChI
+         VzJ9kPc8LZ/lPbZBzvKQzUiOvfgQT6MDy7fnE46UjeSJwY3mz6W0mdq3vgWeutSwXxvz
+         ZmOy8koDgIwkUjbnE5/0w0+II/v+Ouc8Y61KxdQJpsfWy6ykXG2GUlXnh8a2TmE6CMS9
+         /FgqpvXk+k+qaTL1xMFoIk4IYjwf3dIZKJvj77Pnazp5Qt160lELY3xsuRPwk3Bi2kgw
+         5o6w==
+X-Forwarded-Encrypted: i=1; AKwUvBzIpY6bqRMDAYkf0SG8mGrb8LPAt5aXvPY4HlBg4vwHVbSq/wLy6kXqhza/JvRgmGwTXu6WTmPFqjZ/8Go=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwKuH7PlVaGEaM+p5X5mmPYXAtN1H/jHqz99r+VidjqN0YHZee
+	+EKrzCEhD99ZplAjx+LBf81LRNsoXkGbAsZTgZnlZSP0p/7CuwBHIYs=
+X-Gm-Gg: AYBFou3upMrGb7jd9uSii3R9pHaR8UOd/FS07JwJ62c7Mrm/ki4/DQNj6ULWIX/Zblx
+	X3QDB2pJf7fIU3vJafeLG5fRzQ2Pm3IYghL1LKFxIgz+Lx3i/rq0MV/7xbfctyhzc/DaXkZKCEn
+	5NcSldBb4WfYTOJzEWmNfTzzj/3fr0CHjXgbGY03QosM2EXHeqjQ0We+LGWGr5uWgZr4iQd4OHl
+	W3cBCMD7B5ryBiY2GzjfpB7WpeoaMM/owcV/C8QANxKKfBnZeIG8VZ/GtE8PQbtlB098SEu4Oge
+	GEDb3f5gA7/s9Y7zFgZpp81QihK+6Xd83+BhvZr/yUBmDuus0xImvHJYsP2LCwvaB2dgubvSNp8
+	rB095tZFXOAk3kPQTy2p/jyxNR4zJJ6OD+EhHwdrKqKgyqKH2/qr/AZMLYFDkNjDuf1WWwbEVH3
+	EAjhiLGL/EdmRR1ykTxgMxjA42Fbp/xVIe1lomHVYPDay7CLvOSO9NJ/J6gUfDsE+whjNDBC2En
+	bm4FXfdAUu12+ztrhIDOikvt3kbrKaMtaveM/t1+wVJdOp0
+X-Received: by 2002:adf:e005:0:10b0:48d:dec7:974c with SMTP id ffacd0b85a97d-48ddec797bfmr8286448f8f.7.1791921346559;
+        Tue, 13 Oct 2026 12:55:46 -0700 (PDT)
+Received: from [192.168.1.3] (p5b057b0e.dip0.t-ipconnect.de. [91.5.123.14])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac52d3sm7133340f8f.43.2026.10.13.12.55.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 12:55:46 -0700 (PDT)
+Message-ID: <44a8e6dc-0e5d-414e-8e30-e3ea53b034a0@googlemail.com>
+Date: Tue, 13 Oct 2026 21:55:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012211733.575305-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 000/497] 6.12.113-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261013112907.864180619@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 02:47:30AM +0530, Arnav Kapoor wrote:
-> On Sun, 11 Oct 2026 19:16:41 +0200, Joshua Crofts wrote:
-> > Please add a Fixes tag. Otherwise looks good to me!
-> >
-> > Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> 
-> Thanks for the review. The mismatch was introduced when CALIBSCALE
-> support was added:
-> 
-> Fixes: ed1f2e85da79 ("iio: cros_ec: Add calibscale for 3d MEMS")
-> 
-> Jonathan, could you pick this up when applying, or would you prefer a v2?
+Am 13.10.2026 um 13:32 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.113 release.
+> There are 497 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-No need to resend, `b4` will scan the whole email thread for the tags.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+
+
+Beste Grüße,
+Peter Schneider
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
