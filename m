@@ -1,104 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CFC352032;
-	Tue, 13 Oct 2026 16:21:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA70751A127;
+	Tue, 13 Oct 2026 16:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908484; cv=none; b=gMckaLTFs6oz3dSK3+7gf5acuzTaVboU7myQAHNG8HUdUSUasQ0IWVlugwVrmITHJN9XNdCXugSpEhMJa3I6Z2O7p2a4cKICl8haknJOxaqBlAndiSzAVjLB9gJ6r7hmEKJk00lERJ1PAIdTJ66wkYtbpPaGlWnJMN2d8XsH6vE=
+	t=1791908500; cv=none; b=oxgfP5QJhww58otSviGPbuIFN7rHFyr0l0dtCAH6mkYNzZyNtUUt9aGZ3Ro60n2n58zzIEuZIHljHnh11UftMiFuzBHtUEuHpOSiO3C3N70zGV2hg5Y4LRP2yfz5EXv9canrt4kNHByvVkHl8dvk1cZDcN+Jpm8lmZB18EogGx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908484; c=relaxed/simple;
-	bh=iaLpGPozs+lcxhbWVKUuCuOgErc+jjy6A6ykJAGe/Xw=;
+	s=arc-20240116; t=1791908500; c=relaxed/simple;
+	bh=2Fe1AEOYThce9q2HA6HMtcK+p+baE4P9xz4DhljZsbg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ltmBQjFvcPna00/KuPsHU23FGcqNFXD1BxXkm+wQWvDigqLTnt8dTja2PFQ6bWx1TTeTtO0WKqLkj2Ws2F5FVs6o/GJ+vN3fIgrV81eY5HMO8JM1zTaKCdD9XFLDh/JaBr0DI5OHWSh//jRdBixUTBev0rV+dnRJJLn7WA9JuwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AkKs3tVO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tyY/QABkDu2VuRSroAl28SSzCJ7cgLpHI86ljNyOWBD9Z6sd2WUH005gwhznhWxBykmGlyMoZ3rB1U4/i2ay7ZTfHu13003HxFN62uRrHhhwXCwltNtMTpdifCZST3tKW/0lUJvuuSn4jmAYsf+KfaOYxVwWzENMiue9Tn1+oa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i4EcfbAJ; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AkKs3tVO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00011F000FF;
-	Tue, 13 Oct 2026 16:21:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791908483;
-	bh=4/N960r9v7bsfzgPbbFS0xVE+vxTj7/cpdvbyuoLrW0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AkKs3tVO31Vti006Bt2XmFfdeWGPEjQtyXYAj27w6H8q77mkPNecZmr+MDKakL1YN
-	 +XDPUi9wsGqLTK6SdQ0/WEyqVqlSGD7pgxtDI3U54csF0gZFjHrLQNbH5GX/F57NNS
-	 1KrhD0NvWzFbCe1hFX0Uu/4QwvUpHdYNr7kkXw0QsgUpkp4m/HVomRvH3pXFYLFWyw
-	 kbGPD+9ALAxL4o/fA7VC7v+WjDs9vVXQpW/uNoHU4gNJ+SUrO9GaLwqZiUarpRV+T1
-	 u4LUeXrGyy24VEaLK0oFrZ8jwroSqLH9RukTIZMKg7U3M2HkMv2Lj+38DtcgpkwxBp
-	 GR03rY4ab1XyA==
-Date: Tue, 13 Oct 2026 18:21:21 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, kwilczynski@kernel.org, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Manikanta Maddireddy <mmaddireddy@nvidia.com>, Vidya Sagar <vidyas@nvidia.com>, 
-	Niklas Cassel <cassel@kernel.org>, linux-pci@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i4EcfbAJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791908500; x=1823444500;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=2Fe1AEOYThce9q2HA6HMtcK+p+baE4P9xz4DhljZsbg=;
+  b=i4EcfbAJ71aVv17VKfyDQLhgvXBIQthhSLHaNXW+Y1umKf/Aqnk5R04j
+   zrsEmZmm32BHFgvEy4ZkmSVRHlq+r7I4ZU6o5Xn+jYJgg3B4/XEKRO5Fl
+   L2BNgKhYaYBt6/Kg6sHFEA0VT+gvBvYOKcRNMRtsh2j5D0X1TUaogmRQm
+   mZmhT4niL5zx8xpdOn1KbyW2wU6ZZdqnub9bCFbVQE/M/hQxHQ0SEVZJI
+   8Pfd3thxXAmMJOv38Q5iBHgX40DWRoxWT9NEpY1DdTdpCxZq+ZkNKi4b2
+   XCghpr1uCFx5thXA6Una7722SmeTOgA7K9ZneLW2za3Su5TtTSqhn68WU
+   w==;
+X-CSE-ConnectionGUID: QKtkm9YCTTqQIeCuP43K+A==
+X-CSE-MsgGUID: UTqJHIB0SCGotdRrIGaXoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="671758"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="671758"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:21:40 -0700
+X-CSE-ConnectionGUID: tWpMIeioR06MVaRlpb3Shw==
+X-CSE-MsgGUID: kPcbyPKgQxySHPVNXw1EGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1524496"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:21:37 -0700
+Date: Tue, 13 Oct 2026 19:21:34 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] PCI: tegra194: Propagate REFCLK select GPIO errors
-Message-ID: <as5adjyCjltieSWK@orome>
-References: <20261012094815.28160-1-phucduc.bui@gmail.com>
- <20261012094815.28160-2-phucduc.bui@gmail.com>
+Subject: Re: [PATCH 4/4] media: atomisp: remove unused circbuf library
+Message-ID: <as5ajhgIu-Mkdns_@ashevche-desk.local>
+References: <20261012230754.1914517-1-vladurares@gmail.com>
+ <20261012230754.1914517-5-vladurares@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gmhx34dld5gay6lo"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261012094815.28160-2-phucduc.bui@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261012230754.1914517-5-vladurares@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Mon, Oct 12, 2026 at 11:07:53PM +0000, Rareș-Mihai Vladu wrote:
+> After the previous changes nothing in the driver uses the custom
+> circular buffer implementation in base/circbuf/ anymore. Remove it
+> together with its Makefile entries.
+
+The best patch of the series!
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+(assuming it compiles and likely works)
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---gmhx34dld5gay6lo
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/2] PCI: tegra194: Propagate REFCLK select GPIO errors
-MIME-Version: 1.0
-
-On Mon, Oct 12, 2026 at 04:48:15PM +0700, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
->=20
-> devm_gpiod_get_optional() returns NULL when the optional GPIO is not
-> present, but may return -EPROBE_DEFER or other errors.
->=20
-> The current code treats GPIO lookup errors as if the GPIO were not
-> present.
->=20
-> Check the return value and propagate errors from the REFCLK select GPIO
-> lookup.
->=20
-> Reviewed-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-> ---
->=20
-> Changes in v2:
->  - Follow the subject line capitalization style.
->=20
->  drivers/pci/controller/dwc/pcie-tegra194.c | 15 +++------------
-
-Reviewed-by: Thierry Reding <treding@nvidia.com>
-
---gmhx34dld5gay6lo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOWoAACgkQ3SOs138+
-s6GgWBAAv61x3yEIfwh7djws4UsxaJLDwhkBPrKb/KfTHTBHEEZHzmuVmldhuf2a
-HU1/O04A8OLW1yndlh55323rlQfgtz6TfQofeOx+1MWZoDt2O46zTRMuzbqzVPpe
-iIyPXKh7v3ehA9KrlPy1d6q55cDRfnAPbFdaLyByzBJCXAJpuidoHvoVKgOw26mS
-VEvvWVUydh49QZwU9Cd2NngxsDAiWUJzVH/3UIVVW4ct81WUugUzoUYsDf6g4SlD
-XjXEC8pu419Km/KfJrcf72/pw/879efqHOTC2he187gJfBUkYbx8L6WKVgJP3Fgc
-VuaB26V9vVOsvb7Uho6pxh/X7VvLBisJcSiA7bHxVs6DZPONvSvs9DtO8KMjKu3Y
-gvek8V0grPc/xQMExaNKGGIU32kDjJRoO1l6NfSXk4/LeCCkjnPG85uLgp1TFww0
-paZwncrg/5JWLd3uMnsqCvtTKTlaKFpcezGPKNw6wcN3cZIrUITEX/X4j4g9sTXb
-rVxU8+3GnjtFyKBhvUVm6CXEDC/mgnwKJHBgV2KVoB3WI96sOGjddizAfnLHqUhX
-b5YegwCjsAfZBj2DdO6sU7zNf63F3XlY7rtPz6KkFbSc5lWEi+CjHUKqSiuCGyMp
-tBrnnDcXks9My5wQSJ6r0ibKatlmx9ECAhpGmGSAOXhAyU3y0Jg=
-=a+Ne
------END PGP SIGNATURE-----
-
---gmhx34dld5gay6lo--
