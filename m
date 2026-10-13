@@ -1,72 +1,88 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9F73DA5D5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:28:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0362D39890A;
+	Tue, 13 Oct 2026 06:28:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872884; cv=none; b=d2SpU+z0S5DOcmAfF0g/GbOStKecsiDjvgFL3cUBa7YRLabc945hDipd9/iCA6qH5g4AeZQMUxSWzx20XYCe0vhzG9Kg98W7fXo+UZk4Fxfk8NSlWmOgrDehzVTtCyqrIS8tVzRKUEEPI+4pm1O5068t5tC4vO9N4KGXYuClPGo=
+	t=1791872935; cv=none; b=WU+GOzJw8dfFxYYgZUQC2/lj5IuQOWextEIPrPLEZT/5L3/a7SYuogydkxyjKcq05g5HajKcdkAF7xUyzhyZd86jhhMcoWzMZPrNsetWhqajCR+ydq74SajhNlEZUrQcANeNEAnGL7C1HQPSxTG1BDd8c7ZL+t+B2Ko5Fj8kDZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872884; c=relaxed/simple;
-	bh=yIwD86rcbO0Vr528api+9GjzHDDOT2zWtfi3cYbhzuQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=eg1JTu0Pu+DIAIpfqaKyTj2mIYbMgWYjcK8pwv8k5frXUUmMcbSU/PDH+rYQlHD8exyDuTyX52lZmdWZJnCbi/GD2Eb68z/r0f/qhBy7N1GNnY7kwGfr+YWg5oy7zcZN2V2GT0bNXECqCyQNrywMgO1ftT1qV9ioONn/VisxOgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dab94dc3e7so4530733b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:28:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791872882; x=1792477682;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yMb8whsbLP5fo37Jx1sYYrwzD3gyyWSm8kpaQ9zatK8=;
-        b=FU8jjNjxE2cVjvHFALe0T6VP5a3UFKEaqNRYbjyId59dxmy+Keh4g1ortyhJHuIUKB
-         wcnm9Kuwbqg/cOvPfZSR7c1wMvVPV7RGp6EfKx/XMHF5YdlYIwwtqUPYBk6EZ9RwIkc+
-         GLNi8gliUy5jArL3yl+8CQMTOinbuXYUzRxHbDy6T7M1oEKo6ZaIpPgYQzw9IDmdSyXK
-         CO/a61rJJAC4Tnhdiojwo6GR5vZDeqSk+wxDNkm7TUCoLvG18AkV/gC+wTOY0MtTuDbh
-         CbbJ/m7CA6ScePjkPjbOwgGWvZFwFA58bp1uB4GimS8TQELfBXzi8JKiqz5ygBOCOE+o
-         GXBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0WxdSJ+HG/XzA/zToHClV/GZh1estAXQiO5s4BU9WAVrOxGJzvqG5SpIjKx1lVvkIc6xcNviOWh7x+m4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsEeF2WMlMxk4wa7W3otIiSYo5UJfOQ8G5DGYTYTGIqFnGKBwC
-	aP5zali+aPKBI5IOVLk799rBkJou3JV9jit6qLcXb/hk94drvPdZ93XnNeyGIw74tNsI5h/h4LR
-	caT9Zj3OtoFA0vGHY37kCgD3EiNaIaQDc7bFdY7xv10AD5CvkXf3zYhL/pvg=
+	s=arc-20240116; t=1791872935; c=relaxed/simple;
+	bh=r7L/wpvW6OUHmZRiByBkrxsFi6xyWpZf9I6Fbv+y7DY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FOS6rBxGRRZXr4dNMTDwVSxXOr98sq5puIJkChPn6shFYaXjx3WJdjZYCo3zxGDl/Fmy68f5DZifRAH6jw6sDdhZGWqgivIfdN9fsTVuildVIoNlL7r51LnP3WxYGECydrRHBJIfDWHgVG0e58zRnQkHdpPy2nJMA/hfZqs85ug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.159])
+	by gateway (Coremail) with SMTP id _____8DxOvCkz81qTz8VAA--.61815S3;
+	Tue, 13 Oct 2026 14:28:52 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.159])
+	by front1 (Coremail) with SMTP id qMiowJDxxMyZz81qkLcrAA--.65201S2;
+	Tue, 13 Oct 2026 14:28:52 +0800 (CST)
+From: Huacai Chen <chenhuacai@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: loongarch@lists.linux.dev,
+	Xuefeng Li <lixuefeng@loongson.cn>,
+	Guo Ren <guoren@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	linux-kernel@vger.kernel.org,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] LoongArch: Don't init & online empty nodes
+Date: Tue, 13 Oct 2026 14:28:34 +0800
+Message-ID: <20261013062834.60797-1-chenhuacai@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f04:b0:4e9:3412:14ac with SMTP id
- 5614622812f47-50c516f087amr13552903b6e.33.1791872882524; Mon, 12 Oct 2026
- 23:28:02 -0700 (PDT)
-Date: Mon, 12 Oct 2026 23:28:02 -0700
-In-Reply-To: <as3J6RH4QPNIl-b0@elm>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acdcf72.8cdf6287.1eb53.0153.GAE@google.com>
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in ecryptfs_write_tag_70_packet
-From: syzbot <syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com>
-To: code@tyhicks.com, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxxMyZz81qkLcrAA--.65201S2
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj9xXoWrZFWrtr4fCFW8KF17KF4xKrX_yoWfuFc_Gr
+	1xX3y5Gr4rJayIvws0kF4fX398u3y8Ka4FkFn2kF4xAw15Jws8Jr43X3Z8Ar90gFZ3urZx
+	C3yUWF93Ar4UtosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb7kYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAF
+	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7V
+	AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x
+	0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU7_MaUUUUU
 
-Hello,
+Don't init & online empty nodes without any CPU cores (and memory), in
+this way "lscpu" will not display confusing empty nodes.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Cc: stable@vger.kernel.org
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+---
+ arch/loongarch/kernel/numa.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Reported-by: syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
-Tested-by: syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
+diff --git a/arch/loongarch/kernel/numa.c b/arch/loongarch/kernel/numa.c
+index c96c53623715..a38fccc76087 100644
+--- a/arch/loongarch/kernel/numa.c
++++ b/arch/loongarch/kernel/numa.c
+@@ -244,8 +244,10 @@ int __init init_numa_memory(void)
+ 		return -EINVAL;
+ 
+ 	for_each_node_mask(node, node_possible_map) {
+-		node_mem_init(node);
+-		node_set_online(node);
++		if (!cpumask_empty(&cpus_on_node[node])) {
++			node_mem_init(node);
++			node_set_online(node);
++		}
+ 	}
+ 	max_pfn = PFN_DOWN(memblock_end_of_DRAM());
+ 	max_low_pfn = min(PFN_DOWN(HIGHMEM_START), max_pfn);
+-- 
+2.52.0
 
-Tested on:
-
-commit:         5b00bf0f fs/ecryptfs: fix slab-out-of-bounds read in e..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/tyhicks/ecryptfs.git next
-console output: https://syzkaller.appspot.com/x/log.txt?x=11c0a999580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2b924f079099ba6e
-dashboard link: https://syzkaller.appspot.com/bug?extid=e4391e0d6e7c89b8c84e
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Note: no patches were applied.
-Note: testing is done by a robot and is best-effort only.
