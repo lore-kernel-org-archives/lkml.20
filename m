@@ -1,89 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871FE3B6346;
-	Tue, 13 Oct 2026 22:01:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E06513566;
+	Tue, 13 Oct 2026 22:04:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791928863; cv=none; b=I34IcUK5I25OGtAEGrQ2yfQeyhjgnPJl2QtDvAQjH4tv+lVGik6mHHvaCpA9mXp+5KSSMT+yhnk+4fAwN8EQ8siywAs+ndmgBgHp4hJhWpd0iU8MZATcujQYNIXZEeIKn/Pbkv3nKEr6t4ODHMe+tgqA4pwH2KeWe+KmHsvpPk4=
+	t=1791929079; cv=none; b=HVPqxRYrRqQutNoHeLscvusn1WCG+nh8kEnemCH8R/dTFJk20iVViVSgwLmSCNPjX6LNMmdXW1NJSOY/8GckXV6SPi8Yj9epKVhZlTZ+IbhNmKQc9z0kZaiTMG797qRmPTU3YQKxOz/HZKWVyuy6stGl6cJ4GpjeVHb0kG3lTMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791928863; c=relaxed/simple;
-	bh=Uoru0Ln8n0j+Y+jL/cT9q6fa660Z0a0KOaCogdOrZx0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r/xy0a1zPvzUFBNusIhG7xqiAV4uSoxwj3n6sPnnJHECE35RI4pHSbh3WKKv0tFobr5TjU3qNj1ercab7SW8uZvh7gRNWhz4PcwZfJpPcLtpbqMQs85+llApv7JVWV23qptaVNuvqFJHJDscsItkAsVJXfDF543zksT1RORDuFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VUiaUqTS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791929079; c=relaxed/simple;
+	bh=nZHBSV3VyOMEAL0LuI6eUfdtDrQ6m3YE77+WsUryVQA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mPHiW3Xe2qEoUG9CJfNAFL8pyxTojQvQ11I1Z8voekfrMbuBnW9a8FPeLGX2rwhDuNldHmbQxe6/5mLpvES4o3GJzXjq0MCTz47GSCI6GcmcYt/rfTeeBkWeK1Tkdqy/jVjBjgbV+UWHgfwRvT/vIlUGH8aP6VLejLAHOW/8QUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJeU4Kf7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUiaUqTS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8511F00893;
-	Tue, 13 Oct 2026 22:00:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJeU4Kf7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6350D1F000FF;
+	Tue, 13 Oct 2026 22:04:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791928859;
-	bh=WIAG9ZPtK7rF48YI3/CRMR2k3XarZS/gUCEEGTrfjYM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VUiaUqTSTSEn1W7NEqXTzxLCq+sgnoSIY+gxuh+xNEc3cZPUHJKeuk7UuFbRNiUDj
-	 XGoJiJiDB0GvvY2/A7WOhApLiHxFft0vlf32d0931wBDXhkrjeEQQLOKZZmbu4PaqA
-	 TBCWc/vD03nn3EPoeHsH6DcKtCn5Tjjaq6aBrJrAueM8NolDssWotmgbEHLj404zyI
-	 X3QrgUr+PbmZA0BsgAn3E0aoRBJC/H039Odk/TXlo6N/dEP+I9/Nb55EeuPfQqDAYj
-	 zxU85M1UuqY10HUSbvxbxb7vBRjVWffh0EpzZYJgXGT+8Aum7dvKYKwJf4pOCg400A
-	 ObDMj4QkS9UvQ==
-Date: Tue, 13 Oct 2026 23:00:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Shuah Khan <shuah@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH] selftests: kselftest_deps.sh: Support LLVM
-Message-ID: <38d31a6b-b3d0-4b15-9b24-62d2bd6f9040@sirena.org.uk>
-References: <20261013-kselftest-deps-llvm-v1-1-f2ee70ae1b79@kernel.org>
- <CAKwvOdmQkYy3xqTsumSxLdHpaXnt1Hb9g++DVmAYcx=cvjFBeg@mail.gmail.com>
+	s=k20260515; t=1791929078;
+	bh=q7R6tLaKMrnhiYMCpQEIBY4+ztBWPJj02oLmWr3zD2o=;
+	h=From:To:Cc:Subject:Date;
+	b=nJeU4Kf7A2ZSxV4/oIrv/+m4qhi2DPQWNhkyFHU+DESOAf5yJulmXe7xvyDk0w6nk
+	 ZOPE/RCgVdYnlCZcbsCNmMnWSV9s0BGx4r1UjkkmZ2e8b7YfxL2almnq8fnLZrbNL0
+	 Ap66yNHiGLfCHF4pqqYTIrRYUGWV60zpMJjBvQ3tKf2mSNFYYh1MN8KdQx7bp/uTsP
+	 us5r4B2/OKrQ/BpEj5C2azn9LDyzFzjTwSadnescPhT1LPiH4gkSV1ApLX8BHmNlOa
+	 k9uKOw4o48oOCTDVpXLsAl+snuqBO006lYP42s8MykuOlmLhddCxxNolvcQdbK6oBm
+	 7Ty2Yik2PBAwg==
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Semih Baskan <strst.gs@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Rosen Penev <rosenp@gmail.com>,
+	Rani Hod <rani.hod@gmail.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>
+Subject: [PATCH v4 0/2] PCI: iproc-bcma: Use EROM instead of devicetree
+Date: Tue, 13 Oct 2026 17:04:19 -0500
+Message-ID: <20261013220421.1588051-1-bhelgaas@google.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3YSveUX7Riv2bkLN"
-Content-Disposition: inline
-In-Reply-To: <CAKwvOdmQkYy3xqTsumSxLdHpaXnt1Hb9g++DVmAYcx=cvjFBeg@mail.gmail.com>
-X-Cookie: Some equipment shown is optional.
+Content-Transfer-Encoding: 8bit
+
+This is a combination of these two patches:
+
+  [PATCH v3] PCI: iproc: Use the EROM outbound window on BCMA
+  https://lore.kernel.org/all/20260807160526.379-1-strst.gs@gmail.com
+
+  [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
+  https://lore.kernel.org/all/20260912043626.437-1-strst.gs@gmail.com
+
+I think it's a little simpler because it keeps the use of devm and it
+doesn't require two pcie-iproc-bcma.c patches.  I didn't sign off on the
+pcie-iproc-bcma.c patch because it's Semih's work except for the minor devm
+adaptation.  And the commit log probably needs some work, but I don't know
+enough to describe the platform/bcma driver issues.
 
 
---3YSveUX7Riv2bkLN
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 02:07:28PM -0700, Nick Desaulniers wrote:
-> On Tue, Oct 13, 2026 at 12:40=E2=80=AFPM Mark Brown <broonie@kernel.org> =
-wrote:
+Bjorn Helgaas (2):
+  PCI: Expose devm_pci_alloc_host_bridge_release()
+  PCI: iproc: Use the EROM outbound window on BCMA
 
-> > +       clang_target[riscv]=3Driscv64-linux-gnu
-> > +       clang_target[s390]=3Ds390x-linux-gnu
-> > +       clang_target[x86]=3Dx86_64-linux-gnu
+ drivers/pci/controller/pcie-iproc-bcma.c | 40 ++++++++++++++++++++++--
+ drivers/pci/pci.h                        |  1 +
+ drivers/pci/probe.c                      |  2 +-
+ 3 files changed, 39 insertions(+), 4 deletions(-)
 
-> ^ should this be either i386-linux-gnu or i686-linux-gnu, or does
-> `-m32` get set somewhere?
+-- 
+2.53.0
 
-Hrm, that'll just be a cut'n'paste from lib.mk which does not so far as
-I can see set -m32 - it sets i386-linux-gnu for _i386.  Does that need a
-fix too, or am I missing something with how it works?
-
---3YSveUX7Riv2bkLN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOqhYACgkQJNaLcl1U
-h9C5DAf/Y4e1g+HQlhEZEhFkcn/yKhMAkEaGzgVWKAVlxUMTADPEgvak+WTSILD6
-ZZn8etaaj5gmB8g9RV8ES8nBAwBu5acl4d9v1ArjfPqVs4ftcqc7uAyI77G2hAVk
-BGgWhsOVlZ9YBqMYqP1kt/lollE8Dk/fEx/nA50mRP+WZQ1pzHp848zaGO8ssRwj
-9BK9ue9/VRg4R3SOmVPU+QC19xOwGWvqswJNzEDbFpmTyQ+SFEEKjbpARmy1ss3N
-onDXHAgt7/0qg12MXqFsSrl9jFef31XILEfSGWm8n/3O5zznpUD0p5l03188VbiW
-n/wyAwgLpYaYsj07Z0oGYe14XJn0Uw==
-=uljT
------END PGP SIGNATURE-----
-
---3YSveUX7Riv2bkLN--
