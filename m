@@ -1,111 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88213BE16A;
-	Tue, 13 Oct 2026 15:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41802531615
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:49:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906541; cv=none; b=IHD2Mil+KqsEIGBnI9kqzrdkaOptYO/1u5vnkh9EOkKJ0ti5+EW1PMeU6hRBWXkFbuUuEGrW0ncRFuj/XMmPZoqWOA9Hi0b0xofLp8vQGNum7q/Q1cdKKZ7i3XlFRLcLHZnRNhW6lKSBc/KDpZ7fh+PhEsnib91PYau2tES5fn4=
+	t=1791906548; cv=none; b=s2HH67Gv9+JLVLqAJIIrLWJSqK6AGlk1v+b0oH08pICs22fgt5IYXZbnDktuJLaljPDpUAHf7+AExyA4R6re693cTNEasbs7MJcT2ZNksLKz+g8pMfC0QKKhPJ4BCWek6pqj/+btV/FmoMiMmlJN8I0wkGFcdXTOEA9z5kmTI7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906541; c=relaxed/simple;
-	bh=YJ6vYcPmPnjYkJFJjJE8EJJRT9npufNwYBiIpSAHuZQ=;
+	s=arc-20240116; t=1791906548; c=relaxed/simple;
+	bh=0/gK4FqxfcDlbN7lhebjIr1Ae4I7vY5k6nQfjRjNcSk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qk/QTBlA/UwfXdk58GegQRoUqIGbkzuOfoiYBy1IR7QtKVC+QrMpF8OQSzyAL4swer2yROPqkp9iDV51XTKKarNEcrG4U7HIyoSd7/oFKPGQBlsSgT0dI245vcXATLqezOPVEHs+JNFHjuccrjvxI6jLJg4M5VF6ZwukLBsrrZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbcaSXqU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ucKpQjas/4BXqudP1mfYfxDjj7QSkSVd9I62U2NR5HjR7OBxqft6Qb/0DZIvQKChF4XK9we0b96g0n3iZZFGljske/A94UivBk+CJ2dFABS3+WEw1ffFK812cnHEjjj3eXABf7ECKI0H5zatQkkD/E39ZLCsv0hGuVVewJ/tf5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=juZcFB3g; arc=none smtp.client-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbcaSXqU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0B381F000FF;
-	Tue, 13 Oct 2026 15:48:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791906540;
-	bh=8HIRM0RG8gr/DXh0YsHOuMrZwiwotXguOVcFJ3C/Z+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DbcaSXqUcaVh+Dn4Szez+2sa+s1pn6dxh4rk0zuD2iS8MtxWqlXtsDeQFdf0+ndoN
-	 e/DNfTRvn9qFxjEsaqLCCTMDD/EciCocH2iWVubkVKjRrjDeFtkfl4bHHsA9fVSzY2
-	 5PmwFn+sUQg6zBbcWR6OfrGEZezUr/RDrg6k9Zk3/Zy0QMcHqh3uzg1+sU+SMZxRYt
-	 okNpdlpySaXg9Sp07feU4V5/NVpd6+Y7lfTLm1c6W1XLDwF8W5TWDC8N4VrC5JR/32
-	 9jFemyokGfVPK87YKsMrGcqPYVVpQOwv5ubDWtaUKYdhlrgu4gTkUxTQAH+//kM1Lu
-	 y9f6egNh+AXDA==
-Date: Tue, 13 Oct 2026 17:48:58 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Cc: Andi Shyti <andi.shyti@kernel.org>, 
-	Mika Westerberg <westeri@kernel.org>, Shyam Sundar S K <shyam-sundar.s-k@amd.com>, 
-	Elie Morisse <syniurge@gmail.com>, Benson Leung <bleung@chromium.org>, 
-	Guenter Roeck <groeck@chromium.org>, Mika Westerberg <mika.westerberg@linux.intel.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Devyn Liu <liudingyuan@h-partners.com>, Oleksij Rempel <o.rempel@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Binbin Zhou <zhoubinbin@loongson.cn>, Khalil Blaiech <kblaiech@nvidia.com>, 
-	Asmaa Mnebhi <asmaa@nvidia.com>, Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, 
-	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Laxman Dewangan <ldewangan@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Israel Cepeda <israel.a.cepeda.lopez@intel.com>, 
-	Hans de Goede <hansg@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Hans Hu <hanshu@zhaoxin.com>, George Cherian <gcherian@marvell.com>, linux-i2c@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 1/2] i2c: i2c-core-acpi: use named initializers for
- acpi_device_id
-Message-ID: <as5S4eXw9_olPYTK@orome>
-References: <20260918-acpi-i2c-v1-0-caf4bea4886c@thegoodpenguin.co.uk>
- <20260918-acpi-i2c-v1-1-caf4bea4886c@thegoodpenguin.co.uk>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="juZcFB3g"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-930c0f9c1b1so322051385a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:49:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1791906546; x=1792511346; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mrNB/7UTIGYGYTZ/Zj3hAKbDyQ2eLb57xFz/cmZ4YH0=;
+        b=juZcFB3g7mEg+xL4+l9CbR0sOrb+DWeplslXUisf+3Dq7fZc2mh5YuAg1/HRX3WY1N
+         UEzPYtY0E96UKbZ8CXdb9BqvZnbCdTumCPseNQBRYGmyTZQJEXTfXvFTH6XQFtxzxyjT
+         k0+h6gVCBbvAVUkCyGM12HcH5hqEpJOci4HvGCOeyZTujvUad1i6UtXy5Kq1SSARccwd
+         rAz7x28dVGC7rRol5gDKjCrSipH5+GUBZx8HBeefY79bflEvrazh+jLE4J9jDX8opZ7E
+         pIDspHADGqlzyJjVdC/ZW2Sy4mNAS87uDGWvMWxk9KFNFRNyxEEWseN1LZaKqG+OtXxr
+         ccmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791906546; x=1792511346;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mrNB/7UTIGYGYTZ/Zj3hAKbDyQ2eLb57xFz/cmZ4YH0=;
+        b=qPECaQPXy4Ic8+OSwyG2XGd8pfeE60kRoZsSYOgjiB+v9GG74BdmswFecTKCJV2UxT
+         0J7qREVdzhsltzUqOlf0feJsZ8uop97nMOmiuQunzYV53K2tuVrOtd8vPDqgKgdk5y7F
+         0hNF51j2LTRdxBF/0DPfFSHtKRxfcLFmunPZO6hPW84+XbCMclwSjHE5B/FgzedR7TMG
+         IlQKgDKfZxYEgo/3vk7dGORzzh9vY6aMTlR7v0lZI3SODduR7QKYactRhGePZy0hPMUv
+         wrCuFdGI/OERc3Gr6VSGK4WHFIAzzpoQb9/pjCT8opMnRhVIJXapaXmtJKzBeYQmomqr
+         BhYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwnF1Vji3ZXLcPXhqUrvPRK0hRFdtMfRde4N5/7g65q75Mqf9GLMrpPcc+E0QyqgAMCrY+JtVeTEtFD3mE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIG7icTrIVncYOXxxT3en505CeOCWUUMtqGzU8ZkVqAXdpSX5aF
+	vyQmZxjo7urabMHba9tDtKGCw6t9mbaaR/EiUiLW0HObSUF1ZMnuX+RaCYmkWXjaXV4=
+X-Gm-Gg: AYBFou1XZ4gAOdkTP3mZL5ts7Jgyu/fRCLYvecoNjsswkhoAT7OJz1O5Wa9lOHZdlRZ
+	HKaXsMJ8YpBaZPLUn0CxyUrbGA7szowz25m9u0qrusEk5BwBazj9l8h0fXNyKW3yP/wgJNMlgN1
+	jBvuC3UQt94QZvEe2s8rZZlIYCCBe4ta7Ag2IZkZU9JsuVH4lndL9qmHgd5LYZThoiorIoWSbzk
+	H0ebVno1zgBrMxUWQkHA/9fkbzzINYzQzi0jRVnY0F2nYtbHwcKBKK9sC91I6oyuXB/wLTbrL++
+	BecVtQnlSJxMWr5DxS1NGjNjOlKuW9X1OJv1T6uYQEemg+X7tNMUgq/WGdXGPXdJPKUjdxrGWnb
+	BCRhBpbOSVJ3tEkqPU7Yx68f7su5FIs9FSq23L3iHouxdTe5VjxatE3ISy302GXacuuXL9CwHNK
+	IuB5tR4rXG+mxTYDrfCZLWvmDnmVfa3DZy0z8iNmdfTPeW4r64fEaNF2Ek1ZGGX/Pp/baHlzmSS
+	erKHOfdQRxZm+14z/j1YvDfuqxgrs9QS31bBHLEZRguPr1P+2MpT3I=
+X-Received: by 2002:a05:620a:6081:b0:93e:5b69:fa8 with SMTP id af79cd13be357-93ebd2811a4mr1919769485a.66.1791906546018;
+        Tue, 13 Oct 2026 08:49:06 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50287a2sm265747485a.20.2026.10.13.08.49.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 08:49:05 -0700 (PDT)
+Date: Tue, 13 Oct 2026 11:49:03 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Yafang Shao <laoar.shao@gmail.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+	eddyz87@gmail.com, memxor@gmail.com, mingo@redhat.com, peterz@infradead.org, 
+	juri.lelli@redhat.com, vincent.guittot@linaro.org, akpm@linux-foundation.org, 
+	david@kernel.org, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, 
+	shakeel.butt@linux.dev, roman.gushchin@linux.dev, yu.c.chen@intel.com, 
+	zhao1.liu@intel.com, bpf@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 0/3] BPF-based per-cgroup NUMA balancing mode
+ selection
+Message-ID: <as5RFhW1Ch8ta5nZ@gourry-fedora-PF4VCD3F>
+References: <20261012120438.52849-1-laoar.shao@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bdaukvpfqy47g5lz"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260918-acpi-i2c-v1-1-caf4bea4886c@thegoodpenguin.co.uk>
+In-Reply-To: <20261012120438.52849-1-laoar.shao@gmail.com>
 
+On Mon, Oct 12, 2026 at 08:04:35PM +0800, Yafang Shao wrote:
+> The Problem
+> ===========
+> 
+> In our large fleet of Kubernetes-managed servers, NUMA balancing has
+> been historically disabled globally on each server. With the increasing
+> deployment of multi-socket AMD EPYC servers, cross-NUMA access has
+> become a critical performance issue, which made us reconsider.
+>
+> Enabling NUMA balancing globally is still not acceptable: it increases
+> the overall system overhead and can introduce latency spikes for
+> latency-sensitive workloads. What we need is to choose per workload
+> whether NUMA balancing runs at all, and which mode it runs in. A
+> latency-sensitive service may want the scheduler's NUMA statistics
+> without tiering's promotion machinery, while a batch service wants its
+> PMEM-resident memory promoted when hot without paying for
+> scheduler-driven migration. No single global switch serves both.
 
---bdaukvpfqy47g5lz
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/2] i2c: i2c-core-acpi: use named initializers for
- acpi_device_id
-MIME-Version: 1.0
+Have you tested with recent fixes?  NUMA balancing has been broken for a
+few years now (starvation issues causing VMAs to never be scanned,
+east-west filters causing south->north promotions to be skipped, shmem
+being entirely exempt, others).
 
-On Fri, Sep 18, 2026 at 02:01:50PM +0100, Pawel Zalewski wrote:
-> Use a designated initializer for the acpi_device_id fields which makes the
-> code more readable and consistent with how lists are initialized in the
-> rest of the kernel code base. Also drop explicitly setting fields to 0
-> where it is redundant.
->=20
-> Unify the list terminator to have a single space between the brackets and
-> no trailing comma.
->=20
-> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-> ---
->  drivers/i2c/i2c-core-acpi.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
+https://lore.kernel.org/linux-mm/20260629163337.1264881-1-hannes@cmpxchg.org/
+https://lore.kernel.org/linux-mm/20260930112206.205083-1-gourry@gourry.net/
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
+I also concur with Tejun that ops seems like overkill for this feature,
+this seems like something that can already be managed.
 
---bdaukvpfqy47g5lz
-Content-Type: application/pgp-signature; name="signature.asc"
+For example, why not add a new numa balancing mode bit that says
+"enabled but only for explicitly opted in tasks" and then ignore the
+global default mempolicy, e.g.:
 
------BEGIN PGP SIGNATURE-----
+  if (numab_mode & NUMA_BALANCING_OPT_IN &&
+      mpol != default &&
+      mpol.flags & MPOL_F_NUMA_BALANCING)
+      /* do balancing */
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOUukACgkQ3SOs138+
-s6FUgw//WLO80tnSOWkfuTVznJOATqQqtXNIxuY17kM5m1EEoZt1NHMjgBpv4ylb
-UVXRSs8cAFNkUsmkCkeMiPaJiPSWLzGuuTJ0sE4E/yH0MMoIDPf8b1RwifvG2sSN
-ZGDPA+UWX7NANExmBZdu/Fs06EC5xjQtH23rqXP4Yh79x2ZPSkLP6yWrhrY7y+pW
-NZbhO6sZK5RmU+vX8JVgFot2fc5kuCXxXhhZP9nxMeiofepJlKO6pK0CgC2h3lMY
-rnaNREXSSruDZU4a+NXJtxkuPsKR4wQGGr3bcYJCyjcVmP4z6uUMLSI0YAT1Rgaq
-Y/kgJcAvgVY0JtyL2vUcU8IK+8dfiZT/j16cBPlrdlJcETavrz6C1/ySJsl14wmu
-o/y6FcKOZHXvLhPA4za1bQU5O8b7UZtP1MyvClac1rSzfL3V/9bb8+evmlWV944X
-aesOgjT5EptZyVYamUKXsFYP/XRUgMXykA1QChwVOtfFS4yOXc6k5TC/HbjY8dsq
-/7v+zkFiG0oI63U1dGMWWyCSjykdZaS4KyXLzFHptkgUCjj34C76CmENPztxCA+E
-M9m2Bac9gmYqgnyPE2QxC8l+s+nl6B+RA3Ajiuve2HQ6ZM8I9AJNKFGfR1kKu5Gf
-5CvbCSpmxrZzyS/Bt0DlUt1ZtYkHBF055ZwQtlBWs4AAAFsvcVA=
-=wgwe
------END PGP SIGNATURE-----
-
---bdaukvpfqy47g5lz--
+~Gregory
