@@ -1,118 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E042853F3
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791877202; cv=none; b=vFFxIiNg2pbELsAehPuRXk57uoaMhHOHBjNXYvjdd5yAmYY7/VFV23MBmKwXEDoHDdcH+/sPHb6pCL00LuhWXhvJXNe7usuhN+s96/JKabzqBWDRcL5DHVkpWtuzq8QlZ26/OBRyvHhXEqcsxJWJTgnegGkM1EOp+yXzAsaco6I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791877202; c=relaxed/simple;
-	bh=M8llo/S2WOJYXxGzPQybCxI1sJWUzWAtW3Z0i4gJyeI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aoc8DoABuU4Z6/VwY6PSF4IdaYcQiUSvyz36cKsIGqwpW8DJ0YpCoX2rh2157XRh2SDcn6QDN/aOl9cUiWxFDZE5+qCpIZTYd2CecnRKXCB1BVuTc8xQIJ2MklSz+R7e3uGoq7j4Bby6tbLT+Kx4v0M4Y7tCKoNn21/7J6zX06k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ryr1uyc5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D6437E5EC;
+	Tue, 13 Oct 2026 07:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791877207; cv=pass; b=ObJvVLgxbQV+1bD/VOOEFRQpoWl+StK38T63+ULV71IJC8bMiz6Jy4Rdl8SKzb8FnkOyoaeNtIsTpOZencehLOmvMrS8uxJlse7yldGpuOQYxLv5/KopJdM2WMyi7fYRibCKLCxrTl+KOS1s0YLJfoPo9vYknFPFr6doYqbIX7M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791877207; c=relaxed/simple;
+	bh=C6R0FvNs4Muz/Fs6mv8BRsYn2ZxwygYF0MoghLOvXhs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EkFX7txhd6VtFrjJEmZ7Rk86FqIzgsydJ8ZsKc96F6uQkhyFp1pLTMPHFhNQ5R4Wfq1EF0cA3W+ZBHYCxxo9SfaBpJu2z5ML/3DjsYB1kAjvsgOAd6F0jzu9+kHdUd9mttOe84Mz9LAFVSzOdTS1v1/ElDY0wk2vcEMUkRnk03g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yiyuzhou.io; spf=pass smtp.mailfrom=yiyuzhou.io; dkim=fail (0-bit key) header.d=yiyuzhou.io header.i=yiyu@yiyuzhou.io header.b=EEO4xu1q reason="key not found in DNS"; arc=pass smtp.client-ip=165.173.182.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yiyuzhou.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yiyuzhou.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ryr1uyc5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5B61F000FF;
-	Tue, 13 Oct 2026 07:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791877201;
-	bh=Ka4WnGpN0d9oCcVY/MuEpnfOHeYeKtz3o+TrxhSWjCo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ryr1uyc5yP/JYFWgvjsKT+2rhhWZifPokb2ZTKhhSwbk3itoTBEivaDIZj6NndAoR
-	 sTy6b2LkupMAxc5rFehpkbjqkfGOIK1+0VJTeO3B0xu7K7Kaktg8vpRlhKRjkMHU+I
-	 I4Ph5lYJzyqydt1ULvEPikXSD6eupUTUiKmz3i1klD3tn6GXk8iZe/ojaxL3LxA/UF
-	 RsXSRdN+MrTyWzF3a3ZMv1+ZQ+1zrZ1QNxGD/EZ6i9EgKaQ1QsuxnYbq0a+Wxld9jj
-	 25A0ZRbn9O95WUGGaXfMfVrnugdSC0OhVzh5JfrkiN3hXzwT8sAuq6H28N7ASZ2XKi
-	 FWO//HPmJavLw==
-Message-ID: <67c30e4c-3576-4ded-a71f-b49075ed42e3@kernel.org>
-Date: Tue, 13 Oct 2026 09:39:54 +0200
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=yiyuzhou.io header.i=yiyu@yiyuzhou.io header.b="EEO4xu1q"
+ARC-Seal: i=1; a=rsa-sha256; t=1791877199; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=IN03++97+RtZtwvkC2okb+lbFSJRimeuS7oCaHjY0FV+KjJOIJBmZA8jtWS1ti//iSEzYD7i5uqyRDpVUWO50RiX+GqxrjHZGstGUOwv/zF8EYJV7qfnvcp6AZyXb6vGXgFQa5ghOw4snR4ROQK1DlbozxqUmiEES/CmHkRCCk8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791877199; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=eD+Ic6phz2VneKc4C7qCkhJM3MyJ0aIM1SgY1cELvgo=; 
+	b=V2ODtHolP1OpNU82o1BnLewzeN5GPM4gu3Ve7+RaBlyghWp9LQwGwSv6jz98rQejrTZZjFDcMKBrnnpyx5AB/d37+3k/6h7poYffSQ7e5srjMrIO5VORKecMFvyWx5Y7XS4q9N0PH7/hZnSM6D/cYF/fdL+BqLWGNz2bX749H1E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yiyuzhou.io;
+	spf=pass  smtp.mailfrom=yiyu@yiyuzhou.io;
+	dmarc=pass header.from=<yiyu@yiyuzhou.io>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791877199;
+	s=zmail; d=yiyuzhou.io; i=yiyu@yiyuzhou.io;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=eD+Ic6phz2VneKc4C7qCkhJM3MyJ0aIM1SgY1cELvgo=;
+	b=EEO4xu1qCk9FIv7eddWemamTUd8uQyEa7gPNhzCdwJItKhGbIIZdMDoGJit21FHG
+	QQsmENRNuADO358XUTKhF0HSqFabCmZ6xwqnLYz13/AoC3zTxTUPp9gSNWYQL1UHRtk
+	cn5WpuXi8ZyUQvQLH5d2XJu8JWYSqmyERuK9OWDc=
+Received: by smtp.zohomail.com with SMTPS id 1791877198479839.7013236005746;
+	Tue, 13 Oct 2026 00:39:58 -0700 (PDT)
+From: Yiyu Zhou <yiyu@yiyuzhou.io>
+To: mathias.nyman@intel.com,
+	gregkh@linuxfoundation.org
+Cc: Yiyu Zhou <yiyu@yiyuzhou.io>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	michal.pecio@gmail.com,
+	regressions@lists.linux.dev
+Subject: [PATCH v2] xhci: give back all TDs when skipping endpoint reset after disconnect
+Date: Tue, 13 Oct 2026 00:37:11 -0700
+Message-ID: <20261013073825.17962-1-yiyu@yiyuzhou.io>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <330c34fd-1d1c-44e8-b949-ad2f5fb51f00@linux.intel.com>
+References: <330c34fd-1d1c-44e8-b949-ad2f5fb51f00@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: fix uffd move-pmd test crash on 64K base
- page systems
-To: Zenghui Yu <zenghui.yu@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Cc: akpm@linux-foundation.org, rppt@kernel.org, peterx@redhat.com,
- ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, surenb@google.com,
- mhocko@suse.com
-References: <20261011163527.95988-1-zenghui.yu@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261011163527.95988-1-zenghui.yu@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 10/11/26 18:35, Zenghui Yu wrote:
-> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-> 
-> uffd_move_pmd_test()/uffd_move_test_common() splits the test area into
-> chunks of chunk_size and moves them one by one.  On arm64 with 64K base
-> pages the chunk_size (read_pmd_pagesize()) is 512MB, which is larger than
-> the whole 32MB (UFFD_TEST_MEM_SIZE) test area:
-> 
->   step_count = nr_pages / (chunk_size / page_size) == 0
-> 
-> Because chunk_size > page_size, the test then aligns both areas up to
-> 512MB, which points far outside of the 32MB mappings, and decrements
-> step_count, which underflows to ULONG_MAX.  The verification loop then
-> runs away and the first dereference of area_src faults with a SIGSEGV.
-> 
-> Skip the test when a single chunk cannot fit into the test area.
+Commit 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub
+disconnect") makes xhci_handle_halted_endpoint() return early when the
+root port is disconnected, and commit 7e0ef4332ed9 ("xhci: avoid xHC
+endpoint changes after disconnect or link error.") also sets
+EP_DROP_PENDING there, which keeps the doorbell from being rung until
+the device is reset.
 
-That leaves 64k untested, though? Why not adjust the chunk size accordingly?
+The callers rely on xhci_handle_halted_endpoint() to take over the
+halted TD.  For example, finish_td() returns right after calling it,
+expecting the TD to be given back once the Reset Endpoint command
+completes.  With the early return, nobody gives the TD back.  Its URB
+stays pending until the submitter times out and unlinks it.  URBs
+queued behind it are stuck the same way, and every URB queued on the
+endpoint afterwards never starts, because the doorbell is blocked, and
+also has to time out.
 
+Devices that disconnect and reconnect themselves during enumeration hit
+this.  A PFU HHKB Professional HYBRID Type-S keyboard (04fe:0021) drops
+off the bus about 300 ms after its first enumeration, while usbhid is
+still probing its third interface.  The probe runs in hub_wq, so the
+disconnect is not handled until the probe returns.  On a root port the
+HID descriptor request and its four retries in hid_get_class_descriptor()
+each wait for the full 5 second USB_CTRL_GET_TIMEOUT:
+
+  [57685.006036] usb 3-2: new full-speed USB device number 24 using xhci_hcd
+  ...
+  [57685.291304] hid-generic 0003:04FE:0021.0017: input,hidraw1: USB HID v1.11 Keyboard [PFU Limited HHKB-Hybrid] on usb-0000:00:14.0-2/input1
+  [57711.221083] usbhid 3-2:1.2: can't add hid device: -110
+  [57711.221613] usbhid 3-2:1.2: probe with driver usbhid failed with error -110
+  [57711.221842] usb 3-2: USB disconnect, device number 24
+
+The re-enumeration that follows can stall the same way, leaving the
+keyboard dead until reboot.  Behind an external hub, where the root
+port stays connected, the same keyboard recovers in about 300 ms, as it
+did on the root port before these commits.
+
+Keep skipping Reset Endpoint on a disconnected or inactive port, but
+give back the halted TD right away, with -EPROTO if no error status was
+set yet, and all other TDs on the endpoint with -ESHUTDOWN.  The
+endpoint is not restarted until the device is reset or dropped, so the
+ring dequeue pointer can stay where it is, as
+xhci_invalidate_cancelled_tds() already assumes for cancelled TDs on
+such endpoints.  Also refuse new URBs on an endpoint with
+EP_DROP_PENDING set, like xhci_urb_enqueue() already does for an
+inactive link, so they fail right away instead of timing out.
+
+Fixes: 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub disconnect")
+Fixes: 7e0ef4332ed9 ("xhci: avoid xHC endpoint changes after disconnect or link error.")
+Closes: https://lore.kernel.org/all/20261010071811.20483-1-yiyu@yiyuzhou.io/
+Assisted-by: LLM
+Signed-off-by: Yiyu Zhou <yiyu@yiyuzhou.io>
+---
+v2:
+- Give back all TDs on the halted endpoint, not just the halted one
+  (Mathias)
+- Open code the helper, and log when the endpoint is flagged instead of
+  on every rejected URB (Michal)
+- Add a Closes: tag for regzbot
+
+v1: https://lore.kernel.org/linux-usb/20261010064407.11030-1-yiyu@yiyuzhou.io/
+
+Tested on v7.3-rc6 on a System76 Galago Pro (Intel 8086:51ed xHCI).  The
+keyboard was plugged directly into two root ports three times, each time
+right after resume from suspend.  Each time it dropped off during probe
+and was re-enumerated with all three interfaces bound about 0.3 s later,
+with no timeouts.  Unplugging a dock with six devices behind one root
+port also went through this path on 12 halted endpoints with no errors.
+
+ drivers/usb/host/xhci-ring.c | 10 +++++++++-
+ drivers/usb/host/xhci.c      |  4 ++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index ec278a9f9540..2463d57ff705 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -65,6 +65,7 @@
+ static int queue_command(struct xhci_hcd *xhci, struct xhci_command *cmd,
+ 			 u32 field1, u32 field2,
+ 			 u32 field3, u32 field4, bool command_must_succeed);
++static void xhci_kill_endpoint_urbs(struct xhci_hcd *xhci, int slot_id, int ep_index);
+ 
+ /*
+  * Returns zero if the TRB isn't in this segment, otherwise it returns the DMA
+@@ -991,10 +992,17 @@ static int xhci_handle_halted_endpoint(struct xhci_hcd *xhci,
+ 	/*
+ 	 * Avoid resetting endpoint if link is inactive or device disonnected.
+ 	 * Can cause host hang.
+-	 * Device will be reset to recover an inactive link, so don't do anything
++	 * The endpoint won't restart before the device is reset or the endpoint
++	 * dropped, so give back all its TDs now instead of letting them time out.
+ 	 */
+ 	if (rhub_port->link_inactive || !rhub_port->connected) {
++		xhci_dbg(xhci, "Not resetting ep %u slot %u after disconnect or link error\n",
++			 ep->ep_index, slot_id);
+ 		ep->ep_state |= EP_DROP_PENDING;
++		if (td)
++			xhci_td_cleanup(xhci, td, xhci_urb_to_transfer_ring(xhci, td->urb),
++					td->status ?: -EPROTO);
++		xhci_kill_endpoint_urbs(xhci, slot_id, ep->ep_index);
+ 		return -ENODEV;
+ 	}
+ 
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index a9e47e178c28..41ff45f5f909 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -1691,6 +1691,10 @@ static int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 		ret = -EINVAL;
+ 		goto free_priv;
+ 	}
++	if (*ep_state & EP_DROP_PENDING) {
++		ret = -ENODEV;
++		goto free_priv;
++	}
+ 
+ 	switch (usb_endpoint_type(&urb->ep->desc)) {
+ 
 -- 
-Cheers,
+2.55.0
 
-David
