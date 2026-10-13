@@ -1,281 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07ECE481AB5;
-	Tue, 13 Oct 2026 05:51:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8255B39F18F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791870678; cv=none; b=B+466d81w2aLPOnBBuPVTkZPadOvddzGpk5LL2M+ZbO38D6tSbqgtn3kgBEzNl7fJMRGDqTzwwqN14YJCQrBCpiEL0tD54NCtRgEnFmeCWdHxrmpOT0QtXWilEVKRwR7tlPO+l7zuegAf1fEjyGzqKKma+JKY3H7Ual8whD1yhs=
+	t=1791870680; cv=none; b=XT2VOBCSX/R06fxG8WzC0IKkczvZJA+kP3Yqbq5B34khv0anPKIkbgq88FKenCOneYtHLgqLgUVMErnquB1FzBfP1iU8ddUR1EfLtrnHyQ3EOdjTB5W/lvKHffvITxsQCsGl26m5+7JjEeXUZcRX9ZSKk7Tb708YNNkpy7JqHdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791870678; c=relaxed/simple;
-	bh=DfHS0Mvw3NZ4FanjKRzs8iS27y2fh0d217AbMwBiMaU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dSfnSfYIgX72EmXmIxm9PjvSKp1RUy0taP7Tw5npJmxm9C/+/lyIEdeRZnmNrvs3i+289xPtPoBj5/URB0c430VlwvCEsNSZ/LXb8ly/fXA1gkinexQW5yijKCc+4RSbrpv7+7nS4eR+i00X6+Uh74sxFyj5k11tZ1YVDQ2Z2nQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJowRFzd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791870680; c=relaxed/simple;
+	bh=gg5xzGeRZT9S/kztnXNypgtbGJjOd7cJmItCl+1bAEw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vn/KdZ8OmH9RbKBxZJppbSWisQevoNfuHbBqjPn0WzmgqOKK53jyooXvhD3WQ+qDWNDi6VeVQF0twPB3FnYe6mxCD5QkES7JlPH7nzVi+9kPeg0qeYYLnapw62omfO0LvbI0UL7XQvq1b4gGMDtNZ6MngI1gktLypF9eITv1il0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com; spf=pass smtp.mailfrom=tyhicks.com; dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b=RmANN8e0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KXp99qSu; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJowRFzd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4D031F000FF;
-	Tue, 13 Oct 2026 05:51:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791870676;
-	bh=TZOTfwKK/9csisAzSTOEpuQHBSLm5lYYx5WFKdj0fP8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DJowRFzdUtFGojE0GWF9gs5XZtoOhsS3lMkop6MJ47Bjfr9pNq3TSbom5aO/ihzuF
-	 NFBKmIOx3KgY5melRzz1shSegcux6E61JkhZe1gM6K1Jbt9N1Uo66XSnozllfKksgk
-	 zH651Oynwm6wR5KzaHRAbYKmFz/RJzi8fcSvfG5X1AT9EBT0q905tOumjr2se+sySY
-	 4TFkuXXIK/fNLKP6gQn+pAu8lhwRVCFSdWVf/wzcQxEBIv9iwQCh2/9nT3Xho8NG6T
-	 7drSUCqx9MwoRYXyLZslN13XJSAAvPcc79bvPBE8ceDJkMkr8kI7uPtj4xvsVoay69
-	 MyZV5miI8LzGQ==
-Subject: Re: [PATCH net-next v4 9/9] ibmveth: check headers in the RX large
- send and checksum helpers
-From: netdev-bot+sashiko@kernel.org
-To: mmc@linux.ibm.com
-Cc: netdev@vger.kernel.org, nnac123@linux.ibm.com, maddy@linux.ibm.com,
- mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
- ritesh.list@gmail.com, sshegde@linux.ibm.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, horms@kernel.org,
- davemarq@linux.ibm.com, bjking1@linux.ibm.com, brking@linux.vnet.ibm.com,
- tlfalcon@linux.vnet.ibm.com, jmaxwell37@gmail.com, zdai@us.ibm.com,
- marcelo.leitner@gmail.com, ksiva@linux.vnet.ibm.com
-Date: Tue, 13 Oct 2026 05:51:15 +0000
-Message-ID: <179187067525.434549.7404862779574164491@kernel.org>
-In-Reply-To: <20261012050518.88858-10-mmc@linux.ibm.com>
-References: <20261012050518.88858-10-mmc@linux.ibm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b="RmANN8e0";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KXp99qSu"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id F1EB61D00120
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:51:17 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Tue, 13 Oct 2026 01:51:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1791870677; x=1791957077; bh=1qXQBI30vV
+	mPspzTFI9qdidfZ+Xhv2BgqG1F062IFBw=; b=RmANN8e0LB0LfdowURdYceuzBq
+	PrcgE+TrH0ZxfGTeYw6PllERaDdkwTj5vvbwD+C3Ez4NObhlOlBW9/C3bs5zU0kx
+	Hqwz7HcPKUGCv8ZyYotnFF4J1nM00JY8hZEd+usxbu7eQu44Lnsva72QZDFMeVFo
+	U5TCsg8asn8Iu7QRb0kqUPo0+gxQknkP9Z6kJ77YBZ20GNmwJJtbO+XQ6o5BWm8y
+	1tMy76QUu0JtfWogalWfRVtnNvxY3iIKB62/JNui9QreQHBT4aqSa33aWRPdvDRn
+	Qor4xxrK39r7pNoWV0vDU+bxbip+/qztNA2rcujAzi+Kvhuk9dWhGHynVkOA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791870677; x=1791957077; bh=1qXQBI30vVmPspzTFI9qdidfZ+Xhv2BgqG1
+	F062IFBw=; b=KXp99qSugQyGVk8uNM3ppTokLRcK9lqXo8ZY5Vn2RAF28T5XsCj
+	J1RAyOPjrAhiuRY8cnFaHotz5NAkjalP/hB60tTeyMJ91AKPYr1EwwfG1ssr5udI
+	0igBWBeti2qPPICgjU2beeG2v8mdVPBPLS//jDEUY7qG8shLWLqDa813WNciRXBW
+	3O3yG78fU2A7n4B3drec5qUAai3RCmm9imr4VeAy23+Rg8K/qzebKo2mihETyE1H
+	N+McND+n/L0D1Uqu1V+xjgMsGM/DdQ9lAj5YaDmk4y0rR0VoYgulYlcIo2M+L75h
+	i8EtdUdHxW43iGBaPobq4MZbZaGxvxxOvtQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=tyhicks.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791870677; d=tyhicks.com;
+	mf=PGNvZGVAdHloaWNrcy5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:WM2cgoMJkgWoS/F2aoGW7f+blHbvcBOyzf5zIdImEQ6rFzU
+	11AwDci7EkX9Ugi3hYV+io7slwAUMLb7R3sShzM1ZfGHO5gr9WN9l5hxU8xZ1CSa
+	V4FM7DPpBkelWqxnMoUp0xqbbyZLhPMC92zjSF8m5oo2UXQU6NoeVXgRTaxgPZMF
+	/SlVTEFZMDZrY1FsLJm5HbMZVyqNZ9wsrbdhg27xpwxPmo3EB7beKP4nH+fPYl9x
+	EtNg0aTzqr4znhVRUMAIibqWGW+LMKiHn6XjdRGp7KzQ6XUjbyXTDnbrTzHxetCE
+	KY6TDAnCXJZYYjyQa/VHfeHYoucgGGcKKLKViPw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:LlSHrOtzpz7B40CIzfmVVOc9bSw3n5JzWwSBVvHgLOg=:gg5xzGeRZT9S/kztnXNypgtbGJjOd7cJmItCl+1bAEw=;
+X-ME-Sender: <xms:1cbNalyV4-wvUCBLSA486TaNnnG05IUb7Qt1Cv9OZc8QU68nhhV7Fw>
+    <xme:1cbNao-BWMUFLaXcTeI7ATVX98bF3e4IY9gHLnRmY01WdqJ_nUXG_JNFxI0-7GhHV
+    lSX-DJXdWthXBZ0loqKyJzDvJ_DP9_CvpH8_ArEEMFg2NbO1VY_zVkH>
+X-ME-Received: <xmr:1cbNapL-rEU1UBucUsT8mzMpaPVSWNNRNL0QXGA8nq45Cn3TqX_hjw>
+X-ME-Proxy-Cause: dmFkZTEsTU9xCyRnGNf2O8KrrukZOkB1AhEExVz7u+byF70IdbzsNBVuru8eCBPoF/6v2y
+    5BIpfrWJ4X5izWt7wttIBlBtVYleHJ6XvCp8GsvUZ/ZYOaxrURTOG51Xu2dy+tTbw9WqL0
+    1/zRxIP42tGJK5aG4UFIlHrzXCrQbQzXc7X1KWic/lfyPwM4dZRKsS0WI/zlboz+XMPGRN
+    qZ+tnSPMkAslGrSDpRurEjK9C+7cKwQpVZDfNMxWXu8ASR8q2y4672YeZgvAewEB5b80j/
+    qOJp4/TnBK5I0Pdyc8AYJS4jwR06nysZZ+RssSBQduMnCFXC4XzHe3skUXgl8sQYH2qGAU
+    BIM3rMdsYQqIaFq92Mv0Z3XRXy08v/0nXIAnaKTh307HgCecO9SSg+6RmRSkZlp+VY5X24
+    n7fVd6YjAgYh62DKMMp8Lw28FR/MjJ2SI1+TL14zlO7c96ibLayKUeQuz9XiLEOCaoIpYJ
+    sj+S6KzNk9XrgAIXmYMFFUaEYIl9lBQHoBGljrtSx9jPTavRoLXb4i4ip+iBrCkJNHCKFE
+    /3YbrJOKnyjlM6OPI+yNv5UTnBSXllsCXT8h/rrcSUD4eDo05wcP+g3LKSZ7LH7KA/KQiD
+    ZDOaQHK+UqwViNOc5lNT6mB7aqOVxAwnrktJukBtnj/t8ALgfcAIg6CaLYYw
+X-ME-Proxy: <xmx:1cbNauf_5EVimesWAMZw1FgIFmpfXyLC74k6ixeTc0VQfOkvrhRu2w>
+    <xmx:1cbNao9O1CHAM0TrgskOElWaa36XmQwmtgukTm3HHTm2x0J6cfQsYw>
+    <xmx:1cbNaroL_iIyS9hs4JNWRyFSlnelQdzQZiPdD6CXHgXe38cSk56HPw>
+    <xmx:1cbNatCQNE5VFcBOF1lG8uFUMoooqNc1riOK_NKEMzRhWltD1Dk8uA>
+    <xmx:1cbNakT2eN__AzSBhieLrCsvTqHH_niZ74PDvJ6u4GtxRMjpTbNMhxUW>
+Feedback-ID: i78e14604:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 01:51:16 -0400 (EDT)
+Date: Tue, 13 Oct 2026 00:51:15 -0500
+From: Tyler Hicks <code@tyhicks.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+dc50906b100ac7a1c34d@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ecryptfs: validate key payload size before using it as
+ an auth_tok
+Message-ID: <as3G00lXXQnXaMmj@elm>
+References: <20261011061902.144716-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011061902.144716-1-ngocthang2710.1999@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 2026-10-11 13:19:01, Nguyen Ngoc Thang wrote:
+> ecryptfs_get_key_payload_data() casts the payload of a "user" or
+> "encrypted" key straight to struct ecryptfs_auth_tok. The payload size is
+> chosen by whoever added the key, so a payload shorter than the struct
+> makes later accesses run past the allocation. For example, a 712-byte
+> "user" key makes write_tag_3_packet() read the password signature beyond
+> the end of the kmalloc-1k object:
+> 
+>   BUG: KASAN: slab-out-of-bounds in ecryptfs_from_hex+0x18c/0x1d0
+>   Read of size 1
+>    write_tag_3_packet+0x145/0x1430
+>    ecryptfs_generate_key_packet_set+0x7ae/0x1880
+>    ecryptfs_write_metadata+0x590/0x930
+>    ecryptfs_create+0x393/0x550
+> 
+> Reject payloads smaller than struct ecryptfs_auth_tok with -EINVAL. The
+> callers already propagate errors from this helper, so mounting with such
+> a key now fails cleanly.
+> 
+> Reported-by: syzbot+dc50906b100ac7a1c34d@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=dc50906b100ac7a1c34d
+> Fixes: 237fead61998 ("[PATCH] ecryptfs: fs/Makefile and fs/Kconfig")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1
+Hello and thanks for the patch! I've already taken the user key payload
+fix from another contributor and will take the session key encryption
+key check from a separate contributor. You can find the links here:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+ * https://lore.kernel.org/ecryptfs/20260917044558.41677-1-neganhat@gmail.com/
+ * https://lore.kernel.org/ecryptfs/20261004123755.14642-1-adrianox@gmail.com/
 
-- [High] ibmveth_rx_mss_helper() (drivers/net/ethernet/ibm/ibmveth.c) now
-  sets gso_segs = DIV_ROUND_UP(ip_len - hdr_len, gso_size).
-- [Low] The kernel-doc of ibmveth_rx_mss_helper_test() says the helper
-  takes "gso_segs from the IP length" and refuses "Frames whose headers…
-
-Pre-existing issues:
-- [Medium] ibmveth_rx_csum_helper()
-  (drivers/net/ethernet/ibm/ibmveth.c:1530) seeds the TCP pseudo-header…
-
---
-
-ibmveth: check headers in the RX large send and checksum helpers
-
-This adds bounds checks on the IP and TCP headers in
-ibmveth_rx_mss_helper() and ibmveth_rx_csum_helper(). The checks include a
-minimum IPv4 ihl and TCP doff, and IPv4 TCP fragments are refused. The large
-send helper now computes gso_segs from the IP length and clamps gso_size,
-and KUnit cases are added for both helpers.
-
-> diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
-> index 85e176d0ed321..1c2ac88c28ca3 100644
-> --- a/drivers/net/ethernet/ibm/ibmveth.c
-> +++ b/drivers/net/ethernet/ibm/ibmveth.c
-
-[ ... ]
-
-> @@ -1406,28 +1410,41 @@ static void ibmveth_rx_mss_helper(struct sk_buff *skb, u16 mss, int lrg_pkt)
->  	if (skb->protocol == htons(ETH_P_IP)) {
->  		struct iphdr *iph = (struct iphdr *)skb->data;
+> ---
+> Notes (not for the commit log):
+> syzbot reports "KASAN: slab-out-of-bounds Read in ecryptfs_from_hex". The
+> reproducer adds a 712-byte "user" key whose description matches
+> ecryptfs_sig=; the mount succeeds and the first create makes
+> write_tag_3_packet() read the signature past the end of the kmalloc-1k
+> object. Tested in QEMU with syzbot's KASAN config: base kernel hits the
+> KASAN report, patched kernel fails the mount with -EINVAL. Fixes points at
+> the initial ecryptfs commit since the history here is grafted; happy to
+> retarget.
+> 
+>  fs/ecryptfs/ecryptfs_kernel.h | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+> index 58165928ed1e..863761b3847a 100644
+> --- a/fs/ecryptfs/ecryptfs_kernel.h
+> +++ b/fs/ecryptfs/ecryptfs_kernel.h
+> @@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *key)
+>  	if (!payload)
+>  		return ERR_PTR(-EKEYREVOKED);
 >  
-> +		if (skb_headlen(skb) < sizeof(*iph) || iph->ihl < 5)
-> +			return false;
->  		if (iph->protocol == IPPROTO_TCP) {
-> +			/* only a whole datagram has a TCP header to segment */
-> +			if (ip_is_fragment(iph))
-> +				return false;
->  			offset = iph->ihl * 4;
-> -			skb_shinfo(skb)->gso_type = SKB_GSO_TCPV4;
-> +			ip_len = ntohs(iph->tot_len);
-> +			gso_type = SKB_GSO_TCPV4;
+> +	if (payload->decrypted_datalen < sizeof(struct ecryptfs_auth_tok))
+> +		return ERR_PTR(-EINVAL);
 
-[ ... ]
+I think Adriano's check on payload_datalen is more accurate. I believe
+your check would block legitimate encrypted-keys.
 
->  	tcph = (struct tcphdr *)(skb->data + offset);
-> +	if (skb_headlen(skb) < offset + sizeof(*tcph) || tcph->doff < 5 ||
-> +	    ip_len > skb_headlen(skb) || ip_len <= offset + tcph->doff * 4)
-> +		return false;
-> +	skb_shinfo(skb)->gso_type = gso_type;
->  	if (lrg_pkt) {
->  		skb_shinfo(skb)->gso_size = mss;
->  	} else if (offset) {
-> @@ -1436,11 +1453,18 @@ static void ibmveth_rx_mss_helper(struct sk_buff *skb, u16 mss, int lrg_pkt)
->  	}
->  
->  	if (skb_shinfo(skb)->gso_size) {
-> +		/* chosen by the sending partition: at least the floor
-> +		 * virtio_net_hdr_to_skb() uses, and never GSO_BY_FRAGS
-> +		 */
-> +		skb_shinfo(skb)->gso_size =
-> +			clamp_t(u16, skb_shinfo(skb)->gso_size,
-> +				TCP_MIN_GSO_SIZE, GSO_BY_FRAGS - 1);
->  		hdr_len = offset + tcph->doff * 4;
->  		skb_shinfo(skb)->gso_segs =
-> -				DIV_ROUND_UP(skb->len - hdr_len,
-> +				DIV_ROUND_UP(ip_len - hdr_len,
->  					     skb_shinfo(skb)->gso_size);
->  	}
+Tyler
 
-[Severity: High]
-
-Can gso_segs here undercount the number of segments that actually get
-produced?
-
-The only check of ip_len against the frame is ip_len > skb_headlen(skb).
-That means a frame much longer than its IP length is accepted, and nothing
-trims the skb to ip_len before napi_gro_receive().
-
-The commit message says the skb is not marked SKB_GSO_DODGY because
-gso_segs is computed here. That holds once ip_rcv_core() trims the skb to
-tot_len, on local delivery or routing. On the Trunk VEA forwarding paths
-(a bridge without br_netfilter, or OVS without conntrack), the skb is not
-trimmed.
-
-For example, a sending partition could:
-
-  - set iph->check = 0xffff
-  - put an MSS of 8 in tcph->check
-  - set tot_len = 100
-  - send a frame of about 9000 bytes
-
-The new checks pass (100 <= headlen, 100 > 40), so gso_segs becomes 8.
-tcp_gso_segment() or hardware TSO works on skb->len instead, which gives
-about 1120 segments.
-
-On egress, gso_features_check() compares the trusted gso_segs against the
-device limit:
-
-net/core/dev.c:gso_features_check() {
-    ...
-	if (gso_segs > READ_ONCE(dev->gso_max_segs))
-		return features & ~NETIF_F_GSO_MASK;
-    ...
-}
-
-Also, qdisc_pkt_len_segs_init() only recomputes gso_segs from skb->len for
-SKB_GSO_DODGY skbs.
-
-Would this let a TSO skb past the egress NIC's gso_max_segs? Would it also
-make the qdisc and BQL accounting too low?
-
-Before this patch, gso_segs was derived from skb->len, which matches what
-gets segmented. Any of these would avoid the mismatch:
-
-  - trim the skb to ip_len, for example with pskb_trim_rcsum()
-  - refuse large sends where skb_headlen(skb) != ip_len
-  - compute gso_segs from skb->len
-
-[ ... ]
-
-> @@ -1493,6 +1523,8 @@ static void ibmveth_rx_csum_helper(struct sk_buff *skb,
->  	if (iph_proto == IPPROTO_TCP) {
->  		struct tcphdr *tcph = (struct tcphdr *)(skb->data + iphlen);
->  
-> +		if (skb_headlen(skb) < iphlen + sizeof(*tcph))
-> +			goto bad_hdr;
->  		if (tcph->check == 0x0000) {
->  			/* Recompute TCP pseudo header checksum  */
->  			tcphdrlen = skb->len - iphlen;
-
-[Severity: Medium]
-
-This isn't a bug introduced by this patch, but should the pseudo-header
-length in ibmveth_rx_csum_helper() come from the IP header rather than
-skb->len?
-
-The frame can have bytes past the end of the IP datagram, either Ethernet
-padding or trailing bytes that ibmveth_rx_mss_helper() still accepts when
-ip_len < skb_headlen(skb). If tcph->check is also 0, the seed is computed
-over the wrong length, and skb_partial_csum_set() then marks the skb
-CHECKSUM_PARTIAL.
-
-ip_rcv_core() and ip6_rcv_core() later trim the skb with pskb_trim_rcsum().
-For CHECKSUM_PARTIAL, that only checks where the checksum field is:
-
-net/core/skbuff.c:pskb_trim_rcsum_slow() {
-    ...
-	} else if (skb->ip_summed == CHECKSUM_PARTIAL) {
-		int hdlen = (len > skb_headlen(skb)) ? skb_headlen(skb) : len;
-		int offset = skb_checksum_start_offset(skb) + skb->csum_offset;
-
-		if (offset + sizeof(__sum16) > hdlen)
-			return -EINVAL;
-	}
-    ...
-}
-
-The seed is left as it was.
-
-Could a forwarded packet then go out with a TCP checksum over the trimmed
-data but a pseudo-header for the untrimmed length? The final receiver
-would drop it.
-
-This patch moved the large send helper to the IP length. Would
-tot_len - ihl * 4, or the IPv6 payload_len, make sense here too?
-
-[ ... ]
-
-> @@ -2508,10 +2549,214 @@ static void ibmveth_rxq_harvest_buffer_test(struct kunit *test)
-
-[ ... ]
-
-> +	} else {
-> +		struct iphdr *iph = (struct iphdr *)skb->data;
 > +
-> +		skb->protocol = htons(ETH_P_IP);
-> +		iph->version = 4;
-> +		iph->ihl = 5;
-> +		iph->protocol = IPPROTO_TCP;
-> +		iph->tot_len = htons(len);
-> +	}
-
-[ ... ]
-
-> +/**
-> + * ibmveth_rx_mss_helper_test - unit test for ibmveth_rx_mss_helper
-> + * @test: pointer to kunit structure
-> + *
-> + * Large send frames get gso_size from the descriptor or the TCP checksum
-> + * field, clamped, and gso_segs from the IP length. Frames whose headers
-> + * do not fit, with no TCP payload within the IP length, or that are
-> + * IPv4 fragments, are refused and left without GSO.
-> + *
-> + * Return: void
-> + */
-
-[Severity: Low]
-
-This isn't a bug, but do any of the cases in ibmveth_rx_mss_helper_test()
-test "gso_segs from the IP length" or the "headers do not fit" refusal?
-
-ibmveth_test_tcp_skb() always sets tot_len (or 40 + payload_len) equal to
-skb->len. So in every accepted case, DIV_ROUND_UP(ip_len - hdr_len, ...)
-gives the same result as the old DIV_ROUND_UP(skb->len - hdr_len, ...).
-The only case with ip_len < skb->len is the padding case, and it is refused
-before gso_segs is computed.
-
-No mss helper case builds an skb shorter than sizeof(struct iphdr),
-sizeof(struct ipv6hdr), or offset + sizeof(struct tcphdr). So if gso_segs
-went back to skb->len, or those skb_headlen() checks were dropped from
-ibmveth_rx_mss_helper(), every expectation would still pass.
-
-Could cases be added for a tot_len smaller than the frame and for truncated
-headers? Otherwise, could the kernel-doc be narrowed to what is tested?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012050518.88858-1-mmc%40linux.ibm.com
+>  	return (struct ecryptfs_auth_tok *)payload->payload_data;
+>  }
+>  
+> @@ -124,6 +127,9 @@ ecryptfs_get_key_payload_data(struct key *key)
+>  	if (!ukp)
+>  		return ERR_PTR(-EKEYREVOKED);
+>  
+> +	if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
+> +		return ERR_PTR(-EINVAL);
+> +
+>  	return (struct ecryptfs_auth_tok *)ukp->data;
+>  }
+>  
+> -- 
+> 2.43.0
+> 
