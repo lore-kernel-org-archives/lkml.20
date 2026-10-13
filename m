@@ -1,86 +1,84 @@
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4677E4F4D0A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7208E4F055E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:57:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892620; cv=none; b=mLZKONmWdySnoYxt0AHkL/pwGGy392O2NCQmRxh/X3jy52lCTpka24iEUs2pUAWnsV/BnBngTV5NAXGnHugS7VsQBlrc8AimFP01Z+kzjDEydBmyKHEeHl4bJrOmuy1INCOg93+Qvj1+v76o1Bt+cQ0kg9GZ69bKlhaTZByqKhc=
+	t=1791892626; cv=none; b=Eh7LRUNqkJ5LEyGm6Ot3PLSHgghQh3timN8B5An/ADxjTAdnr2xoBRacwajipTwrWVDPtc8arXEyD95SssetzNRNObC2+L5Cmsxf2bFnyi/bqtN3029qaRLEsC4iRfm07k2jaqFFP6Nej+LmW8rvKnTH2TDbNvA5kcvbNx5Rvac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892620; c=relaxed/simple;
-	bh=cZnmrXnfrB93SQ+VrQKOiWAtWkAE13YYsj5jG+YQKgg=;
+	s=arc-20240116; t=1791892626; c=relaxed/simple;
+	bh=X5ZU7JNnypfrB8yv3CiSgtsjeTv0kMCAa5OOfmHUqfE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rpDXiU0KS0FlIMnTuDSkPqy56Qmc2e7VdlOIEpUGq/GTtxenuJTSI+0aVoNB4mn1ctevV126YxZAsYMc2N6dTLy9+pi0zfwJ/raE57vLc55oArYkODlweyEbT3Do00jwmZfcaxa/aUk8JHFpPZfeMN5bQ40SFdWJgEysJ5SZLSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HD0tGX1x; arc=none smtp.client-ip=74.125.227.134
+	 MIME-Version; b=Biwa3c2A1mSIb3Vja5no2NtLO0u2p3zQVWIPRK4MC1Vna6MggD8qHhaD5og963SpGQm9+ucNaQVtW1Pjfc5kkWgHFypGvsEY94JrKDPuRBcVtzNtIosz37tbkBnuhTk/zS9MSFzVuZcCTdmhi3DIm5hKqLpjgKAN2CAC3/6pNoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fYKfOAWy; arc=none smtp.client-ip=74.125.82.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HD0tGX1x"
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso1376323a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:56:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fYKfOAWy"
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-17bc533fda3so259801c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:57:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791892618; x=1792497418; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791892623; x=1792497423; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1JGn4fTJRmMMUCqNv1zrxHNWR67j4kFOuytFeUiq8dc=;
-        b=HD0tGX1xbgWfIcHZ+X8vZFGhu8Zkp+AV9jjPinguylrkfIplEiUEbc1AVnm2QBuW6a
-         cUSWHX2Nf0j8NBEB6fnQpmpd7jxMFb3xMwek4M3U7SVTCqZcaVgSdHcjB2S+zbRRKHHE
-         VSlbyWa4KrSTPJ5TKbjSP+THipkjjBVkW2v4Eg5EN1I01Y+0P7/oeoyt2V6/6MKQJopL
-         02vpbx8KLOSfNWxROKOrAYEi3ZFIVWjFdw+dCAqaYSv2WzKBkW6bwnkVo0Rzn8JNhT5i
-         E39XwCn7SNMSba0D3Gl9QYRWYpwbe5N0EWZDfM5nQC2v8+Zqbu4lmEQ5lGCPobEzWrND
-         P9RQ==
+        bh=4kunHk2WNZFU02yT2wiYv/FHONgL2+rn9vP7+0p544w=;
+        b=fYKfOAWyyndwCTkjHI1Rh7MDthkgkkZCFkETE6GE0C8FfLwwcI3q034NJO0tst2DnY
+         e2uyywnpH6R2/+EcH0kDCgo8QRHGAJNHzUeGyodK3d82HjzRQPfWN/qjpscJGDpIDO97
+         kjpasT7l+FtMqD0hUuOB/axfDcVbpNv8ZQEImJRFHKP3OADxXdnMcMDCOv9dD+5DdoqV
+         TS+SPbZGR1PajpIDPn8hII8nOwk6cVIR7mct8fHzmV2C/r3Aj9n7NEDvYijdOy/eMDat
+         EZWrFdfBGm8vPXAst5YOlOv5fuiaumc0BeKo5ZAVnGOFjdwslKr6e1pqXqwXmVigShZb
+         pzPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791892619; x=1792497419;
+        d=1e100.net; s=20260707; t=1791892623; x=1792497423;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1JGn4fTJRmMMUCqNv1zrxHNWR67j4kFOuytFeUiq8dc=;
-        b=Zff41dj9eip5gRVcR39kadnoCXRpgu5+ALWCBF+M4zSkr27Sa7EpvOGJ4qGoiJf8bG
-         0rBfqTDCK0iQG7GeKW01ZbxC6vEThuQ14JgPMnZvz3kOCN8mHH6ILKXKl3WhDk5fYu5K
-         u3q3g0xTLuIttwfk0rEjs15l7YOcF3jF5pRAKGHwJwxPk+7B6UnpNSaUlyxap6TO6AcL
-         Rokba2c/J1Hh0GygeanK4dQtTtYScBvs/3SedJK0P8HHSc7LBQrBTPYczNbVirFbb4Uk
-         dfj/eF+zWQ0S+mUUK3PMQV617Na2RI8JqSWjYz/HF1C9dLFDmHWWNlYdOBMKAknIIiRx
-         0hRw==
-X-Forwarded-Encrypted: i=1; AKwUvBz6D7L5fg2y7qU7Nn6FC1VIgQeGM7szlXz21ehcyLjE7HF67bsUejmtvwdSKCIHJacXrCleAx1McITYWJ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEUEI0AmW+4IbUSr9ZfLMN+/gAcTNGAh/7r4fKpBX52KinF2Iv
-	NnstohH6duSRLTQdNryJ5PxIopCH0JLqZr3E6U5hxofJRQk0Wtonj9N/
-X-Gm-Gg: AYBFou2oIdwRussAsA9l9BVEeytW+3hUooD+wl4BjtcC6syX6uZwtjTUgCqZggKIdTh
-	xLj/8Njc9sJ5bwwVS7mJNQ6N5y92DjzT9ECnWwu5Ia88Sj9rdWWlYm8fRyD6BSrp6PUHA1Rg7Q/
-	QNmJeZuknhNoQBLxV2iJr8JbRjrl9b8sSTspkOaRhI/MnBkHaCHyjfSyundPMWuTOkRPWlaoEF3
-	zRBDiTCprDaU0cR8Z6xOgE9w18vCTWvY+fjj53sdiINRwNuiD2F9Nzlxq361vFlNZ60Muvj4Wmi
-	ZT1X3mvYcELrO6F3HnQw0Ikwo658JmV7rkhTAbRgacKbz4vPV4yKwbStiX2ry6TJsHfP7i9BPZi
-	qMy3y53ohMeYWl/0JDRDt/LOFOcb/fD5lAVFbKOVaBdohvieUt4p+IH5hrrmMZWQyT/36Pt7MTh
-	CvTc7JlvRZV/WWmTYlZFF0I08qpnlC9GBxjanhAr6lTwGkNiUsRWO+hXelyOyo/lp12th4hKZtT
-	lOP0UgBQDcEiMsqQJgwIFxfbA7OBwWWmrLG
-X-Received: by 2002:a17:90b:5870:b0:3ac:403d:6232 with SMTP id 98e67ed59e1d1-3ac403d6b24mr1509265a91.55.1791892618559;
-        Tue, 13 Oct 2026 04:56:58 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm21248516a91.13.2026.10.13.04.56.54
+        bh=4kunHk2WNZFU02yT2wiYv/FHONgL2+rn9vP7+0p544w=;
+        b=fNaSiQGJrlFwqpreI3PAL0uOKHNulTIAk0zbMP705SvtiJYe9nZFyFUuC/HIe+Lmwe
+         rp+WAwJXUyttiJAZihfcu8E3JOXjCsQxKs4pbkmUkBZGrlm6LYF6F0RTXR/bH7Iy40Iy
+         7B8nqXOAV7c/qtLMiL6mIiB/494y6FbEVsW74fPxAuK2VC23iTnzKUshHVoylIKotxsd
+         sRTRNtKpD7uM3csTNsfVYeYlUD6pdfqHE4ya8jbrwsBDbNdovh2bbjnjpWtvt1tuCdix
+         0dCfKUKxkN4K2pfbsUytLBkx2079M39qBUv2RygsAf4SMAC3QGdB2uGeWdrrmZRWlRjo
+         R9Ug==
+X-Forwarded-Encrypted: i=1; AKwUvBy8nXcqLYZJq+tquF9GGFx8x/B3dfIsMXt5PKzvbmY4+tcmuiwndZSN2GpdOlGKygEmNXkEck91B7oNXvE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHNE60rF+dFsJzWuNl3Gdrj/gUj1ZI9pNCrMM/qOcae5hjI6Xd
+	/D71Agx2IYtwuvCsLEPs6eUc2bFpOSUKHaxbP7nQ1FtbbMeVHTJPrZ+F
+X-Gm-Gg: AYBFou042nfjIX/sBvBecgOdTvNGLuWayhUxVN/EpbBOssH6Z09hjewYGNTwYSfWqBZ
+	Xi+yMsnoWjILYXhMJynXdesh5bN/8qWyGfgzAQ6JEbeWJwcabArYQN6Q6myI4aEhubc8dlZoEsT
+	0MkFSjlbBM3v7i9orM1fm+H+cksdarZgcu7BqYxG3RON4MFKuW+JeoJplHSC1BGaSFMUhJP6EBP
+	qHiRbZEMd0J+JV6DkjbvnUOa8oZYPQ/D+dJRBOc1lD+ExeLiz5pYOLQamMzZBKCW//RzMNwADan
+	arqpA0Vwar3QO9LHl/Qaju8R0YJKfffYs96oqzCLvvV/lJsMjQN7DqyfLs8KZG9RN9OIMkchU/X
+	qkz8DsO67xeyBDlGmj+fOAEJ6+eGLLl/yfu3AoKO/bfp7kFB0hb11t6vfzUqlh46vJ7JLLHUNKh
+	upqGXs+Zz4xIAMAP8DauMmJyoiWIQZLHSlDOh/AACu/wNhpItn2LAJkF10IUFN96r6EKkkN5uX
+X-Received: by 2002:a05:701b:205c:10b0:149:49c:233 with SMTP id a92af1059eb24-16a60811394mr17959201c88.27.1791892623397;
+        Tue, 13 Oct 2026 04:57:03 -0700 (PDT)
+Received: from localhost ([104.156.230.40])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3595e0858c6sm30250575eec.22.2026.10.13.04.57.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:56:58 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: [PATCH v4 06/18] f2fs: support atomic file large folios buffered write
-Date: Tue, 13 Oct 2026 19:56:09 +0800
-Message-ID: <20261013115621.968742-7-nzzhao.sigma@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
-References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+        Tue, 13 Oct 2026 04:57:02 -0700 (PDT)
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Chang Yu <marcus.yu.56@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
+Date: Tue, 13 Oct 2026 19:56:38 +0800
+Message-ID: <20261013115639.167433-2-marcus.yu.56@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,175 +87,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+with i2c address of 0x39.
 
-ioctl can convert an inode with large folio support into an atomic
-file. Support large folio buffered writes for atomic files as well.
+The GPIO pin is not described because the datasheet does not document
+how to use it for hardware synchronization at all. The GPIO register
+also has no mode-select bit to isolate the pin from the chip's
+internal control logic. Exposing it as a generic GPIO could result
+in kernel writes being overwritten by internal logic.
 
-Add a large folio atomic write_begin helper that reserves COW mappings
-for the write range. For partial head and tail subpages, read the
-existing data from either the COW inode or the original inode before
-marking the subpage uptodate.
-
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
 ---
- fs/f2fs/data.c | 111 ++++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 81 insertions(+), 30 deletions(-)
+Changes in v6:
+ - Add a ref to leds/common.yaml for the LDR pin.
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index f2b89181f..2ae3013b6 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -4245,18 +4245,16 @@ static int __reserve_data_block(struct inode *inode, pgoff_t index,
- }
+Changes in v5:
+ - Remove the GPIO pin.
+
+Changes in v4:
+ - Fix led-max-microamp property name.
+
+Changes in v3:
+ - Add missing include for gpio.
+ - Expand GPIO descrption to include hardware synchronization.
+ - Use led-max-microamp instead of led-current-microamp for the LDR pin.
+
+Changes in v2:
+ - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+ - Fix node name and unit address mismatch.
+ - Include MAINTAINERS changes.
+
+ .../bindings/iio/light/ams,as7343.yaml        | 66 +++++++++++++++++++
+ MAINTAINERS                                   |  6 ++
+ 2 files changed, 72 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+
+diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+new file mode 100644
+index 000000000000..7fb10b0d4843
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: AMS AS7343 14-Channel Multi-Spectral Sensor
++
++maintainers:
++  - Chang Yu <marcus.yu.56@gmail.com>
++
++description: |
++  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
++  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
++
++properties:
++  compatible:
++    enum:
++      - ams,as7343
++
++  reg:
++    description:
++      I2C address of the device (0x39).
++    maxItems: 1
++
++  interrupts:
++    description:
++      Open drain output active low interrupt pin.
++    maxItems: 1
++
++  vdd-supply: true
++
++  led-max-microamp:
++    description:
++      The driver current for the external LED connected to the LDR pin.
++    minimum: 4000
++    maximum: 258000
++    multipleOf: 2000
++    default: 12000
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++
++additionalProperties: false
++
++allOf:
++  - $ref: /schemas/leds/common.yaml#
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        multispectral-sensor@39 {
++            compatible = "ams,as7343";
++            reg = <0x39>;
++            interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
++            vdd-supply = <&vdd_regulator>;
++            led-max-microamp = <14000>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 04fa5322d9f7..8cf4e1635053 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1430,6 +1430,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
+ F:	drivers/iio/light/as73211.c
  
- static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
--			struct folio *folio, loff_t pos, unsigned int len,
-+			struct inode *inode, pgoff_t index,
- 			block_t *blk_addr, bool *node_changed)
- {
--	struct inode *inode = folio->mapping->host;
- 	struct inode *cow_inode = F2FS_I(inode)->cow_inode;
--	pgoff_t index = folio->index;
- 	int err = 0;
- 	block_t ori_blk_addr = NULL_ADDR;
- 	bool cow_has_reserved_block = false;
- 
--	/* If pos is beyond the end of file, reserve a new block in COW inode */
--	if ((pos & PAGE_MASK) >= i_size_read(inode))
-+	/* If index is beyond the end of file, reserve a new block in COW inode */
-+	if (((loff_t)index << PAGE_SHIFT) >= i_size_read(inode))
- 		goto reserve_block;
- 
- 	/* Look for the block in COW inode first */
-@@ -4428,6 +4426,61 @@ static int prepare_large_folio_write_begin(struct inode *inode,
- 	return 0;
- }
- 
-+static int prepare_large_folio_atomic_write_begin(struct inode *inode,
-+		struct address_space *mapping, struct folio *folio, loff_t pos,
-+		unsigned int len)
-+{
-+	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-+	size_t ori_off = offset_in_folio(folio, pos);
-+	pgoff_t start, end, index;
-+	int err = 0;
++AMS AS7343 DRIVER
++M:	Chang Yu <marcus.yu.56@gmail.com>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
 +
-+	len = min_t(unsigned int, len, folio_size(folio) - ori_off);
-+
-+	if (!f2fs_ffs_find_or_alloc(folio))
-+		return -ENOMEM;
-+
-+	/* Inline data must have been converted before reaching here. */
-+	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
-+
-+	start = folio->index + (ori_off >> PAGE_SHIFT);
-+	end = folio->index + ((ori_off + len - 1) >> PAGE_SHIFT);
-+
-+	for (index = start; index <= end; index++) {
-+		block_t blkaddr = NULL_ADDR;
-+		bool node_changed = false;
-+		size_t off = (index - folio->index) << PAGE_SHIFT;
-+
-+		err = prepare_atomic_write_begin(sbi, inode, index,
-+						&blkaddr, &node_changed);
-+		if (err)
-+			return err;
-+
-+		if (f2fs_ffs_test_blk_uptodate(folio, index))
-+			goto balance;
-+
-+		if (blkaddr == NEW_ADDR) {
-+			folio_zero_segment(folio, off, off + PAGE_SIZE);
-+			f2fs_ffs_mark_subrange_uptodate(folio, off, PAGE_SIZE);
-+			goto balance;
-+		}
-+
-+		if (!f2fs_is_valid_blkaddr(sbi, blkaddr,
-+					   DATA_GENERIC_ENHANCE_READ))
-+			return -EFSCORRUPTED;
-+
-+		err = f2fs_submit_page_read_sync(inode, folio, index,
-+						blkaddr);
-+		if (err)
-+			return err;
-+balance:
-+		if (f2fs_balance_fs_folio_locked(folio, mapping, node_changed))
-+			return -EAGAIN;
-+	}
-+
-+	return 0;
-+}
-+
- static int f2fs_write_begin(const struct kiocb *iocb,
- 			    struct address_space *mapping,
- 			    loff_t pos, unsigned len, struct folio **foliop,
-@@ -4510,35 +4563,25 @@ static int f2fs_write_begin(const struct kiocb *iocb,
- 	blen = min_t(unsigned int, len,
- 		     folio_size(folio) - offset_in_folio(folio, pos));
- 
--	if (f2fs_is_atomic_file(inode))
--		err = prepare_atomic_write_begin(sbi, folio, pos, len,
-+	/*
-+	 * Flush the cached IO of this folio and make sure it is stable
-+	 * before touching it, especially for the large folio prepare
-+	 * below which reads and updates subpage states.
-+	 */
-+	f2fs_folio_wait_writeback(folio, false, true);
-+
-+	if (f2fs_is_atomic_file(inode) && !folio_test_large(folio))
-+		err = prepare_atomic_write_begin(sbi, inode, folio->index,
- 					&blkaddr, &need_balance);
- 	else if (!folio_test_large(folio))
- 		err = prepare_write_begin(sbi, folio, pos, blen,
- 					&blkaddr, &need_balance);
--	if (err)
--		goto put_folio;
--
--	if (need_balance && !IS_NOQUOTA(inode) &&
--			has_not_enough_free_secs(sbi, 0, 0)) {
--		folio_unlock(folio);
--		f2fs_balance_fs(sbi, true);
--		folio_lock(folio);
--		if (folio->mapping != mapping) {
--			/* The folio got truncated from under us */
--			folio_unlock(folio);
--			folio_put(folio);
--			goto repeat;
--		}
--	}
--
--	f2fs_folio_wait_writeback(folio, false, true);
--
--	if (folio_test_large(folio)) {
--		err = prepare_large_folio_write_begin(inode,
--					folio, pos, blen);
--		if (!err)
--			return 0;
-+	else if (f2fs_is_atomic_file(inode))
-+		err = prepare_large_folio_atomic_write_begin(inode,
-+					mapping, folio, pos, len);
-+	else
-+		err = prepare_large_folio_write_begin(inode, folio, pos, blen);
-+	if (err) {
- 		if (err == -EAGAIN) {
- 			f2fs_folio_put(folio, true);
- 			goto repeat;
-@@ -4546,6 +4589,14 @@ static int f2fs_write_begin(const struct kiocb *iocb,
- 		goto put_folio;
- 	}
- 
-+	if (f2fs_balance_fs_folio_locked(folio, mapping, need_balance)) {
-+		f2fs_folio_put(folio, true);
-+		goto repeat;
-+	}
-+
-+	if (folio_test_large(folio))
-+		return 0;
-+
- 	if (blen == folio_size(folio) || folio_test_uptodate(folio))
- 		return 0;
- 
+ AMT (Automatic Multicast Tunneling)
+ M:	Taehee Yoo <ap420073@gmail.com>
+ L:	netdev@vger.kernel.org
 -- 
-2.43.0
+2.56.0
 
