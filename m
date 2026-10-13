@@ -1,78 +1,125 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAC84B95BA;
-	Tue, 13 Oct 2026 10:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DB43E024B;
+	Tue, 13 Oct 2026 10:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885661; cv=none; b=r+YN/k+bFfLqpjarzSl3kxKiUVSiBh9alsPGtcVAWqaFymW3Fio9n1eqtr5iNd3nEAZFLMlgrkTRQhbtLxiOpKgynNXxHBEdR/ems1ZZQ9dqMlr2ZnbeAMUMh3F3SpjtCdanhoj958jNvFf5+6m0+GvYjEjvuBz0h0g9kyas74g=
+	t=1791885709; cv=none; b=metvPdN2YIExr2fRd17lWShLd7RNU5S/Cs+O6MElcGBAjTpdPjZnM5H7QktUUIYXpawPCXM+CsBxMmrKebQH53SDdj+KcUL2L5gTxpOeDE8Y97+A707JiukO94uFWym8jAaEqKBfCeHVc53Mka47haNSCaI1K/zAC0byZk5eZb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885661; c=relaxed/simple;
-	bh=34PV9aRPL8++UvZiKLlB0IHp9ROPzllhaljnTIs2kZA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=arGDTVCdSMqT9WOwFvnUvpy54vqd3rZoxXueb2rguQh0K1Rh9KMlgW1Yo7P8nM/hj5D0c5a5yUNdRsit72eQjhiL25cA34s7fdeTcSPoOV0wobRbNl/2hdStQHz49iLxlBWsc2Nktdzpfaq62jYof5hVR0IwzMW/ywqVx/mXmDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=x6xAKjC0; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791885709; c=relaxed/simple;
+	bh=bSqWRS+oNbzfGzSTqwVOAZcthxcUCgPbR4fGQEtmJ04=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pl67zvi+7kmmZALCOSHHuKcEGDy7rfoZkGKJuKrUdgGbVuXE+x2Z71R94Y3m8AxPHZPYZwdhe4yy2Uh2cecMRodK5AvkUsFE4XgKI7k7R7HcgPamdf7HTIRtIDH18oUm3ol6AuFXqM7kk2gM8NcEzgDjgnUIvh0cszwedE7cp9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jk06kKyG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="x6xAKjC0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791885660; x=1823421660;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=34PV9aRPL8++UvZiKLlB0IHp9ROPzllhaljnTIs2kZA=;
-  b=x6xAKjC0kI1kUB9Cn/1219uHHX0Zvq9jl/aOIHgHK4YikpQZIWTg1FTB
-   gWOjRO7wTRqB+svASvVXK4HltyBfORG9q2lc4ARS9UL+KQim7koyjHZS0
-   kB0pm59REMTMROwtS50AqR7TIDSIPGdU2FnBs/IiR/KZT1UvSFHMDAwOD
-   q1wUvKhjJahchN+hdSYOlbfdZKDnNIlEAncrwVAaL971stvApuk/Wb6Bp
-   UyP6f/1ULtrY/8I4O7FZb/drOwK9FllPHi+xPzuwEsUyNmYJQ1xhCVqHj
-   oKlZusEW8kMcD2J5ybY4/i7V6PKNIVrFeFnNEaghYMxopDlbG4ikRnCCw
-   g==;
-X-CSE-ConnectionGUID: v4vybxodQ5mvXZ+oKXGkhQ==
-X-CSE-MsgGUID: maPyYGMyR/mAth8O89wZcQ==
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="64951986"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 Oct 2026 03:00:59 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 13 Oct 2026 03:00:58 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 13 Oct 2026 03:00:56 -0700
-Date: Tue, 13 Oct 2026 12:00:55 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: David Yang <mmyangfl@gmail.com>
-CC: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime
- Chevallier <maxime.chevallier@bootlin.com>, Stanislav Fomichev
-	<sdf@fomichev.me>, Jacob Keller <jacob.e.keller@intel.com>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net 07/10] net: ethoc: move setting of netops to fix crash
-Message-ID: <20261013100055.nof4qy3ssjgprtd4@DEN-DL-M70577.microsemi.net>
-References: <20261008022656.3592191-1-mmyangfl@gmail.com>
- <20261008022656.3592191-8-mmyangfl@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jk06kKyG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BE41F000FF;
+	Tue, 13 Oct 2026 10:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791885708;
+	bh=B3KRNL7AZbCA4kJkWYYfzsHXsy+q+1VNr95bneYpC6w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Jk06kKyGuoFy0AuuOAsyqvfTgqMKECiFMOf1bs2MPbwGXZieDzgOQAQs2UNXxvD88
+	 8vMjHuhX9elbcatCkfpq1iYO9Np4DoLH6Y8+hQWMOVPS/JzNMfqaLfN+erUKJZuOlL
+	 aBFVCgFdlHJlCi8o2Uyy5/d0uoy8n+RjPR2Ddzeh8o4Qv+6SIqKbWKHx1N0y9tAUNi
+	 Z1V0GueI2c/3mAJBgZXeMwHQqGc0zo1BJhX0Kvm3xvtURuT5tzNN72V8TeaI3eXiMz
+	 wzH3ZK+ZjkC8SG9cJHaFoKYh14U+EWcNNMIwRb8lPzirQrJeawfxJfCrkZ4dCbDDV7
+	 +Df3VL8Up+mXg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xGZKL-00000002IE3-2eKc;
+	Tue, 13 Oct 2026 10:01:45 +0000
+Date: Tue, 13 Oct 2026 11:01:44 +0100
+Message-ID: <86wlrl2a2f.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and DISCARD
+In-Reply-To: <as3_NKT20MNdqaJR@kernel.org>
+References: <20261013081646.933312-1-fuad.tabba@linux.dev>
+	<as3_NKT20MNdqaJR@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261008022656.3592191-8-mmyangfl@gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, andre.przywara@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, tabba@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-> ethoc_probe() calls ethoc_mdio_probe(), which connects the PHY,
-> before netdev->netdev_ops is assigned. phy_attach_direct() ->
-> phy_link_topo_add_phy() reads dev->netdev_ops through
-> netdev_need_ops_lock() since the commit in question, so probing crashes
-> with a NULL pointer dereference when CONFIG_NET_SHAPER is enabled.
+On Tue, 13 Oct 2026 10:51:48 +0100,
+Oliver Upton <oupton@kernel.org> wrote:
 > 
-> Assign netdev_ops before the PHY attach, as was done for emac in commit
-> 7c9f391ec89c ("net: emac: move setting of netops to fix crash").
+> On Tue, Oct 13, 2026 at 09:16:44AM +0100, Fuad Tabba wrote:
+> > Hi folks,
+> > 
+> > Changes since v1 [1]:
+> >   - Dropped the second mapping of an LPI at MAPTI, instead of keeping a
+> >     doubly mapped LPI out of GICv4 forwarding. (Marc)
+> >   - Keyed that check on whether an ITE maps the LPI, not on whether its
+> >     vgic_irq exists.
+> >   - Added a patch that makes DISCARD remove the pending state. (Marc)
+> > 
+> > Two fixes to the ITS emulation. The first stops a guest from mapping
+> > one LPI from two events, which can oops a GICv4 host when the VMM then
+> > routes an assigned device's MSI to the second event. The second makes
+> > DISCARD remove the LPI's pending state, as the spec requires.
+> > 
+> > Tested on QEMU, which emulates a GICv4 ITS. A local reproducer with two
+> > vCPUs DISCARDs an LPI that's pending in the other vCPU's list register.
+> > On rc3, and with patch 2 but without its halt, the guest still takes
+> > the LPI. With the series applied, it doesn't.
+> > 
+> > Based on Linux 7.3-rc3 (fd73f4a665989).
+> > 
+> > Cheers,
+> > /fuad
+> > 
+> > [1] https://lore.kernel.org/all/20261012084743.2228612-1-fuad.tabba@linux.dev/
+> > 
+> > Fuad Tabba (2):
+> >   KVM: arm64: vgic-its: Don't map an LPI from more than one event
+> >   KVM: arm64: vgic-its: Remove the pending state of a discarded LPI
+> 
+> Looks good. As all of these VGIC fixes depend on reliably synchronizing
+> hwstate I'll assume Marc will apply this patchset after his own series.
 
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Yeah, I now have a series that has the counting pause, your single
+vcpu pause (fixed to DTRT), and the LPI disabling fix. Patch #2 of
+this series can probably make use of the single-vcpu stunning.
+
+As for the OUTSIDE_GUEST discussion, I've had a long discussion with
+Will where we reversed engineered the synchronisation requirements,
+and concluded that there was nothing to fix on that front (the logic
+is incredibly subtle and counter-intuitive, but overall sound). This
+patch is therefore dropped.
+
+I'll post that today, and we can assemble a series.
+
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
