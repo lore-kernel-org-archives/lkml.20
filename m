@@ -1,89 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl [85.128.243.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA0A51FCDD;
-	Tue, 13 Oct 2026 16:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CF151DE15;
+	Tue, 13 Oct 2026 16:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.128.243.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910226; cv=none; b=olFnjCjvvnVRgbKg6EKb4PRFQU34eml9xoe3oq0A43nGh3IBmZcKZyLTHt6Qix2xwqrzvlJlPbQF2S0BOZ8jOjY3QBJzuUjys3WARrrw0aL+lWJBWWM/Xi4ndK+x2F+Nu2gu35XSEwvYN/HaphZFdLIq7YIPhQLuDHmPoQNxKRQ=
+	t=1791910237; cv=none; b=ZBRERfLS1gdfIGsVnG09v9jUQhW3N1cCF3OIRRub09eoTa1E8W4v4T74x1xNMpO8iVPyTGpBmN+a89yIA9+TG31uSyAt7x1pyFVTIG0t9ZmHh4fMY4ucR+KH8wXALwuZJEY3yUFk83uX6gSCfuEfOwZxJonmmNFSyU2WwTSavKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910226; c=relaxed/simple;
-	bh=/lYplHdq3xWTb81t8/N0Bo8BBdDh5vWAuANi0GAaWz0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eCL/rW4tjfdc7iRYagkXOpIoo+A/KG8q04wFYJZLxxRanQRuhjS1tPDHQLefFZlsE0BwxyA0e+XSzbzgAX308YfoHCcvob+otw+jC79/82luEc98VmiI7JnZDVrMdrqmhPxe9Bq9029QFF5u4jttoGZs5y9UoAtbMziyTTXY6Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ykdjr2IJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791910237; c=relaxed/simple;
+	bh=Bse3v3aUReRKkjZOVkof+Rdh5eQLC+3BQAjNGbp2Qa4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nuaKxYpSBx7FvWiGeHwFq7o8BLzw1ZRMxCBphoYOfQCr7f6jLxKshrkAf3EFHI6IDle2r6WP1TVLGyBYJWGDSRj+Sv+8dn/DfsgEqVgx1NV3HNanztcGOa2kQc+dpDdKBTZjFiTe+uDWDdhVdOnlxN27xYRJrIEyg8hl/hHXDHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net; spf=pass smtp.mailfrom=asmblr.net; dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b=N+CP4Rpn; arc=none smtp.client-ip=85.128.243.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmblr.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ykdjr2IJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69661F000FF;
-	Tue, 13 Oct 2026 16:50:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791910225;
-	bh=5tj3tf7AZ1i5KFO69CyARfpXilj9EC0fq+TYKANGurE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ykdjr2IJL2wc+gHvAMfVn8CkXgW60VucB6bBksAy7d+YQzUnclHbOXdwndRyuYIEh
-	 //vgZ6c6zTrksUq9aH6qY8jKv0U9xh1HnasTICXvrhmA4YzICzF5r2ta8M2QYfjIyD
-	 rREqXkE3kZ1fJmlA0fPJFHeW2TS9Y/L7lrcA7NGgkFBy5U9fGyeBoIRYu/M2/q0/Gh
-	 gZT10ij+suCgszEqLocYkbX4yIFFnY0XCd2piqD+7GcBpNk4R5JvY9TKvfG/GXOskr
-	 DD6AMX0jMx+e3yRUhDQ+8KCwPktHPZ/91/k3ZOD51GDWJ4EDyIjMzIqE72auvM83GE
-	 ITAdPW5Q0tRxg==
-Date: Tue, 13 Oct 2026 17:50:20 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Helge Deller <deller@gmx.de>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next Mailing List <linux-next@vger.kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: linux-next: manual merge of the fbdev tree with the mm tree
-Message-ID: <as5hGf0IS-LccM0_@gremlin>
-References: <as5bwyKpGQaBZ3CO@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b="N+CP4Rpn"
+X-Virus-Scanned: by amavisd-new using ClamAV (15)
+X-Spam-Flag: NO
+X-Spam-Score: 3.474
+X-Spam-Level: ***
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
+	s=1706450368.internal; t=1791909783;
+	bh=6DGDy3S1nheW0M1w5J8nM3L5079YPGJJ2rrmIz0yFo4=;
+	h=From:To:Cc:Subject:Date;
+	b=N+CP4RpntsGsuMyZlx96/6F2RsK2dL5ne6Z6EXgd7Ne1vugfDnkkbztzVoqWZiDrg
+	 UESOpgkJiIPQ/ctBOqQiySEEU7BZUDdAtDSU2ckuyodlNfSAMBTJsIvWxnpBpkVOIo
+	 BPMnZ5iveCebFJoc8KRGHViG5onyutx5aQdWncz8/NqHHfMOJDwm35IgYpJ+66mzXk
+	 5Re9HYcvpshjPXTjrnRBt5h9YA+OhyeqVNuH42Quwfo9hj9+IupTHRnPfqz8AfhBXN
+	 mpivPgl1LgGGVCdMjpx69FyIMCzRjwFonFmHF15f6lku+L6KRzmi4LFP09WL0NMx2T
+	 4Cl4wsfOE+pBg==
+Received: from milkyway (91-150-221-36.dynamic.play.pl [91.150.221.36])
+	by server753313.nazwa.pl (Postfix) with ESMTP id CBCF41BDDE7;
+	Tue, 13 Oct 2026 18:43:03 +0200 (CEST)
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
+Subject: [PATCH] ALSA: pcm: Fix driver_tstamp value reporting
+Date: Tue, 13 Oct 2026 18:42:56 +0200
+Message-ID: <20261013164256.4949-1-amade@asmblr.net>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as5bwyKpGQaBZ3CO@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 05:26:43PM +0100, Mark Brown wrote:
-> Hi all,
->
-> Today's linux-next merge of the fbdev tree got a conflict in:
->
->   drivers/video/fbdev/ssd1307fb.c
->
-> between commit:
->
->   d4488917e79c7 ("fbdev: defio: assert FBINFO_VIRTFB, drop VM_IO, add VM_MIXEDMAP")
->
-> from the mm tree and commit:
->
->   81ae1f9a6c850 ("fbdev: ssd1307fb: check for fb_deferred_io_init() error")
+In some cases (system32 and compat64) due to incorrect assignment wrong
+value is being reported. Fix it.
 
-Wow a conflict between two of my patches I have literally no excuses here :))
+Fixes: 3ddee7f88aaf ("ALSA: Avoid using timespec for struct snd_pcm_status")
+Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
+---
+ sound/core/pcm_compat.c | 4 ++--
+ sound/core/pcm_native.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-> diff --cc drivers/video/fbdev/ssd1307fb.c
-> index db61d710fccb0,8fd96c37ee1ab..0000000000000
-> --- a/drivers/video/fbdev/ssd1307fb.c
-> +++ b/drivers/video/fbdev/ssd1307fb.c
-> @@@ -767,9 -767,11 +767,13 @@@ static int ssd1307fb_probe(struct i2c_c
->   	info->fix.smem_start = __pa(vmem);
->   	info->fix.smem_len = vmem_size;
->
->  +	info->flags = FBINFO_VIRTFB;
->  +
-> - 	fb_deferred_io_init(info);
-> + 	ret = fb_deferred_io_init(info);
-> + 	if (ret) {
-> + 		dev_err(dev, "failed to init fb deferred io: %d\n", ret);
-> + 		goto fb_defio_error;
-> + 	}
->
->   	i2c_set_clientdata(client, info);
->
+diff --git a/sound/core/pcm_compat.c b/sound/core/pcm_compat.c
+index 55ecf87586c4..359197aa6076 100644
+--- a/sound/core/pcm_compat.c
++++ b/sound/core/pcm_compat.c
+@@ -219,8 +219,8 @@ static int snd_pcm_status_user_compat64(struct snd_pcm_substream *substream,
+ 		.audio_tstamp_data = status.audio_tstamp_data,
+ 		.audio_tstamp_sec = status.audio_tstamp_sec,
+ 		.audio_tstamp_nsec = status.audio_tstamp_nsec,
+-		.driver_tstamp_sec = status.audio_tstamp_sec,
+-		.driver_tstamp_nsec = status.audio_tstamp_nsec,
++		.driver_tstamp_sec = status.driver_tstamp_sec,
++		.driver_tstamp_nsec = status.driver_tstamp_nsec,
+ 		.audio_tstamp_accuracy = status.audio_tstamp_accuracy,
+ 	};
+ 
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index f774358629bb..fcd3594e4bdf 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -1206,8 +1206,8 @@ static int snd_pcm_status_user32(struct snd_pcm_substream *substream,
+ 		.audio_tstamp_data = status64.audio_tstamp_data,
+ 		.audio_tstamp_sec = status64.audio_tstamp_sec,
+ 		.audio_tstamp_nsec = status64.audio_tstamp_nsec,
+-		.driver_tstamp_sec = status64.audio_tstamp_sec,
+-		.driver_tstamp_nsec = status64.audio_tstamp_nsec,
++		.driver_tstamp_sec = status64.driver_tstamp_sec,
++		.driver_tstamp_nsec = status64.driver_tstamp_nsec,
+ 		.audio_tstamp_accuracy = status64.audio_tstamp_accuracy,
+ 	};
+ 
+-- 
+2.56.0
 
-LGTM thanks :)
-
---
-Cheers, Lorenzo
