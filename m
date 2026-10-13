@@ -1,90 +1,214 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B86DE471407;
-	Tue, 13 Oct 2026 16:23:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8445515970;
+	Tue, 13 Oct 2026 16:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908607; cv=none; b=hIz17dCtPS0mwkW3o6kMw6z8ERPe+9FsUJ/gMkhl61TDxx8n3u8nVH3OVFkj+C8mySprhRV/vy75GfpQnScqKDDeBr1nU1I6MdEPsdplpKa7xMXwPUp/tBsGTuL7CDtvc35+E1cnI0KV7ny6FnOQvbP9x3LLvRia70sP3CAf2mw=
+	t=1791908661; cv=none; b=UAMyniA/uWiZrKGIRuTIVdsu6o69O0ceXIW4qDTu2tnBG0Oz2N+OnmbflvKHyPa4fqMQXyf772dT33VOgT843mHfCF8bqL2Ho1HadCNQ5pOppXD4Cuh6swA4lHwgO1TkYIZTrb8j0fF0m6oKGA4c51wpC2PvKn5yx0UdyCTquz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908607; c=relaxed/simple;
-	bh=KjKzlUft5xNV3o/eqcbVESlWEYwfRH38VPCouMzjfIs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iWg231IYn5U9y7Qq7Va24KlQ2GnsFuW4sbIUBU/sp2F1Xq7+OQ+lSnsgMXlr9LRdBabdgQeu3k3LtQ+cyLOWjVGuuR+FVEzIRxjmgH8hVq5IrWwLZMJP7k9z/fOBagyKY10MYF3uWCIvy9DoCVlcKFuy1nBUgK23dhxm7FMwO2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=R7FsTosr; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791908661; c=relaxed/simple;
+	bh=/mEx8vdFcfI3hLMAtaYNjZl+5y7yaZRJJk6u/Lg1E6A=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BeCm0caVRXfNY2AXCDOO4pYJEWBkI3xLGf8ENIM2FIp/aEGQaPTKMAk7npLHwmoIyx33NfqDTgDcGA+i1v/Nnjm24eQfqwngniyqGjJao/p3puUpYj9cudGjrja2CFEeDtJq2/CnofNEN1ZYe/49sSKeIRjrncDpiGzI5DCMjj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jtZ4ut8F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="R7FsTosr"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D03EB169C;
-	Tue, 13 Oct 2026 09:23:21 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 295413F871;
-	Tue, 13 Oct 2026 09:23:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791908605; bh=KjKzlUft5xNV3o/eqcbVESlWEYwfRH38VPCouMzjfIs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=R7FsTosr3Xgh6POSYmp6YKYdBHjOI4Eg3ZXseaXZo+5lMCpZk3B5wCT84+LhzPjcG
-	 Z4sArXt+D+iIqYMMqy2k7kM/w+MGjOhsYm47G0CmeOIz7pcrnKDzflot5kGo1nPOFl
-	 RaehSl84mJ5SsiVj/EQ8KwwA5+bi2VSFiM7Tbbwo=
-Message-ID: <4d2a05c3-f7f6-4348-a3b4-c8f3ffa79b6c@arm.com>
-Date: Tue, 13 Oct 2026 17:23:21 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jtZ4ut8F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9CFC1F000FF;
+	Tue, 13 Oct 2026 16:24:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791908660;
+	bh=awofmRGa51mWfxvkSwx2u56skeAV3P8MmfNnS2lWxu0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jtZ4ut8FeIVqhdA0zFO0OZB2I/jyr+koVsoBc+speykIcENvqEJXENgarRat7TpZt
+	 U53jry6971Ptn4euEfIGMOhVnpMt2O7TD3p04w4qeKGHwbOteugDTG2PR3k7iDXVUx
+	 STeWzjjGNk2v/V6PVKM/7VHzuQlvZcw5EqGvEuKb2ugqRsoNTgrLZqQwMj2m5IpRLK
+	 nosztYQQrB4SDltmGmCMYGtn+VEeQkfHFXWCwTiYBBM8mu1aAAV58fjEeW1zqsHZ6C
+	 xoXztTAfmC4kbXg3UaEW2OFqO9ioaaX82/XIXJ0EN+wE7y4fjPO9dJGiYT/+EVpW0J
+	 TIJn286JGWDJA==
+Subject:
+ Re: [PATCH net v2] tipc: fix broadcast sender hang on last acker departure
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: tung.quang.nguyen@est.tech, jmaloy@redhat.com, davem@davemloft.net,
+ kuba@kernel.org, edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ ying.xue@windriver.com, netdev@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 13 Oct 2026 16:24:19 +0000
+Message-ID: <179190865919.434549.2450236888091417368@kernel.org>
+In-Reply-To: <20261012153357.1863316-1-bsdhenrymartin@gmail.com>
+References: <20261012153357.1863316-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 5/5] iommu/arm-smmu-v3: Wire up shared-SID STE
- ordering and feature gating
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Nicolin Chen <nicolinc@nvidia.com>, Peng Fan <peng.fan@oss.nxp.com>,
- Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Jean-Philippe Brucker <jpb@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>, Krishna Reddy
- <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
- Peng Fan <peng.fan@nxp.com>
-References: <20261011-smmu-shared-sid-v6-0-cb76b89dc612@nxp.com>
- <20261011-smmu-shared-sid-v6-5-cb76b89dc612@nxp.com>
- <aszfVNP6DGzWYdK0@shlinux89> <as1zR1wc7ERxvR1F@nvidia.com>
- <e8c22eb2-ed1f-47c7-b2ac-c56ead1cba8b@arm.com>
- <20261013124400.GI14213@ziepe.ca>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261013124400.GI14213@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 13/10/2026 1:44 pm, Jason Gunthorpe wrote:
-> On Tue, Oct 13, 2026 at 12:22:06PM +0100, Robin Murphy wrote:
->> If we're not going to support PASID for shared streams (which I suggest we
->> don't...) than we shouldn't strictly need to worry about CD tables anyway.
->> So rather than having to special-case CD table sharing for shared streams,
->> perhaps it might make sense to generalise back to a "default" per-domain CD
->> for non-PASID use, which can then get switched for the private per-stream
->> cd_table if and when a device does enable PASID?
-> 
-> If we have stared STEs then the group becomes the per-STE data
-> structure not the master.. We don't have any way right now to do that,
-> but it would make some sense for the group to store the shared CD
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-That would be precisely the aforementioned special case that I'd hope to 
-avoid. My point is that the CD represents the domain context, so we 
-really shouldn't have to have multiple copies of that per-device _or_ 
-per-group, _unless_ it is attached via a PASID, since in that case it 
-does need to be copied into a per-device CD table (since the per-domain 
-CD table was indeed the wrong move in hindsight).
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-So what I'm saying is that if we're going to make anything share CDs, 
-then ideally we should just make all non-PASID devices always directly 
-share the domain's own CD, then if we just enforce that any devices 
-sharing StreamIDs must be non-PASID devices, it should all work out, we 
-save some memory in the normal case, and never have to be concerned with 
-rewriting any STE with a different S1ContextPtr for the _same_ domain 
-except when enabling or disabling PASID for the (single) device owning 
-that STE.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks,
-Robin.
+- [Medium] The patch adds m->bc_pending so that only members counted for
+  the current replicast can reduce grp->bc_ackers, but it checks the…
+- [Low] The commit message gives the wrong reason why blocked writers
+  stay asleep, and it overstates when the blocking sendmsg() hang…
+
+--
+
+tipc: fix broadcast sender hang on last acker departure
+
+This patch restores *grp->open when the last member that owes a replicast
+ack is deleted. It also calls sk->sk_write_space() from tipc_sk_filter_rcv()
+when the group becomes writable again. A new per-member bc_pending flag
+limits the bc_ackers decrement in the delete path to members that were
+counted for the current replicast.
+
+> TIPC group broadcast senders are blocked while a replicast still has
+> outstanding member acks: poll(EPOLLOUT) only fires when
+> tsk->group_is_open, and writers keep re-sleeping on every unrelated
+> data-ready wakeup because tipc_group_bc_cong() keeps seeing
+> *grp->open == false (the default sk_sndtimeo is MAX_SCHEDULE_TIMEOUT,
+> so there is no bounded send timeout either).
+
+[Severity: Low]
+Is this description of the mechanism accurate? tipc_group_bc_cong() only
+writes *grp->open and never reads it:
+
+net/tipc/group.c:tipc_group_bc_cong() {
+	if (grp->bc_ackers) {
+		*grp->open = false;
+		return true;
+	}
+	if (list_empty(&grp->small_win))
+		return false;
+	...
+}
+
+Its return value depends only on grp->bc_ackers and the head of
+grp->small_win.
+
+> When the last outstanding acker departs before acking,
+> tipc_group_delete_member() decrements grp->bc_ackers but never
+> restores *grp->open, and the blocked senders are never woken.
+
+The old delete path already brought bc_ackers to 0 when the last owing
+member left. That member has bc_acked == S-1 and bc_snd_nxt == S+1, so the
+less() test matches.
+
+tipc_wait_for_cond() waits with woken_wake_function, which ignores the poll
+key, and tipc_data_ready() wakes every sleeper on sk_wq.
+
+So with group member events enabled, the sk_data_ready() after the leave
+event is delivered already woke the writer in tipc_send_group_bcast().
+tipc_group_bc_cong() then returned false and sendmsg() went on, returning
+EHOSTUNREACH if the group was now empty.
+
+The poll(EPOLLOUT) hang does look real in every case, because tipc_poll()
+only sets EPOLLOUT when tsk->group_is_open is true.
+
+The blocking sendmsg() hang seems to happen only when nothing wakes the
+writer after the deletion. One example is group member events being
+disabled. In that case TIPC_GRP_MEMBER_EVT is freed with deliver = false
+and sk_data_ready() is never called.
+
+The code change itself looks correct. Since this is tagged for stable,
+could the changelog describe the actual wakeup path and say when the
+sendmsg() hang occurs?
+
+> diff --git a/net/tipc/group.c b/net/tipc/group.c
+> index 74f6d3dac0784..e9c77f12c9819 100644
+> --- a/net/tipc/group.c
+> +++ b/net/tipc/group.c
+
+[ ... ]
+
+> @@ -340,9 +341,12 @@ static void tipc_group_delete_member(struct tipc_group *grp,
+>  	rb_erase(&m->tree_node, &grp->members);
+>  	grp->member_cnt--;
+>  
+> -	/* Check if we were waiting for replicast ack from this member */
+> -	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
+> -		grp->bc_ackers--;
+> +	/* If this member owed an ack for the current replicast and it
+> +	 * was the last one, restore the open state so blocked broadcast
+> +	 * senders can proceed.
+> +	 */
+> +	if (grp->bc_ackers && m->bc_pending && !--grp->bc_ackers)
+> +		*grp->open = true;
+>  
+>  	list_del_init(&m->list);
+>  	list_del_init(&m->small_win);
+> @@ -406,6 +410,8 @@ void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool ack)
+>  			m->bc_acked = prev;
+>  			ackers++;
+>  		}
+> +		if (ack)
+> +			m->bc_pending = tipc_group_is_receiver(m);
+>  	}
+>  
+>  	/* Mark number of acknowledges to expect, if any */
+> @@ -803,6 +809,7 @@ void tipc_group_proto_rcv(struct tipc_group *grp, bool *usr_wakeup,
+>  		if (acked != grp->bc_snd_nxt || m->bc_acked == acked)
+>  			return;
+>  		m->bc_acked = acked;
+> +		m->bc_pending = false;
+>  		if (--grp->bc_ackers)
+>  			return;
+>  		list_del_init(&m->small_win);
+
+[Severity: Medium]
+Should the GRP_ACK_MSG handler also check m->bc_pending before it
+decrements grp->bc_ackers?
+
+The new test in tipc_group_delete_member() assumes bc_ackers equals the
+number of members with bc_pending set.
+
+This handler still decrements bc_ackers for any member that passes the
+acked == grp->bc_snd_nxt and m->bc_acked != acked checks.
+
+Two kinds of member can pass those checks without having been counted:
+
+- Members that were MBR_JOINING or MBR_LEAVING when
+  tipc_group_update_bc_members() ran keep a stale bc_acked and get
+  bc_pending = false.
+- Members created after the replicast have bc_pending = false and
+  bc_acked = bc_snd_nxt - 1 from tipc_group_create_member().
+
+For both, a GRP_ACK_MSG carrying acked == bc_snd_nxt passes every check
+here.
+
+For example, with bc_ackers == 2 for counted members A and B:
+
+  ack from uncounted member X     bc_ackers 2 -> 1
+  B acks, or B is deleted         bc_ackers 1 -> 0, *grp->open = true
+
+A still has bc_pending == true and has never acked.
+
+Isn't this the case the commit message gives as the reason for adding
+bc_pending, where a non-counted member "could silently void a
+still-outstanding ack from a real acker"?
+
+A cluster peer can trigger this. It sends GRP_JOIN_MSG, which makes
+tipc_group_proto_rcv() create an MBR_JOINING member for any port. It then
+sends GRP_ACK_MSG with acked == bc_snd_nxt. I could not find a benign
+protocol sequence that ends up here.
+
+Would something like this close the gap?
+
+	if (acked != grp->bc_snd_nxt || !m->bc_pending)
+		return;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012153357.1863316-1-bsdhenrymartin%40gmail.com
