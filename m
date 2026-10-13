@@ -1,141 +1,84 @@
-Received: from mta0.migadu.com (out-220.mta0.migadu.com [91.218.175.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C1850AC16
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E0D5187D0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897299; cv=none; b=MgCO80nL4AyuJoA2ROSxvRNJLOOw7QG/bDu1qiVJVnQZBQgwO5M30EaFHiGXt3sYX2BlDmD4XaNNW81f+nrtA2NCQeF4TT7kEmNlN7vjQyr6fskDSrDo5p2SeNjnCV2oPsMqfTFbUCNkKS08nxRvqzmysQphZvQTLnbql1c0nuk=
+	t=1791897299; cv=none; b=ZPQHGrIAZHg95jlGHgWILegDDOn96BIb/o0o/ecIuN2yDGIBNTyAKxVvE8TaTNor38mMH/qSi34TQhQNzig8QlRZ+muqy2a1XAYOJDlcMNoFV2DLZ+MBBrbiWPPbaknjeG1+L/aVGIUsZLYylQa95igsEV9pg3NVxK9EN5sKFKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791897299; c=relaxed/simple;
-	bh=vBSg1QkKVy4BttTL6yPnGCNW6hVkILXIMHPxGW5nELA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eDt4k84EIRfsWxy3Z4znze/CKPQGoR+0lzbfKBBF6ao00MG2KSWdOAdQKY/CJnnBTjOm3i5Gt6ggZGtXMSMVxszfD3LKj+YYR6eXig4oWEh5hJofdUqw/NZfuSLtC50E5Bcnep6UEtCregCZCnVgb/xnA5WNnXTBQsgQHVHU/s0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WsU6N/hc; arc=none smtp.client-ip=91.218.175.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=0fV3ANaLM6I/JweRjyqGgPdr/O3IoIHM7sDBOsZsjFY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sKb40sk6wKyl+n9O8ale905du/wzEOdkDAVSteV7PU1REkDemZG/FEz8WvBGDiAbrWM8mL/cRiweTXpbILooHkZAoHxcRy1GVubQAmNROzORfoM6q6o5xamZl4Xi74OjIYfY1cFeOA2zWegZsTAd5xRPYXDsHoBvG4VLjfw2jDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooDT349h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WsU6N/hc"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vBSg1QkKVy4BttTL6yPnGCNW6hVkILXIMHPxGW5nELA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791897294; v=1; x=1792502094;
- b=WsU6N/hc2sC7uwnFSTAPvEc2meOej7IlBokFEtkZr0E2eZ9tAXGEGKLM7D+PiTfg5qRWzAHV
- FFyeQmYXM/uH7Dau5BMnp4q1jrcfcho5U+eg5Iwk1HS0rsdIsup8sa9lTkDGySG7l9AdnAiNb/O
- oTUKe8GoFXySefMAgnJ/q9Vc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 208741b0836346c2;
-	Tue, 13 Oct 2026 13:14:54 +0000
-X-Mizu-Trace-ID: 208741b0836346c2
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH RFC v3 7/7] mm/vmscan: pass scan_control to mm_vmscan_balance_pgdat_end
-Date: Tue, 13 Oct 2026 21:13:09 +0800
-Message-Id: <20261013131309.2790253-8-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261013131309.2790253-1-ridong.chen@linux.dev>
-References: <20261013131309.2790253-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooDT349h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5131B1F00893
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:14:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791897298;
+	bh=TyGH6GdHih1QQ8QFEiJNBr1trBQdTr947Zk5c3LahUQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ooDT349hExUcHsGFec+u0PeSnsNZZXt2KFtvc/LJC3jZE47c5q1wFDALeEwlcguUc
+	 T8S3jLCHxI1UjGYWNS3AUeZcNB8Dl1SMsD5FD+KBd9e/t0Q9vDYf9kWC+OOawerWYf
+	 zWW8DeAnCUtfo7gn3ScHXlil9zXGimui+r5oo0CAae/yb/FOXnBUhLTFhp+TkH7RSM
+	 DFtv1UpOLoa5TyiZwTaHBECY3n9wgcxG3xI318QCvtb2tVvpg4naRNHY7BYP9ubD52
+	 95BZg8q3dfZdAm02l+DEgIC5gn8sAqyhQVnAIMSCA0aPmbmd8uyLqOnrC6GwzEbLO2
+	 lXSx7OuAS9o2A==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba357a1929so2554656e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:14:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwwtUdiWZX7bQxdvtnBK1IvJ82JX5pLLOt5c/rtZ54m9S46f7zt+W9Tis9c/aAp57ZLAuZn1uwqHoXwsho=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1HL0MqqGhoWjZk95G2fXJF8r/G3F5IsTzkkmWJasJvhY+DuCm
+	9rwYb0LtUMTIKQjHcSultegUWxkXbwOjvmzy9QHXtlurTmm5WfM/dX4G6KuOon5sSVHCDoxxVzw
+	AKG+4RiiG8lQpOatysOYRYCZKiKfyufQ=
+X-Received: by 2002:a05:6512:3b0e:b0:5bc:b23c:f7f1 with SMTP id
+ 2adb3069b0e04-5bcde8d7662mr4490203e87.61.1791897296680; Tue, 13 Oct 2026
+ 06:14:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
+ <20261012225141.13683-1-aliamemis@disroot.org> <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
+ <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com> <20261013123055.46306-1-aliamemis@disroot.org>
+In-Reply-To: <20261013123055.46306-1-aliamemis@disroot.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 13 Oct 2026 15:12:51 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0j8G+H9kNbUEsjoBVMVQD3UcvpbxTVtZZM=CedS+EONsA@mail.gmail.com>
+X-Gm-Features: AclHuK9hBROyGubJc7w6LulOME4sELoZkzJ6owxrsFXl9zDy-hFQLKHX4hitTlk
+Message-ID: <CAJZ5v0j8G+H9kNbUEsjoBVMVQD3UcvpbxTVtZZM=CedS+EONsA@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
+ complete callback
+To: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, johannes.goede@oss.qualcomm.com, 
+	Len Brown <lenb@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
+	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
+	linux-pm@vger.kernel.org, regressions@lists.linux.dev, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ridong Chen <chenridong@xiaomi.com>
+On Tue, Oct 13, 2026 at 2:31=E2=80=AFPM Ali Ahmet Memi=C5=9F <aliamemis@dis=
+root.org> wrote:
+>
+> On Tue, Oct 13, 2026 at 01:58:15PM +0200, Rafael J. Wysocki (Intel) wrote=
+:
+> > An alternative might be to introduce an "exclusive" variant of
+> > acpi_evaluate_object() with built-in locking and use it in the cases
+> > that are known-problematic.
+>
+> An exclusive variant would have to be used on both sides here, for
+> _BIX/_BST and for the INT3403 _TMP, since it is \GTST in _TMP that
+> switches the page.  I can do that and test it the same way.
 
-balance_pgdat() passes sc.order and sc.nr_reclaimed to
-mm_vmscan_balance_pgdat_end as bare arguments. Pass the enclosing
-struct scan_control instead and read the fields out in TP_fast_assign,
-consistent with the other reclaim tracepoints. highest_zoneidx stays a
-separate argument: it is a balance_pgdat() parameter, and
-sc.reclaim_idx may differ from it by the time the end event fires.
+Sounds good.
 
-No functional change. The tracefs event format (TP_STRUCT__entry and
-TP_printk) is unchanged, so tracefs-based consumers are unaffected.
-BPF programs attached via raw_tp/tp_btf see the new TP_PROTO and need
-to be adjusted; tracepoints are not a stable ABI (see
-Documentation/bpf/bpf_design_QA.rst).
+> Should this patch still go in for the regression meanwhile?
 
-Assisted-by: LLM
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- mm/trace_vmscan.h | 9 ++++-----
- mm/vmscan.c       | 3 +--
- 2 files changed, 5 insertions(+), 7 deletions(-)
-
-diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
-index 96e41f444924..10b3cda1c435 100644
---- a/mm/trace_vmscan.h
-+++ b/mm/trace_vmscan.h
-@@ -124,10 +124,9 @@ TRACE_EVENT(mm_vmscan_balance_pgdat_begin,
- 
- TRACE_EVENT(mm_vmscan_balance_pgdat_end,
- 
--	TP_PROTO(int nid, int order, int highest_zoneidx,
--		 unsigned long nr_reclaimed),
-+	TP_PROTO(int nid, struct scan_control *sc, int highest_zoneidx),
- 
--	TP_ARGS(nid, order, highest_zoneidx, nr_reclaimed),
-+	TP_ARGS(nid, sc, highest_zoneidx),
- 
- 	TP_STRUCT__entry(
- 		__field(int, nid)
-@@ -138,9 +137,9 @@ TRACE_EVENT(mm_vmscan_balance_pgdat_end,
- 
- 	TP_fast_assign(
- 		__entry->nid = nid;
--		__entry->order = order;
-+		__entry->order = sc->order;
- 		__entry->highest_zoneidx = highest_zoneidx;
--		__entry->nr_reclaimed = nr_reclaimed;
-+		__entry->nr_reclaimed = sc->nr_reclaimed;
- 	),
- 
- 	TP_printk("nid=%d order=%d highest_zoneidx=%-8s nr_reclaimed=%lu",
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index b3278dbe47bf..561e14dd490c 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -7403,8 +7403,7 @@ static int balance_pgdat(pg_data_t *pgdat, int order, int highest_zoneidx)
- 	psi_memstall_leave(&pflags);
- 	set_task_reclaim_state(current, NULL);
- 
--	trace_mm_vmscan_balance_pgdat_end(pgdat->node_id, sc.order,
--					  highest_zoneidx, sc.nr_reclaimed);
-+	trace_mm_vmscan_balance_pgdat_end(pgdat->node_id, &sc, highest_zoneidx);
- 
- 	/*
- 	 * Return the order kswapd stopped reclaiming at as
--- 
-2.34.1
-
+No, it only addresses system resume while the same race may occur if
+user space reads the thermal zone temperature during a battery
+notification, for example.  All of that needs to be addressed.
