@@ -1,112 +1,152 @@
-Received: from h3cspam01-ex.h3c.com (smtp.h3c.com [60.191.123.56])
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02611332610;
-	Tue, 13 Oct 2026 05:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.191.123.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2B130ACE6
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791869915; cv=none; b=Mk1hYDAftF2ZeyKi1bU3FUvk8ol2ZVQfP3h9OCFhWwnSX9cSY4dEkNwuIKndOwgzjSJM3rcv5AiWHkx8nMygN2rlmWIK7WceF9Xnn+InPyjLrgKsad+/4KjzNQwh5IM4wufRH3At2EVCrzBLp4CD40/SGyYzauf7ESdgm4Hs2hw=
+	t=1791869961; cv=none; b=VcB2oxcSjsGVEOlj885NR2UBwwGl3F+uw8MFscTPov0O+dwOXXFV7SlA3zeZvXqtdRBAE9A3FO5p6h7FNaQ54nhzRCXu4YU8+bwLWN5TQKt4HfH0ltfwkyhQUthOEMfTyP5RF4juYqwwPnVcHI0k7bmKbxALsCiDIZa+p61bg2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791869915; c=relaxed/simple;
-	bh=1vn/HPBCED6S2v630LIYVmcP4wwBglCpoYfL8Y37MKU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uYXOzie3YTh37W03h9cf/lSiKwDDbBXCmMmsQAUruxs8AnBB+X8rrpXq1lmVNW0Eh0UBy2XV4SxvKSD8cKfbj1zyrPSBHmlq1ueXMjDdxf+iXxZQhvqWe/Be7nEmiTaI4XdCn6MOKKG7ioQGQNMzdvhHD8SWaqMD26L+JOWm6qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=h3c.com; spf=pass smtp.mailfrom=h3c.com; arc=none smtp.client-ip=60.191.123.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=h3c.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h3c.com
-Received: from mail.maildlp.com ([172.25.15.155])
-	by h3cspam01-ex.h3c.com with ESMTP id 69D5bt1B030486;
-	Tue, 13 Oct 2026 13:37:55 +0800 (+08)
-	(envelope-from lin.nan@h3c.com)
-Received: from DAG6EX09-BJD.srv.huawei-3com.com (unknown [10.153.34.11])
-	by mail.maildlp.com (Postfix) with ESMTP id DA74D2284EA2;
-	Tue, 13 Oct 2026 13:40:45 +0800 (CST)
-Received: from localhost.localdomain (10.142.164.48) by
- DAG6EX09-BJD.srv.huawei-3com.com (10.153.34.11) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.1258.27; Tue, 13 Oct 2026 13:37:54 +0800
-From: Nan Lin <lin.nan@h3c.com>
-To: <richard@nod.at>
-CC: <chengzhihao1@huawei.com>, <lin.nan@h3c.com>,
-        <linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
-        <wangxiaoqing@h3c.com>, <zhou.kete@h3c.com>, <stable@vger.kernel.org>
-Subject: [PATCH v2] ubifs: fix host inode TNC offset when deleting an xattr
-Date: Tue, 13 Oct 2026 13:29:53 +0800
-Message-ID: <20261013052953.1401741-1-lin.nan@h3c.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <mv5oa6u2.f135b439-8d58-4f22-b346-3aacaa66e9e4@nod.at>
-References: <mv5oa6u2.f135b439-8d58-4f22-b346-3aacaa66e9e4@nod.at>
+	s=arc-20240116; t=1791869961; c=relaxed/simple;
+	bh=d8oz8IfjHSSPFz6zRAoFmMxFVc/XqgQmfirLnRNRlSI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=d3F9jNhuBoaEe1TZ33+BDkMFGMolMlKubf5jZqeWdzevBCpPRjpaYEHsQzzwlP3UatA00rqLpSzB92Ykh2fNpve84DoLJtcd8hw5gOJJ5S6m/hpsz02GRFfqUeDBkhLjFbvQBmFIKJGkxQ6TOn+Qnqk3CArQv+N/RiFDFxc4m20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=dXDI1z/S; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="dXDI1z/S"
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 8B5EE3F28A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:39:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1791869952;
+	bh=d8oz8IfjHSSPFz6zRAoFmMxFVc/XqgQmfirLnRNRlSI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type;
+	b=dXDI1z/S0wu4AqrVPNcnQGokPvsSvhW2vbeejcazLdYYMAQ6KAH1DgvCGa4T2/HvF
+	 FyWHWgI+CA4n2IYv+gfVKSZSslBEQMOcXHgavQG8L0PnI+R0Wvz97WSOVOxGV2aNtW
+	 bxbWPv0KmR/pB0P0YD5a/9jfXUg5w0ygXOF4VpD3OfwzasJsOzo9kg0KEp+wCD0Kpc
+	 FuxNkDjcwItRsglzs0yG0ElLQz3JwitvAtiJD/+/HHaqrbmLeZQOGfRHsyg37uT1Um
+	 Priou/RWPpWkyoFWhiByzQPobZeeoLnqgne6ZtG0XYPTR5XNH72yIcaOcfr5H1vyDK
+	 hZIIBbk1EYmzH5GGZj3yb9n31pJp/4aT760cAKE2vQBLzr3XhlmxJ3jt1HW42yWGwj
+	 ZBmtdfXxGbjLcskoyvEZfqdMwPUFX07r+Yz82/Duhn9HGGQEer/ViCQRKkcFD33PNO
+	 GQokA5+kuyM0xxD/hNSp+X7BaU+kPGH9rzzs+ms1pzcofW2Ark6yNl1ajgxuv901s3
+	 x8HeUjrojfcu8wrpc2xQiiDXTO6mfzKovGFNSHot1lt0kjtEqSrzN6+UbH3SN8XWyw
+	 b5idl06egy+VNKK+9mRsBvPc323a4MyHEH8xTvu4ejSasVi/WV5Uz6E9xFSil1jRbX
+	 nFyvWaIa1q5YAlnODWYQd/64=
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48c50ed05abso2325276f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 22:39:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791869952; x=1792474752;
+        h=content-type:mime-version:organization:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d8oz8IfjHSSPFz6zRAoFmMxFVc/XqgQmfirLnRNRlSI=;
+        b=Qy/X1qP0GrZOwGdOBJTgoPmOK6hbH6UIGB8JGbbFBlv55RjqEQDejNKiTwXvDcBApU
+         lJy7D4RrZa/L3FGLUF769UbB9D7nNofF/6XfA1gKRTTA75DSLfTzNOolZcq+3ACjpWkV
+         Co0A0Ad/2qIQSwxo5kvBwlYqoJWGfVYVTN26rDoM+cJGWku2u6dhqLXk4fwiArwtOVaL
+         uAjMsBuuDky9nHVTdBmfmSU8at0JGsYwvIk7rWhLB8iQ38CcMVD0aITbhyUSY3k7cJkb
+         2r2RMmzjQKjjVXvnqjU4XtcSG8DpHouKIoCvdBbq9TtdKnnc+jwI3n2OnpzCSzRcMeek
+         8HYw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrKMj0cNOGWNM2hlxz6C+xVPGugVWizz4TdJluHbmSKFVW66w8fMGKSPiUtNsHNBw4cyiJSPimB7cn/og=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+XVhM9R9SSgGoQ0rBmB36iE4IFbdaFNiOud+gpgiDD61gbjZ0
+	L98F3lxdp4UvB3gVnFJUpBAfJKURisZUmisRiDRK2C2WSjUmcZnvhi6sMoUbcf2KR9yDDPvI+Oy
+	qRphpGHRHbg/trOdyFuCH0xEfKHey2/2RLuewqyTWKq+ouztvd/rkhDUQVlqIBtPIa9nbiIt85c
+	w9mntB8ySb08sjOw==
+X-Gm-Gg: AYBFou3xx86JuYp0eywQWlH6XNgi836Q9khtRjKtBwWejnRHg9zqLHeWFG2McBpG5jA
+	UPNTFm/7jtl+KrALvFWrEY7wcjgns+FTtHOOYF3wUp6gmtUmBy5j31B+Adetqpb+Bi09B9VSs6i
+	DWiQx7rr2jG4QVQaqlxcS/lBkXgdj6wjbujBpVhZgWqts4eTzJqzRQuySTx14YLegp4ie+NGHpR
+	kUoBIT+PmU05wPN6tNgIHzaI3RNGmXnehFqvkYk5Ro5K/fDMtonYPykDLaW5zn6WaJZVU0jysSd
+	PdOZ0Of+dujiuIEZnHOzLvm0/RwmN1cZO4p6wIOC1zrwLLUszy89w+Hy3CKxC8kNGk5Jfsm5Jdi
+	s/8chpEdnwIPLZVTwp5cPHglD/uSqMMPTPed9MQs6gOuABmguU8Ix
+X-Received: by 2002:a05:6000:288c:b0:487:73c:3f9 with SMTP id ffacd0b85a97d-48dbaae3908mr17887119f8f.22.1791869951962;
+        Mon, 12 Oct 2026 22:39:11 -0700 (PDT)
+X-Received: by 2002:a05:6000:288c:b0:487:73c:3f9 with SMTP id ffacd0b85a97d-48dbaae3908mr17887087f8f.22.1791869951510;
+        Mon, 12 Oct 2026 22:39:11 -0700 (PDT)
+Received: from smeagol.fritz.box ([81.221.225.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac36f9sm2977480f8f.36.2026.10.12.22.39.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 22:39:10 -0700 (PDT)
+Date: Tue, 13 Oct 2026 07:38:56 +0200
+From: Juerg Haefliger <juerg.haefliger@canonical.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+ <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hp-elitebook-ultra-g1q: Drop
+ omnibook-x14.dts include
+Message-ID: <20261013073856.40fc2cec@smeagol.fritz.box>
+In-Reply-To: <3hc574blvlfxelyvrki27dc3pjabf36vc3jh7muiisz7cjuvbd@qv5cjqvao6he>
+References: <20261008-dts-qcom-hp-omnibook-x14-cleanup-v1-0-9702f7c6f9a0@canonical.com>
+	<20261008-dts-qcom-hp-omnibook-x14-cleanup-v1-2-9702f7c6f9a0@canonical.com>
+	<3hc574blvlfxelyvrki27dc3pjabf36vc3jh7muiisz7cjuvbd@qv5cjqvao6he>
+Organization: Canonical Ltd
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BJSMTP02-EX.srv.huawei-3com.com (10.63.20.133) To
- DAG6EX09-BJD.srv.huawei-3com.com (10.153.34.11)
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:h3cspam01-ex.h3c.com 69D5bt1B030486
+Content-Type: multipart/signed; boundary="Sig_/b42gS_4XJSJ/_VJQENvUI3y";
+ protocol="application/pgp-signature"; micalg=pgp-sha512
 
-ubifs_jnl_delete_xattr() writes a group of three nodes: the xent, the
-xattr inode and the host inode. The host inode is packed at
-xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, but its TNC position is
-computed backwards as xent_offs + len - hlen. Since len includes the
-group's tail padding, ALIGN(hlen, 8) - hlen, the two differ whenever
-the host inode's inline data length is not a multiple of 8. This
-affects symlinks and device nodes.
+--Sig_/b42gS_4XJSJ/_VJQENvUI3y
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-The unaligned offset ends up in the on-flash index and the next mount
-rejects the index node, turning the filesystem read-only.
+On Fri, 9 Oct 2026 22:11:56 +0300
+Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
 
-Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-Cc: stable@vger.kernel.org
-Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Signed-off-by: Nan Lin <lin.nan@h3c.com>
+> On 26-10-08 20:34:46, Juerg Haefliger via B4 Relay wrote:
+> > From: Juerg Haefliger <juerg.haefliger@canonical.com>
+> >=20
+> > The EliteBook Ultra G1q is a different product from the OmniBook X14 th=
+at
+> > happens to reuse the same mainboard, not a variant of it. As such, it
+> > should not be a child of x1e80100-hp-omnibook-x14 but rather a sibling.
+> > Include the shared base platform dtsi to match the other OmniBook X14s.
+> >=20
+> > Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com> =20
+>=20
+> You are also enabling the some remoteprocs, so please mention that in
+> the commit message.
 
-Changes since v1:
- - compute the host inode offset into a new host_offs variable instead
-   of open-coding the offset (Richard Weinberger);
- - shorten the commit message.
+Done, v2 is on the list.
 
----
- fs/ubifs/journal.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+> With that fixed:
+>=20
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
-index 40a95a2fad50..0b2dae57e467 100644
---- a/fs/ubifs/journal.c
-+++ b/fs/ubifs/journal.c
-@@ -1858,7 +1858,8 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
- 			   const struct inode *inode,
- 			   const struct fscrypt_name *nm)
- {
--	int err, xlen, hlen, len, lnum, xent_offs, aligned_xlen, write_len;
-+	int err, xlen, hlen, len, lnum, xent_offs, host_offs, aligned_xlen,
-+		write_len;
- 	struct ubifs_dent_node *xent;
- 	struct ubifs_ino_node *ino;
- 	union ubifs_key xent_key, key1, key2;
-@@ -1915,6 +1916,8 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
- 		ubifs_wbuf_add_ino_nolock(&c->jheads[BASEHD].wbuf, host->i_ino);
- 	release_head(c, BASEHD);
- 
-+	host_offs = xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ;
-+
- 	ubifs_add_auth_dirt(c, lnum);
- 	kfree(xent);
- 	if (err)
-@@ -1943,7 +1946,7 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
- 
- 	/* And update TNC with the new host inode position */
- 	ino_key_init(c, &key1, host->i_ino);
--	err = ubifs_tnc_add(c, &key1, lnum, xent_offs + len - hlen, hlen, hash);
-+	err = ubifs_tnc_add(c, &key1, lnum, host_offs, hlen, hash);
- 	if (err)
- 		goto out_ro;
- 
--- 
-2.33.0
+Thanks for the review!
 
+...Juerg
+
+--Sig_/b42gS_4XJSJ/_VJQENvUI3y
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEhZfU96IuprviLdeLD9OLCQumQrcFAmrNw/AACgkQD9OLCQum
+Qrd9PQ/7BXmdRIOviHrj93ggZaLcFp1mBuCNCM20n21ieNbBOxsGpDgBvApeONYf
+huyp/oFfZ+xgQzludVksZREOEq7CexdstRC+/OWK7gL/mv4djo5GNDQA3RTq/CX6
+RdJIujt9sPbzPDe4PVenoKDEdSTMrvrsK9ET2S/Hd5lioV5adzZruoxbNybac/ms
+g1iU6yTqi3zZihE1CqdDL0JNtMtJTu1gawnqFEUtd/zg6QQIX8A5bLzdWubWugXv
+NF1zGvv0tgDedAbd1UIAftsig0UOTMOeHzU+CKgfT6s6bPXi55F/V2P5hcVGkEt8
+FU2KSj+ZuKY1L8D+sLIqfQ8g9rgHOp23kdW9UBQJ3oxCwuKidtY6+lrp958zq+6a
+zL6ujyRJd4tkcA2pgAmY4/QKe75sVVkkvSev96RdR4TFBPdJqfSN4JE6jDv1txYf
+AeM9q1KQlSxi307dO5uvPXGIasTbp8Qe5YGd6CvdvGhzCLu0Ronjv4E1oRpj7ENy
+lMcyPxdYcdMuTpGFBQlrWGYM9YcDZbj56p7Go2KqAn7+zw93vsKAuDVpvoy1E8gw
+JO1hR5oYvJTzCvP7b8/3pMFq8sQ3uCNH+H0yJrmJKBhzaYfxblP1PINgipH6C9/Y
+K6Rs5tR1Lddrbz4rVm01vO09QoZ8lJkyvAYmrZ6u8AcN09gSm98=
+=AR0I
+-----END PGP SIGNATURE-----
+
+--Sig_/b42gS_4XJSJ/_VJQENvUI3y--
