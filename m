@@ -1,369 +1,441 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0042A3D75A0
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791927020; cv=pass; b=NB9M3RU2J5hh0DTaf1QfNxLUn8/5Lpdl8dkjOCwOZjJTsH6qLz4Oq6c9YEn9hhinvX5UBDFGSHPJNXpOXBVd7h1R+oz6DlrBGwuBZb9ZFTkN3o5292fP6cN2Hbe0rzIjDsgg973BA22rkP8y9NdIp4HIKDEHHgaGDAZu7hOJbSw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791927020; c=relaxed/simple;
-	bh=OsXx4CTLUw54Zdm/PxkaDu/b9Zwkwqy+azWlL7ipEhY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eN4qIlDj8XnGY3L/YfhXQQxiOCGwv2Xsh2r2mFk3wR59YH6jaX8XnXwo9h4VJ74zUWMZURQa86iZPBh9XUhFtLNSUUtkZBE+ofNvZ1y5Ux+rFwC+1tK/EKymisoWpCN5iz3QutrzCXXcIXxwag0mfdPKOGqxDB8EO83uFfumhKo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=F/xyIlCU; arc=pass smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA1E551981
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:38:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791927510; cv=none; b=ebHR7OhOoIUra7QCc1Uai4dp8PHTQ0ESHHcB4oZl29vFON/DE2hgxH1g+edL9pwBypdihnj1sB8s24+Mhl2LxjcIqlcG6/d+qOgeslWF/eCh46cTBVt9lD/xQwpF+Okv958yhT7N68cjKgr0bvdY9d+olpYdEBKfXUhsbDwLrTM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791927510; c=relaxed/simple;
+	bh=GauCDosRfMAyI6XDTeWzknxxIvFg2fpqRU3ml+VK17g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LVg40C57mVuYjhDiNwK5KafGoFPIMgd/xdx/YVgTivkvCHuabScls3I1tH8o8xGroJ3sUBDaXC3E0mLufHwo8+0h2C5QKr5MQtIGqqyRvnqFBFjQ3GDZI/fWWqi6nEHy3oktUaqsQboy68Ah3eW+Y1MWwap8lGomPspVnjUvRzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=FGBWLZZn; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="F/xyIlCU"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5337c7b9937so940551cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:30:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791927016; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gK7vs0KvAFutqcN8L9ICIaNZInue61DSQXfX+SGsGvc9RHGWv1YLTMBfoxE0H7c0o3
-         tKa999195IZt5SA8LTggpQ0ZQ+KhdC8eDGNQr2SdnTlBS5wSnXbHsJUqjNcBMrAiyeBY
-         cn7WeQuQo39HVmC+elHr3b0a0UJLavD081UAoJfgy3LppMIvzMDuP7GNtL6vF/u6mt9B
-         2IxSDViy9051rsAW+WZyhh6QJLnQt2tDzti6Zfgj6tSc+vLK9czJ6UTru/HvxHSZqXhv
-         Q2nMLX+hJtLA3FiMyP+AD4uN/D5e/b/ukSq2ggzePSX7I4va4diYQNCWyOVsPIQMAD7w
-         vvMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JTFf6PciE2mPkxag6h7p3MDvMmr+qpAwgax67MZOwNM=;
-        fh=1bXrIEUgyFn3GnUhhbzdOwSqfuepZyw9tSWnd6eYxug=;
-        b=K2DJ8cYicONfIkpfrflwQaUTO1NJzKDQZ5rT+oHLutQ7NJle9cqf+4huhuDoOq09w5
-         xiF1vi4Tv3n7cZsL08AI2l7Y3o/MzidT9lEjQguF+xLTIL5LGF+b4o2hAkvmeaEgqEUF
-         oJAGoJC5txgS+ZEtGRRKTyK7b+L5d7JNakA4pUkJu4jCs73nWPV5igVFLIJ91GB7rL7i
-         GzRnADw4rxFjKY1NARKw6l9UWBgs60YuSvxRmA0a+U/Y+n3cPUFWnaDXOnEgl0qcDwgj
-         llswLxTiPDMIs8oS7R8ZiIG4kxdEghEGtVsrI4ooO+SXdaGNuV+PFpihq4vaYMJrjwjh
-         oIQg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="FGBWLZZn"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b06c0794cfso4217557b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:38:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791927016; x=1792531816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JTFf6PciE2mPkxag6h7p3MDvMmr+qpAwgax67MZOwNM=;
-        b=F/xyIlCUBbpPO99gIIcY34I1Hcrl/O70O7Q5aKrriyT8T1bO26X82r5AGDz7tv0yv8
-         ltVEjy3UHgfys7dfmIQe9+0WWgnzRy91WGdP88nYDn7BfLjyWmTMW3qZg2pFzq826bgW
-         iuZBZrbExMafM3N7B+SnyxiQzSK5ktOwpjUOs7i3t99Kgm0MORBfOnWPMJQtJka89sBq
-         LBBoNMMLibJCvXdDhs/IlsjLjfpdkvRNp/tuJLREAjuls/4dyUfjOpq/UVXJobVG4G71
-         gpbLV/s1PrOsm3kdUAnm5pMupTGum/FWAH7RFVZYLe5k9H2RrCgTGHEFrKIkuVJQfceV
-         J/Fg==
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791927506; x=1792532306; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P39BEHmXxYcjKeKQeIuHhJ0UPVpKaK0TOR42XQiDO7s=;
+        b=FGBWLZZnKEwlUcdjzYXJR0CPxVANav6HV0+rO47U7mjZ5jelFpI55/KTktTOOYvyrK
+         fO5OZNHJmCVnkkMpVXdI1AdmoSO8GQlgtIU72gb4W9eqimmJena0fODUcZRQ136ZKyyx
+         eUZPseQpJAPq6Oz8wBR1jhMITAxp45mLaqIr8KEoWbhcQLgKnca2q0DzTgjI+Z4fQZ6f
+         lgfxmwreQR4988JCFHvNpllSJGSQy9Sz6gKw4HWj2Oe7GL99kQQo+uxrLuQrF8B5NK83
+         5HFiG2wPcTz+gILnGU67DjnJm3D9kVXDVQDO/aX9rU5sXpWQ4Ayi2CAqffSWf8nyygs1
+         +dBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791927016; x=1792531816;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JTFf6PciE2mPkxag6h7p3MDvMmr+qpAwgax67MZOwNM=;
-        b=aFf/GNiSOxRiF7genYXZKudVuhK6ghBVGrTTjdhgICFOi/d4MOnZxmO5dUkerTZTNL
-         LUv4ojW0cQEgF0FKm8cV/Ym9q0DjGtJKTOtcbGn2ghqC30kejijFvj37nR4bVaXYPKyJ
-         MpRaogFtITFG1NtqJlxxGxnPHLAk8jxlubTGhxJneOBFVjDqn2o7U8YvtZuFPgeKnSIs
-         qmlQBMm02OPc9LuA1fqpkBcLClPjHz7Ykx4SvIiLj9huRKV8LSImX2n1D6YdPjeCG9jI
-         GJKD4NVZ5M3AtXpaehAbVgyQSHw0PztXyJjrGwErvEPnZU0/sbifJwXCpogJuMtVio8S
-         dazQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygjmip6zmqB8Rm+OW/B1rOoqi1RWcxs6cqCBFfqTfJyRiq1/G//9v+C9KFTxVAXUf+6QQfaFFYMyhVbPY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHYZljzUK4u7Mb01yMBGCl24hcalnOigmYHdUbQ5utArbKZswr
-	vGBjbAm/bbn28IekFxcrfudzJzXbdtJtCV0tfXRnSLsQGdobrIs8Q/n1y9ftSA8aPp2hagGWlI9
-	a6TXJ7SNo5BR927fa7RQ942l0GjvEVteUUkyEFQnP
-X-Gm-Gg: AYBFou32r+lRrlYK5ARno2czIfVs1APNAunjtGPhSpfPDXk1hwfDnSmVfnDZwRpnNMV
-	rdYHpsqeR5ZyC6Iox2Fi/nnR1YyCEZC3ryJ7mDmEUnrUTzqHRJhuPwXruRDERAdzOXSv/lLLrMl
-	T2zfLMmQkpe1EJxSYPjkK9uQO1DKsEhu94DKFqeYU71P7s/8iBbM9rFEf9LoX9/Mp/vbgR6DWud
-	674Kavm9W+nU900mkkZ+YRaQEsmzNwXCziiKkd07fwQE+n6aBjtWLAnsRuROGUFZsUZQX0yNMPv
-	qu6R7aqVH434kRqogp5Pxe6DWnhYuUxWZTKvWQ0/e4+5THsfOcbFRvZWZ8frJLVAEsG5JAdDCuK
-	cD9p6/pBaow==
-X-Received: by 2002:a05:622a:2519:b0:52f:9ed4:8d76 with SMTP id
- d75a77b69052e-535b4fad502mr62778971cf.14.1791927014950; Tue, 13 Oct 2026
- 14:30:14 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791927506; x=1792532306;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=P39BEHmXxYcjKeKQeIuHhJ0UPVpKaK0TOR42XQiDO7s=;
+        b=zE1wkCx1Z8OvUMd59ZP4FfQO+QQ/I+Z9co3lz+elRXi/rkE8oUd8akGG6hT/zC8K6Y
+         CwwKySp6UUFVR5iRcABs0SUvZ6ryhBHonPNA7xFNK0gp/gBt8KOxbastbOouG/qrzK3v
+         xldNo3u6uXmDzek5nsi6r0oAJ1EIkNruSC87Wg3ovNRV63UuVel6OVyog3IMYCwSZJV4
+         OiduJzNonxnzFVD6+LxHavCVspSpDfim5YjHHh7HdbiAmxGhAtq/oZmOmxWUEnh3fFEn
+         ZSz+Fm3QEDmuXcAeoky0LqFOz2ABKSmw3kGsbK6Oyzc1mN9vTmDk+cgUImmhBTQj+i9W
+         JpVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxl7HUwwwK9cHjsODLcT4g6p/YhIlFkLAvUnnzK5IWwzTIPbGtnEd5ABhBTuEd9Me13SorDq5KjyUzdeB4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKh//5lfZkXy3mOELtdooMhSEiZ80n7b482ytSPXH5/uine3pTz
+	hlLXIVPibkMoxcdHsl/AvsCpUVkiH+6fuwrwBqYTwqbsf/w2u7PXL1dWwV2VB3rmQsjcJxVtS8+
+	g7NYZXgoboA==
+X-Gm-Gg: AYBFou1okEoFqMJy8sMOeZIEF5XF/q+8V4pys5wF6MM70auLqQcJx4tfNno4+wOzkD8
+	E8OJU0eNXoEzyNRap+iTZiKnqTm7AOWkJ9IIoj3MV9FrcCP+0iORCr2Azhpie0THYid/qgcJrB3
+	+nk14Xy0Qyjx3v/Oh8CfQM01QME+7o9m1gH4200R+X3ZMJdy9+Q4612xjGVmKQewQ6pwyAUQV9+
+	lJCylPVcBnAJuuZZjzQu8lF643okx2t9wETOQBCVHzVickG3RhYYUGZLaY7IIxX5htM7oCVCVDy
+	x6infxcZZRrN7VKX+llNNhX+uDgbddMvQrGsHIJvrbD/3iqt36Sysi3IemgJaDsU8ysIBxdVVHZ
+	+/27dPLxb9clJkHOUT0nYAXxmJ+u+o17hjQiOF6vQX7z6/N2V/Hye0YhgspskwEQ4P62CbTResZ
+	rOW0zYAKAlGDdDagE2KzfIzhxABTChg5Yv1nwYuLEQd5MtvdoUWb87gM6tqFeRhNoznrdQsAw3R
+	rYOMWA9Fjc3a58cpIkfWi6NNLCMYRd7PsrdtbPQQ/C+71VCRhWCBW19Ix4Mj0H2pNeBiQ6QQxL8
+	SMEAok8=
+X-Received: by 2002:a05:690c:6e85:b0:8b0:a352:f96d with SMTP id 00721157ae682-8b0a352fd2bmr31848197b3.11.1791927506420;
+        Tue, 13 Oct 2026 14:38:26 -0700 (PDT)
+Received: from pop-os.attlocal.net ([2600:1700:6476:1430::48])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1ea845sm50241657b3.24.2026.10.13.14.38.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 14:38:24 -0700 (PDT)
+Message-ID: <88f825b8d9942f8b9a94a39f53deee5e6f5d1f4c.camel@dubeyko.com>
+Subject: Re: [PATCH v3] hfs: give the internal B-tree inodes a type and keep
+ catalog records off them
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: yangguikun <yangguikun19@qq.com>, John Paul Adrian Glaubitz
+	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 13 Oct 2026 14:38:22 -0700
+In-Reply-To: <tencent_A4C2280F9FC0A89C54BDEF96112DA7245307@qq.com>
+References: <498724fe4ae0f0bc91137f573397363f962ac73d.camel@dubeyko.com>
+	 <abe509bc80fe0f4e83f49af87aaa74fb95888aff.camel@dubeyko.com>
+	 <tencent_A4C2280F9FC0A89C54BDEF96112DA7245307@qq.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928175127.1032535-1-ctshao@google.com> <20260928175127.1032535-2-ctshao@google.com>
- <SA1PR12MB6773D69355E45BEBF00C33BDA09E2@SA1PR12MB6773.namprd12.prod.outlook.com>
-In-Reply-To: <SA1PR12MB6773D69355E45BEBF00C33BDA09E2@SA1PR12MB6773.namprd12.prod.outlook.com>
-From: Ian Rogers <irogers@google.com>
-Date: Tue, 13 Oct 2026 14:30:02 -0700
-X-Gm-Features: AclHuK9fLdQ9-yHHtAdzGmjGJw7JE4xDUTKfruq2dp9IU-mk6w7aupgXUeH3bd8
-Message-ID: <CAP-5=fX3=fMzq91n8X6Hf+K5D_AqStzK=4kLAC9Hh4gSJo1YCw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] perf jevents: Add NVIDIA Tegra410 uncore DDR metrics
-To: Besar Wicaksono <bwicaksono@nvidia.com>
-Cc: Chun-Tse Shao <ctshao@google.com>, "acme@kernel.org" <acme@kernel.org>, 
-	"namhyung@kernel.org" <namhyung@kernel.org>, "peterz@infradead.org" <peterz@infradead.org>, 
-	"mingo@redhat.com" <mingo@redhat.com>, "mark.rutland@arm.com" <mark.rutland@arm.com>, 
-	"alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>, "jolsa@kernel.org" <jolsa@kernel.org>, 
-	"adrian.hunter@intel.com" <adrian.hunter@intel.com>, "james.clark@linaro.org" <james.clark@linaro.org>, 
-	"linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Matt Ochs <mochs@nvidia.com>, 
-	Sean Kelley <skelley@nvidia.com>, Rich Wiley <rwiley@nvidia.com>, Vikram Sethi <vsethi@nvidia.com>, 
-	Raj Joshi <rajjoshi@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 2:07=E2=80=AFPM Besar Wicaksono <bwicaksono@nvidia.=
-com> wrote:
->
-> Hi Chun-Tse,
->
-> I tested this patch on 2-socket Tegra410. Both DDR bandwidth and
-> read latency metrics give correct values in the default, --per-socket,
-> and -A modes.
->
-> Some small comments inline below.
->
-> > -----Original Message-----
-> > From: Chun-Tse Shao <ctshao@google.com>
-> > Sent: Monday, September 28, 2026 5:51 PM
-> > To: acme@kernel.org; namhyung@kernel.org; irogers@google.com
-> > Cc: peterz@infradead.org; mingo@redhat.com; mark.rutland@arm.com;
-> > alexander.shishkin@linux.intel.com; jolsa@kernel.org;
-> > adrian.hunter@intel.com; james.clark@linaro.org; Besar Wicaksono
-> > <bwicaksono@nvidia.com>; linux-perf-users@vger.kernel.org; linux-
-> > kernel@vger.kernel.org; Chun-Tse Shao <ctshao@google.com>
-> > Subject: [PATCH 1/2] perf jevents: Add NVIDIA Tegra410 uncore DDR
-> > metrics
-> >
-> > External email: Use caution opening links or attachments
-> >
-> >
-> > Add DDR bandwidth and latency metrics for the NVIDIA Tegra410 SoC. The
-> > formulas follow Documentation/admin-guide/perf/nvidia-tegra410-
-> > pmu.rst:
-> >
-> >   AVG_MEM_READ_BANDWIDTH_IN_GBPS =3D MEM_BYTES_RD /
-> > ELAPSED_TIME_IN_NS
-> >   AVG_MEM_WRITE_BANDWIDTH_IN_GBPS =3D MEM_BYTES_WR /
-> > ELAPSED_TIME_IN_NS
-> >
-> >   FREQ_IN_GHZ =3D CYCLES / ELAPSED_TIME_IN_NS
-> >   AVG_LATENCY_IN_CYCLES =3D RD_CUM_OUTS / RD_REQ
-> >   AVERAGE_LATENCY_IN_NS =3D AVG_LATENCY_IN_CYCLES / FREQ_IN_GHZ
-> >
-> > The bandwidth metrics use the mem_bytes_rd/mem_bytes_wr events of
-> > the
-> > Unified Coherence Fabric (UCF) PMU with source/destination filters:
-> >
-> >   lpm_ddr_bw, lpm_ddr_rd_bw, lpm_ddr_wr_bw: all sources to local CMEM.
-> >   lpm_ddr_loc_rd_bw, lpm_ddr_loc_wr_bw: local CPU and non-CPU sources
-> > to
-> >     local CMEM.
-> >   lpm_ddr_rem_rd_bw, lpm_ddr_rem_wr_bw: local CPU and non-CPU
-> > sources to
-> >     remote memory.
-> >
-> > The latency metrics use the CPU Memory (CMEM) latency PMU:
-> >
-> >   lpm_ddr_lat, lpm_ddr_rd_lat: average DDR read latency in ns.
-> >   lpm_ddr_wr_lat: the PMU only measures reads, so this is always 0.
-> >
->
-> A question on naming: what does the "lpm_" prefix stand for? Is it the
-> convention for all metrics generated by the Python scripts (I see it on
-> the Intel/AMD and common metrics too)?
+On Tue, 2026-10-13 at 14:44 +0800, yangguikun wrote:
+> hfs_btree_open() builds the extents and catalog B-tree inodes with a
+> raw
+> iget_locked() and never assigns them a file type, so both stay cached
+> with
+> i_mode =3D=3D 0 after every mount.=C2=A0 Two problems follow from that, a=
+nd
+> both are
+> reachable from a crafted image.
+>=20
+> First, a catalog record that names CNID 3 or 4 makes hfs_lookup() ->
+> hfs_iget()
+> return the cached B-tree inode - hfs_test_inode() matches on i_ino
+> alone - and
+> the typeless inode then reaches the generic open path, where it trips
+> VFS_BUG_ON_INODE() in may_open() with CONFIG_DEBUG_VFS=3Dy:
+>=20
+> =C2=A0 VFS_BUG_ON_INODE(!IS_ANON_FILE(inode)): inode:... fs:hfs mode:0
+> opflags:0xc
+> =C2=A0 ------------[ cut here ]------------
+> =C2=A0 kernel BUG at fs/namei.c:4271!
+> =C2=A0 RIP: 0010:may_open+0x2ba/0x480 fs/namei.c:4271
+> =C2=A0 Call Trace:
+> =C2=A0=C2=A0 do_open fs/namei.c:4698 [inline]
+> =C2=A0=C2=A0 path_openat+0x1600/0x3de0 fs/namei.c:4863
+> =C2=A0=C2=A0 __x64_sys_openat+0x13f/0x1f0 fs/open.c:1385
+>=20
+> Without CONFIG_DEBUG_VFS the assertion compiles away and the same
+> image
+> silently yields an openable typeless inode, so this is not merely a
+> debug-config nuisance.
+>=20
+> Second, once the inode has a type, such a record still hands the
+> internal
+> B-tree file out as a regular dentry: it can be opened and read, which
+> exposes
+> the B-tree, and from then on the VFS treats an inode that has no
+> catalog
+> record behind it as an ordinary file.=C2=A0 hfs_is_valid_cnid() does not
+> close this
+> path: it runs from hfs_read_inode(), and a lookup that hits the
+> already cached
+> B-tree inode never reaches that function.
+>=20
+> Fix both.=C2=A0 Add hfs_system_read_inode(), which reads the fork from th=
+e
+> MDB and
+> assigns S_IFREG - the counterpart of hfsplus_system_read_inode() -
+> and
+> hfs_system_iget(), which looks the inode up through the normal inode-
+> cache path
+> and can fail before the inode is published.=C2=A0 hfs_btree_open() now
+> uses
+> hfs_system_iget(), and the extent-record validation moves into the
+> new read
+> helper.=C2=A0 hfs_iget() refuses catalog records that name a reserved CNI=
+D
+> below
+> HFS_FIRSTUSER_CNID; the root directory, the one reserved CNID that
+> legitimately
+> comes through there, is exempt.
+>=20
+> Found by syzkaller-style fuzzing of v7.2-rc7; still reproducible on
+> current
+> mainline.
+>=20
+> Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
+> Link:
+> https://lore.kernel.org/linux-fsdevel/tencent_24D928451FEFA8A35482EFFA913=
+2A7305307@qq.com/
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: yangguikun <yangguikun19@qq.com>
+> ---
+> =C2=A0fs/hfs/btree.c=C2=A0 | 39 +++------------------------
+> =C2=A0fs/hfs/hfs_fs.h |=C2=A0 1 +
+> =C2=A0fs/hfs/inode.c=C2=A0 | 82
+> +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+> =C2=A03 files changed, 86 insertions(+), 36 deletions(-)
+>=20
+> diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
+> index 41b4e8f..b5892de 100644
+> --- a/fs/hfs/btree.c
+> +++ b/fs/hfs/btree.c
+> @@ -155,44 +155,11 @@ struct hfs_btree *hfs_btree_open(struct
+> super_block *sb, u32 id, btree_keycmp ke
+> =C2=A0	tree->cnid =3D id;
+> =C2=A0	tree->keycmp =3D keycmp;
+> =C2=A0
+> -	tree->inode =3D iget_locked(sb, id);
+> -	if (!tree->inode)
+> +	tree->inode =3D hfs_system_iget(sb, id);
+> +	if (IS_ERR(tree->inode))
+> =C2=A0		goto free_tree;
 
-Hi Besar, naming is one of the hardest problems in Computer Science
-:-) When we first added the metrics there was a request to
-differentiate between metrics coming from the python scripts and
-metrics coming from vendor code, like Intel top-down. We agreed on
-having a prefix, and lpm_ was suggested as meaning Linux perf metric.
-All of those words seem redundant given the metric is being measured
-on Linux using perf, but it was adopted as the best suggestion. If you
-have a better proposal, I think we can change it.
+I worried that we jump to free_tree now. Before, we cannot get inode
+but now method can or cannot get inode. We need somehow distinguish
+these cases now and to jump to free_tree or to free_inode. Or we need
+to manage it in more smart way.
+
+> -	BUG_ON(!(inode_state_read_once(tree->inode) & I_NEW));
+
+I am not sure that it's good idea to drop this. If hfs_system_iget()
+quietly returns an existing inode. In hfs_btree_open() that would mean
+the same tree was opened twice.
+
+> -	{
+> -	struct hfs_mdb *mdb =3D HFS_SB(sb)->mdb;
+> -	HFS_I(tree->inode)->flags =3D 0;
+> -	mutex_init(&HFS_I(tree->inode)->extents_lock);
+> -	switch (id) {
+> -	case HFS_EXT_CNID:
+> -		hfs_inode_read_fork(tree->inode, mdb->drXTExtRec,
+> mdb->drXTFlSize,
+> -				=C2=A0=C2=A0=C2=A0 mdb->drXTFlSize,
+> be32_to_cpu(mdb->drXTClpSiz));
+> -		if (HFS_I(tree->inode)->alloc_blocks >
+> -					HFS_I(tree->inode)-
+> >first_blocks) {
+> -			pr_err("invalid btree extent records\n");
+> -			unlock_new_inode(tree->inode);
+> -			goto free_inode;
+> -		}
+> =C2=A0
+> -		tree->inode->i_mapping->a_ops =3D &hfs_btree_aops;
+> -		break;
+> -	case HFS_CAT_CNID:
+> -		hfs_inode_read_fork(tree->inode, mdb->drCTExtRec,
+> mdb->drCTFlSize,
+> -				=C2=A0=C2=A0=C2=A0 mdb->drCTFlSize,
+> be32_to_cpu(mdb->drCTClpSiz));
+> -
+> -		if (!HFS_I(tree->inode)->first_blocks) {
+> -			pr_err("invalid btree extent records (0
+> size)\n");
+> -			unlock_new_inode(tree->inode);
+> -			goto free_inode;
+> -		}
+> -
+> -		tree->inode->i_mapping->a_ops =3D &hfs_btree_aops;
+> -		break;
+> -	default:
+> -		BUG();
+> -	}
+> -	}
+> -	unlock_new_inode(tree->inode);
+> +	tree->inode->i_mapping->a_ops =3D &hfs_btree_aops;
+
+ Set a_ops inside hfs_system_read_inode(). Right now tree->inode-
+>i_mapping->a_ops =3D &hfs_btree_aops; runs in hfs_btree_open() after
+unlock_new_inode(), so the inode is visible in the hash briefly without
+its aops.
+
+> =C2=A0
+> =C2=A0	mapping =3D tree->inode->i_mapping;
+> =C2=A0	folio =3D filemap_grab_folio(mapping, 0);
+> diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
+> index e250f87..26505f7 100644
+> --- a/fs/hfs/hfs_fs.h
+> +++ b/fs/hfs/hfs_fs.h
+> @@ -219,6 +219,7 @@ extern void hfs_inode_read_fork(struct inode
+> *inode, struct hfs_extent *ext,
+> =C2=A0				u32 clump_size);
+> =C2=A0extern struct inode *hfs_iget(struct super_block *sb, struct
+> hfs_cat_key *key,
+> =C2=A0				hfs_cat_rec *rec);
+> +extern struct inode *hfs_system_iget(struct super_block *sb, u32
+> cnid);
+> =C2=A0extern void hfs_evict_inode(struct inode *inode);
+> =C2=A0extern void hfs_delete_inode(struct inode *inode);
+> =C2=A0
+> diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
+> index 2aef3c3..5c00383 100644
+> --- a/fs/hfs/inode.c
+> +++ b/fs/hfs/inode.c
+> @@ -421,6 +421,87 @@ static int hfs_read_inode(struct inode *inode,
+> void *data)
+> =C2=A0	return 0;
+> =C2=A0}
+> =C2=A0
+> +/**
+> + * hfs_system_read_inode - read an internal B-tree inode
+> + * @inode: inode to initialize, hashed by its CNID
+> + *
+> + * The extent and catalog B-trees are described by the MDB instead
+> of by
+> + * catalog records, so they do not go through hfs_read_inode().
+> + *
+> + * Return: 0 on success, -EIO if the MDB does not describe this
+> CNID.
+> + */
+> +static int hfs_system_read_inode(struct inode *inode)
+> +{
+> +	struct hfs_sb_info *hsb =3D HFS_SB(inode->i_sb);
+> +	struct hfs_mdb *mdb =3D hsb->mdb;
+> +
+> +	HFS_I(inode)->flags =3D 0;
+> +	HFS_I(inode)->rsrc_inode =3D NULL;
+> +	mutex_init(&HFS_I(inode)->extents_lock);
+> +	HFS_I(inode)->tz_secondswest =3D sys_tz.tz_minuteswest * 60;
+> +
+> +	inode->i_uid =3D hsb->s_uid;
+> +	inode->i_gid =3D hsb->s_gid;
+> +	set_nlink(inode, 1);
+> +
+> +	switch (inode->i_ino) {
+> +	case HFS_EXT_CNID:
+> +		hfs_inode_read_fork(inode, mdb->drXTExtRec, mdb-
+> >drXTFlSize,
+> +				=C2=A0=C2=A0=C2=A0 mdb->drXTFlSize,
+> be32_to_cpu(mdb->drXTClpSiz));
+> +		if (HFS_I(inode)->alloc_blocks > HFS_I(inode)-
+> >first_blocks) {
+> +			pr_err("invalid btree extent records\n");
+> +			return -EIO;
+> +		}
+> +		break;
+> +	case HFS_CAT_CNID:
+> +		hfs_inode_read_fork(inode, mdb->drCTExtRec, mdb-
+> >drCTFlSize,
+> +				=C2=A0=C2=A0=C2=A0 mdb->drCTFlSize,
+> be32_to_cpu(mdb->drCTClpSiz));
+> +		if (!HFS_I(inode)->first_blocks) {
+> +			pr_err("invalid btree extent records (0
+> size)\n");
+> +			return -EIO;
+> +		}
+> +		break;
+> +	default:
+> +		return -EIO;
+> +	}
+> +
+> +	/*
+> +	 * may_open() requires a file type, and a crafted catalog
+> record can
+> +	 * reach this inode by its CNID.
+> +	 */
+> +	inode->i_mode =3D S_IFREG;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * hfs_system_iget - look up an internal B-tree inode by CNID
+> + * @sb: super block
+> + * @cnid: HFS_EXT_CNID or HFS_CAT_CNID
+> + *
+> + * Return: the inode, or an ERR_PTR() if it cannot be initialized.
+> + */
+> +struct inode *hfs_system_iget(struct super_block *sb, u32 cnid)
+> +{
+> +	struct inode *inode;
+> +	int err;
+> +
+> +	inode =3D iget_locked(sb, cnid);
+> +	if (!inode)
+> +		return ERR_PTR(-ENOMEM);
+> +	if (!(inode_state_read_once(inode) & I_NEW))
+> +		return inode;
+> +
+> +	err =3D hfs_system_read_inode(inode);
+> +	if (err) {
+> +		iget_failed(inode);
+> +		return ERR_PTR(err);
+> +	}
+> +
+> +	unlock_new_inode(inode);
+> +	return inode;
+> +}
+> +
+> =C2=A0/*
+> =C2=A0 * __hfs_iget()
+> =C2=A0 *
+> @@ -446,6 +527,15 @@ struct inode *hfs_iget(struct super_block *sb,
+> struct hfs_cat_key *key, hfs_cat_
+> =C2=A0	default:
+> =C2=A0		return NULL;
+> =C2=A0	}
+> +
+> +	/*
+> +	 * hfs_test_inode() matches on i_ino only, so a catalog
+> record naming
+> +	 * a reserved CNID would hand out a B-tree inode as a
+> regular dentry.
+> +	 * The root directory is the one reserved CNID that comes
+> through here.
+> +	 */
+> +	if (cnid !=3D HFS_ROOT_CNID && cnid < HFS_FIRSTUSER_CNID)
+
+I am guessing maybe we need to introduce a special method:
+
+static inline bool hfs_is_system_reserved_cnid(u32 cnid)
+{
+	if (likely(cnid > HFS_ROOT_CNID	&& cnid <
+HFS_FIRSTUSER_CNID))
+		return true;
+	else
+        	return false;
+}
+
+What do you think?
 
 Thanks,
-Ian
+Slava.
 
-> > There is one CMEM latency PMU per socket and perf sums the counts of th=
-e
-> > PMUs in an aggregation, e.g. of both sockets in the default aggregation
-> > mode. Use aggr_nr() to divide the summed cycles by the number of PMUs,
-> > otherwise the frequency is too high and the latency too low by that
-> > factor.
-> >
-> > The events are sysfs events of the nvidia_ucf_pmu_<socket-id> and
-> > nvidia_cmem_latency_pmu_<socket-id> PMUs rather than json events, so
-> > add
-> > the "nvidia" PMU prefix to the prefixes that skip the named json event
-> > check in metric.py.
-> >
-> > pmu-events/Build only runs arm64_metrics.py for the "arm" vendor
-> > models,
-> > so also run it for the "nvidia" vendor models to generate the Tegra410
-> > metrics.
-> >
-> > Signed-off-by: Chun-Tse Shao <ctshao@google.com>
-> > Assisted-by: Gemini:gemini-3.1-pro-preview
-> > ---
-> >  tools/perf/pmu-events/Build            |  2 +-
-> >  tools/perf/pmu-events/arm64_metrics.py | 66
-> > +++++++++++++++++++++++++-
-> >  tools/perf/pmu-events/metric.py        |  2 +-
-> >  3 files changed, 66 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/tools/perf/pmu-events/Build b/tools/perf/pmu-events/Build
-> > index 1ac067be9d34..8dc8cfcb8b04 100644
-> > --- a/tools/perf/pmu-events/Build
-> > +++ b/tools/perf/pmu-events/Build
-> > @@ -78,7 +78,7 @@ endif
-> >
-> >  ifeq ($(JEVENTS_ARCH),$(filter $(JEVENTS_ARCH),arm64 all))
-> >  # Generate ARM Json
-> > -ARMS :=3D $(shell ls -d pmu-events/arch/arm64/arm/*|grep -v cmn)
-> > +ARMS :=3D $(shell ls -d pmu-events/arch/arm64/arm/* pmu-
-> > events/arch/arm64/nvidia/*|grep -v cmn)
-> >  ARM_METRICS =3D $(foreach x,$(ARMS),$(OUTPUT)$(x)/extra-metrics.json)
-> >  ARM_METRICGROUPS =3D $(foreach x,$(ARMS),$(OUTPUT)$(x)/extra-
-> > metricgroups.json)
-> >  GEN_JSON +=3D $(ARM_METRICS) $(ARM_METRICGROUPS)
-> > diff --git a/tools/perf/pmu-events/arm64_metrics.py b/tools/perf/pmu-
-> > events/arm64_metrics.py
-> > index 4ecda96d11fa..b0d0651fec12 100755
-> > --- a/tools/perf/pmu-events/arm64_metrics.py
-> > +++ b/tools/perf/pmu-events/arm64_metrics.py
-> > @@ -2,14 +2,75 @@
-> >  # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
-> >  import argparse
-> >  import os
-> > -from metric import (JsonEncodeMetric,
-> > JsonEncodeMetricGroupDescriptions, LoadEvents,
-> > -                    MetricGroup)
-> > +from typing import Optional
-> > +from metric import (aggr_nr, d_ratio, Event, JsonEncodeMetric,
-> > +                    JsonEncodeMetricGroupDescriptions, LoadEvents, Met=
-ric,
-> > MetricGroup)
-> >  from common_metrics import Cycles
-> >
-> >  # Global command line arguments.
-> >  _args =3D None
-> >
-> >
-> > +def NvidiaT410Uncore() -> Optional[MetricGroup]:
-> > +    """Uncore metrics for the NVIDIA Tegra410 SoC.
-> > +
-> > +    The formulas follow Documentation/admin-guide/perf/nvidia-tegra410=
--
-> > pmu.rst.
-> > +    """
-> > +    assert _args is not None
-> > +    if _args.vendor !=3D "nvidia" or _args.model !=3D "t410":
-> > +        return None
-> > +
-> > +    interval_sec =3D Event("duration_time")
-> > +    mb_per_sec =3D f"{1/1e6}MB/s"
-> > +
-> > +    def DdrBw() -> MetricGroup:
-> > +        # Unified Coherence Fabric (UCF) PMU:
-> > +        # AVG_MEM_{READ,WRITE}_BANDWIDTH =3D MEM_BYTES_{RD,WR} /
-> > ELAPSED_TIME
-> > +        loc_src =3D "src_loc_cpu=3D0x1,src_loc_noncpu=3D0x1"
-> > +        rd =3D Event("nvidia_ucf_pmu/mem_bytes_rd,dst_loc_cmem=3D0x1/"=
-)
-> > +        wr =3D Event("nvidia_ucf_pmu/mem_bytes_wr,dst_loc_cmem=3D0x1/"=
-)
-> > +        loc_rd =3D
-> > Event(f"nvidia_ucf_pmu/mem_bytes_rd,{loc_src},dst_loc_cmem=3D0x1/")
-> > +        loc_wr =3D
-> > Event(f"nvidia_ucf_pmu/mem_bytes_wr,{loc_src},dst_loc_cmem=3D0x1/")
-> > +        rem_rd =3D
-> > Event(f"nvidia_ucf_pmu/mem_bytes_rd,{loc_src},dst_rem=3D0x1/")
-> > +        rem_wr =3D
-> > Event(f"nvidia_ucf_pmu/mem_bytes_wr,{loc_src},dst_rem=3D0x1/")
-> > +        return MetricGroup("lpm_ddr_bw", [
-> > +            Metric("lpm_ddr_bw", "Total DDR bandwidth",
-> > +                   d_ratio(rd + wr, interval_sec), mb_per_sec),
-> > +            Metric("lpm_ddr_rd_bw", "DDR read bandwidth",
-> > +                   d_ratio(rd, interval_sec), mb_per_sec),
-> > +            Metric("lpm_ddr_wr_bw", "DDR write bandwidth",
-> > +                   d_ratio(wr, interval_sec), mb_per_sec),
-> > +            Metric("lpm_ddr_loc_rd_bw", "Local DDR read bandwidth",
-> > +                   d_ratio(loc_rd, interval_sec), mb_per_sec),
-> > +            Metric("lpm_ddr_loc_wr_bw", "Local DDR write bandwidth",
-> > +                   d_ratio(loc_wr, interval_sec), mb_per_sec),
-> > +            Metric("lpm_ddr_rem_rd_bw", "Remote DDR read bandwidth",
-> > +                   d_ratio(rem_rd, interval_sec), mb_per_sec),
-> > +            Metric("lpm_ddr_rem_wr_bw", "Remote DDR write bandwidth",
-> > +                   d_ratio(rem_wr, interval_sec), mb_per_sec),
-> > +        ], description=3D"NVIDIA Tegra410 DDR bandwidth")
-> > +
-> > +    def DdrLat() -> MetricGroup:
-> > +        # CPU Memory (CMEM) latency PMU, one per socket:
-> > +        # AVERAGE_LATENCY_IN_NS =3D (RD_CUM_OUTS / RD_REQ) / (CYCLES /
-> > ELAPSED_TIME_IN_NS)
-> > +        rd_cum_outs =3D Event("nvidia_cmem_latency_pmu/rd_cum_outs/")
-> > +        rd_req =3D Event("nvidia_cmem_latency_pmu/rd_req/")
-> > +        cycles =3D Event("nvidia_cmem_latency_pmu/cycles/")
-> > +        # perf sums the counts of the PMUs in an aggregation, e.g. bot=
-h
-> > sockets
-> > +        # by default, so divide cycles by their number to get the freq=
-uency.
-> > +        rd_lat =3D d_ratio(1e9 * interval_sec * rd_cum_outs * aggr_nr(=
-cycles),
-> > rd_req * cycles)
-> > +        return MetricGroup("lpm_ddr_lat", [
-> > +            Metric("lpm_ddr_lat", "Average DDR read latency in ns", rd=
-_lat,
-> > "1ns"),
-> > +            Metric("lpm_ddr_rd_lat", "DDR read latency in ns", rd_lat,=
- "1ns"),
->
-> Could we keep just lpm_ddr_rd_lat ?
->
-> > +            # The CMEM latency PMU only measures reads, write latency =
-is
-> > always 0.
-> > +            Metric("lpm_ddr_wr_lat", "DDR write latency in ns",
-> > +                   rd_cum_outs - rd_cum_outs, "1ns"),
-> > +        ], description=3D"NVIDIA Tegra410 DDR latency")
->
-> This always prints 0.0 ns, which reads like a real measurement of
-> zero-latency writes. Since the hardware can't measure write latency, I'd
-> drop this metric rather than report a placeholder.
->
-> Tested-by: Besar Wicaksono <bwicaksono@nvidia.com>
->
-> Thanks,
-> Besar
->
-> > +
-> > +    return MetricGroup("lpm_uncore", [DdrBw(), DdrLat()],
-> > +                       description=3D"NVIDIA Tegra410 uncore metrics")
-> > +
-> > +
-> >  def main() -> None:
-> >      global _args
-> >
-> > @@ -37,6 +98,7 @@ def main() -> None:
-> >
-> >      all_metrics =3D MetricGroup("", [
-> >          Cycles(),
-> > +        NvidiaT410Uncore(),
-> >      ])
-> >
-> >      if _args.metricgroups:
-> > diff --git a/tools/perf/pmu-events/metric.py b/tools/perf/pmu-
-> > events/metric.py
-> > index f5d81eccd5c3..6fb69024d1fd 100644
-> > --- a/tools/perf/pmu-events/metric.py
-> > +++ b/tools/perf/pmu-events/metric.py
-> > @@ -91,7 +91,7 @@ def CheckEveryEvent(*names: str) -> None:
-> >        name =3D name[:name.find(':')]
-> >      elif '/' in name:
-> >        name =3D name[:name.find('/')]
-> > -      if any([name.startswith(x) for x in ['amd', 'arm', 'cpu', 'msr',=
- 'power',
-> > 'cha', 'uncore']]):
-> > +      if any([name.startswith(x) for x in ['amd', 'arm', 'cpu', 'msr',=
- 'power',
-> > 'cha', 'uncore', 'nvidia']]):
-> >          continue
-> >      if name not in all_events_all_models:
-> >        raise ValueError(f"Is {name} a named json event?")
-> > --
-> > 2.56.0.rc1.315.gc6ed9934b7-goog
->
+> +		return NULL;
+> +
+> =C2=A0	inode =3D iget5_locked(sb, cnid, hfs_test_inode,
+> hfs_read_inode, &data);
+> =C2=A0	if (inode && (inode_state_read_once(inode) & I_NEW))
+> =C2=A0		unlock_new_inode(inode);
