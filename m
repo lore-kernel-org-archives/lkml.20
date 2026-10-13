@@ -1,155 +1,158 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D0A4ABBB8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:35:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63B84E324D;
+	Tue, 13 Oct 2026 23:36:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791934555; cv=none; b=qymA28QQAshDUfQndx2LAIyordGudP1Uvvjm6UndRpeO1gv8icLvPBN8CUnEJPNqG/XCfCl99JBkgd7k7cTPLtaK94BtdsN1tVMSdGZMLN8TtwzdXoUzn3Xhc6d25y7X6brmzCO28aA8dtA4GK9LadO84L18Hmh0nfN5rUBJZq8=
+	t=1791934598; cv=none; b=IFQg+htOOoSHIhUKIFIomYfPlgJqY74DGRoJYVsbskyLXQjk/5g3BVwKTa1SDauojOmsiXwD75WadQit8YI+V/TVJwWhAOaiDTGuaGxP7o67Pq9ZJ3cfpWnTyA9KLdPcm2+0kzk63mUMtcTwpEGyPvcGrZ5MN/gvxBqVDWCSJmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791934555; c=relaxed/simple;
-	bh=hKuzHhQ1AvSETF8XGUydiDZlFtzoU6214nbtFhLBtS8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sa7xPAds1SGbkHcmb+CPY/1vn42OLHNYVshNsx3OI7UL1m8G5vXFfLIBPW4HIBzjKD430ZBPuYlE44m1PVQraDp/xyGTBL5s7ZFYn86S8h6QDxJz+/ZImLt7ERRi6sAXCIfLuj9/iniGaNCcqEJrZnvTYm7ooHaiKLcwvkls4Zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UK0G06qA; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791934598; c=relaxed/simple;
+	bh=Ce8cicOS5z0ItaLXPL2Ql3h4uEoRx2vQ9NtI7XkE31o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lPOu+0o3YUD31DCxDbR92ZgfZn7lfc7PNf1G+lldNgo3LJF8qIrE24zuPPP7LsEtoXHp3tw6hlcCnPI3HWOGa7Wak+Fs511R8xvHMN8kEacU9odvduhfqS/nrmoKEfMmCqm952mkKpLrjJHjyXaphOwooOmh9e4UKcS6QqlY3uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=u2gFDmny; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UK0G06qA"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33c2520ad38so8131543eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:35:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791934553; x=1792539353; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oUD08xhJaRRxHhZLFhhFLw3lNVBGk+s6r/0ppwaV3jk=;
-        b=UK0G06qAO6cH5kOagZH9MOzvCu2uq8DTDs5mSBBfQjEOOeLrNKZ53nUUrax424vKfb
-         fpihEa7SfhcAYyagn4Xc/feiqrrgVMnN318sB11BjGMgbEIuPfG3jaUWJTNcFQqHmgBR
-         iOZAvIHo+0RSggFEp1YXRVpIh8fsp7jRi+Qf33FQvsbMl1njxRpnDU/XW/50hRjwH+3E
-         ax8KtbUcmyh6GQZNUbQqWCyysD3k1q9PpRzXp58ejVJYS764obke/urG/m+b5EF2Fwsb
-         HyKzN2Q3Ouz8a3cHVWQWh1p/KXreGYBcr229zDfwgRFIMDjMCRzRR34H4XQQtqpcKrm8
-         K6Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791934553; x=1792539353;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oUD08xhJaRRxHhZLFhhFLw3lNVBGk+s6r/0ppwaV3jk=;
-        b=0foY6WYbs95YmoeWQGLzCwzppV3HxWxM5kl7x6yQwdrNIeLb0NDeZPa9B3AFimCnhd
-         Kzv7QARR2cLkWMEeYEl/WvrazU+UHlmFNGkPpbnO1gIgJpdI1i0m1hKGGkIuY/FKJhxa
-         45wVd5rV6vuDOm+tqxfWFkfIEO+h1ltYYoPL5JN3wir+SYdVvnVLwrUX1gia3vgwg0QV
-         q4xfMOHf0oryv0hu6f5W69MtMJ4lXd6MidxmGwA1TvNmMaiFIaqMkYY93Fli5MH7RRbx
-         0ovvmo16mXdxOvXf6UXc2e29dVSJYOdveh5QrGRaqLbHF/7u9Pw6HkqW8xosnDIK1BeJ
-         4veA==
-X-Forwarded-Encrypted: i=1; AKwUvBwnhPXNc+V6SWkEiDLRR74RYCt+TN0Xg0GI5VB/G08XJfesxdDKTX5J8wPlfcbOaKYygjdJZSL5Bxk0J88=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBDjZBOqCt6jOATb/pFEzs5oa6uW1/LZDlMbK0gSCMXIrGiu/v
-	Uxu8R/ASc8L6rqz5RPhY+YfZYdngrWoEvg7xShSvAuWtJ2h94kTWVbY7
-X-Gm-Gg: AYBFou2EL47Gt+2iiHEG5kmeEtjCULJuZhGZ96PcwGN99myaqL3d77UHmHBAvYtyKsA
-	Z5tYzdoL4PLCQwrRylAxiWG8OTl1NQJ/NTHb/p7rxReFfNtnLomPAPD+E5ROs6HUPa9rWEzvhdl
-	Y8LaktcSSa2qmnkB59rKBWtl5/ym88YvNaeQ7hZCOHzHFbjikmjCVK47TKnBS3n6OET6Jq4ObLl
-	4J2TxpjYDWzXX3ZkNxQbGoqY/UUcjeF3cysbEor78z3IWcyr6c16ueq6+bsnkxeBbC4kWApIoFI
-	c8WKuoSz6vmD/eShSpbRBHBfWzCCWa+5N9wvPjoP84BUIGPccw62K9TQxwD3cehjiLNJcvvblQS
-	VsgXAl9tRvG47/4xxNjEe07ehtor6T/VA6syYjQkpPDWdp/u6mbThcixrQKw6eJp9TmRatoHg+f
-	yxDHsGQNSQj2jgpx3NxuExj0eYwEosQw+CycGvznqbBRd+OJl0zYY5sBd3brhXUZbVnv0C4j6eK
-	u9+aPtTsKDupM+Z79fdKM5gKHY=
-X-Received: by 2002:a05:7300:828a:b0:34c:d1f2:b552 with SMTP id 5a478bee46e88-3537dedaa87mr18409297eec.4.1791934552974;
-        Tue, 13 Oct 2026 16:35:52 -0700 (PDT)
-Received: from localhost (118-163-61-247.hinet-ip.hinet.net. [118.163.61.247])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm50705110eec.10.2026.10.13.16.35.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 16:35:52 -0700 (PDT)
-Sender: AceLan Kao <acelan@gmail.com>
-From: "Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Kiran K <kiran.k@intel.com>,
-	Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
-	linux-bluetooth@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="u2gFDmny"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1791934580;
+	bh=grwBgkgno9BkL6eOhMPmakqn4LngPKm6vtO8+CsatwE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=u2gFDmnyn7DkPrCsCVJ5N/faghNyP8s7EPZ8Xor8e/11rLH7aXxrL26zzvWpp7ssC
+	 x2ifLD5M7KZkal4u/iaRYFvgPsbve/eC8rIKd1Dns1PztmByWoRSIODnqee8Qz54Sk
+	 QdLQ5HHtkOy01Z+Wt4I5sa6A/Oyds+EsJHyScCJwBjaR+7Rk0IJ51O74HrzHIZxoK4
+	 ONgtyi6KdZ3bifRNLVqcME8cwhr3F9lNkOeJ4QWbDWYlB+fkZFe4xKd9wYjLVfNmLS
+	 cegs8WHPf6TWv8SupnFPxr2NZsWKEynb6BA31ybmW0lkP8kv0Pawg44L453gP1VM9q
+	 Liei/VGeKn+RQ==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 4617A60055;
+	Wed, 14 Oct 2026 01:36:20 +0200 (CEST)
+Date: Wed, 14 Oct 2026 01:36:17 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Guo Zihao <guozh23@xiaopeng.com>
+Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: btintel_pcie: Fix NULL hdev dereference in debug register dump
-Date: Wed, 14 Oct 2026 07:35:48 +0800
-Message-ID: <20261013233548.3864360-1-acelan.kao@canonical.com>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [PATCH nf-next v3 1/2] netfilter: ebtables: ebt_802_3: check the
+ LLC fields before reading them
+Message-ID: <as7AcSGT8U2kbdH3@chamomile>
+References: <20261012072449.3240201-1-guozh23@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261012072449.3240201-1-guozh23@xiaopeng.com>
 
-The MSI-X interrupts are set up in btintel_pcie_config_pcie() and the
-controller is brought out of reset in btintel_pcie_enable_bt(), both
-long before btintel_pcie_setup_hdev() allocates the hci_dev.  On top of
-that, data->hdev is only published after hci_register_dev() succeeds.
-Until then, any interrupt that reaches an error path sees a NULL
-data->hdev.
+On Mon, Oct 12, 2026 at 03:24:48PM +0800, Guo Zihao wrote:
+> ebt_802_3_mt() takes the frame pointer from skb_mac_header() and reads
+> the LLC fields through it without making sure those bytes are there.
+> Nothing between the receive path and this match pulls the LLC header,
+> so a frame that carries nothing past the 14-byte Ethernet header is
+> read past the linear area.
 
-btintel_pcie_dump_debug_registers() is called from those error paths
-with data->hdev and dereferences it immediately via hci_get_drvdata().
-If the controller raises such an interrupt during probe, the IRQ thread
-oopses.  The bt_dev_*() logging helpers are fine with a NULL hdev (they
-print "null" as the device name), so the crash is only in the register
-dump.
+See:
 
-This was seen on an HP ZBook X G2i (8086:e376) with v7.3-rc7, where the
-GP1 mailbox interrupt was handled right after the device was enabled:
+ 003f21868b2b ("llc: move the type 2 sockets out of tree")
 
-  btintel_pcie 0000:00:14.7: enabling device (0000 -> 0002)
-  Bluetooth: null: Received gp1 mailbox interrupt
-  Oops: general protection fault, kernel NULL pointer dereference 0xda0
-  CPU: 11 UID: 0 PID: 671 Comm: irq/213-btintel
-  RIP: 0010:btintel_pcie_dump_debug_registers+0x20/0x910 [btintel_pcie]
-  Call Trace:
-   btintel_pcie_irq_msix_handler+0x1ca/0x6b0 [btintel_pcie]
-   irq_thread_fn+0x26/0x70
-   irq_thread+0x1b1/0x300
+We can handle this patch in nf-next as low priority.
 
-The IRQ thread then dies in do_exit() and the module load and the
-following power off block behind it.  The GP1 handler no longer calls
-the dump helper in current linux-next, but the GP0 handler still does
-for the "Controller in error state" and "Controller in lockdown state"
-cases, which have the same exposure during probe.
-
-Return early from btintel_pcie_dump_debug_registers() when there is no
-hci_dev yet.  The register dump is delivered through hci_recv_diag(),
-so there is nowhere to send it without an hdev anyway; the preceding
-bt_dev_err() has already reported the event.
-
-Fixes: 190377500fde ("Bluetooth: btintel_pcie: Dump debug registers on error")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
----
- drivers/bluetooth/btintel_pcie.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index 3a555aa50c87..fcdea1302cf7 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -433,12 +433,21 @@ static void btintel_pcie_prepare_tx(struct txq *txq, u16 tfd_index,
- 
- static inline void btintel_pcie_dump_debug_registers(struct hci_dev *hdev)
- {
--	struct btintel_pcie_data *data = hci_get_drvdata(hdev);
-+	struct btintel_pcie_data *data;
- 	u16 cr_hia, cr_tia;
- 	u32 reg, mbox_reg;
- 	struct sk_buff *skb;
- 	u8 buf[80];
- 
-+	/* The interrupts are enabled before the hci_dev is allocated and
-+	 * data->hdev is published only after hci_register_dev() succeeds, so
-+	 * an interrupt handler can get here with a NULL hdev.
-+	 */
-+	if (!hdev)
-+		return;
-+
-+	data = hci_get_drvdata(hdev);
-+
- 	skb = alloc_skb(1024, GFP_ATOMIC);
- 	if (!skb)
- 		return;
--- 
-2.53.0
-
+> The match also reads more of the LLC header than rules look at. A
+> SAP-only rule uses dsap/ssap; a rule without any SAP or TYPE constraint
+> matches 802.3 frames without touching the LLC header at all, just as it
+> did before this patch.
+> 
+> Require only the bytes each rule actually examines, and go through
+> skb_header_pointer() with the mac header offset so short frames fail
+> the match instead of being read past the linear area. A frame shorter
+> than the fields the rule looks at simply does not match that rule;
+> users who want such frames dropped can match 802.3 alone.
+> 
+> The match itself is not restricted to 802.3 frames: the ebtables
+> userspace tool pairs it with "-p Length", but the kernel does not
+> enforce that pairing and nft_compat does not run ebt_basic_match(),
+> so a SAP or TYPE rule can still see Ethernet II payload bytes,
+> bounds checks aside, same as before.
+> 
+> v2:
+>  - rework to skb_header_pointer() with a per-rule length instead of
+>    hotdrop, whose semantics differ between ebtables legacy and nftables
+>  - read only dsap/ssap for SAP-only rules
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+> ---
+>  net/bridge/netfilter/ebt_802_3.c | 35 +++++++++++++++++++++++---------
+>  1 file changed, 25 insertions(+), 10 deletions(-)
+> 
+> diff --git a/net/bridge/netfilter/ebt_802_3.c b/net/bridge/netfilter/ebt_802_3.c
+> index 68c2519bd..fc49f7c7b 100644
+> --- a/net/bridge/netfilter/ebt_802_3.c
+> +++ b/net/bridge/netfilter/ebt_802_3.c
+> @@ -9,32 +9,47 @@
+>   *
+>   */
+>  #include <linux/module.h>
+> +#include <linux/stddef.h>
+>  #include <linux/netfilter/x_tables.h>
+>  #include <linux/netfilter_bridge/ebtables.h>
+>  #include <linux/skbuff.h>
+>  #include <uapi/linux/netfilter_bridge/ebt_802_3.h>
+>  
+> -static struct ebt_802_3_hdr *ebt_802_3_hdr(const struct sk_buff *skb)
+> -{
+> -	return (struct ebt_802_3_hdr *)skb_mac_header(skb);
+> -}
+> -
+>  static bool
+>  ebt_802_3_mt(const struct sk_buff *skb, struct xt_action_param *par)
+>  {
+>  	const struct ebt_802_3_info *info = par->matchinfo;
+> -	const struct ebt_802_3_hdr *hdr = ebt_802_3_hdr(skb);
+> -	__be16 type = hdr->llc.ui.ctrl & IS_UI ? hdr->llc.ui.type : hdr->llc.ni.type;
+> +	struct ebt_802_3_hdr _frame;
+> +	const struct ebt_802_3_hdr *frame;
+> +	unsigned int hlen;
+> +	__be16 type;
+> +
+> +
+> +	if (!(info->bitmask & (EBT_802_3_SAP | EBT_802_3_TYPE)))
+> +		return true;
+> +
+> +
+> +	hlen = sizeof(_frame);
+> +	if (!(info->bitmask & EBT_802_3_TYPE))
+> +		hlen = offsetof(struct ebt_802_3_hdr, llc.ui.ctrl);
+> +
+> +
+> +	frame = skb_header_pointer(skb, skb_mac_offset(skb), hlen, &_frame);
+> +	if (!frame)
+> +		return false;
+>  
+>  	if (info->bitmask & EBT_802_3_SAP) {
+> -		if (NF_INVF(info, EBT_802_3_SAP, info->sap != hdr->llc.ui.ssap))
+> +		if (NF_INVF(info, EBT_802_3_SAP, info->sap != frame->llc.ui.ssap))
+>  			return false;
+> -		if (NF_INVF(info, EBT_802_3_SAP, info->sap != hdr->llc.ui.dsap))
+> +		if (NF_INVF(info, EBT_802_3_SAP, info->sap != frame->llc.ui.dsap))
+>  			return false;
+>  	}
+>  
+>  	if (info->bitmask & EBT_802_3_TYPE) {
+> -		if (!(hdr->llc.ui.dsap == CHECK_TYPE && hdr->llc.ui.ssap == CHECK_TYPE))
+> +		type = frame->llc.ui.ctrl & IS_UI ? frame->llc.ui.type :
+> +						    frame->llc.ni.type;
+> +		if (!(frame->llc.ui.dsap == CHECK_TYPE &&
+> +		      frame->llc.ui.ssap == CHECK_TYPE))
+>  			return false;
+>  		if (NF_INVF(info, EBT_802_3_TYPE, info->type != type))
+>  			return false;
+> -- 
+> 2.50.1
+> 
