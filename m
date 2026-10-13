@@ -1,190 +1,370 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B924ED1A1
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:03:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2BD4ED1B4;
+	Tue, 13 Oct 2026 11:03:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791889430; cv=none; b=fyI8zF1WHGpL5KA8x8K+RK+2/9DNWB+4X50mPBVdbPLnlcbDXkqXD7HnYbWM/dhNKN39msvj/uZZ7ZEzjydOyoZn2gds+7pTq9bi16LBWHzF/nKNTCvMhPWAoQNCOGEqNyS8B4TBlzSiidzJYpqvhuhvohmAAD+S6UYPE3dxFu4=
+	t=1791889429; cv=none; b=eVdmTDpYlIq/V23IP2bqyInfayGAK1VFagT+Usz/QsG5gOh1hGO8heXxJKTNr2ebfa4MhJC9QJYJ9wmFaCYgD2ktCd28g+ZQNRpJZRta4fJ+a9xhsyIk/lRg6enPBNylkqTrv1b5Fmqv9LWPdvoRvKcJJf0sY0olkVGfZB5u72w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791889430; c=relaxed/simple;
-	bh=ZVrZiKjn5eoj1xYotO2X6Aa3N+e6mbg9W7+53FVPuhY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YZFScz+RTuQ5kabNwhaHiQ8KwIvaVCr1fg5fz7r5E5FPB3+CU1AzfZVEs7NSpjZczBztOEc56Dp1Dca7YAarOfGlEQixOBHeeikW9T+VGs6jm9vm/6KqPEib3NTiVbE+WJdQScVTETBBBKrV2zAzNKs9McH0XF+dbN5ulWOJlzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KBRxdqZp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GpQyW6we; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791889429; c=relaxed/simple;
+	bh=IcUpQx0cfcB4WZ9TjO1JA0D5c8EoXbDr5mb/HcHZSnM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pemSlm+ys3Qr/5PJOvV1yow0aO8GU1Z9T8OAKuSi3YH9xiTfPKjZcna1898SrwqZvXcmClurORc4xxrI+Ie6gjrtl/7mUKpxCLk14ZmgK/hoP0owLq7E15Bouocrm4cB/QwTNPDD3OqzI0Q+25BUIBwF/GHNUQyM/5WloVUpjL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FSJl9bP4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KBRxdqZp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GpQyW6we"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D902FL791427
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:03:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XQyf6jcICM4FKao0weCOIsWtu0ZxaxxkK22IBq2EtCc=; b=KBRxdqZpIOP+jZak
-	PJ8j6u8IIEOOrsWJm+/e2XNFUaLMxBVuCs25XQHvqng6em0oNxnzvUS9HRZsqGzF
-	r8GwJZzZzVtR687j8Xax/dGGISN2iQXnDcX6l81ISinSgHW/o2ACZlhN3c3BTbFz
-	1Xg9nv+KdSq6b0lrcfG+2pfSlvdij1vuJvshhxPuD5AcMCphlwg8bybNquWnHPs4
-	7jWOlVUfbxweQ+ObvbNO9B3H0keKqnVqQvV62OflG64Tv9igrmfmo51dkLdxS43f
-	I+qjC8ZPN1DOflojiYMKi/7GhFWkt0VVBnaSKO0vh3Wo/+gYSxVbtpbNVpdCsOx9
-	2mUm6g==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9hmjrhd1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:03:44 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a7fa5e0442so4209257a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:03:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791889424; x=1792494224; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XQyf6jcICM4FKao0weCOIsWtu0ZxaxxkK22IBq2EtCc=;
-        b=GpQyW6wewASmc0nDZOnvL6vb6Us32TKA4LxA68qgNoC+FoAcsQM+ZJn/nBvaM/ItXS
-         54mZ7bssCw6gN4XBpNb9AL+MnNndUh3cOPwn/AdGRcsJlryTZd+HJYY+jAEhdyu5CUFh
-         lZGAb1+a9q2EApWhSq6+xq6uXBCFvb6bcZn7BSFwE9o+Fjxzj/1EcueXW5KU768K4JAY
-         I6uoTbobk6M+1jaV+jdgiMknfVrNEHH46FoJKhYFgDA/8TS3WMz4lf/rlcWQjesElaNm
-         wBjjBc04fEA+UneUEMTJFI4MpKGwbHDFvBphOArJDyfSAUir11162yFa8MZwxaq2rUnM
-         ug2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791889424; x=1792494224;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XQyf6jcICM4FKao0weCOIsWtu0ZxaxxkK22IBq2EtCc=;
-        b=VSRT/JFDVmJjzNzG9BXYXRewzDDLEYsSws11NQy+wql1FRQ8Fg5M25+cOvmCzFODE0
-         A7rUzE4see69dahh1c60MDHNTtKMa+edM7WqaZhxDlM729OM62Xs7Kf6kg9b01OhImxB
-         +oe6Jg2yBgMVjliZNIy7uNOTLLkZwGvzv+b94ZmbDRwvooURC92iaem9T08xFEqjHHrX
-         8nE9XaPbodIS9pyUyV5oLDSVWHs+4jqz66Rt8s6+isVbTK5mznl5W/k4R1f7+gjN7Y/4
-         RVpipLSTqNAfybDijSyKscuzi2hr2o7+1l5/VRXTMdZC6oF+ZTeyUbg/dyeVKzNjPt+z
-         cuHA==
-X-Forwarded-Encrypted: i=1; AKwUvByL663ivlAWTTfoowleRwEk2u2hh7vRgIFdJmHSDW1edwPprttdVc2GIDBgADJRJk23g5WEFHZxvkUKbpg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIV6NWNrLin+oT/EKe8Ut8G7hh4wZuAZJISYkUYnX35d0IGwLuV
-	+fItclg4Aob1TRgABes8A1G/Zprn5QstTvQkJEMD8jKkpBesbShxzoP54JNuaADcGnvaliHpYuc
-	j+u5zrrnlBvzawfvz7EZ4g0V+CrZRTp0LrvnGhaS8bOpY6QnFg4C2Zp/8FoV3Cw43xno=
-X-Gm-Gg: AYBFou2px6i59a8lfIqJzlquvut+NSD0LkN3lbkub11LcWvm4kPBpv1oildfP+CBYOb
-	rFTjjzi+z0abdcD1y5qapTXC5WgPeblVVoKEUdeyZlBhbVFFdSM0oDeKHymAFzsxtea12Lvj5lR
-	eugykLjIebdrx5Q1OVyy0HvOaBmWzGWGuDwIbhqpuuw1F5HQAnWsTQEZzHglvz0o+iKSg0JQ8BW
-	jZ+HhYX056awFMhV+fOwJmhrkT72tcBTbN4iPaO82MXw3xVnhawbS5mSH5d/6XRbd7pxoNWUrv7
-	w95uLZqTaqTAEIxlegIvDgBEPo4HYvRrxX8iHy0fqf+boTjDNEeMF8vDzl3ZS9j1kQ7u2+Axtb6
-	f4ZblxaVczTvju5RfFIDYRNiz8/Yr+pE=
-X-Received: by 2002:a17:90b:3d92:b0:3a8:5cab:ff5 with SMTP id 98e67ed59e1d1-3ab3ab1fa22mr11534524a91.43.1791889423666;
-        Tue, 13 Oct 2026 04:03:43 -0700 (PDT)
-X-Received: by 2002:a17:90b:3d92:b0:3a8:5cab:ff5 with SMTP id 98e67ed59e1d1-3ab3ab1fa22mr11534479a91.43.1791889423107;
-        Tue, 13 Oct 2026 04:03:43 -0700 (PDT)
-Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f46dfesm20808403a91.8.2026.10.13.04.03.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:03:42 -0700 (PDT)
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 16:32:46 +0530
-Subject: [PATCH v2 4/8] dt-bindings: media: Add CAMSS device for Maili
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FSJl9bP4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3991F000FF;
+	Tue, 13 Oct 2026 11:03:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791889425;
+	bh=BOfuxyaoyfJYpHpkro6gMv4TI/nBVVskOfYfcXUMaoI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=FSJl9bP4Ug4HxP6HQ7f7RSAFuqtl9YQnkMSRwnrAnfBryghdz3ZI9+kX3VYzHl+wd
+	 FKzYl//lPzpSjLSTQO/1EToIhySylTfIMo69FCBg+P4MMpEaACUtw10dtp5ave9iJC
+	 0trZLxOBs8BaoxM0595F8zTqLlSJ0bj410Iod7chyyIDSR+9vxjkc1/m0B4tWYq6as
+	 897Hv0NZXsiEIi4gvQwcEOgCKVCQo8nbxSwnGl0xw+KF2YMUQPavRECpHsPIpCXOuT
+	 gfvGTiNMn2rQJI5FYfqGJOYo8+gtKoPjcP7XVTu49TuStx8IjOAtDs+wrUEcnG1amR
+	 0Lxt5IggyE3Iw==
+Message-ID: <3a6b84453aaa75b654155a699d4f85735df9c48d.camel@kernel.org>
+Subject: Re: [PATCH v2] nfsd: prevent a double put of revoked layout stateids
+From: Jeff Layton <jlayton@kernel.org>
+To: Jinpyo Lee <bint4b13@gmail.com>, linux-nfs@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, Olga
+ Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom
+ Talpey <tom@talpey.com>, 	linux-kernel@vger.kernel.org,
+ bobtobabz@gmail.com, stable@vger.kernel.org
+Date: Tue, 13 Oct 2026 07:03:43 -0400
+In-Reply-To: <20261013060021.46543-1-bint4b13@gmail.com>
+References: <133aa8197620ef4f36a48faa62c207f5ee12c0a0.camel@kernel.org>
+	 <20261013060021.46543-1-bint4b13@gmail.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-hawi-maili-camss-v2-4-fc93222da89c@oss.qualcomm.com>
-References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
-In-Reply-To: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-media@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791889386; l=1384;
- i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
- bh=ZVrZiKjn5eoj1xYotO2X6Aa3N+e6mbg9W7+53FVPuhY=;
- b=yjDWXo1cCMQNtBqrKN0bhNiXuURBQDjxrGWVNAyZ5bK8TfCfdbmbEf6tewJY2xyxX6oeHjCqj
- DSR6hpboLLRByu31a54l8wXXC0SQFO/VAiyVILZR76QxGGEfkG6TRpS
-X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
- pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MyBTYWx0ZWRfX5/b1j9HGg+T7
- zurFieQzmDevYTWv6dnPwlLPeWy7Q2GiQmnH8izxxgLoVnUweEdfYel9u+70SpGTsx6ervU1w1C
- sxgo+e5tZLxLLYbptc3RU2DKr8iZ4Go=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MyBTYWx0ZWRfXz4Yiald0Xe9G
- 2BoKp8QcaRSDH0hlKm3Rxpu4R+fftMAqJARkvyza7VMyNVu2ihEtIBHSn/itV8evdd5VqeMxurx
- 881MZ3I62j4Sfpvho8CS7rnzbHoiYoCSbYgc/8nnH7AiwRhsBb8dX7iQ25epwvmewOUt9gy84aY
- 6kamz7pSDA9PdJ52Gi0/wOB5qu9VJedaHXU/A6QTvrNlxhJae+CzOFbik8GoAHXSoOg0RzbSIsG
- aXmgUVZCpCNlYLSCtmmpcrsrPw8+EW0bAq3G7+5AFRX6UbLC3UTpuKIUYRFNiNLt7B9MkgeOafU
- ErPiyeAz+MEfEAHmumYGY2bzmliWOGnYED63sLEzTmfqAsytY+VCLzxL8fTu/4JZXqmKUO33/NA
- OPQIv2Mactj5Jj1jcLjPyQkioWj6kSAVGN/flQO6hKPHxLTPCq9CgWP04z7Ysce8gBy2BeQU5PM
- offlJhPibFnZsvhY39w==
-X-Proofpoint-ORIG-GUID: 4_aTA_pCUOpU3pVPzfERiyIo1zkv0_0W
-X-Authority-Analysis: v=2.4 cv=O5+sLx9W c=1 sm=1 tr=0 ts=6ace1010 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=lEnWAUz5esA3NO-HxloA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-GUID: 4_aTA_pCUOpU3pVPzfERiyIo1zkv0_0W
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501
- bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130043
 
-Maili shares the same IP as Hawi. The only difference is
-Hawi has six CSIPHY while Maili has five.
+On Tue, 2026-10-13 at 15:00 +0900, Jinpyo Lee wrote:
+> nfsd4_free_stateid() finds an admin-revoked layout stateid with
+> find_stateid_locked(), which does not acquire a reference. The layout
+> case drops cl_lock without marking the stateid closed, then stops fence
+> work and calls nfs4_put_stid() without owning a reference. Concurrent
+> disposal can therefore access a freed layout stateid or drop a reference
+> owned by another holder.
+>=20
+> Mark the layout stateid CLOSED under cl_lock so only one disposal caller
+> proceeds. Take a temporary reference before dropping cl_lock and hold it
+> while stopping fence work and draining the remaining layout segments,
+> then release that reference with the final put. This keeps the stateid
+> alive even though its IDR owns no reference and its layout segments are
+> being removed.
+>=20
+> Use cl_lock for the CLOSED update in LAYOUTRETURN as well, matching the
+> common stateid locking rule. Retain ls_mutex from the last segment remova=
+l
+> through the CLOSED update, and recheck CLOSED under cl_lock after taking
+> ls_mutex in LAYOUTGET. This prevents a stale LAYOUTGET from adding a
+> segment after the drain. Also make the newly allocated layout stateid the
+> error-path put target and update the status-locking comment.
+>=20
+> Restrict nfs40_clean_admin_revoked() to NFSv4.0 clients. Its timer is
+> armed only by v4.0 revocations, while session clients dispose of revoked
+> stateids through FREE_STATEID. Skipping session clients prevents the scan
+> from repeatedly selecting a CLOSED stateid that remains in the IDR while
+> an in-flight operation holds a reference.
+>=20
+> The vulnerability research and validation were conducted by members of
+> the Tobabz team as part of the Best of the Best 15th program.
+>=20
+> Fixes: 86b9898920a6 ("NFSD: Handle layout stid in nfsd4_drop_revoked_stid=
+()")
+> Suggested-by: Chuck Lever <cel@kernel.org>
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jinpyo Lee <bint4b13@gmail.com>
+> ---
+> Changes since v1:
+> - Address Jeff Layton's concern by using cl_lock for layout CLOSED
+>   checks and updates, without a type-dependent stateid status helper.
+> - Move LAYOUTRETURN's CLOSED update outside ls_lock while retaining
+>   ls_mutex, and update the status-locking documentation.
+> - Clarify the LAYOUTGET serialization and v4.0 cleanup restriction.
+> - Credit Chuck Lever's suggestion and mark the fix for stable review.
+> - Rebase onto nfsd-testing c807415bc69013a5f162264ee0e14f8742c182f7.
+>=20
+> Validated on the above nfsd-testing base (2026-10-13):
+> - Applied cleanly, passed strict checkpatch, and built and booted an x86_=
+64
+>   kernel with GCC 13.3, W=3D1, Generic KASAN, lockdep, and pNFS block and
+>   SCSI layouts enabled.
+> - Loopback pNFS SCSI read, shrink, integrity, revocation, and cleanup tes=
+ts
+>   passed, as did NFSv4.2, NFSv4.0, and NFSv3 read/write, fio CRC32C, and
+>   unmount tests. Tracing observed two successful LAYOUTRETURNs reach the
+>   modified CLOSED update and release their stateids.
+> - Two concurrent FREE_STATEID requests from different slots of one NFSv4.=
+1
+>   session returned one success and one NFS4ERR_BAD_STATEID. A test-only
+>   two-second pause forced the losing request into the disposal window;
+>   tracing observed CLOSED, exactly one revoked-layout drain, and one
+>   layout-state free.
+> - No KASAN, lockdep, refcount, list-corruption, WARNING, or Oops report
+>   occurred, and kernel taint remained zero through fixture cleanup.
+>=20
+> Build note: Existing format-truncation warnings in target_core_transport.=
+c
+> were excluded from WERROR; W=3D1 and WERROR remained enabled otherwise.
+>=20
+> The full xfstests suite was not run. Earlier v1 runtime results are not
+> used as validation of this revision.
+>=20
+>  fs/nfsd/nfs4layouts.c | 34 ++++++++++++++++++++++++++++++++--
+>  fs/nfsd/nfs4state.c   | 14 ++++++++++++++
+>  fs/nfsd/pnfs.h        |  6 ++++++
+>  fs/nfsd/state.h       |  5 ++---
+>  4 files changed, 54 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
+> index 898776c9d..749ace97e 100644
+> --- a/fs/nfsd/nfs4layouts.c
+> +++ b/fs/nfsd/nfs4layouts.c
+> @@ -312,6 +312,7 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqst=
+p,
+>  		status =3D nfserr_jukebox;
+>  		if (!ls)
+>  			goto out;
+> +		stid =3D &ls->ls_stid;
+>  		mutex_lock(&ls->ls_mutex);
+>  	} else {
+>  		ls =3D container_of(stid, struct nfs4_layout_stateid, ls_stid);
+> @@ -324,6 +325,15 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqs=
+tp,
+>  			goto out_unlock_stid;
+>  	}
+> =20
+> +	/* A new or looked-up stateid may have been closed before ls_mutex. */
+> +	spin_lock(&stid->sc_client->cl_lock);
+> +	if (stid->sc_status & SC_STATUS_CLOSED) {
+> +		spin_unlock(&stid->sc_client->cl_lock);
+> +		status =3D nfserr_bad_stateid;
+> +		goto out_unlock_stid;
+> +	}
+> +	spin_unlock(&stid->sc_client->cl_lock);
+> +
+>  	*lsp =3D ls;
+>  	return 0;
+> =20
+> @@ -537,12 +547,18 @@ nfsd4_return_file_layouts(struct svc_rqst *rqstp,
+>  			nfs4_inc_and_copy_stateid(&lrp->lr_sid, &ls->ls_stid);
+>  		lrp->lrs_present =3D true;
+>  	} else {
+> -		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
+> -		ls->ls_stid.sc_status |=3D SC_STATUS_CLOSED;
+>  		lrp->lrs_present =3D false;
+>  	}
+>  	spin_unlock(&ls->ls_lock);
+> =20
+> +	if (!lrp->lrs_present) {
+> +		/* ls_mutex prevents a LAYOUTGET from adding another segment. */
+> +		spin_lock(&ls->ls_stid.sc_client->cl_lock);
+> +		ls->ls_stid.sc_status |=3D SC_STATUS_CLOSED;
+> +		spin_unlock(&ls->ls_stid.sc_client->cl_lock);
+> +		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
+> +	}
+> +
+>  	mutex_unlock(&ls->ls_mutex);
+>  	nfs4_put_stid(&ls->ls_stid);
+>  	nfsd4_free_layouts(&reaplist);
+> @@ -594,6 +610,20 @@ nfsd4_return_all_layouts(struct nfs4_layout_stateid =
+*ls,
+>  	spin_unlock(&ls->ls_lock);
+>  }
+> =20
+> +void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls)
+> +{
+> +	LIST_HEAD(reaplist);
+> +
+> +	/*
+> +	 * The caller holds a stateid reference until segment draining ends.
+> +	 * Wait for any LAYOUTGET that passed the CLOSED check.
+> +	 */
+> +	mutex_lock(&ls->ls_mutex);
+> +	nfsd4_return_all_layouts(ls, &reaplist);
+> +	mutex_unlock(&ls->ls_mutex);
+> +	nfsd4_free_layouts(&reaplist);
+> +}
+> +
+>  void
+>  nfsd4_return_all_client_layouts(struct nfs4_client *clp)
+>  {
+> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+> index 26d2d56a5..1740b86eb 100644
+> --- a/fs/nfsd/nfs4state.c
+> +++ b/fs/nfsd/nfs4state.c
+> @@ -5873,9 +5873,21 @@ static void nfsd4_drop_revoked_stid(struct nfs4_st=
+id *s)
+>  		break;
+>  	case SC_TYPE_LAYOUT:
+>  		ls =3D layoutstateid(s);
+> +		if (s->sc_status & SC_STATUS_CLOSED) {
+> +			spin_unlock(&cl->cl_lock);
+> +			break;
+> +		}
+> +		s->sc_status |=3D SC_STATUS_CLOSED;
+> +		/*
+> +		 * The IDR does not own a layout stateid reference. Keep ls
+> +		 * alive while draining worker and segment references below;
+> +		 * the final put releases this temporary reference.
+> +		 */
+> +		refcount_inc(&s->sc_count);
+>  		list_del_init(&ls->ls_perclnt);
+>  		spin_unlock(&cl->cl_lock);
+>  		nfsd4_stop_layout_fence(ls);
+> +		nfsd4_return_revoked_layout(ls);
+>  		nfs4_put_stid(s);
+>  		break;
+>  	default:
+> @@ -7901,6 +7913,8 @@ static void nfs40_clean_admin_revoked(struct nfsd_n=
+et *nn,
+>  		unsigned long id, tmp;
+>  		struct nfs4_stid *stid;
+> =20
+> +		if (clp->cl_minorversion !=3D 0)
+> +			continue;
+>  		if (atomic_read(&clp->cl_admin_revoked) =3D=3D 0)
+>  			continue;
+>  		if (is_client_expired(clp))
+> diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
+> index 559df0e5b..9b0f17a4d 100644
+> --- a/fs/nfsd/pnfs.h
+> +++ b/fs/nfsd/pnfs.h
+> @@ -75,6 +75,7 @@ struct nfsd4_deviceid_map *nfsd4_find_devid_map(int idx=
+);
+>  #ifdef CONFIG_NFSD_PNFS
+>  void nfsd4_setup_layout_type(struct svc_export *exp);
+>  void nfsd4_return_all_client_layouts(struct nfs4_client *);
+> +void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls);
+>  void nfsd4_return_all_file_layouts(struct nfs4_client *clp,
+>  		struct nfs4_file *fp);
+>  void nfsd4_close_layout(struct nfs4_layout_stateid *ls);
+> @@ -93,6 +94,11 @@ static inline void nfsd4_setup_layout_type(struct svc_=
+export *exp)
+>  static inline void nfsd4_return_all_client_layouts(struct nfs4_client *c=
+lp)
+>  {
+>  }
+> +
+> +static inline void nfsd4_return_revoked_layout(struct nfs4_layout_statei=
+d *ls)
+> +{
+> +}
+> +
+>  static inline void nfsd4_return_all_file_layouts(struct nfs4_client *clp=
+,
+>  		struct nfs4_file *fp)
+>  {
+> diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+> index 79dfa47b8..63b581104 100644
+> --- a/fs/nfsd/state.h
+> +++ b/fs/nfsd/state.h
+> @@ -148,9 +148,8 @@ struct nfs4_stid {
+>   * nn->deleg_lock protects sc_status for hashed delegation stateids.
+>   * ->cl_lock protects the bits set as one is disposed of
+>   * (SC_STATUS_CLOSED, SC_STATUS_FREEABLE, SC_STATUS_FREED) and
+> - * sc_status for open and lock stateids. ->st_mutex also protects
+> - * sc_status for open stateids. ->ls_lock protects sc_status for
+> - * layout stateids.
+> + * sc_status for open, lock, and layout stateids. ->st_mutex also protec=
+ts
+> + * sc_status for open stateids.
+>   */
+>  /*
+>   * For an open stateid kept around *only* to process close replays.
+>=20
+> base-commit: c807415bc69013a5f162264ee0e14f8742c182f7
 
-Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Better! I do like the fact that we don't have different rules now.
+Sashiko flagged a potential issue with v4.0 handling that needs to be
+addressed, however:
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
-index 5bf0dca3d24621bfc4a09feb8e5037a925869751..d1d53d6f024cbf7d2a0f2525aa4040260353b200 100644
---- a/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
-+++ b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
-@@ -4,17 +4,22 @@
- $id: http://devicetree.org/schemas/media/qcom,hawi-camss.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Qualcomm Hawi Camera Subsystem (CAMSS)
-+title: Qualcomm Hawi and Maili Camera Subsystem (CAMSS)
- 
- maintainers:
-   - Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-+  - Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
- 
- description:
-   The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
- 
- properties:
-   compatible:
--    const: qcom,hawi-camss
-+    oneOf:
-+      - const: qcom,hawi-camss
-+      - items:
-+          - const: qcom,maili-camss
-+          - const: qcom,hawi-camss
- 
-   reg:
-     maxItems: 13
-
--- 
-2.34.1
-
+https://sashiko.dev/#/patchset/20261013060021.46543-1-bint4b13%40gmail.com
+--=20
+Jeff Layton <jlayton@kernel.org>
