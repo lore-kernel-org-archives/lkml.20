@@ -1,248 +1,245 @@
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F318395AE2
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:30:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791862238; cv=none; b=ffUtYTlEcM5I9Jp/t68SBm+8UEZ0vstAcTZSMYXqZJvFTe2M3osM1nOjmQekzp5v0e5oLIyPU0nqpfjhLjr1mD86iYJsJSR9kzzzC5+1XXQUV7jsMqJ8UmYyuDnGUh2ELbM5U3SP7dh0cdSmKsrp1Xk3JPL2eiQAUAQkqb2W+f8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791862238; c=relaxed/simple;
-	bh=jE5FBck0iwVfKsvvwnPJh+4Fn2qOZpSmZ/uBxGgOK3w=;
-	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:To:Cc; b=h7bCGWF1I+G5LiiwiAAat3A7wulPjzQqI/8HygStbURXf7PiVcsJ5NX4Q0RPhXgHgsEhDzPQS9cQeMrlupgGXN95P7R7G4zZQkhD6p6DUX4LXl3hR06nWFf0X4Q72uSfff4xuM8hiEDSFlt7KL03wxDQzqd1cQAx/oH+zEWofSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=MQF4paAI; arc=none smtp.client-ip=162.62.58.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B37E3264F4
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791862294; cv=pass; b=j3UsRIOOluMQTo/E7Q4uBJ6suyhui1Y9bTwmQodyLO7C01UKKbrlVnFqWRXAzBA963dPSB1llvunzAxbB418Bxq3mrs3UJbXpKUGl5OfsISO+zyd84CFpWupA4G/KlPgRjQm30WUWeEeffO+8RKk8a8X+jHOtrElSCDW94w2j04=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791862294; c=relaxed/simple;
+	bh=zCSEKIAPKVwVSGY4GyE3kxLa1knCjzTA3Y/jvMzWxiw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nCauA2I33N/007EyfIb2D+A7vnhPBBdC6Gx/qsJTIMGUO6FCG/nkBXkf9K1zrQrV3c4OYRn1Zz1Lx72+gpEGDonftN8YeZa5ubh5d4Ls35c4L5vsPuq/NpcxXVHQF5LusbaBcgAlcemz9+zDdR+KQDNl7WX6/p0jTKwURcwFGCY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CNRyFkqW; arc=pass smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="MQF4paAI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791862225; bh=n5aSjpi38d97JoTIKAE9ofjyp7sKD4gBZolpt7WmoUk=;
-	h=From:Date:Subject:To:Cc;
-	b=MQF4paAIaqv3UUsGv0M89GUSY37zcZu1iBEc4BSasbx4Hm5U6FGPD2mkXjhld7PGM
-	 0ppGpqjwZq02SD72ix6pWXXJdlSvSLjJjREerISI86LPxMi3Otn/j1PevPg2tKSc8T
-	 4NRWZ4voh/B9WNEu9/xHw3VRWP9hcvQaeiPAJ75A=
-Received: from ubuntu2204.localdomain ([2409:8d20:7f:35d:9e54:40ff:fe02:3f0f])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 5AA184C4; Tue, 13 Oct 2026 11:22:42 +0800
-X-QQ-mid: xmsmtpt1791861762takf3foip
-Message-ID: <tencent_5802EE88434010229EDF7A53084D994C6106@qq.com>
-X-QQ-XMAILINFO: MlsYLnHA0UVjWnp7hi0CZSt7AYwx3Dlpux5tMi53y2dxpTPQTxCoE7WziwLp/l
-	 V9WsvrSu2jmFlr2nf/vrfvlmSOWV40/V1Rrx4/INqVH3CQOiTfzHUlJFxh+p7i6/iisSafKzXi8r
-	 6y2LdHMQDvMPS9hN0ujcgVZolio/nkv2HcpQPc7fJpKR7Tq6V506QsoNdj5NXv5gU3TiCMDxjpuE
-	 q74ONYXjm5qLjYrfKFAFLtnMKtVIRoeH5UtApQnoRO2Ky6prnDsU75kTJySU8eZK66IQKfzk7JfG
-	 Yl5Gru/A61Sw6ni8SyHEK8tKDOu7gOenphyWJjvJgyFPlOZYByFsUk603I2yTDetxjlMWE5DlXHO
-	 6XtfClD30Sm9PtN2So7rGf2rjIozhQdXQha9SaawaX8aie91AC+JXKN5afEmRh0IAyfcaUSQqnc9
-	 vEHXCrK6uECPcYNrZADd3gJsbtlHORLRJeSz8Ry+sKIhp9btZ/M/8U8i38YfJYAd1tkns9JeYlFX
-	 3jwmJB9A/+n2dP6Pww/UlniRdD89B2aLgOAI2jaCpRTYAMGW+xS339GHm8lX1rjMKykLi7jLvK6G
-	 RXfWe6NObbXnqhjO5E3G+4IBo2mTJXvxL8PDar9BcmItjd/9v5iaDAIBMjNLvDgB615LPDEDKFOZ
-	 Ts/2Nk8qd9fLs+5saJwqT//VQf8SGQpqfjv+TEreL93dcXAqgFExbu/aMNsYzg2aF1llwfaHo37W
-	 onqV+q8e8W38IlFxgjCxyBB9Miw+DJIc2AmRyyTdQZalfC75HFt9IM1l3dbUYgUHmKZXk2DrumLD
-	 HyeO5aHQqwjKZxhFqnya7NfyGhue6XhdPzWqlXGXhuue9XbDjBJ03L9Tp4gG6FNAeHkgKPNaKcog
-	 kEn2G/EW/KsyDqmgzR+JkWtpY+tdwbSgy1ip+6PHbMKv6BIW9xYkt/C4Uq3YP97z6aSvmLqgqK9z
-	 /88uB08Oly/aPF1ezaC483aolF6iJ4sofO4xaMU36Nhsz1O9NaiLMipOCYepT/d10L8KttsnHfmo
-	 nhVSd9mB4H+S+EDdwAeDH8zW8J5NnoaTPS9OVpMwS90dhlqWR2fPfIYnfDQcCST6pTko38zpOt/6
-	 8qP0WA5jDceBDRcpLPApCT9WK8MHDUE5xRfSdV1uBoOwTG3utYLmSCSs5iBHHp1dUwgwBoONW/Kh
-	 nHDEY=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Cunhao Lu <1579567540@qq.com>
-Date: Tue, 13 Oct 2026 11:22:37 +0800
-Subject: [PATCH net] can: rockchip_canfd: stop bus-off restart before
- closing the device
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CNRyFkqW"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e6eb77f0bso249213085a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:31:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791862288; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Qjwii8pg/fiHBidx66nGQcB0599zj2FMA8oUg+3QpFssPhoQIERhYfOfKbBuc3xnly
+         s3YTb7YFjlIvBHoRKIFpTwnty/Hc0p0yhwwvRo0Cgf2J4OXRA/FG1zefMSIZ4QQTgqem
+         /1zoFv2q/72H4kE7eqPXIPuBuZme08D+SFk0ykhbkhXNklBYucwFzcDhhbcbLX+oIsVq
+         dS/3W9zx7Ag1X6Ns1zM2HdpZlzQmRDjfBJ3DHvNPFRXaRDeZDYzJbWty1D//jWQXEs73
+         qQZeOnp0REIsntjhTjG6XDwhrLdjnXb3CseE2agX1NVMsNvrPwQ4jwAhYO5hOn8nYwiP
+         ognQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=oKth/1jAUk8y73FB5cD2ux1SjiU3FjqeBdt11b7UR8k=;
+        fh=usFJH/C1gTBsmhqx4/lEBr+GGiQDfhnVjmVaPdJIGBI=;
+        b=W82vv1nfguxIASIbohZJjOe4Qglk0i0Lq3o805UrG3hRUGb87jmr0nD9SuXjsm6Sgc
+         Y3b2s2VQhqHsO27QuF0UAQm6N7luDxR+A+RdNMzbRqIa5mcx4qesLw9SmmHyALdr2jb3
+         7p8ZOPO/D6++/MOym55DiA5i9wQfz5oz5aeDS5s7Cexn83KK9ydeWvv5hnvUmRmxRNY9
+         XcPliA9gVQCRNUlW4kzDoxu8oMdO8EX43ab7wI7MM4E+iAS4yZ5Yo9fgz70ua5vJps1O
+         2ADpLqk1WnbQMzACtDp946vKepNUswIPi34aYg54HPvSJn1EjZo/WVfF9JFxTPMwcGvb
+         5C5g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791862288; x=1792467088; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oKth/1jAUk8y73FB5cD2ux1SjiU3FjqeBdt11b7UR8k=;
+        b=CNRyFkqWvkphXy4611cQxfWd3tluQ2Ap+aZpYQtlP56Wvf2uIOZtIBNT32f9l64lCL
+         HdERnSWoEgkR/I2ykgmwW9MosDd36LVBYLu6FgpxJZ8CfziAMvs+159cn0FEnD3Wk8vs
+         owf5QJpZW1rBUtUGwT8vcnB3pYZ53gcu4humkw3zPvllA3/lNcsYd9DuB+3stYgwMh0x
+         WzsNiT7bE58HHyvxKNhB6gyxAw17LkLNfWXXnhSE0WUgxAQ5MbNsa9RRuytAk3T19QiY
+         g6OGGZcFuYXaRsFoYjuxyt3UAtI2t/HA/7ciI0OrbqE1t8NO/gP65CGhRi7fSe90KWxZ
+         f/LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791862288; x=1792467088;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oKth/1jAUk8y73FB5cD2ux1SjiU3FjqeBdt11b7UR8k=;
+        b=tbETZMUC8n/hxSrqQ24RiVAPogaWbPP/ID/4A6nZCfPltGV/467/zpfur8qTMwmqIi
+         iCsvNlLZ70L3fzs0ZvN6cwja5iWbtuFgXtWI+41KIPLIxI2IjBDKCmNp0VTee5A2YD4U
+         BQFItG4sZqYalnoFi4GyT93FRBl9/ly4T38mUoipEe1cyd8G97gbwUds+X87rNVoGw+f
+         3Z8afrgb5mdnYW8QeYqMHm1aqGwV15cl7jir0+FgVudlYS7ssX7r/B2pAQ8jeKngE5jy
+         5clgTQvuQ78O8N2NWnCTBSq8xv4PluAfv2Wo4CXy9qkOufGC6PSKv9d/5jidwsD2Bigf
+         D9EA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLUmCS63O+dBFyKuNOKcPRXb6XX3OoZOqda4ZNHVN371fpNR2kBqujg3xNZv6rYmmnBixBMLwcn+vAfuY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFlt4CaPbOFbUQ+utcSLqLz/34C+8BqfP0vIzvNEhu5BJnlpqv
+	cddC/Hy99lCWCaReKNDpurC0bN0GxZRO186PnOO0N88Szvxi1jj86mPgSp7JHImWnahAD8beNKE
+	f2mYyuyPEGD/KUChoQGNcjRLJ+DBM7Y4=
+X-Gm-Gg: AYBFou3zr4rZdLcfN+Rz189JP8pOuj7Oqa0wj0EAWsYfE3+1eSQzbvhCL/rZ/jPldKE
+	uKyMEPPDvbY9Te0FxmFo9FrJms9G+vzZDVRvKBd+PiTIw4YfLNAbCvjMk165NVWGI8EAKlw835t
+	7j3AVWMFQZ+I2/ZOARZRnSHReJHnBEy/kJMVpuD8kBeAatIf7x4aFqjdLoet9hJW7jYzq4NnTlq
+	Lfw7Drb5VWPbNy8yHLNdWU6alKmm0SKaXX9t0uwv9urjxxoeqO8/qmbbBX6XXe16kI0WQw+hi5z
+	if0kWUeiOfLNPRJ4bd7n9h3OQ6Wz7f3lWpJ9D4zFVOvbWO0VpdYAMtw=
+X-Received: by 2002:a05:620a:44c8:b0:939:1222:b9f1 with SMTP id
+ af79cd13be357-93ebcd2b3d1mr1818738285a.0.1791862287366; Mon, 12 Oct 2026
+ 20:31:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-OQ-MSGID: <20261013-rockchip-canfd-restart-close-v1-1-72cac4f932cf@qq.com>
-X-B4-Tracking: v=1; b=H4sIAPyjzWoC/yXMwQrCMAyA4VcZORtYpxP0VcRDm6YuKu1IOhHG3
- t2qx/8/fCsYq7DBuVtB+SUmJbdwuw5o8vnGKLE1DP1wdL3boxZ60CQzks8porJVrxXpWYyRQ+T
- xNB6SCwkaMSsnef/4C2SucP1PW8KdqX5h2LYPhSdx8oUAAAA=
-X-Change-ID: 20261013-rockchip-canfd-restart-close-ebde5954f1bf
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-Cc: linux-can@vger.kernel.org, netdev@vger.kernel.org, 
- kernel@pengutronix.de, Heiko Stuebner <heiko@sntech.de>, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Cunhao Lu <1579567540@qq.com>
-X-Mailer: b4 0.15.2
+References: <20261010142247.99223-1-physicalmtea@gmail.com>
+ <20261010142247.99223-4-physicalmtea@gmail.com> <as1ciTHT2O40E/Uq@devvm29614.prn0.facebook.com>
+In-Reply-To: <as1ciTHT2O40E/Uq@devvm29614.prn0.facebook.com>
+From: Jia Jia <physicalmtea@gmail.com>
+Date: Tue, 13 Oct 2026 11:30:51 +0800
+X-Gm-Features: AclHuK82x5TMJTU3P4uV1cGGZ695rdTmYCG-meYcWlEm97kH4rrDUYXGHuCS2tM
+Message-ID: <CAJwVaMJxgjbEXk8LW+wYbmfPYA2anNcRtitB=G1=kNv-WXm4TQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 3/5] vsock/virtio: reuse same-flow socket
+ lookup in RX batches
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: stefanha@redhat.com, sgarzare@redhat.com, netdev@vger.kernel.org, 
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, mst@redhat.com, 
+	jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The close path cancels restart_work after freeing the IRQ and stopping
-hardware. A queued bus-off restart can therefore enable the controller
-and interrupts after teardown. It can also restart timestamp work before
-runtime suspend.
+>
+> On Sat, Oct 10, 2026 at 10:22:45PM +0800, Jia Jia wrote:
+> > An RX lock batch still looks up the socket for every packet and takes a
+> > temporary lookup reference, even though the batch already holds a reference
+> > to the locked socket.
+> >
+> > Record the network namespace and packet address tuple when a batch starts.
+> > Reuse the batch socket for later STREAM/RW packets with the same tuple, and
+> > release the batch before looking up a different flow.
+> >
+> > The cached path still traces every packet, takes an skb owner reference,
+> > validates socket state, source and transport, updates credit, and runs the
+> > receive state machine. Only the socket table lookup and its temporary
+> > reference are skipped.
+> >
+> > Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+> > ---
+> >  include/linux/virtio_vsock.h            |  3 ++
+> >  net/vmw_vsock/virtio_transport_common.c | 58 +++++++++++++++----------
+> >  2 files changed, 38 insertions(+), 23 deletions(-)
+> >
+> > diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+> > index 26dde6909c4e..d6528681e052 100644
+> > --- a/include/linux/virtio_vsock.h
+> > +++ b/include/linux/virtio_vsock.h
+> > @@ -287,6 +287,9 @@ struct virtio_transport_rx_batch {
+> >       struct sock *sk;
+> >       unsigned int pkts;
+> >       size_t bytes;
+> > +     struct net *net;
+> > +     struct sockaddr_vm src;
+> > +     struct sockaddr_vm dst;
+> >  };
+> >
+> >  void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+> > diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+> > index e67dfcaa279c..73e5c7dfe8b4 100644
+> > --- a/net/vmw_vsock/virtio_transport_common.c
+> > +++ b/net/vmw_vsock/virtio_transport_common.c
+> > @@ -1977,6 +1977,7 @@ void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
+> >       batch->sk = NULL;
+> >       batch->pkts = 0;
+> >       batch->bytes = 0;
+> > +     batch->net = NULL;
+> >
+> >       if (!sk)
+> >               return;
+> > @@ -2008,6 +2009,37 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+> >       virtio_transport_recv_pkt_init_addrs(skb, &src, &dst);
+> >       virtio_transport_trace_recv_pkt(skb, &src, &dst);
+> >
+> > +     if (batch->sk) {
+> > +             if (batch->net == net &&
+> > +                 vsock_addr_equals_addr(&batch->src, &src) &&
+> > +                 vsock_addr_equals_addr(&batch->dst, &dst) &&
+> > +                 virtio_transport_recv_pkt_batchable(t, batch->sk)) {
+> > +                     sk = batch->sk;
+> > +                     if (!skb_set_owner_sk_safe(skb, sk)) {
+> > +                             WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
+> > +                             virtio_transport_rx_batch_finish(batch);
+> > +                             kfree_skb(skb);
+> > +                             return;
+> > +                     }
+> > +
+> > +                     ctx = (struct virtio_transport_rx_pkt_ctx) {
+> > +                             .net = net,
+> > +                             .src = &src,
+> > +                             .dst = &dst,
+> > +                             .batchable = &batchable,
+> > +                     };
+> > +                     free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
+> > +
+> > +                     if (!batchable)
+> > +                             virtio_transport_rx_batch_finish(batch);
+> > +                     if (free_pkt)
+> > +                             kfree_skb(skb);
+> > +                     return;
+> > +             }
+> > +
+> > +             virtio_transport_rx_batch_finish(batch);
+> > +     }
+> > +
+> >       sk = virtio_transport_recv_pkt_find_socket(skb, &src, &dst, net);
+> >       if (!sk) {
+> >               virtio_transport_rx_batch_finish(batch);
+> > @@ -2018,33 +2050,10 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+> >
+> >       if (!skb_set_owner_sk_safe(skb, sk)) {
+> >               WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
+> > -             virtio_transport_rx_batch_finish(batch);
+> >               kfree_skb(skb);
+> >               return;
+> >       }
+> >
+> > -     if (batch->sk && batch->sk != sk) {
+> > -             /* Never acquire a second socket lock. */
+> > -             virtio_transport_rx_batch_finish(batch);
+> > -     }
+> > -
+> > -     if (batch->sk == sk) {
+> > -             /* Keep the batch reference; drop this packet's lookup reference. */
+> > -             sock_put(sk);
+> > -             ctx = (struct virtio_transport_rx_pkt_ctx) {
+> > -                     .net = net,
+> > -                     .src = &src,
+> > -                     .dst = &dst,
+> > -                     .batchable = &batchable,
+> > -             };
+> > -             free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
+> > -             if (!batchable)
+> > -                     virtio_transport_rx_batch_finish(batch);
+> > -             if (free_pkt)
+> > -                     kfree_skb(skb);
+> > -             return;
+> > -     }
+> > -
+>
+> Not sure I love adding code and then removing it in the same series.
+> Seems like these are asking to be squashed?
+>
 
-Serialize restart with the close transition using a mutex. Mark the
-device closing and mask its interrupts before synchronizing the IRQ.
-Release the mutex before cancelling restart_work, so a queued restart
-can observe the closing state without deadlocking.
+I'll fold patch 3 into patch 2 so batching is introduced with
+same-flow lookup reuse from the start.
 
-Exclude the IRQ handler while reinitializing the hardware on restart.
-Do not disable the shared IRQ line while waiting for work to finish.
+> >       lock_sock(sk);
+> >       /*
+> >        * Sockmap removal restores the native protocol under sk_callback_lock.
+> > @@ -2063,6 +2072,9 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+> >       free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
+> >       if (start_batch && batchable) {
+> >               /* Keep the lookup reference until the batch is released. */
+> > +             batch->net = net;
+> > +             batch->src = src;
+> > +             batch->dst = dst;
+>
+> Similar to my comment in the other patch, seems these are all in sk
+> already?
+>
 
-Fixes: ff60bfbaf67f ("can: rockchip_canfd: add driver for Rockchip CAN-FD controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
----
-When automatic bus-off recovery is enabled, bringing the interface down
-can race with a pending or running restart. The driver currently relies
-on close_candev() to cancel restart_work, but calls it only after freeing
-the IRQ, disabling RX offload and stopping the controller. A restart in
-that interval can re-enable the controller and its interrupts after IRQ
-teardown, and requeue timestamp work after it has been stopped. That work
-can subsequently access registers after runtime suspend disables the
-controller clocks.
+For the batch cache, yes. I'll use the locked socket state for the
+same-flow check. The packet values still need to be passed to the
+locked receive path for source validation and reset handling.
 
-Serialize the restart callback and the close transition with a mutex and
-a closing flag. The close path marks the device as closing and masks its
-interrupts, then synchronizes the IRQ before cancelling restart_work.
-This drains any handler that could still schedule a restart. Cancellation
-runs outside the mutex so that a restart waiting for the lock can observe
-the closing flag and exit. IRQ teardown, RX offload shutdown and the final
-hardware stop follow only after restart work has finished. The shared IRQ
-line is disabled only around hardware reinitialization in the restart
-callback, not while cancelling work in the close path.
-
-The standalone fix was tested on a LubanCat-5IO running a PREEMPT_RT
-kernel. The 1 Mbit/s CAN bus was connected to four CANopen motors
-operating at 100 Hz and four sensors operating at 20 Hz.
-A bitrate mismatch forced bus-off, with automatic restart set to 100 ms;
-25 iterations brought the interface down at delays spanning immediate
-close through 130 ms after bus-off. Every iteration reached bus-off and
-scheduled recovery, with no crashes or kernel traces observed. Automatic
-recovery was also checked with the interface left up, including a 1 s
-restart delay. The reported build completed without warnings.
----
- drivers/net/can/rockchip/rockchip_canfd-core.c | 40 +++++++++++++++++++-------
- drivers/net/can/rockchip/rockchip_canfd.h      |  5 ++++
- 2 files changed, 35 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
-index 37c1c22c40c9..e38ddd143a3a 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-core.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
-@@ -244,6 +244,8 @@ static void rkcanfd_chip_interrupts_enable(const struct rkcanfd_priv *priv)
- static void rkcanfd_chip_interrupts_disable(const struct rkcanfd_priv *priv)
- {
- 	rkcanfd_write(priv, RKCANFD_REG_INT_MASK, RKCANFD_REG_INT_ALL);
-+	/* Flush the mask before synchronizing a shared IRQ. */
-+	rkcanfd_read(priv, RKCANFD_REG_INT_MASK);
- }
- 
- static void rkcanfd_chip_fifo_setup(struct rkcanfd_priv *priv)
-@@ -353,19 +355,27 @@ static int rkcanfd_set_mode(struct net_device *ndev,
- 			    enum can_mode mode)
- {
- 	struct rkcanfd_priv *priv = netdev_priv(ndev);
-+	int err = 0;
- 
--	switch (mode) {
--	case CAN_MODE_START:
--		rkcanfd_chip_start(priv);
--		rkcanfd_chip_interrupts_enable(priv);
--		netif_wake_queue(ndev);
--		break;
--
--	default:
-+	if (mode != CAN_MODE_START)
- 		return -EOPNOTSUPP;
-+
-+	mutex_lock(&priv->state_lock);
-+	if (READ_ONCE(priv->closing)) {
-+		err = -ENETDOWN;
-+		goto out_unlock;
- 	}
- 
--	return 0;
-+	disable_irq(ndev->irq);
-+	rkcanfd_chip_start(priv);
-+	rkcanfd_chip_interrupts_enable(priv);
-+	enable_irq(ndev->irq);
-+	netif_wake_queue(ndev);
-+
-+out_unlock:
-+	mutex_unlock(&priv->state_lock);
-+
-+	return err;
- }
- 
- static struct sk_buff *
-@@ -666,6 +676,9 @@ static irqreturn_t rkcanfd_irq(int irq, void *dev_id)
- 	struct rkcanfd_priv *priv = dev_id;
- 	u32 reg_int_unmasked, reg_int;
- 
-+	if (READ_ONCE(priv->closing))
-+		return IRQ_NONE;
-+
- 	reg_int_unmasked = rkcanfd_read(priv, RKCANFD_REG_INT);
- 	reg_int = reg_int_unmasked & ~priv->reg_int_mask_default;
- 
-@@ -736,6 +749,7 @@ static int rkcanfd_open(struct net_device *ndev)
- 	rkcanfd_chip_start(priv);
- 	can_rx_offload_enable(&priv->offload);
- 
-+	WRITE_ONCE(priv->closing, false);
- 	err = request_irq(ndev->irq, rkcanfd_irq, IRQF_SHARED, ndev->name, priv);
- 	if (err)
- 		goto out_rkcanfd_chip_stop;
-@@ -758,9 +772,14 @@ static int rkcanfd_stop(struct net_device *ndev)
- {
- 	struct rkcanfd_priv *priv = netdev_priv(ndev);
- 
-+	mutex_lock(&priv->state_lock);
-+	WRITE_ONCE(priv->closing, true);
-+	rkcanfd_chip_interrupts_disable(priv);
-+	mutex_unlock(&priv->state_lock);
-+	synchronize_irq(ndev->irq);
-+	cancel_delayed_work_sync(&priv->can.restart_work);
- 	netif_stop_queue(ndev);
- 
--	rkcanfd_chip_interrupts_disable(priv);
- 	free_irq(ndev->irq, priv);
- 	can_rx_offload_disable(&priv->offload);
- 	rkcanfd_chip_stop_sync(priv, CAN_STATE_STOPPED);
-@@ -921,6 +940,7 @@ static int rkcanfd_probe(struct platform_device *pdev)
- 	priv->can.do_set_mode = rkcanfd_set_mode;
- 	priv->can.do_get_berr_counter = rkcanfd_get_berr_counter;
- 	priv->ndev = ndev;
-+	mutex_init(&priv->state_lock);
- 
- 	match = device_get_match_data(&pdev->dev);
- 	if (match) {
-diff --git a/drivers/net/can/rockchip/rockchip_canfd.h b/drivers/net/can/rockchip/rockchip_canfd.h
-index 95bea9bfd8a2..c81233142a74 100644
---- a/drivers/net/can/rockchip/rockchip_canfd.h
-+++ b/drivers/net/can/rockchip/rockchip_canfd.h
-@@ -12,6 +12,7 @@
- #include <linux/can/rx-offload.h>
- #include <linux/clk.h>
- #include <linux/io.h>
-+#include <linux/mutex.h>
- #include <linux/netdevice.h>
- #include <linux/reset.h>
- #include <linux/skbuff.h>
-@@ -478,6 +479,10 @@ struct rkcanfd_priv {
- 	unsigned int tx_head;
- 	unsigned int tx_tail;
- 
-+	bool closing;
-+	/* Serializes restart with the close transition. */
-+	struct mutex state_lock;
-+
- 	u32 reg_mode_default;
- 	u32 reg_int_mask_default;
- 	struct rkcanfd_devtype_data devtype_data;
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261013-rockchip-canfd-restart-close-ebde5954f1bf
-
-Best regards,
---  
-Cunhao Lu <1579567540@qq.com>
-
+> Best,
+> Bobby
