@@ -1,61 +1,158 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BF33C584E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7F94F053F;
+	Tue, 13 Oct 2026 14:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903140; cv=none; b=un8RYDcxMKKofdPDzioo8FTHL440aef7qxe+aOtJk0/em2A8Kdc5vyLQgWSVnFZkU3KyeEGo61oGeWtaUoRwJVSYee0aznWdogNuNpphqNy2xGOm8tqOfzxCXO8s7/tw0riQaSzvkGzLTOTd4eAX/8iIo4owDXgnoHmHDpOJjU0=
+	t=1791903140; cv=none; b=blKLiyNbhhJ6wcDiFpyZrwEMTJhYwwtVTh81Ya25QYpciK5rgSeSWpukXJDev9gkaA7A80atz50zzRNHif8V3w/MMWBbTwc5edxTmGoz9M3c8n3YThC4J5pB6WEZhMQKzT0h+zg8B3jZqgZmdFj5SnzrFqdNhTuEXQqYfpxbr4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791903140; c=relaxed/simple;
-	bh=oUJ3RMDDNB2ivKAi05eH0inu4rlJLtX2H1bKRkH8Q9c=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=jTN/BlGq7x7pyyO89k4JHm7gp9IeivcDceDdDsmZ1ov/o3vAnMD+LJFlJBs47BRymm4l4VQ3l9tSbQeEBw1scaUNvqmQ6k19UE00PD3QXIk+zj9kvCAqn+3l6gdMNLW+KUmD0jjOmUwVCY0lKq8DSglMcGWxNVPm/4YyMt2oNrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c734afb8deso4320362b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:52:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791903138; x=1792507938;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=oUJ3RMDDNB2ivKAi05eH0inu4rlJLtX2H1bKRkH8Q9c=;
-        b=HRdaWODJLjTFtFupw+nGPaSfdzBwLX+nrAAN3Igtvgc3mguYGRNLH+hrCmZdCEiqYQ
-         ZGrh9xE4LrIStKaig3yEgQ0cThZc/69/bVwOnuCxjgKM9ZMiYF/kRjNw6Bo5cvHTWImw
-         52nlMZ1srDcRf/q7M/BTtq6U3LT6grM0J5izADdeH6WSDXQ/CKePv4h0RiUqQTdRi8lT
-         1sjkJCn+4HusrsLjlr+q+r0p1bpR9dabp+MOWv3po47Z3Wv4Sprx0TyihkY+S+x0CsIq
-         oLhB6QKIn+x9x5tQW5pzgsmCd3PjWPOFV5gyIyEfIuxvVYjTQunP9zkoOimM5A/UM4Ba
-         P5mQ==
-X-Gm-Message-State: AFq9FYJVRDrmJEb0sJGgGcFHtCGTUuSnFI7wNiqcDSUu65/M5wMofwza
-	2KwZIF/oCPMy7rG03MRRmQaw9MGhcAtLoyak3QXd5z3mjpmzo/sLWqNEt4S2hSb/dZyPRaCRQbJ
-	qbv5q3+i4crSZI6h/yiZB5AjQL+ZmpPIGQNQuWWqUv+H+tjyYAA2HFBIE+94=
+	bh=I2QZAWUt1SZyzP5/tIWMsXCeb4B3Mn6yTZqQPfmv/hc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dwrpDkDGrYj2O4uO8OdLMOKPW6gCGVBT4wd+UjS3DbycZd0yPyYnn7uqxQhM1He39dUa5scuaPUKWMUe3A5oMS/rotRrL0CZuxVXEF91pIROSPVzlC/Wuuz4TILMc3iYKf/WxGybtQatx47B1U5jobj3N0Z3WBXe9CKrUobrUxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n1nHBZ0H; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n1nHBZ0H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC6D1F00899;
+	Tue, 13 Oct 2026 14:52:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791903137;
+	bh=kzhwRl3T1k1AdPv6B7bJL6B4cN4Kgv+yi+7DS1nteLA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=n1nHBZ0HSExzZ1ujuDc3pCPJMRgU2xATqpvt1ZSQPgAazeG0fwk7zadKRVqHZs9a3
+	 86Z9HehjzB9g/CJzIwUA0dZ2uEkc4R47jfK/1bbKfg4zJo7s//p3uMSIS1qOlVlaAz
+	 1DyUPJ8WlSqtZv8QXWHqUH4uL4dAlbADX6gwVhHiBTuJyu2T4X0wuaGzsQxP3IZJ6H
+	 MzIjh0n+h3QsUGQhptXFNdf0rsKB9pGAZW++N97dl5Ymy0izgovfSEeJGnHU1LCySM
+	 dwQYDaV1p0ROUFH0vIvdxd2eKYWwH7Df0gVkkTJ+9AonjUP5n4DNdhqNBBhgBZOdsR
+	 LZfZGBVR9YGGQ==
+From: Sasha Levin <sashal@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Aaron Kling <webgeek1234@gmail.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 3/3] drm/nouveau/tegra: Keep the fuse clock enabled while the GPU is powered
+Date: Tue, 13 Oct 2026 10:52:10 -0400
+Message-ID: <20261013145210.103565-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261013145210.103565-1-sashal@kernel.org>
+References: <20261013145210.103565-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:130f:b0:4c1:5614:acab with SMTP id
- 5614622812f47-50c532f8aa4mr11369362b6e.37.1791903138647; Tue, 13 Oct 2026
- 07:52:18 -0700 (PDT)
-Date: Tue, 13 Oct 2026 07:52:18 -0700
-In-Reply-To: <688445fa.a00a0220.b12ec.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ace45a2.5f317f00.247b6.0009.GAE@google.com>
-Subject: Forwarded: #syz test
-From: syzbot <syzbot+baad8fdbfa4129f93db6@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Since the GPU on the Jetson TX1 was enabled in commit d1b725476104
+("arm64: tegra: p2180: Explicitly enable GPU"), nouveau often fails to
+bring up the GM20B. Either BOOT_0 reads back garbage ("unknown chipset
+(5ffefa47)"), or PRI reads of the GPC PLL time out ("MMIO read of
+00000000 FAULT at 137000 [ TIMEOUT ]"), or the first register reads in
+nvkm_device_ctor() stall until an asynchronous SError. How often depends
+on the board; one board fails on every boot.
 
-***
+nouveau powers the GPU up with the fuse clock gated: since commit
+24a15252ff04 ("soc/tegra: fuse: Add runtime PM support"), the Tegra fuse
+driver only enables that clock around its own fuse reads. NVIDIA's
+downstream nvgpu driver enables the fuse clock along with the other GPU
+clocks whenever the GPU is powered. Do the same: take an optional "fuse"
+clock and keep it enabled from before the GPU rail is turned on until
+after it is turned off.
 
-Subject: #syz test
-Author: spannme41@gmail.com
+Tested on eight Jetson TX1 devkits, on mainline and on v6.18. Without
+this patch, the GPU failed to come up in 27 of 109 boots; with it, in 11
+of 291, none of them with a garbage BOOT_0. On the board that failed on
+every boot, 38 of 40 boots now succeed. The remaining failures are
+mostly a register read that stalls until an SError; wherever the console
+shows when, nouveau had already finished probing. Such stalls also occur
+without this patch and are a separate problem. The Jetson Nano, which
+shares the Tegra210 GPU node, still works (24 of 24 boots).
 
-#syz test
+Fixes: d1b725476104 ("arm64: tegra: p2180: Explicitly enable GPU")
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h  |  1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c | 13 +++++++++++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h b/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h
+index 6aaa30ef167f..0189043382d0 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h
+@@ -15,6 +15,7 @@ struct nvkm_device_tegra {
+ 	struct clk *clk;
+ 	struct clk *clk_ref;
+ 	struct clk *clk_pwr;
++	struct clk *clk_fuse;
+ 
+ 	struct regulator *vdd;
+ 
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+index 3c8d0878891a..31f8eaa9d650 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+@@ -32,6 +32,10 @@ nvkm_device_tegra_power_up(struct nvkm_device_tegra *tdev)
+ {
+ 	int ret;
+ 
++	ret = clk_prepare_enable(tdev->clk_fuse);
++	if (ret)
++		return ret;
++
+ 	if (tdev->vdd) {
+ 		ret = regulator_enable(tdev->vdd);
+ 		if (ret)
+@@ -76,6 +80,7 @@ nvkm_device_tegra_power_up(struct nvkm_device_tegra *tdev)
+ 	if (tdev->vdd)
+ 		regulator_disable(tdev->vdd);
+ err_power:
++	clk_disable_unprepare(tdev->clk_fuse);
+ 	return ret;
+ }
+ 
+@@ -95,6 +100,8 @@ nvkm_device_tegra_power_down(struct nvkm_device_tegra *tdev)
+ 			return ret;
+ 	}
+ 
++	clk_disable_unprepare(tdev->clk_fuse);
++
+ 	return 0;
+ }
+ 
+@@ -308,6 +315,12 @@ nvkm_device_tegra_new(const struct nvkm_device_tegra_func *func,
+ 		goto free;
+ 	}
+ 
++	tdev->clk_fuse = devm_clk_get_optional(&pdev->dev, "fuse");
++	if (IS_ERR(tdev->clk_fuse)) {
++		ret = PTR_ERR(tdev->clk_fuse);
++		goto free;
++	}
++
+ 	tdev->pmc = devm_tegra_pmc_get(&pdev->dev);
+ 	if (IS_ERR(tdev->pmc)) {
+ 		ret = PTR_ERR(tdev->pmc);
+-- 
+2.43.0
+
