@@ -1,172 +1,172 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E25A4E4C4C;
-	Tue, 13 Oct 2026 12:04:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4935B47AF65;
+	Tue, 13 Oct 2026 12:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791893068; cv=none; b=tPDQFS3S+kgjs3ix8pFDjcMYuZQ+x6nuF1KdwRQ4eWRaVTmomWa79O/howVFQ0Oipdojnadz4PyVQFWNadUk69EUQQFoUJ8W/IiywUpF1cMb+uA7c6OuC3kGFyiD1kkHfwLMRuWkkw8mkA7DmTs8dd0KJxE0zVOuDfjJPFlzkR4=
+	t=1791893136; cv=none; b=UYrvnT9M1wO4mpZ8A8kpm8/JV9JwX/iP+ApDhHsb/RiQ6Sr3l2/aGZCZedunzk0HU00GuAaI2TLOq7uCwrWlt5LZHH6wqJflTlDINU+xUsfRvhWLzutRxnKoT6lKuIFrBXCpkPLstbPAXlIH9jSLQM+/Nm6MB6ZrQsIcoOdbe0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791893068; c=relaxed/simple;
-	bh=TD3OOfnVDe4MsO1kGCAiM9NYuCtzEvmpUK0h+6y1jiI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dw+qY4XEhDxkHH48qiDctKFlC7XdLOzVggDv5hD+IYBHIzvWN3oURFXymZlhTy5pdpjd8GsH1PD6OpF2KuRZNmE/MF/os6j4jv4+ORcfUDYV4ClvO9PAupAM+zXvjaohNRHlxG5X9hXPoA3FAN9FFrjHRSfMB/Y6te+E6qjEyqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Y3yAXFev; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791893136; c=relaxed/simple;
+	bh=PQ4II6nhtBvPDJ+3q4JAD1E8iUcjUCLSom5R1zpySmQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=umhp9a2bbEP00NNw5cLxfzcnAQVYiK7w83Q47krWWyrXH72tFwby7tnR7rZYG0Plti01S5G/rX3NEjkh9mqdkbX+RbaZZU/dMmO2rJSUC3iyxVW3BptmrHsvr9quOkmA115xsYTi89BImbtX4uDnxqYjXwgr5Eo6Oe6VvdJEIws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=luYjmTN5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Y3yAXFev"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=F0
-	a0sun/DlUOUhg+oQI47pu+NZ1gqi59SBBJS3E+Lqs=; b=Y3yAXFevTrbe173s5i
-	4MCLj2g1iVYGM8YWJ4rC4LYQ7xBi58ybqqh+O4hlY3UrPf87Tq7PCeksiwWNA06U
-	Wi24EIUk+WZo1Dr2N2DOOcyHOh0ZPYFdPmlnDA9H89e6BKDndlYyeQKdtJfPGOIu
-	Bk6XomtAY53tOB74KhvQ1bOyo=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3360lHs5ql5G+EA--.65161S2;
-	Tue, 13 Oct 2026 20:03:51 +0800 (CST)
-From: wangdich9700@163.com
-To: tiwai@suse.com,
-	wangdich9700@163.com,
-	perex@perex.cz
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	wangdicheng@kylinos.cn
-Subject: [PATCH] ALSA: hda/realtek: Limit Line In boost and ADC gain on DECENTA MATX03
-Date: Tue, 13 Oct 2026 20:03:27 +0800
-Message-Id: <20261013120327.998217-1-wangdich9700@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="luYjmTN5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CBED1F00893;
+	Tue, 13 Oct 2026 12:05:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791893135;
+	bh=qW5uF1ewgX9X0O+/dnLHI3k9D2+B1xbRg9LE/7VgIaU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=luYjmTN5XY6gBbuqKBAk4kN7gJ/zglLBqHXzan/9wV160NLvLGceS2E6KEXQ/erIP
+	 m9rIL5KlyZBiERi0E8z9pG7upNJYe9ENjowoy7XQppSKgWVQAxAKIzq3u+eG5WrEMB
+	 jUnVU3PKLATrCRtCMAgrJj2DYY7dXgn0p6V1FfG206CwkkwHUGvpxyiT9dwvn2N69s
+	 5DJOy2d076712HHsEFNEtej22sJRdcA6psd2CBJCHHUpqVAXZSghqgtdWkNz9DC/6J
+	 6ijXdNmYVjWmjGbHYpKx/8278eFHvWw1wRmOKupXazmBCokHynClYoKFx7h08OR3Sn
+	 yjEv6TyAUdXAw==
+Subject: Re: [PATCH net-next v2 1/4] eth: mpnic: count packets, bytes, and
+ drops per ring
+From: netdev-bot+sashiko@kernel.org
+To: daniel.zahka@gmail.com
+Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, pabeni@redhat.com, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, edumazet@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Date: Tue, 13 Oct 2026 12:05:33 +0000
+Message-ID: <179189313386.434549.472154311742280420@kernel.org>
+In-Reply-To: <20261012-mpnic-counters3-v2-1-8afba81c2d5a@gmail.com>
+References: <20261012-mpnic-counters3-v2-1-8afba81c2d5a@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3360lHs5ql5G+EA--.65161S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF43Xr4fury8KF17CF1xXwb_yoWruw1UpF
-	4Sy3W5CFs5XFyIyrs3tr1UX3WrGa4rGr1fC3y5tw1av3Z5CrWkGa9YyrWayF15JryFgF1S
-	vrnaqa4Ykw43ZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRfM3iUUUUU=
-X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/xtbC5wfeLmrOHidyQQAA3+
 
-From: wangdicheng <wangdicheng@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The DECENTA MATX03 (ALC897, SSID 1e0b:1297) exposes a high gain
-range on both the Line In pin boost and the ADC input amp. Pin 0x1a
-reports nsteps=0x03 with stepsize=0x27, that is 0, 9.75, 19.5 and
-29.25 dB. ADC 0x08 reports nsteps=0x3f with stepsize=0x02, that is
-0 to 31.5 dB in 0.5 dB steps, and defaults to 0x3f (maximum). The
-combined 60.75 dB analogue cascade overloads the front-end when the
-source level is high, producing audible harmonic distortion during
-Line In monitoring.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Add a new fixup alc897_fixup_limit_linein_boost that overrides the amp
-capabilities of the Line In and external Mic pins to nsteps=1 (max
-~11.75 dB), and also limits the ADC input amp to nsteps=1 (max ~0.5 dB).
-The total gain drops from 60.75 dB to ~12.25 dB, eliminating the
-clipping. Internal and dock mic pins are excluded to avoid affecting
-built-in microphones.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Tested on the affected machine: with the fixup applied, Line In
-recording at maximum source volume is clean, and dmesg confirms the
-fixup is picked:
+- [Medium] In mpnic_clean_rcq()
+  (drivers/net/ethernet/meta/mpnic/mpnic_txrx.c), an Rx frame the driver…
 
-  ALC897: picked fixup alc897-limit-linein-boost (SSID)
+--
 
-Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
----
- sound/hda/codecs/realtek/alc662.c | 50 +++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+eth: mpnic: count packets, bytes, and drops per ring
 
-diff --git a/sound/hda/codecs/realtek/alc662.c b/sound/hda/codecs/realtek/alc662.c
-index eff7c83b9c59..a140891d51fa 100644
---- a/sound/hda/codecs/realtek/alc662.c
-+++ b/sound/hda/codecs/realtek/alc662.c
-@@ -198,6 +198,49 @@ static void alc897_fixup_lenovo_headset_mode(struct hda_codec *codec,
- 	}
- }
- 
-+static void alc897_fixup_limit_linein_boost(struct hda_codec *codec,
-+					    const struct hda_fixup *fix, int action)
-+{
-+	struct alc_spec *spec = codec->spec;
-+	struct auto_pin_cfg *cfg = &spec->gen.autocfg;
-+	int i;
-+
-+	if (action != HDA_FIXUP_ACT_PROBE)
-+		return;
-+
-+	for (i = 0; i < cfg->num_inputs; i++) {
-+		hda_nid_t nid = cfg->inputs[i].pin;
-+		unsigned int defcfg;
-+
-+		if (cfg->inputs[i].type != AUTO_PIN_LINE_IN &&
-+		    cfg->inputs[i].type != AUTO_PIN_MIC)
-+			continue;
-+
-+		defcfg = snd_hda_codec_get_pincfg(codec, nid);
-+		if (snd_hda_get_input_pin_attr(defcfg) == INPUT_PIN_ATTR_INT ||
-+		    snd_hda_get_input_pin_attr(defcfg) == INPUT_PIN_ATTR_DOCK)
-+			continue;
-+
-+		snd_hda_override_amp_caps(codec, nid, HDA_INPUT,
-+					  (0x00 << AC_AMPCAP_OFFSET_SHIFT) |
-+					  (0x01 << AC_AMPCAP_NUM_STEPS_SHIFT) |
-+					  (0x2f << AC_AMPCAP_STEP_SIZE_SHIFT) |
-+					  (0 << AC_AMPCAP_MUTE_SHIFT));
-+	}
-+
-+	for (i = 0; i < spec->gen.num_all_adcs; i++) {
-+		hda_nid_t adc = spec->gen.all_adcs[i];
-+		unsigned int caps;
-+
-+		caps = query_amp_caps(codec, adc, HDA_INPUT);
-+		if ((caps & AC_AMPCAP_NUM_STEPS) >> AC_AMPCAP_NUM_STEPS_SHIFT > 1) {
-+			caps &= ~AC_AMPCAP_NUM_STEPS;
-+			caps |= (0x01 << AC_AMPCAP_NUM_STEPS_SHIFT);
-+			snd_hda_override_amp_caps(codec, adc, HDA_INPUT, caps);
-+		}
-+	}
-+}
-+
- static const struct coef_fw alc668_coefs[] = {
- 	WRITE_COEF(0x01, 0xbebe), WRITE_COEF(0x02, 0xaaaa), WRITE_COEF(0x03,    0x0),
- 	WRITE_COEF(0x04, 0x0180), WRITE_COEF(0x06,    0x0), WRITE_COEF(0x07, 0x0f80),
-@@ -326,6 +369,7 @@ enum {
- 	ALC897_FIXUP_HEADSET_MIC_PIN3,
- 	ALC662_FIXUP_CSL_GPIO,
- 	ALC897_FIXUP_BEELINK_SER6_AMP,
-+	ALC897_FIXUP_LIMIT_LINEIN_BOOST,
- };
- 
- static const struct hda_fixup alc662_fixups[] = {
-@@ -787,6 +831,10 @@ static const struct hda_fixup alc662_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc_fixup_gpio4,
- 	},
-+	[ALC897_FIXUP_LIMIT_LINEIN_BOOST] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc897_fixup_limit_linein_boost,
-+	},
- };
- 
- static const struct hda_quirk alc662_fixup_tbl[] = {
-@@ -859,6 +907,7 @@ static const struct hda_quirk alc662_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1c6c, 0x1239, "Compaq N14JP6-V2", ALC897_FIXUP_HP_HSMIC_VERB),
- 	SND_PCI_QUIRK(0x1e63, 0x6d9a, "F+ FLAPTOP r", ALC897_FIXUP_HP_HSMIC_VERB),
- 	SND_PCI_QUIRK(0x1f66, 0x0202, "Beelink SER6 Max 6900", ALC897_FIXUP_BEELINK_SER6_AMP),
-+	SND_PCI_QUIRK(0x1e0b, 0x1297, "DECENTA MATX03", ALC897_FIXUP_LIMIT_LINEIN_BOOST),
- 
- #if 0
- 	/* Below is a quirk table taken from the old code.
-@@ -954,6 +1003,7 @@ static const struct hda_model_fixup alc662_fixup_models[] = {
- 	{.id = ALC662_FIXUP_LENOVO_MULTI_CODECS, .name = "dual-codecs"},
- 	{.id = ALC669_FIXUP_ACER_ASPIRE_ETHOS, .name = "aspire-ethos"},
- 	{.id = ALC897_FIXUP_UNIS_H3C_X500S, .name = "unis-h3c-x500s"},
-+	{.id = ALC897_FIXUP_LIMIT_LINEIN_BOOST, .name = "alc897-limit-linein-boost"},
- 	{}
- };
- 
+This commit adds packet, byte, drop and error counters to each Tx work,
+Tx completion and Rx completion ring in the mpnic driver. The counters are
+reported through ndo_get_stats64. An RCU-protected base snapshot holds the
+totals folded in from rings that have been torn down.
+
+> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+> index 5495e9a9aa651..d5185e64f804c 100644
+> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
+
+[ ... ]
+
+> @@ -594,13 +612,20 @@ static int mpnic_clean_rcq(struct mpnic_napi_vector *nv,
+>  
+>  			if (likely(!(rcd &
+>  				     MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK) &&
+> -				   !state->pkt.add_frag_failed))
+> +				   !state->pkt.add_frag_failed)) {
+> +				bytes += xdp_get_buff_len(&state->pkt.buff);
+>  				skb = xdp_build_skb_from_buff(&state->pkt.buff);
+> +			}
+>  
+> -			if (likely(skb))
+> +			if (likely(skb)) {
+>  				napi_gro_receive(&nv->napi, skb);
+> -			else
+> +			} else {
+>  				mpnic_put_pkt_buff(&state->pkt, true);
+> +				if (rcd & MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK)
+> +					errors++;
+> +				else
+> +					dropped++;
+> +			}
+>  
+>  			state->pkt.buff.data_hard_start = NULL;
+>  			packets++;
+
+[Severity: Medium]
+Is rx_bytes undercounted for frames that are dropped because
+state->pkt.add_frag_failed is set?
+
+mpnic_add_rx_frag() sets add_frag_failed when xdp_buff_add_frag() fails.
+That happens once nr_frags reaches MAX_SKB_FRAGS and the fragment cannot
+be coalesced:
+
+mpnic_add_rx_frag() {
+    ...
+	if (!xdp_buff_add_frag(buff, page_to_netmem(page), pg_off, len,
+			       truesz)) {
+		state->payld.pagecnt_bias++;
+		state->pkt.add_frag_failed = true;
+	}
+}
+
+For such a frame the guarded branch above is skipped, so nothing is added
+to bytes. skb stays NULL and the uncorrectable error bit is clear, so
+dropped++ runs. packets++ runs unconditionally.
+
+The frame is then counted in rcq.packets through packets - errors, but it
+adds nothing to rcq.bytes:
+
+> @@ -619,6 +644,13 @@ static int mpnic_clean_rcq(struct mpnic_napi_vector *nv,
+>  
+>  	rcq->head = head;
+>  
+> +	u64_stats_update_begin(&rcq->stats.syncp);
+> +	u64_stats_add(&rcq->stats.rcq.packets, packets - errors);
+> +	u64_stats_add(&rcq->stats.rcq.bytes, bytes);
+> +	u64_stats_add(&rcq->stats.rcq.dropped, dropped);
+> +	u64_stats_add(&rcq->stats.rcq.errors, errors);
+> +	u64_stats_update_end(&rcq->stats.syncp);
+
+mpnic_get_stats64() and mpnic_stats_fold_rings() report these values as
+rx_packets and rx_bytes. The rtnl_link_stats64 kernel-doc says rx_packets
+includes packets dropped by the driver, and that rx_bytes corresponds to
+rx_packets.
+
+The v2 changelog says:
+
+  - count Rx frames dropped by the driver in rx_packets and rx_bytes
+
+That seems true only for the xdp_build_skb_from_buff() failure path.
+
+The same counters are used by mpnic_get_queue_stats_rx(), which is added
+later in this series in "eth: mpnic: report per-queue stats". The code
+looks the same at the end of the series, apart from the new alloc_failed
+counter.
+
+Moving the bytes += line out of the guarded branch might not be enough by
+itself. __xdp_buff_add_frag() returns before it adds the rejected
+fragment to xdp_frags_size:
+
+	} else if (unlikely(nr_frags == MAX_SKB_FRAGS)) {
+		return false;
+	} else {
+	...
+	sinfo->xdp_frags_size += size;
+
+Would it work to track the lengths reported by the descriptors separately
+here? If not, should the changelog be reworded?
+
 -- 
-2.25.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-mpnic-counters3-v2-0-8afba81c2d5a%40gmail.com
