@@ -1,70 +1,71 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA2753ECF9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE84652CCF2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:19:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919191; cv=none; b=tQlrC1q95UcoMv5iHbZCLcq+H6Dm9TdD4bzBP5+ugAoUSA4vb54SswKe954FpoRMFzh9hVBLceLs7Z2AaC31GDJ8bIwcGhA60/J1iuvDCyQTkWc6CWBp8pX6Po26OW0MB5Vv3WHBCoGeuPdNVAgYOSjNyUWYaEr/TfjyuNhh9zY=
+	t=1791919192; cv=none; b=iGPvNKpPzgF6e7Wa6UMA5eyehRbe31dmKrta5voct+vaZqvEPczjkM4DbA+6ZaQalEuia2qBk7+12OIBoeTjcWgGFLci9UpubeZazsA3hRRfjaY2BURz900ypDOSgjSbv6e2GEwJ6kwIV7voatnTQjYFw6xxwDGJ3r9XkiB+JHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919191; c=relaxed/simple;
-	bh=YprzRlSBQO097fnNymkwLoOkj/kncmNm/McSsUydoqo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QYHVOxZSU5mW2b2KFhinzV4vGtCt8FRARuigaO0SiXlvoCkpk8ziDr+jybo8zw8qvNQyEZVwLCIB0IYvRE11ae8Hgg0aXn+EkH8dO5mdCDAUgMaikrbT+grB/KYNiKT9Q8t7jsO4/SU/gprsRRVYA5Sd7f7kIkbI+Fodyfxpz18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UMLgawHx; arc=none smtp.client-ip=209.85.210.50
+	s=arc-20240116; t=1791919192; c=relaxed/simple;
+	bh=gIMYuS9JxR7CPdiCa2tA60WVNZMmxDlDk7M0OBLgqkE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=K+gDqsSIdSUKnICuBE/roVLnBIslKa7xIsS7J4ZCGjJQa+TLsypMkL5WC0s8d1V4xBGtGRHv1iEnVAX3AF/7gsY4bRbiZyLhKvUaWilWQEgL+Q9X3RekxdZXCh7OPyowQzI0jmLKmayR4Ayi23mrQh7d9apklqk2nFGnyXQcwnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OJlO8KcF; arc=none smtp.client-ip=209.85.161.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UMLgawHx"
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-82621039b6bso141069a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:19:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OJlO8KcF"
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6df5e315bd1so2285758eaf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:19:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791919188; x=1792523988; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=m/MFCfPNCZQJrpx+S7Eyax5BhDmU/GYfaQ7qYqnUIsk=;
-        b=UMLgawHxwYB3IdRJAPm9+eA57B7M1fYCskNO90N2eIUXp6UeFME2Vb1V4pyinyBmza
-         6sGRMNybx5ARsPHDr+jgXJ++kwdk9LexqmpB0DIOhSlu2Fha0kZeHF9v+lVRXbto37oz
-         UtU86KQuz1Ed4cyNLXBAzB8e+GZyfXQTWjpkmZrscgD5j604bBps0yQVRjJKDerFkDp6
-         WtEFi8WB1hNGfU2ET/hPwOug0fqa1nFJdJB7UNR6Nq4FyzHPcqlK/dbavfNHlsV4vwua
-         gadAwhF1oSU2bprGqIPu73lIWPClfDwLvz3w79bWJiAPjZDxsHmh4tHoJKuOjkpGKRmh
-         IqUA==
+        d=gmail.com; s=20251104; t=1791919189; x=1792523989; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ye8Z53vHx1EFOnkJGmfg97MMg0sWXfEXyW1OqzDyMg8=;
+        b=OJlO8KcFaiEJ9lDwYyzG5TxxXC12aPyIkDuFaOQOoyBV58DOrmfiR+XEKSVWGXW5DJ
+         KeZojC9RjJSPzmi8sB3C0h2PAT6j/eL2j/4S/l7Xpr3Idjm9EmdfS8geUT04MK59LQhY
+         lOrQm3zAQhBhMzwXxPlj3/vLTMdtoOBcH5AVGQuHDCawc33WlQND1lGmCtku1uFV+4AD
+         AcLV+Qjc2YPnW9jsHn+rh8pBKuQ9Q4vrFR102SrAK52szslUHouwcRtyr40e5X3INgSP
+         qAhuNwJ1oIjnlmrrHNj11YCoPv0MSDcvMpM9rsUcCck+fx4x9GlpW8Xr6W0+kv19HNbH
+         Epfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791919188; x=1792523988;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=m/MFCfPNCZQJrpx+S7Eyax5BhDmU/GYfaQ7qYqnUIsk=;
-        b=S4lqtrtZeNKOg81Q/FculXoOgNZ3Hgn/qzhW/BUhGS2vnwLY5vWNMfxq8J3EuFQNR+
-         IKu/4gWkHmRvWlInkeOPbtjy7RNNVV82SAjRW/llzFcibO40BJXf6z46NLMzKnebUp53
-         bCAWAeN/EMV4dCLxly5UhK8jnfh10KPnDYFtYRUWVVR0w+jDTl1Hvtaxf0bXOa/8+juS
-         7uX9iUQtwlVtbgF0KvTCJPYDmgPq/BPOKqnmkgah5WeCT0ZA2LtwJgaLgJ1xAcGUJtgy
-         F7Y2x4cXsLMeipY2THtEgr5TuSrhDVS20OyNT58mh+iFDqEl4aKVLQ8gdA2fT8H8BDa6
-         4rmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzhsMerBlJuiH8hJCnjmZ0TfqBG+ponjqaU1Ule/v9tuQ4vE7n8x43eSJqarkPpgjgNeERCUavm0nkpDbo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISCBE08bQp/V0cXiCzW/2cY5esenGQq+S86IS9qZH7j4Wz7m6e
-	qT9xaGh3vkJ6VTlsYbhcpxPjxBBpn/GTwZzyomGeZbLER3xrPTy0KBuU
-X-Gm-Gg: AYBFou0M9zw+6LRZPFxxlMQDb6+C0kaJoP00TUbhSSmWc8kTEC4li3gxo+6NNjVhJ5G
-	lMwY9SwkYI8XaBn6NvJu7d0OGkNiQQOD3gwJcvjV6OS8CuLTaltOEQHoBsX7Za6DHaQtC2LLB/T
-	yWj6UX9YbDsK4F6jPpSBYxNrEuiNrXmPPBn05zc7QPqK0ah6vnKVip9hLJFKJ3cGvdzoQPv3swF
-	YFM2FeFYQef1/E0IprJyvIs47GXyvyNrT8QKLq2JmMKHtqEv4zPmcBjt/N3+SPHpM+IuRKpfxxS
-	gM+X1iwv720cRobJa/yahc6sMB7a37bf06palIyOf5HMcs/fa6s1qqlb6nXwMGm9VAZFyCK/Nfx
-	tu7S9vi2WMlw8ZXDVvRm4UkSuzovYjrpAweKdoIRtYrNvXEzS/b++ElAf4eFNuJ+LLVWNuZl/wc
-	SoiIOpJOAQzDPZifWmp+t8PNHQsT+n8Sd+Ow6tU2XbDwBxmdDvjLshnazCqSl3FVFI18QKFE/Bu
-	K/qxr1TKyV4+JKW/fbuy56s1Z548MUi9cu10U8q8qwgcigHlv7lSPZv1Ry+QwM0fQeVffxQx8iw
-	4iw02zD6q3rQolMNwCwcnCnz8jtqydVtwCSiIKIHBEMYGnLdodQ83qIDbaQz2SQrPenN9I3rGZ0
-	2u1vP5KlFIsgOVFSF1rIR
-X-Received: by 2002:a05:6830:82e6:b0:811:72c5:bd19 with SMTP id 46e09a7af769-83097c62e15mr13853654a34.25.1791919188430;
-        Tue, 13 Oct 2026 12:19:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791919189; x=1792523989;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ye8Z53vHx1EFOnkJGmfg97MMg0sWXfEXyW1OqzDyMg8=;
+        b=kvg5WAvQWINZTAfEN6XIRwE1ww9jZmL5hnpYgrnFMsLKCSbHPhnLqaMN0htPlKuyrS
+         tIWI4Pu53w5FAIwTkFJC5o0wspbC5OjcAbYVvf1MOX3w791TCmW/euxvgomHRXtYA5nv
+         VEhEMGxt4UeTUp8d/lPR5S6gD08XrvAOzFz5Rgf7LS0tfn7ShhP52ZantUkuaaXXpRrt
+         IvyExwKzSAS07DX0Z55Bn6TEMw6EEdqg/LZtXfqwe9TDv/BXn/Zgzt2qxECCFwoFsf7p
+         4sb5sznVwp+pHkHbrmqDUMDwmQbTmxFhOqsifbvL/1LpkOZzH3CwLTUKnJ8Nn2gwWzkw
+         KU8g==
+X-Forwarded-Encrypted: i=1; AKwUvBwu4y+XfQ7y3eP79qrVhpTOf4UqtkeUJsIfYOI414VIWLvFUOeP3WQU4Rs65NOktPjU3DE/TY7fiz4ojMQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIs7aWxIgtV4mG16LQtAYGqq8K8dBt8tGi8mfbw/Z6Dh+n4ByRG
+	J4MqvpRoJDHcjjtP2GiTZyaNN3qd5nBw+HeMIra5lHJAlTRVEofgyOab
+X-Gm-Gg: AYBFou0Us3rFbg4ThGo4lYl+NjK081hZNOqCquPFsTnN0x72LJnBSUs+KDBmfaw78Bc
+	84EpzWyfqS4WzXUMl7yvoQt/BIryiTuQ0lgaJRuqfugodFPfln9X1UzwbJ1xfebeP/3SeBVply4
+	fDk6riHfNfqGkC7xlOePv4IqTG1+SQIfBjhJnI8quEM6HMSrHCQUrC48yQqGLz0DtdFTLhvwqdE
+	8YTfaPIjuG8RuFf4flZqtRlLnApqNrqMs1bb+GlcUJy9H1+w5z08zJdZgX2hSXHtYWGqGQ27X8I
+	4w8UmqVDb4zqtYwJazpgY5KO9Jz9B8tMyQVM0SNkta2bIPuQqOlTBiL8am36+fAGRwA3AEYidzB
+	fUOrd8AjmM+t34i2Syroc079hWaRFqwd/P43CBtTsubQlkQ126JpFGftLyVXtfJbq5QoBfphtpq
+	tdSzRIyLjztNQ9cvngg4XgbiHytdMwDnSC3LB/5ePbcVdbwbVJKsrLiziJnUOWDerD0beUBFpA+
+	6YsOrGM6f9Ic4VA9NYIHtaooaf6IAFDBdn1oG17FqZ6NEqpz/PMh5EGmUbB9qfuykxa1P4ujDJb
+	7j/YX3s+smD6GCd8cnOq5i0XzPgP0FMO0Yi4vVhJHysnLQnqGYw2dq6GEwqMUiBJg7UleITL14s
+	RPUm2xhWbdl5rLOGSMr9h
+X-Received: by 2002:a05:6820:1a0f:b0:6df:428f:f17d with SMTP id 006d021491bc7-6ef0e9e3183mr9476815eaf.15.1791919189604;
+        Tue, 13 Oct 2026 12:19:49 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3dfa1sm13280507a34.18.2026.10.13.12.19.46
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3dfa1sm13280507a34.18.2026.10.13.12.19.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 12:19:47 -0700 (PDT)
+        Tue, 13 Oct 2026 12:19:49 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH net v3 0/5] ptp: make virtual clock sampling and teardown
- failure-safe
-Date: Tue, 13 Oct 2026 13:19:44 -0600
-Message-Id: <20261013-ptp-vclock-sampling-v3-0-d3ee4ea62fc6@gmail.com>
+Date: Tue, 13 Oct 2026 13:19:45 -0600
+Subject: [PATCH net v3 1/5] ptp: drain virtual clock sysfs operations
+ before unregistering children
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,11 +74,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ7CIBAF0Ks0rB0zQ2tTXHkP4wKBtsSWEmiIp
- undJSyMC+Pyz8+8v7FogjWRnauNBZNstIvLoT5UTI3SDQaszplx5C2KGsGvHpKaFvWAKGc/WTe
- AQN6LrsFOiZrlTx9Mb59FvTJnVnbLx9HGdQmvspSoVH/RRECgiO6K2laQNJdhlnY6qmUuXuIfg
- xBPvw0OCJ3RxHWjCWX/bez7/gZeIEVt/wAAAA==
-X-Change-ID: 20260930-ptp-vclock-sampling-902f98408c93
+Message-Id: <20261013-ptp-vclock-sampling-v3-1-d3ee4ea62fc6@gmail.com>
+References: <20261013-ptp-vclock-sampling-v3-0-d3ee4ea62fc6@gmail.com>
+In-Reply-To: <20261013-ptp-vclock-sampling-v3-0-d3ee4ea62fc6@gmail.com>
 To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
  Jakub Kicinski <kuba@kernel.org>, 
  Richard Cochran <richardcochran@gmail.com>, 
@@ -88,51 +87,75 @@ Cc: Eric Dumazet <edumazet@kernel.org>,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Fix virtual-clock sampling errors, registration rollback and parent
-teardown in separate patches. Keep failed PHC reads out of the timecounter
-and serialize extended samples with virtual-clock adjustments. Also
-preserve the zero sentinel for packets without hardware timestamps.
+Parent clock removal walks its virtual clocks before removing the
+n_vclocks sysfs attribute. The mutex taken by ptp_vclock_in_use() is
+released before that walk, so a concurrent sysfs deletion can pick the
+same child and unregister and free its ptp_vclock a second time. A
+reference held by the device iterator does not protect that separately
+allocated virtual clock.
 
-Unlike v2, this revision retains the existing cyclecounter mask, scaling
-and conversion windows. It does not assume full-width nanosecond samples
-or promise recovery of elapsed time after an unobserved counter wrap.
+Remove n_vclocks before walking the children. Removing the attribute
+prevents new stores and drains stores already running, without holding
+n_vclocks_mux across a callback that needs that mutex. Skip virtual
+clocks, which do not have this attribute.
 
-Changes in v3:
-- Split the independent fixes into separate patches, as requested by Paolo.
-- Retain the existing timecounter arithmetic and conversion windows; drop
-  the full-width rewrite and extended-read anchor updates from v2.
-- Propagate registration errors through sysfs, including a failed initial
-  PHC sample, and initialize the counter before publishing the clock.
-- Preserve absent hardware timestamps instead of converting zero.
-- Correct the sysfs teardown rationale and its Fixes tag.
-- Rebase onto current net.
-- Link to v2: https://patch.msgid.link/20261005-ptp-vclock-sampling-v2-0-8ed12d4d10af@gmail.com
+This race was found by code inspection of virtual-clock registration
+failure cleanup and parent removal.
 
-Changes in v2:
-- Drain virtual clock sysfs changes before parent unregister walks children.
-- Use full-width samples and overflow-safe scaling across long sampling gaps.
-- Update the anchor for extended and cross-timestamp reads under the clock lock.
-- Link to v1: https://patch.msgid.link/20260930-ptp-vclock-sampling-v1-1-c11bc16691ae@gmail.com
-
-Assisted-by: Codex:gpt-6-astra
+Fixes: bfcbb76b0f59 ("ptp: unregister virtual clocks when unregistering physical clock.")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-James Hilliard (5):
-      ptp: drain virtual clock sysfs operations before unregistering children
-      ptp: unwind partially completed virtual clock creation
-      ptp: vclock: propagate physical clock sampling errors
-      ptp: vclock: serialize extended samples with counter updates
-      ptp: vclock: preserve missing hardware timestamps
+ drivers/ptp/ptp_clock.c   | 5 +++++
+ drivers/ptp/ptp_private.h | 1 +
+ drivers/ptp/ptp_sysfs.c   | 6 ++++++
+ 3 files changed, 12 insertions(+)
 
- drivers/ptp/ptp_clock.c   |   5 +++
- drivers/ptp/ptp_private.h |   4 +-
- drivers/ptp/ptp_sysfs.c   |  18 ++++++++-
- drivers/ptp/ptp_vclock.c  | 100 +++++++++++++++++++++++++++++-----------------
- 4 files changed, 87 insertions(+), 40 deletions(-)
----
-base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
-change-id: 20260930-ptp-vclock-sampling-902f98408c93
+diff --git a/drivers/ptp/ptp_clock.c b/drivers/ptp/ptp_clock.c
+index 4111342d64f0..47ffc773065a 100644
+--- a/drivers/ptp/ptp_clock.c
++++ b/drivers/ptp/ptp_clock.c
+@@ -508,6 +508,11 @@ static int unregister_vclock(struct device *dev, void *data)
+ 
+ int ptp_clock_unregister(struct ptp_clock *ptp)
+ {
++	/*
++	 * Stop and drain virtual-clock creation and deletion before walking the
++	 * children. Do not hold n_vclocks_mux while waiting for sysfs callbacks.
++	 */
++	ptp_vclock_remove_sysfs(ptp);
+ 	if (ptp_vclock_in_use(ptp)) {
+ 		device_for_each_child(&ptp->dev, NULL, unregister_vclock);
+ 	}
+diff --git a/drivers/ptp/ptp_private.h b/drivers/ptp/ptp_private.h
+index db4039d642b4..ec8633126d6b 100644
+--- a/drivers/ptp/ptp_private.h
++++ b/drivers/ptp/ptp_private.h
+@@ -169,6 +169,7 @@ extern const struct attribute_group *ptp_groups[];
+ 
+ int ptp_populate_pin_groups(struct ptp_clock *ptp);
+ void ptp_cleanup_pin_groups(struct ptp_clock *ptp);
++void ptp_vclock_remove_sysfs(struct ptp_clock *ptp);
+ 
+ struct ptp_vclock *ptp_vclock_register(struct ptp_clock *pclock);
+ void ptp_vclock_unregister(struct ptp_vclock *vclock);
+diff --git a/drivers/ptp/ptp_sysfs.c b/drivers/ptp/ptp_sysfs.c
+index dc398c6b7528..53388b123198 100644
+--- a/drivers/ptp/ptp_sysfs.c
++++ b/drivers/ptp/ptp_sysfs.c
+@@ -263,6 +263,12 @@ static ssize_t n_vclocks_store(struct device *dev,
+ }
+ static DEVICE_ATTR_RW(n_vclocks);
+ 
++void ptp_vclock_remove_sysfs(struct ptp_clock *ptp)
++{
++	if (!ptp->is_virtual_clock)
++		device_remove_file(&ptp->dev, &dev_attr_n_vclocks);
++}
++
+ static ssize_t max_vclocks_show(struct device *dev,
+ 				struct device_attribute *attr, char *page)
+ {
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
