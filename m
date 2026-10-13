@@ -1,188 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0984EB867;
-	Tue, 13 Oct 2026 11:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954C74E325C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890179; cv=none; b=ljTWT55NGLmh9kzii71cl/VmPpRZsK2vclimX4lu7nP1qNx4Jpy4wMUg8OwkQ4qZIAorhM62UX94vT1gYMSr4QIAfH6XBArTDwzUnpaKfyR63lBUg5VnJrfX4OO1pQhqgQQnumtUKHAEu23w1xHh4v03xDUdoe/EaJGgqgKOdYU=
+	t=1791890198; cv=none; b=H9FUTOwy78b0tsnubefSKSpSNyialKbCPs8qCoU7tbmqeTC+WoTgBxe2ddv6k+dTec1z0nwYZJ/lIlccz3rlRuaIAV1TBWNfc3CSX799dB9x8FLrEO1EzsIIPkIgeBkpq1igqDNDmgj3pnvwc0xDNCb9oyMkY2576rJ5BNxxNhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890179; c=relaxed/simple;
-	bh=W7tz0vvlfrzfCYTJiVG6PHb97JVa5CJPlYPau/K208w=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=eWE+q4QORLEzbhA2go+lEL2rKAFlWmooOUi2uK89/mcJ9wSFuGimcBAsy1cvZtJTfcTJlb+HgeUOD69N/HlRs8I9xN+q8/mjptlrBx07PJ/XRO2ZMzpXDKQAEpt2lmXTmUz6oPZc9FeUUIpAf8sWX9pUtiuJb8CZ+vBVddcTrZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaUZwtBt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791890198; c=relaxed/simple;
+	bh=yaThiMfd7pf9ddNJffZbSCzlP3CJbTRx6QNmps1vp5w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PFpucOS7wQFyYB7DxlRDj96U8ICG0nFQij3GDS166bLZGwUJ0Achx5aM6bMmvQUJUrlTB7PftZMFDHaS4cBjDzDdtHkdCkNdzsJznC3NJ9NGucw8T+wWYMxC7VO6kUfp3BjJKTX8CotRu1c3uL7PNWjGX0iQekDSMa0xcCQ5uq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=brvcUbCt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EwECeiYT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaUZwtBt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A61B41F000FF;
-	Tue, 13 Oct 2026 11:16:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791890177;
-	bh=AE35/wvbe2tPqWWH+/96HVFu/mnoLotBnfh0IUxXsz8=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=ZaUZwtBtpYWb5gyg/c0wcRswg9vNwWadc2NGVVioud+MwKuXH03MU/dQJLFp+97al
-	 3QSGkrk/AQy81xusKGXQ6kTraveFTyMYSVTQnjGYq4S8kaoXQ6UUwa+zoXbm0rwb1o
-	 l3BT9Cwg7fVUuEODwmFlIPcp6o4hCUjCas4reEDH6jqb24qRCX56L12rFc+4dSvue2
-	 Ah9kWky+qGYm5GsicGqVxDEhgMGWdetSVMKUeabIzWJ6mgq4iJktIue4UdLbajEOhX
-	 F0OCunjJpNnosxPVBSDn7fZyck+J7gBxXpWp+ErdgkU1GX0u3GKaboPe0m7fTK8OMY
-	 KXsjIY866V/2w==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="brvcUbCt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EwECeiYT"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8E8SG989018
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:16:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	15xKB1ZHhTj/xhEzn/smC2+p9dKTzJ28YlQufyIGu0E=; b=brvcUbCtyewUkrkJ
+	0qqLdu8UhVD9gVcBYm62sVDjYs5DqiZfZktScq7v3+jihlVRs8VDCThQHwQQjbov
+	ATLd8oF0F/q4s97xtZsjJH/gJVonj4ANXrQZcyVQnQVSqMI3oyY8runxc3PW/68K
+	7fO6Mdw7hoi+bBn1RAQ0vTRkcZbp1xMKTNec8NuH4Oi3+R9OaymKVXm3PNpAgEQp
+	KsS6Wdiu0D8lryBMGFtXNdnmXcO0zyvB7nrvUUbvBFQSNpLZBTL9MN0x/QgcB4N9
+	qnwMU5EwwUTvHDj1XKLDcuYW3Mns9Cj4wzayqznzCqYwa76z48lD4iaVpObE7N9i
+	AinV3g==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98hcam84-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:16:36 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93edac58b24so26269785a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:16:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791890196; x=1792494996; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=15xKB1ZHhTj/xhEzn/smC2+p9dKTzJ28YlQufyIGu0E=;
+        b=EwECeiYTG9SSFJ0C3zIZKLoIS6t8W4r/cLqwj8WhKBAie0jQLnwRbGxna/NbT3JIF0
+         jcToTFrtU+PHEK6m+7wjnpt/emzBvYhEHGeRsZNrZk/RgGHp+2lhzOZFsn+iu7FXxkS3
+         9h9sBRoR9O9Pqt7LR2hv0KI+8gw9xaq/h7oIXuKSC6LOtkVOYVx+m0sg2ieaiVj5dLzH
+         nCuIQ2anJxkGtPGZ7ZFpiBb7D5EWmEdLrR1RRWwmlJyfbEQQLJIJUZnRSrzCyTc0loEr
+         JBIWy5pXo+porTlF/UkmvKMwbASF8khq1QcPQ/hRuZsfhDc61pjab95HZJCBoEiC+ffB
+         TiFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791890196; x=1792494996;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=15xKB1ZHhTj/xhEzn/smC2+p9dKTzJ28YlQufyIGu0E=;
+        b=LCT/qN37MxWnbNJn8wtysMx7EdaIAgtom75JgUNzXXpOG7Ty/7OTLcIOu6v/BN67A+
+         7EG6GGSPp+gUS7c3lzTfRb5Q6DCmq6Ao85lzg8epAqPVdFPmcLJEG1sBaRQ6uVVZjz4n
+         36iFgehiUNQOTtGVFdUydnuJHgGBdBznmbzRv5TUn4B3KK4Px/lDdyfCGudrv5wunjUD
+         Szw9xf63/RnJPhF9EMgUuYYc5varGWHRhsApokDj9OV0HufXmgvfw1iYRcZPmywGQDGc
+         iQ0gjJDeXGwPHOJDQR580qnFYHwxGe0Z9UrhxsLwqifUvG1uN/0Q1+slDuIoZyNSlcwB
+         6GgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2Hm0toZ8I3LqLIv4CJPHhnlSQp98GjG+sy26LbK456q0IoNNcrHHuMGJ9Ypk9kNt6bgV3EKHUIV5RHyg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJElfpM3y7DF7NMRhy7xr4NXnU/zh/GZdw2Y6O/yBTBArTEY1UL
+	9zdsxYBGp8orUXFUmui1HFLD2gRxQRxaRl+kHJB8VvDtpVLuVpRFlswc47hE3HCPnVDMLKkdJ9n
+	mVpfaCWf4Lg++SCJ3Q6VHm7H1HzFnnPXScfVsY3t7ovWySDbcZD1iY92if7DMErFsaqsZF2slPf
+	8=
+X-Gm-Gg: AYBFou2eSqmBzSeTr9puLoTFW+tgT2jry1XBt+rdAdEfV98aPRaR15INBIjThI0vzul
+	vkat0Bv30I65m0rRpQ6UxGpRGCRce1glJc8VaDbtRoUp6h2uMJAnysYjWQvF2Pbsw+R8CXwERrP
+	6wsMMwf2qlRYJkcgUPulLNFf7Y9jjTxdMRngwQMqoucu2cYZFSUqhmKZ6dQ8hyvB5WLkfrqz0QF
+	2rOjvMIqw0EHrpR+oFUusjA9B7cp9L1DT4nkqThcnj4D9/DR+P0zkcTP/4rfZ3TPaQpfvk+RGAr
+	vsWJOLHrCQYPon91BE3rlFc9qOBhiIPdiMqiWYTbxOlRr5uGhjIwt941DltM5tSVQWB623KFNO4
+	NZz8SgWHYGybvxwFVoYOWOw==
+X-Received: by 2002:a05:620a:6f95:20b0:93e:ca50:d712 with SMTP id af79cd13be357-93eca50d86cmr1215671085a.1.1791890195540;
+        Tue, 13 Oct 2026 04:16:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:6f95:20b0:93e:ca50:d712 with SMTP id af79cd13be357-93eca50d86cmr1215667985a.1.1791890194996;
+        Tue, 13 Oct 2026 04:16:34 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a7b976sm572363866b.36.2026.10.13.04.16.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 04:16:34 -0700 (PDT)
+Message-ID: <778a3d18-48d1-4d58-acca-041e9545f38b@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 13:16:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] soc: qcom: rpmh-rsc: Output debug information from
+ RSC
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        "Raju P.L.S.S.S.N" <quic_rplsssn@quicinc.com>
+References: <20261005-rpmh-timeout-debug-v1-v5-0-7b9c457a191c@oss.qualcomm.com>
+ <20261005-rpmh-timeout-debug-v1-v5-3-7b9c457a191c@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261005-rpmh-timeout-debug-v1-v5-3-7b9c457a191c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH RFC 3/4] media: qcom: camss: vfe: Add the demux + BLS
- stage to the pixel pipe
-From: bod@kernel.org
-To: William Bright <william.bright@imd-tec.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261013-sm8550-camss-ife-v1-3-d50de00077b7@imd-tec.com>
-References: <20261013-sm8550-camss-ife-v1-0-d50de00077b7@imd-tec.com>
- <20261013-sm8550-camss-ife-v1-3-d50de00077b7@imd-tec.com>
-Date: Tue, 13 Oct 2026 12:16:13 +0100
-Message-Id: <179189017360.1758911.15058199128804994781.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e5aa4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5413; i=bod@kernel.org;
- h=from:subject:message-id; bh=W7tz0vvlfrzfCYTJiVG6PHb97JVa5CJPlYPau/K208w=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqzhL9RV4BzhqI+VAQETg5yrm1oyg8xVc8yuuBf
- ZRmMElcNIWJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCas4S/QAKCRAicTuzoY3I
- OlDYD/4of5vHdFZXRTZ1rtenKKFkNIsdL29HFrSLIZC+Ju2ZQ1xmwnoEjmWPGh1JQY1O459upTn
- pLaJ1TEwwg4E7gt3TEO+Zg8yX6UkHzmz5HiPGwChSWt55da/Nf1dhkSSuON2cydlNEbkdqc4V31
- jPdDPYpcoFHo1qhgCCEOSKGyNm8xI8WWmvvavpkAit2TwDrXRlHMeOwCsQ8cFVT82ZN7BlzsQ48
- loTD8nAA8ShDB/pDz0q1C1uy721lpHndRECVViz++R+nBDQ6mCCvdjpc6aYb6OuQSIQ4sJA97R6
- 36hM+WCrjvzJAInTPWOVnD0OY8Z0M5Gw99EQTo72ZCu8aZRxOP/B68RBQYYtrVsJ8AcrEkEiY3U
- ra/hizJnnZWZC+S/IR9/r03aq4G4T7HXXeut6bJBZOs+M0Rx295Js/rGlseFX94sNb/iKw3EZKU
- XIgWD30dAAZpygsA6BsHZKgxQevvIh2WF0Q51En4sEPPoZJirzGxkWtu1+dKhL1mYX9Ofbku5kL
- rKZ+yLep2QzIg5xArAZkC5tbeG/ZlYb84wk5wLzS7SdyJCLpTqwTuh7wOsLKMIPcje9VeKuApzC
- e9Cq7Ka5yMYUteAteWk/6JZGk1GMevDFj7PrPespxLF2M/uBoczAcgdtrjuiIjv1UHqIQTXM8oM
- nWYEa2fA30XKrxA==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0NCBTYWx0ZWRfX83zYYyTfhcbY
+ 69MTx5d1KwEqxrMlNDjk7BnTe5MSS0o9PP/iFVw5mn05lJRsHqK2yeiE1BR9DF/wO77CcDWJFN6
+ +b85Us5e+iMZGvW1hvkNrq73jlzFuRGY/Oi62FxQh/SfgzdhXhrN9xOAeQQTRbgGcI/gViSLZFG
+ 4EHqlinXwSRehHeGPlUJdtUJ65dKOCulp80TEGyd3h4JVwKtWIJ4zZS/Pk6YWgB+3Q2R7DPjK65
+ VgoseIWk8bP9PgD3ECm9h/8qIpmKjLYxmu+mkc6KeJD6K8NdBZzuw5DkxHRD3Ot/GIBlN50YeEz
+ 3QGBthPXSb3+2YcIW6/3iNDO3qmWkAZzu5m0wOO2JkKZAAv4J15ZrzHLJe6t9Qw7E9ZRdhbC1hU
+ AVe8yFnKGzVnZcpUEzWqR/7+HQj7Fz9wr6gyEWxoFrj8iCCCgVKFc0gkXLdYPTBlzHwk0GIPaKd
+ iWhko80eBjGUj5BYa6Q==
+X-Authority-Analysis: v=2.4 cv=VPVIDNPX c=1 sm=1 tr=0 ts=6ace1314 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=LpQP-O61AAAA:8 a=K7Ajrmt67CcmCc5QVwoA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=pioyyrs4ZptJ924tMmac:22
+X-Proofpoint-ORIG-GUID: IGqpHgx0JVQboNZjDfg5d34ZQv3EMnYH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0NCBTYWx0ZWRfX13WMuyPEMDij
+ NVFxGa3ISaiI15dfwTgj92cSvEOCqpXPBp2pyClPKh+Cuq2kuaN4uf5i8d6gwRzTyFzKzh7Q4L6
+ FuRkL9FY029O4ExBS8HY4c8voAP3mOc=
+X-Proofpoint-GUID: IGqpHgx0JVQboNZjDfg5d34ZQv3EMnYH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
+ suspectscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130044
 
-On 2026-10-13 09:44 +0100, William Bright wrote:
-> The pixel pipe never subtracts the sensor black level, so blacks come
-> out lifted and a demosaic that is sensitive to a green pedestal mixes
-> colours.
+On 10/5/26 11:11 AM, Maulik Shah wrote:
+> From: "Raju P.L.S.S.S.N" <rplsssn@codeaurora.org>
 > 
-> Add the demux + BLS block ahead of demosaic as an opt in stage. It
-> takes the CFA order from the sink format, subtracts a static black
-> level and stretches the rest back to full scale. Its layout was worked
-> out on the IFE 780 against CamX's demux + BLS 1.4.1 settings; the
-> IFE 880 keeps it off until it is checked there.
+> When an RPMh transfer times out there is no visibility into which
+> TCS was stuck, what commands it was carrying, or whether the
+> completion IRQ was pending at the GIC. Add rpmh_rsc_debug() to
+> capture this state at timeout:
 > 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: William Bright <william.bright@imd-tec.com>
-> ---
->  drivers/media/platform/qcom/camss/camss-vfe-780.c  |  3 +-
->  .../media/platform/qcom/camss/camss-vfe-880-pp.c   | 65 +++++++++++++++++++++-
->  .../media/platform/qcom/camss/camss-vfe-880-pp.h   |  3 +-
->  3 files changed, 68 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-> index c2ffe39f929a..032786c4ed74 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-> @@ -247,7 +247,8 @@ static void vfe_line_prepare(struct vfe_line *line)
->  	struct vfe_device *vfe = to_vfe(line);
->  
->  	if (line->is_pix && pix->pixelformat == V4L2_PIX_FMT_NV12)
-> -		vfe_880_setup_pixel_pipe(vfe, vfe_pp_desc(vfe), pix->width, pix->height);
-> +		vfe_880_setup_pixel_pipe(vfe, vfe_pp_desc(vfe), pix->width, pix->height,
-> +					 line->fmt[MSM_VFE_PAD_SINK].code);
->  }
->  
->  static const struct camss_video_ops vfe_video_ops_780 = {
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
-> index f962016ef3c6..87e6a241ec05 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
-> @@ -11,6 +11,7 @@
->  
->  #include <linux/io.h>
->  #include <linux/kernel.h>
-> +#include <linux/media-bus-format.h>
->  
->  #include "camss.h"
->  #include "camss-vfe.h"
-> @@ -18,6 +19,17 @@
->  
->  /* Register offsets, named as in the IFE register map */
->  #define IFE_TOP_CORE_CFG_0                                       0x00024
-> +#define IFE_DEMUX_BLS_MODULE_CFG                                 0x03b60
-> +#define		IFE_DEMUX_BLS_PERIOD(n)				((n) << 20)
-> +#define IFE_DEMUX_BLS_EVEN_CFG                                   0x03b68
-> +#define IFE_DEMUX_BLS_ODD_CFG                                    0x03b6c
-> +#define IFE_DEMUX_BLS_GAIN_CFG_0                                 0x03b70
-> +#define IFE_DEMUX_BLS_GAIN_CFG_1                                 0x03b74
-> +#define IFE_DEMUX_BLS_SUB_G_EVEN                                 0x03b78
-> +#define IFE_DEMUX_BLS_SUB_G_ODD                                  0x03b7c
-> +#define IFE_DEMUX_BLS_SUB_B                                      0x03b80
-> +#define IFE_DEMUX_BLS_SUB_R                                      0x03b84
-> +#define		IFE_DEMUX_BLS_SUB(v)				((v) << 20)
->  #define IFE_WB_GAIN_MODULE_CFG                                   0x04560
->  #define IFE_WB_GAIN_WB_CFG_0                                     0x04568
->  #define IFE_WB_GAIN_WB_CFG_1                                     0x0456c
-> @@ -313,6 +325,55 @@ static void vfe_setup_chroma_downscale_nv12(struct vfe_device *vfe, u32 w, u32 h
->  	writel_relaxed(0x00000000, vfe->base + IFE_DOWNSCALE_MN_C_VID_OUT_DOWNSCALE_MN_C_V_PHASE_CFG);
->  }
->  
-> +/* 12 bit black level subtracted ahead of demosaic, 42 at 10 bit */
-> +#define IFE_780_BLACK_LEVEL	168
-> +
-> +/* Demux + BLS: CFA order from the sink format, black level subtracted */
-> +static void vfe_setup_demux_bls(struct vfe_device *vfe, u32 code)
-> +{
-> +	u32 even, odd, gain, bl = IFE_780_BLACK_LEVEL;
-> +
-> +	switch (code) {
-> +	case MEDIA_BUS_FMT_SRGGB8_1X8:
-> +	case MEDIA_BUS_FMT_SRGGB10_1X10:
-> +	case MEDIA_BUS_FMT_SRGGB12_1X12:
-> +	case MEDIA_BUS_FMT_SRGGB14_1X14:
-> +		even = 0xc9;
-> +		odd = 0xac;
-> +		break;
-> +	case MEDIA_BUS_FMT_SGBRG8_1X8:
-> +	case MEDIA_BUS_FMT_SGBRG10_1X10:
-> +	case MEDIA_BUS_FMT_SGBRG12_1X12:
-> +	case MEDIA_BUS_FMT_SGBRG14_1X14:
-> +		even = 0xca;
-> +		odd = 0x9c;
-> +		break;
-> +	case MEDIA_BUS_FMT_SBGGR8_1X8:
-> +	case MEDIA_BUS_FMT_SBGGR10_1X10:
-> +	case MEDIA_BUS_FMT_SBGGR12_1X12:
-> +	case MEDIA_BUS_FMT_SBGGR14_1X14:
-> +		even = 0xac;
-> +		odd = 0xc9;
-> +		break;
-> +	default:
-> +		even = 0x9c;
-> +		odd = 0xca;
-> +		break;
-> +	}
-> +
-> +	gain = DIV_ROUND_CLOSEST(0x400 * 4095, 4095 - bl);
-> +
-> +	writel_relaxed(even, vfe->base + IFE_DEMUX_BLS_EVEN_CFG);
-> +	writel_relaxed(odd, vfe->base + IFE_DEMUX_BLS_ODD_CFG);
-> +	writel_relaxed(gain << 16 | gain, vfe->base + IFE_DEMUX_BLS_GAIN_CFG_0);
-> +	writel_relaxed(gain << 16 | gain, vfe->base + IFE_DEMUX_BLS_GAIN_CFG_1);
-> +	writel_relaxed(IFE_DEMUX_BLS_SUB(bl), vfe->base + IFE_DEMUX_BLS_SUB_G_EVEN);
-> +	writel_relaxed(IFE_DEMUX_BLS_SUB(bl), vfe->base + IFE_DEMUX_BLS_SUB_G_ODD);
-> +	writel_relaxed(IFE_DEMUX_BLS_SUB(bl), vfe->base + IFE_DEMUX_BLS_SUB_B);
-> +	writel_relaxed(IFE_DEMUX_BLS_SUB(bl), vfe->base + IFE_DEMUX_BLS_SUB_R);
-> +	writel_relaxed(IFE_DEMUX_BLS_PERIOD(1) | 1, vfe->base + IFE_DEMUX_BLS_MODULE_CFG);
-> +}
+> - Iterates all in-use TCSes and dumps per-TCS control register
+>   state (controller status, AMC mode, IRQ status) and per-command
+>   register state (address, data, message ID, completion status).
+>   The accelerator type (ARC/VRM/BCM) is decoded from the address
+>   using cmd_db_hw_type_str().
 
-This looks pretty close to correct. I might cherry-pick this and fold on top of V1.
----
-bod
+I believe all of these are valid concerns from an LLM (4 maybe
+less verbatim but the point stands):
 
+1. The diagnosis logic is wrong in several cases.
+else if ((busy && !gic_irq_sts) || !aoss_irq_sts)  -> "AOSS did not respond"
+else if (gic_irq_sts)                              -> "IRQ pending at GIC but not handled"
+- If the IRQ is pending at the GIC but aoss_irq_sts is false, it blames AOSS instead of reporting the pending IRQ.
+- If busy == 0, for example because the handler reclaimed the TCS just after the timeout, aoss_irq_sts stays false. It then blames AOSS with nothing to base that on.
+- If the RSC IRQ status is DONE but the GIC shows NOT PENDING, no message is printed.
+- A clearer order is:
+- GIC pending: handler delayed or Linux lockup.
+- Otherwise, RSC IRQ status not set: AOSS didn't respond.
+- Otherwise: IRQ asserted in the RSC but not seen at the GIC.
+
+ 2. Unlocked access to other TCSes' requests.
+- rpmh_rsc_debug() walks tcs_in_use and get_req_from_tcs() with no drv->lock.
+- req->state and req->wait_for_compl are then dereferenced.
+- The request for another TCS lives on some other caller's stack, such as DEFINE_RPMH_MSG_ONSTACK. If tcs_tx_done() completes it while we dump, that is a possible use-after-return.
+- Taking the lock with spin_trylock_irqsave() would avoid blocking in a lockup scenario. Alternatively, snapshot only the registers and don't dereference req.
+
+ 3. The cover letter example contradicts itself.
+- It shows irq-sts:WAITING, a command with +resp-received, "Completion is done", and then "Accelerator(s) at AOSS did not respond".
+- "Completion is done" at timeout means we raced with completion. A command that already received a response contradicts the AOSS message.
+- This looks like the real consequence of issue 1.
+
+ 4. Uninitialized gic_irq_sts. It's only read when ret == 0, so it's safe today. Initialize it anyway to avoid -Wmaybe-uninitialized noise.
+
+ 5. Early return when irq_get_irq_data() returns NULL. The completion state is then never printed, even though it's useful on its own.
+
+ 6. TCS dump when req == NULL. print_tcs_info() jumps to print_tcs_data and prints CMD= lines with no TCS= header, so you can't tell which TCS they belong to. Print a header in that case too.
+
+ 8. Include order. <linux/irq.h> is inserted between interrupt.h and io.h. It should come after iopoll.h.
+
+ 9. drv->irq assignment. It's set after devm_request_irq(). That works because clients are populated later, but setting it before requesting the IRQ is more robust.
+
+Konrad
