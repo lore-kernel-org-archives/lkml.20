@@ -1,191 +1,364 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473C4253340
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5E7378D8D;
+	Tue, 13 Oct 2026 07:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791876482; cv=none; b=Zd+9yl+ilM1odmHO9qJOVvV1FgwjGudneReaMJgGKpJJE5tVcIWBB/TrG605+eZGUd/KVV4LzN/w9QmpAR+6OR+DuA2R2ghU9AFKoDQ6UupUh3i55srw6VbNhl9JmCuFL8316vZv+hvIEObnYnGrX4p7jvxbOEMzC1memYnyBm0=
+	t=1791876532; cv=none; b=tt8vCo2vgts93wL6Gnf1VIBDEWTbQMcjlgdBHGzawdoYw83x3BZLwMOI3pHCK73SL1K2qHT6B7IXF8rc2+8IRO04L5QPEBmcVuwe+Zog0+C27dWn2CHn8nLd+rc0Et+2UI/iZfu2u90apEhwVXR692SmZXvmSsYgXGIF8PvshYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791876482; c=relaxed/simple;
-	bh=1bvEIBQRw9p/Jan1rJdJmHDony/sK3GAuFwWmbv5cOI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s+oSecu9f5Kq4AlLKjca8pzyb9zuRP5CH3EK/lkYz5PWouooPS+9B6TMrk+ixY2njNrFt3+qpt2ydiI/UknjTubPSQ0g8F2fOo4rmQtK7lQE31ZNgnNijRdMl4B0H1YKvqEdqhdct0kUWgb5Kj+oj2qfZA9nUzkkgyLC7XTljvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iK/0uU02; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YitffppP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791876532; c=relaxed/simple;
+	bh=x1Lio54STtF2JnUF1rPy6jEqC70v0XDAcbPNLNYc0e8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=vCrCGyqyDVvxWLB1JfZjfcH8mWJBRWQPOg8vW/HR+61NGDM2rIC8/p1hJEn3reiIviYvmURoTMf5cORRtKe4ftyXnLS9E/iZjQbML+j7eCNbz8WYMfQ6lvoVekXh5RYyiEwPKZ/1j4/pRrnxRNCpcqaxNrARThtgRRrdgJaSonc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWoP8aYh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iK/0uU02";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YitffppP"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D20mwP302832
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:28:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sBp+f/Ur6Ycrj7MIgsCDYKBLKqGLNILm8MYQVnEiwoE=; b=iK/0uU02XeC1OWps
-	LZBkoU4LxoC+9/ctBKKKD8EEQ4HRqofo7mF13YYnXgq54APwA7ruFB4H3M+cOSdX
-	oUMw3LGCqGk+Y3WBksOxcgBe+Dyl+tEedzaFU1q1lyGB+dsgYJGKi/J3ZWVB/zgF
-	xo3peLqWwwNq1DmeClvMfdK4Vt0G0NvGXCUI+ki5clXsuLhv/vylBmmmiG7/r1A0
-	sKKiwvSK76nFPX+4fGTBNXdVolAiKOYUuUDUZXGQHuyOI38FvXoGGrOU793YAIwa
-	tBh7vIGi4dLgjv7K8iZSWOlilETNwDPGSpNd6nvLt+UmeUM0OMt3QADY8I1Gz8Cy
-	sTBnDQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98sq9kyy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:28:00 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a47617a0b3so2317112a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:28:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791876479; x=1792481279; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sBp+f/Ur6Ycrj7MIgsCDYKBLKqGLNILm8MYQVnEiwoE=;
-        b=YitffppPZAHTkvX3vKICiubBlMKVFA12+HrB4Pe8gth2U4t7H7FLTzXT9OOEyeCq9H
-         +mhxj8uvkN+UtzoNvvjRknS6vE/Ve6L6sFbEZW3vM/2CY5nVvePXnnJeyohcK3tXvYXo
-         IfSnN1XTvN1HRM7NQWQjQ4Om59HGp78MDwFXYvYpm10BvztnXU02pn33d7RTYacs3CNt
-         XIpfWTnpZGimT40G1cHbLj4+yOhdekfqLpj9tn1yRr89w7TaekBZbV7crAThGeIxfXlE
-         GoOkDjbL+fCdEBuJCZuzFL4Jy2MiidzG1YzzYC+qv6Ikqk3nHTHL6nJWpbOqu12LCpUT
-         n3ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791876479; x=1792481279;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sBp+f/Ur6Ycrj7MIgsCDYKBLKqGLNILm8MYQVnEiwoE=;
-        b=eOfzCorcxdrzncknyqHXjBYAIk0T2xszq53e35wB9nZy0q1UWOCb7QG6hnG+w6f1F/
-         yJEyB5ZnjF2DtnuP0l9G1hXzY6l8j7FtULY9IhWMVSvTO40JnF2i0DBH+VEvPzcVXndl
-         027z1+E0luP5NvoMoy5eNAIv3nK6QC0B9EM34smOyRhOLQ2m+IqnXnZDGvYUi656j97x
-         Bilvxld9+2yCQV0jtzFDD+xV2Zzxw9+BsXPxuEkNfkDkmymSHV1FW0ED6IdIaJxP7EHO
-         BIbuiCJuBj3Xj2NbpA4Yn/4OEktUmrJFIhElpZY4h7Dq3FoJYGzzd6DVCrbpYlU57xBO
-         mOGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxdCTPmkVZ8odPjynC4obal0/tPlnpAQ9SmSvlFsDbdg8kgnvVShXEMG+PHqQnJ7NQ2Hho2W9+ulkSiM54=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8p5l/E+ECwuR6X1MxV++YIaVVaE08nBb6wa9yxv/LKJx7f8CT
-	VNudnSWqy5PIJcTX0fbEuvQCgU4xPNOW8zQZrcOcB7ahvr6k5ZnVfvqE6XgqoutLUQvXh7t/Een
-	pLH0AXwZpCGcllZPOscEkLpk4XySZ+XNnG/lKxQIMUmavPOqYECtDOOHhYp5x4/AL+OU=
-X-Gm-Gg: AYBFou0Pxbe8xRy5k0KYuwtg3NZR8nyHttPVbQieHH7X/mx3wljiiq2ETNxYSXeDhAC
-	vRhQj/EV8hUY/4c4tAYLPVI09NSkEjcMoD1p+PRKgUM7eqtQaby+u0v0JZpCMLAA8OUXBA5a0gq
-	GXUi9UuJsExo1rZIzfRE9+uJRlAbZpatiE7UZmrFhoM+GioB+h/mamqqv+zkfYzshnIH08BuOGX
-	/vxioEpY6htYQDNsnzCgJvkpVbALczSt3MdHpEgy19EWZa5fftBgt6oPKQAX+HjTCJ2t3w/RaUR
-	c2T6O03L3cEnQJDdwTIQsNlLMjQ3RUp76XGgBMZxOyjJ93Xese5ZobCVlVcQU7jxQ6WDPWS4zKo
-	r8TofHcb65ZhAlrNEZY33BvnAkRihS1RHGCw44PXrPouhQQFEpiEfQ0RqD9znk9v0SUt94QE=
-X-Received: by 2002:a17:90b:2687:b0:3a7:e0ab:d923 with SMTP id 98e67ed59e1d1-3ab3acb9ce5mr9405648a91.39.1791876479257;
-        Tue, 13 Oct 2026 00:27:59 -0700 (PDT)
-X-Received: by 2002:a17:90b:2687:b0:3a7:e0ab:d923 with SMTP id 98e67ed59e1d1-3ab3acb9ce5mr9405610a91.39.1791876478542;
-        Tue, 13 Oct 2026 00:27:58 -0700 (PDT)
-Received: from [10.133.33.138] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9638fsm19498578a91.3.2026.10.13.00.27.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 00:27:58 -0700 (PDT)
-Message-ID: <f4d10126-e2a4-41ad-9960-ff129d92f39a@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 15:27:51 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWoP8aYh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 835C9C2BCF7;
+	Tue, 13 Oct 2026 07:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791876532;
+	bh=x1Lio54STtF2JnUF1rPy6jEqC70v0XDAcbPNLNYc0e8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=VWoP8aYh7dr3ewiRs934auja9dpkYjd69Z6TE9ZwsFRaU6cVw20ALamfCYJCsTlfy
+	 AgyBmrVLOOtAwosfg71llhe9yGUxZVC++GMv7VYKz9LzJy+oRZ7CXQtf65AjGlKDS6
+	 8ucuUTfKpcBSojSsWnNAHK7WPG/G7uxGPXuLMBqyto8BZustm1cr8t33APSy2gj6M4
+	 Cf7feMjg9drkuhuARRQWbKSJv2zfk60zT3lT4/nlw6pp4kkZojRw6eJk1r+0GFIntW
+	 SVTRvr926U7taNTqcj9pHFuCyw52XVa9mZ6/XvXo9Qa3MIyR42XavGyoSA8LyXJYCz
+	 lGIzr5ecBuR6g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5983ACC6B03;
+	Tue, 13 Oct 2026 07:28:52 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Tue, 13 Oct 2026 16:28:52 +0900
+Subject: [PATCH] ext4: spread files of sibling directories over a flex
+ group
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] Add qref and refgen regulator support for QCS8300
- and SA8775p PCIe PHYs
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        peter.chen@oss.qualcomm.com, qiang.yu@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ziyue.zhang@oss.qualcomm.com
-References: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
-Content-Language: en-US
-From: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
-In-Reply-To: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAyOSBTYWx0ZWRfXxv4D0qdfyKkT
- HBW/g7BodDwfbS0A748LZr2D1fzIflFQ0GGdnTiEr7HDA3+EgbnrHVgtITl1e/cebZez17Cdu6t
- 7HYLdXeHXXHU5Cvmw+6LrCn11y0cQlS9PxiC2xdcMepSkuFuQjKVQWgb/iuai+Lewrj6bGN/ypT
- sWdl7P/hB0NYpAIto0YMJdadZqGL80lPoN4kYnaiKMhj2qzHmkgFqZp49T1HwbWZZVsmnK9FwYV
- 6SZYC8a0HhONJcQ7kenGNoyGoKES+fnWEIDPl+vjbdksJP9sB3+99lHnIh9cn6Yr/m7azBjP6Q1
- bF9bldzOu6K6YAPrpfWMEKefAK3ZPsFWnXJ2w9tCSJX/Pszda4umUZHdsQ7mxDY5A15GBElM5de
- OioedfTb2Do/bk1uJZhzSScChkp4TgUzLFP79xOL8YwkJWeu0ukNtfmjL56H0FidDDcatBHj3bD
- 6BeoaIX7bRigo51SHtg==
-X-Authority-Analysis: v=2.4 cv=JN+uIMKb c=1 sm=1 tr=0 ts=6acddd80 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ka6KI2ZnJyLrzUlNBNoA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAyOSBTYWx0ZWRfX2IDm0gZQkXzj
- awV1e/VdVBjgMRYmpZ5oK2BeJ4kDCgoeAbpSnxxfTiJk7UcbkWxNUFdZgcxWtP5UJrZzUL4XlTx
- LXHagwMaX7v4FrGgZ6DGEezeJ4Tq0dU=
-X-Proofpoint-ORIG-GUID: -zSRYTBpZ_D4Panfs1c6lFPhMZOj_zKD
-X-Proofpoint-GUID: -zSRYTBpZ_D4Panfs1c6lFPhMZOj_zKD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 adultscore=0 suspectscore=0
- phishscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130029
+Message-Id: <20261013-ialloc-flex-spread-v1-1-9ea1d86961aa@samsung.com>
+X-B4-Tracking: v=1; b=H4sIALPdzWoC/x2MWwqAIBAArxL73YIPkOwq0YfaWgtioRBBePekz
+ xmYeaFSYaowDy8UurnymTvIcYBwuLwT8tYZlFBGCqmRXUpnwJjowXoVchta66MxatLkNfSw28j
+ PP13W1j4GiS1CZAAAAA==
+To: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Zhang Yi <yi.zhang@huawei.com>, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791876531; l=13463;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=mg/jfcNmWC8pM2DqUSNjC3QdbFh17Yt6NVqwfCiSRWw=;
+ b=DYXmceJO8oubJijr9D10tb4scZy6oHObK6+XrsbhEIPFW2aMqYGD2xksCvHgVaNKNCDO+7hyt
+ 31XhkmwsaF/BHnGW3EqJlGxvQVSXOKd91Kfn3ApJRS3e0c9HUtbcBiW
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
+From: Daejun Park <daejun7.park@samsung.com>
 
-On 9/16/2026 6:20 PM, Ziyue Zhang wrote:
-> This series adds qref and refgen regulator support for the PCIe QMP PHYs
-> on QCS8300 and SA8775p platforms.
->
-> The PCIe PHYs on these SoCs require dedicated qref and refgen voltage
-> supplies for stable operation. Without enabling these supplies, PCIe may
-> be unstable and the system can occasionally crash under certain scenarios.
->
-> The refgen supply in particular works around a hardware issue where both
-> QREF and the PCIe PHY are expected to depend on refgen2, but QREF actually
-> depends on refgen3. This series therefore votes for refgen3 manually via
-> the refgen supply.
->
-> Changes in v2:
-> - Expand commit message to explain why these supplies were missing and
->    what issue was observed (Mani)
-> - Remove redundant vdda-refgen-supply overrides from qcs9100-ride.dts
->    and qcs9100-ride-r3.dts; the supplies are already defined in
->    lemans-ride-common.dtsi which both files include
-> Link to v1: https://lore.kernel.org/all/20260810112735.1326807-1-ziyue.zhang@oss.qualcomm.com/
->
-> Ziyue Zhang (4):
->    dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add vdda-refgen and
->      refgen supply properties
->    phy: qcom: qmp-pcie: Add qref and refgen regulator vote for QCS8300
->      and SA8775p PHY
->    arm64: dts: qcom: qcs8300: Add qref and refgen supply for PCIe PHYs
->    arm64: dts: qcom: sa8775p: Add qref and refgen supply for PCIe PHYs
->
->   .../phy/qcom,sc8280xp-qmp-pcie-phy.yaml       | 27 +++++++++++++++++++
->   arch/arm64/boot/dts/qcom/lemans-evk.dts       |  4 +++
->   .../boot/dts/qcom/lemans-ride-common.dtsi     |  4 +++
->   arch/arm64/boot/dts/qcom/monaco-evk.dts       |  4 +++
->   .../arm64/boot/dts/qcom/monaco-monza-som.dtsi |  4 +++
->   arch/arm64/boot/dts/qcom/monaco.dtsi          |  4 +++
->   arch/arm64/boot/dts/qcom/qcs8300-ride.dts     |  4 +++
->   drivers/phy/qualcomm/phy-qcom-qmp-pcie.c      | 16 ++++++-----
->   8 files changed, 61 insertions(+), 6 deletions(-)
-Hi Maintainers,
+On a flex_bg file system, find_group_other() puts a new file in the
+first group of the parent's flex group that has a free inode. Orlov
+usually keeps a directory below the top level in its parent's flex group
+and packs directory inodes at its start, so the files of sibling
+directories come from the same group and get consecutive inode numbers.
+The flex_bg path was added by commit a4912123b688 ("ext4: New
+inode/block allocation algorithms for flex_bg filesystems"). The
+non-flex_bg path instead adds the parent's inode number to the starting
+group once the parent's own group has no free inode or block, so that
+the files of different directories which share a group land in
+different groups.
 
-It seems the patches get reviewed tag for a long time, can you give this
+When several tasks create files in sibling directories at the same time,
+their new inodes share inode table blocks. __ext4_get_inode_loc() skips
+reading an inode table block only when no other inode in that block is
+in use in the inode bitmap. The bit of another task's new inode defeats
+that check, so the block is read from disk under the buffer lock while
+the other creators wait for the lock. When the other inodes in use in
+the block are new as well, as on a freshly made file system, the read
+is wasted, because ext4_do_update_inode() clears the on-disk copy of a
+new inode before filling it in.
 
-series further comment or help me to merge them ?
+With 16 tasks each creating 60000 empty files in its own directory under
+a common parent on NVMe, the creators read inode table blocks from disk
+50000 times, nine in ten of their context switches were in lock_buffer()
+in __ext4_get_inode_loc(), and the throughput was 290k files/s.
 
-Thanks very much.
+Pick the group inside the flex group by the parent's inode number first.
+When that group is full, keep using the group last picked for the
+directory, and after that prefer a group with no inode in use, which no
+other directory uses yet. Do the same inside the flex group last used
+and inside the one Orlov picks when those are full. The inode tables of
+a flex group are normally contiguous, so the inodes stay in the same
+region of the disk (32MiB for 16 groups with the mke2fs defaults), and
+the files of a directory mostly share inode table blocks with each other
+rather than with other directories. The data block goal from
+ext4_inode_to_goal_block() does not move for flex_bg sizes of 4 and
+more: it starts regular files at the second group of the flex group
+regardless of the inode's group. An external xattr block starts at the
+inode's own group, and the mballoc stream goal slot is picked by inode
+number.
 
-BR
+In the test above, the creators read inode table blocks 260 to 530
+times and the throughput is 780k files/s.
 
-Ziyue
+When find_group_other() fails in the last flex group and the number of
+groups is a multiple of the flex size, it leaves *group, and so
+i_last_alloc_group, equal to the number of groups: parent_group +
+flex_size was reset to 0 only when it was larger, and
+find_group_orlov() does not read the value. Nothing used that value as
+a group before. The retry now passes it to find_group_in_flex() as the
+first group of a flex group, so reset it when it is equal too, and
+retry only with a group below the number of groups.
+
+Update the description in Documentation/filesystems/ext4/allocators.rst.
+
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+---
+Tested on ext4 dev 35aefefd7aba in a QEMU guest (32 vCPUs, 16G) with
+a Samsung 990 PRO partition passed through (cache=none, aio=native),
+mkfs.ext4 -E nodiscard with otherwise default options on 64G (4k
+blocks, flex_bg size 16), mounted with -o noinit_itable to keep the
+background inode table zeroing out of the timing, three runs each. Each
+task creates 60000 empty files with open(O_CREAT | O_EXCL) and close()
+in its own directory p/d<i>. "reads" are ext4_load_inode events during
+the creates, which matched the read I/Os on the disk there.
+
+  tasks  before                         after
+      8  238k-244k files/s, 17.5k-18.3k  373k-403k files/s, 1.2k-1.8k
+     16  290k-292k files/s, 49.6k-50.6k  779k-783k files/s, 0.3k-0.5k
+     32  457k-459k files/s, 102k         984k-1023k files/s, 15.5k-16.3k
+
+With the default mount options, 16 tasks: 286k-288k files/s before and
+774k-782k after (ext4lazyinit zeroed 164-230 and 53-79 inode tables
+during the runs).
+
+After a remount (first run of 8/16/32 tasks), "ls -l" of one of those
+directories took 0.61/0.76/1.04 s before and 0.50/0.49/0.50 s after
+(read I/Os 3093/5879/11357 before, 805/757/1209 after). stat of every
+file took 2.63/5.77/10.93 s before and 2.75/5.49/11.37 s after (one run
+each), and e2fsck -fn the same or slightly less time.
+
+Extracting a kernel tree (96039 files, 6283 directories) with one tar
+took 2.3 s before (one 3.5 s first run) and 2.2-2.3 s after. With 8 tars
+into sibling directories at once: 6.5-8.0 s before, 6.0-6.1 s after,
+inode table reads 20.5k-22.6k before and 1.4k-1.6k after. After a
+remount, stat of every file, "du -s drivers/" and e2fsck -fn took the
+same time, but inode table loads went up 7-33% and read I/Os 0.5-7%,
+presumably because a directory's files are no longer in the directory's
+own group.
+
+16 tasks writing 256 files of 1 MiB each (fallocate, buffered, O_DIRECT)
+or 32 files of 16 MiB (buffered), one directory each: the same or less
+time, the same extents per file and one group scanned per allocation in
+mb_stats on both.
+
+After deleting half of the files of each of 16 directories and
+remounting, refilling the holes with 16 tasks (file-backed, three runs)
+took 0.60-0.70 s before and 0.27 s after, with 12.1k-12.6k read I/Os
+before and 3.0k-3.2k after.
+
+One task creating 600000 files round-robin over 16 or 100 sibling
+directories (commit=1, file-backed, two runs): the same time and the
+same journal blocks per transaction. 16 tasks with mkfs -G 4 and -G 64
+(file-backed, one run each): 49840 -> 23506 and 49926 -> 1164 inode
+table reads; with -G 256 (three runs): 287k-331k files/s and 49.3k-49.9k
+reads before, 788k-800k files/s and 0-101 reads after. Running out of
+inodes with 1 to 16 creators (4G with -N 32768, 2G with -N 16384, one
+run each) creates the same number of files on both, with no EXT4-fs
+error, WARNING or BUG in dmesg. mkfs -O ^flex_bg is unchanged.
+
+xfstests -g quick (MKFS_OPTIONS=-F, TEST_DEV with -O fast_commit): the
+same results before and after, 341 passed, 335 not run, generic/563 and
+generic/791 fail on both (no CONFIG_CGROUP_WRITEBACK and no
+CONFIG_FANOTIFY in the test kernel).
+
+Why not skip the read in __ext4_get_inode_loc() instead: the inode
+bitmap and bg_itable_unused cannot tell a new inode that is still being
+set up from one on disk. The inode cache could (EXT4_STATE_NEW, as
+ext4_update_other_inodes_time() looks up the other inodes of a block),
+but only helps when every other inode in the block is new. Spreading
+also helps when they are old files (the hole refill above) and makes a
+cold "ls -l" of one directory faster. Creators in a single directory do
+not hit this; the VFS serializes them.
+
+Rotating disks were not tested. This is the case of
+https://lore.kernel.org/r/20131001160817.GA2295@kvack.org (round-robin
+creates over 100 directories), but the patch does not spread across
+flex groups, so the inodes stay within the flex group's inode tables,
+and the first data block goal does not change.
+
+Per directory rather than per CPU or hash slot as suggested in
+https://lore.kernel.org/r/6200e067-0ad1-4dc4-9694-05ee1e977f4c@huawei.com:
+a directory's files stay together for later lookups. It does change
+which mballoc stream goal slot (i_ino % s_mb_nr_global_goals)
+concurrently created files use: with 8192 inodes per group and 32
+slots, the n-th file of every sibling directory now has the same slot.
+The large-file runs above show no difference in time or extents.
+---
+ Documentation/filesystems/ext4/allocators.rst |  6 +-
+ fs/ext4/ialloc.c                              | 91 ++++++++++++++++++++++-----
+ 2 files changed, 80 insertions(+), 17 deletions(-)
+
+diff --git a/Documentation/filesystems/ext4/allocators.rst b/Documentation/filesystems/ext4/allocators.rst
+index 7aa85152ac..70a3930ca5 100644
+--- a/Documentation/filesystems/ext4/allocators.rst
++++ b/Documentation/filesystems/ext4/allocators.rst
+@@ -38,7 +38,11 @@ file's data blocks to begin I/O operations.
+ The fourth trick is that all the inodes in a directory are placed in the
+ same block group as the directory, when feasible. The working assumption
+ here is that all the files in a directory might be related, therefore it
+-is useful to try to keep them all together.
++is useful to try to keep them all together. With flex_bg, the files of a
++directory are kept in the directory's flex group instead, in a block
++group chosen by the directory's inode number, so that the files of
++different directories in the same flex group are less likely to share
++inode table blocks.
+ 
+ The fifth trick is that the disk volume is cut up into 128MB block
+ groups; these mini-containers are used as outlined above to try to
+diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
+index f97a2f4904..fbe11dcd03 100644
+--- a/fs/ext4/ialloc.c
++++ b/fs/ext4/ialloc.c
+@@ -569,11 +569,70 @@ static int find_group_orlov(struct super_block *sb, struct inode *parent,
+ 	return -1;
+ }
+ 
++static bool ext4_group_has_free_inode(struct super_block *sb, ext4_group_t g)
++{
++	struct ext4_group_desc *desc = ext4_get_group_desc(sb, g, NULL);
++
++	return desc && ext4_free_inodes_count(sb, desc);
++}
++
++/*
++ * Pick a group with a free inode in the flex group that starts at @first.
++ * First try the group chosen by the parent's inode number, so that the
++ * files of different directories in a flex group are less likely to share
++ * an inode bitmap and inode table blocks. Once that group is full, keep
++ * using @last, the group last picked for this directory, if it is in this
++ * flex group, then prefer a group with no inode in use, which no other
++ * directory uses yet, then take any group with a free inode. Return -1 if
++ * no group in the flex group has a free inode.
++ */
++static int find_group_in_flex(struct super_block *sb, struct inode *parent,
++			      ext4_group_t first, ext4_group_t last,
++			      int flex_size, ext4_group_t *group)
++{
++	ext4_group_t ngroups = ext4_get_groups_count(sb);
++	ext4_group_t n = min_t(ext4_group_t, flex_size, ngroups - first);
++	ext4_group_t start = (unsigned int)parent->i_ino % n;
++	ext4_group_t i, g, avail = ngroups;
++
++	if (ext4_group_has_free_inode(sb, first + start)) {
++		*group = first + start;
++		return 0;
++	}
++	if (last >= first && last < first + n &&
++	    ext4_group_has_free_inode(sb, last)) {
++		*group = last;
++		return 0;
++	}
++	for (i = 1; i < n; i++) {
++		struct ext4_group_desc *desc;
++		unsigned int nr_free;
++
++		if (++start == n)
++			start = 0;
++		g = first + start;
++		desc = ext4_get_group_desc(sb, g, NULL);
++		if (!desc)
++			continue;
++		nr_free = ext4_free_inodes_count(sb, desc);
++		if (nr_free == EXT4_INODES_PER_GROUP(sb)) {
++			*group = g;
++			return 0;
++		}
++		if (nr_free && avail == ngroups)
++			avail = g;
++	}
++	if (avail == ngroups)
++		return -1;
++	*group = avail;
++	return 0;
++}
++
+ static int find_group_other(struct super_block *sb, struct inode *parent,
+ 			    ext4_group_t *group, umode_t mode)
+ {
+ 	ext4_group_t parent_group = EXT4_I(parent)->i_block_group;
+-	ext4_group_t i, last, ngroups = ext4_get_groups_count(sb);
++	ext4_group_t i, ngroups = ext4_get_groups_count(sb);
+ 	struct ext4_group_desc *desc;
+ 	int flex_size = ext4_flex_bg_size(EXT4_SB(sb));
+ 
+@@ -585,34 +644,34 @@ static int find_group_other(struct super_block *sb, struct inode *parent,
+ 	 * group for future allocations.
+ 	 */
+ 	if (flex_size > 1) {
++		ext4_group_t last_alloc = EXT4_I(parent)->i_last_alloc_group;
+ 		int retry = 0;
+ 
+ 	try_again:
+ 		parent_group &= ~(flex_size-1);
+-		last = parent_group + flex_size;
+-		if (last > ngroups)
+-			last = ngroups;
+-		for  (i = parent_group; i < last; i++) {
+-			desc = ext4_get_group_desc(sb, i, NULL);
+-			if (desc && ext4_free_inodes_count(sb, desc)) {
+-				*group = i;
+-				return 0;
+-			}
+-		}
+-		if (!retry && EXT4_I(parent)->i_last_alloc_group != ~0) {
++		if (!find_group_in_flex(sb, parent, parent_group, last_alloc,
++					flex_size, group))
++			return 0;
++		if (!retry && last_alloc < ngroups) {
+ 			retry = 1;
+-			parent_group = EXT4_I(parent)->i_last_alloc_group;
++			parent_group = last_alloc;
+ 			goto try_again;
+ 		}
+ 		/*
+ 		 * If this didn't work, use the Orlov search algorithm
+ 		 * to find a new flex group; we pass in the mode to
+-		 * avoid the topdir algorithms.
++		 * avoid the topdir algorithms. Then pick the group inside
++		 * the flex group Orlov chose the same way as above.
+ 		 */
+ 		*group = parent_group + flex_size;
+-		if (*group > ngroups)
++		if (*group >= ngroups)
+ 			*group = 0;
+-		return find_group_orlov(sb, parent, group, mode, NULL);
++		if (find_group_orlov(sb, parent, group, mode, NULL))
++			return -1;
++		/* Keep Orlov's group if its flex group has no free inode now */
++		find_group_in_flex(sb, parent, *group & ~(flex_size - 1),
++				   last_alloc, flex_size, group);
++		return 0;
+ 	}
+ 
+ 	/*
+
+---
+base-commit: 35aefefd7aba0801bab635b11943f932626be3b2
+change-id: 20261013-ialloc-flex-spread-99bf66283eb3
+
+Best regards,
+-- 
+Daejun Park <daejun7.park@samsung.com>
+
 
