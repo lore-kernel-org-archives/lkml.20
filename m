@@ -1,100 +1,87 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747C6306776
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:37:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A32F1F875A;
+	Tue, 13 Oct 2026 06:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791873440; cv=none; b=SscvcOB1CXs9r9T0BAJdLcIysIjG8xjf20b0GFaNJcem7JdtP0YcJdlq5TKO2GmuL6SJMoG7zJcVD67Crcq1YmczTAyfh+rMCGP61LxbhEe2+2uiTTsYJkUqfX+S8gu1ecOooSDzvC7RQjeicIZQ5o+NTgnlI98wfE0R54Y2e9o=
+	t=1791873498; cv=none; b=d4+gJGtj/95Epd53Mo9u0rbY87wYrYE2uPNb8AICCAXsL++o0SttC6Ktf09ab2DO2kMaeArJrxHYP9UAMHz8VWTeyWr+rs6MLrOOdmVlEIRwa/M7KS8WwiAjQKiJq5h0ZKibWYMVl1yupSobfqkHs3jX1HCq8rBXEuVLHXLv2kw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791873440; c=relaxed/simple;
-	bh=1/TE8jVp1mgIX3w95Qd56lz15ABuBS61Pi2gCb8R3Ds=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=fSkzpgfzDtygGO/gln9YJSMvL6xOkZu6c0pLsMjEg6jfPz8EW53Gge1OXNQvOJBJqdDEJl9ibsvd3NqKGVkJNMxZku/EenS5YukTv7qDUe95Z6ZPI4nxQ25WRTTDr4xizcSdX7mKwSDIvo+w7SLcNPNIP8suN0I+4PpiAkiN/tU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g+2o1y3/; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791873498; c=relaxed/simple;
+	bh=5iBTYOGPdw2/i1l9kfkD6M/4ZKAtn1UDvtcKynwhC8o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aWTvoDYEuYs/213EHlNrD6zZ5T/SDS9Dahy/LR4KMSal1GeP2KJ4Mcl+uNth9QNzeecuKI5TKG+mB7oRwB4hLoBf1dYyyDpe90zZiJM2rYyFh1/RnwiG/UZ+F9wPe9xb9Qcux/6qTgMHaE/pbfuecjFD7Qcj1hbMgsLjI4leFPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WMTWFKRh; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g+2o1y3/"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso23448355e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:37:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791873438; x=1792478238; darn=vger.kernel.org;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1/TE8jVp1mgIX3w95Qd56lz15ABuBS61Pi2gCb8R3Ds=;
-        b=g+2o1y3/Qb+VFogNhJTLfABPi3jNMKJ8xDV3ARSQIFY1DuLSfvLolbZ1FGtslUHRYj
-         KUrE7CDXlybFIxxhdzDdOJotwrstec6NDm0xEe5LYkgZYByhGBX8uGJ8JMMgDINDFRbB
-         4lkGuMmS/8jnVzEw4OE88EZFWY8VWxK4qmeRlsOkimvxVfyMI0lkAVLgkqGMcm/KsLZ5
-         2wFB9jowc5OUk/mzxXfpuZT592XIasSP2ZUXFilXM7UAGDc3hfmywsF70JqggBBCLHeM
-         qy6g/BDhtAoPDhNI+Kv9NBiDtVVvlvOPcT357LCftrYJwiBP5qYHY+lxWfbOpITnXhU4
-         Yn2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791873438; x=1792478238;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1/TE8jVp1mgIX3w95Qd56lz15ABuBS61Pi2gCb8R3Ds=;
-        b=K47E5qrhmoUmJ9mtUokXOo4GkIkU3SqeBAAacONqL2NO+ESwCtdtffU1Wnh0Hb43gP
-         H7NiAhae2QUdWB5rYp+n+PrQsAcPUSCeBxPg3wkzkNq7uyKzeL/IuP/AUOEE0GZrM5FQ
-         KFIQft/NSzhvHM61821QqM8uFTKOtJdL5lhDdY5E5ZnPVoOdi0c80TcfW5sNRX5OV4yC
-         Ic2e9vEWFAxAIVJcRu8V6QGcFNf1eTXZGrMyTDoQSdFWaP8I1doOTthdsQ65aIpJkAvT
-         GT2OHtb1QQi0fsV+TGri4zynRVecfNdIa3ooqWUDson4H2wHM6wygrmzBzdVO5F/SXlm
-         LgbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoK38nCCsG8r0BSX7WzIQqGPFzXdDcvIK8lG1K9eLBUgVqdRVpYJ9AVlEQWItcljpDzpkns6BRLSCRC8E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlawICPOXzEJBXNosvoS6CES/+49y9vNkAsfX8gS9l7ZhUdg6l
-	3UVghPCdOk8vqBX6O5tI2f2alHtmxC4SNhB2UDntP6MMDCzfgE2gUL7M
-X-Gm-Gg: AYBFou2CAzsO3q+kIn/BmSLDBL+zgiNPyXehZxSrmjlWB49aC+3uBz9TqAeOL0E85zG
-	cHQ1H6a7fR/i3ZHbfWBc7Fr6GkzpZ5qfTErEj/b2Ixcc9pO71pmox3sqSIKL7PU36krVQgyMWfb
-	kISWa307EH9Q0rvqkex2Jj/FFxbRFggtGQLrBJiPayvDKa7mQHt37KS7IRfhGm2b8oWYbpTMv07
-	iQgkXcXVTegDIGgjAnF7FHPFqzKPk0ypBmjWwE1lKNeswCsSnyprnYycVoaZFsF2deScV+3iW6t
-	wN+mRVPHnPszTeJyMsChQt0vXRJNUMyLPISEswWEdop8nEt7rlIslvFZ28rQv4FaQ2aR40IIE3C
-	OY46tYrUjy/0xS+MAiBUOijvqv+GumdvKDdmsORqTpEw3DX6+yaiWBB2EKXHBCZ1IQu8S+6LFzx
-	U5HwZhyhsuZwzUnb1E7pnxTUoZe8erzSLCx+fhSJvzesRaflF5MrGg8H0KslTvNuZ/gEIlZCxfQ
-	//BXifndVNuMdjZ2UCgenrgyWdUBM1GcB6H4rVg+S7Fbo/Ccw2fnZxNxQ==
-X-Received: by 2002:a05:600c:348f:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a18e4c05e5mr229014865e9.19.1791873437754;
-        Mon, 12 Oct 2026 23:37:17 -0700 (PDT)
-Received: from [127.0.1.1] (ip-024-215.users.dtel.ru. [91.210.24.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19471edd5sm434795675e9.11.2026.10.12.23.37.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 23:37:17 -0700 (PDT)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- Jason Li <jason.li@cortina-access.com>,
- Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v6 00/10] ARM: Add support for Cortina Systems CS75xx and
- Securifi Almond+
-In-Reply-To: <971b67a9-7e3a-4fde-a8a1-e5a78f8d6436@kernel.org>
-References: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
- <971b67a9-7e3a-4fde-a8a1-e5a78f8d6436@kernel.org>
-Date: Tue, 13 Oct 2026 09:37:14 +0300
-Message-ID: <179187343453.3124451.12229499654368455627@gmail.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WMTWFKRh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=HM1tO2zUuq3aHDKS8jcZb4shFXJCucSmuz2o7ICzeXY=; b=WMTWFKRhyqeXSxK1yVeP2hwGdf
+	9lqF2r1m4Wzu7NwPLJY6wbsSmYUzcEqFqH9JEIS/fzAPuils5lXJIKFpKyaGw77NCKxJ0mr1trSCe
+	Z8hX0AGgRAhZRUMyjzXurAbFoERyQeeRdjWIM4WZevix8gjUWYMAzFUGp0zqjfN+PCzvSp52mvj6X
+	YOF8QdYJjjaaTKC7YH7g720w36ap+dXNF0N7m9ceqmSbvFAOAyUbnu8MH7zp0uPwCHBCZpgU5yVvq
+	5JALc3VdBwYIIQXq7hknKWpo3r4zZIT/ICiGXVD4P4JBE/LJ/nDaIvBRgSwE2Y2vAheXJQfADg42m
+	kc+zhUtA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xGW9G-0000000FAXd-2MNv;
+	Tue, 13 Oct 2026 06:38:06 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 0228930045A; Tue, 13 Oct 2026 08:38:05 +0200 (CEST)
+Date: Tue, 13 Oct 2026 08:38:04 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC PATCH] entry: Account the deferred hrtimer rearm as hardirq
+ context for lockdep
+Message-ID: <20261013063804.GX2009045@noisy.programming.kicks-ass.net>
+References: <20261012152120.GT4121339@noisy.programming.kicks-ass.net>
+ <20261013060448.751816-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013060448.751816-1-mikhail.v.gavrilov@gmail.com>
 
-On 13/10/2026 08:18, Krzysztof Kozlowski wrote:
-> Way too many versions of huge patchsets. I already counted 4 today.
+On Tue, Oct 13, 2026 at 11:04:48AM +0500, Mikhail Gavrilov wrote:
+> On Mon, Oct 12, 2026 at 05:21:20PM +0200, Peter Zijlstra wrote:
 
-Sorry about that, my mistake. I will leave this series alone for at
-least 48 hours now and collect all comments before the next version.
+> > That said; I wonder if we want more of irqentry_exit_to_kernel_mode()
+> > wrapped like this. The schedule_preempt_irq() thing will now also stack
+> > rq->lock and the like on top of 'random' kernel stacks, rather than
+> > keeping it in 'empty' hardirq contexts.
+> >
+> > Or am I making a mess of things?
+> 
+> Apart from the rearm, the preemption is the only thing in there that
+> takes locks, and I don't see a way to run it in lockdep's hardirq
+> context: preempt_schedule_irq() enables interrupts before calling
+> __schedule(), which trips the lockdep_hardirq_context() check in
+> lockdep_hardirqs_on_prepare(), and hardirq_context is per CPU, so it
+> would stay set for whatever task __schedule() switches to.
 
-Thanks,
-Fil
+Right; that won't do.
 
+> Nor is the shape specific to the interrupt return: schedule() under a
+> held sleeping lock stacks rq->lock on that lock the same way. In the
+> 46.6 hour boot, chains with rq->__lock on top of other held locks were
+> 18.1% of the pool, and lockdep_chains does not tell which of them came
+> from preemption.
+
+That's roughly 2 out of 11. Not sure that's worth it. If I get another
+crazy idea I'll let you know ;-)
