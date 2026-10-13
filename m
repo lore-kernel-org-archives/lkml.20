@@ -1,62 +1,64 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613BF40F8FC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:39:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581C04078C1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:39:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887953; cv=none; b=tSORRUoeVrPBkzG/hRu3XfNRTxynCVcQMhiSVaK6eMkhLknBCwMpRBl+74J6LMTf/xY0u71FMpJq/o+K+ZzsIE/4qyQfb9Ke9PzEq+apB0YUbr6utzN53sYdWibh/+QfZESTJPoE8Iy2Vrg4Vx2YpZMDTVlAeyjUqkuzHydivTI=
+	t=1791887959; cv=none; b=SeU/bTwc5cIri8iZdKfkNfwokhxuJcmjJIF7/oRw9vogojvUg7o1uWoNvWKymRs45NAfOQDKHnsxEZRklKWAZjBJvcM6HwC9N17OgoT6MlFcZ5rmiWZ8v1ZcLWZbABpxCDtA8qOg+EbMNEDX3UqnLo73S6vPg8RKaFcAgCBY4eI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887953; c=relaxed/simple;
-	bh=MOY5s2x3l4fytmxVNA6OCa/Ehzog/oyOEDrzzWNi6Sk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JkQhu+ILCdf4hMahlNHPHZJCQJSu5ZGQBLiqF8uqWfzucKtabhvaWM4qIIPLO8nPfdrqegUgL4cSCUtDCtpluEI5OlObAZr2djzRJA9r+uON2P4rR8cxarp87JovugO41pUXs8GSck7yOlR7kUwobyMggQqJl9opRhWU2SaV5EE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=G8St/8lV; arc=none smtp.client-ip=209.85.218.45
+	s=arc-20240116; t=1791887959; c=relaxed/simple;
+	bh=0uJ+kESm1PwiYPBfflB5thPfi9nQFbOwnmyUiLZ2SEs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CcmsHBvqapX5cQwp6wEccOwYKwYBErC0HK8Zqx/nk8yDTlKDFASBHeOXzxbJX0oza4+QGzBlyru1RXPzlWnWcWxe/ozO9kdMGgAewO5px13n0uJ3YK7Jc6ELzuMkUj7J/PxKO0q2/Tq5+Zazxf/xRDmCX2Has9N63hp5gTDcEh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=ditXe7mU; arc=none smtp.client-ip=209.85.208.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="G8St/8lV"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e36c3478aso359402566b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:39:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="ditXe7mU"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso3272501a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:39:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1791887949; x=1792492749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wcYYVZ6kSKJctnaWoWaxCg0rByraUo6R00V4/dmaqd0=;
-        b=G8St/8lV4Ysm5FKhvQ5kFsqlOJV3853Nwh54lp/zRIVEVe/5s84a1G01jwxnrH2JIj
-         cjuMxca1nRQVRquXN52tayKRW4ERlV7nHhDxvA401NbSXU5cfvvy1tK0CwefN5toG6yL
-         BvMDto3qESfe9dVhZvAGbbWLYrXB/j5WawP9qM2/vIit/HPOpF6qHU2+2qMrEV9rPPBL
-         fkqyY1xKyj2jNMvyUbaV11NyFhvMZNLixVHvC79a8vZkaZDWUmjbWcuiRGDUDG+fpJwS
-         UQ8jb24oUHj2pJKmulLplOCk7TLlCJDEci4zZHqC6KBTGcUaUDKKbaiSkS/Tx1GVWe4e
-         Jurg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791887949; x=1792492749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=cloudflare.com; s=google09082023; t=1791887954; x=1792492754; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wcYYVZ6kSKJctnaWoWaxCg0rByraUo6R00V4/dmaqd0=;
-        b=ceMZ5EO46bP1tkD3QjnVjlwG6iWe6kssxarZilSAAXCMpOkezCBTQ86kIws0BgNspR
-         uKfSjVz0bQ8PNoMEwvx17zhvcLk4uonr6/cObDfKOs0sDUUQDYGhA3Gk8k815AuFZ2iw
-         JqJ35WoVOBwahPhaTHATNn74W/ClQTApXp24mt6L+g7Ls/vM2kDBpW2tCn8M1nul/RJb
-         HzdWi2Q0b3DHUAPndHA7YVmZGgCe6Nm3xv96Va5To/cft25+mzY9THVjJsz+UPx9Lr/x
-         6Ly6359kxTZ7D1s4tRd5kTzJ5H2odW5ADNedryg9l5qSrcW7GLNmq8AGdKAN0H/oW413
-         Ze2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxklDE6Ip6nL2dD/F0e5s556XjDNscbiu/KB6U8oTh/bTZd2Q/6VgfcpmoxZ4pKZ5nPzaT9pJCEDTGh4qQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBG1/OK9kTX9+ac2zRejlg8IKUizdLXBMyzm1KO3+LU2676rOy
-	IccUyqXEBw1Ga5WQpWTtovryb8ZJxTfxNLHGYyjgsMwo9KFbxlCQ/FmHyqSRG4mV7TA=
-X-Gm-Gg: AYBFou2AD3wbm9xOPruFZTMntfeDpPk65QO9ggVqhJ3KhEzSZ3qxkX3QTbNeD3dg2s2
-	DTx9ksrrKaSe4fbFQG6U18fSDghnoWioIoXafNVMjQNDVeOPqiLDRTIHXeGVHRgqsLltJZxybhq
-	8d/O8iKVVhX822ANENBn1yNvYFs4LwFVylKpB/Te/4rCJinT7EOAqhkxxNWMjRfKNGQy3bp16hn
-	feE/xtTXkC7DetwYfc77gVOr9dkk+uAJcVLbggRtMF11+zfd1ZhCiWpoOq1U1/eHR2flE8Df4sh
-	WqMs5Y5idXrJ6rXiW8CRRsqDYQZ7zDlXaocMNc78oCqPJ1I/TbxF7+k37lK0nwmdpp18j/m+A7M
-	TySaEexfjpsw/f+VfXChBnpZhdPm0RJxKuo9La+MIXVAAOfaUIho4MhTL39nYxhf09cKJOUtqql
-	t52LdeBbrXyEweN+nqcOX1NZDwduWOU6UQMSN6XquXffPONOrtkg/cpFM2O9tHnaEsku7BkGmZt
-	cPCU9lFRecsFl+FnC4DSBFmAvyk9U9ynTvP
-X-Received: by 2002:a17:906:dc8e:b0:c29:4513:f6fd with SMTP id a640c23a62f3a-c31aa081b78mr1169935566b.35.1791887949584;
-        Tue, 13 Oct 2026 03:39:09 -0700 (PDT)
+        bh=G0VR4BhwU3dfr1tgwz6hrqGOWxE0skLoQ18O/+G4pO8=;
+        b=ditXe7mU39OVQwRxu9fO4NaNK4aubND8FdlfmCwc9eRIdMullVnmwMQI8qg7C3FBiW
+         DhCfTTNwfEPh156povT8B/8OMoLLQwl994tmfoO5ELuq4xE6sWALN+zJqx3CJRSx0KHT
+         Efk/CvDJCm36lCO6kAxjy8c1zZMxAMg3DJV//lj8OYg+U9q83oHjsxYIsyp4tSKyJDoM
+         RjVeDbDm0FIuBGNpyav9d+95qGv35YKsoOBM/6KAxZLbY3Y3UXCVJFx9PLAlpNHULADR
+         CYse4/TZmIm8ZfJBH0K+BWE7XhZrH2JtLeLwz4v9yzFvghbxkvR0SZAvKxJTxJkw8T+Y
+         U2ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791887954; x=1792492754;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G0VR4BhwU3dfr1tgwz6hrqGOWxE0skLoQ18O/+G4pO8=;
+        b=lYvPV3CtpZ/u9rqfvt6zD7wJ4g8Tgo+fDoRvTevg/vNjN5384LEasWRlkMe1sH5ItT
+         y65Ls0jcm2CZPBm/qNmnl52s0/kvtzVnYbo73JQkRPgFldIrK2GCwTqUsTyDRQDCyRl2
+         grsRmrFuCmam39kfiapnPum2zbED7vasoFQVvSahoET2i4wilGMPewAnelMC6Q49Wqfi
+         dUovgrcwQm4lVDZq+Ox4kOAgBRE/RbtpzfAlGt3ixiAQt6NkECAelu8nttGpUy4urHX/
+         Un0fAzx9daYEE8+WizRoZ+g3X3NQyqNuA6f6/Cr7Wxyj9+v+3dcr18arJdgraHRyPmX0
+         N3XQ==
+X-Forwarded-Encrypted: i=1; AKwUvByb1RY/hWZ59FXLx7mRcCWoYcjY/1OPr/xvaLTxD8jULgjJfLl0q/5Lyuj8/8kfYlFkilHhX5qS9wmBIj8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDtZmJK78JZNfGslrHVyedAif39vUyrOR+d8GjlYe/E8P/XDdG
+	qCTYIYWUEUcTrgfqkmHshHl5JRXM8pkMoakVUJtIatBB7B5gw8FeBOhFpmiahm8R6Gk=
+X-Gm-Gg: AYBFou0Pv4qz/KGLCtNd4pVHtoii71hCuENxF/M5NMNr3fMYLJlKVs6S66w5IcFavdN
+	uBSRg6OKayCzlKHhnmvVi94wkxG+SUoq67yIw7IemsBli7Jzcfjn0hnMYhrAkniI/4FOpygIzxr
+	cF4YmW9dYmxdcTHxzTwJEkFgBp6o3iz3ea0SqPNep/25je8qoxZQVXoTPCn3dJrZ+MFDevbKUwk
+	ZzKq/pkqPmPzhYPkYo1xSPZ0NDwijvNyTp4JEShgZ1lc9Otoqu6lGDDV2N42NEuqdwo9dFgOigb
+	osoPm3gs6DIpeqvuAiMlJOQdzcNm/nVzBVciD5S0J3DAWtdif+Us+2Xh5S4r1Dlkp6N28riDcSN
+	M2KJA9jiBlKtCdelZDixhOKOXT3+Oh1gNwvdc+eCtZMlexIskyLQJvfOu8TyLKxHH9nQmKShyWB
+	T58gkunAUQMHuLvyTQ19tCugNaBIqSETJM/zoGUiLhGJt4O3MVfh/JaI/YyyT7mXMqgaBVyoDRz
+	7q2qSDuDyDaTtZHF24b3fbQCg==
+X-Received: by 2002:a17:907:3da7:b0:c26:2fc8:4e91 with SMTP id a640c23a62f3a-c31a9d579d8mr1148888566b.29.1791887954405;
+        Tue, 13 Oct 2026 03:39:14 -0700 (PDT)
 Received: from 8951987238ab.arnhem.chello.nl ([104.28.187.84])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac62a7sm552462166b.63.2026.10.13.03.39.08
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac62a7sm552462166b.63.2026.10.13.03.39.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 03:39:09 -0700 (PDT)
+        Tue, 13 Oct 2026 03:39:13 -0700 (PDT)
 From: Willem Ferguson <wferguson@cloudflare.com>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
@@ -76,10 +78,12 @@ Cc: davem@davemloft.net,
 	shuah@kernel.org,
 	linux-kernel@vger.kernel.org,
 	kernel-team@cloudflare.com
-Subject: [RFC PATCH net-next 0/4] tcp: carry a BPF-chosen identifier in TSval low bits
-Date: Tue, 13 Oct 2026 10:39:02 +0000
-Message-ID: <20261013103906.2660384-1-wferguson@cloudflare.com>
+Subject: [RFC PATCH net-next 3/4] tcp: add TCP_TS_ID socket option
+Date: Tue, 13 Oct 2026 10:39:05 +0000
+Message-ID: <20261013103906.2660384-4-wferguson@cloudflare.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261013103906.2660384-1-wferguson@cloudflare.com>
+References: <20261013103906.2660384-1-wferguson@cloudflare.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,113 +92,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series lets a listener encode a small per-connection identifier in
-the low bits of the TCP timestamp values it sends. The peer echoes TSval
-back in TSecr, so every segment the peer sends after the handshake
-carries the identifier in its TSecr.
+Add a read-only TCP_TS_ID option so applications and tests can see
+which TSval identifier, if any, was assigned to a connection. The value
+packs the identifier width into bits 8..15 and the identifier into bits
+0..7. Zero means no identifier is encoded.
 
-In Anycast networks, mid-stream path changes caused by BGP route flapping
-or ECMP shifts frequently deliver active TCP packets to an ingress Point
-of Presence (PoP) that lacks the flow's socket state, resulting in abrupt
-connection resets (RST). While protocols like QUIC avoid this using explicit
-Connection IDs, TCP lacks an in-band routing token to help ingress
-nodes identify where a flow actually lives. To address this problem,
-we propose embedding an N-bit data center ID into the lower-order bits
-of the TCP Timestamp option (TSval, RFC 7323), allowing edge load balancers
-to recognize misdirected packets and steer them to the correct origin data
-center holding the active session.
+The option cannot be set. The identifier is chosen by
+BPF_SOCK_OPS_TCP_TS_ID_CB when the SYN arrives, and there is no way to
+restore it onto a new socket, so connections that carry one do not
+survive TCP_REPAIR. ip-sysctl.rst already documents that limitation.
 
-How it works:
+Signed-off-by: Willem Ferguson <wferguson@cloudflare.com>
+---
+ Documentation/networking/ip-sysctl.rst | 3 ++-
+ include/uapi/linux/tcp.h               | 8 ++++++++
+ net/ipv4/tcp.c                         | 3 +++
+ 3 files changed, 13 insertions(+), 1 deletion(-)
 
- - tcp_ts_id_bits (per netns, 0..8, default 0) sets how many low TSval
-   bits are reserved. The millisecond clock is shifted up by that many
-   bits.
- - A sock_ops program opts a listener in with
-   BPF_SOCK_OPS_TCP_TS_ID_CB_FLAG and is called with
-   BPF_SOCK_OPS_TCP_TS_ID_CB for each SYN, before the SYN-ACK is sent.
-   It sees the SYN and optionally returns the identifier
- - The identifier and width are stored in the request socket, then in
-   the full and timewait sockets. Incoming TSecr values are decoded
-   before RTT estimation and PAWS use them.
- - TCP_TS_ID reads back the identifier, and /proc/net/netstat gains
-   TCPTSIdAssigned, TCPTSIdDeclined, TCPTSIdSkipped and
-   TCPTSIdEchoMismatch.
-
-RTT estimation on the encoding host sees the same decoded timestamps
-as before, so they are unchanged. On the peer, PAWS keeps working too;
-the only effects are a shorter idle limit and a narrower tolerance for
-reordered segments, both described below.
-
-Scope and limitations:
-
- - Passive opens only. SYN cookies, microsecond timestamps and peers
-   without timestamps are left unencoded.
- - The peer sees a clock running 2^bits times faster. That narrows the
-   real-time span of its PAWS window, so the width should be no larger
-   than the identifiers need.
- - Peers that keep ts_recent for the RFC 7323 24 days (e.g. FreeBSD,
-   macOS) stall connections that stay idle longer than 24.8/2^bits days
-   (about 37 hours at 4 bits). Linux peers stop enforcing PAWS after
-   TCP_PAWS_WRAP and are unaffected.
- - TCP_REPAIR cannot restore the identifier, so hosts that migrate
-   established connections should leave the feature off.
-
-All of this is documented under tcp_ts_id_bits in ip-sysctl.rst. With
-the sysctl at 0 (the default) the only new cost on the established fast
-path is one likely() branch when parsing TSecr.
-
-Questions for reviewers:
-
- 1. Is encoding an identifier in the low bits of TSval acceptable in
-    principle, given the trade-offs above?
- 2. If so, what feedback do you have on the implementation?
-
-Patch 1 adds the encoding and decoding, which stay inert until patch 2
-lets BPF set an identifier. Patch 3 adds the TCP_TS_ID read-back, and
-patch 4 adds a BPF selftest.
-
-Testing:
-
- - A kernel with this series and tcp_ts_id_bits=7 is serving production
-   traffic on a few Cloudflare hosts and assigning ids to all CDN
-   connections. Key TCP metrics on those hosts show no difference from
-   hosts without the series.
-
-Willem Ferguson (4):
-  tcp: add plumbing to carry an identifier in TSval low bits
-  tcp: add BPF_SOCK_OPS_TCP_TS_ID_CB to assign a TSval identifier
-  tcp: add TCP_TS_ID socket option
-  selftests/bpf: add tcp_ts_id test
-
- Documentation/networking/ip-sysctl.rst        |  38 +++++
- .../net_cachelines/netns_ipv4_sysctl.rst      |   1 +
- .../networking/net_cachelines/tcp_sock.rst    |   2 +
- include/linux/tcp.h                           |   8 +
- include/net/netns/ipv4.h                      |   1 +
- include/net/tcp.h                             |  58 ++++++-
- include/uapi/linux/bpf.h                      |  15 +-
- include/uapi/linux/snmp.h                     |   4 +
- include/uapi/linux/tcp.h                      |   8 +
- net/core/filter.c                             |   2 +
- net/ipv4/proc.c                               |   4 +
- net/ipv4/syncookies.c                         |   2 +
- net/ipv4/sysctl_net_ipv4.c                    |  10 ++
- net/ipv4/tcp.c                                |  16 ++
- net/ipv4/tcp_input.c                          |  61 ++++++-
- net/ipv4/tcp_ipv4.c                           |   1 +
- net/ipv4/tcp_minisocks.c                      |  27 +++-
- net/ipv4/tcp_output.c                         |  15 +-
- tools/include/uapi/linux/bpf.h                |  15 +-
- .../selftests/bpf/prog_tests/tcp_ts_id.c      | 150 ++++++++++++++++++
- .../selftests/bpf/prog_tests/tcpbpf_user.c    |   2 +-
- .../selftests/bpf/progs/test_tcp_ts_id_kern.c |  32 ++++
- .../selftests/bpf/progs/test_tcpbpf_kern.c    |   2 +-
- 23 files changed, 459 insertions(+), 15 deletions(-)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/tcp_ts_id.c
- create mode 100644 tools/testing/selftests/bpf/progs/test_tcp_ts_id_kern.c
-
-
-base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
---
+diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
+index ce669f282250..d5e992623326 100644
+--- a/Documentation/networking/ip-sysctl.rst
++++ b/Documentation/networking/ip-sysctl.rst
+@@ -1123,7 +1123,8 @@ tcp_ts_id_bits - INTEGER
+ 	often than this interval prevents it.
+ 
+ 	Progress is visible through the TCPTSId* counters in
+-	/proc/net/netstat.
++	/proc/net/netstat, and a connection's identifier can be read with the
++	TCP_TS_ID socket option.
+ 
+ 	Checkpoint/restore is not supported. The identifier is selected by BPF
+ 	when the SYN arrives and cannot be restored onto a new socket, so a
+diff --git a/include/uapi/linux/tcp.h b/include/uapi/linux/tcp.h
+index 03772dd4d399..5d7f37b6f8d9 100644
+--- a/include/uapi/linux/tcp.h
++++ b/include/uapi/linux/tcp.h
+@@ -142,6 +142,14 @@ enum {
+ #define TCP_RTO_MAX_MS		44	/* max rto time in ms */
+ #define TCP_RTO_MIN_US		45	/* min rto time in us */
+ #define TCP_DELACK_MAX_US	46	/* max delayed ack time in us */
++#define TCP_TS_ID		47	/* Read TSval identifier and its width */
++
++/* TCP_TS_ID value layout: identifier width in bits 8..15, identifier in
++ * bits 0..7. A value of 0 means no identifier is encoded. Read-only: the
++ * identifier is chosen by BPF_SOCK_OPS_TCP_TS_ID_CB and cannot be restored,
++ * so connections with an identifier do not survive TCP_REPAIR.
++ */
++#define TCP_TS_ID_BITS_SHIFT	8
+ 
+ #define TCP_REPAIR_ON		1
+ #define TCP_REPAIR_OFF		0
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index af994edde7f7..5991b16396b9 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -4711,6 +4711,9 @@ int do_tcp_getsockopt(struct sock *sk, int level,
+ 		else
+ 			val &= ~1;
+ 		break;
++	case TCP_TS_ID:
++		val = ((u32)tp->ts_id_bits << TCP_TS_ID_BITS_SHIFT) | tp->ts_id;
++		break;
+ 	case TCP_NOTSENT_LOWAT:
+ 		val = READ_ONCE(tp->notsent_lowat);
+ 		break;
+-- 
 2.47.3
 
