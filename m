@@ -1,90 +1,88 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0424EE87C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:42:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864124E324A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891780; cv=none; b=aTnAOTEbMcYGh1fdTf7fOadu2MwC7jiXCzy6XtKK9oxXf6ATydCrSmDhzSrqaDPaV/AUy5+D0TL+2Smalk4JpA1yPTyR27Z+YnpTdhgyrpLqnkYOWvRUHpq2Z8zq4qEUUyR9OZ7VfJ/04rCSkcQkN43UxgXmUB1/d/+w5WCzyQk=
+	t=1791891784; cv=none; b=EH+/J0ynrfME77crB2RId1kA3r6ZUyQiqxc83T7KVvJvaB14uaMbBCtuCqNeQ+TI/ggBJc/86npbH2lACqX91Ma3YhhdbknaURLhSX5wXpOMWAfxwA9ht1r9GEKlIVKfaGzifgOKnUijNXZ0Om45VI8x173FgW12vEl7GzcqsoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891780; c=relaxed/simple;
-	bh=CIMdMh++ZEplhGMSLLwZfKOvEgqA6HcnBv+q4ybPNGw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=qFzlfeJQGcvt2QPm7m/77w/SVzCXLiUVnZ+DD0b1Hr+lWcgGUyCxJvhNv6BBF1WZKYOOI/tPZEGhFRJtB+oUb0wo/eNY5abrnVrUgcdnl/eeqlZrLWEGTkTPL9kUdWvTkcXDhaTwUiQmJEf1NI5/dmkDz2NKwqABz0O3PsZRit0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=QiQ+ZZL4; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791891784; c=relaxed/simple;
+	bh=+6CMPxCNfgJArOVqz3AByWMolaEbwiFKYsgSct0ITlo=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MgncGzUpUsL7Aa9PDawcWbjMdwn/uyalGffFAre2qskmg4fnT57eS0qAZ2/VZPmu4j6Cq5JMmV4SU4HogQGl8yFtPScDOJMxOxC2S3FjKt4nHakke8juzGCQEiXJw/zIoWbgXSnRvGpWpgOioEZ3NXfkEX5OWK4HMn6DpgNXbdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+a1nyrl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="QiQ+ZZL4"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261013114256euoutp0194a7294386bb081489ee9c6afa93f066~eFBOxZCNt0506505065euoutp011
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:42:56 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261013114256euoutp0194a7294386bb081489ee9c6afa93f066~eFBOxZCNt0506505065euoutp011
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791891776;
-	bh=Q9aqMDODe600BFm8D61Dvnouj+6fVW9MMKyx7NIsysw=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=QiQ+ZZL4DOyVlsSJovFzb1XiCOM/4TnpHoRjojfXPD6vpOv0PEdAtOIeCtI4V+RhW
-	 p7rc8Wa50YHaXCnZXqqKHYfEtV+IZxG762XRV1obJrIHrLlXHAMIYaugnPJ7/2lnhA
-	 Bbb+PFKIRLtl5VvDsM+i52K0kISioy9xLhDWyMqQ=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261013114256eucas1p16397bdcc2581199fc88c07ed85140cda~eFBOZ9TQG2531425314eucas1p1O;
-	Tue, 13 Oct 2026 11:42:56 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261013114255eusmtip205abe02f05a4bd61c6ad22500639b211~eFBNseO-R2337123371eusmtip2F;
-	Tue, 13 Oct 2026 11:42:55 +0000 (GMT)
-Message-ID: <6b66c6fb-14d2-4d71-b638-59e7595e4896@samsung.com>
-Date: Tue, 13 Oct 2026 13:42:54 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+a1nyrl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46CA71F008A2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:43:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791891783;
+	bh=1b5lmP5bgZdbyJCJmclYiq8hiiZPCqTVEesDwMQlI0U=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=g+a1nyrl+yb/XUNoyQiRaJRAr6abbBYn4imk4yx9HhvVFA7BGuVdYeOwICEVDE0OH
+	 /pv4B+If06J6Owut7NcSK3DIdNv6T5Vkj45QJV7mGbD6lbTYmr4xArzqEP3yYYzQ02
+	 3NGfKyW9Z4YnXZM/LCpXHrC0cSSWi9MWlYVeoPbUT6NSxzJ0uJwCch2h7kyleX+XPf
+	 4/1qPrzVZA+cMR8f3TLJ5dOkcMUZ/McvN5N6XGfqPWRM3jw7mq/yCCcOMtsR1LDJEm
+	 gPk/iSIDkY6F1/JrZrmDADDZM3azOA87/VdYEbetQ9f4uTN1xagiacDl3VS8NjEGbh
+	 JShfVQpyXzi3g==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bcb4f23ddeso2296485e87.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:43:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw8+jFEW7LucqsTt7ZD55EJO5CMN2cIazb5kg15BmnRl2fbz+6+L6utom5oJOE5WwOAt/4ZSnbL8W84VSc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3YBJXyt2BUIYRuww8MX5cWOoT5sgAqu0wrrv0epHyxiNRrdUZ
+	AlqDZZD0vpy4TH64ZSIt3LIQwvI9wYwls31KNh2cYznW0aduxQ9LqwhSEB0oGVLYn9DG+m4Ogk4
+	kMFhZx9igcLLCua2oMd1l6KXMC0+NFHLyyEm285k8rw==
+X-Received: by 2002:a05:6512:2389:b0:5bc:f51e:e083 with SMTP id
+ 2adb3069b0e04-5bcf51ee1bamr2267919e87.41.1791891781869; Tue, 13 Oct 2026
+ 04:43:01 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 14:43:00 +0300
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 14:42:59 +0300
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <d5508a2a-518e-46ee-a821-b6209ef35bfb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] tools/dma: fix building from the top level with O=
-To: Sasha Levin <sashal@kernel.org>, Barry Song <baohua@kernel.org>, Qinxin
-	Xia <xiaqinxin@huawei.com>
-Cc: stable@vger.kernel.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261011223358.2327625-4-sashal@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261013114256eucas1p16397bdcc2581199fc88c07ed85140cda
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261011223410eucas1p1db84283e5fc98bfb7d0bdeff84fd1a7c
-X-EPHeader: CA
-X-CMS-RootMailID: 20261011223410eucas1p1db84283e5fc98bfb7d0bdeff84fd1a7c
-References: <CGME20261011223410eucas1p1db84283e5fc98bfb7d0bdeff84fd1a7c@eucas1p1.samsung.com>
-	<20261011223358.2327625-4-sashal@kernel.org>
+References: <20261013094412.945609-1-andriy.shevchenko@linux.intel.com> <d5508a2a-518e-46ee-a821-b6209ef35bfb@kernel.org>
+Date: Tue, 13 Oct 2026 14:42:59 +0300
+X-Gmail-Original-Message-ID: <CAMRc=McSCMS0PB69k0tnKMvBRkB1t-4HOhsvGr82yse4FuNtCw@mail.gmail.com>
+X-Gm-Features: AclHuK_eWKWLpzr925FcKSzXQ_aUgEzPtSFQb2mGE-CVnlYuXLR-Pw-OS39mAZY
+Message-ID: <CAMRc=McSCMS0PB69k0tnKMvBRkB1t-4HOhsvGr82yse4FuNtCw@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1] gpiolib: shared: Don't define variable in the
+ middle of the code
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 12.10.2026 00:33, Sasha Levin wrote:
-> "make O=<dir> tools/dma" fails:
+On Tue, 13 Oct 2026 12:04:41 +0200, Jiri Slaby <jirislaby@kernel.org> said:
+> On 13. 10. 26, 11:44, Andy Shevchenko wrote:
+>> While the C11 allows us to define variables in the code, we do not
+>> do this style (see more at [1]). Move the declaration to the top of
+>> the function.
+>>
+>> Link: https://lore.kernel.org/lkml/58fd478f408a34b578ee8d949c5c4b4da4d4f41d.camel@HansenPartnership.com/ [1]
 >
->   Makefile:27: /tools/build/Makefile.include: No such file or directory
+>  From the link, I have just learnt two things:
+> 1) I am not alone preferring declarations in the middle of blocks (it
+> has more pros than cons IMO). But again, I spend a lot of time in the
+> c++ universe.
+
+I actually do prefer declaring variables at the top of the function. This is
+a leftover from when this variable was managed with __free().
+
+> 2) the kernel defines "auto" even for < c23. Therefore:
 >
-> tools/Makefile clears srctree, and the dma Makefile only works it out
-> again when building_out_of_srctree is not set, which the top-level
-> Makefile sets for O= builds.
->
-> Also work out srctree when it is empty, as tools/bpf/Makefile does
-> since commit a89b2cbf71d64 ("tools, bpf: Fix build for 'make -s
-> tools/bpf O=<dir>'").
->
-> Fixes: f74ee32963f1b ("tools/dma: move dma_map_benchmark from selftests to tools/dma")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Applied to dma-mapping-for-next. Thanks!
+Excuse me, what?! :O
 
+That's the first time I'm learning that we can use C++-like auto in the kernel
+C code. Thanks for bringing this to my attention!
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+Bart
