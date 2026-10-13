@@ -1,179 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F33B5208B3;
-	Tue, 13 Oct 2026 15:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDEF533587
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904746; cv=none; b=YzLqKKKh2rWzZwv2Ep5TYoQFZb4xZ8cZ1Fl6aU39hHV3LtTGfOu296gSfOTI9deMyKKNd0Ty0ir6+GwkWFLYvaYHpw+6Kxi4ypsRoflpxItLrg/VZldnXJ/JsmbotLQ7/w2RnYRwTVPvpTOD2eYPIzFnaQORQev8Dj/P7lDNV9s=
+	t=1791904749; cv=none; b=LX8JKiTy14ivBiOu9sLm83nWtOguZUQJC26J3U/EN0T4HstmRMJT/fGufPI4GalXj0VEFP0QcUfSKBQqmz871NJAiRpPhtnB4HIf3hUacA04RiD8L489ysQOakYsNmfkQ8MByc3j8YXmqBFCnb5EvzL2PrUiNu4QYQsEkvCsjXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904746; c=relaxed/simple;
-	bh=KAx5pCgPSnqK5On44M7SRQ5XAoMkVBAlm39FSqythWw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qk0gLblLWt6Ad26WQvsr1W0wuG1CmrrEBqatEKf4PeUZwoQtfulScWfPIG6e8gd+ouJZDfnDDZ8cNQlUeWROwd8SEOb4VvapUEG94Rb2ISzmdNuEi3o6N/tsWTyi9g6t2LHYikEes8vhe6zfmOSWFyX684C1ZTq4z567gQJO2Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwQzzLd0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904749; c=relaxed/simple;
+	bh=/KwDlVeusGGxSdrsgZ2Wla7DqEQyrxKB13jqubXMBuc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EGwssq6BB1GxuC0D8sYiU7fjOtR2D/q96tIxI6trsfa0GyiD2LhTCEDvyGcZqX7rG2K7jLDDzu+BvT6WvA4qE3xMHMTtfyQPJxM0zPya70TnwSSuRuPPgA8OuJGKQWBHkNyGbtH2Up4+05sFbuXuwyCkdIgDkXb9epG+KbuYqMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U1l8UGaT; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwQzzLd0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE341F00893;
-	Tue, 13 Oct 2026 15:18:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904745;
-	bh=CKkMTJue6E61UCBcTQnoX3cL83k8qvuMY1H2zZe0ce8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KwQzzLd0IkdgZnr3KuigFgWWt3CvCGbV9XPsgyVm7wErr8xX049v0KRHIMNmHTzbG
-	 BvGB5F6cpGI/rsbJydvKueK6AYwbDISG2AkNKkPr0du8OA8pvdb5PbbXqVo7CCkH8m
-	 vwbhvmWLezrPs2WlZx/MTBz/pcBkwrjI5fYFVaVKPs/+uifezGkcOXU20rtu/D//ps
-	 wsoQ6dSIjsBFXh4JX3YvLi/JczbmGewVd25ebpFsqGDtkb6iJnnA7AbNfWhE0kqfWy
-	 bvaY4tldxhmYg+F5Xm8KRNmKg6OPEWQz26o39rsyoNgEdHBAnBLWBlQcwu5+qdXMp1
-	 jur3168ZJpq2g==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 13 Oct 2026 16:05:05 +0100
-Subject: [PATCH v6 25/39] mm/vma: enforce that mm-managed mappings may not
- set VMA_IO_BIT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U1l8UGaT"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ccca948203aso1147594a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:19:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791904745; x=1792509545; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ORoqp0TiDdQwa9wpTiAA54Y/Pj/AMJOiVqcIlCpQukE=;
+        b=U1l8UGaTuiw6tkGPZunS/b+8zfZ8VCepfrZkHpG964Qi7PIrn0jv+ACcKmpCyUi0m5
+         69ptvi1w7IZjeV4VfgG7rJZyF75/ZrbsIf2P1ZUzNR+2kGwlvs5ozrHsz7LYBdZIZOeT
+         WkQmHx0Eog5vEAGvWgmrW7wqpytVKarD4mYolDP2Mm4KWF3tlY25gFaNwpVS456EzecA
+         YbDs1qBDFbt3No3P4/NtmgY1GPpGNSUq1+R5z2cRJ4IWB2OXoW8ajz6mWeUH8YO/fqrm
+         VDUK79o7dqUuswee1blWwA5jqGIIPJ6ZembnQevSpbA15RcmxrLEUhMmWAFPE4C0xf8/
+         qkKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791904745; x=1792509545;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ORoqp0TiDdQwa9wpTiAA54Y/Pj/AMJOiVqcIlCpQukE=;
+        b=dm6j5Bl+8HV1IP/0waWWmnHYlaImXdxDflvCUV9LVhW5X3r4I/1y0QAPcDAVvuwKjn
+         1MAF4GbIoqBqb/gjbajAsJrDcKhDdprj4+7IIoxGBwZoEBNAo9j01Oj2d/DRMR0cbDxU
+         ppU15+gWBilmHtBR0WA5xkDq3ZTKZ+upKkwFjxPdGzlk6Cjit87i8pKhyf/iBrVmwPSK
+         x1X+BxSYex00qpLZ3FhRqDfnWXpd9hxoTGAp48oRAeoF5SsnvYkWjCr1UFA94nVil3qM
+         hoh+WMerQS5B5nc5eBpiJqHICVvAD+tg+/04+WymUvzrwjqwOvKZv5s6byNL1c2XoWDe
+         Y20Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxrQMwii2kAlLzSFIfzoGQv5MF8mW7Mwv1sxSCVB0dCqczUiQ95k994ll4p+2A8is5G+mF3KyNPQeRZMRk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcZuzhOQBFRbbPSMK3Pe8rA4m+PTFbLm8HNTFzcMhXOuuaBY9R
+	pHWphGpNKZNQQVmJUkF2tWYu2gshR0+nFa17aMmoiXwAaEk48k8smA6R
+X-Gm-Gg: AYBFou2nV+/9aTfl8JMjBhpfGUcU7XqNL9cLlSO5TfU58yrD6QxRrbCGJa7wb4s3x5B
+	LIu5XH2GFkRav6lpbjCys0W4btwN75hqIwSiL66klcuksnoPyuU7ZAjl8IzXR5TxflCfiQq3ngE
+	KQvy+Y/y0TxWd3Wz7DW7r6Yf/nYBv0TVQDJkEnBwgzj9/t7SU0+/3xRZrVEPo5/fDbfg/+9mFMO
+	T+fQpCfI7iUTCl1c7McpfGLIS2+23675bfJZ8vQc55+ZPhrzhXiDfGs91o2mObfx1socafwSOnI
+	pZuda4x24v/MdUiOfQbqK0I6qrNqsjB+qI/RsN82XthH0o+3dqP95Lpa+RmtXBgp/8H9OBK/+aM
+	ESNU0ReimHpRj18v3+MtxppW2dlU0zEhiIqgBB8NGS25cPKW4eh3lVgPAb/gatlw5/ul0TTs+Wm
+	0Y4GcPbKmtZuVmJwz9+3k82Y9H0Y4uFf/M1JisxW5VJ+6DZPbNb/c+CUibipf5vucc9F+gimW+0
+	x326v2XGH2ivzthZxcbNNfu8ZJn
+X-Received: by 2002:a05:6a20:1455:b0:3e0:e349:f672 with SMTP id adf61e73a8af0-3e16bf5d17dmr6698639637.82.1791904744725;
+        Tue, 13 Oct 2026 08:19:04 -0700 (PDT)
+Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.18.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 08:19:04 -0700 (PDT)
+From: Akari Tsuyukusa <akkun11.open@gmail.com>
+To: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Yassine Oudjana <y.oudjana@protonmail.com>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kees Cook <kees@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Haotian Zhang <vulab@iscas.ac.cn>,
+	Miles Chen <miles.chen@mediatek.com>,
+	Sam Shih <sam.shih@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
+	Laura Nao <laura.nao@collabora.com>,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?= <nfraprado@collabora.com>,
+	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
+	linux-kernel@vger.kernel.org (open list),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
+	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
+	Akari Tsuyukusa <akkun11.open@gmail.com>
+Subject: [PATCH v2 12/35] clk: mediatek: Add cpumux support to common probe/remove helpers
+Date: Wed, 14 Oct 2026 00:17:11 +0900
+Message-ID: <20261013151734.3177690-13-akkun11.open@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013151734.3177690-1-akkun11.open@gmail.com>
+References: <20261013151734.3177690-1-akkun11.open@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-25-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1332; i=ljs@kernel.org;
- h=from:subject:message-id; bh=KAx5pCgPSnqK5On44M7SRQ5XAoMkVBAlm39FSqythWw=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZw2bKjdeyA27XNbkaKswLKWuPBKxp3Vsqcbc292v
- NAzyjnfUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgIk4FTD8d2D0CzkZ8Snze7et
- u6xqdsi2rSd095+ZZ+eb3rFnW8OcRQy/mGdufbvOQo5/j7vEZaOft51tcj8ra23Uf+t/r+PQf8X
- TDAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-It makes no sense for a mapping whose contents the kernel does not own to
-specify that the range is MMIO.
+Extend __mtk_clk_simple_probe() and __mtk_clk_simple_remove() to
+support cpumux clocks. This reduces boilerplate code in drivers for
+SoCs that require cpumux registration, such as mt6795-infracfg.
 
-Prior to this patch, all in-tree drivers which did so have been updated
-such that they are marked as not being mm-managed. The check WARNs and
-fails the mmap for any out-of-tree driver that still sets VMA_IO_BIT
-without a kernel mapping.
-
-Here VMA_PFNMAP_BIT, VMA_MIXEDMAP are tested individually rather than using
-vma_flags_is_mm_managed().
-
-This is because vma_flags_is_mm_managed() still checks for VMA_IO_BIT.
-
-The very next commit in this series removes this, and the check is then
-converted to use vma_flags_is_mm_managed().
-
-No functional change intended for in-tree code.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- mm/vma.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+No changes in v2.
+---
+ drivers/clk/mediatek/clk-mtk.c | 18 +++++++++++++++++-
+ drivers/clk/mediatek/clk-mtk.h |  2 ++
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 6cfda4575997..affe464a7c92 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2794,6 +2794,12 @@ static int mmap_validate_vma_flags(const vma_flags_t *flags)
- 		return -EINVAL;
- #endif
+diff --git a/drivers/clk/mediatek/clk-mtk.c b/drivers/clk/mediatek/clk-mtk.c
+index 11741cc6ccc7..004098a839b2 100644
+--- a/drivers/clk/mediatek/clk-mtk.c
++++ b/drivers/clk/mediatek/clk-mtk.c
+@@ -19,6 +19,7 @@
+ #include "clk-mtk.h"
+ #include "clk-gate.h"
+ #include "clk-mux.h"
++#include "clk-cpumux.h"
  
-+	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
-+		/* mm-managed mappings may not set VMA_IO_BIT. */
-+		if (WARN_ON_ONCE(vma_flags_test(flags, VMA_IO_BIT)))
-+			return -EINVAL;
+ const struct mtk_gate_regs cg_regs_dummy = { 0, 0, 0 };
+ EXPORT_SYMBOL_GPL(cg_regs_dummy);
+@@ -513,6 +514,7 @@ static int __mtk_clk_simple_probe(struct platform_device *pdev,
+ 	num_clks = mcd->num_clks + mcd->num_composite_clks;
+ 	num_clks += mcd->num_fixed_clks + mcd->num_factor_clks;
+ 	num_clks += mcd->num_mux_clks + mcd->num_divider_clks;
++	num_clks += mcd->num_cpumuxes;
+ 
+ 	clk_data = mtk_alloc_clk_data(num_clks);
+ 	if (!clk_data) {
+@@ -542,6 +544,13 @@ static int __mtk_clk_simple_probe(struct platform_device *pdev,
+ 			goto unregister_factors;
+ 	}
+ 
++	if (mcd->cpumuxes) {
++		r = mtk_clk_register_cpumuxes(&pdev->dev, node, mcd->cpumuxes,
++					      mcd->num_cpumuxes, clk_data);
++		if (r)
++			goto unregister_muxes;
 +	}
 +
- 	return 0;
- }
+ 	if (mcd->composite_clks) {
+ 		/* We don't check composite_lock because it's optional */
+ 		r = mtk_clk_register_composites(&pdev->dev,
+@@ -549,7 +558,7 @@ static int __mtk_clk_simple_probe(struct platform_device *pdev,
+ 						mcd->num_composite_clks,
+ 						base, mcd->clk_lock, clk_data);
+ 		if (r)
+-			goto unregister_muxes;
++			goto unregister_cpumuxes;
+ 	}
  
-
+ 	if (mcd->divider_clks) {
+@@ -605,6 +614,10 @@ static int __mtk_clk_simple_probe(struct platform_device *pdev,
+ 	if (mcd->composite_clks)
+ 		mtk_clk_unregister_composites(mcd->composite_clks,
+ 					      mcd->num_composite_clks, clk_data);
++unregister_cpumuxes:
++	if (mcd->cpumuxes)
++		mtk_clk_unregister_cpumuxes(mcd->cpumuxes,
++					    mcd->num_cpumuxes, clk_data);
+ unregister_muxes:
+ 	if (mcd->mux_clks)
+ 		mtk_clk_unregister_muxes(mcd->mux_clks,
+@@ -643,6 +656,9 @@ static void __mtk_clk_simple_remove(struct platform_device *pdev,
+ 	if (mcd->composite_clks)
+ 		mtk_clk_unregister_composites(mcd->composite_clks,
+ 					      mcd->num_composite_clks, clk_data);
++	if (mcd->cpumuxes)
++		mtk_clk_unregister_cpumuxes(mcd->cpumuxes,
++					    mcd->num_cpumuxes, clk_data);
+ 	if (mcd->mux_clks)
+ 		mtk_clk_unregister_muxes(mcd->mux_clks,
+ 					 mcd->num_mux_clks, clk_data);
+diff --git a/drivers/clk/mediatek/clk-mtk.h b/drivers/clk/mediatek/clk-mtk.h
+index 5417b9264e6d..02fab4b166f2 100644
+--- a/drivers/clk/mediatek/clk-mtk.h
++++ b/drivers/clk/mediatek/clk-mtk.h
+@@ -252,6 +252,8 @@ struct mtk_clk_desc {
+ 	size_t num_factor_clks;
+ 	const struct mtk_mux *mux_clks;
+ 	size_t num_mux_clks;
++	const struct mtk_composite *cpumuxes;
++	size_t num_cpumuxes;
+ 	const struct mtk_clk_rst_desc *rst_desc;
+ 	spinlock_t *clk_lock;
+ 	bool shared_io;
 -- 
-2.55.0
+2.56.0
 
