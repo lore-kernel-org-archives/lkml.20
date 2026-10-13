@@ -1,118 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7853E832A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:52:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6304E37A83D;
+	Tue, 13 Oct 2026 06:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874322; cv=none; b=M+/EaxOF/uTVB0HMrDF40zrVRZqivXr0XJ9Pb6TTZu3jVJ6CIP3leZfv7Z3J0FTtvfzltNR72MzeG+xt5eK1dVgkZroqxs8jGDS15WRRmTV3XKiwz3LUDlOPHYyjQG1iNO8K6oeROBJ1VFC6MyiXXSU8jiOfyCusPWUBg1ZJs4I=
+	t=1791874502; cv=none; b=T9Z8g3SDCtc+ZwP1Qb/zVOy+Vuk8e28RAlvtkNcwqY1K7NYWXmcnhWqsYf8enGUypv94rEexivaf8R4LQVYd//ZAs9ikYgLxtLBDZ7j1t2LrepHKJT7mURR1D3aVKm43E8zk7p5sj4UXM4q0ALQ6gCDVmVD1wjBLH5PFjU8ZjA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874322; c=relaxed/simple;
-	bh=73XvLDAwaAAqGxd6pbOYsx79HOb5dOGxo4/Okig2YsU=;
+	s=arc-20240116; t=1791874502; c=relaxed/simple;
+	bh=hRoYxsfBsowU+NotN/1uUOF5kLjHwlMbQURl+BUL6W4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=olNHK4mdz5rMdjkM6GKqaaqjgGIl5BYGkP2UdA3CXJY5B2E/KA7OcTNyhmMNTqQBIUbPQrdzN9mAGPC8ZQRE/PXsmyIKLRPFFTEWsCbobgP7CSaFZY+oDCDwvAmmH6m0cOg3SHSjM5YMdtC8BnoJ7WcFvleuO7k0SP+O6EOl9rU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PkkvoEU7; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=VdJxo2fInMXSd7OiX0R1NVl/m76OW0iRl8CoZ8svvrkW/Umq+t0HRtj6FRXjcE0pF+Fjv0nepgJReLxEwgKBsymzxnGnG2TrTHrUyEutWftaGfFfFv+B9amTkWz510bslrH4gXypfgVR86+Bn4/9jIrgJwtNTzDA7TkvUH986t8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jaorVEKc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PkkvoEU7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791874321; x=1823410321;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=73XvLDAwaAAqGxd6pbOYsx79HOb5dOGxo4/Okig2YsU=;
-  b=PkkvoEU7huI+dCP7IX+7U6I8wkmb0ak1gaY1WrY5Iw2X4kVM2xAHDiun
-   j+97J17p7os+bKJca2d7s61woBvQ1sCHz6jkWoj/rUeh7uFo/8GNyF9E3
-   CwgyfZ3//bCEANpzx8ZJt0+zee1KIrs/godED3lmhmSdLLBry/vFPFOSv
-   jFfryIahU36zQDWtwbEd1OsBwNeHKEosJ6Ud2nhU79XVlUkM9BKWVFKGm
-   foj+51dIAXb+liAFSpAFXxKcWIPvmCMB2/hoDjEZ9QfFPt+jVnLtZOjP2
-   IamVgv32PmplghASjAqd+SO75XaGloRUehf2uJgNXdCf/aG6+pgdyiohc
-   A==;
-X-CSE-ConnectionGUID: wbMlF6lDQjWWb1nGeTk0hg==
-X-CSE-MsgGUID: yVLGRRe7TYiLY1qMMsVdAQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="486696"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="486696"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 23:52:00 -0700
-X-CSE-ConnectionGUID: bI0xKfbSSIyJf8+5KW1PHA==
-X-CSE-MsgGUID: sB4p+EcQTmaDeLCW6FcrsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1012179"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 23:51:58 -0700
-Date: Tue, 13 Oct 2026 09:51:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Petr Mladek <pmladek@suse.com>
-Cc: helpdesk@kernel.org, Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: Create printk@lists.linux.dev
-Message-ID: <as3VC2TmhcRXg0Xj@ashevche-desk.local>
-References: <asjrq9g8EoUGepcH@pathway.suse.cz>
- <as3UxRboBZYY3oCH@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jaorVEKc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21A281F000FF;
+	Tue, 13 Oct 2026 06:55:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791874501;
+	bh=DYAbOYWC8XUm/vdalOehKI/pNO5n7negRX/AHRNbpNU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jaorVEKcOwxh0iHjhm7fFRvF+N+LSRKTEi2AcRkGR4fGK7v375G340S6Y06cftdzz
+	 sP6/qGpTYWel/0flaXci7Mfd2t4kYM0uxSuUFO8N5G11Fmdjs65wSjo262iMrF9hU8
+	 ilt35Rqe9a7Wb/IqLXsFktDPywStKJSGGofMXl/9tffhHmV33TaErvsbWmU8HyCFx+
+	 lRXV7xuV3Gv0ocrKHYkBH6OLkVWlUlXvmR8BbBT5bMUWxbvpigUE2XIlAiBjMtqjiI
+	 wU5DvSkElmE6DQxEyvIeqPdT/zICo5+Skgxy0hx8IHXrSZmjdRj7a2SME3tntqk9g2
+	 nPqP23wWzMCAg==
+Received: by pali.im (Postfix)
+	id 05F52365; Tue, 13 Oct 2026 08:55:03 +0200 (CEST)
+Date: Tue, 13 Oct 2026 08:55:03 +0200
+From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Paulo Alcantara <pc@manguebit.org>, linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/9] Various changes
+Message-ID: <20261013065503.rndxu2qxauehudil@pali>
+References: <20260821214722.q7rkflclyyugdxll@pali>
+ <20260825230622.24617-1-pali@kernel.org>
+ <20261012141053.4ud5pihrtrxpkxfy@pali>
+ <CAKYAXd_FP7F1U_ETWx+0QKwpDuEFp=UJzhMjrSmuT9uG3nAxEA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <as3UxRboBZYY3oCH@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKYAXd_FP7F1U_ETWx+0QKwpDuEFp=UJzhMjrSmuT9uG3nAxEA@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 
-On Tue, Oct 13, 2026 at 09:50:50AM +0300, Andy Shevchenko wrote:
-> On Fri, Oct 09, 2026 at 03:27:07PM +0200, Petr Mladek wrote:
-> > Address    : printk@lists.linux.dev
-> > Description: Linux printk and kernel string formatting development
-> > Owners     : pmladek@suse.com, john.ogness@linutronix.de, andriy.shevchenko@linux.intel.com, rostedt@goodmis.org
-> > Allow HTML : N
-> > Archives   : Y
-> > 
-> > Reasons for the list and additional info:
-> > 
-> > Honestly, the main motivation is to allow sending Sashiko review
-> > for changes in PRINTK and VSPRINTF subsystems as a reply to
-> > the mailing list.
-> > 
-> > I have discussed this with John at Plumbers conference. We both
-> > agree that Sashiko review is useful and often has to be addressed.
-> > It is much easier to reply a mail than searching for the review
-> > via the WebUI, copy/paste it to a mail, and comment on it.
-> > 
-> > In addition, there are several people interested into printk and
-> > string formatting code. The mailing list would make it easier to get
-> > all interested people notified about new patches and problems
-> > in this area.
-> > 
-> > That said, printk and string formatting are related only to some
-> > degree. The printk() code is more about tricks how to store
-> > the messages and show them in various context. While the string
-> > formatting is about tricky buffer manipulation and helpers for
-> > generating a human readable output of various data structures.
-> > 
-> > There is only partial overlap of people interested into these
-> > two areas. Each group might deserve its own mailing list. But
-> > I would start simple with a common mailing list. We could always
-> > add another one when needed.
+On Tuesday 13 October 2026 14:25:34 Namjae Jeon wrote:
+> On Mon, Oct 12, 2026 at 11:10 PM Pali Rohár <pali@kernel.org> wrote:
+> >
+> Hi Pali,
+> > Hello, now when is the -rc7 cycle, could you review these patches?
+> > So if there are any issues, I would have a chance to address them for
+> > the next merge window.
+> Could you check sashiko's review comments from these patches ?
 > 
-> Fine by me. Should I do anything, or will I be subscribed automatically
-> (as an owner)?
+> https://sashiko.dev/#/patchset/20260825230622.24617-1-pali%40kernel.org
+> 
+> Thanks!
 
-Ah, and it's better to have my andy@kernel.org address.
+Sure, I did not know that there is already review from machine. I have
+not received any email about it.
 
--- 
-With Best Regards,
-Andy Shevchenko
+I have checked those comments and here is what I think about it:
 
+PATCH 1/9 is removal of dead code and sashiko found just pre-existing
+issue which seems to be not related to this patch.
 
+PATCH 2/9 comment 1 - here sashiko things that the code for serverino
+disable should not be called. I think that this is wrong. If cifs.ko
+detects that the inode number cannot retrieved then it must disable
+serverino otherwise cifs.ko start reporting duplicate inode numbers to
+userspace.  I think that in the current situation it must already happen
+(from different code path), so I do not think this is valid point.
+
+PATCH 2/9 comment 2 - this is preexisting issue
+
+PATCH 4/9 - preexisting issue
+
+PATCH 7/9 comment 1 - this is not a problem, non-WSL clients (therefore
+also Linux one) do not need that EA for working correctly. Also
+userspace application cannot see a special EA from userspace and even if
+it is able to retrieve it (e.g. via separate own userspace smb client on
+separate connection), this is basically a race condition in the smb
+protocol itself like any other which requires multiple requests to
+finish one filesystem call.
+
+PATCH 7/9 comment 2 - this is preexisting issue
+
+PATCH 8/9 comment 1 - unbound memory allocation based on symlink length
+- this is valid, but unfortunately all the symlink parsing code would do
+similar thing. And we have already more symlink types. Do we have some
+limit how long could be symlink? Does it make sense to address only this
+one issue and let all other untouched? I would rather propose to define
+one common limit and fix this issue on all places.
+
+PATCH 8/9 comment 2 - fid.netfid initialization - I'm not sure here.
+I had an impression that this is a right pattern how to open and read
+file. Can somebody else recheck this?
+
+PATCH 9/9 - masking sync_write error by -EI - This looks to be valid.
+The fix is simple, just adding "rc &&" before "bytes_written !=".
