@@ -1,114 +1,190 @@
-Received: from sonic310-14.consmr.mail.bf2.yahoo.com (sonic310-14.consmr.mail.bf2.yahoo.com [74.6.135.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA59E51A14A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.135.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC24351E43D;
+	Tue, 13 Oct 2026 15:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904409; cv=none; b=ZI+OanS62o/mfvQUded+upOe7mvIah5F4FVWeFEoQjsgdpEHv2j3IIyXY3GwsefI5MB8CgzHRLgXH5dXH+H/WNEZhomj58apD6U5YdRNsM8a2+vE3FLIbAnwUlr2pwZYq1/It0X0DOd2JEcBiKaImNseN+kr5ke0kUS2+Cd8lDw=
+	t=1791904413; cv=none; b=cDueXOw55RCZmO8zRuAtR0diBi1QfsEx2OcYuA/T8L4SNzcxg1spLbM/Md3SsrIKKrcAfTVlf508ZT9L82rx/8AZt2zJbcKxFtFlTTL9yunUxOWEIL94jxaXhnjpboMr7A0aQy3iTAMKz7fz/U8KGFIUHMp48FGgP3G0DouOsE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904409; c=relaxed/simple;
-	bh=VWy8kOV5fpxV1rES9+rwWAo2HS95BTyvhW0F6FbOIyo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ENE274FvqZXLBbG+K08SnoOE9MN0EeJWFWeSDL4Hu6mvA7A6nEcswd/t0BwstdVYDTlRtQFeK61h0+8UFEP+sBzeh0767zW07/kmn3yffHSQH09mfSHnEOXEVLzT6MG0TpTAcXZCdtqZU7JcXkDnGKH+deqZjdlyM31fC3fFrEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=PtYbF22A; arc=none smtp.client-ip=74.6.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791904413; c=relaxed/simple;
+	bh=YL/D7PzUYFsfQy4n4374d+RxPJLgGfcMIAq9i3+xHok=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pFEvmAc7koOyPjbHMrwlAN3aqoAiC/P3U102uFNgS0icsGQiIx3ZwwRFeTZqDlKAhIx4gPHZIiKSrSTXDQ12ucJjiBhHTPxHsvuhTcYxrxBp2+qdGHypQA+50Ni16hOY3o1TImIIxe9SIDQXWLaMa8L1f/VZWZ1rjhc04UAyGTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ve2o1nPV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="PtYbF22A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791904405; bh=8CabwxGpw7QPwiwrmZsN8gni+LU43IXDehbaUPw+ozI=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=PtYbF22AjCydqZYKfK1+5YGHznj1DzR4VJvg6IFy8RhpQw7Q/K7PDYe0XhFMjNSLdQsb9Z3znJ+IN6pdvPR7RfyhFUNvUeh3bDYAOXVhzvTv4MEGLKEf+UOmvQRXepyJzyNy9YBTJR/qkpOJ2MBBxBbiQ8Hbo+iboP8eO9YMFzeyk247Uv+YCmTWaSlsnoMbhJxYXpoBowUjM26tN+TzAH2UHOtGuQ/VEBuvIFH+c2bV3r1h+WRyLsgTg6O0LC5bMJkn7LyRn1B5ycAKo8qvzRQfl6KYnGCHlf+L7hua0EJklvrAeVD67fv186RHwYhuPTVwXd/GCzD9gO76s4ZVKQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791904405; bh=Gfq3O0CiKPflBA23nNJaVaMPJskvZTeUcIbAnxCRspt=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=mKxgkDHcp1uvnfsI/qGVPQznvT7Gr74r+nvKy/+m7XHHAl/5HBxR9mIAkLSJCF/tLlSBMSCcpjU0wEIVy3UftLtrtw88Wje/HXPIqafLSakFE3KbeY0llI8Pu0jjr+lKJKfCkwk1G5Sd009g/+OahZSsU7nNVIc3D2WC1xHWXZhXqlBJPFxpXUGVgN4CQNjMib5nUTgzrdeD38nTl2iEEwJjTtIchV69YSGfrhYAE9P+uy1fEO8+nB1FaLvu6NLMOqX6ExJym27n0hdWsaF3REs2WjAR1fZqMVGNPb4cPCcvyTHLpMfAHzDWmVo1EMPbK3vA3ZrpuNAHDqskmuESBw==
-X-YMail-OSG: gJgxy3IVM1mZ7XAYp4Rr2laLCAMsgib0PHD.dxk9mBSDPTN4r2G8BaR7FW.FRiQ
- MXvqVK1y7z5ENAq82IcHoyn3bf5Pi23yrt7gmGWnQGRJpkEUj3hts9oXP5kOwWsv0n7uEX25mwH0
- cTgWmNvXaLY2Y_G2YZhtUDWq1nN_cu3ctxy6VSzVduNpcvV0CZun5n.beGqRH4ocEV_8Sx3P7IuK
- kfQTN_1DZ1cixunwsE8wCGs8mSqVnJgVn4rOyFz7zyFju3DxqIel3_yFbQXvnN3ZaCQ4JCnPpA_p
- 66eh1nPsbBXICwrG9sNRcX_.7d70ZvXFqLp4IDXW3_kJvPVCtMqToRxhskn0tlEpY0BFQDyEMCyU
- xvGiKzAQNUyt0rELZa2eLTKx_MU9a6jgthuAxu4ZZ6cB12B0BuD3MP9f.b1HmPAiCzRheKfQ9sQJ
- itfX.4CJgUPjnpSkzwbQz.CdGElKxzZaIz06iKCjUP3QOwKojsViBQ6k0MM2lmrAtg5Vc8cLebZk
- P4WdowcsPRb.MogqzE2uhDQOteNYuMSOm6jlzy8dMOTGDbkwLoAtPAtrOKk3jYFUk6WDa6JPJOhL
- g58TtQGpBF8hn6A1Qn6XUftfMPI52tfckIVx7UkMjTXXngeOKT9Rm3PGPS1mmlWImzMF3SKmA2OU
- 9RVhT0XtaK9jlxs79RaIgBjfCxy7Rgt5e0gp5OYZyrwXN6bG7fO6vkF_spjy8VCOob7FBEeKxFjj
- jWUxIWVOniOMlzmkPwdOFSwdkEZQ5hgox4XKfVM1bqGsB4Rto3sitCvjpnuBdJOxraY_.M5.9lVP
- q904aQGKRpKNoBQVenfJmf1_CEBeLO..3sgs0Bp1jOa3OcY1p_jTWDWiY7Y4PgrQf5bx3bah2PiC
- GEmVORyY4Pu13vYG11LD2CQNIaT02l97WGRkHX9uLHpraWyPFlmHu3KPWzeC6AqVLFvLmKs21kAf
- 45fptbhi8.9njzHcRbQ7EGxbkpycHjk0QXucVKDesq35JOePtA7wfZQVpHs4TdHfWT7RPrTR8Chy
- dzmYS9VOmoNub9WdBC4qKiFWrZNIHvmN0BoOwKl_hATOoP..Y8rzpgQyZJjEb56.7tq12jls20HM
- wlptF5WDKr1tWH5.T_G8kTYb_Fz0LG1yV7mFHnclOXs7okvqqvSGtR9h936Bg2WK4f4h3TT9iN.L
- ljTfH5V1uGmKzva0pJZczDMjFL4VO0838mjFpexj.zv1fi_xqhUVSyYzhqcitVbENWVdL7Yq9Nru
- h5vV3mX05V061R9fLBC6KkhINiPCRXxkSnczF2u7NiAJEvexTHL1cvp9O1dy13_38wnIySD.L7tx
- e8hVIrl_CW982im1QgKq7yYLclTKBLepOXYmQkWM1QzMZljYhv0addPEHGURn6N1rckL001fQSAA
- giT92u4WDr1VjnARblE35B.U8DaS8Ek8TllLD.dvWT9S6OQ0TVl3D2IUszoFM9E.yqOq1.qeAOIn
- 3PYmDSND83zUH6XHIMyuT4beCJS8W9zKfHDeesXFi3V7GKMKSH93VREnTlQigva4rLbCYJs2csCO
- n2exc9wQ4qdYikhQdyK3XWUmcrvYYUxK3CKkWKlfiOfK5Ay2FyJvWzNLrmoOnma5NaDP_UxQhteW
- aPS3_Bl_g37G0zmoJ.mrCguEiYsuQ0vAD36.VvlvqFp3hbAxe6ps1czsBlk2.0U1zfLyVj467sDP
- MmRKek_JLuu8z4LxiZbHNtWi3_DDU1F.Aj6j9YXjSR5tkcuNuwFJc0oB3nRiNqbZTm4LnxDHtiN_
- I.Z1rQLI3WLhwziQk3yeGQ3JNsRPmi6kPikm3.Tgzg6RgwCbE2GlU8em3LO6_p5A8BnuVu_Q5Uhj
- prMWLSQJ5eUPA6AjjsNU0HVp1J78dtRkZ__q55yJtRNSn0vosotLUWUO4O.nfPv1XfKzX6SEPgwL
- TmjtDqpBCo5fP5OvkB.IXhisTgK2zSxjQjLmCk2LRkq0achM3wdR3Kp0J4BFuJgsLXLzuWNi6d_j
- iYW2KWg2l0XfG2gNb2gR6xswkbsRR.WHi6kQYurP7L_KeRGOqYQJG2UOSmkwFltzv76XDUXXUqZs
- Oajq1kDilYPCqRDLQdrkvZc9zlZMySattgsjVUwCXLv_qHCPUd7XMza08HvyRzUy14ESbIWQxhbL
- RkrwL015E8McAeUSrmLC1GxoV1SBPnaqP9hHRbBKugNXT7OszzTkQkpZZchMBMjSUL66hFbaSdex
- 8fL3pYDPYjsw31tt1qBPBVv8UWc22fZ81W.9l5O5Ht5k-
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: 5157e8c7-a71a-4ed1-b34a-cdaf6e57793e
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Tue, 13 Oct 2026 15:13:25 +0000
-Received: by hermes--production-bf1-6d6877594b-tqwxv (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID efe0f48b2b69dba20bedb55f2cbb6290;
-          Tue, 13 Oct 2026 15:13:22 +0000 (UTC)
-Message-ID: <47090350-2dcd-4d7b-a73e-681f68ff3a1c@yahoo.com>
-Date: Tue, 13 Oct 2026 09:13:17 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ve2o1nPV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95521F000FF;
+	Tue, 13 Oct 2026 15:13:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791904411;
+	bh=vNT7r4CjRxGgpmU98KAjnsq2tgE7lxMRwVW+eBf5yTA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Ve2o1nPVh+LHGy9ixY1aQf7xWWVVO7dZYQvgBI6O7+bRF/qj5gbUCIwvmDf7pX8mJ
+	 XdyU8DZVrerNAPmugb5rzySHLdqP/BLHqVF9/qikHT89JOpkW5ujxM4YbsIjjHq1Lt
+	 VaWgxxBRXFyQVNUw+Gq+zWnh7sQCZFgEwYaCARQbHIsPzs105epjjHvgGKrG/jvnvD
+	 sKfRV17R8h6abdWpcUa4Q8FVNeSnIxbMqZl68cBPFzjYsf/6XQWtcdsLJqEqIxw/dK
+	 Y3pYTWg1bNPVDYDnXo5Dm+CQQ0gyUwNHq+N53JICY6cYQrLs2VJBjzt9/OGxMWVxn1
+	 TLWvmbBlLEX5w==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 13 Oct 2026 16:04:54 +0100
+Subject: [PATCH v6 14/39] bpf: arena: mark arena_map_mmap() mappings
+ VM_MIXEDMAP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] staging: nvec: use guard(mutex) in nvec_write_sync()
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Marc Dietrich <marvin24@gmx.de>, ac100@lists.launchpad.net,
- linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, outreachy@lists.linux.dev,
- Julia Lawall <julia.lawall@inria.fr>
-References: <20261012222926.7754-1-deaner92.ref@yahoo.com>
- <20261012222926.7754-1-deaner92@yahoo.com>
- <2026101335-expansive-veteran-c4d6@gregkh>
-Content-Language: en-US
-From: Jeremy Clifton <deaner92@yahoo.com>
-In-Reply-To: <2026101335-expansive-veteran-c4d6@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-14-1aa3c9b139f9@kernel.org>
+References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2233; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=YL/D7PzUYFsfQy4n4374d+RxPJLgGfcMIAq9i3+xHok=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZzMvhTb99+L8cqk44+Wxp1wnGvfvN2Mhdsy2Ypr4
+ se5jcdMO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRyL8M/xP5Z71p5O1Lq/bw
+ 6rzs+GXJFIbK5OVKqwTC9+0SXzk/pYOR4R7nXs9teXv9bTjFY+V87rTrrApYtrB6mlftu1DXDQe
+ UGAE=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-OK, it's understood. I'll look for another candidate.
+The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set to
+one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
+or arena_map_mmap().
 
-Thanks for your feedback.
+It is convention in mm to mark mappings whose pages the kernel manages
+itself with VM_MIXEDMAP, so core mm knows not to treat them as ordinary
+page cache or anonymous memory.
 
-Jeremy
+The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
+use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and so
+marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
+explicitly.
 
-On 10/13/26 12:15 AM, Greg Kroah-Hartman wrote:
-> On Mon, Oct 12, 2026 at 10:29:26PM +0000, Jeremy Dean Clifton wrote:
->> The three return paths of nvec_write_sync() each release
->> sync_write_mutex with explicit unlock calls.
->>
->> Use guard(mutex) to unlock the lock automatically on any return
->> path.
->>
->> This removes the three mutex_unlock() calls.
->>
->> No functional change.
->>
->> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
->> ---
->> v2:
->>   - Reword the commit message to state the motivation and to make
->>     clear that removing the mutex_unlock() calls is the result of
->>     the change (Julia Lawall).
->> v1: https://lore.kernel.org/all/20261012171312.5998-1-deaner92@yahoo.com/
-> 
-> Please read the archives for why I will not take guard() rewrites of
-> staging drivers (nor do I want to see you use a LLM in here either.)
-> 
-> sorry,
-> 
-> greg k-h
+However, the exception to this is arena_map_mmap(), which doesn't set the
+flag.
+
+This patch corrects this and updates the comment to reflect it.
+
+The pages are refcounted and vm_normal_page() finds them regardless of the
+flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
+thus unmergeable). The one effect is that NUMA balancing now skips these
+VMAs, as it already does for the other bpf map mappings, which is the
+reason array_map_mmap() gives for setting the flag.
+
+The intent of this patch is to be able to establish the invariant that only
+PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
+in bpf_map_mmap().
+
+Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ kernel/bpf/arena.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+index 7b6847200b43..b69fe5e34339 100644
+--- a/kernel/bpf/arena.c
++++ b/kernel/bpf/arena.c
+@@ -620,8 +620,9 @@ static int arena_map_mmap(struct bpf_map *map, struct vm_area_struct *vma)
+ 	 * clears VM_MAYEXEC. Set VM_DONTEXPAND to avoid potential change
+ 	 * of user_vm_start. Set VM_DONTCOPY to prevent arena VMA from
+ 	 * being copied into the child process on fork.
++	 * This is a kernel page so set VM_MIXEDMAP.
+ 	 */
+-	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTCOPY);
++	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTCOPY);
+ 	vma->vm_ops = &arena_vm_ops;
+ 	return 0;
+ }
+
+-- 
+2.55.0
 
