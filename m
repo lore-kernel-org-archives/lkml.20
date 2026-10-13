@@ -1,263 +1,288 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AD84F3EA5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892861; cv=pass; b=IOK35AFK4R+tewNNGhzhBqKhMBpNADD5iQjPCNIufdikVABSc77z3CEYSphnbn/rTp9zJ92+psp84FmMR/P409IvQIJWKZVQiYYz4qR2zcJyIIP9kbTPln0zxo2F/dmuqhb0oC2yX6300IWWhWNvPLN9639VsrYgtsL2nKoSdrw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892861; c=relaxed/simple;
-	bh=1slJAwzl2cxbNdWY1OKZEBi3uDMxGGoR+9c+sI89apc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VKI3xBya9fqBG1vgFngQ5hU34Q3YE4wKYh/caxcecG9LilO4aL3Aj9IhWm4cmWPcI80GgQIMbPIB3wRU2iZ/gMPfEMmx0NMvqyyadZBDixLhzILnpF22k/JYVECpbXiNLCdAMtexGFeKEejKjX/bCNyeRCHWka9wXtDHx0pF1CY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BCPyeYlM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ff0WNXEp; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6F84F403E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791892882; cv=none; b=jGrkJAZ0nZwQ0jPw22n6KDRjHzfLN6oDXNpRwszLQPQil4iGFMBrat08ynIzD3LlrIn4j6Ab0nEB1tRsCvYOkO+0qx4FLsTXnLGVhvmkLiW8UGfNfP6fN8taaN7CwUoAWDhpQc/LiCdDhRMCmnKBCwDYpHtThKNSMMzJaDoBBAw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791892882; c=relaxed/simple;
+	bh=pyo2toKqcoI0V2I7DIShC1rOtlet+iA6Yb45xLXf6Fc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IBgVsBW0uO99hLq18asf9BEnfynl24ZYfcdgRNLNCd1e8kNYeeEo1Hznddt+csTA33BKBguiwSPO0qKBgQ95GgCwjyDa970v5zBJ+Kksk56rO03nQBJ1ZGkN/wIcl5XNCYDLf1BWPfkGTYiJcvLfZ6bkATUu+OVzbgEfB/TErfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b=S2xjK7G9; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BCPyeYlM";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ff0WNXEp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791892858;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MTh6w3t1LI7cFHlFOA6EXonuQhJfRF96d/zfPpAsgQU=;
-	b=BCPyeYlMDjOdJ4AKan2uS7TgpZu0Rl8EUHX2kU0zhIlN2DC4p2Hv24QTm1yQykkWR08qmI
-	LwRi/wgkwthCiemvaBeL9GSC4EyqZXsmBC7TDvvK696SjKQRLd4TDAnqdT3M4m9Uy1NfYF
-	hQdlsIVE2xAUu2KY7owhI033KDb2q00=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-350-vCezVUoYNPmElG1EkWvUeQ-1; Tue, 13 Oct 2026 12:00:57 +0000
-X-MC-Unique: vCezVUoYNPmElG1EkWvUeQ-1
-X-Mimecast-MFC-AGG-ID: vCezVUoYNPmElG1EkWvUeQ_1791892856
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8acc7fe346cso40879827b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:00:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791892856; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W+gis5RatVrvv9Ir0j3BsH708/v+oua8Zq+jFj6HT8DsowIFVnIMGfqJjjI7G/bp29
-         hZxMTj9y3JHUgKjyy2jpfthPNIl3g+vduda9yPA76Jq2gqxp89F2AQG7fECnHpoJKMDn
-         b1SwI4ppNEWAznPBv/hlFGYIDTiJth+dbNWNZMuhOeS6yzzGsZSQBlcTebZAUPbCVFeT
-         YQsF7kbUs+2WyNr8DejnH2Ix7BrINrR3dUqafPkrKsilRBVcFvbl5I8BOdA/Sn97uQxh
-         ux5wRly0kx6Iv2FlalSVh1AJoCHHR7yRWvJYY9AX4CkttvbuoByxi+Pwl113NFd0zev3
-         TFGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MTh6w3t1LI7cFHlFOA6EXonuQhJfRF96d/zfPpAsgQU=;
-        fh=2nEyFQ6hzzwtfeC4b3104a2rzIqFZTgr6ncky5HMZoc=;
-        b=XwozSEYzNDdUtxPUNQxA/FOmIskAwTasnkSnZyHeSMcr9IlSerUfgeXM0hsvhjUnFH
-         6z7lv1wx+BkI/FiPGo0yrQGB4xDNY9xmxrsirj00BdZ4LwyFyVUh1/ZT4U7yap1ocDVK
-         FLbopQp8djt+KGjzWplJNcGS67ZRKKqlsZe7QBqik9qytd521/rdPByYWhPBykdAw/zk
-         aSyGF+e/cs1SwJyoiVvyvqGDFosjdviNEAMCZptWOQgZX5btK9QZCkaNlkY7FVr5lsqe
-         wfan4DeZVlZXXYmaqV03JQxdqFMXZQM30fiwZudkVQbcTIyHBg3OHrzs20+oEZIS85XT
-         /zzQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b="S2xjK7G9"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ab2bf5e75bso1476090a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:01:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791892856; x=1792497656; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MTh6w3t1LI7cFHlFOA6EXonuQhJfRF96d/zfPpAsgQU=;
-        b=ff0WNXEpLUUdbEw2A+H6oD/iacV7IFB37i8BAUez0ZKelpi7n1JpuRMJEKN5epdppR
-         tzfYXzlfzQAdJQAYl6QGlJTrEVrJKuGzrslsyexkzJbqojp7GMvYU18X7oihEQ5FUq1e
-         30bytxjL9JIpNfaSEQbciHtG4eS+Dp+jVDG+hbkNKYTJfaoJvyvkdm5sutJ4qmrIja6D
-         3/9RzACw/FFp5IvYvWsCmjJdn9oDIDXINLXXO9/flHQqsgjisihy3biFUi/dWd98Vx2O
-         ZoxGa2/WRZ1PhWcWSfxbOY0uMDDMiUfqs2rqcrUsMXVhA8QYV2ObSvnJH4Es1K0LcUbx
-         IgkA==
+        d=beagleboard.org; s=google; t=1791892880; x=1792497680; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=m6MJg+My7Hvkr24UO8fsAEmv5TwdsJ245XYm9PwoCOk=;
+        b=S2xjK7G9dEHgzmbXgkfTzCo7C7A79TXKVpYQw7rlrLxLFubTB09efHSiut1slTCEs0
+         TFdOybsKQ41thaBN9AlhaZFGK4ELoXU8nIdOr+jC+DWBbb0Eq2+Yed58V4Mf9okPifzL
+         1TCHlGQNJqi8bocmRXXREgaygqJXPpVh/TBPPct5gyEeITIScqjVGek9fj1qtBHGx7G4
+         2/0ciqpQRmDEP84JUveM5Cyd8FXaq/vJUTFQjIQ3TclYYZhx4SVwX/9RUQnM1a4iuGo2
+         F1/e/X5p+HUzSzmlLmg+mc1BQzMJqDtWnpCNraC2luV+/vQ5wr3KzR0uip3v9DzrHnE/
+         y9pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791892856; x=1792497656;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MTh6w3t1LI7cFHlFOA6EXonuQhJfRF96d/zfPpAsgQU=;
-        b=drkgP4EzFJ7zxAoBujADfy8uFvFhd8fIehOOncBGal8qEnujZuYWOm6xGEuiRE2p+x
-         ZD/5NOdxKrQM51V5o1YESUTE8/ni/qJvlQn6rsVKOJ62CemBVsrgZNrwAaakTqxTfgtC
-         EPei4ccm3E88nok8ofKf0A1jF6xuOIDzo7MGPoCwU8sVrVY1gUBZXay1HG/172WcJYSx
-         i70XuqQRIUG24JF0TTIzSkq9aAlHiS1xCAZijY37Cm77mV9Wh+tiunn+kyqwvmHR6Fux
-         mZr1+vz83JTV3idmNdYmKxAUShR9gaLPpIEMXMdWglGqO2koazW3/+zeJXFPLYKG4dcX
-         0/8w==
-X-Forwarded-Encrypted: i=1; AKwUvByE8gyj4kavReRU/OQUZL9Jq+tw6Mad8wvI32NQcxZxWtpWM3qLNrZKrb2S7D0cfet4yyR8R38lZb5XNq4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRwRascBnhasBrdJoTKe/+G1PtqvVm6/b2OmT5AVVTB1hyMtjW
-	+Hc1GSzGS/4pOCxMIqK33TxbRlPgQv0u9he2pJguOTguQwn4hu3Ja6ddq6Irnzl6mvyysMCTTo+
-	3ye7i8DFg3YUcRi/e19ADHlbLPrSXk6gWMP44QoOU9PmZFkbJFFJrHX93Y3cBAAhM7uWzhk4KEX
-	CexrU/hzwpTxr/+1NGVcLuylf1WEC/HqJCPcgkI7jq
-X-Gm-Gg: AYBFou0ojMSXpLlqiKZbVDOn7CZiPxkHWAZJLiujZ3YW3iuJnirPPlVoLDysV4i59NZ
-	AFoScf1b8T+ypeEeY+1RSr27wTyyxmo01lqeyqN2xBWY2da5IHTVtuql7YSvkJrdO0sttWGrjID
-	wjBgUID7Br+IsFuMeHJaXLHcDFmUwEiprls0w8SY7IBOlGZJ3nOB6Wkw==
-X-Received: by 2002:a05:690e:13cb:b0:677:d4b0:47fd with SMTP id 956f58d0204a3-67936270e69mr5009422d50.23.1791892855798;
-        Tue, 13 Oct 2026 05:00:55 -0700 (PDT)
-X-Received: by 2002:a05:690e:13cb:b0:677:d4b0:47fd with SMTP id
- 956f58d0204a3-67936270e69mr5009396d50.23.1791892855071; Tue, 13 Oct 2026
- 05:00:55 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791892880; x=1792497680;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=m6MJg+My7Hvkr24UO8fsAEmv5TwdsJ245XYm9PwoCOk=;
+        b=iza48Sv9mjC/VPbst4nrfTGqHq1ISTZHCbHcAUogEaAtenUk3M8XIHIkhEMWBJTNXk
+         Cm+SBOibtb57LVIWAEHK2U6LG5ib7OsM5rEd++6FTvv312yFYdzu88MZ7Ciku49sr0+r
+         Nm1hz1y/i1fxjn8m4iQvVIYdfYH+DY6eiwTKFJqf6y4SL6lmNfvnspon/H1n5E9t1C2F
+         sfZ+A/mae27e8maiOaSAjvMaZH5Ltkvx99siuMIwI4yKV+xu2vcFXAaoCCCcA0YEQ+xK
+         rk85et5xVtNRM9cIxkMUTZsAa+LooY6QMpOXDrpmtxLjL3M+vWRh/FEazuY4wNAxcwd9
+         Un+g==
+X-Forwarded-Encrypted: i=1; AKwUvBx3or3vMogDcKfoM3NP1ipbqNRn5vh8AzglH/MhIdkwes60sB/1xuOljIIwnCAbyLo0uzOYK3mb9ZedyBw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZzoc/oTuNt0nqvr6P6qguGmB/+mzXOhPWnXVvID94i0Ns6kvI
+	CyA3OJnKkx4YhUGLb2rg7q6bQdBvPT5+BE+P6v2V+8Jp6cGJmoHUaIUgNOzZLbgqgA==
+X-Gm-Gg: AYBFou3scYNXPBht59M3Jeaqz7aCvjz4sgp+8w2FtMujYtVeclL/EXXQwnSzs7M9HvG
+	K3F8HBp0qjV9uWdWe/fQ9PlYUrqxB/wBQlivgCuSEJ167/0bdLRzjdyObjipws5xd8hcft3IvhT
+	0n+P30FDHap+f/wkOJ02VAyqKtSSKhjwNAoDNYC3UPlym50NWB4sxnf8EUQLG2YbAbHC1I2pVGg
+	PaODjcey6WSaOh8eOabcAbz3A5E3ihhFEXDaoO/50bmoiDJKgf+0YWa1FxqxBAAwk3pKyneXH2H
+	sx/g6G0gV/DVkHX76ASdZA2EPPX1t1ZHAhtjLgdp5VBbhaQhIFdLWb4l2G2Kr5SMg1y2fsO5Ck0
+	Jpb55GRY3ndxRoJYcAT96E6oEgbulvFdtHYzH6IOgb08ifuUuM3cAMtcLcUjY2d5Lt7VcJsprG9
+	1xzW6ZJbWQCsivDZUD7gTFvuq4ZcpIS1qIid3c/wHDrUNmY7PNN7qmFODZZAAo7KO9sssDi+KPq
+	dJVwV4/pg==
+X-Received: by 2002:a17:90a:d2c7:b0:3ab:2d17:51c5 with SMTP id 98e67ed59e1d1-3ab3a32d9b3mr9916376a91.6.1791892879765;
+        Tue, 13 Oct 2026 05:01:19 -0700 (PDT)
+Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab8a393666sm16566838a91.15.2026.10.13.05.01.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:01:19 -0700 (PDT)
+From: Ayush Singh <ayush@beagleboard.org>
+Subject: [PATCH v3 0/7] Add Greybus Sotfsvc and UART Node drivers
+Date: Tue, 13 Oct 2026 17:30:38 +0530
+Message-Id: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013-visibility-unification-v2-0-3ce8d458bddf@redhat.com>
-In-Reply-To: <20261013-visibility-unification-v2-0-3ce8d458bddf@redhat.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Tue, 13 Oct 2026 14:00:44 +0200
-X-Gm-Features: AclHuK_UoITZRIQAG7eVGfp71MDQ0WSmjY7r-ItFN0NvYj_P9B_KTR-tMkVwVj0
-Message-ID: <CADSE00JuXFx3vBiUty1A69K8ONuL2DMjCREGmDsW4MxobemVtA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] drm/amd/display: use kunit/visibility.h for test helpers
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
-	Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Maxime Ripard <mripard@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NwQ6CMAyA4VcxOzuzFQboyfcwHlo2xhLDyIaLh
+ vDuDuLBRG79m/TrzKIJzkR2OcwsmOSi80OO4nhgbY+DNdzp3AwEVKKRglviTwwTnwIOcfR5OoN
+ SulKqbsuW5bsxmM69NvN2z927OPnw3l4kuW6/GuxpSXLBoQGNskSqqb6SQfsw5DHokw+WrWaCX
+ 6fecyA7KAoi2amOtPx3lmX5AKX7lzUAAQAA
+X-Change-ID: 20260810-gb-uart-transport-9255d6557c4c
+To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
+ Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, 
+ Markus Probst <markus.probst@posteo.de>
+Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8591; i=ayush@beagleboard.org;
+ h=from:subject:message-id; bh=pyo2toKqcoI0V2I7DIShC1rOtlet+iA6Yb45xLXf6Fc=;
+ b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBqzh2CLWuxfIEPdoLB0Rpy0whhsxktbmC1TRq8v
+ lU6wQ4CTSaJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCas4dggAKCRAFzvXHieVa
+ dJfLEADgfpTEVGe7KlgUz7QQmoWDQ62DdyEaKFt17G5HXn2SeP0veTXCEOEhPSQ6dCp0dnv+/xM
+ g3BazRz89BAN6VUox85Xk8PcBqjr802UHmcFmiANnRDh9hlqXAJj64W49vGGib0158HA+QClgww
+ AIEf1p9a7mKEeBe5qTkOePtx21zWR4xPTBCjn1F1Q6F00qdc5/8bzC7u2v1WvQCnv0Jn0qh+iY1
+ ZvCY+o0WcuCS+cgUvtbgF5ZMEtAjysarAhT0DRwLCNyfS7vuuQd1qRBQxbOC7gtx7ydpOCNsrzG
+ YfyCwVlUqXq+3vFLfGA62zERFoOQ1h5Yg85PO1E6BHDjFz6GAyuAbCoCRiRZ92qtuSH6M834d2g
+ HufhzMmPdCUKQ+idiJDnQu9Rx53Ye+ZlI/pNI/L2b69KYzdL0OEra98LEto1xFkYonWrteBX4Nz
+ iakVvZa2li4ieFsgHSNVs6q0Eq9dH4whQFJ9MmykAI9H489XTixxQHcMcAsKQdhgz4Kle3erXS9
+ yNe2O1VW9XXCSbKoXRpghq3W7zGoCWSMWs1t0Izk/4QPzydhLypE2DZxOg5Qhfj4rzAdBgD8hrb
+ 9eEapkpCt8XeE3AY6mxCCHneqvsPaOyKZV/O5YdQeUcplb4do5sRoNQDBZiWOwZURLdbhkotCgC
+ SmNYHxmb3Ij0pfg==
+X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
+ fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 
-On Tue, Oct 13, 2026 at 1:58=E2=80=AFPM Albert Esteve <aesteve@redhat.com> =
-wrote:
->
-> amdgpu_dm grew its own STATIC_IFN_KUNIT / EXPORT_IF_KUNIT /
-> INLINE_IFN_KUNIT macros instead of using kunit/visibility.h. This
-> series switches the KUnit helpers over to the common API.
->
-> VISIBLE_IF_KUNIT is gated on CONFIG_KUNIT rather than
-> CONFIG_DRM_AMD_DC_KUNIT_TEST, so the helpers are non-static whenever
-> KUnit is enabled. EXPORT_SYMBOL_IF_KUNIT places the symbols in the
-> EXPORTED_FOR_KUNIT_TESTING namespace; the AMD DC test files import
-> that namespace with MODULE_IMPORT_NS().
->
-> INLINE_IFN_KUNIT is dropped rather than generalized. It was only used
-> on amdgpu_dm_fixpt_from_s3132(), inverted the original static inline,
-> and is unnecessary for tests in another translation unit.
->
-> Previous version failed with specific configuration combination
-> (KUNIT=3Dy, DRM_AMD_DC_KUNIT_TEST=3Dn). Fixed by changing header
-> declaration guards from CONFIG_DRM_AMD_DC_KUNIT_TEST to
-> CONFIG_KUNIT to match VISIBLE_IF_KUNIT.
->
-> Tested with:
->     # Full test run (KUNIT=3Dy, DRM_AMD_DC_KUNIT_TEST=3Dy):
->     ./tools/testing/kunit/kunit.py run --arch=3Dx86_64 \
->       --kunitconfig=3Ddrivers/gpu/drm/amd/display/amdgpu_dm/tests \
->       --kconfig_add CONFIG_GCOV=3Dn
->
->     # Build-only, tests disabled (KUNIT=3Dy, DRM_AMD_DC_KUNIT_TEST=3Dn):
->     ./tools/testing/kunit/kunit.py build --arch=3Dx86_64 \
->       --kconfig_add CONFIG_KUNIT=3Dy \
->       --kconfig_add CONFIG_PCI=3Dy \
->       --kconfig_add CONFIG_DRM=3Dy \
->       --kconfig_add CONFIG_DRM_AMDGPU=3Dy \
->       --kconfig_add CONFIG_DRM_AMD_DC=3Dy \
->       --kconfig_add CONFIG_WERROR=3Dy
->
-> (CONFIG_GCOV omitted; it is not available on x86_64.)
->
-> Suggested-by: Maxime Ripard <mripard@kernel.org>
+A Greybus network needs an SVC (Supervisory Controller) to bring
+interfaces up, assign device IDs and connect CPorts to the AP. On a
+UniPro network the SVC is a real entity on the bus. On transports that
+merely carry Greybus messages - a UART, an I2C bus, a network link -
+nothing on the wire plays that role, so the SVC has to be emulated
+somewhere: in a user-space bridge (gbridge), in coprocessor firmware
+(cc1352p7 in gb-beagleplay), or open-coded inside the host driver itself.
 
-I have accidentally dropped all Acked-by trailers from Maxime from the
-previous version :(
+This series moves the emulation into the kernel and makes it shared.
+This was discussed in a prior RFC as well [2], but to keep things short,
+removing the need for an external SVC greatly simplifies the greybus
+network setup when nodes are directly connected over common transports
+such as UART, I2C etc.
+ 
+    gb-uart-node          gb-softsvc              greybus core
+   (transport, serdev) <-> (SVC + host device) <-> (bundles, protocols)
+        NodeOps            module_insert()
+     submit_message()      module_remove()
 
->
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
-> Changes in v2:
-> - Fix build when CONFIG_KUNIT=3Dy and CONFIG_DRM_AMD_DC_KUNIT_TEST=3Dn
-> - Fix two missed EXPORT_IF_KUNIT in amdgpu_dm_irq.c
-> - Rebased to v7.3-rc7
-> - Link to v1: https://lore.kernel.org/r/20260907-visibility-unification-v=
-1-0-6a962e5b3351@redhat.com
->
-> ---
-> Albert Esteve (3):
->       drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
->       drm/amd/display: replace EXPORT_IF_KUNIT with EXPORT_SYMBOL_IF_KUNI=
-T
->       drm/amd/display: drop INLINE_IFN_KUNIT
->
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  79 ++++-----
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   2 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  26 +--
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h    |   2 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  74 ++++----
->  .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   2 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 133 +++++++--------
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.h    |   2 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  12 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h  |   2 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 190 ++++++++++-----=
-------
->  .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |   2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  38 ++---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h  |   2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  52 +++---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h |   2 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c   |  10 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.h   |   4 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  30 ++--
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h |   2 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  10 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 105 ++++++------
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h |   2 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 140 +++++++--------
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.h  |   4 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 150 ++++++++-------=
--
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h  |   2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |  40 ++---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h  |   2 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  60 +++----
->  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.h    |   2 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 104 +++++------
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h    |   2 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   | 116 ++++++-------
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.h   |   2 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  22 +--
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h  |   2 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c   |   4 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_services.c |  10 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  18 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.h   |   2 +-
->  .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c        |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c        |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c        |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |   1 +
->  .../amdgpu_dm/tests/amdgpu_dm_services_test.c      |   1 +
->  .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   1 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   1 +
->  drivers/gpu/drm/amd/display/dc/core/dc_sink.c      |   6 +-
->  drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   2 +-
->  drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  13 +-
->  tools/lib/python/kdoc/xforms_lists.py              |   3 +-
->  70 files changed, 771 insertions(+), 751 deletions(-)
-> ---
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-> change-id: 20260907-visibility-unification-fd358c580447
->
-> Best regards,
-> --
-> Albert Esteve <aesteve@redhat.com>
->
+gb-softsvc registers itself as a Greybus host device and answers the
+SVC-side operations the core expects during interface bring-up and
+teardown. A host driver implements the NodeOps trait to push data
+towards its node, calls module_insert() to announce a new node,
+submit_message() to hand incoming Greybus messages back to the core,
+and module_remove() on disconnect.
+
+The first user is gb-uart-node, a driver for Greybus nodes attached over
+a plain serial port. Framing is HDLC, with a one-byte address (0x01 for
+Greybus) and control byte, followed by the 16-bit CPort ID and the
+Greybus message. No SVC firmware is required on the far end, so the node
+can be a bare microcontroller speaking Greybus - a BeagleConnect Freedom
+over its serial link, in this case. The testing is performed with
+greybus-zephyr [0] implementation.
+
+Both drivers are written in Rust, which is why the middle of the series
+is abstractions rather than drivers. Only the APIs these two drivers
+need are covered: protocols.rs abstracts the SVC-facing parts of
+greybus_protocols.h, and types such as Greybus Interface do not
+implement AlwaysRefCounted yet. The intent is to grow this as more Rust
+host drivers appear rather than to abstract the whole subsystem up
+front.
+
+Patches 1 and 2 are small C-side preparations to the Greybus core:
+exporting gb_connection_get()/gb_connection_put() and adding
+gb_connection_hd_find_by_intf(), a lookup by remote interface and CPort
+id for callers that only know the far end of a connection. Patch 3 adds
+a CRC-CCITT abstraction, needed for HDLC frame checks. Patch 4 adds the
+Greybus abstractions, patches 5 and 6 the two drivers, and patch 7 the
+device tree binding for BeagleConnect Freedom.
+
+Open questions 
+***************
+
+- gb-uart-node imports types from gb-softsvc, so the series carries the
+  Rust-to-Rust cross-module calling setup from nova-core [1]:
+  gb_softsvc_exports.c plus the Makefile plumbing that emits crate
+  metadata and generates the export list. This is a workaround for the
+  build system not supporting Rust cross-module dependencies natively,
+  and it should go away once that lands.
+
+- Connection create/destroy and interface activate/resume in gb-softsvc
+  currently just acknowledge the request. Callbacks into NodeOps can be
+  added when a transport actually needs to act on them; I did not want
+  to invent an interface without a user.
+
+- Zerocopy is currently not being used in grebeybus/protocols.rs. They
+  cannot be derived yet since types generated by bindgen do not have
+  them, and it seems explicitly forbindden to manually impl the traits.
+  So using old traits from transmute.
+
+- The bindings are supposed to be created for actual device, but any MCU
+  that supports Zephyr, can run the greybus-zephyr firmware with UART
+  transport. So not sure if adding a beagle,beagleconnect-freedom
+  compatible is the correct choice here.
+
+- The individual patches can be spun off into independent patch series
+  if required. The reason for this single patch series is to provide a
+  complete picture of usage.
+
+- Since gb-softsvc currently is not being used from a C driver, no C API
+  is provided. However, if required, it can be added.
+
+- Writing to UART from gb-uart-node is currently a bit broken. I am not
+  quite sure what the safe way is to go from a non-bound device to a
+  bound device. Any suggestions on this front are welcome.
+
+- I am not sure if Rust abstractions should have a seperate entry in
+  MAINTAINERS with me as the maintainer, or if they should just be added
+  to the respective subsystem entries.
+
+[0]: https://github.com/beagleboard/greybus-zephyr
+[1]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc977@nvidia.com/
+[2]: https://lore.kernel.org/all/ecca8eb2-8e5a-4770-bcf6-3fb49773088b@beagleboard.org/
+
+Signed-off-by: Ayush Singh <ayush@beagleboard.org>
+---
+Changes in v3:
+- Fix incorrect email in MAINTAINERS.
+- Make CONFIG_RUST_GREYBUS_ABSTRACTIONS depend on sysfs like
+  CONFIG_GREYBUS.
+- Fix cleanup in hd::Registration::new in case of errors.
+- Fix comments.
+- Fix Msg AsBytes impl as suggested by sashiko-bot.
+- Use SpinLock for intf_map. This should be fine since we need locking
+  only for getting the interface. We do not hold locks across operations.
+- Properly drop message in case of buffer overflow in gb_uart_node.
+- Link to v2: https://lore.kernel.org/r/20260827-gb-uart-transport-v2-0-a03bb1f5fbd1@beagleboard.org
+
+Changes in v2:
+- Fix possible null pointer dereference in
+  gb_connection_hd_find_by_intf. Flagged by sashiko-bot.
+- Remove prompt CONFIG_RUST_CRC_CCITT_ABSTRACTIONS Kconfig symbol.
+- Add CONFIG_RUST_GREYBUS_ABSTRACTIONS to ensure that greybus is
+  built-in for rust abstractions to work.
+- Use gfp_mask in message_send callback.
+- Only provide a Message reference in message_cancel callback.
+- Add invariant comment for Registration.
+- Call Registration->add directly in new, before constructing
+  Registration.
+- Add Send and Sync bounds to T in Registration<T>
+- Set endo_id as 0. Is not used anywhere.
+- Fix module_insert intf_count. Was hardcoded to 1 by mistake. Flagged by
+  sashiko-bot.
+- Check for empty intfs slice in Module::new.
+- Remove module in serdev::Driver::unbind instead of on drop.
+- Make gb_uart_node write atomic. Using temp buffer to build frame.
+- Fix import style.
+- Reorder beagleconnect-freedom dtbinding patch to be before gb_uart_node.
+- Add vbat-supply and reg properties to beagleconnect-freedom dtbinding.
+- Reference spi-peripheral-props in beagleconnect-freedom dtbinding.
+- Link to v1: https://lore.kernel.org/r/20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org
+
+---
+Ayush Singh (7):
+      greybus: connection: Export gb_connection_get() and gb_connection_put()
+      greybus: connection: Add gb_connection_hd_find_by_intf()
+      rust: crc_ccitt: add CRC-CCITT abstraction
+      rust: kernel: Add greybus abstractions
+      drivers: greybus: Add software SVC implementation
+      dt-bindings: beagle: Add BeagleConnect Freedom
+      greybus: Add Rust UART node driver
+
+ .../beagle/beagle,beagleconnect-freedom.yaml       |  39 ++
+ MAINTAINERS                                        |  15 +
+ drivers/greybus/.gitignore                         |   1 +
+ drivers/greybus/Kconfig                            |  35 ++
+ drivers/greybus/Makefile                           |  50 ++
+ drivers/greybus/connection.c                       |  29 +-
+ drivers/greybus/gb_softsvc.rs                      | 517 +++++++++++++++++++++
+ drivers/greybus/gb_softsvc_exports.c               |  15 +
+ drivers/greybus/gb_uart_node.rs                    | 253 ++++++++++
+ include/linux/greybus/connection.h                 |   6 +
+ lib/crc/Kconfig                                    |   7 +
+ rust/bindings/bindings_helper.h                    |   2 +
+ rust/kernel/alloc.rs                               |   5 +
+ rust/kernel/crc_ccitt.rs                           |  26 ++
+ rust/kernel/greybus/hd.rs                          | 342 ++++++++++++++
+ rust/kernel/greybus/mod.rs                         | 232 +++++++++
+ rust/kernel/greybus/protocols.rs                   | 444 ++++++++++++++++++
+ rust/kernel/lib.rs                                 |   4 +
+ 18 files changed, 2020 insertions(+), 2 deletions(-)
+---
+base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+change-id: 20260810-gb-uart-transport-9255d6557c4c
+
+Best regards,
+-- 
+Ayush Singh <ayush@beagleboard.org>
 
