@@ -1,40 +1,87 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB14442B06
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF18399018
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895551; cv=none; b=K7HpbcBpgL3W6DpL3jCUFVTYlDQZAJLF6wChXj/AUQPNSwwetlN/ym1TuKh+gx1xoPebTIam5JsPBpFRnbhZIy2F2H3b+V9v31WRF2Bov0P8MkH+/mMmWAoA7+q08o0JI1mfv2zEd+Qk6ckFdiMTt/eHyjmzVgpkUYRGs1/Uikk=
+	t=1791895620; cv=none; b=lTYzu35Fa35caFKGDCAaOjCShLHSnupEBQ1cMgDacvH6i/UI2ls7dQRUwZ3/3USzvwSdTziGA47J6vFaXKsfT4l+Si6Nx1GHgXM61M+8yQS4fsI7S6UMqBh1Za0tthv3g9a60iAzjHyFdfVTf5k9wzc5iGTOblSKNU5L1rSUWVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895551; c=relaxed/simple;
-	bh=8Ej5047EGa9SQQ7fDZBCo+IOLP4kElj2ptnrFmmlSFA=;
+	s=arc-20240116; t=1791895620; c=relaxed/simple;
+	bh=2/N65LdBK3aWBuEUGJaENLU/Tj7MhD3XAL/9iOeMu/E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DxtqyEyUA7mq0tjyx9a8To1w8YczpcQG62K7Te9CubYAuaNioCyxGArMGGuA1lPwf6dG7xfdnXAQmA/nrsw2tKVpWy2fa0XRp3+Z6ZpM1LzyO5qDqHfB03h2uv1hamT8e+mJL9W5ouUso73OO919ItGP7PQ3nUlnZ+VxVOaQpf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=luxXCgWp; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=c9ISZhp6oYTkIXdTc85lx36m8FTu68XQ/yfT8TJAhg2/L0ANiNzWzyXPMesjvxqU9fabWYxUPUh7pz81RFL4NdbhR57asehvs6Mo31tkxOJEBRkUeyzTWFv3smVPjrKKLF+eD0hMAd3p9JDUwqB+VODxXcXO2HWMsVUJs+A0vWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OyMydtNg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JGq5W5tT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="luxXCgWp"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id A693F1A11FE;
-	Tue, 13 Oct 2026 12:45:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 708AB60362;
-	Tue, 13 Oct 2026 12:45:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 48F3C11D7117D;
-	Tue, 13 Oct 2026 14:45:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791895546; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=b35gyqtypMMfbLXDKU179g34nu1XmunQVKn+LDLfT4Y=;
-	b=luxXCgWp9wH3wbc1Nno+EuCfsV4mY2cUXjBcb+yfFmV+yijxiOYbZGvJxwys2PWin8ofek
-	abIe2l/NMdiuYD4DtHYPxnW2LB3UuTnQyr7xUK6GrmwmmvWkk1fIJnagUn6ZDVbQ/tIJJI
-	7yLlXpXJ+G+w1tZR6X3863NJnRIcR/aXDLm3/wpFY1uK4xyp0GY4/uKwLk9ZE8P2uylwkJ
-	51K96yUWUVCK15nnjG95GqnYhFGz+CmHvhn6tHbOf2f2KOVPCN/wcmtVmQrND0yCRzFzZw
-	qmxM9tw/5lQ3NKiNoSW9Qj7sCWpZU2oOslw1lurWccatsu511RDqyrg7fBhKdg==
-Message-ID: <73ae9104-a79f-4369-a3da-245db11be834@bootlin.com>
-Date: Tue, 13 Oct 2026 14:45:43 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OyMydtNg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JGq5W5tT"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8R0K2302935
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:46:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Aakzja3lws1Q1iJFHWUz/m3vsX5LMpE1mhwH5LO332Q=; b=OyMydtNg6QsUgyw8
+	7d4qSpd8Uz62RhksyfnB7oIC/MZZAVWd4Kc362dRz4XG/x8znkECVA3n72odQOfq
+	IHw3NHOT6GKTzZvpgVXGDMxMZfns6nrW9SCxGqGk/3Rbh7z4dm2zaACp1wxnAo5P
+	5KpBX2uc6+e3BMgYMTxAgRYBZOfKFFJnlydOVOrPXcx5yXIQbI3aWT4o8AjAHOzn
+	vKg7yAjfvHoMlrXGpyzfSWMSR/LFIEjsLQ1H2g3iS0S5OshyMSBdZxe2dHt4QZfh
+	3Er6NfErh4lZSUuBaYeo99knZWwA0ey7dTum1Ncv1yTlK7aUUXPESPiQt0KQ30f1
+	HRgGVg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98sqax6v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:46:57 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-934a8cd3a8bso38490985a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:46:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791895617; x=1792500417; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Aakzja3lws1Q1iJFHWUz/m3vsX5LMpE1mhwH5LO332Q=;
+        b=JGq5W5tTDJ23Q+ckGAliAqLSHfo9WObuR7Qj93jBmiNxy4jjKaZElx6ivcA6kWM/H+
+         7Yodozrl5RldDQJ2g3+5uyftltNRqUF7dBiMYYWVmXL5XNpsKeHe8afAQOVBoVTCl6UN
+         jQkpiJrDAYVDRgDX+axGO5EHLLdpz098YeePH+2UhfYKzF4LBhcJlSbrtHF5rBHT7WR0
+         sOVVpcXcO3gL064o62s3onpjVwjdwatFV4mcNQbbsr6nD72qD5Ep8qWlz8/TvNMo+bEF
+         bKKjvU7/zw1OXiasExSkWJnUAFS3d69PF8SgOCQaSYX1ZQGC8G8BwrDWP5p2uIRH4Mx6
+         JaKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791895617; x=1792500417;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Aakzja3lws1Q1iJFHWUz/m3vsX5LMpE1mhwH5LO332Q=;
+        b=XVGMbTk3Ppf+eBHZX2iaUD91kH0gQuh0N5rJEVFccHgzDsMHuoiFVu+2gZ5vt6u/Ee
+         2KHnWn4V9P4iZj6fh/hgnETPM6Vons/cmgsyDnWy+ErxxmH2T53BtQAW5qu9UGQrUmJc
+         QIDdqET+UQQrFQwiATG/NPf/rnz7FgFWBzfxFDq/gV7AYX2VEbhruG8axtVB98EpaNSc
+         +1W435ki5sz+VDQkJpm+qvh99PbvL+ElKLgZUd8LENkfal192RGDq9wEXVJlGhCHJsh5
+         Bws/mjzKwtk9JyaqcrC3hWc4GdCfo95e2mtpbpNEE7FgyPYUqvtTBx8d6aEHJosGlRT2
+         3inQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxc1GtRr9+OSlU8GYxJX5SHVv1yIZUFuxDxTM/9uoXgEk/PNEgc96OhZtEB411Paryn8xT1CImvLXCzK08=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiczAS/vOUfAs7vN/LNm5WaKaKKA0Bjnt7oCs8mToU8fqVKlzJ
+	Nx77QO1rP6+Y5PJEF1IOm3L6tnWXaJ5+l0yd4kIXWbHBIZhFhFn4xX3Kx2pJby2TSyKR8iCZTPx
+	lAYIFR3ejoXubseWnRJmFbp5PVadJKNn8rqKoBnXUp12bi93yMd9s2DGIjBNjdcDJjso=
+X-Gm-Gg: AYBFou1PqCEcSm+XdT48hWjNFA/H6BPI0P7Ptwod49MlGvvJTXiagAPcMREoI1sbBU8
+	d7ht3zvE2EZMju6NpK6QlGMk2w8cPRB0WITQSUZg7cqsFNe52PvUh8RsFu/l1bPGjJvd0kcPswi
+	5xW9zDlwxphB4GhaL5K6RpQB4G/UPjHPE4RtJ0R6WOkoJa0tTM+qtNnvWXPPRa+c83DliP4TYBy
+	62wZ+1BngEO46nfo/HJwDSf+BXK2qrdqygH2UPvqc3GGCBqvIX6NxfKqrkbbszhRhUJIyG7KSe6
+	/CXxlFeNJZ/cjRZ7/pIiRCPtlzZOYJfMJAxifnt9cEcjNs1iDtavyy8sLXdKOGM18YG+R2gbzsP
+	sG/kVG5MXd2ybB1or7SxHhw==
+X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr2219330485a.3.1791895616696;
+        Tue, 13 Oct 2026 05:46:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr2219326385a.3.1791895616121;
+        Tue, 13 Oct 2026 05:46:56 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3caacb0sm38641251fa.20.2026.10.13.05.46.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 05:46:55 -0700 (PDT)
+Message-ID: <7fccb993-8605-4eb6-afd5-94edef1d487d@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 14:46:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,152 +89,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 1/2] net: stmmac: Track the TX DMA threshold per queue
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- xiaoliang.yang_1@nxp.com
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261013114503.57487-1-ovidiu.panait.rb@renesas.com>
- <20261013114503.57487-2-ovidiu.panait.rb@renesas.com>
+Subject: Re: [PATCH 1/4] arm64: dts: qcom: hamoa: Add CoreSight nodes for APSS
+ debug block
+To: Jie Gan <jie.gan@oss.qualcomm.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com>
+ <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-1-c2a8c3225a2e@oss.qualcomm.com>
 Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261013114503.57487-2-ovidiu.panait.rb@renesas.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-1-c2a8c3225a2e@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1MCBTYWx0ZWRfX39321ENgi7e2
+ +tmTEz3sBKKSOhmKhCy8Cw3Qf+humH8y/ivRYFRedZw/GjNtaL5Iv+Ota/Q2vsMcaaj6eNySzzq
+ bxIJF4ndv5y31FBaTUuR3M0EVxyWheBVao4efobF3s3Iu60SyuOtLX3j1X+lFCGkaph4TBKxNlH
+ 74dGUZJDxs390wqFTQRFfEHNS3KWk4wfDq0yx+4RwE3dn6ZGULUrFpUaDcdON6LHk2gHTl9kNCy
+ mSjmtWuoTtzGvAPJgJSPrBReVKdGK5moIEUWePxMBstxVYYwMimPdlc3Ekjq64vbZRqvMmD/6Iq
+ aBEu7oUmZBHvBvYaeB2N5BISPapbxhcs+cGWEZYBeeUgsAD8OhyL3XFVPBrCuUvcXWQObWH2Cqo
+ Tgsb/RWMXfq1SJm/ylUSYv1xYAjXe4ikVWrjeRjaAPPXD82PA4rpKMAuXeVlsTy3mnavGjXyxEH
+ Rd8HdDFYByJTGXtOZwg==
+X-Authority-Analysis: v=2.4 cv=JN+uIMKb c=1 sm=1 tr=0 ts=6ace2841 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=uzhSaxHqr0uYvXhH--oA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1MCBTYWx0ZWRfX5o5RHHA/94JF
+ Xyzx3Dd/52LeG/cRoKfybMMe5aNDd8O9TFcqPlFBxKMHV0mqLhz/+8oTe20ve+hZ0ojOAtWnO8C
+ p3LmBrAbCgWVdK6T3nKYMwRQMgKTpBc=
+X-Proofpoint-ORIG-GUID: _il5sQ7KLitG72PyJgU4-Ok0oOKJTRPg
+X-Proofpoint-GUID: _il5sQ7KLitG72PyJgU4-Ok0oOKJTRPg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 priorityscore=1501 adultscore=0 suspectscore=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130050
 
-Hi,
-
-On 10/13/26 13:45, Ovidiu Panait wrote:
-> Commit 3a6c12a0c6c3 ("net: stmmac: bump tc when get underflow error from
-> DMA descriptor") made dwmac4 raise the DMA threshold of the queues that
-> report TX underflows. This is done by incrementing a module global
-> parameter 'tc' by 64 on each underflow.
+On 9/22/26 12:35 PM, Jie Gan wrote:
+> The APSS debug block is built with CoreSight devices like ETM,
+> replicator, funnel and TMC ETF. Add dt nodes for these devices to enable
+> ETM trace.
 > 
-> This leads to inconsistent TX DMA thresholds between queues and causes
-> issues on platforms with multiple stmmac controllers, as 'tc' is shared
-> by all of them. Once 'tc' goes over 256 the bumping stops, and queues
-> that did not underflow before are left at the initial threshold.
+> The replicator, funnel and TMC ETF nodes in this block are physically
+> powered by the CPU cluster power rail rather than by a dedicated always-on
+> rail. Add a power-domains property referencing the corresponding
+> cluster_pdN domain to each of these nodes, so their power state is
+> tied to the CPU cluster domain and the runtime PM core can power the
+> domain on before the devices are accessed and let it be powered off
+> otherwise.
 > 
-> On the Renesas RZ/V2H platform, which has two dwmac4 controllers, we
-> observed sporadic iperf3 TCP TX failures:
-> 
->   iperf3 -c <server> -t5 --bind-dev end1
->   ...
->   [  5]   0.00-5.00   sec  1.00 MBytes  1.68 Mbits/sec   87       sender
->   [  5]   0.00-5.00   sec   768 KBytes  1.26 Mbits/sec            receiver
-> 
-> This happens because the TX queues of end1 were underflowing on a large
-> fraction of the packets, but the DMA TX threshold was never raised from
-> the default of 64 bytes. The threshold was not raised because end0
-> had underflowed first and had already pushed 'tc' past 256. Which
-> controller is affected depends on which one underflows first.
-> 
-> To fix this, make the TX DMA threshold per queue instead of global.
-> Each time an underflow happens on a queue, its TX DMA threshold gets
-> incremented, without affecting other queues or controllers. With this
-> change, 'tc' is only used as the initial value, and the RX threshold
-> is no longer bumped together with the TX one, as TX underflows have
-> nothing to do with the RX side.
-> 
-> Fixes: 3a6c12a0c6c3 ("net: stmmac: bump tc when get underflow error from DMA descriptor")
-> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Maxime
-
+> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 33 +++++++++++--------
->  2 files changed, 21 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> index 9278378407e8..85d63450693e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> @@ -270,6 +270,7 @@ struct stmmac_priv {
->  	bool sph_capable;
->  	u32 sarc_type;
->  	u32 rx_riwt[MTL_MAX_RX_QUEUES];
-> +	u32 tx_threshold[MTL_MAX_TX_QUEUES];
->  	int hwts_rx_en;
->  	bool tsfupdt_coarse;
->  
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index b8b4de4c5b1a..b5ee0f297df6 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -2622,7 +2622,6 @@ static void stmmac_dma_operation_mode(struct stmmac_priv *priv)
->  	}
->  
->  	if (priv->plat->force_thresh_dma_mode) {
-> -		txmode = tc;
->  		rxmode = tc;
->  	} else if (priv->plat->force_sf_dma_mode || priv->plat->tx_coe) {
->  		/*
-> @@ -2636,7 +2635,6 @@ static void stmmac_dma_operation_mode(struct stmmac_priv *priv)
->  		rxmode = SF_DMA_MODE;
->  		priv->xstats.threshold = SF_DMA_MODE;
->  	} else {
-> -		txmode = tc;
->  		rxmode = SF_DMA_MODE;
->  	}
->  
-> @@ -2655,8 +2653,11 @@ static void stmmac_dma_operation_mode(struct stmmac_priv *priv)
->  	for (chan = 0; chan < tx_channels_count; chan++) {
->  		qmode = priv->plat->tx_queues_cfg[chan].mode_to_use;
->  
-> -		stmmac_dma_tx_mode(priv, priv->ioaddr, txmode, chan,
-> -				txfifosz, qmode);
-> +		if (txmode == SF_DMA_MODE)
-> +			priv->tx_threshold[chan] = SF_DMA_MODE;
-> +
-> +		stmmac_dma_tx_mode(priv, priv->ioaddr, priv->tx_threshold[chan],
-> +				   chan, txfifosz, qmode);
->  	}
->  }
->  
-> @@ -2822,17 +2823,20 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
->  
->  static void stmmac_bump_dma_threshold(struct stmmac_priv *priv, u32 chan)
->  {
-> -	if (unlikely(priv->xstats.threshold != SF_DMA_MODE) && tc <= 256) {
-> -		tc += 64;
-> +	u32 thresh = priv->tx_threshold[chan];
->  
-> -		if (priv->plat->force_thresh_dma_mode)
-> -			stmmac_set_dma_operation_mode(priv, tc, tc, chan);
-> -		else
-> -			stmmac_set_dma_operation_mode(priv, tc, SF_DMA_MODE,
-> -						      chan);
-> +	if (unlikely(thresh == SF_DMA_MODE) || thresh > 256)
-> +		return;
->  
-> -		priv->xstats.threshold = tc;
-> -	}
-> +	thresh += 64;
-> +
-> +	if (priv->plat->force_thresh_dma_mode)
-> +		stmmac_set_dma_operation_mode(priv, thresh, tc, chan);
-> +	else
-> +		stmmac_set_dma_operation_mode(priv, thresh, SF_DMA_MODE, chan);
-> +
-> +	priv->tx_threshold[chan] = thresh;
-> +	priv->xstats.threshold = thresh;
->  }
->  
->  /**
-> @@ -8133,6 +8137,9 @@ static int __stmmac_dvr_probe(struct device *device,
->  
->  	priv->xstats.threshold = tc;
->  
-> +	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
-> +		priv->tx_threshold[i] = tc;
-> +
->  	/* Initialize RSS */
->  	rxq = priv->plat->rx_queues_to_use;
->  	netdev_rss_key_fill(priv->rss.key, sizeof(priv->rss.key));
 
+[...]
+
+> +		funnel@12080000 {
+> +			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
+> +			reg = <0x0 0x12080000 0x0 0x1000>;
+> +
+> +			clocks = <&aoss_qmp>;
+> +			clock-names = "apb_pclk";
+> +
+> +			in-ports {
+
+No need for power-domains here? (also same question for the other
+platforms)
+
+Konrad
