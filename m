@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3BA3EEAC4;
-	Tue, 13 Oct 2026 09:12:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69E93FC5A1;
+	Tue, 13 Oct 2026 09:12:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882774; cv=none; b=oWbQmTtWbtHxsrAk5mIJb1m8Ih2ueesBoOPxYKINjj06iW66G7+HgYgglArS46/clFVymMw4wRR7AIguNpzKa69B8YaAvwFqeBQF4SzClqfbWVAXk7ZGRjWhMuUB6NiKG0oIAUHmexuPHb4FDp/eJLzmf/bXur5kdt/mKz5KHns=
+	t=1791882775; cv=none; b=HSvXPdFgFQublS+mwlaqz4vJd7bAndWtzT4uy5tM2P+BHygwrt8odMd/S0JTNSVp7ZqIJwZktn1dZVXN9ovIS2ofNt7FsX3THjNV6c/AVIVQA2jSrXE8/iINsqwGcj6WkWTujoxS8ebwfLJxX3kt0NX0qEJj8hDEeCQziyoOZsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882774; c=relaxed/simple;
-	bh=HBj6SHWAb8z8E8i92WgSzX/GnYHsPAizc+RXwUhPG1Q=;
+	s=arc-20240116; t=1791882775; c=relaxed/simple;
+	bh=k3JUhnLG/fEVL6MTdbgwQ1bJfZA6Hqew1SjN5dTjac8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L0TFNt0d7wZrIU7RTkCEF6qqB0+HL+iyFSRag+lVanDxckQ3dUsJoNL/0v+jahaEMkCMQD55LWo5KgpOKRuJR9C3ZEHqMK+F2FZ6UvGX3y1zfWKwadauMZR22+g6evqkXrxNYuDFSqWPRnbiBxD5LnK0LgsjuUIbnu4WiwZD4tE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BX6cTYUt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=K5+47t+f76Cr8UMBsRtCi6PQzCir2IM2fnpWHgzRePpMqLRLIBh3GzWbDp2aVNGK5bOo87lMxOCjjm7qxGxBkjbMFXX7zAM2zQCDMB9DnvKVzimwqO1o9HAHc/XJ8vMSZnRgw0FsALjn5WjrCg16hhwWWj6unaHj65qKwiIlxrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGfDJ6Oe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BX6cTYUt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE621F0089A;
-	Tue, 13 Oct 2026 09:12:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGfDJ6Oe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633C31F000FF;
+	Tue, 13 Oct 2026 09:12:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791882771;
-	bh=ZAogXmbMRVSsrP9Od8GzwAseGRotthvQNg3JPjIf67k=;
+	s=k20260515; t=1791882773;
+	bh=XvRme1wLbfEnG39mQIRuWu8cnZGIYE7/pah4420ffqI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BX6cTYUti0RFJRaH/1kYr8nuSE12IBm31OfvDhHweUSMS7sTG0GF3wjBSH+E/eOH7
-	 hZbC/S2oOQfguDmHhhqh3NN/p1TZUQvU9Zb2vFjsAgXOlGc54hzKr3IDtvR0xCl1JW
-	 Dzx4tgmfEvoW4sMwemQZdM8Dkh+U9YbK4QVqCXVucjg3XrJk9SO6KG36Abemv0hebV
-	 R5Avgo8tW2tbib8REm9g+Fl8VeQOc3oQH04NLlNQY65f5Rbg6//YMH7q1+gG9DrphR
-	 BUFR49WYx/uaLBwFrEhLyFL+0cPeSo5kjXX18DELB943BQzhZJhtT8Ks7sAX0/AzYL
-	 R3MQqzHVbjLkg==
+	b=KGfDJ6OeDham0hGAnWltw1syXNEalG8SLMQyEnNpuQTH4tYz8grKfuKmWH6kELTXm
+	 55w8TAY5ZqlKHhZka5DCEdEhjEUWAYSgU+iEvX67Id2OGsgz2wu+veOXp4S6YrCxyy
+	 knhQkd8mkNi2dhAM5E+tQKNHi8gbanMiPibKcudrMCeJNMee0WVBCH6SoIE0+YbCoe
+	 k8j4yHh8R/oMv89jzzeSGmEb2rXerqZ0Eo25JMe+PgKnOnO5giq1RHjL6rru/+a9wH
+	 2DVKEezeKCo7nhCWHgL+6ruJTdumb4xiZoCqTlYbd2GeUkoXijWfmTPt49XPydlRVb
+	 Kb96RB1aMNQLg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jiri Kosina <jikos@kernel.org>,
@@ -35,12 +35,12 @@ To: lee@kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
 	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v6.1 2/6] HID: hid-steam: Make client_opened a counter
-Date: Tue, 13 Oct 2026 09:11:58 +0000
-Message-ID: <20261013091204.529049-2-lee@kernel.org>
+Subject: [STABLE v5.15-v5.10 2/6] HID: hid-steam: Make client_opened a counter
+Date: Tue, 13 Oct 2026 09:12:09 +0000
+Message-ID: <20261013091215.529531-2-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261013091204.529049-1-lee@kernel.org>
-References: <20261013091204.529049-1-lee@kernel.org>
+In-Reply-To: <20261013091215.529531-1-lee@kernel.org>
+References: <20261013091215.529531-1-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,7 +69,7 @@ Signed-off-by: Lee Jones <lee@kernel.org>
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
-index 2f5e9d3e6499..4a0a13b0ae62 100644
+index 8832f7987006..159b55dff799 100644
 --- a/drivers/hid/hid-steam.c
 +++ b/drivers/hid/hid-steam.c
 @@ -114,7 +114,7 @@ struct steam_device {
