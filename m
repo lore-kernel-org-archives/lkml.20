@@ -1,67 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3788D37A494;
-	Tue, 13 Oct 2026 07:24:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562B537A494;
+	Tue, 13 Oct 2026 07:25:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791876296; cv=none; b=SKSmGAkQb8Mml03B3aGMsXlrVHh56K4Gr/U8I+cN09n9NdCsFz6sY7rkfX1TJ/QkDaL9tkZUMGBxDTp7CfPYDDQn/wMOQuI2TK5imXtceDRhRl0NIn01kXFLdlS2BmfT0yF1+Ok3y2rw7fK2ItQDsGR7lJ7jSWTSN34ia8U1CpI=
+	t=1791876304; cv=none; b=dgRwZGX4dnnvWI4eDsB6FsJU0gsXLL4+irTV4bkbGOpA/1SeqyP/9Bk06ZzaGhOEkCTlBrUdThAkoGiGSVUn6//73dehFhEsd/a8hh+2V6AdK4H8tVLRly0KvrRGUDuGSaPXMcDdcZVclF4ZGabEsXSORUup5qWg1n+aoeX0GZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791876296; c=relaxed/simple;
-	bh=NU9kZMHiVxo9G3T+RrsF+nEu4b7ZsCG+z87a6dHWEk4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=axPs7Poepeqgv3rhUoRqVsOgRSyFTFiibh/m0+YqAFBKYtH/5fsMAg8sRHpajJ9k8QHCTH8tVv/FV9G8DpVaANyy5Yo++bpUqCc/oNqLcPC0g/XaQAYebbrATQZTbb0LcLKohs+yagmPla0S6IdR4/PJm0v4YhJf7hSSn9qS2wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cTD8NIDB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791876304; c=relaxed/simple;
+	bh=+jqlOOVP9Uc1zicDqqX1IpO6ruQ8VUj5Gljj/3Ms3M0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fwS82yXIE3Wttk+0w+QJ3htcjxSZoSj/qh/wWApnIjnfDf0GNMYVI7hm8gaJxiczE0083Di5EM+MJ03W+sDCNFkxHQsP6qpLZX5LHVRLn1pFvmdvnbHr1TbxHYK+/RxWgBTqF6cBfX/vK6rN4xEXzDtishEonpEwHiwsIXenmz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e11O6YTi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cTD8NIDB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710B91F000FF;
-	Tue, 13 Oct 2026 07:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791876295;
-	bh=NU9kZMHiVxo9G3T+RrsF+nEu4b7ZsCG+z87a6dHWEk4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=cTD8NIDBm/QbjtCpiPuNjA6jkfOIQmawx5fSSvEWQAi2maM5jAVDGWlZApnX6RhEO
-	 Pny9OzC32UbujbBrb+lj8vYEO/RQHlPKp6D1KSxHTjP28nI0Bsi+OAhuxoUyeMOFez
-	 u0ZryZzFp0xPIh0HhbWLOh0e4coIKTzFe1cIfOrowiE96ClnjD4wI9xcS2SZ2RO10j
-	 eKrl/Dwbj3vIIarPmKWQbSk/ttrMDCl3xuwr5iR5I0XU2NR6he9XoiwLFVFVRRPRd9
-	 BQmPVN53f72R1EARpsyI0nU9mfdHaG6KEguCsWzXp+roi6suHuJXItoRju2pDGM3yZ
-	 k27qooCI6uyMA==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Yury Norov <ynorov@nvidia.com>, Miguel Ojeda
- <miguel.ojeda.sandonis@gmail.com>
-Cc: Yury Norov <yury.norov@gmail.com>, Rasmus Villemoes
- <linux@rasmusvillemoes.dk>, Burak Emir <burak.emir@gmail.com>, Peter
- Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Miguel
- Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
- Lorenzo Stoakes
- <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Uladzislau
- Rezki <urezki@gmail.com>, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] rust: add a wrapper for the `num_possible_cpus`
- C function
-In-Reply-To: <asz-GkGHJYHdhDLr@yury>
-References: <20260929-cpu-helpers-v3-1-e968ce5ee613@kernel.org>
- <CANiq72k-_LX5GVSKWQQ5EJV25GDfXOhOebv3TLqdA63tQHNd-Q@mail.gmail.com>
- <87cxtvb2qm.fsf@t14s.mail-host-address-is-not-set>
- <CANiq72kZh4a39hcy0g9sqEmzx3m+dcPRW=omOB2r5DhpRq3BXw@mail.gmail.com>
- <87a4ozas7q.fsf@t14s.mail-host-address-is-not-set>
- <CANiq72ki4Pc6y8og2ROLRSeRTZBbnpY41v5EC+qJaTiZWVhwAw@mail.gmail.com>
- <TlsfpzyqG6QHcTMb-dOQPUP6uXU2G9urfH8AK0nzNO3j5rY0QWjn2ni9zhJ41CpVeppXhpH2E_yJ3LgUTibqbA==@protonmail.internalid>
- <CANiq72nXsGHbSQ1LfbG1zYaMaZv3X=u0+XzT6vHh=9vxLE8QTg@mail.gmail.com>
- <87qzi8a4ds.fsf@t14s.mail-host-address-is-not-set>
- <CANiq72=j1nD6Qy9qKwNKjBw1gc8RPr8CmXKXSSNBp7mARv48VQ@mail.gmail.com>
- <N2kT-hptgLwPihxLElO65tqya2Wmnmv46TH2XIDsL2pggz0Ezs4mqNk2iHWS1zdaCIlPncbX20HMJuQ-Blrbmw==@protonmail.internalid>
- <asz-GkGHJYHdhDLr@yury>
-Date: Tue, 13 Oct 2026 09:24:42 +0200
-Message-ID: <87jynmcbb9.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e11O6YTi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5801F1F000FF;
+	Tue, 13 Oct 2026 07:25:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791876302;
+	bh=MX3exE+PNIoksGaAKxwFvW16GyNfRCtJVH6qszpzC6g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e11O6YTihaFw5HLTmOrVNUpd3yH0CQNHlo9kJXwA71jmv8s2uRTujg53A392ROYsu
+	 oi1R7q8KOIL1OvEtB2z/juz8xDYpANpKG4/jchv65PdZgf0goyhjCmERV5X2oNFgz7
+	 hvXVhIKBVJXJyHtcRPpE72t1bp8V99eR72srNukw=
+Date: Tue, 13 Oct 2026 09:24:57 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Wentao Guan <guanwentao@uniontech.com>
+Cc: Sasha Levin <sashal@kernel.org>, kartikey406 <kartikey406@gmail.com>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	johannes <johannes@sipsolutions.net>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	stable <stable@vger.kernel.org>
+Subject: Re: [PATCH 6.1.y] wifi: cfg80211: release locks on error in
+ cfg80211_wext_siwgenie()
+Message-ID: <2026101341-designed-defame-82c0@gregkh>
+References: <20261012154246.1233496-1-guanwentao@uniontech.com>
+ <2026101331-bullpen-carnation-3533@gregkh>
+ <tencent_7D240953233FF6C810CA7875@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,44 +45,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <tencent_7D240953233FF6C810CA7875@qq.com>
 
-"Yury Norov" <ynorov@nvidia.com> writes:
+On Tue, Oct 13, 2026 at 03:00:01PM +0800, Wentao Guan wrote:
+> Hi,
+> 
+> > On Mon, Oct 12, 2026 at 11:42:46PM +0800, Wentao Guan wrote:
+> > > This error path returns while wdev_lock() is still held, so one
+> > > malformed IE request can permanently block later operations on this
+> > > wiphy. Route the error through out to release the lock.
+> > >
+> > > Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+> > > Closes: https://lore.kernel.org/all/93db0eae-f479-4343-a126-59987ae0dc22@oracle.com/
+> > > Fixes: 8b921a899346 ("wifi: cfg80211: validate IEs in cfg80211_wext_siwgenie()")
+> > > Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+> > > ---
+> > >  net/wireless/wext-sme.c | 6 ++++--
+> > >  1 file changed, 4 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
+> > > index be121fa36c514..ba6d8827f64b3 100644
+> > > --- a/net/wireless/wext-sme.c
+> > > +++ b/net/wireless/wext-sme.c
+> > > @@ -352,8 +352,10 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
+> > >  /* nothing */
+> > >  }
+> > > 
+> > > - if (!for_each_element_completed(elem, extra, ie_len))
+> > > - return -EINVAL;
+> > > + if (!for_each_element_completed(elem, extra, ie_len)) {
+> > > + err = -EINVAL;
+> > > + goto out;
+> > > + }
+> > > 
+> > >  ie = kmemdup(extra, ie_len, GFP_KERNEL);
+> > >  if (!ie) {
+> > > --
+> > > 2.39.5
+> > >
+> > >
+> > 
+> > <formletter>
+> > 
+> > This is not the correct way to submit patches for inclusion in the
+> > stable kernel tree.  Please read:
+> >    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+> > for how to do this properly.
+> > 
+> > </formletter>
+> 
+> > It or an equivalent fix must already exist in Linux mainline (upstream).
+> This is a trival fix for these stable trees, the problem is not existed in mainline 
 
-> On Fri, Oct 02, 2026 at 11:07:00AM +0200, Miguel Ojeda wrote:
->> On Fri, Oct 2, 2026 at 10:33=E2=80=AFAM Andreas Hindborg <a.hindborg@ker=
-nel.org> wrote:
->> >
->> > I don't think we need to split the helper C files by the headers they
->> > are defined in. We can include multiple headers in a C file that
->> > logically lumps things together. If you are worried about finding thin=
-gs
->> > becoming difficult because they are not in the file one expect, I do n=
-ot
->> > share the concern. I usually just grep in the directory through my
->> > editor.
->>
->> Of course, it doesn't need to be a strict split. But, where possible,
->> I think it is better to match the C side for the helpers, because they
->> are thin wrappers that need to be updated and maintained at the same
->> time as the C side.
->
-> Yes, that's correct. This should mirror the kernel file structure
-> unless there's a strong reason to change that.
->
-> Andreas, can you put this into rust/helpers/cpumask.c, and please have
-> the __rust helper thing on a separate line for better greppability.
->
-> This patch creates a new file without a maintenance entry, which is a
-> no-go anyways, so we need v4.
+Then you need to document the heck out of this why it's not upstream,
+what upstream commit fixes this id and why you can't just backport that
+commit (or commits) instead.
 
-Ok, thanks.
+And get the needed maintainers to agree that this fix is ok and for them
+to review it.
 
-@Miguel, feel free to make these changes as you apply. Otherwise I'll
-send v4 next cycle.
+> >It must either fix a real bug that bothers people or just add a device ID. To elaborate on the former:
+> > It fixes a problem like an oops, a hang, data corruption, a real security issue, a hardware quirk, a build error (but not for things marked CONFIG_BROKEN), or some “oh, that’s not good” issue.
+> Its fixes a lock with out unlock, and we no need to backport f42d22d3f79639 
+> ("wifi: cfg80211: define and use wiphy guard")
+> and guard for older kernel tree.
 
-Best regards,
-Andreas Hindborg
+We have no problem backporting upstream patches to resolve issues.
+Please always do that instead.
 
+thanks,
 
-
+greg k-h
