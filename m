@@ -1,79 +1,69 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C4D37187B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254DA378823
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:04:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791878525; cv=none; b=fd+W7ts2y2lLC94+vGAuznRR5YHdGSUX+u9DtDkkA+NQcxVMDmOIcY2vH014IBuA0Wypy7qqZ4NxbDaKkDE1hyQfPNqXgoaQlOdNsQ6lr2vFTwThJoXgqeUEdFuOpHfQCi5p+d/+z1hGS7kn5GX/Pz+KcPRFasMh3OTouAPnHbs=
+	t=1791878673; cv=none; b=KCu9gH4zQW41u0wga8tyfGgLzuKiiwh+O7Xeh6kIt1F2RHm/3zI9VVA+wiD8WUgzS/XBlRGijdYH6PjwxZWv7m/GJKZnAafMyaM3iahuVCIxDLApOAMQtrXzcA5N5/E+h+nnPoPDlV1qKzXxKzphe+JhCfMBu66moDFLa6u9zyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791878525; c=relaxed/simple;
-	bh=t4orIt06GtaIMZNSl8mfu6p1hQPfMKIS8AfG8Kga2MA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t88P4TKEa5fDaUBqtogYioUMu/vwsE116Ki5LetG5TCgotOLd97e8UoNaTXwXiUKmLvklgCBGOgE+qRtyAQ7HHuOwKbjL2ZBuRLi6OV2cw6OD1lsQn1vOp2uIPLaX4wOPxj07R4od2hxG4MXy2YHGKg0U52rzyfl9FfjEUHEyAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b2WvKhNS; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791878673; c=relaxed/simple;
+	bh=gwKT56U/gMcmxFvrhIA8kIdLdQvjSm13snfTFYrtgY0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QN+Pa4MktsKsCgVuiG/RUrTFvoLXEnSw/LeSDbi7Q7AhxLOpqrAZ0xQZBbLCvCfRrvoVZQ1c02n/TupRgy8pmNCcNKOnVzJkA+nz9baPgpgUiHMJz4+D7vKd5zeho5RHFPinv2F8u/Wzf0o8qa22oSCNjxYguT5FiRPb1QDrjR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=rys98Wxl; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=E+UNlfhr; arc=none smtp.client-ip=148.163.158.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b2WvKhNS"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c34bff61551so282493066b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:02:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791878523; x=1792483323; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t4orIt06GtaIMZNSl8mfu6p1hQPfMKIS8AfG8Kga2MA=;
-        b=b2WvKhNSiyfZAWRHhPsqhrqcc+4ZpTc3PnUp4uDmcYxumD9J6MV1clae0IEiwZNYTx
-         jSoxRMwMb/bDZsncs7C979c5Su7De1Ze2MYR6nwdUDrpomadZKTdzIYoqNbu2w/nfL6+
-         1i5B48IGXEAQ+wfdbkKt6E9LappovcikfRyVIFA67KmGEejqYcwBZpIOIclzpFqtqGiC
-         2Hd7g/71uKupiNcO9FA3LuzErnof7DIjYwzDAb/61y8/YV25W0GrQ2Ho8Nps8bwePaks
-         UFGAZfWPv6bAueO2FrCvD6lqRG4WJIlbvPoAiE3XoTDIQM/FBUvCKICBk++HUmmVkzYT
-         5cIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791878523; x=1792483323;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t4orIt06GtaIMZNSl8mfu6p1hQPfMKIS8AfG8Kga2MA=;
-        b=GMJNXJfBfjKvVBuBhEO9BdXM4xCT/q2wepVELZkyfkWgp3P8JhTGAzJjnycXJohhD1
-         F8g0BKt1aU7b1XAAN8AaH98VSkQbaUF7icZyFR05Pe0zVSziSIL82P/LP2V+exvXQHJl
-         eyu2zpo3k4ezjD6l8ZC/La/33KvCtY8qdQOhXCeLitzGYAa6eQrkfimeqbHoYxop+krj
-         /MzPHJyGrY/l1T109AYMLd26EndB4gEMFNY8i0BCPIZ0EiGAQ4WgcYJ4hKC2Dj8yJXNV
-         ARkZ9r4SS9GlowvhWP9iaNZziMaCzBaUu3oFlwewzMJ3uvW0JJNdZ+v8Xf65uPbEQiTp
-         0Aaw==
-X-Forwarded-Encrypted: i=1; AKwUvBx79DjWhWgoCgTRYelXcShc1wxpBQrms8eyP44LwzqpbcCTaeTSueyQ86YDU6TNkzokNmAtCYR/zAoydkI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/c5Nr9iesow/0a4gqzXR5knsMB5o/5j8ov5Cxzq03TxvvkChS
-	okFpLVHiWGURp6ZSXpSucUNaJ3fWmhm24ZCHNKq95zBa9gtzg7cQ5S2w
-X-Gm-Gg: AYBFou11zYoAKvvqdvcnSFtR7sc/4P3iE+UwRtptKKYTD1J3XpRFEKmwTaJZksVQh2r
-	49IYKFiP+YBtJDEwMaG5sp3LkAJhoC9eWf4EoylYcknFWJdtY23fxwGPksPeSGOY6+pVqR+JStQ
-	liRLUddWU3GFYWmJm7ulmVdWRyr55+zBrOAt7LZPN7lfh/V9k/uXnQ7Al9hsCwGOHlR5KvbYvRB
-	bgq/nuXGQeZi10JqSMEFHXSVjbOs8vyse0LFDsKIdt32wQkzctP+VPT0F3bzsDrK3P9gJf8DWBO
-	1s95FyWT9tQdcgczD8G8unYNdhC8yRdl59BZxJxp8OD5ljwXDs0uOX537Vq3QCNQCyBpyhkEjAX
-	jzl6J9IPTXO3JZiQOFWG4nqeQj+3/V3mZhqbGXb21eLwLWykB/T6dUIhyXZp7EyDDEjVQHZ0kRU
-	zWy5KbdZv1nOkgQN7nRl/VDGgVQl2IpRImgSOgCCLAEe+P6yhBWCgH/002bBaj+b9CxqAGDv4kx
-	1Yt2tTPE6TMdCU7
-X-Received: by 2002:a17:907:3eaa:b0:c2b:4142:2db1 with SMTP id a640c23a62f3a-c31aa0d82b6mr1250747766b.40.1791878521335;
-        Tue, 13 Oct 2026 01:02:01 -0700 (PDT)
-Received: from localhost.localdomain (luna.k.pl. [193.239.59.185])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3626dd09d2sm119890966b.18.2026.10.13.01.02.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 01:02:00 -0700 (PDT)
-From: Kyrylo Biryuk <illofspeed@gmail.com>
-To: hare@suse.de
-Cc: mpatocka@redhat.com,
-	dm-devel@lists.linux.dev,
-	dlemoal@kernel.org,
-	agk@redhat.com,
-	snitzer@kernel.org,
-	bmarzins@redhat.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dm zoned: back off when reclaim finds no destination zone
-Date: Tue, 13 Oct 2026 10:01:57 +0200
-Message-ID: <20261013080158.558-1-illofspeed@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <b2a6b9f6-53a8-4250-aae6-a0837f0f598d@suse.de>
-References: <b2a6b9f6-53a8-4250-aae6-a0837f0f598d@suse.de>
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="rys98Wxl";
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="E+UNlfhr"
+Received: from pps.filterd (m0098572.ppops.net [127.0.0.1])
+	by mx0b-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D41XUZ3475959;
+	Tue, 13 Oct 2026 01:04:24 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pfptdkimsnps; bh=OTvFQN8GuaxjCQFUI5eOYJ4ZW9EGafT8
+	93ykKSAHAjg=; b=rys98Wxl7WfQxF71R1qe5aAeKZdRSI9ybm10B3A5RpmAIsyx
+	O7UcuZVtg1ZbOv4c1hfZw0pheWWswk1NeCV5UEpcUTkKSffKFQfQDRRYIU3pSJmE
+	Pl1Yr7NCvnlIo2SfSNJiK1vXeM3rs59pyLVfrREbznaW0oCZXoOwM66Nl0NCGn5P
+	YDrL+it2uVzuxmTMiVbGTllp0puIM4crXEko9nKwDKVnUNPS53MS/CzkyJJFXrWG
+	aMpkl7quq9qyGTFruyVaV1z6IVyQwy4dwm5rlSEtODb4O8JG89bB7L7y8i04eW3I
+	erQ4mtTHWA52pb47i5WDkFXBPqOJaGxrpRcE8Q==
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.87.133])
+	by mx0b-00230701.pphosted.com (PPS) with ESMTPS id 4h9419c1ry-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 01:04:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+	t=1791878662; bh=gwKT56U/gMcmxFvrhIA8kIdLdQvjSm13snfTFYrtgY0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=E+UNlfhr+WOoCLZEBoTu6/rhbkg31dNXWMiMOv9e5jiRZgmss+1+8QkS1KuXuz4xe
+	 rtlbQT8x1300PdHVAx3V66pqiL3urZFAxnX8BPSfQVVPd5MxMbFXkw2uJnxdaRjiwB
+	 MH586NrPxaKr9Vd/gGwjj0XpXikRbleERWejwG0wNtvCsJU327OM31TYKfwbOzMYwg
+	 2cJ/c5pYlIzjuaUFDrStMGG3DtnRB+3HdB3CrxhGPzMjW273CI8Ian0Q5EGns+7ODq
+	 BQ8XUSsh7pCAdQz4dOpGM8YNarwZN4N73riqLzI65e4297ZHloHoyWedhL2edcaWTJ
+	 Dp/DIrckte0+A==
+Received: from mailhost.synopsys.com (eudc-mailhost2.synopsys.com [10.213.161.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 309C940230;
+	Tue, 13 Oct 2026 08:04:21 +0000 (UTC)
+Received: from Ubuntu.internal.synopsys.com (unknown [10.150.7.185])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mailhost.synopsys.com (Postfix) with ESMTPSA id 4ABBEC0F94;
+	Tue, 13 Oct 2026 08:04:18 +0000 (UTC)
+X-SNPS-Relay: synopsys.com
+From: Dineshkumar Parameswaran <Dineshkumar.Parameswaran@synopsys.com>
+To: linux-i3c@lists.infradead.org
+Cc: alexandre.belloni@bootlin.com, Frank.Li@nxp.com,
+        linux-kernel@vger.kernel.org,
+        Dineshkumar Parameswaran <Dineshkumar.Parameswaran@synopsys.com>
+Subject: [PATCH 0/2] i3c: master: dw-i3c-master: HDR-BT support
+Date: Tue, 13 Oct 2026 13:34:11 +0530
+Message-Id: <20261013080413.7470-1-parame@synopsys.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,15 +71,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzMSBTYWx0ZWRfX55+hBQ/C2GUz
+ aDbPuJVsz45Y1rWPfuvp4gaeuzEvyh2UIMqbI3G8wEtzWXAWGlVZAZMV+OZqxu13QLXtbjn60lZ
+ FOPT8U+kZ3Gj7mUIOncf+RELOwvqJcMAGTm+GzXIJW2XMmz5fwIpS0lNPaQD/apAvETyXgbjkom
+ MPXEoC3m3GOo0TXPuxHZezdyu7x6cB+eGkXfhqbWbPh+oXVhleNqvW6ebZmOlh4Di6ctYXZBYrS
+ Pq7WhTIkQA7y2YIykJ0bQydE6VswoGLNgp2rI5fZUPjNLNhhAZgioc4ytiDm3QbO3mIJC2dTa9N
+ cUYKB+RgXzlBNgc5eCuIpp861kG/626JtUF6UPjBRiH6qWPjjOqgbSOaXECKgaQtI/20mqRfVYS
+ Atd1+0/kCSPi6fp/TWYB8++Wx2Lq9pK2ro5mIDsIIKCvCGBl31zTQ5v1MqGOUQaOYCyuwJWfQoB
+ DZzz6Q1osYlXCYuZF+w==
+X-Proofpoint-GUID: 0WCI6DgLFtc1ht_XCE26vyBRuWZWeKyl
+X-Proofpoint-ORIG-GUID: 0WCI6DgLFtc1ht_XCE26vyBRuWZWeKyl
+X-Authority-Analysis: v=2.4 cv=bZf+w+PB c=1 sm=1 tr=0 ts=6acde608 cx=c_pps
+ a=t4gDRyhI9k+KZ5gXRQysFQ==:117 a=t4gDRyhI9k+KZ5gXRQysFQ==:17
+ a=660iZSQnnn4A:10 a=qPHU084jO2kA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=tU_645BZ7FZt8VqRJtHG:22 a=jSPayVjLy6xbsuKauFBc:22 a=RtHSx0SzW_mo1qVRsOEA:9
+ a=ZXulRonScM0A:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzMSBTYWx0ZWRfX1RZiwswm/CCd
+ 3HzKtw5dL/fdz5hTE2sqSF67hH2YL1DPcJSI6W45xI90MyGl1he5EWcM7gK+ALMbNyPSKFZL0ZG
+ Di1llAvmPjzqWgDkh6lE0xLCCplVAlw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 phishscore=0 adultscore=0
+ spamscore=0 clxscore=1015 bulkscore=0 classifier=typeunknown authscore=0
+ authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2610080000 definitions=main-2610130031
 
-Hannes Reinecke wrote:
-> Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Hello,
 
-Thank you, Hannes.
+This series adds HDR-BT (High Data Rate - Bulk Transport)
+support to the Synopsys DesignWare I3C master driver.
 
-Mikulas: this patch is unchanged in v3 (only the author name and address
-changed), which patchwork shows as accepted:
-https://lore.kernel.org/dm-devel/20261011175450.952-2-illofspeed@gmail.com/
-In case it is not too late, Hannes's Reviewed-by applies to it as well.
+The DesignWare controller provides hardware support for HDR-BT
+transfers, but the current driver only supports SDR transfers.
+This limitation prevents users from utilizing the higher
+throughput capabilities available on supported hardware.
 
-Kyrylo Biryuk
+Patch Overview:
+1. Add HDR-BT capability in the I3C framework.
+2. Implement HDR-BT operation in the DesignWare master driver.
+
+Dineshkumar Parameswaran.
+
+Dineshkumar Parameswaran (2):
+  i3c: Add HDR_BT mode to the I3C framework
+  i3c: master: dw-i3c-master: add HDR-BT transfer support
+
+ drivers/i3c/master/dw-i3c-master.c | 146 +++++++++++++++++++++--------
+ include/linux/i3c/device.h         |   4 +-
+ 2 files changed, 109 insertions(+), 41 deletions(-)
+
+-- 
+2.34.1
+
