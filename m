@@ -1,141 +1,263 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502A551DE09;
-	Tue, 13 Oct 2026 16:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE30C51AFFC
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908869; cv=none; b=a2gBTpYMO79xcNP0sGW4YmPQpgAb30FTjQFsgeht1s0n9zOCnnreo0FHtqIAOpfRebkZzVPuTrf31pxZqSovVoqR2wQ9ox5QsTiQelBaivp2xGyl7BFtY/+pEiOTFyhj82WWd5XEYCWYV5bFe+TkxR2YJFKdmXo6cY2zl5VwSsk=
+	t=1791908878; cv=none; b=t1ahylb2mKinf2vnp6iROdhkELUFgjUq6eaYEZTA4vWjkXVKd6O0YK6KwotVdeCbJiUbDyuSOj5sr+/hrt0bcIgNUjGrvtbYidcHl8DksCIH1P/jqvTtftLXH7RYjyUXqa2wdf0C0T6mpeuiRxBh0uEBbBazfkg13HA3zE6svs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908869; c=relaxed/simple;
-	bh=ER4Dd+j8z4PKpBg8k20jDNqMbWHBUM5EcOSDxEz9TV8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B7TaIsrXfNZ4IC4soxJoYbTlQxqCbUQMlbBXhe8SPrP50fj0bVwk7LKGq83pu/Y0zSMIUmfLxKWADkkDJov6bMzcv9+2svI2KiK3C0KcXxQsdru3jPhX6yDg1kl/PAp9aRsa2doqShClLB+kh5LNwvOeNDCe3SMmaYRDONNLZ9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fyEchzav; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791908878; c=relaxed/simple;
+	bh=3+FSu1EZiZ2U+kF1Je24pZDfwzm8Gy1f4FvIgng7gEA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=KW0g4QqnkeOKZ+DM5UPOLa6eFzthJvuA33jfRg46RxWY2HlEkqxQXFEo82R60CQIRFSm/1/3Zyt1+QbLx2fGI9v/uKEeFlyRs7kbUVSGmSmguEl06TaT9/HScgAxCoFaPyXbyMpGtHthIQjbN97tGHvwtx6qS+aTigUvzeWO5PU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fliaGSaR; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fyEchzav"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791908868; x=1823444868;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ER4Dd+j8z4PKpBg8k20jDNqMbWHBUM5EcOSDxEz9TV8=;
-  b=fyEchzavOeEX2fam7F04gDjnQr0EHcP9mZVuAwmFePt5saeIPgrjtriD
-   KNf582b8G6snKyn4xUatWWRV7AFPfk7WNTfBpli2mDXtEn00u9bwl7SOi
-   7dH8JAG9vyNl0mHfRhDk6Fr37XNysmAwhr8/cdeKcyycm6mHz20XVe/RI
-   hvhPUolhdWDjdLMq9+0FUO3IFeCDpw3ldTuTWM0XSr0kJddkmAaCEYALE
-   guFSuh6vl6xP7rKnTI4//BZkqdJY0pPxa9e03TWw8t7RhOMyz5FteaNCk
-   aBK6ER3MBcl8XCGcDiYRJCixt7sLqs6V+AYQYfGS+9s/gTAB6Q/u2DMjR
-   Q==;
-X-CSE-ConnectionGUID: LinC8IplSMadp4X94djnlg==
-X-CSE-MsgGUID: Ug0PEYFIRO6l8MXhbarZFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="541876"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="541876"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:27:47 -0700
-X-CSE-ConnectionGUID: sWQeqysTS6CC0UIkt7KtJQ==
-X-CSE-MsgGUID: jQFJU3vCTcSJOWNSiAP0LA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1524260"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:27:44 -0700
-Date: Tue, 13 Oct 2026 19:27:42 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <as5b_jzx5CG_UoZS@ashevche-desk.local>
-References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
- <20261013115639.167433-3-marcus.yu.56@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fliaGSaR"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso8948a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:27:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791908876; x=1792513676; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8ySY4mluh9FDUuDDo9BjGrurmg9uPaaktdpdGujHzIw=;
+        b=fliaGSaRKta7/wJKlLNll48cmVlsN9RKysWUvypi+CqXbij3GH69FysuyZ9KEU+T8/
+         UIV3kV/7JL0H2l+JNVG0kVdDczv0rxuQgXTJwRkJ91AYPud+qQnTNAaNrM5fVyRF/Rrw
+         2ueEHn9a69Uovha+hYkC7OdyC5hYjDzRxY3BwEy0Y59nX4EcFwLlrNSZ8UCseupLdNne
+         STGDNZbKomBLIvHFHLHh3vd0fkKF7iFDWQxYAnmPzCcMyMTZ6Q8+FIdCPIgbVPgyjdkr
+         UfobDPlFHnY4HN5BYzk06NFXrPYzQBJVy8YPhdU0/GGg5t7C0ugE3mCNjXyQdc4O/a8X
+         +Vsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791908876; x=1792513676;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8ySY4mluh9FDUuDDo9BjGrurmg9uPaaktdpdGujHzIw=;
+        b=sxDx0hZ1CKTZr3G/Sss11qE15yfh0Lpg6uHlu+vORxfpfI2CZsc1ksMQd9WzHkUtGZ
+         sOkM8AaJjXbxPR4ZovlDUEFR2bCBDe2NesF1Wt3ckcaoxCiey1r1+A/LSQebqS1On7wJ
+         uNhXqpYj1JnCcA8ffUASvinGHmrVKad8hbLBL0hUjtq8H7XR0NEjZXZtd10JP0gltX64
+         YUhcQ2zpt3/U7LXy61H3a6SKm+Bp/uN78Zi/wIGQVXsol2qcx6WKrrFzRZw+5Hl7lkub
+         uNOsUM1Pc0ET1TYOfgk1a+uHFdB36KAPIr3C4KmoAB17YR+1gr/WI/81Zyv+mEgIJ2dI
+         BpeQ==
+X-Forwarded-Encrypted: i=1; AKwUvByrqKmzHGMxxqBGuTLKmT0bbFl/UDJb8Qfi0GoTAecsgPE4JoZ9DGeQJpiSH3SB/ALpqjaRldk7kUymiVg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISMcDbRuay4NWVaIPvGWv26/ecC0szIqYevsrZDehDgvWHp8wt
+	+TcErnx5O9aXo1C6lRNfFzFFgCCMkzSzU0PywTP+zsS7+YCExDcXrt71
+X-Gm-Gg: AYBFou0/X7zCaNhPCW4zybloQaqCCfeedw0ykcyWk3r7itLemoHTCh0qASVWxHll8HL
+	RMeFNTSYIVqcF8RhK7ai/j3v8dtJ2J7snz2Afq54w9mo59PmvdprlZUHw47O3O0y94AHHvZW0ec
+	pdtU/ciobGAlCJZVQLwf2/cN+W/RRa9c8psPE/Yc/+bKqfj07Tq51XJSYFIeNqvwGhkZIKyCLsU
+	nAehUmYyh8pRCMFyURJSO1ejNJT2Zl7408E+6RUCn5lln1prdbpRH1x7LdyOYotx7u9ZrdwE2V+
+	gtF4bcjWD9WbT6jYZvBRAvrrWs4P0WHOTjPjjeQWeb8odEslJ6wo+2XlDf2fAtsKMFpCsPMkT1r
+	pdn498/IUfZJHF8k1mk1Q0oxLf8h+HgmCeNOvT4YPy7ukE/Bh0ALsHNBtrRxLI1pfB627LQsagR
+	nfVxioinjCJJEik/IMwXITHp8rsuJD5uRYwa5RU8mZjHjWkktiSB+u2X5Ry1riSt5/Sw==
+X-Received: by 2002:a17:90a:1582:b0:3ab:9f1a:3825 with SMTP id 98e67ed59e1d1-3ab9f1a4af4mr4935062a91.4.1791908876092;
+        Tue, 13 Oct 2026 09:27:56 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f202d78sm348392a91.3.2026.10.13.09.27.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 09:27:55 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] Bluetooth: hci_sync: Protect accept list membership lookups
+Date: Wed, 14 Oct 2026 00:27:48 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0118-v7-e6b713327ef914d6d02a@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013115639.167433-3-marcus.yu.56@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 07:56:39PM +0800, Chang Yu wrote:
-> Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
-> 
-> The AS7343 is a 14-channel spectral sensor featuring 11 visible
-> channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
-> flicker detection channel.
-> 
-> The driver exposes 12 spectral channels (11 visible light and 1
-> near-infrared) via sysfs. Runtime PM is implemented to stop
-> measurements when the device is suspended or torn down. Power is
-> never cut (PON=1 always) to preserve register values.
-> 
-> Future patches will add configurable gain and integration time,
-> interrupt support, buffered reads, VIS channel, and flicker
-> detection.
+Entries in hdev->le_accept_list must remain allocated while a reader
+compares their address and type. hci_le_del_accept_list_sync() and
+hci_le_add_accept_list_sync() call hci_bdaddr_list_lookup() without
+hdev->lock, although command-complete handlers modify and free entries
+under that mutex. The request worker's req_lock does not serialize raw
+HCI commands or their completions.
 
-...
+With a nonempty accept list and scanning disabled for passive-scan
+reconciliation, a successful raw LE Clear Accept List completion can
+overlap a membership check. For example, removing the last pending peer
+A stops scanning but leaves A in the accept list. Adding a new pending
+peer B then reaches deletion of stale A:
 
-> +/*
-> + * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
-> + * ATIME must be between 0 and 255, inclusive
-> + * ASTEP must be between 0 and 65534, inclusive
+  1. The request worker holds req_lock, enters
+     hci_le_del_accept_list_sync() and obtains entry A during
+     hci_bdaddr_list_lookup(), without hdev->lock.
+  2. A CAP_NET_RAW sender submits LE Clear Accept List through a raw HCI
+     socket. The event worker handles its successful completion in
+     hci_cc_le_clear_accept_list(), takes hdev->lock, then unlinks and
+     frees A through hci_bdaddr_list_clear() and releases hdev->lock.
+  3. After that free, the request worker compares A's bdaddr_type.
 
-Haven't noticed before, but is it indeed 65534 and not 65535 here (or 255 and
-not 254 above)? Haven't checked datasheet, please double check.
+The final comparison reads freed memory; KASAN reported a one-byte read
+22 bytes into the bdaddr_list allocation. Hold hdev->lock across both
+membership checks so the clear completion cannot free an entry during
+the traversal. Keep the delete command's address copy under that lock
+as well, because its caller can pass an address embedded in the list
+entry. Release the mutex before resolving-list operations or synchronous
+HCI commands, whose completion handlers also acquire it.
 
-> + */
+KASAN report as below:
 
-...
+    BUG: KASAN: slab-use-after-free in hci_bdaddr_list_lookup+0x107/0x120
+    Read of size 1 at addr ffff8881058e8c56 by task kworker/u17:0/501
 
-> +static int as7343_read_label(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan, char *label)
-> +{
-> +	int channel;
-> +
-> +	channel = chan->channel;
-> +	if (channel < 0 || channel >= ARRAY_SIZE(as7343_channel_labels))
+    Workqueue: hci0 hci_cmd_sync_work
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? hci_bdaddr_list_lookup+0x107/0x120
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? hci_bdaddr_list_lookup+0x107/0x120
+     kasan_report+0xe0/0x110
+     ? hci_bdaddr_list_lookup+0x107/0x120
+     hci_bdaddr_list_lookup+0x107/0x120
+     hci_le_del_accept_list_sync.isra.0+0xa1/0x310
+     ? __pfx_hci_le_del_accept_list_sync.isra.0+0x10/0x10
+     ? hci_passive_scan_sync+0xd88/0x2090
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x280
+     hci_passive_scan_sync+0x10a7/0x2090
+     ? __pfx_hci_passive_scan_sync+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_probe_hit_cookie+0x10/0x1c0
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ? hci_update_passive_scan_sync+0x43f/0x9f0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x280
+     hci_update_passive_scan_sync+0x473/0x9f0
+     hci_cmd_sync_work+0x1b3/0x450
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
 
-in_range()?
+    Allocated by task 504:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     hci_bdaddr_list_add+0xdf/0x2c0
+     hci_cc_le_add_to_accept_list+0x17a/0x230
+     hci_cmd_complete_evt+0x37d/0xb60
+     hci_event_packet+0x4e8/0xc70
+     hci_rx_work+0x367/0xf00
+     process_one_work+0x908/0x19c0
+     worker_thread+0x65c/0xe40
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
 
-> +		return -EINVAL;
+    Freed by task 504:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     hci_bdaddr_list_clear+0x134/0x230
+     hci_cc_le_clear_accept_list+0x13d/0x240
+     hci_cmd_complete_evt+0x37d/0xb60
+     hci_event_packet+0x4e8/0xc70
+     hci_rx_work+0x367/0xf00
+     process_one_work+0x908/0x19c0
+     worker_thread+0x65c/0xe40
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
 
--ECHRNG ?
+    The buggy address belongs to the object at ffff8881058e8c40
+                                                                which
+                                belongs to the cache kmalloc-32 of size 32
+    The buggy address is located 22 bytes inside of
+                                                                freed
+                                32-byte region [ffff8881058e8c40,
+                                ffff8881058e8c60)
 
-> +	return sysfs_emit(label, "%s\n", as7343_channel_labels[channel]);
-> +}
+    The buggy address belongs to the physical page:
+        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
+    pfn:0x1058e8
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+        raw: 0200000000000000 ffff888100042780 dead000000000100
+    dead000000000122
+        raw: 0000000000000000 0000000000400040 00000000f5000000
+    0000000000000000
+    page dumped because: kasan: bad access detected
 
-...
+    Memory state around the buggy address:
+     ffff8881058e8b00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+     ffff8881058e8b80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+    >ffff8881058e8c00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+                                                     ^
+     ffff8881058e8c80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+     ffff8881058e8d00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+    ==================================================================
 
-> +	/*
-> +	 * Setting a 600 * 2.78us * 30 = 50ms integration time as the default
-> +	 * for now.
-
-Where magic 600 came from? Please, elaborate in the comment.
-
-> +	 */
-> +	ret = as7343_astep_x2780ns(600, &astep);
-> +	if (ret)
-> +		return ret;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Fixes: e8907f76544f ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue set 3")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index efbd2e5387c0b..4e41c78a336b8 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -2473,11 +2473,16 @@ static int hci_le_del_accept_list_sync(struct hci_dev *hdev,
+ 	int err;
+ 
+ 	/* Check if device is on accept list before removing it */
+-	if (!hci_bdaddr_list_lookup(&hdev->le_accept_list, bdaddr, bdaddr_type))
++	hci_dev_lock(hdev);
++	if (!hci_bdaddr_list_lookup(&hdev->le_accept_list, bdaddr,
++				    bdaddr_type)) {
++		hci_dev_unlock(hdev);
+ 		return 0;
++	}
+ 
+ 	cp.bdaddr_type = bdaddr_type;
+ 	bacpy(&cp.bdaddr, bdaddr);
++	hci_dev_unlock(hdev);
+ 
+ 	/* Ignore errors when removing from resolving list as that is likely
+ 	 * that the device was never added.
+@@ -2653,9 +2658,13 @@ static int hci_le_add_accept_list_sync(struct hci_dev *hdev,
+ 	}
+ 
+ 	/* Check if already in accept list */
++	hci_dev_lock(hdev);
+ 	if (hci_bdaddr_list_lookup(&hdev->le_accept_list, &params->addr,
+-				   params->addr_type))
++				   params->addr_type)) {
++		hci_dev_unlock(hdev);
+ 		return 0;
++	}
++	hci_dev_unlock(hdev);
+ 
+ 	*num_entries += 1;
+ 	cp.bdaddr_type = params->addr_type;
