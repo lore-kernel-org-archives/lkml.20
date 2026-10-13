@@ -1,367 +1,148 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C523B51617E;
-	Tue, 13 Oct 2026 13:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846F43B8405
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899108; cv=none; b=TF5eTUjxOkTH1ndbcqiEZojAYHKioxBRaUcKVy4FDtuGUD3sJUgfqVEHop7OCHfy7W7jjiCl7XWOlSQ50qKF1aFW575iDqRJtwtCCOBTzO0f6JPQyw7SWJHexHFBkPN2oV3hZulDRTi0hgfSfF/5LOKr4Tnn9oLNSuMcHiyMTtw=
+	t=1791899233; cv=none; b=NJyHtk8ziQFDviJDZStS2eyg0Ewuz0syAdn1B3/jbCmfgbgig9ufsIupq5fpTcXsNKdDyqHLvl2HkietG73lWINk+cq79VeIaQg4XPs2SiFeEX4bmgSbwYJEtBq4TqM7pvOAvP/bWSy17rXDOwZE6vyJIM/IKkgQdUlkVfpLAyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899108; c=relaxed/simple;
-	bh=2K9esb2rxxIjaO8PGqyYEZ2UlYuHirbY9KcLIPGdtGs=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=Fno13TjHmAt2qGVRzskdPlOFj4QSlxvl1yCp8nVRG7ba8kpzMvJhIAjjZCtVBhQHrhwprGwEOIbET2BlvI4NwoTIZaiHInvbiWrbR/aZ8KpMZgIBcAXCLS7bYmO5srwgEW3rk09/3lqLYGFm9nqf8JF3SS2Yk39mrd4GfE3qlj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=NNttS5tC; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1791899233; c=relaxed/simple;
+	bh=BU6af2PkoKEbw2cLAHxWWzvc3gW4znIE8f1DvIKFsAU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TOITVRITiGlGY/f55Qu1rrBPOANB6/t2vCgB1PyjcfB781s+RoOSsqM/DB3ri3TZJZcrd+cSS84hE+iMFRPr01auZjMfL13F/cBdgnjl++RzmRsfkptSE7J3TWGukikXpDjX6MWjrZkQekFkqE/O3Chhg7Y6R1uU1LezAc/Pc24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=seL1jRPW; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="NNttS5tC"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B459FA154E;
-	Tue, 13 Oct 2026 15:44:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791899102; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=sWP5ScqijjiEIoYGO8EKPnLgF0QAEOdTW4fqk62uGLw=;
-	b=NNttS5tCQicUvNK/mvWIvrvXIDVdAVtkxEBy+DpChtGemfOWOw3fc0r/YNOtqUijJRSS1U
-	m1o2H8jWSdkwunQNHv3SwJT/4hDlLrDsRla9hQI0VADf75UInKIvwmqJid/qG4CmGuW13F
-	XvIjR1+7ompviHNY2X0pZqByaUrJ1NIYjvMaGyw8Ir4UcqPDfOSDJ+/ejzvnhOesSdwES2
-	9VttJYiobP4b9GPdpot9JA+d+PYYPFafjCkJXL+PQkl9f3ezCjgMkCSvs4GaM33fVxvXIE
-	izBznE8vUIUcZbW4H7ehGK9U1W5Q6JlOCfE7diXjXWp3oqIS94y5PKx4YBPJfA==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="seL1jRPW"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8935f42e8f0so1092939b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:47:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791899232; x=1792504032; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OEd55JoJOoDV13ld4fQoCE8domEIQzBBmawfYivXwdA=;
+        b=seL1jRPWBX+TJKkTFCQ6/rWBLn19hk06reJp/ZpT92rJZl+ncqtq0ebwBCYuNSfaTa
+         L1R//2vzLCsZlIh/BGANnntelxM7wTCPXix+mhac8IvFl8vtvNWr+yIEdYaMTawKcaPJ
+         GFlGbLTOvILNUZRLIHWUVWsYTH7fWFlUbGVV2lMgSgu+8XOfVf4daqstC8gBtA0p8Hfr
+         uwpF2xOs/7tTcSddr793QKeOi5T5sDzVxMJE3A9zmpsV41B+zj9UehZLlxgcG1YYMmyB
+         CVh73pRyiqaGQvfIrGxXq6gG6BrhPtjuuBudWFg2uL0neEbktQMrabD8hK6woukKh+1C
+         WKIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791899232; x=1792504032;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OEd55JoJOoDV13ld4fQoCE8domEIQzBBmawfYivXwdA=;
+        b=tt1EbAjWu55BILwZtQ96F+Z0evpD0/KuPT53Kx0z0BgjlzWLEoT4HMX8g5VB2PPt02
+         qhBB9HhqjjT+PoeCTzNqOqQQD22jjVo9r5Hl5UPCzIna7j7Vg2JJemNyXkF0JT3qMA89
+         j+/WggF/c/x1ipY3LA0LsT7YTxdi9GitF/kS0CTBZphoH5M7ItOsWwL7R41xDj6jVdIr
+         Ucu+Y5XIYb0SZQ5j3s3ZfgpgE79D02Edw7hLO7A+6B65K1zn0939SRy+SGZy5nFiSd83
+         +nXT52U3DdOThMNxig0lbMW8MvGF8+9etFMKJFRlUZ+4GvDMfm/cRrJBeWiM8yRqhftF
+         3VdA==
+X-Forwarded-Encrypted: i=1; AKwUvByxLm7Qi/ATRscCr3o9tE9K41r42Ar+STTFfoxwC0XQs8/GNb5mC24s6Aw7l7Sd8ANzCTOH3hWnZIBVdNc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZjHXn9N/Uc8nwez4R1Coz1vjqwV6G4ZG59XrrRkxWty3eYHnV
+	RbpF8fEG+FzGgFAQ2uSR2vsQFG15No1+e6a1jv8Bl3m+4qPZeAYNP/GBbVd+6qg3
+X-Gm-Gg: AYBFou34iOiwo2EJhmKI5mxtpKvLZIbcltyJ/mznAtHQIA4Icfrj3dLuuc4KjmtxeFi
+	Mql2UWzkup5FHiQ/H2acX/MDrMW8V1xjapXiGJxfAm5JW4itM/WiU3w3tB770ImKB576bJSiwKN
+	aKiSZIs7vouw3p15MPTexo6MLmfQDOR49FkyUmVl5hsD/qDRJYIcVcNRflV+vZUEJ4+emWPesrN
+	/YqQ8GvY0QC0bAM8jG0gZ/btxXfHRh1GfQ0WEpJlMgtfiCDqeT4JJbyGxJijVIwP07a8917rJuk
+	UtwF7W/tiOBvkTtAx6XMb0gRu86HLhNPEmhKXol1rRIz6Nq29wzGjhqArUv10m/FMZh46ClcsLj
+	7nv6FM5y5MkYBb37+IwFiCuMLeGkXj1khE/AyEwmS6fvBzuOooum3ykO12pz/m3x/qm7WkroukZ
+	TWTdGpXxWas+SoXk/c8ZNZMT473CHt6EcNaI2J6qKyeJrIbZAHyxPntUIJv3F/f9Xw7STYOWNgH
+	74WLwuD+A==
+X-Received: by 2002:a05:6a00:b50:b0:882:626a:709f with SMTP id d2e1a72fcca58-897c3ff5155mr10872889b3a.3.1791899231770;
+        Tue, 13 Oct 2026 06:47:11 -0700 (PDT)
+Received: from arch.localdomain ([161.118.199.118])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3cc80b0sm5044853b3a.29.2026.10.13.06.47.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 06:47:11 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	Damon Ding <damon.ding@rock-chips.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Subject: [PATCH v2 RESEND] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
+Date: Tue, 13 Oct 2026 21:46:57 +0800
+Message-ID: <20261013134659.335829-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 13 Oct 2026 15:44:59 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dave.stevenson@raspberrypi.com, justin.chen@broadcom.com,
- pierremarinleclercq88@gmail.com, f.fainelli@gmail.com
-Subject: Re: [PATCH net-next v4 7/8] net: bcmgenet: allow the MTU to be
- changed
-In-Reply-To: <179188315964.434549.2607094947649815116@kernel.org>
-References: <20261012-nb-genet-mtu-nn-v2-v4-7-2e2e3bfaf8cc@tipi-net.de>
- <179188315964.434549.2607094947649815116@kernel.org>
-Message-ID: <92aa4715d68679c8c33d4c40bdd75ae5@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 13.10.2026 11:19, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 (1) · Medium: 2 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let 
-> patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your 
-> reply
-> (one such reply per series is enough).
-> 
-> - [Medium] An RX filter update can be lost during the MTU change.
-> - [Medium] The live MTU change leaves the PHY state machine running
->   (bcmgenet_netif_stop(dev, false)), but nothing stops the PHY link…
-> - [Low] The patch fixes two existing bugs, but neither the commit 
-> message
->   nor a Fixes: tag mentions them.
-> 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but the patch 
-> adds
->   priv->datapath_up and leaves this path unguarded.
-> 
-> --
-> 
-> net: bcmgenet: allow the MTU to be changed
-> 
-> This commit sets dev->max_mtu for GENET v2 and later, derived from the
-> packet ready threshold and the one page descriptor limit. It adds an
-> ndo_change_mtu that rebuilds the DMA rings and MTU registers in place 
-> while
-> the PHY keeps running, and retries the old MTU if allocation fails. A 
-> new
-> priv->datapath_up flag tracks whether the datapath has already been 
-> torn
-> down.
-> 
-> Link: https://github.com/raspberrypi/linux/issues/5561
-> 
->> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
->> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
->> index e00661b2414b9..f158d6bc314b9 100644
->> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
->> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> 
-> [ ... ]
-> 
->> @@ -3179,8 +3185,12 @@ static int bcmgenet_init_rx_queues(struct 
->> net_device *dev)
->>  	/* Initialize Rx priority queues */
->>  	for (i = 0; i <= priv->hw_params->rx_queues; i++) {
->>  		ret = bcmgenet_init_rx_ring(priv, i, end - start, start, end);
->> -		if (ret)
->> +		if (ret) {
->> +			/* Only the rings before this one hold a NAPI */
->> +			while (i--)
->> +				netif_napi_del(&priv->rx_rings[i].napi);
->>  			return ret;
->> +		}
-> 
-> [Severity: Low]
-> This isn't a bug, but this unwind and the new priv->datapath_up 
-> handling in
-> bcmgenet_close(), bcmgenet_suspend() and bcmgenet_resume() look like 
-> they
-> also fix two existing problems. The commit message doesn't mention 
-> either
-> of them.
-> 
-> Before this patch, if bcmgenet_init_rx_ring() failed for ring i, the 
-> NAPIs
-> of rings 0..i-1 stayed listed after a failed bcmgenet_open() or
-> bcmgenet_resume(). The next netif_napi_add() would then hit the
-> already-listed warning.
-> 
-> Also, bcmgenet_close() used to call bcmgenet_netif_stop() 
-> unconditionally.
-> A close after a failed resume would call napi_disable() on NAPIs that 
-> were
-> already disabled during suspend, and then kfree() rx_cbs/tx_cbs a 
-> second
-> time. That path has nothing to do with the MTU, but the new comment in
-> bcmgenet_close() only says:
-> 
->     /* A failed MTU change can have torn the datapath down already */
-> 
-> Could these fixes be split into separate patches with Fixes: tags so 
-> they
-> can go to net and stable? The rx unwind is needed for the MTU retry, 
-> which
-> calls bcmgenet_init_dma() twice in a row, so it could come first in the
-> series.
+The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
+internal eDP port) has no separate PHY device and relies on its built-in
+PHY, which is programmed directly through the GRF registers, so its DT
+node carries no "phys"/"phy-names" property.
 
-The Rx NAPI unwind stays here. The retry path calls bcmgenet_init_dma()
-twice in a row, so this patch would be broken without it. A Fixes: tag
-would also pull the whole MTU feature into stable.
+Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
+-ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
+misleading "no DP phy configured" error at probe time before falling back
+to a NULL phy.
 
-> 
-> [ ... ]
-> 
->> @@ -3622,7 +3633,11 @@ static int bcmgenet_close(struct net_device 
->> *dev)
->> 
->>  	netif_dbg(priv, ifdown, dev, "bcmgenet_close\n");
->> 
->> -	bcmgenet_netif_stop(dev, false);
->> +	/* A failed MTU change can have torn the datapath down already */
->> +	if (priv->datapath_up) {
->> +		bcmgenet_netif_stop(dev, false);
->> +		priv->datapath_up = false;
->> +	}
-> 
-> [ ... ]
-> 
->> +static int bcmgenet_change_mtu(struct net_device *dev, int new_mtu)
->> +{
-> 
-> [ ... ]
-> 
->> +	/* The watchdog trips on an idle queue once the rings are gone */
->> +	netif_device_detach(dev);
->> +
->> +	/* Only the buffers and the MTU registers change, leave the PHY up 
->> */
->> +	bcmgenet_netif_stop(dev, false);
->> +	priv->datapath_up = false;
->> +
->> +	WRITE_ONCE(dev->mtu, new_mtu);
->> +	priv->rx_buf_len = bcmgenet_rx_buf_len(new_mtu);
->> +	bcmgenet_set_mtu_regs(priv, new_mtu);
-> 
-> [Severity: Medium]
-> Can the first link-up enable the MAC again in the middle of this
-> reconfiguration?
+Use devm_phy_optional_get() instead, which returns NULL when the PHY is
+absent and otherwise behaves identically, and drop the manual -ENODEV/
+-ENOSYS handling. This also removes the spurious error message.
 
-Yes, nothing prevents it. In v5 I will hold phydev->lock across the 
-rebuild so
-bcmgenet_mac_config() cannot run inside it.
-
-(Although I couldnt't reproduce it on a CM4 in ~550 MTU changes, 173 of
-them with CMD_SW_RESET still set...)
-
-> 
-> After ifup and before the first link-up, UMAC_CMD still has 
-> CMD_SW_RESET
-> set from init_umac()->reset_umac(). In that state umac_enable_set() 
-> returns
-> without writing anything:
-> 
-> drivers/net/ethernet/broadcom/genet/bcmgenet.c:umac_enable_set() {
->     ...
-> 	if (reg & CMD_SW_RESET) {
-> 		spin_unlock_bh(&priv->reg_lock);
-> 		return;
-> 	}
->     ...
-> }
-> 
-> So the MAC disable inside bcmgenet_netif_stop() has no effect.
-> 
-> The PHY state machine keeps running here. A link-up in this window runs
-> bcmgenet_mii_setup()->bcmgenet_mac_config() under phydev->lock, not 
-> RTNL:
-> 
-> drivers/net/ethernet/broadcom/genet/bcmmii.c:bcmgenet_mac_config() {
->     ...
-> 	if (reg & CMD_SW_RESET) {
-> 		reg &= ~CMD_SW_RESET;
-> 		bcmgenet_umac_writel(priv, reg, UMAC_CMD);
-> 		udelay(2);
-> 		reg |= CMD_TX_EN | CMD_RX_EN;
-> 	}
->     ...
-> }
-> 
-> The MAC would then be enabled while bcmgenet_set_mtu_regs() rewrites
-> UMAC_MAX_FRAME_LEN and the RBUF/TBUF thresholds. That function's own
-> comment says "Call with the MAC disabled". It would also be enabled 
-> while
-> bcmgenet_init_dma(priv, true) flushes the RBUF and rebuilds the rings.
-> 
-> Open and resume program these registers before phy_start(), so only the
-> new path is exposed. The window includes the 10-20 ms sleep in the DMA
-> teardown, so a network manager that sets the MTU right after ifup could
-> hit it. Does anything prevent this?
-> 
->> +
->> +	ret = bcmgenet_init_dma(priv, true);
-> 
-> [ ... ]
-> 
->> +	bcmgenet_hfb_restore(priv);
->> +	bcmgenet_netif_start(dev, false);
->> +
->> +	/* bcmgenet_netif_start() only restores the link interrupt */
->> +	if (bcmgenet_has_mdio_intr(priv))
->> +		bcmgenet_intrl2_0_writel(priv, UMAC_IRQ_MDIO_EVENT,
->> +					 INTRL2_CPU_MASK_CLEAR);
->> +
->> +	/* A link event latched while the interrupts were off is gone. 
->> Internal
->> +	 * PHYs on GENET v1-v4 are not polled, so resync the state machine.
->> +	 */
->> +	phy_mac_interrupt(dev->phydev);
->> +
->> +	priv->datapath_up = true;
->> +	netif_device_attach(dev);
-> 
-> [Severity: Medium]
-> Can a concurrent RX address list update get lost here?
-> 
-> bcmgenet_netif_start() programs the RX filters through
-> bcmgenet_set_rx_mode() under netif_addr_lock_bh() and then drops the 
-> lock.
-> The device stays detached until the netif_device_attach() above. A 
-> unicast
-> or multicast list change in that window reaches __dev_set_rx_mode(), 
-> which
-> drops it:
-> 
-> net/core/dev_addr_lists.c:__dev_set_rx_mode() {
->     ...
-> 	if (!netif_device_present(dev))
-> 		return;
->     ...
-> }
-> 
-> netif_device_attach() doesn't resync the RX mode, and bcmgenet has no
-> ndo_change_rx_flags, so nothing queues the update for later.
-> 
-> RTNL is held here. However, IPV6_ADD_MEMBERSHIP
-> (ipv6_sock_mc_join()->__ipv6_dev_mc_inc()->dev_mc_add()) runs under the
-> socket lock and mc_lock, not RTNL, so it can race with this. The new 
-> group
-> would then sit in dev->mc without reaching the MDF filter until some
-> unrelated RX mode change.
-> 
-> Would it help to call bcmgenet_set_rx_mode() again after
-> netif_device_attach()?
-
-Yes. v5 will do that under netif_addr_lock_bh().
-
-> 
-> [ ... ]
-> 
->> @@ -4510,6 +4602,7 @@ static int bcmgenet_suspend(struct device *d)
->>  	} else {
->>  		/* Teardown the interface */
->>  		bcmgenet_netif_stop(dev, true);
->> +		priv->datapath_up = false;
->>  	}
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but the new 
-> priv->datapath_up
-> flag tracks exactly this state, and bcmgenet_suspend() still never 
-> checks
-> it. Can a second system suspend hang after a failed resume?
-> 
-> The sequence would be:
-> 
-> 1. A non-WoL suspend runs bcmgenet_netif_stop(dev, true). Its
->    napi_disable() calls leave NAPI_STATE_SCHED|NPSVC set.
->    bcmgenet_fini_dma() then deletes the NAPIs and frees rx_cbs/tx_cbs
->    without NULLing them.
-> 
-> 2. bcmgenet_resume() fails in bcmgenet_init_dma() (kzalloc failure, 
-> Tx/Rx
->    DMA halt timeout, or Rx buffer allocation failure):
-> 
-> 	ret = bcmgenet_init_dma(priv, false);
-> 	if (ret) {
-> 		netdev_err(dev, "failed to initialize DMA\n");
-> 		goto out_clk_disable;
-> 	}
-> 
->    The device is left detached, netif_running() is still true and
->    datapath_up is false.
-> 
-> 3. On the next system suspend, bcmgenet_suspend() sees netif_running() 
-> and
->    reaches bcmgenet_disable_tx_napi(). In this branch that happens 
-> through
->    bcmgenet_netif_stop(), and the WoL branch calls it directly.
-> 
-> napi_disable_locked() would then loop forever in:
-> 
-> 	while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
-> 		usleep_range(20, 200);
-> 		val = READ_ONCE(n->state);
-> 	}
-> 
-> That happens because the earlier disable left those bits set. Even if
-> suspend got past that point, bcmgenet_fini_dma() would kfree() rx_cbs 
-> and
-> tx_cbs a second time.
-> 
-> bcmgenet_close() is now guarded by priv->datapath_up. Should the 
-> teardown
-> in both branches of bcmgenet_suspend() check it too?
-
-Agreed. But that is pre-existing, so I will do this in a follow up, 
-together
-with the dangling rx_cbs/tx_cbs which make the second teardown a double 
-free.
-
+Assisted-by: Claude:deepseek-v4-flash
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
 ---
-pw-bot: cr
+ .../drm/bridge/analogix/analogix_dp_core.c    | 22 ++++++-------------
+ 1 file changed, 7 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 6df6963740d2..637b1bff0f6c 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1426,21 +1426,13 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	dp->phy = devm_phy_get(dp->dev, "dp");
+-	if (IS_ERR(dp->phy)) {
+-		dev_err(dp->dev, "no DP phy configured\n");
+-		ret = PTR_ERR(dp->phy);
+-		if (ret) {
+-			/*
+-			 * phy itself is not enabled, so we can move forward
+-			 * assigning NULL to phy pointer.
+-			 */
+-			if (ret == -ENOSYS || ret == -ENODEV)
+-				dp->phy = NULL;
+-			else
+-				return ERR_PTR(ret);
+-		}
+-	}
++	/*
++	 * RK3288/RK3399 use Analogix DP controller built-in PHY,
++	 * no extra PHY configuration is required.
++	 */
++	dp->phy = devm_phy_optional_get(dp->dev, "dp");
++	if (IS_ERR(dp->phy))
++		return ERR_CAST(dp->phy);
+ 
+ 	dp->clock = devm_clk_get(&pdev->dev, "dp");
+ 	if (IS_ERR(dp->clock)) {
+-- 
+2.56.0
+
