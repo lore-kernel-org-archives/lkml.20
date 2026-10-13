@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010D954A7C5;
-	Tue, 13 Oct 2026 20:14:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAF954A7D6;
+	Tue, 13 Oct 2026 20:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791922483; cv=none; b=kIn61/tlekJfE9LSJj/DFKyZoEM1TsW3MBk9ZaLgIBQfzevpaCrALO6ihRPk3GH8j2U6CG3EaWO+TrbQJRv7uYNvKHVZaNG+ElftPkxfFlnoYyM64VaGZJU2SrRw2pLD7l+FeuOI4fpPrPm360AKI2FIS3Lk2Xz/rShT/oNswPo=
+	t=1791922487; cv=none; b=iOmutPTAthxAg8G6lQkWJTgcbjs4nYekYIRB9MOdsn9o9nE5WzhLIj5tegq7newUn+LypPETKiOMK5ZqV7vdzUL3css39NZTHaH0Dw/NkeljKmu52XbLEjzmRWONW5HnSpm29AxXV0cACND8i4ORSj9m2ZSI+5s6p3zJK6G/L40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791922483; c=relaxed/simple;
-	bh=shb+X9RZhGe2vFdaniacTlJ0uA+vvD5eiiv7TT/79to=;
+	s=arc-20240116; t=1791922487; c=relaxed/simple;
+	bh=D6gBH4rzn9ofW182vOzOgRcRuc+ozHzrNi9DP0nNdXg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j4ZGXCIMroBCmCJhVV5O4ryjsBoZcwA44hcFhPExojNc3Tw8hy2ogDtGa/MnQwLw2qBvgkbGj7jk+w/w1EJqsnMx2ewacU299B3UbDT8hh5ZtIQ63UnZp0wYtP36ZtOPHgVQbT8DaurKkxipcyWLQCyb86UOOD4Sq+mHSmBeSSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlDJ3/wZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WyKwstu9KAULzheuksEEs+BOX8d2ocFun51wkHVdATHrHORMQMtdiSXXJWDwO/oU4G9hEqFzmlFl+osKKENCapwCRoYSCY3zf/Of0TJkm+K6+9QB9uKycRDh5/qYOTw53TF8SdTNqz3Di46iwnYnhycDxa589cje5ELUzUQA2qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jmquucq8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlDJ3/wZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0492E1F000FF;
-	Tue, 13 Oct 2026 20:14:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jmquucq8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB1E1F00893;
+	Tue, 13 Oct 2026 20:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791922481;
-	bh=J75Rf2aefD1rmdHAa8hpd0EVTtpLGr2UwPu74f/0Na8=;
+	s=k20260515; t=1791922484;
+	bh=wS0fg57Vpynd21ZO3GmtvsnsHKdxN1CGGQHPTIoEj6E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YlDJ3/wZIa3SE8jIq5xPy6g9pi2e9+WO5+WJ4MArw3zaNO63gBZl2XoXfoACSLO+Y
-	 KWZgsrHeWQrGjWIV7ObHZ3fwwAfrcV20GI6jUErSI2+OV3x0xO/hD/yYNcAjok2A8X
-	 vmb2uqrcsv+XpOKUNF2DWzAgTzu9GGnibHU5fmW7qifwPjMuoIGRea85oxXYP28bHX
-	 2eS0iH0dCWyx94gDs7b/8asyLadUZcitOiFO2Wyn2diZym3wU3607lZnzgJQ/m/gJJ
-	 mwNzcvTmYrIsFVme2esG6d6DA5/czKXlf1EMEIAhnPn2N/cmGmJWcMb0R6Hwy5NUaL
-	 uKbz7sXPNfSYA==
+	b=jmquucq87XXKwok0upeEZB55Ucbf4DrOd6/ZPzVIr5tggcjOxOEMiGYZ6YVLw4nSb
+	 R+jvifyc9VYy5yN3gpQWOXifiw3wxGGjo02kAcTDxxXz3dFFksarvrFQGL2HHigumk
+	 t5aPBs0XIqpkrB5+PgJK3NO16ij8Xef5HvD8EaYUYulrFsXT2c2TpJ9IkAlIpZwBmF
+	 bcnkHjl876e9FXASlWpLuFjqpJdxLkll4F+2hYW1wdtANuCl7M8sRq4DkYnqk8sOmo
+	 LuQ02pf6pM2R4KBlOjQMHbaTzuzC5OvTboHp5yTr1c1idF1TVdTNsdDSBUN7by8Gle
+	 Mh9Y346rfRmwg==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
@@ -38,9 +38,9 @@ Cc: Ingo Molnar <mingo@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
 	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v2 05/19] perf test attr: Relax group checking for ungrouped expectations
-Date: Tue, 13 Oct 2026 17:14:00 -0300
-Message-ID: <20261013201415.36428-6-acme@kernel.org>
+Subject: [PATCH v2 06/19] perf evsel: Mark the event as supported when retrying an open
+Date: Tue, 13 Oct 2026 17:14:01 -0300
+Message-ID: <20261013201415.36428-7-acme@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261013201415.36428-1-acme@kernel.org>
 References: <20261013201415.36428-1-acme@kernel.org>
@@ -54,69 +54,52 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-When matching the recorded events back against the expectations,
-attr.py requires every event opened in a group to match an expectation
-that declares the same group.  The perf stat default metrics open the
-events of each metric in groups, but the test expectations only verify
-the event attributes, so test-stat-default fails with:
+Opening a group with perf record on a machine with perf_event_paranoid >
+1 and no CAP_PERFMON fails the first perf_event_open() with EACCES, after
+which evsel__open_cpu() clears evsel->supported; evsel__fallback() then
+adds exclude_kernel and record__open() retries, and the retry succeeds
+with supported left false.  get_group_fd() treats unsupported events as
+ungroupable, so the retry opens the group members without their leader:
 
-  FAILED '.../test-stat-default' - group failure
+  sys_perf_event_open: pid 12345 cpu 0 group_fd -1
+  FAILED '.../test-record-group-sampling1' - group failure
 
-Only enforce the group of a recorded event when the expectation it
-matches declares one.  Expectations that ask for a group are still
-verified in both directions.
+which fails the group subtests of "perf test 82", the Perf attribute
+expectations test, when it is run as a regular user, while it passes as
+root or with CAP_PERFMON, where the first open doesn't fail.
 
-Fixes: c7adeb0974f18da4 ("perf jevents: Add set of common metrics based on default ones")
-Fixes: 2dfc0cab3da4a205 ("perf stat: Add detail -d,-dd,-ddd metrics")
+commit 2cc7aa995ce9 ("perf stat: Refactor retry/skip/fatal error handling")
+dropped the pos->supported = true that record__open() did after a
+successful open and moved the resets into the stat code only, while
+saying "When an event is tried the supported is set to true again".  Do
+that in evsel__open_cpu(), which every open entry point funnels through,
+so that a retry describes its own try instead of the previous failure.
+
+Fixes: 2cc7aa995ce9ecd8 ("perf stat: Refactor retry/skip/fatal error handling")
+Cc: Ian Rogers <irogers@google.com>
 Assisted-by: LLM
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/perf/tests/shell/lib/attr.py | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ tools/perf/util/evsel.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/tools/perf/tests/shell/lib/attr.py b/tools/perf/tests/shell/lib/attr.py
-index b55c9b881e59852f..f254d03c1b253c7a 100644
---- a/tools/perf/tests/shell/lib/attr.py
-+++ b/tools/perf/tests/shell/lib/attr.py
-@@ -353,7 +353,7 @@ class Test(object):
-             else:
-                 raise Unsup(self)
+diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+index 9c5e7510f0c019c3..e61f309e93dccc7f 100644
+--- a/tools/perf/util/evsel.c
++++ b/tools/perf/util/evsel.c
+@@ -3014,6 +3014,12 @@ static int evsel__open_cpu(struct evsel *evsel, struct perf_cpu_map *cpus,
+ 	enum rlimit_action set_rlimit = NO_CHANGE;
+ 	struct perf_cpu cpu;
  
--    def compare(self, expect, result):
-+    def compare(self, expect, result, strict_groups=True):
-         match = {}
- 
-         log.debug("  compare")
-@@ -387,8 +387,9 @@ class Test(object):
- 
-             match[exp_name] = exp_list
- 
--        # For each defined group in the expected events
--        # check we match the same group in the result.
-+        # Check that each expected group is matched in the result; an event
-+        # opened in a group may match an expectation that doesn't declare
-+        # one, as those only verify the event attributes.
-         for exp_name, exp_event in expect.items():
-             group = exp_event.group
- 
-@@ -397,6 +398,8 @@ class Test(object):
- 
-             for res_name in match[exp_name]:
-                 res_group = result[res_name].group
-+                if res_group == '' and not strict_groups:
-+                    continue
-                 if res_group not in match[group]:
-                     raise Fail(self, 'group failure')
- 
-@@ -435,7 +438,7 @@ class Test(object):
- 
-             # do the expectation - results matching - both ways
-             self.compare(self.expect, self.result)
--            self.compare(self.result, self.expect)
-+            self.compare(self.result, self.expect, strict_groups=False)
- 
-         finally:
-             # cleanup
++	/*
++	 * A failed attempt being retried after evsel__fallback() would
++	 * otherwise keep group members out of their group in get_group_fd().
++	 */
++	evsel->supported = true;
++
+ 	if (evsel__is_retire_lat(evsel)) {
+ 		err = evsel__tpebs_open(evsel);
+ 		goto out;
 -- 
 2.55.0
 
