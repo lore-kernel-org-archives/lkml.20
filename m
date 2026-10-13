@@ -1,118 +1,130 @@
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08F73B2FC0
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:41:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 808B13B42C7;
+	Tue, 13 Oct 2026 08:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791880915; cv=none; b=k4gKiPl5lmm+lwicoYJB2/Nk59ntfIuRU8ve9ME8StVuzUBrw1f9yPI6PqxHmCBCS5cxdJWvXL8wnMYMQwH8ktVlDs4PRXJgeO4k0guDSpsieT/iOEx1G/Rd//wLraVofvIMTXFwDYjAW8Dd3tpA0CsjcIPTBC07j2BgLfPQWrM=
+	t=1791880920; cv=none; b=SAyUFJ5CGQRQZfExllYFKbrI4y5aKksizcZbwP9a0pzEyE866fER8sHbafsXmh46Rn1GdOdqbfoReIodH/0EJs2fUMaQgNudyTisSvY9euLmUwLawyT3ZfZF6nSBSYvl//SxI9dRPiOdY/DgKLovJ/6ZstGo/BNHG+vO7u+ZpAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791880915; c=relaxed/simple;
-	bh=iiLFboFitnzBHsaT+sxc8vk+RQSNGJRxx7TyVNfIINU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KhZHyQrvtuUGOXi7ub3RYgqUMZmltNzwMJgpkqRIcb5cndu3w7gDrmnHCMYRLaBLrl56wiaeu6uKeJ81e2x+UtaKz860uDvzcR3ivGhyS40kZ6Cs5+6gGD/cWBfVjTJ49uZf5307v23Dy0+e7IOxm1ZyPeaiReXSg9XF1i2QaFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-78fb9d46f0aso1434276137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:41:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791880913; x=1792485713;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7d2pO7Vy0vJkBeOnC8nnzEd3ICQOoYmzmIOgS10xlyA=;
-        b=GrnPy9SY9m5InfM3lDHQzcwVsUovbyvRlzXiFkCHFDiqsgV2Xtp1c50AO4nROI4y//
-         esTlhJ3XtaX+sVvoiOOsEDhBF9RuwNYqk7W9hTjaCz0FNFYemDQaXw8dG1hdU0Q9Jlac
-         TmZ56kVaSOHSFokfnifxBF+nNGVKNUUkRiYEaTBwth54KA0gu/NDGgo+uJg4UbW91D79
-         LIKICTmQOP+xNXEJkmousPyYd+T8WXXCxLJxJPnJ0U2qTfj+K/BMQ5FRXf2bzmFtQcm/
-         l+rugnQO20v/NnwGbXVhH2azrB3l9SJIkZ90YzM/jWpulpR5KSQJa99h79jFdlP3doqP
-         rxLQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEoEL2uzs77fsHa2/5O54ervSl+HaDb/TZXvxgN0iTjeI1nPmF4lSpVKKNuPTxZxQaX36K+5Fj/WOBB28=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWlC6zBYCRqc7E10ZgJIN7gAxIXGGZdNpp1datygi4obtmXMQ0
-	5kcP1XuhTOFBMdwBMvY2ALXCtZhLo4Zk/2sUzR/VZbeFtTIKb+f86MH6JXju1Grx
-X-Gm-Gg: AYBFou1zgR6C1OjNBF4VL+ax8kgvi6MoswhEicCiZ9ecYIS7W+OkbLFEpij44v6lFDV
-	j2c9sltMJk/YUkyWAXzJd1aLzJoQHvzuC1y9QaVyw5MzNtzOWY2oTbjZeDTtayh7LpwKBALMSoM
-	k58AqBKIpfPv0HdMR5Ny3yoBnz6BVutaq3KkfjskxSRbxQdfXImwieDUfdEgflvntXaoZcR80V1
-	LKt0YvTfNNzeXDFsJrjqRud82cLHZ1ELYfRu7e33Qg+PW8gsMK2et3m8IzX5Qbl9XGxWNfOizci
-	NaR1kcoTkxUdI7DAgcrTvu3ZWIGriVJZYdV2D99yTY4cwsa6Zb37FMXebCi+LCfQF11/+/u+Xcy
-	MMasaIt1hQukie4lw7s9DAXoYJ/J5p0CcCkjtWmLfpOZ1yfX1uCY4EMbNhyNpFXRahBT2KzII05
-	jHhHFpQIcB5iiebSPeukPBczs3EfuintSHO4S0TDhAOekQmBajAo1WGYrOj6x+zy71vh56iw2OE
-	g+nxxfhHT8iQlo1hT39/TDlcthROqY11VaP
-X-Received: by 2002:a05:6102:f8c:b0:7c3:68c9:d20a with SMTP id ada2fe7eead31-7cb3a005996mr3569327137.8.1791880912705;
-        Tue, 13 Oct 2026 01:41:52 -0700 (PDT)
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb354681e4sm8474884137.10.2026.10.13.01.41.51
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 01:41:51 -0700 (PDT)
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7ca917f9f52so1578628137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:41:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxFqppf86ibSB/tIokZ7SxT/pTYxg1pQSe9vBuEjcWjsKwlANbWZBUsmCOuo485V2rHaLe28kttUUN6e84=@vger.kernel.org
-X-Received: by 2002:a05:6102:f8c:b0:7c3:68c9:d20a with SMTP id
- ada2fe7eead31-7cb3a005996mr3569324137.8.1791880911423; Tue, 13 Oct 2026
- 01:41:51 -0700 (PDT)
+	s=arc-20240116; t=1791880920; c=relaxed/simple;
+	bh=NI8CmL/lnRoC7aE++YpF7fiq+bAGnCCUDMqbYkmDDew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TLLq5FJRA5/x7iyR4SkX3ocsC0RM1sx5yewA5XAgYeWHxORnEf8L7T3LxjVIA0yD0exShE2VpYqk88A0d306lq4ScijplzeaH5ypolXC4CRMYjii+sFvE4IohUJhtRwsuPb+KiZV4NG2pwDA+wLuZo8scIEVFgrus7DF4rn3acU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bZqkt7Lf; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bZqkt7Lf"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6FDCC169C;
+	Tue, 13 Oct 2026 01:41:52 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 702B53F66F;
+	Tue, 13 Oct 2026 01:41:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791880915; bh=NI8CmL/lnRoC7aE++YpF7fiq+bAGnCCUDMqbYkmDDew=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bZqkt7LfHhgrP+LpLkfSWkgVJSZiTZFy4lKziZu5iR37k9EFAy02+ty8P4ISH7oZJ
+	 KekFmta7QOPeZeaIU4GpQdPFpSIaN4Jm43CjCrlwnAe9zBdYufWXPGSmiCV/ITKyn4
+	 5OZk62xDJBVPfh1/7axdbnw2G3tJM7jWkrMYzZEU=
+Date: Tue, 13 Oct 2026 09:41:49 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: GONG Ruiqi <gongruiqi1@huawei.com>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Roberto Sassu <roberto.sassu@huaweicloud.com>,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Dan Williams <djbw@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Suzuki Poulose <suzuki.poulose@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sami Mujawar <sami.mujawar@arm.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>
+Subject: Re: [PATCH RFC 0/3] security: ima: support TSM measurement registers
+Message-ID: <as3uzQ7L6tJ-Lu-Q@e129823.arm.com>
+References: <20260930-ima_tgx_integration_v2-v1-0-722c35370548@arm.com>
+ <ebe68f6463f8ece8a5cd8ce70bba292ec4f64a41.camel@huaweicloud.com>
+ <c4fe5315d70fc162f1e5648e3fccb1676710d5e6.camel@huaweicloud.com>
+ <ar5tOUor0bp3MtQ6@e129823.arm.com>
+ <9e74ff9d-e8a3-425e-bf7c-f973d06e6cdf@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008150045.28905-1-jszhang@kernel.org> <20261008150045.28905-2-jszhang@kernel.org>
-In-Reply-To: <20261008150045.28905-2-jszhang@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 13 Oct 2026 10:41:40 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVTwPuTXTg_e7OCM289ALmHQsS1Uz+0z5y=CgsPGZt8Yg@mail.gmail.com>
-X-Gm-Features: AclHuK9fEs20wSyQEl5Tf_pA55385vtFfDZFH1OesZnNWKkOdRpWR450rrFg9KU
-Message-ID: <CAMuHMdVTwPuTXTg_e7OCM289ALmHQsS1Uz+0z5y=CgsPGZt8Yg@mail.gmail.com>
-Subject: Re: [PATCH v5 1/5] riscv: remove RISCV_ALTERNATIVE Kconfig option
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Alexander Potapenko <glider@google.com>, 
-	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9e74ff9d-e8a3-425e-bf7c-f973d06e6cdf@huawei.com>
 
-Hi Jisheng.
+> On 10/1/2026 10:24 PM, Yeoreum Yun wrote:
+> > Hi Roberto,
+> > 
+> >> On Thu, 2026-10-01 at 13:27 +0200, Roberto Sassu wrote:
+> >>> On Wed, 2026-09-30 at 14:43 +0100, Yeoreum Yun wrote:
+> >>>> Confidential computing guests without a TPM can use TSM measurement
+> >>>> registers to record IMA measurement digests instead of TPM PCRs.
+> >>
+> >> + Gong Ruiqi, of course.
+> >>
+> >> Roberto
+> 
+> Hi Roberto,
+> 
+> Thank you for involving me!
+> 
+> >>
+> >>> Hi Yeoreum
+> >>>
+> >>> a similar patch set has been sent to the linux-integrity mailing list:
+> >>>
+> >>> https://lore.kernel.org/linux-integrity/20250630125928.765285-1-gongruiqi1@huawei.com/
+> >>>
+> >>> Could you please work with Gong Ruiqi to have a unified proposal?
+> >>>
+> >>> Thanks
+> >>>
+> >>> Roberto
+> >>>
+> > 
+> > Thanks for letting me know and I think the proposal is almost the same
+> > with the different terminology only.
+> > 
+> > @Gong, what do you think?
+> 
+> Hi Yeoreum,
+> 
+> Nice to see this topic picked up again — I'm glad the IMA RoT framework
+> series I posted last year is still of interest.
+> 
+> Yes, I'd be happy to work with you on a unified proposal. It's been a
+> while since I last worked on that series, so I'll first revisit my
+> previous patch set, and then follow up with you to discuss the code details.
+> 
+> Looking forward to working with you.
+> 
+> BR,
+> Ruiqi
 
-On Thu, 8 Oct 2026 at 17:22, Jisheng Zhang <jszhang@kernel.org> wrote:
-> riscv always selects RISCV_ALTERNATIVE now, so we can remove this
-> Kconfig option and enable RISCV_ALTERNATIVE code unconditionally.
->
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Hi Ruiqi :)
 
-Thanks for your patch, which is now commit b924210f542e13c7 ("riscv:
-remove RISCV_ALTERNATIVE Kconfig option") in riscv/for-next.
+Thanks for replying and I'm happy with you too.
+However, I think we need to rework based on the Jiri's patch [0].
 
-> ---
->  arch/riscv/Kconfig                          | 23 --------------------
->  arch/riscv/Kconfig.errata                   |  5 +----
->  arch/riscv/include/asm/alternative-macros.h | 24 ---------------------
->  arch/riscv/include/asm/alternative.h        | 10 ---------
->  arch/riscv/include/asm/cpufeature-macros.h  | 10 ++-------
->  arch/riscv/include/asm/cpufeature.h         |  6 ++----
->  arch/riscv/include/asm/vendor_extensions.h  | 18 ++++++----------
->  arch/riscv/kernel/Makefile                  |  2 +-
->  arch/riscv/kernel/cpufeature.c              |  2 --
->  9 files changed, 12 insertions(+), 88 deletions(-)
+Any thought?
 
-Unfortunately you forgot to remove all references outside arch/riscv/,
-now making it impossible to enable support for RZ/Five.
+Link: [0] https://github.com/jpirko/linux_mlxsw/tree/wip_attestation_pre_rfc_draft1 
 
-I have submitted a fix "[PATCH] perf/renesas: Remove remaining
-RISCV_ALTERNATIVE references"
-https://lore.kernel.org/fe117dd44728fe7c96f3e4b3ec88c6ca83c5da9b.1791880574.git.geert+renesas@glider.be
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+-- 
+Sincerely,
+Yeoreum Yun
