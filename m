@@ -1,105 +1,164 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6DF47B43B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9542352189E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911658; cv=none; b=V493qbr8fTucTQCCV6ef74qf2N+4qPcGoE9YCTLeEs22u9hehvjCwglHBfQa1+/C8Yj3A1LhPPiJ6nT7u9/psCP8Ivg0UdmPYD6MtMBB3CTL/WewfdU7odqoj5ZEZuEqyWErgJjE7MkmS2/jJeFgNYSedB8+70Z9tb+SReYCQYM=
+	t=1791911698; cv=none; b=Uzc7qsNTR7a0rPz27fHjJdgbz36JPxb+J3+JsGCd4cPiMpJB/JhyAz2O719Xr8ziXVPtS98h4PX5TGKSZ5wJ7kkqKoS0sHxGDe04kk7aKWs5NjB9XmVgvmXNclZypIANJcb0qZsojUVAOiEUuMspxKRYnQDnpS089x7eUavUzek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911658; c=relaxed/simple;
-	bh=OUz+o44EoyAaEgyls2XUlOxTe0oqUC2leYnQbuKd4RM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VLfeFvCOd0W2tZhFidiAjlkf855qujBKvlQZvBexM+tmBag9EWLu35sA4DGubg9617uWKiQdfpNb8XrouZuyL8iVFGa0arpl5eiFD7pYehlu3+IsQmvMTKI8l8hqRJE0j/af+Ut+ihrXkIVQpFQZFhKfsfAvjFaRrWpIFYlE3cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YuFOSSlq; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791911698; c=relaxed/simple;
+	bh=1VrtYnlTdJeLZ/vqzNXn8sl/e4cmUeHNbbBwJRrJYdc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=hOZ+92LjGfCGeYuyBGA/iyt4mb4KCdBeaiM5RgZzGz9jORvsCKqeV3OSXthY49YG+x1jfn85I3pbj86zbLfk2rDOkO9d1t0xPU8q/AHtxOdfIyJC/j/zR02mJK9SAVfFUk+GsWX4QmsE0GmDz2RyyJbgEsCHy1rIk+u5pEJd0kA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=gPvgT+z+; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rGsHJy6/; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YuFOSSlq"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49d04e4a943so2789975e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:14:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791911655; x=1792516455; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OUz+o44EoyAaEgyls2XUlOxTe0oqUC2leYnQbuKd4RM=;
-        b=YuFOSSlqslBRjGWLj82KahR/XomOZlC9BttAN17zEBOUdip5R47V7BbiZ+sEID9DWt
-         I2PRoPf5BPgpS/vi1tXs5AhkIZJSN42o1ByxWB3NY4TjagZafKRZhwdDlf91QqWn21bU
-         uBv5cXVJnmsHGwV6ehEVrN5VJvHh6vqe57bz5YLFNXBOe4IAOsFH4yxSHXYUpnSs/def
-         KrO7HBGwuxhhBw+BP1ifJWofNCiFlFkfhXWMiNzXBQbCsB8TugVu2fCGlaiWbvDEOzY7
-         QXFIdcsEo0S32cizOrC3L3zdZPpOjZmSmLvZTa2841/gTMM8eRd0LhGTmHnT5XJbc0Lc
-         I/Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791911655; x=1792516455;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OUz+o44EoyAaEgyls2XUlOxTe0oqUC2leYnQbuKd4RM=;
-        b=SYyHdlceLuSC/L0V+GzdryMlfS2SXPqbzg4VPQul7VLgKS7P3TUe5N3432lrZSEs1I
-         A0uQW73XzpgI38GjkOw7YOvGjszhccHaM3zlu8JkFPDQM2naeknQgMtJGCzA8deByZYC
-         A2qw9g/kv7s/CCp3o4lXhK+cim5eHKz3JSDwjCJ/wuE5UN/CBLamGGW+zg3yj+jwo9rm
-         veSFODMtYtwlGFo0sphwelyj4CAz86p0wX01ZZSViOlcLoL1QqvhLWuySszWpIsMW1hL
-         fXOhBV9RlvFi3AJ7i4NpLP76eyNfXgasK//IjswUFl/A8ottd1xpssZ58Y5Cv7ubcSvp
-         yUlg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1SMBtGTYYPycm87E15A2ZUE7MrAyVNDpUawY0qciuUPVMpO7hda/1YfrtJarCiGQxfTmHH+CI7Z5L8Gw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6i7gsQX31L3kvyhmSgCBoXDnsWs+q07Z1gOP+A2dLuqK6/N0R
-	tjUe8g+amyVDkyS6+vGkjUH1beoDaTvfAPS9L2E7e1pGsXadXIydG/0s
-X-Gm-Gg: AYBFou1nlzhVpu+XVxaqzPZ10rvrN7TErdEuLM1nLWgoKv5evITNVL+OQ2t0fbrc6OU
-	+0UCkYcPFUE6G0zv1vfCparIRKqgFzpQJ+Jageq3k41jSh7NtE/0DRthcQN8gLB76xemSvebJb6
-	UhvgOrQzSKHpSXFkODui+Neb+Pfz7irg+q69B659GBnZHbrnqdpNyLnkQcHdIDpI8dXwzJQl0VT
-	Gg18BJQtHeb3JC3ocKzostHta2ZnKZxNzLlxnpMgT5vbP3b3/Q8fCcLWkTI4sU85PAkkluAiwUP
-	E6o3M9ifHzvNWUB6jlygQQXI+XEmISqOF34p7+I9QNdYsjcLO1/WS1Wykaas0NzStMS/L9cVIvc
-	ZIoOaO5L89gT7E2Z34S8rU18fnFAAGQwb/uQPyxwNTVaWyjwIAr3c8N/OVCV/Mte7GGhrTak7mc
-	im2HkNhppShleDPxpkKPZdtoHcbU1WlyNJN90YtVJEepxep43t5hp89cFsSPOGjZI7+ZAa29PgV
-	FEmLa2p5p4Ez69aNnlK
-X-Received: by 2002:a05:600c:5246:b0:4a1:7e9b:e0b5 with SMTP id 5b1f17b1804b1-4a18e3ee9d3mr221469835e9.0.1791911655077;
-        Tue, 13 Oct 2026 10:14:15 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm330932235e9.3.2026.10.13.10.14.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 10:14:14 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: peterz@infradead.org
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@kernel.org,
-	rostedt@goodmis.org,
-	tj@kernel.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com,
-	Kayra Cizmeci <kayracizmeci@gmail.com>
-Subject: Re: [PATCH v2 1/4] sched: Rename/clarify sched_class::task_tick(.queued) argument
-Date: Tue, 13 Oct 2026 20:14:10 +0300
-Message-ID: <20261013171410.58340-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260929085319.981147568@infradead.org>
-References: <20260929085319.981147568@infradead.org>
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="gPvgT+z+";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rGsHJy6/"
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 955DD1400178
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:14:55 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Tue, 13 Oct 2026 13:14:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1791911695;
+	 x=1791998095; bh=3FlF1G+KcEHJIr2FkyRYgfz7rew4XJRTgG9g3R4uwfQ=; b=
+	gPvgT+z+tnbwqpme9IP6VOEbZe8A5neal5bG6snwTP1iEaP1FgvQBhQOwRyyCqeO
+	/ITt9Ig+maFNv78vpnJcromfQLDfsNI7yw2X9CjA8x2twVC5aM+iE77lJcwqd23Z
+	j0EyCa4ddKqIMhE5W0KHu7E+TiwvU1VDpzzTYgLMWgdJbbUM+LEYBTmyJ0hJSrR3
+	x3/HeTS3Z9QYLuU/UZDytppMnHJG5sqWcg0oa/OiFiKbAsthW3RaVFaLEkTS1uku
+	spiJM5VlVmTV6B5TDuRa64aehvIMLDJFqyb8n76TTjjwz4dufXPfeR95uPTg38r6
+	+QM2unZ2n1kgk556tp4s0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791911695; x=
+	1791998095; bh=3FlF1G+KcEHJIr2FkyRYgfz7rew4XJRTgG9g3R4uwfQ=; b=r
+	GsHJy6/FQBWTknWtgAUmiVt3khwpd53dxZlhMELt+GKZHf6bmWEck5IkqJeVLv4W
+	0yTfWzwtl4zXPPkzgmilnphZ/3LbxtQLner4maaDZWc6j0S275ol21uw6f8DCo6+
+	ZKlxCP4g3HV9h+Xl2DIoaOSsx18W4ISPQ/TyMxUZF0hqmpJEzp43iXgKIKEYlHep
+	Q/X8bLtE937Xgs0lGN8e1ogC11H1fC0PJK5az9GiVKHPqzMLJfznBsY3ZoGpfq0y
+	HMZ2KkmcHbxNI1IdzCw5b4hyA0pWUo+2FsbiZmjMQ955f+ty8H2AorAqS+IRQKC5
+	bQYMOHlVYGzKEq9P7tsKg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=squebb.ca a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791911695; d=squebb.ca;
+	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:JDaUeC0Ps1dPIoZP5hPlXJ+kOhmlsVGtjNGqvZ94u/5/zPz
+	SA7kBR70wuITuH3zxMu5pbQfP414l+zSGcyVzy1Dk1B00nkNkWFV5ng+VuZOZh+J
+	FNAFkg5dUb401WemtmwDPGFDEQmdXeBE/DhCU+PY9rWPrtRWd7EYzXzQ9o0Reuwg
+	vXqqWaqLoWpr3odQBB71AM3wbDaC/R9eopUJhv2Fle7+ke6iTuN7ItxAeMM/JKs5
+	cPEmh68uZs2cVcrtT9guwvab1F7E2L2+afLYhTiVXd8c4MgRXrk04SNOW4etGQld
+	rVDKNOtO8TzW8q4hMKqQYqJEQL+9gOYJFSnpW8w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:aPRReYutXN5/7N2rtIluJR4+0127LIGfO7m9iYmipS0=:1VrtYnlTdJeLZ/vqzNXn8sl/e4cmUeHNbbBwJRrJYdc=;
+X-ME-Sender: <xms:DWfOar1AWY--CbfTUFqvGkF0vFJBEjlS47AhbjztQ2izhTFZUcW3Lw>
+    <xme:DWfOak4y9aiaAF7HVhobrlw3lEVQb3hkFCjrLW4JcZz5zZZgasW58exnc_OrT0iE2
+    oqmsbzf7vYDeNnOZfer-s4SdjHXg5T4ByA-3dcku6_c6P3ilrke9A>
+X-ME-Proxy-Cause: dmFkZTFDvlWDMhQ0CjBHlWCnSOgj4K1p645fC/lo9O/Lrk2iNb/TRDtuiTpvcQXBqmejT7
+    Ws+g8bLUfnvw1GfLltMVBLXaL+Oy70i/XpbQ4MQ6lxXxuNDAFaqkILzdE8MZONx3veSkBE
+    LJ+ag8142GRkeNQlf2VxcV0XDjfch/vBEVJ/CgGsmesIQpdUzoPIIhZMNQvapXozwoJZVg
+    vfIaJFOBZosQkAMcb6a6+ED7NGm1Nrgpm4csdNG3oYEmUC4AQhRoUJSv5l7ccf4loAXYRT
+    zG0T8B2KPLM572bD9deC++vGSMe+YgpdegvUWrzrLHWBLf3wE+cDkVSJz1VziYHSmICGpx
+    NdaLB0dI7FRRuC+mNAKak8T7RVWyiC9t4PR9EV8nFvyk/EhdFeq+4g8sAMeku0nv/xSiA7
+    JmkP3Pf1d82KR8YFPD9rJBlx8qadlks3GG0GfNvGLjTBH4uoR9af62sZWYCqX9jgdA+WGM
+    OKEJxKb+2ps+CmIQbR03lnY0YlYgYwcVabFJmIlXLYVqSjbxp4GiymAgfqIBIODWJ0XxVu
+    DPjTBNUgE4c9Ij5O5m0j7EVfUd2Mh0DwWfEUAwZPA+tWf2Vs+sd/fJGOg43Kec8a0puK7B
+    JacIQS74mjagbPhPdINUQZIjeXBKF71TRnJ9oWrkReZVxwIhdSCPhKl8vmZA
+X-ME-Proxy: <xmx:DWfOath9SUUIcqIHDJ0gQhlpo39u59GD1Cxppyim8SjP1biAMwGfyw>
+    <xmx:DWfOao6Lp_WCfhC64lVNqg5agUI-5csDX4r6YUhRUO5qUOv4DMDrnQ>
+    <xmx:DWfOalaSso2pPyZrfQq99338JYuT0pzZ3KdDkVe55EYDAu61T0GZCw>
+    <xmx:DWfOat68asUp4A4a9gf9b1henMhbwHqzjN01U8j3QA06zAHhLa1NLQ>
+    <xmx:D2fOapp_AkiCXhcGWxSVKDrTgj-Elyhgk7lK9r8u41IWDNxaH5AP9dS0>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 8DCF32C0007C; Tue, 13 Oct 2026 13:14:53 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AFvlYNutXlQ3
+Date: Tue, 13 Oct 2026 13:14:33 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Huang Wei" <huangwei@kylinos.cn>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: 
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ linux-kernel@vger.kernel.org
+Message-Id: <b8cd4c7c-b7e7-4aab-8ba9-a16ab4ea345b@app.fastmail.com>
+In-Reply-To: <20261013070740.789934-1-huangwei@kylinos.cn>
+References: <20260918161539.2676619-1-huangwei@kylinos.cn>
+ <20261013070740.789934-1-huangwei@kylinos.cn>
+Subject: Re: [PATCH] Revert "platform/x86: thinkpad_acpi: Add X9-14 Gen 1 to
+ non-standard thermal/fan quirk tables"
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-> For some reason the sched_class::task_tick() argument that indicates it being
-> an hrtick, is called @queued. I'm sure naming is hard and all, but lets fix
-> this.
+Thanks Huang
 
-"For some reason"...
+On Tue, Oct 13, 2026, at 3:07 AM, Huang Wei wrote:
+> This reverts commit bb0f3a5d6b9844b70ad696b9470762028f6d86ec.
+>
+> Lenovo's firmware team has verified that the X9-14 Gen 1 uses EC
+> register offsets that are unique to this platform, rather than the
+> shared non-standard ECFW layout of the models already covered by the
+> quirk tables. Applying the generic quirk would make the driver read
+> the wrong registers and report bogus temperatures. Lenovo is working
+> on the correct solution based on an updated EC register specification.
+>
 
-I grepped. I think task_tick_stop() is skipped. That's a nit.
-Just sayingggggg........
+You're fast :) I was going to say we'll just post on top of your original patch now as it's been accepted. Didn't want to create extra work for you - but thanks for doing this.
+I'll let the team know to get moving on the proper fix - there's been some back and forth with the FW team on the details.
 
-Aside from that, or with that IDC.
+Thanks
+Mark
 
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-
-(How y'all find things to review? I just go to the threads that I see the messages of. I think
-That's why I'm a bit late :<)
-
+> Link: 
+> https://lore.kernel.org/all/000acb24-7aef-4718-89ea-0dffd1ab34d9@app.fastmail.com/
+> Signed-off-by: Huang Wei <huangwei@kylinos.cn>
+> ---
+>  drivers/platform/x86/lenovo/thinkpad_acpi.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c 
+> b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> index 498139ac8f4b..6dd7c28fc0db 100644
+> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> @@ -6021,7 +6021,6 @@ static const struct tpacpi_quirk 
+> thermal_quirk_table[] __initconst = {
+>  	TPACPI_Q_LNV3('R', '0', 'T', true),	/* 11e Gen5 GL*/
+>  	TPACPI_Q_LNV3('R', '1', 'D', true),	/* 11e Gen5 GL-R*/
+>  	TPACPI_Q_LNV3('R', '0', 'V', true),	/* 11e Gen5 KL-Y*/
+> -	TPACPI_Q_LNV3('N', '4', 'D', true),	/* X9-14 Gen 1 */
+>  };
+>
+>  static enum thermal_access_mode thermal_read_mode;
+> @@ -8846,7 +8845,6 @@ static const struct tpacpi_quirk 
+> fan_quirk_table[] __initconst = {
+>  	TPACPI_Q_LNV3('R', '0', 'T', TPACPI_FAN_NS),	/* 11e Gen5 GL */
+>  	TPACPI_Q_LNV3('R', '1', 'D', TPACPI_FAN_NS),	/* 11e Gen5 GL-R */
+>  	TPACPI_Q_LNV3('R', '0', 'V', TPACPI_FAN_NS),	/* 11e Gen5 KL-Y */
+> -	TPACPI_Q_LNV3('N', '4', 'D', TPACPI_FAN_NS),	/* X9-14 Gen 1 */
+>  	TPACPI_Q_LNV('H', '3', TPACPI_FAN_NS),		/* Edge E330 */
+>  	TPACPI_Q_LNV3('N', '1', 'O', TPACPI_FAN_NOFAN),	/* X1 Tablet (2nd 
+> gen) */
+>  	TPACPI_Q_LNV3('R', '0', 'Q', TPACPI_FAN_DECRPM),/* L480 */
+>
+> --
+> 2.25.1
