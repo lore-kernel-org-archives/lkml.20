@@ -1,175 +1,152 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5216337A83D
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:37:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791880634; cv=pass; b=SvA9RniLkrOHb/2xlaLRAwOixOHyIPLHJKjZ2DPTe3tYqBe9altBecFqk3edVY9qYLrcfB4kCjMzXQ92l9ZbNkf2c885LBSXzZNJMy9wkByiy7VnkeDfps1BLz1UAMwNr+lXT5YiVTu6FnW+e1Re0qCF85K9WJ42njXcqq/LjJc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791880634; c=relaxed/simple;
-	bh=p/FzChmi4upnJrdMVwLZpWpxlcBieJP5WKAtCkBTRTk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W3zJMbI9Uf9nQjhR5Eklillitji7rbSy6ftH+9WUdxRQjJS6bx2s33rr1X7Yo5+XICXCLLqrepQ6AIW/MoVk3tS7tH20OcDv6msj46wYIcQHLWyw8zDyEEcGw0SZqZC/ddZIZMPvWnn0QlalTeyZUBHl/ZOqPeWREfU4L7lsAVI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Gk/No+j3; arc=pass smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1163B1EC7;
+	Tue, 13 Oct 2026 08:37:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791880644; cv=none; b=Dm+NAnhSUZJG+6Y5d9GThmxmClgIL/DFal0FEH0W04Uz7Wi8d3YbxLnzmwQ70Mn/vy0v/6d6wkk+nvDqFWhc1mtChXtY5lZ4rLvukOa/xEAI3F9+PlTh54dq0f21m35NwFYwk3d6T8ZNbrw9Py2GlpJGO/ScRDiMz65szyBsMHg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791880644; c=relaxed/simple;
+	bh=WRpmvYv+ZNHPv0I7UH9P9Kj0D4/Ue1p27eqvcGdqnKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jxByIgqSdpGN7AbEKLVWCzDvi2psCovztoRdaZHuB0pkvmu+X/SzymVwyVKw6T4MwPoW0pO91BHLx5J8M+9Y8Uj6PDrpxhKKgdGu12JhI6CS0P4661RuH8VyqBlt2W1oxFnGJpE7cnVcCJmL+3JWdQ6/MtiZVwwmNvtKfx+8s3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eiJ5VlVD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Gk/No+j3"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e8c710847so326207466b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:37:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791880631; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q4LU++4Cv19aBfWcWM5AacVvx2VLxY4hVREOaPrX78y6flOhx2IXQqwqtN8aCBBt2r
-         3xsO0nMXthV07OpUa5rcEnrvMu3zQZXeedydR0mLOK6bu0Ai5BoA0hPyItTCN1o/yucF
-         5RQlrPbjUbGvtXS4NgvxW9b24tq7LPC+4N87hESghv73i9BtPwH3YSDlVNGl7oOjdF7h
-         j3kvw4lpt/ARRMuVTopZsYbAF9RwAVhLlRKlmAuMlLYdcRywrzT5plV1RmoMJc2zUGYC
-         tCT4+52JvT211itsT9A28BXSgaj/fFs4pvBJb6zZkX0JU9dXsQTd1rF8GyVDo0n2rYzK
-         sbVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=eb78s18KrLxqoSvMPWF0ioQcnzWT1guQsNFzi33wXa8=;
-        fh=YgoMG/8dCPgeE6BtA/t5ddMnVDZAlbEcnLRJYXvWqMY=;
-        b=p4nmrs9VS3K6wWb9HRkVU+CxsqH5c6MA7AOwCNunou7qRC6t4ZEdccOY0mFcf6jCKy
-         mGbdeQegMQ99S+fdXmuFTdBCeAI9supEHkwr18/MQKiLIw+A67dKM19jhffKpFF8vFJD
-         VHfRmtYAkM/yfgbFHWnB9W3Vih9bNcMc+Jmah25MRsgniHuvvw5z3QB82zy7K9BYaKNH
-         ZxyIs0Bc1Ow0RA5dAzpRrQXuXz6jY8dwX2HxrZSJqHuxXRfkbJJjyC20LzbBnJQ+igc+
-         Bal5SnPRo4GBQvlQTvi1M1ThSVGHzyipnhRIdTfhWxo1ooU9/dB2bEY2J/JlzuIQ0hcZ
-         mOJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791880631; x=1792485431; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eb78s18KrLxqoSvMPWF0ioQcnzWT1guQsNFzi33wXa8=;
-        b=Gk/No+j3KrMyO4tDJ98wcybAsHMekBFvlGZpEmriX+A+rGJD9+8J7dZP1iCEca93+y
-         eCSq1HpHRp6ktGLj8ieddozj81RKYb17WtRMoK8Lvim7/PZns6T8QXtU4HzR/AV0vRJQ
-         ZqyE97IcOGHm5cyE474i16J7JOl9mFCbBvEAakafvb1WJE20SOnXnSpOSOkiY+pAQdXa
-         kFvsRg7r64TJtmKqQInjhSd4JCMvQt3zJKRj2zXg2AJBXaQLtwk/+YelpebjxTyMfJZO
-         0tr2bUBgDGtDohEMnogZEs1/nHAKBk95g8N7g0vu+CMF8dqS38mThAtc3bEaTOzIFCPn
-         +JLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791880631; x=1792485431;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=eb78s18KrLxqoSvMPWF0ioQcnzWT1guQsNFzi33wXa8=;
-        b=ZHHBst9KOIyGWkaQqpAfDQitc0+Aivqjy1qGrQ4wFWGp/A5pa9BZt8FWFPd8kXKB50
-         2hGiouPplrDGyjxZTlF8VjQs+ULSTkOOELu4fgg3xBuo1enFLLGOrt09V3gD4F3rcTfX
-         UuJYNmjFWmBnlIR0mh6BxEDjOyqkotEwMu7UXOabaYfrgIKpOPPs4Tr/UJ2T7XKrr+Gl
-         KE3bH3zXGCp0h85gBA9cqx6BFvDz08ltD5GuhRNpex7Zulv0UxLl+C50yOjUUU+6IzG2
-         2ytK+lSgujrSMdw1mZRMlzHUTZ0HTw7+6LIHY8+zcbVXyn82xVftrWjBaip5vO2ozs3j
-         gmZA==
-X-Forwarded-Encrypted: i=1; AKwUvByoiqCRsKO5uZY/5WV5nkSJH67FADKVuEAJ9SH2dsjSk6qUGVxufqab01QTmShMst+OchI6SEIkbGgG1x4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6wtYk+InJcBgp3nlBpOLEXr1nrmBb2WPSk0ALbHbZh59++LK9
-	/TKIvljYztWeNDfI91XG6lCpfaFBB6eb7XJ3oVHOxbn7lAacUW3VwK6juuOUoJ0oUjMY/nxlffh
-	mKZEAyK4xWq+M8QvoL0spAlLwCRiKH+i8Jd3ZuEAeMw==
-X-Gm-Gg: AYBFou3yXeIL8fU4j6Kk/Dks+yfmznLFNT0Sj2uNzz9jq/lGMPWsVRx/zium6wWUanF
-	fnsXl5M93pzkRE06bx/XHZpXi/EPgg27NMQcn1V8HK/XVcpvXsRgDhengm1TE+etf4IsrUzepEk
-	HbI5/21gD2j2hij7R5uO2SEvGD+uVmJsCmB7Yq1ixe4Bj7zR58/iTNaFRU1wsMY30rBr3E24alH
-	PTLMlgRu3rXpZ8NFDNn60XMz7MJwviqX15lXYGXciMKbmuWpYq6GU19h13NaxSN+hmiRwfbumqv
-	hEMn/p8AkQ0couPfngiyc4Wra2Cuj2nQrxK3ZE7mEqyunlb3SNNFGXGEluFQ1jPJSonAWg8/a1A
-	Jvd+156XXA8RZ
-X-Received: by 2002:a17:907:968f:b0:c31:8c48:e18b with SMTP id
- a640c23a62f3a-c31a9afb3b6mr1199868666b.14.1791880631361; Tue, 13 Oct 2026
- 01:37:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eiJ5VlVD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59A7A1F000FF;
+	Tue, 13 Oct 2026 08:37:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791880642;
+	bh=WRpmvYv+ZNHPv0I7UH9P9Kj0D4/Ue1p27eqvcGdqnKE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eiJ5VlVDu+UtR3o0UbErr8NQLnWfLuLzU18bppw7mY67CzJ62MegODL0S3vyVE40l
+	 ARmcEUb6vjfKBQOwsfAeO7UdzKmQ1aekbTlT/PnDMQ0u4x7UxKU5A8RCALumAJnGFI
+	 ff965vRfHrBzwkmDRdCmRahdAbvgn4L8Hi9S2mKMHGDDHBs5Bz6vIKoX+9gZJUTQl5
+	 rjtsvys512F+XvenGtUjLF5bitxr13v8ekaQOiWV2/fnx240C0pdbMFBfeo831900P
+	 0ZIdGGAy6pwI6EdlGGSf8Iirx320lLfxd4fYGQBnbBwFrQ7ko2ow3H9g/UeIiyXG3T
+	 QNFXH9uNGc3fQ==
+Date: Tue, 13 Oct 2026 10:37:19 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Val Packett <val@packett.cool>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+Message-ID: <as3sI-N3VeG_pL0U@houat>
+References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+ <asyAObcpbFy3OeE2@houat>
+ <7pptulwzceqg7xozps5boncgcpd5fpw2pdabcslp4den34ixjn@rzgkoe36itwm>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop>
- <b2dd8374-63d4-4b04-9e2c-f6a84728f092@amd.com> <69622916-cc8a-44d5-b776-6e25f79aceda@amd.com>
- <CAKfTPtDz35egMZEVz+wb5kytgVrv7APcVOYBkCByvzPSCH7Meg@mail.gmail.com> <49bb195f-a193-48fc-b818-41e2178b8537@amd.com>
-In-Reply-To: <49bb195f-a193-48fc-b818-41e2178b8537@amd.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Tue, 13 Oct 2026 10:36:59 +0200
-X-Gm-Features: AclHuK90JzApac-HezP5krnOLz2c9UI9-BqfmhIxvoIuljBgmo0-n9-rT26Jgtw
-Message-ID: <CAKfTPtC+ta9=QA9C8oiYeSZAq9PbcbwPTH5bcGhPAsaTnDUpVw@mail.gmail.com>
-Subject: Re: [BUG] Apparent lost wakeups
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: paulmck@kernel.org, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="krwoug773liv5dfc"
+Content-Disposition: inline
+In-Reply-To: <7pptulwzceqg7xozps5boncgcpd5fpw2pdabcslp4den34ixjn@rzgkoe36itwm>
 
-On Tue, 13 Oct 2026 at 10:31, K Prateek Nayak <kprateek.nayak@amd.com> wrote:
->
-> Hello Vincent,
->
-> On 10/13/2026 1:28 PM, Vincent Guittot wrote:
-> >> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> >> index 0f63c30b4324..b37c771c41ad 100644
-> >> --- a/kernel/sched/core.c
-> >> +++ b/kernel/sched/core.c
-> >> @@ -11256,6 +11262,9 @@ void sched_change_end(struct sched_change_ctx *ctx)
-> >                  if (ctx->running) {
-> >                          /*
-> >                          * If this was a class promotion; let the old class
-> >                          * know it got preempted. Note that none of the
-> >                          * switch*_from() methods know the new class and none
-> >                          * of the switch*_to() methods know the old class.
-> >                          */
-> >                          if (sched_class_above(p->sched_class, ctx->class)) {
-> >                                  rq->next_class->wakeup_preempt(rq, p, 0);
-> >                                  rq->next_class = p->sched_class;
-> >                          }
-> >                          /*
-> >                          * If this was a degradation in class; make sure to
-> >                          * reschedule.
-> >>                          */
-> >>                         if (sched_class_above(ctx->class, p->sched_class))
-> >>                                 resched_curr(rq);
-> >> +               } else if (ctx->queued) {
-> >> +                       /* Check if we need can preempt the current task. */
-> >> +                       wakeup_preempt(rq, p, 0);
-> >
-> > Isn't what we have for ctx->running above what we also want in this case ?
->
-> Ack but with a couple of exceptions:
->
-> We may not need a resched_curr() on demotion since the queued task
-> isn't running.
 
-I wanted to point the if (sched_class_above(p->sched_class,
-ctx->class)) case. I agree that the demotion case is useless if not
-running
+--krwoug773liv5dfc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+MIME-Version: 1.0
 
->
-> For a queued but !running task, if the promotion lands at the same
-> class as rq->next_class, we'll need to do a
-> rq->next_class->wakeup_preempt() to check if we can run it now
-> which is also covered by wakeup_preempt().
->
-> The ctx->running case seems to have been optimized to avoid doing
-> an unnecessary resched / wakeup_preempt() calls when the current
-> task is still the best choice.
->
-> > Then sched_balance_newidle() will detect it with
-> >
-> >                  /* If a higher prio class was modified, restart the pick */
-> >                 if (rq_modified_above(this_rq, &fair_sched_class))
-> >                          pulled_task = -1;
->
-> Ack. I'm depending on wakeup_preempt() to set the rq->next_class
-> correctly on an upgrade and as you pointed, the newidle will then
-> force a RETRY_TASK.
->
-> I hope I'm not missing anything.
->
-> >
-> >>                 }
-> >>         } else {
-> >>                 p->sched_class->prio_changed(rq, p, ctx->prio);
->
-> --
-> Thanks and Regards,
-> Prateek
->
+On Tue, Oct 13, 2026 at 10:51:38AM +0300, Dmitry Baryshkov wrote:
+> On Mon, Oct 12, 2026 at 08:40:33AM +0200, Maxime Ripard wrote:
+> > On Thu, Oct 08, 2026 at 04:14:22PM +0300, Dmitry Baryshkov wrote:
+> > > Panel drivers don't have an atomic state and so they can't handle
+> > > additional data to be stored at the atomic_check time or to be retrie=
+ved
+> > > at the enable/disable time. For example, it prevents panel drivers fr=
+om
+> > > supporting multiple display modes or making DSC being optional in a
+> > > clean way. Drivers like panel-novatek-nt35950, save the connector
+> > > pointer in get_modes() and later dereference
+> > > connector->state->crtc->state from prepare() without holding any lock=
+s.
+> > > The panels also have no way to reject the configuration they cann't
+> > > handle, as it doesn't take part in the atomic check.
+> > >=20
+> > > The panel already embeds a drm_bridge, and the bridge has an atomic
+> > > state which is property handled. Subclass it to provide atomic state =
+for
+> > > the panels. The callbacks can find the state of the other related
+> > > objects (e.g. CRTC state to get the display mode).
+> > >=20
+> > > The atomic state is opt-in. A panel that doesn't implement the state
+> > > callbacks keeps working exactly as before, with the plain bridge stat=
+e,
+> > > so there is no need to touch the existing drivers. The panels which do
+> > > implement them can only be driven through the embedded bridge, since
+> > > there is no commit to hand over when the host calls drm_panel_prepare=
+()
+> > > and friends directly. Those entry points warn and refuse to handle su=
+ch
+> > > panels. There are still a dozen of display drivers calling these
+> > > functions, and the panels used with them can not be converted until t=
+he
+> > > hosts are switched to the panel bridge.
+> >=20
+> > I really don't think we should extend the panel API. All panels are
+> > bridges now, consumers only care about bridges as well, and the bridges
+> > API provides what you want already.
+> >=20
+> > Why not simply turn the panel drivers we want into bridges, possibly
+> > with a bunch of specialized helpers to manage a panel state, and call it
+> > a day?
+>=20
+> I think that panels provide good abstraction on top of the drm_bridge.
+> For example, bridges don't have orientation, panels do.
+
+That's easy to add.
+
+> Also panels have followers, while bridges do not.
+
+Ditto
+
+> I don't think that either of those APIs make sense for bridge.
+
+Why not? In a world where we have bridge hotplug for example, it would
+make total sense to me to have bridge followers. I think Luca even had
+that at some point in his series (and still might?).
+
+> Last, but not least, we have drivers that were not converted to the
+> bridged approach (*).
+
+I'm not disputing that, but it's a matter of months at this point, Luca
+already did a significant part of it.
+
+> As such I think we should evolve the drm_panel, extending it to
+> support atomic state.
+
+I still think that drm_panel is on the way out with bridges taking over
+for years now, and we should accept it. Otherwise we'll just end up with
+two concepts with the same purpose which isn't great.
+
+Maxime
+
+--krwoug773liv5dfc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCas3tvgAKCRAnX84Zoj2+
+dqdUAYDG1uETAxbovMuzj2lX6QLl8c6ZN+NPH2rJwTfXhWLIgRv253UOgKpAcO4g
+kuNDHrEBgIoCWY+u4UcbXTezQO7PslGrfeFXHodgFWdP4xUUu88iHQd0XVVIOoMs
+vvVCAFGAwg==
+=FeOJ
+-----END PGP SIGNATURE-----
+
+--krwoug773liv5dfc--
