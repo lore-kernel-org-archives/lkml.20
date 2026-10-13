@@ -1,154 +1,300 @@
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EDF52FE21
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7FC511E67;
+	Tue, 13 Oct 2026 18:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791915238; cv=none; b=ghXRuzVgIjUMCOVQL8p3MUa1EhNBgqpiEKez9VYLTxRwrujNUSB+54WGMjl89r7sVDDO2xYFqthWdpouC/7JlDk1B4IKPDnoS1Pv7YvplVRvvJsWd1MMUuEFkOuJC+jL2eGL72aeAxNbgVFGpo7R4usAm2AjcUKpS4Gpe2F4lMc=
+	t=1791915266; cv=none; b=t3GgN4ReOEzZsL0HOYDPJ6Rfo6MUihsAqsjwZyizZtERx75it0RAsyzs7a9i9Ty/lKC86SL298WH1aEMCK2G7LVRe5cLBtPF+/2jnRHfzLu/+xJyNwuIxJh1W4NN++tTgBfEstx11CB4uMX1j1LSFVCWJE33XT2bKeP2cGoMOPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791915238; c=relaxed/simple;
-	bh=h5FQXIg46/WzdMHnSxLJ9ch75vB+gTmHwyBmjMT1fCo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XdYBw2cjMoAh4hvtOPRo7oTKJY10iTbv2Hpc59tXyVVBOSqrAm73z0+XbrPuLxpzewbe78BP83HYwWDMBq7gC4fIqjS4CUFPMLjBcpfLPRhK90eJ2q86GgNUcqVghHi3hxqOOmbdweUwaTi5jTpt2mGMR+q0dVUw1yTnn4KrpEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bsbernd.com; spf=pass smtp.mailfrom=bsbernd.com; dkim=pass (2048-bit key) header.d=bsbernd.com header.i=@bsbernd.com header.b=ApNfbTbL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RC2XjDKl; arc=none smtp.client-ip=103.168.172.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bsbernd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bsbernd.com
+	s=arc-20240116; t=1791915266; c=relaxed/simple;
+	bh=uuuUKWP9zxXdpASlKYdJf5W05tbr1qqJrePMhQlDgaM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ozf4ld3obvagiR661AQ/AylxiEBpSePTo3XA9nIk/ibFhcAukHBvBp+6VBE7BXUlLzWHcC786Rt9a0BWCyju+2JW7Kffe0AL1VKKDMddJDs8PuaFd8gypx3DgRDPqkAyY9dLYs51VqN2Gr5syrSnEnqB7Qk6FPRlokFnGZKFROE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPD3wAWd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bsbernd.com header.i=@bsbernd.com header.b="ApNfbTbL";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RC2XjDKl"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 7FA10EC0A67
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:13:56 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 13 Oct 2026 14:13:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bsbernd.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1791915236;
-	 x=1792001636; bh=qgi1DuaVKGgxY+t78ffi3qjr9jDrmiNgBIKWwcQNfss=; b=
-	ApNfbTbL0XG0d2wwPl8PCL9oOW2D9YTrp53gxV9uAZx8tya9/sSpoylx3PkXp228
-	H1WKVrxmRliNU0MSLBaWwIWYiP8iJg9UIONa3eQK/73Hve+GTnBbNn5E2ZNPuQyU
-	5FXra1MH3PXtVV4YxcK4TopeuIz/fFF1C0kiIxQBlYkl66UVcq1fL3vwRZ9M9aOk
-	eih4rtdLSTkFdZ8BJnUv/3/Ln1V7r0IgxhrLVTONvj+kjtk+ksXm2fi2HMA8kOkI
-	02LGjkoowoaKC+ctmQ8aTkNqGvkRb0TZCuhOqnKq4ZOLV27w1nClxHYkNr83w6gR
-	K+mr4YX3Q1ZG8AsIIAIKxQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791915236; x=
-	1792001636; bh=qgi1DuaVKGgxY+t78ffi3qjr9jDrmiNgBIKWwcQNfss=; b=R
-	C2XjDKlE6oQk0ZqZklXqkzi50yEdz38macacEO6EBBk+m1hePckNk4ffSdUz0R3O
-	YiZaz9w0nHa2XJS/bfBwiNIitVuVTweVPnuyBfxK+ZQkNGa6tUUV6vmXsBKuop//
-	2ZNweP8WUx2fwH1VkD+s5Qy92Ma9fJdmkwr/zpLI2OnSC/MyNy3sBje7MBEBtOTe
-	7UD+8oxXMmMe+eElXpEGKY+dLEmC6qt6gUpExObPr60C/V7G+1MQ8Y5SdixuECGf
-	P26eoEtUgYEPO5++wHonxZMUJ/kpkPevQMfdcgev7fvjCGqYgHrexLxeerXD12+z
-	xPCh8y5J0wacJcRejR9QQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=bsbernd.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791915236; d=bsbernd.com;
-	mf=PGJlcm5kQGJzYmVybmQuY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:L2f7YjQlYCp7Oom5iAqKrZmnaZKPTk38Fdsqt9z3NAsF10i
-	mObvRGegt+l7TTXFWdaE/WYxGigWj+IXzk5x3QuIacZes07qfFIrMGaPl0/lOA2/
-	PwuxqM4ipAsamv47caEAVZz6OMvM2iAgyRVGCBu3x2YZo2PM8B9qAznD9d00MZZu
-	FQ91R8koRv9yRSbWMNsMVlSPmwEJVUvgLptJXloBrZGCnn5SS1nrSXvkcBC0lQti
-	McuEU7u4EycM4HuOK5EDovjXz/8WAalSOPkGqY9jfUOsNE6KQl6y8PuQPL+6ImKP
-	fRtD7xEa73pgcx0wLR8w6KadDveTp3+3v219LfQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:AjC2ag7CJdL9JMyd3fYoToIETKjKSpBCBfaFvvOSZWk=:h5FQXIg46/WzdMHnSxLJ9ch75vB+gTmHwyBmjMT1fCo=;
-X-ME-Sender: <xms:43TOagatps4sVpj8U79ptOxRKJfAje-Fsu0W5gsxjuMFEJ_67O1gTQ>
-    <xme:43TOasLeaNgKpgBbacADuqIUnxCVQAKxqqybc7joDJrDn_ynFNn3NCUs0NZhGTPra
-    HnAP3FNN7AArivXboi5wa39S7nOmZUPrC3EprVue0VHZLzvOYlkMw>
-X-ME-Received: <xmr:43TOanFD0YIVut9GH78Z_XX6pky3keSf0c2YxJMkQ4z4PEsQbKzTfLa_Pc41hPhJ_vubVw9Tx2mursN5xZr8P07UDEV6fdOuM-ytDdX4EFt1aMiKJg>
-X-ME-Proxy-Cause: dmFkZTG02tikcgp4UjlgO13AEnt1QpG1KGh71qhDoGqnxkXfDaHXAEIbZ1OYpXjO+ZjK3L
-    wj+GCwoI3DZGWy46me0tschGqmzHLz5vt8r6hOBmtr1wu/Otk5XIOId25yS+6e0OSwX6h8
-    gRu9k783Cr2ve7EBA9NCgEGBlGF7ty0eigtQicANGXGPdwSZN9qqRKQ0ENhD3tWFSCtzwk
-    PJ3FdD5KMfSUnJppJd1qT/FckUmZBNO+JqTEhKAFWuAcdT03TdKxKPR7FFAt4q0zfqwcIb
-    efHq93owMfQLSpcEDe4rpp/TjWWyFAE2yGx8PeOeKpasuLkvY1TavliPQDSU6F/dW/PQnc
-    LMlFIpt5ncbJdAW5pl08m5BKgt7AEoUGHnedLOyBXFbwDn5YvvNymyKD2PWllbKZRZe5Td
-    DdNm2ujbggD+Hd+pxqlYGVfdPDZOyWDVGa7mtoFyDb68lAsrW0nnYVtPFb7dqrjqWI4w0w
-    jrNl7xc/zJm1hvkc1zbzj+S0fY8hpsMlT9JNnV0S5oz55waQZTvFukXxZkr1iQAI4g4xvw
-    QiKThkg9OYT48M/+hO6E4P/6krqqxe/SbgKWgujzRjX5gg6CcOtaG4aGYOU5IHmJAAT9Lx
-    fg4NEVbh3uoZO4cTufnINOeKNDbUTH/lILxj7hyNrCjjq/5SgecQN0adXstA
-X-ME-Proxy: <xmx:43TOaruz5e3538rqoGNHn1jAoT5_c8ENloSEjNI5AJFgm4Hk_Tk6nA>
-    <xmx:43TOauuMeYMk33uwHRjQkO7NWUV9oChJMM9QB-21-8ew2RTxdH2cjw>
-    <xmx:43TOahD-Q83Wp2-1EBW_nrPHqaHQ3gRSXcT8b4f3Wxdnc_jI99r5RQ>
-    <xmx:43TOagP7pCE-9lYYqgpaAy8ME5O60mWBofBV207gy_J56nIyDV3l1w>
-    <xmx:5HTOaowA3bSXRJHcRcpL48v9IetMywcRPiqB7B57bsReAzxHCKDh_7aK>
-Feedback-ID: i5c2e48a5:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 14:13:54 -0400 (EDT)
-Message-ID: <3b7a2fea-3fb9-42b6-aef2-d9770e3562d9@bsbernd.com>
-Date: Tue, 13 Oct 2026 20:13:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPD3wAWd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8975D1F000FF;
+	Tue, 13 Oct 2026 18:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791915264;
+	bh=yRTW/dH5AcddNS+HWfKGncCOuxQwSkTjx47Dtov2j6k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TPD3wAWdcLL9hitN4qecoU35ovIN01iCzNcwSSloL4Nog0YaTiD+Lbx5iolfN/7tG
+	 dwlY6AhShr8w7aI2MusDvnbR+JSTXDMf12b0bRZ2KaHZJ8xuyw1eTOvfXwSSpapG2s
+	 CC36fcB0/SCDtaycY0ThZ4O+wH2wym0YZJ55UFpPZQKPjeyBE6VGN4ko+w69FPF7Ks
+	 c2wwTNE1TyAQC+/kPveSHzwctGQpK038JoeEaxTRcXvyvfVqiwU2iQgIl/D1xLRSJ3
+	 NvO2HS15qlpZOhoWjvazmgjGMiIvDbHO1hhPNbcdU/R0jizuCtUeTaQI5GZKOJdGj3
+	 BwXRCInusU+MQ==
+Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
+ ap420073@gmail.com, sdf@fomichev.me, pabeni@redhat.com, kaiyuanz@google.com,
+ bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, razor@blackwall.org,
+ daniel@iogearbox.net, tariqt@nvidia.com, kaifengw@google.com
+Date: Tue, 13 Oct 2026 18:14:22 +0000
+Message-ID: <179191526299.434549.7888465945343049764@kernel.org>
+In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
+References: <20261012174300.2338784-2-almasrymina@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] fuse: convert the readdir cache to use folios
-To: Tal Zussman <tz2294@columbia.edu>, Miklos Szeredi <miklos@szeredi.hu>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- Joanne Koong <joannelkoong@gmail.com>
-References: <20260924-fuse-readdir-folio-v1-0-8dd97e71c1cc@columbia.edu>
- <3dfb90b9-e1d6-4a0d-899f-5db3160cb31b@columbia.edu>
- <c298c696-d10e-494b-b048-186cdd3f360d@bsbernd.com>
- <5ff63ccc-3aba-4c4a-a289-48620f1ceffa@columbia.edu>
-From: Bernd Schubert <bernd@bsbernd.com>
-Content-Language: fr, en-US, de-DE, ru-RU
-In-Reply-To: <5ff63ccc-3aba-4c4a-a289-48620f1ceffa@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
+Critical: 0 · High: 2 · Medium: 0 · Low: 0 (1)
 
-On 10/13/26 19:49, Tal Zussman wrote:
-> On 10/13/26 1:38 PM, Bernd Schubert wrote:
->> On 10/13/26 18:48, Tal Zussman wrote:
->>> On 9/24/26 7:42 PM, Tal Zussman wrote:
->>>> Convert the readdir cache lookups in fs/fuse/readdir.c to folios. This
->>>> removes the last caller of find_get_page_flags() and one of the last
->>>> callers of find_lock_page().
->>>>
->>>> Based on fuse/for-next.
->>>>
->>>
->>> Hi,
->>>
->>> Following up on this. It'd be great to get this in as it would allow us
->>> to remove find_get_page_flags() and find_lock_page() next cycle.
->>
->>
->> fuse has large folios enabled now - the patches need to handle that.
->> Even if it would not be enabled yet, Joanne had spend quite some effort
->> to enable large folios, any change that tried to rely on behavior would
->> have just increased her burden...
->>
-> Hi Bernd,
-> 
-> As far as I can see, Joanne's patches enable large folios for regular files.
-> Here we operate on directories, which are initialized through fuse_init_dir()
-> and so do not use large folios. In any case, these patches switch to using
-> the relevant folio helpers, which would get us closer to using large folios
-> in the readdir cache if that's eventually desired.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Hi Tal,
+- [High] The same dma_unmap_sg_attrs() slab-use-after-free the patch
+  claims to fix can still happen for RX bindings made on a virtual…
+- [High] net_devmem_dev_unregister_rx() adds a new writer of binding->dev
+  (and a new unmap).
 
-oops, sorry, I was bailing out when I read it as "this introduces
-another stop gap for large folios". I quickly scanned over it, but don't
-have much time right now - will review tomorrow morning.
+Pre-existing issues:
+- [Low] Not a valid finding against the final series state; kept only
+  because requires_validation=true.
 
+--
 
-Sorry again,
-Bernd
+net: devmem: unmap dma_buf synchronously on queue uninstall
+
+This adds net_devmem_dmabuf_binding_unmap(). The dma-buf attachment is
+now unmapped when the last bound RX queue is uninstalled, and also on
+NETDEV_UNREGISTER for unbound RX bindings, to avoid a use-after-free of
+dma_dev in dma_unmap_sg_attrs(). Bindings now stay in
+net_devmem_dmabuf_bindings until they are freed, and an xarray mark hides
+unbound ones from TX lookups.
+
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index f4d60654ce7fd..02d607cc87217 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+
+[ ... ]
+
+> @@ -129,10 +151,11 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  	unsigned long xa_idx;
+>  	unsigned int rxq_idx;
+>  
+> -	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
+> +	xa_clear_mark(&net_devmem_dmabuf_bindings, binding->id,
+> +		      NET_DEVMEM_BINDING_LIVE);
+>  
+>  	/* Ensure no tx net_devmem_lookup_dmabuf() are in flight after the
+> -	 * erase.
+> +	 * mark is cleared.
+>  	 */
+>  	synchronize_net();
+>  
+
+[ ... ]
+
+> @@ -153,6 +176,35 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  	percpu_ref_kill(&binding->ref);
+>  }
+>  
+> +static void
+> +net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
+> +			     unsigned long xa_idx, struct net_device *dev)
+> +{
+> +	if (xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +			NET_DEVMEM_BINDING_LIVE) ||
+> +	    READ_ONCE(binding->dev) != dev)
+> +		return;
+> +
+> +	mutex_lock(&binding->lock);
+> +	WRITE_ONCE(binding->dev, NULL);
+> +	if (!netif_is_queue_leasee(dev))
+> +		net_devmem_dmabuf_binding_unmap(binding);
+> +	mutex_unlock(&binding->lock);
+> +}
+
+[Severity: High]
+
+Can this race with net_devmem_unbind_dmabuf() and set binding->dev to
+NULL while the unbind is still walking bound_rxqs?
+
+net_devmem_dev_unregister() is called from netdev_genl_netdevice_event()
+before netdev_lock(netdev) is taken. That means this writer holds only
+RTNL, net_devmem_lock and binding->lock.
+
+The socket close path holds netdev_lock(dev) but not binding->lock:
+
+netdev_nl_sock_priv_destroy()
+    netdev_lock(dev);
+    net_devmem_unbind_dmabuf(binding);
+        xa_clear_mark(..., NET_DEVMEM_BINDING_LIVE);
+        synchronize_net();
+        xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
+            ...
+            netif_mp_close_rxq(binding->dev, rxq_idx, &mp_params);
+        }
+
+Clearing the mark is what makes this walk treat the binding as unbound.
+At least two paths deliver NETDEV_UNREGISTER after the instance lock has
+been dropped and while bound_rxqs is still populated:
+
+- __dev_change_net_namespace() calls netdev_unlock_ops() after
+  dev_shutdown(), then call_netdevice_notifiers(NETDEV_UNREGISTER, dev).
+  It never calls dev_memory_provider_uninstall().
+
+- For a netkit leasee, unregister_netdevice_many_notify() runs the
+  notifiers after netdev_unlock_ops(). The bound rxq is only uninstalled
+  later, from ndo_uninit (netkit_uninit()->netkit_queue_unlease()).
+
+Suppose the unbind is sleeping in synchronize_net() during that window.
+This function then sees !LIVE and binding->dev == dev, and sets
+binding->dev to NULL. For a physical device it also unmaps the dma-buf
+while the binding is still the installed memory provider on the RX
+queues.
+
+The unbind loop then calls netif_mp_close_rxq(NULL, ...), which
+dereferences dev straight away:
+
+	if (WARN_ON_ONCE(rxq_idx >= dev->real_num_rx_queues))
+		return;
+
+Before this patch, binding->dev was only written by
+mp_dmabuf_devmem_uninstall() under the netdev instance lock. Does
+anything else serialize this walk with an unbind that is in progress?
+
+> +
+> +void net_devmem_dev_unregister(struct net_device *dev)
+> +{
+> +	struct net_devmem_dmabuf_binding *binding;
+> +	unsigned long xa_idx;
+> +
+> +	mutex_lock(&net_devmem_lock);
+> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> +		if (binding->direction == DMA_FROM_DEVICE)
+> +			net_devmem_dev_unregister_rx(binding, xa_idx, dev);
+> +	}
+> +	mutex_unlock(&net_devmem_lock);
+> +}
+
+[Severity: Low]
+
+This is a pre-existing issue, not one introduced by this patch, but only
+DMA_FROM_DEVICE bindings are handled here.
+
+After NETDEV_UNREGISTER, TX bindings created by netdev_nl_bind_tx_doit()
+still keep their dma-buf mapping. Their binding->dev also still points at
+the unregistered net_device, and netdev_nl_sock_priv_destroy() reads it
+later.
+
+The next patch in the series, "net: devmem: detach TX bindings on
+NETDEV_UNREGISTER", adds net_devmem_dev_unregister_tx() and an else
+branch here for TX bindings. That appears to resolve this by the end of
+the series.
+
+[ ... ]
+
+> @@ -529,16 +585,19 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+>  	unsigned long xa_idx;
+>  
+>  	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
+> -		if (bound_rxq == rxq) {
+> -			xa_erase(&binding->bound_rxqs, xa_idx);
+> -			if (xa_empty(&binding->bound_rxqs)) {
+> -				mutex_lock(&binding->lock);
+> -				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> -				WRITE_ONCE(binding->dev, NULL);
+> -				mutex_unlock(&binding->lock);
+> -			}
+> -			break;
+> +		if (bound_rxq != rxq)
+> +			continue;
+> +
+> +		xa_erase(&binding->bound_rxqs, xa_idx);
+> +		if (xa_empty(&binding->bound_rxqs)) {
+> +			mutex_lock(&binding->lock);
+> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> +			WRITE_ONCE(binding->dev, NULL);
+> +			if (!rxq->lease)
+> +				net_devmem_dmabuf_binding_unmap(binding);
+
+[Severity: High]
+
+Is the same use-after-free still reachable for RX bindings made on a
+netkit device that leases a queue from a physical NIC?
+
+In netdev_nl_bind_rx_doit(), dma_dev is resolved through the lease to
+the physical device's DMA device
+(netdev_nl_get_dma_dev()->netdev_queue_get_dma_dev()). However,
+binding->dev is the virtual netdev, and bound_rxqs holds the virtual rxq.
+
+The only uninstall this binding gets comes from the unlease path, and it
+runs while rxq->lease is still set:
+
+netkit_uninit()
+  netkit_queue_unlease()
+    netdev_rx_queue_unlease()
+      netif_rxq_cleanup_unlease()
+        __netif_mp_uninstall_rxq(virt_rxq, &p)
+          mp_dmabuf_devmem_uninstall()  <- rxq->lease != NULL, no unmap
+      WRITE_ONCE(rxq_src->lease, NULL);
+      WRITE_ONCE(rxq_dst->lease, NULL);
+      netdev_put(rxq_src->dev, &rxq_src->lease_tracker);
+
+So binding->dev becomes NULL and the unmap is skipped.
+
+net_devmem_dev_unregister_rx() doesn't catch it later either. On the
+virtual device's unregister it skips the unmap because
+netif_is_queue_leasee() is true. On the physical device's unregister,
+binding->dev is the virtual device or NULL, so it never matches.
+
+Once netdev_put() drops the lease's reference on the physical device,
+nothing holds dma_dev, since dma_buf_attach() doesn't take a reference.
+dma_dev can then be freed, for example by netdevsim del_device or PCI
+hot-remove. The later
+__net_devmem_dmabuf_binding_free()->net_devmem_dmabuf_binding_unmap()
+then unmaps against the freed device.
+
+The commit message says:
+
+  except when a leased queue is unleased: the physical device is still
+  registered and, if restarting its queue failed, may still be using
+  the binding.
+
+netkit_check_lease_unregister() triggers this unlease from inside the
+physical device's own NETDEV_UNREGISTER:
+
+	if (READ_ONCE(dev->reg_state) != NETREG_UNREGISTERING ||
+	    !dev->dev.parent)
+		return;
+	...
+	netdev_unlock_ops(dev);
+	unregister_netdevice_many(&list_kill);
+
+Is the physical device still registered in that case? Would this need to
+track the device that owns dma_dev, or hold a reference on dma_dev,
+instead of keying on binding->dev?
+
+> +			mutex_unlock(&binding->lock);
+>  		}
+> +		break;
+>  	}
+>  }
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012174300.2338784-1-almasrymina%40google.com
