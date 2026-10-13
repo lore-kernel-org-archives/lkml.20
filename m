@@ -1,95 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3313FD946
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:51:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44A93E5EF8;
+	Tue, 13 Oct 2026 09:51:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885113; cv=none; b=ISjjaAZYsWMwvTR3e9p9Q8XgJ3M0hD0dUHhR9vM8EleCoj5kOcKFGQb3hC73KUokFj+1asLmSWozWJwe4MxBTQ7XZoZV1h5ErB1NobKtQedIUeCjmRHkTjdkXN0pflNJH9g7EyVxdxmjFzul1lCsO1KYgIvfHBjU8d1nSfxZ8yk=
+	t=1791885116; cv=none; b=kyspcAyPVBqVhw8Nilp4omF0V73E+uAtGM4vDUJdzltaj5q/RfkaQPA3VaMJgvH9PuRIZ+48qzQQ3HLYXFquRJMqXlIMMRdjgJeHnJJy8fqs4QothIl05cSWrkyBBetdob2Ok9yEoAG/y7l2ojW+KLGLiYWEvxJI20CY85MN85U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885113; c=relaxed/simple;
-	bh=shlwzbGkW+Hm66Vq5i/aFfYYUX4ju/i1ZD7qI6EZrQ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KsClmpgfV7DRGkKQrS1A/FF1+6jyJU7rxzMjUq7eQVc0wb74HnVxeqEiD7clWPMEyxr75Z3L2G93rTJedwfFs8uwWtFVOa9mEPukwscbloCDi4v5OFaqavOjYBVbv9Q0GGExl/ME/vvSaDYaXZLa+/WInBv+BWo2yIz05Jrz9Lg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=An17aIE+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791885116; c=relaxed/simple;
+	bh=2L7HIEuwrKsGQPkUmHA8GltpZbVB3LGSooIReo/UXGU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FMPtkFkA2rOKyciVCuGOIN6Q4k44XGcDbUgjiP3f1Nu6uNoDaHt34cHRhHbO8CJaUu3NxRRhGCPxz6KwBT4saFJuvRxvVokG12YxGwMk5KxV/4/J8toiNJe1dfG/rkuz+3mMqaxtx6V0OWmYhOTuxbXvPausP/gPMXawxwtmPa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+RdwBM9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="An17aIE+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07CCD1F00898;
-	Tue, 13 Oct 2026 09:51:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+RdwBM9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E8D11F000FF;
+	Tue, 13 Oct 2026 09:51:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791885110;
-	bh=o+uB5A0mMNJgtCEnOV8qtQFIcoiWWh3SOtJC5g51koI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=An17aIE+BllOFbnNdZYay9W8d+r6b+mkEfcstsFpYtbgOuvZ/tRYMO27jpIh2rxMb
-	 +fO020NVsM/LOa38puD71TOxTmHllX0K+r9WyNzed01Y4EThJ5sH6T/YAAr9epyoz9
-	 zGva0Pjw6s+rMsssXTnnsw8pLm4QnKnGkGfac+0711d4k1L4cdXxjEwYg/ZVBGLJB9
-	 e+2TlyU9ryQiUqAseFpUr0d52EIgPvab79ipx/8eKpep5clQTeswVK7eAtkCS05sWs
-	 cF+HpFs0Jq9eVfNSFdCnHlpP6wEKPDDoCWFuwX7UwkttPCxGg0rNXe23fF1AER4mfv
-	 wSUf5MVtz8uiQ==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] w1: Let bus masters set the search count
-Date: Tue, 13 Oct 2026 11:50:45 +0200
-Message-ID: <20261013095046.6006-2-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261013095046.6006-1-kaloz@kernel.org>
-References: <20261013095046.6006-1-kaloz@kernel.org>
+	s=k20260515; t=1791885115;
+	bh=PyCzwXp6skk6xuTNd5K7xv+NS33CqBs/aqCiNCjofPU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D+RdwBM9UNxHRLePRTKBR9LdQwEtGhFzrPCerxIXBjRJcRKecovsPLJDZf1Wo/A0e
+	 DVAOJcbY54iNO3N24ta5Mb34ynrLmDJllTvriiN+45+xPf+B08wwGD3iHsQc5a8ZfI
+	 C5GXwXL2/Qc9MLL4FJ8DRWz8MgAw2ZYcIQ9z713vjPsS2LMNak6J04CbMVRIlMKg/9
+	 mEnhAZB3z+TjgEeOuok2njcVeiisvuoFNo7zM2CfSar7SCrLAeUNxR4e7M+eOzQB9L
+	 dhe5J7ep9XjoNsnZnXrc/As1NDC6dL25BMfsEr7L4tYfvcDpLenhuJQ1wcNzr4vqtV
+	 2p4w25BGmaHHw==
+Date: Tue, 13 Oct 2026 02:51:48 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH v2 0/2] KVM: arm64: vgic-its: Fix LPI double mapping and
+ DISCARD
+Message-ID: <as3_NKT20MNdqaJR@kernel.org>
+References: <20261013081646.933312-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013081646.933312-1-fuad.tabba@linux.dev>
 
-A master whose slaves cannot change after probe gains nothing from
-repeated searches. Let the master set the number of automatic searches
-on its bus; zero keeps the search_count module parameter.
+On Tue, Oct 13, 2026 at 09:16:44AM +0100, Fuad Tabba wrote:
+> Hi folks,
+> 
+> Changes since v1 [1]:
+>   - Dropped the second mapping of an LPI at MAPTI, instead of keeping a
+>     doubly mapped LPI out of GICv4 forwarding. (Marc)
+>   - Keyed that check on whether an ITE maps the LPI, not on whether its
+>     vgic_irq exists.
+>   - Added a patch that makes DISCARD remove the pending state. (Marc)
+> 
+> Two fixes to the ITS emulation. The first stops a guest from mapping
+> one LPI from two events, which can oops a GICv4 host when the VMM then
+> routes an assigned device's MSI to the second event. The second makes
+> DISCARD remove the LPI's pending state, as the spec requires.
+> 
+> Tested on QEMU, which emulates a GICv4 ITS. A local reproducer with two
+> vCPUs DISCARDs an LPI that's pending in the other vCPU's list register.
+> On rc3, and with patch 2 but without its halt, the guest still takes
+> the LPI. With the series applied, it doesn't.
+> 
+> Based on Linux 7.3-rc3 (fd73f4a665989).
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20261012084743.2228612-1-fuad.tabba@linux.dev/
+> 
+> Fuad Tabba (2):
+>   KVM: arm64: vgic-its: Don't map an LPI from more than one event
+>   KVM: arm64: vgic-its: Remove the pending state of a discarded LPI
 
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
- drivers/w1/w1_int.c | 3 +++
- include/linux/w1.h  | 5 +++++
- 2 files changed, 8 insertions(+)
+Looks good. As all of these VGIC fixes depend on reliably synchronizing
+hwstate I'll assume Marc will apply this patchset after his own series.
 
-diff --git a/drivers/w1/w1_int.c b/drivers/w1/w1_int.c
-index 19a0ea28e9f3..54c87927eb60 100644
---- a/drivers/w1/w1_int.c
-+++ b/drivers/w1/w1_int.c
-@@ -130,6 +130,9 @@ int w1_add_master_device(struct w1_bus_master *master)
- 
- 	memcpy(dev->bus_master, master, sizeof(struct w1_bus_master));
- 
-+	if (master->search_count)
-+		dev->search_count = master->search_count;
-+
- 	dev->initialized = 1;
- 
- 	dev->thread = kthread_run(&w1_process, dev, "%s", dev->name);
-diff --git a/include/linux/w1.h b/include/linux/w1.h
-index 064805bfae3f..88c5299476ed 100644
---- a/include/linux/w1.h
-+++ b/include/linux/w1.h
-@@ -122,6 +122,9 @@ typedef void (*w1_slave_found_callback)(struct w1_master *, u64);
-  * @dev_id: Optional device id string, which w1 slaves could use for
-  * creating names, which then give a connection to the w1 master
-  *
-+ * @search_count: Optional number of automatic searches to run on this
-+ * bus, -1 for unlimited; 0 uses the search_count module parameter
-+ *
-  * Note: read_bit and write_bit are very low level functions and should only
-  * be used with hardware that doesn't really support 1-wire operations,
-  * like a parallel/serial port.
-@@ -156,6 +159,8 @@ struct w1_bus_master {
- 		u8, w1_slave_found_callback);
- 
- 	char		*dev_id;
-+
-+	int		search_count;
- };
- 
- /**
--- 
-2.47.3
+Reviewed-by: Oliver Upton <oupton@kernel.org>
 
+Thanks,
+Oliver
