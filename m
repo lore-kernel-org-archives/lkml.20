@@ -1,138 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-114.mta1.migadu.com [95.215.58.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A0A49B5AB;
-	Tue, 13 Oct 2026 06:14:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331BA49B205
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:14:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872049; cv=none; b=WWPsrvlBDHytbTAVdPtD0Gt4V2EXPmSNNP+qkTRMZwrcGtymBNco5am51L0X1PQLZsBlrcasgH8h85OLZL4b4esq4sTna2Gi2DNlsbhhrrIky3JMLIt+cp/edHATRpVUR6/kSnKoV7vrN3fTpiWDwvrV1ya4PaoKi3vGGiEjKo8=
+	t=1791872065; cv=none; b=qoRkD2+dOSN+Yn/oVAn51l4Z6iFaYDRLdz9exRJt19NDHdArxH8hCzmL1fevhmWcd0CHezk9BAUEcZgc8HkxZysXhR7mJlxXVe3IB2IV4AujJY5yRYjBwf8BPX9xf5H0ID4Njlor4QTSWvrd/uQvYke3GYdxiDErR2Cfw8W/4q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872049; c=relaxed/simple;
-	bh=D+XjgK9TSECFVWpYMAABiQWEZXi+AJq4rnbSwTRUiaQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H8mERwPzC+fWlXDrH5XPuo0gEIibfHXkWRUGw9h71Ek49NFAkIq8ICXLoPbxvL0rTjIMcZJ/pCEjMtPhq9thjsz1gbo579weOWLCxuMwT+DL3YPdeKJOANGlyS85LSCP7E4g7/IWJRQANiq/ctymVoxm0GhceG1MKSi5rQHYlo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9ArvrCk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791872065; c=relaxed/simple;
+	bh=QsATYXt1xHNBXewMknM+2vvG4ngat0gGUTbIS3kxIak=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a0JiZH8Rj+W3VxtPS8SvIX0iNRgLphvXg4IZYA1BoilTxaZ0krtJ987pTCZSTXJ8rBuRKY232zdBqgFYFOq7aDZtU7jSVwX5aR9qr0HFdfqvBgfY6sRififEXOBaigQFF4vhbSJ/slrRPo4LXXmXRReaHqqFsJFTF2oKv/ZdVW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fsHpCK7i; arc=none smtp.client-ip=95.215.58.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9ArvrCk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4431F000FF;
-	Tue, 13 Oct 2026 06:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791872045;
-	bh=YzIyLaCQVYyFvJr0HYNnDsB1AeI73g+HQRH1Lm1z4vA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=i9ArvrCk6y2JT7SFZ8TC2coKR32sMlGjZNT2ur0EQXl++EKq7u+/Sq96LZ2zVz1u8
-	 PF/7z53jLdSTrOz9I2Xv+chK02rzYTfeM9/umtsloeAwPepL6SykLGlIv7RQaeR4xO
-	 8bC2k3MewAzDx5grtHAaxR6tNcYW7r1Db0TaMaw6iieqw/iq8B5em+MbePXPNgn4OY
-	 E4f2WCFhwoNchILXcy/n80hUlZeVIbebxXKSr7gdLKoj5UIYaMj4EPQaZLBZlrVh5P
-	 0Y9IgnPVoVJiDRtqbgyIdjBi8O6exHxB9FlUyhtXCdlFOYPoFekfrpOHC9Gpptpz8U
-	 SNS76fV1/hSvQ==
-Message-ID: <abe6e89f-2379-4928-a77e-0baee12b23e4@kernel.org>
-Date: Tue, 13 Oct 2026 08:13:57 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fsHpCK7i"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QsATYXt1xHNBXewMknM+2vvG4ngat0gGUTbIS3kxIak=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791872058; v=1; x=1792476858;
+ b=fsHpCK7iecW9ZuemkYkY+Wqtt92aVrb8hy9OVMoq9lvDe9YOFhIS+HN/WUPl/Fe4AE501Ji5
+ 8m8X/a+zb9pLY7fEf8+TwDs85nIOi2mqd4Ub1v5iCLzWsB8llGyq1xT+43s2dkhURaH9ljaeYRd
+ L/yf8LOsfUcxk6lL31PWZFpw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 72a19cc71d4d7199;
+	Tue, 13 Oct 2026 06:14:18 +0000
+X-Mizu-Trace-ID: 72a19cc71d4d7199
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 13 Oct 2026 14:14:02 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Gabriel Goller <g.goller@proxmox.com>
+Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v5] net: ipv6: seg6: report lwtunnel setup
+ errors via extack
+Message-ID: <as3MKiW1mqrX1MgC@fedora>
+References: <20261009152015.462383-1-g.goller@proxmox.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/11] ARM: multi_v7_defconfig: Enable Cortina Systems
- CS75xx GPIO, I2C and TWD watchdog
-To: filipp.dunsky@gmail.com, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>,
- Arnd Bergmann <arnd@arndb.de>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
-References: <20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com>
- <20261013-b4-cs75xx-s2-v2-10-94f8c0a90cda@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261013-b4-cs75xx-s2-v2-10-94f8c0a90cda@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009152015.462383-1-g.goller@proxmox.com>
 
-On 13/10/2026 05:47, Fil Dunsky via B4 Relay wrote:
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
+Hi Gabriel,
+On Fri, Oct 09, 2026 at 05:20:13PM +0200, Gabriel Goller wrote:
+> seg6_build_state() rejected invalid configurations with a generic -EINVAL,
+> so "ip route add ... encap seg6 ..." sometimes reported "Invalid argument".
 > 
-> Enable the GPIO and I2C drivers of the Cortina Systems CS75xx SoCs and
-> the ARM TWD watchdog driver, which is needed on the Securifi Almond+
-> because its bootloader starts the watchdog.
+> Add extack messages to the checks that lacked one, and use
+> NL_REQ_ATTR_CHECK() for the missing SRH attribute so that userspace can
+> tell which attribute is missing. The checks themselves and their return
+> values are unchanged.
 > 
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+> Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
 > ---
->  arch/arm/configs/multi_v7_defconfig | 3 +++
->  1 file changed, 3 insertions(+)
 > 
-> diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-> index 23f144359..9a161f8bd 100644
-> --- a/arch/arm/configs/multi_v7_defconfig
-> +++ b/arch/arm/configs/multi_v7_defconfig
-> @@ -423,6 +423,7 @@ CONFIG_I2C_ASPEED=m
->  CONFIG_I2C_AT91=m
->  CONFIG_I2C_BCM2835=y
->  CONFIG_I2C_CADENCE=y
-> +CONFIG_I2C_CS75XX=y
+> v5 (https://lore.kernel.org/all/20261005140637.644840-1-g.goller@proxmox.com/):
+>  * use NL_REQ_ATTR_CHECK() for the missing SRH attribute (Jakub)
+>  * reword the inline mode message to "inline mode requires the IPv6
+>    address family", since it also applies to IPv4 nexthop objects
+>    (Andrea)
+>  * consistently call the header "IPv6 Segment Routing Header" (RFC 8754)
+>    in all messages (Andrea)
+>  * include the offending mode value in the invalid mode message
+>  * reword the commit message to match
+> 
+> v4 (https://lore.kernel.org/all/20260923120228.172643-1-g.goller@proxmox.com/):
+>  * use NL_SET_ERR_MSG when the SRH attr is missing
+>  * use NL_SET_ERR_MSG_ATTR when we have an invalid attr
+> 
+> v3 (https://lore.kernel.org/all/20260922090851.38978-1-g.goller@proxmox.com/):
+>  * format fix
+>  * use NL_SET_ERR_MSG_ATTR
+> 
+> v2 (https://lore.kernel.org/all/20260918153544.1178884-1-g.goller@proxmox.com/):
+>  * dropped tests
+> 
+>  net/ipv6/seg6_iptunnel.c | 26 +++++++++++++++++++++-----
+>  1 file changed, 21 insertions(+), 5 deletions(-)
+> 
+> diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
+> index 69a6ef5c5317..0d39a38a5dd2 100644
+> --- a/net/ipv6/seg6_iptunnel.c
+> +++ b/net/ipv6/seg6_iptunnel.c
+> @@ -762,8 +762,11 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+>  	struct seg6_lwt *slwt;
+>  	int err;
+>  
+> -	if (family != AF_INET && family != AF_INET6)
+> +	if (family != AF_INET && family != AF_INET6) {
+> +		NL_SET_ERR_MSG(extack,
+> +			       "unsupported address family for SRv6 encapsulation");
+>  		return -EINVAL;
+> +	}
+>  
+>  	err = nla_parse_nested_deprecated(tb, SEG6_IPTUNNEL_MAX, nla,
+>  					  seg6_iptunnel_policy, extack);
+> @@ -771,7 +774,7 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+>  	if (err < 0)
+>  		return err;
+>  
+> -	if (!tb[SEG6_IPTUNNEL_SRH])
+> +	if (NL_REQ_ATTR_CHECK(extack, nla, tb, SEG6_IPTUNNEL_SRH))
+>  		return -EINVAL;
+>  
+>  	tuninfo = nla_data(tb[SEG6_IPTUNNEL_SRH]);
+> @@ -782,13 +785,19 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+>  	 */
+>  	min_size = sizeof(*tuninfo) + sizeof(struct ipv6_sr_hdr) +
+>  		   sizeof(struct in6_addr);
+> -	if (tuninfo_len < min_size)
+> +	if (tuninfo_len < min_size) {
+> +		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
+> +				    "truncated IPv6 Segment Routing Header attribute");
+>  		return -EINVAL;
+> +	}
+>  
+>  	switch (tuninfo->mode) {
+>  	case SEG6_IPTUN_MODE_INLINE:
+> -		if (family != AF_INET6)
+> +		if (family != AF_INET6) {
+> +			NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
+> +					    "inline mode requires the IPv6 address family");
+>  			return -EINVAL;
+> +		}
+>  
+>  		if (tb[SEG6_IPTUNNEL_SRC]) {
+>  			NL_SET_ERR_MSG(extack, "incompatible mode for tunsrc");
+> @@ -804,12 +813,19 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+>  	case SEG6_IPTUN_MODE_L2ENCAP_RED:
+>  		break;
+>  	default:
+> +		NL_SET_ERR_MSG_ATTR_FMT(extack, tb[SEG6_IPTUNNEL_SRH],
+> +					"invalid SRv6 encapsulation mode %d",
+> +					tuninfo->mode);
+>  		return -EINVAL;
+>  	}
+>  
+>  	/* verify that SRH is consistent */
+> -	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
+> +	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
+> +			       false)) {
+> +		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
+> +				    "invalid IPv6 Segment Routing Header");
+>  		return -EINVAL;
+> +	}
+>  
+>  	newts = lwtunnel_state_alloc(tuninfo_len + sizeof(*slwt));
+>  	if (!newts)
+> -- 
+> 2.47.3
+> 
+> 
 
-This should be module.
+Thanks for the update.
 
->  CONFIG_I2C_DAVINCI=y
->  CONFIG_I2C_DESIGNWARE_CORE=y
->  CONFIG_I2C_DIGICOLOR=m
-> @@ -492,6 +493,7 @@ CONFIG_PINCTRL_QCOM_SSBI_PMIC=y
->  CONFIG_PINCTRL_RZA2=y
->  CONFIG_PINCTRL_RZN1=y
->  CONFIG_GPIO_ASPEED_SGPIO=y
-> +CONFIG_GPIO_CS75XX=y
-
-This as well.
-
-Best regards,
-Krzysztof
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
