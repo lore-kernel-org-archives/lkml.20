@@ -1,95 +1,100 @@
 Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780EF4EB852
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96104EB862
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890118; cv=none; b=cGFrm273HYK2lY+jcp+23coVst/G9iO5JhM4og07fbM18kYsWgNpe/tNjL5NM2tczNGg7QmVtejSjn4CgjUAOlOUdkMM4QDiyYbaUubdGN34gmjBQZpX/PX/lHU6fl45VH1KzZdf0h2U6xlh9ooLXdGuuX1heju8hbtNa/kHDEc=
+	t=1791890118; cv=none; b=Xlkq5m2zB5NwJgOKUe9taqybMwhXj5E39kd7iMz32qcs3HEbT4oyjfiSqJRBIouznGbsp9IC8a2NQ+JzBhhCNvpNzfJuDpFGrXrfNmswwUu/Dzod6J2AUHbrl/qw5Hha/Z34TMspyNHpPlJ1+39zGlYvTHPpISkL+L2MV9Z8MKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791890118; c=relaxed/simple;
-	bh=hBYloVh/WO/8Qu3kGf5n4AVHAy44PY4CM56FanvckP4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fZ1WtiUpb9DvWEQupT+pAwdKxTZ70zIvbBpFA4zLUTjEdOtNV/atMLgHTooEXsqgKhP+Nr+g8iBIG7qToZV3DoTlhxT4Db7nSSr756bbdkpYTjm7WGZzbWYkVBf9+s/HmUJtcx0G7VbzQLHkFyNddATAGsDz+4UdbabuaFCzvOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=pE/4jxXc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AuYNyrqB; arc=none smtp.client-ip=103.168.172.155
+	bh=AfCdl4HJbRmp6Hd7z71SDz1x1fdA9qcvv+vhcAeDCuw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Kv5kJwKMe8W+a1Z4kSpSHUWkSj36UFr7mtZIrg3MH+vD7YxVVrry7xdrTi4KkBK6paIwt5AS2J018CxC6etAj3Oql3At3FmKRMC6MdxuE2bFTa7QmXkV3MfhDOuOKHRB5eXfB0NdwNzxf0k05bCpea8JV44t+xIdAk5fb99sQmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=HmSHTgZK; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=EUI5R0jW; arc=none smtp.client-ip=103.168.172.155
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="pE/4jxXc";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AuYNyrqB"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 747B0140013A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:15:14 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="HmSHTgZK";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="EUI5R0jW"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id C60F2140012F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:15:15 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Tue, 13 Oct 2026 07:15:14 -0400
+  by phl-compute-05.internal (MEProxy); Tue, 13 Oct 2026 07:15:15 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm2; t=1791890114; x=1791976514; bh=1m2E8L/80K
-	mJcVk765wNS2fDel/ynQQC53DZYmbYtDo=; b=pE/4jxXczz9HW4L6s+S0VOONF8
-	LqaZQqYrkcyJYEwaiA1wirpZcQUx1QnXn8Sg6jVNvCU1ENlywAyaJIfrj+Qn7VJO
-	SuWSI99VE+0MnelPw6hLCcFI+N6UwGhMyjySJS2eWs+zzHbcVfIc8jNzD+zYZFCz
-	EolUvo3fRNPcfm6+pu98QNIOeZ5P2xTT57DUCzMlC3/kret63YdLV6ioC2VitvNo
-	RuErS36dJzbTYUq1E6tKHT0NoTCLnYeZmtEFToamEUt597X3zVLJFkH3R+2D4lt4
-	cyeKIKC1eqO7PvmcPoU9loEB4Qd2Ef7RHCNOwfJ1WOpPJ4ckjPd402EvPTEg==
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1791890115; x=
+	1791976515; bh=YCfHQWmq7as0j19SjmeBOl3tCPjCVl6uLezoA/dR4Tg=; b=H
+	mSHTgZKIyzZpw46T2aF5ijl153VcbqExSAfc/K3Pqk0Mitj081QodBoUIMAtwbig
+	id/xdon4SccZUKp5IZKMb3wY8HH2v9xglJzXd0fP9VNCT9JRX7RS3Y/OR52kyRyF
+	PhNKB39mIuImbPXeV3JzXT6WoKiTpqGC854sQ9tNP7OvdzcrCk6F3CRh1j/lysGA
+	Foil2q3X4thI/67C/TPeLq6AnRELOh77CrHzNmbZHMpkMEKf4FdTmrrgccf4MCAm
+	aw14nCj5WDOfFj+D2Yu74nxPx/A5rBlTPIAlyyym4ni2OBGAvST+7BzZkl6E6NeB
+	HYrJVKM1h9/J0NQeX0usA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791890114; x=1791976514; bh=1m2E8L/80KmJcVk765wNS2fDel/ynQQC53D
-	ZYmbYtDo=; b=AuYNyrqB07G5ejxyKjn95O4v7i7jhX4z4ZrlEtKuqok/ozmPtkC
-	zxhaXnIng5y5cBP6R7aklzIntpfP4Ko8MunGBWi2jrD7OcFWHEn4iVoJwjaNDCeq
-	1QEf5ZFLXdZvLCsEz3EF51F3RBNp7k0x1WzNxLgxVIQrQ4D1qE7vg+hKLYulXBXm
-	2qSmK5FZbaXiUmDD8xRatgzHNirBsci5r2IELdOBJRE/0Zm/xZJl5oAKYdrb6QgC
-	xO/PXvJdaoHxE9thqBXrBS/Hb3JezbZbQWgIjZxsWseXszzvszOQpcmfDisX/N4x
-	Tk02mUW/fgCwgJLab9ftgerID+NhLm0yu6w==
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1791890115; x=1791976515; bh=Y
+	CfHQWmq7as0j19SjmeBOl3tCPjCVl6uLezoA/dR4Tg=; b=EUI5R0jW5xukCKGD3
+	Amr3Tcx3G2x8pcG43s+Kh886AzqyYtblWInA82+v2GSjgBT0Iq679dVgY30XKKnL
+	ushO8HE6QCxr35q9V3KjziI2+MOGublrhhAucCNFW6ze8y2hcF+rwYwWJQZmNZBW
+	Q46I75mI/yj4C6F+VZ9TowWwk+Rhv5qJwTcqQexVSkuu7bghhwlocWz2juROmXWi
+	xOzPPpgpA7I7he4NgNrYpU+GaP5HD03AhX3EfwnpyrPKoUauAxVJI/tyij0m9yad
+	9iy86hIIHrSPNUSKaTjehhNA9xrJeGmEWBQ7swnwy9BYkj8i0W52y/WYoNYqp3zI
+	dJkzg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
 	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791890114; d=sakamocchi.jp;
+DKIM2-Signature: i=1; m=1; t=1791890115; d=sakamocchi.jp;
 	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:wS9SsiboG9UTp/fZgW8imAz8L2+NAZaJe4SvJpwT5Tg9lYH
-	pejrkmQqU78gEcdKl+NNBJUBwpBwj/9V7q4DB1XX8nO8fm8UBb0oYehkypAX/Var
-	kqVYLGWPtIFO2JVnG5ZlWSBh364irUeIcDlJElMLZ2nzaaIzN/h1LbFVIo2ZD62a
-	9T96ImDC7dlUchy1b3UluEuFrHqxhwT3bvRnFoNjugcKYzRKK6brbcp1/BAv07rG
-	l5rgCGRRUGqWfm5t3QxgUq3hCpyWxeGeccfjyQg+QBHPwQOFQ1S/6uwAuK1VxLMo
-	qcY25bdhHqJnbGpABfNykwhH0cmglWyZZL31+mw==;
+	s=fm2:rsa-sha256:dNRJONFVe7vK672lbg3hZEJ5lZty+xWOCJWiljTAbOVBtJt
+	TiTwdBZPFN3H52yoVDHIuZVyLdYuU8iYz2c3xjQkcaMG1YiWwKBOrstT8SYIYdF1
+	O2ITHK0F1+pvZEeMOkZbniibawhW02yyPZt6ZvK5RFAAl12P2ROlLaorCs0oW0Vs
+	dI+ll3XiSW8l4jDHIaxIb6gwiZin481Xlas6Z1FrU9zIPH998zol4y8dsrrZN3s8
+	WSdfE9cnZeBfyL54xfp/PVFudjrylzdMU7wppRgI5X6Yb/zoN4wEnWHLHYZYLRri
+	hxyKUqY2Bf/j+o4R02K23HbF9mTAhfrO+1oGBpw==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=9;
+	action=mi-m=1; hc=11;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:NfiNHjZCcvOzZjL/wND8h9bzRFBl4cL/Jg+0u4uDdoM=:hBYloVh/WO/8Qu3kGf5n4AVHAy44PY4CM56FanvckP4=;
-X-ME-Sender: <xms:whLOajK59kpx01YDIyuXyrfNki0IED1KAGZ8pRzvMX2wd0hIoLXQaA>
-    <xme:whLOalEPYtNEIIe2vglfeTYSZ74tK6n7gze6P9OG0Sp004i2hNmvndVuMZCN2Ng3H
-    4KUb47uGJzwq2AInPooojfkveZlu-SrGaas0HvOG3kCx1mZXarFdFYBjA>
-X-ME-Received: <xmr:whLOajTJ9WBkMYA5dHZN4-hEbfRVQZ-Z7DxblNlTjstrd8I6UOxd5g5RYcr_e14HeB6qSX91c6PyTpNf_d2Hf4pTgC341yrAC11Kc93ujWLCXQ>
-X-ME-Proxy-Cause: dmFkZTGnGUamnOoanpdN0BcOKxbj7b2cRU9VZN4duPohXMX62wfiH6k/vwmK1jJjWbcq+l
-    Ed7YA3FY0FcG4lIYgzI+UUqCBi20jk8eKQRAT2of4vKHD88o6giGepFdgDiWX5zyIIXNnr
-    nyHpsoqT77VL6dXejaTNIviVhP0kKFz1gZQ5zJHDxz/7tWWo7QikTwWNi1C8lyRp2PQ1Pk
-    F9IymWXOqw/wIFgItsWqx+fbScN2Zfy+em0nacclyp474jyeRyvbJ83ftVvEy43WhQS5Sp
-    RWjSdxIxG6yU0oFL+K49JH7RCScYKr1IzNIjcAy3NTcLeThXpq6DuJJIztGZgSB0GrTstY
-    UoDgZMQ0bZKUAp4U3aKTY4pPR6CD7VjFN7klsq28eIPlV8z9BVN0bTU2FiOvMxc9q7lxhJ
-    uE+6VQOXHHbYBL8CMkDsIdt0BAWrTAtxoM78YfOGiVnnBVXaW9OLETos5a2abO0bnkH/ud
-    9PAqg9woux2yOS9m6qMAbEIXXq6Z6yR+pHvDd5teXRNqCWliumwlpfEU52KgoEi+W5lnxY
-    k6uCq4emVeQ8YGgBS/vFcgjvOYLNg5cAFAhDtvCIn7s40Yn8ex2xtqXFhr7WoSnIctgNrC
-    Kxmf1wiqMaDDNSYoVT4D9K4n9/kkDjeF0qlUXXc1HeBfIfVcDNTs+vdkof/g
-X-ME-Proxy: <xmx:whLOapFO80weNs-QD1qzM3AJGycbsQ15pumAF1zo6zVPsKsjlpmhWg>
-    <xmx:whLOan9sb2ObLYRigUJ_CX1wzA5sc1--bnQILxgwguxeT_UoBZUwuw>
-    <xmx:whLOarJD0UqHEGg0kMFJMhJUap_z1yVxqHPve05G66-yZDHGsayWxA>
-    <xmx:whLOaibHgdYHqUvtxOMrwgW_cdlEOsDcxgkG0j4iSSA0-FZYNFtMHg>
-    <xmx:whLOat9EvLlQ3j20zAkLp_oGON2zRDwkVNui-0nDSMK_vjwfeYLPsQqR>
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:iEnPw2Um3a7QhoR+UndaV2fraqI7rd/mREQ5MM7GKD0=:AfCdl4HJbRmp6Hd7z71SDz1x1fdA9qcvv+vhcAeDCuw=;
+X-ME-Sender: <xms:wxLOairaOibXY82Yt3kJZCrR4jrDHit8V4O1ZAYKkJpoaUTltx7DSw>
+    <xme:wxLOaunootlLtNzbObPowjsKgRVTTKxv5kLGPqyE57T3c0wbqoLzsESUcvsdnOCPy
+    lpzYycpuTWGbguMfXvCYr1cSOL_LySdDXZr18SEsOrcTQK76z2jmCrM>
+X-ME-Received: <xmr:wxLOauz-MLanoYjnlwKdSiuJeUbaePx34shok0lT96oPQ6ADCQAav_YHro1o4LJtbLcbBL1hvuhuSQiDhODgJnWhFu0jqhintqN1xLYU2We1sA>
+X-ME-Proxy-Cause: dmFkZTEa4W56myFAnXGZKqKyHwSuZuijeMhN4PpzkUyH2YEgt6T/QHVb4ojvKJ0iiIbShh
+    7ipNRlzatkBU1IMohN9xY47km39/7v3hQUI3K86ijMAXsRxoYLFw5+T7S5Og7TInYGU5ZN
+    7rLy6duy7DmU0Oi0KjruBIbvMIzp8rSVmkxJ10D9iqgluyalt9eSwsau07G822DBgDUlSa
+    AxlO06fJjVdpu6ZEs7ETxiIW0oyi2OoDllJ0k1kfrm8XcsqwZLzHEU23bibbN0RY2GdXh5
+    RfNYx8iOgcztxvReqRbepF9h9ix++g/hS9Ig4WlGZhk7eCPcdaYMsRClLBVltnte1FOTI1
+    H7r4y1mLswCCohyzZGV+UMJINHjvnwWSUUVlrZF/BpDGCPq78tzc7vJxVsibJz9hcDw+aB
+    yATqHs4/QU9DArBrFEPSFLNsiIAjtA8tomv5T55BNFsDlX9uhGCyh6gcYhZYzFXORZAbpq
+    sOIS+AeLxSw+MiCGkFdJjyAaZTE+hSExM69GqJCx8Fi/fcUElwziXHT/Z+enYxWZFHgz+B
+    tMygAhLYoJ71DeAyW9AdLBHJToNJi8R//CyJxSGNnaBJgA8Esh7Tyq3SNu1iLysz3UsgsE
+    zStWjyIFQO3+aPNV25O+WyokwFQgki0pjKLWsmCv56hn0qZ3ruyjElnN5DRg
+X-ME-Proxy: <xmx:wxLOaul9DN8d8SkLhNGUbZRRDROf_-c5HpmJgB5sWIGwDXJ9rxAPmg>
+    <xmx:wxLOavek0S23Jbpi7zkxIDHLBtxs6E36HoUaHzSOihsPFFj9f7dctg>
+    <xmx:wxLOasoe_9PZgvzWR_uwtfmJfQjh9roOesUO6D7xE2dm2_G-rgspJw>
+    <xmx:wxLOal6g_ztxW7bapAg9WDWblYbAGBYm_E7bjvbqJxbEWtl0RfSKGQ>
+    <xmx:wxLOapcX6j_ihlaqw9nLrw45K0tT9Itf5oSvCVB6Y5ueE9TpcYDSjrFW>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 07:15:13 -0400 (EDT)
+ 13 Oct 2026 07:15:14 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] firewire: core: Add kerneldoc for transaction-related symbols
-Date: Tue, 13 Oct 2026 20:15:07 +0900
-Message-ID: <20261013111509.612518-1-o-takashi@sakamocchi.jp>
+Subject: [PATCH 1/2] firewire: core: add kerneldoc for outbound transaction-related symbols
+Date: Tue, 13 Oct 2026 20:15:08 +0900
+Message-ID: <20261013111509.612518-2-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261013111509.612518-1-o-takashi@sakamocchi.jp>
+References: <20261013111509.612518-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,24 +103,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The core provides helper functions and structures for handling outbound
-and inbound asynchronous transactions, but some of the related symbols
-lack sufficient kerneldoc comments.
+The core provides helper functions and structures for initiating
+asynchronous transactions.
 
-Add kerneldoc comments for these symbols and document them in the FireWire
-driver API documentation.
+Add kerneldoc comments for these symbols.
 
-Takashi Sakamoto (2):
-  firewire: core: add kerneldoc for outbound transaction-related symbols
-  firewire: core: add kerneldoc for inbound transaction-related symbols
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ Documentation/driver-api/firewire.rst |  3 ++
+ drivers/firewire/core-transaction.c   |  2 +
+ include/linux/firewire.h              | 61 +++++++++++++++++++++++++++
+ 3 files changed, 66 insertions(+)
 
- Documentation/driver-api/firewire.rst |  5 ++
- drivers/firewire/core-transaction.c   | 39 +++++++-----
- include/linux/firewire.h              | 89 +++++++++++++++++++++++++--
- 3 files changed, 113 insertions(+), 20 deletions(-)
-
-
-base-commit: 74706ef1a0c26432ec4d19b540117f83e4b3d206
+diff --git a/Documentation/driver-api/firewire.rst b/Documentation/driver-api/firewire.rst
+index 28a32410f7d2..e1120376a31c 100644
+--- a/Documentation/driver-api/firewire.rst
++++ b/Documentation/driver-api/firewire.rst
+@@ -37,6 +37,9 @@ Firewire device probing and sysfs interfaces
+ Firewire core transaction interfaces
+ ====================================
+ 
++.. kernel-doc:: include/linux/firewire.h
++   :identifiers: fw_transaction fw_transaction_callback_t fw_transaction_callback_with_tstamp_t
++		 fw_transaction_callback fw_send_request fw_send_request_with_tstamp
+ .. kernel-doc:: drivers/firewire/core-transaction.c
+     :export:
+ 
+diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
+index 33c4ea48c6c9..22cddb736289 100644
+--- a/drivers/firewire/core-transaction.c
++++ b/drivers/firewire/core-transaction.c
+@@ -396,6 +396,8 @@ __must_hold(&card->transactions.lock)
+  * than when the request packet actually hits the wire.  On the other hand,
+  * transaction completion and hence execution of @callback may happen even
+  * before fw_send_request() returns.
++ *
++ * Context: Process context.
+  */
+ void __fw_send_request(struct fw_card *card, struct fw_transaction *t, int tcode,
+ 		int destination_id, int generation, int speed, unsigned long long offset,
+diff --git a/include/linux/firewire.h b/include/linux/firewire.h
+index b55c2fdd739d..f1cb7569eaa0 100644
+--- a/include/linux/firewire.h
++++ b/include/linux/firewire.h
+@@ -286,13 +286,62 @@ struct fw_request;
+ 
+ typedef void (*fw_packet_callback_t)(struct fw_packet *packet,
+ 				     struct fw_card *card, int status);
++
++/**
++ * typedef fw_transaction_callback_t - Function to handle the result of outgoing transaction.
++ * @card: the interface to send the request at
++ * @rcode: the response code
++ * @data: the data for the response subaction
++ * @length: the length of data
++ * @callback_data: the data registered with this callback
++ *
++ * This callback is called from a workqueue in process context after the outgoing transaction is
++ * completed successfully or unsuccessfully.
++ *
++ * Among its parameters is the response code which is either one of the rcodes per IEEE 1394 or, in
++ * case of internal errors, the firewire-core specific %RCODE_SEND_ERROR. The other firewire-core
++ * specific rcodes (%RCODE_CANCELLED, %RCODE_BUSY, %RCODE_GENERATION, %RCODE_NO_ACK) denote
++ * transaction timeout, busy responder, stale request generation, or missing ACK respectively.
++ *
++ * Context: Process context.
++ */
+ typedef void (*fw_transaction_callback_t)(struct fw_card *card, int rcode,
+ 					  void *data, size_t length,
+ 					  void *callback_data);
++
++/**
++ * typedef fw_transaction_callback_with_tstamp_t - Function to handle the result of outgoing
++ *						   transaction with hardware time stamps.
++ * @card: the interface to send the request at
++ * @rcode: the response code
++ * @request_tstamp: the time stamp at which the request subaction finished
++ * @response_tstamp: the time stamp at which the response subaction finished
++ * @data: the data for the response subaction
++ * @length: the length of data
++ * @callback_data: the data registered with this callback
++ *
++ * This callback is called from a workqueue in process context after the outgoing transaction is
++ * completed successfully or unsuccessfully.
++ *
++ * Among its parameters is the response code which is either one of the rcodes per IEEE 1394 or, in
++ * case of internal errors, the firewire-core specific %RCODE_SEND_ERROR. The other firewire-core
++ * specific rcodes (%RCODE_CANCELLED, %RCODE_BUSY, %RCODE_GENERATION, %RCODE_NO_ACK) denote
++ * transaction timeout, busy responder, stale request generation, or missing ACK respectively.
++ *
++ * The timestamp consists of the low order 3 bits of second field and the full 13 bits of count
++ * field of isochronous cycle time register.
++ *
++ * Context: Process context.
++ */
+ typedef void (*fw_transaction_callback_with_tstamp_t)(struct fw_card *card, int rcode,
+ 					u32 request_tstamp, u32 response_tstamp, void *data,
+ 					size_t length, void *callback_data);
+ 
++/**
++ * union fw_transaction_callback - A union to store the outgoing transaction callback.
++ * @without_tstamp: Callback without hardware timestamps.
++ * @with_tstamp: Callback with hardware timestamps.
++ */
+ union fw_transaction_callback {
+ 	fw_transaction_callback_t without_tstamp;
+ 	fw_transaction_callback_with_tstamp_t with_tstamp;
+@@ -352,7 +401,15 @@ struct fw_packet {
+ 	void *driver_data;
+ };
+ 
++/**
++ * struct fw_transaction - A structure to hold outgoing transaction state.
++ *
++ * All structure members are for internal use only. Once passed to __fw_send_request(), this
++ * structure holds the state of an outgoing transaction. It must not be freed until the callback
++ * reports the transaction result.
++ */
+ struct fw_transaction {
++	/* private: */
+ 	int node_id; /* The generation is implied; it is always the current. */
+ 	int tlabel;
+ 	struct list_head link;
+@@ -429,6 +486,8 @@ void __fw_send_request(struct fw_card *card, struct fw_transaction *t, int tcode
+  *
+  * After the transaction is completed successfully or unsuccessfully, the @callback will be called
+  * in process context.
++ *
++ * Context: Any context.
+  */
+ static inline void fw_send_request(struct fw_card *card, struct fw_transaction *t, int tcode,
+ 				   int destination_id, int generation, int speed,
+@@ -461,6 +520,8 @@ static inline void fw_send_request(struct fw_card *card, struct fw_transaction *
+  *
+  * After the transaction is completed successfully or unsuccessfully, the @callback will be called
+  * in process context.
++ *
++ * Context: Any context.
+  */
+ static inline void fw_send_request_with_tstamp(struct fw_card *card, struct fw_transaction *t,
+ 	int tcode, int destination_id, int generation, int speed, unsigned long long offset,
 -- 
 2.53.0
 
