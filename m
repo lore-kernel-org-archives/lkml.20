@@ -1,113 +1,246 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFAD349CF0;
-	Tue, 13 Oct 2026 09:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74213B38A4
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882169; cv=none; b=RjPCrMbnGSqE9NIcTuYg9SYosshNFh/8qwN3vdRYqjYC7/Lh40xqasY+DjovrQDigfFUOvQU3fhB8uPuMon1jAIwk5ITO2E1ugJ+j7Kf6Vg6XjyOQjC8CTpu2YcFgaiF77BqpobmH4lB0G/igx1CrtkouklmAxPu75g4i5kfQ2c=
+	t=1791882248; cv=none; b=Hag7Z1nN6yd30xanZK4uCkDpibrxYBgiYHCn/lLwWFCtLdMOXmHmqvzWQkyqV5ZFbraQDgXR8E0H+qrMRxYMXK+AUELWv9rAjgrJ/O46iw/TwgEgHgIdObXqUgqBTbu4umhSoQVO5v4I/c2HHce8Chjp66y4ywmnXUPfuYAeTdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882169; c=relaxed/simple;
-	bh=JwYDCNdXLaGhSF1gDAHg9eApC698pRa6SlDj4UwDP8Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gBUWNVS1cSMfFamzpYTP02lKDzrdvQZK7HXgis2Rd83kyKgcNEHpzuWef0GLbN6cvUx5w7IMb/UnXEJC9KjxTb3/1bs4umONdGzmjFnA3ibF5JiJ1TF2hrTRvxk3P1SCQbbepqwiuX85ou+H1xfdwPNKmPoNB9TdDq9bX2yqxJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l2GdCJap; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791882248; c=relaxed/simple;
+	bh=1oDriChURZPshYQWfLX6W+SoRjzlAPzsgRXYOZsx3JE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=raw9iTiQeSC18sRQ8mK8XKh2BfgY6zglWtmEOPH2mQuykhAqLef7RDojkuFCll6e7kaqlqI2ZD+qYabKMAJNAvtaYuLoFCpwKIr72od5QZ64d5Af7msTce8h+1pQ7dofcA51Y5lZtzFhqhFqFtIW6jnxSMgfTCo91Ngus4ai6Xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bZ9DXqXJ; arc=none smtp.client-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l2GdCJap"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791882167; x=1823418167;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=JwYDCNdXLaGhSF1gDAHg9eApC698pRa6SlDj4UwDP8Q=;
-  b=l2GdCJaprQwWyxR5smlc/vBuoJZFwAFrYwiF5NLRMDec2kQc41ULOthj
-   H6ZI+8irHHX7agsP5QaLOKPy/aaXTPNIrbKcvYGf1kWch5B13yj+gD4kg
-   WBHIyKpTpsiXxY/Ssbxh76GmwzyDXBGMr9E/WbzSK/K9SMOB1EOamu3fi
-   /qcpoR3b9d/Qea50/VaZyqvmyc28QgTnODJPPjLNnNMCGMbZElmvyHg14
-   KBZz3/O6PO25aBa72N6+MMzcGZpexi8yki3fKwUHNMIl0fRwNoh+g2MKI
-   /uge8y4qfxqZ7K4W3u2FIIjvO9oGglapwN71iEihXAZD3VeOA+sX7DtQV
-   Q==;
-X-CSE-ConnectionGUID: aQCtzTlDTl2opxQMM55iyQ==
-X-CSE-MsgGUID: jqpL3yGXQwK9B5oppdyKaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="605115"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="605115"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:02:46 -0700
-X-CSE-ConnectionGUID: C7B5YhSgTIKtoU6Rn9SCgg==
-X-CSE-MsgGUID: yHB9gU+8QAynInSmPeF0nw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1589486"
-Received: from unknown (HELO [10.238.2.98]) ([10.238.2.98])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:02:43 -0700
-Message-ID: <bd995feb-e8d9-4595-a809-753101b91e48@linux.intel.com>
-Date: Tue, 13 Oct 2026 17:02:40 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZ9DXqXJ"
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-150b2fbd784so130991c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:04:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791882246; x=1792487046; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fLHMgr985P+kVdaCPslV6Iv4+PQzUDULB9m3V+hBlNg=;
+        b=bZ9DXqXJO9Lg/fbejXrUN7kf77Iszki30EVjrVhGEcRGGtUlpv5ixOG133YCwyDb3r
+         NVZvC0SdYnuClogsKEnQ1ZHVNZIDNJ8wrSCxmltvsiW5ir5OqHqIYXjSoJCwVE6paaNP
+         KELLcBqC24OGkmPwSFz0mbDIGBvUbmo2MNCBvf9OVAKFFWcMoa5RKuWrZ3OCa8li0EHV
+         KMMlDKmQIunwnN9VhswhgxoW57rvC2WRh+4jPyTQJQYuIcNBhhgCmVxn3gct7FGTDImq
+         TqDp/UtAlpCu8UPDsB+zYXTKNNYL+/xS1I8fHyHGhdOpmwVlOBmzMxtcDGJAXqwybjxX
+         /q+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791882246; x=1792487046;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fLHMgr985P+kVdaCPslV6Iv4+PQzUDULB9m3V+hBlNg=;
+        b=HCCR7NGH+/rTPyp6BMl1HcC1K9EmxLRwyqab2B0M+qJixMkuxeBXogSJkN1xxhggja
+         TLjZQzNmQ5bcvNk+sik1DR9QckwizyMq7AmTqMoZOase4h/QpxNmreca6GLfRhoqyCNW
+         E+XSOVByzyZkxrwQuBOQzVQrU0P3Va8Bar+5voecF6eD0DHRiYiP5BO1wk3aVvtt6e01
+         QHtFRcEVTqazbCt0Rc7ZCEaTP1Lo/ecSktHSe6bas6+SL6gppOTu4h8jrAzEXW9CMjN0
+         4kP8beJFYjN+nVmozCyK4v/DHLS36aNJzYsPJmqhGzKJjR8x+Tvlx0e2xWJ2FFYEddpk
+         tXnw==
+X-Forwarded-Encrypted: i=1; AKwUvBzN6wC9tmJGfZp39MrxO42LfljLmYdXV+TV+lEiP7b49UgYIuVTjIgJ3uTDILtpnvw1Dmz/JmObmpRhrYI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtkUW4pFVMy62HghMTI1ZnEMqJdknaDaxWu2NpZ74dr5rB5RzR
+	K9JOR45a6lnNYpFXsK2CJwzApU5njGPgNdeSO3Se2g+M/kErjt2dukOq
+X-Gm-Gg: AYBFou1RSr68EmMx1ovI16izrW4i76SnfD39oVnLs2YkmF8Gt9QzaqkdTQI6Rz94h+2
+	BrylHiO4vPJUgPFvQifjI7ETaHPC6Ikpnlk4iaRBJbYvKAcVBEhhT+kNcGO4n+05wiOka08BaFj
+	MVuJLNneW/cYnfdqjeiWCBcSaG3+e9at1WtCMOPsU9hcOEVhU5huSxO99yhfgkHR01Faljjmfkn
+	xSohie3lr6EjT5Br28M+Ckh3Ad3/MJZ0DIDRVzjggFRImhGHM9dJ2LFrUFQ23KVQJQrHP/3UmCH
+	wWq1sZDxfRFXy7VoIz01/5IDl3FWJ/HIJiNvBEt+eEZMx3PDUWsWV+SZA34OWHRkmRpIt5mUcwE
+	+pFgPCVs0mUStTFVYqk47CC7c4T8nFiBwccEbor80jrtCY+5wnXeSmf2ykELcAq/JJkakc/o385
+	7TzurlfwoARvdPcVIMPKkqJvQ0/aoD0Dybv+ApbJLNERtMIY37huE5F1yzNTbBOkp1xISzimyU/
+	A4DC/gtp0zXSX9ks3Dqv7aZySlnZlrJi2gwFraHu631CZ+dA6Fe71FPb6s+Hqsf
+X-Received: by 2002:a05:701b:2815:b0:14c:cc55:aba1 with SMTP id a92af1059eb24-16a5afe6569mr28530186c88.1.1791882245696;
+        Tue, 13 Oct 2026 02:04:05 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a31f6f5csm36281803c88.11.2026.10.13.02.04.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 02:04:05 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>,
+	David Howells <dhowells@redhat.com>
+Cc: Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>
+Subject: [PATCH v4 1/2] keys: Protect quota-owner reads in namespace filters
+Date: Tue, 13 Oct 2026 17:03:57 +0800
+Message-ID: <20261013090358.1178367-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
+References: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/10] x86/virt/tdx: Convert the tdmr metadata reader
-To: Chao Gao <chao.gao@intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
- kvm@vger.kernel.org, yilun.xu@linux.intel.com,
- tony.lindgren@linux.intel.com, rick.p.edgecombe@intel.com,
- nik.borisov@suse.com, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>
-References: <20261012094754.27702-1-chao.gao@intel.com>
- <20261012094754.27702-5-chao.gao@intel.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20261012094754.27702-5-chao.gao@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/12/2026 5:47 PM, Chao Gao wrote:
-> Continue converting the metadata readers to the table-driven helper.
-> 
-> The "TDMR info" metadata class has two readers: one for the fields that are
-> always present, and one for the fields that exist only when the module
-> supports Dynamic PAMT.
-> 
-> Add a table for each, both pairing field IDs with the 'struct
-> tdx_sys_info_tdmr' members that hold their values, and read all fields by
-> walking the tables.
-> 
-> Annotate both tables as __initconst since they are referenced only during
-> init.
-> 
-> AI was used under supervision to review the code and workshop the
-> changelog.
-> 
-> Signed-off-by: Chao Gao <chao.gao@intel.com>
-> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+keyctl_chown_key() replaces key->user under key->sem and drops the
+reference to the previous owner after releasing the semaphore. Readers
+which do not hold that semaphore can still be using the previous owner
+when key_user_put() frees it.
 
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+For example, namespace filtering in /proc/keys can race with chown:
 
-[...]
+  /proc/keys reader                 keyctl_chown_key()
+  user = key->user
+                                    key->user = newowner
+                                    key_user_put(old)
+                                      kfree(old)
+  read user->uid
 
->  
-> @@ -122,7 +91,7 @@ static __init int get_tdx_sys_info(struct tdx_sys_info *sysinfo)
->  	 * DPAMT but don't expose the metadata.
->  	 */
->  	if (!ret && tdx_supports_dynamic_pamt(sysinfo))
-> -		ret = get_tdx_sys_info_tdmr_dpamt(&sysinfo->tdmr);
-> +		ret = read_sys_metadata_table(dpamt_mappings, &sysinfo->tdmr);
+An earlier instrumented run reported:
 
-Nit:
-dpamt_mappings is a bit inconsistent with others.
+  BUG: KASAN: slab-use-after-free in proc_keys_start+0x353/0x440
+  Read of size 4 at addr ffff8881128abbc0 by task poc/88
+  Call Trace:
+   proc_keys_start+0x353/0x440
+   seq_read_iter+0x25d/0x1190
+   proc_reg_read_iter+0x19e/0x260
+  Allocated by task 86:
+   key_user_lookup+0x1b4/0x540
+   keyctl_chown_key+0x3cc/0xbf0
+  Freed by task 87:
+   kfree+0x149/0x330
+   keyctl_chown_key+0x7b0/0xbf0
 
-May be tdmr_dpampt_mappings?
+Take key_user_lock explicitly while /proc/keys and find_keyring_by_name()
+copy the owner's UID. find_ge_key() is the initial/seek lookup reached
+by the reported proc_keys_start() fault; key_serial_next() applies the
+same UID filter to subsequent entries. find_keyring_by_name() reads the
+same replaceable owner when looking up named keyrings.
 
+key_serial_lock and keyring_name_lock protect these traversals but do
+not exclude chown. Taking key->sem would sleep under those spinlocks.
+The embedded key->user->lock cannot protect the dereference needed to
+acquire it.
 
->  
->  	return ret;
->  }
+key_user_put() already holds key_user_lock for the final reference
+decrement and tree removal. A reader selecting an owner before removal
+blocks its final release until the UID copy finishes. After removal,
+the lock and reference-count ordering make the preceding owner
+replacement visible, including when another task drops the final
+reference. Mark the pointer loads with READ_ONCE() and the chown store
+with WRITE_ONCE(); the existing lifetime locking provides the protection.
+
+Retain the quota-owner UID rather than substituting key->uid, since they
+may differ for thread keyrings.
+
+Other owner accesses already have lifetime protection. key_alloc() uses
+a referenced owner before publishing the key. Final key_put() cannot
+overlap chown, which holds a key reference. key_gc_unused_keys() handles
+unreferenced keys: serial-tree removal excludes /proc/keys readers, and
+keyring_destroy() removes named keyrings under keyring_name_lock before
+the owner reference is dropped. /proc/key-users already holds
+key_user_lock during traversal. Quota reservation and instantiation need
+the separate accounting serialization.
+
+Fixes: 454804ab0302 ("keys: make procfiles per-user-namespace")
+Fixes: 2ea190d0a006 ("keys: skip keys from another user namespace")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6-Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+Changes in v4:
+- Move the quota-reservation and instantiation scopes from v3 1/2 to
+  the complete accounting fix in 2/2; retain the combined lock coverage.
+- Isolate the namespace-reader lifetime fix and make it independent of the
+  accounting patch by relying on existing lookup/final-release locking.
+- Pair READ_ONCE() pointer snapshots with WRITE_ONCE() in chown; explain
+  lifetime ordering and preserve the quota-owner UID filtering semantics.
+- Include analysis of of the other owner access sites in the changelog
+
+v3: https://lore.kernel.org/r/20260927162528.943886-2-nicoyip.dev@gmail.com/
+v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
+
+ security/keys/keyctl.c  |  2 +-
+ security/keys/keyring.c |  7 ++++++-
+ security/keys/proc.c    | 15 +++++++++++++--
+ 3 files changed, 20 insertions(+), 4 deletions(-)
+
+diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+index d14ace88e529c..c89a4d6efed40 100644
+--- a/security/keys/keyctl.c
++++ b/security/keys/keyctl.c
+@@ -1039,3 +1039,3 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+ 		zapowner = key->user;
+-		key->user = newowner;
++		WRITE_ONCE(key->user, newowner);
+ 		key->uid = uid;
+diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+index 15bf4af8f2821..4a13749bc54cd 100644
+--- a/security/keys/keyring.c
++++ b/security/keys/keyring.c
+@@ -1148,6 +1148,7 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+ {
+ 	struct user_namespace *ns = current_user_ns();
+ 	struct key *keyring;
++	kuid_t uid;
+ 
+ 	if (!name)
+ 		return ERR_PTR(-EINVAL);
+@@ -1158,7 +1159,11 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+ 	 * grants Search permission and that hasn't been revoked
+ 	 */
+ 	list_for_each_entry(keyring, &ns->keyring_name_list, name_link) {
+-		if (!kuid_has_mapping(ns, keyring->user->uid))
++		spin_lock(&key_user_lock);
++		uid = READ_ONCE(keyring->user)->uid;
++		spin_unlock(&key_user_lock);
++
++		if (!kuid_has_mapping(ns, uid))
+ 			continue;
+ 
+ 		if (test_bit(KEY_FLAG_REVOKED, &keyring->flags))
+diff --git a/security/keys/proc.c b/security/keys/proc.c
+index 4f4e2c1824f18..aa42ea4becec7 100644
+--- a/security/keys/proc.c
++++ b/security/keys/proc.c
+@@ -68,7 +68,13 @@ static struct rb_node *key_serial_next(struct seq_file *p, struct rb_node *n)
+ 	n = rb_next(n);
+ 	while (n) {
+ 		struct key *key = rb_entry(n, struct key, serial_node);
+-		if (kuid_has_mapping(user_ns, key->user->uid))
++		kuid_t uid;
++
++		spin_lock(&key_user_lock);
++		uid = READ_ONCE(key->user)->uid;
++		spin_unlock(&key_user_lock);
++
++		if (kuid_has_mapping(user_ns, uid))
+ 			break;
+ 		n = rb_next(n);
+ 	}
+@@ -80,6 +86,7 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
+ 	struct user_namespace *user_ns = seq_user_ns(p);
+ 	struct rb_node *n = key_serial_tree.rb_node;
+ 	struct key *minkey = NULL;
++	kuid_t uid;
+ 
+ 	while (n) {
+ 		struct key *key = rb_entry(n, struct key, serial_node);
+@@ -100,7 +107,11 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
+ 		return NULL;
+ 
+ 	for (;;) {
+-		if (kuid_has_mapping(user_ns, minkey->user->uid))
++		spin_lock(&key_user_lock);
++		uid = READ_ONCE(minkey->user)->uid;
++		spin_unlock(&key_user_lock);
++
++		if (kuid_has_mapping(user_ns, uid))
+ 			return minkey;
+ 		n = rb_next(&minkey->serial_node);
+ 		if (!n)
+-- 
+2.43.0
 
