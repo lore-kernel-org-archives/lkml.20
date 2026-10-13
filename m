@@ -1,80 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5665D51DE1B;
-	Tue, 13 Oct 2026 13:18:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C4D4FDA77;
+	Tue, 13 Oct 2026 13:18:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897524; cv=none; b=ahTiuBAX+bqV70tokfyU7rdjuFJ559f/3+vgEKz8H6HbhkdJeVUEBie1NKOuwKe8Xca2ZtarhnHy9ghk0K7GNP3F0SnPtN9yViBRJT/DdnJIToJ+1+gKvOIPUzbQdDmtCbo7h8P1kK0MSbNLbY3Zhqtf2BHVfYUL0j2a6btaGSI=
+	t=1791897526; cv=none; b=dEXoZl92pqzVc4MYvy96rf2x1kLM+fTsOGuZmjr4+A3JPXJdYGbYUeFQAD+I6ja6VJQ1lDfUs67RMxmQD+eUXjd9BWdqXRXcmXRHCMZ60M1slJ9gQfKKZ0X4RVP6I896QKKDEfcwFn5HoNllRCVIM4wNY8Gpd2EllB9xT3xcHgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897524; c=relaxed/simple;
-	bh=5sYEcFOz7zHsLvfSx6IFtHI0dSFNFIYlozlPRF4SANo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QoQO0D7UdZjYG3vqpStCYnbJkynrGnry4qleZV+VwYeo05XcHwy9UhFvYSADYPgw1/xtTP4gT35Jv4BtJSre/3oHrZ89DLnXwrjP62b4rJ0Y4gKGyjjp/tgXlJOvLo15hExf7SnUTSJSyGyjzQ8ScGwYTZuGKUnBCvv6aHyR3hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9DhBA4E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791897526; c=relaxed/simple;
+	bh=GZv+56/nA2PI3ESk+a74I0vEah5kjoavPN9w6GQLbTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N/N/MARocXXcwRv58zkI2Dv/23RAkpGGQHqfFz1BAF/ozcVhTwcM+054wCbVCs90YxnAmGUCPJlkshAjbzXYgverfSabVg4Zp5idgRsFuTgbmm6JRO+otQgKxfmc5n4ZpvJi99hEqLpslcPJv73sANtb/wT6HzW1FII9zZSLbbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dlH9JjoH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9DhBA4E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9231F00893;
-	Tue, 13 Oct 2026 13:18:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791897523;
-	bh=nO5zp9Bx1tsDURv0h0GM42QYZYPg1chbmHID4OosDXE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b9DhBA4EH9lqOh1d/Mhh4eb7pt8yK+dj68AUKJN2bhxsY6/wrphxlhmVXADv/6Xii
-	 ZliqXjrrw0rNeaJ2oblFexjpWZqJjTU7kyKEgF7jBYV5ND+bvYmubi0T+7vkxkAtlW
-	 24WH0/BgIUg0DlN5SxsqkcskjLKEiRlWO9Tsg0KAvvqQkCYKcDXtaekH2vVTOxUOqr
-	 EmFHA2qL+C8YHUJmePVDgzULLAMauIQLeKXa2sCbqoYLFE6jEQhWwIeg5L3NXXKIwG
-	 bL5lm9V0ro0IhCQJ3s8w6GKMCblGMGCwkJ7T+VfmYTzwUdrvLlkdqHUjYC6+yYhani
-	 TF09icwAmlETQ==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>
-Subject: [PATCH v2 06/53] MIPS: Xtalk: guard the widget identification table from assembly
-Date: Tue, 13 Oct 2026 15:16:26 +0200
-Message-ID: <ede0585e1fb9d89aad89c626caa28a5b98b72f42.1791890466.git.kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1791890466.git.kaloz@kernel.org>
-References: <cover.1791890466.git.kaloz@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dlH9JjoH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1881F00898;
+	Tue, 13 Oct 2026 13:18:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791897524;
+	bh=2r8QOTmMMZZU94RlkFkrv3Vj5oIB5c5yukGEw0nrS68=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dlH9JjoH+QwyPshhbwFq2PFbTNtTS2JXWHR5StHRFVqo6B2K9Kx9MAXnFrjqqJi4X
+	 R8XPZp7DC5bg9U8FVz9iRvIFq46CeD/PnZf2kD+y/i/4dDk4XneBgMSuatxkVE5nlU
+	 zoznLXQ+GV2mnZ2nPT8DhZ2dOpkYGF/3T/OTpZbo=
+Date: Tue, 13 Oct 2026 15:18:50 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: serial: snps-dw-apb-uart: Add Synaptics
+ sl2610 uart
+Message-ID: <2026101342-uncut-identical-c701@gregkh>
+References: <20261005151918.25259-1-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005151918.25259-1-jszhang@kernel.org>
 
-Only the constant definitions in this header are usable from assembly;
-the widget identification table and the struct it is built from are not.
-Put those behind __ASSEMBLER__ so the header can be included from an
-assembly file.
+On Mon, Oct 05, 2026 at 11:19:18PM +0800, Jisheng Zhang wrote:
+> Add the compatible for the UARTs of the Synaptics SL2610, which are
+> compatible with the Synopsys DesignWare APB UART.
+> 
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+> 
+> since v1:
+>  - use sl2610 instead of sl261x
+>  - send as a separate patch
+> 
+>  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
 
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
- arch/mips/include/asm/xtalk/xwidget.h | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/mips/include/asm/xtalk/xwidget.h b/arch/mips/include/asm/xtalk/xwidget.h
-index efcfe4494576..6dae5d9628f7 100644
---- a/arch/mips/include/asm/xtalk/xwidget.h
-+++ b/arch/mips/include/asm/xtalk/xwidget.h
-@@ -112,6 +112,7 @@
- #define WIDGET_XBRDG_PART_NUM	0xd002
- #define WIDGET_NULL_PART_NUM	-1
- 
-+#ifndef __ASSEMBLER__
- /* For Xtalk Widget identification */
- struct widget_ident {
- 	u32 mfgr;
-@@ -195,6 +196,7 @@ static const struct widget_ident __initconst widget_idents[] = {
- 		{NULL},
- 	}
- };
-+#endif /* !__ASSEMBLER__ */
- 
- /*
-  * according to the crosstalk spec, only 32-bits access to the widget
--- 
-2.47.3
-
+Does not apply to the tty-testing branch :(
