@@ -1,238 +1,311 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 128664A92ED;
-	Tue, 13 Oct 2026 18:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791916948; cv=none; b=AKVZYdDO/AnBxez6CsLhbzmfx09WkNe+kecC5rWjxbPjFATBOCTUI79G+4XKDVUhHxZlcYpb2k7eEx5rGirZL6MYfU8SEbM+1VqOAitVijEWzm3bQVvSql1V3V0Ay0BjKoNoMn47j+CPQhnD6gfiuVK/Cqm8exeoaNnAt8YC630=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791916948; c=relaxed/simple;
-	bh=DoEd1I4VdjTi+cM8P8AT1zLGlcJcvJGNM3epjZG8BgY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KzK1vVEXJ49RbYvU1pGh0nxUjMShaXKcNVIuHiEzLq6R7RrM5MKIFCvF57V7bvFmx44HkXDrTLWQIr2PumIjcg9gi+sU9Vhg2/4pihhayOcbqj/+IZ3g5bI3NwRva3UzxoQfulBNgVSAXH5b0HS62o4/Poz0elcEtie1u5QFSOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=M1r64E7W; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012011.outbound.protection.outlook.com [52.101.53.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7834AA1DA
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791916952; cv=fail; b=XbhFAx9JTNrVaiChd2dgZfsITNYwVI+4FwiDhoX7dSs/yGeQ1PgvWwjF2VEKNfd6CGjm3lfN7WyOXeJXRy9SBz/K5hlZuQPmjnHK8K5hvWTlDuwgSpKITMHCMjIv4P5OmlVZ0ih2qPhapH38rusNyaEpNjL7yGeoZF5di2pVu/0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791916952; c=relaxed/simple;
+	bh=L0234cu0Fp2SV1pyHwE7HJNpHLlAqLsWynmkc3GBOQg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=OHIskscGfv2hHLe4p7ECH658t74kVMS27uKhKVAwrMsYxZJBRHdNSIp42Be+CN1BVDWasRcpsOtcjE9Ho8fLaohX9mpL+diNQwpLg1pKeD/eqjyiIsPl64QaOa/YB01vUKQLcKHmJMsIystWMi3fni0NgdJr7wUeu00Pv46ORGY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=htUYVkgm; arc=fail smtp.client-ip=52.101.53.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="M1r64E7W"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3F4F1655;
-	Tue, 13 Oct 2026 11:42:20 -0700 (PDT)
-Received: from [IPV6:2409:40f2:30f:5cfa:fb93:6d70:e88:a98a] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8ADB43F871;
-	Tue, 13 Oct 2026 11:42:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791916944; bh=DoEd1I4VdjTi+cM8P8AT1zLGlcJcvJGNM3epjZG8BgY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=M1r64E7W8Yo9f8lxK5X2h+mMTqT4jrETX2jPo0Yt6R+E+LBUIE4Zc4FnkFWQdTm/G
-	 6UYhZiXhHwzpYPKTObb2a/RO1H19NmwRV0yPDFONUheHhkcWIyQ3ea/xEQMIRiknU0
-	 +0zz1/bokqGGSeColpkd3gzN4ivrif6CK6rBiQyY=
-Message-ID: <aca0492c-f0d3-4ba7-8671-32952ceff913@arm.com>
-Date: Wed, 14 Oct 2026 00:12:08 +0530
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="htUYVkgm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EQQ9oyfdENySFAHtY+7Kigu0aL2sXpAV2arBJ7AvZM2a3GiANbOrAUjL4kvkw6W2IayE5es2lbhm8uCEhw2OdE2Wt3NE3YU0KjG1/FDqefv0LnQy09/Nw3PnQyjx+lx1DfU8fs9EdX6TMG1jupptopjvHFMOvsiQsTuph1eg/rn7l9cFny9auQ85MiR7md2dTVA2Ra3M7KQrMf7akD/sA88bZcB+2tCYRSEIOqmLozRv0zbaNyhVJkdl3mO8RosmK8X6u1QisdPVLaS5R2IpeP54yzaicp7jFiArkKN5+MshMko7j6N6bE+oOmTPAZG84siI+txHg3Ih1K41MkCA5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=et+NGpExgoWoLboybR8syyDsmu1SJ7toMnioKoAQGx0=;
+ b=pRuCr7KnfH092mMNfkyTuzPbnxTtraPmwBKFMXCmk+3Gz2i0Ol5QsAZWdRWBllUNhN8yk/+5XntQbNs9MWKkrzpVOx3uRYFvciZtywWXE9Ar972S5eNp7HjjqJ6onhJw9rsbbRMw36exwD98S6geJHMT3jylxztoS5+ai63bj08K9oRvgowJm2cPP7XE6XkFE2MlBJZOp4c0LC3IBdIvPAHjKdSiGbbTCTq6PYakZKOw7reO6QYUMBDpWJX4R6P5JxYzJoXsor3QO1dp4Tdfn3EnyVsjVb+oKgSIiYPiNaHn7sQNSROh6ZQFQOU45xWQ8+lpTqKy/P1uxitHFw++Lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=et+NGpExgoWoLboybR8syyDsmu1SJ7toMnioKoAQGx0=;
+ b=htUYVkgmqtkE0XwuLlNoPec0tUv3Ck8Ulur24YTKCtHFFmBoQ+RpR19vN1bMm2Bl2NldOQMyJVbaroq6A0iDX/tqVdIZ8gqdVDJlenGUnZiCTsHNKaQZnYowPCiS+xz6WRmUCk8ETxlfDlUYHf7k3r0Nb+B0vZO+LwR2LOmP8LU=
+Received: from DS1P221CA0018.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:242::13) by
+ SA1PR12MB6701.namprd12.prod.outlook.com (2603:10b6:806:251::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.19; Tue, 13 Oct
+ 2026 18:42:22 +0000
+Received: from DS1PEPF0005344D.namprd04.prod.outlook.com
+ (2603:10b6:8:242:cafe::6d) by DS1P221CA0018.outlook.office365.com
+ (2603:10b6:8:242::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
+ Oct 2026 18:42:22 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF0005344D.mail.protection.outlook.com (10.167.23.229) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 18:42:22 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 13:42:16 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 13:42:15 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 13 Oct 2026 13:42:15 -0500
+Message-ID: <c4f32f14-07ab-d369-a05f-bec7d8869124@amd.com>
+Date: Tue, 13 Oct 2026 11:42:15 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/3] kselftest: mm: remove HPAGE_SIZE and HPAGE_SHIFT
- macro
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Peter Xu <peterx@redhat.com>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
-References: <20261013-fix_hpage_macro-v7-0-3d77129e0557@arm.com>
- <20261013-fix_hpage_macro-v7-2-3d77129e0557@arm.com>
- <b3f2a0bf-7b41-4cc9-958e-34f1a88ff5bf@arm.com>
- <as48D1SnImCro_Cb@e129823.arm.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V4 13/19] accel/amdxdna: Prepare for AIE4 command
+ submission
 Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <as48D1SnImCro_Cb@e129823.arm.com>
-Content-Type: text/plain; charset=UTF-8
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, Wendy Liang
+	<wendy.liang@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261009225343.3079074-1-yidong.zhang@amd.com>
+ <20261009225343.3079074-14-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261009225343.3079074-14-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0005344D:EE_|SA1PR12MB6701:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64457991-07a9-4b95-0e63-08df2959b7bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|11063799006|261009223027099003|56012099006|4143699003|5023799004|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	d0C7SPT+kgTeuAiccUVhRtdPyBB+OG0Mwb9xSdT2ELj/G2m7gexofZe4NKKJE2ConAM1neTH+Jxd1M2Upf5w7fRfifyWw4Ut41lp0+sAEIYhTXfFdeBQaO75ivAwRcPmDLukNEl3l7OoF0+1mnAAwJ92Fc+k5jj9RZeTOH5vG9GHtZqNaEt8O9EIQ5W/2+dUOXoDPq0b4M83Q1YUMz9yNSIj8M7bfWTgekmeqQk+qmCKkknKjhnYkjtI6j1OwmisZqndswzyFRlChmZsWpF1+/ay/N4wx9zPmfN3E0hmFLYHXi5n3OAdVlG17ikFHCpHr01rdeuFvHWh2Hzcdp0+45ZojwXISBDdLgY9A/rIFo/6LwWSJYyf7HffqmOj3RNtDcgeeeEzMz4Q2k6q8A9oJKhHb9ipTv4muBYispF21uT717MI25FGrnhZYrea4nW+kcqVpdLXdGSfRQiDnQYD/zxEmF0YqXJxv+v4Zn8CPxl2GiomtfusJytVijase87g27AWxlGwA90D5FzV1rbvesE26XPC99mAGJ/Pb+mbsJjLfvmcUO/V+f63KC/+FuVhrLahwkiLIeFztwzz2/7hGJhCLjUbxck9mSsF/QWObxJ9pPPT3VP04ePi//ceoPgsimVgH2RJfWCN+54yJE/wvu3bwwZJsvq09j0zn6eWd2nt96AkENrjpqUxWIwJ4SLnoU3o7vczaWSfpvSVgi/w8g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(11063799006)(261009223027099003)(56012099006)(4143699003)(5023799004)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	EZtc7zyKyctn0iluQcyG0YmH0tAY8fDCaV7GGtyloryWAD6DDddyFdNqUh4b1o6yzXCMs/RV2p7rau78xc/BUIaBPAGGbws/XxHLGcDcjLn0l1Owxj44uuOAX3yAiDzUxVv7N8Wru9C13QWYEgJAmWlKCpsyl8ABlNKDAMGp+sgiy/6WKHLmBzgxX1BZV0uyAJcsHilkJBJbx0qrfKczUGi0AcnyRxery/Wjq18GcYgED91vvhfcowP9mGdUFHaYmyZELmP3/3+vknmn5eSzu5YKSrCrOw/TNZ5SIIoLp/Lh5gmTv2cq95gSPYOPvjGJL0O9crhT4w+BCYWTThEIKEt5rlCK86ngf+wieSqPVvrYWd3cFahmfocF63jF7ai/wvntKd9UqdObRgpWjiqBVFyYId9ZGoEJK4L9kjB04M5cypgsrbhyCE2SEQmY2PQX
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 18:42:22.0792
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64457991-07a9-4b95-0e63-08df2959b7bb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0005344D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6701
 
 
-
-On 10/13/26 7:41 PM, Yeoreum Yun wrote:
->> Hi Yeoreum!
->>
->> On 10/13/26 4:07 PM, Yeoreum Yun wrote:
->>> HPAGE_SIZE and HPAGE_SHIFT macro is written based on the 4KB PAGE_SIZE.
->>> When this macro is used in some test, test result would be strange in
->>> the system where PAGE_SIZE is more then 4KB.
->>>
->>> Here is the example with transhuge-stress test with 16KB PAGE_SIZE:
->>>
->>>   transhuge-stress: allocate 61073 transhuge pages, using 122146 MiB virtual memory and 1908 MiB of ram
->>>     3.292 s/loop, 0.054 ms/page,  37106.002 MiB/s	2566 succeed, 58507 failed, 2566 different pages
->>>     0.591 s/loop, 0.010 ms/page, 206850.792 MiB/s	   0 succeed, 61073 failed,    0 different pages
->>>     0.527 s/loop, 0.009 ms/page, 231895.107 MiB/s	   0 succeed, 61073 failed,    0 different pages
->>>     0.527 s/loop, 0.009 ms/page, 231839.704 MiB/s	   0 succeed, 61073 failed,    0 different pages
->>>     0.528 s/loop, 0.009 ms/page, 231544.782 MiB/s	   0 succeed, 61073 failed,    0 different pages
->>>     0.528 s/loop, 0.009 ms/page, 231462.074 MiB/s	   0 succeed, 61073 failed,    0 different pages
->>>     0.527 s/loop, 0.009 ms/page, 231770.300 MiB/s	   0 succeed, 61073 failed,    0 different pages
->>>     ...
->>>   ok 1 Completed
->>>
->>> Remove the HPAGE_SIZE and HPAGE_SHIFT macro and introduce pmd_pshift()
->>> helper to get the HPAGE_SHIFT properly. For HPAGE_SIZE, use pre-existing
->>> helper, pmd_psize().
->>>
->>> Also, run the KSM_MERGE_TIME_HUGE_PAGES test with a size of 512 MiB,
->>> which is the least common multiple of the PMD sizes for 4 KiB, 16 KiB,
->>> and 64 KiB base pages. Since allocate_transhuge() allocates mappings in
->>> PMD-sized units, the test may fail with the previous size of 100 MiB,
->>> which is not a multiple of the PMD size when the base page size is
->>> 16 KiB or 64 KiB.
->>>
->>> After this patch, output of transhuge-stress:
->>>
->>>   transhuge-stress: allocate 3817 transhuge pages, using 122146 MiB virtual memory and 119 MiB of ram
->>>     2.558 s/loop, 0.670 ms/page,  47755.759 MiB/s	2585 succeed, 1232 failed, 2585 different pages
->>>     2.640 s/loop, 0.692 ms/page,  46268.432 MiB/s	2585 succeed, 1232 failed, 2585 different pages
->>>     2.635 s/loop, 0.690 ms/page,  46360.298 MiB/s	2585 succeed, 1232 failed, 2585 different pages
->>>     2.782 s/loop, 0.729 ms/page,  43899.795 MiB/s	2616 succeed, 1201 failed, 2616 different pages
->>>     2.692 s/loop, 0.705 ms/page,  45380.876 MiB/s	2627 succeed, 1190 failed, 2627 different pages
->>>     2.612 s/loop, 0.684 ms/page,  46765.812 MiB/s	2628 succeed, 1189 failed, 2628 different pages
->>>     2.683 s/loop, 0.703 ms/page,  45520.990 MiB/s	2630 succeed, 1187 failed, 2630 different pages
->>>     2.727 s/loop, 0.714 ms/page,  44789.321 MiB/s	2631 succeed, 1186 failed, 2631 different pages
->>>     ...
->>>   ok 1 Completed
->>>
->>> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
->>> ---
->>>  tools/testing/selftests/mm/guard-regions.c    | 10 +++++--
->>>  tools/testing/selftests/mm/ksm_tests.c        | 16 ++++++-----
->>>  tools/testing/selftests/mm/run_vmtests.sh     |  4 +--
->>>  tools/testing/selftests/mm/transhuge-stress.c | 25 +++++++++++-------
->>>  tools/testing/selftests/mm/vm_util.c          | 38 +++++++++++++++++++++++----
->>>  tools/testing/selftests/mm/vm_util.h          |  9 +++----
->>>  6 files changed, 71 insertions(+), 31 deletions(-)
->>>
->>> diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
->>> index f7d53ea3c2527..02f69244f9a42 100644
->>> --- a/tools/testing/selftests/mm/guard-regions.c
->>> +++ b/tools/testing/selftests/mm/guard-regions.c
->>> @@ -2194,14 +2194,20 @@ TEST_F(guard_regions, pagemap_scan)
->>>  TEST_F(guard_regions, collapse)
->>>  {
->>>  	const unsigned long page_size = self->page_size;
->>> -	const unsigned long size = 2 * HPAGE_SIZE;
->>> -	const unsigned long num_pages = size / page_size;
->>> +	const uint64_t hpage_size = pmd_psize();
->>> +	unsigned long size, num_pages;
->>>  	char *ptr;
->>>  	int i;
->>>  
->>>  	if (!thp_available())
->>>  		SKIP(return, "Transparent Hugepages not available\n");
->>>  
->>> +	if (!hpage_size)
->>> +		ksft_exit_fail_msg("reading hpage_size failed\n");
->>
->> I'm sorry for not catching this earlier, but I don't think calling a
->> ksft_exit_fail_msg() for not being able to calculate PMD size is a good
->> idea. Maybe call an ASSERT*() here, something like
->>
->> ASSERT_NE(hpage_size, 0);
->>
->> so that just this test fails, instead of the whole run exiting with a
->> bail out?
-> 
-> No. The failure would occur if open() or read() fails, and subsequent
-> attempts would likely fail for the same reason.
-
-I think I couldn't clearly explain my concern. Let me put it again,
-please let me know if I am missing something.
-
-I was mistaken, on checking I found that guard_regions runs each test in
-a separate child process. So calling ksft_exit_fail_msg() won't exit the
-whole test run.
-
-To reproduce the case, I bind mounted /dev/null over
-/sys/kernel/mm/transparent_hugepage/hpage_pmd_size in a QEMU so that
-pmd_psize() returns 0. Then on running ./guard_regions (your patches
-applied), I got this output (putting relevant section of that since the
-log is quite long):
-
-
-#  RUN           guard_regions.anon.collapse ...
-Bail out! reading hpage_size failed
-# Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-# collapse: Test failed
-#          FAIL  guard_regions.anon.collapse
-not ok 29 guard_regions.anon.collapse
-.
-.
-ok 58 guard_regions.shmem.pagemap_scan
-#  RUN           guard_regions.shmem.collapse ...
-Bail out! reading hpage_size failed
-# Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-# collapse: Test failed
-#          FAIL  guard_regions.shmem.collapse
-not ok 59 guard_regions.shmem.collapse
-.
-.
-#  RUN           guard_regions.file.collapse ...
-Bail out! reading hpage_size failed
-# Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
-# collapse: Test failed
-#          FAIL  guard_regions.file.collapse
-not ok 89 guard_regions.file.collapse
-#  RUN           guard_regions.file.smaps ...
-#            OK  guard_regions.file.smaps
-ok 90 guard_regions.file.smaps
-# FAILED: 87 / 90 tests passed.
-# 19 skipped test(s) detected. Consider enabling relevant config options
-to improve coverage.
-# Totals: pass:68 fail:3 xfail:0 xpass:0 skip:19 error:0
-
-
-which looks weird with all the bailouts. On the other hand, if we
-replace the ksft_exit_fail_msg() with ASSERT_NE(), here's the output we get:
-
-
-#  RUN           guard_regions.anon.collapse ...
-# guard-regions.c:2205:collapse:Expected hpage_size (0) != 0 (0)
-# collapse: Test terminated by assertion
-#          FAIL  guard_regions.anon.collapse
-not ok 29 guard_regions.anon.collapse
-.
-.
-ok 58 guard_regions.shmem.pagemap_scan
-#  RUN           guard_regions.shmem.collapse ...
-# guard-regions.c:2205:collapse:Expected hpage_size (0) != 0 (0)
-# collapse: Test terminated by assertion
-#          FAIL  guard_regions.shmem.collapse
-not ok 59 guard_regions.shmem.collapse
-.
-.
-#  RUN           guard_regions.file.collapse ...
-# guard-regions.c:2205:collapse:Expected hpage_size (0) != 0 (0)
-# collapse: Test terminated by assertion
-#          FAIL  guard_regions.file.collapse
-not ok 89 guard_regions.file.collapse
-#  RUN           guard_regions.file.smaps ...
-#            OK  guard_regions.file.smaps
-ok 90 guard_regions.file.smaps
-# FAILED: 87 / 90 tests passed.
-# 19 skipped test(s) detected. Consider enabling relevant config options
-to improve coverage.
-# Totals: pass:68 fail:3 xfail:0 xpass:0 skip:19 error:0
-
-So the issue is not as severe as I'd thought. It can be argued that this
-is very less likely to happen. But yeah, I feel changing it would be
-better as it is more suitable with the ksefltest_harness and would give
-a cleaner TAP output incase this happens. Rest I leave it to you and
-other folks to decide whether this needs to be changed :).
-
+On 10/9/26 15:53, David Zhang wrote:
+> Prepare the data structures and completion wait helpers required for
+> AIE4 command submission:
+> - Define struct amdxdna_cmd_start_dpu in amdxdna_ctx.h for the
+>    ERT_START_DPU payload.
+> - Extend union amdxdna_job_priv with an aie4 member for queue list
+>    linkage and job state tracking.
+> - Implement smp_rmb() ordering and non-sleeping retry in
+>    get_read_index(), returning zero (no completion) when the sample
+>    is still invalid after the retry.
+> - Add cmd_done_or_unlinked() to wake on completion or on asynchronous
+>    device disconnect and reset, detected via check_cert_comp_linked(),
+>    and record completion, so aie4_cmd_wait() does not re-read state
+>    that can change after the wait.
+>
+> read_index is written by firmware to host memory, so the wait path
+> handles these cases:
+> - A torn or invalid read_index is never reported as a completion.
+> - -EAGAIN is returned only when the context is disconnected before
+>    completion is seen; the command state and fence are not affected.
+> - Completion is recorded inside the wait condition, so a context
+>    unlinked and relinked during the wait cannot report a false
+>    completion.
+>
+> Co-developed-by: Max Zhen <max.zhen@amd.com>
+> Signed-off-by: Max Zhen <max.zhen@amd.com>
+> Co-developed-by: Wendy Liang <wendy.liang@amd.com>
+> Signed-off-by: Wendy Liang <wendy.liang@amd.com>
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> ---
+>   drivers/accel/amdxdna/aie4_ctx.c    | 73 ++++++++++++++++++++---------
+>   drivers/accel/amdxdna/amdxdna_ctx.h | 20 ++++++++
+>   2 files changed, 71 insertions(+), 22 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
+> index 767ba6ecbfc6..bb126fbae10d 100644
+> --- a/drivers/accel/amdxdna/aie4_ctx.c
+> +++ b/drivers/accel/amdxdna/aie4_ctx.c
+> @@ -399,56 +399,85 @@ static inline bool valid_queue_index(u64 read, u64 write, u32 capacity)
+>   
+>   static u64 get_read_index(struct amdxdna_hwctx *hwctx)
+>   {
+> -	u64 wi = READ_ONCE(*hwctx->priv->umq_write_index);
+> -	u64 ri = READ_ONCE(*hwctx->priv->umq_read_index);
+> +	struct amdxdna_hwctx_priv *priv = hwctx->priv;
+>   	struct amdxdna_dev *xdna = hwctx->client->xdna;
+> +	u64 ri, wi;
+> +
+> +	/* Sample read_index before write_index to guarantee wi >= ri. */
+> +	ri = READ_ONCE(*priv->umq_read_index);
+> +	/* Order the read_index sample before the write_index sample. */
+> +	smp_rmb();
+> +	wi = READ_ONCE(priv->write_index);
+>   
+> -	/*
+> -	 * CERT cannot update read index as uint64 atomically. Driver may read
+> -	 * half-updated read index when it has bits in high 32bit. In case read
+> -	 * index is not valid, wait for some time and retry once. It should
+> -	 * allow CERT to complete the read index update.
+> -	 */
+> +	/* Non-atomic 64-bit counter update by CERT; re-sample once if invalid. */
+>   	if (!valid_queue_index(ri, wi, CTX_MAX_CMDS)) {
+> -		XDNA_WARN(xdna, "Invalid index, ri %llu, wi %llu", ri, wi);
+> -		usleep_range(100, 200);
+> -		ri = READ_ONCE(*hwctx->priv->umq_read_index);
+> +		ri = READ_ONCE(*priv->umq_read_index);
+> +		/* Order the read_index sample before the write_index sample. */
+> +		smp_rmb();
+> +		wi = READ_ONCE(priv->write_index);
+>   		if (!valid_queue_index(ri, wi, CTX_MAX_CMDS)) {
+> -			XDNA_ERR(xdna, "Invalid index after retry, ri %llu, wi %llu", ri, wi);
+> -			ri = 0;
+> +			/* 0 <= any seq: callers always treat it as "not done" and retry. */
+> +			XDNA_DBG(xdna, "Invalid index, ri %llu, wi %llu", ri, wi);
+> +			return 0;
+>   		}
+>   	}
+>   
+>   	return ri;
+>   }
+>   
+> -static inline bool check_cmd_done(struct amdxdna_hwctx *hwctx, u64 seq)
+> +/* Verify cert_comp remains linked to detect disconnect or reset. */
+> +static bool check_cert_comp_linked(struct amdxdna_hwctx *hwctx, struct cert_comp *comp)
+>   {
+> -	u64 read_idx = get_read_index(hwctx);
+> +	/* READ_ONCE pairs with the link/unlink WRITE_ONCE. */
+> +	return comp == READ_ONCE(hwctx->priv->cert_comp);
+> +}
+>   
+> -	return read_idx > seq;
+> +/*
+> + * Lockless wait condition: wake on completion or disconnect. Record
+> + * completion, so callers do not re-read state that can change after the
+> + * wait.
+> + */
+> +static inline bool cmd_done_or_unlinked(struct amdxdna_hwctx *hwctx, u64 seq,
+> +					struct cert_comp *comp, bool *done)
+> +{
+> +	*done = get_read_index(hwctx) > seq;
+> +	return *done || !check_cert_comp_linked(hwctx, comp);
+>   }
+>   
+> +/*
+> + * Return 0 once seq completed, or -EAGAIN if the context is disconnected
+> + * before seq completed.
+> + */
+>   int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
+>   {
+>   	unsigned long wait_jifs = MAX_SCHEDULE_TIMEOUT;
+>   	struct cert_comp *cert_comp = aie4_get_cert_comp(hwctx);
+> +	bool done = false;
+>   	long ret;
+>   
+> -	if (!cert_comp)
+> +	if (!cert_comp) {
+> +		/* Not connected: read_index in host memory is still valid. */
+> +		if (get_read_index(hwctx) > seq)
+> +			return 0;
+>   		return -EAGAIN;
+> +	}
+>   
+>   	if (timeout)
+>   		wait_jifs = msecs_to_jiffies(timeout);
+>   
+>   	ret = wait_event_interruptible_timeout(cert_comp->waitq,
+> -					       (check_cmd_done(hwctx, seq)),
+> +					       cmd_done_or_unlinked(hwctx, seq, cert_comp,
+> +								    &done),
+>   					       wait_jifs);
+> +	aie4_put_cert_comp(cert_comp);
+>   
+> +	if (ret < 0)
+> +		return ret;
+> +	if (done)
+> +		return 0;
+>   	if (!ret)
+> -		ret = -ETIME;
+> -
+> -	aie4_put_cert_comp(cert_comp);
+> +		return -ETIME;
+>   
+> -	return ret <= 0 ? ret : 0;
+> +	/* Woken by disconnect before seq completed. */
+> +	return -EAGAIN;
+>   }
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
+> index 9bbc3db4ebde..b3677851d1c5 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
+> @@ -48,6 +48,18 @@ struct amdxdna_cmd_start_npu {
+>   	u32 prop_args[];  /* properties and regular kernel arguments */
+>   };
+>   
+> +/*
+> + * struct amdxdna_cmd_start_dpu - interpretation of data payload for
+> + * ERT_START_DPU in amdxdna_cmd.
+> + */
+> +struct amdxdna_cmd_start_dpu {
+> +	u64 dtrace_buffer;		/* dtrace buffer address 2 words */
+> +	u64 instruction_buffer;		/* buffer address 2 words */
+> +	u32 instruction_buffer_size;	/* size of buffer in bytes */
+> +	u16 uc_index;			/* microblaze controller index */
+> +	u16 chained;			/* number of following amdxdna_cmd_start_dpu elements */
+> +};
+> +
+>   /*
+>    * Interpretation of the beginning of data payload for ERT_CMD_CHAIN in
+>    * amdxdna_cmd. The rest of the payload in amdxdna_cmd is cmd BO handles.
+> @@ -138,8 +150,14 @@ struct amdxdna_drv_cmd {
+>   };
+>   
+>   struct app_health_report;
+> +
+>   union amdxdna_job_priv {
+>   	struct app_health_report *aie2_health;
+> +	/* aie4 kernel submission: queue linkage + job state */
+> +	struct {
+> +		struct list_head	list;
+> +		u32			state;
+> +	} aie4;
+>   };
+>   
+>   struct amdxdna_sched_job {
+> @@ -162,6 +180,8 @@ struct amdxdna_sched_job {
+>   };
+>   
+>   #define aie2_job_health priv.aie2_health
+> +#define aie4_job_list	priv.aie4.list
+> +#define aie4_job_state	priv.aie4.state
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   
+>   static inline u32
+>   amdxdna_cmd_get_op(struct amdxdna_gem_obj *abo)
