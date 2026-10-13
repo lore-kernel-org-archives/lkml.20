@@ -1,107 +1,125 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+Received: from mail-wm2-f8.google.com (mail-wm2-f8.google.com [74.125.225.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA8F5158B1
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:14:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B1F53CA7F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791918894; cv=none; b=uGi/xzL7KEYi5fnrHbMQvQG6K+ObdyX5KKxJKJcSQ1V7LKoMuUAreqEV+cS86B2zxrlPSEtFOBrxpMuMdVpoFBPBsXkq///OoDulttxSi1ct6+rG/c/ihu1erccCqKmjtv7gO/GLqh9pGhgOx1AeQUaafW6rJnzMtJCPq3TX7NE=
+	t=1791918960; cv=none; b=nJGt4m8u85S3FTxgGRqgLj6A43gi6GoNqHkAeXDU63NON8Y4bfi2J8eW5R6wQtG4d/qa9HxcFwjB84zI01HgVvsCxMc+yZ1zJMDiE5dAvRh1XBGHrr7EoktKCvC/DtUsljk6z4tu0OGGvbxKTF/VQh/Gi8wwB2Y+5xOY8lM5Lrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791918894; c=relaxed/simple;
-	bh=iJOww51EVaCIpNYT1EFE6BJr8oIb8xMnWOy3j3QG6XI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S77PE203rXE+RfdyeJ9a+XfqdGiRlikdFZaXfCRLFLgdeUoHep7CU6Ru8jzw6MiujlhjU/tbvDiZGegnue2kW08wLMZ+TR0LDmbDjfXp7O3rshFFAUrf+uYsuHeU7dYVFsHz9Wnjf59rxJ4n4KuPm3LI97DZc+wW4B8Z+1mHYqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=KDXyGKdN; arc=none smtp.client-ip=209.85.161.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1791918960; c=relaxed/simple;
+	bh=YqIFBD0cMGaqBJVTPfg5GHhAEe9OSyYJzacDjggqHpI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HbaETuRk9gJAUJRfLGXJ4lTUXwyreKndfe/6L3gFuHIerFIO59eHyqbnyjal1VdszQsIRhkB42Tt6c70PwR5kSk89PqHBsunvtx7+VKQzNXE5U7YhfF7f5QsadpeGg8ThY799sdoCxJIeL5KskYJEH23DPYMSW9Wdy8bZlrLZ88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G5yQ+Lk4; arc=none smtp.client-ip=74.125.225.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="KDXyGKdN"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6dd059478dcso2351356eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:14:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G5yQ+Lk4"
+Received: by mail-wm2-f8.google.com with SMTP id 5b1f17b1804b1-4a1963cf318so3536415e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:15:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791918891; x=1792523691; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zy/lMkGQtWZpfcBRO2mkj4H1jI0LVdFjC1aISSTQ8OI=;
-        b=KDXyGKdN0acMrCl3kmjyXPoHTwy09IKd2ocl+XTO4VCqoL6RiBd4Nk1r5Hv0ZlzojV
-         YClSO8bDvf2rWZQkNpl9Y7NvnOcDQaPvuS9LvDZxT4VPPWF5km1RyOi37V7tXA7IdyGT
-         wsB1l+yzKArqype6xtw3w0xpfeBipJEjG5Q0IkKB7LY0l8N2ML7GluCIaeds0UE3kV43
-         nYHtOnaH8BFdWB8zgb9lpgmsjlj5LaBrOSZaBkxMKNsCIamKXAZwIBdf1l0mSNZWRcSW
-         1XenGpgQEQtC0VXnG0K5tzFSJ8mFTykQgVuHne5KujQvpJhQrAfvaqWeEkRoFEXvwDDY
-         iDmw==
+        d=gmail.com; s=20251104; t=1791918956; x=1792523756; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xAiWr2qQ//z0iBACrzomuihaSPDdArLye5ron8Ml9Ro=;
+        b=G5yQ+Lk4nW42hdYfeeo+H5t5g3mnehl71V5hX3APP9rWB6W9Kb2Y30hcFqh0vvy6Rf
+         ntLpRwhmZMlC+uweQpNrr/f0JbopPoicLo+4wJ1HfugDVcoKIsCx6dg+owF3g5vrBu+y
+         sfg4Ip11oVOhy4QWs1GvX20txUZOdyqwTGKHxBONuTe7TOZSys2jcTSr5dDD7gGV0SKP
+         7k2mgGogvkNhPUgXMKGc6pWfaI7XjxES+SC+zAU9MSFOJrBS2QoNb/CmhtDjNgt7nNOv
+         NwK6iecicQ6ezoeL3kQ17aW5cFn1JRKjbzEuJh65pbnUKdKXbJEE8f4Aj22qXk2CrRgk
+         9L2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791918891; x=1792523691;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791918956; x=1792523756;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zy/lMkGQtWZpfcBRO2mkj4H1jI0LVdFjC1aISSTQ8OI=;
-        b=mfeTPfDJk570CShJNxWcvMyGUok0nOB6YPuJM4zQ6DfH2RaLQ0RdQAvbF0ijxCZ6Eq
-         6cHH0DpI3ISmwK+X38auWzNK6ldN2CpJc/ttUuEjsW/yVqH3KzO6jRulAGt3PuaxtgDw
-         U3kdV5lXpF1nD2VJna/LOrZ0HITynERpOlIyeYqhvrjf38iwofYz2kcCEtz0j+nI3kv2
-         YNingsD2RbIr3lQPhd3sP3E7zhwaL957KEbRiQm5KVFoSofFOM9lkZQqPhW2l4d3WnZN
-         Z667YF1qEBhiXAemzNp0mgsKrGAZat9D4IRxXIxavI58r3GMS6aiwbWQ0MyzeWWZZsK9
-         xUCw==
-X-Forwarded-Encrypted: i=1; AKwUvBxmq6ZEEfkwwfv6+zjjCtuFCSiGRrytmUP4TGQBkxe/iWjnf7TA/9lCKYxz4nCH84TNu1pEhq52vUeo4C8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEdx6J6sYi9mPCesalKykD+M/9TINNp14RaRfVm+UG0fg2sHMd
-	UIwkwfNMFpPOPran45i5YclmqZQ2zxmw00wOGZasxg2qKhOiPc8yH9F8a2bI4tmuhQ0=
-X-Gm-Gg: AYBFou1Kh4+iGMq8qCrl0828wiXxNotkglhstDlxLwCmal0YHRuc8cIYiuPi6tWOL+i
-	IQ6YMEuimll2CjMESC5nCYKGeZdKQOAINPceBZzJRjYrLPsXVOe7s7Ecgg5HgZeBtPRHDgr1qE+
-	Zehs7TeIxLVfh1NdCv4FPBhihP26mkfM0Vw4UATLdXLRXhdNo6/XYafHJXFpVNusXLHoo6JlKkZ
-	WtKJRZzeVFpuQoLOeP3UFUIqXwA3Be9JEwyv8AQS45ZWjUcH5cUp7B1MgBN1u6RAwYf0MRyw3ZB
-	ijZyR7E8mlKRDHxCr4eH5982NiJCRZ2jQoxZ25QqrMybBw5Kgi6W9Umr8BIRNoceqNEQOUb6OH0
-	v34RFrpNCJdLBfit7LK+U95fKakWFTQ4isKCRP16B+mDSOUXD9ADsDqNwPLXHLBxPIt42I3mY7h
-	AAckLo0ztN5NrtnFHAcKDgJM1gQ26A9Shi772oR8qi4nyEyGvi7Qxtgmmv/az9WaG3fnhonHzqf
-	8GYE2dsf125i0T6FwI/9FZ6moLgp19Q1C6CKvPn+ehgaEgvgMAxSX2BPleVVEAhlgNi
-X-Received: by 2002:a05:6820:2215:b0:6f8:51f5:b9b8 with SMTP id 006d021491bc7-6f851f5e037mr4137630eaf.7.1791918891513;
-        Tue, 13 Oct 2026 12:14:51 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8367ada5b6fsm6750036a34.21.2026.10.13.12.14.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 12:14:50 -0700 (PDT)
-Message-ID: <4c9528bc-a015-46ee-9464-7d1e3bafa40e@kernel.dk>
-Date: Tue, 13 Oct 2026 13:14:49 -0600
+        bh=xAiWr2qQ//z0iBACrzomuihaSPDdArLye5ron8Ml9Ro=;
+        b=m7zAm9JCzxar3L1c1HLuuji0Gf7SOO0JdGjM3CGKK27dG7sxxX6O/kkUNqBAuQvSgk
+         FyA5I38UrUKtDPaPuxq3B2Rnk18MOyDcq3guIY1hNgo46RGTV3TqIuPGFlt5942JDZ1d
+         U/W+RB4TaZESg5+8yyaye463uYyhB78YEwOZlVfIH1XWWucl+t/tIHB9RAlNDPa14CqN
+         sZRKzEQtC7IBIL+Io4VE74WvEAufQ96kzrFR78BX/VmqucnQmmOLqwH8kSunSMGD68ET
+         +3zPoi5sLURMvDpH3ww3AruKRQtN0H79tSJRld+aSBChmardju7IVpssC9oeWCK7aNY3
+         MBIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy7Le4cRIiPCTEHWSe1InUemSUNfe5AVn1xbXGSno3ash5uXlhngi9UpsuGZOeyaACSykBrQbVraZqhb1I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlTT8ZxTU/ddQz0u7C/AIue7ga26AizaSWGbCdnKOMizK80UrN
+	FNPaWQNC0yyMDtTERPBZpqhXLh3CB+bdaz1/Vcu6dMRoeEYSFEXPTFnx
+X-Gm-Gg: AYBFou3qsDHyiMlg8XjEJwwuoLwU9all4SWo5sNskA9eD2xS6HjQW6YOoYv4Pd1CdoR
+	T2/NQtSy1JcAdyNv0Xa2cglRn2fi3CSlQ5FGSkygxHRqcf5GoU1DvetNqdMTr+QzlfyraonIc7w
+	xQ2vgLBCSr0hSzFguwddqdwxBKKs44OYb66L7FL8FuGnJK7r+RoDwIEzXOc1Cwz7fvUuTVnfYva
+	l/pSPmAMcq+BtewZ5wT0gSFnpxyxkwANhvM4d0rxcpUob0vKqUtALPGS+D/qhTZMIKk1OC+Emke
+	TI27wKToecMBGAvtlqyjOYnQ0FePEnBjGQljOPjxd2dc0hh+RP2aw/d+Z8qbBgNrmSClMtoC74c
+	yD6RIYM1QQHUgt16LX4ocuaZW1WXM2yEZKGkJDDf0NEuN9HWOH63h7HwEXPG/0DssXXOMEPFf9z
+	Psi8RuzIOY8005uEY5W0HMUVvLWVirZagMFfGdzZilsGOVjW5R47x2aSbhJqTiT1U7thzJmgbiK
+	A0UcJWA
+X-Received: by 2002:a05:600c:c3cc:10b0:4a1:a7f8:c12b with SMTP id 5b1f17b1804b1-4a1a7f8c219mr58730485e9.19.1791918955848;
+        Tue, 13 Oct 2026 12:15:55 -0700 (PDT)
+Received: from fedora41 ([37.168.42.171])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b2fc4724sm7229275e9.2.2026.10.13.12.15.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 12:15:55 -0700 (PDT)
+From: Timo Joannin <timo.joannin@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	error27@gmail.com,
+	guojy.bj@gmail.com,
+	Timo Joannin <timo.joannin@gmail.com>
+Subject: [PATCH v5 0/2] staging: rtl8723bs: clean up phy status structs and casts
+Date: Tue, 13 Oct 2026 21:15:01 +0200
+Message-ID: <20261013191503.152056-1-timo.joannin@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: linux-next: build failure after merge of the block tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <as5jnDJEt1iZZqZk@sirena.org.uk>
- <3ebc7573-59a0-457a-a9ae-104c56010837@kernel.dk>
- <c4818b35-67b9-4413-bd36-c17660fa6a4e@sirena.org.uk>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <c4818b35-67b9-4413-bd36-c17660fa6a4e@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 11:20 AM, Mark Brown wrote:
-> On Tue, Oct 13, 2026 at 11:07:56AM -0600, Jens Axboe wrote:
->> On 10/13/26 11:00 AM, Mark Brown wrote:
-> 
->>> rsrc.c:(.text+0x1a9c): undefined reference to `io_register_dmabuf'
-> 
->>> Caused by commit
-> 
->>>    4bb7978523289 (io_uring/rsrc: add dmabuf backed registered buffers)
-> 
->>> I have used the tree from next-20261012 instead.
-> 
->> This is already fixed, which sha did you pull?
-> 
-> I have 8ba95aa196dc8f3fb50f123f9fd32459d65a49e2.
+Hey Now,
 
-Yeah that's outdated, e8b704b323f93c6b860b955d9f19c3a8877a163e is the
-current sha since about 3h ago. Guess it just missed it.
+This patch series splits the v3 patch into a 2-part series as requested,
+separating the struct renaming from the cast mess unwinding.
+
+Changes in v5:
+- Rebased against the latest staging/staging-testing branch.
+- Resolved minor merge conflicts in odm_HWConfig.c.
+
+Changes in v4:
+- Split monolithic patch into 2-part series.
+- Removed dead struct phy_stat and unused prototype
+rtl8723b_query_rx_phy_status().
+
+Changes in v3:
+- Included patch version changelog (missed in v2, sorry).
+
+Changes in v2:
+- Propagated the real struct type through
+the call chain to remove u8 * casting.
+
+Regarding your question about the existence of struct phy_stat,
+I discovered it was dead code; no function actually used it. Furthermore,
+the rtl8723b_query_rx_phy_status() function prototype referencing
+it was also unused, and was removed.
+
+Patch 1 renames struct phy_status_rpt_8192cd_t
+to rtl8723bs_phy_status_rpt.
+
+Patch 2 unwinds the cast mess and propagates
+the real struct type all the way through
+the call chain, and removes the unused phy_stat struct
+and ghost function prototype.
+
+Timo Joannin (2):
+  staging: rtl8723bs: rename struct phy_status_rpt_8192cd_t to
+    rtl8723bs_phy_status_rpt.
+  staging: rtl8723bs: unwind cast mess and remove phy_stat struct
+
+ drivers/staging/rtl8723bs/hal/odm_HWConfig.c  | 215 +++++++++++-------
+ .../staging/rtl8723bs/include/rtl8192c_recv.h |  18 --
+ .../staging/rtl8723bs/include/rtl8723b_recv.h |   1 -
+ 3 files changed, 134 insertions(+), 100 deletions(-)
 
 -- 
-Jens Axboe
+2.56.0
+
