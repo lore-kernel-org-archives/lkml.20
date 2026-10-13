@@ -1,72 +1,257 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010071.outbound.protection.outlook.com [52.101.201.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564C34AF9C5
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872584; cv=none; b=QS6eGCtQBp3L/OlE1Qqh4jxL7WZ8c/AIIZt6GoNrgYxgiPiefAaISP6g9A6ACSuqqEgB9cHigCIpqi7pLyBL5tDvH9S7yp3zl+HSC8oICfBMEPrs/VU3B+NI6lzT+X3ddHKeVLUtSVQCQxeS6kim+4MNEV2/TznfMRF2k8nymns=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872584; c=relaxed/simple;
-	bh=Msi8iQuh7aqP3QaqRPE5s4sNnL+X/c5Nvnh76lk6zlU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=ssfH3cuIqgOeL9dFsj4HiID/loDszy5v0w4JZvOBIVxfSaed63k7dKpHx3wA0NFa16FcrvB/L95g7BVe00/ZYTkY9GhDc5YBpvzWQCpuQvTR5y5NG5SfU8GvHiemJvkdaSLs+cdzWoTkVLuEhSF9pj9wh+8Z1GeEHumh3G3m0t0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f8281066c4so4593091b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:23:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791872582; x=1792477382;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1TL9hKKQXNbiZtQId+/EL5khR5gMHNTwDz1p6GsfGso=;
-        b=W2KhabzkUc0yf/sqbElOCjYJYk8RQct8RkelJrnnQULL5KqRB4occfEq+K43e7JTUJ
-         Yo3Ujs6PecS4EqgnpTMv7BHG4VJxWVeJ1m+sZygw/0/WtmVYJhjbIQ/QFnnyGEfeEjcD
-         MKscqXBU4N8r0SwQCsH3lpaqPsP2MaItSsGUaRT7el+lK6qvb4xQNJwMy+0kw3e+Yxpf
-         ljD8isGaaZEn/wrA5bS6Gt6rsmIUzS/4swTL+Zf+h+42zeF0GDL2FMS3ClUymIYaiUW8
-         z6nJDg+StT+SJxA7UiqEB/DegYbLy7un6wfXUbt9VpioS/wPcy9lWCOET7cqk3SAGbO0
-         rnVw==
-X-Forwarded-Encrypted: i=1; AKwUvBz2PC4x2kuVrdotxRt4HqrRk16QVRgc4xuh/YOa1QPuyaW4Cgw6ubp3u/v59W7qCy3qh0qpBiagRSgmbHc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxmnOMzFMSPpNt7ETJ0B8wrAERGuLG5nVhynl8Tkrho7W8dHrN
-	am79rQA9wHNE16N+JUJTzj/BkXn4PR+TNMEyvMmwmGMtKJwzEWCuJJef4LbvPI9QomcBCUrj91V
-	aqiXJo7Mt2BRzy9NeXGevIUNsTQkmma0VxcW7ybAodU3ztcqESFHtbJ2SsfQ=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAEC4B0488;
+	Tue, 13 Oct 2026 06:23:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791872588; cv=fail; b=Znr+4YN2ASehq5HZ6IgovtR2CyrQlqlCjfWVAumOwFVdxmRSwftvWu9RxM1MlwPprU6hYJcfZREEsDBm9awcFqrNjbcToLbIAjKXwk8GSGPNWrn1OdvwK1Xa6lAB6loidapti4T54qNE9dDHwiHuKmfYR1CR0OLPu3N099VoM9I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791872588; c=relaxed/simple;
+	bh=tg3xPE6xJKDTAGUwcqfT+8Dg3895fho/z/aKUnVKHPM=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=BftPR9iyxmMtJsqgu1lYl+FBq1Nff07fA3Gmhy68Z2ImMBsTOPL7SZja0WYxRJxNzpeiaAo5tUaGlvXjWhw8bmG+MuujPJKl4VJlvtinJj0PJx/hixhC7Kr+psNsGfTJXMywTZteKNLD/UaiO5CJn1wrydvn5L+jDsSIAcRX+CM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=T0tsoi2g; arc=fail smtp.client-ip=52.101.201.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="T0tsoi2g"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QGcsPwZv76LWGBi9iRoln5XmblNlIXEG/VVHvPyYq48sJj5753Vd1DGFdFrgQD4gT5enxTsU3FaY+H+gE3qx4M0n9BBlVV3Szhx5SXn0ICN+lyt7BMtkCt1HZ33R/fEzicM2HWS3buXsnHuGjk+AXvdI3R4JRGLpa9fzcEk8Hd+P3m5f+D22Ki18SbXvZukQlJQBM1PPGKGfj6/691TRmA+4e4ZeAw+CdSTGWRPX70A3k5kFN/c9r6x9jBXl5LICqNKWWvIdlrncicax6l/hT8Tte7e5vIj774QcsxtDht8nNI/3w6Qk4QOr1MSqlqA1mOrVPEphq7CdPI41+3F6lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vyA6b9wdiCQr7MCdES8SBWJ7zdyF9TjwUkD5GkXVC+Q=;
+ b=wj6a8E32GG9GMzI9cyzj99JFa6UOJ7Jz7GytoZKkCOjpRhIqE7KObHoQu4GlXry7/HltViESyL8JiLXXxKUTwg4ajBddZRA1/uaohpy+bRfOwaM1coISL6S8ywOpJ08MB5TFVKUwmRRhGiIxEh/zZSk6/6KV9TJ6rg6ESGfkJjaVF6fSf4ALUCX5VISbnvMjisFxSv7n+OZYwSDcM31RK4SmRI8lS1QW2MkvGHP56GL0cPGowC44kSyt+gn4W37ssvDWSmhnlD3AV492daK8CK1bDsV9eyjxrLkZ8uooas9xs5ACOVqW0v6lW5r+5bEqb/wwt/T3mU7JAcQNlu1RSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vyA6b9wdiCQr7MCdES8SBWJ7zdyF9TjwUkD5GkXVC+Q=;
+ b=T0tsoi2gk2VCkEfzzzWS27JqYy8recfsMbi+FTVJl4BjrWH+GZxT8ukg3c9a8sbAOTZeAhWwEW2+Y5KpItIgMnTidxymQKbJScObRufvKK3O2AxBZuR7UUeq4i2P3nFu7ddCckrwPTr66t9v3qxvpqYNqsjuTIbFpljxwV+8ns6vHzn9fwjU2OeE94mYN+DvfrCO8Q6/jsMXaaz7wT76geeGHHrfSyYlMZQbbgv1o3famQbf5kZFUBDLZ9s3k3Y8QI+707AJcY39V6QeB0DtcLX1orSDIx7HEcEwjP7zsZVQR4Q9nSPbcL4gvkj9qNMFkgbAIGP143i3weuvxpMOLg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ PH8PR12MB6868.namprd12.prod.outlook.com (2603:10b6:510:1cb::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 06:23:03 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 06:23:02 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 15:22:59 +0900
+Message-Id: <DM3HTEQWMPZ2.6IYTH17NNAA@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 1/8] rust: alloc: add Vec::try_push_init
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-1-f04504c262c2@nvidia.com>
+ <DLXISL19ZQBY.1E3J1G0HKGPZJ@nvidia.com>
+In-Reply-To: <DLXISL19ZQBY.1E3J1G0HKGPZJ@nvidia.com>
+X-ClientProxiedBy: TY4P286CA0126.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37c::19) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:670d:b0:4d6:90f3:74a2 with SMTP id
- 5614622812f47-50c582326damr9608434b6e.45.1791872582224; Mon, 12 Oct 2026
- 23:23:02 -0700 (PDT)
-Date: Mon, 12 Oct 2026 23:23:02 -0700
-In-Reply-To: <as3JnatMRsNYq4bR@elm>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acdce46.a150a118.27e199.0056.GAE@google.com>
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-From: syzbot <syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com>
-To: code@tyhicks.com, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH8PR12MB6868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 022fdd45-2aba-4c7a-299e-08df28f26f0f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|10070799003|1800799024|23010399003|4143699003|11063799006|56012099006|18002099003|22082099003|6133799003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	1kZJofTxR498GIpac99Gmy6vLfwy7Pf/dmlE7/e2GdothEjBnFECUUbibbXmjkx/ytrNziWipGy1Y0UcQ1I0MsmBABbMtLwPq93MkE/0dqyPEgBtbwfbIRYwYJW5cK2TqvlbvTJtWGFfh5nz37ln6QBIe1Bd6mBeFVBsYyLw9J7Jsjbt/9/NQHJPn9p5O11CU95twXzbiMg5trm1WUCBJbi9n4fUs4TBayu4GKBEpKdsJGqimy4P/+lJRMCf73fMc9lXSLs9pRlHDS0g4rEWnOj6BpHVxaXoPUUbzOaUX65qzSM8dadfsig5dTE9dOVemmYaWjNzuq7T0/DJY8Q08Tde5Kgg9hHehKLz1jkxrx0b2T0J8aVzAbR6AqOC5O1gIRkp1ApyrjluAn/z8ELtZYZ/B2qEr4k2E846zEL7vXjCHEnqTop5fbhVpFJ2h0qtq96+fWZ+5efoBV4aPQxG3wDpuoVzOue0qR+Ri++udayWX/qadbEWZ+eGSDuiknG9ODr6qcEgib8Fmw7TmP+uC3B9f5hkua7/aCB/IkDYkaHF0X2lBdBn8AUaIlkPJZEVu7qwBxet1u1OyY6mK71e3CVwOw8dnfiuuqIIm9KywxaWHzUrHYdoL5pzZ0JpXPPiS5oc4WwrQaIpegjxK0i1RuRpQJCnf6oMpDUyROI2fAY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(10070799003)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WS9wa0JQUkJVV0c3cksrMmg1dEpaT0d5N2FGV3FMOVlLdlNxVExYQmZMN3Jz?=
+ =?utf-8?B?UHl6V2w3YmFsbmhJeHBCOHdzRXV0MW14NzJaU1pBdkJ1MVp3bVlyNFV6M2M1?=
+ =?utf-8?B?V1NnR3FVZnFSS1ZDbUFqc254TzZiMlBYRWgxRnNsSXZ0RGpVSDlNblovTFJp?=
+ =?utf-8?B?Nk9mSEErZ0krL2RYRWl1NUFlNVozdkpTT3RaaGsvZTZndGt2cFU1WjZDakpY?=
+ =?utf-8?B?eG1heVF2NUFpcG4xd0Z5c2xIODFmNndtQ1ZvY1dESW1hSURXNzVuaTBrc2h1?=
+ =?utf-8?B?bmkrU2dYTWhuZ25WSXdicmEvWUtvWWdyOEtqdEsvWElFTlNlemJpTXN6bFNN?=
+ =?utf-8?B?VDdUWFVRa3BSVUlQRnp5Yk9GSWZQRm1idnJ5OHRDRkhoOS9scHNTc3J0MU5I?=
+ =?utf-8?B?bXYwWjFUVGh6RWRJeEQyUXM2bithTWlYRGwyRUY5SmJTbmhoRmluYk9GbHVm?=
+ =?utf-8?B?eW4wL1NqaXpuNXVmRit2RUp1a2dHZHE4K2tPRUhoeGxlWFNBRVZLUk5lWXhG?=
+ =?utf-8?B?QWFZNDlpZjVxTVREYVg5TjVnUWQyM2xDd0VLK1E2dy8rK0psNGM5TVNQdXFZ?=
+ =?utf-8?B?L3I1Yk15b2tZeE9BWlQvVVdVOGJTMTFCb3hpZTFOc2VrSlh5TERjZDAreW5E?=
+ =?utf-8?B?MFQ2WVBhaWFFMGlvUlIwdGFqY1E1aVh0WEVxU3pMU0N0WUtyZHV4a010NUtl?=
+ =?utf-8?B?NFJWYmhmRC9RT3ducFROc3Fad3R6R2paWWcrMTRGMCt0MGtOUFhoclpEc09J?=
+ =?utf-8?B?YnlOdFRCZXU0dHNBZnNMRFZzSFlTT3QzOC8rZDVNdGlFK3o4KzN3YjhWdDNX?=
+ =?utf-8?B?eEpNakpmSGFtUFlicDJEWGlPK2JzcnVjTkk5L2NwMnRGVzVpOFlzUDhIbk1t?=
+ =?utf-8?B?UVJ3WFRVS2FrUW1kbzcraG1aaCtwczJYanNFbzQ1Y0d1RGwyMmIwcmFPQThj?=
+ =?utf-8?B?ZXcwV1g1aHVoTjJ0L3M0VWs1RXJPSkFyNGdHWDkwcHJuakJ5SnMwOCtnbUJu?=
+ =?utf-8?B?bTQ4emR3Njkwa2RZdXl1VzkxN2pqVlBEYkFkeUlGZzZTU2NVbVcvcWkrNDNO?=
+ =?utf-8?B?SEhLL3lIWDZqWTNjMXp5WDQ5Q0JiRm4zWmhsWmVXSDNUZVFEbWtCOU9XT1c0?=
+ =?utf-8?B?cVlYTWZSaWNsQUlDUWU4ZEhaSFh2OTAyVTkzdjdRd3g1Nmo0SXorNWo1bmxL?=
+ =?utf-8?B?ajc4RW5TUDd5ck1KVUpQZUhPUVhKVDI2bGpRNjdGVW5EMXFPWExDN1hXcFNU?=
+ =?utf-8?B?UWxlZnZVZnhWZ3QxL213RXd6ZTRsYXg4ZVpEQ3FCaDQ5c2Yzd2pFUEdCVEI4?=
+ =?utf-8?B?NDEyUXRjZkFNSjFJTGhKQWpPR0pHT3ZMelJERy85SjFQWXJzVzZQWG82aVd3?=
+ =?utf-8?B?Qy9XZXRLQVNiY1RaNVpSSm8rK3l2cGdEZUM4Mlh6eERDa2hmSmdLbjBDOWVB?=
+ =?utf-8?B?OXd0WWZQMTRSWWlEUVVLQy9IZHlFSlZCOXFqVFpzU3BNT1VBVUhsNGdhakxa?=
+ =?utf-8?B?YVNDZkM2Wi9CckNyUGxKY2FUMmNvMGZ0aGJkOTVwL0g3Y0tzc2k4T3JQWDVh?=
+ =?utf-8?B?UUkvaG5NTmtCNXhQZ0hPZHdtd3I0VHY3ZGJ0dXN2K1pVWmcrNW5OYkJJQ1FB?=
+ =?utf-8?B?QlZiaThKOE1lRzluQlY5SjdjajJBMk9Hck1uWWVJeU5NZVhZRG9vWG5nY2pQ?=
+ =?utf-8?B?K2ZNck0xd29zMmtyd2NWQlg0TnpSUWd2Q2I3V3lOdWliYnZIZ3p0MVFHQ1BN?=
+ =?utf-8?B?RmtJUldwR2I0RU13dDYrS2VzNGFITEFyOW16WmlZczVleGY3WHdRVGxlYmFR?=
+ =?utf-8?B?dW1OUVVIaXdaQjdaV2R1aGFlZlRKcVBoR3d0YjBjdG1meCtTZFlQZ3dxMXp0?=
+ =?utf-8?B?ai82ZVJvM0c4cElwSlVPWVF3dk43RUtmUHpOcnUzNEkwbmpsMkV0NXdEb3A4?=
+ =?utf-8?B?c2pmUUdPcFUwRDkwREtYaGNlZXBGZ3NEaGJmalJQZmVJSmw3WWlxZzlRL21x?=
+ =?utf-8?B?WGpRVXBicW5aa2dhT2x1V25BU3NGVS9oU0MxbDUyV1VQZWx5NGo1Q1FZTlJV?=
+ =?utf-8?B?d05HM01UTUp3YncyWVdCbndGejloai9EbGYwWDJkNllMYWU3VTlvam5ML2hr?=
+ =?utf-8?B?OWlxY2tpQ05La3NMK0RQanFDL2laSWxJSllDdUhIQ28ydUVMdCtWM1BqZFRi?=
+ =?utf-8?B?L05iQnJIUTQyNUVQeGJEOEprNEpmcWFLRUN3Z1R0VERmOTVJQ0diR2J3M0tF?=
+ =?utf-8?B?cHZ6WExsbGhqZ0ZkbkZ4TzlHaUswV1dpTjdPSklEdStWNlNXQi9IZUE5bmVp?=
+ =?utf-8?B?TkQ3b3RkWFd5YWpMN3c5b0I1aDd3MGduc3FyVDJkVDRzY25YanJ2R3ZONEZy?=
+ =?utf-8?Q?ZseYbrEH3jaTnPfsTc82Ny6xGrgpFAK52BbV56lhCP/C0?=
+X-MS-Exchange-AntiSpam-MessageData-1: vmxZ+pOaLcyEjQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 022fdd45-2aba-4c7a-299e-08df28f26f0f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 06:23:02.1788
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xmm0X0835HYd094qnk5RKaHThr9D6ZVowv6l/v+hf807UCPlAqldkZQoWi9PMp7uHoMakH0nXLieKEWWYhoQDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6868
 
-Hello,
+On Tue Oct 6, 2026 at 2:52 PM JST, Alexandre Courbot wrote:
+> On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+>> Add `Vec::try_push_init` for fallible initializers (`impl Init<T, E>`)
+>> and a new sum error type `PushInitError<I, E>` that it returns. If
+>> allocation fails, it hands back the original initializer. A From impl
+>
+> nit: missing `` around "From".
+>
+>> for `Error` lets callers decay the `PushInitError<I, E>` to a regular
+>> Error if they want.
+>>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  rust/kernel/alloc/kvec.rs        | 55 +++++++++++++++++++++++++++++++++=
++++++--
+>>  rust/kernel/alloc/kvec/errors.rs | 30 ++++++++++++++++++++++
+>>  2 files changed, 83 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
+>> index c7546b9da4fa..a2b72a7779d9 100644
+>> --- a/rust/kernel/alloc/kvec.rs
+>> +++ b/rust/kernel/alloc/kvec.rs
+>> @@ -52,10 +52,18 @@
+>>      }, //
+>>  };
+>> =20
+>> -use pin_init::Zeroable;
+>> +use pin_init::{
+>> +    Init,
+>> +    Zeroable, //
+>> +};
+>> =20
+>>  mod errors;
+>> -pub use self::errors::{InsertError, PushError, RemoveError};
+>> +pub use self::errors::{
+>> +    InsertError,
+>> +    PushError,
+>> +    PushInitError,
+>> +    RemoveError, //
+>> +};
+>> =20
+>>  /// Create a [`KVec`] containing the arguments.
+>>  ///
+>> @@ -359,6 +367,49 @@ pub fn push(&mut self, v: T, flags: Flags) -> Resul=
+t<(), AllocError> {
+>>          Ok(())
+>>      }
+>> =20
+>> +    /// Appends an element to the back of the [`Vec`] instance by initi=
+alizing it in place.
+>> +    ///
+>> +    /// Unlike [`Vec::push`], the initializer may be fallible. If the a=
+llocation fails, the
+>> +    /// original initializer `init` is handed back in [`PushInitError::=
+AllocError`]. If the
+>> +    /// initializer itself fails, its error is returned in [`PushInitEr=
+ror::InitError`].
+>> +    ///
+>> +    /// # Examples
+>> +    ///
+>> +    /// ```
+>> +    /// struct Element {
+>> +    ///     buf: KVec<u8>,
+>
+> It becomes a tad confusing when the element of a `KVec` is itself a
+> `KVec`... Can we just use primitive types inside `Element`?
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+SGTM, added the failure case in the example as well.
 
-Reported-by: syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com
-Tested-by: syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com
+>
+>> +    /// }
+>> +    ///
+>> +    /// impl Element {
+>> +    ///     fn new() -> impl Init<Self, Error> {
+>> +    ///         try_init!(Element {
+>> +    ///             buf: KVec::with_capacity(16, GFP_KERNEL)?,
+>> +    ///         }? Error)
+>> +    ///     }
+>> +    /// }
+>> +    ///
+>> +    /// let mut v: KVec<Element> =3D KVec::new();
+>> +    /// v.try_push_init(Element::new(), GFP_KERNEL)?;
+>> +    /// assert!(v[0].buf.is_empty());
+>> +    /// # Ok::<(), Error>(())
+>> +    /// ```
+>> +    pub fn try_push_init<I, E>(&mut self, init: I, flags: Flags) -> Res=
+ult<(), PushInitError<I, E>>
+>> +    where
+>> +        I: Init<T, E>,
+>> +    {
+>> +        if self.reserve(1, flags).is_err() {
+>> +            return Err(PushInitError::AllocError(init));
+>> +        }
+>> +        // SAFETY: The call to `reserve` was successful, so there is at=
+ least one spare slot.
+>> +        unsafe { init.__init(self.spare_capacity_mut().as_mut_ptr().cas=
+t::<T>()) }
+>
+> I guess it comes down to the same but I'd feel safer if we could
+> explicitly index the first element using `get_unchecked_mut(0)`:
+>
+>     unsafe { init.__init(self.spare_capacity_mut().get_unchecked_mut(0).a=
+s_mut_ptr()) }
+>
+> (removing a cast is also nice I guess)
 
-Tested on:
-
-commit:         5b00bf0f fs/ecryptfs: fix slab-out-of-bounds read in e..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/tyhicks/ecryptfs.git next
-console output: https://syzkaller.appspot.com/x/log.txt?x=11c599a9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b0a4310419d2cd7c
-dashboard link: https://syzkaller.appspot.com/bug?extid=b9529ebe6a9394ddf825
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Note: no patches were applied.
-Note: testing is done by a robot and is best-effort only.
+The file appears split on the convention here (get_unchecked_mut vs
+get_mut_ptr + arithmetic + cast), but absolutely do not mind changing
+this one here.
