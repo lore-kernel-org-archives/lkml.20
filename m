@@ -1,117 +1,107 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625485326A6
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C59043BDD0;
+	Tue, 13 Oct 2026 18:04:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914592; cv=none; b=OETAN8Gwhuc8dgte2UTL8Qn5o9zllLyMQXhe1A/zRO9Zq2+vkB5vCqLpujzKXSkeA37lCgGAGgO3qCROWEVFfH4mmMNVeU7wicFAry+tcycLw31p/ML2zlt65S1E+Ugwd1vGGBbral7vXoAIkLekcD+AytCZMXH1ie0lpz9bTV8=
+	t=1791914672; cv=none; b=pTXtxORzDz4/Q1fjj3LmXiFwc17fFYTUZA+r6LPROi54Q2XN6AjGirxsM9ZIcymevKC8omDwDPTpJ6oG41nfvCBlcqdCyW92T3he7T7FEFsLVOohLO28rpg/LU8n1gtd/6+xyzBs4WoIlokasNRKWexXGH8B5g07klTd+vaGjtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914592; c=relaxed/simple;
-	bh=1EKTNsYObddSzMfazdsEfTP4VW5E+sXjf9Ax6jA38oo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M1gqRSh5wXLSGfkG3lxVLGRljOf1YfFQtZiJuPj6oqVDXzBwcD1kwoPqE6pft0Kd7N2drEGGBI/zIAjbjzAiSBjKVmtDZ+BBwOluLlpvSIRWqUbBEfGFQZophId90tTGjUhS5YNpQmG3oJw4PBGYl2Vd7qwF7yf7N9GEi8C1fJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dwcSSTzU; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791914672; c=relaxed/simple;
+	bh=L6JEv9qfHtvpZmPdt8beaHCj8CvQMXxeYuG9Mo656Gs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YRkg6iPkuVuJPvBXdSsYsUxwgBspm5ElMc2VJ6/PZf98wT09zgIdzgzCoGazSN6tAtyRgTr+HisVHBtRzjFT2CfheVFyCRXGeUw8FpUiK3MIX+wuTuKh5ZPZweCI8gYcVv2trX4s+5IdgN0N0fPqph3JzmRA3puV3Kq8RPFnL4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8HVMEQS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dwcSSTzU"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48af27fe287so2853903f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:03:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791914588; x=1792519388; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jUyh+j71lLXWUxyOREj0fzVr8qwfQy1ksYC2qzHO33g=;
-        b=dwcSSTzUAMNKy9h6TFsrYRPSd2vkKDmrqjWlGt5NuZJEjfi3cOwnq8DTgcBQM8GV5J
-         OqvnbqFN7rNmAguF5DoA/PLy4rBxBaDT/NRMLjvaRLEjnvFJ1hshoAoq5dKjasvGngwM
-         crFt5KrC4LigS3/N1YE3PmPP8Epx5weHQbV880Ir0kghvJvpjn8Mvr57WwLQ9u0g24Sk
-         s01YDaD/Lj223x1/73SjKJikJQirbAdhWdZJZ0yTSK0qzMXwAV8T+6JzTg2YmS2F3tk2
-         XDzQ2pNM5JXQNpneCBOrEaK5DpwIXujqjnYuFy2iuZ0TL3oKEFehnO/MfUdGno9qrBBX
-         sDCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791914588; x=1792519388;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jUyh+j71lLXWUxyOREj0fzVr8qwfQy1ksYC2qzHO33g=;
-        b=WG69/Vz/6eW1CMs+9lMLz3Jzxo3aPVUWx3d+Cek0or95s/Grs6EtImf/mGNB7pDrsG
-         XD29QfhE7cO4Pke59VWAp7I9vZBAXWKjKgU3oGnAACjBDNz31hSYEVOD0ohWSIaNJWST
-         B1kdw/mmoGycGIiLKuw9NgKNtqY05dvhj6RU4vgJgc+L/i/+FswpHfeacYwpUwjo1I+y
-         1ETYsj0EQm5RCzqCdRK4rhWpykSZyPKcUNcsvx8RLFtjB9zixnw5ZZ3dvyNOgwxlCsKl
-         +tb/4zFs3Q5SWYghYYocEjsHITQlOYn5VBGasAZCT1phNNdS0JivWrmrOYmJZGbCGVzP
-         A2yA==
-X-Forwarded-Encrypted: i=1; AKwUvByy8ihbfv1XkqsvaJCzO+XgVOks5QeupblqSURoewszvQc2w9AySc8iLmlCo5CChmfCQmSo6GuU53xRWPM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcGeKsU2FgLxAPfqijmTJbFrDfpiF6DLFbHzSnBBnOfSO6Y9oB
-	5A4+RQnuvoqZG85Njgcq/k0BK+vYbYuCUYHFyjC6IqKx+8TimVtWAK9C
-X-Gm-Gg: AYBFou3Edl/ctZXS+iH5AmoLxfii7Xf9cTQXbO80c1cGMhSFLKwQzEZmlktbb9yWuDE
-	ZzaHVlNLuDyZfWeZ522p506DQ1wf19/D+6XOmJjjRzb9te7g9HzV91iBPEJ3PuxSvNbK/+yrJN8
-	1jBqZSyxk2muO7a44ShjwYYTSjuDgoLcsozux+yfNqflUwGR6GctVRuWnYdOkUG6FHEn11gf2q2
-	xPGL1N3HGHLjGL30EaACURYgvtktcfZUgoMcSj5k25QsAtXqeha1A7znonJu90+gdhWv9eA6+Yu
-	CeyjsT48pxRgyO5bjJgRLH6C6wcVtnzsMLFMn3vpHnP8HuXjme09EJsZ09V4fKG9gURZgDSE+fC
-	wBx3f87LGE2J2OnpEtXbw3/yDO0598/XzssJ+tyDOfLw4KlUIjiCTdpFGTtiWr1qAjlcJ4vaF0F
-	z3EsEUo26Xq4K8QKRsOYkhfNPyCRrCjCmfpKtyo1ADYQ3QDF2b3eo9A6IULYcb750aD1OGsPNUt
-	x8y/fGhLI0ookatN+jAC4bOPNSVpw==
-X-Received: by 2002:adf:e007:0:20b0:48c:656a:f36c with SMTP id ffacd0b85a97d-48dba77cefbmr20450562f8f.3.1791914588364;
-        Tue, 13 Oct 2026 11:03:08 -0700 (PDT)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc4ec6sm6381987f8f.48.2026.10.13.11.03.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 11:03:07 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Sheetal <sheetal@nvidia.com>
-Cc: linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] ASoC: tegra: Support auxiliary devices
-Date: Tue, 13 Oct 2026 21:02:53 +0300
-Message-ID: <20261013180253.477605-3-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013180253.477605-1-clamor95@gmail.com>
-References: <20261013180253.477605-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8HVMEQS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A58C1F00893;
+	Tue, 13 Oct 2026 18:04:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791914670;
+	bh=SVZW1RNrpJG6XhKrA3+1X7TURtsoXoyl9erFH/YE3/Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=e8HVMEQScf+8hESZ4Ftgq8ihr/nrxw2ZXCcr0pOF2bU+SfCdnfI2fjK5cTUcepIlH
+	 vp55mLEQjW0pTnOqxyWIPig+qdO+Q1YhybEaQfYcUHXrQazNcbsRVvQ99B2W1wYB6b
+	 NabjgxKw0ZCKsTWP1tFagoUVwGt5nNgco2+wC5Jiy9vUlM1JSK3QAjz/G+8PhufhUS
+	 ceSv/n9v6HVaeqFPG3Vx4wDzib5d+9UMl7XCocuRujAzldJ2AuiLZr6Yw9iMh4gf2h
+	 TRKY9020mx0j09LwtAZslU1M+wYc7//qInIMUNMjmrlL/93c434gOKZbuEQDHJlFBP
+	 1pRvmygpGrbgg==
+Message-ID: <cb094baa-a39a-4a38-94c1-e4a8f03750f6@kernel.org>
+Date: Tue, 13 Oct 2026 20:04:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: vendor-prefixes: add Ambarella
+To: longzhao@ambarella.com, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Linus Walleij <linusw@kernel.org>, devicetree@vger.kernel.org,
+ Long Zhao <zl020895@163.com>
+References: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add support for auxiliary devices, such as amplifiers, sound-muxes or dsp,
-to be added to the sound card.
+On 13/10/2026 19:46, Long Zhao via B4 Relay wrote:
+> From: Long Zhao <longzhao@ambarella.com>
+> 
+> Document the Ambarella, Inc. vendor prefix so Ambarella DT bindings
+> can be applied without waiting for the SoC series.
+> 
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- sound/soc/tegra/tegra_asoc_machine.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
-index 50b23bbb637bd..e4af049fd7e89 100644
---- a/sound/soc/tegra/tegra_asoc_machine.c
-+++ b/sound/soc/tegra/tegra_asoc_machine.c
-@@ -550,6 +550,10 @@ int tegra_asoc_machine_probe(struct platform_device *pdev)
- 	if (asoc->add_common_snd_ops)
- 		card->dai_link->ops = &tegra_machine_snd_ops;
- 
-+	err = snd_soc_of_parse_aux_devs(card, "nvidia,aux-devs");
-+	if (err)
-+		return err;
-+
- 	if (!card->owner)
- 		card->owner = THIS_MODULE;
- 	if (!card->driver_name)
--- 
-2.53.0
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
+Best regards,
+Krzysztof
