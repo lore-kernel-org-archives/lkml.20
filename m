@@ -1,257 +1,138 @@
-Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B16547CA69
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.192
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888201; cv=none; b=p3emEUnntZaPD7yZAWc8TTikt9jf8GqXiCLWXTizYGcvCxhszPLVvn6ZxFChEkSbf8m0CVt9Ou9Z19dxNRdD2a1i4HqVLvGeu/ZPspiZVL5DRh0c0dcVVOq57tlhltB5Py09gVm4BRCJaYMYEIl2A1cliVNO0tHh4p7a1PDZGdg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888201; c=relaxed/simple;
-	bh=ByWSXE/7WPxPiNDq+DRGyvhy49vCl/cF9okG2hZGg/w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sojqFxc6anfSTGDwRalPuG6OXPrJxiN3/3+zqS8bdJOYMuc2hH2bC0zXerqi03E8YmuUMnHRfuVr5KChx04fImPMUymjQn85tGY2a2SIKzmE9aDL+9W8lnjaWgKz/r9FXD9XdG1BLn51Oen25HA1JYyUOGHi/lOrOlYy1Xuk/Bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kf6r3GJs; arc=none smtp.client-ip=91.218.175.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B47442902E
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791888217; cv=pass; b=W3YsJpXQMB5um/Tqpk5hma1VjTRg2aaeMsVtHq6HzpSROMYeirGn3QxC+tIdlzrbQ6xkTxdMBfiOTbnivj862TZP3WBkdCdbw1R0gdy8Ch5rS6+Jb1MzqDBaqEbNbz/wO1aOWntnJpLkJ2CP0IOA4HWh0hnPe3nDAbyH/1ufY3c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791888217; c=relaxed/simple;
+	bh=rUqmGo5gmll+GCaALoJRbfek86ESyi36pidayRfvfM4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mWlwyGdxNaBWFBha9kh2vXATftFzqatusOO/p9Z7vOgludIax9eBBzlOTjGyfM7mVl6H42YEDINDUMPjA0IbGKrdNjP3rgvt6U9gmOOFDrkrlMJ7fi22EFNj3nuMOu8+Sm3pJc+A8fTGym6dLX1mVVYd3VaVRbxRk4ojfQhQnj8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a9JKuDu0; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kf6r3GJs"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ByWSXE/7WPxPiNDq+DRGyvhy49vCl/cF9okG2hZGg/w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791888196; v=1; x=1792492996;
- b=Kf6r3GJs5jBx4fJr0BPFL3eF88FyyQi1jChmXGlaEyNgPwMwFh5kycydk3a42uCgBKkSMiY9
- /o6R8ccl7NK/Kbyv+o3c4V6LgcxMPeS8J1ev3wL5HOu4BONbINFzh8nF7J9n0X2r8VvKl2BhpWo
- X77og7vExEk9JPIt4Zcm9eK4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8e08e36eb5f4ac01;
-	Tue, 13 Oct 2026 10:43:16 +0000
-X-Mizu-Trace-ID: 8e08e36eb5f4ac01
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5c500376-0573-446d-81cf-70bc38ae4aea@linux.dev>
-Date: Tue, 13 Oct 2026 11:43:11 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a9JKuDu0"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e38b61974so47315566b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:43:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791888213; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iM/5AEwZilCIsCKIaS4jpo9aITEPXUQaeWUvVFZB04SqRUgfaCzZI8SguQcBGGuc6V
+         PZVRpCLuhssaQblbLnjMX1AedJigBFVALwW615eavi10PovmmHI32HyPKEDNA5zvPFsS
+         SrcemYMPzzSuxTi2kaqg2dD4VO7GW5mHtDxSghOrvTtiUrUD2aL/KWcNlgURSASmK6NB
+         Hrt7L8MTu3iDlsFUR9fvA1+6NnN9PMUicVeDqWYymUXmN0UkEo1gCakndNczbmfboU9l
+         pgxg6WRZcBJNZbuQrdk3/ozws8S6jmbVaQPOQT3qfi+UoYVdU3QExRpNfWGubzLpQGVJ
+         qFzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rUqmGo5gmll+GCaALoJRbfek86ESyi36pidayRfvfM4=;
+        fh=iteBiVeMCRFDdJz9nLl28dAajeLPFD9Fe4hBsmCuytc=;
+        b=UePLtSTrCkYF80s2yE7Rautmi9DpTRDwsUz/iazE26UPMkhc3WB4IOOb08jB7Dv3/e
+         nQEhghMsZq1XR3niIPTqVDGiB0tfYUGvG//UucnomscvyMVDmQUfDKylR30MOmsVrsAE
+         MfIlqcuKY9E5KDWtduoSSyQlaDLL//CQxGv+zs7jE09IhYNKHG8HYOCCGguR47t+hAyJ
+         q6UeK8r4A5LmUSFqMU+L198SIo3XLWUEMsYJzL0mYQudsnKtNVWH54hPyy5pGmRZ0Hhv
+         05Ywc16GJ48RT8UoYZx0ssi0vbyxpy1XflyzrmKxmESZ28/sAGWLfs9OtS/lq85ZsmHc
+         KmgA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791888213; x=1792493013; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rUqmGo5gmll+GCaALoJRbfek86ESyi36pidayRfvfM4=;
+        b=a9JKuDu0SiivLt+mLksbpd/cL0Ix5TymRLUpuuGfUMEF53taMb/ZGXnzUGm3EPCzLh
+         3ZcgW1dw21t+Yur5pA/4H1mOqZNN9Q+rO7gM1DHbah6Upn7tfQeMfFnGVAjbcml4yDDx
+         4m2lcvDwoc1VSxlu9/Us/xe/9Dt9ayL6T73pjFOLpnhkDj54DRiODTl0Eu4CPJi01jmj
+         GpKp/VM9PNc/7l7cNhPau8fK2oaM7/D6DlEF4wfcSyaymbklitcuzhtw1/poKktPEMgZ
+         AswDf97ldxvngcq5kcwMHe500hhGvnP9Q0pVS1NbKQETfE6Ox+dnXinZth16C1WtCJoX
+         MelQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791888213; x=1792493013;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rUqmGo5gmll+GCaALoJRbfek86ESyi36pidayRfvfM4=;
+        b=jKUqtsaJbpYUBs/8l0o1pdC4ziqSCQ4FJVXpNIO+3dw7A7Y7798CCx7EIkaYHFMrPa
+         +r56lIy3zbxjd4FqKDuGCTwT81Wg6F5alMgpLJrtUxbZxG8qAiAM3M1SQHWAu7iwjc4Z
+         L1+lH4khaPpGfPX8KlyUVwiVNWs0h9FBKJLtXEc7SM6kGQatojHBUO1trgHq1mxmG2GM
+         6l9y7MAxZythwlGHd1qvUdFgXfii4TbvPqbtUNo8ngXU7C8cdmM4oGEh8Zw1lrlzyxVX
+         4T7T2MwsbHw+w/dN/F7TMWlJhKpXscdwPzX2Qr2eXnTa+CSfqO0eNXP5FUh7FdVgqHac
+         g+bw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfFCXWo/SR9eB6r52tKPkq2NQG2o9dVF4Zbe/YjlpusWJ7iyANSt3K+tY7covyGrvqXUiFT3U/brBiL3w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZZAr4ZJlzihrPOP3Wvn6bc4mimh8EitQUpuCkQMug3+K5/Pz2
+	PAukSKyRI3UaQwuG9YB4xiXuz67/j72E2XOwiqR/lIeIQHmezeEyQY9EYvz2p8zNr1Tz22uxVWi
+	R1B2cO8iImqcBAdopenV/BFxSam33I7I=
+X-Gm-Gg: AYBFou2Vw9y9aKkyTalTt3NeMFrPES00ZafQODrFekcM+64pZK/EKAHbcqC+cOup/Vv
+	REk6Lv9VyF0DSIu0tBRFhrTd3QrbAsYemhjBf/Qr/0RVj+fSRseQEmtoGOx3qiv2edYj4zZc1E6
+	viAcOonWG2fiADf2MrLSu8vqkNkqBE5P9a+5phfauEccO0hv8NjT/KGavhEWDszSOAs5jumE5rO
+	JecsV4Byam9Uv/hdI1U1RZYPSOa1OgpL1xA+3BGkigWB/qJ3LxHxMteX41Ynrgv6qTV9Ub2S80k
+	YPpJQISNYBzO21Anh4SunsUcksG6sGCfwJmWDzAj+aOzLAQ6HWDiy1WN3EEdQYHIkSYm8gOVD31
+	hZihikEam
+X-Received: by 2002:a17:907:3cc4:b0:c25:2ded:ad36 with SMTP id
+ a640c23a62f3a-c31a96e7a46mr1286808066b.0.1791888213256; Tue, 13 Oct 2026
+ 03:43:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] net: stmmac: ptp: switch to gettimex64()
- interface
-To: James Clark <jjc@jclark.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
- Miroslav Lichvar <mlichvar@redhat.com>, Nicolai Buchwitz <nb@tipi-net.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261008103809.1848255-1-jjc@jclark.com>
-Content-Language: en-US
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20261008103809.1848255-1-jjc@jclark.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260824152331.216494-1-nicoyip.dev@gmail.com>
+ <f3a9dd1f-43a7-4644-bf1a-45dcd422abcb@redhat.com> <CAAo+4rUG_Y_d28bLbQdcmHY5-vtBrhV+D6rzbd3Mb6B3iTSuHQ@mail.gmail.com>
+In-Reply-To: <CAAo+4rUG_Y_d28bLbQdcmHY5-vtBrhV+D6rzbd3Mb6B3iTSuHQ@mail.gmail.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Tue, 13 Oct 2026 18:43:21 +0800
+X-Gm-Features: AclHuK9kgucNW_X-CmFkUz3aZTCU9FnPnXOeZBb7AYpPKDF7GSiLOX-F6v5amrQ
+Message-ID: <CAAo+4rV1zx_U6Er8eDE0JW2f6jBXY6gmhnncXKvycn98ZjXG9Q@mail.gmail.com>
+Subject: Re: [PATCH net] net: pktgen: keep device lookup under RCU protection
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
+	Qi Zhang <marsy12010123@gmail.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Alice Mikityanska <alice.kernel@fastmail.im>, Florian Westphal <fw@strlen.de>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08/10/2026 11:38, James Clark wrote:
-> The stmmac PTP support currently implements the gettime64 callback to
-> retrieve the hardware clock time. Update the implementation to provide
-> the gettimex64 callback instead, adding support for the
-> PTP_SYS_OFFSET_EXTENDED ioctl.
-> 
-> The system clock readings are taken around the read of the nanoseconds
-> register in get_systime(), so get_systime() gains a ptp_system_timestamp
-> argument.
-> 
-> Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-> Assisted-by: LLM
-> Signed-off-by: James Clark <jjc@jclark.com>
-> ---
-> Changes in v2:
-> - Read PTP_STNSR with readl() and drop the two rmb() calls
->    (Nicolai Buchwitz, Maxime Chevallier)
-> - Fix the kernel-doc of stmmac_get_timex() and an over-long line
->    in stmmac_adjust_time() (netdev CI)
-> - Link to v1: https://lore.kernel.org/netdev/20261006103610.98277-1-jjc@jclark.com/
-> 
-> Tested on a Radxa ZERO 3E (RK3566, DWMAC 4/5) running net-next.
-> Width of the interval between the two system clock readings
-> bracketing each PHC read (2000 calls of 25 samples each):
-> 
->                                           min      median
-> Before patch (PTP_SYS_OFFSET):           875 ns   1167 ns
-> After patch (PTP_SYS_OFFSET_EXTENDED):   291 ns    583 ns
-> 
-> On this board the 24 MHz arch timer counter advances in steps of 7
-> (~292 ns), so all intervals are multiples of that.
-> 
->   drivers/net/ethernet/stmicro/stmmac/hwif.h    |  5 ++++-
->   .../ethernet/stmicro/stmmac/stmmac_hwtstamp.c |  7 +++++--
->   .../net/ethernet/stmicro/stmmac/stmmac_ptp.c  | 21 ++++++++++---------
->   .../stmicro/stmmac/stmmac_selftests.c         |  4 ++--
->   .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |  3 ++-
->   5 files changed, 24 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> index a8a5c8fdd5e..6efbfe50102 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> @@ -493,6 +493,8 @@ struct stmmac_ops {
->   #define stmmac_fpe_map_preemption_class(__priv, __args...) \
->   	stmmac_do_callback(__priv, mac, fpe_map_preemption_class, __args)
->   
-> +struct ptp_system_timestamp;
-> +
->   /* PTP and HW Timer helpers */
->   struct stmmac_hwtimestamp {
->   	void (*config_hw_tstamping) (void __iomem *ioaddr, u32 data);
-> @@ -502,7 +504,8 @@ struct stmmac_hwtimestamp {
->   	int (*config_addend) (void __iomem *ioaddr, u32 addend);
->   	int (*adjust_systime) (void __iomem *ioaddr, u32 sec, u32 nsec,
->   			       int add_sub, int gmac4);
-> -	void (*get_systime) (void __iomem *ioaddr, u64 *systime);
-> +	void (*get_systime)(void __iomem *ioaddr, u64 *systime,
-> +			    struct ptp_system_timestamp *sts);
->   	void (*get_ptptime)(void __iomem *ioaddr, u64 *ptp_time);
->   	void (*timestamp_interrupt)(struct stmmac_priv *priv);
->   	void (*hwtstamp_correct_latency)(struct stmmac_priv *priv);
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-> index b9a985fa772..870c740b4a5 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-> @@ -183,7 +183,8 @@ static int adjust_systime(void __iomem *ioaddr, u32 sec, u32 nsec,
->   					 10, 100000);
->   }
->   
-> -static void get_systime(void __iomem *ioaddr, u64 *systime)
-> +static void get_systime(void __iomem *ioaddr, u64 *systime,
-> +			struct ptp_system_timestamp *sts)
->   {
->   	u64 ns, sec0, sec1;
->   
-> @@ -191,8 +192,10 @@ static void get_systime(void __iomem *ioaddr, u64 *systime)
->   	sec1 = readl_relaxed(ioaddr + PTP_STSR);
->   	do {
->   		sec0 = sec1;
-> +		ptp_read_system_prets(sts);
->   		/* Get the TSSS value */
-> -		ns = readl_relaxed(ioaddr + PTP_STNSR);
-> +		ns = readl(ioaddr + PTP_STNSR);
-> +		ptp_read_system_postts(sts);
->   		/* Get the TSS value */
->   		sec1 = readl_relaxed(ioaddr + PTP_STSR);
->   	} while (sec0 != sec1);
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> index 3bfcc9760dc..e54a3c88782 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> @@ -89,7 +89,8 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
->   		u64 cycle_time;
->   
->   		mutex_lock(&priv->est_lock);
-> -		priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
-> +		priv->ptp_clock_ops.gettimex64(&priv->ptp_clock_ops,
-> +					       &current_time, NULL);
->   		current_time_ns = timespec64_to_ktime(current_time);
->   		time.tv_nsec = priv->est->btr_reserve[0];
->   		time.tv_sec = priv->est->btr_reserve[1];
-> @@ -114,15 +115,15 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
->   }
->   
->   /**
-> - * stmmac_get_time
-> - *
-> + * stmmac_get_timex - read the PTP clock, with system timestamps if requested
->    * @ptp: pointer to ptp_clock_info structure
->    * @ts: pointer to hold time/result
-> + * @sts: pointer to hold system timestamps around the read, or NULL
->    *
-> - * Description: this function will read the current time from the
-> - * hardware clock and store it in @ts.
-> + * Return: 0
->    */
-> -static int stmmac_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts)
-> +static int stmmac_get_timex(struct ptp_clock_info *ptp, struct timespec64 *ts,
-> +			    struct ptp_system_timestamp *sts)
->   {
->   	struct stmmac_priv *priv =
->   	    container_of(ptp, struct stmmac_priv, ptp_clock_ops);
-> @@ -130,7 +131,7 @@ static int stmmac_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts)
->   	u64 ns = 0;
->   
->   	read_lock_irqsave(&priv->ptp_lock, flags);
-> -	stmmac_get_systime(priv, priv->ptpaddr, &ns);
-> +	stmmac_get_systime(priv, priv->ptpaddr, &ns, sts);
->   	read_unlock_irqrestore(&priv->ptp_lock, flags);
->   
->   	*ts = ns_to_timespec64(ns);
-> @@ -200,7 +201,7 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
->   
->   		target_ns = cfg->start.tv_nsec + ((u64)cfg->start.tv_sec * NSEC_PER_SEC);
->   
-> -		stmmac_get_systime(priv, priv->ptpaddr, &ns);
-> +		stmmac_get_systime(priv, priv->ptpaddr, &ns, NULL);
->   		if (ns > TIME64_MAX - PTP_SAFE_TIME_OFFSET_NS)
->   			return -EINVAL;
->   
-> @@ -304,7 +305,7 @@ const struct ptp_clock_info stmmac_ptp_clock_ops = {
->   	.pps = 0,
->   	.adjfine = stmmac_adjust_freq,
->   	.adjtime = stmmac_adjust_time,
-> -	.gettime64 = stmmac_get_time,
-> +	.gettimex64 = stmmac_get_timex,
->   	.settime64 = stmmac_set_time,
->   	.enable = stmmac_enable,
->   };
-> @@ -321,7 +322,7 @@ const struct ptp_clock_info dwmac1000_ptp_clock_ops = {
->   	.pps = 0,
->   	.adjfine = stmmac_adjust_freq,
->   	.adjtime = stmmac_adjust_time,
-> -	.gettime64 = stmmac_get_time,
-> +	.gettimex64 = stmmac_get_timex,
->   	.settime64 = stmmac_set_time,
->   	.enable = dwmac1000_ptp_enable,
->   };
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-> index 6097f312fce..2ae4f0e760c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-> @@ -1778,7 +1778,7 @@ static int stmmac_test_tbs(struct stmmac_priv *priv)
->   		return ret;
->   
->   	read_lock_irqsave(&priv->ptp_lock, flags);
-> -	stmmac_get_systime(priv, priv->ptpaddr, &curr_time);
-> +	stmmac_get_systime(priv, priv->ptpaddr, &curr_time, NULL);
->   	read_unlock_irqrestore(&priv->ptp_lock, flags);
->   
->   	if (!curr_time) {
-> @@ -1800,7 +1800,7 @@ static int stmmac_test_tbs(struct stmmac_priv *priv)
->   
->   	/* Check if expected time has elapsed */
->   	read_lock_irqsave(&priv->ptp_lock, flags);
-> -	stmmac_get_systime(priv, priv->ptpaddr, &curr_time);
-> +	stmmac_get_systime(priv, priv->ptpaddr, &curr_time, NULL);
->   	read_unlock_irqrestore(&priv->ptp_lock, flags);
->   
->   	if ((curr_time - start_time) < STMMAC_TBS_LT_OFFSET)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> index 42a00446e9b..57ebeb2c19c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> @@ -1070,7 +1070,8 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
->   
->   	mutex_lock(&priv->est_lock);
->   	/* Adjust for real system time */
-> -	priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
-> +	priv->ptp_clock_ops.gettimex64(&priv->ptp_clock_ops, &current_time,
-> +				       NULL);
->   	current_time_ns = timespec64_to_ktime(current_time);
->   	time = stmmac_calc_tas_basetime(qopt->base_time, current_time_ns,
->   					qopt->cycle_time);
+On Wed, Aug 26, 2026 at 2:55=E2=80=AFAM Chengfeng Ye <nicoyip.dev@gmail.com=
+> wrote:
+>
+> On Tue, Aug 25, 2026 at 6:45=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> w=
+rote:
+> > Side note: returning the RCU protected ptr outside the RCU read lock
+> > safe, as the caller never deference it, but quite confusing.
+> >
+> > It would be nice to follow-up on net-next replacing the return type her=
+e
+> > with a bool.
+> >
+> > /P
+> >
+>
+> No problem, the follow-up patch is just sent.
+>
+> Best Regards,
+> Chengfeng
 
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Hi Paolo and Eric,
+
+A gentle ping on this fix, which is still marked Deferred.
+
+The requested bool follow-up has been applied to net-next as
+2a5043c8b7d0 (https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-ne=
+xt.git/commit/?id=3D2a5043c8b7d09f2fc76c19270fd687b774c5a68b),
+but the RCU lifetime fix remains outstanding.
+
+I rechecked this original patch against net/main at 8bf659bd54e1: it
+still applies cleanly.
+
+Best regards,
+Chengfeng
