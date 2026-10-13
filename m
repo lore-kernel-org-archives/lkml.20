@@ -1,282 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6505187E6
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:21:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CFC352032;
+	Tue, 13 Oct 2026 16:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908469; cv=none; b=jk5pOIrK7XIH1LaaeL/S+KXEHjI69izqDMf8Zx6sA1sFGWH9oxfiYrZa2ljhUXO28auJWs1KxyH4xwixu9tIN4SKuIMrkpcrwgNNYdWUKkb/hSfsCAk666p8texe9mGaVjLbA+IygfjzZ2FupJ3O3dqBoKMJT5gyFz98xhuZrPE=
+	t=1791908484; cv=none; b=gMckaLTFs6oz3dSK3+7gf5acuzTaVboU7myQAHNG8HUdUSUasQ0IWVlugwVrmITHJN9XNdCXugSpEhMJa3I6Z2O7p2a4cKICl8haknJOxaqBlAndiSzAVjLB9gJ6r7hmEKJk00lERJ1PAIdTJ66wkYtbpPaGlWnJMN2d8XsH6vE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908469; c=relaxed/simple;
-	bh=VNYPdJ4wEtWkT0Y/2fd/VTKgy3YvUbQ0+27HlwKQ/Ro=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cLeieFGjF7NNELsjm0BVntOv2z3JGDNCVbYi/Mmde+9mGpcrE3xWoEmsv5kcY290OPVhw8HjIoQlntNR9NbxamSEIZJwZZpUdGwbOh3me00DeuPV/q4vfMtVldsnGED3m7hoFJtff3edLf9FHEHNSWipmwCDEiXfylTBbiXMUcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFJlN+u5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791908484; c=relaxed/simple;
+	bh=iaLpGPozs+lcxhbWVKUuCuOgErc+jjy6A6ykJAGe/Xw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ltmBQjFvcPna00/KuPsHU23FGcqNFXD1BxXkm+wQWvDigqLTnt8dTja2PFQ6bWx1TTeTtO0WKqLkj2Ws2F5FVs6o/GJ+vN3fIgrV81eY5HMO8JM1zTaKCdD9XFLDh/JaBr0DI5OHWSh//jRdBixUTBev0rV+dnRJJLn7WA9JuwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AkKs3tVO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFJlN+u5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9DAE5C2BCFA;
-	Tue, 13 Oct 2026 16:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791908468;
-	bh=VNYPdJ4wEtWkT0Y/2fd/VTKgy3YvUbQ0+27HlwKQ/Ro=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=UFJlN+u5qnszwTlR/iaFsYdDmPGqZRjvplKJeCNbKoNdCJ5TIHm5TzC4IbdAuxAjW
-	 cuXw05DFNb29CqrS1jSPSTjD4R/l2Hbk1a1hJgtOOP8ujogMeslUHbdrurXqR8Bbuk
-	 u3pqKI0PvxnobZz3+3XbT7slQg9rvlt483AhAHOLXNG9JKwPwB7mNI0YM3pmmLJudZ
-	 CFeusN9EGEWHANGNx0k7AJD4CovdRr2gP7pRGOQ2iaEED1nCEc/wG4S7eUKTGy0v/9
-	 fBgNpDG3l5QYDLdqzm30vlmIGe/EFZMBVjABckHRQji/7KxUMT6nGanaQQSSomATON
-	 wPT0Zft7AhpbQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88274CC6B12;
-	Tue, 13 Oct 2026 16:21:08 +0000 (UTC)
-From: Johan Jonker via B4 Relay <devnull+jbx6244.gmail.com@kernel.org>
-Date: Tue, 13 Oct 2026 18:20:49 +0200
-Subject: [PATCH v2] ARM: rockchip: smp: enable secondary rk3066a/rk3188
- CPUs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AkKs3tVO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00011F000FF;
+	Tue, 13 Oct 2026 16:21:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791908483;
+	bh=4/N960r9v7bsfzgPbbFS0xVE+vxTj7/cpdvbyuoLrW0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AkKs3tVO31Vti006Bt2XmFfdeWGPEjQtyXYAj27w6H8q77mkPNecZmr+MDKakL1YN
+	 +XDPUi9wsGqLTK6SdQ0/WEyqVqlSGD7pgxtDI3U54csF0gZFjHrLQNbH5GX/F57NNS
+	 1KrhD0NvWzFbCe1hFX0Uu/4QwvUpHdYNr7kkXw0QsgUpkp4m/HVomRvH3pXFYLFWyw
+	 kbGPD+9ALAxL4o/fA7VC7v+WjDs9vVXQpW/uNoHU4gNJ+SUrO9GaLwqZiUarpRV+T1
+	 u4LUeXrGyy24VEaLK0oFrZ8jwroSqLH9RukTIZMKg7U3M2HkMv2Lj+38DtcgpkwxBp
+	 GR03rY4ab1XyA==
+Date: Tue, 13 Oct 2026 18:21:21 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, kwilczynski@kernel.org, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Manikanta Maddireddy <mmaddireddy@nvidia.com>, Vidya Sagar <vidyas@nvidia.com>, 
+	Niklas Cassel <cassel@kernel.org>, linux-pci@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] PCI: tegra194: Propagate REFCLK select GPIO errors
+Message-ID: <as5adjyCjltieSWK@orome>
+References: <20261012094815.28160-1-phucduc.bui@gmail.com>
+ <20261012094815.28160-2-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-cpu-v2-v2-1-fe3bbc9edd33@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAGBazmoC/x2NQQqDMBAAvyJ7diGJGGq/Ujwk6abuwVR2qwji3
- xs9DjMwBygJk8KzOUBoY+VvqeDaBtIUyoeQ35XBGeetsR2mZcXNYfRDjtRb/7Ad1DgGJYwSSpq
- ufA76I7nEIpR5vw+v8Tz/JekG5XEAAAA=
-To: Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Johan Jonker <jbx6244@gmail.com>
-X-Mailer: b4 0.12.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791908467; l=7171;
- i=jbx6244@gmail.com; s=20260824; h=from:subject:message-id;
- bh=TOd8kf5U59z0fbWNbtTzfLXZRq7A+S8BMcAJBPeNlig=;
- b=FIum5UyKRKnfUX7R7ElIVsKMSnUwPji/54UVS1ZPtpJ29ldzfNAHvYJSnat4iF12xUHcV3uHG
- VFyOkHgKt2oDUNdmfvGh8i+Z2FkGLxGkqfU3TiZrnNkPobYB9ocqqGl
-X-Developer-Key: i=jbx6244@gmail.com; a=ed25519;
- pk=MK5Flx1ndjAF0uwXdNm8VvvoghD4KWCNd2hQE8QGyl0=
-X-Endpoint-Received: by B4 Relay for jbx6244@gmail.com/20260824 with
- auth_id=971
-X-Original-From: Johan Jonker <jbx6244@gmail.com>
-Reply-To: jbx6244@gmail.com
-
-From: Johan Jonker <jbx6244@gmail.com>
-
-Early Rockchip SoCs like rk3066a and rk3188 had boot loaders
-that remapped the boot ROM and the internal memory. Currently
-U-boot makes use of a common board file without remapping
-resulting in the secondary CPUs power up hanging in a wait loop.
-
-Make the various boot loader methods work by:
-
-* add code that disables remapping on both rk3066 and rk3188
-* change to use the same boot ROM path for all socs in rockchip_boot_secondary()
-* drop the rockchip_smp_prepare_sram() part
-
-Signed-off-by: Johan Jonker <jbx6244@gmail.com>
----
- arch/arm/mach-rockchip/Makefile  |   2 +-
- arch/arm/mach-rockchip/core.h    |  10 ----
- arch/arm/mach-rockchip/headsmp.S |  16 ------
- arch/arm/mach-rockchip/platsmp.c | 105 +++++++++++++++------------------------
- 4 files changed, 42 insertions(+), 91 deletions(-)
-
-diff --git a/arch/arm/mach-rockchip/Makefile b/arch/arm/mach-rockchip/Makefile
-index 62596d5deb88..d05123a7b711 100644
---- a/arch/arm/mach-rockchip/Makefile
-+++ b/arch/arm/mach-rockchip/Makefile
-@@ -3,4 +3,4 @@ CFLAGS_platsmp.o := -march=armv7-a
- 
- obj-$(CONFIG_ARCH_ROCKCHIP) += rockchip.o
- obj-$(CONFIG_PM_SLEEP) += pm.o sleep.o
--obj-$(CONFIG_SMP) += headsmp.o platsmp.o
-+obj-$(CONFIG_SMP) += platsmp.o
-diff --git a/arch/arm/mach-rockchip/core.h b/arch/arm/mach-rockchip/core.h
-deleted file mode 100644
-index fabcaa66607c..000000000000
---- a/arch/arm/mach-rockchip/core.h
-+++ /dev/null
-@@ -1,10 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-or-later */
--/*
-- * Copyright (c) 2013 MundoReader S.L.
-- * Author: Heiko Stuebner <heiko@sntech.de>
-- */
--
--extern char rockchip_secondary_trampoline;
--extern char rockchip_secondary_trampoline_end;
--
--extern unsigned long rockchip_boot_fn;
-diff --git a/arch/arm/mach-rockchip/headsmp.S b/arch/arm/mach-rockchip/headsmp.S
-deleted file mode 100644
-index 37a7ea524a16..000000000000
---- a/arch/arm/mach-rockchip/headsmp.S
-+++ /dev/null
-@@ -1,16 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-or-later */
--/*
-- * Copyright (c) 2013 MundoReader S.L.
-- * Author: Heiko Stuebner <heiko@sntech.de>
-- */
--#include <linux/linkage.h>
--#include <linux/init.h>
--
--ENTRY(rockchip_secondary_trampoline)
--	ldr	pc, 1f
--ENDPROC(rockchip_secondary_trampoline)
--	.globl	rockchip_boot_fn
--rockchip_boot_fn:
--1:	.space	4
--
--ENTRY(rockchip_secondary_trampoline_end)
-diff --git a/arch/arm/mach-rockchip/platsmp.c b/arch/arm/mach-rockchip/platsmp.c
-index f659d894bfae..ece17e9cbaca 100644
---- a/arch/arm/mach-rockchip/platsmp.c
-+++ b/arch/arm/mach-rockchip/platsmp.c
-@@ -21,17 +21,21 @@
- #include <asm/smp_plat.h>
- #include <asm/mach/map.h>
- 
--#include "core.h"
--
- static void __iomem *scu_base_addr;
- static void __iomem *sram_base_addr;
- static int ncores;
- 
-+#define RK3066_GRF_SOC_CON0	0x0150
-+#define RK3188_GRF_SOC_CON0	0x00a0
-+
-+#define NOC_REMAP		BIT(12)
-+
- #define PMU_PWRDN_CON		0x08
- #define PMU_PWRDN_ST		0x0c
- 
- #define PMU_PWRDN_SCU		4
- 
-+static struct regmap *grf;
- static struct regmap *pmu;
- static int has_pmu = true;
- static struct reset_control *cpu_rstc[4];
-@@ -133,66 +137,21 @@ static int rockchip_boot_secondary(unsigned int cpu, struct task_struct *idle)
- 	if (ret < 0)
- 		return ret;
- 
--	if (read_cpuid_part() != ARM_CPU_PART_CORTEX_A9) {
--		/*
--		 * We communicate with the bootrom to active the cpus other
--		 * than cpu0, after a blob of initialize code, they will
--		 * stay at wfe state, once they are activated, they will check
--		 * the mailbox:
--		 * sram_base_addr + 4: 0xdeadbeaf
--		 * sram_base_addr + 8: start address for pc
--		 * The cpu0 need to wait the other cpus other than cpu0 entering
--		 * the wfe state.The wait time is affected by many aspects.
--		 * (e.g: cpu frequency, bootrom frequency, sram frequency, ...)
--		 */
--		mdelay(1); /* ensure the cpus other than cpu0 to startup */
--
--		writel(__pa_symbol(secondary_startup), sram_base_addr + 8);
--		writel(0xDEADBEAF, sram_base_addr + 4);
--		dsb_sev();
--	}
--
--	return 0;
--}
--
--/**
-- * rockchip_smp_prepare_sram - populate necessary sram block
-- * Starting cores execute the code residing at the start of the on-chip sram
-- * after power-on. Therefore make sure, this sram region is reserved and
-- * big enough. After this check, copy the trampoline code that directs the
-- * core to the real startup code in ram into the sram-region.
-- * @node: mmio-sram device node
-- */
--static int __init rockchip_smp_prepare_sram(struct device_node *node)
--{
--	unsigned int trampoline_sz = &rockchip_secondary_trampoline_end -
--					    &rockchip_secondary_trampoline;
--	struct resource res;
--	unsigned int rsize;
--	int ret;
--
--	ret = of_address_to_resource(node, 0, &res);
--	if (ret < 0) {
--		pr_err("%s: could not get address for node %pOF\n",
--		       __func__, node);
--		return ret;
--	}
--
--	rsize = resource_size(&res);
--	if (rsize < trampoline_sz) {
--		pr_err("%s: reserved block with size 0x%x is too small for trampoline size 0x%x\n",
--		       __func__, rsize, trampoline_sz);
--		return -EINVAL;
--	}
--
--	/* set the boot function for the sram code */
--	rockchip_boot_fn = __pa_symbol(secondary_startup);
--
--	/* copy the trampoline to sram, that runs during startup of the core */
--	memcpy_toio(sram_base_addr, &rockchip_secondary_trampoline, trampoline_sz);
--	flush_cache_all();
--	outer_clean_range(0, trampoline_sz);
--
-+	/*
-+	* We communicate with the bootrom to active the cpus other
-+	* than cpu0, after a blob of initialize code, they will
-+	* stay at wfe state, once they are activated, they will check
-+	* the mailbox:
-+	* sram_base_addr + 4: 0xdeadbeaf
-+	* sram_base_addr + 8: start address for pc
-+	* The cpu0 need to wait the other cpus other than cpu0 entering
-+	* the wfe state.The wait time is affected by many aspects.
-+	* (e.g: cpu frequency, bootrom frequency, sram frequency, ...)
-+	*/
-+	mdelay(1); /* ensure the cpus other than cpu0 to startup */
-+
-+	writel(__pa_symbol(secondary_startup), sram_base_addr + 8);
-+	writel(0xDEADBEAF, sram_base_addr + 4);
- 	dsb_sev();
- 
- 	return 0;
-@@ -320,9 +279,27 @@ static void __init rockchip_smp_prepare_cpus(unsigned int max_cpus)
- 	for (i = 1; i < ncores; i++)
- 		pmu_set_power_domain(0 + i, false);
- 
-+	/* Make sure that the remap function is disabled */
- 	if (read_cpuid_part() == ARM_CPU_PART_CORTEX_A9) {
--		if (rockchip_smp_prepare_sram(node)) {
--			of_node_put(node);
-+		unsigned int reg;
-+		int ret;
-+
-+		if (of_machine_is_compatible("rockchip,rk3066a")) {
-+			reg = RK3066_GRF_SOC_CON0;
-+			grf = syscon_regmap_lookup_by_compatible("rockchip,rk3066-grf");
-+		} else {
-+			reg = RK3188_GRF_SOC_CON0;
-+			grf = syscon_regmap_lookup_by_compatible("rockchip,rk3188-grf");
-+		}
-+
-+		if (IS_ERR(grf)) {
-+			pr_err("%s: could not find grf dt node\n", __func__);
-+			return;
-+		}
-+
-+		ret = regmap_update_bits(grf, reg, NOC_REMAP, 0);
-+		if (ret < 0) {
-+			pr_err("%s: could not update remap function\n", __func__);
- 			return;
- 		}
- 	}
-
----
-base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
-change-id: 20261013-cpu-v2-b69fbe516813
-
-Best regards,
--- 
-Johan Jonker <jbx6244@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gmhx34dld5gay6lo"
+Content-Disposition: inline
+In-Reply-To: <20261012094815.28160-2-phucduc.bui@gmail.com>
 
 
+--gmhx34dld5gay6lo
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 2/2] PCI: tegra194: Propagate REFCLK select GPIO errors
+MIME-Version: 1.0
+
+On Mon, Oct 12, 2026 at 04:48:15PM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+>=20
+> devm_gpiod_get_optional() returns NULL when the optional GPIO is not
+> present, but may return -EPROBE_DEFER or other errors.
+>=20
+> The current code treats GPIO lookup errors as if the GPIO were not
+> present.
+>=20
+> Check the return value and propagate errors from the REFCLK select GPIO
+> lookup.
+>=20
+> Reviewed-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+>=20
+> Changes in v2:
+>  - Follow the subject line capitalization style.
+>=20
+>  drivers/pci/controller/dwc/pcie-tegra194.c | 15 +++------------
+
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+
+--gmhx34dld5gay6lo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOWoAACgkQ3SOs138+
+s6GgWBAAv61x3yEIfwh7djws4UsxaJLDwhkBPrKb/KfTHTBHEEZHzmuVmldhuf2a
+HU1/O04A8OLW1yndlh55323rlQfgtz6TfQofeOx+1MWZoDt2O46zTRMuzbqzVPpe
+iIyPXKh7v3ehA9KrlPy1d6q55cDRfnAPbFdaLyByzBJCXAJpuidoHvoVKgOw26mS
+VEvvWVUydh49QZwU9Cd2NngxsDAiWUJzVH/3UIVVW4ct81WUugUzoUYsDf6g4SlD
+XjXEC8pu419Km/KfJrcf72/pw/879efqHOTC2he187gJfBUkYbx8L6WKVgJP3Fgc
+VuaB26V9vVOsvb7Uho6pxh/X7VvLBisJcSiA7bHxVs6DZPONvSvs9DtO8KMjKu3Y
+gvek8V0grPc/xQMExaNKGGIU32kDjJRoO1l6NfSXk4/LeCCkjnPG85uLgp1TFww0
+paZwncrg/5JWLd3uMnsqCvtTKTlaKFpcezGPKNw6wcN3cZIrUITEX/X4j4g9sTXb
+rVxU8+3GnjtFyKBhvUVm6CXEDC/mgnwKJHBgV2KVoB3WI96sOGjddizAfnLHqUhX
+b5YegwCjsAfZBj2DdO6sU7zNf63F3XlY7rtPz6KkFbSc5lWEi+CjHUKqSiuCGyMp
+tBrnnDcXks9My5wQSJ6r0ibKatlmx9ECAhpGmGSAOXhAyU3y0Jg=
+=a+Ne
+-----END PGP SIGNATURE-----
+
+--gmhx34dld5gay6lo--
