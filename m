@@ -1,167 +1,150 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010054.outbound.protection.outlook.com [52.101.193.54])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4215349D7;
-	Tue, 13 Oct 2026 19:39:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791920371; cv=fail; b=Js8YGryLCQOkqucESRtDCbnag3m+uViaUjMcwEvu5qOupUvANRTPEj/rdxpPBKNC/1IpyfzbAkK+SyZJYkVQDUbd9GF7WOt3WG0jeqe+7cfLikdQDvvtwKK3DAcRgLSKlmBe6kM/2TnOxZu86BOcp0L17wWO+oETxrsOwaoKJus=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791920371; c=relaxed/simple;
-	bh=0dU+LBfYqb/PPkclZR2Q8sAhoLFCH8FUedRwakFPL8c=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IEC8v9BTDgc/rVjuwpRUVkMceiHEbZ4BDdam+0xIPzbyBfYcffv9gLCxR/WCzl4fv2kCYNaZYWuecsedwxrQ6NG/jPe4S6F/RARTWsKUa7m//U5TbFB2BOK1emRPlGCrvXHexqCaHyX21vspAF+RVFypUB9DzRXtCTqKi+QGM0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ILscq1us; arc=fail smtp.client-ip=52.101.193.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB49B54145F;
+	Tue, 13 Oct 2026 19:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791920402; cv=none; b=qxeuMu5PPsOLSKbQamVIUgXvCocJXAGya1lxwk/o0elKSWRXUUQGWRG+KcNwzjGrGEwf2vyrn7tkYOnf+C+/wo/rnd7kGQz1Pel3pdGTApQnoaD9FQejl1kPEgWtZPblN6f0hsTW2af1xFdvaTvjFeWoRaVkConZOBnHPPwE/EY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791920402; c=relaxed/simple;
+	bh=MZg58M268Eh0VZqIkyS55G+P1rLcbo9ml1/whWRf554=;
+	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=sLKocZ7fUcZGdhkuVGyTC/iOcfm36d+xNiSZIy7k67z1hlvhqAbsGVcFjpkwYJ6sZ4IUx1MzzVYYy5RC/Sgf2IErm22b7rdzf6j7QKKFGbKbpETYOGzKdlv21Ki9XgylKEtC9f9WXl0BpPak+Gmh6/XmIh4ZNxIg7WdtsoP0YK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJh8OY5d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ILscq1us"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=baVWWM9nRiktOU7NtWj8U9QjtrlUFndTsBegwJODG6DTyWnJbY70LSe/7w4XyfEIyR5Pm/tS0DEPYiKYunmLbpzM9rUHLC3Bw9tARw2xEINtF6qOK1gYRT+dBFlB1sbitTHYO8yfgA6KUXu9+XDHWdWme+A5n1Uz7ZiypY8C8bUZFQEjBY2KQwg3HlhpmUVJHMovYCirDknjW+ziqFfDR5B0Z/levJDLV4l0aiqHBugcqjE/MJurUPFlzPS/bEveBT4voIGPpYoWRFY80/ok3N+8zUoBGxX6VZTfJ1on+XrRmn/NaZbKmiJeyriYfehkgAuiOP3pyjD0256caKudWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VCeeRiFbqLdryLlECQzWXsnw59u/YdfIYQenjZ9ha0s=;
- b=QfS5v1TdEMjwEMQ+8+iLlF5aSfG4TYRFk9gLOV07v8G2VSjPN+F2V1Zidb+VsoeWcZ+Oe7uE3w3B2N248x04Z3l1kjV+QhYabWpfZJV1pBxVGG6FhsWcC83oOtiRjv7GlQ8SYuVg4CH/R0rYI3OBWkUZUPoGWFO2opeLj4mvBVQh4KlfG8/XPRQr5QKJKjN6aVCtB+taf+/FjRUEJ7vFPMt1GBA8KwaWInIPIXYG45dCo+lh6sYaZhNdBrKm4lMuIkyCyeaHbjEQP1QlSRkZ6/indFNHe+Lr5J6fP+tCf2yac5W0Tgqj8Ki/VD3TtFUOjsCiVvglpdaimocdHr/KrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VCeeRiFbqLdryLlECQzWXsnw59u/YdfIYQenjZ9ha0s=;
- b=ILscq1us65TCti9wCL8yO2qTQxJy/PO8AFpHCtg/f18Md1HXpCBD9IeI6M1BAUQAAnO6L8xUIoKQyKtCxQ+m0M4B4ZAhtyJzzMKOKWWVGXL/t5i8AHC+srzOrEE4p3KSy8INRdESkcoMVNDWS4JtY5wPZXID/by/z0WqbX7QfJ4HbJy2yjhsP9lxHVEisxxP/ZgXYAUBOTOjSMV/wyye+HYHwYT8h0/ECzYgKBMK05aoHP+4pw/YV80ikYBIA0urL649y3eYwf9oKrlhomq8n5eWtu/bW2gjjEoYzCCFo7tLt2wmTKMqacp2AXayIOoAIfj2uV9x2dm/Ed/7/BiWhg==
-Received: from SJ0PR03CA0174.namprd03.prod.outlook.com (2603:10b6:a03:338::29)
- by DSVPR12MB999307.namprd12.prod.outlook.com (2603:10b6:8:41a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 19:39:24 +0000
-Received: from SJ1PEPF000037B9.namprd05.prod.outlook.com
- (2603:10b6:a03:338:cafe::7b) by SJ0PR03CA0174.outlook.office365.com
- (2603:10b6:a03:338::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 19:39:24 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SJ1PEPF000037B9.mail.protection.outlook.com (10.167.244.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 19:39:24 +0000
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 13 Oct
- 2026 12:39:00 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail203.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 13 Oct
- 2026 12:39:00 -0700
-Received: from dgx-1v-42.nvidia.com (10.127.8.11) by mail.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 13 Oct 2026 12:39:00 -0700
-From: Jamie Nguyen <jamien@nvidia.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-CC: Len Brown <lenb@kernel.org>, Tony Luck <tony.luck@intel.com>, "Punit
- Agrawal" <punitagrawal@gmail.com>, <linux-acpi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] ACPI: sysfs: Finish sysfs init when creating a table file fails
-Date: Tue, 13 Oct 2026 12:39:00 -0700
-Message-ID: <20261013193900.1258808-1-jamien@nvidia.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJh8OY5d"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0109B1F000FF;
+	Tue, 13 Oct 2026 19:39:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791920400;
+	bh=2qwfRg5DXWganUmwiKbDvHA+hLYxjOJ4/zQ8YVt+nQc=;
+	h=From:To:Cc:Subject:Date;
+	b=KJh8OY5dsfrlTbt0uZJ/ZgQGpO/tCEXqLvPkvaMtVhFsS402ePkcQ0P/m91P0jtnL
+	 mU8rOj+SSPn8nTHhlls4+jy9HpL7NMS0pFQmooOiIaymZ0NZVUSsZ0RY3wbUXq3PvE
+	 GfeUjzCPG7a2PkxsE3dKQh4QURT/EOvCwJ4inqOFkShTvZp6ZiRUvs/H6EAFwhiWAK
+	 711Q7MIl66NZPQchto9gEL4vFkTtHRVqOIVXT68Om+PQ0+fsaD/SJj6GI15McWd+Dr
+	 mdgC4pyxhZhAT5oeH5ieb1yFgZUtEYVdv+sEqAppozHdY5YP7FyiAqoQWf308JUMqi
+	 VsVj5SwXECzEA==
+From: "syzbot" <syzbot@kernel.org>
+To: syzkaller-bugs@googlegroups.com, Aleksandr Nogikh <nogikh@google.com>, "Konstantin Komarov" <almaz.alexandrovich@paragon-software.com>, <ntfs3@lists.linux.dev>, "ZhengYuan Huang" <gality369@gmail.com>
+Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
+Subject: [PATCH] fs/ntfs3: use ni_lock_dir() in ntfs_readdir()
+Message-ID: <09f6cbed-aafb-4e5b-8b0f-36d55a248644@mail.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037B9:EE_|DSVPR12MB999307:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93055dcd-21b8-44d8-b430-08df2961af98
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|56012099006|11063799006|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	e0B9ajy1WbRVeeWuvBnuM77F9EXh2daPzoYp9sjEM0OKRKY/+rxonnSL6JluIE7D8Lnhyjh57AGKmxHXp/Qcw4ytepiXp12hU7PvrZU5CpUqUQYTwjDngH8koHmn7gEBrivjNJ/mypV4QEG1cd6YppNIAzWMTIN9KN7qd5rVuUpJwJMaTUiijam4YZOkPwkSoiFlRUs1er1fnI2JtQnjU/RlyF7eimDDowb5sVnq49O84kK0jg7+bkmIJkh0k56ZZMYai/fSQjjV8F025sNn4XzRUp5Sk4a9RVtlbRHA2pj7hti4FcjZXwntWp2jZbHx8sGSCPoNAwq4UY4850FL/DrhIyavHruJwX+OsZ6fEt+yyI/KpT7zKQ2UmzDGtJ3KYSCoDWx5rC61qSaHlmPXhkvHjpQvpqc++ZA5fPr3LP2KD/DCCjQ+tM+qsDhC9p7YUDO+5Dq3P+1MbBgwECguNquQv4T3g82kPN+D2ervJgKlSlkQWdjS4QUamq3NfMK3kDR4F6TL/qKwU2Va0HqXIBoaOaYISlEtnsXyvt/m0UuD5jgaK/kaEhrukU9oyM2+oiGjKhINM6nBwSDugUxxbIE16BanQQgoS4S49Ix0jAvonGwV3+LF+jWyGj+pGAicMKp6w5FNeccRJqKQyxj4KGhUZkkd329riCfHpIKqexZxCSpvYrmJo/Rp0pbM4bipT6RtgXRXE5EjDS0GN7lsCg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	cbXiLn3mIUTE1XZlnVVTp7NJGXcuNb3FLHlCFHDj7/UBN4uMAsYZ8lu2yoQuCnJccmDrTfDEY5j/AFfWee6FQAXwoR/k2Fm5GjugcETvRMApiOdzQT6qanq3kSKaoT1ql4uTs2t4zu1sUuByRlpSCdiSxMRkUi8hYgyB2R61wVIKdgrWisDPrb8cDJvyM5Cz1PW09UjPnsG4nHLKQDRhnCd4HLmmHIRfjCSZJ+WRNGdZPN183HkKvvh8nwX9cFXFYKUvycGVm68yWht+KsrVFQ3jOSIlR8G2K6Q5dsV+I/v79Cmk0GuNpHWVXMySjayYiD//r/C19EHr99Rh0LaUAxIEphyl2eduM8yPlVoi29Wv35hgGeexOpSQARlzRrNobnymLaQsBz6NZHrXlsn8VZgZP46SF5QcRLLa1rE1zh4rNpcLJX7aREUmwStKnjxX
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 19:39:24.3806
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93055dcd-21b8-44d8-b430-08df2961af98
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037B9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999307
+Date: Tue, 13 Oct 2026 19:39:59 +0000 (UTC)
 
-If creating the file for a table fails, acpi_tables_sysfs_init()
-returns without sending the uevents for the tables directories, and
-acpi_sysfs_init() returns before creating the hotplug and pm_profile
-files.
+From: Aleksandr Nogikh <nogikh@google.com>
 
-Stop creating table files at that point, but finish the rest of the
-initialization. Skipping only the failed table would give its file
-name to the next table with the same signature, so reading that file
-would return the failed table.
+A circular locking dependency warning is detected by lockdep between
+&ni->ni_lock and mapping.invalidate_lock when getdents64() writes into a
+memory-mapped buffer while an operation such as fallocate() runs
+concurrently on a regular file:
 
-Assisted-by: LLM
-Signed-off-by: Jamie Nguyen <jamien@nvidia.com>
+ WARNING: possible circular locking dependency detected
+ task is trying to acquire lock:
+ ffff88819b6dbb20 (mapping.invalidate_lock#3){++++}-{4:4}, at:
+ filemap_fault+0x6e0/0x13c0 mm/filemap.c:3585
+ but task is already holding lock:
+ ffff88819b6997e8 (&ni->ni_lock/5){+.+.}-{4:4}, at:
+ ntfs_readdir+0x717/0xf70 fs/ntfs3/dir.c:541
+ which lock already depends on the new lock.
+
+ the existing dependency chain (in reverse order) is:
+
+  -> #1 (&ni->ni_lock/5){+.+.}-{4:4}:
+        ni_lock fs/ntfs3/ntfs_fs.h:1247 [inline]
+        ntfs_fallocate+0x56a/0x1080 fs/ntfs3/file.c:535
+        vfs_fallocate+0x663/0x7f0 fs/open.c:338
+        ioctl_preallocate fs/ioctl.c:289 [inline]
+        file_ioctl+0x5db/0x7e0 fs/ioctl.c:332
+        do_vfs_ioctl+0xc2a/0x1550 fs/ioctl.c:576
+
+  -> #0 (mapping.invalidate_lock#3){++++}-{4:4}:
+        filemap_invalidate_lock_shared include/linux/fs.h:1089 [inline]
+        filemap_fault+0x6e0/0x13c0 mm/filemap.c:3585
+        __do_fault+0x138/0x2a0 mm/memory.c:5565
+        handle_pte_fault mm/memory.c:6558 [inline]
+        __handle_mm_fault mm/memory.c:6707 [inline]
+        handle_mm_fault+0x100a/0x28a0 mm/memory.c:6876
+        do_user_addr_fault+0x746/0x1340 arch/x86/mm/fault.c:1394
+        exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
+        filldir64+0x2bc/0x620 fs/readdir.c:-1
+        dir_emit include/linux/fs.h:3610 [inline]
+        ntfs_dir_emit fs/ntfs3/dir.c:388 [inline]
+        ntfs_read_hdr+0x8a7/0xc10 fs/ntfs3/dir.c:429
+        ntfs_readdir+0x9ab/0xf70 fs/ntfs3/dir.c:589
+        iterate_dir+0x3ea/0x8a0 fs/readdir.c:114
+        __do_sys_getdents64 fs/readdir.c:404 [inline]
+
+The warning occurs because ntfs_fallocate() on a regular file acquires
+mapping.invalidate_lock and then calls ni_lock(), which locks the regular
+file inode's ni_lock with the default subclass NTFS_INODE_MUTEX_NORMAL
+(subclass 5). Meanwhile, ntfs_readdir() on a directory inode also uses
+ni_lock() with subclass 5, and while holding the lock across directory
+traversal, calls dir_emit() to fill directory entries into the user buffer.
+If that buffer is backed by a memory-mapped file, writing to it triggers a
+page fault (filemap_fault()), which acquires the mapped file's
+mapping.invalidate_lock. Because lockdep sees mapping.invalidate_lock ->
+ni_lock (subclass 5) in fallocate and ni_lock (subclass 5) ->
+mapping.invalidate_lock in readdir, it flags a circular locking dependency.
+
+This is a false positive because the two operations involve distinct
+inodes: readdir holds the mutex of the directory inode, while the page
+fault acquires the invalidate_lock of the regular file whose pages back the
+user buffer, so an actual deadlock cannot occur.
+
+In ntfs3, directory inodes are intended to be locked with ni_lock_dir(),
+which uses the lockdep subclass NTFS_INODE_MUTEX_PARENT (subclass 6). This
+subclass hierarchy is already used by other directory operations like
+ntfs_lookup(), ntfs_create_inode(), ntfs_link(), ntfs_unlink(), and
+ntfs_rename(). Replace ni_lock() with ni_lock_dir() in ntfs_readdir() when
+loading subrecords and when traversing directory metadata. This changes the
+directory lock subclass to NTFS_INODE_MUTEX_PARENT (6), establishing the
+hierarchy ni_lock_dir (subclass 6) -> mapping.invalidate_lock -> ni_lock
+(subclass 5) and eliminating the false lockdep warning.
+
+Fixes: d62cf685d12e ("fs/ntfs3: hold ni_lock across readdir metadata walk")
+Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
+Reported-by: syzbot+7736960b837908f3a81d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7736960b837908f3a81d
+Link: https://syzkaller.appspot.com/ai_job?id=fae916f3-c2b4-47da-86b5-063a011b5c01
+Signed-off-by: Aleksandr Nogikh <nogikh@google.com>
+
 ---
-This was noted in the review of the BDAT v1 patch:
-https://lore.kernel.org/r/CAJZ5v0hM+6RvyXwG89Jyyu48jxSejNwsDt-H=2Y2dkt--af2QA@mail.gmail.com.
-Handling it as a standalone patch here.
-
-Tested on an arm64 server with test-only changes that make creating
-one table's file fail at boot (FPDT, or the second SSDT). Without this
-patch, pm_profile and hotplug are missing. With it, they are created,
-and every table file created before the failure matches a normal boot.
-
- drivers/acpi/sysfs.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/acpi/sysfs.c b/drivers/acpi/sysfs.c
-index dd4a99f09efea65..7dfbb19238ad906 100644
---- a/drivers/acpi/sysfs.c
-+++ b/drivers/acpi/sysfs.c
-@@ -510,7 +510,6 @@ static int acpi_tables_sysfs_init(void)
- 	struct acpi_table_header *table_header = NULL;
- 	int table_index;
- 	acpi_status status;
--	int ret;
+diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
+index eb9152e9f..8bf62d2fb 100644
+--- a/fs/ntfs3/dir.c
++++ b/fs/ntfs3/dir.c
+@@ -522,7 +522,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
+ 		 * Load all subrecords to avoid 'write' access to 'ni' during
+ 		 * directory reading.
+ 		 */
+-		ni_lock(ni);
++		ni_lock_dir(ni);
+ 		if (!ni->mi_loaded && ni->attr_list.size) {
+ 			err = ni_load_all_mi(ni);
+ 			if (!err)
+@@ -538,7 +538,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
+ 	 * once is not enough if concurrent writeback can still compact ATTR_LIST
+ 	 * entries and free the record that ntfs_read_hdr() is currently walking.
+ 	 */
+-	ni_lock(ni);
++	ni_lock_dir(ni);
  
- 	tables_kobj = kobject_create_and_add("tables", acpi_kobj);
- 	if (!tables_kobj)
-@@ -535,13 +534,11 @@ static int acpi_tables_sysfs_init(void)
- 
- 		table_attr = kzalloc_obj(*table_attr);
- 		if (!table_attr)
--			return -ENOMEM;
-+			break;
- 
--		ret = acpi_table_attr_init(tables_kobj,
--					   table_attr, table_header);
--		if (ret) {
-+		if (acpi_table_attr_init(tables_kobj, table_attr, table_header)) {
- 			kfree(table_attr);
--			return ret;
-+			break;
- 		}
- 		list_add_tail(&table_attr->node, &acpi_table_attr_list);
- 		acpi_table_data_init(table_header, table_attr);
+ 	root = indx_get_root(&ni->dir, ni, NULL, NULL);
+ 	if (!root) {
+
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.43.0
-
+See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
+The person who has signed off on the patch is responsible for
+addressing comments.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
