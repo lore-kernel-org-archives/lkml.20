@@ -1,152 +1,126 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C649051E455
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23F63F5BF5;
+	Tue, 13 Oct 2026 14:43:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902582; cv=none; b=Kt+DVx7R04Zpwaj5b5x775mpP3RTOr2N4RdoCF0Q38J6htfqy8WGkdxhu58cCSV6p1LfA1rDjrSxvBjdsBx7feO0CQWtbhV9IXquSL7gQGSfTD0ddTjBwXsb3UNTKu/T5tYCz0QqEy3VGVTNkWuOrkhOi5sDU5bhL7wc9dkWfpc=
+	t=1791902601; cv=none; b=lGaNu5hs4Tc103eGJKYFPq4MG2egnRakiFuhfNfxG4kXQUeIFcToVefDpgRAmmMS+Cwf5YUGaVSwbzGBlp3AySQTePrNpQmzKsKD7AeIbVk/tUhbXTeMPlmzpHCbbxzv3tesdjp7f8cBPFIqFR144tzttP1TZVK6FEMLCzys2rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902582; c=relaxed/simple;
-	bh=nJihTvkKW/jjyq9FDC5njYiM5VHlRg6tH7LUP9HrO1o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZV2L85rhUe0qGStJsj0FekBbkJmfYs3lego5Nyurjlm1IpUZZc2MFZYbJZk9TgFDzB/cv+rGbLVsL31J0gkEUOnUklJVAg1jo1UGzuBlN8FZZDgYT8nk8uKT1BBSw5bwlWIwA9RTQv+5DAcDghpKhNWcrLIj/IA9VVsx3pINrdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BhVsVR76; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CYrRN1Ux; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791902601; c=relaxed/simple;
+	bh=ydtjsell2COacrg3JQln/5pKJwSQWHTBGPh3XeDjInI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P2Sm01w2wFQoncno9kZZeou1cGCK4RbWJ64EKDJNztQI4ixhiglU0xBkI/+J7LQUoxyFz7Lq2sBjPW4tT+XuqWobnwXIt4Zm0qXz8jiZue3QigwRSuEf6Aq/vdu/sAwkLceCvVCAWcWILz2SFIdv+v7xo2FcqMydPl1u6t9ft5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=XlO7bzkl; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BhVsVR76";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CYrRN1Ux"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DE4Rfn2571175
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:43:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nkHu4wTimsYHH73cELX+ahkGCMN5v288obw2pjrFEcQ=; b=BhVsVR76itck0D3z
-	zg5QPmRmTmTshnVrtAy3gUypdrbPrRbE8opK5kfXg173xKSMZjBmX5h3XlasoTKe
-	WBCAx6+Fn7xz/IKL5I0X5EntGwE+mITdDgaFAO2+vnXlRSERTYXbY5k8dlYaUEGL
-	1AV6rBZG1dAZN9NUvpVbTBcbCcC5hfHe6Jr+QNG4MPe33R/YZ07oJhLOWUHe6S0Z
-	7onQOckA4TbnYyW7YP5yoKFR59O7d4alksWf9l/VNSVURANpifW86OXdP1OdYV8P
-	0CDHXnifePpnH1nC4eBY4T5CbY2VI1NCH8+r/mriwmPRmc+JqIO2VsOj5QOsKRJH
-	f7ulKg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98hcbg0r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:43:00 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93edac5877bso23617085a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:42:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791902579; x=1792507379; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nkHu4wTimsYHH73cELX+ahkGCMN5v288obw2pjrFEcQ=;
-        b=CYrRN1UxNVjOJzrltHuRDmJbrMlT8O8FJsAokPVtz+XYzVP2/A5YsMXR8ojja6ZlmM
-         T+JAp3LAnJgFIluRAMXB/wrIYT3aVnTVbRlRCkPxd6UFrJSZmeBHAy/kgKscMDAUsnPo
-         DggqCGBAGb4Ck3r7IrJRuIJtg1CAfXStqjmhdeBM+7j/riCKlwM+L2qR+jwnt+1Cqdac
-         FuP70IL54MBKHaYRNZIPWx+mmQ4iqkTkT0n6kLKGhteYTZwPm8vmNQKlI6LacA9gzB/n
-         YSpPRVPLO8JmSKNbrJRzNOpzsimuxUVlqWsgNCnNBZy5rVTKv7jQLRsMq2NCK69NlIuf
-         ybBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791902579; x=1792507379;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nkHu4wTimsYHH73cELX+ahkGCMN5v288obw2pjrFEcQ=;
-        b=zgKe5CX6P/d/osQwZ3zgCHMEI2xFirA1w2WXFbW+gbiUTKYkx4zceRtlZYeJaRwq/+
-         8cRfjmmhoLLI33urGnEvswgzEWszplmXq3K8lzcsx7T97GsnW9AAY4dwPFRNXo7Ot39q
-         HBQ8jGcGOhl6O+nN9ocqozb7dgf7rwXvVj4FN/8n3qm4qL6esBrvuwq5bhVLq/dHyaHc
-         f8AJ4TH494zbwSS3KJkWTiMSpbJqJLldIokDqMq2IA1g4JSqSdoBTTwgJUHLw/v1VQQE
-         a1el/GigyM3s/utUqlYg0fExLFCHVAbiTdBqaEOyaoztLEHHLo2TN/8JXqdUhbeO3VYE
-         6p3w==
-X-Forwarded-Encrypted: i=1; AKwUvBz2BHUfds76EgBcZcvYcbmu0GYkzTLgtDflc+0ktdrlK5jhAIjJfNrYMS0jiud/i64r6LIB/2GuZD+o810=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHMEjANQbdJCsOKufPzb7glbPlH/J6Fu46E4zSZ7HG6QDvjJtG
-	TNYjY3YNCf/RC4HnGSNvkg52GVdlBO7gwQzckX8bKIwqEnlR1+LaAlykIXc2e1p6zeK4Pr4n1fu
-	lJdbNmSZ+kcHEf3n9ctqxLxJdM8uswJ2z0z1oXbZoLcUVS3CdWOL4/w8kh9TjnWTft2I=
-X-Gm-Gg: AYBFou3I+kxmDv/LILadIzhHwcvNUxT6rc7iIi1HtwElTvqiMJB2s1p8gc85I+HcmkY
-	rOI24CF/njDlnm5WcK/icoi9kjTLk2fXMrVhl+5m8zEeYiSutITPbVXVrnlrNr6T8VY+J3IApTf
-	dTo8UGHr3mEAGwxZpkR/Poy4DlSGfMryJ0agfP8YYsLlVvdYnNA5vRycdG4YdTR8ytGT3aiNGD6
-	7zv84VjQbMSfTu6DPuGisJfR/QV1wR/zhDQ2Xz9yDugnsFvBaKGfuQYQW80Ih1UgYybwO4ZGdtI
-	EWcGnDFryw1uzsNxbXPbYnFynaaWgIon0peJwtrEWE0K9t6RY+o4bU0yyNyVbfCXPXbJWDLDzpk
-	bve2uC2DD18tD9R/laxClBQ==
-X-Received: by 2002:a05:620a:8017:b0:93e:5a3f:ac13 with SMTP id af79cd13be357-93ebcd2bc8fmr2186834185a.0.1791902579091;
-        Tue, 13 Oct 2026 07:42:59 -0700 (PDT)
-X-Received: by 2002:a05:620a:8017:b0:93e:5a3f:ac13 with SMTP id af79cd13be357-93ebcd2bc8fmr2186829885a.0.1791902578567;
-        Tue, 13 Oct 2026 07:42:58 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9764cc9sm608540966b.10.2026.10.13.07.42.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 07:42:57 -0700 (PDT)
-Message-ID: <591af0a5-ff8f-469d-b7e9-7e0d72b03ff0@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 16:42:52 +0200
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="XlO7bzkl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1791902585;
+	bh=ydtjsell2COacrg3JQln/5pKJwSQWHTBGPh3XeDjInI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=XlO7bzkl0ZMVPrr3yhkvLbbDnEZsNGJbSBWgVsDf3/XP3x9Pwz0JQvLTHNv9TVfjd
+	 6pdWT04U+05KeqhKxBB8AD3vyDehk7MB28gXYVq05RS6AnLy5ZnpLlUWQ2Je80YT10
+	 DPrpi+OqmLftv0mFHpwp7FZS74ZL3hq2dJtI6WgZNGUMrRrhbO5XM2hkqRmDF5k6eo
+	 K0HCyyRlMERV4HgHmlrxmYdiEH6ZdCY37yq470MThFNjKTeXo7/KK9OtGzx7wTbJBE
+	 iy7b5AGASEwxPpyjuZgzNauhZCNu5265CKzoPFDRzwD8/XSrqSIFC8ImOd4pyfZmrU
+	 UJjQ6z5Tg0vvw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id CA0B025A3B;
+	Tue, 13 Oct 2026 17:43:05 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Tue, 13 Oct 2026 17:43:05 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.63.202])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3xs44QWmz8P8;
+	Tue, 13 Oct 2026 17:43:04 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
+	Chris Mason <clm@fb.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Alva Lan <alvalan9@foxmail.com>,
+	Ben Hutchings <ben@decadent.org.uk>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10] btrfs: send: check for inline extents in range_is_hole_in_parent()
+Date: Tue, 13 Oct 2026 17:41:13 +0300
+Message-ID: <20261013144115.1533-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 05/11] arm64: dts: qcom: ipq5210: Add C3 CPU idle state
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261012-08-dts-v7-0-77bd3d68d850@oss.qualcomm.com>
- <20261012-08-dts-v7-5-77bd3d68d850@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261012-08-dts-v7-5-77bd3d68d850@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1OCBTYWx0ZWRfX9y/M6EvJ2S7r
- o2PGHUJDCN7M27GT25h3K9PKQd/pUhmD4okJo0gf83WqrPM2UvtqhkRhYo1aLJnuabQ6TW3fJMo
- pHdbG1Y3kdnJPUvyc8fC0WVIAVkj2rKo0xjqGYjYgXIyE0WUWLPnvU5B9lX18Vz+jlWV8hAKvsy
- JvSYZM6mGguCqbzakoH4TsVzJ7UjVEFdLcDJCyYO9fn0zW1zUXov5c4dXotV4SJNU4kQwe3i41p
- LCdPmNmhQMr8+BS/0jPndlpacNxC2I3iuWGIl7qNAQqyFoiql45zUhaHG5jcq4woVODU1SHVhsW
- WmlSWWbpHRIYnZZ7uaS19ZX7ZIZwnuaQjaA96cFgPO8EL0Hxb/Iso22pm5kckzqjSrbfjMSTcaH
- HpzZv2/rrTKIj2K4Z7r/Kbv2EHUcIyfPZi0jKAstMoQzdoCPCzYTidq9AWlT08npN9QK45Y2ovx
- oxWNGfbrrSICiaBOXkg==
-X-Authority-Analysis: v=2.4 cv=VPVIDNPX c=1 sm=1 tr=0 ts=6ace4374 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=kLrOTjvlBrV8dJFV1dcA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: g6KHtSj1R4MJG9Nu6A2Zmn3L2wAhs4We
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1OCBTYWx0ZWRfX7Dn+Dbfl6ARG
- bAsrl7osa7lCfobGnmstvki/UWfujYoCEcmOjV3v301xv1gPLO63LcNLFV/AGREB72paf2bJHNN
- 8oxkUx6RWLRY1xwqLdj3zORX2zp/2f8=
-X-Proofpoint-GUID: g6KHtSj1R4MJG9Nu6A2Zmn3L2wAhs4We
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130058
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {diag_burst_silent}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;new-mail.astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206637 [Oct 13 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/13 04:56:00 #28679670
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On 10/12/26 9:23 AM, Varadarajan Narayanan wrote:
-> Add the PSCI-backed C3 idle state for the Cortex-A53 CPUs and wire it to
-> all CPU nodes.
-> 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-> ---
+From: Qu Wenruo <wqu@suse.com>
 
-[...]
+commit 08b096c1372cd69627f4f559fb47c9fb67a52b39 upstream.
 
-> +		idle-states {
-> +			entry-method = "psci";
-> +
-> +			cpu_sleep_0: cpu-sleep-c3 { /* C3 */
+Before accessing the disk_bytenr field of a file extent item we need
+to check if we are dealing with an inline extent.
+This is because for inline extents their data starts at the offset of
+the disk_bytenr field. So accessing the disk_bytenr
+means we are accessing inline data or in case the inline data is less
+than 8 bytes we can actually cause an invalid
+memory access if this inline extent item is the first item in the leaf
+or access metadata from other items.
 
-Let's drop this comment and rename the node to cpu-sleep-0
+Fixes: 82bfb2e7b645 ("Btrfs: incremental send, fix unnecessary hole writes for sparse files")
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+[ mdmitrichenko: use { ret = 0; goto out; } instead of returning
+  directly, since 5.10 has no automatic btrfs_path cleanup and the
+  early return would leak the path. ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-23141
+ fs/btrfs/send.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Konrad
+diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
+index d86b4d13cae4..92018cd48e54 100644
+--- a/fs/btrfs/send.c
++++ b/fs/btrfs/send.c
+@@ -5892,6 +5892,10 @@ static int range_is_hole_in_parent(struct send_ctx *sctx,
+ 		extent_end = btrfs_file_extent_end(path);
+ 		if (extent_end <= start)
+ 			goto next;
++		if (btrfs_file_extent_type(leaf, fi) == BTRFS_FILE_EXTENT_INLINE) {
++			ret = 0;
++			goto out;
++		}
+ 		if (btrfs_file_extent_disk_bytenr(leaf, fi) == 0) {
+ 			search_start = extent_end;
+ 			goto next;
+-- 
+2.43.0
+
