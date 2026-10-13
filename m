@@ -1,111 +1,86 @@
-Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AE13BD224
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437523E63AA;
+	Tue, 13 Oct 2026 07:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874959; cv=none; b=aEOoGqVlO3ryzAXRUsbwJAgSurwSrIuCaIiZ/vIdQPhU/W5OQmUoUthj6rD+9nBpzKb8KUWa825Kr+rUdRqDLwGM+cNa9gzePL+8V75IotSnqpjcWnQSRrAqvkKA0Bbda8WkBrCbDmmL/yuGlx7C7lZJiZtlyv0ib1R9NtpshI8=
+	t=1791874965; cv=none; b=lGOv+GzNapUwOJkMsTqaeVv+Zuj5KFnesDk0G2WP6qN0DuLxOa4eJ5wwa9MgQbzdSVh6/w5tG2X9+dcHk/KLlOchCoXVroEJ54Heh1U/T8lJUq0xvwY6kRjSXmd0gB7VSDfyCNeCoBpVgFpNb49JkX1EHKuE0kWVTzAuiiCwyH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874959; c=relaxed/simple;
-	bh=yUiq5iq51oseANDtP3Z+8R3RmzVahs3k+89exp+vZp0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=RG4g1PwFl2su4ej2z6b25ET7TffkaWNZmmlwGpP4G4cT1kvUVaogQFMeA/hfbVgQqrSZsxxKsKqPMk5MNjXo09p4s7y8Xq76xGrUswYWBQ+HWeg6hrD/uxova/bJNdY9pdQt7LzxOarU1MqKzw8ctiGRn3xtROlTZRroIy5NTzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jS4++tlX; arc=none smtp.client-ip=91.218.175.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791874965; c=relaxed/simple;
+	bh=5hIfBAw685lw1tMOzgMVigGeKsztlWESs12MQE+kgcc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G+boPZYJckqvhYwTvQa/HJJ0MODS15IXuS8o+JMWG3R5OsQXJbyNJ4STK6IB+yoslCSbUNQYm7kDEXRR530S0gM/y66U1FeUZ/qgAv/n8dB1/CoAoA9Eq0dTtvlCWu2Rqd4d9o7FyuMTMCKHbpk3QId15KrBrPtYTF80Ya54LqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=OvXDGkbC; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jS4++tlX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yUiq5iq51oseANDtP3Z+8R3RmzVahs3k+89exp+vZp0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791874955; v=1; x=1792479755;
- b=jS4++tlXooPy/UeU8Q3fKI1Q5cleSepyRKdzBPDIoxzDufxY4jjJzVW9DuKIpIopRP0s5JYV
- wX8SJjRDs9p8mXi8NseiVmWyfmQgiOJ+KHba3VOmidfjGICSRg2MCVULHLABSSQXpP5VVCU7LEH
- Bb+NDRGD6NB74cpXNPDSFfrc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 90f89cb3ca4609ea;
-	Tue, 13 Oct 2026 07:02:34 +0000
-X-Mizu-Trace-ID: 90f89cb3ca4609ea
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="OvXDGkbC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1791874955;
+	bh=5hIfBAw685lw1tMOzgMVigGeKsztlWESs12MQE+kgcc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OvXDGkbCskt1ciKFaJVdv+dXRPRPNVLywhTHJrCyni30rT4N3cK8Z1eNZypIABjDK
+	 ZyZkD4E4tMqfOb5IgLcnkSpJTRQQtpJdAxKLhy7XH9I9uPvnjNNegxLHUoWHSYAoLk
+	 ycKjLL+t6wT9fiPNL4dIMz0utLWA7srCJ7DefJzOwFMUI2size5/JnKw+AQ2G/eSNh
+	 mtkXDsbEseUxS4is/OXDJLpeHr1y6UlAmZRR4HmljcME3P2w3yma0+5RvnNe4fVSuj
+	 nLAEquUsWo9EBiXafOfB1jJyBu4SWFLtPZyBMSWePKheRceTGx1eYt8cqCw5WvudHb
+	 J3siW2+W84Kqg==
+Received: from [192.168.72.161] (210-10-213-150.per.static-ipl.aapt.com.au [210.10.213.150])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 1F4146E74B;
+	Tue, 13 Oct 2026 15:02:30 +0800 (AWST)
+Message-ID: <20853c96b17ea29815ccc34fcc6556032df8291d.camel@codeconstruct.com.au>
+Subject: Re: [PATCH net-next] mctp i2c: add sysfs control for mux child
+ netdevs
+From: Jeremy Kerr <jk@codeconstruct.com.au>
+To: Kenny Hsieh <kenny_hsieh@jabil.com>, netdev@vger.kernel.org, Matt
+ Johnston	 <matt@codeconstruct.com.au>, Andi Shyti <andi.shyti@kernel.org>,
+ Peter Rosin	 <peda@lysator.liu.se>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet	
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni	
+ <pabeni@redhat.com>, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 13 Oct 2026 15:02:30 +0800
+In-Reply-To: <20261002073156.759005-1-kenny_hsieh@jabil.com>
+References: <20261002073156.759005-1-kenny_hsieh@jabil.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Oct 2026 07:02:33 +0000
-Message-Id: <DM3INPS04NBT.17RGVMX2K5ZQD@linux.dev>
-Cc: "Luka Gejak" <luka.gejak@linux.dev>, "Martin Blumenstingl"
- <martin.blumenstingl@googlemail.com>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH rtw-next v5 2/4] wifi: rtw88: sdio: Track running state
- and cancel TX worker on stop
-From: "Luka Gejak" <luka.gejak@linux.dev>
-To: "Alastair D'Silva" <alastair@d-silva.org>,
- <linux-wireless@vger.kernel.org>, "Ping-Ke Shih" <pkshih@realtek.com>,
- "Kalle Valo" <kvalo@kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261011220755.1673367-1-alastair@d-silva.org>
- <20261011220755.1673367-3-alastair@d-silva.org>
-In-Reply-To: <20261011220755.1673367-3-alastair@d-silva.org>
+MIME-Version: 1.0
 
-On Sun Oct 11, 2026 at 10:07 PM UTC, Alastair D'Silva wrote:
-> When rtw_sdio_stop() disables interrupts, in-flight interrupt handlers or
-> delayed TX work may still run against a powered-down device.
->
-> Track the operational state in rtwsdio->running with an irq_lock mutex
-> (similar to PCI), check it at the entry of rtw_sdio_handle_interrupt()
-> and rtw_sdio_tx_handler(), serialize state transitions in rtw_sdio_start(=
-)
-> and rtw_sdio_stop() under sdio_claim_host() and irq_lock, and cancel the
-> TX worker synchronously in rtw_sdio_stop().
->
-> Fixes: 28eaf7971a20 ("wifi: rtw88: sdio: add TX back-pressure and retry o=
-n page starvation")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
-> ---
->  drivers/net/wireless/realtek/rtw88/sdio.c | 46 +++++++++++++++++++++--
->  drivers/net/wireless/realtek/rtw88/sdio.h |  3 ++
->  2 files changed, 45 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wire=
-less/realtek/rtw88/sdio.c
-> index e39284b71837..7d4f17e96648 100644
-> --- a/drivers/net/wireless/realtek/rtw88/sdio.c
-> +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-[...]
-> +static void rtw_sdio_deinit(struct rtw_dev *rtwdev)
-> +{
-> +	struct rtw_sdio *rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;
-> +
-> +	mutex_destroy(&rtwsdio->irq_lock);
-> +}
-> +
-[...]
-> @@ -1843,7 +1879,8 @@ int rtw_sdio_probe(struct sdio_func *sdio_func,
->  	rtw_sdio_free_irq(rtwdev, sdio_func);
->  err_destroy_txwq:
->  	rtw_sdio_deinit_tx(rtwdev);
-> -err_sdio_declaim:
-> +err_deinit:
-> +	rtw_sdio_deinit(rtwdev);
->  	rtw_sdio_declaim(rtwdev, sdio_func);
+Hi Kenny,
 
-One nit: The rename takes every failure that lands on err_destroy_txwq
-(rtw_chip_info_setup(), rtw_sdio_request_irq(), and rtw_register_hw() throu=
-gh
-err_free_irq) past the new err_deinit, so rtw_sdio_deinit() runs only when
-rtw_sdio_init_tx() itself failed. Nothing to fix while the helper is a
-mutex_destroy() alone. If it ever grows, that path would miss it, so I woul=
-d
-either let those failures fall through to err_deinit or drop the helper.
+> An MCTP netdev is created for an I2C bus that carries an
+> "mctp-controller" property in the devicetree. A bus instantiated at
+> runtime through the I2C sysfs interface has no devicetree node on which
+> to set that property, so it can never get a netdev.
+>=20
+> This matters for a mux topology that is only known at runtime. A BMC
+> that ships one firmware image across several chassis cannot describe
+> every chassis's mux tree in its devicetree. Userspace creates the muxes
+> it finds over i2c sysfs instead, and the channels below them have no
+> node of their own.
+>=20
+> Add a writable "mctp_controller" attribute on mux child adapters below
+> a bus that has an mctp-i2c-controller device bound to it. A mux tree
+> with no such device is untouched. Writing 1 creates the netdev for that
+> bus, writing 0 removes it, and reading reports whether one exists.
+> Userspace can then enable MCTP per channel once it has created the
+> muxes.
 
-Best regards,
-Luka Gejak
+More a request than a review: since you're going to the trouble of
+allowing dynamic MCTP devices on mux subordinates, would it be possible
+to also allow this for the root controllers as well?
+
+The use-case I have is dynamic I2C devices - say USB-attached - that do
+not have any facility for DT configuration. The proposed sysfs property
+could allow runtime configuration for those too.
+
+Cheers,
+
+
+Jeremy
