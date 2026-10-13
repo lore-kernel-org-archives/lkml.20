@@ -1,267 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56224908B2;
-	Tue, 13 Oct 2026 09:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0613A543A;
+	Tue, 13 Oct 2026 09:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882785; cv=none; b=OpIFhfn7Gg8ZhA+F6qK1t0C062niLnMSr2JuUlEZB02lsp4/kvwPvNaydXLDHv4FX2fdW4hNPCbXy/Vly4b8aQM3BOr7wexPY7XHuIVjNHWuqH82SQVfFTvbjaLXldpuP9Xadg/khYJCFXeYMzFjn6BMKktTEwWWcvAott7jpv0=
+	t=1791882794; cv=none; b=nxtbKOWBZxzIF19bTnO97O1EkIKdeNj6h+vst+dHX5K1T+9nHu9TB8csoONoAqCVsRld7AnPW0rqxDJWiGbrY58Bjd+nayvZCyKtpacAbZW/73WKkA+wwpSQYsDF1rxtqJBeK7upG/ro25iIsxbp14R4FDjXBmWTiBMRkvLMgr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882785; c=relaxed/simple;
-	bh=JaoV95Ls6c5Dxw9M12b8xV79tsA3XmDO632worOibiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fh8HesBcDDcEikzkldILVdDLED7Gcie1e/ipWmTRwzqMbRYkBrjTZIDvsvlyQw2iXz7+PBaiRXdWuK+uUsV8aujbXZRcH/CjAwhK3pS10ipJwZm2lrxOpy9/uCS7C6Ggu1699DrGuSahaG67+7FPBermn4pJ3b+Sd9UrRev17Bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JnHowGhV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791882794; c=relaxed/simple;
+	bh=xdKCKHnE+HjehhErt/0TiLE1C2dWiEwZprXSxT03iQ4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=N1ZaSi2HhLkSVxE7SQ+qwtOw+O4X14n0QJQDCI5rzgAGG3uaX5oWhIup92lmWRiZn/d1zrTlTGC3jMmarbHDhx1LF2SE4jUHB1su4Sntuc+HLSedHqkqfA+eyxzjPqb6XHSyVTMRA+KThJ+/XRR164Y+AD0yyk9h1VjOPn2v9c0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iLfVHC2d; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JnHowGhV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD2A1F00898;
-	Tue, 13 Oct 2026 09:12:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791882780;
-	bh=T8njoKiw74NOo2HycKeJ1o+njVKhOn3Rn65hLB43klk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JnHowGhVCIhSk1ST0j234rFDQqgEMjgdccIse60r3n2dmCQqkYsq74WlPnSe3J0W8
-	 oHLfZqiFRe0ABHEb++xtjwNjQdZlHzDu/iqanYcdfgF58XH4lrykL5NaGMi4VrUSqB
-	 kDr8Ul4IcAms3+qDaaUD5flS28gpK3r4OhKzFeG73csWKrZKWCCMt6R5zdUBYwle/Y
-	 3Hw9iZLybKliO/9vhshKT6XOuaOCkKignhiXKPhIhn0tN2apJ2xxv2eSJDGFOOC0gf
-	 QJCF2Juqv7DXnA93fMdl0MDIP/92Bq9aOlpfWiwH65Reo4ZLyrLHwmjgcAUR4969dU
-	 yIM4jMnEXWjfQ==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Vicki Pfau <vi@endrift.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v6.1 6/6] HID: steam: Clean up locking
-Date: Tue, 13 Oct 2026 09:12:02 +0000
-Message-ID: <20261013091204.529049-6-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261013091204.529049-1-lee@kernel.org>
-References: <20261013091204.529049-1-lee@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iLfVHC2d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791882793; x=1823418793;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=xdKCKHnE+HjehhErt/0TiLE1C2dWiEwZprXSxT03iQ4=;
+  b=iLfVHC2dl7neB69G63ocnSHG/o2mGps5Zkb8b58UwtzdP+BzKg6iFsiR
+   pwF6lyCA87YBV+WfH/jIdkV7cwZoRGuou52epEB/md5XbKFqLU7ReaivD
+   M2lt8FuUQ13knXpOkHoP5YbjlEG8+qGn4b16v66KddVXIjwp6pZ9r1+dD
+   GnZmSMYLRdFk11ckwcsSYo12HYSCYK5MgHuFr5DM8ArZ+lcloQk4vGmVn
+   Ab5yo6dUQQINyM9P1vPv0RzQRSzOhgaNb6Dl2tla7SFZWgPTK/heozawS
+   DOsCszdqoEFLnkUrScfUEBN4mm1jZqYCxuagEMmnrAtaRo1V/ObBZzrmJ
+   A==;
+X-CSE-ConnectionGUID: e5hOlfZqSnS2eVFHczTIVQ==
+X-CSE-MsgGUID: 2RjelnXeSL6c0DQWJIkfMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="610069"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="610069"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:13:12 -0700
+X-CSE-ConnectionGUID: rtPMb2auT4WcX2Qt4aKNOQ==
+X-CSE-MsgGUID: u3tn8y16QJ66mkf+jZiCFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1213842"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.106])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:13:11 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 13 Oct 2026 12:13:01 +0300 (EEST)
+To: ShaunV334 <shaunvarghese43@gmail.com>
+cc: krishna.chomal108@gmail.com, Hans de Goede <hansg@kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v2] platform/x86: hp-wmi: add Omen Transcend 14 8C58
+ support
+In-Reply-To: <178975596627.29716.16369572610260910575.b4-ty@b4>
+Message-ID: <06e6bbd9-dc5d-e05c-8a3b-2e21de408a6f@linux.intel.com>
+References: <20260906130114.139261-1-shaunvarghese43@gmail.com> <178975596627.29716.16369572610260910575.b4-ty@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323328-2062008638-1791882781=:1237"
 
-From: Vicki Pfau <vi@endrift.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-[ Upstream commit de1d341b9b3ec9655f31fb8b44f784cca5e670ad ]
+--8323328-2062008638-1791882781=:1237
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-This cleans up several issues with locking behavior, including RCU accesses
-not being guarded behind a lock.
+On Fri, 18 Sep 2026, Ilpo J=C3=A4rvinen wrote:
 
-Signed-off-by: Vicki Pfau <vi@endrift.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[Lee: Adapt to steam->mutex and omit Steam Deck sensors, mode_switch,
-      rumble_work, coalesce_rumble_work and Ibex changes as
-      691ead124a0c, e133dc99fc07, a0fbd9437d7d, 1d4549fd1115,
-      fcfa7db89f7a and 0a80b4e8ec6a are not present]
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/hid/hid-steam.c | 59 ++++++++++++++++++++++++++---------------
- 1 file changed, 37 insertions(+), 22 deletions(-)
+> On Sun, 06 Sep 2026 18:31:14 +0530, ShaunV334 wrote:
+>=20
+> > Thanks for the information, I've currently added 8C58 to hp_wmi_feature=
+_boards[]
+> > and removed it from omen_thermal_profile_boards[] as suggested. Manual =
+PWM fan control
+> > is confirmed to be working but the GPU is still missing that additional=
+ +15w from 'Smart Performance Gain'.
+> > That will require further investigation.
+> >=20
+> > Add the HP Omen Transcend 14 board name 8C58 to the hp_wmi feature
+> > board table using the existing omen_v1_legacy_board_params.
+> >=20
+> > [...]
+>=20
+> Thank you for your contribution, it has been applied to my local
+> review-ilpo-next branch. Note it will show up in the public
+> platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+> local branch there, which might take a while.
+>=20
+> FYI [if applicable to your patch], as per Linus' policy change, also
+> fixes are mostly routed through for-next unless the fix is for a
+> commit introduced in the most recent cycle or is clearly a regression
+> fix.
+>=20
+> The list of commits applied:
+> [1/1] platform/x86: hp-wmi: add Omen Transcend 14 8C58 support
+>       commit: 4dabecbb202e872dc8cd4c4b5ee7076b75e23162
 
-diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
-index aa001a293a36..bbc150167a7f 100644
---- a/drivers/hid/hid-steam.c
-+++ b/drivers/hid/hid-steam.c
-@@ -114,6 +114,7 @@ struct steam_device {
- 	spinlock_t lock;
- 	struct hid_device *hdev, *client_hdev;
- 	struct mutex mutex;
-+	struct mutex registration_mutex;
- 	unsigned long client_opened;
- 	struct input_dev __rcu *input;
- 	unsigned long quirks;
-@@ -294,22 +295,30 @@ static void steam_set_lizard_mode(struct steam_device *steam, bool enable)
- static int steam_input_open(struct input_dev *dev)
- {
- 	struct steam_device *steam = input_get_drvdata(dev);
-+	unsigned long flags;
-+	bool client_opened;
- 
--	mutex_lock(&steam->mutex);
--	if (!steam->client_opened && lizard_mode)
-+	spin_lock_irqsave(&steam->lock, flags);
-+	client_opened = steam->client_opened;
-+	spin_unlock_irqrestore(&steam->lock, flags);
-+	guard(mutex)(&steam->mutex);
-+	if (!client_opened && lizard_mode)
- 		steam_set_lizard_mode(steam, false);
--	mutex_unlock(&steam->mutex);
- 	return 0;
- }
- 
- static void steam_input_close(struct input_dev *dev)
- {
- 	struct steam_device *steam = input_get_drvdata(dev);
-+	unsigned long flags;
-+	bool client_opened;
- 
--	mutex_lock(&steam->mutex);
--	if (!steam->client_opened && lizard_mode)
-+	spin_lock_irqsave(&steam->lock, flags);
-+	client_opened = steam->client_opened;
-+	spin_unlock_irqrestore(&steam->lock, flags);
-+	guard(mutex)(&steam->mutex);
-+	if (!client_opened && lizard_mode)
- 		steam_set_lizard_mode(steam, true);
--	mutex_unlock(&steam->mutex);
- }
- 
- static enum power_supply_property steam_battery_props[] = {
-@@ -513,40 +522,43 @@ static int steam_register(struct steam_device *steam)
- {
- 	int ret;
- 
-+	mutex_lock(&steam->registration_mutex);
- 	/*
- 	 * This function can be called several times in a row with the
- 	 * wireless adaptor, without steam_unregister() between them, because
- 	 * another client send a get_connection_status command, for example.
- 	 * The battery and serial number are set just once per device.
- 	 */
--	if (steam->registered)
-+	if (steam->registered) {
-+		mutex_unlock(&steam->registration_mutex);
- 		return 0;
-+	}
- 
-+	mutex_lock(&steam->mutex);
- 	/*
- 	 * Unlikely, but getting the serial could fail, and it is not so
- 	 * important, so make up a serial number and go on.
- 	 */
--	mutex_lock(&steam->mutex);
- 	if (steam_get_serial(steam) < 0 || !steam->serial_no[0])
- 		strscpy(steam->serial_no, "XXXXXXXXXX",
- 				sizeof(steam->serial_no));
--	mutex_unlock(&steam->mutex);
- 
- 	hid_info(steam->hdev, "Steam Controller '%s' connected",
- 			steam->serial_no);
- 
-+	steam_set_lizard_mode(steam, lizard_mode);
-+	mutex_unlock(&steam->mutex);
-+
- 	/* ignore battery errors, we can live without it */
- 	if (steam->quirks & STEAM_QUIRK_WIRELESS)
- 		steam_battery_register(steam);
- 
--	mutex_lock(&steam->mutex);
--	steam_set_lizard_mode(steam, lizard_mode);
--	mutex_unlock(&steam->mutex);
- 	ret = steam_input_register(steam);
- 	if (ret != 0)
- 		goto steam_register_input_fail;
- 
- 	steam->registered = true;
-+	mutex_unlock(&steam->registration_mutex);
- 	mutex_lock(&steam_devices_lock);
- 	if (list_empty(&steam->list))
- 		list_add(&steam->list, &steam_devices);
-@@ -555,6 +567,7 @@ static int steam_register(struct steam_device *steam)
- 
- steam_register_input_fail:
- 	steam_battery_unregister(steam);
-+	mutex_unlock(&steam->registration_mutex);
- 	return ret;
- }
- 
-@@ -565,9 +578,11 @@ static void steam_unregister(struct steam_device *steam)
- 
- 	hid_info(steam->hdev, "Steam Controller '%s' disconnected",
- 			steam->serial_no);
-+	mutex_lock(&steam->registration_mutex);
- 	steam->registered = false;
- 	steam_battery_unregister(steam);
- 	steam_input_unregister(steam);
-+	mutex_unlock(&steam->registration_mutex);
- 	mutex_lock(&steam_devices_lock);
- 	list_del_init(&steam->list);
- 	mutex_unlock(&steam_devices_lock);
-@@ -745,6 +760,7 @@ static int steam_probe(struct hid_device *hdev,
- 	hid_set_drvdata(hdev, steam);
- 	spin_lock_init(&steam->lock);
- 	mutex_init(&steam->mutex);
-+	mutex_init(&steam->registration_mutex);
- 	steam->quirks = id->driver_data;
- 	INIT_WORK(&steam->work_connect, steam_work_connect_cb);
- 	INIT_LIST_HEAD(&steam->list);
-@@ -835,13 +851,10 @@ static void steam_remove(struct hid_device *hdev)
- 
- static void steam_do_connect_event(struct steam_device *steam, bool connected)
- {
--	unsigned long flags;
- 	bool changed;
- 
--	spin_lock_irqsave(&steam->lock, flags);
- 	changed = steam->connected != connected;
- 	steam->connected = connected;
--	spin_unlock_irqrestore(&steam->lock, flags);
- 
- 	if (changed && schedule_work(&steam->work_connect) == 0)
- 		dbg_hid("%s: connected=%d event already queued\n",
-@@ -1008,8 +1021,6 @@ static void steam_do_input_event(struct steam_device *steam,
- static void steam_do_battery_event(struct steam_device *steam,
- 		struct power_supply *battery, u8 *data)
- {
--	unsigned long flags;
--
- 	s16 volts = steam_le16(data + 12);
- 	u8 batt = data[14];
- 
-@@ -1017,10 +1028,8 @@ static void steam_do_battery_event(struct steam_device *steam,
- 	rcu_read_lock();
- 	battery = rcu_dereference(steam->battery);
- 	if (likely(battery)) {
--		spin_lock_irqsave(&steam->lock, flags);
- 		steam->voltage = volts;
- 		steam->battery_charge = batt;
--		spin_unlock_irqrestore(&steam->lock, flags);
- 		power_supply_changed(battery);
- 	}
- 	rcu_read_unlock();
-@@ -1037,6 +1046,7 @@ static int steam_raw_event(struct hid_device *hdev,
- 	if (!steam)
- 		return 0;
- 
-+	guard(spinlock_irqsave)(&steam->lock);
- 	if (steam->client_opened)
- 		hid_input_report(steam->client_hdev, HID_FEATURE_REPORT,
- 				data, size, 0);
-@@ -1108,6 +1118,8 @@ static int steam_param_set_lizard_mode(const char *val,
- {
- 	struct steam_device *steam;
- 	int ret;
-+	bool client_opened;
-+	unsigned long flags;
- 
- 	ret = param_set_bool(val, kp);
- 	if (ret)
-@@ -1115,10 +1127,13 @@ static int steam_param_set_lizard_mode(const char *val,
- 
- 	mutex_lock(&steam_devices_lock);
- 	list_for_each_entry(steam, &steam_devices, list) {
--		mutex_lock(&steam->mutex);
--		if (!steam->client_opened)
-+		spin_lock_irqsave(&steam->lock, flags);
-+		client_opened = steam->client_opened;
-+		spin_unlock_irqrestore(&steam->lock, flags);
-+		if (!client_opened) {
-+			guard(mutex)(&steam->mutex);
- 			steam_set_lizard_mode(steam, lizard_mode);
--		mutex_unlock(&steam->mutex);
-+		}
- 	}
- 	mutex_unlock(&steam_devices_lock);
- 	return 0;
--- 
-2.56.0.385.gd3acb90ef8-goog
+I had to dropped this patch because it's lacking a proper Signed-off-by=20
+tag.
+=20
+Please see Documentation/process/submitting-patches.rst for more=20
+information on what is required and send a new version with the problem=20
+corrected.
 
+
+--=20
+ i.
+
+--8323328-2062008638-1791882781=:1237--
