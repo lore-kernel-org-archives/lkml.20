@@ -1,107 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CB049B215
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:56:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791932179; cv=none; b=CuFj5/H3271QxO9Wl9IUpDVVMW98YAMxrmgNgPaEGNnyfrmEalTC5fDnF4c9nTpz7R9ULSsIxjJMos98/QWrArPCJa4Un8PfjNELAJM8/Pn8j/PslG0PT2LadjXu2SW7Er2XTI4Ox5YYL9OycVhawCMoGGVspZ/G5+SmBzsV+GA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791932179; c=relaxed/simple;
-	bh=RsU+ZCZtZcs7B0IzQi38/te1fsHGikwxT7Hdf7V9Egk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=I5fRhKakOiJutoUBSPnrX/3FT3Ss53oqBazD/pBek7US46/Pj04ONxryg5ZUxMHWt6GwAVSFW/aUQtX2fGuVCFjBZl+2Yl16TxP8hwinnmGDQRao91mll045XJBXH7ZJ1Shelr1uXPmxKPFxv2RXdAx7dIy3VfO6vrL/LNkvcVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hjiGyi2/; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96F74A9D44;
+	Tue, 13 Oct 2026 22:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791932208; cv=pass; b=VFY1ADXec5ShA83Gh2EacPnUE3yAgsjFyORDEZHwCv2eTQ2WNXzxO79yyhx3lIv/s+jTIJzpfElFmfAVIYkJmLAMkNoBnKlEWRyckQVKDH4rFVgova2NTruCB5S1kmpdYd4WrfzghMY72QmpZCoSGMk+kwd6gzRbR1BPLl35dUY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791932208; c=relaxed/simple;
+	bh=bAB7dsPzcz67xHbWPAM5JI8JnYKNsnf4lQG5iXou8Kw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cBLLOaIRCkw3O0Y3iakDAlwsiFsbNkaYgKutSHVk0mI5fr5BiUCBKPD2mV80KSJjZL63GUwoS1ZorZOxTdt85N5xhBlSdFVlIydH6W+BSvsoYZMnT5c2UkTSOU6aMPrZM91ggGOI/S02raYbwQS2AICDuXUltUHPHqgfPXW4rFk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=kHdQx/yk; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hjiGyi2/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 04174C2BCF4;
-	Tue, 13 Oct 2026 22:56:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791932179;
-	bh=RsU+ZCZtZcs7B0IzQi38/te1fsHGikwxT7Hdf7V9Egk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=hjiGyi2/DvAkEmLZblH5iWWZy/b7eXxnYrVZVI08q+X/bXroz3lr9nOGMLhZ9uqqX
-	 n8Jvla3YzTzONpFwO1PWSZFcNL/eVnElFp9CYw+M/J+lA1y2B1XFZYDFWmufH1AyCz
-	 qbd3Mwz8WtzQWnqlZbWk41Z4HeslQPHbIswmSO4FfiJ5TRer7oMbsQLggNTItjlkHN
-	 M+qZH93/lISOHXPJI5ggT4Ha9vUdTnAUbV5YwjfoMaeAGVXiqbdFvmk3THQBPNZA5L
-	 ehsPabwbf4kMv9R6HTqhreusI1Ly0ECj5PD4ED6ioyJq0KBcTeZbMkPiXuJe+kWYdU
-	 UoTMSJnK3ar1w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D0C4FCC6B15;
-	Tue, 13 Oct 2026 22:56:18 +0000 (UTC)
-From: Alexis Bouzigues via B4 Relay <devnull+BouziguesAlexis.JohnDeere.com@kernel.org>
-Date: Tue, 13 Oct 2026 17:56:19 -0500
-Subject: [PATCH] mm: nommu: set MMF_OOM_SKIP in exit_mmap()
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="kHdQx/yk"
+ARC-Seal: i=1; a=rsa-sha256; t=1791932185; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bNVvhYdc3iC1WLIzS0fZNO0qcM7zrvTBm9pfdKoDA+dxTRkfdxZ02pISKtbT+BzLrYeO2J8AEcGXsYm5GU9j5xnM7/R2UoMGMmX6PA/b1pCkFxUNEjQo6kNQHn47mkxfyzHNWkJKikzFz5zhcFpQouVnvAmepLUuKIHvdLyJrro=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791932185; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=is/u4zp7L+bid1uy+FMp9cPkHU9FjH1P79khU+iYi1s=; 
+	b=jpMfXxH3wSI0OkaZcD1lHZ2MWkAxUqb7eEgx5BNwsaqFP/Z6lM17Rszj8IRfgnxI3BAuYq/ezE5UnKUFZzvsQV+ccz5UTSc5e1sO2gqtaiFBYmkYKlUXqydc1zg7NzPTJLGotAgvxZyDwrtxT57yu2fFdSl2IIhQaGVfPrI4dZ0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791932185;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=is/u4zp7L+bid1uy+FMp9cPkHU9FjH1P79khU+iYi1s=;
+	b=kHdQx/yka/sQoYcL1VofEdOgUAAShvGiyVxKxTPRMe/IE6JEaiemAH47QtlGVkz6
+	I4uQTtv82fP4bvdZ123YaiAYKd1b3pn9jVbRmrSxChZD8Poippv5dh0i4U70oxlK1Wf
+	yl7pBDuKVqWKUAmcaN1z6zNHIyvdCpEw4ILiwgtA=
+Received: by smtp.zohomail.com with SMTPS id 1791932183629232.553043639708;
+	Tue, 13 Oct 2026 15:56:23 -0700 (PDT)
+Message-ID: <05f4612c-a034-4e77-9a00-9cadd9f7e2c9@collabora.com>
+Date: Wed, 14 Oct 2026 01:56:19 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm/virtio: Reset device before deleting virtqueues on
+ freeze
+To: Yuho Choi <oss.patchbox@gmail.com>, David Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Dongwon Kim <dongwon.kim@intel.com>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260926202040.1313385-1-oss.patchbox@gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260926202040.1313385-1-oss.patchbox@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-fix-nommu-exit-mmap-oom-skip-v1-1-cb957cdbfcc3@JohnDeere.com>
-X-B4-Tracking: v=1; b=H4sIABK3zmoC/x3M0QqDMAxA0V+RPC/M6iiyXxl7aDVqGGlL4oYg/
- vu6PR643AOMlMng3hyg9GHjnCrcpYFxDWkh5KkaurbzrnU9zrxjyiJvpJ03FAkFcxa0FxeMA/k
- hzv0t+gnqoijV/r9/PKtjMMKoIY3rb5qVF05XCbaRwnl+Ab86sxaOAAAA
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Michal Hocko <mhocko@suse.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, 
- Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791932178; l=1299;
- i=BouziguesAlexis@JohnDeere.com; s=20260527; h=from:subject:message-id;
- bh=hVmRWa/BeiGIHAxsid1KBCGZvcLmOYCtQjDsyT49U1Q=;
- b=j/+/Nm1eIrvkAXqIYV10l74NOMUNM9pNumM9DwYrXfv8vOfeIwzsbiovirVM036T7KgOoK0N7
- afOWB8waOp/Bdr5mYF9JJc3//T0l4KQzImC2s6ilcNMo4yoYzbz2reU
-X-Developer-Key: i=BouziguesAlexis@JohnDeere.com; a=ed25519;
- pk=5KJ7ArL00x5flpPhi9zRLC2p88V1rZXDQ5SXhpRvTDk=
-X-Endpoint-Received: by B4 Relay for BouziguesAlexis@JohnDeere.com/20260527
- with auth_id=797
-X-Original-From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
-Reply-To: BouziguesAlexis@JohnDeere.com
+X-ZohoMailClient: External
 
-From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+On 9/26/26 23:20, Yuho Choi wrote:
+> virtgpu_freeze() waits for the control and cursor queues to drain and
+> then deletes the virtqueues, but nothing tells the device to stop first.
+> del_vqs() frees the vring backing, but does not provide a generic device
+> quiesce operation. In particular, modern virtio-pci keeps enabled queues
+> active until the device is reset, so the device is left DRIVER_OK with
+> its queues pointing at memory that has been freed and may be reused while
+> the guest is suspended. virtio_device_restore() only resets the device
+> later, on resume.
+> 
+> Reset the device before deleting the virtqueues, the way
+> virtio_gpu_deinit() already does on removal.
+> 
+> Fixes: cad6a879a7fb ("drm/virtio: Freeze and restore hooks to support suspend and resume")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_drv.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> index 2aaa7cb08085..52c174f9bff7 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> @@ -225,6 +225,7 @@ static int virtgpu_freeze(struct virtio_device *vdev)
+>  		goto err_resume;
+>  	}
+>  
+> +	virtio_reset_device(vdev);
+>  	vdev->config->del_vqs(vdev);
+>  
+>  	return 0;
 
-Commit 212925802454 ("mm: oom: let oom_reap_task and exit_mmap run
-concurrently") moved setting MMF_OOM_SKIP from __mmput() into the MMU
-exit_mmap(), so it is no longer set when a NOMMU mm is torn down.
+Applied to misc-fixes, thanks!
 
-As a result, a NOMMU OOM victim that has exited and freed its memory
-keeps the OOM killer from selecting another victim until it is reaped.
-
-Set MMF_OOM_SKIP in the NOMMU exit_mmap() once the VMAs are freed, as
-the MMU version does.
-
-Fixes: 212925802454 ("mm: oom: let oom_reap_task and exit_mmap run concurrently")
-Assisted-by: LLM
-Signed-off-by: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
----
-Restore MMF_OOM_SKIP on NOMMU mm teardown, which was lost when it moved
-into the MMU-only exit_mmap().
----
- mm/nommu.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/mm/nommu.c b/mm/nommu.c
-index 498e01ee40b0..913b2a1b5b3b 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -1555,6 +1555,7 @@ void exit_mmap(struct mm_struct *mm)
- 		delete_vma(mm, vma);
- 		cond_resched();
- 	}
-+	mm_flags_set(MMF_OOM_SKIP, mm);
- 	__mt_destroy(&mm->mm_mt);
- 	mmap_write_unlock(mm);
- }
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261013-fix-nommu-exit-mmap-oom-skip-b8e68bf34b6d
-
-Best regards,
 -- 
-Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
-
-
+Best regards,
+Dmitry
