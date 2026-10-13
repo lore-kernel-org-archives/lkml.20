@@ -1,197 +1,255 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013003.outbound.protection.outlook.com [40.107.162.3])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D2B4CC610;
-	Tue, 13 Oct 2026 10:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.3
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887439; cv=fail; b=NhwdBtxP9ljXTHSZO4DFaCLqnKbWKj2pHmPL/7HBWdySeEtbXp2d10MrUuE3UT/y4J+OsB0WgLBk+JUa+hsRox38B7hAd321F9ezQZWxz/9a43uVSnqf4iqFdgwjUWhwvJ/ynay6fHpcsAd190k56xAN5tGy5zm6iir4jlrY/JQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887439; c=relaxed/simple;
-	bh=4tQRKl8cosXTWtMmOErM22oNiuqrEpljXuiyxcU81lg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GFGuEEwZ1di72TWQ41Wkgm2RS1PFY9CEPtUXHQracwKTsrAIfzmI3HB3O62U24MsrrjxRJbUOUSmAbrDGTdqkNAKwyu4+gyWSYVB08J90fVTLGfWn4oFArWlUtvmJfh/4CylhbuJgV+coJ7bfSqztlXtny6nZPfiF2pqMluquxE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=akKPSl73; arc=fail smtp.client-ip=40.107.162.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC9A4BF94C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791887441; cv=none; b=PVSDzuw7S9igN9ES9BmdBqHqskWeZp0ySOoBSyhh5kbk6dme4X6rMN/lTbbsZdb9kXZbXeWrox3dHXVvPzeH+/x9POVgZ/8Y9oefpnMOQK7IdJDC34kPXBomAG3q+dtiGJvqTWXeHatGyMzI9YBpH5MEawj14flPGUev2nFHBIQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791887441; c=relaxed/simple;
+	bh=DY7jRWya1V7pBJnOdw6mxdVbCjyXXQemGfkmzifD/sU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=j8sWiytXcb0yumz+/2iD6aqV/5GRvMMKSJkkKpdFRaoO5eo29iBcHnnKIAuki9RnQqIyMv+Z1hg7gUBledF0X4FvpOwNTzel5qbqDItJI1CDj9BqdbRGNs1o6isX3VOfkyIkVa5VARNDoy6S14MrTyGBhpJ79MAe7U0xqPLiI4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YeBph5Jc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G8Ujsg0W; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="akKPSl73"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HN5zKsCkDIdfXkhgaHCtUyYydPAFEmKjiBc4nZ1CdB/xJlO0fa/2gIzVs8LDh5xtWVPaIrE/1Ai0lVYil4q/tA10858tf5Ds71K8sJ1tyg5jDGPvUsvg67IbpdPrlM0NZJ8fCmmv0iMPBBex7SUo8WiedobiZ2sw7qoAz+5vfbeaernj7tw+2zC/fNlnYr7wEZ2DqRKdtjV/z9BQ8a89ebOudmQ8tHaVukQj4htZZdVH/FHR9v+Gu2dLve6s2rAPuNF4VGTJfCavBrLSRdsr7bJadpxYEGps1R8q8GHAnvY+XTYTria+7MjZgXxSNUEdYTBdUawd9ZWOjwC9wOaL/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ULUPTqhfrdzUsU6OJH371yUj0KwB01rAKh14M6kYp1M=;
- b=vPXOSWEWCNYNVEgiICvbd9Kc6eZx2k5BXMoqDg+PYGE4XlEN8g5JQCcoxmweCNBszO4NNwDxzAFbeXy2H8RnrRjR2sAjjEM9VlkGoNkRbj8wMP8dfXFSrEGHzLThvrsCe4l8ZSFKvR+do2zxprH4TkpkNnZpjOCEOPXRAsG4lM/NO1eNEbqE/OnB4E1urFn/uK+m9wKl2zqKfF2sL/dtDzG9a1AY1Rvkvh9r56frQaXhKfH++tEVMsfn3jPZHdGe9+DB7aVC/R/BjSsgiIUOM9VrUe6zeEwNMLC3Lwgek4hNuVupHPmd5XK93EYoKlEedyJoZS65Y5GRvziGgqO//w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ULUPTqhfrdzUsU6OJH371yUj0KwB01rAKh14M6kYp1M=;
- b=akKPSl7327T3iQ9TEnWLgfZPIC+fJGOSPmW5gv03htIqClyUbFBbOKmXO7VftD4NKE+iQWAzc3sn1RaFRHLwOJOBLA0MwKyqrbf6tcfgzGvFsdIOWPpU78Nh9xCA5mTUEv9fbHeljInHL5hL+GYOPWnP0XpWfh115BJqcs40uM0E5JrNwkAx7C0XQRb7e25601thKub7yMQsUx5OPDXDu1zRb3TMRC2Fezs/2xJ2pvwM/fi80/xOz8uyDOsOsmTwq7dtvPmBFa49QapkUKzINExj0zJ2caneUr47DLi2VcRRMACBl+uvPT3ZxYSkLn33bz1SXfuFlZZInR5kzHZlYQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10) by VI1PR04MB7133.eurprd04.prod.outlook.com
- (2603:10a6:800:126::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 10:30:33 +0000
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 10:30:32 +0000
-From: Larisa Grigore <larisa.grigore@oss.nxp.com>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Pedro Sousa <pedrom.sousa@synopsys.com>,
-	Hannes Reinicke <hare@suse.de>,
-	Joao Pinto <Joao.Pinto@synopsys.com>
-Cc: linux-scsi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	clizzi@redhat.com,
-	aruizrui@redhat.com,
-	eballetb@redhat.com,
-	echanude@redhat.com
-Subject: [PATCH v8 08/12] scsi: ufs: dwc: Sort CBCRCTRL and CBREFCLKCTRL2 by offset
-Date: Tue, 13 Oct 2026 12:29:59 +0200
-Message-ID: <20261013103003.373156-9-larisa.grigore@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013103003.373156-1-larisa.grigore@oss.nxp.com>
-References: <20261013103003.373156-1-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0053.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::17) To GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YeBph5Jc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G8Ujsg0W"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D7OWl6015194
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	R/JpQ5rbqgRLuJ+aASIPnJlmyhNkhvx8AwZ8tUDYUlk=; b=YeBph5JcmibuCWG1
+	rnQBm8jJ+PlXoJR/DLiNdOAlFJMapHa2IB6fm3InchofTisOT/DsLAr3OFxl5b8K
+	6YsAC2jfo+BNvBShKrvBt7kfWyk0y6vJpe+nv4G8QDkyamtzDr3bKa7dh8VYFjN5
+	6qfdkEIOiJlWht9GsktSLWwuh4rgyShQ82BYhufQy0BwsXyGiIiA+ziiVnaHNXS7
+	tCBY1zdc3yHZkvjysBO360gMwXjk67L6SDiHZliFActBxLiUwciSYevPApC7rslP
+	7BBnquy23w1eEp3mB42CHxK4+QuU2DKts6AJIcap7AaxvWIcYejCoFc7MPN04Qcv
+	jsBWGw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9g7ugs7g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:30:38 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb93c874bso922087085a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:30:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791887438; x=1792492238; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R/JpQ5rbqgRLuJ+aASIPnJlmyhNkhvx8AwZ8tUDYUlk=;
+        b=G8Ujsg0WaQV222ryWwNXk5X4vuLJHUb9x32ExGqxaCgslSccezOAK3PSJTe7C6RKxR
+         IldzXl60m0S//ARR9Soji/+1bWh0yDraJO9j9SH5igK6GbxNxtH757qM35YBy8A393Yb
+         JjXXUTVjGwDc9FPUBymaRhjtA5AHsjTGBfS46f4FQHGVfvChkdXl6NR22+sSegcPCUnu
+         cZq7bmL4/Fny91+ETvst6/ST3OQphYgxgMDv22dDQdrhs8SCmvZn+nhSoxdhZ8cJfIeG
+         7AM7mtpMYkC1Lhv9gbzV/gHBR3ijLw4IaANmJFe3KkrAP0Pmrgrhj72m/VYVzV0ssD+K
+         kk5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791887438; x=1792492238;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R/JpQ5rbqgRLuJ+aASIPnJlmyhNkhvx8AwZ8tUDYUlk=;
+        b=dbOIg4c5yZ/MYVn1V5u/LEPalQbIh0EF1xLQdQueK22eLMvtTvlmOm2nq8sHuIA7Vz
+         y4TMVEahz5/HZUSR4mgvpXNu86siXFBd+/gsv5PNIVhDCi0OgzXD3YWqUm1/NiQNaO+z
+         T09zd9x5gO0grTabIQeHl8YhR0VQjuLuuCGV9AisAhk0J7fjJF16vhkN/NESaHSYGU2X
+         LDrsIyzLVgO3FUsomSRDkPJkm/TpqLln94pulKHK0E2ftVcabUnSt1cylXKx+YTnBGof
+         K2Nw+c71imPnuGNTbIxp1AhnaCFmh/blzPewnInQvypmBn2WQnycm9wN+M452mPjpXz/
+         LM7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzhtqYoLhe+H3yfv5rKD1mD4EMbXj2MfLIlNHnm0Z2ZTzh6akZEWrqf3RCxz59Fybj9lAcSAe7v09baY5Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOV98a9ucsxISK6eryE8LTXfCJWfccRXoygzbAUlB+lx0hZ9tj
+	o0IVy1+KXROnXPndn9RxCAtU+kT1bsO21cq/xiqhwORyu/2rupL2MhePwH9q2O9B+4Fm9b9Hgv2
+	hzwA/b56UIpGn3gcWACdPROZtxQiWz3M3hzSGLfEVDIcsDIcPl8YdAWJSOyA0mCdMGffBmOxamr
+	bX58m9
+X-Gm-Gg: AYBFou16tzS4fbCmKCAo0HcAkiaem3t4S5pFEN7uNDGEsa+iiOBRDZRLHx7pYdBgIfa
+	iZWmHaXuLTXFr/XkaRSXiJoTFq9EU7a9Wr4CvOLe1aoEYqVaNzrnHN2HrAUVonxzMOFOCBqCF71
+	AUghD7WnhoaDAyJXxcHTpt+nfNAF4RXsfl0UgKdWg08HeoQsqOnPSGXEXIlnWHXS4K7LSb7Vah3
+	6cGX9d5L5OTJ6eTU9devFcPlzE4BCklwpJCStpnzmjkAL7LX9zoQmYEZhRMmfWCnj7pne5qURnd
+	ZTS7VifNsDZjwFwRYtuUNVddM1vpBdTnjUZ30wdJVJ3+CqnQvF1gmtVCGtWyuoibu0F0zQdKQTw
+	rBkZia/JwG9Kbq6hTQn1XCbmD9I2cLVMtVcxdqnHA6PfBZmE65mhR5nXlFv22Niv889oBvmYoQI
+	LiJ3xaNXEjwER+SnJwBtMbaZ69zYH9xI2e4M+vyy+jkShRuGYjw7k=
+X-Received: by 2002:a05:620a:2b4d:b0:93c:5952:5765 with SMTP id af79cd13be357-93eb93ef568mr1900260385a.6.1791887437527;
+        Tue, 13 Oct 2026 03:30:37 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b4d:b0:93c:5952:5765 with SMTP id af79cd13be357-93eb93ef568mr1900255185a.6.1791887437013;
+        Tue, 13 Oct 2026 03:30:37 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:d108:3895:812b:662a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be964dfsm349955115e9.7.2026.10.13.03.30.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:30:36 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 12:30:29 +0200
+Subject: [PATCH v2 5/6] i2c: qcom-cci: Extend i2c read limits based on CCI
+ revision
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|VI1PR04MB7133:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61bca629-b562-4b51-e099-08df291502d2
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|23010399003|7416014|1800799024|376014|366016|22082099003|10067099003|18002099003|921020|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- 1WFJadf197UhZpuh22Dgp3YP85CnZb4Oe53Sn1RRadGGV3tysHiK9t80bCZhUaY6wKpZNy3Quu0aHC67MBjFo61GLIlr2jfiOVmz2tpuRTqRozY72C+xIdqVN1FQC7JijtrL19UkKNzOcE9KWbujAmDZJuPQCkPvn5MZki7sA9dApF0S2IOLl30gY7bWUz01c3uM54jG32lKZRFBZBc4uOlNnnHsR6OlI+D3ASCxRpRRSYSlRB7clcBCR3M2OMSwZirQtV2hZ9mztwo506iEC8hdMfzR3ABe0kKM9Y1RhGAveNV0F7WRdqFSW2en3WOgyK01wcXGi9Ng81SN/PgAQoHRQZrK3ySyb6sOa/bdCfQcc2ohJoJgKYmP809HtIs0/r1als3GcK3wr5Vpx1q5PId1iKK+KD2aW5+BZLbE251li7R/jcJWWp5N0hXAYb420gJMVGB88UGByad2+YEx1Fzz7aCddbcaEHyyUNlXXZObXz2YIVa4+RQhxweixpL09d7iySwYacbRGTa2aOS3JhwXwU8TPNX8vmPIpXXMBBlX59QGwsPT0WmS9xsMmydnvm8OZWLP9HmzqSSpWnaISGdjEwKWrdj9cs2mCtFt5CNJngokY1ciVZ8QPclFLUTPIHjMP6r/ykWVGalTfB3AWu/2cxmrPng6WSPVz5SWfHb+/kXnlTApp75rS3EAS2Zc3r8buQGrMYb2fuoT2MI0Rw==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(1800799024)(376014)(366016)(22082099003)(10067099003)(18002099003)(921020)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?c3JheU5QN1lmVjVGTG1KNU9ZVkFQSTJ4eFVGQjl3Yzc1VExQaDNjTUlVdlYv?=
- =?utf-8?B?LzJxaEovdHhyaXFXTlJ0cVA3TEloSjc1ODZPemxtSGtSTDVTcFNiMzBLeFgw?=
- =?utf-8?B?MHhLVDJLcW55cTNIRXMyNTlWQmhpOUpQQnRBcTljMDB4UTZleFNtend4cTNy?=
- =?utf-8?B?RUExb1lDUDdwbi9qaVdsaU56NTcxalMyekgvZVdGWmNna0N4WVo0MDUvaG01?=
- =?utf-8?B?KzlrZVFLM3FYamsrdDJyamxrZWxzTGJYVmYxT3RCL3g5WEljUTFWOEE4TzI2?=
- =?utf-8?B?N1RUSFZ3YXdNRVJqQW9RWUtEMnR1TTN4N0Y0aUJTL3A5bXJxc3VvQjlRdGI3?=
- =?utf-8?B?VDJEYWN0S2hSajIrYTV6N0M5TmN5MDBGOWxycEpuS3plTzZ5RUtUU3ZMNm92?=
- =?utf-8?B?MmJZNjh3MG5oekZGZWUySktlZDV6WVgydXExdjNKT0p5aEdkdmlibHV0a3JV?=
- =?utf-8?B?VEY2c3JuVUw2aTNUZUlsb1VNWFZtV0FmMk5hYzhXYms4MlFkVHN1ODIxdzht?=
- =?utf-8?B?ZU5LdzdnQVM0N3ZpQ3lrMXk3eXMxV2NMUC9qSXFFZDhKMmp6SDJmSlZsSGs2?=
- =?utf-8?B?dlRqUmRoYnJRVFloT1czMHlGbkJYQ3AxNHpETzd4a3l6NUhsLzFxYzROSG9u?=
- =?utf-8?B?YUtYNU93OExBclpzUVhVYzZIdERjb2tUTC9ucXZRMEd0Q2U5VzI4STFCVHQ4?=
- =?utf-8?B?UmJCQTBGaWhLMkgxOEt5bXhleURGY3Q5RXlUZ3pheStYcm1tZm1mc01HTlgy?=
- =?utf-8?B?Z2x1WHdqaml1N212LzA1ZE10TlB3QkpXMWtuWXFrUEZnVnAxZW9rcUg2T1kz?=
- =?utf-8?B?cm5CMndMck9EVDd4NWdDeW8zWEYxVVRubi9XVEtQNU1IRThXcnBpWVdsaE9p?=
- =?utf-8?B?U1ZkblNzVjFYVW1qSEs1MnZ0cFl2ZVhST3Z5MUpiSjAzRlpDa2h3MjdKSlpO?=
- =?utf-8?B?Qmc2YjA3ZlAvT3JWRVVaSGJqWTJ1V3N6ajdod21aU0hjOXpiWS9xRXVPN093?=
- =?utf-8?B?REY0OExDUW1sajAwODc0d2xvOWNDaHRpYlc5Uk54T3hkTXp4TGgzNXZKbXZw?=
- =?utf-8?B?OENmdURRNUNtRnZQV3czUTVab0syZkJZS0o5aUlIeWxyZXB2QklOQlJtWWg5?=
- =?utf-8?B?VzZzQ3Q2MEJYZzBzZXY5ME0xUVFzdzNoNUtRT2tDVGZtVitPV0w3UmZyWnlE?=
- =?utf-8?B?cUpzQlB0YlVqK056dWJRdm1nZ3R4MVV1NC9NcW5TN1N2VmdrSmhmcnp3L3JN?=
- =?utf-8?B?WFgyK3AvYmZTQkpCWStWdEN2SEYwM2FUcndXZGNTWS9QbUpCNHp2dUVkTVgx?=
- =?utf-8?B?UURZRngxRWFqQnI5aW9LU0EvN2padW8xVEN0b2dTZ05NK3ZOTmU2bnl1NWJw?=
- =?utf-8?B?bVEwM0w3OERWN2x2c3ZKcWdyczJoV0dUbnZTU1FJdVBuRno3TnhDQWdzOEFq?=
- =?utf-8?B?d2pRNE5WNXJ2MFhtQTZGZHpqVllhRzhzTkJ3QStsUDlIREp1SEpCNnRVSita?=
- =?utf-8?B?NFhRRzdka0Uza3NqWUxMSHYzUkVBNUNkYXFKSHlVNWZWR3NSdVpOTnlwMGVi?=
- =?utf-8?B?QVpodmY5U3hmYVBjNnBwNWtHYWs5VXNuMEI3eXQyYjZweWsyb0tuT2xkbjVP?=
- =?utf-8?B?SzZWMEpoQjJ1Q2xMNGFGUHpGNEc1Q1R0S3I3N3ZRMDhXcTl1ZkkrcHhlclNR?=
- =?utf-8?B?Y2hkSSt0Q2Z5T0s4OUhOZlBSc0VxV2Zaa0p3L05wT2J6dFZDR2duWFBpRDFW?=
- =?utf-8?B?RE9lVEhPelZyaDI3SFV1UmpneWFYUTlUcEQ3N21Tbyt0eDJvWmcrcUU4aWlD?=
- =?utf-8?B?K1V0bmZScjdsQnQvRSs4VkwvbmN3SDlaMk1xWFk5Z2lvckNnNEE5OVJZeDZx?=
- =?utf-8?B?ZGNhc1d6c2lZdHFFMEFkQjNWdWlhWXNmZnQyalZmUGNYYVJaeGxFUDJyOG0y?=
- =?utf-8?B?VFNna3RPM2JURjdvQXdUV0Y4dDFMUXRDd1V6b0FiYWlGYWJQYjYrWE9QdU8v?=
- =?utf-8?B?TEE4SFpFWU0vaURvaXJlOTZhQlg3UlhuaXRiVGl1RStNaTJ2M3hCV2FzRU9p?=
- =?utf-8?B?UW4rMDJuMUljSFJ5TU4zNEZBWDlWVnY0TGJKaVA2UkZGR0ZoQlI0K3cxc3B3?=
- =?utf-8?B?M3FzcHJHbE9VZHpxeFBianNXSUIrKy9sY2VUK3BOaTd6a0VxeEpMckwzV0hT?=
- =?utf-8?B?aTdJSVZtS0pyZkFTSEMvYUJtL05lUVhnV2ZBa1gzWWRmT1pLWTBVUklzZlA2?=
- =?utf-8?B?MHA5c3dWMWVncGE1N2RPdzlqQnpNZlJFU1dldXpubWhRWExoNjVVMXRWeVBx?=
- =?utf-8?B?THdRUGFnaWFiNmp2TzhBWlIyemszcXRPaFZKZ2RsYzEzWEt0Z2VtUT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61bca629-b562-4b51-e099-08df291502d2
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 10:30:32.9056
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S0bI/wRgq69tjU3JIUS3vtmDeRUZPnXBIN0emqyRkUiU9zU7G9RqzjGar2WtL6p4U0KU1nkYcELbPQ28hDDz6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7133
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-cci-imp-v2-5-6873326b44a3@oss.qualcomm.com>
+References: <20261013-cci-imp-v2-0-6873326b44a3@oss.qualcomm.com>
+In-Reply-To: <20261013-cci-imp-v2-0-6873326b44a3@oss.qualcomm.com>
+To: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX2oPZ5dBmGugV
+ 3BQTH1BO6Ow7NA+YXQEJDa8yubXIus5rXYWHHHXQAwWZiCb1Z5IrHKLPqf3qOodmauGqqdiGWfH
+ 6p4Lhn2eFcslch9lHQWU5xdrHhKaitBf3+kSHohfplqNMCKwfKl1B/VEPe0kFAUEYV78L0gj/Zm
+ WTDtEZ4if1OfZ4sUVa5k231VJFZXKyd8IK0b+aZFFEY+Uk4UL0GN8UW27XD/x+/pVwTbMIrGyEc
+ 1nU3lAQ33Rtn9nF7StCxjRm9SlGWVIH/O4LQpU6K1ZRWPXTAsj9exes638/3OSZc1anpwyXYvTO
+ yYnoTknnAdJQ6t8bIuLQqRRjJby1imZuaaEwUpqxHKtYFbWYJ8imSUSo9J5xR76Jmpeo2Qh4dWs
+ s9WxOrt9j+DDH+/c8OcWRTReNDvG0aEQ628lSaBzG7sk24WGDFx7Aa/aSkwRfBWdgyl2aFg7JJ9
+ X/wYSs52+Ry387wXE/w==
+X-Authority-Analysis: v=2.4 cv=Z495j3RA c=1 sm=1 tr=0 ts=6ace084e cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=Q-BVT9UuQ3EDAlpGIL8A:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: Nb3Z5bWOAyAYWDiyuRSVFqGilke1UQMn
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX3gtgIHdcvKHP
+ 4id6fAH2iAPp9NsITvWL+mef31FnQazXZTywJrh/OA8WOlP/8bw8hSqf8/5ysQ7FpAt4IqS2eRS
+ MEGZ5+2RnXUz51Rkak3qtPC1cr9pDzk=
+X-Proofpoint-GUID: Nb3Z5bWOAyAYWDiyuRSVFqGilke1UQMn
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130041
 
-The RMMI attribute defines in ufshcd-dwc.h are otherwise listed in
-ascending register-offset order, but CBREFCLKCTRL2 (0x8132) and
-CBCRCTRL (0x811F) were placed at the top out of order. Move them down
-into their sorted position next to the other CBCREG* attributes.
+max_read_len was hardcoded to 12 bytes for all CCI revisions, but
+this does not reflect the actual hardware limits. Depending on the
+CCI version, the maximum read size is either 14 bytes (16 - 2) or
+254 bytes (256 - 2), corresponding to FIFO_SIZE - 2. Two FIFO
+bytes are reserved by the hardware, with the first and last bytes
+used for metadata such as slave ID/address reporting.
 
-Pure cleanup, no functional change.
+Add CCI_I2C_READ_MAX_LEN macro to derive max_read_len from each
+revision's FIFO size instead of hardcoding it and adjust the
+values according the hardware revisions.
 
-Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Improve the FIFO read procedure, read the first word, discard
+its ID-echo byte, then drain the remaining words in a plain loop.
+Switch to readl_relaxed() for the FIFO reads, since the preceding
+wait_for_completion_timeout() already orders them against the
+hardware's completion interrupt.
+
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/ufs/host/ufshcd-dwc.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/i2c/busses/i2c-qcom-cci.c | 37 +++++++++++++++++--------------------
+ 1 file changed, 17 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
-index 53b523ef59df..1abf2b1deac4 100644
---- a/drivers/ufs/host/ufshcd-dwc.h
-+++ b/drivers/ufs/host/ufshcd-dwc.h
-@@ -13,8 +13,6 @@
- #include <ufs/ufshcd.h>
+diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+index 27bbd1e196f9c55c1af14168b83eb6e6d51c75ed..9a8d201c890622d6c1f7b6b7aa2e0d7c075008ac 100644
+--- a/drivers/i2c/busses/i2c-qcom-cci.c
++++ b/drivers/i2c/busses/i2c-qcom-cci.c
+@@ -105,6 +105,9 @@
+ 	(((qsize) - CCI_I2C_BURST_OVERHEAD) / CCI_I2C_WRITE_WC *	\
+ 	 CCI_I2C_WRITE_MAX_LEN)
  
- /* RMMI Attributes */
--#define CBREFCLKCTRL2		0x8132
--#define CBCRCTRL		0x811F
- #define CBC10DIRECTCONF2	0x810E
- #define CBRATESEL		0x8114
- #define CBCREGADDRLSB		0x8116
-@@ -24,6 +22,8 @@
- #define CBCREGRDLSB		0x811A
- #define CBCREGRDMSB		0x811B
- #define CBCREGRDWRSEL		0x811C
-+#define CBCRCTRL		0x811F
-+#define CBREFCLKCTRL2		0x8132
++/* The first and last bytes are reserved - not payload */
++#define CCI_I2C_READ_MAX_LEN(fsize) ((fsize) - 2)
++
+ enum {
+ 	I2C_MODE_STANDARD,
+ 	I2C_MODE_FAST,
+@@ -484,7 +487,6 @@ static int cci_i2c_read(struct cci *cci, u16 master,
+ 	u32 val, words_read, words_exp;
+ 	u8 queue = QUEUE_1;
+ 	int i, index = 0, ret;
+-	bool first = true;
  
- #define CBREFREFCLK_GATE_OVR_EN		BIT(7)
+ 	/*
+ 	 * Call validate queue to make sure queue is empty before starting.
+@@ -512,21 +514,16 @@ static int cci_i2c_read(struct cci *cci, u16 master,
+ 		return -EIO;
+ 	}
  
+-	do {
+-		val = readl(cci->base + CCI_I2C_Mm_READ_DATA(master));
+-
+-		for (i = 0; i < 4 && index < len; i++) {
+-			if (first) {
+-				/* The LS byte of this register represents the
+-				 * first byte read from the slave during a read
+-				 * access.
+-				 */
+-				first = false;
+-				continue;
+-			}
++	/* The first byte of the read is the slave ID echo, not payload */
++	val = readl_relaxed(cci->base + CCI_I2C_Mm_READ_DATA(master));
++	for (i = 1; i < 4 && index < len; i++)
++		buf[index++] = (val >> (i * 8)) & 0xff;
++
++	while (--words_read) {
++		val = readl_relaxed(cci->base + CCI_I2C_Mm_READ_DATA(master));
++		for (i = 0; i < 4 && index < len; i++)
+ 			buf[index++] = (val >> (i * 8)) & 0xff;
+-		}
+-	} while (--words_read);
++	}
+ 
+ 	return 0;
+ }
+@@ -731,7 +728,7 @@ static const struct cci_data cci_hw_catalog[] = {
+ 		.queue_size = { 64, 16 },
+ 		.quirks = {
+ 			.max_write_len = 10,
+-			.max_read_len = 12,
++			.max_read_len = CCI_I2C_READ_MAX_LEN(16),
+ 		},
+ 	},
+ 	{
+@@ -740,7 +737,7 @@ static const struct cci_data cci_hw_catalog[] = {
+ 		.queue_size = { 64, 16 },
+ 		.quirks = {
+ 			.max_write_len = CCI_I2C_BURST_MAX_LEN(64),
+-			.max_read_len = 12,
++			.max_read_len = CCI_I2C_READ_MAX_LEN(16),
+ 		},
+ 	},
+ 	{
+@@ -749,7 +746,7 @@ static const struct cci_data cci_hw_catalog[] = {
+ 		.queue_size = { 128, 32 },
+ 		.quirks = {
+ 			.max_write_len = CCI_I2C_BURST_MAX_LEN(128),
+-			.max_read_len = 12,
++			.max_read_len = CCI_I2C_READ_MAX_LEN(16),
+ 		},
+ 	},
+ 	{
+@@ -758,7 +755,7 @@ static const struct cci_data cci_hw_catalog[] = {
+ 		.queue_size = { 128, 32 },
+ 		.quirks = {
+ 			.max_write_len = CCI_I2C_BURST_MAX_LEN(128),
+-			.max_read_len = 12,
++			.max_read_len = CCI_I2C_READ_MAX_LEN(256),
+ 		},
+ 	},
+ 	{
+@@ -767,7 +764,7 @@ static const struct cci_data cci_hw_catalog[] = {
+ 		.queue_size = { 1024, 32 },
+ 		.quirks = {
+ 			.max_write_len = CCI_I2C_BURST_MAX_LEN(1024),
+-			.max_read_len = 12,
++			.max_read_len = CCI_I2C_READ_MAX_LEN(256),
+ 		},
+ 	},
+ };
+
 -- 
-2.43.0
+2.34.1
 
