@@ -1,157 +1,113 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47F93B7B84;
-	Tue, 13 Oct 2026 07:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE5F378823
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791877605; cv=none; b=cDcJjdrBhNOsZ+cFPpO0RufaQg5Fmq5/QGkGjv47Rc/ihiEgIVM3bAJGUE+H1mOUgf1ffkMpdw6SQ8rhCcMxhMthscO6D2f2CeB4jCSeJbHrEf9RetF0Ogexrru7patjVN6ljONCH9pXJhFuknj7+rW3dgrqWvsTGofzv4ylJvE=
+	t=1791877671; cv=none; b=UK7aCpouAz3NVt3Ttz2H3LGtXyFmU8p24e94EDYr5LOkbhUjO3ByEIe3nYBXZ/O4kaQ2UFZTgd2lAlq0mQIqDajazCvPWKysGmfKwRo3pDnpyZBJgproUsP3j2LrqygqpL/c3PObmAy++JyzcTbE8oYT+Wx1EfUwJ+fXp0x+7Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791877605; c=relaxed/simple;
-	bh=kqh5UWkz+aPn66PWCf11QsrGKC2RTfd46/Fypr8xPVY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eCiWuSQc7+y7b8shAaDhf9tPNxuuVNtEe4SdkSQJ+L63Kr0OX/NqycWOO+lDB2cW7gv0pZY+e2aArrDJ5JwX3bTFB2Bbs0VYrG0gtcmO1qspFzizL9FcKZiql/pDWTML3SdfofWsGEWS1mDsxmQld3RTxEIEcoA+4ptPB2PhGbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=IyoaCRer; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1791877671; c=relaxed/simple;
+	bh=fM/EPSJnhQXQN54E1lhVsHA1GPVlzhP1IEC/erQBVv0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hPCfLeaJOC3dMSdTS/o40KriZZSSRMCFq9859TjQSGwAgq2agLFFYRKUOLEMSZBDNTMWgh5Tpzpz3yBWs/5I5RJvEvYBlBdvpYrqvtxKoW7BvHFm/kpvFD15cA19h/rezt5BbfoI5ifE+4xykIWXMci1JMUOjlW2pXnOwivhBv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UGLSS4n+; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="IyoaCRer"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=5ZEZzELnvolUpIyeLg3RxehH4NULQswA+ln1L1k4RHc=; b=IyoaCRerLeEfiuhfSoY65l6DFt
-	Mq//JqhMgq3kLLt8B7JlDsgQYPhuC77JDFtsliGBjyOp6hq48KEjh2kmyeeBOUp2iotWvdOY5JU+c
-	KDBxIQeOJxviQFAWI8oF3+sU+DH/MyF+jJAbmc9jLWp0gfwEKly3G05GQelJQGvZG5qa4S8amIc7l
-	TMcEK2MYNedqkesnoOAiOnnfhHBWKXKa7nxBil6ZiKO8X9gvUFDkwuQ2iis8x6kpAvktaayoLt0mj
-	bxgalyDd4nOkb7ccIEnska9KY684HRxsbpsXDByNCsemFr158/yC2ij+37Tph66nlmxgGz5Vzo+lr
-	VKMTNsog==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xGXDP-0000000FDQO-1ttG;
-	Tue, 13 Oct 2026 07:46:27 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 939DC30063F; Tue, 13 Oct 2026 09:46:25 +0200 (CEST)
-Date: Tue, 13 Oct 2026 09:46:25 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Sandipan Das <sandipan.das@amd.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>
-Subject: Re: [PATCH] perf/x86/amd/lbr: Limit branch snapshots to valid entries
-Message-ID: <20261013074625.GC2009045@noisy.programming.kicks-ass.net>
-References: <20261007181002.4005262-1-sandipan.das@amd.com>
- <20261012153014.GU4121339@noisy.programming.kicks-ass.net>
- <94d387f2-ff07-4895-a722-e8ded4203309@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UGLSS4n+"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so19505385e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:47:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791877668; x=1792482468; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=98Qa2o/S1XoEMPrlowsac7BQiNC+nqGa1kAsrr8UqXY=;
+        b=UGLSS4n+q9WR0nvpar/icwEKrYiTUwrsoFgLot7JOvU/1RQgF37r2KzS+IkSoWAJxD
+         QKQBtQIXUz235XOjje+wZR39Y4fQOWoWnAk1whew5LLMeYnKOr+rE9ymkPhkddZGIr8u
+         OVbOch2AfzetY9UmBSNU+UhP/1Zy1ID0RNYEFOCBbartvkMZmAhmKF7yg5ns7ZlZXmxX
+         4pJ9Vg66IMCuTbM6VtL2AnpPtbXJ9ruZrGpJSNj9HqrlcCro/hiTxa2nLVwQJj2fDrjN
+         Uh+WZNvpjyD2rIJV0uUGX56VZG4O9AquW4DWnSd17G1bc5WuJVSphnR043dv0qOcr8hf
+         k+Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791877668; x=1792482468;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=98Qa2o/S1XoEMPrlowsac7BQiNC+nqGa1kAsrr8UqXY=;
+        b=rRw6uoSoOpg22ylod7DUC3nzz0JrhHzH7tAKiWxLfEwkN2P6FEt7ptVWQNtjBSwCMC
+         3DSiFhPVgSSj3/lCEPWOpMYI/cnt57sXQ7R+4QAJrOqwbyRHUsA3T8nIljlrotZnMEXW
+         5rAu/NJf/uwJ5MNlkvp9UThB95AtJduyMY+hKYzGnjQ3WpkNYbpa0x/u2UXr+idogHdU
+         iAUJnKtI2QvRxlwTMc6XbIlBz0tWK68PJxZK962Pvk9RWzsmPkvow0bQSv9FEsz0c0KV
+         hEXJATjBhy3w5jWs0YgvoykYP2fr9Np8rrglQC0+zeXTpZQutyCUq012inZceh5s2RKi
+         rZgA==
+X-Forwarded-Encrypted: i=1; AKwUvBwSA0Wc6D0wd/QIXjkGSkEzVYvvAi9Ic97j7TvxrcVC6raDh0c5eVlfg8vHbgJPjmeVfnGYagyQAQqUan0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHKzQzO7vfLmkUkKsodDCUy3eHdcbmA9W/0KwDFagHmyT5ZYdm
+	3zS2p7K1YXIci+TewCAucLt/Vqvl/Cmdng6FLd2W4HNGhsf2Sv2RCOpUG6D8Tl5caoBfAQ==
+X-Gm-Gg: AYBFou1wcAfwZuswWZSfK0gBr7pahurdT0yOAh5lKNwOQBECCiYBaFTvzpNC3sSdBrV
+	03RX5RcEZbHHQbh92m/nSfYSd2faDni9tIredtR91co4wI5aTx6jqnONhYrruUyYn3fBN3CH7Jw
+	TXMDMqP9W7PgCvXDGxOkB2OsLklGndhOyq/evnQz4Q+lwuXjawwislntjnTP6V4K5vYe/03dBCj
+	iqTOsPxXjYthZavGVkRdOCWekPpK4GgVKA31KZUXjduy9O7rHkB/dJCthTvQ6kvZk962E1ASDtk
+	6KPzwj57KdYLNuW3jYBKT0TKuL9E8c7CtMdTkBqwKM02OP4C/62oJiNbWqP9Y1z3SyMeddojZ33
+	vlV2eFSszBifIqGeulKIWJup8YKzUwY16kcHclbDOn8APEi1HQxgLHcsxkc+ZfgHPyz6h4CnQSR
+	T6Ob3V7XEe03kCcf1JsfX+UFGxCwJ6DOI4x0oN5kSsWeEdkdw+ZUMK+aPWgedNykoDpBxnjtfDO
+	CiJEg==
+X-Received: by 2002:a05:600c:1c21:b0:49c:cee0:f383 with SMTP id 5b1f17b1804b1-4a18e4b6241mr274887295e9.16.1791877668407;
+        Tue, 13 Oct 2026 00:47:48 -0700 (PDT)
+Received: from LAPTOP-AVI.lan ([2a06:c701:4778:c500:c7f5:a913:e714:a9c3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm274850085e9.3.2026.10.13.00.47.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 00:47:48 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Pi-Hsun Shih <pihsun@chromium.org>,
+	linux-remoteproc@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] rpmsg: mtk: release channel OF node on device teardown
+Date: Tue, 13 Oct 2026 10:47:44 +0300
+Message-ID: <20261013074744.942560-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <94d387f2-ff07-4895-a722-e8ded4203309@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 12:14:58PM +0530, Sandipan Das wrote:
-> On 12-10-2026 21:00, Peter Zijlstra wrote:
-> > On Wed, Oct 07, 2026 at 11:40:02PM +0530, Sandipan Das wrote:
-> >> The branch snapshot callback used by bpf_get_branch_snapshot() copies
-> >> up to x86_pmu.lbr_nr entries from cpuc->lbr_entries[], even when the
-> >> last LBR read kept fewer branches. The entries past lbr_stack.nr are
-> >> invalid, but they end up reaching BPF programs.
-> >>
-> >> Limit copying to lbr_stack.nr entries and also reset lbr_stack.nr when
-> >> amd_pmu_lbr_read() skips reading the registers, so that a stale count
-> >> is never reused.
-> >>
-> >> Fixes: a4d18112e531 ("perf/x86/amd: Support capturing LBR from software events")
-> >> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> >> Closes: https://lore.kernel.org/all/sashiko-outbox-163130@kernel.org/
-> >> Signed-off-by: Sandipan Das <sandipan.das@amd.com>
-> >> ---
-> >>  arch/x86/events/amd/core.c | 2 +-
-> >>  arch/x86/events/amd/lbr.c  | 4 +++-
-> >>  2 files changed, 4 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
-> >> index 49b6b8fce566..bf631f60757c 100644
-> >> --- a/arch/x86/events/amd/core.c
-> >> +++ b/arch/x86/events/amd/core.c
-> >> @@ -944,7 +944,7 @@ static int amd_pmu_v2_snapshot_branch_stack(struct perf_branch_entry *entries, u
-> >>  	cpuc = this_cpu_ptr(&cpu_hw_events);
-> >>  
-> >>  	amd_pmu_lbr_read();
-> >> -	cnt = min(cnt, x86_pmu.lbr_nr);
-> >> +	cnt = min(cnt, cpuc->lbr_stack.nr);
-> >>  	memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry) * cnt);
-> >>  
-> >>  	amd_pmu_v2_enable_all(0);
-> >> diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
-> >> index 1e1b2f08cb51..a00d3850c4a8 100644
-> >> --- a/arch/x86/events/amd/lbr.c
-> >> +++ b/arch/x86/events/amd/lbr.c
-> >> @@ -165,8 +165,10 @@ void amd_pmu_lbr_read(void)
-> >>  	struct branch_entry entry;
-> >>  	int out = 0, idx, i;
-> >>  
-> >> -	if (!cpuc->lbr_users)
-> >> +	if (!cpuc->lbr_users) {
-> >> +		cpuc->lbr_stack.nr = 0;
-> >>  		return;
-> >> +	}
-> >>  
-> >>  	for (i = 0; i < x86_pmu.lbr_nr; i++) {
-> >>  		entry.from.full	= amd_pmu_lbr_get_from(i);
-> > 
-> > You now seem to deviate from what the Intel code does. Please clarify.
-> 
-> Yes, it is a deviation. I thought of proposing the following but didn't
-> proceed because I was not sure about the if condition in the second hunk
-> which considers things other than cpuc->lbr_users for an early return.
+mtk_rpmsg_match_device_subnode() returns a referenced OF child
+node, which is stored in rpdev->dev.of_node.
 
-Dapeng, can you look into this? I would really like to keep behaviour
-consistent where possible.
+mtk_rpmsg_release_device() later frees the containing allocation
+without dropping that ref.
 
-> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-> index 0a34d674df59..5dfb9e9156e8 100644
-> --- a/arch/x86/events/intel/core.c
-> +++ b/arch/x86/events/intel/core.c
-> @@ -2822,7 +2822,7 @@ __intel_pmu_snapshot_branch_stack(struct perf_branch_entry *entries,
->         struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
-> 
->         intel_pmu_lbr_read();
-> -       cnt = min_t(unsigned int, cnt, x86_pmu.lbr_nr);
-> +       cnt = min_t(unsigned int, cnt, cpuc->lbr_stack.nr);
-> 
->         memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry) * cnt);
->         intel_pmu_enable_all(0);
-> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-> index 0b446d8912e4..6b070490f461 100644
-> --- a/arch/x86/events/intel/lbr.c
-> +++ b/arch/x86/events/intel/lbr.c
-> @@ -1026,8 +1026,10 @@ void intel_pmu_lbr_read(void)
->          * but this simple approach seems to work for now.
->          */
->         if (!cpuc->lbr_users || vlbr_exclude_host() ||
-> -           cpuc->lbr_users == cpuc->lbr_pebs_users)
-> +           cpuc->lbr_users == cpuc->lbr_pebs_users) {
-> +               cpuc->lbr_stack.nr = 0;
->                 return;
-> +       }
-> 
->         x86_pmu.lbr_read(cpuc);
-> 
+Release the OF node when the RPMsg device is destroyed.
+
+Fixes: 7017996951fd ("rpmsg: add rpmsg support for mt8183 SCP.")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ drivers/rpmsg/mtk_rpmsg.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/rpmsg/mtk_rpmsg.c b/drivers/rpmsg/mtk_rpmsg.c
+index 1b670ed54cfa2..430a9b2aa7bb9 100644
+--- a/drivers/rpmsg/mtk_rpmsg.c
++++ b/drivers/rpmsg/mtk_rpmsg.c
+@@ -168,6 +168,7 @@ static void mtk_rpmsg_release_device(struct device *dev)
+ 	struct rpmsg_device *rpdev = to_rpmsg_device(dev);
+ 	struct mtk_rpmsg_device *mdev = to_mtk_rpmsg_device(rpdev);
+ 
++	of_node_put(dev->of_node);
+ 	kfree(mdev);
+ }
+ 
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.43.0
+
