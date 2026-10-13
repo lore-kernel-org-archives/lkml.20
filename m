@@ -1,108 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FBE391E52;
-	Tue, 13 Oct 2026 11:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890314; cv=none; b=Wsj7iYxsAR+wzWFDFEQFT3qyDYnVatpYjkPwXy96k+6zoKmyCvHHXJZbkfS4YPOcq1jwoW1x2mxL65Q2y/hV9H2oF2yqDcjwOeeqSEovAsg8gAT2G1uUYSJ4Dy41RTHcObEL9ocflMLJG+piHW5xZokAZ+8k3kIXkswXgUckdkc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890314; c=relaxed/simple;
-	bh=DcBfeFIONJupW+U8hEsuvCFyKnKuG8HwUQ2olWfu4Fc=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=QyyoJS9Ej2d2YhlZKqKoJZpB8RJPxwLy/0CacB8ic+3MAq3ZettC9aPs2NFUVU3VD7UiDOog6mqUULz0S3UIPJw2EjSykZOMOD1CiuQ2l8WC6T8bGbqHYfww0j5TJ9niDhlxY22xze1f73wJDRBN6KcgCyZTBpUAZeiE3wpw29I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SGU3wXVH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C06B4EBAD6
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791890325; cv=pass; b=WLefjtoI238JAcoX6f4NdceMY/9EJM1URu2AdDjtTHZsa/xIu1tMEHEqcCS6bcet/BwLHcNTyLasX90pbS3V9klA9SlT3BZv+fPgWtM68XlrxwXkHCHAS1/DzxPwie/tOzXjbe2LPzN6VKYgu5bju7EWBrow1S9h0zpyRHqASf8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791890325; c=relaxed/simple;
+	bh=Q63BcNZyGyVpop4uzp221nM7vw8JR/lEp1p43PpSduQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a/YE1t7darlQkDK7XvwK/w7k+97ha2HtgR7Oj0CHwwPIVphb0dPKbkOBgpRbyY4u5hTcG58lSJWFuO97YANYu09cdor3MQjX1+rjM1yW05/sE3EfYqCY7mpKuzfJ+o5huppbuGQOjKSsN1RmJNZ76JKsVRnNXk4SZPexIOOuXuM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HkZpI+el; arc=pass smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SGU3wXVH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DB191F00893;
-	Tue, 13 Oct 2026 11:18:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791890313;
-	bh=DlCzukLsBDjDUNtLYcjRcHJarU0StsmdSStKFi1Po3o=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=SGU3wXVHKgRapOSLuGxUjdGo/peuw0KHZGI/se8spXwaU9pjK6M+L2PXLoKtSyoYd
-	 X2adODwDT/jVmXcRWpRRm35akVgR9CNgsK05FcPSywY41RR/BCtbKlSQl4wgouMJnW
-	 hbmmyjvJdRzCwpcUY1f6Eu5b9efWgx14HlXgxD7zCgE+fS3653V6HzlMbWNK/dCaKU
-	 Lk1zIYkolECk3vIsGe3yf11v2LocdQSAElDXlyFfYfRaamP+EbhCdRN9Xig+eYavJ8
-	 S9w8XEDnBa6GY7OdzmXmKk3MdfRLhbXvr1JXqUk3GIkLLr22Upj9FvSVWwwbQ31eTe
-	 LvOFQeOlBWwOQ==
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HkZpI+el"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5337c7b9937so706251cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:18:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791890323; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OZBXOhZ5MkxFS3e10IZNkb3/CheEgdiuVqK+ZhLDkWFJRJkLbRICO0wt0Xfnc8/jC9
+         E/sWc925nDYIU15OwbQH6TzsGaWc4DTQRH0eJDXcKuWbBK8d8VDr1fE0ljTGbUw8si5R
+         6v+4ad2bvPQtPvHONYIGwogrvvsHFYPXRbDo6A/147we7X5jjKt+qdsfKqCLHAs+K63L
+         MYukzJ+OqgKa+RtC7bmew6j8HfdQMKK0Re3L7eC8N2xN7TF5ENKG6pnDqRudA0E7n95q
+         mTcA0Jl8qCqYaM/z2DI4CZKO+m/DlADdRypNVPvydmTxhbbcDo/UpwTlgIMRXVv3W5HC
+         ioSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=02lGd8mbATmejUO3KQVY/K9npSJMZS97UeoTBHaxfAg=;
+        fh=duse05wpXnhRFPpmxKsHsL+M+EOkoBxAXeuRP4AL91c=;
+        b=XYV0UHQ+GL5LyseRpVaO3lgCdhDPjJ4VFYSbJ0voGH1fRtSwxG27ixHmcFdRvm5imQ
+         8+dNTagZz/6MJu3ZWJ9bRu+NFZJFu9IL2qgmdH54laxOA8LOfgPzrqxSbIsOhhm5tdWo
+         co163KQx5VJT+n5JnoYXzeE6F8qlFcLbdlfCya+59Lyka7JAMuvHb9FGj0aS/u2EVRz8
+         PV8o9RVbBEGMmW3MifcSIPHCSERMAx57bGuxXgNZoPbfipPw3w7b6fEGnKHqjUOEPhsh
+         TzuQeMobQqxtzdZ0YnU/NJdESRRANzJozHg9FuAyppYIEU0EArAjOBhJrLea4iWXO1I1
+         iAIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791890323; x=1792495123; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=02lGd8mbATmejUO3KQVY/K9npSJMZS97UeoTBHaxfAg=;
+        b=HkZpI+elt5tGTiVYG2jz4qK9ByUe1O8zK7ppp0VkxSuHFSxtda6G22rxjgtnpUtofZ
+         3BjfQYYJYXq6lWdLghkm6ekOZdY+sJXsahpLTMeikazO55wvSfT7DnwZ607qaGXOyj/Y
+         uqq1cM3/iyVleESX8sUqH1b3Eqw703vmXQihYLcvPvWuYcDtc3m8WYTY3OhDXkaHvvlN
+         RQ3BQVrU180Ha/QmHx7XnTZQMINZcEbqygbG9yYBNViHfruuxFPqAz6yTMKIpQn4QEL1
+         OQ/M8McYuxkG1S3ugmaNu2N8bu9S0eRr3VDQ9MnN8DgEd8cuwkZ+9Nq7dXPagzP6206P
+         0JzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791890323; x=1792495123;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=02lGd8mbATmejUO3KQVY/K9npSJMZS97UeoTBHaxfAg=;
+        b=yMHq4QiSpmIiKLqepga2SQQURoaLL5A8xv/78jr8lznxc9S8XUn5a4gHuyReVPW/yB
+         XA1re3AJcOaOxEoh2VFrqABU3jnNFagYSfGiG1ytZFDynOElXKEe6w5NTpZ7WGAUCNvw
+         jzYKJRMgeGtmpzaQmZiWo00FpMIlxY2ERqAKSaXsjVgPKXfFOyR/pC3XXk4yaQgTlA8q
+         KkzPAxipbL23XXNpwH5C638h6oGjJPEOSjLx1H58VTlpnyBy9+R7uWQOZnkFPfRhf6NP
+         4mbJdnai05efnZe3KlQuEcAbI2rcDnPIuAKm+wAImwtdvW0N07bR17dDZdRyCKLKQ63B
+         pNHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6uY5KQ3TLLB9u0yVTlgQKrL6BaNfBIWZBjvw0pi5p+ajr8sBaljoSC8zNcI2vTgJVIGfjEINaW4b3r9M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgU0tEtk4oS1g6BKJGDYUZ6pyHtwgK2IANwNhYp/n6qwgfQLpW
+	xDtuHK7JGWea18lno684/gEi2msj/nJA3HOIkTSjgoFCNLZ3TBxQFTfUUuvVk3Nw/cwVKcdVuuh
+	1E97PzaJCcp2M2qgAJ+PKP8DuCVE0kHTr1Vv7aX1W
+X-Gm-Gg: AYBFou1zN9Yss//XlwafirNkN3F3axTsoEkNaZJ+a4YwW1NUC7rCPiUHyZuEoEvf5DZ
+	SK+f1Hi5tOcbAvmj3WsshqmU1btObWqDzT4xNOcVZtp7pZFu84sFXSeNWLwpqTENxe40E+mJ2My
+	WFDfl6/bIqUiGIIeZdTZSs6IQjYEpiiKehutP7neopAehiv7jekUFfG1s6TkCgR+GF5yoBb9O5U
+	WQmdDt0wGdGEpr1Z376eEYS1I3yf8xhU6vO6YBEAWQorfS1dSwry7NgmnL15bDAoLfuZ7sqms+X
+	lEVo3IquC1kT6NDGhju83aigsnpQeovPFH/ASlMTBRb3yfBSJbFXnbyG
+X-Received: by 2002:a05:622a:4cc:b0:52f:8389:29e0 with SMTP id
+ d75a77b69052e-535b2910266mr48102151cf.0.1791890322506; Tue, 13 Oct 2026
+ 04:18:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH RFC 4/4] media: qcom: camss: vfe: Add the IFE 780 pixel
- pipe description
-From: bod@kernel.org
-To: William Bright <william.bright@imd-tec.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261013-sm8550-camss-ife-v1-4-d50de00077b7@imd-tec.com>
-References: <20261013-sm8550-camss-ife-v1-0-d50de00077b7@imd-tec.com>
- <20261013-sm8550-camss-ife-v1-4-d50de00077b7@imd-tec.com>
-Date: Tue, 13 Oct 2026 12:18:29 +0100
-Message-Id: <179189030941.1758911.5674595862976052561.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e5aa4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1596; i=bod@kernel.org;
- h=from:subject:message-id; bh=DcBfeFIONJupW+U8hEsuvCFyKnKuG8HwUQ2olWfu4Fc=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqzhOF4YbnLoV+eBtQiEJRO5vvA+UvTGc5MnSMd
- CZxGYOuO12JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCas4ThQAKCRAicTuzoY3I
- OhyVEAC4eI1dLHxMC/5iLMUjV7e28FwUHQY7eqRLMaXnnhd5XkmE9EweNh1bnjwGTnwHnFSTZ2d
- IryxjEpwNujlzz5GKV1aNZRBuE7JnWl72XxZPc824iEWL0xSjH8VsN6+bAQ6Lq74e106KTqPgR2
- y7gP4j2e1D7tL2VF+IHKVQr3Uo1XyRlIa1K1GM0HF/TTYneWKla66yMySK1NTYucsvQFBG2tyEa
- ee6XlOlQXBSDVqYmdMPwGXNLA+9of4SqLPxL1c6HHembMVibgLea8vNM+7v0/lfL62hGNsffNYo
- 2We9r/2xZ07RiVZFO5XZx0XV5oNmUueAJvPMtBkJvxEF2GzGI7Kcz/V3eyZBdtTMaVvnB0AhlNK
- QN+FlwQKXPivtTc8GftTz6eLLQsz13PYnzMHUphAgymzOgGsKtL7wS/H1ySw1mwcLb3Y7K/VsEI
- 5TG791M4X9cEXuM03CaJ3IrEGeY4QEZikZecYlbdBgIN6zW1gfgHZ9SVmT0QSW3KUjxSfBTGt6w
- Bs6mR+Kkm8duCak1j/UDX61+lT9sdIh0TX6AToBu9HVe09d1+Dm7iG3222ABxEavLCqPopuH5ht
- kZjSfbth1lsvxowhFtofHnwM8mIVpdltZARKO5LEErhBm3NI14ftjeYnfiogbPluhlMHxl0tLCe
- gxFAaVsY6BrAbRg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+References: <20261009063619.112313-1-hao.ge@linux.dev> <20261009063619.112313-2-hao.ge@linux.dev>
+In-Reply-To: <20261009063619.112313-2-hao.ge@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Tue, 13 Oct 2026 15:18:29 +0400
+X-Gm-Features: AclHuK-qvcUVrSOqAHUBuFhMyipfniAtX1mtGlvajg8JTqSPRj6kAwYVpLqLul8
+Message-ID: <CAJuCfpG4Zq6zRyvXkf40XcsiMSvS78Za28zY2xcaAh=kXpuD8Q@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/4] mm/kmsan: undo the shadow mapping when the origin
+ mapping fails
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@gentwo.org>, Uladzislau Rezki <urezki@gmail.com>, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-13 09:44 +0100, William Bright wrote:
-> The IFE 780 WB gain registers only take bits 31:17. A Q10 gain there
-> reaches full scale at 1.0, while the 0x1000 used on the IFE 880 reads
-> back as zero and every frame comes out black.
-> 
-> Its demosaic also leaks red and blue into green whenever green sits on
-> a black level pedestal. With AR1335 colour bars magenta comes out white
-> and red and blue pick up half scale green. Subtracting the black level
-> in demux + BLS fixes it.
-> 
-> Describe both and use the description on SM8550.
-> 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: William Bright <william.bright@imd-tec.com>
+On Fri, Oct 9, 2026 at 10:35=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
+> the origin pages. If the second mapping fails, the first one is left
+> mapped, and the callers do not roll it back. The next vmap of the
+> same metadata range hits the stale PTEs again and BUG()s on the huge
+> mapping path, or gets -EBUSY with a WARN_ON() on the small page one.
+>
+> Undo the shadow mapping on that error path, the same way
+> kmsan_ioremap_page_range() cleans up after a partial failure.
+> __vunmap_range_noflush() only clears the PTEs; nothing has touched
+> the shadow mapping, so no TLB flush is needed.
+>
+> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_page=
+s_range_noflush()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+
+
 > ---
->  drivers/media/platform/qcom/camss/camss-vfe-780.c    | 3 +++
->  drivers/media/platform/qcom/camss/camss-vfe-880-pp.c | 6 ++++++
->  drivers/media/platform/qcom/camss/camss-vfe-880-pp.h | 1 +
->  3 files changed, 10 insertions(+)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-> index 032786c4ed74..63fee6ab64fe 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-> @@ -238,6 +238,9 @@ static inline void vfe_reg_update_clear(struct vfe_device *vfe,
->   */
->  static const struct vfe_pp_desc *vfe_pp_desc(struct vfe_device *vfe)
->  {
-> +	if (vfe->camss->res->version == CAMSS_8550)
-> +		return &vfe_pp_desc_780;
-> +
->  	return &vfe_pp_desc_880;
->  }
-
-Thanks for this RFC its a good feed-in for V1.
-
-I will try to cherry-pick/incorporate this in the V1.
----
-bod
-
+>  mm/kmsan/shadow.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
+> index 0c88d89bf0d6..2166086d3dc3 100644
+> --- a/mm/kmsan/shadow.c
+> +++ b/mm/kmsan/shadow.c
+> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long sta=
+rt, unsigned long end,
+>                                             o_pages, page_shift);
+>         kmsan_leave_runtime();
+>         if (mapped) {
+> +               /* Undo the shadow mapping set up above. */
+> +               kmsan_enter_runtime();
+> +               __vunmap_range_noflush(shadow_start, shadow_end);
+> +               kmsan_leave_runtime();
+>                 err =3D mapped;
+>                 goto ret;
+>         }
+> --
+> 2.25.1
+>
