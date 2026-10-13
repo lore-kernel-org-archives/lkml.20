@@ -1,257 +1,264 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011031.outbound.protection.outlook.com [52.101.57.31])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013038.outbound.protection.outlook.com [40.93.196.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25093395273;
-	Tue, 13 Oct 2026 17:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D8455221CB
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.38
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791913203; cv=fail; b=BykVBFIlgsy2Ehqzxf4yrBEBih0CBRy7I5a/h6rBEzphqjq+ziaYREm7Oh2ZuIkJlV8YeMm9QS73bah6jinhQnPbbrinRcSXXUN8SUGPzEkYKZ6i6L0vRRJ3xkHx/YaP+d1A06ds+LXW+yCy9kROXA7yZBLI91fODtCcRVZysac=
+	t=1791913329; cv=fail; b=j/hMri3ylOe//w0Pcj55NQa636K6XLyJxxXd0ZMLITPVtkcPyyTsSoXz4jFyaHK85m3u0UwDW1gmr+4m4nkR8GVI3Nogd+OjwRvfPnf9ZgW2UAuy6W25JJJjDcl1KqUL9uLDsWR9Emnh5RwugyLAT7UdbmdACnx1Gem4uyjQJ54=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791913203; c=relaxed/simple;
-	bh=rp7Q0HshPqololhaitCJMHHA7u5Z5p96bWRNlvdWBTA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=WUZUdhjhTF4umyemHUFf2+z8PYAEVszSpNqZwIsRk6tN1C/r5kZgxg2cmS4NBZdhMxyhnneoX443udT3IGKW3G1eW24OJSCpL+JVKyRx1h5Vc0PF8j5nMgEIBkD2ZiCNObN0RnJXfPxfZHYFJ98btKCIHazg/oyPe8K3YhzfloU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=l45XppXp; arc=fail smtp.client-ip=52.101.57.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1791913329; c=relaxed/simple;
+	bh=F7dW19F3AZHXvWHAmL1aUUNP4MG39l3EpPcRhgyp4Uk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b49/vkHHugzdHmXtSQM/jUMvj4zKnGoVIcxkFfCJL4LJGA+f43YmFmUuwheIlP+QVtidZMqPgO1JTmeUcLxK5TUKXGErA9sFCFyo8b06MY/OW6CMitCaKj/+NenzgZKdVdroVciv7yTm4bK/fJGZXZEDbufTWJiSrfryn7zMILU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Sbetmktp; arc=fail smtp.client-ip=40.93.196.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="l45XppXp"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Sbetmktp"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pfucchGE5yIFXhc1hR5ULRYoBt+CgHQJXaV3XN+RexjAukv/1oMorx86CXdmk2DqzRM125wa/LpNruFfO4sK2em+NW8kCcGwMaR3gsaEtiO4UQL5D+w/stJKALsrbLWLMG1YXcEdo7/+JXzemaMYFTLhlkHM+vrDavDj1UylS/ErFM677+8czySf3QNt9xtHH7+ZHg/j7OwiVUJCggdXHjQ/5PSqKxjNwm687zgfj7mpSM4x8+SYX7f7QoAkdMR9KI3Tk09e8yrCKSz8oVxlrYF6RkneTwpVEnOIh5I1Oe7j9x7X+Id6CR0YhSAXgfPWDMiGI4Zhr2M1wj0C+uPx3Q==
+ b=dzpIqa9sVbE2s5E2MsMapiaK6U070Fv5z5dnIeCZBWBM6XES4q10rPTcF9RVljt6S0IFX4APwg9gYVbmcpbQDzwtTIMT8rSahggltfA547EIplxOyDu4eGQcppl8CtEw3ZikawUnqIdJCj5wupl41GxKqgBUscePZu7qPjpruyzib8UQsD8r7CJTbm2jac6qO03jWyIJnEjc1jKb3w28eyARF2tFUhLqiGmMZOEaH0IDCJWg++pfwoxEDKAJEnCDd4WxenuGJXh9mLMngx+DEa1pgruG8MoAilYiXL20QRdEboNl6jyTXt/6ef4hea+aqocSLgauxqlAgR6dZZpkiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KxX/OWG5qV+b3qb8VF54mpIKNbp0GWuHJzZ3J7YNev4=;
- b=TzD9uhqEQo3FXf8C5T37xmRGsZePmeqq4ffmQDXIDXnTBU5ofNdFoU7brYCHy4j5S2lsVGOr5TOuR2Y9LaOgCRc4n/luaQhSjrD3PH9P7JPPzfmMH1q3RoT8tZ8yPL+Wjr1n8vJEUKCwwgI5/SstagLqemt57BxLxQyL1xSw2Oc5R3i9Guea2zhGPRx1lQhRfZjPHfh4BevBo1TSyWcGm+oXKrYKMir38VcONQCqMzcpl/l0pck+xsYLN7xcvnEQzXtmMwgoWfiQBGlF9iDtR2x+vK49lHaMWXGO9wK8Yob8HscerU4yTqdkPRBg2/8jmGID/QVdw6E/kxGGf5BEAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=AWLGk4M8RWnLC331E/eJtLrY3wcwilQb82FAA06rV08=;
+ b=p7iGFJNYJdzly4n1gb4V1a4pSaznxQKvK43XbooZexj0rIHI6mAm9S8Wi24HXTTsLizSD9z82AgYXkx3+eucEOc0fGcW2p15XmAnPDRvxCrfZYT0IfHCoZLuamjMsaDNPQNORDLwj0ffJ94J7x+yixBX2XRmRxOY20xbYW97jHhdoTb3VftJ3oWWedevASmdIyt1vEqlGmHtUHAqwj6oVdlBcDodFm2GJBQ/yXnendu/AWOeFCtqsIZenyZZom1olqXGhoGXBPO9QbBQX31jK2kJNfzQG5yWvAX/clpTHQ84f/Sob+cKtSohuvkkOpiKkoCZBE4qVxvlN4BoB2ZVQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KxX/OWG5qV+b3qb8VF54mpIKNbp0GWuHJzZ3J7YNev4=;
- b=l45XppXp8vq8Xyo8ZtmVyYkgHp2sLtNh2kXRSfG4UhGhNKMJMTWnb0vSQTtzZBQqaDh69LrOLmnFM7xhsTk+RlMRGIyR4rQgL9Wx7Ki+f+JsHDiVLBPIFd2TNk/uziBNxCQMaQFPtz7K0vwaTs51EAntuT+goyHQKHJeXBhe6mw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by PH7PR12MB8777.namprd12.prod.outlook.com
- (2603:10b6:510:26b::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 17:39:56 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 17:39:55 +0000
-Message-ID: <4df51e6e-b017-4057-96dc-32d4003f8705@amd.com>
-Date: Tue, 13 Oct 2026 13:39:53 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] amdkfd: fix doorbell allocation race creating
- duplicate allocations
-To: Henry Martin <bsdhenrymartin@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
- <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0212.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ad::10) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+ bh=AWLGk4M8RWnLC331E/eJtLrY3wcwilQb82FAA06rV08=;
+ b=SbetmktpIftuGbxm9a28AaiGFRivSQepos9eGkub9h0VJ0iAbXDGeUq1ZRZW9jMcvf7lACEvi8px1VG4Whc+nx2a0tNyxBX/fB6P+AWRhd6JEpddsjV9UH9SPEqd5lIQ20e3IwxfPYNrdLt1fGnhdWpSXUjUhvVOgz0JdMnvtFbTWhWPAopf1x42GeRHs8XKhrlJDMjSma/mB+aaY+A/b/cC1RD53nbxiNI9ixEh1zm+W2xKadHAZDV3YnG13OMQ5ZHgF8gSIDCdHVIvvR5OAD6A/sHb7jUsZUAstpVmkRIgkTDFeYuMOyMo5w+tk/ckRVJj/pWATLqkMOhc5dpEEg==
+Received: from SJ0PR05CA0105.namprd05.prod.outlook.com (2603:10b6:a03:334::20)
+ by CY8PR12MB8265.namprd12.prod.outlook.com (2603:10b6:930:72::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Tue, 13 Oct
+ 2026 17:42:03 +0000
+Received: from SJ1PEPF000026CA.namprd04.prod.outlook.com
+ (2603:10b6:a03:334:cafe::53) by SJ0PR05CA0105.outlook.office365.com
+ (2603:10b6:a03:334::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 13
+ Oct 2026 17:42:03 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ SJ1PEPF000026CA.mail.protection.outlook.com (10.167.244.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 17:42:03 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 13 Oct
+ 2026 10:41:44 -0700
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 13 Oct
+ 2026 10:41:44 -0700
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Tue, 13 Oct 2026 10:41:42 -0700
+Date: Tue, 13 Oct 2026 10:41:40 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
+	<praan@google.com>, <kevin.tian@intel.com>, <smostafa@google.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <jamien@nvidia.com>, <kas@kernel.org>,
+	Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>
+Subject: Re: [PATCH v11 03/11] iommu/arm-smmu-v3: Swap EVTQ_MSI_INDEX and
+ GERROR_MSI_INDEX
+Message-ID: <as5tVAzw2TAX5bEq@nvidia.com>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+ <630e70ba13639e5bd86fca0b574dd47dddb7fb92.1791226953.git.nicolinc@nvidia.com>
+ <179190297652.2261874.5664965715184131627.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <179190297652.2261874.5664965715184131627.b4-review@b4>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|PH7PR12MB8777:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e3241f5-7878-4228-e9b7-08df2950fe43
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026CA:EE_|CY8PR12MB8265:EE_
+X-MS-Office365-Filtering-Correlation-Id: 549ae4ca-41db-4562-3271-08df29514b01
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|56012099006|11063799006|4143699003|22082099003|18002099003|261009223027099003|10067099003;
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|36860700016|82310400026|10067099003|261009223027099003|4143699003|11063799006|56012099006|22082099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	17iCFOV76jd1Q5T14w2jlvnxwl2v0pz+uJgkDBcEUYIBDvV/7EzDnz97eMUdqqjXRMol7qoXuf5JVCAPjlh1hRYO4qVI0BLhAwZ1QscCUWe/xB9SCpIQGJIWKKmWMvVr+8EZ39nMo56fy0rHSXCJyS7k1l9hoCHNPxKAYMtEZcz6d87ptF4cJ/CtFbX9eF4NahwDv8P7jl4lDPhxH+ZxsOaDB4JeiH4RqohwRjm7d/EdhQvhbLFq+75Y0E7eD9R9Zsnc60efQTLPJUGOnOZh1Q0Ghd5HOUxY7XliOA/kT+XQR6zsKvhh9y2HUtVFt4AJ3IzATljlsTIBViPvwvnmfBpvPZGFgs4K5U7f/+ZVSCVNRq61ghHa1X3/SmRsHUvAk4GiEUCRcuHIrsP+k/7Z+mxxgojYk6hSlUQ7L1jKweCp55XjlDRL9GvgvsS00GSnK1Bf8Bf4SsShDqIHLkxOQ4HUEVg4j/CGx8bwM3T+OwBqqN6oWrZOkrqDF1JswdVHJuync3AmuBTe14vH2+fYNGIbZSwSBUSWhVfqPydYAmlmVaouxQtSJJ9a2aZh8yCSu0+0FZOYGkhEe2vuMvhy5OUJuKS2UpFpknlQWSkjo0G88cxCDlAqM3q9P2tFNh9ftg0GEuUYbIIQxu6R6vVLzKgil4p/MchRAXQjhYO9hfc=
+	ecKrVLO5tLaxMK9JgGLjxHyhnnLQnX5K5K81gTiMJqXoswvULaTErrXpyoIAsF01PmfmySqfZls+JC8INVTwgtRQYHozzEX1qP2aBhnQErHIReQLVDMsnQByRoGIb1ulnyFxj8PVg7vSTYl/fYjYfa/48dZnZ3lkulFMmjNKIRmZhhlCiXM+Bz07oBOo2Z+bFYKJfIkg5JPxEmfB7/COH/XiwpGNlohwzPYfwJYyDzKcPBdtxRhYaC6tjUcwUY2HdYC4hneEy0tsZ2slJgsg+1bUYvB6r7GAzDxCyVNNOvW7SktQiKIKi3gvqu7mWaO+URGGdiw4vDHn2eYauUse8t4prnXUP5P2SU8gDVKwWpA9Sj1vpfw6aVPSXEyfqCeXdPtNUy5vSUVcPqYjBx7txa0KsJqMajfSabBzhnBdNQu8QO2w5wK7jfZXUw6UuxLHJgROwZOUMc9vy34oA1PYGcMlDpSYTQLzDfLL+w6AM+hOQOUepHTgXJY5vZJ4zxh3jy1P1PsTS2d2jzK9CQDi77CyEV+YwCCWJDSWCSWRw4TQG1fjyMx+mprHCxSpCBe1XoUVjKi8wuvtLLR/3+G37ev50PxkagjXCVSTSgVC2NSnEyODFQxWOnQNeqIDcsV2LtNm6WV4VbYO0L0vIc3TsvCxIGOSle0N2D7z9LPME1ed71Tu3NJR4mEWfg+hJlAo6Wm/E2mfpjHkl4b9edIr5w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(10067099003)(261009223027099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aDV5dE5pTnRDWXloTElnb1kycjE2RCttYlp2c1I5VFNVK05FR1loc0MzM0lG?=
- =?utf-8?B?S0J3bzhYZ20wSGpZNXhLMUtCTTQ3VGRaeDRVR0pjSHdiMFZVSDl4TVpJcGRj?=
- =?utf-8?B?ZHFQZ2xrUm9sRjUxS1p5M2pJYXh6SmNsOFRXWWJ6R0hDQnZMWXQ2TnBvYWEw?=
- =?utf-8?B?ZERnMXBkeDRQM0loOFVhZGlxeUo4T1J6THpUdGlnNXBFcXhRRDVYajhYSkZi?=
- =?utf-8?B?V0dna0I5ZEJzdGkvYVRiODVPZTFpVFRGYTN3ZVVPdkc5cEJ0SlJvVTVpYS9S?=
- =?utf-8?B?WjhUK09kS1lGbkZ2eU1wNHFDNkdXNEhZNjMzOVRMZ1Q4a3JucGhhNGZadlF3?=
- =?utf-8?B?bnQ3bVNWcGZEbTB6cW84cHVUQ0N0ZUZoOGowQjdhc2NrbGJhd0czbittQjhB?=
- =?utf-8?B?Y3ZPQk5USUNwZDN6cEUzUlNFM3EwTE9lVFVld1R3bW5zQy9kYS9qcmdEYXVX?=
- =?utf-8?B?a21sc0JYdzZSRCtvNkFXSzRYeDMzMFUraVJmQnpnRzM2MFhyQmpqK3pWZ3Fk?=
- =?utf-8?B?UGdqWG1zYXFNZElIVWZCeW5pMlZpcXNQdjJNQmZwRXNFZTdMczNZSzFFdDlu?=
- =?utf-8?B?S3plajBBWlZibU0rbWxIcTRIS0hnUzQvTkViM3F0M3BGRXNJaGJnQXJUc3k0?=
- =?utf-8?B?Z3NHSTIxRXNjUnZ4RjVlbVJuMC9SZHpqS1E3RkFBcG13WXdKWjNDSUwzWkFm?=
- =?utf-8?B?eEtXOHU4Y2doVTZ1UGN3RzYxTGRLU3VFdHc3Qjl3TEpkcVhaU0hjYnJmNTVT?=
- =?utf-8?B?QktrRGxSN09BWUVlVHYvc2RnY29UbkdDZUZVQytvVy9LanFrOHU3aUVWaTln?=
- =?utf-8?B?bENDQ25lMTRma0tDVWVaV2FYYXZGNzQ4UkFTZlQ1eFVvSjgxSzEvbUN2Z1Vx?=
- =?utf-8?B?ZnVIMU9XSU5ValpGM3FoTTQ2YmJldHY2TGdnZFhjM2ZuVW5oK3Vxd29Hckdt?=
- =?utf-8?B?SlZhYjk0MG5IMU9GRDFKWTlnNWJWQU9qUWoxMVNqS1BvWmhsN2pqc3dCOVdx?=
- =?utf-8?B?eDdlUERMVDVhS2JoaXNsN2c0MGd3dGZXemo2WDNwZys0a3hGa21Rb3I2Ky96?=
- =?utf-8?B?eUNUSytoMUJ1YWthaDFmUFErSWFGSmgzaFVkUzdyckRqOTlXRnkyQUp1a0xD?=
- =?utf-8?B?akJ0cjBrQ3VTTVpxSkdrM0U0Smljc0VraTY4R1R4di9iMGVjbGdJNEkwRjhZ?=
- =?utf-8?B?djgyaFYyZW1JUWtyU2FGU2pSYTRza1dHcUN4KzU4MTRmbWlYVS8zWDRLNWdq?=
- =?utf-8?B?Q3BPVVJYdVZqZjhyTll3TElBcTBlb3lYaU04eHIzQWpRelBWZlptRm12R2J0?=
- =?utf-8?B?ZjNlOCtzZ2ZhYy9USFV6bThUNnFHMFdweDZJaUNHb0RLajQ1ODFwY0l4ekYv?=
- =?utf-8?B?R1MvZnRISHVmNWlFd2VJLzFZclZtMG9vRVJmQ2V6d0hXTmhRVFBpTXcvQVdt?=
- =?utf-8?B?WTVzeTNDMndoVzNyTUZldHpKQnZROWtRSklSVHBIZkJWS3JvOUlSSVNhQTVQ?=
- =?utf-8?B?aktTZXJpaEwrK3dKRTlZNjRCSXQ3MjVzTjZudVQ3TkI0b0p3aENibjZRK2Fu?=
- =?utf-8?B?WUxsbUpQNGVFNHlzZGNRMHlHbWpydGRPLzAwWTNVcUJMQVdsMUdENzhiK2dx?=
- =?utf-8?B?K2RSYzZrMXI5RzdpUmNENUlVempCWDBBTU5JL0FlUWJ5VnNIaTVSd2NaczhS?=
- =?utf-8?B?TzdPY2o0bzNCNHd2N0U0aWhoOE9mYUdHd2RwMjhPLyt5a01IZWxZdVZGVDln?=
- =?utf-8?B?N2twU01LTGJGNW5GdGFzTmVHeXE3cjQ3NUZ5YVNJSXdMZzBiSW0wQ25jdkdw?=
- =?utf-8?B?SXpOOUpXQmdTL1cxdVVtYlpmVkFPcU14YzlmdmJoQzVyV3V5WDlqYlNVT3Rh?=
- =?utf-8?B?ZEpLeU43S1pTalp4UkVNbTJ5NVpyUUZlcGVrdHZXb0ZyaGUzNnhHOEx1Mkhi?=
- =?utf-8?B?bFZDaXdQdmFzbmJLcmhHRCs2cG1INDE5a2xBYUdFZVJiNW95TTJjQ3JFVzg1?=
- =?utf-8?B?L1YwNzkrcXhnVWJ3eGxXRXI5UEs0a1A2QXZ0cUF1dHNxWDFJYUpQUDkxbUZS?=
- =?utf-8?B?cG5qdkxpbjRINVBXcTl0cHNGZ0NJdUFqalRqTzlkc0c1OWt6UGNoRzZZRU1L?=
- =?utf-8?B?U28xSVFIMnJrT3dycUVWMlZaY2VVSS9rQlZqYk80UXZyeGlRZzB2RGtSRGFk?=
- =?utf-8?B?OGxqMWpaRktwdmx5S0hVUWhyNzcwYzFabi85dlVCR3VjbmhyVlhYTVUxbDBF?=
- =?utf-8?B?TjdTNnZPUEhMTXVNQXRsUkJnUkdoY2N0eDdDK3gxZ3VERFp6aEFDbDRCTW1W?=
- =?utf-8?B?YWYrSndZdVdKRHZBUmlhTUFzSWhBZlkyNTAvM1lUdStGUU0rN0pkdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e3241f5-7878-4228-e9b7-08df2950fe43
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:39:55.2420
+	PI5jVFHyIB8t2TJs6ZTSfdEAMEl08QFAmlHAOROp8fePYFrNQMXOg+VjLm3jLuvh0ttoGOCMS/MACzPTPhXmUgr8X43sWocNva2UTC0n52IHhGqohrOpFPSVrnIOafXYHq0QOd4znZ2Rwe2yYMiqQilErJFf5tUTL8T8pkruOgQK5pgc3wvXhcT4uI7OP+VNlGd8jHT7OTfunn6+uhAskMAPwV1wmwIpRNtHbheSiuF12WDGhsltgFNzdD4+2tsBC/YRQdU4dHBGHOhV/LVy6JLFNEC39kjgqOOaA6E9sUSaRRINezi9BEUWZ7EVltzXB4BFKXQe8juoFUBMVr4DEH7UkGytXm4h6EacWq7rFx1O7tRTSlf+6v5J7i/L6JkqPa7C/NNgOEBAj/TxYgso9jI4XZhChmL/kn2OrndJspoZXsYCX0268W/LgW7EG/J1
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:42:03.7037
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7VnyCDokTS/KXQ6DC0PNpmiGhEpJtWVUDd3WidOi9aj0+7omJ0b+y3ApYOXbAQa6NodzPs58kWb0u24vCmZ4hA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8777
+X-MS-Exchange-CrossTenant-Network-Message-Id: 549ae4ca-41db-4562-3271-08df29514b01
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000026CA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8265
 
-On 2026-10-09 23:02, Henry Martin wrote:
-> The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-> lockless at every call site of kfd_alloc_process_doorbells():
-> kfd_get_process_doorbells() (mmap of /dev/kfd),
-> kfd_ioctl_create_queue() and the CRIU restore path each test the
-> pointer under different locking (or none), so two racing threads can
-> both observe NULL and each allocate a doorbell BO and bitmap,
-> orphaning one allocation and handing the two mappings different
-> backing pages.
->
-> Move the serialization into kfd_alloc_process_doorbells() itself,
-> using a new per-process-device mutex so all three call sites are
-> covered regardless of their own locking.  The device-global
-> kfd->doorbell_mutex is not suitable here: it is acquired under
-> dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-> kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-> the sleeping allocations above would create a lock-ordering
-> inversion with dqm->lock via TTM eviction, and it would also
-> serialize doorbell setup of unrelated processes behind a
-> device-wide lock for per-process state.
->
-> This issue was discovered by Tencent CodeBuddy Security.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 2105a15a2046 ("drm/amdgpu: use doorbell mgr for kfd process doorbells")
+On Tue, Oct 13, 2026 at 11:49:36AM -0300, Jason Gunthorpe wrote:
+> I think if you want to compress the nvec's array it should be done
+> directly.
+> 
+> The smmu should have a small array
+>    u8 msi_map[]
+> 
+> Which holds the xx_MSI_INDEX value. Then arm_smmu_write_msi_msg()
+> would indirect to get the config:
+> 
+> 	phys_addr_t *cfg = arm_smmu_msi_cfg[smmu->msi_map[desc->msi_index]];
+> 
+> And we just compress msi_map as we go through the normal flow
+> 
+>    index_msi[EVTQ_MSI_INDEX] = nvec;
+>    smmu->msi_map[nvec++] = EVTQ_MSI_INDEX
+> 
+> Then it isn't fragile at all.
 
-I don't think the Fixes tag is correct, even though that's what Claude 
-suggested. As far as I can see, the code had the same possible race 
-condition before that change. I believe the problem goes back all the 
-way to 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed"). 
-If you don't mind, I'll update that in the commit description before I 
-submit your patch. With that, the patch is
+Thanks. I replaced this patch with:
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH] iommu/arm-smmu-v3: Pack the MSI vectors of the used sources
 
-Thanks,
-   Felix
+arm_smmu_setup_msis() skips the PRIQ vector by decreasing nvec, which only
+works since PRIQ_MSI_INDEX is the last index. A subsequent change will make
+the EVTQ optional for kdump, whose index is 0, so that trick won't work.
 
+Pack the vectors of the used sources instead, and record the source of each
+vector in a new msi_map, for arm_smmu_write_msi_msg() to find the register
+set, regardless of the sources in use.
 
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
->
-> v2: Use a per-process-device mutex instead of kfd->doorbell_mutex
->      (avoids the dqm->lock ordering inversion and the device-wide
->      serialization) and correct the Fixes tag.  Pointed out by Felix
->      Kuehling.
->
->   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  1 +
->   3 files changed, 18 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> index fdcf7f2d1b5b4..55acadc986bee 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
->   	int r;
->   	struct qcm_process_device *qpd = &pdd->qpd;
->   
-> +	mutex_lock(&pdd->doorbell_mutex);
-> +
-> +	/* Another thread may have won the check-and-allocate race */
-> +	if (qpd->proc_doorbells) {
-> +		mutex_unlock(&pdd->doorbell_mutex);
-> +		return 0;
-> +	}
-> +
->   	/* Allocate bitmap for dynamic doorbell allocation */
->   	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
->   					     GFP_KERNEL);
->   	if (!qpd->doorbell_bitmap) {
->   		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
-> -		return -ENOMEM;
-> +		r = -ENOMEM;
-> +		goto unlock;
->   	}
->   
->   	r = init_doorbell_bitmap(&pdd->qpd, kfd);
-> @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
->   		DRM_ERROR("Failed to allocate process doorbells\n");
->   		goto err;
->   	}
-> +
-> +	mutex_unlock(&pdd->doorbell_mutex);
->   	return 0;
->   
->   err:
->   	bitmap_free(qpd->doorbell_bitmap);
->   	qpd->doorbell_bitmap = NULL;
-> +unlock:
-> +	mutex_unlock(&pdd->doorbell_mutex);
->   	return r;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index d8631847f0eb9..96e59133fee02 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -779,6 +779,9 @@ struct kfd_process_device {
->   	/* per-process-per device QCM data structure */
->   	struct qcm_process_device qpd;
->   
-> +	/* Serializes process doorbell allocation for this device */
-> +	struct mutex doorbell_mutex;
-> +
->   	/*Apertures*/
->   	uint64_t lds_base;
->   	uint64_t lds_limit;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 0a7c1900da959..4efe4dae79c13 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1788,6 +1788,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
->   	pdd->dev = dev;
->   	INIT_LIST_HEAD(&pdd->qpd.queues_list);
->   	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-> +	mutex_init(&pdd->doorbell_mutex);
->   	pdd->qpd.dqm = dev->dqm;
->   	pdd->qpd.pqm = &p->pqm;
->   	pdd->qpd.evicted = 0;
+No functional change intended.
+
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+Assisted-by: LLM
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+---
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 42 +++++++++++----------
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  9 +++++
+ 2 files changed, 32 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index aeace4335abfe..2ec117d231569 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -56,13 +56,6 @@ static struct iommu_dirty_ops arm_smmu_dirty_ops;
+  */
+ static DEFINE_STATIC_KEY_FALSE(arm_smmu_erratum_repeat_tlbi_cfgi_key);
+ 
+-enum arm_smmu_msi_index {
+-	EVTQ_MSI_INDEX,
+-	GERROR_MSI_INDEX,
+-	PRIQ_MSI_INDEX,
+-	ARM_SMMU_MAX_MSIS,
+-};
+-
+ #define NUM_ENTRY_QWORDS 8
+ static_assert(sizeof(struct arm_smmu_ste) == NUM_ENTRY_QWORDS * sizeof(u64));
+ static_assert(sizeof(struct arm_smmu_cd) == NUM_ENTRY_QWORDS * sizeof(u64));
+@@ -4933,7 +4926,7 @@ static void arm_smmu_write_msi_msg(struct msi_desc *desc, struct msi_msg *msg)
+ 	phys_addr_t doorbell;
+ 	struct device *dev = msi_desc_to_dev(desc);
+ 	struct arm_smmu_device *smmu = dev_get_drvdata(dev);
+-	phys_addr_t *cfg = arm_smmu_msi_cfg[desc->msi_index];
++	phys_addr_t *cfg = arm_smmu_msi_cfg[smmu->msi_map[desc->msi_index]];
+ 
+ 	doorbell = (((u64)msg->address_hi) << 32) | msg->address_lo;
+ 	doorbell &= MSI_CFG0_ADDR_MASK;
+@@ -4943,19 +4936,29 @@ static void arm_smmu_write_msi_msg(struct msi_desc *desc, struct msi_msg *msg)
+ 	writel_relaxed(ARM_SMMU_MEMATTR_DEVICE_nGnRE, smmu->base + cfg[2]);
+ }
+ 
++static void arm_smmu_setup_msi_vector(struct arm_smmu_device *smmu,
++				      unsigned int *vec, unsigned int *nvec,
++				      enum arm_smmu_msi_index index)
++{
++	writeq_relaxed(0, smmu->base + arm_smmu_msi_cfg[index][0]);
++	vec[index] = *nvec;
++	smmu->msi_map[(*nvec)++] = index;
++}
++
+ static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
+ {
+-	int ret, nvec = ARM_SMMU_MAX_MSIS;
++	unsigned int vec[ARM_SMMU_MAX_MSIS] = {
++		/* An unused source maps to a vector past nvec */
++		[0 ... ARM_SMMU_MAX_MSIS - 1] = ARM_SMMU_MAX_MSIS,
++	};
+ 	struct device *dev = smmu->dev;
++	unsigned int nvec = 0;
++	int ret;
+ 
+-	/* Clear the MSI address regs */
+-	writeq_relaxed(0, smmu->base + ARM_SMMU_GERROR_IRQ_CFG0);
+-	writeq_relaxed(0, smmu->base + ARM_SMMU_EVTQ_IRQ_CFG0);
+-
++	arm_smmu_setup_msi_vector(smmu, vec, &nvec, EVTQ_MSI_INDEX);
++	arm_smmu_setup_msi_vector(smmu, vec, &nvec, GERROR_MSI_INDEX);
+ 	if (smmu->features & ARM_SMMU_FEAT_PRI)
+-		writeq_relaxed(0, smmu->base + ARM_SMMU_PRIQ_IRQ_CFG0);
+-	else
+-		nvec--;
++		arm_smmu_setup_msi_vector(smmu, vec, &nvec, PRIQ_MSI_INDEX);
+ 
+ 	if (!(smmu->features & ARM_SMMU_FEAT_MSI))
+ 		return;
+@@ -4972,9 +4975,10 @@ static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
+ 		return;
+ 	}
+ 
+-	smmu->evtq.q.irq = msi_get_virq(dev, EVTQ_MSI_INDEX);
+-	smmu->gerr_irq = msi_get_virq(dev, GERROR_MSI_INDEX);
+-	smmu->priq.q.irq = msi_get_virq(dev, PRIQ_MSI_INDEX);
++	/* msi_get_virq() returns 0 for an unused source that has no vector */
++	smmu->evtq.q.irq = msi_get_virq(dev, vec[EVTQ_MSI_INDEX]);
++	smmu->gerr_irq = msi_get_virq(dev, vec[GERROR_MSI_INDEX]);
++	smmu->priq.q.irq = msi_get_virq(dev, vec[PRIQ_MSI_INDEX]);
+ 
+ 	/* Add callback to free MSIs on teardown */
+ 	devm_add_action_or_reset(dev, arm_smmu_free_msis, dev);
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+index 8f2c0b1cc4a8d..bce592fff0b12 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+@@ -936,6 +936,13 @@ struct arm_smmu_impl_ops {
+ 			  const struct iommu_user_data *user_data);
+ };
+ 
++enum arm_smmu_msi_index {
++	EVTQ_MSI_INDEX,
++	GERROR_MSI_INDEX,
++	PRIQ_MSI_INDEX,
++	ARM_SMMU_MAX_MSIS,
++};
++
+ /* An SMMUv3 instance */
+ struct arm_smmu_device {
+ 	struct device			*dev;
+@@ -993,6 +1000,8 @@ struct arm_smmu_device {
+ 
+ 	int				gerr_irq;
+ 	int				combined_irq;
++	/* MSI vector index to enum arm_smmu_msi_index */
++	u8				msi_map[ARM_SMMU_MAX_MSIS];
+ 
+ 	unsigned long			oas; /* PA */
+ 	unsigned long			pgsize_bitmap;
