@@ -1,105 +1,118 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3340B3B47E9;
-	Tue, 13 Oct 2026 08:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08F73B2FC0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791880901; cv=none; b=AIyvo62eX99nCez6Si5XS+eNR+kMlZU56WI4M9T3DR4Qf+Zfzs/Hsyrae5J5lo/1eVF/BAMOILm0ZinIPgs/DylnQrGGksrQVigYLQs/qCXQ4ynVZdZAHreJZunIoRofi7ZwPeBfmwM7LvaSAHqFS2mMKuHknpkrL1NV0y10gp8=
+	t=1791880915; cv=none; b=k4gKiPl5lmm+lwicoYJB2/Nk59ntfIuRU8ve9ME8StVuzUBrw1f9yPI6PqxHmCBCS5cxdJWvXL8wnMYMQwH8ktVlDs4PRXJgeO4k0guDSpsieT/iOEx1G/Rd//wLraVofvIMTXFwDYjAW8Dd3tpA0CsjcIPTBC07j2BgLfPQWrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791880901; c=relaxed/simple;
-	bh=9GkcdBGWGjcROfqYz3vlsWuRZQVRN/tOO3UKwwsgXGw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=YDOl+lQ0k/Sfrv9m7rk4Iz18sxb4bLFrqjn3bKZ2dt8YsO/LEtAs9j90uUUEWaU3l9Ha7Y1G8RUz/Px0QOHfhfXDh4u8VRb6JM+L/gKIZm7ead0+eOKuYDGPe7Uy9jrOW3PHL2LiZ8AKKoxw4jTcaqMUC7w0nEv4/y8fLkscNZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=mBWgSNHd; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="mBWgSNHd"
-Received: from [192.168.1.70] (unknown [4.194.122.162])
-	by linux.microsoft.com (Postfix) with ESMTPSA id E6AFE20B7166;
-	Tue, 13 Oct 2026 01:41:33 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E6AFE20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791880896;
-	bh=4F1RGKPtPfpJKOMQ/5NOZDdZGVwhfvIULiHyvea+tWM=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=mBWgSNHdYJIKf5nUC9iXnk0UVrCsl7Kg3F78YIS4svn8UIkNzSwe8oRLSmbyGfpJk
-	 BGE4FkpV7/7VgkVm9XHVDQK4Hv2tMpNHDuavMFHqKqvM0cdbbG5nPtw2dZ5WvrBF/S
-	 7L1ar4UruSxcpxyLr8jWjY+4HW0s0ybyB0Krs/rA=
-Message-ID: <14013a11-b9e4-4cf9-b4ff-3253d179c991@linux.microsoft.com>
-Date: Tue, 13 Oct 2026 14:11:33 +0530
+	s=arc-20240116; t=1791880915; c=relaxed/simple;
+	bh=iiLFboFitnzBHsaT+sxc8vk+RQSNGJRxx7TyVNfIINU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KhZHyQrvtuUGOXi7ub3RYgqUMZmltNzwMJgpkqRIcb5cndu3w7gDrmnHCMYRLaBLrl56wiaeu6uKeJ81e2x+UtaKz860uDvzcR3ivGhyS40kZ6Cs5+6gGD/cWBfVjTJ49uZf5307v23Dy0+e7IOxm1ZyPeaiReXSg9XF1i2QaFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-78fb9d46f0aso1434276137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:41:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791880913; x=1792485713;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7d2pO7Vy0vJkBeOnC8nnzEd3ICQOoYmzmIOgS10xlyA=;
+        b=GrnPy9SY9m5InfM3lDHQzcwVsUovbyvRlzXiFkCHFDiqsgV2Xtp1c50AO4nROI4y//
+         esTlhJ3XtaX+sVvoiOOsEDhBF9RuwNYqk7W9hTjaCz0FNFYemDQaXw8dG1hdU0Q9Jlac
+         TmZ56kVaSOHSFokfnifxBF+nNGVKNUUkRiYEaTBwth54KA0gu/NDGgo+uJg4UbW91D79
+         LIKICTmQOP+xNXEJkmousPyYd+T8WXXCxLJxJPnJ0U2qTfj+K/BMQ5FRXf2bzmFtQcm/
+         l+rugnQO20v/NnwGbXVhH2azrB3l9SJIkZ90YzM/jWpulpR5KSQJa99h79jFdlP3doqP
+         rxLQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEoEL2uzs77fsHa2/5O54ervSl+HaDb/TZXvxgN0iTjeI1nPmF4lSpVKKNuPTxZxQaX36K+5Fj/WOBB28=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWlC6zBYCRqc7E10ZgJIN7gAxIXGGZdNpp1datygi4obtmXMQ0
+	5kcP1XuhTOFBMdwBMvY2ALXCtZhLo4Zk/2sUzR/VZbeFtTIKb+f86MH6JXju1Grx
+X-Gm-Gg: AYBFou1zgR6C1OjNBF4VL+ax8kgvi6MoswhEicCiZ9ecYIS7W+OkbLFEpij44v6lFDV
+	j2c9sltMJk/YUkyWAXzJd1aLzJoQHvzuC1y9QaVyw5MzNtzOWY2oTbjZeDTtayh7LpwKBALMSoM
+	k58AqBKIpfPv0HdMR5Ny3yoBnz6BVutaq3KkfjskxSRbxQdfXImwieDUfdEgflvntXaoZcR80V1
+	LKt0YvTfNNzeXDFsJrjqRud82cLHZ1ELYfRu7e33Qg+PW8gsMK2et3m8IzX5Qbl9XGxWNfOizci
+	NaR1kcoTkxUdI7DAgcrTvu3ZWIGriVJZYdV2D99yTY4cwsa6Zb37FMXebCi+LCfQF11/+/u+Xcy
+	MMasaIt1hQukie4lw7s9DAXoYJ/J5p0CcCkjtWmLfpOZ1yfX1uCY4EMbNhyNpFXRahBT2KzII05
+	jHhHFpQIcB5iiebSPeukPBczs3EfuintSHO4S0TDhAOekQmBajAo1WGYrOj6x+zy71vh56iw2OE
+	g+nxxfhHT8iQlo1hT39/TDlcthROqY11VaP
+X-Received: by 2002:a05:6102:f8c:b0:7c3:68c9:d20a with SMTP id ada2fe7eead31-7cb3a005996mr3569327137.8.1791880912705;
+        Tue, 13 Oct 2026 01:41:52 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb354681e4sm8474884137.10.2026.10.13.01.41.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 01:41:51 -0700 (PDT)
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7ca917f9f52so1578628137.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:41:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxFqppf86ibSB/tIokZ7SxT/pTYxg1pQSe9vBuEjcWjsKwlANbWZBUsmCOuo485V2rHaLe28kttUUN6e84=@vger.kernel.org
+X-Received: by 2002:a05:6102:f8c:b0:7c3:68c9:d20a with SMTP id
+ ada2fe7eead31-7cb3a005996mr3569324137.8.1791880911423; Tue, 13 Oct 2026
+ 01:41:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] Documentation: hyperv: Update documentation for
- sending VMBus packets
-To: mhklinux@outlook.com, haiyangz@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, linux-kernel@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20261013014354.18023-1-mhklinux@outlook.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20261013014354.18023-1-mhklinux@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261008150045.28905-1-jszhang@kernel.org> <20261008150045.28905-2-jszhang@kernel.org>
+In-Reply-To: <20261008150045.28905-2-jszhang@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 13 Oct 2026 10:41:40 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVTwPuTXTg_e7OCM289ALmHQsS1Uz+0z5y=CgsPGZt8Yg@mail.gmail.com>
+X-Gm-Features: AclHuK9fEs20wSyQEl5Tf_pA55385vtFfDZFH1OesZnNWKkOdRpWR450rrFg9KU
+Message-ID: <CAMuHMdVTwPuTXTg_e7OCM289ALmHQsS1Uz+0z5y=CgsPGZt8Yg@mail.gmail.com>
+Subject: Re: [PATCH v5 1/5] riscv: remove RISCV_ALTERNATIVE Kconfig option
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Jisheng.
 
+On Thu, 8 Oct 2026 at 17:22, Jisheng Zhang <jszhang@kernel.org> wrote:
+> riscv always selects RISCV_ALTERNATIVE now, so we can remove this
+> Kconfig option and enable RISCV_ALTERNATIVE code unconditionally.
+>
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 
-On 10/13/2026 7:13 AM, Michael Kelley wrote:
-> The functions for sending VMBus packets have changed.
-> vmbus_sendpacket_mpb_desc() can target multiple ranges, and
-> vmbus_sendpacket_pagebuffer() has been removed. vmbus_sendpacket_getid()
-> has been added. Update the documentation accordingly.
-> 
-> Fixes: 45a442fe369e ("Drivers: hv: vmbus: Remove vmbus_sendpacket_pagebuffer()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+Thanks for your patch, which is now commit b924210f542e13c7 ("riscv:
+remove RISCV_ALTERNATIVE Kconfig option") in riscv/for-next.
+
 > ---
-> Changes in v3:
-> * Fixed typo in the documentation text [Sashiko]
-> 
-> Changes in v2:
-> * Add vmbus_sendpacket_getid() to the documentation. [Naman Jain]
-> 
->   Documentation/virt/hyperv/vmbus.rst | 17 +++++++++--------
->   1 file changed, 9 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/virt/hyperv/vmbus.rst b/Documentation/virt/hyperv/vmbus.rst
-> index 654bb4849972..c546e821ce6b 100644
-> --- a/Documentation/virt/hyperv/vmbus.rst
-> +++ b/Documentation/virt/hyperv/vmbus.rst
-> @@ -141,14 +141,15 @@ Three functions exist to send VMBus channel messages:
->   
->   1. vmbus_sendpacket():  Control-only messages and messages with
->      embedded data -- no GPAs
-> -2. vmbus_sendpacket_pagebuffer(): Message with list of GPAs
-> -   identifying data to transfer.  An offset and length is
-> -   associated with each GPA so that multiple discontinuous areas
-> -   of guest memory can be targeted.
-> -3. vmbus_sendpacket_mpb_desc(): Message with list of GPAs
-> -   identifying data to transfer.  A single offset and length is
-> -   associated with a list of GPAs.  The GPAs must describe a
-> -   single logical area of guest memory to be targeted.
-> +2. vmbus_sendpacket_getid(): Similar to vmbus_sendpacket() but returns
-> +   a transaction ID that is matched against a reply from the Hyper-V
-> +   host. Useful when the struct completion (or other rendezvous data)
-> +   must reside on the caller's stack. By invalidating the transaction
-> +   ID before exiting the function due to a timeout or other error, a
-> +   late arriving interrupt is assured to not trash the stack.
-> +3. vmbus_sendpacket_mpb_desc(): Message with one or more data ranges
-> +   to target. Each range consists of a single offset and length plus
-> +   a list of GPAs that describe a logical area of guest memory.
->   
->   Historically, Linux guests have trusted Hyper-V to send well-formed
->   and valid messages, and Linux drivers for synthetic devices did not
+>  arch/riscv/Kconfig                          | 23 --------------------
+>  arch/riscv/Kconfig.errata                   |  5 +----
+>  arch/riscv/include/asm/alternative-macros.h | 24 ---------------------
+>  arch/riscv/include/asm/alternative.h        | 10 ---------
+>  arch/riscv/include/asm/cpufeature-macros.h  | 10 ++-------
+>  arch/riscv/include/asm/cpufeature.h         |  6 ++----
+>  arch/riscv/include/asm/vendor_extensions.h  | 18 ++++++----------
+>  arch/riscv/kernel/Makefile                  |  2 +-
+>  arch/riscv/kernel/cpufeature.c              |  2 --
+>  9 files changed, 12 insertions(+), 88 deletions(-)
 
-We can retain the review tags for minor edits.
+Unfortunately you forgot to remove all references outside arch/riscv/,
+now making it impossible to enable support for RZ/Five.
 
-Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
+I have submitted a fix "[PATCH] perf/renesas: Remove remaining
+RISCV_ALTERNATIVE references"
+https://lore.kernel.org/fe117dd44728fe7c96f3e4b3ec88c6ca83c5da9b.1791880574.git.geert+renesas@glider.be
 
-Regards,
-Naman
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
