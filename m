@@ -1,68 +1,69 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE34F47F2D6
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C76480DD4
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791862956; cv=none; b=uLygx682AklqOm/BiUktXQwDV8m9RsFCDmP7Phvx1UmjnUSN92fCriyhgzhHpo/Aabbs/ep6XGS4RV3L2bNKQ7FkVXp0muOzPevjYllAF62cQPZn14C3ViBt6TjXO9ANkLuGMRzLRFWeSQ8baqL9Gaj6aBNEL4Q2YuqgTv9f0wA=
+	t=1791862959; cv=none; b=qdv4lxqgyKr7HYu9radI3KRRnXmsZD3zHJdOmvP3N+Lg2skT72OnYckgzuhtB36Jvcvr9Os0Jy/+PX5etNcU2rnjz+sob+dVxJGGt2mdr/bKlzQYP/NS7KbI6ng+1W8XExkflfn9PGyarGCi0+W1rr5qC/NwLbixnPQAb8xU1bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791862956; c=relaxed/simple;
-	bh=5l5rOMnqmUZDSkzkbMpjGa6wwNxhDpOe/T3B2RXhwgg=;
+	s=arc-20240116; t=1791862959; c=relaxed/simple;
+	bh=9lnw1Fa7+1ai8yMi6EJQc7Ex1qH5GtxsH56m2SS0SDM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ELzR4ldNUJl84wggRD8yE/LdRCAcygjKM/xklTJOI/9BxXKsb6C2Eql8LyC3Lh9xSoOyUTEGtwFNnLdoRpUI8cQKV9GvIQgwd9k+pB8Vq+NDW+4xkAcIfOhNDYv0//Qznt8u/2jGn/agO/77gVB7Hzj2n8g0x9mlYFcUI+ix43I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bN8cZ3XX; arc=none smtp.client-ip=74.125.82.182
+	 In-Reply-To:To:Cc; b=PPfZW3bLO50R45siq9iDb1+sJz1z32bl9ey59Pj8mk/WwPI8ZMbLDdg9IqYoec/KS8rnCeWy0z4TAuze+Wew925bWoj5y9X2ZNWTUzM6K6ePV52tj3w+OOv0Wxgz0uAI+TZ9IIlbPFRanDt0NHF7Kbmfa/zb54XDBhh++f8gy5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sEOJX5bP; arc=none smtp.client-ip=74.125.82.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bN8cZ3XX"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so3916014eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:42:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sEOJX5bP"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35834f72d94so4458950eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:42:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791862954; x=1792467754; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791862956; x=1792467756; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aCIUa8Lo33J/2KwMBZsXqmYyUZJ5D4WgEyODRjSabeQ=;
-        b=bN8cZ3XXUjO+Xw9MdiwVS/x5yAB69JEB0TBQZsIGDrtSdrtm31DcqanyfySbykwo2K
-         ika/pCp3f/tHexISEQSf2Z1vR0lKpGakOmJJ4SAKmYqLvnahkDmWdvUTijHUiemb0RS6
-         +dilucNpiFBVWT1sDgj/ltUCQ5Htq6FJGNOkBtS/c/vRcny/Fx19p3nPr7pBOaLxosTI
-         gitEA1bAEdb/Dav6hlliSUzsAhmGQyOyr3neIPJcLnatoKHLrkfAFKKC3RDLVeql+I0A
-         EqI/ezsAuOJ0d0tfLmHhB6Tis9SoJJRl/45x5rf+BHrSvLponjhygrm3dwjp8BCfDGZ2
-         +VCA==
+        bh=HPW6ypWLxPBPK/wnHCdzFVOHN9Lae0KKKozgNa5aJtQ=;
+        b=sEOJX5bPJ9wDOYSoik+8biy/9ObTKHxxJJQq9BkWc+xvM2/zNZ454I3ak2+xEWj+0X
+         LtK8dIO2iOuBgtdEAAks+rB+wAn1GkpedyTyDjcm4KguhUAL0dSPfNrIIrLH7mG1QZU/
+         ux9xrkPs0RVsh3ASzK7/l4TlMEH35d1VFMwJOO4/rJFg77k5flyAhQsBVoAdLOdtRzIY
+         MMfUou6bhKLl2ASG6G0pwcAe2met/6tMJKw3j4R0wglQmszeRxhJSt+vwugbL/e3bRHG
+         1B8sDHnLf1F+LRO2vS55P9h8wa9Doui5dm4q469HjmyxLdgXVhwbw9NMcQGF/AO9bDDQ
+         wU+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791862954; x=1792467754;
+        d=1e100.net; s=20260707; t=1791862956; x=1792467756;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aCIUa8Lo33J/2KwMBZsXqmYyUZJ5D4WgEyODRjSabeQ=;
-        b=fA3ex3uZXVyjveKghc/8z0B6ZQsN4/YmKinoKA5+BqeIlyqkDVU0av9Bb4LpZEebS8
-         27fx4N3hZ6gtbCro9eO1aaZE5mViSnlnaWdon6vzjIfg6RA8z4oZYx5YOkFYnHhdzTwU
-         9AZUBznAqNyY1iq/sb/RgKQLdZ2dG+jMT88dwBUoTwQ3NmLSPMNRrJforFKhZorFGynw
-         FLVfCviYtVdywxKX55Zzbg/NcXjfnsnxWEdIHUJvbWvUIyVruCSOrNTjE9XXRcwMOp00
-         jUyW44tecjrz5ute1iTZzzcaDtNzt6fRrEbE3Jha+ZNlOthOkhchDOU8yJj3ykvPHFQw
-         H0FA==
-X-Forwarded-Encrypted: i=1; AKwUvBxaTPYQx+swKpOsXr+hkXLu2fNT3AYKqpJIO8Pckm2hL19qEEAtntrdc6TqFT34VYbNfcdLiOEOYX67mt0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKovWqaI2n8QtFtCDbeZmoQCr74fhyvkpW84NQxEcSQLlYVvBhK
-	PSM0qVd1DmddxGH2ktB9fscdmEuywv7jFvyp36zYczj83jmh1W/0aA+N
-X-Gm-Gg: AYBFou2NBYHKY+uaY7pvtXs9nepfStyuyLD4yrbo2pLv6cQD8YOkzqrXYqNOrtM8DMH
-	JZciR38ZuAILdXtco8X+K2llqEUWh3wnf+OIrql7GBRazQdTV6lbJEiS7bnG3eKkGVBXP0sDA/v
-	i1w8XeX7dhbAWiNpIQfuMcRPkcxSsj3WlxOOWgp4bP4QYZ/dLNM3GO0Em5Y265OuaaWtJco4Ben
-	7JuB39O4t0LwIOAuCHE1+Qyoo4ZJPakEpCeR+uQwKRQN9mfKdhpnzWfX3NXZZVbnykdt6Y3/Zih
-	a66jcdSvaCrmM8wGDgqoyn9zEVwEegYEJ/0XOoW9wrVtxfUEUi0GVfF9qUMwFdW1YQP8s6WeP1J
-	d6MC2swMWawzPHsIZieOFZwYSqtqMlNQQcN65aQhz91VfWNOMd7VFXPB9M4HO3v9tWTIduS4VGV
-	DEyl87v3nrNdzMl44QH/1mpKx9cLK9r1OVUrqJ+LOJPi3GFVm/ps3HMhx/BBMniu7EEqhw1DjE0
-	w7RrskOw7y0iuDpbzeTctjzKZLAD8YlMsHuwB/u5K6blBrRWQwZopVOOjIIhH0=
-X-Received: by 2002:a05:7300:6d23:b0:35c:6ffd:e91b with SMTP id 5a478bee46e88-35c6ffdf3b6mr1436443eec.40.1791862953821;
-        Mon, 12 Oct 2026 20:42:33 -0700 (PDT)
+        bh=HPW6ypWLxPBPK/wnHCdzFVOHN9Lae0KKKozgNa5aJtQ=;
+        b=OW8Ykcy2tCjiXTMwZH4XP50Vbwkpi54PlSu7+ZAXvEl68hiBCpAP7tyDIlrnugngSG
+         bBR63RkxdCwkybDSmf6HYhsiwIBhl8V8evo9WW+9pWSoFhuMpKn7a4a7hnjv1N189nck
+         cYem2MaPYMNN8MsCRRrVaE4hPNsJIOhplJ+UjQeacE27m3/M9l4a/bWMIRdcJeGDcr2F
+         TASQwzokS0jOSAn8rr8DCBLB40UrIrD0SrntZKUYawt1UkWMk0Y9uZelnyapJtUVow1+
+         FUeU/wIwRoN1yjb4eI6/3F8FhXsp2kPjdOeOuNrmL6QNDItGlQsjB5j8C13W0Tui/L4A
+         Jkiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwz7lzTaEvL+cfvcwiZ/GUbHycxo80rpIYpm8lsiCs1LhNrBda8bBR/K3U47wTQS+FrPYlEKxawtGn3S/E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdAriTkEVNZW37LeYdxJUo45pgzen6PT9Xb11ewTKDFUuBeJbv
+	mGk9AlH2iawxbO0eSqLPPvlhSiAhfUAfxn2kBNylD23hCUrwQ1PwvgCz
+X-Gm-Gg: AYBFou213e0GK5lyTlahJh6oM0vEytvo85wENxx2pghBEueunCT2XpE1wOIvt+Gg4XU
+	uJfb/pb5h+8oHFsPfMGFkDD45+8tHUCuqZTKNGi29S3U5X3IBViJUBNT5FdkZKrySnLTUFMU55H
+	sCI+T7qFQuG3Ce/KJWf2m8sU+mtYvCQY9LW6v+2SvMgFWxffRCsk721AdUWRDxaN7oFL1zc2cY+
+	MbUMSezRnoBO3wxNqlRdF6VzOG8bL3xd3RrPMUpd4jKvQ1mmyru2mfEJ1PnWCTjc3akrumvGW+Q
+	1fn0nD/6TKT/OnM4/tqcgwI8zH394fdruzLMfX+hZPhx8GJXYG/DV26HKf4P3RcKDcQ4iFLXVqv
+	+9yjOn4h5FwZrRNukHWLlJ0QL0H8H+/0TOWkmywey4a/lz+W+cHqNy8C6NRPgb2xmpanQdevkrc
+	4ao7us8n9dN8lpdXL+UV97XugyRHS7rgSB4CDBoWoLQhaMFRbe8Bdg5ieAHPqROR/2mSwnkIFYt
+	7kFwx89PQo4ySeHdQy4OzQlH0zEqjw+zX6HRVwOWVHbEOWysg91rQL1ui1sMdA=
+X-Received: by 2002:a05:7300:f582:b0:34c:5831:8a19 with SMTP id 5a478bee46e88-3537e0493a0mr15617210eec.40.1791862955569;
+        Mon, 12 Oct 2026 20:42:35 -0700 (PDT)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:679a:f35b:7c29:e0f2])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb68e56sm35268677eec.29.2026.10.12.20.42.32
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb68e56sm35268677eec.29.2026.10.12.20.42.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 20:42:33 -0700 (PDT)
+        Mon, 12 Oct 2026 20:42:34 -0700 (PDT)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Mon, 12 Oct 2026 20:42:22 -0700
-Subject: [PATCH 6/9] HID: goodix-spi: Drop redundant report ID validation
+Date: Mon, 12 Oct 2026 20:42:23 -0700
+Subject: [PATCH 7/9] HID: intel-thc-hid: Drop redundant report ID
+ validation in quicki2c
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-hid-core-report-validation-v1-6-e0dd5cb60b2e@gmail.com>
+Message-Id: <20261012-hid-core-report-validation-v1-7-e0dd5cb60b2e@gmail.com>
 References: <20261012-hid-core-report-validation-v1-0-e0dd5cb60b2e@gmail.com>
 In-Reply-To: <20261012-hid-core-report-validation-v1-0-e0dd5cb60b2e@gmail.com>
 To: Marcel Holtmann <marcel@holtmann.org>, 
@@ -87,29 +88,31 @@ X-Mailer: b4 0.17-dev-e56a4
 
 Now that the core HID request handling validates returned report IDs
 for report retrieval requests centrally, the report ID check in the
-Goodix SPI transport driver is redundant. Drop it.
+Intel QuickI2C driver is redundant. Drop it while retaining packet
+length validation.
 
 Assisted-by: LLM
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hid/hid-goodix-spi.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/hid/intel-thc-hid/intel-quicki2c/quicki2c-protocol.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hid/hid-goodix-spi.c b/drivers/hid/hid-goodix-spi.c
-index 03d549efbdce..81603581ae40 100644
---- a/drivers/hid/hid-goodix-spi.c
-+++ b/drivers/hid/hid-goodix-spi.c
-@@ -461,11 +461,6 @@ static int goodix_hid_get_raw_report(struct hid_device *hid,
- 		return error;
+diff --git a/drivers/hid/intel-thc-hid/intel-quicki2c/quicki2c-protocol.c b/drivers/hid/intel-thc-hid/intel-quicki2c/quicki2c-protocol.c
+index 41271301215a..7a362a2ebe2b 100644
+--- a/drivers/hid/intel-thc-hid/intel-quicki2c/quicki2c-protocol.c
++++ b/drivers/hid/intel-thc-hid/intel-quicki2c/quicki2c-protocol.c
+@@ -160,9 +160,9 @@ int quicki2c_get_report(struct quicki2c_device *qcdev, u8 report_type,
+ 		return ret;
  	}
  
--	if (buf[0] != reportnum) {
--		dev_err(ts->dev, "incorrect report (%d vs %d expected)",
--			buf[0], reportnum);
--		return -EINVAL;
--	}
- 	return len;
- }
+-	if (HIDI2C_DATA_LEN(le16_to_cpu(rpt->len)) != buf_len || rpt->data[0] != reportnum) {
+-		dev_err_once(qcdev->dev, "Invalid packet, len (%d vs %zu) report id (%d vs %d)\n",
+-			     le16_to_cpu(rpt->len), buf_len, rpt->data[0], reportnum);
++	if (HIDI2C_DATA_LEN(le16_to_cpu(rpt->len)) != buf_len) {
++		dev_err_once(qcdev->dev, "Invalid packet length (%d vs %zu)\n",
++			     le16_to_cpu(rpt->len), buf_len);
+ 		return -EINVAL;
+ 	}
  
 
 -- 
