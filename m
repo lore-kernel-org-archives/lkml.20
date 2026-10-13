@@ -1,382 +1,300 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010052.outbound.protection.outlook.com [40.93.198.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB0352ED59;
-	Tue, 13 Oct 2026 17:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791913900; cv=none; b=luOPCXEH0q8lsFQHzADm3rEhuZjYyK2JkvyqFt0Z1r1ZHnHMnJSmKndV86Xmo+bLf/RCblOLYb+Rf4DC70OvEeE8RKUUcZesy9xGe3DWI3oicJ4jgKB8JeR9aPhC+ZbsiArCMC4TtF3/sc7Yik8tADQY2Tqo+QayhTtUsFUivdY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791913900; c=relaxed/simple;
-	bh=ZpNkTDP80NKCCuBbPSlyEBqseZeyscZC/4AmKYtENJU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DA6fFtJyfLrOEDFPG9K4kG6xD1WsAj3EIVTcxYb9WvdbZabI217wUgryZc7nKI8zhltRKWA578ZxXwCrq51C7axENxTO5IdfigDwNxMOYKcCGSDvrLIYjLYfqP5W/UrNJvk9yBXomspM+83cgbRJ6rIG2MDxAR7P4Nwvhsg2kOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDyoi3Ri; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228D6470421
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791913919; cv=fail; b=DDQlazX1P0v7Jx/zRh/zeMP2YqFOId/e7gOl7acsafhz8QyVykHorC3njeQ4uNe2OltgsP4MWTaAnEn8ZhDF2yCkSMtZ4saInLHM1aobB70E6nIJPK+6tSpGZXm37Vx0YeqD4R+2uFpHBnFsZevsNo/sNQxQYeYEVtCgVJJIXBM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791913919; c=relaxed/simple;
+	bh=6/qNzchy1o8RHgcUPpQBANm7ay2MJ77EAZ8GzCoVUrw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l1Gp4dLauzFaq4XkVducd8dY5eykubgQ7aAxp8j/UaFRE9k5TCe0UrCHEmhx8bbSS8UBgRRF3P8CTMuZY8v54UmaCGt5yMudPWvmNKaeXWAWg+cEiaxSCpbKJfPCbqp+mbSJF5Ft0NbWi8T+ciROIi/ApynRInteoxoWmiur2qQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4laUUDn6; arc=fail smtp.client-ip=40.93.198.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDyoi3Ri"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42DA11F000FF;
-	Tue, 13 Oct 2026 17:51:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791913898;
-	bh=jixoPoWJJbfu0OgrEvqwyxxKyjFAvWY7SUzWXMz0IqI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HDyoi3RiXmovlLljJ4+/OAgfS2Kmk/tcl8eGevOu2+D0Zx/p/zGLdDdIr8nio5qkN
-	 FaTZKAJ/KDbt9qWAoLAkeigQ1eGkrJz7NH8g54kXoXDEHL1rfALXVXabWwF8iPIoHe
-	 ddFBO3stB9JowdaT0+DfJ0yCCkPKK0rHcWqBSzP1WKyKiJ1EP4JbV+qZK8FBtnpROS
-	 7V4QK695sFmosxdUvV38tTBP7cza+euwGsrga3kASCzVVVYyypQyV0Z9lBZmESPVUX
-	 KdAoUrmjd+452PFSJ4MA+6L1oVi7Cde3g3kPVNOMlFiV3WV4SFLfGYpYLAWbPoPx94
-	 edOOks5dP/8yw==
-Date: Tue, 13 Oct 2026 18:51:34 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Thompson <daniel@riscstar.com>
-Subject: Re: [PATCH 1/2] dt-bindings: reset: introduce
- toshiba,tc9564-reset.yaml
-Message-ID: <20261013-stump-reactor-055d05dc5b3a@spud>
-References: <20261012164354.3872326-1-elder@riscstar.com>
- <20261012164354.3872326-2-elder@riscstar.com>
- <20261012-shale-rosy-805c49f6c404@spud>
- <492396bc-a0f4-4274-9a7c-21fd5fd886b5@riscstar.com>
- <20261012-numerous-flatworm-9e4cfa659541@spud>
- <325b8836-61a2-4e1c-98e3-92f0a5177f9d@riscstar.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4laUUDn6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yrrrAtirrZMrsIoGFrKxawJe9HnX/guEGdavnMknhih4OUNgOAhZN4QlSBcNWPtSC7Nhd5kW5G4hYCFoD5DrPhyodtVR4a+HJYmlh927/PezqePK+DLqUuK+sRSq8ai1ZzRww2QkZeYbtD03unBtEGyioiyTdcyMRu0RD1vvdjeceXlgrMDl0OW/gBZ1C+g41I+R7bNoPm2OyOVJKbo4dRk1y3VUSNUFRF0NkUwXva8M8m9yl/VuO5TVeLVpdXPN4wtyzZczXt3JC0plVI4lN6zffAz4TinYo5cjmK1fVJqC8AVnLRLbQHSvpGZiSFl6xC+ZwNxt4UR8uH/+2qBzSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9fCDF2RBHZGeIt5PL9YAdxU0RXBOFKIePMFGRGXlo+M=;
+ b=YDHPmOHBAUq24dgE+P09JmHl8ym7g567z/fLmnHyaEUC16uegRinmB8C9KtFwboILNLx7lkBCGKfJBWumz8aKbTawWP9t2/wMXxSCPZQJPa+s8IIWVaJ3q3BjC+WmgWQ5o+TwFhutq0KztchnfjucOi3d11pMs1Z40wAJu4dA6qFb21utXccYKla2QUmfR/S9R5nJohW3ac00P1G45wORUGmwyJ8ad74bpSc3IeHB1fHa56Cj4luH1JAtItJlA8W8ZeiDxKoNNxmGX61IGQIVzvt9193c1Se0s8dOj/mmRLZeRBC3jOBHWWg+d6B/6l7G7UJ14pGkqmZUybJkqP+CA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9fCDF2RBHZGeIt5PL9YAdxU0RXBOFKIePMFGRGXlo+M=;
+ b=4laUUDn6tS3j1Ycgvde7ELtKhm4xUW7HrswZ+d6z+eK63WL4WSexaucQDnzj1/G2IMx0eo/pc2pdhnlNJa/Nogol/PG0N+Awsn0PlROzFRlTULDkPHdWTHA2Q5TE87fRN81uqXDDr+OceovZEDEFELW0ulyZNsxseyI10NpMiWo=
+Received: from PH0PR07CA0032.namprd07.prod.outlook.com (2603:10b6:510:e::7) by
+ DS0PR12MB7876.namprd12.prod.outlook.com (2603:10b6:8:148::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.16; Tue, 13 Oct 2026 17:51:47 +0000
+Received: from CY6PEPF0000004D.namprd03.prod.outlook.com
+ (2603:10b6:510:e:cafe::22) by PH0PR07CA0032.outlook.office365.com
+ (2603:10b6:510:e::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
+ Oct 2026 17:51:47 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY6PEPF0000004D.mail.protection.outlook.com (10.167.247.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 17:51:46 +0000
+Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 12:51:40 -0500
+From: Melody Wang <huibo.wang@amd.com>
+To: <x86@kernel.org>
+CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
+	<thomas.lendacky@amd.com>, <ardb@kernel.org>, Melody Wang
+	<huibo.wang@amd.com>
+Subject: [PATCH v4 3/7] x86/sev: Route unsupported APIC register accesses to the hypervisor APIC emulation
+Date: Tue, 13 Oct 2026 17:50:50 +0000
+Message-ID: <2646bd1474e25dcb837fef5a3c24269664432a8a.1791912902.git.huibo.wang@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1791912902.git.huibo.wang@amd.com>
+References: <cover.1791912902.git.huibo.wang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aEoBfMVhWyayjLCR"
-Content-Disposition: inline
-In-Reply-To: <325b8836-61a2-4e1c-98e3-92f0a5177f9d@riscstar.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY6PEPF0000004D:EE_|DS0PR12MB7876:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86408cac-0605-4439-45f3-08df2952a685
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|11063799006|56012099006|261009223027099003|22082099003|18002099003|3023799007|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	WcBTzhcdoB7qlbaf/1TwdJDutGJv1XwX2cODLyKuJS0nKbaDiRg6AfBpnDi9m6ZrHFhvVqPOgJZ1f9qwFy65qmRzcevfjHpYsed0Du7Renth6TyhILZkGevAv8YAGImnyq0V8TKzmZAhq6subTYx3eKsVdIEczyzT5mFfAQeh+A/CcgBYc/K0gorSBLVuvzr2J67HOFdGoSpeKb2JG1UFBHXmw546vM44heGI9U5xXvz8u3d5UhoMwqp1lPGqhEbsEJVM7fjjkmXuhec6FdOWDOE2K1uKCwaMNdGiJK/nRtwkP/EILiCpBcfKD6U0r6E9I84qQBWoQX6RyMMYROmkjmB+nt5czFelNI3Qu4zdKDgh4taa+JY+/p4QlSc00gIZ6lBxF54Ah591XARmU2f5/1czhlgYUM2hbQg767JI7DAYFypXu2Oe8QW1/ZycmXtLmIvyg7WrSJ5a4xGsgcwO+dQsjjwpXzNdTibafyNAoIkuBz/dW87aLD441KVhs+sLVgDPgMT1YuRYAzLUxzJ9A8raDDuVl97ug7y9JgvN7TuC1IUZdX/NB2l6ke5BR8sG8VNlUnI9nDoWyS3XiSgAdAxzOmWXnOzcXQx6VSPfg7jibCHP3pXnx6LarCoK8YsuA+d6Y86LL0oIfyIC1QWBhsy4U/A4Rp6UyzvPJ1WO6d8IvgD2rHGUUQwt3C2HbCJgHbCl5poZAk0ZQoiqKZrvg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(11063799006)(56012099006)(261009223027099003)(22082099003)(18002099003)(3023799007)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PjJ/YUVJYOl/nGyLmOqROGyzKbYlUDEo8A7tQzvTeiKbaNiU5v9U/f/Yn6DVkijS2GvMt5Sdl3864UQn3mn4vBJ/JRMw62J6FPbMaG8zgnCkRS9cA74ue2dJ6u3N40iJr/L6FV18cEP1kSYMHMpcvAnV0+BMi+cIsqMRoXOXuQZUkacXffgniQ8z8jYg6PkdNsrfYiY70FMbsFNw/Trw5rGOLqrSbOsFS4qbISLS1L6XewxlekcPO/fbSN/iIj2SwQNvzk4jm7M1pSNtAUd5zbANip99wGpMhjnnK+pq2upZ4FF3by+vuL4pRfZYzroJQq9lJRDTXSNQ/GGjpv2Zl+JzcJZPA7Q0Qa7V0dUZopT91S+LUMug0n1q/VVdbSEkI53V714DzrCstt/cWATVjtINUu22ozylaEvERTQvLsmQQhMCdoIWGlsLgltvCRef
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:51:46.6808
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86408cac-0605-4439-45f3-08df2952a685
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY6PEPF0000004D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7876
 
---aEoBfMVhWyayjLCR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The SVSM APIC emulation supports only a subset of the X2APIC MSRs.
+Right now only basic APIC functionality related to interrupt delivery is
+supported. Therefore, route the unsupported ones to the hypervisor's
+X2APIC emulation.
 
-On Tue, Oct 13, 2026 at 08:22:50AM -0500, Alex Elder wrote:
-> On 10/12/26 4:22 PM, Conor Dooley wrote:
-> > On Mon, Oct 12, 2026 at 02:10:01PM -0500, Alex Elder wrote:
-> > > On 10/12/26 1:51 PM, Conor Dooley wrote:
-> > > > On Mon, Oct 12, 2026 at 11:43:52AM -0500, Alex Elder wrote:
-> > > > > Define the binding for the reset controller functionality present=
- in
-> > > > > the Toshiba TC9564 SoC.
-> > > > >=20
-> > > > > Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> > > > > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> > > > > Signed-off-by: Alex Elder <elder@riscstar.com>
-> > > > > ---
-> > > > >    .../bindings/reset/toshiba,tc9564-reset.yaml  | 56 +++++++++++=
-++++++++
-> > > > >    MAINTAINERS                                   |  7 +++
-> > > > >    include/dt-bindings/reset/toshiba,tc9564.h    | 26 +++++++++
-> > > > >    3 files changed, 89 insertions(+)
-> > > > >    create mode 100644 Documentation/devicetree/bindings/reset/tos=
-hiba,tc9564-reset.yaml
-> > > > >    create mode 100644 include/dt-bindings/reset/toshiba,tc9564.h
-> > > > >=20
-> > > > > diff --git a/Documentation/devicetree/bindings/reset/toshiba,tc95=
-64-reset.yaml b/Documentation/devicetree/bindings/reset/toshiba,tc9564-rese=
-t.yaml
-> > > > > new file mode 100644
-> > > > > index 0000000000000..1908e9539abac
-> > > > > --- /dev/null
-> > > > > +++ b/Documentation/devicetree/bindings/reset/toshiba,tc9564-rese=
-t.yaml
-> > > > > @@ -0,0 +1,56 @@
-> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > +%YAML 1.2
-> > > > > +---
-> > > > > +$id: http://devicetree.org/schemas/reset/toshiba,tc9564-reset.ya=
-ml#
-> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > +
-> > > > > +title: Toshiba TC9564 Reset Controller
-> > > > > +
-> > > > > +maintainers:
-> > > > > +  - Alex Elder <elder@riscstar.com>
-> > > > > +  - Daniel Thompson <daniel@riscstar.com>
-> > > > > +
-> > > > > +description:
-> > > > > +  The Toshiba TC9564 is an SoC accessed by a host system through=
- the
-> > > > > +  upstream PCIe port on the PCIe switch it implements.  The swit=
-ch
-> > > > > +  includes an embedded PCIe endpoint that provides access to var=
-ious
-> > > > > +  SoC peripherals (including a reset controller) via its BARs.
-> > > > > +
-> > > > > +  A total of 13 resets are implemented, though two of these are =
-not
-> > > > > +  controllable.  Access to the reset controller relies on PCIe b=
-eing
-> > > > > +  functional, so the PCIe reset is assumed to be deasserted.  Si=
-milarly,
-> > > > > +  the PCIe controller relies on I2C, so the I2C reset is also as=
-sumed
-> > > > > +  to be deasserted.
-> > > > > +
-> > > > > +  Reset ids are defined in <dt-bindings/reset/toshiba,tc9564.h>.
-> > > > > +
-> > > > > +  The reset controller uses registers within the same page as a
-> > > > > +  clock controller, so both devices are defined as children of a
-> > > > > +  "config" syscon.
-> > > > > +
-> > > > > +properties:
-> > > > > +  compatible:
-> > > > > +    const: toshiba,tc9564-reset
-> > > >=20
-> > > > Why does this need to exist as a standalone device, rather than be
-> > > > rolled up into the parent syscon node? It doesn't have any resource=
-s, so
-> > > > it should be doable.
-> > >=20
-> > > This is along the lines of what Krzysztof has mentioned, and it
-> > > seems clear I must be missing something.
-> > >=20
-> > > > This kind of thing for a syscon is always difficult to review when =
-only
-> > > > one element is present - where is the rest of the syscon's
-> > > > functionality?
-> > >=20
-> > > The reason a syscon was used was simply for the benefit of
-> > > having a shared regmap that the reset, clock, and DWMAC drivers
-> > > can use.  All three of those drivers use registers that reside
-> > > within a single page of addressible MMIO space.
-> >=20
-> > What does the dwmac use the region for? I assume it's for some misc
-> > register and you don't mean that the dwmac lies within the region?
->=20
-> That's right.  There is one register (per DWMAC--there are two)
-> that contains one bit (bit 21) that is used to signal that initialization=
- of
-> the PMA is done.  We assert reset, set up
-> clocks, then deassert, and finally wait for this bit to be set.
-> The DWMAC code uses a phandle property to refer to the syscon,
-> like:
->     toshiba,config-syscon =3D <&tc9564_config_syscon0 0x1070>
->=20
-> So again, the purpose of the syscon was to get the automatic
-> regmap for managing the region, which contains registers used
-> for distinct purposes.
->=20
-> After making the syscon be the parent of both the reset and
-> clock nodes, I *removed* the "reg" properties and just defined
-> those offsets in the driver.  Maybe that was a mistake.
+Signed-off-by: Melody Wang <huibo.wang@amd.com>
+---
+ arch/x86/coco/sev/core.c            | 46 +++++++++++------------------
+ arch/x86/include/asm/sev-common.h   |  1 +
+ arch/x86/include/asm/sev.h          |  8 ++---
+ arch/x86/kernel/apic/x2apic_savic.c |  8 ++---
+ arch/x86/kernel/apic/x2apic_svsm.c  | 11 +++++--
+ 5 files changed, 35 insertions(+), 39 deletions(-)
 
-No, that's typically what happens in the setup I describe below, so
-that's not abnormal.
+diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
+index 900a7ff8b639..99df8d7f3e98 100644
+--- a/arch/x86/coco/sev/core.c
++++ b/arch/x86/coco/sev/core.c
+@@ -972,7 +972,7 @@ int __init sev_es_efi_map_ghcbs_cas(pgd_t *pgd)
+ 	return 0;
+ }
+ 
+-u64 savic_ghcb_msr_read(u32 reg)
++static u64 __sev_apic_ghcb_msr_rw(u32 reg, u64 value, bool write)
+ {
+ 	u64 msr = APIC_BASE_MSR + (reg >> 4);
+ 	struct pt_regs regs = { .cx = msr };
+@@ -981,49 +981,37 @@ u64 savic_ghcb_msr_read(u32 reg)
+ 	enum es_result res;
+ 	struct ghcb *ghcb;
+ 
++	if (write) {
++		regs.ax = lower_32_bits(value);
++		regs.dx = upper_32_bits(value);
++	}
++
+ 	guard(irqsave)();
+ 
+ 	ghcb = __sev_get_ghcb(&state);
+ 	vc_ghcb_invalidate(ghcb);
+ 
+-	res = __vc_handle_msr(ghcb, &ctxt, false);
++	res = __vc_handle_msr(ghcb, &ctxt, write);
+ 	if (res != ES_OK) {
+-		pr_err("Secure AVIC MSR (0x%llx) read returned error (%d)\n", msr, res);
+-		/* MSR read failures are treated as fatal errors */
+-		sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_SAVIC_FAIL);
++		pr_err("APIC MSR via GHCB (0x%llx) %s returned error (%d)\n", msr, write ? "write" : "read", res);
++		/* MSR read/write failures are treated as fatal errors */
++		sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_APIC_MSR_FAIL);
+ 	}
+ 
+ 	__sev_put_ghcb(&state);
+ 
++	/* The return value will be ignored by the caller for a write */
+ 	return regs.ax | regs.dx << 32;
+ }
+ 
+-void savic_ghcb_msr_write(u32 reg, u64 value)
++u64 sev_apic_ghcb_msr_read(u32 reg)
+ {
+-	u64 msr = APIC_BASE_MSR + (reg >> 4);
+-	struct pt_regs regs = {
+-		.cx = msr,
+-		.ax = lower_32_bits(value),
+-		.dx = upper_32_bits(value)
+-	};
+-	struct es_em_ctxt ctxt = { .regs = &regs };
+-	struct ghcb_state state;
+-	enum es_result res;
+-	struct ghcb *ghcb;
+-
+-	guard(irqsave)();
+-
+-	ghcb = __sev_get_ghcb(&state);
+-	vc_ghcb_invalidate(ghcb);
+-
+-	res = __vc_handle_msr(ghcb, &ctxt, true);
+-	if (res != ES_OK) {
+-		pr_err("Secure AVIC MSR (0x%llx) write returned error (%d)\n", msr, res);
+-		/* MSR writes should never fail. Any failure is fatal error for SNP guest */
+-		sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_SAVIC_FAIL);
+-	}
++	return __sev_apic_ghcb_msr_rw(reg, 0, false);
++}
+ 
+-	__sev_put_ghcb(&state);
++void sev_apic_ghcb_msr_write(u32 reg, u64 value)
++{
++	__sev_apic_ghcb_msr_rw(reg, value, true);
+ }
+ 
+ enum es_result savic_register_gpa(u64 gpa)
+diff --git a/arch/x86/include/asm/sev-common.h b/arch/x86/include/asm/sev-common.h
+index 095fbafe8a2c..585ddc44b6b4 100644
+--- a/arch/x86/include/asm/sev-common.h
++++ b/arch/x86/include/asm/sev-common.h
+@@ -210,6 +210,7 @@ struct snp_psc_desc {
+ #define GHCB_TERM_SVSM_CA_REMAP_FAIL	11	/* SVSM is present but CA could not be remapped */
+ #define GHCB_TERM_SAVIC_FAIL		12	/* Secure AVIC-specific failure */
+ #define GHCB_TERM_ALT_INJ_FAIL		13	/* Alternate Injection-specific failure */
++#define GHCB_TERM_APIC_MSR_FAIL		14	/* APIC MSR failure */
+ 
+ #define GHCB_RESP_CODE(v)		((v) & GHCB_MSR_INFO_MASK)
+ 
+diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
+index ea248d9e1c49..93161b663d9b 100644
+--- a/arch/x86/include/asm/sev.h
++++ b/arch/x86/include/asm/sev.h
+@@ -541,8 +541,8 @@ void __init snp_secure_tsc_prepare(void);
+ void __init snp_secure_tsc_init(void);
+ enum es_result savic_register_gpa(u64 gpa);
+ enum es_result savic_unregister_gpa(u64 *gpa);
+-u64 savic_ghcb_msr_read(u32 reg);
+-void savic_ghcb_msr_write(u32 reg, u64 value);
++u64 sev_apic_ghcb_msr_read(u32 reg);
++void sev_apic_ghcb_msr_write(u32 reg, u64 value);
+ 
+ static __always_inline void vc_ghcb_invalidate(struct ghcb *ghcb)
+ {
+@@ -650,8 +650,8 @@ static inline void __init snp_secure_tsc_init(void) { }
+ static inline void sev_evict_cache(void *va, int npages) {}
+ static inline enum es_result savic_register_gpa(u64 gpa) { return ES_UNSUPPORTED; }
+ static inline enum es_result savic_unregister_gpa(u64 *gpa) { return ES_UNSUPPORTED; }
+-static inline void savic_ghcb_msr_write(u32 reg, u64 value) { }
+-static inline u64 savic_ghcb_msr_read(u32 reg) { return 0; }
++static inline void sev_apic_ghcb_msr_write(u32 reg, u64 value) { }
++static inline u64 sev_apic_ghcb_msr_read(u32 reg) { return 0; }
+ 
+ #endif	/* CONFIG_AMD_MEM_ENCRYPT */
+ 
+diff --git a/arch/x86/kernel/apic/x2apic_savic.c b/arch/x86/kernel/apic/x2apic_savic.c
+index 4bc6d7e018a5..990e4a379e07 100644
+--- a/arch/x86/kernel/apic/x2apic_savic.c
++++ b/arch/x86/kernel/apic/x2apic_savic.c
+@@ -72,7 +72,7 @@ static u32 savic_read(u32 reg)
+ 	case APIC_LVT0:
+ 	case APIC_LVT1:
+ 	case APIC_LVTERR:
+-		return savic_ghcb_msr_read(reg);
++		return sev_apic_ghcb_msr_read(reg);
+ 	case APIC_ID:
+ 	case APIC_LVR:
+ 	case APIC_TASKPRI:
+@@ -193,7 +193,7 @@ static void savic_icr_write(u32 icr_low, u32 icr_high)
+ 
+ 	icr_data = ((u64)icr_high) << 32 | icr_low;
+ 	if (dsh != APIC_DEST_SELF)
+-		savic_ghcb_msr_write(APIC_ICR, icr_data);
++		sev_apic_ghcb_msr_write(APIC_ICR, icr_data);
+ 	apic_set_reg64(this_cpu_ptr(savic_page), APIC_ICR, icr_data);
+ }
+ 
+@@ -210,7 +210,7 @@ static void savic_write(u32 reg, u32 data)
+ 	case APIC_LVTTHMR:
+ 	case APIC_LVTPC:
+ 	case APIC_LVTERR:
+-		savic_ghcb_msr_write(reg, data);
++		sev_apic_ghcb_msr_write(reg, data);
+ 		break;
+ 	case APIC_TASKPRI:
+ 	case APIC_EOI:
+@@ -316,7 +316,7 @@ static void savic_eoi(void)
+ 		 * interrupts. Return to the guest from GHCB protocol event takes
+ 		 * care of re-evaluating interrupt state.
+ 		 */
+-		savic_ghcb_msr_write(APIC_EOI, 0);
++		sev_apic_ghcb_msr_write(APIC_EOI, 0);
+ 	} else {
+ 		/*
+ 		 * Hardware clears APIC_ISR and re-evaluates the interrupt state
+diff --git a/arch/x86/kernel/apic/x2apic_svsm.c b/arch/x86/kernel/apic/x2apic_svsm.c
+index 6edfbcca2958..0a89c5b357f0 100644
+--- a/arch/x86/kernel/apic/x2apic_svsm.c
++++ b/arch/x86/kernel/apic/x2apic_svsm.c
+@@ -81,8 +81,15 @@ static u32 __svsm_apic_msr_rw(u32 reg, u32 v, bool write)
+ 		}
+ 		break;
+ 	default:
+-		pr_err("%s 0x%x not supported\n", call_reg_str, reg);
+-		return 0;
++		if (write) {
++			/*
++			 * Even if this will end up returning call.rdx_out,
++			 * that is being ignored by the caller for a write.
++			 */
++			sev_apic_ghcb_msr_write(reg, v);
++		} else {
++			return sev_apic_ghcb_msr_read(reg);
++		}
+ 	}
+ 
+ 	return call.rdx_out;
+-- 
+2.43.0
 
-> > There's nothing inherently wrong with the act of using of a syscon here,
-> > what I am actually complaining about is how you are using it.
-> > In cases where a syscon region contains clock and reset, the typical way
-> > we want people to do this is via something like
-> >=20
-> > syscon@f00 {
-> > 	compatible =3D "toshiba,tc9564-bla-syscon", "syscon", "simple-mfd";
-> > 	reg =3D <0x0 0x2000>;
-> > 	#reset-cells =3D <1>;
-> > 	#clock-cells =3D <1>;
-> > };
->=20
-> In this case it seems I must create a syscon driver that provides
-> combined reset and clock functionality.  Is that right?  (This
-> series is the result of separating the reset code from the clock
-> code in a combined driver.)
-
-There's two ways to do it, depending on what sort of device you have.
-If you have a clock controller that also does reset, the preferred thing
-to do is something like
-
-clock-controller@f00 {
-	compatible =3D "toshiba,tc9564-clk";
-	reg =3D <0x0 0x2000>;
-	#reset-cells =3D <1>;
-	#clock-cells =3D <1>;
-};
-
-and in the clock controller driver probe the reset controller driver as
-a auxiliary bus device.
-
-You have something else though, because there's assorted other functions
-in here, including the dwmac and things you don't use yet. In that case,
-I would make a node like
-
-syscon@f00 {
-	compatible =3D "toshiba,tc9564-bla-syscon", "syscon";
-	reg =3D <0x0 0x2000>;
-	#reset-cells =3D <1>;
-	#clock-cells =3D <1>;
-};
-
-and in the syscon driver use MFD_CELL_NAME() to probe both clock and
-reset drivers, and can use device_node_to_regmap(). Your dwmac stuff
-(and any other future stuff that needs a syscon reference) can use the
-automagic syscon regmap stuff that we've already talked about.
-
-Note, there's no "simple-mfd" here, because you have no child nodes.
-The point of "simple-mfd" is to probe those kinds of devices.
-
-> To be honest I don't have a lot of experience with proper use of
-> syscons.  I have no problem writing or restructuring the code,
-> it just seems I need help knowing what the final structure should
-> look like.
->=20
-> > because the child node exists for no other reason than to access linux
-> > driver probing in the most trivial way. If there's some features that
-> > actually need a child node, that's fine, but those will end up being
-> > things with significantly more properties or things with competing
-> > property use (e.g. if there were devices with buses that need
-> > address/size cells).
->=20
-> I'm not sure I understand this statement (and that might be part
-> of the problem).
->=20
-> There are other devices (currently just two DWMACs, plus an
-> interrupt controller that generates MSIs for each PCI function)
-> that use the reset and clock signals.  I haven't yet
-> posted the reworked DWMAC code but I just sent the first version
-> of the interrupt driver yesterday.
->   https://lore.kernel.org/lkml/20261012190245.3988619-1-elder@riscstar.co=
-m/
-
-Here I am talking about why child nodes aren't correct in your case.
-Neither clock nor reset needs anything other than the relevant #cells
-property, so the only benefit of a child node over having these in the
-syscon node itself are to use the compatible to probe the driver.
-Child nodes should only be used when the functions provided by the
-syscon have conflicting properties or are very complicated (I would
-probably always use a child node for pinctrl for example). It'd also be
-reasonable if the functions are reused across devices, but that's
-rarely the case with clock or reset controllers (or really anything
-that appears in these kinds of "random register regions" in SoCs).
-
-Does that make more sense?
-
->=20
-> > > And I don't know that I can guarantee their probe order.
-> >=20
-> > I am assuming this is moot, since I am not objecting to using a syscon?
-> >=20
-> > > There is otherwise no "system controller" that is treated as
-> > > a logical entity within the SoC.
-> > >=20
-> > > What is the proper way for me to represent this?  It's fairly
-> > > simple; and I mainly want to ensure all three of those drivers
-> > > can safely access their addresses.
-> >=20
-> > What else does this region actually contain?
->=20
-> At this point I've described everything we now use.  Two
-> registers control a set of resets; two registers enable and
-> disable a set of clocks; and two registers each contain a
-> bit to signal readiness of a DWMAC device.
->=20
-> There are other registers in this region, but at this time
-> we don't use them.
->=20
-> 					-Alex
->=20
-> >=20
-> > Cheers,
-> > Conor.
-> >=20
-> > > > > +
-> > > > > +  "#reset-cells":
-> > > > > +    const: 1
-> > > > > +
-> > > > > +required:
-> > > > > +  - compatible
-> > > > > +  - "#reset-cells"
-> > > > > +
-> > > > > +unevaluatedProperties: false
-> > > > > +
-> > > > > +examples:
-> > > > > +  - |
-> > > > > +    #include <dt-bindings/reset/toshiba,tc9564.h>
-> > > > > +
-> > > > > +    syscon@0 {
-> > > > > +        compatible =3D "syscon", "simple-mfd";
-> > > > > +        reg =3D <0x0 0x2000>;
-> > > > > +
-> > > > > +        reset {
-> > > > > +            compatible =3D "toshiba,tc9564-reset";
-> > > > > +            #reset-cells =3D <1>;
-> > > > > +        };
-> > > > > +    };
-> > > > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > > > index 252b6d7ee1638..d0eb44079fe17 100644
-> > > > > --- a/MAINTAINERS
-> > > > > +++ b/MAINTAINERS
-> > > > > @@ -28180,6 +28180,13 @@ S:	Maintained
-> > > > >    F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
-> > > > >    F:	drivers/misc/tc9564-pci.c
-> > > > > +TOSHIBA TC9564 RESET DRIVER
-> > > > > +M:	Alex Elder <elder@kernel.org>
-> > > > > +M:	Daniel Thompson <danielt@kernel.org>
-> > > > > +S:	Maintained
-> > > > > +F:	Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.=
-yaml
-> > > > > +F:	include/dt-bindings/reset/toshiba,tc9564.h
-> > > > > +
-> > > > >    TOSHIBA WMI HOTKEYS DRIVER
-> > > > >    M:	Azael Avalos <coproscefalo@gmail.com>
-> > > > >    L:	platform-driver-x86@vger.kernel.org
-> > > > > diff --git a/include/dt-bindings/reset/toshiba,tc9564.h b/include=
-/dt-bindings/reset/toshiba,tc9564.h
-> > > > > new file mode 100644
-> > > > > index 0000000000000..5fcc9a06d4ff6
-> > > > > --- /dev/null
-> > > > > +++ b/include/dt-bindings/reset/toshiba,tc9564.h
-> > > > > @@ -0,0 +1,26 @@
-> > > > > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > > > > +
-> > > > > +/*
-> > > > > + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All ri=
-ghts reserved.
-> > > > > + */
-> > > > > +
-> > > > > +#ifndef __RESET_TOSHIBA_TC9564_H__
-> > > > > +#define __RESET_TOSHIBA_TC9564_H__
-> > > > > +
-> > > > > +/* Reset IDs */
-> > > > > +
-> > > > > +#define RESET_MCU		0
-> > > > > +#define RESET_MCU1		1
-> > > > > +#define RESET_MSIGEN		2
-> > > > > +#define RESET_INTC		3
-> > > > > +#define RESET_UART		4
-> > > > > +
-> > > > > +#define RESET_MAC0_MAC		5
-> > > > > +#define RESET_MAC0_PMA		6
-> > > > > +#define RESET_MAC0_XPCS		7
-> > > > > +
-> > > > > +#define RESET_MAC1_MAC		8
-> > > > > +#define RESET_MAC1_PMA		9
-> > > > > +#define RESET_MAC1_XPCS		10
-> > > > > +
-> > > > > +#endif /* __RESET_TOSHIBA_TC9564_H__*/
-> > > > > --=20
-> > > > > 2.53.0
-> > > > >=20
-> > >=20
->=20
-
---aEoBfMVhWyayjLCR
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5vpgAKCRB4tDGHoIJi
-0qDgAQCi1BkKfxvPHFsNhkLUYm8Hfxbx46QckZMWnsacoC5txAEA6ZAkBX2HRm07
-DIfPZalZrf0mg/yyQwDwNfEGBwfFkQc=
-=p1Wa
------END PGP SIGNATURE-----
-
---aEoBfMVhWyayjLCR--
