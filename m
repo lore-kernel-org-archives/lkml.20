@@ -1,762 +1,567 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0348353162A;
-	Tue, 13 Oct 2026 18:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB34538D69
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791916005; cv=none; b=XGKRp87sNCYLgF/wReHmVRjpcUiNc6QgblHfLsM1vzzOZM2K9I3LVrUR3g+rWmUzR2tXkcLaNJVtKk9LXEgnMVcxVl7+oqGJTBgd8KPUbgtRL+HF9qnMOYx6ShtELAbkkKswJjmtjjANYQ6PUJkBqFk4VLUSNvFDQ/HeUYUlwIk=
+	t=1791916012; cv=none; b=WlS4bv1NFfdnJjzsoi2yp2nym1X+mSPoHD+Cq5OY/QeexBpx/F1rRgjYL/OXktL8fYKgYIqdhN7HFqoaKuV/1QUQq13Q1g1w1SUEYEJje9UF6MqcMvNAwvYdx2iBCl5MMYrFpg9jQpZx2zFpTCp1j3amvjL9K5HoCcmYkCcPJa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791916005; c=relaxed/simple;
-	bh=J1Wh/IVZ2ptogmL0qbIghFtNohKsza/xcOdZpIs5ilg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TTX0PpPxlwN9ziOpw6g8W9Iy1hCTPiPTu2/ganxh8wna5tYHvuCZYvIKR7tinADlQIgEkr4P7yEOQ/YJdSHGz3Uw9ItoUJ4BkpP0qwgyVxOU+00DGYobwZZPfUxEwHfmWgrWp+Tm4f2V51HvD9bT1SCA9vSvzqJzNmZALwUEZac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EcqbQRXb; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791916012; c=relaxed/simple;
+	bh=x53lcadQtPWnkdwrSh1BLZY0Qb3HA6UsjBoAGqRHJUs=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Oie3bdj00WIE6/n1aRV7HuzNhvbYSM6pf8HQxNQ6jWBqm8rGac9qdCGskWVPPLOKlAd/KZ3JCBdNn9ibvnvQRYB4/bLNCp2EPZz9gylnLO8NtTAtLPuxAZUNoTQHZAwOMgBJ9uwr4H1lxdH6HpcuKDZ+PwdipWzPrXYUI18csdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=E32/sDoH; arc=none smtp.client-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EcqbQRXb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791916001; x=1823452001;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=J1Wh/IVZ2ptogmL0qbIghFtNohKsza/xcOdZpIs5ilg=;
-  b=EcqbQRXbwjSSSvfp12OuH2iAOugqYtHuldedUffs9a3NrjQqjnOVbAbr
-   m3/A65h8xmInK7L/T6dCw1BLmpHwJQdmKd2oyx/kcGNrPtlyl4XVa5bmm
-   DnqKj2XVp70UYdi9/RHnkk3hOrFPSreKaV64mmHmYccil6mOz8WYcvZA3
-   w6egpKNltDumknzlZskV7WDwckWN4lFR6szuRGOUD7dLjeHu2WDE+CAFO
-   nT/8Ozqcc1FWHZimCPdZJSNcNxEFRiKGXiGjCWq415VG2kDvva3riKlgW
-   DHQO3x48UpK79Puj+WzJoksy8u9Uw0PXCAorQGX9wyWqbDP62RbcngtCk
-   A==;
-X-CSE-ConnectionGUID: rpKWj7AKQduk8Rulvg7oYQ==
-X-CSE-MsgGUID: fCEkVtlbT7qCy1DIGkce1w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="754605"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="754605"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:26:40 -0700
-X-CSE-ConnectionGUID: zSm1BIrHSDmxclPqZYSl2Q==
-X-CSE-MsgGUID: e+nGF6b2Qqieurx2vJ7EgA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1157532"
-Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
-  by orviesa005.jf.intel.com with ESMTP; 13 Oct 2026 11:26:37 -0700
-From: Ajay KV <ajay.k.v@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: chandrashekar.devegowda@intel.com,
-	kiran.k@intel.com,
-	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	marcel@holtmann.org,
-	stable@vger.kernel.org,
-	chethan.tumkur.narayan@intel.com,
-	lakshmipathi.k@intel.com,
-	Ajaykv <ajay.k.v@intel.com>
-Subject: [PATCH v1 3/3] Bluetooth: btintel_pcie: Configure YoYo DBGC buffer allocations
-Date: Tue, 13 Oct 2026 21:26:26 +0300
-Message-ID: <20261013182627.81957-3-ajay.k.v@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013182627.81957-1-ajay.k.v@intel.com>
-References: <20261013182627.81957-1-ajay.k.v@intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="E32/sDoH"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso4948351eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:26:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791916008; x=1792520808; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SWRrFCf5IHCneu7XSfGxIVuL6a03m6SucmFW85Q8JGw=;
+        b=E32/sDoHyVldzTNgth6fV14v2ngfAUpQF+GHfCXUBqymPy8k2EbqoHPjCFyLfRfA7L
+         +rg26OWu9Y/bh18+NCsC/8oAy3YeMLw9ZTaXmWRsYc5Uoz5A0TuPZIqqhwMUG3s4j4Xy
+         TQcNZIdt6BihkjlWsGGsv9mK1V9A8sJ+BLiOpN+grGjVJOblPgA+6lE/4NmVZeiF5woZ
+         7kuN3c5fE7cDNHmULAeSJTQXZTlcUUbD/TI97qqSuCKfxDbzOIJR7IgajVIl0ywYZQLd
+         uKXuApgZK7VHhkIDGEQtG5FqWGB0MrzWbj3jRIBDOEtyNONfiH2wRNDmn4VOt1vD4lZA
+         TG3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791916008; x=1792520808;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SWRrFCf5IHCneu7XSfGxIVuL6a03m6SucmFW85Q8JGw=;
+        b=DrHaZT+plzH+OTlvgWvVSW36WBKtXTXJnLwiJCUFghT6Svf7tcs+wAYJtnnFhISXeu
+         rJL4vJVIGFLEz69CjPz6aBSPIzUG97/iUSz7B2khuHQPt7yW6eKX4cDSJgGFSLysYPjx
+         vKvhFqeTns6557XsL99USabyfeY7EVDXnKclC0wDQ564QkYe01cGHE/1zlyHMhMKVxEX
+         Gfm1VXoaP0tn4+vC6ihaKO401zATQqjtWZttEAiHTYkgMgDr+j9ndH+S+eLHtNgNANr+
+         6iSCG9e/KE89+QkVX02C4VUs+PtFcP/iZfCTGqBSNjIrHqTRR332eB+1DkhPYIUKckY/
+         O2Tw==
+X-Forwarded-Encrypted: i=1; AKwUvBw8U87ZpS7+AgrglgkzJqhlXXpvdaV3TaRIvspOXuKXDGPMs0squ06RRypIqW+fCAEde4rTMmBvW9K7cU0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZ3DIqzHVdzRdOzT8KVF+SVWcyb13rk3hHz21glj7+2uMsd0BY
+	IYSTVbQoayST+IZEE2GdDJtzXJzz6SsGIWnwzE06KbHKQAz3s0L0aJvQ9MKtKouj8FG9NYJ1iba
+	7g/EVa3qTZA==
+X-Received: from dybb16.prod.google.com ([2002:a05:693c:6090:b0:359:8e0d:2c6])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:69cc:b0:351:4a53:ddbd
+ with SMTP id 5a478bee46e88-3537dede999mr19038217eec.1.1791916005615; Tue, 13
+ Oct 2026 11:26:45 -0700 (PDT)
+Date: Tue, 13 Oct 2026 11:24:55 -0700
+In-Reply-To: <20261013182458.1234616-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261013182458.1234616-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261013182458.1234616-8-irogers@google.com>
+Subject: [PATCH v1 07/10] perf dso: Fix unlocked __dsos__add() in vdso and
+ expand lock annotations
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Marco Elver <elver@google.com>
+Cc: Bart Van Assche <bvanassche@acm.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ajaykv <ajay.k.v@intel.com>
+__machine__addnew_vdso() called __dsos__add(&machine->dsos, dso) without
+holding machine->dsos.lock. Switch it to dsos__add() and make
+__dsos__add() static in util/dsos.c with __must_hold(&dsos->lock).
 
-Parse DBGC buffer allocation TLVs for DBGC1 through DBGC3. Validate the
-allocation ID, DRAM location, fragment count, requested size, and
-minimum fragment size before storing each allocation.
+In dsos__findnew_id(), try finding the DSO under the read lock first and
+only acquire the write lock when a new DSO must be inserted or an
+existing DSO needs its ID updated (checked via dso__needs_improve_id()).
 
-Use configured fragment counts and sizes for DMA buffers, firmware
-context descriptors, and coredump collection. On MDBGC devices, omit
-unconfigured buffer IDs when YoYo is enabled; retain legacy allocations
-when YoYo configuration is absent or invalid. Single-DBGC devices use
-DBGC1.
+Also replace _dso__data_open_lock and its pthread_once() wrapper with
+DEFINE_MUTEX(dso__data_open_lock), annotate struct dsos fields with
+__guarded_by(&lock), add __returns_ctx_lock() to dso__lock(), annotate
+dso__data_open and fd_limit in util/dso.c with
+__guarded_by(&dso__data_open_lock), and tighten __dsos__findnew_id() and
+__dsos__addnew_id() from shared to exclusive lock requirements.
 
-Signed-off-by: Ajaykv <ajay.k.v@intel.com>
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/tests/dso-data.c |  4 ++
+ tools/perf/util/dso.c       | 89 ++++++++++++++++++-------------------
+ tools/perf/util/dso.h       | 12 ++---
+ tools/perf/util/dsos.c      | 25 +++++++++--
+ tools/perf/util/dsos.h      |  9 ++--
+ tools/perf/util/vdso.c      |  2 +-
+ 6 files changed, 81 insertions(+), 60 deletions(-)
 
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index e28f527d6d29..e235a873a3fe 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -315,7 +315,8 @@ static int btintel_pcie_alloc_dbgc_buf(struct btintel_pcie_data *data,
- 				       void **v_addr,
- 				       struct btintel_pcie_dbgc_ctxt_buf *frag,
- 				       u32 buf_index,
--				       u32 buf_count)
-+				       u32 buf_count,
-+				       u32 per_buf_size)
+diff --git a/tools/perf/tests/dso-data.c b/tools/perf/tests/dso-data.c
+index 46bc3f597260..6753380f36ab 100644
+--- a/tools/perf/tests/dso-data.c
++++ b/tools/perf/tests/dso-data.c
+@@ -116,12 +116,14 @@ static int dso__data_fd(struct dso *dso, struct machine *machine)
+ 
+ static void dsos__delete(struct dsos *dsos)
  {
- 	struct data_buf *b;
- 	int i;
-@@ -328,8 +329,7 @@ static int btintel_pcie_alloc_dbgc_buf(struct btintel_pcie_data *data,
++	down_write(&dsos->lock);
+ 	for (unsigned int i = 0; i < dsos->cnt; i++) {
+ 		struct dso *dso = dsos->dsos[i];
+ 
+ 		dso__data_close(dso);
+ 		unlink(dso__name(dso));
  	}
- 
- 	*v_addr = dmam_alloc_coherent(&data->pdev->dev,
--				      buf_count *
--					BTINTEL_PCIE_DBGC_BUFFER_SIZE,
-+				      buf_count * per_buf_size,
- 					p_addr,
- 					GFP_KERNEL | __GFP_NOWARN);
- 	if (!*v_addr) {
-@@ -339,16 +339,40 @@ static int btintel_pcie_alloc_dbgc_buf(struct btintel_pcie_data *data,
- 
- 	for (i = 0; i < buf_count; i++) {
- 		b = &(*buf)[i];
--		b->data_p_addr = *p_addr + i * BTINTEL_PCIE_DBGC_BUFFER_SIZE;
--		b->data = *v_addr + i * BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+		b->data_p_addr = *p_addr + i * per_buf_size;
-+		b->data = *v_addr + i * per_buf_size;
- 		frag[i].buf_addr_lsb = lower_32_bits(b->data_p_addr);
- 		frag[i].buf_addr_msb = upper_32_bits(b->data_p_addr);
--		frag[i].buf_size = BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+		frag[i].buf_size = per_buf_size;
- 	}
- 
-+	BT_INFO("dbgc buf %u allocated: frag_num=%u per_buf_size=%u total_size=%u",
-+		buf_index + 1, buf_count, per_buf_size, buf_count * per_buf_size);
-+
- 	return 0;
++	up_write(&dsos->lock);
+ 	dsos__exit(dsos);
  }
  
-+/* Returns false if YoYo is enabled and @alloc_id is not configured */
-+static bool btintel_pcie_get_mdbgc_cfg(struct btintel_pcie_data *data,
-+				       u32 alloc_id, u32 *count, u32 *size)
-+{
-+	const struct btintel_pcie_buf_alloc *ba;
-+
-+	ba = btintel_pcie_yoyo_get_buf_alloc(&data->yoyo, alloc_id);
-+	if (ba) {
-+		*count = ba->max_num_frags;
-+		*size = ba->req_buf_size / ba->max_num_frags;
-+		return true;
-+	}
-+
-+	if (data->yoyo.enabled)
-+		return false;
-+
-+	*count = BTINTEL_PCIE_DBGC_BUFFER_COUNT;
-+	*size = BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+	return true;
-+}
-+
- /* This function initializes the memory for MDBGC buffers and formats the
-  * DBGC fragment which consists header info and DBGC buffer's LSB, MSB and
-  * size as the payload
-@@ -358,10 +382,9 @@ static int btintel_pcie_setup_mdbgc(struct btintel_pcie_data *data)
- 	struct btintel_pcie_mdbgc_ctxt db_frag;
- 	u32 frag_size = sizeof(db_frag);
- 	void *frag_v_addr;
-+	u32 buf_count, buf_size;
- 	int err;
- 
--	data->mdbgc.count = BTINTEL_PCIE_DBGC_BUFFER_COUNT;
--
- 	/* Allocate fragment context structure */
- 	frag_v_addr = dmam_alloc_coherent(&data->pdev->dev, frag_size,
- 					  &data->mdbgc.frag_p_addr,
-@@ -380,46 +403,71 @@ static int btintel_pcie_setup_mdbgc(struct btintel_pcie_data *data)
- 	db_frag.ver = BTINTEL_PCIE_MDBGC_FRAG_VERSION;
- 
- 	/* Allocate DBGC buffer 1 */
--	db_frag.buf1_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_1;
--	db_frag.buf1_count = data->mdbgc.count;
--	err = btintel_pcie_alloc_dbgc_buf(data,
--					  &data->mdbgc.buf1,
--					  &data->mdbgc.buf1_p_addr,
--					  &data->mdbgc.buf1_v_addr,
--					  db_frag.buf1,
--					  0,
--					  data->mdbgc.count);
--	if (err)
--		return err;
-+	if (btintel_pcie_get_mdbgc_cfg(data, BTINTEL_PCIE_ALLOC_ID_DBGC1,
-+				       &buf_count, &buf_size)) {
-+		db_frag.buf1_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_1;
-+		data->mdbgc.buf1_count = buf_count;
-+		data->mdbgc.buf1_size = buf_size;
-+		db_frag.buf1_count = buf_count;
-+
-+		err = btintel_pcie_alloc_dbgc_buf(data,
-+						  &data->mdbgc.buf1,
-+						  &data->mdbgc.buf1_p_addr,
-+						  &data->mdbgc.buf1_v_addr,
-+						  db_frag.buf1,
-+						  0,
-+						  buf_count,
-+						  buf_size);
-+		if (err)
-+			return err;
-+	}
- 
- 	/* Allocate DBGC buffer 2 */
--	db_frag.buf2_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_2;
--	db_frag.buf2_count = data->mdbgc.count;
--	err = btintel_pcie_alloc_dbgc_buf(data,
--					  &data->mdbgc.buf2,
--					  &data->mdbgc.buf2_p_addr,
--					  &data->mdbgc.buf2_v_addr,
--					  db_frag.buf2,
--					  1,
--					  data->mdbgc.count);
--	if (err)
--		return err;
-+	if (btintel_pcie_get_mdbgc_cfg(data, BTINTEL_PCIE_ALLOC_ID_DBGC2,
-+				       &buf_count, &buf_size)) {
-+		db_frag.buf2_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_2;
-+		data->mdbgc.buf2_count = buf_count;
-+		data->mdbgc.buf2_size = buf_size;
-+		db_frag.buf2_count = buf_count;
-+
-+		err = btintel_pcie_alloc_dbgc_buf(data,
-+						  &data->mdbgc.buf2,
-+						  &data->mdbgc.buf2_p_addr,
-+						  &data->mdbgc.buf2_v_addr,
-+						  db_frag.buf2,
-+						  1,
-+						  buf_count,
-+						  buf_size);
-+		if (err)
-+			return err;
-+	}
- 
- 	/* Allocate DBGC buffer 3 */
--	db_frag.buf3_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_3;
--	db_frag.buf3_count = data->mdbgc.count;
--	err = btintel_pcie_alloc_dbgc_buf(data,
--					  &data->mdbgc.buf3,
--					  &data->mdbgc.buf3_p_addr,
--					  &data->mdbgc.buf3_v_addr,
--					  db_frag.buf3,
--					  2,
--					  data->mdbgc.count);
--	if (err)
--		return err;
-+	if (btintel_pcie_get_mdbgc_cfg(data, BTINTEL_PCIE_ALLOC_ID_DBGC3,
-+				       &buf_count, &buf_size)) {
-+		db_frag.buf3_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_3;
-+		data->mdbgc.buf3_count = buf_count;
-+		data->mdbgc.buf3_size = buf_size;
-+		db_frag.buf3_count = buf_count;
-+
-+		err = btintel_pcie_alloc_dbgc_buf(data,
-+						  &data->mdbgc.buf3,
-+						  &data->mdbgc.buf3_p_addr,
-+						  &data->mdbgc.buf3_v_addr,
-+						  db_frag.buf3,
-+						  2,
-+						  buf_count,
-+						  buf_size);
-+		if (err)
-+			return err;
-+	}
- 
- 	/* Copy fragment to DMA coherent memory */
- 	memcpy(data->mdbgc.frag_v_addr, &db_frag, sizeof(db_frag));
-+	BT_INFO("MDBGC: buf1 frag=%u size=%u; buf2 frag=%u size=%u; buf3 frag=%u size=%u",
-+		db_frag.buf1_count, db_frag.buf1_count * db_frag.buf1[0].buf_size,
-+		db_frag.buf2_count, db_frag.buf2_count * db_frag.buf2[0].buf_size,
-+		db_frag.buf3_count, db_frag.buf3_count * db_frag.buf3[0].buf_size);
- 	return 0;
+@@ -247,6 +249,7 @@ static int set_fd_limit(int n)
  }
  
-@@ -431,9 +479,21 @@ static int btintel_pcie_setup_dbgc(struct btintel_pcie_data *data)
+ static int test__dso_data_cache(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
++	__context_unsafe(/* single-threaded test */)
  {
- 	struct btintel_pcie_dbgc_ctxt db_frag;
- 	u32 frag_size = sizeof(db_frag);
-+	const struct btintel_pcie_buf_alloc *ba;
-+	u32 buf_count, buf_size;
- 	int err;
- 
--	data->dbgc.count = BTINTEL_PCIE_DBGC_BUFFER_COUNT;
-+	ba = btintel_pcie_yoyo_get_buf_alloc(&data->yoyo,
-+					     BTINTEL_PCIE_ALLOC_ID_DBGC1);
-+	buf_count = ba ? ba->max_num_frags : BTINTEL_PCIE_DBGC_BUFFER_COUNT;
-+	buf_size = ba ? ba->req_buf_size / ba->max_num_frags :
-+		BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+
-+	BT_INFO("dbgc setup: frag_num=%u per_buf_size=%u total_size=%u",
-+		buf_count, buf_size, buf_count * buf_size);
-+
-+	data->dbgc.count = buf_count;
-+	data->dbgc.buf_size = buf_size;
- 
- 	/* Allocate fragment context structure */
- 	data->dbgc.frag_v_addr = dmam_alloc_coherent(&data->pdev->dev,
-@@ -451,8 +511,9 @@ static int btintel_pcie_setup_dbgc(struct btintel_pcie_data *data)
- 	memset(&db_frag, 0, sizeof(db_frag));
- 	db_frag.magic_num = BTINTEL_PCIE_MAGIC_NUM;
- 	db_frag.ver = BTINTEL_PCIE_DBGC_FRAG_VERSION;
--	db_frag.total_size = BTINTEL_PCIE_DBGC_FRAG_PAYLOAD_SIZE;
--	db_frag.num_buf = BTINTEL_PCIE_DBGC_FRAG_BUFFER_COUNT;
-+	db_frag.total_size = sizeof(db_frag.num_buf) +
-+			     buf_count * sizeof(db_frag.bufs[0]);
-+	db_frag.num_buf = buf_count;
- 
- 	/* Allocate DBGC buffers */
- 	err = btintel_pcie_alloc_dbgc_buf(data,
-@@ -461,7 +522,8 @@ static int btintel_pcie_setup_dbgc(struct btintel_pcie_data *data)
- 					  &data->dbgc.buf_v_addr,
- 					  db_frag.bufs,
- 					  0,
--					  data->dbgc.count);
-+					  buf_count,
-+					  buf_size);
- 	if (err)
- 		return err;
- 
-@@ -954,7 +1016,8 @@ static u32 btintel_pcie_dump_list_total_size(struct list_head *list)
+ 	struct machine machine;
+ 	long nr_end, nr = open_files_cnt();
+@@ -317,6 +320,7 @@ static long new_limit(int count)
  }
  
- static int btintel_pcie_dump_dram(struct list_head *list,
--				  u8 count, struct data_buf *bufs,
-+				  u8 count, u32 buf_size,
-+				  struct data_buf *bufs,
- 				  u32 write_ptr, u32 wrap_ctr, u32 cur_frag,
- 				  u32 region_id, const char *name)
+ static int test__dso_data_reopen(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
++	__context_unsafe(/* single-threaded test */)
  {
-@@ -966,7 +1029,7 @@ static int btintel_pcie_dump_dram(struct list_head *list,
- 	int i;
- 
- 	mon_hdr_size = sizeof(*mon_dump);
--	ranges_size = count * (sizeof(*range) + BTINTEL_PCIE_DBGC_BUFFER_SIZE);
-+	ranges_size = count * (sizeof(*range) + buf_size);
- 	payload_size = mon_hdr_size + ranges_size;
- 	total_size = sizeof(*dump_data) + payload_size;
- 
-@@ -995,12 +1058,10 @@ static int btintel_pcie_dump_dram(struct list_head *list,
- 
- 	range = (void *)mon_dump->data;
- 	for (i = 0; i < count; i++) {
--		range->range_data_size =
--			cpu_to_le32(BTINTEL_PCIE_DBGC_BUFFER_SIZE);
-+		range->range_data_size = cpu_to_le32(buf_size);
- 		range->dram_base_addr = cpu_to_le64(bufs[i].data_p_addr);
--		memcpy(range->data, bufs[i].data,
--		       BTINTEL_PCIE_DBGC_BUFFER_SIZE);
--		range = (void *)range->data + BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+		memcpy(range->data, bufs[i].data, buf_size);
-+		range = (void *)range->data + buf_size;
- 	}
- 
- 	list_add_tail(&entry->list, list);
-@@ -1009,7 +1070,8 @@ static int btintel_pcie_dump_dram(struct list_head *list,
- 
- static int
- btintel_pcie_dump_dram_monitor(struct btintel_pcie_data *data,
--			       struct list_head *list, u8 count,
-+				       struct list_head *list, u8 count,
-+				       u32 buf_size,
- 			       struct data_buf *bufs, u32 status_reg,
- 			       u32 wrap_reg, u8 allocation_id, u32 region_id,
- 			       const char *name)
-@@ -1017,6 +1079,9 @@ btintel_pcie_dump_dram_monitor(struct btintel_pcie_data *data,
- 	u32 allocation_offset, write_ptr, wrap_ctr, wr_ptr_status;
- 	u8 cur_frag;
- 
-+	if (!count)
-+		return -ENOENT;
-+
- 	allocation_offset = allocation_id *
- 			    BTINTEL_PCIE_DBGC_ALLOCATION_OFFSET;
- 	wr_ptr_status = btintel_pcie_rd_dev_mem(data, status_reg +
-@@ -1038,8 +1103,8 @@ btintel_pcie_dump_dram_monitor(struct btintel_pcie_data *data,
- 		   "allocation=%u wr_ptr_status=0x%08x write_ptr=0x%06x cur_frag=%u wrap_ctr=0x%08x",
- 		   allocation_id, wr_ptr_status, write_ptr, cur_frag, wrap_ctr);
- 
--	return btintel_pcie_dump_dram(list, count, bufs, write_ptr, wrap_ctr,
--				      cur_frag, region_id, name);
-+	return btintel_pcie_dump_dram(list, count, buf_size, bufs, write_ptr,
-+				      wrap_ctr, cur_frag, region_id, name);
- }
- 
- static int btintel_pcie_dump_target_region(struct btintel_pcie_data *data,
-@@ -1320,6 +1385,7 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 	u8 hw_variant;
- 	u32 file_len;
- 	u8 count;
-+	u32 buf_size;
- 	int ret;
- 	LIST_HEAD(dump_list);
- 
-@@ -1328,10 +1394,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 
- 	if (btintel_pcie_is_mdbgc_supported(data)) {
- 		mdbgc = &data->mdbgc;
--		count = mdbgc->count;
-+		count = mdbgc->buf1_count;
-+		buf_size = mdbgc->buf1_size;
- 	} else {
- 		dbgc = &data->dbgc;
- 		count = dbgc->count;
-+		buf_size = dbgc->buf_size;
- 	}
- 
- 	hw_variant = INTEL_HW_VARIANT(data->cnvi);
-@@ -1351,7 +1419,9 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 	}
- 
- 	if (btintel_pcie_is_mdbgc_supported(data)) {
--		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
-+		ret = btintel_pcie_dump_dram_monitor(data, &dump_list,
-+						     mdbgc->buf1_count,
-+						     mdbgc->buf1_size,
- 						     mdbgc->buf1, status_reg,
- 						     wrap_reg,
- 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_1,
-@@ -1360,10 +1430,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 		if (!ret)
- 			regions_mask |=
- 				BIT_ULL(BTINTEL_PCIE_INI_ID_DRAM_MONITOR1);
--		else
-+		else if (ret != -ENOENT)
- 			bt_dev_warn(hdev, "Failed to dump DRAM buf1: %d", ret);
- 
--		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
-+		ret = btintel_pcie_dump_dram_monitor(data, &dump_list,
-+						     mdbgc->buf2_count,
-+						     mdbgc->buf2_size,
- 						     mdbgc->buf2, status_reg,
- 						     wrap_reg,
- 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_2,
-@@ -1372,10 +1444,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 		if (!ret)
- 			regions_mask |=
- 				BIT_ULL(BTINTEL_PCIE_INI_ID_DRAM_MONITOR2);
--		else
-+		else if (ret != -ENOENT)
- 			bt_dev_warn(hdev, "Failed to dump DRAM buf2: %d", ret);
- 
--		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
-+		ret = btintel_pcie_dump_dram_monitor(data, &dump_list,
-+						     mdbgc->buf3_count,
-+						     mdbgc->buf3_size,
- 						     mdbgc->buf3, status_reg,
- 						     wrap_reg,
- 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_3,
-@@ -1384,11 +1458,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 		if (!ret)
- 			regions_mask |=
- 				BIT_ULL(BTINTEL_PCIE_INI_ID_DRAM_MONITOR3);
--		else
-+		else if (ret != -ENOENT)
- 			bt_dev_warn(hdev, "Failed to dump DRAM buf3: %d", ret);
- 	} else {
- 		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
--						     dbgc->bufs, status_reg,
-+						     buf_size, dbgc->bufs,
-+						     status_reg,
- 						     wrap_reg,
- 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_1,
- 						     BTINTEL_PCIE_INI_ID_DRAM_MONITOR1,
-diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
-index 0a4e508d0beb..d68f83a62922 100644
---- a/drivers/bluetooth/btintel_pcie.h
-+++ b/drivers/bluetooth/btintel_pcie.h
-@@ -468,6 +468,7 @@ struct rxq {
+ 	struct machine machine;
+ 	long nr_end, nr = open_files_cnt(), lim = new_limit(3);
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index ff5b30a3d424..87a92238d25b 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -523,25 +523,12 @@ void dso__set_module_info(struct dso *dso, struct kmod_path *m,
+ /*
+  * Global list of open DSOs and the counter.
   */
- struct btintel_pcie_dbgc {
- 	u16		count;
-+	u32		buf_size;
+-struct mutex _dso__data_open_lock;
+-static LIST_HEAD(dso__data_open);
+-static long dso__data_open_cnt __guarded_by(&_dso__data_open_lock);
++DEFINE_MUTEX(dso__data_open_lock);
++static struct list_head dso__data_open __guarded_by(&dso__data_open_lock) =
++	LIST_HEAD_INIT(dso__data_open);
++static long dso__data_open_cnt __guarded_by(&dso__data_open_lock);
  
- 	void		*frag_v_addr;
- 	dma_addr_t	frag_p_addr;
-@@ -479,7 +480,12 @@ struct btintel_pcie_dbgc {
- };
- 
- struct btintel_pcie_mdbgc {
--	u32		count;
-+	u32		buf1_count;
-+	u32		buf1_size;
-+	u32		buf2_count;
-+	u32		buf2_size;
-+	u32		buf3_count;
-+	u32		buf3_size;
- 
- 	void		*frag_v_addr;
- 	dma_addr_t	frag_p_addr;
-diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
-index 615996232cdf..5af00784bf96 100644
---- a/drivers/bluetooth/btintel_pcie_debug.c
-+++ b/drivers/bluetooth/btintel_pcie_debug.c
-@@ -64,6 +64,76 @@ static int btintel_pcie_yoyo_parse_dbg_info(struct btintel_pcie_yoyo_ctx *ctx,
- 	return 0;
+-static void dso__data_open_lock_init(void)
+-{
+-	mutex_init(&_dso__data_open_lock);
+-}
+-
+-static struct mutex *dso__data_open_lock(void) __returns_ctx_lock(&_dso__data_open_lock)
+-{
+-	static pthread_once_t data_open_lock_once = PTHREAD_ONCE_INIT;
+-
+-	pthread_once(&data_open_lock_once, dso__data_open_lock_init);
+-
+-	return &_dso__data_open_lock;
+-}
+-
+-static void dso__list_add(struct dso *dso) __must_hold(&_dso__data_open_lock)
++static void dso__list_add(struct dso *dso) __must_hold(&dso__data_open_lock)
+ {
+ 	list_add_tail(&dso__data(dso)->open_entry, &dso__data_open);
+ #ifdef REFCNT_CHECKING
+@@ -552,13 +539,13 @@ static void dso__list_add(struct dso *dso) __must_hold(&_dso__data_open_lock)
+ 	dso__data_open_cnt++;
  }
  
-+static int btintel_pcie_yoyo_parse_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx,
-+					     const struct btintel_pcie_tlv_buf_alloc *tlv,
-+					     u32 len)
-+{
-+	u32 alloc_id, buf_location, domain, idx, max_num_frags, min_buf_size;
-+	u32 req_buf_size, version;
-+
-+	if (len != sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr)) {
-+		BT_WARN("YoYo: unexpected buf alloc TLV length %u", len);
-+		return -EBADMSG;
-+	}
-+
-+	domain = get_unaligned_le32(&tlv->dbg_hdr.domain);
-+	version = get_unaligned_le32(&tlv->dbg_hdr.tlv_data_version);
-+	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
-+	    version != BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION) {
-+		BT_WARN("YoYo: unsupported buf allocation domain/version (%u/%u)",
-+			domain, version);
-+		return -EINVAL;
-+	}
-+
-+	alloc_id = get_unaligned_le32(&tlv->alloc_id);
-+	if (alloc_id < BTINTEL_PCIE_ALLOC_ID_DBGC1 ||
-+	    alloc_id > BTINTEL_PCIE_ALLOC_ID_DBGC3) {
-+		BT_WARN("YoYo: invalid buf allocation id %u", alloc_id);
-+		return -EINVAL;
-+	}
-+
-+	idx = alloc_id - BTINTEL_PCIE_ALLOC_ID_DBGC1;
-+	buf_location = get_unaligned_le32(&tlv->buf_location);
-+	max_num_frags = get_unaligned_le32(&tlv->max_num_frags);
-+	min_buf_size = get_unaligned_le32(&tlv->min_buf_size);
-+	req_buf_size = get_unaligned_le32(&tlv->req_buf_size);
-+
-+	if (buf_location != BTINTEL_PCIE_BUF_LOC_DRAM) {
-+		BT_WARN("YoYo: buf allocation id=%u unsupported buffer location %u",
-+			alloc_id, buf_location);
-+		return -EINVAL;
-+	}
-+
-+	if (!max_num_frags || max_num_frags > BTINTEL_PCIE_MAX_BUF_FRAGS ||
-+	    min_buf_size < BTINTEL_PCIE_MIN_BUF_SIZE ||
-+	    min_buf_size > BTINTEL_PCIE_MAX_BUF_SIZE ||
-+	    req_buf_size > BTINTEL_PCIE_MAX_BUF_SIZE ||
-+	    req_buf_size % max_num_frags ||
-+	    req_buf_size / max_num_frags < min_buf_size) {
-+		BT_WARN("YoYo: buf allocation id=%u req size=%u max frags=%u min size=%u",
-+			alloc_id, req_buf_size, max_num_frags, min_buf_size);
-+		return -EINVAL;
-+	}
-+
-+	ctx->buf_alloc[idx].alloc_id = alloc_id;
-+	ctx->buf_alloc[idx].buf_location = buf_location;
-+	ctx->buf_alloc[idx].req_buf_size = req_buf_size;
-+	ctx->buf_alloc[idx].max_num_frags = max_num_frags;
-+	ctx->buf_alloc[idx].min_buf_size = min_buf_size;
-+	ctx->buf_alloc[idx].present = true;
-+
-+	if (idx + 1 > ctx->num_buf_allocs)
-+		ctx->num_buf_allocs = idx + 1;
-+
-+	BT_DBG("YoYo: buf allocation id=%u loc=%u req size=%u max frags=%u min size=%u",
-+	       alloc_id, ctx->buf_alloc[idx].buf_location,
-+	       ctx->buf_alloc[idx].req_buf_size,
-+	       ctx->buf_alloc[idx].max_num_frags,
-+	       ctx->buf_alloc[idx].min_buf_size);
-+
-+	return 0;
-+}
-+
- /*
-  * Parse the optional YoYo firmware TLV stream and validate each record.
-  * This is the entry point for the runtime debug configuration payload.
-@@ -98,14 +168,16 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 							       (const void *)tlv, len);
- 			if (ret) {
- 				ctx->dbg_info_present = false;
--				return ret;
- 			}
- 			break;
-+		case BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC:
-+			ret = btintel_pcie_yoyo_parse_buf_alloc(ctx,
-+								(const void *)tlv, len);
-+			break;
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET:
--		case BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE:
- 			BT_DBG("YoYo: valid tlv type 0x%x len=%u", type, len);
- 			break;
-@@ -116,6 +188,12 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
+-static void dso__list_del(struct dso *dso) __must_hold(&_dso__data_open_lock)
++static void dso__list_del(struct dso *dso) __must_hold(&dso__data_open_lock)
+ {
+ 	list_del_init(&dso__data(dso)->open_entry);
+ #ifdef REFCNT_CHECKING
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 	dso__put(dso__data(dso)->dso);
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ #endif
+ 	WARN_ONCE(dso__data_open_cnt <= 0,
+ 		  "DSO data fd counter out of bounds.");
+@@ -567,7 +554,7 @@ static void dso__list_del(struct dso *dso) __must_hold(&_dso__data_open_lock)
  
- 		ptr += tlv_size;
- 		remaining -= tlv_size;
-+
-+		if (ret) {
-+			BT_ERR("YoYo: error parsing tlv type 0x%x (ret=%d)", type, ret);
-+			return ret;
-+		}
-+
- 		count++;
+ static void close_first_dso(void);
+ 
+-static int do_open(char *name) __must_hold(&_dso__data_open_lock)
++static int do_open(char *name) __must_hold(&dso__data_open_lock)
+ {
+ 	do {
+ 		int fd = open(name, O_RDONLY|O_CLOEXEC);
+@@ -670,7 +657,7 @@ void dso__put_filename(struct dso *dso __maybe_unused, char *filename, bool deco
+ }
+ 
+ static int __open_dso(struct dso *dso, struct machine *machine)
+-	__must_hold(&_dso__data_open_lock)
++	__must_hold(&dso__data_open_lock)
+ {
+ 	int fd = -EINVAL;
+ 	char *name;
+@@ -703,7 +690,7 @@ static void check_data_close(void);
+  * list/count of open DSO objects.
+  */
+ static int open_dso(struct dso *dso, struct machine *machine)
+-	__must_hold(&_dso__data_open_lock)
++	__must_hold(&dso__data_open_lock)
+ {
+ 	int fd;
+ 	struct nscookie nsc;
+@@ -729,7 +716,7 @@ static int open_dso(struct dso *dso, struct machine *machine)
+ 	return fd;
+ }
+ 
+-static void close_data_fd(struct dso *dso) __must_hold(&_dso__data_open_lock)
++static void close_data_fd(struct dso *dso) __must_hold(&dso__data_open_lock)
+ {
+ 	if (dso__data(dso)->fd >= 0) {
+ 		close(dso__data(dso)->fd);
+@@ -746,12 +733,12 @@ static void close_data_fd(struct dso *dso) __must_hold(&_dso__data_open_lock)
+  * Close @dso's data file descriptor and updates
+  * list/count of open DSO objects.
+  */
+-static void close_dso(struct dso *dso) __must_hold(&_dso__data_open_lock)
++static void close_dso(struct dso *dso) __must_hold(&dso__data_open_lock)
+ {
+ 	close_data_fd(dso);
+ }
+ 
+-static void close_first_dso(void) __must_hold(&_dso__data_open_lock)
++static void close_first_dso(void) __must_hold(&dso__data_open_lock)
+ {
+ 	struct dso_data *dso_data;
+ 	struct dso *dso;
+@@ -784,7 +771,7 @@ static rlim_t get_fd_limit(void)
+ 	return limit;
+ }
+ 
+-static rlim_t fd_limit;
++static rlim_t fd_limit __guarded_by(&dso__data_open_lock);
+ 
+ /*
+  * Used only by tests/dso-data.c to reset the environment
+@@ -793,10 +780,11 @@ static rlim_t fd_limit;
+  */
+ void reset_fd_limit(void)
+ {
+-	fd_limit = 0;
++	/* Only called by single-threaded test setup. */
++	context_unsafe(fd_limit = 0);
+ }
+ 
+-static bool may_cache_fd(void) __must_hold(&_dso__data_open_lock)
++static bool may_cache_fd(void) __must_hold(&dso__data_open_lock)
+ {
+ 	if (!fd_limit)
+ 		fd_limit = get_fd_limit();
+@@ -812,7 +800,7 @@ static bool may_cache_fd(void) __must_hold(&_dso__data_open_lock)
+  * for opened dso file descriptors. The limit is half
+  * of the RLIMIT_NOFILE files opened.
+ */
+-static void check_data_close(void) __must_hold(&_dso__data_open_lock)
++static void check_data_close(void) __must_hold(&dso__data_open_lock)
+ {
+ 	bool cache_fd = may_cache_fd();
+ 
+@@ -828,13 +816,13 @@ static void check_data_close(void) __must_hold(&_dso__data_open_lock)
+  */
+ void dso__data_close(struct dso *dso)
+ {
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 	close_dso(dso);
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ }
+ 
+ static void try_to_open_dso(struct dso *dso, struct machine *machine)
+-	__must_hold(&_dso__data_open_lock)
++	__must_hold(&dso__data_open_lock)
+ {
+ 	enum dso_binary_type binary_type_data[] = {
+ 		DSO_BINARY_TYPE__BUILD_ID_CACHE,
+@@ -882,7 +870,7 @@ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
+ 	if (dso__data(dso)->status == DSO_DATA_STATUS_ERROR)
+ 		return false;
+ 
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 
+ 	try_to_open_dso(dso, machine);
+ 
+@@ -890,13 +878,13 @@ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
+ 	if (*fd >= 0)
+ 		return true;
+ 
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 	return false;
+ }
+ 
+ void dso__data_put_fd(struct dso *dso __maybe_unused)
+ {
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ }
+ 
+ bool dso__data_status_seen(struct dso *dso, enum dso_data_status_seen by)
+@@ -1067,7 +1055,7 @@ static ssize_t file_read(struct dso *dso, struct machine *machine,
+ {
+ 	ssize_t ret;
+ 
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 
+ 	/*
+ 	 * dso__data(dso)->fd might be closed if other thread opened another
+@@ -1083,7 +1071,7 @@ static ssize_t file_read(struct dso *dso, struct machine *machine,
+ 
+ 	ret = pread(dso__data(dso)->fd, data, DSO__DATA_CACHE_SIZE, offset);
+ out:
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 	return ret;
+ }
+ 
+@@ -1190,7 +1178,7 @@ static int file_size(struct dso *dso, struct machine *machine)
+ 	int ret = 0;
+ 	struct stat st;
+ 
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 
+ 	/*
+ 	 * dso__data(dso)->fd might be closed if other thread opened another
+@@ -1213,7 +1201,7 @@ static int file_size(struct dso *dso, struct machine *machine)
+ 	dso__data(dso)->file_size = st.st_size;
+ 
+ out:
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 	return ret;
+ }
+ 
+@@ -1417,7 +1405,7 @@ uint16_t dso__e_machine_endian(struct dso *dso, struct machine *machine, uint32_
+ 		return EM_NONE;
  	}
  
-@@ -124,6 +202,10 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 		BT_ERR("YoYo: trailing %zu bytes after tlv stream", remaining);
- 		return -EBADMSG;
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 
+ 	/*
+ 	 * dso__data(dso)->fd might be closed if other thread opened another
+@@ -1430,7 +1418,7 @@ uint16_t dso__e_machine_endian(struct dso *dso, struct machine *machine, uint32_
+ 	else if (e_flags)
+ 		*e_flags = 0;
+ 
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 	return e_machine;
+ }
+ 
+@@ -1596,6 +1584,15 @@ const struct dso_id dso_id_empty = {
  	}
-+	if (!ctx->num_buf_allocs) {
-+		BT_ERR("YoYo: mandatory buffer allocation TLV missing");
-+		return -EBADMSG;
-+	}
+ };
  
- 	BT_DBG("YoYo: parsed %u tlv's", count);
- 	return 0;
-@@ -162,6 +244,8 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
- 
- 	ctx->enabled = false;
- 	ctx->dbg_info_present = false;
-+	ctx->num_buf_allocs = 0;
-+	memset(ctx->buf_alloc, 0, sizeof(ctx->buf_alloc));
- }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
- 
-@@ -218,5 +302,30 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
- }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_load_and_parse);
- 
-+/**
-+ * btintel_pcie_yoyo_get_buf_alloc - Query buffer allocation config for a DBGC
-+ * @ctx: YoYo context
-+ * @alloc_id: Allocation ID (1=DBGC1, 2=DBGC2, 3=DBGC3)
-+ *
-+ * Return the parsed configuration, or NULL if no matching TLV was present.
-+ */
-+const struct btintel_pcie_buf_alloc *
-+btintel_pcie_yoyo_get_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx, u32 alloc_id)
++bool dso__needs_improve_id(const struct dso *dso, const struct dso_id *id)
 +{
-+	u32 idx;
++	const struct dso_id *dso_id = dso__id_const(dso);
 +
-+	if (!ctx || !ctx->enabled ||
-+	    alloc_id < BTINTEL_PCIE_ALLOC_ID_DBGC1 ||
-+	    alloc_id > BTINTEL_PCIE_ALLOC_ID_DBGC3)
-+		return NULL;
-+
-+	idx = alloc_id - BTINTEL_PCIE_ALLOC_ID_DBGC1;
-+	if (!ctx->buf_alloc[idx].present)
-+		return NULL;
-+
-+	return &ctx->buf_alloc[idx];
++	return (id->mmap2_valid && !dso_id->mmap2_valid) ||
++	       (id->mmap2_ino_generation_valid && !dso_id->mmap2_ino_generation_valid) ||
++	       (build_id__is_defined(&id->build_id) && !build_id__is_defined(&dso_id->build_id));
 +}
-+EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_get_buf_alloc);
 +
- MODULE_DESCRIPTION("Intel Bluetooth yoyo debug framework");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
-index 717e8838c4d5..5ed368fb13d1 100644
---- a/drivers/bluetooth/btintel_pcie_debug.h
-+++ b/drivers/bluetooth/btintel_pcie_debug.h
-@@ -28,10 +28,16 @@
+ void __dso__improve_id(struct dso *dso, const struct dso_id *id)
+ {
+ 	struct dsos *dsos = dso__dsos(dso);
+@@ -1620,8 +1617,10 @@ void __dso__improve_id(struct dso *dso, const struct dso_id *id)
+ 		dso_id->build_id = id->build_id;
+ 		changed = true;
+ 	}
+-	if (changed && dsos)
+-		dsos->sorted = false;
++	if (changed && dsos) {
++		/* dsos write lock held by caller. */
++		context_unsafe(dsos->sorted = false);
++	}
+ }
  
- /* Supported TLV type versions */
- #define BTINTEL_PCIE_DBG_INFO_TLV_VERSION	2
-+#define BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION	1
- /* Debug Info TLV */
- #define BTINTEL_PCIE_CONFIG_NAME_LEN		64
- #define BTINTEL_PCIE_DOMAIN_BT			0
- #define BTINTEL_PCIE_CORE_TYPE_BT		1
-+/* Buffer allocation TLV */
-+#define BTINTEL_PCIE_MAX_BUF_ALLOC		3
-+#define BTINTEL_PCIE_MAX_BUF_FRAGS		16
-+#define BTINTEL_PCIE_MIN_BUF_SIZE		(32 * 1024)
-+#define BTINTEL_PCIE_MAX_BUF_SIZE		(4 * 1024 * 1024)
- 
- enum btintel_pcie_image_tlv_type {
- 	BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL	= 0x1,
-@@ -39,6 +45,24 @@ enum btintel_pcie_image_tlv_type {
- 	BTINTEL_PCIE_IMAGE_TLV_TYPE_UNKNOWN	= 0xff,
+ int dso_id__cmp(const struct dso_id *a, const struct dso_id *b)
+diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+index 54aaa88f574e..3ad6ab5272bb 100644
+--- a/tools/perf/util/dso.h
++++ b/tools/perf/util/dso.h
+@@ -356,7 +356,7 @@ DECLARE_RC_STRUCT(dso) {
+ 	char		 name[];
  };
  
-+/* Allocation IDs */
-+enum btintel_dbg_alloc_id {
-+	BTINTEL_PCIE_ALLOC_ID_INVALID	= 0,
-+	BTINTEL_PCIE_ALLOC_ID_DBGC1		= 1,
-+	BTINTEL_PCIE_ALLOC_ID_DBGC2		= 2,
-+	BTINTEL_PCIE_ALLOC_ID_DBGC3		= 3,
-+	BTINTEL_PCIE_ALLOC_ID_MAX,
-+};
-+
-+/* Buffer locations */
-+enum btintel_dbg_buf_location {
-+	BTINTEL_PCIE_BUF_LOC_INVALID		= 0,
-+	BTINTEL_PCIE_BUF_LOC_SRAM		= 1,
-+	BTINTEL_PCIE_BUF_LOC_DRAM		= 2,
-+	BTINTEL_PCIE_BUF_LOC_NPK		= 3,
-+	BTINTEL_PCIE_BUF_LOC_MAX,
-+};
-+
- /* TLV header */
- struct btintel_pcie_tlv_hdr {
- 	__le32 type;
-@@ -76,6 +100,38 @@ struct btintel_pcie_tlv_dbg_info {
- 	u8 config_name[BTINTEL_PCIE_CONFIG_NAME_LEN];
- } __packed;
+-extern struct mutex _dso__data_open_lock;
++extern struct mutex dso__data_open_lock;
+ extern const struct dso_id dso_id_empty;
  
-+/*
-+ * struct btintel_pcie_tlv_buf_alloc - YoYo buffer allocation TLV
-+ * @hdr: Common TLV header
-+ * @dbg_hdr: Debug TLV version and domain
-+ * @alloc_id: DBGC allocation identifier (DBGC1..DBGC3)
-+ * @buf_location: Requested buffer location (SRAM / DRAM / NPK)
-+ * @req_buf_size: Total requested allocation size in bytes
-+ * @max_num_frags: Maximum number of buffer fragments (1..16)
-+ * @min_buf_size: Minimum buffer size in bytes
-+ *
-+ * Describes the buffer sizing override for one DBGC allocation.
-+ */
-+struct btintel_pcie_tlv_buf_alloc {
-+	struct btintel_pcie_tlv_hdr hdr;
-+	struct btintel_pcie_dbg_hdr dbg_hdr;
-+	__le32 alloc_id;
-+	__le32 buf_location;
-+	__le32 req_buf_size;
-+	__le32 max_num_frags;
-+	__le32 min_buf_size;
-+} __packed;
+ int dso_id__cmp(const struct dso_id *a, const struct dso_id *b);
+@@ -628,6 +628,7 @@ static inline void dso__set_loaded(struct dso *dso)
+ }
+ 
+ static inline struct mutex *dso__lock(struct dso *dso)
++	__returns_ctx_lock(&RC_CHK_ACCESS(dso)->lock)
+ {
+ 	return &RC_CHK_ACCESS(dso)->lock;
+ }
+@@ -803,12 +804,13 @@ void dso__delete(struct dso *dso);
+ int dso__cmp_id(struct dso *a, struct dso *b);
+ void dso__set_short_name(struct dso *dso, const char *name, bool name_allocated);
+ void dso__set_long_name(struct dso *dso, const char *name, bool name_allocated);
++bool dso__needs_improve_id(const struct dso *dso, const struct dso_id *id);
+ void __dso__improve_id(struct dso *dso, const struct dso_id *id);
+ 
+ int dso__name_len(const struct dso *dso);
+ 
+ struct dso *dso__get(struct dso *dso);
+-void dso__put(struct dso *dso) __must_not_hold(&_dso__data_open_lock);
++void dso__put(struct dso *dso) __must_not_hold(&dso__data_open_lock);
+ 
+ static inline void __dso__zput(struct dso **dso)
+ {
+@@ -918,9 +920,9 @@ void dso__set_module_info(struct dso *dso, struct kmod_path *m,
+  * TODO
+ */
+ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
+-	__cond_acquires(true, &_dso__data_open_lock);
+-void dso__data_put_fd(struct dso *dso) __releases(&_dso__data_open_lock);
+-void dso__data_close(struct dso *dso) __must_not_hold(&_dso__data_open_lock);
++	__cond_acquires(true, &dso__data_open_lock);
++void dso__data_put_fd(struct dso *dso) __releases(&dso__data_open_lock);
++void dso__data_close(struct dso *dso) __must_not_hold(&dso__data_open_lock);
+ 
+ int dso__data_file_size(struct dso *dso, struct machine *machine);
+ off_t dso__data_size(struct dso *dso, struct machine *machine);
+diff --git a/tools/perf/util/dsos.c b/tools/perf/util/dsos.c
+index a2cd37bd1660..dc6c417fec05 100644
+--- a/tools/perf/util/dsos.c
++++ b/tools/perf/util/dsos.c
+@@ -12,6 +12,7 @@
+ #include <unistd.h>
+ 
+ void dsos__init(struct dsos *dsos)
++	__context_unsafe(/* initialization */)
+ {
+ 	init_rwsem(&dsos->lock);
+ 
+@@ -50,6 +51,7 @@ void dsos__exit(struct dsos *dsos)
+ static int __dsos__for_each_dso(struct dsos *dsos,
+ 				int (*cb)(struct dso *dso, void *data),
+ 				void *data)
++	__must_hold_shared(&dsos->lock)
+ {
+ 	for (unsigned int i = 0; i < dsos->cnt; i++) {
+ 		struct dso *dso = dsos->dsos[i];
+@@ -182,7 +184,8 @@ static struct dso *__dsos__find_by_longname_id(struct dsos *dsos,
+ 		}
+ 		qsort(dsos->dsos, dsos->cnt, sizeof(struct dso *),
+ 		      dsos__cmp_long_name_id_short_name);
+-		dsos->sorted = true;
++		/* write_locked is true, so dsos->lock is held exclusively. */
++		context_unsafe(dsos->sorted = true);
+ 	}
+ 
+ 	res = bsearch(&key, dsos->dsos, dsos->cnt, sizeof(struct dso *),
+@@ -193,7 +196,8 @@ static struct dso *__dsos__find_by_longname_id(struct dsos *dsos,
+ 	return dso__get(*res);
+ }
+ 
+-int __dsos__add(struct dsos *dsos, struct dso *dso)
++static int __dsos__add(struct dsos *dsos, struct dso *dso)
++	__must_hold(&dsos->lock)
+ {
+ 	if (!dso)
+ 		return -EINVAL;
+@@ -314,6 +318,7 @@ static void dso__set_basename(struct dso *dso)
+ }
+ 
+ static struct dso *__dsos__addnew_id(struct dsos *dsos, const char *name, const struct dso_id *id)
++	__must_hold(&dsos->lock)
+ {
+ 	struct dso *dso = dso__new_id(name, id);
+ 
+@@ -330,7 +335,7 @@ static struct dso *__dsos__addnew_id(struct dsos *dsos, const char *name, const
+ }
+ 
+ static struct dso *__dsos__findnew_id(struct dsos *dsos, const char *name, const struct dso_id *id)
+-	__must_hold_shared(&dsos->lock)
++	__must_hold(&dsos->lock)
+ {
+ 	struct dso *dso = __dsos__find_id(dsos, name, id, false, /*write_locked=*/true);
+ 
+@@ -343,8 +348,20 @@ static struct dso *__dsos__findnew_id(struct dsos *dsos, const char *name, const
+ struct dso *dsos__findnew_id(struct dsos *dsos, const char *name, const struct dso_id *id)
+ {
+ 	struct dso *dso;
 +
-+/* Parsed buffer allocation entry in the YoYo context */
-+struct btintel_pcie_buf_alloc {
-+	u32	alloc_id;
-+	u32	buf_location;
-+	u32	req_buf_size;
-+	u32	max_num_frags;
-+	u32	min_buf_size;
-+	bool	present;
-+};
++	down_read(&dsos->lock);
++	dso = __dsos__find_id(dsos, name, id, false, /*write_locked=*/false);
++	if (dso && !dso__needs_improve_id(dso, id)) {
++		up_read(&dsos->lock);
++		return dso;
++	}
++	up_read(&dsos->lock);
 +
- /*
-  * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
-  * @enabled: Whether the loaded YoYo configuration passed validation
-@@ -83,6 +139,8 @@ struct btintel_pcie_tlv_dbg_info {
-  * @trigger_list: Parsed debug-trigger entries
-  * @hcmd_list: Parsed HCI command entries
-  * @config_set_list: Parsed configuration-set entries
-+ * @buf_alloc: Parsed buffer allocation entries
-+ * @num_buf_allocs: Number of parsed buffer allocation entries
-  * @hdev: Associated HCI device; NULL until successful HCI registration
-  *
-  * Stores the validation state and parsed TLV data for the optional YoYo
-@@ -95,6 +153,8 @@ struct btintel_pcie_yoyo_ctx {
- 	struct list_head	 trigger_list;
- 	struct list_head	 hcmd_list;
- 	struct list_head	 config_set_list;
-+	struct btintel_pcie_buf_alloc buf_alloc[BTINTEL_PCIE_MAX_BUF_ALLOC];
-+	int			 num_buf_allocs;
- 	struct hci_dev		 *hdev;
+ 	down_write(&dsos->lock);
+-	dso = __dsos__findnew_id(dsos, name, id);
++	if (dso)
++		__dso__improve_id(dso, id);
++	else
++		dso = __dsos__findnew_id(dsos, name, id);
+ 	up_write(&dsos->lock);
+ 	return dso;
+ }
+diff --git a/tools/perf/util/dsos.h b/tools/perf/util/dsos.h
+index a26774950866..9629978d6c6d 100644
+--- a/tools/perf/util/dsos.h
++++ b/tools/perf/util/dsos.h
+@@ -19,16 +19,15 @@ struct machine;
+  */
+ struct dsos {
+ 	struct rw_semaphore lock;
+-	struct dso **dsos;
+-	unsigned int cnt;
+-	unsigned int allocated;
+-	bool sorted;
++	struct dso **dsos __pt_guarded_by(&lock) __guarded_by(&lock);
++	unsigned int cnt __guarded_by(&lock);
++	unsigned int allocated __guarded_by(&lock);
++	bool sorted __guarded_by(&lock);
  };
  
-@@ -105,4 +165,7 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx);
- int  btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
- 				      struct device *dev);
+ void dsos__init(struct dsos *dsos);
+ void dsos__exit(struct dsos *dsos);
  
-+const struct btintel_pcie_buf_alloc *
-+btintel_pcie_yoyo_get_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx, u32 alloc_id);
-+
- #endif /* __BTINTEL_PCIE_DEBUG_H__ */
+-int __dsos__add(struct dsos *dsos, struct dso *dso);
+ int dsos__add(struct dsos *dsos, struct dso *dso);
+ struct dso *dsos__find(struct dsos *dsos, const char *name, bool cmp_short);
+ 
+diff --git a/tools/perf/util/vdso.c b/tools/perf/util/vdso.c
+index c12f5d8c4bf6..862ca172ab59 100644
+--- a/tools/perf/util/vdso.c
++++ b/tools/perf/util/vdso.c
+@@ -131,7 +131,7 @@ static struct dso *__machine__addnew_vdso(struct machine *machine, const char *s
+ 
+ 	dso = dso__new(short_name);
+ 	if (dso != NULL) {
+-		__dsos__add(&machine->dsos, dso);
++		dsos__add(&machine->dsos, dso);
+ 		dso__set_long_name(dso, long_name, false);
+ 	}
+ 
 -- 
-2.53.0
+2.56.0.385.gd3acb90ef8-goog
 
