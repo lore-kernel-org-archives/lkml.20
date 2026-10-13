@@ -1,61 +1,32 @@
-Received: from sonic316-12.consmr.mail.bf2.yahoo.com (sonic316-12.consmr.mail.bf2.yahoo.com [74.6.130.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3184E50D9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.130.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB45403E9C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:39:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791934756; cv=none; b=Ivji+8kh8qmu1LzosArEVLrIBCmm2PoQ4BJwk96k/sluXM/Gpx/+SdmkKDXPAD9oVBDtWqtk3uVztdgnAFHVRQG84k2+q79oVyvz+Vl9hxpS1YiKwg9g2mll+01f+L7PqU1KcGoB4kCEOVGmEhg1Hmqxh/uPwtfvopMTmdUoKUE=
+	t=1791934773; cv=none; b=i2iyVilFB2ALqcWdazXYmiRFANpMH/UF3lpLKs66S5QIPBnfC6/zkJ7WwD/rNAHQNROrrWt1gmKC8fKaU56fAdyZ7UHdTKqkKvXyTY1ZquzADCNu02c80/Ivj+lyyQ1PdpQjmUkXCoFC6JM3+Faf/NQK2VzD65ytPawxPUBYoz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791934756; c=relaxed/simple;
-	bh=unrQ123xXTj9mg6azhbRZKBE0GJ2FJNrep2ZLraIK+4=;
+	s=arc-20240116; t=1791934773; c=relaxed/simple;
+	bh=hYap/LxKCLQAatY/8iXkHodBIjFF0dk3ql2qxDeaNMQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YYKcWSh0sjAylpImUF2EdzHlM8TV+1qMH7AtxqUUSnfaOZUlIPbJEBq5MbAsSwA+jpVVQGkcXO8tGaKIqLE9jh/PHsTN40oTIcNs4vkZ5Se1Qk23G0Cm3PXWO4NfLh0P5FXlgw6QG3pIy/ykPmfJL2w6ygjkh6U0n5Mp6iMKQbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=AyJtst+w; arc=none smtp.client-ip=74.6.130.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	 In-Reply-To:Content-Type; b=oQ4876WMgUofEbSXjvZsxPsN9cu+frJvVZerujoBDNGSl+B7+SP9MOzNTmzldmZQFG/pWNGZPuHb/lj7W6zLOCIYWm4owTpShoHEbyfGv1uLI3A7YF0D0ARj3LQSp+f6nEFltZRj1II8P/743H/6xplvMx5lShzJ4Wk2zr0jiMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Z3xZ6n+r; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="AyJtst+w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791934745; bh=ntTdf5da5riDGqp0/lnqznJtGtR2qq5uPORC63l8Kno=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=AyJtst+wHerHDGpyl0T7QkHzGda4jZuiTA2/e7+wapTvJ8BjiR4EMxNuNAq8xYaMJewoBsm5Wkl0w9sSkC+WWW9QypXV9bAQZRzH0bQpDI8huUU3QXCU2j5CD767KbGoKG8yqj6L4UwB7VXtN//EeQ2vKVceIDBVuhOGyAhbiZFSAk3NIpZbHyvg0O0WnGPB2E5HNKFCtTaGvc+LkJ//sMSK6Y8v1lESXLpuJGISCkEXNWvZZ+/ZGGhcdPbaDEYRMdsZD6jTWpjITmoEUefoxY4nQgmCKEHT/JJLdt+cMds/RBdlpE22JwjQgDVkvFWVccZWlN0tGMTgDadfakvZrQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791934745; bh=mJFgWQORjncfeJhf15l/uhPiy8fcw3lMBhhksYFe+Hx=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=JmMVxvWqhsWIr/r7MAfcIGvx6UtndDRIM91J2G3vSbJcJR42BhCI5sWWUpgfB5uad43MbRPm9bbjfBOZBwmRKajv6pI8zU3yhQU2xdKYjhmPRHs5pR2jaHQSlPeDcD0AF29rJay+Nz71yrlpJeei4+5taVK5StxjTWFAyK1LQiSYDt6rHwfP6R2XMkmaSw1eKTlWCaVr0+9xuykF2sMo+Wfhy5cnybPBM3TE/BKFYrfN9+Two7NoGry/age4a/06ur25PKL5XVy3InoYek4x12q+AS/jt2nyX4X1VejC7MKSpPUnl1FOKZxs8fXGjbmc41x12m1V+mLs6NzfTO03Qg==
-X-YMail-OSG: BhmqEuwVM1l4k9JTFM9jnnIs.e97bloKx8dRyHq4ts9WH3_4DKCuvs17y0GgEQ4
- C1PRHf37Mxe_SLlgMzct9sEdYQ6M8oTTviavSgzhxjg3tfsyCxDwTbI7KcgbD4TGdmbmYkVJGzVA
- skikEhc4YiYiR26KOPlmaUnfJxiBYjkfnh_XJYoSFWdBw_ZojapNLjsG9awUB1gtBYfd3_bJIRpN
- Bqxd0UlSuB8I.OyZQ67gY.VXyVE9mrqs4fTl5VoXlD9TFd5NYy58SaIV53BmnzdKzCaEimqvVVV9
- pfyGqfgzMjhq_FK8rFGGPAYC2VeAmLElo5bnZg5dwJXZfV1znHIWI_onRfkTuofyeASUmJwMTMeL
- Metz7lKNs_oH1nJWJHTVPZ2RhQuy4rHckazxxxJoY.mWU1GUd6l1y3zYqQM8mO4hLjVvG4xpi1O1
- 0QIGGHsmfYK46c2nsS22OYWXkprEuUwrmAqsJ1kRMocSSO9RziCo31eNKTtRADml2RP3wwISED.S
- nMSaXCHe14Rz2frtWc6CFC461G8jRC9NOwuF0qRvm3YbRqJMTeMpPvvvjvtDwrX.hOOuGMAv3Mnq
- pb4sKbJweD_bHNMbG0gRJ0YvUBM0mpl3i9q9gZde9HVadOCbiZir7J2H7I0_ngnkO1FGY_NS7sqH
- mkio1pG8PfDQdpWBCaJ3h3FH4b7OkV_4Z6AD2Neq259TI5mz2tzmFqgfXyd5IcWwBh_qorRNaW2A
- YlopBPPTqwI0Hlldbjizaaww_pwZmzhmliRYFXlJz3F5oeRLYETI0erxYdhFpdSZJBI9Q_tr7KXX
- mPbiHVekyB9vtlTdZTcqm78L8OABFwpOUgc8F3LRgXZZairXGMmcnimQ8aPYhR.n1XuRRhK8Zih6
- P83YRSdGXZpJ9i6IFmhRJzmX43XFWDGqPBiEmyOUMmowIFMXvTzNc_ZUjbrk2rYy_3bSOteYPk0W
- xNsQpruPPTRrq_mLmzASKyAtz8_7uyuvzM45pcl6iv61cAd.T8VKyjFgNzs.3ISvXexdNfeCbrOY
- 5Ea7hzhlZqsm4esYCaplHlLb6GtM_PVYJzJBWVrVJ_gdNlhRYIFp_eZ1s4UmWl8BctW2QubDMavI
- 9GH.ojk0Rj.byk243dddzl6haeA6iDn2t2w0QTVzrn_F2EuRjFe5NEHB311HI6dyXmBT5t1D61k.
- FW97GyGH4OHN3dcA5KVnQVB.FymbnhXAN9ExvRYzny2stzY43a_X5JbbnaB9umdjO7JdZ8XHuvzl
- TXji.Jm9qIsfWNhjj2GISu8Jh0C4YqJtv5dH.5fgsuOaXq0KVDgOT5NlYFfbzzdf1tVc3YcmwORN
- 9bdYWs4Xc9.QPnanI1ClQb5cSiBFZuhU7uutTL40gwQ.JEyR_bCRYZDC8WUgmLqT9CL3XNNARJWD
- _QQLaKN2E3DmgcEEPr.hVfkZ4hHRSdMp7ytvwm_k_gNJ2wnYEH62IVo..IQjndysWt2izQdJzuUu
- VbFwLhb1IRquuJg6XT4G81h3F6JgITYb.CMnLDYTIh0GtkvK9sZosZHpfSG2vkqIZGCSWspTJCr0
- Z7QVcLgmy_lPct_i9B7F4NtAtuKJ5R.QQR015oSCHRLzr6mo67ixOh2fJX.p28j4Q3Oeuw95nqk8
- IfaKlbrpJ_YujhPArPVzUoir05yEZdl18YMcGp9Bo6bn2nmR6rpbnp5xvLBdXb3sFmIss7a2wSCX
- 3cspLhXGSTQQ4JUBK3sN7kvuOmqVx72DFEaFWY3FtjfX_w2gY5wb9WVpISXB7jrrSY8fQngL2xc8
- qLJJ0NeIJfhgP8PvHW48FuVl8xn71ddD0rce24EsOzAWshBmW.Am59VMjvxt.dNW1.aDVwBQ7uH2
- DK6H5yY99CwiPqbBCN14za03JyT7xdI05__EikLh55K6NKZ73xYMsQnSABbjBznARH3rXKtvhD3X
- m8LTmp1ycTF8NKi02ruN1ZkrJG8pOrpYktPBKA267.I0cYBWI6M8p7HO.5a2VpALgFxTFlCdNbee
- 8JbNuYz8YrGblUQmbfD1ksc06_OR.Ib_qtcIL7AiL8X.2azXSVl4U29f1MEV50Wr_Yt61dn7RtkG
- 6C7mVn0YhYArPDntM_VXFFAc6vM2svSNxdExiG3Faicd7N5rNJYN6QFgZXfkYvXKBIXocVu8bhOG
- kWpI50OBdvCmCvA0dg_i4ZjrU07KA09CyLNz6ObjLpi6eFPFOrBVELiNW20lyhQ_l1onore0uBGS
- qLOrIg9mAnmn40RfCk4GNgTgSLDJLVsmV4Dn_9kvB1y7DymLhfMU-
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: 580a666d-c35e-4236-bdc4-9891ef3e9414
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.bf2.yahoo.com with HTTP; Tue, 13 Oct 2026 23:39:05 +0000
-Received: by hermes--production-bf1-6d6877594b-r7rdv (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID c9026ab00b60b81d08c481f0c8e2d06a;
-          Tue, 13 Oct 2026 23:18:23 +0000 (UTC)
-Message-ID: <642cd62d-4e44-4e5e-be7c-1f2b0ce4a759@yahoo.com>
-Date: Tue, 13 Oct 2026 17:18:17 -0600
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Z3xZ6n+r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=3jdvwbss58BY7guXUR0LgqIwUPv+LsOGeapfQrzXrLM=;
+	b=Z3xZ6n+r3wXu2VtgrknLJEDfqDB4tozq5hrygUh23dTwd5uDFpmkO2D7EcapXA
+	jLNVpAjf0iGTWJVGG8wk2yjAjrb23glHuGziQzIeYvDJh/YubUIppqw8p6sT0X5o
+	ORrLxqmtm521DOubFcnj2cmy//sq9WmSknzDnjxUT2wXI=
+Received: from [IPV6:2409:8900:1a87:d0a0:9d82:6fdf:5e33:6bcb] (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3dyEQwc5qXTIdEQ--.4112S2;
+	Wed, 14 Oct 2026 07:38:57 +0800 (CST)
+Message-ID: <00af14f7-20a7-46db-a611-b42097d87049@163.com>
+Date: Wed, 14 Oct 2026 07:38:56 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,61 +34,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] staging: nvec: use guard(mutex) in nvec_write_sync()
-To: Temitope Obabi <obabitemitope765@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>
-Cc: Julia Lawall <julia.lawall@inria.fr>, Marc Dietrich <marvin24@gmx.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, ac100@lists.launchpad.net,
- linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, outreachy@lists.linux.dev
-References: <20261012171312.5998-1-deaner92.ref@yahoo.com>
- <20261012171312.5998-1-deaner92@yahoo.com>
- <b51c3755-a967-3de3-5f8c-3e4984d6e93c@inria.fr>
- <492e9a13-b50b-48cb-bd41-3114573c7950@yahoo.com> <as5WES_Ec2KGWQsm@orome>
- <CALUk5xZtpOH=23mdiT7MYs-gem2NL+EoV=priVxuSubbCocqFQ@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: avoid unnecessary padding in uapi structure
+To: Arnd Bergmann <arnd@kernel.org>, Namjae Jeon <linkinjeon@kernel.org>,
+ Hyunchul Lee <hyc.lee@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, ntfs@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261013204931.2287813-1-arnd@kernel.org>
 Content-Language: en-US
-From: Jeremy Clifton <deaner92@yahoo.com>
-In-Reply-To: <CALUk5xZtpOH=23mdiT7MYs-gem2NL+EoV=priVxuSubbCocqFQ@mail.gmail.com>
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20261013204931.2287813-1-arnd@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+X-CM-TRANSID:_____wD3dyEQwc5qXTIdEQ--.4112S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFW3Xry3Aw45KF45Xr15XFb_yoW8Jw13pF
+	n3Gw1xGFZrWF1UCwsFkFWftF40qw4UKa4YkrW29w1jkFWaqFyvqrWv9r409ryktrWkua1Y
+	qF9rKFy5Cw1qvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2oGLUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RLCjWrOwRIKgQAA3I
 
-Hi T Obabi,
 
-On 10/13/26 4:58 PM, Temitope Obabi wrote:
-> Hi I have finally installed Ubuntu on my system, I hope am on the right 
-> track
-You need to send plain text.
-Also, there is no need to reply to my v2 message here. Reply to the 
-Welcome 2026 Applicants. If you don't have that email, send out to 
-outreachy@lists.linux.dev with an intro.
 
-Look into plain text. >
-> On Tue, 13 Oct 2026, 7:57 pm Thierry Reding, <thierry.reding@kernel.org 
-> <mailto:thierry.reding@kernel.org>> wrote:
+在 2026/10/14 04:49, Arnd Bergmann 写道:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
->     On Mon, Oct 12, 2026 at 03:41:48PM -0600, Jeremy Clifton wrote:
->      > Thank you so much for your guidance and feedback.
->      >
->      > It is the result that the patch will produce. All the unlock
->     calls will
->      > be deleted and the out of memory path will have no braces, as per
->      > the style guidelines.
->      >
->      > The motivation behind the patch is to defer usage of manual locks
->      > for new and improved guards, disallowing lock leaks.
->      >
->      > This way, there can be no error producing path by not calling unlock.
->      >
->      > Shall I send a v2 with motivation included?
+> Building the uapi headers with -Wpadded shows a warning that
+> may indicate an incompatibility:
 > 
->     Not a big deal in this case, but you might want to read up on how to
->     properly reply to emails:
+> ./usr/include/linux/ntfs.h:91:1: error: padding struct size to alignment boundary with 4 bytes [-Werror=padded]
 > 
->     https://subspace.kernel.org/etiquette.html#do-not-top-post-when-
->     replying <https://subspace.kernel.org/etiquette.html#do-not-top-
->     post-when-replying>
+> This is relatively harmless here as the 64-bit members force natural
+> alignment, so this is not a problem for compat ioctls, and I checked
+> that the padding word is still initialized by means of using kvzalloc()
+> to allocate it, but it's better to avoid the padding out of
+> principle.
 > 
->     Thierry
+> Change the reserved member to use a 64-bit type so the name field
+> starts after the structure and all padding is explicit.
 > 
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>   include/uapi/linux/ntfs.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/uapi/linux/ntfs.h b/include/uapi/linux/ntfs.h
+> index f5b3d4997a56..89467ba07262 100644
+> --- a/include/uapi/linux/ntfs.h
+> +++ b/include/uapi/linux/ntfs.h
+> @@ -86,7 +86,7 @@ struct ntfs_stream_entry {
+>   	__aligned_u64 alloc_size;
+>   	__u32 name_len;
+>   	__u32 name_offset;
+> -	__u32 reserved;
+> +	__aligned_u64 reserved;
+>   	__u8 name[];
+>   };
+>   
+
+Looks good to me.
+
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
