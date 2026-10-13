@@ -1,187 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010022.outbound.protection.outlook.com [52.101.85.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5682051AEE8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902987; cv=none; b=b3x2A62N89RTmEwKI8iQOsPCBFEmlLVRLi5+cw1pospKZFxrkmUE2/goIkcOZ68rfcZ2pI7cAKPHUaXxkj/LmEl5fVB4ePxBenQ0OjSKjR/CwUd8SfUpCdIQC0rlV8B56hZne4BgDCQwB/3hpecFU8PfXW6s23yrKnSVwXFBue0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902987; c=relaxed/simple;
-	bh=kzfUibjmfz+BWp2vtACff4io5N0EKyuZUYSUqRhNKwA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=puAWJ79sk4O7pxgGefLMaP7CQjIr61SrdnUVoz2vVB46z0CBO2D6XnLP3lMYPu3M5kF8bwxHlS3PVdgum7ERCi4VJWrXaMXRgEEWYbZcrzj6Nqw9BwDYEVo1tPx/DUKxR+/t9pFrvXrRUmqa65ynbxMHZ7uZ0jR1nXvjSNbI+Ok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UxvP2iSd; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BF851AFF6
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791902989; cv=fail; b=j8xKBiYU9cTT9pgBqc0r/irALu5762AT1YDTTWNVPqqi+RMbzeqv5THxsoNDYbUFvL4diY2qZidvl8OjMPA9UzqAxIzBg3SP9tr8nKhFB461yoDzFcNqUCLtT3TpOFIZ+ZFhHtM4GzwJx1AqGHM+jPVabN4x/2JfXU8+IAoL8XI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791902989; c=relaxed/simple;
+	bh=nHG/mV0TeA5zQcVjxGRIiwWigR00BHni0554/kU5Dko=;
+	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
+	 Message-Id:MIME-Version; b=K/Zvk/XZuFkVdOdFjkKDePU8ra3GLhHUSh6GCoTyDSH8zrpcEjJH95irVRpW8qgLDqwKcyzN/y//Tz5nQ7murKhz6lbUese6xjVjPAqXDpmSut1y1ZcQ9Ho0/jpUKwTqr3nV+QCQx8Yyo7qvJHr0GGXgqSE8Wv//UrrSnLvepyI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qfSOflpV; arc=fail smtp.client-ip=52.101.85.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UxvP2iSd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 185231F00899
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:49:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791902986;
-	bh=Xk0bia0wGEL+ZVRs/OEBd3mcvMKkTlwfLW9T5doIEdQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UxvP2iSdi5GgZeYKArjnDKLKPh5wmm/dejVIzs80PIEF33v0Y69PIkVVTHGcrTce3
-	 SSI49t7s3bu1bPH04iq6H3igtiub2yNsXFSugtkZqG/lF7bqWOxbSkYh7nELimYw40
-	 du1QPGVaA5S0Ob2CpZeh10+9wtcJ8r9Nfn4UVlUhETa0OFw+LtDkD0JukcmU8mvfkd
-	 yQwZugsB52Ayg0Y/Ln547BVSuYqZ4sFc/HqKq/jIK30ABUOnhoneORFfr1aciFiJoI
-	 xpaahaEcNYUfoDiStAtQEKl34msqSiz9jJU3so3+cRN85N9N7GQUykeszn+wFkGuWC
-	 yxV+AAr9Yxgdw==
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e63522076so229336085a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:49:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzV3LK9bcd++VfusaKCs0XopQCxctcHPg99oU4NFqdtQ1v0LIHSrU239Ahu2J+XPgMc9mED+6Igf+O4U78=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtL1TMmbC10LMEtwOaswT3e7h2s244Ay0QiSXOyBPXLzo88laU
-	HkrEw6XbMqTjeECzmY7DkG4VtEGfaGPXBLK2i0ghfZ01w+fjUFAa9Ad92OqWSFcDsycdt0avJOf
-	Hs7rk1r9NgatlovfmmNSDROpu8Dr1nMU=
-X-Received: by 2002:a05:620a:198b:b0:92e:76a1:96cd with SMTP id
- af79cd13be357-93ebd1e041emr2175761285a.13.1791902985432; Tue, 13 Oct 2026
- 07:49:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qfSOflpV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e1DU8LlWEvEXhjvCFzYE73fIiJqZnhtXs2jJ8vBmeOIrgLJ/wE1X6rRCIlU5yH1PUMq5f/vNAxJIzdsX2hkf3JDJtfa67YYHH9TLnwJWCgu5IENKac4KXDnh3qMdRDSopFp/JVgNg3sRvhGNjLqg1v0SiIfnq8zgAXcPhdizO+32C3etGqItPk3wIjLT16pSsDV0uxA2gkOgxHEwJZRrI9A00hNIe0wpmm9mmBqeqxdy+6ezc5FNk6Z0RBNDEwoZR+h3GlAkB9eCB7MBWpLm7RjjFL6hpUTLm9HlP+vek04Yg/IwhdmxdSnDQI9CH1cM0/PQGptAQgqrcXxvP9u3BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bm6qL8P9Oe3y/p0Ll4jx3Y+OUG5kOY4JwpM/oiT6tGI=;
+ b=TxiklCa4/Ev3ht8S99mI9/x0IK0Mxcla3KAPh1oqXYEmKJPWMO7+4JSUEJvis+d/KA+43zpbcFXhYzxm4O5ES5SKohPspiWnzS+MLtE8of4tRXYowQrrsF34hmo+Y9nI298+yUh2PgQeQDljCDndRbhjUWserQzCYhjp87OT+s9CeaNX6ZFyeHhBVKh91rKYyuDDBJkQ45OF0599m1ivyi7NrQkKHw6ZTQnaO6WewY/jme4Jh22d5a/XVIIwU7M+mxkdew3y3ILj5qaWDxeLCaKwhfK6WrHucGMAAo/YWw5GcNBlpLxWH+05UhJy/fn8IC1EnQiA8fzIFiCWeWbeOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Bm6qL8P9Oe3y/p0Ll4jx3Y+OUG5kOY4JwpM/oiT6tGI=;
+ b=qfSOflpVdAWwu6mjzUFdxpRliCpf6gbmzMARsO1A7295jhF6PYuQqhKCgWz9NpTUGC2uZHrHvDy7fyNaNKN6Km7TFc9o0o+ihyFnH2BJvpbWlC32Ok704/xjMJa9ONZwCFuFbgZMxk1p5y5L1XXlsYW+xIxVQnqpSwqjLUf3tZIX/EZLJKKPJ+XFpkXB/iHXxVwZNU/zMvGXVJhL4xR42UFSaFRQ4wGGpB14nc5cBPz/Cb12EJ6LsO6FfwAmGgnrd6f/iZ0GR+HgRat5ateKoSqQNVATQOEko01Gkr3rIg/tx4gKQiNWEn5mAetLWf/tH+llJlnFOTMlDmB7m28p6Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by IA1PR12MB8311.namprd12.prod.outlook.com
+ (2603:10b6:208:3fa::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 13 Oct
+ 2026 14:49:39 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 14:49:39 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 09/11] iommu/arm-smmu-v3: Retain CR0_SMMUEN during
+ kdump device reset
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@nvidia.com, 
+ praan@google.com, kevin.tian@intel.com, smostafa@google.com, 
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org, 
+ Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>
+In-Reply-To: <e8f6f198da25cc6b00902cd61bda9e7228cb45ec.1791226953.git.nicolinc@nvidia.com>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+ <e8f6f198da25cc6b00902cd61bda9e7228cb45ec.1791226953.git.nicolinc@nvidia.com>
+Date: Tue, 13 Oct 2026 11:49:36 -0300
+Message-Id: <179190297654.2261874.6563285667925479999.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: YT4PR01CA0104.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d7::9) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012224736.2306637-1-yosry@kernel.org> <CALMp9eT6eJSDaJVJ_1mrn8-sP6F88q-OcGrEgUWy-YpAkuA9vg@mail.gmail.com>
-In-Reply-To: <CALMp9eT6eJSDaJVJ_1mrn8-sP6F88q-OcGrEgUWy-YpAkuA9vg@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Tue, 13 Oct 2026 07:49:31 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com>
-X-Gm-Features: AclHuK9xJBp-Vsd-n1koDePDqGfjuO5ptyn-EvDSLGQFyT0K7N46CCWugVLQ1TA
-Message-ID: <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com>
-Subject: Re: [PATCH] KVM: SVM: Update tracked pCPU on pCPU switch
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA1PR12MB8311:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0adadf8d-8c8d-4716-69ce-08df29393508
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|7416014|11063799006|261009223027099003|4143699003|56012099006|22082099003|6133799003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	skfMx2dIU4IeLjawUjnT7yVHSkfrmm0GM+4Wqs65xxrxCpH4PUzp/Bi1RSHrwaDn40jb2zJpanVM4HtjYioBLp+wK6s0snDcvyhPvn9YUXloEuU5sd1pte6jQd6I2WV8zCxl5gSjR+qGr9w5tqgyZ4NGW9P9ExNUJeMn+trlJADci/TAl2V+mO41jKJVk4laklOYezT+mPdHSGP3LU5lROqTWKGaFmwQixOB9nQ1WocX2inaUbzNba5es4/c79+n8/yoqMBjTxh183IgBf09F0ZhGInx940/F1soAMLhmJNHbh5DyhGKlIKsCOU0LXXph9pxPufXJVFzUp5tABsvNUh1mhHKVVV4pK5QKYr+IX9MkvwMpkvJqQ5BGE7rrUuADAuwtqsc2CXvikbYj3AauD7rz3NIOHsFPIasmC1RZstNhPaMuFssSMdXn3XlBOFXQaT63DtM4xYbaxisAc2DE7oApal6A4WeFScekyEFrTWuHs2m9Lb3Z8N8Z4ZjPomiRF7MqFH/B4gjyKnC6iqr6+m4pvEpVdZNxykVmDPjQwY4V+QgZ2TFz/a2THECwnx+4rwk6v+jar21tiVmp9Q6lQj1Hhkq/7otmiy7J4xLLbHfXDOiij2iO70gKC+By622iBxAn39D1nwqf+pQT9KwKe81emdTGGoqI4TrLLYTl9Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(7416014)(11063799006)(261009223027099003)(4143699003)(56012099006)(22082099003)(6133799003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZkJwVFg3azg1ekNRekRSK1NrOUZxNjRIaXNDVTNoU1BWNWQxSlZDQ09LSExv?=
+ =?utf-8?B?S2lwUTZjYk9xRW9ib0ZaT3BoUFBkUnM2TWVqUEhlUHAvaGFzWUJPVTZHWlBE?=
+ =?utf-8?B?b2laK1QrUWUzTlFFeEZYS0tnc3g0dllIMlEwMUJaK3BaekZSVlMxa290SVlj?=
+ =?utf-8?B?bzhNWTJ4UjI2VXVXa2JjaHM1TU1xWWp6VnlXOTc3L0x4WTFPV2F0bDVPUStv?=
+ =?utf-8?B?RHhsSVpVcHdXZlBpWGZWWFZTalNiMkZacVYwSVE2YysxV0VrNUdUd1dWYkNa?=
+ =?utf-8?B?Rkc4Z2lLVGI3VUlvQWw1VC9sUXFTVlBndExkNUswVUZlb3pEM1pKT0dzZ0NF?=
+ =?utf-8?B?ZXlBZ3gyU2Y1RHU2L21aT1g0akVNVDlqREc2Qk1LMUFEOXgvQ1lhZzVvMFho?=
+ =?utf-8?B?b3BKZ21jREs1bUFSc3UxZ05YWGFtOTVtMDZsaFhUNFovMENMNWdwcUNycDdy?=
+ =?utf-8?B?elY3bHl2Y3lJT2VaYVJ1RGNxeXBQSGdFTWdLNkh5c3h1L0pWVjlYYnRteThz?=
+ =?utf-8?B?UFgwTHZxWTRZQVFiVnYyQjVXb3phOWpDZ1VPcEJrdlhrcnZ0L1RoMFpGOFVx?=
+ =?utf-8?B?K3VoamdoMWU4VkI0UjIwNTB0aDJQRzNiUDVvWVRjbC82Wm5rK0lxSTVZeUpL?=
+ =?utf-8?B?TERIZDVuYzJEQVhkRWhNM0VUM3BFVllDRG92TmlLMERhWVdxQ0NlZllXM2dU?=
+ =?utf-8?B?b0VmRGt2V044cGsxVDhIZy9rSFV1ek9BVE9TcVJIQ2VobHFNZTgzT2gyalhk?=
+ =?utf-8?B?STJCWFlFemRRUEg4enFKN0kyRDNzeDRVQVFmVlR4amJWWUM1cTlEeEhIdTJt?=
+ =?utf-8?B?UVVNOHB1K3RodG9WM2ZLTlNzNGdNZFpxUjdhRUFyVUtKMGQxalVaNzQ3Wklo?=
+ =?utf-8?B?ZjZ3QjZTT0UycnVTVEY3bUxzOHN5Q2xJdGpmWUwrVFBFaFVvRERTMnNCTkk3?=
+ =?utf-8?B?cHFRMjZwUlFMUC93Mk1DdDFBcWpKWVA5aGUzUHRYdTdwUVNhSWZDemhsSmxR?=
+ =?utf-8?B?cVg3RVRPMTFvL1M3V3U5cjZsTVZIL0poZ0Vwc1hDQTY0TVNuMTJuTit0Qkxm?=
+ =?utf-8?B?TzNobDkraVI5QzY3Qk9pRktzNkEyNkNoUFBOWWVnRDRVNGltcjVjVWt4OEky?=
+ =?utf-8?B?akN4RXJJbkJjckJ6TGFIbm10eUlOVXdhSmttcDl0RmdXWmpOVXF0K0VZNmFS?=
+ =?utf-8?B?QmxhemtVUVg2bE5nWWl0dWFRaEVnMTBrK2ZZbWlMQlU1S1k4OUw5Y094VVkr?=
+ =?utf-8?B?bHZjMHZnSnp1NnA5TngrSnFhd2xjUHNKbGszOHUzUEdvWnFCUDV3SldUNkpr?=
+ =?utf-8?B?bnNiK3BLNERVSlNCYncyQkpxUFBKOWJYRkE4eXA5d2E0YUdpU05VOUpXT3BN?=
+ =?utf-8?B?SjF5SEFXRWJhYWUxUFRHYUdlU3dCNGNWc3AycVYzem5PTlkwZjI2UGtzUGNK?=
+ =?utf-8?B?S25QdkZWWUZHUCtYd1NYMUtVajVJU3JiTk8wbllnWUs5MW9HcHNoZmFiY2dr?=
+ =?utf-8?B?MFRWZFNrK3pTb0VhdmJheU1KYmsrd3RMTVlaK3NXcEZnQXJtRldKY08yckY4?=
+ =?utf-8?B?M3RiNnlPc2JwRnlxMUIzMWhldjFIbDBncUE4cy9RLzA5MnBEdFg1YndyNi9n?=
+ =?utf-8?B?MmI1WDVLTElzd3gxZEhuZGZsaExiSFFNRUk3bCs5di96TnFmMGRBb3AvVFdB?=
+ =?utf-8?B?bFVjNngxbUYxamxQVy9DRCtpNFFqZ2hzMm04RmhOYnJ4NG40NzhBbnd5cnNl?=
+ =?utf-8?B?bXJkMjEyOG1yVHN4b2FHclhJVGdQYnozNHpjTzRQaXlUSHhFbTRrVWZoSDRW?=
+ =?utf-8?B?WkNzVEN2Y1VPYWMvZmhoYWcvUkhDQXJ0QmRRd1ZhYm1PWmNZVk8vekNlWEZX?=
+ =?utf-8?B?NkYyS0tXWXpkSkZGQ2l1VnY4YytHL3pmQVlCczlUVEpGaTVyL24rQUVzbnFK?=
+ =?utf-8?B?SnR6RTdlRTRvK3dva1hwSUprZU1HQ1NtOEh1R25xeGI1YUliVHJzNWdCU1o3?=
+ =?utf-8?B?bDhYTVJRL0ozdnFzTE9ERVBJYzdneWJETG5mcEhmVkhVSThWMENLZzRMQklO?=
+ =?utf-8?B?U3h4K1p6b2o1dEczTWQ5TUxUY1QyVG5zNTZMR1I3MUdqZjc1dWZEZTJsK1hm?=
+ =?utf-8?B?TXpyeHBaS3k2c21BNVBPcTlNTHJlUkVtd3VrcEs1NWZleTh4MTZjbENIaDI5?=
+ =?utf-8?B?UlpRNWExOVhSNHlvWlBSYytWTGJvbUJzNkRiTm1Tc1N1QzZyenFZZldmeDd0?=
+ =?utf-8?B?ZjhEMnRINGlqRUR0b3h2WURLVHlUL1RoUjVRdlluSCtSRnc0NGszYStkaC9F?=
+ =?utf-8?Q?ovm4OXs/0fiF0aMEKC?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0adadf8d-8c8d-4716-69ce-08df29393508
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 14:49:39.0603
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T744tnwcMWQ7fyYNS3ZAUXgUWHigu4JH9BqeTvdGffA0pRAY5AXD4keC4Elq1pDN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8311
 
-On Mon, Oct 12, 2026 at 4:58=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
-rote:
->
-> On Mon, Oct 12, 2026 at 3:47=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> >
-> > When a pCPU switch is detected in pre_svm_run(), update the tracked pCP=
-U
-> > and mark all fields dirty in both VMCBs (if nested is initialized), in
-> > addition to resetting the ASID generation in both VMCBs.
-> >
-> > Commit bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both
-> > VMCBs on pCPU switch") reset the ASID generation in both VMCBs on a pCP=
-U
-> > switch, but only updated the tracked pCPU for the active VMCB to avoid
-> > unnecessarily dirtying the inactive VMCB. Leaving the inactive VMCB's
-> > tracked pCPU set to an old pCPU still allows an ASID allocated on one
-> > pCPU to be used on another:
-> >
-> > - vCPU runs with both vmcb01 and vmcb02 on pCPU A (both track cpu=3DA).
-> > - With vmcb01 active, vCPU migrates to pCPU B. vmcb01.cpu is updated to
-> > B, asid_generation is reset to 0 in both VMCBs, and a new ASID is
-> > allocated on pCPU B (setting vmcb01.asid_generation =3D gen_B).
-> > vmcb02.cpu remains A.
-> > - vCPU switches to vmcb02 and migrates back to pCPU A before
-> > pre_svm_run(). Because vmcb02.cpu is still A, no pCPU switch is
-> > detected, leaving vmcb01 with cpu=3DB and asid_generation=3Dgen_B.
-> > Because vmcb02.asid_generation is 0, a new ASID (asid_A) is allocated
-> > on pCPU A.
-> > - vCPU switches back to vmcb01 and migrates to pCPU B. Neither a pCPU
-> > change nor a generation mismatch is detected for vmcb01, so VMRUN on
-> > pCPU B uses asid_A (allocated on pCPU A), which may collide with
-> > another vCPU on pCPU B.
->
-> By "collide," you mean that two vCPUs, potentially from different VMs,
-> will share TLB and paging-structure cache entries? Yikes!
+On Mon, 05 Oct 2026 12:30:52 -0700, Nicolin Chen <nicolinc@nvidia.com> wrote:
+> When ARM_SMMU_OPT_KDUMP_ADOPT is detected, do not disable SMMUEN and skip
+> the CR1/CR2/STRTAB_BASE update sequence in arm_smmu_device_reset(). Those
+> register writes are all CONSTRAINED UNPREDICTABLE while CR0_SMMUEN==1, so
+> leaving them intact lets in-flight DMAs continue to be translated by the
+> adopted stream table.
+> 
+> Initialize 'enables' to 0, so it can carry the retained CR0 fields in the
+> kdump case, clearing only the queue enable bits. Then, preserve them when
+> enabling the command queue.
+> 
+> [...]
 
-Potentially, yes.
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
->
-> > Because the per-VMCB cpu tracking is shared between ASID management and
-> > per-pCPU hardware VMCB clean bits, also mark both VMCBs dirty when
-> > updating their tracked pCPU so that the inactive VMCB does not run with
-> > stale clean bits when later entered on the new pCPU.
-> >
-> > Fixes: bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both VMC=
-Bs on pCPU switch")
->
-> Commit bf260dc9e7b8 hasn't made it to Linus yet, has it? Perhaps Sean
-> can just squash this in, rather than carrying a fix for a fix.
-
-That would be ideal.
-
->
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Stefan Teodorescu <fane@google.com>
-> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-> > ---
-> >  arch/x86/kvm/svm/svm.c | 20 +++++++++++++++-----
-> >  1 file changed, 15 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-> > index 136069dfcd44f..0a0af0cbb6bba 100644
-> > --- a/arch/x86/kvm/svm/svm.c
-> > +++ b/arch/x86/kvm/svm/svm.c
-> > @@ -3880,7 +3880,8 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
-> >
-> >         /*
-> >          * If the previous VMRUN of the VMCB occurred on a different ph=
-ysical
-> > -        * cpu, then mark the VMCB dirty as hardware's clean bits are p=
-er pCPU.
-> > +        * cpu, mark the VMCB dirty and reset the ASID generation, as h=
-ardware's
-> > +        * clean bits and ASIDs are per pCPU.
-> >          *
-> >          * Reset the ASID generation in both VMCBs. This will lead to a=
-ssigning
-> >          * a new ASID now, and then again when switching to the other V=
-MCB.
-> > @@ -3892,13 +3893,22 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
-> >          * - The new VMCB does not detect a pCPU change and runs on pCP=
-U A with
-> >          *   the new ASID allocated on pCPU B, which is potentially use=
-d by
-> >          *   another vCPU/VM.
-> > +        *
-> > +        * Note that dirtying both VMCBs is not strictly needed, but th=
-e per-CPU
-> > +        * tracking is shared for both ASID and clean bits, and that CP=
-U must
-> > +        * match where the ASID was allocated.
->
-> Is dirtying both VMCBs not strictly needed?
->
-> Per APM vol. 2 (rev. 3.45), section 15.15.2:
->
-> > The hypervisor must clear the entire VMCB [Clean] field to 0 for a gues=
-t, under the following circumstances:
-> > ...
-> >  - The hypervisor executes the guest on a different CPU core than one u=
-sed the last time that guest was executed.
-> > ...
-> > Failure to clear the VMCB Clean bits to zero in these cases may result =
-in undefined behavior.
->
-> Suppose vmcb02 runs on pCPU A, migrates to (and runs on) pCPU B, and
-> then migrates back to pCPU A with some clean bits set. At the next
-> VMRUN, pCPU A will happily load stale state for anything marked clean.
->
-> At some point before that VMRUN, something has to clear the clean bits!
-
-Dirtying both VMCBs is not needed in all cases covered with the new
-code here. IIUC, clean bits are VMCB-specific, unlike the ASID here
-which is shared.
-
-Because ASID is shared, we have to reset the ASID generation for both
-VMCBs when a new ASID is allocated through either, and update the cpu
-variable tracking which pCPU allocated that ASID. Since that cpu
-variable is also shared for tracking which pCPU ran the VMCB last, we
-also need to clear the clean bits every time we updated. IOW, if we
-had two variables, asid_cpu and vmcb_dirty_cpu, we would need to
-update asid_cpu on pCPU migration for both VMCBs, but only update
-vmcb_run_cpu for the current VMCB.
-
-This is all annoying and confusing, but that should go away in the
-static ASIDs series, and we should go back to only updating pCPU
-tracking, flushing the ASID, and clearing the clean bits only for the
-current VMCB.
+-- 
+Jason
