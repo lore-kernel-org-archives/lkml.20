@@ -1,120 +1,87 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875743EAC76
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FC33988E3
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871393; cv=none; b=m1pt6WlH1268upDhYQxX0lWY2ZJe3/iRl+fA3Z5QA6vlezCivLd6M/u13TkF1gOzr14waoiFOHj1lnFDm797fY8BooBhT3Zffe4Ee9saETqX5bfkDivhmk7OqVQFOGc0kXyxNnI7zUr8GPwA5B4k8wB+YtL2Fp6c/gD+Whb9g6g=
+	t=1791871417; cv=none; b=A/nio2ItZunZZ3hC9aPP13SNGeIbEIc/XmUyNIJuhQv2A/DCSOlg9Ter6Yl0v0O9zZ+2CdGS8OvVoQ6B23NW6Y9iMq7stCkQjk3es38Vj/RCn6L/vKsIuCRtZsEWESLAKrZze1o8kD8En4RGCWXjjP6E7gr924ybhofPiOcrdkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871393; c=relaxed/simple;
-	bh=hfTIJ+ysqnotUXS8MBkAYtPSSdxqsImvfLZgwWwZ6dY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oVC9Icq+I2NAF5e3Q5FUsDqP2UNkIGqkVisSUvfzJK0BE3LeNgyjMGLujI4fj2t72r1Oes6+7mXBZUaEWJ+ThuhP4EiC97p7Ryfz9WGRQQ4IUi0R6K8FDH8oYOmuVyYFwaOjRdNDLDOkM49boZSOHPvBE6VCFEc5DDJBIcGyJoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com; spf=pass smtp.mailfrom=tyhicks.com; dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b=avcQaImC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=vff3+nDx; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
+	s=arc-20240116; t=1791871417; c=relaxed/simple;
+	bh=OaX1apPbFUkBjp9UrZ/NZAi1hvdR7ppShmw6KR+gJ+g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SNJrNovN3lQDAslHa0W+RGl32hONBH5gGUw+UfQ39RkHzbeYnr95hphbZuyCT6TXIsBPxntFk9muyFOQGdmJmuONK6ECpDHpOMrkrbOGMfrYuJbyE9vdUvSo877zIo/6aPXrDTvst2mEmdKK+bDLyZJt8ppfAE/IIIJKrWEtPwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dP6aziLu; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b="avcQaImC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="vff3+nDx"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id C341A140009C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:03:11 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Tue, 13 Oct 2026 02:03:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1791871391; x=1791957791; bh=1PBP3ZJT4q
-	jEQEGQoSE0qSqRyXGfxXMQspi2NB86o8A=; b=avcQaImCDnqKdj+AfUNHqw3QTT
-	reprTckaiE0HGbxf2guuDV00ph5XOIlllL4lzRIhPkwwaDwClwoqGOEY/jsIN1b0
-	L0SQLuSE8p8B/SwRT4u5Z7dXQy+uBZJaMvQJQOnMkO/vw/6D6K/PZ1R2bN+h1bzl
-	pOgAPNDgmU06jkuU94tD+ENAnNB3HtstCkXUHP2CrPoA/Ak1YbKGvW+ZUjjBe+eI
-	aVAZKRJdZczipCv1Xp/p3P42a8sl5/jS+CQNlQgW9DPiUM2FmdqPIaS5ivkd1PHE
-	hLUcFobXs/qbFDucpaIQigSLeoDkI6TXIz7OckFuEHp58N55A6obOOCqZKmQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791871391; x=1791957791; bh=1PBP3ZJT4qjEQEGQoSE0qSqRyXGfxXMQspi
-	2NB86o8A=; b=vff3+nDxJSzbYlYUKwAqd2m+mU912FAKs8fBLehRJrZQCroi2fP
-	AYLkmTmSW60lk6cJhcf6xEdQ/IXHOKmF08dLSLmdMdAhta3/nM+SQgy/LEPB0KO/
-	TwLnSkC3e0EHdX5gVdL2Tj1K6B9kAl37sekeHdPtrodi0Zv2/slm1Tv9Y6i+XC4B
-	dQNBd9VBMJNNNiNxCBSJJE4983wlQypkvjZN1k4FEAKrgSDvLM2K44sfgHjZZCLS
-	8+T708x3CXDSCavM2dxb1Y66HbkNLONEWK5mQeatwh6vHVJbCQt4DXKZJ97zB7SU
-	B5d0iWzM6RsAz9CCOeIcqe8BOn8JYvVyhTQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=tyhicks.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791871391; d=tyhicks.com;
-	mf=PGNvZGVAdHloaWNrcy5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:B+HgiKQzhrJx1SmxQ9yWSoSje6pWQnztKa8zWs8eKKCSj+d
-	mbSLP5e00AnyooraChtRP/W30ryUTbbZr8VnleOm/TNhIkxJYL4f83b9lhDhjJnp
-	3G3iaoeQLm9+zSQBNABdI1m0+U0Wn6QCu1wOX7MZKMcs8qBNIM/yzwq8/9prf6K5
-	yA3GYCEMpa6Nd1n2NbRtOf7cd9WEpBulCPG+Zr55rw41oxBw8dSQRPLsEPuzVL8A
-	kf6n5AOH/ClKJPKAd46CbbuLTNC+RyZOrDDpCWpoZX8XXFBw5kQAh4mEtF1gUA2f
-	4xZfqfCtiI8/ulzoIzQd444w0D8652w/Wkq+V0A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:eRQuns61mxrkt1rE6slyrxMtzD9+fa6bXZQSCOUpPF4=:hfTIJ+ysqnotUXS8MBkAYtPSSdxqsImvfLZgwWwZ6dY=;
-X-ME-Sender: <xms:n8nNagoRXkuc9Su-ZzyAlUoxcl0uFOQLbKUFFUZLGaiheg3agvxIEQ>
-    <xme:n8nNaiGLKkrtOyKqI5CGet5RVYnj0KCpZ6oPS35EQpJ4t22E4fIzw7Z4tF8ukr4u5
-    Ni5u0YtwEir4A7xRkbT_Nm7BlMEg3UKbjpkSQ33A7tj7CNXfD9TFz8K>
-X-ME-Received: <xmr:n8nNaov2czXgeJkAYWsYW2DuQnnpZAfXP0ULo6DsuEZGeVXNUKodhg>
-X-ME-Proxy-Cause: dmFkZTGpaCSCPHwgV4zbns6Mt8TON45fYleJpX3rsxPvA5MMeQCedpdFaLr1i3UEgsLtVn
-    2cPFS7ri3dRaYfQV5Wurwy9ZEa7PociIpLtbQ0HBbeyMPkCdV/ZcCkUR/ZpanO+CCWOnTs
-    HN1RPFukcRKrAHKZ9L/zjRtbktyDEsB7C8yqhNY5GVbQbZDIcW7ChOIsEpDute3b8Bul7N
-    tEcLvEq2gib5cHnolF0gZTYWWiERI+mEOB/YEacPUS4sysdCFR8mZbG8zGe17ZzOTsnnWR
-    JtTmd3sJFuMo61j39NCAP5swCcHn1YHdHEGwjjxwgiSEGKKC9JrQC94sefDz7v9+NdYkDK
-    bqFVPLY/BzCzggEZl+AQhfnOC8ayXCsH6RqCNz0GLgQsxdEJwRf4fIisO9uVaoGmoDg4BB
-    sAPOwBkVFntuvgjwe3fO8Zz8PMsWDEf91pv/EBIY7Gkk2U40/WHy4WDQ34aA8dF8OM5+lD
-    +EwVA9bow6n3k9/lRpkBp5/Ebe4pYXm5OneZv6AFaHSVjAL4bDgOWr8oce5Z2pZAuXelPt
-    flvwYRi7dkuddJtw4cibkJp0WKQUC9h+J0sCQQh45zrVR4DTu9rNPSedX3KsH8t53oDGS0
-    nG+l227JZgw7bHBdQ9TBbvpzhbmsTzzm6ODz0vMvRbMDknvbGY4qS3Z9eHzA
-X-ME-Proxy: <xmx:n8nNasXBMd8t0k0OK6eF9fevXlAtrFje00vQtyqNCrc1QBm4NnSePA>
-    <xmx:n8nNasER9dZJkoSdvlemBHedpnnYruuUpZHRKeK-kRkWWo_vEucDVQ>
-    <xmx:n8nNam0f2fW_Vsj2lKegHq9yvKZsR51OYjcufVekodM-Whn-Nlndbg>
-    <xmx:n8nNamMMQHPAtd7OGUU0yLHwiIC7FWIvaDr-fGirqatcE78IFHMHoQ>
-    <xmx:n8nNai46_xqVpbEwXDLwVYN1vyfkYVCgZnZDofTxuxIrZSzv5nSA6hBC>
-Feedback-ID: i78e14604:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 02:03:11 -0400 (EDT)
-Date: Tue, 13 Oct 2026 01:03:09 -0500
-From: Tyler Hicks <code@tyhicks.com>
-To: syzbot <syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com>
-Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in
- ecryptfs_verify_auth_tok_from_key
-Message-ID: <as3JnatMRsNYq4bR@elm>
-References: <6aaabb70.86093f18.33004f.0003.GAE@google.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dP6aziLu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=YvK1v3PlkaD7Gn+91at/jtdmO9yT32qQMT5mZK7CerE=;
+	b=dP6aziLuGAufw3SL2ralvZopLm9+9VWxqHgvw1gLBr7Ry+bPai0UcpeUWj+CU/
+	lbOR2IS46lWxux2rlYAXHLxKR4GaogHnkCVRSacog8N9lpR3OWb0PkR7CD7FuiJf
+	Dla3ESNb1e0/gfYDcUvyLYmC6SGk10m04p9ZCcqyBOiog=
+Message-ID: <d16e59c4-2dcf-4e09-b17e-4c56e177f440@163.com>
+Date: Tue, 13 Oct 2026 14:02:52 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6aaabb70.86093f18.33004f.0003.GAE@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] exfat: fix valid_size update races
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yuezhang.Mo@sony.com, dxdt@dev.snart.me, sj1557.seo@samsung.com,
+ Chi Zhiling <chizhiling@kylinos.cn>
+References: <20261013033837.2748258-1-chizhiling@163.com>
+ <CAKYAXd8gAtr9uhF_ogOUuc511VEed5HbXbvjzeq-81t_u-4uJQ@mail.gmail.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <CAKYAXd8gAtr9uhF_ogOUuc511VEed5HbXbvjzeq-81t_u-4uJQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnn76Nyc1qzRzvEA--.7092S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw1kJw1DCw17KF1fWrWDXFb_yoW8Xw1Upr
+	ZY9as3GrWDK3y0ywsFvw1rA3W8u3s5XF1fGrs8Gw1UAr4a9F12va1jgrW2krsrtw1DKw10
+	qwsFv348Cr1jv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRL2-rUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9w+jQWrNyY9MXQAA3q
 
-On 2026-09-16 08:53:20, syzbot wrote:
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    f6e7b42bf05b Merge tag 'sysctl-7.03-fixes-rc4' of git://gi..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=148603f9580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
-> dashboard link: https://syzkaller.appspot.com/bug?extid=b9529ebe6a9394ddf825
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=119813f9580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=174acdf9580000
+On 10/13/2026 12:04 PM, Namjae Jeon wrote:
+> On Tue, Oct 13, 2026 at 12:39 PM Chi Zhiling <chizhiling@163.com> wrote:
+>>
+>> From: Chi Zhiling <chizhiling@kylinos.cn>
+> Hi Chi,
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/tyhicks/ecryptfs.git next
+Hi Namjae,
+
+>>
+>> exFAT uses valid_size (ValidDataLength) as the on-disk boundary of
+>> initialised data, but the current code advances it too late or without
+>> proper serialisation.  As a result, buffered writes can silently lose
+>> data reclaimed before valid_size covers it, page faults and direct I/O
+>> can race with writes, and a failed direct write still grows the file
+>> on disk.
+>>
+>> This series advances valid_size under the folio lock for buffered
+>> writes, revalidates cached iomaps, drops i_rwsem from
+>> exfat_page_mkwrite(), and publishes i_size/valid_size only on
+>> successful direct I/O completion.
+>>
+>> V1: https://lore.kernel.org/exfat/59056131-e3bd-4003-8c30-0a356cf0bd82@163.com/
+>> Link: https://lore.kernel.org/exfat/10029d6f-13cc-4d17-a2f9-b093a8339dde/T/#t
+>>
+>> Chi Zhiling (7):
+>>    exfat: advance valid_size under the folio lock for buffered writes
+>>    exfat: advance valid_size while zeroing new ranges
+>>    exfat: validate cached iomaps during buffered writes
+>>    exfat: drop i_rwsem from exfat_page_mkwrite
+>>    exfat: do not re-zero the valid range in exfat_page_mkwrite
+>>    exfat: complete direct writes synchronously when they update metadata
+>>    exfat: publish i_size and valid_size on direct I/O completion
+> Can you add fixes tags to the patches ?
+
+Sure, I'll add Fixes tag in the next version.
+
