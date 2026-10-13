@@ -1,56 +1,42 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8564340A6B;
-	Tue, 13 Oct 2026 10:14:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5007A3B892D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886454; cv=none; b=gSdHZw6YDNgS3/niHtrsGRL4l7u9APzx8ojVRrK0UPOasLRpuwA0rY8jdHHI4r8cuSWALP17FehdvA/OEDYxXzwgsdCqRhh+8Z3qVt8rwjBezscPy/AfJ+TYTqmgAEC0eiDU9KSM/HR0EDaHHAyrWsGDivWITxLMc/VIxbSVpgs=
+	t=1791886459; cv=none; b=UTa13rQ+bhltXU2OBzjhkwYQxqHYkMNkcT4S3ypxG611ntUcsI6S6HrKNjM1c+WbCsY0Xt+r0QgLM+q9B77LZL2ZNJskZG+HSRtCgZ0l1CcHbto5D/vYRyjO9IVBwIC2E1XyaXqHNPfEsmoffmdyteE2mesymKt8QsG1Ecw+Kz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886454; c=relaxed/simple;
-	bh=CwIINxwYMx735E6F8s9ep3Xem7KHZ4ZBlh/HyIgAbgg=;
+	s=arc-20240116; t=1791886459; c=relaxed/simple;
+	bh=XrAio4RuX+aQifN3OHlbvWwk3vt2k0IZPWIK1IT/FX4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=unzBtXx32uSq1vdCr4JPrEpmEEeHdTeANrVMkiYc6pym7ere0ySPNk/CE2GEagPnzgCJWWGiDeJuaAP2cfs0IZ7N4pINXgRdyACqZdnke9dHEr0VfzxCvE8mJUoiJiH6YHdRyhYBV6rtAsAkoKQsZRwrCQub+44mvcMKPD0DyHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EwlAFwkD; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=LBCtHrJ3OuSs57UbSxilm9kU8HJelmRguKLiC3/A+JUgAnRpD0kXrc3wnZ1uuFJ7XHLBbJCpToVKgYpd9S1N/9AFTgSUAgzNq+gw7ASdRwX1SjtVWdxqhn4oezPZ69w6/C7BXfxn93PbeUopqgql0lF4jBha1hjOodhhARMBP/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pyau+2JB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EwlAFwkD"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D2D21169C;
-	Tue, 13 Oct 2026 03:14:08 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 75FB13F7B4;
-	Tue, 13 Oct 2026 03:14:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791886452; bh=CwIINxwYMx735E6F8s9ep3Xem7KHZ4ZBlh/HyIgAbgg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EwlAFwkDH3DXPIhTH/r3Gq7gzfPEvks0fkmwjKTIIEU8lU7V9m+CEaFGUJ2qIKkcH
-	 LBg1oIHubi4Bc3NZ0+tI90c3UVa78sskD/3IZOdXFNrnVPDx4Ice2OAwYQT3Uerlxg
-	 RYruN74ALtEB3aq/oz+lABH3jelhu/OBkGnIJslI=
-Date: Tue, 13 Oct 2026 11:14:05 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pyau+2JB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26D801F000FF;
+	Tue, 13 Oct 2026 10:14:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791886458;
+	bh=9jaFSNsp/CFGLzl6alv0F7/TLQf1iiNaD/MVLusHMzs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Pyau+2JBZ47xLEI9AjYwCxEuWFUp6KtSyV6c8/8WT0N4NRCIgNIk3m2zUnq/UELQv
+	 KjsUiMlNO+yxD3z4wT+gRyWqjce+x8opkjXeeo8cW7wqadbIJAS1NCiMIFQx8CO0Z5
+	 ulJShIemgghxaodPh6CqWYG2YtFAtYtbLo2CmsABAEb9FGXc58la5w9O6mSKkENVo7
+	 HibEtbFe6oqdn1TbWpZHHESHkgIE97Bon5u6fh4P61z17grF2aauuVX6tOMWrFEIyH
+	 dkHLm0NUip3sgYNpBBeZOx3mFIkikn1/pa7ujFF0hf2ZOUCg7QGpg+ih6Ak0kR5zeY
+	 UjgEuD53By39Q==
+Date: Tue, 13 Oct 2026 13:14:10 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Tarun Sahu <tarunsahu@google.com>
+Cc: dmatlack@google.com, Pasha Tatashin <pasha.tatashin@soleen.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
-Subject: Re: [PATCH v6 2/3] kselftest: mm: remove HPAGE_SIZE and HPAGE_SHIFT
- macro
-Message-ID: <as4Ebb8GQmAfRb5r@e129823.arm.com>
-References: <20261013-fix_hpage_macro-v6-0-2c52d0484de3@arm.com>
- <20261013-fix_hpage_macro-v6-2-2c52d0484de3@arm.com>
- <40f95078-4d3c-48da-9262-afadf231014f@arm.com>
+	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] memblock: drop for_each_memblock_type() and open
+ code its users
+Message-ID: <as4EcgiBH5jjww42@kernel.org>
+References: <20261008190828.3221718-1-tarunsahu@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,120 +45,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <40f95078-4d3c-48da-9262-afadf231014f@arm.com>
+In-Reply-To: <20261008190828.3221718-1-tarunsahu@google.com>
 
-On Tue, Oct 13, 2026 at 03:26:40PM +0530, Sarthak Sharma wrote:
-> Hi Yeoreum!
-> 
-> On 10/13/26 3:16 PM, Yeoreum Yun wrote:
-> > HPAGE_SIZE and HPAGE_SHIFT macro is written based on the 4KB PAGE_SIZE.
-> > When this macro is used in some test, test result would be strange in
-> > the system where PAGE_SIZE is more then 4KB.
-> > 
-> > Here is the example with transhuge-stress test with 16KB PAGE_SIZE:
-> > 
-> >   transhuge-stress: allocate 61073 transhuge pages, using 122146 MiB virtual memory and 1908 MiB of ram
-> >     3.292 s/loop, 0.054 ms/page,  37106.002 MiB/s	2566 succeed, 58507 failed, 2566 different pages
-> >     0.591 s/loop, 0.010 ms/page, 206850.792 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >     0.527 s/loop, 0.009 ms/page, 231895.107 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >     0.527 s/loop, 0.009 ms/page, 231839.704 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >     0.528 s/loop, 0.009 ms/page, 231544.782 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >     0.528 s/loop, 0.009 ms/page, 231462.074 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >     0.527 s/loop, 0.009 ms/page, 231770.300 MiB/s	   0 succeed, 61073 failed,    0 different pages
-> >     ...
-> >   ok 1 Completed
-> > 
-> > Remove the HPAGE_SIZE and HPAGE_SHIFT macro and introduce pmd_pshift()
-> > helper to get the HPAGE_SHIFT properly. For HPAGE_SIZE, use pre-existing
-> > helper, pmd_psize().
-> > 
-> > Also, run the KSM_MERGE_TIME_HUGE_PAGES test with a size of 512 MiB,
-> > which is the least common multiple of the PMD sizes for 4 KiB, 16 KiB,
-> > and 64 KiB base pages. Since allocate_transhuge() allocates mappings in
-> > PMD-sized units, the test may fail with the previous size of 100 MiB,
-> > which is not a multiple of the PMD size when the base page size is
-> > 16 KiB or 64 KiB.
-> > 
-> > After this patch, output of transhuge-stress:
-> > 
-> >   transhuge-stress: allocate 3817 transhuge pages, using 122146 MiB virtual memory and 119 MiB of ram
-> >     2.558 s/loop, 0.670 ms/page,  47755.759 MiB/s	2585 succeed, 1232 failed, 2585 different pages
-> >     2.640 s/loop, 0.692 ms/page,  46268.432 MiB/s	2585 succeed, 1232 failed, 2585 different pages
-> >     2.635 s/loop, 0.690 ms/page,  46360.298 MiB/s	2585 succeed, 1232 failed, 2585 different pages
-> >     2.782 s/loop, 0.729 ms/page,  43899.795 MiB/s	2616 succeed, 1201 failed, 2616 different pages
-> >     2.692 s/loop, 0.705 ms/page,  45380.876 MiB/s	2627 succeed, 1190 failed, 2627 different pages
-> >     2.612 s/loop, 0.684 ms/page,  46765.812 MiB/s	2628 succeed, 1189 failed, 2628 different pages
-> >     2.683 s/loop, 0.703 ms/page,  45520.990 MiB/s	2630 succeed, 1187 failed, 2630 different pages
-> >     2.727 s/loop, 0.714 ms/page,  44789.321 MiB/s	2631 succeed, 1186 failed, 2631 different pages
-> >     ...
-> >   ok 1 Completed
-> > 
-> > Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> > Reviewed-by: Zi Yan <ziy@nvidia.com>
-> > Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > ---
-> 
-> [...]
-> 
-> > diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> > index 5f2fb5b819c4a..efd99298be135 100644
-> > --- a/tools/testing/selftests/mm/vm_util.c
-> > +++ b/tools/testing/selftests/mm/vm_util.c
-> > @@ -21,6 +21,8 @@
-> >  
-> >  unsigned int __page_size;
-> >  unsigned int __page_shift;
-> > +uint64_t __pmd_psize = -1ull;
-> > +uint64_t __pmd_pshift = -1ull;
-> >  
-> >  uint64_t pagemap_get_entry(int fd, char *start)
-> >  {
-> > @@ -161,19 +163,40 @@ uint64_t pmd_psize(void)
-> >  	char buf[20];
-> >  	ssize_t num_read;
-> >  
-> > +	if (__pmd_psize != -1ull)
-> > +		return __pmd_psize;
-> > +
-> >  	fd = open(PMD_SIZE_FILE_PATH, O_RDONLY);
-> > -	if (fd == -1)
-> > +	if (fd == -1) {
-> > +		__pmd_psize = 0;
-> >  		return 0;
-> > +	}
-> >  
-> >  	num_read = read(fd, buf, 19);
-> >  	if (num_read < 1) {
-> > +		__pmd_psize = 0;
-> >  		close(fd);
-> >  		return 0;
-> >  	}
-> >  	buf[num_read] = '\0';
-> >  	close(fd);
-> >  
-> > -	return strtoul(buf, NULL, 10);
-> > +	__pmd_psize = strtoul(buf, NULL, 10);
-> > +
-> > +	return __pmd_psize;
-> > +}
-> > +
-> > +uint64_t pmd_pshift(void)
-> > +{
-> > +	if (__pmd_pshift != -1ull)
-> > +		return __pmd_pshift;
-> > +
-> > +	if (__pmd_psize != -1ull)
-> > +		__pmd_psize = pmd_psize();
-> 
-> Kiryl pointed this out in v5 [1], you might have missed it. This check
-> seems to be inverted.
-> 
-> [1] https://lore.kernel.org/all/asj4dT2Q__SlKhgr@thinkstation/
+Hi Tarun,
 
-Oh. Thanks. I've missed. 
+Please for the next time add the cover-letter when sending more than one
+patch.
+
+On Thu, Oct 08, 2026 at 07:08:27PM +0000, Tarun Sahu wrote:
+> for_each_memblock_type() always starts the iteration at index 0 and its
+> body is a trivial 'for' loop, so it hides very little. It also gets in
+> the way of iterating from an arbitrary index, which the next patch
+> needs.
+> 
+> Remove the macro and open code its three users: memblock_add_range(),
+> memblock_isolate_range() and memblock_dump(). While at it, move the
+> region pointer into the loop body scope.
+> 
+> No functional change.
+> 
+> Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
+> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+> ---
+>  mm/memblock.c | 17 ++++++-----------
+>  1 file changed, 6 insertions(+), 11 deletions(-)
+> 
+> diff --git a/mm/memblock.c b/mm/memblock.c
+> index f5aaa38cfa31..59dda7d085f3 100644
+> --- a/mm/memblock.c
+> +++ b/mm/memblock.c
+> @@ -155,11 +155,6 @@ struct memblock_type physmem = {
+>   */
+>  static __refdata struct memblock_type *memblock_memory = &memblock.memory;
+>  
+> -#define for_each_memblock_type(i, memblock_type, rgn)			\
+> -	for (i = 0, rgn = &memblock_type->regions[0];			\
+> -	     i < memblock_type->cnt;					\
+> -	     i++, rgn = &memblock_type->regions[i])
+> -
+>  #define memblock_dbg(fmt, ...)						\
+>  	do {								\
+>  		if (memblock_debug)					\
+> @@ -615,7 +610,6 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+>  	phys_addr_t obase = base;
+>  	phys_addr_t end = base + memblock_cap_size(base, &size);
+>  	int idx, nr_new, start_rgn = -1, end_rgn;
+> -	struct memblock_region *rgn;
+>  
+>  	if (!size)
+>  		return 0;
+> @@ -651,7 +645,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+>  	base = obase;
+>  	nr_new = 0;
+>  
+> -	for_each_memblock_type(idx, type, rgn) {
+> +	for (idx = 0; idx < type->cnt; idx++) {
+> +		struct memblock_region *rgn = &type->regions[idx];
+>  		phys_addr_t rbase = rgn->base;
+>  		phys_addr_t rend = rbase + rgn->size;
+>  
+> @@ -815,7 +810,6 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+>  {
+>  	phys_addr_t end = base + memblock_cap_size(base, &size);
+>  	int idx;
+> -	struct memblock_region *rgn;
+>  
+>  	*start_rgn = *end_rgn = 0;
+>  
+> @@ -827,7 +821,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+>  		if (memblock_double_array(type, base, size) < 0)
+>  			return -ENOMEM;
+>  
+> -	for_each_memblock_type(idx, type, rgn) {
+> +	for (idx = 0; idx < type->cnt; idx++) {
+> +		struct memblock_region *rgn = &type->regions[idx];
+>  		phys_addr_t rbase = rgn->base;
+>  		phys_addr_t rend = rbase + rgn->size;
+>  
+> @@ -2194,11 +2189,11 @@ static void __init_memblock memblock_dump(struct memblock_type *type)
+>  	phys_addr_t base, end, size;
+>  	enum memblock_flags flags;
+>  	int idx;
+> -	struct memblock_region *rgn;
+>  
+>  	pr_info(" %s.cnt  = 0x%lx\n", type->name, type->cnt);
+>  
+> -	for_each_memblock_type(idx, type, rgn) {
+> +	for (idx = 0; idx < type->cnt; idx++) {
+> +		struct memblock_region *rgn = &type->regions[idx];
+>  		char nid_buf[32] = "";
+>  
+>  		base = rgn->base;
+> -- 
+> 2.56.0.385.gd3acb90ef8-goog
+> 
 
 -- 
-Sincerely,
-Yeoreum Yun
+Sincerely yours,
+Mike.
