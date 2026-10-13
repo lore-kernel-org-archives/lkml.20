@@ -1,347 +1,204 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013022.outbound.protection.outlook.com [40.107.162.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F6C3E49D7
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C76E51E433;
+	Tue, 13 Oct 2026 16:56:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.22
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910578; cv=pass; b=kam4mtF2Do1Mnd2z6/JTTlICEDOJo486oh3gOEbc01rrtFnVk5woS92xq2g9hIdCvzywizxTY7nIgJxcCvP3ocT9qOFic4EtAGqEn4X9rkR8voAq7NYZMAWQzswQp/gxSMo55ixSao1lNkcyV3LuBo051dFxixUv5/Hlf61WGx0=
+	t=1791910582; cv=fail; b=bt1q9R3mmmxZj6L+ClN4/f/iGjoIC1E/YMXWqCgttAU7W+/hTxa/CoNd5E96Mp2GvnsWCPDh2xiHVXUfgUvTJxG51Eo0DRV6n/2SSmCk6DCiGFNvvMV6/BS51oG5ORE/MAlmt7Xw3Meh7WyOoMHj9PT/YA109/bBeYYydCdXPKA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910578; c=relaxed/simple;
-	bh=vgZAJZYbetFjV8eUR4ZHppCk+qnMUzLvVtWQf1Xk6Qw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qkxUrkotLvxEdfimIlOFj19ZpG+Na0Xr9ssSXjBfhrgwfx8FZ0NOeRilLepEmlwCBWgP3G06C9wKNjtmdjZS2hizUCRtaxAMbpyyARGWeXfmBqGxXmg2iwDPQ9I93Tk/5mdUfMpEAsbd1L7AV8018581UbND10rkI0YFSdQt5FY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gT46Iep5; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791910582; c=relaxed/simple;
+	bh=7xXy9d/jp1vuYmK62lLOU8j3htHcoSBuiJHjTEgoZRE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=QRU2eam0cK0otCNltWYZC7CFQVJNjxrkVmwvl/xqoYqHeVUX8lHeqEFjpzIljW1lx8H6HYpK2GlUilYgfCY+yro9RFbKOvMdit2eXinmmEGqyGWUQFNUqEvi6K/9cpRdhyNZ2wAmcuJUd94IbXqfy89fXsasS8dd5u/K6FHoLvk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=euzf4JKg; arc=fail smtp.client-ip=40.107.162.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gT46Iep5"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so75216a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:56:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791910575; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ug+7ke0g5i/RzMg3BrOTvLWWlRIT5yGgNPyOkjC8skcBNS2P78CFuzScp83aIi6+ZF
-         FX4EX+JszaDSmtSgv9pX2ERc0qrDCM9uvLPxQbZLa90KkOk9G5H8/+dZptQcz/DkxotT
-         twZaG+PC40+DdDEiN4D46vvg0eUUq3pCSUE2BWzTpKqiqv2awRGc43ejtmClvS4Jp6at
-         Yb2v5t5o/lZiZ0aFiPPmPjQY+nowUU9eqbJtOa58Ubi4Ia1QcXvn1mkcDE7jqss9cUVW
-         hvbFbo3aCxkuK2ypNjkrfku3SsfJVEQEl2dv5SndQUlHe7mIE2NBFFnmeDUH6ZJn8ONK
-         9NNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=jRJGqlCpD5rZFNZSdCWtntDsM6hP5Y50NhmG83eeOxE=;
-        fh=QnxUiNqls8gOI2GC3Owx1sL5hCT9cUNBQUHAM8Bdk/k=;
-        b=JKFH+y/qVH+CVb3dVwtyawKMnJoxoT0PN+/Mw2d5RbjEurriOATkbpNlcxGNRiPZtQ
-         wYrD3uwtqhGNOZu5q9Oucg80GQoM+yZZCxvLvFT9AqTksdsNKsfU6YlxRgf/1YCH4mo3
-         mX+YQiWQ63IQnnx2j3K1wJOfKGcg1R527sUvfnvyC3djk0bUXT4KsdSNX46zy6W6s5j5
-         kXA1V90geyaF4djvVmA+8HN1wkuAU+R9vkyN7Hrg5/fWP8eBfADb6HG+7kGlhoQ7yPED
-         2OoSVrKBsATc1dbTcd1narJt9tMA8TMY00rYlT+ZKCT0kDiX9Ol0DR3iHLiv8mE50Tw/
-         4yuw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791910575; x=1792515375; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jRJGqlCpD5rZFNZSdCWtntDsM6hP5Y50NhmG83eeOxE=;
-        b=gT46Iep5Wm/QFi/3YYOlh/VdXWK27JntfiQZxlrcA9fDGtsFCO4+sL96T71C0Vb3Bi
-         cShogBr9EwD96AVGZUoWZhmCvw5KdBfBbSeyytYX3gIHVTb1EK4HqXavQGykMnJUEq7p
-         oEl6Ryjht0g2hXCKNASJdhieLWzYACDx5yzzpi8WDb6XuVQVjS31rCAsPWlzls/Fu6ou
-         qLUz3M2hjlVzwWibe2F5aMuzsG0XpfEm6ENVcwb4EQy7bM09TPvi0+yRJPjCQ2bbqLzj
-         rnkabH1kA+EK5Ux8MsOqn8NikTCJmXuveppsuUFOXmknj+0a5LW2DzYgnc6kt6TU6khU
-         S60g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791910575; x=1792515375;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jRJGqlCpD5rZFNZSdCWtntDsM6hP5Y50NhmG83eeOxE=;
-        b=tI4lctz+BgRbYg+GDouhBEPd7fmJfCcB7+Uyccuxeh818PklevU7y5slbrW0+DO71o
-         4O06e6jle9A8z1+96aUgQtkieNz0y5bEIi4wLZ0bmVQAYcxXcQ1xPeR4ZV/HYde8BJAL
-         ArtyqI1xGvVN6LvK7KuzXTS+/s4ZzNv6fcgZBWR7ZpcziVoXEmMMmWO78aUZ09+En2Q6
-         0Vsn3Y+2Jvhdo/JVlQEUf9QZWbbcHcCFDCvM6LXLXdV6Vtb8i6j8ksFRMJ/dgXJks8eX
-         rTui94MLN1Gt8nDyrWKgrb7gTCmGdy0De9MNS2GrDTdv6DL7ucvMC2Qlyt+mN6gLplki
-         WwPw==
-X-Forwarded-Encrypted: i=1; AKwUvBzYN4pkdQaecwBrOrMHcN2D90cevRC7vnaAHCWftr2+/qWFQhsjnX0Ql+uffSurUd7YrH/tg6TqBqfX4SE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0Jq+p+2gXh4XbFR6ePVwIjrmAvnczK/0KSK4DPGoR/EzpnSgP
-	zwQPTMF1OMhY8gqhvTlOfPAF3tDvutkNgFxj/F1LQtHVt5VXClx52Rtycm7to8B2ii/eWfuuPdx
-	fEa3pi+UcwdizEy61r4BQngtkgZftZlVd52ZAwxa2xw==
-X-Gm-Gg: AYBFou0n9fFO2wivIq04S9KePBCTsBJMe9ZvyNPcg7UCSHh/EePN/lqrNDFziBHrcpE
-	Yb1oQzFc65AsJpPxnw0s+WSjCq17KkGY+SuYDDH/5I0S0l0qFLl/9BxbdjKuTeZyuS5/Yw5sACy
-	rN1bVTZDjWh9fWCbASx4SjqFsD3eiuwrWkBWIcEz0S4n1kRmr0vKpXY4iTtCjzDJIpGtpSaIYJY
-	ZDMWjCT7TKCtxsRvd59YP4lmqd88QX6hXuq41VDg6p2CVCOoKW8NQBZEYRAJRa4H2/ewhD61knQ
-	ezvVtKy2bYZNDM2Gn4FwMG6jFEouOZvh7j1vTU3oGuKjyQjp0hjzi7bzhOVHLrMVF/01Pv6S8Y/
-	vp2ulTaLF0SFuJVhgum5MoQ==
-X-Received: by 2002:a05:6402:4006:b0:6b1:c526:afcd with SMTP id
- 4fb4d7f45d1cf-6b1c526bc10mr5197676a12.11.1791910574753; Tue, 13 Oct 2026
- 09:56:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="euzf4JKg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wDJnYUbgvvcWQdtPzKH29jW8KT+un8pneoZSQLlwweDmcZ1DZLjftHuuEAFMcNPUzmtfd2i5dNc+KKI42ds2KeltpH6V96PQFhf8tIDu7WfOuXdLn1F9W8SblXtsCZ5JgZEnluCN8c8pHhynGkY+QWZOFUMsODsuauRdXZX4lpcZmeJproq5j6Yj7CCbD4iJXQJFEb3Ee0wISPCJ4/x+rqS9EVxVD6K9E4mx1mhD4s2N6le9n/LOaBmnhVxvMHQ2NqXOURqiD+6Q0Iq7yjoGUHMx7edvUo0QmBHXiUJMVNYlYIR5fm9hcIYQsHurUGsjzUPF5eUeoWe8dFgQdxFXaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=deytnPeMS9XslEsk8gRjf2fZTVRnfzWjtJAefeskPdM=;
+ b=NnYQD2rj115Rv/UndE1lGGim+LeQVQFMuggduUQZbbbUmdHucUfCiKcUh+HpH0UDKn8tWf5GympqJfzZKHNLDHt4QRB2KTaDv2Cb28SG41jZsFWuh2J3H89T6KZco2vDgUJziIE8/XLQbTdfedSnxANhi0aIm0TVIDp3zTj+kLsq4mip/DUyupdnl1NZkKwf6Nof6Tzcq6x77UZGjBQkJ1mtgiwsSEDFlAI70NP5fd1w+5SAhHnbYrrQuFbAbkhTanM+2A3Ru3nec+NYYsBImGXaJe/t87xkTRdzf6DP3r+lUyh2aikkrsdApR0y0xnHDnivisPJjzfjPTTTh56Ymw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=deytnPeMS9XslEsk8gRjf2fZTVRnfzWjtJAefeskPdM=;
+ b=euzf4JKg53a8QL7xQTYHORhiYae0hEnpzGFDfflI8Vg8NG7e9SeuYwmtAcjSo45amT+rQ5o/KYJwjvD/5et9OovOnVX7sMyCnnYoU7l1XN0ZI4has9t1Xmfnm6M3iV1pFCkINYpTCwTZwzLVI3ev5PYXpYBex+IqMK3jHLUz2+M+JbGLEpJwJ1uSDl6bp+fy7FNZANvfLD3KEcOAQKGch9Ff9h0e8Q/rcJ2quPeZPIEvUwFwDB04fw5wb25PsykIDtUZcE5y8aE8SB8QdENquY1VTX/nwI3Sf5+SI73U9TVGc7HUWwUBAd/pBwrkZqPLX6G7OP0c1w7H59CxfPTWDg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MI9PR04MB787466.eurprd04.prod.outlook.com (2603:10a6:290:86::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 16:56:16 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 16:56:16 +0000
+Date: Tue, 13 Oct 2026 11:56:01 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: endpoint: pci-epf-vntb: Track link state from
+ both sides
+Message-ID: <as5ioWuOWCqu7Us0@SMW015318>
+References: <20260904162049.3432464-1-den@valinux.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904162049.3432464-1-den@valinux.co.jp>
+X-ClientProxiedBy: PH8P221CA0023.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d8::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929084923.092062266@infradead.org> <20260929085320.337703476@infradead.org>
-In-Reply-To: <20260929085320.337703476@infradead.org>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Tue, 13 Oct 2026 18:56:03 +0200
-X-Gm-Features: AclHuK-FYzf4pngjYTg0wFNT6rCXT2QOp7saIR0M--LRSjiA8Tamx74pMsMEnD4
-Message-ID: <CAKfTPtCrb4_JkH=-hnoabrqix14B+kizwLDWnuOaLa6374tfxw@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] sched/fair: Rework/fix task_h_load()
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@kernel.org, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, tj@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB787466:EE_
+X-MS-Office365-Filtering-Correlation-Id: f74ac722-a0dc-495c-fff3-08df294ae547
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|18002099003|10067099003|6133799003|3023799007|22082099003|5023799004|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ibUcgCR2l6c7LZBvWoq8dSvzvr/P6MJ6yeosppKmUCspLGQo5E6Bf6vuWxRRXKls8ZFWqylX0fiOiV5e2ueVOFr9OXLThRg/6MvAcZYAGtmx0m790kxxoJ2GXHZ83edo8k6EbGdUMYi17xVFDI1vhice4RnOI+bXpj4ScKTPzpdqtsRYhoeb5WMlmzEZomTk6Q6modJCCFQCHrsY6p8uwc2e+BXcED+pyxkgdlb6zcuMmEakjlnYAlRC8sFWTBJPJdOHpNB3jXieRq8HKhiR6jzlLnDaiBnebbjG4X2yoVtgv4onpJsYBMiJ03gDztJ4OeMhLyvledBCTddvsxwYpynUP9D2SvVc1+I1KoxPerTeBop+ZnD7pwKkXLsCSKhpTHhG1bof/uO4wMWX2XwuGu2SliRvIqNdi85Q46MXR6MT0Ec3rBRMTWmwkLfroTWvfyP9clM+aU85mT4b0ox5+xO8SbIhzvwMapNlqcFuR1uQoscgpurgwv/UpDrgWUsDrwgU/ml05uxZ6wxLg2vFWIGHPQk1ZDmUwEX7CmeMYTB03lOILbT9xZKk2xgbUJgcGA4Pbub4VpgKHXObmYPNmcQF/UOJpU6IRbap/LS4j9YU7ONhj66nXsUr7SaQcWW2ruptJil/7pnFn+1jgBUVfYwQqu+2wMy7jYg5mMMKZYQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(10067099003)(6133799003)(3023799007)(22082099003)(5023799004)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5YRF3rKTN23gVPY7AmwAhwAEE30YrigyKsVRmdfp2pDusbjbR3D0aBLdBf5j?=
+ =?us-ascii?Q?mAPjp8Ofi9R47lQuGmvD6lTA9oyFOKB3vnSYeMN2KIyVpRGV9fhKRnLzquCa?=
+ =?us-ascii?Q?S0vyAIQv7ovkKAZ5BrUHp1mk3bHUPerQ2LYNU6F2s/JhhglbKp4rM52hOHHi?=
+ =?us-ascii?Q?sZrIsoqOpLkgJCBb0tU+TVZJ3GBd5nIBLMIyTS99oqvt9k6vy2CqLvuTOOuJ?=
+ =?us-ascii?Q?rbGKSVbGt5stK9gLcVh4tmKFiuDebh8D9OeKiMAPfV2u8RfxrK5X/4udpGUk?=
+ =?us-ascii?Q?BqUGSn9ue3lGHfTyNhy8ShmUawt72L+Xc60n7AVA7PYUoDosRhv8mjFIiBFL?=
+ =?us-ascii?Q?iXi1XyDUkY9JQrDjfV7xDl0OPa7G+ecd2rSNbjb9Hu49zRPhWyBWnH6wljB7?=
+ =?us-ascii?Q?I21yYmpPVd6G6+FcEzR9qaAYz+2R1VxeCWpViINNTNYeUO5jDXmB5FC3UauM?=
+ =?us-ascii?Q?ts0qUzNLALOu9Gj32lVVMG5tyD/oHbkn5P0fr9Dy1Rx/bBirx+Zq6RGWMYc4?=
+ =?us-ascii?Q?b0VJGdlfb//hIiB8XPbb+xNFoNPjXCcf7B/9fNoNnJiiOPFvVGWC8cohmCd7?=
+ =?us-ascii?Q?i8Wm+5pEjLsEmOPKjesCQWkvD4Aq7K4hVnzP1jPkiohoFOoJQzS4Rn1wbpIT?=
+ =?us-ascii?Q?eFmCEk8oeeoCMbyzyJaHpH2hxGDUDWhhYWsowku2DjCl4bzuNVJIanrmiE56?=
+ =?us-ascii?Q?hZccZLFozW6JVfWQ8U/s77L1r+f2TzxNJrq3MpPnxajypNOIcGnfWLkboO6r?=
+ =?us-ascii?Q?NroopvCukOPv0LKSRW40yxCh8aO1mSaD/VO1KH79l+3Ux/cNg4DtbLP21iU+?=
+ =?us-ascii?Q?sqY1BGfM2UlIfqFUbVS8ePaxzS4lqANdJJ8hndeUw4BtCj93lrGVuGnqU+L8?=
+ =?us-ascii?Q?AeToYtzJZfGY1SZn7lmfBK5CY6PtVipFo6XpH5duSGNVORnQ9J3I2LGWKG17?=
+ =?us-ascii?Q?58mfkPgF4dVBoEnto2XGv3m0bWt25KJqyVEmRcODiKS8Gft3sUQieq2nquxL?=
+ =?us-ascii?Q?aS/H02qtSugSksa5OXd5KZSr62rjnX6ocm/8kfWkHnm2yYrbgJBcDD3F3Dsq?=
+ =?us-ascii?Q?1Pm89ORm4VjQNNT5UCJ87vtZHHD398Xvh0rpfyYjlRJu8jFdfjAZSG6Se66F?=
+ =?us-ascii?Q?MLMuFsgt7e4868HiZFfvSGKh4GF6OkVfSuwivBhzjFZWmxlSss/vULBxnuz/?=
+ =?us-ascii?Q?K7bl7dNRWn4+9HVI3GaAnhWPXGCYSVpkRjQvpJVWSfkdMjMh48SOYE8H+T/n?=
+ =?us-ascii?Q?HRbNaWjaVgj5OTTQeRC2+SeNU6znyad5SYvEUiHLayeIO8WPdLtNRQgtgXsG?=
+ =?us-ascii?Q?dK4c+uPwsiPCqS68X5kmOq/siBXmeCnpdlKCYLxtcagaSFOCet3cIZrD3r2R?=
+ =?us-ascii?Q?vmrBuQSFYyX/8qWoQlKs0onpwJhUrGLO1ooMtvY0gsO2ILfveGkJEUucipQQ?=
+ =?us-ascii?Q?EyQNSyv55sgZ+fs3ntwoRrgDzJXMu5uBpkzhcrVhkHj7u+yZV0peICEuEU8p?=
+ =?us-ascii?Q?oU77E+gF9YhNvV4Sne8ZCGkYoEx3bJSNN+CeahaCi7KDbUAEQgTGMNWBM0ga?=
+ =?us-ascii?Q?VX+21ufWTRlUTPKctMdhJRsgCY6Kr64EmcE7p6q8GL12sFJZo9ZongWOzGHy?=
+ =?us-ascii?Q?RxDjrBxwkQU9CQSFdjXwmodGV6Oy1wMw9wd3M1nLXoJlj1R+umkGuttP2RTg?=
+ =?us-ascii?Q?y+XE4j8p8gc7ZHntogV9cAhJi6IQ3fN1k2zwSvBqaDrLZ3dzW6FS+c509MFK?=
+ =?us-ascii?Q?KxGrnS+4pO5RMdnVRCpHoLe3VTvfOO3QyjRd1w5ksqIq3Q6Z0pjM?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f74ac722-a0dc-495c-fff3-08df294ae547
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 16:56:16.3739
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RCAnJUtNpsePZngPEcVJp3ud87t/NEJ2X3HN1yuwWP7cRb2bd1Gv/kYKoBquPK9Asdm0+4KF26XTRPP3IFTr+t0lX+a9X25m5w92g+EeyCtGgfBXRihDOAAdmamnshBm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB787466
 
-On Tue, 29 Sept 2026 at 10:55, Peter Zijlstra <peterz@infradead.org> wrote:
+On Sat, Sep 05, 2026 at 01:20:49AM +0900, Koichiro Den wrote:
+> The control-region link status is currently updated only by
+> COMMAND_LINK_UP and COMMAND_LINK_DOWN from the HOST. The virtual
+> NTB link callbacks are empty. Consequently, the HOST can see the link as
+> up before the VHOST has enabled it, and ntb_link_disable() on the VHOST
+> leaves LINK_STATUS_UP set without notifying either NTB client.
 >
-> There are a number of issues with task_h_load():
+> ntb_netdev can hide this device-level state bug because ntb_transport uses
+> a separate per-QP LINK_DOWN_FLAG message. Use ntb_tool to observe the
+> device link state directly:
 >
->  - its hierarchy traversal is racy to the point of being broken; where
->    originally it was meant to be used under rq->lock, but lacking an assertion
->    for that fact, its use spread and violated this. The result is that the
->    back-link state is prone to races.
+> After bringing both sides up, start one waiter on each side:
 >
->  - it is rate-limited on jiffies, which is HZ, not the underlying PELT decay.
+>   HOST# echo N > /sys/kernel/debug/ntb_tool/<H-device>/peer0/link_event
+>   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/peer0/link_event
 >
->  - since its update is tied to task_h_load() usage, the cfs_rq->h_load numbers are
->    not often 'up-to-date', rendering their output in sched/debug near useless.
+> While both waiters are blocked, disable the link on the VHOST:
 >
-> Rework the whole thing to keep a more up-to-date and less broken cfs_rq->h_load
-> number.
+>   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/link
 >
-> Move the back-link tracking into for_each_sched_entity(), such that any such
-> loop sets up a path back. Use this to (optionally) re-compute cfs_rq->h_load on
-> enqueue, dequeue, set_next and tick, all sites that hold rq->lock.
+> Without this patch, the link-disable command succeeds, but peer0/link
+> remains Y on both sides and neither waiter returns.
 >
-> This ensures that 'active' cgroups have reasonably up-to-date cfs_rq->h_load.
-> Additionally, have __update_blocked_fair() update cfs_rq->h_load for all
-> cgroups.
+> Track HOST and VHOST enablement separately and report the effective link
+> as up only when both sides have enabled it, as pci-epf-ntb does for its
+> two physical hosts. Both NTB clients observe this effective state, so
+> notify both sides only when it changes, including the side whose request
+> completes the transition. Serialize the two paths because HOST commands
+> run from delayed work while the VHOST callbacks may run concurrently.
 >
-> Finally, replace the jiffy rate-limit with one that is tied to the PELT decay.
+> Order a link-status change caused by a HOST command before publishing
+> command completion.
 >
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-
-Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
-
+> With this patch, peer0/link changes to N on both sides and both waiters
+> return.
+>
+> Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 > ---
->  kernel/sched/fair.c  |  117 +++++++++++++++++++++++++++++++++------------------
->  kernel/sched/pelt.h  |    7 +++
->  kernel/sched/sched.h |    1
->  3 files changed, 84 insertions(+), 41 deletions(-)
+> Changes in v2:
+>   - Notify both NTB clients when the effective link state changes. (Sashiko)
+>   - Use devm_mutex_init(). (Frank)
+>   - Update the commit message + reproducer accordingly.
 >
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -5755,6 +5755,50 @@ static inline bool skip_blocked_update(s
->         return true;
->  }
->
-> +static inline void __update_cfs_rq_h_load(struct cfs_rq *cfs_rq,
-> +                                         struct sched_entity *se,
-> +                                         struct cfs_rq *p_cfs_rq)
-> +{
-> +       unsigned long load = cfs_rq->avg.load_avg;
-> +
-> +       if (cfs_rq != &cfs_rq->rq->cfs) {
-> +               /*
-> +                * These last two arguments can be NULL when used outside of
-> +                * the for_each_sched_entity() hierarchy iteration. Like in
-> +                * __update_blocked_fair() where leaf_cfs_rq_list is iterated
-> +                * instead.
-> +                */
-> +               if (!se)
-> +                       se = &container_of(cfs_rq, struct cfs_tg_state, cfs_rq)->se;
-> +               if (!p_cfs_rq)
-> +                       p_cfs_rq = cfs_rq_of(se);
-> +
-> +               load = p_cfs_rq->h_load;
-> +               load = div64_ul(load * se->avg.load_avg,
-> +                               p_cfs_rq->avg.load_avg + 1);
-> +       }
-> +
-> +       WRITE_ONCE(cfs_rq->h_load, load);
-> +}
-> +
-> +static inline bool update_cfs_rq_h_load(struct cfs_rq *cfs_rq,
-> +                                       struct sched_entity *se,
-> +                                       struct cfs_rq *p_cfs_rq)
-> +{
-> +       /*
-> +        * Mask out the segment bits, if the remaining bits match, then there
-> +        * hasn't been a decay since the last time.
-> +        */
-> +       if ((cfs_rq->last_h_load_update & ~PELT_SEGMENT_MASK) ==
-> +           (cfs_rq->avg.last_update_time & ~PELT_SEGMENT_MASK))
-> +               return false;
-> +
-> +       __update_cfs_rq_h_load(cfs_rq, se, p_cfs_rq);
-> +
-> +       cfs_rq->last_h_load_update = cfs_rq->avg.last_update_time;
-> +       return true;
-> +}
-> +
->  #else /* !CONFIG_FAIR_GROUP_SCHED: */
->
->  static inline void update_tg_load_avg(struct cfs_rq *cfs_rq) {}
-> @@ -5768,6 +5812,10 @@ static inline int propagate_entity_load_
->
->  static inline void add_tg_cfs_propagate(struct cfs_rq *cfs_rq, long runnable_sum) {}
->
-> +static inline bool update_cfs_rq_h_load(struct cfs_rq *cfs_rq,
-> +                                       struct sched_entity *se,
-> +                                       struct cfs_rq *p_cfs_rq) { return false; }
-> +
->  #endif /* !CONFIG_FAIR_GROUP_SCHED */
->
->  #ifdef CONFIG_NO_HZ_COMMON
-> @@ -8199,6 +8247,9 @@ static unsigned long enqueue_hierarchy(s
->                 flags = ENQUEUE_WAKEUP;
->         }
->
-> +       for_each_sched_entity_bl(se, cfs_rq)
-> +               update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
-> +
->         return weight;
->  }
->
-> @@ -8330,6 +8381,9 @@ static void dequeue_hierarchy(struct tas
->                 flags |= DEQUEUE_SLEEP;
->                 flags &= ~(DEQUEUE_DELAYED | DEQUEUE_SPECIAL);
->         }
-> +
-> +       for_each_sched_entity_bl(se, cfs_rq)
-> +               update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
->  }
->
->  /*
-> @@ -11547,51 +11601,23 @@ static bool __update_blocked_fair(struct
->                         *done = false;
->         }
->
-> -       return decayed;
-> -}
-> -
-> -/*
-> - * Compute the hierarchical load factor for cfs_rq and all its ascendants.
-> - * This needs to be done in a top-down fashion because the load of a child
-> - * group is a fraction of its parents load.
-> - */
-> -static void update_cfs_rq_h_load(struct cfs_rq *cfs_rq)
-> -{
-> -       struct sched_entity *se = cfs_rq_se(cfs_rq);
-> -       unsigned long now = jiffies;
-> -       unsigned long load;
-> -
-> -       if (cfs_rq->last_h_load_update == now)
-> -               return;
-> -
-> -       WRITE_ONCE(cfs_rq->h_load_next, NULL);
-> -       for_each_sched_entity(se, cfs_rq) {
-> -               WRITE_ONCE(cfs_rq->h_load_next, se);
-> -               if (cfs_rq->last_h_load_update == now)
-> -                       break;
-> -       }
-> -
-> -       if (!se) {
-> -               cfs_rq->h_load = cfs_rq_load_avg(cfs_rq);
-> -               cfs_rq->last_h_load_update = now;
-> -       }
-> +       /*
-> +        * The above (forward) leaf_cfs_rq_list traversal will have done
-> +        * update_cfs_rq_load_avg() in a bottom-up fashion. Now iterate the
-> +        * list backwards, such that we're ensured to have visited every
-> +        * parent of the current group to update h_load in a top-down fashion.
-> +        */
-> +       list_for_each_entry_reverse(cfs_rq, &rq->leaf_cfs_rq_list, leaf_cfs_rq_list)
-> +               update_cfs_rq_h_load(cfs_rq, NULL, NULL);
->
-> -       while ((se = READ_ONCE(cfs_rq->h_load_next)) != NULL) {
-> -               load = cfs_rq->h_load;
-> -               load = div64_ul(load * se->avg.load_avg,
-> -                               cfs_rq_load_avg(cfs_rq) + 1);
-> -               cfs_rq = group_cfs_rq(se);
-> -               cfs_rq->h_load = load;
-> -               cfs_rq->last_h_load_update = now;
-> -       }
-> +       return decayed;
->  }
->
->  static unsigned long task_h_load(struct task_struct *p)
+...
+>  /**
+> - * epf_ntb_link_up() - Raise link_up interrupt to Virtual Host (VHOST)
+> + * epf_ntb_link_up() - Update the HOST link state
+>   * @ntb: NTB device that facilitates communication between HOST and VHOST
+> - * @link_up: true or false indicating Link is UP or Down
+> - *
+> - * Once NTB function in HOST invoke ntb_link_enable(),
+> - * this NTB function driver will trigger a link event to VHOST.
+> + * @link_up: true when the HOST has enabled the link
+>   *
+>   * Returns: Zero for success, or an error code in case of failure
+>   */
+>  static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
 >  {
->         struct cfs_rq *cfs_rq = task_cfs_rq(p);
->
-> -       update_cfs_rq_h_load(cfs_rq);
-> -       return div64_ul(p->se.avg.load_avg * cfs_rq->h_load,
-> +       return div64_ul(p->se.avg.load_avg * READ_ONCE(cfs_rq->h_load),
->                         cfs_rq_load_avg(cfs_rq) + 1);
->  }
->  #else /* !CONFIG_FAIR_GROUP_SCHED: */
-> @@ -15331,6 +15357,11 @@ static void task_tick_fair(struct rq *rq
->
->                 se = &curr->se;
->                 reweight_eevdf(cfs_rq, se, weight, se->on_rq);
+> -	if (link_up)
+> -		ntb->reg->link_status |= LINK_STATUS_UP;
+> -	else
+> -		ntb->reg->link_status &= ~LINK_STATUS_UP;
+> +	bool notify;
 > +
-> +               if (!hrtick) {
-> +                       for_each_sched_entity_bl(se, cfs_rq)
-> +                               update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
-> +               }
->         }
->
->         if (hrtick)
-> @@ -15545,11 +15576,15 @@ static void set_next_task_fair(struct rq
->                  */
->                 list_move(&se->group_node, &rq->cfs_tasks);
->         }
-> -       if (!first)
-> -               return;
->
->         WARN_ON_ONCE(se->sched_delayed);
->
-> +       for_each_sched_entity_bl(se, cfs_rq)
-> +               update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
+> +	scoped_guard(mutex, &ntb->link_lock) {
+> +		notify = ntb->host_linkup != link_up && ntb->vhost_linkup;
+> +		ntb->host_linkup = link_up;
+> +		epf_ntb_update_link(ntb);
+> +	}
 > +
-> +       if (!first)
-> +               return;
-> +
->         update_misfit_status(p, rq);
->         sched_fair_update_stop_tick(rq, p);
->
-> @@ -15731,6 +15766,8 @@ static int __sched_group_set_shares(stru
->                         update_load_avg(cfs_rq, se, UPDATE_TG);
->                         update_cfs_group(se);
->                 }
-> +               for_each_sched_entity_bl(se, cfs_rq)
-> +                       update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
->                 rq_unlock_irqrestore(rq, &rf);
->         }
->
-> --- a/kernel/sched/pelt.h
-> +++ b/kernel/sched/pelt.h
-> @@ -5,6 +5,13 @@
->
->  #include "sched-pelt.h"
->
-> +/*
-> + * Pelt uses apprixmate 'us' as ns/1024; and then uses time segments of 1024
-> + * 'us'. As a result each segment is in fact '1<<20' ns.
-> + */
-> +#define PELT_SEGMENT_NS                (1<<20)
-> +#define PELT_SEGMENT_MASK      (PELT_SEGMENT_NS-1)
-> +
->  int __update_load_avg_blocked_se(u64 now, struct sched_entity *se);
->  int __update_load_avg_se(u64 now, struct cfs_rq *cfs_rq, struct sched_entity *se);
->  int __update_load_avg_cfs_rq(u64 now, struct cfs_rq *cfs_rq);
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -736,7 +736,6 @@ struct cfs_rq {
->          */
->         unsigned long           h_load;
->         u64                     last_h_load_update;
-> -       struct sched_entity     *h_load_next;
->
->         struct rq               *rq;    /* CPU runqueue to which this cfs_rq is attached */
->
->
->
+> +	if (notify) {
+> +		/* Publish link status before completing the HOST command. */
+> +		dma_wmb();
+
+why need dma_wmb() here?  suppose there are writel() at
+pci_epc_raise_irq(), or barrier should be inside pci_epc_raise_irq().
+
+Frank
