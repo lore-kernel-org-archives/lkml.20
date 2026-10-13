@@ -1,126 +1,160 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FECD3E557D
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22D53DEFF1;
+	Tue, 13 Oct 2026 10:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886502; cv=none; b=o/2kCGStylCt4ThTCIP+ALfGeSaooidIBaOLCNHgVE0RAr+gtKLJosET77E+oGH2BjA8/xcYevCCXyRxqHKNrmIaan28Zr7lSWfravfkTskwP7Hel9fTOH9tMf6kWeiX8IDD1rRo6eo2nCqj5bAB2HM7tF7QVYyBRZe84wV5QXU=
+	t=1791886550; cv=none; b=LHNV2+skj8NlyrdR4RCIn9IjDCFEWWKZA6xhwwgv2J3Z8qQjcX9oAEy99Zji0siC3OZSP/3m8ADMCum2s+N4hV5/ckPVG3hBaPw8WA0u4AFvWkBaLI/Hpv17RvWvI4/+10yuiIrLb0LVng4sfFOp5VTopzvhFuwDwIvLNFrEmLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886502; c=relaxed/simple;
-	bh=3TsI7y2QTRvz7po8QtRnPwo6G/1giofSXcVTs6ieuGY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VRV1cgXc3nsPUGPA7QiGKR+tmEphv7ZofsT/MGEu7mfcvvl/cknfvVUgeVb6UOj/cgNv/mVFc1+ns0UcFYYrjH8CptXbqfSjmUiTDyIJIjyzm54asZuEv0JL3ULdpg+w0WLpHQAksCAe7w40y4Xd5FzQ11jRenHI/DHgt8Gr/IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=tPxy6CK1; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1791886550; c=relaxed/simple;
+	bh=yH0RlSjasJVtxJz2L4bygZ31Sm66c6PG9hYfruCGQjk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=f28mpeHBlj/HBdieIOO+6cBZA71ZqrbctrGy6QFYe00cKPFKpbNB0YeL5DgaaH7AyMzz2MFAo7jgxGOiMIOQDRvmrzIAuQ4pUNKqoVmiCd67NlbU7n9DKvv6hJIWslvmrsCA7sDpgvCP0P1JOMTmLogysbwKpNF9YqIThznrh8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D23ldwya; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="tPxy6CK1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=eIDW8Q5jqiYNl5MLa1uC7+lJ9vL8wRWWy5hvUvXG3CM=; b=tPxy6CK18Q26XdJnkoTnRDW00h
-	M66ofZsUt0BoZtRBvqg/oM2ma1V3MXwCKZow7AdShWuerVERkFQtrfCTJQKrGG8FmhIT/hBmJxJky
-	Z8QElfBqyF3DsmHkUSNXteEIOAFECul17SUy7EpgKQeohqmOWS1q2ONMLjRRu2idN9OS3kI9pObyL
-	YFGuS25Wdzr2zZUP+Gm11S1aiEofj6YE63IAcvGC6uCObvDeB75UGK97grxGoXYOUTZgCYS6GsSMB
-	7AboQRVSqDuL4BauEZACz3jsS4dapUKzMi6H1sx1lbkP8FdHRfn3Bwmil6r5CGE+3rl6wpnKdR9hp
-	7PzgSpFw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xGZX2-0000000CixA-1zj5;
-	Tue, 13 Oct 2026 10:14:52 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 0DA8630063F; Tue, 13 Oct 2026 12:14:52 +0200 (CEST)
-Date: Tue, 13 Oct 2026 12:14:52 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: K Prateek Nayak <kprateek.nayak@amd.com>, paulmck@kernel.org,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [BUG] Apparent lost wakeups
-Message-ID: <20261013101452.GG2009045@noisy.programming.kicks-ass.net>
-References: <8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop>
- <b2dd8374-63d4-4b04-9e2c-f6a84728f092@amd.com>
- <69622916-cc8a-44d5-b776-6e25f79aceda@amd.com>
- <CAKfTPtDz35egMZEVz+wb5kytgVrv7APcVOYBkCByvzPSCH7Meg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D23ldwya"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6F761F00898;
+	Tue, 13 Oct 2026 10:15:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791886549;
+	bh=yH0RlSjasJVtxJz2L4bygZ31Sm66c6PG9hYfruCGQjk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=D23ldwyaxZzGXr829U3HVPbAKZtcPHIwFBQSXmPdf72OPVCgTZyVVSfDGM3nmFs06
+	 T18XPphP8lhuDuTtXOiNnnkuVNzcjNWg8U9+iUQFGbzpO04PutqBg61pH9SnZgvMqE
+	 pK7pKSKIbSJXeXRfic36Aj+d3Wqa1ycpWtzsnSlEOEUTghyhvx9fSppfKLGg1fL5xg
+	 fdbjzBEI5SBT6FjmeDzZnL3tbDrrsHqiyxOLnDne4kMEl9RJZ4Ww7Z82uLFpEE860o
+	 vaotWu0I3+CMpNnlR9segiLjd2vgun/V99c/aOqHdsXfGNWD2AlcbM/LF2uffKH1XR
+	 rJXpIRqKt1cvw==
+Message-ID: <e67eb43ccee21fc4271269e56be668b3dbf1b055.camel@kernel.org>
+Subject: Re: [REGRESSION] 7.2.4: nfsd sends CB_OFFLOAD with all-zero
+ stateid, async NFSv4.2 COPY never completes
+From: Jeff Layton <jlayton@kernel.org>
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-nfs@vger.kernel.org, Lubos Rendek <l.rendek@proxmox.com>, 
+	regressions@lists.linux.dev, Fabian =?ISO-8859-1?Q?Gr=FCnbichler?=
+	 <f.gruenbichler@proxmox.com>
+Date: Tue, 13 Oct 2026 06:15:46 -0400
+In-Reply-To: <2026-10-12-1-daily-reply-0001-nfsd-cb-offload-zero-stateid@kernel.org>
+References: <1791797151.oll70jtyaa.astroid@yuna.none>
+	 <2026-10-12-1-daily-reply-0001-nfsd-cb-offload-zero-stateid@kernel.org>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKfTPtDz35egMZEVz+wb5kytgVrv7APcVOYBkCByvzPSCH7Meg@mail.gmail.com>
 
-On Tue, Oct 13, 2026 at 09:58:25AM +0200, Vincent Guittot wrote:
+On Mon, 2026-10-12 at 10:59 -0400, Sasha Levin wrote:
+> > AFAICT (for 7.2.x) you queued a full pick of
+> >=20
+> > f307b4f7ed17 nfsd: split nfsd4_copy into transient and durable async co=
+py objects
+> >=20
+> > in
+> >=20
+> > 0b2963340727 nfsd: split nfsd4_copy into transient and durable async co=
+py objects
+> >=20
+> > despite Jeff stating the following up-thread:
+> >=20
+> > > We should probably just take Lubos' two-line fix as a separate one-of=
+f
+> > > patch for stable. Backporting the COPY code refactor is too risky IMO=
+.
+> >=20
+> > Was this intentional, or an accident?
+>=20
+> That was not what Jeff recommended, thanks for catching it. The full pick=
+ is
+> now dropped from the 7.2 and 6.18 queues.
+>=20
+> Jeff, Chuck: could one of you send that fix as a proper signed-off patch =
+for
+> 7.2.y and 6.18.y?
 
-> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > index 0f63c30b4324..b37c771c41ad 100644
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -11256,6 +11262,9 @@ void sched_change_end(struct sched_change_ctx *ctx)
->                  if (ctx->running) {
->                          /*
->                          * If this was a class promotion; let the old class
->                          * know it got preempted. Note that none of the
->                          * switch*_from() methods know the new class and none
->                          * of the switch*_to() methods know the old class.
->                          */
->                          if (sched_class_above(p->sched_class, ctx->class)) {
->                                  rq->next_class->wakeup_preempt(rq, p, 0);
->                                  rq->next_class = p->sched_class;
->                          }
->                          /*
->                          * If this was a degradation in class; make sure to
->                          * reschedule.
-> >                          */
-> >                         if (sched_class_above(ctx->class, p->sched_class))
-> >                                 resched_curr(rq);
-> > +               } else if (ctx->queued) {
-> > +                       /* Check if we need can preempt the current task. */
-> > +                       wakeup_preempt(rq, p, 0);
-> 
-> Isn't what we have for ctx->running above what we also want in this case ?
-> Then sched_balance_newidle() will detect it with
-> 
->                  /* If a higher prio class was modified, restart the pick */
->                 if (rq_modified_above(this_rq, &fair_sched_class))
->                          pulled_task = -1;
-> 
+Lubis, since you did the original patch, would you like to send ones
+for those releases? Then Chuck and I can just send R-b's for it. If
+not, then I'll plan to send some.
 
-Ah, I'm maybe slowly starting to see the shape of this. Does something
-like so make sense?
-
-That is, any task on the rq cares about promotion, only the current
-running task cares about demotion.
-
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 047fbe8ef298..2a8bf562a769 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -11261,7 +11261,7 @@ void sched_change_end(struct sched_change_ctx *ctx)
- 		if (p->sched_class->switched_to)
- 			p->sched_class->switched_to(rq, p);
- 
--		if (ctx->running) {
-+		if (ctx->queued) {
- 			/*
- 			 * If this was a class promotion; let the old class
- 			 * know it got preempted. Note that none of the
-@@ -11272,6 +11272,9 @@ void sched_change_end(struct sched_change_ctx *ctx)
- 				rq->next_class->wakeup_preempt(rq, p, 0);
- 				rq->next_class = p->sched_class;
- 			}
-+		}
-+
-+		if (ctx->running) {
- 			/*
- 			 * If this was a degradation in class; make sure to
- 			 * reschedule.
+Thanks,
+--=20
+Jeff Layton <jlayton@kernel.org>
