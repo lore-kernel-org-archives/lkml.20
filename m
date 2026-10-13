@@ -1,63 +1,72 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7FD523B42C7;
-	Tue, 13 Oct 2026 08:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDB63BADB2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791878767; cv=none; b=hI+lCO/j0At4PdxVdLve0Buq1NFl6vxLu2S249olvYM0ZyQmiQtQvj9PnlAxRKPfSljhYN2FzDKk//qZtUIBS9ERDFfdoiO2Lad4Xdyv9ErvT7G18tvt/seHw8zohAXtZXyDlaOOMb6GlI0Y1J2AvVj0Mpm2YYqQwo3ypMeeCik=
+	t=1791878773; cv=none; b=TYvrP/FjzbrMbgn6T+OYEqOvCzqgtPYUg3LQNr3emrufmCqn/PUf8Vq5D4u7s4TtUm9nBR2XiOpLC6ZFumidFqfsHlVQ7WNu0U7qNXqLETAQEatEOb/nDcj7WIgs7EDWzm+FiCzldBcRT53IwGXgtbbIyCi9+mwDjGDu6S5CkYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791878767; c=relaxed/simple;
-	bh=RRsP58P3144lVb31LewLeGxe5PCUBfo3K/BH9zeaCmI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PBEmK0Px9wmkxXhh1LQIOnqnLHBZSktT/qq8te3yJP8FDZq8ZFk2FQiEKhk3NT/OibtG7xu6ep0oJKticOY9NtsHFrRH/rVQktn8zM0UtaMhoCTj8NvaQq5qze71XuEwHrRgUwun4t4yU1HgLOxZqjzXEob5t2Zi4//LMWruRtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=fLAYsdc1; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791878773; c=relaxed/simple;
+	bh=5icz/Osaq4nbrxptLHQ15ei//5WgXiX7yg8tjTBrNwg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CSSI6nXg3somCIl6n6CKONiFVyB6IwSXbFsGPcP4TlmzdlKvh9nBA2x3wv+4gULJC+6XSi6Xtq+vdnFcfVR5wwJhnFKRwWDVK8SKw//YEPSRNS1dwffj5qH1USqZW3V31vQuiDp8sqaEV1HTtQ2DY+Yo0ZZJEjuG316KwxCGx3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=LFgtoK4j; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=B8rtpI2k; arc=none smtp.client-ip=148.163.158.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="fLAYsdc1"
-Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
-	by linux.microsoft.com (Postfix) with ESMTPSA id E846920B7169;
-	Tue, 13 Oct 2026 01:05:59 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E846920B7169
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791878760;
-	bh=YmzqdVoTwO6ASXbkRP3cfYglruc6TgFt+gfGQCuumxI=;
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="LFgtoK4j";
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="B8rtpI2k"
+Received: from pps.filterd (m0098572.ppops.net [127.0.0.1])
+	by mx0b-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D41XiL3475927;
+	Tue, 13 Oct 2026 01:06:04 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pfptdkimsnps; bh=kR5QykO/
+	Vk11bC/9NXruxKVCgYN7g0iJ+LfDGZ2iKFI=; b=LFgtoK4jK+CiBNgix1bbqa9F
+	x+lRA7iJm0ZTFXsfHexDFrzojVPrMKAOIq0VuP2ZndOJOK1CZDAiIslTg6/xKSz/
+	vR41IxK/QfPYOFWDIFTd9qQBmP2HbkIeW9dcj4XMhI6ISNoqktHaXNCtC5Zuqlb7
+	lKGm5nLubTVMr+dA0l7Al4LXNSE0KPS7oNv7yqfZUozZrZOlYcSzWrj8q4+kYZKy
+	trKQpeOwmIWLgJ0ZPBvV+ZePD1Qqn8Rn5rc9QA+BFwQNnZcHSzYK2lATmWVM38FV
+	JsZQwVUzBOQBPQubbalAMREgfLTy0oM1ENlxcxAZEb6cvi0j9ZIVrmHBjyZdjw==
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.73.133])
+	by mx0b-00230701.pphosted.com (PPS) with ESMTPS id 4h9419c24s-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 01:06:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+	t=1791878763; bh=5icz/Osaq4nbrxptLHQ15ei//5WgXiX7yg8tjTBrNwg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=fLAYsdc1/TCtiYxVTRVVG7fEqdxIfPI8BFlwWfRG9OMN0rLg98cU/e+30ifubs45f
-	 iUzEiylHdcnHfi0F7d3T6dAxhVSXt3FnkoiOhZr6136/yw7cxI1mOUkrNHm3W4hyrl
-	 vRzbV8b32zx6Xv2Bq+v/0vU7Xama8NSeyCAYtmNc=
-From: Wei Hu <weh@linux.microsoft.com>
-To: longli@kernel.org,
-	kotaranov@microsoft.com,
-	kuba@kernel.org,
-	davem@davemloft.net,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	jgg@ziepe.ca,
-	leon@kernel.org,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	shradhagupta@linux.microsoft.com,
-	horms@kernel.org,
-	ernis@linux.microsoft.com,
-	stephen@networkplumber.org
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	gargaditya@linux.microsoft.com,
-	kees+treewide@kernel.org,
-	kees@kernel.org,
-	mawasthi@linux.microsoft.com,
-	weh@microsoft.com,
-	edumazet@kernel.org
-Subject: [PATCH net-next v7 1/4] net: mana: prepare HWC ownership for safe reinitialization
-Date: Tue, 13 Oct 2026 08:05:49 +0000
-Message-ID: <e6ef84d7481de34f259d2b244f7994e3f1d9ab6f.1791561995.git.weh@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791561995.git.weh@linux.microsoft.com>
-References: <cover.1791561995.git.weh@linux.microsoft.com>
+	b=B8rtpI2kQUNrbcCEjOeKhyk9Aj+vPXAs55IY8UoltpGPZvhOuHgBXA/fN7yLy1fp4
+	 OsYYyxQ94ADHRotJC6R6VIpDfDf2gL5cFvgLgO+ABgMvn3R7TItLqUoQc9LlDlTt34
+	 e0yhn11ui0dj3EPD/lK6DXWiuMWvjza6fZ0xIaHyuQTQhRK65OmXP0Cr4R/kTLqYiQ
+	 ID0a5MExjjUqkMVnPLDX2n8qk7kd4Es4H6xrveBEMuUxrCKxWh/9ztCnFns5ErEAco
+	 UQHuqKKPdqq9yC8J631+OPVrXCvwm8Ast5OQ97Tuyg+wiaHGT+EZQj9Cy/7A0au2/e
+	 ZKOhl4SUzmdYQ==
+Received: from mailhost.synopsys.com (eudc-mailhost2.synopsys.com [10.213.161.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 7D737404F3;
+	Tue, 13 Oct 2026 08:06:03 +0000 (UTC)
+Received: from Ubuntu.internal.synopsys.com (unknown [10.150.7.185])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mailhost.synopsys.com (Postfix) with ESMTPSA id 6331CC0081;
+	Tue, 13 Oct 2026 08:06:00 +0000 (UTC)
+X-SNPS-Relay: synopsys.com
+From: Dineshkumar Parameswaran <Dineshkumar.Parameswaran@synopsys.com>
+To: linux-i3c@lists.infradead.org
+Cc: alexandre.belloni@bootlin.com, Frank.Li@nxp.com,
+        linux-kernel@vger.kernel.org,
+        Dineshkumar Parameswaran <Dineshkumar.Parameswaran@synopsys.com>
+Subject: [PATCH 2/2] i3c: master: dw-i3c-master: add HDR-BT transfer support
+Date: Tue, 13 Oct 2026 13:34:13 +0530
+Message-Id: <20261013080413.7470-3-parame@synopsys.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261013080413.7470-1-parame@synopsys.com>
+References: <20261013080413.7470-1-parame@synopsys.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,534 +74,279 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzMSBTYWx0ZWRfX8mGMnrshaZIk
+ 2CecC5L0ilklEIqKCw9+F+GhnN+B68lLBnj6lJz6jvzMNk0KKhEqTZS74dd3HPt0yJoU1n346Ht
+ OY3ueim+z/Mct3tlJw5YXkey7+gKnGNhUMpraQ69fl5Osm3D0Ydbm01DbXkoYPeBY0LM9zQfd6s
+ +NHHVonQaCCrFsXWVObGTzcJtQtrVpMJvgwHIKOQnEClh8ZGzAOzSfX/QdQ7SnMcvbFxiYFUEzC
+ qaxhVD9QtsQhAbiQabiOcthvxnUQpP2D19SFU9Tba+wF70/DH3K+P42wGiSeXXnSNCkekeJie9m
+ fpzK2HPObaJNmTsu/oloH0yFnDQ5LLPQoLqfXgZEk3hjC6vGwH8LoY9dFU9KNaucdsNsa9s4FvG
+ ClnASjGD4D6zKhelwgb/1fBflhq08f8iD/mZX7wsK9uUr02M0E+FBhT/FbCwpQekRet4Sm0CiSG
+ zgvTOz16fuuWB/x/hcw==
+X-Proofpoint-GUID: zlyKckK0hSn_yIDtGKLtr0Yl60HvqiSv
+X-Proofpoint-ORIG-GUID: zlyKckK0hSn_yIDtGKLtr0Yl60HvqiSv
+X-Authority-Analysis: v=2.4 cv=bZf+w+PB c=1 sm=1 tr=0 ts=6acde66c cx=c_pps
+ a=8EbXvwLXkpGsT4ql/pYRAw==:117 a=8EbXvwLXkpGsT4ql/pYRAw==:17
+ a=660iZSQnnn4A:10 a=qPHU084jO2kA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=tU_645BZ7FZt8VqRJtHG:22 a=jSPayVjLy6xbsuKauFBc:22 a=jIQo8A4GAAAA:8
+ a=9Sy5TLg2mR2rO9kXXZsA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzMSBTYWx0ZWRfX8YMNo344DsoM
+ szXf4nz8cdCzGvRAVxY/6TGvKFxhwj8CfhfoVfCPKs79jT4JN1zZ8SDEZFltn2Lb4tyVfdkrsEI
+ gqdXAFyPzvtmFlrneDNqNORbwdM4i34=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 phishscore=0 adultscore=0
+ spamscore=0 clxscore=1015 bulkscore=0 classifier=typeunknown authscore=0
+ authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2610080000 definitions=main-2610130031
 
-From: Long Li <longli@microsoft.com>
+Key differences:
+-Add HDR-BT support for the DesignWare I3C master by introducing the
+unified command format required by HDR-BT transfers.
+-The current driver builds legacy cmd_lo/cmd_hi command entries for SDR and
+HDR-DDR only. HDR-BT requires a 4-DWORD unified command layout, so HDR-BT
+transfers cannot be described correctly with the existing path.
+- HDR BT mode uses to send data in blocks and protected using CRC.
 
-Dynamic HWC queue sizing tears down the bootstrap queues and establishes a
-second channel before publishing it. Prepare the existing HWC ownership and
-teardown paths so that sequence cannot free or reuse state still reachable
-by either the PF or an EQ handler.
-
-The shared-memory aperture carries one request at a time. Serialize the
-complete ESTABLISH_HWC and DESTROY_HWC transactions, including possession
-polling and response validation. Record setup_active immediately before the
-MMIO submission and clear it only after DESTROY_HWC is acknowledged.
-
-Treat an unacknowledged destroy as retained PF ownership. Fence the HWC EQ
-and withdraw its CQ from dispatch, but keep all queue memory and wrappers
-for a later teardown retry. A new channel creation retries that retained
-context before assigning fresh queues to the PF.
-
-Snapshot the bootstrap CQ count and CQ ID after INIT_DONE. Publish the
-fixed bound with the allocated table so later init events cannot grow the
-bound past the allocation. The EQ handler acquires the table pointer but
-does not take a per-event CQ reference; HWC teardown instead fences the
-dedicated EQ and waits for the existing IRQ-side RCU readers before freeing
-the table.
-
-On acknowledged teardown, destroy the HWC EQ before the CQ and completion
-buffer, then release the TX and RX queues. This ordering makes both the
-normal reinitialization path and every failure unwind safe.
-
-Link: https://lore.kernel.org/r/20260908035201.402424-2-longli@microsoft.com
-Link: https://lore.kernel.org/r/20260908035201.402424-5-longli@microsoft.com
-Link: https://lore.kernel.org/r/178910960115.219967.13830871915506436112@kernel.org
-Signed-off-by: Long Li <longli@microsoft.com>
-Signed-off-by: Wei Hu <weh@microsoft.com>
+Signed-off-by: Dineshkumar Parameswaran <parame@synopsys.com>
 ---
- .../net/ethernet/microsoft/mana/gdma_main.c   |  25 ++-
- .../net/ethernet/microsoft/mana/hw_channel.c  | 150 +++++++++++++++---
- .../net/ethernet/microsoft/mana/shm_channel.c |  58 ++++++-
- include/net/mana/gdma.h                       |   3 +
- include/net/mana/hw_channel.h                 |   4 +
- include/net/mana/shm_channel.h                |  10 +-
- 6 files changed, 217 insertions(+), 33 deletions(-)
+ drivers/i3c/master/dw-i3c-master.c | 146 +++++++++++++++++++++--------
+ 1 file changed, 106 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index ae0ed700b3b9..69da65a405a4 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -754,6 +754,7 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
- 	union gdma_eqe_info eqe_info;
- 	enum gdma_eqe_type type;
- 	struct gdma_event event;
-+	struct gdma_queue **cq_table;
- 	struct gdma_queue *cq;
- 	struct gdma_eqe *eqe;
- 	u32 cq_id;
-@@ -765,11 +766,16 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
- 	switch (type) {
- 	case GDMA_EQE_COMPLETION:
- 		cq_id = eqe->details[0] & 0xFFFFFF;
--		if (WARN_ON_ONCE(cq_id >= gc->max_num_cqs))
-+		/* The IRQ handler's RCU read-side section protects the table
-+		 * until HWC teardown has fenced its EQ and waited for readers.
-+		 */
-+		cq_table = smp_load_acquire(&gc->cq_table);
-+		if (!cq_table || cq_id >= READ_ONCE(gc->max_num_cqs))
- 			break;
+diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
+index 58c54746bbe5..fc58dea8fe4f 100644
+--- a/drivers/i3c/master/dw-i3c-master.c
++++ b/drivers/i3c/master/dw-i3c-master.c
+@@ -65,6 +65,29 @@
+ #define COMMAND_PORT_DEV_COUNT(x)	(((x) << 21) & GENMASK(25, 21))
+ #define COMMAND_PORT_ADDR_ASSGN_CMD	0x03
  
--		cq = gc->cq_table[cq_id];
--		if (WARN_ON_ONCE(!cq || cq->type != GDMA_CQ || cq->id != cq_id))
-+		cq = READ_ONCE(cq_table[cq_id]);
-+		if (!cq || WARN_ON_ONCE(cq->type != GDMA_CQ ||
-+					cq->id != cq_id))
- 			break;
- 
- 		if (cq->cq.callback)
-@@ -993,23 +999,32 @@ int mana_gd_test_eq(struct gdma_context *gc, struct gdma_queue *eq)
- 	return err;
- }
- 
--static void mana_gd_destroy_eq(struct gdma_context *gc, bool flush_evenets,
-+static void mana_gd_destroy_eq(struct gdma_context *gc, bool flush_events,
- 			       struct gdma_queue *queue)
- {
- 	int err;
- 
--	if (flush_evenets) {
-+	if (queue->eq.msix_index == INVALID_PCI_MSIX_INDEX)
-+		return;
++#define COMMAND_PORT_UNIFIED_DWORD0_CMD			0x04
++#define COMMAND_PORT_UNIFIED_DWORD0_TID(x)		(((x) << 3) & GENMASK(6, 3))
++#define COMMAND_PORT_UNIFIED_DWORD0_RnW			BIT(8)
++#define COMMAND_PORT_UNIFIED_DWORD0_DEV_INDEX(x)	(((x) << 9) & GENMASK(13, 9))
++#define COMMAND_PORT_UNIFIED_DWORD0_SPEED_MODE(x)	(((x) << 19) & GENMASK(22, 19))
++#define COMMAND_PORT_UNIFIED_DWORD0_WROC		BIT(30)
++#define COMMAND_PORT_UNIFIED_DWORD0_TOC			BIT(31)
 +
-+	if (flush_events) {
- 		err = mana_gd_test_eq(gc, queue);
- 		if (err && mana_need_log(gc, err))
- 			dev_warn(gc->dev, "Failed to flush EQ: %d\n", err);
++#define COMMAND_PORT_UNIFIED_DWORD1_DATA_LENGTH(x)	((x) & GENMASK(22, 0))
++#define COMMAND_PORT_UNIFIED_DWORD1_MLANE_MODE(x)	(((x) << 24) & GENMASK(26, 24))
++#define COMMAND_PORT_UNIFIED_DWORD1_MLANE_CODE(x)	(((x) << 27) & GENMASK(29, 27))
++
++#define COMMAND_PORT_UNIFIED_DWORD2_IDB0_CCC_CMD0(x)	((x) & GENMASK(7, 0))
++#define COMMAND_PORT_UNIFIED_DWORD2_IDB1_DB_CMD1(x)	(((x) << 8) & GENMASK(15, 8))
++#define COMMAND_PORT_UNIFIED_DWORD2_IDB2_HDRCMD_CMD2(x)	(((x) << 16) & GENMASK(23, 16))
++#define COMMAND_PORT_UNIFIED_DWORD2_IDB3_CMD3(x)	(((x) << 24) & GENMASK(31, 24))
++
++#define COMMAND_PORT_UNIFIED_DWORD3_CONTROL(x)		((x) & GENMASK(7, 0))
++
++#define HDR_BT_SPD_MODE		0x8
++#define SINGLE_LANE		0x0
++#define SIZEOF_UNIFIED_CMD	4
++
+ #define RESPONSE_QUEUE_PORT		0x10
+ #define RESPONSE_PORT_ERR_STATUS(x)	(((x) & GENMASK(31, 28)) >> 28)
+ #define RESPONSE_NO_ERROR		0
+@@ -247,8 +270,15 @@
+ #define DW_I3C_ACPI_SKIP_CLK_RST	BIT(3)
+ 
+ struct dw_i3c_cmd {
+-	u32 cmd_lo;
+-	u32 cmd_hi;
++	bool is_unified_cmd;
++	union {
++		struct {
++			u32 cmd_lo;
++			u32 cmd_hi;
++			u32 data[2];
++		};
++		u32 unified_cmd[4];
++	} cmd_data;
+ 	u16 tx_len;
+ 	u16 rx_len;
+ 	u8 error;
+@@ -402,7 +432,7 @@ dw_i3c_master_alloc_xfer(struct dw_i3c_master *master, unsigned int ncmds)
+ static void dw_i3c_master_start_xfer_locked(struct dw_i3c_master *master)
+ {
+ 	struct dw_i3c_xfer *xfer = master->xferqueue.cur;
+-	unsigned int i;
++	unsigned int i, k;
+ 	u32 thld_ctrl;
+ 
+ 	if (!xfer)
+@@ -422,8 +452,14 @@ static void dw_i3c_master_start_xfer_locked(struct dw_i3c_master *master)
+ 	for (i = 0; i < xfer->ncmds; i++) {
+ 		struct dw_i3c_cmd *cmd = &xfer->cmds[i];
+ 
+-		writel(cmd->cmd_hi, master->regs + COMMAND_QUEUE_PORT);
+-		writel(cmd->cmd_lo, master->regs + COMMAND_QUEUE_PORT);
++		if (cmd->is_unified_cmd) {
++			for (k = 0; k < SIZEOF_UNIFIED_CMD; k++)
++				writel(cmd->cmd_data.unified_cmd[k],
++				       master->regs + COMMAND_QUEUE_PORT);
++		} else {
++			writel(cmd->cmd_data.cmd_hi, master->regs + COMMAND_QUEUE_PORT);
++			writel(cmd->cmd_data.cmd_lo, master->regs + COMMAND_QUEUE_PORT);
++		}
  	}
- 
- 	mana_gd_deregister_irq(queue);
-+	queue->eq.msix_index = INVALID_PCI_MSIX_INDEX;
- 
- 	if (queue->eq.disable_needed)
- 		mana_gd_disable_queue(queue);
  }
  
-+void mana_gd_fence_eq(struct gdma_context *gc, struct gdma_queue *queue)
-+{
-+	mana_gd_destroy_eq(gc, false, queue);
-+}
-+
- static int mana_gd_create_eq(struct gdma_dev *gd,
- 			     const struct gdma_queue_spec *spec,
- 			     bool create_hwq, struct gdma_queue *queue)
-diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-index 3bca4b683134..b1d972968f0d 100644
---- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-+++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-@@ -134,7 +134,7 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
+@@ -784,10 +820,10 @@ static int dw_i3c_ccc_set(struct dw_i3c_master *master,
+ 	cmd->tx_buf = ccc->dests[0].payload.data;
+ 	cmd->tx_len = ccc->dests[0].payload.len;
  
- 		switch (type) {
- 		case HWC_INIT_DATA_CQID:
--			hwc->cq->gdma_cq->id = val;
-+			WRITE_ONCE(hwc->hwc_init_cq_id, val);
- 			break;
+-	cmd->cmd_hi = COMMAND_PORT_ARG_DATA_LEN(ccc->dests[0].payload.len) |
++	cmd->cmd_data.cmd_hi = COMMAND_PORT_ARG_DATA_LEN(ccc->dests[0].payload.len) |
+ 		      COMMAND_PORT_TRANSFER_ARG;
  
- 		case HWC_INIT_DATA_RQID:
-@@ -158,7 +158,11 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
- 			break;
+-	cmd->cmd_lo = COMMAND_PORT_CP |
++	cmd->cmd_data.cmd_lo = COMMAND_PORT_CP |
+ 		      COMMAND_PORT_DEV_INDEX(pos) |
+ 		      COMMAND_PORT_CMD(ccc->id) |
+ 		      COMMAND_PORT_TOC |
+@@ -823,10 +859,10 @@ static int dw_i3c_ccc_get(struct dw_i3c_master *master, struct i3c_ccc_cmd *ccc)
+ 	cmd->rx_buf = ccc->dests[0].payload.data;
+ 	cmd->rx_len = ccc->dests[0].payload.len;
  
- 		case HWC_INIT_DATA_MAX_NUM_CQS:
--			gd->gdma_context->max_num_cqs = val;
-+			/* Store only; establish_channel() commits it to
-+			 * max_num_cqs once, so a later event cannot grow the
-+			 * bound past the allocation.  Pairs with its READ_ONCE().
-+			 */
-+			WRITE_ONCE(hwc->hwc_init_max_num_cqs, val);
- 			break;
+-	cmd->cmd_hi = COMMAND_PORT_ARG_DATA_LEN(ccc->dests[0].payload.len) |
++	cmd->cmd_data.cmd_hi = COMMAND_PORT_ARG_DATA_LEN(ccc->dests[0].payload.len) |
+ 		      COMMAND_PORT_TRANSFER_ARG;
  
- 		case HWC_INIT_DATA_PDID:
-@@ -382,16 +386,49 @@ static void mana_hwc_comp_event(void *ctx, struct gdma_queue *q_self)
- 	mana_gd_ring_cq(q_self, SET_ARM_BIT);
- }
- 
--static void mana_hwc_destroy_cq(struct gdma_context *gc, struct hwc_cq *hwc_cq)
-+static int mana_hwc_publish_cq(struct gdma_context *gc,
-+			       struct gdma_queue *cq)
- {
--	kfree(hwc_cq->comp_buf);
-+	struct gdma_queue **cq_table = READ_ONCE(gc->cq_table);
-+	u32 id = READ_ONCE(cq->id);
- 
--	if (hwc_cq->gdma_cq)
--		mana_gd_destroy_queue(gc, hwc_cq->gdma_cq);
-+	if (!cq_table || id >= READ_ONCE(gc->max_num_cqs) ||
-+	    READ_ONCE(cq_table[id]))
-+		return -EINVAL;
-+
-+	WRITE_ONCE(cq_table[id], cq);
-+
-+	return 0;
-+}
-+
-+static void mana_hwc_unpublish_cq(struct gdma_context *gc,
-+				  struct gdma_queue *cq)
-+{
-+	struct gdma_queue **cq_table = READ_ONCE(gc->cq_table);
-+	u32 id;
-+
-+	if (!cq_table || !cq)
-+		return;
- 
-+	id = READ_ONCE(cq->id);
-+	if (id < READ_ONCE(gc->max_num_cqs) &&
-+	    READ_ONCE(cq_table[id]) == cq)
-+		WRITE_ONCE(cq_table[id], NULL);
-+}
-+
-+static void mana_hwc_destroy_cq(struct gdma_context *gc, struct hwc_cq *hwc_cq)
-+{
-+	/* Destroy the EQ first: it deregisters the IRQ and drains in-flight
-+	 * handlers, so none can touch the CQ after it is freed.
-+	 */
- 	if (hwc_cq->gdma_eq)
- 		mana_gd_destroy_queue(gc, hwc_cq->gdma_eq);
- 
-+	/* Safe to free now that the EQ handler is fenced. */
-+	if (hwc_cq->gdma_cq)
-+		mana_gd_destroy_queue(gc, hwc_cq->gdma_cq);
-+
-+	kfree(hwc_cq->comp_buf);
- 	kfree(hwc_cq);
- }
- 
-@@ -674,6 +711,9 @@ static int mana_hwc_establish_channel(struct gdma_context *gc, u16 *q_depth,
- 	struct gdma_queue *sq = hwc->txq->gdma_wq;
- 	struct gdma_queue *eq = hwc->cq->gdma_eq;
- 	struct gdma_queue *cq = hwc->cq->gdma_cq;
-+	struct gdma_queue **cq_table;
-+	u32 num_cqs;
-+	u32 cq_id;
- 	int err;
- 
- 	init_completion(&hwc->hwc_init_eqe_comp);
-@@ -683,7 +723,7 @@ static int mana_hwc_establish_channel(struct gdma_context *gc, u16 *q_depth,
- 				 cq->mem_info.dma_handle,
- 				 rq->mem_info.dma_handle,
- 				 sq->mem_info.dma_handle,
--				 eq->eq.msix_index);
-+				 eq->eq.msix_index, &hwc->setup_active);
- 	if (err)
- 		return err;
- 
-@@ -694,15 +734,45 @@ static int mana_hwc_establish_channel(struct gdma_context *gc, u16 *q_depth,
- 	*max_req_msg_size = hwc->hwc_init_max_req_msg_size;
- 	*max_resp_msg_size = hwc->hwc_init_max_resp_msg_size;
- 
--	/* Both were set in mana_hwc_init_event_handler(). */
--	if (WARN_ON(cq->id >= gc->max_num_cqs))
-+	/* Snapshot the device-reported count and id once, so the same value
-+	 * sizes, bounds and indexes cq_table even across the sleeping
-+	 * vcalloc() and a concurrent init event.
-+	 */
-+	num_cqs = READ_ONCE(hwc->hwc_init_max_num_cqs);
-+	cq_id = READ_ONCE(hwc->hwc_init_cq_id);
-+
-+	/* Both operands come from untrusted HWC bootstrap events; a missing
-+	 * MAX_NUM_CQS leaves num_cqs at 0.  Reject rather than WARN_ON() so a
-+	 * malformed device response cannot panic a panic_on_warn guest.
-+	 */
-+	if (cq_id >= num_cqs) {
-+		dev_err_ratelimited(hwc->dev,
-+				    "HWC: bad CQ id %u >= max %u\n",
-+				    cq_id, num_cqs);
- 		return -EPROTO;
-+	}
- 
--	gc->cq_table = vcalloc(gc->max_num_cqs, sizeof(struct gdma_queue *));
--	if (!gc->cq_table)
-+	/* Init events remain enabled, so commit the validated CQ ID once. */
-+	WRITE_ONCE(cq->id, cq_id);
-+
-+	cq_table = vcalloc(num_cqs, sizeof(*cq_table));
-+	if (!cq_table)
- 		return -ENOMEM;
- 
--	gc->cq_table[cq->id] = cq;
-+	/* Publish the bound and the initialised table together; the release
-+	 * pairs with smp_load_acquire() in mana_gd_process_eqe().
-+	 */
-+	WRITE_ONCE(gc->max_num_cqs, num_cqs);
-+	/* Pairs with smp_load_acquire() in mana_gd_process_eqe(). */
-+	smp_store_release(&gc->cq_table, cq_table);
-+
-+	err = mana_hwc_publish_cq(gc, cq);
-+	if (err) {
-+		dev_err_ratelimited(hwc->dev,
-+				    "HWC: failed to publish CQ %u: %d\n",
-+				    cq_id, err);
-+		return err;
-+	}
- 
- 	return 0;
- }
-@@ -759,6 +829,13 @@ int mana_hwc_create_channel(struct gdma_context *gc)
- 	u16 q_depth_max;
- 	int err;
- 
-+	/* Retry a retained context before assigning queues to the PF again. */
-+	if (gd->driver_data) {
-+		mana_hwc_destroy_channel(gc);
-+		if (gd->driver_data)
-+			return -ETIMEDOUT;
-+	}
-+
- 	hwc = kzalloc_obj(*hwc);
- 	if (!hwc)
- 		return -ENOMEM;
-@@ -808,30 +885,56 @@ int mana_hwc_create_channel(struct gdma_context *gc)
- 	return err;
- }
- 
-+static void mana_hwc_fence_channel(struct gdma_context *gc,
-+				   struct hw_channel_context *hwc)
-+{
-+	if (!hwc->cq)
-+		return;
-+
-+	if (hwc->cq->gdma_eq)
-+		mana_gd_fence_eq(gc, hwc->cq->gdma_eq);
-+
-+	if (hwc->cq->gdma_cq)
-+		mana_hwc_unpublish_cq(gc, hwc->cq->gdma_cq);
-+}
-+
- void mana_hwc_destroy_channel(struct gdma_context *gc)
- {
- 	struct hw_channel_context *hwc = gc->hwc.driver_data;
-+	struct gdma_queue **old_cq_table;
-+	int err;
- 
- 	if (!hwc)
- 		return;
- 
--	/* gc->max_num_cqs is set in mana_hwc_init_event_handler(). If it's
--	 * non-zero, the HWC worked and we should tear down the HWC here.
-+	/* An unacknowledged destroy leaves the PF's mappings live.  Fence
-+	 * software dispatch, but retain every PF-visible allocation.
- 	 */
--	if (gc->max_num_cqs > 0) {
--		mana_smc_teardown_hwc(&gc->shm_channel, false);
--		gc->max_num_cqs = 0;
-+	err = mana_smc_teardown_hwc(&gc->shm_channel, false,
-+				    &hwc->setup_active);
-+	if (err) {
-+		dev_err(hwc->dev,
-+			"HWC teardown failed: %d, retaining PF-visible resources\n",
-+			err);
-+		mana_hwc_fence_channel(gc, hwc);
-+		return;
+-	cmd->cmd_lo = COMMAND_PORT_READ_TRANSFER |
++	cmd->cmd_data.cmd_lo = COMMAND_PORT_READ_TRANSFER |
+ 		      COMMAND_PORT_CP |
+ 		      COMMAND_PORT_DEV_INDEX(pos) |
+ 		      COMMAND_PORT_CMD(ccc->id) |
+@@ -924,8 +960,8 @@ static int dw_i3c_master_daa(struct i3c_master_controller *m)
  	}
+ 	cmd = &xfer->cmds[0];
+ 	cmd->rx_len = master->maxdevs;
+-	cmd->cmd_hi = COMMAND_PORT_TRANSFER_ARG;
+-	cmd->cmd_lo = COMMAND_PORT_DEV_COUNT(master->maxdevs - pos) |
++	cmd->cmd_data.cmd_hi = COMMAND_PORT_TRANSFER_ARG;
++	cmd->cmd_data.cmd_lo = COMMAND_PORT_DEV_COUNT(master->maxdevs - pos) |
+ 		      COMMAND_PORT_DEV_INDEX(pos) |
+ 		      COMMAND_PORT_CMD(I3C_CCC_ENTDAA) |
+ 		      COMMAND_PORT_ADDR_ASSGN_CMD |
+@@ -999,33 +1035,63 @@ static int dw_i3c_master_i3c_xfers(struct i3c_dev_desc *dev,
+ 	for (i = 0; i < i3c_nxfers; i++) {
+ 		struct dw_i3c_cmd *cmd = &xfer->cmds[i];
  
-+	/* Fence the EQ before releasing any state its handlers can reach. */
-+	if (hwc->cq)
-+		mana_hwc_destroy_cq(hwc->gdma_dev->gdma_context, hwc->cq);
-+
-+	/* Reset only after mana_hwc_destroy_cq() has cleared the CQ table
-+	 * slot, so it is not left dangling.
-+	 */
-+	WRITE_ONCE(gc->max_num_cqs, 0);
-+
- 	if (hwc->txq)
- 		mana_hwc_destroy_wq(hwc, hwc->txq);
- 
- 	if (hwc->rxq)
- 		mana_hwc_destroy_wq(hwc, hwc->rxq);
- 
--	if (hwc->cq)
--		mana_hwc_destroy_cq(hwc->gdma_dev->gdma_context, hwc->cq);
+-		cmd->cmd_hi = COMMAND_PORT_ARG_DATA_LEN(i3c_xfers[i].len) |
+-			COMMAND_PORT_TRANSFER_ARG;
 -
- 	kfree(hwc->caller_ctx);
- 	hwc->caller_ctx = NULL;
+-		if (i3c_xfers[i].rnw) {
+-			cmd->rx_buf = i3c_xfers[i].data.in;
+-			cmd->rx_len = i3c_xfers[i].len;
+-			cmd->cmd_lo = COMMAND_PORT_READ_TRANSFER |
+-				      COMMAND_PORT_SPEED(dev->info.max_read_ds);
+-
++		if (mode == I3C_HDR_BT) {
++			cmd->cmd_data.unified_cmd[0] = COMMAND_PORT_UNIFIED_DWORD0_CMD |
++				COMMAND_PORT_UNIFIED_DWORD0_TID(i) |
++				COMMAND_PORT_UNIFIED_DWORD0_DEV_INDEX(data->index) |
++				COMMAND_PORT_UNIFIED_DWORD0_SPEED_MODE(HDR_BT_SPD_MODE) |
++				COMMAND_PORT_UNIFIED_DWORD0_WROC;
++			if (i3c_xfers[i].rnw) {
++				cmd->rx_buf = i3c_xfers[i].data.in;
++				cmd->rx_len = i3c_xfers[i].len;
++				cmd->cmd_data.unified_cmd[0] |= COMMAND_PORT_UNIFIED_DWORD0_RnW;
++			} else {
++				cmd->tx_buf = i3c_xfers[i].data.out;
++				cmd->tx_len = i3c_xfers[i].len;
++			}
++			cmd->cmd_data.unified_cmd[1] =
++				COMMAND_PORT_UNIFIED_DWORD1_DATA_LENGTH(i3c_xfers[i].len) |
++				COMMAND_PORT_UNIFIED_DWORD1_MLANE_CODE(SINGLE_LANE) |
++				COMMAND_PORT_UNIFIED_DWORD1_MLANE_MODE(SINGLE_LANE);
++			cmd->cmd_data.unified_cmd[2] =
++				COMMAND_PORT_UNIFIED_DWORD2_IDB0_CCC_CMD0(0x00) |
++				COMMAND_PORT_UNIFIED_DWORD2_IDB1_DB_CMD1(0x00) |
++				COMMAND_PORT_UNIFIED_DWORD2_IDB2_HDRCMD_CMD2(0x00) |
++				COMMAND_PORT_UNIFIED_DWORD2_IDB3_CMD3(0x00);
++			cmd->cmd_data.unified_cmd[3] = COMMAND_PORT_UNIFIED_DWORD3_CONTROL(0);
++			if (i == (i3c_nxfers - 1))
++				cmd->cmd_data.unified_cmd[0] |= COMMAND_PORT_UNIFIED_DWORD0_TOC;
++			cmd->is_unified_cmd = true;
+ 		} else {
+-			cmd->tx_buf = i3c_xfers[i].data.out;
+-			cmd->tx_len = i3c_xfers[i].len;
+-			cmd->cmd_lo =
+-				COMMAND_PORT_SPEED(dev->info.max_write_ds);
+-		}
  
-@@ -848,8 +951,11 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
- 	gc->hwc.driver_data = NULL;
- 	gc->hwc.gdma_context = NULL;
- 
--	vfree(gc->cq_table);
--	gc->cq_table = NULL;
-+	old_cq_table = READ_ONCE(gc->cq_table);
-+	/* Stop new table readers before waiting for existing IRQ readers. */
-+	smp_store_release(&gc->cq_table, NULL);
-+	synchronize_rcu();
-+	vfree(old_cq_table);
- }
- 
- int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
-diff --git a/drivers/net/ethernet/microsoft/mana/shm_channel.c b/drivers/net/ethernet/microsoft/mana/shm_channel.c
-index d21b5db06e50..df9d05062dd5 100644
---- a/drivers/net/ethernet/microsoft/mana/shm_channel.c
-+++ b/drivers/net/ethernet/microsoft/mana/shm_channel.c
-@@ -125,13 +125,24 @@ static int mana_smc_read_response(struct shm_channel *sc, u32 msg_type,
- void mana_smc_init(struct shm_channel *sc, struct device *dev,
- 		   void __iomem *base)
- {
-+	/* The first call precedes channel publication. Later calls refresh the
-+	 * BAR mapping after reset or resume without reinitializing a live lock.
-+	 */
-+	if (!sc->transaction_lock_initialized) {
-+		mutex_init(&sc->transaction_lock);
-+		sc->transaction_lock_initialized = true;
-+	}
+-		cmd->cmd_lo |= COMMAND_PORT_TID(i) |
+-			       COMMAND_PORT_DEV_INDEX(data->index) |
+-			       COMMAND_PORT_ROC;
+-
+-		if (mode == I3C_HDR_DDR)
+-			cmd->cmd_lo |= COMMAND_PORT_CP |
+-				COMMAND_PORT_CMD(I3C_CCC_ENTHDR(0)) |
+-				COMMAND_PORT_SPEED(DW_I3C_HDR_DDR_SPEED);
+-
+-		if (i == (i3c_nxfers - 1))
+-			cmd->cmd_lo |= COMMAND_PORT_TOC;
++			cmd->cmd_data.cmd_hi = COMMAND_PORT_ARG_DATA_LEN(i3c_xfers[i].len) |
++				COMMAND_PORT_TRANSFER_ARG;
 +
-+	mutex_lock(&sc->transaction_lock);
- 	sc->dev = dev;
- 	sc->base = base;
-+	mutex_unlock(&sc->transaction_lock);
- }
- 
--int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
--		       u64 cq_addr, u64 rq_addr, u64 sq_addr,
--		       u32 eq_msix_index)
-+static int mana_smc_setup_hwc_locked(struct shm_channel *sc, bool reset_vf,
-+				     u64 eq_addr, u64 cq_addr, u64 rq_addr,
-+				     u64 sq_addr, u32 eq_msix_index,
-+				     bool *submitted)
- {
- 	union smc_proto_hdr *hdr;
- 	u16 all_addr_h4bits = 0;
-@@ -144,6 +155,9 @@ int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
- 	int err;
- 	int i;
- 
-+	lockdep_assert_held(&sc->transaction_lock);
-+	*submitted = false;
++			if (i3c_xfers[i].rnw) {
++				cmd->rx_buf = i3c_xfers[i].data.in;
++				cmd->rx_len = i3c_xfers[i].len;
++				cmd->cmd_data.cmd_lo = COMMAND_PORT_READ_TRANSFER |
++					COMMAND_PORT_SPEED(dev->info.max_read_ds);
 +
- 	/* Ensure VF already has possession of shared memory */
- 	err = mana_smc_poll_register(sc->base, false);
- 	if (err) {
-@@ -229,6 +243,7 @@ int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
- 	/* Write 256-message buffer to shared memory (final 32-bit write
- 	 * triggers HW to set possession bit to PF).
- 	 */
-+	*submitted = true;
- 	dword = (u32 *)shm_buf;
- 	for (i = 0; i < SMC_APERTURE_DWORDS; i++)
- 		writel(*dword++, sc->base + i * SMC_BASIC_UNIT);
-@@ -248,11 +263,32 @@ int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
- 	return 0;
- }
- 
--int mana_smc_teardown_hwc(struct shm_channel *sc, bool reset_vf)
-+int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
-+		       u64 cq_addr, u64 rq_addr, u64 sq_addr,
-+		       u32 eq_msix_index, bool *submitted)
-+{
-+	int err;
++			} else {
++				cmd->tx_buf = i3c_xfers[i].data.out;
++				cmd->tx_len = i3c_xfers[i].len;
++				cmd->cmd_data.cmd_lo =
++					COMMAND_PORT_SPEED(dev->info.max_write_ds);
++			}
 +
-+	mutex_lock(&sc->transaction_lock);
-+	err = mana_smc_setup_hwc_locked(sc, reset_vf, eq_addr, cq_addr,
-+					rq_addr, sq_addr, eq_msix_index,
-+					submitted);
-+	mutex_unlock(&sc->transaction_lock);
++			cmd->cmd_data.cmd_lo |= COMMAND_PORT_TID(i) |
++				COMMAND_PORT_DEV_INDEX(data->index) |
++				COMMAND_PORT_ROC;
 +
-+	return err;
-+}
++			if (mode == I3C_HDR_DDR)
++				cmd->cmd_data.cmd_lo |= COMMAND_PORT_CP |
++					COMMAND_PORT_CMD(I3C_CCC_ENTHDR(0)) |
++					COMMAND_PORT_SPEED(DW_I3C_HDR_DDR_SPEED);
 +
-+static int mana_smc_teardown_hwc_locked(struct shm_channel *sc, bool reset_vf,
-+					bool *setup_active)
- {
- 	union smc_proto_hdr hdr = {};
- 	int err;
- 
-+	lockdep_assert_held(&sc->transaction_lock);
-+
-+	if (!*setup_active)
-+		return 0;
-+
- 	/* Ensure already has possession of shared memory */
- 	err = mana_smc_poll_register(sc->base, false);
- 	if (err) {
-@@ -283,5 +319,19 @@ int mana_smc_teardown_hwc(struct shm_channel *sc, bool reset_vf)
- 		return err;
++			if (i == (i3c_nxfers - 1))
++				cmd->cmd_data.cmd_lo |= COMMAND_PORT_TOC;
++		}
  	}
  
-+	*setup_active = false;
-+
- 	return 0;
- }
-+
-+int mana_smc_teardown_hwc(struct shm_channel *sc, bool reset_vf,
-+			  bool *setup_active)
-+{
-+	int err;
-+
-+	mutex_lock(&sc->transaction_lock);
-+	err = mana_smc_teardown_hwc_locked(sc, reset_vf, setup_active);
-+	mutex_unlock(&sc->transaction_lock);
-+
-+	return err;
-+}
-diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index c610fc1067e0..4d49202b45c6 100644
---- a/include/net/mana/gdma.h
-+++ b/include/net/mana/gdma.h
-@@ -580,6 +580,9 @@ int mana_gd_create_mana_wq_cq(struct gdma_dev *gd,
+ 	dw_i3c_master_enqueue_xfer(master, xfer);
+@@ -1162,15 +1228,15 @@ static int dw_i3c_master_i2c_xfers(struct i2c_dev_desc *dev,
+ 	for (i = 0; i < i2c_nxfers; i++) {
+ 		struct dw_i3c_cmd *cmd = &xfer->cmds[i];
  
- void mana_gd_destroy_queue(struct gdma_context *gc, struct gdma_queue *queue);
+-		cmd->cmd_hi = COMMAND_PORT_ARG_DATA_LEN(i2c_xfers[i].len) |
++		cmd->cmd_data.cmd_hi = COMMAND_PORT_ARG_DATA_LEN(i2c_xfers[i].len) |
+ 			COMMAND_PORT_TRANSFER_ARG;
  
-+/* Remove an EQ from interrupt dispatch without freeing its queue memory. */
-+void mana_gd_fence_eq(struct gdma_context *gc, struct gdma_queue *queue);
-+
- int mana_gd_poll_cq(struct gdma_queue *cq, struct gdma_comp *comp, int num_cqe);
+-		cmd->cmd_lo = COMMAND_PORT_TID(i) |
++		cmd->cmd_data.cmd_lo = COMMAND_PORT_TID(i) |
+ 			      COMMAND_PORT_DEV_INDEX(data->index) |
+ 			      COMMAND_PORT_ROC;
  
- void mana_gd_ring_cq(struct gdma_queue *cq, u8 arm_bit);
-diff --git a/include/net/mana/hw_channel.h b/include/net/mana/hw_channel.h
-index 1ab2d66c891e..eb1c005bc091 100644
---- a/include/net/mana/hw_channel.h
-+++ b/include/net/mana/hw_channel.h
-@@ -185,6 +185,8 @@ struct hw_channel_context {
- 	u16 hwc_init_q_depth_max;
- 	u32 hwc_init_max_req_msg_size;
- 	u32 hwc_init_max_resp_msg_size;
-+	u32 hwc_init_max_num_cqs;
-+	u32 hwc_init_cq_id;
+ 		if (i2c_xfers[i].flags & I2C_M_RD) {
+-			cmd->cmd_lo |= COMMAND_PORT_READ_TRANSFER;
++			cmd->cmd_data.cmd_lo |= COMMAND_PORT_READ_TRANSFER;
+ 			cmd->rx_buf = i2c_xfers[i].buf;
+ 			cmd->rx_len = i2c_xfers[i].len;
+ 		} else {
+@@ -1179,7 +1245,7 @@ static int dw_i3c_master_i2c_xfers(struct i2c_dev_desc *dev,
+ 		}
  
- 	struct completion hwc_init_eqe_comp;
+ 		if (i == (i2c_nxfers - 1))
+-			cmd->cmd_lo |= COMMAND_PORT_TOC;
++			cmd->cmd_data.cmd_lo |= COMMAND_PORT_TOC;
+ 	}
  
-@@ -199,6 +201,8 @@ struct hw_channel_context {
- 	u32 dest_vrcq_id;
- 	u32 hwc_timeout;
- 
-+	/* The PF may own the HWC queues while this is true. */
-+	bool setup_active;
- 	struct hwc_caller_ctx *caller_ctx;
- };
- 
-diff --git a/include/net/mana/shm_channel.h b/include/net/mana/shm_channel.h
-index dbabcfb95daf..c8daa61fa759 100644
---- a/include/net/mana/shm_channel.h
-+++ b/include/net/mana/shm_channel.h
-@@ -4,6 +4,8 @@
- #ifndef _SHM_CHANNEL_H
- #define _SHM_CHANNEL_H
- 
-+#include <linux/mutex.h>
-+
- #define SMC_APERTURE_BITS 256
- #define SMC_BASIC_UNIT (sizeof(u32))
- #define SMC_APERTURE_DWORDS (SMC_APERTURE_BITS / (SMC_BASIC_UNIT * 8))
-@@ -13,6 +15,9 @@
- struct shm_channel {
- 	struct device *dev;
- 	void __iomem *base;
-+	/* Protects base and complete aperture request/response transactions. */
-+	struct mutex transaction_lock;
-+	bool transaction_lock_initialized;
- };
- 
- void mana_smc_init(struct shm_channel *sc, struct device *dev,
-@@ -20,8 +25,9 @@ void mana_smc_init(struct shm_channel *sc, struct device *dev,
- 
- int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
- 		       u64 cq_addr, u64 rq_addr, u64 sq_addr,
--		       u32 eq_msix_index);
-+		       u32 eq_msix_index, bool *submitted);
- 
--int mana_smc_teardown_hwc(struct shm_channel *sc, bool reset_vf);
-+int mana_smc_teardown_hwc(struct shm_channel *sc, bool reset_vf,
-+			  bool *setup_active);
- 
- #endif /* _SHM_CHANNEL_H */
+ 	dw_i3c_master_enqueue_xfer(master, xfer);
 -- 
-2.43.0
+2.34.1
 
