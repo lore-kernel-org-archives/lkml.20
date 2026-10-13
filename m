@@ -1,163 +1,138 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC993BB9FD;
-	Tue, 13 Oct 2026 16:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0F72F7F00
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910041; cv=none; b=us8ntdjPjHmGdM10Wf7ZGyXN/pELEADFGdl9qINX5/Ac2Uve/xUrJWz3pu72F94A/vPelJx6O83fybSiV3vFfmk78yt/T6BYWgRveaFJT5CX++xp4nTRjwOjS/UgJuOiBZra62PjE1HbgoqFTkqo1qo3PYqp0/CWaujcW4NECOA=
+	t=1791910092; cv=none; b=IknFnf5z3HPCmXkKoLVuHaFP4GiLEW0isNv39S3FI9zFGr/CMTk2Mje+u+GPQIlXQxE6L4Lh7W6LXx1Fw4SB2S5tHxAGlYLjz7VHiUubcgEllNgWEi8CVAapPlvMNu9IruAk62WhD34wSy7yDkS1nTWTxjx9DmO+4B8Ff8HbgrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910041; c=relaxed/simple;
-	bh=CceHojOwIeQn80ZyYpA+MFan6uLLhTvbpdvzYjuU9+M=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fkHDbuZTTjCXAyXg+S9NGklNBmUcQBG+8YUQaknIlbxAigVu790ndlsDKHWNebM4SlhjfwW5raHEmjKEyEK5qjapNzFMF2OUcI5NU/zxvC/dmRX4bpQXZdnd37LqTcO9k8yRXwwIDP6wHSMPGrsk3MCZ61U9DkvBy01e5eBVCK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=ZFiHtvQA; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1791910092; c=relaxed/simple;
+	bh=9KUDlykEh6C5KpXDh9ru042VdpWhJXyoMeTtwyXifSI=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XRblw+Ufjlk+r58xaWrM5hQW0308Ek8DYJxC2PuSUISxA1AdjpjejyGd/lq9LNozjo6K16K/BD3WykY9Ikir6uMGFDyeMoBkV3eU9EZVsQr1NzlrqQnMvxskSJQKEEWaBwy/Z6dMN0DPC7FI8oPivmqeDQXx09jmteK5sj7JaNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6KjUDHh; arc=none smtp.client-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="ZFiHtvQA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=EPkWn49tjL1SIdCNBp0cJQHUA1t8NbRRGniXbFcBGhw=; t=1791910038;
-	x=1792514838; b=ZFiHtvQAdqUOQ36rQXEEGnaKSmFUdCUD/NnIvYD8w0B7Zj9bjGLTOooZ8IoHV
-	Rhi5iuJBTxsJmTAYbMHRhwcDJ+FGmHquqjxgebW1v32tndHDjfdaaexb0u1SLQISWXWp3ogFihwo1
-	+qfj66CvpS3BK+2j72hdjH1hJPSUaauK4bKQh03e5wIkbUCN3oUYJbJvuH222EzeEMMEogf9szrD1
-	QLGPaVsu/+4ZGwe2b+Ew7k/Yffw+1gQfJnGpuyRjYvwkd0LUfsyKEajffHfLqHcsFPDNHDcRfS8Yh
-	7o+VXZ0YjkdXZPwRnO+l+sGRUJRnnMIr21/YbW+Ax9VezosAFw==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xGfel-00000000mGE-3YpL; Tue, 13 Oct 2026 18:47:15 +0200
-Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xGfel-00000000EpB-2cbM; Tue, 13 Oct 2026 18:47:15 +0200
-Message-ID: <15723af622c76d91b6debd9bb3fba0336b6f896b.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: intc: sort the prio and sense lists after filling
- them
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
-	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
-Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 13 Oct 2026 18:47:14 +0200
-In-Reply-To: <20260927191359.6144-1-kmehltretter@gmail.com>
-References: <20260927191359.6144-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6KjUDHh"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so2491252e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:48:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791910089; x=1792514889; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JrdkhjVWS0paU+Qy/xA3FUiCVMdE6viTRALFdsJ0zOM=;
+        b=U6KjUDHh9KTz2HLsuhUQPdGYQj19g7gqbvzx1i4glcRbwE1ByUrKoz9iz4X8Kz6VjD
+         7Bu/lbH+7yWTYADv1Iz4trtPZVAA58NblCXLjSa4Kir8rMog+GLvgAdM0yO6olUzw8W4
+         EhGPmZZ3u2gWVoCj9zTxHhK+4XqviSdnv+MnwCxwiVp8Tz4Eq1s1iuf2BMrM5oIXipsT
+         oc7anWNOJc3UUdPtjDiz/+OZcnX8ZL3lK3U69oELD9RfPDBbqRxjBJ9Q5sjZzxGriw/u
+         xuvB8QkehoyvcQ4CDjpx7Yp9CqzUTzs2tlFoNSxiCcWjL6YtdwZWx6fhZTLVIH2rS4j4
+         XaJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791910089; x=1792514889;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JrdkhjVWS0paU+Qy/xA3FUiCVMdE6viTRALFdsJ0zOM=;
+        b=HF8ZSgNgzb5v65v5YKNXqGGbwRV1sY5m2KRh1L6+YoQ8hL4bJNi12a5AjXsIMkarc5
+         gA8k+pwNfF0+PWOssW2aeJlcPITq4TNsZZt+/cMuPuE1dhp1zPoesZJKxcPcOPdHRSxe
+         KKGM9dYRAcvP6m6cW+JSpi1qA38goIywI2PtRW/LB4kASmHbKtfA05H4gbcfEI3e2joA
+         xfQhIvXx4VzzgtxIC0aQogOcghb/74zGVpriCrJwoAKjGyWugMV2qFfxIAwUbtv7rbro
+         lwFuM9k0X1SXy6CIHu9HTvT+s0UnXPn+J8pSyl/yMcAEDULPq3RL4MYkMx8DyR/i6/nd
+         Rp1A==
+X-Forwarded-Encrypted: i=1; AKwUvBzmID6qyNy4OT5mT8qc6PjZaS0p2SdNOZNIWh9xtZzSSdKzeR1ZGr8B8Nk3xSSa6vbKG9OUctc/56Ja2Ys=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9rs2AJwxjuh4KLvmXggO0wYGIJCxEVjOOide57DFyiZE5nMWK
+	KcHSAzR/MtzBMgG+0kqUJX7GGKO0LKuBF/3BCKNXl1p//FOBd9g6v1i8
+X-Gm-Gg: AYBFou3AzvAWznKkD6ThqZnz9uhkbwZWwXzIUfAnHP4PLy+0pTEqIIweiBk56Ha1JJs
+	SRd8z/MY0fWbJCjQO4Pl6NGZTCFBDZz7eC6yfKGpi4eWm4AHX3FCW0/izQxpd031oavls4DaxPN
+	LdmhXbVRbFDEdv15FUYGXTEMAiMMPEnzhffgwJUO+W0LwxcVQ9NaHU7QGFxI5WCT/UUza+WQN3b
+	mPgvOrLZ5LM7mbdbtGddYvFaewTdVdgd/HnEK2ZklY30NLaCxUElk/S6VOBe5chHISFGNa+1oAg
+	LnjFRapEY8ADImBsEdGsPbINW2Fed+MjW/fJdlcS1ZvGJr/PXRi+EWf9Dd511NB/sNWvf02+6Vl
+	+bxdpOanh4HJmaYrVKYaYweKGxeHGSrbTdTFh2kv9iuK1t/+/WvgIhUZtYHs2WggRxn2rmPCN5K
+	RZxtfj3Eh2voUL6CfwJ+xiwfkQYmNOlKnh1FiAYpNSp1ZOgFowZYD1rG2GYcGfZ3JcgNeGK6Xl0
+	rC2Oi9zCjdMsJbDH5zOJXBq
+X-Received: by 2002:a05:6512:3d0c:b0:5b8:f309:f275 with SMTP id 2adb3069b0e04-5bcde8cea91mr4857257e87.58.1791910089239;
+        Tue, 13 Oct 2026 09:48:09 -0700 (PDT)
+Received: from pc636 (host-95-203-22-87.mobileonline.telia.com. [95.203.22.87])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3cd2f24sm37276021fa.28.2026.10.13.09.48.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 09:48:08 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
+Date: Tue, 13 Oct 2026 18:48:06 +0200
+To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>
+Cc: Hao Ge <hao.ge@linux.dev>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>,
+	Uladzislau Rezki <urezki@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH 4/4] mm/percpu: stop unmapping the CPU that failed to
+ map
+Message-ID: <as5gxn6i2DD0iprj@pc636>
+References: <20261009063619.112313-1-hao.ge@linux.dev>
+ <20261009063619.112313-5-hao.ge@linux.dev>
+ <CAJuCfpGEgTocqrdpOtkOfks-geU0vVMZudNEG5+XWi3sxQdymQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJuCfpGEgTocqrdpOtkOfks-geU0vVMZudNEG5+XWi3sxQdymQ@mail.gmail.com>
 
-Hi Karl,
+On Tue, Oct 13, 2026 at 03:46:43PM +0400, Suren Baghdasaryan wrote:
+> On Fri, Oct 9, 2026 at 10:36 AM Hao Ge <hao.ge@linux.dev> wrote:
+> >
+> > __pcpu_map_pages() clears the PTEs it installed when it fails, so
+> > pcpu_map_pages() only has to tear down the CPUs it mapped before
+> > the failing one.
+> >
+> > Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> 
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> 
+> 
+> > ---
+> >  mm/percpu-vm.c | 5 +++--
+> >  1 file changed, 3 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/mm/percpu-vm.c b/mm/percpu-vm.c
+> > index 509d8901835c..59d3a336a6bd 100644
+> > --- a/mm/percpu-vm.c
+> > +++ b/mm/percpu-vm.c
+> > @@ -252,10 +252,11 @@ static int pcpu_map_pages(struct pcpu_chunk *chunk, struct page **pages,
+> >         return 0;
+> >  err:
+> >         for_each_possible_cpu(tcpu) {
+> > -               __pcpu_unmap_pages(pcpu_chunk_addr(chunk, tcpu, page_start),
+> > -                                  page_end - page_start);
+> > +               /* The failing CPU's partial mapping undoes itself */
+> >                 if (tcpu == cpu)
+> >                         break;
+> > +               __pcpu_unmap_pages(pcpu_chunk_addr(chunk, tcpu, page_start),
+> > +                                  page_end - page_start);
+> >         }
+> >         pcpu_post_unmap_tlb_flush(chunk, page_start, page_end);
+> >         return err;
+> > --
+> > 2.25.1
+> >
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
 
-On Sun, 2026-09-27 at 21:13 +0200, Karl Mehltretter wrote:
-> register_intc_controller() sorts d->prio and d->sense right after
-> allocating them, with hw->nr_prio_regs and hw->nr_sense_regs as the
-> element count. The lists hold hw->nr_vectors entries and are only
-> filled later, by intc_register_irq().
->=20
-> On SH7785, sh7785-irq0123 and sh7785-irq4567 have four vectors but the
-> SoC's eleven priority registers, so sort() swaps 88 bytes in a 32 byte
-> kmalloc object at boot. slub_debug=3DFZPU reports "Right Redzone
-> overwritten" in kmalloc-32, and v6.5 and v6.6 panic in
-> __kmem_cache_alloc_node() while registering sh7785-irq0123.
->=20
-> Found with a custom QEMU model of the SH7785LCR. On it, v6.4
-> sh7785lcr_defconfig boots with SLAB, the defconfig default before v6.5,
-> and hangs before the console is up when built with SLUB.
->=20
-> Sort the lists once all vectors are registered, with the number of
-> entries that were added.
->=20
-> Fixes: b59f9f9775e6 ("sh: intc: optimize intc IRQ lookup")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->=20
-> Notes:
->     Testing, all in QEMU on a custom SH7785LCR model, not on hardware:
->     - v6.5 and v6.6 sh7785lcr_defconfig hang before the console is up
->       (gcc 8 and gcc 14). With slub_debug=3DFZPU they boot and validating
->       kmalloc-32 reports "Right Redzone overwritten" after the object
->       holding the entries of sh7785-irq4567. With this patch they boot
->       and the report is gone.
->     - v6.4 sh7785lcr_defconfig (SLAB) boots. The same v6.4 built with SLU=
-B
->       hangs, reports the overflow with slub_debug=3DFZPU, and boots with
->       this patch.
->     - Current mainline boots with or without the patch, but reports the
->       overflow with slub_debug=3DFZPU unless patched.
->     Testing on real hardware is welcome.
->=20
->  drivers/sh/intc/core.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/sh/intc/core.c b/drivers/sh/intc/core.c
-> index aa68fe190865d..ffbe60234eefc 100644
-> --- a/drivers/sh/intc/core.c
-> +++ b/drivers/sh/intc/core.c
-> @@ -275,9 +275,6 @@ int __init register_intc_controller(struct intc_desc =
-*desc)
->  			k +=3D save_reg(d, k, hw->prio_regs[i].set_reg, smp);
->  			k +=3D save_reg(d, k, hw->prio_regs[i].clr_reg, smp);
->  		}
-> -
-> -		sort(d->prio, hw->nr_prio_regs, sizeof(*d->prio),
-> -		     intc_handle_int_cmp, NULL);
->  	}
-> =20
->  	if (hw->sense_regs) {
-> @@ -287,9 +284,6 @@ int __init register_intc_controller(struct intc_desc =
-*desc)
-> =20
->  		for (i =3D 0; i < hw->nr_sense_regs; i++)
->  			k +=3D save_reg(d, k, hw->sense_regs[i].reg, 0);
-> -
-> -		sort(d->sense, hw->nr_sense_regs, sizeof(*d->sense),
-> -		     intc_handle_int_cmp, NULL);
->  	}
-> =20
->  	if (hw->subgroups)
-> @@ -357,6 +351,11 @@ int __init register_intc_controller(struct intc_desc=
- *desc)
->  		}
->  	}
-> =20
-> +	sort(d->prio, d->nr_prio, sizeof(*d->prio),
-> +	     intc_handle_int_cmp, NULL);
-> +	sort(d->sense, d->nr_sense, sizeof(*d->sense),
-> +	     intc_handle_int_cmp, NULL);
-> +
->  	intc_subgroup_init(desc, d);
-> =20
->  	/* enable bits matching force_enable after registering irqs */
-
-As far as I understand the changes, they make sense to me although I have t=
-o admit
-I haven't fully grasped yet how the interrupt handler code works.
-
-Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-
-I'll pick this up through the SH tree.
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+--
+Uladzislau Rezki
