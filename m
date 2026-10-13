@@ -1,64 +1,64 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5841453FD27
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F55553FD3A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904878; cv=none; b=NNOwPOr6kxcpV0ESpgmWPpDgWTflGsCzvwXKA0k2rq9fJASy8wSVCpqY8uQjIQCM7e32hsPFiC1HRHvw8/YraDYRARt/CXkcUmGNHFNnDNCSZlib0C8mlOMM8AO8xcELzocrglAefcu76cOlsCRMKby3tClKEZ9orDJ5D/rzhYI=
+	t=1791904883; cv=none; b=HRs+dOXlE7QVoi5o+8UpzNNmK7H+E9Dwtt6n7Fxvx0dYYVsaHDTTTHc9kL8mpLLHU8G5K7irRjrwhQuyHYfMB7yWaJlXJ4fsh8xJRx1Z1XZ8oS/dgDc1ub+LHBBPcYgPloKXuZCJHWvumncGuuuEJVhXDVivh1Ld4oXxUijMArg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904878; c=relaxed/simple;
-	bh=LPzlvasuU6X0i/2jyuvhLwS0z/0nrObxyfYYL1SWtaM=;
+	s=arc-20240116; t=1791904883; c=relaxed/simple;
+	bh=RGrkYZuTtSjsXw16eeH62B1rWTkAboGm/Xac1KF5Lgo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VlfmqmreW0G5rK3I45AFWAsr4lgNujLBALkzHnLPl9Jwucv2LPrVg1HqRxUyxOr/oD7xLG5Ofxzy8/Rug2fNj47HGEDarI5A4lqaHXPDVfAAoHrI866SsQPOeTwmm9LhIYq1efD2q/RAtDM03Y/cab81e30hBcYrFt5gY+q9C3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z6I9JCsY; arc=none smtp.client-ip=209.85.210.174
+	 MIME-Version; b=X+lnoZUZbp7kiWdfDq+lz04w5LP5SwewCjfnowrbLm6Fk58ZOytlA4C72egfQCpD9hSrFJb4iEAjlKbZnbqLv5BXdtdo0d2F6iqqvgJqcRA6xbGlHUShF91RIDxg/q1RuY+QmspYRCRYIWagKYyMcBR085y4XMkyI4bTvTSCNOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XBq0VmNq; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z6I9JCsY"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-89d4030cc57so229391b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:21:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XBq0VmNq"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4e9e56e9aso1056670a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:21:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791904876; x=1792509676; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791904881; x=1792509681; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=blKBpa6d1QxFuHcDjoFRFZPKTGb7lQOeRuaZy3wA9IM=;
-        b=Z6I9JCsYWpXcxfQlPsaEeeBf4xsNx1six1QxxMjEXkUnts4IvMzfrj7Fea29TFlzkv
-         4oQZg1h/HnffsOL7vscuF6h8LNEi4CJdssKrenBMf51ZeUznn1PH+zuRfYg7glnZBrD6
-         YyA0inuirvlr1HeHeKeoRHblra8kITmi6bNp2OKz4Y4CfgvijgWDsJ5oGj64CS4wa1QQ
-         R2x6F0PZywIdi1wC1eNEd73X4l2j4wz+nQ8GN6oBuG9pqAmL7SkYQDyZ+dJQNoCcadyS
-         R7v228Jf4UU6JvzfVHoFs6vRiCZAil0AkKKkRB7MWDRcoIbuWZOmBYGSEhHLR3knKL64
-         wn8w==
+        bh=RhDzmwJCJ52+w45ZL03KR603UOMuV25rBPU/GIg++dM=;
+        b=XBq0VmNqqND6KzpAqV3a1yvzz1tXRZMOPZWLVQ7vTG3Zvd+rFGS3CgqBd48VUOYUPK
+         ICuNrIb7gqmA6LP3Dq33u48snANUotwwHhcHgeo5q2VJd9IpfRXYGuhs9n0l3ss4SRyd
+         9XTRh1q3cYlGQfCvjviYu9KMvyNPq6X9lvMJRbsTsusQdVM8Glk7vKYRW38z97SxlaJ2
+         chcUEp5qaaU01+pXnEK7NE/9pEjny65ah4nmAa6INYwkuA8qNd9gAiyAF+J2BNwWgSWm
+         S0HOzTzdzVtbnhrC8uDRBoQ8mNrNlT78cGRXOrG1vppeh9mNF8huq2aa6hou/lmwiTwl
+         Mpvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904876; x=1792509676;
+        d=1e100.net; s=20260707; t=1791904881; x=1792509681;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=blKBpa6d1QxFuHcDjoFRFZPKTGb7lQOeRuaZy3wA9IM=;
-        b=wVk4Wp43xNLh/hWCfhVbm8eUy9Qd21C1Jc1A4iyALei/rduoaJrooKECpNrLYtz5Hu
-         69obwum5VI6Xhwu8zeiIeoFCCthK1ZIL2WFmmnlXvPGgIeejst1+DdDh+Tjbv9KZEqeO
-         PKTW0aQrJsm/a3C0LU5KTF+tI1AjFPGEyZX58E+OAHFqce5ZCJK2RV4hHyPSxLkluN+D
-         4w+8KxAngC9bLzRI2IAWuZn0XVqDhm6QwN8SXDKEdG74X3jVtNOUVhmJM3eSl6qBgTkg
-         WsHQZnJJ6i2qL+zB/W4fyc0Y21EFfDmpDjatdQuiIWt+tGxnX6TVs7J5WADCCXjQNfLW
-         ND7g==
-X-Forwarded-Encrypted: i=1; AKwUvBymNYRlbPm4IYsOCc4AdcEKvvnqCw4OPM1NaegdtZIn6WEJz3kuCUnFYc+If6pEDPxVVX4xtug65C69YGA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqYQiKIgtrYMnakppCEdHYDgn7mPEE1iKkyV01L3LtkEWmTnUa
-	8fx6kIk8VocISBCF4Vb9HxZTyoklR/dlB07vO56/Z0Q+fJakd/vwHQuU
-X-Gm-Gg: AYBFou0nNeo7jPmvd9tQi+s7YXwZq8doxjkHysOIUfkUGz6C+df4VlcznUcM2UJtgA3
-	nrqSicdwTcnYd+GEISLI0LcjXzINIGhbLV+UlKNU5Uwivansw5jbIJp8k0GiOfsbGXPQDbRU6Z9
-	mxQHT0hcl4YhQew/PYM+VuUCtZTNANJ9cMZuWzSX5U+bzMyFiAR2tBzt0g1mk1X5iu1LxrYvm/P
-	GGZI18f7dnUjqRsUVvftKOqH0d1g7AXV7+0+UN+1QUPe9d/xWyHLT87aXJJ2VawxX18N1wv/VlG
-	DM28IKjz55b4vbksAs2hda04CoiHIhJYxu6B3lOR2cAIX8Tlhm3C9VvOoMN0s0YBLz58Ajfhu16
-	662c75w+pGh9s33LpjT5p17kjqERUROR5TbgLo4OWa/OtB8xv9/uHCCUqs26s7LEvWMvXZ9hz8C
-	Bj3t4yZxrT+WlBK+jIG4Yo6X/GyLITaD6ZSQLQR7FtrzhuGThTpKgnvNhMmcLS1pjWSUIY8MXBz
-	42+tOIFRptPnB9nUXrgcbCujBKW
-X-Received: by 2002:a05:6a21:394c:b0:3de:3f4d:f2bc with SMTP id adf61e73a8af0-3e16badf2a9mr12161934637.1.1791904875448;
-        Tue, 13 Oct 2026 08:21:15 -0700 (PDT)
+        bh=RhDzmwJCJ52+w45ZL03KR603UOMuV25rBPU/GIg++dM=;
+        b=G7Op+sBAcvp3Snf3tcTGok6RhKziji2fQf2Qfa/yzYhTIfzlOCaoggKmcnMbof7Qzu
+         e+bxnLuTTWgWEhlxcOdMySm6QbTMf0JTenDtz8Uqw4sIQGEghxot0lfkQOmX8zmSx7US
+         SiqCvygIINAAOeLJjnf69xMH3Bc3O1A4DSqdBY+MEnFndekQAn3tiOWV2tUKKtPal6J/
+         b7SjCHftDylqxL5KiXTewWCT3gA7i/1j11yGMscJT89Av3OmNbQZ2tjFW1qHtFSu9SwE
+         grYw1FWlJlxWKhCpXqtwM40HhoPCAJvTJs7p9WGmySyfAGQAyBjMqEcuuL/9iT61XfxN
+         qFWw==
+X-Forwarded-Encrypted: i=1; AKwUvByqDhFN5ye1OLIsOfKxPMObjV2ZxPle8ZvarfKPn6k5h//qPGRYE14rCMhWXIM/N14C+sX57nOfbu7L0vk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyuA+vPw2b3oVVPQJyiDGovwBlnv7PCKzxo4ZYzC/SXz0/En+o
+	ec2f6GcAEB+o0qbT1f/z99Sj+LXBtYDsB2JoZlzheQZX3VSkZvsvIp56
+X-Gm-Gg: AYBFou2rtpfQd6/jePdD2OswG5zjlAV1cZXfuDWba297Tfks8AUvD23MF+4MyuA5ydq
+	FWzb/Y7WxMGz5PDqkYBIJkFJhlMNi/Kj0tVR7lWDWDQgm1Z88wJ6G9taUW895DrofaSzitU9i1q
+	iurAHWk3JUcCikBseVnI+2XdlQUkMPCViO/13xVVDwzcHS0WwgjR0w3gbWsK+Xlve/4WjQ3gfer
+	3k94KCtSFCmg0KdBDYK7Hfoi8pyKX0YI+AOyQDRuq79Xq/vF9t7/6eQCj8AJM0X8DQyth9sWaOC
+	IXtYb6uIflMMkO05PCKAfM6l4Ro2vi6Qrq12YLzTFCVGalaa1iPcmxS+A+mCsK7T8784YNOQb7D
+	vlpcWZ86ul3F8F4gVCXSKvQlIP3fJfyiYNAT3xKdxGkdQOyHDXu05mhTaDqWEfd7KsTJwbO174/
+	oHKMXsXcffIfWvNYN5YC3C5QpgnWLox6C1HfrBct/fDD6y2aRsMA7eQLaud+Ek1nvkKzcEDqWOr
+	x+T29nBNci4k2BX/pPpE8stNcqD
+X-Received: by 2002:a17:90b:2687:b0:3ab:22fe:b13a with SMTP id 98e67ed59e1d1-3ab3a79a2efmr11338174a91.40.1791904880877;
+        Tue, 13 Oct 2026 08:21:20 -0700 (PDT)
 Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.21.10
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.21.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:21:15 -0700 (PDT)
+        Tue, 13 Oct 2026 08:21:20 -0700 (PDT)
 From: Akari Tsuyukusa <akkun11.open@gmail.com>
 To: Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
@@ -86,9 +86,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
 	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
 	Akari Tsuyukusa <akkun11.open@gmail.com>
-Subject: [PATCH v2 34/35] clk: mediatek: mt8196: Switch to common probe/remove helpers
-Date: Wed, 14 Oct 2026 00:17:33 +0900
-Message-ID: <20261013151734.3177690-35-akkun11.open@gmail.com>
+Subject: [PATCH v2 35/35] clk: mediatek: mt8516-apmixedsys: Switch to common probe/remove helpers
+Date: Wed, 14 Oct 2026 00:17:34 +0900
+Message-ID: <20261013151734.3177690-36-akkun11.open@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261013151734.3177690-1-akkun11.open@gmail.com>
 References: <20261013151734.3177690-1-akkun11.open@gmail.com>
@@ -100,358 +100,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MT8196 apmixedsys, mcusys, and mfg drivers use
-MT8196-specific PLL descriptors or pass PLL data directly
-as match data, requiring custom probe/remove callbacks.
-Represent these PLL configurations using struct mtk_clk_desc
-so the drivers can use mtk_clk_simple_probe() and
-mtk_clk_simple_remove().
+The MT8516 apmixedsys driver used a custom probe to register PLLs but
+had no remove callback. With PLL registration and unregistration
+handled by the common helpers,
+the driver can use mtk_clk_simple_probe() and mtk_clk_simple_remove().
 
-Keep the vlpckgen driver unchanged because its probe callback
-also initializes APLL tuner registers, which are not yet
-supported by the common helpers.
+Switch to module_platform_driver() to support module unloading and
+ensure that registered clocks are unregistered on removal.
 
 Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
 ---
 Changes in v2:
 - Improvement of commit messages
 ---
- drivers/clk/mediatek/clk-mt8196-apmixedsys.c | 67 ++------------
- drivers/clk/mediatek/clk-mt8196-mcu.c        | 96 +++++++-------------
- drivers/clk/mediatek/clk-mt8196-mfg.c        | 84 +++++------------
- 3 files changed, 63 insertions(+), 184 deletions(-)
+ drivers/clk/mediatek/clk-mt8516-apmixedsys.c | 42 ++++----------------
+ 1 file changed, 8 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/clk/mediatek/clk-mt8196-apmixedsys.c b/drivers/clk/mediatek/clk-mt8196-apmixedsys.c
-index c4ebb0170b82..a20fa02070a8 100644
---- a/drivers/clk/mediatek/clk-mt8196-apmixedsys.c
-+++ b/drivers/clk/mediatek/clk-mt8196-apmixedsys.c
-@@ -86,11 +86,6 @@
- 		.ops = &mtk_pll_fenc_clr_set_ops,		\
- }
- 
--struct mtk_pll_desc {
--	const struct mtk_pll_data *clks;
--	size_t num_clks;
--};
--
- static const struct mtk_pll_data apmixed_plls[] = {
- 	PLL_FENC(CLK_APMIXED_MAINPLL, "mainpll", MAINPLL_CON0, FENC_STATUS_CON0,
- 		 7, PLL_AO, MAINPLL_CON1, 24, MAINPLL_CON1, 0, 22, 0),
-@@ -110,9 +105,9 @@ static const struct mtk_pll_data apmixed_plls[] = {
- 		 0, 0, SGMIIPLL_CON1, 24, SGMIIPLL_CON1, 0, 22, 7),
+diff --git a/drivers/clk/mediatek/clk-mt8516-apmixedsys.c b/drivers/clk/mediatek/clk-mt8516-apmixedsys.c
+index 2a6206cae2f0..2fb09e7acde7 100644
+--- a/drivers/clk/mediatek/clk-mt8516-apmixedsys.c
++++ b/drivers/clk/mediatek/clk-mt8516-apmixedsys.c
+@@ -71,52 +71,26 @@ static const struct mtk_pll_data plls[] = {
+ 	    31, 0x01A0, 1, 0x01B4, 0x01A4, 0),
  };
  
--static const struct mtk_pll_desc apmixed_desc = {
--	.clks = apmixed_plls,
--	.num_clks = ARRAY_SIZE(apmixed_plls),
+-static int clk_mt8516_apmixed_probe(struct platform_device *pdev)
+-{
+-	void __iomem *base;
+-	struct clk_hw_onecell_data *clk_data;
+-	struct device_node *node = pdev->dev.of_node;
+-	struct device *dev = &pdev->dev;
+-	int ret;
+-
+-	base = devm_platform_ioremap_resource(pdev, 0);
+-	if (IS_ERR(base))
+-		return PTR_ERR(base);
+-
+-	clk_data = mtk_devm_alloc_clk_data(dev, CLK_APMIXED_NR_CLK);
+-	if (!clk_data)
+-		return -ENOMEM;
+-
+-	ret = mtk_clk_register_plls(dev, plls, ARRAY_SIZE(plls), clk_data);
+-	if (ret)
+-		return ret;
+-
+-	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, clk_data);
+-	if (ret)
+-		goto unregister_plls;
+-
+-	return 0;
+-
+-unregister_plls:
+-	mtk_clk_unregister_plls(plls, ARRAY_SIZE(plls), clk_data);
+-
+-	return ret;
+-}
 +static const struct mtk_clk_desc apmixed_desc = {
-+	.plls = apmixed_plls,
-+	.num_plls = ARRAY_SIZE(apmixed_plls),
++	.plls = plls,
++	.num_plls = ARRAY_SIZE(plls),
++};
+ 
+ static const struct of_device_id of_match_clk_mt8516_apmixed[] = {
+-	{ .compatible = "mediatek,mt8516-apmixedsys" },
++	{ .compatible = "mediatek,mt8516-apmixedsys", .data = &apmixed_desc },
+ 	{ /* sentinel */ }
  };
+ MODULE_DEVICE_TABLE(of, of_match_clk_mt8516_apmixed);
  
- static const struct mtk_pll_data apmixed2_plls[] = {
-@@ -132,57 +127,11 @@ static const struct mtk_pll_data apmixed2_plls[] = {
- 		 0, 0, TVDPLL3_CON1, 24, TVDPLL3_CON1, 0, 22, 6),
- };
- 
--static const struct mtk_pll_desc apmixed2_desc = {
--	.clks = apmixed2_plls,
--	.num_clks = ARRAY_SIZE(apmixed2_plls),
-+static const struct mtk_clk_desc apmixed2_desc = {
-+	.plls = apmixed2_plls,
-+	.num_plls = ARRAY_SIZE(apmixed2_plls),
- };
- 
--static int clk_mt8196_apmixed_probe(struct platform_device *pdev)
--{
--	struct clk_hw_onecell_data *clk_data;
--	struct device_node *node = pdev->dev.of_node;
--	const struct mtk_pll_desc *mcd;
--	int r;
--
--	mcd = device_get_match_data(&pdev->dev);
--	if (!mcd)
--		return -EINVAL;
--
--	clk_data = mtk_alloc_clk_data(mcd->num_clks);
--	if (!clk_data)
--		return -ENOMEM;
--
--	r = mtk_clk_register_plls(&pdev->dev, mcd->clks, mcd->num_clks,
--				  clk_data);
--	if (r)
--		goto free_apmixed_data;
--
--	r = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, clk_data);
--	if (r)
--		goto unregister_plls;
--
--	platform_set_drvdata(pdev, clk_data);
--
--	return r;
--
--unregister_plls:
--	mtk_clk_unregister_plls(mcd->clks, mcd->num_clks, clk_data);
--free_apmixed_data:
--	mtk_free_clk_data(clk_data);
--	return r;
--}
--
--static void clk_mt8196_apmixed_remove(struct platform_device *pdev)
--{
--	const struct mtk_pll_desc *mcd = device_get_match_data(&pdev->dev);
--	struct clk_hw_onecell_data *clk_data = platform_get_drvdata(pdev);
--	struct device_node *node = pdev->dev.of_node;
--
--	of_clk_del_provider(node);
--	mtk_clk_unregister_plls(mcd->clks, mcd->num_clks, clk_data);
--	mtk_free_clk_data(clk_data);
--}
--
- static const struct of_device_id of_match_clk_mt8196_apmixed[] = {
- 	{ .compatible = "mediatek,mt8196-apmixedsys", .data = &apmixed_desc },
- 	{ .compatible = "mediatek,mt8196-apmixedsys-gp2",
-@@ -192,8 +141,8 @@ static const struct of_device_id of_match_clk_mt8196_apmixed[] = {
- MODULE_DEVICE_TABLE(of, of_match_clk_mt8196_apmixed);
- 
- static struct platform_driver clk_mt8196_apmixed_drv = {
--	.probe = clk_mt8196_apmixed_probe,
--	.remove = clk_mt8196_apmixed_remove,
+ static struct platform_driver clk_mt8516_apmixed_drv = {
+-	.probe = clk_mt8516_apmixed_probe,
 +	.probe = mtk_clk_simple_probe,
 +	.remove = mtk_clk_simple_remove,
  	.driver = {
- 		.name = "clk-mt8196-apmixed",
- 		.of_match_table = of_match_clk_mt8196_apmixed,
-diff --git a/drivers/clk/mediatek/clk-mt8196-mcu.c b/drivers/clk/mediatek/clk-mt8196-mcu.c
-index 13642fc673c2..e392408c93b2 100644
---- a/drivers/clk/mediatek/clk-mt8196-mcu.c
-+++ b/drivers/clk/mediatek/clk-mt8196-mcu.c
-@@ -68,29 +68,44 @@
- 		.pcwibits = MT8196_INTEGER_BITS,		\
- 	}
- 
--static const struct mtk_pll_data cpu_bl_plls[] = {
--	PLL(CLK_CPBL_ARMPLL_BL, "armpll-bl", ARMPLL_BL_CON0, ARMPLL_BL_CON0, 0,
--	    0, PLL_AO, BIT(0), ARMPLL_BL_CON1, 24, 0, 0, 0, ARMPLL_BL_CON1, 0, 22),
-+static const struct mtk_clk_desc cpu_bl_plls = {
-+	.plls = (const struct mtk_pll_data[]){
-+		PLL(CLK_CPBL_ARMPLL_BL, "armpll-bl", ARMPLL_BL_CON0, ARMPLL_BL_CON0, 0,
-+		    0, PLL_AO, BIT(0), ARMPLL_BL_CON1, 24, 0, 0, 0, ARMPLL_BL_CON1, 0, 22),
-+	},
-+	.num_plls = 1,
+ 		.name = "clk-mt8516-apmixed",
+ 		.of_match_table = of_match_clk_mt8516_apmixed,
+ 	},
  };
+-builtin_platform_driver(clk_mt8516_apmixed_drv)
++module_platform_driver(clk_mt8516_apmixed_drv)
  
--static const struct mtk_pll_data cpu_b_plls[] = {
--	PLL(CLK_CPB_ARMPLL_B, "armpll-b", ARMPLL_B_CON0, ARMPLL_B_CON0, 0, 0,
--	    PLL_AO, BIT(0), ARMPLL_B_CON1, 24, 0, 0, 0, ARMPLL_B_CON1, 0, 22),
-+static const struct mtk_clk_desc cpu_b_plls = {
-+	.plls = (const struct mtk_pll_data[]){
-+		PLL(CLK_CPB_ARMPLL_B, "armpll-b", ARMPLL_B_CON0, ARMPLL_B_CON0, 0, 0,
-+		    PLL_AO, BIT(0), ARMPLL_B_CON1, 24, 0, 0, 0, ARMPLL_B_CON1, 0, 22),
-+	},
-+	.num_plls = 1,
- };
- 
--static const struct mtk_pll_data cpu_ll_plls[] = {
--	PLL(CLK_CPLL_ARMPLL_LL, "armpll-ll", ARMPLL_LL_CON0, ARMPLL_LL_CON0, 0,
--	    0, PLL_AO, BIT(0), ARMPLL_LL_CON1, 24, 0, 0, 0, ARMPLL_LL_CON1, 0, 22),
-+static const struct mtk_clk_desc cpu_ll_plls = {
-+	.plls = (const struct mtk_pll_data[]){
-+		PLL(CLK_CPLL_ARMPLL_LL, "armpll-ll", ARMPLL_LL_CON0, ARMPLL_LL_CON0, 0,
-+		    0, PLL_AO, BIT(0), ARMPLL_LL_CON1, 24, 0, 0, 0, ARMPLL_LL_CON1, 0, 22),
-+	},
-+	.num_plls = 1,
- };
- 
--static const struct mtk_pll_data cci_plls[] = {
--	PLL(CLK_CCIPLL, "ccipll", CCIPLL_CON0, CCIPLL_CON0, 0, 0, PLL_AO,
--	    BIT(0), CCIPLL_CON1, 24, 0, 0, 0, CCIPLL_CON1, 0, 22),
-+static const struct mtk_clk_desc cci_plls = {
-+	.plls = (const struct mtk_pll_data[]){
-+		PLL(CLK_CCIPLL, "ccipll", CCIPLL_CON0, CCIPLL_CON0, 0, 0, PLL_AO,
-+		    BIT(0), CCIPLL_CON1, 24, 0, 0, 0, CCIPLL_CON1, 0, 22),
-+	},
-+	.num_plls = 1,
- };
- 
--static const struct mtk_pll_data ptp_plls[] = {
--	PLL(CLK_PTPPLL, "ptppll", PTPPLL_CON0, PTPPLL_CON0, 0, 0, PLL_AO,
--	    BIT(0), PTPPLL_CON1, 24, 0, 0, 0, PTPPLL_CON1, 0, 22),
-+static const struct mtk_clk_desc ptp_plls = {
-+	.plls = (const struct mtk_pll_data[]){
-+		PLL(CLK_PTPPLL, "ptppll", PTPPLL_CON0, PTPPLL_CON0, 0, 0, PLL_AO,
-+		    BIT(0), PTPPLL_CON1, 24, 0, 0, 0, PTPPLL_CON1, 0, 22),
-+	},
-+	.num_plls = 1,
- };
- 
- static const struct of_device_id of_match_clk_mt8196_mcu[] = {
-@@ -106,56 +121,9 @@ static const struct of_device_id of_match_clk_mt8196_mcu[] = {
- };
- MODULE_DEVICE_TABLE(of, of_match_clk_mt8196_mcu);
- 
--static int clk_mt8196_mcu_probe(struct platform_device *pdev)
--{
--	const struct mtk_pll_data *plls;
--	struct clk_hw_onecell_data *clk_data;
--	struct device_node *node = pdev->dev.of_node;
--	const int num_plls = 1;
--	int r;
--
--	plls = of_device_get_match_data(&pdev->dev);
--	if (!plls)
--		return -EINVAL;
--
--	clk_data = mtk_alloc_clk_data(num_plls);
--	if (!clk_data)
--		return -ENOMEM;
--
--	r = mtk_clk_register_plls(&pdev->dev, plls, num_plls, clk_data);
--	if (r)
--		goto free_clk_data;
--
--	r = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, clk_data);
--	if (r)
--		goto unregister_plls;
--
--	platform_set_drvdata(pdev, clk_data);
--
--	return r;
--
--unregister_plls:
--	mtk_clk_unregister_plls(plls, num_plls, clk_data);
--free_clk_data:
--	mtk_free_clk_data(clk_data);
--
--	return r;
--}
--
--static void clk_mt8196_mcu_remove(struct platform_device *pdev)
--{
--	const struct mtk_pll_data *plls = of_device_get_match_data(&pdev->dev);
--	struct clk_hw_onecell_data *clk_data = platform_get_drvdata(pdev);
--	struct device_node *node = pdev->dev.of_node;
--
--	of_clk_del_provider(node);
--	mtk_clk_unregister_plls(plls, 1, clk_data);
--	mtk_free_clk_data(clk_data);
--}
--
- static struct platform_driver clk_mt8196_mcu_drv = {
--	.probe = clk_mt8196_mcu_probe,
--	.remove = clk_mt8196_mcu_remove,
-+	.probe = mtk_clk_simple_probe,
-+	.remove = mtk_clk_simple_remove,
- 	.driver = {
- 		.name = "clk-mt8196-mcu",
- 		.of_match_table = of_match_clk_mt8196_mcu,
-diff --git a/drivers/clk/mediatek/clk-mt8196-mfg.c b/drivers/clk/mediatek/clk-mt8196-mfg.c
-index a317183f1681..a209162f6207 100644
---- a/drivers/clk/mediatek/clk-mt8196-mfg.c
-+++ b/drivers/clk/mediatek/clk-mt8196-mfg.c
-@@ -61,22 +61,31 @@
- 		.parent_name = "mfg_eb",			\
- 	}
- 
--static const struct mtk_pll_data mfg_ao_plls[] = {
--	PLL(CLK_MFG_AO_MFGPLL, "mfgpll", MFGPLL_CON0, MFGPLL_CON0, 0, 0,
--	    PLL_PARENT_EN, BIT(0), MFGPLL_CON1, 24, 0, 0, 0,
--	    MFGPLL_CON1, 0, 22),
-+static const struct mtk_clk_desc mfg_ao_plls = {
-+	.plls = (const struct mtk_pll_data[]){
-+		PLL(CLK_MFG_AO_MFGPLL, "mfgpll", MFGPLL_CON0,
-+		    MFGPLL_CON0, 0, 0, PLL_PARENT_EN, BIT(0),
-+		    MFGPLL_CON1, 24, 0, 0, 0, MFGPLL_CON1, 0, 22),
-+	},
-+	.num_plls = 1,
- };
- 
--static const struct mtk_pll_data mfgsc0_ao_plls[] = {
--	PLL(CLK_MFGSC0_AO_MFGPLL_SC0, "mfgpll-sc0", MFGPLL_SC0_CON0,
--	    MFGPLL_SC0_CON0, 0, 0, PLL_PARENT_EN, BIT(0), MFGPLL_SC0_CON1, 24,
--	    0, 0, 0, MFGPLL_SC0_CON1, 0, 22),
-+static const struct mtk_clk_desc mfgsc0_ao_plls = {
-+	.plls = (const struct mtk_pll_data[]){
-+		PLL(CLK_MFGSC0_AO_MFGPLL_SC0, "mfgpll-sc0", MFGPLL_SC0_CON0,
-+		    MFGPLL_SC0_CON0, 0, 0, PLL_PARENT_EN, BIT(0),
-+		    MFGPLL_SC0_CON1, 24, 0, 0, 0, MFGPLL_SC0_CON1, 0, 22),
-+	},
-+	.num_plls = 1,
- };
- 
--static const struct mtk_pll_data mfgsc1_ao_plls[] = {
--	PLL(CLK_MFGSC1_AO_MFGPLL_SC1, "mfgpll-sc1", MFGPLL_SC1_CON0,
--	    MFGPLL_SC1_CON0, 0, 0, PLL_PARENT_EN, BIT(0), MFGPLL_SC1_CON1, 24,
--	    0, 0, 0, MFGPLL_SC1_CON1, 0, 22),
-+static const struct mtk_clk_desc mfgsc1_ao_plls = {
-+	.plls = (const struct mtk_pll_data[]){
-+		PLL(CLK_MFGSC1_AO_MFGPLL_SC1, "mfgpll-sc1", MFGPLL_SC1_CON0,
-+		    MFGPLL_SC1_CON0, 0, 0, PLL_PARENT_EN, BIT(0),
-+		    MFGPLL_SC1_CON1, 24, 0, 0, 0, MFGPLL_SC1_CON1, 0, 22),
-+	},
-+	.num_plls = 1,
- };
- 
- static const struct of_device_id of_match_clk_mt8196_mfg[] = {
-@@ -90,56 +99,9 @@ static const struct of_device_id of_match_clk_mt8196_mfg[] = {
- };
- MODULE_DEVICE_TABLE(of, of_match_clk_mt8196_mfg);
- 
--static int clk_mt8196_mfg_probe(struct platform_device *pdev)
--{
--	const struct mtk_pll_data *plls;
--	struct clk_hw_onecell_data *clk_data;
--	struct device_node *node = pdev->dev.of_node;
--	const int num_plls = 1;
--	int r;
--
--	plls = of_device_get_match_data(&pdev->dev);
--	if (!plls)
--		return -EINVAL;
--
--	clk_data = mtk_alloc_clk_data(num_plls);
--	if (!clk_data)
--		return -ENOMEM;
--
--	r = mtk_clk_register_plls(&pdev->dev, plls, num_plls, clk_data);
--	if (r)
--		goto free_clk_data;
--
--	r = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, clk_data);
--	if (r)
--		goto unregister_plls;
--
--	platform_set_drvdata(pdev, clk_data);
--
--	return r;
--
--unregister_plls:
--	mtk_clk_unregister_plls(plls, num_plls, clk_data);
--free_clk_data:
--	mtk_free_clk_data(clk_data);
--
--	return r;
--}
--
--static void clk_mt8196_mfg_remove(struct platform_device *pdev)
--{
--	const struct mtk_pll_data *plls = of_device_get_match_data(&pdev->dev);
--	struct clk_hw_onecell_data *clk_data = platform_get_drvdata(pdev);
--	struct device_node *node = pdev->dev.of_node;
--
--	of_clk_del_provider(node);
--	mtk_clk_unregister_plls(plls, 1, clk_data);
--	mtk_free_clk_data(clk_data);
--}
--
- static struct platform_driver clk_mt8196_mfg_drv = {
--	.probe = clk_mt8196_mfg_probe,
--	.remove = clk_mt8196_mfg_remove,
-+	.probe = mtk_clk_simple_probe,
-+	.remove = mtk_clk_simple_remove,
- 	.driver = {
- 		.name = "clk-mt8196-mfg",
- 		.of_match_table = of_match_clk_mt8196_mfg,
+ MODULE_DESCRIPTION("MediaTek MT8516 apmixedsys clocks driver");
+ MODULE_LICENSE("GPL");
 -- 
 2.56.0
 
