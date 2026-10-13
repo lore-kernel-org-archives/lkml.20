@@ -1,121 +1,198 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DDC38B143
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B173E3DAB;
+	Tue, 13 Oct 2026 06:57:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874575; cv=none; b=QHoOpCLCBHIx+Q1H2gRlGfwbZCOlEdmTaSc2VPjasg8T6AKhNsqmXv2+jLAaZBoYD9Sr7U3w4piVdWWib35liVxX4d7axuBzAnBCyyqNM5V1gh0RDwIk2PKG6b8OYqX/4MQT3vkXcclHufvaJk1V8Q9vwOMgjPgAGdDAamYfBcI=
+	t=1791874628; cv=none; b=HuOjK/2w9u1xfMUjcyMpF7zWTKpeiJC5scy8fsOT2UR2MSqZoz1QO/wYUX4xQNvcPCrTfF3qz/2/7PbY4tI45yCBhL/DPCXDJcpUF3dg8MbC+mBWDK/vWFYDFau47wL8GxOw/UnCmdliceBkKPjChwreL1Wy4s60vWWkbN02KIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874575; c=relaxed/simple;
-	bh=1Fobwrg8AECZXZe7njdX8d38CGkOJpbWg5fkKH8FxOE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nwPeOf+RYSi87jBGL8VGD8fUllqTP8pvQvYEYjLjOXKwCvGLjtXW5mvc8tKspqbMZaiVdRFkO23uw9tfjFaybS+uMuylyFcZY36Kd5wLGgMRttycySLhhBo6/xDw0tvfElkbj/hjf6nu+Lg1Ui/7p4Y664cyORozY/pyOn+8Fao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y86CtWYC; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791874628; c=relaxed/simple;
+	bh=gFLb20HVXvXXP3zoRRodUfz9UTCptI/EIrxFPeQioNw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LAfy7NhnrfU2NTrQE6DTssUdMuym3sE1YyCyVP2wHnxAeoQyJssuvR2WdiUl65+QK4q/n1XIugQ8f7bdqbkVvlpPmRsSNEyP2a5kSXJ614ZRJknz3gD2nUl+C/J5w4/TE4uOhQNuSbAho0aNPayL71IO1hItnkNcvRe9HQ/xbUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oTi4wuSx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=73VOziSu; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=QOaUIBzs; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=LxJtrxcu; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y86CtWYC"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so25886045e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:56:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791874572; x=1792479372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xl1vkIq2RUKP+g12UFW92ioYIoDQmINIFzje7YSAvf0=;
-        b=Y86CtWYCZCJXmX0RpyUoSZVnBVBhUz798iSmwoOLBOUXS9V6MYljR+6byZSjRNz/+W
-         WmJYFHBO9opo8CcrN8Rdq69ZL2L5veB6tCzpEHTRMYwM0RiFhlpK69XrbgikeoozTv8c
-         qMvI7P5PcaeCjY8wft8JZlV94rRIMONUsHvjRwGEIEpF88UdoAKmFxkMXsOPBS9XTcvQ
-         2RORj867+Vcy46DCK9esuson1fUcPrQhx/QjF5SVBkYbrJ9w43nYlwbj2JeplIKOjKaL
-         iydBWTo23NP9zP/BIMk2XfBqm25QF+X57nynDwi+uE5i9cojw24DQBbENyJAuFONVLTc
-         /7Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791874572; x=1792479372;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xl1vkIq2RUKP+g12UFW92ioYIoDQmINIFzje7YSAvf0=;
-        b=Lj7cxYWEmptkmgwEsvXaXKOU2BjsyIhpR8/rQHoIZINVh9dVhX77lcQ1TDdJP/Qfna
-         ufMVDHI/q4qsvt4r29upfPk/mhQEw/pauiXVvuSVSlqcw5jhbzUTFtRiAKUfE8sJv5ck
-         s0KcoOJGb/l3nOtDxWhAKmpSHla58zLvysrQqgcJ5CWmBlztArJWPuV6fED3yJL2H1Ml
-         eBTt7WT3oIRC+Wj5Zoi0dXrg41m3k1NGQwRMMxlOedIf7AP+1xHet3DEU0U5J5vqQ46z
-         kh+TLmHDBOm13GB3GaAyZ+sr+3m5DMEccpDyg6dRwWKlKHwXAa1DluQALoYhC+prWOyf
-         5FfA==
-X-Gm-Message-State: AFq9FYKQJyoNjsbBr3bBl6yIUmyaDH8IY0Z5UGr1dqtEX4kTT9HYT3dU
-	+cL7VQ56KCOZlT6lrXdy9ACkSZg/nVonf7ZSKwhUNuA0kSUnH4NREWYP
-X-Gm-Gg: AYBFou0JMGi6LnCMfiABpm6OrYJ7P+f/vziHkYe7zoiG6PvxTzjlG70tngcZqu+3iHa
-	rHk1liGqLGLd0OKfBoC/0+yeNcX2Ol1ehTsIByJjAEBnMcxCb2S3jUh/SOVjQyQ4aQQtLXMk9PJ
-	AamJ9nXjny6+ZnYnyTzP1rUUfl42la/1DO0Nl4JVVi40wT4K0X+4otOzItNaYWpaEIEAB5/8idO
-	RycTGppJNWnrJCk0XlOARm6oaV9YrJzUri63EcGypa8EGwaiuZyB6YHSu745pNVByPaKXEg9Qm0
-	zOn+nlAEcNXggR2GM+pz1keoN2CFxauOpHMaWhDyY8BFZxdqrooZ5fJg8LiH9QwjOpXSMmYXiVa
-	S4rahQUbDpB8BHfQe4NorR2i3NMqA2yrh2oDb+vPO6Sy5PKF17C0qlV5g5Xw6dE01PMsRr5NBzM
-	BNigH8lfLKMlXXL/XxRuoD9yLeUxJv0/GbNdufCxFWVtxRHdnCW5hEc+GhqV1HFxNUxLbDNY3ZD
-	bdZuEg3ZQY/1iZWWTg+Pqd3R+4Vt6mSXUXOYLAAtg7oSMWM35Sc5U9vOd0uNAqfOcxm7xfYP8A9
-	tUmeexZvBqrN2lJUYT8so/fFA0OBHi38KN3qHji5k0ut+222YHM=
-X-Received: by 2002:a05:600c:8b06:b0:4a1:7ce1:2eaf with SMTP id 5b1f17b1804b1-4a18e4e0963mr228220195e9.34.1791874571933;
-        Mon, 12 Oct 2026 23:56:11 -0700 (PDT)
-Received: from my-vps.. (ip212-227-39-93.pbiaas.com. [212.227.39.93])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1a1feb78csm154188095e9.0.2026.10.12.23.56.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 23:56:11 -0700 (PDT)
-From: Louis Clinckx <clinckx.louis@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Louis Clinckx <clinckx.louis@gmail.com>
-Subject: [PATCH] media: uvcvideo: skip bulk output URBs smaller than the payload header
-Date: Tue, 13 Oct 2026 06:53:35 +0000
-Message-Id: <20261013065335.2246959-1-clinckx.louis@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oTi4wuSx";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="73VOziSu";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QOaUIBzs";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LxJtrxcu"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 276B51F82E;
+	Tue, 13 Oct 2026 06:57:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791874624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TYrrJxpMgT4bqmH1E9/F0Kp3FqT9uLzM9cFbdnO51M8=;
+	b=oTi4wuSxT/fl/nRlOllX96iOXxrgY3RQcUSrmH/+Je77YO8cNoGGRAXxE8ye4az3KcX+eC
+	vEa4eoLUKhr8cn6esA6/FEy15fmSkcxuvVG4ThsQeJWjHZFmHqMN5w7wsvTKq+/Lj22PVt
+	YQwVH2Npz77EJeo+BPSX0h++h4h/mKg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791874624;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TYrrJxpMgT4bqmH1E9/F0Kp3FqT9uLzM9cFbdnO51M8=;
+	b=73VOziSuKjquxjlLFLUOqY0PJJURTp+KpDL4W6NfLWMbdlgDJNdaHQpt2a/fQOhUl+1EgF
+	E3QRly4msjUgVFAg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QOaUIBzs;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=LxJtrxcu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791874623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TYrrJxpMgT4bqmH1E9/F0Kp3FqT9uLzM9cFbdnO51M8=;
+	b=QOaUIBzsn38TsfLyG2/SYA/O371si/NyUPbJBABcTTki0uKyUg6PyqME3PYLsxGsfOKMhp
+	1oTV7oaciQIBFch3fAn1BWD5SzHnsNxP1yy/49Fk2PxZPEBcIPzc726Vp+VZc/nIrPDbxa
+	EnikbBlRWIutpKzxTtjDH5s0htMaEjc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791874623;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TYrrJxpMgT4bqmH1E9/F0Kp3FqT9uLzM9cFbdnO51M8=;
+	b=LxJtrxcuNbr08MhpN2Az6HCcl7iG2BZThwjIcGYSLueGO5XCWfD7naNDmBYMrwwBJNVQ8J
+	SgkG8oTM/ayEeXAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 858FD1349D;
+	Tue, 13 Oct 2026 06:57:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /8u2FT7WzWqFPwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 13 Oct 2026 06:57:02 +0000
+Date: Tue, 13 Oct 2026 08:57:01 +0200
+Message-ID: <87h5iqozpe.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	perex@perex.cz,
+	tiwai@suse.com,
+	phucduc.bui@gmail.com,
+	kees@kernel.org,
+	blum@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH] ALSA: jack: Remove debugfs before freeing unregistered jacks
+In-Reply-To: <CAFRLqsW7Y8YZok60ezLw9WKDXQMWd1=3NDQ5fxAoa+dotFRAUA@mail.gmail.com>
+References: <pm-pmb-e1e7490bbe7ba1b3c44a-v2-3e3b6315a18c02ced60d@gmail.com>
+	<871p9vidio.wl-tiwai@suse.de>
+	<CAFRLqsW7Y8YZok60ezLw9WKDXQMWd1=3NDQ5fxAoa+dotFRAUA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-2022-JP
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 276B51F82E
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.de,perex.cz,suse.com,gmail.com,kernel.org,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
 
-For a bulk video output stream, uvc_video_encode_bulk() starts each
-payload by writing a fixed 2-byte header with uvc_video_encode_header()
-and subtracts it from a signed length counter initialised to the URB
-size:
+On Tue, 13 Oct 2026 06:21:22 +0200,
+Cen Zhang wrote:
+> 
+> Hi Takashi,
+> 
+> Takashi Iwai <tiwai@suse.de> 于2026年10月12日周一 15:28写道：
+> >
+> > Could you verify whether the problem still exists with the latest
+> > sound.git tree for-next branch (i.e. for 7.4)?  There have been fixes
+> > for the races at the disconnection, and snd_card_disconnect() became
+> > already mandatory before the release.
+> >
+> 
+> Thank you for the review and pointing out the recent disconnection
+> fixes. I checked
+> sound.git for-next at 8d70e364e866. A potential remaining issue is in
+> the cleanup after a failed HDA codec rebind on a live card. The call
+> paths below show how a newly created, unregistered jack can be freed
+> before its debugfs entries are removed.
+> 
+> For the generic HDA codec driver, jack creation follows:
+> 
+>   hda_codec_driver_probe()
+>     snd_hda_codec_build_controls()
+>       snd_hda_gen_build_controls()  [build_controls callback]
+>         snd_hda_jack_add_kctls()
+>           add_jack_kctl()
+>             snd_hda_jack_add_kctl_mst()
+>               snd_jack_new()
+> 
+> snd_jack_new() creates a component in SNDRV_DEV_BUILD. With
+> CONFIG_SND_JACK_INJECTION_DEBUG enabled, snd_jack_kctl_add() publishes
+> its debugfs files. Even though the card already exists, this newly
+> created component is not registered yet.
+> 
+> If a later jack-control allocation fails, the error returns to
+> hda_codec_driver_probe() before its snd_card_register() call. Its error
+> path reaches:
+> 
+>   snd_hda_codec_cleanup_for_unbind()
+>     snd_hda_jack_tbl_clear()
+>       snd_device_free()
+>         __snd_device_free()
+>           __snd_device_disconnect()  [skips SNDRV_DEV_BUILD]
+>           snd_jack_dev_free()
+> 
+> snd_jack_dev_free() unlinks the controls and frees their snd_jack_kctl
+> attachments before calling snd_jack_dev_disconnect(). By then the
+> kctl_list is empty, so snd_jack_remove_debugfs() has no entries left to
+> remove. The card-level debugfs directory has not been removed by a
+> snd_card_disconnect() call along this cleanup path.
 
-	int len = stream->urb_size;
-	...
-	len -= uvc_video_encode_header(...);	/* always returns 2 */
+Thanks, now it's clearer.
 
-An output device can describe a bulk endpoint with wMaxPacketSize 1 and
-negotiate dwMaxPayloadTransferSize 1, which leaves stream->urb_size == 1.
-len then becomes -1, and uvc_video_encode_data() casts it to unsigned:
+IMO, ideally speaking, the debugfs entry addition should be done at
+the registration phase, i.e. snd_jack_debugfs_add_inject_node() should
+be performed in snd_jack_dev_register().  But it'd be a larger change,
+so I take your patch as a quick fix for now to for-next branch.
 
-	nbytes = min((unsigned int)len, buf->bytesused - queue->buf_used);
 
-so (unsigned)-1 does not clamp and the following memcpy() copies the
-whole frame past the one-byte URB buffer.
+thanks,
 
-A URB that cannot hold the 2-byte header cannot carry a payload, so skip
-it instead of letting the length underflow.
-
-Signed-off-by: Louis Clinckx <clinckx.louis@gmail.com>
----
- drivers/media/usb/uvc/uvc_video.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1701,7 +1701,14 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
- 	if (buf == NULL) {
- 		urb->transfer_buffer_length = 0;
- 		return;
- 	}
- 
-+	/* The 2-byte payload header must fit; a smaller URB would make len
-+	 * underflow and uvc_video_encode_data() copy past the buffer. */
-+	if (len < 2) {
-+		urb->transfer_buffer_length = 0;
-+		return;
-+	}
-+
- 	/* If the URB is the first of its payload, add the header. */
- 	if (stream->bulk.header_size == 0) {
+Takashi
