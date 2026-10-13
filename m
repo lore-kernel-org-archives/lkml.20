@@ -1,124 +1,257 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105FC48F022;
-	Tue, 13 Oct 2026 05:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29DA47AF61
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791870300; cv=none; b=eIORZw4n+LAnwvhPrhtu7pY0RBl9vc2STu1zh7xFGV7NhQnnZxQsfSOcgQr4NyD+jwiNaL4toZb0YPNL2CXddnShTsH4cinG6VWd4mPT0wWSF+q1udGbsKZ6SSGF0uMXaCEr99hMQqMCWk2+MSQBWlHJ5KAwbTROECW3+75ERLU=
+	t=1791870324; cv=none; b=du3ZEk+jwc3GV52oy2H53yoNw7U52pX3rRudz6P3HD0v9iVcx1rwTJCYsF4Jknniu+gTyr5OVSG9k1NejvwDyBBAG9/dtW3K1NPuX3EQnbk+MPEqU03y/1fyBPxPwVLRUd9y2IQTd1gigQJP/TLAjz26+qXuznfm60SDVnbIlrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791870300; c=relaxed/simple;
-	bh=2gUcawCnp6FwIHyjtCutpnyuCvSTjVglyDNOEdgSQCI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=p7jbkoJpR6PgjXYE1G4GBTSe3gMIM+8Sxb+yZ0JPcAwVJS3rrV06+ithbUtMRss1opoY3nFoHT0eodWIbENoXmGsGGDlRu1GufwoxTQHjVaeWInTi7w7LTf7iC8U3MhM3KhLOOe50gGMjqtXkaEc496cSTYOcI6NJyW+QHl8Z5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2M4LReO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791870324; c=relaxed/simple;
+	bh=wV7FhRlEjhTf3ISX54Fesi0bceDxrcfOuLUheo4X1fA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u649r1eZkAnb5d8bNls/WNwpc6zR5C0ExwUxCLijf8mftUaiHWXdfE60sYFAKBiszt6EmO0cwZCTm9wy69PEfPMT+2xs57o08a7wuX1999oPyBXwB1BT4fPRZfmxq0ipumlei09VhEPvB7GzFoUk0dDDFdz/1jffRigPjs5NgR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com; spf=pass smtp.mailfrom=tyhicks.com; dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b=bXzBIRgG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=E6MAvCJb; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2M4LReO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09431F000FF;
-	Tue, 13 Oct 2026 05:44:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791870298;
-	bh=QkhKxBvIrBEXknfY7QBDd71iJ0rLIgjiEN2rQOIW9lc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=N2M4LReOz1YyDxpDkoScahpp5TFems4Rs6AM5jdKS0OKWh0x0mrhbO1npDlx9dIsl
-	 4rFBrS0ZNM7MTzu2aDiBUaswyJJ+DCY6358pAmTMjC24wuq17ROnEPFgs4sKcHLTgh
-	 yfWTUfeI623MRZwL+bAi5ZWna+5qwd+p+p0TPggDppnG3NoelSWiciZpIPlKhAl9Q3
-	 ekn6zS3wY69R7e+H+0IqLjo6g84x34c2eCIvEBT1WJ4YMnnXrhju2JQJ0AtcTt2W1U
-	 XVioqTKFsQNtDePLBJROVXvGsSbQ2EfZBGbdaOZGOui4vS2CBp5AoIKrkYDiFlE9cU
-	 sz4J1qFfui6RQ==
-Subject:
- Re: [PATCH net 2/2] bnge: cap RSS contexts and RX rings to the RSS table size
-From: netdev-bot+sashiko@kernel.org
-To: vikas.gupta@broadcom.com
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com,
- vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com,
- dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
-Date: Tue, 13 Oct 2026 05:44:57 +0000
-Message-ID: <179187029731.434549.16806543347969284166@kernel.org>
-In-Reply-To: <20261012054325.1782819-3-vikas.gupta@broadcom.com>
-References: <20261012054325.1782819-3-vikas.gupta@broadcom.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b="bXzBIRgG";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="E6MAvCJb"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 160C77A0116
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 01:45:22 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Tue, 13 Oct 2026 01:45:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791870321;
+	 x=1791956721; bh=NoaNV0nM/PsGcw4H0EAUZvKAAmwB0FknruDGkw3KrU4=; b=
+	bXzBIRgGCLCS8SNlmCM9PmfCUH7FUDPxh81Sctt/5D3vyLn7bP9IBRHwyAr6qemt
+	MwrQS6+/tISFuu7EN7DUrQ5qwjhtsN+VOUhAK+q8/umzxIYJ0GSk4wHjLnyunAjY
+	8mgvVHU1ge34690Cq4M2/4qgSCMu+6xzrKwApQVZgQTuN6IoKkMPDPyFZgk0+EpL
+	ie8QWW4DuGICoR0iki79y6/OiM8rO+4zS5amWRF6Mlo1D8n7KvqcZGFwbt3m0cI/
+	cm4tiLCImprmifeRUeq7iIJ/ve9NaYNjRCXSxW1ME7qJESJwyOtP6xWEgkKbX+6C
+	LQB04MXy37XFf/JcQaQGNg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791870321; x=
+	1791956721; bh=NoaNV0nM/PsGcw4H0EAUZvKAAmwB0FknruDGkw3KrU4=; b=E
+	6MAvCJbdNwUM7zwYRJFsDzJQujftbV8mDScwCxl4rDBOT61isLcbb0L+3WXOh1CW
+	822bt3GesWyh1iyQTuPG2XNM35qQyueRP1fLQRR9k29A3dD70WJtY0rbbe1DxCi4
+	B3+dkq/RE3l5tDIS570axG5ECzakhLJYtPgzuipaUOftekdxibUmPzHCKsqlf4jn
+	98GT7ptG/HGAmNMxLJtCHZ2DfSkFUVnBwSV31sdEpagCs91Mx7fbT+ifqji5KSNb
+	InqaLdq1cBQibkqCslsuWW1EWnvqCGY8C+7cyc52ibbkzi7hzBYrYyddh9JqaTtS
+	a4KjOnRm/ArwJF6v+sR9Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=tyhicks.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791870321; d=tyhicks.com;
+	mf=PGNvZGVAdHloaWNrcy5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:SLsK0PZcqcHfIom51G6mts0xBwguk/FeeLPwyLaobqaVOIP
+	GKYUeSinFB+wm+oBkvl/xIK4kLz+zaHvW7dNUwaOGqZ2adGRugBaNz3H0c/MPSnJ
+	6Ype5a2/XI5HvcPaRCRnhTg38FRlwmk5p+NNFRtHS812kK5UGlsZE6qWmNqF6dz1
+	QP5jr3ITh/M+OSm6Xjqw9zK1gzylaaLk5DkwsN41qgP/guOQxq6ijJdWrJmeWV75
+	ZU+QH3l2pM+u69IZrs8NOJdGlvpPevWCYkDRpHoUCn1PoTa7we7fBU8KWney0QO2
+	AC4758YgYuO+Ftz7tEcJjAWuZmMn2Qv5b7aR/nw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:2vrpf0zd9oFJZTU95fOScM7nUGhLDbYykYev7yVJm4w=:wV7FhRlEjhTf3ISX54Fesi0bceDxrcfOuLUheo4X1fA=;
+X-ME-Sender: <xms:ccXNak8NHpwuv4qnGOn5LtBaTt04bQTyUMxBlRBflmSyVu9r-4UT9w>
+    <xme:ccXNamAUgiP8qDmHYtoiFNnzhkH8nsgh_GmQK6nVekNW-_dpb_iwoCZ9gyJQmzTo_
+    FbEpovbnbZAYlGvpPIO17nnjMbOQdRQfvLs8xuVUElqmrU0gS54JYA>
+X-ME-Received: <xmr:ccXNahS8pmt26cOrLGeg1iBZ0_RixHWPIcDRLxtFcPSQe5sA_1_a1w>
+X-ME-Proxy-Cause: dmFkZTFQMmnHYPkDcZKHQ4Z7CKfzl9J4sCnLdeM6pyEMXn3c9PjPdV9qbUkJL5TAcho++b
+    X7OkBDR1MlIDSrq2fHqEyjVyiwBzDUJVCb6xY878fivlR0lWSjXZZJyAHe3JIBKsSEuw8B
+    8F0UwXFXAbytWOiaYJw98X7Vx20e+bIUsRXMw8crc8c80UTLwtdeU4KUMlLKuq66wvSp6j
+    7C/wlKZoZ6ZGdxE502tqePcVTjZgF9KtYubpaPmqhw+hQmG1Wz9fyzVxbOPbDK5jNNBolg
+    5VIBw6lEg9/xLh0ERzh23E+l1jStw6Vf/7JOGzvoqXyLaC5Vu/gvOvR51Z32e0dGGYO6m7
+    S8Jwk7v3hDaV6oTvFz6UGE6TRThfz1FI961jfMQVe5I64RnRBjDrcc+DcfRXhL6g2bDseF
+    bT1OAgMqTeUBUVLD0024GhuUdZ2t+EUuo2gGuJUYxgH2RN/j9oObccxrqahHeabWEdHBxE
+    GxxJFTN6EbjZbblVZ3qeKASFJeLTrXhDHRZnx+KcSVfIj6a9oiNRsflDBU2+R8Pee8MrZN
+    mW8bX3eCBPkXsngW22CLu7I+0GF04oC6cIpUWuBI3RlUEYpYscGhqAxd8QOOav66b8XoHT
+    CXJYZZb+cHwsGmWL7YizmRHrBA4loEjm2COWh6VHnKGm7/GoY8oHt+ddRhqA
+X-ME-Proxy: <xmx:ccXNalsrmOxrhWacRG5mni5bVkS3l5Z2hFUOcvM3Gcw6I_4HV0F5CA>
+    <xmx:ccXNal2uqmMPqeI-XjBusCk6uBI4zFWesLBOsxZIEj20DeId6Hwqhg>
+    <xmx:ccXNauXP3SopfoFBPgsWgO-odWwX_HdjWPkFFrvGc1t-jypaLnhUtQ>
+    <xmx:ccXNaoIembHCecBNla4mhWzrI_B5MdLZOZPZzb1vq8LAU2Tm4P1xyA>
+    <xmx:ccXNav0_jWSm5DTEkKEbfgbFZpcEnmJmgCRkCPXHNOt730Z6BpHujwp7>
+Feedback-ID: i78e14604:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 01:45:20 -0400 (EDT)
+Date: Tue, 13 Oct 2026 00:45:13 -0500
+From: Tyler Hicks <code@tyhicks.com>
+To: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Cc: Thorsten Blum <blum@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
+	Christian Brauner <brauner@kernel.org>, ecryptfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ecryptfs: replace ecryptfs_from_hex() with hex2bin()
+Message-ID: <as3FaQ8JLWmxrj6T@elm>
+References: <20260829194528.5652-1-drifabdelmalekmohamedsaid@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260829194528.5652-1-drifabdelmalekmohamedsaid@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Hello - Thanks for the patch!
 
-Low priority / nit picks for your consideration:
+On 2026-08-29 20:45:28, Drif Abdelmalek Mohamed Said wrote:
+> ecryptfs_from_hex() relied on the deprecated simple_strtoul(). Rather
+> than patching it to use kstrtoul(), its intended replacement, remove it
+> entirely and switch all call sites to the generic hex2bin() helper
+> from <linux/hex.h>, which already provides the same functionality.
 
-- [Low] The commit message says the overflow happens with "577 or more RX
-  rings".
-- [Low] The commit message says the pad computation "in
-  bnge_set_dflt_rss_indir_tbl() and bnge_modify_rss() underflows into a…
+This breaks the build, as none of the callers check the return code yet
+hex2bin() is marked as __must_check in include/linux/hex.h:
 
---
+  CC [M]  keystore.o
+keystore.c: In function ‘ecryptfs_write_tag_70_packet’:
+keystore.c:717:9: error: ignoring return value of ‘hex2bin’ declared with attribute ‘warn_unused_result’ [-Werror=unused-result]
+  717 |         hex2bin((u8 *)&dest[s->i],
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+  718 |                           mount_crypt_stat->global_default_fnek_sig,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  719 |                           ECRYPTFS_SIG_SIZE);
+      |                           ~~~~~~~~~~~~~~~~~~
+keystore.c: In function ‘write_tag_3_packet’:
+keystore.c:2183:9: error: ignoring return value of ‘hex2bin’ declared with attribute ‘warn_unused_result’ [-Werror=unused-result]
+ 2183 |         hex2bin((u8 *)key_rec->sig, auth_tok->token.password.signature,
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2184 |                           ECRYPTFS_SIG_SIZE);
+      |                           ~~~~~~~~~~~~~~~~~~
+keystore.c: In function ‘write_tag_1_packet’:
+keystore.c:2019:9: error: ignoring return value of ‘hex2bin’ declared with attribute ‘warn_unused_result’ [-Werror=unused-result]
+ 2019 |         hex2bin((u8 *)key_rec->sig, auth_tok->token.private_key.signature,
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2020 |                           ECRYPTFS_SIG_SIZE);
+      |                           ~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
 
-bnge: cap RSS contexts and RX rings to the RSS table size
+> 
+> Update call sites with the (u8 *) casts required by hex2bin()'s
+> signature.
+> 
+> All call sites guarantee src is composed only of valid hex characters
 
-This patch caps the value returned by bnge_cal_nr_rss_ctxs() at
-BNGE_RSS_TABLE_MAX_TBL. It also limits max_rx in _bnge_get_max_rings() to
-BNGE_MAX_RSS_TABLE_ENTRIES, so the RSS context count and the indirection
-table size fit the arrays, which hold 8 contexts and 512 entries.
+I don't think that's true. The first call site I looked at,
+ecryptfs_write_tag_70_packet(), is using a src of global_default_fnek_sig
+that's initialized from a mount option that ecryptfs_parse_param() only
+verifies is a string. There's no hex character check that I could see.
 
-> bnge_cal_nr_rss_ctxs() has no upper bound. The VNIC holds at most
-> BNGE_RSS_TABLE_MAX_TBL (8) RSS contexts, in fw_rss_cos_lb_ctx[] and in
-> a 512-entry indirection table and DMA buffer. With 577 or more RX rings
-> the function returns more than 8, so bnge_setup_vnic() writes past
+I didn't look at the other call sites.
 
-[Severity: Low]
-Is 577 the right threshold here? Here is bnge_adjust_pow_two() in
-bnge_resc.h:
+> and that src is at least 2*dst_size bytes, so hex2bin()'s stricter
+> error handling is never triggered here.
+> 
+> Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+> ---
+>  fs/ecryptfs/crypto.c          | 18 ------------------
+>  fs/ecryptfs/ecryptfs_kernel.h |  1 -
+>  fs/ecryptfs/keystore.c        |  7 ++++---
+>  3 files changed, 4 insertions(+), 22 deletions(-)
+> 
+> diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
+> index e67119b6029c..7e802fd631a6 100644
+> --- a/fs/ecryptfs/crypto.c
+> +++ b/fs/ecryptfs/crypto.c
+> @@ -29,24 +29,6 @@
+>  #define DECRYPT		0
+>  #define ENCRYPT		1
+>  
+> -/**
+> - * ecryptfs_from_hex
+> - * @dst: Buffer to take the bytes from src hex; must be at least of
+> - *       size (src_size / 2)
+> - * @src: Buffer to be converted from a hex string representation to raw value
+> - * @dst_size: size of dst buffer, or number of hex characters pairs to convert
+> - */
+> -void ecryptfs_from_hex(char *dst, char *src, int dst_size)
+> -{
+> -	int x;
+> -	char tmp[3] = { 0, };
+> -
+> -	for (x = 0; x < dst_size; x++) {
+> -		tmp[0] = src[x * 2];
+> -		tmp[1] = src[x * 2 + 1];
+> -		dst[x] = (unsigned char)simple_strtol(tmp, NULL, 16);
+> -	}
+> -}
+>  
 
-    u32 blks = total_ent / ent_per_blk;
+Please don't leave two empty lines next to each other.
 
-    if (!blks)
-        return 1;
+>  static int ecryptfs_crypto_api_algify_cipher_name(char **algified_name,
+>  						  const char *cipher_name,
+> diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+> index 58165928ed1e..be91f7c3fc58 100644
+> --- a/fs/ecryptfs/ecryptfs_kernel.h
+> +++ b/fs/ecryptfs/ecryptfs_kernel.h
+> @@ -47,7 +47,6 @@ ecryptfs_to_hex(char *dst, char *src, size_t src_size)
+>  	*end = '\0';
+>  }
+>  
+> -extern void ecryptfs_from_hex(char *dst, char *src, int dst_size);
+>  
 
-    return roundup_pow_of_two(blks + 1);
+Same here.
 
-With rx_rings = 512, bnge_cal_nr_rss_ctxs() passes 511, so blks = 7 and
-the result is 8 contexts.
+Tyler
 
-With rx_rings = 513 it passes 512, so blks = 8 and roundup_pow_of_two(9)
-returns 16 contexts.
-
-So the overflows described here seem to start at 513 RX rings. 577 is
-one of the values in the 513..1024 range that also give 16. The code
-change caps max_rx at 512, so it covers that whole range. Only the number
-in the message looks wrong.
-
-Could the message say 513 instead of 577?
-
-> vnic->fw_rss_cos_lb_ctx[], bnge_set_dflt_rss_indir_tbl() and
-> bnge_fill_hw_rss_tbl() write past the indirection table and its DMA
-> buffer, and the pad computation in bnge_set_dflt_rss_indir_tbl() and
-> bnge_modify_rss() underflows into a huge memset().
-
-[Severity: Low]
-Where is bnge_modify_rss() defined? I couldn't find a function by that
-name under drivers/net/ethernet/broadcom/. bnge also doesn't seem to have
-a set_rxfh or set_channels path where one would live.
-
-The only pad underflow site in bnge seems to be in
-bnge_set_dflt_rss_indir_tbl():
-
-    pad = bd->rss_indir_tbl_entries - max_entries;
-    if (pad)
-        memset(&rss_indir_tbl[i], 0, pad * sizeof(*rss_indir_tbl));
-
-Was this reference carried over from bnxt? Should the message list only
-the sites that exist in bnge, i.e. bnge_setup_vnic(),
-bnge_fill_hw_rss_tbl() and bnge_set_dflt_rss_indir_tbl()?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012054325.1782819-1-vikas.gupta%40broadcom.com
+>  struct ecryptfs_key_record {
+>  	unsigned char type;
+> diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+> index 51651314b7a6..dcfb2e5fa88e 100644
+> --- a/fs/ecryptfs/keystore.c
+> +++ b/fs/ecryptfs/keystore.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/random.h>
+>  #include <linux/scatterlist.h>
+>  #include <linux/slab.h>
+> +#include <linux/hex.h>
+>  #include "ecryptfs_kernel.h"
+>  
+>  /*
+> @@ -713,7 +714,7 @@ ecryptfs_write_tag_70_packet(char *dest, size_t *remaining_bytes,
+>  		goto out_free_unlock;
+>  	}
+>  	s->i += s->packet_size_len;
+> -	ecryptfs_from_hex(&dest[s->i],
+> +	hex2bin((u8 *)&dest[s->i],
+>  			  mount_crypt_stat->global_default_fnek_sig,
+>  			  ECRYPTFS_SIG_SIZE);
+>  	s->i += ECRYPTFS_SIG_SIZE;
+> @@ -2015,7 +2016,7 @@ write_tag_1_packet(char *dest, size_t *remaining_bytes,
+>  	int rc = 0;
+>  
+>  	(*packet_size) = 0;
+> -	ecryptfs_from_hex(key_rec->sig, auth_tok->token.private_key.signature,
+> +	hex2bin((u8 *)key_rec->sig, auth_tok->token.private_key.signature,
+>  			  ECRYPTFS_SIG_SIZE);
+>  	encrypted_session_key_valid = 0;
+>  	for (i = 0; i < crypt_stat->key_size; i++)
+> @@ -2179,7 +2180,7 @@ write_tag_3_packet(char *dest, size_t *remaining_bytes,
+>  	int rc = 0;
+>  
+>  	(*packet_size) = 0;
+> -	ecryptfs_from_hex(key_rec->sig, auth_tok->token.password.signature,
+> +	hex2bin((u8 *)key_rec->sig, auth_tok->token.password.signature,
+>  			  ECRYPTFS_SIG_SIZE);
+>  	rc = ecryptfs_get_tfm_and_mutex_for_cipher_name(&tfm, &tfm_mutex,
+>  							crypt_stat->cipher);
+> -- 
+> 2.43.0
+> 
