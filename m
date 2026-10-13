@@ -1,235 +1,492 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012025.outbound.protection.outlook.com [40.93.195.25])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EF04EF14C;
-	Tue, 13 Oct 2026 12:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791893623; cv=fail; b=ar9vTaLwxpcBJzOwm3sEaMB9M2Oj1IpxfyMKSzjoKr0MozHr0aqEEgchgyajBrt/MdfjVdly1aDVK31l52a3IutNF5z5g5ScnzIehTOxRwQGonN24+hZshRibcbS3NGg7NSRsiA/bDsQoQp6VQY2nw/yzK0lJrXdPcoJglH04Jc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791893623; c=relaxed/simple;
-	bh=nASlrNDzaz1FqdO6WadmHRLLnzv0Mv8JuQEpNfu9YXk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=u6cPeiR5KvqFhWqy7om4NDENtdw/pEzC88nBwq68SwThBOwInndgCmuzaSTMEzwZyi3wdW+3n8CdVtw8o3wCbpXJvRfOUMDlqMfQX/i5vf+yqookExHmFXciZTbCWlAPSAIjO7qxKZ26Vy0VJ9iob1beoSHSVIIq1v9wjcGnAfo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=vTgZB6jw; arc=fail smtp.client-ip=40.93.195.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCE84F7970;
+	Tue, 13 Oct 2026 12:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791893668; cv=none; b=hzItQFoL9kNdrJaQzkPpT6+hintINRYgAohEkeGMaZ7bD74x/8CPuXLU8DiR0xGFtnoJnQwDZLtApGucR+9NDv4SVUlvEbv1qdUGaZdIMwMUJpTP8q4iVICZHBF7xgJDPslcsOeYEun3WGOrUh9Xy5aD80rq8BQSwowLvmwtKNw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791893668; c=relaxed/simple;
+	bh=cZ4gkNCXIea2yzFLNkymPOUwaS3JarTJyXSSC9orllQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=D88qbiNwo+q+dJ7sS2VQYoBiQy8CKJ5R4IKKvyFxysLi58kyoMCIcPaGOtoncdTY0t5J779wUnAzEYuit/RcELu69eFxD65hJzWMI2Sdg17pMv6oxLJrk1hQlxTf6loXDL05gaB8JM8DFYMo9cislqMhHxnoUJjvnKtMcxFPOCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=jSz3vTvK; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="vTgZB6jw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n2FTiYOGzs/HIDtifNom2flkFH3XXM0l0x+KvXpHBHqhPGRl53AwWM2WfXnNlC/uV2Prdqf6Gv4D5ssi8klmV3O7ZzNOUjMTToUoui5FyOQX+7lEaEQ/LuI5LQdcw+8HrNbFQ2+XzxiHL/dlkce9JGB7z7PgH/jGXTTVrIEvcEkP1owfjP9QHNJjVUKiUDKp1MGPOV7z2vG1urmm73br/tgek7xv6ufQN0w3t+mnlrW7gewEAlsrmdeFUHRPwRCfxckqDoeNqiEeozbAGgNlHj8Z7amYjYQpwWc5Dx6ntLIU0i83Xduplv29J6AeXnPOW0DpgsCpbLGnL+9LBZgc4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EpRoEh7vBlY9soQ1DXe54XyrmWydEWufoCt+y7zZXiE=;
- b=IwyjIWl0Acae/ab7PuW5LOBhiuAmP4rnwhZjGtxXaVFa8UMMnVQKkCLMSZGGUzPaaZt5oi9kThIhfdshZnX5scbnRtPwapJOQAccLB21i2opHO/mPn5JJ4vgDurF5xO7dk6adlOxp1kKf8Qo34dC0uQ1RGspp5W0jGplo98pR9Cg/+ROcyCx/6Qf6+VtVMA0Dnc/O/RMG06Aaf3qrRHaNhZZ8EZN0tJijzNUEe/c/DkTxFUE7jVk7WgI6g3A39K4dnkPf0KKxoX2COCJeS5ZY2dSv5n0Wxpi/BWeOJ+WBpiIMTRDMIPXjn9haq2GBzvkTkzNkI2FAFXqW87ML9fB0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EpRoEh7vBlY9soQ1DXe54XyrmWydEWufoCt+y7zZXiE=;
- b=vTgZB6jwwQmHCwiTLkvmx9cHW78+iX/gmJUPgb8jtpaYefn11laNSRgdNS5lgaAsWfKPAK/nLRqad9l9sxtfDxqofTfpXltb+sBUNVk8OezqU5j1O9FojRu6jm1VVlLi41NpsTUD5iF21maNsR7txFFlrbCca7q7xS9y77D7d30=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8903.namprd12.prod.outlook.com (2603:10b6:610:17a::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 12:13:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 12:13:35 +0000
-Message-ID: <3e3e0974-20f9-4aaa-a6b8-a7fb4727ad8e@amd.com>
-Date: Tue, 13 Oct 2026 14:13:27 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] dma-buf: Annul dmabuf->file on file release
-To: Matt Evans <matt@ozlabs.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Zack Rusin <zack.rusin@broadcom.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>,
- Alex Williamson <alex@shazbot.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, stable@vger.kernel.org
-References: <20261013120211.135807-1-matt@ozlabs.org>
- <20261013120211.135807-4-matt@ozlabs.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261013120211.135807-4-matt@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR05CA0003.namprd05.prod.outlook.com
- (2603:10b6:208:36e::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="jSz3vTvK"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2Exo42017848;
+	Tue, 13 Oct 2026 12:14:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=Ykohq2hyalPteRG/N
+	SqfLGIk6uqasw0mmp7z8Gfbo/0=; b=jSz3vTvKhDmemqSfR0HPsHw6oGdc5JLYv
+	f9kZnPFbPNNQPc41eSSA2ILWTm1EEDVZlnBCmFM1E8WZVf0WjHkwV71tPgy+zF/n
+	2HjZiq+dhMCIzb5Idt4SSez0bPLuRtJiB0+z/6nXQYLjj3lksHCYBCLODqgCBlPV
+	ltZQ6dMFq9BMjLthFc+0lXooww8HyYYgFzmLgkWs2MMKSuoG6cyWW8wsItltHKkj
+	goE6nRr0pHeJsoelnO30vzOwtfKbPmJcpAesN0FXs6HI0rUCRGdPrdLRnDY6vnlY
+	y1Wo4q615cX6G98PA3ljFvd77eIaGVjG2Zn9qDL7a+U5ov7Gvdnvw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugdvvm-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 12:13:59 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8UQ7F1440163;
+	Tue, 13 Oct 2026 12:13:58 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wg1gh8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 12:13:58 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DCDoof25821798
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 12:13:50 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BCB5B20049;
+	Tue, 13 Oct 2026 12:13:50 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5E13620040;
+	Tue, 13 Oct 2026 12:13:50 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 13 Oct 2026 12:13:50 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>,
+        Sean Christopherson <seanjc@google.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>,
+        Steffen Eiden <seiden@linux.ibm.com>
+Subject: [PATCH v10 02/24] KVM: Move architecture capability Kconfigs to header defines
+Date: Tue, 13 Oct 2026 14:13:43 +0200
+Message-ID: <20261013121343.1997112-1-seiden@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930173441.66762-3-seiden@linux.ibm.com>
+References: <20260930173441.66762-3-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8903:EE_
-X-MS-Office365-Filtering-Correlation-Id: b42d11c1-c03d-4004-8b46-08df292367e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|261009223027099003|10067099003|4143699003|11063799006|6133799003|22082099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IqkspwH5TVRROaQgH1IA4ezGQkXt9+2yxuddTWHTRy8uQhLioL/9WGAYwpCuqXyfjnzBy0UHwMDW2lpWBU+2E9BWVaiseVAcKxZHPzOLQwm+hVTeluIOkVRMN1RLq/WjiGHaewUcVuK8f/wZNM+1ANd6PE9PSm0YmywOVIh29FyYT07bl8uPIMJI373cEpSB5Fr7dIkvX/vD8bDHugC99kSxbal7Xn/2mqpqbHNE4rkljXNPsJyPo5bpFj0Cs88qJHtEefOr4n5qlp3MfKcC/K+OzlMwt11p0ZpaGttpVgx0TqDNXrixFmzeg1vie1HLnNK2ohYtMoOmzxX6s7B3C+/qltA/36h63dKHlwUw5y/pDsfso41lhPo5R0icHdCRd9UJbnSQbaYbE3wyIwLJmbFau9TrgvYdLRBbcxrvEcYQvBcohy4tbzE7e8ogfIb9tkv6cIjLMWfQp7z5jeoNg79r8O1sgRbHyuIBWOSuPrr+/ZW4xniNk5YasK5KPoAmQeMgOp5CpzwFgF2bd9WxDe4bo6NDNfEVpqndPrThZkK2g+u1Y8tte+IzPfjxNzQ0EY13vnwMvPiPch92ldsXcBQ5KQDjIx5gvUNhv1r7a5lLNiUEgC7uPy60BkYcuKddoSK/yWTZWze+DZ3BBreI+c+ttq6zf6sU4gQl1zWOaoc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261009223027099003)(10067099003)(4143699003)(11063799006)(6133799003)(22082099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TGQwc3dVZERtK244dFMxWExjZVREeFRvTFFiTFNSYlduYmVYdk13cHJWSG9z?=
- =?utf-8?B?R2dHYzZub1ZPYlh0bG1nSHVLUytGMitHQTl5REtmWVF6aGNaUEc2cUNBMkNq?=
- =?utf-8?B?ZjcwRVJoTWxyd2RCKy9nQVUvUm5qWThZTlgzL2dRZ1pwWGE2eGNpWmpVbDFk?=
- =?utf-8?B?VTRJSEE1a0s1TFBsVEdrQ3hRU1lBa2tDc3UyN3B2NDZDdzIzVlZlS3dSNU1r?=
- =?utf-8?B?SXFDSGp3dlBzcVFsSEhMWVkybnE3Lzd2cHRXN1FlNHNFclpLUWo3UlhtaVJu?=
- =?utf-8?B?ZDE2UU5YajNVcUltcHNqa1RwYTlnWHBlbGNzQWJKVDBnMDNBTHZNRmhVSERM?=
- =?utf-8?B?M0NUdEg1QW40Q3ArZVFxalYzVHpKTHJzVGhZbXVKUGZVQ0hCdXFCNGl3UnpF?=
- =?utf-8?B?dFU2WjJMWlRqaE9tTUc1bERiQThUVjVURFQ2UXdXTjg4YUFNZGFFb2hMd0Zz?=
- =?utf-8?B?M2hhQ0xVdURCQ0NuRG1VOXV0SXl2SFFqWWVxYVF0UlJ4NmtwWDJ2SFNtMTJM?=
- =?utf-8?B?dllxYTZwVFdCWUh3bTh0dGJ3ZUtjRUxVdXFiYUZDK1ZER3lYY2dEd1AzMnNX?=
- =?utf-8?B?VUxkN1VnVnpGU2gwZGVPMFkvcUNqYkMrelVjYkFFbDRqNlVjWWJBbEZnRW43?=
- =?utf-8?B?RGlDbzkxTXpkWmJsSWJkeVBLYUxiWjd4ZHVzVEY5RGJyWlYycy9DOWJTdlgv?=
- =?utf-8?B?Vi9YNjNldGVtd0RGSzZUZ1BYaUhWcnRCUVVOTWcwcndQWXNNT0xxNVFUUHZp?=
- =?utf-8?B?S1VSWW9FWHdGRzRTRXZuSVZvcWZBOTM3L0xFZWJ6WE5aS2pLdHJSVEoxMVJX?=
- =?utf-8?B?WXY3MGgxOVp3NnBLVFJqZmhmZTVia0p2R3h0Q2ROdTVKU0NtbVRxcU1JbmM4?=
- =?utf-8?B?cjJCN3FJeWhoMUxreDhtZStEc2hORTJrRlNIRHZKMGo1Y0dhYzFoRDlaaVdi?=
- =?utf-8?B?NlNKaTdZMnNWYkx4VFRvUEtpM3QwMmtaTjk2RTVMYXh6WWxkSzE4Mkp1N2Ru?=
- =?utf-8?B?RXJ2OElEVFlzS3k0Z21DeFZIQ2Y5MCs2bW9iaWNkRlZ5ZE9admlnZk1paUdz?=
- =?utf-8?B?eUhCeWNPOUVhM2kyVk5YQVZUU2lVTlRvZ292aVpmbFdoRnY2ZTZrT2R4aUJM?=
- =?utf-8?B?L1E5Ui9oUUpSVUtvbkpSMkdEc0RJYjFPYlc2cnBjWVlIbnpnMzZvcjNPaEhV?=
- =?utf-8?B?TGZZYSs2b3pVOW9Db0gvbmZ5SlFQdHhycUxYa01HM2ZRL3JIMml6Z3pOSktE?=
- =?utf-8?B?NnA5Q0FyRGMyQ0Q0NjRkcXlOZmJPZlpza1RPb1NaYk44dWJlOS9wSDgvaHIr?=
- =?utf-8?B?WGg0eEZjS1ZzcmIyd3NsTSthVkJMajR2STVnQ2dQMGJzT21WdkZ5aXVGTnlN?=
- =?utf-8?B?dnVtbU85cEJIKzlSQ2g1QXI3SFM3eU1ZSDFkeHY2TXhYUnY0bUphRXZ1TWlW?=
- =?utf-8?B?WCtkSXdlZ2svOEQvajBwaERVNUxuN2FCb1hoUEdmZURkWG95ODh5NitscU5Z?=
- =?utf-8?B?ZXlPZnppUXhwMkxKSlVUNng3Q1FkR3NZaXc1enFPVHpzMi8yWHJQNzZUVThZ?=
- =?utf-8?B?UHJkQVFMWUl1TnRMWXRTV2hxZVhOQWFPdjRRQktYUmRnQ1g2Z2F4VFBhSzZL?=
- =?utf-8?B?aU1oQjJDdEljUEd0eFpGaGdMWTdqb0FkOGdsNWs3Y2ZTSkhQRHFCN2RaS0N2?=
- =?utf-8?B?RDRYYndpZGpucHFPb1UrT0pVbnFpY2ZmUnBkcnBNLzc4SW16Wm9WeURtcnVa?=
- =?utf-8?B?T1lYcVZLb0lhZ1FtQzF2Nkg3ekpIZUd6ak5GbjlEaUNURCtPRWpzcWRTeHpv?=
- =?utf-8?B?T1pieWEvOGZGSWhhUzdzekRPaElLaWV4U294WWtQUTU5aTR6eFpUTGw1SU5Q?=
- =?utf-8?B?ZzV5NHNVM3RBeloycnRLUXBLSGkxcEpVZWdIOFBCd2dvajlkQVk5Yk9NSEdR?=
- =?utf-8?B?eXZpdzJWTjF1cHdPNkdkU0ZQV25CenhHcjdQTUF5VTJrY0lCelpkVlc2WUVV?=
- =?utf-8?B?cGYzMGRWZTI1aEZaTWw5U3dlVHNoMG9MaFJIa1RqMXFDbDF4S2d6Y05CaHdq?=
- =?utf-8?B?NktLLzIwOUtpb1NDVEpkK0JDUzhwNFdCZ3NQWmx3KzF5NFBjaUlMLzhTSjY0?=
- =?utf-8?B?c2dYMDJpLzFKUEt4YTJoRnFneXIrTS90dHhzcWtCd1k2Q2lpRnNXZDNxaUdN?=
- =?utf-8?B?QUoxZlF3Wm8vdkl6Y2hWYjRkdEtMKytJQ3JWZmo4QzlZQ0JqUnBuMnNhcVQ5?=
- =?utf-8?B?WjdsdW1RL0JIOEFjK2JXYnd1T1BOSWZrdkVjUHhzeXVGZ3Nsa1cyV2duc2V0?=
- =?utf-8?Q?Trtz72dQPk+9v5CP8j?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b42d11c1-c03d-4004-8b46-08df292367e1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 12:13:35.5658
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mTiUhL505bf8TA7ulzdfazprRn2QrEaaOc6d+xBg3XREfxsvRx/UY+hYDh7G9KtC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8903
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6ace2087 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=43XmKtFRw13_1s8YYrEA:9
+ a=nhjZEc3S35jqr8fL:21
+X-Proofpoint-GUID: i7FZQ7lHiXk1GjyUNtS4cT9-cAL2Anpm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0OCBTYWx0ZWRfX+TOPaCHhLH7D
+ HvLwr3SBGW3iNMmUi03WkBOE6IRY2iDL2Br+XoKyfaiLi8MS6+ufv7dVUhRCsOIXFYkicKEN5Ko
+ 6779ntLWLjxuSiDHe9Lom8SEevvGZSZALBuR+50jcd0VUJ9RxGH8U9uA/IcaWgQ/ouvO8sduGIV
+ /MxaM6L5F1EkK59+ZH/PevnkGRRcJhbXCvRF12MIhWIyz7ikkUUBPZYHHon1UrOTbBNZhEZgEwv
+ SbD4ze+diLPBTRvbSMRTcln1dB20prg5t1tqnXxLTOsivT6zV8r5w9BAPR3/3s5VSadkyprsi/H
+ K8lnUQ3GdHVJa9W0kjvv5Lejam5z4EqhGH1rmnnqkKgXebUze6cOA7ybIyxCE1i/xmhgGdZwYMG
+ Izc/cS2j7Of8lHcIwt5IN+mWGOaOEKsFmFOevinokkT719GjvYSoXCNtbQgoq+7Uf/9ogt+fJO1
+ Ndvn3bFKTOz2/Cm1+ew==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0OCBTYWx0ZWRfX3/tAgNiwbArE
+ 5Lp8hMl99DiYlHEx+UJWSNfxZElFp4EWYdB1aLIrHDxfMoL7KpbrW6lsT1JFn2NxOdB+h9usEkX
+ vWWwUZ3iq+kIk9awtJBwIzNgeouy72A=
+X-Proofpoint-ORIG-GUID: mPdSjF0Fcw7oeYIR0q2wdEHqSYMZgt-s
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130048
 
-On 10/13/26 14:02, Matt Evans wrote:
-> The dmabuf release path is split between file and dentry release:
-> dma_buf_file_release() is called shortly before the file is freed, and
-> dma_buf_release() calls an exporter's dmabuf->ops->release when the
-> dentry is freed.  However, the dentry can outlive the file (for
-> example, if opened with O_PATH), meaning .release might be called some
-> time after the file is freed.
-> 
-> This presents a window, when closing a DMABUF file, in which
-> dmabuf->file points to freed memory yet .release op has not yet been
-> called.
-> 
-> For VFIO, if a buffer's .release has not been called it's considered
-> still active and subject to move/cleanup.  If so, it attempts to
-> get_file_active() on dmabuf->file: a file close with dentry held open
-> will call this function with a stale pointer, a UAF.
-> 
-> To make this pattern safe, set dmabuf->file to NULL in
-> dma_buf_file_release() to reflect that the associated file is now dead
-> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-> sequence concurrent with a file close then only executes as one of:
-> 
->  - Gets the file before file_ref_put() (dmabuf->file valid)
->  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->  - Observes dmabuf->file = NULL (no file)
-> 
-> Originally, drivers could assume dmabuf->file was valid until .release
-> was called from fops->release.  This assumption was no longer valid
-> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops"), which moved the callback to the dentry release (by which
-> point the file might have been freed).  With this commit, drivers must
-> still consider that dmabuf->file could be NULL before .release.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
+With s390 hosting multiple independent KVM implementations within the
+same kernel build (native s390 KVM and arm64 on s390), global Kconfig
+selections force both implementations to inherit options that only apply
+to one of them.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Replace global Kconfig options which only apply to one KVM
+implementation with architecture-specific opt-in defines in the
+respective <asm/kvm_host.h>. Only remove Kconfig symbols that would be
+different on both s390 KVM implementations
 
-> ---
->  drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
->  include/linux/dma-buf.h   |  5 ++++-
->  2 files changed, 22 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..61485fc28b8b 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
->  
->  static int dma_buf_file_release(struct inode *inode, struct file *file)
->  {
-> -	if (!is_dma_buf_file(file))
-> -		return -EINVAL;
-> +	struct dma_buf *dmabuf = file->private_data;
-> +
-> +	if (!dmabuf)
-> +		return 0;
->  
-> -	__dma_buf_list_del(file->private_data);
-> +	__dma_buf_list_del(dmabuf);
->  
-> +	/*
-> +	 * As the file is being closed, dmabuf->file is no longer
-> +	 * valid and NULL replaces an otherwise stale pointer.  If a
-> +	 * reference to the file isn't already held, the file can be
-> +	 * closed at any time, including before dmabuf->ops->release()
-> +	 * happens: dmabuf->file _must not_ be accessed directly.  An
-> +	 * exporter should use get_file_active(&dmabuf->file) which
-> +	 * atomically tests and acquires a reference to the file (or
-> +	 * returns NULL if the file has closed).  The barrier ensures
-> +	 * get_file_active() observes the store before file_free()
-> +	 * frees the memory.
-> +	 */
-> +	smp_store_mb(dmabuf->file, NULL);
->  	return 0;
->  }
->  
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d15b2b31d3c9..a31eb0ab9ecf 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -303,7 +303,10 @@ struct dma_buf {
->  	 * @file:
->  	 *
->  	 * File pointer used for sharing buffers across, and for refcounting.
-> -	 * See dma_buf_get() and dma_buf_put().
-> +	 * See dma_buf_get() and dma_buf_put().  When an exporter holds a
-> +	 * common lock with the ->release() callback, it can use
-> +	 * get_file_active(&dma_buf->file) to safely acquire a reference;
-> +	 * the file could otherwise be closed at any time.
->  	 */
->  	struct file *file;
->  
+  - __KVM_HAVE_INVALID_WAKEUPS		(formerly HAVE_KVM_INVALID_WAKEUPS)
+  - __KVM_HAVE_MSI			(formerly HAVE_KVM_MSI)
+  - __KVM_HAVE_NO_POLL			(formerly HAVE_KVM_NO_POLL)
+  - __KVM_HAVE_READONLY_MEM		(formerly HAVE_KVM_READONLY_MEM)
+  - __KVM_HAVE_VCPU_RUN_PID_CHANGE	(formerly HAVE_KVM_VCPU_RUN_PID_CHANGE)
+
+This allows each architecture and guest implementation to configure its
+supported capabilities independently in its kvm_host header and eliminates
+adding unnecessary fallback stubs across different KVM targets.
+
+Acked-by: Hendrik Brueckner <brueckner@linux.ibm.com>
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+---
+
+Sending this patch alone. All others are OK or already picked.
+
+Changes for v10:
+  - Use __KVM_HAVE_ as prefix
+  - Clarify that this patch touches only selected Kconfig options and
+    not all.
+
+ arch/arm64/include/asm/kvm_host.h     |  3 +++
+ arch/arm64/kvm/Kconfig                |  3 ---
+ arch/loongarch/include/asm/kvm_host.h |  2 ++
+ arch/loongarch/kvm/Kconfig            |  2 --
+ arch/mips/include/asm/kvm_host.h      |  1 +
+ arch/mips/kvm/Kconfig                 |  1 -
+ arch/powerpc/include/asm/kvm_host.h   |  3 +++
+ arch/powerpc/kvm/Kconfig              |  1 -
+ arch/riscv/include/asm/kvm_host.h     |  2 ++
+ arch/riscv/kvm/Kconfig                |  2 --
+ arch/s390/include/asm/kvm_host_s390.h |  3 +++
+ arch/s390/kvm/Kconfig                 |  2 --
+ arch/x86/include/asm/kvm_host.h       |  3 +++
+ arch/x86/kvm/Kconfig                  |  3 ---
+ include/linux/kvm_host.h              | 18 +++++++++++-------
+ virt/kvm/Kconfig                      | 15 ---------------
+ virt/kvm/kvm_main.c                   |  4 ++--
+ 17 files changed, 30 insertions(+), 38 deletions(-)
+
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 1c6632216e32..5c9843338c51 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -32,6 +32,9 @@
+ #include <asm/vncr_mapping.h>
+ 
+ #define __KVM_HAVE_ARCH_INTC_INITIALIZED
++#define __KVM_HAVE_MSI
++#define __KVM_HAVE_READONLY_MEM
++#define __KVM_HAVE_VCPU_RUN_PID_CHANGE
+ 
+ #define KVM_HALT_POLL_NS_DEFAULT 500000
+ 
+diff --git a/arch/arm64/kvm/Kconfig b/arch/arm64/kvm/Kconfig
+index 71233068b7cb..df8e4003f76c 100644
+--- a/arch/arm64/kvm/Kconfig
++++ b/arch/arm64/kvm/Kconfig
+@@ -28,12 +28,9 @@ menuconfig KVM
+ 	select KVM_VFIO
+ 	select HAVE_KVM_DIRTY_RING_ACQ_REL
+ 	select NEED_KVM_DIRTY_RING_WITH_BITMAP
+-	select HAVE_KVM_MSI
+ 	select HAVE_KVM_IRQCHIP
+ 	select HAVE_KVM_IRQ_ROUTING
+ 	select HAVE_KVM_IRQ_BYPASS
+-	select HAVE_KVM_READONLY_MEM
+-	select HAVE_KVM_VCPU_RUN_PID_CHANGE
+ 	select SCHED_INFO
+ 	select GUEST_PERF_EVENTS if PERF_EVENTS
+ 	select KVM_GUEST_MEMFD
+diff --git a/arch/loongarch/include/asm/kvm_host.h b/arch/loongarch/include/asm/kvm_host.h
+index 65d91c3ce313..79d3ce7ad029 100644
+--- a/arch/loongarch/include/asm/kvm_host.h
++++ b/arch/loongarch/include/asm/kvm_host.h
+@@ -26,6 +26,8 @@
+ #include <asm/loongarch.h>
+ 
+ #define __KVM_HAVE_ARCH_INTC_INITIALIZED
++#define __KVM_HAVE_MSI
++#define __KVM_HAVE_READONLY_MEM
+ 
+ /* Loongarch KVM register ids */
+ #define KVM_GET_IOC_CSR_IDX(id)		((id & KVM_CSR_IDX_MASK) >> LOONGARCH_REG_SHIFT)
+diff --git a/arch/loongarch/kvm/Kconfig b/arch/loongarch/kvm/Kconfig
+index 15da2d88c0c1..a427429a2b05 100644
+--- a/arch/loongarch/kvm/Kconfig
++++ b/arch/loongarch/kvm/Kconfig
+@@ -23,8 +23,6 @@ config KVM
+ 	select HAVE_KVM_DIRTY_RING_ACQ_REL
+ 	select HAVE_KVM_IRQ_ROUTING
+ 	select HAVE_KVM_IRQCHIP
+-	select HAVE_KVM_MSI
+-	select HAVE_KVM_READONLY_MEM
+ 	select KVM_COMMON
+ 	select KVM_GENERIC_DIRTYLOG_READ_PROTECT
+ 	select KVM_GENERIC_HARDWARE_ENABLING
+diff --git a/arch/mips/include/asm/kvm_host.h b/arch/mips/include/asm/kvm_host.h
+index c14b10821817..d481275f38eb 100644
+--- a/arch/mips/include/asm/kvm_host.h
++++ b/arch/mips/include/asm/kvm_host.h
+@@ -893,5 +893,6 @@ static inline void kvm_arch_vcpu_blocking(struct kvm_vcpu *vcpu) {}
+ static inline void kvm_arch_vcpu_unblocking(struct kvm_vcpu *vcpu) {}
+ 
+ #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS
++#define __KVM_HAVE_READONLY_MEM
+ 
+ #endif /* __MIPS_KVM_HOST_H__ */
+diff --git a/arch/mips/kvm/Kconfig b/arch/mips/kvm/Kconfig
+index b1b9a1d67758..c24b872afbcb 100644
+--- a/arch/mips/kvm/Kconfig
++++ b/arch/mips/kvm/Kconfig
+@@ -24,7 +24,6 @@ config KVM
+ 	select KVM_GENERIC_DIRTYLOG_READ_PROTECT
+ 	select KVM_MMIO
+ 	select KVM_GENERIC_HARDWARE_ENABLING
+-	select HAVE_KVM_READONLY_MEM
+ 	help
+ 	  Support for hosting Guest kernels.
+ 
+diff --git a/arch/powerpc/include/asm/kvm_host.h b/arch/powerpc/include/asm/kvm_host.h
+index 2d139c807577..d8ef70c14aad 100644
+--- a/arch/powerpc/include/asm/kvm_host.h
++++ b/arch/powerpc/include/asm/kvm_host.h
+@@ -49,6 +49,9 @@
+ #endif /* CONFIG_KVM_BOOK3S_HV_POSSIBLE */
+ 
+ #define __KVM_HAVE_ARCH_INTC_INITIALIZED
++#ifdef CONFIG_KVM_MPIC
++#define __KVM_HAVE_MSI
++#endif
+ 
+ #define KVM_HALT_POLL_NS_DEFAULT 10000	/* 10 us */
+ 
+diff --git a/arch/powerpc/kvm/Kconfig b/arch/powerpc/kvm/Kconfig
+index b6bc2fc86dca..1fae2de8fa68 100644
+--- a/arch/powerpc/kvm/Kconfig
++++ b/arch/powerpc/kvm/Kconfig
+@@ -232,7 +232,6 @@ config KVM_MPIC
+ 	depends on KVM && PPC_E500
+ 	select HAVE_KVM_IRQCHIP
+ 	select HAVE_KVM_IRQ_ROUTING
+-	select HAVE_KVM_MSI
+ 	help
+ 	  Enable support for emulating MPIC devices inside the
+ 	  host kernel, rather than relying on userspace to emulate.
+diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/kvm_host.h
+index a30600579231..e28f058a94d7 100644
+--- a/arch/riscv/include/asm/kvm_host.h
++++ b/arch/riscv/include/asm/kvm_host.h
+@@ -47,6 +47,8 @@
+ #define KVM_REQ_STEAL_UPDATE		KVM_ARCH_REQ(6)
+ 
+ #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
++#define __KVM_HAVE_MSI
++#define __KVM_HAVE_READONLY_MEM
+ 
+ #define KVM_HAVE_MMU_RWLOCK
+ 
+diff --git a/arch/riscv/kvm/Kconfig b/arch/riscv/kvm/Kconfig
+index ec2cee0a39e0..3cb4f8037300 100644
+--- a/arch/riscv/kvm/Kconfig
++++ b/arch/riscv/kvm/Kconfig
+@@ -22,8 +22,6 @@ config KVM
+ 	depends on RISCV_SBI && MMU
+ 	select HAVE_KVM_IRQCHIP
+ 	select HAVE_KVM_IRQ_ROUTING
+-	select HAVE_KVM_MSI
+-	select HAVE_KVM_READONLY_MEM
+ 	select HAVE_KVM_DIRTY_RING_ACQ_REL
+ 	select KVM_COMMON
+ 	select KVM_GENERIC_DIRTYLOG_READ_PROTECT
+diff --git a/arch/s390/include/asm/kvm_host_s390.h b/arch/s390/include/asm/kvm_host_s390.h
+index 9519b8028b10..a00353ba0343 100644
+--- a/arch/s390/include/asm/kvm_host_s390.h
++++ b/arch/s390/include/asm/kvm_host_s390.h
+@@ -34,6 +34,9 @@
+ 
+ #define KVM_INTERNAL_MEM_SLOTS 1
+ 
++#define __KVM_HAVE_INVALID_WAKEUPS
++#define __KVM_HAVE_NO_POLL
++
+ #define KVM_S390_MANAGES_S390_GUEST 1
+ 
+ /*
+diff --git a/arch/s390/kvm/Kconfig b/arch/s390/kvm/Kconfig
+index 8d3ee17a1bcb..9045ae20fd89 100644
+--- a/arch/s390/kvm/Kconfig
++++ b/arch/s390/kvm/Kconfig
+@@ -25,8 +25,6 @@ config KVM
+ 	select KVM_COMMON
+ 	select HAVE_KVM_IRQCHIP
+ 	select HAVE_KVM_IRQ_ROUTING
+-	select HAVE_KVM_INVALID_WAKEUPS
+-	select HAVE_KVM_NO_POLL
+ 	select KVM_VFIO
+ 	select VIRT_XFER_TO_GUEST_WORK
+ 	select KVM_MMU_LOCKLESS_AGING
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index e460073ff176..9baafeff1f25 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -47,6 +47,9 @@
+ #define kvm_file_to_kvm_arch x86
+ 
+ #define __KVM_HAVE_ARCH_VCPU_DEBUGFS
++#define __KVM_HAVE_MSI
++#define __KVM_HAVE_NO_POLL
++#define __KVM_HAVE_READONLY_MEM
+ 
+ /*
+  * CONFIG_KVM_MAX_NR_VCPUS is defined iff CONFIG_KVM!=n, provide a dummy max if
+diff --git a/arch/x86/kvm/Kconfig b/arch/x86/kvm/Kconfig
+index 538ed1e80332..294684b217bb 100644
+--- a/arch/x86/kvm/Kconfig
++++ b/arch/x86/kvm/Kconfig
+@@ -28,7 +28,6 @@ config KVM_X86
+ 	select HAVE_KVM_DIRTY_RING_ACQ_REL
+ 	select HAVE_KVM_IRQ_BYPASS
+ 	select HAVE_KVM_IRQ_ROUTING
+-	select HAVE_KVM_READONLY_MEM
+ 	select VHOST_TASK
+ 	select KVM_ASYNC_PF
+ 	select USER_RETURN_NOTIFIER
+@@ -37,9 +36,7 @@ config KVM_X86
+ 	select PERF_EVENTS
+ 	select GUEST_PERF_EVENTS
+ 	select PERF_GUEST_MEDIATED_PMU
+-	select HAVE_KVM_MSI
+ 	select HAVE_KVM_CPU_RELAX_INTERCEPT
+-	select HAVE_KVM_NO_POLL
+ 	select VIRT_XFER_TO_GUEST_WORK
+ 	select KVM_GENERIC_DIRTYLOG_READ_PROTECT
+ 	select KVM_VFIO
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index e3035fa1bb53..8f01c2bd9feb 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -750,7 +750,11 @@ static inline u64 kvm_gmem_get_supported_flags(struct kvm *kvm)
+ #ifndef kvm_arch_has_readonly_mem
+ static inline bool kvm_arch_has_readonly_mem(struct kvm *kvm)
+ {
+-	return IS_ENABLED(CONFIG_HAVE_KVM_READONLY_MEM);
++#ifdef __KVM_HAVE_READONLY_MEM
++	return true;
++#else
++	return false;
++#endif
+ }
+ #endif
+ 
+@@ -2481,7 +2485,7 @@ void kvm_arch_update_irqfd_routing(struct kvm_kernel_irqfd *irqfd,
+ 				   struct kvm_kernel_irq_routing_entry *new);
+ #endif /* CONFIG_HAVE_KVM_IRQ_BYPASS */
+ 
+-#ifdef CONFIG_HAVE_KVM_INVALID_WAKEUPS
++#ifdef __KVM_HAVE_INVALID_WAKEUPS
+ /* If we wakeup during the poll time, was it a sucessful poll? */
+ static inline bool vcpu_valid_wakeup(struct kvm_vcpu *vcpu)
+ {
+@@ -2493,9 +2497,9 @@ static inline bool vcpu_valid_wakeup(struct kvm_vcpu *vcpu)
+ {
+ 	return true;
+ }
+-#endif /* CONFIG_HAVE_KVM_INVALID_WAKEUPS */
++#endif /* __KVM_HAVE_INVALID_WAKEUPS */
+ 
+-#ifdef CONFIG_HAVE_KVM_NO_POLL
++#ifdef __KVM_HAVE_NO_POLL
+ /* Callback that tells if we must not poll */
+ bool kvm_arch_no_poll(struct kvm_vcpu *vcpu);
+ #else
+@@ -2503,18 +2507,18 @@ static inline bool kvm_arch_no_poll(struct kvm_vcpu *vcpu)
+ {
+ 	return false;
+ }
+-#endif /* CONFIG_HAVE_KVM_NO_POLL */
++#endif /* __KVM_HAVE_NO_POLL */
+ 
+ void kvm_arch_guest_memory_reclaimed(struct kvm *kvm);
+ 
+-#ifdef CONFIG_HAVE_KVM_VCPU_RUN_PID_CHANGE
++#ifdef __KVM_HAVE_VCPU_RUN_PID_CHANGE
+ int kvm_arch_vcpu_run_pid_change(struct kvm_vcpu *vcpu);
+ #else
+ static inline int kvm_arch_vcpu_run_pid_change(struct kvm_vcpu *vcpu)
+ {
+ 	return 0;
+ }
+-#endif /* CONFIG_HAVE_KVM_VCPU_RUN_PID_CHANGE */
++#endif /* __KVM_HAVE_VCPU_RUN_PID_CHANGE */
+ 
+ #ifdef CONFIG_VIRT_XFER_TO_GUEST_WORK
+ static inline void kvm_handle_signal_exit(struct kvm_vcpu *vcpu)
+diff --git a/virt/kvm/Kconfig b/virt/kvm/Kconfig
+index c3c0ee253fc7..f3d7f66746c8 100644
+--- a/virt/kvm/Kconfig
++++ b/virt/kvm/Kconfig
+@@ -50,21 +50,12 @@ config KVM_ASYNC_PF
+ config KVM_ASYNC_PF_SYNC
+        bool
+ 
+-config HAVE_KVM_MSI
+-       bool
+-
+-config HAVE_KVM_READONLY_MEM
+-       bool
+-
+ config HAVE_KVM_CPU_RELAX_INTERCEPT
+        bool
+ 
+ config KVM_VFIO
+        bool
+ 
+-config HAVE_KVM_INVALID_WAKEUPS
+-       bool
+-
+ config KVM_GENERIC_DIRTYLOG_READ_PROTECT
+        bool
+ 
+@@ -79,12 +70,6 @@ config HAVE_KVM_IRQ_BYPASS
+        tristate
+        select IRQ_BYPASS_MANAGER
+ 
+-config HAVE_KVM_VCPU_RUN_PID_CHANGE
+-       bool
+-
+-config HAVE_KVM_NO_POLL
+-       bool
+-
+ config VIRT_XFER_TO_GUEST_WORK
+        bool
+ 
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 35880a2c68a4..22627c06a5fa 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -4901,7 +4901,7 @@ static int kvm_vm_ioctl_check_extension_generic(struct kvm *kvm, long arg)
+ 	case KVM_CAP_DESTROY_MEMORY_REGION_WORKS:
+ 	case KVM_CAP_JOIN_MEMORY_REGIONS_WORKS:
+ 	case KVM_CAP_INTERNAL_ERROR_DATA:
+-#ifdef CONFIG_HAVE_KVM_MSI
++#ifdef __KVM_HAVE_MSI
+ 	case KVM_CAP_SIGNAL_MSI:
+ #endif
+ #ifdef CONFIG_HAVE_KVM_IRQCHIP
+@@ -5291,7 +5291,7 @@ static long kvm_vm_ioctl(struct file *filp,
+ 		r = kvm_ioeventfd(kvm, &data);
+ 		break;
+ 	}
+-#ifdef CONFIG_HAVE_KVM_MSI
++#ifdef __KVM_HAVE_MSI
+ 	case KVM_SIGNAL_MSI: {
+ 		struct kvm_msi msi;
+ 
+-- 
+2.53.0
 
