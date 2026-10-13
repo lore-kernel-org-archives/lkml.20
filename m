@@ -1,232 +1,158 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21773388396
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:29:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CAFA23ABBF;
+	Tue, 13 Oct 2026 09:30:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883759; cv=none; b=hXn5ennw1bhDJWtoXQ4oaRAM3G+ZZnHmgfqnglyulRHIXFdmIFgPycL6XGlbS4GwcgNCzdYwnTJFpSUDB00yvPhNrT+lmCiLK1RB9NPVlzHw+QsQPJOrh9Sq6rw+5ShBWJbrUt6zeX5rbzRwuPix2eFETEepoQ2wa8N/zVH8ihE=
+	t=1791883845; cv=none; b=Ro0WHpw+J/DMOw4A3ErlrkKGXZERu1oU93l/1qnDW060X1E2GHil/w9FBIrWmnrGbXjkj+3AqYqTQG5CRMAsMpnC3OiQTUK+c9PwTL3NNY2s2owTj345GGbX1QrUcJgqn9Gop41ZF9p8npnvB6LRHomwOu5QIrdXbv2nEt3AFfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883759; c=relaxed/simple;
-	bh=q24zxW8hwP7FaiE+85WTHOtAptzv6YWce6z+WBFUkqI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IgKRl7IWo1wIXfgh+YyC0bN7706shi1+UfpMZXrqbWqfi55YjFOwLckLd4dIhsJ5NuGwSuwhtI7Gp0/aSyQ5dKo2c6KAoKa/kNGEmM1oyB1YHWOuVeczSZJRrc6t6N202McMYfg8WGlQGbKQbJpkmAGQZvuIJ+y9/XUWYDU0+ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBE2Qx3v; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791883845; c=relaxed/simple;
+	bh=iQy3zVnbluN2KJGjJ0s/IVJ7Cbz/6lovy1SbuMmgvbg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cf0mkctRKdbIRZaGzm5uP4PYpZ5C6bWgVhhZqa6u51GQvXeJI5RaYWPKnrYgptELGocaQ1IagE/lobHfJFmTwoesN7B0TKVaduYK97ni/h3O+ke/sMWPf4TfR6scMr2UZpfD+0UdeRIzvO9d/fUTcjcet0zNdVE29lHxIlAtZnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mihHl0rN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBE2Qx3v"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a706146559so1575983a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:29:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791883756; x=1792488556; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mWBOquVNVW69W2Sa6lKuhGbtxBKyi6kB5eJEJgRj7g4=;
-        b=dBE2Qx3vdAthrHPrxhEsqHYa9M8/Piky/m8MlCl9gezGC6o1pCMV42ZscAoKPkd1AA
-         De9TVQyJzOZoloVaOGlpDu5KsT8ypq/6jGJhZoa0R1jAkUbjXoxdeypm+2BtHA53Czpp
-         Qm4zUFw2VpMY58H7yKMovaKafsoQns7vHpKEyX+8fUiuT+HuYjkAmXBEobaoQOD0+BUL
-         h4XiRbNO+UMobmEeOoweH0Vx9lg48n+9jAqQF904WxO2F/0yTy/OCOd86n305f2icRzF
-         1ZrCipI03Wp8q/B4VFwd6HtmxqO3UbfHa8zwBvT9ohoPTEADA6T4brjg3w0kZt4bbah6
-         Od0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791883756; x=1792488556;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mWBOquVNVW69W2Sa6lKuhGbtxBKyi6kB5eJEJgRj7g4=;
-        b=LsoiRrA3CkCagm0Lzl3JVc9awd1nriYTOWlP7oSAvnJcl/HEGmLBBFWyE8vNctf0WD
-         Jkata9EaaK6UJAdwgLGW1xwKjGwo+H2ZsjiGYrkFoQqcTcQXxZyPvYMzhmQaC/Sf0gLk
-         qNs3J5dkrKUQmhamDKKaIya7otTsh8XHKdk/ZyKrjOP8ljiB4fkDIlRz+3Qh63Kb9G8Q
-         O1BS82nl9MbjmTe0dY/pKAAriMxz5lYNBlw9z5r7FJO70vmgOFQPwZMnx+5kYpXCHj4x
-         rMoBstamwE2qlWpdeGLgD7D68d+zpxUMj5T7XZ7EZWuN5Jzq/ekaMrh2g+niqm+oQHWw
-         nPfA==
-X-Forwarded-Encrypted: i=1; AKwUvBxuPOdxcgUiUmi0JEQ4YgZ4mn4mrhcegbIG/ftMuupmwpkQTMsIOsMvRW9+WAFEZjddCEEYVTyGIejxy2w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7ovJUpnOgGCLvESy6SaOGuf2nfx11MIjZ3v5+jJN+MmjB/IEo
-	HweF0/cBX85FGmWPDkhagTMGCN5cjsJ0GGOWpe6KRg42o5yW70M+F8E=
-X-Gm-Gg: AYBFou0VtEc9bUehLDJgAIwEkpDmNkpbAF1Tb2LqfgMR5PE/Ix7wR9gtcrynYQZ31F/
-	MN/BuXlNnvLJ0jxdCt8451T1uu1UBlpQQYsYJf5JHirKGW12hj5N4aeX/ILmD5EgyMz9GcLrijj
-	ZeOd0/aYIO9KcHiqPdh8HCDZI5XI91H1q3713N7m5wGwOXRkVSJ0Y9FsEzcGe6PyA3iuThzJhp4
-	9IcwZR3RIx2UnSaapE5yWpv7Uq8xil3bPSpkfjiF5LLp+cMCl+MOT3IlaCsMdygprWeiTQ/V1Rz
-	aMRhIppEoNzF/nSQ72dF+pE9tf9BkgYKA87Js9tDn5iX0jZ0xQovUCUyr2CZZMU9zzEdXaEg1fa
-	CQCkHM7M6UXsqw+ZjaRuvPWvDkTAiXGFv+Srm7GPrZ0d4w9UjV3Dj992fJbfoU8x2rSIEFrNhtf
-	um1T1xnenc04v+cK5Ykw1WZ3iBX3lYO7tSkvFQSweARxq6PjCFXFtzxzbt9JbG14t1cGfEG4n+5
-	x/AYCbAmD7Imx/hH/sK
-X-Received: by 2002:a17:90b:380a:b0:39e:6a7f:1dc6 with SMTP id 98e67ed59e1d1-3ab3a99ded9mr12066690a91.34.1791883756001;
-        Tue, 13 Oct 2026 02:29:16 -0700 (PDT)
-Received: from localhost.localdomain ([185.220.238.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3abdd5d09aesm10457531a91.7.2026.10.13.02.29.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 02:29:15 -0700 (PDT)
-From: Wang Yibo <szwyb123@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jennifer Guo <guojy.bj@gmail.com>,
-	Nikolay Kulikov <nikolayof23@gmail.com>
-Subject: [PATCH] staging: rtl8723bs: remove commented out code in hal/ files
-Date: Tue, 13 Oct 2026 17:29:08 +0800
-Message-Id: <20261013092908.380050-1-szwyb123@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mihHl0rN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31AA61F000FF;
+	Tue, 13 Oct 2026 09:30:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791883844;
+	bh=GDCBsEYoZUsLsXk6wyffkPfdwkrEP+ByhgCH/FzXMM0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mihHl0rNLCQg4W0s0+z1en8+7AJqOHOYrKKJKz5IhLlWBh/WFVyTbeSQjkYoIVSzt
+	 DGPTrHwtRRyDPBfIaEcFHjYmdI9jiru9Fxn6+uf2Fg3fjT5HSDPt1gvNul1q3TwYl4
+	 I7Oeat+WqwQguzZL/k3f5B0O2N10bHH4poIAs2B5oxBRQTxPbNdopI0BoH6kenivHs
+	 6n0br9igd382Ry5UeEOmzq6VovM50w6O4ULlzX2G2Ubxn/ahH/pFLWqkEBX+PnDLhY
+	 nZ11PYfc9VBqj2iBPNUVlwOq1CvyCOPPJ5AomYRjP4Nk7omM6k+IILv674Q4Xl2REy
+	 LS/CIKh05DgiA==
+Date: Tue, 13 Oct 2026 10:30:37 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Rik van Riel <riel@surriel.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+	Kyle Zeng <kylebot@openai.com>, stable@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm/rmap: don't discard lazyfree THPs at PMD level
+Message-ID: <as36Kesa_k70jOva@gremlin>
+References: <20261012-lazyfree-stable-fix-v2-1-6387d6e30063@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-lazyfree-stable-fix-v2-1-6387d6e30063@nvidia.com>
 
-Remove commented out code in a few hal/ source files, including
-commented out switch case branches in odm.c, leftover debug statements
-in odm_DIG.c and stale assignments in hal_intf.c.
+On Mon, Oct 12, 2026 at 10:20:16PM -0400, Zi Yan wrote:
+> __discard_anon_folio_pmd_locked() clears a lazyfree THP's PMD before it
+> determines whether the folio can be discarded, and restores it if the folio
+> is dirty or has extra references. It is done under only the PMD lock and
+> the anon_vma read lock inside try_to_unmap_one() and no mmap lock is held.
+> The temporarily none PMD causes UAF.
+>
+> A parallel munmap() or mremap() is supposed to serialize with it on the PMD
+> lock, but zap_pmd_range() (called by munmap()) and move_page_tables()
+> (called by mremap()) do not take the lock when they see the temporarily
+> none PMD and skip the PMD. There is no more page table walk after the none
+> PMD is restored:
+>
+> - munmap(): free_pgtables() waits in unlink_anon_vmas() for the anon_vma
+>   lock, then free_pmd_range() drops the restored PMD as bad without
+>   removing the rmap, so the folio keeps a stale mapcount.
+>
+> - whole-VMA MREMAP_DONTUNMAP: dontunmap_complete() unlinks the source VMA
+>   from its anon_vma while the restored PMD still maps the folio.
+>
+> - plain mremap(): the THP is not moved but unmapped, so the THP's data is
+>   lost.
+>
+> In the first two cases, the folio stays mapped, but no VMA that maps it is
+> linked to its anon_vma. When the anon_vma is freed, it is still reachable
+> when one rmap walks the folio. Racing lazyfree reclaim against
+> MREMAP_DONTUNMAP as an unprivileged user reproduces a KASAN use-after-free
+> in folio_lock_anon_vma_read() as reported in the Closes link.
+>
+> One solution is to use an invalidated PMD instead of a cleared one until
+> the discard is committed, but it needs arch fixes first.
+> 1. GUP-fast still follows an invalidated PMD on riscv, LoongArch and s390.
+> 2. sparc64 miscounts thp_pte_count when an invalidated PMD is set again or
+>    cleared.
+>
+> To keep the fix simple for backport, stop discarding lazyfree THPs at PMD
+> level instead. try_to_unmap_one() splits the PMD and discards the folio at
+> PTE level.
+>
+> unmap_huge_pmd_locked() and __discard_anon_folio_pmd_locked() are left in
+> place, unused, to minimize this fix for backport and the invalidated PMD
+> approach is planned as a follow-up series to use them again.
+>
 
-The removed lines were already disabled and do not affect the generated
-code.
+Amazing, thanks for that! All LGTM.
 
-Signed-off-by: Wang Yibo <szwyb123@gmail.com>
----
- drivers/staging/rtl8723bs/hal/hal_intf.c |  4 ----
- drivers/staging/rtl8723bs/hal/odm.c      | 22 ----------------------
- drivers/staging/rtl8723bs/hal/odm_DIG.c  | 11 -----------
- 3 files changed, 37 deletions(-)
+> Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.com
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Reviewed-by: Kyle Zeng <kylebot@openai.com>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> ---
+> The proposed fix[1] requires additional arch code fixes[2]. Disable it
+> first for stable fix. The function will be re-enabled along with arch code
+> fixes.
+>
+> Link: https://lore.kernel.org/all/20261009165214.40212-2-kylebot@openai.com/ [1]
+> Link: https://lore.kernel.org/all/DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com/ [2]
+> ---
+> Changes in v2:
+> 1. added more details on how UAF can happen.
+> 2. provides more details on why the invalidated PMD approach is not used.
+> 3. explained why unmap_huge_pmd_locked() and
+>    __discard_anon_folio_pmd_locked() are left unused.
+> - Link to v1: https://patch.msgid.link/20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com
+> ---
+>  mm/rmap.c | 11 -----------
+>  1 file changed, 11 deletions(-)
+>
+> diff --git a/mm/rmap.c b/mm/rmap.c
+> index 805db93fe0428..1131b76bbbc28 100644
+> --- a/mm/rmap.c
+> +++ b/mm/rmap.c
+> @@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+>  		}
+>
+>  		if (!pvmw.pte) {
+> -			if (folio_test_lazyfree(folio)) {
+> -				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
+> -					goto walk_done;
+> -				/*
+> -				 * unmap_huge_pmd_locked has either already marked
+> -				 * the folio as swap-backed or decided to retain it
+> -				 * due to GUP or speculative references.
+> -				 */
+> -				goto walk_abort;
+> -			}
+> -
+>  			if (flags & TTU_SPLIT_HUGE_PMD) {
+>  				/*
+>  				 * We temporarily have to drop the PTL and
+>
+> ---
+> base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
+> change-id: 20261009-lazyfree-stable-fix-67712b2049dd
+>
+> Best regards,
+> --
+> Yan, Zi
+>
 
-diff --git a/drivers/staging/rtl8723bs/hal/hal_intf.c b/drivers/staging/rtl8723bs/hal/hal_intf.c
-index 1443875d1369..2a33bea9018c 100644
---- a/drivers/staging/rtl8723bs/hal/hal_intf.c
-+++ b/drivers/staging/rtl8723bs/hal/hal_intf.c
-@@ -120,14 +120,10 @@ int rtw_hal_mgnt_xmit(struct adapter *padapter, struct xmit_frame *pmgntframe)
- 	int ret;
- 
- 	update_mgntframe_attrib_addr(padapter, pmgntframe);
--	/* pframe = (u8 *)(pmgntframe->buf_addr) + TXDESC_OFFSET; */
--	/* pwlanhdr = (struct rtw_ieee80211_hdr *)pframe; */
--	/* memcpy(pmgntframe->attrib.ra, pwlanhdr->addr1, ETH_ALEN); */
- 
- 	if (padapter->securitypriv.binstallBIPkey) {
- 		if (is_multicast_ether_addr(pmgntframe->attrib.ra)) {
- 			pmgntframe->attrib.encrypt = _BIP_;
--			/* pmgntframe->attrib.bswenc = true; */
- 		} else {
- 			pmgntframe->attrib.encrypt = _AES_;
- 			pmgntframe->attrib.bswenc = true;
-diff --git a/drivers/staging/rtl8723bs/hal/odm.c b/drivers/staging/rtl8723bs/hal/odm.c
-index f3989fa33d9f..84edb6b5704e 100644
---- a/drivers/staging/rtl8723bs/hal/odm.c
-+++ b/drivers/staging/rtl8723bs/hal/odm.c
-@@ -445,7 +445,6 @@ static void odm_RSSIMonitorCheckCE(struct dm_odm_t *pDM_Odm)
- 	FindMinimumRSSI(Adapter);/* get pdmpriv->MinUndecoratedPWDBForDM */
- 
- 	pDM_Odm->RSSI_Min = pdmpriv->MinUndecoratedPWDBForDM;
--	/* ODM_CmnInfoUpdate(&pHalData->odmpriv , ODM_CMNINFO_RSSI_MIN, pdmpriv->MinUndecoratedPWDBForDM); */
- }
- 
- static void odm_RSSIMonitorCheck(struct dm_odm_t *pDM_Odm)
-@@ -515,7 +514,6 @@ void odm_TXPowerTrackingInit(struct dm_odm_t *pDM_Odm)
- 	else
- 		pdmpriv->TxPowerTrackControl = false;
- 
--	/* pDM_Odm->RFCalibrateInfo.TxPowerTrackControl = true; */
- 	pDM_Odm->RFCalibrateInfo.ThermalValue = pHalData->EEPROMThermalMeter;
- 	pDM_Odm->RFCalibrateInfo.ThermalValue_IQK = pHalData->EEPROMThermalMeter;
- 	pDM_Odm->RFCalibrateInfo.ThermalValue_LCK = pHalData->EEPROMThermalMeter;
-@@ -616,8 +614,6 @@ void ODM_DMWatchdog(struct dm_odm_t *pDM_Odm)
- 
- 	ODM_TXPowerTrackingCheck(pDM_Odm);
- 
--	/* odm_EdcaTurboCheck(pDM_Odm); */
--
- 	/* 2010.05.30 LukeLee: For CE platform, files in IC subfolders may not be included to be compiled, */
- 	/*  so compile flags must be left here to prevent from compile errors */
- 	pDM_Odm->PhyDbgInfo.NumQryBeaconPkt = 0;
-@@ -804,24 +800,6 @@ void ODM_CmnInfoHook(struct dm_odm_t *pDM_Odm, enum odm_cmninfo_e CmnInfo, void
- 		pDM_Odm->mp_mode = pValue;
- 		break;
- 
--	/* case ODM_CMNINFO_RTSTA_AID: */
--	/* pDM_Odm->pAidMap =  (u8 *)pValue; */
--	/* break; */
--
--	/* case ODM_CMNINFO_BT_COEXIST: */
--	/* pDM_Odm->BTCoexist = (bool *)pValue; */
--
--	/* case ODM_CMNINFO_STA_STATUS: */
--	/* pDM_Odm->pODM_StaInfo[] = (PSTA_INFO_T)pValue; */
--	/* break; */
--
--	/* case ODM_CMNINFO_PHY_STATUS: */
--	/* pDM_Odm->pPhyInfo = (ODM_PHY_INFO *)pValue; */
--	/* break; */
--
--	/* case ODM_CMNINFO_MAC_STATUS: */
--	/* pDM_Odm->pMacInfo = (struct odm_mac_status_info *)pValue; */
--	/* break; */
- 	/* To remove the compiler warning, must add an empty default statement to handle the other values. */
- 	default:
- 		/* do nothing */
-diff --git a/drivers/staging/rtl8723bs/hal/odm_DIG.c b/drivers/staging/rtl8723bs/hal/odm_DIG.c
-index c862c86b7695..12455e883200 100644
---- a/drivers/staging/rtl8723bs/hal/odm_DIG.c
-+++ b/drivers/staging/rtl8723bs/hal/odm_DIG.c
-@@ -68,8 +68,6 @@ void odm_NHMBBInit(void *pDM_VOID)
- void odm_NHMBB(void *pDM_VOID)
- {
- 	struct dm_odm_t *pDM_Odm = (struct dm_odm_t *)pDM_VOID;
--	/* u8 test_status; */
--	/* struct false_ALARM_STATISTICS *pFalseAlmCnt = &pDM_Odm->FalseAlmCnt; */
- 
- 	pDM_Odm->NHMCurTxOkcnt =
- 		*(pDM_Odm->pNumTxBytesUnicast)-pDM_Odm->NHMLastTxOkcnt;
-@@ -83,7 +81,6 @@ void odm_NHMBB(void *pDM_VOID)
- 	if ((pDM_Odm->NHMCurTxOkcnt) + 1 > (u64)(pDM_Odm->NHMCurRxOkcnt<<2) + 1) { /* Tx > 4*Rx possible for adaptivity test */
- 		if (pDM_Odm->NHM_cnt_0 >= 190 || pDM_Odm->adaptivity_flag) {
- 			/* Enable EDCCA since it is possible running Adaptivity testing */
--			/* test_status = 1; */
- 			pDM_Odm->adaptivity_flag = true;
- 			pDM_Odm->tolerance_cnt = 0;
- 		} else {
-@@ -91,24 +88,19 @@ void odm_NHMBB(void *pDM_VOID)
- 				pDM_Odm->tolerance_cnt = pDM_Odm->tolerance_cnt + 1;
- 			else
- 				pDM_Odm->tolerance_cnt = 4;
--			/* test_status = 5; */
- 			if (pDM_Odm->tolerance_cnt > 3) {
--				/* test_status = 3; */
- 				pDM_Odm->adaptivity_flag = false;
- 			}
- 		}
- 	} else { /*  TX<RX */
- 		if (pDM_Odm->adaptivity_flag && pDM_Odm->NHM_cnt_0 <= 200) {
--			/* test_status = 2; */
- 			pDM_Odm->tolerance_cnt = 0;
- 		} else {
- 			if (pDM_Odm->tolerance_cnt < 3)
- 				pDM_Odm->tolerance_cnt = pDM_Odm->tolerance_cnt + 1;
- 			else
- 				pDM_Odm->tolerance_cnt = 4;
--			/* test_status = 5; */
- 			if (pDM_Odm->tolerance_cnt > 3) {
--				/* test_status = 4; */
- 				pDM_Odm->adaptivity_flag = false;
- 			}
- 		}
-@@ -586,7 +578,6 @@ void odm_DIGbyRSSI_LPS(void *pDM_VOID)
- 		CurrentIGI = RSSI_Lower;
- 
- 	ODM_Write_DIG(pDM_Odm, CurrentIGI);
--	/* ODM_Write_DIG(pDM_Odm, pDM_DigTable->CurIGValue); */
- }
- 
- /* 3 ============================================================ */
-@@ -709,10 +700,8 @@ u8 odm_ForbiddenIGICheck(void *pDM_VOID, u8 DIG_Dynamic_MIN, u8 CurrentIGI)
- 		if (pDM_DigTable->LargeFAHit != 3)
- 			pDM_DigTable->LargeFAHit++;
- 
--		/* if (pDM_DigTable->ForbiddenIGI < pDM_DigTable->CurIGValue) */
- 		if (pDM_DigTable->ForbiddenIGI < CurrentIGI) {
- 			pDM_DigTable->ForbiddenIGI = CurrentIGI;
--			/* pDM_DigTable->ForbiddenIGI = pDM_DigTable->CurIGValue; */
- 			pDM_DigTable->LargeFAHit = 1;
- 		}
- 
--- 
-2.25.1
-
+--
+Cheers, Lorenzo
