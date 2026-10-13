@@ -1,105 +1,83 @@
-Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B433BB9FD
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:43:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4EC51DAEA
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909820; cv=none; b=OCy98fzjGXcJjMCwgFZPUIPT3F58/6MV6Wa2Di5AIU5BFx4l++bkhJJVyiUXNLdEEGb56JYqYsSpDkF/K0/6mUCU7Ox76UJk2FjR11QmVK6y4Z+mZ134RN3JRJXrVL3KYKOR7gl3GwWccTKPhVk3JQpnDN2G/uwIFr/H/RsvoT0=
+	t=1791909882; cv=none; b=m3g6zDJh5qs9Btt1FHljFUVRnbpjc7+WJcocJch0oxOCBC+BtFgsQNYBFPT7PY+lZ/8Hz3UOlOwW0loru3NzoypI2lMeugqnL9gabppuxt4Tf2SawuNuQMZr8waXWuWZSGa4hofsw8nOVNNTViO33gG9odUeMWbk7dzeENpg3fE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909820; c=relaxed/simple;
-	bh=PcPBi5Nzv8M4w/Sm2h+bvnujrs8RY53hUJG3UM3gd0I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J/omP4SzHR4MctOW69qVHdcHcMG80VvJtmE498G44lVBTo/KF4uX6+6cOGSv3suafqpkGVlw0VZgdg+Y++gI7/+9htM87qKEXUHyF+pvFqBRO4ghMk8V7CmaE7VmqTUNs7PCqWzuFMJzbyDX7bAYY/lPcwa5G3RoCS6RHJU+DUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=L6p04Btx; arc=none smtp.client-ip=95.215.58.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791909882; c=relaxed/simple;
+	bh=Q5tT5PaVyLvkznsNtS7swqhqenCbpkuaeBB/vaVxQKk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FO+T6lCewJXtLehFvjAxF1BE6O2Pec+oZO1kX5Ub8y1/FDbC5vyn1KR7YXhtpxiHfTfq2A8NS8c2j6j/tRYW9dwv0ThnJ1kWHqNfXhU1eblenNMVt0c+r+00NFGBy5MuUh/HTOiDCC5vuReJgTgQrEyaRDyQzDONe+RRS3QFb/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Q7P4lb3Y; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="L6p04Btx"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PcPBi5Nzv8M4w/Sm2h+bvnujrs8RY53hUJG3UM3gd0I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791909816; v=1; x=1792514616;
- b=L6p04Btx8ET30VezN/nEa1qBe5y3MeH1mXZpXDpTt9009wRfldTfd12Q6oFvZosbYE/xLAAN
- K+MCceZdnASpd4GrNzdBSNSwoosHlWy6D0COo3yiZqq1Yggmd4Hr216CXT3NzR9z6gH7dB0DylU
- 6r5Di41lhSh31fILH+jAgudM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bb0e231c7fdb8771;
-	Tue, 13 Oct 2026 16:43:35 +0000
-X-Mizu-Trace-ID: bb0e231c7fdb8771
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] KVM: arm64: Don't WARN on SMCCC filter reserved range allocation failure
-Date: Tue, 13 Oct 2026 17:43:34 +0100
-Message-Id: <20261013164334.1492070-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Q7P4lb3Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791909879;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rvuVUKSrndopolcbkINdeWPhSExNCeI8jvU0JnOyCeY=;
+	b=Q7P4lb3YdGCbgVjccuplQ+ewK3gMcxx44ZhocbbuQYg9Irn4LaWXBf37oZVcWa1+q8DVQa
+	nZf1bVvZY1dpCpqYpFdU4PyJ/TaHfl7+QrdxUddkVEbOVQLAtJeCfXObRSTuk4QMcoPHXM
+	TZjB/xcMTUYlLndz/e0ZyJNlIH8rJFE=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-383-1DkudKECO2ya43ctc4eSiQ-1; Tue,
+ 13 Oct 2026 16:44:37 +0000
+X-MC-Unique: 1DkudKECO2ya43ctc4eSiQ-1
+X-Mimecast-MFC-AGG-ID: 1DkudKECO2ya43ctc4eSiQ_1791909876
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AE3701944EB2;
+	Tue, 13 Oct 2026 16:44:35 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id ACA0F30000E6;
+	Tue, 13 Oct 2026 16:44:32 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jtornosm@redhat.com
+Cc: ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	jjohnson@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] wifi: ath12k: fixes to improve MLO station stability
+Date: Tue, 13 Oct 2026 18:44:09 +0200
+Message-ID: <20261013164431.236842-1-jtornosm@redhat.com>
+In-Reply-To: <20260804175004.1761075-1-jtornosm@redhat.com>
+References: <20260804175004.1761075-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-The first time userspace sets an SMCCC filter, kvm_smccc_set_filter()
-inserts the reserved architecture ranges into the maple tree and WARNs
-if that fails. The insertion allocates with GFP_KERNEL_ACCOUNT, so a
-tight memory cgroup limit is enough for userspace to hit the WARN, even
-though the -ENOMEM is also returned to it. The WARN dates back to when
-the ranges were inserted at VM creation.
+Hi Jeff, Baochen,
 
-Leave -ENOMEM out of the WARN and keep it for every other error. The
-two reserved ranges are fixed and disjoint and go into an empty tree
-under config_lock, so any other error is a KVM bug.
+Gentle follow-up on this series. Without these fixes, a firmware crash
+during an active MLO connection results in NULL pointer dereferences
+and 20+ second recovery delays. Non-MLO recovery works fine; this
+brings MLO to the same level.
 
-Fixes: fb88707dd39bd ("KVM: arm64: Use a maple tree to represent the SMCCC filter")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260829055809.29AD31F000E9@smtp.kernel.org/
-Suggested-by: Oliver Upton <oupton@kernel.org>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
-Changes since v1 [1]:
-  - Keep the WARN for any error other than -ENOMEM. (Oliver)
-  - Split out of v1 as its own patch. (Marc)
+v2 has been on the list since August 4 and addressed all v1 feedback.
+Happy to rework if something is pending or can be improved.
+I know it is better to not have recoveries, but if there are (I have seen
+some), we would be covered in a fast way.
 
-Based on Linux 7.3-rc3 (fd73f4a665989).
-
-[1] https://lore.kernel.org/all/20260928152507.2116110-2-fuad.tabba@linux.dev/
-
- arch/arm64/kvm/hypercalls.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/kvm/hypercalls.c b/arch/arm64/kvm/hypercalls.c
-index b11b8821c9fbc..c9d488c586e5f 100644
---- a/arch/arm64/kvm/hypercalls.c
-+++ b/arch/arm64/kvm/hypercalls.c
-@@ -197,8 +197,10 @@ static int kvm_smccc_set_filter(struct kvm *kvm, struct kvm_smccc_filter __user
+Thanks
  
- 	if (!kvm_smccc_filter_configured(kvm)) {
- 		r = kvm_smccc_filter_insert_reserved(kvm);
--		if (WARN_ON_ONCE(r))
-+		if (r) {
-+			WARN_ON_ONCE(r != -ENOMEM);
- 			goto out_unlock;
-+		}
- 	}
- 
- 	r = mtree_insert_range(&kvm->arch.smccc_filter, start, end,
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
--- 
-2.39.5
+Best regards
+José Ignacio
 
