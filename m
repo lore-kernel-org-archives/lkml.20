@@ -1,39 +1,40 @@
-Received: from mta1.migadu.com (out-182.mta1.migadu.com [95.215.58.182])
+Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0E23CC7CC
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A57418342
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:40:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791870013; cv=none; b=C3JfjdJcjw+h/9YZLerbh1NYoGPioGMyqfS41xu+xXzKRHuiopg6eX3h1CrSsbRUByeG6BLCovWRJmdXtY1Habnqrzi/hgIYEEdcUkmfalmbYPBc8Vl8chqRACsMhhXSx9DgmhKKh9I1ykJ/Jd52t9v4LAqE/8vxDjQxcFQMQPM=
+	t=1791870021; cv=none; b=DTz9eqvNFNiCy4LJFnyiNyAXJWR1z4IQPUTEIYuNhxvDMjIyWoNN6dqlhKQbSxsgljhmO0vUjiSOiME9yrKAdplotaW5sBWzttsgZffT4DfNB77mSa26rKNw+wPmbwgZTaWpRnP3uFK9QoQpoUS2PiYZVPaRQ/tHHiYEYio9wRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791870013; c=relaxed/simple;
-	bh=+vIGo2rYMCWNXaBYTBNOtt9+vS9oZuzW7B5Y6OT01T0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NYPpHmJ8woBp+yGLra/kO5IK+oH2o1JpDMF1hXUip80bofqB4tgeiikqebkYFPjXKSNUufDq8LCq0t6B0ZPIAYEQ3bIqslP6b5uy31Rz7ZUU4f0vyG6pRUVLvDcb5HvTD+VuszzMZRaKun+G5zh3k6vSPzf3bXwldRwmWAixKyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=jtI8qJbM; arc=none smtp.client-ip=95.215.58.182
+	s=arc-20240116; t=1791870021; c=relaxed/simple;
+	bh=xdB/9KT+9W+e1jGR3r0MHV8vrXYNxD2NfzG/66HLEgY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=CoKOZZNxOl/4gEU3V7mAgiBCiG4mhQTSmUecvzSY6u7YdifZxGo6lwn7OaRFLJ5zY2Z9httkctD8/0ri/wpg9LjMs6V5SENd6NF4IEFVStN96n+6W5jf3BqJRj7TWuu1ajegzJzqnnWTd3M//X6YRdfP/OAYXZfV78872xY0c4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=aWQYdQ33; arc=none smtp.client-ip=91.218.175.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="jtI8qJbM"
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="aWQYdQ33"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+vIGo2rYMCWNXaBYTBNOtt9+vS9oZuzW7B5Y6OT01T0=;
+DKIM-Signature: a=rsa-sha256; bh=xdB/9KT+9W+e1jGR3r0MHV8vrXYNxD2NfzG/66HLEgY=;
  c=simple/simple; d=postmarketos.org;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791870008; v=1; x=1792474808;
- b=jtI8qJbMnOP1S07goDzpTDE0ltlCbhvOzMQUb3LWQr1I+nRP9ctclDjOPbIqZWdtbD7BZ9/K
- 7iKacVf0YwVCJWwSalkZBClqTXDFAcvw6tPHouKA98tYzWjezTNsBr9Bep2x7B9K/OSEeFqyfDi
- uGsUHOM/+N8Kz1j6b00hdUH++4fmzEJDDjgSgvaLc5xYsBNbCLE8zyXVMetC5znWlq60sTV5O21
- 3IQZCXBCIsTlvgRNLrq6ALNdMj+LkXuQdWgSsgaWJsn2vYk/nGTtEX1+bOyoMzHwmskZT4HBbJB
- 5YNfSuftXS9NRukBsNpnbYH8haDQyGv9sjVvhmc0noLTg==
+ t=1791870017; v=1; x=1792474817;
+ b=aWQYdQ33rkFDmwXgDV4CeYfYd/D6eagCmrQOrSFkuX0ctRqiZr6ucs8Y2vobWyfEsZBDaUzp
+ pZHliNZKNTIzIHdISL/VKEnw/KOru9ssKGzvwACmYd5PNL8oJF2khbSAhguyKqjn2+fVfoLG5jj
+ lUxPdDxCnplQLWZNUjRRnO1I7PG3dYgQdiMFkQ7JVK6T5CUgm0riK4mEYXTX888VspVVGmCF2dj
+ T0IgFbKMvghz4IS8JGaRbjfYGQcteUCz4psyIWYoGqbDf7BXOCjD8UJsxGT1DvaYOE5K//m2FT2
+ /EVdp5PvJ9cprv353jQ19z8VeVwziSYRSYEiUKT8krAWw==
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3e46188e16090fc7;
-	Tue, 13 Oct 2026 05:40:06 +0000
-X-Mizu-Trace-ID: 3e46188e16090fc7
+Received: by smtp.migadu.com with ESMTPS id c3876d7d6838b81e;
+	Tue, 13 Oct 2026 05:40:14 +0000
+X-Mizu-Trace-ID: c3876d7d6838b81e
 X-Migadu-Flow: FLOW_OUT
 From: Paul Sajna <sajattack@postmarketos.org>
-Subject: [PATCH v3 0/6] leds: aw2013: Add AW2027 support
-Date: Mon, 12 Oct 2026 22:39:54 -0700
-Message-Id: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
+Date: Mon, 12 Oct 2026 22:39:55 -0700
+Subject: [PATCH v3 1/6] dt-bindings: leds: aw2013: Add awinic,aw2027
+ compatible
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,11 +43,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XOwQ6CMAwG4FchOzvTdoGJJ9/DeJijwGJgZCOII
- by7g4Mnjafmb/J/7SIiB8dRnLNFBJ5cdL5PQR0yYVvTNyxdlbIgoAJK0NI8CVDtY55l4N50LKu
- alLJ5SWgLkapD4NrNO3u9pdy6OPrw2q9MuG3/gBNKkLY0uqqRjAa8DD6OnQkPHn08+tCIzZ3oY
- yFA/sOiZCGc2N7Tn1rnX6x1Xd/SjeisCwEAAA==
-X-Change-ID: 20260907-aw2013-aw20xx-rename-df233c5921c6
+Message-Id: <20261012-aw2013-aw20xx-rename-v3-1-cab1fdd050b6@postmarketos.org>
+References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
+In-Reply-To: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
 To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
@@ -54,75 +53,52 @@ To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
 Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- Paul Sajna <sajattack@postmarketos.org>, 
- Griffin Kroah-Hartman <griffin@kroah.com>, David Heidelberg <david@ixit.cz>
+ Paul Sajna <sajattack@postmarketos.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791869999; l=2333;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791869999; l=1243;
  i=sajattack@postmarketos.org; s=20250413; h=from:subject:message-id;
- bh=+vIGo2rYMCWNXaBYTBNOtt9+vS9oZuzW7B5Y6OT01T0=;
- b=aGDk4R0l4Z9MqEaPODWIkw9++xKyC8b4TgC1LcmSBGH6nWG5FoSP2/7FskzqU1k+kECt6VC7P
- sK+ocrSORbGATxfT0/giYalvC8S6FCksARHWK3vW3ABvxgR620yDdEK
+ bh=xdB/9KT+9W+e1jGR3r0MHV8vrXYNxD2NfzG/66HLEgY=;
+ b=xh7/q+cloxNase1lbGHIVTIOwBRPmaONQqWLxux6lHIRXbq8U62eTR4DKiPZ5cvPwm1ciJ1Cl
+ qUVzA17d9nhDFtN9oOCWkUN/8h/1u1hcjnwQH1UrS5Hvr2qgMF6i/mR
 X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
  pk=ZFE/UBqiz9Wr8b+zBL27opOjw5x5ket5JFqks/VQGeM=
 
-Refer to PATCH 3 for a full description of the similarities and
-differences between AW2013 and AW2027.
-
-Several pre-existing bugs were also caught by Sashiko Review
-and fixed in this patch-series. The joys of LLM-inflicted bikeshedding.
-
-This PATCH resulted out of discussions pertaining to
-sdm660-mainline/linux, a close-to-mainline fork for Qualcomm Snapdragon 660
-devices, specifically for the BlackBerry KEY2 Keyboard Backlight,
-in the following GitHub PR: https://github.com/sdm660-mainline/linux/pull/218
+The aw2027 is largely the same as the aw2013, with the
+exception of the way the max current is written to registers.
+This exception makes it different enough to not work without
+driver modifications, but similar enough to fall under the
+umbrella of the same driver.
 
 Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
-Changes in v3:
-- Drop rename
-- Capitalize commit subject
-- Other requested commit rewording
-- Extra tweaks to cleanup patches (preventing more unbalanced regulator
-  stuff)
-- Whitespace fiddling for `checkpatch --strict`
-- Link to v2: https://lore.kernel.org/r/20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org
+ Documentation/devicetree/bindings/leds/leds-aw2013.yaml | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Changes in v2:
-- Reduce renames to internal driver scope, to prevent breaking compat
-- Address Sashiko Review Comments
-- Split renames into a separate commit to make the actual changes easier
-to identify
-- Change from RFC to PATCH
-- Link to v1: https://lore.kernel.org/r/20260907-aw2013-aw20xx-rename-v1-0-c9a7df12a701@postmarketos.org
+diff --git a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml b/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
+index 26238446f2bd..1ad165cfe34a 100644
+--- a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
++++ b/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/leds/leds-aw2013.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: AWINIC AW2013 3-channel LED Driver
++title: AWINIC AW2013/AW2027 3-channel LED Driver
+ 
+ maintainers:
+   - Nikita Travkin <nikitos.tr@gmail.com>
+@@ -15,7 +15,9 @@ description: |
+ 
+ properties:
+   compatible:
+-    const: awinic,aw2013
++    enum:
++      - awinic,aw2013
++      - awinic,aw2027
+ 
+   reg:
+     maxItems: 1
 
-To: Lee Jones <lee@kernel.org>
-To: Pavel Machek <pavel@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Nikita Travkin <nikitos.tr@gmail.com>
-Cc: Nikita Travkin <nikita@trvn.ru>
-Cc: linux-leds@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Paul Sajna (6):
-      dt-bindings: leds: aw2013: Add awinic,aw2027 compatible
-      leds: aw2013: Add AW2027 support
-      leds: aw2013: Use dev_err_probe
-      leds: aw2013: Move assignment of chip->num_leds
-      leds: aw2013: Prevent writes to unpowered chip
-      leds: aw2013: Move reset register write
-
- .../devicetree/bindings/leds/leds-aw2013.yaml      |   6 +-
- drivers/leds/leds-aw2013.c                         | 207 ++++++++++++++++-----
- 2 files changed, 165 insertions(+), 48 deletions(-)
----
-base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-change-id: 20260907-aw2013-aw20xx-rename-df233c5921c6
-
-Best regards,
---  
-Paul Sajna <sajattack@postmarketos.org>
+-- 
+2.55.0
 
