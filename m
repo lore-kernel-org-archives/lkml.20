@@ -1,64 +1,64 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F097E47ACE7
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777BF47AF69
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:20:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904810; cv=none; b=Qh4+vjT5wCU2DScwxDHBF+AvqXSEk8SlNR2BMUoneFJTcOeh5HQFk2PWXZQO9AkQmZ4WpbWDdxWOcNRljAREOGmkcPtaKvpAb2epVLNzAPF5UkwXpXikSFkJ8KTMjuoHEugXt7upDoTZV88rGwqvXX/4lWc1IFYLls8IEK1LV1I=
+	t=1791904816; cv=none; b=lhywlmRkfLp9e2dGaV0fRCA7GVQnMupOG8mVJrykS1WwMpWfRteh8Wgl3aaNOXyZfnwuJ5gpNA+9WOSMxThk4mXaGoqel8NKHuTKComZATt/aFIx7HEGcCH9bEwccz58Eq00PLg+1oqKrGyKVvMxtNh2XtUMVkM0rQ1nP1+3D1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904810; c=relaxed/simple;
-	bh=7zbat2PACQc86QZQTEWg+nOIZFYEzXenfLe3AGTAhhk=;
+	s=arc-20240116; t=1791904816; c=relaxed/simple;
+	bh=7k8eZsjUuCczF29ZvqH1ym77REu94Pv9qu1kpkRSAUU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vtbi9lO1FnLY1ChHVRGxT7pWGtiW0fXH0ovyFjt19wHXf+IAbhe3u+gCN9+sNGaypl8PzV9MuVzArHCgXh2qLa3lyngv/Kl0wMDCe1s5/ccxV9jUmvpbirPFq93DroT3SF1K1DaZJyqLIfVIYAs17S5KbbRfUkO5NYY7tsIreEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dXSK7ouH; arc=none smtp.client-ip=209.85.210.172
+	 MIME-Version; b=OS2lUp7H0aDktbBxtUse1KTi8ivZ4XoE7H3uK6O3YzDTb+EmvBtY9bG55go7i0LnvuObvOWhzhgufzbD4MdEYbVrRnBCf++toWGrsc06lGBRjRQiiEwBUlQK7Q98mGm433ztz/4kduYg4MIK44AhCksjexvoPFGQBD+l8CSDgAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dsWInEQp; arc=none smtp.client-ip=209.85.215.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dXSK7ouH"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-881269371acso2513750b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:20:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dsWInEQp"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so1663094a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:20:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791904808; x=1792509608; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791904814; x=1792509614; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=B4Gl+sGd+5M6eL6jAwWWBS7MqC+3SN+gEIe9ESRruM0=;
-        b=dXSK7ouHKYA2KaSxmOI/82FNqnVTRNTRMJ8d/rqOayu+WxGnDhaldPWA84lVlPXUK1
-         QXIiVJOHIgnec4CBGFgWRzmB9P2f/ONjrm4WsVXN2yZQByizQPwshlsuy281sJLUF7d0
-         pkz/EZwxt0YBilAzzF5R9ZXtLYyR0rQb12liuWA6KbB7ZgsT6anVu52BdlzMcm3SNTxc
-         86YrKWI2gFDRW1nmgEVCXQcVpLZ2k5XiNsScY6b6vaXx7nBcKPmCE02qQHM31dOp4gW7
-         QxTGN2xNLzi8jWKjQfyH/Cct6MHqeBaIhYuCVLdVdaQV09Er2+08zXF0nY7tXjCwIA7V
-         DDKg==
+        bh=eNskGVCiRsgKaHbOLvQq8UPjRNKhURtaGmxGS4VhhxA=;
+        b=dsWInEQpQF9CsTuD/2XTaAi4PLC4aNVhbjv+OX5FANrFhZoX/lAMcJ8W8elwVFLQWQ
+         gOPHuJ74Yije92ZS0rh4YoL7w3FjFPV8MHPijn/+KjK1e0UtTCYPE9ktHLPRI9eYoLdV
+         DQxtw//KHSt1FZ9nhgS5djSSHPbNiFWakrNzxA5bKpnIVwnDr6/VB0O/ors0Of0lXvk/
+         5fL/zc7iA57sLeCUQknODESpaVtZxiQi9ot/MhrBCkg0daHjQIELl44QSHcJ0znVVYKj
+         arnAO2h7rFnpW8TGxXKpOMPEZJOj3u9ce/6op/Wu6LxMRqLgmv1BF5IPuh9K/iG/SQ+M
+         1faA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904808; x=1792509608;
+        d=1e100.net; s=20260707; t=1791904814; x=1792509614;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B4Gl+sGd+5M6eL6jAwWWBS7MqC+3SN+gEIe9ESRruM0=;
-        b=tpoS4aywHsjj794NcUv9/9c976ZngG5TNYYSLtr3aD9NfiUMH+TW/fjgzw4JL7Tr6L
-         h+TrQrlrPMy35IErhfUg2Ds/YwCPVBCWKXbboBeRR9Ip/71R2CBFV9gDZqhrb11rdbMY
-         RsvSJRfYiMtPp6xKvThchvEx5LO3LlP/+Vh1qoLBq568N7lVAWOywE+T3JLSVWiOT/Zt
-         A7J9ikaRqwAeyXDjS0QEJBFENCLbHlwFbwL0WVzgXnWXOB6/rxi2wJZ03YFSdJVWoT1v
-         dHE1t7GVDy32UxlIYAto+HaiJ8aToWlGegFc5HmY48KqOOm+YvWt6ZrmFEs+hMtD2QUR
-         txtA==
-X-Forwarded-Encrypted: i=1; AKwUvBwu4R/rkhSMP8dYrAxVIMAS88nQLSQeUzNik0fJKdnEbTflGBbcSt4NrO2LLH2JdR7LhgoLfVYqobLyd3E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJrqOqzyPvxVluL/BJfdVSBRK83bjUabUFJN+uPf8hot+fpcVP
-	BGSjfFHXdi3LpVq1hSm2FBGCRy6EfQoU6FKiUVGuTmsvEgjhK+sEqWQd
-X-Gm-Gg: AYBFou3Hj7ZFWUsfUY4ywL097J79C7UBYMakqXn47H19x7Ot2mAlG/mkJLXVmIa6yKA
-	wN0ePbkO5aoHamCXLvc58A1B7rdxglcOiuaeZOvp3XL6/XeCRViwoNdbzBLzTtmtdePxRwMcqkp
-	t1vsm7cBbrEnHDFzdg/ukLwwcwzsrguf69VY4DDRGk7g6ARtQMaFqIUVklet3+m7Jezy1Bn8RBn
-	ClqmgSNdyruLrk9HYLndjJ/rWAha3SghsGl0EHC9gwphEgpmd0ItML7snwy2jxY0+ZovxfPpS2R
-	2vBOd54wGUmY/1d5jbD02dJBZNgbFzj1J8aDseMyurYs1sW/MMNTdFbEy7FFvuiDcrzLINqXva8
-	3wXlxCMTYG38g1vzVe48vpuGrPYs4S+YrGhuCj6evC6pyTcbhDV8JLej5NMNRyGoaTL50/24e71
-	G9NPL+PkHZZ8vfQ3QdnSpoJIQQnc75ch4+kS4HVMa7/NbiebOBhLZVQYr/9iNCr6ryfiZWyj3OU
-	rXeCJxjMmIMX//ohVTWHRldvoPWNNejiH+dIPY=
-X-Received: by 2002:a05:6a20:a11f:b0:3e1:3734:63e0 with SMTP id adf61e73a8af0-3e16bec52eamr8017289637.41.1791904808186;
-        Tue, 13 Oct 2026 08:20:08 -0700 (PDT)
+        bh=eNskGVCiRsgKaHbOLvQq8UPjRNKhURtaGmxGS4VhhxA=;
+        b=CZUDtTZLYYPaA7KJOMgsG3zK6SCK13bHfOoxKysKMH25byb6XWz6XSkMdISD/movcl
+         hv4sbIC4IlEY+gaeYSQmxj0Spgg1p/Fz8kHA7LM/hd6kvrbgFr0aW1uAE/cviw6NvJZe
+         xTd8mFk3j8ONMb11tdacGEo5EjJ1wL6CftAxSr/CfCXYCiKMJ8OQTnI0L7Hj48LC4LvI
+         dnLgSJuny6HxcgSatBlqCfR12KBIKxZ7WR9zEbQRuelCpdisuLsq16QXGz5udz+rDKAD
+         CSXYyfagkVe2lMYUoSTg+pXjF34LyrwCNJMo0cF13OpYVtqQUaj9Hn8HtLJw8axxK14z
+         p7ow==
+X-Forwarded-Encrypted: i=1; AKwUvBzCO79F0KbWKr1b4ftLsX3qQ39eFIdQTS39IvcW32IjCo/IWww050+oHQeDkFNo7tDk0nbn81ii5Wng52E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJU4A53bxpM5aSHWrJVxz1+77ePBXpdQQ19mrVxj0vCYqjK6y1S
+	1/xao9go6oKix7u9TkdYWlcKjKYiID7n8jNKFx794a6CR9R2aBttZmMb
+X-Gm-Gg: AYBFou1A9DY7AE518mSUmeMpx1/RhmiFhGtnMM3mIT8IUQqQrnQg8PItZ1p9+t7IzAR
+	OftNU7PZ5C1iyTlFFAvUaIHnNvgz8bZmuchwL0YA1gg6vplVRY3N4rCXCEm/LthC5bN8KcOxBSO
+	CqLPyYMZ7q+6P6TYx8EwozZAS34ePNI6tvYFiMb05B7uXZFqHrLRhs9s7NmNWeevDrGNBj6PFQ7
+	y8KKm76X9fCDUwZ6MhSElJQIVlpC8eVYVTWYxybRcMtfTmcDB9IMa2NKkEc7lKPo3Xu7t55bXPM
+	AdhjZP4eS0HgKBrHBwhfvR6qJw+TyEfr+BOnqEk2D8zE/zzlspxrAXiUKUbvmzbojJyNkcqy5ov
+	CU8QOb9YG3QHn4MSDciJ73bbYrbOBCui+nHx0OLoZL7lrI6ReXBfvWYdig9VQGCZ6X4nbe6yneG
+	fm+oZ0VeSannRyJE0DLf1LJ7kRgNnU/+eHRSRHedKRvEJk2cXr933YKx2evhAvpKu4zd9DHD6Cd
+	T7QOGQ+47rUeSK84qbznQl36TRS
+X-Received: by 2002:a05:6a20:549d:b0:3df:f4a5:dca7 with SMTP id adf61e73a8af0-3e16bd88afdmr13497701637.16.1791904813806;
+        Tue, 13 Oct 2026 08:20:13 -0700 (PDT)
 Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.20.02
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da04596dsm5759888a12.29.2026.10.13.08.20.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:20:07 -0700 (PDT)
+        Tue, 13 Oct 2026 08:20:13 -0700 (PDT)
 From: Akari Tsuyukusa <akkun11.open@gmail.com>
 To: Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
@@ -86,9 +86,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
 	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
 	Akari Tsuyukusa <akkun11.open@gmail.com>
-Subject: [PATCH v2 22/35] clk: mediatek: mt7622: Switch to common probe/remove helpers
-Date: Wed, 14 Oct 2026 00:17:21 +0900
-Message-ID: <20261013151734.3177690-23-akkun11.open@gmail.com>
+Subject: [PATCH v2 23/35] clk: mediatek: mt7981-apmixed: Switch to common probe/remove helpers
+Date: Wed, 14 Oct 2026 00:17:22 +0900
+Message-ID: <20261013151734.3177690-24-akkun11.open@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261013151734.3177690-1-akkun11.open@gmail.com>
 References: <20261013151734.3177690-1-akkun11.open@gmail.com>
@@ -100,258 +100,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MT7622 apmixedsys driver used custom probe/remove callbacks to
-register PLLs. The infracfg driver also needed CPU mux registration,
-and the audsys driver needed child-device population.
-With PLL, CPU mux, and child-device population support available in the
-common helpers, all three drivers can use mtk_clk_simple_probe()
-and mtk_clk_simple_remove().
+The MT7981 apmixedsys driver used a custom probe to register PLLs but
+had no remove callback. With PLL registration and unregistration
+handled by the common helpers,
+the driver can use mtk_clk_simple_probe() and mtk_clk_simple_remove().
+
+Switch to module_platform_driver() and change the Kconfig
+setting to "tristate" to support module builds and ensure
+that registered clocks are unregistered on module removal.
 
 Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
 ---
 Changes in v2:
 - Improvement of commit messages
 ---
- drivers/clk/mediatek/clk-mt7622-apmixedsys.c | 62 +++--------------
- drivers/clk/mediatek/clk-mt7622-aud.c        | 35 +---------
- drivers/clk/mediatek/clk-mt7622-infracfg.c   | 72 +++-----------------
- 3 files changed, 23 insertions(+), 146 deletions(-)
+ drivers/clk/mediatek/Kconfig              |  2 +-
+ drivers/clk/mediatek/clk-mt7981-apmixed.c | 37 ++++++-----------------
+ 2 files changed, 10 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/clk/mediatek/clk-mt7622-apmixedsys.c b/drivers/clk/mediatek/clk-mt7622-apmixedsys.c
-index fae8abda14b3..e9f731eadace 100644
---- a/drivers/clk/mediatek/clk-mt7622-apmixedsys.c
-+++ b/drivers/clk/mediatek/clk-mt7622-apmixedsys.c
-@@ -80,66 +80,22 @@ static const struct mtk_gate apmixed_clks[] = {
- 	GATE_APMIXED_AO(CLK_APMIXED_MAIN_CORE_EN, "main_core_en", "mainpll", 5),
+diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
+index be522c43fa42..54ecf2692607 100644
+--- a/drivers/clk/mediatek/Kconfig
++++ b/drivers/clk/mediatek/Kconfig
+@@ -427,7 +427,7 @@ config COMMON_CLK_MT7629_HIFSYS
+ 	  to PCI-E and USB.
+ 
+ config COMMON_CLK_MT7981
+-	bool "Clock driver for MediaTek MT7981"
++	tristate "Clock driver for MediaTek MT7981"
+ 	depends on ARCH_MEDIATEK || COMPILE_TEST
+ 	select COMMON_CLK_MEDIATEK
+ 	default ARCH_MEDIATEK
+diff --git a/drivers/clk/mediatek/clk-mt7981-apmixed.c b/drivers/clk/mediatek/clk-mt7981-apmixed.c
+index 851d0bc7840a..810395aff253 100644
+--- a/drivers/clk/mediatek/clk-mt7981-apmixed.c
++++ b/drivers/clk/mediatek/clk-mt7981-apmixed.c
+@@ -59,45 +59,26 @@ static const struct mtk_pll_data plls[] = {
+ 	    0x0278, 4, 0, 0x027C, 0),
  };
  
--static int clk_mt7622_apmixed_probe(struct platform_device *pdev)
--{
--	void __iomem *base;
--	struct clk_hw_onecell_data *clk_data;
--	struct device_node *node = pdev->dev.of_node;
--	struct device *dev = &pdev->dev;
--	int ret;
--
--	base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(base))
--		return PTR_ERR(base);
--
--	clk_data = mtk_devm_alloc_clk_data(dev, CLK_APMIXED_NR_CLK);
--	if (!clk_data)
--		return -ENOMEM;
--
--	ret = mtk_clk_register_plls(dev, plls, ARRAY_SIZE(plls), clk_data);
--	if (ret)
--		return ret;
--
--	ret = mtk_clk_register_gates(&pdev->dev, node, apmixed_clks,
--				     ARRAY_SIZE(apmixed_clks), clk_data);
--	if (ret)
--		goto unregister_plls;
--
--	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, clk_data);
--	if (ret)
--		goto unregister_gates;
--
--	platform_set_drvdata(pdev, clk_data);
--
--	return 0;
--
--unregister_gates:
--	mtk_clk_unregister_gates(apmixed_clks, ARRAY_SIZE(apmixed_clks), clk_data);
--unregister_plls:
--	mtk_clk_unregister_plls(plls, ARRAY_SIZE(plls), clk_data);
--
--	return ret;
--}
--
--static void clk_mt7622_apmixed_remove(struct platform_device *pdev)
--{
--	struct device_node *node = pdev->dev.of_node;
--	struct clk_hw_onecell_data *clk_data = platform_get_drvdata(pdev);
--
--	of_clk_del_provider(node);
--	mtk_clk_unregister_gates(apmixed_clks, ARRAY_SIZE(apmixed_clks), clk_data);
--	mtk_clk_unregister_plls(plls, ARRAY_SIZE(plls), clk_data);
--}
 +static const struct mtk_clk_desc apmixed_desc = {
 +	.plls = plls,
 +	.num_plls = ARRAY_SIZE(plls),
-+	.clks = apmixed_clks,
-+	.num_clks = ARRAY_SIZE(apmixed_clks),
-+};
- 
- static const struct of_device_id of_match_clk_mt7622_apmixed[] = {
--	{ .compatible = "mediatek,mt7622-apmixedsys" },
-+	{ .compatible = "mediatek,mt7622-apmixedsys", .data = &apmixed_desc },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, of_match_clk_mt7622_apmixed);
- 
- static struct platform_driver clk_mt7622_apmixed_drv = {
--	.probe = clk_mt7622_apmixed_probe,
--	.remove = clk_mt7622_apmixed_remove,
-+	.probe = mtk_clk_simple_probe,
-+	.remove = mtk_clk_simple_remove,
- 	.driver = {
- 		.name = "clk-mt7622-apmixed",
- 		.of_match_table = of_match_clk_mt7622_apmixed,
-diff --git a/drivers/clk/mediatek/clk-mt7622-aud.c b/drivers/clk/mediatek/clk-mt7622-aud.c
-index a4ea5e20efa2..6004c58be1b5 100644
---- a/drivers/clk/mediatek/clk-mt7622-aud.c
-+++ b/drivers/clk/mediatek/clk-mt7622-aud.c
-@@ -110,38 +110,9 @@ static const struct mtk_gate audio_clks[] = {
- static const struct mtk_clk_desc audio_desc = {
- 	.clks = audio_clks,
- 	.num_clks = ARRAY_SIZE(audio_clks),
-+	.populate_children = true,
- };
- 
--static int clk_mt7622_aud_probe(struct platform_device *pdev)
--{
--	int r;
--
--	r = mtk_clk_simple_probe(pdev);
--	if (r) {
--		dev_err(&pdev->dev,
--			"could not register clock provider: %s: %d\n",
--			pdev->name, r);
--
--		return r;
--	}
--
--	r = devm_of_platform_populate(&pdev->dev);
--	if (r)
--		goto err_plat_populate;
--
--	return 0;
--
--err_plat_populate:
--	mtk_clk_simple_remove(pdev);
--	return r;
--}
--
--static void clk_mt7622_aud_remove(struct platform_device *pdev)
--{
--	of_platform_depopulate(&pdev->dev);
--	mtk_clk_simple_remove(pdev);
--}
--
- static const struct of_device_id of_match_clk_mt7622_aud[] = {
- 	{ .compatible = "mediatek,mt7622-audsys", .data = &audio_desc },
- 	{ /* sentinel */ }
-@@ -149,8 +120,8 @@ static const struct of_device_id of_match_clk_mt7622_aud[] = {
- MODULE_DEVICE_TABLE(of, of_match_clk_mt7622_aud);
- 
- static struct platform_driver clk_mt7622_aud_drv = {
--	.probe = clk_mt7622_aud_probe,
--	.remove = clk_mt7622_aud_remove,
-+	.probe = mtk_clk_simple_probe,
-+	.remove = mtk_clk_simple_remove,
- 	.driver = {
- 		.name = "clk-mt7622-aud",
- 		.of_match_table = of_match_clk_mt7622_aud,
-diff --git a/drivers/clk/mediatek/clk-mt7622-infracfg.c b/drivers/clk/mediatek/clk-mt7622-infracfg.c
-index cec19447d637..2e463d1481d0 100644
---- a/drivers/clk/mediatek/clk-mt7622-infracfg.c
-+++ b/drivers/clk/mediatek/clk-mt7622-infracfg.c
-@@ -9,7 +9,6 @@
- #include <linux/module.h>
- #include <linux/platform_device.h>
- 
--#include "clk-cpumux.h"
- #include "clk-gate.h"
- #include "clk-mtk.h"
- #include "reset.h"
-@@ -51,76 +50,27 @@ static const struct mtk_clk_rst_desc clk_rst_desc = {
- 	.rst_bank_nr = ARRAY_SIZE(infrasys_rst_ofs),
- };
- 
-+static const struct mtk_clk_desc infra_desc = {
-+	.clks = infra_clks,
-+	.num_clks = ARRAY_SIZE(infra_clks),
-+	.cpumuxes = cpu_muxes,
-+	.num_cpumuxes = ARRAY_SIZE(cpu_muxes),
-+	.rst_desc = &clk_rst_desc,
 +};
 +
- static const struct of_device_id of_match_clk_mt7622_infracfg[] = {
--	{ .compatible = "mediatek,mt7622-infracfg" },
-+	{ .compatible = "mediatek,mt7622-infracfg", .data = &infra_desc },
+ static const struct of_device_id of_match_clk_mt7981_apmixed[] = {
+-	{ .compatible = "mediatek,mt7981-apmixedsys", },
++	{ .compatible = "mediatek,mt7981-apmixedsys", .data = &apmixed_desc },
  	{ /* sentinel */ }
  };
- MODULE_DEVICE_TABLE(of, of_match_clk_mt7622_infracfg);
+ MODULE_DEVICE_TABLE(of, of_match_clk_mt7981_apmixed);
  
--static int clk_mt7622_infracfg_probe(struct platform_device *pdev)
+-static int clk_mt7981_apmixed_probe(struct platform_device *pdev)
 -{
 -	struct clk_hw_onecell_data *clk_data;
 -	struct device_node *node = pdev->dev.of_node;
--	void __iomem *base;
--	int ret;
+-	int r;
 -
--	base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(base))
--		return PTR_ERR(base);
--
--	clk_data = mtk_alloc_clk_data(CLK_INFRA_NR_CLK);
+-	clk_data = mtk_alloc_clk_data(ARRAY_SIZE(plls));
 -	if (!clk_data)
 -		return -ENOMEM;
 -
--	ret = mtk_register_reset_controller_with_dev(&pdev->dev, &clk_rst_desc);
--	if (ret)
--		goto free_clk_data;
+-	mtk_clk_register_plls(&pdev->dev, plls, ARRAY_SIZE(plls), clk_data);
 -
--	ret = mtk_clk_register_gates(&pdev->dev, node, infra_clks,
--				     ARRAY_SIZE(infra_clks), clk_data);
--	if (ret)
--		goto free_clk_data;
+-	r = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, clk_data);
+-	if (r) {
+-		pr_err("%s(): could not register clock provider: %d\n",
+-		       __func__, r);
+-		goto free_apmixed_data;
+-	}
+-	return r;
 -
--	ret = mtk_clk_register_cpumuxes(&pdev->dev, node, cpu_muxes,
--					ARRAY_SIZE(cpu_muxes), clk_data);
--	if (ret)
--		goto unregister_gates;
--
--	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, clk_data);
--	if (ret)
--		goto unregister_cpumuxes;
--
--	platform_set_drvdata(pdev, clk_data);
--
--	return 0;
--
--unregister_cpumuxes:
--	mtk_clk_unregister_cpumuxes(cpu_muxes, ARRAY_SIZE(cpu_muxes), clk_data);
--unregister_gates:
--	mtk_clk_unregister_gates(infra_clks, ARRAY_SIZE(infra_clks), clk_data);
--free_clk_data:
+-free_apmixed_data:
 -	mtk_free_clk_data(clk_data);
--	return ret;
+-	return r;
 -}
 -
--static void clk_mt7622_infracfg_remove(struct platform_device *pdev)
--{
--	struct device_node *node = pdev->dev.of_node;
--	struct clk_hw_onecell_data *clk_data = platform_get_drvdata(pdev);
--
--	of_clk_del_provider(node);
--	mtk_clk_unregister_cpumuxes(cpu_muxes, ARRAY_SIZE(cpu_muxes), clk_data);
--	mtk_clk_unregister_gates(infra_clks, ARRAY_SIZE(infra_clks), clk_data);
--	mtk_free_clk_data(clk_data);
--}
--
- static struct platform_driver clk_mt7622_infracfg_drv = {
- 	.driver = {
- 		.name = "clk-mt7622-infracfg",
- 		.of_match_table = of_match_clk_mt7622_infracfg,
- 	},
--	.probe = clk_mt7622_infracfg_probe,
--	.remove = clk_mt7622_infracfg_remove,
+ static struct platform_driver clk_mt7981_apmixed_drv = {
+-	.probe = clk_mt7981_apmixed_probe,
 +	.probe = mtk_clk_simple_probe,
 +	.remove = mtk_clk_simple_remove,
+ 	.driver = {
+ 		.name = "clk-mt7981-apmixed",
+ 		.of_match_table = of_match_clk_mt7981_apmixed,
+ 	},
  };
- module_platform_driver(clk_mt7622_infracfg_drv);
+-builtin_platform_driver(clk_mt7981_apmixed_drv);
++module_platform_driver(clk_mt7981_apmixed_drv);
  
+ MODULE_DESCRIPTION("MediaTek MT7981 apmixedsys clocks driver");
+ MODULE_LICENSE("GPL");
 -- 
 2.56.0
 
