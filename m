@@ -1,184 +1,437 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010023.outbound.protection.outlook.com [52.101.193.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3D847B405
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:29:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791916142; cv=none; b=OhFeEHBd9tr/PQiZq0BXnNKJHmuNOPcEs2mabWDufIWkxWQNfEmSkQK7Ijq29/aqFLlfmOe9x34MrFg0upYjyb+BqKhgiYIR4smFfI2/pXAOlesh7OHPVcGIJZqtx+HVRbcD2ZCVFznalJVIJKo7O4dW9pRP3X6rdPNeQMhMmCc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791916142; c=relaxed/simple;
-	bh=e9zBphVBZjd44IWcpVI0lqCnAplEQpZXDYyGO8O3PSk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hwEuEnawEY7GNfUUNZzd8cwexrLtJKeOvPZNROFHpRXogmPIrmHYjFwV2qFHm54dbNlPLPeaPGchLcBliOyq/E6bNfZFfeYSj8owvmTn6gs22Slj7tgkSrf6jwrkK2B/p7NFz/zsGM60vbMPTagJaFKS5J6Nk/uy+Ua4yMBF6wU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YZ6bS9TR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ul3EVaQP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4B3515962
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791916157; cv=fail; b=TVaImSXGjvpjJSF0x/SrL9Krn7s0Il0o76SIEeOSaAvkRpLb3U0uUlVGjmz2WB4Q+0BETO/YicFQv2xLMEmtmHCBoSlVQRZelIYhvEo+POxVr0MviH/eED1Fa9JMwaixo5+TGloWl9AzAEJmGYD7PT4+PEtlBOyjLJ7vS/Zyato=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791916157; c=relaxed/simple;
+	bh=ggbMy3Fmoxfc+jcredGyM79+rpWBicGzMzGlc+to2d4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=LibIQ7zIspd74X7hioL7mb4Y27hvRF7KappkpXVl3KAFfcaNAX70Wxm9Lmq4E48Q35Hq8B2mr9o8qwzWdkV5zlNkdTN76Te+bzGPxJAxNl5i7JuGPGkydSqhkjqN+9G6sIjWx+7ZWK6ewF04NMagLKuuc+damiHGaC973exjOl0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Uf04QBoG; arc=fail smtp.client-ip=52.101.193.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YZ6bS9TR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ul3EVaQP"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DHRFbG3017940
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:29:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PSYA3BT7fccaOgtCBIv4Ihm58BgpNYihDvGMqz3iMdc=; b=YZ6bS9TRHlzDLJ1M
-	S5RPkSa/7+VXXes6MMLQbiUVW7Ag0HpQcmw3TjFHKrUzQLem6KECe9yf4me1uiTM
-	KF0i8Zi9ATtrLN1dYlIUsSpMoby4PhY23fCgp3Li0+QZOTMfCeEt3HZJnlmyrAfC
-	56oh+tvRP05IlY+5Ot+VeIFl+M9AdpegzATZekhxE33xFN1dpTX+raO+5AnysYbI
-	h3O3hBgp3s6KL5+INtX7yemKJY8Fg4LfYDvI7ACE3f12KpUvADPXwSIzVGOncIg5
-	1h0nTao4ggd6Bpp6FkwdvHQbv4ASvzBUDeTS4zp6z6PvkKQd5JI1qjDlkSjw/4R3
-	//YMcw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9s2b0bkp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:28:59 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35c5aef2a74so571596eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:28:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791916139; x=1792520939; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PSYA3BT7fccaOgtCBIv4Ihm58BgpNYihDvGMqz3iMdc=;
-        b=Ul3EVaQPant+aYGS3EV/2HAHDUm41oHwNiVIMbuHCKB9qLXLyLWLfcPiiqbSXK25zf
-         6YvZWYy9hklwrgmfmbPeybic0rzT3GZk7y7bI56uuVr4L1ZjBKNY8Owg+R/6Oxt1q1Sr
-         iCh2SGdXmUjESUnmXgC5Op9eqS+kHNTvz5faOjJldTuCLWQbKvqLpgkRiCMNy4pRDxng
-         TVF/TIxWIpKy3cjE37Gv/x9ykzZpshzkuec8Wl4STaL0TMij3QXN+dhb+i197ZjYB6L0
-         vGhzVf/hJX4XU32MAckKrBJrfVtbbSO+JXMzDzRrj8plkjc1GZmpmYmvnbP0VSyvyFvG
-         vYLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791916139; x=1792520939;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PSYA3BT7fccaOgtCBIv4Ihm58BgpNYihDvGMqz3iMdc=;
-        b=RHK9If+xhyKUHCYjhdJCWg02GMQMULNazQgSlgY3IaILr/yoWG5eXrthth7/kVBZ3a
-         S4dBgVF1pyvJEWBxeZ8lhrJc1qMXu9NIJM/X9G6ceCCAC58DVPM7eSQtoDfMDtDgNiMn
-         +xtH/+cK920KFGH+KqkbmeNsaH3hZj+8yvyNPkZS6heEZF3GYCF0nk1yuF2MZxrBF4az
-         wuxWpwKhO0O74T+UcphPTEDtCRgbRoAZWm/jGorOpLGBCRRtb+5dGb4X6nXLGoftVkqT
-         OWuIeXUU+iL4V4csd+4sdA5vXaLL0pXNdj2Y+IYb5YnKv0xKhQeFjZcrdhhVcz1BTjt8
-         rQLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7dGlmaUhq53TP7e4VmZi/VIjLzh3M6CK5xLy/YfDFqA9RJ7IjLAmaICPEvyLcXOH6znJAaYKELz2BrIc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlHl8h03rwNFMQHki2RkRegoOHCiGoA2WDHv7stqTDXGptYN/F
-	h3TFzDd4hGw0hiyIXamLjeEEtopl1NIU32+sELWtZbbICg2gbfJKcDjthFNWk3GTOhNp3i452lc
-	p3eGKYDR+KGwn8i+TnGclSu6yBrfqysB605MZHGiMD+cQ4oyg3VPe7ASOGlMaryd1a+0=
-X-Gm-Gg: AYBFou2daek8qHsc9OJKt/WsoVqhfyG6AcZt20FB5rVTjuBrYzDwgffuEBZvtqIfTLZ
-	n1jpSLDdR4KoLNl16qFT8I8U2dju+LQ5tGG8xVOxGhx7aBdRWH7TaOWUt27D5X1oS8bor6amNDC
-	BjSSA+dEMFhaTPibQ0doDYdDRC5hAZgivBhuYG8noJJG+tuCVARENkeP6i1ls9F2KRV/pXVR+Cm
-	XDmTkazs/vo7+HU3DcNWvRRJql5UPqW4AHJcyyAvzfV3OLro+kNI2LDWxzgrX7tT1UkK5g+anSE
-	CccpYUljXcg+7nr9PjDwtthfSHhZABxcb4FifGezXaZObsiMPeI2PhvFlWgcT+LgQUmETAJrCcB
-	zc1RbHRTNtTqJlzsJt+7AiobpFrd/SUTjrpx5QhRVZ0Y+09FMLeK8tl2XGZ8w8FTboJ5Q6o0=
-X-Received: by 2002:a05:7022:b0d4:b0:143:2984:6518 with SMTP id a92af1059eb24-16a612bc1e8mr20627344c88.39.1791916139039;
-        Tue, 13 Oct 2026 11:28:59 -0700 (PDT)
-X-Received: by 2002:a05:7022:b0d4:b0:143:2984:6518 with SMTP id a92af1059eb24-16a612bc1e8mr20627312c88.39.1791916138466;
-        Tue, 13 Oct 2026 11:28:58 -0700 (PDT)
-Received: from ?IPV6:2401:4900:889d:390b:491d:8cf9:7389:5b70? ([2401:4900:889d:390b:491d:8cf9:7389:5b70])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a567aef5sm39437810c88.19.2026.10.13.11.28.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 11:28:57 -0700 (PDT)
-Message-ID: <4acb0eee-f7ae-4817-9848-d72cf486bc06@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 23:58:44 +0530
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Uf04QBoG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=heDpjRAULRwn4DQ3Tf90IYOJ3XXSslPbDO5szE/pUM8Z3ZG/Y8RowOu0cuRolnDL6ezGuv3RB+LDcUFSc1zgycTiWgQuBGmg/i9TzdMWVzp9ehRblkrpjubQRhskZjFEw/Vknu0CYBCrT7ZHFPbxTyY1pQJjHciRy6+ql6z7Y1Jk/lss50T5iGmcng2p+5fc3keBjEiYhCK5T8yxJ5G6FveTZQbY7/7Acy1OguRZirbgktIHU8v7H78ZTl9nFedZXnTweOy6WS5WtswL0+WPJOW/mYNLUuJMKCGZv+/twQxwF1PhB1YvwOtfWlWKKo3ORkUxJXUPu3CnvOFB58G5xA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZniqqzQZrxxS5rOJ4aV+6vA+LLvJtsN3LssH6WJq9lk=;
+ b=fCJOmccGrAhQZ6o/E8p7MGJ6T507RLqLzvOoT0h2o0TNvmF9cdUpRsygkYn98bkzeac9DF3sRypRWXfXIWjDZArK91Luo254M2LAOk9chXiYA7Vs5rOPG4RNKzO5cphydhNmoa8xFAxSvckAxWXkrwjydLCFiow2SP954BzeMi+tMkA2OPOcub0ZdpVjDdqT/nyLAbW6WnPsEkBg5y+hdy/ft9OYON2FbOOBg0f3K8wA0nRxTPduOrjxT1pzytzlrOeMX+C/bSizOs95l8G4xs0WeGuMvQQR3UtjWYwHHu8HF+s1oSLDr/B6obqv7QgZKS5+JI6knQnCdgZuGr/hyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZniqqzQZrxxS5rOJ4aV+6vA+LLvJtsN3LssH6WJq9lk=;
+ b=Uf04QBoGbSyje1e9mwTOcINiSYPwGxS99vHHI2iagEseMVmASJb223nu6de82XmVZ4WuvwIFIakAEzSAq1CzhQdRmxuF15d3hJ46BC6phuXSB0ZcTx6RUcxHUZjBojDLBrjXAbpZJ+6YqHTpxgPE9W+QDlau3wQkXgx2yksRoDU=
+Received: from BN9PR03CA0842.namprd03.prod.outlook.com (2603:10b6:408:13d::7)
+ by MN0PR12MB5835.namprd12.prod.outlook.com (2603:10b6:208:37a::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Tue, 13 Oct
+ 2026 18:29:10 +0000
+Received: from BL2PEPF000352D5.namprd02.prod.outlook.com
+ (2603:10b6:408:13d:cafe::a9) by BN9PR03CA0842.outlook.office365.com
+ (2603:10b6:408:13d::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
+ Oct 2026 18:29:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL2PEPF000352D5.mail.protection.outlook.com (10.167.254.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 18:29:10 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 13:29:04 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 13:29:04 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 13 Oct 2026 13:29:03 -0500
+Message-ID: <cea51f11-b341-6f26-17f1-0ac248d6642d@amd.com>
+Date: Tue, 13 Oct 2026 11:29:08 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
-        Daniel J Blueman <daniel@quora.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-        Manikanta Mylavarapu <quic_mmanikan@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>, linux-i2c@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Birk Skyum <birk.skyum@pm.me>,
-        Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260929041444.9837-1-daniel@quora.org>
- <1ca16602-fb66-4706-8e86-3b35372324b9@oss.qualcomm.com>
- <CAMVG2svsfP+6cpRq=kBCZFva_r8jXSm+-pp+qC9D372S10z12g@mail.gmail.com>
- <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
- <20261009145800.rc-reply-0004@kernel.org>
- <b7bfbf6a-e5b5-48be-84ad-8bcd8e22c5de@leemhuis.info>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V4 09/19] accel/amdxdna: Add context switch hysteresis
+ with debugfs control
 Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <b7bfbf6a-e5b5-48be-84ad-8bcd8e22c5de@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, Nishad Saraf
+	<nishads@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261009225343.3079074-1-yidong.zhang@amd.com>
+ <20261009225343.3079074-10-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261009225343.3079074-10-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=RPQmjIi+ c=1 sm=1 tr=0 ts=6ace786b cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=-sI2l8CUKJjV0ebggCoA:9 a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: fm8W0PipXXOZLdtvv-Wz_jsK5MZU45dJ
-X-Proofpoint-ORIG-GUID: fm8W0PipXXOZLdtvv-Wz_jsK5MZU45dJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3MyBTYWx0ZWRfX0Xd33cn845Ps
- nYLug9s9xze/AJ7CQgOTn+Lu+p5X0RYbdc/gc1uVPrVfB/44J8v1aDi5rvKk/E+/92LQASNOkK7
- AJdHvgFOONBMRcK00k+wQkoKkezbug4jDdwjsg26ewVp1Z8A6lQoj3xQeJFB7deeKU1K1JGXP9j
- Khaz73yzCZief3suJAb/gWSrBC37jEOO4JiX7KxO/G9J3AqLv5szo4aSljAW2g8vTZ6ua2LFW/I
- qyG7qMo1vYOs90gNcplUoliZj5LydppfpDlSINgnRpVJDPPQ49Y6WYYknoV2HSorMJhziVp/MVU
- 2FfPT2vZaciR/eK1hiKROzPLDJ3iuVbPyx2Fc0Dy7oDqmQGVvpqd9DBq4fybgRC6OnKsYJE2i78
- 8O96shOVIa9AYVtz1GiZwTTMgIIlVsYr7tJXlw4oMhXpNnkfSIJDwYShoGU5bgFUzMNDB34pb61
- v8yeMNxG0lJkDiOQStw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3MyBTYWx0ZWRfX5EQpCaL2kJTq
- QoHVSqZ91Tki/vBCrFNjNagdKnO61I9G4ZKrSZhYt0vGOzzBnSKlywdyW+zPPLfdGeSnz5WOCya
- C5xaOEH1CC+K/nCKld1zAkuEp6KwTiU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
- phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130073
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL2PEPF000352D5:EE_|MN0PR12MB5835:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90313b4d-e1d6-4de8-04a8-08df2957e007
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|6133799003|10067099003|22082099003|18002099003|4143699003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	y+1FoNEOeNcDCtHoYdbj4ZNOS0j9BrRmm6ShBghZRMeFE0S6zxz7c3CGqE1lVL4pSeR4EnCWXvtZtfotnKS1L87MmGIpgt2F6XH1iN4r6EtSOoy12FZrOJYAh1uS7ERH2Qs98uBXIzh44iecj0vYbCEp42Xl0QiFEVOay9JWLw20d0GqWFhlSO7A/plxgrFzK2FNcq6nZgWz0KSYPYKKh++2IANYtGDJjGRlKI+2imZAhlir1wCrXhK60+23TXARlTSbYoJr+B7l5iRYqmc+TQO5Swvh5x+OP0nBu0Ez2OqzQaI3RD4HO4xZEil2CovVqwXLZqk3kpA8/oo6pNPh7p/8xI3CUp+S12aUhp7i6A3RxER4zl5LVPynjpXgWQaMiUdshyfwIhMe03BjvUFKIbelO1gvY218TJ81EffzQ8CHrYeTC8AKB3yOWrdUd5oBU3yorvSQnb2XAdP2jwafAk2gPGEIrW16q3S1PJssB+tuyU2faP4WOgPzEWj4PqnJyGJBQeM10IcyMkHIXgnODSMdzq9+iE5GeUfGZUzfK8BuUctO+oigzI2MLugsUH+72Sm6AC26GGVKLxd6v8Sx7ut75at5Ny+wyDP7C+AZBx50GTvnn9q5+pp+Bpjnw9OxB+HI4XefXYh6XQLeVtq2DmvCgrLdP99f6mP77Qw/24NEdu5yndQ3YoKCqEuwwdHGfi5XT72D4k0amUm6yGxbHw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xU+RSusBX2Kmay1UfzgqxevgHM0vqsi8bB5Ev98ttQpUhg3MNUwmRb0YRNiYAnFZCU+pR+UjGnRz5wNL/mDn4PcOiyoJQlTdFwAF7nao727vs8u8ob/OCS1yKY1yuRcxgHaZxLcYdJ9wFsJaV4ookFrRCZQHnv/UBSrbxpDucyWw1jN+c9ASEyqFEhovaNxYR/8ZaF8sAK9isxVm0E0t5RWoAg1/hNaFLk5smYLzpz0PMLIyI9uNNVgmDodDMPVEEEXZaZFGmyD6/yY+vA3sRXt5wkd6yQB3TyelTiY8CaegF9CyeL1F+iqBhmAk8Fp8ru7IHta+A8mCAzM6TafiJSKUVo7MF6lj0OZ/9NQa0ehQcb0FlyykPyb0Q9ZLGqrul2Fp67KErkhIQzicqkM3HGAtdEPA1VqHfUMS1QkOIAu+NDBhWghMxiU+eLeIN/gm
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 18:29:10.6905
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90313b4d-e1d6-4de8-04a8-08df2957e007
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL2PEPF000352D5.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5835
 
-Hi Thorsten, Thanks !
 
-On 10/13/2026 1:04 PM, Thorsten Leemhuis wrote:
-> On 10/9/26 21:01, Sasha Levin wrote:
->>> On 9/30/2026 3:01 PM, Daniel J Blueman wrote:
->>>> I would revert the original patch if there is hardware that uses the
->>>> I2C 1MHz fast-mode, since the current timings aren't to spec, but also
->>>> weren't before.
->>
->> For stable: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in
->> SE_GENI_CLK_SEL") has already shipped in 7.2.9, 6.18.55 and 6.12.112, and is
->> queued for 6.6, 6.1, 5.15 and 5.10.
->>
->> The 32 MHz clock map (506bb2ab0075, v6.13+) does not exist in 6.12.y and older.
->> The backports there pick only the 19.2 MHz entry, so the Yoga Slim 7x /
->> X1E80100 timing regression cannot occur on 6.12.y or older, and I'm keeping the
->> 6.6 and older queues as they are.
->>
->> 7.2.y and 6.18.y do have the 32 MHz table and are affected. Once the fix lands
->> in mainline, I'll pick it up for 7.2 and 6.18.
-> 
-> @Andi, @viken, and/or @Daniel:
-> 
-> Is the patch at the start of the thread or some improved version heading
-> to mainline meanwhile? What Sasha wrote above is one reason why that
-> would be good rather sooner than latter; another is a regression
-> report[1] from Birk (now CCed) wo ran into the problem with mainline --
-> so it would be good to fix this before 7.3 is released, too.
-> 
-> Or is a revert the better option to achieve that?
-> 
-
-This is in active discussion with hardware experts, but taking time to 
-get specs compliant configuration values while it's being tested.
-
-I see 7.3 release on 25th, so what max time we can have before reverting ?
-
-I am trying to get values asap.
-
-> Ciao, Thorsten
-> 
-> [1]
-> https://lore.kernel.org/stable/179173732257.29426.7905170638383807320@pm.me/
-
+On 10/9/26 15:53, David Zhang wrote:
+> Add aie4_set_ctx_hysteresis() to configure the AIE4 context switch
+> hysteresis timeout via the SET_RUNTIME_CONFIG message, applied at hw
+> start (PF and classic paths) with a default of 1000 us.
+>
+> Expose a debugfs node 'ctx_switch_hysteresis_us' to change the timeout
+> at runtime (0 disables hysteresis). The stored value is re-applied on
+> every hw start so it survives runtime suspend/resume.
+>
+> Co-developed-by: Nishad Saraf <nishads@amd.com>
+> Signed-off-by: Nishad Saraf <nishads@amd.com>
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> ---
+>   drivers/accel/amdxdna/aie4_message.c    | 43 +++++++++++++
+>   drivers/accel/amdxdna/aie4_msg_priv.h   | 24 +++++++
+>   drivers/accel/amdxdna/aie4_pci.c        | 83 ++++++++++++++++++++++++-
+>   drivers/accel/amdxdna/aie4_pci.h        |  9 +++
+>   drivers/accel/amdxdna/amdxdna_debugfs.c |  3 +
+>   drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 +
+>   6 files changed, 161 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
+> index 263e23aff69f..2820cfb6f9ed 100644
+> --- a/drivers/accel/amdxdna/aie4_message.c
+> +++ b/drivers/accel/amdxdna/aie4_message.c
+> @@ -263,3 +263,46 @@ int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode)
+>   
+>   	return ret;
+>   }
+> +
+> +int aie4_set_runtime_cfg(struct amdxdna_dev_hdl *ndev, u32 type,
+> +			 const void *data, size_t size)
+> +{
+> +	DECLARE_AIE_MSG(aie4_msg_set_runtime_cfg, AIE4_MSG_OP_SET_RUNTIME_CONFIG);
+> +	u8 buf[sizeof(req.type) + AIE4_RUNTIME_CFG_MAX_DATA_SIZE] __aligned(4) = { 0 };
+> +	int ret;
+> +
+> +	if (size > AIE4_RUNTIME_CFG_MAX_DATA_SIZE)
+> +		return -EINVAL;
+> +
+> +	/* Stage runtime config type and payload for firmware mailbox message. */
+> +	req.type = type;
+> +	memcpy(buf, &req.type, sizeof(req.type));
+> +	memcpy(buf + sizeof(req.type), data, size);
+> +
+> +	msg.send_data = buf;
+> +	msg.send_size = sizeof(req.type) + size;
+> +
+> +	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
+> +	if (ret)
+> +		XDNA_ERR(ndev->aie.xdna, "Failed to set runtime cfg %u: %d", type, ret);
+> +	return ret;
+> +}
+> +
+> +int aie4_set_ctx_hysteresis(struct amdxdna_dev_hdl *ndev, u32 timeout_us)
+> +{
+> +	struct aie4_msg_runtime_config_ctx_switch_hysteresis cfg = {
+> +		.timeout_us = timeout_us,
+> +	};
+> +	int ret;
+> +
+> +	ret = aie4_set_runtime_cfg(ndev, AIE4_RUNTIME_CONFIG_CTX_SWITCH_HYSTERESIS,
+> +				   &cfg, sizeof(cfg));
+> +	if (ret)
+> +		XDNA_WARN(ndev->aie.xdna,
+> +			  "Failed to set ctx switch hysteresis to %u us (%d), using fw default",
+> +			  timeout_us, ret);
+> +	else
+> +		XDNA_DBG(ndev->aie.xdna, "Context switch hysteresis set to %u us", timeout_us);
+> +
+> +	return ret;
+> +}
+> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
+> index fe78df9e23c8..636bf8d04c76 100644
+> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
+> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
+> @@ -12,6 +12,7 @@
+>   enum aie4_msg_opcode {
+>   	AIE4_MSG_OP_IDENTIFY                         = 0x10002,
+>   	AIE4_MSG_OP_SUSPEND                          = 0x10003,
+> +	AIE4_MSG_OP_SET_RUNTIME_CONFIG               = 0x10007,
+>   	AIE4_MSG_OP_QUERY_CERT_FIRMWARE_VERSION      = 0x1000F,
+>   
+>   	AIE4_MSG_OP_CREATE_VFS                       = 0x20001,
+> @@ -65,6 +66,29 @@ struct aie4_msg_suspend_resp {
+>   	enum aie4_msg_status status;
+>   } __packed;
+>   
+> +/* Type selector for AIE4_MSG_OP_SET_RUNTIME_CONFIG. */
+> +enum aie4_msg_runtime_config_type {
+> +	AIE4_RUNTIME_CONFIG_CTX_SWITCH_HYSTERESIS	= 0xD,
+> +	AIE4_MAX_RUNTIME_CONFIG
+> +};
+> +
+> +struct aie4_msg_set_runtime_cfg_req {
+> +	__u32 type;
+> +	__u8 data[4];
+> +} __packed;
+> +
+> +struct aie4_msg_set_runtime_cfg_resp {
+> +	enum aie4_msg_status status;
+> +} __packed;
+> +
+> +/* Maximum payload for runtime config firmware message. */
+> +#define AIE4_RUNTIME_CFG_MAX_DATA_SIZE 16
+> +
+> +/* Context switch hysteresis timeout in microseconds (0 disables). */
+> +struct aie4_msg_runtime_config_ctx_switch_hysteresis {
+> +	__u32 timeout_us;
+> +} __packed;
+> +
+>   struct aie4_msg_create_vfs_req {
+>   	__u32 vf_cnt;
+>   } __packed;
+> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+> index 5593dfb6c7ed..446ab2f47c7d 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.c
+> +++ b/drivers/accel/amdxdna/aie4_pci.c
+> @@ -5,8 +5,10 @@
+>   
+>   #include <drm/amdxdna_accel.h>
+>   #include <drm/drm_drv.h>
+> +#include <drm/drm_file.h>
+>   #include <drm/drm_managed.h>
+>   #include <drm/drm_print.h>
+> +#include <linux/debugfs.h>
+>   #include <linux/firmware.h>
+>   #include <linux/sizes.h>
+>   
+> @@ -322,6 +324,22 @@ int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev)
+>   	return aie4_msg_set_power_mode(ndev, ndev->pw_mode);
+>   }
+>   
+> +static int aie4_config_fw(struct amdxdna_dev_hdl *ndev)
+> +{
+> +	int ret;
+> +
+> +	ret = aie4_attach_work_buffer(ndev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Best-effort tuning knob; failure is warned inside and does not fail hw start */
+> +	ret = aie4_set_ctx_hysteresis(ndev, ndev->ctx_switch_hysteresis_us);
+> +	if (ret == -ETIME)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+>   static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
+>   {
+>   	int ret;
+> @@ -334,7 +352,7 @@ static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
+>   	if (ret)
+>   		goto stop_fw;
+>   
+> -	ret = aie4_attach_work_buffer(ndev);
+> +	ret = aie4_config_fw(ndev);
+>   	if (ret)
+>   		goto mbox_fini;
+>   
+> @@ -418,7 +436,7 @@ static int aie4_classic_hw_start(struct amdxdna_dev_hdl *ndev)
+>   	if (ret)
+>   		goto mailbox_fini;
+>   
+> -	ret = aie4_attach_work_buffer(ndev);
+> +	ret = aie4_config_fw(ndev);
+>   	if (ret)
+>   		goto mailbox_fini;
+>   
+> @@ -573,6 +591,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+>   
+>   	ndev->priv = xdna->dev_info->dev_priv;
+>   	ndev->aie.xdna = xdna;
+> +	ndev->ctx_switch_hysteresis_us = AIE4_CTX_HYSTERESIS_US;
+>   	ndev->pw_mode = POWER_MODE_DEFAULT;
+>   	xdna->dev_handle = ndev;
+>   
+> @@ -918,15 +937,74 @@ static void aie4_classic_fini(struct amdxdna_dev *xdna)
+>   	aie4_free_work_buffer(xdna->dev_handle);
+>   }
+>   
+> +static int aie4_ctx_hysteresis_get(void *data, u64 *val)
+> +{
+> +	struct amdxdna_dev_hdl *ndev = data;
+> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> +
+> +	guard(mutex)(&xdna->dev_lock);
+> +	*val = ndev->ctx_switch_hysteresis_us;
+> +
+> +	return 0;
+> +}
+> +
+> +static int aie4_ctx_hysteresis_set(void *data, u64 val)
+> +{
+> +	struct amdxdna_dev_hdl *ndev = data;
+> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> +	int ret, idx;
+> +
+> +	if (val > U32_MAX)
+> +		return -EINVAL;
+> +
+> +	if (!drm_dev_enter(&xdna->ddev, &idx))
+> +		return -ENODEV;
+> +
+> +	mutex_lock(&xdna->dev_lock);
+> +
+> +	ret = amdxdna_pm_resume_get_locked(xdna);
+> +	if (ret)
+> +		goto unlock;
+> +
+> +	ret = aie4_set_ctx_hysteresis(ndev, (u32)val);
+> +	if (!ret)
+> +		ndev->ctx_switch_hysteresis_us = (u32)val;
+> +
+> +	amdxdna_pm_suspend_put(xdna);
+> +
+> +unlock:
+> +	mutex_unlock(&xdna->dev_lock);
+> +	drm_dev_exit(idx);
+> +
+> +	return ret;
+> +}
+> +
+> +/* Context switch hysteresis timeout in microseconds; 0 disables hysteresis. */
+> +DEFINE_DEBUGFS_ATTRIBUTE(aie4_ctx_hysteresis_fops, aie4_ctx_hysteresis_get,
+> +			 aie4_ctx_hysteresis_set, "%llu\n");
+> +
+> +static void aie4_debugfs_init(struct amdxdna_dev *xdna)
+> +{
+> +	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
+> +
+> +	/* Context switch hysteresis is only supported on PF and classic devices. */
+> +	if (!to_pci_dev(xdna->ddev.dev)->is_virtfn)
+> +		debugfs_create_file_unsafe("ctx_switch_hysteresis_us", 0600,
+> +					   xdna->ddev.accel->debugfs_root, ndev,
+> +					   &aie4_ctx_hysteresis_fops);
+> +}
+> +
+>   const struct amdxdna_dev_ops aie4_pf_ops = {
+>   	.init			= aie4_pf_init,
+>   	.fini			= aie4_pf_fini,
+> +	.debugfs_init		= aie4_debugfs_init,
+>   	.sriov_configure        = aie4_sriov_configure,
+>   };
+>   
+>   const struct amdxdna_dev_ops aie4_vf_ops = {
+>   	.init			= aie4_vf_init,
+>   	.fini			= aie4_vf_fini,
+> +	.debugfs_init		= aie4_debugfs_init,
+>   	.hwctx_init		= aie4_hwctx_init,
+>   	.hwctx_fini		= aie4_hwctx_fini,
+>   	.cmd_wait		= aie4_cmd_wait,
+> @@ -937,6 +1015,7 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
+>   const struct amdxdna_dev_ops aie4_classic_ops = {
+>   	.init			= aie4_classic_init,
+>   	.fini			= aie4_classic_fini,
+> +	.debugfs_init		= aie4_debugfs_init,
+>   	.hwctx_init		= aie4_hwctx_init,
+>   	.hwctx_fini		= aie4_hwctx_fini,
+>   	.cmd_wait		= aie4_cmd_wait,
+> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+> index 6e9e7f874a44..959ef3695813 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.h
+> +++ b/drivers/accel/amdxdna/aie4_pci.h
+> @@ -14,6 +14,9 @@
+>   #include "aie4_msg_priv.h"
+>   #include "amdxdna_mailbox.h"
+>   
+> +/* Default context switch hysteresis timeout in microseconds. */
+> +#define AIE4_CTX_HYSTERESIS_US	1000
+> +
+>   struct cert_comp {
+>   	struct amdxdna_dev_hdl          *ndev;
+>   	u32                             msix_idx;
+> @@ -69,6 +72,9 @@ struct amdxdna_dev_hdl {
+>   
+>   	u8				pw_mode;
+>   
+> +	/* Context switch hysteresis timeout in microseconds. */
+> +	u32				ctx_switch_hysteresis_us;
+> +
+>   	struct amdxdna_drm_query_firmware_version cert_version;
+>   };
+>   
+> @@ -92,6 +98,9 @@ int aie4_init_dpm_freq_table(struct amdxdna_dev_hdl *ndev);
+>   int aie4_query_dpm_level(struct amdxdna_dev_hdl *ndev,
+>   			 u32 *aieclk_dpm_level, u32 *npuhclk_dpm_level);
+>   int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
+> +int aie4_set_runtime_cfg(struct amdxdna_dev_hdl *ndev, u32 type,
+> +			 const void *data, size_t size);
+> +int aie4_set_ctx_hysteresis(struct amdxdna_dev_hdl *ndev, u32 timeout_us);
+>   u32 aie4_msg_pasid(struct amdxdna_client *client);
+>   
+>   /* aie4_ctx.c */
+> diff --git a/drivers/accel/amdxdna/amdxdna_debugfs.c b/drivers/accel/amdxdna/amdxdna_debugfs.c
+> index a6ec17c63629..1f63cc91b168 100644
+> --- a/drivers/accel/amdxdna/amdxdna_debugfs.c
+> +++ b/drivers/accel/amdxdna/amdxdna_debugfs.c
+> @@ -126,4 +126,7 @@ void amdxdna_debugfs_init(struct amdxdna_dev *xdna)
+>   				    xdna,
+>   				    amdxdna_dbgfs_files[i].fops);
+>   	}
+> +
+> +	if (xdna->dev_info->ops->debugfs_init)
+> +		xdna->dev_info->ops->debugfs_init(xdna);
+>   }
+> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> index 953bf783b3f7..11f46ec738d7 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> @@ -54,6 +54,7 @@ struct amdxdna_sched_job;
+>   struct amdxdna_dev_ops {
+>   	int (*init)(struct amdxdna_dev *xdna);
+>   	void (*fini)(struct amdxdna_dev *xdna);
+> +	void (*debugfs_init)(struct amdxdna_dev *xdna);
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	int (*resume)(struct amdxdna_dev *xdna);
+>   	int (*suspend)(struct amdxdna_dev *xdna);
+>   	int (*sriov_configure)(struct amdxdna_dev *xdna, int num_vfs);
