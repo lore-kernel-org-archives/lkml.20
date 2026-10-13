@@ -1,103 +1,148 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182C83B6C18;
-	Tue, 13 Oct 2026 09:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFD53BE635
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:07:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882391; cv=none; b=JnrcikYekFrI/4EEZDn3nTCsbxjvbNgv2ioF5pNRbhXOH7CQwFq+5rlknpPhXanu65wGEncS0qXI0ZC043ZSt/s6k1qWdX1bTr3wkNkLi2ONUKCpHjEZ2j2jn9oRvDuIsn+pcqg4AsSDaCcdMaya49aIum/4Vy4p+YNpUV+vhBY=
+	t=1791882434; cv=none; b=Pmq3OhH1x5tdl98DGfSEuRJNK/WcCsga9gG/0mM86MBOd/8YtP6idBLBv2dyQFMPXxGZJ71zKtWQX4+3+V/E/M/pkMC++5uTbqDDKLPVAFk8K77PBoJrlpR5C9R+ivFKjo+rcKdmQf+8nY/9QlvIOid9b5EeLbxmzB2SyY3vLM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882391; c=relaxed/simple;
-	bh=4Gxx4JGIrNNVz11HTGtu39ngIiUWuqI6YvBtR7RUyM4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nNaaXqLyRMNo666l071nAWU7cXUiR3IXRTjaxSD8NEnReK/1TpM2uaxQ/ilYnvCvYQvaBh9ZEaHiyAlgp9oAmnIAAjAU9HDdo/9Tqc+VqSwTNs7G1jAFQHVoYOPxIRhB9q81IGw7+302TgXZztu+jOBxrsSUYhRie7hlOAB5wXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=nqA7w4U0; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1791882434; c=relaxed/simple;
+	bh=D5v5XjS9Za/NZrCDDLTC3rmHvrDIZNE1cAPRc78Y1jY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gENCRdKTINlujcoQuva/oMli6Esf1Xp5zSV0hSA22COornVaZPNC0x6E0gKlBMxxNF+FWbTA42uEHTJL+XGw4moco1wmZtOXfSRR63Up9y2akFUm31MbdxwcrZ3y181EKaE9GFhE7LHRy3UHqeDW20/S9BXYCdiDJNvOytKwr0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NfUnAvJj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZGh2BfF/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="nqA7w4U0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=7zrAEGktIYh9nAiw6rmWA3rpgrSvWIioqu8bDZprKTA=; b=nqA7w4U0pDf4wPTzOpQ/ePiPKa
-	cLK0UHIVXuL5AzAbotlZg7lEyEgRVjicONM32uMXHN9z3dabglCnlLKCe6iI9R/bSTsb8q9HwbGAq
-	1kyJZ4s9oNkWtsr65rIlXGbFL8HSjykL6S3GNtK/GP82s7ZGSvlOnJioLPHQUi/Djnv7hsWEfEG9G
-	c6gHUcJMonJKBUVk+EUhOZSJZApngwba5UOhcGe3v08SNWrHRSvoyyfTy74OW6CTf2MShK10hgesj
-	iro62oMvZ86dOahNsxWbqWpCWszUxOj33KdtdgdET9tvfGLvxhTH7Y09alZqYodlioxWa3W+IryMI
-	G7hiTImQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xGYSc-0000000FJs9-3MPK;
-	Tue, 13 Oct 2026 09:06:15 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 0850C30063F; Tue, 13 Oct 2026 11:06:14 +0200 (CEST)
-Date: Tue, 13 Oct 2026 11:06:13 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 3/3] objtool: Skip jump table jumps in the kCFI indirect
- call check
-Message-ID: <20261013090613.GE2009045@noisy.programming.kicks-ass.net>
-References: <20261012090424.i.497-kees@kernel.org>
- <20261012090436.1676525-3-kees@kernel.org>
- <20261012092250.GO4121339@noisy.programming.kicks-ass.net>
- <20261012183925.ca026d-kees@kernel.org>
- <20261013064405.GY2009045@noisy.programming.kicks-ass.net>
- <202610130126.E24D003C0@keescook>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NfUnAvJj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZGh2BfF/"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D7wrkn3907983
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:07:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Oczbn9c8EH/S76/n/7Imk8gAToyAYy+KiSqeDjWGDyY=; b=NfUnAvJjerCyPC70
+	bs7AX8X2H1HG4lFOxsy2Ocyeb0Z3YG8bKo5vhgORpsq7EXcDDlXIpp0DUYgS1Uzt
+	aUKITslRV4Ko1IFJ42SNAfRnvzFtX1VDOIJ6hHxpHrUEGRWcZdMXRvL1Sp3tRUrr
+	4+p/mCIm2AdnxeLH+wtAfRA/KMHt+io37kZuW3fQZ6pYasqR6bcD3bVC6Kat7Aip
+	QlIEffB9BCPzKJOC5UPLXpN23Kh5AsjUt1QNMWY3JEUyTDtGaHUQ5dH98R5UCq6P
+	h5JQLbX1hIsAAV54p9EBUShzk9YtI1xmvERmoVlKsfSvtAIJPCtV68pZOUaMw0Lz
+	jGgndQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h95xqtpb2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:07:12 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-53568f05f8bso9019221cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:07:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791882432; x=1792487232; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Oczbn9c8EH/S76/n/7Imk8gAToyAYy+KiSqeDjWGDyY=;
+        b=ZGh2BfF/b9R8bfsYf/E03+GGk8qvtjGg24GknAkgxFzIfMVdjQm2ksTlxnoyyO4Zz2
+         p9uJp6rCQ34UovS/au5qIGbdpjXr2DxqRRaDDrEwOybEgUdmtrU6khwdrFqxjouPqtps
+         usCZQ11kvPIsx+BCabDDpl/cz51M8b8W7itZYzK+EI4fgLLxbGhLLJrROKw91PXmmgIU
+         i9WpU4asMxodRbOfWTN4MPT8XRhMPsAUaQjNIoqKVPFTpyID/4m3yySDLdxsZjovz2Iz
+         8oUqSVkmTHzAv/El2JYCshFHH48bf1n5fvNZtn5ZnIdWOUe1pp7DcIBUUhv30dguM3/T
+         HqkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791882432; x=1792487232;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oczbn9c8EH/S76/n/7Imk8gAToyAYy+KiSqeDjWGDyY=;
+        b=gyqIUhkQVMJ6QrU79QXp0Dg1KDe4RRZm0PXWhWxL5d/qurhudYdy/a77h9oo3Jw/7B
+         QbuXBWxAK0qGxymLPVf27CZECSyM7xgfem8aXYa0wg6rw/zh1TfS+2/V+tuhsibe4Vod
+         pxZxMi552rjqdKQ7PBrtts6Ti/M5COvmQayZds/VtlL5JE529WZurZGw+EXABhkFb594
+         DOQ0xmxpcNiq69EOqjWAhSf+Ytzdi3+KR26LIXqznUCprJV+W4uO0SMcCvzEn6Hh08Wz
+         P2eeKE4Xm5LdcP7v4N33LpuJKE3/u6WueCKQSm9Rd7+6qWuzFv9tnWs6TzlVEf5p1rzw
+         cGJA==
+X-Forwarded-Encrypted: i=1; AKwUvBw2AErhzw3cPLar7lLnKh2JKiW2ZfB5212Fm43hcFIgzw0iJ+T6rQHOXGwHIP9fuo5huZ++pR5/MEDlYs8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIw/JK9iYLroWLl9Z0W2x9d7BKsZiRaj/D1bMseur3tUnokXw5M
+	tWkv1neT08VLbwyWRBNcptq1WludBPXwNf8l8INznO8Kb1cikHvcx5CcDop455mIVuro+YTCHWO
+	7arP7bulqn3bm1YxvG7yrhvtiCJ7/sxJ5CIfETp227kt1z0Im/xzGPheUq8jumCtmXPvfeuuFMr
+	0=
+X-Gm-Gg: AYBFou2hHyfD7BNTw7RSJzZLOzj8aY8uaKYNxmeKWByWgKfTaqWFrP/NSalcX+CH00v
+	dtTFs78NJta3GXWXJ4wwYtN3DMc3S0JIRf0ECHOC8Cp43AXPOeeE0kQR5M+EE3MmTdgrSqAuws/
+	FeajnEdY6eThNWGPfBDJ0DFZEQLK9syp9+Uir9G8i9RPlVIvTmhKa36+PnxsrrUQAt8JDFFdlDw
+	Cy7bJN3e8Dj5FJtNsPPZgKRkrrWmsTiJVs2n8olbj99G4eG5RmK9sv3eLIAQQP02Jp1YUKjzJVz
+	gSGedgitT6uUS2IWP3wi3TYEIP6lPPAlWqaOc/63YmjniJyJZovfGqu3mRp1Uc7aqilTQWV73Bm
+	uF5FuKXZsAjudKz+Dhb4fsA==
+X-Received: by 2002:a05:620a:6501:b0:93a:1312:ff19 with SMTP id af79cd13be357-93ebd2661bdmr2413308685a.5.1791882431692;
+        Tue, 13 Oct 2026 02:07:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:6501:b0:93a:1312:ff19 with SMTP id af79cd13be357-93ebd2661bdmr2413303985a.5.1791882431112;
+        Tue, 13 Oct 2026 02:07:11 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae6fb7sm551980166b.84.2026.10.13.02.07.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 02:07:09 -0700 (PDT)
+Message-ID: <ac6f5318-6257-4e42-a6e0-9f6a94c8eb5e@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 11:07:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <202610130126.E24D003C0@keescook>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: nord: Wire UFS PHY symbol clocks to
+ NEGCC
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das
+ <taniya.das@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261008085640.3512895-1-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261008085640.3512895-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNiBTYWx0ZWRfX96hUueRui0bE
+ Y8S0494p/r77r5OI8Zc8N8KNF/xEjEwYQoQwhA78ByrcK2Wqrb2HY4hk74BViA34pBOEoKKV0ZU
+ KnJ4TNK0oZ0CHVO2pBPgfgv//BFhRDOAGqGl66zqXsXmkzDAtf91eeDLHpfiJX7b6ovsSZ0U1X2
+ zBno3olpDrKn3iyr0lijGXhVi7iTbCRENL1ycf511yB/hfqypLZDLFvUF3S9wfWWJhMXnVKvrYf
+ ytx7g6BU2xd5zCTbTQDB723Zkoam1GSvK4rTcmZf1kjQzAA65f4GBQlk+3xRlImTaX3hv6cV9Dk
+ 6ACfXkAs+H6y51Omvb3ewZtHxRAnHKIbxM3BFjJ7j+h5x6GiEL7A3lziRGssDRjZXgh8b+1LiN2
+ sIINJ0ah4o+6+lEShaBB20sIMuWpi9F/Y2gt2SgdJKPiqX9gnLYx8W21N7Hch+4eE9UTTHuJhu9
+ x9uOQVjxqQ2RjPidwEg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNiBTYWx0ZWRfX9GtEuqi/4fX8
+ VuAlEuEcKDxQxkxZXaQvRoY8Zgrp1zfEcANhe0VxMpiQosTNYaxWftdgBnmh61+pMoi8gJCnNYC
+ Xmsm1wJazoayhw3LcL0BOxvrjaVW7AI=
+X-Proofpoint-ORIG-GUID: csjqtHRI5bo-ZM3TVqXiQQrNWTPXcFm8
+X-Authority-Analysis: v=2.4 cv=EP+TQFZC c=1 sm=1 tr=0 ts=6acdf4c0 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=wmFSuXOd6YqTMbDCKN0A:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: csjqtHRI5bo-ZM3TVqXiQQrNWTPXcFm8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130036
 
-On Tue, Oct 13, 2026 at 01:37:03AM -0700, Kees Cook wrote:
-> On Tue, Oct 13, 2026 at 08:44:05AM +0200, Peter Zijlstra wrote:
-> > On Mon, Oct 12, 2026 at 11:41:03AM -0700, Kees Cook wrote:
-> > > Clang never has this jump: with retpolines, LLVM's IndirectBrExpand pass
-> > > turns the label addresses into indexes and the "goto *" into a switch,
-> > > which Clang's -fno-jump-tables then makes a compare tree. So it's only
-> > > constructed this way under GCC, but since now we can turn on kCFI with
-> > > GCC, the objtool warning about indirects without kcfi protection trips.
-> > 
-> > OK, then the next question; do we *want* to allow a 'naked' indirect
-> > branch to survive?
+On 10/8/26 10:56 AM, Shawn Guo wrote:
+> Pass UFS PHY symbol clocks to NEGCC rather than leaving the NEGCC UFS
+> symbol muxes orphaned.
 > 
-> I originally struggled about this. I'd really rather that GCC not codgen
-> like this at all. On the other hand, it's a bounded load and jump through
-> an .rodata table, so that's kind of a manual CFI. :P (And if it gets
-> targeted via ROP, it doesn't matter: everything is a target then.)
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
-With IBT enabled, I would image GCC will also spray ENDBR around like
-there is no tomorrow :/
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> > We can simply disable the whole interpreter when kcfi=y. Isn't that
-> > thing recommended disabled anyway?
-> 
-> I don't think that's realistic, as every GCC-building distro will (I
-> hope) enable KCFI as soon as it's in GCC. It's present with
-> CONFIG_BPF_JIT_ALWAYS_ON=y, and only Debian has it off:
-> 
->   │ Debian sid and trixie                      │ not set
->   │ Ubuntu noble                               │ y
->   │ Fedora, CentOS Stream 9 and 10             │ y
->   │ Arch                                       │ y
->   │ openSUSE Tumbleweed, SLE15-SP7             │ y
->   │ Alpine (lts and virt)                      │ y
->   │ Android GKI android16-6.12 (arm64 and x86) │ y
-> 
-
-What an unfortunate situation this is :(
-
-But I don't have a better suggestion. Your patch it is then.
+Konrad
