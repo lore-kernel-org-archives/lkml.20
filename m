@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A779361957;
-	Tue, 13 Oct 2026 13:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B54361656
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896897; cv=none; b=QC+Gyd74+15oyp2Ayl1glNqknor6LoNr8/5z7itfbtCs/PoDK28QbIzqlY/xyvt6ovZcFBldWEFEtYJqY55gyvu4bxYFTr3bgmS4bNtFa2rOOiBjjs6cQBp85wYNpqZeftVJ4wur5CbTs83qHug6dCWP31WEj9RlOrkdhE0V76M=
+	t=1791896938; cv=none; b=SocIj5EIQ7qRECz+kD7S9J5+BpH8UE0YhQ/Os3KMJ45/GC5Pp4j0Nafe116ZdUpJg7u29ukQecv+pjpOJJPjFsBXpDqL6PGmNHmQJQnaC3TG113a9pvtNVKCrVfe4DJwP1oAc8L61fHQjInJm+glXomC7ztFyPKLJ06akbxAUXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896897; c=relaxed/simple;
-	bh=Orz1DfofO367IkyhnWiAb7iJ0v0B5hpyXhOEqWCovFY=;
+	s=arc-20240116; t=1791896938; c=relaxed/simple;
+	bh=VXlgY6yBKKENxS58xUaTNOehcbEaALlRr1BWIPibsIE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CTiOh9d0AIJ3cW0mpDmBGwVzwG/Pd+suCGlvEIJ+2TfXazYYjsSlkB4nI8F56LxAagaVomwawCasBIgRi18tMOHK2KYjDA88J4zjVjYq7s1fGDRDg8Dl6qmFuIZc9n1F5dyUjxh5riqlQuPx8Z/OcopH+zRvSsNwcCfdQ91cYbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EpD8wwP5; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=RD1yWGWXAFSUUSTK26dmypG2+K3+uZwD4f0uOJ7l+3HuCup7tjEkaUvILkaMvztJbWJgIHWp72FAd9EbuFwW548ay1VSHVhh53Xnc8HpMjX6yznOWxan5qi8Fa6c9bjb3aPMXeTXrH5hym3TgOkRc1RPoZb6GX5RkfauYw78B7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YcrHGNol; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PzQX+djN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EpD8wwP5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83FA31F000FF;
-	Tue, 13 Oct 2026 13:08:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791896895;
-	bh=9N75dgQF8p+Il1tHGH+CzxsbWfyWVmOjX/0LyuKKi2w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EpD8wwP5Wq5RXktG7ibs3HIGyPF3SGPuyZUPsUC8j3OoP0OpEogBQy+E/vXS1oZa0
-	 fcpHiS04CbCC9Vc855a56N6Ycn775wIgY7UeeYAMiuZVU4ZxZv/tkYlUH+drVwOQcs
-	 A1lK8NPl3AivvXwUdWR6Fo5ZGYUbD3AGLF5skbpgiFNKhJypAlZvfM16yD7TbA9ylg
-	 jLBg85rySlyJI/oh70+p+IOMjdHAQX1mJ6ndFIPmZYNKAmHjEVNi7zbRlDsv7q5Ogd
-	 fc0Kv19XmgDmhPf5KvWinm3JSGfx9h+h1X2wgIES3aX0DpqEexkPtYzaQ2HstylXFI
-	 hahwEI3ZaRkqw==
-Message-ID: <d509cd9d-746c-42ff-97eb-3bddb889a78e@kernel.org>
-Date: Tue, 13 Oct 2026 15:08:06 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YcrHGNol";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PzQX+djN"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DD4M5B310673
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:08:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cAZ6h7pS3NOYxML9+7tZMf12qTh19fKQpUSnbPSFty0=; b=YcrHGNolk3SwrlRj
+	weQR6DYfpqEbAtYmGRuWY+OdjwzESGprpuGrilInBDoYhRlDdB7jDEr39eRPkr0z
+	KjP4FmtKhb3rQHAKSFj3ZeJtgph1sVZsNF3qx6wa3ABWEEc+8DcqXsZeh50JZqFM
+	1j3QsftyGmLPBf+Vu/XO/NQGUAMSwaRPSSNc2ovMoGX2C86qQniXNwkVf5PA9bDt
+	wvYDR80lHPatGbw8XfPSla5l7z9DcakNUKQ8/FmIeZXIzWqBb3Ckxn6eQTAu/gsC
+	PI1aEFIDnjkFbKsceywm+fnxb8PJ+hZCwtGApOh6uDzYclOIA5xz17rl5ah4DC5s
+	CYKsRg==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9n71g0q9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:08:55 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8af95378e7bso57764407b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:08:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791896935; x=1792501735; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cAZ6h7pS3NOYxML9+7tZMf12qTh19fKQpUSnbPSFty0=;
+        b=PzQX+djNY87xJgFJUblHvgVudQPbi2xh657tpbqBe4RZ8DTpGiWKq+GwS+3cFpkmzC
+         IX0nB/mODz0W7dKkkMNJZvqQ2RpDtrDi73wj5xZ95l3nYXFpEI2Dfe62lkmgUXCACrXR
+         wmqM6bAfPfjyUhHnP+oevcFuTdvT30tpgde/D4cP/PLYehC4lxfncEkuaUPKVMi6MMYL
+         DCgyzfYdtfm7LpLcUcUNSOEVYhHem9Xnn9WJdlB5Jkrn9g+uB1Q+kzibXflXROffHuDZ
+         CVTqiyC/RtRgCVQi3S0t+J+QZSfho7rM/xCcscbzL/OzbthanCoRjuOEwdvF35fbmbwN
+         9aZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791896935; x=1792501735;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cAZ6h7pS3NOYxML9+7tZMf12qTh19fKQpUSnbPSFty0=;
+        b=YutYCgTQ+2L/TPmtaQIXemaQRAnkOIhxtm/mh/Ez5BOG3wJqb9cGqn40nUWRo1TSc9
+         NNFyCMMa6RmarwGqfHXfB/oqVsSv9di7AfeMB/2/XqVBTkzxFnvLRQ1lzOTKpmG9QTnQ
+         bDs13i61w1JHyz0QWvdYmAurxEXk231z5p+XR+IKd9Lt0adyOFtwerS8KTnwzfXZLjgT
+         Y2ImJGti3se+QmymzH5kAgVpjY7w/lgB96g7d456Eqi0NdQFzoyDl57kuFIbP6rVF8zV
+         SBZ5imj9LHiJD60N1M7ABcq2eiN0lFB6IXbUjsvU0mlTo2CV3CGCEnPY3jAyK+vsLZkD
+         QOlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzxhQBvYI+LY9ro1mHL6Z9hrKwv9IjYiaWYmZyBMI4UbnRsFnjFMPIcaIYKXr6LiBGTL8mlxZ/lPfbw9dc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaDomlmV0/Cha5SxkJRDt/uk4YS68fOSwnS4ukmHMuTLZ+tREx
+	UwlD+a3NN8hjYR0NTW8unqLj5cBvAZMO6pNdtzvqM/EQcanVCGARxs0JdRPiz1flLHVDCV519LJ
+	PMh1gKjGIW7cyHSeMneTv/dy8YKTCrj9V7hSjtbme6N4XmFpJu5196bqJX00RtgrBgsw=
+X-Gm-Gg: AYBFou3evC4QlrYdtMfSmVuEv/lBDLgKx5G9gbOFNAVVjjovwx/JGMPqlVXPbARCSei
+	3H2wVp0ySoIJCrIOverhmPCw5uh2xBFIsSs5FTXBazzVFdK15nafk8Z8MDpii0igKKXXJpWTxBn
+	H4ThSOZTmwjBwW1l8Clys9TmH93uGrBxk94lO30WdWNWxLzwES5rgi1TFCd9DwajNQ4ZD5JsIGm
+	zag1iq9rmN+zJ8cEr6WbnonIN2IEfNaDDSJe31fvthHUsaEro91NEJQC2EUBud6kDbikafmDcoC
+	czUSUUUuho3TxAfX1D8zr5tjs1+yhqfOywrdk+paJmr7RVfk7z+6O89uD0x+nSrzpma5hDo0U0v
+	Yk0VoufqvfcixfSxMRr0VYAQhamCqPcRspN+oXBDPxmU=
+X-Received: by 2002:a05:690c:d8c:b0:8ac:c329:6835 with SMTP id 00721157ae682-8b07ed07cb1mr44775997b3.7.1791896935391;
+        Tue, 13 Oct 2026 06:08:55 -0700 (PDT)
+X-Received: by 2002:a05:690c:d8c:b0:8ac:c329:6835 with SMTP id 00721157ae682-8b07ed07cb1mr44775877b3.7.1791896934949;
+        Tue, 13 Oct 2026 06:08:54 -0700 (PDT)
+Received: from [192.168.1.8] ([122.164.80.129])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07ee83bb9sm46061337b3.2.2026.10.13.06.08.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 06:08:54 -0700 (PDT)
+Message-ID: <06e6868a-c106-40b1-85fb-5ebbc01eff16@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 18:38:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,323 +89,162 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs: remove Assisted-by references
+Subject: Re: [PATCH v7 09/11] arm64: dts: qcom: ipq5210: Add I2C nodes
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261012-08-dts-v7-0-77bd3d68d850@oss.qualcomm.com>
+ <20261012-08-dts-v7-9-77bd3d68d850@oss.qualcomm.com>
 Content-Language: en-US
-To: Sasha Levin <sashal@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Federico Vaga <federico.vaga@vaga.pv.it>,
- Daniel Pereira <danielmaraboo@gmail.com>,
- Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>,
- Dongliang Mu <dzm91@hust.edu.cn>, Andy Whitcroft <apw@canonical.com>,
- Joe Perches <joe@perches.com>, Linus Torvalds
- <torvalds@linux-foundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>,
- Jori Koolstra <jkoolstra@xs4all.nl>, Jeff Layton <jlayton@kernel.org>,
- Christian Brauner <brauner@kernel.org>, David Hildenbrand
- <david@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Christoph Hellwig <hch@infradead.org>, Mark Brown <broonie@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Brian Foster <bfoster@redhat.com>,
- Carlos Maiolino <cem@kernel.org>, David Disseldorp <ddiss@suse.de>,
- Jani Nikula <jani.nikula@intel.com>, Justin Stitt <justinstitt@google.com>,
- workflows@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
-References: <20261013121501.3738437-1-sashal@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261013121501.3738437-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+In-Reply-To: <20261012-08-dts-v7-9-77bd3d68d850@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=FuqQbGrq c=1 sm=1 tr=0 ts=6ace2d68 cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=vSQal4Cqo5fxyC+YxRTyzw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=RIkHY3iu5ay2cf1b8NoA:9 a=QEXdDO2ut3YA:10
+ a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-GUID: l-HH3KjjtMowTejL__acOcDtI3tbkUW6
+X-Proofpoint-ORIG-GUID: l-HH3KjjtMowTejL__acOcDtI3tbkUW6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1MSBTYWx0ZWRfX0uM3S/p+pJJq
+ 02pWENXnzUZIg0Podz7vWQlx1TxEiw1MBp/MWISSaqGuRCkugyI7MZ5RXhMdNr6ZxeIISSZAxS1
+ WS8p+IZI2fLU9dJsOKQk8kqoXzEn5zCAKpNOPBmkvpOSDn6Q7WGcAsLCeowCwTLOsL9CGhheUDg
+ RdTAf6T515nHNiqOT6W2bkF5M7KgJAYHff0gdh4r2riX93LHGpkatfYPg7u0VUJHXX1ISZ8N+ph
+ zYRHd8yK1DhTk5KpPFDd1V+djcHEt7G2Q0h7MstKL1c9kAnGBMKpWDYvHxqN5qbc/wMLZYiTobS
+ hMVdXBf0ho4kzIwHZQ74oU6dwQfRVppCTe78NKvnRk2d4DYd6X+Ecfp0ys7WRrDKUK/9O2uVdLg
+ mj0QJbLlOF+lsvyZib55IVy+FhqByQHQhdxwNg8aCZZuaLePbce9r58TMHLOPOpDiwXNYHJTII0
+ cmVuXQ3aZ1ni4iuCUOA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1MSBTYWx0ZWRfXzGyoTOgrQBFi
+ u2WBZ+7rUVz3hZNGHTgkpYjo2rfnrKaJQq1B+dFYKJHOUgtQbprssXVD4w2B7QOkIw/BIJ0yu+K
+ 8k1G/ygPZZJW/V4gEuR5a1igiG6wyKg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 adultscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 bulkscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130051
 
-+Cc ksummit per [2]:
 
-> There was, finally, a suggestion that the ksummit mailing list could be
-used more. There are usually interesting discussions there in the lead-up to
-the event, but then it goes quiet the rest of the year; there is no reason
-why discussions of that type can't happen there at other times as well.
-
-also +Cc workflows@ as these kinds of patches usually are
-
-On 10/13/26 14:15, Sasha Levin wrote:
-> Commit 78d979db6cef ("docs: add AI Coding Assistants documentation") asked
-> contributors to add an Assisted-by tag to patches developed with help from an
-> LLM, and commit 816d9992d9ed ("coding-assistants: simplify attribution") later
-> reduced the tag to "Assisted-by: LLM".
-> 
-> A proposal to drop the tag was turned down in July [1]. The main argument for
-> keeping it was that maintainers wanted a signal that a patch was LLM-assisted,
-> so that they could review it accordingly.
-> 
-> The tag came up again at the 2026 Maintainers Summit [2]. Roughly 10% of the
-> 18,533 non-merge commits in 7.3 through -rc7 carry an Assisted-by tag, while
-> actual LLM use is far more widespread. Some contributors do not know about the
-> rule, others leave the tag off on purpose, and few maintainers ask about it. As
-> a result, the tag does not provide the signal it was kept for: its absence says
-> nothing about how a patch was made, and for developers who use these tools for
-> almost everything, its presence says little more. The choice was between
-> finding a way to enforce the requirement and dropping it, and there was a
-> strong, though not unanimous, consensus in the room to drop it. Greg
-> Kroah-Hartman, who argued for keeping the tag in July, supports removing it now
-> [3].
-> 
-> Maintainers do still want to know how a patch was created, but the view at the
-> Summit was that this belongs in the cover letter, where it can describe how the
-> tools were used, rather than in the changelog.
-> Documentation/process/generated-content.rst already asks contributors to be
-> transparent about tool use and is not changed here. The rules on the DCO and on
-> the submitter's responsibility for the patch stay as they are.
-> 
-> Remove the Assisted-by sections from coding-assistants.rst,
-> submitting-patches.rst, and the Italian, Brazilian Portuguese and Traditional
-> Chinese translations, and drop the handling of the tag from checkpatch.
-> 
-> [1] https://lore.kernel.org/workflows/2026070224-unholy-commode-cf45@gregkh/
-> [2] https://lwn.net/Articles/1099594/
-> [3] https://lore.kernel.org/all/2026101327-cupid-legal-6cf6@gregkh/
-> 
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Kees Cook <kees@kernel.org>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+On 10/12/2026 12:53 PM, Varadarajan Narayanan wrote:
+> Add the QUPv3 I2C controller nodes for IPQ5210 and enable I2C0 with
+> the required pin configuration on RDP504.
+>
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 > ---
-> Changes in v2:
-> - Expand the changelog with the background and the Maintainers Summit
->   discussion (Laurent, Krzysztof, Greg, Lorenzo).
-> - Rebase on docs-next and also remove the Assisted-by sections from the
->   pt_BR and zh_TW translations there.
-> - Collect tags.
-> 
-> v1: https://lore.kernel.org/all/20261009083137.3-1-sashal@kernel.org/
-> 
->  Documentation/process/coding-assistants.rst   | 21 +------------------
->  Documentation/process/submitting-patches.rst  | 10 ---------
->  .../it_IT/process/submitting-patches.rst      | 10 ---------
->  .../pt_BR/process/coding-assistants.rst       | 20 ------------------
->  .../pt_BR/process/submitting-patches.rst      | 10 ---------
->  .../zh_TW/process/submitting-patches.rst      |  7 -------
->  scripts/checkpatch.pl                         | 11 ----------
->  7 files changed, 1 insertion(+), 88 deletions(-)
-> 
-> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-> index 051f0d819f68e..509dbf23a099b 100644
-> --- a/Documentation/process/coding-assistants.rst
-> +++ b/Documentation/process/coding-assistants.rst
-> @@ -40,24 +40,6 @@ is responsible for:
->  * Adding their own Signed-off-by tag to certify the DCO
->  * Taking full responsibility for the contribution
->  
-> -Attribution
-> -===========
-> -
-> -When AI tools contribute to kernel development, proper attribution
-> -helps track the evolving role of AI in the development process.
-> -Contributions should include an Assisted-by tag in the following format::
-> -
-> -  Assisted-by: LLM [TOOL1] [TOOL2]
-> -
-> -* ``[TOOL1] [TOOL2]`` are optional specialized analysis tools used
-> -  (e.g., coccinelle, sparse, smatch, clang-tidy)
-> -
-> -Basic development tools (git, gcc, make, editors) should not be listed.
-> -
-> -Example::
-> -
-> -  Assisted-by: LLM coccinelle sparse
-> -
->  Procedure for finding and fixing bugs
->  =====================================
->  
-> @@ -82,8 +64,7 @@ these steps:
->     another one. The fix must not add build warnings and must pass the
->     checkpatch.pl checks (see submitting-patches.rst).
->  6. Commit the working fix with a detailed message describing the problem, the
-> -   solution and a Fixes tag. Do not add a Signed-off-by tag, and add an
-> -   Assisted-by tag, as described above.
-> +   solution and a Fixes tag. Do not add a Signed-off-by tag.
->  7. Identify the maintainers and lists using scripts/get_maintainer.pl.
->     Documentation/process/security-bugs.rst shows how to do that.
->  8. Indicate what could not be done. If the fix could not be built or tested, or
-> diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
-> index 4c28a239e8cb5..f271d7413f72c 100644
-> --- a/Documentation/process/submitting-patches.rst
-> +++ b/Documentation/process/submitting-patches.rst
-> @@ -632,16 +632,6 @@ bugzilla.kernel.org is a public place in this sense, but email addresses
->  used there are private; so do not expose them in tags, unless the person
->  used them in earlier contributions.
->  
-> -Using Assisted-by:
-> -------------------
-> -
-> -If you used any sort of advanced coding tool in the creation of your patch,
-> -you need to acknowledge that use by adding an Assisted-by tag.  Failure to
-> -do so may impede the acceptance of your work.  Please see
-> -Documentation/process/coding-assistants.rst for details regarding the
-> -acknowledgment of coding assistants.
-> -
-> -
->  .. _the_canonical_patch_format:
->  
->  The canonical patch format
-> diff --git a/Documentation/translations/it_IT/process/submitting-patches.rst b/Documentation/translations/it_IT/process/submitting-patches.rst
-> index a742610cb0709..d0e0d6c9ecc2e 100644
-> --- a/Documentation/translations/it_IT/process/submitting-patches.rst
-> +++ b/Documentation/translations/it_IT/process/submitting-patches.rst
-> @@ -691,16 +691,6 @@ un luogo pubblico, ma gli indirizzi email usati lì sono privati; quindi non
->  esponeteli nelle etichette, a meno che la persona non li abbia già usati in
->  contributi precedenti.
->  
-> -Usare Assisted-by:
-> --------------------
-> -
-> -Se avete usato un qualsiasi tipo di strumento di assistenza avanzata alla
-> -scrittura del codice per la creazione della vostra patch, dovete darne atto
-> -aggiungendo un'etichetta Assisted-by.  Non farlo può ostacolare
-> -l'accettazione del vostro lavoro.  Fate riferimento a
-> -Documentation/process/coding-assistants.rst per i dettagli su come dare
-> -atto dell'uso di assistenti alla scrittura del codice.
-> -
->  .. _it_the_canonical_patch_format:
->  
->  Il formato canonico delle patch
-> diff --git a/Documentation/translations/pt_BR/process/coding-assistants.rst b/Documentation/translations/pt_BR/process/coding-assistants.rst
-> index 2055af34a9081..f6062b22a8fd8 100644
-> --- a/Documentation/translations/pt_BR/process/coding-assistants.rst
-> +++ b/Documentation/translations/pt_BR/process/coding-assistants.rst
-> @@ -38,23 +38,3 @@ A pessoa que envia é responsável por:
->  * Garantir conformidade com os requisitos de licença
->  * Acrescentar sua própria tag Signed-off-by para certificar o DCO
->  * Assumir toda responsabilidade pela contribuição
-> -
-> -Atribuições
-> -===========
-> -
-> -Quando ferramentas de IA contribuírem para o desenvolvimento do kernel,
-> -a atribuição adequada ajuda a rastrear a função da IA no processo de
-> -desenvolvimento. Contribuições devem incluir a tag de assistência seguindo este
-> -formato::
-> -
-> -    Assisted-by: LLM [FERRAMENTA1] [FERRAMENTA2]
-> -
-> -* ``[FERRAMENTA1] [FERRAMENTA2]`` são ferramentas de análise especializada
-> -    opcionais (Exemplo: coccinelle, sparse, smatch, clang-tidy)
-> -
-> -Ferramentas básicas de desenvolvimento (git, gcc, make, editors) não são
-> -listadas.
-> -
-> -Exemplo::
-> -
-> -  Assisted-by: LLM coccinelle sparse
-> \ No newline at end of file
-> diff --git a/Documentation/translations/pt_BR/process/submitting-patches.rst b/Documentation/translations/pt_BR/process/submitting-patches.rst
-> index aad926c17fb45..4d1e75935745b 100644
-> --- a/Documentation/translations/pt_BR/process/submitting-patches.rst
-> +++ b/Documentation/translations/pt_BR/process/submitting-patches.rst
-> @@ -650,16 +650,6 @@ bugzilla.kernel.org é um local público nesse sentido, mas os endereços de e-m
->  usados lá são privados; portanto, não os exponha em tags, a menos que a pessoa
->  os tenha usado em contribuições anteriores.
->  
-> -Usando Assisted-by:
-> --------------------
-> -
-> -Se você usou qualquer tipo de ferramenta avançada de codificação na criação do seu patch,
-> -você precisa reconhecer esse uso adicionando uma tag Assisted-by. A falha em
-> -fazer isso pode impedir a aceitação do seu trabalho. Por favor, veja
-> -Documentation/process/coding-assistants.rst para detalhes sobre o
-> -reconhecimento de assistentes de codificação.
-> -
-> -
->  .. _pt_BR_the_canonical_patch_format:
->  
->  O formato canônico do patch
-> diff --git a/Documentation/translations/zh_TW/process/submitting-patches.rst b/Documentation/translations/zh_TW/process/submitting-patches.rst
-> index b780f1539b46b..4a7c046b23894 100644
-> --- a/Documentation/translations/zh_TW/process/submitting-patches.rst
-> +++ b/Documentation/translations/zh_TW/process/submitting-patches.rst
-> @@ -503,13 +503,6 @@ Fixes: 指示補丁修復了之前提交中的一個缺陷。它可以便於確
->  的。注意，就此而言bugzilla.kernel.org是公開場所，但其中使用的電子郵件地址
->  是私密的；因此不要在標籤中暴露它們，除非該人在先前的貢獻中使用過。
->  
-> -使用Assisted-by:
-> -----------------
-> -
-> -如果您在建立補丁的過程中使用了任何進階編碼工具，您需要透過添加Assisted-by
-> -標籤來聲明這一使用。不這樣做可能會妨礙您的工作被接受。關於聲明編碼助手的
-> -細節，請參見 Documentation/process/coding-assistants.rst 。
-> -
->  .. _tw_the_canonical_patch_format:
->  
->  標準補丁格式
-> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-> index 8a7787d228a63..c9840f5219c2a 100755
-> --- a/scripts/checkpatch.pl
-> +++ b/scripts/checkpatch.pl
-> @@ -655,7 +655,6 @@ our $signature_tags = qr{(?xi:
->  	Reviewed-by:|
->  	Reported-by:|
->  	Suggested-by:|
-> -	Assisted-by:|
->  	To:|
->  	Cc:
->  )};
-> @@ -3124,16 +3123,6 @@ sub process {
->  				}
->  			}
->  
-> -			# Assisted-by uses a free-form value (e.g. "LLM"), not an
-> -			# email address, so skip the email format checks below.
-> -			if ($sign_off =~ /^Assisted-by:/i) {
-> -				if ($email =~ /^\s*$/) {
-> -					WARN("BAD_SIGN_OFF",
-> -					     "Assisted-by requires a value\n" . $herecurr);
-> -				}
-> -				next;
-> -			}
-> -
->  			my ($email_name, $name_comment, $email_address, $comment) = parse_email($email);
->  			my $suggested_email = format_email(($email_name, $name_comment, $email_address, $comment));
->  			if ($suggested_email eq "") {
-> 
-> base-commit: 8fdbd353e6928492fdc46c359aabd2bfb7630fba
+>   .../arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi | 23 ++++++++++++
+>   arch/arm64/boot/dts/qcom/ipq5210.dtsi              | 42 ++++++++++++++++++++++
+>   2 files changed, 65 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi b/arch/arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi
+> index 0f7a8f2d886b..0fd85b78e5b7 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi
+> @@ -59,6 +59,13 @@ vreg_misc_0p925: regulator-usb-0p925 {
+>   	};
+>   };
+>   
+> +&i2c0 {
+> +	pinctrl-0 = <&qup_i2c0_default>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +};
+> +
+>   &pcie0 {
+>   	pinctrl-0 = <&pcie0_default_state>;
+>   	pinctrl-names = "default";
+> @@ -197,6 +204,22 @@ clock-pins {
+>   		};
+>   	};
+>   
+> +	qup_i2c0_default: qup-i2c0-default-state {
+> +		qup-i2c0-scl-pins {
+> +			pins = "gpio20";
+> +			function = "qup_se2";
+> +			drive-strength = <6>;
+> +			bias-pull-up;
+> +		};
+> +
+> +		qup-i2c0-sda-pins {
+> +			pins = "gpio21";
+> +			function = "qup_se2";
+> +			drive-strength = <6>;
+> +			bias-pull-up;
+> +		};
 
+We can combine these 2 pins definition into one.
+
+> +	};
+> +
+>   	qup_uart1_default_state: qup-uart1-default-state {
+>   		pins = "gpio38", "gpio39";
+>   		function = "qup_se1";
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> index 22ab99ca0903..fdfeedcf5618 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> @@ -427,6 +427,48 @@ uart1: serial@1a84000 {
+>   
+>   				status = "disabled";
+>   			};
+> +
+> +			i2c0: i2c@1a88000 {
+> +				compatible = "qcom,geni-i2c";
+> +				reg = <0x0 0x01a88000 0x0 0x4000>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&gcc GCC_QUPV3_WRAP_SE2_CLK>;
+> +				clock-names = "se";
+> +				clock-frequency = <400000>;
+> +				interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
+> +				assigned-clocks = <&gcc GCC_QUPV3_WRAP_SE2_CLK>;
+> +				assigned-clock-rates = <32000000>;
+
+We should use opp-table as mentioned here [1]
+
+[1] 
+https://lore.kernel.org/linux-arm-msm/9597ab85-6c91-4e76-b160-0257bc4c5412@oss.qualcomm.com/
+
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c1: i2c@1a8c000 {
+> +				compatible = "qcom,geni-i2c";
+> +				reg = <0x0 0x01a8c000 0x0 0x4000>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&gcc GCC_QUPV3_WRAP_SE3_CLK>;
+> +				clock-names = "se";
+> +				clock-frequency = <400000>;
+> +				interrupts = <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>;
+> +				assigned-clocks = <&gcc GCC_QUPV3_WRAP_SE3_CLK>;
+> +				assigned-clock-rates = <32000000>;
+> +				status = "disabled";
+> +			};
+> +
+> +			i2c2: i2c@1a94000 {
+> +				compatible = "qcom,geni-i2c";
+> +				reg = <0x0 0x01a94000 0x0 0x4000>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				clocks = <&gcc GCC_QUPV3_WRAP_SE5_CLK>;
+> +				clock-names = "se";
+> +				clock-frequency = <400000>;
+> +				interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
+> +				assigned-clocks = <&gcc GCC_QUPV3_WRAP_SE5_CLK>;
+> +				assigned-clock-rates = <32000000>;
+> +				status = "disabled";
+> +			};
+>   		};
+>   
+>   		sdhc: mmc@7804000 {
+>
