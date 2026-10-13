@@ -1,147 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BBA53F6AD
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC44522690;
+	Tue, 13 Oct 2026 15:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905912; cv=none; b=DpHRBnfpomPeiC9fsyBlZfY67/SCBWe88MumadinRlPNm6++gRcmkAT9u5QXI3JIfZ8Vp37KxIwB+vlKnZKe4dkkBnq+UFVvoS9c8EE+AQ9yFuYZh/EpOn5k2wuKTsuUo8U8Dj+PaKBJnlkGm7bFH1m40WGJrhrkTCUqVfQAkCg=
+	t=1791905925; cv=none; b=gAWrJjdJO0Lo5pZ1ESZMMytH4/VOH/aGokAE0AxqSGS1I1Azi9r5M7gAfH2tfwUK/f7VWpc7KMGWbXLk443a+gGdgfdFmcEXAe15zmBM78h+OLytvCh883tVyta10E5ZtVdSFGt0TREuTQwmQV9LzV9C+JAXB/YQHWlCGAeab+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905912; c=relaxed/simple;
-	bh=1/fxJrG6/91JCycp9Vhwu/h9lhclwWHuy2a6SZ+Itw8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=SYyXNNMjQiOljOMmB75ci45B9zxQQQDZ444uUwm9LXkWYKk7IfCiuv6Jn1a1Z246N2GWw88mklvGmYa/dPQdOpbD/V4L/6r6g3hPfhx8pdds9/c1eHwUocffTeMmMvyU6KXu5+n60DfPR9slWyEL297gMjjaDTp5XWFb7G/4PtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y5MRWl7q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791905925; c=relaxed/simple;
+	bh=CnWWEy/ddbqgJgBpiyf6uiuVBIV4KpQJhpSdyAUwKRI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eGJuldVkZ9fYubulXhXpwqN5fQJaeUnyedbJP58q52FGpRAS8GZ/K97e7p7XFZeN8KxOYMTjAiQvRTSIQZOc+bCX8puBJlYKaXMCAb9Y4Kf1HNLJTBxipgSJusYFXWzElrDAbdgvlrPbdH3v8nsbt/qjdVJTcXTrMNk3ygEpDMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ABw4N1PW; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y5MRWl7q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893021F000FF;
-	Tue, 13 Oct 2026 15:38:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791905911;
-	bh=N5Oj7Rkk38MwzvIcIM8NuJ7v/KOF73abuNQ17LhAzq4=;
-	h=Date:From:To:Cc:Subject;
-	b=Y5MRWl7qm1PyyvXnY8GILGL4uJXUB7tJICIK7eKfbDsVOewYl8ws1qMNp7/svlJDK
-	 5y8EsOnX5a4+6T+Y5txmHhsYqkyRzTUcwVaExN4poswdlpYLtI9QJ6g7UQe5PoKwMo
-	 W+lKGNIrQGE59jxm0T8ztiZJ6h7lf1KIwmWKXbpM22cuWMBLz0fRsI30tfYSHwITmW
-	 b40v8EWrQXBGhV/KCYd/LTh5belkC/lGbEigMUj9p71P/c/QZVQV5iof0OO1Htmjwl
-	 dZ1tAY9PS02KIG56ZJ3N1S6qUpAkjqTyWQb39CUAjJt/pwTsHGFWyd30oJyeHLbl2G
-	 wLgq8LO+BXigw==
-Date: Tue, 13 Oct 2026 16:38:28 +0100
-From: Conor Dooley <conor@kernel.org>
-To: soc@kernel.org
-Cc: conor@kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL][3/4] RISC-V soc drivers for v7.4
-Message-ID: <20261013-glitter-lingo-dce2f8d724c9@spud>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ABw4N1PW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791905924; x=1823441924;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CnWWEy/ddbqgJgBpiyf6uiuVBIV4KpQJhpSdyAUwKRI=;
+  b=ABw4N1PW2ttBxGfT4Th3wONADz2jGNzaS3qT/TSZgjhfbzG2jzXlwdkr
+   ZFyF5/wjsSCWMzTK6+3rtz28hx3uTZrlNTKZNAGMxKvfOroIiUu4XGj55
+   jmhZgVy3MCylBqhrDRfMjLjvhg1KSZM3jc7DAOsQEUJx5tblLTjqnMHi4
+   Eqk3MGJC6xynfsdopOU5hWqDCulsuwjNlXTqj+IMNJgvM+uj9wRoaNPed
+   XqezrCAF0NvhZ4o99xVbdImslGdSXsZLq3XJB1T5YSDkp+hvov1p0D+9e
+   ty1uqRgVdsixF6GAzGWlvugO22hiaDJPRzw4vODbtVcyduc9OEOXeT0mj
+   g==;
+X-CSE-ConnectionGUID: 4KTNyfbkS7CWFso0pI68Ig==
+X-CSE-MsgGUID: MF5v0vJLRau6+Wh3pPR/3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="646646"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="646646"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:38:43 -0700
+X-CSE-ConnectionGUID: 2RemoOKoSWiO6bLMBLSNCQ==
+X-CSE-MsgGUID: dmxwydZrQOyan6SyCnVJsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1515449"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:38:41 -0700
+Date: Tue, 13 Oct 2026 18:38:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/6] gpiolib: free the label of lines released after
+ their chip was removed
+Message-ID: <as5QfrAaQQO_q0dr@ashevche-desk.local>
+References: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
+ <20261012-gpiolib-chip-removal-v1-2-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MitpuVuUhMgl0OnZ"
-Content-Disposition: inline
-
---MitpuVuUhMgl0OnZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261012-gpiolib-chip-removal-v1-2-aambrozewicz@nvidia.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hey folks,
+On Mon, Oct 12, 2026 at 04:49:56PM +0300, Adrian Ambrozewicz wrote:
+> gpiod_free_commit() only drops the consumer label while the chip is
+> still there:
+> 
+> 	if (guard.gc && test_bit(GPIOD_FLAG_REQUESTED, &flags)) {
+> 		...
+> 		desc_set_label(desc, NULL);
+> 
+> A line that is still requested when gpiochip_remove() runs, for instance
+> by a character device line request that user space keeps open, is
+> released only afterwards, when gdev->chip is already NULL. Its label is
+> then never freed, as gpiodev_release() frees the descriptor array but
+> not the labels, and kmemleak reports one object per such line:
+> 
+>   unreferenced object 0xff110000057b63c0 (size 32):
+>     comm "gpio-hold", pid 111, jiffies 4294696675
+>     hex dump (first 32 bytes):
+>       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>       3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ?...............
+>     backtrace (crc 7ff222d9):
+>       __kmalloc_noprof+0x4ee/0x670
+>       desc_set_label+0x32/0x110
+>       gpiod_request_commit+0x1dd/0x320
+>       gpiod_request+0x28/0x100
+>       linereq_create+0x61a/0xce0
+>       gpio_ioctl+0x49c/0xc80
+>       __x64_sys_ioctl+0x134/0x1c0
+>       do_syscall_64+0x109/0x5d0
+>       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> Commit 1f2bcb8c8ccd ("gpio: protect the descriptor label with SRCU")
+> cleared the label unconditionally; it moved under the chip check with
+> the removal of gpio_lock. Clear it when the chip is gone as well. The
+> ->free() callback and the line state notification still need the chip
+> and stay where they are.
+> 
+> The label is now often freed just before the last reference to the GPIO
+> device goes away, which depends on gpiodev_release() waiting for pending
+> label frees (previous patch).
+> 
+> Reproduced with gpio-sim: request a line through the character device,
+> set the chip's configfs "live" attribute to 0 while the request is open,
+> then close it. Without this change kmemleak reports between 15 and 30
+> such objects after 30 cycles; with it, none after 100.
 
-Diff here contains a lot of clock bindings, so I've provided an explanation
-in the tag.
+...
 
-Thanks,
-Conor.
+> --- a/drivers/gpio/gpiolib.c
+> +++ b/drivers/gpio/gpiolib.c
+> @@ -2689,6 +2689,9 @@ void gpiod_free_commit(struct gpio_desc *desc)
+>  		WRITE_ONCE(desc->debounce_period_us, 0);
+>  #endif
+>  		gpiod_line_state_notify(desc, GPIO_V2_LINE_CHANGED_RELEASED);
+> +	} else if (!guard.gc) {
+> +		/* The chip is gone but the consumer label is still ours. */
+> +		desc_set_label(desc, NULL);
+>  	}
+>  }
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+I have two questions here.
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+1/ Do we still need to notify user space in the case of the chip gone?
+2/ Can we write the above as
 
-are available in the Git repository at:
+	if (guard.gc && !test_bit(GPIOD_FLAG_REQUESTED, &flags))
+		return;
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/conor/linux.git/ riscv-soc-drivers-for-v7.4
+	desc_set_label(desc, NULL);
 
-for you to fetch changes up to 6f77194e1147d85c10b4964edee7091c701a25c2:
+	if (guard_gc) {
+		...current code...
+	}
 
-  soc: mpfs: use kref cleanup on probe failure (2026-10-13 15:43:15 +0100)
+-- 
+With Best Regards,
+Andy Shevchenko
 
-----------------------------------------------------------------
-RISC-V misc. soc drivers for v7.4
 
-StarFive:
-Syscon bindings and a socinfo driver for the JHB100. There ended up
-being several clock bindings here also because the clock tree needed the
-whole lot due to headers and I envisaged this being part of a three-way
-shared tag between my soc driver branch, dts branch and the clock tree.
-Due to timing, the dts branch didn't get this content, leading to the
-slightly odd branch here.
-
-Microchip:
-A bugfix for teardown code in the mpfs system controller driver.
-
-Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
-
-----------------------------------------------------------------
-Changhuang Liang (9):
-      dt-bindings: clock: Add StarFive JHB100 System-0 clock and reset generator
-      dt-bindings: clock: Add StarFive JHB100 System-1 clock and reset generator
-      dt-bindings: clock: Add StarFive JHB100 System-2 clock and reset generator
-      dt-bindings: clock: Add StarFive JHB100 Peripheral-0 clock and reset generator
-      dt-bindings: clock: Add StarFive JHB100 Peripheral-1 clock and reset generator
-      dt-bindings: clock: Add StarFive JHB100 Peripheral-2 clock and reset generator
-      dt-bindings: clock: Add StarFive JHB100 Peripheral-3 clock and reset generator
-      dt-bindings: soc: starfive: Add StarFive JHB100 syscon modules
-      soc: starfive: Add socinfo driver for JHB100 SoC
-
-Guangshuo Li (1):
-      soc: mpfs: use kref cleanup on probe failure
-
- .../bindings/clock/starfive,jhb100-per0crg.yaml    |  70 +++
- .../bindings/clock/starfive,jhb100-per1crg.yaml    |  70 +++
- .../bindings/clock/starfive,jhb100-per2crg.yaml    |  76 +++
- .../bindings/clock/starfive,jhb100-per3crg.yaml    |  76 +++
- .../bindings/clock/starfive,jhb100-sys0crg.yaml    |  63 +++
- .../bindings/clock/starfive,jhb100-sys1crg.yaml    |  71 +++
- .../bindings/clock/starfive,jhb100-sys2crg.yaml    |  64 +++
- .../soc/starfive/starfive,jhb100-syscon.yaml       | 115 +++++
- drivers/soc/Kconfig                                |   1 +
- drivers/soc/Makefile                               |   1 +
- drivers/soc/microchip/mpfs-sys-controller.c        |   7 +-
- drivers/soc/starfive/Kconfig                       |   6 +
- drivers/soc/starfive/Makefile                      |   2 +
- drivers/soc/starfive/socinfo/Kconfig               |  13 +
- drivers/soc/starfive/socinfo/Makefile              |   2 +
- drivers/soc/starfive/socinfo/jhb100-socinfo.c      | 105 ++++
- include/dt-bindings/clock/starfive,jhb100-crg.h    | 554 +++++++++++++++++++++
- include/dt-bindings/reset/starfive,jhb100-crg.h    | 189 +++++++
- 18 files changed, 1482 insertions(+), 3 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per0crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per1crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per2crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per3crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-sys0crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-sys1crg.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-sys2crg.yaml
- create mode 100644 Documentation/devicetree/bindings/soc/starfive/starfive,jhb100-syscon.yaml
- create mode 100644 drivers/soc/starfive/Kconfig
- create mode 100644 drivers/soc/starfive/Makefile
- create mode 100644 drivers/soc/starfive/socinfo/Kconfig
- create mode 100644 drivers/soc/starfive/socinfo/Makefile
- create mode 100644 drivers/soc/starfive/socinfo/jhb100-socinfo.c
- create mode 100644 include/dt-bindings/clock/starfive,jhb100-crg.h
- create mode 100644 include/dt-bindings/reset/starfive,jhb100-crg.h
-
---MitpuVuUhMgl0OnZ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5QdAAKCRB4tDGHoIJi
-0jH+AP0aVmvcevkuXqE6dzgDkjyO0XSwMne8cPLhcSO5ptt3egEArnvMedLcdF8Q
-oI1swvs1+0c6K14n6Q8ftzqm4wHXMgE=
-=35bQ
------END PGP SIGNATURE-----
-
---MitpuVuUhMgl0OnZ--
