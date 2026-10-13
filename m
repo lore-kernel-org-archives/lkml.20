@@ -1,249 +1,199 @@
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6200542ED8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:49:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9F9542ECE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791920952; cv=none; b=mXBXh4SINlENaV01IZkhgAsOamy7dBcXvH0O+WV1EE5qhT96kjY9n1uJ4neQ5fM0b4NNGDFUCLCfolyK+dNsW5GtAqEy6vsjTpVgPN9YMDYuPr+7fk4FAmR1FA4OEjVJRzebyMVKJuJFiEKzAOFh57DaeCOuARESG5uQmKVh0/M=
+	t=1791920956; cv=none; b=MQSbAP7ldCm3hqY+zgtQU1it+BrFYMdxjvkACq5sqAJ6uQTUDRuf5OzEknN6h0GUZ5zgca9+O1s2HLNkY/98qB1nguZQmudVzqeuCIvHPntp6Uz0/atOamc5ZnfK0Sl1UCZMUgKx7GYMcozy8ThJi6a5Ys2ReuAKXuJQY9fz+/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791920952; c=relaxed/simple;
-	bh=tiT2F/ECbxiEabWBAP09wZ9MI4I+09GcYjUweKp+W5s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kkkPO1yCFlQ5oCgyvAIl1793coBOyQDItnesuJ2exqNuBrYuGoId9KrB3gmyia8A01N59qSUYTY/PLtqVb4ItSo9/eOsA3UV69hCu+axtsCEX0yIBxHir5ndniSMv398sY2Zs/GHfMJUVd1oGu4yKO3G1x+mDXu4VEXrnV1ooPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b=knc6/tKj; arc=none smtp.client-ip=74.125.82.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
+	s=arc-20240116; t=1791920956; c=relaxed/simple;
+	bh=OYdbEexPKQP558RqTakI7yACMXW1nvshSk1ec/NyyB0=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=OPoA6KfCThJaU7Xn/l7s21fses+CIY0V/m2INxeUcot05Aj4BjeraFkhnYCUq3h5sUE+mr+l2IZibpvFLuN+rlInkpI4OjFcerbPyMWm15TETZ9WgpdGEIa5CZnPdseIbgYAJGOR2fbGt0f3HxHQ4b15V5YlJtQefNVYJAAGJuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DO1Ms9Yr; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b="knc6/tKj"
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15756f82e8aso163935c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:49:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard.org; s=google; t=1791920950; x=1792525750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :message-id:date:references:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ReAJUuSEnDcRQKK/UhSnvjLFcmpy/PcXbUdjFmS7Wvc=;
-        b=knc6/tKjiJMLpuScV6DSTh/RtWFL51d48dGSkGpABiVVjpY1LH2GdWY1an3wuGpiiq
-         PEkKeJnXqiN+M36vnktCX3Jhvzp57Br0ypGLKOUtBmNtKKLJFSVWKa+6kPYgmKqZwBfY
-         0lrr7T56F3hDdm+k4X0krC2meP3j7lPrM0FvcIIj1f5h9cqPZyyQsBwyolAmU6cUroTb
-         yPUuraJhpNX1a2e2G3I7GeZLgEyi5dXlnsNd66qvUfovyZCYkUc74xxOd1q1XA1N8INo
-         wJJ1MepuJxIAQTw6pkSZf1ke32McoYokvuzki1nY0o0WfR/bOEMWUyfdcsCKPhRcodfv
-         EjRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791920950; x=1792525750;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :message-id:date:references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ReAJUuSEnDcRQKK/UhSnvjLFcmpy/PcXbUdjFmS7Wvc=;
-        b=nqNJeV/sJMcWD2A0T1MDz3OarcosKTbLIhxz+NkVgy/oaAG94GQYAqPlKhErsaEN6x
-         N3p028EXW59eEQPpGw/YTxg7f7liWQVxgYJQExrHgLAOx5NTcCkb1+cE2DR3EMM36v89
-         WN8GO1LWRPBszlXBaf6JFczKHbxuwYk/oDFhfwnybJE5jX/rbb4HR93ji65RnrAXv2YO
-         927BMgxg3BE8lBrF3g4LJr3fLFVhKrhYKpX08Lox9H70o/t+TjKGgsnmxwChUceyNFR8
-         zXNAFAtTjtDPuvw2579yPm1knVsLA5+RcFtRDMWlC6bcXbGb4l1OyS7N7PTr0km+cAn3
-         Wn1A==
-X-Forwarded-Encrypted: i=1; AKwUvByyWEHyc9dCVuQ0XMki1Ny5v1b43z3vdLhYtSekOgzuIx0OO5KgewstLyiN5FBSj1fkVYliKZoNLsl1Ii4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxAJicXv6DPCKXf1Fsb/32ejO/1j3GiUeHh+jrdHec+Fe1ja56
-	048OVeyV0u9++lZXQrvWWKjOFw5UaU7WuC1/5Md/N4y9VPsC/O1sYhxD1qZij3YkjQ==
-X-Gm-Gg: AYBFou1/Cvhju+ogCE8mIQJarLXc1g0hFuAybVIhD13cigiB+csUO5pzqOf3dcYSlnK
-	SDFU/0M3E6xOtZhSJU658hJBUCE6E21FVHszuCDTJ9koF+vQLsRwDEvTIW3ddSBCj2R4C30PfEB
-	l5F7lcu7D1LgMYRuNFDYfMQkdCaCAgD4JcVXyaiixtcCg498cR0UAN91E1onwrxhkwvHP9oH6Hr
-	ueoUYv3kcDX+SbhthSXIk9pxMTJ+X4gKIhFC+7Lgb2YWgAuCWIfR6WzHER4b9+hCtqhqLqXlBqi
-	dtrPMHpAxLV99cprNbI957PL53FQx/CKlNb49SqCsoh/EWkzrq52bihxJ1BygYqAEiei6aayQmo
-	AAj0qT4vs/e3s7MZ5b/dD6nfBWqDZWfKk2XanlJxLWts1XtSYeKWrhrSmHCoJa1yfRbpbKN2PBK
-	v5Cpa9AvaiFruVTPvvxGp/hAipxRH6QXoCc/Hcx2TJh0XeDs0UR8xe+PU0CqFEdGF/5F4jADZP
-X-Received: by 2002:a05:7022:170c:b0:145:5c7:7185 with SMTP id a92af1059eb24-16a10f299a3mr17694738c88.5.1791920949453;
-        Tue, 13 Oct 2026 12:49:09 -0700 (PDT)
-Received: from fedorapc ([2405:201:4019:32fc:3c55:6b24:5147:322b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm40620145c88.15.2026.10.13.12.49.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 12:49:09 -0700 (PDT)
-From: Ayush Singh <ayush@beagleboard.org>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Ayush Singh <ayush@beagleboard.org>,  David Gibson
- <david@gibson.dropbear.id.au>,  Rob Herring <robh@kernel.org>,  Krzysztof
- Kozlowski <krzk@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Laurent
- Pinchart <laurent.pinchart@ideasonboard.com>,  David Lechner
- <dlechner@baylibre.com>,  Geert Uytterhoeven <geert@linux-m68k.org>,
-  devicetree-compiler@vger.kernel.org,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  devicetree-spec@vger.kernel.org,  Hui Pu
- <hui.pu@gehealthcare.com>,  Ian Ray <ian.ray@gehealthcare.com>,  Luca
- Ceresoli <luca.ceresoli@bootlin.com>,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-In-Reply-To: <20261013192342.149768ed@bootlin.com> (Herve Codina's message of
-	"Tue, 13 Oct 2026 19:23:42 +0200")
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-16-herve.codina@bootlin.com>
-	<arDMhoNNXcPi81sR@gractus.seuss> <20260925152157.511dc65c@bootlin.com>
-	<as3ZWBr3wRonkxXF@gractus.seuss> <87pkxd4jly.fsf@beagleboard.org>
-	<20261013192342.149768ed@bootlin.com>
-Date: Wed, 14 Oct 2026 01:19:02 +0530
-Message-ID: <87ld814c0h.fsf@beagleboard.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DO1Ms9Yr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791920953; x=1823456953;
+  h=date:from:to:cc:subject:message-id;
+  bh=OYdbEexPKQP558RqTakI7yACMXW1nvshSk1ec/NyyB0=;
+  b=DO1Ms9YretUoigWTD4TWfYW5aQpysWm9H1Hn2Ex7PZRK5OxwfWbtrsrE
+   PdwuiGJoZXbMJJdAVT1aEjQ/UIt4HAzuDZ+4YD7OfXQZFo3uUsF+a9kJp
+   S4YNanP2H1c7922D1XE9PzKD6NE/c/ruh1RQnh532cryuq11ZccVlqUH8
+   /bomo91tG9uz0hzpW1DNpKoV7+FE0FesTs0yTp64lkcBMoMJIZUe3mULE
+   mT0T63euGYCk4i6HbMJ4+UGGtiQdB0ZqOATQbwsG5iRDyyky+i6diyPDJ
+   3DxH5kWukv2nvQsoZ9lF5KPEtivDR4I5QRuHlJxsKIkAWQs1Lod7msrxl
+   w==;
+X-CSE-ConnectionGUID: Gp0UjlXXRa2rqVIp+lwMXQ==
+X-CSE-MsgGUID: oZj96rrqShOdZi8lubSGLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="754366"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="754366"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:49:13 -0700
+X-CSE-ConnectionGUID: nr67X3QJTGiZEsJ8rOBUMQ==
+X-CSE-MsgGUID: QHXr6O4PSv20n1YHNoQnZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1338325"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by fmviesa005.fm.intel.com with ESMTP; 13 Oct 2026 12:49:12 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xGiUn-00000000AdH-09JK;
+	Tue, 13 Oct 2026 19:49:09 +0000
+Date: Tue, 13 Oct 2026 21:48:59 +0200
+From: kernel test robot <lkp@intel.com>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>,
+ Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+Subject: drivers/irqchip/qcom-pdc.c:719: undefined reference to
+ `qcom_scm_is_available'
+Message-ID: <202610132148.dsoLTiBa-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Herve Codina <herve.codina@bootlin.com> writes:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+commit: ad01c2b2f29163ca0bbe1fd4f9343fbc5119c239 irqchip/qcom-pdc: Configure PDC to pass through mode
+date:   3 months ago
+config: arm64-randconfig-r2200-20261013 (https://download.01.org/0day-ci/archive/20261013/202610132148.dsoLTiBa-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 8.5.0
+smatch: v0.5.0-9187-g5189e3fb
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261013/202610132148.dsoLTiBa-lkp@intel.com/reproduce)
 
-> Hi Ajush,
->
-> On Tue, 13 Oct 2026 22:34:57 +0530
-> Ayush Singh <ayush@beagleboard.org> wrote:
->
->> David Gibson <david@gibson.dropbear.id.au> writes:
->>=20
->> > On Fri, Sep 25, 2026 at 03:21:57PM +0200, Herve Codina wrote:=20=20
->> >> Hi David,
->> >>=20
->> >> On Mon, 21 Sep 2026 16:20:02 +1000
->> >> David Gibson <david@gibson.dropbear.id.au> wrote:
->> >>=20=20=20
->> >> > On Wed, Aug 26, 2026 at 10:31:46AM +0200, Herve Codina wrote:=20=20
->> >> > > This v18 version will add support for
->> >> > >   - Structured tags.
->> >> > >     Those tags value definition will allow "old" libfdt, dtc and =
-other
->> >> > >     tools to skip unknown tags if encountered in future dtb versi=
-on.
->> >> > >=20
->> >> > >     libfdt, dtc and other tools implementing version v18 will be =
-able to
->> >> > >     skip unknown tags available in dtbd generated with later vers=
-ion of
->> >> > >     dtc.
->> >> > >=20
->> >> > >   - dt_flags header field.
->> >> > >     For now this flag field is set to 0. It is a placeholder for =
-future
->> >> > >     dtb version and could be used to store some dtb related infor=
-mation
->> >> > >     such as the kind of dtb. For instance, the future addons form=
-at will
->> >> > >     use this field to clearly identify that the dtb is an addon d=
-tb.
->> >> > >=20
->> >> > >   - last_comp_version_w header field.
->> >> > >     This field is similar to last_comp_version but for writing.
->> >> > >     It contains the lowest version of the devicetree data structu=
-re with
->> >> > >     which the version used can safely perform modifications (taki=
-ng into
->> >> > >     account following rules related to unknown tags).
->> >> > >     If this lowest version is greater than the last known support=
-ed
->> >> > >     version, modification are simply forbidden and lead to a
->> >> > >     FDT_ERR_BADVERSION error.
->> >> > >=20
->> >> > > For modification, when an unknown tag that can be skipped is invo=
-lved
->> >> > > and last_comp_version_w allows modifications, the following rules
->> >> > > apply:=20=20=20=20
->> >> >=20
->> >> > "last_comp_version_w allows modifications" is a bit hard to
->> >> > understand.  What exactly is the version number against which we're
->> >> > comparing that value?=20=20
->> >>=20
->> >> We had one last_comp_version.
->> >>=20
->> >> Now we have two last_comp_version, one for reading and one for writin=
-g.
->> >> We compare again the dtb version supported by our libfdt version.
->> >>=20
->> >> This comes from the discussion [1]
->> >>=20
->> >> [1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdiECtk=
-49on8VfkP7CDvw@mail.gmail.com/=20=20
->> >
->> > Ok, I now see that the logic is you simply fail to proceed with writes
->> > if the library's latest understood version is < last_comp_version_w.
->> >
->> > As I said elsewhere, this approach doesn't particularly make sense to
->> > me.  If lib_version >=3D last_comp_version you *can* write, even if it
->> > means stripping everything that's not understood at lib_version.
->> >
->> > So the real question here is how do we know, for any given structured
->> > tag, what write operations require the version to be downgraded (which
->> > might in turn require this and/or other structured tags to be stripped
->> > entirely).
->> >
->> > This is related to (though not the same as) the question of whether
->> > introducing a new structured tags requires a bump to the dtb version
->> > (though not to last_comp_version, of course).
->> >
->> > Here's the simplest model I can think of.  It's what I'd suggest,
->> > unless one of it's limitations is a showstopper for what you have in m=
-ind:
->> >
->> >  - version and last_comp_version retain their meanings.  No new header
->> >    version.
->> >  - New structured tags *do* require a new version.  If a dtb wants to
->> >    include a specific tag, it must label itself with a version that
->> >    defines that tag.  To enforce that:
->> >     - For read operations, if we encounter a (known) tag that
->> >       doesn't belong in the header version, we throw an error (either
->> >       BADSTRUCTURE, or a new error for the purpose).
->> >        - If version <=3D FDT_LAST_SUPPORTED_VERSION and we encounter an
->> >          unknown tag that also trips the error (since if it was
->> > 	 defined in this version, we should know about it).
->> >     - For write operations (including in-place), we always error if
->> >       version > FDT_LAST_SUPPORTED_VERSION (done in fdt_rw_probe_()).
->> >     - fdt_open_into() _is_ permitted if version > FDT_LAST_SUPPORTED_V=
-ERSION.
->> >       It will strip all unknown structured tags from the entire tree
->> >       and downgrade the version to FDT_LAST_SUPPORTED_VERSION.
->> >
->> > This does mean that every new tag does require a new version, which
->> > may make experimenting with new tags more awkward.  More
->> > significantly, it also means that any change requires a version
->> > downgrade, even if it's just updating a handful of properties.
->> >
->> > On the plus side, it's fairly simple, retains as much as possible
->> > current version semantics.  Most especially there's no tricky
->> > questions about what sorts of writes might invalidate an unknown tag
->> > (they'll all be stripped by the time we permit a write operation).
->> >
->> > If those limitations really are a showstopper, I do have a few other
->> > models that might work, though.=20=20
->>=20
->> The limitations do not sound too bad. And it feels easier to implement t=
-han
->> keeping track of read and write versions separately for each new tag.
->
-> But it doesn't handle the use case I mentioned in a previous reply :(
->
-> bootloader knows about version 2.0
-> kernel knowns about version 3.0
->
-> dtb 3.0 we want the bootloader to skip tags it doesn't know about but thi=
-s same
-> bootloader has to handle 'unknown' tags on some modification. We want to =
-have=20
-> possibilities to let this bootloader perform those modifications (under p=
-recise
-> known rules) and pass this dtb to the kernel.
->
-> Best regards,
-> Herv=C3=A9
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: ad01c2b2f291 ("irqchip/qcom-pdc: Configure PDC to pass through mode")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610132148.dsoLTiBa-lkp@intel.com/
 
-Apologies, I guess your email with the bootloader case came while I was
-composing, hence missed it.
+All errors (new ones prefixed by >>):
 
-Anyway, that is an interesting case, and well, it does happen rather
-frequently in embedded devices. I just did not consider it in the earlier
-reply. If I remember correctly, U-boot does some dt fixups after detecting
-things like GPU in case of TI AM62 (used in BeaglePlay and PocketBeagle 2).
+   aarch64-linux-ld: Unexpected GOT/PLT entries detected!
+   aarch64-linux-ld: Unexpected run-time procedure linkages detected!
+   aarch64-linux-ld: drivers/irqchip/qcom-pdc.o: in function `qcom_pdc_probe':
+>> drivers/irqchip/qcom-pdc.c:719: undefined reference to `qcom_scm_is_available'
+>> aarch64-linux-ld: drivers/irqchip/qcom-pdc.c:722: undefined reference to `qcom_scm_io_writel'
 
-Best Regards,
-Ayush Singh
 
---=20
-BeagleBoard.org Foundation
-https://www.beagleboard.org
+vim +719 drivers/irqchip/qcom-pdc.c
+
+   654	
+   655	static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *parent)
+   656	{
+   657		struct irq_domain *parent_domain, *pdc_domain;
+   658		struct device_node *node = pdev->dev.of_node;
+   659		struct device *dev = &pdev->dev;
+   660		resource_size_t res_size;
+   661		struct resource res;
+   662		u32 irq_param;
+   663		int ret;
+   664	
+   665		/* compat with old sm8150 DT which had very small region for PDC */
+   666		if (of_address_to_resource(node, 0, &res))
+   667			return -EINVAL;
+   668	
+   669		res_size = max_t(resource_size_t, resource_size(&res), PDC_DRV_SIZE);
+   670		if (res_size > resource_size(&res))
+   671			pr_warn("%pOF: invalid reg size, please fix DT\n", node);
+   672	
+   673		pdc = devm_kzalloc(dev, sizeof(*pdc), GFP_KERNEL);
+   674		if (!pdc)
+   675			return -ENOMEM;
+   676	
+   677		pdc->base = devm_ioremap(dev, res.start, res_size);
+   678		if (!pdc->base) {
+   679			pr_err("%pOF: unable to map PDC registers\n", node);
+   680			return -ENXIO;
+   681		}
+   682	
+   683		pdc->version = pdc_reg_read(PDC_VERSION_REG, 0);
+   684	
+   685		if (pdc->version >= PDC_VERSION_3_2) {
+   686			pdc->cfg_fields = &pdc_cfg_v3_2;
+   687			pdc->regs = &pdc_v3_2;
+   688			pdc->enable_intr = pdc_enable_intr_cfg;
+   689		} else if (pdc->version >= PDC_VERSION_3_0) {
+   690			pdc->cfg_fields = &pdc_cfg_v3_0;
+   691			pdc->regs = &pdc_v3_0;
+   692			pdc->enable_intr = pdc_enable_intr_bank;
+   693		} else {
+   694			pdc->cfg_fields = &pdc_cfg_v2_7;
+   695			pdc->regs = &pdc_v2_7;
+   696			pdc->enable_intr = pdc_enable_intr_bank;
+   697		}
+   698	
+   699		pdc->mode = PDC_PASS_THROUGH_MODE;
+   700	
+   701		/*
+   702		 * PDC has multiple DRV regions, each one provides the same set of
+   703		 * registers for a particular client in the system. Due to a hardware
+   704		 * bug on X1E, some writes to the IRQ_ENABLE_BANK register must be
+   705		 * issued inside the previous region. This region belongs to
+   706		 * a different client and is not described in the device tree. Map the
+   707		 * region with the expected offset to preserve support for old DTs.
+   708		 */
+   709		if (of_device_is_compatible(node, "qcom,x1e80100-pdc")) {
+   710			pdc->prev_base = devm_ioremap(dev, res.start - PDC_DRV_SIZE,
+   711						      pdc->regs->irq_en_reg + IRQ_ENABLE_BANK_MAX);
+   712			if (!pdc->prev_base) {
+   713				pr_err("%pOF: unable to map previous PDC DRV region\n", node);
+   714				return -ENXIO;
+   715			}
+   716	
+   717			pdc->x1e_quirk = true;
+   718	
+ > 719			if (!qcom_scm_is_available())
+   720				return -EPROBE_DEFER;
+   721	
+ > 722			ret = qcom_scm_io_writel(PDC_GPIO_INT_CTL_ENABLE, PDC_PASS_THROUGH_MODE);
+   723			if (ret) {
+   724				pdc->mode = PDC_SECONDARY_MODE;
+   725				pdc->unmask_gpio = pdc_unmask_gpio_cfg;
+   726				pdc->clear_gpio = pdc_clear_gpio_cfg;
+   727			}
+   728		}
+   729	
+   730		irq_param = pdc_reg_read(pdc->regs->irq_param_reg, 0);
+   731		pdc->num_spis = FIELD_GET(GENMASK(7, 0), irq_param);
+   732	
+   733		parent_domain = irq_find_host(parent);
+   734		if (!parent_domain) {
+   735			pr_err("%pOF: unable to find PDC's parent domain\n", node);
+   736			return -ENXIO;
+   737		}
+   738	
+   739		raw_spin_lock_init(&pdc->lock);
+   740	
+   741		ret = pdc_setup_pin_mapping(dev);
+   742		if (ret) {
+   743			pr_err("%pOF: failed to init PDC pin-hwirq mapping\n", node);
+   744			return ret;
+   745		}
+   746	
+   747		pdc_domain = irq_domain_create_hierarchy(parent_domain, IRQ_DOMAIN_FLAG_QCOM_PDC_WAKEUP,
+   748							 PDC_MAX_IRQS, of_fwnode_handle(node),
+   749							 &qcom_pdc_ops, NULL);
+   750		if (!pdc_domain) {
+   751			pr_err("%pOF: PDC domain add failed\n", node);
+   752			return -ENOMEM;
+   753		}
+   754	
+   755		irq_domain_update_bus_token(pdc_domain, DOMAIN_BUS_WAKEUP);
+   756	
+   757		return 0;
+   758	}
+   759	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
