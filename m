@@ -1,167 +1,184 @@
-Received: from mout.web.de (mout.web.de [217.72.192.78])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09774516166;
-	Tue, 13 Oct 2026 15:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D60A52F298
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905246; cv=none; b=gYyDD02gYfmmREcD/RZHh2uv/WeWvDIlLT9MiDPOTAixea53YnuqaZxz3jDjUSi56AWraSKEX1J5z0bq370k2E3XuoPRHqA/ctfPXjG/gLueKc3i4kfcSwOA+9IJbJ0Y05gGxehIxO9Bg+i3sc22wF038dKVxssD6ZpJQB53Rig=
+	t=1791905252; cv=none; b=BlKGmlLwz2pVcotk0lvuWtNckmqzlCrY/nMispejAZZc1AbLYNN9eqJsPlXX9eEoAHJmhLVufJPcxFl1Y49zR+ykxLAXb1UhlN9HCUAuDY/Q/m0Qd24zwG8krOiT+VEWRKJCdq7Nt4m6wHFXOlrOL8bAzFp5nc3uhVOLpXSamvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905246; c=relaxed/simple;
-	bh=/RKufF2yTI2+zp13mICGLhL+5e108L+GMt4MQqF+f6g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eO71euJsrNTOR6TsgZ4dlcytBS8NJm6V+VIrfmINhyW1//XqHkHsJKh0aw7KKVVPbrFC5UdyrCUo5VY4Yt5KT80pASc0EwkRMwHbLIcZnYd7lxIGnZv6k5GAZtdCETcZe7Tl7L4gTT161N82aUFlsG6UETcCiNd+2vljD10rE0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=FcFmos47; arc=none smtp.client-ip=217.72.192.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1791905252; c=relaxed/simple;
+	bh=qbJvRcRE98nv2IVVWpWfShG1OAvGfynIDBrsbHsL430=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MqhEwnp1rRgsAaDiPf1RtNsK2//omuV4PIPAsoAM8JQR5CbfayCISBeEoVeD26S+7DMI2EDf7XrSHTl/0tUznkD5Lclu85W+y3XYYawcgksmOzFVlgcYr4Bz4WzweymJI6Tk18yxOly80WMdQB9z0WyJOmGoGazOXLQpOaB9KZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rjP+eEw5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4h5xrAH0; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="FcFmos47"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1791905232; x=1792510032; i=markus.elfring@web.de;
-	bh=/RKufF2yTI2+zp13mICGLhL+5e108L+GMt4MQqF+f6g=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=FcFmos47L0w50ikWcosD7MidFxEEA5nJtvl0iL8cAkhpuN3CbXkGWD7drO4w/6Id
-	 eSor5nB5ReVmwVz1VMTE7JJ8pg3e8BXSZ3fOlbomTwM6pcaQAJ2VyM9q0s2wqn1ub
-	 XK3ThM/7aa9kJ2VCTxTQj8p3dDwbaY0OPw3gUrmM6ngN4bOa6JCZhnetcRkPXyQyi
-	 PBennXeJV0k57C53v65FhLz48pOWyVC2iM1wSj0ZRFvZY6F6IuaAp+19NrALVtMs9
-	 mnF79DOCwD7gzYV+ffalZIX847r9dsBE9n7unYhL6XER58b5dBLYGKmRAS8Rmu3pU
-	 EAkCu0MMtdrPeYHqsQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N1uAl-1wWozh1YQT-00uaXP; Tue, 13
- Oct 2026 17:27:12 +0200
-Message-ID: <c8b6843c-c87a-4330-b6f4-e556117a8026@web.de>
-Date: Tue, 13 Oct 2026 17:27:10 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rjP+eEw5";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4h5xrAH0"
+Date: Tue, 13 Oct 2026 17:27:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791905249;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D1pv0RVRHmHu/hDts6dqOaef0+EBxYVfiItqfGjUP/E=;
+	b=rjP+eEw5xzMXUoKe72pct8cJYzABjcWR1XOTt+bEW9lwwcDE3YhbOvbknN05DKYuLYOZda
+	pN7lpGW2drS7ZX+4iGs2kSj6E514jse+j5JQTSpn44iMHriSS3IeuJ0txKN3VvNd6SveAg
+	RkYzbB+BCmy53qij79Jh5f78sHgUpdSiH1pxkTm+D9IIaTVbvMgLFMPT0b0Ag+3Sq4FQfn
+	bEvUa+R6GsgMk+yBZhE2pnemngXr7h7mXCLXRXi0VBYwWzRcFcFrKgAYxklP6PZZfb5Y9w
+	5GFNVtgO+OKYl3fxqSS6HVYS00+sj9cS5PWLbCgjPFfCXSWOwOMiS+nLukM/TA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791905249;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D1pv0RVRHmHu/hDts6dqOaef0+EBxYVfiItqfGjUP/E=;
+	b=4h5xrAH0/oA1nJYYIDfnssa+lx+mfABWGiGV8n02C3TaipbcVhCbDgYERpHhQ21xxsH2dG
+	Iheiof5VleNJEyAQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Cc: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Jessica Liu <liu.xuemei1@zte.com.cn>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH v3] irqchip/riscv-aplic: fix asynchronous probing
+Message-ID: <20261013152727.2cUDX3l0@linutronix.de>
+References: <20261012-aplic-async-probe-v3-1-5cf52dc28690@mobileye.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: dlm: clean up a type in waiters_read()
-To: Alexander Aring <aahringo@redhat.com>, Dan Carpenter <error27@gmail.com>,
- gfs2@lists.linux.dev, kernel-janitors@vger.kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>, David Teigland <teigland@redhat.com>
-References: <ar4BZ26gjQEjZgIa@stanley.mountain>
- <ffeb3e5b-d9de-4337-b250-e27667024461@web.de>
- <CAK-6q+heOWNY8CY8dgotxzEeFC_-huHnnO2pgH8kJsJSGryOtw@mail.gmail.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <CAK-6q+heOWNY8CY8dgotxzEeFC_-huHnnO2pgH8kJsJSGryOtw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:0ianABftfhsG9rCHi3fCDgKa9fC41BS/G3w0zc4JDmco+33N2IY
- jjvEYYj2CqGCGFTelaUNxkh04zJepsPOgmJ555ik87znjvUWhrbQdK2/T4RQCwDXUOG6mUG
- kETY5IXU4sTaeBg2xL8AkQPKzzfQoqvfJltJcJhV56HdtXc6epouCgh2ZH2KhgsPAd7WrAi
- QGy2HQ7azbz5wn9eqsfMA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:kP5ZeCIJkf4=;aRUPQMETc4/TK+VHB4iI9bxzXom
- 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
- XXSy
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261012-aplic-async-probe-v3-1-5cf52dc28690@mobileye.com>
 
->>> This doesn't affect runtime but "rv" stores error codes and so
->>> declare it as ssize_t instead of size_t.
->>
->> Can a similar adjustment matter also for the local variable =E2=80=9Cre=
-t=E2=80=9D?
->=20
-> What do you mean by 'matter'? It's declared as cleanup.
-Can the usage of a data type like =E2=80=9Cint=E2=80=9D become more desira=
-ble for =E2=80=9Cret=E2=80=9D
-according to the affected function implementation?
+On 2026-10-12 12:12:59 [+0300], Vladimir Kondratiev wrote:
+> boolean flag don't protect from race when probing several instances
+> asynchronously. On system with multiple APLICs, if probed asynchronously,
+> warning triggered as below.
 
-Regards,
-Markus
+Why is this async? Doesn't __platform_driver_probe() set it to sync?
+
+> [    0.227210] riscv-aplic 67560000.interrupt-controller: 257 interrupts directly connected to 8 CPUs
+> [    0.227210] riscv-aplic 674e0000.interrupt-controller: 257 interrupts directly connected to 8 CPUs
+> [    0.227224] ------------[ cut here ]------------
+> [    0.227227] list_add double add: new=ffffffff8130ced0, prev=ffffffff8130ced0, next=ffffffff81316d40.
+> [    0.227302] WARNING: lib/list_debug.c:35 at __list_add_valid_or_report+0xe0/0xe6, CPU#4: kworker/u97:0/211
+> [    0.227322] Modules linked in:
+> [    0.227333] CPU: 4 UID: 0 PID: 211 Comm: kworker/u97:0 Not tainted 7.3.0-rc6 #1 PREEMPT_RT
+> [    0.227341] Hardware name: EyeQ7H evaluation board (DT)
+> [    0.227346] Workqueue: async async_run_entry_fn
+> [    0.227358] epc : __list_add_valid_or_report+0xe0/0xe6
+> [    0.227366]  ra : __list_add_valid_or_report+0xe0/0xe6
+> [    0.227375] epc : ffffffff804a08a0 ra : ffffffff804a08a0 sp : ffffffc600823b90
+> [    0.227379]  gp : ffffffff81389e70 tp : ffffffd60135ee00 t0 : 0000000000000000
+> [    0.227383]  t1 : 3fffffffffffffff t2 : 0000000000000000 s0 : ffffffc600823bb0
+> [    0.227387]  s1 : ffffffff8130ced0 a0 : 0000000000000058 a1 : ffffffd9efc9e5c0
+> [    0.227391]  a2 : ffffffd9efd5c510 a3 : 0000000000000000 a4 : 0000000000000000
+> [    0.227395]  a5 : 0000000000000000 a6 : ffffffd9efc6e5c0 a7 : bfffffffffffe000
+> [    0.227399]  s2 : 0000000000000000 s3 : ffffffff8130ce28 s4 : 0000000000000000
+> [    0.227402]  s5 : ffffffd6018b65c8 s6 : 0000000000000000 s7 : ffffffd6012fd605
+> [    0.227406]  s8 : ffffffd6010c3400 s9 : 0000000000000000 s10: 0000000000000000
+> [    0.227409]  s11: 0000000000000000 t3 : 3fffffffffffe000 t4 : 0000000000000020
+> [    0.227413]  t5 : 0000000000000000 t6 : ffffffc6008238f8 ssp : 0000000000000000
+> [    0.227417] status: 0000000200000120 badaddr: ffffffff804a08a0 cause: 0000000000000003
+> [    0.227422] [<ffffffff804a08a0>] __list_add_valid_or_report+0xe0/0xe6
+> [    0.227432] [<ffffffff80558226>] register_syscore+0x30/0x60
+> [    0.227444] [<ffffffff804ca0fe>] aplic_probe+0xd2/0xfa
+> [    0.227453] [<ffffffff80559b2e>] platform_probe+0x3e/0x7a
+> [    0.227461] [<ffffffff8055731a>] really_probe+0x88/0x35c
+> [    0.227469] [<ffffffff805576ae>] __driver_probe_device+0xc0/0x13a
+> [    0.227478] [<ffffffff805577f4>] driver_probe_device+0x38/0xb2
+> [    0.227486] [<ffffffff80557ba6>] __driver_attach_async_helper+0x3c/0xc4
+> [    0.227493] [<ffffffff80054a0e>] async_run_entry_fn+0x28/0x154
+> [    0.227500] [<ffffffff8004482a>] process_one_work+0x14e/0x3d2
+> [    0.227509] [<ffffffff800452fe>] worker_thread+0x144/0x286
+> [    0.227516] [<ffffffff8004ca3e>] kthread+0xee/0x10e
+> [    0.227524] [<ffffffff8001050a>] ret_from_fork_kernel+0x18/0x14e
+> [    0.227532] [<ffffffff807bef36>] ret_from_fork_kernel_asm+0x16/0x18
+> [    0.227542] ---[ end trace 0000000000000000 ]---
+> [    0.228475] pinctrl-single 48508000.pinctrl: 512 pins, size 2048
+> [    0.228500] pinctrl-single 53838000.pinctrl: 512 pins, size 2048
+> [    0.228723] pinctrl-single 67107000.pinctrl: 512 pins, size 2048
+> [    0.227210] riscv-aplic 674e0000.interrupt-controller: 257 interrupts directly connected to 8 CPUs
+> [    0.227224] ------------[ cut here ]------------
+> [    0.227227] list_add double add: new=ffffffff8130ced0, prev=ffffffff8130ced0, next=ffffffff81316d40.
+> [    0.227302] WARNING: lib/list_debug.c:35 at __list_add_valid_or_report+0xe0/0xe6, CPU#4: kworker/u97:0/211
+> [    0.227322] Modules linked in:
+> [    0.227333] CPU: 4 UID: 0 PID: 211 Comm: kworker/u97:0 Not tainted 7.3.0-rc6 #1 PREEMPT_RT
+> [    0.227341] Hardware name: EyeQ7H evaluation board (DT)
+> [    0.227346] Workqueue: async async_run_entry_fn
+> [    0.227358] epc : __list_add_valid_or_report+0xe0/0xe6
+> [    0.227366]  ra : __list_add_valid_or_report+0xe0/0xe6
+> [    0.227375] epc : ffffffff804a08a0 ra : ffffffff804a08a0 sp : ffffffc600823b90
+> [    0.227379]  gp : ffffffff81389e70 tp : ffffffd60135ee00 t0 : 0000000000000000
+> [    0.227383]  t1 : 3fffffffffffffff t2 : 0000000000000000 s0 : ffffffc600823bb0
+> [    0.227387]  s1 : ffffffff8130ced0 a0 : 0000000000000058 a1 : ffffffd9efc9e5c0
+> [    0.227391]  a2 : ffffffd9efd5c510 a3 : 0000000000000000 a4 : 0000000000000000
+> [    0.227395]  a5 : 0000000000000000 a6 : ffffffd9efc6e5c0 a7 : bfffffffffffe000
+> [    0.227399]  s2 : 0000000000000000 s3 : ffffffff8130ce28 s4 : 0000000000000000
+> [    0.227402]  s5 : ffffffd6018b65c8 s6 : 0000000000000000 s7 : ffffffd6012fd605
+> [    0.227406]  s8 : ffffffd6010c3400 s9 : 0000000000000000 s10: 0000000000000000
+> [    0.227409]  s11: 0000000000000000 t3 : 3fffffffffffe000 t4 : 0000000000000020
+> [    0.227413]  t5 : 0000000000000000 t6 : ffffffc6008238f8 ssp : 0000000000000000
+> [    0.227417] status: 0000000200000120 badaddr: ffffffff804a08a0 cause: 0000000000000003
+> [    0.227422] [<ffffffff804a08a0>] __list_add_valid_or_report+0xe0/0xe6
+> [    0.227432] [<ffffffff80558226>] register_syscore+0x30/0x60
+> [    0.227444] [<ffffffff804ca0fe>] aplic_probe+0xd2/0xfa
+> [    0.227453] [<ffffffff80559b2e>] platform_probe+0x3e/0x7a
+> [    0.227461] [<ffffffff8055731a>] really_probe+0x88/0x35c
+> [    0.227469] [<ffffffff805576ae>] __driver_probe_device+0xc0/0x13a
+> [    0.227478] [<ffffffff805577f4>] driver_probe_device+0x38/0xb2
+> [    0.227486] [<ffffffff80557ba6>] __driver_attach_async_helper+0x3c/0xc4
+> [    0.227493] [<ffffffff80054a0e>] async_run_entry_fn+0x28/0x154
+> [    0.227500] [<ffffffff8004482a>] process_one_work+0x14e/0x3d2
+> [    0.227509] [<ffffffff800452fe>] worker_thread+0x144/0x286
+> [    0.227516] [<ffffffff8004ca3e>] kthread+0xee/0x10e
+> [    0.227524] [<ffffffff8001050a>] ret_from_fork_kernel+0x18/0x14e
+> [    0.227532] [<ffffffff807bef36>] ret_from_fork_kernel_asm+0x16/0x18
+> [    0.227542] ---[ end trace 0000000000000000 ]---
+
+Would you mind providing a coherent description of the problem and
+implemented solution instead of slapping console output?
+
+> Fixes: b330fbfd34d7 ("irqchip/riscv-aplic: Register syscore operations only once")
+> Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> ---
+> Changes in v3:
+> - drop __ro_after_init attribute due to write to read-only page concern
+
+What concern? That __ro_after_init can stay. It is built-in only.
+
+> diff --git a/drivers/irqchip/irq-riscv-aplic-main.c b/drivers/irqchip/irq-riscv-aplic-main.c
+> index d9afb6ae98cf56d6fd9f858c31a3d23546c3b450..54e1d5602f15a04127e900c0a4983022d49da553 100644
+> --- a/drivers/irqchip/irq-riscv-aplic-main.c
+> +++ b/drivers/irqchip/irq-riscv-aplic-main.c
+> @@ -116,14 +116,12 @@ static struct syscore aplic_syscore = {
+>  	.ops = &aplic_syscore_ops,
+>  };
+>  
+> -static bool aplic_syscore_registered __ro_after_init;
+> +static atomic_t aplic_syscore_registered = ATOMIC_INIT(0);
+>  
+>  static void aplic_syscore_init(void)
+>  {
+> -	if (!aplic_syscore_registered) {
+> +	if (!atomic_cmpxchg(&aplic_syscore_registered, 0, 1))
+>  		register_syscore(&aplic_syscore);
+> -		aplic_syscore_registered = true;
+> -	}
+>  }
+>  
+>  static int aplic_pm_notifier(struct notifier_block *nb, unsigned long action, void *data)
+> 
+
+Sebastian
