@@ -1,119 +1,113 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E287B51C04E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B46C51A121
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905416; cv=none; b=MN0MUe7tj1I6+BGN8KmRC6gtgelwgJxjQpxgXrINR1kV2pj808+WXkkSN5EWwNrCE27plAjCDTnazqmAqFp1Z/AxPD64rw3qsQqMJicnjWUhHE4mTIDja9nosbahAZopUcXYQ+HlHA1Ymlpp3qEePfnGFeh5litvvI/nGpDhN90=
+	t=1791905491; cv=none; b=i28pL3G66526vJuuVJmAgIagYSWZSH8JhGUsoNybxbN49C3Z9ekccSHpALj33R7Pt35MVJh5pm35fpM2y5FZfxES9IXw+ItoUvgtOD/UDAkYM0tM45y/cT6w9MjaeBfdNxsdzoZKfcr5JFVsi9Of5StsH67U0dEENbrL8mJ3xgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905416; c=relaxed/simple;
-	bh=sKk3oN5cFHzkAN91yHmBdxQ58VbKE/Uu1eh9rgcoHak=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lz26eJwFwwmU4ljE0lwtkkQSkifrVRdlEBZ1CgibBYqhLOTonMnLX+dfl4ToYYX4li+D+rWLPomj/EHOUqp6iQhGJdSW47JX3uZD4CnLxAVAaiZpU+rtZVVo+2NHB7ASoIaViyhG5AcIHmmC1Elj8UJNyTOJIL1BuuWschJrm8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VQSOSKTY; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791905491; c=relaxed/simple;
+	bh=ko82K1Jqzm+7uP5Zu8WUB0dPhh+VEsn/b6E75Irl69E=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=SJ2nwzoc+vfo0i26VY0vDhrt2uqqfqHnf9XNqYZ7hhlCRCYm8WZlvBTN7EC0mlneUsU9Li9L40PVK8xDmiJqKf/2I1oxS8iZK1jB628i90STMOf3iJPvt9zlImCiQF7Pe3VKe6pTeSxqX8YAP+5OS2M7VEqLVXn7buJaG769yjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0hazhnT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VQSOSKTY"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso1059958a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:30:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791905414; x=1792510214; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JkzKGFG3myHoVz2H3BeUHaZ9CQAbPKe7kFhV45l+XFM=;
-        b=VQSOSKTYM6undaRs5oy9pBldbCcIFTMbvC3dzEjUWbH/pgeUb1YSGW+VVfNRaW2xCH
-         aI919D+DZo5prhxzTg80jv1PM8j3FBdW1nOAnYCiOIrLgayXXp/7A4RplGo8D551xGrA
-         nSHWYXgweymCG2i4eXI25ZPFc5xCJSHVct3bwWMjcuhgh7LRh6m/HKcOfv4w8TUhXOT/
-         fwn1rzFLLlkwBM0Z1l/XgNrUAqqMAmz3u7zbTvYNRmcU6XWTPljAAFxZlMyPjsIvz7vh
-         BQJqhTgB8t/aS0foCVGunaR4nhAlqoySi0Y6hUxFTSEmrJa/j/uu8AiJ2k0H/DKyPkNB
-         1HXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791905414; x=1792510214;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JkzKGFG3myHoVz2H3BeUHaZ9CQAbPKe7kFhV45l+XFM=;
-        b=pEEAEGJ5Gogn0Ye3wZiAJTfPsciPj33zT+/i2d0PRL5QxG5g+kx/8pJkyZgQ55PCKs
-         gWlKuv1OyEa7jerjenQ4wNAjpgjt00e/3+biaGRjubWQ7amUy1Lo4pvJmnTulGrUolyO
-         oNMATpRqGyCtpqAbMce5NX/FJmkg7vIWE06fMCSBiQZuwrFHnOhKNA9eqoSIP9lodILn
-         oldWsZn2MVMBgNzUzbOTXNhiShzUiuDEIuXhJbEgdFNAhMG4kWNbakHVf5XO0CzAemv0
-         jiifIh5AayNyfH2g8OSp9Dxgf+j59N4oIyrOcGxMJcuVVY3J8zSnutMc9sf9vNlzJe4c
-         bTrg==
-X-Gm-Message-State: AFq9FYI7tyzc2dp8D3sH7VSYGSyztZuvc9OSpvuwjYv+2lNI/XFWUjvv
-	KV8KaWPMdyUBZYOUyLrT/u1c0/cotBwsiZI8rd7ODUAe1ergfKX2vIdT1u6gbw==
-X-Gm-Gg: AYBFou3qrexMQXS0d9XBFhjm+i13gf+7D+XJApasWsTY0qZ0/gw1cxxYNl7MYYTv1pP
-	lFRbzNlZBoNXFxuYvrqPx1MiTBAn4YfAFsS4QM5zzgcmzvqtZ93UtCDbdm4Crg9ui7yAnN195Ze
-	fbg+Fg/MvP51tnh+mZh527MKsyFoWbXSyBOjM7XusioVKpemdZeysTIdr/76gyV0uHtY9IAwv8Z
-	RdY2PSrLHEmpNxY3VgwIEfXzuPFjFmi8jOEeBF0z2ic0TGZTYmNv80RMfpDlDvo+sxrsRRFJto6
-	ja3laiaP+b+9x/4OtF0eT7LYJHxsZh6EJ0JjHKLvLqw2IiJqAIcAXB5pJ/JLZzi/QKUk0ynN6/c
-	8UyQNgWrB8WDTF6tgKY6dxak7SWNbhNuXJLDJJFnJmMBkhXZgqzCRksGOMQEETBZtAt9jOtDhMv
-	WfPckvr2ZfM4v5xjIlPWH26epO1/HTcTne/1N/KoLAw3swDYKwTUJKsIbsi8R7jpPx9qGYCWXBi
-	JDDFRyhnX6WIk3OOvN4j8Ue5DRvHI8FSrJWrouJKcGbehxzGM+9P10uvS9Px5n4rDAytzTcdoHu
-	ydAWlJoKmrERn9BE
-X-Received: by 2002:a05:6a21:1bc2:b0:3e0:afe9:ba4e with SMTP id adf61e73a8af0-3e16bf4c1bemr10960689637.67.1791905413906;
-        Tue, 13 Oct 2026 08:30:13 -0700 (PDT)
-Received: from f2fs-test.c.googlers.com.com (225.134.16.34.bc.googleusercontent.com. [34.16.134.225])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d804e8586sm16590b3a.42.2026.10.13.08.30.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:30:12 -0700 (PDT)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>
-Subject: [PATCH] fsck.f2fs: do not roll forward a checkpoint-disabled image
-Date: Tue, 13 Oct 2026 15:30:06 +0000
-Message-ID: <20261013153006.1200086-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0hazhnT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5111E1F00893;
+	Tue, 13 Oct 2026 15:31:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791905490;
+	bh=2Z+wy+HJU5krqdxCh4MNGqLRoB1+mk+v8/zUlqrh22g=;
+	h=Date:From:To:Cc:Subject;
+	b=W0hazhnTnW3hhi4sanfiSqAdRpV6jfBRnjttjUxgx73EEKBTm4DMvONWgZRBdTDd3
+	 O1vK57fDRcoS5rHIKv5PnpYdMNrzpGzVrqCBijE8P+brD7x6qVlIUmu/rQFyljdNa/
+	 kOpZC+H+OZ0sPmWyq6/hmh1x+jwvSSlJ6atzLYVe2GTqoAVXZdGN8nf7Q5QkX6myjx
+	 POR/Zh8YFH3GVJu+S7Fwk9G0jNXJbWrrIR0gNLTKTjvNtoTJVKsMm+fWWPAD9SqALf
+	 WN91wJ2/VXMCb6fWLYG/yeT+XePn2WDckSEZOOJWFGxGw6/GOtpsvI6W2lHKz7A8tQ
+	 VCTL2TjSpMfow==
+Date: Tue, 13 Oct 2026 16:31:27 +0100
+From: Conor Dooley <conor@kernel.org>
+To: soc@kernel.org
+Cc: conor@kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL][2/4] RISC-V misc. devicetrees for v7.4
+Message-ID: <20261013-easily-lint-c427bdee2754@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BotAtISf3NwQU4DG"
+Content-Disposition: inline
 
-From: Daeho Jeong <daehojeong@google.com>
+--BotAtISf3NwQU4DG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-With checkpoint=disable, the kernel does not write a checkpoint at
-umount. The last checkpoint is the one written when checkpoint was
-disabled, with CP_DISABLED_FLAG set and without CP_UMOUNT_FLAG. The
-kernel never rolls forward such an image: f2fs_fill_super() skips the
-recovery when CP_DISABLED_FLAG is set, and drops all writes after the
-checkpoint.
+Hey folks,
 
-fsck decides to record fsync data only by CP_UMOUNT_FLAG, so it walks
-the warm node chain of an image that the kernel will not recover. While
-checkpoint is disabled, SSR reuses blocks written and invalidated after
-the checkpoint, so the chain can point back to a block written earlier
-in the same session with the same cp_ver. fsck then reports "detect
-looped node chain" and fails. xfstests generic/320 and generic/642 hit
-this almost every time with checkpoint=disable.
+Small enough PR here, I was hoping to get the StarFive jhb100 SoC in, but
+that'll have to wait for 7.5, along with the deprecation of the Canaan K210
+that Arnd and I discussed last week.
 
-Skip recording fsync data when CP_DISABLED_FLAG is set, as the kernel
-does.
+Cheers,
+Conor.
 
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
----
- fsck/mount.c | 4 ++++
- 1 file changed, 4 insertions(+)
+The following changes since commit 82ab962ef6c2a3571e3d590b30c023118c92b776:
 
-diff --git a/fsck/mount.c b/fsck/mount.c
-index 8479ed1..98d797e 100644
---- a/fsck/mount.c
-+++ b/fsck/mount.c
-@@ -4096,6 +4096,10 @@ static int record_fsync_data(struct f2fs_sb_info *sbi)
- 	if (!need_fsync_data_record(sbi))
- 		return 0;
- 
-+	/* the kernel does not roll forward a checkpoint-disabled image */
-+	if (is_set_ckpt_flags(F2FS_CKPT(sbi), CP_DISABLED_FLAG))
-+		return 0;
-+
- 	ret = f2fs_find_fsync_inode(sbi, &inode_list);
- 	if (ret)
- 		goto out;
--- 
-2.56.0.385.gd3acb90ef8-goog
+  Merge branch 'k230-basic' into riscv-dt-for-next (2026-06-14 17:14:51 +0100)
 
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/conor/linux.git/ riscv-dt-for-v7.4
+
+for you to fetch changes up to 2186ec5f59c23fcf0bf896ca0543b6a1135d7bb5:
+
+  riscv: dts: starfive: Correct pwm nodes (2026-10-02 18:35:12 +0100)
+
+----------------------------------------------------------------
+RISC-V misc. devicetrees for v7.4
+
+Microchip:
+Add Valentina as a second maintainer because Daire is largely inactive.
+
+Starfive:
+Fix the PWM nodes, because a opencores,pwm-v1 instance only ever provides
+one PWM channel.
+
+Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
+
+----------------------------------------------------------------
+Conor Dooley (1):
+      MAINTAINERS: update RISC-V Microchip maintainers
+
+Hal Feng (1):
+      riscv: dts: starfive: Correct pwm nodes
+
+ MAINTAINERS                                        |  3 +-
+ arch/riscv/boot/dts/starfive/jh7100-common.dtsi    | 28 +++++++--
+ arch/riscv/boot/dts/starfive/jh7100.dtsi           | 67 +++++++++++++++++++++-
+ arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 27 +++++++--
+ arch/riscv/boot/dts/starfive/jh7110-milkv-mars.dts |  6 +-
+ .../boot/dts/starfive/jh7110-milkv-marscm.dtsi     |  6 +-
+ .../boot/dts/starfive/jh7110-pine64-star64.dts     |  6 +-
+ .../jh7110-starfive-visionfive-2-lite.dtsi         |  6 +-
+ .../dts/starfive/jh7110-starfive-visionfive-2.dtsi |  6 +-
+ arch/riscv/boot/dts/starfive/jh7110.dtsi           | 67 +++++++++++++++++++++-
+ 10 files changed, 200 insertions(+), 22 deletions(-)
+
+--BotAtISf3NwQU4DG
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5OzwAKCRB4tDGHoIJi
+0n7jAP0ZtoAQTFjlb0T6hm8d7m4Df2HMXwWGTS/jd1xsoqOtCAEA8Y5C14AWIoay
+z7URj7kOzL6Us6y2I3I/7k44cd3xoww=
+=8T9u
+-----END PGP SIGNATURE-----
+
+--BotAtISf3NwQU4DG--
