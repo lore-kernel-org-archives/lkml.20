@@ -1,145 +1,131 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1043C3C2798
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743CB4E36C9;
+	Tue, 13 Oct 2026 11:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890952; cv=none; b=sYvoVZaD+u2/mEMy5aUSnrF51kzXVjTRXnSy79ZpXrM1gTFUOopaACuaxcJWlhfh67DED31mwFdJ3llwMHWFoLzvrtjC/FaEn4Gda3sME77ejqL0q6Z9MuHzW7rkuVbkac7HWS1IIdQB483y9spOJzU6cm+3VQT8VeDpgEteezU=
+	t=1791890990; cv=none; b=erqx2cpp9La55wYKGLF9SsJixAQa5DSBJUtUAr7zYdcQSbDmNA3XyXIDALPjiGSZKEeME2b17uTyLaqd2AkEfmjFi7kGQVPuQ/Hg9LyUaHjUWAlyF3mgo1rBHu9jGhjBYa26YzAOQH0SRRlD7FXxZs4xXEr0o2JDcfEV5uB4in4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890952; c=relaxed/simple;
-	bh=Fxs65loBaQS2zVzidqe0drHOuX+q77A6m71fokX95P8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mFLbxwHNyC7uRkC5l/8CCMUO4vVdPJxzKkjXo6/dzw5x0xS2ThiKRV0hdoASoOfpb+5onSEAYI/W28ZA9UsGJ7FpPkzrcVGgal1d/EnpTWnWPvPTmNlpfp/PNrbQZKBnAEDfFv4iCXGbpsymX4OnSWgg5HjBg7v8YsNDQ1lkZyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZEUQP54E; arc=none smtp.client-ip=74.125.82.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791890990; c=relaxed/simple;
+	bh=hcGq33lvY9rVtSOYs+BB1JK/Pze/KCvmsRz+ajmuwnw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hgwhhjKkRZloQzMyGCP5hfJuFovuK7Fc2EdZhSGgyn+PfYT7pKbXcRnCO68jZAEa60PHV7ebqlTg04BAKpjoFr+5aoe/71xJaY5UHFlhxNxOpONlVZVXwaXUrFJbxZqQguQcreTnLX85MwG9o/37rbmoYWLrIpzx/AgevloQm+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5XSCDOi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZEUQP54E"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-154e9d2d979so1940691c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:29:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791890950; x=1792495750; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RTC8837Ay1vHzPauMz2Nn9szcxCcdh/p3wgAS9dtrx0=;
-        b=ZEUQP54EftHQIlNMId3bDKyhOtkXPq7TcIN8mDJTxI706dgfrM2gwNUFl8o0lR6lYv
-         xVetdrLTNPr46jcg9+6xPr69cFPnRb50L7jL8uB64ffZCC66JuWM8e8ojr3VBe+ozYsc
-         T8PqM+ZwFOCBPXY3Fh88fl9flUMZ/8LyJVvS7xV76FTWVKUFFjml5cwR3Dy7qoFSD88r
-         k0V5+ZNR/o2MCqyKdjUkeUzzBGUwuEYyFiO/o/KmT9gTldZiP41pB0bxsK/XX9XHZyRY
-         O0aeX6D4twkJeB6cFK3SqDwMIc5xrfhhdxmIo3hjaIEILaRmhsfsN8/A0Ve6iHKWaCMk
-         KWUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791890950; x=1792495750;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RTC8837Ay1vHzPauMz2Nn9szcxCcdh/p3wgAS9dtrx0=;
-        b=rYGmiUCRpQmJeMjwAmykUn09ZlsNCqSCsnNsCJK3sizOJ96M1CS3488ui8mKagCbl0
-         2A5aTBTmQUuC8TctAIcZJfN7gLvFO/PuanarIL/rq32kzaXhi9NZT0wtDPQBf6ut0ujN
-         0axbJzkBcv8gZ8NJQZdLmj+JTZsHZgcaEtVJhKia4hCBGCNw3WRC1jJwolHrMXuIcPmA
-         tdYnesbHCq9MNFxHG/0Q9tAii+hiokEqJxg+ahHq7q3b9BhY8bT2Z5HBMLNlikQz+Bv2
-         wXhlHuBj2IV3LSi38g1KPykz1BKngdRpqjsBqYAYBkYKhU5UJ9pV8wUQ9xYSJYYRhTql
-         XPUA==
-X-Forwarded-Encrypted: i=1; AKwUvBxAkHd44NgIk3jr4A4WsXwyJH7UQnwfm+rN9km1IjOMIHIWMnghdeHBb20LHTHxvLUHmPxUr6+lpu6YZq0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUVKUDxaK/XlRyQ9lkp/mSQnW22l5E6UM3p7CtL1xJBpeAhIUM
-	z9k8hZhOBOUBYNulMzFWcAyQEqmDmzi8ZE1KcK6zFNpgybUlsBl0CX2O
-X-Gm-Gg: AYBFou3Z/op8xccNIM4FpoL9lCklRGe5th3eD4Jvx/Sxw2c7aG7BI2llFlj8UEi/u9w
-	osFbIvADHQ1rjTjQo9+IAzoDOH9VhEVuutdMqyTv17ntFcXpvwCrM+7NWueSYgyF9Lnu1bp5OVI
-	kZN4k1FFRDsT0WhZZiuX+5/Gw25iPucfY8BdC2d9O7oRrP3bv7S9Zy6uMuMscmJXvgNpN4RRlXr
-	lo2BviZDTX4NOsvwLFWjhcS5V3YJ636bgdRHKf4wLtm3mzDRtPGtFMUZ9ZfH+XhviUrThYa5A/Y
-	dyWvYQ1MIUDJ6x4WhPK026cygDEbi3hOjJfW3wLr+rZ8T+4as268WC9zb/BBvgZ1+pWpzOhZBmj
-	5kLgW96PIE5NOXzKnuJy3RNH4YxsYmEd2cbMx9bUHcD+G64KmcIxl6sw3Ywhgnh8MPGqFTD0VBf
-	Uiwjx3ZJR2a9ZaF7Xla+JwUznwv4F/6q037Gxf2gEkacXvFDqcC559uG392J/cHZI/1q74oQ==
-X-Received: by 2002:a05:7022:7e8c:b0:143:1bb1:b3c3 with SMTP id a92af1059eb24-16a5ce94210mr18091905c88.14.1791890949866;
-        Tue, 13 Oct 2026 04:29:09 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac1:7ac0:50::247:c9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16997c21ff3sm38478114c88.2.2026.10.13.04.29.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:29:09 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>,
-	Breno Leitao <leitao@debian.org>,
-	linux-kernel@vger.kernel.org,
-	syzbot+8922e6b8343f70be92e8@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH v2] workqueue: annotate the lockless nr_running increment racing with need_more_worker()
-Date: Tue, 13 Oct 2026 18:29:05 +0700
-Message-ID: <20261013112905.9673-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5XSCDOi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 908C11F000FF;
+	Tue, 13 Oct 2026 11:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791890989;
+	bh=6XqjA/BTi0UimOJRXPoyDY9jgW+xNcOyj9nBVG0M9QA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q5XSCDOiMCkxmNBt3Wahjw3f3gX93ZDCSa9CdYxuU9X0hN6bEVTNB4IELta63m0QB
+	 dEMhDlXbRQUfz3Ev8UIUCG0TeY/DE8JmQVCgJ1HlzvrcE0UJhAAPV4W0EvcgheF2lB
+	 j6DYhxROXPlPjm+pidXFCm8wvv8jdGcSC7oNJZLDlhqrlBEsbRerhPIg47miiV6xt6
+	 1smY9LeY4AAu8C5wf0CqHWMfUWbyMAjGj9pGtHRbexb2hn9pCr3gWJ0CI7ByXeA/VU
+	 b2CZVSAsoNG/Lq++tK5RDQ5VuXnlI4jkuiBgwHsD8MmEsVf5mMFDl6K+DSaVvOmynM
+	 jiz20RE12a6sw==
+Date: Tue, 13 Oct 2026 12:29:16 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, linux-sound@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Bert Karwatzki <spasswolf@web.de>
+Subject: Re: [PATCH v5 31/38] mm/uffd: use predicates for userfaultfd checks
+Message-ID: <as4PHg2OaE_UULTg@gremlin>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+ <20261009-b4-mmap-prepare-vma-flag-sanify-v5-31-923b70125b1e@kernel.org>
+ <b8a6a344-ad2c-4355-adbe-be7325e7371d@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b8a6a344-ad2c-4355-adbe-be7325e7371d@kernel.org>
 
-wq_worker_running() increments pool->nr_running with only preemption
-disabled, while kick_pool_pick() reads it via need_more_worker() under
-pool->lock, so the two can run concurrently on different CPUs. KCSAN
-reports:
+On Mon, Oct 12, 2026 at 08:48:04PM +0200, David Hildenbrand (Arm) wrote:
+> On 10/9/26 20:04, Lorenzo Stoakes (ARM) wrote:
 
-  BUG: KCSAN: data-race in kick_pool_pick / wq_worker_running
+> > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> > index 949017e60608..f33b04700838 100644
+> > --- a/mm/userfaultfd.c
+> > +++ b/mm/userfaultfd.c
 
-  write to 0xffff888059c2af24 of 4 bytes by task 3007 on cpu 0:
-   wq_worker_running+0x114/0x130
-   schedule_timeout+0x16e/0x180
-   io_schedule_timeout+0x4c/0x70
-   submit_bio_wait+0xd7/0x110
-   blkdev_issue_flush+0x4c/0x70
-   ext4_sync_file+0x60d/0x6c0
-   aio_fsync_work+0x7f/0x270
-   process_one_work+0x4ae/0xa00
+> > @@ -2146,10 +2152,11 @@ static bool vma_can_userfault(struct vm_area_struct *vma, vm_flags_t vm_flags,
+> >  {
+> >  	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
+> >
+> > -	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
+> > +	/* Only mm-backed memory can have its faults handled by userspace. */
+> > +	if (!vma_is_mm_backed(vma))
+> >  		return false;
+>
+> Again, for both I would prefer keeping the droppable check separate.
 
-  read to 0xffff888059c2af24 of 4 bytes by task 3001 on cpu 1:
-   kick_pool_pick+0x7a/0x3a0
-   __queue_work+0x72d/0xcf0
-   queue_work_on+0x9d/0xb0
-   schedule_on_each_cpu+0x11a/0x2d0
-   vmstat_refresh+0x23/0x140
-   proc_sys_call_handler+0x2b9/0x4f0
+Ack as per discussion on other thread, will separate out for v6!
 
-The race is benign. The increment in wq_worker_running() is the only
-lockless write to nr_running; decrements and the reset are done under
-pool->lock, so a reader holding the lock sees either the old or the new
-count. A stale 0 costs at most a spurious wakeup of an idle worker. A
-nonzero count is correct because the incrementing worker is running and
-re-checks the worklist under pool->lock before it stops counting. The
-increment can also go 1 -> 2, e.g. when a worker sleeping in a work item
-wakes up after kick_pool() woke another worker.
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Annotate the read in need_more_worker() with data_race().
+Thanks!
 
-Reported-by: syzbot+8922e6b8343f70be92e8@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8922e6b8343f70be92e8
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-v2:
- - Fix subject: the read is under pool->lock, the lockless side is the
-   increment (Tejun).
- - Rewrite the "why benign" paragraph accordingly (Tejun).
- - Replace the duplicated comment with a pointer to @nr_running (Tejun).
- - Code unchanged.
-v1: https://lore.kernel.org/all/20261012143605.281358-1-ngocthang2710.1999@gmail.com/
-
- kernel/workqueue.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 1ae3732a2c51..102e1ab2bb7b 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -951,7 +951,8 @@ static unsigned long work_offqd_pack_flags(struct work_offq_data *offqd)
-  */
- static bool need_more_worker(struct worker_pool *pool)
- {
--	return !list_empty(&pool->worklist) && !pool->nr_running;
-+	/* Racy against the lockless increment, see @nr_running. */
-+	return !list_empty(&pool->worklist) && !data_race(pool->nr_running);
- }
- 
- /* Can I start working?  Called from busy but !running workers. */
--- 
-2.43.0
-
+--
+Cheers, Lorenzo
