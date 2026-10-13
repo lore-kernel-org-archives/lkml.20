@@ -1,131 +1,147 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7873F929A;
-	Tue, 13 Oct 2026 10:22:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E695E42A168;
+	Tue, 13 Oct 2026 10:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886937; cv=none; b=IGk4I+k0rEcXBNQ0kAB0ggMh+uXX2QDdAUaoOByFnbBITLkUVtoO6NP/S24jazHssbN4BLes796cbGtHiGETMyCpnD/A8ffJd1/vilTDPEgV/PKTi2MKG1jkYsGFuL2Zsysdep8uy2mfyVELyOvZuKVGzmkYgup0YciiS3LyoDw=
+	t=1791886939; cv=none; b=SnSsgt0G17W+qWQ/YxAzwfVqksPzvA3hNrGmKl1zLWgBKC4xWhowa20LDjANozr/b0r+NBi/FioBw76JR9Jo7vDtrWkH2g2B+w8/+0ccA8hR5y1WGXDz52rRvLO8Ol5HC6UxUKcxgp6k4BUPN97mU1s2TedWRA7N0cVWZU+jGIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886937; c=relaxed/simple;
-	bh=KWnYftIawBeIpxwoFfYzH8mQDOt9sFs0GkMubn5eCZI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OJVuoD/WtAfAOkicOjiH4NY7GfSSVnJJwLS6YgC85LDemrq29Px0whqVmP1wHbOJzZ7PG+trIE7wIRz+YdWOJhHC8Q9WBnviFfwliT5w0z42FQdPIpK23syHgZtPbpsoY1vCF6JJIwMFIodyVd5QVhMe0pwCC89kSkFmhHNZG1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=gctRSr4N; arc=none smtp.client-ip=54.254.200.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1791886939; c=relaxed/simple;
+	bh=aMS1BB0d/MNWHgqS5KZM6ST02OqDxPSjyy0t3fLAf/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QTl7gJMqyB3tNzM2QtUhg+jErwht38GZA3uFUT/NLwQmSfngrqjSYmotie9FcjFt32MhMUJSDId3qcYmK6YsJyQumXDMnGapksQHurFj8v4IdB9SI+7RYaleALBMj+3sNgwLf7hsZ17jS6CrcwO2DsDPRruHp4/1vL+An6d92vI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZTcjG8w5; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="gctRSr4N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1791886909;
-	bh=XvXYwHD2db+bIDoZSNw04OEUmoon4G2Jn8v+4/L6ez4=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=gctRSr4NtdjW7hAP43SaKFjqVO2wYL5gKlL0nZ1tUnTodBj9/WxWc+zALG6vCWSfA
-	 J9wwTcierL3MpuiWR0ZDV/L5151AmTYmZXhe9998VL+BVs4mgfEz5Ekr9Z/lXhm+he
-	 eoZVHr6sxnSQeMXdnGFrL2WButUTl/uNkYQF4CI4=
-X-QQ-mid: zesmtpip4t1791886890tba51cc0f
-X-QQ-Originating-IP: erpiaJXB4+sALwcDCbRKc9gfy9aKGYac1e3GBsudxj0=
-Received: from localhost.localdomain ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 13 Oct 2026 18:21:24 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10534299287409454217
-EX-QQ-RecipientCnt: 9
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	kartikey406@gmail.com,
-	harshit.m.mogalapalli@oracle.com,
-	johannes@sipsolutions.net
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH v2 5.15.y] wifi: cfg80211: release locks on error in cfg80211_wext_siwgenie()
-Date: Tue, 13 Oct 2026 18:20:43 +0800
-Message-Id: <20261013102041.2113948-3-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261013102041.2113948-1-guanwentao@uniontech.com>
-References: <20261013102041.2113948-1-guanwentao@uniontech.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZTcjG8w5"
+Received: from killaraus.ideasonboard.com (unknown [185.104.138.147])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C33491E4;
+	Tue, 13 Oct 2026 12:20:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791886813;
+	bh=aMS1BB0d/MNWHgqS5KZM6ST02OqDxPSjyy0t3fLAf/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZTcjG8w5r2GzjJpMdjTohODbP9Q2Vcjjjs7PZ7KqQaozelNKf1x08nOKWtwj8hZgu
+	 23dEQ3CFASe+fZFf2nJVKUan99lgDDusSLOHw3ikg1KjhA+AOTnNhbMAEleTGoaDzg
+	 dnu9VdnSrf5upghqIjwExHesssmrvWXFi03hmKQM=
+Date: Tue, 13 Oct 2026 12:21:52 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Louis Clinckx <clinckx.louis@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: skip bulk output URBs smaller than the
+ payload header
+Message-ID: <20261013102152.GF56180@killaraus.ideasonboard.com>
+References: <20261013065335.2246959-1-clinckx.louis@gmail.com>
+ <CANiDSCujghpaqP64tWnObOTMUmNTdQp3-6yb2C2MrOC9=48a4w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N+cl0OTdzeOaTALkc0SVLgyrIfU93adyHZ4xLvhkvbDJp7Cpzzoas+Hr
-	ysFP+4/XkyS++FUOf25uDT7B8Pg/MDeWVGd0UMt4cq9J+eTGrY6gUw5RpaAzRSWweVTBNbq
-	J1n0hGvderjyZznoYQMZp4cPjwMaQ2BW545ylGjD+9XkjImborrayQi2LSSyzIHOlpMcxHD
-	bHjJHrzerWPRWB2zuE/m1F1efTBmN6WzwJtDrj78Iz+H5IbN5TAEUY5bno0fbfzGxv8oQyq
-	8DKsjsDfdaRu195ABTDzkQMFYsPTcfrwoIbK/HeWwGt4X4tmRSmmHgbcZTBWFnSxU20M2h+
-	s6MphVjJnoH4z0pl+PK4DgI4wh/9ctwcLxohFBWq+qDFcnV6HTao5K8k/J7wk5AQcsKyzuB
-	r6r7fFwpAKfpohArZVLwEHo7/ei5yHwJYsGkFFfu0NG85M2rCDXNPWF0KvL9Tk0beCFzGR5
-	kxCgRjstwXnrz9hXeeugVUQU//YKncVKAVR2EaM8Ji5/cSWJAwEgmhYtBGbosHZAp+LXEIS
-	CsZKWtefxbCauOyZJ18hnemkD830AnKmi9yYFLJgZDJq7fDWMkioA5v/rJ2/qEG4l5mXqbK
-	qTvIVH/AA7oLgvI7w/+unBhJX1WP1c22XOQwgxKyIPYmgPAToZA+P7Ox+f5dGycxWGCFQ/6
-	SFUpyTbKeeopEesZqMQJeLcm/Yt4x3uo1B65yWF8FVU/WAyoNda4e6jZg/NwPaTBIFIcDZr
-	T+pR1vI6O5AAKVuEVG+z6ikc70KsgMkeKfaOs/B/8vFbhMgVkd5OwlSSzVCsx4XK/AjkZLj
-	QL4PV61IMNYJseMdw+iA/NMf/T0rYxxYZL9+OYOwO4k0Ra2aah5Mbkv+xikMIR58nh+EDMB
-	rWGuKIPtuboGLtPia8Jx35wPvHmTPEJt4lTqbDZ5NV5MuHXCVavj6m+G4AfY5CQDsnlyXiT
-	27pShX7aThk7/wlPUkJZkOK2YfOf+IIGV7Cm0NJe/sZb4whq0GcAqJicEcqshtn0qZHtzGI
-	zgRBe/v8XLscJApjUgjE6GkvZzNffTiBXdayx5q7BF9ZQNwK5YrpjT72XVu3EwLp7uAb11z
-	msYVlWT5c0Y2bha9FQPdfjyH+5fWiLVkIfYR15y4gqOuoofBiDwwoW/Y8r2lJd78IVrsQm2
-	ZwsCwMQMeiSGiHaTvD+j73OUdO+ICfLJZ23y1gH+O92GUALjSNx8ArDohIRfCRWxifgtZKP
-	RLFa/+Go=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CANiDSCujghpaqP64tWnObOTMUmNTdQp3-6yb2C2MrOC9=48a4w@mail.gmail.com>
 
-This error path returns while wdev_lock() is still held, so one
-malformed IE request can permanently block later operations on this
-wiphy. Route the error through out to release the lock.
+On Tue, Oct 13, 2026 at 05:53:55PM +0800, Ricardo Ribalda wrote:
+> HI Louis
+> 
+> Thanks for your patch
+> 
+> On Tue, 13 Oct 2026 at 14:56, Louis Clinckx <clinckx.louis@gmail.com> wrote:
+> >
+> > For a bulk video output stream, uvc_video_encode_bulk() starts each
+> > payload by writing a fixed 2-byte header with uvc_video_encode_header()
+> > and subtracts it from a signed length counter initialised to the URB
+> > size:
+> 
+> Out of curiosity, do you have a UVC output device? I would really like
+> to test one out, but I could not find anything on the market.
+> 
+> >
+> >         int len = stream->urb_size;
+> >         ...
+> >         len -= uvc_video_encode_header(...);    /* always returns 2 */
+> >
+> > An output device can describe a bulk endpoint with wMaxPacketSize 1 and
+> > negotiate dwMaxPayloadTransferSize 1, which leaves stream->urb_size == 1.
+> > len then becomes -1, and uvc_video_encode_data() casts it to unsigned:
+> >
+> >         nbytes = min((unsigned int)len, buf->bytesused - queue->buf_used);
+> >
+> > so (unsigned)-1 does not clamp and the following memcpy() copies the
+> > whole frame past the one-byte URB buffer.
+> >
+> > A URB that cannot hold the 2-byte header cannot carry a payload, so skip
+> > it instead of letting the length underflow.
+> >
+> > Signed-off-by: Louis Clinckx <clinckx.louis@gmail.com>
+> > ---
+> >  drivers/media/usb/uvc/uvc_video.c | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> > --- a/drivers/media/usb/uvc/uvc_video.c
+> > +++ b/drivers/media/usb/uvc/uvc_video.c
+> > @@ -1701,7 +1701,14 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+> >         if (buf == NULL) {
+> >                 urb->transfer_buffer_length = 0;
+> >                 return;
+> >         }
+> >
+> > +       /* The 2-byte payload header must fit; a smaller URB would make len
+> > +        * underflow and uvc_video_encode_data() copy past the buffer. */
+> > +       if (len < 2) {
+> > +               urb->transfer_buffer_length = 0;
+> > +               return;
+> > +       }
+> > +
+> >         /* If the URB is the first of its payload, add the header. */
+> >         if (stream->bulk.header_size == 0) {
+>
+> I'd also detect that the configuration is broken, maybe in
+> uvc_init_video_bulk() ?
 
-This bug is stable-specific: it was introduced by the stable backport
-commit 685082f4be77 ("wifi: cfg80211: validate IEs in
-cfg80211_wext_siwgenie()") of upstream
-commit a2f5286ca4f3 ("wifi: cfg80211: validate IEs in
-cfg80211_wext_siwgenie()").  Upstream is safe because that function
-runs under guard(wiphy)(), added by
-commit f42d22d3f7963 ("wifi: cfg80211: define and use wiphy guard"),
-while this tree still uses explicit locking and the separate wdev
-mutex that upstream removed in
-commit 076fc8775dafe ("wifi: cfg80211: remove wdev mutex").  Backporting
-those locking reworks is not appropriate as a minimal stable fix.
+There's indeed no point in silently and unconditionally failing to
+encode data when the issue can be detected when starting the stream (or
+even better, at probe time). Thisis what the next version should do.
 
-This is a fix for stable v5.15.222 backport commit, so no upstream commit.
+> and a bit nitpick. I think this is slightly more idiomatic than your check.
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_video.c
+> b/drivers/media/usb/uvc/uvc_video.c
+> index ec76595f3c4b..03940b62b250 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -1373,6 +1373,8 @@ static void uvc_video_decode_end(struct uvc_streaming *stream,
+>  static int uvc_video_encode_header(struct uvc_streaming *stream,
+>                 struct uvc_buffer *buf, u8 *data, int len)
+>  {
+> +       if (len < 2)
+> +               return -ENOSPC;
 
-Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Closes: https://lore.kernel.org/all/93db0eae-f479-4343-a126-59987ae0dc22@oracle.com/
-Fixes: 685082f4be77 ("wifi: cfg80211: validate IEs in cfg80211_wext_siwgenie()")
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
-changelog v2:
-update commit message as greg suggested.
----
----
- net/wireless/wext-sme.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+If we reject invalid configurations this won't be necessary any more.
 
-diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
-index 1919290d1208d..f0c9aab622385 100644
---- a/net/wireless/wext-sme.c
-+++ b/net/wireless/wext-sme.c
-@@ -339,8 +339,10 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
- 			/* nothing */
- 		}
- 
--		if (!for_each_element_completed(elem, extra, ie_len))
--			return -EINVAL;
-+		if (!for_each_element_completed(elem, extra, ie_len)) {
-+			err = -EINVAL;
-+			goto out;
-+		}
- 
- 		ie = kmemdup(extra, ie_len, GFP_KERNEL);
- 		if (!ie) {
+>         data[0] = 2;    /* Header length */
+>         data[1] = UVC_STREAM_EOH | UVC_STREAM_EOF
+>                 | (stream->last_fid & UVC_STREAM_FID);
+> @@ -1656,6 +1658,10 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+>         /* If the URB is the first of its payload, add the header. */
+>         if (stream->bulk.header_size == 0) {
+>                 ret = uvc_video_encode_header(stream, buf, mem, len);
+> +               if (ret < 0) {
+> +                       urb->transfer_buffer_length = 0;
+> +                       return;
+> +               }
+>                 stream->bulk.header_size = ret;
+>                 stream->bulk.payload_size += ret;
+>                 mem += ret;
+
 -- 
-2.39.5
+Regards,
 
+Laurent Pinchart
