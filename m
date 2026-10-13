@@ -1,42 +1,72 @@
-Received: from out28-76.mail.aliyun.com (out28-76.mail.aliyun.com [115.124.28.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2370437A83D;
-	Tue, 13 Oct 2026 06:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DDC38B143
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874545; cv=none; b=ntG4bY7TKUw3/fK5ZRrAc7m4OcRheZVJuB76QuDQmE+cbxye+za020P1UfflSN2J0W/vMARnYQImF24k6YcH7JDfIXXgi00/xauPepdzKcZACGfme1cDM9Yea4jn1rVUUaEaDbSDAWk15DbNz1Wo1tvi5K/vu7SpP+wG+H0hYZU=
+	t=1791874575; cv=none; b=QHoOpCLCBHIx+Q1H2gRlGfwbZCOlEdmTaSc2VPjasg8T6AKhNsqmXv2+jLAaZBoYD9Sr7U3w4piVdWWib35liVxX4d7axuBzAnBCyyqNM5V1gh0RDwIk2PKG6b8OYqX/4MQT3vkXcclHufvaJk1V8Q9vwOMgjPgAGdDAamYfBcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874545; c=relaxed/simple;
-	bh=PISy3SVABn67fHF04ulOdcSzl+QWbkqPBYMDO8qiwLc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DF/GvQB1X8uLg39kuBwbhyju48maNQEEL5uNnkqf4ZYgruvwqLeskCdgb+L3PNYEacnwccBtOXcX9srPgx9cigLhf1jYRCgFx8deygCQ8akQv2P2fp0mj6xZzIrEFbFiPhPMvgEextf61p3Ul/1r+uj8IpSdtGRhnDMUDeu3ijs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=EN84N+Fj; arc=none smtp.client-ip=115.124.28.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1791874575; c=relaxed/simple;
+	bh=1Fobwrg8AECZXZe7njdX8d38CGkOJpbWg5fkKH8FxOE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nwPeOf+RYSi87jBGL8VGD8fUllqTP8pvQvYEYjLjOXKwCvGLjtXW5mvc8tKspqbMZaiVdRFkO23uw9tfjFaybS+uMuylyFcZY36Kd5wLGgMRttycySLhhBo6/xDw0tvfElkbj/hjf6nu+Lg1Ui/7p4Y664cyORozY/pyOn+8Fao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y86CtWYC; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="EN84N+Fj"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1791874531; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=wGtB/w4Xo1n8Ww942ixcm7IXYpRnUR6HTfNkgTYaXbM=;
-	b=EN84N+Fj39AT0DADR8j/XqFsRhw6UwVBY7WEH/TkdYnN0fa9mZC0s/1uspKJFoRXyugt9I0wxaCMqCg/mfE91t9dr6+ZVq3vBVtRAMF3czVXZuwzS6as/shqwG7EHfP4xdDEdIenBBfnuBE8xBKRlGOyi9MJRSM23is3apcD98c=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.198318|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0324748-0.0025322-0.964993;FP=8616361359640773361|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033040074035;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jbIOHT9_1791874530;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jbIOHT9_1791874530 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 13 Oct 2026 14:55:30 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: Jan Kara <jack@suse.cz>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	guozh23@xiaopeng.com
-Subject: Re: [PATCH] ext4: check CAP_SYS_ADMIN in ext4_ioctl_get_tune_sb()
-Date: Tue, 13 Oct 2026 14:55:30 +0800
-Message-ID: <20261013065530.1395507-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013020145.1297074-1-zhugl3@xiaopeng.com>
-References: <20261013020145.1297074-1-zhugl3@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y86CtWYC"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so25886045e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:56:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791874572; x=1792479372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xl1vkIq2RUKP+g12UFW92ioYIoDQmINIFzje7YSAvf0=;
+        b=Y86CtWYCZCJXmX0RpyUoSZVnBVBhUz798iSmwoOLBOUXS9V6MYljR+6byZSjRNz/+W
+         WmJYFHBO9opo8CcrN8Rdq69ZL2L5veB6tCzpEHTRMYwM0RiFhlpK69XrbgikeoozTv8c
+         qMvI7P5PcaeCjY8wft8JZlV94rRIMONUsHvjRwGEIEpF88UdoAKmFxkMXsOPBS9XTcvQ
+         2RORj867+Vcy46DCK9esuson1fUcPrQhx/QjF5SVBkYbrJ9w43nYlwbj2JeplIKOjKaL
+         iydBWTo23NP9zP/BIMk2XfBqm25QF+X57nynDwi+uE5i9cojw24DQBbENyJAuFONVLTc
+         /7Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791874572; x=1792479372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xl1vkIq2RUKP+g12UFW92ioYIoDQmINIFzje7YSAvf0=;
+        b=Lj7cxYWEmptkmgwEsvXaXKOU2BjsyIhpR8/rQHoIZINVh9dVhX77lcQ1TDdJP/Qfna
+         ufMVDHI/q4qsvt4r29upfPk/mhQEw/pauiXVvuSVSlqcw5jhbzUTFtRiAKUfE8sJv5ck
+         s0KcoOJGb/l3nOtDxWhAKmpSHla58zLvysrQqgcJ5CWmBlztArJWPuV6fED3yJL2H1Ml
+         eBTt7WT3oIRC+Wj5Zoi0dXrg41m3k1NGQwRMMxlOedIf7AP+1xHet3DEU0U5J5vqQ46z
+         kh+TLmHDBOm13GB3GaAyZ+sr+3m5DMEccpDyg6dRwWKlKHwXAa1DluQALoYhC+prWOyf
+         5FfA==
+X-Gm-Message-State: AFq9FYKQJyoNjsbBr3bBl6yIUmyaDH8IY0Z5UGr1dqtEX4kTT9HYT3dU
+	+cL7VQ56KCOZlT6lrXdy9ACkSZg/nVonf7ZSKwhUNuA0kSUnH4NREWYP
+X-Gm-Gg: AYBFou0JMGi6LnCMfiABpm6OrYJ7P+f/vziHkYe7zoiG6PvxTzjlG70tngcZqu+3iHa
+	rHk1liGqLGLd0OKfBoC/0+yeNcX2Ol1ehTsIByJjAEBnMcxCb2S3jUh/SOVjQyQ4aQQtLXMk9PJ
+	AamJ9nXjny6+ZnYnyTzP1rUUfl42la/1DO0Nl4JVVi40wT4K0X+4otOzItNaYWpaEIEAB5/8idO
+	RycTGppJNWnrJCk0XlOARm6oaV9YrJzUri63EcGypa8EGwaiuZyB6YHSu745pNVByPaKXEg9Qm0
+	zOn+nlAEcNXggR2GM+pz1keoN2CFxauOpHMaWhDyY8BFZxdqrooZ5fJg8LiH9QwjOpXSMmYXiVa
+	S4rahQUbDpB8BHfQe4NorR2i3NMqA2yrh2oDb+vPO6Sy5PKF17C0qlV5g5Xw6dE01PMsRr5NBzM
+	BNigH8lfLKMlXXL/XxRuoD9yLeUxJv0/GbNdufCxFWVtxRHdnCW5hEc+GhqV1HFxNUxLbDNY3ZD
+	bdZuEg3ZQY/1iZWWTg+Pqd3R+4Vt6mSXUXOYLAAtg7oSMWM35Sc5U9vOd0uNAqfOcxm7xfYP8A9
+	tUmeexZvBqrN2lJUYT8so/fFA0OBHi38KN3qHji5k0ut+222YHM=
+X-Received: by 2002:a05:600c:8b06:b0:4a1:7ce1:2eaf with SMTP id 5b1f17b1804b1-4a18e4e0963mr228220195e9.34.1791874571933;
+        Mon, 12 Oct 2026 23:56:11 -0700 (PDT)
+Received: from my-vps.. (ip212-227-39-93.pbiaas.com. [212.227.39.93])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1a1feb78csm154188095e9.0.2026.10.12.23.56.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 23:56:11 -0700 (PDT)
+From: Louis Clinckx <clinckx.louis@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Louis Clinckx <clinckx.louis@gmail.com>
+Subject: [PATCH] media: uvcvideo: skip bulk output URBs smaller than the payload header
+Date: Tue, 13 Oct 2026 06:53:35 +0000
+Message-Id: <20261013065335.2246959-1-clinckx.louis@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +75,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Thanks for confirming, and for the pointer to
-/proc/fs/ext4/<block>/options - I wasn't aware of that interface.
+For a bulk video output stream, uvc_video_encode_bulk() starts each
+payload by writing a fixed 2-byte header with uvc_video_encode_header()
+and subtracts it from a signed length counter initialised to the URB
+size:
 
-Agreed, this was not a real leak.  Dropping the patch.
+	int len = stream->urb_size;
+	...
+	len -= uvc_video_encode_header(...);	/* always returns 2 */
+
+An output device can describe a bulk endpoint with wMaxPacketSize 1 and
+negotiate dwMaxPayloadTransferSize 1, which leaves stream->urb_size == 1.
+len then becomes -1, and uvc_video_encode_data() casts it to unsigned:
+
+	nbytes = min((unsigned int)len, buf->bytesused - queue->buf_used);
+
+so (unsigned)-1 does not clamp and the following memcpy() copies the
+whole frame past the one-byte URB buffer.
+
+A URB that cannot hold the 2-byte header cannot carry a payload, so skip
+it instead of letting the length underflow.
+
+Signed-off-by: Louis Clinckx <clinckx.louis@gmail.com>
+---
+ drivers/media/usb/uvc/uvc_video.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1701,7 +1701,14 @@ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+ 	if (buf == NULL) {
+ 		urb->transfer_buffer_length = 0;
+ 		return;
+ 	}
+ 
++	/* The 2-byte payload header must fit; a smaller URB would make len
++	 * underflow and uvc_video_encode_data() copy past the buffer. */
++	if (len < 2) {
++		urb->transfer_buffer_length = 0;
++		return;
++	}
++
+ 	/* If the URB is the first of its payload, add the header. */
+ 	if (stream->bulk.header_size == 0) {
