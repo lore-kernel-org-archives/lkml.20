@@ -1,110 +1,86 @@
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714913D5657;
-	Tue, 13 Oct 2026 13:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27A73F58E0;
+	Tue, 13 Oct 2026 13:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899395; cv=none; b=OooyA/0rXbnwXa9WSfJmfJ2BFAPUYZEp+7VIxpvIOwBvU1GVWEXV8g5qBwDb4hB/PaK6BL0Zkhi3f60haDaq/tx6jmGbRj8ysm0PEFnTPR4dlPlo5C1qCmoG4h7RaHVoJ1LnisQweMGyokBI+SD0qMWZkR/asIQVmxEBcEecNps=
+	t=1791899416; cv=none; b=n38vdRA/PKLI7e+vr6hfSK9Kc6gjv+u0KqQBxDwNqUP40vPbue/Yago603i7+mtqm+WY9W+NqQoNmJ47WEQpG42+WJXxj/JnPqzOOaiae4Bua4l16s1MmrzBPrA1kg/WqfzfnE1lbK77rP+1lUUi2iwKAsd+kGFNXvV1ll6Sddc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899395; c=relaxed/simple;
-	bh=TxluCk2pluBqLXyt36FTUi27hRCEzTE3w3fomxWekrA=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=jBgS+r0sPiVE/63cwCJ1R8ynsQyBjNqD7VC4AQDQRZN9rPxRV83T/6sXrNO/LWK/eq2zmqL5vUTnZKCkZrFJ6lNtqB2X0CBlTHlk3yQ4gp1vcCvIX+ADedYucUc4P3sZHAeOV502HJppKfuSTyzKNCNJHeTn8uvtsA1kXpa+1hM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=vIkd83dc; arc=none smtp.client-ip=109.224.244.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791899416; c=relaxed/simple;
+	bh=qLDGXnRZf1to5C6XBGplcIrXzZ1N9dQpaUntYxnJVGU=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=J4UzKnMGHHMHVZY3WB18y3Pd1vhAVTfTaTB2yHGm32Q+sdIqdCGCKaG1lHTT+60VNSXfr2Ly7N1gIQuGPoxt7a2QJimRLfLbRpSBgEGCCCMKM2jQojf1NbfdYvM5NeXadyqPRov8a0AqXJUIFrVFsyJSTC6uCOnvdine+3cSdao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VgGv+L6l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="vIkd83dc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791899381; x=1792158581;
-	bh=gKz2CMbtCgfcSTnbbLG4XfoO+nxhQRDje/zXOHckJ+0=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=vIkd83dceQqWvwEkypaPMAK1AAM6oN9ws4+HOsQWrDv/mynHivuL/4UqN2ULShza+
-	 /jMjLKADhOhiSc/UMmfeyRiZZrBfd57nSwZUFybniMO6We5qF/GYyeVLX3FtnazlOb
-	 jmaW1TgDbWZ6lFbTobiYzhVn+ru3+3uizbWgr9FM2e5U6LfTlk/A1sIEVNkoYE+AAX
-	 UuTYix6gjuDOaP+cQwQ3P3g4VY3BrKkF/HRQlZ2J8+eWEh9t2TV/K1ncZPzuDGeapw
-	 Gy/a77hvYSfs/CoohIKpNMBkIkG7Wau+GN8UB+FO64mRxtuToD4zXunPLsXDp0qK51
-	 Ye6WUZ6LrDZQw==
-Date: Tue, 13 Oct 2026 13:49:35 +0000
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-From: Lorenzo Delgado <lnsdev@proton.me>
-Cc: Lorenzo Delgado <lnsdev@proton.me>, linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, Thorsten Blum <blum@kernel.org>, Francis Laniel <laniel_francis@npnm.eu>
-Subject: [PATCH v2 0/2] rust: add NonEmpty
-Message-ID: <20261012-nonempty-slice-v2-0-0f2b67d9463e@proton.me>
-Feedback-ID: 53083996:user:proton
-X-Pm-Message-ID: 676bb11c4930e8d72ac2caafb934f335e875b1f2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VgGv+L6l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854B01F000FF;
+	Tue, 13 Oct 2026 13:50:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791899415;
+	bh=iSAPKbtZtGXfQtoZlKM+xng1+JxCq5i9PSUvmzWjhgY=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=VgGv+L6llbhvPAf260XWy93c/9Hljccf3QygrMuZne/a7DVPX1ia4fs9OpqoZAbmd
+	 DfcYfRmUGoRGT9brxtaHMV7rZ/n5fEVzZgl8ohAVyQV1YQM9B66ZgDKAQKrR/dn1h/
+	 OtNm7UrX2CNu42tE2k7CWewx0QT+p1PnvmQlBoeq1aiQlY85T+WOsN93uKSkchYK60
+	 YpyBa8+cmL1rSF1g2kcRiIv6qfA1G1kO/bR7ZwLl6y5fjmF246re0Db17yIONAox9p
+	 FfNSk7q23IScTSq9jbu03ir8i1qnFxN/9zF2eyHUWoTf/40agHXC9b3x7lKRwrfapD
+	 fXuT3pXuMPjrg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 776BD392720A;
+	Tue, 13 Oct 2026 13:50:15 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next 0/3] net: sparx5: add TAS offload
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179189941412.316800.3089699035347557018.git-patchwork-notify@kernel.org>
+Date: Tue, 13 Oct 2026 13:50:14 +0000
+References: <20261006-sparx5-tas-v1-0-5eef1126dfd5@microchip.com>
+In-Reply-To: <20261006-sparx5-tas-v1-0-5eef1126dfd5@microchip.com>
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ Steen.Hegelund@microchip.com, richardcochran@gmail.com,
+ netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, robert.marko@sartura.hr
 
-Some functions check that a container is not empty and later rely on it
-through `unwrap_unchecked()`, `unwrap()` or an error path that can't be
-taken. Gary suggested a non-empty type for this while reviewing Thorsten
-Blum's uaccess patch [1], and Miguel filed it as #1262 [2].
+Hello:
 
-Patch 1 adds `NonEmpty<C>` in `kernel::non_empty`, with only what the
-first user needs: slices, `try_from_mut()`, `from_array_mut()` and
-`last_mut()`. Patch 2 makes `strcpy_into_buf()` take a
-`NonEmpty<[u8]>`, which drops an `unsafe` block and the `EINVAL` case.
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Some notes:
+On Tue, 6 Oct 2026 15:51:05 +0200 you wrote:
+> This series adds offload of the Time Aware Shaper (IEEE 802.1Qbv),
+> configured through tc-taprio, on Sparx5 and lan969x, which are both
+> served by the sparx5 driver.
+> 
+> In hardware, a TAS schedule is run by a TAS list, which steps through
+> gate control list (GCL) entries taken from a pool shared by all ports.
+> Sparx5 has 128 lists and 10000 GCL entries, lan969x has 60 lists and
+> 3000 entries. An idle list is in the ADMIN state. Once started, it is
+> PENDING until its base time, then OPERATING. A stopped list is
+> TERMINATING until the end of its cycle, and then goes back to ADMIN.
+> 
+> [...]
 
-- `IsEmpty` is a safe trait. Unsafe code only relies on the
-  implementations in `kernel::non_empty`, and the docs require the
-  result not to change while the container is only reachable through a
-  shared reference. If a generic accessor ever needs to rely on it, it
-  can become an `unsafe trait` then.
+Here is the summary with links:
+  - [net-next,1/3] net: sparx5: Add registers used by TAS
+    https://git.kernel.org/netdev/net-next/c/48b7611964e1
+  - [net-next,2/3] net: sparx5: Move TAS link speed configuration to sparx5_tas.c
+    https://git.kernel.org/netdev/net-next/c/966285085456
+  - [net-next,3/3] net: sparx5: Add TAS offload support
+    https://git.kernel.org/netdev/net-next/c/a52629f85a3a
 
-- Since APIs aren't added without users, other accessors (`first()`,
-  `try_from_ref()`, ...) and containers are left for later. I plan to
-  send follow-ups for `net/phy.rs` and `scatterlist.rs`, which both
-  reject an empty slice and then rely on it.
-
-- I put it in its own `kernel::non_empty` module. Would a broader home
-  like `kernel::collections` be better?
-
-Francis Laniel posted a slice-only RFC [3]. Following Gary's suggestion
-on the issue, this version is generic over the container.
-
-[1] https://lore.kernel.org/rust-for-linux/DM0D9TERQAM3.2Y3HV6P68E2N8@garyg=
-uo.net/
-[2] https://github.com/Rust-for-Linux/linux/issues/1262
-[3] https://lore.kernel.org/rust-for-linux/20261011191540.56199-1-laniel_fr=
-ancis@npnm.eu/
-
-Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
----
-Changes in v2:
-- Take `&mut NonEmpty<[u8]>` in `strcpy_into_buf()` and drop the
-  `EINVAL` case for an empty buffer (Miguel).
-- Add `NonEmpty::from_array_mut()`, which checks the array length at
-  compile time, so callers of `strcpy_into_buf()` with an array buffer
-  need no runtime check.
-- Link to v1: https://patch.msgid.link/20261012-nonempty-slice-v1-0-37d1fec=
-ff82c@proton.me
-
----
-Lorenzo Delgado (2):
-      rust: non_empty: add NonEmpty
-      rust: uaccess: use NonEmpty in strcpy_into_buf()
-
- rust/kernel/lib.rs       |   1 +
- rust/kernel/non_empty.rs | 122 +++++++++++++++++++++++++++++++++++++++++++=
-++++
- rust/kernel/uaccess.rs   |  15 ++----
- 3 files changed, 128 insertions(+), 10 deletions(-)
----
-base-commit: 2dee3d3adcadcc57d62ba6608cd02f50b0c10264
-change-id: 20261011-nonempty-slice-022084ba9a5a
-
-Best regards,
--- =20
-Lorenzo Delgado <lnsdev@proton.me>
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
