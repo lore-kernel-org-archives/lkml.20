@@ -1,199 +1,266 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A9728B7C8
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898031; cv=pass; b=D4HL50fDqrPjdmKkGCte3g5Wuxl5WndhlfuK0v+y7fz6K9AdzrRrwkdnesIrj+zCwj4XQOXV17SgmB8eRu5rgkmxPEAhEh8TxXhJzy5z8eB3ZAIw19f1o99FQXdGZdfMsjK0C1OSkHZljd0ugM0iOGI2Lt7zKgQvbhxxPXGHSSw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898031; c=relaxed/simple;
-	bh=vNg10Zs0U71fQcTWh5j7vYz3VG17QiwYWRRRoSBuvTA=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SRh8EZT1wwInR5HVZupcUwyUewy+0tqH86n5NueH2abswQh9ci9uTdwrIdOBoYkQjiiAMXU9VBrJO1ceJcYPd0LiwgfueMW3haYSywiJpO+huWIY1Stm9MFgaeyRqhzhGrTybC7zYylYdO9YW/ZZpdPcTixl7uvIEDpCgNNTi4U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=fDkVRhNC; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C46338F62F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791898032; cv=none; b=bHGdEg4Qd0lZlniHYPo9IjPrdhDZXxiuzT4E4SjxAnrUOxV7LkOaizKWhyconqfmLm603z7mayVteYOulG7MdkGPtzvg+pOTtuBP5RcOvmQuAL/wSy0nt5u2tYgziKkT53NAdT0ObokKeQ/j2+8F5rkIqj0PuIYIpPiPN58MdSo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791898032; c=relaxed/simple;
+	bh=NWurmtMdk1iCQy/jvDuOguTbKlkAdVuo1eJca4ASPNw=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=o4FG3H+kgYCf9ku46vo46xN7ZnXkKw9oQg5Qz/ERWPzx/bmXFMsc8kxPJ5FHEeeszBC5BcOTOCnkQ1J0yodITSwu6DA5pncNp71pvlmjmMpSfwbk9kiBkwlxR5rsNOPKKCE2FS+ehicpy7Oic3xQn0a5Qe58UMoNYC7aLR8q1zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TC2Jn9pQ; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="fDkVRhNC"
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B061D201F04;
-	Tue, 13 Oct 2026 15:27:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791898026;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qCai2Ss2YG9oOBBZ9rE7WbHqS7hx8a9sleJxftTwkQ4=;
-	b=fDkVRhNCNhMVvwhdwGAMIxJRX5pLi/T3wW94APSwkuJZRT8LfC8ZCAoeWdPRgbhvfr2DZQ
-	iNsqX4wH3lqz9OO0aSs3xjUfyBYJ4xrngCql+0qxylYmYLceDrNQKE/MjfU6heOcAsDmBb
-	tmrk2xQ2ot7W2dpfHLRnOkdvUcfrmztxNUHfogEXtV/HPmkUvHRRAs+dOZ4fl6ahcoA6PQ
-	IIM9oXzTFqKP6Z0KRy0Q9e3S5af/nFPMQ9bBcjlQP0raqPlTUfEWXTu2sgKySGlvJlvE1q
-	7UEu73GWq+YNH9d4+8QJgDn/RxxDzOLBFqQY36rJrPYGNE5tW0jPKOurYPNj3g==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791898026; a=rsa-sha256;
-	cv=none;
-	b=FwcBp50YRQYZxaTOyCtixEaAb/mW8ozKZUebaJBpkGlV3v1uzBc0xv0yecSL7/1nf64O8J
-	1aJKpDfQLeoCNkf0mSITOVQRCCo0nS/Bx92H81I5vNbqBg/so9b9YreJHdRJAKBMA0qus9
-	VIlIXh+1yMUEc5Hv8sMUlBms1f0dq1vyqCKglRA81taV/12vn64f/JB4FXfiWlEbTU4ydl
-	rCBEt5j7n0bpROPqABXhrK54wkFs+jjkTZebMENgsbupLdAfQl4OcrUxJVGYMgB4WTdkoH
-	jOvKt41BFMHx2GTc2OTAK9kVc5S8H8UTrk6SUxCsD4fSSGU4qEwzoVsLd2vshA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791898026;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qCai2Ss2YG9oOBBZ9rE7WbHqS7hx8a9sleJxftTwkQ4=;
-	b=Y21tOSHIRH68bqinoaQeD2G17+LdAN2i1gKfk31mmMuHGlzp1kxnVEbaZ5GjmWIzZHxTuW
-	gcRVrd1Tehla5RyuB4fXAcKxU8EHYA1E3gfr92saUZVBgkIQZZf/Uhn1LjAFtzmmrXf+PA
-	62m2iwHJc6YiiKfOpaksSs3O3KwU7d2cMeUlDYgyfZzvtlIG9OiVsKMUlB0qznEbGjy4tZ
-	gUX5AR5LqxEjip+Fu11J58xYvdM4I0lns25MeEg1bh5sqKJGKLvlm1OKeSvOdUxVzs+ajV
-	yG1dmAqbW0B3JUNX87ph3nrzvCte2TIDSyHiHaPEQJlf//ju3SbinLFtEtS18Q==
-Message-ID: <0f34ec3308f8eca73c949f8c40d47564f6136efd.camel@pengutronix.de>
-Subject: Re: [PATCH] reset: core: Serialize concurrent assert/deassert/reset
- of shared resets
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: shengjiu.wang@oss.nxp.com, hansg@kernel.org,
- linux-kernel@vger.kernel.org, 	broonie@kernel.org, alvin.sipraga@analog.com
-Date: Tue, 13 Oct 2026 15:27:06 +0200
-In-Reply-To: <20261013101947.2478989-1-shengjiu.wang@oss.nxp.com>
-References: <20261013101947.2478989-1-shengjiu.wang@oss.nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TC2Jn9pQ"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd3b9e70f88so3908002a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:27:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791898031; x=1792502831; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tz3XQeMDsa80BNjtP5zSjVPIr7ggAOeydAFlJIaMfm8=;
+        b=TC2Jn9pQGIovZpzSvkpXqGEmoZ7/MgmXTj+26ZKVTkUiZdzqbskVOrMy57Ekm660KY
+         H3I47iCJk8D9B/W2jKNxe/qT/OIUby7zU5qRYhhb3Og65fUDzvyMl4uW3C4J7uOKEI0u
+         Oqwxu54biQ+q0tceuqlbbpZlPXe9knRVvt59IocRj3C9cwZjR9BYZOFre373HAezUfD7
+         379P2ojXvEuxLZvl07yDlXlqRVYYcruccSKEz57tHJ8C6L+Cyfqd/PWlkmgpaWDSJKoV
+         JCy0PoIiwe9EsgLX+J+Je97sQVvKc0h8xZ43FqZawKN7AfGz0Ib8p1gaTFtyZj50ItNi
+         dc3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791898031; x=1792502831;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Tz3XQeMDsa80BNjtP5zSjVPIr7ggAOeydAFlJIaMfm8=;
+        b=SJEnTPU7hrtOk44LVebga6WDnlbtaabUACHCpGGcs1zxX9N+ufUVtgxh84zlCqj4F8
+         MM2/9EYHIFJMdQU3dejC9JZ8TQ8VnAtfaUMzV2K6COIcbiVZ8cLp7wURp1h95h1Z3fZo
+         GbKUWpxTg9ertS2adBXxzFT2xQhtQ9+mrx9NEHi8McHKIX3h3NgyBdPBsNjcslKLx2rX
+         0dVRq3PFZwxVVYSM4X+lop5mdNlJB7QxWZsg979N7uQxT2UVMKOpuKrvd8nMG4/wluW5
+         k89B5fi8NMhJlkKY+Ji39d0Vq3JsqRRAIdxqm64o87yow0ZNvAQtrt2bSRG/bkUM60hx
+         JuDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwaDV47U+0bt40EPmdI/zmeMITSVG0BzgKkrypGVGMCQg0pH6kWKVCmhIXAVwapNTveU1SpHehbOhZI/aI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ385HIIa8kco58tLbRuDuQ/xBY8L7aYU0/15PEkwG3EEe3xaGX
+	zVbgwbFENb3Ju3rvYnqFX5Lu0qwkQICKb4ngPLqnnyQlGWUxklLipM4w+LJh+KUMNd1oGq3ZTVG
+	dp7aim9YiQEUqYhbh+j7zvA==
+X-Received: from plbjx17.prod.google.com ([2002:a17:903:1391:b0:2e9:64c:38da])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:902:f60e:b0:2e7:ff92:25f5 with SMTP id d9443c01a7336-2e8431428b2mr100542525ad.61.1791898030303;
+ Tue, 13 Oct 2026 06:27:10 -0700 (PDT)
+Date: Tue, 13 Oct 2026 21:27:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261013132708.1669415-1-stanleyjhu@google.com>
+Subject: [PATCH] scsi: bsg: Pass reply_len to bsg_setup_queue() to fit UFS
+ ARPMB replies
+From: Stanley Jhu <stanleyjhu@google.com>
+To: Jens Axboe <axboe@kernel.dk>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	"Martin K . Petersen" <mkp@kernel.org>, Bart Van Assche <bvanassche@acm.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>, Kashyap Desai <kashyap.desai@broadcom.com>, 
+	Sumit Saxena <sumit.saxena@broadcom.com>, Sreekanth Reddy <sreekanth.reddy@broadcom.com>, 
+	Lee Duncan <lduncan@suse.com>, Chris Leech <cleech@redhat.com>, 
+	Mike Christie <michael.christie@oracle.com>, Bean Huo <beanhuo@micron.com>, 
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	mpi3mr-linuxdrv.pdl@broadcom.com, open-iscsi@googlegroups.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Di, 2026-10-13 at 18:19 +0800, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
->=20
-> reset_control_deassert() is documented to guarantee that the reset is
-> deasserted after the call returns. For a shared reset control only the
-> first caller runs the hardware .deassert(); all later callers just
-> increment deassert_count and return immediately:
->=20
-> 	if (atomic_inc_return(&rstc->deassert_count) !=3D 1)
-> 		return 0;
->=20
-> When two consumers of the same shared reset (for example two codecs that
-> share one reset GPIO) call reset_control_deassert() concurrently, the
-> second caller can return before the first caller's .deassert() - which
-> may sleep, e.g. for a GPIO-expander based controller - has actually
-> released the line. The second consumer then proceeds while the device is
-> still in reset, contradicting the documented guarantee. The assert and
-> reset paths have the same problem: only the first shared caller performs
-> the hardware operation while concurrent callers return early.
->=20
-> Serialize the shared refcount update and the hardware .assert()/
-> .deassert()/.reset() under the existing per-control rstc->lock so that a
-> second concurrent caller waits for the first caller's hardware operation
-> to complete. The lock is taken before the SRCU read section, matching the
-> ordering already used by reset_control_acquire(). These paths do not take
-> rcdev->lock, so no new lock-ordering inversion is introduced.
->=20
-> Fixes: 0b52297f2288 ("reset: Add support for shared reset controls")
-> Link: https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
->  drivers/reset/core.c | 21 ++++++++++++++++++++-
->  1 file changed, 20 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-> index 38e189d04d09..7536b61cc5df 100644
-> --- a/drivers/reset/core.c
-> +++ b/drivers/reset/core.c
-> @@ -51,7 +51,8 @@ static DEFINE_IDA(reset_gpio_ida);
->   * @triggered_count: Number of times this reset line has been reset. Cur=
-rently
->   *                   only used for shared resets, which means that the v=
-alue
->   *                   will be either 0 or 1.
-> - * @lock: serializes the internals of reset_control_acquire()
-> + * @lock: serializes the internals of reset_control_acquire() and the
-> + *        assert/deassert/reset of shared reset controls
+bsg-lib allocates a 96-byte (SCSI_SENSE_BUFFERSIZE) reply buffer per
+job, but struct ufs_rpmb_reply is 104 bytes: a 40-byte struct
+ufs_bsg_reply followed by a 64-byte EHS. When an Advanced RPMB command
+returns an EHS, ufshcd_advanced_rpmb_req_handler() copies it right
+after the 40-byte header and writes 8 bytes past the end of the buffer.
 
-The lock is also taken for exclusive reset controls.
+Let each BSG transport pass its reply buffer size to bsg_setup_queue()
+and have ufs_bsg request sizeof(struct ufs_rpmb_reply), so the full
+reply reaches user space. Other transports keep SCSI_SENSE_BUFFERSIZE.
 
->   */
->  struct reset_control {
->  	struct reset_controller_dev __rcu *rcdev;
-> @@ -382,6 +383,12 @@ int reset_control_reset(struct reset_control *rstc)
->  	if (reset_control_is_array(rstc))
->  		return reset_control_array_reset(rstc_to_array(rstc));
-> =20
-> +	/*
-> +	 * Hold the lock across the shared refcount update and the hardware
-> +	 * reset so that a concurrent caller does not continue before this
-> +	 * caller's not-yet-finished reset pulse has been issued.
-> +	 */
-> +	guard(mutex)(&rstc->lock);
+Fixes: 6ff265fc5ef6 ("scsi: ufs: core: bsg: Add advanced RPMB support in ufs_bsg")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+Tested on QEMU arm64 with KASAN: the reproducer no longer triggers.
 
-The current wording of the API documentation does not require this, but
-it clearly makes no sense that the second of two racing
-reset_control_reset() calls on a shared reset control can return before
-the reset pulse has finished.
+ block/bsg-lib.c                     | 13 ++++++++++---
+ drivers/scsi/mpi3mr/mpi3mr_app.c    |  2 +-
+ drivers/scsi/scsi_transport_fc.c    |  6 ++++--
+ drivers/scsi/scsi_transport_iscsi.c |  2 +-
+ drivers/scsi/scsi_transport_sas.c   |  6 ++++--
+ drivers/ufs/core/ufs_bsg.c          |  2 +-
+ include/linux/bsg-lib.h             |  3 ++-
+ 7 files changed, 23 insertions(+), 11 deletions(-)
 
-Could you update the kerneldoc comment, for example add "After calling
-this function, the reset is guaranteed to have seen a reset pulse at
-any point in the past, not necessarily during the function call." to
-the shared reset paragraph?
+diff --git a/block/bsg-lib.c b/block/bsg-lib.c
+index 895db30a7033..536cee4430a7 100644
+--- a/block/bsg-lib.c
++++ b/block/bsg-lib.c
+@@ -23,11 +23,14 @@ struct bsg_set {
+ 	struct bsg_device	*bd;
+ 	bsg_job_fn		*job_fn;
+ 	bsg_timeout_fn		*timeout_fn;
++	unsigned int		reply_len;
+ };
+ 
+ static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
+ 		bool open_for_write, unsigned int timeout)
+ {
++	struct bsg_set *bset =
++		container_of(q->tag_set, struct bsg_set, tag_set);
+ 	struct bsg_job *job;
+ 	struct request *rq;
+ 	struct bio *bio;
+@@ -50,7 +53,7 @@ static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
+ 	reply = job->reply;
+ 	memset(job, 0, sizeof(*job));
+ 	job->reply = reply;
+-	job->reply_len = SCSI_SENSE_BUFFERSIZE;
++	job->reply_len = bset->reply_len;
+ 	job->dd_data = job + 1;
+ 
+ 	job->request_len = hdr->request_len;
+@@ -301,9 +304,10 @@ static blk_status_t bsg_queue_rq(struct blk_mq_hw_ctx *hctx,
+ static int bsg_init_rq(struct blk_mq_tag_set *set, struct request *req,
+ 		       unsigned int hctx_idx, int numa_node)
+ {
++	struct bsg_set *bset = container_of(set, struct bsg_set, tag_set);
+ 	struct bsg_job *job = blk_mq_rq_to_pdu(req);
+ 
+-	job->reply = kzalloc(SCSI_SENSE_BUFFERSIZE, GFP_KERNEL);
++	job->reply = kzalloc(bset->reply_len, GFP_KERNEL);
+ 	if (!job->reply)
+ 		return -ENOMEM;
+ 	return 0;
+@@ -358,10 +362,12 @@ static const struct blk_mq_ops bsg_mq_ops = {
+  * @job_fn: bsg job handler
+  * @timeout: timeout handler function pointer
+  * @dd_job_size: size of LLD data needed for each job
++ * @reply_len: size of the reply buffer needed for each job
+  */
+ struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
+ 		struct queue_limits *lim, bsg_job_fn *job_fn,
+-		bsg_timeout_fn *timeout, int dd_job_size)
++		bsg_timeout_fn *timeout, int dd_job_size,
++		unsigned int reply_len)
+ {
+ 	struct bsg_set *bset;
+ 	struct blk_mq_tag_set *set;
+@@ -374,6 +380,7 @@ struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
+ 
+ 	bset->job_fn = job_fn;
+ 	bset->timeout_fn = timeout;
++	bset->reply_len = reply_len;
+ 
+ 	set = &bset->tag_set;
+ 	set->ops = &bsg_mq_ops;
+diff --git a/drivers/scsi/mpi3mr/mpi3mr_app.c b/drivers/scsi/mpi3mr/mpi3mr_app.c
+index 1353a8ff9c85..094490713d69 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr_app.c
++++ b/drivers/scsi/mpi3mr/mpi3mr_app.c
+@@ -3053,7 +3053,7 @@ void mpi3mr_bsg_init(struct mpi3mr_ioc *mrioc)
+ 	}
+ 
+ 	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), &lim,
+-			mpi3mr_bsg_request, NULL, 0);
++			mpi3mr_bsg_request, NULL, 0, SCSI_SENSE_BUFFERSIZE);
+ 	if (IS_ERR(q)) {
+ 		ioc_err(mrioc, "%s: bsg registration failed\n",
+ 		    dev_name(bsg_dev));
+diff --git a/drivers/scsi/scsi_transport_fc.c b/drivers/scsi/scsi_transport_fc.c
+index 173ed6373f04..b66365a382c7 100644
+--- a/drivers/scsi/scsi_transport_fc.c
++++ b/drivers/scsi/scsi_transport_fc.c
+@@ -4345,7 +4345,8 @@ fc_bsg_hostadd(struct Scsi_Host *shost, struct fc_host_attrs *fc_host)
+ 	scsi_init_limits(shost, &lim);
+ 	lim.max_segments = min_not_zero(lim.max_segments, i->f->max_bsg_segments);
+ 	q = bsg_setup_queue(dev, bsg_name, &lim, fc_bsg_dispatch,
+-			fc_bsg_job_timeout, i->f->dd_bsg_size);
++			fc_bsg_job_timeout, i->f->dd_bsg_size,
++			SCSI_SENSE_BUFFERSIZE);
+ 	if (IS_ERR(q)) {
+ 		dev_err(dev,
+ 			"fc_host%d: bsg interface failed to initialize - setup queue\n",
+@@ -4378,7 +4379,8 @@ fc_bsg_rportadd(struct Scsi_Host *shost, struct fc_rport *rport)
+ 	scsi_init_limits(shost, &lim);
+ 	lim.max_segments = min_not_zero(lim.max_segments, i->f->max_bsg_segments);
+ 	q = bsg_setup_queue(dev, dev_name(dev), &lim, fc_bsg_dispatch_prep,
+-				fc_bsg_job_timeout, i->f->dd_bsg_size);
++				fc_bsg_job_timeout, i->f->dd_bsg_size,
++				SCSI_SENSE_BUFFERSIZE);
+ 	if (IS_ERR(q)) {
+ 		dev_err(dev, "failed to setup bsg queue\n");
+ 		return PTR_ERR(q);
+diff --git a/drivers/scsi/scsi_transport_iscsi.c b/drivers/scsi/scsi_transport_iscsi.c
+index 8aa76f813bcd..b50ff8a1d0a9 100644
+--- a/drivers/scsi/scsi_transport_iscsi.c
++++ b/drivers/scsi/scsi_transport_iscsi.c
+@@ -1545,7 +1545,7 @@ iscsi_bsg_host_add(struct Scsi_Host *shost, struct iscsi_cls_host *ihost)
+ 	snprintf(bsg_name, sizeof(bsg_name), "iscsi_host%d", shost->host_no);
+ 	scsi_init_limits(shost, &lim);
+ 	q = bsg_setup_queue(dev, bsg_name, &lim, iscsi_bsg_host_dispatch, NULL,
+-			0);
++			0, SCSI_SENSE_BUFFERSIZE);
+ 	if (IS_ERR(q)) {
+ 		shost_printk(KERN_ERR, shost, "bsg interface failed to "
+ 			     "initialize - no request queue\n");
+diff --git a/drivers/scsi/scsi_transport_sas.c b/drivers/scsi/scsi_transport_sas.c
+index d689b9ed08a6..a825966f60e5 100644
+--- a/drivers/scsi/scsi_transport_sas.c
++++ b/drivers/scsi/scsi_transport_sas.c
+@@ -199,7 +199,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
+ 
+ 	if (rphy) {
+ 		q = bsg_setup_queue(&rphy->dev, dev_name(&rphy->dev), NULL,
+-				sas_smp_dispatch, NULL, 0);
++				sas_smp_dispatch, NULL, 0,
++				SCSI_SENSE_BUFFERSIZE);
+ 		if (IS_ERR(q))
+ 			return PTR_ERR(q);
+ 		rphy->q = q;
+@@ -208,7 +209,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
+ 
+ 		snprintf(name, sizeof(name), "sas_host%d", shost->host_no);
+ 		q = bsg_setup_queue(&shost->shost_gendev, name, NULL,
+-				sas_smp_dispatch, NULL, 0);
++				sas_smp_dispatch, NULL, 0,
++				SCSI_SENSE_BUFFERSIZE);
+ 		if (IS_ERR(q))
+ 			return PTR_ERR(q);
+ 		to_sas_host_attrs(shost)->q = q;
+diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
+index 7a66917b3fc0..156637dd76c8 100644
+--- a/drivers/ufs/core/ufs_bsg.c
++++ b/drivers/ufs/core/ufs_bsg.c
+@@ -258,7 +258,7 @@ int ufs_bsg_probe(struct ufs_hba *hba)
+ 		goto out;
+ 
+ 	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), NULL, ufs_bsg_request,
+-			NULL, 0);
++			NULL, 0, sizeof(struct ufs_rpmb_reply));
+ 	if (IS_ERR(q)) {
+ 		ret = PTR_ERR(q);
+ 		device_del(bsg_dev);
+diff --git a/include/linux/bsg-lib.h b/include/linux/bsg-lib.h
+index 14fa93268630..a697246feeac 100644
+--- a/include/linux/bsg-lib.h
++++ b/include/linux/bsg-lib.h
+@@ -66,7 +66,8 @@ void bsg_job_done(struct bsg_job *job, int result,
+ 		  unsigned int reply_payload_rcv_len);
+ struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
+ 		struct queue_limits *lim, bsg_job_fn *job_fn,
+-		bsg_timeout_fn *timeout, int dd_job_size);
++		bsg_timeout_fn *timeout, int dd_job_size,
++		unsigned int reply_len);
+ void bsg_remove_queue(struct request_queue *q);
+ void bsg_job_put(struct bsg_job *job);
+ int __must_check bsg_job_get(struct bsg_job *job);
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
-That being said, this is not required for exclusive resets, and I think
-there may be users handling reset controls in atomic context.
-Unfortunately the API never explicitly declared that
-reset_control_assert/deassert_reset() calls may sleep, and this just
-happens to work if the specific reset controller implementation doesn't
-sleep.
-
-I'm not sure what to do about this. We could split the shared and
-exclusive paths and only lock in the shared path, or fix the atomic
-users, possibly by introducing
-reset_control_assert/deassert/reset_atomic() first.
-
->  	guard(srcu)(&rstc->srcu);
-> =20
->  	rcdev =3D srcu_dereference(rstc->rcdev, &rstc->srcu);
-> @@ -503,6 +510,12 @@ int reset_control_assert(struct reset_control *rstc)
->  	if (reset_control_is_array(rstc))
->  		return reset_control_array_assert(rstc_to_array(rstc));
-> =20
-> +	/*
-> +	 * Hold the lock across the shared refcount update and the hardware
-> +	 * assert so that a concurrent caller does not observe the line as
-> +	 * released while this caller is still driving it.
-> +	 */
-> +	guard(mutex)(&rstc->lock);
-
-Nothing in the API requires shared reset_control_reset() to be
-serialized, why is this necessary? The comment doesn't make this clear
-to me.
-
->  	guard(srcu)(&rstc->srcu);
-> =20
->  	rcdev =3D srcu_dereference(rstc->rcdev, &rstc->srcu);
-> @@ -599,6 +612,12 @@ int reset_control_deassert(struct reset_control *rst=
-c)
->  	if (reset_control_is_array(rstc))
->  		return reset_control_array_deassert(rstc_to_array(rstc));
-> =20
-> +	/*
-> +	 * Hold the lock across the shared refcount update and the hardware
-> +	 * deassert so that a concurrent caller does not continue while the
-> +	 * line is still asserted by this caller's not-yet-finished deassert.
-> +	 */
-> +	guard(mutex)(&rstc->lock);
-
-Yes, this aligns the function with the documented intention for shared
-resets. The above points about exclusive resets also apply.
-
-regards
-Philipp
