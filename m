@@ -1,106 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80762376BEA;
-	Tue, 13 Oct 2026 03:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861807; cv=none; b=K6912cB/V/nswJcXjxYNy3j4w8+ygD7iHTTq48aamAq69c0Pn4zmvsgWL0lO7Zd7zrA03M5HRyjiK09/TdnwHtRRyh26KWMjE4bSHhUTSTQaldGqE124OGF1xx8VpvdDtmmpua1bdpoMVlNvOt2bmF+lrCqYXx7BS0AjTzMFUaI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861807; c=relaxed/simple;
-	bh=K+j8dwpPG35a0Usc6U/QaOJKVFbDLgR7XlxGxVx6O6I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Yts7RoE/ZdhL70zW0aptQIVVPg3PXGtuLpMtqXPJTB8ZW5Xqkon6NsGtHtky3fci5hLhWFdHRq99YzUChHj4F6AWi50CU2hQTubfwMX7cjlxbkUBQ4gelHq25glCPg/pGy7Gwn+Sl4Pt5yDqS4Dc4d5JoXKrDHARWjL6YMCS5oQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZrmd7AE; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A25538642C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791861909; cv=pass; b=NyxMhdnMoI5jiHM58ipBOByfjAg6WdMknGCNyRWHf8U7tfbsyO3zqj0tjg/HvZLRHXELJ9xuLmjSW0gRxFYpv0AmcN88qWL9B2UdvG2SfVOwkE6T23PyMhtUGcWXjfpGuk3TAuAyWnT1Ddd1itzqrvGoT3vQEnjMrAlLX6/W/m8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791861909; c=relaxed/simple;
+	bh=Qlj6+PdrddA+XIaFJDL/MjE18zhPUetQeHCIDXrZrJk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DJdrNyd8mk4T0YTKBhNEFQ003h43KVzYASS9T/HfPXNtCcjL5y9ORMubWZU9epx1MCYZr5zJds+d16dNJuDpvRQYRXSz4ZDVV7+zvURzJstoHabhGe649XWQfz3vWCIgomfroIG6rNV1k/bEnJSr+2FTZh+iNJrrsp7fHV/45n0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OJecdFUQ; arc=pass smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZrmd7AE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D6D77C2BCC7;
-	Tue, 13 Oct 2026 03:23:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791861806;
-	bh=K+j8dwpPG35a0Usc6U/QaOJKVFbDLgR7XlxGxVx6O6I=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=eZrmd7AEuOtBXIiaAP19y1x1marNskQcpKoGoTt+tOu8Ym0Jr0jMwVIG18GEhuFIH
-	 kQwPrPQU6qR2Ue6MUJrG5khBB9h3hDQJHFByTCEdyZJcxUfVovaniWwtKAKlkBhJSM
-	 uqFSbQUcEbzGWyIWlHYKu1Kyh+A8gv+LmS8KC+0ZfoUdWaPDZl+y55MCBR5dFTIuhF
-	 0scVG6DqnrYEtoCZ1Rz0vqFtL9Qtskjw6DroYLS1XzX+12Ot0ktqUbHMmdjCtuXLgP
-	 DRKx568C3Fv1e3v8HK4uUSJWqDqrJ8bT7OnxsmnCDux5vSlcy2XJTSOh0hXePAyOIv
-	 CbOE5riqym+fA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3517CC6B09;
-	Tue, 13 Oct 2026 03:23:26 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Tue, 13 Oct 2026 03:21:11 +0000
-Subject: [PATCH v2] dmaengine: amlogic: Fix little-endian variable
- operations issue
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OJecdFUQ"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a9787a14ecso17794851fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 20:25:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791861906; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UHIoDT+L2aZUGLWLfbON0ocjWPOldQdIhL1blSRKiy/dMFgziLXgOsxbA1QWdSw4Ys
+         WRxDYS1j+uMGFnn1b5ZmoFM1C0PkfOc/ztj624cSmkuYPhPY60tTrUkF0uFpguLApaMy
+         0U3yzcgZEl7T0RlVktzneNKEC+5JoPZxCVHNKXO5mqoVxdLEJNA+EGJtpF4dGtcPxH/Q
+         lVK4Q78/yqW2cE88oZJMJsCTAhqflta+YjCuPPXiMOGLyQDcC2iIvePTZ+O73n/D4utB
+         1gsaFZ2Y9EiVaEGjTF5+38zInsOhueMSKLL9kZG4SfXPx0CggvxXZ0yTyJbE1Hr1fToU
+         /reg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uTqggzvRy7T1WnAA8c/5d02IgpIAPQR2aC2FYAifG4U=;
+        fh=F31zNm75KdyYAPdo8FUq7Ohs3lyAXW8plbxzox42Xds=;
+        b=BGA50bX4JkuD2Wi3NoIgEgDgtwtTJQzQz3C6B4TpyX2YWTnQpawWvgBxMkudfx4ghT
+         42XRSKnqcbbe+MB3BTp652Yz5ZQzDwWSVJt8m2KbzA6e9MBNxuESTqLPYnehm8kVzt5I
+         yXcUW73ygAxSbvtK3YWRnHwXdQXTDByjo+AUvFnm/fObO45+OJ636cKBRxJK/y7+aYjN
+         rx/Z3R2iNxM3oq2QevR126KNkxi15K+ihCh/5+T8Txn6Bt4GDFtfO7MiRGhI3pS2yUro
+         CiDHyTD9Ppdc3L8TbERGSyiqQS7fSOjUjDkd0pohP+dsSSg3HVK7bYGQXFAJRguwWLxs
+         DjZg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791861906; x=1792466706; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uTqggzvRy7T1WnAA8c/5d02IgpIAPQR2aC2FYAifG4U=;
+        b=OJecdFUQnuUdqqVsXwJnUTlO89VVl6Xc5CuxSDPfBAGG+cZOHO5pbmaIJYlKJ9VKu3
+         0jeMPyP1Vcwo5MDlBe2fTILCMaXjjJgIcylG4EJAzQ9FTae777pLR0xG0h7j7zzv/FwS
+         GyFxRSNTydaLAM8qZYD3Q/JpyGFRFJVL7RtPL6U23pYaY3m8qDSY7sO7zR7ACBQK6Fnp
+         sNcpmhVbOUfIVsB5TzuiW23r9dBgadfFvCs6Ujr+XqFpzvTDo5JSQimjvHCi/btgZnIE
+         FyYvzdVPFqz3sqD05hOYDKnLGRP/5/Aar8UrBImRZA+69ycX38eAjZMCkF7hrCPZ3CMu
+         RsXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791861906; x=1792466706;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uTqggzvRy7T1WnAA8c/5d02IgpIAPQR2aC2FYAifG4U=;
+        b=JSEMZokRBf1n8MStQ+EFz/rUW7K6ZSZhjhHJ6Ojyu6SVhoYuOVoBesfHK26HZ/MROn
+         Fx/ngGCQaiEem5lFLSLwucJVtxh7ILMZIGroC7I2VMVlve+gJ4LT0LWj4Z/jfKd2T8Ph
+         gjDQRNO9IZWCgMxGrvEi9yWK9GlDK9W7znh+OIioKmRT9EC5U9BQOatYH9YeZIrfqmSj
+         ghbb1GI8znrHqa0NOfMtKh0mZFENOCUUSRmuytQUQJ3FxQazqXXJ7VcFvJPwZrOYH4kd
+         dARgZ91dIM1npTAyvseuRwu8ebzx/+26hgGZXZhPcAf7yos4B7n3UhRVW6B3w02TJhJ/
+         TiAw==
+X-Forwarded-Encrypted: i=1; AKwUvBxxRDv4DdbJK+AWYxGhLVsHOSknw31EN2LTqLjXNjIhYKSMCIfeH/ggyIN2km7UpvcSfEFp9CCUJaXT/5s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJau2k/R1lpqUmdjOmzPGTKOVVS+SFKPSzFGIDrLI0t9dhIyL4p
+	LEXomd8wDfTsaM324aDdjbUXraFu1S4uxE+X/Go8cc7Ymc2lDsd7Byhw6okxlxesUDDPMl1Ww2X
+	O7N/XzbFf93uxnZI26z3EYiZ82mIieMQ=
+X-Gm-Gg: AYBFou3Pqogtf7Vpx+Cn8ENCknghdQ9soqOwOZ+ELihH7DUN9t6sF5xQzrCJ6yVEw+F
+	VtbFmxT/wFaboxVWhHt1HStuaTXVam+wd1dW+AoZrw7FVGbB4ICfz3B+OxnMMsQh7Fdb7dWHUdq
+	8jeocG0HqqxFsL3ID4dWfLY8gru0ThekSx2hwDIqE+KjFYDmrwAxbqP0L8VQoQvHUbTF/9RBSeh
+	NXMlSAjfTuqNmpWAj7mNjWEXsrRsNCZLi0Ob6PD6a5JXG9Os5oE0YifS5gmkP0grypRKlM78uC+
+	Uag7z7v6VXpi96SIM28i4K2LU2ok/IWIkVuawEg6IV4DgVVwltuY8pzXE74xTkNooJHkAHIsmHf
+	04U4yEIgzRNYy7aBF3Vzjaama/XB1XSHEJxMUFH8=
+X-Received: by 2002:a2e:a991:0:b0:3a9:76b7:c515 with SMTP id
+ 38308e7fff4ca-3a9c5253a1bmr24195321fa.8.1791861906046; Mon, 12 Oct 2026
+ 20:25:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-fix-a9-dma-v2-1-860146b2ef57@amlogic.com>
-X-B4-Tracking: v=1; b=H4sIAKajzWoC/22Myw6CMBBFf4XM2jF9aEVX/odhUdoBJhFKWtNoS
- P/dytrluTfnbJAoMiW4NRtEypw4LBXUoQE32WUkZF8ZlFBGCqlw4DfaK/rZ4qmnCxnZW3PWUIU
- 1Un332KOrPHF6hfjZ21n+1r+ZLFGi8q0Woh00aXW38zOM7I4uzNCVUr5HiWJypgAAAA==
-X-Change-ID: 20261012-fix-a9-dma-4be7e61ba653
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791861804; l=1372;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=OZigb4en2c93sg6DmkSHlPZQyczro7uHkaw6ZWL3yJI=;
- b=Opkm9CijTWMJQVlrV4DIhfX6pYsuf2M4OAlshy3Enz6HJKjzfIBIJ62flw8Gc8SXal7Xj+5BH
- r8xHqf/gSxqAri6a9j3i1w8NAOZ3F+NxWD62J5HERDOspwkr0wl1iJy
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+References: <CA+=Fv5RJpeusA2W4rRHOJMPRn8iF=OngRy05X22Myurs0wA-sQ@mail.gmail.com>
+ <20261010022039.1610210-1-mattst88@gmail.com> <20261012133753.3a5868e9@pumpkin>
+In-Reply-To: <20261012133753.3a5868e9@pumpkin>
+From: Matt Turner <mattst88@gmail.com>
+Date: Mon, 12 Oct 2026 23:24:52 -0400
+X-Gm-Features: AclHuK_03Oc5vixjhdWzw-DLdJM5sKo0togD5oZVsH_2hFCEPrVq0SbRDKzpVzA
+Message-ID: <CAEdQ38E=_qKf+Ljy0qyBATVnjQYihGOkffgYaJuQLSmxim6Btg@mail.gmail.com>
+Subject: Re: [PATCH] alpha: add 128-bit shift helpers
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Magnus Lindholm <linmag7@gmail.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel test robot <lkp@intel.com>, oe-kbuild-all@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On Mon, Oct 12, 2026 at 8:37=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Fri,  9 Oct 2026 22:20:39 -0400
+> Matt Turner <mattst88@gmail.com> wrote:
+>
+> > Selecting ARCH_SUPPORTS_INT128 lets generic code shift __int128 values =
+by
+> > a variable count. gcc open-codes such a shift when optimizing for speed=
+,
+> > but with CONFIG_CC_OPTIMIZE_FOR_SIZE=3Dy it calls the libgcc routines
+> > __ashlti3, __ashrti3 and __lshrti3 instead. The kernel does not link
+> > against libgcc and Alpha does not provide them, so the link fails:
+> >
+> >   alpha-linux-ld: lib/ubsan.o: in function `get_signed_val':
+> >   (.text+0x1c0): undefined reference to `__ashlti3'
+> >   (.text+0x1f8): undefined reference to `__ashrti3'
+> >   alpha-linux-ld: kernel/time/timekeeping.o: in function `delta_to_ns_s=
+afe':
+> >   (.text+0x2ac): undefined reference to `__lshrti3'
+> >
+> > Provide the three helpers in C, as s390 does, and export them for
+> > modules. They are built into the kernel proper rather than lib.a so the
+> > exports are present even when nothing built in references them.
+>
+> Do they need an explicit (shift &=3D 63)?
+> I've seen gcc/clang remove an explicit '&=3D 63' because they know the
+> hardware instruction ignores the high bits.
+> But I'm not sure what happens here.
+> Adding it won't make much difference - unless it matters.
 
-In dma_async_tx_descriptor function,fix the situation where the operation
-processing of the little-endian variable requires corresponding conversion.
+No, I don't think so, the 64-bit shift counts are already 0..63 for
+any count in 0..127. The !shift check is what keeps 64 - shift from
+reaching 64.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610060235.PuCxWQdk-lkp@intel.com/
-Fixes: b84b5197e344 ("dmaengine: amlogic: Add general DMA driver for A9")
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
-Fix the operation little-endian variable issue.
----
-Changes in v2:
-- Simplify processing and rename subject to 'dmaengine', suggested by Frank.
-- Link to v1: https://lore.kernel.org/r/20261012-fix-a9-dma-v1-1-2d83008f3e32@amlogic.com
----
- drivers/dma/amlogic-dma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
-index 78ee2337ae71..dbd23d29397d 100644
---- a/drivers/dma/amlogic-dma.c
-+++ b/drivers/dma/amlogic-dma.c
-@@ -321,7 +321,7 @@ static struct dma_async_tx_descriptor *aml_dma_prep_slave_sg
- 
- 	/* the last sg set eoc flag */
- 	sg_link--;
--	sg_link->ctl |= LINK_EOC;
-+	sg_link->ctl |= cpu_to_le32(LINK_EOC);
- 
- 	return vchan_tx_prep(&aml_chan->vchan, &aml_desc->vd, flags);
- }
-
----
-base-commit: 42c31fec1ca76b8b5f7759def122d418dff2cd4b
-change-id: 20261012-fix-a9-dma-4be7e61ba653
-
-Best regards,
--- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
-
-
+gcc doesn't remove an explicit mask here, by the way. It costs an
+extra and per function on Alpha. Out-of-range counts give the same
+results as libgcc's versions, which is all the callers could expect.
