@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F793FD946;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7943F1050;
 	Tue, 13 Oct 2026 10:21:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886890; cv=none; b=iNgDR+2w5yTY2EfHTU13if2G3un/QQEDtzyQDBuQitpLhkXEdjK8QxORErktOyaA/Wpm99MN1tCnMVNyxQl765WIJ9BzG9LEhRnPdoJvOr9W5G1MPSUvMh+kmRgrVAZzc7knTetsTDpHJSd/EdA8EpC753ghv795SaZh4oCjSCk=
+	t=1791886890; cv=none; b=nU8e8FyodnGcDOjtGB9nGGr5r8r3ou6QDOxH+LUtaH86dqL/nwxjUBONgviGYOS1jMKaEAUkCisJIQzCIcs+sd8simDMbZrYOYpAb+Joc9DLWewrb+Xus+M5xJuITwDaPOPvZrKLeqUa9KHEb0Licj8/aCEqcUU2vT+eMbu4l+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791886890; c=relaxed/simple;
-	bh=O+mRZyhd1UHc0xkANFE4G3Z7wEfuWF6F4O3e1Oh0El0=;
+	bh=stFWnGr8qituroDzzylkIvteQb6/v1UMCo2xAmzSvDs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j9Ts1RRa5rzx6vd8u6hmH0uc4E1XM1f93PNqJABkBuiK4KEKKRroOpxK7tQEN+of2YB6YWi032nTpLd1QnleVoHl/lqvZrCE/Hz9D9zZ7qpeTh4BeERZPAl8BAkj0UwbxrulzXtfPk2vx8amL2F6bcF+5o4F6Ovtctn+wd20nRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jFivKs4x; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=r7DyQjjq/Rb4ViXWjU7GeVgGdZQQ4ilUdeMJxxX7wlLF6kBSqvwCi2Pl1+rdkAYp6oFBFviKvHRBuaUQ/OAI/rBRnjxm48J58ARcCbl2LHwce3k35ls0nAHoYnm8sqQ8a0ATC3Y1JKPsnw8X04gplLuo05srJyEVV44SvRXsmvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nFCbWyx0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jFivKs4x"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DAC99C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nFCbWyx0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ECF9EC32782;
 	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791886889;
-	bh=O+mRZyhd1UHc0xkANFE4G3Z7wEfuWF6F4O3e1Oh0El0=;
+	s=k20201202; t=1791886890;
+	bh=stFWnGr8qituroDzzylkIvteQb6/v1UMCo2xAmzSvDs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jFivKs4xmt6H9nmZqjIcX9fE3O/2JCluUsMYSnkQDkk+tyGcLq2R004PM3Mv1hV6L
-	 qAIY4YiYznMQMm6haa/Wcs8DA+5tg2V0tElrqxzTDdZZntklU97u9mr9Y54E/qcyV0
-	 2jmKQcBTmm5M2d4q68X46RJUJGjdGiQbAYwMgnOd2zBH8uYeHdsmtq5VQ2IqbBjIz6
-	 A3G+DAeMsrY6S0N8PteaG3DI3p2/EoJ57U9ZGvvqZGmQlcA1OzAbhTE2WgPTPrzOo8
-	 1rvkzWAANI4Nmtrz7FaPriBvVbCcUQmIA4I+ykhkdkJWuSN7F+tk1WXNC7V0c3/kcM
-	 1FLheRScdCadA==
+	b=nFCbWyx0+pURp+cRCJShD8DMD0tBzbl7Qq5CbOIhul5tLduAmaSOzO0zn9mKMwGlO
+	 oHbIwXxVPGBGBg+sJUAyf62BFlVrGVSzJE1cX3+e4p6DNnhke9HiGDPW+OLCp0j51Y
+	 XT25y62gsUUlw1byMSZqEYj1L0Q0cSPIjI0KszoZ8zF19/KrHlJuFWpuN1vDR4yKJY
+	 SF7WU91jrEFAezLenF2hcE756nv8byuKB1r30NSkrF+rtEhmaiiYVMAzg6+oYJgk0V
+	 5XkX/vqoDe24GvSbC4XHPza+fjFqtkptypVAeimCo4I5KcmDZWKnX5KhaPufX3yVZH
+	 5U5GsNdHrhcyg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5407CC6B10;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D789BCA9ED2;
 	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
 From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
-Date: Tue, 13 Oct 2026 18:21:30 +0800
-Subject: [PATCH v3 6/7] riscv: dts: ultrarisc: Add Shenzhen Rongda M0 board
+Date: Tue, 13 Oct 2026 18:21:31 +0800
+Subject: [PATCH v3 7/7] riscv: dts: ultrarisc: Add Milk-V Titan board
  device tree
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-ultrarisc-dts-v3-6-5ff3ebb2a90d@ultrarisc.com>
+Message-Id: <20261013-ultrarisc-dts-v3-7-5ff3ebb2a90d@ultrarisc.com>
 References: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
 In-Reply-To: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -58,11 +58,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
  linux-riscv@lists.infradead.org
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791886887; l=6533;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791886887; l=7334;
  i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=FLco8EKil9coXfOOohEgx8XQNQE43bTkwaWzTcrXeQk=;
- b=IrwtL3GP9R1WQZJjASC6CfDToVzj/Qjdvejvp/i1sfteST/IDHUuvS2S2u95b5aHS7ZRKN0fL
- lWjYKXnM5d8BlcSP9tzMAEWyxpoXIph8IRl2nd7QVDk+HQdb20lVlPA
+ bh=dAtkSFZr6AV1hMUKbe3Hu73EzYFoZ2u8+96QxJOEsCA=;
+ b=72SwzpA8D3S38FBHDHVeGL6mLxkfQNpWE1jWyvm8+ZSqoWe9++3ZpAkplMu5QtKf/GSR2x7pR
+ FrRPOMPWFwkCyW23GfLSh0o7oRS/oCjZcSWOQS2OZlCHM6a7w1peuxS
 X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
  pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
 X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
@@ -72,110 +72,30 @@ Reply-To: jixincheng@ultrarisc.com
 
 From: Jia Wang <wangjia@ultrarisc.com>
 
-Shenzhen Rongda M0 is an mATX motherboard based on the UltraRISC DP1000
-SoC.
+Milk-V Titan is an ITX motherboard based on the UltraRISC DP1000 SoC.
 
+Link: https://milkv.io/docs/titan/overview
 Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 ---
- arch/riscv/boot/dts/Makefile                       |   1 +
- arch/riscv/boot/dts/ultrarisc/Makefile             |   2 +
- arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h     |  63 ++++++++++++
- .../ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi    |  79 ++++++++++++++
- .../boot/dts/ultrarisc/dp1000-shenrongda-m0.dts    | 113 +++++++++++++++++++++
- 5 files changed, 258 insertions(+)
+ arch/riscv/boot/dts/ultrarisc/Makefile             |   1 +
+ .../dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi  | 108 +++++++++++
+ .../boot/dts/ultrarisc/dp1000-milkv-titan.dts      | 203 +++++++++++++++++++++
+ 3 files changed, 312 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
-index 69d8751fb17c..702882974251 100644
---- a/arch/riscv/boot/dts/Makefile
-+++ b/arch/riscv/boot/dts/Makefile
-@@ -12,3 +12,4 @@ subdir-y += spacemit
- subdir-y += starfive
- subdir-y += tenstorrent
- subdir-y += thead
-+subdir-y += ultrarisc
 diff --git a/arch/riscv/boot/dts/ultrarisc/Makefile b/arch/riscv/boot/dts/ultrarisc/Makefile
-new file mode 100644
-index 000000000000..454d849a6ce4
---- /dev/null
+index 454d849a6ce4..dfd15c064d07 100644
+--- a/arch/riscv/boot/dts/ultrarisc/Makefile
 +++ b/arch/riscv/boot/dts/ultrarisc/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_ARCH_ULTRARISC) += dp1000-shenrongda-m0.dtb
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h b/arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0
++dtb-$(CONFIG_ARCH_ULTRARISC) += dp1000-milkv-titan.dtb
+ dtb-$(CONFIG_ARCH_ULTRARISC) += dp1000-shenrongda-m0.dtb
+diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
 new file mode 100644
-index 000000000000..4668e45d2335
+index 000000000000..7a812e40a249
 --- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h
-@@ -0,0 +1,63 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-+ */
-+
-+#ifndef _DP1000_PINCTRL_H
-+#define _DP1000_PINCTRL_H
-+
-+#define PA0		0
-+#define PA1		1
-+#define PA2		2
-+#define PA3		3
-+#define PA4		4
-+#define PA5		5
-+#define PA6		6
-+#define PA7		7
-+#define PA8		8
-+#define PA9		9
-+#define PA10		10
-+#define PA11		11
-+#define PA12		12
-+#define PA13		13
-+#define PA14		14
-+#define PA15		15
-+#define PB0		16
-+#define PB1		17
-+#define PB2		18
-+#define PB3		19
-+#define PB4		20
-+#define PB5		21
-+#define PB6		22
-+#define PB7		23
-+#define PC0		24
-+#define PC1		25
-+#define PC2		26
-+#define PC3		27
-+#define PC4		28
-+#define PC5		29
-+#define PC6		30
-+#define PC7		31
-+#define PD0		32
-+#define PD1		33
-+#define PD2		34
-+#define PD3		35
-+#define PD4		36
-+#define PD5		37
-+#define PD6		38
-+#define PD7		39
-+#define LPC0		40
-+#define LPC1		41
-+#define LPC2		42
-+#define LPC3		43
-+#define LPC4		44
-+#define LPC5		45
-+#define LPC6		46
-+#define LPC7		47
-+#define LPC8		48
-+#define LPC9		49
-+#define LPC10		50
-+#define LPC11		51
-+#define LPC12		52
-+
-+#endif /* _DP1000_PINCTRL_H */
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi
-new file mode 100644
-index 000000000000..ab927c6cd614
---- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi
-@@ -0,0 +1,79 @@
++++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
+@@ -0,0 +1,108 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
@@ -213,8 +133,37 @@ index 000000000000..ab927c6cd614
 +		drive-strength = <33>;
 +	};
 +
++	io_pins: io-pins {
++		pins = <PA10 PA15 PB0 PB1 PB2 PD6 PD7>;
++		function = "gpio";
++		bias-pull-up;
++		drive-strength = <33>;
++	};
++
++	gpio_keys_pins: gpio-keys-pins {
++		pins = <PA4 PA11 PA14>;
++		function = "gpio";
++		bias-pull-up;
++		drive-strength = <33>;
++	};
++
++	mux_dcdc_i2c_pins: mux-dcdc-i2c-pins {
++		pins = <PA5>;
++		function = "gpio";
++	};
++
++	mux_i2c3_pins: mux-i2c3-pins {
++		pins = <PA6>;
++		function = "gpio";
++	};
++
++	mux_uart0_pins: mux-uart0-pins {
++		pins = <PA7>;
++		function = "gpio";
++	};
++
 +	spi0_pins: spi0-pins {
-+		pins = <PD0 PD1 PD2 PD3 PD4 PD5 PD6 PD7>;
++		pins = <PD0 PD1 PD2 PD3 PD4 PD5>;
 +		function = "spi";
 +		bias-pull-up;
 +		drive-strength = <33>;
@@ -255,23 +204,27 @@ index 000000000000..ab927c6cd614
 +		drive-strength = <33>;
 +	};
 +};
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
+diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
 new file mode 100644
-index 000000000000..43f713bcea25
+index 000000000000..59edd8157221
 --- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
-@@ -0,0 +1,113 @@
++++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
+@@ -0,0 +1,203 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
 + */
 +
-+#include "dp1000-shenrongda-m0-pinctrl.dtsi"
++#include "dp1000-milkv-titan-pinctrl.dtsi"
 +#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/input/gpio-keys.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/leds/common.h>
 +
 +/ {
-+	model = "Shenzhen Rongda M0 Board";
-+	compatible = "shenrongda,m0", "ultrarisc,dp1000";
++	model = "Milk-V Titan";
++	compatible = "milkv,titan", "ultrarisc,dp1000";
 +
 +	aliases {
 +		serial0 = &uart0;
@@ -282,6 +235,41 @@ index 000000000000..43f713bcea25
 +
 +	chosen {
 +		stdout-path = "serial0:115200n8";
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&gpio_keys_pins>;
++
++		key-wakeup-0 {
++			label = "Wake-Up";
++			gpios = <&gpio_a 14 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_WAKEUP>;
++			linux,input-type = <EV_KEY>;
++			debounce-interval = <10>;
++			wakeup-source;
++			wakeup-event-action = <EV_ACT_ASSERTED>;
++		};
++
++		key-wakeup-1 {
++			label = "Power";
++			gpios = <&gpio_a 11 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_POWER>;
++			linux,input-type = <EV_KEY>;
++			debounce-interval = <10>;
++			wakeup-source;
++			wakeup-event-action = <EV_ACT_ASSERTED>;
++		};
++
++		key-wakeup-2 {
++			label = "Wake-Up-by-USB";
++			interrupts-extended = <&gpio_a 4 IRQ_TYPE_EDGE_FALLING>;
++			linux,code = <KEY_WAKEUP>;
++			linux,input-type = <EV_KEY>;
++			debounce-interval = <10>;
++			wakeup-source;
++		};
 +	};
 +};
 +
@@ -299,9 +287,9 @@ index 000000000000..43f713bcea25
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&i2c2_pins>;
 +
-+	rtc@32 {
-+		compatible = "whwave,sd3078";
-+		reg = <0x32>;
++	rtc@68 {
++		compatible = "st,m41t11";
++		reg = <0x68>;
 +	};
 +};
 +
@@ -354,6 +342,34 @@ index 000000000000..43f713bcea25
 +	status = "okay";
 +};
 +
++&gpio {
++	pinctrl-names = "default";
++	pinctrl-0 = <&io_pins &mux_dcdc_i2c_pins &mux_i2c3_pins &mux_uart0_pins>;
++};
++
++&gpio_a {
++	dcdc-i2c-mux-hog {
++		gpio-hog;
++		gpios = <5 GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "dcdc-i2c-mux";
++	};
++
++	i2c3-mux-hog {
++		gpio-hog;
++		gpios = <6 GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "i2c3-mux";
++	};
++
++	uart0-mux-hog {
++		gpio-hog;
++		gpios = <7 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "uart0-mux";
++	};
++};
++
 +&ethernet {
 +	phy-handle = <&phy0>;
 +	/*
@@ -371,6 +387,29 @@ index 000000000000..43f713bcea25
 +
 +		phy0: phy@0 {
 +			reg = <0>;
++
++			leds {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				led@1 {
++					label = "eth-link";
++					reg = <1>;
++					color = <LED_COLOR_ID_YELLOW>;
++					function = LED_FUNCTION_INDICATOR;
++					default-state = "keep";
++					linux,default-trigger = "netdev";
++				};
++
++				led@2 {
++					label = "eth-activity";
++					reg = <2>;
++					color = <LED_COLOR_ID_GREEN>;
++					function = LED_FUNCTION_ACTIVITY;
++					default-state = "keep";
++					linux,default-trigger = "netdev";
++				};
++			};
 +		};
 +	};
 +};
