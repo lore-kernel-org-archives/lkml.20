@@ -1,93 +1,129 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+Received: from mta0.migadu.com (out-49.mta0.migadu.com [91.218.175.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A9A54281E
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E56542EC6
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791920787; cv=none; b=ddrqmuJtQI9ARdbXtNKB2W5btcl4HTfiBr7QXh9pwl6PEEiZL8A6+4c405UCKKIhwgWfabLUBAuWmueok5iUprKAAR82lTRqV4oJ5UocLNQyAgS2YQBKbfbHRMzIdODEJTDX9xj1Cy+5wsvQbEh6AuLGXPHfAFkce/qJwTbaCGw=
+	t=1791920794; cv=none; b=OmHHV84tWZUtx8KXGUiHsnOXaY5jpIW7sqOd4PVrP94mOhP6m/Ttxl8PvAKKhLoSRqo52wk3GzY1A1iCJduf3iPPaKTxbEa8wASsfquviVomGypZDTvhSLAzF2AkmF+XQvK+E78mkA4hgfG/rrDtNUxIapDo4VsZ7ZuIKeqOpEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791920787; c=relaxed/simple;
-	bh=Mi5Spotq/q6JPnED+QIVXXlvyUgIubnCNvFDYYLo5aQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=eu8aZOzqx5lDELfndbP5pt4iTOEsU9GaI5f1ldqkAWG14qANgcanZ+MDwuLs50baiNpJgcGW6cGyYf/q1jJ2wCcTyPbdfE4wDiXhbRNS30E1ElquvNOLEQxdXv175ZP3aZXDLJ87VshbcVLtz7eXmT0X3K4VEcztL3+iy7RTKwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PgJXICVX; arc=none smtp.client-ip=209.85.210.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1791920794; c=relaxed/simple;
+	bh=rlFTSKfCewl11zJZaS7wBrxYbGFIZ9qTqFBP4vMrQt4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hVVp47kWmFmbVo7F+BEuaRaWCu+oaFKA02C3L1XQ/hfJetxOPG0iY1V8OmN1sINE1RklwWK4YHtOPj8IPWCCkh6NfFekG4dlS9or23Msc+Xeae+75W2X/cHf8owJ+v9cLNmdXOw408SgvIOLHkLYyivJcWleZiFhKukFt54uIJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QY8MKAIL; arc=none smtp.client-ip=91.218.175.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PgJXICVX"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-88cd731cf24so2418959b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:46:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791920785; x=1792525585; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LeOkNArJ14T449fGvcCB00uvB/PZ25DWOhBo0IuHU3o=;
-        b=PgJXICVXh0VrfEEbV+ECtfIr5HAHFNfrJncaYuXPrRBWXsghdPeCq032A3zeFI03tj
-         NlPFtRAxv0FkffYnyEH9vOrirDIPRVG5TZk8ERyc0aGcKOh0jNoQyb8TI+E4ns6tLAwi
-         S1DS5eE/atG9WbWvOIWV7KzGxrrbN20d1X7CWcY8UhszNUAl2xeO8uq4XMlAxWczE3fy
-         kUPWIixfLcrR0TDFRZHON5I5saUSuTeCPHp3efzggsjsSWrcNsvHaTtSWTbWO+Vp/aq6
-         VokPvgoz7iPxoHHUx6UGzN+JaVN/ph7Bg8UcV+HT1hsNtP3Nv9DE2Rh26LjntQr48GW/
-         jjIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791920785; x=1792525585;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LeOkNArJ14T449fGvcCB00uvB/PZ25DWOhBo0IuHU3o=;
-        b=LkJEQvmrljwZ6ch/+QNjcbrweTZFgc0cUu88/zJKvDMGRkUAvEmb/mdxTV08el0Jyg
-         i06lmA3mvwA58B50WApcZRDJtkL/+cuw9EmwrkuGkAXldxgP2BXqFcfnVRS3m5ry4GDj
-         HTBCCnwQ91GO9yDv3xQk6o42ZlLji3V8nvi8fxoUH2z9Gc8mC4x3VcwSIUP5a2ULOZEd
-         JXfaju6Nc7rHk899zS4zxC7ORJwiBt5aUquRvXKATUCzneh3quCJcItMyki4ed1TBmH4
-         YiqlnPYACmR7LYW5U2UgVrzLjpIf3SdOOwHzTeYJ1rugwops5YiZ9ywNH3q8UrL3QcXK
-         jgXQ==
-X-Forwarded-Encrypted: i=1; AKwUvByl/Wtp+qF/Ic0zr/F2diELJwEor7qoReA8gDiij3HGhqky41T6tyG8OQV2n9is3FrTu6H6CdGkNZiN1+E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCsHIW9dgin6j/oJPEA3Vw4SSY+t6wTzS4m7YQ6SRV6T6OX+WO
-	g1HPTIaaQ+RcAm1BHoVJ4GNMZRval7ZNcP0TJWPVb8kIMonSqc8v9/wEkHnzEKJNu3Zu9g1K8sH
-	CkSAkTA==
-X-Received: from pfbdw16.prod.google.com ([2002:a05:6a00:3690:b0:893:3763:ceda])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:94f2:b0:874:705d:f659
- with SMTP id d2e1a72fcca58-897c6d1e526mr11766098b3a.39.1791920785216; Tue, 13
- Oct 2026 12:46:25 -0700 (PDT)
-Date: Tue, 13 Oct 2026 12:46:24 -0700
-In-Reply-To: <94cd4203-1be8-4f8d-b015-0c02760e5770@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QY8MKAIL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rlFTSKfCewl11zJZaS7wBrxYbGFIZ9qTqFBP4vMrQt4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791920789; v=1; x=1792525589;
+ b=QY8MKAILpJ/Zr6OSAgAR8t+xk7T07BEn4dBOnklMijM75DBUHX5lGz2DTL/NXZADH/GLGjdD
+ m0sNclbolcYNzakmYqB7y5exUA3jxnq3jwM0DV8A5LL8wLN4hHJP5mDeDtdQL+muiwvi1DfbRB6
+ Tsyf4eKDKCSClHO/WKYQwDRM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ad2fe35b42f504b6;
+	Tue, 13 Oct 2026 19:46:28 +0000
+X-Mizu-Trace-ID: ad2fe35b42f504b6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d03c6c1e-84e3-46df-b220-daf3a5c96327@linux.dev>
+Date: Tue, 13 Oct 2026 20:46:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1791280439.git.ritesh.list@gmail.com> <94cd4203-1be8-4f8d-b015-0c02760e5770@linux.ibm.com>
-Message-ID: <as6KkH-MnbfDeuAi@google.com>
-Subject: Re: [PATCH v7 0/8] KVM: selftests: add powerpc support
-From: Sean Christopherson <seanjc@google.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
-	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
-	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 1/5] ptp: drain virtual clock sysfs operations
+ before unregistering children
+To: James Hilliard <james.hilliard1@gmail.com>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Yangbo Lu <yangbo.lu@nxp.com>,
+ Miroslav Lichvar <mlichvar@redhat.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, linux-kernel@vger.kernel.org
+References: <20261013-ptp-vclock-sampling-v3-0-d3ee4ea62fc6@gmail.com>
+ <20261013-ptp-vclock-sampling-v3-1-d3ee4ea62fc6@gmail.com>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20261013-ptp-vclock-sampling-v3-1-d3ee4ea62fc6@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026, Madhavan Srinivasan wrote:
-> On 10/6/26 3:58 PM, Ritesh Harjani (IBM) wrote:
-> > This series primarly adds KVM selftests support for powerpc (64-bit, BookS,
-> > radix MMU).
-> > 
-> > This patch series is originally Nick's work. I have mainly only rebased it on
-> > the latest upstream tree. Since the rebase required few changes to all the four
-> > patches (Patch 1-4), I have dropped the earlier Acked-by from Michael Ellerman.
-> > 
-> > Since the last series was posted three years ago [1], I am resetting the version
-> > to RFC. This rebase was done as part of a larger effort to improve the selftests
-> > infrastructure for Linux on PowerPC tree. Thanks to Harsh and Maddy for their
-> > help on this.
-> > 
-> Sean/Paolo, hope you take this via your tree.
+On 13/10/2026 20:19, James Hilliard wrote:
+> Parent clock removal walks its virtual clocks before removing the
+> n_vclocks sysfs attribute. The mutex taken by ptp_vclock_in_use() is
+> released before that walk, so a concurrent sysfs deletion can pick the
+> same child and unregister and free its ptp_vclock a second time. A
+> reference held by the device iterator does not protect that separately
+> allocated virtual clock.
+> 
+> Remove n_vclocks before walking the children. Removing the attribute
+> prevents new stores and drains stores already running, without holding
+> n_vclocks_mux across a callback that needs that mutex. Skip virtual
+> clocks, which do not have this attribute.
+> 
+> This race was found by code inspection of virtual-clock registration
+> failure cleanup and parent removal.
+> 
+> Fixes: bfcbb76b0f59 ("ptp: unregister virtual clocks when unregistering physical clock.")
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>   drivers/ptp/ptp_clock.c   | 5 +++++
+>   drivers/ptp/ptp_private.h | 1 +
+>   drivers/ptp/ptp_sysfs.c   | 6 ++++++
+>   3 files changed, 12 insertions(+)
+> 
+> diff --git a/drivers/ptp/ptp_clock.c b/drivers/ptp/ptp_clock.c
+> index 4111342d64f0..47ffc773065a 100644
+> --- a/drivers/ptp/ptp_clock.c
+> +++ b/drivers/ptp/ptp_clock.c
+> @@ -508,6 +508,11 @@ static int unregister_vclock(struct device *dev, void *data)
+>   
+>   int ptp_clock_unregister(struct ptp_clock *ptp)
+>   {
+> +	/*
+> +	 * Stop and drain virtual-clock creation and deletion before walking the
+> +	 * children. Do not hold n_vclocks_mux while waiting for sysfs callbacks.
+> +	 */
+> +	ptp_vclock_remove_sysfs(ptp);
+>   	if (ptp_vclock_in_use(ptp)) {
+>   		device_for_each_child(&ptp->dev, NULL, unregister_vclock);
+>   	}
+> diff --git a/drivers/ptp/ptp_private.h b/drivers/ptp/ptp_private.h
+> index db4039d642b4..ec8633126d6b 100644
+> --- a/drivers/ptp/ptp_private.h
+> +++ b/drivers/ptp/ptp_private.h
+> @@ -169,6 +169,7 @@ extern const struct attribute_group *ptp_groups[];
+>   
+>   int ptp_populate_pin_groups(struct ptp_clock *ptp);
+>   void ptp_cleanup_pin_groups(struct ptp_clock *ptp);
+> +void ptp_vclock_remove_sysfs(struct ptp_clock *ptp);
+>   
+>   struct ptp_vclock *ptp_vclock_register(struct ptp_clock *pclock);
+>   void ptp_vclock_unregister(struct ptp_vclock *vclock);
+> diff --git a/drivers/ptp/ptp_sysfs.c b/drivers/ptp/ptp_sysfs.c
+> index dc398c6b7528..53388b123198 100644
+> --- a/drivers/ptp/ptp_sysfs.c
+> +++ b/drivers/ptp/ptp_sysfs.c
+> @@ -263,6 +263,12 @@ static ssize_t n_vclocks_store(struct device *dev,
+>   }
+>   static DEVICE_ATTR_RW(n_vclocks);
+>   
+> +void ptp_vclock_remove_sysfs(struct ptp_clock *ptp)
+> +{
+> +	if (!ptp->is_virtual_clock)
+> +		device_remove_file(&ptp->dev, &dev_attr_n_vclocks);
+> +}
+> +
+>   static ssize_t max_vclocks_show(struct device *dev,
+>   				struct device_attribute *attr, char *page)
+>   {
+> 
 
-I've pushed this to kvm-x86/ppc_selftests, and to kvm-x86/next.  It should show
-up in tomorrow's build of linux-next.  If all goes well, I'll send "official"
-thanks in a few days (I'll be offline for the next ~48 hours), and include
-ppc_selftests in my pull requests for 7.4.
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
