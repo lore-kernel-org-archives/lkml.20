@@ -1,168 +1,105 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11021090.outbound.protection.outlook.com [52.101.62.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D415551CF74;
-	Tue, 13 Oct 2026 16:43:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.90
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909797; cv=fail; b=hwMwDppIKGgeG7HOmZ75QKHb/4ssHSrdwLCbxHE6wFRWyORniv7oYyTz1/E3jlm03nAhHEPow263usEHrgmWG3VQR96gK5J81ktzgbC079c+LUkrVswjnPfk/q/W2gqoYgWP0RoZifpSdO8yrBTDCTgq+q83/dLpmijxcbQyVuc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909797; c=relaxed/simple;
-	bh=wwIqjBnL8KxaEN9DZswRblUlYXrnERe0ZXqh0L6WPgw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=dPrd3x/7Q47eAJ6/Y3Bc4f8eSx2AQvjtQhi+ShXmOaC+14oY6JIS6KvNJw3w/Is1Kf+hHMmPiFaOSIAHD1RYfEus8hUs5xWLh0RkWlbB1wjG1I9EMQezY977TzLEIu/Gg++BDLu6I/zCaJp47tsncD3MoH/yWVDm2x800OVRys4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phil.gs; spf=pass smtp.mailfrom=phil.gs; dkim=pass (1024-bit key) header.d=NETORGFT5377951.onmicrosoft.com header.i=@NETORGFT5377951.onmicrosoft.com header.b=FvNgf9AE; arc=fail smtp.client-ip=52.101.62.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phil.gs
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phil.gs
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B433BB9FD
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.89
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791909820; cv=none; b=OCy98fzjGXcJjMCwgFZPUIPT3F58/6MV6Wa2Di5AIU5BFx4l++bkhJJVyiUXNLdEEGb56JYqYsSpDkF/K0/6mUCU7Ox76UJk2FjR11QmVK6y4Z+mZ134RN3JRJXrVL3KYKOR7gl3GwWccTKPhVk3JQpnDN2G/uwIFr/H/RsvoT0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791909820; c=relaxed/simple;
+	bh=PcPBi5Nzv8M4w/Sm2h+bvnujrs8RY53hUJG3UM3gd0I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J/omP4SzHR4MctOW69qVHdcHcMG80VvJtmE498G44lVBTo/KF4uX6+6cOGSv3suafqpkGVlw0VZgdg+Y++gI7/+9htM87qKEXUHyF+pvFqBRO4ghMk8V7CmaE7VmqTUNs7PCqWzuFMJzbyDX7bAYY/lPcwa5G3RoCS6RHJU+DUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=L6p04Btx; arc=none smtp.client-ip=95.215.58.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=NETORGFT5377951.onmicrosoft.com header.i=@NETORGFT5377951.onmicrosoft.com header.b="FvNgf9AE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y2if6eiFmK15fYDDfk404Mz6r5MDOUT+Z6rGYqMiYfuPtEtHMHa6/+RabtdcZnrJHbJ+TbhAT5FZFvYI/cLhoZMCd+HakW4eIL0wnkxFDfZwT5r3TgTflxs7VtKkTQhtF3/l2fQd71JV1KFJLtywz9Af1ibuAecIEdF/rV9/E5ZTvDeWE88KVhQnH6v3H5ASWy15Ofi6PyfFRjMoq2MXiyWkuJquAzTECI4NKIWnlO1vPJP7BBjWGUJlc/Sf7Pv0+P0NT3FSqe1ltaSShj6MmmEU1kdbrJY1ctPkSfjcWngpIaQlAxibqxh2FsJAD4i5um1Ds0+IvA3S46JTQ04yyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FyQiHzqAPKGbIuV31r8QFFCSf8zl9GBm270eKRJaX/0=;
- b=qPOKCyh7ndDWOtKiiASiRLytKp+VOvAmiE3zuDYaPETX5xvI8kvFfCLs8FPq4c5z50twTeZkYLYRTCy+XUGoRsCdMRn6r008/YHU93QowoSLpmQ6PGt4fuBIUEChuD91OQ80Vh1vRp5dRcTWPMXlStbJDXJCOFpwccoMyUKpAfqy9bdBRgyCPKBBrelN/d+eoCIRsVtn1NK4MK0Y8ANNPHdGLmvGxqNyXBJnRI8AwCTIcQIM9fAqbsNYRQNz8ESdk8Iwxl2+Es8eei06eG1wdHTmHNlxQQRq9yUzVfxCSxSD2ssIl5twfKo3IxALwO1TSos5GNfY9nb0XYNWpyc6YA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=phil.gs; dmarc=pass action=none header.from=phil.gs; dkim=pass
- header.d=phil.gs; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=NETORGFT5377951.onmicrosoft.com;
- s=selector1-NETORGFT5377951-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FyQiHzqAPKGbIuV31r8QFFCSf8zl9GBm270eKRJaX/0=;
- b=FvNgf9AE67UtjO7P1xUxcpfQR/U5fSvjzzu4z/aCb0EpNXHCbxup+XXEil2+VsxX01KblvzeJMHTEpWfEKXm3NXEeGOxHO6+As2IAlcAYna5sHltM0X1aXqC4K4Oasku5civzdsegVFF79R1EoESATlxK1lvaYkDf8zpVi9RBgU=
-Received: from BY5PR04MB6472.namprd04.prod.outlook.com (2603:10b6:a03:1eb::10)
- by MN2PR04MB6480.namprd04.prod.outlook.com (2603:10b6:208:1ae::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 16:42:47 +0000
-Received: from BY5PR04MB6472.namprd04.prod.outlook.com
- ([fe80::3a9:9dbc:2aeb:8827]) by BY5PR04MB6472.namprd04.prod.outlook.com
- ([fe80::3a9:9dbc:2aeb:8827%6]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 16:42:47 +0000
-From: Phil Rosenthal <phil@phil.gs>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, Geert
- Uytterhoeven <geert+renesas@glider.be>, Johan Hovold <johan@kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v2] serial: core: Shut down a running console port before
- removing it
-Thread-Topic: [PATCH v2] serial: core: Shut down a running console port before
- removing it
-Thread-Index: AQHdWxwrPqD4KhmrxEqZJAva4oT6Srb7pSwAgAAIToA=
-Date: Tue, 13 Oct 2026 16:42:47 +0000
-Message-ID: <61E0B380-1646-4770-BF37-E1E4329FEE86@phil.gs>
-References: <20261013-serial-console-remove-v2-1-2eca1a92c10d@phil.gs>
- <2026101326-outmatch-regular-f8ae@gregkh>
-In-Reply-To: <2026101326-outmatch-regular-f8ae@gregkh>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=phil.gs;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY5PR04MB6472:EE_|MN2PR04MB6480:EE_
-x-ms-office365-filtering-correlation-id: 04ef6b07-9045-4d13-59f0-08df29490341
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|19092799006|376014|1800799024|366016|23010399003|10067099003|22082099003|18002099003|38070700021|261009223027099003|7055299009|4143699003|56012099006;
-x-microsoft-antispam-message-info:
- o5SpXfAFeXumZ9EDlwi/5g184fi8Zt9u2pS/POIWOpvsNoV/hKpmZ+LO0/KHebQaT3qvYeGUP/ivtbgITJiFkEMjdKT3Cxz0K/BSSdleszacHFaIrv2EoZQA6PMyOtgXABl/Fv8LaAz7xVLyyMd3lvbFP9/7TLTxzNigrIi2mNsBxmr6vs28ToTDuTrIOGu+WAy3TJH9QKocYFvWT9XyNIchiZUaEvaJa5o39QtPoAili7pg6EIV8jlBu1PRF2pWw7p8M62Vt53SXabebm/tvtYO87coHOdCjJS7WgoTofvRKhKCtH+b8TfMM9SMUHF1yYhGGKPec2jbCSrdcF0YEwlc4n3Q1+qi7vt4t4su6rw4EmRVCFjTI2mgAPsUvp/HFYgxHY3whOPcstAvkcLN6Ivlmv2PQ7U+zyCFDKM4EtzFzbdwL0Z1yq5+oKBDi2DlkviyLbAAl0Ye/aJmRIOgHby39OHecD09JzlZ0KImCunX1R/jTqva3adSFqXIeQ13IOVxB+JMRqvFOS2PaXOuXgxCHJWNHOUt5WhoFZm9eFqQvDre1uggIWXeB+HaLEFjV/NOYiEg7qtzSl2F64N6D/y/wFgZwl7cnWqI6dxI5lNA4sYlyuUF3bvlpDB1V5RV00qYhHIebw9rCmqqMO2WI1bX3bIb4Dd7b7f+xrnBt01rSvbv16LjwvWqWv8/u5oHK1uf9G9Rnzly8FkzMZz42A==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR04MB6472.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(366016)(23010399003)(10067099003)(22082099003)(18002099003)(38070700021)(261009223027099003)(7055299009)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?n5A2qrd0DILEW/3nBS9jTMxq5ej9nkJJRWtTrF/l8WZoVkUPbb1rsK6cZzgP?=
- =?us-ascii?Q?lGREyjDPXAYums08ddTEYzEIi0gOggz2KUWKpInZJjrLXYhRa5frLqNWneAM?=
- =?us-ascii?Q?oeiEjYhckDAfjpANcBl5h4BQwQey0cKn1IvUKivRDrfJ4c0pAS6T4DB1no1Q?=
- =?us-ascii?Q?ycedM/g/q3RTsMqBiuUhaTgFGN64lMcWJbxYGeit3BDrURxi+de7GUavyfFC?=
- =?us-ascii?Q?lZWDHk1wRJYp6qRyWxEM76dnQZJSH9jwQ0XrupqlgGy4J956Cpju1qv3xVSd?=
- =?us-ascii?Q?u/bHHndboI5ule4fCp53KNoYjjq7v7Uz27Dqjndjx5yPTvkzWgqz++AZxPtz?=
- =?us-ascii?Q?NrrV6yfUtbfYfqse/aZq+OHuLhm0Uej8JTriNrbOR8WyPuclZJFX898zniNG?=
- =?us-ascii?Q?F8Nh96lhhpS0mCjFQJa3I0cFWl2y7/x1YNVs3YgmvP38BTC1G29Fc1wWqErV?=
- =?us-ascii?Q?Q2HUmDmnxecjnIMndeW8APlGGygGJPa2GrlyZMvYX0EITi8TDl2jw9O9EOd1?=
- =?us-ascii?Q?QuiV+zRzSfbzr0UNKYWnNMNZ6WlLm4VFFAWpxrAyxEC+gTifFK5NaUfAjC6L?=
- =?us-ascii?Q?qIL37mjLzGvo0p2BZILuLcxzcs2Jwu2hv8MuUs6mru75jWMv5nmF1VYUIOdQ?=
- =?us-ascii?Q?ZuPrjA0zyr204exh13ZyD3piRH0B7uBzf192U6q+fGoFbV3eLN8nlEBw7NMo?=
- =?us-ascii?Q?7KwPXl9Il0ht7c4ErDQ3Fic0Gesm8lwBMXFN0umOTwg+4xp6LYbYPiqqBOKV?=
- =?us-ascii?Q?48NKpDuyA/r2BLOQNB2Vh0jZ4vnNOqUyIos7XSLu6poMa9y/v82wTrchpLco?=
- =?us-ascii?Q?ravv0IcW82/rIlHaE9Z1LknxndHh09tz2V6miHSQ5fxwJ3uEWgpd4aZzsEe7?=
- =?us-ascii?Q?cQUDtmzqjuCoUcV1hndCTsWih+4UvfEW6fVHgAWUedQMwAkQP9MPah+OGUMy?=
- =?us-ascii?Q?8pdxx5jjIYpdk6ks79H1uPkhtjPMhU9GYnPbzFYMat+3oAmgd6pvGBPVN7T3?=
- =?us-ascii?Q?FW3z+OqNlITLVfF2Q3O//To2qDE7HI8c8wKgp8PVP3eipIWi2c4fmd6ZvZgU?=
- =?us-ascii?Q?2o57Phad4nSJLa8PmKXTWyb/srYPvV8cTHidSVzqr+kHpKEMkM3nxWZg4gBi?=
- =?us-ascii?Q?mMJZPb0uV3RweIsesE6W+fBwKGjuBP3pO3xezjefMA+PT1GlhjOlRdDVYw6s?=
- =?us-ascii?Q?utrEIkYEd0KdOLQEHCzoMf4cDHZ51xV5E4nmXbRaZ8Ssy0IYK2RYe7n2sw4z?=
- =?us-ascii?Q?40p7TvZgkjNlW6VK7vnT3Iot8R6BncS5UJzLcFu5CPjJ5UZl1ysAos0oULjo?=
- =?us-ascii?Q?qnBrRwnyaSfYydBWaCUanGmuB/3MxMQiREl1CNELFxkbV9ubrGgfGlaZPoDZ?=
- =?us-ascii?Q?ChbcVHpFnaQ9R/cBmcnQ9bklu3/A6AXSyUY9WHVGJo1ofjhimu5uJav8f7Rq?=
- =?us-ascii?Q?8hDBIiy4tBEMSjZnTwXwlXDTC8GHx3osLgs79C7h//0zi8IDqHuOdQs3uDsH?=
- =?us-ascii?Q?bVAsfY4AcwxijdOPHUbA2MOfmiijSW+CvKcsEwxH7MzR8EH1usOefA8AcTQF?=
- =?us-ascii?Q?qUuutjUlSFGwQjAw/Nv8YCKIRhzdb33tFrhno3YPCX2MjH/70IQU9zz3Xjzh?=
- =?us-ascii?Q?SYwDaExV8wM7tLEiUsj5LHt34KUDjxUfoMzlSsQ8BA6a9PjaYsl/ixw4Feoj?=
- =?us-ascii?Q?/uKh+Akb99T7JLF6e7hFk24nqd+lTpbLcjYhSN/8AB8lgFC4?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <72AA720810B06C4E97C6B86562907FB5@namprd04.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="L6p04Btx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PcPBi5Nzv8M4w/Sm2h+bvnujrs8RY53hUJG3UM3gd0I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791909816; v=1; x=1792514616;
+ b=L6p04Btx8ET30VezN/nEa1qBe5y3MeH1mXZpXDpTt9009wRfldTfd12Q6oFvZosbYE/xLAAN
+ K+MCceZdnASpd4GrNzdBSNSwoosHlWy6D0COo3yiZqq1Yggmd4Hr216CXT3NzR9z6gH7dB0DylU
+ 6r5Di41lhSh31fILH+jAgudM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bb0e231c7fdb8771;
+	Tue, 13 Oct 2026 16:43:35 +0000
+X-Mizu-Trace-ID: bb0e231c7fdb8771
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] KVM: arm64: Don't WARN on SMCCC filter reserved range allocation failure
+Date: Tue, 13 Oct 2026 17:43:34 +0100
+Message-Id: <20261013164334.1492070-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: phil.gs
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR04MB6472.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04ef6b07-9045-4d13-59f0-08df29490341
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 16:42:47.3570
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 47d4f979-ea6f-4fcb-aea9-39371d64bc6b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ca9kmkzJbNTc5nLuwgFLZiLRv5lI72YSlOM3aRuImh7cd5Z2ZfIlV0BPIk0UgxTU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR04MB6480
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 06:12:52PM +0200, Greg Kroah-Hartman wrote:
-> Is this the same as:
-> 	https://patch.msgid.link/20261003163337.45577-1-igorpetindev@gmail.com
-> ?
+The first time userspace sets an SMCCC filter, kvm_smccc_set_filter()
+inserts the reserved architecture ranges into the maple tree and WARNs
+if that fails. The insertion allocates with GFP_KERNEL_ACCOUNT, so a
+tight memory cgroup limit is enough for userspace to hit the WARN, even
+though the -ENOMEM is also returned to it. The WARN dates back to when
+the ranges were inserted at VM creation.
 
-Yes, it's the same bug and the same fix. I hadn't seen Igor's patch when I
-sent mine, sorry for the noise. His is in tty-testing already, so
-please drop mine.
+Leave -ENOMEM out of the WARN and keep it for every other error. The
+two reserved ranges are fixed and disjoint and go into an empty tree
+under config_lock, so any other error is a KVM bug.
 
-> Why does that commit set a field and this change does not?  Which is
-> correct?
+Fixes: fb88707dd39bd ("KVM: arm64: Use a maple tree to represent the SMCCC filter")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260829055809.29AD31F000E9@smtp.kernel.org/
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+Changes since v1 [1]:
+  - Keep the WARN for any error other than -ENOMEM. (Oliver)
+  - Split out of v1 as its own patch. (Marc)
 
-Both work. Clearing port->console isn't needed for the fix, and it does
-no harm. uart_shutdown() doesn't look at that flag. It is only read in
-tty_port_shutdown_locked() and tty_port_close(), on the last close of a
-tty, and by this point any open tty has been hung up, so
-tty_port_close_start() returns before either is reached.
-serial_core_add_one_port() sets the flag again when the line is reused.
+Based on Linux 7.3-rc3 (fd73f4a665989).
 
-The other difference is that Igor's patch calls uart_shutdown() only if
-tty_port_initialized(), as my v1 did. Sashiko's review of my v1 pointed
-out that a console port removed while suspended is not initialized but
-still has its suspended flag set and its transmit buffer allocated, and
-uart_shutdown() would clear both. That needs the device to go away
-between system suspend and resume, and I haven't found a way to test
-it. If you want it covered I can send a patch on top of Igor's commit
-that drops the tty_port_initialized() check.
+[1] https://lore.kernel.org/all/20260928152507.2116110-2-fuad.tabba@linux.dev/
 
-I ran my reproducers on tty-next 36844ea19656 plus 810d467c11f0, in a
-QEMU guest with KASAN. Both cases that fail without it are fixed: the
-8250_pci port with INTx (IRQ freed on unbind, reading /proc/interrupts
-is clean, rebinding restores the console), and the polled MMIO port,
-where serial8250_timeout() no longer runs after removal. A port held
-open across removal and a console that was never opened still work.
-I'll send a Tested-by on Igor's thread.
+ arch/arm64/kvm/hypercalls.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Thanks,
-Phil
+diff --git a/arch/arm64/kvm/hypercalls.c b/arch/arm64/kvm/hypercalls.c
+index b11b8821c9fbc..c9d488c586e5f 100644
+--- a/arch/arm64/kvm/hypercalls.c
++++ b/arch/arm64/kvm/hypercalls.c
+@@ -197,8 +197,10 @@ static int kvm_smccc_set_filter(struct kvm *kvm, struct kvm_smccc_filter __user
+ 
+ 	if (!kvm_smccc_filter_configured(kvm)) {
+ 		r = kvm_smccc_filter_insert_reserved(kvm);
+-		if (WARN_ON_ONCE(r))
++		if (r) {
++			WARN_ON_ONCE(r != -ENOMEM);
+ 			goto out_unlock;
++		}
+ 	}
+ 
+ 	r = mtree_insert_range(&kvm->arch.smccc_filter, start, end,
+
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+-- 
+2.39.5
 
