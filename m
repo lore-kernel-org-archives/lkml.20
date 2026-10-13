@@ -1,140 +1,141 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B071131A55B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06701A5BAE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 00:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791850914; cv=none; b=CXXTW1kjSTrBUb9MIpUp3ubnNtP61/90zzSrM6VqVPb4JSN6LI1UB1laddrI/QNBf+8TQuKBZZVbw07DV66ME9U/cOkyYVOvOC/DzhNG5lTcXVByYfSsOF+Csz60+UIO6ZiMV0PynysLrYJehsRE9WCMl+DHTdh5XnoZxE6bI10=
+	t=1791850967; cv=none; b=ulLDNSf+LXufVRSgeLHQJ2xzBQqdc2rvI5QQB9jVLwpImOkOvd8PCdk5r3vaPVoSzLVZbs4DDQHL0ic2CazEneK2jxOtX9+F58FQMdPSz06mDhjcBkRi2kiBPgLeLrvAQLqpYcwvDEkKzq3NuYAaQIGka/pK/p+xw0s3cbSVu+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791850914; c=relaxed/simple;
-	bh=26R6QjZja8iwEgaIS7NPevZdCEiibaTu0MopPJ7UPos=;
-	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Yr3qKS49e4bqwzjHk8RK91fI3yJlXqA+kBPtj4BwPoAKvpQdFIZwbCS0/aiVTc0TzUsXEerW8cYRwb7EDAwSjlkka4jzIMsLlWYWPn1coXI9ONFQVKLf6UTCFAcFBLTdVibRI9tRcj5ug3h7OJ8C5AHzJe087c5Iu29furjyS4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RSjR3MZY; arc=none smtp.client-ip=74.125.82.177
+	s=arc-20240116; t=1791850967; c=relaxed/simple;
+	bh=K7UaePRq9BaSpkAEaPCymyNIpn/Ox/pXqLeTP/6uCDI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ARZmweAJ5K2QvjZzMqqFOLTWuZ2q1J46xxOZq1VHLX1mpyC0GGMWbCbIQZ2wG0YHaMEn/watT6PUV7kavAPyRTUEBA/JELPFoNB/SXD2MFg3a6/dy9m91C1Iisf0JdOpfsqcI+UVekpIr616Hox89DmlqrfouNApUR/KpdxdMuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QF/VTuRW; arc=none smtp.client-ip=74.125.82.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RSjR3MZY"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1145738eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:21:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QF/VTuRW"
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1419d3416ceso3421447c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 17:22:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791850913; x=1792455713; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=26R6QjZja8iwEgaIS7NPevZdCEiibaTu0MopPJ7UPos=;
-        b=RSjR3MZY/vVTaZx1qZ0noJdcqE8d5NiFifbzdj/ueXIM3MEEWsjFSY4rb0pNPjOmjq
-         sxE2pEUTqY0JsY6iHdrCmh4Ve+r4exBhaQnbEIS+Yoqy3JJBnrFKCVOckufg5SSm7yJf
-         OQg6lGX5jKk7W2ON34kaVl63gqm7zdfyF1xgW/nwMvGrWMmpsT2AZXGfwggKhXSXBljP
-         6AKrJzXKV+j0Na+EFCMz+A0i96VVUnO2+R5JzZxZACs5/fkYBNoX8/fjc278yfehCEni
-         j+NTnA9YlFua2kZk+guYLK8GCOqAjwe28lWlHuJlZGk1c5o+vK+foimcATKiP2im4eQd
-         BIsw==
+        d=gmail.com; s=20251104; t=1791850966; x=1792455766; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W9Ot3u6KmR57ETTt+6GZrmtSr17nrcJz4mYhNrXKLiE=;
+        b=QF/VTuRWk822s+cVN+KuEO9Olxd0TSG1NeJRPTuHGYh8lVeJXto37d7RutUWJ1YcVY
+         jdGv6bPcEiVSLWPNrSCDSY8RvlTiHBs5hiVsSF3RnBr1N3STIKA6tWPC+nburKFtLtWG
+         sSbJ8D6a42hi8qxeOeyMtlgZcPhXjTQNIrRzV4uLNqq0jhYpMTjWktJBnvGlp37xgkez
+         mZafK/GN0vapAWuLoFV/xvMyR6viT3gnxRL+wg4nRwD5QxUM0fQcV2WWTbdMN6uG/nGc
+         yA5tM7X0MnpkYvyv2322g97dua1Pyh67w4YWSQ/HR0CNwts1bN0AlD9euQi+OA08p2Gc
+         CJuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791850913; x=1792455713;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791850966; x=1792455766;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=26R6QjZja8iwEgaIS7NPevZdCEiibaTu0MopPJ7UPos=;
-        b=WfIv+DAID19I8jN+uWcyASF+U5bltYJEYQP9/p+X+lMTj+rUa8plTbIt9QuYzs7rNT
-         yzdpFhFdpWrDPgXzZ1huMnxm7kXinEoxr1IL4pYmANLCBcwYF6ixwV/ZkwC7aten6hTc
-         GHHZLIXRFR0wBICE1LSrIN48s5vNQoLvrLMeYk6je86evZQmsxbJ6dkYaRo68N62jImN
-         0kCiVqV2D3Dy0NGQw/Xur2w/ONlBhArTtqyCHeh9LNmXJBqMBIjGvzrdwccQ6AqQ6ZiC
-         QxQHm01tOPr7vsmmP0mH4pmjTFvHZkYq67pKOTJMCdMGxV9TPoCqqrCkfm/QfBJO+DdG
-         ClpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxuzyKDImrssaCeIT0aGIPoz6h5kMG2RQbTbQYDxLIHXqzXHdTp/e23t8EGeuNAJbV78UcwlhueYO2JB9c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJ9mTV/y0BSFM+pKfxiC24F7Fb4eA9OJUmLwzG9tQiGGNeYJhU
-	CQ+l36HnRKZahBR/HOfo/9SRolwBaIcbltOIOUfNnSt/FW76bCE5FE5D
-X-Gm-Gg: AYBFou2Wb2xV4tyVTD4U6NrfDfaaQpwhFsl0JnyWI4WsCHGxS6UgDT+vy2CN3pTvt3u
-	urmMpdcJJkdjms/6ohUWk+uPe7l11AQF64DF9abNMSltdCyvgjk16fTzTG/cPQfd5m6HkRhVveb
-	GnYEYtcNl67pbAYzx6Huq12vGV0EZiOpyiw8DBNMZnM+8dRfyHXkqSsg7OBv/IhHNtw3iM/2yUN
-	BKIjyPxannub6uJCcc6DARzuWFtih/FnDiKGoKGKpLq+NAQon+2IDlF6f/e8lejx7kP2D5jMXzQ
-	U9kXhxziw08EM+Fg++Zcc+89IlD/yletbBbuLzwzMmIm12WnapSiMLWDEvaal+cYbORcvEe7uyB
-	I/1bB+iNP2mKZPge1JlLriV6V6Dm7a3tqWnl6CCfptFsJ7woKNLHhE7j35y6Qt4Zm4RCC/w63op
-	5rGuwLmjN1T8M47oBYEV4+XmYPW9xQcRUV8O6O3pSdv019xbZvdZUlkWulU+Y7snsRnf+Bn0JLQ
-	bY7VuzmBStEuN6UFwmQWg==
-X-Received: by 2002:a05:7301:7d16:b0:350:2a5c:56c with SMTP id 5a478bee46e88-3537e08eee0mr15924457eec.20.1791850912519;
-        Mon, 12 Oct 2026 17:21:52 -0700 (PDT)
-Received: from penguin.lxd ([12.187.136.98])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3595e0858c6sm23646723eec.22.2026.10.12.17.21.51
+        bh=W9Ot3u6KmR57ETTt+6GZrmtSr17nrcJz4mYhNrXKLiE=;
+        b=E4yTWm2QqH2wMWkT9n4w6J40faoaHQtyUlHcNjB+FvnO79EQnK+cNAo418WHDxxIxl
+         mSF1+V8kpmt2QIfPhab+HiaxhfTRK7Gcw3pIoJI06NCvkxZq+26r2lGyRkIaOchK2pL2
+         R9+Jzg71AQ/odYoe8a2fM8TxSlx9CGwJLvXMEuIhqQa8mxju7Ql2z71IFobKsAtakFXb
+         g1ZD8gQ5K0zQUQdjqYaXnrlbIRtJgW/QHptrrpJecd8FOLYvfi8KjJ1wU6U4AVA7w8ta
+         8afQT5Z2A5ReKhMCGpKoOhePX8GcMTmMq2q8V7dwOVnfgRF1Ty5Jtk0Edqq6QXnC2ppB
+         zAfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzwPSKn5hLfbAbcXhTPkLbYIKHRUbhnVyyzNdBpap+FdEQAYfa1cdC2RYTxVtm6qw2KW6pP2Nj5lg45WhY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXPfVPUO5fGdhncc9w9+8HJAB3H5+jcZ8oJQgAcjOpFLgkWcgW
+	xBwBwW5VYpvBxmlaxw85UBIKmZ1Zpi//mZG8VNAd8EtJrLgymHQhlCqu
+X-Gm-Gg: AYBFou35iB2MiGj4Nbghip6jc5JjIip6WsBBb0XNNN99fkMG9Zrb8n8yG3ktTMO4Dca
+	lAtGt8fX5IfVa71f6XEqvAc0jk5l3clwfj+OY9LrcvC+9AgIqjWRsvK8EwrfLQPxZ8vbXA4x4Nv
+	62gCDc7IxSHKS4yPTgrD9e/EESa9e9lPLWktYGcc5b+igG8HTCO76EXDmylYPk2O3x31lRD1olh
+	ryS2g8C1r+6nBPuuerJtofkG4sqLCyKOTbjQ1Fu5o0aPyZOgefejgaV9duwp6LxV7JYGqLeUdwK
+	WFV0hHVPN19rFcCTInw5OdguiLH017y+z6kwaxEMtHZPX/AqQVGMFX8EvxhkykjmTTK1usUP+cV
+	FSoRNisclJsoGKgKSw4CamF4/f3TMvylz2Vh/YZLH8RHvtZ1TPd8fCWdtV5E2Hc2n2LX5iyQWBr
+	Y8mKRtGD/DDSwDButUspid5b0d9XFy2CTJG74PuU7dKOBqohQVgomofshMrVDptJLB+NhDnZleL
+	9jfJ+jCiBCwhze3onrtsi9O3QiCDF3TuZPbCrSu
+X-Received: by 2002:a05:7022:1582:b0:143:298e:913d with SMTP id a92af1059eb24-16a63b2edc7mr21744351c88.47.1791850965414;
+        Mon, 12 Oct 2026 17:22:45 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:679a:f35b:7c29:e0f2])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becb11sm31217695c88.4.2026.10.12.17.22.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 17:21:51 -0700 (PDT)
-From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-To: usama.arif@linux.dev,
-	akpm@linux-foundation.org,
-	chengming.zhou@linux.dev,
-	dsterba@suse.com,
-	hannes@cmpxchg.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	nphamcs@gmail.com,
-	terrelln@fb.com,
-	yosry@kernel.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	senozhatsky@chromium.org,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	kanchanapsridhar2026@gmail.com,
-	linux-crypto@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v2 1/2] mm: zswap: use separate compression and decompression requests
-Date: Mon, 12 Oct 2026 17:21:40 -0700
-Message-Id: <20261013002140.28880-1-kanchanapsridhar2026@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261009163146.83112-2-usama.arif@linux.dev>
-References: <20261009163146.83112-2-usama.arif@linux.dev>
+        Mon, 12 Oct 2026 17:22:44 -0700 (PDT)
+Date: Mon, 12 Oct 2026 17:22:41 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Shashikirana H K <shashikiranah@chromium.org>
+Cc: Jiri Kosina <jikos@kernel.org>, 
+	Benjamin Tissoires <bentiss@kernel.org>, Stephen Boyd <swboyd@chromium.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Tzung-Bi Shih <tzungbi@chromium.org>, 
+	Sean O'Brien <seobrien@chromium.org>
+Subject: Re: [PATCH] HID: vivaldi: Validate Report ID and length in feature
+ mapping
+Message-ID: <as1sq5X8rpdKLfHO@google.com>
+References: <20261006-upstream-vivaldi-fix-v1-1-bbc9a7f14ea6@chromium.org>
+ <asfk_jRVjY8pXzjt@google.com>
+ <CAH=natbNnhVMO0vXmhTi5wipEsfMr9wy7u_PRCXDYFaWJXqoCA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAH=natbNnhVMO0vXmhTi5wipEsfMr9wy7u_PRCXDYFaWJXqoCA@mail.gmail.com>
 
-On Fri, Oct 9, 2026 at 6:31 PM Usama Arif <usama.arif@linux.dev> wrote:
->
-> Stores and loads serialize on the same per-CPU acomp request and mutex.
-> A low-priority store can be preempted as soon as the compressor drops
-> its stream lock, while it still holds the mutex. A higher-priority load
-> on that CPU then waits until the store runs again, which can take a
-> long time when other tasks are runnable.
->
-> Give compression and decompression their own request, completion wait
-> and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
-> decompression APIs from zsmalloc"), the per-CPU buffer is only used for
-> compression, so group it with the compression request. Independent
-> requests can share the per-CPU transform; the codecs and drivers
-> synchronize their shared state internally. Loads can still wait for
-> each other on the decompression mutex, and stores still serialize on
-> the compression mutex.
->
-> acomp_request_free() ignores NULL requests, so drop the check in
-> acomp_ctx_free().
->
-> This follows the proposal from Sergey Senozhatsky for the same split
-> for zram [1].
->
-> [1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chromium.org/
->
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Hi Shashikirana,
 
-I have a question with regards to this patch. Is the intent to allow a
-decompress thread to run concurrently with a store thread for a given process?
-If so, I wonder if incurring context switch/PTE/TLB shootdowns performance
-penalty is worth it?
+On Sun, Oct 11, 2026 at 05:29:22PM +0000, Shashikirana H K wrote:
+> > I do not think checking whether report is numbered is needed. While
+> > transports handle numbered and non-numbered reports differently here I
+> > believe we always have report number (0 for unnumbered) in first byte.
+> > Also, shouldn't this check be in hid core if it is needed?
+>
+> Agreed on both points:
+> 1. Dropping `report->id &&` and simply checking `report_data[0] != report->id`
+>    (like mt_get_feature() in hid-multitouch.c) works for both numbered and
+>    unnumbered reports since transports place 0 in byte 0 for unnumbered
+>    reports.
+> 2. Checking `buf[0] != reportnum` on HID_REQ_GET_REPORT directly in hid-core
+>    (e.g. in __hid_hw_raw_request()) would protect all HID drivers at once.
+>
+> Jiri, Benjamin, Dmitry -- would you prefer a v2 that checks
+> `ret != report_len` and `report_data[0] != report->id` in
+> vivaldi_feature_mapping(), or moving the `buf[0] != reportnum` check for
+> HID_REQ_GET_REPORT into hid-core?
 
-With the proposed change, will zswap_store() continue to run on the "old" CPU
-(i.e. the one to which the process got migrated), or is it a requirement that
-the "old" process is in sleep state? If so, should we codify/document this
-requirement?
+Yes, let's harden hid-core directly by rejecting descriptors that mix
+numbered and unnumbered reports in hid_register_report() and validating
+buf[0] against reportnum on HID_REQ_GET_REPORT transfers in
+__hid_hw_raw_request(). I'll prepare a patch series addressing this and
+a few other issues.
 
-On the new CPU, is the same process "runnable", and if so, how do we ensure that
-the "higher priority" decompress is handled while the zswap_store() prior to
-preemption is still not done?
+In vivaldi_feature_mapping() itself, though, there is no reason to go
+through hid_report_raw_event() at all: we already have field, report,
+and usage in hand, and nothing else consumes field->value[] for this
+report. If we verify ret != report_len and extract the value directly
+via hid_field_extract(), similarly to hammer_get_folded_state(), we
+avoid re-looking up the report by ID altogether and do not even need a
+separate report ID check there:
 
-Thanks,
-Kanchana
+	u8 *buf __free(kfree) = hid_alloc_report_buf(report, GFP_KERNEL);
+	if (!buf)
+		return;
+
+	report_len = hid_report_len(report) + !report->id;
+	ret = hid_hw_raw_request(hdev, report->id, buf, report_len,
+				 HID_FEATURE_REPORT, HID_REQ_GET_REPORT);
+	if (ret != report_len) {
+		dev_warn(&hdev->dev, "failed to fetch feature %d: %d\n",
+			 report->id, ret);
+		return;
+	}
+
+	offset = field->report_offset + usage->usage_index * field->report_size;
+	data->function_row_physmap[fn_key - MIN_FN_ROW_KEY] =
+		hid_field_extract(hdev, buf + 1, offset, field->report_size);
+
+Thanks.
+
+-- 
+Dmitry
