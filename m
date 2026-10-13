@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7835947208B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB788476CE9;
 	Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791858998; cv=none; b=OZh/36dod5mvnb6pQLDnAtk5NdYirB8Lxd6BOLuuGbPTA73TY+LPbYjIq7V4XLCbRoVA0Iqjufdh0fyvKI0czx12EtFtn1oP72EoE/YlApco4XsMdNQJqHK4OCJ0zyHhACO+n2SoNTL894ellF+3T9L6E+vvEPA0VP7qwR2as7Q=
+	t=1791858998; cv=none; b=uDLKH5xYX3bVA81fSpa3v/9oaG/7LihmlUP9gfbj2FFwjUlvZozp0459oo6IQlOxd++TBwBbIITEBkCLXLVE0/u2hBtggQeBgqyrzDToqXUoUrigYzmCDhMwX7onpFKZA7Tk69hXJjtJkvtPq7UefKa6Ta1370cP+0eSRbyV+3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791858998; c=relaxed/simple;
-	bh=Zv2dPve4Jwtgz2PMMo6A1CxZBGriBvEPz5pHh26Z+S8=;
+	bh=D0QFdQ7M7BH3J8LVzpCoVhrDjtI9QpBSbgZWRzVMi0o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=F29TqEptBZbqh83r0ih2XpNxv/4Vplz9yWH+LeQQLCqLoQNM+ouhOzIo3wsbAvJ3sIaVe+wItMeoK9fDZ70lbl/hErE0uwCzizqkPYnaQcaYCD2jIvFMSMRzzSDdhlW/KYsKQdq4U1KUAeje8etAbkLbmQd4pX0zecWW0zvy/U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kBKkSvDX; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=J2HLDr6IaI1YXjbh4VWpANKC0DctUouYEG01CiRrDuaKqABcJeRNot8Z7fTKKiWr1A7z/8I1FthXskORUYDXDW0AUBh7/fp9e93OQKylmpgM0YQZVYHYhqtCAj/HcAK1Y75swvQS9y/IPUTqg0E4x2nDtPk/Jnk+Hl/gmPMzO4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wf5Lvv/T; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kBKkSvDX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 01E80C2BD05;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wf5Lvv/T"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 522D4C4DDF1;
 	Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791858998;
-	bh=Zv2dPve4Jwtgz2PMMo6A1CxZBGriBvEPz5pHh26Z+S8=;
+	bh=D0QFdQ7M7BH3J8LVzpCoVhrDjtI9QpBSbgZWRzVMi0o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kBKkSvDXG6Og1YGuWFVHlQpsdefBNfb7QsDhLxiu4X/URmBnlmjmnpoI/GjD2wP/o
-	 301d+6HQc+iWoE2cTaut/FE9hSS8ztkDKaii2YClaVrJzrHvFhFXqzy1A8WTgA/2o7
-	 b7OMfs1e5B1S42kTYYlrlOSJYhEHcg4A4xi4z+RJyK/SOw3vfMNphKh3tMmaUQcHGo
-	 uWYpaF8hkWf7UGm7rD1o2Fwivd8FrLttvyvK9N9v3SDhTdA1GnrEW62lvaQOo7ROiZ
-	 Zcq5PQY0AETas0u3Ra2KX+upeCJrp757deINfA3lwygf7QDyNQus+yAOdd/jfPuRy6
-	 oh8ve+0V3+REg==
+	b=Wf5Lvv/T+C0uFg+cLwC6pyuqZdMteGP9GcEgOkkftUtX9xC9pq6sDwnRiGMV1gybX
+	 fI41mSDqaOsu8OWDfCaikskAaAcGiOCFs9mkZGNWrMYsT5s6/VG819nQ5i9G+UGULx
+	 QT8PZZRm0Z4HcQS8Xc5Io/FJ3DBSY6EJuwPs9qtUrXEi+u+UV8oqLH1kieDYOqaT0F
+	 Nu46RzKyingd4x/IX0ZZ5sHJjJ2HXWsc5Y2gUELdC6RHQXAzWsfkIbjelGB6U41VHY
+	 Sf1VDVzPVD6JfrljmLPP5UBCurEsWZxxwb88TviFwBb/So/HmYa53gbVCb7F8KE4uO
+	 fmLZ3/HovAqGw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6277CA9EC5;
-	Tue, 13 Oct 2026 02:36:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DA0CCC6B01;
+	Tue, 13 Oct 2026 02:36:38 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Mon, 12 Oct 2026 20:36:34 -0600
-Subject: [PATCH v12 03/40] vmlinux.lds.h: drop unused HEADERED_SECTION*
- macros
+Date: Mon, 12 Oct 2026 20:36:39 -0600
+Subject: [PATCH v12 08/40] dyndbg: add stub macro for
+ DECLARE_DYNDBG_CLASSMAP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-dd-cmap-part2-clean-v12-3-3c8cc5725def@gmail.com>
+Message-Id: <20261012-dd-cmap-part2-clean-v12-8-3c8cc5725def@gmail.com>
 References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
 In-Reply-To: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -69,11 +69,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791858995; l=1428;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791858995; l=3163;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=+Qnp7GmBGhxUf7BnWtOhBW1ycfqvD4UBWUm58PMJxJU=;
- b=5fcx9Luu0wnS8dC1ASCDKwi7vPdaBtgVqZe6JqalzmpEbzS+LGnSwQQsDTREJUfiKz1JYcxY4
- lam/j9HCuAxCNJwJUe4M3nHZxgFqpDhVMFxbWYr1xZqP2h0Ole6Cp0K
+ bh=SVpwWYWapDOMkXkjrEEN6bsp08Xgp+vSqsY5/WDA3N0=;
+ b=y4b6KFPGTTQYmt0Nqj263o70dG088pZap3vwzgdIjDKDAjlKTIqsO5aq7GuaFMJkYvHG0svys
+ 1V0dlWbdozxCLnwS/JVilZK/gYuVJwo7Jg3b5I2/ocEpegbK1+yIUV7
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -83,41 +83,83 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-These macros are unused, no point in carrying them any more.
-
-NB: these macros were just moved to bounded_sections.lds.h, from
-vmlinux.lds.h, which is the known entity, and therefore more
-meaningful in the 1-line summary, so thats what I used as the topic.
+Add the stub macro for !DYNAMIC_DEBUG builds, after moving the
+original macro-defn down under the big ifdef.  Do it now so future
+changes have a cleaner starting point.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/asm-generic/bounded_sections.lds.h | 15 ---------------
- 1 file changed, 15 deletions(-)
+ include/linux/dynamic_debug.h | 43 ++++++++++++++++++++++---------------------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
 
-diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
-index 8c29293ca7fb..268cdc34389b 100644
---- a/include/asm-generic/bounded_sections.lds.h
-+++ b/include/asm-generic/bounded_sections.lds.h
-@@ -18,19 +18,4 @@
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 05743900a116..a10adac8e8f0 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -93,27 +93,6 @@ struct ddebug_class_map {
+ 	enum class_map_type map_type;
+ };
  
- #define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
+-/**
+- * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
+- * @_var:   a struct ddebug_class_map, passed to module_param_cb
+- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
+- * @_base:  offset of 1st class-name. splits .class_id space
+- * @classes: class-names used to control class'd prdbgs
+- */
+-#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
+-	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
+-	static struct ddebug_class_map __aligned(8) __used		\
+-		__section("__dyndbg_classes") _var = {			\
+-		.mod = THIS_MODULE,					\
+-		.mod_name = KBUILD_MODNAME,				\
+-		.base = _base,						\
+-		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
+-		.class_names = _var##_classnames,			\
+-	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+-
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+ struct _ddebug_info {
+ 	struct _ddebug *descs;
+@@ -138,6 +117,27 @@ struct ddebug_class_param {
+ #if defined(CONFIG_DYNAMIC_DEBUG) || \
+ 	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
  
--#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
--	_HDR_##_label_	= .;						\
--	KEEP(*(.gnu.linkonce.##_sec_))					\
--	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
--
--#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
--	_label_##_HDR_ = .;						\
--	KEEP(*(.gnu.linkonce.##_sec_))					\
--	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
--
--#define HEADERED_SECTION_BY(_sec_, _label_)				\
--	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
--
--#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
--
- #endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
++/**
++ * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
++ * @_var:   a struct ddebug_class_map, passed to module_param_cb
++ * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
++ * @_base:  offset of 1st class-name. splits .class_id space
++ * @classes: class-names used to control class'd prdbgs
++ */
++#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
++	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
++	static struct ddebug_class_map __aligned(8) __used		\
++		__section("__dyndbg_classes") _var = {			\
++		.mod = THIS_MODULE,					\
++		.mod_name = KBUILD_MODNAME,				\
++		.base = _base,						\
++		.map_type = _maptype,					\
++		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.class_names = _var##_classnames,			\
++	}
++#define NUM_TYPE_ARGS(eltype, ...)				\
++	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
++
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
+ 
+@@ -314,6 +314,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 
+ #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) false
++#define DECLARE_DYNDBG_CLASSMAP(...)
+ 
+ #define dynamic_pr_debug(fmt, ...)					\
+ 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
 
 -- 
 2.56.0
