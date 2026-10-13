@@ -1,176 +1,262 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0DA535FA0;
-	Tue, 13 Oct 2026 22:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F6A519922;
+	Tue, 13 Oct 2026 22:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791931927; cv=none; b=sCfDwOMHqex7omEIpdqGl8qgtbJw1uF/wmp6mD+BeSsVBaiK2cJXnSJGDTcimiJq/2SUJgOO3XGTTlLjV8zTXa5kXr2Kp6JjKROAREDevWQErDGZFlHliSeIp7eG4vLkluuJGDGnAa/CVcYeYT8429iiQVO18WrdzHCw6rG5fuk=
+	t=1791931928; cv=none; b=UMfadM5iQoSWVAI2cxW2rPQ+EsSjHPqsfsiB5vUzC7SJtPBkFP09VD3zB0M+HnRHJfRgzxtX2NA6B+3TjcAZUuxv05fYz67B49U0mCsMfq4hDkOVGT3aWoE6QyQ8LNRF4wwhpasKxKLcKKTd90ZxOaRs2I8cepXO0UyFz4a5iTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791931927; c=relaxed/simple;
-	bh=FFe+p5tRUGDgwsZYDsPl+7ZOo4rO49AQKBgKoo4CTh8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OPptEU5IBS6l2LOBxjuvwTxkItFur34WpFhDA0Z5eh6ni0Aew9eHU/mnR4cLQygog4LWRzcS3CfAaaPCw2eaRWEO292/FJzkR+Ku3lXi2Ov5D3nyeoXJm84vi5975lr+bjl3yCNjEnE51ro8343YTYnexG/5nXjU8XtSaLcXVvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=CEziA9dO; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1791931928; c=relaxed/simple;
+	bh=zvmrfl0wIlPrQzTG6BzYpoFiY1TWBC1KaLC3+hI5dpM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QvvtHIOfl+lNLsN60t2KX8tFOonOebPKDs0aTsAyWuSnvi0/g3fNyBEGh9jllCMRNnd+oFb3LA7Yt1bLzro7DCcN7FJJhg2MJFi4iBz0pNR5iDGlrmBpkxKogyC6oEvoHdg7rgdMAhsyptqjXR7VdVWh4Di+yq+9L1y++TEWW4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NXyNhdS/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="CEziA9dO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791931910;
-	bh=FFe+p5tRUGDgwsZYDsPl+7ZOo4rO49AQKBgKoo4CTh8=;
-	h=From:Subject:Date:To:Cc:From;
-	b=CEziA9dOrXle/OLbz5LpMH/elrQJLb/eVCWUL1PNKA/Vi2BDMg34VkVtVEwZdfvoM
-	 VCt75IWfGQ3JNeZwh4gw1REq5hoHf7KO1UtX2/DQFY3dLKnkyLJ0HhekqVSyLM8/dS
-	 qF5Vu09MML7JWXwLypFVNsbQB0Aak+UfTmiDkQwN3w2/yaxp6/Cifram63lvaydgA2
-	 2RD+UuzeStDscqLQDA3+lMyzPsunqB1e5NHWqBkCSpmaVp8bHFawv3lWSTOlh16MOe
-	 tVpOnTrcZhe9F/Zy8s09PBqaRVJoJsM39SgbWpNt6PSvImhVXj3rPE+55bZDJlA7Pn
-	 Uh7VIuikgtxeg==
-Received: from localhost (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AAE7517E05F1;
-	Wed, 14 Oct 2026 00:51:50 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: [PATCH v5 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color
- format on DW HDMI QP
-Date: Wed, 14 Oct 2026 01:51:17 +0300
-Message-Id: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NXyNhdS/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D041F00893;
+	Tue, 13 Oct 2026 22:51:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791931919;
+	bh=SxFpD0jFUukbA8RESTUQDKcCYWdjCShdI2BwwoNvpEs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NXyNhdS/xbrhc0XdQeQZtaipaPCTHAD2MfiNpLo8oVOgmfUxBEojHsWPuG7NO5ai5
+	 SRiT9jgR14kBOFTw0I2anDlpK41EiqiULO1Wpx0SBOU+pDNr64J7KiviqD9d06MmwP
+	 OGJHEBx6Mkv4Y4sK/P66823jS11ZgVWtslmUFM7NwKcHnz0ytGjbmqu2li8fOmtTj7
+	 PFrxVa1nrg/5iIYtrJ2JdtrBl7cfVEDmS0Uolg0JffPlc17ROtx4GvzrTeqHueMsBa
+	 tFjf0zscZ2ZivXD2FQiT8jviM2WJYKAThqW4miAtAGKO2gxr6+J2DBS5ppnA9DkuRV
+	 HGZEyrfrLTxlg==
+Subject: Re: [PATCH net-next v3 5/7] vsock/virtio: support guest device
+ network namespace
+From: netdev-bot+sashiko@kernel.org
+To: bobbyeshleman@meta.com
+Cc: sgarzare@redhat.com, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, stefanha@redhat.com, mst@redhat.com,
+ jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com,
+ shuah@kernel.org, rdunlap@infradead.org, donald.hunter@gmail.com,
+ edumazet@kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com,
+ bobbyeshleman@gmail.com
+Date: Tue, 13 Oct 2026 22:51:57 +0000
+Message-ID: <179193191764.434549.1279241501217519580@kernel.org>
+In-Reply-To: <20261012-vsock-guest-ns-v3-5-b32447c66b23@meta.com>
+References: <20261012-vsock-guest-ns-v3-5-b32447c66b23@meta.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOzW4CIRQF4FcxrEvD34B01fdoXHDh0qFRsYNij
- Zl3L9iFTccuT3Lud+6VFJwSFvKyupIJayop71sYnlbEj27/jjSFlolgQjPNDQ1nOoZdop8Hejl
- VKoBFAzCAW3PSjg4TxvR1A982P7mc4AP9sSu9MaZyzNPltlh57/2LV04ZdVoPPgamgwmvPm+3D
- vLknn3ekT5QxZ0wTC8I0QiwHBCkDBjiI0L+JuyCkP0L5exaOBsFmkeEuhOWyQWhGhFBDRAVVwb
- hLzHP8ze9zhf3iwEAAA==
-X-Change-ID: 20260617-dw-hdmi-qp-yuv-2b0f7bb5ba81
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Daniel Stone <daniels@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Daniel Stone <daniel@fooishbar.org>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.15.2
 
-This series extends the output color format support of the Rockchip DW
-HDMI QP controller to cover 10-bit YUV 4:2:2 and 8/10-bit YUV 4:2:0.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Patches 1, 7 & 15 improve VOP2 robustness on RK3588, helping recover
-from exceptions and preventing random display output glitches observed
-when switching modes that also change the color format, e.g. from RGB to
-YUV 4:2:0 and vice versa.
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 2
 
-Patch 8 avoids an incorrect DCLK source switch for 10-bit YUV 4:2:2 by
-forcing 8 bpc in the bandwidth check.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Patches 2-6 address a few vop2 related issues reported by Sashiko, while
-9-12 are additional cleanups/improvements.
+- [Medium] A socket closed by device reassignment can still send packets
+  through the device it supposedly lost access to.
+- [Low] The implementation-notes comment at the top of
+  net/vmw_vsock/af_vsock.c still gives virtio-vsock as the example of a…
+- [Low] The dev-netns-set uAPI doc in
+  Documentation/netlink/specs/vsock.yaml (added by the earlier commit…
 
-Patch 13 adds MEDIA_BUS_FMT_UYVY10_1X20 for 10-bit YUV 4:2:2 output,
-configuring the PHY with 8 bpc.  YUV 4:2:2 always transmits two 12-bit
-components per pixel regardless of color depth, so from a clock-rate
-perspective it is equivalent to three 8-bit RGB components.
+Pre-existing issues:
+- [High] This problem was not introduced by this patch, but the patch's
+  new isolation can be bypassed through vsock packet capture.
 
-Patch 14 advertises YUV 4:2:0 output, now that the bus-format and VOP2
-support are in place.
+--
 
-Tested on Radxa's boards ROCK 5B (RK3588) and ROCK 4D (RK3576).
+vsock/virtio: support guest device network namespace
 
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
-Changes in v5:
-- Rebased onto latest drm-misc-next and fixed the conflicts introduced
-  by the recent addition of HDMI 2.0 support to the DRM infrastructure
-- Updated patch "drm/rockchip: vop2: Reset AXI and DCLK to improve
-  robustness" to also assert the AXI reset in the bind path, fixing DSI
-  panel support on RK3588 EVB1 (Sebastian Reichel)
-- Added new patch "drm/rockchip: dw_hdmi_qp: Do not mask error code in
-  atomic_check()" to fix a pre-existing issue reported by Sashiko
-- Link to v4: https://patch.msgid.link/20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com
+This commit makes the virtio-vsock guest device assignable to a network
+namespace. It re-reads the assigned netns for each packet in
+virtio_transport_rx_work(). It also uses vsock_maybe_set_connected() so
+that new connections are added to the connected table atomically with
+respect to namespace assignment.
 
-Changes in v4:
-- Collected T-b tags from Igor
-- Rebased onto the latest drm-misc-next, which now contains the HDPTX
-  PHY driver fixes, so the runtime dependency has been dropped
-- Link to v3: https://patch.msgid.link/20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com
+> diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+> index eced6929405df..4123924536dd6 100644
+> --- a/net/vmw_vsock/virtio_transport.c
+> +++ b/net/vmw_vsock/virtio_transport.c
+> @@ -542,7 +542,7 @@ static bool virtio_transport_msgzerocopy_allow(void)
+>  
+>  bool virtio_transport_stream_allow(struct vsock_sock *vsk, u32 cid, u32 port)
+>  {
+> -	return vsock_net_mode_global(vsk);
+> +	return vsock_g2h_net_reachable(sock_net(sk_vsock(vsk)));
+>  }
 
-Changes in v3:
-- Updated patch 3 to skip any hardware programming in the callbacks
-  gated by drm_atomic_helper_commit_planes() after powering down VOP2 on
-  an atomic_enable() error (Sashiko)
-- Ensured VBLANK events are sent immediately when atomic_enable() fails,
-  hence preventing userspace processes waiting for the page flip
-  completion to hang indefinitely (new patch 4, Sashiko)
-- Rebased onto latest drm-misc-next
-- Link to v2: https://patch.msgid.link/20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com
+[Severity: Medium]
+virtio_transport_stream_allow() gates new connections. Now that the
+device can be assigned, can a socket closed by
+vsock_g2h_reset_unreachable() still put packets on the device?
 
-Changes in v2:
-- Collected R-b from Krzysztof on the binding patch, while also fixed
-  the property ordering in the example
-- Renamed vop2_clk_reset() to vop2_reset_assert_deassert() and used to
-  devm_reset_control_get_optional_exclusive() in patch 6 (Philipp Zabel)
-- Addressed several issues reported by Sashiko
-  * Reset AXI before detaching the IOMMU domain, to close a theoretical
-    window where stale or in-flight DMA transactions could fault or
-    access memory untranslated after the domain is detached (patch 6)
-  * Fixed resource leak on vop2_enable() error path (new patch 2)
-  * Balance state on atomic_enable error paths (new patch 3)
-  * Avoided division by zero when computing max_dclk (new path 4)
-  * Fixed VOP2_MAX_DCLK_RATE overflow on 32-bit (new patch 5)
-- Rebased onto latest drm-misc-next
-- Link to v1: https://patch.msgid.link/20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com
+The sweep only changes sk_state and sk_err, then removes the socket from
+the connected table:
 
----
-Cristian Ciocaltea (15):
-      dt-bindings: display: vop2: Add missing reset properties
-      drm/rockchip: vop2: Fix resource leak on vop2_enable() error path
-      drm/rockchip: vop2: Balance state on atomic_enable() error paths
-      drm/rockchip: vop2: Send pending event when atomic_enable() fails
-      drm/rockchip: vop2: Avoid division by zero when computing max_dclk
-      drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
-      drm/rockchip: vop2: Reset AXI and DCLK to improve robustness
-      drm/rockchip: vop2: Avoid DCLK source switch for 10-bit YUV422 output
-      drm/rockchip: vop2: Consolidate HDMI PHY PLL clock parent switch
-      drm/rockchip: vop2: Switch to enum vop_csc_format
-      drm/bridge: dw-hdmi-qp: Log resolution and refresh rate in atomic_enable()
-      drm/rockchip: dw_hdmi_qp: Do not mask error code in atomic_check()
-      drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
-      drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
-      arm64: dts: rockchip: Add RK3588 VOP2 resets
+net/vmw_vsock/af_vsock.c:vsock_g2h_reset_unreachable() {
+    ...
+			sk->sk_state = TCP_CLOSE;
+			sk->sk_err = ECONNRESET;
+			sk_error_report(sk);
 
- .../bindings/display/rockchip/rockchip-vop2.yaml   |  46 ++++-
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |  12 ++
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |  10 +-
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     |  15 +-
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       | 217 +++++++++++++++------
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h       |  10 +
- 6 files changed, 247 insertions(+), 63 deletions(-)
----
-base-commit: 3e32932d3626d0279f9b3531bd648f8c0a16cb08
-change-id: 20260617-dw-hdmi-qp-yuv-2b0f7bb5ba81
+			__vsock_remove_connected(vsk);
+    ...
+}
 
+It does not touch vsk->transport or sock->state, which stays
+SS_CONNECTED. vsock_shutdown() only rejects SS_UNCONNECTED:
+
+net/vmw_vsock/af_vsock.c:vsock_shutdown() {
+    ...
+	if (sock->state == SS_UNCONNECTED) {
+		err = -ENOTCONN;
+		if (sock_type_connectible(sk->sk_type))
+			goto out;
+	} else {
+		sock->state = SS_DISCONNECTING;
+    ...
+			vsock_send_shutdown(sk, mode);
+    ...
+}
+
+So calling shutdown() on the old fd goes through:
+
+vsock_send_shutdown()
+  virtio_transport_shutdown()
+    virtio_transport_send_pkt_info()
+      virtio_transport_send_pkt()
+
+virtio_transport_send_pkt() never uses its net argument before it queues
+the packet on the device. sock->state never goes back to SS_UNCONNECTED,
+so this can be repeated.
+
+The wire header carries only CIDs and ports. Suppose the newly assigned
+local namespace reuses the same guest/host port tuple. Could these
+SHUTDOWN packets then tear down a host connection that now belongs to
+the new owner?
+
+Even without a tuple collision, the namespace that lost the device can
+still send traffic on it. That seems to contradict the documented rule
+"assigned to a local mode namespace - only that namespace may use it".
+
+[ ... ]
+
+> @@ -587,6 +587,7 @@ static struct virtio_transport virtio_transport = {
+>  		.seqpacket_has_data       = virtio_transport_seqpacket_has_data,
+>  
+>  		.msgzerocopy_allow        = virtio_transport_msgzerocopy_allow,
+> +		.netns_assign_allow       = true,
+
+[Severity: Low]
+This isn't a bug, but the implementation notes at the top of
+net/vmw_vsock/af_vsock.c still use virtio-vsock as the example of a
+transport without local mode support:
+
+ *       a different transport that *does* support local mode. For
+ *       example, virtio-vsock may not support local mode, but the socket
+ *       may still accept a connection from vhost-vsock which does.
+
+This patch sets netns_assign_allow, and virtio_transport_rx_work() now
+delivers into the assigned namespace. So virtio-vsock can serve a local
+mode namespace once the device is assigned.
+
+Should this example be updated? It also seems to conflict with the
+sysctl doc, which says "Of the in-tree guest transports, only
+virtio-vsock implements it."
+
+[Severity: Low]
+This is the first transport to set netns_assign_allow, so the
+dev-netns-set behaviour becomes reachable with this patch. The uAPI doc
+in Documentation/netlink/specs/vsock.yaml, added earlier in this series,
+says:
+
+        Movement to an unreachable local namespace results in sockets being
+        closed with ECONNRESET. Peers are not guaranteed to be notified via
+        an RST.
+
+However, vsock_g2h_reset_unreachable() closes every socket that fails
+vsock_g2h_reachable_sk() after any move:
+
+			if (vsk->transport != t ||
+			    sk->sk_state == TCP_CLOSE ||
+			    vsock_g2h_reachable_sk(vsk))
+				continue;
+
+That includes moving the device out of a local namespace L and back to
+init_net or another global namespace. vsock_net_check_mode(L, init_net)
+is false, so every connected socket in L is closed with ECONNRESET.
+
+Should the yaml text also cover moves out of a local namespace? The
+sysctl doc already does ("from a namespace that can no longer reach the
+device").
+
+[ ... ]
+
+> @@ -682,10 +688,15 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>  
+>  			virtio_transport_deliver_tap_pkt(skb);
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch. Can
+the vsock tap path bypass the isolation that this patch adds?
+
+virtio_transport_deliver_tap_pkt() runs for every received packet,
+before any namespace is applied. vsock_deliver_tap() then clones the
+packet, payload included, to every entry on the global vsock_tap_all
+list:
+
+net/vmw_vsock/af_vsock_tap.c:__vsock_deliver_tap() {
+    ...
+	list_for_each_entry_rcu(tmp, &vsock_tap_all, list) {
+		ret = __vsock_deliver_tap_skb(skb, tmp->dev);
+    ...
+}
+
+vsock_add_tap(), called from vsockmon_open(), only checks the device
+type:
+
+	if (unlikely(vt->dev->type != ARPHRD_VSOCKMON))
+		return -EINVAL;
+
+Nothing on the tap path filters with net_eq() or vsock_net_check_mode().
+vsockmon has no netns restriction either. So CAP_NET_ADMIN over any
+netns, including one owned by a user namespace, is enough to create a
+vsockmon device, bring it up and capture on it with AF_PACKET.
+
+Once the guest device is assigned to a local mode namespace, can any
+other namespace still read all guest<->host vsock traffic this way?
+
+The TX side in virtio_transport_send_pkt_work() appears to have the same
+exposure, and vhost-vsock local mode already had it. By contrast, nlmon
+taps are kept per netns.
+
+>  
+> -			/* Force virtio-transport into global mode since it
+> -			 * does not yet support local-mode namespacing.
+> +			/* Only grab a reference if the net changes underneath
+> +			 * us.
+>  			 */
+> -			virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
+> +			if (unlikely(!vsock_g2h_net_eq(net))) {
+> +				put_net_track(net, &ns_tracker);
+> +				net = vsock_g2h_net_get(&ns_tracker);
+> +			}
+> +
+> +			virtio_transport_recv_pkt(t, skb, net);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-vsock-guest-ns-v3-0-b32447c66b23%40meta.com
