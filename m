@@ -1,204 +1,313 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023143.outbound.protection.outlook.com [40.107.44.143])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD113E122D;
-	Tue, 13 Oct 2026 09:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.143
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885551; cv=fail; b=hmwlSe9Y65KZGTGa+ileq4sfGj8L7jqO5qPKnoUfi5TW2QYK2rjTvFgXesTtN0UDfVvvlrBm5qY2d0G8hPjNz28Ouwe1hwDeD1t9M3SHmHaB0irTTAtB5B2VDFeatQUZtHJ3BWyxLg55dztr0J8pCoN/iwSiHiISzojn15/j/T4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885551; c=relaxed/simple;
-	bh=9ZaMvt7CFEPdbCVkTpozMHK4SAVb0AkPwaKnhRyJ3Ko=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T2/fZQdWpFyuePtffCoUWEHa48hQUJpWKbnU+JQsRr09klV/B91ZeTbaDKiI6uGsTG9d1uNQtliPlS2rGzdvugOZU6qVt5oFUyw0uynDJQbXFq4s2HNHLeKv81a2+FuABe5lPd3IXBlkrWQwN4ldgL+2wWT0aHvrIUrmzzMg+dY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sIlclXz2vh6WVQfGQU0gC/7hBtV6Ipm60b1bdYnnOKSSFSNmKeZiWWGs0wXtR3UuqNpQ2jHBDtebn9jYomsV1fzFoGobV/FsN8/lTATanPsYtH8rVAhVhvqhXgy13BSD8RX4Qicg4PfG83bGeI5FW6sR7UYnUjfNiBm5YYIf+MJxkpNNLHc4oESMuQOcr19Cjvl1GKRjKuzGd8Yd2H8nCK6amuL0YBP3Z6l32ZSy0N+BEwPJGl11AfLU5AW+a99dpsTi9Cj11JpQj8mtydU/cfpV/uj6dLLeqGykMsPni9wEQ+8Jk0UyLpMJ5MBZF71z5Xq+VQkiVC1YlLCIZiV+qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+G0vO2BFzHzK2W1JEdKydTUPF3CcnRQTI5XjaEM2Z1o=;
- b=qczkSGhzOXu7yRLeN+GdowT92+BSxyVdH949UF8N5oNVfUwz0tU3d+tkpzDiJASn9rrp6xyWO8lC2+QIB4arnnlU31UQkCTqg+TzTT3VOMkPRl2Cn+CXD6evOBv94xCmuwXhHkavJTWyrJvwp0JMr/YbP7Vtxl4T2x/IN1Z8HAtG/cWR4lth/Jw1Iy3XiXMZjxUTHgqryvPvBk/sDgYAwIGkPfMSEjPr/j8u9MqczvHfY72pIuWHF9Tr13LsJmly3OpjEWn4tHi8vBClqppn458SQGcIVZeSSClzNHlAPbBaBeOhXfPsgl51eakyzayHt2TVQ2QLDBOmHlWBrHzqeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SG2PR04CA0208.apcprd04.prod.outlook.com (2603:1096:4:187::10)
- by KUZPR06MB8252.apcprd06.prod.outlook.com (2603:1096:d10:59::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 09:59:02 +0000
-Received: from SG2PEPF000B66CB.apcprd03.prod.outlook.com
- (2603:1096:4:187:cafe::a6) by SG2PR04CA0208.outlook.office365.com
- (2603:1096:4:187::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 09:59:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CB.mail.protection.outlook.com (10.167.240.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 09:59:01 +0000
-Received: from localhost.localdomain (unknown [172.16.64.56])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id F366840920F7;
-	Tue, 13 Oct 2026 17:59:00 +0800 (CST)
-From: Luo Liu <Luo.Liu@cixtech.com>
-To: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	gary.yang@cixtech.com,
-	fugang.duan@cixtech.com,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: cix-kernel-upstream@cixtech.com,
-	p.zabel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	Luo.Liu@cixtech.com,
-	Wuyi.Shen@cixtech.com,
-	EastLake.Yang@cixtech.com
-Subject: [PATCH v3 1/3] dt-bindings: phy: Add CIX Sky1 DP PHY
-Date: Tue, 13 Oct 2026 17:58:58 +0800
-Message-Id: <20261013095900.758464-2-Luo.Liu@cixtech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261013095900.758464-1-Luo.Liu@cixtech.com>
-References: <20261013095900.758464-1-Luo.Liu@cixtech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF983D667D
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791885550; cv=none; b=TguSMpcwvy88UZP2iEfk95WHHhudeHqjggUGRqyRsUOjA6Zjk1bH9Py/0IXXb3aHEdenk6ZvR8eL3Ldso3HmRRNAliMPKh3VqoJOz8kVMdQ5sfDNx0l1CMsM7qQwmq+4xfePi44eam6BrEf/jTyyFK2VMW6eL4INeYyRVoIrcfU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791885550; c=relaxed/simple;
+	bh=KdRugLb4AG8mnhRWND71HZNxrkIGIZA30pMRhsDgAD0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SioT4l5JdJstGjPYhusvKoGY7Ul8KL/wZE2aVwDn/josLMMj1U7tLYCOZkGLldjVwU8LhbiRvvRdrlDfNtntBijUNL5hvGJvnUNgHhcp6WB9SpLnzAm9TBDwvA+s91oOoVmJwmZpC7362OEkYu+tXhExHwJhEDo0KwHSWC+VPeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=aucDJChA; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="aucDJChA"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2EIlV1774554;
+	Tue, 13 Oct 2026 09:58:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=NJ8tXY
+	QSPboSDMyNtnaiCexVh6DJ8MlokRCqNdsihLY=; b=aucDJChAOK5cS6ZMMBgB4l
+	a6VbIV1bDOiKobgRK5f82iS+rHRq4EdtkzsxIQfDaKsoc/b97Rwat3VTAPlZ8+Bb
+	Neri2untfdcObJvEMRixsG3gFrIoGDfsUNyw37fyiDoXYfHUpz9JLciC4f+9Ng1Z
+	ZUMR9sMhIdruGXsPaJz6m+g4C6a6uUdcXiLaxs/iaK1P+t3l15GAWx4cGaDZ+aOz
+	tc8E2zN/FqAc5TVbOWTemfHZmu2FQ+QrTCbx3Q9Ckvh52MF/OpuX78lNPzO4NgAX
+	h+gTzuRIhmuPzTIr8aCQ36doE6IR7wfSV39zSVrMaqpBkj840ei/EHgZJB2wRDmw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhvxmf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 09:58:36 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8Tv3I2644067;
+	Tue, 13 Oct 2026 09:58:35 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h80pjs5a8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 13 Oct 2026 09:58:35 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69D9wVDZ52298034
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 13 Oct 2026 09:58:31 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8D1AA20040;
+	Tue, 13 Oct 2026 09:58:31 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AE17620043;
+	Tue, 13 Oct 2026 09:58:26 +0000 (GMT)
+Received: from [9.39.27.235] (unknown [9.39.27.235])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 13 Oct 2026 09:58:26 +0000 (GMT)
+Message-ID: <dfd8312d-a59c-4480-b054-d94d2e66110e@linux.ibm.com>
+Date: Tue, 13 Oct 2026 15:28:25 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CB:EE_|KUZPR06MB8252:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 35ba96f2-a74b-468f-520f-08df29109ba5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|42112799006|23010399003|1800799024|921020|56012099006|261009223027099003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	d08jq0JpZfP4ElilpemLdaUJs5JXwlxhHrbwGcKIUj7aUsyNjA5gbKxrXuYaWzTrd6WeB0FQGACYQH8EYFEyK5nGq9WlHmHmWvEgydahbGJ7qzrLukVhgmtQK7WRC7DMQFebW/QP2aUySnS58F+dpTRuN82ecoJDfYBR1XTWVlh+rMf2HIO5pfzJkxyozYW7M0gaGFqAySNQeeTienNVDAP7YObvAGkj+vY7rNib+r7cJJPFbb5atAA9A0nJLoFZHjLGY+heGraJUgqnPk0NOmEX1RKVwBPlx0fe5NcjHiQ5DSvR70GJsGAC/XSHzHwKnju+9P1Jdh3kjyLnkv9KceHkAwgnCH79RcvFlT7Ulz6faXodBjQ1zM7rHw2Ma59+sYLY73o83lGJJPV8xMXjLfJj0AwkF+Bwg19weWwAGPxx7rgl4JCnPKPNeWN0aUXlcjwB+g2go5+891uv68SpBxLkERczXcdQ5vZXbgcu7ma0KCDs4l4zu+SLXRwlt2TwoeqXDEXmRVyB+JyUwOppk+gAV9raZHfCQ9QpObwpkO36SeM+r2oJsnkZ5kOXIZyMhdMqpeTYD/I+4sqE0QGF+JP6DUy4TtaKgG+MlXoeCmH7oCfxmE6EXmqPrbRFTY0F3hCtwbn5HmGcNgTv5iIps+OCqWurDc00AmaSDPoqmW1CMY1xfz+/ZBRUyICrp4gt
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(42112799006)(23010399003)(1800799024)(921020)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	6lFtNC6+oO9veUKLUn7AV/cHN9vk4ssK61QmAakWDVQn+xDiUUQLrsPTJLYKkoAaxEPIDOymmWZKJTEgKMq/oHnh5AjQAPm3iGnKNP7wKFMW6Gn+RpVpTnsNcoZNSUdyE2ta+M+yC/o/wTX82n7wojxMC/Ok/WtCpHhIxpMjxbn7lvGn07iGgPf4uTXFCaQAWLEnWcgmAqw+JTkwfl93i+yV6ukliPUhZuQeA183362aJGUlS5Cbvv40YEIOd9M4vCYMajv+oiNdUx26BFt6znH95Ut4MnLR0VCvxuDisn5KIhIbpCqK6Yib94KdnvyBrLSYdNEAYvp0x7XC8o0/f39M1+S7t0TmcpTBcAsNI7674IPnqN0pGDqInkA7BknfJlmVBOigyE9uQnEJGCkgJLT40gdolfLvgwM3tw6qhIHi3YhIPi0qxIkRiJLBwOV4
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 09:59:01.5749
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35ba96f2-a74b-468f-520f-08df29109ba5
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CB.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR06MB8252
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] powerpc/topology: Introduce llc_override debugfs
+To: Tim Chen <tim.c.chen@linux.intel.com>, maddy@linux.ibm.com,
+        linuxppc-dev@lists.ozlabs.org, peterz@infradead.org
+Cc: christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org,
+        ritesh.list@gmail.com, kprateek.nayak@amd.com, yu.c.chen@intel.com,
+        vineethr@linux.ibm.com, vincent.guittot@linaro.org,
+        srikar@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au
+References: <20261012102037.2477378-1-sshegde@linux.ibm.com>
+ <0cbd60fcf328ffcb317739f60d327da3af6145f1.camel@linux.intel.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <0cbd60fcf328ffcb317739f60d327da3af6145f1.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfX4pC8ZOeJaJVG
+ OTY0fBn2S9Vbm3Dn0BGS+bAnjvj4n9w2S/j5KLGhJneCxVWIbrXX7uqdcudT1N27IBnvQDh6ZGb
+ VJ7Ne0nmDxaWmE7qnJCCOAMyz5fB4T2YQ/qItJe6feJ3OW6mLDxF20EuGKlTl5IxK/dAtW3OvFu
+ WIFiHVjK7V5UWWVEPqbBtSKvTRQ7GhQD5cYDXYfFL9ZUG/vvSBM8lHlxvOdsXoYouGXc3Lz6FKK
+ hkETIos9ypGW6srDHBERThgu/QbAJ0qjJsIdn/app3j/A2yguGgRYaGLECY6Q8HHJgYq/BkniNl
+ yiTRUj8nvN4yikcgl1XtWuDPi/ywswGzXK2KmZbOiWdZEbu037Aj6wzWq6AqtiGk/i9XduhakfN
+ GbAZpGmVOcuU0VHbtyLQP47N5vsA6pT9m+gczzGhwMxS/SoRssTDI/LFM0PGvKresN0jcej4JBF
+ TKFlzPMiEzQ+34L+qlg==
+X-Proofpoint-GUID: tOU3g9CFxMU0adCdQZ97G7nsc4qB6hDD
+X-Proofpoint-ORIG-GUID: IF37tyWFD9MEi2djcMGGrVUR_F6F5wPj
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzOCBTYWx0ZWRfX6FMZf/iuVDx9
+ TyHpo4U4x1PQh60IWPINvYJUO9WUXWV0fPpdnXXcn5bHSuwT539OJJRVsuVglfPq/JIQYkqUUKl
+ aKTQVmlwmbitTqFycgV+g5jivGCdNpY=
+X-Authority-Analysis: v=2.4 cv=btHZl0ai c=1 sm=1 tr=0 ts=6ace00cc cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=QyXUC8HyAAAA:8 a=MLKLHRpHX2oh2FcDP8MA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130038
 
-Document the dedicated DisplayPort PHY on CIX Sky1, including the
-optional cix,edp board property to select the eDP swing table.
-Add a MAINTAINERS entry for the binding and driver.
+Hi Tim, Thanks for taking a look and findings.
 
-Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
+On 10/13/26 2:45 AM, Tim Chen wrote:
+> On Mon, 2026-10-12 at 15:50 +0530, Shrikanth Hegde wrote:
+>> There is a new feature in scheduler called as Cache Aware Scheduling [1].
+>> It tries to keep related tasks within the same LLC domain while
+>> keeping the system reasonably balanced.
+>>
+>> Cache Aware Scheduling assumes that the scheduler LLC domain is large enough
+>> to be a useful placement target. This is true on many systems where an LLC spans
+>> several cores, but not on PowerPC systems where the scheduler-visible LLC is at
+>> the SMT level. In that case, sd_llc_size is effectively the SMT width.
+>>
+>> This becomes visible in the capacity check:
+>>          return !fits_capacity((mm->sc_stat.nr_running_avg * cpu_smt_num_threads),
+>>                                scale * per_cpu(sd_llc_size, cpu));
+>>
+>> As a result, Cache aware scheduling may be enabled but has no room to operate.
+>>
+>> Hence provide a debugfs option to set LLC at specific domain so that
+>> one can try experiment their workload with cache aware scheduling.
+>> This also provides ways to explore it on system with SMT=4 to see if
+>> there are any opportunities to improve or uncover bugs if there is any.
+>>
+>> Note it is a debug option and it is recommended to keep it disabled.
+>> There is no performance guarantees across different values.
+>>
+>> [1]: https://lore.kernel.org/all/cover.1778703694.git.tim.c.chen@linux.intel.com/
+> 
+> Shrikanth,
+> 
+> This is an interesting idea. One question from a quick look at the code.
+> 
+> The override moves sd_llc, sd_llc_size and sd_llc_shared, but not
+> sd_llc_id. The id comes from arch_llc_mask(), which is
+> cpu_l2_cache_mask() on powerpc, so after your patches it is still
+> unique per core. It is also sticky: build_sched_domains() assigns it
+> only when it is -1, and it is reset only on CPU offline. So a rebuild
+> from the knob keeps the old ids.
+> 
+> Cache aware scheduling uses this id as the identity of an LLC:
+> p->preferred_llc, nr_pref_dst_llc/llc_counts[], and the
+> llc_id(cpu) == llc_id(grp->cpu) check in task_cache_work(). In that
+> loop the occupancy is now summed over the MC span, but the id check
+> rarely matches and is broken.
+> 
+> To make this work, arch_llc_mask() needs to follow the override, and
+> the llc ids need to be reset when the topology is forced to rebuild.
+> 
+
+Thanks for catching this. I missed to see that.
+
+One way to fix it is with a change like below.
+But more thoughts after the patch.
+
 ---
- .../bindings/phy/cix,sky1-dp-phy.yaml         | 56 +++++++++++++++++++
- MAINTAINERS                                   |  8 +++
- 2 files changed, 64 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
+  arch/powerpc/include/asm/topology.h |  7 +------
+  arch/powerpc/kernel/smp.c           | 23 +++++++++++++++++++++++
+  include/linux/sched.h               |  2 +-
+  kernel/sched/topology.c             |  7 +++++++
+  4 files changed, 32 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml b/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
-new file mode 100644
-index 000000000000..be0a4029a592
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
-@@ -0,0 +1,56 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/cix,sky1-dp-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/arch/powerpc/include/asm/topology.h b/arch/powerpc/include/asm/topology.h
+index 44ec416fa489..f4555632e692 100644
+--- a/arch/powerpc/include/asm/topology.h
++++ b/arch/powerpc/include/asm/topology.h
+@@ -135,12 +135,7 @@ struct cpumask *cpu_coregroup_mask(int cpu);
+  const struct cpumask *cpu_die_mask(int cpu);
+  int cpu_die_id(int cpu);
+  
+-/*
+- * Points to where the LLC is. On power9 this will point at CACHE
+- * domain, On others it will point to SMT domain. In all cases
+- * cpu_l2_cache_mask points to where LLC is
+- */
+-#define arch_llc_mask(cpu)     cpu_l2_cache_mask(cpu)
++const struct cpumask *arch_llc_mask(int cpu);
+  
+  #ifdef CONFIG_PPC64
+  #include <asm/smp.h>
+diff --git a/arch/powerpc/kernel/smp.c b/arch/powerpc/kernel/smp.c
+index 6a4ee7d3b8e5..139c54fc3e2d 100644
+--- a/arch/powerpc/kernel/smp.c
++++ b/arch/powerpc/kernel/smp.c
+@@ -1864,6 +1864,28 @@ void __noreturn arch_cpu_idle_dead(void)
+  
+  #endif
+  
++/*
++ * Points to where the LLC is. On power9 this will point at CACHE
++ * domain, On others it will point to SMT domain. In all cases
++ * cpu_l2_cache_mask points to where LLC is.
++ *
++ * If there is llc_override debug knob, return appropriate mask
++ */
++const struct cpumask *arch_llc_mask(int cpu)
++{
++	switch (READ_ONCE(llc_override)) {
++	case LLC_OVERRIDE_SMT:
++		return cpu_smt_mask(cpu);
++	case LLC_OVERRIDE_MC:
++		return cpu_coregroup_mask(cpu);
++	case LLC_OVERRIDE_PKG:
++		return cpu_die_mask(cpu);
++	case LLC_OVERRIDE_DISABLED:
++	default:
++		return cpu_l2_cache_mask(cpu);
++	}
++}
 +
-+title: CIX Sky1 DisplayPort PHY
+  int arch_update_cpu_topology(void)
+  {
+  	if (READ_ONCE(llc_override_changed)) {
+@@ -1923,6 +1945,7 @@ static ssize_t llc_override_set(struct file *file, const char __user *ubuf,
+  		pr_info("sched LLC override set to %s. Rebuilding sched domains\n",
+  			llc_override_str[override]);
+  
++		sched_reset_llc_id();
+  		rebuild_sched_domains();
+  	}
+  
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 7b91cae4a59c..4d7e2ee841a9 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -2505,5 +2505,5 @@ extern void migrate_enable(void);
+  #endif /* MODULE */
+  
+  DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
+-
++void sched_reset_llc_id(void);
+  #endif
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index dd2b1d70ec9d..63c9bca4c5eb 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -3087,6 +3087,13 @@ void sched_domains_free_llc_id(int cpu)
+  	sched_domains_mutex_unlock();
+  }
+  
++void sched_reset_llc_id(void)
++{
++	int cpu;
 +
-+maintainers:
-+  - Luo Liu <Luo.Liu@cixtech.com>
-+
-+description:
-+  The CIX Sky1 DP PHY provides the PMA/CDB register interface for the
-+  dedicated DisplayPort instance on CIX Sky1.
-+
-+  The PHY APB clock is physically shared with the DPTx controller and is
-+  managed only by the DPTx driver.
-+
-+properties:
-+  compatible:
-+    const: cix,sky1-dp-phy
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#phy-cells":
-+    const: 0
-+
-+  resets:
-+    maxItems: 1
-+    description: PHY hardware reset
-+
-+  cix,edp:
-+    type: boolean
-+    description:
-+      Use the eDP voltage swing and equalization table. Without this
-+      property the default DisplayPort table is used.
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#phy-cells"
-+  - resets
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-+
-+    phy@1414c000 {
-+        compatible = "cix,sky1-dp-phy";
-+        reg = <0x1414c000 0x4000>;
-+        resets = <&s5_syscon SKY1_DP_PHY_RST_N>;
-+        #phy-cells = <0>;
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..b46d0f4220a9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6360,6 +6360,14 @@ M:	Satish Kharat <satishkh@cisco.com>
- S:	Supported
- F:	drivers/infiniband/hw/usnic/
- 
-+CIX SKY1 DISPLAYPORT PHY DRIVER
-+M:	Luo Liu <Luo.Liu@cixtech.com>
-+R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
-+L:	linux-phy@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
-+F:	drivers/phy/cix/
-+
- CLANG CONTEXT ANALYSIS
- M:	Marco Elver <elver@google.com>
- R:	Bart Van Assche <bvanassche@acm.org>
++	for_each_online_cpu(cpu)
++		sched_domains_free_llc_id(cpu);
++}
+  /*
+   * Build sched domains for a given set of CPUs and attach the sched domains
+   * to the individual CPUs
 -- 
-2.25.1
+2.52.0
 
+
+
+Another way to avoid all this is with kernel parameter i think.
+That would fix the LLC at specific domain and this reset/rebuild of llc_id
+won't be necessary. If one is happy to change the debugfs, i guess they
+would okay with rebooting the kernel with specific parameter too.
+And at this point, I think that would mean the code will be arch/powerpc/
+contained too.
+(Yes, that would need updating arch_llc_mask, but no need to do the rebuilding
+the sd_llc_id stuff)
+
+
+So two ways.
+
+- debugfs way with above changes.
+- kernel parameters way.
+
+
+Tim, Peter, Maddy, What do you guys suggest?
+>>
+>> Tim, Chenyu, Peter,
+>> Are there any selftest or patches which is used for
+>> functional validation of cache aware scheduling?
+> 
+> We haven't created one. We validate mostly with workloads such as
+> hackbench, schbench and yogini (which can vary the number of threads
+> over time and track CPU assignment). I agree they are not ideal for
+> functional checks of the load balance path.
+> 
+>> per-LLC occupancy in /proc/{PID}/schedstat may not tell the full
+>> story when there are multiple processes and multiple LLC's.
+>>
+>> Atleast for functional verification, we might need one if there is
+>> not one already. The reason being,
+>> - At present, we may need a custom workload. hackbench/schbench are
+>>    wakeup intensive and typically bail out even before load balance.
+>> - stress-ng is per process. So doesn't get cache aware scheduling.
+>> - A selftest could spwan specific number of threads till llc size etc
+>>    and ensure packing happens till core_count(llc_size) by default.
+>>    This could also be used for tunable verfifications.
+>> - Provide an ability to observe how much of the workload was contained
+>>    within the LLC due to cache aware scheduling or number of load
+>>    balances stopped due to preferred llc.
+> 
+> A selftest would be great and much welcomed.
+> 
+
+Cool. Will give it a try. but only after start implementing
+will come to know the challenges. LLM's are there to help anyway!.
+
+> Tim
+> 
