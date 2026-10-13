@@ -1,267 +1,189 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332EE334692
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:01:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896462; cv=none; b=IN37+kVPt+VgMaU1nZMyzqiyj8mYzZIlEHE4x+ulnpBsSUuHH4jw+c3ArfTNFjb4AD/us1JL6vTOuLwn5u+509tLW/8ogOmTuN4ET5lEVlmsUiSPrLiAvr8VwOUxiKUeno8DxgsqUulEIXi4i4Z+TftLDMIAA5mhTISg3AUTCgo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896462; c=relaxed/simple;
-	bh=AduMkvx1n0zCcP0NUjw003W54t5BWrn3PN0GPRnxgQo=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=rhxVLY13xkfJbBqNLs+BOaoBrIQSpjWFOkFz8wpYHk6amdtXG71b5NyuWBU3kB8KiBx9E/XCUGVhK5XJt9W6oIURwd75QnwNyOmmwq7/6tpKspMcLYkNP1ztjX3BoEdmkLvEkZk7FffJKLxGii+k0tHZ0tdOxHApBfw31ee0Qhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=OxhKAcNL; arc=none smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C64334692
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:01:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791896493; cv=pass; b=XauJFLPgaaF34ozB2cNrfWjuKY7XRfwdN8bYWh9LYeF01nWlr9VX/nLLO721iYuf4llE3ZjclwDlmkj3OJsPB8FeTVrOxfLfunK569DRN2MRrAmFK+MkVg3/Z3NqRnMncx9OFiaIP5k6BD4VA4V3KjD5D/3Vt+XwLvXybGTgy74=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791896493; c=relaxed/simple;
+	bh=toe9yb2XFnEECQoBzURsHAyN9yjNtZPEApnZ+PZcHWA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TK1ogHC1mIWb7nwX9StjoUmqc6ll01NCWCyvIjohYe+B29k3eBpM+WPRNcBi7n0JBd3Il60vk9j52mo0gjC5WtNPqtj8LaCmBT3EkzhdMNFHWOCaFeewGx6JbculBSYaCVxz8xlrRmfwINizooEcNaTLy2r4M45WPINbgS9Wrb8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WlqHcuOJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=R5wDzuxT; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="OxhKAcNL"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bcb2eceb3eso2484993e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:01:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WlqHcuOJ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="R5wDzuxT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791896490;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KQqcIXlaYOQ9CiGwV5uRnoFItSNFU1ls/V/6Sz7sN9o=;
+	b=WlqHcuOJJZBXJJ93A1Pat8aTNcsgv382dgos3UHCk5jqpeMznr8yeXbiwfVhff52LfVeau
+	WOEbaN9iWowQj/EcKFiCLPiLKUCa6Wu3F60Obcqg0WRnIS2rFtVXxipyNSkfUX9TyAGgBA
+	GF+PoUoiJO4FzoOCyj/AMDYhxj9HXyU=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-70-zGbly4jxOmy7Z8dfWkLrRw-1; Tue, 13 Oct 2026 13:01:28 +0000
+X-MC-Unique: zGbly4jxOmy7Z8dfWkLrRw-1
+X-Mimecast-MFC-AGG-ID: zGbly4jxOmy7Z8dfWkLrRw_1791896488
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8ae7fb98d59so23512407b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:01:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791896488; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YoVKekTc+jGxKGSQ/rDtWaoYCznLlBCs6OC0d/JeoX+K8G36cWLi4LmwL4V5JN/dR4
+         jQgR1CvYi163NFD+2Abhe/biZ3OxeudPNab/16vlkUNi+TkS2N9na4nT6oumArOtMzbG
+         CUMiGwZewSAsote/TA/cxVt89CguQGruSTw8JWKKikdMi7yK/BhZSI8aEOBwW0FDDsvg
+         Gw+eUVjiVHBPYJB2Wyf7N6Wx0Qf6fJ+QiiLIzXAV89FxVZZhmwL8y6NIvhARwM/diGST
+         3eLHcUdACon46hc+BnPxkDeATiOnhHRe0CkVexEAJRHr325zD5JnDflZC7XA2BvEJi+V
+         DYDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KQqcIXlaYOQ9CiGwV5uRnoFItSNFU1ls/V/6Sz7sN9o=;
+        fh=uELw7H7DWjZQBQdoXwfFnHBdgB0qY6fQwM2pf91DqIo=;
+        b=r3k6CeTfrqIRt0eBDh1KFS9QQc3LQlxkqH/WdZu7g1cdc1wNPaLygiRSxxWuimnB3g
+         3XK8TH1FeL4z17WEbEDMd4Op3E4x6Ov88wDSFs+mTLaRszcp1VipNpWiEgwzvqqz44cP
+         4JkgnUDGjoow35CVYZ3v20agC34CZXUdjy3PsNVcWWQOYu4vIBg5yc45ltd2A25pIPG3
+         miM9JCyFuKudX9qkn3OorCU1EK6C8wXsHvweQZJIm59FN1uBUHf+VFgnF6vDH61mim7A
+         qDL4ZO/iQJVjaKmOJoV1xNz0d6PSZ+y3V5UJ3goE7e1SEqz5q/sOW0ryFxVlB99Fjpdi
+         Oj7w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1791896458; x=1792501258; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xhpGL6YoccSJtK8h84NFPxYwPN/7uQF8oIdoEiXDADE=;
-        b=OxhKAcNLqWtvtgPqMkjlBLYibLQizYfzmYyEN34lh4gqrDxEGBzrcGxAoa6SQMOK0x
-         OLJb8aHjXAUemhi9lXE/T2tNqOIkGKHhTEOwXLKqrcIXF7djhSoOOQ1179YXaQOUD/wi
-         ib1g7a3RQsfyCyTvcdLVxUd6zGI54oP/ko6tYlNBQUVVtMo3xjr+lEkzJlHZlsO7vIqF
-         Z8YvvzsqYP90YTfLfuDSL7+VpslrOuPM4fzdYqaEOLvh1ePLSms+cnNLAmwrd3GbAbA4
-         Nad0uZZrOFGLFarNU6aXmU2bHMwzBOpZRbnlarYV5zl6kwpXcxNMxHtxjd0hPU2xFDk8
-         A0fw==
+        d=redhat.com; s=google; t=1791896488; x=1792501288; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KQqcIXlaYOQ9CiGwV5uRnoFItSNFU1ls/V/6Sz7sN9o=;
+        b=R5wDzuxTaZ6IBU/XNOKVx+B9+wCwfJKIORpNi1kzZCDnriT24V+ffXC1tn0fLJ6jLs
+         fxWUiRJVLdPW13XpVNNsyZLm2BD7p1o5T8czs1PyZ9+rgz0r+F//I7z5Mf/3ccil+kyT
+         gvkjWAygCJYfoc8HLnQtA/9RLdTmE0FLDbXAp0O0CvHlKZX83oQisQyHJo9RajfuTRYW
+         fSUAsBe0SnvBdcsyu8QHj036AhYPlENHFdlKJOMUVp/jAWmSgh1GVZtWUs710jY/o0TW
+         3ca17pmHU7JV3fUeBg3DJdEvd3WgcsttJNEQwB+yvvJkvLA2CKkPZMjLxhpx8AYxp1Xi
+         UmBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791896458; x=1792501258;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xhpGL6YoccSJtK8h84NFPxYwPN/7uQF8oIdoEiXDADE=;
-        b=l7BIr6JB8a0zJc5lIx87CmakvbbVDzJbN9dl5ZOKDwrcm1aoGeBZU0EGBlCPEBrl3S
-         VYg4smMAGnJGplk/+Gaty/ituZLdZLGtvlUX4LPZN7W0u0FmsHZMpcJPDo++88wB6sgL
-         ug5JRrMezazT/+fCyhAL1qEWBbsV1nEoxOKJqA1hddsgxwrGpibDbVxHfYoQzox5CtWF
-         mSJj+tOYo98Da0fs9pHfyusCAR4Bv+uSwPtapjmKau+avujXbFxbUICRNGotSRH2BeBr
-         igrvbjfSkcujr04Z8kwEhFONVR6UXzm367AXdAVzApd0vdfZcJnD6ME3PEN4Gj6V7fFO
-         AMug==
-X-Forwarded-Encrypted: i=1; AKwUvByPfatzqzF0KTviSbfY0YTWmCw6rdWflxy+uPzNUC4VltTMt+JOe/CQeCmiKfVc8gBEFb4W/STTTHfFTSU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2sMCI2GqfC7I+Z2YY9tbz5fgYH1TgOwopUVGL1yt1GdPW6Qk4
-	gue7Tuth3QimMM5B4wJAunjhDFu5iBTtcNrn7ZAlFNk3hedl02h6VOgDjaPx/CFwsnQ=
-X-Gm-Gg: AYBFou0zjNwcHvljC4taOH8jZ92ZyhnazvsSNbGGntnLXzA6k4ckj7GZC7Yfg0A9b5y
-	4iJFRHxASaGMgJoJVeZuVS+PgsW4atTUOeu77lOof5mmGl4W5Q3MmMwjdZ7MbZdziQ1DXwRltNR
-	+LnhKwhBHhAIVCYJ2mzWQgMrlHv5TWMbmNw6Yc2w4ZdnFs8rzbA9GaX0VbG9DVJn8NRVU9Mp78E
-	34kZrG/At2+WUfzLadvrHVKSJyN/sXN71t35LjkKLS476uvkkJY0vpwoQ7QTqwHETsiaZNVeuhG
-	FWDEd3gxPbFJkq7QjrK+6oq7IdNJsUIdrQEgK8Mdy/OLps4IoPMiSwzgsJK3YZqowSyC58fg5FP
-	0xMyipJmzRn5O/qz5FH12n3xfL+LvQ6ZofoTWuvG958CZGxPIyF2yYkc6VsHXwHN3MxwY7E6gdj
-	zBJJky1eWYmXuj+DMK7yehr6eXMUscLuBA692PBVzQSe7VCU4cGOGkmzRNLLrR4U1WCqfY/J+2Q
-	VRm3Dc+ez/xvFjchKEDczgrTVXVcrFzbsR1gnOhEt0ZMbuulnHd5rbOn53ioCQMhtIXbBF5QQ==
-X-Received: by 2002:a05:6512:1193:b0:5b8:c147:f363 with SMTP id 2adb3069b0e04-5bcde8d4381mr4067679e87.64.1791896456820;
-        Tue, 13 Oct 2026 06:00:56 -0700 (PDT)
-Received: from raven.intern.cm-ag (p200300dc6f04b700023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f04:b700:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc50e0sm6549692f8f.49.2026.10.13.06.00.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 06:00:56 -0700 (PDT)
-From: Max Kellermann <max.kellermann@ionos.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Max Kellermann <max.kellermann@ionos.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] perf: skip unnecessary userspace map synthesis
-Date: Tue, 13 Oct 2026 15:00:43 +0200
-Message-ID: <20261013130052.3012773-1-max.kellermann@ionos.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1791896488; x=1792501288;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KQqcIXlaYOQ9CiGwV5uRnoFItSNFU1ls/V/6Sz7sN9o=;
+        b=i5roXWHyzQ+zMMkPQhbcweiw2ymqPV1dlcR3K5iG5Ezy4OCc2Nk17duQLp2cUJoEOR
+         KIDT4dB+Fpx+HXavGl6Kq/poSsZ8ytxBSxkYYj9dEz4kdZjHis0Fisg9zquQWzNJtXRx
+         ruKISz2ixZGwaBEgh7XFM+msJ04rYMCReAXQFAqS18ttNBZkqGKp01M+z7Y35LsBi1+7
+         HbSgH0Hb1pYO2tS7LB2rn3BWKq+hak0nC+eqcw6GDHjHNmk82KoN/TdC0eaaIFh9aHQJ
+         /US12Dfpxv6yBf/nILOZMPsWxSSm0r7bh1io6IpnGj7cC+Oa38CphswJprOegMt6WVvw
+         ubug==
+X-Forwarded-Encrypted: i=1; AKwUvBxxoznkcn6CRKEMzrVfunaKJpcOQIiqb86dsaYPXgeSmh7QoypY6hEflr4I0xqPOSeXce5K26ZDTtPGk5Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFgAT1nHTZMSJAETohrPt17gN8ZgsVpn91PQYo30vksUWJ5i7v
+	WUWLIYss3DtmMCmSfvqb+kVbeIMAVH5y7eCLc6U6vTa7N3LIzrVBIZvVZPs5s4AWOaCy1y2jEU9
+	AaesDePne+/E0ru7Wi8mSyf3ELWgQipV1o59DFg+MHE0z1sKIEzewKWadx7hVqvT9hvJRtMpkNP
+	WlsYqLTYiQ1pYN9+V5Uh5tukOh2DUNZzFUo+nxXrs1
+X-Gm-Gg: AYBFou0k3eOW/pHeEe2rfp82dbl9J2thyWHCjcsIMTlTYFfGiP/mKd9hm5kAH6ZO8yo
+	ogJ5wyYTBI4InhZ8HcUwRkKZpkIaPiEG+Ldd/tRoOKsX7WcOY9+qm1aa7pIEoPZYSXK5erUkKuz
+	8eljx+qS+T5WVGwJRg9IAZNE9ZBrEQLlZuEtmfDpg6pzIgAX+E8wkS4A==
+X-Received: by 2002:a05:690e:4847:b0:671:2832:efdb with SMTP id 956f58d0204a3-6793627124amr3406826d50.25.1791896487653;
+        Tue, 13 Oct 2026 06:01:27 -0700 (PDT)
+X-Received: by 2002:a05:690e:4847:b0:671:2832:efdb with SMTP id
+ 956f58d0204a3-6793627124amr3406753d50.25.1791896486366; Tue, 13 Oct 2026
+ 06:01:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261001-port-scm-patches-v3-0-17520fa3c541@redhat.com>
+ <20261001-port-scm-patches-v3-1-17520fa3c541@redhat.com> <66ad2051-193c-4990-ab4f-efce0000c00f@quicinc.com>
+ <20261008190304.rz2kbniwviinls36@hu-mojha-hyd.qualcomm.com>
+In-Reply-To: <20261008190304.rz2kbniwviinls36@hu-mojha-hyd.qualcomm.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Tue, 13 Oct 2026 15:01:14 +0200
+X-Gm-Features: AclHuK9nNGUoFlmvw1xPtcbUceZp-66ZFXEJTxSsNT61wpcfLTveJyn4kskXD44
+Message-ID: <CADSE00JEH8A8rTwBa030QJmJiiPC51fCdcbv=y0Z6qkg69kNbw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] firmware: qcom: scm: Introduce new locking
+ mechanism for SCM driver
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, 
+	Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Unnathi Chalicheemala <unnathi.chalicheemala@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ninad Naik <quic_ninanaik@quicinc.com>, 
+	Murali Nalajala <quic_mnalajal@quicinc.com>, Venkatakrishnaiah Pari <quic_vpari@quicinc.com>, 
+	Jian Shu <quic_jianshu@quicinc.com>, Guru Das Srinagesh <linux@gurudas.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reading `/proc/PID/task/PID/maps` for existing processes is expensive
-on systems with many processes.  `perf record` already allows skipping
-these reads with the `--synth=` option, but `perf top` has no
-equivalent option.
+On Thu, Oct 8, 2026 at 9:03=E2=80=AFPM Mukesh Ojha <mukesh.ojha@oss.qualcom=
+m.com> wrote:
+>
+> On Tue, Oct 06, 2026 at 02:57:45PM +0530, Pavan Kondeti wrote:
+> > On Thu, Oct 01, 2026 at 06:16:48PM +0200, Albert Esteve wrote:
+> > > From: Ninad Naik <quic_ninanaik@quicinc.com>
+> > >
+> > > qcom_scm holds its global mutex across WAITQ_SLEEP and
+> > > wait_for_completion(). Firmware waitqs allow multiple SMCs in
+> > > flight (wq_cnt). If one call is parked on a waitq while holding
+> > > the mutex, a second call (e.g., SMCInvoke) cannot enter firmware
+> > > and both stall on the waitq.
+> > >
+> > > Replace the global mutex with a counting semaphore sized from wq_cnt,
+> > > with at least 1 wait queue.
+> > >
+> > > Fixes: ccd207ec848e ("firmware: qcom_scm: Support multiple waitq cont=
+exts")
+> > > Signed-off-by: Murali Nalajala <quic_mnalajal@quicinc.com>
+> > > Co-developed-by: Guru Das Srinagesh <quic_gurus@quicinc.com>
+> > > Signed-off-by: Guru Das Srinagesh <quic_gurus@quicinc.com>
+> > > Signed-off-by: Venkatakrishnaiah Pari <quic_vpari@quicinc.com>
+> > > Signed-off-by: Jian Shu <quic_jianshu@quicinc.com>
+> > > Signed-off-by: Ninad Naik <quic_ninanaik@quicinc.com>
+> > > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > > ---
+> > >  drivers/firmware/qcom/qcom_scm-legacy.c | 8 ++------
+> > >  drivers/firmware/qcom/qcom_scm-smc.c    | 7 ++-----
+> > >  drivers/firmware/qcom/qcom_scm.c        | 6 +++++-
+> > >  drivers/firmware/qcom/qcom_scm.h        | 3 +++
+> > >  4 files changed, 12 insertions(+), 12 deletions(-)
+> > >
+> > I don't know all the history, but in downstream [1] selective calls onl=
+y
+> > allowed to sleep w/o mutex.
+> >
+> > Mukesh, do you know if it is safe to allow all slow calls w/o mutex?
+>
+> In the downstream implementation, there can be calls that occupy waitq
+> contexts and sleep waiting for events from other VMs.  However, there can
+> be multiple such calls and we may run out of waitq contexts. Normally,
+> these calls are SMCinvoke calls or qcom_scm_qtee_invoke_smc() users. In
+> those scenarios, even normal slow SMC calls will wait for a context and m=
+ay
+> wait forever for one. For this reason, one waitq context is always reserv=
+ed
+> for slow calls to ensure forward progression. So, slow calls
+> still need mutex for such cases.. However, I doubt if we have
+> sleeping SMCinvoke in upstream ..
 
-Skip userspace map synthesis by default in `record` and `top` when all
-events exclude userspace and no sample feature needs user mappings.
+Thanks for the context. That's correct, SMCInvoke isn't upstream, so
+the starvation scenario described in the commit message cannot happen
+today. The semaphore here just replaces the mutex that was
+unnecessarily serializing all calls. I can rephrase the commit message
+to avoid mentioning SMCInvoke as motivation (that mention comes from
+the downstream commit). And if SMCInvoke eventually lands upstream, a
+reservation could be added.
 
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
----
- tools/perf/Documentation/perf-record.txt |  4 +++
- tools/perf/builtin-record.c              |  8 +++++
- tools/perf/builtin-top.c                 | 19 +++++------
- tools/perf/util/evlist.c                 | 40 ++++++++++++++++++++++++
- tools/perf/util/evlist.h                 |  1 +
- tools/perf/util/record.h                 |  1 +
- 6 files changed, 64 insertions(+), 9 deletions(-)
+BR,
+Albert.
 
-diff --git a/tools/perf/Documentation/perf-record.txt b/tools/perf/Documentation/perf-record.txt
-index 178f483140ed..cdef14f22df3 100644
---- a/tools/perf/Documentation/perf-record.txt
-+++ b/tools/perf/Documentation/perf-record.txt
-@@ -696,6 +696,10 @@ Available types are:
-   - 'all'     - synthesize all events (default)
-   - 'no'      - do not synthesize any of the above events
- 
-+By default, userspace MMAP synthesis is skipped if all events exclude
-+userspace (for example, with --all-kernel or -e cycles:k) and their
-+samples do not need userspace maps.
-+
- --tail-synthesize::
- Instead of collecting non-sample events (for example, fork, comm, mmap) at
- the beginning of record, collect them during finalizing an output file.
-diff --git a/tools/perf/builtin-record.c b/tools/perf/builtin-record.c
-index a57987851cf0..f8b4e5279fca 100644
---- a/tools/perf/builtin-record.c
-+++ b/tools/perf/builtin-record.c
-@@ -2574,6 +2574,13 @@ static int __cmd_record(struct record *rec, int argc, const char **argv)
- 
- 	evlist__config(rec->evlist, opts, &callchain_param);
- 
-+	if (!opts->synth_set && !opts->full_auxtrace &&
-+	    !opts->auxtrace_sample_mode && !rec->off_cpu && !rec->buildid_all &&
-+	    !evlist__needs_user_mmaps(rec->evlist)) {
-+		opts->synth &= ~PERF_SYNTH_MMAP;
-+		pr_debug("Skipping synthesis of userspace maps for kernel-only recording\n");
-+	}
-+
- 	/* Debug message used by test scripts */
- 	pr_debug3("perf record opening and mmapping events\n");
- 	if (record__open(rec) != 0) {
-@@ -3412,6 +3419,7 @@ static int parse_record_synth_option(const struct option *opt,
- 		pr_err("Invalid synth option: %s\n", str);
- 		return -1;
- 	}
-+	opts->synth_set = true;
- 	return 0;
- }
- 
-diff --git a/tools/perf/builtin-top.c b/tools/perf/builtin-top.c
-index 570410599f1b..d85ecc140eda 100644
---- a/tools/perf/builtin-top.c
-+++ b/tools/perf/builtin-top.c
-@@ -1017,14 +1017,6 @@ static int perf_top__start_counters(struct perf_top *top)
- 	struct evlist *evlist = top->evlist;
- 	struct record_opts *opts = &top->record_opts;
- 
--	if (perf_top__overwrite_check(top)) {
--		ui__error("perf top only support consistent per-event "
--			  "overwrite setting for all events\n");
--		goto out_err;
--	}
--
--	evlist__config(evlist, opts, &callchain_param);
--
- 	evlist__for_each_entry(evlist, counter) {
- try_again:
- 		if (evsel__open(counter, counter->core.cpus,
-@@ -1265,6 +1257,14 @@ static int __cmd_top(struct perf_top *top)
- 	if (ret)
- 		return ret;
- 
-+	if (perf_top__overwrite_check(top)) {
-+		ui__error("perf top only support consistent per-event "
-+			  "overwrite setting for all events\n");
-+		return -1;
-+	}
-+
-+	evlist__config(top->evlist, opts, &callchain_param);
-+
- 	if (perf_session__register_idle_thread(top->session) < 0)
- 		return ret;
- 
-@@ -1296,7 +1296,8 @@ static int __cmd_top(struct perf_top *top)
- 		pr_debug("Couldn't synthesize cgroup events.\n");
- 
- 	machine__synthesize_threads(&top->session->machines.host, &opts->target,
--				    evlist__core(top->evlist)->threads, true, false,
-+				    evlist__core(top->evlist)->threads,
-+				    evlist__needs_user_mmaps(top->evlist), false,
- 				    top->nr_threads_synthesize);
- 
- 	perf_set_multithreaded();
-diff --git a/tools/perf/util/evlist.c b/tools/perf/util/evlist.c
-index c3d784727810..6636edee0d2b 100644
---- a/tools/perf/util/evlist.c
-+++ b/tools/perf/util/evlist.c
-@@ -1990,6 +1990,46 @@ bool evlist__exclude_kernel(struct evlist *evlist)
- 	return true;
- }
- 
-+bool evlist__needs_user_mmaps(struct evlist *evlist)
-+{
-+	struct evsel *evsel;
-+	bool has_kernel_event = false;
-+
-+	evlist__for_each_entry(evlist, evsel) {
-+		struct perf_event_attr *attr = &evsel->core.attr;
-+
-+		/* Tracking events do not produce samples, regardless of modifiers. */
-+		if (evsel__is_dummy_event(evsel))
-+			continue;
-+
-+		if (!attr->exclude_user)
-+			return true;
-+
-+		/* Kernel samples can still contain a userspace callchain. */
-+		if ((attr->sample_type & PERF_SAMPLE_CALLCHAIN) &&
-+		    !attr->exclude_callchain_user)
-+			return true;
-+
-+		/*
-+		 * These may reference userspace even when the sampled
-+		 * IP is in the kernel.  Keep maps for opaque trace
-+		 * payloads and AUX trace decoding too, whose address
-+		 * requirements are PMU specific.
-+		 */
-+		if (attr->sample_type & (PERF_SAMPLE_ADDR | PERF_SAMPLE_RAW |
-+					 PERF_SAMPLE_REGS_USER | PERF_SAMPLE_STACK_USER |
-+					 PERF_SAMPLE_BRANCH_STACK | PERF_SAMPLE_AUX))
-+			return true;
-+
-+		if (evsel__is_aux_event(evsel))
-+			return true;
-+
-+		has_kernel_event = true;
-+	}
-+
-+	return !has_kernel_event;
-+}
-+
- /*
-  * Events in data file are not collect in groups, but we still want
-  * the group display. Set the artificial group and set the leader's
-diff --git a/tools/perf/util/evlist.h b/tools/perf/util/evlist.h
-index 838e263b76f3..b208bf7211e8 100644
---- a/tools/perf/util/evlist.h
-+++ b/tools/perf/util/evlist.h
-@@ -631,6 +631,7 @@ struct evsel *evlist__find_evsel_by_str(struct evlist *evlist, const char *str);
- struct evsel *evlist__event2evsel(struct evlist *evlist, union perf_event *event);
- 
- bool evlist__exclude_kernel(struct evlist *evlist);
-+bool evlist__needs_user_mmaps(struct evlist *evlist);
- 
- void evlist__force_leader(struct evlist *evlist);
- 
-diff --git a/tools/perf/util/record.h b/tools/perf/util/record.h
-index 93627c9a7338..1317ddce3cf0 100644
---- a/tools/perf/util/record.h
-+++ b/tools/perf/util/record.h
-@@ -80,6 +80,7 @@ struct record_opts {
- 	int	      ctl_fd_ack;
- 	bool	      ctl_fd_close;
- 	int	      synth;
-+	bool	      synth_set;
- 	int	      threads_spec;
- 	const char    *threads_user_spec;
- 	u64	      off_cpu_thresh_ns;
--- 
-2.47.3
+>
+> --
+> -Mukesh Ojha
+>
 
