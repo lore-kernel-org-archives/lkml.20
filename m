@@ -1,101 +1,115 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C2D51DB07;
-	Tue, 13 Oct 2026 19:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919746; cv=pass; b=ENIraCtEKh5uQuEft9O3MTVC7k8D5JtzgepstjMRM22kq5K9uajvd6R3fBS4IemLfLqgv+4/U/SQeKFDldy9ycFmwbkOfJ8K/XeYjCBWkT+43OxiVFyRpzI5OSH64McJGD9m5q+mUKMJjnd2XBJJZhdSH2LhBRHfH9bLH73Dphg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919746; c=relaxed/simple;
-	bh=A0rRh/QeYtmdUgAhUuqkGkSk2dzuMp4cLDqwyVGPelM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Q5fTrl63UFES/NHB1YB320iz7WEJjdXTS+FGyFk80pw/iMrQHQ6J6whL4jH320x5nbJEOq8Q4fwmc5W6KaIwSb1TzZdHBV+pvBs5WXko2TKPgN6VlowhzxmsX7aGfGX5k8oP6nq1u1GtnmqOhkEEwAYh3NHWMQeWuNCurFcUnjQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=YE/wBb2i; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BE251A72C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:29:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791919768; cv=none; b=o+9wuUNMuqWF4Btx+goETEulQAguNShWS2Out3Bmdwe7GBy5toUi9NMFiSZIX9FJiw/poALTO4gZiOt/kfpLwt04vyaCqFdmTAQ8226T+5dtO7RskNHgHoCCfA3yBzpN+2j8o6fS5lK4Lmz/fg0u+Q10IlRILG/Oc1SurfuQO6s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791919768; c=relaxed/simple;
+	bh=HFB6DyseJTdbQfG1DZ6MXg0hnr9XmayZmDxutEscNow=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pA38dcBaQ6rXm1XV9DTWy/t3gXG8WfjtVufKGn4uONlrD0yDWA3NJy0a+C2pkw1+2A7W9Sxs3tkvAcZLL33T0mN58hTVJjnfQlp6TAO+I1SaoKh4nQogqylV8Zye5Q84d7XufvZ3g9xLFBnsbfMq6X+uEm8WVA0Y3oi+aLGBoSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SkTvqIiA; arc=none smtp.client-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="YE/wBb2i"
-ARC-Seal: i=1; a=rsa-sha256; t=1791919634; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=K2QcfHuMcfp50TbvsAnwV7RLWaj8VwGTrxLhcsOOAh2i5ylhAPpc6pSyWRcThlktEjKTQbM1s4KxAGGEniC/KmtFIKA/SVX+o4PnTxpvRwktV3l9GqA3Oj3Oop6ee4m1rsZBXX/s47hTTBohCb6QijM7WSDjNAMK/Y5z97klHlc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791919634; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Cu0Ku63ibtiD8dSCNBVjWGKMrJyfLPEWtMUvr63+F74=; 
-	b=Mb4xZHNfi+zc+Lczo67y1a8HCqI4fFIm/c0+5A85x5635mLchqw8V+ox2x6dlCqoaSIPUhnJAaKS8doHvN1FCphPqNeFIQrvBMLWXH7v4mKcDs/r8bVut+dmc2TG/ISjZa1Iz5+G5KRetP3RmmGTSNoDX7US8lZWpVR6wU/bYIY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791919634;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=Cu0Ku63ibtiD8dSCNBVjWGKMrJyfLPEWtMUvr63+F74=;
-	b=YE/wBb2iImwU+TmPa2PLVaZ6jBDUbIL/3zr84EYjxleGb+ug9gY2MEHDtdTpSEZS
-	sBwTRLJ6lLChrvxQUHq/QYWUjMtRr/PV0deZV1wZxiqKU+LKOoiMduEoTanVVa/Mxh2
-	NLrLmjz0cAn2qUwH4zMRrxCsGku7sjOcP1hHkn2nUlVwibqg8suLIiHguAL4CjkSN/m
-	19fIPbE2CRWukUrL0DPuVk2okaQZC3EZ6xEdC0i3JmQJ5nnETGQ8xOB8xXLK50JotoW
-	/snjuEHJab60/8e1cZfvip27F8hmp1mEfzAuz7/1/TTWp0fG1u+LKt/NDlJRz3lRbVe
-	PRv8UVEPhw==
-Received: by smtp.zohomail.com with SMTPS id 1791919632384990.8018042401861;
-	Tue, 13 Oct 2026 12:27:12 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Wed, 14 Oct 2026 03:21:55 +0800
-Subject: [PATCH v3 12/12] MAINTAINERS: Add myself as a LENOVO drivers
- co-maintainer
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SkTvqIiA"
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6dfd530a2d5so1805536eaf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:29:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1791919765; x=1792524565; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FOxgkNuwHKNgVFVQaM+OBUUFEqO0M0muHBMxUHjrBmQ=;
+        b=SkTvqIiA7vr8JdA7bRhOV0Ijo+RNsveUSQpUJqUqmTESqBbZfENP2lD88rRRillW15
+         ys2GG5hsB9vHt97BdHz1tW9LWRvwEOUPVKEfgXonYSTYSs4zZ8/h6ww8ZLBIo4CM+1i0
+         rTS6kswASnjWNcuXNpBD8nI+kll1UZ7FC7Ka4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791919765; x=1792524565;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FOxgkNuwHKNgVFVQaM+OBUUFEqO0M0muHBMxUHjrBmQ=;
+        b=PN2nDgocjcRgzEIDEHIOO04bJW6r3tCmQpom4itx+Mr2svReCjWIg0NCzin467NAlX
+         gzkdjjxlcIrEK5YfyoxYtT3Hz9+jY+WnVvb+g4/ajOAgr1wg8PT2x8pZ0TwQlz90v2A+
+         gMhBGw2/wMFj7170W8zDAJ75VqAgjX3apJmbNzJJJbS//bPccYF3ElXsYDPJKutYrOlx
+         /0u5HFRNF6kWXoD8HRhKM4lFG/Nbc1XQXvcn9CY/BeKWyXwH/64+aCbd2Zx/kKjQhRE5
+         HaM2/fxL97WPtDivoyHf7L5DtYP+ydNMqe6xtTxeZb2rOoAwhbT+fy/6yMCl/fZ84mq3
+         ng0A==
+X-Forwarded-Encrypted: i=1; AKwUvBxQnSeT5Gga0f6eQBaa7UNAUdDU1O1r2sZU6Eqy1FOa7eU2JwZeMgPdRY7Gv6rzYj0FAJTvksBSN0/zkIk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3q891GecyjY8BRGSzxg0gQYmQdBhuJ7ipGvBrHRtJFycd2PJI
+	ffud9cGDmQU8+pMOXb/dk6ohcc/mqLvlQ11zZ5Z8GJgx1l3PUNqfBptVc91NpcwzPgM=
+X-Gm-Gg: AYBFou2SjhqL+WnmsDvITr/3OBTPE0QJ5j8FZ8VisEdYNUr1cemvARMtw3aP3BTJRka
+	UJ9EoeGfPDPSzphCKDQKuInfKVH7oFoqQDRV4JqPlrezE/NNJtJl/dFG8k7aTWQpOSY7hB2Akg+
+	sGZS7GoCNi/DDp2rVyXK053F4/8wm4kC6ccn30CURcHBt4xz713Sns9Gqtj5gzX948i7Ubb4ER2
+	jVu9ccp44RNAs0dhXEslXKPBGb/pqkPIwR0fyVj3CP/kmP5CxwK/WcHR5F1YDwHgxgWBvwD44HB
+	c45n2/7w23NxvMLFYX5rZVB851vU5MobOBwDTLRcUj86UsUztoORqMHS707gjs7lSP9tp9OZtmt
+	TP342Q5o+Z+v3EyWkyKLyWJmXtfQr+PUN69mb8B6aD9rquTDdfAaLvQb65YbtihBoAR/qsdhREn
+	F2c3qBRwmCllq8mgWOZAg42ixNkY2hApdmMAW7TJr81J6R7moPFMHBbgDqtZtvOoAPh1MocMxnY
+	rM5S/ID
+X-Received: by 2002:a05:6820:198a:b0:6ca:3ce1:ed36 with SMTP id 006d021491bc7-6ef100968e7mr11004632eaf.47.1791919765182;
+        Tue, 13 Oct 2026 12:29:25 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfd0b149sm437488fac.18.2026.10.13.12.29.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 12:29:24 -0700 (PDT)
+Message-ID: <08e8e221-4e46-41a1-baa5-bade8ee20730@linuxfoundation.org>
+Date: Tue, 13 Oct 2026 13:29:22 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 4/6] tools: build kernel selftests in tools_build
+To: Sasha Levin <sashal@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org
+Cc: Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261011233647.2454648-1-sashal@kernel.org>
+ <20261011233647.2454648-5-sashal@kernel.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261011233647.2454648-5-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-lwmi-wmi-new-api-v3-12-e1032bed1c81@rong.moe>
-References: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
-In-Reply-To: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Armin Wolf <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>, 
- Navon John Lukose <navonjohnlukose@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-73bef
-X-ZohoMailClient: External
 
-I regularly review patches and resolve bug reports posted on the pdx86
-mailing list or the kernel Bugzilla to improve LENOVO drivers (including
-lenovo-wmi-* and ideapad-laptop) along with Derek J. Clark and Mark
-Pearson. I've been submitting patches to add new features and fix issues
-on my devices, too.
+On 10/11/26 17:36, Sasha Levin wrote:
+> Add a "Kernel selftests" sub-menu with one entry per selftests directory
+> that builds with only a C library and does not write into the source
+> tree. Each is built as "make kselftest-all" builds it, with KHDR_INCLUDES
+> pointing at the UAPI headers installed in the object tree, but by its own
+> make, so the selected ones build in parallel. Selftests whose Makefile
+> does not use KHDR_INCLUDES still build against the C library's copy of
+> the UAPI headers.
+> 
+> The selftests do not track header dependencies, so a selftest is built
+> again from scratch when its own directory, a header or makefile any
+> selftest may share, or a kernel source it includes directly (the vDSO
+> test includes the architecture's vDSO code) is newer than its last
+> build.
 
-Add myself as a LENOVO drivers co-maintainer to reflect this.
+Is there a way you can fold in kselftest_deps.sh run into this
+so users know why some tests didn't build. Also we want to make
+sure kselftest build doesn't fail if a test fails to build to
+keep the current kselftest build behavior.
 
-Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Signed-off-by: Rong Zhang <i@rong.moe>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+tools/testing/selftests/kselftest_deps.sh
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c..fa576b4b5919 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14808,6 +14808,7 @@ F:	drivers/usb/misc/legousbtower.c
- LENOVO drivers
- M:	Mark Pearson <mpearson-lenovo@squebb.ca>
- M:	Derek J. Clark <derekjohn.clark@gmail.com>
-+M:	Rong Zhang <i@rong.moe>
- L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- F:	Documentation/wmi/devices/lenovo-wmi-gamezone.rst
+> 
+> Selftests that need libraries beyond the C library, a vmlinux with BTF,
+> or a sanitizer runtime are left out for now.
 
--- 
-2.55.0
+Great. That is good for this round.
 
+thanks,
+-- Shuah
