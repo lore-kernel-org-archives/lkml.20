@@ -1,81 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-133.mta0.migadu.com [91.218.175.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3553B95E0;
-	Tue, 13 Oct 2026 08:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE373B6356
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791880806; cv=none; b=dLYQNs8t+uxkQA8IIcV7vzxM+Luwo3lztGoV/VxZapuaAAiRa5Je1BPbGxch5zbZLmf5yop5Xjpo0QWoRwDLoc2oK/r0iZYtdKaEF+NVW7q2cw6FtGzjC5YyrRTMd44bs1MTYx08LvNMqich5ym1LRSheW/OaTjuZXWRqMUO5ss=
+	t=1791880807; cv=none; b=Tnvi7jguJi0kOenHW2+iOeZwfyxYiff4hd0+DUyWO4n2BaCDRlf8isT2Ah2wdBGhXLP/zPFjzx4qrk16ZdvOLuEI2BSvJjoxRwNGVKsJizsUTsHFNeUwV6eeWb1IA+sgS5N+nZzC/0KHJI73SLShbn28xB+P+maMZfUFXUc+Ht4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791880806; c=relaxed/simple;
-	bh=RzZqVUxCbVCqm7pH/0m+68eaLgZ2H5Ff29183hKc2PU=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=cl4UHKA2VtE684pvUOwaEUeEkRVU3NZ2RmdKd92uweYYrPsyCozOckBEsBdAnZ5/iuVjGEZ6vs6ODh83PdG4q2s3Itm+nN3zypsgjnD3FEzBrilCmLGF4DlDvOJ8q7IjI4SEkByChak61R7jftKGFruVD0gW82ghrdTWe7bJaKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iOz1fxKc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791880807; c=relaxed/simple;
+	bh=O2VyeBUpyQZ7N4gxSQ/4x9ZYwCTMTmWwc5NCJmvVYgw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FsgdopLmojZkDPAw6VTFgVNjvpW1y48w4+dh+nO2Cmbcoevs7694B5gqO5/Eceuyzue93BOtnWtMwQE6lYguDWtS9AVpL14oN1Pzxhti3dZWuebbHUNu/83uEbq3pp825JE6ztdC/0i5cvsj15pdnikbHhBhPynaOILDQxSCXso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DvAgELRx; arc=none smtp.client-ip=91.218.175.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iOz1fxKc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9911F008A4;
-	Tue, 13 Oct 2026 08:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791880805;
-	bh=vTscstDQ6HSiS85iFYZJWm3WRbqXbZ9zuUl2BPS9Bbg=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=iOz1fxKciD89U5WL1htpUebUC+y8Q7JNhFE7EkwzhMpmghVgfI08VS2+sJmgpyuKD
-	 F6XjBP19rkwvsEMOoGeD+IfH28GV48WM7kq6fFDtLwbREofOmYUJ6tFFlszWChUGz5
-	 oPfKRgMuk38e75mcG56hnbvIEeq0lpItTAaZYmANOO7SVdTfq3fUY9lCSzJOt+9zuY
-	 4CYLm2eCHeWDUKveyVcXm1/8A5RddDTUlLPsUdIJ/BeRqNNWy4eMfCrGEjkporxps0
-	 LJ6AVIrb+nig4DEIkd0iD2JnRpSGqTRIklvJFzvLUFnyJP/QEvrnIWQ8NsdBq/Gbek
-	 C0kQBnvF+axiw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 77577392639F;
-	Tue, 13 Oct 2026 08:40:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DvAgELRx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=O2VyeBUpyQZ7N4gxSQ/4x9ZYwCTMTmWwc5NCJmvVYgw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791880803; v=1; x=1792485603;
+ b=DvAgELRxVhrmYuvDH1Kc13AqY31vCbo5CtVXdfVZ0Kh88eJ7kVBo7TNu6RIHh0hM4fviV5M2
+ B8QrA74hNBxEpiYdfnSRb8BQJ+ARiNHkm3iWbIpj22u1q3b+gGJc6p6swEKeJnBgdypDjKKjtln
+ o6Qu9/hAGAZb19fC0vESFEXs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 8b2403653d9a654d;
+	Tue, 13 Oct 2026 08:40:02 +0000
+X-Mizu-Trace-ID: 8b2403653d9a654d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <82978d5c-3e08-48e9-bf0a-7913e1cd0507@linux.dev>
+Date: Tue, 13 Oct 2026 09:40:01 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] sctp: revalidate output stream after association
- connect wait
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179188080428.136048.15899244050224483580.git-patchwork-notify@kernel.org>
-Date: Tue, 13 Oct 2026 08:40:04 +0000
-References: <20261007035739.3472432-1-4ncienth@gmail.com>
-In-Reply-To: <20261007035739.3472432-1-4ncienth@gmail.com>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 5/9] block: fail a short atomic pin in
+ bio_iov_iter_get_pages()
+To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Christian Brauner <brauner@kernel.org>, "Darrick J. Wong"
+ <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
+ "Martin K. Petersen" <mkp@kernel.org>
+Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261009-blkdev-fixes-v6-0-307939c387df@columbia.edu>
+ <20261009-blkdev-fixes-v6-5-307939c387df@columbia.edu>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <20261009-blkdev-fixes-v6-5-307939c387df@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Wed,  7 Oct 2026 12:57:39 +0900 you wrote:
-> When message interleaving is enabled, the first send waits for association
-> establishment before building its data chunks.  The wait drops the socket
-> lock, and handshake processing can reduce the output stream count to the
-> peer-advertised inbound stream count.  sctp_stream_init() then frees the
-> extension of every removed stream.
+On 10/9/26 17:50, Tal Zussman wrote:
+> On a partial page pin, __blkdev_direct_IO_simple() and
+> __blkdev_direct_IO_async() submit what was pinned with REQ_ATOMIC set
+> and leave the rest to the buffered fallback, tearing an IOCB_ATOMIC
+> write.
 > 
-> The sender resumes with the stream that it checked before the wait.  If the
-> peer removed that stream, sctp_outq_tail() later dereferences its NULL
-> extension.  Fatal-oops policies then panic the host.
+> This can be triggered deterministically. A 16K pwritev2(RWF_ATOMIC)
+> whose last page is PROT_NONE, on a scsi_debug device with atomic_wr=1,
+> completes short with only three of the four pages written, violating
+> RWF_ATOMIC semantics.
 > 
-> [...]
+> Make bio_iov_iter_get_pages() release the pins and return -EINVAL when
+> a REQ_ATOMIC bio doesn't cover the whole iterator, since an atomic
+> write is submitted as a single bio and a short one would be torn. That
+> covers iomap as well, where a partially unmapped buffer could trip the
+> WARN_ON_ONCE() in iomap_dio_bio_iter_one(). The async block device path
+> currently sets REQ_ATOMIC after pinning, so set it before, and move
+> REQ_NOWAIT along with it.
+> 
+> Fixes: caf336f81b3a ("block: Add fops atomic write support")
+> Reported-by: Sashiko<sashiko-bot@kernel.org>
+> Link:https://sashiko.dev/#/patchset/20260802-blkdev-fixes-v1-0- 
+> a82fc549fd74%40columbia.edu?part=2
+> Assisted-by:Claude:claude-fable-5
+> Reviewed-by: John Garry<john.garry@linux.dev>
+> Reviewed-by: Hannes Reinecke<hare@kernel.org>
+> Signed-off-by: Tal Zussman<tz2294@columbia.edu>
 
-Here is the summary with links:
-  - [net,v2] sctp: revalidate output stream after association connect wait
-    https://git.kernel.org/netdev/net/c/b7ad72414c67
+I think that you can now remove the REQ_ATOMIC check after the 
+iomap_dio_bio_iter_one() -> bio_iov_iter_get_pages() call also; however, 
+considering the trees, it's better to wait until 7.4-rc1 is released.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks,
+John
