@@ -1,137 +1,187 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621A94F7CC9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895191; cv=none; b=qOQ6w6Wt09w2PYtIhlLqFw4n76EdpK1AItJ9MtjMYQ1k8FQHCbKuXbgrVWDYHOaONqEqX1zGZ5RaTaSq3mePkxRhFnbBfPDNdRzlbuaTY53kbNCb6ZccwVwykBFlttlqkB4atwEdspN3inlkvaDXDq8rkwQBaSie8a0FNdg6CFg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895191; c=relaxed/simple;
-	bh=q7IP0n0tFVgXui57e7ZoWvGl6mJaR5f8ZscXMkb5tZc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rEeQnQQTy4l6AIk/RdAod3zwK9kpVWDjxO0AM58K7leQ00VDu8uw0OcX3VHBujQUuownU6/I39R6zAvXRNTS1RW3C/pgHdJp1fsPLmsd/FbB5jMozhrq/d181niSbc8v8FNrdDLaUC0A2BTKe2C67U/115snVHV2f07wOnIRDsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ONV2LTXd; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65B71FCF41
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791895219; cv=pass; b=t78t8PGgD5Z6YuzXDlyWcwPHjorIaATQuWamBcgEWnkxHtyf0LyZQvYIlalQnnBOP38wA1QKdHawnWJUG1hUvNo3gmRXjXeoFx+uqUSYzO5ZyB5vKBRqbVWHYHJcgVPm6zkhDjnOwFOX6ZhztTVsmGED7X1uBOnl930P/mr4b54=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791895219; c=relaxed/simple;
+	bh=2xcKVenmsOkTL/dR7a9UaRkSdDoYvwvb2hQq8wsPR50=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oiUKUUjG9ss7LigCBx7DgfzkTzWsX5+1JkoqVX8WZWABwPcTrWyWY0Czw18fnGBmN2513kxAiQC1NV44v0+Vp03eW2oYUIrLAWiDfP1rPVlPKYkO8grWjE7bMLss52785g1Ku0V4+bQJBYep+wirrweIX3COILNxtWehnxy4nvA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=L8DrU4pZ; arc=pass smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ONV2LTXd"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so29387495e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:39:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="L8DrU4pZ"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso2069368f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:40:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791895216; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VHHtM4tArjYk9l4VD+0sETcL6a4GcI2NiRJ89MiGcAWH13nrA2jFM4piatXx9S8rbf
+         Q4OVdDNFIesZT/Xwfvm6EsmlijTmgnwbS6aWnwpllnerybw1LS8q3eZwFA5500bROVKG
+         km/39MbS5NOMeW9XTZ5rDvFxz/ev9C7FT/QIxtyI5G0hChhG6BG6sdsMtwELOo/Y163d
+         qE6CKKsOxnYUNO5CzJP6xDclZjpI9egggDwPtyZfOidcXzfabC9EFNZvRoSnWkLHMGO6
+         wQmjEgMOy+8uPva8NMYlhKI1NtjEuPR258CwJ6M344c0xcW1GZPZdqyw2UUtookSzS2n
+         1ciA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0eOfUWl1R3SOwmQxh1GQ80TqhBtojSwu6T3aXEwR1Vo=;
+        fh=w4lNzeaf8+u6ZV35OUJIpDv/WJZsvQwAkLGymVNDZ44=;
+        b=KyVQiOXSr4AeBJfwXI5piPyPQe3f2/c8nC2cpdzxudFyaWNKXLtXqN/lSnXi4sYBns
+         zMnO2f0sDtokjXXyOX9XI9UI93jvFS5DlLRDWdU3vS09zzZBhe/vgT9bcqa/5QxYDYZj
+         wVTvNtOKwu29nXaTvI3INWyA0+WFQ3QzSS1x1O6gn0LlZ/881q4ntntPocoo2fZPuAe2
+         fHD6378lrgkOoC7K4yAzaPihCUKduYNDTSOmgtD60hHLispfmcU3K+zwsuCA9xxPYUDU
+         Rr3m9VA8Arh3eJB2qIfwK5h9CqwlepzMlLTKmDUKew27SldvfU2gVgsoQFxolXWJwHX5
+         QgdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791895188; x=1792499988; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/ngQKRroXU/Uz8Mh7Lut0ld0a0rsmTuRWomcPoA8M0I=;
-        b=ONV2LTXdrdsgtJb3ZcPs9Nu/d8IhlpIMwRn1hTsgXWhThM41PVVV+t+ALS0eCY7Db2
-         gLaNwXcKJ8NXLX6Qir1uvZcdNMVzGNEHBklh8u0qML9DjQqpRf3qMArnLH71u/dMOYFR
-         kb8rFtFkIH7taAWxjlXnvni+FGHRYZkn4jdBP9NVty/bjjkfAIIhj63bu+quS7Xl0DmB
-         SHk1Xf1O6kgDtKkBKXfDxkySNvRE3/X5RBBex0BNhk/LZCo9esOn9+cKEo707V954YLl
-         dZKhBnZgYl/HVCB9maWwEWXlPxnuXxNzRzdstwRo5CmC5LUrTXmj2sNvs8HaJAdU8RHm
-         Lxaw==
+        d=google.com; s=20251104; t=1791895216; x=1792500016; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0eOfUWl1R3SOwmQxh1GQ80TqhBtojSwu6T3aXEwR1Vo=;
+        b=L8DrU4pZy6lObZsY3CcCLNFY6pLCfmuKnb5MhJbhxEbXnEtHWeVBDHA/xYQ6FC4TGL
+         V5XNDn8fJdNx/uI3DEUeswYU8Kolgk7PP8Jfz5PL9EDloPkBgLKpL2UHOxWv4PmG0LOk
+         5T8mw6OC03YMpzP/Bu22TpMc4b8HYLJcJwHEXWKXyGTtTmAvoxlwCfHV/rsgAPAKu5Bj
+         WkBrlHdIBl+eclwY7V97giPr9FpbVb0wVkAEJxHwM7JI1YsENcXY0LUXsFKnzKGYbZXy
+         INifoEBz8db9sTW33xlVj6OnsCVhVtIyZx3x71VRWhc4Xnfc/3oytpCoro0rd982wx3T
+         Nshg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791895188; x=1792499988;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ngQKRroXU/Uz8Mh7Lut0ld0a0rsmTuRWomcPoA8M0I=;
-        b=Ovx6Tr3bgimpmJzLyrtkbt6WgxKjvwvpXQeoYIViJoK8V47zH8pcDMq8OOmNcxIMXm
-         IfXTpc70vQXAlkXtl5Tcz3/TSRkjYhL7BR8oEJY9Ui3OoJst9ELbPVBlUo8f5tEzhfGQ
-         ZhqlIGJlg/8fTLrRk3eCB5uJ+FfRPHtnG9/5cECtnWkfct94Qqcs3T+8XCe+hKZs0iXx
-         6AIENqto8u3V8ZdLCB0M6UOV5GcrhnZz7jgHW2g/vpLtonlmUS4/yXOYNZOldQhw/LC0
-         EtwzpbkEfH1Ul1Qqd2RcFKjx1hWlS4zOZhoFyDg8asEvSxwdlv9q19O/jydp9Wq/OfMT
-         9iYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxJAFg7Pfich3uc/bUIccivkOvysEajtT2rvwdcIZG2OqPc3EQ1sbDEJATM7BNWCdAEzBPwTpa6Oh19wSQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoiIftoVd/5LQobS3tiauslx2tp3HDTYa16eDOqthdRK6g2kBg
-	SIlEijPJODA+osTkiNrHHb9WARj4YH3D8kFX+LBh3d8cf89A1HWU8cFd
-X-Gm-Gg: AYBFou2jFlTd1JVwmklSdp+tB/phoOhUjbUd89y8o9k4wO65KtaNwqiVXjYjwGEva8y
-	7KXZ0/sPPjwSwvE21qncO2Pt5MaXF0MNzrYEArxOzyArDHbmsM/lrM9L+aIyT+1cG7z8ZeqmLov
-	FRk/xWNwCEjFp/jcn1FtC2iwKpKHlMN+JUdgQfnH0FX0EUeqz6+i5nGK1IqPcxb7MTXn/MbFGMH
-	Kb6MR+NXaQgJNMbnA6s5mryO+fIBCzzg6WoVoZPfLLZ+NLc4wzrsOtBHjVkfeop3wahOuFjRExd
-	06KRBoV/z1pFGsNtfbh3Mlakx7lpp1SSFS30v+AlVJzfygIAl74rCf4LnVjsgxOEhDz1nKUjnq2
-	DPMOCyATMV7aLInxu9TnX/xq1l9b8hsagmnS8UaeU0KM6N9nLATBODVylyoeUOoksaQT1X1lEIz
-	eoY5OJ+90foFxm3QEn3K2pEUSRi2CpCvP3Xk5b+GQABvdQhOuCBZbco0h3dmoS6tEHRKZ/3PmK1
-	S1Il6KbsAy3rK4YpMAe/MZQIkrTBiyKHOtCp/oV3iyWlA8=
-X-Received: by 2002:a05:600c:3e87:b0:4a0:a34:6e7d with SMTP id 5b1f17b1804b1-4a18e4bacbfmr224923095e9.18.1791895187530;
-        Tue, 13 Oct 2026 05:39:47 -0700 (PDT)
-Received: from localhost.localdomain (87-205-122-125.dynamic.inetia.pl. [87.205.122.125])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc7299sm4179440f8f.53.2026.10.13.05.39.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 05:39:47 -0700 (PDT)
-From: Kyrylo Biryuk <illofspeed@gmail.com>
-To: dm-devel@lists.linux.dev
-Cc: mpatocka@redhat.com,
-	snitzer@kernel.org,
-	agk@redhat.com,
-	bmarzins@redhat.com,
-	dlemoal@kernel.org,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 3/3] dm zoned: keep polling for idle reclaim after a reclaim pass
-Date: Tue, 13 Oct 2026 14:39:40 +0200
-Message-ID: <20261013123940.952-4-illofspeed@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013123940.952-1-illofspeed@gmail.com>
-References: <20261013123940.952-1-illofspeed@gmail.com>
+        d=1e100.net; s=20260707; t=1791895216; x=1792500016;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0eOfUWl1R3SOwmQxh1GQ80TqhBtojSwu6T3aXEwR1Vo=;
+        b=WhvirEP3C6BOTvdKPsACugES5x2KUUsAApH6Vapk0y2/Ypq87Xb+8e1FtTsynpvr9K
+         JLZg5wnInnUEmTHXvHeHZImmSUV97bgj93G7mxzQys0Qp+yPCBm6rUtEbG9fNHVHFkSm
+         nBUfFUu250LM5ME0ooWkvadlvFc7sdEkZ8UJQSDE943t91QahWl3PcRllL61pNVxi6An
+         MA3YXZvkLWjzgreJDf2Fz+X8TvVAi5RTeU6ZtFvbX9RQIRfshzeSkyuBJ+cLh3Hc1oNf
+         Ap6c10dr/OiY5FvKNcvyuZjyvjpQIoH7IXflSJVELLmO3tIv7CVSYRnIGHET7/l6TmPs
+         aUTg==
+X-Forwarded-Encrypted: i=1; AKwUvBzhjhNlNi2k4waXboxdYRwM5eHja1ZVxQaK0MRRehGM2gGzHTDdrawjpzlsbY0tMypJFjX48r619QpBv0Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPuXMn05ZB6mXgD/FB+bSpSqIIocT7KVIzFDWiND5VnbeS4ciD
+	RT4IytI08f+kPO+XWxBBtGYCHH06oQniIZ/dDvoJCBvXLYXvkqVzyRc4nmVBgCU06eh0B7NYnTR
+	wb1ffKk77iYDTi+1n0GIVrRsOfw98CoyJYH0G3o9z
+X-Gm-Gg: AYBFou0xp7EFway0XnSX5G++ZgXxJMZc99gk7y+ipxRNms6KdMWWPeLLTi/uAmeNNLt
+	16efUn6SIKuLpmS9I0qIRik1aOD0+zwZ7dcA6Jf6St7YiMGjj+9dSHquhgXTGKgAH/O653dfHBJ
+	n570k9eAXTYhLktYatRJ2vlqKwB/iJaqfRZQgsrqRCvYxDWf0sUWI3vNkO13fMWEswcP9wt1FXg
+	lBgg39A4jz00vDxV7SqU1RiaWhHDWtM4e8h5RUpSt6fvSmI6JW+kHJvx7BYd5Ttldb0f/ZNFRt6
+	f1pMqcwHskOYcy1V87wV0lCMlztYFbmYwq37izQbbuzPpz6EEz/VXQJHQsyJx2hBvfS85opnWeO
+	8Y5xrhs6KWRroQ5uo1+fncTQ=
+X-Received: by 2002:a05:6000:43c5:20b0:487:27f6:a4df with SMTP id
+ ffacd0b85a97d-48dbad3c1e2mr17146863f8f.47.1791895214991; Tue, 13 Oct 2026
+ 05:40:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261012134159.912183-1-elver@google.com> <20261012134159.912183-2-elver@google.com>
+ <CAG_fn=UbARgkMYOHY9kbqvkCEE532_wnkKkv50H-JkuKWtCe=g@mail.gmail.com>
+ <as4DdRqFKxuJNDnS@elver.google.com> <CANiq72kQ0XggO9K44aprg1yLWZFj=zb3M+T4pRKnKbBwnoy13g@mail.gmail.com>
+In-Reply-To: <CANiq72kQ0XggO9K44aprg1yLWZFj=zb3M+T4pRKnKbBwnoy13g@mail.gmail.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Tue, 13 Oct 2026 14:40:01 +0200
+X-Gm-Features: AclHuK-baEW0UEHM2ney0XhOi65COv0qWM-kqnIhtWfQmlen933Tf5epqt03if4
+Message-ID: <CAH5fLgh=TkPnycdZ8_yQKaVeufN1YUS-MTo3EoMVhZzOdpKwYw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] rust: kcsan: add KUnit test for data race detection
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Marco Elver <elver@google.com>, Tejun Heo <tj@kernel.org>, 
+	Lai Jiangshan <jiangshanlai@gmail.com>, Alexander Potapenko <glider@google.com>, 
+	Boqun Feng <boqun.feng@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
+	Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-dmz_reclaim_work() re-arms its DMZ_IDLE_PERIOD poll only when
-dmz_should_reclaim() returns false at the start of a pass (and, with the
-first patch of this series, when a pass fails with -ENOSPC). After a pass
-it calls dmz_schedule_reclaim(), which queues the work only if reclaim
-is needed right now. When a pass ends while the target is still busy and
-has enough free zones, nothing is queued at all. Once the target goes
-idle, nothing re-evaluates dmz_should_reclaim() until another zone
-allocation, a "reclaim" message or a resume schedules the work, so the
-random or cache zones that filled up under load stay full.
+On Tue, Oct 13, 2026 at 12:32=E2=80=AFPM Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
+>
+> On Tue, Oct 13, 2026 at 12:10=E2=80=AFPM Marco Elver <elver@google.com> w=
+rote:
+> >
+> > Looks like it, and we need this patch to use system_dfl_wq:
+> >
+> >
+> > From: Marco Elver <elver@google.com>
+> > Date: Tue, 13 Oct 2026 10:05:52 +0000
+> > Subject: [PATCH] rust: workqueue: add system_dfl()
+> >
+> > The C kernel deprecated system_unbound_wq in favor of system_dfl_wq
+> > (commit 64d8eae3f895 ("workqueue: Add warnings and fallback if
+> > system_{unbound}_wq is used")).
+> >
+> > Add `system_dfl()` to provide a safe wrapper around `system_dfl_wq`.
+> >
+> > Signed-off-by: Marco Elver <elver@google.com>
+> > ---
+> >  rust/kernel/workqueue.rs | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> >
+> > diff --git a/rust/kernel/workqueue.rs b/rust/kernel/workqueue.rs
+> > index 7e253b6f299c..e46d3acf903d 100644
+> > --- a/rust/kernel/workqueue.rs
+> > +++ b/rust/kernel/workqueue.rs
+> > @@ -1063,6 +1063,16 @@ pub fn system_unbound() -> &'static Queue {
+> >      unsafe { Queue::from_raw(bindings::system_unbound_wq) }
+> >  }
+> >
+> > +/// Returns the system default work queue (`system_dfl_wq`).
+> > +///
+> > +/// Workers are not bound to any specific CPU, not concurrency managed=
+, and all queued work items
+> > +/// are executed immediately as long as `max_active` limit is not reac=
+hed and resources are
+> > +/// available.
+> > +pub fn system_dfl() -> &'static Queue {
+> > +    // SAFETY: `system_dfl_wq` is a C global, always available.
+> > +    unsafe { Queue::from_raw(bindings::system_dfl_wq) }
+> > +}
+> > +
+> >  /// Returns the system freezable work queue (`system_freezable_wq`).
+> >  ///
+> >  /// It is equivalent to the one returned by [`system`] except that it'=
+s freezable.
+> > --
+> > 2.56.0.385.gd3acb90ef8-goog
+>
+> This is:
+>
+>   https://lore.kernel.org/rust-for-linux/20260807165252.3849875-2-dakr@ke=
+rnel.org/
+>
+> i.e. we have had a warning like that in one of our current tests for a
+> while, it would be nice to clean it up:
+>
+>     workqueue: work func
+>     _RNvXs8_NtCs5lxGbhOOw2k_6kernel9workqueueINtNtNtB7_4sync3arc3ArcNtNtN=
+tNtBH_4lock8spinlock5tests4TestEINtB5_15WorkItemPointerKy0_E3runB7_
+>     enqueued on deprecated workqueue. Use system_{percpu|dfl}_wq instead.
+>
+> Cc'ing workqueue: Tejun and Lai.
 
-Seen on md RAID5 members on 27 TB host-managed drives: after heavy
-writes the random zones stayed full for hours on idle targets; the
-workaround was a timer sending "dmsetup message <dev> 0 reclaim". With
-this patch the emptied and filled zones were reclaimed within minutes of
-the targets going idle, without the timer.
+I was actually working on resending that workqueue patch series, but I
+think this particular patch should be split out as a separate fix, so
+I'll go ahead and do that.
 
-When reclaim is not needed right now, make dmz_schedule_reclaim() queue
-the idle poll, so the work stays queued after every pass. It uses
-queue_delayed_work(), which leaves already pending work alone, so the
-other callers (zone allocation and the "reclaim" message) neither
-postpone a pending poll nor delay a pending immediate reclaim.
-
-Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
-Assisted-by: LLM
-Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
----
- drivers/md/dm-zoned-reclaim.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-index 88d56d3c86d..f1f9adf6039 100644
---- a/drivers/md/dm-zoned-reclaim.c
-+++ b/drivers/md/dm-zoned-reclaim.c
-@@ -641,7 +641,8 @@ void dmz_reclaim_bio_acc(struct dmz_reclaim *zrc)
- }
- 
- /*
-- * Start reclaim if necessary.
-+ * Start reclaim if necessary. Otherwise make sure that an idle poll stays
-+ * queued, without delaying work that is already pending.
-  */
- void dmz_schedule_reclaim(struct dmz_reclaim *zrc)
- {
-@@ -649,4 +650,6 @@ void dmz_schedule_reclaim(struct dmz_reclaim *zrc)
- 
- 	if (dmz_should_reclaim(zrc, p_unmap))
- 		mod_delayed_work(zrc->wq, &zrc->work, 0);
-+	else
-+		queue_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
- }
--- 
-2.43.0
-
+Alice
