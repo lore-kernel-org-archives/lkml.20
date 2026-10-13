@@ -1,129 +1,196 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3A0516149;
-	Tue, 13 Oct 2026 15:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE3651E436;
+	Tue, 13 Oct 2026 15:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904649; cv=none; b=fCE8iajccuNfBwBJXtpl66LgYAVWZEb83eRkQrT8aN9CEKVyiyNvAr4FtsZdqCCl9Cu76SKdQhY+z/8z0x6BE6tnUFXRnTBCPN3bMR5Kav25xfzis/Ugv6zOijmTqor99F+3NxCQBaQPejwki+tOtNGEv2jXrmn+IV3/CyslKNY=
+	t=1791904657; cv=none; b=MECOKcv7fK5PeQht0pWNw/9lG1ideFS4Zji73CuydKUWK/WRg8uNbbUbvCDUg4dwELstrS3NRYUSacbnAXmrGVi6O460rXqZNAfQlTlfxyJcjpDuJHnde+1GGSY84h/WGhCmtmK210LCtmWACLFIch7RPrGw3Tl04OiHf8Oioso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904649; c=relaxed/simple;
-	bh=1PKx6K5kS9ixz7lpt3FtwaVW7RHV/EVckavCzYOad7k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nWm93utgZbZTleixWR4WEGn13UXlkwCEe+qUVIZsgx99g7M2Vu21nomtRJGceDbzGGWJNqeRE+m2Gn6tUjtx1Eel2/I0pNemEOjzuTuPUdaLayZcPXQ2HG6J1Z90jk9Mdvh9+N52Fu2/Z+hCd0raaIigygxkD5V6aeq1xFUsvmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=f19i+ryA; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791904657; c=relaxed/simple;
+	bh=J73VgxiDJtDbEjuSEKaa2w2gvsHiWji6iG2sKtoTEY4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Ta9HxhPqbiv3Qej5HjnbNfZxSvsOzM7Xqmpu32BSCD+tsBKyxTGBNFt4oQc08scq4UEDLwvBsZmsb9i2QGGdNjrzvkG1mtxdAk2kHeAJJFbFg7/olVkrHkZ5SGskKAPRDkuKLKwelbGefus2dxiOl2TMpUhMsnBH1F/WdY+K2Qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kxFe+SVv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="f19i+ryA"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791904635; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=kwGgW9ZfnhD2utrf0TJhdswRz4p0Pk722fsBy/r92CQ=;
-	b=f19i+ryAvrbLYn+a9nmnjF/RRPiBojRjq9bb7dzon7pqhUv0OfLNpRL7HjyIoz8MDoBUlB8LxOJM1khkUOsNXzdpj4EoZ93xSGeM3zp41G0MQYQ6ExBijS05peFCxgQDC42X7aHOf0QpZ9hZNMJmM8myeArHFn5VRN0sL48hHBw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XCm3MTA_1791904632;
-Received: from 30.180.226.69(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XCm3MTA_1791904632 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 13 Oct 2026 23:17:13 +0800
-Message-ID: <16cec777-2582-4080-a2c8-903b652db939@linux.alibaba.com>
-Date: Tue, 13 Oct 2026 23:17:12 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kxFe+SVv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296691F000FF;
+	Tue, 13 Oct 2026 15:17:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791904655;
+	bh=sWfUN5n62E4e+bmVpFyFp3zeFeOC+JwJLHZEzoq7w84=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=kxFe+SVvd5Zc7zI2lMw7EcaLCAsc7ByHaJ6Uf3xgnewrLa6if2h/v7O1SikFKQ3jm
+	 FkqnIOHtCElS7Q/9Xkr2HYvedMc035KlwYXVmfuCz5E1aZmaIFo4TixrqYg6Vx9Ent
+	 7Pr0enwn9FMh5T0Uunzh2/Mc6F7YqbaKrlEbyuVCctxmmVs4G0kbvA5LQcjdwu27iW
+	 tdtolsevqPE/oqmgHYbOeaXZB4CCDd0XcZa54NLWTjJXRx2JBVlxZX8pPW0q67m/eV
+	 U8kPXCZPZa5DoXxxQFF0LIGifl4z80s/r8Scn7EsJ5t23cASGjEBMauj/jEIlnsVIk
+	 ivDmXsfPzXWkA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 13 Oct 2026 16:05:02 +0100
+Subject: [PATCH v6 22/39] uprobes: remove VM_IO, set VM_MIXEDMAP for mapped
+ kernel pages
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: complete dropbehind writeback in task context
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
- Ojaswin Mujoo <ojaswin@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Zhang Yi <yi.zhang@huawei.com>, Andreas Dilger <adilger.kernel@dilger.ca>,
- Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
- Taotao Chen <chentaotao@didiglobal.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-ext4@vger.kernel.org,
- linux-kernel@vger.kernel.org, Christian Brauner <brauner@kernel.org>
-References: <20261012-ext4-dontcache-complete-in-task-v1-1-6ac801557041@columbia.edu>
-Content-Language: en-US
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <20261012-ext4-dontcache-complete-in-task-v1-1-6ac801557041@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-22-1aa3c9b139f9@kernel.org>
+References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2177; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=J73VgxiDJtDbEjuSEKaa2w2gvsHiWji6iG2sKtoTEY4=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZwKWHe8wH9l2lmTBcE7jhiucOK/Yeofu2fKMpHiM
+ 2FHw9/WdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAih94w/M/yLckUXy51oCdV
+ //EKlpc1pvdLQyKveZ9/ZPDrcFbYeR1Ghm6BU5Nm8HGYp6zd4RXvpqehdsh29z1n0Z/9GywqJBr
+ T2AE=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On 2026/10/13 02:04, Tal Zussman wrote:
-> ext4_end_bio() ends writeback directly from bio completion, which
-> usually runs in interrupt context, unless the io_end has unwritten
-> extents to convert and is completed from ext4's workqueue.
-> folio_end_dropbehind() only invalidates the folios of an RWF_DONTCACHE
-> write when it runs in task context, and silently skips them otherwise.
-> So on ext4, dontcache writes that overwrite blocks that are already
-> written, or that allocate blocks without unwritten extents, leave their
-> folios in the page cache. Dropping them was best effort so far, as there
-> was no way to get task context from bio completion.
->
-> Use the task-context bio completion infrastructure instead: set
-> BIO_COMPLETE_IN_TASK on bios that carry dropbehind folios in
-> io_submit_add_bh(), so that bio_endio() runs their completion from a
-> worker. ext4's iomap buffered I/O path already gets this from iomap, so
-> only the buffer_head based writeback is affected. Skip the flag when the
-> io_end already has unwritten extents, as ext4 then defers the completion
-> itself. A later extent can still make the io_end unwritten after an
-> earlier bio was built. That bio's completion is then deferred twice,
-> which is not optimal, but harmless.
->
-> This changes behavior only for bios that carry dropbehind folios: their
-> completion now runs from a worker instead of in interrupt context.
->
-> On the unpatched kernel a dontcache overwrite of already-written blocks,
-> or a dontcache write into a new file on a dioread_lock mount, leaves
-> every folio in the page cache (16384/16384 for a 64M file). With the
-> patch, none remain in the page cache. A dontcache write into a new file
-> with unwritten extents already drops its folios on both kernels, as
-> expected, and a plain write keeps them.
->
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+These are not MMIO pages so VMA_IO_BIT is an inappropriate flag to set.
 
-We should add a Fixes tag:
+Instead, set them VMA_MIXEDMAP_BIT as they are kernel mappings and this is
+the appropriate flag to set for those.
 
-Fixes: ae21c0c0ac56 ("ext4: support uncached buffered I/O")
+This provides the semantics required - no VMA merging is permitted, but
+does not prevent GUP.
 
-Otherwise looks good to me:
+However this has no meaningful impact as these are refcounted and thus can
+be GUPed.
 
-Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
+A previous commit already prevented __mm_populate() from being invoked on
+XOL areas, which VMA_IO_BIT was previously relied upon to do, so that is no
+longer required.
 
-> ---
->  fs/ext4/page-io.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
-> index 734d856a6d47..e556598ce9e1 100644
-> --- a/fs/ext4/page-io.c
-> +++ b/fs/ext4/page-io.c
-> @@ -458,6 +458,16 @@ static void io_submit_add_bh(struct ext4_io_submit *io,
->  		io_submit_init_bio(io, inode, folio, bh);
->  	if (!bio_add_folio(io->io_bio, folio, bh->b_size, bh_offset(bh)))
->  		goto submit_and_retry;
-> +
-> +	/*
-> +	 * Dropbehind folios can only be invalidated in task context. An
-> +	 * io_end with unwritten extents is completed from ext4's workqueue
-> +	 * anyway, so only ask the block layer to defer the others.
-> +	 */
-> +	if (folio_test_dropbehind(folio) &&
-> +	    !(io->io_end->flag & EXT4_IO_END_UNWRITTEN))
-> +		bio_set_flag(io->io_bio, BIO_COMPLETE_IN_TASK);
-> +
->  	wbc_account_cgroup_owner(io->io_wbc, folio, bh->b_size);
->  	io->io_next_block++;
->  }
->
-> ---
-> base-commit: 35aefefd7aba0801bab635b11943f932626be3b2
-> change-id: 20260924-ext4-dontcache-complete-in-task-2340ed5f3114
->
-> Best regards,
-> --  
-> Tal Zussman <tz2294@columbia.edu>
+Both VMAs set a VMA name, so always_dump_vma() returns true before
+vma_dump_size() reaches its VMA_IO_BIT check, and thus there is no change
+in core dump behaviour.
 
+Change this for both the core xol_add_vma() function and the x86-specific
+get_uprobe_trampoline() function.
+
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ arch/x86/kernel/uprobes.c | 2 +-
+ kernel/events/uprobes.c   | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
+index 65a2de82ecd2..0f60c0d076b6 100644
+--- a/arch/x86/kernel/uprobes.c
++++ b/arch/x86/kernel/uprobes.c
+@@ -715,7 +715,7 @@ static struct vm_area_struct *get_uprobe_trampoline(struct mm_struct *mm, unsign
+ 
+ 	*new_mapping = true;
+ 	return _install_special_mapping(mm, vaddr, PAGE_SIZE,
+-				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_IO,
++				VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_MIXEDMAP,
+ 				&tramp_mapping);
+ }
+ 
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index 7709ea882477..b89cc5cee002 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -1726,8 +1726,8 @@ static int xol_add_vma(struct mm_struct *mm, struct xol_area *area)
+ 	}
+ 
+ 	vma = _install_special_mapping(mm, area->vaddr, PAGE_SIZE,
+-				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|VM_IO|
+-				VM_SEALED_SYSMAP,
++				VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|
++				VM_MIXEDMAP|VM_SEALED_SYSMAP,
+ 				&xol_mapping);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+
+-- 
+2.55.0
 
