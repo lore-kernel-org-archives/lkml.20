@@ -1,37 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BC83C65F0;
-	Tue, 13 Oct 2026 14:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7D63B6356
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900438; cv=none; b=kDFK4MsBaWyxrOd8nIhoYguVye+gfBURPg4c4e+VBSf3fUX0LUoyKoV/kZyntFWLzsyrTEyCbBV1ZwZv8wNlXS1a1DSPgSrc48Z+4A8Ux15eQnb3rQs+sMNdRU9pEuYfjv+NwyrM73twTT4c3MxUQkn4S52tYXTfTP6jF4X79+0=
+	t=1791900438; cv=none; b=dUIXSCwW0h9Lds9XeRc7g9Ng0uUWL1SDsISyBT81B98LZGzsm1pVcwUbHe11wDMHL8yxfDJt9zJt224PB9+EoenRxNxZK50EEMwgVdZqCbgN3frJVIipybWdDlTaLArFk16l2VceImoL2s/IJC/sXxQneRGj2EumCY9QlMZ3T6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791900438; c=relaxed/simple;
-	bh=umk+do6AA4iehzVvFZfr1gUxoj7dg1s+aAH6ZDQz6dg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fwhZ3tsU1BXZl3Qc5rFhlWZc/54JAx6/OKkld8IFtsTzaK9jtx9+8CW28fTJ9cbTaTXDnOszjIvQEbZs6K4NBdq49F52NqtwKWFfQmbOwz9lPsvaMdz90KKULy34uA1QVliRgJ8qoEoxXAEWdqSBEL4OlCJqKNuA7/GK7p1TFBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fm3Bmv3/; arc=none smtp.client-ip=10.30.226.201
+	bh=/sq0nuwqB/pm3NU5zjPxVPeaJJlmDWE80dJE3nYd4g0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MCP8s7SHSdWNO5RecDCMtbKgXCnH26hpCg4Fn9c6NOrlYg8YY9+yGQdUr8tsE7uNP/lpmvTwtdAOl4uK1hDUxNyFhmNurpZPZZ/OO/7Ck4DGu18M+3QOOG+02ovngKVQRDaFgNj7xD8stWhLms7XgBgv6zUYCGkMjnKLjekn+ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=w2KzdW2o; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fm3Bmv3/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 51654C2BCF4;
-	Tue, 13 Oct 2026 14:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791900438;
-	bh=umk+do6AA4iehzVvFZfr1gUxoj7dg1s+aAH6ZDQz6dg=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Fm3Bmv3/VfSgFiQMWVQa9eYzZIJgrK2jN7pQt+iUoz91o5mCSreBc6atpXiq2EV/Z
-	 Ibx2BiC+zED40loXtCAyl/0T7DxkGDjvV2IGjI2zdl6UwjS1SxUA1zSuHIytjzJqZV
-	 uQIKZFowFVrf8skZUxK9P4ZcOuR9x3ChrSfMV5jG9VQ4oU8GWpfhUmiVyAPYYES+p9
-	 p+192HS/rMU+IpVUkwwCWI2BfHxKKRrvHlL6SycgFMLho6pn99x7goWr83vEpjBWXT
-	 LAgBQ0D1WtIp+hVixNUqq6VsNszZ7O3mWhc9wfrZMwvgiSnArFYfCmA3r9NKaMJRQa
-	 AlPKcHWVybBsg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BAF8CC6B10;
-	Tue, 13 Oct 2026 14:07:18 +0000 (UTC)
-From: Phil Rosenthal via B4 Relay <devnull+phil.phil.gs@kernel.org>
-Date: Tue, 13 Oct 2026 10:07:16 -0400
-Subject: [PATCH v2] serial: core: Shut down a running console port before
- removing it
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="w2KzdW2o"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a020e65269so19520365e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:07:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791900436; x=1792505236; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=afbvFWPWi+JdvKTsjhtgFkolxmG5xvEkrb8KG7OzSYg=;
+        b=w2KzdW2orTYOzkOCKGSavBT3L2DOhs4t3zV9WF41KySi4SaufExKui/BdRVkDoXzN6
+         Xawf6u9iOnwixRFaVSLqSy8V/db1p7b9WV1th0Z2aR6NSMfsWtbIH4r+UPMVzDnv11a2
+         eC9DA98DOkPGgDRg4sXruU27hCZHBASFfkwCf7P9iVnOryLCKgM46qiszeeqR6ODbG/P
+         eETeAtV3pFufCjG9YqGDdAzntRYA3M8PYokmhp23WuqwX9u+U8h/yGRq5G/WUv8zvlOo
+         XtgptM6oqp+AU/rCXk7TTu6nGXLrfmJDw0EMOeGmaFO2UmeMN/eddb80TnchQpuHioBd
+         tOvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791900436; x=1792505236;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=afbvFWPWi+JdvKTsjhtgFkolxmG5xvEkrb8KG7OzSYg=;
+        b=JYHKr0yYKPwI6VIowmF8IIvObbi4bAigo/uVe81sFfY6RCwpcZ+hCPbINsCv0rKe7T
+         FDe2aA6fGkayVbdynsdKwh0XCPQ37JTSWzrI4wvoWIzoS5xSi5Wnckv8f51YSpWvd1ol
+         1Xu6zRHTznpNjBdJCFjuPJ3D+6RdxrBq+aAGANpWRtIyX7X9bZ+tLNpqgT4iORUAlhXw
+         8MTMHsoPj49e6dz4LIq5+gaMwAhXC4wugQwqTQjOd8z4SVIXeQBErrSRZXeuqTOjGHLA
+         lYYHzSeJNg7MbEpbPZ8qtajQO9mYn8I6zSmmOBg5MunJaSbflSvloi4n5g4Ssv9rIdr9
+         mzFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzwt4jUv1lyZps6Fvl2bR327k6bQubzD7Yrj26Gx3VXUgfwLyhXWeh8jzlrrOsvklsVo+28l3aR+5mUNr4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAFdbFRN9cpsnNePlo943tqFcNilIg7+OO9QZiugEEhEUtwNCC
+	L6IWCenloaX9mnT/mPBfO2XXI6VLqXLhhFUvwqpy0dQ4FdJt3AIXi7NMUDRp9dBOdDg=
+X-Gm-Gg: AYBFou2RhRu7K6Btoo8kufe8N36FkinDOqtBT5nbOVnOnq0/b1NT80UTf/GqZVKcbXg
+	4eoTgFpQoEk4bJeGTjpWa1iqUBvalIt2OVqUeSP4+1COnZ+NIc+VDDQCm4fP6AIf5ny9V/qOpiW
+	DHDuKUBUjCk2caVcmc6JgSjZliMyQtQBMO5kHof+84hLAAD60B+2WOnozH8FcQ5cjxBatKA5V8E
+	/Ga19l4pEnLQP7V25Doh/EC+s1IvzurXL9A4zH2fTsgI5uQaexEBm6bkQeI3YbMBjLV5VNV37p3
+	5LuKA3XZMgujZDFBrddifu1GMT4W68/XTpNfr+NVnRfXzVNHjBQTasWREJ3EfP+JXa2+dSEEJuM
+	XbxyFDy9hkrgfMQ18aQYPJ71GoPN3VwEyuaxnl0WzXPGOPSdhqpUoDcHSdaxSAxWKv1fwnUu4sv
+	6DUqQrrFHYUwpWHxSY4t9p/s6HSZG0WMcv37Hyn7oTtfmoNsKDmgjHndBBt5z9WJDE7DC0d7vvH
+	i7YLTu36PaTp3iLZoO5ffdT4QkbGw==
+X-Received: by 2002:a05:600d:8499:20b0:4a1:9687:bbd9 with SMTP id 5b1f17b1804b1-4a19687be3dmr135971285e9.35.1791900435476;
+        Tue, 13 Oct 2026 07:07:15 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bead84esm364625305e9.13.2026.10.13.07.07.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 07:07:15 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v3 0/3] iio: adc: add support for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+Date: Tue, 13 Oct 2026 16:07:10 +0200
+Message-Id: <20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,168 +70,144 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-serial-console-remove-v2-1-2eca1a92c10d@phil.gs>
-X-B4-Tracking: v=1; b=H4sIABM7zmoC/4WNQQ7CIBBFr9LM2jGAWqkr72G6QBjaSWppwBBNw
- 92lvYDL9/P/+yskikwJbs0KkTInDnMFdWjAjmYeCNlVBiVUK4XQuPXNhDbMKUyEkV4hE7qO/Nk
- Z3ZKwULdLJM+f3fvoK4+c3iF+95sst/SfMUuUqLR+dvYkL8Zf78vI03FI0JdSflUX8C+4AAAA
-X-Change-ID: 20261008-serial-console-remove-d9ef4da86e0c
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Johan Hovold <johan@kernel.org>, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Phil Rosenthal <phil@phil.gs>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791900437; l=6358;
- i=phil@phil.gs; s=20260718; h=from:subject:message-id;
- bh=BsCt8Br7wx0hA0cJvt2l/hyIzpxE51pEs/gRCgNdPtg=;
- b=54qcslukDWUJAe+/2QJFHyACcPfyiYCUjUfT3kZ8ytbhXN7C1mACaN9/PsgeHJOpXAyUDYdPK
- Hhd71AahafUCLjpMjzcbAng8WpGSlDC7IjM63Ay76RxWdDWgAPQPZLW
-X-Developer-Key: i=phil@phil.gs; a=ed25519;
- pk=08BMg1YPtTS5NnKn5I1Mq1ra3MdAg49Awe6OjrC59fs=
-X-Endpoint-Received: by B4 Relay for phil@phil.gs/20260718 with auth_id=881
-X-Original-From: Phil Rosenthal <phil@phil.gs>
-Reply-To: phil@phil.gs
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAA87zmoC/43OTQ6CMBQE4KuQrn2mfwi48h7GRVtaeUYoaZFgC
+ He34EZXupxk8s3MJNqANpJjNpNgR4zouxTELiOmUd3VAtYpE075gVZcwOB7NBDbcsopIHpo1SS
+ kZAWo2gCnlS1LmgvhNElGH6zDafPPl3eOD32zZljRtdFgHHx4bgdGtvb+3RoZUJCsllox7Yxkp
+ zt2Kvi9D1eyjo38k5O/OJ64StHUtQV3ufnilmV5AfrDGwAsAQAA
+X-Change-ID: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Marius Cristea <marius.cristea@microchip.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4451;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=/sq0nuwqB/pm3NU5zjPxVPeaJJlmDWE80dJE3nYd4g0=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqzjsQwjxwlTUV84lG3p5q68886D0CfxeTzoFhipJQ
+ a7bamPeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCas47EAAKCRB33NvayMhJ0TyYD/
+ 9053lDFl/t8V3EWswcKgvdeSOgpJ1BDSBQSzU76eSOQ7KIGxZAiXfL65KpGFy4eTchCEpS2Bcy6fs7
+ xXsx9FmPBWOrvkqcWjDCZV6bW8FKf4uzfG8yti53gwRAZfgKGIvw4KDvMyoXBypP+T/rQFsY3tT7Zs
+ I811d+MveJgkf2X4MAlzkGk0kQTvPkNHgIxkIFV4M9ep5UHB2c4fMv0LZXNWvTSlcnx2Tw/SheOU77
+ 5vbw+6KMhr9di0X3pHfw8ethUs0BU/W55uZp5z1asSjhfw2d01Dcb9gaXtqRGucho7m1UOX2I/zEal
+ MjgOYRdOQo+dYm83BLvOIfnTDoRb1gKKjE8FnV79asZKauh9qMseJFgVtHNlOGU1Nz0PgqMGNG+lmj
+ 6GJ8n4FncUeJ61CVyP+vw8IKCHbqAqgmP8bVebcZkqsWz2yDzR77tyWqHaKGcPpS8nTA7DAz5o11Cv
+ hpqQQQg2ae/2yIlRgA5nLASGlF9iWyYpFX7csLCpOnE7qEE140IPmAKzWM3tOsP+eHx7KomfG4rtpJ
+ 2AYwqe/ka2PnftaXPAc1O9rZa622BiPY+NKKaeL0plSde/TclgDAv8ewlqk5AIteBJJogTUK2YwZGM
+ C08Tf7LboSBW5sdDasgTVfMGDAWZYUSLXa83EVqETvDzaobELBc8su/7j70A==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-From: Phil Rosenthal <phil@phil.gs>
+The MAX34417 is a specialized current and voltage monitor used to
+determine power consumption of portable systems. The driver supports
+getting the channels voltage, average power and accumulated average
+power and energy over an I2C/SMBUS serial interface.
 
-A console port is not shut down when its last user closes it:
-tty_port_shutdown() returns early when tty_port::console is set, so the
-port stays initialized.  For an 8250 port this leaves its interrupt
-requested or, for a port without an interrupt, its poll timer armed.
+The MAX34417 datasheet only specified on how to calculate the
+accumulated average power, but with the Sample Per Second rate
+we can easily get accumulated Energy in mJ.
 
-serial_core_remove_one_port() relies on tty_port_tty_vhangup() to shut
-the port down before releasing its resources, but the hangup reaches
-uart_hangup() -> uart_shutdown() only when a tty is attached.  For a
-console that was opened and closed, for example a serial console whose
-getty has been stopped, nothing shuts the port down.  The console is
-unregistered, ->release_port() releases the registers and the core frees
-uport->name while the port is still running.  On tty-next with 8250
-ports:
+By default the IIO driver only supports single-shot Voltage
+and Power sensing, but the accumulation can be enabled by
+enabling the Energy IIO channel which then enables the
+Continuous Accumulation Mode.
 
- - A card bound to 8250_pci with an INTx interrupt and unbound through
-   sysfs keeps its interrupt requested after the driver is gone.  The
-   irqaction name points to the freed uport->name, so reading
-   /proc/interrupts is a slab-use-after-free in irq_seq_show().
+The counter is common to all channels, so when reading a single
+channel we will copy all accumulators to registers, so in order
+to permit reading individual channels we must accumulate the
+other channels in the driver when Continuous Accumulation Mode
+is enabled.
 
- - A polled (irq = 0) MMIO port with UPF_IOREMAP keeps running
-   serial8250_timeout() after serial8250_release_port() has cleared
-   membase, which dereferences NULL in timer softirq context about
-   10 ms after "console [ttyS5] disabled".
+The get_unaligned_be56() helper is added since we effectly
+get an unaligned 56bit value from the HW.
 
-After unregistering the console and before releasing the resources, call
-uart_shutdown().  It runs with port->mutex held, as for its other
-callers, and with no tty, so it also drops DTR and RTS.  For a port that
-is not initialized, because the hangup already shut it down or because it
-is suspended, uart_shutdown() leaves the hardware alone and only releases
-what the core still holds, such as the transmit buffer of a suspended
-port.
+While Maxim originally provided an HWMON driver for this
+IC, using IIO makes much more sense because it provides
+much more flexibility to support getting the power values
+and will make it easier to support trigger to dump all
+channels in a single shot and then support the Bulk Update
+feature to update all MAX34417 on the same bus via the
+trigger mechanism.
 
-Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
-Cc: stable@vger.kernel.org # 6.6.x
-Assisted-by: LLM sparse
-Signed-off-by: Phil Rosenthal <phil@phil.gs>
+The v3 implementation has been completely revised since
+v1/v2 to better match the capabilities of the MAX34417 and
+allow getting accumulated Energy plus provide single
+channel read without loosing other channels accumulations.
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-The bug goes back to v4.9 (761ed4a94582), but scoped_guard() for
-mutexes was only added in v6.5, so this version doesn't build on the
-6.1, 5.15 and 5.10 stable trees.  For those I'll send a backport that
-uses mutex_lock() and mutex_unlock() instead and is otherwise the same.
+Changes in v3:
+- Implement Continuous Accumulate Mode and default to single-shot mode
+- Fix includes
+- Better define Rsense and default rsensd in driver & bindings
+- Define all read length and offsets
+- Define the SPS bits
+- Fix comments first letters
+- Fix max register
+- Add ENERGY channel with shared enable for Continuous Accumulate Mode
+- By default reset the MAX34417 counters for each readout to do a single-shot measure
+- Handle zero counter
+- Add get_unaligned_be56
+- Use get_unaligned_* macros
+- Better handle the DT properties and report errors
+- Reset the MAX34417 at the end of probe
+- Link to v2: https://patch.msgid.link/20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org
 
-I hit the bug on real hardware.  My serial console is a polled ASPEED
-BMC VUART, then driven by an out-of-tree module.  After I stopped its
-getty, unloading the driver oopsed in mem32_serial_in() from
-serial8250_timeout().
-
-History: before 761ed4a94582, uart_close() called uart_shutdown() for
-every port, consoles included.  761ed4a94582 made console ports skip the
-shutdown on close.  be2c92b8f164 reverted that part and 4dda864d7307
-reinstated it, all within v4.9.  Keeping a console running after close is
-intended, but the removal path was never updated for it.
-
-Tested in a QEMU guest on tty-next 36844ea19656 with KASAN, using in-tree
-8250_pci and a "serial8250" platform port.  Reproducers are available on
-request.  Without this patch:
-
-  8250_pci with INTx, reading /proc/interrupts after unbind:
-    BUG: KASAN: slab-use-after-free in string+0x3b6/0x4c0
-     irq_seq_show+0x34d/0x810
-    Allocated by task 1244:
-     kasprintf+0xac/0x100
-     serial_core_register_port+0x55f/0x1720
-    Freed by task 1276:
-     kfree+0x1a0/0x4a0
-     serial_core_unregister_port+0x44d/0xa80
-     serial8250_unregister_port+0x10d/0x6c0
-     pciserial_detach_ports+0x92/0x160
-
-  Polled MMIO port (irq 0, UPF_IOREMAP) after removal:
-    printk: console [ttyS5] disabled
-    BUG: kernel NULL pointer dereference, address: 0000000000000008
-    RIP: 0010:mem32_serial_in+0x74/0xa0
-     serial8250_timeout+0x44/0x140
-     call_timer_fn+0x32/0x260
-
-With this patch both cases are clean: the IRQ is freed on unbind,
-rebinding restores the console, and the polled port is shut down on
-removal.  A port held open across removal and a console that was never
-opened did not fail before and still work.  v2 was retested the same
-way.  W=1, sparse and checkpatch --strict are clean.
-
-Also tested on real hardware: the ASPEED BMC VUART that hit the bug
-(polled MMIO, irq 0) as the console, now bound to 8250_pci with my
-pending ASPEED support patch [1], on a 7.0.14 distribution kernel with
-both patches.  After stopping the getty, opening and closing the port,
-and unbinding the PCI device, there is no oops.  Rebinding restores the
-console, the getty and in-band IPMI.  That run used v1; v2 behaves the
-same on that path.
-
-Not tested: serial drivers other than 8250, and removing a port while it
-is suspended (the case v2 adds).
-
-[1] https://lore.kernel.org/r/20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs
-
-AI assistance: an LLM coding assistant (Claude, model claude-opus-5-5, in
-Claude Code) analysed the crash, wrote the reproducers and the patch, and
-built and ran the test kernels.  Two other LLMs reviewed the result
-(GPT-5.6 Sol via Codex, and Claude Fable 5.1 via Claude Code).  I reviewed
-it as well.
----
 Changes in v2:
-- Call uart_shutdown() without checking tty_port_initialized() first,
-  so that a console port removed while suspended also gets its transmit
-  buffer freed and its suspended flag cleared (found by Sashiko's
-  review of v1).  uart_shutdown() already skips the hardware shutdown
-  for a port that is not initialized.  Comment and changelog updated.
-- Use scoped_guard() for port->mutex, as elsewhere in the function, and
-  drop the comment (Greg).
-- Link to v1: https://lore.kernel.org/r/20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs
----
- drivers/tty/serial/serial_core.c | 3 +++
- 1 file changed, 3 insertions(+)
+- switch to shunt-resistor-micro-ohms no more required
+- removed gpio.h from example
+- Fixed max34417->MAX34417 in Kconfig and comments
+- Added missing includes and remove unneeded
+- Fixed typos in comments
+- Switched to fsleep()
+- Better aligned max34417_read_power declararation
+- Handled 0 acc_count
+- Switched to GENMASK_ULL() for 32bits systems
+- Added missing empty lines
+- Moved the input correction into a helper
+- Set default input correction for all channels
+- Switched to dev_err_probe() to return from probe
+- Switched to device_for_each_child_node_scoped()
+- Handled invalid shunt-resistor-micro-ohms value
+- Link to v1: https://patch.msgid.link/20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 319a4b427f3a3727d12cb58252bd8959f9be4cd6..d96d84a985cd972f3974da28cf3daa7fc05eefcf 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -3239,6 +3239,9 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
- 	if (uart_console(uport))
- 		unregister_console(uport->cons);
- 
-+	scoped_guard(mutex, &port->mutex)
-+		uart_shutdown(NULL, state);
-+
- 	/*
- 	 * Free the port IO and memory resources, if any.
- 	 */
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
 ---
-base-commit: 36844ea19656fb41278799ef3d5cd52120d89149
-change-id: 20261008-serial-console-remove-d9ef4da86e0c
+Marius Cristea (1):
+      unaligned: introduce be56 unaligned accessors
+
+Neil Armstrong (2):
+      dt-bindings: iio: add: document the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+      iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+
+ .../bindings/iio/adc/maxim,max34417.yaml           | 100 +++
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/max34417.c                         | 777 +++++++++++++++++++++
+ include/linux/unaligned.h                          |  27 +
+ 5 files changed, 916 insertions(+)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
 
 Best regards,
--- 
-Phil Rosenthal <phil@phil.gs>
-
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
