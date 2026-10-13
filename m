@@ -1,131 +1,132 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C063624679C
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791929557; cv=pass; b=SfXdgMaPQ4Cx1f8UzlgJ/diO8AJLj0mAUL8w2eRRfRYcrnGnrC58PtkUMc7SDXVTcalP+sPMsB90AENlZYVBmpVgP54SK96pbCtWROhpAIEpQHRpgFTvwOVPOEItSCM3ShUsvIUTXeza0IYDq8W2LSRbXPP8XOg1+HlqRVESzIg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791929557; c=relaxed/simple;
-	bh=sb6lDyvEWxW/tjWYo4JwxUo8AyjP0zcs8wstHaj2Qbo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tmM/vBtgMgigqgIuzv1awdRyP5XACKfafFENGuwx9ZTvJjLjIJlypbKxxG6/J8QfdEn2+nznLwJ61xK39eXYst9D5lzQlWZONkm4v7ak+D2IebNBUJXPrCEVeccGiTUo1IGCBNWNg0Vo64r+oUkbY9nqMHr28tQEmILFohVtiZg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=FgwTvW/Z; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EAAA353977D;
+	Tue, 13 Oct 2026 22:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791929637; cv=none; b=HIne1Gc6DF88g/G1C7mfN185EjyTTuvFk4Lkoj1MFnaiiN8lole/1QU5deyhgmyc2h6ONAgXFbHno0aNnabNG/cER60KIHcVkAIGbORZLlxn/tylbAk6G7dRHY10R/U/Gzj0gGPoR6QJjYdAbLQ2WlMlZWJfOUq460ULWHsxnIM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791929637; c=relaxed/simple;
+	bh=b9BtCWGkJHn0bMKGND0IyL2uVXPmtmkcN+nYesDBUN0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gLWbkd3bpNrWWDFaUYHF6lW1ame2/SFgexzI6v+zmrltSlGci5uIA9eqWR0767WNU+lJb+yGH9PvLE73FdhxdqR9hCs209prtGkwX2gNx4o7qMoDETGfGQMWbZ+IdZKcjm7SUy78WOcbouUgO6VVICItQfaD3DAj7HOTX4K5adY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C1rfY83B; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="FgwTvW/Z"
-ARC-Seal: i=1; a=rsa-sha256; t=1791929535; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=WZ8lGLaO87ls1aXK8rTZT9do0J6fz3Lpy2S6nmQ+8B5E4FvuFP+Js++jGkDAkd0ZHP7KK40QJcg/ixxkMJooUJ7IhRkT9ktVDMk2SKd1jBUmpYMNU05iWBIiTawOlMubJNdNfjXbC2k5yJzTSltxJFPuhlKTYWf2Z1gkmIPlWik=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791929535; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=wcRc/T/eXCLTFhEcSFkccExr1kJjQjBISfxi0aCVTa0=; 
-	b=gJF37XSVKZheqM+qhSL/UvYxl2Ml6/zC4kNEVGVIJhxBITD10HY6nYxf9K+q8jZMiXShQGe7eo67nWzQyMcq2tDrSQSKfz5eKY2kjchhcC8SN0558Oul5QGoLyYibAGIkNMOV77hBGAmiXaCww80KXANs7HWAKb/t6S/mAiJ2OU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791929535;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=wcRc/T/eXCLTFhEcSFkccExr1kJjQjBISfxi0aCVTa0=;
-	b=FgwTvW/ZRIn4lUW0mVdAVa61kGyLcB1+oc9BqdXLwx2rIhxQA5lLYXjbS0nYXbtq
-	4/KTPTX489rpeHnfLGs4BoER6pX2Yy7oL/dzEDi+n1Qo/ku2nRvqO4rUkYiWBv+V7Ej
-	33dXRF6mHAfF3Q6YT/NkMmGHSVJRAjWlb0D5ATMM=
-Received: by smtp.zohomail.com with SMTPS id 1791929533139758.2008581627222;
-	Tue, 13 Oct 2026 15:12:13 -0700 (PDT)
-Message-ID: <d9ee1d07-4277-4a18-a857-c82f200fe76c@collabora.com>
-Date: Wed, 14 Oct 2026 01:12:08 +0300
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C1rfY83B"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AE8101688;
+	Tue, 13 Oct 2026 15:13:50 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D28A93F871;
+	Tue, 13 Oct 2026 15:13:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791929634; bh=b9BtCWGkJHn0bMKGND0IyL2uVXPmtmkcN+nYesDBUN0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=C1rfY83BkHnie2RRXlgSM0spEEod8PgaPuxpFHc0TfWCkwwT6A+J9lbPVQbi8/Zob
+	 ds7qUjs0sZ6cvcThatuxZSggPOanDyou4n0L/87Y0HuAIEiVR1Tc0g8g8GPkxnWb+f
+	 wWG5VvHpBfAHhVr89J/Rly0sMuxkD70ypumHEPhs=
+Date: Wed, 14 Oct 2026 00:13:34 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
+ <samuel@sholland.org>, Jerome Brunet <jbrunet@baylibre.com>, Yixun Lan
+ <dlan@gentoo.org>, Enzo Adriano <enzo.adriano.code@gmail.com>,
+ linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFT] pinctrl: sunxi: Fix A733 withstand programming
+Message-ID: <20261014001334.54dcf0b5@ryzen.lan>
+In-Reply-To: <20261013172427.328177-1-vinicius.eduardo.pedrosa@gmail.com>
+References: <20261013142351.771229-1-andre.przywara@arm.com>
+	<20261013172427.328177-1-vinicius.eduardo.pedrosa@gmail.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: "Huang, Honglei" <honghuan@amd.com>
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, odaki@rsg.ci.i.u-tokyo.ac.jp,
- airlied@redhat.com, kraxel@redhat.com
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
- <dfa2f117-1094-40b9-9445-ab2bbf62ff2e@collabora.com>
- <7c32c182-5b49-4dc0-9c97-a4238743f28c@amd.com>
- <efd5fa89-e888-469a-ac80-e6e605f9a015@collabora.com>
- <317cc6e9-8e15-462d-9e9c-2657011b7128@amd.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <317cc6e9-8e15-462d-9e9c-2657011b7128@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 10/13/26 08:32, Huang, Honglei wrote:
-> 
-> 
-> On 10/10/2026 8:50 PM, Dmitry Osipenko wrote:
->> On 10/10/26 10:37, Huang, Honglei wrote:
->>>
->>>
->>> On 10/10/2026 2:53 AM, Dmitry Osipenko wrote:
->>>> 24.09.2026 12:55, Honglei Huang пишет:
->>>>> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
->>>>> +                  struct drm_file *file,
->>>>> +                  struct virtio_gpu_object_params *params,
->>>>> +                  struct virtio_gpu_object **bo_ptr)
->>>>> +{
->>>>> +    struct virtio_gpu_object_userptr *userptr;
->>>>> +    struct virtio_gpu_mem_entry *ents = NULL;
->>>>> +    struct sg_table *sgt;
->>>>> +    struct mm_struct *mm;
->>>>> +    unsigned long lock_limit;
->>>>> +    unsigned long start;
->>>>> +    unsigned long end;
->>>>> +    s64 new_pinned;
->>>>> +    unsigned int nents;
->>>>> +    int ret;
->>>>> +
->>>>> +    *bo_ptr = NULL;
->>>>> +
->>>>> +    if (!params->size || !IS_ALIGNED(params->size, PAGE_SIZE) ||
->>>>> +        params->userptr != (unsigned long)params->userptr)
->>>>> +        return -EINVAL;
->>>>> +
->>>>> +    start = params->userptr;
->>>>> +    if (!IS_ALIGNED(start, PAGE_SIZE) ||
->>>>> +        check_add_overflow(start, (unsigned long)params->size, &end))
->>>>> +        return -EINVAL;
->>>>
->>>> There is new vgdev->blob_alignment defining host page size as it may
->>>> differ from guest's page. Will be good to validate both.
->>>>
->>>
->>> Will add blob_alignment check in next version, thanks for the review.
->> Missed that verify_blob() already should be validating the userptr
->> blob_alignment. The patches look good.
->>
->> BTW, previously the extra AMD KFD patches were needed on host kernel,
->> did they land upstream?
-> 
-> According to KFD maintainer, they want to us to add those virtio
-> specific feature into drm svm, a new SVM frame work based on drm svm
-> helpers. We are working on it:
-> https://lore.kernel.org/amd-gfx/20260804094246.1719318-1-ray.huang@amd.com/
-> 
-> And the amdgpu VM maintainer has agreed that he will help to consider
-> how to intergate the virtio requirements into the design of amdgpu drmsvm.
-> 
-> And for now we can use a user space method to replace the AMD KFD
-> patches function, it is mremap, it also works, we tested it, but
-> it has some performance loss, I will update the whole thing when all the
-> components code are ready.
+On Tue, 13 Oct 2026 14:23:38 -0300
+Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com> wrote:
 
-Thanks for the clarification
+Hi Vinicius,
 
--- 
-Best regards,
-Dmitry
+thanks for having a look and testing it!
+
+> Thanks for the RFT. I found two things when checking it against the A733
+> manual and my Cubie A7Z.
+> 
+> PB is an exception to bank * 2: its VCC-IO field is at bits 25:24, while
+> bits 3:2 are reserved.
+
+So PortB has no supply of its own, instead it's always supplied by
+VCC-IO. That was even more common on older SoCs, with also PortH and
+PortF being supplied by that. Which somewhat means that this is broken
+there as well?
+
+> With the board's SEL value (0x01155550), a 3.3 V
+
+What do you mean with "the board's SEL value"? That's not the SoC reset
+value, is it? So who programs that value, and why?
+
+> request produces 0x01155558, leaving VCC-IO untouched.
+
+... naturally, because nothing in mainline sets VCC-IO, which is beyond
+the SoC's GPIO bank offset.
+
+> I also think we should preserve AUTO (01). On my A7Z with vendor 5.15,
+> PF=10 resulted in 22 SDR104 read timeouts and no rootfs, while PF=01 and
+> PF=11 reached login.
+
+So this means you hacked the register in the vendor kernel, for the
+sake of an experiment? And I guess this just means that the vendor
+kernel uses UHS, and uses register 0x70 to switch PortF to 1.8V? So you
+need either auto or 1.8V for it to work, the same problem we hit with
+PortC on the A523.
+
+> This was one run per setting with one card, not a
+> mainline before/after test. In my mainline setup, MMC0 already requests PF
+> with a fixed 3.3 V supply, so the RFT would replace AUTO with 10 even
+> without voltage switching. Preserving AUTO requires no special case for PF.
+
+So can you say whether you observed a real problem with either the
+current (broken) code, or with one the fixes? I am still confused about
+your reports, whether they are just experiments, and comparing to the
+BSP, or looking at the manual, or whether there is an actually observed
+problem.
+
+> I boot-tested your RFT with two small fixups for PB and AUTO on my Cubie
+> A7Z (rev B). UART0 and MMC0 work, and GPIO_POW_MOD_SEL remains at
+> 0x01155550. No voltage-field writes were expected with this DT. I haven't
+> tested the RFT as posted.
+> 
+> I agree the full table and PI exclusion aren't needed, and found no
+> evidence for restricting the encoding to revision B.
+
+Thanks for the confirmation, and just curious where this revB
+restriction came from, originally?
+
+> A733-R still needs its own descriptor for the two-bit PL/PM fields. I'm
+> happy for your RFT to supersede my patch 1 once PB and AUTO are addressed,
+> and I'll rebase the A733-R fix on it.
+> 
+> I have the PB/AUTO fixups and the A733-R patch ready, and can send them if
+> useful.
+
+Well, this is getting really messy, isn't it? I never understood why
+the IP even allows manual programming if there is an automatic setting.
+Did you find any recommendation? IIRC manuals for other SoCs did
+recommend one or the other method. If AUTO works, and is used by the
+BSP, then we can just use that, but in a much simpler way: either use 
+BIAS_VOLTAGE_NONE, or create a new AUTO name (better), and then skip
+the whole action in sunxi_pinctrl_set_io_bias_cfg(). Instead just once
+program the GPIO_POW_MOD_SEL to "all auto", once at init time.
+Curious what others think about this.
+
+Cheers,
+Andre
