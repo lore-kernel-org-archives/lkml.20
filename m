@@ -1,64 +1,63 @@
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A852651FCC1
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8785852120B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910110; cv=none; b=gbceUq/GJV46xLddlnq4KfXDIEOPhvxLeNjx3EIB3I9d/vN9Bt1CWzLzOzrcl99Qp5AL2SFM+eP/OUAjfNKlSqi3MXuNPN/eyR5uCjVNJoSzOnFYM88V0XIRwnvsmxInhUQHPGIacpdcx28s9I9RuOXO0L/0bJGktKhB4kpW+yE=
+	t=1791910112; cv=none; b=Ey4y3jbmhskDL/umKm1MNSNXkuhl3Yq9D+qsljbSFVG84PRVxYGTEvhbvSG2t7dBEVR2d13QMTrv5UAEsH5cc4s8CwQsbMnHmOVyPUHAuzGDfIM5JQe9XC45ddH1Lt2s46WCvSjrbBGWQHIw2kKLHYMxWrf+QjFQ57JulevJOPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910110; c=relaxed/simple;
-	bh=sjbdqN+JzT1pGe4i2KImCiHuYXg4OHJ0uHdjaeUPXlU=;
+	s=arc-20240116; t=1791910112; c=relaxed/simple;
+	bh=K6RB3zG/56k22YI3NmNQcP41aWDJsiJH7Kgzt82dYec=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m11n5G5COoof5+YPr1Yy/U+sFEZNBOps7ecuY63ksMuUJma0vIRJ7Wyxw5v+G4hesdKXMBwL4m1T+oCB0sFg2vE9mMUJ/Wu/JNEaHUe4iyHku+ja5Rqvxz6g6UrUNyi5/KpauIt1t9snzq5cDKk3pymLqWtCvu2NpjnWgrOqQgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oo24+mr3; arc=none smtp.client-ip=74.125.224.47
+	 MIME-Version; b=ET8Qhq8dTbLgRLarJcU3AzKsUojSue/eYIDZ1RiddPMPSDQxMqfvd7SaQQYdoVp5WajoMnm/UELL1GgenvMwFBdzTnUTNWe8gUCRsO0cy9sRS9OrDBstfyd1vW6nIkhWpNanlYyBIoUZvBwCO001jvsNKGdpldSJeUZvKviPCyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WrUaiLvC; arc=none smtp.client-ip=74.125.224.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oo24+mr3"
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-677cc343120so3176210d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:48:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WrUaiLvC"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66fca0709caso2587094d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:48:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791910105; x=1792514905; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791910110; x=1792514910; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sj+20BV9wFPJUSyVe/sSa0W65YbjOLuIeiJNqnFIxBQ=;
-        b=oo24+mr3KGPQNkGv1fJP4VwJAhskbBDOsZYXI4cxxVyTchoPSsRdJ7K/kuDVGtC2qq
-         +EQ/Lq89/rDSBCdXQGaC6IzwjeLdELcyxa3jZOtGqXeBRz/hDarxWBaKl0FTkc69SJuY
-         jcs6St0OvHOMY8r/Vvo4Yhhx4vXk3Xnpw2ne/df+jhSRSpR1R6QlhYZzXJXizkaXp7b+
-         INYAIelWOP9UHCtG/O8niSGEmaP8+LNsHvkeeBEjN3oIW83+Dcs9KEILjXXJGn4QCsXN
-         4nRZxMln3AdYpwG4sxDolzqj5exNonCcZ4Zjl1EDkyMaocgbkx24zhGrqVSD/fmiKMzl
-         6blA==
+        bh=M/dvtBEldp5k/dyI1GCMlCiiP1Mw5D+YND/XHmJTYxQ=;
+        b=WrUaiLvCbLZuplWS4/6pNj3dd22buHgUjEBc4nN5pgn/Vdi58E7mIp/7pU4Ul3U8/F
+         jprHLi4dYLWvoWLZ8rtHDyaoIdmqGERsyoCx+0RTpw0IBvBbbU7woPXPLzuYedxGEWXu
+         VsV5E9QzQzfCQ9bIvKQrYO+CVxVpdw0/cQ41tfOWHPQrP8ht9+hQAWydlknXsWYSZDdt
+         BPof+81uKgfEpJZCSYgJXQev+dHQluBr4VLH+FP1DpWjFwEqqic2FSXqQQsfnxeNDJU1
+         Qg8AzrObofAeWhYmd75MvZbFej+pejlFLMHgyhkFokUrmjVf6qPUaQMx8HkCn3hs4+VJ
+         zz7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791910105; x=1792514905;
+        d=1e100.net; s=20260707; t=1791910110; x=1792514910;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sj+20BV9wFPJUSyVe/sSa0W65YbjOLuIeiJNqnFIxBQ=;
-        b=LOqTFRrhR5fjh5i9EUlSqCKi/oyq/UnZ2qaNfGGShCACmJLIaGQCMOPxQKKKDw3qd5
-         VEI1RxM6lMj8aGQHY42tr35s7TYuTQma/yxQWl3MFM5GcUZr/rlOViklrx0DSrvUjA9r
-         5K1aOczpXCPJqLzzL01lxq47IkpJaZU6mz1otQa4HJNHqW85aClbGmDr3CLKDXSAvzjh
-         jSfcCeMLASwEbSaY3SRtGz9FJViGpJha2gQkk+JROefEXHC6kVuaH65GHD8XHGGpS3j7
-         noErHBWeUgxVUoKkFBak8fHKLkJpK/I2pxv0ylPmP1D2ycBzpSaLkYbIX160Z7fj/b8i
-         jzGA==
-X-Forwarded-Encrypted: i=1; AKwUvByfPGNUveDdJKT6pUZN9sx6z/hnIRW7rIEY2QxDnbz6mnZlGucIAEWIDvgNsQHoWsSIfeF/vkDUsmINO9U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTPV+evPngaD/1Bj6awb0sU4DqVyMDZWwAdL0bYS2j/PJrbBK7
-	mU9RIyn7P1RJuEfx1Kzcd1VLmS5kr3KUEMbHY/p1Kmo4PMXpmwC8ipLl
-X-Gm-Gg: AYBFou3TvxHdtAm5qOG+VPgTO2eE9OBKE7hORLyTe3AYnK3R/+w5pq8+VZKp1mAgoVZ
-	sqCelSDl2+baVQJ3KIH56jGaGMHgHuod0VanOLkkgycaNqcQElePRSBicLI5fYz0dDnEP/ckin5
-	Yr3h79uWjJhUYvF/Im8lrgtoGf8kCMms0v+7/ozhKZEvNJHoxQ0gxLA209Gi/IL4WEQAOIt687D
-	eJ+wqpeOTIsFXOC8m3rJGALD6CwXqGpg1AxfHPlBfvSBJnpPF4wdEZ7nuPu8D98/qu3Gekbrt0d
-	kaYrGfOHOua89GgVCkFlMpmwUEuTarBh1wJlF84Vc2c2nKVNIzSpqOcMT7DNgIhkUpms2bU4E36
-	SzJRWHuoYoxrh9Iwe6si7muGFxZJyMrYOzxYgBwC1GYkH+fJ3FuMrqAwgKYtU+lI24DxzgB3bOo
-	dqWNnEFZUi5N5pcGkWNdOkeufxJ/qymvG+B5ac6r+uAWReEOjVIi/Oi/pQVO41sI3KPd1RzjpSX
-	j8gbfV04kU=
-X-Received: by 2002:a05:690e:4388:b0:677:c075:a599 with SMTP id 956f58d0204a3-679362727ccmr2463177d50.31.1791910105497;
-        Tue, 13 Oct 2026 09:48:25 -0700 (PDT)
+        bh=M/dvtBEldp5k/dyI1GCMlCiiP1Mw5D+YND/XHmJTYxQ=;
+        b=O5eG+N48H+TkQ/Y3tRRSz8JSAdliovXe0dxUvWDSCR1XLZKkgOCYsN6BCt/gzRHejD
+         uS3twN/ZNdBV50M0pHwSv5FOV8Mgd6EXZKXM4wpxgQQ41sCx0d2WtCcpu5WyRoGDKko2
+         p2bM+zuOZxTnybGN4ilGY/87OflrbFNcVweqLbZ3Z4ZzUGHAyrE6tfM8pUBGbPZ+D9q8
+         oqEp6I6bEPNal2TGRIX5danfFlef/9+KponmXIfvdKvvGaR7XuWVhDBm5vAw25bnXNNH
+         siWI5S5R4lcg9rQkOuftJ7Avmoie8q7RRQQZnBew7yVsYXA1tRU22feVyHsPk2LWzcfg
+         IRCA==
+X-Forwarded-Encrypted: i=1; AKwUvBylT31ClkxT60ItIAICozxtSfScZhphx82UuK15syUog5RI5TyxD0O49hD/cZyZWl/fBtyQKLsT/av0CV4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuPz6WPpEpMRUtO/3VBmlyehzCINmGdMXrRFyPoI5qwmJ4zXYV
+	pIh9xB95GdhET+DKVYgMk0cx50hJ8/r1jtY+rTZ7Gt+6+rAmbVdDTp3S
+X-Gm-Gg: AYBFou2LuIDMJ2/DqI/uSXc4JInTIOjIvpdajtMDodxnBzWKtHzuqSC4RMe4HzQdNyv
+	YjBV8WLcpLbUVYwY4ebaBUzi2J59I2jKKmv/gP55Dh3tRD7oCAXjBCSILAFlH3R+FfM/OSVJAw+
+	PQykBywQj12mOtCi9ynGnIyt2tmhzlaOTiJ1ZiZ4Vj1Vo10OQ0SHWeIngLYJ7oH64BrQbFbWTP2
+	6koWON1ogqPSqAxRT9qPZVQhflobvxs+yUdrmCgwGPxzu6MxAfLRbMLnLVBnpTvXJT0Mmfe5ZRY
+	HBXoMrW9/9dJLCwdUzSf4PBa2F/msOlST/YAF9EfAXmYiRd72IgHO7UOUJKvdkCq6wVnyCjIyJ2
+	+svjzQa+5UUAc2bmAYXB5hIi1pId6tRyRn1+0r1fKzY0sdxApSa4XDq2SsV+B2qCzaKuL2UGM8K
+	1CuXniehdq0/2zf/vbeVe0yCIkuVKtk/DOkRwZ/EDb3Gi9Fgb5yxEctg40MNbiI8F/Yg0hXEqw
+X-Received: by 2002:a05:690e:138d:b0:677:b589:d002 with SMTP id 956f58d0204a3-679362f3616mr5451286d50.78.1791910110471;
+        Tue, 13 Oct 2026 09:48:30 -0700 (PDT)
 Received: from zenbox ([2600:1700:18fb:6011:d326:f863:5ae3:683])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67986a89294sm81136d50.15.2026.10.13.09.48.24
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67986a89294sm81136d50.15.2026.10.13.09.48.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 09:48:24 -0700 (PDT)
+        Tue, 13 Oct 2026 09:48:30 -0700 (PDT)
 From: Justin Suess <utilityemal77@gmail.com>
 To: Christian Brauner <brauner@kernel.org>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -89,9 +88,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	Shuah Khan <shuah@kernel.org>,
 	Tingmao Wang <m@maowtm.org>,
 	Justin Suess <utilityemal77@gmail.com>
-Subject: [PATCH bpf-next v1 03/11] landlock: convert ancestor walk to vfs_walk_ancestors()
-Date: Tue, 13 Oct 2026 12:47:52 -0400
-Message-ID: <20261013164800.2906577-4-utilityemal77@gmail.com>
+Subject: [PATCH bpf-next v1 04/11] namei: expose the stepwise ancestor walk to fs/
+Date: Tue, 13 Oct 2026 12:47:53 -0400
+Message-ID: <20261013164800.2906577-5-utilityemal77@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261013164800.2906577-1-utilityemal77@gmail.com>
 References: <20261013164800.2906577-1-utilityemal77@gmail.com>
@@ -103,385 +102,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the open-coded jump_up/follow_up loop of
-is_access_to_paths_allowed() with one vfs_walk_ancestors() call, moving
-the loop state into a struct passed to the callback.
+Make vfs_walk_start(), vfs_walk_next() and vfs_walk_end() non-static
+and declare them in fs/internal.h next to the walk state, so an
+iterating consumer (BPF) can drive the walk with every step and
+invariant staying in namei.c.  vfs_walk_ancestors() and its callback
+contract are unchanged.
 
-follow_up() ignores the mount's disappearance, so a concurrent umount
-could make the walk operate on an unaccounted mount.  The walker steps
-with choose_mountpoint(), which revalidates against mount_lock.  The
-disconnected-directory handling is otherwise preserved: MNT_INTERNAL
-roots allow and stop, other disconnected roots resume at their mount
-root.  Rule evaluation is preserved exactly: disconnected roots that
-were positions of the old loop (the walk's start, the parent of a
-disconnected subtree) keep being matched against rules, while the
-disconnected mountpoints the walker newly visits on a mount crossing
-are skipped via VFS_WALK_POS_MOUNTPOINT, as the old loop never
-consulted them.
-
-Co-developed-by: Song Liu <song@kernel.org>
-Signed-off-by: Song Liu <song@kernel.org>
-Reported-by: Al Viro <viro@zeniv.linux.org.uk>
-Closes: https://lore.kernel.org/r/20250529231018.GP2023217@ZenIV
-Fixes: cb2c7d1a1776 ("landlock: Support filesystem access-control")
 Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 ---
- security/landlock/fs.c | 266 +++++++++++++++++++++--------------------
- 1 file changed, 134 insertions(+), 132 deletions(-)
+ fs/internal.h | 5 +++++
+ fs/namei.c    | 8 ++++----
+ 2 files changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index cab43892ec2f..5710ed745d70 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -751,6 +751,108 @@ static void test_is_eacces_with_write(struct kunit *const test)
- #undef IE_TRUE
- #undef IE_FALSE
+diff --git a/fs/internal.h b/fs/internal.h
+index bfe62c9bdfc9..3ce2220ff57f 100644
+--- a/fs/internal.h
++++ b/fs/internal.h
+@@ -81,6 +81,11 @@ struct vfs_ancestor_walk {
+ 	unsigned int flags;	/* VFS_WALK_* */
+ };
  
-+struct landlock_walk_state {
-+	const struct landlock_domain *domain;
-+	struct layer_masks *layer_masks_parent1, *layer_masks_parent2;
-+	const struct layer_masks *layer_masks_child1, *layer_masks_child2;
-+	access_mask_t access_request_parent1, access_request_parent2;
-+	access_mask_t access_masked_parent1, access_masked_parent2;
-+	bool child1_is_directory, child2_is_directory;
-+	bool allowed_parent1, allowed_parent2, is_dom_check;
-+};
++void vfs_walk_start(struct vfs_ancestor_walk *aw, const struct path *path,
++		    unsigned int flags);
++int vfs_walk_next(struct vfs_ancestor_walk *aw);
++void vfs_walk_end(struct vfs_ancestor_walk *aw);
 +
-+static int check_access_path_walk(const struct path *const ancestor,
-+				  const unsigned int pos_flags,
-+				  void *const data)
-+{
-+	struct landlock_walk_state *const state = data;
-+	struct landlock_id id = {
-+		.type = LANDLOCK_KEY_INODE,
-+	};
-+
-+	if (unlikely(pos_flags & VFS_WALK_POS_DISCONNECTED)) {
-+		if (likely(ancestor->mnt->mnt_flags & MNT_INTERNAL)) {
-+			/*
-+			 * Stops and allows access when reaching disconnected
-+			 * root directories that are part of internal
-+			 * filesystems (e.g. nsfs, which is reachable through
-+			 * /proc/<pid>/ns/<namespace>).
-+			 */
-+			state->allowed_parent1 = true;
-+			state->allowed_parent2 = true;
-+			return VFS_WALK_STOP;
-+		}
-+		/*
-+		 * Mountpoints a mount crossing lands on are hidden under the
-+		 * mount covering them, so they are not part of the visible
-+		 * path and are never matched against rules.  Other
-+		 * disconnected roots are matched below.
-+		 */
-+		if (pos_flags & VFS_WALK_POS_MOUNTPOINT)
-+			return VFS_WALK_CONTINUE;
-+	}
-+
-+	/*
-+	 * If at least all accesses allowed on the destination are already
-+	 * allowed on the source, respectively if there is at least as much as
-+	 * restrictions on the destination than on the source, then we can
-+	 * safely refer files from the source to the destination without
-+	 * risking a privilege escalation.  This also applies in the case of
-+	 * RENAME_EXCHANGE, which implies checks on both direction.  This is
-+	 * crucial for standalone multilayered security policies.  Furthermore,
-+	 * this helps avoid policy writers to shoot themselves in the foot.
-+	 */
-+	if (unlikely(state->is_dom_check &&
-+		     no_more_access(state->layer_masks_parent1,
-+				    state->layer_masks_child1,
-+				    state->child1_is_directory,
-+				    state->layer_masks_parent2,
-+				    state->layer_masks_child2,
-+				    state->child2_is_directory))) {
-+		/*
-+		 * Now, downgrades the remaining checks from domain handled
-+		 * accesses to requested accesses.
-+		 */
-+		state->is_dom_check = false;
-+		state->access_masked_parent1 = state->access_request_parent1;
-+		state->access_masked_parent2 = state->access_request_parent2;
-+
-+		state->allowed_parent1 =
-+			state->allowed_parent1 ||
-+			scope_to_request(state->access_masked_parent1,
-+					 state->layer_masks_parent1);
-+		state->allowed_parent2 =
-+			state->allowed_parent2 ||
-+			scope_to_request(state->access_masked_parent2,
-+					 state->layer_masks_parent2);
-+
-+		/* Stops when all accesses are granted. */
-+		if (state->allowed_parent1 && state->allowed_parent2)
-+			return VFS_WALK_STOP;
-+	}
-+
-+	if (get_inode_id(ancestor->dentry, &id)) {
-+		state->allowed_parent1 =
-+			state->allowed_parent1 ||
-+			unmask_layers_fs(state->domain, id,
-+					 state->access_masked_parent1,
-+					 state->layer_masks_parent1,
-+					 ancestor->dentry);
-+		state->allowed_parent2 =
-+			state->allowed_parent2 ||
-+			unmask_layers_fs(state->domain, id,
-+					 state->access_masked_parent2,
-+					 state->layer_masks_parent2,
-+					 ancestor->dentry);
-+	}
-+
-+	/* Stops when a rule from each layer grants access. */
-+	if (state->allowed_parent1 && state->allowed_parent2)
-+		return VFS_WALK_STOP;
-+
-+	return VFS_WALK_CONTINUE;
-+}
-+
- /**
-  * is_access_to_paths_allowed - Check accesses for requests with a common path
-  *
-@@ -803,16 +905,16 @@ is_access_to_paths_allowed(const struct landlock_domain *const domain,
- 			   struct landlock_request *const log_request_parent2,
- 			   struct dentry *const dentry_child2)
+ void __init filename_init(void);
+ 
+ /*
+diff --git a/fs/namei.c b/fs/namei.c
+index 6d5b4b214334..d6151fa27844 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -2249,8 +2249,8 @@ static const struct path vfs_walk_no_root;
+  * @path: position to walk up from; never modified
+  * @flags: %VFS_WALK_* flags; none defined yet, pass 0
+  */
+-static void vfs_walk_start(struct vfs_ancestor_walk *aw,
+-			   const struct path *path, unsigned int flags)
++void vfs_walk_start(struct vfs_ancestor_walk *aw, const struct path *path,
++		    unsigned int flags)
  {
--	bool allowed_parent1 = false, allowed_parent2 = false, is_dom_check,
--	     child1_is_directory = true, child2_is_directory = true;
--	struct path walker_path;
--	struct landlock_id id = {
--		.type = LANDLOCK_KEY_INODE,
--	};
--	access_mask_t access_masked_parent1, access_masked_parent2;
- 	struct layer_masks _layer_masks_child1, _layer_masks_child2;
--	struct layer_masks *layer_masks_child1 = NULL,
--			   *layer_masks_child2 = NULL;
-+	struct landlock_walk_state state = {
-+		.domain = domain,
-+		.layer_masks_parent1 = layer_masks_parent1,
-+		.layer_masks_parent2 = layer_masks_parent2,
-+		.access_request_parent1 = access_request_parent1,
-+		.access_request_parent2 = access_request_parent2,
-+		.child1_is_directory = true,
-+		.child2_is_directory = true,
-+	};
- 
- 	if (!access_request_parent1 && !access_request_parent2)
- 		return true;
-@@ -826,37 +928,39 @@ is_access_to_paths_allowed(const struct landlock_domain *const domain,
- 	if (WARN_ON_ONCE(!layer_masks_parent1))
- 		return false;
- 
--	allowed_parent1 = is_layer_masks_allowed(layer_masks_parent1);
-+	state.allowed_parent1 = is_layer_masks_allowed(layer_masks_parent1);
- 
- 	if (unlikely(layer_masks_parent2)) {
- 		if (WARN_ON_ONCE(!dentry_child1))
- 			return false;
- 
--		allowed_parent2 = is_layer_masks_allowed(layer_masks_parent2);
-+		state.allowed_parent2 =
-+			is_layer_masks_allowed(layer_masks_parent2);
- 
- 		/*
- 		 * For a double request, first check for potential privilege
- 		 * escalation by looking at domain handled accesses (which are
- 		 * a superset of the meaningful requested accesses).
- 		 */
--		access_masked_parent1 = access_masked_parent2 =
-+		state.access_masked_parent1 =
- 			landlock_union_access_masks(domain).fs;
--		is_dom_check = true;
-+		state.access_masked_parent2 = state.access_masked_parent1;
-+		state.is_dom_check = true;
- 	} else {
- 		if (WARN_ON_ONCE(dentry_child1 || dentry_child2))
- 			return false;
- 		/* For a simple request, only check for requested accesses. */
--		access_masked_parent1 = access_request_parent1;
--		access_masked_parent2 = access_request_parent2;
-+		state.access_masked_parent1 = access_request_parent1;
-+		state.access_masked_parent2 = access_request_parent2;
- 		/*
- 		 * Simple requests have no parent2 to check, so parent2 is
- 		 * trivially allowed.  This must be set explicitly because the
--		 * get_inode_id() gate in the pathwalk loop may prevent
-+		 * get_inode_id() gate in the walk callback may prevent
- 		 * landlock_unmask_layers() from being called (which would
- 		 * otherwise return true for NULL masks as a side effect).
- 		 */
--		allowed_parent2 = true;
--		is_dom_check = false;
-+		state.allowed_parent2 = true;
-+		state.is_dom_check = false;
- 	}
- 
- 	if (unlikely(dentry_child1)) {
-@@ -872,8 +976,8 @@ is_access_to_paths_allowed(const struct landlock_domain *const domain,
- 		if (handled && get_inode_id(dentry_child1, &id))
- 			unmask_layers_fs(domain, id, handled,
- 					 &_layer_masks_child1, dentry_child1);
--		layer_masks_child1 = &_layer_masks_child1;
--		child1_is_directory = d_is_dir(dentry_child1);
-+		state.layer_masks_child1 = &_layer_masks_child1;
-+		state.child1_is_directory = d_is_dir(dentry_child1);
- 	}
- 	if (unlikely(dentry_child2)) {
- 		struct landlock_id id = {
-@@ -888,118 +992,16 @@ is_access_to_paths_allowed(const struct landlock_domain *const domain,
- 		if (handled && get_inode_id(dentry_child2, &id))
- 			unmask_layers_fs(domain, id, handled,
- 					 &_layer_masks_child2, dentry_child2);
--		layer_masks_child2 = &_layer_masks_child2;
--		child2_is_directory = d_is_dir(dentry_child2);
-+		state.layer_masks_child2 = &_layer_masks_child2;
-+		state.child2_is_directory = d_is_dir(dentry_child2);
- 	}
- 
--	walker_path = *path;
--	path_get(&walker_path);
- 	/*
- 	 * We need to walk through all the hierarchy to not miss any relevant
--	 * restriction.
-+	 * restriction.  Reaching the real root without a grant from each
-+	 * layer denies access.
- 	 */
--	while (true) {
--		/*
--		 * If at least all accesses allowed on the destination are
--		 * already allowed on the source, respectively if there is at
--		 * least as much as restrictions on the destination than on the
--		 * source, then we can safely refer files from the source to
--		 * the destination without risking a privilege escalation.
--		 * This also applies in the case of RENAME_EXCHANGE, which
--		 * implies checks on both direction.  This is crucial for
--		 * standalone multilayered security policies.  Furthermore,
--		 * this helps avoid policy writers to shoot themselves in the
--		 * foot.
--		 */
--		if (unlikely(is_dom_check &&
--			     no_more_access(
--				     layer_masks_parent1, layer_masks_child1,
--				     child1_is_directory, layer_masks_parent2,
--				     layer_masks_child2,
--				     child2_is_directory))) {
--			/*
--			 * Now, downgrades the remaining checks from domain
--			 * handled accesses to requested accesses.
--			 */
--			is_dom_check = false;
--			access_masked_parent1 = access_request_parent1;
--			access_masked_parent2 = access_request_parent2;
--
--			allowed_parent1 =
--				allowed_parent1 ||
--				scope_to_request(access_masked_parent1,
--						 layer_masks_parent1);
--			allowed_parent2 =
--				allowed_parent2 ||
--				scope_to_request(access_masked_parent2,
--						 layer_masks_parent2);
--
--			/* Stops when all accesses are granted. */
--			if (allowed_parent1 && allowed_parent2)
--				break;
--		}
--
--		if (get_inode_id(walker_path.dentry, &id)) {
--			allowed_parent1 =
--				allowed_parent1 ||
--				unmask_layers_fs(domain, id,
--						 access_masked_parent1,
--						 layer_masks_parent1,
--						 walker_path.dentry);
--			allowed_parent2 =
--				allowed_parent2 ||
--				unmask_layers_fs(domain, id,
--						 access_masked_parent2,
--						 layer_masks_parent2,
--						 walker_path.dentry);
--		}
--
--		/* Stops when a rule from each layer grants access. */
--		if (allowed_parent1 && allowed_parent2)
--			break;
--
--jump_up:
--		if (walker_path.dentry == walker_path.mnt->mnt_root) {
--			if (follow_up(&walker_path)) {
--				/* Ignores hidden mount points. */
--				goto jump_up;
--			} else {
--				/*
--				 * Stops at the real root.  Denies access
--				 * because not all layers have granted access.
--				 */
--				break;
--			}
--		}
--
--		if (unlikely(IS_ROOT(walker_path.dentry))) {
--			if (likely(walker_path.mnt->mnt_flags & MNT_INTERNAL)) {
--				/*
--				 * Stops and allows access when reaching disconnected root
--				 * directories that are part of internal filesystems (e.g. nsfs,
--				 * which is reachable through /proc/<pid>/ns/<namespace>).
--				 */
--				allowed_parent1 = true;
--				allowed_parent2 = true;
--				break;
--			}
--
--			/*
--			 * We reached a disconnected root directory from a bind mount.
--			 * Let's continue the walk with the mount point we missed.
--			 */
--			dput(walker_path.dentry);
--			walker_path.dentry = walker_path.mnt->mnt_root;
--			dget(walker_path.dentry);
--		} else {
--			struct dentry *const parent_dentry =
--				dget_parent(walker_path.dentry);
--
--			dput(walker_path.dentry);
--			walker_path.dentry = parent_dentry;
--		}
--	}
--	path_put(&walker_path);
-+	vfs_walk_ancestors(path, check_access_path_walk, &state, 0);
- 
- 	/*
- 	 * Check CONFIG_SECURITY_LANDLOCK_LOG to enable elision of
-@@ -1007,24 +1009,24 @@ is_access_to_paths_allowed(const struct landlock_domain *const domain,
- 	 * dead code elimination.
- 	 */
- #ifdef CONFIG_SECURITY_LANDLOCK_LOG
--	if (!allowed_parent1 && log_request_parent1) {
-+	if (!state.allowed_parent1 && log_request_parent1) {
- 		log_request_parent1->type = LANDLOCK_REQUEST_FS_ACCESS;
- 		log_request_parent1->audit.type = LSM_AUDIT_DATA_PATH;
- 		log_request_parent1->audit.u.path = *path;
--		log_request_parent1->access = access_masked_parent1;
-+		log_request_parent1->access = state.access_masked_parent1;
- 		log_request_parent1->layer_masks = layer_masks_parent1;
- 	}
- 
--	if (!allowed_parent2 && log_request_parent2) {
-+	if (!state.allowed_parent2 && log_request_parent2) {
- 		log_request_parent2->type = LANDLOCK_REQUEST_FS_ACCESS;
- 		log_request_parent2->audit.type = LSM_AUDIT_DATA_PATH;
- 		log_request_parent2->audit.u.path = *path;
--		log_request_parent2->access = access_masked_parent2;
-+		log_request_parent2->access = state.access_masked_parent2;
- 		log_request_parent2->layer_masks = layer_masks_parent2;
- 	}
- #endif /* CONFIG_SECURITY_LANDLOCK_LOG */
- 
--	return allowed_parent1 && allowed_parent2;
-+	return state.allowed_parent1 && state.allowed_parent2;
+ 	if (WARN_ON_ONCE(flags))
+ 		flags = 0;
+@@ -2299,7 +2299,7 @@ static int vfs_walk_step_ref(struct vfs_ancestor_walk *aw)
+  * Returns: 0 with @aw->pos valid, 1 once the walk has passed the real
+  * root.
+  */
+-static int vfs_walk_next(struct vfs_ancestor_walk *aw)
++int vfs_walk_next(struct vfs_ancestor_walk *aw)
+ {
+ 	if (aw->flags & VFS_WALK_STARTED) {
+ 		int err = vfs_walk_step_ref(aw);
+@@ -2317,7 +2317,7 @@ static int vfs_walk_next(struct vfs_ancestor_walk *aw)
+  * vfs_walk_end - finish a stepwise ancestor walk
+  * @aw: the walk; its positions, including @aw->pos, become invalid
+  */
+-static void vfs_walk_end(struct vfs_ancestor_walk *aw)
++void vfs_walk_end(struct vfs_ancestor_walk *aw)
+ {
+ 	path_put(&aw->pos);
  }
- 
- static int current_check_access_path(const struct path *const path,
 -- 
 2.55.0
 
