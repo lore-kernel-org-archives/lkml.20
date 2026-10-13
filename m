@@ -1,90 +1,69 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41846524AF9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253E6525A6A;
+	Tue, 13 Oct 2026 15:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906169; cv=none; b=ZxNAsKxsms1EsFVD8uXqkPFGu/V4nclQyB0rJcJWz+HY+CPdeL/y4LM/B3bBKI9f+aTQgAeE56qSOapXNVF2A7SMkJOsWF/CNRqiauKu6+IbyuVcTShjGmQ+TZuculajeeqoBXwVIxNobjAH8QMBR6Fk+k0yEKJJNaRK6jvyRD4=
+	t=1791906171; cv=none; b=prK/oYWRLmk6JiVvf0L8sSUJ4BrY2C6TE8S2OKaY2WD+xRKA4X2IH7aJs3aoN0kob/8CP+CWIvxyOuPJpAHS3md26lHd0CdWxxc8k110O1+V6TwUNkS+qTfvydNFSS8gAd57WXjujGzFJxKBHeGlxN5TwlAHKlbDX1VFzPNQ1hM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906169; c=relaxed/simple;
-	bh=HyjwC2WBuD3zNw2RX08XNRIFsnb2jRmWsy8BXsOZxS8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ucpbARxZ/zC0gqcrpnsE01G+pYoXERRBbOSNZ1JUNSzpBuPrltGa9TmqyleaDHlhjJR5zRMOGcyaDGq2VmXj5IwhsaVph+88N6q35NWX1ZkUHf1SwRefeLCR/LuVe5c7bO1BKS+b15K9nJ3QOwyh0sPG54RuzV5zDTMnIxmOAKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dMPpX0Qc; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791906171; c=relaxed/simple;
+	bh=U9f4LYlkODXJIk3T03bPPWNvyqcVMUTvrRhFTv9Qt4U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k/BbNdIhUdO/rg7O57D5Cqm1oC+BtwfOW7gWSAxl+0kxnnJAi5O8Mf4uI6d8TcNZC9OvUUteJUldSlH0t0gPO2LKfa3d2ceGaZPKZipNGpIKbfptwqQIHXMGylyEF33IFTWmBnodbFP+A7q/ZcUl4AcbzRkH4Fs171aTs9olJtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VPTg0/SK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dMPpX0Qc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791906167;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HyjwC2WBuD3zNw2RX08XNRIFsnb2jRmWsy8BXsOZxS8=;
-	b=dMPpX0Qc2vPa5n3m1gNbQrCKqadXg3B7+R28g9EM5tVFklpb0a848Imt+OZVGUhbLBNVdI
-	k7MYSfvoTl4t5zVpdLledg+aE+SP+Wjfcpo3Mkq+4eYLCZUqDCff2HeN79T26I4rYhXDRi
-	UfQ2mZM2w3GpWBR/SJP/Yhr7Hf3E9G0=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-557-iy-R_dc5MQuOD1Wh1XsSUw-1; Tue,
- 13 Oct 2026 15:42:35 +0000
-X-MC-Unique: iy-R_dc5MQuOD1Wh1XsSUw-1
-X-Mimecast-MFC-AGG-ID: iy-R_dc5MQuOD1Wh1XsSUw_1791906153
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 31E421964CEF;
-	Tue, 13 Oct 2026 15:42:32 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C209B1956041;
-	Tue, 13 Oct 2026 15:42:26 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jgg@ziepe.ca
-Cc: alex@shazbot.org,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	bhelgaas@google.com,
-	jjohnson@kernel.org,
-	johannes@sipsolutions.net,
-	jtornosm@redhat.com,
-	kevin.tian@intel.com,
-	kvm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	mani@kernel.org,
-	skolothumtho@nvidia.com,
-	yishaih@nvidia.com
-Subject: Re: [PATCH 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
-Date: Tue, 13 Oct 2026 17:42:25 +0200
-Message-ID: <20261013154225.214531-1-jtornosm@redhat.com>
-In-Reply-To: <20261013140345.GK14213@ziepe.ca>
-References: <20261013140345.GK14213@ziepe.ca>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VPTg0/SK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318D91F000FF;
+	Tue, 13 Oct 2026 15:42:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791906169;
+	bh=GV3/2pwMIoMbwD/i8kgVO4kcDg6oal1jEHBE+1WtdcI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VPTg0/SKFoCLSUtdRlvaXBWnQYZlMPKvxmObOtG3V36ZTxgCZpIlJGNJGQn4DwUrM
+	 KHSShqwOp9l61ErqpuUZkg693PJmCyIBoJRLqfHMk8js4FNqM2+F+eMj2PsWPUY9O7
+	 jzNiDuL7WWm7O08luPowsqt87qWgv6yAJVF0ztOKAFZp7gzjoCRp5Ce+xSKAh3Mpcx
+	 8TB7c4NQbAf4jXwQ98sFF+Ifui0cE+lUxEdnEF6INixtHwNeLr5tJY+OtqgR7DY74l
+	 /MA2SvwxdChwUauZWv3BhMFd48STi8d5KPYiz+QiGhCLYNj7WfZf6Rn7FqcyUZdRdf
+	 1eZ+dw+452WeA==
+Date: Tue, 13 Oct 2026 09:42:47 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Palla Raghunath <raghunathpalla.0209@gmail.com>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Daniel Wagner <dwagner@suse.de>, Hannes Reinecke <hare@suse.de>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	syzbot+da94a51633758d13bd63@syzkaller.appspotmail.com
+Subject: Re: [PATCH] nvmet-fc: don't drop the last assoc reference in
+ nvmet_fc_delete_ctrl()
+Message-ID: <as5Rd6jGQNtJpW0C@kbusch-mbp>
+References: <20261008191848.47066-1-raghunathpalla.0209@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008191848.47066-1-raghunathpalla.0209@gmail.com>
 
-Thank you for the direction on device MSI domains. The Hyper-V
-reference is difficult for me to follow for this case. Could
-you point me to some existing KVM/VFIO equivalent, or similar
-example for my use case? Any pointers to relevant code,
-documentation, or previous discussions on this topic would be
-very helpful to get started in the right direction.
+On Thu, Oct 08, 2026 at 08:18:48PM +0100, Palla Raghunath wrote:
+> syzbot hit a recursive locking report on subsys->lock when a subsystem
+> is unlinked from an FC port.
+> 
+> nvmet_port_del_ctrls() holds subsys->lock while it calls ->delete_ctrl()
+> for each controller. nvmet_fc_delete_ctrl() grabs a reference on the
+> association, queues del_work and then drops the reference. If del_work
+> gets to run to completion before that put, ours is the last reference.
+> Freeing the assoc tears down the queues, the last nvmet_cq_put() drops
+> the last ctrl reference, and nvmet_ctrl_free() goes for subsys->lock
+> again:
 
-Also, where would this need to be implemented? Kernel only
-because it is already supported in QEMU in a general way, or
-kernel and QEMU for some specifics?
-
-Best regards
-Jose Ignacio
-
+Thanks, applied to nvme-7.4.
