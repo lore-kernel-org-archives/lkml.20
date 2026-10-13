@@ -1,103 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071C552F277;
-	Tue, 13 Oct 2026 18:09:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD7752ED34
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 18:09:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914965; cv=none; b=i79o+VHhjPXdAgycGQ86L1hIwcQBXjghZ7urZZuG0yZi5+efDQW8m93djmaWVcslUa4nlxJU8BGnYgRoLeom5TumtSPEsNeg7hudUXdAH4bE4tCQCrrtygxLcyk382bt80OyBx2kEa6iyuPVc5YAVRaaLfNUwAeObyU4Vz2dwNQ=
+	t=1791914988; cv=none; b=oL4QqV2DNENHVdmsApDHqQfd/wy5tVtYyl6ACoKc34w1v08SkEXYeVmL4t3+ZyyRsZ1X34+2fNfA9Diea/gS9wv9A0KyI5000WLNkv7yD0xZsyFp9DjHh9dI5tX28/qerdkoDV9frJtEA+GzEDqqAxqDWdsFFFwPMGVO209Pfv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914965; c=relaxed/simple;
-	bh=ra9TmfFPSk6PZ5bwWVQRAqd0nkB2k78Y7v0WgbbMMDw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=btscK46G9x7nGvfTfCfBEVEFL2ZUeAbVxrZPxqYruQFNN1sKnQxgV99kXcmedPkbxQKyEdysCbFNP8u5IEQuK+9tlAbdAL1XTX+e+ZlygVc4XEdcKd7DK35SxLgTPHnnKUsOQXqePAdpmlq+soHHi9RDBwlff8ivZrRkXmRfiN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HEjTltkS; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791914988; c=relaxed/simple;
+	bh=N4LcWhqablCQy7AuG+dp47sWdEyawhDBW56fssZm3h8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iZr/ICuSdFcjn3y+ZAwrkaeybhOtVOrgCzwwzzGo5GL+hiAcgXY0ZzysjN9lkNUSbgQp9JGBb8xYIZ+c37H3W9f0Knri8+Hw9+T94AghMnnCfpkpvTH2LICydSidXeuvuwUjzBUMcalg1mEm9jkJSHVZ3hVyoD+WLAZnOL08P7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XfM6KVaa; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HEjTltkS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791914963; x=1823450963;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ra9TmfFPSk6PZ5bwWVQRAqd0nkB2k78Y7v0WgbbMMDw=;
-  b=HEjTltkSl6fHf8GBt4T3Qr6Fsf8JupliLoBbKg7XdpSGj9ddXJyYcWXB
-   Vi326TB02X5pcb8wCaeqlcCLTeMN70fJNqgTqtl495sPQOywi9SbcD4A7
-   HK1c8JWRIkd5gC3F5mTgEF6IZGMNaam0yLIdEtpar7BjE9Mt+Cdqk5kbb
-   vZzMVPO66gk2uKPxsiDzZXxCFFRh4VcucHNlIu1MFM5PrKqI6uLvX1zcC
-   P7pQpj0BW7bHXvYZt0gGYYlINwlEoQdsDJIEE4Ad4ucsKCcKPabuRyzYb
-   cRO3V9mJk1KQZDUhIMfCxhpie9TFFTWpAvp72HYqyXxJJvGrYH+gQ5++U
-   w==;
-X-CSE-ConnectionGUID: AEVheA6BQTqsYIe5sx7aQg==
-X-CSE-MsgGUID: J/e5rPYwSoifx2Q115IqSw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="659396"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="659396"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:09:21 -0700
-X-CSE-ConnectionGUID: 8mlNk+jsQS2G3by8VXzeOQ==
-X-CSE-MsgGUID: Dcp/WFp+See0oScltxFBUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="2987263"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:09:18 -0700
-Date: Tue, 13 Oct 2026 21:09:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jan Remes <ciakval@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
-	stable@vger.kernel.org,
-	Martin Triska <martin.triska@mycroftmind.com>
-Subject: Re: [PATCH 1/4] iio: light: tsl2591: don't divide by zero
-Message-ID: <as5zy1LRyE5hr6vn@ashevche-desk.local>
-References: <20261013143943.436816-1-ciakval@gmail.com>
- <20261013143943.436816-2-ciakval@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XfM6KVaa"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso2360742f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:09:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791914985; x=1792519785; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4Ni5fu/M2p02kW2mgvbfBzY77o7xL0dnmXboaLsv73E=;
+        b=XfM6KVaax9ZXLk8pbu4y1pufX2UIYwLl/SutWModRW8s7ada/ZPQHmrw030BVBVHDv
+         g2NAYDVHXLkmBRWfVvHoMeikvqRyjOdGHa9Mh04sWQzkEjZ74WJMLcj7EAFxSu80cryL
+         VUBEQveztV05RQr+mSVUd/VY4O2Cu2c/1CR6kH/K8vz5WQyDeW7kGW/doZclWPWVRZIY
+         G8CUeALb6lQGqWZhtREAOqSdse3sYbdrlGU5qArQB88XaWKaWYugGNrDCnIukE8u6vI/
+         BQ3jSnkbLMXR5Aws+iAVnG1dq0+z2ACZOAz1ml1KocYUONziI0nKvhxj5O9wn8IxbKdN
+         CMDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791914985; x=1792519785;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4Ni5fu/M2p02kW2mgvbfBzY77o7xL0dnmXboaLsv73E=;
+        b=fCs/thmeHcJzNWTi+Obd/Mwoqh7OhOfj7mTVBIFSVTadd0myaf1JuVPbKxKQVZjwDy
+         iORffjUpz9Qup6BQLutqWVTFZonJ38h5mzRopM6WFthEGAlePqI4M5IZuxxev1Rwt9Ag
+         u5hWOtIJlRHVE6md83GrdbS6M/hjHl9KDVOojIJ9Umit5Y8JAMG3NOs0N7W0/sIrAVuk
+         bISzvGWOiT+cCI2EOd118yB2L60W2JXDtK3RjUoQrmY+0Cw/aqMPEm/LyHjJqmaU51D4
+         XibQs49eKRZuSIdDiIvQg+4kkhBjksuwJIYQ88H0Z1U4bYQ569ZKDwUXBo4zQH3nDZ1e
+         oJUw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcRAb6hHUfpxopnPsc/OUoZvZO8rip+ivpgnHOFWg51GVllWWirOPOdjLWnfiI2E7SCMwG7oKTehPoiyo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYtZUlZvTcNYW56tjCN7HMX5n6Fi1ZwSQFIrdFzyFtzT+t21Te
+	jPnnU0NVaUnDh8e5a2zXhwX/+VB9ClupeghT596CdiQ3CmQPSeBVoZ/6
+X-Gm-Gg: AYBFou3xn6thWfadJRRCASsxMw3zfLWlikPyfuFO3J0O36V5BX84Z4qtvk09gSSC7Lr
+	XnxeQ9nWEf/1Zt7Ihhs4B6rLt3+GhwhhHdCjU3rPTDqHz2ekEx7C9bdonpi/G8y27ul7rBrbcpK
+	MsvvUHwYwAtIk2jPRZbohnfhbIvvZIKuU2fOAtn1wbl9GjDmynYvZ0S1rNle60PDGZ1ngDm3Py2
+	tLRIdhje71Bs3CaAds0IkTCNsWu/pQbQ/XVMLXN8xmVu5Gd+VGZcK528YV+WIeCwAPDABR7uaUR
+	0/o8uT3ZcU22ukgGycdQjT1xPC3AnotOss6iSqOJHKO3/CeuVOe7j3xwKFd3YU1jeTAF/vPriZs
+	pcBErNsedUS3i5GxSgS+zvbyhMLgR7QK1tHvAs25ZlqU2IcMXPVZnE/OI2RId49zW776cYKgv04
+	nWdPnXfUCZjnChCcUzly3sEr5wR5U5nJHPqz0tclWM2daEw9HmTrOE+zQzRCahlbUEM4XqsSAvO
+	niVLSfdjj6uSIt9gH8rOSsbCimTYg==
+X-Received: by 2002:a5d:5545:0:b0:487:27f6:a4e5 with SMTP id ffacd0b85a97d-48dbad4b6d5mr19310156f8f.53.1791914985161;
+        Tue, 13 Oct 2026 11:09:45 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaaaebsm6854498f8f.14.2026.10.13.11.09.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 11:09:44 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v3 0/4] mfd: aat2870: Convert to use OF bindings
+Date: Tue, 13 Oct 2026 21:09:29 +0300
+Message-ID: <20261013180933.487013-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013143943.436816-2-ciakval@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 04:39:40PM +0200, Jan Remes wrote:
+Document Skyworks AAT2870 into schema, convert existing driver to
+use OF bindings and remove platform data, add support for
+in-supplies.
 
-> The TSL2591 has two raw light channels - CH0 and CH1. The algorithm for
-> calculating illumination from the raw channels requires division by CH0
-> (which can be zero) and by "counts per lux" (CPL) value which is also zero
-> for (gain = LOW, integration time <= 400 ms).
-> 
-> Furthermore, the algorithm assumes CH0 > CH1, which can be violated in
-> almost complete darkness.
-> 
-> As a result, reading from 'in_illuminance_input' results in
-> division-by-zero whenever CH0 is 0 (complete darkness) or whenever the
-> parameters result in CPL being zero. This results in kernel oops on
-> x86_64 and in reading the value as 0 on arm64.
-> 
-> Fix that by:
-> - reporting CH0 <= CH1 as zero (catches also CH0 = 0)
-> - updating the lux algorithm to only do the division at the end
-> 
-> Fixes: 2335f0d7c790 ("iio: light: Added AMS tsl2591 driver implementation")
-> Cc: stable@vger.kernel.org
-> Reported-by: Martin Triska <martin.triska@mycroftmind.com>
+---
+Changes in v2:
+- fixed led-max-microamp scaling
+- fixed max_brightness parsing
+- fixed regulator init_data and of_node passing
+- of_platform_populate > devm_of_platform_populate
 
-How was it reported? Offline? Off the list?
-Otherwise we have Closes tag to point to the report
+Changes in v3:
+- removed max-brightness property
+- switched from dedicated max_brightness property to dynamically
+  calculating brightness steps
+- update regulator registration to use mostly core regulator framework
+---
+
+Svyatoslav Ryhel (4):
+  dt-bindings: mfd: Document Skyworks AAT2870
+  mfd: aat2870: Derive brightness steps from max current
+  mfd: aat2870: Convert to use OF bindings
+  mfd: aat2870: Add support for VIN and IN-LDO power supplies
+
+ .../bindings/leds/skyworks,aat2870.yaml       | 124 ++++++++++++++
+ drivers/mfd/aat2870-core.c                    | 120 ++++---------
+ drivers/regulator/aat2870-regulator.c         | 160 ++++++++----------
+ drivers/video/backlight/aat2870_bl.c          |  77 ++++-----
+ include/linux/mfd/aat2870.h                   |  95 +----------
+ 5 files changed, 259 insertions(+), 317 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
