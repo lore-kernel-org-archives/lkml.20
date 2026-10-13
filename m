@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78B3565106
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:30:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D83D566C44
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 22:30:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791930645; cv=none; b=RVY7RT5UoxT6dquFnR1ZaDE2lAuFschDC+8uV2ERToDuYocHZyWJsHCu+QChesblJKYv5l+XW5DVptFTsu4hCnYne3bPa+xVAOJI8IBSFecqNkqM7n42raTsSrNYeENmPkFglWXi22lcSEuL799QNSqA29nBVz3K1oiz9TjQ5Rc=
+	t=1791930646; cv=none; b=F8Q/7rgT+cG9ZhFuLAtYIxDaqn7PbKTO2xUFRQX3Rhq0Q8L3kiolWSkmFYHnC0232xBZvFgIN6oMru784X5AKiirutRHEb6mWOIzpXl0/tQtmCO0duzmWcuCWBEN+fLwTZwixbG505/MpQNSW1xCICghYn1rW6+DQlUtL69GLZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791930645; c=relaxed/simple;
-	bh=1ndks8IXnplZiidPphBNXHuvBFFuoqz9kI5oaRPM9I8=;
+	s=arc-20240116; t=1791930646; c=relaxed/simple;
+	bh=3sXgJyemUwym7Asx5Sn6zTFCSjIW+IqEMZV/JNRG3rU=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=YgMm20pW4xswKGptTcOx9xryy3q2v/ybA3LDi8XwFCH7pz/k0jpJkDFLAdmd0gjaxaerS19Ktme515iCS8vmMOvFwab+h8P4kj/f6MrmB+Y3MQynpPLf5W1QW7tjhSR1LdYV3ZlCrS8q2LRjOoHFwMy/Z4+NU7rRctJPJrUhiXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SkHur7/U; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=mIY53fqEWSlirnpUgS5zCKPc8W4c8bXGJctfN1oopo0Gh02wLFxK8jxRBl7sAU84AdHv3ZOGGERbbkbvwGEAO5wsFGao2gjOsOcmQvVlbiMXzf3cM+StFagAxct17j5qwnMx9+uiWQ2R/oDFaeepGqQgwc/fLkfxjA1XDS4Pt+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KYHqO+/d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SkHur7/U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82CB41F000FF;
-	Tue, 13 Oct 2026 22:30:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KYHqO+/d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818751F0089C;
+	Tue, 13 Oct 2026 22:30:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791930636;
-	bh=yWVwpbRKYnzhxmi3juF3jFzrWHMsDiBWTp2swHsSpdE=;
+	s=k20260515; t=1791930639;
+	bh=gK5BiDEntrKD0+Dzj/T26h4UrOX6cmNMvMNJ/Y4XJ/U=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=SkHur7/UlDg+ZykQmYGGB+1biAZCirOCX/kbReHD6O9Zpq6sRnmYnplMNsvaTbqZ1
-	 q88pdpyb/rH/obCTbiBC4ehwRhq9pSKjcwy/vMySo4+DJlkDIZ3Dm/SwPDtmAcAmev
-	 UCFOS2eelb36QdVi5+rwmGB3AQbji3q6D72+CbN/Xgfyacu+G2zpFxUm49Dv0YXlaf
-	 rcVmpfgG9L1LNLL+E1DXPF0N+SQaasYwBFfO+WFSh6uJ9NKJyT4TPJjSyCwDcITW00
-	 wHTapJZy8ImBZUtGxbbbHYK1qf3mGALMgrAONVa7XHF96fI2l7oDcrJRp3Xy7tml5m
-	 Dd4BZDco5mvZQ==
+	b=KYHqO+/dLQiNrBW0pAQsNxN2fCoI/LLOrf+wGTzkk6b0kDzNVaAwGvJOCaoGLTRXM
+	 VCfhYnIE6mUE4BeLIffje9RTnf3CYdJclPJfbfOX06Hgxh/h4NSKMbh8ieeJjrtaMc
+	 KjxEvopPb/bYA5sTH3ZcnD1YUxp3sDyldEUr3qSXuxiJXkxsFy0QdPjzkNA9SgJAp+
+	 W+isKQrFIWVH2Gc2VybDBqD8GnD/DBCb6hUQvpkFYMk0aqka9QLmY12euzg57NFdVf
+	 yP6YnSeOMtL9RHoOlyM2AWrKHsgwdo4fND/eVjNT2CU2VixPIajx7ymn20iHFx5rVM
+	 x1M7b92rAp7sQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773A939E4DBA;
-	Tue, 13 Oct 2026 22:30:36 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7732739E4DBA;
+	Tue, 13 Oct 2026 22:30:39 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,38 +37,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH] f2fs: fix to check continuousness in
- f2fs_sync_meta_pages() correctly
+Subject: Re: [f2fs-dev] [PATCH v3 3/5] f2fs: cache: wake up f2fs_writeback
+ when
+ exceeding threshold
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <179193063501.1493834.9099224335687107412.git-patchwork-notify@kernel.org>
-Date: Tue, 13 Oct 2026 22:30:35 +0000
-References: <20261001000616.3824366-1-chao@kernel.org>
-In-Reply-To: <20261001000616.3824366-1-chao@kernel.org>
+ <179193063801.1493834.11114382446696553394.git-patchwork-notify@kernel.org>
+Date: Tue, 13 Oct 2026 22:30:38 +0000
+References: <20261012091737.308136-1-chao@kernel.org>
+In-Reply-To: <20261012091737.308136-1-chao@kernel.org>
 To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, stable@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net
+Cc: jaegeuk@kernel.org, daehojeong@google.com, linux-kernel@vger.kernel.org,
+ qiwenjie@xiaomi.com, linux-f2fs-devel@lists.sourceforge.net
 
 Hello:
 
 This patch was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Thu,  1 Oct 2026 00:06:16 +0000 you wrote:
+On Mon, 12 Oct 2026 09:17:37 +0000 you wrote:
 > From: Chao Yu <chao@kernel.org>
 > 
-> In f2fs_sync_meta_pages(), whenever i becomes zero inside while loop,
-> below check may be skipped, it failed to check the continuousness:
-> 
-> 	if (nr_to_write != LONG_MAX && i != 0 &&
-> 		folio->index != prev +
-> 		folio_nr_pages(fbatch.folios[i-1])) {
+> This patch introduces cache_wb_dirty_threshold and cache_wb_total_threshold
+> sysfs nodes under /sys/fs/f2fs/<disk>/, and wakes up the f2fs_writeback
+> kthread when dirty meta/node caches exceed cache_wb_dirty_threshold and
+> total cached entries exceed cache_wb_total_threshold; a zero threshold
+> disables the corresponding check. By default, cache_wb_dirty_threshold is
+> 8192 and cache_wb_total_threshold is 0.
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev] f2fs: fix to check continuousness in f2fs_sync_meta_pages() correctly
-    https://git.kernel.org/jaegeuk/f2fs/c/1383cff4ccf3
+  - [f2fs-dev,v3,3/5] f2fs: cache: wake up f2fs_writeback when exceeding threshold
+    https://git.kernel.org/jaegeuk/f2fs/c/eeadc4807c95
 
 You are awesome, thank you!
 -- 
