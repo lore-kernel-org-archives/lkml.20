@@ -1,79 +1,43 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55568472085
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A35F3998B4;
+	Tue, 13 Oct 2026 10:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888053; cv=none; b=oLb+9527PlCfNleCOzrfAgcE1L2J7ZR3faN4XepY4yMhRHLWozGV+92cdzLB2NPu0MJZFKH3lNZ3fy83fHkG5inZ+z3cfzXLHETZvaRpz48klWYuzwWLpoJElw43DFGgCZuanpP8oj/CIwPylY/oZ1UDv0pVKbOTFwsN6wUUoMU=
+	t=1791888100; cv=none; b=S4bEGNvv4/QwQiOUNme2i29mKfZkDYctJRgA3qoV3uPhIt9lTiicxMyJUmRHGRnEXCZJxLdHX3FKzYgEnfvXMmi8G0NZyxyKB1U2DXqd+B9HDUoJSMNWrli1Ty+53YMtMM1FASaOF1BAXTGWS21GtUgVWBQFWU3B5VA6icXV22A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888053; c=relaxed/simple;
-	bh=I4Ems3vL652kUBJ7YrXNoMXu+UN6uhhl6YM7Tg8At9Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=unIc50RQRGv2Qb8imSCdpOdGtcf6YCZgw6KsNWYeOUMOmJan5kboHWYEjxsYlGg16el0xpo/3lza+p6P2TPGdUnbKm87bMjV/qh7Drjlhi4Kjn1L3E8f7SGCu2CsFn/WDYT3NBHFeoeyafo2v8qXmPSPJl5xzfcmyTXKwTdisz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=O5/rRv7F; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791888100; c=relaxed/simple;
+	bh=71BsLK8ebqaTOxFvbmGZxoh9rmrlmOI7KUumGHN2rw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KpWvg2BsjilkzHCtrOOWzpCpuZPhz2g24zk/2nwczkfQ/iaFAzsoChzSBEX3CEuh60YDlpkCJwXaiMtTOzYlu7sBHt7PAUjRGBbfm0mt8ySzZ6cay8ZIa+fcCPwU0ZZA6suC6CyFJWkSbWDkXboq9/Zvgh95LivM6gduMucwmcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=dfIjaEGB; arc=none smtp.client-ip=95.143.211.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="O5/rRv7F"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so1167821a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791888051; x=1792492851; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LoNEcPDXDDbnlveBeeC45rD3sgSjJXZHddsvFQD932A=;
-        b=O5/rRv7Fio7rOnc+2uxlYD/kL+Mobc1n9pO+zJBIJegCF1nU+L/yfKNtvRtdbbaJyq
-         Ne2mYLYKQgQqYynH0jf/SHHyLv/zjOyQR0ftcsv4pXNTe8KZkctfunYZYJ1nKnKBQesS
-         drbsJC8epyDJgIooxsWmL/iVSGyuxEL5f7dPgLPRtB24vzOy+FVdlBmOkqYxzoRnN6ZM
-         yUA3LOtA5ovLWkTq6lZBUuXtpM+KLMtO7oSLoOmD1ztbH9W9Rz89Y3PdwupR1xcGJL06
-         72m654Ag0f/TOF8Gwf4qk2qtLpdveMCAEgTvEPWCpJIy6SQccuLNk5l8rwidbHDPMmNx
-         kEXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791888051; x=1792492851;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LoNEcPDXDDbnlveBeeC45rD3sgSjJXZHddsvFQD932A=;
-        b=YbfsmMFzzPTYjgp0TOpWV6ayrFlUWjILiKDlgqtomB1OzAMkcl/c3A9vzBXz0gzneA
-         iazI4gqa0KJkw6jnEnuIykpzF/zi9O+XEf9JUacn4BqViiYDNs45VVZg5uAJ5NDpSD84
-         10wYivDAOpjbIKdFWWYg9guBBdFeK2serG70zryyhswmSgLG6WszfpqldCVgAhBIlohK
-         JLg7MSovleGzNUoX8SnYmkvXT0S5jocx4H+VuJvxp78mKSsMnFB/jLoLmJovfNesvpdU
-         y2jSrqKXQfmmjp5DPdHYaJEhxXb8WusyIxp6lPE4KHU4rlfAeGexFTpICvduey5niHt2
-         f70g==
-X-Forwarded-Encrypted: i=1; AKwUvByPaybDlTFd6lH+SnOwLQ2b30Jjora8uIWTd4cJM+rhdffwziIJz1bmbe4ppV5yd/XLLn79UC3g/2I52+s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoDMJiadX8leBpv7BDHB3Q7h+DY1iJH5F9+05QX/lQAYdurr+K
-	4McuzPONRJ+UPycrO+h7za+Lo/SyP3d2m2MsYOcnvuDT3jhjJgsYrrgTZ+adeOa5Qd4=
-X-Gm-Gg: AYBFou19kqCPjKhlQqhubgyT/OB16brrrHEFLH84gqxCZYzUQD9eOoHiYIk/tVx8wsE
-	vXO/zS+EXMNF5xjVqmS5PsDvwMSaqFTPjHbwRKrmICeaWJHR/+Y8rDrTWtk8WaewSElokYKpvul
-	b0WwdBItDItUTAEZ6562XOkmPZizPmhjyVlzlIh2vMPxcnB/zhaqZbhmXAx+JqJ3X4IGR3i0D8j
-	gcRaSw2V2YnhVyUbVAB+kFQ71PDgJIsJe1kqO145tqzDqwXiw4CFIaZv2gQh0KZ2csm/+2m0cGY
-	RKV6gRf+kM42DH+s0HcdXuAxiG0307NvBeugJiRvDemSj/5SS4ddubi8H9wQJaQEcYkkfTjQ8Pe
-	5/D45CCaB8WDOlhNgA4rFfFWQU0BLtN5kERzOZgFyU2nfiVwF0LGHbZvUIYX/ijik5QPgS5cLAc
-	5e+dRFT9KXWRDu3VJLyQLQdhA9BTob3SoOCqM7EHu8STbRQN6ahtFT9VxPG4mQO49c8G4v9unqQ
-	ktX+n3UTyk9wYuO
-X-Received: by 2002:a17:90a:1196:b0:3a8:a1f6:3b32 with SMTP id 98e67ed59e1d1-3ab423f7336mr6083299a91.38.1791888050617;
-        Tue, 13 Oct 2026 03:40:50 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3386ba90sm12332028a91.1.2026.10.13.03.40.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 03:40:50 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Justin Tee <justin.tee@broadcom.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Keith Busch <kbusch@kernel.org>,
-	linux-nvme@lists.infradead.org
-Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart2021@gmail.com>,
+	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="dfIjaEGB"
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+	t=1791887548;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=VmW1Mk++o+vHDf7lQbc0Lnrv6OPA0Ilhu/jNTKAd+LM=;
+	b=dfIjaEGB82c84y/QUnSCpqY5ZMDIrzJGv2zO4BXk+Dzjk2yNGvKWTCSH5lZoLoSJuGI0Go
+	z3T5RRfwwC7UmdxihwZZY5LUNts2wySbSi43WJVF9sAT+uCL0HJ1YBC7pIWzK2P0hT1VIK
+	p0QQeDDmaB2LQY1OfVMMYDU2McaGkfo=
+To: Sean Anderson <seanga2@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH] nvmet-fc: bound the FCP command data length before allocating buffers
-Date: Tue, 13 Oct 2026 19:40:38 +0900
-Message-ID: <20261013104038.3078601-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: sunhme: fix infinite loop in unmap_partial_tx_skb()
+Date: Tue, 13 Oct 2026 13:32:26 +0300
+Message-ID: <20261013103228.37430-1-arefev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,74 +46,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvmet_fc_handle_fcp_rqst() takes the data length straight from the FCP
-command IU (cmdiu->data_len, a 32-bit value from the wire) into
-fod->req.transfer_len and calls nvmet_fc_alloc_tgt_pgs(), which hands it to
-sgl_alloc() with no upper bound.  nvmet_req_init() only parses the command
-and clears transfer_len; nvmet_check_transfer_len(), the only other place
-the length is checked, runs later from req->execute(), after the allocation
-has already happened.
+unmap_partial_tx_skb() walks the TX ring entries between
+first_entry and entry to release the DMA mappings of the
+fragments that were mapped successfully before a mapping error,
+but it never advances first_entry inside the loop. Whenever the
+failed fragment is not the first one, entry is ahead of
+first_entry and the loop condition first_entry != entry never
+becomes false, so the function spins forever.
 
-A remote, effectively unauthenticated host can therefore declare a huge
-transfer length and make the target allocate that much kernel memory for a
-command that never delivers the data.  nvmet-tcp bounds the equivalent
-length and the rdma transport is limited by its 24-bit SGL length field;
-the fc transport had no such limit.
+The function is called from happy_meal_start_xmit() with
+hp->happy_lock held and interrupts disabled, so the infinite
+loop leads to a hard lockup.
 
-Reject a command whose data length exceeds NVMET_FC_MAX_XFR_LENGTH before
-allocating anything.  The ceiling is 16 MiB, the largest transfer any
-in-tree fc LLDD can describe (lpfc maps up to LPFC_MAX_SG_SEG_CNT 4096
-segments, qla2xxx 1024), so no in-tree configuration is rejected.
+Advance first_entry with NEXT_TX() at the end of the loop body.
 
-A command declaring 4 GiB reaches sgl_alloc() unbounded before this change;
-afterwards a length above 16 MiB is failed with SGL_INVALID_DATA before any
-allocation is attempted.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Fixes: c53432030d86 ("nvme-fabrics: Add target support for FC transport")
+Fixes: ec1f1276022e ("sunhme: Add DMA mapping error checks.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
 ---
- drivers/nvme/target/fc.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/net/ethernet/sun/sunhme.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
-index 1b557775e033a..5ec581780454e 100644
---- a/drivers/nvme/target/fc.c
-+++ b/drivers/nvme/target/fc.c
-@@ -62,6 +62,16 @@ struct nvmet_fc_ls_req_op {		/* for an LS RQST XMT */
- /* desired maximum for a single sequence - if sg list allows it */
- #define NVMET_FC_MAX_SEQ_LENGTH		(256 * 1024)
+diff --git a/drivers/net/ethernet/sun/sunhme.c b/drivers/net/ethernet/sun/sunhme.c
+index a70f704eb9f3..544eb43af125 100644
+--- a/drivers/net/ethernet/sun/sunhme.c
++++ b/drivers/net/ethernet/sun/sunhme.c
+@@ -1965,6 +1965,7 @@ static void unmap_partial_tx_skb(struct happy_meal *hp, u32 first_mapping,
+ 		len = hme_read_desc32(hp, &this->tx_flags);
+ 		len &= TXFLAG_SIZE;
+ 		dma_unmap_page(hp->dma_dev, addr, len, DMA_TO_DEVICE);
++		first_entry = NEXT_TX(first_entry);
+ 	}
+ }
  
-+/*
-+ * Upper bound on the data length a host may declare in an FCP CMD IU.
-+ * This is the largest transfer any in-tree LLDD can describe: lpfc maps
-+ * at most LPFC_MAX_SG_SEG_CNT (4096) segments and qla2xxx 1024, so 4096
-+ * pages covers both.  The length arrives from the wire as a full 32-bit
-+ * value and sizes the command's buffer allocation, so it has to be
-+ * bounded before anything is allocated for it.
-+ */
-+#define NVMET_FC_MAX_XFR_LENGTH		(16 * 1024 * 1024)
-+
- enum nvmet_fcp_datadir {
- 	NVMET_FCP_NODATA,
- 	NVMET_FCP_WRITE,
-@@ -2577,6 +2587,14 @@ nvmet_fc_handle_fcp_rqst(struct nvmet_fc_tgtport *tgtport,
- 	atomic_inc(&fod->queue->sqtail);
- 
- 	if (fod->req.transfer_len) {
-+		/* bound the host-declared length before allocating for it */
-+		if (fod->req.transfer_len > NVMET_FC_MAX_XFR_LENGTH) {
-+			nvmet_req_complete(&fod->req,
-+					   NVME_SC_SGL_INVALID_DATA |
-+					   NVME_STATUS_DNR);
-+			return;
-+		}
-+
- 		ret = nvmet_fc_alloc_tgt_pgs(fod);
- 		if (ret) {
- 			nvmet_req_complete(&fod->req, ret);
-
-base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
 -- 
 2.43.0
 
