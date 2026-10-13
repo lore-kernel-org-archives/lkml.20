@@ -1,73 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E914F5592E5;
-	Tue, 13 Oct 2026 20:50:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1B148F854;
+	Tue, 13 Oct 2026 20:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791924631; cv=none; b=NX7stJSqcezwvEHiyVgOnzMOtE/M/+z/qZgI3KJ4rBdhK5VWASVwkDHdbVpA5usRAV6iX8weSOBCNHtzZWpW+JwjGtPImy553EQBqKy2SI6kEE00JaMQWW+eBKjpXL7h6dkLIw6zFbAs4wXdmhIPS8WdBC3zc/M8OLTpuQDIihQ=
+	t=1791924660; cv=none; b=dgth+s3UYTjI6DYvuhk3K7NA9rrm6YUYJgQlXh5gHdRKd52f1/3qsv2n9g/GI5L9F/5F1kjPAdjbDW8Ww9niAYK2F6SoDk4R5GfnN254eZjhLJ6NdPqyoYuxT+TzwgSQCtcwTN7iTdIB22f2LsBnXixkEk8NXAo6GpVa1ChBYyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791924631; c=relaxed/simple;
-	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=P+MexuNwAu1plbbbE/PvByp9whgVZwNIozEoctKajaOfzQq+E8bQBUGYNe8fdNq81Om0fY0OjZJJJvjeVbrX6sTU8/OtTyy5EoDd7gkjh8CCzM1ZF4OW+wFMN0J75kz7s0JfgAeehPY3JG/zqk/sDwiFDRFXXeWQLLmDsxnrkPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EirEIYW8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791924660; c=relaxed/simple;
+	bh=xYltfeedV2QbilRvLRrX1ztgmK5WAaTuJsRZS5mP9yM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JX/R6zJFP2Zqh8OTzXuXDrv8qszM59N44g+w6QKlCEDUjM6ynupfwX26StotOvOp9yNnQNxEIV7NLpEhmdLNEJz/9Xdfap2ZwE9Q80ZX2bcyP5O7L4czrMOm/LRPoMXiWUpFKIjb35Hhr9Z4hV7hCfXhFTtMqeVJ2GcBgirdi5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fxJuHOsq; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EirEIYW8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C634B1F000FF;
-	Tue, 13 Oct 2026 20:50:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791924629;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EirEIYW81KvDRep1elRjc7mcqVabRp8WAKa3QMezKogt9HKZIHQOZjfcVWMKcUTM7
-	 VAvyzudiqMTiZu8jXYSYg4akCzrfTXrIQjLCD6Bap6SmR0rYmJpgnAfLn5tBEQjJzL
-	 /uBW6rWJnco7p+8VqLSEhmE1mL3oD9hCDZ1r75i/lvXj8PLqhKHx+YXMdp2G9I9isX
-	 luDkf77/KO3IAAxdQ/DdZVo2bBsH24Wu+7nCi0YHFkyKe9RJuRcY3AaAGooJdUdFkB
-	 FhQD8HSwf86M+XLL8OfAfLachXMvGLPlOjTCDsNqjUipUJftYa4mJX49Uww5ohkgjI
-	 hhngfNQ7dJFag==
-From: netdev-bot+sinfo@kernel.org
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>,
- Simon Horman <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-Subject: Re: [PATCH net v3 RESEND 0/6] net: bcmasp: Collection of fixes
-Date: Tue, 13 Oct 2026 20:50:28 +0000
-Message-ID: <179192462836.160550.12663009075100618667@kernel.org>
-In-Reply-To: <20261013204439.3494046-1-florian.fainelli@broadcom.com>
-References: <20261013204439.3494046-1-florian.fainelli@broadcom.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fxJuHOsq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791924659; x=1823460659;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xYltfeedV2QbilRvLRrX1ztgmK5WAaTuJsRZS5mP9yM=;
+  b=fxJuHOsqQAvhyeNULSUHYKh93yyPRV+HKGMjf6YBicdbFHT19XgT8OQk
+   laQjIDjZvGsauaCnQKq02hHnjZaflhyPVsOPIRdYXmgFs8pQVsE/JLIx2
+   Fn1CmIfncyCRQEdBOje0BJq75xeatepMteqb+vBoN97+uVreNsejTG+ic
+   jVElfZnxQ+1IqSub24uhmY8aqHMG/ciQl+hz/WuvrvfHcSZgVl/nqZvUR
+   pbH848gR194whgsaz7N1XVvtRXwFs2YELR8Dfe1uJPQuwjdhWrnDOh898
+   /MtFHjLvxkH6sJIhqrE6tkNAJJH8NT2GCdhetdPJxXHNC1qdg5X9+J5e2
+   A==;
+X-CSE-ConnectionGUID: 14KlwI5jQY+6hPc5t9nyLA==
+X-CSE-MsgGUID: HwVqGe6YTuaI6Z2LMiWP9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="550420"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="550420"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 13:50:58 -0700
+X-CSE-ConnectionGUID: 9FHqfzppRWCwhaTPQexoQQ==
+X-CSE-MsgGUID: J+UQZ1/WSdarrjZb3EwIwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1698739"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 13:50:56 -0700
+Date: Tue, 13 Oct 2026 23:50:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: development@redaril.me
+Cc: Peter Rosin <peda@lysator.liu.se>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: afe: iio-rescale: Add platform IDs
+Message-ID: <as6ZrXFDWKLqPPvn@ashevche-desk.local>
+References: <20261008-iio_rescale_platform_ids-v1-1-019f1c144022@redaril.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-iio_rescale_platform_ids-v1-1-019f1c144022@redaril.me>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi!
+On Thu, Oct 08, 2026 at 11:27:59PM +0200, Fabio Forni via B4 Relay wrote:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+> When a rescaler is probed starting from a `struct swnode`,
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+How? Pure platform devices can't be probed from struct swnode.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+> device_get_match_data() will always set rescale->cfg to NULL,
+> because device_get_match_data() is unimplemented for software nodes.
+> 
+> This commit makes the probe function fall back to platform IDs when
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Read Submitting Patches documentation on imperative mode (search for
+'This patch').
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+> it couldn't fetch the rescaler configuration from the match table.
+
+...
+
+> +static const struct platform_device_id rescale_platform_ids[] = {
+> +	{ .name = "current-sense-amplifier",
+> +	  .driver_data = CURRENT_SENSE_AMPLIFIER, },
+
+Drop trailing inner commas and make these one-liners (yes, long ones).
+
+	{ .name = "current-sense-amplifier", .driver_data = CURRENT_SENSE_AMPLIFIER },
+
+> +	{ .name = "current-sense-shunt",
+> +	  .driver_data = CURRENT_SENSE_SHUNT, },
+> +	{ .name = "voltage-divider",
+> +	  .driver_data = VOLTAGE_DIVIDER, },
+> +	{ .name = "temperature-sense-rtd",
+> +	  .driver_data = TEMP_SENSE_RTD, },
+> +	{ .name = "temperature-transducer",
+> +	  .driver_data = TEMP_TRANSDUCER, },
+> +	{ }
+> +};
+
+
+>  static int rescale_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+>  	struct iio_dev *indio_dev;
+>  	struct iio_channel *source;
+>  	struct rescale *rescale;
+> +	const struct platform_device_id *id;
+
+Keep reversed xmas tree order, please.
+
+>  	int sizeof_ext_info;
+>  	int sizeof_priv;
+>  	int i;
+
+...
+
+>  	rescale->cfg = device_get_match_data(dev);
+> +	if (!rescale->cfg) {
+> +		id = platform_get_device_id(pdev);
+> +		if (!id)
+> +			return dev_err_probe(dev,
+> +					     -EINVAL,
+
+ENODATA
+
+> +					     "missing or invalid device configuration");
+> +
+> +		rescale->cfg = &rescale_cfg[id->driver_data];
+> +	}
+
+And it's better to make it a helper, actually we have drivers [1] that do
+something similar, I would recommend you considering adding that helper
+directly into platform driver core. But at least local one is a good start.
+
+[1] for example, drivers/pinctrl/intel/pinctrl-intel.c.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
