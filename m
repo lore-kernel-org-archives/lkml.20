@@ -1,129 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBEC501F41
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:17:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33935111BC;
+	Tue, 13 Oct 2026 13:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897474; cv=none; b=kqm3oM5tvikVjRM7pND0yA7B5vrokfMBVmFVw3N0e4o30PzKoJWoBAdeV0meghm87KOrBuCB4si1O8ciUV+W12tUO8ktIN+E2cwqRdFOkg5eSs23264czn4NIN8tRzV7y2pPo3XbsWY4qrXqrORC138NOqtnf/2Pj0wME1ln5po=
+	t=1791897474; cv=none; b=BRmM/a4VcTq95N8R9/1yl2ReX7ymcZfDbmpn0AmKZFpcniycy3f2lML0Hzk2Za3Fz4QGUgC81Rkh4nAQq1rgmauj5xlfPSH0yiSKPYtinulaxJBVnzNDOae2NWZjF4PRJ+1Kx5BeGAReWyRXKjymlOfw+r8ds9SfLqAOBObQO5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791897474; c=relaxed/simple;
-	bh=u7P34VXTVrZeRHCTgOSJ39iptX9DGQzvBLDeL4ULINw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ke0qRH3rHwI68hMg7Dxj+BmJ3B6fsUPUzpn9iO8sSKWWvRe4SSujld2nW6pWoXTJRVK7QAYP74CeEGZnYXIUjo0bcR0ctf/PYFKg7fmx7yPdh0dfkaN8vC3A9XKv7HBBVivlpF8/09x4w9Q903yfRHI4VvPM0d1yXTPtXNhtKQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0JfCusr; arc=none smtp.client-ip=100.103.45.18
+	bh=zRKJ0Yiw7bNadRDbKt6zuimuE0I5/BUEbr8eEqaW3sE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Ctg60zVSLe87vt1Z9CQaM9hmfwFLuj6BuR4TYA6eEYBSl2ZC3n4tRLD5yswlPnfqCfftlBOfAUldrkoQlflqC2jkbYk5ici47iHmpCXUUqFkAIwQdDs7o4siONk0iLIPiLskNIqwUyQb8HlMCZNCIisGV/MTq+2OtW8IRUPRKPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=zS/njdgW; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=8stvFBLN; arc=none smtp.client-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0JfCusr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26711F008A4
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:17:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791897471;
-	bh=IPrWbjd6nlCGQgcl4vkfUhJWd2/tw6kriYkWa0oA5aA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=i0JfCusrums781dzuimaRkDiw69YSLDenNcPkMtStbdprggrX8A0gZmpFPim6Kx3r
-	 nyWF5cYYX3aiwI2UJ5hpkmXW2KRzNQ+StdA7uf1L2Zh8GgxpMWjzZQHkWxcYajVV7g
-	 9vuvFCLqItpCWOSFPxBXdw/fqbRRC5N/OGYBIeRJpAM//sSzhSc4CCiQywUwI36qNI
-	 YRdTVuWG+BQHpWsu5r+yQqP54nZlVAzUR4wzfS4A7shpCmGLkiBfU78RNy8iNa1sci
-	 giCVODBBZe371VXgAk+qdMIByl2x0sKuxXfwi7OJxsA8zl+cky6p4G+ajlioLl1846
-	 ysGRiJEjz7cSw==
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e55db58cfso299201685a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:17:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwBRvvCiELK4YI8Hw8mcFgf/HvbR6qdCeQFVLQdFZf/tV2yWsbAeoFrLVJ6okJnOqHgpqyc7MjcIsB8eyg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDA8Vx7S8YkLbtB272HGPHpYuK6WUUQ2Ts5WVxZsqpr4z1YpGS
-	CKa8UsdpMnhzKStnseIGlZ9u0nnPiRS/PH8btd6aGf/CTSMl6jDBBu3kq7s/M7CLhMjYLo27ADS
-	doQsaizbLFAX6GJpR8YMAqxAPrK/o0D4=
-X-Received: by 2002:a05:620a:6487:b0:93e:4c1b:a06d with SMTP id
- af79cd13be357-93ebd1bac2bmr2200083985a.20.1791897470973; Tue, 13 Oct 2026
- 06:17:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="zS/njdgW";
+	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="8stvFBLN"
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 5203D26F7697;
+	Tue, 13 Oct 2026 22:17:51 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1791897471;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DMwVLew5mvVnVvExhiUsbrBRHIiIZrNcbKYVNjQWJ+k=;
+	b=zS/njdgWijXA0/uHIjoZ/eDeT8NRVkLykjaubvLT1Z8wcDIEBYDDzDnNz0xvLF2imsWOPl
+	SpcVtbhS9AFQFBexQiFJAcjlpprMhDsSh6gZCT/6jjcgiOffaBnpgOboHf32ZoeohiDUCc
+	7BQolN/X2Z9lUzS3AcOoyFhdON91if7NNuzoCijWP48v3ZWKV02no+hVnvbi0BkgUED5HE
+	VFnduTQeZchjZqifO8tCSgFq5RAFf1Z5XxGma3Y3Ow2NKaAbFIveLOex9ETLKJDQ88WWXI
+	tfwDIvAinZg7rRC6oxGbxnugetqw8KFB2rfIDnQxG5moJXGbiXGniFDpGSo6xg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1791897471;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DMwVLew5mvVnVvExhiUsbrBRHIiIZrNcbKYVNjQWJ+k=;
+	b=8stvFBLNHVLZIsZxCnla2qRLNuPJwRPHOXgJiaEdK3JypLEjH61Nszi9KeIW90QU3F3d7n
+	bt480RmFSRGRA2DA==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id DEB98E00149;
+	Tue, 13 Oct 2026 22:17:50 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id D182022000A7; Tue, 13 Oct 2026 22:17:50 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
+ linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] fat: allocate multiple clusters in fallocate
+In-Reply-To: <20261012171106.146243-4-matheus.aalmeida@inf.ufrgs.br>
+References: <20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br>
+	<20261012171106.146243-4-matheus.aalmeida@inf.ufrgs.br>
+Date: Tue, 13 Oct 2026 22:17:50 +0900
+Message-ID: <87cxtdn3i9.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org> <as4qKLx_XwQ6qY3p@thinkstation>
-In-Reply-To: <as4qKLx_XwQ6qY3p@thinkstation>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 13 Oct 2026 21:17:19 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4y5j+p0-VdEzpnS-Q31vhvBZRa96VJtA6+HyNj=+r+Ufg@mail.gmail.com>
-X-Gm-Features: AclHuK9MQ_S043rSI_HtPCWrZsAEX4W_aIKduLBdZpTWuX0GQiW4Y22oKWiSD_0
-Message-ID: <CAGsJ_4y5j+p0-VdEzpnS-Q31vhvBZRa96VJtA6+HyNj=+r+Ufg@mail.gmail.com>
-Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Ying Huang <huang.ying.caritas@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
-	Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Tue, Oct 13, 2026 at 8:57=E2=80=AFPM Kiryl Shutsemau <kas@kernel.org> wr=
-ote:
+Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+
+> The fat_fallocate() code currently does many 1-cluster allocations when
+> growing a file in the FALLOC_FL_KEEP_SIZE path. Make it allocate
+> everything with one call instead.
 >
-> On Tue, Oct 13, 2026 at 02:30:37PM +0200, David Hildenbrand (Arm) wrote:
-> > numa_rebuild_large_mapping() and do_swap_page() can be tricked into
-> > generating an address wraparound, crashing the kernel. All that's requi=
-red
-> > is to map a tail page of a large folio close enough to the start/end of
-> > the address space to e.g., make
-> >
-> >       unsigned long addr_start =3D addr - (nr << PAGE_SHIFT);
-> >
-> > to wrap around.
-> >
-> > Let's fix it by providing a better helper, folio_pte_scan_range(), that
-> > takes care of staying within VMA and page table boundaries while
-> > handling possible wraparounds.
-> >
-> > Reported-by: Kyle Zeng <kylebot@openai.com>
-> > Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
-> > Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swap=
-cache")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> > ---
-> >  mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
-> >  1 file changed, 29 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/mm/memory.c b/mm/memory.c
-> > index 1f5d5f7d39cd2..a3823010aa981 100644
-> > --- a/mm/memory.c
-> > +++ b/mm/memory.c
-> > @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *f=
-olio, swp_entry_t entry,
-> >       } while (--nr_pages);
-> >  }
-> >
-> > +/*
-> > + * Get the address range in which a folio might be mapped, assuming it=
-s pages
-> > + * are mapped consecutively and the folio page at the given idx is map=
-ped at
-> > + * the given address.
-> > + */
-> > +static void folio_pte_scan_range(const struct folio *folio,
-> > +             const struct vm_area_struct *vma, unsigned long addr,
-> > +             unsigned long idx, unsigned long *start, unsigned long *e=
-nd)
-> > +{
-> > +     /* Stay within the page table and VMA boundaries. */
-> > +     const unsigned long pmd_start =3D addr & PMD_MASK;
-> > +     const unsigned long pmd_end =3D pmd_start + PMD_SIZE;
-> > +     const unsigned long lower =3D max(pmd_start, vma->vm_start);
-> > +     const unsigned long upper =3D min(pmd_end - 1, vma->vm_end - 1) +=
- 1;
+> Benchmarking was done under QEMU/KVM with a virtio-blk device using
+> cache=none. Each result is the arithmetic mean of the listed samples.
 >
-> These -1/+1 gave me a pause. I guess it is for pmd_end wrapping to 0 in
-> the top PMD? A comment would be nice.
+> start = now_ns();
+> for (unsigned int i = 0; i < count; i++)
+>      fallocate(fds[i], FALLOC_FL_KEEP_SIZE, 0, bytes);
+> elapsed = now_ns() - start;
+>
+> FAT32 with 512-byte clusters using count=16 files:
+> length    mounted sync?    before    after    improvement    samples
+> 256MiB    no               2.328s    0.175s   13.2x          10
+> 16MiB     no               149.659ms 14.036ms 10.7x          10
+> 16MiB     yes              747.993s  3.445s   217.1x         3
+> 1MiB      yes              46.63s    0.333s   140.1x         10
+>
+> FAT32 with 512-byte clusters using count=128 files:
+> length    mounted sync?    before    after    improvement    samples
+> 1MiB      no               90.873ms  4.686ms  19.4x          10
+> 16KiB     no               1.287ms   0.241ms  5.3x           10
+> 128KiB    yes              47.284s   0.350s   135x           10
+> 4KiB      yes              1.98s     0.144s   13.7x          10
+>
+> FAT32 with 4096-byte clusters using count=16 files:
+> length    mounted sync?    before    after    improvement    samples
+> 256MiB    no               295.392ms 24.733ms 11.9x          10
+> 16MiB     no               20.509ms  1.404ms  14.6x          10
+> 16MiB     yes              92.489s   0.348s   265.4x         10
+> 1MiB      yes              5.837s    0.048s   121.3x         10
+>
+> The improvement is especially large on synchronous mounts, where the
+> new code can batch FAT updates instead of synchronously handling each
+> cluster allocation separately.
+>
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 
-Will pmd_addr_end() make it better? I mean
+Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
 
-upper =3D pmd_addr_end(address, vma->vm_end);
+Looks good. Thanks.
 
-nop?
+> ---
+>  fs/fat/file.c | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
+>
+> diff --git a/fs/fat/file.c b/fs/fat/file.c
+> index 41d49e9de..3aa541c6b 100644
+> --- a/fs/fat/file.c
+> +++ b/fs/fat/file.c
+> @@ -290,12 +290,10 @@ static long fat_fallocate(struct file *file, int mode,
+>  		nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
+>  			sbi->cluster_bits;
+>  
+> -		/* Start the allocation.We are not zeroing out the clusters */
+> -		while (nr_cluster-- > 0) {
+> -			err = fat_add_clusters(inode, 1);
+> -			if (err)
+> -				goto error;
+> -		}
+> +		/* Allocate the clusters. We are not zeroing them out */
+> +		err = fat_add_clusters(inode, nr_cluster);
+> +		if (err)
+> +			goto error;
+>  	} else {
+>  		if ((offset + len) <= i_size_read(inode))
+>  			goto error;
 
-Thanks
-Barry
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
