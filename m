@@ -1,166 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973F61A5BAE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:52:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5401A5BAE
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:55:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791867176; cv=none; b=Sv1Z0qpdn5fpcn4FfnHqkkOfYQ2rH36RW6yblykEGsj8CyYZDD4xLrZ8z13BccvkgXoChatXY/qG+t+bNDWHFWDhEF9Zkk9VuHUXJExd+c58H2LI0JxkWDpQ0qa6kcolgGB6/uBIi/O9FfYTdWv4COcAttp+oSXnL4MUCZh7BcM=
+	t=1791867327; cv=none; b=csTpfAoZUOzrCVqmoEHeDk6hue6JqT3ZvLnzh7zDhxmCMw9pCiwFSapX+61bPdXO8ONYrrgmTgOhIMhXEY1I57cIBXhNs507XodIrp1Lb0z6fo7w9Fi9MW4o/hLgyPlcxSimvyMjo16fy8QfolVYHl+r6PvdHpi2zciS+kadg+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791867176; c=relaxed/simple;
-	bh=7nJXonqH+rTItmlVnwPmw97jci53LyFWF9nUOD8veiU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mPGoZLZdjhoMCWEBgY3ZBRBQEWx3Tv/5kjFBPCvN4sgYYGWrUcFJv4oumYNHpTmgoDJosmQTPGG2VgdG6/QZfpL0YlBfJF6DzVBMfg4Dx2FfmBOKdWe5squK+Fb+5zzA32Br9VFQdG9R4gpGd4Iijg3uCPs/DT8s1hF4Q7BghjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N7z003vv; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791867327; c=relaxed/simple;
+	bh=WQcAD1MMEpo3eZQ8woRePVMMduZ074A3ZIDLuK3z6ek=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NGw9XUDSM+rt+gUGL37G2MYfnpegkci9vfpMtR+4kyT9m4EsWFxd8rkQjrJUMXCdlIpt9tqqPfnnbYRtNQwDB6yhHH92ogzUrB4t24UoXU1U8AjZeh7bXplbJ9Qlt+LlxfbvkJpASL15Y6v+ONhKNn85pQIXJZrZfGUPEkXoRWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dOyKQnMG; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N7z003vv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791867175; x=1823403175;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7nJXonqH+rTItmlVnwPmw97jci53LyFWF9nUOD8veiU=;
-  b=N7z003vvlL1eTibe/Q+GnPScWPB/kWXmaocGF7vmfMLpsV0tTFPYNLGo
-   HOD4XrrOEbhCjfbdCsxcuNy+SLd9TYyhhcDMhjiBj3wmN2kXccP7cfvTw
-   RdYqQkhNDtNywGr9Ns/Vm8SOa2ZWoSE00HuU8q6H7aUQPrZ+sIwNmU7Zy
-   kDPEbrAYTAcpyF/Pxs9+oioQLn1+BF9/H8puZ+u/6poQTLBmpDOoEl8Gj
-   HW7CkIyTFvCbBnTtpgPtwR0SwGXybcZyeZ7SS6V9bceHxbebpqcMqXCy6
-   ZoTOnotiY88rnqaP548Ob0cFiTaH4BcOcnnuXKB7+46G4Bm+dPe2tY4LZ
-   w==;
-X-CSE-ConnectionGUID: 95bHEUSMTgmMAKmaOh3vVw==
-X-CSE-MsgGUID: B/pH/co2TK2SXWZG7RSJQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="587911"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="587911"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 21:52:54 -0700
-X-CSE-ConnectionGUID: xR7btsJ1QyWEWFokvgGAPg==
-X-CSE-MsgGUID: cyp7orBbSmuCSvNAWurFcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="966189"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa007.jf.intel.com with ESMTP; 12 Oct 2026 21:52:50 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xGUVL-00000000CXQ-2yVE;
-	Tue, 13 Oct 2026 04:52:47 +0000
-Date: Tue, 13 Oct 2026 12:52:40 +0800
-From: kernel test robot <lkp@intel.com>
-To: Lukas Zapolskas <lukas.zapolskas@arm.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, nd@arm.com,
-	=?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>,
-	Lukas Zapolskas <lukas.zapolskas@arm.com>
-Subject: Re: [PATCH v7 6/8] drm/panthor: Implement sample handling
-Message-ID: <202610131207.5wGThJW9-lkp@intel.com>
-References: <20261011-panthor-performance-counters-v7-6-12c32495062f@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dOyKQnMG"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3514b90bb89so4802800eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 21:55:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791867325; x=1792472125; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WQcAD1MMEpo3eZQ8woRePVMMduZ074A3ZIDLuK3z6ek=;
+        b=dOyKQnMGRKTOphotxiiAOgsHY1jXHPPOYD58hCyba9EvEvgDBx3KDZG5pCOpqKihe7
+         9SCt06q2QJTsajl/dvkf8IoH4fp/cuGmTiIuGWV5x6/X4mBsSFKhWmjOGa7rg/bPpa+B
+         ITpwgLAzIBnL1sm7MjQjFq0nc7RrR267RL0Pej2e+UNWPxCI9m9SWOuLF4NP4pHQI6T6
+         q/zhCoU4BAaRdVLIVVq3FWaL++iBjMHbgP8FZauEQRIuZl5gvrONrDw/AYVElp2qisZz
+         9IqgINeSEO5SgEVNkJhGDrhkirXfXxQrMJNGM2TvbKACguFi506WQrSmWK+oez4vnyaG
+         HjuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791867325; x=1792472125;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WQcAD1MMEpo3eZQ8woRePVMMduZ074A3ZIDLuK3z6ek=;
+        b=0M48piYgnUnrnzJQTviKatVBN0P98xHpWeu0mwkuMXCAg+9pemNPXlM7se4zn5jYI3
+         3Gcofi5D6ftGPzHF3m4jzBKmLO0YUSunfIZQYO439NGM0VsRRTF9YFerN9hb5D+S9DLK
+         bpbTNfkQBCQ2o9zom9t+Ks+ezLm1gnpOtyDNJu+5DOxYiHqyEPa7v4aAM/BbtkiuqZux
+         VPSf4Yz4yMluEHlYTginQyis+zd7qDa3O2Opl8tCGjsy3wTLmMWkqzPQBRIK5f1pk2Sn
+         amA2Qn8D7HYCseOy15wE0RpxqjtrEsw5WLBbIY55j01Vx2BEGkO9ZWwuO2iA5VRGko3K
+         2wtg==
+X-Forwarded-Encrypted: i=1; AKwUvBzwYuHEI8Oxmn9yGBhc+FWql3WkhQDhmbhASfzb3W0ztUDxpU+71mbtQiC+oJt8ALiSWiHpeIEVegc1SFw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5VJHGQ69EfGm2O8mSLuJD/4rgb8cUjCXPQ3F8/AJ1Ij/ek6+Z
+	gHpG+6MkUVnyQyMFOXMKQpwL5i8SPdvqzDefPe7VzdY7zn9IhOGE1wp2
+X-Gm-Gg: AYBFou0eeCqklNgO6BJHimWaSDTqW3SW1ItZeBfALApFDbJMiwby91oRtsTkAziIjGk
+	KQ4pH7coodPpkTP3XhC2HE1jr1hRrw9rsyy3xeAYP3b0JzDPWTDKUOqYm8IogRgz3avrXVaJJgM
+	/xmTvMcCKEdHrUkiLp8+9os/4MearblugK0fCHLkZ6XZ+ofpfrdh3k5VbbqtNP9kSmIRuU0F4/B
+	t0lcoA6NKtDXMjwRjSPyZfYV7Z0pP63I3qAfHOjDzOzTjZaG7cP2OWLag3B8X3IyNe6laQJ7Utg
+	mWzvNVIUWh7Y0AwOuiasXCAlCtpuPzHH3qWvCBM1C8YcRO86KiR8KOQFIGuyfv7jctJo6mhTO4J
+	WoS/ed9g1jLukU9s4XjxdQTgqqN7PZG0s+OK44eAYvWDoDKix1QlWkCJ/n1KlmWnhzcTYTU04ZR
+	aWQBbDyWMVPVCjHHzokf4rAnvlHYIWU4/ctx5lmkKc+PGndTCKIhtCAcTN+I2v0sFeN3TElcQv5
+	EoceE3jLjCm
+X-Received: by 2002:a05:693c:88c8:20b0:358:f678:46b6 with SMTP id 5a478bee46e88-358f6786227mr11214375eec.22.1791867325040;
+        Mon, 12 Oct 2026 21:55:25 -0700 (PDT)
+Received: from online.mioffice.cn ([2408:8607:1b00:8:5e2a:b6c:f432:a6f3])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm38832952eec.30.2026.10.12.21.55.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 21:55:24 -0700 (PDT)
+From: Pengfei Zhang <zhangfeionline@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	EricChan <chenchuangyu@xiaomi.com>,
+	Simon Horman <horms@kernel.org>,
+	zhangpengfei16@xiaomi.com,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: xgmac: do not treat TBU as a TX event
+Date: Tue, 13 Oct 2026 12:55:10 +0800
+Message-ID: <20261013045510.2746341-1-zhangfeionline@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261013024747.2688984-1-zhangfeionline@gmail.com>
+References: <20261013024747.2688984-1-zhangfeionline@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011-panthor-performance-counters-v7-6-12c32495062f@arm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Lukas,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on 4b7a49d66c8398a7984dff4ac54d1acc6b3a58df]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Lukas-Zapolskas/drm-panthor-Add-performance-counter-uAPI/20261011-183648
-base:   4b7a49d66c8398a7984dff4ac54d1acc6b3a58df
-patch link:    https://lore.kernel.org/r/20261011-panthor-performance-counters-v7-6-12c32495062f%40arm.com
-patch subject: [PATCH v7 6/8] drm/panthor: Implement sample handling
-config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20261013/202610131207.5wGThJW9-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261013/202610131207.5wGThJW9-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610131207.5wGThJW9-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/panthor/panthor_perf.c: In function 'session_accumulate_sample':
->> drivers/gpu/drm/panthor/panthor_perf.c:902:57: error: passing argument 2 of 'bitmap_from_arr64' from incompatible pointer type [-Wincompatible-pointer-types]
-     902 |                 bitmap_from_arr64(enabled_ctrs, em->mask[dst_blk->header.block_type],
-         |                                                 ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |                                                         |
-         |                                                         long unsigned int *
-   In file included from include/linux/cpumask.h:11,
-                    from include/linux/smp.h:13,
-                    from include/linux/interrupt_rc.h:17,
-                    from include/linux/spinlock.h:60,
-                    from include/linux/swait.h:7,
-                    from include/linux/completion.h:12,
-                    from include/drm/drm_file.h:34,
-                    from drivers/gpu/drm/panthor/panthor_perf.c:5:
-   include/linux/bitmap.h:322:58: note: expected 'const u64 *' {aka 'const long long unsigned int *'} but argument is of type 'long unsigned int *'
-     322 | void bitmap_from_arr64(unsigned long *bitmap, const u64 *buf, unsigned int nbits);
-         |                                               ~~~~~~~~~~~^~~
-
-
-vim +/bitmap_from_arr64 +902 drivers/gpu/drm/panthor/panthor_perf.c
-
-   875	
-   876	/**
-   877	 * session_accumulate_sample - Accumulate requested counters into an existing sample.
-   878	 * @ptdev: Panthor device.
-   879	 * @session: Perf session.
-   880	 * @session_sample: Start of the destination sample, including its header.
-   881	 * @perf_sample: Start of the intermediate sample, including its header.
-   882	 *
-   883	 * Firmware enable masks select groups of counters. Copy timestamps and accumulate
-   884	 * only the counters requested by this session.
-   885	 */
-   886	static void session_accumulate_sample(struct panthor_device *ptdev,
-   887					      struct panthor_perf_session *session,
-   888					      u8 *session_sample, u8 *perf_sample)
-   889	{
-   890		const struct drm_panthor_perf_info *const perf_info = &ptdev->perf_info;
-   891		struct panthor_perf_enable_masks *em = session->enabled_counters;
-   892		struct panthor_perf_sample_block_iter iter;
-   893		const u32 counters = perf_info->counters_per_block;
-   894	
-   895		sample_block_iter_init(perf_info, perf_sample, session_sample, &iter);
-   896	
-   897		while (sample_block_iter_next(&iter)) {
-   898			DECLARE_BITMAP(enabled_ctrs, PANTHOR_PERF_EM_BITS);
-   899			const struct panthor_perf_counter_block *src_blk = iter.src_blk;
-   900			struct panthor_perf_counter_block *dst_blk = iter.dst_blk;
-   901	
- > 902			bitmap_from_arr64(enabled_ctrs, em->mask[dst_blk->header.block_type],
-   903					  PANTHOR_PERF_EM_BITS);
-   904			bitmap_clear(enabled_ctrs, 0, PANTHOR_HEADER_COUNTERS);
-   905	
-   906			dst_blk->counters[PANTHOR_CTR_TIMESTAMP_HI] =
-   907				src_blk->counters[PANTHOR_CTR_TIMESTAMP_HI];
-   908			dst_blk->counters[PANTHOR_CTR_TIMESTAMP_LO] =
-   909				src_blk->counters[PANTHOR_CTR_TIMESTAMP_LO];
-   910	
-   911			for (size_t ctr_idx = PANTHOR_HEADER_COUNTERS; ctr_idx < counters; ctr_idx++)
-   912				if (test_bit(ctr_idx, enabled_ctrs))
-   913					dst_blk->counters[ctr_idx] += src_blk->counters[ctr_idx];
-   914		}
-   915	}
-   916	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
++Cc Jose Abreu, the author of the commit in Fixes:. I used an outdated
+address for him in the original posting, sorry.
