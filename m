@@ -1,118 +1,241 @@
-Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551575187DE
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 15:10:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EBC518154;
+	Tue, 13 Oct 2026 15:10:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904261; cv=none; b=fG+yOGPgdPww1Lt0MCObWXfpUPyH+Mq7GjZTaWT/6FmKQDB+HoydmmozfyhUjM31huDTFiV0PmaXWLIn61G4Yf4H40hrPhk87LTNRBIAITLi/+3fi5vugQINYf4ahWbc/sKT+KCthTPGfTVwecAYPDtlhfVVeChvgxXopcoCpK4=
+	t=1791904259; cv=none; b=oe4lLy2Iqu/D3xurugD3RKwWZgiJhOfd7GgtoFa3sdi2XEJi/v2k7BRLOkZqrmUuS1T4iL4hO8cIr7Ej/e/HK2xhCyS2/X4Owt/+k/VkrkZgxwYFXJVUuFFg0rj6wgPddP1HaczXEqeBnykQv7Hq1lKfwnto99QvsnGbNTh1z3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904261; c=relaxed/simple;
-	bh=FFUgdh8idoo7uPYiHxk4YzUlj0DtXIIOClOikNHRtTI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PYFXqOOlCse+y54RBv5pATJ8XpA76lT+hFYom5gbK4jkz0Dx8i/9kpnaQTDlgcHKWFpqcNJWYZogBtCbUFxsBHOqlxYzTmwO/Pvk9QIJ0It3hFXGrhnMy2NtBAcw21YEYiqyHbJFLZ+3o1Q7Xdl/oeTrZoSE0IMpnZz/u8uv/sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uDdPwzp1; arc=none smtp.client-ip=95.215.58.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791904259; c=relaxed/simple;
+	bh=of2UYRzW7yp+Q771g+lXdFKJWDHV724vw+P2aUhj3j8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=epFKrrk8wpM/bEO+LsFzDhC3W1ceMUAQ8owa0eBefFlMS9hLYOlqAPX6Mu4KWRmj87mo4RG61AV1yq9mOH77faYdXDMmdwJUhGAjzPpadD/eCGsCQFaXRTWDKtwwbgJ9pyOAwIT5msl2CTRVWGF5GJI3PVdNAOQ5U2I2yiNVsFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2+L9Q/z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uDdPwzp1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FFUgdh8idoo7uPYiHxk4YzUlj0DtXIIOClOikNHRtTI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791904257; v=1; x=1792509057;
- b=uDdPwzp1nZ2H0MxTE4jLkJq1QzZbVrM9V8AQ4PiH38KsRVrZ/REP/9cgY/TB+JBWCYTD4UbL
- DY6JD6tIoArrMBFiAVpSTFmK0G+APxsYf7dKijpyPl4WPoxKGBG5LYbcOxCojceEla/Ses5jSPD
- Paj3VDozNRvFMme1/7hoxzp4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id a950323d0bec7872;
-	Tue, 13 Oct 2026 15:10:57 +0000
-X-Mizu-Trace-ID: a950323d0bec7872
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	chengming.zhou@linux.dev,
-	dsterba@suse.com,
-	hannes@cmpxchg.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	nphamcs@gmail.com,
-	terrelln@fb.com,
-	yosry@kernel.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	senozhatsky@chromium.org,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	kernel-team@meta.com
-Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v3 2/3] crypto: acomp - enforce MAX_SYNC_COMP_REQSIZE
-Date: Tue, 13 Oct 2026 08:09:36 -0700
-Message-ID: <20261013151007.2093943-3-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013151007.2093943-1-usama.arif@linux.dev>
-References: <20261013151007.2093943-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2+L9Q/z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5DAD1F00893;
+	Tue, 13 Oct 2026 15:10:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791904258;
+	bh=mU7Y5nNDVHDzKFrw1lrh3bp+5Qbf32xd91WOb6VG+Eg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=K2+L9Q/zk5F1JMZQoVNEvJJrDJntVi7BRnwxv6VxSVhHPIGwIZuO6hsP6antZRApX
+	 uJutW5uu2S2oKbCLLYqTfVbV5yLuZ4VIAOMRulD5xbCnMFHVOfEekoZbDQSPzErySo
+	 xoJKnXc+Ul7hckWVUy1rnU5nhunwRAgAVjP/O3fXcZ+T0NAKr5vdjHfla7vtxP6vkk
+	 l5HYOND8EECqPb3irEk3KXmmEnaoQ7ffjrhf/H1ZpsvesyaIvLGEKDlNSSQqnNO4aT
+	 x5cP7oPFadXNoagrLSzTBY2couFGw3Z0Z7vIUed7GNHJhZMqjWaMOTWvRjwJGyMDoW
+	 4OE2dXSjJ5jjw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 13 Oct 2026 16:04:49 +0100
+Subject: [PATCH v6 09/39] docs: filesystems: update mmap_prepare docs for
+ discontig kernel pgs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-9-1aa3c9b139f9@kernel.org>
+References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-0-1aa3c9b139f9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4636; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=of2UYRzW7yp+Q771g+lXdFKJWDHV724vw+P2aUhj3j8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLOeZzQKHWd53gm5uqihtiapbWCx05c2W61+NmV67/2e
+ D24mDw1oKOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATkbdj+M3CWBf53tyX0yFp
+ N+O0OiZlv2df96y+p26+eE3mhkpP43uMDF/s1oh3aD4OzFXh12H4fbVLvWRnbZLL1fh3HM+vdDw
+ 7wg4A
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Herbert Xu <herbert@gondor.apana.org.au>
+Describe the newly introduced discontiguous kernel page mapping mechanism,
+detailing how to use it sensibly and how the API looks.
 
-Enforce the limit MAX_SYNC_COMP_REQSIZE when an acomp tfm is
-initialised.  All existing algorithms obey this limit.
+Explicitly detail the various discontiguous actions available and how to
+use them.
 
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- crypto/acompress.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ Documentation/filesystems/mmap_prepare.rst | 81 ++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
 
-diff --git a/crypto/acompress.c b/crypto/acompress.c
-index 4de1a2ad577f2..c8b4b8589769e 100644
---- a/crypto/acompress.c
-+++ b/crypto/acompress.c
-@@ -92,10 +92,6 @@ static int crypto_acomp_init_tfm(struct crypto_tfm *tfm)
- 		if (IS_ERR(fb))
- 			return PTR_ERR(fb);
+diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
+index 82c99c95ad85..b5afbb33e5c8 100644
+--- a/Documentation/filesystems/mmap_prepare.rst
++++ b/Documentation/filesystems/mmap_prepare.rst
+@@ -164,5 +164,86 @@ pointer. These are:
+   sufficient entries in the page array to cover the entire range of the
+   described VMA.
  
--		err = -EINVAL;
--		if (crypto_acomp_reqsize(fb) > MAX_SYNC_COMP_REQSIZE)
--			goto out_free_fb;
--
- 		tfm->fb = crypto_acomp_tfm(fb);
- 	}
- 
-@@ -105,15 +101,19 @@ static int crypto_acomp_init_tfm(struct crypto_tfm *tfm)
- 
- 	acomp->base.exit = crypto_acomp_exit_tfm;
- 
--	if (!alg->init)
--		return 0;
--
--	err = alg->init(acomp);
--	if (err)
-+	if (alg->init && ((err = alg->init(acomp))))
- 		goto out_free_fb;
- 
-+	err = -EINVAL;
-+	if (!acomp_is_async(acomp) &&
-+	    crypto_acomp_reqsize(acomp) > MAX_SYNC_COMP_REQSIZE)
-+		goto out_exit_tfm;
++* mmap_action_map_discontig_kernel_pages() - Maps a discontiguous range of
++  `struct page` pointers over the VMA. They must span from the start of the VMA,
++  but may terminate prior to the end (leaving the remainder unmapped).
 +
- 	return 0;
- 
-+out_exit_tfm:
-+	if (alg->exit)
-+		alg->exit(acomp);
- out_free_fb:
- 	crypto_free_acomp(fb);
- 	return err;
+ **NOTE:** The ``action`` field should never normally be manipulated directly,
+ rather you ought to use one of these helpers.
++
++Discontiguous Actions
++=====================
++
++Some actions can be performed across discontiguous ranges.
++
++Map kernel pages
++----------------
++
++To map kernel pages discontiguously, you must provide hooks using ``struct
++discontig_kernel_page_ops``:
++
++.. code-block:: C
++
++    struct discontig_kernel_page_ops {
++        int (*init)(void *vm_private_data, void **private);
++        int (*get)(struct discontig_kernel_page_state *state);
++    };
++
++The ``init`` hook is optional and allows state to be established before the
++operation starts, for instance taking a reference count. Nothing is invoked
++after the operation, so ``init`` must not leave locks held, and state that must
++be released once the mapping goes away should be released in
++``vm_ops->close``.
++
++The ``init`` hook, if provided, is invoked prior to the operation starting. It
++may update what is pointed to by ``vm_private_data`` and/or ``private``. If an
++error is returned, then the operation is aborted. The ``private`` field can be
++reassigned.
++
++**NOTE:** The operation may sleep between invocations of ``get``, so locks
++needed to stabilise state must be taken and released within each hook.
++
++The ``get`` handler is the key means through which the operation is
++executed. The current state of the operation is provided through ``struct
++discontig_kernel_page_state``:
++
++.. code-block:: C
++
++    struct discontig_kernel_page_state {
++        /* Map state. */
++        unsigned long start;            /* Start address of VMA. */
++        unsigned long end;              /* End address of VMA. */
++        unsigned long addr;             /* The current address to be mapped. */
++        pgoff_t pgoff;                  /* The current pgoff to be mapped. */
++        unsigned long nr_pages_mapped;  /* The number of pages mapped. */
++        unsigned long nr_pages_remain;  /* The number of pages remaining. */
++
++        /* User-defined state. */
++        void *vm_private_data;          /* VMA private data. */
++        void *private;                  /* Mapping private data. */
++
++        /* Users should not touch these, use discontig_kernel_map_*() helpers. */
++        ... internal fields ...
++    };
++
++With ``private`` being an additional user-controllable state variable,
++initialised via ``mmap_action_map_discontig_kernel_pages()``, and
++``vm_private_data`` being equal to the ``desc->private_data`` field set in
++the ``mmap_prepare()`` hook.
++
++In the ``get`` hook, the user must choose how to map kernel pages:
++
++* ``discontig_kernel_map_abort()`` - Call this to abort the operation, whatever
++  has been mapped so far will be retained, the rest of the mapping will SIGBUS
++  if accessed.
++* ``discontig_kernel_map_page()`` - Maps a single page, correctly handling
++  compound pages (if the compound page is bigger than the remaining pages in the
++  VMA, then only those pages that fit will be mapped). For a compound page, the
++  head page must be passed.
++* ``discontig_kernel_map_pages()`` - Map an array of pages of a specified
++  size. As with a compound page, if more pages are specified than remain in
++  the VMA then only those that fit will be mapped.
++
++If an error arises after ``init`` succeeded, the core unmaps the VMA, invoking
++``vm_ops->close`` if set, which is therefore the place to release any state
++that ``init`` established.
+
 -- 
-2.53.0-Meta
+2.55.0
 
