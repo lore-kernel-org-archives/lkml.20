@@ -1,188 +1,369 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m15577.qiye.163.com (mail-m15577.qiye.163.com [101.71.155.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE964F475B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:36:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2754D7D4D;
+	Tue, 13 Oct 2026 12:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895008; cv=none; b=bxGwc+WiCnh6m8+pfXiFIud2khxezNDPMZGY4TO4ApSc/rQIx2JOs7PBHymPqCeL9l1fORwXvzVpqgEj5vrNyZ+5mRsHdqWGzWldKGvmFWSuWT/yFNfDQmDoMjzMlx878/mWYM7qFniPUm+fnMXHExKzipDLHIfyWkRJXSU1Ztg=
+	t=1791895039; cv=none; b=Eu8fyZQFSzYxQ6BkOtt5kKRKpWIDI5XOtzt+W8QKCsSr8lY8Jd5CAqLMCvv7W4P1pWB1QDBHz/B/wfLv40qhUgVq+pW38ddeQKMSk3k45rhvWc3F++AIbMqV7gyuc0Bl84N+Yz9N/3eUq5FcoE3siSgy0QvzLRY2rTLSUOCYH98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895008; c=relaxed/simple;
-	bh=iTqegItL46VZzOOmaKOWbD4dw0HLPDGa1sgVVAbiO/s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mJOVYbi6vY3vxZzm22KLSWaaenf3i8Q/+gqn3uYsAScxshMJC21NN/9LZqOHzpLIeSd/XmOgTWNbyCbkYWx52cANLHfoWvuFotgNvP6fuH4SzQgrohcuU4uY9HC1MoukrOW03rhdfon3aInoan3ZzZbGCnGPS5V1unp8jreHL6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G0828nRS; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G0828nRS"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b02a2359aso2735132f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:36:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791895002; x=1792499802; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uTSmNl5owwJ6C1JNsqWpAVpytnSmw48VMmiRayPCI+k=;
-        b=G0828nRSEeUlnOyc4KHeUotlZjd8svAZhfESRR7oZREuxfvP3crvhTlfdzXopE9Si0
-         AURyO+ReoLFDJ0kLsCSVQfxn+Uar3eQcSmRz0FbRrB2BLa7ahyQJlLMwULYDn5ckhPZ5
-         MLzNh6+HwPfXj7dAhYUeVRJTAWR2C2MnTmJyMs1Q9vhjpSIfalHCtfjPW7X+udZlY4tr
-         4awrG9gSK2MCC93pXYb5ZFvHrFa/FDLbxsNHdYe1ppBvACpORqtBA81eHgRjGOZaeM9M
-         OZhhmx/DLxC20rqz/02ywAoRNbSPGSdBbS/x69OX6QSOQJZBB6bdIu9bE34Ml5vmr087
-         hBWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791895002; x=1792499802;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uTSmNl5owwJ6C1JNsqWpAVpytnSmw48VMmiRayPCI+k=;
-        b=x/B471Hfnlvoe4kooNmFX8e4hHMW6gDO9OUp0weSGY7T5V6p7TvTJEZjwd8vWpAKoy
-         C96QggHmLtyKL56EYC0wo1C3d/4ePDEty/A3iHqEpvl9MCdWl7/BQYb1RvtyQoze1bFZ
-         RwhEcbfMN94t9mWD1dhgJ7Jkr7Pp74yY03YRkJ1A0SapYp1pga4ZQPyk4YNCZr0N0yBL
-         LUlrkERcYqsqGM/iHfF9XCxPl0A+aIsNkxNoMXzEfoV28nZqXkPR5P6qHalDsnGOvdiA
-         swImmB5VGNj1nDpJlaCaPdnhfPBlgTHhLApnpBl2KKgqhAT/jDCds27lsq1Afa+jAXgS
-         +yQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwShbZDpnrPa58QckH3lY1grmh8ffEc0bmvfUbdYGAU4ubCTumH7EMknweyZAWrD5/k530jA1J83Mg4KYU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaMQKITrzuYyLhZ7JiJoLqJpSE8+Tm1o+ICj2k9OjsxTr5BI7f
-	O8ZXo6f1YX1rgMEdMPep2nsQgAMue209pghroY5cnTS9Vi2UDK2/9nud
-X-Gm-Gg: AYBFou3kN/j7O0KGdP9UOwiSiFk8qsJF5VRQhNyre/psyz4vngp/+fV4jvm1A55/ohK
-	XNXjiDzwKLJtklM9KYZVw1B+fs5ebsoBpfWU8iP+VPLLFTDLjLfbEE4qmwAY+713nt52O4/Ibpf
-	j6HW7tzM0hetLXEODUouQgqDJ/+BVm4BDBCDmZFh6ubqffISzVhjFeAXNutqheQrmFKSjBAwjdA
-	+YTSx/fAKf1eCDyvAFHnRtcYVE/xIynqaeA1NWP7OrHO4Opo4NxqxZra+5cGthB0XiCY0FNElWA
-	MOI6tj+6n3dHPVsT/Wq5OHqbsfhA+LPaIfUxyO04ByvvYksfdGOecdV26ZJXIpI9jepUrc9gXdc
-	QvFa+fZW/pSPK7uXXXtmJMtq+rlXXwdK9RjXIWZp4XU1RJ+6Jcqv1XuRDosa3Oq9jSe3z+WVDlQ
-	VCxoCNN8xiHIDlETf38rBFBjEgJ1CNQZdE70lmQVdnYOHn9umcgkRjrqqMSl6DmEpZCS90YxrBb
-	la7QHrpWqYu/oEOPrCyHWyKqPQXdGRimwJiVKUo4nL5r1I5ittMHlgH0KWSj98I7bohefOPqoFg
-	aPrCfTBEVkuNb1DschurqHV9zPK4ndIDOZ5lfjYK3NWwibbv/lnpAARqw7fZ6qE7vjlp2Xox5FT
-	KseyWzmf7EWHOIE5awsB/TMZnHIF4EK2wMPhegB5febfny1L+nnyoWEyLEhC/u1ZqRRG4iGgBmd
-	HggSJ+
-X-Received: by 2002:a05:6000:186d:b0:488:8913:e64c with SMTP id ffacd0b85a97d-48dca34320amr17714316f8f.18.1791895000936;
-        Tue, 13 Oct 2026 05:36:40 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7003982sm31222f8f.8.2026.10.13.05.36.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 05:36:40 -0700 (PDT)
-Date: Tue, 13 Oct 2026 14:36:39 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Shi Hao
- <i.shihao.999@gmail.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
-Message-ID: <20261013143639.000017b9@gmail.com>
-In-Reply-To: <20261013115639.167433-2-marcus.yu.56@gmail.com>
-References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
-	<20261013115639.167433-2-marcus.yu.56@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	s=arc-20240116; t=1791895039; c=relaxed/simple;
+	bh=CFx7xmpAKJIZOM07VNYWjxmCrTOtQ+dvNe0paVxehCg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CbemBMN1YlV3VD+HS78WABTqJ3okzE7SWGRJQdnAvm/QqO8Lbdjs2B0nDzIocvkDemNJjfsG7XupWScL1syUrKAtIulbv7XdCmhoEpESFlS3JLxpWBugyWMi6GF5QBdnQMN3WK3sFMf0N26HIYC41SIJzcTWwAcaGOlTvWOmkaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=101.71.155.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from localhost.localdomain (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 200407eed;
+	Tue, 13 Oct 2026 20:21:44 +0800 (GMT+08:00)
+From: Zhen Ni <zhen.ni@easystack.cn>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	shuah@kernel.org
+Cc: bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhen Ni <zhen.ni@easystack.cn>
+Subject: [PATCH v2 2/6] mm/page_owner: add bpf_iter target "page_owner"
+Date: Tue, 13 Oct 2026 20:21:21 +0800
+Message-Id: <20261013122125.843451-3-zhen.ni@easystack.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20261013122125.843451-1-zhen.ni@easystack.cn>
+References: <20261013122125.843451-1-zhen.ni@easystack.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa135362adc0229kunm0bc94a6a5251
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQ0tCVh1LTU8ZSx8ZHklKT1YVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
 
-On Tue, 13 Oct 2026 19:56:38 +0800
-Chang Yu <marcus.yu.56@gmail.com> wrote:
+Register a bpf_iter target "page_owner" that walks the pages eligible
+for page_owner output, with the same eligibility rules as the
+/sys/kernel/debug/page_owner read path.
 
-> Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
-> with i2c address of 0x39.
-> 
-> The GPIO pin is not described because the datasheet does not document
-> how to use it for hardware synchronization at all. The GPIO register
-> also has no mode-select bit to isolate the pin from the chip's
-> internal control logic. Exposing it as a generic GPIO could result
-> in kernel writes being overwritten by internal logic.
-> 
-> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
-> ---
-> Changes in v6:
->  - Add a ref to leds/common.yaml for the LDR pin.
-> 
-> Changes in v5:
->  - Remove the GPIO pin.
-> 
-> Changes in v4:
->  - Fix led-max-microamp property name.
-> 
-> Changes in v3:
->  - Add missing include for gpio.
->  - Expand GPIO descrption to include hardware synchronization.
->  - Use led-max-microamp instead of led-current-microamp for the LDR pin.
-> 
-> Changes in v2:
->  - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
->  - Fix node name and unit address mismatch.
->  - Include MAINTAINERS changes.
-> 
->  .../bindings/iio/light/ams,as7343.yaml        | 66 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 72 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> new file mode 100644
-> index 000000000000..7fb10b0d4843
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> @@ -0,0 +1,66 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: AMS AS7343 14-Channel Multi-Spectral Sensor
-> +
-> +maintainers:
-> +  - Chang Yu <marcus.yu.56@gmail.com>
-> +
-> +description: |
-> +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
-> +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ams,as7343
-> +
-> +  reg:
-> +    description:
-> +      I2C address of the device (0x39).
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    description:
-> +      Open drain output active low interrupt pin.
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +  led-max-microamp:
-> +    description:
-> +      The driver current for the external LED connected to the LDR pin.
-> +    minimum: 4000
-> +    maximum: 258000
-> +    multipleOf: 2000
-> +    default: 12000
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +
-> +additionalProperties: false
+For each eligible page the attached BPF program receives the pfn, the
+page and the page_owner record, and can freely filter and format output.
 
-Should be unevaluatedProperties as you're using $refs in the binding,
-but Jonathan could tweak that when applying.
+The po_snap record in the scan cursor is taken inside the page_ext
+RCU window and handed to the BPF program as a copy, so no RCU window
+is needed at consumption time. Torn reads remain possible if the
+record is concurrently updated while it is copied, but this is the
+same best-effort behavior as the read path has always had.
 
+The target is registered from pageowner_init() when both
+CONFIG_PAGE_OWNER and CONFIG_BPF_SYSCALL are enabled; a registration
+failure only disables the bpf_iter target.
+
+Userspace tools such as bpftrace can attach to this target like any
+other bpf_iter. For example, to count pages owned by init (pid 1):
+
+    bpftrace -e 'iter:page_owner / ctx->po->pid == 1 / { @ = count(); }'
+
+Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
+---
+Changes in v2:
+- Drop the scan->pfn++.
+- Fill page/po/pfn only when v is non-NULL.
+- Implement page_owner_seq_stop().
+
+v1: https://lore.kernel.org/linux-mm/20261009112308.240769-3-zhen.ni@easystack.cn/
+---
+ mm/Makefile          |   3 ++
+ mm/page_owner.c      |  33 +++---------
+ mm/page_owner.h      |  48 +++++++++++++++++
+ mm/page_owner_iter.c | 124 +++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 182 insertions(+), 26 deletions(-)
+ create mode 100644 mm/page_owner.h
+ create mode 100644 mm/page_owner_iter.c
+
+diff --git a/mm/Makefile b/mm/Makefile
+index e7245cb88c66..d7307b5a964c 100644
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -115,6 +115,9 @@ obj-$(CONFIG_DEBUG_KMEMLEAK) += kmemleak.o
+ obj-$(CONFIG_DEBUG_RODATA_TEST) += rodata_test.o
+ obj-$(CONFIG_DEBUG_VM_PGTABLE) += debug_vm_pgtable.o
+ obj-$(CONFIG_PAGE_OWNER) += page_owner.o
++ifdef CONFIG_BPF_SYSCALL
++obj-$(CONFIG_PAGE_OWNER) += page_owner_iter.o
++endif
+ obj-$(CONFIG_MEMORY_ISOLATION) += page_isolation.o
+ obj-$(CONFIG_ZSMALLOC)	+= zsmalloc.o
+ obj-$(CONFIG_GENERIC_EARLY_IOREMAP) += early_ioremap.o
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index 56c75a669a6b..617346a4ab22 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -14,6 +14,7 @@
+ #include <linux/sched/clock.h>
+ 
+ #include "page_alloc.h"
++#include "page_owner.h"
+ 
+ /*
+  * TODO: teach PAGE_OWNER_STACK_DEPTH (__dump_page_owner and save_stack)
+@@ -21,31 +22,6 @@
+  */
+ #define PAGE_OWNER_STACK_DEPTH (16)
+ 
+-struct page_owner {
+-	unsigned short order;
+-	short last_migrate_reason;
+-	gfp_t gfp_mask;
+-	depot_stack_handle_t handle;
+-	depot_stack_handle_t free_handle;
+-	u64 ts_nsec;
+-	u64 free_ts_nsec;
+-	char comm[TASK_COMM_LEN];
+-	pid_t pid;
+-	pid_t tgid;
+-	pid_t free_pid;
+-	pid_t free_tgid;
+-};
+-
+-/*
+- * Cursor and per-page result of page_owner_next_eligible().
+- */
+-struct page_owner_scan {
+-	/* resume point */
+-	unsigned long pfn;
+-	struct page *page;
+-	struct page_owner po_snap;
+-};
+-
+ struct stack {
+ 	struct stack_record *stack_record;
+ 	struct stack *next;
+@@ -741,7 +717,7 @@ void __dump_page_owner(const struct page *page)
+  * must advance scan->pfn past the hit before calling again to resume
+  * the scan.
+  */
+-static bool page_owner_next_eligible(struct page_owner_scan *scan)
++bool page_owner_next_eligible(struct page_owner_scan *scan)
+ {
+ 	unsigned long pfn = scan->pfn;
+ 
+@@ -1196,6 +1172,11 @@ static int __init pageowner_init(void)
+ 			    &stack_fops);
+ 	debugfs_create_file("count_threshold", 0600, dir, NULL,
+ 			    &threshold_fops);
++
++#ifdef CONFIG_BPF_SYSCALL
++	if (page_owner_iter_register())
++		pr_warn("page_owner: failed to register bpf_iter target\n");
++#endif
+ 	return 0;
+ }
+ late_initcall(pageowner_init)
+diff --git a/mm/page_owner.h b/mm/page_owner.h
+new file mode 100644
+index 000000000000..fda83be69275
+--- /dev/null
++++ b/mm/page_owner.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * mm/ internal page_owner and page_owner_iter declarations
++ */
++
++#ifndef __MM_PAGE_OWNER_H
++#define __MM_PAGE_OWNER_H
++
++#include <linux/page_ext.h>
++#include <linux/sched.h>
++#include <linux/stackdepot.h>
++
++/*
++ * mm/page_owner.c
++ */
++struct page_owner {
++	unsigned short order;
++	short last_migrate_reason;
++	gfp_t gfp_mask;
++	depot_stack_handle_t handle;
++	depot_stack_handle_t free_handle;
++	u64 ts_nsec;
++	u64 free_ts_nsec;
++	char comm[TASK_COMM_LEN];
++	pid_t pid;
++	pid_t tgid;
++	pid_t free_pid;
++	pid_t free_tgid;
++};
++
++/*
++ * Cursor and per-page result of page_owner_next_eligible().
++ */
++struct page_owner_scan {
++	/* resume point */
++	unsigned long pfn;
++	struct page *page;
++	struct page_owner po_snap;
++};
++
++bool page_owner_next_eligible(struct page_owner_scan *scan);
++
++/*
++ * mm/page_owner_iter.c
++ */
++int page_owner_iter_register(void);
++
++#endif /* __MM_PAGE_OWNER_H */
+diff --git a/mm/page_owner_iter.c b/mm/page_owner_iter.c
+new file mode 100644
+index 000000000000..938cb42ab7d7
+--- /dev/null
++++ b/mm/page_owner_iter.c
+@@ -0,0 +1,124 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <linux/bpf.h>
++#include <linux/btf_ids.h>
++#include <linux/memblock.h>
++#include <linux/mm.h>
++#include <linux/seq_file.h>
++
++#include "page_owner.h"
++
++struct bpf_iter__page_owner {
++	__bpf_md_ptr(struct bpf_iter_meta *, meta);
++	__bpf_md_ptr(struct page *, page);
++	__bpf_md_ptr(struct page_owner *, po);
++	u64 pfn;
++};
++
++DEFINE_BPF_ITER_FUNC(page_owner, struct bpf_iter_meta *meta,
++		     struct page *page, struct page_owner *po, u64 pfn)
++
++static void *page_owner_seq_start(struct seq_file *seq, loff_t *posp)
++{
++	struct page_owner_scan *scan = seq->private;
++
++	if (*posp == 0)
++		scan->pfn = min_low_pfn;
++
++	if (!page_owner_next_eligible(scan))
++		return NULL;
++	return scan->page;
++}
++
++static void *page_owner_seq_next(struct seq_file *seq, void *v, loff_t *posp)
++{
++	struct page_owner_scan *scan = seq->private;
++
++	++*posp;
++	scan->pfn++;
++	if (!page_owner_next_eligible(scan))
++		return NULL;
++
++	return scan->page;
++}
++
++static int page_owner_prog_seq_show(struct bpf_prog *prog,
++				    struct bpf_iter_meta *meta, void *v)
++{
++	struct page_owner_scan *scan = meta->seq->private;
++	struct bpf_iter__page_owner ctx = {};
++
++	ctx.meta = meta;
++	if (v) {
++		ctx.page = (struct page *)v;
++		/* @po: hit-time snapshot, no RCU window needed. */
++		ctx.po = &scan->po_snap;
++		ctx.pfn = scan->pfn;
++	}
++
++	return bpf_iter_run_prog(prog, &ctx);
++}
++
++static int page_owner_seq_show(struct seq_file *seq, void *v)
++{
++	struct bpf_iter_meta meta;
++	struct bpf_prog *prog;
++
++	meta.seq = seq;
++	prog = bpf_iter_get_info(&meta, false);
++	if (!prog)
++		return 0;
++
++	return page_owner_prog_seq_show(prog, &meta, v);
++}
++
++static void page_owner_seq_stop(struct seq_file *seq, void *v)
++{
++	if (!v) {
++		struct bpf_iter_meta meta = { .seq = seq };
++		struct bpf_prog *prog;
++
++		prog = bpf_iter_get_info(&meta, true);
++		if (prog)
++			page_owner_prog_seq_show(prog, &meta, NULL);
++	}
++}
++
++static const struct seq_operations page_owner_iter_seq_ops = {
++	.start	= page_owner_seq_start,
++	.next	= page_owner_seq_next,
++	.stop	= page_owner_seq_stop,
++	.show	= page_owner_seq_show,
++};
++
++static const struct bpf_iter_seq_info page_owner_iter_seq_info = {
++	.seq_ops		= &page_owner_iter_seq_ops,
++	.init_seq_private	= NULL,
++	.fini_seq_private	= NULL,
++	.seq_priv_size		= sizeof(struct page_owner_scan),
++};
++
++static struct bpf_iter_reg page_owner_iter_reg_info = {
++	.target			= "page_owner",
++	.ctx_arg_info_size	= 2,
++	.ctx_arg_info		= {
++		{ offsetof(struct bpf_iter__page_owner, page),
++		  PTR_TO_BTF_ID_OR_NULL },
++		{ offsetof(struct bpf_iter__page_owner, po),
++		  PTR_TO_BTF_ID_OR_NULL },
++	},
++	.seq_info		= &page_owner_iter_seq_info,
++};
++
++BTF_ID_LIST(page_owner_btf_ids)
++BTF_ID(struct, page)
++BTF_ID(struct, page_owner)
++
++int page_owner_iter_register(void)
++{
++	page_owner_iter_reg_info.ctx_arg_info[0].btf_id =
++		page_owner_btf_ids[0];
++	page_owner_iter_reg_info.ctx_arg_info[1].btf_id =
++		page_owner_btf_ids[1];
++
++	return bpf_iter_reg_target(&page_owner_iter_reg_info);
++}
 -- 
-Kind regards,
-Joshua Crofts
+2.20.1
+
