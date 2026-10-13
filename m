@@ -1,166 +1,206 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B2D3CB2FA
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436B93C4B64
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900927; cv=none; b=Y6rDrrRlRw5hok+9SuSjrJQh1guZJuGVycVw02FmD6aW4C9vGXiN1xBVEgfgalnfycyofZHbAGpy+eZXqF4q7+y9m6eKjLTgVdzphv9sZ1oUY2oTHJJOfi+MF1p+tNi0nKTi/JL6luYPTpGUrcRImzvi08qms5HNwn/st8GWlfs=
+	t=1791900978; cv=none; b=Caq1ZhWLcxVNTJ74XS8CWwkB0E4x8mPMyf3DvGWd+wW2ChqIBYoFWchiEgfz1KjGQsPvO7vnKNzTCd5S/6iODinSklmm74y4gDVvlKUtTpc8Js4JBSfiy7mawnhZAxjsMmfKhDFVg9NQe/Cu6DDwq61VVHOh0Zf86u/AmWTYxco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900927; c=relaxed/simple;
-	bh=Emg+OkO7QBbwSBpYFEASaSwaBOIaLaMY76HkNKUceGc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HJeN5BOCO5wZEFhBrAPyhuVG1S9Ra9czK4mjyB2UMricmCuVaxdzelNCoPDkdh3s2kR0k2RlqEJGH5niR8nGJvGU0uxY8+IJTDTXrLPhBNJQWZtWqn3T+W8nSHB+ecP2kIYJurbZKIF2T4IEOEPkS3YOV8H2srHyoXGTqlyBI8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G/e4UX8j; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=biUZuMu7; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791900978; c=relaxed/simple;
+	bh=U+Fhokqsld89/prmQ38iiXuoWgeyBeHgBGz9BsjBr5M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Nxs7suWn5Ks69b7sq41Jtg43P6tJjsztrmjJq0EHUz4uvseBlLx/+vDedWj1Ioz43bCOpB3JydPT1rO1hW9ApOydKdq7djszlctumjwchvPuwZ8vEwVLfGA/LuTwZMBN6d2f0BxtP1fSwyOEko/MxDLxEoA6icgILvr8PR2s2xA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=elX26ywq; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G/e4UX8j";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="biUZuMu7"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DE41rh615594
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:15:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8CZVWM1ZfL+i9RUyAbx4kRYDFvtGE4TrDaWJXNG16OM=; b=G/e4UX8jRVF2CpHC
-	3h4jFPZQKwnXFfvPH5dPqHXMEZjfKy8EBn02dcvJWCpVNFCEdL/pFB3+5X2bPnbA
-	tPfu2lfX3WKYlRmJ4GEu0aHSA/ga9IQCrv0P8aP4V7+1fEMCasaf2NV5qPjMXB2L
-	2RnkX+hS75GecZ2Ck9RtBZZXb6uFqcIrOttYGowalTg+UeGwHm8Bi/RrHtGuUPVE
-	FvwYXUR0fk8fJGQ0uNgSlfqPVESqmB9WZ4jztgVNQH+JW+oLAuXydN2k9R4jzVdf
-	aeTF8FS0O+Z0vjmQ2A1ltiNdc1pdxBX4TXRZRTmuzjXDqPFrO2msiJ+KN+ad/63g
-	wtQGiA==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9d7jafwc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:15:24 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7c1fd351530so76093137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:15:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="elX26ywq"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so24174995e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:16:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791900924; x=1792505724; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1791900974; x=1792505774; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8CZVWM1ZfL+i9RUyAbx4kRYDFvtGE4TrDaWJXNG16OM=;
-        b=biUZuMu7O7MLxnEbkBkDZzk7cnP+85qIRD14NsVEVcu3etTmUDcGIb4Oisbu+XbzlK
-         Vfowls7itgCLQ/6nKORILduHuwmzv7BUEOA4CApPq7MH13v+HDt/30/EwlSxU481P6h0
-         N1b+5Ek8CWLEuTPyVHIINWHcTbELQOp5edVzp++PYdvHNdk6QVzIfze/VVirmfCxJByV
-         CDE3cZRyeT61kD0r6j3vfWJedTX8ja1RG6YbUINrqOrzeEfgKgqFPK3NBqwMGR1vItMd
-         Htxs2qT2z5o0nH31XiEY6IvxxE0gOp/6dKo/iO3uxcXgufdwVCr6P9pjzjBRxGS4/986
-         8pzw==
+        bh=/gpLoap3mLnOjE0l+JjLkf8MVGmqbBhtoBxXKIOij9c=;
+        b=elX26ywqpoTjt7RY73rDm4/jb6qfI/Ys5r8OG5w0RxEhF1EUilNvwILQaxZoVmASvW
+         yHMCnCE/QRDc4QY9piC1KU7+YZIhDxzsp8zopmj6RiawbRL5dWb3g5mALmqPyyD9buJr
+         mWZipVdWfi9DqbqLZQ4rciz4XmhPmWXKoC934xCp3BSa23C2TwRfC3/IU1Px2LdNROrl
+         N77UnqgtIkyrbugymDmKrcX4InSi6/e0zjRLjl1VzjsP8dtFDGUBzaetl1w69EuRPV2e
+         d+mXnCvWD7TMWLQjLP8CpGNs+gTj+X5ZHl9aDnBu3PXxzkuS5wXrEzgfHxrXy5X/4xzy
+         s96g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791900924; x=1792505724;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8CZVWM1ZfL+i9RUyAbx4kRYDFvtGE4TrDaWJXNG16OM=;
-        b=jJ7F66U7MaJutBBMY+r5sZC3VaeJVn0vIu4a02VuZpURqqo+Zfu5tt96C/ewOT2Kub
-         XPK2bkDNgXjzGRycuKWwFsYGDYC+YgqXf7Z+qJjOzx2YjNIuXrcggXqgG759J+ORQQXy
-         yqAS3dr5MKEiOIwpq7z73CdHo/Z/22S8klCMfgAXmVKQsF2A2cVe15JqYaoMjVQ3XQIh
-         4SoHBolm6uYBI9cncA8JagPFM1H8LcikoEHDUWDaGt5SbmRVe0OlcRZcc0FpI3jCGKx5
-         nHC8QNNj9/ysX6bSXDRuOrG1XMH6LNcUjWXjazBgv5F7Fo2iYavPqo50MXUdxe/I1RNO
-         9Q+w==
-X-Forwarded-Encrypted: i=1; AKwUvBzgK1mQKhj0XVia1aMYbqox/B569/KRS8WEiE47anYHw6QepJUZ8yppu7k22x1sYgaHWivIjkVN2cnIGTo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3KXQt6Rg2ZeBG19Y3eU19OAWxRbgdwzVBeXIV3Gg1WXBM4m6D
-	q/XiJwaMhOvHC06if0qOO/lWYEi/vhGn2CxubkyFmoFvqe4BqojLa9n27xf3e+S8bWFnJ/uasLg
-	5VeheWBJKslyHQSQB6UUhq4QQev+C156LdWtBDA3XPHv9CcKTrc8Zlpjoqxhse/nWPUg=
-X-Gm-Gg: AYBFou0JUOyskdDO1csVGl/Yykm/4khecjSXiZvKFR2wXJ3Lf1ZJZfv4Dz/yskkW4Zj
-	oB8uf8q0aSKMpB7MNhbJxHxjZRY6MrELgtnsjd0V5jdi6D9BCY270VO9qqEbrRfpY5/mTzPQxV8
-	A5lnCcoTAdFzETtEtH1UpYXuIkuF4tDoJc0GY9QOvN2mNZeLQjZdu7kTbvDJRjHb8OwYsKd7Ihw
-	V12ZFG6hCHxvsEEyk8f45Q3/7Tz8YuIjLkxa0sxOrrQlExVZJHFFjDx++FP/C+Quy5b92khhnFL
-	pMaV68GkJyZkHKbNvoWqLr5cQgudwah/e+AMbvU5pzD9bdfyykxYyxYdNiXws5mR8iAm8hrXNrB
-	wWugRIitL2+16WImaMLhzww==
-X-Received: by 2002:a05:6122:8711:b0:5e6:6546:84c7 with SMTP id 71dfb90a1353d-5e91f339ea0mr2872721e0c.2.1791900923872;
-        Tue, 13 Oct 2026 07:15:23 -0700 (PDT)
-X-Received: by 2002:a05:6122:8711:b0:5e6:6546:84c7 with SMTP id 71dfb90a1353d-5e91f339ea0mr2872685e0c.2.1791900923323;
-        Tue, 13 Oct 2026 07:15:23 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde913d0sm3740707e87.26.2026.10.13.07.15.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 07:15:22 -0700 (PDT)
-Message-ID: <720f7b8f-29bc-4b6a-85f1-34df7bd5cca1@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 16:15:19 +0200
+        d=1e100.net; s=20260707; t=1791900974; x=1792505774;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/gpLoap3mLnOjE0l+JjLkf8MVGmqbBhtoBxXKIOij9c=;
+        b=xJx8f0IUk/ZS0TPy0wZnHVANG7EMN6nn7Xr62a2E3kMI12r8S+mEEe6/eD6tM7iMdj
+         9h6k03Fe3Dvy7cNyHaTOzd/ObQGsuIl//7NP3P9caCCg/ZsopzMi95PEuo8pLYoyVmuQ
+         HhhW0gZ2isy7D/EQywxG1HgpqZZfU9yAu1glul0Am9PR1UCBO7IRpiwV/QJP5L2RTNKr
+         8574ecudImOXepKdICkme4MA25WJOhbYrzYsKU99MWfGm6+FQCzXbTMkcDvqAUjMZyTn
+         zZ+DW3Yxt6PItf9pXrUkFs8+v1HBGfanqOfYWGwla3A3gCyaO3ZuEPGsGEGZto/g8J4v
+         wDQw==
+X-Forwarded-Encrypted: i=1; AKwUvByrKv/DLc5biCWfBY8+Dr1wRv6dbdCyid66p6bZp/Ab+7Veoa7hKHHN7WzNDrP+/XsZgyY3FNnedyxPFwM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPR5WQrMilHrTto8Aukc6/nhLvKPLomU/4a1HgDMQ9iV81taFX
+	QAJD1rKsSsiQJIuPitEQgN9zj4BuL2ufEP5fLUT9TdWy/H56dQtJ2PrXOxDo9J44Sig=
+X-Gm-Gg: AYBFou0g3rpTa7N2XJd1uV/U+RxMMWDvKLO2n4uqKxBi3Gq+/vTnxVYW8ZifQ+jcbqv
+	96G6gmA7E+TrlK7Mgphx4ccMY0ylAl9iXSTdCwbyjOf0qw5q3VKBYqc9MP67L6V8AbTkOE47SyD
+	ehup0bB1956MRFols1faG9kkWPH3+X6JmcJcLktzO+vWrPASw8tHcslohQOtcHJATU1U3kCUUSs
+	cWJKdLIgJxgdKWSmgXqBAvLl28B3H7b95AQwDKxK2pkyg5o8G2h1/VuHFS8NwGYePDUXOf7rpag
+	RBFU3Xwd6xgU8D0ZQarbFJ7AYog83eCG0iuIvDc+AV6OVtvktPT7sGNj76Cyetll6afp/2J2sgG
+	lyDAKrATbpbny3JoUXUr1A1kDXlrhju213CD8Nw85fYg86LLh9uuTsvqZgOVjuNYzlLB8wNG4bt
+	p1q8bM+0uCpigaAImyj5wRxebSjW+2L1pdByqF6AvnxSTJ+isSyF/VrFu4dgErNR48Mr34xRNaG
+	H0vfEa4pgvXWw6tS/1kq9BBawoE
+X-Received: by 2002:a05:600c:3494:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-4a18e4c3f24mr255487415e9.23.1791900972538;
+        Tue, 13 Oct 2026 07:16:12 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a195002123sm378177585e9.1.2026.10.13.07.16.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 07:16:11 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Brian Masney <masneyb@kernel.org>, Daniel
+ Thompson <daniel@riscstar.com>
+Subject: Re: [PATCH v3 2/4] clk: toshiba: introduce a TC9564 SoC clock driver
+In-Reply-To: <155e6870-db07-4d28-af36-9b570280fdaa@riscstar.com>
+References: <20261012152408.3729237-1-elder@riscstar.com>
+ <20261012152408.3729237-3-elder@riscstar.com>
+ <179183220207.266355.11690534397452731561.b4-review@b4>
+ <10007ecc-3604-4c58-9da7-f056dd4355a1@riscstar.com>
+ <1jtsmq9j5l.fsf@starbuckisacylon.baylibre.com>
+ <155e6870-db07-4d28-af36-9b570280fdaa@riscstar.com>
+Date: Tue, 13 Oct 2026 16:16:10 +0200
+Message-ID: <1jwlrlfzyt.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: sm8650: Add watchdog node
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Wim Van Sebroeck <wim@linux-watchdog.org>,
-        Guenter Roeck
- <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-watchdog@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
- <20261002-topic-sm8650-deckard-watchdog-v1-2-7d7f7d71d88a@linaro.org>
- <f6febe84-c7c2-4aa8-bb02-5b56c63abc6c@oss.qualcomm.com>
- <8b331c92-ce18-4886-ba87-77b6156cc9a1@linaro.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <8b331c92-ce18-4886-ba87-77b6156cc9a1@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: mHobsfg9xxa7dPiRA7n3kdX5X1zFvJuK
-X-Proofpoint-ORIG-GUID: mHobsfg9xxa7dPiRA7n3kdX5X1zFvJuK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1NSBTYWx0ZWRfX6/qmP5sFse6N
- tDVonpAA75JanY+1Ye0e2rSca8TQcOjJ2aGhLq+kpn8blCcWTtOGUFMsEAhs56tQXGY+nk4Kp+3
- BHAbApZGQ2N0ZkIWLNr83ah+04OV9vE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1NSBTYWx0ZWRfX9a708LEXoiOx
- b6PW3XBx9ZsHYI1X7iGr7hAUkBKisSM9WL2zKLIz6EvEQ1vrnmsmchACqh9tA+6GYTywykdfJOR
- 9bWltiItfuwV9QP4vNzt5Zoylhrd1ZtSOAl0D0iYnSFz3fIR/+sU70pFlth6WGTSfhnWrkvFPkU
- HbaFLSkvj64NadVl/zBPl+QMYdJ1GmJn3eD+BuZGCEpKIl+20YLfVYJRccCUQ4YYTXfeIQU2k84
- qrQf84QEKc6fP00JcJlkCPsFW6rkN3RUQiNsy9bdDzY7fFKKscJSfbBlFZcXsgn97nO2pbM1xjD
- KX2HK1ffL4WNx3HaUaX60A+xeuswQfoIdRCFqoIrNih3QCf5vGI2vwi36W4738g0SBXTppj5WPe
- Ifmv8YmaTmKs3y5Zcz1r9yhpftgzCq5DDXd68vcYTCoUJ9Frj7X4IgwlaalpkXJd89OiWf4Esos
- 9L6AVDTRsnVSMzT5epw==
-X-Authority-Analysis: v=2.4 cv=PMGaavqC c=1 sm=1 tr=0 ts=6ace3cfc cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=A_RqQ9NLQzPOhAJlhEYA:9 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 clxscore=1015 adultscore=0 spamscore=0 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610130055
+Content-Type: text/plain
 
-On 10/13/26 4:09 PM, Neil Armstrong wrote:
-> On 10/13/26 11:21, Konrad Dybcio wrote:
->> On 10/2/26 11:45 AM, Neil Armstrong wrote:
->>> Add a node for the watchdog on the SM8650 SoC, the node
->>> is marked as reserved since on most platforms the Watchdog
->>> is owned by the Gunyah Hypervisor.
+On mar. 13 oct. 2026 at 08:37, Alex Elder <elder@riscstar.com> wrote:
+
+> On 10/13/26 2:03 AM, Jerome Brunet wrote:
+>> On lun. 12 oct. 2026 at 14:59, Alex Elder <elder@riscstar.com> wrote:
+>> 
+>>>>> +	TC9564_CLOCK_INIT0(MAC0_TX, 7),
+>>>>> +	TC9564_CLOCK_INIT0(MAC0_RX, 14),
+>>>>> +	TC9564_CLOCK_INIT0(MAC0_125M, 29),
+>>>>> +	TC9564_CLOCK_INIT0(MAC0_312_5M, 30),
+>>>>
+>>>> Are those really just providing the oscillator parent ?
+>>>> That is what they will appear to do without a proper recalc_rate()
 >>>
->>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>> ---
->>
->> Do you have a HDK or something with gunyah at hand? A couple months
->> ago qcom_scm_gunyah_wdt_init() was introduced to handle this -
->> could you enable the node and give it a shot if you have one?
-> 
-> Why enabling the node ? the qcom_scm_gunyah_wdt_init() will bail out
-> if the node is enabled. Here we only want the node to be enabled when
-> we are in EL1 without Gunyah.
+>>> They are fixed clocks that can be gated, but their
+>>> rate cannot be changed.
+>> 
+>> It is not a problem if the rate cannot be changed but still
+>> a consumer could call clk_get_rate() and change its behavior
+>> based on the result, so it is better if it does reflect the
+>> reality to some extent.
+>> 
+>> Just add fixed_factor clock elements on the path of clocks
+>> where do know the output does not match the input osc
+>
+> OK.  And because I'm not sure whether it matches reality, I'll
+> do so in the code, and not expose these in devicetree.  (If
+> this is not correct, please say so.)
+>
 
-Right, sorry, I misremembered and then misread
+I don't think the DT folks like us messing with the binding IDs (Conor,
+any opinion on this ?)
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+IMO, just do your best trying to figure things out and keep the IDs.
+If we get some rate wrong, it is fine, we'll fix that later on.
+It is even easier if you comment what you are unsure of.
 
-Konrad
+What was not OK is pretending all the clock come directly
+from the OSC through a gate. This is clearly no the case.
+
+>>> Looking at __clk_core_init(), should I define a
+>>> recalc_rate() callback that just returns the
+>>> equivalent of get_rate()?
+>>>
+>>>> Their names suggest that maybe, it is not the osc coming out
+>>>> of them ...
+>>>
+>>> We have requested a clock tree that explains exactly
+>>> how these clock rates are derived from the 25 MHz
+>>> oscillator.  They're all fixed rates, and although
+>>> we could easily speculate how they're derived, we
+>>> don't have the documentation.
+>> 
+>> If you know the input and output, you have enough to figure
+>> out a fixed factor. If later on someone gets more information
+>> than you, they'll just modify the clock tree.
+>
+> OK.
+>
+>> If you no idea what the ouput rate is, at least clearly say
+>> so in the comment so a future user or contributor can easily
+>> understand the situation.
+>
+> I'm pretty sure I know the output rate of all clocks, but
+> if not I'll make sure there is such a comment.
+
+Great
+
+>
+>>>>> +	TC9564_CLOCK_INIT0(MAC0_ALL, 31),
+>> 
+>> [...]
+>> 
+>>>>> +
+>>>>> +	clk = devm_clk_get(dev, NULL);
+>>>>> +	if (IS_ERR(clk))
+>>>>> +		return dev_err_probe(dev, PTR_ERR(clk),
+>>>>> +				     "failed to get input clock\n");
+>>>>
+>>>> Nothing is using this. This is not how you set the parent. See above
+>>>
+>>> It will once I have the clocks get properly parented.
+>> 
+>> No it won't. You don't need a consumer clock reference. just drop it.
+> OK, yes, the parent(s) will be specified in the init data.
+> Sorry for this, and thank you for pointing it out.
+>>>>> +
+>>>>> +	clocks = tc9564_clk_init(dev);
+>>>>> +	if (IS_ERR(clocks))
+>>>>> +		return dev_err_probe(dev, PTR_ERR(clocks),
+>>>>> +				     "failed to initialize clocks\n");
+>>>>> +
+>>>>> +	/* Force all clocks to be initially disabled */
+>>>>> +	tc9564_clock_disable_all(clocks);
+>>>>
+>>>> Why is this needed ? In general a provider should never act the provided
+>>>> clock on its own. Let the framework deal with the used clocks
+>>>
+>>> The intent was to start with everything disabled--a known
+>>> state.  Sashiko pointed out this races with a user that
+>>> could get the clock right away, so I intend to do this
+>>> by initially disabling all the clocks before they're
+>>> all registered.
+>> 
+>> We do not do that because (in general) there maybe devices already using
+>> a clock provided by your device and setup at a prior stage (like the
+>> bootloader). Doing so would break them.
+>> 
+>> Leave this alone, the framework will disable the unused clock for you
+>> once the init is done and most devices have probed.
+>
+> OK, I'll drop this.  Thank you very much for your review.
+>
+> 					-Alex
+
+-- 
+Jerome
