@@ -1,49 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F95552921;
-	Tue, 13 Oct 2026 20:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4032C4A99D1
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791922524; cv=none; b=Ff33kwX2d7DkJ0qIgk0o76emwgaXjh6r7fMbJSR7UT5Ih2m9590Qew2zZb/498nRHwDywhms2f7vWnp/TSxPGLzEUVGQZxOuJcse67FwiG3CkqdN2OariAWZ13GAv04B0rLvPrDVYlYYIDNugJ6TrXS0qZNxThDMnlDmziwpkCg=
+	t=1791922544; cv=none; b=IP2FCcP+qt1jiSQjx5hvjwiqhKPajKvjdqT2F5+P8xd8jpd6JTniLyVgTb5W05zNAw29y/biG1odalsbdtCfv18spHEWl4rQw5bTHLYKNBxMM3+Eb2RioIqv7+yQ8l6K7qXfYrPSDwOe447hj2/DpyccV/rXnYVAK94UhOFkuOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791922524; c=relaxed/simple;
-	bh=XZlzYPgGniMKp24Kvd+5JAayJ8szb88F4vc+5S8MV3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gWWHW/0aUPP/8eLTBrD0CJoZRSdl0mZFPA1sjpKgLuGnFCuaDaTqKhwx0rX898WLg3WYIoFXr7T9aDL4tmBiE3xa9jIMyfo1ziYTfqI89udzKNmEqnaVPJnID8026OZ950nGVcwIAOEtmMHHP1iIgsXXDhKqI7eb6VqGISl1xIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvG0/8NO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791922544; c=relaxed/simple;
+	bh=sHpCU+9yAPTLoySTgFTRF4pweK+WQunMTURy5a3w1dw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gWQCJyoqetw2L8p9FeMNu5Lpedi0DVr+N/HrlwN+i+35cA8ePmkIK591l6E2gdUEC0n5pPYxRIYpxjfiAPCn+VDkHuSpkofv4ttG8T2BOr2hOuGeNk0Pu46+zh6Y7Ywyc2KOJQPKas646oYlpjZwIVhCtrNjkzKqCw3XjJfzUK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PWFz1n2S; arc=none smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvG0/8NO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6161F000FF;
-	Tue, 13 Oct 2026 20:15:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791922520;
-	bh=7zfpv4Z2ec7zgASrGoOkbeLPo9a4/lwkfJNsmd5oUgQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CvG0/8NOfZfmoPk2PrmsrFaHCbDTo/T9ciwJBDUeHNIhGH0ut513Wzf0XUJ98ELBv
-	 lwdjAFthY9UhGTE21/IjutBSYDnjgq6iV2pIVHKMuMQh/2Mn7RghYVrTFjnE63/998
-	 xz9qL2Yx0iaT6Rsw7OvO4B7V2k8FCxMLUWgMqgJcIKMPGOjPWGvwwino4duRamHLJi
-	 VyDiGk+0cDWpV025aExYlAKEFolZPrDPhXa41IiT9bFCYPrvhrwa7EWSLwR89yV87v
-	 WA9FP/0HYCjk2RZroHx1QWySWxaNY+HOTH8kqE3wzWgUdB56c+W0C90nMZDgm9Cg1w
-	 OVXss2KMzFdXg==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PWFz1n2S"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7f84a55e31aso2060558a34.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:15:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791922541; x=1792527341; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VBBwqMR1fjyPGEzDUsocZhc9LoOhNGKbGIC+3VowAZY=;
+        b=PWFz1n2SwIFhSn+UV+qrH3cf/TZhgT9EgQxZkXNxPy5ZhXkOMz72iQ+4WIP+ItYBSY
+         ikO6OLwEFv3rt35ttVChD/H4NlDGjGcV6f1ltqsPUEyndm9x8/lfgjefpjRA4rF4kLtc
+         tNkC8Hxq6o3Mr1paR/UgjMkoLEQ6D+Eo9eAG4iWIkp5iBa5CDXEjSBYAZh33UFDXtpay
+         xvtuF+2VYrLbX7+Zt6TFCpPSSoK9x+qz+Def2cvrqrngABTMKxXJKWX6kgb0fDJWT7Ck
+         l2pikFCgf0ZIIICyckb8+QXr2bTQSg2up6hHbGX/IxluQeLQTDDxXuUTmoPtOC+KkOfU
+         5lSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791922541; x=1792527341;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VBBwqMR1fjyPGEzDUsocZhc9LoOhNGKbGIC+3VowAZY=;
+        b=CVkCZF0j7rHlAgOP64pT/Kf8qxux2GPpbrSXI9MrNipOcKDZdQ2bblNc5qYkDmSELo
+         pJbsjGTFNjYeT89HjjpQZy820ocgLbje9852CmHuUx9jXAB5VPiV3H0JbfrlTUy/OVZn
+         zYa1yUoh+NZSZX0NAuNRRcDxfO49BsywwUu9G+qE25rg5iduCsEfxzJc9leZBBz/tvOx
+         wtkL4GNRDS4qtPOqjiceIWEd2cELK9bbXH02YwinrFmIeEUoSeny1Iqt3AVTdN82C/yY
+         Qki/jE1tBZRxDwjk5NhxoCdZV2uTraJAD7tBTqwlPGehMcLwB6E59xDNOm+3+LtWupd1
+         VoLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxw0j8trb4NpPxtaxpz4/I4o4AvV/O9NolhfXlrGGDCaVWvLDLaEscI0SFdMPFfr1ITwQzByzw2OgdzXMI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRstkIKPn81+yCsFSHX8MMMOfMhfMuVp2t5JdShXN5zXJhSPVZ
+	mhfbrc/ZwySuDpdCvUQj4kNXdlNhI1cfp3QfI/ZxWpWUaThqv6c2QN9k
+X-Gm-Gg: AYBFou0/OjdNC+ulway30AT7ri16AM+pfARqxeaOjdTDUUskLWBvlyYc5GNKgFpoySh
+	TLp1PXJTUXZNygEGHMRjf34J/GrHmVBdhvizIvskwtsfiX7XMbYCClLtqhTwTKbW6c6CirBze0L
+	fQPhfjp5/aA9gub3fRccpvu1iF8Yt2Y0l9jIlg/UQx75CPUvT7isvindD9x++hXxkr+eS305VZZ
+	sIqPYKZ0GNcyhC35qRnOf0PGUCYjeJy/H59pnJ3yIRjAwLsR4GDEZiilHkhv9fpapWetCE4j+zJ
+	6agsOUsMZO7EI43RAJwuHG2E4WmfCmq0ufFQ62QovCIE2Jg7ivJHGvK83h420tA5mjEySrLdtWP
+	afc4oCLSD96sp9nn9gU5bVPAthCdA9XKPdyKFbdZGHmXCAyS8Pu6E7hfUz8658gyhImv4nlJibV
+	TDhC+/iysK+/eBgHcTZVJhZVrwppLS0oIpMgBrbeMjynoSPgupxVJyF7dmajZ1QAvEBdyUZABxq
+	mg=
+X-Received: by 2002:a05:6830:3494:b0:805:cd51:568a with SMTP id 46e09a7af769-83090c23e37mr12339060a34.2.1791922540631;
+        Tue, 13 Oct 2026 13:15:40 -0700 (PDT)
+Received: from pop-os.. ([24.32.17.59])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83038f82468sm13557570a34.11.2026.10.13.13.15.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 13:15:40 -0700 (PDT)
+From: Rishik Yechuri <epicrishik@gmail.com>
+X-Google-Original-From: Rishik Yechuri <rishik.yechuri.code@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v2 19/19] perf tests: Mark the shell tests not mapping perf ring buffers
-Date: Tue, 13 Oct 2026 17:14:14 -0300
-Message-ID: <20261013201415.36428-20-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261013201415.36428-1-acme@kernel.org>
-References: <20261013201415.36428-1-acme@kernel.org>
+	Rishik Yechuri <rishik.yechuri.code@gmail.com>
+Subject: [PATCH 00/10] staging: rtl8723bs: replace private 802.11 header macros with generic helpers
+Date: Tue, 13 Oct 2026 15:15:28 -0500
+Message-ID: <20261013201538.43156-1-rishik.yechuri.code@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,326 +75,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+The rtl8723bs driver has its own set of macros and inline functions in
+wifi.h for working with 802.11 frame headers. They access the header
+through hardcoded byte offsets and pointer casts, and they duplicate
+struct ieee80211_hdr and the helpers in <linux/ieee80211.h> that
+mac80211, cfg80211 and other wireless drivers already use.
 
-Shell tests run perf, that maps ring buffers, so they take a turn using
-the per user budget in kernel.perf_event_mlock_kb by default, see the
-previous changes; the ones that don't map them, like the ones running
-just 'perf stat', say " (no_mlock)" in their description line and thus
-keep running in parallel with the ones taking turns.
+This series switches the driver over to the generic versions and
+deletes the private ones from wifi.h. Each patch converts one group of
+macros and removes their definitions once nothing uses them anymore,
+so the driver builds after every patch.
 
-The 'perf sched stats' tests are among them, they synthesize the samples
-from /proc/schedstat without mapping a ring buffer, and the tests already
-marked " (exclusive)" don't need it, exclusive implies every other
-requisite and keeps them running alone.
+  Patches 1 to 3 convert header address access and the Frame Control
+  flag checks and updates.
 
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/tests/shell/drm_pmu.sh                       | 2 +-
- tools/perf/tests/shell/ftrace.sh                        | 2 +-
- tools/perf/tests/shell/kallsyms.sh                      | 2 +-
- tools/perf/tests/shell/list.sh                          | 2 +-
- tools/perf/tests/shell/perf_sched_stats.sh              | 2 +-
- tools/perf/tests/shell/probe_vfs_getname.sh             | 2 +-
- tools/perf/tests/shell/python-use.sh                    | 2 +-
- tools/perf/tests/shell/schedstat_snapshots.sh           | 2 +-
- tools/perf/tests/shell/stat+csv_output.sh               | 2 +-
- tools/perf/tests/shell/stat+csv_summary.sh              | 2 +-
- tools/perf/tests/shell/stat+event_uniquifying.sh        | 2 +-
- tools/perf/tests/shell/stat+json_output.sh              | 2 +-
- tools/perf/tests/shell/stat+shadow_stat.sh              | 2 +-
- tools/perf/tests/shell/stat+std_output.sh               | 2 +-
- tools/perf/tests/shell/stat.sh                          | 2 +-
- tools/perf/tests/shell/stat_all_metricgroups.sh         | 2 +-
- tools/perf/tests/shell/stat_all_metrics.sh              | 2 +-
- tools/perf/tests/shell/stat_all_pfm.sh                  | 2 +-
- tools/perf/tests/shell/stat_bpf_counters_cgrp.sh        | 2 +-
- tools/perf/tests/shell/stat_metrics_cgrp.sh             | 2 +-
- tools/perf/tests/shell/stat_metrics_values.sh           | 2 +-
- tools/perf/tests/shell/test_ilist_python.sh             | 2 +-
- tools/perf/tests/shell/test_stat_cpi_python.sh          | 2 +-
- tools/perf/tests/shell/test_test_junit_output.sh        | 2 +-
- tools/perf/tests/shell/test_uprobe_from_different_cu.sh | 2 +-
- 25 files changed, 25 insertions(+), 25 deletions(-)
+  Patches 4 and 5 convert the frame type and subtype checks. Single
+  comparisons use the ieee80211_is_*() helpers, and switch statements
+  mask frame_control with IEEE80211_FCTL_* and use IEEE80211_STYPE_*
+  case labels, the same way mac80211 does.
 
-diff --git a/tools/perf/tests/shell/drm_pmu.sh b/tools/perf/tests/shell/drm_pmu.sh
-index e629fe0e8463d6cc..c827e613fc66ee0f 100755
---- a/tools/perf/tests/shell/drm_pmu.sh
-+++ b/tools/perf/tests/shell/drm_pmu.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# DRM PMU
-+# DRM PMU (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/ftrace.sh b/tools/perf/tests/shell/ftrace.sh
-index 9f6e590f6437b2d9..84d6126bf94d1e61 100755
---- a/tools/perf/tests/shell/ftrace.sh
-+++ b/tools/perf/tests/shell/ftrace.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf ftrace tests
-+# perf ftrace tests (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/kallsyms.sh b/tools/perf/tests/shell/kallsyms.sh
-index d0eb99753f477f57..e3674cc52b30983f 100755
---- a/tools/perf/tests/shell/kallsyms.sh
-+++ b/tools/perf/tests/shell/kallsyms.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf kallsyms tests
-+# perf kallsyms tests (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- err=0
-diff --git a/tools/perf/tests/shell/list.sh b/tools/perf/tests/shell/list.sh
-index 14a03e0290ed1b4d..d4a0b04154d636f0 100755
---- a/tools/perf/tests/shell/list.sh
-+++ b/tools/perf/tests/shell/list.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf list tests
-+# perf list tests (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/perf_sched_stats.sh b/tools/perf/tests/shell/perf_sched_stats.sh
-index f13eb0a75b76ef5a..4ede9d701630c719 100755
---- a/tools/perf/tests/shell/perf_sched_stats.sh
-+++ b/tools/perf/tests/shell/perf_sched_stats.sh
-@@ -1,5 +1,5 @@
- #!/bin/sh
--# perf sched stats tests
-+# perf sched stats tests (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/probe_vfs_getname.sh b/tools/perf/tests/shell/probe_vfs_getname.sh
-index c40e5f3f0825b051..43bdd693076b408c 100755
---- a/tools/perf/tests/shell/probe_vfs_getname.sh
-+++ b/tools/perf/tests/shell/probe_vfs_getname.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# Add vfs_getname probe to get syscall args filenames
-+# Add vfs_getname probe to get syscall args filenames (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- # Arnaldo Carvalho de Melo <acme@kernel.org>, 2017
- 
-diff --git a/tools/perf/tests/shell/python-use.sh b/tools/perf/tests/shell/python-use.sh
-index 2d6017d5dd9d9eab..ece4d306869ae48e 100755
---- a/tools/perf/tests/shell/python-use.sh
-+++ b/tools/perf/tests/shell/python-use.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# 'import perf' in python
-+# 'import perf' in python (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- # Just test if we can load the python binding.
- set -e
-diff --git a/tools/perf/tests/shell/schedstat_snapshots.sh b/tools/perf/tests/shell/schedstat_snapshots.sh
-index a4bdf2673d43ccc0..2050478e3f1a682f 100755
---- a/tools/perf/tests/shell/schedstat_snapshots.sh
-+++ b/tools/perf/tests/shell/schedstat_snapshots.sh
-@@ -1,5 +1,5 @@
- #!/bin/sh
--# Validate CPU and domain pairing in perf sched stats snapshots
-+# Validate CPU and domain pairing in perf sched stats snapshots (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/stat+csv_output.sh b/tools/perf/tests/shell/stat+csv_output.sh
-index a5b34c42e8d72aff..8beb6c674d055a52 100755
---- a/tools/perf/tests/shell/stat+csv_output.sh
-+++ b/tools/perf/tests/shell/stat+csv_output.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf stat CSV output linter
-+# perf stat CSV output linter (no_mlock)
- # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
- # Tests various perf stat CSV output commands for the
- # correct number of fields and the CSV separator set to ','.
-diff --git a/tools/perf/tests/shell/stat+csv_summary.sh b/tools/perf/tests/shell/stat+csv_summary.sh
-index 9a4353db3825ede9..6d8beb88fb6f300a 100755
---- a/tools/perf/tests/shell/stat+csv_summary.sh
-+++ b/tools/perf/tests/shell/stat+csv_summary.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf stat csv summary test
-+# perf stat csv summary test (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/stat+event_uniquifying.sh b/tools/perf/tests/shell/stat+event_uniquifying.sh
-index b5dec6b6da369382..f5c6fa30d8db38d1 100755
---- a/tools/perf/tests/shell/stat+event_uniquifying.sh
-+++ b/tools/perf/tests/shell/stat+event_uniquifying.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf stat events uniquifying
-+# perf stat events uniquifying (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/stat+json_output.sh b/tools/perf/tests/shell/stat+json_output.sh
-index 4969ad70b67b6196..cbf7a4ffd7e8ab4f 100755
---- a/tools/perf/tests/shell/stat+json_output.sh
-+++ b/tools/perf/tests/shell/stat+json_output.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf stat JSON output linter
-+# perf stat JSON output linter (no_mlock)
- # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
- # Checks various perf stat JSON output commands for the
- # correct number of fields.
-diff --git a/tools/perf/tests/shell/stat+shadow_stat.sh b/tools/perf/tests/shell/stat+shadow_stat.sh
-index cabbbf17c662df23..7a58e1507ce27957 100755
---- a/tools/perf/tests/shell/stat+shadow_stat.sh
-+++ b/tools/perf/tests/shell/stat+shadow_stat.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf stat metrics (shadow stat) test
-+# perf stat metrics (shadow stat) test (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/stat+std_output.sh b/tools/perf/tests/shell/stat+std_output.sh
-index 64c2b81f02deb18b..b915656a20f69d68 100755
---- a/tools/perf/tests/shell/stat+std_output.sh
-+++ b/tools/perf/tests/shell/stat+std_output.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf stat STD output linter
-+# perf stat STD output linter (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- # Tests various perf stat STD output commands for
- # default event and metricgroup
-diff --git a/tools/perf/tests/shell/stat.sh b/tools/perf/tests/shell/stat.sh
-index 1f5d4cc05807a247..ac9e031831daca9c 100755
---- a/tools/perf/tests/shell/stat.sh
-+++ b/tools/perf/tests/shell/stat.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf stat tests
-+# perf stat tests (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/stat_all_metricgroups.sh b/tools/perf/tests/shell/stat_all_metricgroups.sh
-index 81bc7070b5ab0d5c..074a437da0ae3dce 100755
---- a/tools/perf/tests/shell/stat_all_metricgroups.sh
-+++ b/tools/perf/tests/shell/stat_all_metricgroups.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf all metricgroups test
-+# perf all metricgroups test (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- ParanoidAndNotRoot()
-diff --git a/tools/perf/tests/shell/stat_all_metrics.sh b/tools/perf/tests/shell/stat_all_metrics.sh
-index df5fa27b21ae28d8..9d0d4b8a217e6730 100755
---- a/tools/perf/tests/shell/stat_all_metrics.sh
-+++ b/tools/perf/tests/shell/stat_all_metrics.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf all metrics test
-+# perf all metrics test (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- ParanoidAndNotRoot()
-diff --git a/tools/perf/tests/shell/stat_all_pfm.sh b/tools/perf/tests/shell/stat_all_pfm.sh
-index c08c186af2c42e84..78d8006fb729c8f4 100755
---- a/tools/perf/tests/shell/stat_all_pfm.sh
-+++ b/tools/perf/tests/shell/stat_all_pfm.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf all libpfm4 events test
-+# perf all libpfm4 events test (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- if perf version --build-options | grep HAVE_LIBPFM | grep -q OFF
-diff --git a/tools/perf/tests/shell/stat_bpf_counters_cgrp.sh b/tools/perf/tests/shell/stat_bpf_counters_cgrp.sh
-index febe3af0644157f3..d1b4632c17a3e8e1 100755
---- a/tools/perf/tests/shell/stat_bpf_counters_cgrp.sh
-+++ b/tools/perf/tests/shell/stat_bpf_counters_cgrp.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf stat --bpf-counters --for-each-cgroup test
-+# perf stat --bpf-counters --for-each-cgroup test (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/stat_metrics_cgrp.sh b/tools/perf/tests/shell/stat_metrics_cgrp.sh
-index 0728f48f21fa971d..75b8e01d11cc7ff3 100755
---- a/tools/perf/tests/shell/stat_metrics_cgrp.sh
-+++ b/tools/perf/tests/shell/stat_metrics_cgrp.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf stat metrics --for-each-cgroup test
-+# perf stat metrics --for-each-cgroup test (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/stat_metrics_values.sh b/tools/perf/tests/shell/stat_metrics_values.sh
-index 0982f6b9737a780f..3e073a0e5b9f9b99 100755
---- a/tools/perf/tests/shell/stat_metrics_values.sh
-+++ b/tools/perf/tests/shell/stat_metrics_values.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf metrics value validation
-+# perf metrics value validation (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- shelldir=$(dirname "$0")
-diff --git a/tools/perf/tests/shell/test_ilist_python.sh b/tools/perf/tests/shell/test_ilist_python.sh
-index 83048474710d2857..a235539c01767ee5 100755
---- a/tools/perf/tests/shell/test_ilist_python.sh
-+++ b/tools/perf/tests/shell/test_ilist_python.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# perf script ilist and perf list --tui test
-+# perf script ilist and perf list --tui test (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
-diff --git a/tools/perf/tests/shell/test_stat_cpi_python.sh b/tools/perf/tests/shell/test_stat_cpi_python.sh
-index 6cb376c92e2f13a7..d1571a20f4683d73 100755
---- a/tools/perf/tests/shell/test_stat_cpi_python.sh
-+++ b/tools/perf/tests/shell/test_stat_cpi_python.sh
-@@ -1,6 +1,6 @@
- #!/bin/bash
- # SPDX-License-Identifier: GPL-2.0
--# stat-cpi python test
-+# stat-cpi python test (no_mlock)
- 
- set -e
- 
-diff --git a/tools/perf/tests/shell/test_test_junit_output.sh b/tools/perf/tests/shell/test_test_junit_output.sh
-index 38a29e646906e3aa..2a3e8a00c48b7d39 100755
---- a/tools/perf/tests/shell/test_test_junit_output.sh
-+++ b/tools/perf/tests/shell/test_test_junit_output.sh
-@@ -1,6 +1,6 @@
- #!/bin/bash
- # SPDX-License-Identifier: GPL-2.0
--# perf test junit XML output validation
-+# perf test junit XML output validation (no_mlock)
- 
- set -e
- 
-diff --git a/tools/perf/tests/shell/test_uprobe_from_different_cu.sh b/tools/perf/tests/shell/test_uprobe_from_different_cu.sh
-index 33bf36c4037e45ae..0a02ff9b86d6f326 100755
---- a/tools/perf/tests/shell/test_uprobe_from_different_cu.sh
-+++ b/tools/perf/tests/shell/test_uprobe_from_different_cu.sh
-@@ -1,5 +1,5 @@
- #!/bin/bash
--# test perf probe of function from different CU
-+# test perf probe of function from different CU (no_mlock)
- # SPDX-License-Identifier: GPL-2.0
- 
- set -e
+  Patch 6 removes an unused struct member. Its initialisers were the
+  last users of a few private subtype constants that have no generic
+  equivalent.
+
+  Patch 7 converts the frame subtype setter and removes the private
+  WIFI_* frame type enum.
+
+  Patches 8 and 9 convert the Sequence Control, Duration/ID and QoS
+  Control fields.
+
+  Patch 10 replaces the driver's destination and source address
+  helpers with ieee80211_get_DA() and ieee80211_get_SA().
+
+None of this should change behaviour. In the few places where a
+generic helper checks more than the code it replaces, or where the old
+macro kept bits that a plain assignment would overwrite, the commit
+message explains why the result is the same.
+
+Compile tested with W=1 after each patch, and checked with checkpatch
+and smatch. I don't have a device with this chip, so it has not been
+tested on hardware.
+
+Rishik Yechuri (10):
+  staging: rtl8723bs: use struct ieee80211_hdr for header addresses
+  staging: rtl8723bs: use ieee80211_has_*() to test frame control flags
+  staging: rtl8723bs: set frame control flags with IEEE80211_FCTL_*
+    masks
+  staging: rtl8723bs: use ieee80211_is_*() for frame type tests
+  staging: rtl8723bs: use IEEE80211_FCTL_* masks for frame type dispatch
+  staging: rtl8723bs: remove unused num member from struct mlme_handler
+  staging: rtl8723bs: use IEEE80211_FTYPE_* and IEEE80211_STYPE_* values
+  staging: rtl8723bs: use struct ieee80211_hdr for seq_ctrl and
+    duration_id
+  staging: rtl8723bs: use IEEE80211_QOS_CTL_* masks for QoS control
+  staging: rtl8723bs: use ieee80211_get_DA() and ieee80211_get_SA()
+
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 254 ++++++++---------
+ drivers/staging/rtl8723bs/core/rtw_recv.c     | 134 ++++-----
+ drivers/staging/rtl8723bs/core/rtw_security.c |  41 +--
+ .../staging/rtl8723bs/core/rtw_wlan_util.c    |   7 +-
+ drivers/staging/rtl8723bs/core/rtw_xmit.c     |  75 +++---
+ drivers/staging/rtl8723bs/hal/rtl8723b_cmd.c  |  42 +--
+ .../staging/rtl8723bs/hal/rtl8723bs_recv.c    |   9 +-
+ .../staging/rtl8723bs/hal/rtl8723bs_xmit.c    |   3 +-
+ .../staging/rtl8723bs/include/rtw_mlme_ext.h  |   1 -
+ drivers/staging/rtl8723bs/include/wifi.h      | 255 +-----------------
+ .../staging/rtl8723bs/os_dep/ioctl_cfg80211.c |  19 +-
+ 11 files changed, 319 insertions(+), 521 deletions(-)
+
 -- 
-2.55.0
+2.43.0
 
