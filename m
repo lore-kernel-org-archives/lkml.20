@@ -1,115 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8575208DC;
-	Tue, 13 Oct 2026 17:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323054398F1;
+	Tue, 13 Oct 2026 17:18:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911925; cv=none; b=X2znsc+HEVohYS5DlZd4P0e9gZkAVYoxMkJXPfuCGZmxv1NzSg64IMAt2txTdOKVUgfzh/EcPtqGx6P5sleUa05Q5V87lqeGK/RNKGcGMS20cnHy2F4UDncEHlRD1GL+FcVmb5S84VqvUkIdOQce65pH0vWJIekTTjFZKc/yL8o=
+	t=1791911931; cv=none; b=uTPkKuKk8eAwJzMIulICBvENohjrQI0RfL9IZg2xDN9ngZANQrSoHsea+GE8RrCqY5Oy9RD9rx3d8bikxKEUCAqry24O0YGKf7EAhYzP1bQKj3adM9JkUhKFXbWxrbTlFPozeGS+iaBGDOQAqDPTkjL1mntOaioF/NdTykwFYGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911925; c=relaxed/simple;
-	bh=hy7uMoaIIZ7biCRxdqldWn224Ufta9r46+3rd5Fw4do=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nz7/iIPBqNgqJiJobWLiic17CITGoz2yuH9W4zw22HQ0nrQyW/FAO9udPlryKkhmlQuuxCKva6optD5AuDTP7SGADia2ztKpzlIYzwaeVdoEGq8J/z8FdBSKHj78xY0ILeLj/T1uiw05Dq0Bxv7qnsHZRdFGfBZcy1dtdV8Oqhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DuI/rqPH; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791911931; c=relaxed/simple;
+	bh=8PqwQUWFfVghebMz9z1kAMapTMuwsHDaGj4XEMNSP/g=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=GjwqxHHsmsc2B/vka1IYJV4edO0D+3sslbyf+AOASwF+yZ94lHgP6xmN1owlFLQYbINrWiGcTJAEd5XoeZKRk/9ngtV/4VbTUtcj161i56G4fZOEYsOoc6QHb3n1yklZioIpkUzEQUPZlZE5D2bSgnoqtDpLQsNNQkcPZItM5yI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AG1e9nLS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DuI/rqPH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791911925; x=1823447925;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=hy7uMoaIIZ7biCRxdqldWn224Ufta9r46+3rd5Fw4do=;
-  b=DuI/rqPHLPiVhLPPaEAGbMK/BGBFnbBydh76Sr7QBog9Zf8HVK/Li8iZ
-   asntdUdyk87WqP1uEdrvQRtknJlA4w3ra2+FGxxE/IY2MhLcevRcRWjZn
-   c+3x4SXbJ3xXahPYgsG3MfogFNC+V3l+DcnlN89sz/r6excW2Tp5HXHiB
-   3WzrrgTRP45724si7NCYWJqKRasYt2/D3o4hdixhlxZO8+J3XFox+Ggu8
-   f98ip+nNnLnSMUnM8/H498CH4GTDpYqFhdQ3T1sbWhGapRW3VR21YpoOR
-   KACIWUEc+QZ+hjWaWm606Mbg+lGRQQT8/uaB4MnJNpseW4YxdN6oZ69+W
-   g==;
-X-CSE-ConnectionGUID: g3xPu7m7SRqJqysj5wUj9A==
-X-CSE-MsgGUID: FdYBCV6NQ1OFgqr9oc/N6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="740337"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="740337"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:18:44 -0700
-X-CSE-ConnectionGUID: 4xgGuyZJS2y8XTB7pLl07Q==
-X-CSE-MsgGUID: 6vbAGK1+TdeegSCW0oyY7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1106841"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.235]) ([10.125.109.235])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:18:43 -0700
-Message-ID: <88903331-7dff-4732-b443-10e8fcb9699f@intel.com>
-Date: Tue, 13 Oct 2026 10:18:42 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AG1e9nLS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5171F000FF;
+	Tue, 13 Oct 2026 17:18:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791911930;
+	bh=DaV//0Jk7M97S39ZwsdcpB+1W9eqYBvkzOhD9k9vV/Q=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=AG1e9nLS8EsscB3nsQDaKaav0BROgOxE4YMbZIEyin08r6IfwPk6dWyZ/uhBrq7YN
+	 T6kpponQVJYJO6i4I3RPki1uJoLIHSjxliRKuskb5ELUNP2RA+/TAZ1hEqmUHkSaVL
+	 69WCaYKkE3kQt/8Z+9VOWwo5jPT+/sSdDvsBopCC/dxLm6ubz0ZwCvZlrDfqEM65tD
+	 rjNhyaB5K2WUIZP+tqvUL+LkQs+M3BWe+rZFY7cfzoiRNInpvIEHz3ogPRAgIPkaCA
+	 dwaPWpHd/du9EVs2J/4wtCzlLu+/oiNuibtVoJCnZtPHHs5j0xSZgDr8fWcjaP/mwk
+	 U6Alldl4Q8fjQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dmaengine: idxd: Do not call destroy_workqueue with
- null idxd->wq
-To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Fenghua Yu <fenghuay@nvidia.com>, Shuai Xue <xueshuai@linux.alibaba.com>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
- Steve Wahl <steve.wahl@hpe.com>
-References: <20261012-wt-idxd-fixes-v1-0-30a35a445077@intel.com>
- <20261012-wt-idxd-fixes-v1-1-30a35a445077@intel.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261012-wt-idxd-fixes-v1-1-30a35a445077@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] pci: designware: Set DMA_BYPASS bit in outbound
+ IATU CTRL2 register
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Niklas Cassel <cassel@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, 
+ Sumit Kumar <sumit.kumar@oss.qualcomm.com>, 
+ Jingoo Han <jingoohan1@gmail.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <aqbahGslz11TWIRo@fedora>
+References: <20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com>
+ <aqAk6nXECt239c2g@ryzen>
+ <4nxyshx26bl5r7jjjnghsyz7k63lah6zx77cuea37mziww7kb4@iij5g3om67ub>
+ <aqbahGslz11TWIRo@fedora>
+Date: Tue, 13 Oct 2026 22:48:37 +0530
+Message-Id: <179191191767.12828.2752703637384946037.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3630; i=mani@kernel.org;
+ h=from:subject:message-id; bh=8PqwQUWFfVghebMz9z1kAMapTMuwsHDaGj4XEMNSP/g=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqzmfwFAMrCKxMOcbMcmBoP8ps9UP1Dl0MH8zRD
+ pGaqapdwcyJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas5n8AAKCRBVnxHm/pHO
+ 9TjrCACSD2GVH5IhWwVcX2Aah6BHGKLKFKchRjtkdA0G4pH30dmKrOUrjAnr/V6phBL4BxTLRfo
+ QFycM0pq8LznSstG41qv3P/mPhggml9dw3PFaoX/E8ezgfxZ+/Qn2TW8YmkuAgjvzlm5oMh17wa
+ UzHSM2zlQdtmPW6JjxNIUPeTj3pNqDliB3OBSIc9ys1mQWnb2z/Y1OB7mQ5lFIPTo1pPZT4aMup
+ IVPmPkAHE8qtemOK1U4epJVnaXANXBPwQl+cqMZk2hE1tmlbD7lCcyNFTewTgc3so2KLKfh5Bw+
+ n3xtQDM8BjAGTcDddmfLKhZieRgDWa344fFA73cDocmOZEqB
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
+On 2026-09-13 19:16 +0200, Niklas Cassel wrote:
+> On Sun, Sep 13, 2026 at 11:35:59AM +0200, Manivannan Sadhasivam wrote:
+> > 
+> > pci_epc_mem_map() is already useless in the eDMA path today. So this patch
+> > doesn't change that.
+> 
+> I'm not sure if useless is the proper word here.
+> Redundant is perhaps a better word.
+> 
 
+No, it is useless indeed. See below.
 
-On 10/12/26 2:38 PM, Vinicius Costa Gomes wrote:
-> From: Steve Wahl <steve.wahl@hpe.com>
 > 
-> Error paths within idxd_pci_probe_alloc and related functions end up
-> calling destroy_workqueue with a null pointer, from
-> idxd_conf_device_release via put_device, because that allocation has
-> not yet occurred when the error is hit.
+> Let me explain using pci-epf-test.c:pci_epf_test_read() as an example:
 > 
-> This was encountered running in a kexec'd kdump kernel with reduced
-> resources, causing the "Device is HALTED!" branch in
-> idxd_device_init_reset to be taken.
+> Without the patch in $subject, on a DWC based platform:
 > 
-> In idxd_conf_device_release, check that the workqueue has been
-> allocated before trying to destroy it.
+> pci_epc_mem_map() will setup an iATU entry, and the eDMA transaction will then
+> be translated using that iATU entry, before being sent out on the PCIe bus.
 > 
-> Fixes: 3d33de353b1f ("dmaengine: idxd: Fix not releasing workqueue on .release()")
-> Signed-off-by: Steve Wahl <steve.wahl@hpe.com>
-> Acked-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-^ needs a sign off rather than an ack since you posted his patch?
 
+No, that's not true. While the pci_epc_mem_map() does setup an iATU entry, eDMA
+transaction doesn't use the mapped address.
 
-With Frank's comment addressed,
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+If you look into the eDMA read path:
+	pci_epc_mem_map()
+		-> Allocates map.phys_addr and sets up an iATU entry
+	pci_epf_test_data_transfer()
+		-> dma_local points to address allocated by dma_map_single()
+		   (dma_dst)
+		-> dma_remote points to RC address referenced in src_addr
+		-> These two were passed to dmaengine_prep_config_single()
+		   ignoring the map.phys_addr passed through dma_src parameter.
 
-> ---
->  drivers/dma/idxd/sysfs.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+For eDMA write:
+	pci_epc_mem_map()
+		-> Allocates map.phys_addr and sets up an iATU entry
+	pci_epf_test_data_transfer()
+		-> dma_local points to address allocated by dma_map_single()
+		   (dma_src)
+		-> dma_remote points to RC address referenced in dst_addr
+		-> These two were passed to dmaengine_prep_config_single()
+		   ignoring the map.phys_addr passed through dma_dst parameter.
+
+So essentially, the address used by the eDMA is the raw RC PCIe address, not
+translated by the iATU. In fact, the Designware Databook also doesn't recommend
+setting up the iATU entry for the eDMA path. So the allocated iATU entry is
+useless.
+
+But the issue this patch is trying to address is, if the raw PCI address or the
+dma_map_single address used by the eDMA happens to be present in one of the
+existing iATU mappings, then at that point, the address can get translated
+causing wrong address to be sent over the bus.
+
+> So the iATU entry is actually being used.
 > 
-> diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
-> index 6d251095c350..d5ffc641c856 100644
-> --- a/drivers/dma/idxd/sysfs.c
-> +++ b/drivers/dma/idxd/sysfs.c
-> @@ -1836,7 +1836,8 @@ static void idxd_conf_device_release(struct device *dev)
->  {
->  	struct idxd_device *idxd = confdev_to_idxd(dev);
->  
-> -	destroy_workqueue(idxd->wq);
-> +	if (idxd->wq)
-> +		destroy_workqueue(idxd->wq);
->  	kfree(idxd->groups);
->  	bitmap_free(idxd->wq_enable_map);
->  	kfree(idxd->wqs);
 > 
+> After the patch in $subject, on a DWC based platform:
+> 
+> pci_epc_mem_map() will setup an iATU entry, however, because of the DMA_BYPASS
+> bit, that iATU entry will not be used, and the transaction will be send out on
+> the PCIe bus untranslated.
+> 
+
+This is the current behaviour as well.
+
+> 
+> So I would argue that it is only after this patch that pci_epc_mem_map() will
+> setup an iATU entry that will then never be used.
+> 
+> Yes, I think I understand that you are trying to say that, for DWC based
+> drivers, we could theoretically skip the pci_epc_mem_map() call, and send the
+> transaction untranslated.
+> 
+> My point is that it feels silly to set the DMA_BYPASS bit without also making
+> sure that the pci_epc_mem_map() calls are either removed or (at least for DWC
+> based platforms) modified to not set up an iATU entry in the DMA path in the
+> first place.
+> 
+
+This I agree. But this also needs some careful analysis as other DMA controllers
+other than eDMA might need the mapping. For eDMA, it is also not straightforward
+as we do not pass any 'I'm using DMA' flag to map_addr() callback.
+
+> I am happy that this is getting cleaned up, I just don't like a half cleanup
+> where we, after this commit, will setup+teardown iATU entries that will then
+> never be used for the actual transaction.
+> 
+
+This should be done as a follow-up, not blocking this patch.
+
+- Mani
 
