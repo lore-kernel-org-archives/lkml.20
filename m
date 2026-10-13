@@ -1,80 +1,86 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CCF4EFFD4
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4677E4F4D0A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 11:56:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892620; cv=none; b=Wo5UAdj7rD8apImdU/wI8gxzUvQdnmDKkjQMRk90IH5GNxZyaWGzxco5itmzJUol9a0Bo8GdX8Xy1NhhPU17O8X2xPD+FgR5YTiir2mkE/VY8jVNq/4ANBdgBJW/Nh0XL92yXaYsfdvGPKeMgLhomjSIZi4cjgFEZohLreprz9A=
+	t=1791892620; cv=none; b=mLZKONmWdySnoYxt0AHkL/pwGGy392O2NCQmRxh/X3jy52lCTpka24iEUs2pUAWnsV/BnBngTV5NAXGnHugS7VsQBlrc8AimFP01Z+kzjDEydBmyKHEeHl4bJrOmuy1INCOg93+Qvj1+v76o1Bt+cQ0kg9GZ69bKlhaTZByqKhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791892620; c=relaxed/simple;
-	bh=B0xB5Wj2A0Iqf6C3s/PSU4/SthSDFPeFKdDmMAXGNOY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pl2GY1RRpa6Yam4hp9eZ2yBPycsV2OMarKpAScRPOIh5vCqgEjjn/NSMNGBa4zWVeKAqC3qpYuTs8zi+CEigUAeD3j4RvMFhxStununz981tuWJZEHtletMIlL/yLzt5a6UsG0PwN9CXFeIO/XbQUwveWt6CI/VHhPcO/ELHKwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PzRVhwUG; arc=none smtp.client-ip=74.125.82.41
+	bh=cZnmrXnfrB93SQ+VrQKOiWAtWkAE13YYsj5jG+YQKgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rpDXiU0KS0FlIMnTuDSkPqy56Qmc2e7VdlOIEpUGq/GTtxenuJTSI+0aVoNB4mn1ctevV126YxZAsYMc2N6dTLy9+pi0zfwJ/raE57vLc55oArYkODlweyEbT3Do00jwmZfcaxa/aUk8JHFpPZfeMN5bQ40SFdWJgEysJ5SZLSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HD0tGX1x; arc=none smtp.client-ip=74.125.227.134
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PzRVhwUG"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15354aa70e8so342347c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:56:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HD0tGX1x"
+Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso1376323a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 04:56:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791892616; x=1792497416; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rUjsoBRlToylDAgZob373tu+/iyx0SwuuffxUT/RyX4=;
-        b=PzRVhwUGi8yu3YNJed6Zc9JhUHFkPB82oiwLbi9XwNHBNbtX54nPBpyyGVnO7XpiYR
-         Amr6RN8FLLBBn1JGA6Z/w5kAZQAvLyLApQ8wXUT6iIP3sliiaHGSMrgdHNtaMKa7QrYH
-         bSb81ViAD0X73iT3O+0erpDNijsjxZpbBgC6B0SeNGPmXEOYXcDfzmdKJdd2zewEZD+E
-         7kEaqYqGs1oS7yBNt2IvX/G3ITn4w1XJzkV3TowaplDc51CuTkszm3Rv/FMPh5YgT3xn
-         cqzvIU/FQGdKFMdTWMe+OEaa+Y/2G7/Ez4rz3qCjm7/MFdNY9c0rAD3HCkWI4T/YJ2cN
-         aKow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791892616; x=1792497416;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791892618; x=1792497418; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rUjsoBRlToylDAgZob373tu+/iyx0SwuuffxUT/RyX4=;
-        b=C8Tul+lxDA4bTFe0WjvApK5GEc730lJso8QAI+cvCLwhJwWctNEQenZZCpHIG73iH6
-         AbweqUg2aaP7Pr46vN/4jc4wnO0PowuOB25aT0SiqnORGIUshxDo2hxLIF+IxntS7AOM
-         x8WcVnlFj7W9DDXQDhPinRO9jSvMuhqLfLfNB2Ay9WqwxlxHZnfvo3qb2R6vXv0y9NXy
-         n5OGF9bJNsfJBBUISLT6cN4oWsqcBRBqPtliYcgm3zJbmuaqlfZZVKubUob/mEMwR6WE
-         7dkCa/bHW15SBlhKbTcQT8hLzou6v6QLvs4PGHdU4f2FfIt3OwEjOX9MwO1kkC7HhdfP
-         dUQA==
-X-Forwarded-Encrypted: i=1; AKwUvBwqcTf+VEWFjHMA7E6Z/LGS/Vn4i3aVkqY3AWzVCRiopcTKekrMmFsMgeh+Lfd2RehpZZqCsO9vC0Hsf2g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqj7Vf2jrhXdPcmtqTnESBEPeihE8IOU5WgpcPxEhNT1zcAOwt
-	E3iHjm0X5ghl4gtZEqfrplfuzEkvt0AkagMzPaTIdAfIGNKp81kvQcct
-X-Gm-Gg: AYBFou3WBNGay2Ydkwbzhy+C11ir/IxqoAkrU67HPUJeFl8gFVrM6JW6AaFZjMjy5fS
-	GndUX0/+BGaqikHOC8Er8JvK6tH7U3jWhfGxYczDbUCRlJgHlFjjyjGHGJhDPXSSWX7VsyfPVja
-	XbEeEbhoCwxJ3qIqaE8MZzcsr+PRKaIJbc4cjJgUmxHphDKxReneQNFfzB8l/Vx/bhjD8QjXRvx
-	Rfo88Mnxawe4D9p4/ysnvJtt5LhRtxvq2FVfsuTbKgoAjGL5DwOGfyXsh6D/4+uY6vhvu52JLAO
-	JGM/pzNqrsplXxlGronph8kh3qmJsR6+YDqpR/cKGWJ5BMtW9QVwCAdxKf9L6NYB08SKsxV1hxz
-	KztZ9eVV/ckbKE4lvjOdLdyR8XYUoEB4o8nmvzjB8Lb/ddgAXPLPYX4cRnWJkoBjsanu5NFsC0x
-	wM/apYS9IMeYh+bA4DObaEVmUni3AHPunVF3+r1Z8gLu36muqwgRBBMY5uoMcyWVFYtD9APAQy
-X-Received: by 2002:a05:701b:4583:20b0:151:9af3:1beb with SMTP id a92af1059eb24-16a5dee12e2mr17214338c88.10.1791892615861;
-        Tue, 13 Oct 2026 04:56:55 -0700 (PDT)
-Received: from localhost ([104.156.230.40])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1746482c978sm18467858c88.13.2026.10.13.04.56.54
+        bh=1JGn4fTJRmMMUCqNv1zrxHNWR67j4kFOuytFeUiq8dc=;
+        b=HD0tGX1xbgWfIcHZ+X8vZFGhu8Zkp+AV9jjPinguylrkfIplEiUEbc1AVnm2QBuW6a
+         cUSWHX2Nf0j8NBEB6fnQpmpd7jxMFb3xMwek4M3U7SVTCqZcaVgSdHcjB2S+zbRRKHHE
+         VSlbyWa4KrSTPJ5TKbjSP+THipkjjBVkW2v4Eg5EN1I01Y+0P7/oeoyt2V6/6MKQJopL
+         02vpbx8KLOSfNWxROKOrAYEi3ZFIVWjFdw+dCAqaYSv2WzKBkW6bwnkVo0Rzn8JNhT5i
+         E39XwCn7SNMSba0D3Gl9QYRWYpwbe5N0EWZDfM5nQC2v8+Zqbu4lmEQ5lGCPobEzWrND
+         P9RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791892619; x=1792497419;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1JGn4fTJRmMMUCqNv1zrxHNWR67j4kFOuytFeUiq8dc=;
+        b=Zff41dj9eip5gRVcR39kadnoCXRpgu5+ALWCBF+M4zSkr27Sa7EpvOGJ4qGoiJf8bG
+         0rBfqTDCK0iQG7GeKW01ZbxC6vEThuQ14JgPMnZvz3kOCN8mHH6ILKXKl3WhDk5fYu5K
+         u3q3g0xTLuIttwfk0rEjs15l7YOcF3jF5pRAKGHwJwxPk+7B6UnpNSaUlyxap6TO6AcL
+         Rokba2c/J1Hh0GygeanK4dQtTtYScBvs/3SedJK0P8HHSc7LBQrBTPYczNbVirFbb4Uk
+         dfj/eF+zWQ0S+mUUK3PMQV617Na2RI8JqSWjYz/HF1C9dLFDmHWWNlYdOBMKAknIIiRx
+         0hRw==
+X-Forwarded-Encrypted: i=1; AKwUvBz6D7L5fg2y7qU7Nn6FC1VIgQeGM7szlXz21ehcyLjE7HF67bsUejmtvwdSKCIHJacXrCleAx1McITYWJ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEUEI0AmW+4IbUSr9ZfLMN+/gAcTNGAh/7r4fKpBX52KinF2Iv
+	NnstohH6duSRLTQdNryJ5PxIopCH0JLqZr3E6U5hxofJRQk0Wtonj9N/
+X-Gm-Gg: AYBFou2oIdwRussAsA9l9BVEeytW+3hUooD+wl4BjtcC6syX6uZwtjTUgCqZggKIdTh
+	xLj/8Njc9sJ5bwwVS7mJNQ6N5y92DjzT9ECnWwu5Ia88Sj9rdWWlYm8fRyD6BSrp6PUHA1Rg7Q/
+	QNmJeZuknhNoQBLxV2iJr8JbRjrl9b8sSTspkOaRhI/MnBkHaCHyjfSyundPMWuTOkRPWlaoEF3
+	zRBDiTCprDaU0cR8Z6xOgE9w18vCTWvY+fjj53sdiINRwNuiD2F9Nzlxq361vFlNZ60Muvj4Wmi
+	ZT1X3mvYcELrO6F3HnQw0Ikwo658JmV7rkhTAbRgacKbz4vPV4yKwbStiX2ry6TJsHfP7i9BPZi
+	qMy3y53ohMeYWl/0JDRDt/LOFOcb/fD5lAVFbKOVaBdohvieUt4p+IH5hrrmMZWQyT/36Pt7MTh
+	CvTc7JlvRZV/WWmTYlZFF0I08qpnlC9GBxjanhAr6lTwGkNiUsRWO+hXelyOyo/lp12th4hKZtT
+	lOP0UgBQDcEiMsqQJgwIFxfbA7OBwWWmrLG
+X-Received: by 2002:a17:90b:5870:b0:3ac:403d:6232 with SMTP id 98e67ed59e1d1-3ac403d6b24mr1509265a91.55.1791892618559;
+        Tue, 13 Oct 2026 04:56:58 -0700 (PDT)
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm21248516a91.13.2026.10.13.04.56.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:56:55 -0700 (PDT)
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Chang Yu <marcus.yu.56@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 0/2] Add support for AS7343 multi-spectral sensor
-Date: Tue, 13 Oct 2026 19:56:37 +0800
-Message-ID: <20261013115639.167433-1-marcus.yu.56@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Tue, 13 Oct 2026 04:56:58 -0700 (PDT)
+From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+To: linux-f2fs-devel@lists.sourceforge.net,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Barry Song <baohua@kernel.org>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	Juan Yescas <jyescas@google.com>,
+	Daeho Jeong <daehojeong@google.com>,
+	Dev Jain <Dev.Jain@arm.com>,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	linux-kernel@vger.kernel.org,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Nanzhe Zhao <nzzhao@126.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: [PATCH v4 06/18] f2fs: support atomic file large folios buffered write
+Date: Tue, 13 Oct 2026 19:56:09 +0800
+Message-ID: <20261013115621.968742-7-nzzhao.sigma@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,65 +89,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds initial support for the AMS AS7343 14-channel
-multi-spectral sensor.
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 
-The sensor has 14 optical channels (11 visible + NIR + clear +
-flicker) in total. This initial driver supports reading raw counts
-from all 12 spectral channels (11 visible + NIR) via sysfs and basic
-power management.
+ioctl can convert an inode with large folio support into an atomic
+file. Support large folio buffered writes for atomic files as well.
 
-Not yet supported:
-- Configurable integration time and gain
-- Interrupt support
-- Clear (VIS) channel and flicker detection
+Add a large folio atomic write_begin helper that reserves COW mappings
+for the write range. For partial head and tail subpages, read the
+existing data from either the COW inode or the original inode before
+marking the subpage uptodate.
 
-Patch 1 adds device tree bindings.
-Patch 2 adds the driver.
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+---
+ fs/f2fs/data.c | 111 ++++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 81 insertions(+), 30 deletions(-)
 
-Testing was performed on a Raspberry Pi 4.
-
-Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-
-Changes in v6:
-  - Add a ref to leds/common.yaml for the LDR pin in dt bindings.
-  - Convert ATIME and ASTEP range checks to runtime checks.
-
-Changes in v5:
-  - Remove the GPIO pin from dt bindings.
-  - Add autosuspend.
-  - Start measurements before setting up runtime PM.
-
-Changes in v4:
-  - Fix led-max-microamp property in dt bindings.
-  - Use REGCACHE_MAPLE and add volatile table.
-  - Use PM_RUNTIME_ACQUIRE* when resuming.
-
-Changes in v3:
-  - Fix gpio description and example in dt.
-  - Only start measurements after suspend action has been registered.
-  - Add a mutex and pm_runtime_resume_and_get before reading measurements.
-
-Changes in v2:
-  - Add the LDR, the interrupt pin, and the GPIO pin to the dt bindings.
-  - Adjust the default gain to x256 and integration time to 50.1ms as
-  recommended by the datasheet.
-  - Use read_label instead of .extend
-  - Remove all unused scan_index related constants.
-
-Chang Yu (2):
-  dt-bindings: iio: light: add as7343
-  iio: light: add AS7343 multi-spectral sensor driver
-
- .../bindings/iio/light/ams,as7343.yaml        |  66 +++
- MAINTAINERS                                   |   7 +
- drivers/iio/light/Kconfig                     |  11 +
- drivers/iio/light/Makefile                    |   1 +
- drivers/iio/light/as7343.c                    | 464 ++++++++++++++++++
- 5 files changed, 549 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
- create mode 100644 drivers/iio/light/as7343.c
-
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index f2b89181f..2ae3013b6 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -4245,18 +4245,16 @@ static int __reserve_data_block(struct inode *inode, pgoff_t index,
+ }
+ 
+ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+-			struct folio *folio, loff_t pos, unsigned int len,
++			struct inode *inode, pgoff_t index,
+ 			block_t *blk_addr, bool *node_changed)
+ {
+-	struct inode *inode = folio->mapping->host;
+ 	struct inode *cow_inode = F2FS_I(inode)->cow_inode;
+-	pgoff_t index = folio->index;
+ 	int err = 0;
+ 	block_t ori_blk_addr = NULL_ADDR;
+ 	bool cow_has_reserved_block = false;
+ 
+-	/* If pos is beyond the end of file, reserve a new block in COW inode */
+-	if ((pos & PAGE_MASK) >= i_size_read(inode))
++	/* If index is beyond the end of file, reserve a new block in COW inode */
++	if (((loff_t)index << PAGE_SHIFT) >= i_size_read(inode))
+ 		goto reserve_block;
+ 
+ 	/* Look for the block in COW inode first */
+@@ -4428,6 +4426,61 @@ static int prepare_large_folio_write_begin(struct inode *inode,
+ 	return 0;
+ }
+ 
++static int prepare_large_folio_atomic_write_begin(struct inode *inode,
++		struct address_space *mapping, struct folio *folio, loff_t pos,
++		unsigned int len)
++{
++	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++	size_t ori_off = offset_in_folio(folio, pos);
++	pgoff_t start, end, index;
++	int err = 0;
++
++	len = min_t(unsigned int, len, folio_size(folio) - ori_off);
++
++	if (!f2fs_ffs_find_or_alloc(folio))
++		return -ENOMEM;
++
++	/* Inline data must have been converted before reaching here. */
++	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
++
++	start = folio->index + (ori_off >> PAGE_SHIFT);
++	end = folio->index + ((ori_off + len - 1) >> PAGE_SHIFT);
++
++	for (index = start; index <= end; index++) {
++		block_t blkaddr = NULL_ADDR;
++		bool node_changed = false;
++		size_t off = (index - folio->index) << PAGE_SHIFT;
++
++		err = prepare_atomic_write_begin(sbi, inode, index,
++						&blkaddr, &node_changed);
++		if (err)
++			return err;
++
++		if (f2fs_ffs_test_blk_uptodate(folio, index))
++			goto balance;
++
++		if (blkaddr == NEW_ADDR) {
++			folio_zero_segment(folio, off, off + PAGE_SIZE);
++			f2fs_ffs_mark_subrange_uptodate(folio, off, PAGE_SIZE);
++			goto balance;
++		}
++
++		if (!f2fs_is_valid_blkaddr(sbi, blkaddr,
++					   DATA_GENERIC_ENHANCE_READ))
++			return -EFSCORRUPTED;
++
++		err = f2fs_submit_page_read_sync(inode, folio, index,
++						blkaddr);
++		if (err)
++			return err;
++balance:
++		if (f2fs_balance_fs_folio_locked(folio, mapping, node_changed))
++			return -EAGAIN;
++	}
++
++	return 0;
++}
++
+ static int f2fs_write_begin(const struct kiocb *iocb,
+ 			    struct address_space *mapping,
+ 			    loff_t pos, unsigned len, struct folio **foliop,
+@@ -4510,35 +4563,25 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 	blen = min_t(unsigned int, len,
+ 		     folio_size(folio) - offset_in_folio(folio, pos));
+ 
+-	if (f2fs_is_atomic_file(inode))
+-		err = prepare_atomic_write_begin(sbi, folio, pos, len,
++	/*
++	 * Flush the cached IO of this folio and make sure it is stable
++	 * before touching it, especially for the large folio prepare
++	 * below which reads and updates subpage states.
++	 */
++	f2fs_folio_wait_writeback(folio, false, true);
++
++	if (f2fs_is_atomic_file(inode) && !folio_test_large(folio))
++		err = prepare_atomic_write_begin(sbi, inode, folio->index,
+ 					&blkaddr, &need_balance);
+ 	else if (!folio_test_large(folio))
+ 		err = prepare_write_begin(sbi, folio, pos, blen,
+ 					&blkaddr, &need_balance);
+-	if (err)
+-		goto put_folio;
+-
+-	if (need_balance && !IS_NOQUOTA(inode) &&
+-			has_not_enough_free_secs(sbi, 0, 0)) {
+-		folio_unlock(folio);
+-		f2fs_balance_fs(sbi, true);
+-		folio_lock(folio);
+-		if (folio->mapping != mapping) {
+-			/* The folio got truncated from under us */
+-			folio_unlock(folio);
+-			folio_put(folio);
+-			goto repeat;
+-		}
+-	}
+-
+-	f2fs_folio_wait_writeback(folio, false, true);
+-
+-	if (folio_test_large(folio)) {
+-		err = prepare_large_folio_write_begin(inode,
+-					folio, pos, blen);
+-		if (!err)
+-			return 0;
++	else if (f2fs_is_atomic_file(inode))
++		err = prepare_large_folio_atomic_write_begin(inode,
++					mapping, folio, pos, len);
++	else
++		err = prepare_large_folio_write_begin(inode, folio, pos, blen);
++	if (err) {
+ 		if (err == -EAGAIN) {
+ 			f2fs_folio_put(folio, true);
+ 			goto repeat;
+@@ -4546,6 +4589,14 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 		goto put_folio;
+ 	}
+ 
++	if (f2fs_balance_fs_folio_locked(folio, mapping, need_balance)) {
++		f2fs_folio_put(folio, true);
++		goto repeat;
++	}
++
++	if (folio_test_large(folio))
++		return 0;
++
+ 	if (blen == folio_size(folio) || folio_test_uptodate(folio))
+ 		return 0;
+ 
 -- 
-2.56.0
+2.43.0
 
