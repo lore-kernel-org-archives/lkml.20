@@ -1,318 +1,115 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7204AFE25
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E194B44B8;
+	Tue, 13 Oct 2026 06:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791873089; cv=none; b=tOu9SkchtS11XFfq7hIxjdrl0CeMIS82a0Z2sAlvNDn6Ce5BjRrQw3AxYpSqFC8uKLhBBSeSEX6YUnUNV516aBNzucKidl1zfASWSJuV/HjaY2+KDxtEKepG5csTurXkcAlf6VHaOookayg3I9NYN6FIVFql/efXVya+VVQVToY=
+	t=1791873098; cv=none; b=NEOedbLpS2lUC/BJAqL7TSlZ5kuWGJoSzlBhZUs+G8UUb2FGq7BRcXiQJT16s8LNFoeJ9MK6rHBxjfqTchhvWihOv77JkfbMkdSXPvEtuWfOA8OjYi/tnEkflPMcI94C7qbtlGcbpfANdFLhUR+D5+9R5+nELDfZgTvByI0P9IA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791873089; c=relaxed/simple;
-	bh=bHnS6JjDuQfRdGNzP3Opq5HRutuiNewLNgfvWXk7tZU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Vj2Rd8YNisJMhpkOx+Tda8QqHhTWzdVDL7c/kWKZYrxRAhUpvxMQRESvk0RwammeexhMm/12CxD3aEMQE1JWT52xv3jUXi3ryfcB3b9fZxssi5dDP/KtZ6rMEUIHhkXpupnENomh3xkm5Ie+yOxmBjosg5+tw5gqADOsLtR5wjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L5pKezcC; arc=none smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791873098; c=relaxed/simple;
+	bh=oa+hL0321nW9Vwn1O3ILBBR3F88eydIuimTI3ISKCd4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EyP1x5rCkPr0nMqJVbkOKMPHOJdS8toR7FS1iWdy+PykJ/iSoG2v7vFGPVGufLiiNG0q5xxRqRD75sSKnidF8GUtBtVjbXuRMwAWhNGGqdRKoNJqNyHuJ1B+MCZfrTBMzKDzCTpmFXkh1wD/T740YNCLOj9eBaehid8kcRobTeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfxmsxoD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L5pKezcC"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so1384432eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 23:31:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791873085; x=1792477885; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9UoJXd2Abc6HDFA6vzYwQCdunzjasHt51XqLN6wS2ME=;
-        b=L5pKezcCLEyzrmqaDIy8YyjZ4rhIp8itY4/32mkp2bhQ8b9WQxJMAl74Ar8lw3Ad/e
-         /EuufDH+5cljuMSy4Os48DjG2s6wenMGfvNIVQ4rr4mUBX14aytidajDxEznbzJgbAf5
-         wbsFb1s/jlCZxxHg5SBtHbHKjyRK2qP/7wNEPV+tEwRx6H8XIDViKD+g1H5ugirRSeKY
-         8haH9cSqUHFiiaidGUeCvbXX5CcWnrIHR2UWKsP6EU9BUhwsEStI4zPOzJyOketjJxvF
-         myuNKv4XA/eJJnOljROCfvakIVCDf/RH5xxGZX8ZojVIyRdoamfGn+J7eMysnUnMFwXH
-         b5eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791873085; x=1792477885;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9UoJXd2Abc6HDFA6vzYwQCdunzjasHt51XqLN6wS2ME=;
-        b=RqP4txSoqFBJd8SWsxOsf/uKf4dgAOwYhmKTKecC6tdCE47Cjq7MgfaAgQSPNaPjaw
-         TPb+0FI4zivxhHxVaZhaiUaKxSqdTjV9+jhLN6NZuiRxEDLtZUz0ucbafQV+YCQxeIpp
-         XA7lUbM/+ZN8nkJHcvJb8GojuVHnhSsAC1Uu/NnrVZ4BEk8e6vLvy3fN+fl9lECDz0Dp
-         KGeeEt+Mn2rpmTBkwMOsgbBpsEiF+LOqoGotbwivoRmfYzcpkSEmTN0sCqi0ILrKL6US
-         lU55+imfPItU5Xxm/IwqVHAxRIFSEgWqWmoFhFiJAX40XOzR4PaawTY3pypBhP6ag+Iy
-         KEnA==
-X-Forwarded-Encrypted: i=1; AKwUvBxzrlI5G7w764k7nUNbDpNqbuOqG6heE4bH6rZnZuxvQneGXd2FrQc5t5bLhkBgud3brZ8QSgVM1jNRwtE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI46J6mm651Xm0nSMKg+Y/ztEpEG8V9zCYycxT0tP1KyaK7zzPb
-	cLCu27h5+nFrWC8ktGIUQkygpGl17IjK+OialWqBv2JJIEoYRtLBJIw8
-X-Gm-Gg: AYBFou0b6uDULFe6zXFN0nr/MMqYR9RpF97IAxeHuFR6RU9Xp5O1E1WkgOarzEdtPYb
-	OqbpfN3ksDZxnPkvXazZxbt9WEeKIik+WAcIbFr/bkwcX0nHnBSO6QxwTXzv7u0msXcL0YWBqZV
-	MhYbVhkrhj5WnpLtsD9g6FOW7mBHBnBykittV7MZVwV25IcBgr9yoemmmFl1szeUhSJgbBwMCo5
-	q5gs5QG3Tvvq3GKhZvGk7Q1U4UFh2ZkP5oF9+ZDO02kQ9vQpCMvd45452uYcfYpIt4npsBy7MDE
-	SM6xm+YmQLMTGUlcmG0S5YhHbfXMWcCQ3ICdTVcl3qumMMr6I6dqLbW1z/OTtWsXwK8Pt5NuVtt
-	tSnOjSQGLKUn7uNK7RaY2smv/Na1/ibhhmH/aqe8dPBWARW07Y6nU0aOIdjAy34B4wLycI+98Z4
-	2Ii5IZ55hjjkcd43dlyYSZmRmDmJJ4GATZfOWeyCWrmRhE1gN5nVa/ypmXaVr2ETcSisifhg==
-X-Received: by 2002:a05:693c:41d1:10b0:35a:a5c6:40e6 with SMTP id 5a478bee46e88-35aa5c656f8mr6507438eec.9.1791873084994;
-        Mon, 12 Oct 2026 23:31:24 -0700 (PDT)
-Received: from gmail.com ([188.253.12.32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1ba7esm39622657eec.7.2026.10.12.23.31.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 23:31:24 -0700 (PDT)
-From: Jia Jia <physicalmtea@gmail.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 0/4] vsock/virtio: reduce RX per-packet socket overhead
-Date: Tue, 13 Oct 2026 14:31:08 +0800
-Message-Id: <20261013063112.168321-1-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfxmsxoD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2031F000FF;
+	Tue, 13 Oct 2026 06:31:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791873096;
+	bh=ysieIhLPikkToW2dfhq3fTbSynlZIJEUp5hlkhgJWaM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LfxmsxoDhWv+zNEv9x+kWUc4/I1YMrYc6XMe51XeffW0S4jvftWJII52jEIfsGlTb
+	 uRkVS1MXohKxY8YDMZHnl6VALyzFk0XV3TPvzHQ0tZ0t3gyAsYpSvZTIKPwzRd7hNM
+	 ehBIKWwFrr4QqIIr1x7CAMv7bCZp6t8RsBmk4ll0FbZSmSuKC9IfBltEp76vSTkv7D
+	 kpaJkLxld2momnjAzXs4K6kGPSkQJaUDzVnCWTSPLI6Qsxn+CyFXjE92t2hI5nI3/M
+	 uJhY26lPX2yD+C0UOYDUpA/VwpAhVONMyzQnKhRcwKvgPX4Bgb1hWJW/+Yug7jVOiF
+	 4tMS2knm7jRUg==
+Message-ID: <62ce5a6e-5f79-4245-b432-d8eacf34709b@kernel.org>
+Date: Tue, 13 Oct 2026 08:31:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] dt-bindings: leds: aw2013: Add awinic,aw2027
+ compatible
+To: Paul Sajna <sajattack@postmarketos.org>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
+ Alexey Min <alexeymin@minlexx.ru>
+Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
+ <20261012-aw2013-aw20xx-rename-v3-1-cab1fdd050b6@postmarketos.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261012-aw2013-aw20xx-rename-v3-1-cab1fdd050b6@postmarketos.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-This series reduces per-packet socket overhead in the virtio-vsock RX
-worker.
+On 13/10/2026 07:39, Paul Sajna wrote:
+> The aw2027 is largely the same as the aw2013, with the
+> exception of the way the max current is written to registers.
+> This exception makes it different enough to not work without
+> driver modifications, but similar enough to fall under the
+> umbrella of the same driver.
+> 
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+> ---
+>  Documentation/devicetree/bindings/leds/leds-aw2013.yaml | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 
-Patch 1: separate socket lookup from locked packet processing.
 
-Patch 2: keep one socket lock across a bounded run of established
-STREAM/RW packets for the same native socket, and reuse the locked socket
-for later same-flow packets.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Patch 3: coalesce default write-space notifications while that
-lock is held.
-
-Patch 4: defer the default readable callback until after the batch
-unlocks.
-
-Performance:
-
-Tested on a single-stream vsock connection (one Guest receiver thread on
-CPU0, virtio-vsock IRQ on Guest CPU1, fresh QEMU Guest per state, 16
-balanced AB/BA pairs per payload). The host uses vhost-vsock.
-
-For throughput, vsock_perf runs on the host as the
-sender, with a custom single-threaded Guest receiver pinned to Guest CPU0
-using blocking recv(). The fixed-64K table uses a 64K buffer; the matched
-table uses the sender's request size. The virtio-vsock IRQ/RX worker is
-pinned to Guest CPU1. To normalize run times across payloads into a
-bounded, deterministic window and avoid long runs being skewed by host
-background noise or virtualization scheduling jitter, transfer sizes scale
-proportionally with the request size (64B/64M, 256B/256M, etc.), capped at
-2G for 4K–64K. The custom receiver keeps the recv() size and count
-explicit; vsock_perf's receiver uses poll()+read().
-
-Latency uses a custom user-space vsock ping-pong tool.
-
-The measurements below were collected for the RX batching series.
-
-This benchmark does not run vsock_perf on both ends. Instead, it uses
-vsock_perf as the sender on the host (vhost-vsock) side and a custom
-blocking recv() program without poll() on the Guest side, with the receiver
-thread pinned to Guest CPU0 (and the virtio-vsock RX worker pinned to Guest
-CPU1). Plain blocking recv() combined with strict core pinning gives
-audit-level determinism for tracing a single-threaded TID.
-
-I think it is necessary to do further testing on the large I/O throughput
-peak observed at 4K to find the root cause (and rule out anything
-introduced by the measurement method). I used kprobe and temporary
-trace_printk in the source for mechanism diagnostics. The diagnostic
-data shows that lock wait time and contention at 4K both decrease strictly
-monotonically as payload size increases;
-wire-level tracing also confirms that 4K is split into two packets, and
-that all sizes can reach the 64K batching limit.
-
-The nature of the prominent 4K throughput gain most likely lies in it
-sitting exactly at the end-to-end pipeline sweet spot between host and
-guest:
-
-Compared with 1K and smaller payloads: 4K halves the packet intensity, so
-upstream host-side syscall and interrupt injection overhead is no longer
-the bottleneck across the whole path, allowing the host to supply data
-adequately.
-
-Compared with larger 8K to 64K payloads: 4K keeps the payload size
-moderate, and combined with the observed syscall reduction and cycle
-improvement, the batch-draining benefit from notification coalescing is
-fully realized.
-
-As payload size increases further from 8K to 64K, the overall gain shrinks
-smoothly, consistent with Amdahl's law, because system execution time
-shifts toward page copying and VQ processing.
-
-With all patches applied:
-
-End-to-end RX throughput (64K Guest recv() size, SO_RCVLOWAT=1; Gbit/s):
-
-  payload  baseline RX  PATCH RX  throughput change (95% CI)
-           (Gbit/s)      (Gbit/s)
-  64B      0.1065       0.2503    +135.00% [+130.35%, +139.74%]
-  256B     0.5722       1.0286     +79.76% [+75.40%, +84.23%]
-  512B     1.1464       1.9779     +72.53% [+69.50%, +75.63%]
-  1K       2.2714       3.6368     +60.12% [+56.92%, +63.37%]
-  4K       3.9095       7.7160     +97.37% [+92.09%, +102.79%]
-  8K       3.3436       5.3111     +58.84% [+53.49%, +64.38%]
-  16K      3.8876       5.7456     +47.80% [+45.45%, +50.18%]
-  64K      4.0056       5.3590     +33.79% [+29.37%, +38.36%]
-
-Fixed-syscall stress test (receiver recv() size = sender write size;
-Gbit/s):
-
-  payload baseline PATCH    throughput change (95% CI)    recv()
-          RX       RX                                     (base/patch)
-          (Gbit/s) (Gbit/s)
-  64B     0.1259   0.2651   +110.52% [+99.08%, +122.62%]  1048577/1048577
-  256B    0.3790   0.9444   +149.20% [+134.70%, +164.60%] 1048577/1048577
-  512B    0.7768   1.7009   +118.97% [+103.94%, +135.11%] 1048577/1048577
-  1K      1.4886   2.9477   +98.02% [+84.82%, +112.17%]   1048577/1048577
-  4K      2.1129   4.7331   +124.01% [+115.40%, +132.96%] 537436/525524
-  8K      2.8698   5.3683   +87.06% [+80.96%, +93.37%]    276448/264109
-  16K     3.5156   5.8463   +66.30% [+63.10%, +69.55%]    147849/132267
-  64K     4.2459   5.8576   +37.96% [+35.26%, +40.71%]    48447/33144
-
-Request-response latency (Ping-Pong RTT, 10,000 requests):
-
-  payload  baseline mean RTT (us)  PATCH mean RTT (us)  change (95% CI)
-  64B      221.968                  218.144              -1.72%
-                                                        [-4.23%, +0.85%]
-  256B     126.968                  124.541              -1.91%
-                                                        [-3.35%, -0.45%]
-  4K       130.362                  126.664              -2.84%
-                                                        [-5.12%, -0.50%]
-
-Diagnostic Guest CPU1 system-wide cycles (fixed-64K receiver, with perf):
-
-  Buffer size  baseline cycles/B  PATCH cycles/B  cycles change (95% CI)
-  64B      62.032            52.370          -15.58% [-17.16%, -13.96%]
-  256B     15.287            13.630          -10.84% [-12.51%, -9.14%]
-  512B      7.306             6.611           -9.51% [-10.92%, -8.08%]
-  1K        3.811             3.458           -9.25% [-10.96%, -7.50%]
-  4K        1.850             1.669           -9.75% [-11.78%, -7.67%]
-  8K        1.504             1.363           -9.36% [-12.97%, -5.60%]
-  16K       1.321             1.210           -8.37% [-10.61%, -6.07%]
-  64K       1.342             1.227           -8.57% [-10.87%, -6.21%]
-
-Patch-scope measurements and attribution:
-
-The series was tested cumulatively in two ranges, using the same
-single-stream setup and paired AB/BA runs. The table below shows results
-from patches 1–2 only, before the notification changes in patches 3–4.
-
-  payload  baseline RX  PATCH RX  throughput change (95% CI)
-           (Gbit/s)      (Gbit/s)
-  64B      0.1211       0.2534    +109.26% [+106.34%, +112.23%]
-  256B     0.5671       0.9989     +76.15% [+70.63%, +81.85%]
-  512B     1.1334       1.9000     +67.64% [+64.64%, +70.69%]
-  1K       2.2650       3.5610     +57.22% [+50.91%, +63.79%]
-  4K       3.8331       7.2888     +90.15% [+83.46%, +97.09%]
-  8K       4.8244       7.6636     +58.85% [+53.71%, +64.16%]
-  16K      5.4979       8.2469     +50.00% [+45.57%, +54.57%]
-  64K      3.8875       4.7588     +22.41% [+17.77%, +27.24%]
-
-Fixed-syscall stress test (receiver recv() size = sender write size;
-no perf; Gbit/s):
-
-  payload baseline PATCH    throughput change (95% CI)    recv()
-          RX       RX                                     (base/patch)
-          (Gbit/s) (Gbit/s)
-  64B     0.1397   0.2646   +89.40% [+80.92%, +98.27%]    1048577/1048577
-  256B    0.3960   0.9516   +140.34% [+117.48%, +165.60%] 1048577/1048577
-  512B    0.7541   1.6496   +118.74% [+101.42%, +137.55%] 1048577/1048577
-  1K      1.4903   2.8793   +93.21% [+77.06%, +110.82%]   1048577/1048577
-  4K      2.9466   6.2284   +111.37% [+97.52%, +126.20%]  538192/525220
-  8K      4.0043   6.9249   +72.94% [+60.18%, +86.71%]    276313/263852
-  16K     4.8981   7.5599   +54.34% [+49.77%, +59.06%]    147576/131600
-  64K     5.9294   7.7897   +31.37% [+27.18%, +35.70%]    50207/33014
-
-Ping-Pong RTT (10,000 requests; no perf):
-
-  payload  baseline mean RTT (us)  PATCH mean RTT (us)  change (95% CI)
-  64B      119.688                  119.739              +0.04%
-                                                        [-2.61%, +2.77%]
-  256B     120.603                  124.485              +3.22%
-                                                        [-0.44%, +7.01%]
-  4K       121.921                  122.491              +0.47%
-                                                        [-3.51%, +4.61%]
-
-Guest CPU1 system-wide aggregate cycles (fixed-64K receiver, with perf;
-cycles/byte):
-
-  Buffer size  baseline cycles/B  PATCH cycles/B  cycles change (95% CI)
-  64B      66.838             60.012           -10.21% [-13.03%, -7.30%]
-  256B     13.446             12.305            -8.49% [-11.23%, -5.66%]
-  512B      6.833              6.317            -7.54% [ -9.52%, -5.52%]
-  1K        3.558              3.434            -3.48% [ -6.02%, -0.87%]
-  4K        1.806              1.686            -6.64% [ -8.69%, -4.54%]
-  8K        1.457              1.403            -3.73% [ -5.64%, -1.78%]
-  16K       1.295              1.279            -1.24% [ -5.21%, +2.89%]
-  64K       1.214              1.198            -1.30% [ -4.06%, +1.53%]
-
-The split-patch tests show that PATCH 2 mainly contributes to the
-improvement in I/O Throughput, while PATCH 3 and PATCH 4 mainly contribute
-to the improvements in cycles and RTT latency (although PATCH 2 shows no
-obvious regression here).
-
----
-v3:
-  - restrict RX batching to sockets using the original protocol and
-    data-ready/write-space callbacks
-  - exclude sockets carrying the psock marker published before sockmap
-    protocol/callback replacement, and recheck it at each packet boundary
-  - preserve existing sockmap update return values; an attach racing a
-    native batch makes the next packet end the batch without queued-skb
-    handoff
-  - remove a leftover blank line after an opening brace
-  - remove callback handoff work and attach/detach kicks, preserving the
-    existing per-packet behavior for sockmap and other non-native sockets
-  - avoid making this series drain queued or partially consumed skbs when a
-    socket is added to or removed from a sockmap
-  - clarify that Patch 1 prepares for batching and intends no functional
-    change
-  - inline address decoding and receive tracing, simplify the socket lookup
-    helper, and pass locked receive arguments directly
-  - fold same-flow lookup reuse into Patch 2 and match packets against the
-    locked socket state, reducing the series from five patches to four
-v2:
-  - stop a batch after it consumes the last skb metadata slot, sharing the
-    admission predicate with virtio_transport_inc_rx_pkt()
-  - move replacement-callback handoff into vsock, process queued skbs one
-    at a time, and trigger the handoff from vsock_bpf_update_proto() on
-    attach and detach
-  - reduce the packet-context diff in the locked receive helper
-  - keep RX batch counters in the batch state and reset them in the finish
-    path
-  - use the vsock/virtio subject prefix and add the requested measurements
-v1: https://lore.kernel.org/virtualization/20261002074551.318789-1-physicalmtea@gmail.com/
-
-Jia Jia (4):
-  vsock/virtio: split socket lookup from locked RX processing
-  vsock/virtio: amortize RX socket locking for stream packets
-  vsock/virtio: coalesce RX write-space notifications in lock batches
-  vsock/virtio: defer RX readable notifications until batch unlock
-
- include/linux/virtio_vsock.h            |  13 +
- include/net/af_vsock.h                  |   3 +
- net/vmw_vsock/af_vsock.c                |   2 +
- net/vmw_vsock/virtio_transport.c        |  29 +-
- net/vmw_vsock/virtio_transport_common.c | 335 +++++++++++++++++++-----
- 5 files changed, 321 insertions(+), 61 deletions(-)
-
-base-commit: 8df0638138d3e0344fd1fb36cf2d1ca1cf5028f0
--- 
-2.53.0
+Best regards,
+Krzysztof
