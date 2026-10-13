@@ -1,208 +1,81 @@
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD8D4F7CC9
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:10:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9EA964F68AD;
+	Tue, 13 Oct 2026 12:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791893404; cv=none; b=JY9xsdkkFx3qXmJBjOqitDBJArUKXhG04GjiPHk+r/Y9xTT37cIwk9e2x3fBH7xYETRm9fftuFS95g14HK6uObdVbF5rXtMqvaQxc62KsAKnX6vjFXZEY+DU5ZrgS8a5skb3wXH/bN5Kyv3wMTnRljXWTSLsdw6UUj6Br/8C9Yc=
+	t=1791893412; cv=none; b=cASCeCt6EpN3y3uKyQJvrLw4953/l068kEqF5g1X73GBhooI/Hlawems9ULFprQ1WlMiEpbcNAPQ1J4uAi5NCVUYS36GjSZ98RFYsKOdERRnJ4/ZAfN3hcSfXaNuK081WXlpU+OUaAUcaqLl7lRDU3kLOEe7NV7nkw1y79VNkv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791893404; c=relaxed/simple;
-	bh=2jQ3Lk03uLc8efN+1fTLINlpRYG6OcgG03EJwmsiuKM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FTqoy8RsHORu6TIiw8mjvEHqKy+4R+98D6ezjdaBegDJXVfqQh/4PkCvX8mYil6Mw7hdV/LtO+yxC70EYfSSDHwxsbTkV9cWzuf0rkbwr3aK9to4MB9S961QD+VvUZ8R3i3hiMdFA5Dyfq64ws4GiqVIDnH2lBKCGKFNzm2YeLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=eK34HCuj; arc=none smtp.client-ip=115.124.30.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="eK34HCuj"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791893398; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=9fJyPw2Ywx4KQqkE4/ifeeXTrWoCYe99XbknPriAskE=;
-	b=eK34HCujVpPqLfhmBB91Bn77sHo7Maaaxo+G2pLzTXAaM+8YSrAJibJ/z/wHamDHTr054PVDmhqFwxYZ1VHKIvbD95SGOIk/21dJb4WwVxXwqHpRSK1gsjXFb/GZlZfdSXgFsXeIJ4uG/AsUfU47oyo6OMiC4b69o6CQQB2tIl8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R651e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XClj6au_1791893396;
-Received: from 30.221.145.80(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XClj6au_1791893396 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 13 Oct 2026 20:09:57 +0800
-Message-ID: <f8f5ef83-6f71-43c7-8adf-c1d3adb15e8e@linux.alibaba.com>
-Date: Tue, 13 Oct 2026 20:09:56 +0800
+	s=arc-20240116; t=1791893412; c=relaxed/simple;
+	bh=3ZDh12HlIZeRsw2Me7s6uLva2PNxu30fAuHVP8cAURI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SERsWr9iBm5l8bzlu7/MXVWE/7CP6EbQQ2NNrfOyV1KqnHv1Cc+dN2yIZwFIzfkvyaYQjja3k+6aeYsB1egJpcfPLyj9s90nIUIKD/Xt1k7jiID8lxXSyV+6PZFLCH6u3tCwHROAYnjjE0r73E8wNZP0WYGfm5euZLP9CgxKbb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8AxXdKfH85qGVgVAA--.62396S3;
+	Tue, 13 Oct 2026 20:10:07 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJDxg8yeH85q+M4rAA--.64620S2;
+	Tue, 13 Oct 2026 20:10:07 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	Hengqi Chen <hengqi.chen@gmail.com>
+Cc: loongarch@lists.linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] LoongArch: BPF: Refine move_imm() and optimize 32-bit operations
+Date: Tue, 13 Oct 2026 20:10:03 +0800
+Message-ID: <20261013121005.626-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: unlink socket containers before releasing their
- nodes
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- kees@kernel.org, kuba@kernel.org, akpm@linux-foundation.org,
- sunil.mushran@oracle.com, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0065-v4-f45e5cef38dd587b2cfd@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0065-v4-f45e5cef38dd587b2cfd@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxg8yeH85q+M4rAA--.64620S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9xXoW7Wr18ur1xXF1UCrW7Ww1rGrX_yoWfWwb_ua
+	4xAFWkGw1jvFW3JFsF9r1rJr9rCFW7KF1jgFnFqrW8C3y7Ars8JF4kKa15u3yq9rsxZrZI
+	qr42kr95Zw1q9osvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb7AYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_JrI_Jryl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
+	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
+	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcV
+	C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1EksDUUUUU==
 
+This version is based on v7.3-rc7 and has been tested on a Loongson-3A6000
+physical machine.
 
+All of the testcases of test_bpf passed, here are the test results:
 
-On 10/12/26 9:30 AM, Cen Zhang wrote:
-> A socket container's node must remain alive while the container is on
-> sock_containers. The debugfs formatter reads sc_node under
-> o2net_debug_lock without taking a node reference, but sc_kref_release()
-> drops the node reference and clears sc_node before taking that lock to
-> unlink the container.
-> 
-> With CONFIG_DEBUG_FS enabled, removing a disconnected remote node while
-> a synchronous sender releases its last socket-container reference can
-> expose the freed node to a debugfs reader. The following order is possible:
-> 
-> 1. o2net_send_message_vec() holds a reference acquired under nn_lock.
->    o2net_disconnect_node() detaches the connection and flushes o2net_wq,
->    draining the socket callbacks and workers. The synchronous sender's
->    reference survives because its caller runs outside that workqueue.
-> 2. The sender's final sc_put() enters sc_kref_release() and calls
->    o2nm_undepend_item(). Configfs rmdir can now pass the dependency check,
->    call o2nm_node_group_drop_item(), and drop its node item references.
->    Its disconnect flush does not wait for the sender's release.
-> 3. The sender calls o2nm_node_put(), freeing the node while the container
->    is still listed and sc_node has not yet been cleared.
-> 4. Before the sender clears sc_node or unlinks the container, a debugfs
->    reader selects it in sc_seq_show() under o2net_debug_lock and formats
->    sc_node->nd_name, reading the freed allocation.
-> 
+$ sudo modprobe test_bpf
+$ dmesg -t | grep Summary
+test_bpf: Summary: 1061 PASSED, 0 FAILED, [1049/1049 JIT'ed]
+test_bpf: test_tail_calls: Summary: 10 PASSED, 0 FAILED, [10/10 JIT'ed]
+test_bpf: test_skb_segment: Summary: 2 PASSED, 0 FAILED
 
-Better to change the patch title to "ocfs2/cluster: xxx"
+For the BPF selftests test_verifier and test_progs, there are no any
+regressions.
 
-Please describe the race in a sequence diagram.
+Tiezhu Yang (2):
+  LoongArch: BPF: Clean up and decouple is32 parameter from move_imm()
+  LoongArch: BPF: Optimize 32-bit operations using native instructions
 
-> Move o2net_debug_del_sc() before o2nm_node_put(). Unlinking under the
-> existing debug lock waits for an active formatter to finish and prevents
-> later readers from selecting the container. The retained node reference
-> therefore covers every debugfs node access, including the node number
-> read by the stats formatter. The lock is released before the node put.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in string+0x42b/0x470
->     Read of size 1 at addr ffff88810f56fc90 by task python3/506
-> 
->     CPU: 0 UID: 0 PID: 506 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      kasan_report+0xe0/0x110
->      string+0x42b/0x470
->      vsnprintf+0x330/0x1110
->      seq_printf+0x1a8/0x260
->      sc_seq_show+0x604/0x9f0
->      seq_read_iter+0x480/0x1110
->      seq_read+0x362/0x5a0
->      full_proxy_read+0x11f/0x180
->      vfs_read+0x1a0/0xc20
->      ksys_read+0x111/0x200
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> (User register dump omitted.)
-> 
->      </TASK>
-> 
->     Allocated by task 497:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      o2nm_node_group_make_item+0xea/0x1a0
->      configfs_mkdir+0x762/0xca0
->      vfs_mkdir+0x399/0x7e0
->      filename_mkdirat+0x129/0x450
->      __x64_sys_mkdir+0x70/0xa0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 505:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      config_item_cleanup+0x14b/0x230
->      config_item_put+0x79/0x90
->      sc_put+0x454/0x6e0
->      o2net_send_message_vec+0x63d/0x1560
->      o2net_send_message+0xa6/0xe0
->      validation_send_write+0x17f/0x1d0
->      full_proxy_write+0x11f/0x180
->      vfs_write+0x25a/0x1010
->      ksys_write+0x111/0x200
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     The buggy address belongs to the object at ffff88810f56fc00
->      which belongs to the cache kmalloc-512 of size 512
->     The buggy address is located 144 bytes inside of
->      freed 512-byte region [ffff88810f56fc00, ffff88810f56fe00)
-> 
-> (Page and shadow-memory dumps omitted.)
-> 
-> Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> Assisted-by: LLM
-> 
-> ---
-> diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
-> index 8b3830b601ba..213ee7392712 100644
-> --- a/fs/ocfs2/cluster/tcp.c
-> +++ b/fs/ocfs2/cluster/tcp.c
-> @@ -399,11 +399,13 @@ static void sc_kref_release(struct kref *kref)
->  	}
->  
->  	o2nm_undepend_item(&sc->sc_node->nd_item);
-> -	o2nm_node_put(sc->sc_node);
-> -	sc->sc_node = NULL;
->  
-> +	/* Keep the node alive until debugfs readers finish. */
->  	o2net_debug_del_sc(sc);
->  
-> +	o2nm_node_put(sc->sc_node);
-> +	sc->sc_node = NULL;
-> +
->  	if (sc->sc_page)
->  		__free_page(sc->sc_page);
->  	kfree(sc);
+ arch/loongarch/include/asm/inst.h |   6 +
+ arch/loongarch/net/bpf_jit.c      | 365 ++++++++++++++++--------------
+ arch/loongarch/net/bpf_jit.h      |  25 +-
+ 3 files changed, 208 insertions(+), 188 deletions(-)
 
-It seems 'sc->sc_sock' also has the same risk.
-So a smaller fix may be:
+-- 
+2.42.0
 
-diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
-index 8b3830b601ba..0eaf2c4a6989 100644
---- a/fs/ocfs2/cluster/tcp.c
-+++ b/fs/ocfs2/cluster/tcp.c
-@@ -393,6 +393,9 @@ static void sc_kref_release(struct kref *kref)
- 
- 	sclog(sc, "releasing\n");
- 
-+	/* Unlink before freeing anything the debugfs readers dereference. */
-+	o2net_debug_del_sc(sc);
-+
- 	if (sc->sc_sock) {
- 		sock_release(sc->sc_sock);
- 		sc->sc_sock = NULL;
-@@ -402,8 +405,6 @@ static void sc_kref_release(struct kref *kref)
- 	o2nm_node_put(sc->sc_node);
- 	sc->sc_node = NULL;
- 
--	o2net_debug_del_sc(sc);
--
- 	if (sc->sc_page)
- 		__free_page(sc->sc_page);
- 	kfree(sc);
-
-Thanks,
-Joseph
