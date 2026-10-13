@@ -1,231 +1,119 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C807E5013CF;
-	Tue, 13 Oct 2026 14:29:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10AAD5013CF;
+	Tue, 13 Oct 2026 14:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901747; cv=none; b=Hm7gycvzzlm54Og6SoKrQu5jINsDqpie2GRKvBsuB9VlDHkf7i3CqoWACp0n5oFBObBQ1ikn9QXdoTnN6i6oKf9k+i/VPjLRG3eGyPiSeRcBToijKWXV7XTk4H7UD1R+F90eHC4XBrpOsnuJK6cjGqHahMi2mrfRFfqgoL25uEo=
+	t=1791901755; cv=none; b=NkU+TQp0l7q5WFp8n738e6TTJhLSRNXMvu+jFUwQrYzc91LDruECa/JxbzB9W8FBaHlHrXYE9P5DzwXT0mk4Q31964an6n03pyHNSGnxSV97jCKCgXef9uinuX1lQ5bet+er55q0ISNyDKKHCgoFKQfQQTZX2ak49bR2Qjh5WYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791901747; c=relaxed/simple;
-	bh=7pQLICiwDQGi4veiyWftXynaBIvBK9m2LLGNbUmS5sQ=;
+	s=arc-20240116; t=1791901755; c=relaxed/simple;
+	bh=P93fSh0QV+x7N2O+SUxX0JdIQZu0u771iYJI0nnvIRM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ncVMSjrHybWDN8VreVnZJfEsUEjUuW2T9YGYEpbHrDJJl8qX35DinfqZC+oTtWe0c4goRas2CGif6/8DCEBUQa5jZERyGQNUANB5f6tD+gzCTr+clDP0O6ckegSFuz9vx/pYp7pj7o8UjVGergLHbmEd3D0QxIbef0UTMWPEMCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KFMNICHw; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=WOdL/wFHlnsOkE0Qpsv8KwW9jD06N3vexQ/MALHguxQQ9IzytX9UUUc5CFz8M5E4SjZxSxUid2yapnX/SHW/wMX0GXhXlG2lMqOyqCXSX6IC0YB34zmfG03mL5pSRS5XhpyZuOQNpWGol/kX83kmZa2Udt5WRSFk8SvYh3XJkR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUxB4Wpy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KFMNICHw"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5016B1A11FE;
-	Tue, 13 Oct 2026 14:29:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 22FBB60362;
-	Tue, 13 Oct 2026 14:29:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F14E211D716F6;
-	Tue, 13 Oct 2026 16:28:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791901738; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=/wrEKHXblZ2nx08vVSNmqtW+MawEMZrP73gz4o7xkP8=;
-	b=KFMNICHwjUCttLMRcQ8f8UpYbbNITs9ZkOtn8QztB0HEujRuu4s9DCD8JfJMnbrWabnIiR
-	FBu1xIPD0ScmbWmJoOHORUt5xAFb6MkQLhsji4TL6hT0R7mJ2InhQQAwqqmBCp5YolvENd
-	1Z/OBfIi1oIhzXO6tQjO3pfBPjaWJBG1GCY4O41/79CweGEg9vSeqbTR0KlMtwHsP9bzRQ
-	B8lV+toVrGlLQqtW/863whyGiMmw1rsT1mNxTBtCxSGXzmZpBIYT5xzMxShAtjsu+oP9QY
-	9QKeO5/m5l3DMFVCtF63RmoP9LgQRhONoOEi9/4di32CBDyPTHqLB9QVN1KXVA==
-Date: Tue, 13 Oct 2026 16:28:55 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUxB4Wpy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32AE91F000FF;
+	Tue, 13 Oct 2026 14:29:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791901753;
+	bh=7qKNMiH2w4gu5NE5Ep8GYbNYJWZz1S3YluBpBbHkntE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LUxB4Wpy4M0NA/auUkF3ugzHwzl9yI2Akd18tG6e7Wd+FVpo90FHoQkUmsjoQ/CZ2
+	 47peU4JJ7n84TwVTZASc2hIZ/h6OQcE2VP1/G6MGlMPX7WOM5E4NhtGonekT2SkXTa
+	 Qku9hWMU1SUQBG3UKn33NnZ6lMWsvhSV/SkGi++l/LCHLkmqGAev1nHip9ImhXkScT
+	 ZnyBGlx5fLgOuTbOwAVTpLlpHSqlKtNv2DtqwnTw7PidO8LFLEJi4xvLhGK7AxH68x
+	 9BI98yhjX34QdpVDlC012GsUwaPtRA2Y+Kp3PdC0Tm3amFXF+Q55wdEwtRGUVBNjSE
+	 IPmaM1qdncb3Q==
+Date: Tue, 13 Oct 2026 15:29:11 +0100
+From: Harry Yoo <harry@kernel.org>
 To: Imre Kaloz <kaloz@kernel.org>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>, linux-rtc@vger.kernel.org
-Subject: Re: [PATCH v2 30/53] rtc: m48t35: support the SGI IP35 timekeeper's
- 1968 year base
-Message-ID: <2026101314285588f70d85@mail.local>
-References: <cover.1791890466.git.kaloz@kernel.org>
- <271bf55b479fbfd9b934e93a13eb8e96eb64e9fb.1791890466.git.kaloz@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/slab: sample slab_state once in kmem_cache_destroy()
+Message-ID: <as4q2WlR7mLhMBpG@thinkstation>
+References: <20260930195110.13296-1-kaloz@kernel.org>
+ <ar5pESlkEMqNsgxv@thinkstation>
+ <aef97b97-0bd7-d720-7f59-8c0078747370@kernel.org>
+ <as4QhUscRVtBzYpm@thinkstation>
+ <481e9a16-cd30-d463-14ee-b5602bcd5a21@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="QIi22XUrPanoMPkY"
-Content-Disposition: inline
-In-Reply-To: <271bf55b479fbfd9b934e93a13eb8e96eb64e9fb.1791890466.git.kaloz@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
-
---QIi22XUrPanoMPkY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <481e9a16-cd30-d463-14ee-b5602bcd5a21@kernel.org>
 
-Hello,
+On Tue, Oct 13, 2026 at 02:51:30PM +0200, Imre Kaloz wrote:
+> Hi Harry,
 
-On 13/10/2026 15:16:50+0200, Imre Kaloz wrote:
-> The M48T35 of SGI IP35-family machines counts its year from 1968. Take
-> the epoch from a platform id table, "rtc-m48t35" for IP27 and
-> "rtc-m48t35-ip35" for IP35, and bound the year to the part's century: on
-> IP27 a year past 2069 now fails to set.
+Hi Imre,
+
+> On Tue, 13 Oct 2026, Harry Yoo wrote:
 > 
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> ---
->  drivers/rtc/rtc-m48t35.c | 33 +++++++++++++++++++--------------
->  1 file changed, 19 insertions(+), 14 deletions(-)
+> > Uh, apologies for the late reply.
+> > Catching up after trip at LPC...
 > 
-> diff --git a/drivers/rtc/rtc-m48t35.c b/drivers/rtc/rtc-m48t35.c
-> index 92f19bf997b2..fa228a2bb527 100644
-> --- a/drivers/rtc/rtc-m48t35.c
-> +++ b/drivers/rtc/rtc-m48t35.c
-> @@ -49,6 +49,7 @@ struct m48t35_priv {
->  	struct m48t35_rtc __iomem *reg;
->  	size_t size;
->  	unsigned long baseaddr;
-> +	unsigned int epoch;
->  	spinlock_t lock;
->  };
->  
-> @@ -86,10 +87,7 @@ static int m48t35_read_time(struct device *dev, struct rtc_time *tm)
->  	 * Account for differences between how the RTC uses the values
->  	 * and how they are defined in a struct rtc_time;
->  	 */
-> -	tm->tm_year += 70;
-> -	if (tm->tm_year <= 69)
-> -		tm->tm_year += 100;
-> -
-> +	tm->tm_year += priv->epoch - 1900;
->  	tm->tm_mon--;
->  	return 0;
->  }
-> @@ -108,18 +106,10 @@ static int m48t35_set_time(struct device *dev, struct rtc_time *tm)
->  	min = tm->tm_min;
->  	sec = tm->tm_sec;
->  
-> -	if (yrs < 1970)
-> -		return -EINVAL;
-> -
-> -	yrs -= 1970;
-> -	if (yrs > 255)    /* They are unsigned */
-> -		return -EINVAL;
-> -
-> -	if (yrs > 169)
-> +	if (yrs < priv->epoch || yrs >= priv->epoch + 100)
->  		return -EINVAL;
->  
-> -	if (yrs >= 100)
-> -		yrs -= 100;
-> +	yrs -= priv->epoch;
->  
+> No worries, hope LPC was good!
 
+Thanks. It was good.
 
-Instead of open coding, you should use start_secs after setting the rtc
-range in probe(). attached i a patch I refreshed for the
-devm_rtc_allocate_device/devm_rtc_register_device conversion that you
-can include in this series. drivers/rtc/rtc-mt6397.c is an example that
-should be working for you.
-
-I never sent the patch because it is not clear from the datasheet how
-well leap year calculation works. My guess is that it worked in 2000 but
-fails in 2100.
-
->  	sec = bin2bcd(sec);
->  	min = bin2bcd(min);
-> @@ -149,9 +139,13 @@ static const struct rtc_class_ops m48t35_ops = {
->  
->  static int m48t35_probe(struct platform_device *pdev)
->  {
-> +	const struct platform_device_id *id = platform_get_device_id(pdev);
->  	struct resource *res;
->  	struct m48t35_priv *priv;
->  
-> +	if (!id)
-> +		return -ENODEV;
-> +
->  	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->  	if (!res)
->  		return -ENODEV;
-> @@ -164,6 +158,7 @@ static int m48t35_probe(struct platform_device *pdev)
->  				     pdev->name))
->  		return -EBUSY;
->  
-> +	priv->epoch = id->driver_data;
->  	priv->baseaddr = res->start;
->  	priv->reg = devm_ioremap(&pdev->dev, priv->baseaddr, priv->size);
->  	if (!priv->reg)
-> @@ -178,11 +173,20 @@ static int m48t35_probe(struct platform_device *pdev)
->  	return PTR_ERR_OR_ZERO(priv->rtc);
->  }
->  
-> +/* The year register on SGI IP35-family machines counts from 1968. */
-> +static const struct platform_device_id m48t35_id_table[] = {
-> +	{ "rtc-m48t35", 1970 },
-> +	{ "rtc-m48t35-ip35", 1968 },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(platform, m48t35_id_table);
-> +
->  static struct platform_driver m48t35_platform_driver = {
->  	.driver		= {
->  		.name	= "rtc-m48t35",
->  	},
->  	.probe		= m48t35_probe,
-> +	.id_table	= m48t35_id_table,
->  };
->  
->  module_platform_driver(m48t35_platform_driver);
-> @@ -191,3 +195,4 @@ MODULE_AUTHOR("Thomas Bogendoerfer <tsbogend@alpha.franken.de>");
->  MODULE_DESCRIPTION("M48T35 RTC driver");
->  MODULE_LICENSE("GPL");
->  MODULE_ALIAS("platform:rtc-m48t35");
-> +MODULE_ALIAS("platform:rtc-m48t35-ip35");
-> -- 
-> 2.47.3
+> > On Thu, Oct 01, 2026 at 05:42:36PM +0200, Imre Kaloz wrote:
 > 
+> <snip>
+> 
+> > > There is a related older window: after list_del() and before that
+> > > single read, slab_sysfs_init() could set FULL, skip this cache, and
+> > > the single read would then call both unlink and release on an
+> > > uninitialized kobject.
+> > 
+> > No, with this patch slab_sysfs_init() cannot set the state to FULL
+> > because the slab_caches list and slab_state are protected by slab_mutex.
+> > 
+> > > I have not hit that, and this patch does not close it.
+> > 
+> > I think the patch does close two bugs.
+> > 
+> > One introduced by 4ec10268ed98 (reading slab_state twice),
+> > another (reading slab_state outside slab_mutex) introduced by, hmm,
+> > not sure which commit introduced it :) should be very old.
+> 
+> You're right, I got that one wrong. Sampling under slab_mutex in the
+> same section as the list_del() means slab_late_init() either sees the
+> cache on the list or we see slab_state < FULL, so the older window is
+> closed too.
+> 
+> As for where the outside-mutex read came from, as far as I can tell it's
+> 0495e337b703 ("mm/slab_common: Deleting kobject in kmem_cache_destroy()
+> without holding slab_mutex/cpu_hotplug_lock"). Before that, the unlink
+> and release and their slab_state checks ran in shutdown_cache() under
+> slab_mutex.
+
+0495e337b703 Probably yes. Not 100% sure.
+
+It's quite messy, reading slab_state has been done inside, switched
+to outside, and back to inside, and so on.
+
+But should be fine as long as we can find the first commit that
+affects -stable kernels (>= 5.10.y)
+
+> SLAB_TYPESAFE_BY_RCU caches were already released from the
+> workfn outside the mutex since 657dc2f97220.
+> 
+> Want me to send a v2 with a second Fixes: for 0495e337b703, or is it
+> fine to add it when applying?
+
+Could you please verify fixing which bugs resolves the issue on sparc64
+described in the changelog? Reading it twice, or outside slab_mutex, or
+both?
 
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---QIi22XUrPanoMPkY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment;
-	filename=0001-rtc-m48t35-switch-to-devm_rtc_allocate_device.patch
-
-From 7aed40aa17edfdd132ad10f6fb1ca9f1f1ddac07 Mon Sep 17 00:00:00 2001
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Date: Tue, 13 Oct 2026 16:21:06 +0200
-Subject: [PATCH] rtc: m48t35: switch to devm_rtc_allocate_device
-
-Switch to devm_rtc_allocate_device/devm_rtc_register_device, this allows
-for further improvement of the driver.
-
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
----
- drivers/rtc/rtc-m48t35.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/rtc/rtc-m48t35.c b/drivers/rtc/rtc-m48t35.c
-index 92f19bf997b2..0f4a3cb1e1f0 100644
---- a/drivers/rtc/rtc-m48t35.c
-+++ b/drivers/rtc/rtc-m48t35.c
-@@ -173,9 +173,13 @@ static int m48t35_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, priv);
- 
--	priv->rtc = devm_rtc_device_register(&pdev->dev, "m48t35",
--				  &m48t35_ops, THIS_MODULE);
--	return PTR_ERR_OR_ZERO(priv->rtc);
-+	priv->rtc = devm_rtc_allocate_device(&pdev->dev);
-+	if (IS_ERR(priv->rtc))
-+		return PTR_ERR(priv->rtc);
-+
-+	priv->rtc->ops = &m48t35_ops;
-+
-+	return devm_rtc_register_device(priv->rtc);
- }
- 
- static struct platform_driver m48t35_platform_driver = {
--- 
-2.56.0
-
-
---QIi22XUrPanoMPkY--
+Cheers,
+Harry / Hyeonggon
