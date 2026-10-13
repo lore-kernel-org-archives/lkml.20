@@ -1,279 +1,321 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B70D4746C0;
-	Tue, 13 Oct 2026 07:10:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DA638642C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:11:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875457; cv=none; b=L9FTY53oPtqE3CSEy6uXZIQIQkSe4qGW3u4DX5Zk+nO6w0POtnCnVhpOVKn6/5oAVj0ikqKufIt2aWcaSVbY22GYWdjwhyMXLvWaDtfUobneUg7BGBwLmavM+iVN74WVCZaPmHK5KpPSDTFvZduGy4RJ6VsAcEBvaKSwcKvAgpY=
+	t=1791875505; cv=none; b=kcTTmbFzB1NCFfMMT9Dck0Wboeaka5Xep0X1nTDqL0DTFEQq+psXcqhzhrdy9H7+Zp0t24L2FcaGcgBCsgaPQuVC33Gz2wpf5Fg/6gYk2jiqA8FC44FyYZtfqq/r+WaMD6hcJ3bpU1ZS7Fk2tpD7AM3+CXeqlYpQmTzpDInJrc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875457; c=relaxed/simple;
-	bh=hByn10bJNoZebm6V3wgBX07ezYPy6CjWK72QGerzSF4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DB1WsCS1YPRlTIh9AY+1+hbZdmxi1jFMS+wSaXY2HXRLcVbN856TmK4CeIC66jYvDSEAyvWA0HE0AuVP66A2E1bJ+W5exUzR2o1MF21blLwVEG3IBUFFJkM+cY/i8ERdCHiDIeZlSOoyuubYWmuBNBzXFttyOGx6DgidnWEgu9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=I/SvRCW9; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1791875505; c=relaxed/simple;
+	bh=nk0ZMnRlMhtrb2+rphRNr0Avx58BXdBLOCdJ2QbHkNA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=agk0SeUIaRLxfoqvt1IDIbx42tTvVeFeoaqVmfTgxgebnUo6epmzMOp18uVqqM8kB4mk2XJa0p3//PYzXnK8e6J85VoBLBEbwp/MAIqd1ecQVH6ehkpSLHIKIFp2eqbIsD9vR8QA8os0trEo+YSjLRYlmRffUkwBcU5gGFQbWTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=CDxhC/f9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IPL46ARl; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=CDxhC/f9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IPL46ARl; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="I/SvRCW9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1791875450;
-	bh=KHJJ6bd4PUseGr9aMvadgkcCTpYbLf5JRG/Ap/xrrkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I/SvRCW9IIg/yJppNC0i7uucBdfRXKfIyAJiJMe2XSmK9lYQCSkZ90p2jb3yryzIb
-	 zcBq32Pqy4dCdgwB60M4G1KIf3r31D7rumDKMnq/tlmhaLrdxT7XhMTR3oEcgbIoYI
-	 rYq9WwPeC9N580i9UsAGhwJyIeRRcce33RmHqkXhGKBqMx19vkTFGnUCKjkh7wrVTd
-	 MdEFAEC7wXl0WGOKvb93vQ54pKmFj6cVDR6Z/O9Foq3BGvJO8lJg97rnrRsPZpIz9I
-	 SbZnTacw0Ao7g8IjjDfGYsdNtjQhO8HWCozTmybul2YOlZmnB9GNri2tD8u3JYNW88
-	 8FPrG3raHXGrQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4j3lqG295hz4xcZ; Tue, 13 Oct 2026 18:10:50 +1100 (AEDT)
-Date: Tue, 13 Oct 2026 18:10:39 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-Message-ID: <as3ZWBr3wRonkxXF@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-16-herve.codina@bootlin.com>
- <arDMhoNNXcPi81sR@gractus.seuss>
- <20260925152157.511dc65c@bootlin.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CDxhC/f9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IPL46ARl";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CDxhC/f9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IPL46ARl"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 15BA221F63;
+	Tue, 13 Oct 2026 07:11:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791875502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Y3EbprZowi6aXLTEY89acelPd95mHvgoSDTQsddNejQ=;
+	b=CDxhC/f9WDlkPkrAm7wtX6ehHbrqBywz0l7T0ly5yyPwhEa2eTBhP7+NrLrlE4RDXoNuFB
+	dHM81Ln2NNj79VdSqjvgfQlqDqLnAmxP4JBNoDX+WNO8r+3NgoiVQRjh8VMKryYeA9wtyo
+	KUS2jmqcnzjhzMNsejqxMQf88cc586w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791875502;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Y3EbprZowi6aXLTEY89acelPd95mHvgoSDTQsddNejQ=;
+	b=IPL46ARl1jPdkdk4UbcOylbt+zv+VJlY2wTSkwSS8PdDSy52JEr2NUyq2rJI/gm2MEAM8Z
+	5x3dRbPNGjixU4CA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791875502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Y3EbprZowi6aXLTEY89acelPd95mHvgoSDTQsddNejQ=;
+	b=CDxhC/f9WDlkPkrAm7wtX6ehHbrqBywz0l7T0ly5yyPwhEa2eTBhP7+NrLrlE4RDXoNuFB
+	dHM81Ln2NNj79VdSqjvgfQlqDqLnAmxP4JBNoDX+WNO8r+3NgoiVQRjh8VMKryYeA9wtyo
+	KUS2jmqcnzjhzMNsejqxMQf88cc586w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791875502;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Y3EbprZowi6aXLTEY89acelPd95mHvgoSDTQsddNejQ=;
+	b=IPL46ARl1jPdkdk4UbcOylbt+zv+VJlY2wTSkwSS8PdDSy52JEr2NUyq2rJI/gm2MEAM8Z
+	5x3dRbPNGjixU4CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C70D1349D;
+	Tue, 13 Oct 2026 07:11:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id W0lcOazZzWpHTgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 13 Oct 2026 07:11:41 +0000
+Message-ID: <64707239-eac7-4259-a8ff-7ec43d13860e@suse.de>
+Date: Tue, 13 Oct 2026 09:11:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WjVfNxm1aa21zhMm"
-Content-Disposition: inline
-In-Reply-To: <20260925152157.511dc65c@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/format-helper: Add XRGB8888 to UYVY conversion
+To: Ho Jie Feng <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
+References: <20261012170857.199561-1-hjf3108@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261012170857.199561-1-hjf3108@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.29 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -4.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
---WjVfNxm1aa21zhMm
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi
 
-On Fri, Sep 25, 2026 at 03:21:57PM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Mon, 21 Sep 2026 16:20:02 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Wed, Aug 26, 2026 at 10:31:46AM +0200, Herve Codina wrote:
-> > > This v18 version will add support for
-> > >   - Structured tags.
-> > >     Those tags value definition will allow "old" libfdt, dtc and other
-> > >     tools to skip unknown tags if encountered in future dtb version.
-> > >=20
-> > >     libfdt, dtc and other tools implementing version v18 will be able=
- to
-> > >     skip unknown tags available in dtbd generated with later version =
-of
-> > >     dtc.
-> > >=20
-> > >   - dt_flags header field.
-> > >     For now this flag field is set to 0. It is a placeholder for futu=
-re
-> > >     dtb version and could be used to store some dtb related informati=
-on
-> > >     such as the kind of dtb. For instance, the future addons format w=
-ill
-> > >     use this field to clearly identify that the dtb is an addon dtb.
-> > >=20
-> > >   - last_comp_version_w header field.
-> > >     This field is similar to last_comp_version but for writing.
-> > >     It contains the lowest version of the devicetree data structure w=
-ith
-> > >     which the version used can safely perform modifications (taking i=
-nto
-> > >     account following rules related to unknown tags).
-> > >     If this lowest version is greater than the last known supported
-> > >     version, modification are simply forbidden and lead to a
-> > >     FDT_ERR_BADVERSION error.
-> > >=20
-> > > For modification, when an unknown tag that can be skipped is involved
-> > > and last_comp_version_w allows modifications, the following rules
-> > > apply: =20
-> >=20
-> > "last_comp_version_w allows modifications" is a bit hard to
-> > understand.  What exactly is the version number against which we're
-> > comparing that value?
->=20
-> We had one last_comp_version.
->=20
-> Now we have two last_comp_version, one for reading and one for writing.
-> We compare again the dtb version supported by our libfdt version.
->=20
-> This comes from the discussion [1]
->=20
-> [1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdiECtk49on=
-8VfkP7CDvw@mail.gmail.com/
+Am 12.10.26 um 19:08 schrieb Ho Jie Feng:
+> Add a helper for devices that use packed UYVY but accept XRGB8888
+> framebuffers.
 
-Ok, I now see that the logic is you simply fail to proceed with writes
-if the library's latest understood version is < last_comp_version_w.
+Is there a description of UYVY available somewhere?
 
-As I said elsewhere, this approach doesn't particularly make sense to
-me.  If lib_version >=3D last_comp_version you *can* write, even if it
-means stripping everything that's not understood at lib_version.
+>
+> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> ---
+> This is used for a driver, ms912x that I will be submitting. It only
+> supports uyvy framebuffers.
 
-So the real question here is how do we know, for any given structured
-tag, what write operations require the version to be downgraded (which
-might in turn require this and/or other structured tags to be stripped
-entirely).
+Please resubmit as part of the driver series. We're not going to merge 
+it without callers anyway.
 
-This is related to (though not the same as) the question of whether
-introducing a new structured tags requires a bump to the dtb version
-(though not to last_comp_version, of course).
+>
+>   drivers/gpu/drm/drm_format_helper.c   | 73 +++++++++++++++++++++++++++
+>   drivers/gpu/drm/drm_format_internal.h | 21 ++++++++
+>   include/drm/drm_format_helper.h       |  4 ++
+>   3 files changed, 98 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_format_helper.c b/drivers/gpu/drm/drm_format_helper.c
+> index 6cddf05c493bd..606733ca43fb4 100644
+> --- a/drivers/gpu/drm/drm_format_helper.c
+> +++ b/drivers/gpu/drm/drm_format_helper.c
+> @@ -1379,3 +1379,76 @@ void drm_fb_xrgb8888_to_gray2(struct iosys_map *dst, const unsigned int *dst_pit
+>   }
+>   EXPORT_SYMBOL(drm_fb_xrgb8888_to_gray2);
+>   
+> +static void drm_fb_xrgb8888_to_uyvy_line(void *dbuf, const void *sbuf, unsigned int width)
+> +{
+> +	u8 *transfer_buffer = dbuf;
+> +	const __le32 *temp_buffer = sbuf;
 
-Here's the simplest model I can think of.  It's what I'd suggest,
-unless one of it's limitations is a showstopper for what you have in mind:
+For naming, please follow the conventions used by the other helpers in 
+this file.
 
- - version and last_comp_version retain their meanings.  No new header
-   version.
- - New structured tags *do* require a new version.  If a dtb wants to
-   include a specific tag, it must label itself with a version that
-   defines that tag.  To enforce that:
-    - For read operations, if we encounter a (known) tag that
-      doesn't belong in the header version, we throw an error (either
-      BADSTRUCTURE, or a new error for the purpose).
-       - If version <=3D FDT_LAST_SUPPORTED_VERSION and we encounter an
-         unknown tag that also trips the error (since if it was
-	 defined in this version, we should know about it).
-    - For write operations (including in-place), we always error if
-      version > FDT_LAST_SUPPORTED_VERSION (done in fdt_rw_probe_()).
-    - fdt_open_into() _is_ permitted if version > FDT_LAST_SUPPORTED_VERSIO=
-N.
-      It will strip all unknown structured tags from the entire tree
-      and downgrade the version to FDT_LAST_SUPPORTED_VERSION.
+> +	unsigned int i, dst_offset = 0;
+> +	unsigned int pixel1, pixel2;
+> +	unsigned int r1, g1, b1, r2, g2, b2;
+> +	unsigned int r, g, b;
+> +	unsigned int v, y1, u, y2;
+> +
+> +	for (i = 0; i < width; i += 2) {
+> +		pixel1 = le32_to_cpup(&temp_buffer[i]);
+> +		pixel2 = le32_to_cpup(&temp_buffer[i + 1]);
+> +
+> +		r1 = (pixel1 & 0x00ff0000) >> 16;
+> +		g1 = (pixel1 & 0x0000ff00) >> 8;
+> +		b1 =  pixel1 & 0x000000ff;
+> +		r2 = (pixel2 & 0x00ff0000) >> 16;
+> +		g2 = (pixel2 & 0x0000ff00) >> 8;
+> +		b2 =  pixel2 & 0x000000ff;
+> +
+> +		y1 = drm_pixel_rgb_to_y_bt601(r1, g1, b1);
+> +		y2 = drm_pixel_rgb_to_y_bt601(r2, g2, b2);
+> +
+> +		r = r1 + r2;
+> +		g = g1 + g2;
+> +		b = b1 + b2;
+> +
+> +		v = drm_pixel_rgb2_to_v_bt601(r, g, b);
+> +		u = drm_pixel_rgb2_to_u_bt601(r, g, b);
+> +
+> +		transfer_buffer[dst_offset++] = u;
+> +		transfer_buffer[dst_offset++] = y1;
+> +		transfer_buffer[dst_offset++] = v;
+> +		transfer_buffer[dst_offset++] = y2;
 
-This does mean that every new tag does require a new version, which
-may make experimenting with new tags more awkward.  More
-significantly, it also means that any change requires a version
-downgrade, even if it's just updating a handful of properties.
+Rather that writing bytes individually, use put_unaligned_le32() or a 
+similar helper.  Byte order within a pixel is little endian, although 
+I'm not sure what this means for UYVY.
 
-On the plus side, it's fairly simple, retains as much as possible
-current version semantics.  Most especially there's no tricky
-questions about what sorts of writes might invalidate an unknown tag
-(they'll all be stripped by the time we permit a write operation).
+> +	}
+> +}
+> +
+> +/**
+> + * drm_fb_xrgb8888_to_uyvy - Convert XRGB8888 to UYVY clip buffer
+> + * @dst: Array of UYVY destination buffers
+> + * @dst_pitch: Array of numbers of bytes between the start of two consecutive scanlines
+> + *             within @dst; can be NULL if scanlines are stored next to each other.
+> + * @src: Array of XRGB8888 source buffers
+> + * @fb: DRM framebuffer
+> + * @clip: Clip rectangle area to copy; x1 and x2 must be even
+> + * @state: Transform and conversion state
+> + *
+> + * This function copies parts of a framebuffer to display memory and converts the
+> + * color format during the process. The parameters @dst, @dst_pitch and @src refer
+> + * to arrays. Each array must have at least as many entries as there are planes in
+> + * @fb's format. Each entry stores the value for the format's respective color plane
+> + * at the same index.
+> + *
+> + * This function does not apply clipping on @dst (i.e. the destination is at the
+> + * top-left corner).
+> + *
+> + * Drivers can use this function for UYVY devices that don't support XRGB8888
+> + * natively. ITU BT.601 is being used for the RGB -> YUV conversion.
+> + */
+> +void drm_fb_xrgb8888_to_uyvy(struct iosys_map *dst, const unsigned int *dst_pitch,
+> +			     const struct iosys_map *src, const struct drm_framebuffer *fb,
+> +			     const struct drm_rect *clip, struct drm_format_conv_state *state)
+> +{
+> +	static const u8 dst_pixsize[DRM_FORMAT_MAX_PLANES] = {
+> +		2,
+> +	};
+> +
+> +	drm_fb_xfrm(dst, dst_pitch, dst_pixsize, src, fb, clip, false, state,
+> +		    drm_fb_xrgb8888_to_uyvy_line);
+> +}
+> +EXPORT_SYMBOL(drm_fb_xrgb8888_to_uyvy);
+> +
+> diff --git a/drivers/gpu/drm/drm_format_internal.h b/drivers/gpu/drm/drm_format_internal.h
+> index ce29dd05bcc55..7a4cfb0d188cb 100644
+> --- a/drivers/gpu/drm/drm_format_internal.h
+> +++ b/drivers/gpu/drm/drm_format_internal.h
+> @@ -159,6 +159,27 @@ static inline u32 drm_pixel_xrgb8888_to_abgr2101010(u32 pix)
+>   	       drm_pixel_xrgb8888_to_xbgr2101010(pix);
+>   }
+>   
+> +static inline u32 drm_pixel_rgb_to_y_bt601(u32 r, u32 g, u32 b)
+> +{
+> +	const u32 luma = (16U << 16) + 16829 * r + 33039 * g + 6416 * b + 32768;
+> +
+> +	return luma >> 16;
+> +}
+> +
+> +static inline u32 drm_pixel_rgb2_to_u_bt601(u32 r2, u32 g2, u32 b2)
+> +{
+> +	const u32 u = (128U << 17) - 9714 * r2 - 19071 * g2 + 28784 * b2 + 65536;
+> +
+> +	return u >> 17;
+> +}
+> +
+> +static inline u32 drm_pixel_rgb2_to_v_bt601(u32 r2, u32 g2, u32 b2)
+> +{
+> +	const u32 v = (128U << 17) + 28784 * r2 - 24103 * g2 - 4681 * b2 + 65536;
+> +
+> +	return v >> 17;
+> +}
+> +
 
-If those limitations really are a showstopper, I do have a few other
-models that might work, though.
+These helpers seem too fine-grained. IMHO it would be better to have a 
+helper like  drm_pixel_rgb_to_uyvy() that takes two RGB values and 
+returns the assembled 16-bit UYVY value.
 
-> > >   - When a property is modified, tags related to this property are
-> > >     removed and the dtb version is downgraded. =20
-> >=20
-> > We need a definition of what "related to" means somewhere.
->=20
-> Yes a tag is said related to a property if it is available after its FDT_=
-PROP and
-> before the next FDT_PROP (other proterty) of FDT_BEGIN_NODE (subnode) for=
- FDT_NODE_END
-> (end of node).
->=20
-> This is defined by "structured tag"
->=20
-> Devicetree Specification will be updated to have all of this documentation
-> available.
+Best regards
+Thomas
 
-Ok.
+>   /*
+>    * Conversion from ARGB8888
+>    */
+> diff --git a/include/drm/drm_format_helper.h b/include/drm/drm_format_helper.h
+> index 2b5c1aef80b0e..e50f96e07484c 100644
+> --- a/include/drm/drm_format_helper.h
+> +++ b/include/drm/drm_format_helper.h
+> @@ -136,4 +136,8 @@ void drm_fb_xrgb8888_to_gray2(struct iosys_map *dst, const unsigned int *dst_pit
+>   			      const struct iosys_map *src, const struct drm_framebuffer *fb,
+>   			      const struct drm_rect *clip, struct drm_format_conv_state *state);
+>   
+> +void drm_fb_xrgb8888_to_uyvy(struct iosys_map *dst, const unsigned int *dst_pitch,
+> +			     const struct iosys_map *src, const struct drm_framebuffer *fb,
+> +			     const struct drm_rect *clip, struct drm_format_conv_state *state);
+> +
+>   #endif /* __LINUX_DRM_FORMAT_HELPER_H */
 
-> > >   - When a property is removed, tags related to this property are
-> > >     obviously removed. The dtb version is kept unchanged.
-> > >=20
-> > >   - When a property or a node is added, obviously no unknown tags are
-> > >     added and the dtb version is kept unchanged. =20
-> >=20
-> > Again, this rule doesn't make sense to me at the same time as the
-> > property modification rule.
->=20
-> A current libfdt/dtc version cannot add tags which will be defined in the
-> future.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-Sure, but it can still add whole new nodes or properties.  The
-question is whether a version can mandate the presence of certain
-tags.  Dowgrading the version when we strip tags from a modified
-property suggests "yes", but _not_ downgrading the version when we
-add new property suggests "no".
 
-> > >   - When a node is removed, tags related to this node are obviously
-> > >     removed. The dtb version is kept unchanged.
-> > >=20
-> > >   - Adding, removing or modifying a property is not considered as a n=
-ode
-> > >     modification and so, those operations have no impacts on unknown
-> > >     tags related to the node. Those node related tags are kept
-> > >     unchanged.
-> > >=20
-> > >   - The only modification considered as a node modification is setting
-> > >     its name. We consider that this operation has no impact on tags
-> > >     related to the node. Here also, those node related tags and the d=
-tb
-> > >     version are kept unchanged.
-> > >=20
-> > >   - Global (dtb related) unknown tags are kept unchanged regardless t=
-he
-> > >     modification done.
-> > >=20
-> > > In all cases, if unknown tags are not involved in a modification, the
-> > > dtb version is not downgraded when the modification is made.
-> > >=20
-> > > It is worth noting that with this v18 version, the dtb version is not
-> > > downgraded for any modification but only when unknown tags are removed
-> > > due to a property modification. In v17 or older version any modificat=
-ion
-> > > led to a dtb version downgrade. =20
-> >=20
-> > I don't think removing that behaviour is safe.  Even if the rules
-> > above make sense specifically for the metadata tags (which I'm not yet
-> > convinced of), that's not sufficient.  If nothing else, future
-> > versions could add extra header fields.  If we modify the tree, those
-> > header fields could be stale, or even removed.
->=20
-> last_comp_version_w will be used by the future version to prevent this
-> kind of issue with old version.
->=20
-> Best regards,
-> Herv=E9
->=20
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---WjVfNxm1aa21zhMm
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrN2VgACgkQzQJF27ox
-2GfR2A/+Pl4h60Lh95Q9QFtaHZ1rs8OTFnjzlvlQ9cJvsf/QXuAY4IeRu7UEgG6c
-j7Qri16XK7vjlPcSmHp61/o59LWliA30BoH/FEbQoFcqoK+hY1yY6zdemK2Xgv9k
-dBTCQwngE8/x6vijiYNraOFD2KXexdAYc1KrKEptGFG6O2/Fs0WRGVOAOYEGOvS9
-wkAU+a2zrjFR7+6rBPZwCL55v9rND1R9RjIFUriy4VmyrE/jo9w9q/kZ1GjVd2Q7
-mV1Hlq9yyLiuX4DfRJWLBA+f92FJQClUiYOD7WmIN4ly293rmkKFaAHSxBArXbL3
-8vSyUGWCzt5gnowFWGdOjD6Nx4yHbKUAxCgRm9UjOG4kv159wpLgoWNHwAl+H26I
-0VaMPAW41AipZ1jvwO5TQ4L4xXgii6uAaTHKWHvxYTH2bWJpSC42LdD9Rg2s6uXf
-Lnd9Li7pteTXNESoVizmyPqVBzBSsdeMDiO+C1XpNBwcPP4mSD4C2Ypnjcdt6RCq
-pUQ3xeeqySXBvrb2wQLCx+D+zgg3vDEDoWub7BnpRvQvB4+tHmzpQn0L/ybQab8M
-IWofVnGRU1kRc9Qvy7GZ8DJV1QSyMr+G8jVFXWagdOIzfFQEdkZcB7KwMcpK2N/a
-8GGg1dea/fnXM6Cfa0iemWq9r4tKRNaQzr8dI8TZ3qCqOB+dFjc=
-=disM
------END PGP SIGNATURE-----
-
---WjVfNxm1aa21zhMm--
