@@ -1,153 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F9D4EDCD6;
-	Tue, 13 Oct 2026 11:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA88D3DB33C;
+	Tue, 13 Oct 2026 11:38:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891428; cv=none; b=HjXBTp4lGmtjWNKdx0YF8oaewpzBJbsq7cyDjLEiuDFv8KauFMuCn5IKKD7FriePIw8J8ezYA08skqI6y8TE4IKtejhIBkpcdhBwTO6M2KQCOOBY37TBQV/0aXIw/9+jB5PBxbrWKx70u+p/+4Ek6Clv9EG2h6pD6RrYSDkThuM=
+	t=1791891541; cv=none; b=DiA2AzjhDgqQ3BIonqC3MRY+ED5IbINJhaGjgRdXIIWhL1yhNesDr5XuyTaa6Ad3rPq4xwmVfP/+0d1vTAWTMLz09lRnAyby8OxEIjY83rSKiz9VAIhCWJzshfk/VEleqjD6egYD9c4GAO2mjMlLnEv27KfOVU7ZVCS/olu0QyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891428; c=relaxed/simple;
-	bh=3WUSLzebOr2ySv4J/w7atqPmxuF+kPawmJ81BsoAz3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sBd8qirXq+EntcSo+vVSbp9jc+x+LevvswNNJHjTxS6gQMOuc84Ybt6iLuNt/O0SPAEA//bRdd8uVhtBRcmMV73GO31f90b7DctHUhiFSx1HqoS0ecrXDgifMnhN8d/6DNfm03+ujovoCDDMR8mqlR8XW+Jr1lhNcNGe/G75W24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b7jZhXyZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791891541; c=relaxed/simple;
+	bh=F3jbrUon50I/esfgt38aY5mZa678/5mAa/00VYW7/nc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BALNjAeggFBuFFeVxi5Tv+DcOHG0dOIAt7+3knOe6eiElfJc67UsURc5z5zZ56UllV7LDXgro1ga5xXp6mN3a5oPmbNeb61fUVmVTxho14SFiimaHpESsp2fAiCDnj9jWSs5oyGHGO9I0FDNoxO9kmxuCQs/JsSPU0kXkixasxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLyRBUQx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b7jZhXyZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11B01F000FF;
-	Tue, 13 Oct 2026 11:37:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791891426;
-	bh=whuCXrASEjiOa53ahdPLNNDh/L/dZAaNEwT+F9NvgAM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b7jZhXyZnbu6aYvE/wYID94SUUXIfeqUui/Keow3vDwWhhFGxKEZw+81dvRUz2clf
-	 3c6sv/uoWd4npQsr8kWdIc6DEpyMo5bMIGxKJSWiBEp5uq1324fWzqmyHBPAid4W1e
-	 /nlvLJfO2Xe9hyUP2HJ0/IIGkOQ/VBYAPaoZFdIc=
-Date: Tue, 13 Oct 2026 13:37:11 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Donald Shannon <donalds@nvidia.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Mark Brown <broonie@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
-	Corey Minyard <corey@minyard.net>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	Quan Nguyen <quan@os.amperecomputing.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-leds@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net,
-	linux-acpi@vger.kernel.org, linux-doc@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
-Message-ID: <2026101355-species-glance-9ff8@gregkh>
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLyRBUQx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5421F000FF;
+	Tue, 13 Oct 2026 11:38:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791891539;
+	bh=iM7Kn1upRKCYgX3my+5a9iEmzXraOMK8a7ELFfehbz4=;
+	h=From:To:Cc:Subject:Date;
+	b=BLyRBUQxmYZGUAeaHFZEzWN0WXTwLON5T6iRtekbZ28LOLeR9AvTb8QnRRsdR8UrL
+	 796ejjZfccuD7wK8vjH6e0Boe62b7KWRJAiNsO2+/iFFqlivG90MLbN+zX+XtyeNxw
+	 BSOsSoNeyqlzfthkBIEKIsy42+fN+u5Y542Fwl+ZhuPt370uFubIHQvZTVro25+q3G
+	 tRsN7O6rWjrxm6G1c9oVjlNalmF8GBsO+FEPP10IVtM0IHNoAr6fGG4YbFEdoI54UX
+	 5ecw6Ce9ekUpN7fcRiYXc8kTPpNqGYgksodQGALu3/elqjmoNWNVpMzBLY+7FwgNJq
+	 Y3OIPV+5Y3Cfw==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] tracing/histograms: Reject non-stacktrace fields for synthetic stacktrace fields
+Date: Tue, 13 Oct 2026 11:24:48 +0000
+Message-ID: <20261013112449.1006088-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 08:35:58PM +0300, Adrian Ambrozewicz wrote:
-> This series adds drivers for the NVIDIA LSTP USB adapter: a USB core
-> driver and GPIO, LED, I2C, SPI, UART and BMC-side IPMI function drivers,
-> with their device tree bindings, an ACPI description document and the
-> sysfs ABI.
+In check_synth_field(), when a synthetic event field is a stacktrace
+(field->is_stack) and the histogram field is not a "long[" stacktrace
+array, validation falls through to the generic size and signedness
+comparison.
 
-Why would a USB device have anything to do with device tree?
+Because parse_synth_field() sets a stacktrace field's type to
+"__data_loc unsigned long[]", its size is sizeof(u64) and
+synth_field_signed() marks it as signed.  Consequently, any 8-byte
+signed scalar histogram field passes the fallback check, and its scalar
+value is subsequently dereferenced as a kernel stacktrace pointer in
+get_field_size() and trace_stack().
 
-> What LSTP is
-> ------------
-> 
-> LSTP (Low-Speed Transport Protocol or Low-Speed Tunnelling Protocol) is
-> a vendor-specific USB interface (class 0xff, subclass 0x3f) that
-> multiplexes several low-speed "channels" over one pair of bulk
-> endpoints. It is implemented by NVIDIA's SMA, an MCU (0955:cf11), and
-> by other vendors' parts: two hub/bridge chips have it built in
-> (0424:4940, 174c:2214). Boards use it to
-> reach SPI flash, I2C sensors, GPIOs and LEDs, a UART and a host-to-BMC
-> IPMI path, on both BMCs and host systems.
+Furthermore, checking strstr(hist_field->type, "long[") is insufficient
+because tracepoint fields defined with __bitmask() or __rel_bitmask()
+also have type "__data_loc unsigned long[]" or "__rel_loc unsigned
+long[]", whilst create_hist_field() treats them as 4-byte scalar values
+without HIST_FIELD_FL_STACKTRACE.
 
-Cute, but that's a total abuse of the USB standard.  Why wasn't this
-implemented by the proper "each channel is a USB interface" model
-instead?  Have the firmware engineers there not read the USB spec?
+Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
+variables (whilst excluding variable aliases from per-element
+stacktrace capture), and reject any mismatch between
+HIST_FIELD_FL_STACKTRACE and field->is_stack in check_synth_field().
 
-> The channel types are SPI host, I2C host, GPIO (with interrupts and LED
-> pins), UART, IPMI and MMIO. Channel 0 is the control channel: at probe
-> the driver reads the channel table from it, which gives each channel's
-> ID, type and configuration. The set of channels is decided by the
-> firmware, so the same VID:PID carries different channels on different
-> boards. No firmware description is needed for the channels to work.
+Fixes: 00cf3d672a9d ("tracing: Allow synthetic events to pass around stacktraces")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+v1 -> v2:
+  - Check HIST_FIELD_FL_STACKTRACE instead of strstr(hist_field->type, "long[")
+    so __bitmask() and __rel_bitmask() fields are also rejected.
+  - Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
+    variables, whilst excluding variable aliases from per-element stacktrace
+    capture.
 
-Again cute, but that's not how USB devices are supposed to work, why
-would we want to do this at all?
+ kernel/trace/trace_events_hist.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-> Series layout
-> -------------
-> 
->    1  dt-bindings: gpio: Add NVIDIA LSTP GPIO
->    2  dt-bindings: i2c: Add NVIDIA LSTP I2C
->    3  dt-bindings: spi: Add NVIDIA LSTP SPI
->    4  dt-bindings: usb: Add NVIDIA LSTP USB adapter
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 8af97fd4ee2d..d8864b3165d2 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -2121,7 +2121,8 @@ static int init_var_ref(struct hist_field *ref_field,
+ 	ref_field->size = var_field->size;
+ 	ref_field->is_signed = var_field->is_signed;
+ 	ref_field->flags |= var_field->flags &
+-		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS);
++		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS |
++		 HIST_FIELD_FL_STACKTRACE);
+ 
+ 	if (system) {
+ 		ref_field->system = kstrdup(system, GFP_KERNEL);
+@@ -3318,6 +3319,7 @@ static struct field_var *create_field_var(struct hist_trigger_data *hist_data,
+ 		ret = PTR_ERR(var);
+ 		goto err;
+ 	}
++	var->flags |= val->flags & HIST_FIELD_FL_STACKTRACE;
+ 
+ 	field_var = kzalloc_obj(struct field_var);
+ 	if (!field_var) {
+@@ -3946,7 +3948,10 @@ static int check_synth_field(struct synth_event *event,
+ 	    && field->is_dynamic)
+ 		return 0;
+ 
+-	if (strstr(hist_field->type, "long[") && field->is_stack)
++	if (!!(hist_field->flags & HIST_FIELD_FL_STACKTRACE) != field->is_stack)
++		return -EINVAL;
++
++	if (field->is_stack)
+ 		return 0;
+ 
+ 	if (strcmp(field->type, hist_field->type) != 0) {
+@@ -4487,7 +4492,8 @@ static int create_var_field(struct hist_trigger_data *hist_data,
+ 	if (!ret && hist_data->fields[val_idx]->flags & HIST_FIELD_FL_EXECNAME)
+ 		update_var_execname(hist_data->fields[val_idx]);
+ 
+-	if (!ret && hist_data->fields[val_idx]->flags &
++	if (!ret && !(hist_data->fields[val_idx]->flags & HIST_FIELD_FL_ALIAS) &&
++	    hist_data->fields[val_idx]->flags &
+ 	    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE))
+ 		hist_data->fields[val_idx]->var_str_idx = hist_data->n_var_str++;
+ 
+@@ -5228,7 +5234,8 @@ static void hist_trigger_elt_update(struct hist_trigger_data *hist_data,
+ 		if (hist_field->flags & HIST_FIELD_FL_VAR) {
+ 			var_idx = hist_field->var.idx;
+ 
+-			if (hist_field->flags &
++			if (!(hist_field->flags & HIST_FIELD_FL_ALIAS) &&
++			    hist_field->flags &
+ 			    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE)) {
+ 				unsigned int str_start, var_str_idx, idx;
+ 				char *str, *val_str;
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
-USB devices do not have DT bindings.  It's a dynamic bus, with
-self-describing devices, don't make the mistake of thinking this is
-giong to work.
-
->    5  usb: misc: Add NVIDIA LSTP USB adapter driver
->    6  gpio: Add NVIDIA LSTP GPIO driver
->    7  leds: Add NVIDIA LSTP LED driver
->    8  i2c: Add NVIDIA LSTP I2C driver
->    9  spi: Add NVIDIA LSTP SPI driver
->   10  tty: Add NVIDIA LSTP UART driver
->   11  ipmi: Add NVIDIA LSTP IPMI BMC driver
-
-So you have a custom "bus" for a single USB device/interface?  Ick,
-again, why?  Please do this the "proper" way in your firmware and do
-this one-device-per-usb-interface like the rest of the world does
-please.
-
-Doing it that way will not cost any more hardware pins at all, it's all
-handled in firmware, and as you all have complete control over the
-firmware, you can fix this up now to do things properly.
-
-> Patch 4 $refs the schemas from patches 1-3, so it comes last among the
-> bindings; it also defines the serial@N and ipmi@N channel nodes inline.
-> The MAINTAINERS entry starts in patch 1 and gains each later patch's
-> files. Patch 5 carries:
-> - the core in drivers/usb/misc/;
-> - include/linux/usb/lstp.h for the function drivers;
-> - the sysfs ABI file;
-> - Documentation/driver-api/usb/lstp.rst;
-> - Documentation/firmware-guide/acpi/lstp.rst.
-> 
-> Patches 6 and 8-11 each depend only on patch 5; patch 7 (LEDs) also
-> needs patch 6, whose GPIO driver hands the LED pins to it.
-> 
-> Why the auxiliary bus, and why not MFD
-> --------------------------------------
-
-Neither is ok for USB devices, that's not an argument either way.
-
-Please go talk to some people with USB spec experience on how to make a
-multi-function device correctly.  This way sure does not look like it at
-all.
-
-thanks,
-
-greg k-h
