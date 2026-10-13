@@ -1,230 +1,329 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D127551B16C;
-	Tue, 13 Oct 2026 13:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898142; cv=none; b=Ur2k1eGWlNpn4bUP52tRAP/OAnD7FX3mimiWxQ2389XZhKaCXX8LZCGvR4agnfZRtgeLXM0AGUQU6mkU0uGChUnd9UbzxND9n3jWaViNbhI+ROK/+caDPA0wkfSo3cux4zygHVM7yxeVQs0ZiUIC/0mu23N1jF7HitG5scBy9D0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898142; c=relaxed/simple;
-	bh=FfCWZb607HhoaxWj3R36ql+EKeZXJIt+Lnk5QOIkKX0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jtved8dZVCAMcz1F5T4TQaFVk7E01IN2imG43+EoX1nq/jV3rjRcvAiJF0dwRrErUYJh08zbWdalhlK6TiCnQUZ/ROrcGREDiIQrakVcUSH92KETTYm6YdQoCIzEdUVVTx3q9/oq92nliaVVeLlioJnKmvaGkDg9gWJoYrafQ4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=zYHKSH8N; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A683B51AFCC;
+	Tue, 13 Oct 2026 13:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791898145; cv=pass; b=mE/7Zsd3A8culobR7cawg6QpV965rGufhHS10ry5X9l1smRceZdx4xTwJ+2bvPTB6U2adEJp/6AysaTxH1SVzKhKwpIBZUaLQW1MwKTEuNbRt+b66D2oNaywGjh7RugO/bEeDG742zBsqfKRSCUl5MkaHn1pQlA2wA1BUlfj65E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791898145; c=relaxed/simple;
+	bh=HgeWzOuzFXqzUPRdgwH5eq3Hxzu84lTghOHMqvbrW04=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ei2L6JPFyBxNwLE5aH+iKAEQSTZuvF2my069oO+wjAEqaLQEY70z1+7RzlGbXUqf09rSrkvyw4yI19p+ABYQgG8hgZsgvS8pLl635o2OgMLeHpnue+gJTXtZmlqYf23yO6n57PlTLPWMyMNxBXZahQFHh4kCJe0K9ZCR51wTBJc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=EUC6AymI; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="zYHKSH8N"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 111A4A154E;
-	Tue, 13 Oct 2026 15:28:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791898133; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=DIWd3LiQvMdAY9yZkyntkGDgSewTOlV9Lge6F8Ivfvw=;
-	b=zYHKSH8NRjY7uHNa+8sxLyc5BVvty+w8Eoim6h32aJjUNyAcZ4ky9Li2xhoV8bbFgZHDiB
-	rmNJi9bHe7/GMia7DDE45VKgK4OQZGRaO1siNjm9YVq+atk+CLeZt5Lm/TLZeLVPwsaN7E
-	sRvd8//fasCTKMLQDXZFJ/IA9nO/zER76o7Zv3o8xNOCtjcw1RFB+jd9VlPq3OS0drYu8J
-	jRfiRkT5MjbOzHqq2xLe3iu9Q71XwNPWqd1fAc3tQMABKlq4dyCBKkA4lOng96nuzXUowE
-	Pq4cbK35g0PdJd21qzC6+NWi0reY9rwxsUdhkLSWYtXlfb6XlBIhzdd4Ct1cRA==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Tue, 13 Oct 2026 15:28:44 +0200
-Subject: [PATCH v2] serial: amba-pl011: drive the bus during break in RS485
- mode
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="EUC6AymI"
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D8CDF200467;
+	Tue, 13 Oct 2026 15:28:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791898139;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ydj8XrkV8pn3E6IDDtcYNd5WmTRr7010/GQYvG2rFVE=;
+	b=EUC6AymI9WAdqt5yKmUYSB4BVMQp4+kXGrBBSi4Ib65DlPGcc0okC5yxqFmBxrJlqxzSVM
+	1eAdix9bSApV9k9iNZjC53utDdzHV3r0LfCOAjIJR2rKK9qFZmU9D+ToJzHVGLfXsF0x3t
+	XB4//H+GJURsRDUPwP7etE9ZT83N5vCAa53lhT72VNSYFOsMB8ZvEHwUK2yoQbVGhQGLBB
+	9Wm1FzLIXmmEv8TNp94XrZzPBdXhGyIDrkbI8yjd479JU2nuSg4RNtnmvYqp+CWmPID+7E
+	DGaURgjiIUbgAKvH/azeJ7P7r8Vdg87rfQj9CC5qDGGninuNMGUBvgsPUHbi+g==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791898139; a=rsa-sha256;
+	cv=none;
+	b=R1/SkAWFPUt5MGpbuTkbYOTVGxB9czq1tvpG5fTDU9UyPOtWr9AtOnVgffp/DbJq3pVHX3
+	TbqRHD6IW+yn1UeE4zIQ7pm/qE8cSF8DoeHSVkcRg7FxaXM9X1t6+bndmlNEfdVc+WJD1M
+	975xGG9VV+WA2L0SeFm7Yspyol3DpYCnx5gXgThsh7bMaaaEl4DkahmCrjD5/Zmi/eYP/0
+	scBAIuw4KHIYwtnSlf2VOYXsl4F2b7ZBMnNRq0w2Vq3MgfoP37/ABtYl8/BRfSN6qasVpc
+	hHFcXXT2vxZ/CU5FpaYveuJj3By+BRUm7a1pQFqlD1Pfu3eylHSz1I842ofSWQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791898139;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ydj8XrkV8pn3E6IDDtcYNd5WmTRr7010/GQYvG2rFVE=;
+	b=I/Wnu0VgI0ocU7f/iY7Oj1VhpaAIWACG+KkicBxINMgPfTZ0YhwewmsWpyeP0Yov/5M+0E
+	3CaOs/cYoJuLwrqqAVoXIyvhVQc5UqQGNESpcbedDZYHvmHantUjIWdD4W9gSSbf/hWexP
+	LtU+A3eZe/f84HxrClYzyYmHdBkKGxGCZ/YL3EafKZhLG8eeYWoO5cx6oe8FtgotecG7FD
+	oVflauArdWKJy8DUn+RIoyxkFYmElUavTqlqa+/BUZHQsPb11iCOp+NkRgK6+2RpTf4PLr
+	EQM/NSLD7wsjp6737NRv8Zpq07512qnx76CYtse/qe0DxGaCD3Kuvt71Yi5WIQ==
+Message-ID: <c57e9716fb11e57beb95e81c6a896f6b63970fe4.camel@pengutronix.de>
+Subject: Re: [PATCH 2/2] reset: toshiba: introduce a TC9564 SoC reset driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Alex Elder <elder@riscstar.com>, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org
+Cc: mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, 
+	danielt@kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,  Daniel Thompson <daniel@riscstar.com>
+Date: Tue, 13 Oct 2026 15:28:59 +0200
+In-Reply-To: <20261012164354.3872326-3-elder@riscstar.com>
+References: <20261012164354.3872326-1-elder@riscstar.com>
+	 <20261012164354.3872326-3-elder@riscstar.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-devel-pl011-rs485-break-v2-1-31c9f80d3e3d@tipi-net.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBCFr0Jm7Zi2IH8r72FY0DLIKAHS1kZDu
- LsUD+Dufcl771vBkWVyUCcrWArseJ52UKcEzNBOd0LudgYlVC6FlNhRoBGXMWbrsvKC2lL7RE0
- m1VVRtZkSsK8XSz2/j+db82P30g8yPt7FxsDOz/ZzqIOMvf+WIFFirvo+EyotSpNfPS+ME/lzR
- 9Bs2/YFSAfxeNIAAAA=
-X-Change-ID: 20261011-devel-pl011-rs485-break-bec3b979a420
-To: Russell King <linux@armlinux.org.uk>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: Lino Sanfilippo <LinoSanfilippo@gmx.de>, linux-kernel@vger.kernel.org, 
- linux-serial@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 
-In RS485 mode the transceiver is enabled only while data is sent. A
-break set with TIOCSBRK therefore never reaches the bus, and protocols
-that start each frame with a break, like DMX512, do not work.
+On Mo, 2026-10-12 at 11:43 -0500, Alex Elder wrote:
+> Define a new platform driver that manages reset signals implemented by
+> the Toshiba TC9564 SoC.  There are 13 reset signals available, although
+> only 11 can be controlled.
+>=20
+> Two registers manage the state of the resets.  The registers are
+> accessed via a regmap supplied by a system controller, because the
+> region of memory accessed is shared with other drivers.
+>=20
+> Access to the memory region is provided via a BAR on a PCIe endpoint
+> function embedded in the TC9564 SoC.  For that reason the PCIe reset
+> cannot be manipulated by this driver (it is assumed to be deasserted).
+> Similarly, control is not available for the I2C reset, because the
+> PCIe subsystem on the TC9564 relies on I2C.
+>=20
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+>  MAINTAINERS                  |   1 +
+>  drivers/reset/Kconfig        |  12 +++
+>  drivers/reset/Makefile       |   1 +
+>  drivers/reset/reset-tc9564.c | 192 +++++++++++++++++++++++++++++++++++
+>  4 files changed, 206 insertions(+)
+>  create mode 100644 drivers/reset/reset-tc9564.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d0eb44079fe17..a8f4982ed1a43 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -28185,6 +28185,7 @@ M:	Alex Elder <elder@kernel.org>
+>  M:	Daniel Thompson <danielt@kernel.org>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
+> +F:	drivers/reset/reset-tc9564.c
+>  F:	include/dt-bindings/reset/toshiba,tc9564.h
+> =20
+>  TOSHIBA WMI HOTKEYS DRIVER
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> index eda9c698a95f3..b40736368894c 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -358,6 +358,18 @@ config RESET_SUNXI
+>  	help
+>  	  This enables the reset driver for Allwinner SoCs.
+> =20
+> +config RESET_TC9564
+> +	tristate "Toshiba TC9564 reset support"
+> +	depends on TC9564_PCI
+> +	select MFD_SYSCON
+> +	default TC9564_PCI
+> +	help
+> +	  This enables support for the reset controller embedded in the
+> +	  Toshiba TC9564 SoC.  The state of reset lines is controlled
+> +	  via MMIO to a region managed by a system controller; this
+> +	  ensures access to the region is coordinated between this and
+> +	  the clock and XGMAC (stmmac) drivers.
+> +
+>  config RESET_TENSTORRENT_ATLANTIS
+>  	tristate "Tenstorrent atlantis reset driver"
+>  	depends on ARCH_TENSTORRENT || COMPILE_TEST
+> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+> index 489fafd6bbe3f..6ddded26309ef 100644
+> --- a/drivers/reset/Makefile
+> +++ b/drivers/reset/Makefile
+> @@ -45,6 +45,7 @@ obj-$(CONFIG_RESET_SKY1_AUDSS) +=3D reset-sky1-audss.o
+>  obj-$(CONFIG_RESET_SOCFPGA) +=3D reset-socfpga.o
+>  obj-$(CONFIG_RESET_SUNPLUS) +=3D reset-sunplus.o
+>  obj-$(CONFIG_RESET_SUNXI) +=3D reset-sunxi.o
+> +obj-$(CONFIG_RESET_TC9564) +=3D reset-tc9564.o
+>  obj-$(CONFIG_RESET_TENSTORRENT_ATLANTIS) +=3D reset-tenstorrent-atlantis=
+.o
+>  obj-$(CONFIG_RESET_TH1520) +=3D reset-th1520.o
+>  obj-$(CONFIG_RESET_TI_SCI) +=3D reset-ti-sci.o
+> diff --git a/drivers/reset/reset-tc9564.c b/drivers/reset/reset-tc9564.c
+> new file mode 100644
+> index 0000000000000..0243c2e0efd54
+> --- /dev/null
+> +++ b/drivers/reset/reset-tc9564.c
+> @@ -0,0 +1,192 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +/*
+> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights res=
+erved.
+> + */
+> +
+> +#include <linux/bits.h>
+> +#include <linux/device-id/of.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset-controller.h>
+> +
+> +#include <dt-bindings/reset/toshiba,tc9564.h>
+> +
+> +#define RST_CTRL0_OFFSET	0x1008
+> +#define RST_CTRL1_OFFSET	0x1010
+> +
+> +struct tc9564_reset {
+> +	u32 offset;		/* RST_CTRL0_OFFSET or RST_CTRL1_OFFSET */
+> +	u32 mask;		/* Zero means undefined reset */
+> +};
+> +
+> +struct tc9564_resets {
+> +	struct regmap *regmap;
+> +	struct reset_controller_dev rcdev;
+> +};
+> +
+> +#define TC9564_RESET_INIT0(_name, _bit)	__TC9564_RESET_INIT(_name, 0, _b=
+it)
+> +#define TC9564_RESET_INIT1(_name, _bit)	__TC9564_RESET_INIT(_name, 1, _b=
+it)
+> +
+> +#define __TC9564_RESET_INIT(_name, _reg, _bit)		\
+> +	[RESET_##_name] =3D {				\
+> +		.offset	=3D RST_CTRL ## _reg ## _OFFSET,	\
+> +		.mask =3D BIT(_bit),			\
+> +	}
+> +
+> +/*
+> + * The PCIe and I2C resets are controllable, but we depend on PCIe
+> + * and that relies on I2C, so we don't allow them to be asserted.
+> + */
+> +static const struct tc9564_reset tc9564_reset[] =3D {
+> +	TC9564_RESET_INIT0(MCU, 0),
+> +	TC9564_RESET_INIT0(MCU1, 1),
+> +	TC9564_RESET_INIT0(INTC, 4),
+> +	/* TC9564_RESET_INIT0(PCIE, 9), */
+> +	/* TC9564_RESET_INIT0(I2C, 12), */
+> +	TC9564_RESET_INIT0(UART, 16),
+> +	TC9564_RESET_INIT0(MSIGEN, 18),
+> +
+> +	TC9564_RESET_INIT0(MAC0_MAC, 7),
+> +	TC9564_RESET_INIT0(MAC0_PMA, 30),
+> +	TC9564_RESET_INIT0(MAC0_XPCS, 31),
+> +
+> +	TC9564_RESET_INIT1(MAC1_MAC, 7),
+> +	TC9564_RESET_INIT1(MAC1_PMA, 30),
+> +	TC9564_RESET_INIT1(MAC1_XPCS, 31),
+> +};
+> +#define TC9564_RESET_COUNT	ARRAY_SIZE(tc9564_reset)
+> +
+> +static const struct tc9564_resets *
+> +rcdev_to_tc9564_resets(struct reset_controller_dev *rcdev)
+> +{
+> +	return container_of_const(rcdev, struct tc9564_resets, rcdev);
+> +}
+> +
+> +static int tc9564_reset_manage(struct reset_controller_dev *rcdev,
+> +			       unsigned long id, bool assert)
+> +{
+> +	const struct tc9564_resets *resets =3D rcdev_to_tc9564_resets(rcdev);
+> +
+> +	if (id < rcdev->nr_resets) {
 
-Handle an active break like a transmission. Enable the transceiver
-before setting the break, after delay_rts_before_send if one is
-configured. When the break ends, stop transmitting unless the TX path
-is still sending data.
+This check is superfluous.
 
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
-Noticed while implementing a DMX master on a CM5 with its PL011.
-Tested on that board, driving a DMX512 fixture with RS485 mode left
-enabled.
+fwnode_reset_simple_xlate() already checked this before a reset control
+was even created.
 
-The 8250 em485 code probably has the same issue. I have no hardware to
-test it, but I'm happy to send a patch if someone is willing to.
----
-Changes in v2:
-- Rebase onto tty-testing, which has the RS485 TXE and
-  delay_rts_before_send fixes now
-- Link to v1: https://patch.msgid.link/20261011-devel-pl011-rs485-break-v1-1-62ff402378c6@tipi-net.de
+> +		const struct tc9564_reset *reset =3D &tc9564_reset[id];
+> +		u32 mask =3D reset->mask;
+> +
+> +		if (mask)
 
-To: Russell King <linux@armlinux.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jiri Slaby <jirislaby@kernel.org>
-Cc: Lino Sanfilippo <LinoSanfilippo@gmx.de>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-serial@vger.kernel.org
----
- drivers/tty/serial/amba-pl011.c | 65 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 64 insertions(+), 1 deletion(-)
+This check is superfluous, as every element in the tc9564_reset array
+has mask set.
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index 3edd83ec73de..79776a882ae3 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -327,6 +327,7 @@ struct uart_amba_port {
- 	char			type[12];
- 	ktime_t			rs485_tx_drain_interval; /* nano */
- 	enum pl011_rs485_tx_state	rs485_tx_state;
-+	bool			rs485_break;
- 	struct hrtimer		trigger_start_tx;
- 	struct hrtimer		trigger_stop_tx;
- 	bool			console_line_ended;
-@@ -1279,6 +1280,11 @@ static inline bool pl011_dma_rx_running(struct uart_amba_port *uap)
- 	return uap->using_rx_dma && uap->dmarx.running;
- }
- 
-+static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
-+{
-+	return uap->dmatx.queued;
-+}
-+
- #else
- /* Blank functions if the DMA engine is not available */
- static inline void pl011_dma_remove(struct uart_amba_port *uap)
-@@ -1330,6 +1336,11 @@ static inline bool pl011_dma_rx_running(struct uart_amba_port *uap)
- 	return false;
- }
- 
-+static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
-+{
-+	return false;
-+}
-+
- #define pl011_dma_flush_buffer	NULL
- #endif
- 
-@@ -1357,6 +1368,10 @@ static void pl011_rs485_tx_stop(struct uart_amba_port *uap)
- {
- 	struct uart_port *port = &uap->port;
- 
-+	/* pl011_break_ctl() stops the transmission when the break ends */
-+	if (uap->rs485_break)
-+		return;
-+
- 	if (uap->rs485_tx_state == SEND)
- 		uap->rs485_tx_state = WAIT_AFTER_SEND;
- 
-@@ -1479,7 +1494,9 @@ static enum hrtimer_restart pl011_trigger_start_tx(struct hrtimer *t)
- 	uart_port_lock_irqsave(&uap->port, &flags);
- 	if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
- 		uap->rs485_tx_state = SEND;
--		pl011_start_tx(&uap->port);
-+		/* A break can arm the timer while TX is stopped */
-+		if (!uart_tx_stopped(&uap->port))
-+			pl011_start_tx(&uap->port);
- 	}
- 	uart_port_unlock_irqrestore(&uap->port, flags);
- 
-@@ -1772,16 +1789,60 @@ static void pl011_break_ctl(struct uart_port *port, int break_state)
- {
- 	struct uart_amba_port *uap =
- 	    container_of(port, struct uart_amba_port, port);
-+	struct tty_port *tport = &port->state->port;
-+	bool rs485 = port->rs485.flags & SER_RS485_ENABLED;
- 	unsigned long flags;
- 	unsigned int lcr_h;
- 
- 	uart_port_lock_irqsave(&uap->port, &flags);
-+
-+	/*
-+	 * In RS485 mode the transceiver only drives the bus while
-+	 * transmitting. Treat a break as a transmission.
-+	 */
-+	if (rs485 && break_state == -1 && !uap->rs485_break) {
-+		uap->rs485_break = true;
-+
-+		/* Pending data already enabled the transceiver */
-+		if (uap->rs485_tx_state != SEND &&
-+		    uap->rs485_tx_state != WAIT_AFTER_RTS)
-+			pl011_rs485_tx_start(uap);
-+
-+		/*
-+		 * Wait out delay_rts_before_send before starting the break.
-+		 * The state stays WAIT_AFTER_RTS, so the TX path behaves as
-+		 * without a break. Start it here if trigger_start_tx is late.
-+		 */
-+		if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
-+			uart_port_unlock_irqrestore(&uap->port, flags);
-+			msleep(port->rs485.delay_rts_before_send);
-+			uart_port_lock_irqsave(&uap->port, &flags);
-+
-+			if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
-+				hrtimer_try_to_cancel(&uap->trigger_start_tx);
-+				uap->rs485_tx_state = SEND;
-+				if (!uart_tx_stopped(port))
-+					pl011_start_tx(port);
-+			}
-+		}
-+	}
-+
- 	lcr_h = pl011_read(uap, REG_LCRH_TX);
- 	if (break_state == -1)
- 		lcr_h |= UART01x_LCRH_BRK;
- 	else
- 		lcr_h &= ~UART01x_LCRH_BRK;
- 	pl011_write(lcr_h, uap, REG_LCRH_TX);
-+
-+	if (break_state == 0 && uap->rs485_break) {
-+		uap->rs485_break = false;
-+		/* An active TX path stops the transmission when it is done */
-+		if (rs485 && (uart_tx_stopped(port) ||
-+			      (!pl011_dma_tx_queued(uap) &&
-+			       kfifo_is_empty(&tport->xmit_fifo))))
-+			pl011_rs485_tx_stop(uap);
-+	}
-+
- 	uart_port_unlock_irqrestore(&uap->port, flags);
- }
- 
-@@ -2102,6 +2163,7 @@ static void pl011_shutdown(struct uart_port *port)
- 	hrtimer_cancel(&uap->trigger_stop_tx);
- 
- 	uart_port_lock_irq(port);
-+	uap->rs485_break = false;
- 	if (uap->rs485_tx_state != OFF)
- 		pl011_rs485_tx_stop_now(uap);
- 	uart_port_unlock_irq(port);
-@@ -2398,6 +2460,7 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 	struct uart_amba_port *uap =
- 		container_of(port, struct uart_amba_port, port);
- 
-+	uap->rs485_break = false;
- 	if ((port->rs485.flags & SER_RS485_ENABLED) &&
- 	    !(rs485->flags & SER_RS485_ENABLED)) {
- 		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
+> +			return regmap_update_bits(resets->regmap,
+> +						  reset->offset, mask,
+> +						  assert ? mask : 0);
+> +	}
+> +
+> +	dev_err(rcdev->dev, "invalid reset (%s id %lu)\n",
+> +		assert ? "assert" : "deassert", id);
+> +
+> +	return -ENXIO;
 
----
-base-commit: 979e9ad7178dcbd131dafdbb2f9a8c5bb0b7a26f
-change-id: 20261011-devel-pl011-rs485-break-bec3b979a420
+This branch is never taken.
 
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+> +}
+> +
+[...]
+> +static struct tc9564_resets *tc9564_reset_init(struct device *dev)
+> +{
+> +	struct reset_controller_dev *rcdev;
+> +	struct tc9564_resets *resets;
+> +	struct regmap *regmap;
+> +	int ret;
+> +
+> +	regmap =3D syscon_node_to_regmap(dev_of_node(dev->parent));
+> +	if (IS_ERR(regmap)) {
+> +		dev_err(dev, "failed to get config regmap\n");
+> +		return ERR_CAST(regmap);
+> +	}
+> +
+> +	resets =3D devm_kzalloc(dev, sizeof(*resets), GFP_KERNEL);
+> +	if (!resets)
+> +		return ERR_PTR(-ENOMEM);
+> +	resets->regmap =3D regmap;
+> +
+> +	rcdev =3D &resets->rcdev;
+> +	rcdev->ops =3D &tc9564_reset_control_ops;
+> +	rcdev->owner =3D THIS_MODULE;
+> +	rcdev->dev =3D dev;
+> +	rcdev->of_node =3D dev_of_node(dev);
+> +	rcdev->nr_resets =3D TC9564_RESET_COUNT;
+> +
+> +	ret =3D devm_reset_controller_register(dev, rcdev);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	return resets;
+> +}
+> +
+> +static int tc9564_reset_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct tc9564_resets *resets;
+> +
+> +	if (!dev_of_node(dev))
+> +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
+> +
+> +	resets =3D tc9564_reset_init(dev);
+> +	if (IS_ERR(resets))
+> +		return dev_err_probe(dev, PTR_ERR(resets),
+> +				     "failed to initialize resets\n");
+> +
+> +	/* Force all resets to be initially asserted */
+> +	tc9564_reset_assert_all(resets);
+> +
+> +	platform_set_drvdata(pdev, resets);
+> +
+> +	return 0;
+> +}
+> +
+> +static void tc9564_reset_remove(struct platform_device *pdev)
+> +{
+> +	struct tc9564_resets *resets =3D platform_get_drvdata(pdev);
+> +
+> +	/* Leave all resets asserted when done */
+> +	tc9564_reset_assert_all(resets);
 
+Should this be done by the individual drivers?
+What happens if the reset controller driver is unbound while e.g. one
+of the MACs is active?
+
+regards
+Philipp
