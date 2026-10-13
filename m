@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0063823A99F;
-	Thu, 15 Oct 2026 10:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D575172EB;
+	Thu, 15 Oct 2026 10:32:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060319; cv=none; b=ZDQvQmqPu7LR9I1k8vW6xUinnTUSLjf9X4rMBbPhOz00ogGRF2xHTkZtSyYYf5O0kSEBml2y6y7XJFEFmWjdFX6jkkg4KdR0LA+UbHmFNtmz1mlqA3nD2Sf6e5HHFh42dmxs0PXVZgLkWaGs73qvlbyL1cX253dRhyAm1eob6XE=
+	t=1792060325; cv=none; b=HzTkmySqzG8ZC0yc2TkgCSH4RviO6Cm19wEX2phuh2cxDFoE3GY4Re/NI/s4bqfoZgJ/2hYH7Hhg0Sa6qCvViHdYyLgqHV9HV+TU6bWda4zVQXhKPC0vbE75VPDBihdyj4hWeEfoRTe8g45o2pd0LM0Zv95a06amIFOOzjwLQrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060319; c=relaxed/simple;
-	bh=F/60hd7S3sz9o4AFila58eYWswIu/XEq+oYcTTgU2hg=;
+	s=arc-20240116; t=1792060325; c=relaxed/simple;
+	bh=nGe6k58I3oJCWTNecGN8SY+3eIvLr3w09JkHMiZvKmo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Bfg9cZQ9QfoSbCuMhXiqkkhfB8cZ3zrpgG4b4qAYcl28CgXPBTvt+w6zImidut0ev2vISz2vLCTrm/uSgReMnNea7jFT+D16Jp7QdXJkxizZLRFtw8PjqEQ1XTCGJm2UCyoznzeYp9UDJcsTNiF3JaRHP+NZA5PK8Qy+faYzDtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F6lEwoxW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=IOwpF3KkFsCjrkz4pCJYkod9gnOmzY7mPV+/6ztJFEEs4BzmJG81I6IQG0bDJaCXPyW6r+yrBTXDm4D8+XagqhKDyN83/QO8Ad/nJz1pJe4dgsBl/0o10MbsAbTGxBIY/Tv4W0smKq0R2O6bKezZX8XVZlr8cVUhkckonNRNT8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDYch1M1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F6lEwoxW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8281F000C4;
-	Thu, 15 Oct 2026 10:31:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDYch1M1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6951F000C4;
+	Thu, 15 Oct 2026 10:32:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792060317;
-	bh=7XwBUdyZyS/LaA1ldj5S/uuuK5nn6LjCdzqMfMihmeA=;
+	s=k20260515; t=1792060324;
+	bh=g5fAL6BtxNcOQIXnaFA1UzDQKFUzFJbXS6uRSNGokOs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=F6lEwoxWCz0ZszkOflKRo1RoDREnQggCsAlTJyNQNqEltUCP6HQ5B2TZEYwB2EDSi
-	 +OsMkIymm/iWdUxIctXt67rAvalr4XZ9+rt/CoDnoUxiBz/JTGZvL/L3lZE3+G7rs6
-	 r8rFDkkTTmL6EKHAhT46u4U1A0HJoim4GLqh1YpJglbuSssqD2fWFJ78vDEhoWfJvp
-	 TJY4G0MoayL5RZdj9bx8bgi0W2/RoYRgJj8RLZiTQLu9jEiMzcSupGdThJR/++fDL2
-	 QDA+IDX1SV5B8qStUZW1Fg1h5jNVFIFCSxqOal9RzS0y7TEhX08LJosiK4t40lMcbQ
-	 MdkK/IK1VvVng==
+	b=eDYch1M1AaI/BrViyUWrp4VT7eVkXE/di0KdS1vbPLmmBsmvXiN2+iZ+woVZOBvwi
+	 9gIRThYB+wugKariNCuJ2BHhcRcSUVxFAQGmEfKd4z5MsZ66IAGbW5R6IX/2XJgUS7
+	 nzvS20Aa78IcmM9P4vulC1PB8vNmUJyf8R2Dv9SLYM6Y1QkauenQb+4jyxkbq1GHYs
+	 hToOtTQFVj0coxS6trUj5r6mLT9Jh9CHQeI/o4C/f5x8Dgcc2+bDAFS7fj4Yteq5Ig
+	 pjqFGa1KTGBr2kZjwyZXwNU2WJgcqyTg4yzAQdDMe1nHhRksecxG97ohlH7Z5PtRpi
+	 tNz4LicR+GzPQ==
 From: Mark Brown <broonie@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Darren Ye <darren.ye@mediatek.com>, phucduc.bui@gmail.com
-Cc: Liam Girdwood <lgirdwood@gmail.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, cassiogabrielcontato@gmail.com, 
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
- linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260929061121.124001-1-phucduc.bui@gmail.com>
-References: <20260929061121.124001-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH 00/10] ASoC: mediatek: mt8196: Fix clock error handling
-Message-Id: <179191028803.42298.330051148959418459.b4-ty@b4>
-Date: Tue, 13 Oct 2026 17:51:28 +0100
+To: Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Andrei Simion <andrei.simion@microchip.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, phucduc.bui@gmail.com
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>, 
+ Cyrille Pitchen <cyrille.pitchen@atmel.com>, linux-sound@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261002043856.97295-1-phucduc.bui@gmail.com>
+References: <20261002043856.97295-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH 0/5] ASoC: atmel-i2s: fix clock error handling
+Message-Id: <179190773817.42298.3099194075465995539.b4-ty@b4>
+Date: Tue, 13 Oct 2026 17:08:58 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,24 +50,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2467; i=broonie@kernel.org;
- h=from:subject:message-id; bh=F/60hd7S3sz9o4AFila58eYWswIu/XEq+oYcTTgU2hg=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurJ6x9Lvxz7jj7B/kNBj23Zxw8cm/bc8/GtpHqp56b
- 7BH32f94o5SFgYxLgZZMUWWuCzul/Ulr9fwHVzYBjOHlQlkCAMXpwBMZNslRoaTcjedXz2LLhBg
- b4yx+8pYEvTw85TA/guucdHGuSnXAoQYGXZkdpzoCOWfetBA6ueWT/cuh4lNuzLJOW5xtemNyyv
- kyrgB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1808; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=nGe6k58I3oJCWTNecGN8SY+3eIvLr3w09JkHMiZvKmo=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurJ5/s1776Kugc+Ub+Hb9nmBUXWfR+Hpzqknjkk+MM
+ 0x9e+R/dpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAi/18z/OFaqvVf5r/fzy3i
+ l5sdH3vN6r3032/1549Htp7cXtGyc3M7I8PZx16HZPJY1rzQlqn9e6LjQYHNpW0MLKrcZprHnDQ
+ Pv+MEAA==
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 29 Sep 2026 13:11:11 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: mediatek: mt8196: Fix clock error handling
+On Fri, 02 Oct 2026 11:38:51 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: atmel-i2s: fix clock error handling
 > 
 > From: bui duc phuc <phucduc.bui@gmail.com>
 > 
 > Hi all,
 > 
-> This series improves error handling in the MT8196 ASoC driver,
-> mainly by checking and propagating errors from clock operations.
+> This series fixes clock error handling in the Atmel I2S driver by
+> propagating errors, using optional clock APIs, and simplifying probe
+> error reporting.
 > 
 > [...]
 
@@ -77,26 +78,16 @@ Applied to
 
 Thanks!
 
-[01/10] ASoC: mediatek: mt8196: fix APLL mux error handling
-        https://git.kernel.org/broonie/misc/c/5a0caca149f2
-[02/10] ASoC: mediatek: mt8196: fix APLL enable error handling
-        https://git.kernel.org/broonie/misc/c/23239cabb6d1
-[03/10] ASoC: mediatek: mt8196: fix MCK error handling
-        https://git.kernel.org/broonie/misc/c/bc0cd0eb0303
-[04/10] ASoC: mediatek: mt8196: fix register access clock error handling
-        https://git.kernel.org/broonie/misc/c/2844ba593741
-[05/10] ASoC: mediatek: mt8196: propagate main clock errors
-        https://git.kernel.org/broonie/misc/c/c33bc2dd217d
-[06/10] ASoC: mediatek: mt8196: use dev_err_probe() in mt8196_init_clock()
-        https://git.kernel.org/broonie/misc/c/b6f0d0e800b5
-[07/10] ASoC: mediatek: mt8196: fix runtime resume error handling
-        https://git.kernel.org/broonie/misc/c/3a9a93cafb37
-[08/10] ASoC: mediatek: mt8196: remove redundant error message
-        https://git.kernel.org/broonie/misc/c/35a7f9f4cd4d
-[09/10] ASoC: mediatek: mt8196: propagate I2S clock errors
-        https://git.kernel.org/broonie/misc/c/6c14a59bc503
-[10/10] ASoC: mediatek: mt8196: propagate TDM clock errors
-        https://git.kernel.org/broonie/misc/c/d09412f79d70
+[1/5] ASoC: atmel-i2s: fix MCK generator error handling
+      https://git.kernel.org/broonie/misc/c/2e2da92de9bf
+[2/5] ASoC: atmel-i2s: use optional API for muxclk
+      https://git.kernel.org/broonie/misc/c/be952abd69c1
+[3/5] ASoC: atmel-i2s: use optional API for gclk
+      https://git.kernel.org/broonie/misc/c/b431a055fb76
+[4/5] ASoC: atmel-i2s: use dev_err_probe() for pclk errors
+      https://git.kernel.org/broonie/misc/c/5421a0a39d43
+[5/5] ASoC: atmel-i2s: remove redundant error message
+      https://git.kernel.org/broonie/misc/c/c501f9873aca
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
