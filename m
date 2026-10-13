@@ -1,157 +1,264 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61564558205
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6E85540A0
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791925037; cv=none; b=OLJjS75//02ZEjZtZCGKLoulW/b+LfFitz3Wer1LfhL9gAts9kj6TKGPEYl9mMjHdmkJW5ELt2+Pt1V+chtURQZZjcVHLoupK6akLyvR1LlspuNVkljlvQRlbr2sNKZzcjiY77xugrS9mbIabUOvpI6SpEKDnD4jJJeIVeBI43U=
+	t=1791925052; cv=none; b=u7QHrTz62DEmns7zp4T83bujtpi8g1yS7s1O/TvjbH7KkraB0B5F4COXUTGU0q+Ozh/z8cdZmEsLqzwgURvguB0Oj7sZKRFFzhZlO7lvWszX/UpoWiVxdM2o0XG5PaF81MsFAit+/aYy8FbMYICzbaWS1f5wyM/KzT1o0PeYtCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791925037; c=relaxed/simple;
-	bh=SkBPgCOEkL2aanWPopCSHyRsbOVQx52jXKNNybsyhLE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SJsM3Wh0UxZ1YpyQQFeYdRRrLq1u9EIKMdynYimaIgcZgGCVVMkDKi6O1QXAfaVSeTKtUoQR0EuE0ei1ivWdphRuKxW0V4GjklZcFE7EwE0AVidQf0QbCaHHRN5V1mr5hWX6ZDzyOsgCnb62M9xiVqS/UE3xlwqXdfVkDk+SUTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=C3CJH6mM; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1791925052; c=relaxed/simple;
+	bh=E6UA2GC8/NUE7noMCWkBEn0l/hqn2tcmYIb2UgJLaOE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HbF714XLVkffpQm/or9qLHEJbq2Yh7tq26DaU8+QCGU6DBFj8jo69DExGNSzZx1l/tnActbnHv3qlkqE127nk5EQVsyhkwK8s8ArwU00vaUEVCCf1PNO0TwqvEAYbhpdNcRoFklFoMskfDIOdA87K8bhyJAmI0hQyZGnDpEqnAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+YJVFkO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="C3CJH6mM"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so180575ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:57:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791925033; x=1792529833; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=82ugTuSgSHfkTSTJDZNTDw80Zvb5fgS5piYd+dS2K00=;
-        b=C3CJH6mMiYwUO2Pzpryx+UEUep8I9KAmkYNZbgKtOyVAYBAiUjx3ibjdcQM9IAcpBo
-         52L325xk7G0L8uEmgUYnknL2rWlKP817E0kGByRi0jGoRx0uWfIUDUFf7GnTI6JMGmmw
-         1/hh4vXi2w9AV3D59nKsT5k6IlnskrPo9wz3xU9twlxV1Couju1XLC34HDYeX1MLBa0k
-         N1Cw+naNlNIE4VkCmDjGdm2LzY7SS5r6zkK/y7AHCIHRkAIbnpgSF4tR4RRGQh512qJC
-         P4z002jGZz//PngXSviAe1tpv3HPYkfG31ibdx0EyA79N21DT3ih9myxIx1VvvCQ5Yww
-         3ycg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791925033; x=1792529833;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=82ugTuSgSHfkTSTJDZNTDw80Zvb5fgS5piYd+dS2K00=;
-        b=yPwuM2/qhdA+Jd6t9scQ0XGqmoEaDZyhIOqQDGIVlXO2tHBCwJJdPhcbNV/bx1AIKE
-         0PTMP8A4CP/3Bwbk6TcHT6c6lTqO6pwCXOQLj2nmmQcH6y3LdrS4tREYBSghNasGXkxg
-         RMoPUEGD1+49BqfbWQZiW69eNFgsPkty4VBiDrWIHfxontxjIMDz8xXDMeJuCHG8YuhA
-         6lIql60N2kmsfJ/fAlNBkBZht8z0eP4n4dg4IFbvPmq/hOTQZIf8ikymtRFXZjMUGUZV
-         KBMHzsFU49HexiXrHMkNSkTjqEcRrCQ72C5fRxh0NujXFh6Y8eSP8UuJNuEdOgj9NASQ
-         u86w==
-X-Forwarded-Encrypted: i=1; AKwUvBy6fihxoCHLUIlsiGQATJW5BgW3kq4yPoPpKLv6XoF9mQ16DtvoUNge1rHSA1SiI3Hgn5U2ubWDiNxeCR8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINsVm7ygrlnP/w8Jt/WOzQ/1ydOADk5RJfbn0J+t/qkNth9FV4
-	P7zr6QWkpLM2IEl/hb9DBv935pV1NRn77S4dgG43j8tMrupXOE+09xFD30yiqrPu/g==
-X-Gm-Gg: AYBFou2n1PM7kj/3KkhEb+6JkTPrGtAMfTOdzoKtZbgBkFyXTxNdwIzDU71OAMJESTd
-	7P9xe9PRAg5MNlosb/idTw1tO8PMWPwrQXYaaLZnDNK4ElblG1UTBlciuCckL2h3fTC/JGXG2Pb
-	6MKRgCVxLxCZ1VfhLhn/EK86O886Z6ILZRH69vJ/ra/w4hryVVkh4qFTCpQn8ZldOiEU5Fjo4a0
-	axbaYwTazsLnE5h28uriCfu2+NejE9IDuyGHQxvYkgzjlOqanRVT/p5yjtKhe34OhVEzMBvp98J
-	rTRl2PhMSqQ6jKux131wXcdCQnJErnRSwK37DXcDqbRbqLH8jGdU/RioqgD6GYNP7pgcjP+ySAe
-	IdGzoZDeP7ifCSeNWeM6u2/Q1769adcf1J78jWWtliNvHcBN/Off2XdOZ67g76/GWXfbSS5uFsm
-	m//bPm48hufJHU2wfTpntjLhmi2XgeaIsRvWCLHdrgkbPk+R/DD3RQNHGeUNYSEPUYs0AsX6umF
-	EUQINspupj4hzplOgXawa4BtfO/90phahMZcLelnaNw5xl0cr+tfemOumixO3KSdfo=
-X-Received: by 2002:a17:903:1cc:b0:2e3:981:4cc4 with SMTP id d9443c01a7336-2e87e2f88a3mr13643365ad.9.1791925032914;
-        Tue, 13 Oct 2026 13:57:12 -0700 (PDT)
-Received: from google.com (163.1.145.34.bc.googleusercontent.com. [34.145.1.163])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac6791eba1sm146719a91.3.2026.10.13.13.57.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 13:57:12 -0700 (PDT)
-Date: Tue, 13 Oct 2026 20:57:05 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Robin Murphy <robin.murphy@arm.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, 
-	Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v5 02/18] iommu: Implement IOMMU Live update FLB callbacks
-Message-ID: <as6YpZ7ShALy5dd_@google.com>
-References: <20260921004834.2601285-1-skhawaja@google.com>
- <20260921004834.2601285-3-skhawaja@google.com>
- <asWEtTcNJSbrY579@nvidia.com>
- <asmj6ErFqQMJe0_u@google.com>
- <as16hl29Kepg9AcT@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+YJVFkO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1131F0089B
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:57:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791925047;
+	bh=swgyvDADh7aeJQJNNx7+x0lhh5sd5zqR0J3CqoTV4l4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=C+YJVFkOF9c2RKGomBEkLsdb7XpO46ieksvz698VJ+S9y1JDMAkBAA74T+3eggGaK
+	 EA32LLp1WyxGlbnOaOIthy/dv7aGQJk6zNV9M80A270KWi3KKfveOArTw7FFUOplH1
+	 pP4lJlSUeP+IOeJUKsR5R2pEEmMkQXgLPOf7yFvudnoSFqjb2DZHOaUeWgEIa2SVkY
+	 56YzotlLmAPaWhzK3bdVr21R2qxq710WYgMmoe1tpPD8uB9O8wPdms8XivyGB7G/vi
+	 /MO4xJymJdVLyQmtsbO3/Yw6SsAhnnXB7ihAj2+JaEoc6H8BjjXzPdPgM+5wvJEa1C
+	 FHC30gNwvRv3g==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c263415982eso424410566b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:57:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBylXmYiCvTG4KmwBELSMiMEbKWYLsGSzX0xBaJzurG/LXe66Dsmmx4m1wfz0zyf5mFzSkyleodTt9dT2xM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/cqK1a4b/6JXyviVQYHSPzH2ArsfHaVMYSfpFb3zePicWWq61
+	YnYRlcwv+yBbgfcle1AfDCMcghD0UFvrE4leFsU9sFCLRPk702+apcxwMcQ42i/vAuLOFkq2T2Z
+	eUDLm9crfhN/6QC9TckqmGK0j6GKO1AM=
+X-Received: by 2002:a17:907:c26:b0:c2a:3473:6780 with SMTP id
+ a640c23a62f3a-c31a9ffff31mr1312422266b.25.1791925046208; Tue, 13 Oct 2026
+ 13:57:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <as16hl29Kepg9AcT@nvidia.com>
+References: <20261013151007.2093943-1-usama.arif@linux.dev> <20261013151007.2093943-2-usama.arif@linux.dev>
+In-Reply-To: <20261013151007.2093943-2-usama.arif@linux.dev>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Tue, 13 Oct 2026 13:57:14 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zM-utRFYGBfaEb=89LWM0DOKc8dywcDLSb6L7f4c80yuQ@mail.gmail.com>
+X-Gm-Features: AclHuK_lRc7F0Bg3qaR5eej13vxAe2hsWEYGgSw8MGRsbo0q5ZL77DQKttmVvso
+Message-ID: <CAO9r8zM-utRFYGBfaEb=89LWM0DOKc8dywcDLSb6L7f4c80yuQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] mm: zswap: use separate compression and
+ decompression requests
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, dsterba@suse.com, 
+	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	nphamcs@gmail.com, terrelln@fb.com, riel@surriel.com, shakeel.butt@linux.dev, 
+	alex@ghiti.fr, senozhatsky@chromium.org, 
+	Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net, 
+	linux-crypto@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 05:25:42PM -0700, Nicolin Chen wrote:
->On Sat, Oct 10, 2026 at 03:18:11AM +0000, Samiullah Khawaja wrote:
->> On Tue, Oct 06, 2026 at 04:31:01PM -0700, Nicolin Chen wrote:
->> > On Mon, Sep 21, 2026 at 12:48:18AM +0000, Samiullah Khawaja wrote:
->> > > +struct iommu_flb_obj {
->> > > +	struct mutex lock;
->> > > +	struct iommu_flb_ser *ser;
->> > > +
->> > > +	struct iommu_hw_array_ser *curr_iommu_array;
->> > > +	struct iommu_domain_array_ser *curr_domain_array;
->> > > +	struct iommu_device_array_ser *curr_device_array;
->> > > +};
->> >
->> > IIUIC, there should be one pair of obj + ser in the entire system:
->> >  - old kernel has one outgoing obj + ser
->> >  - new kernel has one incoming obj + ser
->> > right?
->> >
->> > If so, things in iommu_flb_obj (except ser) are all transient, and
->> > there is no need to preserve them across the two kernels.
->>
->> The contents of iommu_flb_obj are not preserved. Only the contents of
->> iommu_flb_ser are preserved. Other "curr_" structs in iommu_flb_obj are
->> only there for quick access to add new iommus, domains and devices.
->> >
->> > It also feels redundant to have this iommu_flb_obj structure. Why
->> > not link liveupdate_flb_op_args directly to the ser? Then, things
->> > in iommu_flb_obj could be global?
->>
->> The liveupdate_flb_op_args is linked directly to the ser, but it only
->> contains the physical address for the next kernel. Basically LUO
->> provides following mechanism to handle FLBs:
->>
->> - data: ser structure for the next kernel.
->> - obj: Live object that can be used in the current or next kernel for
->>   easy access or staging.
->>
->> For example here, iommu_flb_obj has pointers to the end of the array
->> linked list of each type.
->>
->> Also note LUO keeps separate incoming and outgoing data and obj for each
->> FLB. In the new kernel both can exist at the same time, as the incoming
->> one stays until finish and preserving for the next live update creates
->> the outgoing one. So keeping these in the obj avoids managing two sets
->> of globals and their lifetime in the iommu code.
+On Tue, Oct 13, 2026 at 8:10=E2=80=AFAM Usama Arif <usama.arif@linux.dev> w=
+rote:
 >
->Could incoming and outgoing objects exist in the same time?
+> Stores and loads serialize on the same per-CPU acomp request and mutex.
+> A low-priority store can be preempted as soon as the compressor drops
+> its stream lock, while it still holds the mutex. A higher-priority load
+> on that CPU then waits until the store runs again, which can take a
+> long time when other tasks are runnable.
 >
->Correct me if I am wrong: I expect the lifecycle of an incoming
->object will end once liveupdate completes, and the outgoing one
->can only exist after that?
-
-LUO can have incoming and outgoing at the same time. The incoming FLB
-stays until all the sessions from the previous kernel that use it are
-finished, and the outgoing FLB is created when the first FD that uses it
-is preserved in the current kernel. So if a new preservation starts
-before all the incoming sessions are finished, both exist.
-
-Generally, it should be rare, as after the live update the userspace
-orchestrator (like systemd) would probably finish all the sessions. At
-the FD level it is mutually exclusive, but at the FLB level it is
-possible.
+> Give compression and decompression their own request, completion wait
+> and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
+> decompression APIs from zsmalloc"), the per-CPU buffer is only used for
+> compression, so group it with the compression request. Independent
+> requests can share the per-CPU transform; the codecs and drivers
+> synchronize their shared state internally. Loads can still wait for
+> each other on the decompression mutex, and stores still serialize on
+> the compression mutex.
 >
->Nicolin
+> acomp_request_free() ignores NULL requests, so drop the check in
+> acomp_ctx_free().
+>
+> This follows the proposal from Sergey Senozhatsky for the same split
+> for zram [1].
+>
+> [1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chro=
+mium.org/
+>
+> Acked-by: Nhat Pham <nphamcs@gmail.com>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-Sami
+Why didn't you take Herbert's Ack?
+
+LGTM with one nit below:
+
+Acked-by: Yosry Ahmed <yosry@kernel.org>
+
+> ---
+>  mm/zswap.c | 108 +++++++++++++++++++++++++++++++----------------------
+>  1 file changed, 64 insertions(+), 44 deletions(-)
+>
+> diff --git a/mm/zswap.c b/mm/zswap.c
+> index ae19e301fced7..23c4298765795 100644
+> --- a/mm/zswap.c
+> +++ b/mm/zswap.c
+> @@ -137,14 +137,25 @@ bool zswap_never_enabled(void)
+>  * data structures
+>  **********************************/
+>
+> -struct crypto_acomp_ctx {
+> -       struct crypto_acomp *acomp;
+> +struct zswap_acomp_req {
+>         struct acomp_req *req;
+>         struct crypto_wait wait;
+> -       u8 *buffer;
+>         struct mutex mutex;
+>  };
+>
+> +/* The compression mutex also protects the output buffer. */
+> +struct zswap_comp_ctx {
+> +       struct zswap_acomp_req areq;
+> +       u8 *buffer;
+> +};
+> +
+> +/* Separate requests, so that decompression does not wait for compressio=
+n. */
+> +struct crypto_acomp_ctx {
+> +       struct crypto_acomp *acomp;
+> +       struct zswap_comp_ctx comp;
+> +       struct zswap_acomp_req decomp;
+> +};
+> +
+>  /*
+>   * The lock ordering is zswap_tree.lock -> zswap_pool.lru_lock.
+>   * The only case where lru_lock is not acquired while holding tree.lock =
+is
+> @@ -270,14 +281,10 @@ static void acomp_ctx_free(struct crypto_acomp_ctx =
+*acomp_ctx)
+>         if (!acomp_ctx)
+>                 return;
+>
+> -       /*
+> -        * If there was an error in allocating @acomp_ctx->req, it
+> -        * would be set to NULL.
+> -        */
+> -       if (acomp_ctx->req)
+> -               acomp_request_free(acomp_ctx->req);
+> -
+> -       acomp_ctx->req =3D NULL;
+> +       acomp_request_free(acomp_ctx->comp.areq.req);
+> +       acomp_ctx->comp.areq.req =3D NULL;
+> +       acomp_request_free(acomp_ctx->decomp.req);
+> +       acomp_ctx->decomp.req =3D NULL;
+>
+>         /*
+>          * We have to handle both cases here: an error pointer return fro=
+m
+> @@ -289,8 +296,8 @@ static void acomp_ctx_free(struct crypto_acomp_ctx *a=
+comp_ctx)
+>
+>         acomp_ctx->acomp =3D NULL;
+>
+> -       kfree(acomp_ctx->buffer);
+> -       acomp_ctx->buffer =3D NULL;
+> +       kfree(acomp_ctx->comp.buffer);
+> +       acomp_ctx->comp.buffer =3D NULL;
+>  }
+>
+>  static struct zswap_pool *zswap_pool_create(char *compressor)
+> @@ -796,6 +803,28 @@ static void zswap_entry_free(struct zswap_entry *ent=
+ry)
+>  /*********************************
+>  * compressed storage functions
+>  **********************************/
+> +static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
+> +                               struct crypto_acomp *acomp)
+> +{
+> +       /* acomp_request_alloc() returns NULL in case of an error. */
+> +       areq->req =3D acomp_request_alloc(acomp);
+> +       if (!areq->req)
+> +               return -ENOMEM;
+> +
+> +       crypto_init_wait(&areq->wait);
+> +
+> +       /*
+> +        * if the backend of acomp is async zip, crypto_req_done() will w=
+akeup
+> +        * crypto_wait_req(); if the backend of acomp is scomp, the callb=
+ack
+> +        * won't be called, crypto_wait_req() will return without blockin=
+g.
+> +        */
+> +       acomp_request_set_callback(areq->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
+> +                                  crypto_req_done, &areq->wait);
+> +
+> +       mutex_init(&areq->mutex);
+> +       return 0;
+> +}
+> +
+>  static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *n=
+ode)
+>  {
+>         struct zswap_pool *pool =3D hlist_entry(node, struct zswap_pool, =
+node);
+> @@ -811,8 +840,8 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, s=
+truct hlist_node *node)
+>                 return 0;
+>         }
+>
+> -       acomp_ctx->buffer =3D kmalloc_node(PAGE_SIZE, GFP_KERNEL, cpu_to_=
+node(cpu));
+> -       if (!acomp_ctx->buffer)
+> +       acomp_ctx->comp.buffer =3D kmalloc_node(PAGE_SIZE, GFP_KERNEL, cp=
+u_to_node(cpu));
+> +       if (!acomp_ctx->comp.buffer)
+>                 return ret;
+>
+>         /*
+> @@ -827,25 +856,13 @@ static int zswap_cpu_comp_prepare(unsigned int cpu,=
+ struct hlist_node *node)
+>                 goto fail;
+>         }
+>
+> -       /* acomp_request_alloc() returns NULL in case of an error. */
+> -       acomp_ctx->req =3D acomp_request_alloc(acomp_ctx->acomp);
+> -       if (!acomp_ctx->req) {
+> +       if (zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp)=
+ ||
+> +           zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
+
+We stop propagating the output of these functions to the caller here.
+It still works because ret is initialized as -ENOMEM, and that's the
+only possible failure of zswap_acomp_req_init(), but that's really
+subtle.
+
+I'd rather either propagate the return value as-is on failure, or make
+zswap_acomp_req_init() a boolean so that it's obvious there's one
+failure mode and future changes can't just return a new error code
+that would be silently thrown away.
+
+>                 pr_err("could not alloc crypto acomp_request %s\n",
+>                        pool->tfm_name);
+>                 goto fail;
+>         }
+>
+> -       crypto_init_wait(&acomp_ctx->wait);
+> -
+> -       /*
+> -        * if the backend of acomp is async zip, crypto_req_done() will w=
+akeup
+> -        * crypto_wait_req(); if the backend of acomp is scomp, the callb=
+ack
+> -        * won't be called, crypto_wait_req() will return without blockin=
+g.
+> -        */
+> -       acomp_request_set_callback(acomp_ctx->req, CRYPTO_TFM_REQ_MAY_BAC=
+KLOG,
+> -                                  crypto_req_done, &acomp_ctx->wait);
+> -
+> -       mutex_init(&acomp_ctx->mutex);
+>         return 0;
+>
+>  fail:
