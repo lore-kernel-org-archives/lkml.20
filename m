@@ -1,273 +1,225 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7E13C5546
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909937; cv=pass; b=iSesXyd3V9OOBzQlR+j8QxwMvtUvSR2YoSkbzan6bhMu5xnnKaevsSbgd47pxKrFrhxt4dm69EMCU0Alc2MJHub8w/lIQtg8xt2r0ZOHewKTLMUTsRudkVyhvFo71/T6xMFdLFEP/2OoKMRRDG4QlSjNtjhIkn+quE4SR+pHKXA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909937; c=relaxed/simple;
-	bh=ErbdQXk/URTp1jQbqVBj9NDM7DJP7HNoYrbQowetnII=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=im0qpIZuaCwwaZKZwmLuQt5BYgnGGTcn0cURU18ud801zu1wpF8dS5VkqOkP1/oDAl8xhTbMEv4OJTQ4N+OT0pngdN664AD70UxWEA2PGzK2mzOFpKqBpqrJc0lUAyQqKdMyyQmM+1Fxk/GyZ39mC1+pXxvgRvFz+XnRGCE05kM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jZHtYLEY; arc=pass smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FA83F4DD7
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 16:46:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791910001; cv=none; b=h7teEAMuuMdaHq0MQJDe8ciHWjigfVqJI/ljszRS/Ga+4PalZI2CIqKsG/lE1K6ursNC3+JJ+/JwnW/S2cYGpSg9yH9jAePUh6Usm0wsLhNM7NpxB7jJukmINMesf9jKSxg2vVO3hwgGwBlj7V8ZuHcqXC49+CYaRHQV/xCugoA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791910001; c=relaxed/simple;
+	bh=1uNtoEPn1axBBTz/xvu5DMTLl85+9t1E0I35mjRxhXQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=REdojJB2P/K8i+1FEIE9jAHSGVIvj98usTIAvOrx8Zxs9Q8uejfOdKmuaSb1/UKDm3e7R9QLQ25cmjMQ6kCZ8BWEGeoDjpvl5+g1bAEyUXIObZ1N0/wUkNqvsIzte551pqVYEQ7C1eevc3iKe5JOOQ5r516SSl/ZC0miWulamjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=ts9r5Kt5; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=SkbLOIUU; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jZHtYLEY"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6acbdbc1725so81094a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:45:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791909934; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o7xbIzrjRRBV5RoUI5Lrm8QYhqd8fc4Dby729Wdsybo0EO0oJWqU4pojTrQo/Pq1OM
-         30Rq7hm2uEXbRWPkAc/kaMkZRZbM7ygCpYg/GSr2CwDTDjT17AT5+CT5yEPs5VOAXNBk
-         gLld9gmUbGPYUWV0wiijEUQ6sy8fJPC8BjFGs9SjhGCDGTWZFjUSSdiTz2F1QTcV4cr5
-         cy0t9s4VGqdXvKPxy/XqnzJQ7oR/7nHLvwkAp+kEcAj4+EbR7VnNrwXfU69kZa8atPHY
-         ST1x6er/X7mv6Tw+YPUKgqWsAgQr10LFJRdowO5bPYXqwcd0kxelpf9v+mplpxTL93eU
-         k/jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=uZ7BbSqar+Si41gKyxKH2K4JDwX7f9UUlWV78UL2QC4=;
-        fh=kix7MivHMYjEhrK3jtEgl4wYD1Vyhe3z2HMPAUs4kXY=;
-        b=CX+Fcu31nl/izvVHcnw6lxl4Xr9fCUvAd5AuelhkhCQ7zqJjERjWs4vs3p1+c9XzRx
-         z9tpayLCw+XYdXZD62welFixpeJldGo4MTmy99jOhh2xzxeGdx9f+iFpFnO1ctKxd4t0
-         5FAZMSkmgj87A4jfmr9Xi+pXQC39ONlty7P317355Q98EIp7jEBspWCwIQ+3GBNackpV
-         gQdhO1GojmVtk0R43eUJiX6s2PMgkFZmVFiscIoBNK0Rvaa/13wpa3+6yNChJPQC/rWs
-         eAc9WB42Ftvt2Z4bMUg3KfRNySnld1v1p3y+vurf7kNc0/2BZsnT/HgzRpZxqaZFlA4/
-         4iyw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="ts9r5Kt5";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="SkbLOIUU"
+Received: from pps.filterd (m0167076.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DGY5UZ3289932
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:46:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=YZtt
+	3JvqXqsF3YecFG5xLUkWJg8SzoyuQA2ME3mmpjA=; b=ts9r5Kt5EGrbXR38GXpp
+	ZnPuX+JbNirHfeJ4NgbbHUSviGCiz9g3ml1b6yrnPpZMlzOjOfar5SnFRmC9ntd+
+	eFu3OjVBKjxqgkXkv4/3+oiiz1Ui3R0+t5F4NvUjry8kG761lc/kp9qbUZvBRNce
+	So5UoKtNfZuhSresZUJSxcTrU0fzyk+jBOVVS6kRsLr5deg8zK3qf9/PG4zBgejq
+	FAQzASdmU8GSbxLgV6i8MUU57EBe5WRaX/oxUaDNgrnILg1bNpOhx3Ohw4giHxUk
+	PoYyOEhTJojgrMVNWtGG/kax1yeS9s3L2ePftQhuijDL97Ms/zV6TJJYMwF8ejeT
+	qw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4h9qgq8mjq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:46:31 -0400 (EDT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91785bd637bso108256906d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 09:46:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791909934; x=1792514734; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=columbia.edu; s=lionmail; t=1791909991; x=1792514791; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uZ7BbSqar+Si41gKyxKH2K4JDwX7f9UUlWV78UL2QC4=;
-        b=jZHtYLEYdOM2KYqB1H16vkoUg7vbiZQ+zzqXww9/kVe2JMdLoVKJKJNbTVhEaSxJgk
-         liRS9gXxJ7/6dXZp22W/IdjuMkfc1tYMmpW/KeTHzr+ofD6AmRhV3lPQbBylhp/5o3Ft
-         ZpThJuh/ZiIgtLySmBKduIqbXtM4MAvIKgRHD1QxN2Bfj3Lb95PmN9i3XFTInISofBEm
-         GfO8QiDlMrRcwrY71yIuz68OEuBBaQDtqcrPZQKOejTiO9k3FC89EmxSmnxpvlDi+xO8
-         lJny5Nhfs5yy0Y7Kn8uMx9vfmVh+AQkQAjo/O6qpsZjM8GYsUH5khhIOKw1C8buHL9CO
-         giKw==
+        bh=YZtt3JvqXqsF3YecFG5xLUkWJg8SzoyuQA2ME3mmpjA=;
+        b=SkbLOIUUII19jQ1Y2vmuIBCWufE00OEcaj+gzMsC7ysPZ+rHeaL5GmlhGbQ/6/SHVS
+         Z4VDwfvnzL2FwvBp2LdSSw1nHCsU3WCBE6bp9EnOymBgFfw9BBik7g9C9mtiw5hgZ+KX
+         PeG31J1P6ofLRFGsDS43v6iBLKs/KfkzON23OVY964SUTn761VmJHzE2Bx+nfSKlatia
+         NaCgPWAVFEU+0dcIAE35cEdA/LrDNlY4pyh9u/a6vtvmFOQvZffV0pP0yg4d0RugolB3
+         PqQDFFpJmHfrq5Ay8846g0ooCUieP2wlfjiPLGoTMNs+fI9yTt+NZLt7RkrCV6NNbu0A
+         H5kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791909934; x=1792514734;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uZ7BbSqar+Si41gKyxKH2K4JDwX7f9UUlWV78UL2QC4=;
-        b=uPNe+JFt8gQeN4T0An97JgIV4QU9BLbIbzYI5uMpj8lxQPoAsoiRogjISc0mGWOpBX
-         XRhQX8K+9Xc4V84AX71JvYGn6QAbo6xzTzbZElhEWYGh3V0Qozn5Pm7Qs1D4dAnmXgWZ
-         Gxf8vUZ/E+N+2q3Ajg6RXNSSYrJlceUd2n/I9UDOaTCJu/jjjQ7krCEEUsxE6gEyP9Jq
-         iDP9RwqzxEWE2bsnmuXwPQsqcTBEUVNAPVIdJyP93FJzbwYcAD4vdZ5N0ohfwb3Ytr2b
-         n3RX5lePxOShzPftH6W5K89pE7FRnh2P3j39AXAk+qikonfXbgOQJw6AtOd7myHdyh+k
-         wSXA==
-X-Forwarded-Encrypted: i=1; AKwUvByz2I/19v7zdgcq9pAjlVyDCQKjBR834CaKngIz3GYk8leZyfirtzFPUMZDBQb6LNpSTdh3EtoCC2OLTVg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaAXZNCeuq/Oh2uG9BJ9yDmuK4ki0Agkauk+a7xrpWtilYX8Bs
-	q6/2StEnxPNM7iIy2+hdOyV3iSIZXhl+gd6sbVLF0Wlldu/dzu0Z879L4W0hYHrWED9K/CzFz7j
-	jmYJL32V75JEIL9mRAsusAC5ZB8VULNf+mRUr6IhIcA==
-X-Gm-Gg: AYBFou3SoOZmF2h9ghsjTNH/yG0sZUfc5RkAxUZzt7eiKFZUUQPGdOaR+WVZ18+a8HX
-	K1yjsw04V43dFPm334CoGiVHibxHo0AmAVrPLc42gRVPN0ZzSvUv9uZtYaSyH2BN/Vl/Cg5gjYo
-	LqnmEJF/wF8nhEuyj/XJHAV4ienAoGhmTQLmX0EMq3fUKSvk1bQQkua2bF7HBPtgOG1A7Nzsvg1
-	VP9pAYFSwGGPx3LmNXjLQEscYj4f/IZndd3hHtYw0ml2HF396EtvoBDGQz03cKgToeh5g9gTKa1
-	kffzOefnnU0NIB9buiRPss740Zs7WzLc4W0tXitfNX6WesL+yCfhuzVA2x6XqoDjIBQ7QFg2Rab
-	7gIBgrUKJiQ8=
-X-Received: by 2002:a05:6402:1ed3:b0:6ab:e30:c9dc with SMTP id
- 4fb4d7f45d1cf-6b17c245c21mr10953241a12.7.1791909933828; Tue, 13 Oct 2026
- 09:45:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791909991; x=1792514791;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YZtt3JvqXqsF3YecFG5xLUkWJg8SzoyuQA2ME3mmpjA=;
+        b=Xe0N0q9YZaRTvvRMBFs1bJP7v3o7oz9SGXsHAIeqJUKszmRhCeYcPZ33WAwZAqzY3r
+         Ad1WSb/zerjH6hmHy6KpEasAbvlAZDcYLkRXPcPI1g4ZRNG11JlMs1i7+sbA9nfS4ZIF
+         Q3MiopEQgCnrh4NJE5YVbAwh4dMo7lk1/uKerymE8jTOHsXjWn54BlfttfOITS7FL20b
+         5/HzHtjzXcNkihKjaFr1/Yz2aIkMdFuTGmKjFdTjj0xB/dRHkU0xPRgP703Cv940BrxF
+         80FFW3AxjBTD5xiRC4i7kYu06ycJ2CiLaLc5Gz1fUxRoqGGSDnkwImtg2Hzmeae7ZfDp
+         c+cg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4rXzf0cb2wlZ/c8Y7WIssfLAwcsk9oJEC6dnsgqUFONRhaQrGj6d7RniaNjMqHHouNnQuYAVf00LlA7M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIskDDGZfVaN1QJI7Hr+PBO9ztGIP2Lsx6Mbape6tApAlhIGTMv
+	RkshdxtQ9l7aR/q+ANk6I0sT0Sfh7/R+mVaN6nJSFAsRvKncqL8rROyngwK1KFRIvc/VrhbOeBn
+	DMdoRFNtaLdu2IU/Y3nprVH71HO3EqKPBVDXusAJE8jLgeL7Qy4wVFsSpXgkhRw==
+X-Gm-Gg: AYBFou1ZP1tdB+UQ/lhiS/TiXJpz39IWMMd3ueGCyeIOceyUvf63ImhKUVzVcUD/lGk
+	19vXQHkXePvdv8sGqt4+vvre+3SO8by+BUHE2xp+3tGQUC8SD3R0MTGNcg9Uxawo1kFI8r5Ro6Q
+	itoS6lLlPfas8C0p7EtLvAnsQHwpLd6INSB+U/20IzsB9JjVmglVV9ti4VFdlqRrNI25ZjDjnbj
+	C7aQ5kkmAIvbQ/6GLrRxMRi3Hn7p+csGKbpQBYdHf7LdfQ3VSVbIr7EqUzVHMl0XHi0IO5nNIgQ
+	AQG+s3wZhVU9THJoKgi2cu8jdSRvFAdSxefHTPI/956GWN6qMp9ssJUTex+9FcPnDt6OFcPLi3o
+	+MWH3S758mAdM+AI4d6nF4C5loYZUffLO7TSqNPfbsOMcOQ==
+X-Received: by 2002:a05:6214:2524:b0:914:507:80d2 with SMTP id 6a1803df08f44-91b55540f93mr229040356d6.33.1791909990987;
+        Tue, 13 Oct 2026 09:46:30 -0700 (PDT)
+X-Received: by 2002:a05:6214:2524:b0:914:507:80d2 with SMTP id 6a1803df08f44-91b55540f93mr229039816d6.33.1791909990385;
+        Tue, 13 Oct 2026 09:46:30 -0700 (PDT)
+Received: from [10.207.9.0] (nat-128-59-177-43.net.columbia.edu. [128.59.177.43])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b92b86sm29693496d6.30.2026.10.13.09.46.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 09:46:29 -0700 (PDT)
+Message-ID: <4f60231d-5f3d-4094-b578-31efa9d088c5@columbia.edu>
+Date: Tue, 13 Oct 2026 12:46:29 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop> <20261013152455.9039-1-kprateek.nayak@amd.com>
-In-Reply-To: <20261013152455.9039-1-kprateek.nayak@amd.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Tue, 13 Oct 2026 18:45:20 +0200
-X-Gm-Features: AclHuK-h_r5Og6RT_H-nwSz34xt58MECD6s7B2WweT6gahM6nojOFPRqsN9n7tg
-Message-ID: <CAKfTPtCMmKFOSud7Zo7kbANkPXgSYbk=3daQtLvAsJLGvuBa0w@mail.gmail.com>
-Subject: Re: [PATCH] sched/core: Call wakeup_preempt() for queued tasks during
- class change
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cramfs: convert cramfs_blkdev_read() to use folios
+To: Nicolas Pitre <nico@fluxnic.net>, Christian Brauner <brauner@kernel.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260906-cramfs-blkdev-read-folio-v1-1-1be99a82be55@columbia.edu>
+ <810d7901-b897-4880-a8d4-d80fe0f8770b@columbia.edu>
+ <eb5ff8ee-cc80-f8f8-0602-ccb9ad4a1b12@fluxnic.net>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <eb5ff8ee-cc80-f8f8-0602-ccb9ad4a1b12@fluxnic.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA2NSBTYWx0ZWRfXyV8V3asjqTXq
+ t9iBvSS5FCBLr484W32i6iOotoRKlSPP3JH2fNJfx72dks8PrSqc7pQeEumEIDSVjNoVCuPFOSu
+ +SaDqkMTf+Y0lTxXXqUNNzYNRywNAqg46wC1a/IopkiJiVTwsZgT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA2NSBTYWx0ZWRfX1ovCWEFA9wOa
+ HaKdyT2rpunhyQHpHKyWkjjEUmkVSlCfcR2Vyrol8CD8NKnhvZgdKN1N6NUwv9UUbTQhXxyoGNR
+ WXM4dBH6pF2G8H+cInVADC6j3gaF+R0HKBdvEBAcX3/q2Ap6pm+mh6YjPSxNFwZEZsS7B/oKs69
+ Sy5vOU8ZBcjSsyRjZnBFvS5FFZo17GLQ2J9p7NqXalV+79Xs+wxVS/mGOUxXuFpyrPd8Zvay2V8
+ DpP9IbW+apVRYsxSXGUGCvUAQeaCJVBGHD6ZrvwpRLktzlN9w43qe5lM7zZAuqw0AtqqW/tXzf9
+ cETSmb4oypubArSQd1EKYtyVhacdYzEVM13A2hg0tvF1HwjJeT0YKM/UnfAy4Xs6dVl5gJZTmd1
+ BSBQf1M7/5KaNnbOiIGXWXWX1ys7pU8P26VLNunxbl6/wi2wYecVRqur26f5pzI889tuogJi9oU
+ OKGHBselB691GeWUWBg==
+X-Proofpoint-ORIG-GUID: LPyFbWHHr92FNLJj9G5GsqHATKKwDbql
+X-Proofpoint-GUID: LPyFbWHHr92FNLJj9G5GsqHATKKwDbql
+X-Authority-Analysis: v=2.4 cv=a/6lZkSF c=1 sm=1 tr=0 ts=6ace6067 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=lXeS3XHMKYhu4Q0xF1pUDQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=Qm0qsxP7aFY2tkT6R2MF:22
+ a=dg4UtMH5AAAA:8 a=wIN2Qo1HbR48bUUB9JIA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=byNfn09xH3PuSfgbYLsR:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11934
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 clxscore=1015 spamscore=0 phishscore=0 priorityscore=1501
+ impostorscore=10 adultscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130065
 
-On Tue, 13 Oct 2026 at 17:25, K Prateek Nayak <kprateek.nayak@amd.com> wrote:
->
-> Paul reported recent RCU changes exposed a lost resched where CPU idles
-> with a rcutorture thread waiting while being completely runnable.
->
-> Dumping the rq state at the time of idling with runnable tasks showed
-> the following:
->
->   rq->next_class = &fair_sched_class
->   rq->nr_running = 1
->   rq->cfs.h_nr_queued = 0
->   rq->rt.rt_nr_running = 1
->
-> Although the waiting task was an RT task, "rq->next_class" did not point
-> to rt_sched_class and was stuck at the lower priority fair_sched_class.
->
-> Inspecting sched_change_end() revealed the following race with
-> __sched_setscheduler() for queued, but non-running tasks:
->
->     CPU0                                   CPU1
->     ====                                   ====
->
->   __schedule()
->
->     /*
->      * rq->donor is a fair task that blocks.
->      * rq->next_class = &fair_sched_class
->      */
->
->     rq_lock(rq0)
->
->     pick_next_task()
->       /* nr_running = 0 */
->       pick_task_fair()
->         sched_balance_newidle()
->           raw_spin_rq_unlock(rq0)
->                                     rq_lock(rq0)
->
->                                     activate_task(rq0, p)
->                                       /* p is a fair task */
->                                       rq0->nr_running++;
->                                       rq0->cfs.h_nr_queued++;
->                                       wakeup_preempt(rq, p)
->                                         rq->next_class = &fair_sched_class
->                                         resched_curr()
->
->                                     rq_unlock(rq0)
->
->                                     __sched_setscheduler(p)
->                                       /* p is moved to SCHED_RR */
->                                       task_rq_lock(p)
->                                       sched_change_begin()
->
->                                       rq0->cfs.h_nr_queued--;
->                                       rq0->rt.rt_nr_running++;
->
->                                       sched_change_end()
->                                         /*
->                                          * p->on_rq = 1 (ctx->queued)
->                                          * but p is not rq->donor
->                                          * (!ctx->running) hence
->                                          * resched_curr() is and
->                                          * rq->next_class upgrade is
->                                          * skipped.
->                                          */
->
->                                        task_rq_unlock()
->
->           raw_spin_rq_lock(rq0)
->
->           /*
->            * rq->nr_running = 1
->            * rq->cfs.h_nr_queued = 0
->            * rq->rt.rt_nr_running = 1
->            * rq->next_class = &fair_sched_class
->            */
->
->            if (rq->cfs.h_nr_queued && ...)
->              /* Above is false */
->
->            if (rq_modified_above(this_rq, &fair_sched_class))
->              /* Also false since rq->next_class is still fair */
->
->       /*
->        * sched_balance_newidle() is considered to
->        * have failed to pull any fair tasks and no
->        * other wakeups were detected.
->        */
->        return NULL; /* pick_task_fair() */
->
->     pick_task_idle()
->       return rq->idle;
->
->     next = rq->idle;
->
->     /* Preemption indicators are lost */
->     clear_tsk_need_resched(prev);
->     clear_preempt_need_resched();
->
->     rq->curr = rq->idle;
->
->   !!! rq->idle switches in with rq->running == 1 but !need_resched() !!!
->
-> In simple words, enqueue, followed by a class change of the newly queued
-> task goes unnoticed in rq->next_class indicator and
-> sched_balance_newidle() sees no fair task, nor any higher priority task
-> enqueued.
->
-> The above sequence will lead to CPU idling with a runnable task on the
-> CPU.
->
-> Call wakeup_preempt() for ctx->queued cases in sched_change_end() to
-> re-evaluate rq->next_class after class change (ENQUEUE_CLASS) and set
-> the NEED_RESCHED indicator accordingly.
->
-> Newidle balance will correctly see an enqueue of a higher priority
-> task if a queued task was upgraded when the rq_lock() was dropped and
-> will retry the pick.
->
-> Reported-by: "Paul E. McKenney" <paulmck@kernel.org>
-> Closes: https://lore.kernel.org/lkml/8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop/
-> Fixes: 1e900f415c60 ("sched: Detect per-class runqueue changes")
-> Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
+On 10/12/26 12:16 PM, Nicolas Pitre wrote:
+> On Mon, 12 Oct 2026, Tal Zussman wrote:
+> 
+>> On 9/6/26 7:45 PM, Tal Zussman wrote:
+>> > Read the block device pages through read_mapping_folio() and copy with
+>> > memcpy_from_folio() instead of going through a page.
+>> > 
+>> > Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+>> > ---
+>> >  fs/cramfs/inode.c | 23 +++++++++++++----------
+>> >  1 file changed, 13 insertions(+), 10 deletions(-)
+>> > 
+>> 
+>> Following up on this - I don't see a cramfs tree, so could this go
+>> through vfs if everything looks ok? It gets us one step closer to
+>> removing read_mapping_page().
+>> 
+>> Thanks,
+>> Tal
+> 
+> Yes, please forward to the vfs tree.
+> 
+> Acked-by: Nicolas Pitre <nico@fluxnic.net>
+> 
+Thanks!
 
-Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
+Christian, could you please pick this up?
 
-> ---
-> Patches are based on tip:sched/urgent at commit a0bb6fac53fa
-> ("sched/core: Account PSI IRQ time to the execution context, not the
-> scheduling context").
->
-> Tested with sched-messaging and Paul's TREE01 reproducer.
-> ---
->  kernel/sched/core.c | 19 +++++++++----------
->  1 file changed, 9 insertions(+), 10 deletions(-)
->
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 1fe40de6ebe3..1754d9f95f2c 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -11327,17 +11327,16 @@ void sched_change_end(struct sched_change_ctx *ctx)
->                 if (p->sched_class->switched_to)
->                         p->sched_class->switched_to(rq, p);
->
-> +               /*
-> +                * Check if the task can preempt the current in case the class
-> +                * was upgraded. Note that none of the switch*_from() methods
-> +                * know the new class and none of the switch*_to() methods know
-> +                * the old class so we must resched here.
-> +                */
-> +               if (ctx->queued)
-> +                       wakeup_preempt(rq, p, 0);
-> +
->                 if (ctx->running) {
-> -                       /*
-> -                        * If this was a class promotion; let the old class
-> -                        * know it got preempted. Note that none of the
-> -                        * switch*_from() methods know the new class and none
-> -                        * of the switch*_to() methods know the old class.
-> -                        */
-> -                       if (sched_class_above(p->sched_class, ctx->class)) {
-> -                               rq->next_class->wakeup_preempt(rq, p, 0);
-> -                               rq->next_class = p->sched_class;
-> -                       }
->                         /*
->                          * If this was a degradation in class; make sure to
->                          * reschedule.
->
-> base-commit: a0bb6fac53fa7cf1cadb487b43d4c9276a6b82e3
-> --
-> 2.34.1
->
+> 
+>> > diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
+>> > index d4cd03f4f60d..b55eb3bd29c1 100644
+>> > --- a/fs/cramfs/inode.c
+>> > +++ b/fs/cramfs/inode.c
+>> > @@ -194,7 +194,7 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+>> >  {
+>> >  	struct address_space *mapping = sb->s_bdev->bd_mapping;
+>> >  	struct file_ra_state ra = {};
+>> > -	struct page *pages[BLKS_PER_BUF];
+>> > +	struct folio *folios[BLKS_PER_BUF];
+>> >  	unsigned i, blocknr, buffer;
+>> >  	unsigned long devsize;
+>> >  	char *data;
+>> > @@ -227,15 +227,15 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+>> >  	page_cache_sync_readahead(mapping, &ra, NULL, blocknr, BLKS_PER_BUF);
+>> >  
+>> >  	for (i = 0; i < BLKS_PER_BUF; i++) {
+>> > -		struct page *page = NULL;
+>> > +		struct folio *folio = NULL;
+>> >  
+>> >  		if (blocknr + i < devsize) {
+>> > -			page = read_mapping_page(mapping, blocknr + i, NULL);
+>> > +			folio = read_mapping_folio(mapping, blocknr + i, NULL);
+>> >  			/* synchronous error? */
+>> > -			if (IS_ERR(page))
+>> > -				page = NULL;
+>> > +			if (IS_ERR(folio))
+>> > +				folio = NULL;
+>> >  		}
+>> > -		pages[i] = page;
+>> > +		folios[i] = folio;
+>> >  	}
+>> >  
+>> >  	buffer = next_buffer;
+>> > @@ -245,11 +245,14 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+>> >  
+>> >  	data = read_buffers[buffer];
+>> >  	for (i = 0; i < BLKS_PER_BUF; i++) {
+>> > -		struct page *page = pages[i];
+>> > +		struct folio *folio = folios[i];
+>> >  
+>> > -		if (page) {
+>> > -			memcpy_from_page(data, page, 0, PAGE_SIZE);
+>> > -			put_page(page);
+>> > +		if (folio) {
+>> > +			size_t offset = offset_in_folio(folio,
+>> > +					(loff_t)(blocknr + i) << PAGE_SHIFT);
+>> > +
+>> > +			memcpy_from_folio(data, folio, offset, PAGE_SIZE);
+>> > +			folio_put(folio);
+>> >  		} else
+>> >  			memset(data, 0, PAGE_SIZE);
+>> >  		data += PAGE_SIZE;
+>> > 
+>> > ---
+>> > base-commit: df2908090cda368b01ff43709f51890076c56157
+>> > change-id: 20260906-cramfs-blkdev-read-folio-16fecf6908ac
+>> > 
+>> > Best regards,
+>> > --  
+>> > Tal Zussman <tz2294@columbia.edu>
+>> 
+>> 
+> 
+
