@@ -1,55 +1,61 @@
-Received: from mta0.migadu.com (out-11.mta0.migadu.com [91.218.175.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C940D4BE454
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113D73822BB;
+	Tue, 13 Oct 2026 08:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791879424; cv=none; b=tHD5NfT5rRlTD+mZe+yG2JULJ6SIZBdR/irFT/KPMCh+683UPGtn3n+yK7+N6bxXqcNC58qsucPbxVQiXV+VVPDR7i1jjXAZVktVjDNJnyiQApvBrFD6f4OMp5abNJVgQ+nyx6WohDt8vcvqViVSZ3s+PZW+S7X4aB0bhvfV6ko=
+	t=1791879514; cv=none; b=uXVjvlLJA+w0ZDUHfjLgZrBRNorW/ln0D+pLYPwSQmJKeYdlT5rrbQeWG47Wzsunqiv4U+4UkWRu7Pebk3fEzn6Z26vQNaEKAmxkptbj20Pe24IeZhDS7YCBN5tXcmVQFPWahGA5NMTUG2j+/XbWTVQwWJyTQeftzlo10WVp06s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791879424; c=relaxed/simple;
-	bh=QOyVRTmWh+YT7G+cpGvL66+aoL8H82+I49NPk8LYl+U=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mwOuJApjkYJXVte6+M1mGj3QwLUu1MLQZPzI0S3NnIfXXLKH8jAQG5kHKjtlZXugBCklRUiV9v9DxuuFG9XneftJPc/tYLMI+TEmdOpLPiyLDMpZWNVVnP8sCo3iaHTGGpFddrxDL5ojferF8VWrWASj/q5TH3gtcr3BTkmP1FY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Gp2nP+pH; arc=none smtp.client-ip=91.218.175.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791879514; c=relaxed/simple;
+	bh=ombfN8dcwctGQIDrX4gg69cAW+VBHVNB6WsNUHBIZK0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jKw+01sPBSgJsq0EXznj+Vr63QpcMePiVG/GgVxgyvRniV8L6g2YRqxZzAGNOlR4ZxJ78m/ik35aGeKtHU5qPXQyurMJX83VcSJPGdxCFnJ3YhIEtQRi6cZ4fxNLWhRKWCj2kNK1vx8G/XBwEMRvd568AACJBUVLOVSzMcv8AyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=nGANVuxp; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Gp2nP+pH"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=QOyVRTmWh+YT7G+cpGvL66+aoL8H82+I49NPk8LYl+U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791879420; v=1; x=1792484220;
- b=Gp2nP+pHOe5Lp/et1yJeGbgH/+x9cN0DXk8zE3PXvHDZ4kolbcGb/VVt3+a32LtfaNmlG0rC
- 3yT5yPU+6WVoTvrjgSgvU+sLUh5AUf/9uFh8ANALqX9BbmKu1J1Kq5TEenVeGrqi3Xbf0mQxJb9
- E9gJ30yAG8X/yBCVyYXjcF7g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3790d623399d7862;
-	Tue, 13 Oct 2026 08:17:00 +0000
-X-Mizu-Trace-ID: 3790d623399d7862
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH v2 2/2] KVM: arm64: vgic-its: Remove the pending state of a discarded LPI
-Date: Tue, 13 Oct 2026 09:16:46 +0100
-Message-Id: <20261013081646.933312-3-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261013081646.933312-1-fuad.tabba@linux.dev>
-References: <20261013081646.933312-1-fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="nGANVuxp"
+X-UUID: aa27b35ac6de11f1b1788b6acf885367-20261013
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=rDqvCfFDMa3gC0A3oF+Ew8YWszwVZlkqSrTz8bpprnM=;
+	b=nGANVuxpoUWgs0ENFSTw6nGIwBX/8JWuxlzY9STA3o39hO7zD3uT7209cz+aLMsGGq5Hv4CXHDM4p2+e3zlsvvMMpMbdOu0L8EmxOLuhvSC9bssvLadhBh7TbM4HwQoq8S5CemWPoQ+lc/525QrxuJauSU8m5M3dTfXIfgZCCIc=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:8e3c5d5b-680c-44d0-8615-24a86648ff57,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:291e20b,CLOUDID:520bb461-631c-4dbe-b8dd-a62f5130cbf8,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: aa27b35ac6de11f1b1788b6acf885367-20261013
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw01.mediatek.com
+	(envelope-from <chris.lu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 194355010; Tue, 13 Oct 2026 16:18:26 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 13 Oct 2026 16:18:25 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Tue, 13 Oct 2026 16:18:25 +0800
+From: Chris Lu <chris.lu@mediatek.com>
+To: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg
+	<johan.hedberg@gmail.com>, Luiz Von Dentz <luiz.dentz@gmail.com>
+CC: Hao Qin <hao.qin@mediatek.com>, Wenlong Tian
+	<ot_wenlong.tian@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, Will Lee
+	<will-cy.Lee@mediatek.com>, SS Wu <ss.wu@mediatek.com>, linux-bluetooth
+	<linux-bluetooth@vger.kernel.org>, linux-kernel
+	<linux-kernel@vger.kernel.org>, linux-mediatek
+	<linux-mediatek@lists.infradead.org>, Chris Lu <chris.lu@mediatek.com>
+Subject: [PATCH 0/2] Bluetooth: btmtk: fix ISO data reception
+Date: Tue, 13 Oct 2026 16:18:21 +0800
+Message-ID: <20261013081823.817996-1-chris.lu@mediatek.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,62 +63,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-DISCARD removes the mapping of an event and instructs the Redistributor
-to remove the pending state of its LPI (IHI 0069H.b, 5.3.4). KVM only
-frees the ITE, so an LPI that is pending when the guest discards it
-stays queued on its target vCPU, and the guest still takes it.
+Two problems in btmtk_recv_isopkt(), both found while debugging LE Audio
+on MT7925. The function is shared by every MediaTek USB controller that
+supports ISO data, so neither is specific to that part.
 
-Clear the pending state before freeing the ITE. A queued LPI can be
-pending in a running vCPU's list register, so halt the guest first when
-the LPI is queued, to fold that state back. A forwarded LPI already
-loses its pending state in its_free_ite(), whose unmap from the vPE
-sends a DISCARD to the host ITS.
+Patch 1 stops the zero padding emitted by the ISO interrupt IN endpoint
+from being parsed as ISO packets. The endpoint delivers one packet per
+264-byte transfer and zero-fills the rest; the driver turns every four
+zero bytes into a handle 0 packet with Data_Total_Length 0 and reports it
+to the stack. A single transfer can inject up to 64 of them, which is
+what fills the HCI log with malformed ISO frames, and a valid SDU is lost
+whenever handle 0 belongs to a live CIS/BIS.
 
-Fixes: df9f58fbea9bc ("KVM: arm64: vgic-its: Implement ITS command queue command handlers")
-Suggested-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/vgic/vgic-its.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+Patch 2 corrects the receive skb being allocated 4 bytes too small, so
+that a 248..251 byte payload would be rejected with -EILSEQ.
+HCI_MAX_ISO_SIZE is a payload limit rather than a frame limit, and the
+allocation should reflect that.
 
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 44b92c01bc727..3b8e0e5b097e0 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -829,13 +829,27 @@ static int vgic_its_cmd_handle_discard(struct kvm *kvm, struct vgic_its *its,
- 		struct its_device *device = find_its_device(its, device_id);
- 		int ite_esz = vgic_its_get_abi(its)->ite_esz;
- 		gpa_t gpa = device->itt_addr + ite->event_id * ite_esz;
--		/*
--		 * Though the spec talks about removing the pending state, we
--		 * don't bother here since we clear the ITTE anyway and the
--		 * pending state is a property of the ITTE struct.
--		 */
-+		struct vgic_irq *irq = ite->irq;
-+		bool queued;
-+
- 		vgic_its_invalidate_cache(its);
- 
-+		/*
-+		 * A queued LPI can be pending in a running vCPU's list register,
-+		 * which the exit path folds back: halt the guest before clearing.
-+		 */
-+		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
-+			queued = irq->vcpu;
-+
-+		if (queued)
-+			kvm_arm_halt_guest(kvm);
-+
-+		scoped_guard(raw_spinlock_irqsave, &irq->irq_lock)
-+			irq->pending_latch = false;
-+
-+		if (queued)
-+			kvm_arm_resume_guest(kvm);
-+
- 		its_free_ite(kvm, ite);
- 
- 		return vgic_its_write_entry_lock(its, gpa, 0ULL, ite);
+The two hunks are independent, so patch 1 applies on its own if you would
+rather not take patch 2.
+
+Based on bluetooth-next.
+
+Chris Lu (2):
+  Bluetooth: btmtk: drop zero-length ISO packets from endpoint padding
+  Bluetooth: btmtk: size the ISO receive skb to hold header plus payload
+
+ drivers/bluetooth/btmtk.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
 -- 
-2.39.5
+2.45.2
 
