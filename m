@@ -1,97 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E144F3EB0
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:52:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7F14F93AD;
+	Tue, 13 Oct 2026 12:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895932; cv=none; b=txR7vVsOsqdVK4fEvqv+pfZHB61dZGSYajolERiOcNVnrJGmNhb6zfQ9ubRJ1j3orQ0sAUMAOnjo3tIzSC16Qs1+Dnx+iT+myU9t6lFDBrUgt3IR3cYthVvsWUdpnkV9pLaf0MCZcX+IeV2RwcbguNC3Nb3RG/uiAmjFzdcsJaU=
+	t=1791895951; cv=none; b=DK9ivxRDHTAbb9X0zEvDL3M2qfk+Yk0p+SwCz2lLnRjtNxDk6FrkTYENyREQ/WG2oQ09YzYgUTuGJgjszMlJESSrgDK2speoy4k+NitEhyEBXs5fidpDOk6lcrUZz/rzMp8+zeId/Wxxi0sLBwNpJfjybA5fjwNRmlAXIF4nyg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895932; c=relaxed/simple;
-	bh=p2uRChVRxCXksfoc7niguKSWfjdr6ZGZTh0M+96+IwI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jrdXcbbyv6YJl9lTJOcVYzsPB5bbXnIRXOtirRoS79CCDuTiQsx0TUgN8QeR+2EiJMyjP1U2Qko54nQK0f0/kf09MtS0iBz1SnF1SvMWZG2gkHQqZDW4K/ZAeXfakR5/h6Dx0YKIt6/lcbzJSigVIZeWF2zBYp5ugO+VE7NO3nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SjbfVdgi; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Cyb3PBCY; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791895951; c=relaxed/simple;
+	bh=WPXDokGAVT8xHyG7V2eyKKm0EVqC2AqXpUSIFVoSpPc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sLfrNrEsf2+WjeEFEXRVVWhyckJ04oH7rpjBsPNtNCnYZzsSo0+KNGriPkZ2NBaky1LU0M46i8l+fuS1g85lzETvB7ulnLkI4Kqw7DoVHF5fZgRidvYCnIeGZvF31CNgcBi95YEHrbxsfjsJyAwucgl6qaHCC1CCXNRiaIiu3qA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DWBy2xqY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SjbfVdgi";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cyb3PBCY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791895927;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RXEHGOtHh3baENnAcbFZACuEi2aZnF37n/iOCZA6PHA=;
-	b=SjbfVdgiDFEU8C+RdUnDRlVouThvj6ioL8WM9iwS1wiWuuOREkf8RPC+eW7uJvQuToA0Ug
-	g5SkHc63+jFXq+T6M+y/beVKm1fd2huLBKfCyfYm07sgyFRXhCWUjTdPRW8ycfmwbeCjMz
-	w3wMed2w8nxRKfsktNNcC8mC9C3Tgbk=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-14-qKKwgNh0MuyN1rEi-nGL9A-1; Tue, 13 Oct 2026 12:52:06 +0000
-X-MC-Unique: qKKwgNh0MuyN1rEi-nGL9A-1
-X-Mimecast-MFC-AGG-ID: qKKwgNh0MuyN1rEi-nGL9A_1791895926
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a1de6d5c3so677917185a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 05:52:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791895925; x=1792500725; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=RXEHGOtHh3baENnAcbFZACuEi2aZnF37n/iOCZA6PHA=;
-        b=Cyb3PBCYShygsPuJogKbf7RecujvN3s4EaRNFbb3FwXz9M2xNdHL26zl1wviUDANE+
-         jf/bZ6847Dzahle6Xri7qThhSWD6Lh3Tr9gsABTDaUQzkLOJCkAYNkp3jdrh9wQKSsep
-         YTjbIq179fc5QuLMCh47yXFsdfjF9Q6V+MKK2z4v5WIMuMhqWlhr2wNl2ZmJrmxPpQhk
-         LhxN+BHIFqxHXu7SmmzAQlLlLBdkXnFFFcaNPhGNu/v/7qZzUCjike73K1ZKunFpsbud
-         1flzIbnhKTY7sXbff77/Udx1Pi3cEU3hph4KVa9r91p54ahaBPZSx7vedCr8m/B92dSQ
-         6RjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791895925; x=1792500725;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RXEHGOtHh3baENnAcbFZACuEi2aZnF37n/iOCZA6PHA=;
-        b=xxwJfcJIoajSCLnfBWIFG0JGjYNxMIh1HIB3HwDOTADruECDp+BB4dcgoYGB0giO2F
-         eBi09gN9CrOUUN3qjvYWJrcV5b8ZYSiHD4GEIKN9Ipk0BcpuuqKMRlESGXHfrF+wIBNT
-         U40Vnx4oFH6P6feTuQmD9b3o92x6nYCVKJYMuan+IfrEpE7U0e/IEp8DpkaG0S1HIouV
-         iuryS3kRwB5u8p64o8dhuKELTYYIAK4+yAp6fu7itlw+cSUN9oIvdfvUwifhmFbwB2yw
-         ndCxFpA7PvgLUPf/BH7SrhHPXicMhxRVPdom76SYnwyLaDxfQvz3E8TezzuckPe02dPk
-         y7iA==
-X-Forwarded-Encrypted: i=1; AKwUvBy+lrwA6uUIwmlEKHlwgVsj08n3Lu1JYUM6wliAdWPKrjby+qT3RGkZXyehx3dNjcKK916NGhDVy4l/D/4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLw0CXcZrGAxXBfJa0pVf3/9dpovP/XgwR1+8W6ccBqwXA5MU0z
-	XAHFNOikIF+CCpINpnSxks0RwDgd4cSBJRg3llHpyFxQz2zqAYx90Q+iWpPJ4FwC8NZb9WapSHC
-	TCQo3qDzNPabRUouUuigHmGARmSpItVAgZZ3k3ho38/TZt7G9jL/ZqruWfrQmbbdJhw==
-X-Gm-Gg: AYBFou28HX8QZJrTL4EpgKcZjiKjzqdulABHIv01+D95mCcMKuhm5Wgzq5Y+kNhQiGl
-	IPHtGdHO7lOUMHsliMlcwrpZjURP5BK4ehY8xbgidZRb4Xpo/3JB+by4Og2InSQ/gVYWXa9GGi6
-	3TMlINcShtkiqtPl4suUjar2SyUMG8l05kFfkA9MzLIVi64/x2fDIhhqIazetnzCbS/Ryx6K6yp
-	QlvP0QM81tTNE9Usra/LLi8eBG55aX1+yAklY5cvL+G43S5N1nKw4Ul2WKljsdtc3Ituu3WScXB
-	HOOV4Cd8qqUYXzp6qz5Cp6wkiZoStkdHLOtSnBmyHNFFyw3i0drYY/0jFq55LalMXieP5JKszOx
-	5xavauEHLTZ0Bv0fdagOOHtGB2g7DJkNFwx8=
-X-Received: by 2002:a05:620a:1b97:b0:93e:66e6:fa4 with SMTP id af79cd13be357-93ebd20e4a4mr1960628385a.16.1791895925579;
-        Tue, 13 Oct 2026 05:52:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:1b97:b0:93e:66e6:fa4 with SMTP id af79cd13be357-93ebd20e4a4mr1960624985a.16.1791895924986;
-        Tue, 13 Oct 2026 05:52:04 -0700 (PDT)
-Received: from loberman-thinkpadp1gen5.rmtusma.csb ([2600:6c65:2440:d8c:929c:b769:6def:faa3])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5086fe3sm229204385a.37.2026.10.13.05.52.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 05:52:04 -0700 (PDT)
-Message-ID: <e5312492c3d90322f362b1b148f7dce4290c2ba1.camel@redhat.com>
-Subject: Re: [BUG] scsi: st: use-after-free race between st_remove() and
- st_open()/scsi_tape_get()
-From: Laurence Oberman <loberman@redhat.com>
-To: Dingisoul <dingiso.kernel@gmail.com>
-Cc: James.Bottomley@HansenPartnership.com, linux-kernel@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, mkp@kernel.org
-Date: Tue, 13 Oct 2026 08:52:03 -0400
-In-Reply-To: <20261012201730.1853897-1-dingiso.kernel@gmail.com>
-References: <20261007211520.1428497-1-dingiso.kernel@gmail.com>
-	 <20261012201730.1853897-1-dingiso.kernel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DWBy2xqY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E171F00898;
+	Tue, 13 Oct 2026 12:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791895950;
+	bh=6AphuRwwkTTX1UE/Xr94mon/cOPvdUL05cql2xK2qX0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=DWBy2xqYtmHFRAyIXF5jPPjGyPp4pdMsMthXlxlQgObwwVYtwnxm4QkudyDJGNlnC
+	 AIAbVyhU9TnMNos1sODU3/XKnq3ZfvgLz2kHtvNhipIqg/nHpwd+SvtcjVmnz+CuEQ
+	 318looYnwL0JWHS3zCGEMQeIKTl2RtLZS76KUjFM/3aIVd/tpS/FRR3UrYilPnKpwa
+	 40ekRrJ1JxQR4qcE4QBXTpWKRl/BEDFwHbe6NtIj/1oX01ICHmG/psTLDJTIq0OGFq
+	 1iPE2UBm4YS//v0P6JqdMd4bsxJAXW9Iafgfl+H37yQfH2K54rirqPaXOpMc4H8gOW
+	 QC4kVYrpbcK2A==
+Subject: Re: [PATCH] mac802154: Cancel scan work synchronously during hardware
+ teardown
+From: netdev-bot+sashiko@kernel.org
+To: aryanarora.w1@gmail.com
+Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, david.girault@qorvo.com, linux-wpan@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+19cbce4cc656ecd4febc@syzkaller.appspotmail.com
+Date: Tue, 13 Oct 2026 12:52:29 +0000
+Message-ID: <179189594936.434549.3505861884741105866@kernel.org>
+In-Reply-To: <20261012120934.64632-1-aryanarora.w1@gmail.com>
+References: <20261012120934.64632-1-aryanarora.w1@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,295 +49,241 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Mon, 2026-10-12 at 16:17 -0400, Dingisoul wrote:
-> Hi Laurence,
->=20
-> Adding you to Cc as requested. Quoting the original report below for
-> reference; let me know if you'd like anything else re-tested.
->=20
-> Best,
-> Dingisoul
->=20
-> > Hi Kernel Maintainers,
-> >=20
-> > I hit the following report while testing current upstream kernel:
-> >=20
-> > KASAN: slab-use-after-free in st_open
-> >=20
-> > on commit: a90ee4305c4a (2026-10-06)
-> >=20
-> > Root cause: st_remove() drops the device's last reference, and only
-> > afterwards removes it from st_index_idr:
-> >=20
-> > =C2=A0=C2=A0=C2=A0 static void st_remove(struct scsi_device *SDp)
-> > =C2=A0=C2=A0=C2=A0 {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct device *dev =3D &SDp-=
->sdev_gendev;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct scsi_tape *tpnt =3D d=
-ev_get_drvdata(dev);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int index =3D tpnt->index;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mutex_lock(&st_ref_mutex);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kref_put(&tpnt->kref, scsi_t=
-ape_release);=C2=A0 /* may
-> > kfree(tpnt) right here */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mutex_unlock(&st_ref_mutex);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&st_index_lock);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 idr_remove(&st_index_idr, in=
-dex);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* too late:
-> > tpnt may already be freed */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock(&st_index_lock);
-> > =C2=A0=C2=A0=C2=A0 }
-> >=20
-> > Meanwhile scsi_tape_get() -- called from st_open() on every open of
-> > a
-> > tape device node -- looks the device up by the same index and takes
-> > its
-> > own reference:
-> >=20
-> > =C2=A0=C2=A0=C2=A0 static struct scsi_tape *scsi_tape_get(int dev)
-> > =C2=A0=C2=A0=C2=A0 {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct scsi_tape *STp =3D NU=
-LL;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mutex_lock(&st_ref_mutex);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&st_index_lock);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 STp =3D idr_find(&st_index_i=
-dr, dev);=C2=A0 /* can still find the
-> > freed tpnt */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!STp) goto out;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kref_get(&STp->kref);=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 /* UAF write */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
-> > =C2=A0=C2=A0=C2=A0 }
-> >=20
-> > =C2=A0=C2=A0=C2=A0 static int st_open(struct inode *inode, struct file =
-*filp)
-> > =C2=A0=C2=A0=C2=A0 {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!(STp =3D scsi_tape_get(=
-dev))) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...
-> >=20
-> > Between st_remove()'s mutex_unlock(&st_ref_mutex) and its own
-> > spin_lock(&st_index_lock), tpnt is already freed but still
-> > reachable
-> > through st_index_idr. A concurrent st_open() racing in that window
-> > takes
-> > both locks in scsi_tape_get(), finds the stale idr entry, and calls
-> > kref_get() on the freed tpnt.
-> >=20
-> > We used scsi_debug (ptype=3D1, emulating a tape LUN) to avoid needing
-> > real
-> > tape hardware.
-> >=20
-> > The reproducer and .config files are here.
-> > https://gist.github.com/dingiso/b33f8c01a47bfcbb902d3f21a4877feb
-> >=20
-> > I'm happy to test debug patches or provide additional information.
-> >=20
-> > [=C2=A0=C2=A0 23.212502]
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > [=C2=A0=C2=A0 23.212506] BUG: KASAN: slab-use-after-free in st_open
-> > (./include/linux/instrumented.h:112 ./include/linux/atomic/atomic-
-> > instrumented.h:252 ./include/linux/refcount.h:283
-> > ./include/linux/refcount.h:366 ./include/linux/refcount.h:383
-> > ./include/linux/kref.h:45 drivers/scsi/st.c:254
-> > drivers/scsi/st.c:1291)
-> > [=C2=A0=C2=A0 23.212537] Write of size 4 at addr ffff888009854a1c by ta=
-sk
-> > repro/315
-> > [=C2=A0=C2=A0 23.212541]=20
-> > [=C2=A0=C2=A0 23.212551] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX=
- +
-> > PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> > [=C2=A0=C2=A0 23.212554] Call Trace:
-> > [=C2=A0=C2=A0 23.212556]=C2=A0 <TASK>
-> > [=C2=A0=C2=A0 23.212558]=C2=A0 dump_stack_lvl (lib/dump_stack.c:94
-> > lib/dump_stack.c:120)
-> > [=C2=A0=C2=A0 23.212566]=C2=A0 print_report (mm/kasan/report.c:378
-> > mm/kasan/report.c:482)
-> > [=C2=A0=C2=A0 23.212591]=C2=A0 kasan_report (mm/kasan/report.c:595)
-> > [=C2=A0=C2=A0 23.212602]=C2=A0 kasan_check_range (mm/kasan/generic.c:18=
-6
-> > mm/kasan/generic.c:200)
-> > [=C2=A0=C2=A0 23.212607]=C2=A0 st_open (./include/linux/instrumented.h:=
-112
-> > ./include/linux/atomic/atomic-instrumented.h:252
-> > ./include/linux/refcount.h:283 ./include/linux/refcount.h:366
-> > ./include/linux/refcount.h:383 ./include/linux/kref.h:45
-> > drivers/scsi/st.c:254 drivers/scsi/st.c:1291)
-> > [=C2=A0=C2=A0 23.212623]=C2=A0 chrdev_open (fs/char_dev.c:411)
-> > [=C2=A0=C2=A0 23.212645]=C2=A0 do_dentry_open (fs/open.c:996)
-> > [=C2=A0=C2=A0 23.212651]=C2=A0 vfs_open (fs/open.c:1101)
-> > [=C2=A0=C2=A0 23.212656]=C2=A0 path_openat (fs/namei.c:4837 fs/namei.c:=
-5000)
-> > [=C2=A0=C2=A0 23.212669]=C2=A0 do_file_open (fs/namei.c:5029)
-> > [=C2=A0=C2=A0 23.212693]=C2=A0 do_sys_openat2 (fs/open.c:1417 (discrimi=
-nator 1))
-> > [=C2=A0=C2=A0 23.212702]=C2=A0 __x64_sys_openat (fs/open.c:1423 fs/open=
-.c:1439
-> > fs/open.c:1434 fs/open.c:1434)
-> > [=C2=A0=C2=A0 23.212712]=C2=A0 do_syscall_64 (arch/x86/entry/syscall_64=
-.c:61
-> > arch/x86/entry/syscall_64.c:84)
-> > [=C2=A0=C2=A0 23.212719]=C2=A0 entry_SYSCALL_64_after_hwframe
-> > (arch/x86/entry/entry_64.S:121)
-> > [=C2=A0=C2=A0 23.212755]=20
-> > [=C2=A0=C2=A0 23.212756] Allocated by task 325:
-> > [=C2=A0=C2=A0 23.212758]=C2=A0 kasan_save_stack (mm/kasan/common.c:57)
-> > [=C2=A0=C2=A0 23.212764]=C2=A0 kasan_save_track (mm/kasan/common.c:78)
-> > [=C2=A0=C2=A0 23.212768]=C2=A0 __kasan_kmalloc (mm/kasan/common.c:409
-> > mm/kasan/common.c:426)
-> > [=C2=A0=C2=A0 23.212773]=C2=A0 __kmalloc_cache_noprof (./include/linux/=
-kasan.h:263
-> > mm/slub.c:5563)
-> > [=C2=A0=C2=A0 23.212778]=C2=A0 st_probe (./include/linux/slab.h:991
-> > ./include/linux/slab.h:1312 drivers/scsi/st.c:4376)
-> > [=C2=A0=C2=A0 23.212783]=C2=A0 really_probe (drivers/base/dd.c:628
-> > drivers/base/dd.c:706)
-> > [=C2=A0=C2=A0 23.212788]=C2=A0 __driver_probe_device (drivers/base/dd.c=
-:868)
-> > [=C2=A0=C2=A0 23.212793]=C2=A0 driver_probe_device (drivers/base/dd.c:8=
-98)
-> > [=C2=A0=C2=A0 23.212798]=C2=A0 __device_attach_driver (drivers/base/dd.=
-c:1026)
-> > [=C2=A0=C2=A0 23.212803]=C2=A0 bus_for_each_drv (drivers/base/bus.c:500=
-)
-> > [=C2=A0=C2=A0 23.212807]=C2=A0 __device_attach (drivers/base/dd.c:1098)
-> > [=C2=A0=C2=A0 23.212811]=C2=A0 device_initial_probe (drivers/base/dd.c:=
-1153)
-> > [=C2=A0=C2=A0 23.212816]=C2=A0 bus_probe_device (drivers/base/bus.c:620=
-)
-> > [=C2=A0=C2=A0 23.212821]=C2=A0 device_add (drivers/base/core.c:3776)
-> > [=C2=A0=C2=A0 23.212826]=C2=A0 scsi_sysfs_add_sdev
-> > (drivers/scsi/scsi_sysfs.c:1427)
-> > [=C2=A0=C2=A0 23.212830]=C2=A0 scsi_add_lun (drivers/scsi/scsi_scan.c:1=
-138
-> > (discriminator 1))
-> > [=C2=A0=C2=A0 23.212834]=C2=A0 scsi_probe_and_add_lun
-> > (drivers/scsi/scsi_scan.c:1311)
-> > [=C2=A0=C2=A0 23.212838]=C2=A0 __scsi_scan_target (drivers/scsi/scsi_sc=
-an.c:1805)
-> > [=C2=A0=C2=A0 23.212841]=C2=A0 scsi_scan_channel (drivers/scsi/scsi_sca=
-n.c:1895
-> > drivers/scsi/scsi_scan.c:1870)
-> > [=C2=A0=C2=A0 23.212845]=C2=A0 scsi_scan_host_selected
-> > (drivers/scsi/scsi_scan.c:1924)
-> > [=C2=A0=C2=A0 23.212849]=C2=A0 scsi_scan_host (drivers/scsi/scsi_scan.c=
-:2089
-> > drivers/scsi/scsi_scan.c:2077)
-> > [=C2=A0=C2=A0 23.212852] sdebug_driver_probe (drivers/scsi/scsi_debug.c=
-:9618)
-> > scsi_debug
-> > [=C2=A0=C2=A0 23.212875]=C2=A0 really_probe (drivers/base/dd.c:628
-> > drivers/base/dd.c:706)
-> > [=C2=A0=C2=A0 23.212879]=C2=A0 __driver_probe_device (drivers/base/dd.c=
-:868)
-> > [=C2=A0=C2=A0 23.212883]=C2=A0 driver_probe_device (drivers/base/dd.c:8=
-98)
-> > [=C2=A0=C2=A0 23.212887]=C2=A0 __device_attach_driver (drivers/base/dd.=
-c:1026)
-> > [=C2=A0=C2=A0 23.212891]=C2=A0 bus_for_each_drv (drivers/base/bus.c:500=
-)
-> > [=C2=A0=C2=A0 23.212895]=C2=A0 __device_attach (drivers/base/dd.c:1098)
-> > [=C2=A0=C2=A0 23.212900]=C2=A0 device_initial_probe (drivers/base/dd.c:=
-1153)
-> > [=C2=A0=C2=A0 23.212905]=C2=A0 bus_probe_device (drivers/base/bus.c:620=
-)
-> > [=C2=A0=C2=A0 23.212909]=C2=A0 device_add (drivers/base/core.c:3776)
-> > [=C2=A0=C2=A0 23.212914] sdebug_add_host_helper
-> > (drivers/scsi/scsi_debug.c:8843) scsi_debug
-> > [=C2=A0=C2=A0 23.212937] add_host_store (drivers/scsi/scsi_debug.c:8878
-> > drivers/scsi/scsi_debug.c:8105) scsi_debug
-> > [=C2=A0=C2=A0 23.212954]=C2=A0 kernfs_fop_write_iter (fs/kernfs/file.c:=
-345)
-> > [=C2=A0=C2=A0 23.212960]=C2=A0 vfs_write (fs/read_write.c:595 fs/read_w=
-rite.c:687)
-> > [=C2=A0=C2=A0 23.212964]=C2=A0 ksys_write (fs/read_write.c:739)
-> > [=C2=A0=C2=A0 23.212968]=C2=A0 do_syscall_64 (arch/x86/entry/syscall_64=
-.c:61
-> > arch/x86/entry/syscall_64.c:84)
-> > [=C2=A0=C2=A0 23.212973]=C2=A0 entry_SYSCALL_64_after_hwframe
-> > (arch/x86/entry/entry_64.S:121)
-> > [=C2=A0=C2=A0 23.212977]=20
-> > [=C2=A0=C2=A0 23.212978] Freed by task 325:
-> > [=C2=A0=C2=A0 23.212980]=C2=A0 kasan_save_stack (mm/kasan/common.c:57)
-> > [=C2=A0=C2=A0 23.212984]=C2=A0 kasan_save_track (mm/kasan/common.c:78)
-> > [=C2=A0=C2=A0 23.212989]=C2=A0 kasan_save_free_info (mm/kasan/generic.c=
-:584)
-> > [=C2=A0=C2=A0 23.212993]=C2=A0 __kasan_slab_free (mm/kasan/common.c:264
-> > mm/kasan/common.c:296)
-> > [=C2=A0=C2=A0 23.212997]=C2=A0 kfree (./include/linux/kasan.h:235 mm/sl=
-ub.c:2748
-> > mm/slub.c:6509 mm/slub.c:6802)
-> > [=C2=A0=C2=A0 23.213000]=C2=A0 st_remove (./include/linux/kref.h:65
-> > drivers/scsi/st.c:4512)
-> > [=C2=A0=C2=A0 23.213004]=C2=A0 device_release_driver_internal
-> > (drivers/base/dd.c:1349 drivers/base/dd.c:1372)
-> > [=C2=A0=C2=A0 23.213009]=C2=A0 bus_remove_device (drivers/base/bus.c:66=
-4)
-> > [=C2=A0=C2=A0 23.213014]=C2=A0 device_del (drivers/base/core.c:3965)
-> > [=C2=A0=C2=A0 23.213018]=C2=A0 __scsi_remove_device
-> > (drivers/scsi/scsi_sysfs.c:1499)
-> > [=C2=A0=C2=A0 23.213021]=C2=A0 scsi_forget_host (drivers/scsi/scsi_scan=
-.c:2115)
-> > [=C2=A0=C2=A0 23.213025]=C2=A0 scsi_remove_host (drivers/scsi/hosts.c:1=
-82)
-> > [=C2=A0=C2=A0 23.213031] sdebug_driver_remove
-> > (drivers/scsi/scsi_debug.c:9631) scsi_debug
-> > [=C2=A0=C2=A0 23.213052]=C2=A0 device_release_driver_internal
-> > (drivers/base/dd.c:1349 drivers/base/dd.c:1372)
-> > [=C2=A0=C2=A0 23.213057]=C2=A0 bus_remove_device (drivers/base/bus.c:66=
-4)
-> > [=C2=A0=C2=A0 23.213061]=C2=A0 device_del (drivers/base/core.c:3965)
-> > [=C2=A0=C2=A0 23.213065]=C2=A0 device_unregister (drivers/base/core.c:4=
-006)
-> > [=C2=A0=C2=A0 23.213070] sdebug_do_remove_host
-> > (drivers/scsi/scsi_debug.c:8917) scsi_debug
-> > [=C2=A0=C2=A0 23.213089] add_host_store (drivers/scsi/scsi_debug.c:8110=
-)
-> > scsi_debug
-> > [=C2=A0=C2=A0 23.213109]=C2=A0 kernfs_fop_write_iter (fs/kernfs/file.c:=
-345)
-> > [=C2=A0=C2=A0 23.213113]=C2=A0 vfs_write (fs/read_write.c:595 fs/read_w=
-rite.c:687)
-> > [=C2=A0=C2=A0 23.213117]=C2=A0 ksys_write (fs/read_write.c:739)
-> > [=C2=A0=C2=A0 23.213121]=C2=A0 do_syscall_64 (arch/x86/entry/syscall_64=
-.c:61
-> > arch/x86/entry/syscall_64.c:84)
-> > [=C2=A0=C2=A0 23.213126]=C2=A0 entry_SYSCALL_64_after_hwframe
-> > (arch/x86/entry/entry_64.S:121)
-> > Best,
-> > Dingisoul
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Hello
+Critical: 0 · High: 1 (1) · Medium: 0 (1) · Low: 0 (1)
 
-Please try this patch, let me know if it fixes this and I will send a
-follow up to finalize this fix.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [High] The fix is incomplete because it handles scan_work only.
 
-diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
-index f1c3c49466..d5b90bd1c6 100644
---- a/drivers/scsi/st.c
-+++ b/drivers/scsi/st.c
-@@ -4509,11 +4509,11 @@ static void st_remove(struct scsi_device *SDp)
- 	remove_cdevs(tpnt);
-=20
- 	mutex_lock(&st_ref_mutex);
--	kref_put(&tpnt->kref, scsi_tape_release);
--	mutex_unlock(&st_ref_mutex);
- 	spin_lock(&st_index_lock);
- 	idr_remove(&st_index_idr, index);
- 	spin_unlock(&st_index_lock);
-+	kref_put(&tpnt->kref, scsi_tape_release);
-+	mutex_unlock(&st_ref_mutex);
- }
-=20
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  ieee802154_unregister_hw() drops RTNL after…
+- [Medium] This problem wasn't introduced by this patch, but
+  mac802154_scan_worker() checks scan_req and ieee802154_sdata_running()…
+- [Low] This problem wasn't introduced by this patch, but the block
+  comment above mac802154_scan_cleanup_locked()…
 
+--
 
+mac802154: Cancel scan work synchronously during hardware teardown
+
+This commit adds a cancel_delayed_work_sync() call on local->scan_work in
+ieee802154_unregister_hw(). The call runs after the interfaces are removed
+and before local->mac_wq is destroyed. It is meant to stop a scan worker
+that requeues itself from leaving a delayed-work timer armed when the PHY
+allocation is freed.
+
+Closes: https://syzkaller.appspot.com/bug?extid=19cbce4cc656ecd4febc
+
+> diff --git a/net/mac802154/main.c b/net/mac802154/main.c
+> index 8ed6de111f5af..ba6311e98c8b8 100644
+> --- a/net/mac802154/main.c
+> +++ b/net/mac802154/main.c
+> @@ -285,6 +285,8 @@ void ieee802154_unregister_hw(struct ieee802154_hw *hw)
+>  
+>  	rtnl_unlock();
+>  
+> +	cancel_delayed_work_sync(&local->scan_work);
+> +
+
+[Severity: High]
+Does beacon_work need the same treatment? It is also a delayed work on
+local->mac_wq that re-arms itself. mac802154_stop_beacons_locked() in
+net/mac802154/scan.c uses the same non-sync cancel:
+
+	clear_bit(IEEE802154_IS_BEACONING, &local->ongoing);
+	cancel_delayed_work(&local->beacon_work);
+	request = rcu_replace_pointer(local->beacon_req, NULL, 1);
+
+After the transmit, mac802154_beacon_worker() re-arms without checking
+beacon_req again:
+
+	ret = mac802154_transmit_beacon(local, wpan_dev);
+	...
+	if (interval < IEEE802154_ACTIVE_SCAN_DURATION)
+		queue_delayed_work(local->mac_wq, &local->beacon_work,
+				   local->beacon_interval);
+
+The transmit goes through ieee802154_mlme_tx(), which takes rtnl_lock().
+Can this sequence leave the beacon_work timer armed?
+
+CPU1 (beacon worker)
+mac802154_beacon_worker()
+  beacon_req != NULL, sdata running, netdev_hold()
+  mac802154_transmit_beacon()
+    ieee802154_mlme_tx()
+      rtnl_lock()   <- blocks
+
+CPU0
+ieee802154_unregister_hw()
+  rtnl_lock()
+  ieee802154_remove_interfaces()
+    ... mac802154_slave_close()
+      mac802154_stop_beacons_locked()
+        cancel_delayed_work(&local->beacon_work)   <- worker is running
+        local->beacon_req = NULL
+  rtnl_unlock()
+    netdev_run_todo()   <- drops rtnl, waits for CPU1's netdev ref
+
+CPU1
+      ieee802154_mlme_tx_locked() returns -ENETDOWN
+  queue_delayed_work(local->mac_wq, &local->beacon_work, ...)
+  netdev_put()
+
+CPU0
+  cancel_delayed_work_sync(&local->scan_work)   <- beacon_work untouched
+  destroy_workqueue(local->mac_wq)
+  wpan_phy_unregister(local->phy)
+driver calls ieee802154_free_hw()   <- local freed, timer still pending
+
+destroy_workqueue() drains work that is queued or running. It does not
+drain a delayed work whose timer has not fired yet. When this timer fires,
+it touches the freed local and calls __queue_work() on the destroyed
+mac_wq.
+
+The 1000 ms re-arm in the !ieee802154_sdata_running(sdata) branch of
+mac802154_beacon_worker() has the same effect.
+
+This is the problem the commit message describes ("The worker can requeue
+itself after cancellation, leaving an active delayed-work timer when the
+PHY allocation is freed"), reached through beacon_work instead of
+scan_work.
+
+Could this call disable_delayed_work_sync() on both scan_work and
+beacon_work, after rtnl_unlock() and before
+destroy_workqueue(local->mac_wq)? This has to stay outside the rtnl lock,
+because both workers take rtnl_lock().
+
+cancel_delayed_work_sync() calls enable_work() again before it returns, so
+a later producer could still arm the work.
+
+>  	destroy_workqueue(local->mac_wq);
+>  	destroy_workqueue(local->workqueue);
+>  	wpan_phy_unregister(local->phy);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the rtnl lock is dropped
+and both workqueues are destroyed while the PHY is still on
+cfg802154_rdev_list. Netlink can only stop finding the PHY once
+wpan_phy_unregister() runs:
+
+net/ieee802154/core.c:wpan_phy_unregister() {
+    ...
+	list_del_rcu(&rdev->list);
+	synchronize_rcu();
+    ...
+}
+
+Neither nl802154_new_interface() nor ieee802154_if_add() checks whether
+the PHY is being torn down. nl802154_new_interface() has a TODO about it:
+
+	/* TODO avoid failing a new interface
+	 * creation due to pending removal?
+	 */
+
+What happens if a CAP_NET_ADMIN client does the following in this window?
+It creates an interface, brings it up and sends NL802154_CMD_TRIGGER_SCAN.
+
+mac802154_trigger_scan_locked() would then do:
+
+	queue_delayed_work(local->mac_wq, &local->scan_work, 0);
+
+If that happens before destroy_workqueue(), the worker can re-arm itself
+with scan_duration. A timer is then still pending after mac_wq is
+destroyed and local is freed. cancel_delayed_work_sync() re-enables the
+work before it returns, so it does not stop later producers.
+
+If it happens after destroy_workqueue(), __queue_work() runs against a
+destroyed workqueue.
+
+In both cases the new interface stays on local->interfaces. One of two
+things then happens in wpan_phy_unregister():
+
+- it waits forever in wait_event() for opencount to reach zero, or
+- it hits WARN_ON(!list_empty(&rdev->wpan_dev_list)).
+
+After that, ieee802154_free_hw() hits:
+
+	BUG_ON(!list_empty(&local->interfaces));
+
+Would it make sense to withdraw the PHY, or to block interface creation
+and scan start, before the rtnl lock is dropped here? Using
+disable_delayed_work_sync() would at least keep scan_work from being armed
+again.
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but the sync cancel cannot undo
+hardware changes that a racing scan worker has already made.
+
+mac802154_scan_worker() checks scan_req and ieee802154_sdata_running()
+under rcu_read_lock() only. It then takes the rtnl lock twice without
+checking again:
+
+	rcu_read_unlock();
+
+	/* Bypass the stack on purpose when changing the channel */
+	rtnl_lock();
+	ret = drv_set_channel(local, page, channel);
+	rtnl_unlock();
+	...
+	rtnl_lock();
+	ret = drv_start(local, IEEE802154_FILTERING_3_SCAN, &local->addr_filt);
+	rtnl_unlock();
+
+Suppose the worker is blocked on rtnl_lock() while mac802154_slave_close()
+runs mac802154_abort_scan_locked(), plus ieee802154_stop_device() on the
+last close. When the worker gets the lock, can it restart the hardware in
+scan filtering mode after the stack has already stopped it or restored the
+default filtering?
+
+In the user abort case, the worker then re-queues itself with
+scan_duration. The next run calls drv_stop() on entry, without the rtnl
+lock and before it checks scan_req:
+
+	drv_stop(local);
+	synchronize_net();
+	mac802154_flush_queued_beacons(local);
+
+	rcu_read_lock();
+	scan_req = rcu_dereference(local->scan_req);
+	if (unlikely(!scan_req)) {
+
+Does that leave the radio stopped while the interface is still up?
+
+In ieee802154_unregister_hw(), the same race can leave the radio running
+after tasklet_kill() and interface removal. Whether that leads to RX or
+IRQ activity against a local that is about to be freed depends on the
+driver.
+
+Could the worker check test_bit(IEEE802154_IS_SCANNING, &local->ongoing)
+or rtnl_dereference(local->scan_req) again under the rtnl lock before it
+touches the hardware?
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but the block comment above
+mac802154_scan_cleanup_locked() in net/mac802154/scan.c says:
+
+ * - The sub-interface and device driver module get both their reference
+ *   counters incremented whenever we start a scan, so they cannot disappear
+ *   during operation.
+
+Is that still accurate? nl802154_trigger_scan() stores raw wpan_dev and
+wpan_phy pointers in the request. It takes no dev_hold(), netdev_hold()
+or try_module_get(). mac802154_trigger_scan_locked() only publishes
+scan_req and queues scan_work.
+
+The only reference in the scan path is the short-lived netdev_hold()
+inside each run of mac802154_scan_worker(). It is dropped before the
+worker re-arms.
+
+Should the comment be updated to match the code?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012120934.64632-1-aryanarora.w1%40gmail.com
