@@ -1,266 +1,114 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C46338F62F
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916BA38F62F;
+	Tue, 13 Oct 2026 13:27:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898032; cv=none; b=bHGdEg4Qd0lZlniHYPo9IjPrdhDZXxiuzT4E4SjxAnrUOxV7LkOaizKWhyconqfmLm603z7mayVteYOulG7MdkGPtzvg+pOTtuBP5RcOvmQuAL/wSy0nt5u2tYgziKkT53NAdT0ObokKeQ/j2+8F5rkIqj0PuIYIpPiPN58MdSo=
+	t=1791898040; cv=none; b=hnGHDnCaRmSxVf/3bvixYeIuKlO2cKt9eeLx8BIWRQfL3DRb+PXeRcAINS976QlWeuwwWHavr/scH4b34gFpsMTNXtZUfOMxCkNBy5MZ04PY6jr7RgwmGhGJ2FCYOcRsZ0h+k2webLlBpiA3NeWpJmz8m9us7Vhh5WrWIn5Kadg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898032; c=relaxed/simple;
-	bh=NWurmtMdk1iCQy/jvDuOguTbKlkAdVuo1eJca4ASPNw=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=o4FG3H+kgYCf9ku46vo46xN7ZnXkKw9oQg5Qz/ERWPzx/bmXFMsc8kxPJ5FHEeeszBC5BcOTOCnkQ1J0yodITSwu6DA5pncNp71pvlmjmMpSfwbk9kiBkwlxR5rsNOPKKCE2FS+ehicpy7Oic3xQn0a5Qe58UMoNYC7aLR8q1zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TC2Jn9pQ; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1791898040; c=relaxed/simple;
+	bh=U5tmZUCkksdz7Ug0vuRdt+p+gBOof4picvbKNR/3eYQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Pt9Iy/n7NZHkydXprN/2B96wJMmYvuF5HTNI/rVYxjQnH9PPJUiPcs/z3qgK2z3XOjfqGDRasfFVaohtFydgPx3mZjF71TaZq0TjFMh2MNEnUyt02/2WhK5BU+Ee+12fZrAn+zKZBIHHEduCZ5DJvN6IPySb9C4epDljnU1I+7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g8m0nAOV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TC2Jn9pQ"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd3b9e70f88so3908002a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 06:27:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791898031; x=1792502831; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tz3XQeMDsa80BNjtP5zSjVPIr7ggAOeydAFlJIaMfm8=;
-        b=TC2Jn9pQGIovZpzSvkpXqGEmoZ7/MgmXTj+26ZKVTkUiZdzqbskVOrMy57Ekm660KY
-         H3I47iCJk8D9B/W2jKNxe/qT/OIUby7zU5qRYhhb3Og65fUDzvyMl4uW3C4J7uOKEI0u
-         Oqwxu54biQ+q0tceuqlbbpZlPXe9knRVvt59IocRj3C9cwZjR9BYZOFre373HAezUfD7
-         379P2ojXvEuxLZvl07yDlXlqRVYYcruccSKEz57tHJ8C6L+Cyfqd/PWlkmgpaWDSJKoV
-         JCy0PoIiwe9EsgLX+J+Je97sQVvKc0h8xZ43FqZawKN7AfGz0Ib8p1gaTFtyZj50ItNi
-         dc3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791898031; x=1792502831;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Tz3XQeMDsa80BNjtP5zSjVPIr7ggAOeydAFlJIaMfm8=;
-        b=SJEnTPU7hrtOk44LVebga6WDnlbtaabUACHCpGGcs1zxX9N+ufUVtgxh84zlCqj4F8
-         MM2/9EYHIFJMdQU3dejC9JZ8TQ8VnAtfaUMzV2K6COIcbiVZ8cLp7wURp1h95h1Z3fZo
-         GbKUWpxTg9ertS2adBXxzFT2xQhtQ9+mrx9NEHi8McHKIX3h3NgyBdPBsNjcslKLx2rX
-         0dVRq3PFZwxVVYSM4X+lop5mdNlJB7QxWZsg979N7uQxT2UVMKOpuKrvd8nMG4/wluW5
-         k89B5fi8NMhJlkKY+Ji39d0Vq3JsqRRAIdxqm64o87yow0ZNvAQtrt2bSRG/bkUM60hx
-         JuDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwaDV47U+0bt40EPmdI/zmeMITSVG0BzgKkrypGVGMCQg0pH6kWKVCmhIXAVwapNTveU1SpHehbOhZI/aI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ385HIIa8kco58tLbRuDuQ/xBY8L7aYU0/15PEkwG3EEe3xaGX
-	zVbgwbFENb3Ju3rvYnqFX5Lu0qwkQICKb4ngPLqnnyQlGWUxklLipM4w+LJh+KUMNd1oGq3ZTVG
-	dp7aim9YiQEUqYhbh+j7zvA==
-X-Received: from plbjx17.prod.google.com ([2002:a17:903:1391:b0:2e9:64c:38da])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:f60e:b0:2e7:ff92:25f5 with SMTP id d9443c01a7336-2e8431428b2mr100542525ad.61.1791898030303;
- Tue, 13 Oct 2026 06:27:10 -0700 (PDT)
-Date: Tue, 13 Oct 2026 21:27:08 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g8m0nAOV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF8F41F000FF;
+	Tue, 13 Oct 2026 13:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791898039;
+	bh=q+WgYjbunRd1bo3RdDcmm7nlsCNzSb5QYBCBrotQ/xA=;
+	h=Date:From:To:Cc:Subject;
+	b=g8m0nAOVJZK63pBzMzVDE5YXTF0HomvDgSCO6Uzkgo8PlTyXbnarcRxqmI1cdFxoH
+	 JSY/LByhaaPHorJF4fwQTcUY7kBY+mDLejpgXPZV2toKJ02F3VnPYnU8ah9NKmbk8t
+	 Eyeky7wP4OmCqstLkyqlrw42rCDPpoKT2h97m7XnUM5UNxVknZkKDsc2CAYd5jjSLA
+	 tKLezAOY3CnB46e8tGHWZz7SSusSARIE3MLN1EjLsn440flSB3acpNzFM+y2RMgc1z
+	 W+37MXU2rbmpsvWVYjabPUgJ9MGFAPn5CGDt70bT2+aYuifgJvjn8vOwf+mlYdvnFm
+	 7naN63FdfbcfA==
+Date: Tue, 13 Oct 2026 14:27:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Joanne Koong <joannelkoong@gmail.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Theodore Ts'o <tytso@mit.edu>, Zhang Yi <yi.zhang@huawei.com>
+Subject: linux-next: manual merge of the vfs-brauner tree with the ext4 tree
+Message-ID: <as4xs78VP3JWt9-B@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013132708.1669415-1-stanleyjhu@google.com>
-Subject: [PATCH] scsi: bsg: Pass reply_len to bsg_setup_queue() to fit UFS
- ARPMB replies
-From: Stanley Jhu <stanleyjhu@google.com>
-To: Jens Axboe <axboe@kernel.dk>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	"Martin K . Petersen" <mkp@kernel.org>, Bart Van Assche <bvanassche@acm.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>, Kashyap Desai <kashyap.desai@broadcom.com>, 
-	Sumit Saxena <sumit.saxena@broadcom.com>, Sreekanth Reddy <sreekanth.reddy@broadcom.com>, 
-	Lee Duncan <lduncan@suse.com>, Chris Leech <cleech@redhat.com>, 
-	Mike Christie <michael.christie@oracle.com>, Bean Huo <beanhuo@micron.com>, 
-	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	mpi3mr-linuxdrv.pdl@broadcom.com, open-iscsi@googlegroups.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HWaeAAvGOmF6p4jE"
+Content-Disposition: inline
 
-bsg-lib allocates a 96-byte (SCSI_SENSE_BUFFERSIZE) reply buffer per
-job, but struct ufs_rpmb_reply is 104 bytes: a 40-byte struct
-ufs_bsg_reply followed by a 64-byte EHS. When an Advanced RPMB command
-returns an EHS, ufshcd_advanced_rpmb_req_handler() copies it right
-after the 40-byte header and writes 8 bytes past the end of the buffer.
 
-Let each BSG transport pass its reply buffer size to bsg_setup_queue()
-and have ufs_bsg request sizeof(struct ufs_rpmb_reply), so the full
-reply reaches user space. Other transports keep SCSI_SENSE_BUFFERSIZE.
+--HWaeAAvGOmF6p4jE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 6ff265fc5ef6 ("scsi: ufs: core: bsg: Add advanced RPMB support in ufs_bsg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
-Tested on QEMU arm64 with KASAN: the reproducer no longer triggers.
+Hi all,
 
- block/bsg-lib.c                     | 13 ++++++++++---
- drivers/scsi/mpi3mr/mpi3mr_app.c    |  2 +-
- drivers/scsi/scsi_transport_fc.c    |  6 ++++--
- drivers/scsi/scsi_transport_iscsi.c |  2 +-
- drivers/scsi/scsi_transport_sas.c   |  6 ++++--
- drivers/ufs/core/ufs_bsg.c          |  2 +-
- include/linux/bsg-lib.h             |  3 ++-
- 7 files changed, 23 insertions(+), 11 deletions(-)
+Today's linux-next merge of the vfs-brauner tree got a conflict in:
 
-diff --git a/block/bsg-lib.c b/block/bsg-lib.c
-index 895db30a7033..536cee4430a7 100644
---- a/block/bsg-lib.c
-+++ b/block/bsg-lib.c
-@@ -23,11 +23,14 @@ struct bsg_set {
- 	struct bsg_device	*bd;
- 	bsg_job_fn		*job_fn;
- 	bsg_timeout_fn		*timeout_fn;
-+	unsigned int		reply_len;
- };
- 
- static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
- 		bool open_for_write, unsigned int timeout)
- {
-+	struct bsg_set *bset =
-+		container_of(q->tag_set, struct bsg_set, tag_set);
- 	struct bsg_job *job;
- 	struct request *rq;
- 	struct bio *bio;
-@@ -50,7 +53,7 @@ static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
- 	reply = job->reply;
- 	memset(job, 0, sizeof(*job));
- 	job->reply = reply;
--	job->reply_len = SCSI_SENSE_BUFFERSIZE;
-+	job->reply_len = bset->reply_len;
- 	job->dd_data = job + 1;
- 
- 	job->request_len = hdr->request_len;
-@@ -301,9 +304,10 @@ static blk_status_t bsg_queue_rq(struct blk_mq_hw_ctx *hctx,
- static int bsg_init_rq(struct blk_mq_tag_set *set, struct request *req,
- 		       unsigned int hctx_idx, int numa_node)
- {
-+	struct bsg_set *bset = container_of(set, struct bsg_set, tag_set);
- 	struct bsg_job *job = blk_mq_rq_to_pdu(req);
- 
--	job->reply = kzalloc(SCSI_SENSE_BUFFERSIZE, GFP_KERNEL);
-+	job->reply = kzalloc(bset->reply_len, GFP_KERNEL);
- 	if (!job->reply)
- 		return -ENOMEM;
- 	return 0;
-@@ -358,10 +362,12 @@ static const struct blk_mq_ops bsg_mq_ops = {
-  * @job_fn: bsg job handler
-  * @timeout: timeout handler function pointer
-  * @dd_job_size: size of LLD data needed for each job
-+ * @reply_len: size of the reply buffer needed for each job
-  */
- struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
- 		struct queue_limits *lim, bsg_job_fn *job_fn,
--		bsg_timeout_fn *timeout, int dd_job_size)
-+		bsg_timeout_fn *timeout, int dd_job_size,
-+		unsigned int reply_len)
- {
- 	struct bsg_set *bset;
- 	struct blk_mq_tag_set *set;
-@@ -374,6 +380,7 @@ struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
- 
- 	bset->job_fn = job_fn;
- 	bset->timeout_fn = timeout;
-+	bset->reply_len = reply_len;
- 
- 	set = &bset->tag_set;
- 	set->ops = &bsg_mq_ops;
-diff --git a/drivers/scsi/mpi3mr/mpi3mr_app.c b/drivers/scsi/mpi3mr/mpi3mr_app.c
-index 1353a8ff9c85..094490713d69 100644
---- a/drivers/scsi/mpi3mr/mpi3mr_app.c
-+++ b/drivers/scsi/mpi3mr/mpi3mr_app.c
-@@ -3053,7 +3053,7 @@ void mpi3mr_bsg_init(struct mpi3mr_ioc *mrioc)
- 	}
- 
- 	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), &lim,
--			mpi3mr_bsg_request, NULL, 0);
-+			mpi3mr_bsg_request, NULL, 0, SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		ioc_err(mrioc, "%s: bsg registration failed\n",
- 		    dev_name(bsg_dev));
-diff --git a/drivers/scsi/scsi_transport_fc.c b/drivers/scsi/scsi_transport_fc.c
-index 173ed6373f04..b66365a382c7 100644
---- a/drivers/scsi/scsi_transport_fc.c
-+++ b/drivers/scsi/scsi_transport_fc.c
-@@ -4345,7 +4345,8 @@ fc_bsg_hostadd(struct Scsi_Host *shost, struct fc_host_attrs *fc_host)
- 	scsi_init_limits(shost, &lim);
- 	lim.max_segments = min_not_zero(lim.max_segments, i->f->max_bsg_segments);
- 	q = bsg_setup_queue(dev, bsg_name, &lim, fc_bsg_dispatch,
--			fc_bsg_job_timeout, i->f->dd_bsg_size);
-+			fc_bsg_job_timeout, i->f->dd_bsg_size,
-+			SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		dev_err(dev,
- 			"fc_host%d: bsg interface failed to initialize - setup queue\n",
-@@ -4378,7 +4379,8 @@ fc_bsg_rportadd(struct Scsi_Host *shost, struct fc_rport *rport)
- 	scsi_init_limits(shost, &lim);
- 	lim.max_segments = min_not_zero(lim.max_segments, i->f->max_bsg_segments);
- 	q = bsg_setup_queue(dev, dev_name(dev), &lim, fc_bsg_dispatch_prep,
--				fc_bsg_job_timeout, i->f->dd_bsg_size);
-+				fc_bsg_job_timeout, i->f->dd_bsg_size,
-+				SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		dev_err(dev, "failed to setup bsg queue\n");
- 		return PTR_ERR(q);
-diff --git a/drivers/scsi/scsi_transport_iscsi.c b/drivers/scsi/scsi_transport_iscsi.c
-index 8aa76f813bcd..b50ff8a1d0a9 100644
---- a/drivers/scsi/scsi_transport_iscsi.c
-+++ b/drivers/scsi/scsi_transport_iscsi.c
-@@ -1545,7 +1545,7 @@ iscsi_bsg_host_add(struct Scsi_Host *shost, struct iscsi_cls_host *ihost)
- 	snprintf(bsg_name, sizeof(bsg_name), "iscsi_host%d", shost->host_no);
- 	scsi_init_limits(shost, &lim);
- 	q = bsg_setup_queue(dev, bsg_name, &lim, iscsi_bsg_host_dispatch, NULL,
--			0);
-+			0, SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		shost_printk(KERN_ERR, shost, "bsg interface failed to "
- 			     "initialize - no request queue\n");
-diff --git a/drivers/scsi/scsi_transport_sas.c b/drivers/scsi/scsi_transport_sas.c
-index d689b9ed08a6..a825966f60e5 100644
---- a/drivers/scsi/scsi_transport_sas.c
-+++ b/drivers/scsi/scsi_transport_sas.c
-@@ -199,7 +199,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
- 
- 	if (rphy) {
- 		q = bsg_setup_queue(&rphy->dev, dev_name(&rphy->dev), NULL,
--				sas_smp_dispatch, NULL, 0);
-+				sas_smp_dispatch, NULL, 0,
-+				SCSI_SENSE_BUFFERSIZE);
- 		if (IS_ERR(q))
- 			return PTR_ERR(q);
- 		rphy->q = q;
-@@ -208,7 +209,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
- 
- 		snprintf(name, sizeof(name), "sas_host%d", shost->host_no);
- 		q = bsg_setup_queue(&shost->shost_gendev, name, NULL,
--				sas_smp_dispatch, NULL, 0);
-+				sas_smp_dispatch, NULL, 0,
-+				SCSI_SENSE_BUFFERSIZE);
- 		if (IS_ERR(q))
- 			return PTR_ERR(q);
- 		to_sas_host_attrs(shost)->q = q;
-diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
-index 7a66917b3fc0..156637dd76c8 100644
---- a/drivers/ufs/core/ufs_bsg.c
-+++ b/drivers/ufs/core/ufs_bsg.c
-@@ -258,7 +258,7 @@ int ufs_bsg_probe(struct ufs_hba *hba)
- 		goto out;
- 
- 	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), NULL, ufs_bsg_request,
--			NULL, 0);
-+			NULL, 0, sizeof(struct ufs_rpmb_reply));
- 	if (IS_ERR(q)) {
- 		ret = PTR_ERR(q);
- 		device_del(bsg_dev);
-diff --git a/include/linux/bsg-lib.h b/include/linux/bsg-lib.h
-index 14fa93268630..a697246feeac 100644
---- a/include/linux/bsg-lib.h
-+++ b/include/linux/bsg-lib.h
-@@ -66,7 +66,8 @@ void bsg_job_done(struct bsg_job *job, int result,
- 		  unsigned int reply_payload_rcv_len);
- struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
- 		struct queue_limits *lim, bsg_job_fn *job_fn,
--		bsg_timeout_fn *timeout, int dd_job_size);
-+		bsg_timeout_fn *timeout, int dd_job_size,
-+		unsigned int reply_len);
- void bsg_remove_queue(struct request_queue *q);
- void bsg_job_put(struct bsg_job *job);
- int __must_check bsg_job_get(struct bsg_job *job);
--- 
-2.56.0.385.gd3acb90ef8-goog
+  fs/ext4/ext4.h
 
+between commit:
+
+  8dccd9f0a1a93 ("ext4: implement buffered write path using iomap")
+
+=66rom the ext4 tree and commit:
+
+  d874f8060847c ("iomap: pass iomap_iter_next_fn directly instead of struct=
+ iomap_ops")
+
+=66rom the vfs-brauner tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc fs/ext4/ext4.h
+index e6db5a687a5fe,1576c703d96d1..0000000000000
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@@ -4105,11 -4041,8 +4106,11 @@@ static inline void ext4_clear_io_unwrit
+  		io_end->flag &=3D ~EXT4_IO_END_UNWRITTEN;
+  }
+ =20
+- extern const struct iomap_ops ext4_iomap_ops;
+- extern const struct iomap_ops ext4_iomap_report_ops;
+- extern const struct iomap_ops ext4_iomap_buffered_write_ops;
+- extern const struct iomap_ops ext4_iomap_buffered_da_write_ops;
++ DECLARE_IOMAP_ITER_NEXT(ext4_iomap_next);
++ DECLARE_IOMAP_ITER_NEXT(ext4_iomap_next_report);
+++DECLARE_IOMAP_ITER_NEXT(ext4_iomap_buffered_write_next);
+++DECLARE_IOMAP_ITER_NEXT(ext4_iomap_buffered_da_write_next);
+ +extern const struct iomap_write_ops ext4_iomap_write_ops;
+ =20
+  int ext4_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+  		unsigned flags, struct iomap *iomap, struct iomap *srcmap);
+
+--HWaeAAvGOmF6p4jE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOMbIACgkQJNaLcl1U
+h9A8Wwf+NyECQdjaCrPqMOqodhqLISYzoSrHIwEne+3tIyPQyatxDHvB83X1t0BX
+5qh3H13D8+6k9bHAQ3IbwlhaQKO4MTLZQZ6kBgMNYIkqlwU8zyZtpzM5ZrExgtQ3
+Cpnttop0T6cmEuEIRGXkHvr4g5tn5YrzM5E+uuZDVcIdsVZNdKn8ukoUrGuw87VR
+rlveqv0J5c4mNo8NuGldfLZoMo89iuvf2Erycq0c9RC91uzEmptC1+MupMZIg+3C
+UyRA3fr75toS8CBop5dsM0YvV7xPMzm8GXnJD8zH/mOAId11AYccgP9PLv2jHJAk
+RvzEnt/aK2asRhLCRy49tZtFGAb+FQ==
+=wu2+
+-----END PGP SIGNATURE-----
+
+--HWaeAAvGOmF6p4jE--
