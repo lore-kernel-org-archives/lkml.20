@@ -1,371 +1,223 @@
-Received: from sonic314-22.consmr.mail.ne1.yahoo.com (sonic314-22.consmr.mail.ne1.yahoo.com [66.163.189.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012071.outbound.protection.outlook.com [52.101.48.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B31F3B0591
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 08:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.189.148
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791881571; cv=none; b=dkzTAWrcLh+Ki7vwqXuTUYABNknCucH7LEM5jdB3BnoVFlRlmZ9UOcm+fBFbPtjpUdGYq9l1dWGkOZ4tLI645csqdrZupZlgksz2Tsqka+NwyJsGDjD+/3Q7zVyNqD6ozhbO+HjWUdw93WA4RHnfJQRZ6lRa90+1gE2aJFXY8m4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791881571; c=relaxed/simple;
-	bh=S8J16qJVBG/vVVhWbRT2xjN9CG5nEZRxVzNI9qLbaxM=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=XUYUh9kNKNOKk8QBJzCcrer54YUIb2LSLJDsliMiEFIUsDoPzW1twmTfrpm96GNnISgK5PVdsXJX5/KZS65VDj3VcCsyc4Iu2Ny/E33D/0fsEhfIzi+PUK0prUrEBb/7niDZX75ja5SJ4xul2K/lGDguV+nlIg0WkbMsUpn/O/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=SOGP5sRV; arc=none smtp.client-ip=66.163.189.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D70839EB59;
+	Tue, 13 Oct 2026 08:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791881573; cv=fail; b=lvb7Z7fq3eS9CaNDz8zuXDLGcmMa57t6GRzk1Zw4xNFg/ZOHZT7JucflSuAfI+WlkyTvml3yqeAv+JNMNlUqWoJg7JZtQ7OHKID3uMwBbQtKwzgxQ2f9XcEesmhc1mUxzMNKayUAILAf50ZK/V88afw29Gn2fyXpiLGDLywcV10=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791881573; c=relaxed/simple;
+	bh=DqashJMrQX49tCkDDmSpfSNfdAdwDr3UHYDIG6k0Dbw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DZ6Gv6w6WEaZczueSyZxC0hW7gJiEmIDK9m3rG5DWAlowI2XCR/ZT1xR3a2yKqOd0VI+rcB88TTjDwBtl22Iw77nyY8mEB9ICv+kx4H50AO5Xq7GTeIJEZr4B83DPkGmFsKF11SnByAIr+MfxHL9Zze0N6MoyR+qcpNz3B0moxU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=FHd8HKSY; arc=fail smtp.client-ip=52.101.48.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="SOGP5sRV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791881569; bh=L4v0LOBczl03xbEjPUOyfMtthvxuyur4aJtVaiVx+eA=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=SOGP5sRVQoZFam2IirAC37j92WecM/uCpHTQbNrFl7aet5aNJzw+iLt+vr/k4XdHx0waVm/r+zvLQ/k3RJ2vhYwJVu4+vTGOaOgmpUrRh7sZ0+0bINyfNoy3t+ejFBOGZTkLR0oFRZT1fInFIHHyi8AAHTZXWFRgwRASpgEsnsoGmnUbHGHGiJXO10QfTK3i0Nnqhl8l/qKSTgTTikwgt71nY/ZZ8TpCurHH+CoUuKsIauI543Vgkv+cS5GnTl7yEVwgNwSwjPCD2VTbT/gaJCApyooLmCy/O/+iA9SaUOv/nuR0LbwKeLBLwmTD3qVLFsdb4tfkHp/QO3u2iF44NA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791881569; bh=QhMXK4xherVQdoyx3G06QRbJ71NyOTgvbl03jukMNyY=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=bbGmDLjH8r6qfHStfKgty0p5t3CMmkTW1cqKZhrExZuafwCgEw5W6J9H4/wAJ0zjkxSRe8+H5cDuGwcnRyqZCEkqbQLT8vPjTGItx29sxSzIgmkKTsgYn4BvimWYAFDUw2Ii8nFmUGd6/5m66vKHaEoLcQYJjhtIefEk5PxI68onNq7cVEj5UAcCKpQgwroJI4zlCZBMDEVDgCC89NfnG2PEsvFYODm+hyq1MHk1XABZe7mFmkxo724fhO+UwOWecjEgr5XuxczI1aLVvhnEFA2iTVmZdUUpSU/UHZNgqiJXdxIOzMtLWeuIDiOx06JOW7HI8A0xtOb7JJJOVmSe4g==
-X-YMail-OSG: ZpicPXwVM1n5SNRP5_mcEMErpzTlA2Z1TyysWg2BgGVjh1U02VbmaV4qO6SAA8c
- gH4.ewEsSFon9PBvJNAaUEGijFdUDEnxEwRitPZ9C9945zHmiTpbOF5mSM8ef7ZQtftzWfEs9icH
- 16umKPqBM4H5lgfz1pQ_fUg6elR6BgBxHh2pokGuziPFJfmRi6rDwiAtkQ6TOZH5ZmhRWCjEH.SI
- hO1.TxFq7lx_bpNe1w.SndatH8qME5fagaCM0GdNZ1RpxnMwuckAhBM1Y3oZqv8Tyl4LYLGot.7w
- 6XSOD9TIyYpI7vWW00BKkg3uRRiyBcIhDNY0lcrc7P7C2pHMFNocbW2BsQ3twUMpufQT2BTgK2Xd
- liHwCcDR5x7giwgPVe9aoNsgnxhLuyV8rNBi38CcXsXJ5MeWx9wEJ1ClFUL9UKSmFCzdGtFbJoog
- Qoi8clYUhtB3NZRahKyJxRdVUTgnTRzKM1w.cdxDmwteqi.JnNIVQqkdB6kiAk76vU7uG3QJhwqk
- iybl.Y9ompvtLhzPWTKUA6T3KoFCPLa91g7KYeltzo.WKhuhOc9HO5i3G7sUoYT.9crZnRNAS6vY
- RnOb_6kdksOE15dPFItm3FqNYyLsKHsPBeqyr0AMZLXetX6trVZN2jz2li7DPuAWwRPY5NjnYwIR
- oFKo4kJ4qNDPOnzWUfXkR62O1cmrD2d5tovCRGXLy0Jg04rjscXSrjYM8AC2OuHMZwzLrKHILlpy
- svhhqeBjRSG77NI1Gm4JL3i941d6J_8GqM9c1QMODspjTU9Z5YUzvchM2bmUfNyg10ROS.ajc84B
- K_9yC52fflscPxq23Dkt9fv0.Ii6axPSkpyGt52ltylciwuO_AzhH_a13LftDmkhqrmhTbvwyIZz
- zTL2EoNXAqMUNFmKRuspC1iT9YnnU4xqaWDGVCoP2y1NrO9.UO0gVQbOcDlVkgvMG.fhk_Dkp6mi
- OsK6jvQrWEgoeSF6A3LKble6_eFUwabdPSAn7smHuDKHUec4kl2KIoee.eZJLWvF.eypJUcj3xxF
- gVfwcex6.aJsWlqGHjBL6U6r8pFH1oV7i.kYNSeMPg3pWiEqshyTMSWYXf_0wFraonmqbDJQ3u5S
- OIbltADjq4TVJLagNH9Y2Vjbei7frKvjhzrKnR8I7LzwSZVVGp8shvqPEPUCaHY5bmkJeQtQfLvH
- U91gZJq9QiFNPmDSjqK2DuBLsB9X2Zc4ynqQlBFHkiZl42956FnAdZVbwBHom7aQgiQa1lzoXKJq
- tRBv_fajQWVk.65T9jDKN4AweFxI3QMax_nt2Fo8t1X1_C5xGI_OGL_i.0Qwd4Kd4cdk28Y2ZUIR
- bgB62TxRTLZOO4tHIf236O429bOxtyXs0d1rNqlwZOXkuPEdSIRp0lCSMFNvyfOnq.GORtWye9LE
- 1MEmvm4vVGlelIoRLRJWml8SdzOTUbqv3rrqEyS.fTy2P7B4PsDHXkAVtjs4d5Vadi7HasxBcLsI
- LshOGJ6JqQl2ylZe4q5Ea6uAyy4ZBVnnMS2wMl4iflfMdT.L_Rx9rtaxCV1fDQsKUHTT3zPZZHFc
- QY1HrgZtl3qSH_DlDcA5KTrIyIhpxWl0YxzaPQvcohLgKbVd7CLuTKo6m7.vXFbaOf2pvaWt48u7
- 5RI.y9UOdY0tzaTZKO3fs76zCeC0krVQ.7.xs0fxOLzZVfQNX4p8kv4MXUZnFEF5RN173Xs2kiJC
- 25v2AYW2Z3T2hzRsebi0_bRBCZU6Ph3ZJeBj10uFA.mHZ3dAET1pSPmDbaco1HS13mfEW913HVLG
- BZRc0cqQ19PoyytnECwiT5V.Q836W16K_qbfU37jEZiqWINnx.edbal_47P0H7IHhXSrk14jwGLN
- lW9zf4r0m6xGGJ46lEyl2yQr5.9XodvbSuJHetOP0SY2qS8Rd0BiTJ2VdrMASh37WDfaqcHjTtsj
- ZbtT0M0mwijYOieFuWPzPs986Zr.kybjf2luektQbje2YPwo6AM__58bluHu7k6b6RdvWmPufQOw
- ZxQIB0IbvkpBLbLgS1IvJAAHUL9uaNBlE7PPhAxGc8jweFO3xex5iQ2ichni.FKc9Ihaq_s65K83
- qyzRIeXFurdQTBRAsGNjIofH_AiqbIvY2xiHXjzs9WY4v1dGnSeERU10FvcTz0AnPeFbpCYbQ_0C
- n4qiRl2A00Ar8rzecppk76EmDQ8xGZJjxUB2XHdavcqCsKkmPULvd9RnYLoLkOkAY48tZKg3VQos
- 6GRvdqxizFYP2CA77S.OHtIxzEG7PkQ5QpgAsX3IC1crRENUCbr426ZrSFyGNzUPlJ_YsagvSgMc
- ZHj9kCrTMIOE-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 26443b18-8dfb-4e9f-9f56-b7c22cd9e2ae
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.ne1.yahoo.com with HTTP; Tue, 13 Oct 2026 08:52:49 +0000
-Received: by hermes--production-ir2-5dd9bf4598-cdfcp (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 36fe8aff1b21f531c1aa68371da6117b;
-          Tue, 13 Oct 2026 08:42:28 +0000 (UTC)
-Message-ID: <cf383ead-d169-4679-a4d0-028ea04d8a11@yahoo.com>
-Date: Tue, 13 Oct 2026 10:42:27 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="FHd8HKSY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AgJ/umiIItkLAexSDuj7WG1JJDb/RgidMW4OyUHr8MnOCvFAdg+pvDh6ajW6KmLfE38NamJttKFtcvHjqo9pfNVON7bVJaryZCr1eUTboJTP0Rr7X1AewDwOw1i7AAHqkLEFDYlrgWRFXxPdxRc9bRI/37tV1sa7wXObA+ljnAM6t1c/JGR9uCIib+o80Df/EfyVGspoveGbv2vLf7WCVKNExAugyP5cTGjP51V+h5Z5/NfMNmK9MKG/yt+WDhYm4/LZgoCsRYrAOADtUHXH9w4Sq5xtd6z6/OpHlOszpjIi4kyEIJ9h07b7YiYfafE4FgXKRL/SzhO5674GALPI/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uKeHN3IJ2uXIWj3bKKfuPjV7ploK0JTlIbpwvQf9FME=;
+ b=J+kJT2m81v+eTtEKi1ZzsEkX4WsqEjFNhcsZgLRliXFMR1cxHagqshVcPHYmPUhJFMxUMR7RMCmKGoGKoxtWuaHzOQdZiEYgQugB0wHR3gAza2I4OOcidH2AM3N3AsiraqZvV3Ld2MQyFOveuwYcwDjeeUauNLWMhelRmF+LgjV/NwHufdhqw7mn/740IPAC+QcIOTD5cjGFuLIwiarti6DsHuBLwL33wh/O3MCQTnc8HpXY1+rvEYbSeOmvmz0RVEMcfrUe8fKzCqmE3pvr4JhVAls9xJb92I/rFh8bjV/qOW1rsL/YKIUPiJ4ZugWLhqrIJgekds7JDy06P+x80Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uKeHN3IJ2uXIWj3bKKfuPjV7ploK0JTlIbpwvQf9FME=;
+ b=FHd8HKSYcaEFL9Hx5cmYhN9RiK5gU7SR/xFlB+fF4mjBgIlLrQPAktGxe5O9uz/rdlnV2tYAEgP2fXmWHHizumsGAsn0o5nCPBpxkH2VFbB3HgAhf+AZjviXfgGV1zv508QmBNYiegFnurqKlA2PbKGT9S808zJvgvyjvzm2q0E=
+Received: from BN9PR03CA0610.namprd03.prod.outlook.com (2603:10b6:408:106::15)
+ by BY5PR12MB4211.namprd12.prod.outlook.com (2603:10b6:a03:20f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
+ 2026 08:52:46 +0000
+Received: from BN6PEPF00000072.namprd03.prod.outlook.com
+ (2603:10b6:408:106:cafe::1d) by BN9PR03CA0610.outlook.office365.com
+ (2603:10b6:408:106::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
+ Oct 2026 08:52:46 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN6PEPF00000072.mail.protection.outlook.com (10.167.248.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 08:52:46 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 03:52:40 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 03:52:39 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Tue, 13 Oct 2026 03:52:36 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <vkoul@kernel.org>
+CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
+	<yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
+	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
+ Mukunda" <Vijendar.Mukunda@amd.com>
+Subject: [PATCH V3 09/10] soundwire: amd: fix interrupt gate and work drain ordering in PM ops
+Date: Tue, 13 Oct 2026 14:19:30 +0530
+Message-ID: <20261013085111.2009061-10-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20261013085111.2009061-1-Vijendar.Mukunda@amd.com>
+References: <20261013085111.2009061-1-Vijendar.Mukunda@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v5 5/9] net: dsa: realtek: rtl8365mb: set and get
- vlan 4k for family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <b45a3350-44a3-45ad-89cc-452c25edbd7d.ref@yahoo.com>
- <aa5fa12c-e43e-4e5e-9f77-c6eaf477abc4@yahoo.com>
-Content-Language: pl
-In-Reply-To: <aa5fa12c-e43e-4e5e-9f77-c6eaf477abc4@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN6PEPF00000072:EE_|BY5PR12MB4211:EE_
+X-MS-Office365-Filtering-Correlation-Id: 042df28d-7350-48a3-0ba8-08df290759f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|23010399003|261009223027099003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	wuO84+zQY0W+zPvLT5DXW7eXoxjSJr0gavpXDck5xQBp75W/2aeynmR0nUzgKLTK3We1B4SFXZ6Lk3XQ/qSVeG5FbodEdRnYMj7Q/hBYBnhzZ8RjS1c2KH3B1Y+LJFeiOpw9MJzefICU/WJCLa2Yft5sLeXbdPvfvS/dEQIgns63mZz6/u0YshgTOahCJlicMlzQSUC99URlrPGPxrVRB0J7807IWRKaf2XHh+mtIpWFL2lh75wo5uIFtPHEliIpZdRYIr2l5kbERxHp7jz+cd/lQM1nOsHgEqyX7o4uQd0o/W63TFoBupYvPGqw3pJDFdU2hbeRAFbQBUq0pDh8lnCjDGUoChUVhAkv6JX/KV/ev/RSAn1l2AY+wqms03kpA37zTUdTHS8wErgApKDujhDVvWO7BgiTUrJ9NtXQKCSU9HluiOzjwjTX/kRdO+AQ5KA6Nt1IrpnTOMMLipP3VBegL1r6Wie8MO+Nw33aSonAiCEPlpayV9c2QPa1GifhghOEZ1pAdP5M7ShoP4Zbt7aahOhLr306cnY2azY6OsPNIBrIxYjgF1RCKMw7iNYazGXe4De8+uUsRD7i6+cTwxrs2SoumwETMSwVUDDivBf++hzVKID0zYlr7NWgUnPl6iDVZTId22XwJvxDnTg2St6UZNdhuGcLjnXpKgZfdGKarYZTP/5PrTV7VxzYABQzGXoaktlX2OjmAl6DjasTAw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(23010399003)(261009223027099003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ea1RZ2UZBZnlO1SZRK4zaAPTmdwwl13rX3iQ1N9wEUrIgbNPz99SI/BXSBrD0g1N2FHqD472ejcqLDxfyg8tR29av49ZsClmQDHzb4GD2pHXBye3+m4h8ydXoKIIa0X6wQrf5KoyaHWeUe5SNLJ99QCqLtUIpM0OauoI0oe0xA9qLxFoED6UAXORqIoa80RQKwPJE6ewRX4TaOc1U4XqPPTD1FKwtGBS5BwsLB5bfcViTSdzxNS4+0KMBLjWlWFc+JGTCh5JVNKp+nvw6+06nUOW96n0Avnq72DZ5slnfIst5RVZafUin4atVKb8SiLDo69H+lG+/tDMq04UAGPIJIzic5n5jUyiO75IZlWJtsXHcJXdiD/hjcGgY3KWNx4WUr7reFjuqz8zyKaTd+7IoQaSYeyUj0gqMG09asmf2+++xvf2m7VJZ6+ESG/kqKVn
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 08:52:46.0213
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 042df28d-7350-48a3-0ba8-08df290759f6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN6PEPF00000072.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4211
 
-The hardware structure of 4K VLAN table entries has changed between
-silicon families. Family D's CVLAN entry is two 16-bit words rather
-than three: there is no third word extending member/untag past bit 7,
-and no priority/meter fields at all. The FID field is restricted to a
-narrower 2-bit width. The chip itself supports both IVL and SVL, but
-this driver always requests IVL for VLAN 4K entries
-(rtl8365mb_vlan_4k_port_set() sets ivl_en = true on both families), so
-both the IVL_EN (bit 3) and SVLAN_CHK_IVL_SVL (bit 2) controls are
-forced to 1 here. The vendor RTL8367D CVLAN API leaves SVLAN_CHK_IVL_SVL
-at 0 and only sets it from the SVLAN member API; the value 1 has not been
-verified against the hardware with the bit cleared. vlan4k->ivl_en is
-still read back from IVL_EN.
+The CLK_STOP_MODE branches in amd_suspend_runtime() and amd_suspend()
+did not close the ACP_EXTERNAL_INTR_CNTL delivery gate before draining
+amd_sdw_irq_thread and amd_sdw_work. The ACP PCI parent driver interrupt
+handler dispatches SoundWire interrupts to the AMD SoundWire stack by
+scheduling amd_sdw_irq_thread. Because the gate was open, an ISR already
+running when the drains completed could re-queue work after
+cancel_work_sync() returned, racing amd_sdw_clock_stop().
 
-Reusing the three-word family C layout unconditionally means the third
-word is read from and written back to the register that holds it on
-family C, but does not exist as a distinct table word on family D's
-die; whatever data happens to be there gets folded into member/untag
-bits [10:8] on read, and re-written on every read-modify-write cycle
-in rtl8365mb_vlan_4k_port_set(). Give family D its own two-word
-pack/unpack instead.
+Fix both suspend paths by calling amd_disable_sdw_interrupts() first to
+close the ACP-level gate before work drains.
 
-The two-word layout matches the vendor switch API for this chip
-family, which writes only 0x0510/0x0511 for a CVLAN entry.
+In amd_suspend() CLK_STOP_MODE:
+ - Add amd_disable_sdw_interrupts() and cancel_work_sync(irq_thread)
+   before the existing cancel_work_sync(work).
+ - Call amd_enable_sdw_interrupts() after clock stop to reopen the gate.
+   ACP remains powered in CLK_STOP_MODE (only the SoundWire bus clock is
+   gated), so the interrupt path must be live to allow wake events to
+   reach the CPU during system sleep.
 
-The family D paths are not reachable until the RTL8367S-VB chip table
-entry is added in the last patch of the series.
+In amd_suspend() POWER_OFF_MODE:
+ - Add amd_disable_sdw_interrupts() and cancel_work_sync(irq_thread)
+   before the existing cancel_work_sync(work).
+ - Remove the redundant post-clock-stop amd_disable_sdw_interrupts() call;
+   the gate is already closed at the top of the branch.
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+In amd_suspend_runtime() CLK_STOP_MODE:
+ - Add amd_disable_sdw_interrupts() and cancel_work_sync(irq_thread)
+   before the existing cancel_work_sync(work).
+ - Call amd_enable_sdw_interrupts() to reopen the gate. ACP remains
+   powered in CLK_STOP_MODE (only the SoundWire bus clock is gated), so
+   the interrupt path must be live to allow wake events to reach the CPU.
+
+In amd_suspend_runtime() POWER_OFF_MODE:
+ - Add amd_disable_sdw_interrupts() and cancel_work_sync(irq_thread)
+   before the existing cancel_work_sync(work).
+ - Remove the redundant post-clock-stop amd_disable_sdw_interrupts() call;
+   the gate is already closed at the top of the branch.
+
+Fixes: 86a4371b7697 ("soundwire: amd: fix for handling slave alerts after link is down")
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- drivers/net/dsa/realtek/rtl8365mb_vlan.c | 175 ++++++++++++++++-------
- 1 file changed, 123 insertions(+), 52 deletions(-)
+ drivers/soundwire/amd_manager.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-index 8d49ffa..c2cfdf1 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-@@ -33,7 +33,9 @@
-  * 1. VLAN4k entries can specify whether to use Independent or Shared VLAN
-  *    Learning (IVL or SVL respectively). VLAN membership config entries
-  *    cannot. This underscores the fact that VLAN membership configs are not
-- *    involved in the learning process of the ASIC.
-+ *    involved in the learning process of the ASIC. (The driver honors this
-+ *    selection on family C only; on family D it always forces IVL, see
-+ *    rtl8365mb_vlan_4k_write().)
-  *
-  * 2. VLAN membership config entries use an "enhanced VLAN ID" (efid), which has
-  *    a range 0~8191 compared with the standard 0~4095 range of the VLAN4k
-@@ -48,12 +50,16 @@
+diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+index 0cb5f4694e9a..1a252a81269a 100644
+--- a/drivers/soundwire/amd_manager.c
++++ b/drivers/soundwire/amd_manager.c
+@@ -1321,6 +1321,8 @@ static int __maybe_unused amd_suspend(struct device *dev)
+ 	}
  
- #include "rtl8365mb_vlan.h"
- #include "rtl8365mb_table.h"
-+#include "rtl8365mb.h"
- #include <linux/if_bridge.h>
- #include <linux/lockdep.h>
- #include <linux/regmap.h>
- 
--/* CVLAN (i.e. VLAN4k) table entry layout, u16[3] */
-+/* CVLAN (i.e. VLAN4k) table entry layout: u16[3] on family C, u16[2] on
-+ * family D
-+ */
- #define RTL8365MB_CVLAN_ENTRY_SIZE			3 /* 48-bits */
-+#define RTL8365MB_D_CVLAN_ENTRY_SIZE			2 /* 32-bits */
- #define RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK		GENMASK(7, 0)
- #define   RTL8365MB_CVLAN_MBR_LO_MASK			GENMASK(7, 0)
- #define RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK		GENMASK(15, 8)
-@@ -65,6 +71,11 @@
- #define RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK		GENMASK(13, 9)
- #define   RTL8365MB_CVLAN_METERIDX_LO_MASK		GENMASK(4, 0)
- #define RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK		GENMASK(14, 14)
-+/* Family D CVLAN entry, word 1 (family D has no word 2) */
-+#define RTL8365MB_D_CVLAN_ENTRY_D1_SVLAN_CHK_IVL_SVL_MASK \
-+							GENMASK(2, 2)
-+#define RTL8365MB_D_CVLAN_ENTRY_D1_IVL_EN_MASK		GENMASK(3, 3)
-+#define RTL8365MB_D_CVLAN_ENTRY_D1_FID_MASK		GENMASK(1, 0)
- /* extends RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK */
- #define RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK		GENMASK(2, 0)
- #define   RTL8365MB_CVLAN_MBR_HI_MASK			GENMASK(10, 8)
-@@ -132,7 +143,8 @@
-  * @priority: priority classification (unused)
-  * @priority_en: enable priority (unused)
-  * @policing_en: enable policing (unused)
-- * @ivl_en: enable IVL instead of default SVL
-+ * @ivl_en: enable IVL instead of default SVL (family D always forces IVL
-+ *          on write, see rtl8365mb_vlan_4k_write())
-  * @meteridx: metering index (unused)
-  *
-  * This structure is used to get/set entries in the VLAN4k table. The
-@@ -185,13 +197,16 @@ struct rtl8365mb_vlanmc {
- static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
- 				  struct rtl8365mb_vlan4k *vlan4k)
- {
-+	bool is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
-+	size_t entry_size = is_d ? RTL8365MB_D_CVLAN_ENTRY_SIZE :
-+				   RTL8365MB_CVLAN_ENTRY_SIZE;
- 	u16 data[RTL8365MB_CVLAN_ENTRY_SIZE];
- 	int val;
- 	int ret;
- 
- 	ret = rtl8365mb_table_query(priv, RTL8365MB_TABLE_CVLAN,
- 				    RTL8365MB_TABLE_OP_READ, &vid, 0, 0,
--				    data, ARRAY_SIZE(data));
-+				    data, entry_size);
- 	if (ret)
- 		return ret;
- 
-@@ -199,33 +214,61 @@ static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
- 	memset(vlan4k, 0, sizeof(*vlan4k));
- 	vlan4k->vid = vid;
- 
-+	/* member/untag: d0[7:0]/d0[15:8] on both families. Family C
-+	 * extends these into data[2] bits [2:0]/[5:3] for its 9th-11th
-+	 * ports; family D's die has only 8 ports and no third table
-+	 * word, so data[2] does not exist there and must not be read.
-+	 */
- 	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK, data[0]);
- 	vlan4k->member = FIELD_PREP(RTL8365MB_CVLAN_MBR_LO_MASK, val);
--	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK, data[2]);
--	vlan4k->member |= FIELD_PREP(RTL8365MB_CVLAN_MBR_HI_MASK, val);
-+	if (!is_d) {
-+		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK, data[2]);
-+		vlan4k->member |= FIELD_PREP(RTL8365MB_CVLAN_MBR_HI_MASK, val);
-+	}
- 
- 	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK, data[0]);
- 	vlan4k->untag = FIELD_PREP(RTL8365MB_CVLAN_UNTAG_LO_MASK, val);
--	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK, data[2]);
--	vlan4k->untag |= FIELD_PREP(RTL8365MB_CVLAN_UNTAG_HI_MASK, val);
--
--	vlan4k->fid = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK, data[1]);
--	vlan4k->priority_en =
--		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK, data[1]);
--	vlan4k->priority =
--		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK, data[1]);
--	vlan4k->policing_en =
--		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK, data[1]);
--
--	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK, data[1]);
--	val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
--	vlan4k->meteridx = val;
--	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK, data[2]);
--	val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
--	vlan4k->meteridx |= val;
--
--	vlan4k->ivl_en =
--		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK, data[1]);
-+	if (!is_d) {
-+		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK,
-+				data[2]);
-+		vlan4k->untag |= FIELD_PREP(RTL8365MB_CVLAN_UNTAG_HI_MASK, val);
-+	}
-+
-+	if (is_d) {
-+		vlan4k->fid = FIELD_GET(RTL8365MB_D_CVLAN_ENTRY_D1_FID_MASK,
-+					data[1]);
-+		/* Family D has no priority/meter fields in this entry -
-+		 * left zeroed by the memset() above.
-+		 */
-+		vlan4k->ivl_en =
-+			FIELD_GET(RTL8365MB_D_CVLAN_ENTRY_D1_IVL_EN_MASK,
-+				  data[1]);
-+	} else {
-+		vlan4k->fid = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK,
-+					data[1]);
-+		vlan4k->priority_en =
-+			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK,
-+				  data[1]);
-+		vlan4k->priority =
-+			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK,
-+				  data[1]);
-+		vlan4k->policing_en =
-+			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK,
-+				  data[1]);
-+
-+		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK,
-+				data[1]);
-+		val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
-+		vlan4k->meteridx = val;
-+		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK,
-+				data[2]);
-+		val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
-+		vlan4k->meteridx |= val;
-+
-+		vlan4k->ivl_en =
-+			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK,
-+				  data[1]);
-+	}
- 
- 	return 0;
- }
-@@ -233,6 +276,9 @@ static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
- static int rtl8365mb_vlan_4k_write(struct realtek_priv *priv,
- 				   const struct rtl8365mb_vlan4k *vlan4k)
- {
-+	bool is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
-+	size_t entry_size = is_d ? RTL8365MB_D_CVLAN_ENTRY_SIZE :
-+				   RTL8365MB_CVLAN_ENTRY_SIZE;
- 	u16 data[RTL8365MB_CVLAN_ENTRY_SIZE] = { 0 };
- 	u16 vid;
- 	int val;
-@@ -244,36 +290,61 @@ static int rtl8365mb_vlan_4k_write(struct realtek_priv *priv,
- 	val = FIELD_GET(RTL8365MB_CVLAN_UNTAG_LO_MASK, vlan4k->untag);
- 	data[0] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK, val);
- 
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK, vlan4k->fid);
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK,
--			      vlan4k->priority_en);
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK,
--			      vlan4k->priority);
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK,
--			      vlan4k->policing_en);
--
--	/* FIELD_* does not play nice with struct bitfield. */
--	val = vlan4k->meteridx;
--	val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK, val);
--
--	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK,
--			      vlan4k->ivl_en);
--
--	val = FIELD_GET(RTL8365MB_CVLAN_MBR_HI_MASK, vlan4k->member);
--	data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK, val);
--
--	val = FIELD_GET(RTL8365MB_CVLAN_UNTAG_HI_MASK, vlan4k->untag);
--	data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK, val);
--
--	val = vlan4k->meteridx;
--	val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
--	data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK, val);
-+	if (is_d) {
-+		/* The chip supports both IVL and SVL, but the caller (see
-+		 * rtl8365mb_vlan_4k_port_set()) never requests SVL, so both
-+		 * IVL/SVL selector bits are forced here rather than threaded
-+		 * through from vlan4k->ivl_en, which family C does honor.
-+		 * The vendor CVLAN API leaves SVLAN_CHK_IVL_SVL at 0, see the
-+		 * commit message.
-+		 */
-+		data[1] |= FIELD_PREP(RTL8365MB_D_CVLAN_ENTRY_D1_IVL_EN_MASK,
-+				      1) |
-+			   FIELD_PREP(RTL8365MB_D_CVLAN_ENTRY_D1_SVLAN_CHK_IVL_SVL_MASK,
-+				      1);
-+		data[1] |= FIELD_PREP(RTL8365MB_D_CVLAN_ENTRY_D1_FID_MASK,
-+				      vlan4k->fid);
-+		/* No priority/meter/member-untag-extension fields exist in
-+		 * family D's 2-word entry - data[1] and data[0] above are
-+		 * the whole entry, and data[2] is not part of it at all.
-+		 */
-+	} else {
-+		val = vlan4k->fid;
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK, val);
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK,
-+				      vlan4k->priority_en);
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK,
-+				      vlan4k->priority);
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK,
-+				      vlan4k->policing_en);
-+
-+		/* FIELD_* does not play nice with struct bitfield. */
-+		val = vlan4k->meteridx;
-+		val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK,
-+				      val);
-+
-+		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK,
-+				      vlan4k->ivl_en);
-+
-+		val = FIELD_GET(RTL8365MB_CVLAN_MBR_HI_MASK, vlan4k->member);
-+		data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK,
-+				      val);
-+
-+		val = FIELD_GET(RTL8365MB_CVLAN_UNTAG_HI_MASK, vlan4k->untag);
-+		data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK,
-+				      val);
-+
-+		val = vlan4k->meteridx;
-+		val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
-+		data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK,
-+				      val);
-+	}
- 
- 	vid = vlan4k->vid;
- 	return rtl8365mb_table_query(priv, RTL8365MB_TABLE_CVLAN,
- 				     RTL8365MB_TABLE_OP_WRITE, &vid, 0, 0,
--				     data, ARRAY_SIZE(data));
-+				     data, entry_size);
- }
- 
- static int
+ 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
++		amd_disable_sdw_interrupts(amd_manager);
++		cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
+ 		cancel_work_sync(&amd_manager->amd_sdw_work);
+ 		amd_sdw_wake_enable(amd_manager, false);
+ 		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, false);
+@@ -1329,7 +1331,10 @@ static int __maybe_unused amd_suspend(struct device *dev)
+ 		ret = amd_sdw_clock_stop(amd_manager);
+ 		if (ret)
+ 			return ret;
++		amd_enable_sdw_interrupts(amd_manager);
+ 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
++		amd_disable_sdw_interrupts(amd_manager);
++		cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
+ 		cancel_work_sync(&amd_manager->amd_sdw_work);
+ 		amd_sdw_wake_enable(amd_manager, false);
+ 		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, false);
+@@ -1342,7 +1347,6 @@ static int __maybe_unused amd_suspend(struct device *dev)
+ 		ret = amd_sdw_clock_stop(amd_manager);
+ 		if (ret)
+ 			return ret;
+-		amd_disable_sdw_interrupts(amd_manager);
+ 		ret = amd_disable_sdw_manager(amd_manager);
+ 		if (ret)
+ 			return ret;
+@@ -1377,6 +1381,9 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
+ 		return 0;
+ 	}
+ 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
++		amd_disable_sdw_interrupts(amd_manager);
++		cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
++		cancel_work_sync(&amd_manager->amd_sdw_work);
+ 		amd_sdw_wake_enable(amd_manager, true);
+ 		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, true);
+ 		if (ret)
+@@ -1384,7 +1391,11 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
+ 		ret = amd_sdw_clock_stop(amd_manager);
+ 		if (ret)
+ 			return ret;
++		amd_enable_sdw_interrupts(amd_manager);
+ 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
++		amd_disable_sdw_interrupts(amd_manager);
++		cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
++		cancel_work_sync(&amd_manager->amd_sdw_work);
+ 		amd_sdw_wake_enable(amd_manager, true);
+ 		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, true);
+ 		if (ret)
+@@ -1392,7 +1403,6 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
+ 		ret = amd_sdw_clock_stop(amd_manager);
+ 		if (ret)
+ 			return ret;
+-		amd_disable_sdw_interrupts(amd_manager);
+ 		ret = amd_disable_sdw_manager(amd_manager);
+ 		if (ret)
+ 			return ret;
 -- 
-2.53.0
+2.48.1
 
