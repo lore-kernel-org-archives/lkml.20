@@ -1,379 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A39411FBF;
-	Tue, 13 Oct 2026 23:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB634734F4
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791933646; cv=none; b=hFO6tm403tSpQLBoudPsoOtXcpBMPC3hjnsb4DNmn39gBbaStXGjhIIlXzMA5w+JpOsh1ywMR16Zp0FrhnW07ppFF40btyAfY6hsXP57OVGkzK+mY8YFsPw56HtWBVjdiFhI3xZsMRudukQBZvRjWDyCh8Uu2jZl658bpMktRw4=
+	t=1791933648; cv=none; b=FQC25luymcZIXz2rO1+26gpuRE1qMD2FlTy+S0LFUBHNdstA0f9qSkPbdNlTTMDxv0yoEeLlrmxJXrYOt0+kY+tkpUbPj7Np0ehDCpx1UkAwfPEM51eZXAbo4S950NoijDzICv5iG+Z7s2F0U5UGeIbb2V/qvHGEo35OYXWJfgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791933646; c=relaxed/simple;
-	bh=Pt00QEJp+03oyqxJfnUTGrqRlSprY/W49Ao+E7a6cs0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EqyQqdAHdVtfO5zcfmt6Mo2ongt0k3uzLQCYJ0QSpArXnAPEHy3GzLctdR6LG+Alp16qQVHWOi+Wu3G0Eaqca9FQhB1Arr11Q+ZTZgX/4iAVBd/UGy4jmp6TgzdBeOv/U4ys1ElBqGqeRxW8BOkOM1hKO5obuCZRpgHpWdWLoPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akbXQd7i; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791933648; c=relaxed/simple;
+	bh=cWU3WeYa6uUolwQkaXyKsrhxLzWe8kBTtAlLE44a2H0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FG5vsst1WwlxzHemEcvro+mFPUB+HNCb1eb+CAsSJ+A8WUo9cDnFSzYTRNVF5eNiRCl6Y6iDfAh+4Fl5otUkZ/o8dHC0XBcWB0ugRmEPuIivUmk1kynBmPCbnhVneSPjonbcPjA5jBDzW9Dl9vTqdEwyufD807GB0t5DPMYytIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mHpEDoQy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akbXQd7i"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AF6C5C2BD00;
-	Tue, 13 Oct 2026 23:20:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791933645;
-	bh=Pt00QEJp+03oyqxJfnUTGrqRlSprY/W49Ao+E7a6cs0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=akbXQd7iV+3cJ/ed4HU1MPVV9zyaZqeYBrivDHPaKV3H6bBnAynbacn+5143gjSHy
-	 /8Uloq0yjIrALcErhzOXWv0BLZhePxZ9zQrpPmXEO/5bPfthjVxpVa965IPnZ05lDW
-	 4SY023Q/o3l+oVXrEYHpTARuCX31K92ij3vmmZr/zdRyClPkRgKqH2xvzHJ2DAFlDr
-	 DQuPaQqkXp4nALkQBnFB1BeFltPX3NHoFCPZon4HVgksJ+dqBy67bBPZkpurbYp0f8
-	 oGWd/etr3Tr5AvxA0UaQa3T5g2U9onuzOQpSduGB07sHFS7hM2xPFD7p0wdAs8noCo
-	 k9kFHN26TtycQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98F94CC6B22;
-	Tue, 13 Oct 2026 23:20:45 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Date: Wed, 14 Oct 2026 01:20:42 +0200
-Subject: [PATCH 3/3] ceph: accumulate subvolume metrics per CPU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mHpEDoQy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D6D11F000FF;
+	Tue, 13 Oct 2026 23:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791933646;
+	bh=jiC8CjfdKGg/9xRJ2M1zfp1fJXqanJWTtOmmSFQ5vK0=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=mHpEDoQymjOAnmVmeI69vDMEXcrS8IhmWgL9lz+Jv+BBfkLiVYKN0vI1w2iz2EgRx
+	 FOLejqiP1QGy42Yu+4ORZNclzJsH4nIwifkpqMQiF/EHtuy2YRUoNmJ7K7gtsqYR+O
+	 r+Oy8DQX35Mm3hcOsEXRtUJgaArjSOKVpCuyorLJL0HsEC66uHloYeCa3KQr9/y9Ov
+	 FWy0hVUDBgOo1WVA4FEazwGa3pWRzMjSX6RvQ6WP9uwS2EWWVegdZOrJVCEyl/YCXD
+	 mFsQA6Ag6WN6MbcVkxnyJaI5OiWg/nMgC2S/ONRoJs4wnMejGaz7vhEIyOeLDnhuiO
+	 1pkNysghFajpQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id CA006CE0459; Tue, 13 Oct 2026 16:20:45 -0700 (PDT)
+Date: Tue, 13 Oct 2026 16:20:45 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Kiryl Shutsemau <kirill@shutemov.name>,
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux-MM <linux-mm@kvack.org>
+Subject: Re: Improve page refcount scalability
+Message-ID: <3bb52262-b183-437a-a7ba-9e5f3c32f355@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
+ <as6ckC9NJVB8JBuV@casper.infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-ceph-metrics-percpu-v1-3-38c5a24fec6e@clyso.com>
-References: <20261014-ceph-metrics-percpu-v1-0-38c5a24fec6e@clyso.com>
-In-Reply-To: <20261014-ceph-metrics-percpu-v1-0-38c5a24fec6e@clyso.com>
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, 
- Milind Changire <mchangir@redhat.com>, Jeff Layton <jlayton@kernel.org>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dan van der Ster <dan.vanderster@clyso.com>, Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791933643; l=10988;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=ejyhU/j4h0EfNpY7w3/UC+A/gQ5WXha8Jsf0MYe73u0=;
- b=2iD/Eic2g6JGSJGqJbIkB5PSa16+k9k+MAWZDdwcrb++jfe92xU8G8rtqjgqGLLd7LPa0q5lJ
- 5d3uUCxeiGaDQM+S8vXUc/vCGQmUchCrCujFnjbacHRbocdKkep52ik
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as6ckC9NJVB8JBuV@casper.infradead.org>
 
-From: Xiubo Li <xiubo.li@clyso.com>
+On Tue, Oct 13, 2026 at 10:03:12PM +0100, Matthew Wilcox wrote:
+> On Tue, Oct 13, 2026 at 11:43:14AM -0700, Linus Torvalds wrote:
+> > The fairly short series of ten patches basically enhances folio lookup
+> > by noticing when folios are hot, and setting a "delay relasing this
+> > folio until after a RCU period", and then using that RCU delay it does
+> > not just the folio lookup itself under RCU (which we've done forever),
+> > but also the actual folio data accesses themselves under RCU. No
+> > refcount taking needed for the fastpath where we can just read the
+> > data from the folio entirely in an RCU-protected region when the user
+> > copy doesn't cause page faults.
+> > 
+> > Unlike my original approach - because it now actually delays the
+> > freeing of the underlying folio data - there's no need for any double
+> > buffering, and a lot of the original limitations of my original patch
+> > go away too. That improves performance quite a lot. And by "quite a
+> > lot"  I mean "I see a 23x performance increase on my Ryzen
+> > threadripper". Admittedly that is a very artificial case of reading
+> > the same small part of a page over and over in a threaded loop on all
+> > CPUs, so any real life impact will be much much less.
+> > 
+> > Anyway, I wasn't planning on posting the individual patches, I think
+> > we all use git by now and probably find it easier than fetching
+> > patches from the list. So it's all at
+> > 
+> >     git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux rcu-free-v3
+> > 
+> > and the commit messages are a bit more verbose than I would have done
+> > it myself without tool use, but maybe it's better that way.
+> 
+> Obviously the numbers are compelling.  And thanks to Kiryl for figuring
+> out a workload that confirmed my fears, then remedying the problem.
+> 
+> I don't like the PG_rcu_free flag.  I hope we're guaranteed that folios
+> in the process of being freed by RCU will not be mapped into userspace.
+> That means we can use PGTY_rcu instead, where there is no shortage of
+> available types.
+> 
+> The workload that Kiryl identified (truncating/holepunching folios
+> from files) is not the normal way we free folios from the page cache,
+> so while we need to accommodate it, it's not what we shuld optimise for.
+> Most page cache folios get freed through reclaim.  I started sketching
+> out a new state (I was going to call them "ghost folios") when I realised
+> I was basically reinventing the inactive list.  So maybe we should make
+> folios on the inactive list immediately freeable as long as one RCU
+> generation has passed?
+> 
+> This may be where I run into trouble.  I don't know how RCU works
+> internally.  Is it possible to record some kind of generation number in
+> the folio such that we can see if it's only recently been added to the
+> inactive list?  Or do we need three lists --active, purgatory, inactive
+> where the folio is moved from active to purgatory as it ages, then
+> from purgatory to inactive after an RCU perid?
 
-With subvolume metrics enabled, every OSD read and write completion
-takes the mount-wide tracker->lock and walks the rbtree of subvolumes
-to add one op to its entry.  On a client with many cores doing a
-large bandwidth, the completions of all its CPUs serialize on that
-spinlock and bounce its cache line.
+The polled grace-period APIs handle the last sentence for you, but you
+knew that already.  I am not sure what "recently added" means in this
+context, but I cannot resist suggesting using the jiffies counter.
 
-Give each CPU a slot holding the counters of one subvolume.  A
-completion only takes its own slot's lock and adds to it; it goes to
-the tree only when the slot held another subvolume, whose counters it
-then folds into the tree entry the old way.  The metrics sender and
-the debugfs dump fold every slot into the tree before they read it,
-so what they report is unchanged.  A client usually works in one
-subvolume at a time, so the tree is touched once per CPU and snapshot
-instead of once per I/O.
+But tell me more about the meaning of "recently added" and I will try
+to be more helpful.  ;-)
 
-The slot is looked up with raw_cpu_ptr() and protected by its own
-lock, so a task that migrates in between just updates another CPU's
-slot.  ceph_subvolume_metrics_init() now allocates the per-CPU slots
-and can fail.
+							Thanx, Paul
 
-Reported-by: Dan van der Ster <dan.vanderster@clyso.com>
-Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
----
- fs/ceph/mds_client.c        |   6 +-
- fs/ceph/subvolume_metrics.c | 140 +++++++++++++++++++++++++++++++++++++-------
- fs/ceph/subvolume_metrics.h |   5 +-
- 3 files changed, 129 insertions(+), 22 deletions(-)
-
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index d4ef8a355a48..649284a2e746 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -6501,7 +6501,9 @@ int ceph_mdsc_init(struct ceph_fs_client *fsc)
- 	err = ceph_metric_init(&mdsc->metric);
- 	if (err)
- 		goto err_mdsmap;
--	ceph_subvolume_metrics_init(&mdsc->subvol_metrics);
-+	err = ceph_subvolume_metrics_init(&mdsc->subvol_metrics);
-+	if (err)
-+		goto err_metric;
- 	mutex_init(&mdsc->subvol_metrics_last_mutex);
- 	mdsc->subvol_metrics_last = NULL;
- 	mdsc->subvol_metrics_last_nr = 0;
-@@ -6533,6 +6535,8 @@ int ceph_mdsc_init(struct ceph_fs_client *fsc)
- 	fsc->mdsc = mdsc;
- 	return 0;
- 
-+err_metric:
-+	ceph_metric_destroy(&mdsc->metric);
- err_mdsmap:
- 	kfree(mdsc->mdsmap);
- err_mdsc:
-diff --git a/fs/ceph/subvolume_metrics.c b/fs/ceph/subvolume_metrics.c
-index 895878a49ea7..def26152e5fc 100644
---- a/fs/ceph/subvolume_metrics.c
-+++ b/fs/ceph/subvolume_metrics.c
-@@ -31,14 +31,36 @@ struct ceph_subvol_metric_rb_entry {
- 	u64 write_latency_us;
- };
- 
-+/**
-+ * struct ceph_subvol_metric_pcpu - Per-CPU accumulator in front of the tree
-+ * @lock: Protects @m; only contended when a task migrates mid-update
-+ * @m: Counters of one subvolume (@m.subvolume_id) not yet folded into the tree
-+ *
-+ * I/O completions add to the slot of the CPU they run on and only take
-+ * tracker->lock when the slot holds another subvolume, or when a snapshot
-+ * or a dump folds every slot into the tree.
-+ */
-+struct ceph_subvol_metric_pcpu {
-+	spinlock_t lock;
-+	struct ceph_subvol_metric_snapshot m;
-+};
-+
- static struct kmem_cache *ceph_subvol_metric_entry_cachep;
- 
--void ceph_subvolume_metrics_init(struct ceph_subvolume_metrics_tracker *tracker)
-+int ceph_subvolume_metrics_init(struct ceph_subvolume_metrics_tracker *tracker)
- {
-+	int cpu;
-+
- 	spin_lock_init(&tracker->lock);
- 	tracker->tree = RB_ROOT_CACHED;
- 	tracker->nr_entries = 0;
- 	tracker->enabled = false;
-+	tracker->pcpu = alloc_percpu(struct ceph_subvol_metric_pcpu);
-+	if (!tracker->pcpu)
-+		return -ENOMEM;
-+	for_each_possible_cpu(cpu)
-+		spin_lock_init(&per_cpu_ptr(tracker->pcpu, cpu)->lock);
-+	return 0;
- }
- 
- static struct ceph_subvol_metric_rb_entry *
-@@ -109,12 +131,28 @@ static void ceph_subvolume_metrics_clear_locked(
- 	tracker->tree = RB_ROOT_CACHED;
- }
- 
-+static void ceph_subvolume_metrics_clear_pcpu(
-+		struct ceph_subvolume_metrics_tracker *tracker)
-+{
-+	int cpu;
-+
-+	for_each_possible_cpu(cpu) {
-+		struct ceph_subvol_metric_pcpu *pc = per_cpu_ptr(tracker->pcpu, cpu);
-+
-+		spin_lock(&pc->lock);
-+		memset(&pc->m, 0, sizeof(pc->m));
-+		spin_unlock(&pc->lock);
-+	}
-+}
-+
- void ceph_subvolume_metrics_destroy(struct ceph_subvolume_metrics_tracker *tracker)
- {
- 	spin_lock(&tracker->lock);
- 	ceph_subvolume_metrics_clear_locked(tracker);
- 	tracker->enabled = false;
- 	spin_unlock(&tracker->lock);
-+	free_percpu(tracker->pcpu);
-+	tracker->pcpu = NULL;
- }
- 
- void ceph_subvolume_metrics_enable(struct ceph_subvolume_metrics_tracker *tracker,
-@@ -128,20 +166,20 @@ void ceph_subvolume_metrics_enable(struct ceph_subvolume_metrics_tracker *tracke
- 		ceph_subvolume_metrics_clear_locked(tracker);
- 	}
- 	spin_unlock(&tracker->lock);
-+	if (!enable)
-+		ceph_subvolume_metrics_clear_pcpu(tracker);
- }
- 
--void ceph_subvolume_metrics_record(struct ceph_subvolume_metrics_tracker *tracker,
--				   u64 subvol_id, bool is_write,
--				   size_t size, u64 latency_us)
-+/*
-+ * Add the counters of one subvolume taken out of a per-CPU slot to its
-+ * entry in the tree.
-+ */
-+static void ceph_subvolume_metrics_fold(struct ceph_subvolume_metrics_tracker *tracker,
-+					const struct ceph_subvol_metric_snapshot *d)
- {
- 	struct ceph_subvol_metric_rb_entry *entry, *new_entry = NULL;
- 	bool retry = false;
- 
--	/* CEPH_SUBVOLUME_ID_NONE (0) means unknown/unset subvolume */
--	if (!READ_ONCE(tracker->enabled) ||
--	    subvol_id == CEPH_SUBVOLUME_ID_NONE || !size || !latency_us)
--		return;
--
- 	/*
- 	 * Retry loop for lock-free allocation pattern:
- 	 * 1. First iteration: lookup under lock, if miss -> drop lock, alloc, retry
-@@ -158,7 +196,7 @@ void ceph_subvolume_metrics_record(struct ceph_subvolume_metrics_tracker *tracke
- 			return;
- 		}
- 
--		entry = __lookup_entry(tracker, subvol_id);
-+		entry = __lookup_entry(tracker, d->subvolume_id);
- 		if (!entry) {
- 			if (!new_entry) {
- 				spin_unlock(&tracker->lock);
-@@ -166,7 +204,7 @@ void ceph_subvolume_metrics_record(struct ceph_subvolume_metrics_tracker *tracke
- 						      GFP_NOFS);
- 				if (!new_entry)
- 					return;
--				new_entry->subvolume_id = subvol_id;
-+				new_entry->subvolume_id = d->subvolume_id;
- 				retry = true;
- 				continue;
- 			}
-@@ -182,15 +220,12 @@ void ceph_subvolume_metrics_record(struct ceph_subvolume_metrics_tracker *tracke
- 			new_entry = NULL;
- 		}
- 
--		if (is_write) {
--			entry->write_ops++;
--			entry->write_bytes += size;
--			entry->write_latency_us += latency_us;
--		} else {
--			entry->read_ops++;
--			entry->read_bytes += size;
--			entry->read_latency_us += latency_us;
--		}
-+		entry->read_ops += d->read_ops;
-+		entry->read_bytes += d->read_bytes;
-+		entry->read_latency_us += d->read_latency_us;
-+		entry->write_ops += d->write_ops;
-+		entry->write_bytes += d->write_bytes;
-+		entry->write_latency_us += d->write_latency_us;
- 		spin_unlock(&tracker->lock);
- 		if (new_entry)
- 			kmem_cache_free(ceph_subvol_metric_entry_cachep, new_entry);
-@@ -198,6 +233,66 @@ void ceph_subvolume_metrics_record(struct ceph_subvolume_metrics_tracker *tracke
- 	} while (retry);
- }
- 
-+/* Move what every per-CPU slot holds into the tree. */
-+static void ceph_subvolume_metrics_fold_pcpu(
-+		struct ceph_subvolume_metrics_tracker *tracker)
-+{
-+	int cpu;
-+
-+	for_each_possible_cpu(cpu) {
-+		struct ceph_subvol_metric_pcpu *pc = per_cpu_ptr(tracker->pcpu, cpu);
-+		struct ceph_subvol_metric_snapshot d;
-+
-+		spin_lock(&pc->lock);
-+		d = pc->m;
-+		memset(&pc->m, 0, sizeof(pc->m));
-+		pc->m.subvolume_id = d.subvolume_id;
-+		spin_unlock(&pc->lock);
-+
-+		if (d.read_ops || d.write_ops)
-+			ceph_subvolume_metrics_fold(tracker, &d);
-+	}
-+}
-+
-+void ceph_subvolume_metrics_record(struct ceph_subvolume_metrics_tracker *tracker,
-+				   u64 subvol_id, bool is_write,
-+				   size_t size, u64 latency_us)
-+{
-+	struct ceph_subvol_metric_snapshot old = {};
-+	struct ceph_subvol_metric_pcpu *pc;
-+
-+	/* CEPH_SUBVOLUME_ID_NONE (0) means unknown/unset subvolume */
-+	if (!READ_ONCE(tracker->enabled) ||
-+	    subvol_id == CEPH_SUBVOLUME_ID_NONE || !size || !latency_us)
-+		return;
-+
-+	/*
-+	 * The slot of the CPU we start on; if we migrate, the lock still
-+	 * keeps the update consistent and it just lands in another slot.
-+	 */
-+	pc = raw_cpu_ptr(tracker->pcpu);
-+	spin_lock(&pc->lock);
-+	if (unlikely(pc->m.subvolume_id != subvol_id)) {
-+		old = pc->m;
-+		memset(&pc->m, 0, sizeof(pc->m));
-+		pc->m.subvolume_id = subvol_id;
-+	}
-+	if (is_write) {
-+		pc->m.write_ops++;
-+		pc->m.write_bytes += size;
-+		pc->m.write_latency_us += latency_us;
-+	} else {
-+		pc->m.read_ops++;
-+		pc->m.read_bytes += size;
-+		pc->m.read_latency_us += latency_us;
-+	}
-+	spin_unlock(&pc->lock);
-+
-+	/* the slot held another subvolume: hand its counters to the tree */
-+	if (old.read_ops || old.write_ops)
-+		ceph_subvolume_metrics_fold(tracker, &old);
-+}
-+
- int ceph_subvolume_metrics_snapshot(struct ceph_subvolume_metrics_tracker *tracker,
- 				    struct ceph_subvol_metric_snapshot **out,
- 				    u32 *nr, bool consume)
-@@ -213,6 +308,8 @@ int ceph_subvolume_metrics_snapshot(struct ceph_subvolume_metrics_tracker *track
- 	if (!READ_ONCE(tracker->enabled))
- 		return 0;
- 
-+	ceph_subvolume_metrics_fold_pcpu(tracker);
-+
- 	spin_lock(&tracker->lock);
- 	for (node = rb_first_cached(&tracker->tree); node; node = rb_next(node)) {
- 		struct ceph_subvol_metric_rb_entry *entry =
-@@ -306,6 +403,9 @@ void ceph_subvolume_metrics_dump(struct ceph_subvolume_metrics_tracker *tracker,
- 	struct rb_node *node;
- 	bool found = false;
- 
-+	if (READ_ONCE(tracker->enabled))
-+		ceph_subvolume_metrics_fold_pcpu(tracker);
-+
- 	spin_lock(&tracker->lock);
- 	if (!tracker->enabled) {
- 		spin_unlock(&tracker->lock);
-diff --git a/fs/ceph/subvolume_metrics.h b/fs/ceph/subvolume_metrics.h
-index 8b901ae05e00..b29d48e9a4f1 100644
---- a/fs/ceph/subvolume_metrics.h
-+++ b/fs/ceph/subvolume_metrics.h
-@@ -10,6 +10,7 @@
- struct seq_file;
- struct ceph_mds_client;
- struct ceph_inode_info;
-+struct ceph_subvol_metric_pcpu;
- 
- /**
-  * struct ceph_subvol_metric_snapshot - Point-in-time snapshot of subvolume metrics
-@@ -37,15 +38,17 @@ struct ceph_subvol_metric_snapshot {
-  * @tree: Red-black tree of per-subvolume entries, keyed by subvolume_id
-  * @nr_entries: Number of entries currently in @tree
-  * @enabled: Whether collection is enabled (requires MDS feature support)
-+ * @pcpu: Per-CPU accumulators that I/O completions update without @lock
-  */
- struct ceph_subvolume_metrics_tracker {
- 	spinlock_t lock;
- 	struct rb_root_cached tree;
- 	u32 nr_entries;
- 	bool enabled;
-+	struct ceph_subvol_metric_pcpu __percpu *pcpu;
- };
- 
--void ceph_subvolume_metrics_init(struct ceph_subvolume_metrics_tracker *tracker);
-+int ceph_subvolume_metrics_init(struct ceph_subvolume_metrics_tracker *tracker);
- void ceph_subvolume_metrics_destroy(struct ceph_subvolume_metrics_tracker *tracker);
- void ceph_subvolume_metrics_enable(struct ceph_subvolume_metrics_tracker *tracker,
- 				   bool enable);
-
--- 
-2.53.0
-
-
+> This will somewhat complicate filemap_get_entry().  It'll have to be
+> able to cope with finding folios in all three states, and moving
+> them from the inactive or purgatory lists back to the active list.
+> I think it's doable with the right cmpxchg() magic.
+> 
+> What do you think?
