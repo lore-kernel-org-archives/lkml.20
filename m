@@ -1,87 +1,82 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4A35172FA;
-	Tue, 13 Oct 2026 13:34:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAF8521203
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 13:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898465; cv=none; b=uw3fkynazuLiVR7B2KfehuO+KuudJx+M/nr6UiqDQJSXkKvWmB6jfBNNI5fNiSrI30IXh+wpxx9A5UgjtfoT0VCE8YHk01nTGyGjq6wcCDRXYeYHevSvt9YMzDJ99gg1Kkx+XlrH/3/eacGRAi7lPzy+nXqYs/TKfitMYe1Q7IM=
+	t=1791898471; cv=none; b=HVSd7LTz7EnUkgM0VsmuA0hbrol7nbybO0jaEfoKQPCWemYMELIebJxkPyF4ngFPAqmhICIEUvaMru1v83tOLEOgdjIXq03sHuKPDyzP8s+nMuMP4g92nAMqejenr1PJNDb8Yk+lgEmpY92VI95WDDxBJrmrzPmHRiLxuj02zbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898465; c=relaxed/simple;
-	bh=LSXJqaEfNhoKn4Y8icI9Y0OhipJ0KE6t7s7Cr2RDBGE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W6jA2HgDyUsAGQP6OaBpxuxqH6Eu9sKgsfy0l8S6uiDwU6EXTaFUjvpk0vpo6qE+AL3mTl/7z0aOlM/wN6sbbWvtrjPbreOjmFahKohM7JewohdJrZP2N1bnTr5oIlL5B46ujXiDDlwzROJBNf4qo/wabAGsm6cgGyqfTqm2QhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=W6z4sD5p; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1791898471; c=relaxed/simple;
+	bh=Yjc3wFNOxrypJJyu5rTq8Vr1Hd3Zz2aUY0wPnZO4Ji4=;
+	h=From:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 To:Cc:Content-Type; b=Y9SMd1hkwGRFyH+1bughcQbT1mSl65EEniRfyPdvPIcK/6NGA6FxyNvmUqx5X7KRsl5y8zcjY/AWdSgq9ZBk1rcWJoc8DV0+V24nph5zkL8rTNC0D4tRrHNqXgPxheLrwKRRFsRThAzHNCXiJRh6VZmJxLDDBbEYr9lpGpt9Fy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=cjPfxSlL; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="W6z4sD5p"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2974D10920A;
-	Tue, 13 Oct 2026 15:34:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1791898458;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=ogj3MdZsbQuJ47Ycv02IMxQMigFdazGxRlb0UPCgRmk=;
-	b=W6z4sD5paFCQZqEt8x6Emy9p4jK+7rl1SEmw21wTDux7cxNx1faaLjPFI9wCC4UeY+Wkpa
-	qLQvpzbAtLf3eOjVxMfJ+/PXnLx2s/ivWfO2eHkHMWIWPmQTkpYtpkQYxqHkki8MfPikFs
-	3bDnZ4i8f684eLPyA6NYBw9qDY96auNSwUf/kzLb4+9yPiYz7x6LTM5Qdb3PKR2Bw0GZeL
-	w3Iw4FbQcE0WQ8SKhPnrgfd4dGYbVIbdHb/TkcAHXnyCzu5CiOlVD/qtejfXXiOctSwBGP
-	8Ky7ZQeVvKvZYNCFdHfQ3I2MfHOkGFioA29m57EoaZtFlLIkY4l7kPXm03AtmQ==
-Date: Tue, 13 Oct 2026 15:34:14 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 000/497] 6.12.113-rc1 review
-Message-ID: <as4zVj-VpU6nrqpm@duo.ucw.cz>
-References: <20261013112907.864180619@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="cjPfxSlL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
+	content-type:content-transfer-encoding:cc:content-type:date:from:subject:to;
+	s=s1; t=1791898469;
+	bh=Yjc3wFNOxrypJJyu5rTq8Vr1Hd3Zz2aUY0wPnZO4Ji4=;
+	b=cjPfxSlLQkSUdnf0bT733QfnqIyHwuJRNG6OpW0Z7CvBWxnySk5RMr67Oc8aartloIne
+	pK56lqo0wA7bw51ni+1Fcut5Q7x9y5Uavv6FVrVtcE40SFKySwMzXlVILGojlgwyFfNLit
+	qbCv0j92NNahom4tTuy0p3LA+dH3TRYvluTbZWUUAdx9ss+S44ajRzJIPWJ4tjWXb0kRLP
+	Jef/3beZF2rrIcoj0XVGTFmtxqIksgGYEiSMqcrlhfMjLfbhiI+HLfHgCRTBLcWDW2QwjJ
+	gtkvyi8l/XWlXAkflQ0eA+zJtTzDlbJameOVs3/1VpBZormpIJ+VqyABDXqJfqQA==
+Received: by recvd-b6785b758-pms9j with SMTP id recvd-b6785b758-pms9j-1-6ACE3364-52
+	2026-10-13 13:34:28.727189614 +0000 UTC m=+1197221.645450126
+Received: from daisy.dens.ffj.family (unknown)
+	by geopod-ismtpd-canary-0 (SG) with ESMTP
+	id j7TrPBHQTSyTSY7St2F5YQ
+	Tue, 13 Oct 2026 13:34:28.641 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Subject: Re: [PATCH v6 0/3] writeback: let foreign flushes reach dying cgwbs
+Date: Tue, 13 Oct 2026 13:34:29 +0000 (UTC)
+Message-ID: <20261013133428.725790-1-lizf@honeycomb.io>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002-wb-dying-cgwb-flush-v6-0-1991b4e2dcff@honeycomb.io>
+References: <20261002-wb-dying-cgwb-flush-v6-0-1991b4e2dcff@honeycomb.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="HYNdXmOeU0tPpXJ1"
-Content-Disposition: inline
-In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
-
-
---HYNdXmOeU0tPpXJ1
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeYytsq=2Fs6xFQ?=
+ =?us-ascii?Q?u5VO+EtT9LXkYGlxJUqGOEwoCTZ8+dJNWoztJgA?=
+ =?us-ascii?Q?83GYMzdfkdF5Gw1J8iDpMcYzuTiSEt9CPgxNZqn?=
+ =?us-ascii?Q?xJLoqwOK4AZxJRlyvFIqDEvJ9m4Wp67qtR1DDf5?=
+ =?us-ascii?Q?WSrCwI5jfy2m+lETD7e0FwI3GwDPuQ87RRetQH3?= =?us-ascii?Q?ptMS?=
+To: Tejun Heo <tj@kernel.org>, Jan Kara <jack@suse.cz>, Christian Brauner
+	<brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner
+	<hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
+	<shakeel.butt@linux.dev>, Xin Yin <yinxin.x@bytedance.com>,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ian@honeycomb.io
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
-Hi!
+Tejun and Jan,
 
-> This is the start of the stable review cycle for the 6.12.113 release.
-> There are 497 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Gentle ping on v6. Patches 1 and 2 carry Tejun's acks. Patch 3 changed
+in v6 to queue replaced_work again when a switch lands on a wb that was
+replaced after the switch was queued, as Tejun suggested on v5, and it
+hasn't had review yet. Jan, you confirmed on v3 that switching all of a
+replaced wb's inodes, dirty ones included, is safe; would you have time
+to look at patch 3?
 
-CIP testing did not find any problems here:
+Christian, if they're happy with it, could the series go into
+vfs-7.4.misc next to Xin's 168a8c13159c? It still applies cleanly there
+and to 7.3-rc7. If that's too late for this cycle, I'm happy to repost
+on whatever base you'd like to queue it on.
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.12.y
-
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
-
-Best regards,
-                                                                Pavel
-
---HYNdXmOeU0tPpXJ1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCas4zVgAKCRAw5/Bqldv6
-8ki9AKCNVE/3L4RuAWVJD1fqqMt4XjJtkACdEqDQ34RsanHYL9JIxGY8q2pRtWE=
-=IhXv
------END PGP SIGNATURE-----
-
---HYNdXmOeU0tPpXJ1--
+Thanks,
+Liz
