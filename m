@@ -1,133 +1,100 @@
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DED2478E5B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:13:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00A330F52B;
+	Tue, 13 Oct 2026 03:17:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861241; cv=none; b=Lr/VktGqNbPJonvfQ+yTvB6LvCJyBBnzEFjTkZPvU4pX/UT2q2HRyquihYp9e9ulFtlVUhGfydUwpxHJgfw1yF1DoFQpUMM8ptYyAgYknlQ88VI3v5SVKuqochkKGLaNRUCd1wiAOrY6jwvR7p74NB9VVaqKr2ZJ1OXSZn2qtzo=
+	t=1791861450; cv=none; b=BnQMVaYRQnWTToAjaHWeSqdETe5uI/41W7hQt9auPIMuFZuELAF/GD0spnDoqkohx3jneKFCep0IbFiKvxQDa2u3HDPnBH7H8rgqd8Jfx5LMTDzJiaeP95doNPbpFRdBVYXnGp6Uyg2m8dmZzFWe0LBjx/3oyeWKDE6Ss8YJ4Z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861241; c=relaxed/simple;
-	bh=fWiT9qYz9GXa8C4RDqGgwU5yH6Bj2XxxOLMaYOZ7rhc=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=R0JxAz7SPPEzFmgUpLgtykyXi4hU3Ytkq40tf5xS2zUTVh4569kCoTkrM1q9GxETp5QY8sc9sXobL42DBlMsjnl1B1kWFkT8gMowERg9ydvzg/fgLXGHIbK0kdpbimpOhRg4TjalqEzpnWuan3DUQLOHT3/I/+Uht+GZMWuQj3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=NUbyfuG1; arc=none smtp.client-ip=109.224.244.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791861450; c=relaxed/simple;
+	bh=oqDRtHDHS8cfhEC9V7UJ37223+ayv8mJTGtMcuQillU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NekBUbYNbYACEXLh6iwfBIIEAS4kcd9Yz4j1cFYG1hVKxQA+E02OiaaGH+pyZb158TVioJDNZpBn1HjuQsaLNhZuzdNG0/7Or05pdMLGE8scMF/fj0VzHc1cplf/uu7ntjn4vWhdeY/Dquf8GOJJHrhZHLDnNvzObSYuE1bvV68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=lD5aGH/k; arc=none smtp.client-ip=115.124.28.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="NUbyfuG1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791861233; x=1792120433;
-	bh=/flxWmjOQT873io2qPY+p7QiHU00nyqrTJb8WXIdw3g=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=NUbyfuG1QkDVpTM5zgTz+/5GVBfJ6LhP1jrR1bsIhvkODSui4liTB0htAAl2jDGqU
-	 e4OIvvMD2wM7G1PhiFpYA/ij6fF8+qZiGGOIYfBP1EJHw/ZLVQe4fgxv7kPxdMQaGP
-	 A+CTlv+N3QgRZ9UEEcBqhRC5XU9r45cMrfs0c63HWS9JYLl8DIUWrser0/w7eQ5m+f
-	 +ws6YjuiJnRgRSR8U0VmJk+1FUAOOS7hYfYoF3NS6HHODBrWEspHpDGQJA2T/+Knn6
-	 BhBXFBQeEO8qgT/2OEVIMQMnVSUApCWL2F2Jvr0KWidYP/eC/mDn8CqKvROrIRG/Gv
-	 eJz3Eiu2XMqUA==
-Date: Tue, 13 Oct 2026 03:13:49 +0000
-To: linux-bluetooth@vger.kernel.org
-From: Kyle Pepper <cochcoder@proton.me>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci_sync: scan unfiltered for host-resolved RPAs
-Message-ID: <20261013031329.483597-1-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: b8df25e2198dff611e922a6d1e796b12f58158e1
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="lD5aGH/k"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1791861439; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=lPN+z3EgMFXPMSMODHApgJuDQCNeOicr2z2iHKWcDk8=;
+	b=lD5aGH/kuh1A4Kpx7h6Cr6eJ+T2nRB+HUWi45MB0dy974n+tT+0Siq/GJ7LUjTSCXnzVx8nhJShZzPyp8LhP0RgJ82BinEwL5L7uP/9e6W8wfgsev4MNStOsCmI6X8kdPQCI9nuLHhVSbWPrbecEEqDx/VR7ywNbhUUFSPBTX30=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07451011|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00509174-0.00094658-0.993962;FP=10146692383684185273|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jatvAiU_1791861437;
+Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jatvAiU_1791861437 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 13 Oct 2026 11:17:18 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+To: broonie@kernel.org
+Cc: wentong.wu@intel.com,
+	lixu.zhang@intel.com,
+	sakari.ailus@linux.intel.com,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] spi: ljca: validate the response length before copying the data
+Date: Tue, 13 Oct 2026 11:17:17 +0800
+Message-ID: <20261013031717.3933277-1-liuwb@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260929080126.4168981-1-liuwb@xiaopeng.com>
+References: <20260929080126.4168981-1-liuwb@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On controllers without LL Privacy, the accept list cannot match a bonded
-peer identity against the peer Resolvable Private Address. Background
-scans using the accept-list filter therefore hide those advertisements
-from host-side address resolution and auto-connect never starts.
+ljca_spi_read_write() only checks that the response from the adapter
+carries the packet header and a non-zero payload length before copying
+r_packet->len bytes from the response into the transfer buffer.
 
-When a pending peer has an IRK but controller-side resolution is
-unavailable, use unfiltered scanning while the host is awake. Keep
-accept-list filtering during suspend, where host-side resolution cannot
-run.
+The payload length is taken from the packet the device sent back and is
+neither bounded by the number of bytes actually received nor by the
+size of the requested transfer: a misbehaving adapter can announce a
+payload larger than what it actually sent, and the memcpy then reads
+past the end of the 60-byte input buffer and writes past the end of the
+caller's transfer buffer.
 
-Assisted-by: OpenCode:gpt-6.1-sol
-Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+Check that the response carries the full header before reading
+r_packet->len, then reject responses whose payload is not contained in
+the data received or is longer than the requested transfer.
+
+Fixes: caee8e38da67 ("spi: Add support for Intel LJCA USB SPI driver")
+Cc: stable@vger.kernel.org # 6.8+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
 ---
-Submission review notes (not part of the commit message):
-The downstream N8/UB500 recovers an ACL link after range loss.
-No patch-off comparison or changed-RPA necessity test was supplied.
-Do not equate link reconnection with automatic audio/application resume.
-Privacy-capable and suspend/wake regressions remain coverage gaps.
+Changes in v2:
 
- net/bluetooth/hci_sync.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+- Check for the full header before reading r_packet->len (Mark Brown).
+- Regenerate on a clean tree; v1 carried prerequisite-patch-id entries
+  for unrelated patches.
+---
+ drivers/spi/spi-ljca.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index efbd2e538..d0fbb3e08 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -2907,6 +2907,7 @@ static u8 hci_update_accept_list_sync(struct hci_dev =
-*hdev)
- =09struct bdaddr_list *b, *t;
- =09u8 num_entries =3D 0;
- =09bool pend_conn, pend_report;
-+=09bool rpa_no_llp =3D false;
- =09u8 filter_policy;
- =09size_t i, n;
- =09int err;
-@@ -3025,6 +3026,17 @@ static u8 hci_update_accept_list_sync(struct hci_dev=
- *hdev)
- =09=09=09kvfree(params);
- =09=09=09goto done;
- =09=09}
+diff --git a/drivers/spi/spi-ljca.c b/drivers/spi/spi-ljca.c
+index 0c6e6248d..8fd001610 100644
+--- a/drivers/spi/spi-ljca.c
++++ b/drivers/spi/spi-ljca.c
+@@ -105,7 +105,12 @@ static int ljca_spi_read_write(struct ljca_spi_dev *ljca_spi, const u8 *w_data,
+ 			    (u8 *)r_packet, LJCA_SPI_BUF_SIZE);
+ 	if (ret < 0)
+ 		return ret;
+-	else if (ret < sizeof(*r_packet) || r_packet->len <= 0)
 +
-+=09=09/* A bonded peer that advertises with a Resolvable Private
-+=09=09 * Address can only be matched by the controller's accept list
-+=09=09 * if the controller can resolve addresses itself (LL Privacy).
-+=09=09 * When it cannot, note the peer so the scan below can fall back
-+=09=09 * to host-side resolution instead of accept list filtering.
-+=09=09 */
-+=09=09if (!ll_privacy_capable(hdev) &&
-+=09=09    hci_find_irk_by_addr(hdev, &params[i].addr,
-+=09=09=09=09=09 params[i].addr_type))
-+=09=09=09rpa_no_llp =3D true;
- =09}
-=20
- =09kvfree(params);
-@@ -3047,6 +3059,11 @@ static u8 hci_update_accept_list_sync(struct hci_dev=
- *hdev)
- =09=09=09kvfree(params);
- =09=09=09goto done;
- =09=09}
++	if (ret < sizeof(*r_packet))
++		return -EIO;
 +
-+=09=09if (!ll_privacy_capable(hdev) &&
-+=09=09    hci_find_irk_by_addr(hdev, &params[i].addr,
-+=09=09=09=09=09 params[i].addr_type))
-+=09=09=09rpa_no_llp =3D true;
- =09}
-=20
- =09kvfree(params);
-@@ -3061,6 +3078,16 @@ static u8 hci_update_accept_list_sync(struct hci_dev=
- *hdev)
- =09    hdev->interleave_scan_state !=3D INTERLEAVE_SCAN_ALLOWLIST)
- =09=09err =3D -EINVAL;
-=20
-+=09/* If a pending peer advertises with an RPA but the controller cannot
-+=09 * resolve addresses (no LL Privacy), accept list filtering would drop
-+=09 * its resolvable adverts and it could never be reconnected. Scan
-+=09 * unfiltered instead so the host resolves the RPA in software and
-+=09 * triggers the connection (see process_adv_report()). Skipped while
-+=09 * suspended, where host-side resolution is not available.
-+=09 */
-+=09if (rpa_no_llp && !hdev->suspended)
-+=09=09err =3D -EINVAL;
-+
- done:
- =09filter_policy =3D err ? 0x00 : 0x01;
-=20
++	if (!r_packet->len || ret < sizeof(*r_packet) + r_packet->len ||
++	    r_packet->len > len)
+ 		return -EIO;
+ 
+ 	if (r_data)
 
-base-commit: 964430c038967fd06643e866f68115664e1a1bd1
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.50.1
 
