@@ -1,172 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848EC53F69B
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958F353B61F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919852; cv=none; b=k0K4Ts6BrGZN6Q3JqQ9MxFTZGTCVwi2UFM6tNv7bFsYq8V49B/O8CqolMxbVx+O5rkZn1KaPebj+YUG0VEwOWvQdnby+yS7RkMTp1y/qz5C45QnT1vFZVw5rMoTvZwMw8sJdrGtP7vEsUZFZHGoxZg3nH1KIBaMKoPLeutIfgfA=
+	t=1791919935; cv=none; b=V+T2+hYogI4TRXD4PdWB2qSGke/LMotp4v0+A9+lHUo+JM3dXb4eZ8t8YP8Z6CdZvRsQzffP8JNrXsJA+SQbt5TJn81SwbjwQHpSjbR8q63iCtKZzZPWQbGowvfKFA6dsNTF8XXPSRGqVSnbnVDsi8gJVg160uV/PYUNvDb6eJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919852; c=relaxed/simple;
-	bh=paauPkaVJbrdDjHEcfZZ9niUqvuJhcPdXpxOLo0Wkm0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hytZxm3UC6rnkXBV2396PKfzaADRsH09erBMFQpK5doZQ3IV93GRklnA6eWhmqwT0H3asRst+p1/a8UV/U4kSGedJ3A80adz7Iwcvi3uqXZf+BrZ/HnpmuASYgKyRHriwg+1bx7HBKHLYu6sgfO0SYcgn1a3D/GWrzR7uWHf8eY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mGUI9eV0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791919935; c=relaxed/simple;
+	bh=KKnKl+kEpHM9Q5slF2orkEHPjvUeCE+p5oGRss8bTY8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mt/mrNmG8DcnbmBucS0UcGWh5ifFzecYKybESlpYn8lsFdPgUk5v6+1mRqrzrD+oeQ/iPzCF0r6k7bJc4AnhoWME06YGUW3AHBo2JPX6ZAQDQ6mIgAugdHq8FnXh1loa1Azl/q3uiKyO9ibxCPJi3UC4qQXel3BsWynnGoOdC68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hAMFoMXL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b8y6yCmn; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGUI9eV0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3081F00893
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:30:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791919849;
-	bh=uPqQ0vIPN/soLCMFGUyT1DIcNjqx30fFPuNDdPzV0V8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mGUI9eV0pRKXRdEb00mojNJn8VadRvvPj5QruhwmP0KYmKdxK4W8+UcC9SBZLi2Xe
-	 b8ToGHnyVCPmNmB/ndsX8cr13KsvICnQqSASwg/x+MepZnyuH+pnbBOSVnVsjIecus
-	 0hYQgr35vyc4gEfvRXT9LwE1iIX23sJ++Ej3SZ8OaAA3FGVrk5frDsKpQTVg6XhoN9
-	 z0VYm/3pyKY43WBOAAe6bIvc7zl9zeAgrD267FA/HBJZAvlmEe4JkT4gcjEvZ1Ipty
-	 rgMc8iIWexMchlN9y6IxtZLc6g55Wfzn0HfnSwWI5HVofuiaHq3q5GF5V6V+n5uKE8
-	 lXW7ICIZ22uGg==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2e69aa07c3so39338366b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:30:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByN5y4G20jPUFJWTdiFSE3XNUGmP0/rDQmlS7TCMrcjHAa+54T5B/PBD8tCLUEHou3ZA5MwPWt0oFeUHAM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiG9Dlmv5GRlhap7+MPkNwh1WFpjUuyAxSJqORGr79RXs1wv8O
-	iuPCVnIZVGnWN8oUY8htwtYAviqdX3uvo0YHxF/YUh4Jss1FdkNBUDnbUfqPbFDdOO4O8O/aow2
-	dEGKIGPn1NzFn8igFq4ZEF0BpBo81yJ0=
-X-Received: by 2002:a17:907:d86:b0:c2e:7e0b:6294 with SMTP id
- a640c23a62f3a-c31a9fed470mr1333487166b.8.1791919848062; Tue, 13 Oct 2026
- 12:30:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hAMFoMXL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b8y6yCmn"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DHkmXB3000934
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:32:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=VqPMTRpakh1qxvavIfVW4CR/
+	DB6TqX3Zg53T4Y+hCZQ=; b=hAMFoMXLp/ix7dIcAEaqhhAzic+JM5Llo66WMrRa
+	2jqmKNRtgTti08cropuG1N16gaRP9X4eyC1Vgk6FhziXISql0CrqtkR7zi/zOs8l
+	vRK1CuplQ43kgddSNjUwDNKgC4yBcRfpK54x4GeEijyyZFPgkDSeve241tKxkPzK
+	yEwDQwVpc5VUJyXDtbTcvD39dg14w7VjJLrQIsoi8yFs6vSNV+GKtUiIYRVOsONo
+	rc1GQbxEiU2dy4AYGdr10FqA/4A+074+aq6TEv7f6QAfMzE82Pn0UA8Q1rbcW8cj
+	ncW8sFQ6B1TSeRlkPUwtz14tjDG0oeUTeIazdX4ZgO/jDA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sberg9h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:32:13 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cc7a6e4e1so1046504885a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 12:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791919933; x=1792524733; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VqPMTRpakh1qxvavIfVW4CR/DB6TqX3Zg53T4Y+hCZQ=;
+        b=b8y6yCmn8Bd/XoaCuc8tszqbdYaG3923b/4VDQ/6xjOoXzfbwDvl1B2MRifOvEw6mb
+         upd/dH2cGLeH7SL0y6cdtXM9bwpmhxCAFnLyQ4az5ALmKTzjfUaizD2H5BZ7axosUgBH
+         GKYexjkCh2pd+l6y0+O36rybJEa4Dmgw4c1PuamhRUZt7Hxhv3mFuYpWwNQg4v690qbz
+         z5lFCIDf6asr+PTpJOWsWVUSzaedSk2FD0ByNixnS0UAeKEMCJJ68UKVAo2oVxmoZhBG
+         xxo28KaOxWs/SBbPIr543QscgHwO2ss2/W/YTqyQD+wgcjL7q+VSk38a8ko/Kh7QWyX1
+         T9Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791919933; x=1792524733;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VqPMTRpakh1qxvavIfVW4CR/DB6TqX3Zg53T4Y+hCZQ=;
+        b=cJI6Q2igvZDKfAkv0DyGtdajIX+z2vV2yAxEJdqEoSKx52mAB9+LnjT4MYSC+NmGe7
+         uHqVD1qXk+5bVzgtjJPZA0hMYWlkp4QdtZd1H93T1MAdk01lfUjYZCXl94U5rYIaKpYH
+         0dc8P2iZ//PGoHx2ENBeS2a6hET29dXT6nPBjqt54oSGw4Wzs2y1+Ug4lfrJpGgicwMn
+         7LCn8eMKgesaw83G6OuEmY/qVPp2+UTW1kJF+9R+MojI29j0mRjOeHejuLf1Mmzgg07m
+         zqp3QiqPpx/o8DmiiB2iICm5l9ysUqpThx0wjDzHHi/IA+gU4Eox4IbFDkGTtcQrDVF/
+         15hA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCRwvePoM24b9erNifn+sNCQlyHtZhkS/DKjpP37C8cH2PIXgaRtPcBMC7xZUhJrq5+3Sl5vxCjnP74i4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQIqNr/njIkkJxZYoUs+Gxs/YmDnjQVMe0iHYJnnyjqs32k9SG
+	SKh703OcKxeM6GRJLx7trDQDXCJKrHnWOciJ3CwxFlZY8hkkPM/g4U2YXxjuUYx0jNRak+joeVt
+	RB9xo2B+NYz3R7B6pyYwL73nhpofKb3419ovE8QRLagH0UAUS515Im2rMjcdn1VjYL04=
+X-Gm-Gg: AYBFou3qP0QhCuBOETaldquRgsUy6HctIwSXa2OkC0NM8rs5XIZUX+yY2yuJNkveSP2
+	vnN4Qs1C6uiRLdKa76okHqnjb8Iwzop1oknXHnpd8ukY66SnWZiidJqbGzXJkdQ+MCgb2xjCE7o
+	0XTVvYIy0uybmfmVuWsWY4nzKWRtzreb7LaAG0uLROzuLwD1perZKOBgDCODC8ZK/CeGWwlmW9Q
+	T78fO7RQ/5gu06KrNbM4q77xgvnDrxZl0OzEqtClPt2kC/Eaz/x9gOWKVQcTsq/yWnFQoGEZF5o
+	JGJBHWGagClMkX1Wv/dt6kYCTygJHpwFdZKTpeCjB/FgzkVTVqzRDgQdBejfnmJ0OMX5JWK7Jq5
+	DAZaOFH2hzBw/WJJNirtNGE+TmS7erx63moJ74yXHPgFw33807jNPetnDt9jPgjfTcybHKjb7Ta
+	3tdp78Mblnl3bF
+X-Received: by 2002:a05:620a:4395:b0:93c:b3aa:4290 with SMTP id af79cd13be357-93ebd20e63cmr2162591385a.23.1791919932734;
+        Tue, 13 Oct 2026 12:32:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:4395:b0:93c:b3aa:4290 with SMTP id af79cd13be357-93ebd20e63cmr2162587785a.23.1791919932103;
+        Tue, 13 Oct 2026 12:32:12 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d7fd61sm132144e87.45.2026.10.13.12.32.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 12:32:10 -0700 (PDT)
+Date: Tue, 13 Oct 2026 22:32:08 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>, brgl@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: nord-ride-embedded: Enable USB
+ ports
+Message-ID: <e2na2pyjjlvnnolgz5sv26c22pzcv75iz42wtnaqnixzxmyf27@f7v4ljtsxb74>
+References: <20261013-nord-usb-dwc-dts-v3-0-bcaaf3faae24@oss.qualcomm.com>
+ <20261013-nord-usb-dwc-dts-v3-4-bcaaf3faae24@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012224736.2306637-1-yosry@kernel.org> <CALMp9eT6eJSDaJVJ_1mrn8-sP6F88q-OcGrEgUWy-YpAkuA9vg@mail.gmail.com>
- <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com>
- <CALMp9eRRb_8vbm3YM9dw7XbDsnjQ1wRYK10oNq4JAgkUZdpFLg@mail.gmail.com>
- <CAO9r8zMBxWT=A7+tFUTtDiTu0GNodQEiGw+EKRLesQghk9aBSg@mail.gmail.com> <CALMp9eTqEWczivrxr06hhGg=519-POMRiSTg5WzRieuXZzTK6Q@mail.gmail.com>
-In-Reply-To: <CALMp9eTqEWczivrxr06hhGg=519-POMRiSTg5WzRieuXZzTK6Q@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Tue, 13 Oct 2026 12:30:36 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMc1BA0beaoS-4L9_xrvU_R5GHJ6tQ1jLZ7k7G_ESRa1w@mail.gmail.com>
-X-Gm-Features: AclHuK_VmVWn5lsSGsJ8NDu_doh2aGVIk_oXyzeOAJfB1m5k_GVRfMXRguTlK0c
-Message-ID: <CAO9r8zMc1BA0beaoS-4L9_xrvU_R5GHJ6tQ1jLZ7k7G_ESRa1w@mail.gmail.com>
-Subject: Re: [PATCH] KVM: SVM: Update tracked pCPU on pCPU switch
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-nord-usb-dwc-dts-v3-4-bcaaf3faae24@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: d6gSmCyzEqtwrD2Wcsok9W7Ntfo4RO0c
+X-Proofpoint-GUID: d6gSmCyzEqtwrD2Wcsok9W7Ntfo4RO0c
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3NyBTYWx0ZWRfX6goD/QlYUtEf
+ lC7Jrt/QdYMvM5LaNDmK7pz7NRAIWLd+QOMl5qE5qLad2Itlruh4sJGSgm6S1BHgVLairxRTt0B
+ 0UkDklxydw8irajpXDrq/Pgfj7yMej6u9XeNt6PkQ9d+mDxgmmVq/5t6DvYcHa9mVK/wpfl5P3D
+ n/xQjdx0PW+6GrnWSNUdGalBM4UnofOJLhDKwuphniU9mWFv6cjcCkLFKBC6kcxNVHGBCDIUH0w
+ vNz4jL8pJNoJgWWZZJ9D94Hm7PPXaYGGjtjiNllo3qgJkA7+lp4EztPfhszsO/ZS/MeekfoS7gW
+ y7aPi69qs6SUDyUq7xDExOk6arU3bOXx6bSXbE1Q7yx/vhExJxyir8XV3mVdHQXfNcs6oKxMc4k
+ TAxWDNkuw719rykdpI7eK7vSpt2iD/whu3nUiYdHxuUitp2YopgJw3c5ZB9OfbeD82cG0VUMt8E
+ euggeK3Nc9EvJqCVvpg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3NyBTYWx0ZWRfXwRCnXf0ujhuS
+ wYPLm5WoPDOvpcRUVB2U4hS27z5pHUCiY/h54TvOr/FFmzARhsXw93bCwwBrdUGUWR302JThlEs
+ jDQ3R+OMSpROI6ADlUhqaA+cx4b0F9s=
+X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6ace873d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=jKzDs__1sFnS_SVA_NAA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130077
 
-On Tue, Oct 13, 2026 at 12:00=E2=80=AFPM Jim Mattson <jmattson@google.com> =
-wrote:
->
-> On Tue, Oct 13, 2026 at 11:11=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> w=
-rote:
-> >
-> > On Tue, Oct 13, 2026 at 10:55=E2=80=AFAM Jim Mattson <jmattson@google.c=
-om> wrote:
-> > >
-> > > On Tue, Oct 13, 2026 at 7:49=E2=80=AFAM Yosry Ahmed <yosry@kernel.org=
-> wrote:
-> > > >
-> > > > On Mon, Oct 12, 2026 at 4:58=E2=80=AFPM Jim Mattson <jmattson@googl=
-e.com> wrote:
-> > > > >
-> > > > > On Mon, Oct 12, 2026 at 3:47=E2=80=AFPM Yosry Ahmed <yosry@kernel=
-.org> wrote:
-> > > [ ... ]
-> > > > > > @@ -3892,13 +3893,22 @@ static int pre_svm_run(struct kvm_vcpu =
-*vcpu)
-> > > > > >          * - The new VMCB does not detect a pCPU change and run=
-s on pCPU A with
-> > > > > >          *   the new ASID allocated on pCPU B, which is potenti=
-ally used by
-> > > > > >          *   another vCPU/VM.
-> > > > > > +        *
-> > > > > > +        * Note that dirtying both VMCBs is not strictly needed=
-, but the per-CPU
-> > > > > > +        * tracking is shared for both ASID and clean bits, and=
- that CPU must
-> > > > > > +        * match where the ASID was allocated.
-> > > > >
-> > > > > Is dirtying both VMCBs not strictly needed?
-> > > > >
-> > > > > Per APM vol. 2 (rev. 3.45), section 15.15.2:
-> > > > >
-> > > > > > The hypervisor must clear the entire VMCB [Clean] field to 0 fo=
-r a guest, under the following circumstances:
-> > > > > > ...
-> > > > > >  - The hypervisor executes the guest on a different CPU core th=
-an one used the last time that guest was executed.
-> > > > > > ...
-> > > > > > Failure to clear the VMCB Clean bits to zero in these cases may=
- result in undefined behavior.
-> > > > >
-> > > > > Suppose vmcb02 runs on pCPU A, migrates to (and runs on) pCPU B, =
-and
-> > > > > then migrates back to pCPU A with some clean bits set. At the nex=
-t
-> > > > > VMRUN, pCPU A will happily load stale state for anything marked c=
-lean.
-> > > > >
-> > > > > At some point before that VMRUN, something has to clear the clean=
- bits!
-> > > >
-> > > > Dirtying both VMCBs is not needed in all cases covered with the new
-> > > > code here. IIUC, clean bits are VMCB-specific, unlike the ASID here
-> > > > which is shared.
-> > > >
-> > > > Because ASID is shared, we have to reset the ASID generation for bo=
-th
-> > > > VMCBs when a new ASID is allocated through either, and update the c=
-pu
-> > > > variable tracking which pCPU allocated that ASID. Since that cpu
-> > > > variable is also shared for tracking which pCPU ran the VMCB last, =
-we
-> > > > also need to clear the clean bits every time we updated. IOW, if we
-> > > > had two variables, asid_cpu and vmcb_dirty_cpu, we would need to
-> > > > update asid_cpu on pCPU migration for both VMCBs, but only update
-> > > > vmcb_run_cpu for the current VMCB.
-> > > >
-> > > > This is all annoying and confusing, but that should go away in the
-> > > > static ASIDs series, and we should go back to only updating pCPU
-> > > > tracking, flushing the ASID, and clearing the clean bits only for t=
-he
-> > > > current VMCB.
-> > >
-> > > I haven't read the static ASIDs series, but in any case, this patch
-> > > should stand on its own, in case that series never gets committed or
-> > > gets committed much later.
-> >
-> > It does. I just didn't spend time trying to improve things beyond the f=
-ix.
-> >
-> > >
-> > > My complaint is with the claim, "dirtying both VMCBs is not strictly
-> > > needed," which seems to imply that dirtying the inactive VMCB here is
-> > > optional. In fact, once you update vmcb02.cpu/vmcb01.cpu for both
-> > > VMCBs, dirtying both *is* strictly needed so the inactive VMCB doesn'=
-t
-> > > later miss a pCPU switch.
-> >
-> > Yeah I guess it can be verbed more accurately, something like this:
->
-> I don't understand your prevarication. The comment, as written, isn't
-> "inaccurately verbed." It's wrong. With the current implementation,
-> dirtying both VMCBs *is* strictly needed.
+On Tue, Oct 13, 2026 at 01:34:49PM +0200, Bartosz Golaszewski wrote:
+> From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> 
+> Wire up the board specific pieces for USB ports. Enable i2c9 and add the
+> three NXP PTN3222 eUSB2 repeaters (one per USB port) with their 1.8 V
+> supply and reset GPIOs on the PMIC GPIO expanders.
+> 
+> Add the onsemi FUSB15201 dual port Type-C controller at 0x50, with
+> its interrupt and pinctrl state on pmau0102_i gpio8. Both controller
+> ports are wired on this board, so describe two usb-c-connector
+> children and cross-link their HS and SS endpoints to the dwc3 HS
+> endpoint and the QMP combo PHY SS output of USB_0 and USB_1. Both
+> controllers therefore run in OTG mode with usb-role-switch.
+> 
+> USB_2 has no Type-C connector, so it is configured as a fixed host
+> port. Its VBUS is supplied by a fixed regulator gated by
+> pmau0102_h gpio3, kept always-on since nothing switches it at
+> runtime.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/nord-ride-embedded.dts | 222 ++++++++++++++++++++++++
+>  1 file changed, 222 insertions(+)
+> 
 
-Yeah I am just trying to clarify that ASID is shared, so we must flush
-both VMCBs, but the clean bits aren't, we are only clearing them
-because of the shared pCPU tracking. That being said, no comment is
-better than a confusing comment, so I can just drop the note at the
-end of the comment.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
->
-> > Dirtying both VMCBs is generally not required if only one VMCB
-> > switches pCPUs, but since the pCPU tracking is shared between ASID and
-> > VMCB clean bits, it must be done once pCPU tracking is updated.
->
-> Clear as mud. :)
->
+
+-- 
+With best wishes
+Dmitry
