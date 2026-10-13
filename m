@@ -1,195 +1,99 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A96C519E15
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 14:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233A051AEC1;
+	Tue, 13 Oct 2026 14:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902977; cv=none; b=VHw8uU4kxv6Pqo1Cu0YdOeqJJjJe/9Alg7k6lsis3biqMCAC4xzMLy4RWbrWPAdJOqupwdmXmLp6iu9U0ZANSG6lsfr7DdRr0yJAw8FwJDCISHE4KHAGYlGwFP/Ui4RoTXO4gNC5jeq+pScXVPEArHC+9Gjb87yZUn/yUQy4eds=
+	t=1791902986; cv=none; b=LHnuU4+kwJckSAPT6jvbL7QxVY6iKZikqmOmnstjrPZmX7PAk6zJRu50uhaYdpwssVd7gByng1qA7DhGIfMnWfe8PMpK6hR7ajnVFQHl9t5nzCKBU3dxYK4xr5dWOwyZwKZvaAUyvFjpkb9KjPBU/rc9/Sp7N7I0K4CcxS1Bquc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902977; c=relaxed/simple;
-	bh=4shNFslN/2vm+UbR7hXkck3vWhQGQ0XGUbraVpHrNto=;
+	s=arc-20240116; t=1791902986; c=relaxed/simple;
+	bh=3rsb8nWdGvpRdmiKdKsKDYrqQyeYfF2uVimuEu19udQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iwVj/6cQ+nn5va7qAvKP95oTaiK5DT7t8mKBek5Kj5JuSG+uQN3Ew7y9c5sPuR3x/lEl8wdzBsAGJ3VP9LR6Dm25/FGFQjXnuaYSNfX2ZvKJVXrHhDp+tDfogDeHqK/68sceXcs2YkenhUlb+x3GgwoJw6Ea9a9NIY9OXnJNhxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CBRnzOnK; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ghQIJ0+U2GMXLXqDDgFgsNCDtTgL5kc/m8SFpyE2JvDtbPj2NoQctBB9HU3p1Hr6HVrTCcIoBaf4CfEwgzBZLEPrSl3iy4tAz2f6r1uXaz1v24VUc+gKInvj+uq9zAGTKqgVXYzoveUfqc8mAwbKm6bTgz8TNDspGNNnq9IFxS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=5kN+fdN6; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CBRnzOnK"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so28133655e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 07:49:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791902973; x=1792507773; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PIfoOZUaMPo6S3doq93G1Tv0En9Cid2ywRGemat7sLE=;
-        b=CBRnzOnKCaTVvpE93/PJ1W8brRdcAkS8D3vjclbv+3UnOwtH/FNazRk6bwqy5Wckwo
-         /EtJ5+ecUKygzSmrqYa88Hx4ysTUwVrmlzztR6Q7vhrYTDsJlObzRLdfWnNvp865r7vH
-         6E0DNijkZTQfKER/+MjgU1v18rgaJUf2X9cCANMJeeNTTwUVIObOj2ViC90k4pzBQiav
-         vtYdvIbuBpVbDJkhFz4M8KqlOFFJ83Ax6AJxGZadNTNLGO2My+L3EWIyuGzCYBqcCVoi
-         0ALSt2xWPIkIWFC+RoyGGj5Ul2IJAdtdQi5gF9oybJX/BwaKPou1ECWcYI+YBWWFRVP5
-         Ofqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791902973; x=1792507773;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PIfoOZUaMPo6S3doq93G1Tv0En9Cid2ywRGemat7sLE=;
-        b=0Ge9olt1NXyJTGkhjN9a7DPVIUzeBszNH2p/UatFbep/vdn+mqqY9ZpLvBhG7zxEG+
-         9Nf3g25Fe1CkVXpZnrEq7GqtaJ9FBDMbVxBuxvWpwfdC8fA15xD7GUviczbHWrXJpWzk
-         Du/fn8P+VMioxGZQoCWa9gPAg2b9mfMxvHpx00tGd9Ya6bxsPdwivIzBDT6cQwWg3jVg
-         qk764Hl6FpztjsqLZe0cdHBs4H9nL2/ciFXGRZ2NZipE/WpOsF0i4juK1wcMpGzcUWKo
-         vJSlNih3h1QlrOx0rhJwH8lzjHmxNAGsJl4pUsU7k4VZZzplI9GXTzyD85Ug2uBNz9AZ
-         DM7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzSYb79L+3fNQUxGtMKo34zpiOOwOhENp9OB+0yFMz+0wR8GabM+KmpT6woB5r2A5xeF8aviN++2rcCT5o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITdvvSynbFyvxhMLe5auat4zk8IJ/U74EuVt1cOR9FD1eRAV0F
-	XQiQiP7SzOZX9mUcZr1RRLKBjtkJW96IPbXPPAk3KgnAtUVoV7JXl8PTIed85CkBmkY=
-X-Gm-Gg: AYBFou3Vlmned4AQRzzvzMyB5DpJMHqyrsgHVBc3WFX56NVRnMgLbp6AV3T5W3NlnJw
-	TrTU7Ht/ZsLvtku9YpleeTYk6Pq8wJPltyLsDMLwYbNYL6f7NcNlafktE1WHB94NtP2XKBLKrGk
-	my4bAKXT4FFITa1usZxugMAw6oZN9a2W8fB/0PEPPGWuBk+e5kds7ntLftYXZWOm+WxVBZzDCzJ
-	3gb6yIV+sAJJxJGhlwcQOBVJvkDzEc5GDlXzvPpqRC9IGxLCnTCDYMHAtRyFDLN/SlBf18nSTLZ
-	htxOJnPeT57ghG8ASnUVyjcZWvLr7PY3oIw0tkuKwTsIoo2H9Yy04zy5NRzvJRYjD7fJBmt0pAu
-	26I4i7fysLWOscVr/2tIUvekAi03gNqK7RvulkKXZNYNNeed86dUxuXOKuLiKMvZkzY+spPXLIt
-	ANXw83sFCwUEmWgtHlkqh7hwMC2WliavZfmBIH3whY9Ius6ehZZLC7wrvBKfIT9resAsdzXHkwo
-	FZm
-X-Received: by 2002:a05:600c:8b78:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4a18e47acf5mr286180385e9.11.1791902972584;
-        Tue, 13 Oct 2026 07:49:32 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a19c71a1d7sm183592355e9.5.2026.10.13.07.49.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:49:31 -0700 (PDT)
-Date: Tue, 13 Oct 2026 16:49:30 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, 
-	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] iio: pressure: dps310: add Zilltek ZTS8032 support
-Message-ID: <as5EOfOqsF5iEHct@monoceros>
-References: <20261012114550.1680054-1-paulius.zaleckas@ui.com>
- <20261012114550.1680054-5-paulius.zaleckas@ui.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="5kN+fdN6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=a1u08QrH8lZikaYUD/nJ/gmcgMLj5GxGBGPSTFzZ71U=; b=5kN+fdN6bPprcZLy1HLjSt2Z+X
+	MFqQ3oepORbdLcCmRNnI5J7OjnTgpVq7IfGUlUDRCPuc4mBwCpxw7HQ5d3IEiWHVlQ1zsGV8Pynp1
+	cvazABtUhb84Liq1KxOrIsgEV+Bacw055h2gIXtsdhsV2lvDDMKjkoT2rghkkFucQzY4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xGdof-00AXbF-KF; Tue, 13 Oct 2026 16:49:21 +0200
+Date: Tue, 13 Oct 2026 16:49:21 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: netdev-bot+sashiko@kernel.org, kuba@kernel.org, davem@davemloft.net,
+	edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+	linux@armlinux.org.uk, hkallweit1@gmail.com, corbet@lwn.net,
+	skhan@linuxfoundation.org, o.rempel@pengutronix.de,
+	vladimir.oltean@nxp.com, f.fainelli@gmail.com,
+	thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/3] selftests: drv-net: pause: Validate the
+ pause autonegotiation with a partner
+Message-ID: <669ec93e-29d5-4fba-b272-b3cf27969fc9@lunn.ch>
+References: <20260925182628.214667-3-maxime.chevallier@bootlin.com>
+ <179065240018.434549.346139764454021625@kernel.org>
+ <40f413f0-1dfb-4968-b483-f03aa2f1bdbb@bootlin.com>
+ <45340f54-a53b-4d3a-a773-b51cfc88c939@lunn.ch>
+ <2a008b68-7f8f-4b30-8026-58d8a64ae5d1@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wvuvco4nogl7rfck"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012114550.1680054-5-paulius.zaleckas@ui.com>
+In-Reply-To: <2a008b68-7f8f-4b30-8026-58d8a64ae5d1@bootlin.com>
 
+On Tue, Oct 13, 2026 at 04:02:44PM +0200, Maxime Chevallier wrote:
+> 
+> 
+> On 10/13/26 14:37, Andrew Lunn wrote:
+> >>> Firmware-managed NICs such as ice also keep the link on close by default.
+> >>> In drivers/net/ethernet/intel/ice/ice_main.c, the PHY is only taken down
+> >>> on close when ICE_FLAG_LINK_DOWN_ON_CLOSE_ENA is set:
+> >>>
+> >>> 	if (test_bit(ICE_FLAG_LINK_DOWN_ON_CLOSE_ENA, vsi->back->flags)) {
+> >>> 		int link_err = ice_phy_cfg(vsi, false);
+> >>>
+> >>> On this kind of hardware, a directly connected peer would be cached as
+> >>> cfg.lp_controllable = False. pause_aneg_resolution(), and the four later
+> >>> tests in the series, would then skip with "is not directly connected".
+> >>> That message points at cabling, when the real cause is that the PHY
+> >>> stayed powered.
+> >>>
+> >>> The new remote lp_advertising checks in pause_advertising_test() would
+> >>> also be skipped without any notice.
+> >>
+> >> Not much we can do if the peer doesn't behave as expected here. Not sure this
+> >> requires attention.
+> > 
+> > I sounds like anything with a BMC is going to hit this. So i doubt you
+> > will see it with your stmmac boards. Maybe sometime in the future we
+> > can query the NIC to see if it supports NCSI and change the test
+> > behaviour to fit?
+> 
+> Maybe the strategy is wrong then, the goal is to check that we're directly
+> connected to our test peer through a cable, or indirectly through a switch.
+> 
+> Link flapping seemed to me like the most generic solution, but maybe we can
+> do something entirely different ? Like for example trigger a re-negotiation
+> with ethtool -r and check for link flap, or maybe more reliably, ask the user
+> to pass a flag to the selftest command saying if yes or no we're directly
+> connected ?
 
---wvuvco4nogl7rfck
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 4/4] iio: pressure: dps310: add Zilltek ZTS8032 support
-MIME-Version: 1.0
+Triggering a renegotiation is probably the best. I've no experience
+with BMCs, but i suspect a down will not work, because it cuts the BMC
+off from the network. A renegotiation does seem like a safer choice.
 
-On Mon, Oct 12, 2026 at 02:45:50PM +0300, Paulius Zaleckas wrote:
-> From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
->=20
-> The Zilltek ZTS8032 has the DPS310 register map, scale factors and
-> compensation, with these differences:
->=20
-> - two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
->   c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
-> - TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
->   the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
->   bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
->   25/16 Hz background rate instead of the external sensor.
-> - product ID 0x11 instead of 0x10, the driver does not check it
->=20
-> Add a per-chip table holding the coefficient count and the TMP_CFG
-> startup value, and an OF match table to select it.
->=20
-> Tested on a ZTS8032 at 0x76 over I2C: in_pressure_input is within 1 Pa
-> of the datasheet formula evaluated from the raw and coefficient
-> registers at every oversampling rate from 1 to 128, and TMP_CFG reads
-> 0x00 after probe.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-> ---
->  drivers/iio/pressure/Kconfig  |  4 +--
->  drivers/iio/pressure/dps310.c | 66 ++++++++++++++++++++++++++++++-----
->  2 files changed, 60 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/iio/pressure/Kconfig b/drivers/iio/pressure/Kconfig
-> index cef8b90b9ae7..e407243e131c 100644
-> --- a/drivers/iio/pressure/Kconfig
-> +++ b/drivers/iio/pressure/Kconfig
-> @@ -115,8 +115,8 @@ config DPS310
->  	select IIO_BUFFER
->  	select IIO_TRIGGERED_BUFFER
->  	help
-> -	  Support for the Infineon DPS310 digital barometric pressure sensor.
-> -	  It can be accessed over I2C bus.
-> +	  Support for the Infineon DPS310 and Zilltek ZTS8032 digital
-> +	  barometric pressure sensors. They can be accessed over I2C bus.
-> =20
->  	  This driver can also be built as a module.  If so, the module will be
->  	  called dps310.
-> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-> index 3bc690cc8609..3b0f6d344409 100644
-> --- a/drivers/iio/pressure/dps310.c
-> +++ b/drivers/iio/pressure/dps310.c
-> @@ -7,6 +7,10 @@
->   *
->   * https://www.infineon.com/dgdl/?fileId=3D5546d462576f34750157750826c42=
-242
->   *
-> + * The Zilltek ZTS8032 is register compatible, with two more pressure
-> + * calibration coefficients (c31, c40) and temperature calibrated against
-> + * the internal sensor.
-> + *
->   * Temperature calculation:
->   *   c0 * 0.5 + c1 * T_raw / kT =B0C
->   *
-> @@ -18,6 +22,7 @@
->  #include <linux/i2c.h>
->  #include <linux/limits.h>
->  #include <linux/math64.h>
-> +#include <linux/mod_devicetable.h>
-
-Adding that header mainly results in pulling in many unneeded
-dependencies, so please don't.
-
-of_device_id is already provided by <linux/i2c.h>, so you can just drop
-the #include.
-
->  static const struct acpi_device_id dps310_acpi_match[] =3D {
-> -	{ "IFX3100" },
-> +	{ "IFX3100", (kernel_ulong_t)&dps310_chip_info },
->  	{ }
->  };
-
-While touching that struct, please make this:
-
-	{ .id =3D "IFX3100", .driver_data =3D (kernel_ulong_t)&dps310_chip_info },
-
-Best regards
-Uwe
-
---wvuvco4nogl7rfck
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrOROwACgkQj4D7WH0S
-/k7wVwf+Ont9281p5OIPzkHrOql/yBXJItCWMp58XtyibFpc3rlNGmaenj029PMM
-qTuPIiOben02yMTKVJO6D/HSeWlynTqxekqGABABKERhjZ5uLTuv6jVaMWAJFC1P
-xPGeFxfDlRQk2WK/QG/iwUwdM3sL3GmDK2Uxz1ZfUDwsk5b24WynLydHJCR8qQmE
-+bs3a6Bze5ORCtjvZPXgcsU1EsWZyYmBH3YxFeditn4ANM7bs5WrV+LmmenffWKU
-sx01Iu3ITwRoLSratszOJC3R56tDK+qFJ19MnkclyT2KPQs0iAZj6ukk5T5FNiwY
-oiWHYppEVw9nolSDk+74pWu9NpixUQ==
-=90IN
------END PGP SIGNATURE-----
-
---wvuvco4nogl7rfck--
+     Andrew
