@@ -1,72 +1,80 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013042.outbound.protection.outlook.com [40.93.201.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD4A44E66A
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 02:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791857389; cv=none; b=WML5lAwXQbUDISmx76Y//AxTvlynnICFqR98pALyfIVe5DpJC53nWgnPhEkeGznR/E9LNJbMmZFnwcr/N6DOd4OzLookm0N66SCXPoyqXlcq20LV5hEYzPjPMCmaYxoHvihcWMl51cALYnXurxXS2GQv7DbJ+FEY9g4vpJlYDyI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791857389; c=relaxed/simple;
-	bh=///uuY9jbj++gbJGzjzpOoqz67KdoOg1gGFB1Qb8Yi0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mj69I0pQzf9RXUdJcgvl8p9I1oIBcb8jQToyYsb/klwuDJaKLwHLVdjSuDqR2w3nMhHZOymWB0T0TyuqJmPUIQcBNrR77NiflBBfWYKwwcyja/LPj+QlD8laBIhd4GpYsJk8Y86TRyutxYtG+UOCXrp+xyAI9GX+9wlz/gPOG4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D0kBjkcW; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED9F41837D;
+	Tue, 13 Oct 2026 02:13:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791857602; cv=fail; b=ZRlMyEJuI6IznNdmqqAUhFgCqYVj1DP24Rl0V4GfqX02oLT3E9fxp64IuHEvhrV+GXkgTG2saMzr/SqReGvl7Pd4KrI/278sRhzQmcVGebg2LZPm32ZE6bGXek/lPTUxb7SZfJldTSf8zfC0HhzSJLsg+QPLiRUoDlb7PSKGeSA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791857602; c=relaxed/simple;
+	bh=NsOTIaVH2E/UL3w/gzEbFavc8FzLr9WD9Vggj5EjDLo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=S8NZ1M+MxGT865yhEwkz4jfwPC5ADq3KjBIK4X/kln5VLDS1JMGpmvYq/d0vZOK7wKJV2geqMnf/EZp8HeK0dDDzfBaeoOfrPNFiyy0nB7mEL4xgejI/U9l/WHGPyJGA7pY/3EWQxTPnltt8ug09sgZGXe3VwHwfSEA7bXD1ZwI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=phsrUAKC; arc=fail smtp.client-ip=40.93.201.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D0kBjkcW"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e8455755f3so11960665ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 12 Oct 2026 19:09:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791857388; x=1792462188; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7yfQb/NIWEqP4dfQyyW1F46esS1vblLkgAQScX3XltE=;
-        b=D0kBjkcWRNEdwYrDZKC1BwlcbmmPHgDOBGMaT2Kg/idr2/p8rETcHROhvFGe5rbEAQ
-         wyv4MrIQBseEFza97Y9LamMWy9BhtLUTNNOaZwUSbiHv1t1V+/ZkZUE+qmEZUh1U39LU
-         7Sn+DqK7Rxio454w4JJKl8b+A53Hkg01MQjdftcTDH4bfxzik3yDcyjH43VAqpKGe62R
-         wb1fbwPOy8JnrAC/b+2/GVW4NY6qUl5LHHXX6+9lH3Uy+6JpdfgwGEQPM8gAsuuL/OFV
-         7xQPrwav0BIp2RrKRuOyMZB5eUhz22cpsRJWuNbJIbRa5pdp7ISg7Ghj/FWumgczb5SE
-         L62A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791857388; x=1792462188;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7yfQb/NIWEqP4dfQyyW1F46esS1vblLkgAQScX3XltE=;
-        b=ZAwhNL5dcCt/x/Ji0tA1c1JC65Hb+ziYx4csr5IW2sEydq8A0CsqzpFUl5EXkg/e1W
-         SvaEyFXZnHGUhMoaz03ZqSvqUQMbko0iyCb5/jVuFdmbjrnKDjIDcgaVCcj++1UaAcJr
-         AZzgmEgC9Olp9+DGnp2a8vCpihR2bHrFah7TYHZ5DBUjRJnvHpT3CylsBFNpkZ6H6rt0
-         lBMgpaSxWkUi2IQ5+Jcz/XNJXdu02DfCBmcENsA/SztnEDNokeFQLOUScOMmhSAWdI1e
-         77yoWKV47s+RTHy/IIfOLUwKHC5rIxvxnhTKXoz/R14Dojb/AeEiHMyKK16333AZFjQM
-         ftSQ==
-X-Gm-Message-State: AFq9FYKNmO18d6hQkypfIgTMTX32Aj74jD1Mo3b6nHFA6J7Be1XrsXvt
-	+GkpcALyj4VeKFDwOv4yd8zt+5w7HvTTaJRuIFdjSwE039q3x+DxfxJeCezDSQ==
-X-Gm-Gg: AYBFou3B0jtWd/Pe5HxthBo3+lEw2mdRkFbELdi7162GHZwGEjspQXGF27/wx7+BLnU
-	3EKIx5rEAkuszYESO6TKzw0TYybuOJw1U6FQEkkNTelRRwLvyEVocTpLt/ktaWqxHDzElQVk0Or
-	do5hBr7QHFIpFJYxgsTHPXMykkHmwscfMWdEdvFlqEe2AfSbf6hTqpcyWkfkj60sAVCijak1QQ8
-	Qkp6AiPsjkwDSbEXBIKr0TlvKZG5vAV7+MYwjWthYB3+wAyqtMBZzzzupPOIsyGUt3kNLS4lA+z
-	t/6iepAa84PTasUTgZd2k6HDLYDesnFpq4yHCVY2N7j21uYKyJsDZ/qahxFWyTEBeHGYa8lNjc/
-	MC88htv+IQHApHJ/m1CXoRu5ZF8bmXMOhuX+UrhwdJ2bcX95oqfYdV1FHCvzGB4EkWvgkn7CJwt
-	ONPo7sFr5Ck8983DIIH/OJrHYYUz0q2McPuxHUB4DMNTjFWST3NfEL9VeNJFvZGXQNsTrJGO+2U
-	JP+Yc1BJd8PAs7Ukz69a9JAhB0JFrela9EziHVnNf/ypqs9mKsxOlkU2bDLjRKQ9/cXj0dD5ul7
-	I0lkSdR/KA9prwY=
-X-Received: by 2002:a17:903:2a87:b0:2dd:c100:b2c5 with SMTP id d9443c01a7336-2e842ce4e2fmr99096335ad.48.1791857387543;
-        Mon, 12 Oct 2026 19:09:47 -0700 (PDT)
-Received: from f2fs-test.c.googlers.com.com (225.134.16.34.bc.googleusercontent.com. [34.16.134.225])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e90977deafsm4319505ad.68.2026.10.12.19.09.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 19:09:46 -0700 (PDT)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] f2fs: release a removed xattr node in roll-forward recovery
-Date: Tue, 13 Oct 2026 02:09:41 +0000
-Message-ID: <20261013020941.4025355-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="phsrUAKC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DGIKKXoDYJfjkX8FWYWnmlt1MZBlvaqipdruUR2eBuStkM2wh3OAaMZ/vyxaXw7Te6YAXuMR0vvVspv3sKHppfBMIBksDuYUcJyVxIL1vzbT8sNw4uSLdAngCpaKkFs27gGuaYgkKjmNLeghJn8ILA/Y2R8yx8Hz/N1Vx3VUT6E3l5MCY2sdZToE0r9Seix81QxDbF0TEEsXIgaZh7cpDTUKzaRQwz/Vxjzx8IsGuOP3tMwBPIQS+uTpKmnI5X34JrZ2DI13OtBK5oVQTZt170vsSOvw94QM2/BlQdhD4Y2HWC5KQlZf5uahzHzT4z7U2Y0BIgSBttVf7bPICMzTwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ycr8LQOwVLBbCyxhFCf/DBQM+8v93TFshr57xLd5HnE=;
+ b=nWMcL7unPM6K1fMBLov8GQpxlvur+bSRQZpBUWniN3HVqkF7wtNgLcjvXaTYqteqlhUlzE7O8UWGMyLwggk8DW23Nj+H09Xi+Re97w72NUkHoMwf7+koCrY75RWqtZ/cu9CTWGVr77Pkl1a0ICB3duQsjxzTExzAbSOaqkronYjxSVcATwhlPCFd4FjBUNIepqU2tqsoHCghLZezn4aJE5KOA3aikbBMKC8L8QVLBhpHNNbS2EoSI9X+ReLr37h5iU/9hIfuYlN3v71kyPxN+ZNYu+VIVNNV0yMJJGjhhelW0I12Vaw1dbOt8X7NR1d1gWEr1i0T2sIhQWYpwwajjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ycr8LQOwVLBbCyxhFCf/DBQM+8v93TFshr57xLd5HnE=;
+ b=phsrUAKCN519UWqSIqL1DaiBXMivDiXMMGTh1YvBbYVV9l1TMyYeGV2rHoFt9xvX2odHc5c5rBTfc6mnoJfToAyWF5GFGR/w1LofPwaaVK5kZLmmwzo5x4AlH3tePugnmHhrU8Gm5WMZSZjXYhkNU+EtivuXr3Q5VIjAuRCXOefPmkJnYwI6N02b+0blNLNhcmt/JGv5lHIH5sKc8BWaxt4Rk1IKN9o7Rp58UYA3WyN8dkUbz87iO19YcGzi5xJZXkh4t9ccwyC3kfGtppQgdZoGraiWDqbiWKpJGKBCItgq5HO6+ayyT/FnCe4cFUgFzuJtRxo4mVdbSGwH4EkOuQ==
+Received: from BN9PR03CA0263.namprd03.prod.outlook.com (2603:10b6:408:ff::28)
+ by MW4PR12MB6875.namprd12.prod.outlook.com (2603:10b6:303:209::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 02:13:16 +0000
+Received: from BN3PEPF00022BBE.namprd04.prod.outlook.com
+ (2603:10b6:408:ff:cafe::7c) by BN9PR03CA0263.outlook.office365.com
+ (2603:10b6:408:ff::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
+ 13 Oct 2026 02:13:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN3PEPF00022BBE.mail.protection.outlook.com (10.167.248.119) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 02:13:16 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 12 Oct
+ 2026 19:12:58 -0700
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 12 Oct
+ 2026 19:12:58 -0700
+Received: from dgx-1v-42.nvidia.com (10.127.8.11) by mail.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Mon, 12 Oct 2026 19:12:58 -0700
+From: Jamie Nguyen <jamien@nvidia.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+CC: Len Brown <lenb@kernel.org>, Tony Luck <tony.luck@intel.com>, "Punit
+ Agrawal" <punitagrawal@gmail.com>, <linux-acpi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] ACPI: sysfs: Expose BDAT data region
+Date: Mon, 12 Oct 2026 19:12:58 -0700
+Message-ID: <20261013021258.3843871-1-jamien@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261012230632.3574987-3-jamien@nvidia.com>
+References: <20261012230632.3574987-1-jamien@nvidia.com> <20261012230632.3574987-3-jamien@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,70 +82,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBE:EE_|MW4PR12MB6875:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2fa52a98-a841-43e9-7651-08df28cf8ae2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|36860700016|376014|82310400026|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	2fcpwK+OBeslMRFI2xc2z38vngXu8tcqkSVo0MSGGGpZRQa9bsk2TJL+UgcAch11RleJp/3NBE1X6m600j/NQedP8r2xhlmbAwSGxG08iWcqtTX33uoSE3B8Ka2j3U42Q4qBimwBcQwncZZhks7hNaWcqzY8QahAC2DQGt5JrTvlXWqeTH+q881CR80Na57j03p2ya9v7zed8rbsiecCw2vTCnhrU4eDIb3y5ihECvHpJhOoCSmnjU9YVEDWK1XxntBV9iU/whbiPInR1q1SKkSAl7aSb8V5am90zd9HzC3+1Pgui0Ev0js/JTbBal/LjkZ8KC4Y/EPcSFRYdO/RTW0Lu80h5baf1zuqCiL6PfgsoLrr8Bol845UaQsGedoBHePoFKKWYM+Tiz1JHmvxdvYW656GB+3nJ+LuPK88h9CJRNSapDRkpBn1kqPQntwR7XHxQcYpGca96pI9w5HQstzxzaazpQvgmCZ8fMqhA44FcruXJ7eKc4B9niZ93xhqTdytNZ1w+QlSIqnI2ObLwgMpkgA8uTsEK6q69edbM7EXf3vbi0CHvp/2mY1LoAZJd1RLfEuOo8rzZpQbY1R4yHR4gDnEd05abdgbLM92nPlZXpbxVzCXFqhBnTs8GKE1XkMzdhp27mjwi959tMhm1GcDnGBb5Vw8F0dFzor6Rcum11SWCZqeA6nASTctDp3r3JlCcAik80VIMT6KvyYMjA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(36860700016)(376014)(82310400026)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	j1UkmmcOgjp6XMByFsECdzYfcQkjbj2MLdLUbKpU6eMegcOJqz69LVkAZ17b99J256k3jHdcXUHm15FtHg13THgGg8OdpwQBHj9YwsEJdskceommbJ286HkoL3qR6mXSRyTCDuILX34c/CnE6ZSFAV/jOCt/kGCmBh6RrMlbg4R4Yprp2hi1sQ0nNkADr7R8BQ1zZCPDlV4fswqw/fTigZyXqaTe4LH/jCIcykjfV1tnOFUf7mTzZg0SmndyF3t5InTW19oRKuVi4WAWq9cKPF+rNWA9EqS9shq5pCetGtwih0u6xUhZvChmqp9tjftJ70wTmKhJ9DSsy4oYBh8dXeNtKPCt8S1PirYEtCpn0xWa2cbMECsLaTsq0qVUc6K0CGn9pW4eqKujozszIaFzmVi7qqWY/+kXMrSIviMYXxpHsG/VmcB/qsNsG+p4HvFt
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 02:13:16.1498
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fa52a98-a841-43e9-7651-08df28cf8ae2
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BBE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6875
 
-From: Daeho Jeong <daehojeong@google.com>
+The Sashiko review of this patch [1] notes that acpi_data_show() maps
+the whole data region on every read(), and that the unmaps are deferred
+by RCU, so repeated reads could pile up mappings and exhaust vmalloc
+space.
 
-When xattrs shrink enough to fit in the inline xattr area,
-write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
-the file is then fsynced without a checkpoint, only the inode block is
-written, with i_xattr_nid of 0.
+That code isn't changed by this series. acpi_data_show() has mapped the
+whole region on every read since BERT support was added in 7dae6326ed76
+("ACPI / sysfs: Extend ACPI sysfs to provide access to boot error
+region"), and BERT and CCEL use the same path.
 
-Roll-forward recovery starts from the checkpointed inode, whose
-i_xattr_nid still points to the old xattr node.
-f2fs_recover_inline_xattr() copies only the inline xattr area, and
-f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
-the stale xattr node:
+I measured it with v2 on an arm64 server, with 4K and 64K pages and the
+90754-byte BDAT region:
 
- - The node block is never released, and fsck reports "nonzero bytes in
-   xattr space after end of list".
- - If the inline xattr list ends exactly at the end of the inline area,
-   its terminator is read from the stale node, and the removed xattrs
-   come back after recovery.
+- Looping full-file reads, with 1 to 64 readers, kept at most about 4500
+  deferred mappings (426 MiB) in flight. The count stayed flat and went
+  back to baseline within 2 s of stopping.
+- The worst case, tight loops of 1-byte reads, peaked at about 34k
+  mappings and 4.6 GiB of address space, and also drained within 2 s.
 
-When the fsynced inode has no xattr node but the checkpointed one has,
-release the old xattr node in the same way as f2fs_recover_xattr_data().
+At those rates, exhausting the 126 TiB of vmalloc space would need the
+deferred unmaps to stop completing for more than half an hour.
 
-Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
----
- fs/f2fs/node.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+If it's worth tightening anyway, acpi_data_show() could map only the
+range being read, which caps each mapping at two pages for all three
+tables. I can send that as a separate patch.
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 55008f18afd..590fdedf9c2 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2831,6 +2831,29 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct f2fs_cached_block *ent
- 	f2fs_cache_wait_writeback(ientry);
- 	memcpy(dst_addr, src_addr, inline_size);
- update_inode:
-+	/*
-+	 * The xattr node of the checkpoint was removed before fsync, e.g. the
-+	 * xattrs became small enough to fit inline. Release it as well, or
-+	 * the inode keeps pointing to the stale xattrs.
-+	 */
-+	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
-+		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-+		struct node_info ni;
-+		int err;
-+
-+		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
-+								&ni, false);
-+		if (err) {
-+			f2fs_put_cache(ientry, true);
-+			return err;
-+		}
-+
-+		f2fs_invalidate_blocks(sbi, ni.blk_addr, 1);
-+		dec_valid_node_count(sbi, inode, false);
-+		set_node_addr(sbi, &ni, NULL_ADDR, false);
-+		f2fs_i_xnid_write(inode, 0);
-+	}
-+
- 	f2fs_update_inode(inode, ientry);
- 	f2fs_put_cache(ientry, true);
- 	return 0;
--- 
-2.56.0.385.gd3acb90ef8-goog
+[1] https://sashiko.dev/#/patchset/20261012230632.3574987-1-jamien%40nvidia.com
 
+Jamie
