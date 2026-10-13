@@ -1,264 +1,294 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11020103.outbound.protection.outlook.com [52.101.46.103])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EAC43BDDD;
-	Tue, 13 Oct 2026 03:04:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.103
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791860693; cv=fail; b=Ova5cDxRLZtRte2dPsW6E68f84gpZ0v1D54q/iOnmUEGjvljPyZxkxLlhxjlnSdsOT27tn5Z4Q0yyZJaYnS0dTKuv+Hf9h0mB8nHDYPj/5YV+6ZiMGQpqoK0/+XDcUkDS471zJJUY2pnSli6W6Im/MZeH+jLjI0QrgYSvnPC0k0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791860693; c=relaxed/simple;
-	bh=N1opAUVpunP0CpOoCgBaywTHkQiNE8QT/8Fz6vgg1bc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=qA0hy6zjmpYrbT5fqzfWHy/2f4rTB8jQXCSl0FLMY9Fb0VsdCrJ1AC3vqG23wjlQIJCk5oFmcJL2htN5fplVNqzO4wXzC9OabJk48QPuGDDZRW5rogNCYhlzhI2tOaUcEzb7LQoznZKNx9HjbQwDCz6sp4335povTmifrW5ShiQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phil.gs; spf=pass smtp.mailfrom=phil.gs; dkim=pass (1024-bit key) header.d=NETORGFT5377951.onmicrosoft.com header.i=@NETORGFT5377951.onmicrosoft.com header.b=Ua2NBSEd; arc=fail smtp.client-ip=52.101.46.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phil.gs
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phil.gs
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B749F272816
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:08:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791860894; cv=none; b=rXpJ6gw5/jFnfUV7NtrbGSWCr0BrhKUpLkS0b2TyadmgjkExhxU8epRYT0EsPTUf2dKEPqDMZT8lAaSG3nvzfDS6ucHubOTh3y57Dq19RanaOlGewk8X+NnEK3SOMNFWeWWFtynKS1RYFQ1a0ms9atug/x02GyCiYDxjGbukxE0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791860894; c=relaxed/simple;
+	bh=flerzkucQ9U0Ehg24AYdbDHhfT1ECV3ZtIF0fiOTIGM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=qdd8dnsAsevphe0p8zAhwtWyPJv2/Cet7r1LJDs3/qOqS8YEXyBtCSNlSSlZL0me63gGn1EkIf3ZebGYKlKjd8YLfKDJwbfn3Xz8U6WJ6ZoPIzfUYGHLdBiPml4VuTRnTwtAkk4fmUJgrfVsuAbR+t317MClR7q6ZLebL8wOvt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=BFSlqYpx; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=NETORGFT5377951.onmicrosoft.com header.i=@NETORGFT5377951.onmicrosoft.com header.b="Ua2NBSEd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JU68lBlNgcWfq57R04gnehWiGr5M03UfiBXEvf1NQHM/jGvgCtvVhDf2uOXHVU9IZXYMFU9yZ5jc5ia4fAmnPMbKaIbPMqCVulNWhj7X279a7dkFL+Qcjq5rR+0iH2h8XThWoMUiKfs/zpVqhb5sD5IlXlEcJ8W5u1WjgM9s1I86o/p6aJVGFd+2PssEJNbhzv1fONKaRI+3xpatFNf9bGLvuONNeG1ZZZHpGDuEhkUiU9vLoul2z5Sq8L2awpxDgDDaNdiloTNXMLn8R617kjQ43ipRqyELLFgt0pgK4VjXoLXfUvS1ybQNLpOXai0uqBzJWSmWJE49qRB4SeU0Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N1opAUVpunP0CpOoCgBaywTHkQiNE8QT/8Fz6vgg1bc=;
- b=WArqwwG/h5RqPdqYWRcAtFzKPNQ0VAuh3atOVqpDM77ZzNZFK73IhPrv+cXmPS36jUge9+5H3iFyO6TnxSIXiEDfVrY+5H6asaHZGvMyEy26EBi56rkas3EJkJRIb65LaIdHUj8lCmObiSwAa4wqKFo3CGsfJMNdr6lihEQcLAwkJoPqq+LMsSvypGsrMG6sBwr2nWB6e6OCrkiInkVADHOvmhLiCpldAYK8AEIrIEQGy0IG5vyrQsLtOgzIPs92FRgCVo2DKkF8eqy14dOK/SFoWp63hJlYRHm/fIu/XXkh0890D5exSlmWcGK3d1PHPkS17cI+CYthZzK94fZOLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=phil.gs; dmarc=pass action=none header.from=phil.gs; dkim=pass
- header.d=phil.gs; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=NETORGFT5377951.onmicrosoft.com;
- s=selector1-NETORGFT5377951-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N1opAUVpunP0CpOoCgBaywTHkQiNE8QT/8Fz6vgg1bc=;
- b=Ua2NBSEd+qIQxJQjd4i0k6ScO/P3pAwYDVqzEvxnEvZIZ32yDraYF2yY+IFPZrWTruAZSVKOzO7yFScYwuyKC50V7kj701TM2D+4Cr74DAjU9ujeAy6euEtra8rW6IMwGoxSVbK+SfDQocxPi7JmR9QGxLdNOnuH7zdiNe0s/5c=
-Received: from BY5PR04MB6472.namprd04.prod.outlook.com (2603:10b6:a03:1eb::10)
- by DS4PR04MB9769.namprd04.prod.outlook.com (2603:10b6:8:277::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 03:04:43 +0000
-Received: from BY5PR04MB6472.namprd04.prod.outlook.com
- ([fe80::3a9:9dbc:2aeb:8827]) by BY5PR04MB6472.namprd04.prod.outlook.com
- ([fe80::3a9:9dbc:2aeb:8827%6]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 03:04:43 +0000
-From: Phil Rosenthal <phil@phil.gs>
-To: "git@gregoirelayet.com" <git@gregoirelayet.com>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
-	<jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel
-	<lkundrak@v3.sk>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Lee Jones <lee@kernel.org>, Tan Siewert <tan.siewert@9elements.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "mfd@lists.linux.dev" <mfd@lists.linux.dev>,
-	"andrew@lunn.ch" <andrew@lunn.ch>, "jacky_chou@aspeedtech.com"
-	<jacky_chou@aspeedtech.com>, "yh_chung@aspeedtech.com"
-	<yh_chung@aspeedtech.com>, "ninad@linux.ibm.com" <ninad@linux.ibm.com>,
-	"anirudhsriniv@gmail.com" <anirudhsriniv@gmail.com>, "andy@kernel.org"
-	<andy@kernel.org>
-Subject: Re: [PATCH v6 4/6] mfd: aspeed-pci-core: add AST2600 PCIe BMC device
- driver
-Thread-Topic: [PATCH v6 4/6] mfd: aspeed-pci-core: add AST2600 PCIe BMC device
- driver
-Thread-Index: AQHdWr+YV/FhYOPImkyusUIlzmNZaw==
-Date: Tue, 13 Oct 2026 03:04:43 +0000
-Message-ID: <C5A01ECE-9A61-4BCA-88C6-83A1673AA69C@phil.gs>
-References: <20260818-aspeed-driver-v6-v6-0-fd7cc0b338ea@9elements.com>
- <20260818-aspeed-driver-v6-v6-4-fd7cc0b338ea@9elements.com>
-In-Reply-To: <20260818-aspeed-driver-v6-v6-4-fd7cc0b338ea@9elements.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=phil.gs;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY5PR04MB6472:EE_|DS4PR04MB9769:EE_
-x-ms-office365-filtering-correlation-id: 611939d0-3fcf-4647-ecc3-08df28d6bad1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|19092799006|366016|1800799024|23010399003|4143699003|5023799004|38070700021|56012099006|18002099003|22082099003|6133799003|7055299009|261009220027099003|261009221727099003|261009221227099003|261009223027099003|261009223327099003|10067099003;
-x-microsoft-antispam-message-info:
- XcgkeyVgi4WDFq/K9U9B6EjEMqHSi47JKI8MKaFye/RQy2a8yvFYeyyLaZjj1lgsovpqBO/bR5+hc4mZugFDvopLwnXBMMR4C6na05WResjbTrkWho6MpmJxjnEbHWVafFA97UgPmQXQFXiJBAmt7hH4U88u5XBPOc2yiE+67BAPONvQblcb3vBscw+tz4JsM/5Ufm+yUoOHLOua4Dxu060aRfj2x3Bwy0wvCTzOXWrii7Q5JE5pb7zKOV7M6MGkXfRJDIk6GYMj9JY//yDdXYbES3YPBINdkPiuI/ypCcO9Wwo2feWzkO9Z8eDA2gz6NOhNb+KsnjrXB+mXSC7ZQGlEJ/dcdTWeXmmYzFZSRF/yd+xIhQQxyaKugiijhzPiFnR9cT5cndNIKHFzr9AK03LM3ra7I3Iqw1vtJYhUmngdgQPyUYSs6T3JF8FxwgEumXsel6+BAd/vNKtHLhPJG+gqGbwxqY5W7pWxbnfbXTMzqc7BQ7YikV41QuzVwWCywS0704UD6esR9WTScYVB9W28KuSW7IUPFH/0LErCmCe1dZUF5x55Y+9R6M5FQhDWA+xtHEpkPGPz+NyIrdEf53hvvmg3DwcYuSMUWOtXln90QuMz6N5E9/Y+Vu8HHeW53oAs30sd7i6WZloStXEsl+vU/3rx8YEVne0slST5kkmQCI5a7Dklqldxgbzkwb2C4TtUnIuRq28PmJIHtor26g==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR04MB6472.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(366016)(1800799024)(23010399003)(4143699003)(5023799004)(38070700021)(56012099006)(18002099003)(22082099003)(6133799003)(7055299009)(261009220027099003)(261009221727099003)(261009221227099003)(261009223027099003)(261009223327099003)(10067099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?N1lQd2I0ZmRDYlBPMnQ2TkJNZVJkRXZTaGVtQ05uQW02MHlHbjZOdVBYYm1L?=
- =?utf-8?B?NHp3eW9UVlVXb0ZRNjFYL01keTBRczFyZWVIQ09BbWxxRWhHVWtXa20yVWh2?=
- =?utf-8?B?Nkd5eXQ0RllmNlZTYU52Vk91Sis1emVhYmtSZkZaaWJtOWY4R3BwVWM4c1Ur?=
- =?utf-8?B?RTVvQkxxT0ZRVFMxRUlBaFZ2MCtvTk42cG5BcDZocVNtNGVoNkZocStXT0tp?=
- =?utf-8?B?cENLck9meDY3Ni9rK29FWDB3TUhaWnh3VUNwdmtJbE9TQ3NUeGg3bnRZOHQ5?=
- =?utf-8?B?OWU2dmNrakYwOWJiZkY2MkxSMDM4dTFPU2VuNmJWTTZiVUZjQ0VyOWszY21l?=
- =?utf-8?B?RWxCQWZ2V2UwNU9uQmpCbWNFOGtqUkV4Q3VKK25JNTlRTVBzVnN0UFhmU2pX?=
- =?utf-8?B?OTZHTXMyNUFETEx1Tm9jSjUyUmtFMzRtYjRiVXdPbDlBbHZUcXhnWmFkNGg1?=
- =?utf-8?B?Y0tNMkhYd1hYYm9yaHYwVFEvc0ViZjQrQ3pQQzdRd3NOSEdhRlltRExJOUpU?=
- =?utf-8?B?WTZ4MTFqZFAzOTJGTTd5bS9IN2JCb3lTL2FtdzFtb2tWZkhoZ1lROXI1eHNE?=
- =?utf-8?B?VUt0TklveDNlTERicnA3eVB3TjdXT21IM0RiT0djRE03V0lncEkwUkNSaHVv?=
- =?utf-8?B?T2NFd1BYZU5Da2l4MkxLNkg2cmxpWkNxMmVjajJ2ZUxIZ0M1dVp1bzNCeEt2?=
- =?utf-8?B?TE9rSWVER1JEaUYxbkNjWjRyRnNtRTZEcldCN2VJUkRVbmxFUm9ob2NpcnBi?=
- =?utf-8?B?dGluUE5hT0lqaFhOSkpjbmZCZEJITTBaU05OajZTRGZxbFRFL0ZYS1BKdzZw?=
- =?utf-8?B?aE5JS1pUc3dzdGpTYm1XYmdrNlhwU01YWHBMclBYOFFpWXZuN1ZmT2NINmZJ?=
- =?utf-8?B?a2ZGRG1ZLzdBM1VhY0kwdzRtQkwwakY0bDVranNsdkNLRDR1QjRVaWZTTTZZ?=
- =?utf-8?B?MkU4RjhDYURnT083cDhEZnN6ZE5HRWoxN0ZSN1prcVdncUp5bUIyVzMvVVZP?=
- =?utf-8?B?aEl1Y3FweWJOVlU5c3lmd1BNclJrc2kvSDQzSW9kSlA4TlljQjg2NUtkRkhY?=
- =?utf-8?B?WGtmOUtDSjJaVTFHVHBwRnJQb3pLQVlYV1REblcyS0tHNHhuTlVWNi9Ua1BC?=
- =?utf-8?B?MHVMUytuVDNaVEsxZWZHSE1mMHluSWpkLzdvd0JkSy9IQWRXWDdIUU0xUUhJ?=
- =?utf-8?B?aWo4Q25PR1ZBRjUyUGljbCszbjlWNVlPSHE3WXdGUVJtMTVCTm5kU01WL2g3?=
- =?utf-8?B?SjNxcytUMVpjV2t5L0tOWlBZL2ZNMWRGMVEvN3dMNkw4Mjl3WXYrSzhoV0ZV?=
- =?utf-8?B?VUtNQndsOVloNDJINEwwNFIxYVJqQmxBUjNVend5NHhDYWpCcm1vQzZWb0Fv?=
- =?utf-8?B?YlpqZ09NTzJzNkZuSjY4ZUk3OU1CZklyaTdOci9RaFR1S0NMQmJ6ZjNrZFQy?=
- =?utf-8?B?Y2UzWWZtVUk4NkxxOXR6NkRiZ0xVR0htSjQvOW1lMk4vWHhlWTFZb3IxWFlZ?=
- =?utf-8?B?aVoyRXhRMjlPQUNidkhsOTJDMHdpQXNTdGlYQS9MWFRtOU4wZS9GSlZvenZq?=
- =?utf-8?B?TzlyWEdLZFErWFhJRWZqb3ZlWVV2QW9aQXd0T05QTkN6ZWtsUzJzRyt2ZUhp?=
- =?utf-8?B?eThmZUVEUG9rRnd3Rzd0RHhwUTZNVVhXZ1ZvaUtjTkhTRTBXaTIwWExsVml6?=
- =?utf-8?B?bG0vaE1oSXJDbnp5bERjbmRFU0pJTWs2YWE1c2lSbzdCRk1KTlhpVG9qZ1ZT?=
- =?utf-8?B?ZDAzWlhYSnZsQ3YxL2hkSktwcTl2V0k3OFBibWI3ZExtZnVVd0Q1ZEI4cDVU?=
- =?utf-8?B?aUxnQmNiai9OL0loVUZJMzdRM1MvUnA5YnltOWR6T3Y0N3VVbHc5T0lqNnFI?=
- =?utf-8?B?emtRMFdwdDREUWZPK1lnZ3JkeURBM2RMNUhxNG9lNDRUR3doUDkva1pqSnIz?=
- =?utf-8?B?UWNsbEYyazc4MnFMZC9NVlBPcWFmRkxxQXhodlkxcEQyQ2pQRmVhNG1aZU02?=
- =?utf-8?B?ekYvNVJTaU85Qy9oNkNPaU9IOVY2NkVCamo3TlZYU2dJOTFLTGNXNGFLV01z?=
- =?utf-8?B?bXlMMzdXdTdWeU9DVUtHR0JyRndJU3lsSVJ1VUR0L21vS0twTXBscU1Idm5u?=
- =?utf-8?B?bTVGUm9aeldWdmlaZHVkSXNxcmRlekpnSkpjQitiS1ZyOTNuOVRjTzBsaGwy?=
- =?utf-8?B?WTkybWw0N2l5c2QyWGNENFdRNThWeUdPckhXbEMrNmRkWGtGMStNZElDUmxF?=
- =?utf-8?B?L1A2NlBkcHRhU2JrRXMzaWx6NktxR2NnUy9tSlZJcnV1d0I0WDhYd29aSGt2?=
- =?utf-8?Q?HzmyFNq3iNA1bQ+eVP?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <7C539BBCD660D94E8EAB24C500DF9A10@namprd04.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="BFSlqYpx"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261013030809epoutp02a17ab053920f3d20d7ca5e06d901d14d~d9-xHWY7V2951529515epoutp02M
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:08:09 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261013030809epoutp02a17ab053920f3d20d7ca5e06d901d14d~d9-xHWY7V2951529515epoutp02M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791860889;
+	bh=M0N6UdVM9YmqCfikOnH0EOQjV6du2GALJddFu9WwyDQ=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=BFSlqYpxHTfI7UUC5doNstev9Q2/de/+nyUupIJASMovW6QdOR18DIJO+Q/MkOGlx
+	 7r8dmfG/2A2ksb9Owqr3/ym0+jL9ajSMb28oiAZIUVZVSl4GMkrjxWoA2i+0tREjFV
+	 uZpuq/TAAkToizvRSUM3ZKMJiC4OT7Sr9MJD2IB0=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261013030809epcas5p4a4d8af2fdf7f4d211e74ad236969e65d~d9-wwnGNb2613126131epcas5p4l;
+	Tue, 13 Oct 2026 03:08:09 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.86]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4j3fRD4FJyz3hhT9; Tue, 13 Oct
+	2026 03:08:08 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261013030807epcas5p440dd2af56b5d16dc57f9a7a339d1371b~d9-vjEuPY2732027320epcas5p4R;
+	Tue, 13 Oct 2026 03:08:07 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261013030805epsmtip263d2e6eac0c51d81f150dec73ec0e162~d9-tetlfs1388713887epsmtip23;
+	Tue, 13 Oct 2026 03:08:05 +0000 (GMT)
+Message-ID: <a8021139-a675-4875-b437-7e837d5433b1@samsung.com>
+Date: Tue, 13 Oct 2026 08:38:04 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: phil.gs
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR04MB6472.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 611939d0-3fcf-4647-ecc3-08df28d6bad1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 03:04:43.1704
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 47d4f979-ea6f-4fcb-aea9-39371d64bc6b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: I/MY7BHQndu5Dtjfypyua+u8ZgETPjr1SVSD1lu442Gls0IkNV2TqPp1RihGS1mR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR04MB9769
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: dwc3: gadget: Prevent EP resource conflicts
+ during StartTransfer
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jh0801.jung@samsung.com" <jh0801.jung@samsung.com>, "dh10.jung@samsung.com"
+	<dh10.jung@samsung.com>, "akash.m5@samsung.com" <akash.m5@samsung.com>,
+	"hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
+	"eomji.oh@samsung.com" <eomji.oh@samsung.com>, "h10.kim@samsung.com"
+	<h10.kim@samsung.com>, "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
+	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
+	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
+	"thiagu.r@samsung.com" <thiagu.r@samsung.com>, "pritam.sutar@samsung.com"
+	<pritam.sutar@samsung.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <as2N1JlPnpKBYcsb@vbox>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261013030807epcas5p440dd2af56b5d16dc57f9a7a339d1371b
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6
+References: <asBhDmy-3DymDKQH@vbox>
+	<3fdda532-8181-48e9-b58d-cad7289408e7@samsung.com>
+	<CGME20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6@epcas5p1.samsung.com>
+	<asWmW1jmzedIV5SP@vbox> <ff5d6900-374b-44d8-967f-0af16ae53437@samsung.com>
+	<98f16da0-5e24-4dd1-8f9f-79a1a5e7656c@samsung.com> <asbJfaj5OIhHBunD@vbox>
+	<bc43e3f5-ba0c-4f91-b765-ee35021bf089@samsung.com> <asglyrMYkopr3EOz@vbox>
+	<0a2bc277-3977-46cd-9759-ba273b5c2c4d@samsung.com> <as2N1JlPnpKBYcsb@vbox>
 
-SGkgR3LDqWdvaXJlLA0KDQpBIGZldyBub3RlcyBvbiB0aGUgaG9zdCBkcml2ZXIsIGZyb20gZHJp
-dmluZyB0aGUgVlVBUlRzIG9mIHRoZSBzYW1lIEJNQw0KZGV2aWNlIGZ1bmN0aW9uICgxYTAzOjI0
-MDIpIG9uIGFuIEFTVVMgUHJvIFdTIFc2ODAtQUNFIElQTUkuDQoNClNvbWUgY29udGV4dCBmb3Ig
-dGhvc2Ugd2hvIGhhdmVuJ3Qgc2VlbiB0aGUgb3RoZXIgdGhyZWFkIFsxXTogYm9hcmRzDQp3aG9z
-ZSBCTUMgcnVucyB0aGUgYm9hcmQgbWFrZXIncyBvd24gZmlybXdhcmUgcmF0aGVyIHRoYW4gT3Bl
-bkJNQyAob24NCnRoZSBBU1VTIGJvYXJkLCBBU1VTJ3MgQVNNQjEwLWlLVk0gZmlybXdhcmUpIGxl
-YXZlIHRoZSBmdW5jdGlvbiBhdCB0aGUNCktDUyBjbGFzcyBjb2RlICgwYzA3MDEpIGFuZCBwdXQg
-dGhlIFZVQVJUIGludGVycnVwdHMgb24gb3RoZXIgTVNJDQp2ZWN0b3JzLCBzbyB0aGlzIGRyaXZl
-ciBkb2Vzbid0IGJpbmQgdGhlbS4gSSd2ZSBwcm9wb3NlZCBhIHNlcGFyYXRlIDgyNTANCmRyaXZl
-ciBmb3IgdGhvc2UgYm9hcmRzLCBhbmQgd2hldGhlciB0aGF0IHN1cHBvcnQgc2hvdWxkIGdvIGlu
-dG8NCmFzcGVlZC1wY2ktY29yZSBpbnN0ZWFkIGlzIHN0aWxsIG9wZW4gaW4gdGhhdCB0aHJlYWQ7
-IGlucHV0IGZyb20gdGhlDQpzZXJpYWwgYW5kIE1GRCBtYWludGFpbmVycyB0aGVyZSB3b3VsZCBi
-ZSB3ZWxjb21lLiBJIHNhaWQgdGhlcmUgdGhhdCBJJ2QNCmhvbGQgdGhlc2Ugbm90ZXMgdW50aWwg
-dGhhdCdzIHNldHRsZWQsIGJ1dCBub25lIG9mIHRoZW0gZGVwZW5kIG9uIGl0LCBzbw0KSSdkIHJh
-dGhlciBub3Qgc2l0IG9uIHRoZW0uIElmIHRoZSBzdXBwb3J0IGRvZXMgZ28gaW50byB0aGlzIHNl
-cmllcywNCkknbGwgZm9sbG93IHVwIHdpdGggd2hhdCBpdCBuZWVkcyBvbiB0b3Agb2YgdGhlc2Uu
-DQoNClRoZSBwb2ludHMgYmVsb3cgYXJlIGFib3V0IHRoZSBjb2RlIGl0c2VsZiBhbmQgYXBwbHkg
-dG8gT3BlbkJNQyBib2FyZHMNCmFzIHdlbGwuDQoNCj4gK3N0YXRpYyBjb25zdCB1bnNpZ25lZCBp
-bnQgdnVhcnRfbXNpX2luZGV4W0FTUEVFRF9CTUNfTlJfVlVBUlRdID0geyAxNiwgMTcgfTsNCg0K
-VGhlc2UgdmVjdG9ycyBvbmx5IGhvbGQgaWYgdGhlIEJNQydzIGRldmljZSB0cmVlIHB1dHMgdGhl
-IHR3byBWVUFSVHMNCm9uIFNJUlEgMCBhbmQgMS4gODI1MF9hc3BlZWRfdnVhcnQgdGFrZXMgdGhl
-IFNJUlEgZnJvbQ0KImFzcGVlZCxscGMtaW50ZXJydXB0cyIgYW5kIGRlZmF1bHRzIHRvIFNJUlEg
-NCB3aXRob3V0IGl0LCBhbmQNCmFzcGVlZC1nNi5kdHNpLCBldmVuIHdpdGggcGF0Y2ggNi82LCBk
-b2Vzbid0IHNldCBpdCBmb3IgdnVhcnQzIG9yDQp2dWFydDQuIEEgYm9hcmQgdGhhdCBlbmFibGVz
-IFZVQVJUIG92ZXIgUENJIHdpdGhvdXQgYWxzbyBzZXR0aW5nDQphc3BlZWQsbHBjLWludGVycnVw
-dHMgZ2V0cyBib3RoIFZVQVJUcyBvbiBTSVJRIDQsIGFuZCwgYXMgZmFyIGFzIEkNCmNhbiB0ZWxs
-LCBuZWl0aGVyIG9uIHZlY3RvciAxNiBvciAxNy4gKFRoYXQgdGhlIHZlY3RvciBpcyAxNiArIFNJ
-UlEgaXMNCm15IGluZmVyZW5jZTogMTYgYW5kIDE3IGZvciBTSVJRIDAgYW5kIDEgb24geW91ciBi
-b2FyZHMsIGFuZCB2ZWN0b3IgMjANCmZvciB0aGUgVlVBUlQgb24gdGhlIEFTVVMgYm9hcmQsIHdo
-b3NlIHN0b2NrIGZpcm13YXJlIHVzZXMgU0lSUSA0LikNClRoZSBjaGFuZ2UgZnJvbSAxNSB0byAx
-NyBtZW50aW9uZWQgaW4gdGhlIGNvbW1pdCBtZXNzYWdlIGFsc28gc3VnZ2VzdHMNCnRoZSB0YWJs
-ZSBjYW1lIGZyb20gdGVzdGluZyByYXRoZXIgdGhhbiBkb2N1bWVudGF0aW9uLg0KDQpUaGUgc2lt
-cGxlc3QgZml4IHdvdWxkIGJlIHRvIG1ha2UgYXNwZWVkLGxwYy1pbnRlcnJ1cHRzIHJlcXVpcmVk
-DQp0b2dldGhlciB3aXRoIGFzcGVlZCx2dWFydC1vdmVyLXBjaSBpbiB0aGUgYmluZGluZywgb3Ig
-dG8gc2V0IFNJUlEgMA0KYW5kIDEgZm9yIHZ1YXJ0MyBhbmQgdnVhcnQ0IGluIHBhdGNoIDYvNiwg
-c28gdGhlIEJNQyBzaWRlIGFsd2F5cw0KbWF0Y2hlcyB0aGUgaG9zdCdzIHRhYmxlLg0KDQpUaGUg
-bW9yZSByb2J1c3Qgb3B0aW9uIGlzIHRvIGZpbmQgdGhlIHZlY3RvcnMgYXQgcHJvYmUsIHdoaWNo
-IFRhbiBhc2tlZA0KYWJvdXQgaW4gdGhhdCB0aHJlYWQuIFRoYXQgd29ya3Mgd2hhdGV2ZXIgU0lS
-UXMgdGhlIEJNQyBzaWRlIHVzZXMsIHNvIGENCmJvYXJkIERUIHRoYXQgbGVhdmVzIHRoZW0gb3V0
-IG9yIGdldHMgdGhlbSB3cm9uZyBzdGlsbCBnZXRzIGludGVycnVwdHMsDQphbmQgaWYgbm8gdmVj
-dG9yIGNhbiBiZSBmb3VuZCwgdGhlIHBvcnRzIGZhbGwgYmFjayB0byBwb2xsaW5nIGluc3RlYWQg
-b2YNCndhaXRpbmcgb24gYSB2ZWN0b3IgdGhhdCBuZXZlciBmaXJlcy4gSXQgd291bGQgYWxzbyBi
-ZSB0aGUgYmFzaXMgZm9yDQpzdG9jayBmaXJtd2FyZSBzdXBwb3J0IGlmIHRoYXQgZW5kcyB1cCBp
-biB0aGlzIHNlcmllcy4gSXQncyB0aGUgTVNJDQpjb3VudGVycGFydCBvZiB3aGF0IHRoZSA4MjUw
-IGNvcmUncyBhdXRvY29uZmlnX2lycSgpIGRvZXMgZm9yIGxlZ2FjeQ0KcG9ydHMgd2l0aCBVUEZf
-QVVUT19JUlE7IEkgZGVzY3JpYmVkIHRoZSBtZXRob2QgaW4gWzFdLCBhbmQgaXQncw0KYXNwZWVk
-X3BjaTgyNTBfZmluZF9pcnFzKCkgaW4gWzJdLiBXaXRoIHRoZSBEVCBmaXggYWJvdmUgeW91ciBi
-b2FyZHMNCmRvbid0IHN0cmljdGx5IG5lZWQgaXQsIGJ1dCBJJ20gaGFwcHkgdG8gc2VuZCBpdCBh
-cyBhIHBhdGNoIGZvcg0KYXNwZWVkLXBjaS1jb3JlIGlmIHlvdSdkIGxpa2UgaXQuDQoNCj4gK3N0
-YXRpYyBzdHJ1Y3QgcGxhdF9zZXJpYWw4MjUwX3BvcnQgYXNwZWVkX3VhcnRfcG9ydFtBU1BFRURf
-Qk1DX05SX1ZVQVJUICsgMV0gPSB7DQo+ICsJew0KPiArCQkudWFydGNsayA9IDExNTIwMCAqIDE2
-LA0KPiArCQkuaW90eXBlID0gVVBJT19NRU0zMiwNCj4gKwkJLnR5cGUgPSBQT1JUXzE2NTUwQSwN
-Cg0KRGlkIHlvdSBjb25zaWRlciBQT1JUX0FTUEVFRF9WVUFSVCBoZXJlPyBUaGUgQk1DIHNpZGUg
-dXNlcyBpdCBiZWNhdXNlDQpvZiBjb21taXQgYTYwM2NhNjBjZWJmICgic2VyaWFsOiA4MjUwX2Fz
-cGVlZF92dWFydDogYWRkDQpQT1JUX0FTUEVFRF9WVUFSVCBwb3J0IHR5cGUiKTogaG9zdC1zaWRl
-IFRIUkUgbWlzYmVoYXZlcyB3aGVuIHRoZQ0KQk1DLXNpZGUgcmVjZWl2ZSBGSUZPIHRyaWdnZXIg
-aXMgYWJvdmUgb25lIGJ5dGUuIFRoYXQgY29tbWl0IG9ubHkNCmNvdmVycyB0aGF0IGRpcmVjdGlv
-biwgc28gSSBjYW4ndCBzYXkgdGhlIGhvc3Qgc2lkZSBuZWVkcyBpdCB0b28sIGJ1dA0KdXNpbmcg
-dGhlIHNhbWUgdHlwZSBvbiBib3RoIGVuZHMgd291bGQgYXZvaWQgdGhlIHF1ZXN0aW9uLg0KDQpP
-biB0aGUgYXJyYXkgaXRzZWxmIGJlaW5nIHN0YXRpYyBhbmQgd3JpdHRlbiBhdCBwcm9iZSwgSSBh
-Z3JlZSB3aXRoDQpTYXNoaWtvJ3MgY29tbWVudC4NCg0KPiArCWZvciAoaSA9IDA7IGkgPCBBU1BF
-RURfQk1DX05SX1ZVQVJUOyBpKyspIHsNCj4gKwkJYXNwZWVkX3VhcnRfcG9ydFtpXS5tYXBiYXNl
-ID0gYmFyICsgKHZ1YXJ0X3BvcnRfYWRkcltpXSA8PCAyKTsNCj4gKwkJYXNwZWVkX3VhcnRfcG9y
-dFtpXS5pcnEgPSBwY2lfaXJxX3ZlY3RvcihwZGV2LCB2dWFydF9tc2lfaW5kZXhbaV0pOw0KPiAr
-CX0NCg0KQm90aCBWVUFSVHMgYXJlIHJlZ2lzdGVyZWQgd2hldGhlciBvciBub3QgdGhlIEJNQyBl
-bmFibGVzIHRoZW0uIEEgVlVBUlQNCnRoZSBCTUMgaGFzbid0IGVuYWJsZWQgcmVhZHMgYmFjayBh
-cyBhbGwgb25lcyB0aHJvdWdoIEJBUjEgKHRoZSBvbmUgYXQNCjB4MmY4IGRvZXMgb24gdGhlIEFT
-VVMgYm9hcmQpLiBUaGUgODI1MCBjb3JlJ3MgIkxTUiBzYWZldHkgY2hlY2siIGF0DQpvcGVuIHdv
-dWxkIG5vcm1hbGx5IGNhdGNoIHRoYXQsIGJ1dCBpdCBjb21wYXJlcyBhZ2FpbnN0IDB4ZmYsIGFu
-ZCB3aXRoDQpVUElPX01FTTMyIHRoZSByZWFkIHJldHVybnMgMHhmZmZmZmZmZi4gU28sIGFzIGZh
-ciBhcyBJIGNhbiB0ZWxsIGZyb20NCnRoZSBjb2RlLCB0aGUgcG9ydCBvcGVucyBub3JtYWxseSBh
-bmQgd2hhdGV2ZXIgaXMgd3JpdHRlbiB0byBpdCBpcyBsb3N0Lg0KUmVhZGluZyBNQ1IgZmlyc3Qg
-YW5kIHNraXBwaW5nIGEgVlVBUlQgdGhhdCByZWFkcyBhcyBhbGwgb25lcyBhdm9pZHMNCnRoYXQ6
-IE1DUiBiaXRzIDYtNyBhcmUgcmVzZXJ2ZWQgYXMgemVybywgYW5kIHJlYWRpbmcgaXQgaGFzIG5v
-IHNpZGUNCmVmZmVjdHMsIHVubGlrZSBMU1IuDQoNCj4gK3N0YXRpYyB2b2lkIGFzcGVlZF9ibWNf
-cGNpX2ZyZWVfaXJxcyh2b2lkICpwZGV2KQ0KPiArew0KPiArCXBjaV9mcmVlX2lycV92ZWN0b3Jz
-KHBkZXYpOw0KPiArfQ0KDQpTaW5jZSB0aGUgZGV2aWNlIGlzIGVuYWJsZWQgd2l0aCBwY2ltX2Vu
-YWJsZV9kZXZpY2UoKSwgdGhlIHZlY3RvcnMgYXJlDQphbHJlYWR5IG1hbmFnZWQ6IHBjaV9hbGxv
-Y19pcnFfdmVjdG9ycygpIHJlZ2lzdGVycyBwY2ltX21zaV9yZWxlYXNlKCksDQp3aGljaCBmcmVl
-cyB0aGVtIG9uIHVuYmluZC4gVGhlIGtlcm5lbGRvYyBvZiBwY2lfZnJlZV9pcnFfdmVjdG9ycygp
-DQpzYXlzIG5vdCB0byBjYWxsIGl0IGluIHRoYXQgY2FzZSAoImNhbiBsZWFkIHRvIGRvdWJsZS1m
-cmVlIGlzc3VlcyIpLg0KSXQgaGFwcGVucyB0byBiZSBoYXJtbGVzcyB0b2RheSwgYmVjYXVzZSB0
-aGUgc2Vjb25kIHBjaV9kaXNhYmxlX21zaSgpDQpmaW5kcyBNU0kgYWxyZWFkeSBkaXNhYmxlZCwg
-YnV0IHRoaXMgYWN0aW9uIGNhbiBzaW1wbHkgYmUgZHJvcHBlZC4NCg0KPiArCXJjID0gcGNpX2Fs
-bG9jX2lycV92ZWN0b3JzKHBkZXYsIEFTUEVFRF9CTUNfTVVMVElfTVNJLCBBU1BFRURfQk1DX01V
-TFRJX01TSSwgUENJX0lSUV9NU0kpOw0KPiArCWlmIChyYyA8IDApDQo+ICsJCXJldHVybiBkZXZf
-ZXJyX3Byb2JlKGRldiwgcmMsICJmYWlsZWQgdG8gYWxsb2NhdGUgJWQgTVNJIHZlY3RvcnNcbiIs
-DQo+ICsJCQkJICAgICBBU1BFRURfQk1DX01VTFRJX01TSSk7DQoNCklmIDMyIHZlY3RvcnMgYXJl
-bid0IGF2YWlsYWJsZSwgcHJvYmUgZmFpbHMgYW5kIHRoZXJlIGlzIG5vIHNlcmlhbA0KcG9ydCBh
-dCBhbGwuIE9uIHg4NiB0aGF0IGhhcHBlbnMgd2hlbmV2ZXIgaW50ZXJydXB0IHJlbWFwcGluZyBp
-cyBvZmYsDQpzaW5jZSBvbmx5IHRoZSBJbnRlbCBhbmQgQU1EIHJlbWFwcGluZyBkb21haW5zIHN1
-cHBvcnQgbXVsdGktTVNJLiBUaGUNClZVQVJUcyB3b3JrIGZpbmUgcG9sbGVkOiB0aGUgODI1MCBj
-b3JlIHBvbGxzIGEgcG9ydCB3aXRoIGlycSAwLiBPbiB0aGUNCkFTVVMgYm9hcmQgcG9sbGluZyBt
-YW5hZ2VzIGFib3V0IDIgS0IvcyBhZ2FpbnN0IDE0LjYgS0IvcyB3aXRoIE1TSSwNCndoaWNoIGlz
-IHNsb3cgYnV0IHBsZW50eSBmb3IgYSBjb25zb2xlLiBGYWxsaW5nIGJhY2sgdG8gaXJxIDAgaW5z
-dGVhZA0Kb2YgZmFpbGluZyB3b3VsZCBrZWVwIHRoZSBwb3J0IHVzYWJsZS4NCg0KUmVsYXRlZCwg
-Zm9yIHdoZW4gS0NTIG9yIG1haWxib3ggY2hpbGRyZW4gYXJlIGFkZGVkOiB3aXRoIG11bHRpcGxl
-IE1TSQ0KdmVjdG9ycyB0aGUgZnVuY3Rpb24gaGFzIGEgc2luZ2xlIE1TSSBhZGRyZXNzL2RhdGEs
-IHdoaWNoIGlzIHdyaXR0ZW4NCndoZW4gdmVjdG9yIDAgaXMgYWN0aXZhdGVkIGFuZCBjbGVhcmVk
-IHdoZW4gdmVjdG9yIDAgaXMgc2h1dCBkb3duLg0KU2luY2UgdGhlIDgyNTAgY29yZSBmcmVlcyBh
-IHBvcnQncyBJUlEgb24gY2xvc2UsIGEgY2hpbGQgdGhhdCB1c2VzDQp2ZWN0b3IgMCB3b3VsZCBj
-dXQgb2ZmIGV2ZXJ5IG90aGVyIHZlY3RvciB3aGVuIGl0IHJlbGVhc2VzIGl0LiBOb3RoaW5nDQp1
-c2VzIHZlY3RvciAwIHRvZGF5LCBzbyB0aGlzIGlzIGp1c3Qgc29tZXRoaW5nIHRvIGtlZXAgaW4g
-bWluZCAob3IgYQ0KY29tbWVudCBpbiB0aGUgY29yZSkuDQoNCk9uZSBtb3JlIHRoaW5nIHlvdSBt
-YXkgcnVuIGludG8gd2hlbiB0ZXN0aW5nIHVuYmluZCwgdGhvdWdoIGl0IGlzbid0DQpzcGVjaWZp
-YyB0byBlaXRoZXIgZHJpdmVyOiBpZiBhIFZVQVJUIGlzIHRoZSBjb25zb2xlIGFuZCBub3RoaW5n
-IGhvbGRzDQppdCBvcGVuIHdoZW4gdGhlIHBvcnQgaXMgcmVtb3ZlZCwgc2VyaWFsX2NvcmUgdXNl
-cyBmcmVlZCBtZW1vcnkuIFRoYXQNCnBhbmlja2VkIG15IHRlc3QgaG9zdCB3aGVuIEkgdW5sb2Fk
-ZWQgbXkgZHJpdmVyLiBJIHNlbnQgYSBmaXggZm9yIGl0DQpbM10uDQoNClsxXSBodHRwczovL2xv
-cmUua2VybmVsLm9yZy9yLzhDRDMwMDI2LTRDMDQtNEUwRi1CN0EzLTVDMTA3RDJBODQxMEBwaGls
-LmdzDQpbMl0gaHR0cHM6Ly9naXRodWIuY29tL3BoaWxyb3NlbnRoYWwvYXNwZWVkLXBjaS12dWFy
-dC1ka21zL2Jsb2IvdjIuMS9ka21zLzgyNTBfYXNwZWVkX3BjaS5jDQpbM10gaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvci8yMDI2MTAwOC1zZXJpYWwtY29uc29sZS1yZW1vdmUtdjEtMS0yODhiOWMz
-MTVhZjdAcGhpbC5ncw0KDQpUaGFua3MsDQpQaGlsDQoNCg==
+
+On 10/13/2026 7:22 AM, Thinh Nguyen wrote:
+> On Mon, Oct 12, 2026, Selvarasu Ganesan wrote:
+>> On 10/9/2026 5:57 AM, Thinh Nguyen wrote:
+>>> On Thu, Oct 08, 2026, Selvarasu Ganesan wrote:
+>>>>> The End Transfer command not completing is also a separate issue. I
+>>>>> asked you to check whether the command would eventually complete with
+>>>>> the additional code, and it appears it doesn't.
+>>>>     We have confirmed that the completion event is never seen, once the
+>>>> timeout occurs for end transfer. It appears the command is indeed
+>>>> hanging in the hardware, as you suspected.
+>>>>
+>>>>> Can you provide some more info on your setup:
+>>>>>     * IP and version
+>>>>>     * connected speed
+>>>>>     * endpoint direction (is it always OUT?)
+>>>>>     * Is there any active transfer
+>>>>>     * tracepoints
+>>>> * IP and version : 0xc120:   0x33313130
+>>> and version (0xc1a0)?
+>>
+>> VER_NUMBER = 0x3231302a
+>> VER_TYPE = 0x67612a2a
+>>>> * connected speed : HS mode
+>>>> * endpoint direction (is it always OUT?) : Yes its always OUT
+>>>> * Is there any active transfer : No, There is evidences from the log to
+>>>> say there is a active transfer.
+>>> The host may have sent data that would not appear in the log until
+>>> completion. Are there any active transfer on other endpoints?
+>>
+>> Yes, we can see active transfer on other endpoints.
+> Was there another SETUP packet aborting the ClearFeature(ep_halt) while
+> this is going on?
+We dont see any  evidence from the log to say SETUP packet aborting, 
+anyway we will add a debug logs to confirm this one.
+>
+>>>> * tracepoints: There is no dwc3 traces for this issue as of now due to
+>>>> its low reproduction rate in the customer's setup.
+>>>>
+>>> I think you may need to file a case with our support team and provide
+>>> additional debug info such as scan dump to investigate this further.
+>>
+>> Sure We will file a case,
+>> I agree that the ENDTRANSFER timeout may be a controller level issue
+>> that we can debug separately.  But, there is also a software bug here.
+>> Let see the in the below error case, "dep->resource_index" is reset to
+>> "0" unconditionally, even when the first ENDTRANSFER times out. A
+>> subsequent ENDTRANSFER with resource index "0" may succeed and
+>> incorrectly clear the pending and transfer started flags, making the
+>> driver assume the previous transfer has completed. Since the original
+>> transfer was never properly terminated, the endpoint may not recover,
+>> resulting in a no-resources error on the next STARTTRANSFER.
+>>
+>> Therefore, we need to fix this software state tracking issue
+>> independently of the controller timeout.
+>>
+>> Step 1:
+>> __dwc3_gadget_ep_set_halt(dep, value=0)
+>>    ->dwc3_stop_active_transfer(dep, true, true)
+>>     ->END(e.g, ep2out, resource_index=7) issued, but timeout occurs
+>>      -> resource_index cleared to 0
+>> ->dwc3_send_clear_stall_ep_cmd(dep)
+>>    -> failed to clear STALL on ep2out
+>>
+>>
+>> Step 2:
+>> __dwc3_gadget_ep_set_halt(dep, value=0) ->Re triggered clear stall for
+>> same EP
+>>    -> dwc3_stop_active_transfer(dep, true, true)
+>>      -> END(ep2out, resource_index=0) issued (wrong resource!)
+>>       -> Command succeeds, DWC3_EP_TRANSFER_STARTED cleared in completion
+>> handler
+>>
+>> Step 3:
+>> usb_ep_queue()
+>> -> dwc3_gadget_ep_queue()
+>>    -> __dwc3_gadget_kick_transfer()
+>>     -> starting = !(dep->flags & DWC3_EP_TRANSFER_STARTED) -> starting=0
+>>      -> Issues STARTTRANSFER (because DWC3_EP_TRANSFER_STARTED is not set)
+>>        -> Hardware rejects with NO_RESOURCE (resource 7 still held)
+>>
+>>
+>> We are fine with the following suggestions fix to prevent resource issue
+>> in timeout case,
+>>
+>> diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+>> index 1f973e546219..bac0328423cd 100644
+>> --- a/drivers/usb/dwc3/gadget.c
+>> +++ b/drivers/usb/dwc3/gadget.c
+>> @@ -1819,7 +1819,11 @@ static int __dwc3_stop_active_transfer(struct
+>> dwc3_ep *dep, bool force, bool int
+>>
+>>        dep->resource_index = 0;
+>>
+>> -    if (!interrupt || ret)
+>> +    if (!interrupt || (ret && ret != -ETIMEDOUT))
+>>            dep->flags &= ~DWC3_EP_TRANSFER_STARTED;
+>>        else
+>>            dep->flags |= DWC3_EP_END_TRANSFER_PENDING;
+>> @@ -3895,6 +3899,8 @@ static void
+>> dwc3_gadget_endpoint_command_complete(struct dwc3_ep *dep,
+>>        if (dep->stream_capable)
+>>            dep->flags |= DWC3_EP_IGNORE_NEXT_NOSTREAM;
+>>
+>> +    dep->flags &= ~DWC3_EP_DELAY_STOP;
+>>        dep->flags &= ~DWC3_EP_END_TRANSFER_PENDING;
+>>        dep->flags &= ~DWC3_EP_TRANSFER_STARTED;
+>>        dwc3_gadget_ep_cleanup_cancelled_requests(dep);
+>>
+>>
+>> But regarding below changes in ep_disable that you suggested, is this
+>> really required? It seems this could cause a bug during an endtransfer
+>> timeout, if command completion never happens, the PENDING flag won't be
+>> cleared, making recovery impossible.
+> Yes, it's required. The suggested patch now enables IOC for ep_disable.
+> So we need to track its completion with DWC3_EP_END_TRANSFER_PENDING.
+> This handles the case where the End Transfer completes after ep_disable
+> returns. If the function driver re-enables and queues to the endpoint
+> before then, the driver would issue Start Transfer while the resource is
+> still held. That's the original issue.
+>
+> If the End Transfer never completes, the endpoint is stuck. Clearing the
+> flag doesn't recover it. The dwc3_schedule_err_recovery() is now in
+
+I mean 'not recover here' is the failure to clear the 
+DWC3_EP_END_TRANSFER_PENDING flag upon cable reconnection, caused by a 
+missing command completion from the prior connection.
+
+Sure we can use dwc3_schedule_err_recovery(), and thanks for the suggestion.
+
+> mainline. We can use that as recovery for -ETIMEDOUT.
+>
+> Looking at the recovery function now, we also need to reset the
+> dep->flags on recovery which I missed when reviewing the change. I'll
+> send a patch for this.
+
+Great, Thank you.
+>
+>> @@ -1096,6 +1110,15 @@ static int __dwc3_gadget_ep_disable(struct
+>> dwc3_ep *dep)
+>>         */
+>>        if (dep->flags & DWC3_EP_DELAY_STOP)
+>>            mask |= (DWC3_EP_DELAY_STOP | DWC3_EP_TRANSFER_STARTED);
+>> +
+>> +    /*
+>> +     * The End Transfer command is still in progress.  Do not clear the
+>> +     * flags, so that the ep is only rearmed once the command completes.
+>> +     */
+>> +    if (dep->flags & DWC3_EP_END_TRANSFER_PENDING)
+>> +        mask |= (DWC3_EP_END_TRANSFER_PENDING |
+>> +             DWC3_EP_TRANSFER_STARTED);
+>>
+>>
+>> As you mentioned Clearing the flag (DWC3_EP_END_TRANSFER_PENDING) in
+>> ep_disble only lead to a NO_RESOURCE error later. Yes i agree, but this
+>> can prevent by below new suggestion change, so above changes (do not
+>> clear DWC3_EP_END_TRANSFER_PENDING in ep_disable) is not required.
+> The ep_queue change only covers the giveback window inside ep_disable,
+> not this case.
+agree.
+>
+>> diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c index
+>> ee837235630a..eb6666b7bb98 100644 --- a/drivers/usb/dwc3/gadget.c +++
+>> b/drivers/usb/dwc3/gadget.c @@ -1084,6 +1084,8 @@ static int
+>> __dwc3_gadget_ep_disable(struct dwc3_ep *dep) reg &=
+>> ~DWC3_DALEPENA_EP(dep->number); dwc3_writel(dwc, DWC3_DALEPENA, reg); +
+>> dep->flags &= ~DWC3_EP_ENABLED; + dwc3_remove_requests(dwc, dep,
+>> -ESHUTDOWN); dep->stream_capable = false; @@ -1990,7 +1992,8 @@ static
+>> int __dwc3_gadget_ep_queue(struct dwc3_ep *dep, struct dwc3_request
+>> *req) { struct dwc3 *dwc = dep->dwc; - if (!dep->endpoint.desc ||
+>> !dwc->pullups_connected || !dwc->connected) { + if (!(dep->flags &
+>> DWC3_EP_ENABLED) || !dep->endpoint.desc || + !dwc->pullups_connected ||
+>> !dwc->connected) { dev_dbg(dwc->dev, "%s: can't queue to disabled
+>> endpoint\n", dep->name); return -ESHUTDOWN;
+>>
+> (Can you help fix your mail client? I had to unmangle the diff above to
+> know what it was)
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index ee837235630a..eb6666b7bb98 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -1084,6 +1084,8 @@ static int __dwc3_gadget_ep_disable(struct dwc3_ep 
+*dep)
+      reg &= ~DWC3_DALEPENA_EP(dep->number);
+      dwc3_writel(dwc, DWC3_DALEPENA, reg);
+
++    dep->flags &= ~DWC3_EP_ENABLED;
++
+      dwc3_remove_requests(dwc, dep, -ESHUTDOWN);
+
+      dep->stream_capable = false;
+@@ -1990,7 +1992,8 @@ static int __dwc3_gadget_ep_queue(struct dwc3_ep 
+*dep, struct dwc3_request *req)
+  {
+      struct dwc3        *dwc = dep->dwc;
+
+-    if (!dep->endpoint.desc || !dwc->pullups_connected || 
+!dwc->connected) {
++    if (!(dep->flags & DWC3_EP_ENABLED) || !dep->endpoint.desc ||
++        !dwc->pullups_connected || !dwc->connected) {
+          dev_dbg(dwc->dev, "%s: can't queue to disabled endpoint\n",
+                  dep->name);
+          return -ESHUTDOWN;
+>
+> Thanks,
+> Thinh
