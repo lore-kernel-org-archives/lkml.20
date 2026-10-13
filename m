@@ -1,45 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF45B5226B0;
-	Tue, 13 Oct 2026 13:19:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C59522EF3;
+	Tue, 13 Oct 2026 13:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897561; cv=none; b=DjO3nR/cDQ1h+DNGRrc/ZNqudb3lccBKve81s+P4LBzUdwnn4DCquutQjB8LgGPEwvrEulBajXQ3/mOTHbMoGJeovlDKJMOwgJVvhTBUmSrrBplY5/yNJ6Oyw7kdZZCCGGPL12g1Dg1Xe2pzChBsQ4bw1ptc9TD5VnOlhxdoU0M=
+	t=1791897566; cv=none; b=Gm9op5Lgp6mURschcO/nmwUjk2wOJYTVu3XU/FRYS8ZLyEG1084OvIYLQhz/LtfqfgvBVqYBN+I+0hVMQK0pI3asOCdnZu3leYzCwnP4YpFV6lxPsfRu5ceegD/p4F8HXWW1jJQpca+Y64d1csIPGPxSHvLmS83Tf9jr+sM93mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897561; c=relaxed/simple;
-	bh=Tfk6ASw2D97opGupdPZpGBpVAzT5aih27ZwlLWgqw4s=;
+	s=arc-20240116; t=1791897566; c=relaxed/simple;
+	bh=GEJlmDjet5Wvlg1XrscE3PhMaSO6snNiTUmWty0CtYg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ncR9rIV3tqTvLtcMGncjyCN/jnvYn9IffrXSkM+1o7XKrtjKKa05TioUwPaCiC8YCHs20Nok7yxKV2sq9iuS1Y88UTHcv87/Vyf0n3X4TUhoUBp1H1mS4tIAXpMGpVGyDFccywkQN3BgUloc4BLS3J7V0625I0SIuoLcux3QKlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N1IDWL6s; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bkG9dfb0hRqfVFnrMwwACE4X6c8vL2TcrSFTc7OKxW7e2wyqIq+HO5B9SwhGqBwTcxtqJhWorzKZpbN1g18ZSUhY+yBDVS6nyrn01sfnhC6+4J1whP1u3NfBAmmeja9XeXYNxedJMJQUBEgbajSdtkTsP1Nhv31Q/dP1CJ6WjiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQeWaq97; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N1IDWL6s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21BC91F000FF;
-	Tue, 13 Oct 2026 13:19:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQeWaq97"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 129651F00898;
+	Tue, 13 Oct 2026 13:19:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791897560;
-	bh=wZjqdPGTKoWdtYJbiljXoaPlgWC1g1neL5EXZ4ZgKoo=;
+	s=k20260515; t=1791897565;
+	bh=PGIJKLAd9BQoYJjzJGnQWdvjdffH0nJ8G9xyOPufKZ8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N1IDWL6s+oVpHifCp4DZcbQm7bsIOtyHBt3OW2BkA3d08T76IRpajE5GiMu4M+C3Z
-	 PfMhefQT3IE1nTsSozNr0g03croyVL/Q1C/BQM6OheP4wMu0d3fFlqlaDc67+UomqL
-	 zMW7qVNC5DtsT+Y516kPeGUZx/YH7hpJqpWRHGOfBL208jfhnA2wVczIKhUDKYzCvL
-	 g3EY5OjHle0Q+aqucsc0X8lr4NzLe6aKA/+UKJSS96P8gr2rzPJPyyUcfL2mHGQMAa
-	 2JE4s8REvDUpuk5g45Xcnn72t05C7Fq+LIsDS88uQe9/4gGUa3OUk3OlhVYkGY7eS/
-	 QDJ/3c2zkvAYw==
+	b=MQeWaq97zb1J1HUUCWIduYNXs98Zm2LK/WTQhQlB8bBzlp3nhJh5GbaLtycoqoeyQ
+	 OR7vLs4fKkqcn60adrFNf0jd0zT7HD0VH+80N9Jh9OOfo523mNoG0lLTyEdufohdBj
+	 DUflUwdfDsf/8AkhcEhbV+2QnT2p5Ab3UnUYEfpXFLeABbxwR7l50Co01rXFc4Y5zs
+	 DzN/QbMm1NbgkYJc2JuqqjrmFTuUAFetRbsQa1Pxr7ROu5rxOGAjS4vGJRgDivoQeO
+	 9uo4JzWvn0jieda8TUtW5p8Eh+d64PVVh+y8ND/G8q4pxcv2e0Dd96wBs1ahSHZGoM
+	 K5CSlXR0/wtfA==
 From: Imre Kaloz <kaloz@kernel.org>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 Cc: linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org
-Subject: [PATCH v2 25/53] net: ethernet: sgi: ioc3-eth: apply the DMA attributes only to 64-bit addresses
-Date: Tue, 13 Oct 2026 15:16:45 +0200
-Message-ID: <e50be000dff9fd63e6b1817ecbb3f96aa4f7a941.1791890466.git.kaloz@kernel.org>
+	Lee Jones <lee@kernel.org>
+Subject: [PATCH v2 27/53] MIPS: SGI-IP27: recognize the PXBow crossbar
+Date: Tue, 13 Oct 2026 15:16:47 +0200
+Message-ID: <cc609ef8f5219f19093b5818702d5fd427dc99f2.1791890466.git.kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1791890466.git.kaloz@kernel.org>
 References: <cover.1791890466.git.kaloz@kernel.org>
@@ -51,74 +45,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A Bridge 64-bit direct-mapped DMA address carries the target widget and
-the DMA attributes. An address in a bridge's 2GB 32-bit direct window
-carries neither, so attributes OR-ed onto one form a 64-bit address
-aimed at widget 0, and every receive raises a PCI error.
-
-Apply the attributes, and the RX barrier's upper address bits, only to
-64-bit addresses, so the IOC3 can use the 32-bit window behind an XBridge
-or PIC.
+A Tezro's crossbar is a PXBow, widget part number 0xd100. Without
+recognizing it, xtalk_probe_node() logs the widget as unknown and never
+calls xbow_probe(), leaving every IO widget behind it unenumerated.
 
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- drivers/net/ethernet/sgi/ioc3-eth.c | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+ arch/mips/include/asm/xtalk/xwidget.h | 7 +++++++
+ arch/mips/sgi-ip27/ip27-xtalk.c       | 2 ++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/drivers/net/ethernet/sgi/ioc3-eth.c b/drivers/net/ethernet/sgi/ioc3-eth.c
-index 009f37105eaf..f86dd192a3d3 100644
---- a/drivers/net/ethernet/sgi/ioc3-eth.c
-+++ b/drivers/net/ethernet/sgi/ioc3-eth.c
-@@ -152,19 +152,38 @@ static inline int ioc3_alloc_skb(struct ioc3_private *ip, struct sk_buff **skb,
- }
+diff --git a/arch/mips/include/asm/xtalk/xwidget.h b/arch/mips/include/asm/xtalk/xwidget.h
+index 978877e8a090..6a98e87b4711 100644
+--- a/arch/mips/include/asm/xtalk/xwidget.h
++++ b/arch/mips/include/asm/xtalk/xwidget.h
+@@ -109,6 +109,7 @@
+ #define WIDGET_BDRCK_PART_NUM	0xc110
+ #define WIDGET_TPU_PART_NUM	0xc202
+ #define WIDGET_XXBOW_PART_NUM	0xd000
++#define WIDGET_PXBOW_PART_NUM	0xd100
+ #define WIDGET_XBRDG_PART_NUM	0xd002
+ #define WIDGET_NULL_PART_NUM	-1
  
- #ifdef CONFIG_PCI_XTALK_BRIDGE
-+/* A Bridge 64-bit direct-mapped DMA address carries the target widget in
-+ * bits 63:60 and the DMA attributes below it.  An address in the 32-bit
-+ * direct window, which the IOC3 uses behind an XBridge or PIC, carries
-+ * neither, so attributes OR-ed onto one form a 64-bit address aimed at
-+ * widget 0.
-+ */
- static inline unsigned long ioc3_map(dma_addr_t addr, unsigned long attr)
- {
-+	if (!(addr & PCI64_ATTR_TARG_MASK))
-+		return addr;
-+
- 	return (addr & ~PCI64_ATTR_BAR) | attr;
- }
+@@ -183,6 +184,12 @@ static const struct widget_ident widget_idents[] __initconst __maybe_unused = {
+ 		"xxbow",
+ 		{NULL, "1.0", "2.0", NULL},
+ 	},
++	{
++		WIDGET_XXBOW_MFGR_NUM,
++		WIDGET_PXBOW_PART_NUM,
++		"pxbow",
++		{NULL, "1.0", NULL},
++	},
+ 	{
+ 		WIDGET_XBRDG_MFGR_NUM,
+ 		WIDGET_XBRDG_PART_NUM,
+diff --git a/arch/mips/sgi-ip27/ip27-xtalk.c b/arch/mips/sgi-ip27/ip27-xtalk.c
+index bd2ac24452f5..105977316391 100644
+--- a/arch/mips/sgi-ip27/ip27-xtalk.c
++++ b/arch/mips/sgi-ip27/ip27-xtalk.c
+@@ -21,6 +21,7 @@
  
--#define ERBAR_VAL	(ERBAR_BARRIER_BIT << ERBAR_RXBARR_SHIFT)
-+/* The RX barrier's upper address bits follow the same form. */
-+static inline u32 ioc3_erbar(dma_addr_t addr)
-+{
-+	if (!(addr & PCI64_ATTR_TARG_MASK))
-+		return 0;
-+
-+	return ERBAR_BARRIER_BIT << ERBAR_RXBARR_SHIFT;
-+}
- #else
- static inline unsigned long ioc3_map(dma_addr_t addr, unsigned long attr)
- {
- 	return addr;
- }
+ #define XBOW_WIDGET_PART_NUM	0x0
+ #define XXBOW_WIDGET_PART_NUM	0xd000	/* Xbow in Xbridge */
++#define PXBOW_WIDGET_PART_NUM	0xd100	/* PXbow */
+ #define BASE_XBOW_PORT		8     /* Lowest external port */
  
--#define ERBAR_VAL	0
-+static inline u32 ioc3_erbar(dma_addr_t addr)
-+{
-+	return 0;
-+}
- #endif
- 
- static int ioc3eth_nvmem_match(struct device *dev, const void *data)
-@@ -727,7 +746,7 @@ static void ioc3_init(struct net_device *dev)
- 	readl(&regs->emcr);
- 
- 	/* Misc registers  */
--	writel(ERBAR_VAL, &regs->erbar);
-+	writel(ioc3_erbar(ip->rxr_dma), &regs->erbar);
- 	readl(&regs->etcdc);			/* Clear on read */
- 	writel(15, &regs->ercsr);		/* RX low watermark  */
- 	writel(0, &regs->ertr);			/* Interrupt immediately */
+ enum xtalk_bridge_type {
+@@ -241,6 +242,7 @@ static void xtalk_probe_node(nasid_t nasid)
+ 		break;
+ 	case XBOW_WIDGET_PART_NUM:
+ 	case XXBOW_WIDGET_PART_NUM:
++	case PXBOW_WIDGET_PART_NUM:
+ 		pr_info("xtalk:n%d/0 xbow widget\n", nasid);
+ 		xbow_probe(nasid);
+ 		break;
 -- 
 2.47.3
 
