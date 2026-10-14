@@ -1,63 +1,65 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DDD4DAF9F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD4143CEF8
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976359; cv=none; b=jMU/lu9hXnrnJ4Gbm3xo0PiW8UelLh5qXjpVEZy/qyZQCtIoDQAYxCF0x7IX/GMYOr4f1IJvUJ+qMT9AZ5Ab01SIcs5Q+1A724WRViMon3wD+yIpYSrGBaBw39qQOe/pgyEkXXYBVRewtTHK5KzfzqnqWvHwHeIWN62J+ZnXgJk=
+	t=1791976363; cv=none; b=DkueLoiQqKDI9sGuA1SLZVhl/snHIBcIHjbNz/r/IikcwLXP96N1NkVoYUel1JPGoYQOdgl1RglfykWNJNgdK68iMUWGX3/JlyQ/uPFi5V7MZlwcn+IjVXtSTynpBa5aOsVH+MsJJ8DjklqbVDB96vHw/IH1Uf4Qhw6BtR27DrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976359; c=relaxed/simple;
-	bh=TYCh17IzdfTqL8pvaT+GV1ivRrEDrSwahRIe1yk5/NI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kAxwBcwo9a+gcXGLlxytRy2xyY+9epTclOli/aCPtG7wwa4CT3NbxnlLjswBtU8eue84XClqaXrPk2VUu8lzE3oRU3SG0ErerLLE7P4EBDpUVolWYzw6h1pwRqzfs9MImYZP+6rNqM5KcVe0uQq+m+DT7cQ7nRW6DAVU3DDgzQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kaoyn+U3; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1791976363; c=relaxed/simple;
+	bh=Ggq3Uy/XaqA2vSX4D20ALhGnBHxCMCe5R5neJ3oJ4ng=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KEL/nvnlEEXBI6ZZ43JLFLGHOM7xZyO76yT1eaoTmwSoJj0LKB/iY2avntkCx2NZQhCxmloy62o31lncZ/FWFdOYNqdmx8MJnvWbFs6K5wy5xGI0bJ2tQnmxKpw7vySngWBlq6Lhg3BpwXsigIi6C3PD1jH3pkLfDGB7LadZbj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cF1dbyKp; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kaoyn+U3"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so33306285e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:12:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cF1dbyKp"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-486e8faff03so1720395f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:12:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791976353; x=1792581153; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QsaJRaFTcFa+k4eyPw8A1pPOAH2MrUoTczDBOfy0KPg=;
-        b=kaoyn+U3VqAhl6M8NE2O3U9UjzFHA4ms7eabtMXqpNfbxZu0s5sCfVHqYKdqCkOloU
-         A++s4Lfshd80YQ3ZZ38KihBOGaAMNDmjrWgp7t8f9nl/mBd/fxVVRov85Qy1GEIpiyFc
-         RPbNYHrHbvs2Dm8/O5tSPTqOKJ6QDIdnleoxnpsiu5rVpo0EQtRoPQz1Vbn6nnov86oK
-         hqdU+rfiKkVc3+aCSs+6YWOvQvroGDsj536Xv0/lNxH3z448TeJiCwXPvHwZKKsHgJ9q
-         p1sSVXNg0j61AFplg8yrYyLrA67YWQF8gAMgYDukWx3j8IwCSqYBQbS0EK2r9t+shuBZ
-         yhHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791976353; x=1792581153;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791976356; x=1792581156; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QsaJRaFTcFa+k4eyPw8A1pPOAH2MrUoTczDBOfy0KPg=;
-        b=CpxIXGSvnBL2bfAUUzNsMD6LZ01Nz64Tqw2yLkS/eSBY9y6P7bPil4Im8FyFMtt40O
-         Rat8aa7lYG6jsEpS6vBF+YvYw8/8euPl84YONF9CeumJa6BjhbTpSqtmt31cmaRUnyFd
-         x9OIPyDSkNvHEgzAQU+zT9RxFZ/Znv6PcbGUyq8vNxvsFoNPEmS5WAbbau2PwkLk6rII
-         5+mAjh635hJfZBSAijTQ8GA3+o4zYJML8joSOXqUgufqg1b5MP4gdIlUHmEbnqOJM4+w
-         FWSNUbc6QhdgW5UnBoe7d2X3I5MbPFmqiMnpbxv9vzSmpQ0eAq2OZ8bhXLtw/ocMgETh
-         nY5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwQQnF03KaBA+kebkzjFdRWqBY5xQYKB36T6kIkztBrBXQvZ2PWZmP3ef8j+BRKc+r2x4i1kbFZBQYe4+o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKGmTiJOx+3V88HqIU5CN+TxRA7T5uVgeK7Y2AXt1EOv/SsR1h
-	/yYkxbSjo8YHMEyJj545lj3QpqYSiffYKcEXwN7774iI0ARg6wXHgZEP
-X-Gm-Gg: AYBFou2gY0854mIbqHpiNdeGsEEB2kJEOtm5QOwtQMEWlP4289PRxPrvZbAE0NcPPd1
-	7W7Whp9w5F1BMs9ycX3CLfwXwwpOx5PWt8wrkdYGMkCZBw3hqHycN/yqgh7dQn0J5VMZvfLZLWo
-	6VAAh6ghrqtX6vUNHVhuNoYY64plJPKGzTBFqeZKXXNW4na2okHpQtmUeGWNSh+iEy4TRWOiTJO
-	VEhc+lWdUn6+6fR/Zpn4LdX534+2nmgf+Ls/XGG45TYpoLETT24rY/W9xXgWzntY1iobKBlL9As
-	PeUekA3IuGDj7ed8aYKUitOq7O2nXfN13DR3G+W3VPl1n7VpOh/an87dZTHNYEZtJ6a1UXaD2fT
-	1RHg47fHreRPScMuWaZ9a9OBJLuDdhRUEbl8NfN0kkNbKWVpLIQ4cVmLxai1uzwwpduMQw8SxJH
-	v7rt+SQ1e0MiGUJg8zKefu2lGlzixHBoMOdltAMe3GZ2Lq7wi6alzNV1ymCtUXVk+0oBPeKv9N6
-	SGNb4FV+cYOcEIcLMlcHA==
-X-Received: by 2002:a05:600c:6990:b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4a18e49c43bmr309909955e9.6.1791976353342;
-        Wed, 14 Oct 2026 04:12:33 -0700 (PDT)
+        bh=Ql/VTrEuXaadEBjKgJVl5o63RIe6hsZ90eJUJtNqjG0=;
+        b=cF1dbyKpE7rVMk3hNjMCqvS1sfYpg9hcEf8a5ovCYar+UzD+KSH+8kS5lnVN/ITICT
+         u+Kt60tLUCu6xseIFPW5b3YHO+/cu3snfA2vqaZML7D4ztR7BEYZts24liXCL3kLkyB7
+         xo3PMPDqZHZAjZNHdNpHw6AeG3saDjtqYszORkLEXT7LGTxt5NJHh/kuyAr3bBtz8btT
+         4X7vC15/1ukp/tM2VYPJ6Nqr8zVFVuTS/4pJjtDCqmZ9bBlf0Z8VE3IV6Hj50cnYGQIq
+         DL/HPzdklCh9Nf7xjT+rdDvOuSHiEGd52pH6PJtqbCT+6t5+7Sj6jkxqyDPfcUiuUMY5
+         ZUFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791976356; x=1792581156;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ql/VTrEuXaadEBjKgJVl5o63RIe6hsZ90eJUJtNqjG0=;
+        b=riFf5vr/sgIRhZkbGUtH0ggZWHjUX/lgp9JrEwREYuzS0LUbExdKIFwhUe+zcOwh23
+         NON8H+Om4SHf6TlBqNo1a9uz+P84rBBlHXEnfi8SxLwUga3MCFKwu12QpHHh4lh/vnlj
+         pG1ARwhKhVfXcurbP+C2zfMA2ybswhFmATfs4EaJ+Ptndo8FctDPLOLAXo//puwkzc2F
+         QdC4XLTSrCNgnmE+eZToapOuQ3mPUaNB6kS/LIl6M3ha3BsvjKk7EDD0si1hu8K7Eddi
+         Q1pzli8F6Y2Bzt9WDOzMm9CA/umq3e/dJbamSkv0r/I60swNeZsyQBWuPf6H2DzdOaPq
+         3rnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz9UdNqlTt0TSVNgqBPN2SN5BnuCKdWg77L05HIdiSTEVF4rw5y4+9h96b5O/fSH4lWccgiXzdzm6//CRY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdzSd9ZRZbwE6JqOhY29M99fT3HaobBHKwXbaVei5kzJIR4gZw
+	bm+/EBMHXENRG2xDw2YaroqTlndiJUi0v6SEAoopYLHVZgS+6OZir3vK
+X-Gm-Gg: AYBFou347TmZTfdkKbkLOh0Vy+v2jKAFhVJpJUoAULR8MhVCDn9/hAmUiUWScklOs1e
+	lIiwbkwN+GITZgdu3pz9co4snDBEinOGodrlADk4/DDE9PmNMq72s5APfpufv+kLa1dB/0KkXFm
+	SDEJXUHvGcR/9Y7qC3TaE2svlm30Yfi4N6wwD/R570TtRqGtopVTebbyJ6O5WiodzH3I21nV+Yw
+	u0sFcdYJKuSHdhjv270r+TtD4d9jbQJ+PdQghxs3+ER9ZS48/UmeCiUKdI0gd+qHZSNpCyEhzQ+
+	LTCCypQu2EsQ2I6qorryY/xRvU8+dRjwy4ywv9C14iaaX8iM7GpkZNNwBOG6p/4+tiqCkTP41vx
+	cxL99r5BfEnfSmQiqC9R2wGG77QAOy2gSww9e8iG5uxxvXe8yo8guxrfOIku4My9N6da5e/cneU
+	1nLEOALaUurfqoRomQMNhp/LUqytEDElAggiDxNa9gMLDJR9M7nyh/srVGZSyjrVBWMNDSjqSXf
+	7R3DgGTVKA5IYRs5/9RZA==
+X-Received: by 2002:a05:6000:400e:b0:48d:ea67:79d4 with SMTP id ffacd0b85a97d-48dea677b9amr2949917f8f.53.1791976355895;
+        Wed, 14 Oct 2026 04:12:35 -0700 (PDT)
 Received: from ubuntu-4gb-nbg1-1.. ([2a01:4f8:1c19:b0ad::1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48deeadc0b5sm1846481f8f.6.2026.10.14.04.12.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48deeadc0b5sm1846481f8f.6.2026.10.14.04.12.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 04:12:32 -0700 (PDT)
+        Wed, 14 Oct 2026 04:12:35 -0700 (PDT)
 From: =?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
 To: Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -68,10 +70,12 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
-Subject: [PATCH v2 0/4] media: atomisp: remove the circbuf library
-Date: Wed, 14 Oct 2026 11:12:09 +0000
-Message-ID: <20261014111213.1967452-1-vladurares@gmail.com>
+Subject: [PATCH v2 3/4] media: atomisp: queue: move circbuf types and helpers to queue_comm.h
+Date: Wed, 14 Oct 2026 11:12:12 +0000
+Message-ID: <20261014111213.1967452-4-vladurares@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261014111213.1967452-1-vladurares@gmail.com>
+References: <20261014111213.1967452-1-vladurares@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,65 +85,220 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Thanks to Andy for suggesting, in review of my earlier typedef
-patch [1], that I look at converting the custom circbuf code to
-circ_buf or kfifo, and for reviewing v1.
+The remote queue code only needs the circbuf descriptor and element
+layouts plus five small descriptor helpers from the circbuf library.
+Move them into ia_css_queue_comm.h and include that header instead of
+the circbuf ones.
 
-While looking into it, I found that the circbuf API is only used by
-the local queue path, and ia_css_queue_local_init() has no callers,
-so as far as I can tell that path is unused. The remote queues only
-need the descriptor and element layout shared with the SP firmware
-and a few small helpers.
+The descriptor and element layouts are shared with the SP firmware and
+are moved unchanged, including their static_asserts.
 
-So this series removes the unused local path, together with the queue
-type that no longer seems to serve a purpose, moves the few remaining
-pieces into ia_css_queue_comm.h and drops base/circbuf/. I may well be
-missing something, so please let me know if a different approach
-would be better and I will rework it.
+While at it, drop the OP___assert() NULL checks from the moved helpers,
+as every caller passes the address of a local variable, and convert the
+moved code to the kernel u8/u32 types and the usual function
+declaration style.
 
-Compile-tested only.
-
-This supersedes the typedef patch [1].
-
-Changes in v2:
-- Patch 1: keep the includes ordered by name, as Andy suggested
-- Patch 2: also remove IA_CSS_QUEUE_TYPE_REMOTE, the type field and
-  the type checks, as Andy suggested. I tried to describe in the
-  commit message how the queue handles are initialized and why
-  struct ia_css_queue looks host-only, so that its size change on
-  64-bit should not matter. Corrections are very welcome.
-- Patch 3: use u8/u32 and the usual function declaration style in
-  the moved code, as Andy suggested
-- Patch 4: add Andy's Reviewed-by, thanks!
-
-v1: https://lore.kernel.org/all/20261012230754.1914517-1-vladurares@gmail.com/
-
-[1] https://lore.kernel.org/all/20260918214132.1135549-1-vladurares@gmail.com/
-
-Rareș-Mihai Vladu (4):
-  media: atomisp: sh_css_mipi: include assert_support.h directly
-  media: atomisp: queue: remove unused local queue support
-  media: atomisp: queue: move circbuf types and helpers to queue_comm.h
-  media: atomisp: remove unused circbuf library
-
- drivers/staging/media/atomisp/Makefile        |   2 -
- .../base/circbuf/interface/ia_css_circbuf.h   | 363 ---------------
- .../circbuf/interface/ia_css_circbuf_comm.h   |  56 ---
- .../circbuf/interface/ia_css_circbuf_desc.h   | 160 -------
- .../atomisp/pci/base/circbuf/src/circbuf.c    | 312 -------------
- .../runtime/queue/interface/ia_css_queue.h    |  29 --
- .../queue/interface/ia_css_queue_comm.h       | 135 +++++-
- .../atomisp/pci/runtime/queue/src/queue.c     | 413 ++++++------------
+Signed-off-by: Rareș-Mihai Vladu <vladurares@gmail.com>
+---
+ .../queue/interface/ia_css_queue_comm.h       | 130 +++++++++++++++++-
+ .../atomisp/pci/runtime/queue/src/queue.c     |   2 -
  .../pci/runtime/queue/src/queue_access.c      |   1 -
- .../pci/runtime/queue/src/queue_access.h      |   3 -
+ .../pci/runtime/queue/src/queue_access.h      |   1 -
  .../media/atomisp/pci/sh_css_internal.h       |   2 +-
- .../staging/media/atomisp/pci/sh_css_mipi.c   |   1 +
- 12 files changed, 270 insertions(+), 1207 deletions(-)
- delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf.h
- delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_comm.h
- delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_desc.h
- delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/src/circbuf.c
+ 5 files changed, 130 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue_comm.h b/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue_comm.h
+index 7cd788e2b16bd..8323347bea6b4 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue_comm.h
++++ b/drivers/staging/media/atomisp/pci/runtime/queue/interface/ia_css_queue_comm.h
+@@ -7,8 +7,136 @@
+ #ifndef __IA_CSS_QUEUE_COMM_H
+ #define __IA_CSS_QUEUE_COMM_H
+ 
++#include <linux/build_bug.h>
++#include <linux/types.h>
++
+ #include "type_support.h"
+-#include "ia_css_circbuf.h"
++
++/****************************************************************
++ *
++ * Portable Data structures
++ *
++ ****************************************************************/
++/*
++ * @brief Data structure for the circular descriptor.
++ */
++typedef struct ia_css_circbuf_desc_s ia_css_circbuf_desc_t;
++struct ia_css_circbuf_desc_s {
++	u8 size;	/* the maximum number of elements*/
++	u8 step;   /* number of bytes per element */
++	u8 start;	/* index of the oldest element */
++	u8 end;	/* index at which to write the new element */
++};
++
++#define SIZE_OF_IA_CSS_CIRCBUF_DESC_S_STRUCT	(4 * sizeof(u8))
++
++static_assert(sizeof(struct ia_css_circbuf_desc_s) == SIZE_OF_IA_CSS_CIRCBUF_DESC_S_STRUCT);
++
++/*
++ * @brief Data structure for the circular buffer element.
++ */
++typedef struct ia_css_circbuf_elem_s ia_css_circbuf_elem_t;
++struct ia_css_circbuf_elem_s {
++	u32 val;	/* the value stored in the element */
++};
++
++#define SIZE_OF_IA_CSS_CIRCBUF_ELEM_S_STRUCT	(sizeof(u32))
++
++static_assert(sizeof(struct ia_css_circbuf_elem_s) == SIZE_OF_IA_CSS_CIRCBUF_ELEM_S_STRUCT);
++
++/****************************************************************
++ *
++ * Inline functions.
++ *
++ ****************************************************************/
++/*
++ * @brief Test if the circular buffer is empty.
++ *
++ * @param cb_desc The pointer to the circular buffer descriptor.
++ *
++ * @return
++ *	- true when it is empty.
++ *	- false when it is not empty.
++ */
++static inline bool ia_css_circbuf_desc_is_empty(ia_css_circbuf_desc_t *cb_desc)
++{
++	return (cb_desc->end == cb_desc->start);
++}
++
++/*
++ * @brief Test if the circular buffer descriptor is full.
++ *
++ * @param cb_desc	The pointer to the circular buffer
++ *			descriptor.
++ *
++ * @return
++ *	- true when it is full.
++ *	- false when it is not full.
++ */
++static inline bool ia_css_circbuf_desc_is_full(ia_css_circbuf_desc_t *cb_desc)
++{
++	return ((cb_desc->end + 1) % cb_desc->size) == cb_desc->start;
++}
++
++/*
++ * @brief Get the offset between two positions in the circular buffer
++ * descriptor.
++ * Get the offset from the source position to the terminal position,
++ * along the direction in which the new elements come in.
++ *
++ * @param cb_desc	The pointer to the circular buffer descriptor.
++ * @param src_pos	The source position.
++ * @param dest_pos	The terminal position.
++ *
++ * @return the offset.
++ */
++static inline int ia_css_circbuf_desc_get_offset(ia_css_circbuf_desc_t *cb_desc,
++						 u32 src_pos, u32 dest_pos)
++{
++	int offset;
++
++	offset = (int)(dest_pos - src_pos);
++	offset += (offset < 0) ? cb_desc->size : 0;
++
++	return offset;
++}
++
++/*
++ * @brief Get the number of available elements.
++ *
++ * @param cb_desc The pointer to the circular buffer.
++ *
++ * @return The number of available elements.
++ */
++static inline u32 ia_css_circbuf_desc_get_num_elems(ia_css_circbuf_desc_t *cb_desc)
++{
++	int num;
++
++	num = ia_css_circbuf_desc_get_offset(cb_desc,
++					     cb_desc->start,
++					     cb_desc->end);
++
++	return (u32)num;
++}
++
++/*
++ * @brief Get the number of free elements.
++ *
++ * @param cb_desc The pointer to the circular buffer descriptor.
++ *
++ * @return: The number of free elements.
++ */
++static inline u32 ia_css_circbuf_desc_get_free_elems(ia_css_circbuf_desc_t *cb_desc)
++{
++	u32 num;
++
++	num = ia_css_circbuf_desc_get_offset(cb_desc,
++					     cb_desc->start,
++					     cb_desc->end);
++
++	return (cb_desc->size - num);
++}
++
+ /*****************************************************************************
+  * Queue Public Data Structures
+  *****************************************************************************/
+diff --git a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue.c b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue.c
+index d3818fe8be364..79a67b3c614eb 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue.c
++++ b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue.c
+@@ -6,8 +6,6 @@
+ 
+ #include "ia_css_queue.h"
+ #include <math_support.h>
+-#include <ia_css_circbuf.h>
+-#include <ia_css_circbuf_desc.h>
+ #include "queue_access.h"
+ 
+ /*****************************************************************************
+diff --git a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.c b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.c
+index 2591d157870ce..65835420a13c0 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.c
++++ b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.c
+@@ -8,7 +8,6 @@
+ 
+ #include "type_support.h"
+ #include "queue_access.h"
+-#include "ia_css_circbuf.h"
+ #include "sp.h"
+ #include "assert_support.h"
+ 
+diff --git a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.h b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.h
+index 776c6d6cb1fcc..93dae469cff9a 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.h
++++ b/drivers/staging/media/atomisp/pci/runtime/queue/src/queue_access.h
+@@ -11,7 +11,6 @@
+ 
+ #include <type_support.h>
+ #include <ia_css_queue_comm.h>
+-#include <ia_css_circbuf.h>
+ 
+ #define QUEUE_IGNORE_START_FLAG	0x0001
+ #define QUEUE_IGNORE_END_FLAG	0x0002
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_internal.h b/drivers/staging/media/atomisp/pci/sh_css_internal.h
+index ec68c16d42722..f08f918b361c4 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_internal.h
++++ b/drivers/staging/media/atomisp/pci/sh_css_internal.h
+@@ -29,7 +29,7 @@
+ #include "sh_css_defs.h"
+ #include "sh_css_uds.h"
+ #include "dma.h"	/* N_DMA_CHANNEL_ID */
+-#include "ia_css_circbuf_comm.h" /* Circular buffer */
++#include "ia_css_queue_comm.h"
+ #include "ia_css_frame_comm.h"
+ #include "ia_css_3a.h"
+ #include "ia_css_dvs.h"
 -- 
 2.43.0
 
