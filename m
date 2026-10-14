@@ -1,230 +1,178 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013057.outbound.protection.outlook.com [40.93.201.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71604854E4;
-	Wed, 14 Oct 2026 07:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962834; cv=none; b=P0JbzB5LDvNqvmTcThnfVUYVTzAa9YGIDruW2sPhOOOZdQmQNSC/TX7luUbfqLOOOzxqu0hmYuXnnysBzAV9Z2Z9gIX/Nu+5MG24bEMuhPqlk9KgrZiIhyHZv3wqHaoDgBEthyMcgm9bX25XGPPhg09l4/MmLSC6dlWijt9pb0k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962834; c=relaxed/simple;
-	bh=VNdKw7Tr+gHOk5b2dkxEQFA5QvY5C8fiERLM/lPOnm8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gRtHlGTiuq7md5hyC1D5yMTi+n9ZHbfuippy76W0Va4g8XcmEuyIBkM9B8h1A4V8lTJJHnFSP675jjVZTpu9ool0KBaUyRVHzO/HRb6QU3qU+nWn9JqDrk4AdKu3C3rKEjrKRnxBpNUiYKcokL6H1b7zkB3+LiGhze9QKyKngoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CGZtOtFS; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05770357D00;
+	Wed, 14 Oct 2026 07:27:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791962845; cv=fail; b=oSkzjmdmqtjy7OXZlfUXU3/fmY0cQTegOEDFmf7HiWklTB80pWKgGyavElcq+orjb93FpDo7rKeb21fh+oIMN3LnQ6XdAVMBCsFTdeWyosph+PY/be1To9jLnY+K5Tf/ZW1HK8bbM2e/NVfP00UO2WAi8glDS+cxOZLcM02AWrk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791962845; c=relaxed/simple;
+	bh=ypZoc0zV36IIrWct9JnEEFxuiShufMU5tH90WdO30/I=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=l3763q76szB+sgkSocJ0BPXCNErK38L6lSyMSl23aZ2Lecvpt2WKbuAHnZyNuQ8PDUbPRq4ICl2iQ1L4SpIVybEe4WLH3522/65XjFNqvFNVnQEujD7iWyH5uZbvAbiMzIHLFSOJ0+iwqicR8A7M3fXeKhAVsYsWrvVwmLKDpJE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NUv9Oh+F; arc=fail smtp.client-ip=40.93.201.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CGZtOtFS"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DM4RNL726375;
-	Wed, 14 Oct 2026 07:27:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=mhK2+v
-	/HKN2wUAag47Lc2U5d7R2bTONbO8h87fG4EzM=; b=CGZtOtFSSgLDuK5k5Q/Ctp
-	hOzRq23ogPAb1TgjoLf9sIJqUXK58M4usf2hLBCw8OMY32kuBA7WeKqEtTH7sLE7
-	rhnES2ewk6CxQ3V4L96NW78LhpU2QMbI+FsI+XAooRHRv099lI5GUqWwOSPrIwmb
-	4CQPXuCUkEL9Ax3CdJRyAPFlh3DKnJG4ktIC0tYW0UZmm20mURZ8LAbyVZqxnjKe
-	aS1c9vTuocB6FgVGSNvJiu6exmRcfxy2lrelBxLbirnuNVuFPNryGZpyvz99A+CB
-	dtipzZ8sBJ9X5CNaq9dhHesubJeNYnb1+qk5E724zQac+j76Cl1x9wYVsjWpy6Ug
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv0jh7b-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 07:27:05 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69E6Bqch3943945;
-	Wed, 14 Oct 2026 07:27:04 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9ypq14wn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 07:27:04 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69E7R0Wo16646436
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 14 Oct 2026 07:27:00 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AC8D32004B;
-	Wed, 14 Oct 2026 07:27:00 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F0DA920040;
-	Wed, 14 Oct 2026 07:26:59 +0000 (GMT)
-Received: from [9.111.50.64] (unknown [9.111.50.64])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 14 Oct 2026 07:26:59 +0000 (GMT)
-Message-ID: <ebed4ad46283c7b34679a040b72ba3ba873dd606.camel@linux.ibm.com>
-Subject: Re: [PATCH v9 2/4] s390/pci: Reuse FMB buffer and preserve state in
- device re-enablement
-From: Gerd Bayer <gbayer@linux.ibm.com>
-To: Omar Elghoul <oelghoul@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        schnelle@linux.ibm.com, Halil Pasic <pasic@linux.ibm.com>
-Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        borntraeger@linux.ibm.com, svens@linux.ibm.com, mjrosato@linux.ibm.com,
-        alifm@linux.ibm.com, farman@linux.ibm.com, alex@shazbot.org,
-        frankja@linux.ibm.com, imbrenda@linux.ibm.com,
-        Gerd Bayer
- <gbayer@linux.ibm.com>
-Date: Wed, 14 Oct 2026 09:27:21 +0200
-In-Reply-To: <4d6b3e6c-c1af-4a1f-9a8b-4266f386a299@linux.ibm.com>
-References: <20261007135926.82935-1-oelghoul@linux.ibm.com>
-	 <20261007135926.82935-3-oelghoul@linux.ibm.com>
-	 <722e46379f3e7825ac1d40805ae67d236fcc6867.camel@linux.ibm.com>
-	 <4d6b3e6c-c1af-4a1f-9a8b-4266f386a299@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NUv9Oh+F"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z7Oo4iB1buUrpI8p30uPOMmFTATG+2/J5YK6OqWSwZy6Sz2HphuYppNeY2rr//A6kidZ5+BuAzj0+gmSgIGkjmBEFdKNjH+T0iXL7OOXn/CGrgIqLkhD8PS3h8kXfqK00UqSzqfJtXA2pOlEQfMyL+NhW3aftU1Kdmx6eYBJUlQzpSreJwlYB3tfXKiWBzcLwuz+VopOnyokS/5rHF8ZI9KUfW/ViLExLHZbskQRTgWt4EBfi2ty2OrvERL2w8ZIRDDWOX7cW4IVmX9DiYjG7WeTb6l7z5Hdgkot4YkdWcrgQ829YmXRl0EVmdWm/MNEU573ERIo60OaZILcC19htA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jiBjNir8LzebezuuulyaoPeEnhBTesROLfDD3uvXU4s=;
+ b=LFDUX+9YJyYBK4UnVBnQuckE6mU1xR8P5ZVRtyqBx5Io1jBy7EFO73CRbnfknHz+floMt77Hv6pwrSRNEiz5NBTu3SyQiDwzDDDTQUeBBVVriUgYy83pvzG5JM4swn0iEZT+UBn9FX/Uuk8RN0U/64i9H+fBOu+8eOfc4GAcI/fYV6p2+zRrzgW4MLmAizfL/Wk6WwBnhpxzk5q8ArAoFETF/+u9H+A45bzH63tJJaMXHX95Z6ckMcMavbegQlNCObJNbmloP226PHnIu2KBn/ltcX2GZSWZ2OHQl4d353MdqP34VqXjsgurID74uojaLPRrQJxflG1TnMryF9YRnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jiBjNir8LzebezuuulyaoPeEnhBTesROLfDD3uvXU4s=;
+ b=NUv9Oh+FkLVd1WzZ4Sc1QzfvVPBVJLnlA3AhKBkD/m9rDr6ubiulelrJB0Ta/Cv1uDpL69KsUC9JEjb50sEIR5ORgwQrJoDkohpLjv2vkxsb+oMFJjOFfS8yCKfqm91n/8uuzA1BZLcQAtjZJqlGzUQtgSynXwAplDzwEfFigfuNnpm+HmfW6VBZ9RjbfRKl/00UJc7Z3RR7G6n93gG2AVkxrPTeuwikUbCCc37TaENEc8vdVKdsZpcRtZvA4yYKjEvTYywskHkJ5AWFVQS+GM2tZZP+lB21q4bnFolVoKapoDQ+uf/vQCnfR1pyRvtBtoDT/4PNpDlTPTtLrOipgQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SAVPR12MB999143.namprd12.prod.outlook.com
+ (2603:10b6:806:4e5::21) by MN0PR12MB6245.namprd12.prod.outlook.com
+ (2603:10b6:208:3c3::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 07:27:09 +0000
+Received: from SAVPR12MB999143.namprd12.prod.outlook.com
+ ([fe80::219e:6553:2ec0:3761]) by SAVPR12MB999143.namprd12.prod.outlook.com
+ ([fe80::219e:6553:2ec0:3761%4]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
+ 07:27:08 +0000
+Message-ID: <416d383d-bbc7-40d7-b2f3-7a971ba648c6@nvidia.com>
+Date: Wed, 14 Oct 2026 15:26:58 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/mlx5: Attach late uplink netdev to loaded
+ representors
+To: Paolo Abeni <pabeni@redhat.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org
+Cc: Cosmin Ratiu <cratiu@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
+ Gal Pressman <gal@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jiri Pirko <jiri@resnulli.us>, Leon Romanovsky <leon@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, linux-rdma@vger.kernel.org,
+ Mark Bloch <mbloch@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
+ Shay Drori <shayd@nvidia.com>
+References: <20261006110219.257714-1-tariqt@nvidia.com>
+ <6bd52b02-e701-4589-824b-87c1475bc4cf@redhat.com>
+Content-Language: en-US
+From: Jianbo Liu <jianbol@nvidia.com>
+In-Reply-To: <6bd52b02-e701-4589-824b-87c1475bc4cf@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SG2PR02CA0130.apcprd02.prod.outlook.com
+ (2603:1096:4:188::8) To SAVPR12MB999143.namprd12.prod.outlook.com
+ (2603:10b6:806:4e5::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAyOCBTYWx0ZWRfXykFU3Vx8zDdI
- v3FW78z+fazMWaVeDmHkifa4pfAdonZW+6e9PSFiaoRU/cIJPP/6kZooa2yAzBjmOH2WiSzBkh3
- byqRoNgWhGBU4oJN/z/gcOPCZqGdwjihCvXtb0w6hQn8Nkbt8GQbSuVFRw8U3vlpyOdH4DMgjFc
- 9kALaTWhugSjtyLvaQ2goFbmjTFBTX9rswMKfu3Gzpfg622CFJ+cC8J+royxVcgtw7Mq6EzSJLm
- rb95nMCVqf9eaWVF4QoXOrEL74f55ALhSlTVO0mxVrEd5FEpENne3RzkZigyn+GUgzELOGw19JZ
- 8tX69msRZoyIMCVpiaeLoZcEFzQX3MKszxiZ+Cs+Bm9gcXS4L4vjLBrKecmRBSUx6Jhc2jdv7OX
- xV4DwYeKOp/3oHQ6iMexWR5iyeYJ85Mns57ETya3zReBIUBnltlAp3tyJFsdHRFElCga7Ahd4jR
- mE10J1raSu06Ug8xPWA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAyOCBTYWx0ZWRfX/FWsNb2fFmLq
- CgqVsUCriMTspbVYzgafwvwG3xOa9ctRZuwx9OSQpyzVJ4izo61hyofma6FGMEqqfGbD8yXqVlT
- N1xThGQuP8YKuCwN4u36lYTBP/FCLSE=
-X-Proofpoint-ORIG-GUID: VcYWyFREazaWZPqL61M3zp21nY0oIti_
-X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6acf2ec9 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=7Tqclk04O1Zh919NLqsA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: VcYWyFREazaWZPqL61M3zp21nY0oIti_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140028
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SAVPR12MB999143:EE_|MN0PR12MB6245:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6327e79-986a-4483-b101-08df29c48e19
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|56012099006|11063799006|5023799004|4143699003|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	kNIJ6xnyflYV+nwn3PMURu8ssSi7He8ru6C4OYAkUMl+pyCvBkNk89gIeDUSgM3ufQwjage2vxCPw8qdAD4bdeti3MCilb0ZT5NMHJiItnkSj00wUL8BNVNW+/4vB64196NYsMfGlrbqXIZb4hpYcbnlchehXRhDZVJFkrvlN9rB5xNlFhJevJ96t+Btl+2F11nCDS+gUqGVe5JFDC8cQqLtQOuDIviUAyh57rlOiZz/FCu0qMk4/+708sQF7xo0P94SVrHrY9zuTVmwOpjbwL6p6K49XAtl+dlVb/+f/nUhxo7P7W5oMia+d6kCJPoKuceRjkTbd9jE/7ezoVIXwZiixrks1gbrViu1XufJipI1kNhDx1iHfXsomrVjf42WvxSsSFXTtESEm2+g/dSV9JEOMC+1FN1a2SM2Wzby/H2W9AD7Bo7bHmMEYlUwtdO91jBaN44LHVxsxF5xIkt3xuLJ2YoD4WAzKAJsOAhXpY7mhcpektQH4nOEnfbfBh/s/3ELnl0Cs9dkWr8SK2RHfYZnn2y2+Gw5zBpz/jEl0KbmAjNRY+9kcfirzQa3S1WOHxiCu0DGqwI5Kg9Qhqh+lX8csI3GA8pp5+r3gFxP1ycKoqqlHkCMcdxBQVDF1zCkwXe0pLH0xQNmtZPVY7rdl8pfO7mwPjBsJAMFGO51faI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SAVPR12MB999143.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(56012099006)(11063799006)(5023799004)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VEoyeTdjaGV5NU5QZzA5cDNCbzROM3ZxeVJZRjd6NUNxdHVycUovVWVJVTRh?=
+ =?utf-8?B?cXNPSktObmJQMnhBWXFvdUpvcTl0cEFCeXpTVXU0dStZYTVEV2tjZVB6SVF2?=
+ =?utf-8?B?RjRGa3hoSkVWaWdINlA3Y1EycHpIZHRYY3VCdmwzZFlMSk95TEhLaEoxSGkx?=
+ =?utf-8?B?R1NqVU5PdUpWbmpSb0J4MEdydllFMWkzbGEzZ2IwYURhcmhNejhNNnpTeDBS?=
+ =?utf-8?B?YXlPYmk3VWgvS3QrbDJ4T20xZjA1T1VVL0p4dXl2NkZTZzlJK2EzYXU5Y1Vr?=
+ =?utf-8?B?SkRyMkN1UTJvY0RYWkpIMnRyTHN6bnhwWmtMN0plSWtZY0czQm9ERXZGREV5?=
+ =?utf-8?B?bXd5S1FkUjF1WFNzZ1NZM3Y1WXZ3aVlDY05OemVuclJHbkl1Q01aMGEyc2p0?=
+ =?utf-8?B?bEl2TXFFclY1aGFYNllWM3Z5cjV6L3U0bUNyTGxORTh3UVZtWE1WVGRsNVY0?=
+ =?utf-8?B?SzZ3NXZTZ3RUYWZHdStUVjJaRDh6TzRCZGR4Q2UzR0xiTm5yVnZFdkNZUC9Y?=
+ =?utf-8?B?VnZqTnplU1YrS2RBUDIyVmxKTDhMakV2SE5UK2ZnR3dJa1BRZVV2Wkg2R05U?=
+ =?utf-8?B?SkZ2SG41eEFabVFKVUsxU2M5K2JwR0lrRlhuZWdtWVpEY2FqbDJ3T0ptM294?=
+ =?utf-8?B?aDJNNHR0NVBaN0M0aE9pK0FpcVZyWVVOSzBuWlpGa1VKNUV6RGV3ME1BbUlJ?=
+ =?utf-8?B?M2daU0V2RHpJaWM5emRpSm81UmZuZDJMSU1qSkZkQjJ0STkvakdodEZEN243?=
+ =?utf-8?B?Z0s0bEp4SG5rb1E3ZmE5ejJoVnVRdjNsMVI0MitydFdKSkpSRVpGQ29CV2RF?=
+ =?utf-8?B?TjUxdHFjWGtOaFNDTHlYaGRhQ0Q4aE9aenpGRExINzA0UEJHZFFtS2Zsa3du?=
+ =?utf-8?B?enR2ZjROTGs0VUx6dWZTOTJMUGxGYVVGRGs0UFlZVlZYc0wvOU1nWmd3clBp?=
+ =?utf-8?B?QUpJZVRBc09GejFUQUY0T1NJL1ljd0VYaTRXMmgxUEJJQ3lNMktWTG5GeEVo?=
+ =?utf-8?B?S2l3MzB6S2diOWhkWW9ZYzVEd3FOQlJ5a2NTZ0I1bU9EbkhBeTBSYjU2b2VD?=
+ =?utf-8?B?WmhNdnFXM1o2LzFPMFI1cm9zamEzRWtPcUptTTNjNFdmT1lHRTlrbU1LVjBz?=
+ =?utf-8?B?aWQ1cFR5OUtvd3YxNi9JRVF1bDNXalY4Q0NEb0t5Y2pYQTRsTnZVS0VwK1VT?=
+ =?utf-8?B?L1BLZGdUYW8vazVqb0paWitrN21OS0VLRzM0eDVsc0F3ZEpEWFNNdmp0b1Zj?=
+ =?utf-8?B?K2xGaElma09VNXZTOEtsTWJjaGN4aC9nRnRnTzlJcUZ5dlhMWit4SGxlZGF5?=
+ =?utf-8?B?ZDluSnlFTHhzWkVaYTlrTnpZeFdPM1RaQTlBZEtjeXFKWE5KVjZCeFlCYmJ6?=
+ =?utf-8?B?VFZ6ekNSOXFmNWdOQTRJNk9yS2hmYnFNZW9GdXZXTEZvU3QyVVhZYUVPY3ln?=
+ =?utf-8?B?bzNZeXE5R2RqK3RNK2ozMTZXYTh4ZzFDaUd2Z1Bka0pUalZNNVVVREY1cTQz?=
+ =?utf-8?B?RzNDdXdFQWJyM1paWGJpdEpma1JHYkduMHpXcVJDelBKS20xdlJ3Q3JIZmo2?=
+ =?utf-8?B?REJEd0k1bjJOVE1IZ2syRDF1a3hLSGxyLzJaTXZNNHhwc1VsTHFjSXJoT2lF?=
+ =?utf-8?B?R1FKeVg2TDUySnNlMlZRZWZOU05oOUlXWVVCbWFwYlkwUkVrVjBtRHRGNHB3?=
+ =?utf-8?B?cytmNHNnZnBCMlRnSE5Qd1hHbFg5Z01wT1MycnNXQldjZ3AwYWliejgydENO?=
+ =?utf-8?B?dzc3dklSUVB3dFg5NmpQY0JVREZ4V3Nyem44YWVlME9teTh3ajNIdXAwMXZq?=
+ =?utf-8?B?UG9oQzYvWjNRamM4ajFzWjlaWlR0MHhlS3N3azY4aHRhSnhFTFBITTNDeDB1?=
+ =?utf-8?B?d09oVnZlemE4L3ZBN0paVmkxVXVPL2hTU3pHRC9EdlRqRFFjV2lrdUt4R3M5?=
+ =?utf-8?B?MjU1TlE2UUlJQjNRQzdQaUpxZGFDK1JIcExnME1QSXU2MWdudnpCU3pYRlQ1?=
+ =?utf-8?B?aUpybGluZFNaQUFqUHJKWHRqVzZhay9mNkt2WHJ5SmNERFBBcC91QjVBeU1R?=
+ =?utf-8?B?RThxVW9nMTBDRXRaZHdwUE5aVFNUcVJlMFdUR3ZTbVlKeTNJcEtXVHIwQVQ2?=
+ =?utf-8?B?UlpxK2VEcTZ1ZHdWU3BrNVRlWVV6WStVMTYybnVOVTdkb1FRbTZ4bmcxR1o3?=
+ =?utf-8?B?K0FWUHdpUjBTVmZRTFgvb1pLUUxuUklsazlRUHBsam42MGw1ODFyczkwSUtR?=
+ =?utf-8?B?aFlrZ2o5UWdzYWZNM0hwbmxjYzBtSHUzdUxBODd2VDhwUTF1bFJadXloUUQ0?=
+ =?utf-8?B?TkdTTzlzL2xVeTVxNUQ1WFZGd0hhQmtXSE1VaWorN3ZSUFBFVGluZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6327e79-986a-4483-b101-08df29c48e19
+X-MS-Exchange-CrossTenant-AuthSource: SAVPR12MB999143.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 07:27:08.5371
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e78VECiQvvFfry/Pzq7XRMSZA7HFqw/236Iaq1aAfGuQBOkXbhjrGW4f96edDaDMIdWgTU5wB0FbmiHcgmenrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6245
 
-On Mon, 2026-10-12 at 13:41 -0400, Omar Elghoul wrote:
-> On 10/12/26 5:22 AM, Gerd Bayer wrote:
-> > On Wed, 2026-10-07 at 09:59 -0400, Omar Elghoul wrote:
-> > > Don't free the FMB buffer when disabling measurement in
-> > > zpci_fmb_disable_device(). Instead, make the buffer persistent for th=
-e
-> > > lifetime of the device and reuse it across enable/disable cycles. Def=
-er
-> > > freeing the buffer until teardown in zpci_release_device().
-> >=20
-> > I lost track if this was discussed before: Would it make sense to break
-> > this out into a separate patch, so that memory allocation/life-time
-> > questions are decoupled from function-measurement preservation?
->=20
-> I think we did discuss that before and I expressed a preference for
-> leaving them in together, but since this patch seems to be growing I
-> guess splitting it would make review easier.
 
-Hi Omar,
 
-reviewing is one argument, the others are: Debugging, bi-section,
-fixing, back-porting, ...
+On 10/13/2026 7:23 PM, Paolo Abeni wrote:
+> On 10/6/26 13:02, Tariq Toukan wrote:
+>> From: Jianbo Liu <jianbol@nvidia.com>
+>>
+>> mlx5e_vport_uplink_rep_load() returns success when the uplink netdev is
+>> missing, so the ETH rep is marked loaded with a NULL netdev, the IB rep
+>> copies that NULL association, and nothing repairs it later. Unbind
+>> mlx5_core.eth.<N> in legacy mode, enter switchdev, bind it again, and
+>> rdma link show still reports no netdev on the uplink port. The netdev
+>> also keeps the NIC profile instead of the uplink rep profile.
+>>
+>> Add an attach_uplink_netdev rep op, run from the existing reload-reps
+>> work once mlx5_core_uplink_netdev_set() reports a netdev. ETH re-runs
+>> the uplink load, switching profile and setting rpriv->netdev; IB redoes
+>> ib_device_set_netdev(). Deferring to the work keeps the devlink lock
+>> out of probe context.
+>>
+>> Fixes: 6b4be64fd9fe ("net/mlx5e: Harden uplink netdev access against 
+>> device unbind")
+>> Signed-off-by: Jianbo Liu <jianbol@nvidia.com>
+>> Reviewed-by: Shay Drori <shayd@nvidia.com>
+>> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+> The AI feedback looks relevant, also this looks quite too big/dangerous
+> for net at this point of the cycle.
+> 
+Agreed. The missing uplink netdev is a corner case rather than a recent
+regression, so I will retarget v2 to net-next. It also relies on
+mlx5_esw_add_work(), added this cycle in 2a110ee54e89 ("net/mlx5:
+E-Switch, introduce generic work queue dispatch helper"), which is newer
+than the Fixes commit, so it would not backport to stable as is.
 
-   [ snip ]
+I will address the Sashiko bot comments in v2.
 
-> >=20
->=20
-> > > +/* Re-enable PCI function measurement: clear the software IOMMU coun=
-ters
-> > > + * and (re-)enable the FMB. This function is used to restore the des=
-ired
-> > > + * FMB enablement state when measurement may be implicitly disabled =
-by
-> > > + * firmware (i.e., via CLP in zpci_disable_device())
-> > > + */
-> > > +int zpci_fmb_reenable_device(struct zpci_dev *zdev)
-> > > +{
-> > > +	u64 req =3D ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
-> > > +	struct zpci_iommu_ctrs *ctrs;
-> > > +	struct zpci_fib fib =3D {0};
-> > > +	unsigned long flags;
-> > > +	u8 cc, status;
-> > > +
-> > > +	lockdep_assert_held(&zdev->fmb_lock);
-> > > +
-> > > +	if (!zdev->fmb) {
-> > > +		zdev->fmb =3D kmem_cache_zalloc(zdev_fmb_cache, GFP_KERNEL);
-> > > +		if (!zdev->fmb)
-> > > +			return -ENOMEM;
-> > > +	} else {
-> > > +		/* reuse the same FMB buffer for as long the zdev lives */
-> > > +		memset(zdev->fmb, 0, sizeof(*zdev->fmb));
-> > >   	}
-> > > -	return cc ? -EIO : 0;
-> > > +
-> > > +	/* reset software counters */
-> > > +	spin_lock_irqsave(&zdev->dom_lock, flags);
-> > > +	ctrs =3D zpci_get_iommu_ctrs(zdev);
-> > > +	if (ctrs) {
-> > > +		atomic64_set(&ctrs->mapped_pages, 0);
-> > > +		atomic64_set(&ctrs->unmapped_pages, 0);
-> > > +		atomic64_set(&ctrs->global_rpcits, 0);
-> > > +		atomic64_set(&ctrs->sync_map_rpcits, 0);
-> > > +		atomic64_set(&ctrs->sync_rpcits, 0);
-> > > +	}
-> > > +	spin_unlock_irqrestore(&zdev->dom_lock, flags);
-> >=20
-> > I know this is pre-existing, but how about breaking out the buffer and
-> > counter preparation/clearing into a helper function?
->=20
-> I believe it has been done in a previous version of this series at which
-> point we had two callers for it. Since we don't have another caller now
-> I didn't think of splitting it up.
+Thanks,
+Jianbo
 
-To me, the "detour" into clearing the zpci_iommu_ctrs together with its
-additional locking requirements was the point where I felt: This
-function is doing too many things :)
 
-   [ snip ]
-> >=20
-
-> > Oh, and while playing around with this patch (with and without my
-> > additional modifications), I realized that statistics/function
-> > measurement gets re-enabled when I run `zpcictl --reset-fw <bdf>` to a
-> > function - despite it being switched off before the reset.
->=20
-> Great catch -- the FMB re-enablement in zpci_reenable_device() was just
-> one of the two places that needed it, I missed to add it in
-> pcibios_enable_device() instead of the existing unconditional enable. I
-> will fix this in the next version.
-
-It just occured to me, that if you plan to use the same conditional
-enable based on fmb_requested/statistics_on in pcibios_enable_device()
-you may want to change the initialization of that bool to "true" in
-zpci_create_device() to keep the default behavior of the statistics
-being on.
-
-That said, I always felt a little uncomfortable with this default
-setting, since it creates load on the overall system, even if nobody
-cares about the data. Apparently, that default-enable was chosen at the
-initial introduction of statistics with commit d0b0885316ab ("s390/pci:
-performance statistics and debug infrastructure"). But that's a
-separate discussion I need to have with Niklas and Halil
-
-> re: splitting up the functions into a pair of request functions and a
-> pair that actually do the MPCIFC: it will make resolving this issue more
-> straightforward, because preserving the state in pcibios_enable_device()
-> will require us to disable FMB without clearing its flag in
-> pcibios_disable_device() as well, which is cleanly possible with the
-> changes you suggested.
->=20
-> Thanks!
->=20
->=20
-[ snip ]
-
-Thank you!
-Gerd
