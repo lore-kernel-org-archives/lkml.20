@@ -1,109 +1,83 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D92D4A3F3B;
-	Wed, 14 Oct 2026 10:43:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.80
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791974623; cv=pass; b=eByTsGb1/33Fz0LtBD8TEaYHHfPg890uL0gDHbpK8DMvAdonWK0ttdlVB/Zbj/Ne6/i4aVq+osc6qWnmeRZwVVaf4i2pUFVKA4c0KiclPyLuKvdj0N52re6cPCzaroKWL2fYozQynNrcWqhhDBIRcl15L9oSSchjqu7RfNQum1k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791974623; c=relaxed/simple;
-	bh=5x3u6FiR8qckv8HF7OAp0XN3GDedSEoUChbL0yqk9NI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nhr0XUf9ctuyNRQDP/oRI+qoiEB3FOjTfCrJtn+gRpQzBSNQ4u23wBhoakG3cx66mlW1+py5k1GLiXCvhp70eoHesxdd98NkqXeKTCnizNn0sk0b2SbCWF/QO9IIFYVSaOjnrqcdkYTz7UKdxcLcVdJ3NzfxEyVPWT76LOnXgI8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=hUS+ocX+; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=l6rdbnAn; arc=pass smtp.client-ip=85.215.255.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4D24D6C37;
+	Wed, 14 Oct 2026 10:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791974649; cv=none; b=CGupxDJFaetRHpe1UFCMqCiO2UPzQb9vRb0aGnoRcHAJt5cmXAFDGh9sTLrKH3Ku1Zb8tCtOm3iBRdr2LLqgOfcQZsTB7jZlOG53UjkvzMw1HgByGNnOw18gXS67kP7h2qCoG5Ey0AjJZ3IUFKBxgXfvPVsXbofv+yro4D5NkBM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791974649; c=relaxed/simple;
+	bh=DP0Ieqoi5wZMgEayjuz5m/NrIvwbIMZw8khQ4qYlU9w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YVzEb4ol5Ofp0DkhnwevqRG5oPyvDt73L/Y/qVIss8lgPax/qFuL4gk58nyDs+SnDa0r4SILj8ZkRLT8cQcSNhkYDAG+YujOhWEkbUejrTYz+mD5o6e5JI8Hta1+b8e3gwbfw+MjxgKo6fQdOo2CpIdKcWmakWwCi3IAZoRIiww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3K2TjRr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="hUS+ocX+";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="l6rdbnAn"
-ARC-Seal: i=1; a=rsa-sha256; t=1791974612; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=rozXirl2H8Nl9/n7e0eazNK/Qscin6anq4zwtddIecm2bbE2jJ/Dh4AbszU0x8uMnC
-    1y7xRVgB0ELBGDVpJTzoJ15334vjLcZU01xfrsoXJxllz4I0lQo+M8HkJvtQqCu+F/Ha
-    C85CfBfZdFbzUM7dWDcX3YAeqLrhYWjhbjFwRs1DeOIQ7XbgjgLI/caS5p1GsBn1+Cx/
-    3HPfLGYOH++x2hgkl31poanxcWeCMyogA2GCw9IDV/EcZVXePRrFWtVb/h6J4eJgIl8b
-    YcILrfqyktE8HkxtcNkLFns27cXtzmfMGlF1X2c1oATrzIuDguIwJd0C1/y1GiAKlb18
-    Po0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791974612;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=5x3u6FiR8qckv8HF7OAp0XN3GDedSEoUChbL0yqk9NI=;
-    b=E4cYyf9x0geOUmdAbksbptRmbGfWIrMouyc7WmY+ISjkhaboLc/ypSOYn5/nBI6RX6
-    qlArPdiiADJb6EyvFng63sXv0961p4Mn1ZRTaJU1eMjeVLM1Ba9Vrg+o8YDmHGspILlQ
-    Ar181JahhFxZ3Bum9dbFoCgCOKLZNanjh7LVFIF121mocPcyka1oq19gQWuAMRJXhK5S
-    ZCZPVI+XmaI8yT3v1S/NQHMIM8c/YxMDfPE3GDBVH1jYDIJae8JuPdtGLVAmSIIvGNZT
-    Gj9mzxcVj5OPZuK1NqZQB3AJeoMgnDZXWQZU5cpnndVF5OqDGLFbHznXuDgtcs1CmsF8
-    bHww==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791974612;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=5x3u6FiR8qckv8HF7OAp0XN3GDedSEoUChbL0yqk9NI=;
-    b=hUS+ocX+kAntLxaHRsDwgJt4us0Wp3rmOksQFOnvP6Vfu2r1y1oVO0g1EJ2oMpQApM
-    Ol3SWLy3IHr1Mb7yO56CDa/uHIwa7gWAfT3cn1fOqXY52KRmE8JB5/i5SuGBU2g85JBX
-    wbNVaX/1Z8yvbMCvRO84u7sonY0sXLO2pEgTHcE6NY9nC4X5TdLi2QNmKvIY6YeQlrph
-    P1hzZYKytaSfUZ24RZfHxc8mujhoG99W39PdR960CqLutcIzCAYhF89UaGXLCedAVVtP
-    YdnZPkEhE69mL6jLyENQdg0oqWEmUbk0RPwNnB7WLrekgPr0AedHux2ppFi1JIu+6lD8
-    MUNQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791974612;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=5x3u6FiR8qckv8HF7OAp0XN3GDedSEoUChbL0yqk9NI=;
-    b=l6rdbnAnBnxiqzUh2jm3/q78XdqMTW74v1E+AcdAfOjwQLBtLIqW2I7WLTRnVi9oqQ
-    qio2UyYsVPBFObNVChDQ==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
-Received: from [10.176.237.108]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29EAhV3el
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Wed, 14 Oct 2026 12:43:31 +0200 (CEST)
-Message-ID: <c39f4af2716cdc1c71170a9eabdbe29abb8c4bb2.camel@iokpp.de>
-Subject: Re: [PATCH 2/3] scsi: ufs: bsg: Clear the UIC result byte before
- sending UIC commands
-From: Bean Huo <beanhuo@iokpp.de>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,  "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>
-Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>, Bart Van
- Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, Peter Wang
- <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 14 Oct 2026 12:43:30 +0200
-In-Reply-To: <20261013102913.948718-3-stanleyjhu@google.com>
-References: <20261013102913.948718-1-stanleyjhu@google.com>
-	 <20261013102913.948718-3-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3K2TjRr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F9E1F000FF;
+	Wed, 14 Oct 2026 10:44:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791974647;
+	bh=DP0Ieqoi5wZMgEayjuz5m/NrIvwbIMZw8khQ4qYlU9w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h3K2TjRrVF0FqpdSOx4xHm+dQceczMutbwFmtYFvBF70SmG6yFPUcjC5MOcz7vA1L
+	 M1Ww4YqXlBMGZTRaT5FDvzEpOkW852SACFCzL7agdYaoEX3ZoaMiuD/WPOUi/rdzyj
+	 R7BrR0ZXl01IfS3lmjq42X2g186iYTr4QUox+0hxaheAoaBxtQOFZJzm7hvnNX0Tnz
+	 PPO6/8RuQhPDWkmU8Wg4tpIQO7rwlNUQQSXboOxfdH1sf8O70KQiKpValjilP1ik5K
+	 3MKAgqe0dHsOGqvyO0BZR9qF4xglgZp3jE0tuxWTHHWYPZvS6x38rqMe7QtOw+ohVh
+	 CxylkTPgnRClg==
+Date: Wed, 14 Oct 2026 11:44:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
+	tiwai@suse.com, yung-chuan.liao@linux.intel.com,
+	Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+	venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
+	Mario.Limonciello@amd.com, Richard.Gong@amd.com, Poojitha.N@amd.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH v2 00/10] ASoC: SOF/amd: ACP7.B support and ASP carveout
+ firmware loading
+Message-ID: <a22f2a9b-3bb9-40d0-80d6-4ce36758c4f5@sirena.org.uk>
+References: <20261014100902.1215212-1-Vijendar.Mukunda@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="676xn5QD/iBmhotU"
+Content-Disposition: inline
+In-Reply-To: <20261014100902.1215212-1-Vijendar.Mukunda@amd.com>
+X-Cookie: Live free or die.
 
-On Tue, 2026-10-13 at 18:29 +0800, Stanley Jhu wrote:
-> ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
-> including the result byte (bits 7:0) that only the host controller
-> writes. A non-zero value triggers the WARN_ON_ONCE() in
-> ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
-> syzkaller.
->=20
-> Clear the result byte before sending the command.
->=20
-> Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in
-> ufs_bsg_request()")
-> Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is inva=
-lid")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+--676xn5QD/iBmhotU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Oct 14, 2026 at 03:29:08PM +0530, Vijendar Mukunda wrote:
+> This series adds ACP7.B platform support to the AMD SOF driver stack
+> and implements the ASP-authenticated firmware load path required by
+> both ACP7.B and ACP7.F.
+
+v1 is already in my CI queue, can you send an incremental change with
+the new stuff in here.
+
+--676xn5QD/iBmhotU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrPXPEACgkQJNaLcl1U
+h9CxcAf9Heotb7IHcpwkhw5QrY+/YqPi9LmhfEcyPbJJeNN/ZM1o0r7fRqf+XkEM
+7TUkqVq8uYUTxkOluWLgWm8/8b+MGItBm1I4PHQKuY+Sx9xW7+yT/JCRf5VfvYKK
+0pAX9SF/Px0V6s44trnCHN5dU4Vd6pj+72BYCX4SmzG9I4we88Fj7APbTfSkgXsE
+uzu+GPAMa0VdJiUpQxhPpKhfWoBLR7++PZ8OW5STZlsVmK1hvMrklIws/qBF/smL
+8BYx8nXVoWIwtprUM+FpbXqCYu/H4/Viuq/BjLKP1fd5D301YERLXxvsO0mN09W5
+ZBikFDcA0ouZzsYwvgNABhauBRkjaA==
+=DX07
+-----END PGP SIGNATURE-----
+
+--676xn5QD/iBmhotU--
