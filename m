@@ -1,115 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1703D4137;
-	Wed, 14 Oct 2026 10:28:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D1C4DDB55;
+	Wed, 14 Oct 2026 10:29:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973720; cv=none; b=DtBFucJj10QHnCbdVt21Ov5VTy3Qt2fQ7sl0fFXAVlHB5jDtEmCtzdUiCMDF7YqwWtheE9PVAu3hHMGAQLthWKfmFlT15eP7pTfqHXoZeEloMCfakBgHEPZiGzUBpQOPNiuAPW6qch0Z/ciJKfb+PImjFLEXU7EkCQs74yh1OXw=
+	t=1791973800; cv=none; b=Ejw2XhlV2NoRd7ca+AAbxDIMXmqS35kkgqXFFkIsoj3dmWlNDNmYIX65RnmVL7B73y69aYuI8qiXrhtLBfE1tH/y5/sGas2ynvxFNFTdKIEJQA34dAo31qHrIEA9VggkE7jqDshlniUjaVa95YMZ07SGrweyKO0bnkKUzp+HMxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973720; c=relaxed/simple;
-	bh=skJdmd3tUQHGVzD6TZQsGKOJkI7UvX0V36y4xyypgz4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Y9rxdn2xBpL5coDHIi6IhkCWi+QGYufxM6XZ9LdHloSok4RJ0VQO6EzszLe+s9U3BOh0uqbJPZR3vKeFCh2wKqKQFP1Qc00KDT7VAqaLlTLSUcWPbdbt7EJPcdkklU4POgtPRRrn5vfX5IH0kZeJ1WjaiPzA5J2xHHdHzNy3hrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cil4DIOK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791973800; c=relaxed/simple;
+	bh=a996mkzmjLc7/sl3ririSXFTuCFP4TwTArT4kcrQ1Qw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e+Tvx1Zq09PzNJThqambZGSlIyjNliTrq3Lfq5V7Sf7W1vYFYZKgf8Q+bKqQTyIncwrq06szZ2d64vQ1JUF+rlb6qp+g6ZvJv+r8six/m7V/qMl1mVcG4S/SzGRZeQ3FCfNo2yE6vY+W0jpuO7rU7YQhCWobmzjLqPF6kQvDJR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1zB3pOE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cil4DIOK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC03E1F000FF;
-	Wed, 14 Oct 2026 10:28:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1zB3pOE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BA71F000FF;
+	Wed, 14 Oct 2026 10:29:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791973718;
-	bh=LWAleCpYBlToJ7/WPCLhRt8yE2399HoszrhXc5+pn3Q=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Cil4DIOKlCtMK0ChHPWRGsZIkuR+ETSpqNy02sPVq6qd79JT2tCNTFJgNM8Swqxmn
-	 aol69v8n/1Q2kFlnLE84DnP2ABZpg7L8lpRt5fvMvdWQI2h+tuogX7GHZMsYwQvZHl
-	 sb6m98FQDtJAx/zg/RGu1FNkxkXPWNmbjtwpXi3b7arjHiStM3YnRIR5naVxJUrx/a
-	 eZzVmMBN2RLEcxGWajgFN4LleEJRW+NzM/sk2KbrXPlxDCeeDga+ITxHqOfkB5nteI
-	 UQU15jwJ2oabwmaJZo5/361elT8+VpOHlZqB7Zi/h7zYsQVDWGjmNuQNaknGL6ExWi
-	 nu/RHwvE1FR/Q==
-From: Mark Brown <broonie@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Trevor Wu <trevor.wu@mediatek.com>, phucduc.bui@gmail.com
-Cc: Liam Girdwood <lgirdwood@gmail.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- cassiogabrielcontato@gmail.com, Haotian Zhang <vulab@iscas.ac.cn>, 
- Christian Marangi <ansuelsmth@gmail.com>, 
- Cezary Rojewski <cezary.rojewski@intel.com>, 
- Cyril Chao <Cyril.Chao@mediatek.com>, Tuo Li <islituo@gmail.com>, 
- Rosen Penev <rosenp@gmail.com>, Garlic Tseng <garlic.tseng@mediatek.com>, 
- Alexandre Mergnat <amergnat@baylibre.com>, 
- Dan Carpenter <error27@gmail.com>, linux-sound@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261006101606.54079-1-phucduc.bui@gmail.com>
-References: <20261006101606.54079-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH 0/4] ASoC: mediatek: Return 0 from FE startup on
- success
-Message-Id: <179192410143.1606900.17860222773161459120.b4-ty@b4>
-Date: Tue, 13 Oct 2026 21:41:41 +0100
+	s=k20260515; t=1791973798;
+	bh=ms0PTxP6Fn+7FduT+1LZGX/NpLoqIlaekHwZSpzjspc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i1zB3pOEleb9x/mxtYAh68IHFxwsSKwzeONf4sjGYZq0WwOhNRHLAwpb3dY656SL7
+	 goNuT1uiTz74GLQTEeUDZhn3+t/UZIwpkGQFLL9MVJxSs5DzeeIazCp54zqeJ/ms7q
+	 Z7sVR/uIYmPfkCR5hko2ps/htsw5meltKzbRld0o1t7rF5YxLemb77ejc+d+Bv+jZL
+	 /GOBSjS7qxSkAsCaQrVCbe+9KiEc12z8q2A/ZZnKKi+8fbURKBXhjNw8ES15wQwjSy
+	 yAkEiRJ/yf62K38IGncKcbZedM6a4C0M5FWZjHjaNeyp0SddMQDe1buhZFNaEbrrBX
+	 LoEsRtiMGUmtw==
+Date: Wed, 14 Oct 2026 12:29:53 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Zi-Yu Chen <zychennvt@gmail.com>
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jacky Huang <ychuang3@nuvoton.com>, 
+	Shan-Chun Hung <schung@nuvoton.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrew Jeffery <andrew@codeconstruct.com.au>
+Subject: Re: [PATCH v11 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
+ support
+Message-ID: <as9ZVx9TV5NpW1cK@zenone.zhora.eu>
+References: <20261001075101.489660-1-zychennvt@gmail.com>
+ <20261001075101.489660-3-zychennvt@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1818; i=broonie@kernel.org;
- h=from:subject:message-id; bh=skJdmd3tUQHGVzD6TZQsGKOJkI7UvX0V36y4xyypgz4=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLORwbGPL+V+6Wu8NuXVRZFikcVeRwqUx/oLOV4qGigb
- SWmwrqwo5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABOZM4fhv2Oqd3VAaLfuiY6v
- k0UdLq7lZVwt+tLyfNzEi9PFDLf++sjI0PBzlvkUvZZVjys/zYivKNtsfGNO4cGHqgEL8leEnvE
- /xAsA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001075101.489660-3-zychennvt@gmail.com>
 
-On Tue, 06 Oct 2026 17:16:02 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: mediatek: Return 0 from FE startup on success
+Hi Zi-Yi,
+
+On Thu, Oct 01, 2026 at 03:51:00PM +0800, Zi-Yu Chen wrote:
+> Add I2C support for Nuvoton MA35D1 SoC.
+> The controller supports standard, fast and fast-plus modes,
+> and provides controller/target functionality.
 > 
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> Hi all,
-> 
-> Some FE startup callbacks may return a positive value from constraint
-> helpers, but ASoC expects 0 on success. This can cause .shutdown() to be
-> skipped during rollback.
-> 
-> [...]
+> Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
-
-Thanks!
-
-[1/4] ASoC: mediatek: common: return 0 from mtk_afe_fe_startup() on success
-      https://git.kernel.org/broonie/sound/c/5bbd6696d75e
-[2/4] ASoC: mediatek: mt8188: return 0 from mt8188_afe_fe_startup() on success
-      https://git.kernel.org/broonie/sound/c/b6b3dbee98f1
-[3/4] ASoC: mediatek: mt8189:return 0 from mt8189_fe_startup() on success
-      https://git.kernel.org/broonie/sound/c/f63317c826c4
-[4/4] ASoC: mediatek: mt8365: return 0 from mt8365_afe_fe_startup() on success
-      https://git.kernel.org/broonie/sound/c/240f11af9c80
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+to me the patch is fine. Sashiko has pointed out a few things
+that require device knowledge. Are those concerns valid?
 
 Thanks,
-Mark
-
+Andi
