@@ -1,137 +1,272 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230C7529403
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FA74EBAFE
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:41:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791985261; cv=none; b=cT8brQT7GwJHJRRdfigcZY9iB9LE2eKtsrzEeqS8J3MnElT3L8u41bVfzmxxWSDAu8V+ZtEKjxDzbJHcNS60pEW10zjWu0n1CMMr7UDmH58S458HIlh37+SA1UCs38heEMKBqV7tU6EOuhbX9Lp07Nd3773jH4W4wmPGy+w9LLY=
+	t=1791985285; cv=none; b=eSlt6CO8FgtwPrh1btoBtvgZUko+JfGqPZnKSQb8Yu1GryREGht9C0MI3XAjTU3NfkXizACoRNcfZAZuQeV94MWt9wJlDBkO23o7E/fqvqy0sKrCnVfGtEiJdsrqQXTgAD3Hx6q0gojzuHYGYzyXTmkXBQ0b0vHTg9IWBoRejqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791985261; c=relaxed/simple;
-	bh=CWLcIVm0rcAVB8dmp3rQdpqenCY0+xLEuROFe1QppjU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H8auZbdneTXW+oordqfWg0887CyGzo3nsnfSPty1KD4nP/vsqsFk66mOL6f1RbFs7Gy9NJequz+VQclcp5nTHmQH+Qgu09RyF2l8Cx76UGgZxWPgB+HXcCRmMWMUWhG1pPBu2/LiizgskL5m1oJMfRXyvQ5BRlQWn8aS6rcUjs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=gPI9alNm; arc=none smtp.client-ip=209.85.210.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1791985285; c=relaxed/simple;
+	bh=I3g5eh8yikhMU1X7LWPg0jgB07gV60z9xSPYrA25Hn4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TmxQyUL/H/QpFsZmgz2BNcV+//VL5c6TOrhSBehSbNqVXvsN73YPv9GyAXCefDSylgt/sA0UQPqJavH1TC7s2rZbtBGC3eL8vmlLpmSVFAbQfG53t9uz7GRZ9u6HpAKb2OKZRqJQbCWS7xHIxl7/MvSNApZqyiQD2PAFRwovpJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=rJDTm/m1; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="gPI9alNm"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-81ae6aefdceso822225a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:40:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="rJDTm/m1"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ac397836fbso1516284a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:41:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791985257; x=1792590057; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TI1InYuhv2BOMB8UNQLzhmzx2APX9vyjkfAbRr4ddfE=;
-        b=gPI9alNmPHQzLVLHa9pr2LsEq59R3xmYYi3aYPUB4nJpK/TlShKZN3qRu7UuBzZ5GN
-         rLp5k7SQj3N+BcoPU4ap/kbLyulaqvsdxSrDQ4J3Y4INe5RJtvCbJV67MdbUhyZ5gGuZ
-         gXN/96s4JTU4NX8tbZ9rmVfbI6LmG7CQJMP5OVgEH2czMNVONaVKQxiCUVya5bTdIRWQ
-         bY8RUn2QsLWoIIdH3MfpRpn0CeWb+xb3XX2dYy4ZvGwKOP7YKQW/H3b9hcNE6yLr3SA8
-         mh+tT73rjgL4HvWbZioWZNQx3+4RtcmgplYAfZIJ/Wri4sjMpRgXFErsuyDyXUFFs80A
-         0dWQ==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791985281; x=1792590081; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LYBOQP1TdKSQDWr6VBNXaizNTJy6YFMyo0MXiGEf2A0=;
+        b=rJDTm/m1AzjGVuWl992L3FBzSH2qEUtgI0EZC1XoEM+6ZfZWFy//5adWFUS56ELT2s
+         j13mLRqkaYLRKCV/7yrmBF0Z0D3iqw3kD3fpXMbx4ix5Z8+XyUeceTU450yB+h/vsKk/
+         jUezAEZtzVEYdXa/TsACUrpxB2yw0yb/+S3wLM6RmOolxTjy8eNAse4Ikemtxjf9TTJo
+         RSINJd66CK86EtGh9hQ0kjH8i4sRVtZKt6+Ai5VD39Ymo7Lp6KiCi9pl5LuxOMQowxke
+         9eVNFujd+CVEUYLUkbOc6k6tUfdRMBlirq6+aeJlLLz/WIbIUxMleOuJWuAYl6PodlWC
+         PzYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791985257; x=1792590057;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791985281; x=1792590081;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TI1InYuhv2BOMB8UNQLzhmzx2APX9vyjkfAbRr4ddfE=;
-        b=arlSOOjokf5k87vWTsdqoLFcgsjNd9N4nzz1cRqjMF1yVPrIrNb3U3rDe7gchqaXLG
-         uxBTirJBfSVaJamO/x5ySveXj2nxCp1heV6G23Ed2AXi4cLmHtsfgsqT5REGiEOzwWDI
-         6gzM7GFZqzyZ8K5PEZ0wIpudv4eNBFn0fn7Hmn1AsK3RzZ00FN+9OJY7Fdrg3w+Mvi7G
-         iJjjS+vD/bEpGGllXnYGMl2zEjwh0evJXk7KoZb9NBsclRWUGmqM2FxEtcrzIajFK6//
-         K5LMIFcH6c9lEmUZJ0gRg0rRJIsTkLcz8rocIldbiBmXqBzY/Vt0cQhc2FhwqPHsPtKE
-         sl5w==
-X-Gm-Message-State: AFq9FYIDDTmzNY51UKZWnl+NJeuRKYo1JBE+ABlxAA6ZgsR1c1k3DXXW
-	pcgNorRN8/H3Y+xZ92AEcTNgeqKYhfMBPZtcyzDqiHAIjDBy8hoVIQRqsM6nXmite9A=
-X-Gm-Gg: AYBFou1uHMRq4GTPnrvk1IZhpPBg/71z9BfwK8WIy5Uk2rtDyfWpN9S8UjWTbaxgUGL
-	cCrPkj8qtBy0pFin2MKCg5JpZi6xMAe60KgIS4B4pVGsFj+Z8g7sFvmwQ94YXKU9exSJ7GQmdb4
-	rmjDYuywOCeA3UE2hqdt/QZJMwZbkcLgaL+B/gGJekjBBP6fYX5IO76pe21ueUiVlbYtpeVCdPF
-	D5XoXR97FW6VcR2edyhH8KFTBkPufGDSx/vXRiAxovZnb48jSlNkIhHWPm72Br9/e84j/OQqOho
-	aWowuRh1PFDktUtEbgNfF2uqZAXt44ydLwfPZFwbcqf8gyxP58gjJ9Q/dvwSdWl+6IZtowr33qr
-	fgVjLIxnufsUT7KmKgue15rivfXCkL5rBJFU25eBQ9yHApZvI8OGQeFGexv3kGQ2+45AgWUCCTJ
-	4TTliRDHiCEZp+fQzFbCcnzGf0MnFnkzbdsYO2ZJOGvNbakRKlK4R1DhLeI45Do8CHe0WA6alv0
-	jvqvzXkVBMtSVG+3SV5TuJidli27sl/EEH8qqmmESvns/fszSYDLVRdcQ==
-X-Received: by 2002:a05:6830:67e4:b0:812:4cc7:4afe with SMTP id 46e09a7af769-830969d183fmr14838309a34.17.1791985256814;
-        Wed, 14 Oct 2026 06:40:56 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83038f822dcsm14657364a34.10.2026.10.14.06.40.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 06:40:56 -0700 (PDT)
-Message-ID: <81e6538c-977c-4b45-bd44-242ce5e00dd7@kernel.dk>
-Date: Wed, 14 Oct 2026 07:40:54 -0600
+        bh=LYBOQP1TdKSQDWr6VBNXaizNTJy6YFMyo0MXiGEf2A0=;
+        b=yKI+daSYrosmQIH8QN+08jxKVl9UBW3cCvuW4vFpwbOUIgsqH4M40Hpjc4u+uix2DD
+         nzYTeWl3WO9WnKw2E8mtT+ahl3JlCXSPw80fXFfi1+/rLUtH+ciEq7AwgbppAvu4Se5R
+         KOTTLXH4kRCG4RrwwEyXFkrv8fzUnD8GvuLr0FlKLy6alWo5hZMR6QLjHSZprpsnYJWU
+         kF7Rk+99X/RE93Whg1WZn7rvb2m+OiDtc4yp0i8GQqO/w1JwCyPIegWouIfwCYDyQfrs
+         WDg8KNqQDaGw+pXaE7iGQXQbR5s/bL+ay4poUG0AP58GwBBAZJjquPmg+nhnAO/auRQe
+         ssYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz9wdNX66QhJr1FW3wtHxH1YkHDKnbuiV/myqE7KhKH06zoLs3mrCXnwG+M+bS3/N4i6JvaVS8fQNu9qAs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMuYTU+URX8MCv+Ys4ZeBunz2w89OQK9hLT1kNgdws4/h7IY/j
+	9QaMTh1DTV1TDZmivsHipWWsBxMWbXHQYnv37yDi9dwdrdDD/VGs/mwGQEVi4bpfGF4=
+X-Gm-Gg: AYBFou3gDd+VxCGNF9K+qTbXcKTCGRwsUv5JYU+Rcnw2R0RNlSafzxSGG+e9WzJtASG
+	Z/BLF/6bE7ZBWTeUAh4sbytnGAM5PCnXrQd4jUqFBk74Z74rXWAV/f8NRx/u9JCoFQoUyUrUQPL
+	oeszYzbsZAF5M32nwlfy4KcH5ynWRIPHWi12JaRazuQ7GnR5Pk4BbrIiawOnr2Pcq2n6QhZEdoO
+	E4ZmQtH+90FJ4rUqNFqEFDs3y+yDbPR3R0fF3X6b8uelqZE9i6birKJf0D8zJoj4FbVGDfOWxgF
+	uFtPv6s4ylJyuw6vU1Yewxd6Dplzbb0AISauSLQmtJzJnf/e3dFqjucPPIuEZ4DPHGLiB6BXa+G
+	fWoINp7+MhmYaTPPDCf4zoOv6OA0/rEBRtikNmYoM2a04MObn7N0xZ/ON1M6VsLs+UVDJt4xYWq
+	uxNGrXOP1638Tz28KY7WpOz2cSEF36qgrLNhJAMqDy7A328ZR3aQ6XSCA6Lb5CMWfJ61ccstf4O
+	NEplpUfGyFghM8vKzLQ
+X-Received: by 2002:a17:90b:5444:b0:3a4:b74a:795c with SMTP id 98e67ed59e1d1-3ab3a60cec9mr12995839a91.16.1791985281374;
+        Wed, 14 Oct 2026 06:41:21 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f27d573sm4952571a91.11.2026.10.14.06.41.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 06:41:21 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v4] scsi: mvumi: reject handshake sizes that overflow the list allocations
+Date: Wed, 14 Oct 2026 22:41:04 +0900
+Message-ID: <20261014134104.3528958-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 13/13] io_uring/rsrc: add dmabuf backed registered
- buffers
-To: Pavel Begunkov <asml.silence@gmail.com>, linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1791975048.git.asml.silence@gmail.com>
- <4aa230df871ee275536f367087b44ebfebb88cc1.1791975048.git.asml.silence@gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <4aa230df871ee275536f367087b44ebfebb88cc1.1791975048.git.asml.silence@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-A few nits:
+mvumi_hs_process_page() takes max_io, the two command entry sizes and the
+list depth from the firmware handshake page.  The entry sizes are u8 fields
+used as shift counts, and 1 is an int, so a count of 29 or more makes the
+<< 2 applied to the shift overflow an int; a count of 32 or more is
+undefined outright.  max_io is a u16, and the sizes derived from the shifts
+are multiplied by it in mvumi_init_data() to size three unsigned int
+allocations, so a large entry size wraps the product and the loops that
+follow then walk and write past the short allocation.  The list depth is
+used as a shift count too, but only when the firmware sets
+HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF; a count of 32 or more is undefined
+there as well.  The depth also sets how many entries the inbound and
+outbound rings hold, and the per-command slot index wraps on that count
+while the rings are allocated for max_io entries, so a depth yielding more
+entries than max_io -- or none -- walks the index past them.
+max_devices_support sizes the target_map bitmap in the same allocation.  A
+host reset runs the handshake again, but mvumi_init_data() returns early
+once MVUMI_FW_ALLOC is set, so the buffers keep the sizes they were
+allocated with while the newly reported values drive the indexing:
+mvumi_flush_cache() then reads target_map past its end and
+mvumi_sdev_configure() sets a bit past it.  The handshake is retried as
+well, because mvumi_handshake_event() discards the error, so a page that
+was already rejected can be presented again.
 
-> diff --git a/io_uring/dma-buf.c b/io_uring/dma-buf.c
-> new file mode 100644
-> index 000000000000..1a1a88640823
-> --- /dev/null
-> +++ b/io_uring/dma-buf.c
-> @@ -0,0 +1,66 @@
-> +#include "dma-buf.h"
+Reject an entry size above 29, which keeps 1U << n and the shift that
+follows it inside an unsigned int.  Then compute the worst-case allocation
+size in u64 at the top of mvumi_init_data() and reject it if it does not
+fit an unsigned int.  That total bounds all three allocations: the inbound
+list total, the outbound data pool and the tag arrays, whose sizes are the
+same products plus smaller terms.  Reject a list depth of 32 or more on the
+shifted path so the shift stays defined, and reject a resulting entry count
+that is zero or above max_io so the slot index cannot walk past the rings.
+The shifts also use 1U now so that a legal count cannot overflow an int.
+Take the page's values into locals and run every check on those.  Once
+MVUMI_FW_ALLOC is set the buffers already exist, so only check that no
+reported size, max_devices_support included, is larger than the one its
+buffer was allocated for, and leave the size fields alone: they already
+hold the sizes those buffers have.  Only the first handshake, whose values
+size the allocations, assigns them.
 
-Needs SPDX license header.
+No realistic controller is rejected: a controller reporting 4096 commands
+with 64 KiB entries and a depth of 12 needs 513 MiB and passes unchanged.
 
-> diff --git a/io_uring/dma-buf.h b/io_uring/dma-buf.h
-> new file mode 100644
-> index 000000000000..a876a9e5e272
-> --- /dev/null
-> +++ b/io_uring/dma-buf.h
-> +static inline int io_attach_dmabuf_map(struct io_kiocb *req,
-> +					struct iov_iter *iter,
-> +					unsigned issue_flags)
-> +{
-> +	bool nowait = issue_flags & IO_URING_F_NONBLOCK;
-> +	struct dma_buf_io_map *map;
-> +	struct io_buf_dma *bd;
-> +
-> +	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-> +		return -EOPNOTSUPP;
-> +	if (!(req->flags & REQ_F_DMABUF))
-> +		return 0;
-> +
-> +	bd = req->buf_node->buf->priv;
-> +	map = dma_buf_io_get_map(bd->ctx, nowait);
-> +	if (unlikely(IS_ERR(map)))
-> +		return PTR_ERR(map);
+Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v4:
+- a reset does not reallocate, so validate the reported sizes against the
+  current ones and leave the size fields unchanged; only the first handshake
+  assigns them.  This also means a page the driver has already rejected
+  cannot be presented again to get past the check, which the retry in
+  mvumi_handshake_event() allows (Sashiko).
+- include max_devices_support in that check; it sizes target_map, which
+  mvumi_flush_cache() reads and mvumi_sdev_configure() writes (Sashiko).
 
-No need for unlikely() with IS_ERR(), it already includes that.
+v3:
+- reject a reset handshake whose sizes exceed the existing allocation,
+  which is not reallocated on reset (Sashiko).
 
+v2:
+- compute the allocation total in u64 so the check also holds on 32-bit
+  (Sashiko).
+- reject a handshake list depth whose entry count exceeds max_io, which
+  would walk the per-command ring past its allocation (Sashiko).
+
+ drivers/scsi/mvumi.c | 87 ++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 75 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
+index e70d336b4ab39..4fc0cf819c271 100644
+--- a/drivers/scsi/mvumi.c
++++ b/drivers/scsi/mvumi.c
+@@ -912,10 +912,23 @@ static int mvumi_init_data(struct mvumi_hba *mhba)
+ 	unsigned int tmp_size, offset, i;
+ 	void *virmem, *v;
+ 	dma_addr_t p;
++	u64 total;
+ 
+ 	if (mhba->fw_flag & MVUMI_FW_ALLOC)
+ 		return 0;
+ 
++	/* These are firmware-supplied and size the allocations below. */
++	total = (u64)mhba->ib_max_size * mhba->max_io +
++		(u64)mhba->ob_max_size * mhba->max_io +
++		sizeof(struct mvumi_dyn_list_entry) * (u64)mhba->max_io +
++		160;
++	if (total > UINT_MAX) {
++		dev_err(&mhba->pdev->dev,
++			"handshake sizes too large: io %u, in %u, out %u\n",
++			mhba->max_io, mhba->ib_max_size, mhba->ob_max_size);
++		return -1;
++	}
++
+ 	tmp_size = mhba->ib_max_size * mhba->max_io;
+ 	if (mhba->hba_capability & HS_CAPABILITY_SUPPORT_DYN_SRC)
+ 		tmp_size += sizeof(struct mvumi_dyn_list_entry) * mhba->max_io;
+@@ -1048,30 +1061,80 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
+ 	}
+ 
+ 	switch (hs_header->page_code) {
+-	case HS_PAGE_FIRM_CAP:
++	case HS_PAGE_FIRM_CAP: {
++		unsigned int new_max_io, new_ib_max_size, new_ob_max_size;
++		unsigned int new_list_num_io;
++		unsigned short new_max_target_id, new_capability;
++
+ 		hs_page1 = (struct mvumi_hs_page1 *) hs_header;
+ 
+-		mhba->max_io = hs_page1->max_io_support;
+-		mhba->list_num_io = hs_page1->cl_inout_list_depth;
+-		mhba->max_transfer_size = hs_page1->max_transfer_size;
+-		mhba->max_target_id = hs_page1->max_devices_support;
+-		mhba->hba_capability = hs_page1->capability;
+-		mhba->ib_max_size_setting = hs_page1->cl_in_max_entry_size;
+-		mhba->ib_max_size = (1 << hs_page1->cl_in_max_entry_size) << 2;
++		/* Firmware-supplied shift counts: (1U << n) << 2 must fit. */
++		if (hs_page1->cl_in_max_entry_size > 29 ||
++		    hs_page1->cl_out_max_entry_size > 29) {
++			dev_err(&mhba->pdev->dev,
++				"invalid handshake entry size\n");
++			return -1;
++		}
+ 
+-		mhba->ob_max_size_setting = hs_page1->cl_out_max_entry_size;
+-		mhba->ob_max_size = (1 << hs_page1->cl_out_max_entry_size) << 2;
++		new_max_io = hs_page1->max_io_support;
++		new_ib_max_size = (1U << hs_page1->cl_in_max_entry_size) << 2;
++		new_ob_max_size = (1U << hs_page1->cl_out_max_entry_size) << 2;
++		new_max_target_id = hs_page1->max_devices_support;
++		new_capability = hs_page1->capability;
++
++		new_list_num_io = hs_page1->cl_inout_list_depth;
++		if (new_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF) {
++			if (hs_page1->cl_inout_list_depth >= 32) {
++				dev_err(&mhba->pdev->dev,
++					"invalid handshake list depth\n");
++				return -1;
++			}
++			new_list_num_io = 1U << hs_page1->cl_inout_list_depth;
++		}
++		/* The rings hold max_io entries but the index wraps on list_num_io. */
++		if (new_list_num_io == 0 || new_list_num_io > new_max_io) {
++			dev_err(&mhba->pdev->dev,
++				"invalid handshake list depth: %u entries for %u commands\n",
++				new_list_num_io, new_max_io);
++			return -1;
++		}
+ 
+ 		dev_dbg(&mhba->pdev->dev, "FW version:%d\n",
+ 						hs_page1->fw_ver.ver_build);
+ 
++		/* A host reset does not reallocate, so the sizes have to stay
++		 * the ones the buffers were allocated with.  Only check that
++		 * the firmware is not asking for more than they hold.
++		 */
++		if (mhba->fw_flag & MVUMI_FW_ALLOC) {
++			if (new_max_io > mhba->max_io ||
++			    new_ib_max_size > mhba->ib_max_size ||
++			    new_ob_max_size > mhba->ob_max_size ||
++			    new_list_num_io > mhba->list_num_io ||
++			    new_max_target_id > mhba->max_target_id) {
++				dev_err(&mhba->pdev->dev,
++					"handshake sizes grew across reset\n");
++				return -1;
++			}
++			break;
++		}
++
++		mhba->max_io = new_max_io;
++		mhba->list_num_io = new_list_num_io;
++		mhba->max_transfer_size = hs_page1->max_transfer_size;
++		mhba->max_target_id = new_max_target_id;
++		mhba->hba_capability = new_capability;
++		mhba->ib_max_size_setting = hs_page1->cl_in_max_entry_size;
++		mhba->ib_max_size = new_ib_max_size;
++		mhba->ob_max_size_setting = hs_page1->cl_out_max_entry_size;
++		mhba->ob_max_size = new_ob_max_size;
++
+ 		if (mhba->hba_capability & HS_CAPABILITY_SUPPORT_COMPACT_SG)
+ 			mhba->eot_flag = 22;
+ 		else
+ 			mhba->eot_flag = 27;
+-		if (mhba->hba_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF)
+-			mhba->list_num_io = 1 << hs_page1->cl_inout_list_depth;
+ 		break;
++	}
+ 	default:
+ 		dev_err(&mhba->pdev->dev, "handshake: page code error\n");
+ 		return -1;
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-Jens Axboe
+2.43.0
+
