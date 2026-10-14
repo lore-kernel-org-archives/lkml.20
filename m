@@ -1,58 +1,85 @@
-Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63462417BD2;
-	Wed, 14 Oct 2026 19:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.152.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29393486E6D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792007253; cv=none; b=YWSQGia525AwHC+TMiRmdgBESwwMsgmDRWbFjnHMFIAHX4ncZyzhlWHZgigTcis3JLvSuC6pZ6lNOrty+jtd9nH8AOi5/ULUtL/LhevwDQLlLDzeELqAZviIGnyMFVQotfnHH9I6qXu1EqJvTCRea58mNRd9cVoJ7MlPetrk3X8=
+	t=1792007305; cv=none; b=A/s5AHyDWhakoKu8+tF/byqgoPB8nLaP3ujU290+xE91RUyE3S3z7NF3K2Vq38yTI46P6siVIyQ3/YcYSole3Bmog2ll6orUUaFLEc9pNdlzSCTUXBpwsM2KbX6qq+LCSqs5WvaKrARe4PimrH9Y5EjlKgTcDxSlrQFYflTP0Fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792007253; c=relaxed/simple;
-	bh=yYvRJQWooZPkyh9026YoIQwZ3ItaEUGQX0mfusD29q8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bZdfjwk+ZuS1BxhAVd5V4Tf0sTo8y6Y2Fw9y/HDhUpkWzbCED5VrbRGFgCYA3taaFlwjOQlRhQYJckQhXqDfyhkZ5vxggI1D9Pn2AIAnpHuAvECDXEqKzRVqpxnNEIFc0X14tOOP3x1XVY9z3FW8B7Cbq1AGXU+SJPN92UVcWYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=YSvAytu4; arc=none smtp.client-ip=148.163.152.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
+	s=arc-20240116; t=1792007305; c=relaxed/simple;
+	bh=1TD8ZpH+/6jv338rRp4EboOBdgmpy9DftuYG/3dQ1EQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EcdYNc8176dXILuKHoOwJcEHobgF0WZEwYDbgPOUbydGbrVKvR89XGUv+b/bPsRkiTm2YXnO7j+O3A52GJsHANikWg3koAq+r957ZJcoNIRpT6Hs9vwl7g7i6J2LdihhxptHm/k7pUhCBbJEvq9y2dCgxKeh4gX7Vxnj4r3azlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=etAmlb3g; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="YSvAytu4"
-Received: from pps.filterd (m0354654.ppops.net [127.0.0.1])
-	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EJjIcM1792058;
-	Wed, 14 Oct 2026 19:46:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:message-id:mime-version:subject:to; s=default; bh=V13y94AcoZxdA
-	Vvt6ubPxV3JNockmJO2nu+raArkXRo=; b=YSvAytu4sB3JeS4AuJjMlUCNY2wQc
-	8FrEVswUslv351PmrW0umrtAAbMBK/SXwm2nNYdnbdfyJn+XDnaPOQM7rGQDthI1
-	51pE6efqZ2PiR9GA5A+25mGim67Z71QRJfGsBuEJnkcXW+eN+uyPcbrLa1ymcq89
-	2TQ0IPjAv1rYdlre5z3wAlDHmOm7cWXZBPl+r8+PMy5LWwlVm+5Hn4fduXs2YMod
-	R54byYRzzrHr9ObV8FaTzbUU+LoccKZf538q0lbSkuikUt3hfjn3uVg9kvbNGQlg
-	4LV76C2vVAAGJC3RRcMHVQsK3FVWHi5vBooQXiw3ryWX5O4GXui6yO9sw==
-Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
-	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4h9ytj3e10-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 19:46:39 +0000 (GMT)
-Received: from LL-DZB4774.crowdstrike.sys (10.100.11.122) by
- 04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 14 Oct 2026 19:46:36 +0000
-From: Marco Vedovati <marco.vedovati@crowdstrike.com>
-To: <bpf@vger.kernel.org>
-CC: Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann
-	<daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>,
-        Yonghong Song
-	<yonghong.song@linux.dev>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-        <linux-spdx@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-open-source@crowdstrike.com>,
-        Marco Vedovati
-	<marco.vedovati@crowdstrike.com>
-Subject: [PATCH bpf-next] tools/include: Add Linux-syscall-note to uapi/linux/types.h
-Date: Wed, 14 Oct 2026 21:45:16 +0200
-Message-ID: <20261014194516.3030362-1-marco.vedovati@crowdstrike.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="etAmlb3g"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8520161fdb9so537310b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:48:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792007302; x=1792612102; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j1OEKiLFmZZA8uQuqTPnrH94Sp0/0PEPLNTXQpBXzI8=;
+        b=etAmlb3gElOknz8YWisLYv6Gx2htbJakBmr33uyYGsuzlNgfcC7kd4lkTWVHAi4LHv
+         cKya5B91F4bc2yTEXWBj2hexqmUTvLxlontr/JM9Dbh5R8igRLtsDCK+2TFRd+J76IgO
+         RLCZzmgCdaPqrRzfKPFGrHc3MZazFlbFp5Wb5gJI/SkK5nRhoUQrrpe/30At5AS4mn9q
+         qhJYyHetxntw3N3GzsqkBB9z64JTwsvvOR3SeGqaZYPGlO2/DeqrLUhZ7VVHg57+twL9
+         vllHfoCSW5NUDTSdZY2qk0pGKzyEao6kF9rmqLTHHM7ueTE3R4kTzYrPpMOp4M8Nhmm2
+         jYaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792007302; x=1792612102;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j1OEKiLFmZZA8uQuqTPnrH94Sp0/0PEPLNTXQpBXzI8=;
+        b=xA7iNmL/fseN1id5ovWwc/qmrl2eFpWtGTtfcTym5x4ujstRr6A7nTFjMtrXjPnYZH
+         7cXAuV+ekx4qPwuH/DcDEhaUvTnFoG3y9YTWVz+ijvnPcqHfE7LN7g7iRguuu1Afxnmq
+         z/uLhwNT3C4pSoh6ExWHYHaO+imZnat+qfG/Mwg/w4+XjyV0WzlJCoVDLQaqNs4EI2Nm
+         IKDdSZ7eddrzQxcMpui3pQDHUpDc/d4nbtzgCtU32PawU60B3rzihXg9R1FPwv9cS6MC
+         9SJ8KYk1E1SRo0Uf6whZZkE7JorMwE9okgK9bRQA+hTQzaLdA0ob32q2iUM4hlgQjylG
+         hfZg==
+X-Forwarded-Encrypted: i=1; AKwUvBy8r/AKTPYOQwpR3ZcnCTo3a1aqrPgdKycdGbWo+P3I/0b+rqzkvqVHh/XoCeKukE0iMRCf1RIldCUw98Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNTapFfTPB5NP2x+5ujKtd+Ddl2/GKcaj/eV1gkRsliXNZcIWN
+	PG8oVOXXo5RUr6HTwbCgGcEfQWyNZxRu35TqQtDOgA26vJJMsU0h1Bjo
+X-Gm-Gg: AYBFou2MSrl9wljFo/cCiuMvHmtZcitEc79UsjOBFFHvTYtQxQ+2pINlPyEovwkaC77
+	X5twj9c9cOVlDxD95u/94F5XJ8Z0tn4dOUlflUN5K1nfcMFA1aNcmHGvsXDJrFPQi+pL/ZNtJ99
+	wnb4+ywSk1/NDlBImXdGKF/P8f+gC4F1zY5EBaXejR/1DtD0wqE4fmSyUwA9DYYR4qNdQ/P3j/f
+	kyBq8FWnVOBAnXcNF/O7lunj5Uj2dayyGBGuzgfBxOx0bAVxkj5WppVU3xX+gLOwE2h35+SEzoD
+	xrDPfC7Xsfi66RVp4lbIHAtlGXsPCa9LxTE/OyPHvaaPzgUkmI2gL9iJEElmkcPrTXUf0xOqBQl
+	SLplFIT3OwJYqyGfnSecPwVfymC/DfsZon5rcp+ifdYsuCBRcroRVyITEoATS8nXeQ1ltLDWQkb
+	ZsdN/X7bNnyxV7y+pOGmJyeyf6VJoCChokO5zop5LU6SzcNwWHOnxpd0x77MnnjVPwk4Aj7Whm5
+	ybet+0Q/W9OUTCxEMaxrMwUzZvqKt2jJbqEW+jf3jkaUefothNHz9uVwVyyRjX1Q8gDWq+TCWmM
+	VbdS0sQoTwZfKLT7Rs06xaTZu/slnM8SvkgamfaDUiwY1v5F
+X-Received: by 2002:a05:6a00:1806:b0:881:552b:15bf with SMTP id d2e1a72fcca58-897c6e1b2bdmr16161905b3a.19.1792007302159;
+        Wed, 14 Oct 2026 12:48:22 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d8050d76csm1468779b3a.52.2026.10.14.12.48.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 12:48:21 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Michael Stapelberg <michael@stapelberg.de>,
+	linux-kernel@vger.kernel.org (open list),
+	netdev@vger.kernel.org (open list:ETHERNET PHY LIBRARY)
+Subject: [PATCH v3] powerpc/lib: prefetch ahead in __csum_partial()
+Date: Wed, 14 Oct 2026 12:48:17 -0700
+Message-ID: <20261014194818.11640-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,75 +87,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: 04WPEXCH014.crowdstrike.sys (10.100.11.87) To
- 04WPEXCH006.crowdstrike.sys (10.100.11.70)
-X-Proofpoint-ORIG-GUID: ZE0_nQZ5oiM0X2zxo2-YbHoObRN2WX-b
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA3OCBTYWx0ZWRfX5365wyYRk/Ls
- KH3hgpBDFLy/7W4JLD2nfOpE+S8Ll5gBH9TLop6Zh1b14wflRn5QeyS1XZFEGjLoBEiqrmQ9/3/
- 5Vdz2u1Tmx7pFmIBuYgICFc5j1ony6QN4bcMURQ0vol5Rj5HrS34e2oVa8k+CLpwMMe5tx0AvFq
- 2V2Wb+X2bAJihwb+ZBm7R+cj96MvYL1sWFt51Bdzjd/uWAwiA1uTkQH6xgBXRg9PmVme4sExGZz
- e85/Z27jakSlrzQORvYl7gRwHo+46L3OtKCXZSV2J8lv0AxZmOZ/dCtkA0YQyU97jEOYndgBonr
- 0C7cB8daVvDAivB80GSOSEvcErbEK+chmPUlz1h8iM57GW2n01X3mK3rxHyTOHvOmdBQg4NcOVj
- GTBxVcVTMwzSpEH0kenrEenxaF08ZfXviTd9pOH9vO1bAVKAw9/q0gdWXaKRy4xPEfUKmop832n
- oAgmJdvySU8thFDjSCg==
-X-Proofpoint-GUID: ZE0_nQZ5oiM0X2zxo2-YbHoObRN2WX-b
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA3OCBTYWx0ZWRfX3STbxRgO937N
- uMrFG1QWbR4Er7urnEWa813YkwWLPzH39xNsu1/07kPxwqHzLVD8lJ5x3B1uxkPk1/z84H63s6P
- iCnFmi8Rc+OqZns4EwFHhWmWb/2Z48i1zy9yYjvyxsGggcyCCWaN
-X-Authority-Analysis: v=2.4 cv=U9wHnuru c=1 sm=1 tr=0 ts=6acfdc1f cx=c_pps
- a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
- a=EjBHVkixTFsA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=T2KQ53IYiC3MXPrxx8bB:22 a=R_n4Uisa8axJ7jemP0ek:22 a=pl6vuDidAAAA:8
- a=LSAfqMpvtffKtK7BL-AA:9
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11935
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1011 impostorscore=0 priorityscore=1501 suspectscore=0
- bulkscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140078
 
-tools/include/uapi/linux/types.h is the only header under
-tools/include/uapi/linux/ whose SPDX identifier lacks the
-Linux-syscall-note exception.
+__csum_partial() walks the buffer linearly and reads each cache line
+exactly once. On cores without a hardware prefetcher, such as the 464FP
+in the APM82181, every new line is therefore a demand miss that stalls
+the loop. Packets received by non-coherent DMA are never in the cache,
+so this is the common case for GRO checksum validation: when routing
+TCP with GRO enabled on a Meraki MX60, __csum_partial() takes about 30%
+of all cycles and is the top entry in the profile.
 
-The file was originally added as
-tools/testing/selftests/bpf/include/uapi/linux/types.h by
-commit 0a5539f66133 ("bpf: Provide a linux/types.h override for bpf
-selftests.") without any license header. Then
-commit 579f1d926c66 ("selftests/bpf: fix broken build due to types.h")
-added type definitions copied from include/uapi/linux/types.h, which
-is licensed under GPL-2.0 WITH Linux-syscall-note.
+Issue a dcbt MAX_COPY_PREFETCH cache lines ahead in the main loop,
+the same distance csum_partial_copy_generic() already uses. That is
+128 bytes on the 44x. dcbt is only a hint and never faults, so
+prefetching past the end of the buffer is harmless. Lines that are
+already cached, for example when checksumming data the CPU just wrote,
+are left untouched.
 
-Commit b24413180f56 ("License cleanup: add SPDX GPL-2.0 license
-identifier to files with no license") tagged it GPL-2.0, along with
-other headers under tools/include/uapi/. Those other headers were
-switched to GPL-2.0 WITH Linux-syscall-note shortly after by
-commit fb7df12d645c ("tools/headers: Synchronize kernel ABI headers"),
-when they were synchronized with their kernel counterparts. This file
-is only a partial copy of include/uapi/linux/types.h, not kept in sync
-with it, so it kept the GPL-2.0 identifier, also after
-commit bcd66b10b5e9 ("tools/bpf: Move linux/types.h for selftests and
-bpftool") moved it to its current location.
+Measured on a Meraki MX60 (APM82181 at 800 MHz), single TCP stream
+routed through a qca8k DSA switch, iperf3 median of 5. Only the dcbt
+was toggled at runtime, in the same boot:
 
-Use the same identifier as include/uapi/linux/types.h.
+              LAN->WAN               WAN->LAN
+              Mbit/s  csum cycles    Mbit/s  csum cycles
+  before      495     30.5%          439     27.2%
+  after       599     15.3%          520     13.7%
 
-Signed-off-by: Marco Vedovati <marco.vedovati@crowdstrike.com>
+That is 58% less time spent in __csum_partial() per byte.
+
+The prefetch distance was chosen with an earlier, slower driver
+configuration (median of 3, Mbit/s):
+
+  distance    LAN->WAN   WAN->LAN
+  none        370        341
+  64 bytes    430        381
+  96 bytes    438        397
+  128 bytes   438        385
+  160 bytes   434        386
+  256 bytes   423        383
+
+Prefetching the first lines before entering the loop made no
+measurable difference and is not done.
+
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- tools/include/uapi/linux/types.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ v3: use MAX_COPY_PREFETCH
+ v2: reword commit message and retest numbers.
+ arch/powerpc/lib/checksum_32.S | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/tools/include/uapi/linux/types.h b/tools/include/uapi/linux/types.h
-index 85aa327245c6..6acf2059085a 100644
---- a/tools/include/uapi/linux/types.h
-+++ b/tools/include/uapi/linux/types.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: GPL-2.0 */
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
- #ifndef _UAPI_LINUX_TYPES_H
- #define _UAPI_LINUX_TYPES_H
- 
+diff --git a/arch/powerpc/lib/checksum_32.S b/arch/powerpc/lib/checksum_32.S
+index cd00b9bdd772..5bb872e9e68f 100644
+--- a/arch/powerpc/lib/checksum_32.S
++++ b/arch/powerpc/lib/checksum_32.S
+@@ -43,6 +43,7 @@ _GLOBAL(__csum_partial)
+ 	bdnz	2b
+ 21:	srwi.	r6,r4,4		/* # blocks of 4 words to do */
+ 	beq	3f
++	li	r9,MAX_COPY_PREFETCH*L1_CACHE_BYTES /* prefetch distance */
+ 	lwz	r0,4(r3)
+ 	mtctr	r6
+ 	lwz	r6,8(r3)
+@@ -52,7 +53,8 @@ _GLOBAL(__csum_partial)
+ 	lwzu	r8,16(r3)
+ 	adde	r5,r5,r7
+ 	bdz	23f
+-22:	lwz	r0,4(r3)
++22:	dcbt	r3,r9
++	lwz	r0,4(r3)
+ 	adde	r5,r5,r8
+ 	lwz	r6,8(r3)
+ 	adde	r5,r5,r0
 -- 
-2.55.0
+2.56.0
 
