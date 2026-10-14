@@ -1,140 +1,285 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+Received: from mta0.migadu.com (out-71.mta0.migadu.com [91.218.175.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDE549EC46
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:00:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968446; cv=pass; b=F4tPMP7cvLG1bqyjEO90j3rbYVW5dms62uiq9vobhl7dQsPR78BnOPxoMqBvY8jixFz2ZahJLYpgLcNivCrIaoBUG5TasD4+W20QRRHo8a2egSZA1H2Vlxpdp0El1V16Dps89B0Z5f309zIYsoIT+5TVCKMuQAu8zUTuYnZVtF8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968446; c=relaxed/simple;
-	bh=tLFxslh9baVvXmIpYm9o+POl3faCnXysDmFb2JzF7bg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LG/gTRE+vqL6fS4+HC+ZibIqmOo5DtXiC1cZqEGc8U+EWn9cPYYaintjzpROTUa1oXRcez5kGify7DnqC8wGiUZOVRxlZ8RaFbT5WgxI3YYtlc4coiVxb0XOu6ccW7qlgZJcyr4t5xP10zSP4RbjWgaK3KWRwE2W3VidKdFbUu0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dn4pgo0x; arc=pass smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED3548592F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791968463; cv=none; b=e/0/OXENuiCGdTosTNGb0wVNeeDSjVfSOYdESMP/UtMwkeIEg2pBK1keOoFIUP86c5nmjhzqtdmPOkuNjLXT1TdkY2oJLpkd7Mf4h4SzgzEv6mbRIYvB58eC27x2VyZaC8kFDFmihj6iiu3O8oLZMhjxQfcIO8/+sq7sIh1yV8A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791968463; c=relaxed/simple;
+	bh=f83gIxzX791HXNUe8bdGB2JhxsHCRMrxjMWV0SswPjc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MJNqJQWokfeC0/Ehs3VMBaJEkyENbYnYNrEj6gvsn0IQ6rl3JFSqAqAdQSmbhUiPGuXpVOg7m3184Ii54PCwrK051a1T1DGcrGKgYGRwbUEXWZw85VPy+Tz4a0ExSDSc3oBAYBHub3uxJHxhiZSL2IXyXteB0t5/skSEb+7U5Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xL2T0Y4e; arc=none smtp.client-ip=91.218.175.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dn4pgo0x"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35aa0cf7c40so3653167eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:00:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791968444; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sIP3pykRx8iUoELfQW64hAnIbgUBS0Un5zRvp97dWpR+xsMZk5Js2auiSr19QNbw6T
-         JK7SqxwAIroU4ixOVrfMdmKqOVq31qqetAwKhpb3fJQ7a2VZYUknM2MBW89V6h6Fibbs
-         yy8MoARmWit3GT/0+E6h/Y6v2yepEsDOIzWQ8Ez00bIbffplytmMFlsuf2FgR1UYJG2h
-         vJ5oFtdokhEmdJ3OOLJZIdsPMP9ZlNTlcdPjxPLOMyBfT8BK6vIvEylVoHlhyjuo455R
-         8Pb/PRiRv0OI9sWyfxuWphfmW2qLQ8MrTALOQLfltLWuZ4utfbx1dw70mTJdP0nN7VDI
-         pllg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i9xyJKsfUBa0FGUnDXa5xLRJ8YothmB2dBHIAfXej6w=;
-        fh=Ilu6q5Skjatv4GzCexNnkjlm/Rlq2WjyLJ1LznFdIYs=;
-        b=ZmGYfhFvBkecxpejj4K/o01e/mmUYwK5xvNEtYeB7pS4oRQUbG/wrO7INRo/NM34Xc
-         ltxKQ31kYXkBTRNy+xPAhxW9hRpsczlWY9jP12gLPdE1cT22wETQDaZ6VP1+x1GClOOU
-         Onj7FWKkHopwK8reB+jylbxa9HUUdJ0wpfU04EEGEirigNg41VeWz4RWuzh2mtjPEGoK
-         zP3IxsowUZjJafZ20cl8aNLPsfI3AJD0dXTuZIpflY59yjpZSGO+7QnW39NcR0bD1b2c
-         TcBKkUq/VPFfShO/x9DEl4n1ZTJdx5bqYa2i6Eo6DtqaGTC6fvCpntY69QuWpz0T31uH
-         loEA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791968443; x=1792573243; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i9xyJKsfUBa0FGUnDXa5xLRJ8YothmB2dBHIAfXej6w=;
-        b=dn4pgo0xHtSUKgUFKsL31ZRID9HudJwxvdKau/+p/4ayiXhPQ5paiDSZP6t/9jjHmc
-         d/omFrVGUKCMKwvlIRp+nZ9mCceUM5c+IEu/cwSf0bU68i4yYHzZWIoP1xyFsz4G6oTV
-         0R26qzCL3fJZk1t+lYLX1uvBMP7iiOfhd7pbPP0/sBBWh1onTAtNtf3tEUoz+xYImUwQ
-         15R179ZvljmfPR77ebjef1Ll3pd9j+RR4Q7oa7GNfl3aBBAWWCpI4V7H8CBn6KtGEX/O
-         hvM/MRYJkOIL1rHYPV/0Fd4sUJBDm9c8AFWYrkbAenpJM4AhFqRIybzKVnCN4yi+3MKH
-         FLkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791968443; x=1792573243;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i9xyJKsfUBa0FGUnDXa5xLRJ8YothmB2dBHIAfXej6w=;
-        b=xVcIo3Wabp/OthTQDjVkG2oa832+/8qvhayCu3dYjbps1PIP2eEXGx2E+ue+V4A8kN
-         rUrArulhk9J9/p2mRQmYl0N1S1DUY7hSTnSbypXmQ4LiFJr4Q26l8aNxXFedUHVs1SPx
-         uU36EpDRi//wL2YOmubDzRmr6JgRsTLEZlztHiu45EsgNC2cAle6SKztzvt31vrJ1eV4
-         /kqKOeveuF19+IuFxShQcfEDb547EK7EWVw2UTF1PFL4StRFEepa6jXKJaz4gmZjEo6L
-         5rWCFCDI30LLG+BBW2FdDM5xNX9ec5vCqwelh2WQ7UsKoYF3/VD/ZlAfeaatBa8cuEkT
-         +9Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBzyW5/+BA+4vr6V78+fJr/s99r4NoEPfYCfEyxZLO+hUqrlHWhMByNuLTYByGwsakRj9QRYklRksadP+CA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbYyVwERJSdTl++IfPz2FUApiB/nttELqVbBEq6F0RDVmEAHG5
-	c5JCPDbLMp7JBBbG2jg48b91OZLA/rU/1Uo7w1ocTr3PYeqS92nRXcT1UkQwQFc2l6+zgSF98JR
-	uH2mHOantNOUweJHAdsjjJElmvpzgcjk=
-X-Gm-Gg: AYBFou1O7xFUjj4QtLdmSSXHEjPIWerIshWV/8vwI5HhP+eqTJIMJFLOol03Al4bihN
-	baWOjUGTNtwErYW8+FSp0D0Mh3UcFXvDPDUsAEUaafVJS1LVeRO09ofkD7ClnMZ0ObaSR12mN/2
-	JkAOPao/ApvhXVaCvcfuVNMvA9B7UZimDW/xH4TrXr9bK2CRQjYk2aUJFWIKDa4HGLPQOBQS1jh
-	NKpEz70COkBK4NEeKW9hFwuo8qj7Bj1+Ba8u0ujH6NCI/4Q81VbNNiDbZaHzgJtFvtkMjYGe5/k
-	s5e2GEa0ou492ouVbS8cY+VPZtB3cVqNgwH6SEUB3BHIFMWHFGnO2rh9tXK2oP/WxU32dW1Cz7w
-	TyznPhpZ4kUl9
-X-Received: by 2002:a05:693c:8819:10b0:35e:7bfd:4613 with SMTP id
- 5a478bee46e88-35e7bfd4881mr73051eec.40.1791968443288; Wed, 14 Oct 2026
- 02:00:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xL2T0Y4e"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=f83gIxzX791HXNUe8bdGB2JhxsHCRMrxjMWV0SswPjc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791968455; v=1; x=1792573255;
+ b=xL2T0Y4erlXpf6tODGDdRmVfGzpvIesXM+F6+FmYxid67fyqDb6FHYFluy1zKP7BnjcbVlVY
+ +TalaytCWLlabZSvoEOL3Xl44Sq44YZlTEwTzlpOgEgi6H6JflvnGKiYDeeR7y7HDPuuoCk+9zA
+ Hy7uga45YGKLa3g8acHN3wiQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 8638e9c036146f7d;
+	Wed, 14 Oct 2026 09:00:54 +0000
+X-Mizu-Trace-ID: 8638e9c036146f7d
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH v6 0/2] mm/vmscan: fix NR_ISOLATED accounting and throttle MGLRU eviction
+Date: Wed, 14 Oct 2026 17:00:22 +0800
+Message-ID: <cover.1791968227.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013183226.513658-1-clamor95@gmail.com> <20261013183226.513658-3-clamor95@gmail.com>
- <10dca96b-78b2-4f46-bf4f-de67d25c916e@sirena.org.uk> <CAPVz0n0X58xfwhQo=V_5UQBc_cLfG8CqFPuoG4FqN9MM8MFisw@mail.gmail.com>
- <86a4957f-cb8f-4126-83a4-d525ef7b1dd6@sirena.org.uk>
-In-Reply-To: <86a4957f-cb8f-4126-83a4-d525ef7b1dd6@sirena.org.uk>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 14 Oct 2026 12:00:31 +0300
-X-Gm-Features: AclHuK_kokY8VK1sVn_A_0bMv0Bn9Zibgf0bMX5rADMwX9GRUM7_tx62sAWh914
-Message-ID: <CAPVz0n2L_4ik6nS_eQY-tQqtdLqgHofumZUU7wJjzbLGVft8kQ@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] ASoC: tegra: Support WM8994 by machine driver
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D0=B2=D1=82, 13 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:0=
-4 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, Oct 13, 2026 at 09:56:03PM +0300, Svyatoslav Ryhel wrote:
-> > =D0=B2=D1=82, 13 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-21:52 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Please make the entire comment a C++ one so things look more intentional.
->
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-May you please be more specific how the title comment should look?
-Just to be sure we are on the same page here.
+Barry asked for a real-world workload that suffers from the missing
+throttling. This version adds one: a CI-style kernel build inside a
+memory-limited cgroup with slow storage (mglru_build_repro.sh),
+measured at three pressure levels, plus redis-based cache service runs
+as no-impact data points.
 
->
-> > > > +     SOC_DAPM_PIN_SWITCH("Mic Jack"),
-> > > > +     SOC_DAPM_PIN_SWITCH("Line Out"),
-> > > > +     SOC_DAPM_PIN_SWITCH("FM Radio"),
-> > > > +};
->
-> > > There's no Line Out or FM Radio widgets, you should get errors during
-> > > probe.
->
-> > These codec targets. LINEOUT(1P/1N/2P/2N) to Line Out and IN1LP/RP are
-> > used by LG Optimus 2X P990 (star) for FM Radio.
->
-> Those are reasons why someone might want to create Line Out or FM Radio
-> for a system, but the fact remains that the machine driver uses those
-> widgets without creating them.
+The series is also rebased onto the latest mm-stable; patch 2 is
+adapted to the current isolate_folios() type-selection context
+(is_single_type_reclaim()), with no semantic change.
 
-Ohh, you are right. There is a missing asoc_machine fragment that adds
+The legacy reclaim path has two mechanisms around isolated folios that
+MGLRU lacks:
 
-SND_SOC_DAPM_LINE("Line Out", NULL),
-SND_SOC_DAPM_INPUT("FM Radio"),
+1. NR_ISOLATED_ANON/FILE counters are updated when folios are isolated
+   from the inactive lists. Compaction's too_many_isolated() relies on
+   them to decide when to back off. The MGLRU reclaim path never
+   updates them, so compaction cannot see MGLRU's in-flight isolation.
 
-If these are all required changes and you are ok with picking this
-patch, may I reload it without delays?
+2. shrink_inactive_list() throttles direct reclaim via
+   too_many_isolated() when isolated folios pile up. MGLRU's
+   evict_folios() isolates folios without any such check, so many
+   concurrent reclaimers can over-isolate the same (oldest) generation,
+   leading to unnecessary swapping, thrashing and premature memcg OOM.
+
+Patch 1 fixes the counter accounting in the MGLRU isolation path.
+Patch 2 adds a per-lruvec throttle, mirroring the legacy behavior but
+adapted to MGLRU's per-lruvec contention and its dynamic type
+selection/fallback.
+
+Testing
+=======
+Five test scripts are provided: the two synthetic reproducers from v5
+and three real-world workload harnesses new in v6. All are available
+at:
+https://gist.github.com/teawater/3ef51251f2e91a5a600e3d26bb477e34
+
+Common environment: 10 CPU / 8GB QEMU guest, cgroup v2, MGLRU enabled
+(0x0007). "unpatched" and "patched" are the same tree built
+without/with this series; every configuration is run with identical
+parameters on both kernels. Each cell below is one run; the build
+metrics are cumulative counters over a 1800s window, which smooths
+run-to-run noise.
+
+Real workload 1: CI kernel build (mglru_build_repro.sh)
+-------------------------------------------------------
+Models a CI build pod (k8s / OBS / gitlab-runner): repeated
+from-scratch "make -j20 vmlinux" rounds inside a memory-limited
+cgroup, with the object tree on ext4 over dm-delay (10ms) to model
+slow/congested storage. 20 concurrent compilers charge into one memcg
+and enter direct reclaim at the same time, while dirty object files
+stretch the isolate->shrink->putback window - the workload shape
+too_many_isolated() was invented for. Each kernel runs 1800s per
+pressure level; the headline metric is the number of objects actually
+compiled in that window (a full round is ~3,800 objects).
+
+memory.max = 1024MB (extreme pressure):
+                        unpatched       patched
+  objects compiled      4,744           7,211 (+52%)
+  pgscan_direct         2,901,083,521   2,228,776,807 (-23%)
+  scan efficiency       0.195           0.242
+  workingset_refault    565,169,241     537,686,479
+  mm_vmscan_throttled   0               511,441 (all
+                                        VMSCAN_THROTTLE_ISOLATED)
+  nr_isolated peak      0 (invisible)   1,152
+
+memory.max = 1536MB (heavy pressure):
+                        unpatched       patched
+  objects compiled      18,969          25,124 (+32%)
+  pgscan_direct         1,223,905,508   816,812,074 (-33%)
+  scan efficiency       0.320           0.338
+  workingset_refault    390,048,986     273,442,445 (-30%)
+  memcg charge fails    8,344,775       5,868,167 (-30%)
+  round wall time       199-391s        182-275s
+  mm_vmscan_throttled   0               503,117
+  nr_isolated peak      0 (invisible)   1,053
+
+At both levels -j20 is oversubscribed (20 cc1 processes need ~3GB of
+anon in total), so rounds end with a cc1 being memcg-OOM-killed on
+either kernel. Normalized per completed round the kill rate is the
+same (13.2 vs 13.1 at 1024MB, 5.8 vs 6.1 at 1536MB); the patched
+kernel simply reaches that point sooner because less time is burned
+thrashing, so it cycles through more rounds. The patches do not claim
+to avoid these OOMs - the point is that the patched kernel performs
+23-33% fewer futile LRU scans and gets 32-52% more build work done in
+the same wall time.
+
+memory.max = 2048MB (light pressure - no-harm control):
+                        unpatched       patched
+  rounds completed      6               6
+  avg wall time/round   271s            270s
+  scan efficiency       0.984           0.978
+  mm_vmscan_throttled   0               0
+  nr_isolated peak      0 (invisible)   144
+
+When reclaim keeps up, the throttle never fires and both kernels
+perform identically. Patch 1 still shows: the unpatched kernel reports
+nr_isolated=0 even while isolation is in flight, which is exactly the
+blind spot it fixes.
+
+Real workload 2: redis cache service (mglru_redis_repro.sh,
+mglru_redis_shards_repro.sh)
+-------------------------------------------------------------
+A redis-server serving a 1KB-value dataset larger than its 96MB
+cgroup, with swap on dm-delay (50ms): first as a single instance
+(100k keys, 200 clients), then as 8 shards with AOF persistence on a
+second dm-delay device sharing one cgroup (8 concurrent chargers).
+The bottleneck here is swap-in I/O serialized on redis's single
+command thread, not isolation contention: charge-induced reclaim is a
+trickle (~400 scans/s vs 10^5-10^6 scans/s in the build runs),
+isolation never piles up, and the throttle correctly stays dormant on
+both kernels:
+
+                        unpatched       patched
+  single instance       41.6 ops/s      41.2 ops/s
+                        (avg 2999ms)    (avg 2999ms)
+  8 shards aggregate    333-419 ops/s   310-358 ops/s
+                        (mean 376,      (mean 335,
+                        4 runs) (*)     4 runs)
+  mm_vmscan_throttled   0               0 (all runs)
+  nr_isolated peak      0               0
+
+(*) the aggregate is dominated by a preload-end residency lottery
+(which shards' datasets happen to stay hot) and swings by up to 26%
+between runs of the SAME kernel; with 4 runs per kernel the
+between-kernel difference of the means is within that noise (Welch
+t=1.95, p~0.11). The throttle never fired in any patched run (the
+tracepoint covers preload as well), so both kernels execute the same
+reclaim path here, and the kernel-side counters agree across all 8
+runs: steal/scan 0.59-0.63, swap-ins == refaults, zero OOM. These
+runs document the no-impact side: the check is dormant unless
+isolation actually piles up.
+
+Synthetic reproducers (unchanged from v5)
+-----------------------------------------
+mglru_iso_repro.sh (64 threads, 48MB working set, 60s):
+Drives concurrent direct reclaim inside the memcg and measures scan
+efficiency, throttle events, in-flight isolation and throughput.
+Neither kernel OOMs at this concurrency; the value of the patch shows
+in reclaim quality:
+                        unpatched       patched
+  OOM kills             0               0
+  mm_vmscan_throttled   0               35645 (all
+                                        VMSCAN_THROTTLE_ISOLATED)
+  nr_isolated peak      0 (invisible)   230
+  total touches         246,499,132,369 301,456,426,692
+  scan efficiency       0.0261          0.0194
+
+The patched kernel completes ~22% more work in the same 60s: the
+throttle keeps concurrent reclaimers from trampling the same
+generation, so less CPU is burned in reclaim. Note nr_isolated is
+always 0 on the unpatched kernel - the over-isolation is invisible
+there, which is exactly what patch 1 fixes.
+
+mglru_iso_repro_v2.sh (192 threads, 48MB working set, 60s):
+Raises concurrency to the point where over-isolation becomes fatal:
+                        unpatched       patched
+  OOM kills             1 (task killed) 0
+  memcg oom events      51              0
+  mm_vmscan_throttled   0               512292 (all
+                                        VMSCAN_THROTTLE_ISOLATED)
+  total touches         0 (killed)      682,300,000,972
+
+With 192 threads the unpatched kernel cannot keep reclaim ahead of
+allocation and the task is OOM-killed; the patched kernel survives the
+full run and keeps reclaim making progress.
+
+Changelog:
+v6:
+According to the comments of Barry, add real-world workload tests:
+a CI-style kernel build (repeated "make -j20 vmlinux") inside a
+memory-limited cgroup with its object tree on dm-delay-backed storage,
+measured at three pressure levels (1024/1536/2048MB), plus redis-based
+cache service runs (single instance and 8 shards sharing one cgroup)
+as no-impact data points. New and updated test scripts are in the
+gist. Rebased onto the latest mm-stable; patch 2 is adapted to the
+current isolate_folios() type-selection context (is_single_type_
+reclaim()), with no semantic change. Re-run the tests and update the
+test logs.
+v5:
+According to the comments of Kairun and feedback from the test scripts,
+make the throttle check per lruvec (new nr_isolated counter) and skip
+empty types in the allowed mask.
+v4:
+According to the commens of Baolin and Barry, rework patch 2:
+drop the throttle_is_throttled() helper extracted
+from shrink_inactive_list() and leave the legacy path untouched.
+The new MGLRU-only throttle_evictable_types() only sleeps when all
+evictable types are over-isolated - v3 throttled as soon as any of
+them was, which unnecessarily blocked the reclaim of the other type
+and passes the mask of the remaining types to isolate_folios(),
+which restricts both its initial choice and its fallback, so that
+isolation never lands on a throttled type.  The v3 gate did not
+constrain the type actually isolated, so the fallback could still
+pick the over-isolated one.
+Re-run the tests and update the test log.
+v3:
+According to the commens of Baolin, remove the redundant nr_isolated
+check before restoring the NR_ISOLATED_* counters in evict_folios().
+rename the extracted helper to throttle_is_throttled() to avoid
+confusion with the existing wake_throttle_isolated() naming space.
+Use for_each_evictable_type() in the MGLRU throttle to check each
+evictable type's isolation instead of only the type returned by
+get_type_to_scan(), since isolate_folios() may fall back to the
+other type.
+Re-run the tests and update the test log.
+v2:
+According to the commens of Kairun, Rebased on mm-unstable.
+Split into two patches; patch 2 is new and adds the
+too_many_isolated() throttling to the MGLRU eviction path, which v1
+did not cover.
+Add test infomations.
+
+Hui Zhu (2):
+  mm/vmscan: fix missing NR_ISOLATED counter update in MGLRU reclaim
+    path
+  mm/vmscan: throttle MGLRU eviction when isolated folios pile up
+
+ include/linux/mmzone.h |   2 +
+ mm/vmscan.c            | 174 ++++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 163 insertions(+), 13 deletions(-)
+
+-- 
+2.43.0
+
