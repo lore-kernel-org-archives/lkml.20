@@ -1,106 +1,98 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21AA4A8A18
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017157; cv=pass; b=N6nf5pOkxIH13tXX2veKJZs6wIoXgue/aSFf/Fo26SNLhAyi9lkx5OoW1qYKTRGS9ZwSIbxLTYZ7XqPm2cJUSh7rVsqkWeCACabVezDLf78LzUI3PA9yz5sh18f/kpqGtaCJniJL9vts6kYi/Bk3M5me05Ju52Y8qH3knuF6vQw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017157; c=relaxed/simple;
-	bh=4+84p/RrrdzZmA9eMDawKM5I6T2GTBD+KG/Q+hsl6kM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qQ3FK7NtkHlT0kkBHUhgG1tupSFxdujhxDAr7clZ11CmBosAUQmYV/FtViv9nU1eeTkrT4Yy5ucjIPylFmqYAuPH+m6HJpiBBz0u+lwS90FNKX5HQYFP78dJuuqK9lhLZZX0Nptaa2bwVKnnhShq7qJoHJ3hRPoEiOQ6NT6YWtQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YO7Q3Q8y; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDE74A0136;
+	Wed, 14 Oct 2026 22:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792017195; cv=none; b=ZtG8WFB4CBSYp+fVKb0KOjv0zmVoGGl2JvYWNv0HDAlxIIVe6/486w/TZ2h/fwvpEWLqz8pV6dsPG58LYaV3e4764bvCvDuo4mG/BQXUV2LjyXIzE6XunuiPquZXhkHUo1rf0KIe2n1pmejOkStHnaP1mxFa9YArrtA6DfGFTUg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792017195; c=relaxed/simple;
+	bh=rrRsBKyfT3t2sXH5rt7FE1kUDHXXWt+tXIhr4BEKfOs=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=dgbWMmkCLhkLwOCl0WjI79o2n095X6uKY5eohC3muEJ/R25d795W7ScAnf+o4l7r0mbpqHPPbzPnUou7pVS7DXFnuwDUIiRJ7UeEegRRRFvFxUPu0Z2dw9gbGLe1Dyf29ES/82UTQQXo9NHP4IL4iuCPYTJXIVNS8GxP8SR3YtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SW1/c2px; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YO7Q3Q8y"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso698a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:32:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792017154; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c5mtn5+J7KTj9NYI0pyrRkLGoMRa3zbucft4HDTpijbU+pOuVQ1l2sDAEMy91h93Ej
-         8lFpiCV194DpL0NpUa1z8rjSf42A5TU6i4swrbF/Z5XH4GcwdEp940bd4DvKR2HJGxX5
-         NfVKjffoUXgbFAjphNibPRxs/Me+dLEcdnR+41mu0uvosR67BAyOwAX3fbItqPZVVggQ
-         GqgYYCBjQwm6ahc2rrE+VKe+wgNcKE8w/chLHi8ONYzMkCEJ6/E3OUjImVbvcRZdoHSs
-         gWWMnwWosJksdPjDefSuz36zvttRPdyHCgAuLS2Y9SHgYfd+OWWDd1cBYeK1jk397NoK
-         lsjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4+84p/RrrdzZmA9eMDawKM5I6T2GTBD+KG/Q+hsl6kM=;
-        fh=F1IovP5j4eCiJxi5mnSIg4tGWIER9epmW9BOSO3HE5g=;
-        b=h9RjGOD6+ZGgmJNaLq5WgGRJpXu1kPR+5ayMfDn6uYMsiBmf6N+bOjV/viMhWd66oW
-         3k//Esd3e9i35b1qc6Y1Yov54ehJnsfar7GPKnZ6U/FrQ8UJsqUcpNuprEwrbH0FG0Pq
-         e6KfLgC4ASV5APtC6rP92QOTO7fIAkgDSrI0FfvUOZ10rckJaRe5UAA4GY4jIqDratdk
-         VHRH2sYQoGqpGdQrEmsQ2iy1nfjXvb1bCpzCfLBnN6OZ0rLlpvNWzFFU3sj7RnaZUp6T
-         0QyvF5o1hSgjHyJPq32/4LObUNjFTAJYedC94s+P1oD4Sx+/KCQZsjm1h/FsvSCE5F3i
-         qROA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792017154; x=1792621954; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4+84p/RrrdzZmA9eMDawKM5I6T2GTBD+KG/Q+hsl6kM=;
-        b=YO7Q3Q8ypaRb+MU4PObCrJGi3EfLi/wDAr+yhPepMXqp4hgVEysmioMT2R3N2ROyFg
-         pJg6jPQK88gA0RH1Eiu+HbbRvDtmXhTG8Al3LIdqPOPCxFeVYjXSODySOhiv4XhLp3YV
-         qcJMz/FWjJoT8o0I0KzONRNyNTXxUEGkRoLDROMqCAhW2oH9GpDmS7KulxhbfoLgIpIS
-         HE983Z5K5vYliffvb+xW8WFV0KeEigkXeYTr+zFnyw+Z+580D2eUwxp2Yd621Xkq1ElK
-         wVX/X4EY/umm8YQSucvCJuDmLJmZN63d5HGXlEJTHBLlp6uiLDiUd4WqaxuxBveHmzV9
-         NEjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792017154; x=1792621954;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4+84p/RrrdzZmA9eMDawKM5I6T2GTBD+KG/Q+hsl6kM=;
-        b=yByjESf/qfSV6tEGgLxt9U3bR9UFLsvO1K7J+jBK6sJglEg/jhdvlsEDEUkzBviBmj
-         IKm121i565to+xzJHdbfakvDTkzCFB6JE9oDT6FZw5rwe24kH+rEAPjOUkpsfPZJVgBS
-         6MsEQgGU1X2/KvpCRdDSJUFGPlDINoAzahI33v6tqr577X/JWq0TiesIkAwAsX1ArTnZ
-         UTdjgcfx087NbP79pWmFdf94Wjf6XdqRXADAFRMeyNdQSHwFV2fivoBEZIgSMU1Mc+Kr
-         BkadUajOA/P0fo254PVmlBhrd7ofsNlMCd9sG6zQr8DlpB6fY5R/NhgwyVY15UPS3XKc
-         XCqg==
-X-Forwarded-Encrypted: i=1; AKwUvBw797TsjMhekW5utVwEmUFMABak20Rl9w/Mfv5zXfLJxRSvfJgjH5KGooTvbBa/8Iv3f+P2KPduahFZLqg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcJZlBEyIf7mAK+g/0EhLIWvxZ82LX/2fZX1Tbdr0usxT0q7PO
-	7TLmfsBD54r7nA2/9+d/TmNERitclduR0nOo7vDMzik5j/1EcEYV5eNRfK/k2gs2d9sEVfI4Mxj
-	9yCyCD5UfuBtWhRP14LWC7pk02IydxWaCQ6fOCMUz
-X-Gm-Gg: AYBFou2zP0uLay/34Men71I7/iOjCbTTcLnunPOjaKp6doPQfRLZ/f1VKrpadLqAnO8
-	Zq/hS4AyM6XQQQ6UUMaCg9cm0Zc40N6Es2KmnMh04AvjpX1sCkknSszlYJnME0iB/0nmIc/Y7Pv
-	8RIgzxqlN3bnwEQuSoFSxkyQFNufjb/41aOv0xwUNzKLMK1oZx/K4DfAxU6Qd817hRRAGBMYeom
-	MSZDXMZUyWk4w/FJhQfJOgWbXodtvDlgqEVCIJdYmBAJH5DVXmp/x6R8z7ee5c+ZpSvcONLMonO
-	t3TcfSTAtrM6YToarjINqGghUdzCvVmS53T4JFVsd0bGeXoAgVJg6vCZ/ekCEeJZ0g==
-X-Received: by 2002:aa7:c74f:0:b0:6b1:a517:5bce with SMTP id
- 4fb4d7f45d1cf-6b20ab1840amr67168a12.16.1792017153710; Wed, 14 Oct 2026
- 15:32:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SW1/c2px"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592831F000C4;
+	Wed, 14 Oct 2026 22:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792017194;
+	bh=GoSzVfZk9vh8sT14N1gEpgTZZnt6mmWx5fqr1y9AsvQ=;
+	h=Date:From:To:Cc:Subject;
+	b=SW1/c2pxKgF2Hz3QoXpxqvBrUDmc+L5a6Qn5NcVvnCfWB/oG+i6mPe6NuQhC5Yrz1
+	 L0p/bB5bMIaDkyECyhy0qSNrtCgnyiuTqcAu0V6fWH3zYvm6ncfPdbKXxUsFAE0jOF
+	 Pm2Ldxe5dtTLRw2hG/lX5khx9Ep+0GEMkUyJl/y8qnTc34vQLWwO7JF8FEgkH7FcwA
+	 +xH3zqhkdL6YkQlDjx315ccmUybCbZpQtKX7fw/ryGqfhQ+Lz8vAT4hHKEaK3LEdx7
+	 gwKIaBmHQi/DMvnhh5dMrfiKY3AudSwSZtZ//OXTcawX6ACBpPkbD7CqAzaxToziyn
+	 oyRFKTedCZLkg==
+Date: Wed, 14 Oct 2026 12:33:13 -1000
+Message-ID: <3d82bc8d063a217f2d6583d285feca4b@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>,
+ David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [GIT PULL] sched_ext: Fixes for v7.3-rc7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-6-yosry@kernel.org>
- <CALMp9eSWazT=0tXKvGb9UNWBv62di33QgugQHOa+Bo2sq0qUCQ@mail.gmail.com>
- <CAO9r8zPPR9LMtcwhH=D8gJLjmC6800mJdyV+nKT83TnMti7wJw@mail.gmail.com>
- <CALMp9eTyzxwjKnWXem=dAGiwJsUsArssQTcQhg56HVd+js5pSQ@mail.gmail.com> <CAO9r8zNx-CUVeN8gfhnFxAUP9RBLnLV=eAFHhtW8FqTvhNEXFQ@mail.gmail.com>
-In-Reply-To: <CAO9r8zNx-CUVeN8gfhnFxAUP9RBLnLV=eAFHhtW8FqTvhNEXFQ@mail.gmail.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 14 Oct 2026 15:32:20 -0700
-X-Gm-Features: AclHuK-V-xCwiQ2XrkH5VqBxQlieInGerpdEGA-cb3DSm8FrVDltIDe8fdS4UGg
-Message-ID: <CALMp9eSmXHbXx9Uov-Vx0=jrsmu-Tz0GYm6nPuaHWvZo3Bzxhg@mail.gmail.com>
-Subject: Re: [PATCH v3 05/27] KVM: SVM: Add helpers to set/clear ASID flush in VMCB
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 3:25=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
-> I would prefer vmcb_set_flush_asid() and vmcb_set_no_flush().
+Hello,
 
-SGTM
+The following changes since commit e6ac89b8b1c12e9104df45a14a26e2dfa96ded06:
+
+  sched_ext: Generate qseq from a per-task counter (2026-10-03 13:23:31 -1000)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc7-fixes
+
+for you to fetch changes up to 2935062be77113c1c4565ca9d0c72180449aafee:
+
+  sched_ext: Wait for SCX_OPSS_DISPATCHING before moving tasks off DSQs (2026-10-13 09:55:19 -1000)
+
+----------------------------------------------------------------
+sched_ext: Fixes for v7.3-rc7
+
+- A task that skipped the BPF scheduler on its way back to its CPU's local
+  queue could stall there until the watchdog fired, as the CPU had already
+  decided to go idle.
+
+- Use-after-free of a destroyed user dispatch queue by a deferred re-enqueue
+  request.
+
+- A task could be moved off a dispatch queue while the dispatching CPU was
+  still running ops.dequeue() on it.
+
+- Bypass mode mishandled a sub-scheduler bypass overlapping an ancestor's,
+  as across a system suspend. Descendants could leave bypass mid-teardown
+  and tasks could be stranded on bypass queues.
+
+- The idle CPU selection helper could return a CPU outside the allowed CPUs
+  of a pinned or migration-disabled task.
+
+----------------------------------------------------------------
+Hui Su (1):
+      sched_ext: idle: Respect task affinity in restricted CPU selection
+
+Kuba Piecuch (2):
+      sched_ext: Rename scx_reenq_wait_dispatching() to scx_wait_dispatching()
+      sched_ext: Wait for SCX_OPSS_DISPATCHING before moving tasks off DSQs
+
+Tejun Heo (4):
+      sched_ext: Fix stall when a task enqueued with SCX_ENQ_LAST lands back on its CPU's local DSQ
+      sched_ext: Fix use-after-free of a destroyed user DSQ by a deferred reenqueue
+      sched_ext: Propagate every bypass depth change to the descendants
+      sched_ext: Fix the bypass dispatch claim for schedulers bypassed by an ancestor
+
+ kernel/sched/ext/ext.c      | 123 +++++++++++++++++++++++++++++++-------------
+ kernel/sched/ext/idle.c     |  50 ++++++++++++++----
+ kernel/sched/ext/internal.h |   7 +--
+ kernel/sched/ext/sub.c      |   2 +-
+ 4 files changed, 132 insertions(+), 50 deletions(-)
+
+-- 
+tejun
