@@ -1,134 +1,94 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F2C4DD3C9;
-	Wed, 14 Oct 2026 09:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9B04DBD61
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791971083; cv=none; b=Qld+1S7uSPTfW5CXmmt4ZafY3rPmG215pqbU8nrytEBpRGQdaKUw4ZtCj9e/rE1nUe6rA4/VyunxINmd631WgVYr5QdCGawfyyQQE+wDrxW3Hp+KB8uvE1QrTvAdxwFa3B2yahEjYxV+81BXa9I3/mFZSV2ngMUCpf53bhy9SPU=
+	t=1791971084; cv=none; b=g9iq8TQIJQ/JCB0FoYCi/aFYZwfiFn87dG2bGj8xRSy1IEf1CFfBvQF9pRYERYZp0UQbTT2njW5FxK/A9MRZr9WQXS/gcwD6spaWL1QSsm9KH7aaluaDXqMa3CGj6OKJJKtuZtteAfw7r6SqAsqq89H0bSIGGzxwc0w6yRDpMiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791971083; c=relaxed/simple;
-	bh=ysek4aHBu0K0buhWqgycnMaaYu9WclMvVNBclLQQdm0=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UYLmUeHHF4b3lO9MGIdJiR/AGDXzDxDsykTjlFS7GygcdOcayoktvFdJste7ipMqS0tPz4HsDbpVqDF8cETZufqhaOs928+AJ+kxPkEhfcCvJHjq2hfGoetRfYBok3XgbNnfbP4urX4cF61geJy8Ns0bNS1J9JRvRuk7qtzmIWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=whHQ98v3; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791971084; c=relaxed/simple;
+	bh=kwNN8h2rJ+7ieoAKpxhUBTLUlLyNeZ0xhIRLUJXZzlU=;
+	h=Subject:Date:Mime-Version:Cc:Message-Id:To:From:Content-Type; b=QE11y/mZKLb/fT6fdFGFIJF07ta5abPzs3cj6qvxqgLxbAleY8tP6CkvNTI/0wOB4PGW2S2z2KUxuEydFcQlqnVvPdjeqdzIGsALOzgXVRQAcGMfg4L2B/1SXOZqTGzJZrToTyG/95IXu7rmKzILtBmFlzSHzDxnkZBMAxMBoqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=iX+8PH/I; arc=none smtp.client-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="whHQ98v3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791971082; x=1823507082;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ysek4aHBu0K0buhWqgycnMaaYu9WclMvVNBclLQQdm0=;
-  b=whHQ98v3RxCKBx5CkrjCag/ngZl3979Ww125TMQKbdGS7jGjuXdCz1B6
-   c191IG+7xF7eWOiTtVykMLB2n4UUU2/5unPx4Ozv4IpNZQMT1cnsNEe3R
-   +gunkInhyep1mlvC788T2NM26a9jSkX6KaIVsMnjL67PUGVDGXEsAQNFk
-   nkzCJOJSlQ2j+DYOSj1n6ddEwSdg4aYv1H11CjQzaTQzFhFle+KkZSknc
-   QFgeXp1PEPpFKxr0acokmKBMrPFOIzpMqf/TeqxQdv5QxrXF9eDlPvCnE
-   q+s1ZDZe7gHl5vMJc46akFeH1BloV4vjR/T1YjAOOjd/ah6CQ17lQ8ucB
-   Q==;
-X-CSE-ConnectionGUID: boNXzslZQNSo+OPTzTF2vw==
-X-CSE-MsgGUID: fBHndb8dQ7CH8LVtG9XtNg==
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="296435375"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 14 Oct 2026 02:44:41 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 14 Oct 2026 02:44:39 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex04.mchp-main.com
- (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Wed, 14 Oct 2026 02:44:37 -0700
-Date: Wed, 14 Oct 2026 11:44:37 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
-	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>
-CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next 0/5] net: sparx5: add tc matchall port policer
- offload
-Message-ID: <20261014094437.tunkwehr5w6v7hdn@DEN-DL-M70577>
-References: <20261009-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v1-0-4916708a7ea2@microchip.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="iX+8PH/I"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791971069; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=I26JrSuCzA83CNBVA69JTeJPLnyTlk8cgX1YDR6KSNY=;
+ b=iX+8PH/IjUV4qmB6BGd3VL1Lqw6bzkOoASL+EyeTFBOOww1VZFQqdJ9ZnNHAWUb0DFCZ+2
+ kdy0ScnYGfIS7bUfhvD2MYj3xJm2yKIZEaLaZjnhspOXbs5H2+Wnwu7ErnoV6cxUTf+7Gx
+ wM/b/f6f4It2XcCoBuNpYWLto2ttGB/hUIrYav4PQZNV23AYNsMZh1mj53MEaXTO/sAiOc
+ 4UgnuI2SqwERzafJkvYQUZ/Z+EVTZpJwv8mhL5DriUV6SUlxcOIHrOPpHIEExDbcwMZbM3
+ +YJONXw4G07N1mv53zXC1CBw5lZSrJraxgHrDryoKCXiCVq7iWzQtY3U2rCYOg==
+Subject: [PATCH 0/6] sched/numa: fix several NUMA balancing issues
+Date: Wed, 14 Oct 2026 17:43:41 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261009-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v1-0-4916708a7ea2@microchip.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.45.2
+X-Lms-Return-Path: <lba+26acf4efb+33b577+vger.kernel.org+lizhe.67@bytedance.com>
+Cc: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>, "Li Zhe" <lizhe.67@bytedance.com>
+Message-Id: <20261014094347.99157-1-lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
+To: <akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>, 
+	<gourry@gourry.net>, <joshua.hahnjy@gmail.com>, <ziy@nvidia.com>, 
+	<mingo@redhat.com>, <peterz@infradead.org>, <mgorman@suse.de>, 
+	<riel@redhat.com>, <juri.lelli@redhat.com>, <vincent.guittot@linaro.org>, 
+	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>, 
+	<vschneid@redhat.com>, <kprateek.nayak@amd.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 
-> This series adds offload of tc matchall filters with a police action to
-> the ingress port policers of Sparx5 and lan969x, which are both served
-> by the sparx5 driver.
-> 
-> In hardware, each ingress port has four single-rate leaky bucket
-> policers. A policer drops the frames that exceed its rate and burst.
-> The four policers of a port share the pass and drop statistics counters
-> of the port.
-> 
-> The driver uses one policer per port, because with more than one, the
-> statistics reported to tc could not be attributed to the right policer.
-> This matches lan966x and ocelot. The policer meters each frame
-> including 20 bytes of preamble and inter-frame gap, so the configured
-> rate is a line rate, also as on lan966x and ocelot.
-> 
-> Since the policer meters all ingress frames on the port, only filters on
-> chain 0 with protocol all are offloaded, and filters on shared blocks
-> are rejected. Only drop is supported as the exceed action, and the
-> police overhead parameter is not supported.
-> 
-> Patch #1 drops a redundant prefix from the existing POL_UPD_INT_CFG
-> register macros.
-> 
-> Patch #2 adds the registers used by the port policer.
-> 
-> Patch #3 tracks whether the ingress block of a port is shared, and adds
-> the per-port policer state.
-> 
-> Patch #4 adds the hardware programming of the port policer.
-> 
-> Patch #5 adds the tc matchall offload.
-> 
-> Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
-> ---
-> Daniel Machon (5):
->       net: sparx5: Drop redundant POL_ prefix from POL_UPD_INT_CFG
->       net: sparx5: Add registers used by the port policer
->       net: sparx5: Track shared tc blocks and per-port policer state
->       net: sparx5: Add hardware programming for the port policer
->       net: sparx5: Offload tc port policers via matchall
-> 
->  .../microchip/sparx5/lan969x/lan969x_regs.c        |   7 +
->  .../net/ethernet/microchip/sparx5/sparx5_ethtool.c |   1 +
->  .../net/ethernet/microchip/sparx5/sparx5_main.c    |   6 +-
->  .../net/ethernet/microchip/sparx5/sparx5_main.h    |  36 +-
->  .../ethernet/microchip/sparx5/sparx5_main_regs.h   | 117 +++++-
->  .../net/ethernet/microchip/sparx5/sparx5_police.c  | 404 ++++++++++++++++++++-
->  drivers/net/ethernet/microchip/sparx5/sparx5_qos.c |   4 +
->  .../net/ethernet/microchip/sparx5/sparx5_regs.c    |   7 +
->  .../net/ethernet/microchip/sparx5/sparx5_regs.h    |   7 +
->  drivers/net/ethernet/microchip/sparx5/sparx5_tc.c  |  14 +-
->  .../ethernet/microchip/sparx5/sparx5_tc_matchall.c |  38 ++
->  11 files changed, 627 insertions(+), 14 deletions(-)
-> ---
-> base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
-> change-id: 20260930-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-474610756e26
-> 
-> Best regards,
-> -- 
-> Daniel Machon <daniel.machon@microchip.com>
->
+This series fixes several NUMA balancing issues around scan-period
+adjustment, memory-tiering promotion feedback, and stale task-placement
+state.
 
-At least a few medium severity issues reported by sashiko are worth fixing. I
-will respin a v2.
+Patch 1 clears retained NUMA fault-window and locality state across
+execve(), so the new image does not inherit feedback from the old one.
 
-pw-bot: cr
+Patch 2 fixes the scan-period ratio denominator checks. The existing code
+checks a different sum than the one later used as the divisor.
 
+Patch 3 fixes scan-period adjustment for shared faults. Shared or local
+faults should slow scanning down, while speeding up should require enough
+faults that are both private and remote.
+
+Patch 4 makes the free-space memory-tiering promotion bypass configurable.
+The default behavior is preserved, but users can require the normal hotness
+and rate-limit checks even when the top tier has enough free space.
+
+Patch 5 prevents memory-tiering-only promotion faults from feeding normal
+AutoNUMA task-placement statistics.
+
+Patch 6 ignores stale preferred-node placement state while normal NUMA
+balancing is disabled, so memory-tiering-only mode does not consume old
+task-placement decisions.
+
+Li Zhe (6):
+  sched/numa: clear fault locality state on execve
+  sched/numa: fix scan-period ratio denominator checks
+  sched/numa: fix scan-period adjustment for shared faults
+  sched/numa: make free-space tiering promotion bypass configurable
+  sched/numa: do not feed tiering promotions into task placement stats
+  sched/numa: ignore preferred nodes without normal balancing
+
+ Documentation/admin-guide/sysctl/kernel.rst |  16 ++
+ include/linux/mm.h                          |   5 +-
+ include/linux/mmzone.h                      |   5 +-
+ include/linux/sched.h                       |  17 +-
+ kernel/sched/fair.c                         | 181 ++++++++++++++------
+ mm/memory.c                                 |   2 +-
+ 6 files changed, 163 insertions(+), 63 deletions(-)
+
+-- 
+2.20.1
