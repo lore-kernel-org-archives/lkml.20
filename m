@@ -1,133 +1,87 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15439352C34
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8598A353A60
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791958299; cv=none; b=YnJWabe66ZLJPJMJGOcmKPqfuqbonNtRvMrvt7/ZFbDEr7XJZKUC3fRaVQwlo/Zd51f5ARlfjoSEwDZneHNP6w1A3O0H3sB8ZPb3TkHF7M3VJKZ7YvLdgGZFjLJfEd81SVRzHi4+Kec1gpTh2M68MV1FjVyU0P4prBT+TVJ+uQ0=
+	t=1791958352; cv=none; b=oZsEe0NlwOHSuiP8jtGefciYWioyMEuKcahF5OhxtFIzFUp+9K5B0QmdmwJUn4/EoBCYn620WscEWGWo5ZIhuv0xGfzb6betvMRfEcfh+M1Mm6V7tn0TTZZJIY0TMOVWhSq1iNYmTplVorDFe/HmTitW/689gGcc/VMdRBQDvxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791958299; c=relaxed/simple;
-	bh=t1YRdeswWvqlBzieA3h2TG0wvtuBGH0lC1Eh/0VBSKA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=agsO9074/jHp9V/7385P9HKWW0e617R1no31gvoAgMKSvv86EgcvRpnf7s/FHoTVCEinmyX0qbKRTFVJvmQsv6sJ/d6VSBBOArn1Zp2emyE9Em4GnZTXN28bVnrccwmjgUuVkJhcbq4ShGv87AfIx1CD/sAm5/mOvQhUvmnW7xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iXQ+WAKI; arc=none smtp.client-ip=74.125.82.177
+	s=arc-20240116; t=1791958352; c=relaxed/simple;
+	bh=ZZ8YhT4vttbyAReWLwDYCcZjAsPCyQJ43qms/rc9dOc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jx96kazU7W3kOYTWXYsN/6QmIqBBWGyaPu3hYDIw22VTrhtth3TrFjGdlukOLRjBTPRiqRZ3muzXF7MSsutSMrlBHm/xJcfasSlDtG4HkvOjeheapa2emKGBR+IrJRKV4X+tQKpAddnmrkULQYpfzNicocmCfx+Z9tXooQxCPjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iIoTe7H6; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iXQ+WAKI"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514b90bb89so1070022eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:11:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iIoTe7H6"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ab450c0873so3113874a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:12:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791958297; x=1792563097; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791958351; x=1792563151; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QZm/vIlfQJTUqTZZrMVb2/qO3rbKTGj4bQH8tA6ISMs=;
-        b=iXQ+WAKIWMWaSUel7dzLwhrZ3hpfkfspPAAA03VA8DnkuefZJ6gQJN+cFFMWMvZzDh
-         RA5l2nNXNINMz54DwV192ar/ZwHa9NjwwkOQM2vsLpMhiehn/PdDCel0LvTi8Mf5+nLI
-         jPIngFphnrHFJBf9tYAco+XEx/+i/9b30QbHPu48Lkhds7qNHczLbzOQ5wZmJ0mXHAgM
-         zurgJvt/hR0KjjHJ211Hga3br8cko93KYsL7Sq2ThQLIc1jI1sv6G018ZgKdgsam5boy
-         XWmpLZZ2EZ37Wo2j4d8baXTKpA1LRXeb2wmSmEdGtYdUrER2ktznD/IasKh3atRpkjqX
-         5vYg==
+        bh=ZZ8YhT4vttbyAReWLwDYCcZjAsPCyQJ43qms/rc9dOc=;
+        b=iIoTe7H6VgKDcV2LZdG9OjmajV6SAJRxiL7dJG5U5TxMocbvVjrhJR5fn9JMHUTB0H
+         8namQtdnWK/sIHrfpaSJHw9nCHeAucd6RHYBXcVuxh2Mg87OXAEMcFPIdjPcjF+CA2+2
+         xbMO9K33WqQz+2skTzrlpNIL4MYIvZnzM8Q4I3qM7bzU5OTiU+c8+OEzJUr9BcknOxS0
+         lodKTX+mBpDan2FoS3LWR9xMqxKxwtd3i+zkhYFrqDf1NkIeTYkILD3pxxZJzUtGRgiV
+         G2JF3zFnjl46mhxJeVJtxVoY4n2Ud6z/1GgiR/l5ecL2t+1siAlwEGJ/imvRfvU49lwT
+         EVHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791958297; x=1792563097;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791958351; x=1792563151;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QZm/vIlfQJTUqTZZrMVb2/qO3rbKTGj4bQH8tA6ISMs=;
-        b=NopYb9IKV8pffFmnykTHwNmFe+tRCC72QZXPtGVhn5ki7nQfJW53IsX8PRihFGxzYK
-         pcbUTJFpctLzGcCWjo2Zc++KUvPT+Z8220CTqW19reBjw95uu+z8mnSdfKjG3hwc8HVg
-         wGiSlyuf9Dc/6jK3v7neo63Wm/GUaOBhEHyHmMuH7J5yW7ROkXppVKE5edNbw3ri70Yc
-         UaALuJirR279v3kIhQTArVJCIN0hsHHStsyVIMB9y3TngPuh3O73DsHZCUZbjdtxCf5W
-         COf3vilFaYkGUarvYUKYw6oHNjPHll4zIweStYCILv5fKX4OdexWpS2R5k/x8m0SKH4B
-         UNqA==
-X-Forwarded-Encrypted: i=1; AKwUvBznmuv5gcPnXApwXbtGc078E1d4G9KYh/Ab3C6JnKZwQAdcKBAY0Zoa4k4RlZizvXNEOhtekEkvUN5S0Uc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIilOZzj3hVwQQatSzal/jBPEfzDx6htEIcykyXnWGYauc8D9VU
-	YGwjydv0hZFntuuH965C6hU+hRqAiAqkMqZSiqbxNKSOX12CeFK7tfcr
-X-Gm-Gg: AYBFou0D8caZm6FT9l098+QCxkCihVU+69HWXI1ONts5ZWk+2fWgAhXBcR0/+sQUN8x
-	nOzLVn3QigSN9xFXgaAQDh9JgIVpCz+Kickrb4y+9sP27cHjXlJXlwGYAE+iGjX9Mvj8QRCRP8O
-	7XR8yMdpYfbsO6CUtjLJO3y+PqVwMCEeJ7QZoneb5pIMKfEFavM4pPFs9NuIfwO5rv19MJ6dvgp
-	5oKbWi6V3TgqgdY7/LOOLESaiSwqpYkg683rqOvxcrQIFyuqHeNTd9jxl/KqBkXDtV/w0hcPfYN
-	m7xeXxdRvKz2hctF7PTGvbuSTcnTm3zUKkvKrp9YbCU4pW+i0cTsKVeJu9Wi9Wk05H8VGPsNwVv
-	qr712nQBjNlBZdWAZrtjGAjAupVWHx/0VAtTRItvRyG4vItrwlxpRFjraLCRpChP35oytn/sEv0
-	vIx7fd/bENMAASuRP32N/ZCApWoMDJ5o2+mie8XIlOGAQLnQdFZm16aCsZWTST+pfmVtxdYHYqx
-	Mi3gm+FU025No7+oXIHFJo0nud1CGvpEia7q2oC
-X-Received: by 2002:a05:7300:de48:b0:353:82b2:205f with SMTP id 5a478bee46e88-35382b220a7mr18363369eec.16.1791958296806;
-        Tue, 13 Oct 2026 23:11:36 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:875a:117f:b9ea:5a08])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358ee8a3387sm39504600eec.15.2026.10.13.23.11.35
+        bh=ZZ8YhT4vttbyAReWLwDYCcZjAsPCyQJ43qms/rc9dOc=;
+        b=X9W/DPCoS+IShGKAEbKiPsHQBjrcOKQOvmCk9oNxwq6TXW3yL6z5e/M0Kod0P1XFSH
+         tsIc95AiLIvEUzlkre9JmuY4l+/w6sEuIlYQABXtovPfWlxx0c/EFKkUZVcvVu2eMho7
+         4s7PZMJBX3ywnITO+B0+SAhoIFz0OoQJEZugylMah7DnLWhuh+HcRR/YSTfUcteseWv2
+         ddMKToodrTgvDE+qWwuy9pT1QkYcVDJPWD6LNNBIc+c0oPYH131hznpyKgHpJ5pgdbcy
+         ovFDFgEDd9xRYtuzq25Ma1B1a2l01GbXYin4L0cIDNBzeaSkV1ri/32p3qhRt3ZjlNbT
+         8mfA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/CabLyEG5MadWYiidTubFOrGHWVW2pLdiTlVIRaie6HlsXRlHryt2eT+HfrcAEs7roO6bCo1cdwsFcOc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6usyNSFwEoapD3Eqn1tsSwYpzk48yJhhfnvex+W3Sw4A4aR5j
+	9YRmwSVg+GGdO09CkwaFX+ndzdhtAyOFTe35HeITy8opU1xYPOomCn8x
+X-Gm-Gg: AYBFou3zOuNWg6lVDSfw/Q4SR8x5XDDjp7XTpsMksW/LT3PrDeJXH+GZRUdXiFWSSud
+	FxWcY7I5+9coNJ9adOctC1QDWrzdzEvRyfXrsYpaav8r2gnDMLEVuj834GD9kdoqCrV46zyW2Mc
+	Rv7wtAPR/yJDE6kcn4JnNoxTzUO2NlNQxbeg/TkCXsW5he6PrqwRkX382ah/4X2I3+3f04Wfzaw
+	omB6Qj4O/mUVzEYmEt7YKGj0r6qfPKxa7HUkwnyDhrObUnHP4VaH0k6SDGAQLA6BdQT+sckXvwg
+	0F/W5adFfUar3Pm5roycTJ3YFm2wjSG0S6nIylUj/4aGpmBzXu8RHzVKnrwrV7HZlxnhwAxaWv2
+	+scaB9p/apOsZtwmBWe3e1vJiLNtUb7Sokm48dEem0Vx/NWrNYC8DMFO3iQhPr9f0EEDDqfX6wy
+	07+cmd29AcPLNRBtlZi0t47Ol0bGZO4za81XIY/+566tZVEO1jIcqPqt7JRJ0tdqDtO1X5hG4h+
+	WeWEsppGK50PYXeplj6CllkHkhVODpMmffuLFIkCzs=
+X-Received: by 2002:a17:90b:1e41:b0:3a8:9b79:e6ea with SMTP id 98e67ed59e1d1-3ab3a96ffd7mr13125588a91.59.1791958350750;
+        Tue, 13 Oct 2026 23:12:30 -0700 (PDT)
+Received: from DESKTOP-0UATUKF.mioffice.cn ([43.224.245.249])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f04e324sm3094613a91.2.2026.10.13.23.12.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:11:36 -0700 (PDT)
-Date: Tue, 13 Oct 2026 23:11:33 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, "Masami Hiramatsu (Google)" <mhiramat@kernel.org>, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] driver core: fix race between bus_remove_driver() and
- dev_driver_uevent()
-Message-ID: <as8dAu4R99pP1GHD@google.com>
-References: <as71DkwHeLGNDsPv@google.com>
- <2026101444-unnoticed-caliber-21d5@gregkh>
+        Tue, 13 Oct 2026 23:12:30 -0700 (PDT)
+From: Dongliang Qin <cccccccccccc777777@gmail.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: Dongliang Qin <cccccccccccc777777@gmail.com>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bob Pearson <rpearsonhpe@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] RDMA/rxe: Fix MW/MR lifetime races
+Date: Wed, 14 Oct 2026 14:12:23 +0800
+Message-ID: <20261014061223.1547823-1-cccccccccccc777777@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
+References: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026101444-unnoticed-caliber-21d5@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 07:31:19AM +0200, Greg Kroah-Hartman wrote:
-> On Tue, Oct 13, 2026 at 08:24:20PM -0700, Dmitry Torokhov wrote:
-> > When a device driver is being removed, bus_remove_driver() removes the
-> > driver from the bus klist before detaching it from bound devices. If
-> > dev_driver_uevent() runs concurrently on another CPU, it may acquire the
-> > bus klist lock after the driver has been removed from the list, read the
-> > still-valid driver pointer from the device, and access the driver's name
-> > while bus_remove_driver() proceeds to free the driver structure.
-> > 
-> > To close this race window, acquire and immediately release the bus
-> > drivers klist lock after all devices have been detached. This ensures
-> > that any in-flight uevent generation that observed the driver pointer
-> > before device detachment completed finishes reading the driver name
-> > before the driver structure is destroyed.
-> > 
-> > Fixes: 18daa52418e7 ("driver core: fix potential NULL pointer dereference in dev_uevent()")
-> > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> > ---
-> > 
-> > Extremely unlikely to hit so I would not worry about backporting to
-> > stable.
-> > 
-> >  drivers/base/bus.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> > 
-> > diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-> > index d17bd91490ee..8b3aaf451e4f 100644
-> > --- a/drivers/base/bus.c
-> > +++ b/drivers/base/bus.c
-> > @@ -830,6 +830,15 @@ void bus_remove_driver(struct device_driver *drv)
-> >  	driver_remove_file(drv, &driver_attr_uevent);
-> >  	klist_remove(&drv->p->knode_bus);
-> >  	driver_detach(drv);
-> > +
-> > +	/*
-> > +	 * Ensure that any concurrent dev_driver_uevent() that observed
-> > +	 * dev->driver before driver_detach() cleared it, finishes
-> > +	 * accessing drv->name.
-> > +	 */
-> > +	scoped_guard(spinlock, &sp->klist_drivers.k_lock) {
-> > +	}
-> 
-> Shouldn't the compiler just no-op this away into nothing?
-
-It better not. Why would it?
-
-Thanks.
-
--- 
-Dmitry
+Any comments on this patch ?
