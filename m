@@ -1,171 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013046.outbound.protection.outlook.com [40.93.196.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CB34746B9;
-	Wed, 14 Oct 2026 06:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960589; cv=none; b=Q2wlmOra3DrmSrfvenB07ZMm8xhJQ0NX/qF8uuicTmpVUQkqU73Xq3+Pm2D570olTob4QVW04vMCqrxfNFMmt0I8XVqJMCPNImbekH0BTt5vR516GMU3xAZRbdD9Gp+qNW5hbC1x5NyIv8OnuhVdyCS2XtIHzQVx3BhBEb6B8Yk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960589; c=relaxed/simple;
-	bh=JzBZoQKsEp8pDZEORpFC/spAt7+e6TdcgQxRtX/4nks=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=V7n6HyV9vrE5is8h07ytOH+SUOMtAOsya0djmORO2Zjj3Wf5KJKou2z4nm0Hgk7HYh83qTkUZje4yLSWRhFwcPnZ4bqhecFwVy0RsfHhfT0HFrPTuP8LQ2sG89r0T69VoONqYHEOfgDHZkKNUR9IXFNvKURfQ19UMdy67l/UWBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=S5iKnGeF; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540563E763E
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791960744; cv=fail; b=cF9AJeNrsMQDBdtDUJm3mDjXuf763rFdaindqIfWF+fD/xHhbbVWLCTRV7nChObPngBVC0WFW3dqdKfeZJfWLOiScZnSHWBkJaRg4QadRmAXAooP6VXG4Ohh2RYHFe947Ic0QhZ4qmpvxwFQ5IwweULcr8tynzNk64P/tYEaUrs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791960744; c=relaxed/simple;
+	bh=jc0V/n8GskHfuKlBsRT+IKP3qgOkhpwRTitNpNfaP8s=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=soJGuY55aqUOkECACod8Tnjf9yPhNztLgwT8CsJ1yMvFUo39zjkmCjRkX4MS9WI0linzt8dUz8KeI1xRVrpeDLUqxKipCK+tDH3AKTM0uz6/7LtzcwGYJ1gontBWF67GjFVXG+4AJ3I9GhbsX0/6GmLKg1uhtJPi1afaaSZ1498=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=aa8l+2MO; arc=fail smtp.client-ip=40.93.196.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="S5iKnGeF"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B59FBC2BD04;
-	Wed, 14 Oct 2026 06:49:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1791960588; bh=JzBZoQKsEp8pDZEORpFC/spAt7+e6TdcgQxRtX/4nks=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=S5iKnGeFnLiJg04/oqwxD37IZzWBqp4PzSxQbgLO2slxU8WYdClQDbvX7LdBRsfHK
-	 k8QSOhaer0UKXCXuVEMjN8FfPfZb9fkLkaAeqEEouLizto/SQsziJIuQ9Xl6fLWzgz
-	 47BwTuiBMutoEmGemCmV+Zjlj3/4hH1UvvZE6PhY=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2AB4CC6B24;
-	Wed, 14 Oct 2026 06:49:48 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Wed, 14 Oct 2026 08:49:15 +0200
-Subject: [PATCH v2 8/8] media: i2c: ov9282: harmonize dev_err_probe usage
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="aa8l+2MO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b7yut+b49BN5moFI0qal5Pe74XsoJHYFw6BIudAYZWMftWK7cnsfMuuNII5RZ29RTy7UMdYq1cNzfvgwEG0dU/dsQ2ZwIfTRtKkJ9SL13dgXCalYjnF4WC+oMw6dUY9w/N3Cs5wApXfWIbvUiRb/OXENU4TsqnEeS0YKklOnARXWXeqLgmSao6IAPziq2oiostI+2p7lKbWWf50vjCuLOnKMng9MhskgctdrXVAO0WRwX9EUsuE8gXEOUpQYuxaCmdiUM9hc3n31Tbne7bxeYw9sbEyEdboM+V2R3e4X96PUUuI82sFR0JzJhW+06PemMwYeN4xh7PKRlW4GcY0pyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IDPlK7KJNjqc/RTKUoRPt67DLEC1hdtQ23nBHSNDc8U=;
+ b=UP2TJPGkskOXHecsawExjFcPu09c5nqpUAVaZ+pKHT6w6irpFQVW1c/pL1ERlYsYpUxK6GrWKy975AY9tNoWR6mlGsFxqGaO7oVOObPXwDi0Lt9HNKHsRH0QcDZ2mWVnMEBkFBH9s5pPNAsKrlL6rwcOc29gZmBMV1/OFJG82426pltxF3zJgiicmb9KrhyQ6tVFyzNBNhK64TjGuVIDtaQdaILBXeD6WcTTSHwRo1gU2xTzhJlBnzHAz1k7atuavvNdKF1zwbfzsyTr0yHz/FWnWU12U5tpoItzACY8swUDeYfXcn0pvDKQI+uoq47pkNyDFr7Y2F6ex9w9QFAlPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IDPlK7KJNjqc/RTKUoRPt67DLEC1hdtQ23nBHSNDc8U=;
+ b=aa8l+2MO77SigGN+Bh3JMBIvTlbfr7Wgu3UF+EwfMyck1bMKbj7hmFxjYq/0bKFqerYIA/iKaD3d97znyQN9fpcpO3+V1YoFhu5BZ9WSzn562hxoNEx9WWpXnvqLWdUrzqmhtCRmMRyrBfp/85is/K6e4HBTMXVXXXZIqdsB9wk=
+Received: from CH5P222CA0013.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::14)
+ by DS0PR12MB9400.namprd12.prod.outlook.com (2603:10b6:8:1b6::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 06:52:16 +0000
+Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
+ (2603:10b6:610:1ee:cafe::ae) by CH5P222CA0013.outlook.office365.com
+ (2603:10b6:610:1ee::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
+ 14 Oct 2026 06:52:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 06:52:16 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 01:52:01 -0500
+From: Honglei Huang <honghuan@amd.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	"Himal Prasad Ghimiray" <himal.prasad.ghimiray@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	"Honglei Huang" <honghuan@amd.com>
+Subject: [PATCH] drm/gpusvm: use literal blocks for the indented code examples
+Date: Wed, 14 Oct 2026 14:51:53 +0800
+Message-ID: <20261014065153.1562717-1-honghuan@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-ov9282-fixes-v2-8-3bb376d8b1a9@linux.dev>
-References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev>
-In-Reply-To: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
- "Paul J. Murphy" <paul.j.murphy@intel.com>, 
- Martina Krasteva <martinax.krasteva@intel.com>, 
- Richard Leitner <richard.leitner@linux.dev>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Jacopo Mondi <jacopo@jmondi.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791960586; l=3760;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=JzBZoQKsEp8pDZEORpFC/spAt7+e6TdcgQxRtX/4nks=;
- b=TV2L4gdjxJJ4YPzeKvQRdFEPWpoLNPGkz/NBDdgRdnDMjkBwMTu1uVwU1sdUaEfHe4ovGwkEo
- k3dGT1EFXV6D5zIzGoJyxL/vmLaUsDbFAGqzrbPjYIq5kogTrqKvYCz
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|DS0PR12MB9400:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8ad3446-ba60-4049-57c4-08df29bfaefd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|7416014|1800799024|376014|36860700016|23010399003|10067099003|56012099006|11063799006|18002099003|13003099007|261009223027099003|261009221227099003;
+X-Microsoft-Antispam-Message-Info:
+	I6k08FRUn6L4BiRjdu3Qus94hpyNnjBxmY/4aexfyxkCvRKAY+rY6TXQj6FLVzbX/v+BwIPMpF5J9yAfPNgghF860cPvB7Sd1wNWPCkvJSmnUh4/CS3Z4ihdKpBEkYK5X23R6M6/om8pbP4Ud5FrWWU8slj2MqCAk1jkwXjmBu1JQmnDKWjcebSG8syoeauiQzM9QcNkmno1exo4mjerh+Eq/smRiDkDDC46k9kLqOwexO5fWAfTD2JlNnsqQzlgErfTIFqBLKj2w3IJcBgR7R8Kr+v4vklWsvLN+ND/WKGWaS8fFNm2rqq9DcWYl2WQQvBZArD6sk5V4ogSdXG0VsCdWrfyPTYopiYNh96/qNjZUs9Ik6QuaEvquwEI0Kk2YMhooAqvEIWa+GsfsfkwjgqFXZcyzeJmmoi++VyeUaxvzSusMV1Ee8LFMtTB6K6a8oUC+EkILNESph5NabcJxyQPc4C061Vb5ghWmB7auslIPGv8KYJ1M1m+JInQUuZJsRW3PURAqm99O4UHnO5nUJmG2lRtPJx6JWij+CwQH0+Ualf48CusQLAyB2ClRG4pKCIF6hdCiwBcI60BKzUUsJj6NjS79dgHEJH6//F6VBrOsXOdddr0pgjQPa2iRVRR5Es71O0zOQ2IEw3kZa9wassBfNVEuliqMCznTQDmadM=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(1800799024)(376014)(36860700016)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(13003099007)(261009223027099003)(261009221227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	SCVCeKUzXrYTDciU9sMPpT4dYULBEAfoH8TasLXOTOGdb5wAuQzTk6TjuShQcniLdG8y2NKdutpW7c+TfQuRxcl7UBwk3H3L+VwkCcS+rUgGkFXjyrqX7A3XV/yMlDVWXA8/uxIsHDCzBIXGnOgjNrisFwvJ22Hy/cKoLdofRuVsOi0uWsFi8KOWDZBzpPkib+yX3OHbGOQlslh4Ww3hMoAU7UD056omWh82fa8ICx7JB/Gfc3SHVmQPvgLEEjYsgW3HJB42GqLLJEsXpl0o1jiBSXdNI6mrCSXpvxYzDsGLWqD/2eCUr/oJFNbpG353ADE+TsIsst6zuDaSYzVqIzPzJ7XHiumpDhZRnazHkW+RGgzTQij3HW67l92EUzLBkzb6DWuhiLnK311tTO7FTu9JGfnpCPxELzNSdapS6B5uquUEEAD2qQ8xwSXu5mVY
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 06:52:16.0807
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8ad3446-ba60-4049-57c4-08df29bfaefd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044A7.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9400
 
-Use dev_err_probe() for all error messages during probing. This ensures
-there's a common "look-and-feel" in the drivers source code as well as
-the system log.
+kernel-doc only recognises ".. code-block::" at column 0 of the comment.
+The two examples under "- Pages:" are indented inside a list item, so
+kernel-doc treated them as prose and rewrote "&drange->inline_pages",
+"&range->notifier" and "&ctx" into :c:type: cross references. The
+injected backticks then make Sphinx fail to lex the block as C.
 
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+Use a plain "::" literal block, which kernel-doc accepts at any
+indentation. Syntax colouring is lost, but keeping ".. code-block:: c"
+would mean lifting both examples out of the list item.
+
+Fixes: cc2a6cbd6823 ("drm/gpusvm: let drm_gpusvm_get_pages() map an array of pages")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610100125.d4Kk60aL-lkp@intel.com/
+Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- drivers/media/i2c/ov9282.c | 32 +++++++++++++++-----------------
- 1 file changed, 15 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/drm_gpusvm.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index f877cb9e78c38..8b01d9d43f0df 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -1077,9 +1077,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
- 	ov9282->reset_gpio = devm_gpiod_get_optional(ov9282->dev, "reset",
- 						     GPIOD_OUT_LOW);
- 	if (IS_ERR(ov9282->reset_gpio)) {
--		dev_err(ov9282->dev, "failed to get reset gpio %pe",
--			ov9282->reset_gpio);
--		return PTR_ERR(ov9282->reset_gpio);
-+		return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->reset_gpio),
-+				     "failed to get reset gpio\n");
- 	}
- 
- 	/* Get sensor input clock */
-@@ -1095,8 +1094,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
- 
- 	rate = clk_get_rate(ov9282->inclk);
- 	if (rate != OV9282_INCLK_RATE) {
--		dev_err(ov9282->dev, "inclk frequency mismatch");
--		return -EINVAL;
-+		return dev_err_probe(ov9282->dev, -EINVAL,
-+				     "inclk frequency mismatch\n");
- 	}
- 
- 	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
-@@ -1112,16 +1111,15 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
- 		bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
- 
- 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV9282_NUM_DATA_LANES) {
--		dev_err(ov9282->dev,
--			"number of CSI2 data lanes %d is not supported",
--			bus_cfg.bus.mipi_csi2.num_data_lanes);
--		ret = -EINVAL;
-+		ret = dev_err_probe(ov9282->dev, -EINVAL,
-+				    "number of CSI2 data lanes %d is not supported\n",
-+				    bus_cfg.bus.mipi_csi2.num_data_lanes);
- 		goto done_endpoint_free;
- 	}
- 
- 	if (!bus_cfg.nr_of_link_frequencies) {
--		dev_err(ov9282->dev, "no link frequencies defined");
--		ret = -EINVAL;
-+		ret = dev_err_probe(ov9282->dev, -EINVAL,
-+				    "no link frequencies defined\n");
- 		goto done_endpoint_free;
- 	}
- 
-@@ -1352,8 +1350,8 @@ static int ov9282_probe(struct i2c_client *client)
- 
- 	ret = ov9282_parse_hw_config(ov9282);
- 	if (ret) {
--		dev_err(ov9282->dev, "HW configuration is not supported");
--		return ret;
-+		return dev_err_probe(ov9282->dev, ret,
-+				     "HW configuration is not supported\n");
- 	}
- 
- 	ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
-@@ -1364,12 +1362,12 @@ static int ov9282_probe(struct i2c_client *client)
- 	ret = ov9282_power_on(ov9282->dev);
- 	if (ret)
- 		return dev_err_probe(ov9282->dev, ret,
--				     "failed to power-on the sensor");
-+				     "failed to power-on the sensor\n");
- 
- 	/* Check module identity */
- 	ret = ov9282_detect(ov9282);
- 	if (ret) {
--		dev_err(ov9282->dev, "failed to find sensor: %d", ret);
-+		dev_err_probe(ov9282->dev, ret, "failed to find sensor\n");
- 		goto error_power_off;
- 	}
- 
-@@ -1379,7 +1377,7 @@ static int ov9282_probe(struct i2c_client *client)
- 
- 	ret = ov9282_init_controls(ov9282);
- 	if (ret) {
--		dev_err(ov9282->dev, "failed to init controls: %d", ret);
-+		dev_err_probe(ov9282->dev, ret, "failed to init controls\n");
- 		goto error_power_off;
- 	}
- 
-@@ -1392,7 +1390,7 @@ static int ov9282_probe(struct i2c_client *client)
- 	ov9282->pad.flags = MEDIA_PAD_FL_SOURCE;
- 	ret = media_entity_pads_init(&ov9282->sd.entity, 1, &ov9282->pad);
- 	if (ret) {
--		dev_err(ov9282->dev, "failed to init entity pads: %d", ret);
-+		dev_err_probe(ov9282->dev, ret, "failed to init entity pads\n");
- 		goto error_handler_free;
- 	}
- 
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index b6c9d3a07dc..7b166bcb0d1 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -67,9 +67,7 @@
+  *	sit in contiguous memory so a single drm_gpusvm_range_set_unmapped()
+  *	can mark them all. A driver can keep one instance inline for the single
+  *	device case and switch to a heap array only when more devices join,
+- *	e.g.:
+- *
+- *	.. code-block:: c
++ *	e.g.::
+  *
+  *		struct driver_range {
+  *			struct drm_gpusvm_range base;
+@@ -99,9 +97,7 @@
+  *	The 1:1 examples below pass @num_pages == 1 and &drange->pages. In the
+  *	N:1 case the driver instead passes the whole array and its count, so a
+  *	single call faults the CPU range once and DMA maps it for every owning
+- *	drm_device, e.g.:
+- *
+- *	.. code-block:: c
++ *	drm_device, e.g.::
+  *
+  *		// GPU fault handler: one fault, one DMA mapping per device
+  *		err = drm_gpusvm_get_pages(gpusvm, driver_pages(drange),
 
+base-commit: 34081b8bbbbfb9adbe04f764f718de04df23a84a
 -- 
-2.53.0
-
+2.34.1
 
