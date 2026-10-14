@@ -1,111 +1,117 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CC030B517
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C8C6340F747
 	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791966547; cv=none; b=l0WpuQGfpo+SZ9zhIJVZ1oMNigoSbDzDZsf0dFiAK8u/t1jOw2Dt9V/nFtXP3A/pvQmOiRZpxtdpEfBVDY3Q1LUcsborVxDhSf7mT4bCwjX2R3IxkdlEIMztQHOoHFmOtQQRKAeGrqNP9b8nmr22T7yLClm+nIUrFmmdAHtIY98=
+	t=1791966549; cv=none; b=V/xjjiIVdzZyjOB4TTvFQ2ywvHyyt2Eb80j0qAXuBSvb/tQH6kdskQCA/46Rwv+wbW14qjOaN55pTf+geCyYGZAZo/f2qxTEmndC0lsNyP4o/+ruEeZWT9qxwbRNoZPxqUgFObGTO92liDBaHbrNh+4LEWmJyAIZMH2E/LHcg1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791966547; c=relaxed/simple;
-	bh=K1xTFF0dZvielDw7CPdKjT3Dos7Fsn3aW1yWLZaKQb0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s3yVbz62v1BUXywJnBKbZORWzk1wSTfEut7/Lmz2KGzKYxLhNcDEiMHaRFGxWL7s2zpnerOlmE8VERr02eNqVl9cYy8XW6+YnQUkkh4K/NvZl0p6SB9vpf4pmO2CL+2u6dSLgL2hizngAhrV1A+i78/qb4OvYpx04R3DIINllD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EgFed68e; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791966549; c=relaxed/simple;
+	bh=uqP6rvffea+dKh44Kw66QNsZgkM+k15AAqbFFCdBQzc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aTYfD7sIJqn9Zecd+vCRrhVjN54ZV0UMLlpkDazoC5TWsNlx+43T7vxvMJu+qPvJUcbRtFcsQmXYorqCT1v2LncAFZnZIYlzJZvYr4RvlExMWF81JMmOz3bkMVi2R8SgeBF4B0bVvRUSlK2yr+1XFGPfhuX+h8pd5wC3eSD74Aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SOprjAZn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EgFed68e"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4be28b82so247892f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:29:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791966544; x=1792571344; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ONOYFUsExbiTAqauGcHDMWUDVRV1mSLiP5XphPmFoUU=;
-        b=EgFed68eXGL3coPtaEb352qXlKG2T+5+8wH2QxfE0ZOieJEb46OYWjWxsO/ulYoO+n
-         JsOKRntrefw1bBTbd67DdSJuGQQAxEs8ZwMhsEOdh2+0kSWvcAGd+3GHGunWJ3FQbQEl
-         oXmLskyPmoGg75x2/8Rl93C+kuv8xDSGvVv3tddKMtDByA20m608mw5fRYanSYfLmEeV
-         KX/s/0d3m77q69uOAx10yClZvPgh8lTKmkqJT9y68ncxw2aRm987J6e2w5k9v7SZDjtP
-         f0gyO3WyIfFW3nrYbc71jxZL3sf5ltlr+JgmRoHMXRGiX0cn937IPMQrRGkciLorn3Pa
-         o9qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791966544; x=1792571344;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ONOYFUsExbiTAqauGcHDMWUDVRV1mSLiP5XphPmFoUU=;
-        b=DLKPdOvIV3QSAZGqJyR7H8h8+XB6a3YmnlIEpILLMyTknFEkoemhSGp9qGmVIA1Lfy
-         2VjSkK5ZmgKsiixN/iOnhP8NtIdkPKft6nijDbLWDofsCZ3dY5YO0DMKHsrT30YnNuw5
-         a8oR32dJqIktp48NluFFx3Co2w9EZFnVy4yXFdgmqFs+/t6s6s0hJ63A4VBKAmheSy3+
-         xubwsqo0xCFQubm1hov2T4IQpEipzA/EZOT3OHzD2EKcjWej10uwsTRpiSqlysqQqZ1M
-         VVPqw1j++cflvvDnCfLgbO9mWxkTBVl1niELw5SFqbQAj7yPWVzBoO+gIa5oz7UsCObc
-         PsqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFrTHWOuXPBdv6IuH0qs1dQ9rdY4HOQmSEptNa203jSya+hu7J3IJMQ6gQGEi4mriaw+tS0FcxZeRV/lQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7RDcXYczpWLErk2j98H8Vh53tCobaQ8qmg//Pg1W8UocZ+5xG
-	YKwnNG1YrdMIff4Sr4kQt24cXon2OyNb/RwQOFUoYg2nA9O8r55EsF+i
-X-Gm-Gg: AYBFou3zDjPIIiJY5ugOCorlzD9P2I7crKky/kvZ/J+Fq2KdBGtWASAgLKiQPVTlVpl
-	+/HRVHV1z6d6zY16ZBaPlyDAIvmTbfGsW4697KTm9IucRMKf5o811LxtSTHz8dH25EKiM8KgnXi
-	vXzVnItajFzMj/DK912XLX09RKDsQheonqJN0RMzhQu9V4PTYf2n9Da/0K+DhmDIbmEHMbE5IT8
-	oTZh1AdbjK2dJUuJsAeU7l1ljOK4EB5YliIuB2COXAPq/i8wbKCP4ADAO3W27rpfZriM0HlSIZw
-	1P5KVIQOn1JDu81q3ZKCi2BLD3Gcyo72h5QTfxornOIM8DsI5IDUDy359QcITp3AhLsuFDorJqk
-	iqN1fPy4JVh5WpABP6e606xPskk5byg8CbzPnrDDifr95xtPG945UwnMSTxtutJvvzynuNUfMAu
-	HXMjCt215GRua4YIJ7VA5fSrKzHLztXnDVjbzl3Vxq1yZIBB6DQfxGo5boyJXyZRAbLE0=
-X-Received: by 2002:a5d:6443:0:b0:48b:536:c93 with SMTP id ffacd0b85a97d-48dbaae36f4mr21674351f8f.30.1791966544421;
-        Wed, 14 Oct 2026 01:29:04 -0700 (PDT)
-Received: from localhost ([2a02:8308:b092:fd00:20a4:7be9:4762:f55])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded185de7sm1899715f8f.31.2026.10.14.01.29.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 01:29:04 -0700 (PDT)
-Date: Wed, 14 Oct 2026 10:29:03 +0200
-From: Jan Remes <ciakval@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
-	stable@vger.kernel.org,
-	Martin Triska <martin.triska@mycroftmind.com>
-Subject: Re: [PATCH 1/4] iio: light: tsl2591: don't divide by zero
-Message-ID: <as89TxIwfpw7x40g@mm-ntb-00805>
-Mail-Followup-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
-	stable@vger.kernel.org,
-	Martin Triska <martin.triska@mycroftmind.com>
-References: <20261013143943.436816-1-ciakval@gmail.com>
- <20261013143943.436816-2-ciakval@gmail.com>
- <as5zy1LRyE5hr6vn@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SOprjAZn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ADB0C1595;
+	Wed, 14 Oct 2026 01:29:02 -0700 (PDT)
+Received: from [10.164.19.62] (unknown [10.164.19.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7DCA23F7B4;
+	Wed, 14 Oct 2026 01:29:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791966546; bh=uqP6rvffea+dKh44Kw66QNsZgkM+k15AAqbFFCdBQzc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SOprjAZnLFxQFUNswPjzKV3NyMvAa+cqELDDxOZy/T2dOvzLPhV8MisYlsgcPMyj0
+	 QXcwMypubhur4Jr+wLDVasbysZkUEWzY4V2UTmjifL3aIeOBnZTwPI0O/w+IYUUpV3
+	 4bepahBapz844zPgcczmYHn0Xjy/RiE8Co1chppI=
+Message-ID: <51e80f6f-debe-401d-9e9f-140d31d94033@arm.com>
+Date: Wed, 14 Oct 2026 13:58:57 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as5zy1LRyE5hr6vn@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 05/10] arm64/vmalloc: allow
+ arch_vmap_pte_range_map_size() to batch multiple CONT_PTE
+To: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org,
+ catalin.marinas@arm.com, linux-mm@kvack.org, urezki@gmail.com,
+ will@kernel.org
+Cc: Xueyuan.chen21@gmail.com, ajd@linux.ibm.com, anshuman.khandual@arm.com,
+ baohua@kernel.org, chleroy@kernel.org, david@kernel.org,
+ jiangwen6@xiaomi.com, leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org,
+ ryan.roberts@arm.com
+References: <20261002090947.869220-1-jiangwen6@xiaomi.com>
+ <20261002090947.869220-6-jiangwen6@xiaomi.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261002090947.869220-6-jiangwen6@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 13 Oct 2026 21:09:15 +0300, Andy Shevchenko wrote:
-> On Tue, Oct 13, 2026 at 04:39:40PM +0200, Jan Remes wrote:
-> >
-> > Fixes: 2335f0d7c790 ("iio: light: Added AMS tsl2591 driver implementation")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Martin Triska <martin.triska@mycroftmind.com>
->
-> How was it reported? Offline? Off the list?
-> Otherwise we have Closes tag to point to the report
 
-Yes, this was reported off-the-list in an internal report at $DAYJOB.
 
---
-Kind regards,
-  Jan Remes
+On 02/10/26 2:39 pm, Wen Jiang wrote:
+> From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+> 
+> Allow arch_vmap_pte_range_map_size to batch across multiple CONT_PTE
+> blocks, reducing both PTE setup and TLB flush iterations.
+> 
+> Previously the function returned a single CONT_PTE_SIZE for an aligned
+> range, so the caller mapped one CONT_PTE block per iteration. Now, for a
+> CONT_PTE_SIZE-aligned range, it returns the largest CONT_PTE-aligned size
+> that fits within both the remaining range and the caller's max_page_shift,
+> so a single pte_set_huge() call installs several CONT_PTE blocks at once.
+> 
+> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> Tested-by: Leo Yan <leo.yan@arm.com>
+> ---
+>  arch/arm64/include/asm/vmalloc.h | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/vmalloc.h b/arch/arm64/include/asm/vmalloc.h
+> index 4ec1acd3c1b34..c29704a19e276 100644
+> --- a/arch/arm64/include/asm/vmalloc.h
+> +++ b/arch/arm64/include/asm/vmalloc.h
+> @@ -23,10 +23,12 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
+>  						unsigned long end, u64 pfn,
+>  						unsigned int max_page_shift)
+>  {
+> +	unsigned long size;
+> +
+>  	/*
+> -	 * If the block is at least CONT_PTE_SIZE in size, and is naturally
+> -	 * aligned in both virtual and physical space, then we can pte-map the
+> -	 * block using the PTE_CONT bit for more efficient use of the TLB.
+> +	 * If the range is at least CONT_PTE_SIZE and naturally aligned in both
+> +	 * virtual and physical space, return the largest CONT_PTE-aligned size
+> +	 * that fits, for more efficient use of the TLB.
+>  	 */
+>  	if (max_page_shift < CONT_PTE_SHIFT)
+>  		return PAGE_SIZE;
+> @@ -40,7 +42,9 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
+>  	if (!IS_ALIGNED(PFN_PHYS(pfn), CONT_PTE_SIZE))
+>  		return PAGE_SIZE;
+>  
+> -	return CONT_PTE_SIZE;
+> +	size = min(end - addr, 1UL << max_page_shift);
+
+Okay so we have implicit PMD_SIZE capping due to (end - addr) being
+clamped due to pmd_addr_end(), so we are safe.
+
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+
+
+> +	size = round_down(size, CONT_PTE_SIZE);
+> +	return size;
+>  }
+>  
+>  #define arch_vmap_pte_range_unmap_size arch_vmap_pte_range_unmap_size
+
