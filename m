@@ -1,77 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 062D54A6881;
-	Wed, 14 Oct 2026 22:02:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2CA3D9DA1
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:03:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792015359; cv=none; b=s2ChSqPs4PgSNNo3CDpE+ycTySXgtFtFC8b2U8fy4MgW4w/23FhqNa0gXcXusLKVylfs6pFiQ4K1bVOvOgrpJq6q/qi60t7gwM3/cFAADrmRD3AlAVyZJnO3wsx6sY7z8VNszu7yGTtaTtxql1psRDo/kwcrI5l8yXkAfg2gFH0=
+	t=1792015429; cv=none; b=eU1z2/sINjHtAiiO2tbH0qvTxRaLJYh9jSKE0AUtjg9Owp0YY94+e4c3EyutQHdnolM+4eZMnvnmIJ82mQYWytkBJwYFNf1nOO8ESHD/dlr08AOyI7rY++fnECTi3zxVAiTCfS+QWjv5OTs7vIcNMG0lh6cPi/p1nJbfVWJkovA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792015359; c=relaxed/simple;
-	bh=QRKnAZ1eF9j61rXjzFQQL5XQHM4eObtX8gVBQrn8IP0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UqIDmSnfXmf4IBLw+yB2EKrD7zOXLoJZauVw8Y/B3oLB9Rw276EsqhuA/dl+hLh1+G+jEweo3Lz9YK4quCZZ1fewwW5quIaJWFRcRJdXOTX2jTNRauv6yQbPKOKNBXwU7f+3CFFeOT2S1H1JasBjKDGsdbPt/SyDBRCbRW0EFSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVKukfnB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792015429; c=relaxed/simple;
+	bh=Fn6DVI20NgmCdwNfyKMf/I+xS3M6RznJM1S3i14JO3Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CVHYuf/d9NiUTxesosqBaF9ItDZNMHPiFUsRm6GzG7hYP3R/4C9Rk3xWNluuCRF2btR3wRDqt9nF0JtpDfWhtDU3aWt9t4NNKa52DRdeMh+eEuTXgqMvM8JfeUC2S1Ky4K7m9AobV19uxiQKExPl0N17L2M0C9WQ58he8WXhNKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ulak6RcX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVKukfnB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B5B1F000C4;
-	Wed, 14 Oct 2026 22:02:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ulak6RcX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647A01F000C5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:03:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792015358;
-	bh=HGCa1vj+reAt1H3nCbAhK2Vvxjze0Nlqyn1XaSBSqFw=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=fVKukfnB3gjy/M+0qTM+rUn6dOla58Rl3Bx+u5asl/8CfJukz5gZ8zC4G4omPQ2tX
-	 Cy46C4v7KLpZ2hDxsdns0+z+FsT4NEKp4sSNHcSA0Eu0xv5z4Uf7nRno7cpPZequbp
-	 IItRyUoymBXkVMYMZ8WqJZ6JuPxhkiilYizo+Atz/EfjoUEyFr0d2wU7NU/HOhuEOz
-	 hqNI+IZn7Wdm+nYkZ0O61Sn2/uHM0434l7SQB+GIoEFDF+3uzTep2Iek+ou/ggzn9u
-	 VE/aNok7ePG+VDs8MVyRqva+EIGyE1uFWNIQl9PViN9DNDYIxwr1g+0iM/KiwDJ06v
-	 /RiaT1jopOMyg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 39F07CE0C55; Wed, 14 Oct 2026 15:02:38 -0700 (PDT)
-Date: Wed, 14 Oct 2026 15:02:38 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Sean Christopherson <seanjc@google.com>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	rostedt@goodmis.org
-Subject: Re: [PATCH v2 04/21] srcutree: Add an atomic Tree SRCU
-Message-ID: <eaef6b8f-1c50-410e-87a7-a0598b8963c3@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <546c81a7-f677-4d8e-a304-746b227058b0@paulmck-laptop>
- <20261007205924.1983367-4-paulmck@kernel.org>
- <729dfdb236e4daaf2438b74d4d921993a156ec34.camel@infradead.org>
- <d1539cc5-0ff3-400e-a487-eedd942cf6f5@paulmck-laptop>
- <3aba8068a1424c91c81ec35b2ea6dfaa28161fb1.camel@infradead.org>
- <0514b2ce-217e-4e0e-9b2e-3f145a3e8afd@paulmck-laptop>
- <ecd351a5d56edd89e7d0ff5f57c585f00de60717.camel@infradead.org>
+	s=k20260515; t=1792015426;
+	bh=NcJ+B/1ram+X1BKOW5jRlVpN7J7KKWrIliHk6GsANrY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ulak6RcX83MUq9kOcohmmDTc/B0bliCug/84w+EbjsfvmJAiegl2fe16N/DecKugM
+	 qRlkXt0mnxTCVzGLEyWs1oU0ODx0lspz99UidTZxj/zhBN07x/shCxobDYuY76E0T8
+	 5GX9f43yJrwvzLxzC0waomFhPjsqgQUJWYBsQiOujFN2oBtM9KLuKe44o+SEpZ2WZ8
+	 KsfI18UJ7W/dV1XR3Ix0/TaQ8U/QnqvOfYxXLxkk8JXxnxxGAWYUnQNtnb15QZ0NFT
+	 ikzzOQaLw0TwUoCwBOOqzhNxrk+9gR6/wF5QdCNaMXi7apJoYwWzcTFBkLu32K0BUL
+	 O3lJ8VEJUlsDA==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1aa29e06bso2377271a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:03:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxfp1siSAfEORhq+ePOIXrKL0brfdpoX4sxqRGa9MTPGxD67YVglyJOM/sBczuji+umRYc5v9RCdzfcw1w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUhkhpvB+2SNVnNmOrUFgyIei6NoG3F1V38E2WkaapMFYww2Rm
+	Qv0f5xDwzHazFyFL85XK3/UcuNyxs4SxYGXCWewzAgb19B45cBf59gWwIe8pdhc/v1dk9ybdoHy
+	j52/2+EL49Dv5HmWKydQ46gYEaRaj2eI=
+X-Received: by 2002:a17:907:2d88:b0:c2e:3acb:34df with SMTP id
+ a640c23a62f3a-c31aa0ae788mr1530061266b.39.1792015425354; Wed, 14 Oct 2026
+ 15:03:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ecd351a5d56edd89e7d0ff5f57c585f00de60717.camel@infradead.org>
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-6-yosry@kernel.org>
+ <CALMp9eSWazT=0tXKvGb9UNWBv62di33QgugQHOa+Bo2sq0qUCQ@mail.gmail.com>
+In-Reply-To: <CALMp9eSWazT=0tXKvGb9UNWBv62di33QgugQHOa+Bo2sq0qUCQ@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 14 Oct 2026 15:03:34 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zPPR9LMtcwhH=D8gJLjmC6800mJdyV+nKT83TnMti7wJw@mail.gmail.com>
+X-Gm-Features: AclHuK_cjgOO5VGEAYjtFhmwNLnG3Xti7ctD6pdrwU3G3vKiOI77BadJozAhsSE
+Message-ID: <CAO9r8zPPR9LMtcwhH=D8gJLjmC6800mJdyV+nKT83TnMti7wJw@mail.gmail.com>
+Subject: Re: [PATCH v3 05/27] KVM: SVM: Add helpers to set/clear ASID flush in VMCB
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 10:31:16PM +0100, David Woodhouse wrote:
-> On Wed, 2026-10-14 at 14:14 -0700, Paul E. McKenney wrote:
-> > > 
-> > > Looks good, thanks!
-> > 
-> > And these are now applied in my -rcu tree:
-> > 
-> > 60df507b6091 ("srcutree: Add an atomic Tree SRCU")
-> > a48669f0c49c ("srcutiny: Add an atomic Tiny SRCU")
-> > 
-> > I intend to send the pull request before the merge window opens, so if
-> > further adjustment is needed, please let me know right away.
-> 
-> Great, thank you!
-> 
-> https://git.infradead.org/?p=users/dwmw2/linux.git;a=shortlog;h=refs/heads/gpc-srcu-v2
-> is now based on your dev.2026.10.12a and the tests will rerun overnight.
+On Wed, Oct 14, 2026 at 3:00=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
+>
+> On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
+> >
+> > Introduce set/clear helpers to set tlb_ctl to
+> > TLB_CONTROL_FLUSH_ASID or TLB_CONTROL_DO_NOTHING. Incoming changes will
+> > eliminate the use of TLB_CONTROL_FLUSH_ALL_ASID except as a fallback
+> > when FLUSHBYASID is not available, so the helpers will create a common
+> > path for this.
+>
+> No functional change intended? :)
+>
+> >
+> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> > ---
+> >  arch/x86/kvm/svm/nested.c |  2 +-
+> >  arch/x86/kvm/svm/sev.c    |  2 +-
+> >  arch/x86/kvm/svm/svm.c    |  4 ++--
+> >  arch/x86/kvm/svm/svm.h    | 10 ++++++++++
+> >  4 files changed, 14 insertions(+), 4 deletions(-)
+> >
+> [ ... ]
+> > diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+> > index 6d0242966dc87..ba5077b9838c0 100644
+> > --- a/arch/x86/kvm/svm/svm.h
+> > +++ b/arch/x86/kvm/svm/svm.h
+> > @@ -480,6 +480,16 @@ static inline void vmcb_set_gpat(struct vmcb *vmcb=
+, u64 data)
+> >         vmcb_mark_dirty(vmcb, VMCB_NPT);
+> >  }
+> >
+> > +static inline void vmcb_set_flush_asid(struct vmcb *vmcb)
+> > +{
+> > +       vmcb->control.tlb_ctl =3D TLB_CONTROL_FLUSH_ASID;
+> > +}
+> > +
+> > +static inline void vmcb_clr_flush_asid(struct vmcb *vmcb)
+>
+> The name of this function makes it sound like the inverse of
+> vmcb_set_flush_asid(), which it isn't. Maybe vmcb_clr_tlb_ctl()?
 
-Very good, and looking forward to the results.
+Why not? vmcb_set_flush_asid() sets FLUSH_ASID and
+vmcb_clr_flush_asid() clears it, right?
 
-							Thanx, Paul
+>
+> > +{
+> > +       vmcb->control.tlb_ctl =3D TLB_CONTROL_DO_NOTHING;
+> > +}
+> > +
+> >  static __always_inline struct vcpu_svm *to_svm(struct kvm_vcpu *vcpu)
+> >  {
+> >         return container_of(vcpu, struct vcpu_svm, vcpu);
+> > --
+> > 2.56.0.385.gd3acb90ef8-goog
+> >
