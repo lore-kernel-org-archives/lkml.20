@@ -1,139 +1,270 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333044EDCC0
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1046B2E7185;
+	Wed, 14 Oct 2026 10:07:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972284; cv=none; b=kzPQj5E1lPfi2DV7PB7o0zeSla0RPhKZdX54jyqn2KLuuaduI+L+PUf6N7/ru7f618okp1MsUMtxS+iLSAgUOJOPSWx9QlOUuybqeBQo2v8fpcx0i55xJwB8jUxxUz3aCrsvAPjeVfpUTYblKk6lTfjPtkZZTnv11z0gUsf1vxc=
+	t=1791972432; cv=none; b=tAEaD9G2rXD3TCVL2WDJXFAzBZ5qZPAG6N6UiWQtP7ruUf6RShQntgsvMxPcAvpklNLQsEQwutc008ezHE+wWeqbj94tcIYXrYpIhYP9Kt67R4i3ZDW65onhnnW2yeqtCNyegUqHj2JH54Xi9OTEFAip5bal56dB+xpTOPEujwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972284; c=relaxed/simple;
-	bh=xKoZbrsEpZl7WHOwhRzJwVxlIDXvatXmrwIqVWMRm3Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nnhjlz7rMXY+dy412RMdkRBcngg/UGOhaTkjHW2EZP3Ro7pertbLATcp11Pd9sFVAqr0PWSORbDhAq0q7jM80X1ag1caprluDcazLkEOpQ8Nnktq1kJfJPE9rnEmGqULVvDC10X+L0VfX0gRx2XBv1LfZkAdcBuBaa79yV9tNqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qzhorth1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LZZ7I68l; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791972432; c=relaxed/simple;
+	bh=ewRbFEdJzK10AsdH8UzpTsvJMSbM/G1SyD2t5Hjy02k=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SIOqDgHZwZkAqOLJpPrwnrpjJd5rCqM7lt9oR7I2E/6GUJw1RC6D62czS9b0vaFtR6YqoUp7jLgrtnDjkt7dadCdtUDxb0NU/bJyPC9DcEK18NsJEnsCTSjfmnbyayWi8xYHOiXzF+7HOAMge/EiNUOeqmJWJnmzf2kSHCFNhk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1QUA6xQL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dFj5/C24; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1QUA6xQL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dFj5/C24; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qzhorth1";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LZZ7I68l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791972282;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1QUA6xQL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dFj5/C24";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1QUA6xQL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dFj5/C24"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 41C1F1F88F;
+	Wed, 14 Oct 2026 10:07:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791972423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=XemIgLfXAXsX5F5DvdAMtcb2KhZv0+MaaLg/MSFJqAo=;
-	b=Qzhorth1tFIAoFWmA9GB16Be1JJ3ZBgV/WxstIOFGBLj7yoA5H7qX2mg3Iu2Ek8y3Z2Ldl
-	D/dISWOa0p7v3Gl2O78fukk0mrPh69oVY/bjgiILCuhfpCEoOgLXg4Blgz3ji3oZ6GJalM
-	0XDC+JC+AqNugOMF8eB9ah74On1F6iA=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-609-JwhNeEDNMEaCSC1wPMRaBw-1; Wed, 14 Oct 2026 10:04:40 +0000
-X-MC-Unique: JwhNeEDNMEaCSC1wPMRaBw-1
-X-Mimecast-MFC-AGG-ID: JwhNeEDNMEaCSC1wPMRaBw_1791972279
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1b11e7837so9015775e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:04:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791972279; x=1792577079; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XemIgLfXAXsX5F5DvdAMtcb2KhZv0+MaaLg/MSFJqAo=;
-        b=LZZ7I68ldkj3iSwSrPBlqlAYfN1L+tOgruyR2PKLAX796uVuMKta9ndcpM4O0A1Mx1
-         Jrh/KkTK7G55tFERV/NIXkgqGuIuZMJHiz5KVw/peJIlJU7qX/sDlgJJjq8kTxvXYpNE
-         O13qBCOE+IPVyaIVilSKDQ3mLfVo7xhUWVkrAC8K1E6IPftL+X72ATJYThhcwulci9wJ
-         spM+cBUqKCOhDE+tp8q2nCEt/fvn5sZZ+I0BpsYTRb4JK5oFWAjU3nfc64azqzAFG23v
-         5KwGcnodHwaXG3sbG6YCFg1oZScI88u0f9U4UmcWP5NAlylbh10jrmSDYbxAZLHpij1x
-         7v8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791972279; x=1792577079;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XemIgLfXAXsX5F5DvdAMtcb2KhZv0+MaaLg/MSFJqAo=;
-        b=iN53J6/OpYf9Makt4UN6siEG9s7rulkxzQnH+tED2DUrzLUCiwghDq1FMrJIbI8szG
-         wRH3rtwsiufDAkawQOx4bKaeQflhSIybOs57Yv9f/OfR+1Kdjo/gMCCSAdTU5z5qCDEC
-         aINAgiKS3ZIS6y1mySTmgdLehtAJhYT+54nbvz8lbAL89wcGSOhQErrBWbENm2PnIJ0F
-         izpAOOzXgsItW3q1tN776qIR53WJkdU4/MGmSya/LccGvi1PmR45m8jqUIOiXCIprJXi
-         lvfF15P/f2XrF/Lc6AvlaL/ME3BNjGoaGvcTA5A33565sJz+PJ3OFO4s624FPbAB5xrU
-         XuNw==
-X-Forwarded-Encrypted: i=1; AKwUvBw/U046UaiDKFDK/lRq21xXcPU5u7SAgbmoRnAw7Tdovg2yyb3VgXuZr421QXn72KieD1vVK30P9kPrz60=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8yZLDUwT65T5Ujv1e2vsZnTLKbPpSn/tuAPp2eRyfF/sIkDIw
-	CLTfwt3dPDZ6TxWmKp2NUzytWZgn7/qCy1RmPvmR2fK47ggXu+wfwsTXHbBv+ILB4tmNLuC8aI4
-	22XW/eUQKbf74aF48RhLsDLVYWHDesibeJ1joijKCEFLy+XFSNzLWZY5CQuff1hX+ZQ==
-X-Gm-Gg: AYBFou3oX5Kt3Uf+zLj5P8duuqmkDA//VfsiQt2g0OTun24IDXxT9qytGeMXA2w9nZC
-	JrLhpi7FwKbqKLt8X6928N2Bkyp50Wxz12ae1QaofRRFi8jsl3pRhXAhyhwZYm2++s5NCNZiWJ9
-	cBDU8UwhpmypVnuFCoEcRhI0/o86eLTA/UY7uJ0/AAOk2NP0aYXxNmTPXne/JtjslbaRsSnLni7
-	hhDoTJp2ZYVBDdgyrEqrGHWTCjJoOLpV6Ob6lHC4ULvBC326AcWcSnr7qv1p+sa5geXEzs9ae7g
-	uf+szrtVhn8IGQiH75LGPO5o78eV3ryXzpc1Y1cJtqgFrArD5H5nLghC4oZ6G7xJwqFa0yI2sPF
-	FLZIsMLkzzHhmfc/9QciIYqc46rORBVnK2mircCcm7VIPx47DOSSjnE8Y2ZrDKLNnxLy3jj6L+w
-	==
-X-Received: by 2002:a05:600c:6383:b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4a1a6e04d7cmr101285135e9.33.1791972279238;
-        Wed, 14 Oct 2026 03:04:39 -0700 (PDT)
-X-Received: by 2002:a05:600c:6383:b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4a1a6e04d7cmr101284465e9.33.1791972278755;
-        Wed, 14 Oct 2026 03:04:38 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf3e044sm419838595e9.14.2026.10.14.03.04.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 03:04:38 -0700 (PDT)
-Message-ID: <3d3b9f10-e3e8-4d50-b543-0d451cb07598@redhat.com>
-Date: Wed, 14 Oct 2026 12:04:36 +0200
+	bh=pMq6RemBayrGyjOazp2iW03XQXAwMJUvEX4tKc8utxA=;
+	b=1QUA6xQLLLqqQEyb44ltaJ6i94m1i9OviIL+vJFBgCv6sfb8fF49LqaX4mdtQOGcPj8Z0E
+	YPE7jty17QR+BLoMi0vFTo6t/KUT8OBf0Gr8ba4NEV9PlF9vGVP4mtCRcM0Dqqp5TDl+bJ
+	vfo8PbZ1V0TpIwXZWpZp19Kvjha3S9A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791972423;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pMq6RemBayrGyjOazp2iW03XQXAwMJUvEX4tKc8utxA=;
+	b=dFj5/C24o33f6idQKUfQkVvyhiSd0MQbJzTsXKwCvYf/lGZ/vY4BT6CN1kxCM3+VDsVxgm
+	hYQghzORmrdmtOCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791972423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pMq6RemBayrGyjOazp2iW03XQXAwMJUvEX4tKc8utxA=;
+	b=1QUA6xQLLLqqQEyb44ltaJ6i94m1i9OviIL+vJFBgCv6sfb8fF49LqaX4mdtQOGcPj8Z0E
+	YPE7jty17QR+BLoMi0vFTo6t/KUT8OBf0Gr8ba4NEV9PlF9vGVP4mtCRcM0Dqqp5TDl+bJ
+	vfo8PbZ1V0TpIwXZWpZp19Kvjha3S9A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791972423;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pMq6RemBayrGyjOazp2iW03XQXAwMJUvEX4tKc8utxA=;
+	b=dFj5/C24o33f6idQKUfQkVvyhiSd0MQbJzTsXKwCvYf/lGZ/vY4BT6CN1kxCM3+VDsVxgm
+	hYQghzORmrdmtOCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CE04B1368E;
+	Wed, 14 Oct 2026 10:07:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id h0ywKEZUz2q2WAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 10:07:02 +0000
+Date: Wed, 14 Oct 2026 12:07:02 +0200
+Message-ID: <87jynkegu1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	sammiee5311@gmail.com,
+	phucduc.bui@gmail.com,
+	kees@kernel.org,
+	thomas.weissschuh@linutronix.de,
+	tglx@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH] ALSA: dummy: Defer hrtimer data freeing until runtime detach
+In-Reply-To: <87o6cweheq.wl-tiwai@suse.de>
+References: <pm-pmb-9c80f858ccc13b3de84d-v6-d4059ea2910fe5430f5f@gmail.com>
+	<877bjkg35f.wl-tiwai@suse.de>
+	<CAFRLqsUH-ehHgXsqFGANE2h0-3WBkeNh7-AOvf5ymWAOH5r5Mw@mail.gmail.com>
+	<87v774ejkp.wl-tiwai@suse.de>
+	<CAFRLqsX8rqZrJfLPBOhBmuwXHq_wnxiwfxDGevfQ3wMFo2thgg@mail.gmail.com>
+	<87o6cweheq.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v6 0/3] net: phylink: wait for a PHY that probes
- after the MAC
-To: Aleksei Sviridkin <f@lex.la>
-Cc: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
- netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>,
- "Chester A. Unal" <chester.a.unal@arinc9.com>,
- Daniel Golle <daniel@makrotopia.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <aa01ab1c-da2c-4638-816b-f535b635379b@redhat.com>
- <20261013151233.2474217-1-f@lex.la>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261013151233.2474217-1-f@lex.la>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,gmail.com,kernel.org,linutronix.de,vger.kernel.org];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 10/13/26 17:12, Aleksei Sviridkin wrote:
-> On 10/13/26 09:53, Paolo Abeni wrote:
->> The above looks like a significant amount of complexity for OoT driver,
->> and I understand it could be solved with a different kconf?
+On Wed, 14 Oct 2026 11:54:37 +0200,
+Takashi Iwai wrote:
 > 
-> The PHY driver is in mainline, air_en8811h. Only the board's device
-> tree lives in OpenWrt.
+> On Wed, 14 Oct 2026 11:33:54 +0200,
+> Cen Zhang wrote:
+> > 
+> > Hi Takashi,
+> > 
+> > >
+> > > That's not what I didn't understand: do both A and B use the same
+> > > device?  The release shouldn't happen until all detached, so the
+> > > prepare and the release can't happen concurrently for the same device.
+> > >
+> > > If A and B are for different devices, they don't interfere with each
+> > > other in the case of dummy driver.
+> > >
+> > 
+> > Yes, A and B use the same PCM device. The test opens
+> > /dev/snd/pcmC0D0c twice, and SNDRV_PCM_IOCTL_INFO reports:
+> > 
+> >   A: card=0, device=0, subdevice=0, capture
+> >   B: card=0, device=0, subdevice=1, capture
+> > 
+> > They are separate substreams with separate runtimes. With the hrtimer
+> > backend selected, dummy_hrtimer_create() allocates a separate dpcm for
+> > each runtime. The test configures both with HW_PARAMS and explicitly
+> > links them with SNDRV_PCM_IOCTL_LINK.
+> > 
+> > Sorry, I should have been clearer about what is being released. The
+> > PCM device remains alive throughout. The object being freed is A's
+> > runtime->private_data, from A's driver close callback.
+> > 
+> > snd_pcm_release_substream() checks A's own ref_count. When A's last
+> > file reference is closed, it calls A's driver close before unlinking
+> > A, even while B is still open:
+> > 
+> >   Final close of A                  PREPARE ioctl on B
+> >   ----------------                  ------------------
+> >   snd_pcm_drop(): group -> SETUP
+> >   do_hw_free(A)
+> >   dummy_pcm_close(A)
+> >     kfree(A's dpcm)
+> >                                     snd_pcm_action_nonatomic(B)
+> >                                       Take link read lock
+> >                                       Walk group: B and A
+> >                                       snd_pcm_do_prepare(A)
+> >                                         dummy_pcm_prepare(A)
+> >                                           Read freed timer_ops
+> >   pcm_release_private(A)
+> >     snd_pcm_unlink(A)
+> >   snd_pcm_detach_substream(A)
+> > 
+> > B reaches A through the PCM core's linked-group iteration:
+> > snd_pcm_action_group() invokes the prepare action for each member.
+> > A is still linked and in SETUP at that point, which the prepare state
+> > check accepts. The two dummy runtimes do not share their private data;
+> > the group action explicitly invokes A's callback with A's substream.
+> > 
+> > The final close holds pcm->open_mutex, but the PREPARE path does not
+> > take that mutex. PREPARE holds snd_pcm_link_rwsem for reading and the
+> > members' buffer mutexes; driver close does not hold those locks across
+> > the free. The link write lock is taken at the later unlink.
+> > 
+> > That is the overlap I meant: A's own backend data can be freed while
+> > A is still reachable by a PREPARE action issued through B.
 > 
-> A config change can avoid it, but it is expensive here. Building
-> air_en8811h in is not enough, since it loads its firmware with
-> request_firmware_direct() from the root filesystem, which is not mounted
-> yet when the switch probes. It also needs CONFIG_EXTRA_FIRMWARE with
-> 144 KB of blobs, in a kernel that OpenWrt shares between every board
-> of the subtarget.
+> OK, it's then about unlinking in addition to the sync-stop.
 > 
-> Is that the expected answer for a board like this one, or would you
-> take a smaller change in phylink?
-To me this series still looks too much churn for something that has
-alternative options. I would like to hear a 2nd opinion from Russell,
-Andrew or Heiner.
+> I believe that we should rearrange the call order of unlink; it should
+> be rather called at the very beginning and unconditionally.
+> 
+> So the revised patch is something like below.
 
-/P
+... and after re-reading the code, I noticed that the
+snd_pcm_sync_stop() call is redundant.  After snd_pcm_drop(), the code
+continues as:
 
+	if (substream->hw_opened) {
+		if (substream->runtime->state != SNDRV_PCM_STATE_OPEN)
+			do_hw_free(substream);
+		substream->ops->close(substream);
+		substream->hw_opened = 0;
+	}
+
+and do_hw_free() does call snd_pcm_sync_stop()
+
+static int do_hw_free(struct snd_pcm_substream *substream)
+{
+	int result = 0;
+
+	snd_pcm_sync_stop(substream, true);
+	if (substream->ops->hw_free)
+	.....
+
+That said, the only missing piece is the rearrangement of unlinking
+call order.  The hrtimer was a red herring, after all, and rather the
+access to a PCM substream that is being released via the PCM link was
+the real problem.
+
+Please verify whether the fix below works for your case.
+
+
+thanks,
+
+Takashi
+
+
+-- 8< --
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index a845f242a163..4fea3f6df682 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2792,18 +2792,14 @@ static int snd_pcm_hw_constraints_complete(struct snd_pcm_substream *substream)
+ 	return 0;
+ }
+ 
+-static void pcm_release_private(struct snd_pcm_substream *substream)
+-{
+-	if (snd_pcm_stream_linked(substream))
+-		snd_pcm_unlink(substream);
+-}
+-
+ void snd_pcm_release_substream(struct snd_pcm_substream *substream)
+ {
+ 	substream->ref_count--;
+ 	if (substream->ref_count > 0)
+ 		return;
+ 
++	snd_pcm_unlink(substream);
++
+ 	snd_pcm_drop(substream);
+ 	if (substream->hw_opened) {
+ 		if (substream->runtime->state != SNDRV_PCM_STATE_OPEN)
+@@ -2887,8 +2883,6 @@ static int snd_pcm_open_file(struct file *file,
+ 		return -ENOMEM;
+ 	}
+ 	pcm_file->substream = substream;
+-	if (substream->ref_count == 1)
+-		substream->pcm_release = pcm_release_private;
+ 	file->private_data = pcm_file;
+ 
+ 	return 0;
