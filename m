@@ -1,56 +1,78 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 02C795304AE;
-	Wed, 14 Oct 2026 13:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694A25328C6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:48:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791985684; cv=none; b=j23esBOrwClm05FYpg+mH40r+gs5cXGtuTZ8zaPWAh9JWFcMbqZyWEelQCGGiWGMe/FsJK/qLyWgEATtdFSlrjTUJ5HNfyPyTWmjdxxXGnsDb4C8N6K7G9UHxTbZKsHne8BtYwilA9X2M+5gd+IgyQd163cOaYFJxWjVhqfrgCA=
+	t=1791985692; cv=none; b=NFZgYe1YMsp+H7IsPABkh0m8xWo7zFJmX0ePZ2mOywrANIcfKxSkP1rhZFMF/xv9/iqOmvJ0FrlHfciJpDz2DfnZt7kx/gNoHZbkDouSGZaTGOmPhXS6uAoZ36AFKw2Y7zKPz0rTj0056s5v0gYmASKj1DYoL8qd+9zmvfe3rMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791985684; c=relaxed/simple;
-	bh=kVfk3D0SOF2tb4mLnsWnJCxKBtG4y7+SgWgQW6eyOpo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gdZkx/vJmx+BatqbFOrsROzl07wLo2Q1q3WS28IfILI8Gl28xRiZs4wF0AmUMJMavkDZ06f5mXvii2MPcYwETcIyRuSXsb9GDQ0Tsa36pFEv/Ewio0qMt7QAkwhPUkVP33Akg5WFbI04lBELqk0KS4JXlJfaKJGpF+WARuCr0Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DS91Wytg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791985692; c=relaxed/simple;
+	bh=XZb2BuZsmSb3LQX+Gqpg0HwFJSEHBcpA1T+CRYC45/Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nt8WJoWDilZFphLey2bU/OAQwq3iUD6SRGeMdhOYDQu+57ToWRXbc3PvzcBYX8qme7dKdFg3Ho99LJnT508BZ6wPqoOqbTRIwNBTw5gy/Ad3HzD5+GboebPehT4TgS1foMLkn5Tl5zUxqDM5HCJklJn0qExRmhQVgrllyyWmk2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J0iPDEY4; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DS91Wytg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD45A1570;
-	Wed, 14 Oct 2026 06:47:58 -0700 (PDT)
-Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.128.106])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C0F623F7B4;
-	Wed, 14 Oct 2026 06:47:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791985682; bh=kVfk3D0SOF2tb4mLnsWnJCxKBtG4y7+SgWgQW6eyOpo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=DS91WytgZjsdIwDzxiw1C5nCuwwRMvtJacPRfgFBCwXfDm3p6iF+h3hRweup8GNEV
-	 DXPcTKyGjM2TVgyGOB0ZoPLnKpbGny0X9AuVu7534lUcaq3KN5185QoeupQR2JDKUr
-	 WN4GMO7ifeI1aISl08q5R/iI3Mhu/eZmQSa9V5uU=
-From: Christian Loehle <christian.loehle@arm.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Julia Lawall <Julia.Lawall@inria.fr>,
-	Nicolas Palix <nicolas.palix@imag.fr>,
-	linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cocci@inria.fr,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH] sched: Replace nr_iowait_cpu() with a bool accessor
-Date: Wed, 14 Oct 2026 14:47:45 +0100
-Message-Id: <20261014134745.3032405-1-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J0iPDEY4"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8875d220446so2111609b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:48:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791985690; x=1792590490; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cb14+6Zl+Og5oq4fRzXaYkQdxU/WMK9lIAeYNNyuMS0=;
+        b=J0iPDEY4gqIYItuu8Y4y63Cz5+UA1sZxHGnZ9lKPpnJYcnDLFZfKprYQIS1Jc1nAfO
+         7AzWBHf+6OBm+mptGEBImFFrPKY7wgvJ1Ff8VK/K4dHGKBC/kwKUDW0rRs7iK6H+tEtj
+         DrFtkfuAlH3kuiEdqFTOQGZyQ+0z1dghqY1XsE93fxkbZ8/g1ktkwhf14C0RMM6Y3BKj
+         U/YO4kOduUJfEBDZ5LdyxaBjqHW/TV+MvovD/ZKtnM/FTC5ePC/q7KPp1EyRT1N7aRsR
+         wuT6u5plFtYBV9VkJzk72yMjgG/wW1/9iE+GZh9aE678lSVqZ18JuINkPQSvUqBiysWo
+         uE+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791985690; x=1792590490;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cb14+6Zl+Og5oq4fRzXaYkQdxU/WMK9lIAeYNNyuMS0=;
+        b=HrRu02b4Y/GbG4DwTpHvI8PJTzyb9PKeLVlD74BbfpTPiuxzZZUJlS8c0aIpPppirM
+         Z+hLw8PS4w/yYW6YV3kFl3szW5TuPnW6pA4g6DlOpou5hhS22a+/YjVVtTJIZoy5ghda
+         3F2Qojad9u41vQLUYy1+Ndbwb3NmkwBKUhlxc4shW31xL5BD/xWVUSjuL2TEu/ix4m7i
+         bYgvid1XJn2gq3roID+yjZs//udG0BIWtbael0tOSrDJq2OObPbx0kSJceVg9V6eeWb3
+         gLrv9aB4NaSPLSULJzPT8QVwxyfVGbionpTFEEXuRqr3eYxR41EyEoYjxEeYMPpuV14C
+         X8yw==
+X-Forwarded-Encrypted: i=1; AKwUvByTSY+WiUWfw799mEy8WQ/LDyiGA8rdHe3Jgm18y3y6jM7D2a+Fbpeo4FrT4+859xkAZjVTZ+i7Q7Lvj5c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLlM3XM8Y3XtxOg7AVkoLAYfTdHTJym1FdO1zKl6bTD4yDVr9YU
+	7mhSDKIwMSRO2KX2dvZYA+A1droXsepPkSNtV23OKCYc9W0pAEf5ZZrv
+X-Gm-Gg: AYBFou24l1cY7NWhJos57vTuQGqK4/pQXflHJ57JGqNpojqHSNz1G8XkH3whlkfdI8m
+	39Iox/GPVM31kKc+d8c+PGZxlDcOv+zLB5quQAN4PBwuySNLsWjw/pUlwkrIMBPiUNwDN//W6hK
+	a+U7rxRKlm3cAx027DTEA4ik11BQFf8AdJaLUKYk2f682ebDXW3H48QWdUoQKmLOa5joj+QroyY
+	J+7Ers/zT8181OJdXG9eIpvhlgZwPhQOOxITrl3erz4fy9RPn52ei74IQz22ca++rV7a68oD13A
+	/lH93oNSwcDV68rF7Jg1nVBj+ftG/uRR6Kma0HJXIT2iFcNB+NTy2WZdBQhyFYkwc48crgqbI5j
+	lCBD9Nkm33UbjykqtfwIOuUKrLTQJwnnA86h5gr6p7pRKZY8FHcfJUKHqh6SyPF9EgAxr6GJWWO
+	wcNXNb4I1690QjSMC2EnGgPOsQuCiXmmlDeO4wxIoZgwJA1qB1dGXBNtlFheSSzKru4eA=
+X-Received: by 2002:a05:6a00:b8c:b0:880:4b56:dc2c with SMTP id d2e1a72fcca58-897c69329ccmr12308668b3a.34.1791985689597;
+        Wed, 14 Oct 2026 06:48:09 -0700 (PDT)
+Received: from wyb-ms7e59 ([38.55.195.146])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89e0d1a3223sm296897b3a.44.2026.10.14.06.48.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 06:48:09 -0700 (PDT)
+From: wyibo6109@gmail.com
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Yibo Wang <wyibo6109@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
+Date: Wed, 14 Oct 2026 08:47:54 -0500
+Message-ID: <20261014134759.10946-1-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261012-weightless-meaty-fennec-cdce10@quoll>
+References: <20261012-weightless-meaty-fennec-cdce10@quoll>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,208 +81,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The menu governor was the last consumer of the per-CPU I/O-wait count
-that needed its magnitude, apart from nr_iowait() summing it globally.
-Commit 38f83090f515 ("cpuidle: menu: Remove iowait influence") removed
-that use. All remaining per-CPU consumers only test for zero/nonzero.
+From: Yibo Wang <wyibo6109@gmail.com>
 
-Replace nr_iowait_cpu() with bool cpu_has_iowait() and update the generic
-and s390 idle accounting callers. Have nr_iowait() read the counters
-directly so that the global total and existing accounting are preserved.
-Replace the stale menu comment with a description of the predicate.
+Hi Krzysztof,
 
-Include the Coccinelle recipe for the code conversion, verified against
-the original files. The helper's comment is updated manually. Reproduce
-the conversion with:
+On 12/10/2026 01:24, Krzysztof Kozlowski wrote:
+> How is that possible? Same OnePlus Pad 3 Pro has different matrices?
 
-  make coccicheck COCCI=scripts/coccinelle/api/cpu_has_iowait.cocci MODE=patch
+No, and sorry for the wording - within one tablet project the keyboard
+is fixed.  What I meant is that the matrices differ *between* the
+tablet projects that ship this MCU, not within one: the vendor trees
+carry per-project geometry (caihong, the sm8650 era project: 2764x1630;
+erhai, the sm8750 era project: 2764x1630; iceland, the sm8850 era
+project the tested OnePlus Pad 4 belongs to: 2560x1440), while the MCU
+protocol has no command to query them.
 
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- arch/s390/kernel/idle.c                     |  4 +-
- include/linux/sched/stat.h                  |  2 +-
- kernel/sched/core.c                         | 13 ++---
- kernel/sched/cputime.c                      | 10 ++--
- scripts/coccinelle/api/cpu_has_iowait.cocci | 56 +++++++++++++++++++++
- 5 files changed, 69 insertions(+), 16 deletions(-)
- create mode 100644 scripts/coccinelle/api/cpu_has_iowait.cocci
+Which also means your question from v1 is answered the other way
+around: the geometry *is* deducible from the compatible once the
+compatible names the project.  v3 therefore drops the DT geometry
+entirely:
 
-diff --git a/arch/s390/kernel/idle.c b/arch/s390/kernel/idle.c
-index dd12efb58201..ff9732ef494c 100644
---- a/arch/s390/kernel/idle.c
-+++ b/arch/s390/kernel/idle.c
-@@ -82,13 +82,13 @@ static u64 arch_cpu_idle_time(int cpu, enum cpu_usage_stat idx, bool compute_del
- 
- u64 arch_kcpustat_field_idle(int cpu)
- {
--	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !nr_iowait_cpu(cpu));
-+	return arch_cpu_idle_time(cpu, CPUTIME_IDLE, !cpu_has_iowait(cpu));
- }
- EXPORT_SYMBOL_GPL(arch_kcpustat_field_idle);
- 
- u64 arch_kcpustat_field_iowait(int cpu)
- {
--	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, nr_iowait_cpu(cpu));
-+	return arch_cpu_idle_time(cpu, CPUTIME_IOWAIT, cpu_has_iowait(cpu));
- }
- EXPORT_SYMBOL_GPL(arch_kcpustat_field_iowait);
- 
-diff --git a/include/linux/sched/stat.h b/include/linux/sched/stat.h
-index 0108a38bb64d..4810b14d0372 100644
---- a/include/linux/sched/stat.h
-+++ b/include/linux/sched/stat.h
-@@ -20,7 +20,7 @@ extern int nr_processes(void);
- extern unsigned int nr_running(void);
- extern bool single_task_running(void);
- extern unsigned int nr_iowait(void);
--extern unsigned int nr_iowait_cpu(int cpu);
-+extern bool cpu_has_iowait(int cpu);
- 
- static inline int sched_info_on(void)
- {
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1fe40de6ebe3..1bde5187dafd 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -5588,15 +5588,12 @@ unsigned long long nr_context_switches(void)
- }
- 
- /*
-- * Consumers of these two interfaces, like for example the cpuidle menu
-- * governor, are using nonsensical data. Preferring shallow idle state selection
-- * for a CPU that has IO-wait which might not even end up running the task when
-- * it does become runnable.
-+ * Return whether any tasks are accounted as I/O waiters on this CPU.
-+ * They may wake up on a different CPU.
-  */
--
--unsigned int nr_iowait_cpu(int cpu)
-+bool cpu_has_iowait(int cpu)
- {
--	return atomic_read(&cpu_rq(cpu)->nr_iowait);
-+	return atomic_read(&cpu_rq(cpu)->nr_iowait) != 0;
- }
- 
- /*
-@@ -5634,7 +5631,7 @@ unsigned int nr_iowait(void)
- 	unsigned int i, sum = 0;
- 
- 	for_each_possible_cpu(i)
--		sum += nr_iowait_cpu(i);
-+		sum += atomic_read(&cpu_rq(i)->nr_iowait);
- 
- 	return sum;
- }
-diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-index 06bddaa738e5..1f84a950abed 100644
---- a/kernel/sched/cputime.c
-+++ b/kernel/sched/cputime.c
-@@ -431,7 +431,7 @@ static void kcpustat_idle_stop(struct kernel_cpustat *kc, u64 now)
- 	if (!kc->idle_elapse)
- 		return;
- 
--	iowait = nr_iowait_cpu(smp_processor_id()) > 0;
-+	iowait = cpu_has_iowait(smp_processor_id());
- 	delta = now - kc->idle_entrytime;
- 	steal = steal_account_process_time(delta);
- 
-@@ -544,14 +544,14 @@ static u64 kcpustat_field_dyntick(int cpu, enum cpu_usage_stat idx,
- u64 kcpustat_field_idle(int cpu)
- {
- 	return kcpustat_field_dyntick(cpu, CPUTIME_IDLE,
--				      !nr_iowait_cpu(cpu), ktime_get());
-+				      !cpu_has_iowait(cpu), ktime_get());
- }
- EXPORT_SYMBOL_GPL(kcpustat_field_idle);
- 
- u64 kcpustat_field_iowait(int cpu)
- {
- 	return kcpustat_field_dyntick(cpu, CPUTIME_IOWAIT,
--				      nr_iowait_cpu(cpu), ktime_get());
-+				      cpu_has_iowait(cpu), ktime_get());
- }
- EXPORT_SYMBOL_GPL(kcpustat_field_iowait);
- #else
-@@ -601,7 +601,7 @@ static u64 get_cpu_sleep_time_us(int cpu, enum cpu_usage_stat idx,
- u64 get_cpu_idle_time_us(int cpu, u64 *last_update_time)
- {
- 	return get_cpu_sleep_time_us(cpu, CPUTIME_IDLE,
--				     !nr_iowait_cpu(cpu), last_update_time);
-+				     !cpu_has_iowait(cpu), last_update_time);
- }
- EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
- 
-@@ -625,7 +625,7 @@ EXPORT_SYMBOL_GPL(get_cpu_idle_time_us);
- u64 get_cpu_iowait_time_us(int cpu, u64 *last_update_time)
- {
- 	return get_cpu_sleep_time_us(cpu, CPUTIME_IOWAIT,
--				     nr_iowait_cpu(cpu), last_update_time);
-+				     cpu_has_iowait(cpu), last_update_time);
- }
- EXPORT_SYMBOL_GPL(get_cpu_iowait_time_us);
- 
-diff --git a/scripts/coccinelle/api/cpu_has_iowait.cocci b/scripts/coccinelle/api/cpu_has_iowait.cocci
-new file mode 100644
-index 000000000000..cc903b1d2586
---- /dev/null
-+++ b/scripts/coccinelle/api/cpu_has_iowait.cocci
-@@ -0,0 +1,56 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Replace nr_iowait_cpu() with a boolean accessor after menu stopped using
-+// the per-CPU count. Preserve the count used by nr_iowait().
-+//
-+// The accompanying update to the helper's comment is manual.
-+//
-+// Options: --include-headers
-+
-+virtual patch
-+
-+@ definition depends on patch @
-+identifier cpu;
-+typedef bool;
-+@@
-+
-+- unsigned int nr_iowait_cpu(int cpu)
-++ bool cpu_has_iowait(int cpu)
-+  {
-+-	return atomic_read(&cpu_rq(cpu)->nr_iowait);
-++	return atomic_read(&cpu_rq(cpu)->nr_iowait) != 0;
-+  }
-+
-+@ prototype_rule depends on patch @
-+identifier cpu;
-+typedef bool;
-+@@
-+
-+- extern unsigned int nr_iowait_cpu
-++ extern bool cpu_has_iowait
-+  (int cpu);
-+
-+@ total depends on patch @
-+expression cpu;
-+@@
-+
-+ unsigned int nr_iowait(void)
-+ {
-+ <...
-+- nr_iowait_cpu(cpu)
-++ atomic_read(&cpu_rq(cpu)->nr_iowait)
-+ ...>
-+ }
-+
-+@ predicate depends on patch @
-+expression cpu;
-+@@
-+
-+- nr_iowait_cpu(cpu) > 0
-++ cpu_has_iowait(cpu)
-+
-+@ callers depends on patch @
-+expression cpu;
-+@@
-+
-+- nr_iowait_cpu(cpu)
-++ cpu_has_iowait(cpu)
--- 
-2.34.1
+- the compatible names the tablet project
+  (oneplus,caihong-/erhai-/iceland-pogo-keyboard, the codenames from
+  the vendor trees) and the driver carries a per-project description
+  in its match data: feature flags for the 0x3A sub-commands that grew
+  over the generations, the touchpad geometry and the per-brand
+  product names;
 
+- the common touchscreen properties (touchscreen-size-x/y,
+  touchscreen-x-mm/y-mm) are kept only as an optional override, in
+  case a variant ever needs one, and are no longer used by the
+  example.
+
+v3 will follow as a reply to the cover letter.
+
+Best regards,
+Yibo
