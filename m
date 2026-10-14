@@ -1,265 +1,173 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73835187E1
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984023; cv=pass; b=Nv+c/NNbVMV1BKpPBNgrn+vzLYUKeiysIpuC0586dNyjH2x5vSNaB+RIr4t1F+CAbr3DrXkq7aeUfc0fh0O8DWwH/WBgZ8NBkPokd7fg+5RwiuTzhybd3qmowpGZMt0cVzmhcElRO9pyHIcocFwhDNtgL3fdTawDawYkRwZRap8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984023; c=relaxed/simple;
-	bh=qYqZpnHxt46bTwCQrjgfaPtEhf6RbkOYsrPyT5c7kNY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Mib6kuf/SU9njWD/xHRmTzTuS8e/jD1UrcnLxzK9zelooWhjMqXkQJ8jnufuvbA2hBBv6/iflExzE2mwc8KQqf8qYclqGz32nIKs1nTmMVz4u+lh9z14Fen0BMdpfwdP3tO5Ws9+j6azjGAdWFTIuql3vXYH1sri6YusKTT6JIA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=et9ClaKU; arc=pass smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209564D37C4
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:20:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791984031; cv=none; b=c0vo/qJoTpBwLR+MR2LmLwx/lV54IoGwwfQAfro1uGZHh+QQQ843ym7/LyL6tXQuY1voFSf+N57dnO3G9hmvIp/u7AtBzPc7XHG2kuATd3wjpgPJ74FKmz/RjjGHKYFfofX/8UWw3RmohE/aSiz7p0C3e7yqXa7qOLFSRJqesMI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791984031; c=relaxed/simple;
+	bh=MjCRgyE9WkWJ7iNVJLmJilLk/S+9l7gZMXgxjwM9n/c=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=rAFaIf9hcOHH1fiQ9KX8GCmZbELTKtvmTBGUkifFRc5N1fOZbt3bKFLPT+M2LBzCFRyBiRZJR2KriNMoOyMX58oAEAFYoBmDQHnSRa5yBI4Tq8+xqQAgs2yktcyPKCKtu5OryTTfwg/ycHhacfDLGDxEYADNE59cCqskvrCiIjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DwBxtAjq; arc=none smtp.client-ip=209.85.208.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="et9ClaKU"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8819033dbadso2505678b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:20:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791984021; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nv5jR/UYNJ+KSFgkcfHJjbmTJjq1FaezerU/ZZmLPq7dECIUJ1V1GkAT/6jvQsDalP
-         tMYBKu5LBJOoGFfGKVZrz6dMXVRnMqdOhM/KtTh14MQ18GgHuX+KE8iH6zHI6gQRc96c
-         vjardL1obF3SYz8F86RQN7WzgKErJwLguL+JIL16bI75ZOywt6HCpLP1USDUP9TyYPpa
-         85aJj8Y+a17HNIMllo7ZZut8ssKVDT+SQ7+iZdtoacZYMYxPcfll6RhxZb4x8xMPay2V
-         IUyvl7vh7w6YyyZTHvBhpVk9gj+3gUig0/rMtFIMb9ipJEM90KzTmNhHnRVK49XzO0P5
-         CEpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DgFVuw3Nx/1CxZ7+35KCrm7X62fckoU2iflNvarBRIE=;
-        fh=45M81APSr9mjjyyJPbO1C7tij0l2VxLXM0EpEeJMk6E=;
-        b=hEhoa2U9hp2gH82HwmH1pvqZFv/8rpdZ1/LYDRwyKfbodl9WSvhgkzhvQVPR6Gyn8G
-         E9SSItRnf8HO0rUH4kaCLJpmKtNxpGIu5FeeN3pxc983w/fBBhPdQUFYNwcLFSQBV7Fe
-         TRimwNtubJIJqz6VlF1kV0RJFQFFd9MQsfk1vjvhetwxRkoY3ceXCcMxW3uxbKhGf9kf
-         MB9+aClkUCT81GgBqiaGv6y1lEFqlaIUK9wEE8rz1kBduk4q5Ezk9FzgZgv9PWzFh861
-         NpKY8pQlI/NnUYFPeCjfsZb9tBdrKZChh9ggZVM1eH8qhBNhrI5blnqGZSJNfRNAoUdQ
-         qLUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DwBxtAjq"
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b1ab11f4a3so927599a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:20:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791984021; x=1792588821; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DgFVuw3Nx/1CxZ7+35KCrm7X62fckoU2iflNvarBRIE=;
-        b=et9ClaKUzS0HcDc2QuATHXXL7pn0SXR8jiLWhz+zuaZidBtYc6+mfqXdupaABDEzlh
-         OfGjTMaNgJuYXm5Fq0WS4EnmgAmNaTf1Uhwjss1bqjgYSHP0tYtJ/vGsgTTDFy8Mzp7x
-         3G+MPEHN+VZsKXXHYTbuKZogR+AM48d6An2c9xYXjwTAadbAct/A39qLNvwhKkiDFV+C
-         jtIbpA5UtX2KdiqVX8G7ndKyAYRF63gBvXHWELO+KpLZdbwtFP99jUc0rfDXVZGUnCgm
-         3m+EPz5iLPCJcVMsmra01d1aA1hw0pP0a+JZDjhfCXMESYe83Xnezz7+dljKs+ix1Cp/
-         gGZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791984021; x=1792588821;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791984027; x=1792588827; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DgFVuw3Nx/1CxZ7+35KCrm7X62fckoU2iflNvarBRIE=;
-        b=I24WzseS2D9eg+qkYKqbRDKUM6XsAll1HXSe9njpLaEDUzXgwYvVIqDwJOlfzbtqV6
-         s5CTu1OhenDEmt5t+d5ZZ59jVIxU9q+RK71qctsZTYAv+AGxl0fqcdZzAazoCu2Sfxrt
-         F5dBkVD/vni6kxMFp449Se1LFNO4O4t/8QCvbVK3HKJ4kk1Qp+lA9M907pq0blfz6KBy
-         hhlYoPxzva2D0YuZoSmuYaWanOxiaPsuF+OXBtnEMXXaubcC0tFpYUprZ8Qtyqv+OVtP
-         1NS2j8bTDrmNySm5E+j85LZZtUl7vfKCu6NdWUEnIi9xlG3u3MO3uB2CiJ+0GtO/lSrZ
-         4sjw==
-X-Forwarded-Encrypted: i=1; AKwUvBwCoHxCzRTU/EhKoLo6HcNmdMja8kdZAcRSqxx7J1CUg8xqaP6dErAeiK0FPJ8+6MDH3CkgJjz99HQKsQY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqrBCSk/uUFImdMn6wDt589zUHeyS+VqkxlW2AfbLu6LPGuAs1
-	0O20LJP1PP3D+NeT1ZJ6TEDxx+3hfX/TyhZtLdyGTrhT46FBETEbtWOdR7vXMM/t5giFXVp4KG3
-	hRFoqTrnr3wCkvOrjxxaIeakWf082Pvw=
-X-Gm-Gg: AYBFou2T9yTlGjeog3fnsGX6MGpMnkdGeyzTXAItn/vmQ4MZKFY9vxqlJC/IKx0bV6Z
-	2IVUO7jlcn2b2l5WQKLbK8YLijqYjxzpbXXmvSR2BEs+l3TfISXN/B445gXLdR3U/TiaKNRu5PL
-	NGM6PSuePQKNQDdPAXEfd8exUrzxRSQ2gYb7z+27bHyy66HC0OSCzlHBvWKeJac8LYKqg1jJKiz
-	WpsA/gauzdhliGKQDuorTTjRjR18WWfQ8iVbUZwMlgSaP8hUVAU0VwX0+GdFIY92srs3IzOv9m1
-	yGLiR38I/UQT6YcmLIWh2EHvlldrIu4Fh4iKWGEkAzMrv9AoCk6r1QVY
-X-Received: by 2002:a05:6a00:2e05:b0:878:34d7:697c with SMTP id
- d2e1a72fcca58-897c79e2162mr12761852b3a.42.1791984020749; Wed, 14 Oct 2026
- 06:20:20 -0700 (PDT)
+        bh=4n9LUBp/94FrA7OEAIK6wGrf06ppdChh63JRq9nGxWk=;
+        b=DwBxtAjqUw+Q/FMDhubhETeedq+ybXsKZFd4FbX4UTmZVxzIJDbhQ8T2nkNCoW8a6p
+         wpB0VORLqumQsg1JaVBCebAgScoGUgRAFlcmgEG7DRWYRy755c6m0Rs4BMBE4Vc0Lch1
+         T70IniOpzea6agz8Nn4NUtGtPnqA4slllxLzr3bxEzTSvJk7FhiAsOAJUeOUpsMa0vn+
+         pdyvJxsOKfRMu1iEOxupl8sR6QNA9ueMWRQ9XKMV+7TN/mvGcL2+ReodZgI9M8QbBhDn
+         ZFb8wfE0ck0SvaXBTe6icHhn9cqwf86T1ck9HUrR9FDSL2wwOU5X1EEQ1wBvazWWi9HQ
+         RiBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791984027; x=1792588827;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4n9LUBp/94FrA7OEAIK6wGrf06ppdChh63JRq9nGxWk=;
+        b=Bsa3smmyzr2//IPdU7ts+rvjeyClVLqJI3OCpcCGE1ZxCto6hC+Z/22k8xVAQmHjyU
+         T3kj7tI6kmzmWTTr9sT3euE1FmQWtrhzuHw6XPuEbmU6fTmsqkKFc8uG7wkR/Ako1W63
+         L9T2Byxn8F2KpSuB7NpWAMtDs8TrXcGBRHU/lfkWQDyMLUZVIESQyYpi1Jlb8HOXZ/Ie
+         X20mS2lmOG996fMzTmF/sNB6rYxFdSJzc3dnvDwFiANL1FF8FVhNQkaqQcWkJ3btVnGB
+         fHCzPG7E9ByIJxlIH0i2iIqXCuUkkY/1EEHm8y3a5CFCP+Hk+Yl1dn3A8iDa95CuXYmg
+         J+mw==
+X-Forwarded-Encrypted: i=1; AKwUvBzWiIRBgnRDH8YUN5YXKGJZI/EJr7tKMg/Sz7ZxQXUgw26CW0w54X/mMdZfnvpUTFP3qNe67EaQTM6gTX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZdTybKdof8ZxNuGIAWZ6fZC+EHzB2t+6raL6Cx3rpf4Z3yNMn
+	alaptJ3OhTdGRrToaQcZ0bhDDwveOExFT+DGx8HIICTVLPnstvJnQCMJ+tyv3HW03uq4i84iWF2
+	DJ8aCHE8mDWhTbiyD/A==
+X-Received: from edcpr25.prod.google.com ([2002:a05:6402:c1d9:b0:6ae:21f4:c371])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:320c:b0:6b1:df89:7e11 with SMTP id 4fb4d7f45d1cf-6b1df899325mr5347239a12.36.1791984026642;
+ Wed, 14 Oct 2026 06:20:26 -0700 (PDT)
+Date: Wed, 14 Oct 2026 13:20:25 +0000
+In-Reply-To: <2vxz7bjmkjeu.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261013101947.2478989-1-shengjiu.wang@oss.nxp.com> <0f34ec3308f8eca73c949f8c40d47564f6136efd.camel@pengutronix.de>
-In-Reply-To: <0f34ec3308f8eca73c949f8c40d47564f6136efd.camel@pengutronix.de>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Wed, 14 Oct 2026 21:20:09 +0800
-X-Gm-Features: AclHuK89yypPEdgKSvx5Pcium5yTMRxN0uzAubBuRlMRaP4PupK3xCeEg4XfL2I
-Message-ID: <CAA+D8ANFn3E5MKY7kfay3TDANnbn6ot7CBbQv5sQtPUqVH7+YA@mail.gmail.com>
-Subject: Re: [PATCH] reset: core: Serialize concurrent assert/deassert/reset
- of shared resets
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: shengjiu.wang@oss.nxp.com, hansg@kernel.org, linux-kernel@vger.kernel.org, 
-	broonie@kernel.org, alvin.sipraga@analog.com
+Mime-Version: 1.0
+References: <20260901180713.4185641-1-dmatlack@google.com> <2vxz7bjmkjeu.fsf@kernel.org>
+Message-ID: <9huz7bjkmnae.fsf@tarunix.c.googlers.com>
+Subject: Re: [RFC PATCH 0/5] liveupdate: LIVEUPDATE_SESSION_RETRIEVE_INTO_FD
+From: tarunsahu@google.com
+To: Pratyush Yadav <pratyush@kernel.org>, David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <shuah@kernel.org>, 
+	Vipin Sharma <vipinsh@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 1:47=E2=80=AFAM Philipp Zabel <p.zabel@pengutronix.=
-de> wrote:
->
-> On Di, 2026-10-13 at 18:19 +0800, shengjiu.wang@oss.nxp.com wrote:
-> > From: Shengjiu Wang <shengjiu.wang@nxp.com>
-> >
-> > reset_control_deassert() is documented to guarantee that the reset is
-> > deasserted after the call returns. For a shared reset control only the
-> > first caller runs the hardware .deassert(); all later callers just
-> > increment deassert_count and return immediately:
-> >
-> >       if (atomic_inc_return(&rstc->deassert_count) !=3D 1)
-> >               return 0;
-> >
-> > When two consumers of the same shared reset (for example two codecs tha=
-t
-> > share one reset GPIO) call reset_control_deassert() concurrently, the
-> > second caller can return before the first caller's .deassert() - which
-> > may sleep, e.g. for a GPIO-expander based controller - has actually
-> > released the line. The second consumer then proceeds while the device i=
-s
-> > still in reset, contradicting the documented guarantee. The assert and
-> > reset paths have the same problem: only the first shared caller perform=
-s
-> > the hardware operation while concurrent callers return early.
-> >
-> > Serialize the shared refcount update and the hardware .assert()/
-> > .deassert()/.reset() under the existing per-control rstc->lock so that =
-a
-> > second concurrent caller waits for the first caller's hardware operatio=
-n
-> > to complete. The lock is taken before the SRCU read section, matching t=
-he
-> > ordering already used by reset_control_acquire(). These paths do not ta=
-ke
-> > rcdev->lock, so no new lock-ordering inversion is introduced.
-> >
-> > Fixes: 0b52297f2288 ("reset: Add support for shared reset controls")
-> > Link: https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  drivers/reset/core.c | 21 ++++++++++++++++++++-
-> >  1 file changed, 20 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-> > index 38e189d04d09..7536b61cc5df 100644
-> > --- a/drivers/reset/core.c
-> > +++ b/drivers/reset/core.c
-> > @@ -51,7 +51,8 @@ static DEFINE_IDA(reset_gpio_ida);
-> >   * @triggered_count: Number of times this reset line has been reset. C=
-urrently
-> >   *                   only used for shared resets, which means that the=
- value
-> >   *                   will be either 0 or 1.
-> > - * @lock: serializes the internals of reset_control_acquire()
-> > + * @lock: serializes the internals of reset_control_acquire() and the
-> > + *        assert/deassert/reset of shared reset controls
->
-> The lock is also taken for exclusive reset controls.
+Pratyush Yadav <pratyush@kernel.org> writes:
 
-Right - in v1 the guard(mutex) is taken before the rstc->shared check,
-so it is taken for exclusive controls too, which both contradicts the
-kerneldoc wording and is the root of the atomic-context concern below.
-In v2 I will take it only inside the shared branch.
+> Hi,
+>
+> On Tue, Sep 01 2026, David Matlack wrote:
+>
+>> This series adds support for LIVEUPDATE_SESSION_RETRIEVE_INTO_FD, a new
+>> UAPI to enable preserved files to be restored into a userspace-provided
+>> file instead of a kernel-allocated file, and uses this to support
+>> preserving tmpfs files in-place without any changes to the LUO ABI.
+>>
+>> The Live Update Orchestrator (LUO) API currently explicitly returns a
+>> new struct file for every preserved file during retrieve() (e.g. via
+>> memfd_alloc_file()). This then forces userspace to use anonymous memfds
+>> for all in-memory files it wants to preserve. This works reasonably well
+>> for VM guest memory but does not work well for other types of files that
+>> userspace may want to preserve (e.g. in-memory logs, binaries,
+>> configuration files, etc.).
+>>
+>> Preserving entire tmpfs mounts in-place would require a large amount of
+>> kernel support and would effectively make tmpfs an ABI, which is a
+>> non-starter (or so I hear). Instead, we can delegate the reconstruction
+>> of the tmpfs mounts (directory structure, permissions, etc.) post-kexec
+>> to userspace. The kernel just needs to preserve the contents of tmpfs
+>> files and provide userspace a mechanism to restore those contents back
+>> into a specific file on the filesystem after the kexec. Hence,
+>> LIVEUPDATE_SESSION_RETRIEVE_INTO_FD.
+>
+> Based on the discussion at LPC, we came to the conclusion that this is
+> the path forward.
+>
+> Before reviewing the code, here's an idea that Pasha briefly brought up
+> briefly at LPC, and I more or less agree. I'd like other opinions on
+> this.
+>
+> Should we make the interface more generic by allowing userspace to pass
+> extra arguments to PRESERVE_FD and RETRIEVE_FD? This effectively gives
+> each file handler an additional uAPI of its own. The upside is that it
+> would be more extensible and we should be able to accommodate more use
+> cases with this. The memfd/shmem extra uAPI will take an optional target
+> file to retrieve into.
+>
+> For example, the guest_memfd patches might use this to tell the KVM FD
+> to retrieve the guest_memfd into. Of course, KVM needs to see if this
+> makes sense (alternative being preserving the KVM FD too), but this is
+> just an example of how it might be used. I think VFIO also does some
+> workarounds by using an anon inode on retrieve. It perhaps might be
+> useful there too, though I don't understand that problem well enough to
+> talk in more detail.
 
->
-> >   */
-> >  struct reset_control {
-> >       struct reset_controller_dev __rcu *rcdev;
-> > @@ -382,6 +383,12 @@ int reset_control_reset(struct reset_control *rstc=
-)
-> >       if (reset_control_is_array(rstc))
-> >               return reset_control_array_reset(rstc_to_array(rstc));
-> >
-> > +     /*
-> > +      * Hold the lock across the shared refcount update and the hardwa=
-re
-> > +      * reset so that a concurrent caller does not continue before thi=
-s
-> > +      * caller's not-yet-finished reset pulse has been issued.
-> > +      */
-> > +     guard(mutex)(&rstc->lock);
->
-> The current wording of the API documentation does not require this, but
-> it clearly makes no sense that the second of two racing
-> reset_control_reset() calls on a shared reset control can return before
-> the reset pulse has finished.
->
-> Could you update the kerneldoc comment, for example add "After calling
-> this function, the reset is guaranteed to have seen a reset pulse at
-> any point in the past, not necessarily during the function call." to
-> the shared reset paragraph?
+I agree, While developing the guest_memfd preservation support, I also
+felt the need of upgrading the preservation and retrieval ioctl to have
+arguments which will make it flexible. And help decouple the VM
+preservation and guest_memfd preservation. I would love to see where
+this argument idea goes.
 
-Will do, using your suggested wording.
-
+~Tarun
 >
-> That being said, this is not required for exclusive resets, and I think
-> there may be users handling reset controls in atomic context.
-> Unfortunately the API never explicitly declared that
-> reset_control_assert/deassert_reset() calls may sleep, and this just
-> happens to work if the specific reset controller implementation doesn't
-> sleep.
+>>
+>> An alternative approach to restoring data to a named file would be
+>> supporting a zero-copy sendfile() that can be used to convert named
+>> tmpfs files to/from memfds across the kexec. But this poses significant
+>> challenges on the *preserve* side since the preserved file might still
+>> be actively in use. The benefit of the retrieve-into approach introduced
+>> in this series is that it does not require dealing with two different
+>> files. There is only ever one file that owns the preserved memory.
+>>
+>> By leaving file and metadata allocation purely in the purview of
+>> userspace, programs can create the target files where they want, with
+>> the names and security permissions they desire, before directing the
+>> kernel to restore the preserved folios into them.
+>>
+>> Currently, only tmpfs shmem files are allowed as valid target receptors.
+>> Attempting to target populated files, or anything other than an empty
+>> shmem file, will trigger -EINVAL. HugeTLBfs files could be supported in
+>> the future.
 >
-> I'm not sure what to do about this. We could split the shared and
-> exclusive paths and only lock in the shared path, or fix the atomic
-> users, possibly by introducing
-> reset_control_assert/deassert/reset_atomic() first.
-
-Agreed, the mutex must not be added to the exclusive path. For v2 I will
-only take rstc->lock inside the rstc->shared branch in
-reset_control_deassert() and reset_control_reset(), leaving the exclusive
-path (and any exclusive atomic callers) completely unchanged.
-
+> I suppose we should rename all the memfd_luo_* stuff to shmem_luo_*?
 >
-> >       guard(srcu)(&rstc->srcu);
-> >
-> >       rcdev =3D srcu_dereference(rstc->rcdev, &rstc->srcu);
-> > @@ -503,6 +510,12 @@ int reset_control_assert(struct reset_control *rst=
-c)
-> >       if (reset_control_is_array(rstc))
-> >               return reset_control_array_assert(rstc_to_array(rstc));
-> >
-> > +     /*
-> > +      * Hold the lock across the shared refcount update and the hardwa=
-re
-> > +      * assert so that a concurrent caller does not observe the line a=
-s
-> > +      * released while this caller is still driving it.
-> > +      */
-> > +     guard(mutex)(&rstc->lock);
+>>
+>> The coding work for this series was done with assistance from Gemini. I
+>> am not sure what is the latest recommendation is with respect to adding
+>> Assisted-by tags, but I can add them when I send out the real patches if
+>> this RFC looks acceptable.
 >
-> Nothing in the API requires shared reset_control_reset() to be
-> serialized, why is this necessary? The comment doesn't make this clear
-> to me.
-
-Since the API explicitly does *not* guarantee that the line is asserted
-after a shared reset_control_assert() call, there is no documented
-guarantee to enforce, and no need to serialize that path. I will remove
-the lock from reset_control_assert() in v2.
-
-best regards
-shengjiu Wang
+> The latest guidelines per Documentation/process/coding-assistants.rst
+> seem to be "Assisted-by: LLM".
 >
-> >       guard(srcu)(&rstc->srcu);
-> >
-> >       rcdev =3D srcu_dereference(rstc->rcdev, &rstc->srcu);
-> > @@ -599,6 +612,12 @@ int reset_control_deassert(struct reset_control *r=
-stc)
-> >       if (reset_control_is_array(rstc))
-> >               return reset_control_array_deassert(rstc_to_array(rstc));
-> >
-> > +     /*
-> > +      * Hold the lock across the shared refcount update and the hardwa=
-re
-> > +      * deassert so that a concurrent caller does not continue while t=
-he
-> > +      * line is still asserted by this caller's not-yet-finished deass=
-ert.
-> > +      */
-> > +     guard(mutex)(&rstc->lock);
+> Although in _my_ opinion, I'd reckon most patches these days are
+> assisted by an LLM. The code might not necessarily be generated by an
+> LLM, but I think a large majority of developers use LLMs in some
+> capacity during patch development. So "Assisted-by: LLM" doesn't add any
+> value to me. Other people seem to find it useful, so please do feel free
+> to add it to your patches.
 >
-> Yes, this aligns the function with the documented intention for shared
-> resets. The above points about exclusive resets also apply.
+> [...]
 >
-> regards
-> Philipp
->
+> -- 
+> Regards,
+> Pratyush Yadav
