@@ -1,157 +1,156 @@
-Received: from mta1.migadu.com (out-212.mta1.migadu.com [95.215.58.212])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4050414427
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.212
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEDF47ACEC
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983600; cv=none; b=FT+VotCYTrNBZVDm0v6DPy2cOHj2JLEyi0yU+qYs9/YS6+Ms/j433jjb2scByI9Zb4OYbNc73gHvXdnm1LkgpvE+yIrhY1KEWAxXjK46c9FCccWoDTz1Cg+qGYAwk67/lP5yXmHdu1DcKKJ+mmmCgZBJ1EAes4qjBlQw2AP/ceI=
+	t=1791983652; cv=none; b=M9ZL0bVvV/dW+cj/Di4rqn+qyU8s2ieqHYid7EciO6KyFE7Fs/vnJZPOhwQS17Zc0zw6NghhWRLjHb5U93ua1v4GZq8yh0ecvC00lveOjOP2HAeLvqz76yYfcEteTQ4JKpGmachquDVUtRuYUuZlr0AC2RWW2FOyQifUhd19s7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983600; c=relaxed/simple;
-	bh=MBQeS7aKBL9jc2BojvONKyZ7ZEKUC3n50pEkcwW+B4o=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=EMLsnSuA+A8ei0rSzaxw+cYXI7VRmmO3RcV8MIyXHd792akPomBWOa13c5g4OJ7TYm1H+aYQdiXkF+zKYdvBR9FC8P95cWrSsdLREmMiGmO/rcoqEWH+WYmB5mH5JUhSFlfXvFtIjrruHHCNt18YVhin1LejfKtjUrAQOgCbWTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cL+J4tlp; arc=none smtp.client-ip=95.215.58.212
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cL+J4tlp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MBQeS7aKBL9jc2BojvONKyZ7ZEKUC3n50pEkcwW+B4o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791983594; v=1; x=1792588394;
- b=cL+J4tlpsyq9Z3S9DQgSL7F/Ow1MIn7u0t2j0JF+ijcmx0D8QXWLJKX1PM5KUAhtPoKGhdA+
- dVr/McxbQ2WoXnWuJFB9wU+msPR6IuaDRVfn/vWUQjLlpQ3fHWnd2t0kufvDPHHvQaGa0CQMq2M
- qd9DKJ1SerVSSdQ784Z5iAIo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0398f7b3c6b27810;
-	Wed, 14 Oct 2026 13:13:14 +0000
-X-Mizu-Trace-ID: 0398f7b3c6b27810
-X-Migadu-Flow: FLOW_OUT
+	s=arc-20240116; t=1791983652; c=relaxed/simple;
+	bh=jsC2pQAyHszwvncz+uoLU1FcBTkldry2Z82F1l4wIEA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bsjQlwjSKIeeTWu0x/Z/D7w2Q5xZiUIn/TlgP15e8UZWTHoDhwY7/wnvF8W0Q1BIOfRGVBJ2h5aiyFEQu9NcXsxIPa78T43ox3ttwgEK/eg4sh8f7RJivMHecuIuPbusQUhYmrB5zZYnC9J7Y+ZcR3Glx2dE8wKNernPTi8nuwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xGynv-005sVG-1B;
+	Wed, 14 Oct 2026 09:13:59 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] mm/mlock: use a long for the page count in mlock_fixup()
+Date: Wed, 14 Oct 2026 09:13:58 -0400
+Message-ID: <20261014131358.780240-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 13:13:13 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <cbf165fa6213c22e88559081ca1c160375c9009c@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v8 5/7] wifi: rtw88: 8723b: add the RTL8723B
- chip driver
-To: "Greg KH" <gregkh@linuxfoundation.org>
-Cc: "Ping-Ke Shih" <pkshih@realtek.com>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Michael Straube"
- <straube.linux@gmail.com>, "Peter Robinson" <pbrobinson@gmail.com>,
- "Bitterblue Smith" <rtl8821cerfe2@gmail.com>
-In-Reply-To: <2026101452-chapter-friday-dada@gregkh>
-References: <20261006130701.120460-6-luka.gejak@linux.dev>
- <3db085e6c3c14545ac9fd4221e0715ed@realtek.com>
- <df4a73de51784e35c15a39e85e4dae9629ba1132@linux.dev>
- <e983dedfeb9341ad9d8cf159656395c6@realtek.com>
- <df8313a72bdef1dc8859a4ac018370b24b606766@linux.dev>
- <d403e88ca53841fba87190764e2a45cc@realtek.com>
- <2026100746-delicate-carless-a04c@gregkh>
- <3028b229a6fbe02d2bcfa30c497b6a768ba8c928@linux.dev>
- <2026101046-transport-unnerving-96de@gregkh>
- <4464409846710dfa13134265f0f99523714cfa92@linux.dev>
- <2026101452-chapter-friday-dada@gregkh>
+Content-Transfer-Encoding: 8bit
 
-October 14, 2026 at 3:04 PM, "Greg KH" <gregkh@linuxfoundation.org> wrote=
-:
+mlock_fixup() adjusts mm->locked_vm, an unsigned long, by the number of
+pages whose VM_LOCKED state it changes, but computes that number in an
+int:
 
+	int nr_pages;
+	...
+	nr_pages = (end - start) >> PAGE_SHIFT;
+	...
+	mm->locked_vm += nr_pages;
 
->=20
->=20On Mon, Oct 12, 2026 at 11:31:57AM +0000, Luka Gejak wrote:
->=20
->=20>=20
->=20> October 10, 2026 at 12:18 PM, "Greg KH" <gregkh@linuxfoundation.org=
-> wrote:
-> >=20=20
->=20>=20=20
->=20>=20=20
->=20>  On Wed, Oct 07, 2026 at 10:35:25AM +0000, Luka Gejak wrote:
-> >=20=20
->=20>  >=20
->=20>  [...]
-> >  >=20
->=20>  > Hi Greg,
-> >  >=20
->=20>  > I have sent the patch, and I think you are going to like this
-> >  > number: 66186 deletions
-> >  >=20
->=20>  Very happy :)
-> >=20=20
->=20>  >=20
->=20>  > Not sure what people are going to use to learn though. It seems =
-to
-> >  > me everyone is repeating the same patches.
-> >  >=20
->=20>  Yeah, we need to dig up some more out-of-tree kernel code to add i=
-t for
-> >  them to churn on. But really, this is a good thing, it's nice to see
-> >  real support for this hardware finally.
-> >=20=20
->=20>  Hi Greg,
-> >=20=20
->=20>  As both of you and I know there are not many young people in the
-> >  kernel community and the steep learning curve is a big reason for th=
-at.
-> >=20
->=20Really? We average about 200-250 new contributors every kernel releas=
-e
-> until recently when it's shot up to 600-700 if not more. So we don't
-> seem to have a lack of new contributors for some reason...
+When a single VMA range of 2^31 pages (8 TiB with 4 KiB pages) or more
+is locked or unlocked, the count is truncated to 32 bits and then
+sign-extended, so locked_vm is changed by the wrong amount, while
+munmap(), mremap() and the other paths that maintain locked_vm use the
+full unsigned long page count.
 
-You misunderstood me, I said young people. I asked multiple young=20
-programmers=20who were interested in linux why aren't they contributing
-to the linux kernel and they said that it was hard for them to learn=20
-because=20many issues they find in staging(which I believe you recently=
-=20
-called=20learning ground) have already been submitted or nacked.
+Such a range is reachable on 64-bit architectures with a 47-bit or
+larger user address space (x86_64, arm64 with 48-bit VA, riscv64 Sv48)
+by a task with CAP_IPC_LOCK or a raised RLIMIT_MEMLOCK, which do_mlock()
+checks against the full untruncated length.  It costs nothing with
+MAP_NORESERVE and MLOCK_ONFAULT/MCL_ONFAULT, since then no page is
+populated.  On x86_64, after
 
->=20
->=20>=20
->=20> I was not sure whether you were joking or not about the comment
-> >  above so I decided to find that appropriate replacement for staging
-> >  rtl8723bs. After searching I found this interesting xradio driver,
-> >  which is a mac80211 based driver for some orange pies and other devi=
-ces.
-> >  It is around 18,000 lines of code and upon check it out I fixed bunc=
-h
-> >  of security issues per se and lockups that caused kernel to hang and=
- it
-> >  is decently stable. I'm not gonna claim some extreme stability but i=
-t
-> >  is at least usable and it has many coding standard issues. It is a g=
-ood
-> >  candidate because newcomers would be learning the modern architectur=
-e
-> >  and on top of it there is a lot of janitor work so people can learn
-> >  the workflow and etc. Link is [1] so you can see for yourself and te=
-ll
-> >  me what you think about it.
-> >=20
->=20If you think it is worth adding, sure, but normally we need someone t=
-o
-> actually care about it getting into the tree (i.e. real users
-> somewhere).
+	p = mmap(NULL, 8UL << 40, PROT_READ | PROT_WRITE,
+		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
+	mlock2(p, 8UL << 40, MLOCK_ONFAULT);
 
-As far as I know it is decently used piece of hardware so it should
-have users.
+VmLck in /proc/self/status reads 18446744065119617024 kB instead of
+8589934592 kB; munmap() of the region then subtracts the true size and
+leaves VmLck at 18446744056529682432 kB instead of 0.  With 16 TiB,
+locked_vm is not changed at all, VmLck stays 0 kB, and after the task
+drops CAP_IPC_LOCK or lowers RLIMIT_MEMLOCK, mlock(), mmap(MAP_LOCKED)
+and the other mlock_future_ok() and account_locked_vm() users enforce
+RLIMIT_MEMLOCK against that count, so they let the task lock memory
+beyond its limit (or, in the 8 TiB case, refuse every further lock).
+The error persists for the life of the mm; unlocking the range in pieces
+skews it further.  The wrong count is per-mm accounting only: it does
+not change which pages are locked.
 
->Also look at the bottom of the readme, shouldn't the
-> existing in-kernel driver just be tweaked for this hardware instead?
->=20
+The int has been there since before git history (the variable was named
+"pages" until it was renamed in 2.6.28); every other updater of
+locked_vm uses an unsigned long or long count.  Make nr_pages a long,
+which holds the page count of any user range and its negation, so the
+existing sign handling is unchanged.
 
-Possibility,=20however it would require someone with sufficient knowledge
-to tweek it, which who knows if it is as simple as readme says. And I
-didn't mean it as a upstream ready driver, but rather a place where
-new people can learn as I previously said.
+Found by formal verification of mm/mlock.c against the kernel binary.
 
-Best regards,
-Luka Gejak
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
+
+Notes:
+    Reproducer: the program below, run as root from an initramfs on
+    v7.3-rc7-28-g4056b3c9d3c9 defconfig (LLVM=1) under QEMU, x86_64 (TCG,
+    -cpu max) and riscv64 (virt, -cpu max); a longer version also checks
+    munmap(), a 16 TiB lock and RLIMIT_MEMLOCK enforcement.
+    
+                                           before                   after
+      VmLck after locking 8 TiB            18446744065119617024 kB  8589934592 kB
+      VmLck after munmap() of it           18446744056529682432 kB  0 kB
+      VmLck after locking 16 TiB           0 kB                     17179869184 kB
+      mlock() of 16 pages over a 16-page   succeeds                 ENOMEM
+      RLIMIT_MEMLOCK, CAP_IPC_LOCK dropped
+    
+    // Needs root (or CAP_IPC_LOCK), >= 16 TiB user VA, vm.overcommit_memory != 2.
+    #define _GNU_SOURCE
+    #include <stdio.h>
+    #include <string.h>
+    #include <sys/mman.h>
+    #include <sys/syscall.h>
+    #include <unistd.h>
+    
+    int main(void)
+    {
+    	size_t len = 8UL << 40;		/* 2^31 pages of 4 KiB */
+    	char line[128];
+    	FILE *f;
+    	void *p;
+    
+    	p = mmap(NULL, len, PROT_READ | PROT_WRITE,
+    		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
+    	if (p == MAP_FAILED || syscall(SYS_mlock2, p, len, 1 /* MLOCK_ONFAULT */)) {
+    		perror("mmap/mlock2");
+    		return 2;
+    	}
+    	f = fopen("/proc/self/status", "r");
+    	while (fgets(line, sizeof(line), f))
+    		if (!strncmp(line, "VmLck:", 6))
+    			printf("%s", line);	/* expected 8589934592 kB */
+    	return 0;
+    }
+
+ mm/mlock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 39215a3eab1f..4fb43cddafa8 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -470,7 +470,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ {
+ 	const vma_flags_t old_vma_flags = vma->flags;
+ 	struct mm_struct *mm = vma->vm_mm;
+-	int nr_pages;
++	long nr_pages;
+ 	int ret = 0;
+ 
+ 	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
+
+base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
+-- 
+2.53.0
+
