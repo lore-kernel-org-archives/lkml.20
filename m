@@ -1,64 +1,64 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479783B71BB
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAB2371CE3
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791950365; cv=none; b=JkoDoDV7h5yDQh/xQZBI0d7k6RMJf7upmXONaMcjA1bplPYnNfKZLemJRXBunFEea5kmyTbz/FrKmq9XZxwUsk/APeoOgd4RuC78qcJUWLuGsS5mneg2Ge+kjGvZk64H7WMntjAwC2E4EJJceJc2xVP6jFo0aExmu/e8Kf695UU=
+	t=1791950370; cv=none; b=e4VniZd57IX9a7KHq1XYHeXQutOIQc+GDSmIZkfYTl6W6uq/WW0/tG56i2j5DWKuYVsOdAd7rM5hzgeS7W0bfRMSdNaQgtfLxtygnQsJr2Y+VZdQrC1IIptxzwwdaXgHjNZFe2SSFbG2ZuNZWA6B3CZ9elfpFsgqIG+WjjJm+Ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791950365; c=relaxed/simple;
-	bh=A40w+35DIpgiCQxJt0/IC2OqyHnzNk9q/eF9E1VEJkQ=;
+	s=arc-20240116; t=1791950370; c=relaxed/simple;
+	bh=2w5umFoZK3WNnwboh5jSN7oXDRrASZlgjKUz9nnxA94=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vFkXMmGsQASRkmJh6MPnmX2B5OyCXay62lGwKlgIBzl/kSKq++tV4VtkPtqFFWrA+M3dIeNzijic5YM4Zz86UtrSbcNlRiCIq6Y3rnl0jra/Z/3AEt8uNYL6yBJdInb8Pgd8alFye4Y0LwOZSpWGM5FUzxYutY6o/HHoLLG06LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=BL3PFH8a; arc=none smtp.client-ip=209.85.216.54
+	 MIME-Version; b=NWv9QI9tBvDBlSitmHjoZxGcy+u7+PNaDpcOBskY64Rsp7EbVJThLVecWU8BaAor+kEiBAYRq52k+K9ioB6jjJdK2pJjTi3/Qxun8JlXmK+t9kvIYYwGwnBLjFF1MOl78v7HmplD+OW970VSpsHo42L18gbuqR8964jwz8nlHcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=KzKFi4pq; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="BL3PFH8a"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso823028a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:59:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="KzKFi4pq"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a4b9732d5aso2773866a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:59:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1791950363; x=1792555163; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1791950369; x=1792555169; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f+FSgGJMK2coGisR/hIoDuCVxcBu6Hr0f49QmgHJmrk=;
-        b=BL3PFH8ajdp7Twcl+IfQr5q1xlW9qSiPjhSy3lFYfbK1ou55/7iwYdNLp9lccpAWTP
-         iXbRYz1d1cRVJ0xnk98VQvvXZVIqk9qmg4cBw16k4O8xGBCCuYINZAk1jPMbHG53iRFi
-         /LwMtICnQlHOnHWEZ13NWvvAYIyT1uJZIy494YsCtDO3xwzv+6uy44J3IbhSt7rM2Zqa
-         yMEVpzzPPog6dy/gkbye3cR+0nyrmg7UczbyMpMXOLTKdLR4x9ZvJ9AWlQ/hpnhl4jIk
-         wiB4hH6d1YC4yReHX/mI/pHU4uOBzBwIxjGnU8XxcCqe4bQZMDKHSdXU1vc3AvTWqMyp
-         GNDg==
+        bh=uzz+6ZrUL/XqwIV03DwVqkSlHpqf/7QArXuFo8Cud/0=;
+        b=KzKFi4pqtrMihXZ4/MTKtfH/6CDKpdDKrWa19JHLohLJMoZx8RMHXA8QPeXBZWUXzr
+         P1/qSZLOPKIFnK+H0pal7ttU1eKn1MuOyHXLz/iNSlVSW4M9Kj0Ca6fRMGZHdv+ibxRN
+         0YYIwQ4ZzCsKFNoTy+tjFkJejY0Ry9SejNLFtA4xkodmXhTtIu/oIIzUAXbOTmGRN37e
+         kkiJ/kqQrYYpZG6jpuSAXWM6540S9+SSoIZKoHwL8AupP/KXu2Ydo00hIBpI53BzcSbL
+         ZLjbX2tPTlOclaFf5JRdiwstWuYwSeqJaIrdAXcZuYTSRPBag+NQFaNmUgf8J0+GYXyb
+         dGiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791950363; x=1792555163;
+        d=1e100.net; s=20260707; t=1791950369; x=1792555169;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f+FSgGJMK2coGisR/hIoDuCVxcBu6Hr0f49QmgHJmrk=;
-        b=iCClDR7yzh1a3twRUaIPjeGgEH0509ANI2isERvUkHFIBgC47ZcqT5GeGc4LDA/hQG
-         9ylVEdhrpqXeEni8dnvlek0dBXZ5imgtLXMkCG6NmtjZ9bQ1GCFvNv/aQfLVoAODJVNN
-         808myb+q4WZJ12Yzu9RAdfjNy2FVY9lJx3n5SdjWYYHXWjolGDISB2hO/xlWAqW4QxDe
-         icD87hJ797RYR1TbwH7Mpgo0QR+OU3SNKLpEEN8U2BiC7e+VqIAtA093VmYA9tIEZWym
-         WoDn05Ys0lAVkGOWrUPT284ifrKsZ+hBS4UcDDax7AVgoDnoZqeG6f80AUpxYauxA6Hn
-         urGA==
-X-Forwarded-Encrypted: i=1; AKwUvBz2gWKT/R7M8D1E26jFKGxnXJw3hyxtnPR5fZCOCHv0biw55wUJuh08t5SWYM0uZ28IRFSIYIgVZQ8jCMo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzqYfEDGYScvpMLdgKuZKzKvpFiOMot2qNPHib+KdE/QPqpDJ3
-	F6HQ13836/PFv6HwdFMxYedZOqu+iP4ban7a0AayiBZejakVbCa8MFZH7Aa9OWTstug=
-X-Gm-Gg: AYBFou3eQQsxpGUE5H/khiiZr88Jj2hnlZJAr44cMlpGkTJBqIOKra7L+Nm7G2LhJqP
-	LnIvix3KoH9R2LuiMBAopt71rh/8ZF8xg7VBdm4jMp3zsjvVvfIWbuPdBeEOnu38y8lGQVCiywb
-	wc6wrf1fq8oFecVPr8sl75/SzUJvuPdo8SJC4fhxZyDrILJAY6oUgG69Id+fYae9U/0gMOtF3MR
-	V/IDg9o8I82+xc0wh3Hb+hQfKgWkZAuauUNjkhwWtQb0udE8Op3kg7t0ZCLXQe00b92/UWauBSQ
-	f3sysYfVoaPNOHoUyB5s/R/c6EUFsSVr9s6S9+jUuZur00ThEmpQ6HAthY2AQ03lihDQ030pH4i
-	GQK3kQMnaeAJom9Jas7USpBly+zYALl2gtjnxoh2+nl+RasWJy1KEYbGGkfYkd9Wagl0gYX7sSQ
-	b7FMsbYKrh0qgbvBPYW/WhNbMAZ1CpMMeKePiHWIjTOqUbAKHRUs2D1lz2hW8SzbcVqGqRA0s29
-	tOI6cKk07gV1BlplHsM
-X-Received: by 2002:a17:90b:1dd1:b0:3a7:e0f4:2857 with SMTP id 98e67ed59e1d1-3ab3a359dd3mr10523369a91.1.1791950363442;
-        Tue, 13 Oct 2026 20:59:23 -0700 (PDT)
+        bh=uzz+6ZrUL/XqwIV03DwVqkSlHpqf/7QArXuFo8Cud/0=;
+        b=vDfWk/41sPnJmRX3P4arUxS8m7obsc5v9yP/KDfwiKFrODQLicy0SQl5yU83E/Rk7R
+         V/aFS4efxOdajW8aOJ6C1UC5ogDwqIblwewdQwrBJ6FK/zHzDI621/ZvGWaFCOrjdl/P
+         RgpnBVpveGo4vFAc++IyrKggNaD1vfJzOYhHS1qghTFaqudIPPB6vLdl7fZzIjd+XOGV
+         ec5K3b+UWf+AA7p3+/KqGN45qpbkFTvmfxUMTMFysyCfBrPoq+IAWSi5fToZAZ0EE48e
+         FxqU6iMfNB58pDtupekCtew0cLnCjWQ67yGxht8R2n/cs1AhbkAtSrrJFTSUaEtwuzPd
+         +2qA==
+X-Forwarded-Encrypted: i=1; AKwUvBx37sUSaocfOlQZ/IAhH66RzR3gRpvulXUgS+YF87vMVv/HbkKeBUTPOtt8igVOA9jzT4Kwqcs137ko23Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJT/vxTir6t61TCqVMtuh/nvD84VkIyuSGGSG4cuyY3Df5A/baZ
+	2xgIyqCtCTwOHd8jqR2137zEtbomFY94uhwLRpKzU2YCXNP/9xZYK5Pwei5hGm/lwuc=
+X-Gm-Gg: AYBFou07lD1Q2tuIaWffA+LwmDtDodhKrMqUNButo+POm1TsCAUMcdKvaXPjPDjdz3h
+	Ij0biLL3pYEQU3AHoj12fTNCKrCDSl4CxBhRj8ll1De/jv43rBzQzniEHcQAWtkBXJHNCBfFi3W
+	CM+HD0qOFTkCz+WPAuA784Cfq5lSjcdTV/DD8nVjrwIdnoC346kKXAkkhNccG8RrGcN5cQ4UcKC
+	HX1SU0E1zEp0E8QR7qJijf/rQgmqW9lGGfVn5v22bu13Ow5BAoOzpnMfM5i8XI6ghnS1slUTpUR
+	R3kXLRMYtY7FHThRPHr9OgYkYZwQDmdp/13dXCYWuNTsI46pPiu9kBLBla/nUHf079Is+2QJMgd
+	OV9gAIN+TCEoUrXEVwZHh6adpgBjA3rik7wAbDgkwZkgritk9QPYUupkUrC+dJ4riwSSE163vi3
+	BlJFIsAL4ZNcfj/13XJKdivnIF1JilP2bqbfkxjKJCCW5etYPrh+1Dnp1RNbdj9lXHYQ66fsYCp
+	HKNa2q9DpckwfwW6Ig1
+X-Received: by 2002:a17:90a:d44d:b0:3a4:b0f3:6597 with SMTP id 98e67ed59e1d1-3ab39fea5c6mr13397037a91.0.1791950368643;
+        Tue, 13 Oct 2026 20:59:28 -0700 (PDT)
 Received: from n232-176-004.byted.org ([36.110.163.103])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f24a538sm2492305a91.9.2026.10.13.20.59.17
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f24a538sm2492305a91.9.2026.10.13.20.59.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 20:59:22 -0700 (PDT)
+        Tue, 13 Oct 2026 20:59:28 -0700 (PDT)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>
@@ -77,9 +77,9 @@ Cc: Muchun Song <muchun.song@linux.dev>,
 	linux-mips@vger.kernel.org,
 	linux-parisc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] mm: generalize kernel PTE table allocation
-Date: Wed, 14 Oct 2026 11:59:08 +0800
-Message-ID: <20261014035910.687847-2-songmuchun@bytedance.com>
+Subject: [PATCH 2/3] mm: generalize PMD page table allocation
+Date: Wed, 14 Oct 2026 11:59:09 +0800
+Message-ID: <20261014035910.687847-3-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261014035910.687847-1-songmuchun@bytedance.com>
 References: <20261014035910.687847-1-songmuchun@bytedance.com>
@@ -91,74 +91,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Architectures whose empty kernel PTE representation is not all zero must
-initialize new kernel PTE tables. LoongArch therefore wraps
-__pte_alloc_one_kernel() solely to call kernel_pte_init().
+The generic PMD allocator assumes order-0 page tables and zero-valued
+empty entries. MIPS and LoongArch need pmd_init() to install their invalid
+entries, while MIPS and parisc use PMD_TABLE_ORDER to describe the
+allocation size.
 
-Call the architecture initialization hook from the generic allocator so
-LoongArch can use it directly. The default hook is empty, so this does not
-change other architectures.
+Default PMD_TABLE_ORDER to zero, honor architecture overrides, and invoke
+pmd_init() from the generic allocator. MIPS, LoongArch, and parisc can then
+use the generic GFP selection, constructor handling, and kernel ptdesc
+marking instead of duplicating most of the helper.
 
 Assisted-by: LLM
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 ---
- arch/loongarch/include/asm/pgalloc.h | 11 -----------
- include/asm-generic/pgalloc.h        |  6 +++++-
- 2 files changed, 5 insertions(+), 12 deletions(-)
+ arch/loongarch/include/asm/pgalloc.h | 21 ---------------------
+ arch/mips/include/asm/pgalloc.h      | 25 -------------------------
+ arch/parisc/include/asm/pgalloc.h    | 17 -----------------
+ include/asm-generic/pgalloc.h        | 12 ++++++++++--
+ 4 files changed, 10 insertions(+), 65 deletions(-)
 
 diff --git a/arch/loongarch/include/asm/pgalloc.h b/arch/loongarch/include/asm/pgalloc.h
-index 248f62d0b590..a3f93a8b58be 100644
+index a3f93a8b58be..1fc9a0751f19 100644
 --- a/arch/loongarch/include/asm/pgalloc.h
 +++ b/arch/loongarch/include/asm/pgalloc.h
-@@ -10,7 +10,6 @@
+@@ -8,7 +8,6 @@
+ #include <linux/mm.h>
+ #include <linux/sched.h>
  
- #define __HAVE_ARCH_PMD_ALLOC_ONE
+-#define __HAVE_ARCH_PMD_ALLOC_ONE
  #define __HAVE_ARCH_PUD_ALLOC_ONE
--#define __HAVE_ARCH_PTE_ALLOC_ONE_KERNEL
  #include <asm-generic/pgalloc.h>
  
- static inline void pmd_populate_kernel(struct mm_struct *mm,
-@@ -45,16 +44,6 @@ extern void pagetable_init(void);
- 
- extern pgd_t *pgd_alloc(struct mm_struct *mm);
- 
--static inline pte_t *pte_alloc_one_kernel(struct mm_struct *mm)
--{
--	pte_t *pte = __pte_alloc_one_kernel(mm);
--
--	if (pte)
--		kernel_pte_init(pte);
--
--	return pte;
--}
--
+@@ -47,26 +46,6 @@ extern pgd_t *pgd_alloc(struct mm_struct *mm);
  #define __pte_free_tlb(tlb, pte, address)	tlb_remove_ptdesc((tlb), page_ptdesc(pte))
  
  #ifndef __PAGETABLE_PMD_FOLDED
+-
+-static inline pmd_t *pmd_alloc_one(struct mm_struct *mm, unsigned long address)
+-{
+-	pmd_t *pmd;
+-	struct ptdesc *ptdesc;
+-
+-	ptdesc = pagetable_alloc(GFP_KERNEL_ACCOUNT, 0);
+-	if (!ptdesc)
+-		return NULL;
+-
+-	if (!pagetable_pmd_ctor(mm, ptdesc)) {
+-		pagetable_free(ptdesc);
+-		return NULL;
+-	}
+-
+-	pmd = ptdesc_address(ptdesc);
+-	pmd_init(pmd);
+-	return pmd;
+-}
+-
+ #define __pmd_free_tlb(tlb, x, addr)	tlb_remove_ptdesc((tlb), virt_to_ptdesc(x))
+ 
+ #endif
+diff --git a/arch/mips/include/asm/pgalloc.h b/arch/mips/include/asm/pgalloc.h
+index 9ec9cf01e92e..2f123455e363 100644
+--- a/arch/mips/include/asm/pgalloc.h
++++ b/arch/mips/include/asm/pgalloc.h
+@@ -13,7 +13,6 @@
+ #include <linux/mm.h>
+ #include <linux/sched.h>
+ 
+-#define __HAVE_ARCH_PMD_ALLOC_ONE
+ #define __HAVE_ARCH_PUD_ALLOC_ONE
+ #include <asm-generic/pgalloc.h>
+ 
+@@ -29,11 +28,6 @@ static inline void pmd_populate(struct mm_struct *mm, pmd_t *pmd,
+ 	set_pmd(pmd, __pmd((unsigned long)page_address(pte)));
+ }
+ 
+-/*
+- * Initialize a new pmd table with invalid pointers.
+- */
+-extern void pmd_init(void *addr);
+-
+ #ifndef __PAGETABLE_PMD_FOLDED
+ 
+ static inline void pud_populate(struct mm_struct *mm, pud_t *pud, pmd_t *pmd)
+@@ -52,25 +46,6 @@ extern pgd_t *pgd_alloc(struct mm_struct *mm);
+ 
+ #ifndef __PAGETABLE_PMD_FOLDED
+ 
+-static inline pmd_t *pmd_alloc_one(struct mm_struct *mm, unsigned long address)
+-{
+-	pmd_t *pmd;
+-	struct ptdesc *ptdesc;
+-
+-	ptdesc = pagetable_alloc(GFP_KERNEL_ACCOUNT, PMD_TABLE_ORDER);
+-	if (!ptdesc)
+-		return NULL;
+-
+-	if (!pagetable_pmd_ctor(mm, ptdesc)) {
+-		pagetable_free(ptdesc);
+-		return NULL;
+-	}
+-
+-	pmd = ptdesc_address(ptdesc);
+-	pmd_init(pmd);
+-	return pmd;
+-}
+-
+ #define __pmd_free_tlb(tlb, x, addr)	tlb_remove_ptdesc((tlb), virt_to_ptdesc(x))
+ 
+ #endif
+diff --git a/arch/parisc/include/asm/pgalloc.h b/arch/parisc/include/asm/pgalloc.h
+index 3b84ee93edaa..880a3e9ad0cb 100644
+--- a/arch/parisc/include/asm/pgalloc.h
++++ b/arch/parisc/include/asm/pgalloc.h
+@@ -10,7 +10,6 @@
+ 
+ #include <asm/cache.h>
+ 
+-#define __HAVE_ARCH_PMD_ALLOC_ONE
+ #include <asm-generic/pgalloc.h>
+ 
+ /* Allocate the top level pgd (page directory) */
+@@ -29,22 +28,6 @@ static inline void pud_populate(struct mm_struct *mm, pud_t *pud, pmd_t *pmd)
+ 			(__u32)(__pa((unsigned long)pmd) >> PxD_VALUE_SHIFT)));
+ }
+ 
+-static inline pmd_t *pmd_alloc_one(struct mm_struct *mm, unsigned long address)
+-{
+-	struct ptdesc *ptdesc;
+-	gfp_t gfp = GFP_PGTABLE_USER;
+-
+-	if (mm == &init_mm)
+-		gfp = GFP_PGTABLE_KERNEL;
+-	ptdesc = pagetable_alloc(gfp, PMD_TABLE_ORDER);
+-	if (!ptdesc)
+-		return NULL;
+-	if (!pagetable_pmd_ctor(mm, ptdesc)) {
+-		pagetable_free(ptdesc);
+-		return NULL;
+-	}
+-	return ptdesc_address(ptdesc);
+-}
+ #endif
+ 
+ static inline void
 diff --git a/include/asm-generic/pgalloc.h b/include/asm-generic/pgalloc.h
-index 051aa1331051..a1de7d246754 100644
+index a1de7d246754..68e473908758 100644
 --- a/include/asm-generic/pgalloc.h
 +++ b/include/asm-generic/pgalloc.h
-@@ -19,6 +19,7 @@
- static inline pte_t *__pte_alloc_one_kernel_noprof(struct mm_struct *mm)
- {
- 	struct ptdesc *ptdesc = pagetable_alloc_noprof(GFP_PGTABLE_KERNEL, 0);
-+	pte_t *pte;
+@@ -125,6 +125,10 @@ static inline void pte_free(struct mm_struct *mm, struct page *pte_page)
  
+ #if CONFIG_PGTABLE_LEVELS > 2
+ 
++#ifndef PMD_TABLE_ORDER
++#define PMD_TABLE_ORDER	0
++#endif
++
+ #ifndef __HAVE_ARCH_PMD_ALLOC_ONE
+ /**
+  * pmd_alloc_one - allocate memory for a PMD-level page table
+@@ -140,11 +144,12 @@ static inline void pte_free(struct mm_struct *mm, struct page *pte_page)
+ static inline pmd_t *pmd_alloc_one_noprof(struct mm_struct *mm, unsigned long addr)
+ {
+ 	struct ptdesc *ptdesc;
++	pmd_t *pmd;
+ 	gfp_t gfp = GFP_PGTABLE_USER;
+ 
+ 	if (mm == &init_mm)
+ 		gfp = GFP_PGTABLE_KERNEL;
+-	ptdesc = pagetable_alloc_noprof(gfp, 0);
++	ptdesc = pagetable_alloc_noprof(gfp, PMD_TABLE_ORDER);
  	if (!ptdesc)
  		return NULL;
-@@ -29,7 +30,10 @@ static inline pte_t *__pte_alloc_one_kernel_noprof(struct mm_struct *mm)
+ 	if (!pagetable_pmd_ctor(mm, ptdesc)) {
+@@ -152,10 +157,13 @@ static inline pmd_t *pmd_alloc_one_noprof(struct mm_struct *mm, unsigned long ad
+ 		return NULL;
+ 	}
  
- 	ptdesc_set_kernel(ptdesc);
++	pmd = ptdesc_address(ptdesc);
++	pmd_init(pmd);
++
+ 	if (mm == &init_mm)
+ 		ptdesc_set_kernel(ptdesc);
  
 -	return ptdesc_address(ptdesc);
-+	pte = ptdesc_address(ptdesc);
-+	kernel_pte_init(pte);
-+
-+	return pte;
++	return pmd;
  }
- #define __pte_alloc_one_kernel(...)	alloc_hooks(__pte_alloc_one_kernel_noprof(__VA_ARGS__))
- 
+ #define pmd_alloc_one(...)	alloc_hooks(pmd_alloc_one_noprof(__VA_ARGS__))
+ #endif
 -- 
 2.54.0
 
