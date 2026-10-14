@@ -1,76 +1,252 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CDC3019D9;
-	Wed, 14 Oct 2026 02:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7034A3019D9;
+	Wed, 14 Oct 2026 02:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946327; cv=none; b=LmXfv8cMpPDttfVm7GIiDCFmyaz7rSnS1pRzwnUmGOhIVoGOcpqDRMjTQQWwZiCNtFv7/o7jpoS7hY3qM5JPuFrSn7SoYwzixEjpjFpVW5PdnLgJqiTtGK8ok6k0AD3LcActYn59aN9qVTcGothZ43enLSRpU+C1I5I2pzX2pq4=
+	t=1791946365; cv=none; b=soUQ8rDQFv4hxu93iXVphy8XGKY33nGbPhPsg7kRSpBxAdA4Pbz2baFl476wZk/CFoUiUIW0qVZsjuwUOYQHe/tdHleu6RXZxil94VvITDgy79LKo0Vj8m66ponnGvkdFA5gRs2Rg9hdI8jgb/kkw+LGbzEodC6uLY9NJ+KktHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946327; c=relaxed/simple;
-	bh=ci6lwH7Wlf5uolwLWEhz1tMpvPXE5t0FdSARax8LoT8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u+HE8QieSBzAp+BnSGLbZ73RX46QxIjDmzv6P4GuqD+2WPjTxf4Z5tE9poPR3Cc6IsDvEL/OnJU8UvsP7364lAk+wLti9xaIxQEwi2Lvz17wiTdAcnJt6EbFWb1mVd2E1agg2gVVM7/0P9SwUjNbSuma9/LTP7lC+iheyq8Sa/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GCS0FuDw; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791946365; c=relaxed/simple;
+	bh=6QAs/AWFg+oBZWeRI/xjXG7Fb0aOe9h+Fc+Luoc3Buo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EA5UXPntdNhjvncxVpgm3xkydg+85o0juDVx09p8NBOYV8SVmAXtkKRxo7VkyACfL+gbdRfv+vjRxaqNfE+9GvYNK9Bf42m7PxFsDlW9RjJvFkyWG8K6R69wV8DtwxFm8lxVuZZE7vswZ7yyTenO+GpabMj3uDuPhZdcnbnkV1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eCPJbxCu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GCS0FuDw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ci
-	6lwH7Wlf5uolwLWEhz1tMpvPXE5t0FdSARax8LoT8=; b=GCS0FuDwBl3yq1Hua4
-	y1Q3fmf0QcxS/JH+v1IOl2TFzWR1vTnzfFxqpmfCEXxcyiZBP9k2cDGR1YTP4Dwp
-	csgoq5rPvj3Rpz0WDxWH1HszpLHjuyMKJ0pUjdJyihVvMkK417ctiFAIvd5jzxa0
-	KjGq7PZgk1UdlaOCvRfl3J6OU=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3H9kt7s5qJrRlEA--.21370S2;
-	Wed, 14 Oct 2026 10:51:26 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: konrad.dybcio@oss.qualcomm.com
-Cc: robert.marko@sartura.hr,
-	luka.perkov@sartura.hr,
-	vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	mani@kernel.org,
-	p.zabel@pengutronix.de,
-	linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	hppiscas@163.com
-Subject: Re: [RFC PATCH] phy: qcom: ipq4019-usb: Propagate reset operation failures
-Date: Wed, 14 Oct 2026 10:51:24 +0800
-Message-ID: <20261014025124.81874-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <f6f632b9-cc2a-4966-a43b-c474a05da7ca@oss.qualcomm.com>
-References: <20260828091857.8581-1-pengpeng@iscas.ac.cn> <f6f632b9-cc2a-4966-a43b-c474a05da7ca@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eCPJbxCu"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2D3F3C2BCFD;
+	Wed, 14 Oct 2026 02:52:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791946365;
+	bh=6QAs/AWFg+oBZWeRI/xjXG7Fb0aOe9h+Fc+Luoc3Buo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=eCPJbxCuNea0z4pF0nB2hK/Mg/QZpcF7OYLr7NVfTbew7cMV7P8a2HzSAe/8xtXhL
+	 tzUJ240YkwpfN144bGvFKFJm7mIOlx3UeNSvQWFUeOFCKtu9qkU7JPR1S5g8Fp7HY/
+	 rRchVdFpO/+55ene0uHn0U30dlpAU3jQSiBE3bQtzA4PUd4NN6OhevUO+k1zg+at7W
+	 PcZfGDjnlJ9/AdsUPpNAg0RCRzn9Pd/jSMl1YIFqL7JJKlxe976C26i9YereMouken
+	 5fafPKiYxYsHzJ9SYUf3HvHEnj6Zeh4QD+N6h2odKc9KdB8uK5V7ee2vMmXRPmW7BX
+	 Q8bNF8ke1If7w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B4B8CC6B20;
+	Wed, 14 Oct 2026 02:52:45 +0000 (UTC)
+From: Jack Wu via B4 Relay <devnull+jackbb_wu.compal.com@kernel.org>
+Date: Wed, 14 Oct 2026 10:51:00 +0800
+Subject: [PATCH v10 2/6] net: wwan: t9xx: Add control plane transaction
+ layer framework
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgD3H9kt7s5qJrRlEA--.21370S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrJry3Ar43JF4UZrW8Gr13CFg_yoWxWrb_u3
-	4Skw17Aw4kta1UtF4UKr43tF9IgrWDAr1rW395ta13t348JrsrWFWDAry5uayrAF4aqr93
-	Gr1Uu34fuwnrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUjahF7UUUUU==
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7g4V3WrO7i67vwAA3I
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-t9xx_driver_v1-v10-2-4d0dde3613f5@compal.com>
+References: <20261014-t9xx_driver_v1-v10-0-4d0dde3613f5@compal.com>
+In-Reply-To: <20261014-t9xx_driver_v1-v10-0-4d0dde3613f5@compal.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Sergey Ryazanov <ryazanov.s.a@gmail.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Jack Wu <jackbb_wu@compal.com>, Wen-Zhi Huang <wen-zhi.huang@mediatek.com>, 
+ Shi-Wei Yeh <shi-wei.yeh@mediatek.com>, 
+ Minano Tseng <Minano.tseng@mediatek.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Robert Yu <robert_yu@compal.com>, 
+ Jeff Chang <Jeff_Chang@compal.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-doc@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791946362; l=5009;
+ i=jackbb_wu@compal.com; s=20260526; h=from:subject:message-id;
+ bh=Lzrnn7C9a9Y9E/a8QXchnvLpm0gvt2cHKib9+c/G3dM=;
+ b=ZkxvWXrNy9RHFPhO09nFO9Eeq/r66bg+SilozXTSbFiTj2uS9wd0ew4B1K0VPiZhBpOWlQxSa
+ OY0JXQYU8glAeHWLlBsn71LRGeUhpU8TI1/ot2E/E6Pvw8NB+9lLNnC
+X-Developer-Key: i=jackbb_wu@compal.com; a=ed25519;
+ pk=VH1prTWixNl8OEUPPSfII3p46MzJpQN8J3+ecE1tZXg=
+X-Endpoint-Received: by B4 Relay for jackbb_wu@compal.com/20260526 with
+ auth_id=793
+X-Original-From: Jack Wu <jackbb_wu@compal.com>
+Reply-To: jackbb_wu@compal.com
 
-Hi Konrad,
+From: Jack Wu <jackbb_wu@compal.com>
 
-Your comments on the declaration layout and unchecked rollback return
-are valid. Rechecking the provider exposed a more fundamental limitation
-in the RFC's premise: the in-tree IPQ4019 DT uses GCC resets, and
-qcom_reset_set_assert() returns zero after the regmap operations.
+Introduce the control plane and transaction layer framework
+for the T9XX WWAN driver. This patch adds the core data
+structures (mtk_ctrl_blk, mtk_ctrl_trans) and initialization
+entry points that subsequent patches build upon.
 
-I therefore do not have evidence that the hardware-failure case described
-in the RFC is reported through this provider. Generic reset API errors
-alone do not establish that case on this platform.
+The control plane block (ctrl_blk) serves as the central
+context for managing the transaction layer, port layer, and
+FSM interactions. The actual DMA engine and TX/RX service
+implementations are added in subsequent patches, and
+mtk_ctrl_init() and mtk_ctrl_exit() get their first callers
+there, in pcie/mtk_trans_ctrl.c.
 
-Please keep this RFC on hold. I will not respin it as a demonstrated
-IPQ4019 bug fix based only on the local return-value checks.
+Signed-off-by: Jack Wu <jackbb_wu@compal.com>
+---
+ drivers/net/wwan/t9xx/Makefile              |  1 +
+ drivers/net/wwan/t9xx/mtk_ctrl_plane.c      | 46 +++++++++++++++++++++++++++++
+ drivers/net/wwan/t9xx/mtk_ctrl_plane.h      | 21 +++++++++++++
+ drivers/net/wwan/t9xx/mtk_dev.h             |  3 ++
+ drivers/net/wwan/t9xx/pcie/mtk_pci.c        |  1 +
+ drivers/net/wwan/t9xx/pcie/mtk_trans_ctrl.h | 20 +++++++++++++
+ 6 files changed, 92 insertions(+)
 
-Thanks,
-Pengpeng
+diff --git a/drivers/net/wwan/t9xx/Makefile b/drivers/net/wwan/t9xx/Makefile
+index bd6063c85c2b..0a07507f1ddf 100644
+--- a/drivers/net/wwan/t9xx/Makefile
++++ b/drivers/net/wwan/t9xx/Makefile
+@@ -6,4 +6,5 @@ ccflags-y += -I$(src)
+ obj-$(CONFIG_MTK_T9XX) += mtk_t9xx.o
+ 
+ mtk_t9xx-y := \
++	mtk_ctrl_plane.o \
+ 	pcie/mtk_pci.o
+diff --git a/drivers/net/wwan/t9xx/mtk_ctrl_plane.c b/drivers/net/wwan/t9xx/mtk_ctrl_plane.c
+new file mode 100644
+index 000000000000..81f6b3fbc0bd
+--- /dev/null
++++ b/drivers/net/wwan/t9xx/mtk_ctrl_plane.c
+@@ -0,0 +1,46 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2022, MediaTek Inc.
++ * Copyright (c) 2022-2023, Intel Corporation.
++ */
++
++#include <linux/device.h>
++
++#include "mtk_ctrl_plane.h"
++
++/**
++ * mtk_ctrl_init() - Initialize the control plane block.
++ * @mdev: Pointer to the MTK modem device.
++ *
++ * Allocates and initializes the control plane block
++ * associated with @mdev.  Runs once per bind; the allocation is
++ * devres managed and is released at unbind, not by
++ * mtk_ctrl_exit().
++ *
++ * Return: 0 on success, -ENOMEM on allocation failure.
++ */
++int mtk_ctrl_init(struct mtk_md_dev *mdev)
++{
++	struct mtk_ctrl_blk *ctrl_blk;
++
++	ctrl_blk = devm_kzalloc(mdev->dev, sizeof(*ctrl_blk), GFP_KERNEL);
++	if (!ctrl_blk)
++		return -ENOMEM;
++
++	ctrl_blk->mdev = mdev;
++	mdev->ctrl_blk = ctrl_blk;
++
++	return 0;
++}
++
++/**
++ * mtk_ctrl_exit() - Clean up the control plane block.
++ * @mdev: Pointer to the MTK modem device.
++ *
++ * Clears the control plane block pointer. The allocation
++ * itself is managed by devres and freed on driver detach.
++ */
++void mtk_ctrl_exit(struct mtk_md_dev *mdev)
++{
++	mdev->ctrl_blk = NULL;
++}
+diff --git a/drivers/net/wwan/t9xx/mtk_ctrl_plane.h b/drivers/net/wwan/t9xx/mtk_ctrl_plane.h
+new file mode 100644
+index 000000000000..46f1ab9f0551
+--- /dev/null
++++ b/drivers/net/wwan/t9xx/mtk_ctrl_plane.h
+@@ -0,0 +1,21 @@
++/* SPDX-License-Identifier: GPL-2.0-only
++ *
++ * Copyright (c) 2022, MediaTek Inc.
++ */
++
++#ifndef __MTK_CTRL_PLANE_H__
++#define __MTK_CTRL_PLANE_H__
++
++#include <linux/skbuff.h>
++
++#include "mtk_dev.h"
++
++struct mtk_ctrl_blk {
++	struct mtk_md_dev *mdev;
++	void *ctrl_hw_priv;
++};
++
++int mtk_ctrl_init(struct mtk_md_dev *mdev);
++void mtk_ctrl_exit(struct mtk_md_dev *mdev);
++
++#endif /* __MTK_CTRL_PLANE_H__ */
+diff --git a/drivers/net/wwan/t9xx/mtk_dev.h b/drivers/net/wwan/t9xx/mtk_dev.h
+index 329e5e6695df..84fcd980110b 100644
+--- a/drivers/net/wwan/t9xx/mtk_dev.h
++++ b/drivers/net/wwan/t9xx/mtk_dev.h
+@@ -31,12 +31,15 @@ enum mtk_dev_evt_d2h {
+ 	DEV_EVT_D2H_ASYNC_HS_NOTIFY_MD	= BIT(6),
+ };
+ 
++struct mtk_ctrl_blk;
++
+ /* mtk_md_dev defines the structure of MTK modem device */
+ struct mtk_md_dev {
+ 	struct device *dev;
+ 	void *hw_priv;
+ 	u32 hw_ver;
+ 	char dev_str[MTK_DEV_STR_LEN];
++	struct mtk_ctrl_blk *ctrl_blk;
+ };
+ 
+ #endif /* __MTK_DEV_H__ */
+diff --git a/drivers/net/wwan/t9xx/pcie/mtk_pci.c b/drivers/net/wwan/t9xx/pcie/mtk_pci.c
+index a3bd1caf470b..9fa61f08174d 100644
+--- a/drivers/net/wwan/t9xx/pcie/mtk_pci.c
++++ b/drivers/net/wwan/t9xx/pcie/mtk_pci.c
+@@ -13,6 +13,7 @@
+ #include <linux/module.h>
+ 
+ #include "mtk_dev.h"
++#include "mtk_trans_ctrl.h"
+ #include "mtk_pci.h"
+ #include "mtk_pci_reg.h"
+ 
+diff --git a/drivers/net/wwan/t9xx/pcie/mtk_trans_ctrl.h b/drivers/net/wwan/t9xx/pcie/mtk_trans_ctrl.h
+new file mode 100644
+index 000000000000..50b1c366a4c8
+--- /dev/null
++++ b/drivers/net/wwan/t9xx/pcie/mtk_trans_ctrl.h
+@@ -0,0 +1,20 @@
++/* SPDX-License-Identifier: GPL-2.0-only
++ *
++ * Copyright (c) 2022, MediaTek Inc.
++ */
++
++#ifndef __MTK_TRANS_CTRL_H__
++#define __MTK_TRANS_CTRL_H__
++
++#include <linux/list.h>
++#include <linux/skbuff.h>
++#include <linux/types.h>
++
++#include "mtk_dev.h"
++
++struct mtk_ctrl_trans {
++	struct mtk_ctrl_blk *ctrl_blk;
++	struct mtk_md_dev *mdev;
++};
++
++#endif
+
+-- 
+2.34.1
+
 
