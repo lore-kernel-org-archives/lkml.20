@@ -1,263 +1,175 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010062.outbound.protection.outlook.com [52.101.61.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E1E3A0E86;
-	Wed, 14 Oct 2026 02:40:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791945626; cv=none; b=NdsycbOse9x2ZXH/75xhltfPH4C6SsGELNgMIGYn3A4E8od761z1p78uIN0TyELWvi79RDjtNop2eOBU8FnAaqV54wBLgKHg5JrfQPiGF0KgzAr49mREOForfJi3PljM9lw6e8epHc/madb9w9de4javRQ1f2zTdAoSebGawSjg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791945626; c=relaxed/simple;
-	bh=PLSqgFbiS0KxG62Axwmjch15uKH2mXN5fwRcRpw6rpQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hj1tuqx3w/lNwWxa288ckU7hHUlUDofUPFZOPbXHL1hSdzBbwquX3OFWsx2VcsWRA65CS8XEESt2n+b0QBMMPb1YqTaNDDgE72qiQAFF73ybO5hKrqmCgMNdWJleF2Djba28c05Ix9QjDZsOtqNd75fz7FxUc3dubcRws5cHWIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=YxheWnhg; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA89230DECE;
+	Wed, 14 Oct 2026 02:42:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791945723; cv=fail; b=F9bM/1IYJ3+48H/TwGHz3wfdHy7L0s7Ko+TTg01zEGrRjRKNXRMuicDvl3VUXxQrJCVzlL91ZwKFQIDWyamOgR+C7zPWu1sCSBgbKwum36JylbJ+986sLlx9PyPQS+OuEUlnawjsspQR52cgmVOPDET1qVYMkiB1sFoCNCSXG90=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791945723; c=relaxed/simple;
+	bh=jlHeyjtCyRHjNjgZ6/P3Q2hK6PZ/2YlwYmFax+RVP/c=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=P4YzR8p3a2qlXASa3YGvruVv0igTVZnTACAgZgArI+yvD85Pqdnby3xccKclPXEYUelHOcyCmAVJfWiYzbICD+LFQrTf3pQ4XIPHKerRm4JlfIz8zOuDNxWrvS7rvSBsmZT4j2LsRA6KV0LsVpuE5i1wZUA9hmOEikyag7lyd4w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3lE33qFS; arc=fail smtp.client-ip=52.101.61.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="YxheWnhg"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791945619; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=dTgvvNsouPKZxKSn2FPoOB4gIlAepfNdG4aqAIdS6o8=;
-	b=YxheWnhgoUsg4fV2EqtSBf7EuO/WuEbWSCqzwi5rsR0WABYe8mo/dP5So+esHbNWO412+nh0j1NW3ud6FKn6PaOjyAOWY09GCSBacVBxYmkthQvFADxgsT5m+dsdHlTwtnUU/La2Hbs19IcLieKLJEby6RrsBW8PV9VsB0RSoGE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCnctDA_1791945618;
-Received: from 30.221.146.92(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCnctDA_1791945618 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 10:40:19 +0800
-Message-ID: <e654cef3-8f90-4c59-98e6-dd7521dfea86@linux.alibaba.com>
-Date: Wed, 14 Oct 2026 10:40:18 +0800
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3lE33qFS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FDtxFVPQr+9++CJ1SBQstBfTUxz3sAy0reVD5TRIkntBDPZgbDOUqmsBinnHqgG9aSQFY9yaeNYiXwTX5bFUJffXfIIvH82c25fQXUNcHivq6tDcjeJyyZixGXon4ybrfA/wcB5HfxOhwkx2ifqbHdPxhE5NYRvB1yskCMEAaKlV9hzJoUSMyVJ3AtqBSMj2W5m0Jbm0gUHC+cuhWADfktHAPZ0M9Z9vmhVsIRN2As+AFgDHQASEG5UmFZUSzPBtdMOWdVMmVKMLflMsdgEeArmRhoZaDEkwSVBiB0BQbF2c0bHeS6n+YvZjFuSvr/cRmU4ALpEeAG8D4UdbpslHXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uHEZtAG2jC5GpVN3AmPgqe+YaQEaoGPx9UuqFrp7bk0=;
+ b=Rd6LWVOoYCPDGU9lluNcZ1XNfN2i7Op1rxVEAw7IhUktJqb7x+9N1XgXqlOGwexQK/AP7kHvdwKyYFpUBBZEHYf88p0wzIDWIyMPmd5CLJVDJ2oNP3CY0FcRCboybbB2uB1jdgrSFKj5tjGMKlRy+pw1eMqLyqppWiG3hVmUNTyg75Bomm8JAGwD7E9513m32ECAUMNEjMfV+CLyhvVy4Z0cdhs/EGyIZsY7+NTTFSRZrgZoqOcSg6mHCcknHkjBGBKJdkn8u0IBqkevNnTBHfqPFTr5psX/P3FZ8XKjnfZdgA0aQc0gKr7L55KxnVPUcQybpPehWMFdCd5jiEiKfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uHEZtAG2jC5GpVN3AmPgqe+YaQEaoGPx9UuqFrp7bk0=;
+ b=3lE33qFSU4rEbgKJr/oDUPZE3Ea9okYrBvnI7W1a4wCZZtWcDgpw151IMO2LfUp8SZ26wRgbxcNeAEC42lXghYoJ346beqUCt4LNIjKbyNp9Aq2xqarwZeF/j/3oLU/9TOS8NkkRFE1H9wxXFpi1sni0D4bTqC2Yk+wYl7waC38=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by SN7PR12MB7953.namprd12.prod.outlook.com (2603:10b6:806:345::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Wed, 14 Oct
+ 2026 02:41:52 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
+ 02:41:51 +0000
+Message-ID: <3f578b9f-cdac-4bdb-8f0a-f5b3a48f6622@amd.com>
+Date: Tue, 13 Oct 2026 21:41:48 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/8] PCI/quirks: Avoid certain address on Genoa systems
+To: Borislav Petkov <bp@alien8.de>, Bjorn Helgaas <helgaas@kernel.org>
+Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Maciej Grochowski <Maciej.Grochowski@sony.com>,
+ Nikolas Joshua Britton <nbritton@exabit.io>,
+ Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>,
+ Alexey Fomenko <alexey.fomenko@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Rob Herring
+ <robh@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, LKML <linux-kernel@vger.kernel.org>,
+ Bradley Morgan <brads@mainlining.org>, Hans de Goede <hansg@kernel.org>,
+ Kai-Heng Feng <kaihengf@nvidia.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>, linux-acpi@vger.kernel.org
+References: <81b4f4bf-b721-4b5b-8ddf-d040865f02b2@amd.com>
+ <20261013224010.GA1589480@bhelgaas>
+ <20261014004321.GBas7QKRYgjdcIPLHb@fat_crate.local>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20261014004321.GBas7QKRYgjdcIPLHb@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA1PR05CA0012.namprd05.prod.outlook.com
+ (2603:10b6:806:2d2::16) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2/dlm: hold a lock reference across grant AST
- enqueue
-To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- kees@kernel.org, ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0043-v5-1ad07df761ff49638789@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0043-v5-1ad07df761ff49638789@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SN7PR12MB7953:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d5236e1-77bf-4a1a-718b-08df299cb382
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|56012099006|11063799006|4143699003|22082099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	mizByEjNuH6G7NEpLlXfrPywPjjpuY/yoj+3bHCjoBXOJub3mqCjy4D3ekwO1SUsiBX6ewilXTwgIvKzVx3MFi2RNcD0PV2QiKl+sH+4dh/q66D5Mo1fJzG+9nAPYwO4VO76qbiZuS9IXTSEmNYwJ89GxtnQwaPbvOgtfXEe4POtdhhViRAg6cukYMiegGPDw+XV1IlxCxFMVQooMVZDZC0HJiT2BqbccMYCjiV2Ld3V/b+H+D1QNeKApFIBqNzp1XVF0I8a8SxKjtmBDvTTANEKNzZO2LDBfeuuIQHM4aN9pUKAhV0y43NLdeDE6/HzCNzb4mjgTgFnyiX3QcZRTkuH950IzlVrI+g2Xwii0Uf90AJQJBAzVL6aekGCnWZhsGxeIEC2yyWym9dbaHCh6JLdwZHuPm8zWOMnqQfQ0JC99cw7BltPmleJNFuzeBXyNZKi4oYSRbbSYK55vB95fWJzU5a7FwMJcUW1+yj7+p1XDCeP9VL3Z9O4zthX+BXRAHlSb2fKsSc9qt7K+5LqFvClq2OAC3ImcvPCEPQmBPo7bbVRA2RAufCKdrgQR85ryoxuM8y5ZbFf6KSXVFPl5Sci95+QgHx6ygahNT9n0oadJIQ5j4tdoehdocf8rcF8Po0xQEAIsHN+TYBbzwSH+TA65RZeE5MLe+7fVCusKms=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(56012099006)(11063799006)(4143699003)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WDlNZ2dDMWFCZXBDZERjUmdJbjVXUUJNRmMwdTVZbmxCL3d6VXo5Uk9RQ3h0?=
+ =?utf-8?B?cWR4RkoyMnBjT1FzZm9GK3ZVNWFBWDN0dDdwV1RwOTNLOVpVVjNiY1A3Kzk4?=
+ =?utf-8?B?dGU0bW02RmhONlhFMS92bHpMU3VpTzZGcWRqS1BRTmRWQytIYm4rajRML1BY?=
+ =?utf-8?B?UHRUK1BkT3piODNidDM2NzZPR2xMcEVrNlovL2xqcXkybmJSL1NLNjBhZmw0?=
+ =?utf-8?B?QzdMQkNXdXFKaXlrK1ZubG9pMzFnekNGWkZrSVlXK0UxQW9ONU9zbjNLTFEx?=
+ =?utf-8?B?eHl1b0Nkb2F1a3JvQ0JXSHNmNXFSd0o4aTBPRTlKVVUxV2k3c0twNENMVFdq?=
+ =?utf-8?B?UGVKZm9EUXRNbEFyWDg2djJWM21kaXE4VnJyWGF2eEhzT1BQb09uS251ZU9K?=
+ =?utf-8?B?cG5WdUFKTkJ4NXRMT3FCeTVRRVFrc1RGUUhoek13QzRaVDNFelpobHVBUXhJ?=
+ =?utf-8?B?TWtFbmkxR3hPVEIrbUl2VnMyTFl5eTVJdGZlakxMcDc1Vk9RSHR2WTJUQVJp?=
+ =?utf-8?B?Mm1ZSWtidVloYThvNXo1VlliekUzMmF6Q1VXUnVJTXplcE95d1JYTWJCa0ZY?=
+ =?utf-8?B?eFNFQnFuaVNlcG43N3k5MjBvOHFlV28yNmlDTUxFZHBZam1MeitJaHdIVGdt?=
+ =?utf-8?B?a1FpSDh6cTFSM2d6WUFnM2loS2JUaTNEWmZ2dkV3NkFVTnJ1Z3ZEUGxITWo4?=
+ =?utf-8?B?SE5ZVFRTOTdMT2tkNW5XdFBzNmNQeHdMUmxlRGVFVXlhRCtITDZiYklmaUxS?=
+ =?utf-8?B?MisvZWltclNuWEFaSmV1eTY2N2xSRjl2dnJLaU9mVFNtSi9GTTFhZnQxTEox?=
+ =?utf-8?B?LzJYT2tyRWdadVlBdXYvMDhDYzFlVENmM01XS1RLOE5mbWdoQ1I1U25WaVhx?=
+ =?utf-8?B?QThxKy9nbUl1QjZjTUk3WTNRakxIOFVIU3p2S0pTTjdNcEFiOGxsa1E2eits?=
+ =?utf-8?B?YmkrWmFzbjNlVU03RVRZUXBlQkw2M0NSUFNKQjBNaEVvNzN6K2hXSnIvZDZu?=
+ =?utf-8?B?SFlaRldaK1R0Y0hUQzlreVpsY0k5MmVRcGRMNHUzNEl6eUtKOFlwWXZhbWhW?=
+ =?utf-8?B?R1JRS3BkTkRtTHRZZUloMHVFQ0FGVEUwN2hSSjVhRHh2ZzJMNldmMkZINUhK?=
+ =?utf-8?B?MG9rRUxYYUZXSGdiYmt3VnBvenFlRG9pUjV5NEhtUmxJdVRpSytnSnZLTktP?=
+ =?utf-8?B?cTF5enNwUW9DeWpLSkhMMW1aR0JnczRRMktLNG5qdSt6RlhqT3haNXE0ZjIx?=
+ =?utf-8?B?RjN1VFdua1FLMzJTVEZpbHFzcHJyNy9VTFkzVE9RQXU0WlhMbUJTV0g1WVdX?=
+ =?utf-8?B?elhBSDJqc3VrNWh1UUNKVzVDRzVRTkxFcWsxQmVucnRUNGF3ZjltQlorOXh3?=
+ =?utf-8?B?SlV3VENwWHQ3VytOeE1KcERRVWJOWTJDQWxSQ3NHUWR2TUxNV1NHYjBJVnM0?=
+ =?utf-8?B?UGVNeUhrTHh5SjlMQTRaR3ZNd25CT1NnS1FsWGtZMDdxUGhIK0k3UDVlMURB?=
+ =?utf-8?B?azRWTmZUOTU5WThOWUhrR205R2RnWldxa0xpRC9jazZJOVZTMDNDb0lCWVJ3?=
+ =?utf-8?B?N0huV2phNjljRHVXODlDMENUZC9vOW9qdmpFbXNPNGsvR3laeUZPOTA5ait0?=
+ =?utf-8?B?Y3FRWHl0UC9HVTFzbTFJREcwamhXQkFJTFo0V0lyNlRMc3RWdStEeTNpOVk3?=
+ =?utf-8?B?bzlBZzNHeUxYT05JaG14eEZvdnNUSXJrd0R3Q1puSHZVWXlIMUZRMTg2SEdZ?=
+ =?utf-8?B?dnZ0QWt3SDh0eU9lVGxvdDZYZERYMDBIcDcyN1g4S00weldJYno5Vm9ZdXNP?=
+ =?utf-8?B?bzFVMm92aE1hY05jejlaVEhXd2NmcVdGa0JuTHdlN0RHKytTQVAyTzlpNWox?=
+ =?utf-8?B?UDBuWVBxZ2toWnd1VTF0V0NtV0FHMFhRZGVGU21hVUlXSE9sNHNObHVIQUIw?=
+ =?utf-8?B?ckJmMkRqZWw5RE9BcmZURS9Ocmk1QXhuUWlvU3VjbU9FdnV1TGhuYy82RkRX?=
+ =?utf-8?B?OFppRGcrNHl0WWRYWElwZUZ1TmRmQ3c5Wk80YkJnK25nbmxEZGUzdldOa0hV?=
+ =?utf-8?B?RUZ2bVNBWEpPRkw0VW1KWXhra3A4dmZzMEtrTi9Sd3NzZnIwdTFGVGJYK2lV?=
+ =?utf-8?B?dFUzejc2dzdTQXMyTDBnMEduOVk4bHdwMXVwNndUSVhkK3hMTWRIaVJIOFcy?=
+ =?utf-8?B?MWFLR1BoTTZvR3BLMDhSZ251elMzeEhhcEZpQWNuYVhtM2llNzdmVWd6Q2Zw?=
+ =?utf-8?B?WTBvVzRMSGNBYldYOURWelpteXJ6ai9sQys5M0lST0dMOFkvSWhoMXB1YUVr?=
+ =?utf-8?B?bk1pQ0IybzhVS2VJQ2lRZW0rZzJIR3JCdHFDWkxEN3pVUjhvdlhhZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d5236e1-77bf-4a1a-718b-08df299cb382
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 02:41:51.4728
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SQ0UnoQqEHObzrJCtzL9ImjgHMELpzXJWsr29dAQrY7SG1UBtTDlHUX95Cglux6wPdaOcerSWJHKYlqLUtq18A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7953
 
 
 
-On 10/13/26 11:39 PM, Cen Zhang wrote:
-> A newly granted remote lock must remain alive until its grant AST is
-> queued. dlmlock_master() publishes the lock on res->granted with its
-> base and queue references, then drops res->spinlock before calling
-> dlm_queue_ast(). The resource's reserved AST count does not retain the
-> lock itself.
+On 10/13/26 19:43, Borislav Petkov wrote:
+> On Tue, Oct 13, 2026 at 05:40:10PM -0500, Bjorn Helgaas wrote:
+>> But I'm frankly terrified to touch it because I'm skeptical that two
+>> more quirks are enough.  I just expect that whatever strategy BIOS
+>> uses to build these maps is likely to be used on many models.  I do
 > 
-> This can fail when a peer dies with an immediately grantable CREATE
-> buffered on its socket. O2NET's node-down callback flushes receive work
-> before DLM cleanup, but the flush only waits for work queued on entry.
-> A data-ready callback that already selected the socket container can
-> queue new receive work after the flush advances its work color. Socket
-> shutdown does not discard bytes already queued for TCP receive.
+> Do we have an explanation why BIOS is doing that shit?
 > 
-> The late receive work and DLM node-down cleanup can interleave as
-> follows (the lock reference operations shown are before this fix):
-> 
->   Socket data-ready        Node-down thread         Receive worker
->   -----------------        ----------------         --------------
->   o2net_data_ready()
->     select sc under
->     callback read lock
->                            o2net_disconnect_node()
->                              queue shutdown
->                              begin flush; new color
->     queue sc_rx_work
->     in the new color
->     release callback lock
->                              shutdown socket
->                              flush returns
->                                                     read buffered CREATE
->                                                     dlmlock_master()
->                                                       lock res->spinlock
->                                                       add lock to granted
->                                                       unlock res->spinlock
->                            DLM node-down cleanup
->                              lock res->spinlock
->                              dlm_free_dead_locks()
->                                unlink lock
->                                put queue/base refs
->                                free lock
->                              unlock res->spinlock
->                                                     dlm_queue_ast()
->                                                       __dlm_queue_ast()
->                                                       read lock->lockres
->                                                       (use-after-free)
-> 
-> DLM cleanup holds res->spinlock while dlm_free_dead_locks() drops the
-> queue and base references. The CREATE handler no longer holds that
-> spinlock when __dlm_queue_ast() reads the lock, before taking its AST
-> list reference.
-> 
-> Take a temporary lock reference under res->spinlock when a grant AST
-> will be queued, and drop it after dlm_queue_ast(). This keeps the lock
-> alive across cleanup until the AST path has taken its own reference,
-> without reversing the existing AST/resource lock order.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in __dlm_queue_ast+0x8a4/0xc00
->     Read of size 8 at addr ffff88810ead5940 by task kworker/u16:3/52
-> 
->     CPU: 3 UID: 0 PID: 52 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Workqueue: o2net o2net_rx_until_empty
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? __dlm_queue_ast+0x8a4/0xc00
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? __dlm_queue_ast+0x8a4/0xc00
->      kasan_report+0xe0/0x110
->      ? __dlm_queue_ast+0x8a4/0xc00
->      __dlm_queue_ast+0x8a4/0xc00
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? do_raw_spin_lock+0x130/0x270
->      ? __pfx___dlm_queue_ast+0x10/0x10
->      ? __pfx_do_raw_spin_lock+0x10/0x10
->      ? _raw_spin_unlock_irqrestore+0x45/0x60
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
->      dlm_queue_ast+0x46/0x70
->      dlmlock_master+0x51f/0xf50
->      ? __pfx_dlmlock_master+0x10/0x10
->      ? dlm_create_lock_handler+0x2b2/0x870
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      dlm_create_lock_handler+0x35b/0x870
->      ? __pfx_dlm_create_lock_handler+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? trace_hardirqs_on+0x18/0x160
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? kvm_clock_get_cycles+0x31/0x60
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_dlm_create_lock_handler+0x10/0x10
->      o2net_rx_until_empty+0x1dae/0x32c0
->      ? reacquire_held_locks+0xdd/0x200
->      ? __pfx_o2net_rx_until_empty+0x10/0x10
->      ? lock_acquire+0x190/0x300
->      ? process_one_work+0x935/0x1b40
->      ? process_one_work+0x834/0x1b40
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      process_one_work+0x9a8/0x1b40
->      ? __pfx_process_one_work+0x10/0x10
->      ? lock_acquire+0x190/0x300
->      ? lock_is_held_type+0x8f/0x100
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      worker_thread+0x65c/0xe40
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __kthread_parkme+0x177/0x220
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_worker_thread+0x10/0x10
->      kthread+0x351/0x460
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork+0x659/0x940
->      ? __pfx_ret_from_fork+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __switch_to+0x74f/0xf70
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork_asm+0x1a/0x30
->      </TASK>
-> 
->     Allocated by task 52:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_slab_alloc+0x89/0x90
->      kmem_cache_alloc_noprof+0x20b/0x5c0
->      dlm_new_lock+0x39/0x5f0
->      dlm_create_lock_handler+0x16e/0x870
->      o2net_rx_until_empty+0x1dae/0x32c0
->      process_one_work+0x9a8/0x1b40
->      worker_thread+0x65c/0xe40
->      kthread+0x351/0x460
->      ret_from_fork+0x659/0x940
->      ret_from_fork_asm+0x1a/0x30
-> 
->     Freed by task 603:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kmem_cache_free+0x242/0x580
->      dlm_lock_release+0x1df/0x2f0
->      dlm_lock_put+0x51/0x80
->      __dlm_hb_node_down+0x15be/0x2710
->      dlm_hb_node_down_cb+0x6c/0xa0
->      o2hb_run_event_list+0x34a/0x500
->      o2hb_do_disk_heartbeat+0x1a07/0x2950
->      o2hb_thread+0x1ed/0xdc0
->      kthread+0x351/0x460
->      ret_from_fork+0x659/0x940
->      ret_from_fork_asm+0x1a/0x30
-> 
->     The buggy address belongs to the object at ffff88810ead5900
->      which belongs to the cache o2dlm_lock of size 184
->     The buggy address is located 64 bytes inside of
->      freed 184-byte region [ffff88810ead5900, ffff88810ead59b8)
-> 
->     [Page and shadow memory dumps omitted.]
-> 
-> Fixes: 2c5c54aca9d0 ("ocfs2/dlm: Add missing dlm_lock_put()s")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> Assisted-by: LLM
+> Mario?
 
-Looks fine.
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+If I was to guess; because Windows allocates MMIO space differently it 
+hasn't been a problem.
+
+Which begs the question; does Ilpo's series improve things enough that 
+we wouldn't have these problems either?
+
+Maybe we should just tail my patches on Ilpos' series and then land them 
+linux-next the very beginning of next cycle and beg everyone who was 
+affected to test linux-next.
 
 > 
-> ---
-> Changes in v2:
-> - Illustrate the node-down and grant-AST race with a sequence diagram.
-> - Use the ocfs2/dlm subsystem prefix in the patch title.
-> - Add Cc: stable@vger.kernel.org.
+> Btw, Mario, you should replace "Genoa" with "Zen4" everywhere so that it is
+> more clear to people.
 > 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0043-v4-24e62761a79be6b84b55@gmail.com
+> Thx.
 > 
-> diff --git a/fs/ocfs2/dlm/dlmlock.c b/fs/ocfs2/dlm/dlmlock.c
-> index 46120eb75d90..660237c0d7cd 100644
-> --- a/fs/ocfs2/dlm/dlmlock.c
-> +++ b/fs/ocfs2/dlm/dlmlock.c
-> @@ -138,6 +138,8 @@ static enum dlm_status dlmlock_master(struct dlm_ctxt *dlm,
->  					  res->lockname.len)) {
->  			kick_thread = 1;
->  			call_ast = 1;
-> +			/* Keep the lock alive through AST enqueue. */
-> +			dlm_lock_get(lock);
->  		} else {
->  			mlog(0, "%s: returning DLM_NORMAL to "
->  			     "node %u for reco lock\n", dlm->name,
-> @@ -166,10 +168,12 @@ static enum dlm_status dlmlock_master(struct dlm_ctxt *dlm,
->  	wake_up(&res->wq);
->  
->  	/* either queue the ast or release it */
-> -	if (call_ast)
-> +	if (call_ast) {
->  		dlm_queue_ast(dlm, lock);
-> -	else
-> +		dlm_lock_put(lock);
-> +	} else {
->  		dlm_lockres_release_ast(dlm, res);
-> +	}
->  
->  	dlm_lockres_calc_usage(dlm, res);
->  	if (kick_thread)
+
+Ack; if I send mine out on their own I'll adjust.
+
 
