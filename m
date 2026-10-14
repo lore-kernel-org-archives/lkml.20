@@ -1,39 +1,37 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C36748F82B
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411184A6CE4
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017052; cv=none; b=MR98CFY37iU2iPHkQFkav8U0C86T2Ee1H9+5ZWoIf4aGrhpzUebE0T+Dra9xS0tpVnzGJkc44GNvC1r9PielAIG6LXufhZvN1bH6OjyziGGgnZZC+6NQU2ettig4mG82vVi1b5Sk8cpBHhN6RJlwmZra8BezhMozzoFOS2IYMHk=
+	t=1792017054; cv=none; b=ThGy2qKbBQOxd2HuGMn0BlxKGXG1yaDI6Ahq2pH0fkugeUh965ZqCDO/MkyFigP6gv6XCkLxMw5FDdouOVSYX5rw/q8JUgpjWecLHFmi7q2T2G2Gz+hWrrr6Kv8DqbPzWhk84UKPCHjjCWY4mUiHUK05ZOGsUIie/dn6Qo8FuQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017052; c=relaxed/simple;
-	bh=OFfnsDyem1S4/6vMlr5NhjpWDZQim4Dh966wmx9ACeo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZKzc9zSL/5KzM0cm/WfPx6IDY5AyngUK2QCVFf3qTr+TxJdgt9MmVF5YLvmhh5BiqA6QvqXN/LHECBVIu1tTb1CXs9dZi/vBMyn9Aj7BL2bbaB9j7GTzf1ziBs9L/1P3gcahKUpmkdhGOuGeGS7yTmjGoq9rvavaSllS20qqmbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es; spf=pass smtp.mailfrom=hsal.es; dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b=m8V6J7tu; arc=none smtp.client-ip=80.241.56.172
+	s=arc-20240116; t=1792017054; c=relaxed/simple;
+	bh=6GzEiBSzwxxtwTT0angqNhhTse0PCughbyda9b4cyog=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ofFfieyPylGLYVJ2HCIWP5VeqLgISqWpulzPZb62TRIp6BobJ+cGhmqfyw2I1UCtUQJPGuFBD1Zuk3Ys06u+KHKDtCpZaGeeyTS3CQBw/jIyAhs4EzorBR7o+BuBqMEApbkUukbsE1s7JJPZCq2QXRyd03nLacx3kWyOkVJmS6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es; spf=pass smtp.mailfrom=hsal.es; dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b=VtoCQqnx; arc=none smtp.client-ip=80.241.56.161
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b="m8V6J7tu"
+	dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b="VtoCQqnx"
 Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j4mBG6Jw6zMlDm;
-	Thu, 15 Oct 2026 00:30:46 +0200 (CEST)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j4mBC733xzKnTY;
+	Thu, 15 Oct 2026 00:30:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1792017046;
+	t=1792017044;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iH6VgiGj5KrB23VvD5r/W6aj7P6EbpDpdOeMlYANEW8=;
-	b=m8V6J7tuZz+jCiDBwrq1wUb0NwR+l7hMxFKi5VUDHJ52vz+ZKV6WhvFDdlqnShja/l0M0h
-	gghMMqza4Nbs/S5NE8FwCvfMSRsOSyaALAOfjf5CVfBDoIq61343ltIbO3eKOf7rrV4hhB
-	LeDJBFamz18VvmtQFTjOmwyWI8hYkFAIx+A7ympaL1kmMqDsDA7o5u3GGh1v3UiYT1G4C+
-	QBqT/kQE6JPgOPXwie8BGbfD6b1ofEpcvoTvCvUnbnoD/j+cTfbED4WAPFmzPuo1N8+sU8
-	PWqKYUJSg6/jWSfON9N+Vg+RiA/RFmnbB3xAKMn2Bf1z4/jHDuA6SmSxabdTGg==
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=1RlDgYjFOQMR+TOkPxgHO3ckyHzXoCdjohVK5jRak98=;
+	b=VtoCQqnxXtvacsLZSaS8hFqFyUK6vLQKHU2xkQjx1gPeb7yLzUWKGAfqqLcwjna/4oyZJb
+	qoPfhx/PUygOFzi1NNSPTyuc7U6yantBZpGKTveNgDl9mWnfva8ft/y/kT90xO55iB7But
+	9CF+CXlQ4E2Nxm57xfG7pFyUjaDYytmNAmmyxwcNKi/clA+8l7gW6keTvqmCceOBvVSEPj
+	xULYiRTFytYp4j53AudL9fZ14X2ikb9hKKh5eJbZ6uZBbtxpFYhm4XEiYOHMizpK79pbau
+	vZBZSAhdwRjHMEdetuVMsCcqHyr6pI7H5qC6jG/ip67M+27XdbYeBH5wWy6aqg==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
@@ -46,12 +44,10 @@ Cc: dri-devel@lists.freedesktop.org,
 	siqueira@igalia.com,
 	alexander.deucher@amd.com,
 	Hugo Sales <hugo@hsal.es>
-Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the eDP/LVDS native mode fallback
-Date: Wed, 14 Oct 2026 23:30:41 +0100
-Message-ID: <20261014223041.171317-3-hugo@hsal.es>
+Subject: [PATCH 0/2] drm/amd/display: Keep eDP native timing after resume with video=
+Date: Wed, 14 Oct 2026 23:30:39 +0100
+Message-ID: <20261014223041.171317-1-hugo@hsal.es>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014223041.171317-1-hugo@hsal.es>
-References: <20261014223041.171317-1-hugo@hsal.es>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,150 +55,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4j4mBG6Jw6zMlDm
+X-Rspamd-Queue-Id: 4j4mBC733xzKnTY
 
-Leave only a scaled mode in connector->modes and put the larger native
-mode in the encoder, as a size-limited probe does. On eDP and LVDS,
-create_stream_for_sink() must build a stream with the native timing and
-the scaled mode as its source size. On HDMI it must keep the first mode
-in the list as the timing
+On a 3840x2400 eDP panel booted with video=eDP-1:1920x1200@60, an HDMI
+hotplug followed by suspend/resume brings the panel back with the
+1920x1200 mode as its raw timing. The image ends up squeezed into the
+top-left corner. Photos, hardware details and the test loop are in
+https://gitlab.freedesktop.org/drm/amd/-/issues/5983
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
+The hotplug makes fbdev emulation reprobe every connector with its
+framebuffer size as the limit, so connector->modes loses the 3840x2400
+mode. On resume, create_stream_for_sink() finds no preferred mode in the
+list and scales onto the first mode instead. Patch 1 falls back to the
+encoder's native_mode, which amdgpu_dm_get_native_mode() copies from the
+preferred mode before the size limits apply. Patch 2 adds KUnit tests
+for it
+
+The fallback only applies to eDP and LVDS, where amdgpu turns scaling on
+by itself. On other connectors the preferred mode can also be missing
+because mode_valid rejected it, and then scaling onto the first valid
+mode is right. Those connectors still hit this bug when userspace sets
+the scaling mode property, which this series doesn't fix
+
+A fuller amdgpu fix would always take the eDP and LVDS native timing
+from the encoder, and search connector->modes only when the encoder has
+none. I kept this to a fallback so it changes less, but I can respin it
+that way if you'd prefer
+
+On amd-staging-drm-next, with an HDMI hotplug and suspend/resume
+(pm_test=platform) in a loop, 28 of 29 resumes came back with the wrong
+timing without the patch, and the other showed it briefly. With it, 169
+of 169 were fine. A backport to 7.2.8 went from 103 of 103 bad to 1363
+of 1363 good. The new KUnit tests fail without the fix, and the
+connector suite passes, apart from dm_test_fs_caps_hdmi_vsdb and
+dm_test_fs_caps_pcon_whitelist, which already fail on this tree
+
+The cause could also be fixed in DRM core, for every connector, by
+making drm_client_modeset_probe() probe with the device's limits and
+apply the framebuffer size only when fbdev picks its own mode. That
+touches more shared code, since fbdev's other mode pickers would then
+need size checks too
+
+Hugo Sales (2):
+  drm/amd/display: Fall back to the native mode, not the first, on
+    eDP/LVDS
+  drm/amd/display: Add KUnit tests for the eDP/LVDS native mode fallback
+
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  28 +++++
  .../tests/amdgpu_dm_connector_test.c          | 112 ++++++++++++++++++
- 1 file changed, 112 insertions(+)
+ 2 files changed, 140 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 56fd133bc..55e2c3849 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -4547,6 +4547,115 @@ static void dm_test_create_stream_hdmi_vsif(struct kunit *test)
- 	dc_sink_release(sink);
- }
- 
-+/*
-+ * Build a stream after a probe with size limits below the native mode, such as
-+ * fbdev emulation's. That probe leaves only a 1920x1200 scaled mode in the
-+ * connector's mode list, while the encoder keeps the 3840x2400 native mode
-+ */
-+static struct dc_stream_state *
-+dm_test_native_mode_pruned_stream(struct kunit *test, int connector_type)
-+{
-+	static const u8 edid[EDID_LENGTH];
-+	struct dm_test_stream_ctx *ctx = dm_test_stream_ctx_alloc(test);
-+	struct amdgpu_encoder *aenc;
-+	struct dc_stream_state *stream;
-+	struct drm_display_mode *native;
-+
-+	ctx->aconnector->base.connector_type = connector_type;
-+
-+	aenc = drmm_kzalloc(ctx->drm, sizeof(*aenc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, aenc);
-+	KUNIT_ASSERT_EQ(test, drmm_encoder_init(ctx->drm, &aenc->base, NULL,
-+						DRM_MODE_ENCODER_TMDS, NULL), 0);
-+	KUNIT_ASSERT_EQ(test, drm_connector_attach_encoder(&ctx->aconnector->base, &aenc->base), 0);
-+
-+	native = &aenc->native_mode;
-+	native->clock = 592500;
-+	native->hdisplay = 3840;
-+	native->hsync_start = 3888;
-+	native->hsync_end = 3920;
-+	native->htotal = 4000;
-+	native->vdisplay = 2400;
-+	native->vsync_start = 2403;
-+	native->vsync_end = 2409;
-+	native->vtotal = 2469;
-+	/* Cached by the first, unlimited probe */
-+	drm_mode_copy(&ctx->aconnector->freesync_vid_base, native);
-+
-+	drm_mode_copy(ctx->mode, native);
-+	ctx->mode->hdisplay = 1920;
-+	ctx->mode->vdisplay = 1200;
-+	drm_mode_set_crtcinfo(ctx->mode, CRTC_INTERLACE_HALVE_V);
-+	dm_test_stream_add_mode(test, ctx, 0);
-+	ctx->dm_state->scaling = RMX_FULL;
-+
-+	ctx->aconnector->drm_edid = drm_edid_alloc(edid, sizeof(edid));
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector->drm_edid);
-+
-+	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
-+					ctx->dm_state, NULL, 8,
-+					PIXEL_ENCODING_RGB, false);
-+
-+	drm_edid_free(ctx->aconnector->drm_edid);
-+	KUNIT_ASSERT_NOT_NULL(test, stream);
-+
-+	return stream;
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_edp - Test eDP gets native timing
-+ * @test: The KUnit test context
-+ *
-+ * The scaled mode must still be driven with the panel's native timing, kept in
-+ * the encoder
-+ */
-+static void dm_test_create_stream_native_mode_pruned_edp(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_eDP);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_lvds - Test LVDS gets native timing
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_create_stream_native_mode_pruned_lvds(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_LVDS);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_hdmi - Test HDMI uses the first mode
-+ * @test: The KUnit test context
-+ *
-+ * On a connector that is not a panel, mode_valid may have dropped the native
-+ * mode, so the first mode left in the list must drive the timing
-+ */
-+static void dm_test_create_stream_native_mode_pruned_hdmi(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_HDMIA);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 1200);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
- /* Tests for amdgpu_dm_connector_detect() */
- 
- /*
-@@ -10246,6 +10355,9 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_create_stream_dp_vsc_colorimetry),
- 	KUNIT_CASE(dm_test_create_stream_dp_colorimetry_quirk),
- 	KUNIT_CASE(dm_test_create_stream_hdmi_vsif),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_edp),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_lvds),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_hdmi),
- 	/* amdgpu_dm_connector_detect */
- 	KUNIT_CASE(dm_test_detect_force_on),
- 	KUNIT_CASE(dm_test_detect_force_on_digital),
 -- 
 2.55.0
 
