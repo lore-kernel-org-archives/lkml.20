@@ -1,153 +1,267 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010014.outbound.protection.outlook.com [52.101.69.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A7130EF8F
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792006082; cv=none; b=UblTuvmpgNCRLSryLY0X8aR6c5eT4wnPwhrxHAWkkAl9z3V9NDntnyHs1mFFffP+W0EADif2SPiCxui4FIv6axc8y9+zAzAqSVQvldTDYmWmoy+2xhbUDCX+ZNXkfldlZpY/l8scdmEJYhQ9Ex5xju11tapgKizWBQSbUGLyaWA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792006082; c=relaxed/simple;
-	bh=U+T8zcNui896RuKy/9PmUhVVMHFkbK+hoFwjEBuIhlw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b86qZhUrfq56aeTc+pfNlZxbrPE3FtlFK0STpKIa145M5AluHNOBWZbbbu67qNNFOcRpdy408mZ6kWxIphS8C2hmuCxkIUIoG39aqreC6jrWFOD99XsZlHw8vO4IAAO1CI6XtZnw9LbeX+HcCSTyKIRsOTJkAVqfFGNRYne7uYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=e5mc20eq; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABEC2D47F1;
+	Wed, 14 Oct 2026 19:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792006081; cv=fail; b=TOawfl8i23W8Q9BC2pQRszR+L3QqsEu9WXuyN4q4Evsx3UjSWFwwxrR8xKvCSLhA7mmzPhykjv0cJPURjYKnGJ8H7VHL/CZpYA1I/5+sO9WyWv14zy5XyPTDwjLNhFUQV5zUn4z+gplRo+GwzL7QA4hMrm5Q2wsYousWdfkvDzM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792006081; c=relaxed/simple;
+	bh=qZq5hW8prNK1AAzykpX725R/A4/P9sT9mpIA4Hs3kVc=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=PpLvFEgVzTUSFYpmDcUdoDYI6hTlx5+mo0gYikvTcK123f3zDF2UsuOAllQRN0+jonj4s+aPUSonactvEtZ9xmjFxYpCgVSlyL82X8gXTlMuLGlA3SuTyY5Tj1G530f7oWm6M7pXkntRzBzd5ACaLI2OfzHCSD9isaRkr9BuSzE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b=MLxpG28Z; arc=fail smtp.client-ip=52.101.69.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="e5mc20eq"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso32791965e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:28:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792006079; x=1792610879; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=79ZQLVF6/awVfagux6X340wRycgEHKIlZJR5+alEZXw=;
-        b=e5mc20eqsiJhW1Nig3xUs4wAUeT20jkdeEW8NQn/lP5yHP8v+zBP9WX9cHjaztYOjZ
-         xN8xODAVg8a5MAs/anBJ/zbrwMc1jkJilScp5nsCPD/mKpvL9+qJGZrxTfz7bfd3g7NK
-         GbqyVH0bomc+ZgmKOMkH8RSxpP6BC88e9XdghXDGU8sJZbq7hjaqnoN6IWwCtSw3QkD6
-         cOQ8EqzjN+zZJPwngyGfUBhoX5PV9qLQ7fkLRA9/k9AAXlYQ8sXx6ddkyZBrV9yZASnl
-         BRFc+pxMDjftdi5AJX7rhjb67fDplfbGhBI/ux9FOg4ZVzIeehEVIorQwk3DFao0qAuE
-         +/mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792006079; x=1792610879;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=79ZQLVF6/awVfagux6X340wRycgEHKIlZJR5+alEZXw=;
-        b=Y2h9A4GrIH3xlpZKInYQKEZcvKR0AaVvHMVuAJd6fIbajA2OqUmMPQqSw/bGgFYlFw
-         cv0I1B1leEZ9QvLb1ldoU5pT065hz9vi/3OSaDFSzztvD/gny/jO4kLrPyQPQqgLfiCH
-         LYgZnA1M1z+SOPy4oBOfmicGKyXls0+YFnZRVu8anYGzNvK5B7Bif5eqAlaqCTEQghX0
-         IFj9PAVdPdDXQu5y1yWi7yD3lMZAKkcO1VKrRFaLLmd/KssIgQR3vz7ruwlFg8hkM10r
-         Se+RWI0euPxTPmBz/E5lTXvPG98Y9i+v++F7A5/YLpFHaUH4hmQItj9yIhTo/vMheK8h
-         zAaw==
-X-Forwarded-Encrypted: i=1; AKwUvByh9IrnKuyR9otl6ZgLXSSolEZD1+prf3HZtFS7wVP7L5C5wSX4r3qjdl9TALjFvFv2fO8YWxIaGBwr+Nc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHyc0S1yaYvch5Ds2sVWf8WIVDo9/WxKY3A95MCDt+cO1feoyA
-	3/vCbuTqDlJ+eNA1ofYGZIa2gAcX4u2GPMomowm12Q6UvzAdfwFBRFyfgrgIdgz0f0M=
-X-Gm-Gg: AYBFou3ETpht3D9NjHGS18l7yPSuaKHbswZ4fzTF4bZCk7A1uEtmlsED1kW61Pk8Bme
-	dYFiXdWPOR3GYOryIg0RJ4bup11IQN06jiR3FAsbX5iH/dmbsMYuByQsW0JdT56G60FVxfD6oK2
-	B6TApmBv+jjJN7JNLg47Z4nRIFYRmvICgpB6hNOpq9MdmUgjA/owuMU6XfWmKPx9v0Xc520Oxu8
-	/HaUGOhanf0b3vyeqjLPhOUzUxWDaL9TU0fzaVWwcMjrNGjhMTuKoCWXhM5vLEK/AuSoGy6TCZx
-	/ooJFjCL4E/73aJhkC0jegWzMHI6mzDjAeykbXggjJhiz3Titq3dUQ5BJwlJsfsS/htyFlJ4UiE
-	QYWvWVuYUENQlkgQfEcHxmB/JuCE1PlFC8Qeu2ZxK4ZYvKyxHwCSq+j3dzbUb4R/qFnFGOsQHJM
-	38Bh6NumrBEViYy5odeZsvO7KlVdcqTIrZT7ZcPdtE6HQJDSdll4bEQHCXSzJWdi+6WUvryDEB1
-	odt3Ce//x1g
-X-Received: by 2002:a05:600c:8b78:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4a18e47acf5mr381505505e9.11.1792006079203;
-        Wed, 14 Oct 2026 12:27:59 -0700 (PDT)
-Received: from localhost (109-81-25-183.rct.o2.cz. [109.81.25.183])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd972affsm12468825e9.2.2026.10.14.12.27.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 12:27:58 -0700 (PDT)
-Date: Wed, 14 Oct 2026 21:27:57 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH for-7.5 4/5] memcg: avoid queuing high_work from reclaim
-Message-ID: <as_XvRZzV6vR9dCo@tiehlicka>
-References: <20261010210957.1350874-1-shakeel.butt@linux.dev>
- <20261010210957.1350874-5-shakeel.butt@linux.dev>
- <as9p2uFqCQprwdnI@tiehlicka>
- <as97Nzob4XuzO9Ss@linux.dev>
- <as-08j9_1C2F_N8s@tiehlicka>
- <as_AxtUlV8K2fkNu@linux.dev>
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b="MLxpG28Z"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NjyWfdJr5OvHMeJTMvLF06bcpfb7Qq9DYPnaqIOWGQOwBMUpld27K+sxFawk9dkC1pTGl4CT1ljk8CKnMYAsdqRSt+z/i+ST3FTDr+mRD5S6o3m4TGHxPWCIu84BV9bR0cff+AOkAfHXl7SD9CsSZdJt24gqnrS1JZh/qsU6r9g2RzvyUQh+lsBVz2H2ye8n3S3oZHQSdrnVwRP7iMVoH1QAn0JTA+svNVCsehr0TczqmtPzc2BgObtVALGJr2vrUVuXvZz8WEhhTgmbVP44OjU3RTphDcnOUS+pdqIMza9uHFQOhmWyTvTrsHm3+AztvJdi23oRF5IV8+/DwkeI4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dGxRIABO5ZBEmdKGOyS/3pjmFdLsWcGI2L5Ldg5oqd4=;
+ b=kmnxMe5lzdTu4/xmxA7Q4qtRy1sCVmo30UyNQUWk1JEWvJhi0hLchY0XNpaHjtwcScxVVxh3xORG7umrZHrPKppesglG92fqyM1W3QAAdOGRJ7Z+qgTTCkkN+vhzRYWb2zw5WQQotfB8l/gpc8GYumQ6btrkJQ2fUcO7IH7C2dTWYpd9gX8EGrR4lumQCz4XSmEZkJ/00+l/Ad880wp1F4rb8tJr4z/cucxShjYjoc+gbLOPzcteAM2jTKHtdrrmdywq8Q/KIB9TpFi+06SiSamnmAQ23W5W1hue77aj4LLj1SPbQjScbuHK6Gt1YHKgYbAJzJyPPevkTB/PDC0RkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dGxRIABO5ZBEmdKGOyS/3pjmFdLsWcGI2L5Ldg5oqd4=;
+ b=MLxpG28Zf+/Nz/TGl8K0X7nPFWw/uYQBp6z7KTIrD0HXQgfHdSilgsTVzfeaWPP7kCBgf2sfa1K8EnvlVWWVTPzV5z5lfUV5uxCgTQfAM/yAfKmSYzSvMKTwZ3WEFIwxXxZpq9d6PhL/q/wXcAUD+llQm88kPzpcG+YXt6iIXSHBi7s5ykSVpd5JzJrLuVh5Fg3sa5U+AjU6kteSIGk2ePNtHftbgUBrS021bheZ9QZrkApTDe3Jn3lO9wVm1s5YA/f2NmokVWzjLj7gDl/MNg59ysBwFCTwdf5kcAbD4kNTUexMsqHH2cWqGQswZMB+fsZ9LOr8EHJOQyVIAjIK1w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siemens.com;
+Received: from AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:3dd::5)
+ by AM0PR10MB3155.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:18a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
+ 2026 19:27:56 +0000
+Received: from AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::5f49:b0e9:d295:22d8]) by AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::5f49:b0e9:d295:22d8%6]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 19:27:56 +0000
+Message-ID: <3ac898ad-b367-449b-bb0e-841a4fc6c190@siemens.com>
+Date: Wed, 14 Oct 2026 21:27:55 +0200
+User-Agent: Mozilla Thunderbird
+From: Tobias Schaffner <tobias.schaffner@siemens.com>
+Subject: Re: [PATCH v2 0/3] rv: per-edge dwell-time statistics for per-cpu
+ monitors
+To: Gabriele Monaco <gmonaco@redhat.com>, Steven Rostedt <rostedt@goodmis.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rpm@xenomai.org, jan.kiszka@siemens.com
+References: <20260911123439.463052-1-tobias.schaffner@siemens.com>
+ <4759c9b0dacdf1f9c0cf47158895860dbd0ec401.camel@redhat.com>
+ <cfd7123a-e83d-490d-918b-154d45aad92d@siemens.com>
+ <aa16855bc9ccc6b776ba4f513b86e3eadf889f74.camel@redhat.com>
+Content-Language: en-US
+In-Reply-To: <aa16855bc9ccc6b776ba4f513b86e3eadf889f74.camel@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0072.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::11) To AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:3dd::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as_AxtUlV8K2fkNu@linux.dev>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR10MB4992:EE_|AM0PR10MB3155:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8206d3fd-91a3-40d7-8a1d-08df2a293fb5
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|1800799024|10070799003|376014|23010399003|5023799004|11063799006|4143699003|56012099006|261009223027099003|55112099003|22082099003|6133799003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	YcrnGiA1pPqBOJhmJ5WDt5trhJ1W5g5B/7rOjz4HTcD5l+9BuswHaWZc+ryMvF2Wp1tYyWPSN3pXswRaFlPfAuUG0pxcNSdb5NLWodpzfMCizedaBoZBUKvrcb/Vi+o3nKQWIj27gnB2tyB1M7OBYX12Qbjs/9OtPjDf6yjR5DlRpCjSxfyvGASLmPHtqIQHN22tTnRzNmm93A32W4DJYS7FddaloMoEXNQDOSQUttX+7BQuos1gbdKa/E9xeOdafvqQU4pqWCgI5s0HYEUJJw0wLFlm5mQiT4hy3Py8TEe9pr73JycSU/7A85CEus3OHl2f0DtcRK5yV2W0qVhP/4yAXrbDiFnqI+YjsPZqFsUmGmuWL0ByOl8Yn/R57bBdtX5Pc99c7+6r+zD+PV1TFLnRf0vhFtvjaTTrghOgEmeIZRuU+VwmO45Z0oInn8/BtvA/2Lh6SokTy0jjg/cRMVx+CTHT5XmRdLOBpJaKkS/7exljO6tRl23c6GTWGKPPwiUmsoYt0eqtjptxN75FA5RfD1+La05+NAj0lsC0RlOS9GaR1QXeEszsqvSiNYszJnRapDFZIhrQ9wRUazjXtzKsAoWJsSeooX4CPCgAYZ3huCzJWtfUZq8dMZ/8mfmHkLWi4xKmNoMcWV6F54mE2WJzuE//wkW0tSnGUV5kJT0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(10070799003)(376014)(23010399003)(5023799004)(11063799006)(4143699003)(56012099006)(261009223027099003)(55112099003)(22082099003)(6133799003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S2xjaFFVNG5qUGxnSzIySy9XZitORmNkN3NXd2g4cC85VGNEK3RnTGhmMVU3?=
+ =?utf-8?B?dysxNHFxckhsWktxWW9sNWZ5WFZjZFdaNm1nTlczbEVvNmZKL2FYY21kZFFE?=
+ =?utf-8?B?NXpBb0NQTE5WdkdaSTNTbXk4czJIZndVTWcvL2k3T3ZOTTVjcnFtMENxazRR?=
+ =?utf-8?B?bG15cVFBM2NaVmFpVkd2ZUI2T0c0aklMc1pQSVdScDlPZVQvSWVFUjBzZ0x4?=
+ =?utf-8?B?dHJlcllQSzQ0aXNBc0U2NGhyaEkwZCthSU11ZjFzU2pabTQ4N1lLYVBWTDBV?=
+ =?utf-8?B?ZFFPWDk4L3ppS0tKUTBHN254Qis3NFZId3JGUHVmRGVYOE5GVjc3RXFXYnhK?=
+ =?utf-8?B?N0ZlZVhobHFEKzEyOExxTm5ieVVLa21ueHg0bmpETklGdFFWTzNLeXI3MnE1?=
+ =?utf-8?B?alA2ak9aOWp1Z3kxV081WXQ0b0MzK1hlOWVRV1FzZzZqQWdad0MzNjhIUlh2?=
+ =?utf-8?B?RlAwbUhtTVRzTW9Xb1JmQVZ3bnZMMWsyZUhIMVZxT2Y2UkNlakI1aytPZkNE?=
+ =?utf-8?B?aUVKWWlLYlpnOTRrVXo3M1JFOE4welUyVjJyWkV0Y0hIbmxidHNRZDFSbUlt?=
+ =?utf-8?B?V0QzQVhwV1RSaXY0OWdwUkU1Zm5lbXo5MDd2dGNheVVWb1BKM3BLZjlEYjd5?=
+ =?utf-8?B?YUNHUi9LZWh3bm9ZUUlkSm1LL01RSUFSKy9sWmZ5SkZteFhTbUwzUC9rdWhX?=
+ =?utf-8?B?VVBTZG5kS1FRc3VHd3FXdkd0ajZtalk1SktxOGljUWNKNXg1Yy9nWVZyTmJa?=
+ =?utf-8?B?L2R5anNCK2xqRUltakJ6VjVMSFBvM2RFbElMYm9DVmJVNEIzMWJISDZ1cERs?=
+ =?utf-8?B?cnZnSG5qeFRlZzZrN3ZvUSt2TjBUdTZ1SXZFekg5VU8zalFGV0NYRmlHM3ds?=
+ =?utf-8?B?RWgrMHJyYWsxSzB2K2p3VUIwcHZ3WUpCeHErVElFcFhqazk3bXdsNjVkekVG?=
+ =?utf-8?B?SEJVVDdvZmdXYTB2Zlk5amp6Ujg4eDJndnE5djEyU3YxOC9wL1RaVDR0VklB?=
+ =?utf-8?B?b1l0dzM2d1VyeUV3VGljRlVmTE1lNlpFMmFKVVh0aDgvUisxYlJvVEorMFov?=
+ =?utf-8?B?b0F4b29zM1lkcG1JSFRLeXdJVGF1S0VFNldLOWJ6SXRuK1NZRGhqVElmbzhh?=
+ =?utf-8?B?K1h2OFU5RG1jdklRRFF0TTBIc3ZxMTk0a2xaemJtR0hBSEZJMFJtdjExc0k3?=
+ =?utf-8?B?aVd1TWN0SVdDOUdvWnplOWtFSUdZNkl0cWtYSVhHWjR1b2wzSU1xZVM5Snd3?=
+ =?utf-8?B?VUpwZlJ3MzB2SURGQkVwNVhyOGJiTS9rVkxrN1JqTXlFRjBOMlI0VVVreHp2?=
+ =?utf-8?B?dUhCVStQaXpIVUd3QTU2NlVkTXE1eFcrbWpOdjhBWktFNUI0UnNjWlZFZFpS?=
+ =?utf-8?B?TWc0bmo3dk4rQlk2ZUZpSlBUZGV3THR0UllBS1hjOXJRVkNKajVwRDhicUtt?=
+ =?utf-8?B?L05iUSsrbi80US9FVnVhaWRiSEFoTFM2STFWOElodFhpVjhtS3d5Vkt4YTBj?=
+ =?utf-8?B?VFVFaENhK2Q3bU9HY3U4WUVhYm5VbjFERUd6MFFKZ1N6MVUraDQ2Vm9sMFkr?=
+ =?utf-8?B?RitqemhIN0dxYkoyL1h3TGhMN1drZ1Urc1ZtV3Y4K1VZeDhzSC9ibmtnbW1v?=
+ =?utf-8?B?OWJTbjQrQnJvaVNzWXFVQlFFakVJV2ZJaytLYzBDZnVPcnZjNmtkaytlbVNl?=
+ =?utf-8?B?WjVYV2tMMHJwd1F1aHF3ZVVFZFFnaENEellJZUd5S05sRnFodlpsVnQ2TTUr?=
+ =?utf-8?B?ZVA2Z2pseWxrZlFwK3RDdW12dUQxbEVES2NheldZaDU2RVZtNm54TG5SMW9E?=
+ =?utf-8?B?NnJhZlVYK2FRbEdDbkhCM2lFQkNRb243Tk1hcTlxS3J3SnJ6ME5WWjlBQ29u?=
+ =?utf-8?B?RWkzdysvMy92MlBxbkRCMWQwTTJVcW93d3YwUkVpYUpOL3FtMzAyWnJoZDFy?=
+ =?utf-8?B?ek13QkV4ZVNZRzlFVjI0K1kwTDA0MW8vNDRFSWJuQndrOHNWdko3UEozMk1t?=
+ =?utf-8?B?NUNZMjhrRlAvckN5Z3FlQlk2RnJVS0ZsMk1QQ2g1NFFKTkxZS080dnBLZm9o?=
+ =?utf-8?B?MW9uNjBBdlNiWnA3Zm5rSTFlSFl0cXF3dUhyTWFvRmVhcndROUVncmVSQ3RQ?=
+ =?utf-8?B?bnN5MjVVbzJhcVBLUjBJdFozR2xPMVNFbS9seUxKSlZFSlhoRkkvdjZQNFgr?=
+ =?utf-8?B?WnZ1Q09hSEtSUU55T1JubkF2V3lqaHBKVG4zNmQ0MTNkZ3BVQXFwbUZBUWxV?=
+ =?utf-8?B?ZGV2cnJyM1pSeDVnbW9jVTJNNm1xZkZqaVhwdDVQd0lTTkpvOG8wU212MlFW?=
+ =?utf-8?B?dFJXZWUxdjVpTGphSE9zY0JOS3VhdVBhQlo5eHhBMjd6WW9aT3E3b2l5dEM0?=
+ =?utf-8?Q?2YvkwyiTOCNnqEuiz0quKoz4O7mE0vSNuXGs5A0KSs8IA?=
+X-MS-Exchange-AntiSpam-MessageData-1: zA72t2qmGQyGHv9ifI+mqaeD2Orgff/Z/Hg=
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8206d3fd-91a3-40d7-8a1d-08df2a293fb5
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 19:27:56.2286
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EwAQiuAJ+DqedMZLXL7YL4xovogYHGvX4iu5iV5T1YV1x+ialFADWW1uRfKvtDMzs+xPAOzRxgJFczjKw1XhJ/ooTMXxbefipjK0l7wZE6g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB3155
 
-On Wed 14-10-26 10:55:21, Shakeel Butt wrote:
-> On Wed, Oct 14, 2026 at 06:59:30PM +0200, Michal Hocko wrote:
-> > On Wed 14-10-26 09:06:00, Shakeel Butt wrote:
-> > > On Wed, Oct 14, 2026 at 01:39:06PM +0200, Michal Hocko wrote:
-> > > > On Sat 10-10-26 14:09:56, Shakeel Butt wrote:
-> > > > > Kernel threads and remote chargers use high_work when memory.high is
-> > > > > exceeded. Their allocations during reclaim can also charge memory,
-> > > > > for example when zswap stores a page.
-> > > > > 
-> > > > > Without a check, the high_work worker can queue itself from its own
-> > > > > reclaim. The pending bit is cleared before high_work runs, so each run
-> > > > > can queue another run.
-> > > > 
-> > > > What does that mean really? Does this delays the actual run?
-> > > 
-> > > It will not delay the actual charge request. This mainly means that we keep
-> > > enqueing the high reclaim work even from high reclaim context and can
-> > > potentially keep wasting CPU if high reclaim is not very successful.
-> > 
-> > Hmm, so is there any practical problem if we do that? What exactly do you
-> > mean by "keep wasting CPU"?
+On 10/13/26 09:26, Gabriele Monaco wrote:
+> On Mon, 2026-10-12 at 18:18 +0200, Tobias Schaffner wrote:
+>>> First of all, would dropping RV in-kernel support negatively affect your
+>>> current workflow?
+>>
+>> I am afraid it would, but first mine is a niche use case, and
+>> second I am not very experienced with BPF, so please weigh that in.
 > 
-> More specifically if high_work kworker keeps enqueing high_work, most probably
-> the memcg does not have reclaimable memory and keep retrying it wastes CPU.
-
-Yes but this is not specific to PF_MEMALLOC context, or do I miss
-something?
- 
-> > > > > Skip memory.high enforcement for charges from task context with
-> > > > > PF_MEMALLOC set when they would use high_work. This covers kernel
-> > > > > threads and remote charges. The memory is still charged. Interrupt
-> > > > > charges keep their current path.
-> > > > > 
-> > > > > In a VM with incompressible zswap data, the worker queued itself 163 times
-> > > > > without this check.
-> > > > > 
-> > > > > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> > > > 
-> > > > The patch itself looks OK. I am wondering whether we can unify the check
-> > > > with the existing one which forces the allocation through in main
-> > > > charging path.
-> > > 
-> > > The force charge (and ENOMEM) paths bypass the memory.high enforcement
-> > > altogether.
-> > 
-> > Exactly. Isn't that exactl what we want to achieve here as well?
-> > 
-> > > Only successful charges (done_restock label) goes through
-> > > memory.high enforcement. So, even if we move this check in try_charge_memcg, it
-> > > will still be a separate check before calling high enforcement function. I think
-> > > this check is very high_work specific and better to be in the high enforcement
-> > > function.
-> > 
-> > I meant something like the following
+> Thanks for sharing, I'm asking this question precisely to find out all use
+> cases. RV is itself a niche tool, so I'd rather not squash use-cases away!
 > 
-> Oh ok this makes sense. Do you want to send a patch or should I add this in this
-> series replacing the 4th patch?
+>>> About this series, I believe we could implement the same using BPF maps
+>>> without too much effort, then the rv userspace tool could display them
+>>> nicely.
+>>>
+>>> What do you think?
+>>
+>>   From an implementation perspective there may be a few pieces missing,
+>> both in EVL and in BPF, to make this work. But I guess most of them can
+>> use the patterns the kernel already has for NMIs, so I expect we would
+>> find a way.
+> 
+> I'm curious to know how exactly you're tracing EVL right now. Are you having it
+> generate NMIs to linux and catch their tracepoints?
+> 
+> RV attaches to tracepoints and BPF would do exactly the same.
 
-Feel free to take it. I haven't even tried to compile this. Just wanted
-to show what I have in mind.
+Nothing generates NMIs. But from the linux kernel's point of view any
+activity of the companion core is NMI-like, since disabling interrupts
+from the linux kernel does not stop it from running.
 
--- 
-Michal Hocko
-SUSE Labs
+Our co-kernel keeps control of the real interrupt mask, so Linux cannot
+delay it. Most of the time what Linux disables and enables is a virtual
+mask instead of the real one.
+
+Tracing already works inside EVL, thanks to a downstream patch [1]. It
+is mainly fixing all the points that rely on interrupt masking by
+calling the correct wrappers.
+
+I would expect that we have to do similar for BPF. Some of the checks
+already exist to cope with NMIs and we would just have to make it
+recognize our stage too.
+
+[1] 
+https://gitlab.com/Xenomai/linux-dovetail/-/commit/2fc39d2bb5d9ca1c0e898794fc0297eb04cf67d9
+
+
+>> I have two more fundamental concerns though. One about verification and
+>> one about recording dwell times.
+>>
+>> Regarding verification:
+>> The path I verify is deliberately kept short and simple. RV fits well
+>> because the probe is a plain function call and the state update is a
+>> try_cmpxchg that cannot fail, so it adds very little. A BPF program
+>> brings more machinery into the probe path doesn't it? I fear that adding
+>> this would force me to verify that the new RV system does not change the
+>> behavior of the system we are trying to verify, and I suspect that could
+>> be harder than verifying the system itself.
+> 
+> I had a few conversation with some Functional Safety folks over the past weeks
+> (the same people Daniel used to talk to), I now understand the problem better.
+> 
+> Their use-case was even stricter, that's why RV didn't take off for them,
+> essentially they're trying to prove some more isolation from interference RV
+> doesn't really have out of the box.
+> 
+> But back to the RV vs BPF case, I'm trying to reuse the exact same code in
+> handlers, so the verification step should be mostly equivalent.
+> 
+> Assuming you'd use tracepoints (BPF can have more probes but vanilla RV does
+> not), I guess you'd need to validate also the ftrace code that ends up calling
+> your handler. BPF adds a bit more on top of that too, not much though.
+> 
+> Then obviously there's the data representation: we use BPF maps that can be
+> quite complex, though simple arrays (in per-cpu/global monitors) shouldn't be.
+> That would probably add more to the verification you need to make..
+
+You are clearly much more into the topic than I am. I will have to take
+a closer look to better understand the BPF data structures and,
+especially, their locking mechanisms before I can answer this.
+
+My use case is, so far, not that strict. It is more that the bigger the
+tool gets, the harder it becomes to argue that it does not change the
+behavior of the system under test. If the tool remains simple in the end
+and I can describe its behavior as deterministic, there will be no issue.
+
+>> Regarding dwell timings:
+>> The numbers you presented look very good. But wouldn't we lose
+>> determinism by using BPF? If I want to use this as a measurement tool, I
+>> need it either not to add latency or to add a constant amount. The mean
+>> wake-up latency of EVL on my system is around 10 us, so an observer does
+>> not have to be very variable before I can no longer tell its jitter from
+>> the timings I am trying to measure.
+> 
+> Ok that's a good point I'd like to investigate more. BPF shows great performance
+> in the average case, though I fear it could have worst case spikes my quick
+> tests didn't show.
+> 
+> I'd need to run more numbers to be absolutely sure of that, I'm not aware of any
+> internal locks in the simple maps we are using (though I only quickly checked).
+> BPF maps are clearly heavier (memory indirection and/or function calls,
+> sometimes mitigated by the JIT). But if we properly set them up we shouldn't
+> expect big determinism issues.
+> Nevertheless, this is definitely something I need to look into.
+> 
+> The whole JIT thing shouldn't bring big problems either, once handlers are
+> compiled, they should run almost natively, but again, I am not too familiar with
+> everything that happens under the hood so take this with a grain of salt.
+
+Thanks for taking a look!
+
+It sounds to me that you think about moving the complete RV system to
+BPF. Is this correct? In the end I will try to follow if you decide to
+go down the BPF route. Possibly after some delay but nevertheless.
+
+Should I wait with proposing a v3 of this patch set until you made a
+final decision or do you want to merge this in the current RV system no
+matter how this develops?
+
+Best,
+Tobias
+
+> Thanks,
+> Gabriele
+> 
+
