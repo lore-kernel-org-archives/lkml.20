@@ -1,63 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2316E4A8A17
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:20:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDE74A99D5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:20:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009249; cv=none; b=ozpV+o3Gs+yEJnAmx1IlmOF+u1GDygvOOUYwiF5paUVEfN/ihr5MHchV9WNSvIyYv3VydXp2Vpwlj2zXpjsXPpSpFspIn33edjYldnBlJt4TLQA9EXmUeDNBryE1VxptgXfCvdUEKMPcDdinVlf7zUrX1fqXR+Br5x5R+S2XESM=
+	t=1792009251; cv=none; b=gd8PY9SpjwY958wss0Q4u7/GNFahjvBUFJMSeyv+lBJTpJbwiEIp3BM2TQ2biFpkhJh45EyDMqlh+hUkJQQyBKSmbNfD3qvwkJIfgznMAMIML70Jut6/nalAsYU3Om6kwCmkTRQ8nktlVWUbv6gZZkqXBpsgRCxg+i768OOC7nI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009249; c=relaxed/simple;
-	bh=QUWYSZt6Mnq+Lk+qvi4n1AmLX7BAMEys0wZ8MsNVvx0=;
+	s=arc-20240116; t=1792009251; c=relaxed/simple;
+	bh=McA14YaWUl1UWCI+tv7fdrnCKKMMmGiILDSENOfbmKo=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=JwGFtBop6N+moS+t27YltzS95/oTn7MHGAEjspXi1wroVZLBHXqVr2n2M1CIZFXmmDYjrlCivzmQLBK+Qrk/GAE457q+RWY8W4WhdIf5LLahd6WIS8MRx9CscROMNh+Bq1Rs85kp/UfhaKrJpZVtUQQeCMRRIDsZCuO/fI6X33A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=j6FRhSSZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=RnRiUdhF; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=eXojfzMH89EEriAGnMNYxoksr6O0F8lHmCMbHSsyxYqNop/cyaSS2CjJlK1ndIXsMPYlIUD9hKJX6PrB8sLAPw5r7bBq1KJHQh0HuHKhLcAp2ajsstlW4sifzUAwFT8SCYy06olMLHy7aTxYd/3uYnF+5MT/oPdhwoqWIXRAhV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sYcjhdLV; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=65JC8hu0; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="j6FRhSSZ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RnRiUdhF"
-Date: Wed, 14 Oct 2026 20:20:44 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sYcjhdLV";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="65JC8hu0"
+Date: Wed, 14 Oct 2026 20:20:46 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792009246;
+	s=2020; t=1792009247;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pDaOachM2UyqQFMe2bLCWLhI3vqpokzm1Xy8M/nWLtQ=;
-	b=j6FRhSSZaYVmfPHg3gY3jLne2Y0CRFBCHw/iL/92zuNmCX0k9W44gshVFlDofH0N+tx+EW
-	hO6Zo7z/vV+h4cV6oqSnBJsYGowSQ4wmJAsf8W9R6CSI2LQmgdhgEfgja89amfPPHq6W8K
-	riaQlYvw5igNQhis5bPILUbhoY2Npr7NMEhY/exIbvXVI/qHxynq6vm9uw8HYhwBYlIhkK
-	DIpiI4YO/j4Qyjv8syV3ne2sbHJOJWv1CCxO8dqdMD5bhKthv7spR9zawtLtnwa8C/9qgz
-	xm9/EYQTX8osyVUZuLpcw05EgDyRFDskpL0zJrj+boGx/8CZAKELyKrWaYmlfQ==
+	bh=MUZVNA6YWPiqXdsWRl7PXADR0Is9wsE/dC9juVPtdZI=;
+	b=sYcjhdLVeOmquXOBlTxhKtOQL2ZfiAhoOGA9IlZQWPCS8weIJVT/QTRhME9Yf1OkHJvkKC
+	jzon+DJgHqaK+jEJGXDRCbrRJazzlk7h0UTfCKjtvUOnIIMNxFElT2+4qpbPMkRgYIMsbe
+	2o10N6sf7KkQa/BsQiwdDhReraOOSgcjO6O+OgwGk4b97m0bHihTdBoJm7khVcSMn9ilT7
+	V0Wg0KleVcBczcJCT0rlQGoNc3idPQIG3MzRJNQIQ82BflSFNg1qg2gAzOEguE1gPhZl9j
+	O7WvaFyDccDGJxIoYP3L5zsr+Hss+dDgzY5uDT3B8SmgxCTWgxqSPp9CfI/WaQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792009246;
+	s=2020e; t=1792009247;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pDaOachM2UyqQFMe2bLCWLhI3vqpokzm1Xy8M/nWLtQ=;
-	b=RnRiUdhF4nXHjn1LtB1o6wwticZZy2WQvZFKMTkV8AZPiU7TI3zm49yrl0FuUrEdRhh+5X
-	+LwPy+8zBwdKZkDg==
-From: "clocksource-bot for Luca Leonardo Scorcia" <tip-bot2@linutronix.de>
+	bh=MUZVNA6YWPiqXdsWRl7PXADR0Is9wsE/dC9juVPtdZI=;
+	b=65JC8hu06Mn1jLQEV9OTx0XOsjmIOVw1v43dgHT6SKKP8ggbU16aJkFayWS8enWbM+UVaM
+	T9ikQ13G1er8N4Dw==
+From: "clocksource-bot for Wentao Liang" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-kernel@vger.kernel.org
 Subject: [clocksource: timers/drivers/next]
- clocksource/drivers/timer-mediatek: Fix random crash at boot
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, daniel.lezcano@oss.qualcomm.com
-In-Reply-To: <20261002072115.169250-2-l.scorcia@gmail.com>
-References: <20261002072115.169250-2-l.scorcia@gmail.com>
+ clocksource/drivers/timer-econet-en751221: Fix clock reference leak
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Caleb James DeLisle <cjd@cjdns.fr>, daniel.lezcano@oss.qualcomm.com
+In-Reply-To: <20260915054552.1729612-1-vulab@iscas.ac.cn>
+References: <20260915054552.1729612-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179200924459.2666337.2191849978590778262.tip-bot2@tip-bot2>
+Message-ID: <179200924610.2666337.1817311872626639838.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -68,63 +69,44 @@ Content-Transfer-Encoding: quoted-printable
 The following commit has been merged into the timers/drivers/next branch of c=
 locksource:
 
-Commit-ID:     8496a1d234e8cf9cb15c4282cb3a11c6550bd242
+Commit-ID:     36790ef57803400339d8ea4081d85483264dbd6c
 Gitweb:        https://git.kernel.org/pub/scm/linux/kernel/git/daniel.lezcano=
-/linux.git//8496a1d234e8cf9cb15c4282cb3a11c6550bd242
-Author:        Luca Leonardo Scorcia <l.scorcia@gmail.com>
-AuthorDate:    Fri, 02 Oct 2026 09:19:26 +02:00
+/linux.git//36790ef57803400339d8ea4081d85483264dbd6c
+Author:        Wentao Liang <vulab@iscas.ac.cn>
+AuthorDate:    Tue, 15 Sep 2026 05:45:52=20
 Committer:     Daniel Lezcano <daniel.lezcano@kernel.org>
-CommitterDate: Tue, 13 Oct 2026 13:17:13 +02:00
+CommitterDate: Wed, 07 Oct 2026 15:46:14 +02:00
 
-clocksource/drivers/timer-mediatek: Fix random crash at boot
+clocksource/drivers/timer-econet-en751221: Fix clock reference leak
 
-MediaTek bootloaders generally enable APXGPT timers at boot. This means
-that a timer IRQ can sometimes happen between the IRQ line request and the
-configuration of the clock event handler. This leads to a hard crash with
-an instruction abort, branch to pc 0x0 in mtk_gpt_interrupt handler as
-clkevt is null.
+timer_init() obtains the timer clock with of_clk_get() and only reads
+its frequency with clk_get_rate(); the clock is never prepared nor
+enabled. All four return paths after the acquisition (of_iomap()
+failure, clocksource_mmio_init() failure, cevt_init() failure and
+success) return without clk_put(), leaking the consumer reference.
 
-To avoid this issue request the IRQ with IRQF_NO_AUTOEN and enable it
-explicitly after the clock event is configured.
+Drop the reference with clk_put() right after the frequency has been
+read. The clock enable state is untouched.
 
-Issue was reported and fix tested on the Lenovo Tab E7 (TB-7104F, mt8167).
-
-Fixes: a0858f937960 ("clocksource/drivers/timer-mediatek: Convert the driver =
-to timer-of")
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Fixes: 3b4c33ac87d0 ("clocksource/drivers: Add EcoNet Timer HPT driver")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
-Link: https://patch.msgid.link/20261002072115.169250-2-l.scorcia@gmail.com
+Tested-by: Caleb James DeLisle <cjd@cjdns.fr>
+Link: https://patch.msgid.link/20260915054552.1729612-1-vulab@iscas.ac.cn
 ---
- drivers/clocksource/timer-mediatek.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/clocksource/timer-econet-en751221.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer=
--mediatek.c
-index 7bcb4a3..e20075b 100644
---- a/drivers/clocksource/timer-mediatek.c
-+++ b/drivers/clocksource/timer-mediatek.c
-@@ -277,7 +277,7 @@ static struct timer_of to =3D {
- 	},
+diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksourc=
+e/timer-econet-en751221.c
+index 4008076..1859335 100644
+--- a/drivers/clocksource/timer-econet-en751221.c
++++ b/drivers/clocksource/timer-econet-en751221.c
+@@ -181,6 +181,7 @@ static int __init timer_init(struct device_node *np)
+ 	}
 =20
- 	.of_irq =3D {
--		.flags =3D IRQF_TIMER | IRQF_IRQPOLL,
-+		.flags =3D IRQF_TIMER | IRQF_IRQPOLL | IRQF_NO_AUTOEN,
- 	},
- };
+ 	econet_timer.freq_hz =3D clk_get_rate(clk);
++	clk_put(clk);
 =20
-@@ -298,6 +298,7 @@ static int __init mtk_syst_init(struct device_node *node)
-=20
- 	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
- 					TIMER_SYNC_TICKS, 0xffffffff);
-+	enable_irq(timer_of_irq(&to));
-=20
- 	return 0;
- }
-@@ -334,6 +335,7 @@ static int __init mtk_gpt_init(struct device_node *node)
- 					TIMER_SYNC_TICKS, 0xffffffff);
-=20
- 	mtk_gpt_enable_irq(&to, TIMER_CLK_EVT);
-+	enable_irq(timer_of_irq(&to));
-=20
- 	return 0;
- }
+ 	for (int i =3D 0; i < num_blocks; i++) {
+ 		econet_timer.membase[i] =3D of_iomap(np, i);
