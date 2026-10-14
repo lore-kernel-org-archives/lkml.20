@@ -1,123 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171F7519E15;
-	Wed, 14 Oct 2026 13:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE027519E09
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983966; cv=none; b=WJFg3fzM/k9ENF9g7HlqacuaeF3kS1J2Bu9BK1u4YN5c0iAIk/1cp3W0zB2gSj4cVuPzhcfRv1cv71X62owappZev4JEcojC335F/8rNWVZYEtt1oTHlSgRWxnCC38eS3A26zKPrY6Y58UXU3y31udztNYjYssiK0kBx8z/uBU8=
+	t=1791983966; cv=none; b=BeGYV0ZAuU4AgNkgVSZipi4f2pEEzRpkkkvolV8eS45jfB5I/HFc2jo9n9M7xhBFpHqk8Ix58Zw78AU1Ec6NrpeXSNVLy3sLOQMJnkpcL64ISMM0lU2L1c09d+dNKRkpzyBt+kIPJsM5hG32O1GgO5seAs/vC6c1M7o4wl4T1hI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791983966; c=relaxed/simple;
-	bh=uaiGgrGG503lygQoD1TkFzsttYu2oumGISniMtzuEac=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YiCubc9WoubZ3waMEnvItdSiIBRFCoBiTXfrZS6mE/BMYd9ugR6NKLboikBwJHysDSMmlgg2MkFUhKS1FzWXJXtO9PMD/zNerw0grR8Zi+cFuT7kneoI9XBNYj8GA6WeJK7FjZsPuHFDkByaj2QtvRFwqAXwZBy0G0tvjH+/rTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LurmvTeI; arc=none smtp.client-ip=100.103.45.18
+	bh=3XiTnHjtKyGmYkxo+YoIHM8WRSb4sHGlwJsHPkB7tD8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PA5nxCfjhS3QQlsmg6OKovT7Gn4RVd3znIq9jY2JrDqkAv6EKNUt1jmUJMR8thsnnn7iX45QS86fJBWbKzf8BSEtn9w/js4x9lKp9MtIwi8JomXuQKrB66xYMtqAZOBeZ3vDYayO6Ocb7mrS+6j9UC5GlwkZALDdJ2TtoVxIZ8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H2BGSwzz; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LurmvTeI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2AA61F00907;
-	Wed, 14 Oct 2026 13:19:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791983961;
-	bh=9lqmNqph/NmDgl+ER8M2XQtqx8qAD+LKW0gr+nEYDKA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LurmvTeIXSUWZQebtHo97qzfQAH3TW/WiQsh4lwRc+CAjIQZbgybYs0fUOSfBjeQ5
-	 mV4Sl18v9dqs7W2jGk5Ymw5NdcbZl2BkuGv5pPTc4h12PEvtYBwj6y7GhAEZVrwJSv
-	 F+TpzXJl5sBih3giUVRaC85iyFpvin9bissRrV83ekZQqSvsVAJUBc102K3fx0m43R
-	 y8OHQKnNfSlXn3TGCJxVCe6LMJXNob4xaKzJ/KBqsiwaO+A03cMi3mCakNn0NVoASR
-	 xPP+VQssvMvsnsu0DyZuM8hobrIFJKjtR5cLAYBkohqtTlHkmEQba2NlUmFdfhJEmj
-	 8szDg5EbSWgBw==
-Date: Wed, 14 Oct 2026 15:19:18 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, Boqun Feng <boqun@kernel.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>, Jonathan Corbet <corbet@lwn.net>,
-	Bradley Morgan <brads@mainlining.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-Subject: Re: [PATCH v6] softirq: Preserve interrupt context during IRQ exit
-Message-ID: <as-BVqMyaphswYz0@localhost.localdomain>
-References: <20261011060742.30584-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H2BGSwzz"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so32516255e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:19:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791983960; x=1792588760; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PrQd1TYxVsLLCzKNoYMSTtNryDC1lxFWl13clDFwphI=;
+        b=H2BGSwzzIrGTKjQztNDil20hhrNA319Ey/VQW6jRXln4Yc3qs+ldJGIEetsh+XXr57
+         A9k99W183bn5vQRWW+C1JbdMrOxwzyLy2hkx177WWrH53tLg2GeDGjbnbZXOkJKEz6Pg
+         XC2X0jWoqColjXdn7OpK4ru+bJmWzhvcHrWqmor8jq1X1e1KR/HPKyrSoNqvUxIhaNgO
+         2KBVVgi/frhrf2JfOFrewkGkSAhX+WlFkkiXFhFE+a/tV2mWn0/6CVIlx1kUMI0qJ/ph
+         xP8CcqKp/7MVhby9tmDoqlySUsj99JlSnqlngU0DrkDMQV89CSRTO67S+IUHJqXKv+v2
+         E7/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791983960; x=1792588760;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PrQd1TYxVsLLCzKNoYMSTtNryDC1lxFWl13clDFwphI=;
+        b=TR8EoU9bbmt2z1QE0lfBI866Wkg3XZ0d0l53zA8PpYH7P46irA8FIBRJW/sQ/ZSk57
+         dZMVxwZrfGmh7g7Fe2EwP0KkeFAm3Y/imbhe7vs+Xuj4yu+JilyaIEzRWW85a+qVzHe8
+         VDI7/AF+/pNnocxXEV0EDZfowNMEeGjQiVGBc/lZJ1gdDmwFeCL7IU6iB/MQFFKyFra8
+         zDwPsXjgNE4KHdA9ppzu7Z37fvC51da00dF/mSSVJGRmxi2kTdG9JNkr44tPcF/A7et3
+         2gZH5cCvHAV73LuxDTzPjTWXyt4jaOg3VR5Poui5kXh1O+C/qF2cYCLVk1q78fSAKxdr
+         QEQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdH6TNgxBmIHMohFiaP+osQJy4ATQPH6ivoec8Ldf4lv1l5SbucQ7azxEjT6a+b+Y3Si70sDNBBWcHkPk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKM0Cv9LBA1Po5qkiljlEnk1HHgCTWTpi4eZegwmoywTJQJkPml
+	3D+4CuoOHDGs68mXX480xIB8XyOV0QxBVs74gJyoxOd7DWKx13TwpWbShscRLt8i
+X-Gm-Gg: AYBFou24VfJhJYOUZUkkF4TYsgWmeQyz3uYraYpMjlDSbaVPWmQmjnTNoDQEdEvvaSI
+	wjHtNqpNH47s9OXfJyZe6t1YN1xGHtZAquLToM1WEIf8I7F5IMcxROOLxeqtPvTZFvuPYNUe4AP
+	7O/RpBxEJGBTTeF4UcUpgTIodQzGC3RKNkE/mh2rDQcKFf/TYZYKsXU53c3IDBosygoViUoI3WD
+	BVz+JY4gFTOkOgO2FajpAyNsLXxLLgaUYjWsrrP8esjrIaWeSS/JDSDvPs7q6R9ljHlZXsuEv34
+	VN1Sc7GE6rL5RQVtEbnuDmKbKcNbcimxRCm/CsTwMHtpvMPunGxvfS5NQ99dFb8+YpeQkKKNknn
+	oK9je4UJ9CbsddzVmmlVE+Sy85w6EVzBpCTjFXU/AzdRHMbhruCfRvqZIxjw+wgN/t6EvnOUp1Y
+	XkX64C8ztEo16hXGmEQZCH/f+J9UcXocGkgoB9n2Jb+6bEZ1NZHog5TIjTeh6aMSzs/cFfHdL01
+	ZuWLWpmTIwuknez/2JHXQgaP4DNOGCiBouyvmQW9lAew+4mdR/UHDVHhyVUuPD2UjuXZCYcWOlK
+	Pe+IZT6fMyEV0PSpK+Q=
+X-Received: by 2002:a05:600c:630f:b0:4a1:9f59:ee7 with SMTP id 5b1f17b1804b1-4a19f5911f4mr186961775e9.0.1791983959697;
+        Wed, 14 Oct 2026 06:19:19 -0700 (PDT)
+Received: from iku.example.org ([2a06:5906:61b:2d00:ea0c:b1b4:c6cc:a0af])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bcecbd0dsm1413825e9.8.2026.10.14.06.19.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 06:19:19 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	=?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@bootlin.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Russell King <linux@armlinux.org.uk>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH net-next v3 08/13] net: dsa: rzn1-a5psw: Make use dev_err_probe()
+Date: Wed, 14 Oct 2026 14:18:56 +0100
+Message-ID: <20261014131906.990077-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014131906.990077-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261014131906.990077-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261011060742.30584-1-kmehltretter@gmail.com>
 
-Le Sun, Oct 11, 2026 at 08:07:42AM +0200, Karl Mehltretter a écrit :
-> __irq_exit_rcu() removes HARDIRQ_OFFSET from preempt_count() before
-> the IRQ exit work. On the outermost IRQ exit, with no NMI or softirq
-> state remaining, this makes context checks report task context. The
-> softirq-dispatch, timer-wakeup and tick-exit checks account for the early
-> decrement, but other code reached in this window sees the wrong context:
-> 
->   - ftrace, perf and the ring buffer record task context and use the
->     task recursion and context slots.
->   - KCSAN attributes accesses to the interrupted task. KMSAN uses and
->     changes the interrupted task's KMSAN context. KCOV and the printk
->     caller id see a task.
->   - On PREEMPT_RT can_spin_trylock() and local_trylock() reject hard
->     interrupt context to avoid interfering with PI when the interrupted
->     task is blocked on a lock. Those checks do not reject calls made in
->     this window. BPF programs attached to sched_waking or sched_wakeup
->     can reach the trylock path through kmalloc_nolock().
->   - An oops kills the interrupted task instead of ending in "Fatal
->     exception in interrupt".
-> 
-> The early decrement predates git. No failure caused by this
-> misclassification is known. lockdep is unaffected because
-> lockdep_hardirq_exit() is the last operation in irq_exit().
-> 
-> Keep HARDIRQ_OFFSET until the end of __irq_exit_rcu(), including
-> tick_irq_exit(). Softirq handlers must run in BH context, so replace
-> HARDIRQ_OFFSET with SOFTIRQ_OFFSET while they run and restore it
-> afterwards. Use one raw counter update for each transition to preserve
-> the preemption disable location recorded by irq_enter_rcu(), and update
-> lockdep explicitly. Detect IRQ exit with in_hardirq() in
-> softirq_handle_begin() because __do_softirq() can be reached through
-> do_softirq_own_stack() and cannot take an argument.
-> 
-> Adjust the exit checks for HARDIRQ_OFFSET still being present. Use
-> irq_count() == HARDIRQ_OFFSET for softirq dispatch, as in irq_enter_rcu().
-> Use hardirq_count() == HARDIRQ_OFFSET for the timer thread wakeup and
-> tick_irq_exit(). NMI exits use a separate path. An IRQ nested in an NMI
-> has an extra HARDIRQ_OFFSET from NMI entry, so it is excluded too. The
-> timer thread check must ignore softirq_count() to allow wakeups when an
-> IRQ interrupts softirq processing or a BH-disabled section. The timer
-> thread handles all pending softirqs, including any raised during its
-> wakeup.
-> 
-> A softirq raised from a tracepoint on the final preempt_count_sub()
-> waits for the next interrupt exit and can trigger NOHZ tick-stop
-> warnings. Handling that instrumentation case does not justify a check
-> on every interrupt exit. A tracepoint on tick_irq_exit() can also raise
-> a softirq after the normal softirq handling has finished.
-> 
-> The number of counter updates and interrupt time accounting are
-> unchanged. The preemptoff tracer now reports the interrupt and subsequent
-> softirq processing as one section. With nofuncgraph-irqs, function graph
-> tracing also skips the IRQ exit work, including the __do_softirq() frame.
-> 
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kicks-ass.net
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+Replace dev_err() with dev_err_probe() when reporting failures from
+devm_clk_get_enabled(). Clock retrieval may legitimately return
+-EPROBE_DEFER, and the current use of dev_err() incorrectly reports
+such cases as hard errors.
 
+Suggested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+v2->v3:
+- No change
+
+v1->v2:
+- New patch
+---
+ drivers/net/dsa/rzn1_a5psw.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+index 846216f22bc3..bdfa84745eda 100644
+--- a/drivers/net/dsa/rzn1_a5psw.c
++++ b/drivers/net/dsa/rzn1_a5psw.c
+@@ -1234,15 +1234,15 @@ static int a5psw_probe(struct platform_device *pdev)
+ 
+ 	a5psw->hclk = devm_clk_get_enabled(dev, "hclk");
+ 	if (IS_ERR(a5psw->hclk)) {
+-		dev_err(dev, "failed get hclk clock\n");
+ 		ret = PTR_ERR(a5psw->hclk);
++		dev_err_probe(dev, ret, "failed get hclk clock\n");
+ 		goto free_pcs;
+ 	}
+ 
+ 	a5psw->clk = devm_clk_get_enabled(dev, "clk");
+ 	if (IS_ERR(a5psw->clk)) {
+-		dev_err(dev, "failed get clk_switch clock\n");
+ 		ret = PTR_ERR(a5psw->clk);
++		dev_err_probe(dev, ret, "failed get clk_switch clock\n");
+ 		goto free_pcs;
+ 	}
+ 
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.55.0
+
