@@ -1,177 +1,131 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4B918B0A
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:18:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791951529; cv=none; b=hvVvk+fzNbnn8sWa2v5Ed8uzmJeWxibAPvsH+SJgkeshg8HWZKjuo9mI5Pm950wej8aZfReBkGM+qlNmJfhrVeGqjhwHGgZkd646wIeA13O56Ui/9NgjilZhk9dt5cdFHnxQWxKMmUCc/DA/HVmqydg9oq981R/xQfksVvwTk4k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791951529; c=relaxed/simple;
-	bh=i7MZ2hh1lsucAf1Issob0IIhtNoQCneTAgwdQA5yQSQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kCMyfK5/7bL9odjsbObcTMhwQYdFiK+PqHTTavmmJvKwSfqFWwxBQtMEGQmN1A8cmXtfRsEAQr0kS7b2dgcG+giGKEiEikXASf2rbvx7WgavGF6xzwtxR63QXQVUElF04YASrVcIiXbQKK+9rzD8mAxYFalWevbxtWqG72yZzW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=PshrBJo6; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1193F484D
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:21:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791951686; cv=pass; b=DcgEiMejMRUo+lvW2vR0hYQFLUbqgBaSVf+8g2nwNiv2EYAW1tP3tvsSneIsTSUfeJFU+SnxA/gppJDBL73hE75k467Di75JoMhzBnA6FS7gpWYt8IGuQjOlGRCnMssFXjMPQzzzi+N0fFnnzg+2nR7+x93qmETc049elKZwNso=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791951686; c=relaxed/simple;
+	bh=cn63L5SFcW4uv11BCKaKFb7NgF9TokUcHR2wfHkyl4U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tYzimLp75iNM9DBQkAuBMmPk+MiuTyYYtwwJRL7YTNjPXJAY8pqXk6paPpUdgsbRYHHoB0y57CKy/NISxlAYya0Od6s+tbg+LfBGbC+btGgYhgWEnXVG1Q/T57oVWgyBbHao7eq3FoM3c4TfHNlmFj7KeQSP+KWHKENBvjTCQyE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ckamKxOS; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PshrBJo6"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DME0Rg150374;
-	Wed, 14 Oct 2026 04:18:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=rtd3Eo
-	TSGwNNvIYdDclcR6RR5tnU8UkvIS0m5BBVYI0=; b=PshrBJo6gC+ZQjpOZegPFw
-	f0FP33M/SisjzFZi0EgDEV8dOqqASbK4fcV85XEf1LtVcBOlJao1ySU7w4dZqc3Z
-	zjas1CeRyxkACqaHau/oX44A5iqhhhKvAT5yK4XDsywcYaCy2CL/M2aJxlhEaaIn
-	66Gbb+3c5t8vK3Ib63yW9yeD6Eu4V0jQ+CefFcNVoNQYmBsHuyFVBmnrRB8J1o34
-	7UzUDUDWeV8HmzaEe7EWx3YRwgjm0MsPIdADItQ/jzM14cF4kxYuLzW4XtsEdMdh
-	Ohs8HYpnTII4RRzd+FvybwVxV0gnWdjxNUSkyCVQNAz9P8b2TjL95G6t/j9ZE1jg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhjag6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 04:18:27 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69E215xT3303971;
-	Wed, 14 Oct 2026 04:18:26 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h9qb6u2ay-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 04:18:26 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69E4IMQu35651996
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 14 Oct 2026 04:18:22 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CF13E20043;
-	Wed, 14 Oct 2026 04:18:22 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B9C8520040;
-	Wed, 14 Oct 2026 04:18:19 +0000 (GMT)
-Received: from [9.124.213.187] (unknown [9.124.213.187])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 14 Oct 2026 04:18:19 +0000 (GMT)
-Message-ID: <baad6173-30e0-45de-ac0a-fd403c869add@linux.ibm.com>
-Date: Wed, 14 Oct 2026 09:48:18 +0530
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ckamKxOS"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-533202fe429so1019361cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:21:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791951684; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ERkoaQfBct561vyiQHUUmNJdtYYHsbS+ct4t+tepISUxR5K6mysXTeC7l6eF2UykZf
+         yRQq+TLggT7bVhmKSnPjZLIJvHft2e3DPIdjmi7ssWBWfx8ro+x1AHcgJBnnb7B+u0Zk
+         7bdGCd7EdCI/m3aSnG8eDVULtsD0HT8HfVcyKHXhHiqWi19OKIoEBXtOcme94SMXpM5t
+         t6NWGTMsd/kOqEyYWDYNf5gZwYoAW9S0H49NLgKA5l6EXhLX2niljAocF960sbBgJIY7
+         cDD3FTRGVJu8FUfeTJqmkelhHv54PNMNKikdDriLK4FwyDoWCphZdr3GRgCsXve1CjlP
+         sVIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2grbJw/Issi66ell9ynhnVcAT71hGUf9xcfUvHsRTPI=;
+        fh=WoKt2SVHY4bBFHgP7haguSM7gY3FGCb7b0CmEBRxCSk=;
+        b=D07lJ2jr5lnqu9imjkAxih8Z+UEwFuqPZW4hagjcKym6kQXGjfRo3gXwgv94StbI1r
+         7yeJ3pkYS2UGhGVRBnxHp8jRFbzugpORCeXheBHGSvBSFnko/SaIy8OhOHHzYwc/HE4u
+         lETIRNv1Wzk69ZGSuS8vDHnKoJ0FcJ/Nvj9EsAdaC7U0Wba9sTPQtkbwNatsFhU+SWNr
+         2zTvv2uEEFtJRFhsw75IdeOdp8pv1C2K2q3a06My7njNaxtI0HifpFJqcqrOI6/R2iZ2
+         n3GzLzjJJILN7QiwwDzsmkAMGihOzNnKTvmM/5Dlo33xP/qw173cQHIT+9TIUTlnsF+T
+         8+aw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791951684; x=1792556484; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2grbJw/Issi66ell9ynhnVcAT71hGUf9xcfUvHsRTPI=;
+        b=ckamKxOSS5ZVtXVHuveq7kbmhD7Qt8WJ8Uz3xyC39ype1k2EXlMS0MNODY3n5qf5Y9
+         Ok524oLIvlOHC8coZJJs84BnbCbwFMtU3Z8Q8GtJLtAKGauwU3JXowqGgMr7RCJglBnF
+         ZCzVsTkeWyzGxVo/2H2U74scwQbkbHivz/hXZC3H1aj0SYV6eH4dpTal8Q+jkyOJWpwY
+         txSANywoEhEYX5dpvCCDHm7HQRgJLhK1vnjdXYcYmu0BP7jJPsWmfi6z7XF5hpWDhDYo
+         gsSQmpdu1vSMjQBeK/soP2rXjFJo4Z0eyOmTaIedSVl6OPx1O02TmGkA4p7QJzzETq2E
+         EaIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791951684; x=1792556484;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2grbJw/Issi66ell9ynhnVcAT71hGUf9xcfUvHsRTPI=;
+        b=rPbmsXI5tyIAneOW0ZfBJ8VZF5BVT2U/2UII/YE8EGDVoQxECWz6EAlYoKRARF7QdR
+         q2HtximoRznYL7wERxVQFftOvHhsvKWlBRMCWQNXECYjfZf2S7W8MLiuLfjSgvkToXvf
+         Llk7lAlOQfHRaF9Svr8N61ZzbOuIPnivGSqNZCNzMkLbpI/hWfrcJTLKqlFfmCCfeWFo
+         Iclbx52wsXYmztxjYVel0ROAOXiubsg1hzsUV7oK+0PEdE/Q7DyIooE6mBM6wTGpTrbm
+         cjJz+SZmWUPxlOGCYV9nOga5GFTywl5cRByOqPuKJGr94rQCS4ZFT5O8HX9H6PHDgd0F
+         OrVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKCyEbk0Udnuqa8G7PEG7osoHVjkNqaImxPJzamdFPuF8wvoSrp8odo6/+OJ9mn08ea4aJZqPawCQ5w8M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJA6uaUtOZ/bfte1JHWNFAsEUwXSk0rNw+9+i8txMXOh6HKuMdQ
+	fJeVDDRTFboXGJF9MakYWC4ribeegcCFd5W49UL9X6LALz0nw/lJ55LND2zf3Gabx1Su4Qve+Ll
+	Utp3ErWb3L9+7V7h+mUuvuqZEqT9OFHsQH9AGc+Ud
+X-Gm-Gg: AYBFou2RjDix6aCjBxtlElB5VCRo0aFIT4OyLXw3E1PNFemxM5EayM4pD8AuTraBs+w
+	7gvkLFiuxLzQSVoyzo1hsUa7tifUSQlfn24SLi6Ye2uHP/XgR8l06E18r2EINXyyPcElgnEgJtD
+	3U47M1RsI1PvTPpntateVsKE7G612104BW8gKEOGAyv0imaAIyJaY4hEELibx+nAT+TO0TA2kWO
+	F4Vh6edjrkfxya95CX1+Fb5yQhzulAC8kCl6PHapwH7AuZV7JiXtu7o19W+1H+Sr/3bxCiPZ4n4
+	5MH3oIgsBTkxjWn5mf6H9CVLTExbefF2NDUZ/JWJzFulnoe0zVvvXFw=
+X-Received: by 2002:a05:622a:4cca:b0:535:852e:a94a with SMTP id
+ d75a77b69052e-53602372601mr6443441cf.7.1791951683567; Tue, 13 Oct 2026
+ 21:21:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] powerpc/topology: Introduce llc_override debugfs
-To: Srikar Dronamraju <srikar@linux.ibm.com>,
-        Tim Chen <tim.c.chen@linux.intel.com>
-Cc: christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org,
-        ritesh.list@gmail.com, kprateek.nayak@amd.com, yu.c.chen@intel.com,
-        vineethr@linux.ibm.com, vincent.guittot@linaro.org, npiggin@gmail.com,
-        mpe@ellerman.id.au, maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org,
-        peterz@infradead.org
-References: <20261012102037.2477378-1-sshegde@linux.ibm.com>
- <0cbd60fcf328ffcb317739f60d327da3af6145f1.camel@linux.intel.com>
- <dfd8312d-a59c-4480-b054-d94d2e66110e@linux.ibm.com>
- <4d0f2f4631f2f836bb1aec140c2c8e3e11d7ba20.camel@linux.intel.com>
- <5f107344-7ddf-402e-809c-7229ff6fb6d5@linux.ibm.com>
- <as79e9ZRXp28QLkG@linux.ibm.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <as79e9ZRXp28QLkG@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAxNiBTYWx0ZWRfX0uDjNjO5J3cW
- Un+IVWVmX55fJXgAwGxwI0cW03YzGppKzi415WIgtDNev1M4njz9OiE4s3kpUWQOnMVz8qkGjBr
- H2cFajPEL1CsZmTGD2i5QViYJQbBebs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAxNiBTYWx0ZWRfXySXZhbBAfHTL
- QZCQDM/jHw9ub6X60WwZjNpB1O5xX7/MDJR/w3eiYjeuKd3leA44qjMlWkpZA8FHq81XGJArWfD
- 90dZfA9cExYsL4uv42l0LHbce0GMYJr4zfl1V97hvfLcEonYysFqR6+AXHzoQf30qtlfwp0bQ+z
- ib/AILNwB348nN90aW6ncCc8OMy8608CyJGH7rHpHL3vE9ziKTXGLPchYyrPSDI5zFELzw2G4A0
- LOo28zj8dtHueZ616g+LtXIljxhCR0h/f692AAbHGepd4q8KDMymDkGizBeYVAVwjpK/KDftxB5
- fFOArOgIxQmWZooPUxp/AxuJ2Vw5BFShgS63zKw0hRKh+NwrJA0Vrv8If8LhpAZKD8aZ1IpyojY
- vgs4y8nY67JmI12P0fvPp9ERJkHjzzjkhjXgUvtiFa0X+GWZTUrNPjJ7UAVISiwcXF4WxMoFfOB
- berwd9gotI00f0M/7QA==
-X-Proofpoint-GUID: edQIIEEYGG0lSQo0Q3kbLKCBMxeawP0p
-X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6acf0293 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=1qPKxZ1lXodfsSuZhD4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: k6d73xMwrmR2h8MeWaLV3IH7LnORcOFn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140016
+References: <20261006-james-perf-timechart-mypy-v1-0-e2c7edf4dd31@linaro.org>
+In-Reply-To: <20261006-james-perf-timechart-mypy-v1-0-e2c7edf4dd31@linaro.org>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 13 Oct 2026 21:21:12 -0700
+X-Gm-Features: AclHuK9WIXj2sByPsg3xQovB10FYGg7q3yTP2FKnRU4saVxapsfo9MvVb8B-joc
+Message-ID: <CAP-5=fVypGeXuKw1vJMaqGhpUtF3vqPcdKpo+Q61qZHGKSj2Ew@mail.gmail.com>
+Subject: Re: [PATCH 0/2] perf timechart/treport: Fix mypy errors
+To: James Clark <james.clark@linaro.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, Alice Rogers <alice.mei.rogers@gmail.com>, 
+	Arnaldo Carvalho de Melo <acme@redhat.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Oct 6, 2026 at 6:03=E2=80=AFAM James Clark <james.clark@linaro.org>=
+ wrote:
+>
+> Two small adjustments to silence Mypy static checks.
+>
+> Signed-off-by: James Clark <james.clark@linaro.org>
 
+Reviewed-by: Ian Rogers <irogers@google.com>
 
-On 10/14/26 9:26 AM, Srikar Dronamraju wrote:
-> * Shrikanth Hegde <sshegde@linux.ibm.com> [2026-10-14 08:46:11]:
-> 
->> On 10/14/26 2:14 AM, Tim Chen wrote:
->>> On Tue, 2026-10-13 at 15:28 +0530, Shrikanth Hegde wrote:
->>>>
->>>
->>> - SMT: patch 3 adds SD_SHARE_LLC only to MC/PKG, so for "smt" the
->>>     flags are as before. I think it is possible for P9 to have
->>>     shared_caches between two cores:
->>>
->>>     /*
->>>      * P9 has a slightly odd architecture where pairs of cores share an L2 cache.
->>>      * This topology makes it *much* cheaper to migrate tasks between adjacent cores
->>>      * since the migrated task remains cache hot. We want to take advantage of this
->>>      * at the scheduler level so an extra topology level is required.
->>>      */
->>>
->>>     the CACHE level also has SD_SHARE_LLC, and highest_flag_domain() picks it, so sd_llc spans
->>>     cpu_l2_cache_map. shared_caches is only set when that map is wider
->>>     than the core's threads, e.g. a P9 core pair sharing an L2:
->>>
->>>       CPU:               0 1 2 3 | 4 5 6 7
->>>       cpu_smt_mask():    core A  | core B
->>>       sd_llc (CACHE):    0-7
->>>
->>>     The ids follow cpu_smt_mask(), so 0-3 and 4-7 get different ids
->>>     while sd_llc and sd_llc_size cover all eight, and
->>>     cpus_share_cache(0, 4) is false, which is incorrect.
->>>
->>
->> Yes. I doubt anyone wants to try this experiment on Power9.
->> But yes, functionally updating the flags is needed.
->>
->> @srikar,
->> That is also the reason for having the disabled. By default on P9,
->> llc will be at CACHE domain. But, one may want to experiment with =smt
->> which i doubt anyone will ever do.
->>
-> 
-> I think P9 is a very valid point, but I don't think we should look at disable
-> as an option just for this.
-> 
-> I would say, lets keep it simple now, just have an option rather a toggle to
-> have LLC as MC/PKG for experimentation purpose. Switch the toggle and it
-> does back to regular LLC mode. Also we don't know how the future Power
-> Systems LLCs will look like. So keeping it a simple toggle, will reduce pain
-> and increase our flexibility for the future.
-> 
-> Whether the toggle will switch to MC or PKG could be decided based on the
-> experiment results.
-> 
+Thanks!
+Ian
 
-Ok. So kernel parameter "llc_override=mc/pkg" exclusively for ppc.
-
-llc_override=mc means LLC is at MC.
-llc_override=pkg means LLC is at PKG.
-No kernel parameter means no change.
-
-Hope that sounds good.
-
-Also this new kernel parameter sounds a distant relative of split_llc.
+> ---
+> James Clark (2):
+>       perf timechart: Fix task row type narrowing in goto_task()
+>       perf treport: Fix profile builder type narrowing in progress callba=
+ck
+>
+>  tools/perf/python/treport.py    | 5 +++--
+>  tools/perf/python/ttimechart.py | 5 ++---
+>  2 files changed, 5 insertions(+), 5 deletions(-)
+> ---
+> base-commit: 1dc462fc214907671600172280c2e79ef9fe6fcf
+> change-id: 20261006-james-perf-timechart-mypy-e0069393c0ef
+>
+> Best regards,
+> --
+> James Clark <james.clark@linaro.org>
+>
