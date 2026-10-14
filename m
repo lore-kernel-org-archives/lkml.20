@@ -1,600 +1,81 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCC0488220
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:38:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C074A6CD3;
+	Wed, 14 Oct 2026 08:38:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967114; cv=none; b=f0tiQhdqxqC4qLMORVBVNZPMrlxfTBrUqDB06oPMDtUU5CojcefkRh8s8A16VQStzB0byqwKbQ3UJAA/LXnSoc98ZXYbh3MzzxgcMhbfA7RPv/9LUhnkPFWJ3CMz9Yyojujh0Gtu3OleT2y1ndQwaDgcoFYzyzcMpzUN7Wz1ZeM=
+	t=1791967135; cv=none; b=lqRkjvttsA4oviWpJZpAiNNUioUxe9nrhIqOfXmrn9jVhKUwJ2k2jXOdps+w3zb9nccpkA89/ORmYzb7lPs34XDKw7UrD69uJ8jsiqM0YeFnIKTD89QdOBCSP+9L33QHIriWSVou02/bD2PDX+oj5aufKdMiqShc+1y6L/g5dzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967114; c=relaxed/simple;
-	bh=JO6SAvRaBMyzIbLTHuTc8USye2wjlop6dNXArjL0X6A=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=SngLSxR1Z5uOVFIxeeiIZbZl1uRkPiibp6PUJPCqHKmOasKjaj7Imb9I/Rk3IgMfddmR7mxvhIclQUTm99Il3shucO+ii9018NW//ZfZAhcnvX3k906cijfnOf8IavRBM7hDR0+RfjnXxR/g0qB/2lx87id7yL+xUQwDwVcW1EU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NgWkq68t; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791967135; c=relaxed/simple;
+	bh=ngJFCKHqbgCLyG9vhboqwQUYeRLMtMl0aG5g/OQVWlc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Y6s/Lw6j5yvs6WqnwzT4z5J6ASMpuOYsZnh2yam8KNHfUtyv6pxC+8SbE52LYYU+YoEi3/VVnzC/q6utWFNPGrmZ5cDB2xQicYPqpek8Gu1zucB/N8Bu2kvk02WOVt1UPKxl5R/TUPC8kUcOP+v6+lrK4ZpOYnMjU0cmwC+i7ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mq2Xp10g; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NgWkq68t"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so8690645e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:38:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791967111; x=1792571911; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vMZhnOvjpzHTO71fpTwLw1UDe64T69lDJv2/l1M0xF4=;
-        b=NgWkq68t1jRKwC7EdVkxor3rStRJml/QOZnh7hs+JExxqlLdDlo0jO9DzfYzIc1HaY
-         ZInVhXIalysp3yo7XAfQOIBLN8oo7cgaJV2GgCVJu3HpZ52svXAitk8c6QN1G6500fZu
-         W/jea1bFdTschGADzNwoaS5X4VlUozz9DOceJhG/eap5Bxt51Ft1sEuqgJtzbimgG4QY
-         E4AEy9AT7vDIMwOPz1PingGy1I6SNrQh5rBv8kpiyJ8KmgHRLBLCUo2GpINNx1MUFFms
-         GHRYSaVDDMgprgXg2vi8Ru7UCiGuydV9xEs6D1QFqb4sDSSKjW9OAGmNH5MdzAfOwnys
-         QY5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791967111; x=1792571911;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vMZhnOvjpzHTO71fpTwLw1UDe64T69lDJv2/l1M0xF4=;
-        b=GENZfFxBv0fC08qd/W/4By+FbUTa1IeeLzNbpl68inciD3g6GKUAb3v2T12slsEnjt
-         nTNvHvuZ3FBX0595NBlVg15gModa464wVVMdR5Zof2/k/26uXg0TFLR2g98w2SI5MhBL
-         RjVVqZ+Nxxl6bvpObFBlNFX6ib4ERu1Sc7pisxBNf+Hd8qi7C3c0M+txrxxl7tpFTrQY
-         736rvLgDHaJyrJTxC5NUToGE8Tp9IXantxSwLb5JeZUATF02AzN9s6GSwViQiOoDvOBb
-         Wv37PjE/fRTzhrHFDqO4LdbutYc39SGER9wfCJml78Yx0zB+tjB7O+QtrbOCKo29MkAa
-         /jfw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqiuxj6KjFKAoiTvs8BOj/jBC8H0NU8KV6sxTRrU/C3l2aX+lCvdUmOkzjWOTJG9lOH2nZLgw4eFAHDlk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbrhWM0GABaD8ej6upLRRPbgwV6z7ueeEqC7yq3687uMcCDxLm
-	Io6Owit3OSa+gD8W07BPls1HrHKmh3eodZ9eDVRit4Ll/77q9Zt7hevOH/c/RjyT0mw=
-X-Gm-Gg: AYBFou3m14Nw6jFQ32x2Qf26TllcCE5rGH7YBuaIvR3OAxkHmGH6NaiT+ClufKHIIpm
-	rCyJmbaBtc6uzSiAmSFpurk4znTNninQMkWJLws2O8ImTnBEy3eXqIvoRcvUEBKnWrcfZrrONur
-	O25VzF0rjuK/HVKZeoVGoAhg5iVmX9bQ7ynHWvPX1IErp67pWbKs0ntA5K8s16Z3Rec1CdGHkfc
-	A3m6wEZergy8nrPhgY0psr7WlwbKfqS+p8VInUGjSpAsmKwoNtmT8bBsSXKcra6vxn1F3QL4NkG
-	LJPtxncAsF5Ud6dZoCGNzW3eUbnrBzu/lXITPrM+GaOkuxASUSN9Qk5wi9aushzSulYdq/WOX9f
-	9vqPHkbZMM8+xghKvjm7/48TWK8EzqA8Vz6t7l2zzQuPcHHdW7EioV9hnJFRpaa+rB3UI54ZQKq
-	8kS2zRFqFjGXWtA/trqVF+8j4jxz+zXbl8vHyeSU8UMsH4osnDJwDxqF8pl8EBt9bJadKFjfozL
-	/zu2rzAN1puKtwHf48c7Msn9MioJUa7r8I+DL87IXgPKCGphDqtWmU=
-X-Received: by 2002:a05:600c:8716:b0:4a1:62b8:9aa1 with SMTP id 5b1f17b1804b1-4a18e44885dmr308679065e9.2.1791967110636;
-        Wed, 14 Oct 2026 01:38:30 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb? ([2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf3e044sm414310595e9.14.2026.10.14.01.38.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 01:38:29 -0700 (PDT)
-Message-ID: <ba2c6e14-cb4f-47e7-92d6-7c57312daa6b@linaro.org>
-Date: Wed, 14 Oct 2026 10:38:28 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mq2Xp10g"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DB82B4E41206;
+	Wed, 14 Oct 2026 08:38:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9323D60368;
+	Wed, 14 Oct 2026 08:38:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D675103286A7;
+	Wed, 14 Oct 2026 10:38:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791967128; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=ngJFCKHqbgCLyG9vhboqwQUYeRLMtMl0aG5g/OQVWlc=;
+	b=mq2Xp10guRPwOdzd5i29FPKBO3X5MoRrIDnynu+OM/FCaB5zvzCaTUpQoKiQNkWiJBd1P4
+	RcIpGp8oUqiBVqGBcBchPS8i8MsOXMOju1szusJtZev+cdUICiyy1pMMwlD4aHLI9/yWVB
+	12lNzP6dgKerzIA9QGtkL4HgipGMFlZIc7aeZOdLyZHqqfYDMk8Vr2w3+iNzvySIGpPexz
+	z73yYP6RfNokqHlpefpHcIX/X5aLu+ceWfhnv0vWpEsXGbWeXoqb+uMUH0HU4mzObgcoIX
+	hLZGbyZoZbB9Oc13tOMNwnmWYFBkgUxWv8kpUkc0QThocKv1ia7Fk3Df69msIA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Manikandan Muralidharan <manikandan.m@microchip.com>
+Cc: <pratyush@kernel.org>,  <mwalle@kernel.org>,
+  <takahiro.kuwano@infineon.com>,  <richard@nod.at>,  <vigneshr@ti.com>,
+  <robh@kernel.org>,  <krzk+dt@kernel.org>,  <conor+dt@kernel.org>,
+  <srini@kernel.org>,  <nicolas.ferre@microchip.com>,
+  <alexandre.belloni@bootlin.com>,  <claudiu.beznea@tuxon.dev>,
+  <linux@armlinux.org.uk>,  <richardcochran@gmail.com>,
+  <linusw@kernel.org>,  <arnd@arndb.de>,  <aaro.koskinen@iki.fi>,
+  <gregkh@linuxfoundation.org>,  <mathieu.dubois-briand@bootlin.com>,
+  <michael@walle.cc>,  <linux-mtd@lists.infradead.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
+  <linux-arm-kernel@lists.infradead.org>,  <netdev@vger.kernel.org>
+Subject: Re: [PATCH v8 4/8] mtd: spi-nor: sfdp: expose the SFDP as a
+ read-only NVMEM device
+In-Reply-To: <093672d183a06dc2f37366b2f9ff144316850863.1790847519.git.manikandan.m@microchip.com>
+	(Manikandan Muralidharan's message of "Wed, 14 Oct 2026 12:10:08
+	+0530")
+References: <cover.1790847519.git.manikandan.m@microchip.com>
+	<093672d183a06dc2f37366b2f9ff144316850863.1790847519.git.manikandan.m@microchip.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 14 Oct 2026 10:38:42 +0200
+Message-ID: <87ld80znfx.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 3/3] iio: adc: add driver for the MAX34417 Four-Channel
- High Dynamic Range Power Accumulator
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org
-References: <20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org>
- <20261013-topic-sm8x50-iio-max34417-adc-v3-3-d3604ae4a229@linaro.org>
- <as5F1uZ3DnOPYoWV@ashevche-desk.local>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <as5F1uZ3DnOPYoWV@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+On 14/10/2026 at 12:10:08 +0530, Manikandan Muralidharan <manikandan.m@microchip.com> wrote:
 
-On 10/13/26 16:53, Andy Shevchenko wrote:
-> On Tue, Oct 13, 2026 at 04:07:13PM +0200, Neil Armstrong wrote:
->> The MAX34417 is a specialized current and voltage monitor used to
->> determine power consumption of portable systems. The driver support
->> getting the channels voltage, average power and accumulated average
->> power and energy over an I2C/SMBUS serial interface.
->>
->> The MAX34417 datasheet only specified on how to calculate the
->> accumulated average power, but with the Sample Per Second rate
->> we can easily get accumulated Energy in mJ.
->>
->> By default the IIO driver only supports single-shot Voltage
->> and Power sensing, but the accumulation can be enabled by
->> enabling the Energy IIO channel which then enables the
->> Continuous Accumulation Mode.
->>
->> The counter is common to all channels, so when reading a single
->> channel we will copy all accumulators to registers, so in order
->> to permit reading individual channels we must accumulate the
->> other channels in the driver when Continuous Accumulation Mode
->> is enabled.
-> 
-> ...
-> 
->> +#define MAX34417_MIN_RSENSE		(MILLI)	/* 1 milliOhm */
-> 
-> 1 * MILLI
-> 
->> +#define MAX34417_MAX_RSENSE		(100 * MILLI) /* 100 milliOhm */
->> +#define MAX34417_DEFAULT_RSENSE		MAX34417_MIN_RSENSE
-> 
-> I would rather put the exact value here as well.
+> The SPI NOR core already reads the SFDP tables during enumeration and
+> caches them in nor->sfdp->dwords (see spi_nor_parse_sfdp()). Re-expose
+> that cached data as a read-only NVMEM device, in on-flash byte order,
+> rooted at the flash's SFDP child node (compatible "jedec,sfdp").
+>
+> This lets NVMEM cells reference any SFDP data: a fixed-layout for
+> parameters at a known offset, or an nvmem-layout parser for vendor data
+> whose location must be discovered at runtime. The device is only registered
+> when an "sfdp" node is present in the device tree.
+>
+> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 
-This would duplicate the value for no reason, right ?
-
-> 
-> ...
-> 
->> +struct max34417_data {
->> +	struct iio_dev *indio_dev;
-> 
->> +	struct regmap *regmap;
->> +	struct device *dev;
-> 
-> One of them seems redundant (I suppose the 'dev').
-
-Probably yes
-
-> 
->> +	struct mutex lock;
->> +	u32 input_correction[MAX34417_CHANNEL_COUNT];
->> +	const char *input_label[MAX34417_CHANNEL_COUNT];
->> +	bool cam_mode;
->> +	u64 acc_power[MAX34417_CHANNEL_COUNT];
->> +	u32 acc_count[MAX34417_CHANNEL_COUNT];
->> +};
->> +
->> +static const struct regmap_config max34417_regmap_config = {
->> +	.reg_bits	= 8,
->> +	.val_bits	= 8,
->> +	.max_register	= MAX34417_BULK_VOLTAGE_READOUT_REG,
-> 
-> No cache? All registers are volatile?
-> 
->> +};
-> 
-> ...
-> 
->> +#define MAX34417_CHANNEL(_index, _v_address, _power_address)	\
->> +	{							\
->> +		.type = IIO_VOLTAGE,				\
->> +		.info_mask_separate	= BIT(IIO_CHAN_INFO_RAW) | \
->> +					  BIT(IIO_CHAN_INFO_SCALE), \
-> 
-> Instead of broken indentation at the end, use different style for these type of
-> assignments, like
-> 
-> 		.info_mask_separate =
-> 			BIT(IIO_CHAN_INFO_RAW) |		\
-> 			BIT(IIO_CHAN_INFO_SCALE),		\
-> 
-> Also do not use brokenly indented '=', just a space after the field is enough.
-> 
-> 
->> +		.channel = (_index),				\
->> +		.address = (_v_address),			\
->> +		.indexed = 1,					\
->> +	},							\
->> +	{							\
->> +		.type = IIO_POWER,				\
->> +		.info_mask_separate	= BIT(IIO_CHAN_INFO_RAW) | \
->> +					  BIT(IIO_CHAN_INFO_AVERAGE_RAW) | \
->> +					  BIT(IIO_CHAN_INFO_SCALE), \
->> +		.channel = (_index),				\
->> +		.address = (_power_address),			\
->> +		.indexed = 1,					\
->> +	},							\
->> +	{							\
->> +		.type = IIO_ENERGY,				\
->> +		.info_mask_separate	= BIT(IIO_CHAN_INFO_RAW) | \
->> +					  BIT(IIO_CHAN_INFO_SCALE), \
->> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_ENABLE), \
->> +		.channel = (_index),				\
->> +		.address = (_power_address),			\
->> +		.indexed = 1,					\
->> +	}
-> 
-> ...
-> 
->> +static int max34417_reset_smm(struct max34417_data *max34417)
->> +{
->> +	u32 control;
->> +	int rc;
->> +
->> +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
->> +	if (rc)
->> +		return rc;
->> +
->> +	/* Set SMM=0 to re-init the SMM mode */
->> +	control &= ~(MAX34417_CONTROL_SMM);
->> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, control);
->> +	if (rc)
->> +		return rc;
-> 
-> regmap_update_bits() / regmap_clear_bits()?
-> 
->> +	/* Reset accumulators after setting SMM=0 */
->> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
->> +	if (rc)
->> +		return rc;
-> 
-> regmap_set_bits() ?
-> 
->> +	return 0;
->> +}
-> 
-> ...
-> 
-> Also check the rest of the code for the similar RMW cases.
-> 
-> ...
-> 
->> +	/*
->> +	 * UPDATE commands should be no less than 1msec apart for reliable
->> +	 * measurements.
->> +	 */
->> +	fsleep(1000);
-> 
-> 1 * USEC_PER_MSEC
-> 
->> +	u32 acc_count;
->> +	int rc;
->> +
->> +	rc = max34417_read_acc_count(max34417, &acc_count);
->> +	if (rc)
->> +		return rc;
->> +
->> +	for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i) {
-> 
-> 'i' is not used outside of the loop AFAICS. Also why pre-increment?
-
-I'm not used defining variables in the for loop, and bad habit...
-
-> 
-> 	for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++) {
-> 
->> +		rc = max34417_read_acc_power(max34417, MAX34417_PWR_ACC_1_REG + i,
->> +					     &acc_power);
->> +		if (rc)
->> +			return rc;
->> +
->> +		max34417->acc_power[i] += acc_power;
->> +		max34417->acc_count[i] += acc_count;
->> +	}
-> 
-> ...
-> 
->> +	/* Check for overflow */
->> +	rc = max34417_check_ovf(max34417);
->> +	if (rc)
->> +		return rc;
->> +
->> +	return 0;
-> 
-> 	return ..._check_ovf(...);
-> 
-> ...
-> 
->> +	/* Ignore byte0 */
->> +	voltage = get_unaligned_be16(&buf[MAX34417_VOLTAGE_READ_OFFSET]);
->> +	voltage >>= 2;
-> 
-> The above comment is odd. Please, clarify, ideally with a reference to
-> the datasheet table / section / et cetera.
-
-Odd ? I mean it's not, we skip byte 0 and get unaligned big-endian 16bit at offset 1...
-
-> 
-> Also can be folded into a single expression:
-> 
-> 	voltage = get_unaligned_be16(&buf[MAX34417_VOLTAGE_READ_OFFSET]) >> 2;
-> 
-> ...
-> 
->> +		if (unlikely(acc_count == 0)) {
-> 
-> Why unlikely()? Is this a hot-path? What is the performance effect will it give?
-
-It's highly unlikely yes, not specifically a hot path, will remove if to controversial.
-
-> 
->> +			dev_warn(max34417->dev, "unexpected zero accumulator count\n");
->> +
->> +			*val = 0;
->> +			*val2 = 0;
->> +
->> +			return IIO_VAL_INT_64;
->> +		}
-> 
-> ...
-> 
->> +	/*
->> +	 * Move the data to the SMBus registers
->> +	 */
-> 
-> A single line comment.
-> 
-> ...
-> 
->> +static int max34417_setup_cam_mode(struct max34417_data *max34417, int val)
->> +{
->> +	u32 control;
->> +	int rc, i;
->> +
->> +	guard(mutex)(&max34417->lock);
->> +
->> +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
->> +	if (rc)
->> +		return rc;
->> +
->> +	if (max34417->cam_mode && !val) {
->> +		/* SMM and CAM modes should not be enabled at the same time */
->> +		control &= ~(MAX34417_CONTROL_CAM | MAX34417_CONTROL_SMM);
->> +		rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, control);
->> +		if (rc)
->> +			return rc;
->> +
->> +		/*
->> +		 * If CAM mode must be set, the Control byte must be set to
->> +		 * desired values with CAM = 0, then followed by an UPDATE
->> +		 */
->> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
->> +		if (rc)
->> +			return rc;
->> +	} else if (!max34417->cam_mode && val) {
->> +		/*
->> +		 * After this, the CAM mode bit can be set and another
->> +		 * UPDATE must be sent.
->> +		 */
->> +		control |= MAX34417_CONTROL_CAM;
->> +		/* SMM and CAM modes should not be enabled at the same time */
->> +		control &= ~(MAX34417_CONTROL_SMM);
->> +		rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, control);
->> +		if (rc)
->> +			return rc;
->> +
->> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
->> +		if (rc)
->> +			return rc;
->> +
->> +		/* Reset counters and accumulators */
->> +		for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i) {
-> 
-> 		for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++) {
-> 
->> +			max34417->acc_power[i] = 0;
->> +			max34417->acc_count[i] = 0;
->> +		}
->> +	}
->> +
->> +	max34417->cam_mode = val;
->> +
->> +	return 0;
->> +}
-> 
-> ...
-> 
->> +static int max34417_read_raw(struct iio_dev *indio_dev,
->> +			     struct iio_chan_spec const *chan,
->> +			     int *val, int *val2, long mask)
->> +{
->> +	struct max34417_data *max34417 = iio_priv(indio_dev);
->> +
->> +	switch (mask) {
->> +	case IIO_CHAN_INFO_RAW:
->> +		switch (chan->type) {
->> +		case IIO_VOLTAGE:
->> +			return max34417_read_voltage(max34417, chan, val);
->> +		case IIO_POWER:
->> +			/* In default mode, we return a single measurement */
->> +			if (max34417->cam_mode)
->> +				return -EINVAL;
->> +
->> +			return max34417_read_power(max34417, chan, val, val2);
->> +		case IIO_ENERGY:
->> +			if (!max34417->cam_mode)
->> +				return -EINVAL;
->> +
->> +			return max34417_read_energy(max34417, chan, val, val2);
->> +		default:
->> +			return -EINVAL;
->> +		}
->> +	case IIO_CHAN_INFO_AVERAGE_RAW:
->> +		if (chan->type != IIO_POWER)
->> +			return -EINVAL;
->> +
->> +		/* In CAM mode, we return an average measurement */
->> +		if (!max34417->cam_mode)
->> +			return -EINVAL;
->> +
->> +		return max34417_read_power(max34417, chan, val, val2);
->> +	case IIO_CHAN_INFO_SCALE:
->> +		if (chan->type == IIO_VOLTAGE) {
->> +			/* Scale to mV */
->> +			*val = MAX34417_VOLTAGE_CORRECTION_SCALE * MILLI;
->> +			*val2 = MAX34417_VOLTAGE_FULL_SCALE_BITS;
->> +
->> +			return IIO_VAL_FRACTIONAL_LOG2;
->> +		} else if (chan->type == IIO_POWER) {
->> +			/*
->> +			 * Scale to mW
->> +			 * (1000 * (Power Accumulation / Counter) * Correction) / 2^30
->> +			 */
->> +			*val = max34417->input_correction[chan->channel] * MILLI;
-> 
-> MILLIWATT_PER_WATT
-> 
->> +			*val2 = MAX34417_PWR_AVG_FULL_SCALE_BITS;
->> +
->> +			return IIO_VAL_FRACTIONAL_LOG2;
->> +		} else if (chan->type == IIO_ENERGY) {
->> +			/*
->> +			 * Scale to mJ
->> +			 * P=(1000 * (Power Accumulation / Counter) * Correction) / 2^30
->> +			 * t=(Counter / Samples per Second)
->> +			 * E=(P * t)
->> +			 * Can be simplified to:
->> +			 * (1000 * Power Accumulation * Correction) / (2^30 * SPS)
->> +			 * The denominator doesn't fit in 32bit so scale down both terms.
->> +			 */
->> +			*val = max34417->input_correction[chan->channel];
->> +			*val2 = ((u64)(1 << MAX34417_PWR_AVG_FULL_SCALE_BITS) *
-> 
-> Why not BIT_ULL() and drop that casting altogether? Also seems that it becomes
-> 64-bit division. Does it compile on 32-bit?
-
-Good point, will need to check that
-
-> 
->> +				 MAX34417_FAST_SPS_CAM) / MILLI;
->> +
->> +			return IIO_VAL_FRACTIONAL;
->> +		}
->> +
->> +		return -EINVAL;
->> +	case IIO_CHAN_INFO_ENABLE:
->> +		*val = max34417->cam_mode;
->> +
->> +		return IIO_VAL_INT;
->> +	default:
->> +		return -EINVAL;
->> +	}
->> +}
-> 
-> ...
-> 
->> +static int max34417_read_label(struct iio_dev *indio_dev,
->> +			       struct iio_chan_spec const *chan,
->> +			       char *label)
->> +{
->> +	struct max34417_data *max34417 = iio_priv(indio_dev);
->> +	const char *input_label = max34417->input_label[chan->channel];
->> +
->> +	if (chan->type == IIO_VOLTAGE) {
->> +		if (input_label)
->> +			return sysfs_emit(label, "%s-voltage\n", input_label);
->> +
->> +		return sysfs_emit(label, "channel%d-voltage\n", chan->channel);
->> +	}
->> +
->> +	if (chan->type == IIO_POWER) {
->> +		if (input_label)
->> +			return sysfs_emit(label, "%s-power\n", input_label);
->> +
->> +		return sysfs_emit(label, "channel%d-power\n", chan->channel);
->> +	}
->> +
->> +	if (chan->type == IIO_ENERGY) {
->> +		if (input_label)
->> +			return sysfs_emit(label, "%s-energy\n", input_label);
->> +
->> +		return sysfs_emit(label, "channel%d-energy\n", chan->channel);
->> +	}
->> +
->> +	return 0;
->> +}
-> 
-> This can be simplified, right?
-
-I don't find this really simplified TBH, just reorganized
-
-> 
-> 	if (input_label) {
-> 		switch (chan->type) {
-> 		case IIO_VOLTAGE:
-> 			return sysfs_emit(label, "%s-voltage\n", input_label);
-> 		...
-> 		default:
-> 			return 0;
-> 		}
-> 	}
-> 
-> 	switch (chan->type) {
-> 	case IIO_VOLTAGE:
-> 		return sysfs_emit(label, "channel%d-voltage\n", chan->channel);
-> 	...
-> 	default:
-> 		return 0;
-> 	}
-> 
-> ...
-> 
->> +	mutex_init(&max34417->lock);
-> 
-> Why not devm_mutex_init()?
-> 
-> ...
-> 
->> +	/* Set default input correction for all channels */
->> +	for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i)
-> 
-> 	for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++)
-> 
->> +		max34417->input_correction[i] =
->> +			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
-> 
-> ...
-> 
->> +		if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
->> +			rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
->> +						      &rsense);
-> 
-> Name the variable with units, rsense_mOhm.
-> 
->> +			if (rc)
->> +				return dev_err_probe(dev, rc,
->> +						"failure reading shunt property of %pfwP\n",
->> +						node);
->> +
->> +			if (!rsense || rsense < MAX34417_MIN_RSENSE ||
->> +			    rsense > MAX34417_MAX_RSENSE)
-> 
-> Please, make it logically split
-> 
-> 			// also == 0 is okay for the actual values
-> 			// (which have not a semantic of pointer or error)
-> 			if (rsense == 0 ||
-> 			    rsense < MAX34417_MIN_RSENSE || rsense > MAX34417_MAX_RSENSE)
-> 
->> +				return dev_err_probe(dev, -EINVAL,
->> +						     "invalid shunt value %d of %pfwP\n",
->> +						     rsense, node);
->> +
->> +			max34417->input_correction[index] =
->> +				max34417_calc_input_correction(rsense);
->> +		}
->> +	}
-> 
-
-Thanks for the review,
-Neil
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
