@@ -1,163 +1,125 @@
-Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03862882D6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E9737DADD
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:56:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946546; cv=none; b=tNqQN+mrM/bSMuS8HTDk85lBHI57EvHOolo6EHRTmwAQdzNyq3SzKQoNdij7EOgVVN5Wx1mnIuCDstrFI6un9QG9jeI3rBIKaAbSkKSGCo+quZH8nVF6rgXnPn58oIFUkJXMJGMkLEDMyuwr/FF1RFBButU6MV1eJh6SGIA3ZCw=
+	t=1791946575; cv=none; b=rqhGCs+1LYxVnaK62oOM146dzW12Ta1z2awyjqWLZ5NY3JRyLKwHDqVadKcy/NQAlJ0FsJ87FX0kYyLYgMGWdGYYYZqggEMSAk9IZYN0feZc+tI0sXw249dc8ds2b+ofLAKs3VqgZDRQoyN9Au4PY6At7nBiNLLvmmbeb4+I1HQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946546; c=relaxed/simple;
-	bh=j++1k2yx+ePzCtbrOmIFuoEZ9iIbL/vSAh9cL30qvRE=;
-	h=Message-ID:From:Subject:Date:MIME-Version:Content-Type:To:Cc; b=iDgKuAhy0+B9Df2VsZ4uc6DDMIat9rXZPF9qFGJkqdGl1OhYNLMuD3k6vZXT2HhgYQPCvP2yZEL2/bOA3r8uVqtf9uu9yAfyMqqzzQlzOWvDCk2EZkKBUIDb731k3p40ssm/KofPtubsQPzS0Kw73z90Q58pPpPK5xqD8t1OdgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=fM2N4Xao; arc=none smtp.client-ip=203.205.221.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791946575; c=relaxed/simple;
+	bh=uWMcfyDCxTh3OZr+A544tqFx1pQ3JXPWiQE7qP4mYEo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bu2/9jrpxI1E3JPdR3hYyCXeEhC9cIWZt6Fe15jaj/sCvBY4Vrj23gOKvv1Jc9HBLOXYJwqWkv2zVmTw+4yQ/bxDR0o2UkGpX3BAxFFV4+HtAK6izWHK1c7kPCHAWEVJfJT34ZlvrgYzSyJ2KEuzoisSqZUkqHf5Xwv0tDCmYtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=STf7coK+; arc=none smtp.client-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="fM2N4Xao"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791946542; bh=b4ozHVcOqt/iZHojtGeuVSx2GbW78Ml/7CqGJpmtouM=;
-	h=From:Subject:Date:To:Cc;
-	b=fM2N4XaoHFg1zr4AjnwyU7xIxUjTVQ4KRmq+Scq6ete/wG7qHT3ZIsat04sqdroUP
-	 JPWr/4VPdNWbrB94Y3pcnqFnXk1CXn9SeHD4DqclEOeprCZdzJ7wg1gkes99G0SFOe
-	 o1N/w0fLyKMUmMxJp4FOvBQzzwLfehUH278NkRQg=
-Received: from ubuntu2204.localdomain ([2409:8d20:7f:35d:9e54:40ff:fe02:3f0f])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id D9F194D5; Wed, 14 Oct 2026 10:54:31 +0800
-X-QQ-mid: xmsmtpt1791946471tymorsemr
-Message-ID: <tencent_82C93561D200C84C24608C80049C23EEF80A@qq.com>
-X-QQ-XMAILINFO: NuWMYPidmbsncYYUfCbx+ODYZ/B1/OTdioH5b776hHOjXOZMZC9zLzZ5YqNiNw
-	 XRWM0gmUvZbNHzcwOLcPF+OL0O85cD0Fs/+oU4zYEGrdXGUxPJRpaO3EElFstEiKIp2Jls3iKBfE
-	 ia66a68XGFPZ1lxie5yR4plhLadb+WFaO0pKaz8V3ZpaH7Z/WjfcuGUjLeLlFdbLznsxqFxqUWAx
-	 fzwD4RtCoN9pS05hmBw63ATq6zS/sFjheexFVNydZSqCHl/eTXeNPWrWtE+JCasyORGEREr/W74m
-	 HP2CeyUfYscTuKYiTDE6lrcWG9BoJ1HMO4AF4h5yhUDAsb4S5iejDvM/zB8bqclHemu4drh52c+6
-	 SCzAFUM1Z/m9wLUJfZDPvBAsxHHvmcB+gLSIQXc7F7pn07+jgYcL18OSI4tMFOlAtOKEoaWDO8b1
-	 2M5hAM9GCxElFgjYeNGnyDjNslhYlaazoxFjsH+TWAIM9aiyO4neqXrm0CAePgkU2Uas2Oz0Hra1
-	 x4HeIqjIpDWqzWh+3vPMJHyGYszuLgY38ZH1Cm3+ClTxYn2Gy9N60Hn8iboZoi3/pMYn/dTXwrzA
-	 VlzqU5S2Oz3mhOFk2nDnzWLWQrYJEO/tNWZORY33ToB971ukRe9P+aCGG5JpCF3aii0qe/weDO+t
-	 0xfwikpUrEh/HWn7j2YbdZEG83nmiYOf6f+YLynHCdhlPWptsX/BNyGyIVYrBhSbld/lQC8n7Tyf
-	 lDRw1zKRdZsy5M6YgotQ9N0oDmvptFDVecZeLvLicyTuqlsz+IGr29cRggM3AXRyLh/XRpP2pZN9
-	 1nOUciMeCA7Y5wSb2p+w8jx4oljQjOyX9nDT895oYsOTv/9fhx9vLpySpMNEhmVYnDIEZxM8j/qo
-	 sgtsox/D3BGloq0GWjbFMpQUYL3jLlbA3xX/XBaQ/bBG5K9MNS+jEF4Utc8aibygRuiTsl8REACm
-	 ObI3UWehNkLilUywJHdUbvU85tW3L0T24Pq5YLNOgEh+v+SVkQO0Efs2OcPZLW9L6eu0eSl6R3e/
-	 XpCc7sJsv38SWowzXP4PVx2ASWQ/dbGPfjrQ7kiHo7ZmPxFF84lsJN8zKGjcPHst8wjLYxJRZFIg
-	 jIjIf8naxwz2oWud1Eiem690fHeMS1PzJDwUMxVy/G1diOjze3ZE2E+PIbRzzTSoP0FF4iDXTOzs
-	 STbweT82I06IUhoKAeUA+qXfORR3pNCvWqDqmD9dXKa/RsCrD7FEhh3BPy6agbDf/1GHWvIIuj6v
-	 Xq3zAW95YWgzyM
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Cunhao Lu <1579567540@qq.com>
-Subject: [PATCH net v2 0/3] can: fix bus-off restart during device close
-Date: Wed, 14 Oct 2026 10:54:21 +0800
-X-OQ-MSGID: <20261014-rockchip-canfd-restart-close-v2-0-c8fbdfad1803@qq.com>
+	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="STf7coK+"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-141395927feso6889643c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:56:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gt.tech.gov.sg; s=google; t=1791946571; x=1792551371; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J/qs6ep0AVoGjDnvQwIXmuadkHemtYNAxelWIgIUeeY=;
+        b=STf7coK+XSu1hR57+sbiMolCTwKLxxf+XMDqVmShvAUqdhLMtGzR+Uyvt3T4U7Epwl
+         s28ZS8wXwFkJMwZHhrG8dBM91g/ethAcu5Rbx/jqobyZ09bLIzjaOlBQKZN0Zree2UL2
+         I9LBqqFRiyzWL/pot/GdAzNBi3jkG76fiG4U0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791946571; x=1792551371;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J/qs6ep0AVoGjDnvQwIXmuadkHemtYNAxelWIgIUeeY=;
+        b=iJhAOo+J7qV27PSJgNsKoFWIHuqTRVWAarBAYCJH9fqou5rC2PSgCOCGisWIrBLUid
+         HVTWaS5MY4/XRVEq1100ODlehk1OcH8KbU4lSssPczIXRj9W7yalZK5rVJ4/5i+F/sJU
+         EEoLtXNhG/coGLTQ/LLeqXLdMAh/kGhNapbSNO6JioBCdnkY2em9Xboar4t5O6IIThcW
+         FApAuFOJI437jM7/gImo64uF3pdN0e7LxigB+nvXTlsaZbEzlfZO6RYbZCcTOeDLe3UJ
+         2+FK3KkWhByxDqpDIldqwkhwnua6FrdZreC3Y5aOwdd4P9L7xAQ5BNgOrojADiNck8tz
+         y91A==
+X-Forwarded-Encrypted: i=1; AKwUvBxuP2ComiLvNb4FcNODXCjFPbAMNN4zLBu2rd9igi/EuTUlfgr8CG1CLp3uz0mBldip6uW06Za2hhL/JmY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeLJ95ueMynWvFqvanSO/geeRvH9vY2xWUzkJjF7/zuZ6Za6hf
+	97cs41pTh12UuNSjCThwv3R0OyV7qFYKzUTha/bVLYGdhHLvj3E1BFKAJLAr3dO48MA=
+X-Gm-Gg: AYBFou0qxubHRabxNuKGdIE1Q4WIBXFrBnNe3zTjZi7VmMYKQ6TEd1hX93NdZTSnj7u
+	cqRNtSEtQObUu3yhILUeoWKja+hk28A0wmXtvphZ0c/P89f2+RB8IgBNElTzKaVvqytwbCgpq96
+	YJgxXjSpat8KxLdD9KWHhGIj/tywetVdWRrOE+oQD4fCQMUkV/bWqtVYqHGEIitjwJm5er9I6zs
+	70J3nsKxVDUPnDPsO3nCkCNqG1R21Q2Wx5hemWY4w5E8AYW4LAlf/4HTSp1RCCEjlekfWnLP+Wb
+	9ERwUbYLs3ExUBo3tdjkINtXt40i28aIpVPOMlFx7koqtYGe77CO9VixbYgzalGg2Pw+TMw7Uzc
+	BBjE0MIGSTVioMnsnL2Jy4vrp4KWfvMZC2sqe9Px6Rc+F/j5qF/+fvb/0iQR5BMnX0k0369Oxvj
+	2BLojfK/wL+EfKMFKiIF1ChMEiawaXU3q18FsHyuY5Fw50rNO0Hl7BENGrJ+XV1c5Y8FOsf/Ozt
+	t+4wGt0vDBqSFegkKP2f+7+wmQ=
+X-Received: by 2002:a05:701b:2089:20b0:14a:d8fe:33a4 with SMTP id a92af1059eb24-16a60de40ffmr22090397c88.38.1791946571104;
+        Tue, 13 Oct 2026 19:56:11 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-17dc865cbffsm2122640c88.6.2026.10.13.19.56.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 19:56:10 -0700 (PDT)
+From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+To: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Woojung Huh <woojung.huh@microchip.com>,
+	netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wei Jie Law <98lawweijie@gmail.com>
+Subject: [PATCH net 0/2] net: usb: lan78xx: do not use uninitialized data after short reads
+Date: Wed, 14 Oct 2026 10:56:00 +0800
+Message-ID: <20261014025602.26334-1-law.wei.jie@gt.tech.gov.sg>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAN3uzmoC/42OTQ6CMBCFr0Jm7RhaQIMr72FYlOlU6k8LbSUaw
- t0FvIDL9/Lle2+CyMFyhFM2QeDRRuvdEuQuA+qUuzJavWSQuTyIXBQYPN2psz2SckZj4JhUSEg
- PHxm51VzVVWlEa2BR9IGNfW/6CzhO0PzK+GpvTGkVr1hnY/Lhs50YxQb/tzcKFHiUpKg0dSHJn
- IdhT/4JzTzPX7F9js7cAAAA
-X-Change-ID: 20261013-rockchip-canfd-restart-close-ebde5954f1bf
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- "David S. Miller" <davem@davemloft.net>, 
- Wolfgang Grandegger <wg@grandegger.com>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-This work started from a real failure on a production robot using a
-LubanCat-5IO with an RK3588. RX continued, but the TX queue remained
-stopped and subsequent sends returned ENOBUFS. The interface still
-reported ERROR-ACTIVE, and the hardware indicated neither a bus-off
-condition nor a pending TX request.
+lan78xx_read_reg() and lan78xx_read_stats() accept a control transfer
+that returns fewer bytes than requested and then use the uninitialized
+rest of their kmalloc()ed buffers. A device that sends short replies can
+get stale heap contents written back to it as the MAC address, and makes
+ethtool -S report them to unprivileged users, including kernel text and
+direct map pointers, on systems with init_on_alloc=0.
 
-While testing the echo-loss fix with fault injection, I discovered a
-separate race between bus-off restart and device close. This series fixes
-that race; the fix for the original TX stall will follow separately.
+Patch 2 makes both helpers fail on short reads. Patch 1 comes first so
+that a failing statistics read does not report uninitialized stack data
+instead.
 
-When automatic bus-off recovery is enabled, bringing the interface down
-can race with a pending or running restart. The Rockchip driver currently
-relies on close_candev() to cancel restart_work, but calls it only after
-freeing the IRQ, disabling RX offload, and stopping the controller. A
-restart in that interval can re-enable the controller and its interrupts
-after IRQ teardown, and requeue timestamp work after it has been stopped.
-That work can subsequently access registers after runtime suspend
-disables the controller clocks.
+The bugs need a malicious or emulated USB device, which
+Documentation/process/threat-model.rst treats as a regular bug rather
+than a vulnerability, so they are posted publicly.
 
-The networking core clears the running flag before calling ndo_stop().
-The first patch uses that flag to avoid scheduling or starting bus-off
-recovery once the interface is observed to be no longer running. The
-second patch adds close_candev_cancel_restart_sync() so drivers can wait
-for recovery separately from the echo cleanup in close_candev(). The
-third patch uses this helper at the start of the Rockchip close path.
+Testing: the series builds without warnings (W=1) on net and passes
+checkpatch --strict. It applies unchanged to v6.12.105, where it was
+tested with a LAN7800 emulated by raw-gadget + dummy_hcd, booted with
+init_on_alloc=0:
 
-The running-state checks do not replace synchronization with a restart
-that has already passed the check. Rockchip waits for that work before
-tearing down its resources, and keeps close_candev() at the end for the
-final cancellation and echo cleanup. IRQ exclusion during hardware
-reinitialization is retained; the shared IRQ is not disabled while the
-close path waits for restart work.
+- Zero-length statistics replies. Before: 40 to 88 of the 235 ethtool -S
+  counters are non-zero, including usb_api_blocking_completion() and
+  direct map pointers. After: every read fails with -EIO and all
+  counters stay zero.
 
-I tested v2 on a LubanCat-5IO running a PREEMPT_RT kernel, using the same
-setup and procedure as v1. The 1 Mbit/s CAN bus was connected to four
-CANopen motors operating at 100 Hz and four sensors operating at 20 Hz.
-A bitrate mismatch forced bus-off with automatic restart set to 100 ms.
-The v2 campaign completed 380 valid bus-off iterations, covering automatic
-recovery, close while recovery was pending, close near three delay points,
-200 randomized stress iterations, manual recovery, and reopen after close.
-All 380 iterations reached bus-off and scheduled recovery.
+- Zero-length RX_ADDRL/RX_ADDRH replies. Before: the MAC address
+  differs on every probe and is written back to the device. After: the
+  probe fails with -EIO.
 
----
-Changes in v2:
-- Split the series into the common checks, the cancellation helper, and
-  its use in Rockchip.
-- Check netif_running() after the do_set_mode capability check and before
-  the restart notification, echo cleanup, and carrier update.
-- Only queue automatic recovery for a running interface; keep reporting
-  bus-off and make the log message match the scheduling decision.
-- Add close_candev_cancel_restart_sync() in linux/can/dev.h and use it in
-  close_candev() without changing the existing cleanup order.
-- Replace the Rockchip mutex and closing flag with an early call to the
-  helper. Drop the extra close-path IRQ synchronization and mask readback.
-- Retain IRQ exclusion around hardware reinitialization in the restart
-  callback.
-- Link to v1:
-  https://lore.kernel.org/linux-can/tencent_5802EE88434010229EDF7A53084D994C6106@qq.com/
+Both bugs were found, and the patches written, with LLM assistance,
+hence the Assisted-by tags.
 
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Vincent Mailhol <mailhol@kernel.org>
-To: Heiko Stuebner <heiko@sntech.de>
-To: "David S. Miller" <davem@davemloft.net>
-To: Wolfgang Grandegger <wg@grandegger.com>
-To: Oliver Hartkopp <socketcan@hartkopp.net>
-To: kernel@pengutronix.de
-Cc: linux-can@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
+Wei Jie Law (2):
+  net: usb: lan78xx: do not update statistics after a failed read
+  net: usb: lan78xx: reject short register and statistics reads
 
----
-Cunhao Lu (3):
-      can: dev: prevent bus-off recovery when the interface is not running
-      can: dev: add close_candev_cancel_restart_sync()
-      can: rockchip_canfd: cancel bus-off restart before closing the device
+ drivers/net/usb/lan78xx.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
- drivers/net/can/dev/dev.c                      | 12 +++++++-----
- drivers/net/can/rockchip/rockchip_canfd-core.c |  3 +++
- include/linux/can/dev.h                        | 12 ++++++++++++
- 3 files changed, 22 insertions(+), 5 deletions(-)
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261013-rockchip-canfd-restart-close-ebde5954f1bf
 
-Best regards,
---  
-Cunhao Lu <1579567540@qq.com>
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+-- 
+2.43.0
 
