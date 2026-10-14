@@ -1,74 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AEE47535E;
-	Wed, 14 Oct 2026 12:17:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E0D4C224A;
+	Wed, 14 Oct 2026 12:18:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791980272; cv=none; b=tT2BTNINfQgnT2EApsP3kYuIfZJ6g6vVPIO5UaXCT6vtgKgzhS0QjudeURO2SPXmtP5lK1S8p2BBzC+TF4bPo7JkgsyJ2EzN6fkk9ZoVGdG97gSX95pCBPhwziYGrY70VQ4JBlk8e4xvmZGHvwdtzT37gyXnhFxHsVVrd3r23Ew=
+	t=1791980300; cv=none; b=M0t943ll6VIlJqxVggMQ+0gu60okmthnagvkhaHv2fR85MzfTA0DSsR4Y49RsAYqZBUfEyLFS426/Xqzp+axcwYkdovowvUrWUY81Ps/2w+g0N4/MW8Jal3/ETFtAs7jOPnr0r6/rdUOz8cOCM8ugT3CK4/q+9wbYRbE78xNVSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791980272; c=relaxed/simple;
-	bh=T5Hkm/YfoDO+dt6SbmWey/1JV9LB5wEM6WRtVkUSZx0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j4CU6F4SnpbvyuM152Z2TfzCIvt2wH4vAyt2pvYaoBjpsHgU7aqcnKwgKpdz1YcGn+MZHIXLdEr6+YljoofaSIuIpqoNP8SEY5awqxF2A9Js7MfKAqM8oPsHUc5Mx15j5MsBXrBa4N7lSzSpwi8X4nXQiIDxXL7UcT0m4n8iQkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1Vr36a2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791980300; c=relaxed/simple;
+	bh=1jNHNq4JEW2AKWn9mbI/518934OAapYG4MY3MY6EJ+I=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=lgpjneNPmv4GvvD+FO8WJc1UuG8kU7bT0SWPtiYjV0dQ4BUtz4hU8kHsEh3NRqtVmU8dnOeL5AzGkjrstDDZu5a6pDYED2x6flvZCdcS4pPXueJuGQqxa/WH8Yl1k1W8wNbVSl8id2g1U4F3rkaBuyfbQB79RoDeddMBJugCvHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jH/LcGMA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1Vr36a2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B8A1F000FF;
-	Wed, 14 Oct 2026 12:17:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jH/LcGMA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 181D31F000FF;
+	Wed, 14 Oct 2026 12:18:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791980269;
-	bh=GS6ckad+7RfurmBBM899KY6kDFBy5nKpxV7tqbtyUHY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P1Vr36a2+hJElQ4VSbrcuuuEmqBNukF5/zvDyamvnJL9clkBXrqOoZr7GWSbWvpty
-	 ulkzto8fvLxgXK+EaiGub/WP+9WdSdWwWHD0IYVwDnAfr7SjAhPNwr3Ja4tIlkmZjb
-	 poXk60hthRd+vO7toncThWVTRH5gjgDv0hLy+m+d5UlJAu9EJC2htieyeErV9Acdky
-	 OBwp5pnTDHUTPkB30J8x8I9VPV8w/tmy3UmnDzbjIrTCbZcE+pPf0nbl5XkVUTWw4j
-	 AQ9a8+tEVyrP1IWxPhE30djLIECvP4VfIuQdJRxtp8vS/dU63N0CJ3YntCqEKAQL68
-	 8bu9sZobW581A==
-Date: Wed, 14 Oct 2026 14:17:46 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Stian Halseth <stian@itx.no>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	regressions@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] sched/cputime: Don't account idle time twice after
- dyntick-idle
-Message-ID: <as9y6gQSpDPq3z9A@localhost.localdomain>
-References: <20261007142950.547604-1-stian@itx.no>
+	s=k20260515; t=1791980298;
+	bh=imKeuNpcaoqzQJSC/5CaueIe7C+XzwSGGpsNOb+q8/Q=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=jH/LcGMA5qyvF9H718nSe10/v/J8kXM2OzkKqn0UPqdbn14JN1YZnNeb3uD8El5Jo
+	 m40SxWzp35HZ1oUQnQNfYYvqWAWNj5yWXOJ2VRS1dc99S8EycxQc3ku8EzwuZ8QPmH
+	 meD6Z5BabjAgFa0duS7RcJU6TZHy+Ix5Ug1pKsKy6jynkMCkdpovEsS/OgGbexT31l
+	 F/izyvRMurxu7CYOZC35Xa6gH6R9dlKLvOyVbXk33Fh9fsy+8ckZtadDwULA7+Cezx
+	 fk3y34JhcbZeDYMHtA/WHdk4c0mdH/Hm+2q25TobQ0Ms5JM52DX0iY+EorcHOvZ+F6
+	 js2XAX71FdYyg==
+From: Lee Jones <lee@kernel.org>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+ devicetree@vger.kernel.org
+In-Reply-To: <20260923191526.2206628-1-robh@kernel.org>
+References: <20260923191526.2206628-1-robh@kernel.org>
+Subject: Re: (subset) [PATCH v2] dt-bindings: mfd: hisilicon: Fix Hi6421
+ SPMI compatible
+Message-Id: <179198029682.796475.17855215396698638108.b4-ty@b4>
+Date: Wed, 14 Oct 2026 13:18:16 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261007142950.547604-1-stian@itx.no>
+X-Mailer: b4 0.16-dev-ad80c
 
-Le Wed, Oct 07, 2026 at 04:29:50PM +0200, Stian Halseth a �crit :
-> On idle exit the dyntick-idle accounting accounts the time up to now,
-> then the tick is restarted on its old period. The first tick accounts a
-> whole TICK_NSEC to whatever runs, although the part of that period
-> before the idle exit has just been accounted as idle time, or with
-> IRQ_TIME_ACCOUNTING as IRQ time. That is up to a full tick per idle
-> exit, and /proc/stat reports more idle time than wall time.
-> 
-> Record how much of the current tick period dyntick-idle has accounted,
-> and leave it out of the tick that ends the period.
-> 
-> Fixes: cf6444c3e1bb7 ("tick/sched: Unify idle cputime accounting")
-> Link: https://lore.kernel.org/all/20261004142724.3896396-1-stian@itx.no/
-> Signed-off-by: Stian Halseth <stian@itx.no>
+On Wed, 23 Sep 2026 14:15:25 -0500, Rob Herring (Arm) wrote:
+> Use the hisilicon,hi6421-spmi compatible documented by the in-tree DTS
+> and matched by the Hi6421 SPMI PMIC driver.
 
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+Applied, thanks!
 
-Thank you very much!
+[1/1] dt-bindings: mfd: hisilicon: Fix Hi6421 SPMI compatible
+      commit: 1b482faa86591dbd8524d294383281f4adf2f6cf
 
--- 
-Frederic Weisbecker
-SUSE Labs
+--
+Lee Jones [李琼斯]
+
