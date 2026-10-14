@@ -1,87 +1,77 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B670D2FE07D;
-	Wed, 14 Oct 2026 21:48:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D563BCD32;
+	Wed, 14 Oct 2026 21:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792014492; cv=none; b=QKFy2c3p7wTpMAtLFkW4ULdGXQ6+9Ha1YjrIgHrwFOP60VCFxkfZFidzzi97V54Wlo9vUsO7KaM2eo5lks1/3xFnEW8uE8VvhBxahR6U+up+zJMli6skY2izI9wFG6BCg/7uJ7Px/C3OcSLLcLno/heKXOGJ8RLRh2XfPbxAowY=
+	t=1792014506; cv=none; b=tStneUqUTa5z6MbKby2AM+tfLtXxLxxXKYsacjNlYnQal3vG5rech/lnPRSqGt05eF0qr9Hq1NtOrA28b5TIg1pwlC/gWkSxlXnbT9YiiRNxGrX9Zz4Rc9XT6oHJ0QJMnVkBx8uahe/DFW5wdMSm9topONc/XbCHTJRBjo1Cf7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792014492; c=relaxed/simple;
-	bh=uDA4/61lKNsuBTTvzOupnnMTqjhKMI62DCWOIYtuftI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KHaxyNsb0f1MAQbAl79dx9xwnlPgayVHG2F4pllXCnYDmbklDjQq/dhiythcgunQCmvDgP95cLHIRi4r6nHOVIH5bV6JoAV7DHy/Uh7GcT3j0HJZRpe/Y2pbvGA+bLpepfLrbaaRJzql8xBay4wBvgE97QIzm3Ey9R8XroM1knk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=cFobp1v9; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1792014506; c=relaxed/simple;
+	bh=Qtw4tqpy37jnRD1F0sO0gAYntfQ7DOMexnzlzmC+Moc=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Ne4JeMvuyHe4QFy5C9Arg9prANgH8nG5xEPAuaPkXmn+1nXk90IpymiQNlC3OyGrsP0lX1/49JBHloIzhwMJS0HK+Dtotnn1yKUyEEkOTA3uxOxx3g7XW4DgSa3TTNKbddhzTzI6Z6e9Eh04i4PwHD0g48/kSmOHjETqSiKrKo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=nmV5xaNV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="cFobp1v9"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8E228106B7F;
-	Wed, 14 Oct 2026 23:47:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792014478;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=FX5mPvwB7tDy9/f6EGD7rUwrPbwrZzsd+j/t5C8iWsU=;
-	b=cFobp1v977jFx3YguKe/zDO3jo7SkjWbpxoAY0Q7Zeb9ia1lWpg7Dy6LkDtzWRBrxJoKab
-	OD1pAM7mm8+dm9jxuBIjfrwY5yIYJCjS+J2oL+ZLBCjvuIs5ga9jFyBmBA/kT1g8m02oqU
-	97QtucsomEBz9wS3mYzkTNh0DgPgjMJSiHwcOo65eDvKN6SI/1uKcJVjNUoP+WUuwe1Ujx
-	+WjtaTTKt+pnGsSznbak408eqW+OSfIIuYN7rAE9OTMdKJWVGwmVUcH6zVQIOC142dUZAN
-	6gnxZ0NKZiQ9Aj9Ywn6MzCxPpE+lU3FqV8G2/5269oPOhKYXnFcCDwphep0t+w==
-Date: Wed, 14 Oct 2026 23:47:53 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 000/284] 7.2.11-rc2 review
-Message-ID: <as_4iaBYeri2C9aW@duo.ucw.cz>
-References: <20261014123758.782265692@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="nmV5xaNV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190E31F000C4;
+	Wed, 14 Oct 2026 21:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792014504;
+	bh=nE9p+aOXIIOki/AIut1T2dhQSauB3dnwPrKqbqAJc+c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nmV5xaNV3LJfbFGcryQYEiM9V9gNC5vV908mtxNrFb8K68y2kN+x3hOTAOZrE9BgZ
+	 xZk1RUwjXH3S4Tz59mmdLpXd1LMk034hsCYchfQHBtqrxKz1d+RKGuGbeuBun4RGGO
+	 jBrPxe99Fcj6wK2jornOlOK/QyS0EQURvzVvIpI4=
+Date: Wed, 14 Oct 2026 14:48:23 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nimrod Oren <noren@nvidia.com>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ "Ryan Roberts" <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry
+ Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+ <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Brendan Jackman
+ <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ "David Laight" <david.laight.linux@gmail.com>, <linux-mm@kvack.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mm: stop recalculating min_free_kbytes once set by
+ userspace
+Message-Id: <20261014144823.8c89da26c547fa95936a2fe5@linux-foundation.org>
+In-Reply-To: <20261014140859.1006967-1-noren@nvidia.com>
+References: <20261014140859.1006967-1-noren@nvidia.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="R91VgserZDQsxEqn"
-Content-Disposition: inline
-In-Reply-To: <20261014123758.782265692@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Wed, 14 Oct 2026 17:08:59 +0300 Nimrod Oren <noren@nvidia.com> wrote:
 
---R91VgserZDQsxEqn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> min_free_kbytes is recalculated on memory hotplug and on THP sysfs
+> writes. The new value comes from calculate_min_free_kbytes() or, while
+> THP is enabled, from set_recommended_min_free_kbytes(). A value written
+> to the vm.min_free_kbytes sysctl is replaced whenever the new value is
+> higher, so a lower value does not stick. This matters most when THP is
+> enabled on configurations with large pageblocks, where the new value
+> can be excessive [1].
+> 
+> Stop recalculating min_free_kbytes once a value has been written to the
+> sysctl. Systems where the sysctl is never written keep the current
+> behavior.
 
-Hi!
+This problem lies somewhere in the range of "minor annoyance" to
+"catastrophically horrible", but it isn't clear where in that range it
+falls.
 
-> This is the start of the stable review cycle for the 7.2.11 release.
-> There are 284 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+So can we please can we have a paragraph which explains the real-world
+userspace-visible runtime effects of this problem?
 
-CIP testing did not find any problems here:
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.2.y
-
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
-
-Best regards,
-                                                                Pavel
-
---R91VgserZDQsxEqn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCas/4iQAKCRAw5/Bqldv6
-8rtFAKC3aNQQ5QLJVX5LH0ULMs+A6ojLogCfTa06dBzd1nC7TLBEU5u9HW0429s=
-=0eJx
------END PGP SIGNATURE-----
-
---R91VgserZDQsxEqn--
