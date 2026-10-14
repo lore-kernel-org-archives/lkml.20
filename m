@@ -1,108 +1,230 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A212B43CEE3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A373341442E;
+	Wed, 14 Oct 2026 06:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791959593; cv=none; b=XTp/wsXmivqSTcDKKwez4TGdOSeJ4d7cgkrrgr0/8+ihg7H2XdwUl66RwgxeAzvr3vCX3u7WlxzYqUdYFAqsbIY+YFZMDyJ5BugUYuviO74CrxVRlEIv4vizCFGu5QtJHXt0Hl4eHJW/TjHXgaqbN93CFgqCFrKu81N+tLILRoQ=
+	t=1791959594; cv=none; b=AniO4a50yu4Wul49G24RqmjWnp/tlGxfu+4Rc9iZVaKxupk04aE/m/zK0DTvF5uj8kLxY2487m7LpxM+RnS87oAeSsi/ScB/iDsi4ybkABJKYMapwnYBugpsEgJLf4SaqgRuw0YERIuFJqGvMUO8+BE2ArhPqQFnuPaoDKJMYvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791959593; c=relaxed/simple;
-	bh=1PwR+ODcKHLyd0ZhnaD8thna8oK51MyPxFw7FpxRUUU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AZ/YjMoHN6rTPckPKFI0E4PrqxsrYNrnh//RNFHKylzzYyGjkIO9LYE656yiMCFkfVEPZ1tBOyQ+7fDKloKqx5mpbswlyqfbjX2yWZzgW3pllqDshRgNDcjIbE7VDlwIVUBhvlWaBvHFP/YKEHe0nuIYnEKdZmMGHwD4AtiKqFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bFxMxhAz; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791959594; c=relaxed/simple;
+	bh=cAIywBzkCt8Lviyejkt3agFeuwMEaHmMiq6vSrZ5EbU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hps4cUqgXXKSNjkcEwxDIKejC2WMU19+jOczLAy5Ksy8KbhrqxXZGympQr147ua1sdwuQUu5uhxi362p+rPj73q/eZ+e4QnAIlLkyFVxSOIMC5/Mn5HtLXBmibf0Qie8RYPYxTeYUv3b5DNutPAB7BnOws2XWE2JlJ2eDa5JprQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BsRFwhyP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bFxMxhAz"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e946155442so769535ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 23:33:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791959587; x=1792564387; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D0/sxyvqV6AS7JtOxUykkWaTxUCrr096nXX/5CXIozA=;
-        b=bFxMxhAzG4ZdMEA3FdPzmszfv/pYxFSxjRYUvEdulUzGAySKbqVbo6EZtt8o6a1S94
-         D0Z4tyIHD//BBPXLP7uDBho0yE3TZjfvgPqKh4M4qOWxOxB7p+u2YfUAX4HUzFdHRvca
-         o9FLl/gQaqK9ojiMaiuNy3b+KFxrbyFuyl7AgfApRXpowdMirODBxl5LIDN7BqRUYgh9
-         zEcL00WlnW2ZOOODB2kB6BP51Nw/6N4Zki9o3sLRa9qdMf8vqmXPcXKMdYVoa7gUzBeF
-         /J4EATImUebO8OToc/D66z4SdMav9wt/AR7Sxzyjm1vX0P8+iLl/lVK7reQbf48Y7QOG
-         oLhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791959587; x=1792564387;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D0/sxyvqV6AS7JtOxUykkWaTxUCrr096nXX/5CXIozA=;
-        b=NdxNzMJ8J848f/p9Pp1xDyk/wSrMkVQtTNDROtCEPuioOcT5owuaOxudesUIk8kn+o
-         u5lqXl+pWuZppsbpMGx1R7DQoE5Z+Y4vA+BtKCdc3t+BIWncGxQhrP9+3xiMarfUKdIL
-         9EIZQsIqKbhlAPizqLOm/J6gBeqjMhQS8kCpDJY2UZYI86DmQG/z9vb/YRXERTAyouyr
-         0GvdddtLak2SP/SEeeETt7S5h8gFFzzDtHybGWnRbydeEpZd66KQnUe8OlOIPiXslD71
-         iUXpTJMDANPm5tVSnpMsvBh+/481m0gemslAHN4azC3lfzN0NNKuPIIWbE8GgDFpKAB2
-         T8GQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXkvMFABSmjzvxhUHrvLGstvX0PDcjHuVidYBl+2WhQ9ou85vlU93PMK7d+dRqQspZmFiyFdGTB3FhzKE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqI3nlSLvEaiMub8FxOjBjyHbLicEtKMznAOsyDO8ZCu1O0w1Z
-	x56HEekAChUH7lMgEGE6UEOgQ5es1uYAr4ogBkoViH+32UvDQ/6KfRq0o8tprcORr2I=
-X-Gm-Gg: AYBFou0iVGOIe5YEMwFnRZqDBXMVkaum2py2vp5ShwQUBr6fUhM4dIs6fM8NKZ6/4nA
-	hOoBV9vMFltDCeTbCV51ka0VuJwFn/ROv7QxbS8cbkotC+mT9PSCJB6Wg57MO0gMQ9NuN84tQ7u
-	++aWoP6qesRsesYVWYXi4VZZ0qxvOkvmmCyERgZxHAJkKBCAApSVHzXytDKc7S69EC7uIjwL1lm
-	E3caLIIBVVv8wmP9WzXxwQ3GF15CYD5wF91/wjk/fVSnwNZz1YPswj51lI+uN0hvbSnLZ0tgPSq
-	5Jpxw80A0Dm6IPbiu33IhhlYcihzKqEuprdYRWQEL+dRpF8Z6/6UGunfaGaahmqMPtt1g32wEEM
-	Byekc3G+Do5KwR4Wloleok5wEwhtXHABIykoCZ7wiqV0Cm4VPwRaMVmV3t9EE4qtOL/dLVZH6DU
-	1mP2lXaEuZHa07oEbkS3mYgGDHtyknUyh0hO80QUQIq31occqVvSklyrzW46Iez3bX+GYy3UZaP
-	cIARdfP+xIxgU4fljY7sMzg71gB6Cx3crKpBeFM6RU9wK6x2c1gUYjuOv14hKIsMOHAIAjl+B4=
-X-Received: by 2002:a17:90a:c2cc:b0:3ab:c80:9364 with SMTP id 98e67ed59e1d1-3ab3a98f487mr13050367a91.32.1791959586774;
-        Tue, 13 Oct 2026 23:33:06 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac600a0619sm3384495a91.7.2026.10.13.23.33.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:33:06 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: broonie@kernel.org
-Cc: lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 08/13] ASoC: codecs: wm8955: Fix definition of Treble Cutoff control
-Date: Wed, 14 Oct 2026 15:32:35 +0900
-Message-ID: <b398bc6dcf8dc2b93504608cdf952823ca238cd5.1791959026.git.sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791959026.git.sammiee5311@gmail.com>
-References: <cover.1791959026.git.sammiee5311@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BsRFwhyP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 237701F00893;
+	Wed, 14 Oct 2026 06:33:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791959583;
+	bh=wI/vaaNxrZHGSu+C0IaS6QHTgleVRRrjMvxvMj4WfWg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BsRFwhyPkz3wH0IUyX9xdqPn1Or+3kjS/Y/Pjv55NflWdb3M9brdQzxiE4Jj0P4bM
+	 clVi8M9a/74g3DW7IjVxQJLzp8Yn6eV+eJpYbILyMbsXSomQ/QcYKToX8zoFHeHKeT
+	 co4LL5f+g5U4csS9GpF8qUAAGfYghD9fv7Clv+mM4a9c1ytuSWZPx+WAf2v8mDuN6H
+	 xlj7XQ8cEpteFGe5VYEl6IEtw8hM95eXEoFJ9jvgcDOc3+pNX6RN8+vXZPdmttFTOb
+	 DJ1+pg6jevwqLi9qK6lWDu3bLPDYvBcFuEJnF0xibVG/Mh3gO7radYC2Zlm1X2cP4l
+	 Vlm0OkAHkXBlw==
+Subject: Re: [PATCH net-next v3 3/4] vsock/virtio: coalesce RX write-space
+ notifications in lock batches
+From: netdev-bot+sashiko@kernel.org
+To: physicalmtea@gmail.com
+Cc: stefanha@redhat.com, sgarzare@redhat.com, mst@redhat.com,
+ jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, virtualization@lists.linux.dev, kvm@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 14 Oct 2026 06:33:01 +0000
+Message-ID: <179195958167.434549.3993403899530916978@kernel.org>
+In-Reply-To: <20261013063112.168321-4-physicalmtea@gmail.com>
+References: <20261013063112.168321-4-physicalmtea@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Treble cutoff (TC) is at bit 6 of Treble Control, not at bit 2, which
-is part of the treble volume (TRBL[3:0]).
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Fixes: 54db41c116c3 ("ASoC: wm8955: Use SOC_ENUM_SINGLE_DECL()")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
- sound/soc/codecs/wm8955.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Low priority / nit picks for your consideration:
 
-diff --git a/sound/soc/codecs/wm8955.c b/sound/soc/codecs/wm8955.c
-index c897a9ab764d..d872d4e00529 100644
---- a/sound/soc/codecs/wm8955.c
-+++ b/sound/soc/codecs/wm8955.c
-@@ -426,7 +426,7 @@ static const char *treble_cutoff_text[] = {
- 	"High", "Low"
- };
- 
--static SOC_ENUM_SINGLE_DECL(treble_cutoff, WM8955_TREBLE_CONTROL, 2,
-+static SOC_ENUM_SINGLE_DECL(treble_cutoff, WM8955_TREBLE_CONTROL, 6,
- 			    treble_cutoff_text);
- 
- static const DECLARE_TLV_DB_SCALE(digital_tlv, -12750, 50, 1);
+- [Low] The patch is presented purely as a performance optimisation but
+  gives no numbers.
+- [Low] Retained for the separate validation policy; my baseline decision
+  is that this is not a real defect.
+- [Low] The patch changes the behaviour of three interfaces without
+  updating their comments.
+
+--
+
+vsock/virtio: coalesce RX write-space notifications in lock batches
+
+This commit stops calling sk_write_space() for every packet in a virtio
+vsock RX lock batch. It records one pending notification and delivers it
+through the saved default callback before release_sock(). The default
+callback is saved in __vsock_create(), and sockets whose sk_write_space
+has been replaced are no longer eligible for batching.
+
+> Each received packet updates peer credit and calls sk_write_space() when
+> send space is available. A writer cannot use the newly advertised credit
+> until the socket lock is released, so repeated callbacks within one lock
+> batch cannot let it make progress sooner.
+
+[Severity: Low]
+This shows that the change is safe, but are there any numbers showing it
+helps? Neither this commit message nor the other three in the series
+gives throughput, CPU or wakeup-count data, or names a workload where
+per-packet sk_write_space() costs something measurable.
+
+The change does have costs. Every struct vsock_sock gets a new function
+pointer, including VMCI and Hyper-V sockets, but only the virtio RX batch
+path reads it. virtio_transport_recv_pkt_batchable() gets one more
+admission condition. The wakeup moves to
+virtio_transport_rx_batch_finish().
+
+The callback being coalesced is also cheap when nobody is waiting.
+sock_def_write_space() only calls sock_writeable(), skwq_has_sleeper()
+and sk_wake_async_rcu().
+
+Documentation/process/submitting-patches.rst says:
+
+  Quantify optimizations and trade-offs. If you claim improvements in
+  performance ... include numbers that back them up. But also describe
+  non-obvious costs.
+
+Could the commit message include measurements that justify the extra
+per-socket field?
+
+> diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
+> index 5549298c1ec6b..9d8ae62209eda 100644
+> --- a/include/net/af_vsock.h
+> +++ b/include/net/af_vsock.h
+> @@ -63,6 +63,8 @@ struct vsock_sock {
+>  	u32 peer_shutdown;
+>  	bool sent_request;
+>  	bool ignore_connecting_rst;
+> +	/* Initial callback, used to identify replacements. */
+> +	void (*default_write_space)(struct sock *sk);
+
+[Severity: Low]
+This comment only describes the identification role.
+virtio_transport_rx_batch_finish() also calls this pointer to deliver
+deferred notifications. Should the comment say that too?
+
+Two other comments are also unchanged by this patch.
+
+The comment above the exported virtio_transport_rx_batch_finish() still
+reads:
+
+  For a non-empty batch, the caller must hold the socket lock acquired with
+  lock_sock(). This function releases the lock and the batch's lookup
+  reference.
+
+It does not say that a write-space callback now runs from this function
+while the socket lock is still held. At the end of the series it also
+runs a data-ready callback after release_sock(), and the comment is
+still the same.
+
+The comment above virtio_transport_recv_pkt_locked() documents
+@batchable and the return value, but not the new @batch parameter:
+
+  The caller holds sk's socket lock.  Set @batchable if the socket can remain
+  locked for another ordinary STREAM/RW packet.  Return true if the caller
+  must free @skb.
+
+A non-NULL @batch suppresses the immediate sk->sk_write_space() call and
+defers it to batch finish. Could these comments be updated to match?
+
+[ ... ]
+
+> diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+> index bfe40ecf0b2f0..d6ebfde880db6 100644
+> --- a/net/vmw_vsock/virtio_transport_common.c
+> +++ b/net/vmw_vsock/virtio_transport_common.c
+
+[ ... ]
+
+> @@ -1860,8 +1862,12 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+>  	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
+>  		vsk->local_addr.svm_cid = dst->svm_cid;
+>  
+> -	if (space_available)
+> -		sk->sk_write_space(sk);
+> +	if (space_available) {
+> +		if (batch)
+> +			batch->write_space_pending = true;
+> +		else
+> +			sk->sk_write_space(sk);
+> +	}
+
+[ ... ]
+
+> @@ -1954,15 +1960,20 @@ EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
+>   */
+>  void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
+>  {
+> +	bool write_space_pending = batch->write_space_pending;
+>  	struct sock *sk = batch->sk;
+>  
+>  	batch->sk = NULL;
+>  	batch->pkts = 0;
+>  	batch->bytes = 0;
+> +	batch->write_space_pending = false;
+>  
+>  	if (!sk)
+>  		return;
+>  
+> +	if (write_space_pending)
+> +		vsock_sk(sk)->default_write_space(sk);
+
+[Severity: Low]
+Is it intended to call the saved default callback here rather than the
+current sk->sk_write_space?
+
+sock_map_update_elem() from BPF takes only bh_lock_sock(). It can
+therefore attach a psock while the RX batch holds lock_sock(). In that
+case sk_psock_start_verdict() does:
+
+	WRITE_ONCE(sk->sk_write_space, sk_psock_write_space);
+
+A notification latched for a packet admitted before the attach would
+then skip sk_psock_write_space(), which is what schedules psock->work.
+
+>From a closer look, this may be harmless:
+
+- virtio_transport_sock_has_psock() is checked at every packet
+  boundary, and the psock is published before sk_write_space is
+  replaced. So only a packet admitted before that point can leave a
+  pending notification. That is the same outcome as the pre-series case
+  where the attach lands just after that packet's own sk_write_space()
+  call.
+
+- The next packet fails admission and takes the non-batched path, which
+  calls the new sk_psock_write_space().
+
+- sk_psock_backlog() reschedules itself with
+  schedule_delayed_work(&psock->work, 1) on -EAGAIN. It is also
+  scheduled on enqueue, so psock TX should not stall.
+
+- sk_psock_write_space() forwards to psock->saved_write_space, so
+  user-space writers get the same wakeup either way.
+
+If that reasoning holds, would a short comment explaining why it is safe
+to bypass a callback installed mid-batch help future readers?
+
+> +
+>  	release_sock(sk);
+>  	sock_put(sk);
+>  }
+
+[ ... ]
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013063112.168321-1-physicalmtea%40gmail.com
