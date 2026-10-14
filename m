@@ -1,112 +1,122 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6200553977E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B36C5226AE;
+	Wed, 14 Oct 2026 17:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791998152; cv=none; b=MthD5doEz6+/Hf9Kba42IFe5O6Wlhi8pE//mzAxtBONJfKZ6IHQp7dgLVuN/uoMtX2A/JCIAoW4aFVddsdtJNV/Usn0c6PV6OuONeWTfnD1yI9oLzxxTmUNfky82O4W9hoBrM/Zgn3IiIzBSiPk149Wtswp6ZDUMR8Fk2gzBP4U=
+	t=1791998194; cv=none; b=X8oaxqj7q0JLdFFcC2FzB4E8WcWvYpZFazP1PjyeSqy6mhmb7xmp6XeIAK5mcVSudi1aRVcIffJQZwLL94F2+vkCOIiPIJ5ho+0gtGi0pTkkePByLZeyIh+qs7ha3/pyPvNR8gZbDVEbRvSh6rSH2ljJFS6jf+T7ic7Ct+bBUug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791998152; c=relaxed/simple;
-	bh=XRIa7Pgvo6VVKoIKoi3E58OdE0xB6nok5Hg1DXJoqfY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pduCVf4xwwqW5xUFxIPkiJmnfheUsjT9Wich2+WVac9ejJx/yVa+kogOlyE6fyFBiz/ohcirfALObFT7g6K1/IEFwLNtSlHBYwgRhj3FTkObXVAJd5D+afF/ekQWWCzBojhYSzOq1iGwOLtNW3DojeUg1sAMYBS4hRLyhmBvBJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dQcNSYVR; arc=none smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1791998194; c=relaxed/simple;
+	bh=f6YiD4927Wid/o04YwJDlYA4aM1D/84w4Ea3E21hP2I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dLKwjOlqJ+dnedvmasn4IDcBE5pSWgmQO9w0x48vAF946dCee0KEl7xs3D756I7GZyxSmlhthUTCqyK+ChsBmluD2AjsLSZ54j+jaXyijT3bc6jPYhSU3K4gmxdqH1wO46VTI4TMbXcXUPsf+Viacvt39N6MFOrhbSFfcHZtgko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NJ+dhGWA; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dQcNSYVR"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso5565014a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:15:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1791998146; x=1792602946; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IMIXwI+O28aTWWq9S70Hh5SSta/yBvY/YtBDSjKEcWQ=;
-        b=dQcNSYVRzbgYGiR2wHmszZPpLfozbN5Y1ISL31sstTwia69cq/tz8K6sQWxc7d9e3z
-         r0+hBttJafDSPLM4rv7AdELDsFKlAap5G5bOH/15CHEz2eVung7Iz38/+KjexhlK4lNr
-         DfebLKf8Ae/Saz68rN+aise7htmWlxDTuJLXk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791998146; x=1792602946;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IMIXwI+O28aTWWq9S70Hh5SSta/yBvY/YtBDSjKEcWQ=;
-        b=bmWvYbgT866NmVWSicjQCLI4SFWPzX5TcLO6lkAkQorUafqcOHvjpfTmVbVhxLY153
-         PyPoNUOVmWB8gF0fx/tiPXP1VSLPMqv9BFWukGnF8oTeG+lousZ3tkx7zu31/nRVoE3C
-         PNZR4/6lJeuW3L1msfp9Lq8hFdeymz8IcmAuFlwqfaspL7WVCa0YMLMnZWGmeJlgIJHw
-         wU/41J5ftJpbwQ+GVVh3A0I6ZYwNlh6NnLRwAMKQBdKAA53LUPitPjbuNeYKRJYd2WRa
-         5GTJQCM5J07kcVnpssfwdi/jOV6f5cOSf+/YyEWA7Hkb0Ay7AOXBpERFYvPHREsTHpEn
-         upbw==
-X-Forwarded-Encrypted: i=1; AKwUvBwwTcnQK9k6XqfvGQp1AlUSKRbXOhg2s543gEX4TQDAcu3eS5MaG4fseuhgDpHJ12IhhERrWK3JvufiuFA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtUtJAQcJelzxXXY2iXuElu0hQY97MJo3njynSYYMuwHEQXZ6M
-	ewYQLTVY1C84tH0Wxggoq1QKBqAuZPJ1KvkLo/SIlRlXtJ0Ccy7QB2rHa3iqX9SdJXRL4Rb/YLb
-	QNoLoOqGw/A==
-X-Gm-Gg: AYBFou3Wln0l3IXgkfYEf89KSmxlBWqI5Cg8Vbesc8kr6zMcr8hHZx/KkFLh1w6cNzl
-	fSy0crLj9hzsgIMC0aZVSWdmcEi7p5R2edyJrwiLTWXWO/usDQTwmF7y3bJRlvllmrYu6B5l9hv
-	S98Y8VILyl4kMrSb5PjTOhgsRoyzA1mxfflIjH6nLkpOFLXyghSAanee02IGWbmJLi+W/uukxRz
-	cXp8mwbAG0gPikHCYN1njqmSca83d12xrQiIL9r3R/xQEIlgLNSmY+llq/yYABf5x/VI8IuTL9q
-	BP9zAL11BQURe72STbkZARLGUN6LjmczeJSSoPvOnXdiZSZX8dEQSrm+Dwt6DGKxYUUw6/hooRc
-	kdVg0ZJdmjx9GdAZ1HUNLGPc/uPWR5Y9s4Ixc57YNzSQgXDSdZb8/SRsD7uxkY7kGBj8+NoFUkK
-	DJC4xhP2jf7VBuE1BkZVlax1u/wacWRfggOJn8to7Q/WI2i1DKdFuI1BaXhVbelsIYBLWEgLTUB
-	RVc14G66DBh8tmp+cEG/maX2abHhdmIfJywlhIL+MYPXGHx
-X-Received: by 2002:a05:6402:450e:b0:6ac:9a44:d409 with SMTP id 4fb4d7f45d1cf-6b17c1dec0cmr13946236a12.4.1791998146325;
-        Wed, 14 Oct 2026 10:15:46 -0700 (PDT)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b2038abf24sm1346539a12.37.2026.10.14.10.15.44
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 10:15:44 -0700 (PDT)
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2e8e738ae0so777637166b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:15:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByTyL/8vd/71MWGZMc6H3tt/aL5FRzySj6kmB544DNl93PjZuGW3CsDJ3HqTv6WDaHAdCRrnee2xJpsTks=@vger.kernel.org
-X-Received: by 2002:a17:907:9690:b0:c29:f0a4:a4f8 with SMTP id
- a640c23a62f3a-c31a96e4d7fmr1484999866b.0.1791998144070; Wed, 14 Oct 2026
- 10:15:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NJ+dhGWA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791998192; x=1823534192;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=f6YiD4927Wid/o04YwJDlYA4aM1D/84w4Ea3E21hP2I=;
+  b=NJ+dhGWANPBuuO3QSFBmHDrnxaW79/DEIZX082C419CudZq2eVtmE05Q
+   XfCy39JHrl3dqpQtlITgPNWM0/qP/Fcx8ZnK32WK33VTWllpFhPdekSTd
+   uYLXuwf3mGegggJIOCtu1hTn2utz+83K8+Ixw1Tn26g5QXl4iUzbdIfOr
+   iZbYeeRVUAz693pQMzJ5s8aaW0NeWghHtmK2RCM4ab1b6IVFIYqruqg6T
+   CyWchoDXJU20vk24quJw2AGWi9Rhl2eFcMUpgizegoDYfG2WrnkJQ68FP
+   dY3ofPAF5eBk/nIX3nlbQuIoPU2USPxHL2khKZuMzLo9Vdou6ShWk1aYx
+   w==;
+X-CSE-ConnectionGUID: ++881HQrR4OVuWD5j0hb8A==
+X-CSE-MsgGUID: 3GilZYmiRuep7xBWUMfMNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="783995"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="783995"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 10:16:31 -0700
+X-CSE-ConnectionGUID: osIpf7F0St++8G8d1lKc5w==
+X-CSE-MsgGUID: fOzaMBbAQpadDQwc0h8mBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="3243535"
+Received: from gabaabhi-mobl2.amr.corp.intel.com (HELO [10.125.110.36]) ([10.125.110.36])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 10:16:29 -0700
+Message-ID: <ccfb14ff-989c-44c5-96be-a092a5c0fad9@intel.com>
+Date: Wed, 14 Oct 2026 10:16:28 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
- <as690Xcu7FxIDYjf@thinkpad> <CAHk-=wiak+h+d2tZ5W_MwRzatUP=hJKn7cpGjDxArG-gwgHLXg@mail.gmail.com>
- <as9-2cIuGuXwE2Oa@pedro-suse.tail5790ac.ts.net> <CAHk-=wgkoAuxNXga29nQ8w7GxdqR+4vPAUhPsbfp+gzKrb9EgA@mail.gmail.com>
- <CAHk-=whzkNzkBmCspHYd80D1Z=krDc4SgVC32=pJ5PtEgqSDrw@mail.gmail.com>
-In-Reply-To: <CAHk-=whzkNzkBmCspHYd80D1Z=krDc4SgVC32=pJ5PtEgqSDrw@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 14 Oct 2026 10:15:27 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wicpT0MJ7hFmpj3NiyobL6ErT=Q690Sod4iD7HT=bQRZg@mail.gmail.com>
-X-Gm-Features: AclHuK9HqoL5WYsSIywkBsAxV0TH7_OPcbKjG6NH4NO6Sxx0TiFKxKFMs6FyK_8
-Message-ID: <CAHk-=wicpT0MJ7hFmpj3NiyobL6ErT=Q690Sod4iD7HT=bQRZg@mail.gmail.com>
-Subject: Re: Improve page refcount scalability
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Kiryl Shutsemau <kirill@shutemov.name>, Harry Yoo <harry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, 
-	Matthew Wilcox <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Luis Chamberlain <mcgrof@kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux-MM <linux-mm@kvack.org>, 
-	"Paul E. McKenney" <paulmck@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/3] cxl: Provide explicit RAM region creation for
+ Type-2 providers
+To: "Lucero Palau, Alejandro" <alejandro.lucero-palau@amd.com>,
+ Richard Cheng <icheng@nvidia.com>, jic23@kernel.org, dave@stgolabs.net,
+ alison.schofield@intel.com, vishal.l.verma@intel.com, iweiny@kernel.org,
+ ming.li@zohomail.com
+Cc: kaihengf@nvidia.com, kobak@nvidia.com, newtonl@nvidia.com,
+ kristinc@nvidia.com, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261007090540.43817-1-icheng@nvidia.com>
+ <1fd14fc6-de0d-4980-ac8b-8138dd5ef17c@amd.com>
+ <3466e889-82a0-41ac-9013-7d21020b5092@intel.com>
+ <9427af6f-e693-4cdc-8fc3-21c529888125@amd.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <9427af6f-e693-4cdc-8fc3-21c529888125@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Oct 2026 at 09:59, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> That actually makes me think I should go back and clear PG_rcu_free on
-> unlink - at that point the folio can no longer be read. I used to
-> treat unlink differently from truncate/hole punch because of this [..]
 
-From a quick read, that worked exactly _because_ the marking was done
-at folio removal time, and then it was easy to just say "if the folio
-was removed because of a unlink, don't bother marking it for RCU
-delay, because there can be no RCU readers any more".
 
-But now that we mark it at read time, actively clearing the bit at
-unlink time looks a lot more iffy.
+On 10/14/26 9:35 AM, Lucero Palau, Alejandro wrote:
+> 
+> On 14/10/2026 17:23, Dave Jiang wrote:
+>>
+>> On 10/14/26 8:34 AM, Lucero Palau, Alejandro wrote:
+>>> On 07/10/2026 10:05, Richard Cheng wrote:
+>>>> A Type-2 provider uses devm_cxl_probe_mem() to register its memdev
+>>>> and obtain an HPA range. This requires an existing committed region,
+>>>> so registration fails when firmware has not configured one.
+>>>>
+>>>> Firmware may provide a suitable CFMWS window without programming a
+>>>> region.
+>>>
+>>> Hi Richard,
+>>>
+>>>
+>>> FWIW, I unsuccessfully  tried to explain this possibility to "BIOS people". The fact is, nowadays for AMD and I think for Intel as well, if there is no CXL device detected with CXL.mem enabled, the BIOS will neither set HDMs  nor there will be a CFMWS.
+>>
+>> Hmmmm....don't they have to reserve CFMWS for hotplug?
+> 
+> 
+> I have to admit I'm a bit lost with hotplugging and CXL needs, and not real experience with hot plug devices at all, but in my mind hotplugging allows a great flexibility which is counterintuitive if you need to know before hand which devices are going to be hot plugged ..., regarding CXL, how a CFMWS can be created without having that information? Maybe there is something in the specs about this and I did not pay attention.
+> 
 
-Not worth the pain unless somebody actually hits this as an issue.
-Right now it feels to me like a "numbers go up" kind of thing rather
-than a problem.
+I believe BIOS needs to set aside a range of HPA via CFMWS to allow for hot plugged devices.
 
-              Linus
+> 
+> What do you think about my other concern below?
+> 
+> 
+>> DJ
+>>
+>>>
+>>>
+>>>> Hot-added devices can have the same requirement. A provider
+>>>> needs its endpoint topology established before deciding when to
+>>>> create a region and how much memory to map.
+>>>
+>>> Another unsuccessfully discussion was to avoid BIOS setting HDMs at hotplug time as this could race with host dynamic regions creation.
+>>>
+
+The BIOS does not touch device when hot plugged I believe. It's all OS native handled.
+
+>>>
+>>> I'm commenting these two things here for maybe having a community/kernel discussion with the goal of defining what BIOSes should do and mostly what they should not do if they want to be compatible with kernel expectations.
+>>>
+>>>
+
