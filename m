@@ -1,99 +1,188 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010012.outbound.protection.outlook.com [52.101.193.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FC04E80B7;
-	Wed, 14 Oct 2026 12:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981433; cv=none; b=Gi9KnTwBOJWr+JFIvU5OCRmoOZG8Xjd27JAZ0o36/gLxW79mvDFg65M/EsNrw+NhBHT8C5GscMRiyp0/+w8mTHzWElCNXY7LuhU0wBhM+Hr5XrgfqTgNEsUUsOegOAZkMGHGvI1rAO9uiQT/Q7piiWkODv/Wfatjq9BhT6E73dU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981433; c=relaxed/simple;
-	bh=Qp96MpWdU5xal9WPRFyPr3on2TMkAjzjAFXo1kcudLc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R34D6tjj1pb8ie+SVfFzxUniuyTh94vv4Us5avpWrOouQ/+IpAfFSNXw7BeaX617okdyCzslBdKdhYC/FUzTKLR5uYHfxfdYcIqMFTMrhadUtg2Q1HaY11+AhwH4rQW4+xP/HNYjFSIaWhnnHg9LuUOgcsF9x6Eu2blYhK/PjzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=M2NhgmN1; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDEA4EB870;
+	Wed, 14 Oct 2026 12:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791981438; cv=fail; b=fTTHJjwBay1wNw+rjrixitlsgVTUleKyjZeS45KKcz9cYaqmX0y7R5fUL92Y6Kygw2u58T9RL0fSsurSNYua5MUnpqzxxFMdGgdca3GPfGArqZZVSDF4lsB6XYi6vCMMrJdg7tfCN+OqpfFvp1LwZF9tifBgO3TOHK+LWI4ognc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791981438; c=relaxed/simple;
+	bh=Fy/OaIxtH7eFpIUaxYqzqDC30k6nj4aFvfVIfF+XrDE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=NhOi7Z+EPMDzd9EEdDAQcIxa/QPHuVYN45Emzh8HZPS5Mhvgi+Mn47Nz8XDSQtEz8he/vzfSkV2kiE1nT/AA2dPxiRNFE54UefRR3zZmymAup7aDQm8Etssu7fm/3OfVOGoxTMQyxbFMSOe02fJNXwyh84ckqlYg3+YEgPAG7ZQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=isRy54UI; arc=fail smtp.client-ip=52.101.193.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="M2NhgmN1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=zcDK/pebo2mPEMQZ0p0oqr6UiazZd9GFCzRu+HIk0DU=; b=M2NhgmN1lO9irghBDCYlbRM8SS
-	w0CY12HmYRITG6PK2i7bv55vNs8IktqgyMX08xWIk9fzIwULJQ0FsZkUDhxiEPA1qz2uPxjiV36vX
-	MkoO9uhvcxx08tJpKPAV79mFlUDIsdab+9ApuLGKZkGsf+6EY1LCqQ+KJ3z4E+F7KUzM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xGyE9-00AjBI-BM; Wed, 14 Oct 2026 14:37:01 +0200
-Date: Wed, 14 Oct 2026 14:37:01 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, arnd@arndb.de,
-	stefandoesinger@gmail.com, krzk@kernel.org,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v2 16/24] net: phy: Add Sanechips ZX5201 PHY support
-Message-ID: <788c9b01-473e-4c45-b6f0-b2ba054da8e9@lunn.ch>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
- <20261014072109.1759502-17-ghahramani.navid@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="isRy54UI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ebBm5j+8i69OgxgPS/Pgp6x0ppn9vVmNGm6Z5MjNlGMkLN2r7T57gAjofYcDSvbz9B7p5nLAJzPBiEZD9k0XpIQDrWqSRP7feeN4y3fb2hyaACCdgN+/cmo9WMSw8rnq6PKy+ZyKgFSWTXnoOfrzZLCUV95qR6eTUU6DSl9piT/KhoFZuLlNch0KOB2MJSzlzPsZD6gBsZFY+uFhIIPGHUGrKncq1xc/sM/xoCReWU0ngfRuc3sgp6/CJLdE9uzaTdXjX/E6QOtDf5qK138emg6vM0WzrgHHrJ6SYasvPEewBuASvFmuSswHM2IeolafiPBZQjPVL+cF7JzEcarv/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zeA4qNXckNWoMyKSJ6jNtiW2yKjvewAObfxw15glUks=;
+ b=cbOdCDNeFHjrWns2WMeXoBrE3vdImR9KHdUTHaQRuM+K93s5JG6mZZWP1e428HLvYyRhwVhmN7CbLoDj1x6JPeCcyrFMd2cv5V4nR4I8Yk9x4+V4CfOXBIyYJl4kCOrDSrhPLYx31XUl0fSIKFwD1dG5fJ0XOgBfx6covEvixr7GCt7aYSjbyAg/8cvD9sopaVcssk4NLlvyuLjYAU8T7ojEwalClgA4JUkAgO/IV5jOIxAb+1X8Nrm7X63Om1hHtNQ4lOsRQplDFrvj3gtfvyOVfYMQocJqKcXDKD8WbrcQiXWFljTFxQxaS9wO9lW32yWtHue9oMsGTnEdZWEihg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zeA4qNXckNWoMyKSJ6jNtiW2yKjvewAObfxw15glUks=;
+ b=isRy54UIqOlvEMsHNAo1a+gSHf+m5PcxzxHbFRGGZyT+BfCHLEO3s13yrX6zS66SWCQn9qNgq/4xfZxLVvzHRggZTYJ3+DrQ+qzQAlwKlztkAf+63CXMMp2h/v0AZ9CZ4FUj3coWLrggwwJUuItzN9nMazsDOImzse0Gwa0EV5o=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB7868.namprd12.prod.outlook.com (2603:10b6:a03:4cd::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Wed, 14 Oct
+ 2026 12:37:08 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
+ 12:37:08 +0000
+Message-ID: <8e1c50f7-8d1a-4b78-8524-2897c52ff384@amd.com>
+Date: Wed, 14 Oct 2026 14:37:04 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dma-buf/test: add KUnit case for
+ dma_fence_dedup_array() empty input
+To: Baineng Shou <shoubaineng@gmail.com>
+Cc: sumit.semwal@linaro.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+References: <20260630060436.1527498-1-shoubaineng@gmail.com>
+ <20261014024909.1769215-1-shoubaineng@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261014024909.1769215-1-shoubaineng@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0076.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014072109.1759502-17-ghahramani.navid@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB7868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7871badc-80bf-49f8-84c6-08df29efdc40
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|4143699003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	/VnGAc1eL5CkcpDZfQvJUYwqgGXTJ6Zzo2gHMfC86Xv2UlhaRg4VIYTq9ksZCYwQhJMT1dRy2+dncxEOkyB6YpCJZ4/Q6/k3nERoik92+gfwktZzWtzVcGmfw8ixLuuFYNoo3kxmGJyPFi06TSqiLLbwOmSw80mZbvUcIvSOwo1hh63BlKP6E8EV1G0wYglKu9zEzQZ6nXsDJpO2RfItld1kjdkDo3DobPEYpax+pkroV2+UdpBFC7jXWea9covDlw5bccvKAbtBlcS2G2QEDVdHNfEYnwXaqKjqo4VZK+CE31/axRFG6kpZscxBcag5lG3tU+yjnD+Gug+ob+Jtk4gMLQrfDGC4Zyu8LNIIp2ci2UX8KUsF5tK//Nhp30hLqhi12NbMBEb7EvO7z2B+c5bBgsJsx0AN8nqxFFaEsmvY3jM7Q886nzzRtzQeXQRlsyO/tKbTTAhHkiZcaezIKpWu9CCaMupc5rfFtSAis6St82wgWiq4lTmBvRRyOGcZ6ygOMiruWJApNAv3d2XQYaotTlJi1QekTGwV84z2UEcWqanyXjo91KdDfiG9g0JbY2v5376ea2VxKKXkv0KSTtv8bbAwKR2uMMDbpNWbqLU45q96rhQYQIUVOPM/MOeCIHxuXuqwfz+a4UfVpA1nk0aPojfvImHgRBJrNdiAc/E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(4143699003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U0JhOUt2b0I4VFU2Ti9aaTZoREpWbmkwV1UrN3FKOHJNM1FwakJSVEFUUFFs?=
+ =?utf-8?B?NHZFajBYcmd0K2JUNDVZdTk0Mm5BTVpxTXA5elU5dGREdnhaSDVKcFd6Q2ph?=
+ =?utf-8?B?UDFic1djNzJIajJKK2p6S0g5M3g2MFo4Qk1BbXlHRU8xZW54a3ljQ1dRRWhv?=
+ =?utf-8?B?dGtHZTRxc0pzMkFNTUh6ZlV0NXhGWXh5SVJCTmFZTjFSU1ZNaERySHdCZEVp?=
+ =?utf-8?B?VDNaaXRya2JIQ2p0bXNyOEgvbzd5Y2R1cGVyVnNnZEMvUjUwK2xOMTZLZmFD?=
+ =?utf-8?B?MC95bUt4NmEzRzFTM0d6YnA0d0M3NE5RK0Q0VVRKaGZ1bkp3U3A0WVN3SVlJ?=
+ =?utf-8?B?ZWIvdnZZdXVta0xITkxBU2d1alRYVVRuK0l5Nm1FeVdJMWxITXEzZmpVaWx5?=
+ =?utf-8?B?NVAzMmtIVGNnODRORHRKTWhNd1VmZHczbGtQT1FMYnJtSXdXMjIzOEd1S21o?=
+ =?utf-8?B?L3duTlllZkR0TC8zRm5YVzVJclZ0ejQ2akx5YVJRZTNnWTJ3Tm92Vzh1WEJw?=
+ =?utf-8?B?RC9RM0wzYWdDNm1aQ2RUNXJRMWhmOGJMajN6bmttUVU1SmdGRnVTZ1JCb0c4?=
+ =?utf-8?B?RnExcUhESjZrdFFDeXU2WVY1UTR1aDNZL0VKWGo2L1FpZktIUUtqU3hYUXhE?=
+ =?utf-8?B?WW5SUE5TdTYzdmk3aVZ6RWRkaXVLcW9FZ1NwR1I3ZnYzblVJcnpQVG5OY3VR?=
+ =?utf-8?B?T1R6RXZCUHJUODVWODdBKzhjZ0VlQTZqL2tvS1V6SmdaelI2RWNZVGJ1YjNn?=
+ =?utf-8?B?RVhwWElJd1krNDBuNFZtSW1FV09YODBVT2orMVdLQlREWHp6dlFNVUVQRUNO?=
+ =?utf-8?B?dVhJeVR6bU5YYmx5VmRVU2FTNFZlVkU4MWxhWUhzZXFVNGNsaWhRcDNPcDl4?=
+ =?utf-8?B?VVg3c0VCUm9KbWxBT0Z2ZDdHcnViSnFScEFucm1hRjk2RjZjb25wUFJVTU5E?=
+ =?utf-8?B?dnlka0haRFhKRGZOYjRMSG83T1pieXZ5YTV2Q3RlZVVyZHE3VWlyckxoTzkw?=
+ =?utf-8?B?SVNncllFbW5oZDg1UWl1WnlmTUpUalUvWU04OTZ5cmhoSGdNM0hnTVNzTVdU?=
+ =?utf-8?B?cHN1NUt5bmNnSEZ5SkhjZlFBTTMvblJDNThaSG5LMWxXTmhERitLZWlVdFZk?=
+ =?utf-8?B?OHA0NHFzalhVUFEvazJBK2lEYlNNWUJRUnJ5cmJGMjlabk1KMGhwYUhILzdo?=
+ =?utf-8?B?OXFyUDVDV0RQUmZhL3A1MTREdDVBbUYxejdJTnZiRlpBVUg4OVFnbTkrVjRZ?=
+ =?utf-8?B?MHROa3BpR1hzZnhVa3BwZmU0M3B0eGNZTlRVcVZVNGFlMUptN2Jtdnl4TlFl?=
+ =?utf-8?B?QTJWZHVQOS9mT0orczlPS0FXWVN1SnBXZ0lBUmNWSFU3RmlCQk9GTW5IdHkr?=
+ =?utf-8?B?NTVEZFNTQnQ5Yzd5d1gxaGNnTFY2OUFod0V4YUhXSE91anltWEp3SU9MdWVm?=
+ =?utf-8?B?eHROREtjTlE1c2FvRVY1RHlrVGdvRjdpaFUwYkVYR3hZN2JYZzBjaS9tK00y?=
+ =?utf-8?B?Y3ROZ25IMHFGOEFsVmZrbFRYQktPbVpkR2htUXl1MnYwdUg2UmFZdXZtdEZw?=
+ =?utf-8?B?M2FwYmNMZjRWR09FeHp6bmZOZTNoU210cXRHbWFVa1QxQm1nVDk4ZGFXdllH?=
+ =?utf-8?B?RmcrT2QrL3VRS05Gb05BOFl5RFErWTZWSUFtOGEwUGU5a3VBR2Z1QTRKZnV1?=
+ =?utf-8?B?WGd2K1FLME5GOWVkN3ZXREhjL3ZwUEkwczNvcWxDTEd4SHN4b3NkQmVsN0lY?=
+ =?utf-8?B?TFFSWG9ZZ3BzbTBSU3NwdUJtNVRIT3l6eFN5NlcwaGJobHdncEdYVG9qYmFp?=
+ =?utf-8?B?OHRwVWNjeGRXQnVjU09MZC8wdVpHcVBJMld4ZUo3N3pTV3JXSnB6TGFQNFY3?=
+ =?utf-8?B?Z2lYd2FhbzFoRUo5bWJjcEFRS0hWT20zYTV2NzZyTUQ0WDlPTDd5dWtYazBY?=
+ =?utf-8?B?ZmNwdFZvVlhVNHgwS1I3S2ZTeTRyaE1nbE1aMUF3cVhmMmhtQURlWThTNjJl?=
+ =?utf-8?B?N0NTWkEvVDJSUXdlVGFBdVpXZThyaVFzaG9IMVdzRlp0OWtnSGVNRmtqbW1P?=
+ =?utf-8?B?dksrSHlMVGNkT1ZkWk9KMFlDNlpUL0FxZmJyMUpvTFVGUUFIV25lRzNPa0VH?=
+ =?utf-8?B?Wk5vYXp6NmovNTBYcVk0clpBVWxNcUM4UHdpQTlpTFNkT0o4cVZ5TmVoOHpq?=
+ =?utf-8?B?ZUd2c2hWYm9XYkZSVi9EcS9NMGQyQ1BGSGkxWEFBMWdtOHpuU0NDSkhhVGN0?=
+ =?utf-8?B?NU5VVzdlU29lOVF5UE1kcmMrYXRVTWFuYXd0bnQwUDA2RThTOU5sTTVsM3Nt?=
+ =?utf-8?Q?3VJQ84dYLDhvsX6PAI?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7871badc-80bf-49f8-84c6-08df29efdc40
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 12:37:08.0677
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zqD6XWK9Yq7lMsjlrqYI1rqWvOXxBPYBxhykwr16nrrKfgXY4nMvJZnJah0LNboF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7868
 
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Sanechips ZX5201 Ethernet PHY
-> + *
-> + * The ZX5201 answers on two MDIO addresses: the copper PHY on its own
-> + * address and its MAC-side SerDes interface on the next one.
+On 10/14/26 04:49, Baineng Shou wrote:
+> Add a KUnit case verifying that dma_fence_dedup_array() returns 0,
+> not 1, when called with num_fences == 0. This locks down the
+> contract documented in the kernel-doc and prevents a regression
+> of commit 77a9298741f8 ("dma-fence: Make dma_fence_dedup_array()
+> robust against 0-count input").
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 
-What do you get when you read registers 2 and 3 of the SERDES? Is
-there an ID in them?
+Thanks for the reminder, I had to wait for the -fixes backmerge to push this.
 
-If the mdio bus is scanned, and there is an ID, phylib will try to
-probe a PHY driver on the SERDES.
+I've just pushed the patch to drm-misc-next.
 
-> +static int zx5201_sds_read(struct phy_device *phydev, u32 regnum)
+Regards,
+Christian.
+
+> ---
+> 
+> Changes in v2:
+> - Add Reviewed-by from Christian.
+> - Rebase onto v7.3-rc7.
+> 
+>  drivers/dma-buf/st-dma-fence-unwrap.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
+> index 4d9d313b460c..c5353b36f0e4 100644
+> --- a/drivers/dma-buf/st-dma-fence-unwrap.c
+> +++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+> @@ -370,6 +370,15 @@ static void test_unwrap_merge_seqno(struct kunit *test)
+>  	dma_fence_put(f1);
+>  }
+>  
+> +static void test_dedup_empty(struct kunit *test)
 > +{
-> +	return mdiobus_read(phydev->mdio.bus, phydev->mdio.addr + 1, regnum);
+> +	struct dma_fence *fence[1] = { NULL };
+> +	int ret;
+> +
+> +	ret = dma_fence_dedup_array(fence, 0);
+> +	KUNIT_EXPECT_EQ(test, ret, 0);
 > +}
+> +
+>  static void test_unwrap_merge_order(struct kunit *test)
+>  {
+>  	struct dma_fence *fence, *f1, *f2, *a1, *a2, *c1, *c2;
+> @@ -595,6 +604,7 @@ static struct kunit_case dma_fence_unwrap_cases[] = {
+>  	KUNIT_CASE(test_unwrap_merge_order),
+>  	KUNIT_CASE(test_unwrap_merge_complex),
+>  	KUNIT_CASE(test_unwrap_merge_complex_seqno),
+> +	KUNIT_CASE(test_dedup_empty),
+>  	{}
+>  };
+>  
 
-I would suggest adding a probe, and validate phydev->mdio.addr is not
-31. ENODEV, or EINVAL, to indicate the setup is invalid.
-
-> +static int zx5201_config_init(struct phy_device *phydev)
-> +{
-> +	static const u16 led_regs[] = { 0xb409, 0xb407, 0xb406, 0xb408 };
-
-> +	/* LED control registers, all cleared as the vendor firmware does */
-> +	for (i = 0; i < ARRAY_SIZE(led_regs); i++) {
-> +		ret = zx5201_ext_write(phydev, led_regs[i], 0);
-> +		if (ret)
-> +			return ret;
-
-It would be nice to reverse engineer what these bits do. And then add
-proper LED controls. However, that can be later.
-
-Ah, now i'm confused:
-
-https://www.sanechips.com.cn/en/ProductEn/WiredEn/ethernetConnectivityEn/index.html
-
-This says it is an RGMII PHY. Why does it have a SERDES? That suggests
-SGMII?
-
-We need to understand this, because if it is an RGMII PHY, we need to
-address the RGMII delays, which that page says it can controller.
-
-	Andrew
