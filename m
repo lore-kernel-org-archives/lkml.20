@@ -1,110 +1,207 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012006.outbound.protection.outlook.com [40.93.195.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8B5518132
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989894; cv=none; b=ZenLaiKrCHUqU/nugpXXMYsnTGUx9twi8GxY1SdWRd4hnf8qmoAsPdYULSory83x+VR2OCcgonotRyYa7eBgRbNKF+BM2+Co4FxFPUOG2mIEUKsH3Ee7cc8RZX9kX2NVQ+5JUoYQ6PPYigkEbBvVCnnCAzSIXs7amueOJz0jWC4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989894; c=relaxed/simple;
-	bh=favv20QUS4n0s36pVO9/Q4DOlqW+akAGcEKiNfXx8po=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a2WX/uITee8mFUZ9akZyuTlwXK1BupZvNOEdEJe/pp9H1TZPh6L7cwMwDtEh1n9xJJKM6oigx0M8QRdGPcHrX4gTGLQoUGtPYTcKe232wBq8CyS1ry/yBLRCaKgULoIUdDbF2y0GgGZzDopBM8Hq84IFQATCPfSnibQPA4j2u/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=WgrZ5NiE; arc=none smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1109A3976A0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791989900; cv=fail; b=Z/tLbo1W7WKUqDptqxU4AySSzH/1NkJ3Et3pU8uJJaM+W4/eJZp0p/UPk8imgALuzB443S+PVDjcxSfLvazSYcfk6YGtcx4VYAOaixcTQZb/G5DCOM9LxhPegkP1lkYYNDg90Fb/9FrNFLYWjFcFNh1eUwPNKBN+nbI8EAXCHGg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791989900; c=relaxed/simple;
+	bh=I0orR+aBKx7zXWHIOJpff0ksx4wDfOpZu1S+KSQ+zYk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=E899u+PEBFo3Wm2ulafGLHMsei15mRIYHP1/mGi7vaIYiZAp7Y/sDtEI6oMXbcG4Y6awBYeUgJGGg5lqjh1fOnV+/t2OnDYsS2M0aqbTj5sfmYACAhYa06u/q+shODQVsdE6vTYPH7atoJ+CUXL+cl7AL/uEvAwXPT+WpSL+zRM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lu1d/jT6; arc=fail smtp.client-ip=40.93.195.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="WgrZ5NiE"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-535199ac562so41361481cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:58:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1791989892; x=1792594692; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=end4sOICJSY4jXS2ggbo5B9Zltmh1/qgwCGH+E3RbsM=;
-        b=WgrZ5NiEFnvIsZOzhqPsZLvAIKwmV0w6Mo8W0hgb4hHrVvvdZuWAlGX6Q308OI9U7G
-         nPLZa3rcmAlBHfT8jcMk4H+qGVoqL5jFPwo+vNe8askOv0nx7mesUxGpSV08Npz5RmyT
-         p/qYwSPiUAvs2AHKTs6rCOIoirzpI5YRRiI0BoVPs0+00muOw0mDj2fBL2rQ2SanWb3a
-         gn+4lhQMdV3GO6dHtOh2BCtK8p5HxNk9vxnbsSLGbOkFhFT1SLA/H6VF0o7fzt1lc+Hv
-         j/QaZVlBeH6GQgywKMiNUW7IELoht9RQZKBK/uL7cNpVbGVeUtITUIUt7XMHR6IV3hcB
-         jyrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791989892; x=1792594692;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=end4sOICJSY4jXS2ggbo5B9Zltmh1/qgwCGH+E3RbsM=;
-        b=GRaTlGs5UUJHdv7RTE6JYsYvp4xXSIWH00I7CjmCIQKuOSJefAnyiX0LeKwq2h35QG
-         /CzVf6wxFsFkTjWhBXCLG4s/ECxahRpdO6flPiBfm/lABIT6Vx3yJoNjTLmOd31oYkLw
-         x2m0jQUmDDmPPXh7W3EG4+Y6hLdj3BXFW0u5JWTcGmSI3B4aVtKBlyYuQONYDJSvoUsW
-         FQU7sjK7Un+Mzc8SCR5cx5CbD6h+KIdy15hMpCyX9rtvoyXDXXPbbIqncXwyNInqbYFs
-         NlNkKOMk17l2HSzWghCg4Nmg1MK27rQE8agC6AGaKU9MIFKkfXh6hwFSUOHbc0RJyUSL
-         wEPA==
-X-Forwarded-Encrypted: i=1; AKwUvBzM6XMJg+geswSZBxIO/8K+HJ0ThsvHDL6R31zEMP46waW3Jw2QkuJtgQ/kl5hMjoTsnuI6YBUUuTHcjaM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfUjYq5p+Csax7UyOOUyUw3+qFkC+hbbF1PycbSs0Xg5BZCzwR
-	FP31kdJyUfT3j4RzPg/uxzbpKGe5CHXSmszDyFzD3ucLR4+DvfoDBIYSEhRDqHkfUCqvnFAHvff
-	l3NKcLA==
-X-Gm-Gg: AYBFou0iG7YmXOsc9jvgOJcETlZ+ZnVVN6lsX5Qjn3Y6ZE2G1ny8peJjQLTvSVEZrvf
-	6+NsXRVmhbMSHE+faO0BF8vK57ouPfQFQi0SFLAPB4rXnRPzSs7KWvXhTDp2x6HfiQ43qKlHUF6
-	7ublGg8sEgEMkVzXE2f7Qyj2PkE4yPt6nMLslpR1hhwuYDke+7TaDFh3MxDk2vW00Ccd3Jib6qZ
-	LIxUe8FFt/EKYVaw68VI+SuVeZJUvE8vIxer5cLsyoc7dgPXignwy5V3GJzU7GSdjBCDVxiZOwt
-	QXmedxSFqrbZvcdEl3XBTtmbaZCX77arFLxitRdhOarjS/94E9uZoMGMl7zYSX0LPPIW7ragE53
-	eWBHTlwafxGuzp1AZKBlgfylHbu5P3niGOSu8V7VDqTCQAc2Idzqb4705pJoqopVusAcfB/xuHw
-	+0VGObZz3ZZWb16zmkDJ4rKO2biR838W2axErwiisLbWgjjO8inB9gQjNP/vdH+gDEl6NfYY8oD
-	v4VoASXpny7hzw7GQ==
-X-Received: by 2002:a05:622a:8ce:b0:530:e1b1:eaeb with SMTP id d75a77b69052e-5359fa73749mr239755861cf.21.1791989891598;
-        Wed, 14 Oct 2026 07:58:11 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b6fbdcasm126177791cf.5.2026.10.14.07.58.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 07:58:11 -0700 (PDT)
-Date: Wed, 14 Oct 2026 10:58:09 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Mario Peter <mario.peter@leica-geosystems.com>,
-	driver-core@lists.linux.dev, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] driver core: fix parent lock use-after-free on
- USB disconnect
-Message-ID: <90cff929-d12b-4bfa-9b30-19319376289f@rowland.harvard.edu>
-References: <20261014133109.1392265-1-johan@kernel.org>
- <20261014133109.1392265-2-johan@kernel.org>
- <DM4N7SKUMF98.32GW04E2EVM8I@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lu1d/jT6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M5vZldQx4mPECDJ/ZcgLoQ06p+OPisEYtp4BYZQr0tiVSeuMf4MvYIfcOITFNgULWpIurpxjc6ToxkHGfuZEYvxuJszOa6kohSu8t4UIeEQEvelcIhndidx5r0jWKik3MatZRzpV/Y48OD6Z/kBeb+h28ASPThyE/OUw7edV11a48YwSEW4egh3nAEmcAypFDXI+NbWH0kV9FXxLeZSP1QqR0N0w5hcVRjmnJTy9iTK0QojggSpbFC+ZHQXxEZFhkwiHopMVJvPMi8X0SPAddwzIj/eGP9u8hPYtZ9T5uO64mr1W9A1BItwPs8BdhzFSJSi3B0NUR1eHQyLBHM2RCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ojtXr+sKXcT01x2Z8aOEOjd5CScB6QrpkJHP+jJ8diA=;
+ b=N/bwBWz16yQ37ZGHTD+GVGNcpJ0U+qC6c6MbmoejCPLjeTeWNnvRonstUmNxAF34SDkRDapRCmb17tZOSiIl7myxv0CInwev1gw4eXu9MDpSUydtC5Qd4vwaDoy+bjsaavEFF/4f9iq//4PJ8Wk0a3cbOXFpRNtnIklAKCWAVuTmeaW9nu0Buy96kvERO9+d4zTfR9vYaTN+Z83WQwF+tkUBjLtblvC4RzDCSiG5kx4r1bcImmwQNnW22dCNP7vUcdRgIQizabbCBu0+y34FGTSNOsflklTUx/I+pAdalyP+frVVPha8X8QzmHDt9L3TtP/zyHRfdUEsz4rxITMo7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ojtXr+sKXcT01x2Z8aOEOjd5CScB6QrpkJHP+jJ8diA=;
+ b=lu1d/jT6rOCsQOFry+Y6HfrWWP9HMBkkEGeIAiWiDIH+c7OYeRiBrb2ot9eYshBUnazWQ2l+NB5I/6KYgPni1V5l1bVD6ZZomG9DLyR0nxrlSip+sUL69IQWvI/liCJwEi2BYpvX4k8kZlTYdteaHBXtHRXQIlAeLIhzbfPGbpY=
+Received: from DS7PR03CA0229.namprd03.prod.outlook.com (2603:10b6:5:3ba::24)
+ by PH0PR12MB7487.namprd12.prod.outlook.com (2603:10b6:510:1e9::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 14:58:12 +0000
+Received: from CH3PEPF0002457C.namprd04.prod.outlook.com
+ (2603:10b6:5:3ba:cafe::5c) by DS7PR03CA0229.outlook.office365.com
+ (2603:10b6:5:3ba::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 14
+ Oct 2026 14:58:11 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH3PEPF0002457C.mail.protection.outlook.com (10.167.252.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 14:58:11 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 09:57:53 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 09:57:52 -0500
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 14 Oct 2026 09:57:48 -0500
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>,
+	<liam@infradead.org>, <vbabka@kernel.org>, <rppt@kernel.org>,
+	<surenb@google.com>, <mhocko@suse.com>, <baoquan.he@linux.dev>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <graf@amazon.com>
+CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	<kexec@lists.infradead.org>, Radhey Shyam Pandey
+	<radhey.shyam.pandey@amd.com>
+Subject: [RFC PATCH 2/2] mm/cma: reject CMA areas that overlap the kernel image
+Date: Wed, 14 Oct 2026 20:27:31 +0530
+Message-ID: <20261014145731.3431527-3-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261014145731.3431527-1-radhey.shyam.pandey@amd.com>
+References: <20261014145731.3431527-1-radhey.shyam.pandey@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM4N7SKUMF98.32GW04E2EVM8I@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0002457C:EE_|PH0PR12MB7487:EE_
+X-MS-Office365-Filtering-Correlation-Id: 766d454a-1e3a-4d95-9639-08df2a039103
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|82310400026|36860700016|56012099006|11063799006|261009223027099003|22082099003|10067099003|18002099003|6133799003|921020;
+X-Microsoft-Antispam-Message-Info:
+	XEBTTAH8bwXBqYKRKqrqjE66mewvAsqQesJMmOJ8naP+U7PHVtUFNN2ikW3i10K9aJUu9rfFcNXt1aX4kP6ub1qAVcqcWeCnv6T0Sw22S2RzODpQbwij9jyBdyaACPqaKSU4V+HOvZoFJkwmJFpG8IEll7d1aT2LK/a6rV8k2/j+Ggpmvjsvs+OKOveAkk3hwnGU5WaEIxT+Lr6nPeAbHJFVZ6U8nXrARMsjtdXDbdrxka+MXLgnWRI7fXAQOMs1KdCBsUIOai8pxR+U0GviD5Xx969y/9luxearFhq5F2Tz8ykfct3DnRck/gQ/o6oIBZha9UGFVqaxzAK/wxD2j7KxxQJnaEuk3Ilxh7D1HaSSIaxqSI/BLhxGoN+e49Evx6arIzLaw007fG6JrcA4pc88SaIUd3fniyMHBZVCH+ENUG5/VMO1Zgzm/ZAFFTLb+a2ICEanBsMgQiSjbtk5Vz34gt/w+1s/pwTRp5RvaK2/kV79U+dYG2JkhEAYHTurjHBZqL3eCz58LDCS5iKfRcc0QgVuOerV60pqcmg1x7vgekDchRAtX8A/nTkblQrsoClykefQSyNcI1ofYs+Pu0kgDpZwUgxTXHhoRKAaaZpajtAHPsNXOuUxBRimhJQBXe8mwBXsHh4M/tCGUvro4ul0YEIWAhhDfuIcvTyha+SFod+xWQxWvzpdh8jCbMwnKl+i63ksSfjkikhQoQT6Qg1lMlEG9X0AaEkd9vMHTmyh+p0VmRwZ5v6TYGDm6f1A
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(22082099003)(10067099003)(18002099003)(6133799003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	mTaermkDno2RdRxKZtV3aErcXAh1H+QcLbCROTQxhts5HOfH9lDk3u5wbI6h/YeF/ijXpaaNt974ID8UX4lIZI7clmi37Y6CnVSH26DF2dLhTykNCLRCXzy+2odvKpvSzgeqbafPilOk0q3j2y4AIoWStFOcOqdENmpFcPJySUL65qYy6giDMwAN3CFoup6BprFsdJxOswUbqKnEu9gZJoqIPFF1GsJjUYpLYLjzGvqMvOSPjjjN/FTSUh2k3Toomq32ip8tGzc7jf7jojLBaKqDM4cax2IqY2qZGjnAmxsFRfKg8GE1RjtGtlSH1jTG3NuGQVAkLJPi1TEs4BChvAZKeGTl/t1+DrzJLda4OEy75KrSpbDo938MYihH0UR0BZAJ9dcjuyj2wVEmSkbt0tOGF6p6AA9pDZncYfZqAO6vkvyyKyhuDs+o8qbpxrNc
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 14:58:11.5487
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 766d454a-1e3a-4d95-9639-08df2a039103
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0002457C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7487
 
-On Wed, Oct 14, 2026 at 04:49:31PM +0200, Danilo Krummrich wrote:
-> On Wed Oct 14, 2026 at 3:31 PM CEST, Johan Hovold wrote:
-> > + * @need_parent_lock:	When probing or removing a device of this type,
-> > + *			driver core should lock the device's parent. Note that
-> > + *			the device must hold a reference to its parent.
-> 
-> For the reasons described in [1], I object to making subsystems responsible for
-> the parent reference needed by driver core's delayed accesses.  The driver core
-> should acquire and release that reference internally.
-> 
-> [1] https://lore.kernel.org/driver-core/DM4N25JXKTQM.3K7TP9HM68KQ2@kernel.org/
-When is the appropriate time to take the reference?  Since it is going 
-to be dropped when the child device is released, the logical time to 
-take it is when the child device is initialized.  But at that time, the 
-caller may not have set the bus_type or device_type.
+cma_init_reserved_mem() takes a base address chosen by its caller and
+requires that the range already be reserved. That makes an overlap with
+the kernel image indistinguishable from the normal case by looking at
+memblock alone, yet such an area is fatal: cma_activate_area() hands it
+to init_cma_reserved_pageblock(), which unconditionally clears
+PageReserved on every page and frees them into MIGRATE_CMA, overriding
+the memblock_reserve() of [_text, _end) that the architecture installed.
+Those pages satisfy ordinary movable allocations from that point on, so
+userspace is handed live kernel text.
 
-Taking the reference when the child is added would work.  But then how 
-would the release routine know whether or not to drop the reference?  
-Add an extra flag bit to keep track of this?
+The preceding patch closes the way this is reachable today, where a
+kexec'd kernel runs from inside the default CMA area and then declares
+the range it is executing from as a shared-dma-pool. On a VEK385 that
+reproduced within ~300ms of /sbin/init starting, as a copy-on-write
+fault writing to the read-only linear alias of .text:
 
-Alan Stern
+  Unable to handle kernel write to read-only memory at virtual address ffff00084030c000
+  Call trace:
+   copy_page+0x48/0xc4 (P)
+   copy_user_highpage+0x14/0x30
+   __handle_mm_fault+0x318/0x1340
+
+Dynamically placed areas cannot hit this: __cma_declare_contiguous_nid()
+either rejects a fixed base that is already reserved, or picks an address
+itself and so avoids the kernel image. Only a caller that passes a base
+chosen elsewhere can, so check for the overlap explicitly rather than
+leave the next such caller to corrupt the kernel silently.
+
+Note that failing here is not by itself sufficient for a device-tree
+pool. fdt_init_reserved_mem_node() responds to an error from a non-nomap
+region by calling memblock_phys_free() on the whole range, which drops
+the kernel image's own reservation along with it, so the pages are still
+released - as plain free memory rather than MIGRATE_CMA. Callers that
+keep their reservation on failure, such as powerpc's fadump_cma_init(),
+are fully protected. For the device-tree path this is a diagnostic and a
+second line of defence behind the preceding patch.
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+---
+ mm/cma.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/mm/cma.c b/mm/cma.c
+index 1f4d3d48a3bb..32b799a3f5c8 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -31,6 +31,8 @@
+ #include <linux/kmemleak.h>
+ #include <trace/events/cma.h>
+ 
++#include <asm/sections.h>
++
+ #include "internal.h"
+ #include "cma.h"
+ #include "mm_init.h"
+@@ -68,6 +70,11 @@ bool cma_has_fixed_base(const struct cma *cma)
+ 	return test_bit(CMA_FIXED_BASE, &cma->flags);
+ }
+ 
++static bool cma_overlaps_kernel_image(phys_addr_t base, phys_addr_t size)
++{
++	return base < __pa_symbol(_end) && __pa_symbol(_text) < base + size;
++}
++
+ static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
+ 					     unsigned int align_order)
+ {
+@@ -295,6 +302,22 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
+ 	if (!size || !memblock_is_region_reserved(base, size))
+ 		return -EINVAL;
+ 
++	/*
++	 * The area being already reserved is expected here, so an overlap with
++	 * the kernel image cannot be told apart from the normal case by looking
++	 * at memblock alone. Check for it explicitly: activating such an area
++	 * clears PageReserved on the kernel's own text and data and releases
++	 * them to the page allocator.
++	 */
++	if (cma_overlaps_kernel_image(base, size)) {
++		phys_addr_t text = __pa_symbol(_text);
++		phys_addr_t end = __pa_symbol(_end);
++
++		pr_err("area %s (%pa, size %pa) overlaps kernel image [%pa-%pa]\n",
++		       name ?: "(unnamed)", &base, &size, &text, &end);
++		return -EBUSY;
++	}
++
+ 	/*
+ 	 * CMA uses CMA_MIN_ALIGNMENT_BYTES as alignment requirement which
+ 	 * needs pageblock_order to be initialized. Let's enforce it.
+-- 
+2.43.0
+
