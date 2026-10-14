@@ -1,104 +1,114 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C784BD794
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649004DDB35
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979299; cv=none; b=Y6qJF1VQuQp4jNCVfS81hFAPAsTfOqoBeg6FBKU9kQsEL5U/+rWOlqP27D0xYUXkSkkRI5g1ikU2cpuE7UjA77w/UibkqbToD4D7cvvzPvlOuMqqd0QPJ5N/xgJgam+P9rUg6qtd2t6R8jkZX4JJZmIWhmlVtUHFcbsBYJ/9x/Q=
+	t=1791979342; cv=none; b=trvvIs+EZcG0H5Y/9yltgp4nW8W65DlcviWzZg2oxTpM+jtksm6sZB63K1VuFxVYN2lYxPsrWgiZcHJhkyFHCfb1T2oDWblmV0uc1NINHlLIDLgtOr94+pOAx7Hre5S8hWrXO9wI6NYz2DLeryfvBSC1Jy7DpqyUz7v9eWMTgo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979299; c=relaxed/simple;
-	bh=Zwn256Ky/WnnhO/fkv1WyvwNXZkV0GXvgW7t9VZ79nY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pgJ/0KYN0/7wkJXkatOcRQy0bpjSc106i8ep8cLKzzkaPxeoY1qWNYnA5/SvUvoaCM43NduXlnrCRs3Mvekp+OY3QArjGdT+7TTW7FVyBA+0Fhl5cV/mK42vF0kiXehhhAijnBwiDg98tK/B2nVWl4wW/EVpp1O8PlLkE7tbj7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hAOmadLs; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791979342; c=relaxed/simple;
+	bh=ew6C9tF0Hto4FCznXsHAlkcnPGFhEf22Z2CTdUK92UA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Obkr2IIDrBJEZ1V5K2jxYQ8oAEDHRSt5mKtvn7FVrlLVMzogbgzLahxJITlDS9yJSq1y2k6enEybOWwxYA19VJAntSPolFseMc1Lew970SvZqzkyhrOE9s5qRGe87BQkjztxGGDWZEB4MSyGLiMZgIQW8DqSeM+llU6gs3MO/W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aixumOY7; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hAOmadLs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791979297;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Zwn256Ky/WnnhO/fkv1WyvwNXZkV0GXvgW7t9VZ79nY=;
-	b=hAOmadLsuQps2Uye1fkcuPvVM/D6sTYUqYQKEKSF4/IrufPRb0mGP9K0eS3907AnYhU3MP
-	ypiYwnGDx3Z1oKc2l4EmsXllDwac7Q/jJdVxF6UUhK+qdgw6zevPk7wAdQfKTxXZ5BxNSi
-	vgsqN+rEpElu4b5EDW+skorXP2vQcwY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-646-9hsYaD-GMH6E9s7OscVXwQ-1; Wed,
- 14 Oct 2026 12:01:31 +0000
-X-MC-Unique: 9hsYaD-GMH6E9s7OscVXwQ-1
-X-Mimecast-MFC-AGG-ID: 9hsYaD-GMH6E9s7OscVXwQ_1791979289
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8C6A61955F14;
-	Wed, 14 Oct 2026 12:01:28 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 83756362;
-	Wed, 14 Oct 2026 12:01:24 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Wed, 14 Oct 2026 14:01:28 +0200 (CEST)
-Date: Wed, 14 Oct 2026 14:01:23 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Cc: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>,
-	jlayton@kernel.org, chuck.lever@oracle.com, viro@zeniv.linux.org.uk,
-	brauner@kernel.org, alex.aring@gmail.com, jack@suse.cz,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
- signaling
-Message-ID: <as9vE0quEcL3_5Ke@redhat.com>
-References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
- <20260523135210.590928-1-w15303746062@163.com>
- <asI5Fn87_SoEd4G5@redhat.com>
- <asuxzwl4iWjjEjRD@redhat.com>
- <437297ff-1bb4-49a7-a979-abccdd1814f8@stu.xidian.edu.cn>
- <asz_NnX9_KaJdaf_@redhat.com>
- <dbf95fb6-1685-463c-a533-79024d7a0a18@stu.xidian.edu.cn>
- <as0K5CT8IIaCWsfR@redhat.com>
- <as0Z302oRQpI7rgX@redhat.com>
- <94ee706b-f7b7-4d7c-b094-a6fc9b9174b4@stu.xidian.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aixumOY7"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa29e06bso1325495a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:02:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791979338; x=1792584138; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hfsJvhoEFG+uWSyTw8uJ33oKmHT7ytqNaOzPZrQir/U=;
+        b=aixumOY7nnXWzJbjk4sjmVUDbx7viJW1FlqyrKZVXqJ/UC/+cbbMXPk00KtgKpv21p
+         D7KGY/amn1M0XetyKWmo4OQrhdbYJcgn8DRIDb8nllS5xMQyk7Qi+36t9ef+R0UP9fov
+         0yDOLY5NdtOdkwTmtsMqBlsz+ZXZtqz+iYGgoJny2vaOyNYV/znibMwde4taW9l1YThq
+         B0yTvdTp4c9Mu8/nAym/mWkzDJz4RD4FX477xFeoKq9Lvfvggkxx6RFSmzI4aFvuPpGT
+         R+Fr5wRtXAtygc2aVNXRa4HcmN60dlVL+3lBVBfEa7sacVJuQi6kDL2tvM2uyQDKXWHl
+         YKFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791979338; x=1792584138;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hfsJvhoEFG+uWSyTw8uJ33oKmHT7ytqNaOzPZrQir/U=;
+        b=QlrSpvC7BqX8YOOrOax1gwATcCp8HIR4wesB71xwH50lcA7FQ04Nd40bRbzXuL97gQ
+         ThLDsttT4wrMq5ln6eJvKX9gwQG7zc4tVg7OIyeIDuQsGotOBoSQslLNAl9qNrY0pcpP
+         5UohJzruEmlo+IRJcs+meeRljS60GcPxWBX1hi5iKlQPBqCAHe4WRL4wFu8HbArmJsJD
+         aCsgnwcpEsoUVP8eVIPutsZlNREQcEqpphJ5wYt2h75vdaXP8jHYNGR/PLDU/XnqxQnL
+         yTDIneFRGeYJJ6g1ghP7oL5AqCPDRBcG2DpIfkDHuzJ5oG3gnLUJ49LgRkmtHu983t7G
+         YkBw==
+X-Forwarded-Encrypted: i=1; AKwUvBz7Cp393fWeRcjI8jYLcYZk5X4MB26nko6lSwyjQkksMhB4N4NvEAZAbvyyiu/3lFjQ3iizqyKf4fCCDZY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL18BHHxqET7RI9Wxt3j2yy5k0doBAdGVsne/VPOmE92HwDq+71
+	EWGksd1deRJ3l2e+MKjQvGfn42YUNBgw1TsShZJeEbBQ2j+TYQPbauAm
+X-Gm-Gg: AYBFou2hOaT6UkVLSSu1DtrFbbkWVtLJSNhpdybucbPBC/UDsmr40/BXDHDuoH2vzmE
+	qcRp8r5aTvebPOLQbuRtOuCihGgMS0txTjEXF0oROPqBfUeD1vu4Y/Fvcy9e+vROhnahwWdAdLK
+	GNcONFn9tSdO1NQmldqhERSFcrMTCTM9D037LrkBRLXqeDaZdSCucfumYEe8ccQUMKZcPuXVd1x
+	KS6V4hTsoTrPeFp8JHKqhh4AA2r+RE9Q+USJVwl6gAlblf2MRO4NU4c/7RFx7urGgwiSDocySlG
+	m1GtXR3VSo5rE/J1M753FZueOEODE96eqHd8tDqbcjslwjWrVQL2XAisf3cAuwyyuy7J22xTm8W
+	YPcNNaejdTjpDfDM6hUZDtd8zEQsVke3dmAXCXuvme2vkZN2+0WoKhbKtgX+7YQRitiUVHSg4Sn
+	trISTJDP1yDHJfV3Wrft8YtFW6UR9nspeVeLdDgTvL1Z1bAzGK2P0Hw3eK2elXxFwQmZtf2fXqm
+	BoVjWW++GwhuEzyiWLoSfTtopLWlg==
+X-Received: by 2002:a05:6402:c1d9:b0:6b1:b9da:2047 with SMTP id 4fb4d7f45d1cf-6b1b9da412bmr5434409a12.16.1791979337314;
+        Wed, 14 Oct 2026 05:02:17 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac36f9sm10937057f8f.36.2026.10.14.05.02.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 05:02:16 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] ASoC: tegra: Support WM8994 by machine driver
+Date: Wed, 14 Oct 2026 15:01:46 +0300
+Message-ID: <20261014120148.126160-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <94ee706b-f7b7-4d7c-b094-a6fc9b9174b4@stu.xidian.edu.cn>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: 8bit
 
-On 10/13, Mingyu Wang wrote:
->
-> Hi Oleg,
->
-> In the scenario you described, the tasklist_lock reader holding
-> dev->event_lock is in process context. That explains why the
-> interrupt-reader handling does not rule out the possible deadlock.
->
->
-> > perhaps it is time to add pid->tasks_lock or abuse pid->lock we already
-> > have (we would need to make it irq-safe) but this doesn't look nice...
->
-> A fix also needs to preserve the synchronization required for process
-> group traversal.
+Add Wolfson Microelectronics WM8994 codec support to the Tegra ASoC
+machine driver. The WM8994 codec is found on devices like LG Optimus 2X
+(P990/star) and Samsung Captivate Glide (SGH-i927).
 
-Yes sure. send_sigio() (and other users of do_each_pid_xxx) should take
-the new lock instead of tasklist.
+---
+Changes in v2:
+- added missing dapm widgets
+- added owner into snd_soc_tegra_wm8994
+- fix jack detection disable and place it behind check
+- change copyright comment style to C++
+---
 
-OTOH. It would be really nice to not send signals from irq. This will
-probably allow to take signal->siglock without disabling irqs. Same for
-write_lock(tasklist). So _perhaps_ it makes sense to change send_sigio()
-to offload the actual work to workqueues.
+Svyatoslav Ryhel (2):
+  ASoC: dt-bindings: nvidia,tegra-audio: Document WM8994 CODEC
+  ASoC: tegra: Support WM8994 by machine driver
 
-But this is the more distant goal, we need something simple for stable.
-I am a bit busy right now, will send the patch in a couple of days.
+ .../sound/nvidia,tegra-audio-wm8994.yaml      | 110 +++++++++++
+ sound/soc/tegra/Kconfig                       |  10 +
+ sound/soc/tegra/Makefile                      |   2 +
+ sound/soc/tegra/tegra_asoc_machine.c          |   2 +
+ sound/soc/tegra/tegra_wm8994.c                | 175 ++++++++++++++++++
+ 5 files changed, 299 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml
+ create mode 100644 sound/soc/tegra/tegra_wm8994.c
 
-Oleg.
+-- 
+2.53.0
 
