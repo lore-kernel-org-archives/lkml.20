@@ -1,334 +1,396 @@
-Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0197C48381D
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEBC493D3A
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968925; cv=none; b=DWyRZGcfuInSgHcaaaGjnvCt3zm8S4dFZPukGObIg3dNT9hPJqD05AmObQUbpZjSy+VjY6XPubr3IFqGaayg7k6JSKrtiHXHt5JKEXMid9jbq1tbpRJF7lbdRa6IEfE0D9Y83clXTo6vBA/vD8L0EygAxLyWB+al26ibrjz9sGY=
+	t=1791968928; cv=none; b=eUVPbDfoiwCnAsUABAnGu4gVkFt8HJCT4nZ9Ong4ShSBEDSrTmAwZDmVyea5bBA+MssJLeOFrqCxvdiYZgGtmrwNTCf0YhntY5BZjOEESBMGrLETorbe1TY/RIT3D79HMm7g1I2H/JN1DVuFnixEYnNlzHkJH+lgVKbuy/OBmSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968925; c=relaxed/simple;
-	bh=Yi2o4E6jvrlhNUvXO1iyMzGGl83qdBuhWx+mVWs45IU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P/U7vLsYYz8djVTYkEUZy+7iXH8F9mvB+T/v7i/FKK+SMN3rZjFZjuqGstZJLTveKAAUe+fYSuSAWl8SFCFE3rEIdZg3gd0qojveQP8Tl99PM91GXWAymLLNsTFUQHDok/50VPVpABkd00EObrHQB4lbysZCENrSN452bEhp4ZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c0eqYvp1; arc=none smtp.client-ip=91.218.175.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791968928; c=relaxed/simple;
+	bh=Pe0ZjbdtqJ34ZuVR03sAPd5IzlevgH/YKkeJWSISC6o=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Jo4WwtBetFX3LH+weq26dPPoCwCaHIlPYfqNUvtAnCBpKgphuJBJV9NRoR48/Udz8DmcT38rZecfA5JZ/i9l/8HuhCODC8mYgyqQBdrwRYDzgFSQeKArmvv6j5bz+Ld29jjZbG71nMBYKbo2VYTiIiNfeKeLLFichRGO0hQcMi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dsLW9XuG; arc=none smtp.client-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c0eqYvp1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Yi2o4E6jvrlhNUvXO1iyMzGGl83qdBuhWx+mVWs45IU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791968920; v=1; x=1792573720;
- b=c0eqYvp1Z/KQaH7DLM//9cbrSu69qeSoHnoAOk1lnuepMgE3PMfzsWRwnYpiAXHkgNtpIXYa
- dAwYrRD9HxAOkFInn5XIKq/nXPtBwGr9ngvjWWSxdvobQSAC3ShVOFeLOPHInLtUKbqW2unKyUB
- MGPahkDasJFZ2SW17bFLw/sc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ee47123ca44ef893;
-	Wed, 14 Oct 2026 09:08:38 +0000
-X-Mizu-Trace-ID: ee47123ca44ef893
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: linux-mm@kvack.org
-Cc: Jiayuan Chen <jiayuan.chen@shopee.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH mm-next] mm/swap: free swap cache folios the zap path gave up on
-Date: Wed, 14 Oct 2026 17:08:19 +0800
-Message-ID: <20261014090821.227366-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dsLW9XuG"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1813fea7dso59399295e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:08:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791968924; x=1792573724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yNj7ZKyhQnUw2YiRQPZiQ8batYyqgFaaTZueylCQvsE=;
+        b=dsLW9XuG/DeE68KAR7F4sVocsyqLIQiH1ZSZwd46BeVrvJIy7NmhSKSlWwS3ejXVTb
+         SafRhXjFLrtYSFeLsUAmge5NCI0EY1Et6PWxyoKydmuqFUk/a8rfgDF6FGQL2IWnkkb4
+         EgTkqSWINSDTvioACOYDyezrQjCDcwfvDm8f52l7n6ndiUrtCbB2GzPk5hbSDA8y+lX5
+         36mbbjoLNGxLuI7fX8kpe953cnQpacthReLTp+Q+dBw/LD72d7b1svQLjIBPJDYJpZ+m
+         oP94Bos4i2cYh547TP5YRQ2gBx3RDD7JP8OwAEH4g33+wdS92sVHhYA1T3t6J00kf8KV
+         4Arw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791968924; x=1792573724;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yNj7ZKyhQnUw2YiRQPZiQ8batYyqgFaaTZueylCQvsE=;
+        b=oUWJ6urvT8VQG68wIKddY1SiuJZ/dPJvB3JShpYWYvr4kJs9JrcDT1l9goC5MQl2kO
+         nJpx4H4TmTE52yjhYcgIHDqVFVtNCXkAr5wPADE1UidnwU3LzRRJhvomytCVmriblQqi
+         y9CBbjee3QEOMs75FZFvza51Te12+zIo7PBu8MtaeCz17NX7MHgMzupnphlFF9ijJ5N6
+         63ybfmgJb0XfQNEtJ2A6GM470lPNRoriD1HJ9MZ+ti3wyDj24JNLJ9zYoM5NJ6755QDC
+         QAXQHdmRGWjSzHjn8sBLiEJDylihVN/cJZ5cj6ntopGsa7OpTHZq/7Q9/45S8D3rQpLE
+         pEtw==
+X-Forwarded-Encrypted: i=1; AKwUvBzJ2G6/jojcj4kKxyh+KT/mfa7OqqHWIM32oKvlzC/qGDyLyWc6dIz37Nem3+pomjxcOBNS1Ko1LYbCx8c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOpWSkT8ezIZZ0jsMWxrywAskJ/J5a9DM5gjk2SByZOCMTeLCf
+	GQCgQWqobeU0Mfh70VQ+aY4ReE6qrjb+oXI+CrOEI5APVOF+H3TQolJQt9vWfVpIhNFtIeT4OPS
+	pjyp1+7rAzKPtIdXHww==
+X-Received: from wmbfl25.prod.google.com ([2002:a05:600c:b99:b0:4a1:84d4:a0a3])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600d:644f:10b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4a196611aa3mr173490095e9.29.1791968923883;
+ Wed, 14 Oct 2026 02:08:43 -0700 (PDT)
+Date: Wed, 14 Oct 2026 09:08:35 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAJJGz2oC/42NQQ6CMBBFr0Jm7Zi2KqauvIdhoXUKjcJgB1BCe
+ ncrJ3D5XvLfX0AoBhI4FQtEmoIE7jKYTQGuuXY1YbhnBqNMqZXeYRxlwDfHx2ukkVBmGahFHz5
+ 48FYZ5azy5gh530fKem1fqsxNkIHjvF5N+mf/qU4aNZIlV+qS9srczjVz/aSt4xaqlNIX4J17+ MMAAAA=
+X-Change-Id: 20261013-rust-workqueue-system-fix-5f9020c90f27
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11650; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=CkEMDYS0ZHIn6s4iXVju+TtmXA2gfi7ZtLcTMIzMHRA=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqz0aW65VWY1xCuEZuW8ormD1K6TIrIczojfZ0L
+ VzKcwtQHgOJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCas9GlgAKCRAEWL7uWMY5
+ RnRLD/9H11TwmmzHgRvlQlSqjuunj+IQ1FKVL0hGu7og+VjQSiHWjUiWabf0zEo7x0wqvl1pGfc
+ q5obfkqvb5kDzFMWIWS86MTMNdbUGruTRX6E0rWWtd2fHGayWYQtEcNo07Z5TOuLNcRV8fV7GNw
+ YEkcsxtnnlJnaX2hfwTXk8HNLYKrU8cvhzuPYT357FVw2iFjwgofaJ4rJCUi01Rcbsx5trtqmKg
+ VH6/LzzdpxWt8VTiPvoJUzo7mdG5Cr/CklJCsVO5sYKg4Vr6/mevHIu5Zy+PzGFbWrroCLYYOiY
+ u1eB8r1vj2Cnr9mZP+VAkhyC3t5hryhit/OQy0e88FxOrFkPVg8rN2hYqIyOqgeM/d2keWjTAJe
+ Sako/dPl894Dn+T6FpGXwFpNy5Ng5nqljD3kbm3gwm5LvjFLEFcDgdp5hjNEOY3PLzJf4LkE5mb
+ 6YL5LNBjPMS95wCbmmOPkRgpgQ1GuNZGBrGc27x31ZPRllMlzZ+uNhxY9V/qEqKqFj26o5j3iqg
+ OAx/a+V5pt57ZCF7mD1gy8wpHRuCQGu6FKn56/KDsXi/Ra8Tigrps3bAJJH+1MxSqGoTZbw60D3
+ lSKuZX2aHguaDDdQ6CB7n+dc5gF5aO5nXympMXPLVrseIHqugVa/qwbtvNfIN/iSNqpAQG3X+E7 Tl3MNmaArJKSlQg==
+X-Mailer: b4 0.14.3
+Message-ID: <20261014-rust-workqueue-system-fix-v2-1-c018b8f870f9@google.com>
+Subject: [PATCH v2] rust: workqueue: replace deprecated system_wq with system_{percpu,dfl}_wq
+From: Alice Ryhl <aliceryhl@google.com>
+To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
+	Dongliang Mu <dzm91@hust.edu.cn>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Carlos Llamas <cmllamas@google.com>, Marco Crivellari <marco.crivellari@suse.com>, 
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jiayuan Chen <jiayuan.chen@shopee.com>
+From: Danilo Krummrich <dakr@kernel.org>
 
-On our production hosts we saw swap cache only pages keep growing for days:
-on a box with a 500 GiB swap partition, 250 GiB of RAM and 250 GiB of
-swap slots were held by folios that no process mapped any more, charged
-to cgroups whose workloads had long exited. The only way to get them
-back was swapoff, and with other services actively swapping on the
-same host that is not an option.
+system_wq is deprecated and triggers a runtime warning:
 
-Such a slot has swap count 0 and an unmapped folio pinned in the swap
-cache, left there after a process exited or did MADV_DONTNEED. No page
-table holds its swap entry any more, so nothing comes back for the
-slot; LRU reclaim drops it eventually, and the allocator only reclaims
-such slots once swap is half full. The growth stopped exactly there:
-at 50% of the device, where vm_swap_full() becomes true.
+	[    0.857414] workqueue: work func ...WorkItemPointerKy0_E3runB7_ enqueue=
+d on deprecated workqueue. Use system_{percpu|dfl}_wq instead.
 
-The race is readahead against a zap in a neighbouring thread. Readahead
-works on virtual addresses, so a fault at the end of thread A's range
-pulls in the entries at the start of thread B's range:
+Replace system() with system_percpu() and system_dfl(), to match the
+previous behavior of the deprecated system() and convert doc examples
+and tests to system_dfl().
 
-  thread A                               thread B
-  do_swap_page()
-    swap_vma_readahead()
-      swap_cache_read_folio(B's entry)
-        folio locked, added to cache
-        swap_read_folio()                MADV_DONTNEED
-          zswap_load() / bio in flight     zap_nonpresent_ptes()
-          .                                  swap_put_entries_cluster()
-          .                                    swap count 1 -> 0
-          .                                    __try_to_reclaim_swap()
-          .                                      folio_trylock() fails
-          .                                      gives up
-          folio_unlock()
-      folio_put()
-  -> slot: swap count 0, folio in swap cache, not mapped, never freed
+system_unbound_wq is deprecated in the same way, in favor of
+system_dfl_wq. Since system_unbound() has no users, just remove it as
+well.
 
-The lock is one reason it gives up. The other is writeback: with a block
-device as backing store, B's own PAGEOUT leaves the folio in the swap
-cache under writeback, and when the DONTNEED comes __try_to_reclaim_swap()
-gets the lock but folio_swapcache_freeable() refuses. The write
-completes, nobody frees the slot. The present-PTE side has the same two
-outcomes through free_swap_cache().
-
-Options considered:
-
-1. Fix it on the readahead side: after the read, check the swap count
-   and free the slot. Covers the lock, not writeback, and the
-   asynchronous read path unlocks in the bio completion where the slot
-   cannot be freed. Two places to patch, neither clean.
-2. swapoff/swapon clears it, as does memory.reclaim on the right cgroup.
-   That is a workaround, not a fix.
-3. Have the side that gives up come back later. This patch.
-
-The zap runs under the PTL and the fault path takes the folio lock
-before the PTL, so waiting there is out; a worker has to do it. On a
-lost trylock or a writeback refusal under TTRS_UNMAPPED,
-__try_to_reclaim_swap() schedules si->sweep_work. The worker walks the
-in-use clusters and, for every slot with swap count 0 whose folio is
-unmapped, calls __try_to_reclaim_swap() with TTRS_WAIT, which takes the
-folio lock and waits for writeback instead of giving up.
-free_swap_cache() now calls __try_to_reclaim_swap() as well, so both
-paths give up, and wake the worker, in the same place.
-
-For now the worker scans every in-use cluster of the device; marking
-the clusters that need it can reduce that later.
-
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>
-Signed-off-by: Jiayuan Chen <jiayuan.chen@shopee.com>
+Fixes: 64d8eae3f895 ("workqueue: Add warnings and fallback if system_{unbou=
+nd}_wq is used")
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Boqun Feng <boqun@kernel.org>
+Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
- include/linux/swap.h |   1 +
- mm/swap.h            |   1 +
- mm/swap_state.c      |   9 ++--
- mm/swapfile.c        | 101 ++++++++++++++++++++++++++++++++++++++++++-
- 4 files changed, 104 insertions(+), 8 deletions(-)
+This patch was previously sent as part of other workqueue series [1][2].
+However it's a fix that is independent of those series, so it's sent on
+its own here.
 
-diff --git a/include/linux/swap.h b/include/linux/swap.h
-index 4f686709d71f..5777f10e9aa4 100644
---- a/include/linux/swap.h
-+++ b/include/linux/swap.h
-@@ -267,6 +267,7 @@ struct swap_info_struct {
- 					 */
- 	struct work_struct discard_work; /* discard worker */
- 	struct work_struct reclaim_work; /* reclaim worker */
-+	struct work_struct sweep_work;	/* frees swap cache only slots a zap gave up on */
- 	struct list_head discard_clusters; /* discard clusters list */
- 	struct plist_node avail_list;   /* entry in swap_avail_head */
- 	const struct swap_ops *ops;
-diff --git a/mm/swap.h b/mm/swap.h
-index d5bf21f517dc..f62f36c0ce5c 100644
---- a/mm/swap.h
-+++ b/mm/swap.h
-@@ -309,6 +309,7 @@ static inline bool folio_matches_swap_entry(const struct folio *folio,
-  * - See the comment of get_swap_device() for more complex usage.
-  */
- bool swap_cache_has_folio(swp_entry_t entry);
-+void swap_reclaim_entry(swp_entry_t entry);
- struct folio *swap_cache_get_folio(swp_entry_t entry);
- void *swap_cache_get_shadow(swp_entry_t entry);
- void swap_cache_del_folio(struct folio *folio);
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index ebef568cd62e..99708f149b25 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -598,16 +598,13 @@ void swap_writeback_dropbehind_folio(struct folio *folio)
-  *
-  * Its ok to check the swapcache flag without the folio lock
-  * here because we are going to recheck again inside
-- * folio_free_swap() _with_ the lock.
-+ * __try_to_reclaim_swap() _with_ the lock.
-  * 					- Marcelo
-  */
- void free_swap_cache(struct folio *folio)
+[1] https://lore.kernel.org/all/20260726223613.1242940-3-dakr@kernel.org
+[2] https://lore.kernel.org/all/20260807165252.3849875-2-dakr@kernel.org
+---
+Changes in v2:
+- Also remove system_unbound(), which is deprecated in the same way
+  and has no users. (Gary)
+- Collect Reviewed-by from Boqun and Dongliang.
+- Link to v1: https://lore.kernel.org/r/20261013-rust-workqueue-system-fix-=
+v1-1-e9ec616e402b@google.com
+
+Changes since [2]:
+- Rebase on v7.3-rc7 and also convert the new SpinLockIrq KUnit test,
+  which calls workqueue::system() and otherwise fails to build.
+- Add Fixes: tag for the commit that made system_wq warn.
+- Collect Reviewed-by from Daniel.
+---
+ Documentation/rust/testing.rst                    |  2 +-
+ Documentation/translations/zh_CN/rust/testing.rst |  2 +-
+ drivers/android/binder/process.rs                 |  4 +-
+ rust/kernel/sync/completion.rs                    |  2 +-
+ rust/kernel/sync/lock/spinlock.rs                 |  2 +-
+ rust/kernel/workqueue.rs                          | 52 ++++++++++++-------=
+----
+ 6 files changed, 33 insertions(+), 31 deletions(-)
+
+diff --git a/Documentation/rust/testing.rst b/Documentation/rust/testing.rs=
+t
+index e3943aceceb9..73046523a9a2 100644
+--- a/Documentation/rust/testing.rst
++++ b/Documentation/rust/testing.rst
+@@ -97,7 +97,7 @@ operator are also supported as usual, e.g.:
+=20
+ 	/// ```
+ 	/// # use kernel::{spawn_work_item, workqueue};
+-	/// spawn_work_item!(workqueue::system(), || pr_info!("x\n"))?;
++	/// spawn_work_item!(workqueue::system_dfl(), || pr_info!("x\n"))?;
+ 	/// # Ok::<(), Error>(())
+ 	/// ```
+=20
+diff --git a/Documentation/translations/zh_CN/rust/testing.rst b/Documentat=
+ion/translations/zh_CN/rust/testing.rst
+index 6747d0012991..fdd88fa2fe40 100644
+--- a/Documentation/translations/zh_CN/rust/testing.rst
++++ b/Documentation/translations/zh_CN/rust/testing.rst
+@@ -93,7 +93,7 @@ KUnit =E6=B5=8B=E8=AF=95=E5=8D=B3=E6=96=87=E6=A1=A3=E6=B5=
+=8B=E8=AF=95
+=20
+ 	/// ```
+ 	/// # use kernel::{spawn_work_item, workqueue};
+-	/// spawn_work_item!(workqueue::system(), || pr_info!("x\n"))?;
++	/// spawn_work_item!(workqueue::system_dfl(), || pr_info!("x\n"))?;
+ 	/// # Ok::<(), Error>(())
+ 	/// ```
+=20
+diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/pro=
+cess.rs
+index 5372bfbd93b3..de5bca7f9fc7 100644
+--- a/drivers/android/binder/process.rs
++++ b/drivers/android/binder/process.rs
+@@ -1728,7 +1728,7 @@ pub(crate) fn release(this: Arc<Process>, _file: &Fil=
+e) {
+         if should_schedule {
+             // Ignore failures to schedule to the workqueue. Those just me=
+an that we're already
+             // scheduled for execution.
+-            let _ =3D workqueue::system().enqueue(this);
++            let _ =3D workqueue::system_percpu().enqueue(this);
+         }
+=20
+         drop(binderfs_file);
+@@ -1745,7 +1745,7 @@ pub(crate) fn flush(this: ArcBorrow<'_, Process>) -> =
+Result {
+         if should_schedule {
+             // Ignore failures to schedule to the workqueue. Those just me=
+an that we're already
+             // scheduled for execution.
+-            let _ =3D workqueue::system().enqueue(Arc::from(this));
++            let _ =3D workqueue::system_percpu().enqueue(Arc::from(this));
+         }
+         Ok(())
+     }
+diff --git a/rust/kernel/sync/completion.rs b/rust/kernel/sync/completion.r=
+s
+index 35ff049ff078..1771bfc0ade2 100644
+--- a/rust/kernel/sync/completion.rs
++++ b/rust/kernel/sync/completion.rs
+@@ -38,7 +38,7 @@
+ ///             done <- Completion::new(),
+ ///         }), GFP_KERNEL)?;
+ ///
+-///         let _ =3D workqueue::system().enqueue(this.clone());
++///         let _ =3D workqueue::system_dfl().enqueue(this.clone());
+ ///
+ ///         Ok(this)
+ ///     }
+diff --git a/rust/kernel/sync/lock/spinlock.rs b/rust/kernel/sync/lock/spin=
+lock.rs
+index aafc80125f59..92ad133262b6 100644
+--- a/rust/kernel/sync/lock/spinlock.rs
++++ b/rust/kernel/sync/lock/spinlock.rs
+@@ -450,7 +450,7 @@ fn run(this: Arc<Self>) {
+     fn spinlock_irq_condvar() -> Result {
+         let testdata =3D Test::new()?;
+=20
+-        let _ =3D workqueue::system().enqueue(testdata.clone());
++        let _ =3D workqueue::system_dfl().enqueue(testdata.clone());
+=20
+         // Let the updater know when we're ready to wait
+         let mut state =3D testdata.state.lock();
+diff --git a/rust/kernel/workqueue.rs b/rust/kernel/workqueue.rs
+index 7e253b6f299c..a872f9fffb90 100644
+--- a/rust/kernel/workqueue.rs
++++ b/rust/kernel/workqueue.rs
+@@ -67,7 +67,7 @@
+ //! /// This method will enqueue the struct for execution on the system wo=
+rkqueue, where its value
+ //! /// will be printed.
+ //! fn print_later(val: Arc<MyStruct>) {
+-//!     let _ =3D workqueue::system().enqueue(val);
++//!     let _ =3D workqueue::system_dfl().enqueue(val);
+ //! }
+ //! # print_later(MyStruct::new(42).unwrap());
+ //! ```
+@@ -121,11 +121,11 @@
+ //! }
+ //!
+ //! fn print_1_later(val: Arc<MyStruct>) {
+-//!     let _ =3D workqueue::system().enqueue::<Arc<MyStruct>, 1>(val);
++//!     let _ =3D workqueue::system_dfl().enqueue::<Arc<MyStruct>, 1>(val)=
+;
+ //! }
+ //!
+ //! fn print_2_later(val: Arc<MyStruct>) {
+-//!     let _ =3D workqueue::system().enqueue::<Arc<MyStruct>, 2>(val);
++//!     let _ =3D workqueue::system_dfl().enqueue::<Arc<MyStruct>, 2>(val)=
+;
+ //! }
+ //! # print_1_later(MyStruct::new(24, 25).unwrap());
+ //! # print_2_later(MyStruct::new(41, 42).unwrap());
+@@ -171,13 +171,13 @@
+ //! /// This method will enqueue the struct for execution on the system wo=
+rkqueue, where its value
+ //! /// will be printed 12 jiffies later.
+ //! fn print_later(val: Arc<MyStruct>) {
+-//!     let _ =3D workqueue::system().enqueue_delayed(val, 12);
++//!     let _ =3D workqueue::system_dfl().enqueue_delayed(val, 12);
+ //! }
+ //!
+ //! /// It is also possible to use the ordinary `enqueue` method together =
+with `DelayedWork`. This
+ //! /// is equivalent to calling `enqueue_delayed` with a delay of zero.
+ //! fn print_now(val: Arc<MyStruct>) {
+-//!     let _ =3D workqueue::system().enqueue(val);
++//!     let _ =3D workqueue::system_dfl().enqueue(val);
+ //! }
+ //! # print_later(MyStruct::new(42).unwrap());
+ //! # print_now(MyStruct::new(42).unwrap());
+@@ -1024,20 +1024,32 @@ unsafe impl<T, const ID: u64> RawDelayedWorkItem<ID=
+> for ARef<T>
  {
--	if (folio_test_swapcache(folio) && !folio_mapped(folio) &&
--	    folio_trylock(folio)) {
--		folio_free_swap(folio);
--		folio_unlock(folio);
--	}
-+	if (folio_test_swapcache(folio) && !folio_mapped(folio))
-+		swap_reclaim_entry(folio->swap);
  }
- 
- /*
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index c3288910b3e3..ee29085152fe 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -172,6 +172,8 @@ static long swap_usage_in_pages(struct swap_info_struct *si)
- #define TTRS_UNMAPPED		0x2
- /* Reclaim the swap entry if swap is getting full */
- #define TTRS_FULL		0x4
-+/* May sleep: wait for the folio lock and for writeback instead of giving up */
-+#define TTRS_WAIT		0x8
- 
- static bool swap_only_has_cache(struct swap_cluster_info *ci,
- 				unsigned long offset, int nr_pages)
-@@ -217,9 +219,19 @@ static int __try_to_reclaim_swap(struct swap_info_struct *si,
- 	 * avoiding deadlock. This is a special case and you should
- 	 * use folio_free_swap() with explicit folio_lock() in usual
- 	 * operations.
-+	 *
-+	 * The zap path (TTRS_UNMAPPED) is the one caller for which giving
-+	 * up means the slot is never looked at again: it stays allocated
-+	 * with count 0 and an unmapped folio pinned in the swap cache. Let
-+	 * the sweep worker, which can wait, come back for it.
- 	 */
--	if (!folio_trylock(folio))
-+	if (flags & TTRS_WAIT) {
-+		folio_lock(folio);
-+	} else if (!folio_trylock(folio)) {
-+		if (flags & TTRS_UNMAPPED)
-+			schedule_work(&si->sweep_work);
- 		goto out;
-+	}
- 
- 	/*
- 	 * Offset could point to the middle of a large folio, or folio
-@@ -232,11 +244,20 @@ static int __try_to_reclaim_swap(struct swap_info_struct *si,
- 	}
- 	offset = swp_offset(folio->swap);
- 
-+	if (flags & TTRS_WAIT)
-+		folio_wait_writeback(folio);
-+
- 	need_reclaim = ((flags & TTRS_ANYWAY) ||
- 			((flags & TTRS_UNMAPPED) && !folio_mapped(folio)) ||
- 			((flags & TTRS_FULL) && mem_cgroup_swap_full(folio)));
--	if (!need_reclaim || !folio_swapcache_freeable(folio))
-+	if (!need_reclaim)
-+		goto out_unlock;
-+	if (!folio_swapcache_freeable(folio)) {
-+		/* Same for a folio the zap caught under writeback. */
-+		if ((flags & TTRS_UNMAPPED) && folio_test_writeback(folio))
-+			schedule_work(&si->sweep_work);
- 		goto out_unlock;
-+	}
- 
- 	/*
- 	 * It's safe to delete the folio from swap cache only if the folio
-@@ -1099,6 +1120,80 @@ static void swap_reclaim_work(struct work_struct *work)
- 	swap_reclaim_full_clusters(si, true);
- }
- 
-+/*
-+ * Free the slots a zap could not take back: swap cache only, count 0, folio
-+ * not mapped. The zap runs under the PTL, so when the folio was locked (a
-+ * readahead or an asynchronous swap-in still reading into it) or under
-+ * writeback, __try_to_reclaim_swap() had to give up and scheduled us. Such
-+ * a slot is reachable by nobody but LRU reclaim: no page table holds its
-+ * entry, and the allocator skips it until swap is half full. Here we can
-+ * wait for the lock and the writeback.
-+ */
-+static void swap_sweep_work(struct work_struct *work)
-+{
-+	struct swap_info_struct *si;
-+	struct swap_cluster_info *ci;
-+	unsigned long offset, end, swp_tb;
-+	unsigned long nr_clusters;
-+	int nr_reclaim;
-+
-+	si = container_of(work, struct swap_info_struct, sweep_work);
-+	nr_clusters = DIV_ROUND_UP(si->max, SWAPFILE_CLUSTER);
-+
-+	for (unsigned long i = 0; i < nr_clusters; i++) {
-+		ci = si->cluster_info + i;
-+		offset = i * SWAPFILE_CLUSTER;
-+		end = min(si->max, offset + SWAPFILE_CLUSTER);
-+
-+		spin_lock(&ci->lock);
-+		if (!ci->count) {
-+			spin_unlock(&ci->lock);
-+			continue;
-+		}
-+		while (offset < end) {
-+			swp_tb = swap_table_get(ci, offset % SWAPFILE_CLUSTER);
-+			/*
-+			 * A mapped folio with count 0 is a page swapped in and
-+			 * kept in the swap cache: useful, and not ours. The
-+			 * folio cannot leave the cache while we hold ci->lock,
-+			 * so peeking at it is safe; the real check is done
-+			 * under the folio lock in __try_to_reclaim_swap().
-+			 */
-+			if (swp_tb_is_folio(swp_tb) && !__swp_tb_get_count(swp_tb) &&
-+			    !folio_mapped(swp_tb_to_folio(swp_tb))) {
-+				spin_unlock(&ci->lock);
-+				nr_reclaim = __try_to_reclaim_swap(si, offset,
-+								   TTRS_UNMAPPED | TTRS_WAIT);
-+				spin_lock(&ci->lock);
-+				if (nr_reclaim) {
-+					offset += abs(nr_reclaim);
-+					continue;
-+				}
-+			}
-+			offset++;
-+		}
-+		spin_unlock(&ci->lock);
-+		cond_resched();
-+	}
+=20
+-/// Returns the system work queue (`system_wq`).
++/// Returns the system per-cpu work queue (`system_percpu_wq`).
+ ///
+ /// It is the one used by `schedule[_delayed]_work[_on]()`. Multi-CPU mult=
+i-threaded. There are
+ /// users which expect relatively short queue flush time.
+ ///
+ /// Callers shouldn't queue work items which can run for too long.
+-pub fn system() -> &'static Queue {
+-    // SAFETY: `system_wq` is a C global, always available.
+-    unsafe { Queue::from_raw(bindings::system_wq) }
++#[inline]
++pub fn system_percpu() -> &'static Queue {
++    // SAFETY: `system_percpu_wq` is a C global, always available.
++    unsafe { Queue::from_raw(bindings::system_percpu_wq) }
 +}
 +
-+/*
-+ * The present-PTE zap path drops a folio that was mapped from the swap
-+ * cache. Same rules as the swap-entry zap: free the slot if the folio is
-+ * unmapped and unused, let the worker handle it if that is not possible
-+ * right now. @entry may already be stale, get_swap_device() sorts that out.
-+ */
-+void swap_reclaim_entry(swp_entry_t entry)
-+{
-+	struct swap_info_struct *si;
-+
-+	si = get_swap_device(entry);
-+	if (IS_ERR_OR_NULL(si))
-+		return;
-+	__try_to_reclaim_swap(si, swp_offset(entry), TTRS_UNMAPPED);
-+	put_swap_device(si);
-+}
-+
- /*
-  * Try to allocate swap entries with specified order and try set a new
-  * cluster for current CPU too.
-@@ -3264,6 +3359,7 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 
- 	flush_work(&p->discard_work);
- 	flush_work(&p->reclaim_work);
-+	flush_work(&p->sweep_work);
- 	flush_percpu_swap_cluster(p);
- 
- 	destroy_swap_extents(p, p->swap_file);
-@@ -3744,6 +3840,7 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
- 
- 	INIT_WORK(&si->discard_work, swap_discard_work);
- 	INIT_WORK(&si->reclaim_work, swap_reclaim_work);
-+	INIT_WORK(&si->sweep_work, swap_sweep_work);
- 
- 	CLASS(filename, name)(specialfile);
- 	swap_file = file_open_name(name, O_RDWR | O_LARGEFILE | O_EXCL, 0);
--- 
-2.43.0
++/// Returns the system default (unbound) work queue (`system_dfl_wq`).
++///
++/// Workers are not bound to any specific CPU, not concurrency managed, an=
+d all queued work items
++/// are executed immediately as long as `max_active` limit is not reached =
+and resources are
++/// available.
++#[inline]
++pub fn system_dfl() -> &'static Queue {
++    // SAFETY: `system_dfl_wq` is a C global, always available.
++    unsafe { Queue::from_raw(bindings::system_dfl_wq) }
+ }
+=20
+ /// Returns the system high-priority work queue (`system_highpri_wq`).
+ ///
+-/// It is similar to the one returned by [`system`] but for work items whi=
+ch require higher
++/// It is similar to the one returned by [`system_percpu`] but for work it=
+ems which require higher
+ /// scheduling priority.
+ pub fn system_highpri() -> &'static Queue {
+     // SAFETY: `system_highpri_wq` is a C global, always available.
+@@ -1046,26 +1058,16 @@ pub fn system_highpri() -> &'static Queue {
+=20
+ /// Returns the system work queue for potentially long-running work items =
+(`system_long_wq`).
+ ///
+-/// It is similar to the one returned by [`system`] but may host long runn=
+ing work items. Queue
+-/// flushing might take relatively long.
++/// It is similar to the one returned by [`system_percpu`] but may host lo=
+ng running work items.
++/// Queue flushing might take relatively long.
+ pub fn system_long() -> &'static Queue {
+     // SAFETY: `system_long_wq` is a C global, always available.
+     unsafe { Queue::from_raw(bindings::system_long_wq) }
+ }
+=20
+-/// Returns the system unbound work queue (`system_unbound_wq`).
+-///
+-/// Workers are not bound to any specific CPU, not concurrency managed, an=
+d all queued work items
+-/// are executed immediately as long as `max_active` limit is not reached =
+and resources are
+-/// available.
+-pub fn system_unbound() -> &'static Queue {
+-    // SAFETY: `system_unbound_wq` is a C global, always available.
+-    unsafe { Queue::from_raw(bindings::system_unbound_wq) }
+-}
+-
+ /// Returns the system freezable work queue (`system_freezable_wq`).
+ ///
+-/// It is equivalent to the one returned by [`system`] except that it's fr=
+eezable.
++/// It is equivalent to the one returned by [`system_percpu`] except that =
+it's freezable.
+ ///
+ /// A freezable workqueue participates in the freeze phase of the system s=
+uspend operations. Work
+ /// items on the workqueue are drained and no new work item starts executi=
+on until thawed.
+@@ -1078,7 +1080,7 @@ pub fn system_freezable() -> &'static Queue {
+ ///
+ /// It is inclined towards saving power and is converted to "unbound" vari=
+ants if the
+ /// `workqueue.power_efficient` kernel parameter is specified; otherwise, =
+it is similar to the one
+-/// returned by [`system`].
++/// returned by [`system_percpu`].
+ pub fn system_power_efficient() -> &'static Queue {
+     // SAFETY: `system_power_efficient_wq` is a C global, always available=
+.
+     unsafe { Queue::from_raw(bindings::system_power_efficient_wq) }
+@@ -1097,7 +1099,7 @@ pub fn system_freezable_power_efficient() -> &'static=
+ Queue {
+=20
+ /// Returns the system bottom halves work queue (`system_bh_wq`).
+ ///
+-/// It is similar to the one returned by [`system`] but for work items whi=
+ch
++/// It is similar to the one returned by [`system_percpu`] but for work it=
+ems which
+ /// need to run from a softirq context.
+ pub fn system_bh() -> &'static Queue {
+     // SAFETY: `system_bh_wq` is a C global, always available.
+
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261013-rust-workqueue-system-fix-5f9020c90f27
+
+Best regards,
+--=20
+Alice Ryhl <aliceryhl@google.com>
 
