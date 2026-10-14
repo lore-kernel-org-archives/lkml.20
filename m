@@ -1,68 +1,65 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F097A566C51
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C335656510C
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999267; cv=none; b=fnKUYqOBBmE7P7/aEWrhxKM/Ez2JX2246TUpvugk8ix341d3FLy/Sd4F6wh7Xcgexc57e4AeorJUiI0GYwJkUL7sR0hbes+u/Usyf96NP8WrAHFoJZPyOcNwPHtecPdaUSdFmflBdGBzX5eUhEigpISpJ4b2Th7DiDWDw2Q+9xY=
+	t=1791999268; cv=none; b=La04UlLNV8/VTlsA87uFLal18KpYzLMWj91DJCmHolENbhM3R0163ZVIg+pGog+5fy5JLSJ5zwnFOT8uXe1evj0c9bdhL8/ShV0V04SyuusV2gc5r83qjMNct5s7eUhOJEbvAeKLVt6TdDvFc6087Pg9hUUmmGGyfk+aUp/COpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999267; c=relaxed/simple;
-	bh=HF226Qnl02kxW49Pk8ONdKN1lay5ReawijczgiflN9s=;
+	s=arc-20240116; t=1791999268; c=relaxed/simple;
+	bh=UmwoUy2RLKROTQa9nLKvk2PAEQc/mPogh9co6DXStm4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GlNzkOKfsYg/hqvt+e/R8yMsxwsxJw0SKtvtiEkm0w8zVchfJs78evZpl9qJncd313faf7MfkavD2BhB4FatxCtuZBOpfAu7jmd1NlBSAYKhDSEexvjKwKBiUPXwRjEN6TfHH95Fkthj6+5++asl5pP2PDQYSqrXMENs8t62aVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZX5THitB; arc=none smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:To:Cc; b=HxdK+0RbfEiCPjWDZ1O/Yos4STFxxGN9/h6x4+Zv+2Yvq4PRZxu8rM+AoG4/LdCf67FFo8pa0/pnb4+hg8fdMvw1iUMFDPch3Hmpfx2y93YBv0ZE214Dpt8y1Ua13mGIYY7DFmBCofGO0rIXtZrxV9PjnbbOByyu1ggoDbe9Xrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=intelfx.name; spf=pass smtp.mailfrom=intelfx.name; dkim=pass (1024-bit key) header.d=intelfx.name header.i=@intelfx.name header.b=bvzGbVmm; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=intelfx.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intelfx.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZX5THitB"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so5808677a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:34:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=intelfx.name header.i=@intelfx.name header.b="bvzGbVmm"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c6955a7c3so1250363f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:34:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791999262; x=1792604062; darn=vger.kernel.org;
+        d=intelfx.name; s=google; t=1791999259; x=1792604059; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fH12jM/o3/s7NLcuZ8Q0Z9sat0wsd1HPmjJx9BFxlsE=;
-        b=ZX5THitBk9kBJRYx+UVkvDpIpagrgOdeiI28fCNeV1ebxKnpVRZqcZMvrW6AcSOv+b
-         CyJ80oUWknlHWiwHAth+sy11TCpmWLLhRBMyeYkQvByXwFPtabnhJKY644O+flt7IZEx
-         8TWe8MRRTAIB2W8W9MU8+p2ntAgbJGMUTn7dALhR4V1GXPX3f5ghQl2cPBC195TQtknI
-         LIyRGav/8CHXSREZb63Vpy4JTrQTrCReRxmzeu0Sm/ipsEa6h8lcGMPYKTSFNY5ShE4g
-         N7kDK5ycOl/YGWh5Tzd+6wDNcIZcjQ1XOoMSPXWrizWSKC1aqMl8stOyDW6ffHObOeSK
-         ofCw==
+        bh=j1nJDWDOJGAldhZBmhrDDp81nykTikheSxGLMobXSOw=;
+        b=bvzGbVmmTCBjN1yHm0OW7eSQHeMD9Y5PfDdTkgBA86yLd7rARPD0+ubPtXPMH1a+pS
+         y5hQg+mCUMIVBr7LZ2rnrfuEcA+ec4v0QU7VUVfqOI2+5dd4bxM4rwIQdAgpA8N3AcoP
+         y/IMI4jffCjlTUj6ZXGq7rRa6Fp2nZ3QF/LAs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791999262; x=1792604062;
+        d=1e100.net; s=20260707; t=1791999259; x=1792604059;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fH12jM/o3/s7NLcuZ8Q0Z9sat0wsd1HPmjJx9BFxlsE=;
-        b=Abl7awdHDumoDWYXvHj57eN4Z7Xab5sC2FZvwBg0rytA6RPKs2m/VqX6a7wbA4HtRo
-         EJhuKA0vSjY4BNwkN6lAMt7Tcdgsjtom8rASZ+kLskUy7aabw1Qk4tJ8lWSHXX5P544U
-         QzLctHYPYkfiIyhNDH46cuNedDWkHv3Y7pLuL2GIceTkBLtFa42W9K+g0+xI8P0KYJkG
-         Z2J9DXWPySUDA2/CaF/MzhX/S2j0bRn0V1pXRdcdLJoXbjC5IVrK+plQg16CmmSeiYVr
-         oX9oPNtBR+xJBYYBg15AAWIF6C/UuuzppWZ4Ge62ZfscJcgYMppDKgx2d8uC8s3TC8S8
-         WO9A==
-X-Forwarded-Encrypted: i=1; AKwUvBxj4Slu6PPKBnsKHf7cAMYbFLN6dBysM531NV2ZI00N/RK5xLjq1063o4mio0LbNht1Subz3AhBtSifhNQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlQOxjBVwQ3tKH3JmaHZb35Rhfy+Z23AREPEqQGRgxi4KqduiH
-	I7YJ3T2bx8IAbiQyTwEP5gYjevyL1Qr5MstzE7gUgZWqHAK0VgMrK3la
-X-Gm-Gg: AYBFou0t/BwskX7To5cfB4pf6GMQMgnAt47HK4lOB4NilXUrcX5hDlFw6t+DBybKgGz
-	iT/xHUS29WOGn4FyVekygpq7LM7cIgybaeq20sT8FUgisEwHzjym7iV16z56RFmsf8yndLpHoiX
-	iBa6odt8+dZJLIlNOS1uAnVCIdN94pvaYK4XMAY4NNGkVD+fCg2idWvfjXIBFme/0ZYv3ZkiDfz
-	/W4IAq0NfDkU83jTotBkYM9vn+F8z3hfS9+xmrb4b1uiLlAyil4LAdMOJIBLF9RksYLv4KXZwuU
-	HAJuw5JPIdQTQUG6SQeGVUgpCkRFLNDJhZEJf0bR7s7L7k9TCmDr4/1IHJ+vYRRXC9UeQIm+DjB
-	Xfwmw5sToL0yutL9jMJIdGEUzgBiZURaoOJSSqOGeZDYMGy5jw8mnc08y/fhqehMM53Q0b0uKyo
-	K/dfeUpxDT0HKiEoxM5tE2DcT5xEWR6aLzTtoYb1CK4wyIlhyyJvmroeU8egK1+OApS4eBdGTb5
-	9SnnsxLCKOngTrv
-X-Received: by 2002:a17:906:c150:b0:c25:32b0:e56c with SMTP id a640c23a62f3a-c31a9a28ad5mr1566948366b.4.1791999261602;
-        Wed, 14 Oct 2026 10:34:21 -0700 (PDT)
-Received: from [127.0.1.1] ([2001:4bb8:148:f08c:65a8:f8e5:f310:5a71])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed963cecesm9381366b.21.2026.10.14.10.34.20
+        bh=j1nJDWDOJGAldhZBmhrDDp81nykTikheSxGLMobXSOw=;
+        b=cRZtir/GTYG9VBRu/OYHVxZDvcBa2H0/4EkKTC61+kTON9jNYnCIV7mMQbXUXnxQff
+         +Xg4BqIDw93AYBbmDqgxyXZJ0SB/3FWsQCfkw9fduqond+sBPqakGHSVc3ODOObBwlte
+         pNApHdDB8dCvqRCgjZ+2yBsJ6o9m1jcgbzZ1ZFcnCGsmoSuot1DmnB6p+62F4yI8VnyO
+         cSmyVC5wDaGvQkbjynpG9oDtHmDbRzfLi7mz8khxkpTcNQqakrFYPXCFZsn1oXuogyP9
+         8+2uDs5WDS/Mpwf4Khgx1VVJpsI03kISoEXWl9clxxF9GMt/P5Pk1uRb6GRSw6cQaZFp
+         8kmQ==
+X-Forwarded-Encrypted: i=1; AKwUvByIF5UkhWzu20nu9AYZDXm2TZszvWop8igwW+KGTkqNh7SVD+4gbVje+gAUiHhQ+XJGETPcrcD7HtWzsA8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGKB4ap1BbkBQDUpsz4aWsHiv5iyga2+hULFfc6zT7kw21hXhH
+	JRPE9Uikhhg7W0PxK5AUrNWvry4m+lLcJn7yWY1Ey8R2aaD1NOX9rSUDHTW1jJw/xF0=
+X-Gm-Gg: AYBFou20NBVX+vW4MBYzIJbo1Jx3r+4Lf+LuwNFTHOZVBQYh5SC0/a1fNws9RYNmjFJ
+	Iz7Vk9P4hf3qpdEtQa/I/0j7T8S6Z2Zrd2sLPKx8M+VrENCHFlKHzFEnHM76GOEj+rBqLOwmx3o
+	oAYSR+7GOeZNO2J3mihGyKJpnj50cFbjQcB8Suj1JG4x+kq/T6KtgsD8waZtSnNNlkD5wqGYeaW
+	R57ih8cz4evPEcbDm3kRWIBUDKDAM0BVUGb/3d2paDDNSMX7mq0fJSSXSaJE0SEpOChPQ/6BnEb
+	LeAfHF1w0kjWrGqxunR+h6wQcvgkmizbdLAVQneuj6vFD/5N3q1/ODxGwpAvDcgYbajL68sd8Yg
+	IRtkERakHRrUvLDYdAdFV3YlkJAgf6QsX3TOHG3wdcefY4YAHvpbdeRyGEhveFX3QvHQNZNfVEc
+	h2gSMInn9vhOIvioI2hTDWBdJzyXw3c1XP3hfNyelzlcqLv5M2aL4/BM6i
+X-Received: by 2002:a05:6000:188a:b0:48b:b1a1:a002 with SMTP id ffacd0b85a97d-48dbacf561dmr34815477f8f.24.1791999258718;
+        Wed, 14 Oct 2026 10:34:18 -0700 (PDT)
+Received: from localhost ([2a00:1358:e0ce:6800::3db])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7273a0esm8994724f8f.29.2026.10.14.10.34.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:34:20 -0700 (PDT)
-From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Wed, 14 Oct 2026 19:34:04 +0200
-Subject: [PATCH v3 05/11] hwmon: chipcap2: fix IRQ teardown ordering
+        Wed, 14 Oct 2026 10:34:18 -0700 (PDT)
+From: Ivan Shapovalov <intelfx@intelfx.name>
+Date: Wed, 14 Oct 2026 20:34:07 +0300
+Subject: [PATCH 1/4] perf: zstd: zstd_decompress_stream ->
+ zstd_decompress_buffer
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,153 +68,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-chipcap2_locks-v3-5-27ebfc2c5b9e@gmail.com>
-References: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
-In-Reply-To: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Javier Carrasco <javier.carrasco.cruz@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791999252; l=4496;
- i=javier.carrasco.cruz@gmail.com; s=20260924; h=from:subject:message-id;
- bh=HF226Qnl02kxW49Pk8ONdKN1lay5ReawijczgiflN9s=;
- b=9rvYmhSTeN7Gfl4vyZ1lXAp1iMtl08S2uHLXyXmLdJpTzLk31Nd+tLDj0Pa7FT2QcNwn8VZmU
- 9ncTkSsrP/BBl/4utQZ8yZj5/fM9yMeJDRbrw9lVV6wc1zvuempVffq
-X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
- pk=VV+hcMoOj1Sx6xSiY0W/FZNAskGZe2AagSMVj0PsmAs=
+Message-Id: <20261014-perf-zstd-v1-1-9652727886fa@intelfx.name>
+References: <20261014-perf-zstd-v1-0-9652727886fa@intelfx.name>
+In-Reply-To: <20261014-perf-zstd-v1-0-9652727886fa@intelfx.name>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Nick Terrell <terrelln@fb.com>, 
+ David Sterba <dsterba@suse.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ivan Shapovalov <intelfx@intelfx.name>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2632; i=intelfx@intelfx.name;
+ h=from:subject:message-id; bh=UmwoUy2RLKROTQa9nLKvk2PAEQc/mPogh9co6DXStm4=;
+ b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0did012TXdDVVdHM2x2aGVTbFF6Mk1wO
+ VdTR0xMTzd4Vks4STdSL0x4K3dtb2Uxc2Q4M3B5WE0rZEwvRGxWCituaU4ySlU3dWVVaE4rVjNk
+ NVN5TUloeE1jaUtLYkxzdmo4dDdOSGNDVXFIUERma3dzeGhaUUlad3NERktRQVQKcVhuSHlMREp
+ vVm5lKzMvc2Y2WW5iUWFTN0wrZXFmSHVjVFRmWEJjWG1mUlFlT24xMTlLTURITmlNK1AwUGh4VQ
+ pPNmkxVitUM1ZCYXJTS0c2d20vWGY5NytlUHJVcm03alNRd0EKPUlOQ0sKLS0tLS1FTkQgUEdQI
+ E1FU1NBR0UtLS0tLQo=
+X-Developer-Key: i=intelfx@intelfx.name; a=openpgp;
+ fpr=04DEA27EEF682F17083D892295D5D5F5A5A5E5E5
 
-The threaded IRQs are currently requested before the hwmon device
-is registered. Since devres releases resources in reverse order,
-the hwmon device is unregistered before the IRQs are freed during
-driver teardown. An IRQ may therefore still run after the hwmon
-device has been released and access the stale data->hwmon pointer.
+Existing zstd_decompress_stream() function is a misnomer. Rename that
+to zstd_decompress_buffer() to free the name for a future _actual_
+streaming decompression function.
 
-Separate IRQ discovery from IRQ registration so that the IRQ numbers
-and alarm visibility flags are initialized before registering the
-hwmon device while the IRQs are released before the hwmon device
-during devres cleanup.
-
-Fixes: 3af350929e75 ("hwmon: Add support for Amphenol ChipCap 2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Signed-off-by: Ivan Shapovalov <intelfx@intelfx.name>
 ---
- drivers/hwmon/chipcap2.c | 52 +++++++++++++++++++++++++++++-------------------
- 1 file changed, 32 insertions(+), 20 deletions(-)
+ tools/perf/util/compress.h | 4 ++--
+ tools/perf/util/tool.c     | 2 +-
+ tools/perf/util/zstd.c     | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hwmon/chipcap2.c b/drivers/hwmon/chipcap2.c
-index 37dbf6a76fbc..21dc6db27c40 100644
---- a/drivers/hwmon/chipcap2.c
-+++ b/drivers/hwmon/chipcap2.c
-@@ -631,32 +631,47 @@ static int cc2_write(struct device *dev, enum hwmon_sensor_types type, u32 attr,
- 	}
- }
+diff --git a/tools/perf/util/compress.h b/tools/perf/util/compress.h
+index ec6c38129e248..e7aa89d31fc6f 100644
+--- a/tools/perf/util/compress.h
++++ b/tools/perf/util/compress.h
+@@ -57,7 +57,7 @@ ssize_t zstd_compress_stream_to_records(struct zstd_data *data, void *dst, size_
+ 				       ssize_t process_header(void *record, size_t dst_size,
+ 							      size_t data_size));
  
--static int cc2_request_ready_irq(struct cc2_data *data, struct device *dev)
-+static int cc2_get_irqs(struct cc2_data *data, struct device *dev)
- {
--	int ret = 0;
--
- 	data->irq_ready = fwnode_irq_get_byname(dev_fwnode(dev), "ready");
- 	if (data->irq_ready == -EPROBE_DEFER)
- 		return data->irq_ready;
--	if (data->irq_ready > 0) {
-+	if (data->irq_ready > 0)
- 		init_completion(&data->complete);
-+
-+	data->irq_low = fwnode_irq_get_byname(dev_fwnode(dev), "low");
-+	if (data->irq_low == -EPROBE_DEFER)
-+		return data->irq_low;
-+	if (data->irq_low > 0)
-+		data->rh_alarm.low_alarm_visible = true;
-+
-+	data->irq_high = fwnode_irq_get_byname(dev_fwnode(dev), "high");
-+	if (data->irq_high == -EPROBE_DEFER)
-+		return data->irq_high;
-+	if (data->irq_high > 0)
-+		data->rh_alarm.high_alarm_visible = true;
-+
-+	return 0;
-+}
-+
-+static int cc2_request_data_ready(struct cc2_data *data, struct device *dev)
-+{
-+	int ret = 0;
-+
-+	if (data->irq_ready > 0)
- 		ret = devm_request_threaded_irq(dev, data->irq_ready, NULL,
- 						cc2_ready_interrupt,
- 						IRQF_ONESHOT |
- 						IRQF_TRIGGER_RISING,
- 						dev_name(dev), data);
--	}
+-size_t zstd_decompress_stream(struct zstd_data *data, void *src, size_t src_size,
++size_t zstd_decompress_buffer(struct zstd_data *data, void *src, size_t src_size,
+ 			      void *dst, size_t dst_size);
+ #else /* !HAVE_ZSTD_SUPPORT */
  
- 	return ret;
- }
- 
--static int cc2_request_alarm_irqs(struct cc2_data *data, struct device *dev)
-+static int cc2_request_alarms(struct cc2_data *data, struct device *dev)
- {
- 	int ret = 0;
- 
--	data->irq_low = fwnode_irq_get_byname(dev_fwnode(dev), "low");
--	if (data->irq_low == -EPROBE_DEFER)
--		return data->irq_low;
- 	if (data->irq_low > 0) {
- 		ret = devm_request_threaded_irq(dev, data->irq_low, NULL,
- 						cc2_low_interrupt,
-@@ -665,13 +680,8 @@ static int cc2_request_alarm_irqs(struct cc2_data *data, struct device *dev)
- 						dev_name(dev), data);
- 		if (ret)
- 			return ret;
--
--		data->rh_alarm.low_alarm_visible = true;
- 	}
- 
--	data->irq_high = fwnode_irq_get_byname(dev_fwnode(dev), "high");
--	if (data->irq_high == -EPROBE_DEFER)
--		return data->irq_high;
- 	if (data->irq_high > 0) {
- 		ret = devm_request_threaded_irq(dev, data->irq_high, NULL,
- 						cc2_high_interrupt,
-@@ -680,8 +690,6 @@ static int cc2_request_alarm_irqs(struct cc2_data *data, struct device *dev)
- 						dev_name(dev), data);
- 		if (ret)
- 			return ret;
--
--		data->rh_alarm.high_alarm_visible = true;
- 	}
- 
- 	return ret;
-@@ -732,13 +740,13 @@ static int cc2_probe(struct i2c_client *client)
- 
- 	device_property_read_string(dev, "label", &data->label);
- 
--	ret = cc2_request_ready_irq(data, dev);
-+	ret = cc2_get_irqs(data, dev);
- 	if (ret)
--		return dev_err_probe(dev, ret, "Failed to request ready irq\n");
-+		return dev_err_probe(dev, ret, "Failed to get IRQs\n");
- 
--	ret = cc2_request_alarm_irqs(data, dev);
-+	ret = cc2_request_data_ready(data, dev);
- 	if (ret)
--		return dev_err_probe(dev, ret, "Failed to request alarm irqs\n");
-+		return dev_err_probe(dev, ret, "Failed to request ready irq\n");
- 
- 	data->hwmon = devm_hwmon_device_register_with_info(dev, client->name,
- 							   data, &cc2_chip_info,
-@@ -747,6 +755,10 @@ static int cc2_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, PTR_ERR(data->hwmon),
- 				     "Failed to register hwmon device\n");
- 
-+	ret = cc2_request_alarms(data, dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to request alarm irqs\n");
-+
+@@ -82,7 +82,7 @@ ssize_t zstd_compress_stream_to_records(struct zstd_data *data __maybe_unused,
  	return 0;
  }
  
+-static inline size_t zstd_decompress_stream(struct zstd_data *data __maybe_unused, void *src __maybe_unused,
++static inline size_t zstd_decompress_buffer(struct zstd_data *data __maybe_unused, void *src __maybe_unused,
+ 					    size_t src_size __maybe_unused, void *dst __maybe_unused,
+ 					    size_t dst_size __maybe_unused)
+ {
+diff --git a/tools/perf/util/tool.c b/tools/perf/util/tool.c
+index 25c9b378aa163..d7956cd75c26d 100644
+--- a/tools/perf/util/tool.c
++++ b/tools/perf/util/tool.c
+@@ -101,7 +101,7 @@ static int perf_session__process_compressed_event(const struct perf_tool *tool _
+ 		goto err_decomp;
+ 	}
+ 
+-	decomp_size = zstd_decompress_stream(session->active_decomp->zstd_decomp, src, src_size,
++	decomp_size = zstd_decompress_buffer(session->active_decomp->zstd_decomp, src, src_size,
+ 				&(decomp->data[decomp_last_rem]), decomp_len - decomp_last_rem);
+ 	if (!decomp_size) {
+ 		munmap(decomp, mmap_len);
+diff --git a/tools/perf/util/zstd.c b/tools/perf/util/zstd.c
+index d98014902f012..af113660d1ce0 100644
+--- a/tools/perf/util/zstd.c
++++ b/tools/perf/util/zstd.c
+@@ -104,7 +104,7 @@ ssize_t zstd_compress_stream_to_records(struct zstd_data *data, void *dst, size_
+ 	return -1;
+ }
+ 
+-size_t zstd_decompress_stream(struct zstd_data *data, void *src, size_t src_size,
++size_t zstd_decompress_buffer(struct zstd_data *data, void *src, size_t src_size,
+ 			      void *dst, size_t dst_size)
+ {
+ 	size_t ret;
 
 -- 
-2.43.0
+2.55.0.8.g37e2a0019f
 
