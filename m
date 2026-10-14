@@ -1,41 +1,74 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6EA1624DF
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C8222AE65
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:37:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791938222; cv=none; b=b97/0HdSX/7JsrZ0vsPiBUGGulHx5rkjgHHjONHYrFQkZOcS9NzqZMCzTL0JFxyrWUDmdOtPqpwzeOROpl7HWCKCTJYsEvNQ0xs50K67eA0ktzmTWqtKb7xftt6/tNQ7YGj4hKrz57R1t6vfjA6ImhR9jzAx2UodA8aOhZ6XKIE=
+	t=1791938268; cv=none; b=fGnFrxHSxV3Ush+ELKtaiUdZOM42hUAZDzDh5QRJ2KxmMleH3scns3Ht7HElPOXtMLbzE2jB9McIw/GxDulVCG3aTrtr1fdMiJx+7NonLQ4OfKlmJnYtX6QuZSDUAPJf9WY4q+2N+4PhTUJ0Nw6bM1I1V1PTf5KD6hp7I01u03E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791938222; c=relaxed/simple;
-	bh=eD0WzCZjqLvuBZ863nKTf2hEZ0X+fefT6lUXjaRMxBE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EYgjd4F8sZ7KSnNZOo8uKAife6Frl9Po3UCZi3uNdC5ucnuP/1Vfw5VQDnitqy1ufAtbWw6JiHiru2c25jXpCz+p6EGMNLxXhakS+c9gICsJuqx9QuO47X+WkweMpA0YEG1Y0cXVrJlaDEp3U7SKcODCRmY84zYSNmB8Bt1OhCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qULhHkC3; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791938268; c=relaxed/simple;
+	bh=Q23tQ3SZ2B1Dx4ohTp7xlh9bW8f3X69VWo/3Jr+qyaM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TLQ0DmFQ0YF5KBmmOd9dAHC+My2MU4jBWutrxhCiJVnfOUbkW1ppqzcND+IDjlgUtVo02L2kKhHCFiWxStfDi1qSsNyuDd0DvWkHZbEnDf2QOPAiHcSCeG5GUTVuy8mV/zOVya1AK5BoPBXJ6hPnMJdxGtHWlDBKtg8AUbV27vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=wfxZx8BY; arc=none smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qULhHkC3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=e8
-	l+LZqu+D+wbZzn73m1duCjP/mzQaKWa6FuilWnWdo=; b=qULhHkC3lWX1MFXNUu
-	1Nl3gCE4E8ih+XfVGgfuP2T+5bB6eOzKU7TSKmNoIebiDc9wFn2102nWfE8ZnFrt
-	SskUPGz90iJII+OEV/zrPsuqlD07b9POdlqGexSKZMSd4JLGExvw3WrFbLkzHyW/
-	mHV+j3mixKIFDS7So9U1yv3+g=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3_3p2zs5q5kSdEg--.1031S2;
-	Wed, 14 Oct 2026 08:36:08 +0800 (CST)
-From: Haolong Wang <18766350203@163.com>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mm/memfd_luo: carry the exec-bit state in the preserved record
-Date: Wed, 14 Oct 2026 08:35:58 +0800
-Message-ID: <20261014003558.357783-1-18766350203@163.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="wfxZx8BY"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6790844c9b0so2742895d50.2
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:37:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791938266; x=1792543066; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XCHmrcl04IDgYmvFgY/qxLo7KM5J6liqv+fdlxjCx/8=;
+        b=wfxZx8BYDj8lIlS5IZjBs8zysmPKRegQ84UodXO65PXqeYyKo6rmlhLvdJ5HH/VdK+
+         3xaEj9rrHMpv5N7ivWkBT1S0NBfxUUyCNxTKvHaA+lBrJWn7WJsu/pvOZichuPRfW6rG
+         1Vyu7XcTEfPtEg4H27KibSApSQq7KBdlsecCscxH59aYnDkpn/7izxOteCSmOlhCBRLl
+         YA4wm/JT6f2/nW0mSU4Cx76Vp3kR1rTUiZG5BfFdW20hm9StQ2UamOuyXBAENfHKvKS3
+         XR9wZQXNmV2ZkcZnmJTCHDaCaHWYBoo9xo7dxx5diupHJ7NYMBxEF9hIURg4uNMEISIk
+         5sPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791938266; x=1792543066;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XCHmrcl04IDgYmvFgY/qxLo7KM5J6liqv+fdlxjCx/8=;
+        b=gPQ72yt70kMF17eZve1vAv56/LHPUPruAkfzbykc2zm8uQ/pIbkA6VERfnIa2m6gh2
+         eZSkA6tGL22HFuj3zvB8Bd6tkq90QHW/4iaEB2Yuh72uoot8KiAdQmywuZC6TeLr3SXd
+         rdKIVu3F7+xOap9VWrNg8lOJdcS++5XCYowkqLfFMSQxdy5ms6wiJQvMMu65F+nMfJ7b
+         0M3tM3Unis2HzeimMXv9ugoPbt2xqC1oZ2B8pbovCLFGLRGbFRFuyvYBw8vQgRY6c5My
+         SwCzmmcmBTydTsZTBKDPOdlKVbwn7ySEdGHvCiPcQUhtOCDcPjWSlEaWVmkk+dCz9ZYa
+         sJqQ==
+X-Forwarded-Encrypted: i=1; AKwUvByn1DX4Av3/7fjSFDfgrsjsBjW7VvnUAwTKi3gECfHiLwyG2dSM+D9bmKFs8Me5RdOouMdAFRlKi2eswJw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSLfN3sZGDV1J4HqFCpuXezXQKOEc7JtDz0NXTB6tKrBSMANhX
+	tAe8zdMdsIHM1ERFRQxAmcCeWIy7YJS29KLkat6OID7iv6kq+sb0S1RYWMNbFBayFYw=
+X-Gm-Gg: AYBFou3CIFXNeIe/RLTTbXN2kiGEYZ86SCZO4pDdKwNFM2fptCRykdAcbBzSXLQ5PYM
+	jSDSSiYHYGGfzzKNBtP4So7TC4D9WkU1gFLU0z7qVpikC0lHf9lnFy7aE9TmG2dKaUC0So5okN0
+	KPPz0Aq1x/78LALnPBgKqSH45pz/zCzUfa+wDSNgyf8LMDc3V+ClfyBujnaz6czS0ISZXT2qM26
+	bqoqujZnSmjLW5lHS6SGkGTcDsU9cTLrs9W/PRx6GOVBkcnyHwULRhrDQogubYsEyo8yo4hDKJc
+	sy5Jj6byhHhcqdZ3BG+4mnpCtx2xaOgptojvHIxbYfHVhImn81LN5EnXzLn7HpTzsz9kZVm7Db1
+	SrznCIcevwFSwXV/QnLMY96tI7JZKy/XMeOTtze9a4qhY8ioNsNwFuQM1dRdI9JrstbNO5o1mdG
+	ZqYwIqVA5GAg12fXAF1plbqy4dk4jzoZXLGToiRxkckKaG1lVdnLG/rAe8EkT+RvG8UFuqsNek4
+	7TLlr80fdzyfxsQWgLNT0SyZL3lps+T99shcpFZxk6Xxni4HZJMJNBKjHBbmSZx5sV7N7dGM0w2
+	rvZTtjFKsX1w9ee70aYVjFeDvc42
+X-Received: by 2002:a05:690e:1187:b0:675:a278:10a4 with SMTP id 956f58d0204a3-67936b0ac7fmr5643557d50.103.1791938266141;
+        Tue, 13 Oct 2026 17:37:46 -0700 (PDT)
+Received: from pop-os.attlocal.net ([2600:1700:6476:1430:98d3:ec2f:c938:3bc1])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67986a15c13sm463194d50.7.2026.10.13.17.37.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 17:37:45 -0700 (PDT)
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	vdubeyko@coreweave.com,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Subject: [PATCH v3 0/3] hfsplus: fix timestamp wrapping and support timestamps after 2040
+Date: Tue, 13 Oct 2026 17:37:28 -0700
+Message-ID: <20261014003731.369728-1-slava@dubeyko.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,165 +76,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3_3p2zs5q5kSdEg--.1031S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw1rZFyUKryrKryUtw4Utwb_yoW3GF47pr
-	ZxKr1rKr4kAFyIy3s7Zw18ZFyrZw4fJF15JryIgry8C3W5XrnIqF1S9Fy5WFyxAFnaga40
-	qr4Y9rykuayDZa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFq2NUUUUU=
-X-CM-SenderInfo: jpryllawtvijiqt6il2tof0z/xtbC9hgg52rOznjF7QAA3T
 
-F_SEAL_EXEC freezes the exec bits as they are at sealing time: a memfd
-becomes either permanently executable or permanently un-executable.
-The preserved state of a memfd (struct memfd_luo_ser) carries the
-seals but not the inode mode, and the restore path creates the file
-with memfd_alloc_file("", MFD_ALLOW_SEALING) -- the default
-(executable) mode -- without consulting the vm.memfd_noexec policy
-(that policy is applied on the memfd_create() syscall path only).
+HFS+ keeps timestamps in 32-bit unsigned on-disk fields as the number
+of seconds since January 1, 1904. Such field can represent the time
+range from January 1, 1904 till February 6, 2040.
 
-A memfd sealed as un-executable is therefore restored as mode 0777
-with F_SEAL_EXEC re-applied on top of it: the guarantee inverts.
-Because the restored file is executable, memfd_add_seals() also
-implies F_SEAL_WRITE, F_SEAL_FUTURE_WRITE, F_SEAL_SHRINK and
-F_SEAL_GROW (the W^X rule), so the restored memfd comes back with its
-write seals locked and its exec bits permanently irrevocable
-(shmem_setattr() rejects any exec-bit change).  This is a functional
-regression that needs no attacker: the owner's own pwrite() to the
-memfd succeeds before the update and fails with EPERM after it.  The
-inversion is also silent: F_GET_SEALS keeps reporting the seal.
+The current HFS+ driver treats any on-disk timestamp under
+HFSPLUS_UTC_OFFSET (January 1, 1970) as a time between 2040 and 2106.
+Also, it calculates the on-disk value by means of adding the time
+offset to the lower 32 bits of the timestamp. As a result, any
+timestamp before January 1, 1970 is converted completely wrong and
+xfstests' generic/258 fails.
 
-Carry the fact in the existing ser->flags field, which commit
-8a552d68a86e ("mm: memfd_luo: preserve file seals") added for exactly
-this kind of extension ("Unused flag bits must be set to 0"): preserve
-records whether the inode had exec bits, and retrieve reproduces them
-by setting the mode of the fresh anonymous inode directly, before the
-seals are re-applied -- the W^X rule in memfd_add_seals() looks at the
-mode when it decides whether to imply the write seals, so the mode has
-to be in place first.  The file is not published at that point, so no
-other thread can observe the intermediate state.  Reusing the
-MFD_NOEXEC_SEAL alloc flag was considered and dropped: it would
-silently add F_SEAL_EXEC to memfds that never had it (a plain
-non-executable memfd without the seal would come back with the seal
-attached and its exec bits irrevocable), and it would couple the
-restore to the current policy rather than to the state that was
-preserved.  A record that does not say the bits were set is restored
-without them -- which is what a memfd created under vm.memfd_noexec=2
-looks like, and is also the safe reading for records written before
-this bit existed.
+This patchset fixes the timestamp wrapping issue and extends
+the supported time range beyond February 2040.
 
-With this, the round trip is exact: a NX memfd (0666 + 0x20) is
-restored as 0666 + 0x20 and stays writable by its owner; a plain
-non-executable memfd (0666, unsealed) stays 0666 and unsealed, its
-exec bits still chmod-able; the baseline executable memfd stays 0777
-and still execve's; and memfd_create() under vm.memfd_noexec=2 still
-forces NX on fresh memfds.  No seal is invented for any of them.
+The first patch corrects the logic of __hfsp_mt2ut() and
+__hfsp_ut2mt(). The on-disk timestamp is interpreted as unsigned
+number of seconds since January 1, 1904. HFS_UTC_OFFSET,
+HFS_MIN_TIMESTAMP_SECS and HFS_MAX_TIMESTAMP_SECS are defined in
+include/linux/hfs_common.h, and hfsplus_fill_super() sets
+sb->s_time_min, sb->s_time_max and sb->s_time_gran. This patch fixes
+generic/258 but it restricts the supported time range by
+February 6, 2040.
 
-Refusing to preserve memfds with F_SEAL_EXEC was considered and
-rejected: with vm.memfd_noexec >= 1 every memfd created without an
-explicit MFD_EXEC gets MFD_NOEXEC_SEAL forced on it (and = 2 refuses
-the MFD_EXEC opt-out outright), so the refusal would disable the whole
-preservation feature exactly on the systems that harden the most.
-Preserving the full inode mode would be the alternative, but one bit in
-the already-extensible flags field is sufficient and keeps the record
-layout unchanged.
+The second patch stores the timestamps after February 2040 into
+internal extended attributes. Such timestamp is stored as the maximal
+on-disk value (0xFFFFFFFF) in the catalog record and the real value
+is kept in the xattr as big-endian 64-bit number of seconds since
+January 1, 1970:
 
-One point for the maintainers: a clear exec bit in a record is
-ambiguous between "written before this bit existed" and "the bits were
-clear", and both readings are safe -- the memfd comes back
-non-executable, which is what a memfd created under vm.memfd_noexec=2
-looks like.  For an old record it does change one case: an executable
-memfd with F_SEAL_EXEC preserved by a kernel without this change is
-restored as permanently non-executable instead of permanently
-executable.  If that is not acceptable, the reading has to be tied to a
-version bump instead: commit 8a552d68a86e ("mm: memfd_luo: preserve
-file seals") already noted that new semantics may require one ("they
-will need another version bump").
+linux_hfs.create_date_u64
+linux_hfs.content_mod_date_u64
+linux_hfs.attribute_mod_date_u64
+linux_hfs.access_date_u64
 
-Measured on a QEMU live-update run (preserve -> kexec -> retrieve):
-before the fix the restored NX memfd is mode 0777, seals 0x3e, execve
-of its contents succeeds and the owner cannot write to it; with the
-fix the same test reports the round trip exact (mode 0666, seals 0x20,
-still writable, execve -> EACCES), a plain non-executable memfd comes
-back 0666 with no seal and can be chmod'ed executable again, and the
-baseline executable memfd and fresh memfds are unaffected.
+It is Linux specific extension of HFS+ on-disk layout. However,
+it is backward compatible: Mac OS X sees the clamped timestamp
+(February 6, 2040) and an extended attribute. If the xattr is absent
+(for example, the record has been created by Mac OS X), then
+the driver reads the maximal on-disk value as February 6, 2040.
+The internal xattrs are hidden from listxattr() and they cannot be
+changed by user. The creation date is supported by the same logic,
+including the hard link records. Also, the second patch fixes
+the issue when the Attributes File, created in the middle of sync
+operation, is not recorded into the volume header.
 
-Fixes: 8a552d68a86e ("mm: memfd_luo: preserve file seals")
-Assisted-by: Pi:glm-5.3-flash
-Signed-off-by: Haolong Wang <18766350203@163.com>
----
- include/linux/kho/abi/memfd.h |  3 +++
- mm/memfd_luo.c                | 31 +++++++++++++++++++++++++++++--
- 2 files changed, 32 insertions(+), 2 deletions(-)
+The third patch adds the hfsplus_time KUnit test suite that checks
+the date/time conversion logic and the extended timestamp support.
 
-diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.h
-index 08b10fea2afc..471cfe8a4616 100644
---- a/include/linux/kho/abi/memfd.h
-+++ b/include/linux/kho/abi/memfd.h
-@@ -87,6 +87,9 @@ struct memfd_luo_ser {
- 	struct kho_vmalloc folios;
- } __packed;
- 
-+/* The execute bits were set on the memfd when its seals were applied. */
-+#define MEMFD_LUO_FL_EXEC_BIT		BIT(0)
-+
- /* The compatibility string for memfd file handler */
- #define MEMFD_LUO_FH_COMPATIBLE	"memfd-v2"
- 
-diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-index 59de210bee5f..950a43a4c328 100644
---- a/mm/memfd_luo.c
-+++ b/mm/memfd_luo.c
-@@ -300,6 +300,17 @@ static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
- 	ser->size = inode_size;
- 	ser->seals = seals;
- 
-+	/*
-+	 * F_SEAL_EXEC freezes the exec bits as they are at sealing time, so
-+	 * the restore has to reproduce them.  Record whether the inode had
-+	 * exec bits here; the restore sets the mode of the fresh inode
-+	 * accordingly before re-applying the seals.  ser is zero-initialized,
-+	 * so a clear bit means the bits were clear (or the record predates
-+	 * this flag -- the safe reading for those is also "no exec bits").
-+	 */
-+	if (inode->i_mode & 0111)
-+		ser->flags |= MEMFD_LUO_FL_EXEC_BIT;
-+
- 	err = memfd_luo_preserve_folios(args->file, &ser->folios,
- 					&folios_ser, &nr_folios);
- 	if (err)
-@@ -533,8 +544,11 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- 	}
- 
- 	/*
--	 * The seals are preserved. Allow sealing here so they can be added
--	 * later.
-+	 * F_SEAL_EXEC freezes the execute bits as they were when the seal was
-+	 * applied, so the restore has to reproduce them.  A record that does
-+	 * not say the bits were set is restored without them, which is what a
-+	 * memfd created under vm.memfd_noexec=2 looks like and is also the safe
-+	 * reading for records written before this flag existed.
- 	 */
- 	file = memfd_alloc_file("", MFD_ALLOW_SEALING);
- 	if (IS_ERR(file)) {
-@@ -543,6 +557,19 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- 		goto free_ser;
- 	}
- 
-+	/*
-+	 * Reproduce the exec bits before the seals are re-applied: F_SEAL_EXEC
-+	 * freezes the bits as they were at sealing time, and the W^X rule in
-+	 * memfd_add_seals() looks at the mode when it decides whether to imply
-+	 * the write seals.  Setting the mode here, directly on the fresh
-+	 * anonymous inode, is safe -- the file has not been published and no
-+	 * other thread can reach it yet.
-+	 */
-+	if (ser->flags & MEMFD_LUO_FL_EXEC_BIT)
-+		file->f_inode->i_mode |= 0111;
-+	else
-+		file->f_inode->i_mode &= ~0111;
-+
- 	err = memfd_add_seals(file, ser->seals);
- 	if (err) {
- 		pr_err("failed to add seals: %pe\n", ERR_PTR(err));
+v3
+File time_test.c has been renamed into hfsplus_time_test.c
+and file unicode_test.c has been renamed into hfsplus_unicode_test.c
+with the goal to exclude modules name conflict.
+
+Viacheslav Dubeyko (3):
+  hfsplus: fix timestamp wrapped issue
+  hfsplus: store timestamps after February 2040 in xattrs
+  hfsplus: add KUnit tests for date/time conversion
+
+ fs/hfs/hfs_fs.h                               |  13 -
+ fs/hfsplus/Makefile                           |   2 +-
+ fs/hfsplus/attributes.c                       |  85 ++++-
+ fs/hfsplus/catalog.c                          | 110 +++++-
+ fs/hfsplus/dir.c                              |  49 ++-
+ fs/hfsplus/hfsplus_fs.h                       |  52 ++-
+ fs/hfsplus/hfsplus_time_test.c                | 354 ++++++++++++++++++
+ ...{unicode_test.c => hfsplus_unicode_test.c} |   0
+ fs/hfsplus/inode.c                            | 299 ++++++++++++++-
+ fs/hfsplus/super.c                            |   8 +
+ fs/hfsplus/xattr.c                            | 202 ++++++++--
+ fs/hfsplus/xattr.h                            |  32 +-
+ include/linux/hfs_common.h                    |  13 +
+ 13 files changed, 1118 insertions(+), 101 deletions(-)
+ create mode 100644 fs/hfsplus/hfsplus_time_test.c
+ rename fs/hfsplus/{unicode_test.c => hfsplus_unicode_test.c} (100%)
+
 -- 
-2.56.0
+2.43.0
 
