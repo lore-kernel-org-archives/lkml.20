@@ -1,135 +1,109 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2624E7807
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792020627; cv=none; b=MO17TYB4rHJLeoZSrGdtaFw73xZe3rB0gZOowBiqlAuu7OZ4YWFA1ceACoxVVtkTK1s2OWHAX+1cLYTdCRcrxuiHELI9/D6Zuuy/TtafRrZTFkaH7MCSfVwel9FUoHK0++dnXXwxdu9JyjY1sSUYyHG8dh23ZDJWIuJDHonsJGU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792020627; c=relaxed/simple;
-	bh=ooFfoXuxO7m582/nXtDkjaE2ul/5TklQZU1eox80nH4=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=QyTE578OnwGMMXhc7V5x5Riit8cAlBpIc+BkFZLqryX+ta89/PJu6gLZHwSTrOPiqgMHhqHsRkQr8iC2tPOn3vF/0efw7P/B4oA24vC5PH6sU4eZvbryyhb7lyxmqkv2XbvbNrcmECtvpzae/hNkuFlT7WWmQ56z1rnY8Uj2PEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fb9zkxgP; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 584E52BDC0B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:31:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792020715; cv=pass; b=jQRHZ8M92pdFzwAWs2mG3iwZqbVSuGeZje5ndIAb9XVEZLljmnpJhKdL0OnySNLevLTGX1ImGZhlQX52wubl+Z/WqXMMTl+TWVUsXYfjxGycvP3lqXoayWuNS/ssXWr6yUGbRHeCZiSMYqpu0XKWRutayXmyX41wGOuh14tfl4E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792020715; c=relaxed/simple;
+	bh=c+5SN4BUGc0cAYOqueGecoLgZhbCt6m/n0efmhJQ8/A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KGGR0OAmJyTsxOveBUxRMvxOee1W7ndSRU+a2fgH6ZaZVGANNQdUvCCO6VaDNLLyKmByFjKev5crhTmKUJJQ8tFGHez9farTh++OKIvPpryQaQcteTtSI22co0jxhBmjHMDUWX7Pf89jdb0YLI94Kmajj/frAWGCuVqJ4TNsl5U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OSKetn34; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fb9zkxgP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:From:To:
-	Content-Type; bh=U0eU2EDnQnBU/CSAxUC5m8k6ykkFO1pNn8qYzB+Mv6E=;
-	b=fb9zkxgPxb8q1Ko+oW/BGXiJ3htilo2BVBiSkikMcFCpNzU0XshOp6cjBOO4/v
-	DBx2TwYrGlbRJ/fcQWsgF4x7LToav1FJ66VtIvEfi4ogSPnkv6oIQgz86ZktIPut
-	ewcnwQ0l5CGfjrOfRtl+WFJkzk9Ny/vwdO8GheGibob8k=
-Message-ID: <ca6b0f0a-e872-489d-843d-a457faa8d8d4@163.com>
-Date: Thu, 15 Oct 2026 07:29:26 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OSKetn34"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso1049a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:31:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792020712; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TAaGQZpd0CJEhwBPbC1XgYSXYkz6Gi5xQEYbk6/iX6/5GBYLKxpb1mYFYzTDSCGkAz
+         JPew2xyTZbknv2mAOdGTn9q1lqRypiH/mWQUzOBo3if+CEZZsVy446bPj4J6adCe8WGf
+         aDD3YuWKje2URBadyC5QjzThkvrcJkqxp0qkW9fIywVMN0ikPAoVxorVoHO+3OL5DfTW
+         L2EQOV/RFTl9aVYyv8Wmvo27nMltcRux7+jrdWxEemXj/fbMlC3JaK4y7U8TU+Kz7q4r
+         6T7rBdg9ofTPr+Tmrbrxl/EjPeggYuVwet2JOIvfHp99j53MTfhGWphs6758i94punOC
+         7YbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=c+5SN4BUGc0cAYOqueGecoLgZhbCt6m/n0efmhJQ8/A=;
+        fh=Ws9aP6wuOD9YGPV1LL8SxIC9EZdzeoYpWdkwx3ipB/A=;
+        b=ZF+vB7E7sc2H7o+R5LdpEl2EBxYKpOOw3j+7JIY/r09oQHs2W7OG7Jvt3MwnQlLSnq
+         pvDDd7VBDXdJ7xHg4+xa1UGdz+rGjACPC1d7K7dYI5D/lYFnLByWsqPOcDnPDq8b2Ysc
+         Y+dkHDva4R/HcAf3EQ/ce1aTr/mkI3YM4DheYir4JkDZDzk4qheNhgmRKKhIZGmrFJJC
+         gKvtIAlng8ot6by90ziSz57Ce080txWsaN2praTVcOCAaNAHwRrFEo9XKBBskn4qN3ko
+         9uJDnD4Se7hsnqaw0hr/iSXMujVzrqpbTv1W77zzuBIbkWcBRXOdAV3DkXpF4LuzNvny
+         BWyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792020712; x=1792625512; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c+5SN4BUGc0cAYOqueGecoLgZhbCt6m/n0efmhJQ8/A=;
+        b=OSKetn343/ILNReqXFVfz7BB7Yb2YxRsdHFPS7lHsXtKqtgfHaiXpBDd2qg2uqfwiQ
+         YLK68EiDVxvl81HAjhs0OIEeAxy1fUvyU29WfmPmBwGeb9+FN3z5KcqMiJ9g9yGmI8HN
+         hcXdkxCfRVLNt66LqtNg3yaOTg8PkQ4iUSjGCogwnKw7gmXl+yw/Q6p6JniEg/MrjNp7
+         RdNHNsEflo5H8G5oPUkj33IYhtR4pJ9Viybcdj7d8PJgeTvCeOS/aT0fsfOLddfzpVQ3
+         xAPBKrjYORzOeKda07wh1EFcIFlx5VH1x2CqWUYrlh/KV8WDoxwmvnSNnU5GOnofwb9o
+         aPqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792020712; x=1792625512;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c+5SN4BUGc0cAYOqueGecoLgZhbCt6m/n0efmhJQ8/A=;
+        b=Mv28QDbZsZWLKwKmixqDpZqqnWG5q/m825Beq67AY/3WeygskjCtM+SZbyvKrNCcyH
+         1MsybVHyFPBY9AH7BD40kOK4yrrPMm/ORu27FikvECsKO9BWVQw+sOcq5syG7ns/MdlI
+         i2b2ECYcJZ7itNiMeBGRevugSsP0By1ZAvVBSy5ESD07Qc+ZJPTzDkgLJGmTZloBm4Dl
+         FSRZfCpEg8Xots2KeygBoirq08/t5+9MPCKKwB4zf/xFHGAzYMduNq0+x5TnBBzDEkhQ
+         r8FQm7GxHL6bTpa/TrcjVVnPKSxjZzoGaktAn2KT/LFece8ptTNxqQSVZhnQsbS29jET
+         QjXA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQ3aYueEjqjEiOrF5Na292Oa7K5owPTw1BcTMX2FjPBrYGSjJOuYRC0/G9TcG5kDtitT9asXBZ40f/vaA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ17P/liVW5IMKvNCmLfnbb57GYhZ3GK/SCpVhIcFDwi+mtDer
+	OpoBzwDvTFa4dpo4rpcrSlzTd1Gy+3rma/SdiWBZt8vW8zTcTCJIfOSebcj+9kNt2O+jI0kvIbJ
+	WvU5Olh7IeeN/sTq/OcP5itUFsnpzwhRDAzuQJLNuOVawiQx0FCY+drsQ
+X-Gm-Gg: AYBFou2qtQDIrRkHXoi/u8+Rm+iTC2fY9LIyXZNtBFq2Yw65HfscrN4GCSvv3CgYVc0
+	rOBqg3tmIq74o8FQ9/YaSyFBU5RCqAeXhZ9GyHHcV6SryY3Bg55CKELUTyTdKAFdnh3cEf1m8NK
+	GQdn/NqJoSwmwPlWzXga5gsDGte1VhAEcUc+z2t5pTVbNn2tCkLXxaZui/xPfMhMCNgkAeobdl2
+	FvQftmExIptDSYB6izEvdTXlqj2tfdY7CLaO1St4Dy3POruLdiBORbchJxwLyHbwiRumnjaSL9O
+	bfdTWjzaHIkkJIlKsQYc+lfa9UDfoq4vG9PxW3Ng3gbzN+L8CkNywCPW
+X-Received: by 2002:a05:6402:5c3:b0:6ae:188e:e119 with SMTP id
+ 4fb4d7f45d1cf-6b32bb8e2e4mr1000a12.9.1792020711839; Wed, 14 Oct 2026 16:31:51
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] exfat: drop i_rwsem from exfat_page_mkwrite
-From: Chi Zhiling <chizhiling@163.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
- Yuezhang.Mo@sony.com, dxdt@dev.snart.me, sj1557.seo@samsung.com,
- Chi Zhiling <chizhiling@kylinos.cn>
-References: <20261013033837.2748258-1-chizhiling@163.com>
- <20261013033837.2748258-5-chizhiling@163.com>
- <CAKYAXd-+whfZ9_Zrgi0awH2tPxuVLW2O7=6e-w5JcBNBMRrSbw@mail.gmail.com>
- <07bfc007-145b-4ec5-a94e-c9f7bc3eedad@163.com>
-In-Reply-To: <07bfc007-145b-4ec5-a94e-c9f7bc3eedad@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCX3YdXENBqVehpEQ--.56376S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF1xKw18uw4fXw17tw1kZrb_yoW5XFyrpF
-	WYya4rKFZ8Jw12kFn29FsYya48Kw1SqrWxGF98W3y0vryqvF1UtFWxKrW8uFZ0vwn7X3W2
-	qF4qyr93X34DW3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U8pndUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9xfnhWrQEFcjaQAA31
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-8-yosry@kernel.org>
+In-Reply-To: <20261012233638.2546339-8-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 16:31:39 -0700
+X-Gm-Features: AclHuK9EHCeDUZdnrI67mbvozJY-igt-Nb7vmrmchnbUjAve2Tz2b0393hkSlgY
+Message-ID: <CALMp9eR7u=oyfYPWuROMyW-2aOPDznTaHHjK8j+5=SCxaKbgFg@mail.gmail.com>
+Subject: Re: [PATCH v3 07/27] KVM: SEV: Do ASID initialization at VMCB initialization
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/14/26 4:11 PM, Chi Zhiling wrote:
-> On 10/14/2026 9:19 AM, Namjae Jeon wrote:
->>> @@ -969,8 +969,9 @@ static vm_fault_t exfat_page_mkwrite(struct 
->>> vm_fault *vmf)
->>>          loff_t new_valid_size, mmap_valid_size, fault_page_start;
->>>          bool dirty = false;
->>>
->>> -       if (!inode_trylock(inode))
->>> -               return VM_FAULT_RETRY;
->> exfat_page_mkwrite() reads the file size before iomap_page_mkwrite()
->> locks the page. Because inode_trylock was removed, another thread can
->> grow the file in between. exfat_cont_expand() does not take
->> invalidate_lock, so the shared lock does not stop it.
->>
->> mmap write fault                              ftruncate/fallocate
->> Snapshot i_size = 1000
->> new_valid_size = 1000
->> dirty = false
->>                                                Extend i_size to 3000
->>                                                valid_size stays 1000
->> iomap_page_mkwrite() locks folio
->> Checks the current i_size (3000) and succeeds
->> dirty is still false, so VDL is not advanced
->>
->> MM makes the page writable
->> Store at offset 2000, no new page_mkwrite()
->>
->> The data at offset 2000 is beyond valid_size, so it can later be read
->> as zero. Could you check and fix this race?
-> 
-> This is the issue Yuezhang mentioned earlier, and he has already 
-> submitted a fix:
-> 
-> https://lore.kernel.org/exfat/20261010101200.1211462-2- 
-> Yuezhang.Mo@sony.com/
-
-I misunderstood. This is a different issue. I’ll fix this bug as soon as 
-possible.
-
-Thanks!
-
-> 
->>
->> +       sb_start_pagefault(inode->i_sb);
->> +       file_update_time(vmf->vma->vm_file);
->> +       filemap_invalidate_lock_shared(inode->i_mapping);
->>
->> With i_size = 12 KB and valid_size = 0, DIO write to [0, 4 KiB  can
->> race with an mmap write fault at offset 8 KB. The fault zeroes and
->> dirties the gap [0, 8 KiB), then advances valid_size.
->>
->> DIO write [0,4 KiB)                         mmap fault at 8 KiB
->> Starts writing data
->>                                               Reads the gap as zero
->>                                               Dirties pages 0 and 1
->>                                               Advances valid_size
->> Completes
->> Post-DIO invalidation cannot remove
->> the dirty page
->> Writeback can overwrite DIO data with zeros
->>
->> Removing  inode_trylock()  from exfat_page_mkwrite() can introduce
->> several racy issues. Could you check that the affected paths are
->> properly synchronized?
-> 
-> Concurrent DIO and mmap writes are undefined behavior, and other 
-> filesystems may have similar issues.
-> 
-> I've spent quite a while thinking about this, but I still don't have a 
-> good solution. So I added the following patch to the patch series:
-> 
-> "exfat: publish i_size and valid_size on direct I/O completion".
-> 
-> The purpose of this patch is to prevent stale on-disk data from being 
-> exposed when DIO and mmap writes happen concurrently. However, the 
-> trade-off is that concurrent DIO writes may have their data unexpectedly 
-> zeroed.
-> 
-> Do you have any thoughts on this?
-> 
-> Thanks!
-
+On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> The per-vCPU ASID does not change for SEV guests, so move the per-vCPU
+> (and per-VMCB) ASID initialization to sev_init_vmcb() to do it once,
+> instead of setting it before every VMRUN.
+>
+> No functional change intended.
+>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Reviewed-by: Jim Mattson <jmattson@google.com>
