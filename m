@@ -1,218 +1,552 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFFC539792
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840A75519B6
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:19:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994778; cv=none; b=JnZnf8y29OYvyRjeOW0mJ8dtpOgVhw4aqwx0zAVsZXX9vkbW1wBgLOq1DYEd3CrtGneR9OfUR/Ci29x41ZV2wYfjtJ8pDDdVa8tXs8ft4YDbHlSuGTUZEfBk2e8V7DhBg+DVLy2dX35k0WMSe2E4jKlS6eUtxQ52y1Dzpdq3HSE=
+	t=1791994784; cv=none; b=Is8OKFPcG+cZeJbaNRIMO1Dhqlvo497TbmWlVNIMCZqZv/rzxyvsrfB0GKN5szfsGaHyD8hYFx3M6YQvackOPQBYdBvMCflyxEGsEIedDnNCqMVI9mfN+eCAj5otj7SY3dHJM/fBrsZBk5ZiI0hDC6wCFZWi7AceCyiirT4IQC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994778; c=relaxed/simple;
-	bh=orUkk4GCp5EFHVnAmkbvBc1CnnBk7UmhzsNlrDdy0xQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Ujpv8EHVaGW/X1IRM1g8Ur6rfUA1i3tcZxRT4M9trEa8u4ZDtIV89FVMkTTMutII72Xn09B56WfwqvbZ6TUWWuqqRMJ12SaQo2VNLVY1ocm/e4bATHJ4vCLy4OFn3to4AD4F3X3GmGpcc9dQkqNznm3W3C7KNLtoVPQsl4jm47w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4db3db8687fso6782355b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:19:34 -0700 (PDT)
+	s=arc-20240116; t=1791994784; c=relaxed/simple;
+	bh=gNSjtWnwOazIK6fgq6t4zU0pyYhpFF9yVvxIZkgA79w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ogDPIWA2934OaxrR1yPgeQkHNq05AEe/Q8rgztbheVlY7BS6fi6enMRlzQ3pLB/8JW2kcCh1JgfWI2iPwU64zr9PYDMi3hHqLHvG67hj6xTV0m3QOTT+q66sFsvmnP9zf4bk/JUp2/61B6Eb0xL9CpXKmMM+IP4++IArrkEKI9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gAsesR7w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cYysBd5K; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gAsesR7w";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cYysBd5K"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EFMmAU1682677
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:19:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	lg+1X4UYycQbuXmzsYAi8MUBS2vFlH2X0853yKqWlqo=; b=gAsesR7wNSCgohsR
+	TYio3YkLTjnf8b58W2sQ8voyKIoNCd58lxkMXAe6EMRSsRSfkoXUZFM89/6RHe3m
+	72wOZAY9uX01usm4+NOH1lEUfoq21icTT9WkWHw4uyLSWIVOJ+TkaTRLkaB4WEHg
+	3y/WuNSQYYLrSUUTqWIdodHdZHREdkdxSl5hgHT4NuL+so0RsS0LEC3gVvtl39yS
+	5Dq/+swe8E29zoXlnSBW0DMyknaGgw7sxOuJ6J59w3ExXqJQ7dJnVzRLrZSWI+Jq
+	2QVgRxIC+bvZsU3WmocvH+yE35BqLiOSqQp0RNg5LjRqsI8qJHNRMfc/V4/Zma3V
+	5RgCZg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacb007jf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:19:40 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93e46b4b700so94053385a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:19:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791994780; x=1792599580; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lg+1X4UYycQbuXmzsYAi8MUBS2vFlH2X0853yKqWlqo=;
+        b=cYysBd5KFKaDYRiZgc2exkgnEpjAIpImXS3AVexTFWri4fTThaCkei+kyr8Bdj9tcF
+         7eiTCiEw3VXbL6icBwohvRHoHYdIMyWQZkL70PyW5ywF276s4KrbwvSgwqz+KsqTb2fQ
+         SIzf/sLdYJr95QSK+SdByLsfRpCyx+t8UeGZjQBqGIdJ+IwjCZX88AP/sGu8smomSNLx
+         73jMgg0YzjVzhRZG/6EiX+e25IrQuS5V2QQI5o0oSOORHQANfMQN8B1lsgFFlvAiyXod
+         QYIilqpwzMO4aPAowHGbvQAQJaAPA4GUSQeJKj2IDuQQ2JE2a1ykvUAJsywWZ+jY7eXn
+         7xTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791994773; x=1792599573;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xXsYfHP7hwkUSYb50Vz8rNkytsVjYuskiuIUuuS/w8A=;
-        b=uGMYGG8C0cC4jGIHVyleuXE1VRLheGSQ7MPKor6O1bc8zqfqM+W2RuYhDqu2H9gWO/
-         mRkphx/Dbl/Vqvebei8SHtyrZ9VgUZTJ5Rl+wrn5nDSngiEvstnNfAIc/C6HIfbRQ1Ol
-         VKTEqGTJ5mcxzsi9akMk4/hq8s90IWLMeLtRQrEg1JoHsYmQ1xQeNaCJ6JPNLv7+1vQI
-         q8xLkof28vjCcFqCG2CrDp5cSue9Wg6PusWFfwCd8uLPV98aw7DuDX71n8xNbctxsghH
-         b0a+F9SY6cCOfBfWQxmzkCKn3880mLBX4HlmF2Y6ZS+8QMt9gRoFad0hKIFCD3GvJBLU
-         4Zzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwfWW/4wv8rTgNQaEK4FnmzoASBhYwC8q7p6Wj+dvYHnVr9u+20CvhCDZ0HGyYVg4EwY972/xBbDdHKz9M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKulaoxBak46imSzAFHgCDvQCaqJ9Rdz2nSJextZH6BHDK+SVTA
-	nYrFOcC2pG17pPbmp0mJEs9Kj1DH0/x5lgNz0F5SjuKeolP2COY7ILEoJzIKWYqzpJ7oChT0Dg0
-	qaAm2JcvQbCSXREsMiEbmt0v1tRevNMsfy7sQprbmUnFz65ERfm9z2Vp5AtQ=
+        d=1e100.net; s=20260707; t=1791994780; x=1792599580;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lg+1X4UYycQbuXmzsYAi8MUBS2vFlH2X0853yKqWlqo=;
+        b=qhDSZ31sf5LqTLIJJD+tMPWXdEHhYOn5dz+INqXlPtmkLIrIb49idxdt63Co+heXPv
+         ycPCJVzeOwACF/NsNn8uo5mxb0b+8T4Mh8F0U83krgWiqFfy9ZSGouQEhxiC5a6WUqtG
+         7vay/BYxXPqF+lt5MryRTZS54f0rfRagY8OINBBrIZ1RneH6P89TNc7G/8TTYSzZ0jy6
+         a+rUuR6+nAfU6nF8XiwWDVyMnY7t9rQI6f9G5UQHvTKrWFQ0mh53ibQTZLSYO9+4LTsT
+         wgj4ggoHrLr3bXMM4rVsV5fvVP0ojuv6IvYZg8XXAy0qL5Hc9qKW1jt9XIsY9YsM/8Hj
+         s7nQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzFZYn7LZb0jcgi97NTDGIsCiaSl9XZ+ZFwc26CrWonvHXQqkv1MBwhOKjTz61NEz3m3DVDq6Ihf8f6xpM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILQTV8HdI1S5G4bwEs52JIryFRVyvhLtrgFPLo5GgKSkG69k5g
+	iTNIcLgh5ul1JiUqYDLOBjksgWEwm0CnEzS7N3JFzyrCCKipQX9Qo878vWd7NnfTVEM3iOTr3sa
+	NgXV7K7h+ctTnccQ3Ht2FlED1laKLbEx1Q1gM3GQ7aGpGX7wfi5pRYhQ7Dy9pn9oPRJ0=
+X-Gm-Gg: AYBFou2JIh5FESYb8xwAXvLUIMZaxzJueJADGAwrrZ3QVMjMOtBXztZREctvz4hNwM5
+	EYdqyRSpVqwWkoEgfHW6ZLNZy4v/5FZ3QjfIPaqeKvT/+FLcqjChUzW//ipDdv7H5jemRsNBlp3
+	u92wcODd3JKRWyyM7JrLzTrFcpkZuXmIeupjpa+qTtgiS1Vx4UNAQ0d2AZ4kf+vtUN6vGilprHL
+	p6fgJVZucrncY6v4s17tqedE4wGR6juW1r2weh6e47QqJP0XGRzJIeK5DUwulc0FHtsrb86YksZ
+	B3K2DFbHkVny9BcgBZRxt+tsOfIuSqSecwpNiaVXD3aupDRw4Jx5irgUrmoRG1ppDcFna6ex/qC
+	834kriXNdm640fiWIp/1cvs49+F1/LAtoCJDTehIffnbb2Cp/Grgm6Y9nqfgkntCnuLQ1Znvvym
+	wUIZGV9+nEsaSg
+X-Received: by 2002:a05:620a:a2d4:10b0:93e:c06a:7313 with SMTP id af79cd13be357-93ec06a770emr1800876085a.13.1791994779469;
+        Wed, 14 Oct 2026 09:19:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:a2d4:10b0:93e:c06a:7313 with SMTP id af79cd13be357-93ec06a770emr1800871485a.13.1791994778850;
+        Wed, 14 Oct 2026 09:19:38 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d7d0f6sm740187e87.38.2026.10.14.09.19.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 09:19:34 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 19:19:17 +0300
+Subject: [PATCH v2 2/5] drm/panel: add Novatek NT36850 panel driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2211:b0:4f6:5279:5c6e with SMTP id
- 5614622812f47-50c42170b8amr14110237b6e.8.1791994772986; Wed, 14 Oct 2026
- 09:19:32 -0700 (PDT)
-Date: Wed, 14 Oct 2026 09:19:32 -0700
-In-Reply-To: <6a6e88a1.13bfb6d0.1ecdd5.0261.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acfab94.38256f13.2006af.0129.GAE@google.com>
-Subject: Re: [syzbot] [kernel?] possible deadlock in md_start_sync
-From: syzbot <syzbot+13eb8132f7693fe21d7d@syzkaller.appspotmail.com>
-To: bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, mingo@redhat.com, song@kernel.org, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-sdm845-hdk-v2-2-6d0b4b42f267@oss.qualcomm.com>
+References: <20261014-sdm845-hdk-v2-0-6d0b4b42f267@oss.qualcomm.com>
+In-Reply-To: <20261014-sdm845-hdk-v2-0-6d0b4b42f267@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Abel Vesa <abelvesa@kernel.org>, Ulf Hansson <ulfh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        dri-devel@lists.freedesktop.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12704;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=gNSjtWnwOazIK6fgq6t4zU0pyYhpFF9yVvxIZkgA79w=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqz6uHc7ofGfbYllRImxVsYMv/vacn1aZaf+E1S
+ FMZi7DzYpeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCas+rhwAKCRCLPIo+Aiko
+ 1QnrCACpbcaDBZpc6wD8enlzlZxHMHlYR4zvVU6e25Kejgoyl5RcXiyLSi1l5lLZuz4EIrHw0j+
+ LBwLABifMyuAWHPSyOIh37VVqQ8hJrg9CLqXK2IPh6X5D9gAxaHCY0ZUIWTBzX5Xx1d4CjjwFYb
+ VT+bPNgxW9IrOxOleZGUFbOi3Ju8TD7NXVtLPWfqCwJCXrLgvusZwK6kwguBKkn2co3e/jZohak
+ rIC0gsmedHbpuygI+lvS2x9X79d2KtsQehSZPC5+OHOAWX/ywp7bpLMIcblCVyNJT3B/wu7MS3e
+ 9A+Sv8cW8bY9T26sGCOJzNbFgXjBPqmlowcWKnc7bTFqmzlc
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=VKpIDNPX c=1 sm=1 tr=0 ts=6acfab9c cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=pGLkceISAAAA:8 a=Avzf8x2XDEdYhfZFVJMA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA2NSBTYWx0ZWRfX/1u/YwuraDTh
+ rTu7ex/xMOo6uriTHF9Da/DQIYYvAEAKkolmkyGvnoDDkglDap68oIHx5YTpUWwxT5Owwayxpoc
+ dMaOkH61rj/pFntrB7u3K9B6u372Q5c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA2NSBTYWx0ZWRfX8qRoJEFJ/bqt
+ Rnyb+SlOdXJnXANetrjMLtS7bkVJ9yAYBPKHrWPFafSYqRsxKGzeYkrU9cUjDkqX3bBBk/AlJXg
+ r2SHnKDRxz3FATq5d2lV/LXbIboI0bscOCCWSqMFipS94RtNrAXCYyamGvYgV8ApV62IXEd5ZHn
+ 7xTgz7V6xvOcO8KYTmZVCaBH7gguTI/5NugM48ps63dQ5x+0wDsv/jmoY08MmGj2wKeN3VFwJ2y
+ 0DBcwyCtEfmAI/MXb9rV/qFwx5NcYGh1uEAeORTsIpETYntVvpb3yOhgBMux3EWwqexGot8oIGc
+ TrwW09gQu3ULgTN4DkMAxbGYC5XtY7f1iWLqwMPm+zKa4nP57UogVEF9Pie/B+z8z9tCV0lLJSD
+ RcNc+1InoJqpWIpOi51hjDwgbQxxeu1xY2V4TBZhV8cH2+mj1JdFQDhDxljJ0laq29JL6g0uY5q
+ hEIfjDmfYd6ZFN4b2yg==
+X-Proofpoint-ORIG-GUID: ei68GyBV3a5srDV1z0Pm3BZ45OZMYDlT
+X-Proofpoint-GUID: ei68GyBV3a5srDV1z0Pm3BZ45OZMYDlT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140065
 
-syzbot has found a reproducer for the following issue on:
+Add support for the Truly WQHD dual-DSI command mode panel built around
+the Novatek NT36850, found on the display card for the Qualcomm SDM845
+and SM8150 HDK. The driver is based on panel-novatek-nt36523, the power
+and command sequences follow the vendor device tree.
 
-HEAD commit:    4056b3c9d3c9 Merge tag 'nios2_update_for_v7.4' of git://gi..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15334e8e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d1b274ca9837366
-dashboard link: https://syzkaller.appspot.com/bug?extid=13eb8132f7693fe21d7d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=175a6999580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10da6999580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-4056b3c9.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/811a43c89106/vmlinux-4056b3c9.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/2bb4f3abea76/bzImage-4056b3c9.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+13eb8132f7693fe21d7d@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-kworker/0:5/5422 is trying to acquire lock:
-ffff8880133d8358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: mddev_lock_nointr drivers/md/md.h:734 [inline]
-ffff8880133d8358 (&mddev->reconfig_mutex){+.+.}-{4:4}, at: md_start_sync+0x179/0x1010 drivers/md/md.c:10275
-
-but task is already holding lock:
-ffffc9000293fc40 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
-ffffc9000293fc40 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
-ffffc9000293fc40 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
-ffffc9000293fc40 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #3 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}:
-       process_one_work kernel/workqueue.c:3372 [inline]
-       process_scheduled_works+0xc03/0x1630 kernel/workqueue.c:3479
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #2 ((wq_completion)md_misc){+.+.}-{0:0}:
-       touch_wq_lockdep_map+0xcb/0x180 kernel/workqueue.c:4111
-       __flush_workqueue+0x148/0x1470 kernel/workqueue.c:4153
-       md_alloc+0x32/0xf20 drivers/md/md.c:6334
-       md_alloc_and_put+0x1a/0x1f0 drivers/md/md.c:6423
-       blk_probe_dev block/genhd.c:888 [inline]
-       blk_request_module+0x27d/0x2a0 block/genhd.c:-1
-       blkdev_get_no_open+0x3f/0xe0 block/bdev.c:870
-       blkdev_open+0x1d7/0x600 block/fops.c:670
-       do_dentry_open+0x816/0x1380 fs/open.c:996
-       vfs_open+0x3b/0x340 fs/open.c:1101
-       do_open fs/namei.c:4866 [inline]
-       path_openat+0x1443/0x1d60 fs/namei.c:5029
-       do_file_open+0x23e/0x4a0 fs/namei.c:5058
-       do_sys_openat2+0x115/0x200 fs/open.c:1417
-       do_sys_open fs/open.c:1423 [inline]
-       __do_sys_openat fs/open.c:1439 [inline]
-       __se_sys_openat fs/open.c:1434 [inline]
-       __x64_sys_openat+0x138/0x170 fs/open.c:1434
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #1 (major_names_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x19d/0x1550 kernel/locking/mutex.c:821
-       blk_probe_dev block/genhd.c:885 [inline]
-       blk_request_module+0x35/0x2a0 block/genhd.c:901
-       blkdev_get_no_open+0x3f/0xe0 block/bdev.c:870
-       bdev_file_open_by_dev+0xa0/0x240 block/bdev.c:1091
-       md_import_device+0x2e9/0x650 drivers/md/md.c:3847
-       md_add_new_disk+0x280/0x1850 drivers/md/md.c:7546
-       md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
-       blkdev_ioctl+0x5e3/0x740 block/ioctl.c:798
-       vfs_ioctl fs/ioctl.c:51 [inline]
-       __do_sys_ioctl fs/ioctl.c:597 [inline]
-       __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (&mddev->reconfig_mutex){+.+.}-{4:4}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x19d/0x1550 kernel/locking/mutex.c:821
-       mddev_lock_nointr drivers/md/md.h:734 [inline]
-       md_start_sync+0x179/0x1010 drivers/md/md.c:10275
-       process_one_work kernel/workqueue.c:3396 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-other info that might help us debug this:
-
-Chain exists of:
-  &mddev->reconfig_mutex --> (wq_completion)md_misc --> (work_completion)(&mddev->sync_work)
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock((work_completion)(&mddev->sync_work));
-                               lock((wq_completion)md_misc);
-                               lock((work_completion)(&mddev->sync_work));
-  lock(&mddev->reconfig_mutex);
-
- *** DEADLOCK ***
-
-locks held by kworker/0:5/5422: 2, last CPU#0:
- #0: ffff888031699d40 ((wq_completion)md_misc){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff888031699d40 ((wq_completion)md_misc){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff888031699d40 ((wq_completion)md_misc){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff888031699d40 ((wq_completion)md_misc){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc9000293fc40 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc9000293fc40 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc9000293fc40 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc9000293fc40 ((work_completion)(&mddev->sync_work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 5422 Comm: kworker/0:5 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: md_misc md_start_sync
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x19d/0x1550 kernel/locking/mutex.c:821
- mddev_lock_nointr drivers/md/md.h:734 [inline]
- md_start_sync+0x179/0x1010 drivers/md/md.c:10275
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
+Assisted-by: LLM
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ drivers/gpu/drm/panel/Kconfig                 |  10 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36850.c | 343 ++++++++++++++++++++++++++
+ 3 files changed, 354 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 53a1fc2913fe..869a5501e709 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -723,6 +723,16 @@ config DRM_PANEL_NOVATEK_NT36672E
+ 	  LCD panel module. The panel has a resolution of 1080x2408 and uses 24 bit
+ 	  RGB per pixel.
+ 
++config DRM_PANEL_NOVATEK_NT36850
++	tristate "Novatek NT36850 panel driver"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	help
++	  Say Y here if you want to enable support for the panels built
++	  around the Novatek NT36850 display controller, such as some
++	  Truly panels used in Qualcomm development kits.
++
+ config DRM_PANEL_NOVATEK_NT37700F
+ 	tristate "Novatek NT37700F DSI panel"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index f2c9c80a218f..8dd8eb7080cb 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -69,6 +69,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36532) += panel-novatek-nt36532.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36536) += panel-novatek-nt36536.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
++obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36850) += panel-novatek-nt36850.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) += panel-novatek-nt37801.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) += panel-novatek-nt39016.o
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36850.c b/drivers/gpu/drm/panel/panel-novatek-nt36850.c
+new file mode 100644
+index 000000000000..6956ec7263fb
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36850.c
+@@ -0,0 +1,343 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Novatek NT36850 DriverIC panels driver
++ *
++ * Copyright (c) 2022, 2023 Jianhua Lu <lujianhua000@gmail.com>
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries
++ */
++
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_graph.h>
++#include <linux/regulator/consumer.h>
++
++#include <video/mipi_display.h>
++
++#include <drm/drm_crtc.h>
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_of.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++
++struct panel_info {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi[2];
++	const struct panel_desc *desc;
++	enum drm_panel_orientation orientation;
++
++	struct gpio_desc *reset_gpio;
++	struct backlight_device *backlight;
++	struct regulator *vddio;
++	struct regulator *avdd;
++	struct regulator *avee;
++};
++
++struct panel_desc {
++	unsigned int bpc;
++	unsigned int lanes;
++	unsigned long mode_flags;
++	enum mipi_dsi_pixel_format format;
++
++	const struct drm_display_mode *mode;
++	const struct mipi_dsi_device_info dsi_info;
++	int (*init_sequence)(struct panel_info *pinfo);
++
++	bool is_dual_dsi;
++};
++
++static inline struct panel_info *to_panel_info(struct drm_panel *panel)
++{
++	return container_of(panel, struct panel_info, panel);
++}
++
++static int truly_wqhd_init_sequence(struct panel_info *pinfo)
++{
++	struct mipi_dsi_device *dsi0 = pinfo->dsi[0];
++	struct mipi_dsi_device *dsi1 = pinfo->dsi[1];
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = NULL };
++
++	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1, 0xff, 0x10);
++	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1, 0xfb, 0x01);
++	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
++					  MIPI_DCS_SET_ADDRESS_MODE, 0x00);
++	mipi_dsi_dual(mipi_dsi_dcs_set_tear_on_multi, &dsi_ctx, dsi0, dsi1,
++		      MIPI_DSI_DCS_TEAR_MODE_VBLANK);
++	mipi_dsi_dual(mipi_dsi_dcs_set_tear_scanline_multi, &dsi_ctx, dsi0, dsi1,
++		      1000);
++	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
++					  MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
++					  0xff);
++	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
++					  MIPI_DCS_WRITE_CONTROL_DISPLAY,
++					  0x2c);
++	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
++					  MIPI_DCS_WRITE_POWER_SAVE, 0x01);
++	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
++					  MIPI_DCS_EXIT_INVERT_MODE);
++	mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
++	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1, 0xbb, 0x10);
++	mipi_dsi_dual(mipi_dsi_dcs_exit_sleep_mode_multi, &dsi_ctx, dsi0, dsi1);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++	mipi_dsi_dual(mipi_dsi_dcs_set_display_on_multi, &dsi_ctx, dsi0, dsi1);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	return dsi_ctx.accum_err;
++}
++
++static const struct drm_display_mode truly_wqhd_mode = {
++	.clock = (720 + 120 + 20 + 140) * 2 * (2560 + 8 + 4 + 20) * 60 / 1000,
++	.hdisplay = 720 * 2,
++	.hsync_start = (720 + 120) * 2,
++	.hsync_end = (720 + 120 + 20) * 2,
++	.htotal = (720 + 120 + 20 + 140) * 2,
++	.vdisplay = 2560,
++	.vsync_start = 2560 + 8,
++	.vsync_end = 2560 + 8 + 4,
++	.vtotal = 2560 + 8 + 4 + 20,
++};
++
++static const struct panel_desc truly_wqhd_desc = {
++	.mode = &truly_wqhd_mode,
++	.bpc = 8,
++	.lanes = 4,
++	.format = MIPI_DSI_FMT_RGB888,
++	.mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
++	.init_sequence = truly_wqhd_init_sequence,
++	.is_dual_dsi = true,
++};
++
++static void nt36850_reset(struct panel_info *pinfo)
++{
++	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
++	msleep(50);
++}
++
++static int nt36850_prepare(struct drm_panel *panel)
++{
++	struct panel_info *pinfo = to_panel_info(panel);
++	int ret;
++
++	ret = regulator_enable(pinfo->vddio);
++	if (ret) {
++		dev_err(panel->dev, "failed to enable vddio regulator: %d\n", ret);
++		return ret;
++	}
++
++	msleep(20);
++
++	ret = regulator_enable(pinfo->avdd);
++	if (ret) {
++		dev_err(panel->dev, "failed to enable avdd regulator: %d\n", ret);
++		goto err_vddio;
++	}
++
++	ret = regulator_enable(pinfo->avee);
++	if (ret) {
++		dev_err(panel->dev, "failed to enable avee regulator: %d\n", ret);
++		goto err_avdd;
++	}
++
++	msleep(20);
++
++	nt36850_reset(pinfo);
++
++	ret = pinfo->desc->init_sequence(pinfo);
++	if (ret < 0) {
++		dev_err(panel->dev, "failed to initialize panel: %d\n", ret);
++		goto err_avee;
++	}
++
++	return 0;
++
++err_avee:
++	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
++	regulator_disable(pinfo->avee);
++err_avdd:
++	regulator_disable(pinfo->avdd);
++err_vddio:
++	regulator_disable(pinfo->vddio);
++
++	return ret;
++}
++
++static int nt36850_num_dsi_hosts(struct panel_info *pinfo)
++{
++	return pinfo->desc->is_dual_dsi ? 2 : 1;
++}
++
++static int nt36850_disable(struct drm_panel *panel)
++{
++	struct panel_info *pinfo = to_panel_info(panel);
++	struct mipi_dsi_device *dsi0 = pinfo->dsi[0];
++	struct mipi_dsi_device *dsi1 = pinfo->dsi[1];
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = NULL };
++
++	dsi0->mode_flags &= ~MIPI_DSI_MODE_LPM;
++	dsi1->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dual(mipi_dsi_dcs_set_display_off_multi, &dsi_ctx, dsi0, dsi1);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++	mipi_dsi_dual(mipi_dsi_dcs_enter_sleep_mode_multi, &dsi_ctx, dsi0, dsi1);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	dsi0->mode_flags |= MIPI_DSI_MODE_LPM;
++	dsi1->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return dsi_ctx.accum_err;
++}
++
++static int nt36850_unprepare(struct drm_panel *panel)
++{
++	struct panel_info *pinfo = to_panel_info(panel);
++
++	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
++	regulator_disable(pinfo->avee);
++	regulator_disable(pinfo->avdd);
++	regulator_disable(pinfo->vddio);
++
++	return 0;
++}
++
++static int nt36850_get_modes(struct drm_panel *panel,
++			       struct drm_connector *connector)
++{
++	struct panel_info *pinfo = to_panel_info(panel);
++
++	connector->display_info.bpc = pinfo->desc->bpc;
++
++	return drm_connector_helper_get_modes_fixed(connector, pinfo->desc->mode);
++}
++
++static enum drm_panel_orientation nt36850_get_orientation(struct drm_panel *panel)
++{
++	struct panel_info *pinfo = to_panel_info(panel);
++
++	return pinfo->orientation;
++}
++
++static const struct drm_panel_funcs nt36850_panel_funcs = {
++	.disable = nt36850_disable,
++	.prepare = nt36850_prepare,
++	.unprepare = nt36850_unprepare,
++	.get_modes = nt36850_get_modes,
++	.get_orientation = nt36850_get_orientation,
++};
++
++static int nt36850_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct device_node *dsi1;
++	struct mipi_dsi_host *dsi1_host;
++	struct panel_info *pinfo;
++	const struct mipi_dsi_device_info *info;
++	int i, ret;
++
++	pinfo = devm_drm_panel_alloc(dev, struct panel_info, panel,
++				     &nt36850_panel_funcs,
++				     DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(pinfo))
++		return PTR_ERR(pinfo);
++
++	pinfo->vddio = devm_regulator_get(dev, "vddio");
++	if (IS_ERR(pinfo->vddio))
++		return dev_err_probe(dev, PTR_ERR(pinfo->vddio), "failed to get vddio regulator\n");
++
++	pinfo->avdd = devm_regulator_get(dev, "avdd");
++	if (IS_ERR(pinfo->avdd))
++		return dev_err_probe(dev, PTR_ERR(pinfo->avdd), "failed to get avdd regulator\n");
++
++	pinfo->avee = devm_regulator_get(dev, "avee");
++	if (IS_ERR(pinfo->avee))
++		return dev_err_probe(dev, PTR_ERR(pinfo->avee), "failed to get avee regulator\n");
++
++	pinfo->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(pinfo->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(pinfo->reset_gpio), "failed to get reset gpio\n");
++
++	pinfo->desc = of_device_get_match_data(dev);
++	if (!pinfo->desc)
++		return -ENODEV;
++
++	/* If the panel is dual dsi, register DSI1 */
++	if (pinfo->desc->is_dual_dsi) {
++		info = &pinfo->desc->dsi_info;
++
++		dsi1 = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
++		if (!dsi1) {
++			dev_err(dev, "cannot get secondary DSI node.\n");
++			return -ENODEV;
++		}
++
++		dsi1_host = of_find_mipi_dsi_host_by_node(dsi1);
++		of_node_put(dsi1);
++		if (!dsi1_host)
++			return dev_err_probe(dev, -EPROBE_DEFER, "cannot get secondary DSI host\n");
++
++		pinfo->dsi[1] = devm_mipi_dsi_device_register_full(dev, dsi1_host, info);
++		if (IS_ERR(pinfo->dsi[1])) {
++			dev_err(dev, "cannot get secondary DSI device\n");
++			return PTR_ERR(pinfo->dsi[1]);
++		}
++	}
++
++	pinfo->dsi[0] = dsi;
++	mipi_dsi_set_drvdata(dsi, pinfo);
++
++	ret = drm_of_get_panel_orientation(dev->of_node, &pinfo->orientation);
++	if (ret < 0) {
++		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
++		return ret;
++	}
++
++	pinfo->panel.prepare_prev_first = true;
++
++	ret = drm_panel_of_backlight(&pinfo->panel);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to get backlight\n");
++
++	ret = devm_drm_panel_add(&dsi->dev, &pinfo->panel);
++	if (ret)
++		return dev_err_probe(dev, ret, "can't add the panel\n");
++
++	for (i = 0; i < nt36850_num_dsi_hosts(pinfo); i++) {
++		pinfo->dsi[i]->lanes = pinfo->desc->lanes;
++		pinfo->dsi[i]->format = pinfo->desc->format;
++		pinfo->dsi[i]->mode_flags = pinfo->desc->mode_flags;
++
++		ret = devm_mipi_dsi_attach(dev, pinfo->dsi[i]);
++		if (ret < 0)
++			return dev_err_probe(dev, ret, "cannot attach to DSI%d host.\n", i);
++	}
++
++	return 0;
++}
++
++static const struct of_device_id nt36850_of_match[] = {
++	{
++		.compatible = "truly,wqhd60-nt36850",
++		.data = &truly_wqhd_desc,
++	},
++	{},
++};
++MODULE_DEVICE_TABLE(of, nt36850_of_match);
++
++static struct mipi_dsi_driver nt36850_driver = {
++	.probe = nt36850_probe,
++	.driver = {
++		.name = "panel-novatek-nt36850",
++		.of_match_table = nt36850_of_match,
++	},
++};
++module_mipi_dsi_driver(nt36850_driver);
++
++MODULE_AUTHOR("Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>");
++MODULE_DESCRIPTION("DRM driver for Novatek NT36850 based MIPI DSI panels");
++MODULE_LICENSE("GPL");
+
+-- 
+2.47.3
+
