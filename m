@@ -1,140 +1,134 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28AD52475E3
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 02:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791944553; cv=pass; b=Z7Z5G8fStzDFbxv1FMkbwq/cIOZJT7PEQJia5hzMe60WI0Fx8gAGFhn4go5YB9ySatid+yNqEcZe4o3hu7NYtlh7DHCkkt1PBj8SvV8P6sc58ijtvnyJCYJhlJK8Iv1zXRj81WaUb51H+WWltzyJh9WByCYy76VUhs1+2zPYJq0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791944553; c=relaxed/simple;
-	bh=KqbPDHN6YdzyiKMmIDyDQnrpTH06Mt4Ih2MF0snoOxA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iHbwX4aveEbTvF8VU1oig2O3fM7m+sfO2euEMPCvEj8ZjXe4z0x8s8RLfad+keRW1t0iUCnyPfwnbs89uC6F/fdoyxjnZJOkXiLaURnt5S2FLAQmIWCMRu5ffJMvNle6lE7Nc/7cBFCbEkZWsFlpxD1v4DEEccnAWRJvYnQ7tPw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=acr3poyi; arc=pass smtp.client-ip=209.85.167.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="acr3poyi"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ba3ec92031so3726747e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 19:22:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791944550; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DHw7cjBQWVmj+8V4625S54cQFPxr8sY1A8n0fLkD8TtGkqaqQhCmjUijfq0XaMIVAf
-         l5uNlf9F2kqCVMqF3nst+esAgrG7vRkxoP8qKmr999191Tki9t1hr01c10uUfAjkcoZK
-         9+NTC92RR003fmCrK1JfMVhesmLqeCjsaOYQ5r529XiYEW/kMbgNXpdqc6x17JWNLVca
-         1ru6lvDrKTxerTzoCuRbasSyfZuy5JqZ98GiX3qDtNDq8sxikt1kQCEoW4TsDQGFl0au
-         zurtvT/Yf1QRktpl+gHu1z9PcrI+9Qj7X2avRvFZ+6kvQazpwtXXJwNEHZjzSzNf3eR/
-         c6pQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uR6LzQI4dyAnk+9+CQvzUY4D1It975ps1tZNRpR3a0U=;
-        fh=8VHjALqgkQ2Adg2g6EHrywWdgFnBChl0KasEDeiJcy0=;
-        b=LseLmo2Jx0cx2p2qRutDHIetR4iPjDodRlWPPocXSdGLqRDdeK3Vb1q6VnBp3tgs5r
-         gikp/RMNWIE0AuQVEqWYXCF42xAYhPMuwtAzPfCuT/Cc5iPjJKmcJd0QY3odcNfmUz9R
-         TVLiZ3fxbs4hahGcx4ZNo5I5U5aPCTVWL3/wvuZI0iF/uHTFDQnu+E4EyHVkhvYcI/JV
-         3LcjvQGnNWCjptZkeGbWT5S/QZe1myMt9e3NW2pjimNoK0zBgs3mPsOSbGJiCzZ7qSRL
-         dvaEhl4D/xFzXQwwr8jyd0X6+FPk3NkUt0PKjvIRJutgKvoeFVcPHSv+lsxvMMZzvxwq
-         NupA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791944550; x=1792549350; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uR6LzQI4dyAnk+9+CQvzUY4D1It975ps1tZNRpR3a0U=;
-        b=acr3poyixjN7LIw8cYOqWxwY2nyp5pzz8ZXyaN38LSN1Ku5HCuKSc0ylBKbF508Otb
-         C4QgVATTN2tnObx7GjA6a0PakoCqg/sY/8jSAmmGZ5BaRrt7oIm8bdgEteV9iCFQUKLz
-         3sGwPifyTuvnAirxpqkocd6XCQzokK+mF0/4Lg1w9vnflrBNHc4A7idDLIpxShID3JOe
-         /tWWtKnZrsjU7lYvJtGlglmZ+A+lZmUp3GFH292b5v0s8R9EURVbJSqdt4QBINi1g5ZU
-         PXfBHGk4ITpry6uBOz4zh/x+s+lb68laXfGpOZBg9TJc5D7DS/uL0jkLjbYP7oBHHdF5
-         zZ0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791944550; x=1792549350;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uR6LzQI4dyAnk+9+CQvzUY4D1It975ps1tZNRpR3a0U=;
-        b=kbNTR9SpFa9XJL3tc9GfsEysBkAlabWaQIfBBsNZgQJ71dxIZ2X8JpsfwUSWPB2uur
-         zN5IVaiATB+oUmiYJqc9Qb2s92okT0q+7Ng5s7hJsqazpuvVDiuK+jisLu97UpyrHxoR
-         OA61IBT5qPFLFd/u+qTHqYcJenJYTwzMnXx9JGZUZX05lkJ5d5ahcaCc/KBjOosPmod8
-         cObXWkj+sFRXQW24mBCRXFf8KpGHxBgrhSFrIvYjNAPwsfrBWEFOn5UMhlPfATYmkB/R
-         VGnOpkm380xrqjqkh+WvxXKTHJXbHShs8BzRlg0zfANG6fvRhEmYTbriZi9DpkOfF5Mb
-         T/Dw==
-X-Forwarded-Encrypted: i=1; AKwUvBysAuw9c2qEIU6wOX59rHpXB6/PxqMJWjY6l/IRNrEpOhWHz4pMtUPov0Vn90SDXohBHlUl57zs9j/omVk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8dxHknwSdKHEXYVdPZBQ6rdrwCq++TpnChKStHTpHXctGgxkA
-	GPvouVtnA8RDeU7mJBKARwyU/sRX36PyNyI0rKuyKoTn9p9eu+lhBDiskfr0fwu/fEvIiNgt6G5
-	y6r/HAYcwFdI7Jvtr8Ee+lqEw7oxXsDw=
-X-Gm-Gg: AYBFou0lmGTo3Zmieo1K5AN6aLxB/gVZqiM86KrDbEVxPKYXerzQMfImm41tlQZe9gb
-	V8WAlyfolMw5zlsaQ1OBdPn07Sf/SEmGx9V2BlW6gBl97/R380oIpEfTUH7dYYDYFR6LxyUT1AU
-	2wm7PC7W9Auz4cEKm48UcqZGcZj/aliHXOrJcbwR3biLjpfulKdNBTIeBwUaclOMZAZzERCYdoQ
-	zngLcWlm3Gy+VacGa10HGNSqsuqKRt9V3U0RmclpXtXO5reMrnNoJjLJD/7QfHDpbaJSXs1XezI
-	FWhdVSUpOZwuPZ4DRPAFL2iD0SfKMOFo2tud34RGpC8b4k/Jo7XFNe2vJcuXmAF4y/gRZzzsaGC
-	1/rvI/svuMs90ntZA8uzIiasV02ycEV/n5Z3WDISi5zo=
-X-Received: by 2002:a05:6512:224c:b0:5bc:f02e:9b2e with SMTP id
- 2adb3069b0e04-5bcf02e9c70mr3265873e87.9.1791944549826; Tue, 13 Oct 2026
- 19:22:29 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CFC33998;
+	Wed, 14 Oct 2026 02:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791944661; cv=none; b=eD2YsQGV6C7UHPccPEHrHUJkToRshYrhy/mlvT2PI5tWVY89xC156rhAirHwSg6akaDGSuYVrfdM8FHdfN57b55DQcre/lyRGnSftgj7J2XsY+GViyldgiL8B7DsFbVy4T51BPAni7iztfks04IM/4nrvtTTfHGoQKjFwSnPftc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791944661; c=relaxed/simple;
+	bh=YE6wK3ozoIsjpnQjO3ubaqmPoCJNCipXKKtmbJoQ1ss=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MBLvWXWj1TCkm8Yi8AeQ19I6izo//SmvU1W7dn8TY7I8h9vEEWG0GY1VWAWNI6iPVJO/eC8/+0vJVQbeTLcEnTyPS2d9EQl8KqqybqfiZWGf+HZtTtOISlblDeBifc+/B/kHSFQiDdsSmsutphighav+A5qsJKnWTHjSz8/3xAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j4FNy0rRgzKHMQ3;
+	Wed, 14 Oct 2026 10:23:14 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id B74D34056E;
+	Wed, 14 Oct 2026 10:24:13 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCn4O_H585qBNZzAQ--.21104S4;
+	Wed, 14 Oct 2026 10:24:13 +0800 (CST)
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+To: linux-ext4@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	enwlinux@gmail.com,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	yizhang089@gmail.com,
+	chengzhihao1@huawei.com,
+	yangerkun@huawei.com,
+	yukuai@fnnas.com
+Subject: [PATCH] ext4: fix extent status cache clearing when truncating inline data
+Date: Wed, 14 Oct 2026 10:17:14 +0800
+Message-ID: <20261014021714.2382353-1-yi.zhang@huaweicloud.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013145210.103565-1-sashal@kernel.org> <as5R_xrDv4eVPdtz@orome>
-In-Reply-To: <as5R_xrDv4eVPdtz@orome>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Tue, 13 Oct 2026 21:22:18 -0500
-X-Gm-Features: AclHuK887CDwAvm9A-A5lvdpxpUm0jxZaYwqU9DtjoFJ0z65i4nraDiY5z22Q4Y
-Message-ID: <CALHNRZ9zhVaz9UeYJTFRph+0JMM8x+5it_Xv7Qhy5f2kh12MDQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: gpu: nvidia,gk20a: Allow a fuse clock
- after the reference clock
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>, Diogo Ivo <diogo.ivo@bootlin.com>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:gCh0CgCn4O_H585qBNZzAQ--.21104S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxXF4UKF13Ar1UJrW3Kw4kZwb_yoW5Wr1fpa
+	9xCr4UGr1kW348WFZ7u3WUXF1Yga1fGr47uryagw17WFy3CFyIgFZ0k3yUZa4xKr4vvayj
+	vFWYvF1DCa15JrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
+	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VUbmsjUUUUUU==
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On Tue, Oct 13, 2026 at 10:46=E2=80=AFAM Thierry Reding
-<thierry.reding@kernel.org> wrote:
->
-> On Tue, Oct 13, 2026 at 10:52:08AM -0400, Sasha Levin wrote:
-> > GM20B needs both its reference clock and the fuse clock while it is
-> > powered, so allow "fuse" as a fourth clock after "ref".
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > ---
-> >  Documentation/devicetree/bindings/gpu/nvidia,gk20a.yaml | 2 ++
-> >  1 file changed, 2 insertions(+)
->
-> Aaron, Diogo,
->
-> I'm fairly sure I remember at least one of you mentioning that GM20B
-> wasn't always working reliably. Would you mind giving this series a spin
-> on your devices to see if it fixes any issues you were seeing, too?
+From: Zhang Yi <yi.zhang@huawei.com>
 
-I've got a t210 nano a02 that essentially hasn't been able to load
-nouveau since I've started my Android Common Kernel effort over two
-years ago. I think it came up like twice when I accidentally left it
-boot looping for days and forgot about it, but never when I wanted it
-to.
+ext4_inline_data_truncate() clears the whole extent status tree of the
+inode when it truncates the inline data, with
 
-With this series, nouveau loaded properly 3/3 boots. I'll keep this in
-my 6.18 kernel fork and see if any of my t210 devices hit the probe
-hang and will report back if I find a case this doesn't solve. I will
-also point other people I know with units affected by the issue to
-this series.
+	ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
 
-Aaron
+It does that when the inode still carries inline data while the
+EXT4_STATE_MAY_INLINE_DATA state bit is already cleared, which is the
+case once an inline to extent conversion has been initiated, for
+example a delalloc buffered write larger than the inline space.
+
+The clear is meant to drop stale extent status entries of such an inode
+to prevent stale extents and stale reserved space after the conversion,
+but the range is too wide.  It also drops the entries of the blocks
+below the new end of file, that is the blocks that stay in the file.
+
+When writeback of these blocks starts later, the lookup of such a block
+misses the extent status tree, falls back to the extent tree and caches
+a hole entry for it.  Those blocks then have dirty, mapped and delayed
+buffers together with a hole extent status entry.  This is an
+unexpected inconsistency.
+
+This problem has been hidden so far because we allocate blocks and new
+extents for them during writeback.  But once [1] is merged during the
+iomap conversion, the writeback behavior will be normalized, and it will
+no longer allocate blocks for holes, thus exposing this problem.
+
+Therefore, restrict the range to the blocks that are actually truncated
+away, and pass EXT_MAX_BLOCKS minus lblk as the length.
+
+[1] https://lore.kernel.org/linux-ext4/20261009103033.2920530-9-yi.zhang@huaweicloud.com/
+
+Reported-by: syzbot ci <syzbot+ci46f64f7b6a2a188e@syzkaller.appspotmail.com>
+Closes: https://lore.kernel.org/linux-ext4/6ac92a4c.70ed5d86.2ac85.0072.GAE@google.com/
+Fixes: 0add491df4e5 ("ext4: remove extent cache entries when truncating inline data")
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+---
+ fs/ext4/inline.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
+index ceee69a66482b..b630e56815bb5 100644
+--- a/fs/ext4/inline.c
++++ b/fs/ext4/inline.c
+@@ -1905,8 +1905,12 @@ int ext4_inline_data_truncate(struct inode *inode, int *has_inline)
+ 		 * the extent status cache must be cleared to avoid leaving
+ 		 * behind stale delayed allocated extent entries
+ 		 */
+-		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA))
+-			ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
++		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
++			ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, i_size);
++
++			ext4_es_remove_extent(inode, lblk,
++					      EXT_MAX_BLOCKS - lblk);
++		}
+ 
+ 		/* Clear the content in the xattr space. */
+ 		if (inline_size > EXT4_MIN_INLINE_DATA_SIZE) {
+-- 
+2.52.0
+
