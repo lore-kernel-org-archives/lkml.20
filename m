@@ -1,100 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3BB486420;
-	Wed, 14 Oct 2026 19:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63462417BD2;
+	Wed, 14 Oct 2026 19:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.152.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792007218; cv=none; b=bKSrgs5DI4v9SXJ7xUw/lx+YsrYATyymSHxdhCXJr0Ezc4NaWV+AS6dN9731tvck7zV8/ex7inxwAJx+88cWMSV5s/dd7aoLEe+1ZOD9QQ5YQGxdD6He5P/x7+14bBQ/BIrGV1MG/jdAX/CZuVBIAG0yTJWCapA/1pobTs/iMmg=
+	t=1792007253; cv=none; b=YWSQGia525AwHC+TMiRmdgBESwwMsgmDRWbFjnHMFIAHX4ncZyzhlWHZgigTcis3JLvSuC6pZ6lNOrty+jtd9nH8AOi5/ULUtL/LhevwDQLlLDzeELqAZviIGnyMFVQotfnHH9I6qXu1EqJvTCRea58mNRd9cVoJ7MlPetrk3X8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792007218; c=relaxed/simple;
-	bh=F8iUNDa8xve1BSXQ6Tye39xGf3MOB6x7ueXyLnS6mfg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=neAK8zjYM9rADJuCZPEYMe+e1p2cBIKxMT+CCZWHqDqQJPu9etEvumrVOB37tTEhC/OrwF2Tv6+1iTU0zMkoo6BFXogNXRftbA8dG6yCbUcWPm1SpIMc6MFfJsm5zP/yOsV6s0jsoobogxe6MlVv/KuixIqiReo1JRWR6dVtLfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RmQVoIwa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792007253; c=relaxed/simple;
+	bh=yYvRJQWooZPkyh9026YoIQwZ3ItaEUGQX0mfusD29q8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bZdfjwk+ZuS1BxhAVd5V4Tf0sTo8y6Y2Fw9y/HDhUpkWzbCED5VrbRGFgCYA3taaFlwjOQlRhQYJckQhXqDfyhkZ5vxggI1D9Pn2AIAnpHuAvECDXEqKzRVqpxnNEIFc0X14tOOP3x1XVY9z3FW8B7Cbq1AGXU+SJPN92UVcWYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=YSvAytu4; arc=none smtp.client-ip=148.163.152.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RmQVoIwa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843F91F000C4;
-	Wed, 14 Oct 2026 19:46:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792007216;
-	bh=VkzoqxTdzmAg593ZpIds3NlLUMIFMc0b1AE/YCVZDWw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RmQVoIwaX4F+m+QOTfBZ/BEap2Ci3CR8vUwT+k50W7Jgus1MTHRpWoDCeRk3szKas
-	 uzosIYzkaiam6ix1S/hWjqoS0TxPoO4a78Ix3OO/QlCm1KxycxhrmJY+w49cFxMjwl
-	 sk3k3ikgGrwEwt4FTM8SfDW2xPJnk3Dx29n1Nde0Q2+khRQ3bZthoThKsbDyY9fCQF
-	 V3HBMdhNdz95Pk/NV2mftbwGl26FI4HxJ+7kXD1zqiIVSFJf7Yhh0vv+10/yJfQq8L
-	 Ba+aRlqD7WHu3E5lC8suYwgKJ6fMw9JkM3+Njs0J4n1Tcuzpnv7F1mM/eacKy4v12z
-	 hrI8yQ7+5y9kg==
-Date: Wed, 14 Oct 2026 20:46:53 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, "Jose A . Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2] mm/slab: sample slab_state once in
- kmem_cache_destroy()
-Message-ID: <as_MPz_gXzkuGqFq@thinkstation>
-References: <20261014150844.8536-1-kaloz@kernel.org>
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="YSvAytu4"
+Received: from pps.filterd (m0354654.ppops.net [127.0.0.1])
+	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EJjIcM1792058;
+	Wed, 14 Oct 2026 19:46:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=default; bh=V13y94AcoZxdA
+	Vvt6ubPxV3JNockmJO2nu+raArkXRo=; b=YSvAytu4sB3JeS4AuJjMlUCNY2wQc
+	8FrEVswUslv351PmrW0umrtAAbMBK/SXwm2nNYdnbdfyJn+XDnaPOQM7rGQDthI1
+	51pE6efqZ2PiR9GA5A+25mGim67Z71QRJfGsBuEJnkcXW+eN+uyPcbrLa1ymcq89
+	2TQ0IPjAv1rYdlre5z3wAlDHmOm7cWXZBPl+r8+PMy5LWwlVm+5Hn4fduXs2YMod
+	R54byYRzzrHr9ObV8FaTzbUU+LoccKZf538q0lbSkuikUt3hfjn3uVg9kvbNGQlg
+	4LV76C2vVAAGJC3RRcMHVQsK3FVWHi5vBooQXiw3ryWX5O4GXui6yO9sw==
+Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
+	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4h9ytj3e10-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 14 Oct 2026 19:46:39 +0000 (GMT)
+Received: from LL-DZB4774.crowdstrike.sys (10.100.11.122) by
+ 04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 14 Oct 2026 19:46:36 +0000
+From: Marco Vedovati <marco.vedovati@crowdstrike.com>
+To: <bpf@vger.kernel.org>
+CC: Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann
+	<daniel@iogearbox.net>,
+        Andrii Nakryiko <andrii@kernel.org>,
+        Yonghong Song
+	<yonghong.song@linux.dev>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+        <linux-spdx@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-open-source@crowdstrike.com>,
+        Marco Vedovati
+	<marco.vedovati@crowdstrike.com>
+Subject: [PATCH bpf-next] tools/include: Add Linux-syscall-note to uapi/linux/types.h
+Date: Wed, 14 Oct 2026 21:45:16 +0200
+Message-ID: <20261014194516.3030362-1-marco.vedovati@crowdstrike.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014150844.8536-1-kaloz@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: 04WPEXCH014.crowdstrike.sys (10.100.11.87) To
+ 04WPEXCH006.crowdstrike.sys (10.100.11.70)
+X-Proofpoint-ORIG-GUID: ZE0_nQZ5oiM0X2zxo2-YbHoObRN2WX-b
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA3OCBTYWx0ZWRfX5365wyYRk/Ls
+ KH3hgpBDFLy/7W4JLD2nfOpE+S8Ll5gBH9TLop6Zh1b14wflRn5QeyS1XZFEGjLoBEiqrmQ9/3/
+ 5Vdz2u1Tmx7pFmIBuYgICFc5j1ony6QN4bcMURQ0vol5Rj5HrS34e2oVa8k+CLpwMMe5tx0AvFq
+ 2V2Wb+X2bAJihwb+ZBm7R+cj96MvYL1sWFt51Bdzjd/uWAwiA1uTkQH6xgBXRg9PmVme4sExGZz
+ e85/Z27jakSlrzQORvYl7gRwHo+46L3OtKCXZSV2J8lv0AxZmOZ/dCtkA0YQyU97jEOYndgBonr
+ 0C7cB8daVvDAivB80GSOSEvcErbEK+chmPUlz1h8iM57GW2n01X3mK3rxHyTOHvOmdBQg4NcOVj
+ GTBxVcVTMwzSpEH0kenrEenxaF08ZfXviTd9pOH9vO1bAVKAw9/q0gdWXaKRy4xPEfUKmop832n
+ oAgmJdvySU8thFDjSCg==
+X-Proofpoint-GUID: ZE0_nQZ5oiM0X2zxo2-YbHoObRN2WX-b
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA3OCBTYWx0ZWRfX3STbxRgO937N
+ uMrFG1QWbR4Er7urnEWa813YkwWLPzH39xNsu1/07kPxwqHzLVD8lJ5x3B1uxkPk1/z84H63s6P
+ iCnFmi8Rc+OqZns4EwFHhWmWb/2Z48i1zy9yYjvyxsGggcyCCWaN
+X-Authority-Analysis: v=2.4 cv=U9wHnuru c=1 sm=1 tr=0 ts=6acfdc1f cx=c_pps
+ a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
+ a=EjBHVkixTFsA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=T2KQ53IYiC3MXPrxx8bB:22 a=R_n4Uisa8axJ7jemP0ek:22 a=pl6vuDidAAAA:8
+ a=LSAfqMpvtffKtK7BL-AA:9
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11935
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1011 impostorscore=0 priorityscore=1501 suspectscore=0
+ bulkscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140078
 
-On Wed, Oct 14, 2026 at 05:08:43PM +0200, Imre Kaloz wrote:
-> kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
-> has dropped slab_mutex and unlinked the cache, and for a
-> SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
-> before that test it sets slab_state to FULL but skips the unlinked cache,
-> which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
-> on a kobject that was never initialized:
-> 
->   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
->   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
->   refcount_t: underflow; use-after-free.
->   kobject_put+0x64/0x2c0
->   sysfs_slab_release+0xc/0x20
->   kmem_cache_destroy+0x104/0x1e0
->   bioset_exit+0x13c/0x1e0
->   disk_release+0x54/0x140
->   put_disk+0x18/0x40
->   floppy_async_init+0xbec/0xd10
-> 
-> The release-time test has run outside slab_mutex since at least v4.4 for
-> SLAB_TYPESAFE_BY_RCU caches, and since v6.0 for the others. Since v6.12
-> the unlink-time test in kmem_cache_destroy() is a separate read of its
-> own, also after mutex_unlock(), so the two can disagree. Both tests ask
-> whether the cache has a kobject, which cache creation skips while
-> slab_state <= UP. UP is the state just below FULL, so a false sample
-> cannot skip a kobject_put() that was owed.
-> 
-> Seen on sparc64 at boot, where the asynchronous floppy init tears down
-> its bio slab while the late initcalls are running.
-> 
-> Sample slab_state once, under slab_mutex which slab_late_init() holds
-> when it sets FULL, and use the result for both the unlink and the
-> release.
-> 
-> Fixes: d50d82faa0c9 ("slub: fix failure when we delete and create a slab cache")
-> Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> ---
+tools/include/uapi/linux/types.h is the only header under
+tools/include/uapi/linux/ whose SPDX identifier lacks the
+Linux-syscall-note exception.
 
-Looks good to me,
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+The file was originally added as
+tools/testing/selftests/bpf/include/uapi/linux/types.h by
+commit 0a5539f66133 ("bpf: Provide a linux/types.h override for bpf
+selftests.") without any license header. Then
+commit 579f1d926c66 ("selftests/bpf: fix broken build due to types.h")
+added type definitions copied from include/uapi/linux/types.h, which
+is licensed under GPL-2.0 WITH Linux-syscall-note.
 
-I guess it's late to queue this to slab/for-next-fixes.
-Let's queue this to slab/for-next for 7.4-rc1.
+Commit b24413180f56 ("License cleanup: add SPDX GPL-2.0 license
+identifier to files with no license") tagged it GPL-2.0, along with
+other headers under tools/include/uapi/. Those other headers were
+switched to GPL-2.0 WITH Linux-syscall-note shortly after by
+commit fb7df12d645c ("tools/headers: Synchronize kernel ABI headers"),
+when they were synchronized with their kernel counterparts. This file
+is only a partial copy of include/uapi/linux/types.h, not kept in sync
+with it, so it kept the GPL-2.0 identifier, also after
+commit bcd66b10b5e9 ("tools/bpf: Move linux/types.h for selftests and
+bpftool") moved it to its current location.
 
+Use the same identifier as include/uapi/linux/types.h.
+
+Signed-off-by: Marco Vedovati <marco.vedovati@crowdstrike.com>
+---
+ tools/include/uapi/linux/types.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/include/uapi/linux/types.h b/tools/include/uapi/linux/types.h
+index 85aa327245c6..6acf2059085a 100644
+--- a/tools/include/uapi/linux/types.h
++++ b/tools/include/uapi/linux/types.h
+@@ -1,4 +1,4 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
+ #ifndef _UAPI_LINUX_TYPES_H
+ #define _UAPI_LINUX_TYPES_H
+ 
 -- 
-Cheers,
-Harry / Hyeonggon
+2.55.0
+
