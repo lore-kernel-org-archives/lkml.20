@@ -1,95 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1913FFABF;
-	Wed, 14 Oct 2026 18:54:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA953EC684;
+	Wed, 14 Oct 2026 18:57:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792004060; cv=none; b=TG/IHHxz9BdEUs0giMJDp/BLl2nE5ipF8K1e6KkAyxRPjFo3TkEBsiIcNLVP6WDdPSYNRgEQI0ntqrEzUSdPF0zfzmZhaCtToEBKqlKVv8nvv/B2HTbqL+bZWfvWDXG+hBCfVTJ3b1YsABh8eg+hw8QYCP4wkMN36lORqsju4EI=
+	t=1792004243; cv=none; b=ly5CgGj6YcwxnRBZJ0DlMFJ8sKiQlRvCx6Z435qt9PTok0VZN86gIB1OZwQzIOpYyTrF31RW43wlV7yisuxejVSkZirwLF1wqYtMsRMtLllpAqpn1S6aqmILz/BnnnFK3oyFQS7chhJBxOZb/XgxzZAzQoZNIhgQZFJdHjlawYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792004060; c=relaxed/simple;
-	bh=Shp1V24z7twJ2gmzVTdpyt3bw71+ZJyAoCLTQZz5Ntc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=grfo5s6UzvVb4/R3HUHhfN/+omNVEdbgIxQuDA+BqcXNCi/BUqSpfSC2OQt2AZVt6FGt5cyu5ingOkb83EJIzfmYJ7F9a9Q3nTjO12zdv8mOHOrBhNKgWTZYoHyrwn2o5ANSSMZY1AECYvJAJp0TKId3mFF+/iRjytMBCfjs0RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QzdOHYUN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792004243; c=relaxed/simple;
+	bh=WmNcsA5G711yUOhv3vRumoM3sNXabGcZCFbLELV1ebE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mvYcDGVFE7UEru9vZvBy+piWNEOpjU8BPyTS0JNCpn2+2VhnEvylZMziLxb2nxtAG9NC07J4RHWLj1IkGGejJTwKnYrc8FUyYpwkKoV09NtMioNRRvifSSy8WLG4G1k58TRCxGNSb9D/0sq4HM297ahfkxTHulPTEguwpcrPf6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4F521D7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QzdOHYUN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324E21F000C4;
-	Wed, 14 Oct 2026 18:54:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4F521D7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314031F000C4;
+	Wed, 14 Oct 2026 18:57:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792004059;
-	bh=Sn0TUje/xLNp9okf+baAS0Cznr3CBb1Va+Y4WHDu8rg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QzdOHYUNssCudHcHWErpVxpNeG1l1YNTpc6/KyfI/mjurZH7fnrXGh/oBkyuKQbVD
-	 68Uu/kn2UyV4WorjsEIgnjt+D1r8B6NgQYsfo6qO9wUBHgi78zqTTBjqCVFIB0Ymgc
-	 bEdHL2sTNNikPZ9b7uhYyPIa1p7ELP1gukWdueFQbO2aqjB7ptjRtTbmG3nWCcRBSS
-	 ftn8lrH2MNX01PCz6Nly78IypC8KJTxwLRtBnnYqFZQ31EB9PQUowSgKIO/fiyuNlN
-	 5pTPdwqysFTTJywroVhhrTZxYYsoNXrZwx87vs+MQkmxf3RLWdTZdYMlbuTS4I3i+J
-	 6zLykRgXzGvnA==
-Date: Wed, 14 Oct 2026 08:54:18 -1000
-Message-ID: <81a8a0d64d269851ce4b48a240aa673c@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Cc: hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org, cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] selftests/cgroup: test pids.events notification
-In-Reply-To: <20261013064812.875787-1-sahaj123.sc@gmail.com>
-References: <20261013064812.875787-1-sahaj123.sc@gmail.com>
+	s=k20260515; t=1792004241;
+	bh=CvWOaTUlMXOEn3tnxgA4QdZqJ3etpFx5xwMvPC1gXq4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G4F521D7LiiIZZCqQVxHOB/nZBiu4tBxIrJQIPczjUHE+9a4ljcAa5OTOC19AOt/M
+	 rGoKmaMxA+wiyvhsWOZZEmMlyGxP3Fht7DONoGYHa8rKGnJNPOBU7hqGwasqMppiDD
+	 lj4CXohfxWrglWa+txVDNBw+bPCOdgEhQTckY2zfH0ZHgR0L/WNgTXn5Zeh/5QgqxV
+	 NQTLBjMv2/0kf0itpRvtcPZcdOJMQYdLblZtfduOYIvb2NT7t0hKKaPc4AedK6EZLm
+	 sCYsf901oGif3DjXDGjJHt6feyuSnqKqJoGw1fNebhvxz0Rnprqy5WN4zEg1AFqjcX
+	 mLR9Es3GE/qkw==
+Date: Wed, 14 Oct 2026 19:57:16 +0100
+From: Simon Horman <horms@kernel.org>
+To: Sagi Maimon <maimon.sagi@gmail.com>
+Cc: netdev@vger.kernel.org, radhey.shyam.pandey@amd.com,
+	michal.simek@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	daniel@iogearbox.net, jacob.e.keller@intel.com, joe@dama.to,
+	suraj.gupta2@amd.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4] net: axienet: free outstanding TX buffers in
+ axienet_dma_bd_release()
+Message-ID: <20261014185716.GD83879@horms.kernel.org>
+References: <20261004083759.1016519-1-maimon.sagi@gmail.com>
+ <20261007034620.1360542-1-maimon.sagi@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007034620.1360542-1-maimon.sagi@gmail.com>
 
-Hello, Sahaj.
+On Wed, Oct 07, 2026 at 06:46:20AM +0300, Sagi Maimon wrote:
+> axienet_dma_bd_release() walks the RX ring to unmap and free every
+> receive buffer before releasing it, but frees the TX descriptor ring
+> with dma_free_coherent() alone.  Any descriptor that
+> axienet_free_tx_chain() had not yet reclaimed still holds its skb and
+> its streaming DMA mapping, and both are lost.
+> 
+> axienet_stop() disables TX NAPI and stops the DMA engine before calling
+> it, so nothing reclaims those descriptors afterwards.  Bringing the
+> interface down while frames are in flight therefore leaks up to
+> lp->tx_bd_num skbs and mappings each time.
+> 
+> axienet_dma_err_handler() already walks the TX ring this way before it
+> restarts the DMA engine: it unmaps every descriptor whose cntrl is still
+> set - axienet_free_tx_chain() clears it on reclaim - frees any skb still
+> attached, and clears the descriptor.  Move that loop into a helper,
+> axienet_free_tx_bufs(), and call it from axienet_dma_bd_release() too.
+> This relies on axienet_stop() having stopped the DMA engine first, as
+> the RX walk in the same function already does.  The helper frees the
+> skbs with dev_kfree_skb_any(), as drops: in the error handler, which
+> runs from a workqueue, that frees them directly rather than deferring
+> them to softirq as dev_kfree_skb_irq() did.
+> 
+> The walk must not run on a ring that is not there.  axienet_open() does
+> not check the result of the reset that runs axienet_dma_bd_init(), so
+> when that reset fails tx_bd_v is either still NULL or, after an earlier
+> close, points at the ring that close freed.  Clear tx_bd_v and rx_bd_v
+> once their rings are freed, and skip the walk when tx_bd_v is NULL.
+> That also ends the second dma_free_coherent() of a stale ring which the
+> same path already did.  On the axienet_dma_bd_init() error path the TX
+> ring has just been allocated zeroed, so the walk does nothing.
+> 
+> This was reported by the Sashiko AI review bot.
+> 
+> Tested on the AXI Ethernet MAC of an ADVA TimeCard X2 (PCIe card, with
+> the built-in AXI DMA): traffic passes, and after each of ten down/up
+> cycles and five module reloads, all made with traffic running and each
+> running axienet_dma_bd_release(), traffic resumes and nothing is logged.
+> The leak itself was not measured, and neither the failed-reset paths nor
+> axienet_dma_err_handler() were exercised.
+> 
+> Fixes: 8a3b7a252dca ("drivers/net/ethernet/xilinx: added Xilinx AXI Ethernet driver")
+> Reviewed-by: Joe Damato <joe@dama.to>
+> Assisted-by: LLM sparse
+> Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
 
-The following is a Claude-generated review.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-On Tue, Oct 13, 2026 at 12:18:12PM +0530, Sahaj Chaudhari wrote:
-> Add a selftest for pids.events notifications. When pids_localevents is
-> enabled, a fork rejected by pids.max must increment pids.events and
-> generate an IN_MODIFY inotify event on that file.
+In future please post new patch revisions as new email threads,
+not as a reply to an earlier revision.
 
-Can you mention 1765a153d985 ("cgroup/pids: Restore pids.events
-notifications in local mode") here as the fix this test covers?
+Thanks!
 
-> Check for a failed read() of the inotify event before comparing its
-> signed ssize_t result with sizeof(struct inotify_event). Otherwise -1 is
-> converted to a large unsigned length and the uninitialized event buffer
-> is inspected.
-
-This describes the v1 to v2 change. As v1 never landed, it belongs only in
-the changelog below the --- line.
-
-> +TEST_GEN_PROGS += test_pids_local_events
-
-Can this be a test in test_pids.c instead? Its main() already does the
-same setup, so the new test fits as another T() entry next to
-test_pids_events() without the Makefile and .gitignore changes. It can
-then use cg_run_nowait() with run_success() for the fork and cg_control()
-for the pids.events path.
-
-> +	if ((size_t)n < sizeof(struct inotify_event) ||
-> +	    !(event_buf.align.mask & IN_MODIFY)) {
-> +		reason = "received no pids.events modify notification";
-> +		goto cleanup;
-> +	}
-> +	if (cg_read_key_long(cgroup, "pids.events", "max ") != 1) {
-> +		reason = "pids.events did not count the rejected fork";
-> +		goto cleanup;
-> +	}
-
-This repeats the counter check before poll(). Nothing can change the
-counter in between, so maybe drop it?
-
-> +	if (proc_mount_contains("pids_localevents") <= 0)
-> +		ksft_exit_skip("mount cgroup2 with pids_localevents to run this test\n");
-
-Is this skip necessary? In the default mode, the rejected fork also
-increments the test cgroup's pids.events and notifies it, as the test
-cgroup is the one over the limit. The same checks hold, so without the
-skip the test covers the notification in both modes and still catches
-the regression on a pids_localevents mount.
-
-Thanks.
-
--- 
-tejun
