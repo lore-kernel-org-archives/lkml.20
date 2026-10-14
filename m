@@ -1,162 +1,110 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B4050255F;
-	Wed, 14 Oct 2026 12:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D574FE2F5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982700; cv=none; b=Tnqf1D0NZnLbzljKs7KVvZ8BC/rgNcjEkyftgJUqrqdh8MrkrjY3JQMbT0RYGEFusgW4nZyadna2UrgYf/LkPCERAa8XrfSyNoHgUIDsgsDkTzJbHBbjfVvQL5ZV0wQgVtTTzUvzJ6ssuSlrcGJlm+9wvnqbG85KcKoP6MxLP5E=
+	t=1791982761; cv=none; b=mXeQ0uMrDRARcchsmWt2teaxgxmiQ2qa5jkWLFjN9CJtgaxCIOZMnpPwyum02VXRd2zPX5w3K7V2EZo5W9WKcT+mO9sbgEGfWD5U/6GXo6ktVFkH6Hmf7amjI5RHizzn4ISPeJ84l8Rhi1UjT8JRtnEDpnQ0UV+sKhkk1K8oNKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982700; c=relaxed/simple;
-	bh=g66sw7cji6ke5ytudnA3lyLgKdR5SMPNgiCxqUnXQls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QmUe/axUGdY9ZKgvjPQ/IxI/qym0AfnDBNRh9MXKDpx3bPG/cSqzgnHq/PvV7913bmUZnYtyKEk23XUK5kxEG5Ox1UM9qc96OcNKhSr/P5z2wgZWHrN/yZFgpX2gd+7W4lFCD/znZSkT8Wv04c1012YVMDf8ZCMCEEWPHX24W00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=Nxn1J/jf; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1791982761; c=relaxed/simple;
+	bh=BzBKfGgsKBwSw29mpPiHcnaTzoS6V12YLpKjejsQvzM=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H2TEqvELAqvMQ53+WBMZ6G5mMSgUAacEA25Crj7a9MzJWv+aLkadIjzWeXxFsZc7IWEIPBRxIAqNuPn1Cek0ncMptNXFI26Q830OCHBP80kDOhnv6qSMNvyNRZB0+F5rzvNb2UBJ6x9XxUTbgypR+0CZjqcfrUDMzVlCX40MO/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jr57VvY4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="Nxn1J/jf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1791982682;
-	bh=Hnb0TFHCS9y8DoSAxbCduAjbuEi6l2n1yWrvVNzkwJQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Nxn1J/jf5yDisnHn9Eay9ixEQ2MJZmt06it1It+WdRS2sc0F3jqZ5T+fiRGMAZEV6
-	 F1PBnBFULajUM5+e+T38eFCCxFVNDK/BB9q9VW7KrOJF/qIUm98CkQKlpiIe1ligFe
-	 nWCYr88Jhepj8u5wlwEM2y3662SKSkRkWMKcusEVNGFhg3E6f2S69KERY18lN7sXnB
-	 mb4OddRLy9A8oW4U5g8eVQrBUaEp4m/hgNB5PEpDAGOpFAmPnoNWQc/lzLbgAqBQul
-	 jCc6qQrFuwmpN4Z13g39Q/ELvtFKxGhvs6q7vqEbObqh4cU2n+k5vT2EJEE/Z95MCg
-	 9VVW1hFifPsyQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4j4WTQ175fz4wDK; Wed, 14 Oct 2026 23:58:02 +1100 (AEDT)
-Date: Wed, 14 Oct 2026 20:25:54 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 01/74] dtc-parser.y: Avoid an empty proplist
-Message-ID: <as9KnCZ3qLlcbjxK@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-2-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jr57VvY4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5716B1F000FF;
+	Wed, 14 Oct 2026 12:59:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791982752;
+	bh=vt5cE7bhqHhJM4LXml8ddm5B1GkCN7R4vMUET5RYgY0=;
+	h=Date:From:To:Subject:Reply-To:References:In-Reply-To;
+	b=jr57VvY4dw2O8lU7Jt62kykVvplEXZR0U3Y9usB1jibGnMDq3CRTdPf8xMl+ScE0R
+	 O0HpxURSzv5Bwhl/0kzpH2tOBRl6JYe5WEZG8V8BX4wcnipaB8NqrJmZJ94IaN2GbP
+	 hE8WZkNKDiXmLiQBefUdD+Sr1rR1XBzsNt/uaKkk7BeGEEQVDOzOJpyL7bbZeUrYkd
+	 pDvyEBmy9/ZErmLvJeJHCPIBL+FIW5T9UnrrskS1ExreKHMvKvrrb+qnIXFmW6ZIu8
+	 T1w1x9xqBxRtrB+f0lB7b7qAg9ItTqvcUY3KwT0bUR4sknjdq8obUHQxlSm09C7nw5
+	 216jkLmqJZIuQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 11E04CE0855; Wed, 14 Oct 2026 05:59:12 -0700 (PDT)
+Date: Wed, 14 Oct 2026 05:59:12 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: K Prateek Nayak <kprateek.nayak@amd.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] sched/core: Call wakeup_preempt() for queued tasks
+ during class change
+Message-ID: <4abd0c29-efde-4e8b-a498-aea5a0fb788f@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop>
+ <20261013152455.9039-1-kprateek.nayak@amd.com>
+ <786f52b9-adef-4246-b83c-fc0081bbabba@paulmck-laptop>
+ <44e3b645-b8d3-4812-930b-0112c05a9132@paulmck-laptop>
+ <af6eb571-791d-475a-8413-18d2125328f4@paulmck-laptop>
+ <c334b382-a13c-4222-99bb-798340ff0d68@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1WnaBS/CEOiEAkg9"
-Content-Disposition: inline
-In-Reply-To: <20260826094950.1088288-2-herve.codina@bootlin.com>
-
---1WnaBS/CEOiEAkg9
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <c334b382-a13c-4222-99bb-798340ff0d68@paulmck-laptop>
 
-On Wed, Aug 26, 2026 at 11:48:30AM +0200, Herve Codina wrote:
-> In the dts parser grammar, a nodedef is defined by
->   '{' proplist subnodes '}' ';'
-> with both proplist and subnodes that can be empty lists.
->=20
-> Having multiple possible empty list can lead to Bison warnings such as
->   warning: 4 shift/reduce conflicts [-Wconflicts-sr]
->   warning: 1 reduce/reduce conflict [-Wconflicts-rr]
->=20
-> This will happen as soon as a new list (which also could be empty) is
-> added in the nodedef definition.
->=20
-> The simpler way to remove those warning and thus have a robust parsing
-> is to avoid multiple empty lists.
->=20
-> Update the proplist definition and nodedef definition to avoid those
-> multiple empty lists. Instead of allowing a proplist to be an empty
-> list, force the list to be a non empty one and update the nodedef to
-> handle explicitly the absence of the proplist to support the case where
-> no properties are available, i.e. the case of a node composed only of
-> sub-nodes.
->=20
-> This doesn't change the functional behavior.
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+On Tue, Oct 13, 2026 at 05:13:00PM -0700, Paul E. McKenney wrote:
+> On Tue, Oct 13, 2026 at 01:06:50PM -0700, Paul E. McKenney wrote:
+> > On Tue, Oct 13, 2026 at 12:55:12PM -0700, Paul E. McKenney wrote:
+> > > On Tue, Oct 13, 2026 at 10:57:17AM -0700, Paul E. McKenney wrote:
+> > > > On Tue, Oct 13, 2026 at 03:24:55PM +0000, K Prateek Nayak wrote:
+> > > > > Paul reported recent RCU changes exposed a lost resched where CPU idles
+> > > > > with a rcutorture thread waiting while being completely runnable.
+> > > > > 
+> > > > > Dumping the rq state at the time of idling with runnable tasks showed
+> > > > > the following:
+> > > > > 
+> > > > >   rq->next_class = &fair_sched_class
+> > > > >   rq->nr_running = 1
+> > > > >   rq->cfs.h_nr_queued = 0
+> > > > >   rq->rt.rt_nr_running = 1
+> > > > > 
+> > > > > Although the waiting task was an RT task, "rq->next_class" did not point
+> > > > > to rt_sched_class and was stuck at the lower priority fair_sched_class.
+> > > > 
+> > > > Thank you all very much!  I have started a short test.  If all goes well
+> > > > with the short tests, I will run an overnight test.
+> > > > 
+> > > > I will of course let you know how the individual tests go.
+> > > 
+> > > 20 minutes of 39*TREE03 (13 hours) on x86 passed!  2 hours of 9*TREE03 (18
+> > > hours) on arm64 in progress.  Starting five hours of 200*TREE03 on x86.
+> > > If that works, 12 hours of same.
+> > 
+> > And the 2 hours of 9*TREE03 on arm64 passed!  Started a 15-hour run.
+> 
+> And the five hours of 200*TREE03 on x86 passed!  Started a 12-hour run.
+> 
+> So thus far, this patch has passed bit more than 1,000 hours on x86 and
+> 18 hours on arm64.  (Something about having access to quite a few more
+> x86 boxes than arm64 boxes.)
+> 
+> If it is still alive in the morning, Pacific Time, it will have more
+> than earned itself a Tested-by.  ;-)
 
-This seems a reasonable change in isolation from the rest of the
-series.  Applied.
+Tested-by: Paul E. McKenney <paulmck@kernel.org>
 
-Note, that if it comes to it, I'm not necessarily opposed to adding
-the %glr-parser option to Bison.  We used to use it in the past, until
-we figured out an easy way to avoid it in 7b3fb789d2cd ("DTC: Remove
-the need for the GLR Parser.").  The Tomita GLR algorithm is well
-established and the computational cost is pretty much irrelevant in
-context, so I'd generally prioritise keeping the grammar simple to
-read for a human and convenient for the rest of the code over making
-sure it's stricly LALR(1).
+Thank you all very much!!!
 
-> ---
->  dtc-parser.y | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/dtc-parser.y b/dtc-parser.y
-> index 4d5eece5..e47f80d4 100644
-> --- a/dtc-parser.y
-> +++ b/dtc-parser.y
-> @@ -267,12 +267,16 @@ nodedef:
->  		{
->  			$$ =3D build_node($2, $3, &@$);
->  		}
-> +	| '{' subnodes '}' ';'
-> +		{
-> +			$$ =3D build_node(NULL, $2, &@$);
-> +		}
->  	;
-> =20
->  proplist:
-> -	  /* empty */
-> +	  propdef
->  		{
-> -			$$ =3D NULL;
-> +			$$ =3D chain_property($1, NULL);
->  		}
->  	| proplist propdef
->  		{
-> --=20
-> 2.55.0
->=20
->=20
+For those into statistics, these test results give 99.9% confidence that
+this patch reduced the bug rate by more than two orders of magnitude.  ;-)
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---1WnaBS/CEOiEAkg9
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrPSpwACgkQzQJF27ox
-2Gd3sg//bRFMNk05u0HQ+VPz9XN2Zz7ju5kqt1BOc1/ZKJ+4nP1cCCinxw+Z7ng9
-6hJpBymULD1+GqphMtjjEWY9hypgEByps2/RchZoAdiTAm/H5VP7WsqhOPF9PKnl
-ioiobgGr3Xai4nxoCnD1BIrxEsvFnbTW35dgccaHg2jNbrP897mUw6yDkcu16VGh
-veDKb7DlcWlmftxcSHFhL4rVXnYvTiCVT/oySqpGFiWrwScedv3VrvMAnzTwdYPD
-N4i+eX6ZPoLXREt4M2cvf1GrjaNaA+4XcPvkScOu7Av+ws6VfylPAy5bAtGdUNn+
-lbe1uHTLIOuhmAMviXIGs/4cV+6dQE2QPyxNbrmfzloKWAm7CbYpcJonZT+HmFMZ
-5gGAQMowtdaxM4lU0898k1zp+CRdwWtzyExf/OTWuCsHNfLG6HBikwj5xpJYGc68
-iNJRRf+OgyJaVHcz4O/LGsnZKTYB+kEBv5psT4RqmNy5TVqBpayzXFIKzskmZQgA
-m7zS51+/eMk22Fc3BzUed5BhmxbPlJ/+YAb+aWbgbhqtNsEDCnq7ujroWWZU3jqh
-ox3PdYkWcrlEikfyqxLgdy6SMPtl1p9iCbZMkAZASqnLoXTEMf8natFUH+1tIxby
-t/5lcDyZ/q9hmWxDj1BZg+1423XTdWpvXrWZ4Mnm6sRX3DL36Zo=
-=AFqx
------END PGP SIGNATURE-----
-
---1WnaBS/CEOiEAkg9--
+							Thanx, Paul
