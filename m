@@ -1,98 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0F14A33FA
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDFC4A4821;
+	Wed, 14 Oct 2026 07:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963915; cv=none; b=fU0VDWHfmNb85UHggfPIqOTH45tyJc9XG0Z/JByysc6A5jETaaUWDzoBopprC2+PjDkLi/JmnroFjGJWSByRUBwjg+fQDQutNv/88LiGI0pIcqBhZuL8pMGqpYRkoR9Qm799CVyocN2IopxgAZjYaldLVIRfJvnjjIvTP6lQRpM=
+	t=1791963918; cv=none; b=beaU+kgBrYGR34QUkvHcJ63MF1kUXzmLI2qMKeMbthTuqFHu+LJWUfTHh/IwH5O9d952zaaEs/YICTEAtmg/4YXv1Ri6NTplivskfsj+gewBFe3rrehtbAr9KYbc/3y8pG8VHtKi5Oq4o12xd7DSEWkE9EcGuL7qnaTG99HkQFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963915; c=relaxed/simple;
-	bh=yH4Zggq2oGoczhEp+7Pp/j+vp9ozH7I5ATvLSfmd1KQ=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=faUbxVfw+ZfDyEDg9XzYiQCrgV+yiE9tC6cWB8G60g0peHR8pnTP3DSIMBaf/XUQ4/lrXprVKQkQdWKnNwJ4ahSomsSoTWiVQa0Z8HuOL99wzS7t4ghl3WAHZcaFJJS+voChOcQ4ZN+bpeHfJDgmofxcQx3R3qePhW5uZFSZ7E0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QytN/SoJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791963918; c=relaxed/simple;
+	bh=w3dvojsiHsG7mkgK9G2pH6k3H144WZCrhejp0XgUprM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FNSB9RifABXqx1eBClpbyhnXwIDdyiRMqqpJLuBe95YfYomkEp016Jqx5dsvH8qD5QFhIcf+5YR53zzXg/JiPLQ81K6Vy0oLNvju+ShPTb2njSUjCjfL8MNB+ZNNW7eeoo3QPeVIZV89dA8iYiBnbfd65mggLXVEoGYyEF6pJoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=xcKGfZJE; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QytN/SoJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF9A1F0089A
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:45:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791963905;
-	bh=SLDp3hWogqjb3qZq22Ld+5SS7BDzgDGjWiwwFaCv8/c=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=QytN/SoJxSd+yLuzAdnYYHc07hQtrXtmpHA7ygDBxZCYWe54xqr43/SZMGsPxUIEi
-	 JVHvdfRLJyGqmbLOiD1Vj24Hi6y3oRobP6sfXF8bo2iwZcQR+TafLdPTnAHBwZYOUU
-	 Gqp9YBKhSpnA7X0BoZCLAPQrIsz9umkWjuqSDooTMJbXnAiXV187MfmrsMA930uEOc
-	 5OvFicxncZzP89+0DtLFW4nQWligyFIhv6inN8tvtdUue0YCe/To+tCt2+LFKlmAeY
-	 FJBLRgeRGvfwujR+SHTbyKGDkDXWSAcpUeC1kWjMbWJxvPP8ILOMboMt9MU6EhdQg0
-	 xQDBNQyY0sB8w==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bcd17f3a93so3295211e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 00:45:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw4i7rvJQ8N4bVth5po2fooIz4FQisYguzgEbfbE+5CXAJE7Q/mmfGssM9YASSqXxNG4Vin+q5v8w8x2AM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgKefyaxJL9ULJuS4JDn5M1Qj2mXjhfLjkMydpCuM0Am/5lZtj
-	L6DUm/RiDWbEVUgQmkGn9aSXwpYzI4maGj0wb0Yb0hA0OMDXozqyLR+l+vz+3pwMzeLiBT5lvV3
-	SFnhQy+s1SE+88qoD77NhOU+WWXB9ZXCvu0OcYVUyYw==
-X-Received: by 2002:a05:6512:3d8d:b0:5b6:172a:c36e with SMTP id
- 2adb3069b0e04-5bcde3582bfmr4975363e87.8.1791963904387; Wed, 14 Oct 2026
- 00:45:04 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 00:45:03 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 00:45:03 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261014070038.564879-2-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="xcKGfZJE"
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 034C64357A;
+	Wed, 14 Oct 2026 18:44:57 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1791963897;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZRfDCXlZFbBMl+/wNR4s+vNJpJlUMCXMXJ/qOi0sC/c=;
+	b=xcKGfZJERGx9//aqx0lBkcyfwhP+zW/ol7RsKh19J1g4IbIMpqPP19jk4C+MSoL6mlXCoj
+	sajlQp9Vae97tKt6WyZRZIFoYSwiN4RZzkbUXgqbsYViPRnFBVznTN6+pR8ryd9eDhOiky
+	MelSXT5pbwWDt6T3xnUfA0Y7yKeLIqCtZWyxILu1hshcX4MqgRzYP+irB7rw2XMmmDvVCJ
+	Jm26I8zJsnip421eaTwxh784tVAiFtwJzYLhFVPiFiLnfv1qM5E1oK0Xq/J1mES6z/7MYS
+	Yaqo6eQRof2PjMB+lHESy9Fpmu9B1czkBjelEYEiIqJP79EYzssL9Kkjt1FYkA==
+X-GPT-Reason: legitimate; the email is a technical software patch
+	submission for the Linux kernel (rtw88 driver), which is a standard
+	developer workflow; the sender's domain (d-silva.org) matches the
+	From header and is consistent with a personal/professional technical
+	contribution; there are no URLs, urgency, or phishing indicators,
+	and the content contains specific code diffs and technical "Reviewed-by" and "Signed-off-by" fields.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH rtw-next v6 4/4] wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
+Date: Wed, 14 Oct 2026 18:44:26 +1100
+Message-ID: <20261014074426.2183095-5-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261014074426.2183095-1-alastair@d-silva.org>
+References: <20261014074426.2183095-1-alastair@d-silva.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014070038.564879-1-shengchao.guo@oss.qualcomm.com> <20261014070038.564879-2-shengchao.guo@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 00:45:03 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Me0fg8O89hGNiujfHJ6VCfuAH3qCLw0=mSzGwpCLbHqGA@mail.gmail.com>
-X-Gm-Features: AclHuK-oF4DAG_2ER7_i8V0ESAVNM0Qrx0BzoF1DjybBafdaN6pT8HnoO-FKNWs
-Message-ID: <CAMRc=Me0fg8O89hGNiujfHJ6VCfuAH3qCLw0=mSzGwpCLbHqGA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] remoteproc: qcom: pas: Decide early_boot attach at
- probe time
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Stephan Gerhold <stephan.gerhold@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Oct 2026 09:00:37 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> For early_boot subsystems, probe unconditionally marks the rproc
-> RPROC_DETACHED and qcom_pas_attach() discovers from SMP2P whether the
-> bootloader actually started the remote. If it did not, attach sets the
-> state back to RPROC_OFFLINE and fails, expecting the core to boot the
-> firmware instead. The core does not do that: rproc_boot() treats the
-> attach failure as fatal and the remote is never started.
->
-> This is hit on Nord with firmware where XBL no longer brings ADSP out
-> of reset. The remote never publishes its inbound SMP2P entries, so the
-> very first state read fails (debug print below) and the ADSP stays down:
->
->   qcom_q6v5_pas 4c00000.remoteproc: Failed to get fatal_irq state: -19
->   remoteproc remoteproc0: can't attach to rproc adsp: -19
->
-> The ready, stop-ack and sysmon shutdown-ack signals cannot change while
-> Linux has not yet interacted with the remote, so there is no reason to
-> defer the decision to attach time. Check them in probe and only mark
-> the rproc RPROC_DETACHED when the remote is up and has not been asked
-> to stop; otherwise leave it RPROC_OFFLINE so the regular firmware boot
-> path is taken. The ready state is read first so that a missing SMP2P
-> entry -ENODEV is treated as "not running" before sysmon is queried.
->
-> qcom_pas_attach() keeps only the fatal check, since that is the one
-> signal that has to be acted upon once the rproc is attached.
->
-> Assisted-by: LLM
-> Reviewed-by: Stephan Gerhold <stephan.gerhold@linaro.org>
-> Fixes: 16472c99f469 ("remoteproc: qcom: pas: Add late attach support for subsystems")
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+Split rtw_sdio_rx_isr() into separate 8051 and 3081 variants to be
+clear. The two differences between the architectures are:
+- Register size: REG_SDIO_RX0_REQ_LEN is 16-bit on 8051, 32-bit on 3081.
+- HISR behavior: 8051 re-reads REG_SDIO_HISR on each iteration, while
+  3081 drains based on rx_len without re-reading HISR.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+This is a refactoring without any logic changes.
+
+Assisted-by: LLM
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 58 +++++++++++++----------
+ 1 file changed, 33 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index e459541b7678..3569aae0f2f0 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1439,17 +1439,13 @@ static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 	return 0;
+ }
+ 
+-static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
++static void rtw_sdio_rx_isr_8051(struct rtw_dev *rtwdev)
+ {
+ 	u32 rx_len, hisr, total_rx_bytes = 0;
+ 	int ret;
+ 
+ 	do {
+-		if (rtw_chip_wcpu_8051(rtwdev))
+-			rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
+-		else
+-			rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
+-
++		rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
+ 		if (!rx_len)
+ 			break;
+ 
+@@ -1459,33 +1455,45 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 
+ 		total_rx_bytes += rx_len;
+ 
+-		if (rtw_chip_wcpu_8051(rtwdev)) {
+-			/* Stop if no more RX requests are pending, even if
+-			 * rx_len could be greater than zero in the next
+-			 * iteration. This is needed because the RX buffer may
+-			 * already contain data while either HW or FW are not
+-			 * done filling that buffer yet. Still reading the
+-			 * buffer can result in packets where
+-			 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
+-			 * end of the buffer.
+-			 */
+-			hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
+-		} else {
+-			/* RTW_WCPU_3081 chips have improved hardware or
+-			 * firmware and can use rx_len unconditionally.
+-			 */
+-			hisr = REG_SDIO_HISR_RX_REQUEST;
+-		}
++		/*
++		 * Stop if no more RX requests are pending, even if
++		 * rx_len could be greater than zero in the next
++		 * iteration. This is needed because the RX buffer may
++		 * already contain data while either HW or FW are not
++		 * done filling that buffer yet. Still reading the
++		 * buffer can result in packets where
++		 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
++		 * end of the buffer.
++		 */
++		hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
+ 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
+ }
+ 
++static void rtw_sdio_rx_isr_3081(struct rtw_dev *rtwdev)
++{
++	u32 rx_len, total_rx_bytes = 0;
++	int ret;
++
++	do {
++		rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
++		if (!rx_len)
++			break;
++
++		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		if (ret)
++			break;
++
++		total_rx_bytes += rx_len;
++	} while (total_rx_bytes < SZ_64K);
++}
++
+ static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
+ {
+ 	if (hisr & REG_SDIO_HISR_TXERR)
+ 		rtw_sdio_tx_err_isr(rtwdev);
+ 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
+ 		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
+-		rtw_sdio_rx_isr(rtwdev);
++		rtw_sdio_rx_isr_8051(rtwdev);
+ 	}
+ 
+ 	/*
+@@ -1515,7 +1523,7 @@ static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
+ 	if (hisr & REG_SDIO_HISR_TXERR)
+ 		rtw_sdio_tx_err_isr(rtwdev);
+ 	if (hisr & REG_SDIO_HISR_RX_REQUEST)
+-		rtw_sdio_rx_isr(rtwdev);
++		rtw_sdio_rx_isr_3081(rtwdev);
+ 
+ 	/*
+ 	 * Unmasking HIMR re-asserts the IRQ line if new packets arrived or if
+-- 
+2.53.0
+
