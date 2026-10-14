@@ -1,79 +1,47 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A692D5187CD
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A04751CF63;
+	Wed, 14 Oct 2026 13:27:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984401; cv=none; b=MAZ2fQ/SWDpsvNl4MuMw30ehDdfDHex+6xmLRF9MKdZeWz/s0MODlp0QxGRnWowDXOFwHOifSiGyaZLasTn7UWWD/G5rBKAIW//Tq4R+L7n2+EQIiPB2gfWVanR0w6+IYbDxG77mWkFHMJpzETH7O2m5hOfqMT/UDo7voHMgnHI=
+	t=1791984437; cv=none; b=bUgjF4pxNE0DAGgYOLBT+XyM4ZMRVTYC+Wfq1jKiqZAcTUxRcYmqKP8HJBzffUpkDzi9yYBq+Kc3SH/6zfoYf0CQVj5mFPfLdDzM4wx7ThBo3If1Yc0Ukpgy+GhmSmy31mfwja9SG2JaKl179MjZaM5ZnnB/1WEgFbma4L5/r0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984401; c=relaxed/simple;
-	bh=6Wjwv/Huy1cZ/r5qRcIo5rFWepUhagJ/WEP5VD8YMa0=;
+	s=arc-20240116; t=1791984437; c=relaxed/simple;
+	bh=6F6Ius2aNg4Vvs330MQliwP9/lyOPwNdFvrCpnO2PKo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X0Z/1YZnN2/UxEzDCqm5lKXSg6hPYxBjthQSuiGiTOsLKTDGjTXLB/8lGG7jQrxlI+pG6PZR5gloiffUafvvNzc+M2ADzFkwsSYEAbRirHqg+tUa5QFovEf/7TQlBWbVui1q5VL5hLMXZKRh8tWsyTOK/Qz4wHGwzvA0cDg6qBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=lQYZ9WXv; arc=none smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y6Uxli0wRQFrfOQD+UbGXs+PLjsfZnWcR+EI41vmlKHjmHkepL+Cy2h3UuszwVT8uJDgCC1SDOH9GDscKZLnl5JvmSxL3vBsCtbwC59RZpPMyqstvGDKGqbBW3usJRLixzNmR7k1JZAUcAyyYXEpgFxKbfnBHAyWCXe/0fRta4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nIe8xfLj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="lQYZ9WXv"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-535f9de49fcso2290501cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:26:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1791984398; x=1792589198; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i9IOcxSqwYrBSr8BFbrbfz8etoo1JAf0XtOV1kMheuQ=;
-        b=lQYZ9WXv3Q3VpT+aVY4LAvWuRFO0loiiiUepNoZX0MKnYJk+1n3nk39a75DWHIwfR9
-         ABoHUjeq+/Rn2hSYjZs7jfM8gt0DaTeUWp4mB9I1rF6pR8qn7Z6kQIf1kqAAiZmDmh+i
-         IoaJY6RViLAEoQ12QqTwki1y75Ms1GdF0gee5ON0tXpwJnbLKlwii7y0sHOV7YNo+9EN
-         Cc3L+lOCIRpE8/Eioy0UqyRoKEBr8uHrg2SkZ3m5Jte0yy79aex8w9QeoRi4z6bWRsu/
-         6SmL0JADly2qxSBOyh2wIc+Yt6arZYolFAvfFkKdjIZrpjLvfexSIYEO9d5Li2zD8cBl
-         wIyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791984398; x=1792589198;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i9IOcxSqwYrBSr8BFbrbfz8etoo1JAf0XtOV1kMheuQ=;
-        b=h82kndsSJEHoBqXXFZMlNFG7Dup2Ow4uch5u5BNtJL/jSHkNmOHRD3H+MhRK4JJoA7
-         HW5MXuGTfnYicGkH5Sn15AZH2coPOBZjr/Ts/Xx9f4x4FnP2ERNJ/x03YJHIk2W/kc23
-         hQbFpcoNED3Gun6/R9GK08P4SRC2JeR63CXa7pBFNMyRM73BqECsmvyirf0a8q6kuei6
-         O6Tkm2wIlK5bkgv9O0WVYJDjKCEOt6FDgGj+wEOxfvNjaWz1a87wSSzFvpepkAktX2ns
-         djYctFk9u5gtymEk+5GvPcFXSnLMsHyfgJrl7nkwgB5xcGRs5YPneMQe6Gh2EU97zFC+
-         jgYQ==
-X-Forwarded-Encrypted: i=1; AKwUvByKnihQufqWuRm03tgJ2wKky3Tg4sdZR4PqKRgMoyXtjCmjZGoNl2NdOIlOs/NiT23RvmskPZ0cyuOwDng=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsT0QgyLnECy5nwUTWNc7+38BrbDao5A+ND/ciLXyaszEkoj+7
-	7AVvT7LUif9xtp3UNFucUpyc1KKt0Oz6I0qoaVpjSTZKyEhpOH35W6g88OrimIRweIw=
-X-Gm-Gg: AYBFou2sZLJNhIGdqAMbnyw67ZWxfXhndVYEmzWeaDZryY1+bTytS9NSl5vdFhA2P4K
-	kBq0Icz/fVy2vZPEs7HN8cNskdsBxJ5kABO3C4m8+ls8jKd4DvqUpeNED+6awFXjajC4vru8Szw
-	+3KyqTRF45dogdpNEEc3KwpE36Fta+fJhP6QPv+rAx5Ml5RmQUQ0tU5BO+4V/zbPl4LlSWvZoUw
-	bYUPA7612y0O9+7uyjgFAsoKQzpBXt4oaYXovbA4Devm2ivZgkumad82WFLCm+DHcBKhmax8E4g
-	ulhz/+/EkV00fOz27RZorcIKx9R46X5y7JwZm3PMbEaIctdS1zGIUfainydO1IWmspex7Twsfcf
-	z6/TOqY2V3wfqXgyMsj7YCZuEQKmEmakYwzv9FVIcFF667XeB3f+gX6O9jkXJvSTKJhttSCDqR9
-	KYU+D2zDQNIei/B6emMSJ7iqFf5zqMWtB1/aViktBl8TURp8npe3lnlSLo/GZ+vK67eHcxUgymI
-	SgiEAFtW4PLNrME3UqN7Zw+fwOwGxgtkpsYJZ2SLgzbbw0b9eU3vcg=
-X-Received: by 2002:a05:622a:5a0f:b0:535:f9df:cc8b with SMTP id d75a77b69052e-535f9e049f5mr53842251cf.21.1791984398464;
-        Wed, 14 Oct 2026 06:26:38 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b731a6csm125043441cf.11.2026.10.14.06.26.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 06:26:38 -0700 (PDT)
-Date: Wed, 14 Oct 2026 09:26:36 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	joshua.hahnjy@gmail.com, ziy@nvidia.com, mingo@redhat.com, peterz@infradead.org, 
-	mgorman@suse.de, riel@redhat.com, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 5/6] sched/numa: do not feed tiering promotions into task
- placement stats
-Message-ID: <as-CxqUTS-DjO5HU@gourry-fedora-PF4VCD3F>
-References: <20261014094347.99157-1-lizhe.67@bytedance.com>
- <20261014094347.99157-6-lizhe.67@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nIe8xfLj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C2F31F00898;
+	Wed, 14 Oct 2026 13:27:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791984433;
+	bh=7Tm/Yqwl2DB6mmlaFYO9FOD6DsPXL83E73jBmWe1les=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nIe8xfLjl1ADs8izT2EKBFqEJME8efDayDsg2tzwTBhwni8S4gwcjoNNavyi2ZgcN
+	 lbVBB5Fy0kBQhCofz4oyTOOXj666OcqIU0vXayDeVxQ6XozZpVMApVvOOeLo91jvqR
+	 kNBgpUl86oMAsFtOBswIqgPY5odKHHau8FUcMY3dN3pUrs3SiRBp5Jq2vEOKlLHqn+
+	 Ud7PmAtIg9cas41d9WmHfE06a0sxn4NsmNynYgvdlL7zqMCJRVQ/E6L9l/neLLtNlF
+	 6H3KbySuPjdK8eAkLw+sRE0tOnEU6xPd1blT1PYPwEwSdU7a+4dkYtOH8gRjr9cPk7
+	 GqsJS/WDFCFug==
+Date: Wed, 14 Oct 2026 14:27:06 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Ying Huang <huang.ying.caritas@gmail.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
+Message-ID: <as-BZibPscw4cxsD@gremlin>
+References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
+ <as4kvHe9IFZH5qrC@gremlin>
+ <9add8400-66c1-47e9-b5af-7a4081ebf3c4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,55 +50,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014094347.99157-6-lizhe.67@bytedance.com>
+In-Reply-To: <9add8400-66c1-47e9-b5af-7a4081ebf3c4@kernel.org>
 
-On Wed, Oct 14, 2026 at 05:43:46PM +0800, Li Zhe wrote:
-> NUMA balancing has separate mode bits for normal task placement and
-> memory tiering. In memory-tiering-only mode, NUMA hinting faults on
-> slow-tier pages are used to detect hot pages and promote them to a top
-> tier. They are not normal task-placement faults.
-> 
-> task_numa_fault() already avoids normal placement accounting for slow-tier
-> faults while memory tiering is enabled. However, a successful slow-to-fast
-> promotion can bypass that check. do_numa_page() reports the destination
-> node to task_numa_fault() after migration, so the fault is seen as a
-> top-tier fault and can update p->numa_faults, task placement state and
-> the preferred NUMA node.
-> 
-> Slow-tier PTEs store access-time metadata in the folio last-cpupid field.
-> Before this change, numa_migrate_check() returned the same all-ones
-> last_cpupid value for those faults that normal AutoNUMA uses for a first
-> or unknown access. Those cases are different: the ordinary unset value
-> means there is no previous CPU/PID sample, while a slow-tier access-time
-> value means the field does not contain a cpupid at all.
-> 
-> Name the ordinary all-ones sentinel LAST_CPUPID_UNSET and use it for the
-> normal first/unknown cpupid state. Return a distinct
-> LAST_CPUPID_ACCESS_TIME value while the folio still carries access-time
-> metadata. If normal NUMA balancing is disabled, keep the migrated-page
-> accounting but skip normal task-placement accounting for those faults.
-> 
-> When normal NUMA balancing and memory tiering are both enabled, promoted
-> pages can still feed task placement. In that mode, the user has enabled
-> both CPU placement feedback and tiering promotion, so a promoted top-tier
-> fault is treated as an ordinary unset-cpupid AutoNUMA fault.
-> 
-> A stale access-time value can also survive after memory tiering is
-> disabled and later reach task_numa_fault() from a top-tier page, where
-> the slow-tier validation no longer applies. Treat any remaining invalid
-> last_cpupid as LAST_CPUPID_UNSET before task_numa_group() can decode a
-> CPU from it.
-> 
-> This does not change whether a page is promoted. It only prevents
-> memory-tiering-only promotion faults from being consumed by the normal
-> AutoNUMA placement heuristic.
+On Wed, Oct 14, 2026 at 10:12:06AM +0200, David Hildenbrand (Arm) wrote:
+> >> Reported-by: Kyle Zeng <kylebot@openai.com>
+> >> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+> >> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Since I'm convinced the logic itself is correct:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+This cycle is brutal enough not to hold up fixes :>)
+
+> >> diff --git a/mm/memory.c b/mm/memory.c
+> >> index 1f5d5f7d39cd2..a3823010aa981 100644
+> >> --- a/mm/memory.c
+> >> +++ b/mm/memory.c
+
+> >> +/*
+> >> + * Get the address range in which a folio might be mapped, assuming its pages
+> >> + * are mapped consecutively and the folio page at the given idx is mapped at
+> >> + * the given address.
+> >> + */
+> >
+> > I know it's a static function but kdoc here might be nice given the number of
+> > params, including 2 output parameters.
 >
+> I had that, but decided "not worth it for an internal helper".
+>
+> Is anything here really that confusing to understand in mm/memory.c context? I
+> highly doubt it.
 
-Similarly with prior patches - this is a pretty major change. Although I
-agree with the premise, do you have any performance numbers that show
-this change is beneficial?
+I mean I found it pretty confusing :)
 
-It's quite difficult to determine what the user-face effects of this
-change would be other than expecting some kind of performance benefit.
+But this is a nice to have it's not a big deal.
 
-~Gregory
+> >> +static void folio_pte_scan_range(const struct folio *folio,
+> >> +		const struct vm_area_struct *vma, unsigned long addr,
+> >> +		unsigned long idx, unsigned long *start, unsigned long *end)
+> >
+> > I don't love the name - to me it implies to me that you're scanning the range.
+> >
+> > Maybe clamp_folio_pte_range()? I guess though clamp implies it limits an input
+> > range.
+>
+> Ugly.
+
+Yup, fair enough.
+
+>
+> >
+> > Maybe get_folio_pte_range()?
+>
+> I can just call it "folio_pte_range()". Slightly similar (but different) to
+> "folio_pte_batch()"
+
+OK that works.
+
+> > OTOH, that's pretty ugly... :))
+>
+>
+> Not a fan of these semantics.
+
+Yeah on reflection not so great, I sort of talked myself out of it a bit as I
+typed...
+
+>
+> >
+> >> +{
+> >> +	/* Stay within the page table and VMA boundaries. */
+> >> +	const unsigned long pmd_start = addr & PMD_MASK;
+> >> +	const unsigned long pmd_end = pmd_start + PMD_SIZE;
+> >> +	const unsigned long lower = max(pmd_start, vma->vm_start);
+> >> +	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
+> >
+> > This is trickier :)
+> >
+> > I guess you're doing this in case either bound is right at wraparound
+> > somehow?
+> >
+> > But then couldn't the +1 push you over the edge?
+> >
+> > Oh wait no, because then vma->vm_end would have to equal 0, which would
+> > fail the other-place enforced invariant that vma->vm_start < vma->vm_end.
+> >
+> > So it's pmd_end that could overflow, hence the -1, +1 dance.
+> >
+>
+> Yes. It's fairly common, though, to handle clamping of exclusive ends that way.
+
+Right, it took me a while to figure this out though.
+
+It involves an implicit assumption in there too, that _one_ of these values is
+known not to overflow.
+
+> > #define pmd_addr_end(addr, end)                                         \
+> > ({      unsigned long __boundary = ((addr) + PMD_SIZE) & PMD_MASK;      \
+> >         (__boundary - 1 < (end) - 1)? __boundary: (end);                \
+> > })
+>
+> As replied elsewhere, I had that, but decided to open-code as pmd_addr_end() has
+> very weird semantics with folded page tables, where we just don't clamp at all.
+
+Hmm how so?
+
+The logic seems, at a glance, equivalent?
+
+>
+> I'll sleep over it, but to me using pmd_addr_end() is not particularly better.
+
+I'm not going to block things on that basis as we have a bug to fix here, but I
+really had to sit down and take time to understand any of this.
+
+> > 	*end = addr + min(max_remaining_bytes, folio_size(folio) - offset);
+> >
+>
+> Sorry, to push back, but are we overthinking this helper here?
+>
+> I much rather get this fixed quickly then fine tuning some details in a helper
+> with clear semantics that anybody can understand when looking at it for 1 minute?
+
+As above, I tagged it, for the purposes of a fix let's just get this in.
+
+But no, there's not overthinking IMO, it took me a long time to understand what
+you were doing here, and there's a lot of implicit understanding in there.
+
+And while I don't claim to be a great genius, I am fairly familiar with mm code,
+so that's always to me a gauge on complexity.
+
+Anyway, let's get this in, and we can debate the details upstream at our leisure
+:)
+
+--
+Cheers, Lorenzo
