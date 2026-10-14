@@ -1,125 +1,211 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4351C54488E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:07:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990467; cv=pass; b=BH0N4VrevzoSZPflQzerUmzGvwdbXH/klEK0jKrv1bMpna04kz1eKZcVthe//lZ9vu7IXjPUmvOmGeL8l0ln0rYM7yCtbvAarEfxf5uWsmfPs9J4pONXacVPFNKseA5KF+UDhEEy/qQzGqnkO9jCSqj1E+ZOaL9b3MOND86fsV4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990467; c=relaxed/simple;
-	bh=5bNzJeuDWgzOabLsmNCJ0zffQhzs+dofJPQ9U1sBXvg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11BFD54281B
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791990501; cv=none; b=Y/ZgfwQ95fjectloGKVC+nsIIk9mR+FeNf/8kXPhPHjYWqkWPNp3M6nvKg/PQUPky0yNyQnBFPzOPnt58HCiezseJSriM3zYVdBgv9u9Jw1QmeTtWWIbzqQG75Q+CsXWbZF/TtrnKR3dkOBjwPI8wkxjt2fUPpZohf/a+vfVp30=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791990501; c=relaxed/simple;
+	bh=OrVR4ICDaqIMRFPXX7OWuZx/GX2al5sZl9xwPRxED5Y=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CrhQ6hM0vtpeWoyXQB30gQ2uT2DbgFZDjG03vk9ZEKp5htoYCfX8WKp7DwcYjZHb8bhFXL+HkY6cjpdY5GITsxv+HOa+uy2ZcbSfLU6CZqlFHLQWng31M0KaOBHMvgVJhMxeJhkHOZMNuz2dDcWQs3On0E5fjcuXPU6C2uureJQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=O1WKl78u; arc=pass smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=YCvCRx1be178CzzP2zQYm/uaZTfI2fKK7GDrYt5yHja/3RrYoayOywVLfwOarHuy6Cc7CWvb87rk2Vc4zJdXgvvNQME6Z0YygJqbIjuwk8mzeIVEEym2g4A7MyuGwl0lT6aZmnIXok9WlzF50L/ZGTexbIaScBVRtIiKjzDr2Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XD2nmMtP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="O1WKl78u"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so43729a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:07:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791990461; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U21BDFBARVf9DKwO9Fn8JW4q+xCv9LrfrOyB6BJ8G+Ypyl/elM3L/3UBG7N9FvMYug
-         SWkdVlGji2gLQTun0njnW/ky9j12YTBHCVYRqoxYyZAqBQ6qKHXrq1L2prpLOkyS+tCp
-         JXAqdaCtdaVtzSCEPyIne2jT/ndAq1HXbPe99jXoh12HZCX9d8Edjeq+Q+uZGbd1si3c
-         5Qxv6lBNZQWAO4q2YF9Ne5D7N5iWjRkMyF1rZdS2FAvfv8Uex8IJHYV8qoPeSd3aksqD
-         ypE0idwnwQ9FT8DqPWpo0bqwoDlypmvRa/cjPmkWkLqOhok5bIkQpPidzjEtCCDm0hjx
-         CG6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5bNzJeuDWgzOabLsmNCJ0zffQhzs+dofJPQ9U1sBXvg=;
-        fh=qKwJCSvoR/h4iMOLJiS6QoG6jutrUmYpCpBVbE/H6ww=;
-        b=FIp87gvvjjq5Fi3el8jTyMxsB7iUjlkJX6dhGkRHIquPWSv00apYGcIWKxALrovK8H
-         HROLQdvg1jI1v6Yow6QXziEn+5yZxxGyLmsDtgFyvnnp9JS0bvzduIzQcZKXLoJdY+h8
-         kgdKnCsNpZtD7k3nfLvqGxep9kmxwsmqJoq0YX+eGbOMHtLYSUu7kk0g+pbRLcxl0BR7
-         jR8gCGciwo0eeW9Q/Ts4zibRrD72wEUg4hkYkFH3W6YgaIhjr17ZIum8Swmi6aGZKkCv
-         uA95uPio/zxQ/EeOjaOq2LE5W0J6g1E9t1Dztp1D7UhJZTeeVbypZP1Kpm5sYbHsgxwj
-         /zQA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791990461; x=1792595261; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5bNzJeuDWgzOabLsmNCJ0zffQhzs+dofJPQ9U1sBXvg=;
-        b=O1WKl78u4l0pg/uAvepPUynw1yanWeiT48sDPOZQkw8pWVSLOCK5PCClh4VtNRlmM3
-         FPdAj7sdUuM3AviK9kKLZDBFl4auB/YddbjbkklwS3EYALLUVmAe2SEmpUl6R+b72EvR
-         ANzf4soCQsHZZ+5JI5Hllv6mAQcjOAVUVgPL4HZC9nAPmrjJrOIxGKnpY2Vfs6mWjijn
-         bqo7pp1SfajmBSPDsuBWNglhWUsBeU7iDT9wxWbRIXj/Bm0XvesSbrxoyRvANBFDNRu+
-         lMMFWrUiSiIHCnNRvLrWg4nWxh0cz5MpN6otmtlge5xLdU/s9pvdtkpBs7vt1rZorzMa
-         0ENQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791990461; x=1792595261;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5bNzJeuDWgzOabLsmNCJ0zffQhzs+dofJPQ9U1sBXvg=;
-        b=KLBZ6103Z9045A1GjdvRay197b0bEpT5CkhepyLPuSK60X3l+wx/UmPs6/5BGGdUH/
-         v9ios5+95aWWH+4UTGY5i/mb26QvplICeBzY2z2qplXlsa4xAyRJjTnJ1nRsGVErb4VQ
-         0FqqqPpbO3kGHHSzHgK5yQA55L8xwekglctdKFMgyqNQxzXY7zOP4D/Q3SBqcDwb30Rf
-         61MSrdaNz4hq9iHIx0wiMWqCZ8SIc5isqlYSnOtSfvLQnhfi637oBFEUtqSKG9ThnrTS
-         9v7rW/53DVh1Z/7bxH1s5A2dSNTzk6veGeS0x4nH2iV6V9xzxbPLSieKOteXjoaqdWTO
-         3EuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ76ZnKB/x/y/tUId9MADCx6E1vRVKK0jKoFceTMJqkBmjtx52fVeykUTQm+FIH7ixLnE+YJ3cMJzOOE8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJnOYMYpRrIJFJBexNFFsnO99AkNRMZu8qgPLSGNX5wZaWnI4Bi
-	BoKoBfLJS/8a2SP7hPd3x3RR0Quz+N/ri2WaNzM7bKKL+9CCnRFK7Vw3vdGhL4oyk82xti9bKac
-	CMeKBbDF+GgAI/82XulRqO27UIwpWgV6dIap522eS
-X-Gm-Gg: AYBFou1C+x0M/8oOTL8GTUurERzjwQRTBPpkvRLcK3JBvkP8nYpyrwXTreXTyoxUCN2
-	XZ5MHajiuiAx0/tREnKXO1PysoKSQHCfaD8casS1KaJXbAHDgE8YSaiE2opke4vChbD3sG9UrnQ
-	lBAZ5ftYcfAYVZUqL3b+kKx2da1j8JSFp3NPO4VslJ5lvYNP8uAhCG24X7pgp3vO16cuMFjLA34
-	BiiFxcF88WnJ/sn0+h3hYd+M57Rx4etDIwOXhotxN7vCUIFUvRnXPq6ZGIQDp7bhY2ekAQX1cZp
-	c43edhENbqGcWGzcS5HrxWDxK/r9256YVmadsJrkHw/XmtUT7m39c+w=
-X-Received: by 2002:aa7:c74f:0:b0:6b1:a517:5bce with SMTP id
- 4fb4d7f45d1cf-6b20ab1840amr40855a12.16.1791990460751; Wed, 14 Oct 2026
- 08:07:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XD2nmMtP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9168C1F000C5
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:08:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791990497;
+	bh=ljk9MNy1mrOZMOuTAp5WT6L4E5edUdTWjdqXrdRQBe4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XD2nmMtPGm6s8KO2i0KDKogYIhqcbBzXqw3iBp5uSmdKK7S2k6V+CArmJIEl1/KyI
+	 gYcNtC2LPq/H3zjOiGOg23l6GMybqupTm/+iYCYkOBZue6Gedwk/5c/anI1E/6nxcR
+	 kmg6bdrog0KfyUAGjMk7L8b7/iJbGGTvQab9KLkAizjPF8g5mUpB7DcjNVjqlSAzsb
+	 dS89Oe/1CCLTXApGBES6GU0K42kWL3rSVTKqKq/CWDgDWl4ENi637yKc1dB4BP8sp3
+	 OPbbzYq3fb/CeYEBZWfuOV9nWW27R9vQFf22bhge9/NEhy4A/9DhYlCG0TvcBOiARc
+	 XWzzUQZSMQovA==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5ba7ed32ccdso710617e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 08:08:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzuFVBvm0N9I00ATv8ZJuz+tEW31bwLAanK2w6/BbB48/ODXvU8bExOcsEDO6ZeRgFDB+bHadDamy+s7/E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYJ/tkuS2/m7B92tlolj7i1ma786U9BBMM2zmvlo8HV1cjoInP
+	x57KkDPmgykyF/3jTdV3noYzKC6YTIrNHlRvhzSqjP4+bRwbzmrJwlP+n8bleRqRbZckun76oUP
+	WQdxzLj/UAwEOhcWCntqsSnZMGkHTzCQ=
+X-Received: by 2002:a05:6512:3f0f:b0:5bb:7c7c:c4e with SMTP id
+ 2adb3069b0e04-5bcde8e65f9mr6142561e87.63.1791990495980; Wed, 14 Oct 2026
+ 08:08:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-3-yosry@kernel.org>
-In-Reply-To: <20261012233638.2546339-3-yosry@kernel.org>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 14 Oct 2026 08:07:28 -0700
-X-Gm-Features: AclHuK8NO6iuYgw8VyNnfWDxbKtdNmhMVsNN1b0pfwT8hRS29kl-cyJUsaZsV2E
-Message-ID: <CALMp9eSgc-aWT7j9Hqd0a-tBy9Su7dVSx36pC9T3nLa4Mt9q5g@mail.gmail.com>
-Subject: Re: [PATCH v3 02/27] KVM: SVM: Document number of ASIDs CPUID setting
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
+ <20261012225141.13683-1-aliamemis@disroot.org> <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
+ <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
+ <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com> <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com>
+ <b64b8092-93d7-4873-a55f-422b8e70cc04@oss.qualcomm.com>
+In-Reply-To: <b64b8092-93d7-4873-a55f-422b8e70cc04@oss.qualcomm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 14 Oct 2026 17:06:08 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0j4xiDYBGA0LsUq4esJCzYBXjsmmXb1ZJvLcUZqDp+yuQ@mail.gmail.com>
+X-Gm-Features: AclHuK9xOO3fl-25LwE2ScVkTnZoEmEEqpNoPfQjqZjGkNfKWcVggqNMlzc8seE
+Message-ID: <CAJZ5v0j4xiDYBGA0LsUq4esJCzYBXjsmmXb1ZJvLcUZqDp+yuQ@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
+ complete callback
+To: johannes.goede@oss.qualcomm.com
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>, 
+	Len Brown <lenb@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
+	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
+	linux-pm@vger.kernel.org, regressions@lists.linux.dev, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
+Hi Hans,
+
+On Wed, Oct 14, 2026 at 11:58=E2=80=AFAM <johannes.goede@oss.qualcomm.com> =
+wrote:
 >
-> KVM arbitrarily advertises 8 ASIDs in KVM_GET_SUPPORTED_CPUID for
-> historical reasons. Advertising a small number of ASIDs to L1 is
-> currently harmless, as KVM (L0) uses the same ASID for both L1 and L2,
-> and flushes that ASID on nested transitions.
+> Hi Rafael,
 >
-> However, following changes will add proper ASID emulation and a separate
-> ASID for L2, minimizing the TLB flushes on nested transitions. At that
-> point, a full TLB flush from a KVM guest (L1) would flush both L1 and L2
-> ASIDs, so should be avoided as much as possible by advertising more
-> ASIDs to L1.
+> On 13-Oct-26 19:20, Rafael J. Wysocki (Intel) wrote:
+> > Hi Hans,
+> >
+> > On Tue, Oct 13, 2026 at 3:36=E2=80=AFPM <johannes.goede@oss.qualcomm.co=
+m> wrote:
+> >>
+> >> Hi Rafael,
+> >>
+> >> On 13-Oct-26 13:58, Rafael J. Wysocki (Intel) wrote:
+> >>> On Tue, Oct 13, 2026 at 11:33=E2=80=AFAM <johannes.goede@oss.qualcomm=
+.com> wrote:
+> >>>>
+> >>>> Hi,
+> >>>>
+> >>>> On 13-Oct-26 00:46, Ali Ahmet Memi=C5=9F wrote:
+> >>>>> Since commit d33e89d12295 ("thermal: core: Suspend thermal zones la=
+ter
+> >>>>> and resume them earlier"), thermal zones are resumed from dpm_compl=
+ete(),
+> >>>>> before the PM_POST_SUSPEND notifier that re-reads _BIX and _BST. On
+> >>>>> ThinkPad P1 Gen2 and P53, INT3403 _TMP calls \GTST which switches t=
+he EC
+> >>>>> page selector (HIID) without taking the BATM mutex used by the batt=
+ery
+> >>>>> methods. ACPICA releases the interpreter lock around EC accesses
+> >>>>
+> >>>> I'm wondering if this "ACPICA releases the interpreter lock around E=
+C
+> >>>> accesses" is not the real problem here.
+> >>>
+> >>> Yes, it most likely is.
+> >>>
+> >>> What actually happens is that ACPICA drops the interpreter lock and
+> >>> the namespace lock in several cases listed in the
+> >>> acpi_ex_exit_interpreter() documentation comment, the majority of
+> >>> which involve having to wait.
+> >>>
+> >>> The bottom line though is that the interpreter and namespace locks
+> >>> cannot be expected to be held throughout AML evaluation because it is
+> >>> not known in advance if any of the cases in question will appear.
+> >>>
+> >>>> Recently I've learned / heard
+> >>>> from a trusted source that Windows ACPI subsystem is very much singl=
+e
+> >>>> threaded. So it is nice that ACPI has these mutexes and other stuff
+> >>>> to support multi-threading but as long as Windows ACPI interpreter i=
+s
+> >>>> not multi-threaded I think we may need to consider to copy Windows
+> >>>> behavior.
+> >>>
+> >>> This is also my conclusion, at least to some extent.
+> >>>
+> >>> The problem with it though is that in some cases parallel evaluation
+> >>> of AML is actually useful.  For example, say two PCI devices are
+> >>> powered up at the same time and AML waits for each of them.  The asyn=
+c
+> >>> suspend/resume aligns those waits to take place simultaneously instea=
+d
+> >>> of serializing them which allows some time to be saved.
+> >>>
+> >>>> So maybe the EC accesses should keep the interpreter lock locked dur=
+ing
+> >>>> EC accesses.
+> >>>
+> >>> The problem here is that it is hard to say in advance whether or not
+> >>> _BIX or _BST will access the EC and whether or not that will clash
+> >>> with _TMP evaluation for a seemingly unrelated thermal zone.
+> >>>
+> >>>> And even go further and maybe we need to introduce a big-acpi-lock,
+> >>>> which I guess the interpreter lock more or less is? And just seriali=
+ze
+> >>>> all ACPI accesses since most ACPI tables clearly do not handle
+> >>>> multi-threaded access to ACPI methods well ?
+> >>>
+> >>> I would be inclined to do so except for device power management
+> >>> methods, that is _ON, _OFF, and _PSx, that are not the problematic
+> >>> ones, at least as far as I know.
+> >>
+> >> That sounds like a reasonable compromise which should fix both
+> >> this case as well as help with bko221065 .
+> >>
+> >>>> Another example of multi-threaded ACPI calls causing problems is:
+> >>>>
+> >>>> https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
+> >>>
+> >>> Right.
+> >>>
+> >>> So I guess the idea would be to add locking to acpi_evaluate_object()=
+?
+> >>
+> >> Yes that seems like a nice single point of entry to do this where
+> >> all the various helpers eventually end up.
+> >
+> > That, of course, would require updating ACPICA code and I'm not sure
+> > if doing it upstream is useful.  For example, if some hosts already
+> > use locking around acpi_evaluate_object(), this modification won't
+> > help them and it will certainly be a change in behavior.
+> >
+> > This means that we'll likely end up with a Linux-specific divergence
+> > from the upstream which can be lived with, but it won't be nice.
 >
-> Increasing the value advertised by KVM is tricky, because a VMM copying
-> the number of ASIDs from KVM_GET_SUPPORTED_CPUID may perceive a new VM
-> with a higher number of ASIDs as incompatible with older KVM (which is
-> not true).
+> Ah, I see.
 >
-> Avoid changing the value advertised by KVM, but document that it is
-> essentially meaningless and does not represent a limit or a hint. Also,
-> more-or-less encourage userspace to advertise a higher value to avoid
-> potential unnecessary TLB flushes from an L1 hypervisor.
+> >>> An alternative might be to introduce an "exclusive" variant of
+> >>> acpi_evaluate_object() with built-in locking and use it in the cases
+> >>> that are known-problematic.
+> >>
+> >> So here we have _TMP and _BIX / _BST and in bko221065 we have
+> >> a bunch of again batteyr methods + UCSI racing. I'm afraid if
+> >> we add something like acpi_evaluate_object_exclusive() we'll end
+> >> up eventually using that almost everywhere.
+> >
+> > While I think that your concern is valid, this can be done without
+> > touching the ACPICA code at all.
 >
-> Suggested-by: Jim Mattson <jmattson@google.com>
-> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+> Not needing to touch ACPICA is a valid concern. So I agree lets go
+> with a wrapper for paths which we know need to be serialized for now.
+>
+> And then add that around the battery methods + _TMP + UCSI methods
+> for starters I guess ?
+
+Yes.
+
+> ###
+>
+> Should we also stop releasing the interpreter lock in the EC code?
+
+Which EC code do you mean in particular?
+
+> All these things (battery, _TMP, UCSI) seem to have in common that
+> they might talk to the EC in some cases?
+
+Yes, they are EC-based in many cases.
+
+> Where as e.g. your powering-up of PCI slots example is unlikely to
+> talk to the EC ?
+
+Yup.
