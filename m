@@ -1,278 +1,164 @@
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MM0P280CU009.outbound.protection.outlook.com (mail-swedensouthazon11021107.outbound.protection.outlook.com [52.101.76.107])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708F45328C6
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 13:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9410A5218BC;
+	Wed, 14 Oct 2026 13:32:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.76.107
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984768; cv=pass; b=ieQlLjHCPA9u31YfnSxRhAa4yHQDc1AT3J9mH5zgr5Oi7BNOZh/wfuTv+d+ctqKSN05ClGdKcgMzkbiJmvPaxsA0oEw/eft6++uw3iYQVeZ50MG5m5Tn8CqRettlVMnpJK93F1KlrmRJqvWNiavGiBA/079oGHG48+7uniT/Eyw=
+	t=1791984779; cv=fail; b=Ntd3oZRrahsCaz9NV3Mfy3duuMFRGwuxo/q6grx3glac/ykqzf9Y7HKHtptEjz6SRYYZmI+Bf4HH8lIExKBgvftFGtJ8xeiNjmP3MONjdm+t9SzTd9RoYm1hrua2mqiJhw/qcGbCQguaU5r2ouyLXd6RtqEVjLOQaBuezeGKE9I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984768; c=relaxed/simple;
-	bh=V7L0U99tvHTcidmbzjPFzdvF7D2gTMvorlFarKDKzI4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R5HLt8qUS30ZeD9JJ79MJ+QJ+Y0Y86dWLwgCK8yFdU+BeKdYWqw5vGGOw/YdrJBB5LOICnSOntlyyAqcxMOSjoA92O3PtsKg9yQjJO6xPMFGiGzE0rAQ843HsbYqDhtymT+3PztTzWGhsbjWt+1gyqQue7MtgUUFDclWCDqhuNM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gwb/F3+b; arc=pass smtp.client-ip=209.85.160.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791984779; c=relaxed/simple;
+	bh=tyF81cCyvuqZVT0jTFp3iXTXR/HzJ4+oVu3uMu7VTg4=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=XsXApbZoYYknCTJlJXr0EP136SPfl0YKVV2Eq0LvSaSgTRpfqe+akj7hBUQ0uamv+bTHxOgfi/rit1LbqkTQ670xkGia5/Al4prkeg8ujhvW8hVyKZi2yDKPyYJU4GvENQLn/8NZQYY0cAbHyvO0ajzweFxNZfR11asuihjftOc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com; spf=pass smtp.mailfrom=gaisler.com; dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=Y1pljAny; arc=fail smtp.client-ip=52.101.76.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gwb/F3+b"
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-4877837890fso2111488fac.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 06:32:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791984755; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jjQhlLwpGaAMotC4WXpzrk0TVl4pSk/AuQH0F65Cm9J+M3gSdyk4zQde9x+/cev/3v
-         5bWkjegM4KNoXZPbEo5AP3UXChd2YFEGK1DZDCF5RIf1I6CXwY5F1pignNIveNM8bW1o
-         60lqma7PPT4vwX4Gaip7UGSiM5U7apVKWI0M34sLmcc/vu97BlTs18nBKP6eLgtY0F83
-         FznkL/N3Uw4G9BQKQIj7oLRoLjSVEmnIkeIoWxONNlda/ze+fug+zQjjjlRN47Pxks+T
-         3AZreyz+bMZjPY7GE/IxmQjFVfQwFgxMYLoTj04NAIbHXOwQ03nPHkBrLgbblCYDecTG
-         65cQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0cq6NAcXfJKAWF6qtJbi/GVl7FMcXFpRqPlXUsw78lA=;
-        fh=jTYdIyJ8kYyFBwZvxM+qSLTtN02WWlXM2qZu9vPDiYU=;
-        b=FKYx0ta9fSt0OmsBnMkdXV4afRyDb8ujmxLtNQk87aSdlblA+IQnqMXm4U8+EnCsZK
-         wGKwtQD4hbP9SEn/RRYjcqb/QV6PWJp2JwKB4pJCyJKGyoDYSbqFmG114EpoOrCXwxWa
-         put1Dc6jz+YvPgq26Zps7PpcfIpLiPTJs76bixZxRfu89iQddx1fuLdIVqO1Iyv4oPSk
-         L8dgKOY0ovoIfV0gbuIjNldMBFcwCQYS4iLc5xIxu0/ng6hXG/Le3J0V3dNqhrFliVzz
-         n5QgO0NPPib9/rkGjvV7Z6E+1IGg29aw/NkgU5AWYOG3xLmXWH2Z3dH9iMkq5krdwLVl
-         Zq0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791984755; x=1792589555; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0cq6NAcXfJKAWF6qtJbi/GVl7FMcXFpRqPlXUsw78lA=;
-        b=gwb/F3+bhzEANoW8ytOJFrGW9BaO92DVTwjHSnHe0vfQQgYYeOdmOmIHo9Muo4a7YE
-         Zn+0tb4foXBcrn0gJepRQib0Q2diRgzsfkkUu7EakFANYm6GEfSNtjAJATrIeXdqM66I
-         kOuOoBcvGG0jEf1rQtRK/INo6nOmATIjoNeVIqkKK0DFrhKvIDNiz6QiG74GIRtt193s
-         34u5G1mEEAihjPIESS+I3+ww4nHQC/tndVf6B4pwuG5SgEYMquwWZrPG+q18XZgWHNMf
-         2376sF1DKXJLKnRWgRnrLIhom6XoJq3hWMBBDfVvM1x/A0VgKMHm3V3OkJKXcxRZP1ZO
-         Lg1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791984755; x=1792589555;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0cq6NAcXfJKAWF6qtJbi/GVl7FMcXFpRqPlXUsw78lA=;
-        b=I6xCzrSkSZWN7GRIxgXp46MBZ5wHML9oyvzf/52Y4nDkl04PK7ajG45056m7T9artM
-         AQZ3BO4SgJeerSKQCpcqaAgheXt47uq88VrSa7Q0NL7J5islvVmWqaJ9Pm7l71z/dvEn
-         lmZLo12MJIQZSTABLy5mV+mD8/3Ga6VmBU8C1orWMjO/pcvWlrbxkWEk1emeo9fXxVr/
-         jJaOCdqLCmkY7cVxG7IkIZ/vGQcx6yT6QUdD0lbjNavG77BxTP+vRZnOFYTDr/V/LeU7
-         b6pfbfDAPFK6WtDTKKnVenlaOAOWvgEOB2Jikxy44sef6fCisJ4JXU05tnnCiAQnXI1O
-         kdeg==
-X-Forwarded-Encrypted: i=1; AKwUvByYw2isiVMxAkAh3OCk/olLpPoB8pgWMlfh0OEGMXhNJHS3akPra69/IHPcev2YqV0OM6dhps25bqtsJrI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEBAmqsC4VRiAqoyACKzvR+/QBiVIJPqNk1+QGshK7aqTuu/ZW
-	VIn/rND3DYY/DF0Ad21pRDC5VADYCnoFX0qOun0ZgGsWjz0Y+bk6w++Y5vLZtZjJsNE8PvnFF/D
-	5AX2jCjxoJdwQtNjXmQULzbUWYv/g1+M=
-X-Gm-Gg: AYBFou28FzsiB89hWbW1pvUY8FpmTNY6o2514lyrsmzOGDC/VOx69YYkW3LtK5XS7+r
-	6bFzNdi0wMuBMi9aw6OChqUt2URQ5j+aS4NYVVI9z5PU/jRiUvKwz+cgLYSmBEmbic1teOGnvsm
-	HdVBwBqoGpU6AK7DmZJw3Z68+Iw747lR6X5zWngahXJx0lAOZFIfPMDqL6W0CgIkM/W7lN6juW5
-	4dg+XahAEOAnKRKmpOz8jlWgq2A5z/vMEnem5+16SAKLtSUR57Z4wKsgNgqTVcD9+JYGlzyKuP5
-	wPrWxm+kpCmvx1n+amI5xukXqXx9W4Fzvkk6XG7BcGsOYaBFU0BB4Vx3OQEuGPjD8zKHwQF2NAL
-	d1e0W1nCQ5ITP
-X-Received: by 2002:a05:6870:331f:b0:48f:e24e:6b6c with SMTP id
- 586e51a60fabf-4a2a8b580eemr14205687fac.61.1791984754940; Wed, 14 Oct 2026
- 06:32:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b="Y1pljAny"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RAxj3tZkng9kryrWRbVsl2Vb3jBgNo9s5xfi4VCkCs/M47r+jJctyRRVcy9rtN/J0JUsRbChqIMKqQQ8QQWsPObwfOY5vC+FlF2B3Utxz5dRoZ595M+IIlZmhHwkVDbqjP7vf16TehQyHdgFYFyuiLePJWVACQZTsYxHDTB9p8uWiNSqcQjEWHK3cerHEB0HjQb6SLs4D0mBW+Q8EWDzONG5xP25y/s7RPUIcLiIvdIAMvc/QUa+0MKCm8sr814aFtPPDzQslqmpXXwjM0w3ufv3Z9nYxyodN67t2KfIDmb6JEKI4+ZFnd1DuwwC/LgSndET0Kso1IMfzY4/ZbIjDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CCx9jqORBU4gKAvjs8Nqt+zaATW+o34ltuMxCVgBqWw=;
+ b=eEfpzXfGys4CcSIV49bOkrEZ/QjPuBMWlYgM2O3riX7qtg68tY1OMZyZX6WTgANmY2yOFBUi+8hZhmp5pwHJ6PfWGE5Anm4sSPhLlucLG2/qYfDA0/7egbKzuwjnpwMqeyUW2Zu+QAHlShQS2TsyXMvA9W2+r0CCyWSuDCzIavaFYFHc37bsnPpFBAwX8MYulp1Dr5OjeNqJ3lGl28dKLHNiHQkNO/+uTFkuK2iz8d6i52GfgrcY5IU0uHgwCP0gYQjJLpNeay/qmofK0CJ0kedt8u2SZmBwNi3KV2JrOrDDBTtqyzCkF4s4yIYOTn3zT6M3vHowdHx9eORVvkbs8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
+ dkim=pass header.d=gaisler.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CCx9jqORBU4gKAvjs8Nqt+zaATW+o34ltuMxCVgBqWw=;
+ b=Y1pljAnyJEQalaDgQW+OjXomxzC/WrBJixHAtmK/L0Cy55HcgtWsONT0m1aVi0GNOvADUHv62Jm/QHTexNLhYBQUT7rNr5DqWG7D+zOZqOyNcVTgLRZ+q796Ybz84SdCDZn5sOtBBd4pGXCTFNqsyF+PWZeFJAVQhqsXQaW2r9kYpO90NeA+PDu+S2FNfJP2ZJOzuuv8ocsSzAXVW6OJaEN1dZFZydVGY1RkzxjbkepTzD3AtQKjXczZ9a1/de4uw+jgM1xlweXvCIo8ZH2rKUYhpSBHf5EQ2/bsFz/tPa2wlmkj2eaM9Jxyy7AyOiMpYT7K1AnZ1CSIrTuSgY9JcQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=gaisler.com;
+Received: from MM0P280MB1058.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:2::17) by
+ GV3P280MB1794.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:241::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.13; Wed, 14 Oct 2026 13:32:42 +0000
+Received: from MM0P280MB1058.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::8e01:811a:7101:e192]) by MM0P280MB1058.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::8e01:811a:7101:e192%5]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 13:32:42 +0000
+From: Ludwig Rydberg <ludwig.rydberg@gaisler.com>
+To: Andreas Larsson <andreas@gaisler.com>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: sparclinux@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	linux-kernel@vger.kernel.org,
+	Ludwig Rydberg <ludwig.rydberg@gaisler.com>
+Subject: [PATCH] sparc32: Avoid NULL pointer dereference in fault handler
+Date: Wed, 14 Oct 2026 15:32:29 +0200
+Message-Id: <20261014133229.7841-1-ludwig.rydberg@gaisler.com>
+X-Mailer: git-send-email 2.35.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BE1P281CA0236.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:8c::20) To MM0P280MB1058.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:2::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260804142800.4326-1-khomyakovilya@gmail.com> <111e94e9-79c9-48f2-8976-70470e59b89d@leemhuis.info>
-In-Reply-To: <111e94e9-79c9-48f2-8976-70470e59b89d@leemhuis.info>
-From: =?UTF-8?B?0JjQu9GM0Y8g0KXQvtC80Y/QutC+0LI=?= <khomyakovilya@gmail.com>
-Date: Wed, 14 Oct 2026 16:32:23 +0300
-X-Gm-Features: AclHuK9k2427IzCFQzfxk5ijt-NQbFahalRCOSjfqEOAYJAuXMNGRteO6GZZ_0o
-Message-ID: <CABrBgxdQ1Jn40wR_yEzjxz=BO9YvM530fqTG=F4EvC3m=6RoZQ@mail.gmail.com>
-Subject: Re: [PATCH] scsi: mpi3mr: use DevicePage0 link rate only for
- direct-attached targets
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, Ranjan Kumar <ranjan.kumar@broadcom.com>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>, Kashyap Desai <kashyap.desai@broadcom.com>, 
-	Sumit Saxena <sumit.saxena@broadcom.com>, Sreekanth Reddy <sreekanth.reddy@broadcom.com>, 
-	mpi3mr-linuxdrv.pdl@broadcom.com, regressions@lists.linux.dev, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MM0P280MB1058:EE_|GV3P280MB1794:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00097ee1-3179-41f1-a60b-08df29f79f63
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|52116014|366016|10067099003|18002099003|11063799006|261009223027099003|56012099006|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	VxHFAY8oV+d3QCGiA/LrJXd3eo3qeE4WlYBsLFF0SZ58iCKan3GXNTcWqmUHP2oZMtvNbm6+yf1omZHfSopO9mvCgvBYIb5sWF7e6pbfVgqmYEngl9L0HsCVROEO7brMnG2SBgGdCCotjy3JdvyRiRgeSTwKel96wtEIA++fcKm03765EaXD5onGzaNALm9xyWvAwdX9QTif5+n9e4OcGgU5nli7x8kpgQsAMIK5YA/eKo2N6AGCtVXHYYIR4yzKnG5Cp1D0wndBBvEE1+Emz5psxye8wrNUTArQYGFRjCf9zGXk+533Z2OBK0Pf72tI3iyonWmKYZXNx7k00PGrgOm5V7fCTUW265WsIZiQ1To1Z3y+uc3qKxFwJhcmzciP5rohRqU7O1D/ByM+g+6cBkdeml9J+Lb9PeHVytFOrxu4ICEkyi8wpHFcmyG7vvC5K4vDbiTweqnmlfbo76Pr1YcWATyu4rvJSe6+lWv/LFrRZADeoqTsXgEvAofhSb/WIlQtvkSr9wN6QDBNdoQFJQFQmZY0hgJE0Zu4rP5Zmq0nGz5ZTlkhjUGgxflhB5kV+NuX9PkI4nGZtTLw+BCmycMAV5nFd+Y9CKnKbx8yWANhcPXWZ+SBcX/HabFINPNX2bCIgHCjb/DK2eINTwzaZxqUDOdp9lwZ4KA/PjAzG2RNLJF6Q/wjwvcVoW0YBIayiqB1YYNONrbVerkh4loYFMOrIrxJGjO0+QUGw/QeNr4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MM0P280MB1058.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(52116014)(366016)(10067099003)(18002099003)(11063799006)(261009223027099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?0BqdhLO2UfI92UCk1fdnYc+c4/hMcmaP5FjckeIpyXn5sRvmxM4W7KzpvD4J?=
+ =?us-ascii?Q?yO2PeGSJlVmt+ervpP/6j4DAwJT1kVPjYnjdU4HrX/Y7tvCfWunmCpuWQ6DO?=
+ =?us-ascii?Q?s5ctBqUtGdGIIRZJjtZlet2t/BAYVMisIAWZ/bCwGCtNdaao6PCVAdLJpVGU?=
+ =?us-ascii?Q?qMEQW3xys4N/v+LzpKbbq5B4VfqNQvi0d+FXAgi9KQHidIjOAAVc/i+EHSnX?=
+ =?us-ascii?Q?+LZrsK2n/0Q4iCjmZ+fgNj3EY6lz2X/DyUFXoilk4Cc/KFgTcMCRf1HsgJco?=
+ =?us-ascii?Q?9CcmTHWKvUSI3rEtqExNbJAuBzwadY9oLY57uEGBo26X9WpQnUbpC0bnQpdo?=
+ =?us-ascii?Q?gSRzkYAbF2UqFjhf3dXBG11VS/Yx3RND2m6QIMGDhe8oXXnsNjpH8cZ3Mo8Z?=
+ =?us-ascii?Q?WptS6TlRRVz1iB228QDEXQqlQAbmrsFK6ie7HyaVKz7HoxOKxcfxYvQBpnP5?=
+ =?us-ascii?Q?8K+IhW8iCja4Ett+So09d8ZqxT4uHBp7e2Nz6yG1BxGklQp5bCeuhmu2mOO9?=
+ =?us-ascii?Q?f+e9tk27xBGhLmuC3ebZr/GTpT/AlHrz6CcXwlPlRGurLY0AA2HfFtRKiNq0?=
+ =?us-ascii?Q?knQ1dFWhVrY/H7XaPGGIYmR7mrFyhKkOFiNV6XAitfg/nNQaVaao9NRbmGKU?=
+ =?us-ascii?Q?X6Q0KG8fj31ilA/VJdcMiPPsrEAp8PqUlxjWnD/YFxyhLIrRWQCfOeWfc99+?=
+ =?us-ascii?Q?c/4AVYPBOJbg5AvM5LlnElRQLo+NuH3eruqjX+rONo/frsecEp1ILXLYEhd2?=
+ =?us-ascii?Q?h04wX6F7cd7zRjHZH2ykOmti/6LdVckCvld4+OQbWPwEZEdQhVHQfNgp2pDy?=
+ =?us-ascii?Q?ISjNiMtQSfJuKMUjkm4g9qQ79jVbqqJ/TDN6HlMwcBoprUOgzw2A7OlV0Qky?=
+ =?us-ascii?Q?LSp+CF4VtN/JIzG6/i7RW3IhKxLJY7bPEFpP33Ayj8EGQIW574o1gUBJFjtW?=
+ =?us-ascii?Q?mv61rYa+JzUKVlgxyXUQ2aMnyobBQVfznltYEqNR+SHyCG8Dbhno+R7G3CIJ?=
+ =?us-ascii?Q?F/EoUzsaA+845pup07oNLMHP9ISIPfxmPG1v902cXz5UjCwX03Lt44BJbBaZ?=
+ =?us-ascii?Q?VBCYUQoxsDI4kwqtjHsyXELxwPVVOsxpcQr8B7925eOZKXfHYNfc5Wk5QANs?=
+ =?us-ascii?Q?6IrJXg56qsnfBp6z1ieJRqOxGAPFSK3TDduK8N4VDOC0c7lsTv8WUjm4EOl6?=
+ =?us-ascii?Q?GVctvGxCCPD186w2PcQ4KN0nZEsIcXEEKzUyiPr7gfD2THQVDhGDWqW2r0Zv?=
+ =?us-ascii?Q?TEnRFYtsdE2HgNKPtX07kYjJ6rv49H6whwV7+iYb9/Eyqm8ay+lFR9HaeukU?=
+ =?us-ascii?Q?l+uLNdoNeBIsYd19XwmTX3LWiIB4XPYqbaB2uYmj6CWryX+Ou0mhg744KfdK?=
+ =?us-ascii?Q?kGLGDmbkcfEULVLRshneGXsh6w85A7nuisnF+iX1j11/90srvjS0ZfC896QA?=
+ =?us-ascii?Q?1u8MdKdatmQeUxaTWfDbBsr0O1TsvpDqyJaTAWjfly9d98ybi03nhPykfRVu?=
+ =?us-ascii?Q?IXwB8KldhM1WuF8JJJ0MhsrjmtfkuAOc3ksmc0K92Yx4jOCa2fGYiemz8BNx?=
+ =?us-ascii?Q?4g8aBOXjGc3bVytAc/gdLTQouJVO2lpfBa05IgNHAxxjybgnwaab+utj+LCP?=
+ =?us-ascii?Q?D5x5Lp+42wtfT/3OR4QPoFJD8QhFdbv/TbycZiGQ7gIRfF+BXoOZN4UhwaHr?=
+ =?us-ascii?Q?kTw08DxuWcW/JoZD6ntesE7mbjs5dmaHiKIXa7jtmH5r6FDqjYySVHWJhHcs?=
+ =?us-ascii?Q?aQ777EusyyWF7KqPDTM6gpSvcVX1nkE=3D?=
+X-OriginatorOrg: gaisler.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00097ee1-3179-41f1-a60b-08df29f79f63
+X-MS-Exchange-CrossTenant-AuthSource: MM0P280MB1058.SWEP280.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 13:32:41.9211
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: asZ5BkebTvG8ey3pgMSEjhabTM5TG6B8iExn0c0wDVeuL8/ZWZR6OD8RpD6D3N9cD+OxDg9yAL45S3Ng6Gu0eoPMhLPwV/rXZTaGiDTNQHs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV3P280MB1794
 
-Hello.
-After sending the email, I didn't receive any response from anyone.
+Add a null pointer check for the return value of
+search_exception_tables() to avoid dereferencing it if no entry is found.
+Without this check, the system will crash silently without providing
+any fault information to the user.
 
-Regards,
-Ilya.
+Fixes: b4edf06c8aaa ("sparc32: switch to generic extables")
+Signed-off-by: Ludwig Rydberg <ludwig.rydberg@gaisler.com>
+---
+ arch/sparc/mm/fault_32.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-=D0=BF=D0=BD, 12 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 18:48, Tho=
-rsten Leemhuis <regressions@leemhuis.info>:
->
-> On 8/4/26 16:28, Ilya Khomyakov wrote:
-> > This patch fixes a regression in the Broadcom MPI3 Storage Controller
-> > driver under drivers/scsi/mpi3mr/.
->
-> Ilya, what's the status of this regression fix? It looks like it fall
-> through the cracks. Or was there some progress that I missed (which can
-> easily happen!)
->
-> Ciao, Thorsten
-> > Commit c273c14b0294 ("scsi: mpi3mr: Use negotiated link rate from
-> > DevicePage0") changed mpi3mr to prefer the cached DevicePage0 rate.
-> >
-> > DevicePage0 stores negotiated_link_rate as one standalone MPI3 SAS
-> > link-rate code, while SAS PHY Page 0 and SAS Expander Page 1 store logi=
-cal
-> > and physical rates as two nibbles of one packed byte.
-> >
-> > mpi3mr_get_sas_negotiated_logical_linkrate() currently sends both forma=
-ts
-> > through the same high-nibble extraction at its common exit. A valid
-> > DevicePage0 value of 0x0b or 0x0c is therefore converted to zero. The l=
-ater
-> > minimum-rate safeguard then publishes the value as 1.5 Gbit/s.
-> >
-> > For example:
-> >
-> >   DevicePage0 value:            0x0b
-> >   packed-field extraction:      (0x0b & 0xf0) >> 4 =3D 0x00
-> >   minimum-rate substitution:    0x00 -> 0x08
-> >   Linux SAS transport result:   1.5 Gbit/s
-> >
-> > There is also a topology distinction. The caller uses the returned valu=
-e to
-> > update the parent sas_phy. In an expander topology with the HBA-to-expa=
-nder
-> > link limited to 12 Gbit/s, DevicePage0 reported 0x0b for every tested
-> > target, while Expander Page 1 reported 0xcc for several disk-facing PHY=
-s
-> > that were operating at 22.5 Gbit/s. The cached target value therefore
-> > cannot unconditionally replace the local parent expander PHY value.
-> >
-> > The original failure was reproduced on an eHBA 9600 controller with a
-> > SAS4016 IOC and a 46-PHY Microchip expander. Before the fix, a target w=
-ith
-> > DevicePage0 negotiated_link_rate 0x0b could remain visible in sysfs as
-> > 1.5 Gbit/s when a replayed topology event contained current=3D0x0b and
-> > previous=3D0x0b and therefore skipped the Linux-side update.
-> >
-> > Validate the standalone DevicePage0 code and use it directly only for a
-> > directly attached target. For an expander-attached target, retain the
-> > existing Expander Page 1 path because it describes the local parent
-> > expander PHY being updated. Retain the SAS PHY Page 0 fallback when a
-> > directly attached cached value is invalid.
-> >
-> > The topology-aware variant was tested in an out-of-tree mpi3mr 8.17.1.0=
-.
-> > build. After boot, Linux reported:
-> >
-> >   PHY 18: 12.0 Gbit/s
-> >   PHY 19: 12.0 Gbit/s
-> >   PHY 24: 22.5 Gbit/s
-> >   PHY 25: 22.5 Gbit/s
-> >   PHY 26: 22.5 Gbit/s
-> >   PHY 27: 22.5 Gbit/s
-> >   PHY 28: 12.0 Gbit/s
-> >   PHY 30: 22.5 Gbit/s
-> >
-> > No tested PHY was incorrectly reported as 1.5 Gbit/s, and the 22.5 Gbit=
-/s
-> > disk-facing rates were preserved even though DevicePage0 contained 0x0b=
-.
-> >
-> > Fixes: c273c14b0294 ("scsi: mpi3mr: Use negotiated link rate from Devic=
-ePage0")
-> > Signed-off-by: Ilya Khomyakov <khomyakovilya@gmail.com>
-> >
-> > ---
-> >  drivers/scsi/mpi3mr/mpi3mr_transport.c | 46 ++++++++++++++++++++++----
-> >  1 file changed, 39 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/scsi/mpi3mr/mpi3mr_transport.c b/drivers/scsi/mpi3=
-mr/mpi3mr_transport.c
-> > index 240f67a..740fccc 100644
-> > --- a/drivers/scsi/mpi3mr/mpi3mr_transport.c
-> > +++ b/drivers/scsi/mpi3mr/mpi3mr_transport.c
-> > @@ -587,6 +587,30 @@ static enum sas_linkrate mpi3mr_convert_phy_link_r=
-ate(u8 link_rate)
-> >       return rc;
-> >  }
-> >
-> > +/**
-> > + * mpi3mr_sas_link_rate_valid - validate a standalone SAS link-rate co=
-de
-> > + * @link_rate: MPI3 standalone SAS negotiated link-rate code
-> > + *
-> > + * DevicePage0 stores one plain negotiated link-rate code. Accept only
-> > + * negotiated data rates supported by the SAS transport conversion cod=
-e;
-> > + * reserved or transitional values must use the existing PHY-page path=
-.
-> > + *
-> > + * Return: true for a supported negotiated data rate, false otherwise.
-> > + */
-> > +static bool mpi3mr_sas_link_rate_valid(u8 link_rate)
-> > +{
-> > +     switch (link_rate) {
-> > +     case MPI3_SAS_NEG_LINK_RATE_1_5:
-> > +     case MPI3_SAS_NEG_LINK_RATE_3_0:
-> > +     case MPI3_SAS_NEG_LINK_RATE_6_0:
-> > +     case MPI3_SAS_NEG_LINK_RATE_12_0:
-> > +     case MPI3_SAS_NEG_LINK_RATE_22_5:
-> > +             return true;
-> > +     default:
-> > +             return false;
-> > +     }
-> > +}
-> > +
-> >  /**
-> >   * mpi3mr_delete_sas_phy - Remove a single phy from port
-> >   * @mrioc: Adapter instance reference
-> > @@ -2292,18 +2316,26 @@ void mpi3mr_expander_remove(struct mpi3mr_ioc *=
-mrioc, u64 sas_address,
-> >  static u8 mpi3mr_get_sas_negotiated_logical_linkrate(struct mpi3mr_ioc=
- *mrioc,
-> >       struct mpi3mr_tgt_dev *tgtdev)
-> >  {
-> > -     u8 link_rate =3D MPI3_SAS_NEG_LINK_RATE_1_5, phy_number;
-> > +     u8 cached_link_rate, link_rate =3D MPI3_SAS_NEG_LINK_RATE_1_5;
-> > +     u8 phy_number;
-> >       struct mpi3_sas_expander_page1 expander_pg1;
-> >       struct mpi3_sas_phy_page0 phy_pg0;
-> >       u32 phynum_handle;
-> >       u16 ioc_status;
-> >
-> > -     /* First, try to use link rate from DevicePage0 (populated by fir=
-mware) */
-> > -     if (tgtdev->dev_spec.sas_sata_inf.negotiated_link_rate >=3D
-> > -         MPI3_SAS_NEG_LINK_RATE_1_5) {
-> > -             link_rate =3D tgtdev->dev_spec.sas_sata_inf.negotiated_li=
-nk_rate;
-> > -             goto out;
-> > -     }
-> > +     cached_link_rate =3D
-> > +             tgtdev->dev_spec.sas_sata_inf.negotiated_link_rate;
-> > +
-> > +     /*
-> > +      * For a directly attached target, DevicePage0 and the parent hos=
-t PHY
-> > +      * describe the same link, so the standalone cached code can be u=
-sed
-> > +      * without packed-field decoding. For an expander-attached target=
-, the
-> > +      * caller updates the parent expander PHY and DevicePage0 can dif=
-fer from
-> > +      * that local segment; retain the Expander Page 1 read in that ca=
-se.
-> > +      */
-> > +     if ((tgtdev->devpg0_flag & MPI3_DEVICE0_FLAGS_ATT_METHOD_DIR_ATTA=
-CHED) &&
-> > +         mpi3mr_sas_link_rate_valid(cached_link_rate))
-> > +             return cached_link_rate;
-> >
-> >       /* Fallback to reading from phy pages if DevicePage0 value not av=
-ailable */
-> >       phy_number =3D tgtdev->dev_spec.sas_sata_inf.phy_id;
->
+diff --git a/arch/sparc/mm/fault_32.c b/arch/sparc/mm/fault_32.c
+index 86a831ebd8c8..4cfff3d36a99 100644
+--- a/arch/sparc/mm/fault_32.c
++++ b/arch/sparc/mm/fault_32.c
+@@ -232,15 +232,17 @@ asmlinkage void do_sparc_fault(struct pt_regs *regs, int text_fault, int write,
+ 		const struct exception_table_entry *entry;
+ 
+ 		entry = search_exception_tables(regs->pc);
++		if (entry) {
+ #ifdef DEBUG_EXCEPTIONS
+-		printk("Exception: PC<%08lx> faddr<%08lx>\n",
+-		       regs->pc, address);
+-		printk("EX_TABLE: insn<%08lx> fixup<%08x>\n",
+-			regs->pc, entry->fixup);
++			printk("Exception: PC<%08lx> faddr<%08lx>\n",
++			       regs->pc, address);
++			printk("EX_TABLE: insn<%08lx> fixup<%08x>\n",
++				regs->pc, entry->fixup);
+ #endif
+-		regs->pc = entry->fixup;
+-		regs->npc = regs->pc + 4;
+-		return;
++			regs->pc = entry->fixup;
++			regs->npc = regs->pc + 4;
++			return;
++		}
+ 	}
+ 
+ 	unhandled_fault(address, tsk, regs);
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.35.3
+
