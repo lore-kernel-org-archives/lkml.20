@@ -1,188 +1,526 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010036.outbound.protection.outlook.com [52.101.85.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2133A9DB2;
-	Wed, 14 Oct 2026 04:53:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791953629; cv=fail; b=LmzebwCwVjD8awFSyYKvfXEyppJ5c3PeSpPLgwcDhlkSLkzKnLQxqubXVv36cAsG2bPxj/COxU/M0Iplc1kSYhJWRYTiGXPRt/cLNF2mEjo80U/KZ0p8PVOwBVQ7FAkixgAq4uyJIWfRtnsXdv9SbJXyhPu+Rin/hooYLbm/o9I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791953629; c=relaxed/simple;
-	bh=2sVHavMjlXJz/ESN/9IXO6dQNt/z1BPMIt+RwptNEc8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=me55kSRC6WS5gkxZRMOT6CBLf3ioy3AcmHa9ubJZ4T313S/yY4STBBBmQH/FhO+Xbl7MyCnrWIo6QhkzD5AN8TbNIItNwJZ9KNHoVZhLQs31zs+2UoM3bZVCTk6obOrNX4rEoQPXsTs3Wrvr5vZWKjZA2tVk6cGWOYhvr1JT1Hg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lNXQ710y; arc=fail smtp.client-ip=52.101.85.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9ABF3AC0E4
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791953743; cv=none; b=MrwP8fYE5N99kYCEDDJ+nIb+NrQUnNOpHzOT/pJTExHHc7gTe0mrEtDmqKTzTD7mWOoMGEyLxasiCZ8mtYmMVMRIP/Pof71yUGSzJ/+AQ9ZD+IqrslaPc9J1ReMYnIVP+Hp4O9rlFNW8H0A8aXrcvEK4CE5BGPhkG0yYDSJTS7A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791953743; c=relaxed/simple;
+	bh=rQ56YFYgad1wOSJHsir4Wl1qWSsiQ+uz290it6r67wg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a8zKzswmon96Lk7sbmxlF4k3FzydGTNbF8Xe1eEARfKnvbzesvSmz7hWi7+98Hi0TpVXyjTlohe/AbBgApnghamWpWKm+FRymSLnFadUQ5v9EuXmNxly0O7/aj0gFCavfAlG6Z6rWrH0iU05cFAPYfZDjWGC+YPrwqTTZ/jnDiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZUE/uyO5; arc=none smtp.client-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lNXQ710y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wqYchYNK7bXpGzGIGrljFlqDf7ukVtxEQhYCyqg2q3JwQ4Dm0d9gT0ms3foDqzA7IVWmUsZzmIc39qzEvqUVbZAiDUuI9U/k/v5tWETVIlEWUj2Q2wpIAiX3UACQA/DcEcZM3xlCD87ewIYa3M7w0RsCpGQzTw+lNNfLvxrHS01yGD3C8JwZj8W/7Z/As17u/YCxDKKsZaNI8B8oXFHgcCMq1TxJuuxa1UHoc4SjYIiAk7qJKD6Yh6gPAKfYDRCbHsvvRdSk3rBMI3JlBJ2bxZpOyRcRVSeruhHHfuqmdymP8/xEFJoTTHFleeWmX0UTMC7vnfXTJhkVPev42ytFag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ECTtEfeG6t+RqCD6DpI1ioZJCa/323BEF24WKyyOKFA=;
- b=Vc+NbVBaSvSdJ4UFUtilXDmn4xHKKwu4Zp4cYgZeItZSfMvAWZJoO/4R7qNSzt9+U2+kx0EzRTsUHLzt4rHRRfVku++7dOtKlDBJSTDPnSNgnsjIVAaQrFKwhgcEyTVk9Z67Araa1yUtWvNyS3PtV2Sw21K9XCM+evZZbEEk4fllsqdk88Gz8VNckVfv6Z/xfPPmfdNnrHW6RrwVYnp0WADxY9TH3OIXDiV8z7OyVRABcOKhAqjXTEPa0r6FlDjfvw2+rDB8i00xbsYPjmt1sDdVEYGMHzDSwJVDwZBf52hUDVp8PmMYhb8+15on8AfWjI9Pb1uva3fZEVo+kTzWJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ECTtEfeG6t+RqCD6DpI1ioZJCa/323BEF24WKyyOKFA=;
- b=lNXQ710yoQFsoMZV3Pe0hhxBarKC6nobCczUy3MYAVOD7mA1WmuZj6PtiOd6CspZt0Jg+Fe9ZLxYLFuSDh33ZNxhd47i6u57ochBzulX5OXJAK09mCaAZ5bs3NId47i+0i6jJlgiJpfji+N6Gl2Il0ASam+erKnPpcxqo+XoBe8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by MN2PR12MB4224.namprd12.prod.outlook.com (2603:10b6:208:1dd::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 04:53:45 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 04:53:45 +0000
-Message-ID: <84a84584-404d-4e76-a2fd-65bb4aafab47@amd.com>
-Date: Wed, 14 Oct 2026 10:23:30 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] iommu/amd: Don't allocate kdump device table from
- DMA32
-To: Matt Fleming <matt@readmodwrite.com>, Joerg Roedel <joro@8bytes.org>
-Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Ashish Kalra <ashish.kalra@amd.com>, Sairaj Kodilkar <sarunkod@amd.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Baoquan He <bhe@redhat.com>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
-References: <20261013121944.4060097-1-matt@readmodwrite.com>
- <20261013121944.4060097-3-matt@readmodwrite.com>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20261013121944.4060097-3-matt@readmodwrite.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0298.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:220::7) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZUE/uyO5"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15dd124bbe7so7024103c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 21:55:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791953740; x=1792558540; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7AnpB0zS2EioB6l+BJL51P1LkP9oN85FC+JGkNepFsQ=;
+        b=ZUE/uyO5U2oyQyhijKPnWtPeFxxDKBBbL9HGYn45ucTNNy1hh75RJRON5tzjSgERr+
+         ubTPTvsp5yZmyY33UoorDu4vItB446WXzQ5YTn1RWmBH1mZ+h6tc+NXKUQFERA7KXdcp
+         Gvw7cRKQa9NOsCp5XmfC9ZlMkiSqgxE045AHjWaXGDr06Sj63x7ryPMwT7YK57cSq5+U
+         JTEjbahH4qQ5lX35NGwgp/mE88oP/3s4XOoBHnT7DVZS8xVVH38INDD+S2fhch6doySa
+         RzvN+QXc/DE2oJXi70CwjkZ3sZiHg1TwOlMCExOyaHaIA49MQ2cExHQeQuGfjuuCMhTq
+         OQww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791953740; x=1792558540;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7AnpB0zS2EioB6l+BJL51P1LkP9oN85FC+JGkNepFsQ=;
+        b=inJeyWO9sNORGOXkMJsJBlj+ap13tjd6fHCWNHVJkKu/LrHrdXYeLgbUatis+hYIOG
+         CqxE56W8AzC66IZaPoEHO5MLPcb5lwr4OWQ+KgfPlVITTQ8owTb0CLIYoISSZztf4Kam
+         z4TeQYZDt6JmUo7zS/iH9E2zbgNs8NZPY2OxmV5w4ONXDSmScieVMoQw2FfXvHTO3+RP
+         Nq57NfpqyAVEY7L5D+qXRwRf88FGG2ZFgSdCjOzJfgYXA1dobEbVqp1RYw4AtEQHvDhb
+         YZ3yZtgXLNqaIlnKBOIh1ly5EBTYPTlZbeta86n3bRjgge6Q4hZMVvk4NFpyXGtSKrv4
+         YhTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqQl13EsS3rPJdOtRPSnT8f5qn/6aWdDW5OwvkRD4B7jGdADnUvQntyOp0I3KWMBFnqwdKVQ6mPZPKW9E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMO9mFJfjOISMUm68ys7cUoiBqiB0IYEi1sQuBrvV9epkZ7Stm
+	6PivxjM9/TV0QdoO8O3h5ajdWrBT3JZMkawm1FeAFUt6y7XkjDGqWdOt
+X-Gm-Gg: AYBFou1O1O1YJFvipLh8kQY+xe+rgXL7w5XTvepAZVFRReR//IZm9TYkqhVYjerDFME
+	PSLc4KFNrtYpUw1dTBybwNb0vuR1fg54sX8oTbsIZWz1LsiTXME/5g+SccO6i+PcdauRut6/Hmh
+	UvAnLkSGaxsuW9bvvNM6SfHKndegst2MbwE+JgbT8vgLgey9deazjSPymEErAcyuBY2ErmdSFhB
+	FhBK5/Rl+GeWGtA+2x7OmbgINnzsgq7hF9f7ulUKo4mAnVPOLvqcknZRqBKxcJvkwyEI0FD6fU4
+	zfKEF54WQplzGgsDV4HOlBnrHe6AK5poPB6n4b3YQDFcxEkh3gTqH4weDGqnF4u3XQEZcUqkm3A
+	UtBE7Be0PAH0la9HtXhk/F6ob40OuN+ksmm4764AS2jQ5GvhUuU2Wz19GrgP7T/DJKaoYBGjyGc
+	6zWQBkXO2oi+qzEaGrLp3rvbFTJEhI/oD1fnYDhXgg+pNYyt193d4a53y2TwryL7oUxRoCaVHLF
+	gGsutBseTlz7uvPVmUBUZ4leJ4=
+X-Received: by 2002:a05:7022:5f1b:b0:144:ee9f:74be with SMTP id a92af1059eb24-1794f295f02mr5794646c88.40.1791953739456;
+        Tue, 13 Oct 2026 21:55:39 -0700 (PDT)
+Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a32eb7ebsm50630044c88.12.2026.10.13.21.55.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 21:55:38 -0700 (PDT)
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Russell King <rmk+kernel@arm.linux.org.uk>,
+	Grant Likely <grant.likely@secretlab.ca>,
+	Linus Walleij <linusw@kernel.org>,
+	Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Subject: [PATCH v2] spi: omap2-mcspi: handle DMA setup failures
+Date: Wed, 14 Oct 2026 10:26:17 +0530
+Message-ID: <20261014045617.2894886-1-sahaj123.sc@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|MN2PR12MB4224:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39355180-0d18-478c-e190-08df29af2030
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|6133799003|18002099003|22082099003|10067099003|4143699003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	fDkQZosxFI7pLguEIxxNblET+iQsb/kQDz05xzJr0L6w77MqgDjfDbi2Q1oHuXOIOeCTXuP14Az0flBxGi5toHTO3ODlvOCoLKt60pPvl+xvwwK3IJZCfup4QUC9mVcPDCQxHxK332gHS3Ia8E7zkxLUPr8x7TmaOUb3XIT3XtEXWEVv8aTfN1dEsrPj6hnTkBNNt/oj9uArqwoq7gB+tZ5WqDQ/lEQJdfsPpk1CF2mL6U1R0lIveC0J/vmSQ9o3O+XcyvwTJAQrkUwrARrkKKKwemYw9vj3FHFgySxzsYFn7Y3RECSg/2Rjl8sU+e5j/ebixS+uXdyrTPHkgX7JeU2W+IEniIGCN9ng4Q/7WcfZmAbE+wl89lV3nF/mg6GCEpyqgEZEoKYB/x1aLFXt+q7mvCglSsUy0btW+buVPwHrGOz7bX5Ddr9GMbuyJ0WuLJC3vVxBIY2X2SDFypZtH9wDHpL8aCgRBb/OtxJcvY+Y30ksvSA4LVoWdvj87boF3ZxXE+K2aYU4w20xvDzZ5CXS/1f2TmjoCPDDihh72BipOZ7JYK7reAXHTkGanYRKekgLUtRYM4K4jzFYGSROjyf7cy8oSk+zS3/tUnD4FzGpfIB/X5V/eGhw9iPQJy5XcvsvKjla11RWO2rfA4XyXVJDUiKuoXj/olAw+U7bGKk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bDRLMVJNcXE0ZkhRb3MzQW9Ea0dKcVgwVEhxWHp5U2dRN2x4ZEwvK1h2NUxY?=
- =?utf-8?B?SFFITzExSG4zTjRTSUhZTnNXMWZvODdJSWgwK0p3RlFMbVlZaU1ScmhBNXEw?=
- =?utf-8?B?VlBKdXVPTnQ0TllubXltZU41ekw2VkNQZmVROVNHdjdaNVNZd1FRUmZxV0Jw?=
- =?utf-8?B?K1p2K0RXQWlFeGloMGJqcmoxQUdyelBlRlluTGZMWm5zRjB4RnhFTG5iTDMy?=
- =?utf-8?B?WHRKaGh6a2RRSnI2eWFQcUNTeTJSbTBITjh4ZzBack1Hd0pYcHlndk45VzFo?=
- =?utf-8?B?eUxRTk5zU2xlcDd6QkJTV1QzbnBNT1QzNTZEQ3owUHR3Mm1Fc0dVRWhpa3NJ?=
- =?utf-8?B?aEx0ajErb1Y1WjEzUkVBaE50ZGZFZjNZNTBmYkhuZXFIMzZpdE1UWGdLVmQz?=
- =?utf-8?B?Mk5PTTV6SDltZSszdlhLMTlxT1NYbXpuUjByeWtsZFA4TENwdVBMNTRJb1Uv?=
- =?utf-8?B?N2dIUmZoSUxtdzB3eHd0azRPTUpLZVhqcXd5UVk2VmhvSGFNdFZHL2VRSWlQ?=
- =?utf-8?B?UGtpRGNnblZDQkI1VFZNekdLdjBxRnV0UG1hSnFLV0dLdGRGR2NJS1dxRDIv?=
- =?utf-8?B?bWZCVDNhYVdDZDkybDJrQWpybjIvbmFDcXJlMFVDZHFUWlB2TVdRRm9kQld3?=
- =?utf-8?B?bFBHWERGY0hURi9lcUpPZzAzVWdsblA4MHg5VWo3MnBGZnkvdUlPUHYzZUJU?=
- =?utf-8?B?OHNBRnJXWHNqT1BBUTZubzZEUEVXWVRxdUE4YVJKK1lVYXFPeEd0dkhpNzVE?=
- =?utf-8?B?Q3RQRWFHc0pMZFFvTkFhYTZCeGNORGlyZFV0MHJjQ1hVYS9RRzAxSm1LcWNj?=
- =?utf-8?B?VnQ0VGwvdnRMYWN0STRyUE1JVGU4Z2poYkNmMTdCdFNTVHJyTjZGU1BvQVhP?=
- =?utf-8?B?QTFRaHMyM2d0OEFhajFXelVtTlhqRXc3aHNKYUg4Njl5c2hSczIxdjlVcGhW?=
- =?utf-8?B?bG1CeFR4SEVBRTBBNE9KL0NPS0N1ZE9NM2w0UmJTWmIwTE9sVHdySkl6OUJx?=
- =?utf-8?B?bVNLQm5IWE1wYWphTzA4OE8wUkh0YytpQTBON0pGTGRuZXFWNUxYZ2cxVU5k?=
- =?utf-8?B?cEtuR2JzTldocTFOd3R3Z2JYRzZKMi9DOHJWUVVoZUNmaXo4NGNIUVhwcWx1?=
- =?utf-8?B?U2IwZllLeXFLZy9kY3N6M1B1QkNCTXhoOE5FS3ZXNU5uVFNLMTc5Vk9aWXBV?=
- =?utf-8?B?Vk1WK0ZlcE43WVJWbEw2UzNDdHZvSmJBaGoxSUxqL2ZKTUFjaHh3RUdPRnJL?=
- =?utf-8?B?TUQ4ZGdpYzZ1ak9iVWhBQW1YNzZmWCtyb0h4c1FrRitiOXI3SmRhci9HVzFP?=
- =?utf-8?B?TVpyeU1IOEpqOFIxc25kUmRBVm1sdWVIYi9zc1BTcmhkT2VmeFdScjVhVkxv?=
- =?utf-8?B?VnJZZ3Y4ZDEwSTVLWmlYemIzY2JQWG5Cb2dPS1pLL2VIakdNMUc4L0VuWWZI?=
- =?utf-8?B?aldkMjFNVFM1eXVaZXZtQUtTNHd1T2FKdE9ZQ1JVaGozNnE1RTd5V1RnVFg4?=
- =?utf-8?B?b3J1cUFOYTBScGJ4b0NnL1R2TXdRZVNvd0tML3RNZ01XbEZRaUJiaDlrQUEz?=
- =?utf-8?B?L2hwRWhOSVlna3pVK0tZSitUSS9POHBCTEFvaVJVMWhzd1NJZDdmTGVsNndX?=
- =?utf-8?B?QVRyZ3ZCaUlSRDlIcVE2T0xvU3NNOHI4RjNFVlJwMUlSVjIvNUk1TUhDdFVo?=
- =?utf-8?B?YkU4bDNET1pEaDBNeXl4TXRFUm1EdDF6bmE5QVUxaWJDNDlYMWlTSnBwZ0o5?=
- =?utf-8?B?R2VlNWR5aXNvRzBCQVRSbFhlZTgzSmVVY0d0MXo2RU52b1hjdFhqaG1NRUpa?=
- =?utf-8?B?UEU1UlFCUGtYeWJGT0hTamUyVUU4MlJNR0E1amNjVWYxNnBNbndveHp0US9z?=
- =?utf-8?B?SnJtT05LZ0dQU0ZpOEQ5RmFQKzc4YUZxNGxJZGx0ZTNvakZJTGplNGlCekJv?=
- =?utf-8?B?aEc3SEpHVVZ2WVgvVmQ5cUJ2aUFyOWluWU44Wi9iazNjaU1lTkFBbm83VzhC?=
- =?utf-8?B?dTNwank2ZW9lOWpHQzh0WW9CQi9OKzJLUTBPMkc1WnNiRnhKOExBM1MrbnpR?=
- =?utf-8?B?bFh4UnRoY01lMGxXbFZwMVNPczhOWmRwaWNDd2hUTS9FUUFSS3VaM3NyZDRi?=
- =?utf-8?B?cHcrWXhDc3QwblphWklrZnFUT1cvSy9TOFBnaHMrTTd3N0Y0WlU3bmNTejRx?=
- =?utf-8?B?RDhiNkZhL3A1N0N6eW5VZkwvSEZuMUU3SkdjQ2E4dGNLaE5KNS9iU0I1U2JX?=
- =?utf-8?B?MVREYUpoL25wSURUZjBLcThZbE5YVWZEUU1qZkR4Y2ZmSldmcXVNSk9ZblY5?=
- =?utf-8?Q?EaRoyYe7uWvTfdIdeT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39355180-0d18-478c-e190-08df29af2030
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 04:53:44.9812
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SLkaJEYzU5VxnrAX+aKTFwDiVjnaNU7EFy8LRWahB1qmlvOc7sEpaVTC5z0h7T+ZgYmRI83uUErf0DYn7s/+cg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4224
+Content-Transfer-Encoding: 8bit
 
+The DMA paths ignore failures from dmaengine_slave_config(), descriptor
+preparation and dmaengine_submit(), and carry FIXME comments about
+falling back to PIO. A failed setup can leave a half-started transfer
+or wait for a completion that never arrives.
 
+Check each step and clean up with dmaengine_terminate_sync() on error.
+Prepare both descriptors before issuing either channel. Fall back to
+PIO only for host-mode transfers that have a TX buffer, when no DMA has
+been started and cleanup succeeded. RX-only and target-mode transfers
+return the error instead, since the bus may already be clocking.
 
-On 10/13/2026 5:49 PM, Matt Fleming wrote:
-> From: Matt Fleming <mfleming@cloudflare.com>
-> 
-> Booting a kdump kernel with crashkernel=X,high crashkernel=0,low on an
-> AMD system fails the per-segment device table allocation because there
-> is no memory below 4G:
-> 
->   swapper/0: page allocation failure: order:9, mode:0x40104(GFP_DMA32|__GFP_ZERO|__GFP_COMP)
->   iommu_alloc_pages_node_sz+0x7f/0x150
->   alloc_pci_segment+0x4bd/0x650
->   iommu_go_to_state+0x213d/0x34e0
->   amd_iommu_prepare+0x39/0xa0
->   irq_remapping_prepare+0x83/0xd0
->   enable_IR_x2apic+0x61/0x370
-> 
-> On our E810 systems, the kdump kernel booted but ice MSI-X interrupts
-> never fired and the TX queues timed out.
-> 
-> Commit b336781b82cc ("iommu/amd: Allocate memory below 4G for dev table
-> if translation pre-enabled") allocated device tables below 4G. At the
-> time, the kdump kernel programmed a copy of the old table into the base
-> register with the IOMMU still enabled. The 64-bit register is updated
-> as two 32-bit halves, so the running IOMMU could see a half-written,
-> invalid table pointer. Keeping both tables below 4G leaves the upper
-> half zero throughout the update, so the pointer stays valid.
-> 
-> Since commit 38e5f33ee359 ("iommu/amd: Reuse device table for kdump")
-> the kdump kernel reuses the previous kernel's table without writing the
-> base register, so its newly allocated table is discarded when reuse
-> succeeds. If reuse fails, the previous patch programs the new table only
-> after disabling the IOMMU. Either way, the kdump kernel's table doesn't
-> need to be below 4G.
-> 
-> The previous kernel still allocates its table from DMA32, so the kdump
-> kernel's check that the old table is below 4G still works. Drop
-> GFP_DMA32 for kdump kernels only.
+The FIFO is enabled before the DMA attempt, but the PIO path polls
+per-word TXS/RXS and does not expect FIFO mode. Disable the FIFO, with
+the channel off while its bits change, before falling back.
 
-This one is OK as its regression fix. But with all the changes went in I am
-wondering why we need GFP_DMA32 flag for allocation. There are only two cases
-where transactions may be enabled:
-  - During boot (BIOS enabled DMA) : kernel will disable IOMMU before
-configuring device table base address w/ new value
-  - During kdump : We are reusing previous kernels device table. If it fails
-then kernel will disable IOMMU and re-configures it with new vlaue.
+Tested on an AM642 board with a TI 6.12.57 vendor kernel built with
+this patch and booted from RAM. On a McSPI bus using DMA, 200
+iterations of 4096-byte TX and 1024-byte RX spidev transfers completed
+with no errors, timeouts or kernel warnings. With a temporary change
+that fails every DMA-sized TX setup, 60 spidev writes fell back to PIO
+with no errors or timeouts. That test used a bus with no device
+attached and did not show a difference with and without the FIFO
+disable, which is based on reading the code.
 
-Anyway, we will look into it in detail and run more experiments. For now this
-fix is fine. With that,
+Fixes: 53741ed8f0a3 ("spi: omap2-mcspi: add DMA engine support")
+Link: https://lore.kernel.org/r/20250914022132.319227-1-alex.t.tran@gmail.com
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+---
+Changes in v2:
+- Disable the FIFO before falling back to PIO, as pointed out by
+  Mark Brown. The FIFO is enabled before the DMA attempt and the PIO
+  path does not expect FIFO mode.
+- Expand the Tested paragraph.
 
-Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
+v1: https://lore.kernel.org/r/20261013142004.1729849-1-sahaj123.sc@gmail.com
+ drivers/spi/spi-omap2-mcspi.c | 236 ++++++++++++++++++++++++----------
+ 1 file changed, 167 insertions(+), 69 deletions(-)
 
--Vasant
+diff --git a/drivers/spi/spi-omap2-mcspi.c b/drivers/spi/spi-omap2-mcspi.c
+index a3355147f5de..9b50ce1458ee 100644
+--- a/drivers/spi/spi-omap2-mcspi.c
++++ b/drivers/spi/spi-omap2-mcspi.c
+@@ -413,10 +413,11 @@ static void omap2_mcspi_tx_callback(void *data)
+ 	complete(&mcspi_dma->dma_tx_completion);
+ }
+ 
+-static void omap2_mcspi_tx_dma(struct spi_device *spi,
+-				struct spi_transfer *xfer,
+-				struct dma_slave_config cfg)
++static int omap2_mcspi_tx_dma(struct spi_device *spi,
++			      struct spi_transfer *xfer,
++			      struct dma_slave_config cfg)
+ {
++	int ret;
+ 	struct omap2_mcspi	*mcspi;
+ 	struct omap2_mcspi_dma  *mcspi_dma;
+ 	struct dma_async_tx_descriptor *tx;
+@@ -424,31 +425,31 @@ static void omap2_mcspi_tx_dma(struct spi_device *spi,
+ 	mcspi = spi_controller_get_devdata(spi->controller);
+ 	mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
+ 
+-	dmaengine_slave_config(mcspi_dma->dma_tx, &cfg);
++	ret = dmaengine_slave_config(mcspi_dma->dma_tx, &cfg);
++	if (ret)
++		return ret;
+ 
+ 	tx = dmaengine_prep_slave_sg(mcspi_dma->dma_tx, xfer->tx_sg.sgl,
+ 				     xfer->tx_sg.nents,
+ 				     DMA_MEM_TO_DEV,
+ 				     DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+-	if (tx) {
+-		tx->callback = omap2_mcspi_tx_callback;
+-		tx->callback_param = spi;
+-		dmaengine_submit(tx);
+-	} else {
+-		/* FIXME: fall back to PIO? */
+-	}
+-	dma_async_issue_pending(mcspi_dma->dma_tx);
+-	omap2_mcspi_set_dma_req(spi, 0, 1);
++	if (!tx)
++		return -EIO;
++
++	tx->callback = omap2_mcspi_tx_callback;
++	tx->callback_param = spi;
++
++	return dma_submit_error(dmaengine_submit(tx));
+ }
+ 
+-static unsigned
++static int
+ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+-				struct dma_slave_config cfg,
+-				unsigned es)
++		   struct dma_slave_config cfg, unsigned int es,
++		   unsigned int *count, bool *rx_submitted, bool *dma_started)
+ {
+ 	struct omap2_mcspi	*mcspi;
+ 	struct omap2_mcspi_dma  *mcspi_dma;
+-	unsigned int		count, transfer_reduction = 0;
++	unsigned int		transfer_reduction = 0;
+ 	struct scatterlist	*sg_out[2];
+ 	int			nb_sizes = 0, out_mapped_nents[2], ret, x;
+ 	size_t			sizes[2];
+@@ -461,7 +462,8 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 
+ 	mcspi = spi_controller_get_devdata(spi->controller);
+ 	mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
+-	count = xfer->len;
++	*count = xfer->len;
++	*rx_submitted = false;
+ 
+ 	/*
+ 	 *  In the "End-of-Transfer Procedure" section for DMA RX in OMAP35x TRM
+@@ -475,14 +477,16 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 	l = mcspi_cached_chconf0(spi);
+ 
+ 	if (word_len <= 8)
+-		element_count = count;
++		element_count = *count;
+ 	else if (word_len <= 16)
+-		element_count = count >> 1;
++		element_count = *count >> 1;
+ 	else /* word_len <= 32 */
+-		element_count = count >> 2;
++		element_count = *count >> 2;
+ 
+ 
+-	dmaengine_slave_config(mcspi_dma->dma_rx, &cfg);
++	ret = dmaengine_slave_config(mcspi_dma->dma_rx, &cfg);
++	if (ret)
++		return ret;
+ 
+ 	/*
+ 	 *  Reduce DMA transfer length by one more if McSPI is
+@@ -493,7 +497,7 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 
+ 	if (transfer_reduction) {
+ 		/* Split sgl into two. The second sgl won't be used. */
+-		sizes[0] = count - transfer_reduction;
++		sizes[0] = *count - transfer_reduction;
+ 		sizes[1] = transfer_reduction;
+ 		nb_sizes = 2;
+ 	} else {
+@@ -501,44 +505,56 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 		 * Don't bother splitting the sgl. This essentially
+ 		 * clones the original sgl.
+ 		 */
+-		sizes[0] = count;
++		sizes[0] = *count;
+ 		nb_sizes = 1;
+ 	}
+ 
+ 	ret = sg_split(xfer->rx_sg.sgl, xfer->rx_sg.nents, 0, nb_sizes,
+ 		       sizes, sg_out, out_mapped_nents, GFP_KERNEL);
+ 
+-	if (ret < 0) {
++	if (ret) {
+ 		dev_err(&spi->dev, "sg_split failed\n");
+-		return 0;
++		return ret;
+ 	}
+ 
+ 	tx = dmaengine_prep_slave_sg(mcspi_dma->dma_rx, sg_out[0],
+ 				     out_mapped_nents[0], DMA_DEV_TO_MEM,
+ 				     DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+-	if (tx) {
+-		tx->callback = omap2_mcspi_rx_callback;
+-		tx->callback_param = spi;
+-		dmaengine_submit(tx);
+-	} else {
+-		/* FIXME: fall back to PIO? */
++	if (!tx) {
++		ret = -EIO;
++		goto out_free_sg;
+ 	}
+ 
++	tx->callback = omap2_mcspi_rx_callback;
++	tx->callback_param = spi;
++	ret = dma_submit_error(dmaengine_submit(tx));
++	if (ret)
++		goto out_free_sg;
++
++	*rx_submitted = true;
++	if (mcspi->target_aborted) {
++		ret = -EINTR;
++		goto out_free_sg;
++	}
++	*dma_started = true;
++	if (xfer->tx_buf) {
++		if (spi_controller_is_target(mcspi->ctlr))
++			mcspi_write_reg(mcspi->ctlr, OMAP2_MCSPI_IRQENABLE,
++					OMAP2_MCSPI_IRQSTATUS_EOW);
++		dma_async_issue_pending(mcspi_dma->dma_tx);
++		omap2_mcspi_set_dma_req(spi, 0, 1);
++	}
+ 	dma_async_issue_pending(mcspi_dma->dma_rx);
+ 	omap2_mcspi_set_dma_req(spi, 1, 1);
+-
+ 	ret = mcspi_wait_for_completion(mcspi, &mcspi_dma->dma_rx_completion);
+-	if (ret || mcspi->target_aborted) {
+-		dmaengine_terminate_sync(mcspi_dma->dma_rx);
+-		omap2_mcspi_set_dma_req(spi, 1, 0);
+-		return 0;
+-	}
++	if (ret || mcspi->target_aborted)
++		goto out_free_sg;
+ 
+ 	for (x = 0; x < nb_sizes; x++)
+ 		kfree(sg_out[x]);
+ 
+ 	if (mcspi->fifo_depth > 0)
+-		return count;
++		return 0;
+ 
+ 	/*
+ 	 *  Due to the DMA transfer length reduction the missing bytes must
+@@ -565,9 +581,9 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 		} else {
+ 			int bytes_per_word = mcspi_bytes_per_word(word_len);
+ 			dev_err(&spi->dev, "DMA RX penultimate word empty\n");
+-			count -= (bytes_per_word << 1);
++			*count -= (bytes_per_word << 1);
+ 			omap2_mcspi_set_enable(spi, 1);
+-			return count;
++			return 0;
+ 		}
+ 	}
+ 	if (!mcspi_wait_for_reg_bit(chstat_reg, OMAP2_MCSPI_CHSTAT_RXS)) {
+@@ -582,19 +598,27 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
+ 			((u32 *)xfer->rx_buf)[elements] = w;
+ 	} else {
+ 		dev_err(&spi->dev, "DMA RX last word empty\n");
+-		count -= mcspi_bytes_per_word(word_len);
++		*count -= mcspi_bytes_per_word(word_len);
+ 	}
+ 	omap2_mcspi_set_enable(spi, 1);
+-	return count;
++	return 0;
++
++out_free_sg:
++	if (!ret)
++		ret = -EINTR;
++	for (x = 0; x < nb_sizes; x++)
++		kfree(sg_out[x]);
++	return ret;
+ }
+ 
+-static unsigned
+-omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
++static int omap2_mcspi_txrx_dma(struct spi_device *spi,
++				struct spi_transfer *xfer,
++				unsigned int *count,
++				bool *pio_fallback)
+ {
+ 	struct omap2_mcspi	*mcspi;
+ 	struct omap2_mcspi_cs	*cs = spi->controller_state;
+ 	struct omap2_mcspi_dma  *mcspi_dma;
+-	unsigned int		count;
+ 	u8			*rx;
+ 	const u8		*tx;
+ 	struct dma_slave_config	cfg;
+@@ -602,10 +626,13 @@ omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
+ 	unsigned es;
+ 	void __iomem		*chstat_reg;
+ 	void __iomem            *irqstat_reg;
+-	int			wait_res;
++	bool			tx_submitted = false, rx_submitted = false;
++	bool			dma_started = false, terminate_failed = false;
++	int			ret, wait_res;
+ 
+ 	mcspi = spi_controller_get_devdata(spi->controller);
+ 	mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
++	*pio_fallback = false;
+ 
+ 	if (cs->word_len <= 8) {
+ 		width = DMA_SLAVE_BUSWIDTH_1_BYTE;
+@@ -618,7 +645,7 @@ omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
+ 		es = 4;
+ 	}
+ 
+-	count = xfer->len;
++	*count = xfer->len;
+ 
+ 	memset(&cfg, 0, sizeof(cfg));
+ 	cfg.src_addr = cs->phys + OMAP2_MCSPI_RX0;
+@@ -636,31 +663,39 @@ omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
+ 	reinit_completion(&mcspi_dma->dma_rx_completion);
+ 	reinit_completion(&mcspi->txdone);
+ 	if (tx) {
+-		/* Enable EOW IRQ to know end of tx in target mode */
++		ret = omap2_mcspi_tx_dma(spi, xfer, cfg);
++		if (ret)
++			goto out;
++		tx_submitted = true;
++	}
++
++	if (rx) {
++		ret = omap2_mcspi_rx_dma(spi, xfer, cfg, es, count,
++					 &rx_submitted, &dma_started);
++		if (ret)
++			goto out;
++	} else if (tx) {
++		if (mcspi->target_aborted) {
++			ret = -EINTR;
++			goto out;
++		}
+ 		if (spi_controller_is_target(spi->controller))
+-			mcspi_write_reg(spi->controller,
+-					OMAP2_MCSPI_IRQENABLE,
++			mcspi_write_reg(spi->controller, OMAP2_MCSPI_IRQENABLE,
+ 					OMAP2_MCSPI_IRQSTATUS_EOW);
+-		omap2_mcspi_tx_dma(spi, xfer, cfg);
++		dma_started = true;
++		dma_async_issue_pending(mcspi_dma->dma_tx);
++		omap2_mcspi_set_dma_req(spi, 0, 1);
+ 	}
+ 
+-	if (rx != NULL)
+-		count = omap2_mcspi_rx_dma(spi, xfer, cfg, es);
+-
+-	if (tx != NULL) {
+-		int ret;
+-
++	if (tx) {
+ 		ret = mcspi_wait_for_completion(mcspi, &mcspi_dma->dma_tx_completion);
+-		if (ret || mcspi->target_aborted) {
+-			dmaengine_terminate_sync(mcspi_dma->dma_tx);
+-			omap2_mcspi_set_dma_req(spi, 0, 0);
+-			return 0;
+-		}
++		if (ret || mcspi->target_aborted)
++			goto out;
+ 
+ 		if (spi_controller_is_target(mcspi->ctlr)) {
+ 			ret = mcspi_wait_for_completion(mcspi, &mcspi->txdone);
+ 			if (ret || mcspi->target_aborted)
+-				return 0;
++				goto out;
+ 		}
+ 
+ 		if (mcspi->fifo_depth > 0) {
+@@ -694,7 +729,43 @@ omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
+ 				dev_err(&spi->dev, "EOT timed out\n");
+ 		}
+ 	}
+-	return count;
++	return 0;
++
++out:
++	if (!ret)
++		ret = -EINTR;
++	if (rx_submitted) {
++		wait_res = dmaengine_terminate_sync(mcspi_dma->dma_rx);
++		if (wait_res) {
++			dev_err(&spi->dev, "failed to terminate RX DMA: %d\n",
++				wait_res);
++			terminate_failed = true;
++			ret = wait_res;
++		}
++		omap2_mcspi_set_dma_req(spi, 1, 0);
++	}
++	if (tx_submitted) {
++		wait_res = dmaengine_terminate_sync(mcspi_dma->dma_tx);
++		if (wait_res) {
++			dev_err(&spi->dev, "failed to terminate TX DMA: %d\n",
++				wait_res);
++			terminate_failed = true;
++			ret = wait_res;
++		}
++		omap2_mcspi_set_dma_req(spi, 0, 0);
++	}
++	if (spi_controller_is_target(mcspi->ctlr))
++		mcspi_write_reg(mcspi->ctlr, OMAP2_MCSPI_IRQENABLE, 0);
++
++	*pio_fallback = !dma_started && !terminate_failed;
++	return ret;
++}
++
++static bool omap2_mcspi_can_pio_fallback(bool cleanup_ok,
++					 const struct spi_transfer *xfer,
++					 bool is_target)
++{
++	return cleanup_ok && xfer->tx_buf && !is_target;
+ }
+ 
+ static unsigned
+@@ -1214,6 +1285,8 @@ static int omap2_mcspi_transfer_one(struct spi_controller *ctlr,
+ 
+ 	if (t->len) {
+ 		unsigned	count;
++		bool		pio_fallback;
++		int		ret;
+ 
+ 		if ((mcspi_dma->dma_rx && mcspi_dma->dma_tx) &&
+ 		    spi_xfer_is_dma_mapped(ctlr, spi, t))
+@@ -1227,10 +1300,31 @@ static int omap2_mcspi_transfer_one(struct spi_controller *ctlr,
+ 					+ OMAP2_MCSPI_TX0);
+ 
+ 		if ((mcspi_dma->dma_rx && mcspi_dma->dma_tx) &&
+-		    spi_xfer_is_dma_mapped(ctlr, spi, t))
+-			count = omap2_mcspi_txrx_dma(spi, t);
+-		else
++		    spi_xfer_is_dma_mapped(ctlr, spi, t)) {
++			ret = omap2_mcspi_txrx_dma(spi, t, &count,
++						   &pio_fallback);
++			if (ret) {
++				bool is_target = spi_controller_is_target(ctlr);
++				bool fallback;
++
++				fallback = omap2_mcspi_can_pio_fallback(pio_fallback, t,
++									is_target);
++				if (!fallback) {
++					status = ret;
++					goto out;
++				}
++
++				dev_warn(&spi->dev,
++					 "DMA setup failed, falling back to PIO\n");
++				/* PIO does not use the FIFO enabled for DMA */
++				omap2_mcspi_set_enable(spi, 0);
++				omap2_mcspi_set_fifo(spi, t, 0);
++				omap2_mcspi_set_enable(spi, 1);
++				count = omap2_mcspi_txrx_pio(spi, t);
++			}
++		} else {
+ 			count = omap2_mcspi_txrx_pio(spi, t);
++		}
+ 
+ 		if (count != t->len) {
+ 			status = -EIO;
+@@ -1246,8 +1340,12 @@ static int omap2_mcspi_transfer_one(struct spi_controller *ctlr,
+ out:
+ 	/* Restore defaults if they were overriden */
+ 	if (par_override) {
++		int restore_status;
++
+ 		par_override = 0;
+-		status = omap2_mcspi_setup_transfer(spi, NULL);
++		restore_status = omap2_mcspi_setup_transfer(spi, NULL);
++		if (!status)
++			status = restore_status;
+ 	}
+ 
+ 	omap2_mcspi_set_enable(spi, 0);
+-- 
+2.43.0
 
