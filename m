@@ -1,108 +1,81 @@
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6F250C29B;
-	Wed, 14 Oct 2026 14:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989730; cv=pass; b=hIDS2uGlFU2lD04kDINGAeBxKZODbpbq/JOStQdOcSB7K0dj17byEtffDE1lSvlJdxQAgsVgUyIwwSmKLLlzM6vZfnu40YbWv1SldDZgyPWTGcwJI2+R6bNaHVbhC3BILeQTYkKvVJfnEIQ1+9qegENmOXJ66XOU7iy34B1xKDI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989730; c=relaxed/simple;
-	bh=CA9g32FsvjIGy2NDJ20+Q4DRxnVN7V2LPet+zGjT+fg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mghEHGYdyYcm2MLsv/JY7QSf0JuYRVPvHtXS9FrAxILXzJyj5NS+In4wNniS56ou+i1mXIPULwnK9cQC2uBTLZ7e6V8KRFQGoKenYnu7x5/+1rGZCYttqmcvDOK6EdI+41UwWvAjANI7ZfK7Q/bdgwgmXTmr+3HSEUV+bNRGGO0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=EJlJ5thm; arc=pass smtp.client-ip=165.173.180.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02E7388E72;
+	Wed, 14 Oct 2026 14:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791989773; cv=none; b=li3BfCDU6UInjYPv9VrGHSpjaw+l+Dp//uN8MC+htH0e22FafeEKqUughavZELYe8sidnYghSekrBqoTX+65yEBsBmPP8kVl8DdlE8kDmnvhu8WF6vx171Bb9ID/fZGOy9Gp61kSWQAcz44+crENpJLJVgjTqMwJGCtKrOf543A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791989773; c=relaxed/simple;
+	bh=aeLLoyDZF4JqsvnXzhijNTeIEEUuhP4CFFXzZyfM+rI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o7MLyeV0+M/BuSPpCd1hPfqOgkHOV8hzkdCWryU10xWW5zifG9sCAzdlfmCZ+iNaGAej1HviryNXalErj0KPpQFQutief80c1WF6h1Ynbt56aFFiHzIqpdY2u0Mm837NNZYpfR3OlN3UACZ0EOWtJeIkud6xbRFBs/fohpB2faw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okqV2nzQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="EJlJ5thm"
-ARC-Seal: i=1; a=rsa-sha256; t=1791989700; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=m4nbkDhWbwMxRGHxUhdo9vdHlCk+0PjpIcLwr/rfKuYgwLUfY764hLB+y1N31hk+2Wi4CJcvqV02n17Yxxh7mSW6Zv02JikuJyzJ7NURHlGqsjV2RE4FtvVZEewFRgFZx8MP1qwGBEZmrOGbu4BUeJncEXaQzu4RKzCOA83EXjw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791989700; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=CA9g32FsvjIGy2NDJ20+Q4DRxnVN7V2LPet+zGjT+fg=; 
-	b=V+64rw46zLps7k9TwGXl5+cF91xERMXQZNkMz/qYyrDtrAA0GFPBmPinlJggW96LWjdEaKe2a/pOFCrMGVtQ/AajUb18bKGf00KYa4llRKkBJUpd8aUuZ1BWn8yR3lK6QhDSHZl6ylz/sQRbW3mhZGRBOdEZC/fcaOH9/yXpbRA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791989700;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=CA9g32FsvjIGy2NDJ20+Q4DRxnVN7V2LPet+zGjT+fg=;
-	b=EJlJ5thmYHTGuloONFxmtnSL0L2U4jeqes2F9PqN9JWlipQBiXpx7agn94gr8jUW
-	x/KVdqrxykVwyiPenP4qYHZAVZeDzgzpbyI0lv3bz/b0LFWqg7HkXrNnKNQVRsVlqNc
-	Y22rlLwfDc6d18/Yd4GopoI8gZloez457zXYWdlrZKMk+qcyXlaoK1OGzjwR+M6uXVp
-	kFwTrAOXTxLomOOV9jb6l4qdjzR0hT9NoaK9KkLr/53j9xYmesq8OEJJSsOIQR2T5cQ
-	B+kzCbvKRtCdJmCYan3SgewUDG48NqQmyMkxBqdzGLM0gogyuyf/BN+BK/DMp1rH4Ap
-	aRj9jRhTdQ==
-Received: by smtp.zohomail.com with SMTPS id 1791989698099683.4759366619081;
-	Wed, 14 Oct 2026 07:54:58 -0700 (PDT)
-Message-ID: <1227d18b5e03cd2e5b4b423cd7ca44284da0e4ff.camel@icenowy.me>
-Subject: Re: [PATCH v2 1/4] dt-bindings: vendor-prefixes: Add vendor prefix
- for Teclast
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Mikhail Kalashnikov <iuncuim@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
-  Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
- <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, Andre Przywara
-	 <andre.przywara@arm.com>
-Date: Wed, 14 Oct 2026 22:54:43 +0800
-In-Reply-To: <20261001022415.913959-2-iuncuim@gmail.com>
-References: <20261001022415.913959-1-iuncuim@gmail.com>
-	 <20261001022415.913959-2-iuncuim@gmail.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okqV2nzQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12291F000C4;
+	Wed, 14 Oct 2026 14:56:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791989768;
+	bh=Re8GJbdhl5QjVvoUI2rtJjUCyF0iWbGuReuk1JeK0as=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=okqV2nzQ+YeNHZZ4PAdi+2zs9E6BjLN0y3+24X96ykEz4tM8JTnoxD9cqhN0+FQLC
+	 wqnCwx+ZncTNSm03hEGxeujWLAcq4wMBvJVboK+94QqAgNjgko+DuXV5YDpFnAsVp4
+	 Pd/2v/4/ultfuC9mru+g8VW4vlz9VkgA8Wj6WoENEUCKPCL1QyWv96+GU3rkyDx+4Z
+	 +uqmmCqp6hS6zim6u4hISNm52CxsGNis7O9RFq7UvNx+1X9dTKa0f/NySGeGaP08Rv
+	 luYLtxDrLyV2CcZgmmEmjXl+cSNyzELMpio5BPuMjF1ZyaHsNKOa5Fy4f1HVXsNmm7
+	 GJu7ysP+uLPWA==
+Date: Wed, 14 Oct 2026 15:56:02 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Ying Huang <huang.ying.caritas@gmail.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
+Message-ID: <as-XYuUJdeHD3W9p@gremlin>
+References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
+ <as4kvHe9IFZH5qrC@gremlin>
+ <9add8400-66c1-47e9-b5af-7a4081ebf3c4@kernel.org>
+ <as-BZibPscw4cxsD@gremlin>
+ <06930044-4bcb-4478-8a6f-2dd3cf6d290e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <06930044-4bcb-4478-8a6f-2dd3cf6d290e@kernel.org>
 
-=E5=9C=A8 2026-10-01=E5=9B=9B=E7=9A=84 10:24 +0800=EF=BC=8CMikhail Kalashni=
-kov=E5=86=99=E9=81=93=EF=BC=9A
-> Teclast is a Chinese consumer-electronics brand. Add its vendor
-> prefix
-> so that board compatible strings can use it.
->=20
-> Assisted-by: OpenCode:DeepSeek-V4.1-Flash
-> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
-> ---
-> =C2=A0Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> index ba2002969..c7c2fcd37 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -1694,6 +1694,8 @@ patternProperties:
-> =C2=A0=C2=A0=C2=A0=C2=A0 description: Techvision Intelligent Technology C=
-o., Ltd
-> =C2=A0=C2=A0 "^techwell,.*":
-> =C2=A0=C2=A0=C2=A0=C2=A0 description: Techwell, Inc.
-> +=C2=A0 "^teclast,.*":
-> +=C2=A0=C2=A0=C2=A0 description: Guangzhou Shangke Information Technology=
- Co., Ltd.
+On Wed, Oct 14, 2026 at 03:45:41PM +0200, David Hildenbrand (Arm) wrote:
+> It's the following thing that adds confusion:
+>
+> include/asm-generic/pgtable-nopmd.h:#define pmd_addr_end(addr, end)
+>        (end)
 
-I am feeling weird trademark/owner discrepancy, although I checked the
-footnote of Teclast homepage and the owner here is correct (although
-the name is only seen on the Chinese homepage and on the English one
-it's just "Teclast").
+Ah ugh :) of course.
 
-BTW Shangke Information has another brand name, for PC parts, called
-Maxsun -- although it might take a while for this name to be considered
-for DT bindings.
+> What I am saying is that I don't agree with adding another two const variables
+> with names that are less intuitive than just saying the computation. Let me try
+> to improve the comment:
+>
+> /* Avoid address wraparounds by not adding/subtracting beyond limits. */
 
-Thanks,
-Icenowy
+The variables are a (possibly) neat way of self-documenting that, but then
+possibly adds complexity by having yet another variable :)
 
-> =C2=A0=C2=A0 "^teejet,.*":
-> =C2=A0=C2=A0=C2=A0=C2=A0 description: TeeJet
-> =C2=A0=C2=A0 "^teltonika,.*":
+A comment works for me, though the confusing bit I guess is knowing which bit
+exactly might overflow.
+
+So maybe saying 'avoid wraparounds of <variable that can wraparound>' and a
+brief bit about how would help?
+
+--
+Cheers, Lorenzo
