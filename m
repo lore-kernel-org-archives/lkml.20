@@ -1,179 +1,73 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70900556BBD
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 15:19:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50E638838B;
+	Wed, 14 Oct 2026 15:20:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991189; cv=none; b=HV0+vr174jY4uBaqTddtPyEY6FoXVgZb+3GpGn//44nogcWNVyoBGLshvCVViFPeeiUI/dPMjQnIRGEhpOE7oYgWiRFcle5qAnW0jZS2rl/wv+C76xX4KyrF5tRC5pDSn5Vm7xJHD2jLLM0bSnZaOkIZbvuYMY42TQ7WbVUpaPU=
+	t=1791991213; cv=none; b=m3a2wjGhopDjc2M0MypV9NMGQpmi1eKPw6brO8kft8w2GpfuJHvIqV8xd/5Uvcd/pGj0VotlUDd6EgfcEoPoN45zHNeegKpIovsuXrMYIYpDWxivZoa9bhtYxqY+B3ndNLFjMEGgluxSTXippyePAfPjnDfqsK22Itcamijkwvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991189; c=relaxed/simple;
-	bh=G2zxJe7GkogARtt1gntYhVDlCaUhHR/DtdzwRUUPBoU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UFMI4Je1QZp2bRu3F1ZTM25c9SaA8XyL43hdfddbBVErH9PRKgwhttDo7Oiu2YtRkb0BsGGV3sAP8VoPFFx3qlw4fmXQF+F1VeXaY1SiJgxiTY7zdlsZPgeeGdEg6wjM2ThlnpMSYPdmGVB2elgSJFSbS5aqWUme5h+IarDRQlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ekmv/T98; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791991213; c=relaxed/simple;
+	bh=ZqABjc6D4Ao/BmE6SUrZuvp0EeRmvS1CofLj9UeUXkM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=sw+1dhog63E9ju+TpRufgW0rWwbvCkpxbWrNGoEc1Xw9fO8QEFHvByFoU5i2K9qVN4SsB37XVIgvMM/biPhB6o9L7SkNNxfMnTYRZNaZpeMGZPG0B3dOvSOhdEivFyQhKDSP6wVGZE9+4lN8eQwrMKFe4oL5Oe0JIZ1A0wMB8TQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtoWPpl0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ekmv/T98"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3A90A1570;
-	Wed, 14 Oct 2026 08:19:41 -0700 (PDT)
-Received: from [10.164.19.62] (unknown [10.164.19.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B3D203F7B4;
-	Wed, 14 Oct 2026 08:19:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791991184; bh=G2zxJe7GkogARtt1gntYhVDlCaUhHR/DtdzwRUUPBoU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ekmv/T98bpIvaHBhsd3Np8JFa4AXGh0U8naVNgmgRHhXbADZG08EVfjO+LBvGzXaW
-	 5HWbLznXThc2VrsN8RGBFCjQCcWCSFXQysQtIzsh84Fn6B6l7KGfLOUAQwQdnOBfeM
-	 PkWzuET0KheocgrkI7o5YrHPLaG0q34frAxnaCJw=
-Message-ID: <7b547b9b-3b30-4486-87ba-c9ff0e2dab56@arm.com>
-Date: Wed, 14 Oct 2026 20:49:36 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtoWPpl0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB4D1F000C4;
+	Wed, 14 Oct 2026 15:20:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791991212;
+	bh=O3WyBIrOjeOhX1lO7ibQGpENf3bYQBgFUbIdhbIOHLM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=LtoWPpl051yNcApac6fpfjnS+XgldKeifspPNP9fc4jIqE7zFLvtvuOyMmPO29/6R
+	 ZlpnxBS3wtEK+o0M4+ygOr4Ni6SLFU/UTXBC1qMCvbjevfrV46aK74tY7zhZ54ONnp
+	 rz9iTouQZmwvNXqLBj8+egPeBy3o20FPIx/gGrwbKIddUJ90HCFfCakA46ONtQoATI
+	 GQhy9/I496Y6+4xdFWmxpszve6fINsVSjVHmeveEUQSXoaBAl/6BNqagrtoIhEqjLo
+	 NHlHDaZSWZSu3vtMKQ7/1L9wGQG2WWlLM2FlRl+6WBb/p8SOs+U0FM6nEkPNfP49I1
+	 M1m8V5P3h3ZRA==
+From: Lee Jones <lee@kernel.org>
+To: Linus Walleij <linusw@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Mattias Wallin <mattias.wallin@stericsson.com>, 
+ Ludovic Barre <ludovic.barre@stericsson.com>, 
+ Samuel Ortiz <sameo@linux.intel.com>, 
+ Julien Delacou <julien.delacou@stericsson.com>, 
+ Alexandre Torgue <alexandre.torgue@st.com>, 
+ linux-arm-kernel@lists.infradead.org, mfd@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20260924144355.1604369-1-lgs201920130244@gmail.com>
+References: <20260924144355.1604369-1-lgs201920130244@gmail.com>
+Subject: Re: (subset) [PATCH v2] mfd: ab8500: fix child device leaks on
+ probe failure
+Message-Id: <179199120992.1194488.8547333779686899093.b4-ty@b4>
+Date: Wed, 14 Oct 2026 16:20:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/5] mm/page_alloc: count a merged buddy's pages under
- the merged type
-To: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- linux-mm@kvack.org
-References: <20261007021250.1665929-1-riel@surriel.com>
- <20261007021250.1665929-3-riel@surriel.com>
- <55f51fb8-9777-424a-b45f-a6a5bd9a4693@arm.com>
- <038db2e68469e74077264a490e104391bdffe35e.camel@surriel.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <038db2e68469e74077264a490e104391bdffe35e.camel@surriel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-
-
-On 14/10/26 7:57 pm, Rik van Riel wrote:
-> On Wed, 2026-10-14 at 19:46 +0530, Dev Jain wrote:
->>
->>
->>> +++ b/mm/page_alloc.c
->>> @@ -993,6 +993,11 @@ static inline void __free_one_page(struct page
->>> *page,
->>>  			account_freepages(zone, 1 << order,
->>> migratetype);
->>>  		} else {
->>>  			__del_page_from_free_list(buddy, zone,
->>> order, buddy_mt);
->>> +			/* The buddy's free pages join the merged
->>> block's type. */
->>> +			if (unlikely(buddy_mt != migratetype)) {
->>> +				account_freepages(zone, -(1 <<
->>> order), buddy_mt);
->>> +				account_freepages(zone, 1 <<
->>> order, migratetype);
->>> +			}
->>>  		}
->>>  
->>
->> MAX_PAGE_ORDER > pageblock_order confuses things so much : (
+On Thu, 24 Sep 2026 22:43:55 +0800, Guangshuo Li wrote:
+> ab8500_probe() registers MFD child devices before completing the
+> remaining device initialization. If a later MFD registration or sysfs
+> group creation fails, previously registered child devices are not
+> removed.
 > 
-> I'm not a fan, either. It trips me up every time.
+> Use devm_mfd_add_devices() so registered MFD child devices are removed
+> when probe fails.
 > 
->>
->> Sashiko raises something:
->> https://sashiko.dev/#/patchset/20261007021250.1665929-1-riel%40surriel.com
->>
->> Although feels like it is exaggerating.
-> 
-> I suppose if we switch the two lines around, doing
-> the increment on migratetype before decrementing
-> buddy_mt we could avoid that transient underflow?
+> [...]
 
-That would become a transient overflow. See below.
+Applied, thanks!
 
+[1/1] mfd: ab8500: fix child device leaks on probe failure
+      commit: 5bf2ae8b131d4ae9c0ed5f7aa02532645f512022
 
-> 
->>
->> My concern is for systems with a high diff between MAX_PAGE_ORDER and
->> pageblock_order. So on arm64 systems with 64K pagesize but pageblock
->> size as 2M (and PMD size 512M), the pageblock order is 5. We use this
->> configuration to reliably get TLB optimization from contpte size
->> mappings.
->>
->> Will we then repeatedly overflow the pcpu counter into the zone
->> counter,
->> regressing stuff?
-> 
-> The per_cpu_pages struct does not seem to keep
-> counts on a per migratetype basis at all. It
-> has per migratetype lists, but only one
-> pcp->count.
-> 
-> Also doesn't the pcp only carry order zero
-> pages currently?
-> 
-> I don't really understand your worry.
-
-Sorry I was not talking about the pcp list (also, pcp carries
-order 0 till 3?)
-
-In __mod_zone_page_state, we use the per-cpu variable pcp->vm_stat_diff,
-and when it overflows or underflows past a pcp->stat_threshold, we
-push the diff to the global (zone) state.
-
-The reason we do so is to optimize by batching zone operations into
-per-cpu local operations.
-
-My concern is that for large delta, we will always overflow
-or underflow, defeating the purpose of the per-cpu caching.
-
-So on said arm64 systems, we may frequently enter your
-
-if (unlikely(buddy_mt != migratetype)
-
-branch, and if pcp->stat_threshold is not enough, we may repeatedly
-overflow and underflow, defeating this per-cpu optimization.
-
-> 
->>
->> Perhaps I am overthinking. Your approach is clean, but perhaps we
->> could
->> also do:
->>
->> void account_freepages_move(zone, order, buddy_mt, mt)
->>
->> 	/* PCP-types do not have per-migratetype free counts. */
->> 	if (likely (buddy_mt < MIGRATE_PCPTYPES && mt <
->> MIGRATE_PCPTYPES))
->> 		return;
-> 
-> Wouldn't that throw off the counts when we merge
-> e.g. a MIGRATE_UNMOVABLE page with a MIGRATE_MOVABLE
-> buddy?
-> 
-
-As you said, in account_freepages(), there is currently
-no conditional based on MOVABLE and UNMOVABLE. So we
-are essentially doing -x and +x, netting to zero.
-
-So we could write my function, make it clear that currently
-this is not needed for the MIGRATE_PCPTYPES, as opposed
-to MIGRATE_CMA and MIGRATE_HIGHATOMIC which have separate
-accounting.
-
-> With your test we would only ever do the free count
-> adjustment for mismatched types if one of the pages
-> was HIGHATOMIC or CMA. That leaves the common case
-> without coverage.
-> 
+--
+Lee Jones [李琼斯]
 
