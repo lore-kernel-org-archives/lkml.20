@@ -1,111 +1,203 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38924E0216
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E90535FD0
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 14:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987114; cv=none; b=BkoB9ElUN++gH5lmyLJlB6pt0vMirTYWRAS+lR5LnfZQ2Z/aZL5QATzPFnbBur5BrVZmJ8qiLEhYTtevje6OMSfodId++d5KAjXnGbgObrzCAkkQ4/Pq2A1H/hIAwvTD4vNX/GE/OpVqknM3A2zsh1uz9ah1BI8BvIta/FqHDcc=
+	t=1791987114; cv=none; b=das+YZzTqNJfbolUFr6ll975iO9LNvFb0i0SLN4iwKWoLz34CBuhMkU9S79XpGmPoGIvds3uh9MaBC6xEkDbLfHrTjmKYSPtFloumth5S76haRuoOVs+pNiAP0G8cRrmpV8VHVPf44jlpXml6iGLFw8enAJFSnD/ZDe4/bWb1P4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791987114; c=relaxed/simple;
-	bh=7jzAi5BeAdIkl4iAKTAGSm/TF0jcqPfEo0j91lbmFbQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XqJIKRC4iU11/pKnbIHzDwT+0SLQ7tr9zMUWf4VJsIAMmHbunmK339izUdk6GzP0R0pAWAc20J3tE7X+/w3+/Rm3TKoDS9Kq3vH5pTr5jvGP74q8yqqW32itcGO+TgVyj8V0t4thLGV44gdNHEXnN6zp5OiSal8vCu4AurMr6A4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=DO13oonX; arc=none smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	bh=EDVcaV0WNqaqU31GeopChaWSKHO4coQmvq3ODLQu8GY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ZoJxq2VwEBZF5VWtYpYbCdcRPRfiDg3rMWW8Sn7euKzUiTHsGvHBZVKJIsO1fxSpj9jG3WGibT5zMG8cRGd0YLKQr4HGuLpkc6KxCl67U0gHBN8jfcNwi1BEimPBoPjNnZXxBNmTZeXrTTsWNlWhLEKtM4eH8pJYnXCZcAuvu18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rrrOVB/Y; arc=none smtp.client-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="DO13oonX"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53505bc6524so11690011cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 07:11:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791987109; x=1792591909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x2RGY30pvB7iMJWThep4HkKVXtai7MDyDWpebau2fPg=;
-        b=DO13oonX+1CrHYNmZtjM3EtGCM8K97VNrfHrc4jTQkU8jBO/VDnSlCCheYj964xOhS
-         uCvtc0LKGq+A80vLGX/9XptZzNpb4miukyAKctio3qg2Lo/FPfnys7RlCgHxWBeFpmnA
-         y/uy31Nli7LKkgfNm7V+b1b4XdxZRNN2eOYJGU0xq5S4ubO6MUY5CUaaIWYAJgx3FEgw
-         dkEZzhNl2v7Gj/kEGcHPLc0CKCTTqkrX4RoJgcVLTJM5YDBDcd2eKLO+0waK1QEKppFe
-         Nn3j/C9pofPrRfgjtd90LSClFJ+/wR4zvhKEKXTJXwfIF5GBfYDRbwBpx0H8/VfB0EAW
-         ocEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791987109; x=1792591909;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x2RGY30pvB7iMJWThep4HkKVXtai7MDyDWpebau2fPg=;
-        b=v1I6C04eIyNWL+sY8wOu9TwM9S6sCnTt3dhuD764hb8on+QAt0hj/V7E+OK57J/qF6
-         OrYPw5ZsqoG5wBjrwir+z9XVvrgHR5V14OXvDX7MIrvWqGiDfDU86S1bAxQ5uwnkO3Ot
-         CtuhSJNY4yeVwbVm7V1N66Xa+KdCxgtD0bTWuu/5SDtBfQnU/AZEfg+TzL0lpHb8SxEp
-         V9r2j9dob3e9o6cPio5H2Yr4Bu68+zsBSv/Z3uDDe4sBEzkCD8Mk2jGe9+Bm/zmFJiD+
-         BjEn6Kshv65/a8568O14viylUZ6Qs+nIdR/qkGg5lr8IE+reoHqxcltxnwv5Efs/c2MK
-         Lckg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5yxYImXsXLVTXjNpGzrRSslVASPJbV41v9VNhXwdc3A5rUtkLp/AHyOpCHBE8S7QuciVbIHVqeEc47RU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzXmw0co+LcfS5/PBDMNeCDw12mAjCKHf3D60iTWF2ptJhxJYj
-	GkmLqlDDu+FlYJzn4g0pwSNB3+xLbu6prOUGdWzVckxd18tf3z09bK3dBQbWqEM57oI=
-X-Gm-Gg: AYBFou1hhX+4fa/QquGWbxbsthvIJW7CzsE2YcabW8Ni84v0ynknZMDv6TYfsnbZMDA
-	WXuJSZ/Zn+VbaQuXTa3m8UlTx+V4YB11D2dFiE3zp4jvs5KLaSrJPNglRrDvClzeTZGzflhKz5M
-	f2C0zFZBuYARtpkpyFkrNe7nFULQyiAxXhOnFKzTTPZrvY3vfOnVwiz1U4N7ZOYQJNzPPoPAV2j
-	ud4GOfRIyZuZ0OwEto4ABumiS5R5Zp71qYuPNw0soUhm5Ne/zP4K/FcXMiSMWhck4yN82i5H+mD
-	GXr7PAp9KdgB9YyXX3et9FMGL62Fo+qVBEZCziupqSGbrJVx/ZBF7k7gQt827eEkiByp/8diLtq
-	GfMyWQ1XZ/Bhxgq7TlvSKIfzfjgaX5+pi5KIHbQo9P2S1aVsanN61YczzhmJOVfO9COPpzMPeu5
-	M7DcPA08EX7Hm5o6azGK6momHaP3NjLoLUHgdAFth5znqZMjl5jw5+oiYHMeiON5InmjKGKZpRD
-	iMESFjKphZurcY=
-X-Received: by 2002:a05:622a:2283:b0:533:8dbc:1fb5 with SMTP id d75a77b69052e-5359d6a1cd7mr244555751cf.4.1791987107502;
-        Wed, 14 Oct 2026 07:11:47 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.242])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ba3d63c70sm34481076d6.43.2026.10.14.07.11.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 07:11:46 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
- Mina Almasry <almasrymina@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>,
- Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits() report
- unreadable frags
-Date: Wed, 14 Oct 2026 14:04:45 +0000
-Message-ID: <179198668564919.2.10323410751655182155@toxicpanda.com>
-In-Reply-To: <20261014135154.05de968e@pumpkin>
-References: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
- <20261014135154.05de968e@pumpkin>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rrrOVB/Y"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791987101; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=WMi+Mbcr4YFWc7b54ioO0gfFc35PTsSr6VOsGv6IvoY=;
+	b=rrrOVB/Y1dlz05kgXKjfdQR49tvArzoUuvRpK27Wr8xoqo4XI3hj3bLWlvvBJ88/NHzX/2Jd30aF6Ifdoy1OdrHvTXVOeDls+cM9LqbFEKsqTre7jINQ4Ito6ciWx5Xauil1ilSXIb1LxyuzN9PiNcMfPZqM+OUQjVKqmCXIvO8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XCp410D_1791987098;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XCp410D_1791987098 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 14 Oct 2026 22:11:39 +0800
+From: fangyu.yu@linux.alibaba.com
+To: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	jroedel@suse.de,
+	zong.li@sifive.com,
+	andrew.jones@oss.qualcomm.com,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	gsh517025@gmail.com
+Cc: fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	kvm-riscv@lists.infradead.org
+Subject: [RFC PATCH v2 3/4] iommu/riscv: Add guest IMSIC GPA mapping helpers
+Date: Wed, 14 Oct 2026 22:11:23 +0800
+Message-Id: <20261014141124.48569-4-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261014141124.48569-1-fangyu.yu@linux.alibaba.com>
+References: <20261014141124.48569-1-fangyu.yu@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 01:51:54PM +0100, David Laight wrote:
-> Can't you use that fact that the csum function should only return
-> either 0 or ~0 and use the other value to indicate an error.
->
-> ISTR this coming up before with the 'copy_to/from_user_and_csum' code.
+From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-skb_copy_and_csum_bits() returns an unfolded __wsum starting from 0, so
-0 is a valid result today.  It would work if it started from ~0 the way
-csum_and_copy_from_user() does, since that doesn't change the folded
-result and the sum can never come out as 0.
+IOMMU implementations without the MSI_FLAT capability translate MSI
+writes through the second-stage page table, so IRQ forwarding on them
+will need guest IMSIC pages mapped into the second-stage domain.
 
-But this is one of those "you have to know the behavior of the function
-to use it properly." Explicit errors are always better, it removes
-ambiguity and creates cleaner and less error prone code. I'm happy to
-change it to start with ~0 as well to add the extra protection, but
-explicit errors are always best. Thanks,
+Add an xarray to the MSI table that tracks the HPA installed for each
+mapped guest IMSIC GPA, and two helpers for use with the MSI table lock
+held: riscv_iommu_msi_table_map_gpa() installs the initial 4 KiB
+mapping, and riscv_iommu_msi_table_replace_gpa() repoints the leaf PTE
+when a vCPU's VS-file host page moves, using the generic page table
+replace_leaf op instead of walking the table in the driver.
 
-Josef
+Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+---
+ drivers/iommu/riscv/iommu.c | 43 +++++++++++++++++++++++++++++++++++++
+ drivers/iommu/riscv/iommu.h | 12 +++++++++++
+ 2 files changed, 55 insertions(+)
+
+diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+index e2e77469ea3c..88e131ce96c1 100644
+--- a/drivers/iommu/riscv/iommu.c
++++ b/drivers/iommu/riscv/iommu.c
+@@ -1217,6 +1217,42 @@ void riscv_iommu_msi_table_inval_all(struct riscv_iommu_msi_table *msi_table)
+ 	riscv_iommu_iotlb_inval(domain, &gather);
+ }
+ 
++int riscv_iommu_msi_table_map_gpa(struct riscv_iommu_msi_table *msi_table,
++				  dma_addr_t gpa, phys_addr_t hpa)
++{
++	struct riscv_iommu_domain *domain =
++		container_of(msi_table, struct riscv_iommu_domain, msi_table);
++	const int prot = IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_MMIO;
++
++	/* Guest IMSIC GPA mapping only exists in second-stage translations. */
++	if (!domain->gscid)
++		return -EOPNOTSUPP;
++
++	return iommu_map(&domain->domain, gpa, hpa, IMSIC_MMIO_PAGE_SZ, prot,
++			 GFP_ATOMIC);
++}
++
++int riscv_iommu_msi_table_replace_gpa(struct riscv_iommu_msi_table *msi_table,
++				      dma_addr_t gpa, phys_addr_t old_hpa,
++				      phys_addr_t new_hpa)
++{
++	struct riscv_iommu_domain *domain =
++		container_of(msi_table, struct riscv_iommu_domain, msi_table);
++	int ret;
++
++	/* Guest IMSIC GPA mapping only exists in second-stage translations. */
++	if (!domain->gscid)
++		return -EOPNOTSUPP;
++
++	ret = pt_iommu_riscv_64_replace_leaf(&domain->domain, gpa, old_hpa,
++					     new_hpa);
++	if (ret == -EAGAIN) {
++		/* The leaf changed concurrently; the caller revalidates. */
++		return -EADDRINUSE;
++	}
++	return ret;
++}
++
+ #define RISCV_IOMMU_FSC_BARE 0
+ /*
+  * This function sends IOTINVAL commands as required by the RISC-V
+@@ -1425,6 +1461,8 @@ static void riscv_iommu_iotlb_sync(struct iommu_domain *iommu_domain,
+ static void riscv_iommu_free_paging_domain(struct iommu_domain *iommu_domain)
+ {
+ 	struct riscv_iommu_domain *domain = iommu_domain_to_riscv(iommu_domain);
++	struct riscv_iommu_noflat_imsic *imsic;
++	unsigned long index;
+ 
+ 	WARN_ON(!list_empty(&domain->bonds));
+ 
+@@ -1435,6 +1473,10 @@ static void riscv_iommu_free_paging_domain(struct iommu_domain *iommu_domain)
+ 	if (domain->gscid > 0)
+ 		ida_free(&riscv_iommu_gscids, domain->gscid);
+ 
++	xa_for_each(&domain->msi_table.noflat_imsics, index, imsic)
++		kfree(imsic);
++	xa_destroy(&domain->msi_table.noflat_imsics);
++
+ 	pt_iommu_deinit(&domain->riscvpt.iommu);
+ 	iommu_free_pages(domain->msi_table.root);
+ 	kfree(domain);
+@@ -1676,6 +1718,7 @@ riscv_iommu_domain_alloc_paging_flags(struct device *dev, u32 flags,
+ 	INIT_LIST_HEAD_RCU(&domain->bonds);
+ 	raw_spin_lock_init(&domain->lock);
+ 	raw_spin_lock_init(&domain->msi_table.lock);
++	xa_init(&domain->msi_table.noflat_imsics);
+ 	mutex_init(&domain->mutex);
+ 	iommu = dev_to_iommu(dev);
+ 	cfg.common.hw_max_oasz_lg2 = 56;
+diff --git a/drivers/iommu/riscv/iommu.h b/drivers/iommu/riscv/iommu.h
+index 9852962e245b..8d5f44de2688 100644
+--- a/drivers/iommu/riscv/iommu.h
++++ b/drivers/iommu/riscv/iommu.h
+@@ -18,6 +18,7 @@
+ #include <linux/irqdomain.h>
+ #include <linux/rcupdate.h>
+ #include <linux/sizes.h>
++#include <linux/xarray.h>
+ 
+ #include "iommu-bits.h"
+ 
+@@ -74,6 +75,11 @@ struct riscv_iommu_device {
+ 	struct irq_domain *irqdomain;
+ };
+ 
++/* Tracks a guest IMSIC GPA mapped into an S2 domain on IOMMUs without MSI_FLAT. */
++struct riscv_iommu_noflat_imsic {
++	phys_addr_t hpa;
++};
++
+ struct riscv_iommu_msi_table {
+ 	/* Protects attachment, interrupt forwarding state, and MSI PTE updates. */
+ 	raw_spinlock_t lock;
+@@ -84,6 +90,7 @@ struct riscv_iommu_msi_table {
+ 	u64 msi_addr_pattern;
+ 	const void *owner;
+ 	u64 required_caps; /* RISCV_IOMMU_CAPABILITIES_* required by active MSI PTEs */
++	struct xarray noflat_imsics;
+ };
+ 
+ /* Private IOMMU data for managed devices, dev_iommu_priv_* */
+@@ -109,6 +116,11 @@ bool riscv_iommu_msi_table_check_caps(struct riscv_iommu_msi_table *msi_table, u
+ void riscv_iommu_msi_table_inval(struct riscv_iommu_msi_table *msi_table, unsigned long addr);
+ void riscv_iommu_msi_table_inval_all(struct riscv_iommu_msi_table *msi_table);
+ void riscv_iommu_msi_table_update(struct riscv_iommu_msi_table *msi_table, bool activate);
++int riscv_iommu_msi_table_map_gpa(struct riscv_iommu_msi_table *msi_table,
++				  dma_addr_t gpa, phys_addr_t hpa);
++int riscv_iommu_msi_table_replace_gpa(struct riscv_iommu_msi_table *msi_table,
++				      dma_addr_t gpa, phys_addr_t old_hpa,
++				      phys_addr_t new_hpa);
+ 
+ #ifdef CONFIG_RISCV_IMSIC
+ void riscv_iommu_ir_irq_domain_remove(struct riscv_iommu_device *iommu);
+-- 
+2.50.1
+
