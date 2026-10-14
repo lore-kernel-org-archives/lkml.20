@@ -1,85 +1,124 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4DB73C09F2;
-	Wed, 14 Oct 2026 16:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A9F3CF208
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 16:04:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791993764; cv=none; b=feOVHEMiQ1Dyrm85cYEreJWrQ+gixQoCkwM0EyLJ/79brT0PCH6/6TLiigaHSffSOPx/k4R/Fbyv7Sd2BvNK1FdfYP4QtmpmuJa9SBd+vUjt/HftaZpiWTLh6kJ7xh1M8cl7IrHrCibpAqCiFEFf1Fq0g2jIOqXnElY6nTiVSq4=
+	t=1791993885; cv=none; b=s6jGXNWbdmDyhzSFuEFvaSqaVpzIEU2/nWbBu2i90TdgTbnDV33f6rtaXXgoSyVCIcE7dk/yhChJDJTwWduWEMoZ1wq081Z0yQNU1aj6RhW1yJ77RuZAUSEZRNuvFGKkrvVzCHlRmJHQ+dcjast7u3GkpW3DjFoF20XWOItjTMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791993764; c=relaxed/simple;
-	bh=eHtrIYNUI30G3uIrgMWpjKj1RPDVGNJ3XDGwXzNmooA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z4fPzsDOqFiaOo0rz/macM4YFJqiRQeEmcwKNxcjLqHgqoUh+AV7A2yTsK449nkIEMAYn99ULA31f7cfZzncvbxU6bgGcPXS1u0/dTd+GuuIlVeHcaUUWSsejzMr/EVwe/JtOF6pPb4oxkI3q5UsySprPKD5ETQ543VghoWSqrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=DbHwErFE; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791993885; c=relaxed/simple;
+	bh=PI0fOAv5zzJ41Ji3Z2QtwoPTiCXvJem5/RFTA0ekY0U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HhoqHZWLiG4UeHq8ziDVr21thBS01FJTgLW+X36IP32gbcGgIw665jnk6AqjBUolIgBWyKTi9CIBGrCnZryis2Vb4pll25OCECrWKj62swSSaK4X4ZYnMt01emsQMVdPIuBgFShxoCaZr7u+5V0C9m77xdit9vjlJQpkJsv4CvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FB2ic1WG; arc=none smtp.client-ip=91.218.175.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="DbHwErFE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=zxbJyqOh3q1HjCr39eG3Dlk0wV+43/JWcmZnniHJUAc=; b=Db
-	HwErFEH3SO459MkYWZsOEjdbPMKnF3pswDJ4SfxwKfBrWkQLohdvXOOduZz5eVwjaZOsLIT9MSiR7
-	QL93wzU1t1JpoGNdYCKS6Jrjjd4VNHF/vO/mna9MN03gKe5ZoPmX8FBDrmI3b9nzYptK9FZ3HSrmF
-	0A5jZO1GEss4JvI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xH1Qr-00Am9g-Ib; Wed, 14 Oct 2026 18:02:21 +0200
-Date: Wed, 14 Oct 2026 18:02:21 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: phylink: allow stopping a suspended instance
-Message-ID: <7ffb9b38-75e1-42e2-86e2-21a1666fc51f@lunn.ch>
-References: <20261005-submit-phylink-suspended-stop-v1-v2-1-8b8e5d53dfc2@gmail.com>
- <224296ea-f196-44f3-91d6-1461846c55a5@lunn.ch>
- <CADvTj4qgcXE6azsNx-Wg5afatezLeuctGR607qO1WhZSmuqzBg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FB2ic1WG"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PI0fOAv5zzJ41Ji3Z2QtwoPTiCXvJem5/RFTA0ekY0U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791993881; v=1; x=1792598681;
+ b=FB2ic1WGugcHaPbviCEivRkLZWw6rAaFPdy2BZYb5aDlbMVpLQ4QRp/EaFsTU3lA6tRJugoS
+ l/P+Y1zD2kd/5w573b/aFKTNx03vEhPg5K6XeQ/2N/QhYiJ3qoDoGXWldnKvH6p88DlRCbbU0h+
+ /CIC+skOEpBCvkjLuyFJijRo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0ac52b3081cf7048;
+	Wed, 14 Oct 2026 16:04:41 +0000
+X-Mizu-Trace-ID: 0ac52b3081cf7048
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <73f0dafd-5b26-42b9-a77b-90c32976942f@linux.dev>
+Date: Thu, 15 Oct 2026 00:04:23 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADvTj4qgcXE6azsNx-Wg5afatezLeuctGR607qO1WhZSmuqzBg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] mm/huge_memory: fix the copy of special PMDs at
+ fork
+Content-Language: en-US
+To: Konstantin Khorenko <khorenko@virtuozzo.com>, Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Peter Xu <peterx@redhat.com>,
+ Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+ <F6337325-E635-43BB-9E5E-DCD25F4FC951@nvidia.com>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <F6337325-E635-43BB-9E5E-DCD25F4FC951@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 01:46:24PM -0600, James Hilliard wrote:
-> On Mon, Oct 12, 2026 at 7:22 PM Andrew Lunn <andrew@lunn.ch> wrote:
-> >
-> > On Mon, Oct 05, 2026 at 01:09:05PM -0600, James Hilliard wrote:
-> > > After a failed MAC resume, a driver must be able to stop phylink without
-> > > resuming it and reconfiguring the failed MAC. This is needed when recovery
-> > > leaves the interface administratively up but detached until a subsequent
-> > > down/up: ndo_stop() must finish the suspended phylink lifetime even though
-> > > the MAC could not be restored. The missing transition was identified by
-> > > code inspection of the stmmac recovery paths.
-> >
-> > I don't particularly like this. It feels like a workaround for a
-> > broken MAC. It would be better to fix the MAC so that resume does not
-> > fail.
+
+
+On 2026/10/14 23:57, Zi Yan wrote:
+> On 14 Oct 2026, at 11:46, Konstantin Khorenko wrote:
 > 
-> Fixing an identified cause of resume failure belongs in the MAC
-> driver. The intended purpose here is narrower: allow orderly shutdown
-> after the driver has returned an error, rather than recover the MAC
-> through phylink.
+> <snip>
 > 
-> stmmac_resume() already returns before phylink_resume() when hardware
-> setup fails.
+>>
+>>
+>> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+>> ---
+>> Changes in v3:
+>> - Patch 1: recheck the PMD with pmd_none(), as only a zap can change
+>>    it and a zap leaves it none (Lance Yang).
+>> - Link to v2: https://patch.msgid.link/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-0-e1548488fa68@virtuozzo.com
+>>
+>> Changes in v2:
+>> - Add patch 2, the page table deposit for ppc64 hash, reported by
+>>    Sashiko.
+>> - Patch 1: name panthor instead of drm_gem_shmem as the driver whose
+>>    stale child mapping reaches freed pages: drm_gem_shmem keeps the
+>>    pages of a purged object until the last mapping goes away.
+>> - Link to v1: https://patch.msgid.link/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com
+>>
+> 
+> Please stop sending new versions of a patchset repeatedly.
+> Wait at least a day for others to catch up.
 
-But why did the hardware setup fail?
++1
 
-This is what i mean about it being a workaround.
+Please slow down a bit. You don't need to respin every few
+hours. That just makes everyone start over ...
 
-    Andrew
+Post a version, wait for feedback, then revise. Twice a week
+is plenty, honestly :)
+
+Cheers, Lance
+
+> Thanks.
+> 
+>> ---
+>> Konstantin Khorenko (2):
+>>        mm/huge_memory: recheck a special PMD under the lock in copy_huge_pmd()
+>>        mm/huge_memory: deposit a page table for a special PMD copied by fork
+>>
+>>   mm/huge_memory.c | 34 +++++++++++++++++++++++++++-------
+>>   1 file changed, 27 insertions(+), 7 deletions(-)
+>> ---
+>> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+>> change-id: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
+>>
+>> Best regards,
+>> --
+>> Konstantin Khorenko <khorenko@virtuozzo.com>
+> 
+> 
+> Best Regards,
+> Yan, Zi
 
