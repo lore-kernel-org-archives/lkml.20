@@ -1,217 +1,113 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAEA2FE07D;
-	Wed, 14 Oct 2026 12:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982477; cv=none; b=rHua3OAkt+gvzn9w9axs2pAoYRQaR4VNlRLVY2rymDK79/RuS6sn9Yb4yLBmFXLtf2CZdBR8looUEyMxhmY2rR5xak43MMTu5Y4pAhGoHq1YSLpFtw8aMdtzpAeq4glw2w6Z4hIj4x2a2k98ZOR0N6DRAtGjwXsuHh8D/iTJO54=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982477; c=relaxed/simple;
-	bh=hpcg1jgzngplLEDfCJgF27/UlLBHLObqI9s2YymHbdQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kx/wH7byD16awtemYnaYFseo4q7k70df+8b1YOmaWxQb11auizyMryYOD9wBPCftk+qS+27sTopWRPfhQW/Zzn9641is1XsYbO0X+pqNravxgrxA9N5TnZkXTF9IgXBP0SgonXAs7//KXoDIXRh46SIGJEsuWN6L3DQdKRE14FU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=DZ468QI9; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Ir1C+oqO; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=DZ468QI9; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Ir1C+oqO; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6754E9C1F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:54:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791982480; cv=pass; b=P8TBv5boecPe/0eC4S56XjWyUOQwXyn7ExBnn2fRpj1hIqwjf1SaNySUAjMRTmuzSYvPTZtYKPrnn4lFuAU7MawFBVcQS3VGNw1gaanAMPVxgj+d9oROkCIB446f6xfteKQruW7FIsfgNiYZSHBoG+i2n5fYKlNgH428Rs1MKXU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791982480; c=relaxed/simple;
+	bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qT/j1cEz66fTTkLHGrUv4Ee+wVPlrQTXr8nNWLbltcRc5ArR+bORK425hM7y3H7Oy/NzRG9yx3NyA4GsYuCdYWYbTckJXX7A+Nkb63Yixp3vJHI5KwH1XC6uvYViWPavCf/F6Y8IC0Tw2FUNJBlne+BMSycN9J2a4Did7xuU/MQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GhGkwpJT; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="DZ468QI9";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Ir1C+oqO";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="DZ468QI9";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Ir1C+oqO"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 08E221FB5D;
-	Wed, 14 Oct 2026 12:54:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791982464; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yiag147YDzRhJZQmdF9FuIn31YFtAGEtLjcC+W+Mgt0=;
-	b=DZ468QI9zy+G17t8LQgWerTdwf1/ijRZbhnrjV+dTV4JYYqm0PyuPv7qdeoaS+LP2t3AUn
-	DwAZE2fUqRc5yPlVlSIDvKg3hNLoJFAo9WjRUNJCzymcGin9Ej7dGrT3CXqTV9B3skee++
-	mHhVMg7r0NmtDb+OBdAEAb+2HSEyp+4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791982464;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yiag147YDzRhJZQmdF9FuIn31YFtAGEtLjcC+W+Mgt0=;
-	b=Ir1C+oqOMOIcacDq1tx/pNbRkPQKcRUKsAzTj+YqDIjuO8k95WA0Bf9W1Jo3Z5jVL1VZIn
-	hnNPQEXs4th1WEDA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=DZ468QI9;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Ir1C+oqO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791982464; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yiag147YDzRhJZQmdF9FuIn31YFtAGEtLjcC+W+Mgt0=;
-	b=DZ468QI9zy+G17t8LQgWerTdwf1/ijRZbhnrjV+dTV4JYYqm0PyuPv7qdeoaS+LP2t3AUn
-	DwAZE2fUqRc5yPlVlSIDvKg3hNLoJFAo9WjRUNJCzymcGin9Ej7dGrT3CXqTV9B3skee++
-	mHhVMg7r0NmtDb+OBdAEAb+2HSEyp+4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791982464;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yiag147YDzRhJZQmdF9FuIn31YFtAGEtLjcC+W+Mgt0=;
-	b=Ir1C+oqOMOIcacDq1tx/pNbRkPQKcRUKsAzTj+YqDIjuO8k95WA0Bf9W1Jo3Z5jVL1VZIn
-	hnNPQEXs4th1WEDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A47AA1368E;
-	Wed, 14 Oct 2026 12:54:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2P6oFn97z2rOFQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 14 Oct 2026 12:54:23 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 93594A140F; Wed, 14 Oct 2026 14:54:22 +0200 (CEST)
-Date: Wed, 14 Oct 2026 14:54:22 +0200
-From: Jan Kara <jack@suse.cz>
-To: jianyungao89@gmail.com
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
-	Goldwyn Rodrigues <rgoldwyn@suse.com>, "Darrick J. Wong" <djwong@kernel.org>, 
-	Shiyang Ruan <ruansy.fnst@fujitsu.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	"open list:FILESYSTEMS (VFS and infrastructure)" <linux-fsdevel@vger.kernel.org>, 
-	"open list:FILESYSTEM DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>
-Subject: Re: [PATCH v2] dax: fix dax_range_compare_iter() to use correct size
- and address offset
-Message-ID: <zvixzzexxaekw63q7yzeqibjd6elvq34q72xzsy6wmvrufxqae@b6yazc6wtpxy>
-References: <20261011064840.1296-1-jianyungao89@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GhGkwpJT"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso38188a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 05:54:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791982470; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Lh0HuNojdPDfb9Q0rnJ1HrUd10qsOTdUW8y1s65lKuMlrze+BrOMtr+C0/ZfUr2e9f
+         5T88DLyebY5HDkAbhG98pANaewY1F3jlUxHeC/InoWmo+9spX8PkXpKtzm/TH+jqtcUX
+         dAyENFjvvVFBEwJlD2f2qmxZOiJ+F3kuB3SQLCFrnUikkwiyqxNerdXmvJRi+FHRSGku
+         rjImZ69VFWX2nKuy4LdrijUK6Z3l1WUy1TF/SoAMj+GCw4U+dvuE67p/05vMSYMxKgDH
+         43/RkNCKojYcrmmqTtheNGV0PyUJVy9T2P3xGJs8v+cSjvDKTdQ4d3p9aSribrXUHJ+q
+         rm4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
+        fh=9TTo0gh/vunJ1euJccuLOEg2qTg7c6qpdaau7vVJEYQ=;
+        b=B/PIT4kCFUjhBVxRpxXPTwdzzGGA9YnqH7q1Q8vSl7b1gEYhU8BIMhd8F5WGGTYBjj
+         2xWXi1lPJVoLXSNetfe1EGUnCh1s5WLvZ4N1iAVVNjK9Lf5Y9MAPMmNWm1W0vi+LgMlz
+         nznkXksAKjwF8pTxX6AGo7siTxGNtQfqy7bl+Uj+H2+MbXHBQwe/NKuq3uSURdp8I7o0
+         wG2esWVQ/N7BTFqeAlAiEAFReM0KDil5p7l0jcRGuytFxspQ3tmVgSQ7gpngk/RVwqJP
+         KwX192W9qUIIOlffxwj5iZGGUt7cpKK89yP44stZJc2nsLtCqdozIKI6ljn7GP+K67vW
+         0dsg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791982470; x=1792587270; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
+        b=GhGkwpJTT6fXiF9yrbpcPpLZFt8cagCklO27tAT0GOlKOZd10Pt5nn2X1ARx/ukQ/0
+         5MGj8JFAUPzR/X6RJDy0A7B9xmrxOP7FNsGVL950MyNWwmqTQKvmH2bilzrC4KPSFWQh
+         +/8p25SEMCixJ9FCt3tfk50NMJPhfsf2m5ezWVA39gXJPC9GgHm3Vs0U+ZLVX5ZB+IJ7
+         aUrmRaRnNhG41Dq8PlivhI0WZ0WR4Szgy9m5XpYbsKeetYowEMLxy/JkCC65WublRiTm
+         LQXjmw+pZIuW64Onl2Zos796QocP86vo7CFhe5oCbBXxaE46ksmfhod6kC5xzBKUPqYu
+         HuJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791982470; x=1792587270;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
+        b=X0vwYpaZ0XJL7HAahkgg3UNpceen2NxsLtLiAiFOmzNZs/ZTCAxD5WNB6OnOgjxaTS
+         j3uYeKpm8tX64ju3Q6ph/aKN0m92RCHvDyA4LuIu0rUan1ir7nNg9m8iBI/i8Ro/DCgl
+         Dn/K3eMYwtDKK9xXpuL6oX4FbSyRa9ZN4gOkoUCr1YjKGFF8p8fBClqsKqK8PgZ+7JUZ
+         82s1LLtWcoLTKXuha7wqTba8jSj+o/WMSNKB4cWjLTd/IZieoWf8MlTFlyoo2CrnWe4W
+         wKykgRsTXi1eIm6CAZzkRuCaQyHVgGsjZG0PDzCBqVIUOfc0AMRe/dUDIIpDk4kESaF0
+         I48A==
+X-Forwarded-Encrypted: i=1; AKwUvBzT70sF7U6pCJFGhX2hv1R/cHs1rQuHjz9mRwptFALyUfurOziJAVNnMpgvwL1J4rWIbqhLUgm+cv9w6Bc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLha1F2lDu6qJtrGwMA9e+PqTBaavudnfiUb+GTftxMVR4hrm8M
+	hKHpJAsNq8FmrDFnxlOmlff4kPtYR0Pp31GR+xAGSdQexP36nuGhZzN8WdTz92K7mU5mfRQJMWu
+	RpIbxkffnhdplUBIG1ZB2nrm4dXfe05BpA1uVIknw
+X-Gm-Gg: AYBFou0GUMA9vXWMa+CfKdkH87es5gfhIbv0femag/Yxvzplbf5SBsN2sw8+y0LWSsH
+	YjFB5LHZRNp61LFjQ4vBfCO20jWawUIaUOf3zuum28obFtKHxFzQQQzfNqMwi5SI/JX2VHUOU/f
+	SAw5jabZl+a1KczYFeytNyqv6+nubB+kOAQq5/6isNXfED3XaJ0RLVzJshUvHeQAAt4Eu6L5Ybv
+	oyLB4gXB/ttKSXTvNcu4W6ig9StLjYyri9QqS1sbg0zFYO26N8DROZjT6hOSIBTXEJuFF4zh0L6
+	0B7WFbmSpGAG8Ap0C/OlGDXA6G9JBLGty48YmeO3MdE36FrJJ/mjkB0=
+X-Received: by 2002:a05:6402:c548:20b0:6ae:1503:5a27 with SMTP id
+ 4fb4d7f45d1cf-6b20aae063bmr28860a12.8.1791982469402; Wed, 14 Oct 2026
+ 05:54:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011064840.1296-1-jianyungao89@gmail.com>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 08E221FB5D
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:email,suse.cz:dkim,suse.com:email];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+References: <20261013231728.883001-1-yosry@kernel.org> <20261013231728.883001-3-yosry@kernel.org>
+In-Reply-To: <20261013231728.883001-3-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 05:54:17 -0700
+X-Gm-Features: AclHuK9rxlY9ryi2n9m2aAdyaSNARNmcvyrOyG0s9ziCGiHhPOebsZRxyO6FDgo
+Message-ID: <CALMp9eR-CPo2n_7uN7paJQZvmPXA6=7Fpo0xJePeadXwuD600A@mail.gmail.com>
+Subject: Re: [PATCH 2/4] KVM: x86/mmu: Drop for_each_shadow_entry_using_root()
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun 11-10-26 14:48:39, jianyungao89@gmail.com wrote:
-> From: Jianyun Gao <jianyungao89@gmail.com>
-> 
-> dax_range_compare_iter() has two bugs in how it calls
-> dax_iomap_direct_access() and uses the returned addresses:
-> 
-> 1. The size argument passed to dax_iomap_direct_access() is
->    ALIGN(pos + len, PAGE_SIZE), which is an absolute file offset
->    rather than a length. This causes the underlying dax_direct_access()
->    to request a massively inflated nr_pages via PHYS_PFN(size).
-> 
-> 2. The addresses returned by dax_iomap_direct_access() are page-aligned
->    starting addresses, but memcmp() compares from saddr/daddr directly
->    without adding the page-in-page offset of pos1/pos2. When pos1/pos2
->    are not page-aligned, this compares the wrong data.
-> 
-> Fix the size by computing ALIGN(len + offset_in_page(pos), PAGE_SIZE),
-> matching the pattern used in dax_iomap_copy_around(). Fix the address
-> by adding offset_in_page(pos1)/offset_in_page(pos2) to saddr/daddr in
-> the memcmp() call.
-> 
-> Fixes: 6f7db3894ae2 ("fsdax: dedup file range to use a compare function")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
-> 
-> Changes in v2:
-> - Add offset_in_page(pos1)/offset_in_page(pos2) to the saddr/daddr
->   arguments in memcmp() to fix the page-in-page offset issue pointed
->   out in the v1 review.
-> - Use offset_in_page() macro instead of (pos & ~PAGE_MASK) for
->   consistency with the rest of the codebase.
-> 
-> v1: https://lore.kernel.org/lkml/20261010071453.6028-1-jianyungao89@gmail.com/
-> 
->  fs/dax.c | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/dax.c b/fs/dax.c
-> index 6ba50142eeb2..b08d408418bd 100644
-> --- a/fs/dax.c
-> +++ b/fs/dax.c
-> @@ -2197,6 +2197,7 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
->  	const struct iomap *dmap = &it_dest->iomap;
->  	loff_t pos1 = it_src->pos, pos2 = it_dest->pos;
->  	void *saddr, *daddr;
-> +	size_t size1, size2;
->  	int id, ret;
->  
->  	len = min(len, min(smap->length, dmap->length));
-> @@ -2212,17 +2213,18 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
->  	}
->  
->  	id = dax_read_lock();
-> -	ret = dax_iomap_direct_access(smap, pos1, ALIGN(pos1 + len, PAGE_SIZE),
-> -				      &saddr, NULL);
-> +	size1 = ALIGN(len + offset_in_page(pos1), PAGE_SIZE);
-> +	ret = dax_iomap_direct_access(smap, pos1, size1, &saddr, NULL);
->  	if (ret < 0)
->  		goto out_unlock;
->  
-> -	ret = dax_iomap_direct_access(dmap, pos2, ALIGN(pos2 + len, PAGE_SIZE),
-> -				      &daddr, NULL);
-> +	size2 = ALIGN(len + offset_in_page(pos2), PAGE_SIZE);
-> +	ret = dax_iomap_direct_access(dmap, pos2, size2, &daddr, NULL);
->  	if (ret < 0)
->  		goto out_unlock;
->  
-> -	*same = !memcmp(saddr, daddr, len);
-> +	*same = !memcmp(saddr + offset_in_page(pos1),
-> +			daddr + offset_in_page(pos2), len);
->  	if (!*same)
->  		len = 0;
->  	dax_read_unlock(id);
-> -- 
-> 2.34.1
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+On Tue, Oct 13, 2026 at 4:17=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> Drop for_each_shadow_entry_using_root() and open code the walk in
+> __kvm_mmu_invalidate_addr(), the macro's only user, in preparation for
+> handling failure to initialize the walk, e.g. if a cached root was create=
+d
+> for a different MMU context and so can't be walked.
+>
+> No functional change intended.
+>
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Reviewed-by: Jim Mattson <jmattson@google.com>
