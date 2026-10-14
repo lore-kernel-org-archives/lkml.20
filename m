@@ -1,358 +1,196 @@
-Received: from mta1.migadu.com (out-203.mta1.migadu.com [95.215.58.203])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCADF4B26F8
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 09:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.203
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4CFC4B26F8;
+	Wed, 14 Oct 2026 09:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968480; cv=none; b=LDICKs+2gfGsmUa8bLPTqq4/d48ZY74hIHzBiti8TQegmJwUJHIdwnBkfUE2n8fiCY6YgTR4fI+qazA/9+vijXlYnSfaim958kjhwDJZmReZ/UbcbG3xSCr/CDsWw+3+ULHNs4szBHnwW70yI5K+OJh085tEqPqcPv2GfDcnlH8=
+	t=1791968500; cv=none; b=S9tbZT4fuKqMJ1UWgMbVgsGkcgxDDt20ESGzhBylLaYsj3ccEFraQgaj+4h60IYq6HAYJdDxkWREca+xlMeJ9ixbz7XrJOZD/QHs9bfHHWYeznTtC9O+N5dRiNYYIavvJMA4nWgeyO3gQHy8JqP+6270sdRTBNVDAUUura8hXNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968480; c=relaxed/simple;
-	bh=3zJjm6DiujVRRMFJWBEXTYsYUWwxY7lpqrEEqgi3VfI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jUDEUdWVH15R50oF5VpBuDiNGoeKNGHVfp+1gxTFgIJv8vA/FYqVZ+xxJ+UZ4meDWobSyBClSYA2DblSveR5mrPbViMb0Ry/2yfCkbsGtt8wwOeJ6xmgpyDMe/KZ8ySeCZZYKK5R+o5Cx84sAsb1OvU75QwHpxyLY8VQev5Fdf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=n9Zi1TdJ; arc=none smtp.client-ip=95.215.58.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791968500; c=relaxed/simple;
+	bh=nrXWFJqDvnKa+L3lKJ12jqTvm6csARDqXZ85Q9WA68E=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gStIug3HjUXcpB7NpuWyoR1/u7e7FWRkOfNKLOhUR+9Uh4MbUNw5XnE9akbtKD0hAcM85ypq+drEx3Veo3cTlweEnkqnMCC4GRkPigZ1WwWNfcxsGqCl0xPd/SGWeeKZVx80GYhybNTnCDfS4/caR7lNDPlFdOqDLwYQa3kMi9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MeFlV/pr; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="n9Zi1TdJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3zJjm6DiujVRRMFJWBEXTYsYUWwxY7lpqrEEqgi3VfI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791968475; v=1; x=1792573275;
- b=n9Zi1TdJT42pITaZqc9CCPRDkoCAwu5JB+vUWldT2AVxfrZAj7gXMx6zZi8MLuzAoIqUIIqu
- dsTU9/WTYEC3qwHEVv+/epjf40mWTZZL/CNn4Dhlq7B8jOT/ZvQ2unKya/6r8mVpkRX3Ztntzs5
- 3f51CGAXeOb8oJtYaAI4gRV4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id a323c927ff3d4d89;
-	Wed, 14 Oct 2026 09:01:15 +0000
-X-Mizu-Trace-ID: a323c927ff3d4d89
-X-Migadu-Flow: FLOW_OUT
-From: Hui Zhu <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH v6 2/2] mm/vmscan: throttle MGLRU eviction when isolated folios pile up
-Date: Wed, 14 Oct 2026 17:00:24 +0800
-Message-ID: <2a5d323c1caede0f2e2d2016b99893abe656d372.1791968227.git.zhuhui@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791968227.git.zhuhui@kylinos.cn>
-References: <cover.1791968227.git.zhuhui@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MeFlV/pr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791968497; x=1823504497;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=nrXWFJqDvnKa+L3lKJ12jqTvm6csARDqXZ85Q9WA68E=;
+  b=MeFlV/pr2EZJytj7gxlVpuLgqCqoNCirnK8lyevSbUOCcWe85LeVq3+p
+   RHu0z455vlDM3H3HwhBwHDCHfW8wc5WxxEAsnUGTO7t9CMWHB7s859VlZ
+   X1hFPjFwPkXSpiLQbAussixnBAnoVz8c964tiBH/VpovW01t+iVFKj6wv
+   fKdzvTAWATCY6lkcsaELC3a7opjlRTfJgwoJriYKeU47Xts+6122YchXI
+   1W1biQfy8sbmVrStbEzfhISS4q6p9yyDQWOAUBbdJHdaqaxU4OtN6zD33
+   fXlBjyE9xp5pKYiA55ENIBOWe4rtf7ItTiVWjXntOHOXvjvSDbJ5qHT+E
+   g==;
+X-CSE-ConnectionGUID: ugK7h37+R5GXh1IMaoTspQ==
+X-CSE-MsgGUID: 8ZE0/iJvRk6B4AOsVd03OQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="609193"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="609193"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 02:01:35 -0700
+X-CSE-ConnectionGUID: zqhIqvLzQcy6BxXW1mPqwA==
+X-CSE-MsgGUID: l6hnnZDtR/yQ+9aP4Gym2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1307833"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 02:01:31 -0700
+Message-ID: <eb6c7bda-0dcf-4fac-ad69-9f5b24abc21b@linux.intel.com>
+Date: Wed, 14 Oct 2026 17:01:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf/x86/amd/lbr: Limit branch snapshots to valid entries
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>, Sandipan Das <sandipan.das@amd.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
+ Ravi Bangoria <ravi.bangoria@amd.com>,
+ Ananth Narayan <ananth.narayan@amd.com>
+References: <20261007181002.4005262-1-sandipan.das@amd.com>
+ <20261012153014.GU4121339@noisy.programming.kicks-ass.net>
+ <94d387f2-ff07-4895-a722-e8ded4203309@amd.com>
+ <20261013074625.GC2009045@noisy.programming.kicks-ass.net>
+ <becc5593-69ef-4800-bc2b-0fb217165910@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <becc5593-69ef-4800-bc2b-0fb217165910@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Hui Zhu <zhuhui@kylinos.cn>
 
-The legacy path throttles direct reclaim via too_many_isolated() when
-isolated folios pile up, but MGLRU's evict_folios() isolates folios
-without this check, which can lead to unnecessary swapping, thrashing
-and OOM.
+On 10/13/2026 8:53 PM, Mi, Dapeng wrote:
+> On 10/13/2026 3:46 PM, Peter Zijlstra wrote:
+>> On Tue, Oct 13, 2026 at 12:14:58PM +0530, Sandipan Das wrote:
+>>> On 12-10-2026 21:00, Peter Zijlstra wrote:
+>>>> On Wed, Oct 07, 2026 at 11:40:02PM +0530, Sandipan Das wrote:
+>>>>> The branch snapshot callback used by bpf_get_branch_snapshot() copies
+>>>>> up to x86_pmu.lbr_nr entries from cpuc->lbr_entries[], even when the
+>>>>> last LBR read kept fewer branches. The entries past lbr_stack.nr are
+>>>>> invalid, but they end up reaching BPF programs.
+>>>>>
+>>>>> Limit copying to lbr_stack.nr entries and also reset lbr_stack.nr when
+>>>>> amd_pmu_lbr_read() skips reading the registers, so that a stale count
+>>>>> is never reused.
+>>>>>
+>>>>> Fixes: a4d18112e531 ("perf/x86/amd: Support capturing LBR from software events")
+>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>>>> Closes: https://lore.kernel.org/all/sashiko-outbox-163130@kernel.org/
+>>>>> Signed-off-by: Sandipan Das <sandipan.das@amd.com>
+>>>>> ---
+>>>>>  arch/x86/events/amd/core.c | 2 +-
+>>>>>  arch/x86/events/amd/lbr.c  | 4 +++-
+>>>>>  2 files changed, 4 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
+>>>>> index 49b6b8fce566..bf631f60757c 100644
+>>>>> --- a/arch/x86/events/amd/core.c
+>>>>> +++ b/arch/x86/events/amd/core.c
+>>>>> @@ -944,7 +944,7 @@ static int amd_pmu_v2_snapshot_branch_stack(struct perf_branch_entry *entries, u
+>>>>>  	cpuc = this_cpu_ptr(&cpu_hw_events);
+>>>>>  
+>>>>>  	amd_pmu_lbr_read();
+>>>>> -	cnt = min(cnt, x86_pmu.lbr_nr);
+>>>>> +	cnt = min(cnt, cpuc->lbr_stack.nr);
+>>>>>  	memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry) * cnt);
+>>>>>  
+>>>>>  	amd_pmu_v2_enable_all(0);
+>>>>> diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
+>>>>> index 1e1b2f08cb51..a00d3850c4a8 100644
+>>>>> --- a/arch/x86/events/amd/lbr.c
+>>>>> +++ b/arch/x86/events/amd/lbr.c
+>>>>> @@ -165,8 +165,10 @@ void amd_pmu_lbr_read(void)
+>>>>>  	struct branch_entry entry;
+>>>>>  	int out = 0, idx, i;
+>>>>>  
+>>>>> -	if (!cpuc->lbr_users)
+>>>>> +	if (!cpuc->lbr_users) {
+>>>>> +		cpuc->lbr_stack.nr = 0;
+>>>>>  		return;
+>>>>> +	}
+>>>>>  
+>>>>>  	for (i = 0; i < x86_pmu.lbr_nr; i++) {
+>>>>>  		entry.from.full	= amd_pmu_lbr_get_from(i);
+>>>> You now seem to deviate from what the Intel code does. Please clarify.
+>>> Yes, it is a deviation. I thought of proposing the following but didn't
+>>> proceed because I was not sure about the if condition in the second hunk
+>>> which considers things other than cpuc->lbr_users for an early return.
+>> Dapeng, can you look into this? I would really like to keep behaviour
+>> consistent where possible.
+> Sure.
+>
+>
+>>> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+>>> index 0a34d674df59..5dfb9e9156e8 100644
+>>> --- a/arch/x86/events/intel/core.c
+>>> +++ b/arch/x86/events/intel/core.c
+>>> @@ -2822,7 +2822,7 @@ __intel_pmu_snapshot_branch_stack(struct perf_branch_entry *entries,
+>>>         struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+>>>
+>>>         intel_pmu_lbr_read();
+>>> -       cnt = min_t(unsigned int, cnt, x86_pmu.lbr_nr);
+>>> +       cnt = min_t(unsigned int, cnt, cpuc->lbr_stack.nr);
+>>>
+>>>         memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry) * cnt);
+>>>         intel_pmu_enable_all(0);
+>>> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+>>> index 0b446d8912e4..6b070490f461 100644
+>>> --- a/arch/x86/events/intel/lbr.c
+>>> +++ b/arch/x86/events/intel/lbr.c
+>>> @@ -1026,8 +1026,10 @@ void intel_pmu_lbr_read(void)
+>>>          * but this simple approach seems to work for now.
+>>>          */
+>>>         if (!cpuc->lbr_users || vlbr_exclude_host() ||
+>>> -           cpuc->lbr_users == cpuc->lbr_pebs_users)
+>>> +           cpuc->lbr_users == cpuc->lbr_pebs_users) {
+>>> +               cpuc->lbr_stack.nr = 0;
+> I checked the code, and it looks safe to clear cpuc->lbr_stack.nr here. For
+> PEBS events with the LBR group, the LBR stack is populated again for each
+> PEBS record, so this should not affect the LBR trace for PEBS events.
 
-Add lru_gen_too_many_isolated() and throttle_evictable_types(), called
-from evict_folios() before the lruvec lock is taken since throttling
-sleeps.
+I test the changes on SPR for the 3 cases, pure LBR PEBS sampling, pure LBR
+non-PEBS sampling and the PEBS/non-PEBS mixed LBR sampling. No issue is
+found for the LBR stack sampling.
 
-The check is per lruvec rather than node-wide: reclaimers contend per
-lruvec, and a node-wide check would let isolation in one memcg throttle
-reclaim in another. The threshold is the evictable size of the type
-divided by MIN_NR_GENS, approximating one generation.
+Sandipan, would you mind to post the fixes for Intel LBR with the AMD fixes
+together? Thanks.
 
-Since isolate_folios() picks the type from refault feedback and may fall
-back to the other one, throttle_evictable_types() collects the types
-that are not over-isolated and have evictable folios, and sleeps only
-when all of them are over-isolated. The mask is passed to
-isolate_folios() to restrict its choice and fallback, so an
-over-isolated type never blocks the other, and isolation never lands on
-a throttled or empty type.
 
-Like the legacy path, kswapd and !writeback_throttling_sane() reclaim
-are exempt, the threshold is raised for GFP_NOIO/GFP_NOFS callers, and
-a dying task fakes progress to exit reclaim quickly.
-
-Tested with threads write-touching a 48MB anonymous working set in a
-16MB memcg backed by swap delayed 50ms via dm-delay. With 192 threads
-the task is OOM-killed without this patch and survives with it. With
-64 threads both kernels survive the 60s run, and the patched kernel
-completes ~22% more touches (301B vs 246B).
-
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
----
- include/linux/mmzone.h |   2 +
- mm/vmscan.c            | 171 +++++++++++++++++++++++++++++++++++++----
- 2 files changed, 159 insertions(+), 14 deletions(-)
-
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index c070b867e2f3..e8fc002c98c0 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -583,6 +583,8 @@ struct lru_gen_folio {
- 	/* can be modified without holding the LRU lock */
- 	atomic_long_t evicted[NR_HIST_GENS][ANON_AND_FILE][MAX_NR_TIERS];
- 	atomic_long_t refaulted[NR_HIST_GENS][ANON_AND_FILE][MAX_NR_TIERS];
-+	/* the number of folios isolated from this lruvec and being reclaimed */
-+	atomic_long_t nr_isolated[ANON_AND_FILE];
- 	/* whether the multi-gen LRU is enabled */
- 	bool enabled;
- 	/* the memcg generation this lru_gen_folio belongs to */
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 3bd604204ec7..2d551a1f91c7 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4232,25 +4232,34 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
- 	sc->priority = clamp(priority, DEF_PRIORITY / 2, DEF_PRIORITY);
- }
- 
--static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
-+static unsigned long lruvec_type_evictable_size(struct lruvec *lruvec, int type)
- {
--	int gen, type, zone;
-+	int gen, zone;
- 	unsigned long seq, total = 0;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 	DEFINE_MAX_SEQ(lruvec);
- 	DEFINE_MIN_SEQ(lruvec);
- 
--	for_each_evictable_type(type, swappiness) {
--		for (seq = min_seq[type]; seq <= max_seq; seq++) {
--			gen = lru_gen_from_seq(seq);
--			for (zone = 0; zone < MAX_NR_ZONES; zone++)
--				total += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
--		}
-+	for (seq = min_seq[type]; seq <= max_seq; seq++) {
-+		gen = lru_gen_from_seq(seq);
-+		for (zone = 0; zone < MAX_NR_ZONES; zone++)
-+			total += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
- 	}
- 
- 	return total;
- }
- 
-+static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
-+{
-+	unsigned long total = 0;
-+	int type;
-+
-+	for_each_evictable_type(type, swappiness)
-+		total += lruvec_type_evictable_size(lruvec, type);
-+
-+	return total;
-+}
-+
- static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
- {
- 	unsigned long total;
-@@ -4913,16 +4922,129 @@ static inline bool is_single_type_reclaim(int swappiness)
- 	       swappiness == SWAPPINESS_ANON_ONLY;
- }
- 
-+/*
-+ * The MGLRU counterpart to too_many_isolated().
-+ *
-+ * too_many_isolated() compares node-wide isolated counts against
-+ * node-wide inactive sizes. It predates per-memcg LRU lists, which
-+ * moved isolation to per-lruvec granularity. MGLRU reclaimers contend
-+ * per lruvec, so this check is per lruvec as well, and isolation in
-+ * one memcg does not throttle reclaim in another.
-+ *
-+ * The legacy threshold, the size of the inactive list, is not usable
-+ * here either: in MGLRU the inactive counters are only a compatibility
-+ * shim - they jump around when swap runs out or a memcg hits its swap
-+ * limit, and proactive aging can inflate them. Compare against the
-+ * total number of evictable pages of the type divided by MIN_NR_GENS,
-+ * approximating the size of one generation - the same unit the
-+ * original MGLRU aging heuristics used.
-+ */
-+static bool lru_gen_too_many_isolated(struct lruvec *lruvec, int type,
-+				      struct scan_control *sc)
-+{
-+	unsigned long isolated, evictable;
-+
-+	if (current_is_kswapd())
-+		return false;
-+
-+	if (!writeback_throttling_sane(sc))
-+		return false;
-+
-+	isolated = atomic_long_read(&lruvec->lrugen.nr_isolated[type]);
-+	evictable = lruvec_type_evictable_size(lruvec, type);
-+
-+	/*
-+	 * GFP_NOIO/GFP_NOFS callers are allowed to isolate more pages, so
-+	 * they won't be blocked by normal direct-reclaimers, forming a
-+	 * circular deadlock.
-+	 */
-+	if (gfp_has_io_fs(sc->gfp_mask))
-+		evictable >>= 3;
-+
-+	return isolated > evictable / MIN_NR_GENS;
-+}
-+
-+/*
-+ * Unlike the legacy path, where the LRU list to isolate from is known
-+ * before isolation, isolate_folios() picks the type from the refault
-+ * feedback and may fall back to the other one. Therefore, instead of
-+ * throttling on a single type, collect the evictable types that do not
-+ * have too many isolated folios, and only sleep when all of them do.
-+ *
-+ * Returns the mask of the types isolate_folios() may isolate from, or
-+ * 0 if reclaim should stop. Also sets @fatal to tell the caller that
-+ * the task received a fatal signal while waiting.
-+ */
-+static unsigned int throttle_evictable_types(struct lruvec *lruvec,
-+					     int swappiness,
-+					     struct scan_control *sc,
-+					     bool *fatal)
-+{
-+	unsigned int allowed;
-+	bool stalled = false;
-+	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	int i;
-+
-+	*fatal = false;
-+
-+	for (;;) {
-+		allowed = 0;
-+		for_each_evictable_type(i, swappiness) {
-+			/*
-+			 * A type with no evictable folios has nothing to
-+			 * isolate. Don't allow it, otherwise reclaim can be
-+			 * redirected to it and spin making no progress, e.g.
-+			 * when the only type with folios is over-isolated.
-+			 */
-+			if (!lruvec_type_evictable_size(lruvec, i))
-+				continue;
-+
-+			if (!lru_gen_too_many_isolated(lruvec, i, sc))
-+				allowed |= BIT(i);
-+		}
-+
-+		if (allowed) {
-+			/* Wake up reclaimers waiting on the isolation to go down. */
-+			wake_throttle_isolated(pgdat);
-+			return allowed;
-+		}
-+
-+		/*
-+		 * All evictable types are over-isolated. Like the legacy
-+		 * path, wait once for concurrent reclaimers to put their
-+		 * isolated folios back; give up if that makes no progress.
-+		 */
-+		if (stalled)
-+			return 0;
-+
-+		stalled = true;
-+		reclaim_throttle(pgdat, VMSCAN_THROTTLE_ISOLATED);
-+
-+		/* We are about to die and free our memory. Return now. */
-+		if (fatal_signal_pending(current)) {
-+			*fatal = true;
-+			return 0;
-+		}
-+	}
-+}
-+
- static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 			  struct scan_control *sc, int swappiness,
--			  struct list_head *list, int *isolated,
--			  int *isolate_type, int *isolate_scanned)
-+			  unsigned int allowed, struct list_head *list,
-+			  int *isolated, int *isolate_type, int *isolate_scanned)
- {
- 	bool type_fallback_allowed = !is_single_type_reclaim(swappiness);
- 	int type = get_type_to_scan(lruvec, swappiness);
- 	int total_scanned = 0, scanned, tier;
- 	bool tried = false;
- 
-+	/*
-+	 * The preferred type may have been excluded by
-+	 * throttle_evictable_types(); start from the other one.
-+	 */
-+	if (!(allowed & BIT(type)))
-+		type = !type;
-+
- retry:
- 	tier = get_tier_idx(lruvec, type);
- 	scanned = scan_folios(nr_to_scan, lruvec, sc,
-@@ -4937,9 +5059,11 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 
- 	/*
- 	 * We are running out of the current reclaim type. Fall back to
--	 * the other type if allowed.
-+	 * the other type if allowed. Only fall back to a type that is
-+	 * not throttled.
- 	 */
--	if (!scanned && !tried && type_fallback_allowed) {
-+	if (!scanned && !tried && type_fallback_allowed &&
-+	    (allowed & BIT(!type))) {
- 		type = !type;
- 		tried = true;
- 		type_fallback_allowed = false;
-@@ -4973,18 +5097,36 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	bool skip_retry = false;
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	unsigned int allowed;
-+	bool fatal;
-+
-+	allowed = throttle_evictable_types(lruvec, swappiness, sc, &fatal);
-+	if (!allowed) {
-+		/*
-+		 * We are about to die and free our memory. Like the legacy
-+		 * path, pretend some pages were reclaimed so reclaim
-+		 * unwinds quickly instead of looping back into the
-+		 * throttle.
-+		 */
-+		if (fatal)
-+			sc->nr_reclaimed += SWAP_CLUSTER_MAX;
-+
-+		return 0;
-+	}
- 
- 	lruvec_lock_irq(lruvec);
- 
- 	/* In case folio deletion left empty old gens, flush them */
- 	try_to_inc_min_seq(lruvec, swappiness);
- 
--	scanned = isolate_folios(nr_to_scan, lruvec, sc, swappiness,
-+	scanned = isolate_folios(nr_to_scan, lruvec, sc, swappiness, allowed,
- 				 &list, &isolated, &type, &type_scanned);
- 	nr_isolated = isolated;
--	if (nr_isolated)
-+	if (nr_isolated) {
- 		__mod_node_page_state(pgdat, NR_ISOLATED_ANON + type,
- 				      nr_isolated);
-+		atomic_long_add(nr_isolated, &lruvec->lrugen.nr_isolated[type]);
-+	}
- 
- 	/* Scanning may have emptied the oldest gen, flush it */
- 	if (scanned)
-@@ -5047,6 +5189,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 		goto retry;
- 	}
- 
-+	atomic_long_sub(nr_isolated, &lruvec->lrugen.nr_isolated[type]);
- 	mod_node_page_state(pgdat, NR_ISOLATED_ANON + type, -nr_isolated);
- 
- 	if (nr_isolated > total_reclaimed)
--- 
-2.43.0
-
+>
+> But I’m not fully sure if it's intentional for the
+> bpf_get_branch_snapshot() helper. Clearing lbr_stack.nr to 0 prevents the
+> BPF helper from reading LBR data from PEBS although the LBR data could be
+> stale since it comes from the past PEBS record instead of the runtime
+> hardware LBR state. That seems reasonable and correct, but the side effect
+> is that the BPF helper can't read the LBR stack when all LBR events are
+> PEBS events. Not sure if it's intentional and expected. 
+>
+> I’d like to run some tests for this change tomorrow to confirm the
+> behavior. Thanks.
+>
+>
+>>>                 return;
+>>> +       }
+>>>
+>>>         x86_pmu.lbr_read(cpuc);
+>>>
