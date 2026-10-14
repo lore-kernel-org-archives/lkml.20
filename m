@@ -1,123 +1,286 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E47377AAD;
-	Wed, 14 Oct 2026 18:20:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8184C9E01
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792002038; cv=none; b=o6N1FveotQYw1jUB7fLcfPxKLMswJZwEXAkjlVXh0fI5pHv4S4QVLjex0Htpf1hl8wZMWGYJ2rw8tCcvyn6MFgHteVyF+mI28CRwGkSXPjJ+FRp4DPG3KWj+9J4i1RbQAmGXVT3RKEGY1imHxwTcaFypo9BWRrDPaAH1ZubmBL4=
+	t=1792002101; cv=none; b=F8HCpLVCmboq8DVhmLseft2cpTHA65c3fRHA+eXlCoP38z2QIuYCm6V+cO7ulfnhCjiklVJtm79mGcLqvUPvK9rITZpAiRM8rfMgu916TRCZM6U8bBVqQTenCcIgc57CFYG1Yup1VLVK04OwTErxv9uYgYmMxrvz0o6xqemzOI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792002038; c=relaxed/simple;
-	bh=HOQd/xdM4sAke3u78emWdP9D/WXlb6Htxk91Pxg4QmQ=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=VKDTIKDEkjxVqDoHVO9V673oOxjoX22ZfpEz2b/5eyK53wQRnzeEYJ3SHrN5fSY35g564kcpwvboJR8eMiL3QSj7u8CKgVUKLJZXWWhk0IPprANe6GO35lDT0x+kqQOrNXHnI9WowMMTVCt4H6PPtN2oK/HhrtGg5ezYyaSsgqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eeovrYGy; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792002101; c=relaxed/simple;
+	bh=duRXU1e3xEsOIbmXxoz71kRuUhOpCKkqzA1WNFsYDCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LybUd6ohADqAA9vfNMMEA45j4GG4kWu4SeWnPd826qsY1CrE5FwXE459pkH2DuSAFZ62UsHebFelOwylVNwhq89PcnpcFitLAbJ7MMZY+uZvaUpFKKRgxK8+DTLU/c+aiS3uuqEKZQHe3YbNe5Id/gO6V4qIpLyu2tiWSmmoeRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WNIR9du4; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eeovrYGy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792002036; x=1823538036;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=HOQd/xdM4sAke3u78emWdP9D/WXlb6Htxk91Pxg4QmQ=;
-  b=eeovrYGyVr6Vz66c3XxUHpbYmQuNHNymajpdNQlAiAndxvXmnhPwpA0A
-   OMoGemBZUYVr/KzWurA/qHfLP+Ei0RWX2i7n0un/hKi1Qg/uLvn7PQ2WN
-   FeB6w9+Fcy93c9PITphAY57YdvAkOslZtd4LfSa+MQtMLVZVuFMIZgV8B
-   En6j1/GG6k2K24nf16eW+agWUidcKsDIJ6Zhi+QEaqcaIlDTw7nClJ6WF
-   BND6ltk/ki10fKUYnPgmC1TC5o/Mzwgy1FTSn2qeddrWxQIDdtRILw4a9
-   zHXoeNHa9zNU7IqUOBB+HzbmY20lDANoGOWoJnM8Oz2cQWYSM/8b8j/fq
-   Q==;
-X-CSE-ConnectionGUID: XRFSV1bER6iDvbgZrY+aQw==
-X-CSE-MsgGUID: nUH9xiFhTCuLULM4dw1O+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="658149"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="658149"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 11:20:30 -0700
-X-CSE-ConnectionGUID: K0WeQ58XTPW9uYRLRQ1kjw==
-X-CSE-MsgGUID: RZSsfdpHRte4GH0IJu6YFA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1517070"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.234])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 11:20:24 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 14 Oct 2026 21:20:21 +0300 (EEST)
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-    Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
-    Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] platform: arm64: Add a driver for the EC found
- on ASUS Glymur machines
-In-Reply-To: <5c87c231-6c76-4363-9f4d-6c43dd63ee9f@oss.qualcomm.com>
-Message-ID: <81e7e5b7-247b-b57f-5d78-4fac468ab121@linux.intel.com>
-References: <20260923-topic-asus_ec-v3-0-2bf3bb9da879@oss.qualcomm.com> <20260923-topic-asus_ec-v3-2-2bf3bb9da879@oss.qualcomm.com> <d20f4159-de71-7e9d-46a6-5953364937cd@linux.intel.com> <5c87c231-6c76-4363-9f4d-6c43dd63ee9f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WNIR9du4"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso3266246f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:21:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792002097; x=1792606897; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4xRifw5Znr1rS1Ach/CyZd8ItZHTFRvDxHBIuSRskJ0=;
+        b=WNIR9du4F/0d0FKKhM563ZLvT9rVhELL7vMhw68RoSXD10EhZaKgyn1EKDTplcfgqW
+         J8pP4gVB8UjOJR2zzpTLBpwgAbnbxiqPF189fFIeai+ZtRA2TNZSH1Y5Gzkx7yNrbvWT
+         WdqkE5MnD5+QTMH3oMc+7iwtSZuN9EGiSWBNCsnxQ4mcTUvhy0loGL7V19b6yJICYOgS
+         Kxn8uODnj6rcFi4YFWvo/n28/cbOhVqjvnQ6eiYws3Z0CzfMdjBkHongsF2Vpe4NqHUj
+         tmt/OEpNcYDYUR7fbwSPQC6hJnlRcKmefDmgikjYBUqh3joHHguTAIWORN2YtX6/lZUs
+         aHzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792002097; x=1792606897;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4xRifw5Znr1rS1Ach/CyZd8ItZHTFRvDxHBIuSRskJ0=;
+        b=zYt9x1QxcfDMb+LPKlfgoEfR6tzeSpREuc2+VpR7UoqGHwhHpN/svjAGt37iweR7A9
+         FQHBINlqFXpDi5Adt0FCGWevDXUvDmAAf/kftoMrigtjwH4TA3bgAc/HpVEmhAPXvuh4
+         j/17oQz3it79zjFqqnn+xyoqfoChr0Khco7xm7O/jAfYhbxslBUs2Deu7/fsjRQ4P3pb
+         iXtRM7QR+t+MDdGNrJzCMSm0qZ+SafXDcqMPlCKBRUPIp92DSvN+XBtRm6phVhkBmTnr
+         Z9NMxfUMdx62q/LB1wCVYEzoI0SqxXsOeFpXzL0g/MhSa2C8aYpM5jv88S6xU2tMjmgn
+         aeTw==
+X-Gm-Message-State: AFq9FYIgV/SWRpiiY0FTsdx9NY74X91YD3Yli6X98y027AqrA5SRNVk1
+	s3ol1599z8pvzBBXOuuvR9R0pVRUNd7/rINyIg/8OaJUH/WYRye42WuH
+X-Gm-Gg: AYBFou1QSNRJZlibVq1zusapNSEwt7eT+YJX6VvUHXZ2RS43gy5bUsAPFQkyVSS0PDA
+	zOe097VNyaOdEvo70yzjy0MsPId38AzBoLCxVSHkuNtigIUvLJ6cjT0Li+fHpE+M4/O4ya6PmIc
+	9cdJt1VcXcWsVJsKxWVJzMtulZtoWEadRQGnSICRj4E9Rn9ZsWXGDNpke1RjJSF5vvZGPthyetk
+	xsar42emrBZMELwiuCXoIxna3pI12fFf1fv8bBZFwXUj41f6N0bJCrZVAkD5DXtp286Xm1xLhuI
+	jEcLkdjhaIBUMACCp8GoG0vWMau9lmodMNORlMzvscAY6T4hS3L+8cmr4uy8OiPejFvC3o+9Tqt
+	XIuYyDMgdf3nq6rL6JFzFn/ThpZ3w0qVKdhr2QZNXLDWAFK/oIhq8o4LwICXQwaDfp3NGWu9NM7
+	zfVm6sNmx6rNPssceig9DsOlD1hYqcwxonOsFJTSBC8Fudiyw0h5KcYhu19YX35ToPugf3EPEb/
+	w==
+X-Received: by 2002:a05:6000:2912:b0:48b:5e2:52dd with SMTP id ffacd0b85a97d-48dbace9d5cmr30844029f8f.11.1792002097068;
+        Wed, 14 Oct 2026 11:21:37 -0700 (PDT)
+Received: from Huaiwei2200.nb.int ([92.43.82.96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc6ddcsm13082271f8f.52.2026.10.14.11.21.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 11:21:36 -0700 (PDT)
+From: Oleksandr Suvorov <cryosay@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	Oleksandr Suvorov <cryosay@gmail.com>
+Subject: [PATCH v2] soc: qcom: cmd-db: bound database walks to the mapped region
+Date: Wed, 14 Oct 2026 21:21:16 +0300
+Message-ID: <20261014182121.3624604-1-cryosay@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-707764721-1792002021=:1157"
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+The command DB is read from a reserved memory region mapped with the
+size given in the device tree. The per-slave entry count and header
+offset, and each entry's data offset and length, are taken from the
+blob and used without checking them against the size of that mapping.
 
---8323328-707764721-1792002021=:1157
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+cmd_db_get_header() walks rsc_hdr->cnt entries for every slave when an
+ID is not found, and cmd_db_read_aux_data() and the debugfs dump return
+or print len bytes at a blob-supplied offset. A count or offset that
+reaches beyond the mapping makes these read outside it.
 
-On Wed, 14 Oct 2026, Konrad Dybcio wrote:
+Keep the mapped size from probe and add cmd_db_in_bounds() to check a
+range against it. Skip a slave whose entry array is out of range,
+return -EINVAL from cmd_db_read_aux_data() for out-of-range data, and
+mark such entries in the debugfs dump. Warn once for the first two.
 
-> On 10/8/26 1:28 PM, Ilpo J=C3=A4rvinen wrote:
-> > On Wed, 23 Sep 2026, Konrad Dybcio wrote:
-> >=20
-> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>
-> >> Some Qualcomm Snapdragon X2 Elite (Extreme)-based ASUS laptops (at
-> >> least the Zenbook A14 and A16) expose a custom, somewhat
-> >> Qualcomm reference-derived EC interface. Introduce a driver to
-> >> communicate with said EC, allowing for fan speed reporting, keyboard
-> >> backlight setting and receiving of a number of miscellaneous sideband
-> >> events.
->=20
-> [...]
->=20
->=20
-> >> +=09ret =3D asus_qcom_ec_write(ec, ASUS_QCOM_EC_RECM_OFFS, frame,
-> >> +=09=09=09=09 ASUS_QCOM_EC_RECM_FRAME_LEN);
-> >> +=09if (ret < 0)
-> >> +=09=09return ret;
-> >> +
-> >> +=09ret =3D asus_qcom_ec_read(ec, ASUS_QCOM_EC_RECM_OFFS, resp,
-> >> +=09=09=09=09ASUS_QCOM_EC_RECM_FRAME_LEN);
-> >> +=09if (ret < 0)
-> >> +=09=09return ret;
-> >> +
-> >> +=09*out =3D (count =3D=3D 2) ? get_unaligned_le16(resp) : resp[0];
-> >=20
-> > Same problem here when it comes to sparse.
-> >=20
-> > Does the ec really input be16 and output le16?
->=20
-> Yep, it really does..
+Also reject a region smaller than struct cmd_db_header, since the magic
+and the slave headers are read from it, and set the size before
+cmd_db_header becomes visible to callers, so a lookup never sees a
+header with a zero size.
 
-I suggest you mention it in a comment then, as otherwise somebody else=20
-might wonder the same thing. :-)
+Signed-off-by: Oleksandr Suvorov <cryosay@gmail.com>
 
-> Ack for the other comments
->=20
-> Konrad
->=20
+---
 
---=20
- i.
+Changes in v2:
+- Reject a region smaller than struct cmd_db_header in probe, as
+  suggested in review
 
---8323328-707764721-1792002021=:1157--
+ drivers/soc/qcom/cmd-db.c | 89 ++++++++++++++++++++++++++++++---------
+ 1 file changed, 70 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/soc/qcom/cmd-db.c b/drivers/soc/qcom/cmd-db.c
+index 3f1eee784387..84ef7c166d93 100644
+--- a/drivers/soc/qcom/cmd-db.c
++++ b/drivers/soc/qcom/cmd-db.c
+@@ -4,6 +4,8 @@
+  * Copyright (c) 2024, Qualcomm Innovation Center, Inc. All rights reserved.
+  */
+ 
++#define pr_fmt(fmt) "cmd-db: " fmt
++
+ #include <linux/bitfield.h>
+ #include <linux/debugfs.h>
+ #include <linux/kernel.h>
+@@ -108,6 +110,24 @@ static bool cmd_db_magic_matches(const struct cmd_db_header *header)
+ }
+ 
+ static struct cmd_db_header *cmd_db_header;
++static size_t cmd_db_size;
++
++/*
++ * Check that a [addr, addr + len) range lies entirely within the mapped
++ * command DB region. The slave and entry headers carry offsets and counts
++ * supplied by firmware, so a walk derived from them has to be validated
++ * before it is dereferenced.
++ */
++static bool cmd_db_in_bounds(const void *addr, size_t len)
++{
++	const void *start = cmd_db_header;
++	const void *end = start + cmd_db_size;
++
++	if (addr < start || addr > end)
++		return false;
++
++	return len <= (size_t)(end - addr);
++}
+ 
+ static inline const void *rsc_to_entry_header(const struct rsc_hdr *hdr)
+ {
+@@ -147,6 +167,7 @@ static int cmd_db_get_header(const char *id, const struct entry_header **eh,
+ 	const struct rsc_hdr *rsc_hdr;
+ 	const struct entry_header *ent;
+ 	int ret, i, j;
++	u16 cnt;
+ 	u8 query[sizeof(ent->id)] __nonstring;
+ 
+ 	ret = cmd_db_ready();
+@@ -161,7 +182,13 @@ static int cmd_db_get_header(const char *id, const struct entry_header **eh,
+ 			break;
+ 
+ 		ent = rsc_to_entry_header(rsc_hdr);
+-		for (j = 0; j < le16_to_cpu(rsc_hdr->cnt); j++, ent++) {
++		cnt = le16_to_cpu(rsc_hdr->cnt);
++		if (!cmd_db_in_bounds(ent, (size_t)cnt * sizeof(*ent))) {
++			pr_warn_once("slave %d entries are outside the database\n", i);
++			continue;
++		}
++
++		for (j = 0; j < cnt; j++, ent++) {
+ 			if (memcmp(ent->id, query, sizeof(ent->id)) == 0) {
+ 				if (eh)
+ 					*eh = ent;
+@@ -209,15 +236,24 @@ const void *cmd_db_read_aux_data(const char *id, size_t *len)
+ 	int ret;
+ 	const struct entry_header *ent;
+ 	const struct rsc_hdr *rsc_hdr;
++	const void *data;
++	u16 ent_len;
+ 
+ 	ret = cmd_db_get_header(id, &ent, &rsc_hdr);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	if (len)
+-		*len = le16_to_cpu(ent->len);
++	ent_len = le16_to_cpu(ent->len);
++	data = rsc_offset(rsc_hdr, ent);
++	if (!cmd_db_in_bounds(data, ent_len)) {
++		pr_warn_once("aux data of %s is outside the database\n", id);
++		return ERR_PTR(-EINVAL);
++	}
+ 
+-	return rsc_offset(rsc_hdr, ent);
++	if (len)
++		*len = ent_len;
++
++	return data;
+ }
+ EXPORT_SYMBOL_GPL(cmd_db_read_aux_data);
+ 
+@@ -273,8 +309,9 @@ static int cmd_db_debugfs_dump(struct seq_file *seq, void *p)
+ 	int i, j;
+ 	const struct rsc_hdr *rsc;
+ 	const struct entry_header *ent;
++	const void *data;
+ 	const char *name;
+-	u16 len, version;
++	u16 cnt, len, version;
+ 	u8 major, minor;
+ 
+ 	seq_puts(seq, "Command DB DUMP\n");
+@@ -307,14 +344,23 @@ static int cmd_db_debugfs_dump(struct seq_file *seq, void *p)
+ 		seq_puts(seq, "-------------------------\n");
+ 
+ 		ent = rsc_to_entry_header(rsc);
+-		for (j = 0; j < le16_to_cpu(rsc->cnt); j++, ent++) {
++		cnt = le16_to_cpu(rsc->cnt);
++		if (!cmd_db_in_bounds(ent, (size_t)cnt * sizeof(*ent))) {
++			seq_puts(seq, "(entries out of range)\n");
++			continue;
++		}
++
++		for (j = 0; j < cnt; j++, ent++) {
+ 			seq_printf(seq, "0x%05x: %*pEp", le32_to_cpu(ent->addr),
+ 				   (int)strnlen(ent->id, sizeof(ent->id)), ent->id);
+ 
+ 			len = le16_to_cpu(ent->len);
++			data = rsc_offset(rsc, ent);
+ 			if (len) {
+-				seq_printf(seq, " [%*ph]",
+-					   len, rsc_offset(rsc, ent));
++				if (cmd_db_in_bounds(data, len))
++					seq_printf(seq, " [%*ph]", len, data);
++				else
++					seq_puts(seq, " [out of range]");
+ 			}
+ 			seq_putc(seq, '\n');
+ 		}
+@@ -340,8 +386,8 @@ static const struct file_operations cmd_db_debugfs_ops = {
+ 
+ static int cmd_db_dev_probe(struct platform_device *pdev)
+ {
++	struct cmd_db_header *header;
+ 	struct reserved_mem *rmem;
+-	int ret = 0;
+ 
+ 	rmem = of_reserved_mem_lookup(pdev->dev.of_node);
+ 	if (!rmem) {
+@@ -349,19 +395,24 @@ static int cmd_db_dev_probe(struct platform_device *pdev)
+ 		return -EINVAL;
+ 	}
+ 
+-	cmd_db_header = devm_memremap(&pdev->dev, rmem->base, rmem->size, MEMREMAP_WC);
+-	if (IS_ERR(cmd_db_header)) {
+-		ret = PTR_ERR(cmd_db_header);
+-		cmd_db_header = NULL;
+-		return ret;
+-	}
+-
+-	if (!cmd_db_magic_matches(cmd_db_header)) {
+-		dev_err(&pdev->dev, "Invalid Command DB Magic\n");
+-		cmd_db_header = NULL;
++	if (rmem->size < sizeof(*header)) {
++		dev_err(&pdev->dev, "Command DB region is too small\n");
+ 		return -EINVAL;
+ 	}
+ 
++	header = devm_memremap(&pdev->dev, rmem->base, rmem->size, MEMREMAP_WC);
++	if (IS_ERR(header))
++		return PTR_ERR(header);
++
++	if (!cmd_db_magic_matches(header)) {
++		dev_err(&pdev->dev, "Invalid Command DB Magic\n");
++		return -EINVAL;
++	}
++
++	/* The size must be valid before callers can see the header */
++	cmd_db_size = rmem->size;
++	cmd_db_header = header;
++
+ 	debugfs_create_file("cmd-db", 0400, NULL, NULL, &cmd_db_debugfs_ops);
+ 
+ 	device_set_pm_not_required(&pdev->dev);
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+branch: 20261013-fix-cmd-db
+
+-- 
+2.53.0
+
