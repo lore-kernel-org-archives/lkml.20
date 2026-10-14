@@ -1,75 +1,72 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1F64C651E
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056824CE69F
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 11:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791978521; cv=none; b=hSggl6EpKpzOlW1JXW915lKgyRxznCX/VyjYYKZ61/QcV3pQlIj3zQk9GGlnK4tjIoWdHrtbh0TcS1Izd/pm9oe9YCVTT0y9TonvR+lqtr5pMTcDbBB8vrlwE75ux+NU9rV+4UZgtC3bNFRX1YbCG7LvvOzDgxLt/iIhm4N3vOI=
+	t=1791978537; cv=none; b=ACqJy6lRaM43tFPhc/PGXRZV4yCqkkx+JHds4pWzq0HQSlKx0PAMgUIvo5OHxyQkF42aEgypS/mAW7nFIBwhyOzagVzNNfB2CO873Fr43vQRV1a/lHcRf03rF25Ybw+kKRt0lKKrMpwz18sPjQxMbD9wGVxQTt5B/4C2t4FRidg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791978521; c=relaxed/simple;
-	bh=O3hUQ9wkN3PDzZXypiNJPFT+hkyn8LRRyRlW5Amtr+0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sitEEoGa1f/Moh1id20lf/AvhXalIJSSfY263Fl7cBduaENo/1nLkLFTdk7GVZgUYnUBXytKFHmxZXZSaPhVUit/s17aMEBl4L/IkTy4NMbtN903+Xd+wYjL+MmcLRP2L0J25Xc55KTRlGSjVgFEFXGwnsIEffInR3ZWRsB+9m0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=SR1k0paz; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	s=arc-20240116; t=1791978537; c=relaxed/simple;
+	bh=B1BhwiUQ+2SbiJJEjS1Q2I5bIuXz3H0WSmOK6XPLouA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pnFO88ch6B+ImKYzkXI7b34aEliiK/mDL3x5wDJ2hWvh9pVkMJMFQCUd3yB5z6BuKud+jmeR/v3+jIeIAT5NYr2ycmMTBDBfgXOtGWbLySEAKJ4FJvMN2GzOlFXJ6k0QFUjRnxE1jTC/WtvclJLU95xRwH9+w4Rxw/ZYux5/Xh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WkO6vnHL; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="SR1k0paz"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-499dd4900dfso4444255e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:48:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WkO6vnHL"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e82462a3f1so4887985ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 04:48:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1791978511; x=1792583311; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2pf/TLCcQJhqlTchdZFX67WuchZUIfnvCuciK1Vq26k=;
-        b=SR1k0pazlYMIbazA+YFZl8tHimlXCZpCNoQLdV8wwo14nT5QOF9gDKN7pwZ93jp6sO
-         4sR+a6AYX96Mjz/OQecUAcSzYGLoGIjyzegmST/DuEH3csq61NMAuQfl4yf0NNF9uGRs
-         mHbHj1kPuW5jBFYbfBhA77/i+M/XheBDNmxRrskGSCvuKsOoWUugUn1OU2czOox9u5A9
-         qudCINxrqQNj5aLMAwDFfBvPOU3SSuHozjPFbjegL3MSq4e2raStVs95jwAC87zCoQJI
-         zniyYDpgkiHgh78ea2R3nxKtaHYHL7ar/dc65PUpEQYIYQSxV1PxfI0H5xtO8PzntiI6
-         ooYQ==
+        d=gmail.com; s=20251104; t=1791978526; x=1792583326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dGZ7lXpMwGCCG5sKGnDsUSjI7naLKPxMxGZfTR/Ppl0=;
+        b=WkO6vnHLG8rh8axtsSiZ6Zpi8d4xPyZwiRb+wvEFD1+Z7+GkDLnDkjHb00XlwnK53K
+         00GYkM93cCWcp3BUmU+OaEu3F5ZNeszi36X8r0A2KXYxM6YXYyjgI1CPqX+5/nHtB87A
+         e9ejM1IGkSZD1rBPRGEuVi82VsiEBu3qowdMr4Nr+lO6eVwm4MzYn9v0tWpS3lzBl5gD
+         o8ihNLi0JdgRwmr63tV99BEM77TF5VwOZF6lx40pYDfanmwkkV6O9yfXGqNN1eAJBZTB
+         nMexuEI5zThzMkFm7hsX3h7AOSwJHlvaH76UGgKYw0LKtTD9/qAVRBEYPsE3w4BbLzBx
+         cEZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791978511; x=1792583311;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2pf/TLCcQJhqlTchdZFX67WuchZUIfnvCuciK1Vq26k=;
-        b=Ojn5pZirZuyHU/rjCbWbv6FTJ7BhqCuoKKcNsp8o+QL4Nzq0XRPLOLWbvl7nhKKyC1
-         f0vFDNWHEltZFpbhajqVOExZbCKiyCIpOQhFy4BV4INKwAHFGLedzDKoyhasfVQ4fZlQ
-         M7T4HJ6gz1ZBWLeozEUAc7ummG3C2GPBjrsjKljxg2nyAQ+hYiWoaDH2DknOzb1fHUVS
-         bvK+tA/gngP3o3J+URS1FxDv3NxYy9y574NXBXL+xwOj2HkIxeKBdi9SpEnaC7A0+R6q
-         0b/x6i0UrnuXtXIbq0AfWa58eCeM797yUvOgA0DfdmT6hmshvFwYWg5POSC54Ay5kefV
-         6OdQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMTFvV4QIEvf83ajVHs8ahicEuJHvocBwUCLYGcD/mEagrEh7mUyEzZrouK53qUTeOLf49haVgGasM8p4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKItTxRbfjZA97JruJN9hF3OYvhlszEi5AOOuMBdkUbhM+plwhO
-	SAkUmlYLF9Yyl8SgRpSZZVaHO4d5nX8QFgKG243FFuvl7JVLRm0PJlMfH2Z5cqd2iT0=
-X-Gm-Gg: AYBFou0DtsTWtpct4gXJ69cxs53hYLn1IAV1jYnWrYTY+qh+gSJ9gTB3qkZ6FxLRU7F
-	K2vwk083gUKQpPnI0935cyno3D7c70FK8dLQfCkWj/lBvb3Qe8l0iuoXAgtZdz6+ocNn4nRgZSO
-	qsN61o5MvwL4NnhLfngRUyOPAKxAl34apqIls19PoMzqYtK4YIMJlu0Q6+Kz7uUqcS8pAIgnuxI
-	n1JtlBlBKlbSBfoL88UckUMx1y3V7dC4nxQRIp7GJVJEAoK4iI4Nme4j9Bmx9gnUXUAyHNx2as5
-	dHZjdqcXyNXsRAjUtlAT/5/VnjYTpmIxOYQZ6+3oBZrupBmR1KcivyiQtrkRtlc7edZtn6lcwDj
-	NJCmkRgvkm000yYQSZrxQU6AusVSxXvJ/uTz1FlteXyI7GbrKBb5xhOOmQe0to8IXfo4vnBMHy0
-	HmHLsL4KGYMCeYfmn7GMkLljxyi5XtrnRrB50r33iPCiWnX+yPJTZEauzTmxvotYfU11GEUXq+Z
-	3hO/6KBt6T20fDWa7pTVnAEaCMPm7LHrPPeVwxrTJE=
-X-Received: by 2002:a05:600c:a48d:b0:4a1:9a97:c67 with SMTP id 5b1f17b1804b1-4a19a971230mr156001285e9.1.1791978511353;
-        Wed, 14 Oct 2026 04:48:31 -0700 (PDT)
-Received: from jwang-ThinkPad-T14-Gen-6.fkb.profitbricks.net ([212.227.34.98])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b4836858sm42925635e9.5.2026.10.14.04.48.30
+        d=1e100.net; s=20260707; t=1791978526; x=1792583326;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dGZ7lXpMwGCCG5sKGnDsUSjI7naLKPxMxGZfTR/Ppl0=;
+        b=e6l2ECYTwdIW9cTidjNs9jlboP9jjmcQ4iN54xSXSaoRkUMdRABLpWcfNI14+AIEC8
+         vj2FLFpOPD1sud+X0McVHAkCUNDHR5vL3VkY8c4CFFNMrpnoQuj1xV9Brcq58cUa40u8
+         hACfkkmYErjLvVgdJzNYEtfG0RPZ3IGYu1jNr5xuV5TqiluJXcXu2zRl/4wXtJjoQGgf
+         lMBLg9oh9Qu3XtaHp8Gz5oZE2s7Jdo7QW3P8wUMh7vfbKBU5vHjlxz5y2fkdMfHeeQ5q
+         Wnf8CYTac1kkwaL9gY+bsNNKtHvFZXOykqhiRVuErCu9l2b3LLGGfq8M/4CI2LXfwhfl
+         5FnQ==
+X-Gm-Message-State: AFq9FYKaFXi2jVp4MPZjupWr4tOown7wqC3AVskr7mTYSovGDv4HHXY2
+	EYyUHL0HTS0HE1ZCuzu/SQBzYotVp6B7YgUo1ZoBbiw0Yo6SC6Id5OG0
+X-Gm-Gg: AYBFou2IotOc+V9p2Ishvm8A5c5T1LOmukSaCyVNvC20i7e7SOjautpXXfGQLkEq+xh
+	5RycL0YSHy+GmLa2Obj8AkqLimoYT/liz6lS3M/aykJu2n30fySMIQYTqylXucKZhQLaT0FtBIk
+	WveJ8cKtwjCcIHg8dSsZcwn38RWwAigjFrF0fJgmwyhihjQShiFWpghxK7eXB33kGggUpvf/gTS
+	LHYn21mQ8PRh/Ddr9HR6lUi1l+sDDNtAGHnGS4PXx7JqeI8DpDEGJtTQwkF2rwHbxGcEYmZNJXi
+	XwgYvSo8v4bU/cABS8bFYEEHck3ADQ7lVouX7NhPsHNk2niaerXp2uiGgvgDoyeU5op16ZCyIoj
+	783wai6b9E0e2EH6oDBbap27ly5qUX4MOFjxpLZs/j3sZdr+2Bd2t9v/Q4MIkHvxf4YyyCKgdFj
+	0xDJxmKHs9J+KbQNRMM7soODGC2lNfRGNVlDN53qU19zRPO2T/2WqWN42iY0XRHUzO6DQshHVCV
+	B8c0PXV
+X-Received: by 2002:a17:903:46c8:b0:2e5:6158:b9c1 with SMTP id d9443c01a7336-2e842cfcf11mr131739435ad.47.1791978525818;
+        Wed, 14 Oct 2026 04:48:45 -0700 (PDT)
+Received: from localhost ([182.216.53.174])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422da9b1sm68643175ad.66.2026.10.14.04.48.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 04:48:31 -0700 (PDT)
-From: Jack Wang <jinpu.wang@ionos.com>
-To: Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>
-Cc: Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jack Wang <jinpu.wang@cloud.ionos.com>,
-	Florian-Ewald Mueller <florian-ewald.mueller@ionos.com>
-Subject: [PATCH] md: allow growing logical_block_size on a running array
-Date: Wed, 14 Oct 2026 13:48:23 +0200
-Message-ID: <20261014114830.615589-1-jinpu.wang@ionos.com>
+        Wed, 14 Oct 2026 04:48:45 -0700 (PDT)
+From: Jaewon Jung <jaewon8868@gmail.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH] selftests/ftrace: Avoid unlink error on first run
+Date: Wed, 14 Oct 2026 20:48:25 +0900
+Message-ID: <20261014114839.6258-1-jaewon8868@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,106 +74,31 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jack Wang <jinpu.wang@cloud.ionos.com>
+On the first run, ftracetest tries to unlink a symlink that does not
+exist.
+Use rm -f to avoid the "No such file or directory" error.
 
-Growing logical_block_size on a running array required stopping it
-first. Handle it directly in lbs_store(), similar to
-mddev_set_closing_and_sync_blockdev(): under open_mutex, refuse with
--EBUSY if the array is closing or has openers, otherwise apply the
-bigger LBS.
-
-mddev_lock() is not taken on this path, to avoid holding reconfig_mutex
-while blocking on the queue limits lock.
-
-md_release() drops openers without open_mutex, so a bio of a just-closed
-opener may not yet be accounted in active_io. Commit the limits with
-queue_limits_commit_update_frozen() to drain it. Also take open_mutex
-around the existing "enable LBS" branch so it cannot race with the grow
-path on mddev->logical_block_size.
-
-Suggested-by: Florian-Ewald Mueller <florian-ewald.mueller@ionos.com>
-Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
+Fixes: 7dc1e125f07a ("ftrace/selftests: Add softlink to latest log directory")
+Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
 ---
- drivers/md/md.c | 40 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 35 insertions(+), 5 deletions(-)
+ tools/testing/selftests/ftrace/ftracetest | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 03e35386a802..cd9c73f46786 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -6013,12 +6013,12 @@ static int mddev_set_logical_block_size(struct mddev *mddev,
- 	lim.logical_block_size = lbs;
- 	pr_info("%s: logical_block_size is changed, data may be lost\n",
- 		mdname(mddev));
--	err = queue_limits_commit_update(mddev->gendisk->queue, &lim);
-+	err = queue_limits_commit_update_frozen(mddev->gendisk->queue, &lim);
- 	if (err)
- 		return err;
- 
- 	mddev->logical_block_size = lbs;
--	/* New lbs will be written to superblock after array is running */
-+	/* New lbs will be written to superblock on the next update */
- 	set_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags);
- 	return 0;
- }
-@@ -6046,8 +6046,36 @@ lbs_store(struct mddev *mddev, const char *buf, size_t len)
- 	if (mddev->pers) {
- 		unsigned int curr_lbs;
- 
--		if (mddev->logical_block_size)
-+		/*
-+		 * open_mutex serialises both paths below on
-+		 * mddev->logical_block_size and keeps new openers out.
-+		 * MD_CLOSING means a stop is under way. mddev_lock() is not
-+		 * taken, to avoid holding reconfig_mutex while blocking on
-+		 * the queue limits lock.
-+		 */
-+		mutex_lock(&mddev->open_mutex);
-+		curr_lbs = queue_logical_block_size(mddev->gendisk->queue);
-+		if (lbs > curr_lbs) {
-+			/*
-+			 * A bigger LBS can be applied to a running array if
-+			 * nobody has it open, as there is no I/O through the
-+			 * MD gendisk queue without openers. The queue is
-+			 * still frozen for the limits update to drain a bio
-+			 * of an opener that has just closed.
-+			 */
-+			if (test_bit(MD_CLOSING, &mddev->flags) ||
-+			    atomic_read(&mddev->openers) > 0)
-+				err = -EBUSY;
-+			else
-+				err = mddev_set_logical_block_size(mddev, lbs);
-+			mutex_unlock(&mddev->open_mutex);
-+			return err ?: len;
-+		}
-+
-+		if (mddev->logical_block_size) {
-+			mutex_unlock(&mddev->open_mutex);
- 			return -EBUSY;
-+		}
- 		/*
- 		 * To fix forward compatibility issues, LBS is not
- 		 * configured for arrays from old kernels (<=6.18) by default.
-@@ -6055,12 +6083,14 @@ lbs_store(struct mddev *mddev, const char *buf, size_t len)
- 		 * enable LBS by writing current LBS — to prevent data
- 		 * loss from LBS changes.
- 		 */
--		curr_lbs = queue_logical_block_size(mddev->gendisk->queue);
--		if (lbs != curr_lbs)
-+		if (lbs != curr_lbs) {
-+			mutex_unlock(&mddev->open_mutex);
- 			return -EINVAL;
-+		}
- 
- 		mddev->logical_block_size = curr_lbs;
- 		set_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags);
-+		mutex_unlock(&mddev->open_mutex);
- 		pr_info("%s: logical block size configured successfully, array will not be assembled in old kernels (<= 6.18)\n",
- 			mdname(mddev));
- 		return len;
+diff --git a/tools/testing/selftests/ftrace/ftracetest b/tools/testing/selftests/ftrace/ftracetest
+index 246d7e1d015c..95804610e079 100755
+--- a/tools/testing/selftests/ftrace/ftracetest
++++ b/tools/testing/selftests/ftrace/ftracetest
+@@ -243,7 +243,7 @@ else
+   mkdir -p $LOG_DIR || errexit "Failed to make a log directory: $LOG_DIR"
+   date > $LOG_FILE
+   if [ "x-$LINK_PTR" != "x-" ]; then
+-    unlink $LINK_PTR
++    rm -f $LINK_PTR
+     ln -fs $LOG_DATE $LINK_PTR
+   fi
+ fi
 -- 
 2.43.0
 
