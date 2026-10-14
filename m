@@ -1,133 +1,180 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF3F4C9E01
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 12:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015404E1C88;
+	Wed, 14 Oct 2026 12:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979392; cv=none; b=BgKObfvBAc2vNgyEqdZVWztvXEzBIdtVsu7AG9WNhmQnXHcHnpgprMov0j8Cke//GIp9W0pfTZq4YCIvWeC4QgjOdQ+lLXn4fhQbbbYaKxtgj4gRJutKsAkxVgtCVsuRKow/sn+LeE/vtXG73aS71de+snKsotAEhZzIJ5v13UE=
+	t=1791979439; cv=none; b=U/3T38gYTOUXfdJMlSf0iUCxR0eMoGrd3N8qLupfqduC9nhFwOCSHpvRCnHogCUO6hkT6mM7v8I8QAVEDkKbFWMtW5eeSbqcD8+gvJw5lCH9+FSMtNNDSWGrMh5CZw9x5Oct6H+EDIos/moBYsg7PjtXBFafkIHsBjtY8ku4LIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979392; c=relaxed/simple;
-	bh=RCMiJMwZ/p84YRjFKN47cNWn+KpGmmsrfTfEMKulcuo=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=FCt7D6yHoaSCZoJbBlzbk5xaTttJeuKCsFWvx8gQH4cNRAH7xWupqKIIL8vGioQrjVBhKeKbxKKGEXia9wsK8VEXA6PKTo211dFkxIUDgpvCPi2tX2SWk4p3qRn5sHUybH+8C4M7WREZRfxnChuFfL6xMfEwAENZS22hxE/btng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 69EC2v9H062924
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:02:57 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 69EC2v8P062921
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:02:57 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <17fb5b42-4f54-41db-8bcb-2c13e05c6137@I-love.SAKURA.ne.jp>
-Date: Wed, 14 Oct 2026 21:02:56 +0900
+	s=arc-20240116; t=1791979439; c=relaxed/simple;
+	bh=V3MsK3mZwCjscrDxT54CJFRs7U+n0lNx9ZwcQxSKtbg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kyMeACrHNFSVMHWUJV8v9v+3ThbS+y0rxgNKzMOkFUlrKCxScHO0pTF/BQEgT+/5Ls7ZFMbcBCTeWvjV7w6ZX3q9Q+t1HckL37Mbi4ckU2USGG6qXBKTxtJ+gwlU93aoicur9kzqEhws8p7AC3sN1oOFS3LLiSnXlFaCIHOh3ZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USjF7rVO; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USjF7rVO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 30745C2BCC7;
+	Wed, 14 Oct 2026 12:03:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791979438;
+	bh=V3MsK3mZwCjscrDxT54CJFRs7U+n0lNx9ZwcQxSKtbg=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=USjF7rVOv//NORVOa6FZbzNzYh7raDbXWw7kE9xtwdd0S2v+knAAN8P4JS+1uRrdv
+	 4Z1Tkzt8UdkmrAnJlvfa38W3y/bU7qjmMlufhGl5G/1GpX6pc80kYjYWcM7G9+PTCX
+	 OgrrJfKy9H38PB8RG9LN+1VjA+LcIzviw03Az2XgIv2DOBMN3FKrDvrUrO7uAegpVW
+	 myjNIrRzBO4Ap10k5jKUpssjD+nB8UBItVCLVb0RNXo0voWlKdrWklFu+CbCywCpii
+	 23PITYHNuPN3IjsC6ujHiIsDCBITsyHkVzoHgCHIXS+CRShp71ENCa5qpOPro1hMBG
+	 o9PmNOEJNeZvQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D457CC6B1A;
+	Wed, 14 Oct 2026 12:03:58 +0000 (UTC)
+From: Nicholas Velten via B4 Relay <devnull+nicholasfvelten.gmail.com@kernel.org>
+Date: Wed, 14 Oct 2026 09:03:57 -0300
+Subject: [PATCH] usb: gadget: f_phonet: don't free the net_device on failed
+ registration
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: LKML <linux-kernel@vger.kernel.org>
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Subject: [PATCH] block: avoid long sync_blockdev() under disk->open_mutex
- during parallel close
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Virus-Status: clean
-X-Anti-Virus-Server: fsav214.rs.sakura.ne.jp
+Message-Id: <20261014-fix-phonet-free-on-failure-v1-1-3c93c48e7527@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAKxvz2oC/yXMQQqDMBBG4avIrDtgombRq5QuNPlTp5REJloK4
+ t1N2+UHj7dTgQoKXZudFG8pklOFuTTk5zE9wBKqybbWmdb0HOXDy5wTVo4KcE4cR3ltCrYuDN3
+ QexfcRHWwKGr9m9/uf5dtesKv3yMdxwlJZdLEfgAAAA==
+X-Change-ID: 20261014-fix-phonet-free-on-failure-26d5354c6d6b
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>, 
+ syzbot+098999e05b6b877c01b3@syzkaller.appspotmail.com, 
+ Nicholas Velten <nicholasfvelten@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791979437; l=4573;
+ i=nicholasfvelten@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=XnUSJ2jOw7UNqCVAhMhTTH26vH3SvOgdGN6OPSHTtZw=;
+ b=ssJSiLyu5Z086YYPOEXPh7TX4zzrvdYy6d266nubLXlUZ7z1js+HlT9HAUjGVutFQ0EmpSeoB
+ UBU9gF5m5WIAmgEXczb+YVIx9vDCgvtTjspJqLqP538K/G9YpZJlWOo
+X-Developer-Key: i=nicholasfvelten@gmail.com; a=ed25519;
+ pk=WVTZgm6yXQ+XrhULAObg4lwcHPhhxAXrAY+YY6svXzg=
+X-Endpoint-Received: by B4 Relay for nicholasfvelten@gmail.com/20261014
+ with auth_id=1173
+X-Original-From: Nicholas Velten <nicholasfvelten@gmail.com>
+Reply-To: nicholasfvelten@gmail.com
 
-Commit b849dd84b6cc ("bdev: Reduce time holding bd_mutex in sync in
-blkdev_close()") introduced a sync_blockdev() call immediately before
-holding disk->open_mutex. But this check was racy and best-effort basis.
+From: Nicholas Velten <nicholasfvelten@gmail.com>
 
-If more than one process concurrently called bdev_release() and saw
-atomic_read(&bdev->bd_openers) > 1, the process which actually hit
-the atomic_dec_and_test(&bdev->bd_openers) condition will call
-sync_blockdev() from blkdev_flush_mapping() (which could take several
-minutes) with disk->open_mutex held.
+gphonet_register_netdev() frees the net_device when register_netdev()
+fails. That made sense when the device was registered once at module
+load, but since the conversion to the function interface the device is
+allocated in phonet_alloc_inst(), stored in phonet_opts->net and
+registered from pn_bind(), which only sets phonet_opts->bound on
+success. After a failed registration opts->net therefore points to
+freed memory, and the next bind writes to it in gphonet_set_gadget():
 
-Kill this race window and make sync_blockdev() always be called before
-holding disk->open_mutex, by using a marker that checks whether lockless
-sync_blockdev() has raced.
+  BUG: KASAN: slab-use-after-free in pn_bind+0x49a/0x500
+  Write of size 8 at addr ffff888003e785d8 by task gadget_rereg/86
+  Call Trace:
+   pn_bind
+   usb_add_function
+   configfs_composite_bind
+   ...
+  Allocated by task 175:
+   alloc_netdev_mqs
+   phonet_alloc_inst
+   ...
+  Freed by task 86:
+   kfree
+   device_release
+   kobject_put
+   gphonet_register_netdev
+   pn_bind
+   ...
 
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+This is the "slab-use-after-free Write in pn_bind" that syzbot reports:
+its free stack also goes through gphonet_register_netdev() from
+pn_bind(), so the object is freed by the failed bind itself rather than
+by a racing phonet_free_inst().
+
+Stop freeing the device there; it belongs to the function instance and
+phonet_free_inst() already frees it when it was never registered.
+Dropping the free alone would make the retry hit the BUG_ON() in
+register_netdevice(), because a registration that fails after
+netdev_register_kobject() leaves the device NETREG_UNREGISTERED and it
+cannot be registered again, so also refuse to register a device that is
+not NETREG_UNINITIALIZED, as gether_register_netdev() does for the
+Ethernet functions.
+
+Reproduced with fail-nth fault injection on the allocations of the
+write() to the gadget's UDC attribute, binding again without injection
+after each failed bind, with a fresh phonet function instance per
+iteration: without this change KASAN reports the use-after-free above at
+the 15th injected allocation; with it, 300 iterations complete with no
+KASAN report, and removing the function instance afterwards frees the
+device without errors.
+
+Fixes: fcbdf12ebef7 ("usb: gadget: f_phonet: convert to new function interface with backward compatibility")
+Reported-by: syzbot+098999e05b6b877c01b3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=098999e05b6b877c01b3
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Nicholas Velten <nicholasfvelten@gmail.com>
 ---
- block/bdev.c              | 41 +++++++++++++++++++++++++++++++++++++--
- include/linux/blk_types.h |  1 +
- 2 files changed, 40 insertions(+), 2 deletions(-)
+This is the f_phonet counterpart of my u_ether fix for the same retry
+pattern:
+https://lore.kernel.org/all/20261014-fix-gadget-netdev-reregister-v1-1-0fb91999da06@gmail.com/
+Both patches are independent and apply on their own.
 
-diff --git a/block/bdev.c b/block/bdev.c
-index cd8323083740..07e4cc0e5c2a 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -1167,10 +1167,47 @@ void bdev_release(struct file *bdev_file)
- 	 * of the world and we want to avoid long (could be several minute)
- 	 * syncs while holding the mutex.
- 	 */
--	if (atomic_read(&bdev->bd_openers) == 1)
-+ retry:
-+	mutex_lock(&disk->open_mutex);
-+	if (bdev_is_partition(bdev) &&
-+	    atomic_read(&bdev_whole(bdev)->bd_openers) == 1) {
-+		/*
-+		 * This "bdev" is a partition, and blkdev_put_whole() from
-+		 * blkdev_put_part() will trigger blkdev_flush_mapping() on
-+		 * the whole disk. Therefore, we need to sync the whole disk.
-+		 */
-+		bdev->bdev_syncer = current;
-+		mutex_unlock(&disk->open_mutex);
-+		sync_blockdev(bdev_whole(bdev));
-+		mutex_lock(&disk->open_mutex);
-+		/* Need to retry if we raced. */
-+		if (bdev->bdev_syncer != current)
-+			goto retry;
-+	} else if (atomic_read(&bdev->bd_openers) == 1) {
-+		/*
-+		 * If "bdev" is a whole disk, blkdev_put_whole() will trigger
-+		 * blkdev_flush_mapping() on this disk. Therefore, sync this
-+		 * "bdev".
-+		 *
-+		 * If "bdev" is a partition, blkdev_put_part() will trigger
-+		 * blkdev_flush_mapping() on this partition, but
-+		 * blkdev_put_whole() from blkdev_put_part() won't trigger
-+		 * blkdev_flush_mapping() on the whole disk because we chedked
-+		 * bdev_whole(bdev)->bd_openers != 1. Therefore, we need to
-+		 * sync only this "bdev".
-+		 */
-+		bdev->bdev_syncer = current;
-+		mutex_unlock(&disk->open_mutex);
- 		sync_blockdev(bdev);
-+		mutex_lock(&disk->open_mutex);
-+		/* Need to retry if we raced. */
-+		if (bdev->bdev_syncer != current)
-+			goto retry;
-+	} else {
-+		/* Mark sync_blockdev() being possibly raced. */
-+		bdev->bdev_syncer = NULL;
-+	}
+Nguyen, Cc'ing you because your "usb: gadget: f_phonet: fix
+use-after-free in pn_bind" v3 targets the same syzbot report. The lock it
+adds covers a pn_bind() vs phonet_free_inst() race, but the free stack in
+the syzbot report (and in my reproduction) is in pn_bind() itself, via
+gphonet_register_netdev(), so I don't think it addresses this
+use-after-free. The two changes touch different functions and do not
+conflict.
+
+The reproducer is a small fail-nth program; I can post it if useful.
+Not tested on architectures other than x86_64.
+---
+ drivers/usb/gadget/function/f_phonet.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/f_phonet.c b/drivers/usb/gadget/function/f_phonet.c
+index b1ee9a7c2..43b10ce36 100644
+--- a/drivers/usb/gadget/function/f_phonet.c
++++ b/drivers/usb/gadget/function/f_phonet.c
+@@ -722,13 +722,18 @@ void gphonet_set_gadget(struct net_device *net, struct usb_gadget *g)
  
--	mutex_lock(&disk->open_mutex);
- 	bdev_yield_write_access(bdev_file);
+ int gphonet_register_netdev(struct net_device *net)
+ {
+-	int status;
++	/*
++	 * A register_netdev() that failed after netdev_register_kobject()
++	 * leaves the device NETREG_UNREGISTERED, and it can never be
++	 * registered again. pn_bind() retries on every bind until the
++	 * device is registered, so refuse instead of hitting the BUG_ON()
++	 * in register_netdevice(). The net_device is owned by the function
++	 * instance and freed by phonet_free_inst().
++	 */
++	if (net->reg_state != NETREG_UNINITIALIZED)
++		return -EINVAL;
  
- 	if (holder)
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 98e21b4cbf32..d79bb4b6100f 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -74,6 +74,7 @@ struct block_device {
- #ifdef CONFIG_SECURITY
- 	void			*bd_security;
- #endif
-+	struct task_struct	*bdev_syncer; /* Not refcounted. */
- 	/*
- 	 * keep this out-of-line as it's both big and not needed in the fast
- 	 * path
--- 
-2.56.0
+-	status = register_netdev(net);
+-	if (status)
+-		free_netdev(net);
+-
+-	return status;
++	return register_netdev(net);
+ }
+ 
+ void gphonet_cleanup(struct net_device *dev)
+
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261014-fix-phonet-free-on-failure-26d5354c6d6b
+
+Best regards,
+--  
+Nicholas Velten <nicholasfvelten@gmail.com>
+
 
