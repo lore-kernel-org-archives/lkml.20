@@ -1,92 +1,90 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from r3-11.sinamail.sina.com.cn (r3-11.sinamail.sina.com.cn [202.108.3.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0C0302146
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:40:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BD8302146
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791942061; cv=none; b=fQOvVlGAgyBml9ku/UB3Kf7Pf3IBy8v1j0KXHc8z3dlL09q0JGO4BxoP98BBgHgx+cdKE7z6CBURBGWtbxBIsbZfbfpoXU/wR8Z5Cir4aHwvRL3pPc+TKg9yMOsJzlA3E3vev5cDYpZcCYmsnOTNmAilaVmhBweyhyVU/UX24O0=
+	t=1791942098; cv=none; b=I6WV9m1tauk0ZoKn/xshmTueHhVUp4//gx/qCV6bieIkKDzjxZ6McX1lxVeVadbleedEs6RjclrY2jIIOlwB22x1GLT8mCtDn+mr5I9DpgeD0FiC5JsiknJM+/3eoxuycTQqhg18KC6haqG1UuGpUikjibZ6fHSUbzrRczn6hSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791942061; c=relaxed/simple;
-	bh=+Gi6pkET5TN4Ax+sd3JWepZ5KzFh0sJWwvfq5VRU6TE=;
-	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
-	 Content-Type:References; b=KcDxo80K3L0n+W39h2O0jTsA0ZYgov/Ti6ZYfj+Q0wZIhJW32colHUWlPCjzQS2vjxN4zgpZBhFS9GApLyZ7NL4qUiwUBHcYzxdBomxmT/O++KtUp7peP832q8PPXIjq0BoKuRTNODVDuHsSDyfyAl+obDCcSibV44jOO6S1NWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=JGhZ0fPz; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791942098; c=relaxed/simple;
+	bh=bCaUzIelB9WpZwF/pwMwTNqan3Z0wPcZ2evd+e1nY4E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KYDOlTd8kg85Y1MYSHOmogssbTEgtQBQrbB3cCV3LqUy3LYk0pTYjotl1z2m5e/MlhaibF7AIh0SaWzsw220hvrtfpdciHCw+rbm4Gq23EIk2OJZoikP7DHyLysRvYclWnJ31TwENzOuAGEw0ea2ioKFbch4uU43SFIpXHO1b5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=JbzSKmni; arc=none smtp.client-ip=202.108.3.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="JGhZ0fPz"
-Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261014014057epoutp047690b0459740898d608354e51e291bc0~eQc6biQH22670326703epoutp04C
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 01:40:57 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261014014057epoutp047690b0459740898d608354e51e291bc0~eQc6biQH22670326703epoutp04C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791942057;
-	bh=+Gi6pkET5TN4Ax+sd3JWepZ5KzFh0sJWwvfq5VRU6TE=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=JGhZ0fPzFPuvi3lkcBF/SrxySc35XZKXXRZWrK8drWUSio0EK95dFK2n8ihm62o+t
-	 DBmD6Somd/ABemD/wSkFDgcma1fLhlm/oqn4w00TWs57S+qBmMrHBODJiA6Yow8eRO
-	 CDHxi9+sXx0gb5P6RyCwng6uTaav6dehbOXDmmCY=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261014014056epcas2p1f5cf8e8a20853fe5b65850f64d83bca3~eQc6FQ9OY0786907869epcas2p1Y;
-	Wed, 14 Oct 2026 01:40:56 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.207]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4j4DS84P5Qz6B9mT; Wed, 14 Oct
-	2026 01:40:56 +0000 (GMT)
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="JbzSKmni"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1791942094;
+	bh=Gukd+7qBDkCL0LwJkx1bGcwYtROGaDWytHz0r2JFleE=;
+	h=From:Subject:Date:Message-ID;
+	b=JbzSKmniJVAA9CnbW+dTXOK6MSIOaz03h3PuzPjG6QBj4CBto4wJiDOjG+b4HOAAh
+	 EKq1abq/gLIJCOMMG9j2RhEvEEWjTaQluWEf22NyGeIlaCmpcdkqXPEP0Dsgzmf0lY
+	 q/cxqba5XjGV/4Sn/+03cFMSCV3rnWWpX5/OZyWY=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
+	by sina.com (10.54.253.34) with ESMTP
+	id 6ACEDDC100004107; Wed, 14 Oct 2026 09:41:25 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 3659906291904
+X-SMAIL-UIID: 3E8AF85D807741DB8AE66A308ECF1F7E-20261014-094125-1
+From: Hillf Danton <hdanton@sina.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: David Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com,
+	dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux.dev
+Subject: Re: [PATCH] drm/virtio: share one vbuf cache across all devices
+Date: Wed, 14 Oct 2026 09:41:10 +0800
+Message-ID: <20261014014112.515-1-hdanton@sina.com>
+In-Reply-To: <bf25fc38-95d7-4cb5-b0ee-6afe1488e5e7@collabora.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH] xfs: make pNFS LAYOUTCOMMIT stable the way fdatasync
- does
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Christoph Hellwig <hch@lst.de>
-CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>, "Darrick J. Wong" <djwong@kernel.org>, Dave
-	Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton
-	<jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov
-	<sergeybashirov@gmail.com>, "linux-nfs@vger.kernel.org"
-	<linux-nfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <20261013120846.GA4040@lst.de>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261014014056epcms2p5df940cfbe097b8cccce16080e482e422@epcms2p5>
-Date: Wed, 14 Oct 2026 10:40:56 +0900
-X-CMS-MailID: 20261014014056epcms2p5df940cfbe097b8cccce16080e482e422
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261013120853epcas2p4eaaf03a8d782645c9d336cc4a5300f3c
-References: <20261013120846.GA4040@lst.de>
-	<20261013-xfs-pnfs-commit-datasync-v1-1-2a12ef89ecd9@samsung.com>
-	<CGME20261013120853epcas2p4eaaf03a8d782645c9d336cc4a5300f3c@epcms2p5>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 02:08:46PM +0200, Christoph Hellwig wrote:
-> That feels like a bit of overkill, given that the shared code is
-> just two function calls.
-
-OK, no helper then.
-
-> ... but maybe this helper should move to xfs_log.c and renamed to
-> something like xfs_log_force_inode?
-
-Makes sense now that it is used outside xfs_file.c. There already is an
-xfs_log_force_inode() in xfs_inode.c, which is the !datasync case of
-this one, so in v2 I'll move xfs_fsync_flush_log() next to it and make
-xfs_log_force_inode() a wrapper around it.
+On Fri, 9 Oct 2026 20:39:54 +0300 Dmitry Osipenko wrote:
+>27.09.2026 07:09, Nguyen Ngoc Thang пишет:
+>> On Sun, 27 Sep 2026, Hillf Danton wrote:
+>>> What is unclear -- why is kmalloc failing to work in 2026?
+>> 
+>> kmalloc isn't failing. The failure is in kmem_cache_create(): the driver
+>> creates a dedicated cache with a fixed global name for each device, so a
+>> second probe while the first drm_device is still alive (release is
+>> deferred by an open /dev/fbN) trips the duplicate-name check.
+>> 
+>> Your question made me look at whether the dedicated cache is needed at all.
+>> A vbuf is sizeof(struct virtio_gpu_vbuffer) + 96 + 24 = 216 bytes, which
+>> lands in kmalloc-256 anyway, so the cache buys nothing over kzalloc()/kfree().
+>> Dropping it also removes the lifetime problem entirely and needs no
+>> module-level state.
+>> 
+>> I'll send a v2 that switches the kmem_cache_zalloc() calls and
+>> kmem_cache_free() to kzalloc()/kfree() and deletes the cache setup and
+>> teardown.
+>> 
+>> Thanks,
+>> Nguyen Ngoc Thang
+>
+> kmem_cache is used by GPU drivers to avoid kmalloc stalls in a
+> latency-sensitive job-submission code path.
+>
+This makes no sense before showing the stall, given my failure of locating
+the lore page where the tglx dude was taught a few years back (by Mathew
+Wilcox?) that the percpu page is faster that thought.
