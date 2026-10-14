@@ -1,64 +1,64 @@
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BD956852D
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A08563FDD
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:50:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792000239; cv=none; b=JVd6ZcPGmVfAiMDi9jXKJrK49ugKav0mRGy6TRXKHW5ZP9iyj0giuT2g+v0IpGcMNgGZeAs3hrnXKF6ySqn0+XFg2zl6KQ43h7yDrJokfSpVONaCT5PDNUJyHGdYXFpMdnLhdedLcGjU1NiwG1vqrDxdouKED3kMOd8hEw/V1WU=
+	t=1792000244; cv=none; b=ZFH4XhS8PZk4xCSL+YMeAksfA8PR24iRA+y/NsCpKc+FdM1XDcdRS+daTGFi1OS+ZN0SsiP8WwnrGRsRdrEBFbO9bI8/BxFhHppKCfbKjOFLgu2TePuxPRGwM3C17oVLbcVQVDGuKDE9DV9MHLGxj1N1NlzyrgodLB03tOAodRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792000239; c=relaxed/simple;
-	bh=bcpCKvVzfWBh/r6Hd1uM1Uzypdcg61eA5omXmDuNH2s=;
+	s=arc-20240116; t=1792000244; c=relaxed/simple;
+	bh=wNHc1TVX9sLdgDlURVwlHfFyDA+suFjfxqcNteo3u0I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZJ2Eks9FNQuVZHAZ9MAq66O4dPOg1VzAGi2dCYrBm3Pak5O5Xlt1lKDP8P4swU8Dllyf7PXpV+CRZlSHl6QFxIDLU0dB+BJykwQxd94/AXOxGCbV4ZBSp7i+G1uAvGWrZMMvbUnu2nxWkpisqhynBGqwFPWd6DFfUsPrj+IDnDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X/Kwi0FS; arc=none smtp.client-ip=74.125.227.134
+	 MIME-Version; b=FVrgHICadwJR8455oR2a6g98ILsutkAIEb+koouBLl3BbaLofuZdaUvhWNOcIxS3+v9YgHXuAr2xjB9PB4U+llxjtu4yRH2nII27G7TUwCZwj/m5sN3W7w2Exg+3bVfHuETBLtsURHCKtxfnuHCPJyHz/tGhieCqjmfovTcOnCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XFz4dKVd; arc=none smtp.client-ip=74.125.227.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X/Kwi0FS"
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso2160049a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:50:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XFz4dKVd"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4821449so1755237a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 10:50:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792000238; x=1792605038; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792000242; x=1792605042; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VJ7/NhnH54F9thvi/u3AYl774UiiZhmgOKclyQGISL4=;
-        b=X/Kwi0FS7FDhLF2Yn2MBG9i2ePmsW/ZqpR2PNTr7J+3+33jFXSDdxPXxoumixaHF7D
-         B1atV2a+bKffCR/vZcmXxQPKr5Qc/Jg+C/DoyPTyGwGj1tJ+DcEVleRUlkq0AcblVM4f
-         ICqY2a1PMNvEmKIFHaPQPZQYtxf0+NJkMpyaMZn87x9psg+SND2/+OepUlFM3flbTw8w
-         2HFE5Y4IsnOqAyMJooobWmTwB4Zq41+06kCmHYkIoWDXYE3zK3IrDdySPbH+kE3uOSlt
-         watPlnJCOlJ72BJmch7qDFPOF40gOAmvuwmSBJpLpA1a/1U5eyi/ecAgHfbPQCK4R19l
-         m+9A==
+        bh=AieOTAd4jPGHXEklzseP5L8MSUknMI2VVdbM9VXqd6o=;
+        b=XFz4dKVdU+siE6vnkJ/ggBPB4FNRvnDy0dWilLdet/jGHl9baBZPq9lngFEGroxbmz
+         IZn+/vPyTPFoJ/kLoKBkRz6Kn4GmvhW/CiUYJ7mpIena1WMoPFV3GKwWQkw+abXJATIY
+         Im2xjV9Zo9h4GgjF6l8iQETKFvFTAvZziaR+OytckvqaRho8nBZkLgOUV7UDThBu4pRy
+         ThST6z5I+L3UzRd8mWpSEb025rpb4HidWAhjgtKGrPj6ABolJLwsvRh4Y/59wK/EROw4
+         6e+p6Kr3kYB/p7nPR5iLjmDtQKkpnRHyf6H3uuZ/WQ9KPodNk1Rh/q8zYE+21dm+Wrem
+         e7wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792000238; x=1792605038;
+        d=1e100.net; s=20260707; t=1792000242; x=1792605042;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VJ7/NhnH54F9thvi/u3AYl774UiiZhmgOKclyQGISL4=;
-        b=ftCV5NG1fufQgVtJ2EAO3jnXZVeJzEIacaYBqoVWktC79jyDg3mH1L1yRWjTy9w964
-         vbCk6dYzObzSHdugxypgoATCFiHJE1s4yJST3DSXYPBEfmJblaCJS2yhjni2NoR2lQhw
-         Yu1ityfF5zgTPguLLMb6gRAvCrRdTiupkxDZ69cEXaKjYclMsj4RtcO6tvDjyBq6YzYD
-         uaE0mOELzbHN523qM8eWsMssYAwTnl6yBYVkXGtNLRywcSObrsGJyYAJ2OFQHo/Xz0+A
-         XWS2PRE4st8KH1Es6biCR9iPSKhBWzHRXbStNnJmONaJiS45zjoejb4/PbLs+fub0gj6
-         ntzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPlfHtnwOmtP1pDxOL+59wWRk48i3dEKT6kjLjWPpXCKa8jc0lHv3JSyY2xJxq1F3Hg34QHkh3N+nNgQg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLW/l8OnlDbyMQpmOjuxQiQsHqrrhpgdIcMIiAiodRPNskgoUzM
-	z5S3wcnDAhQnh7tb4rjfEl6ssGxlIE2/UAWzRGpoMWstxsfYr0NS2LYK
-X-Gm-Gg: AYBFou1cFNJDesJInGB18XJK2NiTkrvYTMTd936z/4fPRZE+uGWErO8kCV8UD8uW0LJ
-	S9ZIBQWKr093rNMrxnU9qrr7fuB2Ru12y+bEMLTANYPwkYKRhz7XsLXp2HoWOwBhrRKxzkqKai1
-	/ZJIqgTwNjXMiciBZHHjUr9s1/eq6DySVkgU0rvujZjFZ8E5ScGT4QNbbBNy/Axx9Ws4B8yCJlD
-	tp88YiI8FI1kKV6e9GkIiLYh5IDOrxr8PjUoMhNmZF91NdkZZWPuOOixCUf6UZyXUJbhs+p/lu2
-	1BgXO7I5LXHwcyhgrrcvJxo+AW46ZQrHFmKbqZdm/m59C8RNgzU//CXy1DP3BYGn1H/JATuT1/c
-	rzTMOILZ2v37z5MuPsL+Kof5he5z6gHhG1XkN53TtnNEO21uS1jShy5VXWDFCCsyBF1/8QGQgyY
-	1n8n8fUYFfQHCmBF+G4HcQ7B6mxJsuS/kpiEpu5bS5rR8cjUCql88lNntqZ3FXzYUveB79SIiTZ
-	9HWRJle8f0MqLASPcIX
-X-Received: by 2002:a17:90b:35c2:b0:3ac:7c4d:8be1 with SMTP id 98e67ed59e1d1-3ac7c4d91d4mr1626449a91.62.1792000237533;
-        Wed, 14 Oct 2026 10:50:37 -0700 (PDT)
+        bh=AieOTAd4jPGHXEklzseP5L8MSUknMI2VVdbM9VXqd6o=;
+        b=I4WC84mnfIjSyujsDghQJJ9C+M8LZDz3+0opKarMh6YkXVMijpi4aqu1VVOw4rzZ9i
+         oJCql5LBxfx4MJsMZ6c5/YfBJTZP+w272IPs8dYlc+QapwzkBoJJ0k4kky29g4eQayqY
+         wATj0uC22Bw7+KK7XfkzxsRBOtyBHx9nKipfYpBUKHwb7sGrAAdMny6Jcb8+BD4x/jj7
+         8PGfVE9ZqcAs33+9oQyBicniIcQylgnTFCz3HpHFHNChuYj2D+yZZQ1gog0tQ52LhC2s
+         fGKK5KQyda/qNf8k0FkOwH2ViAkkyy523kjIn43hUldDOZkD/Uw61upoYBlSbuo51xlB
+         rshA==
+X-Forwarded-Encrypted: i=1; AKwUvBzRdZKXcpLs1zQ/mR1yfxpE8ZexX9x77dgcH9g7wO05cMR2wqxX/vvZL9Ca8Fr1WzGnnL1jMaT91DRxlzE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIX6RKtkKK81Bzo+RwM2cA+7KHuoDCCXvNb7yllUJFYvK5pXU/n
+	xh/BgzemNO4y0XfcLMWo8osVVwQ/3jyh13i2q5iR3lHx0Y9uqPsvR7zf
+X-Gm-Gg: AYBFou2k0HvE2lg7JaYhh8MCX2wR3TecKEAzylMDIR7hidGk7BRNd0x93LHcKqJrMhE
+	AUWLQ0AJu9L7wkaeloRc2JA3PThWqfmev93uHncUEiaO9YbGsP9tgOg1y5qWd5Q1ppbeFyGCMNe
+	RYBqs1qyajW4GctzNcwTcNzgxthpy2MDNSqE0DOJ+C1Vl8nX7PUbUmsuxb8o6DYa+iXmkLH5yEj
+	1uLIblaZx+LPpkV0DAEnN2eT31RvtiG18Vry5gdFxFJ4NUB8E/beF8nApVPuGPqdsct4Krr+w1g
+	8gyDCvwBUyLu9P8lsF0ezhcfeB/8HzbJtrIYu+o0RXGhZLpPfajK+peL7GyrXOX431FSKZOIzVg
+	USiZyQuIdQaqPyYpJt1KqsIIJDjT0RcWRzI3fmcA63oa7gDnoNqU1V0Wys5YKTsxFA37CC418+D
+	z/kwbNWX0MgA68IC+iwVZQhWl4zVO+YCMQtHJHHtB3+O6JtODf3Y9K9vm6WNINPGroOAwAYGJaz
+	FwaXdmjzjEmrnCB69gS
+X-Received: by 2002:a17:90a:d44b:b0:3ab:365f:ebdd with SMTP id 98e67ed59e1d1-3ab3ad2029bmr13240853a91.37.1792000242195;
+        Wed, 14 Oct 2026 10:50:42 -0700 (PDT)
 Received: from AERO17.taila7786d.ts.net ([156.231.115.17])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9449ae48sm403009a91.13.2026.10.14.10.50.32
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9449ae48sm403009a91.13.2026.10.14.10.50.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:50:36 -0700 (PDT)
+        Wed, 14 Oct 2026 10:50:41 -0700 (PDT)
 From: Pufan Jin <cyan2254650260@gmail.com>
 To: Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -69,9 +69,9 @@ Cc: andrew@lunn.ch,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/3] dt-bindings: vendor-prefixes: Add ALINX vendor prefix
-Date: Thu, 15 Oct 2026 01:50:18 +0800
-Message-ID: <20261014175020.62907-2-cyan2254650260@gmail.com>
+Subject: [PATCH v3 2/3] dt-bindings: soc: xilinx: Add ALINX EdgeBoard FZ3A
+Date: Thu, 15 Oct 2026 01:50:19 +0800
+Message-ID: <20261014175020.62907-3-cyan2254650260@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261014175020.62907-1-cyan2254650260@gmail.com>
 References: <20261014175020.62907-1-cyan2254650260@gmail.com>
@@ -83,39 +83,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add vendor prefix for ALINX (Xinyi Electronic Technology (Shanghai)
-Co., Ltd.).
+Document the ALINX EdgeBoard FZ3A compatible.
 
-Link: https://www.alinx.com/
 Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
 Changes in v3:
   - Update author and submission email to cyan2254650260@gmail.com
-  - Fix transliteration of legal company name to "Xinyi Electronic Technology
-    (Shanghai) Co., Ltd. (ALINX)" (Conor Dooley)
-  - Add website Link in commit message (Conor Dooley)
   - Collect Conor's Acked-by
 
 Changes in v2:
-  - Use 'alinx' instead of 'ebdee' (Krzysztof Kozlowski)
+  - Use 'alinx,edgeboard-fz3a' instead of 'ebdee,edgeboard-fz3a'
+    (Krzysztof Kozlowski)
 
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969..26d5ef6d7 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -90,6 +90,8 @@ patternProperties:
-     description: AlgolTek, Inc.
-   "^alientek,.*":
-     description: Guangzhou Xingyi Intelligent Technology Co., Ltd.
-+  "^alinx,.*":
-+    description: Xinyi Electronic Technology (Shanghai) Co., Ltd. (ALINX)
-   "^allegro,.*":
-     description: Allegro DVT
-   "^allegromicro,.*":
+diff --git a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+index c9f99e0df..ad7c71f9b 100644
+--- a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
++++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+@@ -46,6 +46,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - alinx,edgeboard-fz3a
+               - xlnx,zynqmp-zc1751
+           - const: xlnx,zynqmp
+ 
 -- 
 2.56.0
 
