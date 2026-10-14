@@ -1,140 +1,135 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF6E3BCD28
-	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 03:37:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C4C3E1233;
+	Wed, 14 Oct 2026 03:38:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791949029; cv=none; b=O5vAmZNU0TzgtjY1kCWly/QTWRq9CpOftX2q+yV8EB3VhailSYADE2z5DdnW5MwEQKhYr6fT6dY+M85YxQryPKIzLPtA/lmyt5rHjA/40i13lWcnLJhFvkfldhO+Qzzm7hboWpVqI9IK5na+N2aanXENTxAVdXkxLn2GEmkUubU=
+	t=1791949136; cv=none; b=ia1zdMsxggXJWKa6fS1oYKxkptVnHZ4/OOEb6F4o9YhmKApfsTJjSyTMrFst55R/H3inygQRJkYwztJk1XYTPcW1sUAFC26gNuK0J2M55hA/qUCS9TKXak8abPkn/0hf3g69wLrs4jac7uyYMx53yke1N9w4JK6LElY9qxpYw34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791949029; c=relaxed/simple;
-	bh=n8IRbG2adU+JHRw1Weh0pyhEWzLZHxglbxo0UHmAemo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SMMqtKO8LvZ25Y3bp04udM96hnh86EIkhSh/P89+g2lqBeTumgKqDHEa0sYGv3hjXhyMvT7ghMP4EGWD3tLGMjORxfyJU+naW0HxdomjNLuUyYgrlikczJeBVQaVdSrnQhlmyh++26qKI9gqF+/4lZb8yRuUVzOxPGQhwIz/LM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gn4WCkAl; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791949136; c=relaxed/simple;
+	bh=wWv4sUHIfZP1ItvggJvpQO6/iSgwS9YDTUDmw+IVWVY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=B0cq4Jn3nZA7W8B+EQO7UkPAv9TRgMHrDbMOV6IBzb6yoXfwjYfOQPWma77Zela3GZL2EX1gy+PcI987jMR4AsQ/gfop0pVedQtmmBxlZyZ53CEmRGHHUFLDdxOIR8Rj5h5i2PDshsUwsFuKvZiY1KTOaLhoBXhjvNs5+L4g1Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=k4KKl8pH; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gn4WCkAl"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so3244687f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 20:37:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="k4KKl8pH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791949026; x=1792553826; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Erqpv2udLqd8NtJ/EiJJ9aOeRqNutr8eZmBOOfX9tK8=;
-        b=gn4WCkAlALhlezF9t0NC0YMHVPbIt1UyEz6nWMEe/HmbPlLpTDVve4LAUttxzcRWtj
-         /l/BLQuxWo5IRgV5kar8NOWtBrpmXk6vgg7dtwOx172+vm4ghzKSn3KVrX7wow0LmQHR
-         wIU/IdRqnfKXPLkNgqEUZBX6qP9Wfe23/Ih91rV9H/z7YwzxMU2Q1f+ZEA8YlLOrDUI7
-         ldYNMyQXZiutUeAfYC95CLO5o+VpJeQU2fAheyjPddLZebEzTKt48ydNT/cTlgwl8xrs
-         IwPtT2K9zzxYFF7SR1PIxIDolc2Nn5QBHF2iiA1om7Tus8rSwvAa1WXSqIFbJkWhAA18
-         GTZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791949026; x=1792553826;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Erqpv2udLqd8NtJ/EiJJ9aOeRqNutr8eZmBOOfX9tK8=;
-        b=k0zIRPu0Dt8vk/dzVQ9M0v7efjjxFZoh0ElaUH8/4X9nrs9or3UgIVWfXro8wWvUN7
-         DXm+Dh2omQTtt8R+xROZQiQJ81SJTlolzla+RE+O99Hc0qiy6yEi1raH0uH6nTXS8kMZ
-         22Rao1RXyCcSW7JVC3jBgQKArr+0zkXTit3aHTio9rcYfVvarjBhpNNGKJX/cI+LRLYo
-         uW2IVI1CgPRzC61044XSYG39Ox3P1tap2xdmqK6c9gIp8rHY+i5HE7t9s3WEtzRvvMQt
-         f4tcAVf+NfedqtxXguTQImVVkkksvpwm+4wP0dEBm16zukAWFlNgxNYG4R7tltke2gSQ
-         2JVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBynrZtgZl6BY5+yrA13TyO/e+LTVZ3IXPaQ5U0NubrFdTywBQRQTcmD4iZtH3t9tzDhPlLChbSOVQoYNrc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLklJcR+W2DgJ0eJ+0MCmWC/pZLEwmhYdq8abwdsY5TIAZ2MQ3w
-	EN+g94tRYH4qJHd+OvV7ewUiLfVItRZrI+g1TgvGYE+eT7UHQwWZ/xdS
-X-Gm-Gg: AYBFou3s/KfMk8X9MCsa4TFDdnNS+fkPfHsh5n6/8Zu+8xx+XE7qyUkZYeHBgIUsLLf
-	F73aZGvCgPFaY3+rmUNHuv5zlHxFPY3bPPJOe0OC/rxLQ9k1ifW2DXx5uqPnyPqZiHjh4NPv0n0
-	w0QaNiGBoLtJ8bpvEf/wZzfgeSgvgKOe0GD9Ru2jxmayUCWWHtC1E2Y3T5XDEphnpiVdbST8uQ3
-	VRzQyonFuYrrey9zK9ejpYfCnQZ4XRR6JH+ncnT9qZOuR2Pdkb5jBq4XKfflxXZXqe6Qo8edtIv
-	8fz2zDYKH2Iceu3Z9/4stn0ERlUINk82AAReNwHzKFk+SX2zHMyVVhgSka8g22FtQb4je1wYI86
-	Fep/eb0fh3fA8wb986IbcVrLc2TYLKl6syDeavGF4vPuMbBdMnWrTMtok2dBGu6xG3eaawcGijY
-	x29K/ERAyzopF/nWFBUHOw0SMfQtZnJRumYfXiOylb6blg+AmGzpiaZ9OsJ/keXaoqLpGIexs1j
-	xq3ZFxuKBQIWm/QSeHfyDkQKEZeQy8n+cpc4bHqPauckINnzhRLOtUAONcJlRjILGr739Ux6hft
-	v9dI5MZmPWOloBwOrFRrnLeSJoX+V9GHp3lV0CTqH4rB4AxWPp6XOE2Q1sY0nki7+QJjggu5epF
-	N1uWTGJBmCZ4=
-X-Received: by 2002:a05:6000:420b:b0:48c:a08:5858 with SMTP id ffacd0b85a97d-48dbaae6fa0mr26214747f8f.23.1791949025961;
-        Tue, 13 Oct 2026 20:37:05 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a0fb-5301-0850-863e-3c16-90b7.310.pool.telefonica.de. [2a02:3100:a0fb:5301:850:863e:3c16:90b7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc6b82sm9066614f8f.51.2026.10.13.20.37.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 13 Oct 2026 20:37:04 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	netdev@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Wei Fang <wei.fang@nxp.com>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] net: phy: realtek: restore RTL8211F RGMII delays on resume
-Date: Wed, 14 Oct 2026 05:36:59 +0200
-Message-Id: <20261014033659.95196-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	d=codeconstruct.com.au; s=2022a; t=1791949128;
+	bh=Xr9nv3pCAuQ1Ufx1N8P/5BzbOX8F4y0Yex+Y2BlP8fQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=k4KKl8pHFsg+eNdE9MoTQ1h16nqPhHKpCXWBVqVXLPW2ix4UmoIThsHCX7B5m0yz1
+	 YD4+Dp2SK2s0tl4YQFuFWE6axcJgIvHT2y2Zg9A2fOd+XN2eACiZoGBvUPrX88CBVy
+	 O1CQHTPFNjSbjQtIF556KtYdPeq6ArLQO2/JzZrY5fQWtrllS2yRvzRwx2HWMGK7WI
+	 K4tK6wLG4c0gPqybPKIbjWmNtY5ozYr63SKhMIzFc9zGB+f0bP0Uz1z/fYNLXvXh++
+	 Ly3MYuRRGsYymcj/L7Gnq07y5bYrM+nhYKw6ReTpvrtLCR3OemkUW5hyh9GBz7kNyu
+	 yksHmIU1++rcA==
+Received: from pecola.lan (unknown [159.196.93.152])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 3FD926CEE0;
+	Wed, 14 Oct 2026 11:38:46 +0800 (AWST)
+Message-ID: <c569c912141e9da7530121b8b2fc81527e0518a4.camel@codeconstruct.com.au>
+Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
+From: Jeremy Kerr <jk@codeconstruct.com.au>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Adrian Ambrozewicz
+	 <aambrozewicz@nvidia.com>
+Cc: Donald Shannon <donalds@nvidia.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Linus Walleij	 <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Lee Jones	 <lee@kernel.org>, Pavel Machek
+ <pavel@kernel.org>, Andi Shyti	 <andi.shyti@kernel.org>, Mark Brown
+ <broonie@kernel.org>, Jiri Slaby	 <jirislaby@kernel.org>, Corey Minyard
+ <corey@minyard.net>, "Rafael J. Wysocki"	 <rafael@kernel.org>, Len Brown
+ <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,  Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?=	 <ilpo.jarvinen@linux.intel.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>,  Hans de Goede <hansg@kernel.org>, Lixu
+ Zhang <lixu.zhang@intel.com>, Danilo Krummrich <dakr@kernel.org>,  Johan
+ Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>, Quan Nguyen
+ <quan@os.amperecomputing.com>,  Andrew Jeffery
+ <andrew@codeconstruct.com.au>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-gpio@vger.kernel.org,
+ linux-leds@vger.kernel.org, 	linux-i2c@vger.kernel.org,
+ linux-spi@vger.kernel.org, 	linux-serial@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, 	linux-acpi@vger.kernel.org,
+ linux-doc@vger.kernel.org, 	driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Date: Wed, 14 Oct 2026 11:38:45 +0800
+In-Reply-To: <2026101310-scuttle-unison-d4c3@gregkh>
+References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
+	 <2026101310-scuttle-unison-d4c3@gregkh>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The RTL8211F-VD loses the RGMII TX and RX delay enable bits across a
-software power-down. rtl8211f_config_init() programs these bits from the
-PHY interface mode, but rtl821x_resume() only clears BMCR_PDOWN and waits
-for the receive clock to stabilize.
+Hi Adrian & Greg,
 
-On a BeagleV Ahead configured for rgmii-id, carrier and the negotiated
-speed return after an interface close/open, but the receive path does not
-work. At 100 Mbit/s no frames were received. At 1000 Mbit/s all 11
-observed frames had CRC errors.
+> > This series adds drivers for the NVIDIA LSTP USB adapter: a USB core
+> > driver and GPIO, LED, I2C, SPI, UART and BMC-side IPMI function drivers=
+,
+> > with their device tree bindings, an ACPI description document and the
+> > sysfs ABI.
 
-Program the delays again after the existing resume delay. rtl821x_resume()
-handles RTL8211F and RTL8211F-VD, both of which use
-rtl8211f_config_rgmii_delay() during initialization.
+Adrian, what is the plan for this coexisting with the recently-released
+OBMF-ICP spec[1], which implements almost identical functionality (and
+apparently with less DT/ACPI description requirements)
 
-Tested on a BeagleV Ahead with an RTL8211F-VD at 100 and 1000 Mbit/s,
-including close/open without a link partner.
+... NVIDIA also being a primary contributor to OBMF-ICP.
 
-Fixes: bb726b753f75 ("net: phy: realtek: add support for RTL8211F(D)(I)-VD-CG")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Hardware test results on BeagleV Ahead (RTL8211F-VD, rgmii-id):
+[1]: https://www.opencompute.org/wp-content/uploads/2026/10/obmf-icp-1-0-0.=
+pdf
 
-                               baseline          patched
- 100 Mbit/s close/open         RX silent         pass
- 1000 Mbit/s close/open        11/11 CRC errors  pass
- no-link close/open, reconnect 15/15 CRC errors  pass
+> > What LSTP is
+> > ------------
+> >=20
+> > LSTP (Low-Speed Transport Protocol or Low-Speed Tunnelling Protocol) is
+> > a vendor-specific USB interface (class 0xff, subclass 0x3f) that
+> > multiplexes several low-speed "channels" over one pair of bulk
+> > endpoints. It is implemented by NVIDIA's SMA, an MCU (0955:cf11), and
+> > by other vendors' parts: two hub/bridge chips have it built in
+> > (0424:4940, 174c:2214). Boards use it to
+> > reach SPI flash, I2C sensors, GPIOs and LEDs, a UART and a host-to-BMC
+> > IPMI path, on both BMCs and host systems.
+>=20
+> Also, if you really want to do this in a dynamic way, use greybus, as
+> that is EXPLICITLY what it was designed for, and is patent-free (i.e.
+> unencumbered, and we already support it in the kernel.)=C2=A0 Please don'=
+t
+> reinvent the wheel/spec just because no one did any prior-art
+> research...
 
-The patched kernel also passed bidirectional 1 MiB SHA-256 transfers at
-100 and 1000 Mbit/s and eight consecutive 1000 Mbit/s close/open cycles,
-all without RX CRC errors. An s2idle suspend/resume test passed on both
-kernels and did not reproduce the bug.
+With this, we now have three similar facilities:
 
-Built with ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- LLVM=1.
+ - greybus - I assume there are implementations about, but more on the
+   mobile side?
+ - LSTP - with an NVIDIA implementation
+ - OBMF-ICP - with a few vendors' early implementations
 
- drivers/net/phy/realtek/realtek_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+There are differences between greybus and OBMF-ICP that may justify
+support for both (primarily: static channel support means OBMF-ICP is
+simpler to implement). I understand that OBMF-ICP also has reasonable IP
+protections for implementations. However, it's going to be difficult to
+justify both LSTP and OBMF-ICP implementations living in the kernel.
 
-diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-index 177b62a7b..c867e5213 100644
---- a/drivers/net/phy/realtek/realtek_main.c
-+++ b/drivers/net/phy/realtek/realtek_main.c
-@@ -1375,7 +1375,7 @@ static int rtl821x_resume(struct phy_device *phydev)
- 
- 	msleep(20);
- 
--	return 0;
-+	return rtl8211f_config_rgmii_delay(phydev);
- }
- 
- static int rtl8211f_resume(struct phy_device *phydev)
--- 
-2.54.0
+Adrian: I could see LSTP being implemented as a set of divergences from
+an OBMF-ICP-standard driver, but I'm not yet across why you need static
+configuration. If we do need support for both in the kernel, I can take
+a look at how that could work.
 
+FWIW, we did raise greybus as an approach to various HW vendors; I
+assume there were reasons behind OBMF-ICP, and assume some prior-art
+assesment was involved, but I don't have specifics for those reasons.
+
+HW peeps: This would be an excellent opportunity for elaboration on the
+motivation there, either for LSTP or OBMF-OCP.
+
+Cheers,
+
+
+Jeremy
