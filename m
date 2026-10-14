@@ -1,100 +1,76 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF0543304D;
-	Wed, 14 Oct 2026 12:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858A042A168;
+	Wed, 14 Oct 2026 12:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981845; cv=none; b=nksVPUamGar7NhLE0VYHOMRKgUZ4XR2fyh2JdTEjBEqVmKL13P0T4iPD0IusgEq8zwisiKXFXf5rp29Z6bVtgcJbPqQLbH7XQ6tu+48mNTvIFd/O+4QweVrA6Fqd2OUByUxNYLW6QjEPuM1inE8CjL7tTMopYYaEXFR3wkhGQvo=
+	t=1791981863; cv=none; b=owY/RDAYXLHQOWh6/H0YuCBfvbsfyyOx1F1AQ6wC9w4cu/l5Ci3VwthkABYXQmsmR1vA+Zrd5lyAJRShwF/IGKCjGWyoT5pDVjfxiaJiTw1FxSDpUvNThN31s67g3b0iTxUG+vC1ISkGKVSvA4R9UOlhfmFz8hgb9kDnuTPpEkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981845; c=relaxed/simple;
-	bh=C+4m1lh9z426f2AOlWGrtkGhBX1dSUecUAxUP0YO7Qw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iVlvMzupbuerMBQrMURn1nnGisOlrTm1Yz+4yfNi8toLiIeX71eUUDZd0pZhyu6uma2wpJPJ2/5I8VbbdHUilJz5o0GF+wzWG2oQdkJFYba10WW+ZbCWOw2GyCpxJO5Mdv71PqXtC+j4qMPJGDZT2/nlH/AQ1PMGohtMFIMRqB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SNrcHXk+; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791981863; c=relaxed/simple;
+	bh=Y+8lYdT5+OdVkUjnsR3qkcD4ZogsVfHlnaoYqA9OEvk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=isgQzj6ljktunNggcfTSy7/rrgADdix5dJwLp9UtWzFWw1f2WmC5gjxgZsU+NE0zQ/yr49a9VfGyRMr1Y7FtRb6t+ossS6FL726Vo2WyyPGGL0K3wipZuDpWEpllfibtPp7nU3rP6YfC+sQBP+k1zakhAMszFv3YVdxInP2Iouo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=NLxRBhM6; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SNrcHXk+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791981843; x=1823517843;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=C+4m1lh9z426f2AOlWGrtkGhBX1dSUecUAxUP0YO7Qw=;
-  b=SNrcHXk+pkurUpfeCs2wnYWk/CXNzfduDQoHv74MIQT4SG5djpZKVh8r
-   7jd9wffje3cjk1WJp4i0KY0gGVl3a0Bmjkg53IldOLvYYTpXhU93tUQsj
-   yFYRvKTkRxpBBq7kXNEJflJ/xlFm6OI7xp/947qpAwqLuZijLtU/ISGJo
-   Iv11DdcZmgeUtQfCYJ2JMxoqmTlAxRSgfPSAmDo5oBlOC3xht4ThkQCEM
-   c/hLbKF97C4QG4I3//GiMZoC26wVrIgd9Iq5fWBK/BM7qxcJXSytLAfLo
-   s5zNVII3qtdfwovp36fyZICaYNi2dy/nIfS1ZHAzWdD1VO3LMsBIx40VL
-   w==;
-X-CSE-ConnectionGUID: jXOTGH1WQ0SwpDAPbqFcPA==
-X-CSE-MsgGUID: m0l2yOM9S12ym1cc8O71zA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="736360"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="736360"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 05:44:02 -0700
-X-CSE-ConnectionGUID: Dx4RydmJTwiKSfhFgLSIUg==
-X-CSE-MsgGUID: VO/xskiQS+uWPUxxKb8dOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1394465"
-Received: from ygaur-x299-aorus-gaming-3-pro.iind.intel.com ([10.223.75.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 05:44:00 -0700
-From: Yogesh Gaur <yogesh.gaur@intel.com>
-To: miriam.rachel.korenblit@intel.com,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: johannes.berg@intel.com,
-	emmanuel.grumbach@intel.com,
-	luciano.coelho@intel.com,
-	yogesh.gaur@intel.com
-Subject: [PATCH iwlwifi-next] wifi: iwlwifi: pcie: return a real errno from read_config32()
-Date: Wed, 14 Oct 2026 18:13:57 +0530
-Message-Id: <20261014124357.2569535-1-yogesh.gaur@intel.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="NLxRBhM6"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 7B2F3408F6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1791981855; bh=dDDQ868+qBOrUUnNNuEpUUOOzdxg90+O6nfQ456YILw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=NLxRBhM6NSaujHE/kiGcPsUEVxu7Zwu4Ceo470JFNUXy5EWFq0JkeuvInFX8FwX8Q
+	 8H2InXmDhYkAdxvmLPuTgWuOlhmqGE78x2mouFI+B46ujNNbK5El5rUBQZy1HV7cFO
+	 CWVDMuuYPqr3k45tpawz3RBVUwner5JrNCgY7CQ5AxG8zPYChuTFf5PdxNcXKPBVta
+	 m32TcZg7yyVOo3hTtypc7ZfQwBJa1nx+hKFxYMrNWHZuKlaDUuUpxGwyjhATkYdNNN
+	 zbmj9OhPOHZAXBkBq9EUes7E6debf8LFgGWm7ffPg5Wv3+7QUAHuBSmfnB4yA9peEU
+	 N51cohvaiKSFw==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 7B2F3408F6;
+	Wed, 14 Oct 2026 12:44:15 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Eric Argishti <eric.argishti@outlook.com>
+Cc: skhan@linuxfoundation.org, rdunlap@infradead.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Eric Argishti
+ <eric.argishti@outlook.com>
+Subject: Re: [PATCH] docs: admin-guide: fix typo and punctuation
+In-Reply-To: <LV8PR04MB9007F44F1F989D9D95D1A386F49D2@LV8PR04MB9007.namprd04.prod.outlook.com>
+References: <LV8PR04MB9007F44F1F989D9D95D1A386F49D2@LV8PR04MB9007.namprd04.prod.outlook.com>
+Date: Wed, 14 Oct 2026 06:44:14 -0600
+Message-ID: <87wlrkwixt.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-pci_read_config_dword() can also return a positive PCIBIOS_* error code
-(e.g. PCIBIOS_DEVICE_NOT_FOUND for a disconnected device), but
-iwl_trans_pcie_read_config32() passes it through unchanged and
-iwl_dump_ini_config_iter() only checks for ret < 0. The error is missed,
-so the loop keeps reading and stores 0xffffffff in the dump.
+Eric Argishti <eric.argishti@outlook.com> writes:
 
-Convert the return value with pcibios_err_to_errno().
+> There was a typo inside of the admin-guide index in the docs.
+>
+> Signed-off-by: Eric Argishti <eric.argishti@outlook.com>
+> ---
+>  Documentation/admin-guide/index.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/Documentation/admin-guide/index.rst b/Documentation/admin-guide/index.rst
+> index cd28dfe91b06..f87e9bbcc458 100644
+> --- a/Documentation/admin-guide/index.rst
+> +++ b/Documentation/admin-guide/index.rst
+> @@ -23,7 +23,7 @@ etc.
+>     features
+>  
+>  A big part of the kernel's administrative interface is the /proc and sysfs
+> -virtual filesystems; these documents describe how to interact with tem
+> +virtual filesystems. These documents describe how to interact with them.
 
-Fixes: f696a7ee254f ("iwlwifi: yoyo: add PCI config space region type")
-Signed-off-by: Yogesh Gaur <yogesh.gaur@intel.com>
----
- drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+The typo fix is fine, but why do you feel the need to mess with the
+sentence structure as well?
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-index 28b276c65952..cfaadddfe06a 100644
---- a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-@@ -2562,8 +2562,12 @@ int iwl_trans_pcie_read_mem_no_grab(struct iwl_trans *trans, u32 addr,
- int iwl_trans_pcie_read_config32(struct iwl_trans *trans, u32 ofs,
- 				 u32 *val)
- {
--	return pci_read_config_dword(IWL_TRANS_GET_PCIE_TRANS(trans)->pci_dev,
--				     ofs, val);
-+	int ret;
-+
-+	ret = pci_read_config_dword(IWL_TRANS_GET_PCIE_TRANS(trans)->pci_dev,
-+				    ofs, val);
-+
-+	return pcibios_err_to_errno(ret);
- }
- 
- #define IWL_FLUSH_WAIT_MS	2000
--- 
-2.34.1
-
+jon
